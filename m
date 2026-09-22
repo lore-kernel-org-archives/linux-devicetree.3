@@ -1,85 +1,55 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC4055D873
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707D64F93D3;
+	Tue, 22 Sep 2026 15:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091839; cv=none; b=JZXLH9C9Xz2cMpFZm2+P5hz4oNZ3PlMayl10BhvKavvvqeE8VrJ9YF9xATGmuid2are/p5sg/ToH414YuEb0xy1e20nrIi6Kiz7mNd5+jjblKDuvEUxHT0GuFoNbgokHyYI6BFdJFtNtuIevQn4SSYiJqU0ihUMMNbw7o/m+llM=
+	t=1790091957; cv=none; b=JSGnWpozeoXNcIesNxDVKtLiUjPdfEld80Zu0/krPbftChytbk4dwVPirn2lRo0pZVse5mTm3NMm9G5MjjS4LpoYZgr9I6yrG107CPdszUHRKQz3cuXrYqY0RaWCN8xRU9/xFITY52ClsUZURQE3AXXnmrd0u4OXw8KZq+Fh/08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091839; c=relaxed/simple;
-	bh=MPJa407hEU35uhm5nNbxl1o7nH1It+GZNahj267Ph9Y=;
+	s=arc-20240116; t=1790091957; c=relaxed/simple;
+	bh=VYFqxBIbyB8AcZseEeHLI4kw2vkZo4hD06tuQk0zeBI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UMRKpq4KzzVJugt9R5GwMMHxDYgU/2Xm2f8HV2JZYG7YjzuoRDZ0w49XrdwWVVI6g3OgT6aRayLG0Awnzi6Qq4swC9z0VLA8NRz/jIx3dLEbeHExmPIJ4evp5N1MYwU8SIiPsMJRV1TWZjakMzUW5nSmKFEPY33EIQKbmhmMzKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Fs3qkBd0; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=VN1NPkVNaAsJuDreSIM8zOgoyjQvXkGDyrbvRDZUrMl750BcLtmxT9o6W2yYL15FZKtGOjUrJeki3DpUEIZs4A78tEiTYsIE//e/gVmD81Cm5nvBhoZSvcaQu5dgRJDY5rF4JmSck2gaWwUykQ4LnwI9cu20HicZui60WM5JsgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZN0gVgq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Fs3qkBd0"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so48881a91.0
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:43:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790091836; x=1790696636; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=M3+7e8iXJEjn74p0MvD+DqdSnpalQ9TYucgtTBbjy+c=;
-        b=Fs3qkBd0zQ6ucr9QdRr/P75/EMkmrjSEbT5jRPu65SllB6psWZLuhEtIR8ipOit7A0
-         dziV0+nGwg7V2nN1BC5p4jSOI6JqlJ4VhDCy1D2782OiNTCjIigPmBH3i1XdNxdsmN8v
-         5TPnIzCBqfYbme/U6Y/AcKwZ8Pt2Rbu5OXLjLOQqF2vHaXs1YGGMYeaFIF4yHYcwiM6/
-         SRIu8soPC7WwSEWc5AhWiIfOVfx5gdDTpchEwtevZGmhoCWU85RyAF/G3fg11L+RGdzC
-         HZ9ky1Whz7rypN6AsszTu2oEE8qqHHmBZqmbfEUWLFH/fV/edyaoBSBbClCQBE+xiVbE
-         C8GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790091836; x=1790696636;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M3+7e8iXJEjn74p0MvD+DqdSnpalQ9TYucgtTBbjy+c=;
-        b=jG6YMssUyU5OH1vNN9CKE7Jurx4TNskdECIIN2tfs4Dhrzb592r5h1kbbGlncDK3Hf
-         QeNuDCMGXDGC2iBODI7mo/pZEgluaz6TprnxT1tzwzSYWsHULhbOTeWKDoIy5wjeeuWs
-         Gd8faH0qdv7Z6rsWkRGYGfMtpXsb/Q/a5XkBZ4Ri1hOqJjFHhR9cil1P6ULmIKV6XFdI
-         +o+uAMqB+8xawh5+fs4HdA7U1EK+UVj2CxOhmhhgnxg72oKJbTi2IJZHChN5xBGkQ2eI
-         6OvhMAMaErmH1NnsqwFFn/yk8t/0yaYPaZS+C7GorSYa3xEdUUL2LJT4ZF5v0XsK1g8k
-         undA==
-X-Forwarded-Encrypted: i=1; AKwUvBxoEPC27fme41ENx7tks/UvJgE+4aCUB3ppJ/tmT+YLF+UjaOmxDCo87PboIcv0CGYNKOunH/DOpaYo@vger.kernel.org
-X-Gm-Message-State: AFuF++kjZ0JUXnC5VV1VhU7uR7CoNbse+ABmQZdlOmaM4Z999bEuHfU8
-	735+/tv5+mA99voHuAZGiB6OCJiu5FjtmAvXh3mGxbGaWNLQaGnjaB1Qb/yUgkB+iag=
-X-Gm-Gg: AYBFou18EIdmqsJm2haavRX1lJHMv+CgS86fchkWC8+5VLsbVDv0aVxrSht655G+6B5
-	XEondJ3Z/8mnM+u6xoj2LA9iTAf4zTChWUQXRDP69N2H9o6wM7/ZsUdQn1N5H6HPbnPXtzOY9IH
-	gAjp1kSVw3sz59jwc4Un9vvj7grPn2nYqZzh3QLUkGik1SnMwQ8Q0aJP5QlqTnK/gtN+XzsqGYy
-	fbmZqSzD4vRiYJiBrZ8IZDq36/OlxfCI1VGNOHcrO3uNfPsNmHar0eCv0p6CQ0mCUxb/Insdtqg
-	qG9uB9lUS9z1M/oS9cMGJ7SMc7vNzXxUJ6iCdDmW0eYR2xuwnYUg/u5vNVHG553QHok3j6igzT3
-	S6Y99mgzjAiWsPDWBiZldGDndl3A+ybrZsd1Ktef2UtZIrkkYo2X2TKDcrPiSpsuo4FUxiqISVM
-	6t7Cjzhz6uOHD64Tdd0PmStkZk2/Ky09u1XvxCaaeY0lzLmVMaBzF6iIB8ZW7D2VVTH0+vCndC9
-	Zr4dDITp8s=
-X-Received: by 2002:a17:90b:1d48:b0:39d:efa9:cd25 with SMTP id 98e67ed59e1d1-3a07306c5d9mr1633442a91.2.1790091835796;
-        Tue, 22 Sep 2026 08:43:55 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:1046:ab8:737c:d2e2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dbf69f0sm34882a91.8.2026.09.22.08.43.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:43:55 -0700 (PDT)
-Date: Tue, 22 Sep 2026 09:43:52 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Francesco Valla <francesco@valla.it>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZN0gVgq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30431F000FF;
+	Tue, 22 Sep 2026 15:45:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790091950;
+	bh=VV+D1TTg+nypS71novJcWW8ckPVaKfjhtplAFFx3irU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PZN0gVgqMvvffTKAv30e20/TZg2qTPisQ9G0Z9l1JmdgLcblHZpkPps5E3LSvbLut
+	 ytiMNuEFPf0/3pcXVxjb+8Aob8HtErzgWRxyhVEYLmhYQ8vLG0TTbBMMkDxYbFQkwl
+	 VUe4PrvyFl+CJDvBFNn+xSok3n2oRLwAKoFFFWiLFR+K+1Ao9Zrvof2xtWzOGIwcKs
+	 Bhw4WEkx+2BSgH9n0smddGHx43kcd65aJ9sW41ykmDJrzWgyClpRD35WOcBbQfxXnf
+	 Otm4k0kvOVtgsI8/a49+6+fmJniIOKIcu5spCMmbLV+F/Eycabeg0ISVzZ3Yc5c3yp
+	 /KNSop71bhHGw==
+Date: Tue, 22 Sep 2026 16:45:43 +0100
+From: Lee Jones <lee@kernel.org>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, virtualization@lists.linux.dev,
-	imx@lists.linux.dev, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
- multiple vdevs
-Message-ID: <arKiOCGrWAKyc-bc@p14s>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-rtc@vger.kernel.org, Sverdlin@mva-rohm,
+	Alexander <alexander.sverdlin@siemens.com>
+Subject: Re: [PATCH v4 05/10] mfd: Support for ROHM BD73800 PMIC core
+Message-ID: <20260922154543.GA3438784@google.com>
+References: <cover.1789538455.git.mazziesaccount@gmail.com>
+ <3e3a25abe337e3f68cde585674019dca439ac897.1789538455.git.mazziesaccount@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,192 +58,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
+In-Reply-To: <3e3a25abe337e3f68cde585674019dca439ac897.1789538455.git.mazziesaccount@gmail.com>
 
-On Wed, Sep 16, 2026 at 11:10:57PM +0200, Francesco Valla wrote:
-> Add rings for multiple vdevs, as well as the required virtio nodes for
-> I2C, SPI and GPIO functionalities. On top of that, add example
-> peripherals using all of them.
+On Wed, 16 Sep 2026, Matti Vaittinen wrote:
+
+> From: Matti Vaittinen <mazziesaccount@gmail.com>
 > 
-> NOTE: this is a Proof-Of-Concept, not meant to be integrated!
+> The BD73800 integrates regulators, ADC (intended for accumulating current /
+> voltage / power values), a real-time clock (RTC), clock gate and GPIOs.
 > 
-> Signed-off-by: Francesco Valla <francesco@valla.it>
+> Add core support for ROHM BD73800 Power Management IC.
+> 
+> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+> Acked-by: Lee Jones <lee@kernel.org>
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> 
 > ---
->  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++++++++++--
->  1 file changed, 119 insertions(+), 9 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-> index bd14ba28690c..dfa3b122ac5f 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-> @@ -53,6 +53,32 @@ button-k3 {
->  		};
->  	};
->  
-> +	gpio-keys-virtio {
-> +		compatible = "gpio-keys-polled";
-> +		poll-interval = <100>;
-> +
-> +		button-v1 {
-> +			label = "Button V1";
-> +			linux,code = <BTN_3>;
-> +			gpios = <&v_gpio 23 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		button-v2 {
-> +			label = "Button V2";
-> +			linux,code = <BTN_4>;
-> +			gpios = <&v_gpio 24 GPIO_ACTIVE_LOW>;
-> +		};
-> +	};
-> +
-> +	leds {
-> +		compatible = "gpio-leds";
-> +
-> +		led {
-> +			gpios = <&v_gpio 18 GPIO_ACTIVE_HIGH>;
-> +			label = "LED V";
-> +		};
-> +	};
-> +
->  	reg_usdhc2_vmmc: regulator-usdhc2 {
->  		compatible = "regulator-fixed";
->  		off-on-delay-us = <12000>;
-> @@ -89,11 +115,6 @@ linux,cma {
->  			linux,cma-default;
->  		};
->  
-> -		rsc_table: rsc-table@2021e000 {
-> -			reg = <0 0x2021e000 0 0x1000>;
-> -			no-map;
-> -		};
-> -
+> Revision history:
+>  v3 => v4:
+>   - Removed extra whitespace from the end of a file.
+>  v2 => v3:
+>   - Translated this:
+>     https://lore.kernel.org/all/20260813105955.GA1820248@google.com/
+>     to an ack. Please, let me know if this isn't ok.
+>  v1 => v2:
+>   - styling
+>   - update copyright years
+> ---
+>  drivers/mfd/Kconfig              |  15 +-
+>  drivers/mfd/rohm-bd71828.c       | 147 ++++++++++++++-
+>  include/linux/mfd/rohm-bd73800.h | 306 +++++++++++++++++++++++++++++++
+>  include/linux/mfd/rohm-generic.h |   1 +
+>  4 files changed, 461 insertions(+), 8 deletions(-)
+>  create mode 100644 include/linux/mfd/rohm-bd73800.h
 
-Why is the resource table removed?  There is no mention of that in the
-changelog...
+Looks okay.
 
->  		vdev0vring0: vdev0vring0@a4000000 {
->  			reg = <0 0xa4000000 0 0x8000>;
->  			no-map;
-> @@ -105,12 +126,42 @@ vdev0vring1: vdev0vring1@a4008000 {
->  		};
->  
->  		vdev1vring0: vdev1vring0@a4010000 {
-> -			reg = <0 0xa4010000 0 0x8000>;
-> +			reg = <0 0xa4010000 0 0x1000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev2vring0: vdev2vring0@a4011000 {
-> +			reg = <0 0xa4011000 0 0x2000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev2vring1: vdev2vring1@a4013000 {
-> +			reg = <0 0xa4013000 0 0x2000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev3vring0: vdev3vring0@a4015000 {
-> +			reg = <0 0xa4015000 0 0x2000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev4vring0: vdev4vring0@a4017000 {
-> +			reg = <0 0xa4017000 0 0x4000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev5vring0: vdev5vring0@a401B000 {
-> +			reg = <0 0xa401B000 0 0x2000>;
-> +			no-map;
-> +		};
-> +
-> +		vdev5vring1: vdev5vring1@a401D000 {
-> +			reg = <0 0xa401D000 0 0x2000>;
->  			no-map;
->  		};
->  
-> -		vdev1vring1: vdev1vring1@a4018000 {
-> -			reg = <0 0xa4018000 0 0x8000>;
-> +		vdev5vring2: vdev5vring2@a401F000 {
-> +			reg = <0 0xa401F000 0 0x1000>;
->  			no-map;
->  		};
->  
-> @@ -149,8 +200,67 @@ &cm33 {
->  		 <&mu1 3 1>;
->  	mbox-names = "tx", "rx", "rxdb";
->  	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
-> -			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
-> +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
-> +			<&vdev3vring0>, <&vdev4vring0>,
-> +			<&vdev5vring0>, <&vdev5vring1>, <&vdev5vring2>;
+Let me know when you have all of the Acks and we'll merge it via MFD.
 
-Who is using vdev5 vrings?  
-
->  	status = "okay";
-> +
-> +	virtio {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		vdev@2 {
-> +			reg = <2>;
-> +
-> +			v_gpio: gpio {
-> +				compatible = "virtio,device29";
-> +				gpio-controller;
-> +				#gpio-cells = <2>;
-> +				interrupt-controller;
-> +				#interrupt-cells = <2>;
-> +			};
-> +		};
-> +
-> +		vdev@3 {
-> +			reg = <3>;
-> +
-> +			i2c {
-> +				compatible = "virtio,device22";
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				eeprom@50 {
-> +					compatible = "atmel,24c1025";
-> +					reg = <0x50>;
-> +				};
-> +			};
-> +		};
-> +
-> +		vdev@4 {
-> +			reg = <4>;
-> +
-> +			spi {
-> +				compatible = "virtio,device2d";
-> +				#address-cells = <1>;
-> +				#size-cells = <0>;
-> +
-> +				sram@0 {
-> +					compatible = "microchip,mchp23k256";
-> +					reg = <0>;
-> +					spi-max-frequency = <20000000>;
-> +				};
-> +
-> +				lcd@1 {
-> +					compatible = "adafruit,yx240qv29", "ilitek,ili9341";
-> +					reg = <1>;
-> +					spi-max-frequency = <10000000>;
-> +					dc-gpios = <&v_gpio 21 GPIO_ACTIVE_HIGH>;
-> +					reset-gpios = <&v_gpio 20 GPIO_ACTIVE_HIGH>;
-> +					rotation = <90>;
-> +				};
-> +			};
-> +		};
-> +	};
->  };
->  
->  &eqos {
-> 
-> -- 
-> 2.55.0
-> 
+-- 
+Lee Jones
