@@ -1,124 +1,155 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B5555C336
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829EA46F48C
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092575; cv=none; b=gXJ7LmOH4DVSHg0dbCDO5LioMgVV9ljmIm2cPzdo4ykxtmPyuij2yHK8sZGHbX0bwGZhAsMkKD/ldTPEroRfnrP20AFrw2l8nDarfb/0EzD9uHfMrHWc4BKiWNJcS07rMoBqxKHGvbuNXSotTjWWRAscI92kBpTL/aGw6uGFBqU=
+	t=1790092663; cv=none; b=JkSn7R7obi1TYUyJ23wVqIoyzodONkVC2Kw462i9xrzxNxhll0lUqLKFXtNq8ma07cH5tDml28ZATFAEAJDDePDqebVAIlgtU65d8zaiL7ufSrWglh/yc+WCwXc4881umtxa/vS41mPoOHugdPnNYdJF5SJq+CwQRTZtz82EWK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092575; c=relaxed/simple;
-	bh=cJMB1C5NwgZ9t/F2vTcnLRABUGE483z9RikyK8kCd+M=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A3aJSyR+MLVOPBcKACpqxNqZDkUKawTtg4BCp8fikGXTeJFbplpMzMZ8ay6b6ctzu6pTG4+Jzrn/OASs09f1lhnDdKf1dFBjQDq/Qhu6sq2b8QTsYxF09lwcHqSjIJCPQQF7mduMjGHyN/v2z7IgoFrF72Ge39RITfzZSS6ZZg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qbShvM61; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790092663; c=relaxed/simple;
+	bh=w/1aMUrorD3GhsnwRGoM5GNBpZYYzxfteJuw9evNJ/g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=K2CEVwy0VpyL7OtKhaOZ2UZvEptRKsvos1NwwpkZNI9fcxwU76ylfu8/cg3oTAOp8SkJOf7SLhUJmkcmnrkZ81U8UlqY/7aIZeCZ07nfjnd6Ub2T9msqwgAzgc6LKp+EjClw0sUs03v/MbZypfvO6Li+jRcGprbdhZ+n9DA/cKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cfKTD6l4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ESuVLKuR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qbShvM61"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso38347225e9.3
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:56:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cfKTD6l4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ESuVLKuR"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MEijwE3924020
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:57:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EoVjOh/L5bJN9JqPUfRk2X+zSPYfrN8HTxLTfYK2UCI=; b=cfKTD6l4I4Uy5Ybz
+	LCN7pmTckh4u1zCr/c0vjlKAiUPMIUXztpVs9upp4YMhUN4XyW0tU9ldqiQpVCLD
+	no38JWJd44YIIQO1Y0tGAG6XVa2LfsisvUwSgNq9bWyL4VAE+cjaJmcftx7qtcU4
+	tIMr5jN4CV0J65GHhW5Jli2m7dYtSkSJ5VdsiE7syHsPwJjDpl2Sn8cnrgkdA/yu
+	6pDK+6F6QHN4xYfMxDsXyhZMvESmjZLlH+mmrJUoxC1pS4lbjASOIbw4Bchn/eM/
+	JXJn4jRtnaa5Y1KrQle9+2thq/HPpo2vEqRM/yGCND3F60nR7XM/tiaaYmrSBErG
+	UbzQwg==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guuec0fp1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:57:41 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5c97957d83bso977e0c.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:57:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790092572; x=1790697372; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2oj0aTA7VOJyZrVWcneUoZKYnaLkcgMjrZp/pYzU3RY=;
-        b=qbShvM61cN8CPZifWFN5SJ+3FTVRuLGjpuSm0/2kL8b650xzaSMwfhsCVBL6MHrxS5
-         NS3hznVK17OmaUgIv4yY+7hHuKuIkMpI1NjVczlSqTtsxiaky8Cz+IjWF92Q75rDuex1
-         qir951Zo3h+29zze3mon1Ukei5drCIfFZFPZB6hG/ATGXtNGXkD6VDEeIGtfcmui7igK
-         ZP6E95p/uTkgJG1s0DZVQ/8e7oINGyz/+OBjvsgBj295vSLEMlkgm4T86a7KPO0YktUC
-         cbdZrIFjDTpSiNEDdsiPbKVXOXPzxuSjKs/Gv+xR69UpM1e/ZbIivbHdH/3nJsKv7Bsq
-         EojQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790092572; x=1790697372;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790092661; x=1790697461; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2oj0aTA7VOJyZrVWcneUoZKYnaLkcgMjrZp/pYzU3RY=;
-        b=pWCJKRvVgncn/Ny8CYqLsXUHoUXv533Z0E50nJb5W2CfIU7pc8hrs1I//P4cCl94mk
-         ZKR0xJUJXdn1mx8SoYFDoHxLvlbUGbZ0o+Y/C2IDAJrUDi0kkN2QF8NyWXKaJr10IyoY
-         l04cJ5CrKErJeyya/HUUVXUnKbIETf7cqkqJeUY96FLk4QVGWL9hhwsqdyuwtRlDAiY1
-         AiymTO43BT4ld26mZPmzy57L8lB85b95Mbzz0duTmW7VgI+DWKYsc9yV5JKHiq2Cc0uO
-         qAU2ZUlwH5J7plcv/QjE2b+IAa4hHCbeFU0w1ai5ojJZ3/8Y7nAAwAFQEwyQhab9mfY4
-         GCdA==
-X-Forwarded-Encrypted: i=1; AKwUvBxrV2FXkstKZ0L9yDJB7cVH6WiCC21seke62giITFjc7dJidZ4RpSI7XfcXRh4O0iSPlgGZZ/PBZvq6@vger.kernel.org
-X-Gm-Message-State: AFuF++k19u+mhbnh/haIWmubDgVnqdxN4PSNPd6sv8Y2J2EcfRgoa5VL
-	GvEudhHt5dl/eHnp3iEnD/yKPFkXO4aeerok7YIoxJk4h0eRqVtbWdtr
-X-Gm-Gg: AYBFou2xjRlcxPCYUneej+J6STFDbLQMFRy7Segps9WxkwQ/xQfLC7K47vBGH2QaPjN
-	t9ayB591T5qdKcfQ7yrBiJRpaIzjgPMNRvAbHvBdV24HQPWx2K3EiezxpntpHDmx2g0mMzcsOiz
-	2pawOP/bHSghEaDIyqjAQKKQKCv2xP1ZkV95QzPYobgymQWGJ/4AViVtd2wB8unli8SiZWIhErX
-	2RavyjnC4U2WPWH1ffM8CIMFNlw1xa0QUOSje7x5rjJJH4BUCBVHe+X0tFKL3uELkl+9/s4v9V7
-	H4LOetOWy1PCq0hB0QpG3wWCtvjglbK1iZ4tw40/vYzG55NE1UYnImxTC2UwtdQVRfVFe94Gh8h
-	2zqbfHJeEJlCTtGC6cBGWFFTVLneWANVvIB0ytalPUVehI+6scBtPx/+huwDigOiFwSN9fzCn5R
-	862Q49GHJL1rQmEdHGYUM3E1WZOIg4OR1ZJXMEj6Gx0aCacJHct1bclq1mvmZawUNGrdezvRbTg
-	XtMap2ggk+4Se26KertkPMfvw6Hk28Fgz6H4CJljx+jwq/ON/5twu/A8orzHYPzABpXD5iD/wqY
-	cTa5qfU7RAN5oA==
-X-Received: by 2002:a05:600c:3b05:b0:49c:fa21:e746 with SMTP id 5b1f17b1804b1-49fc57570c8mr186611695e9.28.1790092571470;
-        Tue, 22 Sep 2026 08:56:11 -0700 (PDT)
-Received: from HYB-2NH2WFe09VB.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde18a8a0sm325825e9.5.2026.09.22.08.56.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:56:08 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-Date: Tue, 22 Sep 2026 16:56:03 +0100
-To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org
-Cc: Lars-Peter Clausen <lars@metafoo.de>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH v10 04/17] iio: add IIO_FREQUENCY channel type
-Message-ID: <xevuqaudwm4hpnhbful263yx6r45liuch6yc7xjk2i7wly3oxo@xe2htu27rkl7>
-References: <20260729-ad9910-iio-driver-v10-0-aa1f6167729e@analog.com>
- <20260729-ad9910-iio-driver-v10-4-aa1f6167729e@analog.com>
+        bh=EoVjOh/L5bJN9JqPUfRk2X+zSPYfrN8HTxLTfYK2UCI=;
+        b=ESuVLKuRYM1Hps38jv/CF3u3ubpedxE3Zxe+wsrshCvu0SZTvTLTBkzsjV/v4saAlY
+         OfTdxOofFW/ON9mu6IUi4CW9Luz/ySHU5xtdOny8iiMppPAYXZ7H97h+EQQ66jTiy6Tf
+         GzJHnBf5yUhm4RtcjBDlCJknxNifDNDZUQ4pxpyUuMV0fsmeBmG54sWFT8D5YyLFzTdX
+         sXBqVcrviy/xCSlvX5lkVgMgA0ObDMJB+7ctrYXyddP73ehxIHQ7dcARiG5FnVscom4P
+         4LVudZJrAzLGpaeDocBcTatWgiFFnjNmq3gDrrFM5s8LYNglc6BVm/USZjeMNmwfhKKM
+         yl9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790092661; x=1790697461;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EoVjOh/L5bJN9JqPUfRk2X+zSPYfrN8HTxLTfYK2UCI=;
+        b=xlUtmHwi4a19xDp85e0tthaQcWxn+cFhTi4VKBlzEx29fceAdf1rNY6pYRQvjZZ1J3
+         Mg24YUXzxvq0mh7330QW+32kUKALFPODXS4pTTrK9VpNWhLbBrKrwh0hmU2pNBBV/Q2Q
+         7PO7mO4PKk+cWGh9OLepaiG2MDJhLbi7/cXgnSSlEaHfwzGqwwO8wqQFVfOhkjOLQcJA
+         6QUdtu3NNuW0+KNucDgEcpI0LmWJnHphELA3OH0RLSuHfd/z5KmE/+2foWheYKZ9uEP4
+         ruZeoSp5eHr/3LH6P0bcYDKXbMrTah7KxbUHio07qLZ4HMsxAuFcMzpldJ0thSUe51Dz
+         6gpg==
+X-Forwarded-Encrypted: i=1; AKwUvBxhrPs01Bq3oIl6POkm6+fWxnDVUDKICafhYI+Xa7Tmpsnz9vsY0Qf4D05qyAhCBUHp0vHosY4JhFlA@vger.kernel.org
+X-Gm-Message-State: AFuF++kPdt9Vqb8oYpZY1g+5hMD/Cc+3tQQTUdC7eboidrZbGO3UeAOJ
+	F/52B5hrxF47BbRWw8Wn9DrnA/rtlx/omM3Rn3I0CYDcv9nNsy7kJ8F3nBikInYG1U3yjdExj1i
+	uuX3T6N9jcgvjRmo5xTFv+/oUHX8aliMLCnkHlupon+uEdcFxR4KIgmzRtEmR7bxyRriw0HPV
+X-Gm-Gg: AYBFou31XzBhJJMNU7YOV3sRNK347IPwwOtr9ds5oA0uMO2MQqCiDsTNxY91U1hsIv4
+	2oRN4AMQEKsedKlzVGtO7Wu5YtxrDQ6MkzSKRJltSyKv9gC9AQmjzF3zqeLuB3R+kuG1GpPGYIJ
+	vEzdPe00IZctasU+bCK3tN59C8/iEk1rXL20cQ2J7TxuUA4EDYPgBBfLY9tPrQI8hiAQivI067S
+	IW37Gxd91R9w6AFsu7QwH7+4ggSzZjtcTiqATmOR049rmgYkKqUrR2Ey8eIi1Tsv2dVs/UtDeJD
+	TJmW8T4NONKVoI7ClwlitdwOlQhnz7TDfD02yrslG5kXf4RtKw8xUlakj11CpPonXfDfNtQWO2v
+	QB8KyeqCMPgWG1u2ihsSbiw==
+X-Received: by 2002:a05:6122:4a4f:20b0:5c9:ac9f:b7f8 with SMTP id 71dfb90a1353d-5c9b86e8c7cmr7634475e0c.0.1790092660862;
+        Tue, 22 Sep 2026 08:57:40 -0700 (PDT)
+X-Received: by 2002:a05:6122:4a4f:20b0:5c9:ac9f:b7f8 with SMTP id 71dfb90a1353d-5c9b86e8c7cmr7634436e0c.0.1790092660464;
+        Tue, 22 Sep 2026 08:57:40 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aaa450c50asm1274129a12.21.2026.09.22.08.57.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 08:57:38 -0700 (PDT)
+Message-ID: <97cfc107-e00e-40c2-b20a-8288b74162f1@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 17:57:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729-ad9910-iio-driver-v10-4-aa1f6167729e@analog.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/9] arm64: dts: qcom: shikra: Add QAIF CPU node for
+ audio
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+References: <20260910231642.1794948-1-mohammad.rafi.shaik@oss.qualcomm.com>
+ <20260910231642.1794948-4-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260910231642.1794948-4-mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIzMiBTYWx0ZWRfX8pH+7e7tad+7
+ pu+bB2La6JqZ7TYoSQYsYMfPnUqyOsB81zV/fHqD4PeY8Au7eOTuuttyNaBlHfpLxTlt/G063aX
+ 0EoNw+KXl9IAp4mThQSvs4M9wJxw3jilCHrIaBVwSHKKVkbf6Z0FluvvLukmTg5Urq1j3CjEhT+
+ hnr3Hodtr+6DuQcWLshq6GcJCYNsef5vyjvPicg3NcIzHzviNm8H9erYNobEHNg2FJkGdsnOXsZ
+ P30PzAmniP17HHn6+M3d9lgb2ojWArEuP/FTEVsCkyeFH9n305iT867ICVqeFWA0hq21+ttSucQ
+ y7neZbu6Ag3jGC8uRZeIbrExEo7HmbA4vJMvYmWwPjYyGRHOCrs5FqcYbKVZISK6ILFdlOWMJsc
+ ptuNUXl/cn15vkIFoGXN+SeTVY0eNCymoB/hJ/xP5kzw9+tp2vUl2kskXono1cOR1DG+AaG2L7d
+ Et2QpKUE5MO89Mp0rBQ==
+X-Authority-Analysis: v=2.4 cv=VKdIDNPX c=1 sm=1 tr=0 ts=6ab2a575 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=o8yTP1-73JeV65lf4HsA:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-GUID: t3OTKEONsCeJggzyhg70cBCYtPZeTxG2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIzMiBTYWx0ZWRfX1hzZkGMEF1vr
+ ZT6STRCDgeaAhTu90Vp4iKlBieRiJPpRr0qQi5YiS6xyCJTj+/cWXEySdIEmdGgakVROgejJjp0
+ IIS7WRTFJxszXr2s8cGNQpKbzygPV4g=
+X-Proofpoint-ORIG-GUID: t3OTKEONsCeJggzyhg70cBCYtPZeTxG2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 bulkscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220232
 
-esOn 29/07/26 09:25, Rodrigo Alencar via B4 Relay wrote:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On 9/11/26 1:16 AM, Mohammad Rafi Shaik wrote:
+> Add the QAIF CPU endpoint in shikra.dtsi so board files can connect LPASS
+> front-end links to backend codecs.
 > 
-> Add IIO_FREQUENCY channel type to support Direct Digital Synthesizer (DDS)
-> devices that handles frequency values written directly to its buffered
-> interface.
-
-...
-
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> Describe the MMIO region, interrupt, IOMMU mapping and required clocks for
+> the QAIF block. Keep the node disabled at SoC level; board dts files enable
+> and consume it in subsequent patches.
+> 
+> Co-developed-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 > ---
->  drivers/iio/industrialio-core.c | 1 +
->  include/uapi/linux/iio/types.h  | 1 +
->  tools/iio/iio_event_monitor.c   | 2 ++
->  3 files changed, 4 insertions(+)
-> 
-> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-> index bdf3d4c06331..a45277bc5d99 100644
-> --- a/drivers/iio/industrialio-core.c
-> +++ b/drivers/iio/industrialio-core.c
-> @@ -99,6 +99,7 @@ static const char * const iio_chan_type_name_spec[] = {
->  	[IIO_ATTENTION] = "attention",
->  	[IIO_ALTCURRENT] = "altcurrent",
->  	[IIO_COVERAGE] = "coverage",
-> +	[IIO_FREQUENCY] = "frequency",
 
-Hi Jonathan,
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Thanks for not giving up on this one! Taking a look at the testing branch,
-I think this line was dropped during the rebase (addressing a conflict)
-
--- 
-Kind regards,
-
-Rodrigo Alencar
+Konrad
