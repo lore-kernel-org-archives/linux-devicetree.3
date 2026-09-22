@@ -1,204 +1,165 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C6B5372CC;
-	Tue, 22 Sep 2026 10:23:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E925328A2
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072621; cv=none; b=NmwwmEeLZ6pGr6eM4aVVRVbvqiWDXsM2YNpd/xKnravzV9hL7WOqYbvoRgRlNT7NvVhS1xb9QdJewhFsMOKqm8EuyXh/G9WhOVvk3TaKqy9SuRLBh53rYZgHu9l1QxdvxL/9FK28wHs3Wrz8wRZiO8wOfHw0dPeeMjFUZt4b31M=
+	t=1790072797; cv=none; b=DHGBt3AjLL6g8ifnkG68sriil7kKc9ED0RzVoisQaFVcw5Cr0xOdoBMfw4zB3vt+rqrn8gJCyU/dbiWqyScSjmNuUrhOAI2Kahs8qsSdCKaxGZhtbaIhljdiQx1TObJR1jW561SPg6LxrOQbuKYz29cK0SNpCwa5b01QNf8beo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072621; c=relaxed/simple;
-	bh=DSpUMDZFL/RsZ0gpO+Ch6V/5TXFqhhArQHQq3AOwwpc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m2Vu/q7eDOB6x0eW8fusg6gNEpcAr/OC2RgR/IBjg7SYnGiU/h9Jmp/mcUcSZwAoUKUBfOcPJBCXb5S46yLblJb86afl3FlEr+n+cK30kSz83xLne92ep+ob9NxtFu83PCpPI2P7hfzuD+ePhjzKWECm5RFW0kHJfsDwO9CrxrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CNvKPoJ/; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790072797; c=relaxed/simple;
+	bh=XuWivEnJYJKiaHfmQ95vZdOxboXTsOG5N2i3XYMFjeI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=leXnrUfiqdiTvRRkobv9gGjX3aoYAX04u8GMm2Yxqt8pVBbVIXCG8LTYDsdOD+kGXE0TNFuFZ1XSLyGSa13SfjTHKO9VpHmzZZJFXaXLUN7WFHAY8BwNsvqLWVmmdb4paZRqo/a5VP8Oftdq2Oju0fsNxIXoVx+7kaxQ2Kiy32g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1AdChxW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CNvKPoJ/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=lM
-	1lEZA8Ffcb1iNg5lVKJ5TmLKedzZNS5PzvoeLExbE=; b=CNvKPoJ/F8jIrEDVkY
-	TWnf4aLsBbs9VX7ZoAcqcQ975Y4o+shcp3hXFIolA90EAldUki6pCVEUJR2Ez2Ue
-	SOYTCQEPU1VRnbJFQYIUX5UGixLLOgKx3Q2/1fQ0ZdxiQWYUW6bMBGVv41hGlxmh
-	mb8l+tEYneA00R/8eQ1WS+N0o=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3X+0LV7Jq8o9oAA--.39710S4;
-	Tue, 22 Sep 2026 18:23:10 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-can@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	quchaosheng000406@163.com,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v8 2/3] dt-bindings: net: can: holt,hi311x: Convert to DT schema
-Date: Tue, 22 Sep 2026 18:22:57 +0800
-Message-ID: <20260922102258.138753-3-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922102258.138753-1-quchaosheng000406@163.com>
-References: <20260922102258.138753-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1AdChxW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706901F000FF;
+	Tue, 22 Sep 2026 10:26:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790072795;
+	bh=bk119CXEFKqyjqSKOZRxxBE8/OctHG2c6RP1QZIfbeg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=T1AdChxWySv547fjmLLPHBtRoPgjKP2+giaDYZq+xlZD8wDxWvnJcgFbOGHSUK8CB
+	 s9z937w5MzB1eGqoY8oojSxh9OpkA4CMOo4enwpXcL9qoddrA/futVWgxkBogahkPQ
+	 3qe37FL2gbikMeS66c3SadW76F7ovPkOBnBbPEN1fj+qh2M06jntvJYZQ9haePpNlV
+	 x1hz1qQbU2N4uuDWvmnnQ4Ye+L6qMfFIrjMt+9hMKUsr4eGnitVjtdDkat/p1HT4Zh
+	 duQw6TYoR4T+9lvLW7HzwtP65jYpPwfHXdkz5vyAzwk78if0gwMUSaLZUlyRo9juCv
+	 HC0r5jkhEsFXg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] arm64: dts: qcom: Add Acer Swift SFA14-11
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jianfeng Liu" <liujianfeng1994@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260922100501.8888-3-liujianfeng1994@gmail.com>
+References: <20260922100501.8888-1-liujianfeng1994@gmail.com>
+ <20260922100501.8888-3-liujianfeng1994@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 10:26:34 +0000
+Message-Id: <20260922102635.706901F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X+0LV7Jq8o9oAA--.39710S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF4xWw4DGr1fuF43XFW5ZFb_yoWruFy3pa
-	y5GFsxWF4vqF1xXa1Iq3W8AF93XaykZF47GrWDXr18Ja4qva15trWSkryYvF17ZFs7AFyI
-	9Fy093W8tw15AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pR1GQDUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5A4glWqyVw4J4gAA31
 
-Convert the Holt HI-311X binding from free-form text to DT schema.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] dts: qcom: missing power-supply for backlight causes display black=
+out
+- [High] dts: qcom: swapped QMP PHY regulators risk hardware damage
+--
 
-Reference can-controller.yaml and spi/spi-peripheral-props.yaml. The
-HI-3110 sits on an SPI bus, so its node carries the standard SPI
-properties, spi-max-frequency among them. With unevaluatedProperties:
-false and no reference to spi-peripheral-props.yaml, dtbs_check rejects
-those properties:
+commit 11d3bb0749b2f4ee1528ce4d8e70f906912678bb
+Author: Jianfeng Liu <liujianfeng1994@gmail.com>
 
-  can@1 (holt,hi3110): Unevaluated properties are not allowed
-    ('spi-max-frequency' was unexpected)
+arm64: dts: qcom: Add Acer Swift SFA14-11
 
-Keep the properties and the example as the original text describes them,
-including clocks as a required property.
+This commit adds device tree support for the Acer Swift SFA14-11 laptop,
+based on the Qualcomm X1E78100 SoC.
 
-Assisted-by: LLM
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260922084542.104788-1-quchaosheng000406@163.com?part=2
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
+> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts b/arch/a=
+rm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts
+[ ... ]
+> +	backlight: backlight {
+> +		compatible =3D "pwm-backlight";
+> +		pwms =3D <&pm8550_pwm 3 500000>;
+> +		enable-gpios =3D <&pmc8380_3_gpios 4 GPIO_ACTIVE_HIGH>;
+> +
+> +		brightness-levels =3D <30 255>;
+> +		num-interpolated-steps =3D <225>;
+> +		default-brightness-level =3D <170>;
+> +
+> +		pinctrl-0 =3D <&edp_bl_en>, <&edp_bl_pwm>;
+> +		pinctrl-names =3D "default";
+> +	};
 
-v8:
- - Put back the $ref to spi/spi-peripheral-props.yaml. v7 dropped it as
-   redundant, but the HI-3110 is an SPI peripheral and its node carries
-   spi-max-frequency. With unevaluatedProperties: false and no reference,
-   dt_binding_check reports:
+[Severity: High]
+Should power-supply =3D <&vreg_edp_bl>; be added here to ensure the backlig=
+ht
+regulator is claimed and remains enabled?
 
-     can@1 (holt,hi3110): Unevaluated properties are not allowed
-       ('spi-max-frequency' was unexpected)
+[ ... ]
+> +	vreg_edp_bl: regulator-edp-bl {
+> +		compatible =3D "regulator-fixed";
+> +
+> +		regulator-name =3D "VBL9";
+> +		regulator-min-microvolt =3D <3600000>;
+> +		regulator-max-microvolt =3D <3600000>;
+> +
+> +		gpio =3D <&pmc8380_3_gpios 10 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 =3D <&edp_bl_reg_en>;
+> +		pinctrl-names =3D "default";
+> +
+> +		regulator-boot-on;
+> +	};
 
-   A node carrying spi-max-frequency fails without the reference and passes
-   with it, so the reference is required. Reported by sashiko.
+[Severity: High]
+Does this regulator need an active consumer or regulator-always-on? It is
+defined with regulator-boot-on, but without any consumers in the device tree
+(such as the backlight node), the kernel regulator framework will
+automatically disable it during late init, causing the display to black out.
 
-   The schema is identical to the v6 that Rob reviewed, so his Reviewed-by
-   is kept.
- .../bindings/net/can/holt,hi311x.yaml         | 67 +++++++++++++++++++
- .../bindings/net/can/holt_hi311x.txt          | 23 -------
- 2 files changed, 67 insertions(+), 23 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/can/holt_hi311x.txt
+[ ... ]
+> +&usb_1_ss0_qmpphy {
+> +	vdda-phy-supply =3D <&vreg_l2j_1p2>;
+> +	vdda-pll-supply =3D <&vreg_l1j_0p8>;
+> +
+> +	status =3D "okay";
+> +};
 
-diff --git a/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml b/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
-new file mode 100644
-index 000000000000..9ec6abb1279a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
-@@ -0,0 +1,67 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/can/holt,hi311x.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Holt HI-311X stand-alone CAN controller
-+
-+maintainers:
-+  - Marc Kleine-Budde <mkl@pengutronix.de>
-+
-+description:
-+  The Holt HI-3110 is a stand-alone CAN controller with an SPI interface.
-+
-+allOf:
-+  - $ref: can-controller.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    const: holt,hi3110
-+
-+  reg:
-+    description: SPI chip select.
-+    maxItems: 1
-+
-+  clocks:
-+    description: The clock feeding the CAN controller.
-+    maxItems: 1
-+
-+  interrupts:
-+    description: IRQ line for the CAN controller.
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: Regulator that powers the CAN controller.
-+
-+  xceiver-supply:
-+    description: Regulator that powers the CAN transceiver.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        can@1 {
-+            compatible = "holt,hi3110";
-+            reg = <1>;
-+            clocks = <&clk32m>;
-+            interrupt-parent = <&gpio4>;
-+            interrupts = <13 IRQ_TYPE_LEVEL_HIGH>;
-+            vdd-supply = <&reg5v0>;
-+            xceiver-supply = <&reg5v0>;
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/net/can/holt_hi311x.txt b/Documentation/devicetree/bindings/net/can/holt_hi311x.txt
-deleted file mode 100644
-index 3a9926f99937..000000000000
---- a/Documentation/devicetree/bindings/net/can/holt_hi311x.txt
-+++ /dev/null
-@@ -1,23 +0,0 @@
--* Holt HI-311X stand-alone CAN controller device tree bindings
--
--Required properties:
-- - compatible: Should be one of the following:
--   - "holt,hi3110" for HI-3110
-- - reg: SPI chip select.
-- - clocks: The clock feeding the CAN controller.
-- - interrupts: Should contain IRQ line for the CAN controller.
--
--Optional properties:
-- - vdd-supply: Regulator that powers the CAN controller.
-- - xceiver-supply: Regulator that powers the CAN transceiver.
--
--Example:
--	can0: can@1 {
--		compatible = "holt,hi3110";
--		reg = <1>;
--		clocks = <&clk32m>;
--		interrupt-parent = <&gpio4>;
--		interrupts = <13 IRQ_TYPE_LEVEL_HIGH>;
--		vdd-supply = <&reg5v0>;
--		xceiver-supply = <&reg5v0>;
--	};
--- 
-2.43.0
+[Severity: High]
+Are these supplies swapped? It looks like the 1.25V regulator (vreg_l2j_1p2)
+is mapped to the 0.88V core vdda-phy-supply, and the 0.88V regulator
+(vreg_l1j_0p8) is mapped to the 1.2V vdda-pll-supply. Over-voltaging the
+core PHY rail can cause hardware damage, and under-voltaging the PLL rail
+will cause the PLL to fail to lock.
 
+[ ... ]
+> +&usb_1_ss2_qmpphy {
+> +	vdda-phy-supply =3D <&vreg_l2j_1p2>;
+> +	vdda-pll-supply =3D <&vreg_l2d_0p9>;
+> +
+> +	/delete-property/ mode-switch;
+
+[Severity: High]
+Could the vdda-phy-supply and vdda-pll-supply be backwards here as well? The
+1.25V regulator (vreg_l2j_1p2) is mapped to the 0.88V core vdda-phy-supply,
+and the 0.9V regulator (vreg_l2d_0p9) is mapped to the 1.2V vdda-pll-supply.
+
+[ ... ]
+> +&usb_mp_qmpphy0 {
+> +	vdda-phy-supply =3D <&vreg_l3e_1p2>;
+> +	vdda-pll-supply =3D <&vreg_l3c_0p8>;
+> +
+> +	status =3D "okay";
+> +};
+
+[Severity: High]
+Is this another instance where the supplies are swapped? It looks like the
+1.2V regulator (vreg_l3e_1p2) is supplied to the 0.9V core vdda-phy-supply,
+and the 0.9V regulator (vreg_l3c_0p8) is supplied to the 1.2V vdda-pll-supp=
+ly.
+
+[ ... ]
+> +&usb_mp_qmpphy1 {
+> +	vdda-phy-supply =3D <&vreg_l3e_1p2>;
+> +	vdda-pll-supply =3D <&vreg_l3c_0p8>;
+> +
+> +	status =3D "okay";
+> +};
+
+[Severity: High]
+Does this have the same swap issue as usb_mp_qmpphy0? The 1.2V regulator
+(vreg_l3e_1p2) is mapped to the 0.9V vdda-phy-supply, and the 0.9V regulator
+(vreg_l3c_0p8) is mapped to the 1.2V vdda-pll-supply.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922100501.8888=
+-1-liujianfeng1994@gmail.com?part=3D2
