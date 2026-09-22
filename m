@@ -1,415 +1,171 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0300E522697
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C80D52CCF4
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068423; cv=none; b=lEhckPNX8pTYRX1mZRQCg6cqN9wR17c7O1ZgtAgCQ3DP5AXWnH+fRUDftYhKDXvi9o3LjKBVtozrt9hB/74A3eJ+IErGgl5fwLiDPAVO2CmNpMnC75BltvcAqynZwZSLLZBQ3DctdFkplFOiDPEI17wAM9lkyzRXp6MbKRgUJG4=
+	t=1790068509; cv=none; b=FvhAW8LKzDoZ0mBeFIgnBA7NIiGMvbRkdmDvBe3khqM1fiVyOL5QAGKZVuzAR1+lNaFM8A1sS0HEboYRoHUZ97FpVJJiZ4Rn25gZq2Xx9ziYrbv49+iZK1GWGSK+tIft4Tx4v6xY/76H/FfZgqhNVJ4OAtp+fKtRnsicit8T2h0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068423; c=relaxed/simple;
-	bh=cLgEqV8G7T1LHvzxhaWm7LYOJH064WufTlQKYv0xCgM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NGe6S+xAX7M2Cezk5cLOJxUtN6+AcJYMZdIs8MngLXtuVBMDum/Lij9kHp1yCCkLNFCWm9jrjgK7ukv8pRevg+oES0LhiDZjp7yuiHCaPu3L4fSieGlid9eggB5QPczlpWvHG+e6/M9U820y82/loJ1uV1rcE61cKHfFuSR3BPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=GWTNJAlq; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790068509; c=relaxed/simple;
+	bh=8aE5deZqZPFwMCXvNfgGk0kvRqPcCOhyMdfVtngPmno=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hvrnvgKqPSjVOYLdDmTEE+IXsIfh7O/+hlbmV4gTqfSIMLYWhqBtpioeMgU1jA2zuiUom2z3DXT1PTvCjFlH27gb4wCqfKaBNKKtX7IqkUo7FQKO06S/N19CRJJHVhw5Ih3eX/QwLFTbWyFPyMvuBsMinG3OWmNVwI7OQb0LYlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jkWEtPfd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KCmaEslT; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="GWTNJAlq"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633cd78so2146682f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 02:13:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jkWEtPfd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KCmaEslT"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M7BuW82166354
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:15:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	boZ2wUx2qS+wC7WZW0j2K1vODt8kLDmSC2O7SQmUuIg=; b=jkWEtPfd+a9OyVHJ
+	4UDX5+PU5SxeXgJ/2Ny027y/HSSbKye5ovB2dHpO12sr/FT2XekHd0JvrZQ0hDE4
+	68qmRoGYZSOyosM9/C0r1Cp52AQHYI8VR6toLE4i/1Zb2ewTlvg+WVU8ltsyPV1U
+	+C6K7IIYC2o36DFf0vyiyrqUDtM0X+0iZrKKwF2CuSN2JGm40CmZPt8WBBDl03Dv
+	AJOvJADQWwdWMKq2mmaXXw2n7OWTJbU2HZYUslqgjjurXpR1BClHfPZ+H1dhFRXt
+	VaioNrbfrZC1GlEXXLCR+x2g+WGD6qvfcPBFQn2FeGBYA2vS3jI+y49OTRsx/KTa
+	Wfn9eQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu8xeu7hv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:15:06 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9349ba88188so82274285a.2
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 02:15:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790068418; x=1790673218; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PiHqI0ujYGr3xhtf8amSgF0WvqBckTwIt2C80WEMX5c=;
-        b=GWTNJAlqxkNN2MOsWqvzzbBrGX6dMUVpV/rbwcNtF8DpVKCKaI469INwT7W3Bc4UlU
-         B3fWXCETVgdNTuU4FtsNy7zMjIm9sWW5MzKfZkl+2G0DaDUCuhntDi6SZmN/2JNEF7dB
-         tIy3VI4EN5m7Nw/2kEmRaYyA5a/pevqaxQEQkSzFhj4QJwpSK+GmQQzzRAbrAnpgNoc0
-         2g9kXMXADvIvJo/vgIKNslSa5v8Ca4jI95b21vkXTg3wPeOTgz0aMt3ZIh8oJ4uxsgTb
-         YaMIu/GK15XXx8DH6eMEToKjsn8ChQk84ZhNw94VlznhWNjY6lNqjyyB9SKPonhCs8iy
-         3zIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790068418; x=1790673218;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790068506; x=1790673306; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PiHqI0ujYGr3xhtf8amSgF0WvqBckTwIt2C80WEMX5c=;
-        b=1gJYY7Xd7rJKumvkPKwESz9oGJZkYQhB5zGR9FCjN9dCKlAeyI4mh3dZUXoi45xS72
-         Io7zyIOaeaQkWknHLjJdKHshfb+PID+aDpmyBTNDZpmgzbhd7lep6jumLcV+HyQANXx8
-         oxRGDqfe5GB3Y1IA6TaZKVyUtEJngALwwq+W7uVWFBPMrfkTY934uYpCbn01gbTdr8DY
-         HSGfkNaXaj1LzkNh9BNlwxhTtIwxouVV1qjN9+jwAxMGZkU0v/vWoojezaTw6rHuK7H/
-         lgTqreyhrbLHqlHuR0OhNPx6cNslSgIZ8zXxFGDdPtxp7stKlj9nXN1zjthYu1yvDVq9
-         cYCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9DXO2kqYU1fgIV2gdBxVk+/0a2pYk64DcdiFprDMRJiceDS3fmWaqqB0IMjUd1Oy2SSdbEAktBoQA@vger.kernel.org
-X-Gm-Message-State: AFuF++mZ3Yp1F4TgqjkoX/kZbGnD+K3ufb8QaF8I3Q4HBDUy/qoiaezI
-	FN6V5fOmuflmmBaN12d+S7DspOKCyOXdZWcKLSyBHQlbRVA+WyVMG7HY83PKiAjfcHI=
-X-Gm-Gg: AYBFou2SNs2MrWMO/qL+Beb3RlUYJ3GQK8c5OmpgHDaXDPg4BhV604pGAZqLoyCZ523
-	BQ13tVgDrC+duhiN3wV5IjWySNNaEcfMPXfhl0hFsDCcK6WUKVu38SKh7517+FmcQFo6qPLS8Ns
-	LvgSoz4kTk6waXAgSBvjrV3TaPy2SzQlBVWT6RB0neWf8HXQPxQ0DYr8xxmTaEYtGHymPLyjYDe
-	q2ETi/jpuSrY5Tstb+fiWLRhZXy7oKHvyCbTJejhp3BQOQNOiDSoS6kRtUQtAz5+WHUF/cSbXeT
-	/YsPWw+t93A2BB71oJkBYT/ffWgkfEaV2GRpZXTEOuW+ezpqMctaRbfa+BJsvHrjkJO2sk86y67
-	8P/RgC5sHPoz+Y5OMZv5x0eR/osHTmV67Z6S9HTTCL5adjtSnd5v3qIdY5i6MiTOnfPgbh1NUzg
-	emaGE/z+fZ5/MPZuLrQybpERu9StQ0FEW5uSRRsIzwyMgwAXJlE70IGENFd3cWWx1D4FJY5yLPN
-	PFk2llS5nP2X++kdS+F6FOXLzdC2GtOy6ynwKn3ZRmQE5vqbsd1JV/5jTVrug==
-X-Received: by 2002:adf:e012:0:10b0:487:231a:fe8a with SMTP id ffacd0b85a97d-487231b01abmr11618972f8f.2.1790068418207;
-        Tue, 22 Sep 2026 02:13:38 -0700 (PDT)
-Received: from localhost (p200300f65f19a9041d0e57515b2ea4c8.dip0.t-ipconnect.de. [2003:f6:5f19:a904:1d0e:5751:5b2e:a4c8])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4886277df51sm3563045f8f.15.2026.09.22.02.13.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 02:13:37 -0700 (PDT)
-Date: Tue, 22 Sep 2026 11:13:36 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, 
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, hns@goldelico.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-omap@vger.kernel.org
-Subject: Re: [PATCH RFC 2/9] drm: panel: Add panel for Epson Moverio BT200
-Message-ID: <arJDcpvQlIMIGJaP@monoceros>
-References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
- <20260922-b2-panel-via-bridge-v1-2-45ff36b364cf@kemnade.info>
+        bh=boZ2wUx2qS+wC7WZW0j2K1vODt8kLDmSC2O7SQmUuIg=;
+        b=KCmaEslT7XCzW5RsJNbhhZ3gc/QQf1YzqQiJsyJHgYx3AuFuPw+b2IE0j9cbyxQYi4
+         iTrLQnzQaO1URjc5X1JwF/J3lfZ8EjxMoOH0po6ggYIPrfmR4pPRboYd/ZbDAlR3JBt8
+         L3rbXG+6aV7cNAbP4osuHdwhzu3t+AxNA/lXi+gOlHzzXh12twl1KQOF97oyvE0BxEvy
+         FqyG/bF8vw+kRaQ7bBK9S6Zdy6QPaMMLN5kzxSSvFx/xQk3a/bKKEPppSue5JaIfni+a
+         ISrffgSrlQZgjF6NlDhjYmxoNMad/z+P5XZILS4AZafcRCyzqpYs+Lijej+baHttP8Px
+         zJ9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790068506; x=1790673306;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=boZ2wUx2qS+wC7WZW0j2K1vODt8kLDmSC2O7SQmUuIg=;
+        b=H8/kkIkz8AICvGuQKI/psKXNA0gHX6cGgiTmNkoLzpaNRLaq4pbDI5r5asL3Yfepkj
+         GVt69OEBOShWBUU3iKhWDVKykgVUkHJnaNR8G12slrrDQJAPurJFZjpQUerGpMvE/vER
+         L5ZWPzMcatZtpEslJQxwx49otmU4yF4m0XAOBRcbWGp7zHcwIHHbxI65BVGC6rL0ZuHF
+         IcSP9ntJpdI1VtD4M30sgbBzGS9EIpXbhQ5/w+/sVHUJXawCyJ8aVS2ERlhLesT4tFYm
+         ktgG/gyCZORGFpfPlEybZzmMRnUspcDvvvSdS10GzEr6E2+rkxUWVTxFWOLVuY6P3hBm
+         8hAg==
+X-Forwarded-Encrypted: i=1; AKwUvBwqMcjOIhOSzSmpIklG1i4FyxYF24M/0uq5RjInpm4EOh+hvwW96eR0FSNPUap/SmZNej2nLYL65D9t@vger.kernel.org
+X-Gm-Message-State: AFuF++lCd42ka5xAdYM3WBGJ4Kn+yZ0YWu+Xg1pC7xlJSo0lxvxISoHR
+	gQ31EPcDbrUB42K19Qz74DGWBJPtpMwnGGPhVyatHlsvnO13gYiRlP1Q1gyCP9Ck+A9AsujD5wi
+	1LmIXbtFqj+Rn/pcWQYPDbbjF2r3CFkJQ6TxoxdI+bCdwib4/9IM7fFJki0GsFnNd
+X-Gm-Gg: AYBFou0IqDJU2lcwMYrplTICAMHk3Y8A+14nCKOHZ6gKFIB3WTTATRV9LQptr5Gzi+m
+	YeihbKCnoRRXeM1oKNBX61ES9bdpw8Q+ui8MgjQf/q2T6J+1wuUi08As1Tzr+0a0kbYGl+FaRQV
+	Q7oMelyYvCa1BzTXXDxMqgCmKm9hKA69bABZ47Aw8yjNd/2+ueFLbeaaQartXGavGR3DnzPcNXS
+	xQb1RRe5gPRdLLjbGypWaThPTOPVSJ/teRJl4Fd2VrVPsrgXQOSGmUHxUoziig9W8aRS2RWLRHa
+	kp8MCJSgaMvsQkUEPt8uwKW2zspB3H4O9ATLIbeZjwDChEpcw2npxeVmEeS7rvgJEXgoVqi5rTx
+	NRXD/Hdrn35GUx/DDGBSkww==
+X-Received: by 2002:a05:620a:45a2:b0:939:b8da:1242 with SMTP id af79cd13be357-93c15ba3243mr481847685a.0.1790068505726;
+        Tue, 22 Sep 2026 02:15:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:45a2:b0:939:b8da:1242 with SMTP id af79cd13be357-93c15ba3243mr481845085a.0.1790068505388;
+        Tue, 22 Sep 2026 02:15:05 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c5b0c6csm51663066b.31.2026.09.22.02.15.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 02:15:04 -0700 (PDT)
+Message-ID: <eefde985-c807-4905-a33f-616a1898ad72@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 11:15:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jqvd4moyr64selk7"
-Content-Disposition: inline
-In-Reply-To: <20260922-b2-panel-via-bridge-v1-2-45ff36b364cf@kemnade.info>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API
+ devices
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>,
+        Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>,
+        Felipe Balbi <balbi@ti.com>, Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Oleg Keri <okerixx@gmail.com>
+References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org>
+ <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-5-dc244e124e71@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 3eeMoMJBaqPoepyBbEmjwm0BcL4PJlBo
+X-Authority-Analysis: v=2.4 cv=PZhqFShd c=1 sm=1 tr=0 ts=6ab2471a cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=KKAkSRfTAAAA:8 a=SmOWCKbkXSXCNfC1NdcA:9
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: 3eeMoMJBaqPoepyBbEmjwm0BcL4PJlBo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDEzMyBTYWx0ZWRfXyM6JDanbTob6
+ bNU40P+ZddQ6EQuqhVNwBvD0AnquWS6hjwLQ7O97Wtud5LaDr/IT20kHaCv8fZvX/3L1j/XYCH8
+ 1OrK8l2KhL4/brObwJHA9WiQQI141ZegMGuDD0p+TT2rhxij0ELmjIH1/GjF89nvcwltpWsFqbM
+ H+UXfVATFPe3Is7i0qIdUgzfdfRt/3t3pv01Ba7/Oh4RFDsylYHdMfxHOKYTI+vHZt6ifUG7niF
+ J++a4od3yNXBBBOkyTqDH/6UChRBa+6KdhXvk61isTQnxj8FPdDlqHWCSdrStosTNhOFKNMu34m
+ u0k7/J9jSSV/e4GCucOGUF7HPn1B+cFhZGMG9ce9OAmraWZUzO7CQryuSeruwmAIQhVlKbqa5St
+ BAoUjqe3bKViTmV7D4Hb932zf1KqeYkdmO7ARE3SY+uuW0M2qR/Ta+wLr8ARqwvTdAv8qEwCJkN
+ m3pwUVsIXncgOxeXhJQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDEzMyBTYWx0ZWRfX7kDYXSRgHwR3
+ HbZxTVYIAQmJLgvnZe6UTzHkEFAP6UdlWKOMr89ofv/Xj8OXPlNaa0sfNl0dVxXOJbYIsNmJSeh
+ eqFiXNBPqAoBYtl6ksNXFgD9EohBJLI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 phishscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220133
 
+On 9/18/26 3:56 PM, Bryan O'Donoghue wrote:
+> Add the ability to use a PHY pointer which interacts with the standard PHY
+> API.
+> 
+> In the first instance the code will try to use the new PHY interface. If no
+> PHYs are present in the DT then the legacy method will be attempted.
+> 
+> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Glymur)
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
 
---jqvd4moyr64selk7
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC 2/9] drm: panel: Add panel for Epson Moverio BT200
-MIME-Version: 1.0
+This and the following patch conflict upon applying after:
 
-Hallo Andreas,
+aedd77ea8168 ("media: qcom: camss: use fwnode_graph_for_each_endpoint_scoped() to simplify code")
 
-On Tue, Sep 22, 2026 at 08:16:59AM +0200, Andreas Kemnade wrote:
-> diff --git a/drivers/gpu/drm/panel/panel-epson-bt200.c b/drivers/gpu/drm/=
-panel/panel-epson-bt200.c
-> new file mode 100644
-> index 000000000000..c26a4f8ae15e
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-epson-bt200.c
-> @@ -0,0 +1,251 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +#include <linux/backlight.h>
-> +#include <linux/errno.h>
-> +#include <linux/delay.h>
-> +#include <linux/module.h>
-> +#include <linux/mod_devicetable.h>
-
-Please don't include <linux/mod_devicetable.h>. You can rely on
-<linux/spi/spi.h> to provide of_device_id and spi_device_id; or if you
-prefer full iwyu include <linux/device-id/of.h> and <.../spi.h>.
-
-> +#include <linux/spi/spi.h>
-> +
-> +#include <drm/drm_connector.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/drm_print.h>
-> +#include <drm/drm_probe_helper.h>
-> +
-> +static const struct drm_display_mode default_mode =3D {
-> +	.clock			=3D 41600,	/* kHz */
-> +#if 0
-
-huh, upstream code isn't supposed to have #if 0 blocks.
-
-> +	/* values matching struct omap_video_timings in vendor kernel */
-> +	.hdisplay		=3D 960,
-> +	.hsync_start		=3D 960 + 176,
-> +	.hsync_end		=3D 960 + 176 + 20,
-> +	.htotal			=3D 960 + 176 + 20 + 86,
-> +#else
-> +	/* values from what is writted to LCDCTRL on vendor kernel */
-> +	.hdisplay		=3D 960,
-> +	.hsync_start		=3D 960 + 33,
-> +	.hsync_end		=3D 960 + 33 + 20,
-> +	.htotal			=3D 960 + 33 + 20 + 86,
-> +#endif
-> +	.vdisplay		=3D 540,
-> +	.vsync_start		=3D 540 + 9,
-> +	.vsync_end		=3D 540 + 9 + 3,
-> +	.vtotal			=3D 540 + 9 + 3 + 12,
-> +	.flags			=3D 0,
-> +};
-> +
-> +struct bt200_panel {
-> +	struct drm_panel panel;
-> +	struct spi_device *spi;
-> +};
-> +
-> +static int bt200_panel_write(struct bt200_panel *ctx, u8 addr, u8 data)
-> +{
-> +	u8 val[2];
-> +
-> +	val[0] =3D addr;
-> +	val[1] =3D data;
-> +
-> +	return spi_write(ctx->spi, val, sizeof(val));
-> +}
-> +
-> +static inline struct bt200_panel *panel_to_bt200(struct drm_panel *panel)
-> +{
-> +	return container_of(panel, struct bt200_panel, panel);
-> +}
-> +
-> +static int bt200_disable(struct drm_panel *panel)
-> +{
-> +	struct bt200_panel *ctx =3D panel_to_bt200(panel);
-> +
-> +	bt200_panel_write(ctx, 0x0A, 0);
-> +	return 0;
-> +}
-> +
-> +static int bt200_unprepare(struct drm_panel *panel)
-> +{
-> +	return 0;
-> +}
-> +
-> +/* found this table in vendor kernel */
-> +static struct {
-> +	u8 addr;
-> +	u8 data;
-> +} lcddr_init[] =3D {
-> +	{0x01, 0x00}, {0x02, 0x00}, {0x03, 0x00}, {0x05, 0x01},
-> +	{0x07, 0x00}, {0x0A, 0x00}, {0x10, 0x03}, {0x11, 0x44},
-> +	{0x12, 0x44}, {0x13, 0x55}, {0x14, 0x03}, {0x15, 0x00},
-> +	{0x16, 0x2A}, {0x17, 0x20}, {0x18, 0x00}, {0x19, 0x10},
-> +	{0x1A, 0x12}, {0x1B, 0x0E}, {0x1C, 0x0F}, {0x1D, 0x10},
-> +	{0x1E, 0x0F}, {0x1F, 0x1B}, {0x20, 0x0F}, {0x21, 0x00},
-> +	{0x22, 0x00}, {0x23, 0x00}, {0x24, 0x00}, {0x28, 0x14},
-> +	{0x29, 0x19}, {0x2A, 0x17}, {0x2B, 0x2B}, {0x2C, 0x99},
-> +	{0x2D, 0x13}, {0x2E, 0x2A}, {0x30, 0x0B}, {0x31, 0x00},
-> +	{0x32, 0x00}, {0x33, 0x01}, {0x34, 0x00}, {0x35, 0x0B},
-> +	{0x36, 0x04}, {0x37, 0x21}, {0x38, 0x00}, {0x39, 0x46},
-> +	{0x3A, 0x01}, {0x3B, 0x06}, {0x3C, 0x03}, {0x3D, 0x00},
-> +	{0x3E, 0x06}, {0x3F, 0x04}, {0x40, 0x00}, {0x41, 0x0D},
-> +	{0x42, 0x00}, {0x43, 0x2E}, {0x45, 0x08}, {0x46, 0x00},
-> +	{0x47, 0x01}, {0x48, 0x00}, {0x49, 0x00}, {0x4A, 0x0B},
-> +	{0x4B, 0x38}, {0x4C, 0x03}, {0x4D, 0x04}, {0x50, 0x0F},
-> +	{0x51, 0x04}, {0x52, 0x01}, {0x53, 0x0E}, {0x54, 0x11},
-> +	{0x55, 0x9F}, {0x56, 0x36}, {0x57, 0x00}, {0x58, 0x68},
-> +	{0x59, 0x01}, {0x5A, 0xE0}, {0x5B, 0x00}, {0x5C, 0x00},
-> +	{0x5D, 0x10}, {0x5E, 0x36}, {0x5F, 0x36}, {0x60, 0x00},
-> +	{0x61, 0x04}, {0x62, 0x12}, {0x63, 0x00}, {0x64, 0x80},
-> +	{0x65, 0x00}, {0x66, 0x80}, {0x67, 0x1C}, {0x68, 0x00},
-> +	{0x69, 0x00}, {0x6A, 0x00}, {0x6B, 0x00}, {0x6C, 0x00},
-> +	{0x70, 0x00}, {0x71, 0x55}, {0x72, 0x44}, {0x73, 0x33},
-> +	{0x74, 0x22}, {0x75, 0x33}, {0x76, 0x22}, {0x77, 0x22},
-> +	{0x78, 0x33}, {0x79, 0x22}, {0x7A, 0x44}, {0x7B, 0x55},
-> +	{0x7C, 0x00}, {0x80, 0x00}, {0x81, 0x66}, {0x82, 0x22},
-> +	{0x83, 0x33}, {0x84, 0x22}, {0x85, 0x33}, {0x86, 0x22},
-> +	{0x87, 0x22}, {0x88, 0x33}, {0x89, 0x44}, {0x8A, 0x44},
-> +	{0x8B, 0x44}, {0x8C, 0x00}, {0x90, 0x00}, {0x91, 0x77},
-> +	{0x92, 0x66}, {0x93, 0x33}, {0x94, 0x11}, {0x95, 0x33},
-> +	{0x96, 0x22}, {0x97, 0x22}, {0x98, 0x44}, {0x99, 0x44},
-> +	{0x9A, 0x33}, {0x9B, 0x44}, {0x9C, 0x00}, {0xA0, 0x88},
-> +	{0xA1, 0x88}, {0xA2, 0x88}, {0xA3, 0x88}, {0xA4, 0x88},
-> +	{0xA5, 0x88}, {0xA6, 0x88}, {0xA7, 0x88}, {0xA8, 0x88},
-> +	{0xA9, 0x88}, {0xAA, 0x88}, {0xAB, 0x88}, {0xAC, 0x88},
-> +	{0xAD, 0x88}, {0xAE, 0x88}, {0xAF, 0x88}, {0xB0, 0x88},
-> +	{0xB1, 0x88}, {0xB2, 0x88}, {0xB3, 0x88}, {0xB4, 0x88},
-> +	{0xB5, 0x88}, {0xB6, 0x88}, {0xB7, 0x88}, {0xB8, 0x88},
-> +	{0xB9, 0x88}, {0xBA, 0x88}, {0xBB, 0xA6}, {0xBC, 0x88},
-> +	{0xBD, 0x88}, {0xBE, 0x88}, {0xBF, 0x88}, {0xC0, 0x88},
-> +	{0xC1, 0x88}, {0xC2, 0x88}, {0xC3, 0x88}, {0xC4, 0x88},
-> +	{0xC5, 0x88}, {0xC6, 0x88}, {0xC7, 0x88}, {0xC8, 0x88},
-> +	{0xC9, 0x88}, {0xD0, 0x36}, {0xD1, 0x26}, {0xD2, 0x21},
-> +	{0xD3, 0x1F}, {0xD4, 0x17}, {0xD5, 0x15}, {0xD6, 0x13},
-> +	{0xD7, 0x10}, {0xD8, 0x08}, {0xD9, 0x08}, {0xDA, 0x18},
-> +	{0xDB, 0x1D}, {0xDC, 0x1F}, {0xDD, 0x27}, {0xDE, 0x29},
-> +	{0xDF, 0x2B}, {0xE0, 0x2E}, {0xE1, 0x36}, {0xE6, 0x00},
-> +	{0xF1, 0x00}, {0xF2, 0x00}, {0xF3, 0x00}
-
-Smells non-GPLly. Maybe ask the provider of the vendor kernel for "the
-preferred form of the work for making modifications to it".
-
-I guess {0x0A, 0x00} disables the display, so taking over an enabled
-display setup by the bootloader doesn't work as is.
-
-> +};
-> +
-> +static int init_lcd(struct bt200_panel *ctx)
-> +{
-> +	int i;
-> +	int r;
-> +
-> +	r =3D spi_setup(ctx->spi);
-> +	if (r < 0)
-> +		return r;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(lcddr_init); ++i) {
-> +		r =3D bt200_panel_write(ctx, (u16)lcddr_init[i].addr,
-> +				      lcddr_init[i].data);
-> +		if (r) {
-> +			dev_err(ctx->panel.dev, "failed to write initial config (write) %d\n"=
-, i);
-
-I claim that `i` isn't very interesting here, but maybe mention
-lcddr_init[i].addr and/or `r` (using %pe).
-
-> +			return r;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int bt200_prepare(struct drm_panel *panel)
-> +{
-> +	int r;
-> +	struct bt200_panel *ctx =3D panel_to_bt200(panel);
-> +
-> +	r =3D init_lcd(ctx);
-> +	if (r)
-> +		return r;
-> +
-> +	msleep(50);
-> +	return 0;
-> +}
-> +
-> +static int bt200_enable(struct drm_panel *panel)
-> +{
-> +	struct bt200_panel *ctx =3D panel_to_bt200(panel);
-> +
-> +	return bt200_panel_write(ctx, 0x0A, 1);
-> +}
-> +
-> +static int bt200_get_modes(struct drm_panel *panel, struct drm_connector=
- *connector)
-> +{
-> +	struct drm_display_mode *mode;
-> +
-> +	mode =3D drm_mode_duplicate(connector->dev, &default_mode);
-> +	if (!mode)
-> +		return -ENOMEM;
-> +
-> +	drm_mode_set_name(mode);
-> +	mode->type =3D DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
-> +	drm_mode_probed_add(connector, mode);
-> +
-> +	return 1;
-> +}
-> +
-> +static const struct drm_panel_funcs bt200_panel_funcs =3D {
-> +	.disable =3D bt200_disable,
-> +	.unprepare =3D bt200_unprepare,
-> +	.prepare =3D bt200_prepare,
-> +	.enable =3D bt200_enable,
-> +	.get_modes =3D bt200_get_modes,
-> +};
-> +
-> +static int bt200_probe(struct spi_device *spi)
-> +{
-> +	struct bt200_panel *ctx;
-> +	int ret;
-> +
-> +	ctx =3D devm_drm_panel_alloc(&spi->dev, struct bt200_panel, panel,
-> +				   &bt200_panel_funcs, DRM_MODE_CONNECTOR_DPI);
-> +	if (IS_ERR(ctx))
-> +		return PTR_ERR(ctx);
-> +
-> +	spi_set_drvdata(spi, ctx);
-> +	ctx->spi =3D spi;
-> +	ctx->panel.prepare_prev_first =3D true;
-> +
-> +	spi->bits_per_word =3D 8;
-> +
-> +	ret =3D drm_panel_of_backlight(&ctx->panel);
-> +	if (ret)
-
-Error message here? (Use dev_err_probe().)
-
-> +		return ret;
-> +
-> +	drm_panel_add(&ctx->panel);
-> +	return 0;
-> +}
-> +
-> +static void bt200_remove(struct spi_device *dsi)
-> +{
-> +	struct bt200_panel *ctx =3D spi_get_drvdata(dsi);
-> +
-> +	drm_panel_remove(&ctx->panel);
-> +}
-> +
-> +static const struct of_device_id bt200_of_match[] =3D {
-> +	{ .compatible =3D "epson,panel-bt200", },
-> +	{},
-
-Please use { } here (space between curlys and no trailing comma).
-
-> +};
-> +
-> +MODULE_DEVICE_TABLE(of, bt200_of_match);
-> +
-> +static const struct spi_device_id bt200_ids[] =3D {
-> +	{ "panel-bt200", 0 },
-
-Drop the unused 0.
-
-> +	{ /* sentinel */ }
-> +};
-> +
-> +MODULE_DEVICE_TABLE(spi, bt200_ids);
-> +
-> +static struct spi_driver bt200_driver =3D {
-> +	.probe =3D bt200_probe,
-> +	.remove =3D bt200_remove,
-> +	.id_table =3D bt200_ids,
-> +	.driver =3D {
-> +		.name =3D "panel-bt200",
-> +		.of_match_table =3D bt200_of_match,
-> +		.suppress_bind_attrs =3D true,
-
-Why suppress bind attrs?
-
-> +	},
-> +};
-> +
-> +module_spi_driver(bt200_driver);
-> +
-> +MODULE_AUTHOR("Andreas Kemnade <andreas@kemnade.info>");
-> +MODULE_DESCRIPTION("bt200 panel driver");
-> +MODULE_LICENSE("GPL");
->=20
-> --=20
-> 2.47.3
->=20
-
---jqvd4moyr64selk7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqyRr0ACgkQj4D7WH0S
-/k7j9wf/drFjkoSYkDRRwFeWVlLaePMX2uQRlfXo7bRanY/j2jstfKtkYC93sZHO
-x+QUz0iQEV9UIj/cadU7riyXfgkqF+GzorMGpKRq4NiIKAZbAJb7ZcR0/AQxCIlI
-amIJc0HIna/7St++Rvy1BLGVLt20UqxyW4xTAWn7xu/H3Kg+qH1EfPRko1Tm+4lZ
-sfDKBe8Cr5nyLx0xL4qJzz/UmAKvwBEf8aCd/zh7kGb85vDz1dQqlSYNgvgjLpSt
-D+rp04O1VMsPVP6wV5j9+5/PypooTns3vn/PMiufyRJWXrO6P6sgd+opsnaU3XcL
-Y+ljWS1Cqsd903WtMzpzVA1c4ZrEXw==
-=jK23
------END PGP SIGNATURE-----
-
---jqvd4moyr64selk7--
+Konrad
