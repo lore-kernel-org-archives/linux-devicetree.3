@@ -1,466 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8848355C330;
-	Tue, 22 Sep 2026 15:43:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC4055D873
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091816; cv=none; b=XdgnTFcwEtHPqpOw2P7ZvjGhO9Qj237CKJEyY1aRA2uuuBkRzEFCp1VsGXnCsGeuVpJTK/KlMhCi6vTmA6C7PWE2ExOD4z6biJncSABufZBaluUbxmFJ9YCsdGJTPBwSljkwGKLFtdPsCXC9J/JkOBpAqBsWuUgV3Hx14OvkErQ=
+	t=1790091839; cv=none; b=JZXLH9C9Xz2cMpFZm2+P5hz4oNZ3PlMayl10BhvKavvvqeE8VrJ9YF9xATGmuid2are/p5sg/ToH414YuEb0xy1e20nrIi6Kiz7mNd5+jjblKDuvEUxHT0GuFoNbgokHyYI6BFdJFtNtuIevQn4SSYiJqU0ihUMMNbw7o/m+llM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091816; c=relaxed/simple;
-	bh=z4NdSFDuNGVI597MDXLguyEDoV9x60podj//kOFM5gg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IDLT20Uetlyd4Kgvf+RfPBtyNUsQPjQMj8GuhsNnI5hoAuATIqgbaTU3rpOEgyS65zqcrhxNT3vdVNnpVPg3bj30ND0TwdhOqj22j6tpGOLVtfiZ8y3fO4ywLdFHTa6KeP69IXa+w0Un3+TkW6kGI9VzjNZAWofnwbL2J6XJS8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPCb2dxP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790091839; c=relaxed/simple;
+	bh=MPJa407hEU35uhm5nNbxl1o7nH1It+GZNahj267Ph9Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UMRKpq4KzzVJugt9R5GwMMHxDYgU/2Xm2f8HV2JZYG7YjzuoRDZ0w49XrdwWVVI6g3OgT6aRayLG0Awnzi6Qq4swC9z0VLA8NRz/jIx3dLEbeHExmPIJ4evp5N1MYwU8SIiPsMJRV1TWZjakMzUW5nSmKFEPY33EIQKbmhmMzKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Fs3qkBd0; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPCb2dxP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 866B71F00893;
-	Tue, 22 Sep 2026 15:43:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091807;
-	bh=ISUSffucPB0qD9ReW/OifIPAtckZSXhpko4VRsVYfk4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aPCb2dxPV3JVJkwmJLwp+YjAt584RQYkIoWdXOoAm8l75cJuUwlz6L9UeUz1piMCm
-	 8Xn3ppoN1tN+BqcvQTgt8dLf2Py+Ak2bNtIx029vnuc0QkqjYeLa5VFBd8EelxCzAf
-	 aHHxiHjrXzUvZ0vhP0JfJQ5EmLaUsX2qKg9b5FmrWXZGoukT8kEsZfJ8azpcRdehSe
-	 HnWbhXMgmoTA5/y3RZ1gxcegnl3ASdVt5r6uWvCkAWJXJ8wx6qCX28ma18PurxOkWa
-	 aLoIzW61AtCFbf4bThdvDHr9sv082eIpiLn4hMlIVn6TNJ6YfFPmJPytp9947w9TDl
-	 zwOImF0YEglqw==
-Subject: Re: [PATCH net-next v9 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
-From: netdev-bot+sashiko@kernel.org
-To: arthur@marmottus.net
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 22 Sep 2026 15:43:26 +0000
-Message-ID: <179009180606.2160803.9423654885662355459@kernel.org>
-In-Reply-To: <20260918-wiznet-link-gpio-v9-3-5536f24d8d6d@marmottus.net>
-References: <20260918-wiznet-link-gpio-v9-3-5536f24d8d6d@marmottus.net>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Fs3qkBd0"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so48881a91.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:43:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790091836; x=1790696636; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M3+7e8iXJEjn74p0MvD+DqdSnpalQ9TYucgtTBbjy+c=;
+        b=Fs3qkBd0zQ6ucr9QdRr/P75/EMkmrjSEbT5jRPu65SllB6psWZLuhEtIR8ipOit7A0
+         dziV0+nGwg7V2nN1BC5p4jSOI6JqlJ4VhDCy1D2782OiNTCjIigPmBH3i1XdNxdsmN8v
+         5TPnIzCBqfYbme/U6Y/AcKwZ8Pt2Rbu5OXLjLOQqF2vHaXs1YGGMYeaFIF4yHYcwiM6/
+         SRIu8soPC7WwSEWc5AhWiIfOVfx5gdDTpchEwtevZGmhoCWU85RyAF/G3fg11L+RGdzC
+         HZ9ky1Whz7rypN6AsszTu2oEE8qqHHmBZqmbfEUWLFH/fV/edyaoBSBbClCQBE+xiVbE
+         C8GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790091836; x=1790696636;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M3+7e8iXJEjn74p0MvD+DqdSnpalQ9TYucgtTBbjy+c=;
+        b=jG6YMssUyU5OH1vNN9CKE7Jurx4TNskdECIIN2tfs4Dhrzb592r5h1kbbGlncDK3Hf
+         QeNuDCMGXDGC2iBODI7mo/pZEgluaz6TprnxT1tzwzSYWsHULhbOTeWKDoIy5wjeeuWs
+         Gd8faH0qdv7Z6rsWkRGYGfMtpXsb/Q/a5XkBZ4Ri1hOqJjFHhR9cil1P6ULmIKV6XFdI
+         +o+uAMqB+8xawh5+fs4HdA7U1EK+UVj2CxOhmhhgnxg72oKJbTi2IJZHChN5xBGkQ2eI
+         6OvhMAMaErmH1NnsqwFFn/yk8t/0yaYPaZS+C7GorSYa3xEdUUL2LJT4ZF5v0XsK1g8k
+         undA==
+X-Forwarded-Encrypted: i=1; AKwUvBxoEPC27fme41ENx7tks/UvJgE+4aCUB3ppJ/tmT+YLF+UjaOmxDCo87PboIcv0CGYNKOunH/DOpaYo@vger.kernel.org
+X-Gm-Message-State: AFuF++kjZ0JUXnC5VV1VhU7uR7CoNbse+ABmQZdlOmaM4Z999bEuHfU8
+	735+/tv5+mA99voHuAZGiB6OCJiu5FjtmAvXh3mGxbGaWNLQaGnjaB1Qb/yUgkB+iag=
+X-Gm-Gg: AYBFou18EIdmqsJm2haavRX1lJHMv+CgS86fchkWC8+5VLsbVDv0aVxrSht655G+6B5
+	XEondJ3Z/8mnM+u6xoj2LA9iTAf4zTChWUQXRDP69N2H9o6wM7/ZsUdQn1N5H6HPbnPXtzOY9IH
+	gAjp1kSVw3sz59jwc4Un9vvj7grPn2nYqZzh3QLUkGik1SnMwQ8Q0aJP5QlqTnK/gtN+XzsqGYy
+	fbmZqSzD4vRiYJiBrZ8IZDq36/OlxfCI1VGNOHcrO3uNfPsNmHar0eCv0p6CQ0mCUxb/Insdtqg
+	qG9uB9lUS9z1M/oS9cMGJ7SMc7vNzXxUJ6iCdDmW0eYR2xuwnYUg/u5vNVHG553QHok3j6igzT3
+	S6Y99mgzjAiWsPDWBiZldGDndl3A+ybrZsd1Ktef2UtZIrkkYo2X2TKDcrPiSpsuo4FUxiqISVM
+	6t7Cjzhz6uOHD64Tdd0PmStkZk2/Ky09u1XvxCaaeY0lzLmVMaBzF6iIB8ZW7D2VVTH0+vCndC9
+	Zr4dDITp8s=
+X-Received: by 2002:a17:90b:1d48:b0:39d:efa9:cd25 with SMTP id 98e67ed59e1d1-3a07306c5d9mr1633442a91.2.1790091835796;
+        Tue, 22 Sep 2026 08:43:55 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:1046:ab8:737c:d2e2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dbf69f0sm34882a91.8.2026.09.22.08.43.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 08:43:55 -0700 (PDT)
+Date: Tue, 22 Sep 2026 09:43:52 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Francesco Valla <francesco@valla.it>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, virtualization@lists.linux.dev,
+	imx@lists.linux.dev, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
+ multiple vdevs
+Message-ID: <arKiOCGrWAKyc-bc@p14s>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
-
-Critical: 0 · High: 2 · Medium: 5 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] w5100_suspend() does not quiesce three of the four work items,
-  so hardware access continues after (or concurrently with) the suspend-…
-- [High] w5100_stop() newly calls flush_work(&priv->rx_work)
-  (w5100.c:775) *before* w5100_hw_close() (w5100.c:778), i.e. while…
-- [Medium] The patch silently fixes a long-standing user-visible bug
-  without saying so and without a Fixes: tag.
-- [Medium] The commit message states 'w5100_remove(), w5100_stop() and
-  w5100_suspend() call cancel_work_sync()/flush_work() to make sure…
-- [Medium] w5500_report_carrier_state() (w5100.c:369-386) silently
-  discards a PHYCFGR read failure: w5500_get_phycfgr_lnk() returns the…
-- [Medium] The driver samples PHYCFGR *before* enabling the edge-
-  triggered LINKLED interrupt, so a link transition occurring in that…
-- [Medium] net: w5100: sleep in atomic context in w5100_restart()
-
---
-
-w5100: detect carrier state using link status bit and optional interrupt
-
-This adds carrier detection for the w5500 by reading the Link Status bit of
-PHYCFGR, exposed through a new w5500 specific ethtool .get_link and updated
-from an optional second interrupt wired to the LINKLED pin. It also reworks
-the probe/remove ordering, adds a mutex around the link state, and
-enables/disables the main irq in open/stop and suspend/resume.
-
-> diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/wiznet/w5100.c
-> index 53d8dc642fbd..e6dc5fe7c088 100644
-> --- a/drivers/net/ethernet/wiznet/w5100.c
-> +++ b/drivers/net/ethernet/wiznet/w5100.c
-
-[ ... ]
-
-> @@ -345,6 +352,77 @@ static void w5500_memory_configure(struct w5100_priv *priv)
->  	}
->  }
+On Wed, Sep 16, 2026 at 11:10:57PM +0200, Francesco Valla wrote:
+> Add rings for multiple vdevs, as well as the required virtio nodes for
+> I2C, SPI and GPIO functionalities. On top of that, add example
+> peripherals using all of them.
+> 
+> NOTE: this is a Proof-Of-Concept, not meant to be integrated!
+> 
+> Signed-off-by: Francesco Valla <francesco@valla.it>
+> ---
+>  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++++++++++--
+>  1 file changed, 119 insertions(+), 9 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> index bd14ba28690c..dfa3b122ac5f 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> @@ -53,6 +53,32 @@ button-k3 {
+>  		};
+>  	};
 >  
-> +static int w5500_get_phycfgr_lnk(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int ret = w5100_read(priv, W5500_PHYCFGR);
+> +	gpio-keys-virtio {
+> +		compatible = "gpio-keys-polled";
+> +		poll-interval = <100>;
 > +
-> +	if (ret < 0) {
-> +		netif_err(priv, link, ndev,
-> +			  "failed to read link status: %d\n", ret);
-> +		return ret;
-> +	}
+> +		button-v1 {
+> +			label = "Button V1";
+> +			linux,code = <BTN_3>;
+> +			gpios = <&v_gpio 23 GPIO_ACTIVE_LOW>;
+> +		};
 > +
-> +	return ret & PHYCFGR_LNK;
-> +}
+> +		button-v2 {
+> +			label = "Button V2";
+> +			linux,code = <BTN_4>;
+> +			gpios = <&v_gpio 24 GPIO_ACTIVE_LOW>;
+> +		};
+> +	};
 > +
-> +static void w5500_report_carrier_state(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int state;
+> +	leds {
+> +		compatible = "gpio-leds";
 > +
-> +	mutex_lock(&priv->link_lock);
+> +		led {
+> +			gpios = <&v_gpio 18 GPIO_ACTIVE_HIGH>;
+> +			label = "LED V";
+> +		};
+> +	};
 > +
-> +	state = w5500_get_phycfgr_lnk(ndev);
-> +	if (state > 0) {
-> +		netif_info(priv, link, ndev, "link is up\n");
-> +		netif_carrier_on(ndev);
-> +	} else if (state == 0) {
-> +		netif_info(priv, link, ndev, "link is down\n");
-> +		netif_carrier_off(ndev);
-> +	}
-> +
-> +	mutex_unlock(&priv->link_lock);
-> +}
-
-[Severity: Medium]
-When w5500_get_phycfgr_lnk() returns a negative errno, neither branch runs
-here, so the carrier is left untouched and the failure is not reported to the
-caller either.
-
-w5500_get_phycfgr_lnk() forwards the error from w5500_spi_read(), which
-propagates spi_write_then_read() failures.
-
-In w5100_open() the carrier bit has just been forced off (probe calls
-netif_carrier_off() when a link irq is present, and w5100_stop() clears it
-as well), so a single failed PHYCFGR read leaves the interface latched at
-NO-CARRIER while w5100_open() still returns 0. The same applies to
-w5100_resume() after w5100_suspend() cleared the carrier.
-
-The link irq is requested edge triggered, so with a stable physical link no
-further edge arrives. Is there any path that would correct the state short
-of a cable flap or an ifdown/ifup? Should the read error be retried or
-propagated to the caller?
-
-Note ethtool .get_link re-reads the register, so it can report link detected
-while operstate stays down.
-
-> [ ... ]
->  static int w5100_hw_reset(struct w5100_priv *priv)
->  {
->  	u32 rtr;
-> @@ -448,12 +526,25 @@ static void w5100_restart(struct net_device *ndev)
->  {
->  	struct w5100_priv *priv = netdev_priv(ndev);
+>  	reg_usdhc2_vmmc: regulator-usdhc2 {
+>  		compatible = "regulator-fixed";
+>  		off-on-delay-us = <12000>;
+> @@ -89,11 +115,6 @@ linux,cma {
+>  			linux,cma-default;
+>  		};
 >  
-> +	if (!netif_running(ndev) || !netif_device_present(ndev))
-> +		return;
-> +
-> +	disable_irq(priv->irq);
-> +	if (priv->link_irq > 0)
-> +		disable_irq(priv->link_irq);
-> +
->  	netif_stop_queue(ndev);
->  	w5100_hw_reset(priv);
-> +	enable_irq(priv->irq);
->  	w5100_hw_start(priv);
->  	ndev->stats.tx_errors++;
->  	netif_trans_update(ndev);
->  	netif_wake_queue(ndev);
-> +
-> +	if (priv->link_irq > 0) {
-> +		w5500_report_carrier_state(ndev);
-> +		enable_irq(priv->link_irq);
-> +	}
->  }
+> -		rsc_table: rsc-table@2021e000 {
+> -			reg = <0 0x2021e000 0 0x1000>;
+> -			no-map;
+> -		};
+> -
+
+Why is the resource table removed?  There is no mention of that in the
+changelog...
+
+>  		vdev0vring0: vdev0vring0@a4000000 {
+>  			reg = <0 0xa4000000 0 0x8000>;
+>  			no-map;
+> @@ -105,12 +126,42 @@ vdev0vring1: vdev0vring1@a4008000 {
+>  		};
 >  
->  static void w5100_restart_work(struct work_struct *work)
-> @@ -656,9 +747,16 @@ static int w5100_open(struct net_device *ndev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
+>  		vdev1vring0: vdev1vring0@a4010000 {
+> -			reg = <0 0xa4010000 0 0x8000>;
+> +			reg = <0 0xa4010000 0 0x1000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev2vring0: vdev2vring0@a4011000 {
+> +			reg = <0 0xa4011000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev2vring1: vdev2vring1@a4013000 {
+> +			reg = <0 0xa4013000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev3vring0: vdev3vring0@a4015000 {
+> +			reg = <0 0xa4015000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev4vring0: vdev4vring0@a4017000 {
+> +			reg = <0 0xa4017000 0 0x4000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev5vring0: vdev5vring0@a401B000 {
+> +			reg = <0 0xa401B000 0 0x2000>;
+> +			no-map;
+> +		};
+> +
+> +		vdev5vring1: vdev5vring1@a401D000 {
+> +			reg = <0 0xa401D000 0 0x2000>;
+>  			no-map;
+>  		};
 >  
->  	netif_info(priv, ifup, ndev, "enabling\n");
-> -	w5100_hw_start(priv);
->  	napi_enable(&priv->napi);
-> +	enable_irq(priv->irq);
-> +	w5100_hw_start(priv);
->  	netif_start_queue(ndev);
-> +
-> +	if (priv->link_irq > 0) {
-> +		w5500_report_carrier_state(ndev);
-> +		enable_irq(priv->link_irq);
-> +	}
-> +
->  	return 0;
->  }
-
-[Severity: Medium]
-w5100_restart() is not always reached from process context.
-w5100_tx_timeout() only defers to restart_work when priv->ops->may_sleep
-is set:
-
-	if (priv->ops->may_sleep)
-		schedule_work(&priv->restart_work);
-	else
-		w5100_restart(ndev);
-
-and the memory mapped ops in this same file (w5100_mmio_direct_ops /
-w5100_mmio_indirect_ops) set .may_sleep = false, so for those the
-function is called directly from ndo_tx_timeout, i.e. from dev_watchdog()
-in softirq context.
-
-This hunk now puts sleeping calls on that path. disable_irq() begins with
-might_sleep() and then synchronize_irq(), and when a link irq is present
-w5500_report_carrier_state() takes priv->link_lock via mutex_lock().
-Either one is a scheduling while atomic BUG, not just a lockdep
-complaint.
-
-The mutex part is confined to W5500, since priv->link_irq is only queried
-for that chip and W5500 is SPI attached with may_sleep true, but the
-disable_irq(priv->irq) / enable_irq(priv->irq) pair is unconditional and
-is executed by every may_sleep == false user.
-
-What is the intended split here - should w5100_tx_timeout() always queue
-restart_work now that w5100_restart() can sleep, or should the irq
-masking and the carrier re-check be done only in the may_sleep path?
-
-[Severity: Medium]
-The link irq is requested below with IRQF_NO_AUTOEN and
-IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING, so it stays masked until this
-enable_irq(). PHYCFGR is sampled first and edge detection is only turned on
-afterwards:
-
-	w5500_report_carrier_state(ndev);	/* reads PHYCFGR */
-	enable_irq(priv->link_irq);		/* edge detection starts */
-
-If the PHY link comes up between those two steps, can that transition be
-lost for good? On the BCM2835 controller used in the binding's own example,
-masking disables edge detection and also discards latched events:
-
-drivers/pinctrl/bcm/pinctrl-bcm2835.c:
-	bcm2835_gpio_irq_config(pc, gpio, false);
-	/* Clear events that were latched prior to clearing event sources */
-	bcm2835_gpio_set_bit(pc, GPEDS0, gpio);
-
-so unmasking does not replay the missed edge, and with a now stable LINKLED
-level the driver keeps reporting carrier off until the next physical link
-change.
-
-w5100_restart() and w5100_resume() use the same order, and restart follows a
-chip reset with PHY re-negotiation. The changelog lists this ordering as
-intentional ("enable the link irq after checking PHYCFGR") - would enabling
-the irq first and then reading PHYCFGR close the window?
-
+> -		vdev1vring1: vdev1vring1@a4018000 {
+> -			reg = <0 0xa4018000 0 0x8000>;
+> +		vdev5vring2: vdev5vring2@a401F000 {
+> +			reg = <0 0xa401F000 0 0x1000>;
+>  			no-map;
+>  		};
 >  
-> @@ -667,13 +765,38 @@ static int w5100_stop(struct net_device *ndev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
+> @@ -149,8 +200,67 @@ &cm33 {
+>  		 <&mu1 3 1>;
+>  	mbox-names = "tx", "rx", "rxdb";
+>  	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
+> -			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
+> +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
+> +			<&vdev3vring0>, <&vdev4vring0>,
+> +			<&vdev5vring0>, <&vdev5vring1>, <&vdev5vring2>;
+
+Who is using vdev5 vrings?  
+
+>  	status = "okay";
+> +
+> +	virtio {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		vdev@2 {
+> +			reg = <2>;
+> +
+> +			v_gpio: gpio {
+> +				compatible = "virtio,device29";
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +			};
+> +		};
+> +
+> +		vdev@3 {
+> +			reg = <3>;
+> +
+> +			i2c {
+> +				compatible = "virtio,device22";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				eeprom@50 {
+> +					compatible = "atmel,24c1025";
+> +					reg = <0x50>;
+> +				};
+> +			};
+> +		};
+> +
+> +		vdev@4 {
+> +			reg = <4>;
+> +
+> +			spi {
+> +				compatible = "virtio,device2d";
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				sram@0 {
+> +					compatible = "microchip,mchp23k256";
+> +					reg = <0>;
+> +					spi-max-frequency = <20000000>;
+> +				};
+> +
+> +				lcd@1 {
+> +					compatible = "adafruit,yx240qv29", "ilitek,ili9341";
+> +					reg = <1>;
+> +					spi-max-frequency = <10000000>;
+> +					dc-gpios = <&v_gpio 21 GPIO_ACTIVE_HIGH>;
+> +					reset-gpios = <&v_gpio 20 GPIO_ACTIVE_HIGH>;
+> +					rotation = <90>;
+> +				};
+> +			};
+> +		};
+> +	};
+>  };
 >  
->  	netif_info(priv, ifdown, ndev, "shutting down\n");
-> +
-> +	disable_irq(priv->irq);
-> +	if (priv->link_irq > 0)
-> +		disable_irq(priv->link_irq);
-> +
-> +	cancel_work_sync(&priv->restart_work);
-> +	cancel_work_sync(&priv->setrx_work);
-> +	flush_work(&priv->rx_work);
-> +	flush_work(&priv->tx_work);
-> +
->  	w5100_hw_close(priv);
-
-[Severity: High]
-flush_work(&priv->rx_work) now runs while socket 0 is still open, because
-w5100_hw_close() is called after it.
-
-w5100_rx_work() drains without a budget or a shutdown test:
-
-	while ((skb = w5100_rx_skb(priv->ndev)))
-		netif_rx(skb);
-
-and w5100_rx_skb() only returns NULL once the hardware receive buffer is
-observed empty:
-
-	u16 rx_buf_len = w5100_read16(priv, W5100_S0_RX_RSR(priv));
-
-	if (rx_buf_len == 0)
-		return NULL;
-
-disable_irq(priv->irq) masks the host interrupt but does not stop the
-controller from filling its receive buffer. Each frame is drained with
-several synchronous SPI transfers, which is slower than line rate, so can
-sustained incoming traffic keep RX_RSR non-zero and make this flush_work()
-never return?
-
-ndo_stop runs with rtnl held, so an ip link set down would then stall all
-network configuration in an unkillable wait. w5100_remove() reaches the same
-path through unregister_netdev().
-
-Would calling w5100_hw_close() before flushing rx_work avoid this?
-
-> -	netif_carrier_off(ndev);
-> +
-> +	if (priv->link_irq > 0)  {
-> +		mutex_lock(&priv->link_lock);
-> +		netif_carrier_off(ndev);
-> +		mutex_unlock(&priv->link_lock);
-> +	}
-> +
->  	netif_stop_queue(ndev);
->  	napi_disable(&priv->napi);
->  	return 0;
->  }
-
-[Severity: Medium]
-Making this netif_carrier_off() conditional on a link irq also fixes a
-pre-existing user visible problem, but that is not called out and there is
-no Fixes: tag.
-
-Before this patch, w5100_stop() and w5100_suspend() called
-netif_carrier_off() unconditionally, and there was no netif_carrier_on()
-anywhere in drivers/net/ethernet/wiznet/. Since net_device state starts with
-NOCARRIER clear at registration, an interface came up with carrier on, but
-after the first
-
-	ip link set dev ethX down
-	ip link set dev ethX up
-
-or after a suspend/resume cycle it stayed NO-CARRIER permanently.
-
-With both carrier_off calls now guarded by priv->link_irq > 0, and link_irq
-only ever queried for W5500, that behaviour disappears for w5100/w5200 and
-for a W5500 without the optional LINKLED irq.
-
-The changelog only says:
-
-  The carrier state is also not reported using netif_carrier_on|off().
-
-which reads as a description of the new design rather than a fix. Could this
-be split into its own patch with a Fixes: tag so it can be picked up for
-stable independently of the new feature?
-
-> [ ... ]
-> @@ -794,22 +926,44 @@ int w5100_probe(struct device *dev, const struct w5100_ops *ops,
->  
->  	if (ops->may_sleep) {
->  		err = request_threaded_irq(priv->irq, NULL, w5100_interrupt,
-> -					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
-> -					   netdev_name(ndev), ndev);
-> +					   IRQF_TRIGGER_LOW | IRQF_ONESHOT |
-> +					   IRQF_NO_AUTOEN,
-> +					   dev_name(dev), ndev);
->  	} else {
->  		err = request_irq(priv->irq, w5100_interrupt,
-> -				  IRQF_TRIGGER_LOW, netdev_name(ndev), ndev);
-> +				  IRQF_TRIGGER_LOW | IRQF_NO_AUTOEN, dev_name(dev), ndev);
->  	}
->  	if (err)
->  		goto err_hw;
->  
-> +	if (priv->link_irq > 0) {
-> +		err = request_threaded_irq(priv->link_irq, NULL,
-> +					   w5500_detect_link_interrupt,
-> +					   IRQF_TRIGGER_RISING |
-> +					   IRQF_TRIGGER_FALLING |
-> +					   IRQF_ONESHOT | IRQF_NO_AUTOEN,
-> +					   "w5100-link", ndev);
-> +		if (err < 0)
-> +			goto err_irq;
-> +
-> +		netif_carrier_off(ndev);
-> +	}
-
-[ ... ]
-
-> @@ -839,7 +998,18 @@ static int w5100_suspend(struct device *dev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
->  	if (netif_running(ndev)) {
-> -		netif_carrier_off(ndev);
-> +		disable_irq(priv->irq);
-> +		if (priv->link_irq > 0)
-> +			disable_irq(priv->link_irq);
-> +
-> +		cancel_work_sync(&priv->restart_work);
-
-[Severity: Medium]
-The changelog states:
-
-  w5100_remove(), w5100_stop() and w5100_suspend() call
-  cancel_work_sync()/flush_work() to make sure there is no pending
-  work
-
-but w5100_suspend() only cancels restart_work here. setrx_work (queued with
-schedule_work() from w5100_set_rx_mode()), rx_work (queued on priv->xfer_wq
-from w5100_interrupt()) and tx_work (queued from w5100_start_tx()) are
-neither cancelled nor flushed, while w5100_stop() drains all four. Should
-the changelog be narrowed, or the suspend path made to match stop()?
-
-[Severity: High]
-Independently of the changelog wording, can these work items still touch the
-hardware after suspend has closed it?
-
-disable_irq(priv->irq) waits for the threaded handler w5100_interrupt() to
-finish, but any rx_work it already queued is still pending, and
-priv->xfer_wq is created with WQ_MEM_RECLAIM | WQ_PERCPU (no WQ_FREEZABLE),
-so it keeps running during suspend. w5100_rx_work() does SPI register
-accesses (S0_RX_RD writes and S0_CR_RECV) and ends with:
-
-	w5100_enable_intr(priv);
-
-which re-arms the chip interrupt masks that w5100_hw_close() cleared, while
-the host irq stays masked.
-
-setrx_work runs on system_wq and calls w5100_hw_start(), re-issuing
-S0_CR_OPEN and w5100_enable_intr() after suspend closed socket 0. tx_work
-can still issue S0_CR_SEND. Any of these transfers issued after the suspend
-callback returns are rejected once the SPI controller itself is suspended.
-
-There is also a re-queue window: restart_work is cancelled here, before
-netif_device_detach() below. In between, dev_watchdog() can still fire
-(netif_device_present(), netif_running() and netif_carrier_ok() all hold,
-and carrier_ok() is permanently true on w5100/w5200 and on a W5500 without a
-link irq):
-
-w5100_tx_timeout()
-	if (priv->ops->may_sleep)
-		schedule_work(&priv->restart_work);
-
-The re-queued w5100_restart() then passes its own netif_running() /
-netif_device_present() test and runs w5100_hw_reset() plus w5100_hw_start()
-against the device suspend is closing.
-
-Should netif_device_detach() come before the cancel, and should setrx_work,
-rx_work and tx_work be drained here as they are in w5100_stop()?
-
-> +
-> +		if (priv->link_irq > 0) {
-> +			mutex_lock(&priv->link_lock);
-> +			netif_carrier_off(ndev);
-> +			mutex_unlock(&priv->link_lock);
-> +		}
-> +
->  		netif_device_detach(ndev);
->  
->  		w5100_hw_close(priv);
-> @@ -854,9 +1024,15 @@ static int w5100_resume(struct device *dev)
->  
->  	if (netif_running(ndev)) {
->  		w5100_hw_reset(priv);
-> +		enable_irq(priv->irq);
->  		w5100_hw_start(priv);
->  
->  		netif_device_attach(ndev);
-> +
-> +		if (priv->link_irq > 0) {
-> +			w5500_report_carrier_state(ndev);
-> +			enable_irq(priv->link_irq);
-> +		}
->  	}
->  	return 0;
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918-wiznet-link-gpio-v9-0-5536f24d8d6d%40marmottus.net
+>  &eqos {
+> 
+> -- 
+> 2.55.0
+> 
