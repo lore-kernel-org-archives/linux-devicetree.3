@@ -1,303 +1,261 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897D64A012B;
-	Tue, 22 Sep 2026 19:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37E94AB1B8
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 20:03:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790106911; cv=none; b=QneLgB8CU7EzdN/oc29Cqa9WwAC+G8R9y5PoXtjqsrse0CCmhW8z3dG0bY6CDsp5pthN3MwVs/r1hycpe8yFJGYyCRZZCRiKM5d+TvS25If1FLjRY1FJrITIKIY1+2ozG/H9p4vzBaJl9xF3+x+TLLx4BjQIlkRMsUcD4rD71sY=
+	t=1790107442; cv=none; b=cYv14RpploPDPc018TwAbZoIQBpTMltIew3Cp8gM0mopQVPLNsHMQxrrysTrAOua/Mddwl7k1tGLmskprJDjgvgzRJp+tNKvuBRhqDKZ01K0XUF8jMhEfguN+CNtu8V+IVKTxk0scxXr5a6wIezu9NtCBXsjDbL4P7UjItLXe5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790106911; c=relaxed/simple;
-	bh=W7QpDbuzpLCqIp0MKuHCf6oL2lZCwy64G16gQ9dlbMk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kvQOFNShsoX1avvww1yH/lTiWz8Wn23xjgjH2LjmwqT25KtYwKzTewY70Wi5B3UGbjKs6cz05tgqAJlqL8x80SisMU5iLIcTjCNXKGPUJjrDeHlJFpAKUlhVcK/8nTH3SUbujJ9872nSzREl9kWwITlWupyOzaJNSI+G/xvZI5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=owJgOB2/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790107442; c=relaxed/simple;
+	bh=U+Ef+njUhKSDrdsVjIV/jZGXnWIx3qurrLz00hATNN4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LSJVA9X2jU3qTkUU012lc1FB5zyChE3AwOEELtGHqJkXDoTy/9yJtXoeKvBSsPX61UqO162Ge+ZexaRNMOcXdENzuPUkn5D4MYZE+ikMPBzF0zkzmpoZubdfEIHZtd6blF/dosxQzqFI5mZx+AxDPc/9/RlXS75H7ztB/0fCnFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lNOR05T8; arc=none smtp.client-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="owJgOB2/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF8651F000FF;
-	Tue, 22 Sep 2026 19:55:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790106909;
-	bh=Nb71XVGxN3R2MxtTDnL6kdmJZRIDV18V8tQLOUcQmgg=;
-	h=From:To:Cc:Subject:Date;
-	b=owJgOB2/8rdgNyaNK1+qLqitv68/0OEjLdptIlSe/fdtbMnHxe+DjD7HkrWuGsRHl
-	 o83W2Oa0KeBipjmt/+/g+lycb7TKtzwGispk8Q402idhuHmX3aL7VSC2ncW8VMqjDy
-	 nrVXy9WdZ5ro8nYW6pgRyMm1pSSJDZ9phRrghE0+aps3WnoIBg8NbYJ5GonJB/nXtv
-	 Xb/feolKhIxsLeeWw5NsPf1mObD6z48NrzmZUxewYadXHhaDytKeTBPvbXFpL1DigA
-	 8vL4M9gV/gQ0KCsA81gDcZDWcgZoRg8wOOeMTC/txLeIn0D5AvUN+xYJ5fXPK5OYx1
-	 ZU88eKGOd2uMQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lNOR05T8"
+Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2cb3f5bb19aso497695ad.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 13:03:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790107428; x=1790712228; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tLf44y0wjXekRKRabcqObNjHMHH8+Vthi1ry2XuMnz0=;
+        b=lNOR05T8az3xETlzdh1sV+1XBAIwmnE0hhuXGdy47J1hjpX8TJwxTabCtQSgnvDhhR
+         QT1yc6QaYV46Bqgzb6tS6vXrFzt3Qugokk0Om7EvmihwV7zWixML9bZmYtkaugGoWL6M
+         sZ3oYmH/w/aSVsnyuG7XtbSWY+rqMMtCSNDIeKsUC3YSIBtSsF9su2qDTEQvO9dP8WNn
+         OKeNoJyj7FMS+qoJsJJ7MaJqG2GtbXgIa4VOhrcF8+pEFAwtfnkLOxeUl3ypQIT2GgaI
+         kWu8FDu9C/SmRXJr87H1XNApHRFZ3IXUgcjq3GGWYlUyXCQcVrfUGZ1JXQWySRvaIRku
+         075Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790107428; x=1790712228;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tLf44y0wjXekRKRabcqObNjHMHH8+Vthi1ry2XuMnz0=;
+        b=j8IaWIDEwngT6O1uDxYKnHvyDJDVHktbQUYuXGMn+SY0cpS+KniWNnKo2ecg2Qhp2x
+         Te0J87Fqnezwv80Ahx815G2HmzGqPfeHQ0lLVG0EolnqyySS72S4cVq66Wgc5uaTutY7
+         WSPkMOd5SEqO08NcU8DQhIxuowcc6NkoDLszFyoOqSgvclJtk+TD/TBl9WsFQxtNkRlv
+         KrYlpQ9SkRFz4tHOPmKxceG/1f/LKAqVQTMUeZ0JNCcOYXUvyd8AHdmZ4mQBePNtBlh/
+         Q2Te2wNuP1+rWRPAqD8HFCMa0tdJ2z3rR2P4qgkYMZmBieZC6eYjuLX6Z4qnaa3MPuei
+         3XgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbvEOV2UESQUYtlvBMRHgdhQNG166XYrfbqnnX0UFy1ZDpRyYWNATv7R9J9TR1gvfvRKZVu77p4ziX@vger.kernel.org
+X-Gm-Message-State: AFuF++nwli2IPdQQJ1x4HmMqShyGO2uhkZ0PcdjW8x4T6D6vfhSlEBJh
+	//O3yip2eIRg/uAW0uGc1ObPTsGUtM6r7UGHSkcHqh8AcqFKse7K7aU6
+X-Gm-Gg: AYBFou0NveBWpiIZ2Yco6COjrnfZVXiJBAOW7hR+d2Z4VgNIEqYUmqLGE4Wt6hoLV+L
+	+BKWF3Rqq22PwayoCiQ3OjgW4HbYqTsvL4WiCuzXoG0E9iF6LeLEy/hdlDkNHQJuvB6NGtmEeOW
+	BOUezMDNCB8YbrjSN/QiFbIKyV5hI2LtW/0Wpe2IYQ7zV1rofC79QDDvaydoyUR/65ujC3A20+M
+	WoSqyk+rOY1saRAzf4FP+EEzCl101+X0TChpcwf+wuIH8/wmtUR9dE7ZNpeVOBC/N/OyR6u94r+
+	VwP6G44MPmHckQDHzhuNaI9mVFgyqK3TtXT5GK89EWBF/WhJBUdVBttRM2RUpQBHwScSX5APEai
+	C9bsa4qPCNODax+D7Vm7pw8Hx/OhlQ64tt6CPXoti+cBJNUs+pDSPOWf+Bu6cgPdE2k25jIreGL
+	WidI/2Mbx9L7fSOrqI4bLUPROVMfrSqxssfi8awpY5pyNFI5SRfdAgC71bI8IzyLevZ8deWbpEb
+	R9aLVW3V20vDr5z/Q==
+X-Received: by 2002:a17:902:fc4c:b0:2dd:c053:e0f7 with SMTP id d9443c01a7336-2df69ddf21cmr4274665ad.38.1790107427896;
+        Tue, 22 Sep 2026 13:03:47 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5eea15sm654515ad.64.2026.09.22.13.03.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 13:03:47 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Flora Fu <flora.fu@mediatek.com>,
-	Alexandre Mergnat <amergnat@baylibre.com>
-Cc: linux-kernel@vger.kernel.org,
+	Heiko Stuebner <heiko@sntech.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Coia Prant <coiaprant@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	David Heidelberg <david@ixit.cz>,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH] regulator: dt-bindings: Convert mediatek,mt6380-regulator to DT schema
-Date: Tue, 22 Sep 2026 14:55:01 -0500
-Message-ID: <20260922195502.818012-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH net-next v10 00/11] net: pcs: add basic support for RK3568 XPCS
+Date: Wed, 23 Sep 2026 04:03:24 +0800
+Message-ID: <20260922200336.2201212-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Convert the MediaTek mediatek,mt6380-regulator binding to DT schema
-format. It's a straight forward conversion.
+This series adds proper SGMII support for the Rockchip RK3568 SoC
+using the integrated Synopsys DesignWare XPCS, along with necessary
+fixes and refactoring in the stmmac core and XPCS driver.
 
-The regulators are part of the "pwrap" block, so add a $ref to them.
+Motivation
+==========
+The RK3568 integrates a DW XPCS accessed via APB3 and connected to
+a Naneng Combo SerDes PHY.  Several boards (e.g., Ariaboard
+Photonicat) use this interface for Gigabit Ethernet.  However, the
+current upstream stmmac driver does not support this configuration,
+and the XPCS driver has issues in SGMII poll mode that cause the
+link to be reported incorrectly.
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+This series addresses these issues by:
+- Refactoring stmmac PCS lifetime management to allow platform drivers
+  full control over PCS creation/destruction
+- Fixing the XPCS driver's SGMII link recovery
+- Adding a Rockchip XPCS platform glue driver and wiring it up in
+  dwmac-rk
+
+Series overview
+===============
+
+Generic:
+  Patch 1: move XPCS lifetime management to platform drivers
+
+PHY:
+  Patch 2: DT binding for Naneng Combo PHY SGMII MAC selection
+  Patch 3: implement the PHY SGMII MAC selection in driver
+
+RK3568 XPCS/SGMII:
+  Patch 4: DT binding for Rockchip RK3568 XPCS
+  Patch 5: add XPCS and fixed-clock nodes to rk3568.dtsi
+  Patch 6: add ANRESTART support for SGMII link recovery
+  Patch 7: implement the Rockchip XPCS platform glue driver
+  Patch 8: DT binding for Rockchip DWMAC PCS
+  Patch 9: wire up SGMII support in dwmac-rk
+  Patch 11: update MAINTAINERS
+
+Board enablement:
+  Patch 10: enable SGMII LAN port on Photonicat board
+
+Changelog
+=========
+
+Changes since v9:
+
+Patch 5 (arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes)
+- Move the two fixed-clock nodes (clk_gmac0_xpcs_mii and
+  clk_gmac1_xpcs_mii) from between the XPCS node and pipe_phy_grf0 to
+  the top of the root node, alongside the other non-reg nodes, and
+  sort them alphabetically. This addresses a DT coding style violation
+  reported by the Sashiko AI review. No functional change.
+
+Patch 7 (net: pcs: xpcs: add Rockchip RK3568 platform glue driver)
+- Add system suspend/resume callbacks and switch from
+  DEFINE_RUNTIME_DEV_PM_OPS to _DEFINE_DEV_PM_OPS so that system
+  suspend and runtime suspend can use different callbacks.
+- Mark the XPCS as part of the wakeup path in system suspend via
+  device_set_wakeup_path(). PD_PIPE is shared with SATA and PCIe;
+  without this, genpd would power the domain down once every consumer
+  is suspended, killing the SerDes and breaking MAC WoL. Runtime PM
+  behaviour is unchanged: the runtime callbacks only gate the CSR
+  clock, and dev_pm_genpd_rpm_always_on() already keeps PD_PIPE on at
+  runtime.
+- Clarify the comment above the power domain access: the XPCS lives in
+  PD_PIPE, and the domain must be powered before any register access.
+
+Key design decisions
+====================
+- The stmmac core now delegates XPCS creation entirely to platform
+  drivers via pcs_init/pcs_exit.  This is necessary because the
+  generic XPCS creation logic would override any XPCS set up by the
+  platform driver.
+
+- The Rockchip XPCS driver creates a virtual MDIO bus over the APB3
+  registers and implements address remapping.  The generic XPCS core
+  handles all PCS configuration via phylink_pcs_ops.
+
+- On RK3568 in SGMII mode, the MAC clock is fixed at 125 MHz and
+  cannot be dynamically changed.  In-band mode is used, and the
+  generic stmmac set_clk_tx_rate callback is disabled to prevent
+  incorrect clock updates that would break RX.
+
+- The SerDes and power domain are attached to the XPCS device tree
+  node rather than the MAC node. This reflects the actual hardware
+  topology and simplifies the dwmac-rk driver by keeping all PCS-related
+  resources self-contained. It also prepares for possible future QSGMII
+  support, where a single SerDes serves multiple MACs and would be
+  more naturally managed under the XPCS node.
+
+Testing
+=======
+Board: Ariaboard Photonicat (RK3568)
+OS: Armbian (trixie)
+Kernel: 6.18 (backports)
+Result: The SGMII interface obtains an IP address, SSH works, and
+        ping traffic passes without loss.
+
+Notes
+=====
+- When testing out-band mode with set_clk_tx_rate, only 1000Mbps
+  works on both TX/RX; 10/100Mbps only works on TX side.
+
+Dependencies
+============
+None. All patches apply cleanly on top of torvalds master tree (v7.3).
+
+Acknowledgments
+===============
+This work was inspired by and builds upon the excellent work of others:
+- Serge Semin's Synopsys DesignWare XPCS platform driver (pcs-xpcs-plat.c)
+- Clément Léger's Renesas MIIC driver (pcs-rzn1-miic.c)
+- The Rockchip TRM and downstream OEM drivers
+
+Thanks in advance,
+Coia Prant
 ---
- .../regulator/mediatek,mt6380-regulator.yaml  | 117 ++++++++++++++++++
- .../bindings/regulator/mt6380-regulator.txt   |  89 -------------
- .../bindings/soc/mediatek/mediatek,pwrap.yaml |   3 +
- 3 files changed, 120 insertions(+), 89 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/regulator/mediatek,mt6380-regulator.yaml
- delete mode 100644 Documentation/devicetree/bindings/regulator/mt6380-regulator.txt
+Coia Prant (11):
+  net: stmmac: move XPCS lifetime management to platform drivers
+  dt-bindings: phy: rockchip: naneng-combphy: add rockchip,sgmii-mac-sel
+    property
+  phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+  dt-bindings: net: pcs: add rockchip,rk3568-xpcs support
+  arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
+  net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+  net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+  dt-bindings: net: rockchip-dwmac: document pcs-handle
+  net: stmmac: dwmac-rk: add SGMII support for RK3568
+  arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
+  MAINTAINERS: add entry for Rockchip XPCS driver
 
-diff --git a/Documentation/devicetree/bindings/regulator/mediatek,mt6380-regulator.yaml b/Documentation/devicetree/bindings/regulator/mediatek,mt6380-regulator.yaml
-new file mode 100644
-index 000000000000..0b3c604da727
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/mediatek,mt6380-regulator.yaml
-@@ -0,0 +1,117 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/mediatek,mt6380-regulator.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MediaTek MT6380 Regulator
-+
-+maintainers:
-+  - Sean Wang <sean.wang@mediatek.com>
-+
-+properties:
-+  compatible:
-+    const: mediatek,mt6380-regulator
-+
-+patternProperties:
-+  '^buck-(vcore1?|vrf)$':
-+    description: BUCK regulators
-+    $ref: regulator.yaml#
-+    unevaluatedProperties: false
-+
-+    required:
-+      - regulator-min-microvolt
-+      - regulator-max-microvolt
-+      - regulator-ramp-delay
-+
-+  '^ldo-v([mat]|phy|ddr)$':
-+    type: object
-+    description: LDO regulators
-+    $ref: regulator.yaml#
-+    unevaluatedProperties: false
-+
-+    required:
-+      - regulator-min-microvolt
-+      - regulator-max-microvolt
-+      - regulator-ramp-delay
-+
-+required:
-+  - compatible
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    regulators {
-+        compatible = "mediatek,mt6380-regulator";
-+
-+        buck-vcore1 {
-+            regulator-name = "vcore1";
-+            regulator-min-microvolt = <600000>;
-+            regulator-max-microvolt = <1393750>;
-+            regulator-ramp-delay = <6250>;
-+            regulator-always-on;
-+            regulator-boot-on;
-+        };
-+
-+        buck-vcore {
-+            regulator-name = "vcore";
-+            regulator-min-microvolt = <600000>;
-+            regulator-max-microvolt = <1393750>;
-+            regulator-ramp-delay = <6250>;
-+        };
-+
-+        buck-vrf {
-+            regulator-name = "vrf";
-+            regulator-min-microvolt = <1200000>;
-+            regulator-max-microvolt = <1575000>;
-+            regulator-ramp-delay = <0>;
-+            regulator-always-on;
-+            regulator-boot-on;
-+        };
-+
-+        ldo-vm {
-+            regulator-name = "vm";
-+            regulator-min-microvolt = <1050000>;
-+            regulator-max-microvolt = <1400000>;
-+            regulator-ramp-delay = <0>;
-+            regulator-always-on;
-+            regulator-boot-on;
-+        };
-+
-+        ldo-va {
-+            regulator-name = "va";
-+            regulator-min-microvolt = <2200000>;
-+            regulator-max-microvolt = <3300000>;
-+            regulator-ramp-delay = <0>;
-+            regulator-always-on;
-+            regulator-boot-on;
-+        };
-+
-+        ldo-vphy {
-+            regulator-name = "vphy";
-+            regulator-min-microvolt = <1800000>;
-+            regulator-max-microvolt = <1800000>;
-+            regulator-ramp-delay = <0>;
-+            regulator-always-on;
-+            regulator-boot-on;
-+        };
-+
-+        ldo-vddr {
-+            regulator-name = "vddr";
-+            regulator-min-microvolt = <1240000>;
-+            regulator-max-microvolt = <1840000>;
-+            regulator-ramp-delay = <0>;
-+            regulator-always-on;
-+            regulator-boot-on;
-+        };
-+
-+        ldo-vt {
-+            regulator-name = "vt";
-+            regulator-min-microvolt = <2200000>;
-+            regulator-max-microvolt = <3300000>;
-+            regulator-ramp-delay = <0>;
-+            regulator-always-on;
-+            regulator-boot-on;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/regulator/mt6380-regulator.txt b/Documentation/devicetree/bindings/regulator/mt6380-regulator.txt
-deleted file mode 100644
-index 0058441f16d2..000000000000
---- a/Documentation/devicetree/bindings/regulator/mt6380-regulator.txt
-+++ /dev/null
-@@ -1,89 +0,0 @@
--MediaTek MT6380 Regulator
--
--All voltage regulators provided by the MT6380 PMIC are described as the
--subnodes of the MT6380 regulators node. Each regulator is named according
--to its regulator type, buck-<name> and ldo-<name>. The definition for each
--of these nodes is defined using the standard binding for regulators at
--Documentation/devicetree/bindings/regulator/regulator.txt.
--
--The valid names for regulators are:
--BUCK:
--  buck-core1, buck-vcore, buck-vrf
--LDO:
--  ldo-vm ,ldo-va , ldo-vphy, ldo-vddr, ldo-vt
--
--Example:
--
--	regulators {
--		compatible = "mediatek,mt6380-regulator";
--
--		mt6380_vcpu_reg: buck-vcore1 {
--			regulator-name = "vcore1";
--			regulator-min-microvolt = < 600000>;
--			regulator-max-microvolt = <1393750>;
--			regulator-ramp-delay = <6250>;
--			regulator-always-on;
--			regulator-boot-on;
--		};
--
--		mt6380_vcore_reg: buck-vcore {
--			regulator-name = "vcore";
--			regulator-min-microvolt = <600000>;
--			regulator-max-microvolt = <1393750>;
--			regulator-ramp-delay = <6250>;
--		};
--
--		mt6380_vrf_reg: buck-vrf {
--			regulator-name = "vrf";
--			regulator-min-microvolt = <1200000>;
--			regulator-max-microvolt = <1575000>;
--			regulator-ramp-delay = <0>;
--			regulator-always-on;
--			regulator-boot-on;
--		};
--
--		mt6380_vm_reg: ldo-vm {
--			regulator-name = "vm";
--			regulator-min-microvolt = <1050000>;
--			regulator-max-microvolt = <1400000>;
--			regulator-ramp-delay = <0>;
--			regulator-always-on;
--			regulator-boot-on;
--		};
--
--		mt6380_va_reg: ldo-va {
--			regulator-name = "va";
--			regulator-min-microvolt = <2200000>;
--			regulator-max-microvolt = <3300000>;
--			regulator-ramp-delay = <0>;
--			regulator-always-on;
--			regulator-boot-on;
--		};
--
--		mt6380_vphy_reg: ldo-vphy {
--			regulator-name = "vphy";
--			regulator-min-microvolt = <1800000>;
--			regulator-max-microvolt = <1800000>;
--			regulator-ramp-delay = <0>;
--			regulator-always-on;
--			regulator-boot-on;
--		};
--
--		mt6380_vddr_reg: ldo-vddr {
--			regulator-name = "vddr";
--			regulator-min-microvolt = <1240000>;
--			regulator-max-microvolt = <1840000>;
--			regulator-ramp-delay = <0>;
--			regulator-always-on;
--			regulator-boot-on;
--		};
--
--		mt6380_vt_reg: ldo-vt {
--			regulator-name = "vt";
--			regulator-min-microvolt = <2200000>;
--			regulator-max-microvolt = <3300000>;
--			regulator-ramp-delay = <0>;
--			regulator-always-on;
--			regulator-boot-on;
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-index e7c4a3984c60..79b755858bad 100644
---- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-+++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
-@@ -105,6 +105,9 @@ properties:
-   pmic:
-     type: object
- 
-+  regulators:
-+    $ref: /schemas/regulator/mediatek,mt6380-regulator.yaml#
-+
- required:
-   - compatible
-   - reg
+ .../net/pcs/rockchip,rk3568-xpcs.yaml         | 110 ++++
+ .../bindings/net/rockchip-dwmac.yaml          |  18 +
+ .../phy/phy-rockchip-naneng-combphy.yaml      |  13 +
+ MAINTAINERS                                   |   9 +
+ .../boot/dts/rockchip/rk3568-photonicat.dts   |  74 ++-
+ arch/arm64/boot/dts/rockchip/rk3568.dtsi      |  45 ++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  44 +-
+ .../stmicro/stmmac/dwmac-renesas-gbeth.c      |   7 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 130 +++-
+ .../net/ethernet/stmicro/stmmac/dwmac-rzn1.c  |   7 +-
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |   7 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |  39 +-
+ drivers/net/pcs/Kconfig                       |  25 +
+ drivers/net/pcs/Makefile                      |   5 +-
+ drivers/net/pcs/pcs-xpcs-rk.c                 | 619 ++++++++++++++++++
+ drivers/net/pcs/pcs-xpcs.c                    |  35 +-
+ .../rockchip/phy-rockchip-naneng-combphy.c    |   8 +
+ include/linux/pcs/pcs-xpcs-rk.h               |  11 +
+ 19 files changed, 1135 insertions(+), 72 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
+ create mode 100644 drivers/net/pcs/pcs-xpcs-rk.c
+ create mode 100644 include/linux/pcs/pcs-xpcs-rk.h
+
 -- 
-2.53.0
+2.47.3
 
