@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7135E2FE060;
-	Tue, 22 Sep 2026 17:06:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D17541E5B
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 17:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096803; cv=none; b=MHXsHIlnWY2/5O70audxCAwxjVatWL5zm73HxA2EJMldJwyVZC5YUg5EuSmQ6enH2vncEAous20CxFXfGJxbyaNDEAHQJNkASv1JayBJzyosNfiaZpD9bEAjc/ZZGeGv/qAE6OhP/UvZjspXEYvaPfXXm6ACIFwWrgiPDY5nuXU=
+	t=1790096889; cv=none; b=tEhPpPlskuw3GXjQDUXFWi4WIMaqmD9JEPyaKRrPsO7NsY0SyUm6gF1mgqTAGWoqKoxJ+fnDohW8Z9M7Ejo1O0ox1wiaHfKvTXMhLadGow/ytVjuwyBtFbP6BkvLTzGxga+33Ao6AJEu0KB4ypzakYNI0KBU6o50FH8NM0uPcsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096803; c=relaxed/simple;
-	bh=Ov2b86dC507G6BGRsSXQE6BgR/Y21isTMrUWiliPpwI=;
+	s=arc-20240116; t=1790096889; c=relaxed/simple;
+	bh=oB5H7xmmsDGwSrUthg5w1JANDnmG/YCERnbMBWlpE3U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gkqwHEIHyl8y/fZ2N/FqpJFh0BJJ8bEiSC1zk2w7eEGvnERjGugYOP+23+CjU8WSIb6G61oVtbJpj5EBrPRgIgseh9bpxawaJI18i1USaGrwCwsoRHgS3VSug6lfCX7WBtq2qKfySkM4ToSQy+oXaJAY0/X60MflojZVH4mVsOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxkbwLoV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=oSUR//xgl1Jkxb0L1FvuHDJng4749GA22Kuj5f5wXNjrbL60xCSrDc0qy9gX+2TdWKJCoFa8kTZLweBs2DdbUS0ASOejFIoc+wbtLlvGE1EHhLZXV/jKz9rJlm32xkpQ3UrWGxfLWc2NvhLmWY1rmqNWCwMTrjLqrBKjXgtGnWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bg5xrMTs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxkbwLoV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E8B1F000FF;
-	Tue, 22 Sep 2026 17:06:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bg5xrMTs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC76C1F000FF;
+	Tue, 22 Sep 2026 17:08:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790096802;
-	bh=TBChUqzt80rAa+G5CpFUfu65jXW29h6Fg2OgGocDwT8=;
+	s=k20260515; t=1790096887;
+	bh=tF2Z/iLS1R+C5ksggZumSjADuKGLwYVXKpUUk2/yIW8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bxkbwLoVuWulUxgEcn2zGg8jd5POpvVtOxWgEK72FVm7XCr7fzxn1A8EW6+LysAON
-	 PX+TqPZtajf4y9wi4sjkholmQBu2aQET2nd1seDcHLQz5MurfXPlz9C3GHIhpripsE
-	 TsTiH3YX1DyURGydGgGGm9ionQvcWuJXvgk/I0jyCaHzoQnHJumqDQzrWQKR3HTpRL
-	 8PH4uANvwi+uAzbXeId2Gf6YPw0dSsDMKH+xtAPjaFiDWxh1c+7Ylftigoikxxlq84
-	 n0zLovXymn1TRiiuSyMkSWo7gnjJOZjethnC+9gRWmBgPdATT/2ptErqole4UgSil7
-	 6e+y019Cgckag==
+	b=Bg5xrMTs3f4let1nvjkwdHzxs/ouMBlUTwwFbEDgiKAAxwf9x9fjjsOC6CQuukRhF
+	 Qn1qnV0c3KtuhbXnb2XWhhtPaX98wCcq0LC6K6GoblwQzE6UaNybLlSUpVNJd1ZWF7
+	 v7SvdaefsY50Ou7qcTMNLxKmMMckbpnrlK7QrQIEV9GnLWpWFoAf4csdrMgz4M9Gya
+	 Bqq9cIuehP9tjPqdmEkH+6PRuf0yKmPGZG8j0D2DGkwCXGNURYQv9hoIktPz3eY3Pk
+	 YmmU5NXry4q1jySbrI9PoTcDTjT9vOHvUYZqsRGXklYa6O2pfJohc0GaX5GMWJ9uYm
+	 PvD7aY10SlpEQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] platform/arm64: add Lenovo Yoga Slim 7x Gen 11
- EC driver
+Subject: Re: [PATCH v2] arm64: dts: ti: Add k3-am62p-wakeup.dtsi for AM62PX
+ efuse GP_SW1
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Oleg Keri" <okerixx@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260922165737.260443-3-okerixx@gmail.com>
-References: <20260922165737.260443-1-okerixx@gmail.com>
- <20260922165737.260443-3-okerixx@gmail.com>
+To: "Judith Mendez" <jm@ti.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260922165714.425576-1-jm@ti.com>
+References: <20260922165714.425576-1-jm@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 17:06:41 +0000
-Message-Id: <20260922170641.B9E8B1F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 17:08:07 +0000
+Message-Id: <20260922170807.AC76C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,54 +46,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] hwmon: subsystem layering violation by registering hwmon device =
-from platform driver
+- [High] dt-bindings: invalid fallback compatible causes bus fault on AM62P=
+ WKUP_CTRL_MMR
 --
 
-commit fad2a849321ec9af59f9a8420c3cb98f8ed6865e
-Author: Oleg Keri <okerixx@gmail.com>
+commit b27457a62deb29b29e55d04f2bdab0cbcd3ef0cd
+Author: Judith Mendez <jm@ti.com>
+Subject: arm64: dts: ti: Add k3-am62p-wakeup.dtsi for AM62PX efuse GP_SW1
 
-platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
+This commit creates a new device tree include file for AM62P WAKEUP domain
+peripherals. It adds an efuse node for the GP_SW1 register, which will be
+used to determine the AM62P silicon revision.
 
-This commit adds an Embedded Controller (EC) driver for the Lenovo Yoga Slim
-7x Gen 11 laptop on the Snapdragon X2 Elite platform. It provides access to
-thermistors, battery cell voltages, CPU fan speed, and keyboard backlight
-control over I2C.
+Link to v1: https://lore.kernel.org/all/20260915001304.3781247-1-jm@ti.com/
 
-> diff --git a/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c b/drive=
-rs/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-wakeup.dtsi b/arch/arm64/boo=
+t/dts/ti/k3-am62p-wakeup.dtsi
 > new file mode 100644
-> index 0000000000000..a16849877dd7b
+> index 0000000000000..c56fb3890c983
 > --- /dev/null
-> +++ b/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+> +++ b/arch/arm64/boot/dts/ti/k3-am62p-wakeup.dtsi
+> @@ -0,0 +1,25 @@
 [ ... ]
-> +	if (!ec->temp_present) {
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "no thermistor reported a usable value\n");
-> +	}
-> +
-> +	dev_dbg(dev, "thermistors present: %#lx\n", ec->temp_present);
-> +
-> +	hwmon =3D devm_hwmon_device_register_with_info(dev, "yoga_slim7x_ec", e=
-c,
-> +						     &slim7x11_ec_chip_info, NULL);
+> +&wkup_conf {
+> +	gpsw_efuse: efuse@230 {
+> +		compatible =3D "ti,am62p-efuse", "socionext,uniphier-efuse";
 
-[Severity: Medium]
-Does registering the hardware monitoring device directly from outside the
-drivers/hwmon/ directory violate the subsystem guidelines?=20
+[Severity: High]
+Does this fallback compatible cause a bus fault on boot?
 
-The HWMON guide dictates that hardware monitoring functionality in
-multi-function devices should be implemented as an auxiliary device driver
-residing in drivers/hwmon/, and that registering from outside this
-directory bypasses maintainer review.
+The ti,am654-chipid driver probes and calls nvmem_cell_read_u32() for the
+gpsw1 cell, which delegates the read to the NVMEM provider. By using
+"socionext,uniphier-efuse" as a fallback, the driver in
+drivers/nvmem/uniphier-efuse.c is bound. That driver sets word_size =3D 1 a=
+nd
+uses a byte-wise readb() loop in uniphier_reg_read().
 
-> +	if (IS_ERR(hwmon))
-> +		return PTR_ERR(hwmon);
-> +
-> +	ec->kbd_led.name =3D "platform::kbd_backlight";
-> +	ec->kbd_led.max_brightness =3D SLIM7X11_EC_KBLT_MAX;
-> +	ec->kbd_led.brightness_get =3D slim7x11_ec_kbd_led_get;
+Because the efuse@230 node is in the TI K3 WKUP_CTRL_MMR space, it strictly
+requires 32-bit aligned accesses (readl()). The 8-bit accesses performed by
+the Uniphier driver violate this hardware invariant and cause a Synchronous
+External Abort during boot.
+
+Also, is it acceptable to piggyback on an unrelated vendor's IP compatible
+string just to bind a generic NVMEM driver?
+
+> +		reg =3D <0x230 0x10>;
+> +		#address-cells =3D <1>;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922165737.2604=
-43-1-okerixx@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922165714.4255=
+76-1-jm@ti.com?part=3D1
