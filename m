@@ -1,85 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3914F51616C;
-	Tue, 22 Sep 2026 22:24:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7904F4D17BD
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 22:26:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790115903; cv=none; b=XmDXgU1xUxNDtYJ2hQA8RHD0P+MeoyPHI4bTv3M2vT7ybOI36TKpR3Lxd0r0StukB7BYBAC6iLDUUZj3RtK61TNj2KMhztYae5hTVYvtRbwsmKOrfz6TqWEw9Yf/NOhr3FyMDDxa6S8pLDoz7eZxx5eZUsIwd+kZ0gKohwbJze0=
+	t=1790115972; cv=none; b=gTC0CXUVpSA2NV5EUZ64vAyXCBlUUy5CQR9dYtKEijLU2c3G9dG5ogaKBcZPWXWMPNDhcBjt9NMUWATsCZdg7gIOk9XLM4a88VXULv6RzYK+hP66MqiUshhLWYkVfIFt6HMH0F6wriWND+7R6zs5FTTG0hq1ALAMTLFIVcOLMWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790115903; c=relaxed/simple;
-	bh=+mGzfvcGRvvDxMhn1pdz8wAXxa1sKYRxsMNMo4xftkQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DJJhNo1fp6LyE9DRW93eZccYnlGK9eRINgwU0lABe7u4ywlFrKXnYJ2KHfAQeHyOQbg91jRN2spzGbxZV2OY6LbIEuHr8+SpbZnODmRyy0gC6VFaVJkZNXeW0J90usAgUD+u4T7zlRe64kMjbUMIarslEoHyZR+kHMf8CpXSOIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cjCKBqcK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790115972; c=relaxed/simple;
+	bh=/NkZgXQvY4urATAIP391H9sKmZUYeAd7DDwHzOLxSqU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZbVX3Y5qk3PZOc+wKlHzdxevPYMouFDl426pIgFnWQfUDeyu/LcvvyyKdN2b3XHY0L/XlMSRAXx1We5tRzvsqUBbUyQ9Vx+Wraa6tD7jC708WhT/ElX77shDoD/LUPnzpiuhZN8wmm19AV01Esqw26/P2OTxS+5KNtt1hOpH8lI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O9wh9UPm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cjCKBqcK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3EEB1F000FF;
-	Tue, 22 Sep 2026 22:24:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O9wh9UPm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0651F000FF;
+	Tue, 22 Sep 2026 22:26:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790115891;
-	bh=vWi2Axh0FHWZnYR9ulxCow+anQdMaqgalXbk9rXUqks=;
-	h=From:To:Cc:Subject:Date;
-	b=cjCKBqcKEru9zM97pqeXmgjpuIsJTYOlXU65lbCzviwU1uTCQc7/jP5GAGwVB8bC3
-	 bAIdF0wadiIt0JD/TxosSvXCWr9Whe6gR35sjbdMUGcXYb5w48YTA1eC9WXRva11H/
-	 cqrhIh6itFZQlEK/IePJv8OzC1ogosWKzq0KXyXGdcAFPwNgDB3B3mP4DHYUQk52eb
-	 56ZMiCgnM3aN1iAVCpEznT0im7FSJv1scneOxejhud4uCnr/3PEpA5l1d9caLkTxgp
-	 TC113L05PJvZN8TUmOE1ja4cEkgoSNn97JzZLn8IuKqKPH5qSA2ojJ93x92ZILsL9K
-	 CUM0Xnq6unQRA==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Sean Wang <sean.wang@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Andy Teng <andy.teng@mediatek.com>
-Cc: linux-mediatek@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] dt-bindings: pinctrl: Fix MT6797 pin nodes
-Date: Tue, 22 Sep 2026 17:24:39 -0500
-Message-ID: <20260922222439.1682749-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1790115962;
+	bh=k0n1/uGusyeUsDRhjNGx9W+yHwj9ORfL2PXxS/3tmPA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=O9wh9UPmIir5BgXV7j6CgMWel3EqgTctMwkQFCCq/s9GlH7eAjD41/ckbxZD03Jh+
+	 tsSItoHTuZV4sRq29EI8NEOx89HS/QQxOtgDIoljGz4QfyGILH+ulzTU/tgLGGis1y
+	 lRHh84PbOob6BDoSxP6y8Tu4QggnGYbVDolzbs3wyHjp5UZDueRIcGVksN2SLZJgnA
+	 zM9dVzMiOa0oVv+wSs1XIhffdSOMeLuPyYt9UX79z5Iygu2a9lxcA95k8ey75jlwAy
+	 y4kMS4jxyehmK7OE+4xkJAiS3zjmFjdglBuUNgojV6YRSZRKve4BD3pGPrK1mM3z0K
+	 oFd2kvxcVLXjg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/5] arm64: dts: arduino-imola: add support for sound
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <ca8cfb43cdc08851db1283df2108e77b22fedc6e.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+References: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+ <ca8cfb43cdc08851db1283df2108e77b22fedc6e.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 22:26:01 +0000
+Message-Id: <20260922222602.0D0651F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Allow MT6797 pinctrl state nodes named *-pins directly under the
-pinctrl controller. The existing mt6797.dtsi uses nodes such as
-i2c0-pins and uart0-pins, each with pins-* child nodes, while the
-conversion only allowed numbered state nodes such as foo-0.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] ASoC: redundant BE DAI links for identical q6afe CPU DAI
+--
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml  | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+commit bd3dd7751e736b11cf0fd37d9d4991d90e6ee507
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
-index f4bab7a132d3..dba2dec15477 100644
---- a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
-@@ -111,12 +111,12 @@ allOf:
-         - "#interrupt-cells"
- 
- patternProperties:
--  '-[0-9]*$':
-+  '(-pins|-[0-9]+)$':
-     type: object
-     additionalProperties: false
- 
-     patternProperties:
--      '-pins*$':
-+      '.*pins.*':
-         type: object
-         description:
-           A pinctrl node should contain at least one subnodes representing the
--- 
-2.53.0
+arm64: dts: arduino-imola: add support for sound
 
+Add support for sound on Arduino UNO Q board, which includes headset
+playback and record, and lineout.
+
+> diff --git a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts b/arch/ar=
+m64/boot/dts/qcom/qrb2210-arduino-imola.dts
+> index c472e13fceca4..e99d2a56dc287 100644
+> --- a/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+> +++ b/arch/arm64/boot/dts/qcom/qrb2210-arduino-imola.dts
+[ ... ]
+> +		ear-playback-dai-link {
+> +			link-name =3D "Ear Out Playback";
+> +
+> +			codec {
+> +				sound-dai =3D <&pmic4125_codec 0>, <&swr1 0>, <&rxmacro 0>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai =3D <&q6afedai RX_CODEC_DMA_RX_0>;
+> +			};
+[ ... ]
+> +		hph-playback-dai-link {
+> +			link-name =3D "Headphones Playback";
+> +
+> +			codec {
+> +				sound-dai =3D <&pmic4125_codec 0>, <&swr1 0>, <&rxmacro 0>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai =3D <&q6afedai RX_CODEC_DMA_RX_0>;
+> +			};
+[ ... ]
+> +		lo-playback-dai-link {
+> +			link-name =3D "Line Out Playback";
+> +
+> +			codec {
+> +				sound-dai =3D <&pmic4125_codec 0>, <&swr1 0>, <&rxmacro 0>;
+> +			};
+> +
+> +			cpu {
+> +				sound-dai =3D <&q6afedai RX_CODEC_DMA_RX_0>;
+> +			};
+
+[Severity: High]
+Does defining multiple identical Backend (BE) DAI links cause conflicting
+DSP driver operations?
+
+This link, as well as ear-playback-dai-link and hph-playback-dai-link
+defined above, map the exact same physical CPU DAI (RX_CODEC_DMA_RX_0) to t=
+he
+exact same Codec DAIs.
+
+When the ALSA DPCM core registers the card, it instantiates duplicate BE
+runtimes. During audio playback, if the DPCM core triggers multiple of these
+BEs concurrently or sequentially, could this interrupt active audio and
+corrupt the shared hardware state? For instance, q6afe_dai_prepare() in
+sound/soc/qcom/qdsp6/q6afe-dai.c checks is_port_started[dai->id]; if two
+runtimes call prepare on the same DAI, the driver might abruptly stop and
+restart the active DSP port.
+
+Should logical branching to different endpoints (Ear, Headphones, Line Out)
+be handled internally by the Codec driver's DAPM routing graph instead of
+defining redundant BE bus links?
+
+> +
+> +			platform {
+> +				sound-dai =3D <&q6routing>;
+> +			};
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790114902.gi=
+t.srinivas.kandagatla@oss.qualcomm.com?part=3D4
