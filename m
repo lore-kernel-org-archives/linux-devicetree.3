@@ -1,111 +1,75 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from va-2-35.ptr.blmpb.com (va-2-35.ptr.blmpb.com [209.127.231.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C133F6C4D
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 11:00:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD03539764
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 11:02:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074823; cv=none; b=Xv9LqldBRxxLgc+BKhc0lVjt/VYNIZnkoXqHrGJu1nCWcYvusG8pggyOIsvcVOvdFZovVzT4TJ7RuIsXTXY4AarmlL6MZNn4FPiqe/s643hBCZcfDM5MHmuFw/bcLDl0hlG02ddmMEVSZCcoCTvrhA813xr6Yiqzqno8+9ueSwE=
+	t=1790074974; cv=none; b=IUzgi+HAg5fzmObuVE2BO26o86+eUlA8icuW/0keCoL0Xr4h6RyWa/PzDWUtIqnByD6/9Shtt5pqjZG9t2t7KvaRT4e5t/Q/Ph1cPdPvEFWtfoxAxSEY7HPTl5pnxAz1wLnrNprhCQRxuEKElfpKoGgMGA02RZoZN0DtPDQWI2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074823; c=relaxed/simple;
-	bh=/0OHB51Px1kwmAioyURonbOhXzHFSra/T+tZss6z+H4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tcSYpGdZuEDolCksXDTrFzRFqGPqV6Vdzn73yx7xuIroHyRkFdQvSN7u/eKbBOlmuUPOF95aFdCPbRXS7UjyvOZxjY6Xhxpsce3ZLYgnENyndYJFDUoeH2Vwg1bXL4PW1rGQKQ8XEseoCHeAfJzSRzIH+heE3/cw9gz4s7WZdvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eTXgxQSX; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790074974; c=relaxed/simple;
+	bh=1899KeD85uKRGfXlEpmON98ChfRq+XnW3qXz5M6N/+4=;
+	h=Cc:Date:To:From:Subject:Message-Id:Mime-Version:Content-Type; b=bKmMcTDF9gXRS00CU9kf2JHDaY+jrbSccgf30z7xc/rmYdXBiFah8Xna+omld0WinonY+bJA5G5bpNWkvwkt2AvI9gmBtCqTh2Rb1bO/sqiFbDBpHjXNWlJvg38CR8QSt7KO/XEiU93xBawCuwapkdK8bRWFObc8V0qI7fEbRFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=0NCiP/zK; arc=none smtp.client-ip=209.127.231.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eTXgxQSX"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso28917005e9.0
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 04:00:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790074816; x=1790679616; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y7qcpIDKckcU+FwnXhQhXsF99jpMu30FwevkL1hVHm8=;
-        b=eTXgxQSXYLNbeq3veauTMJoR25hcNJJAbZG45LRWTaKufA5EjcDV7cCvNrBrzxuseW
-         HymyG9nUpJZdasZn8coe9RHJzgW6H1uS4gIY+crbN1Dhf4JKrsvYx7fj7Ts/lJD07Nnd
-         HgOkGHwo6zTQFnovKjxpZgqa3VP4I7OiqQILtR1h3v+AWtmnudHKYeUH/+PoI5Paz2YJ
-         N5ylma3SSZ9g/5cCd9bEi2qLhI5ej4hXPdnsz2DVcvsPjQQAtXaRWIJmHkHgOGD4Bxm3
-         ymOVZ3m0lDzniVbJE/iQNfMG7fgOclWZxyHXZztXLevvryGs9Cl5KWIUPonnRl6bM1vO
-         XtJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790074816; x=1790679616;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y7qcpIDKckcU+FwnXhQhXsF99jpMu30FwevkL1hVHm8=;
-        b=kZC0DTZIrZVyssdZLZStBqZR1I8mgKpDMeLQc24U5ev49N1ZY/WA99clKWA6nXMmlB
-         O5lpiFr8F5daupTiXIbH3Eu2y5FQBVonMSDlkzenYwLigciTEl2vX2qCc/m+bGZOZu0H
-         /+/2TmzTOAm2KdF6WEl/peahzNx+DBP/C+BKLbVGYqiDLMXr+5N2hrNOZjNVYFsUsRxL
-         o7q/mKZH9pp2CbXfB9scoHoIEg/PWIlwlZm3X0biPH0e94rV3vblnt5krx2ZXati/BAG
-         rSVTqXPTvcPEW6b2idpH9kMLHuXHHkt9ugHg+Ij+ZPP9h/7Tjsh5iAseelm4XnAs/2mY
-         D4Zw==
-X-Forwarded-Encrypted: i=1; AKwUvBx71th6X/bKSKmO1EPazYfvDuLn9orRMR6RDjWqIENho78dXJ6Kog8CRoY9bXE6XEQJxd0UluMuTXTa@vger.kernel.org
-X-Gm-Message-State: AFuF++mx54riPHHFz88kMaKSvIxdlTRS7foQvcNsq/WUo1t+vtwMp/Qw
-	Ea6YEwYrVMn8NLqnqqlw28PeohrLnAl8pv9bfJc4PwwZTousyC2MIs7u
-X-Gm-Gg: AYBFou145kOyZ+xYxjrNfcK+n8vkPf3NQl6N1h9fYf6XGd+vJcXxqyddLxfF9e1dRaN
-	CmX9KNSt3h951OXPBe1li/lbv1/jcSjftcVut65MIQ9pwGmeWReImbDJFTvGQGmjCyWc9qOdvL/
-	UkRePcB1lBgp+AlTLBzbwo5pJ5QNCNoGQGusMyvID0WNWpirjM3WPvh98/K+v8u3eVyPGxI/upg
-	WZLo0Hx0MiwtdZG15jJIQf+8CGG18vHXNtumOOAEizpy56/D/3IAESS9uK/XpX4TN6nAEP1KUOx
-	Qhnq3v4w3TpNe6D5G8hXOn1IBNmX1WWl4R3Vbo5f40VbPPhPCEFJ/VV96qr1AsGMkWNaVkZEmuR
-	qcbMKF5CHeTuaCz/w8wKZqZp4IGi3PBidzwsmh0xjqbFeKKB9eFo5CfeIjLExLVWuHtccqg/5TJ
-	6CWSEzeIH1zGJaOhJvUiQWbv9f/1IWfF1Iov3BDgALuqubg8//kig3Hf+7apkqYBwRC35fJPKJR
-	3DyMY4=
-X-Received: by 2002:a05:600c:4e4c:b0:49f:bd3c:bc28 with SMTP id 5b1f17b1804b1-49fc574f456mr195177935e9.35.1790074814606;
-        Tue, 22 Sep 2026 04:00:14 -0700 (PDT)
-Received: from localhost.localdomain ([94.252.75.113])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fdaa4e47csm85599365e9.1.2026.09.22.04.00.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 04:00:14 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guru Das Srinagesh <linux@gurudas.dev>,
-	linux-arm-msm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] mfd: qcom-pm8008: support PMICs with no interrupt line
-Date: Tue, 22 Sep 2026 13:00:06 +0200
-Message-ID: <179007480602.173050.17097175603597060097@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260922101459.GB2730113@google.com>
-References: <20260922101459.GB2730113@google.com>
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="0NCiP/zK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1790074961;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=iFgJigE7aPx9rcthpS190in8b+smB38KzrjCrY8jyZE=;
+ b=0NCiP/zKr/rJgj1+Zx+mOuh2xXMNG82cVBLX/lHIs3PjGSvbamCqznwvmbTuZV0ibJs8vt
+ gMDyAd/xyuNw+zDfVJiS74ke+GMi/8RuzvVF6/v6kncxkaimuSqb0iWFIe/4DnYYxG0Ihm
+ onYnfRnX0Z7+pRCsTOijy1qRbnVvmEaR+jGs07mMu8ZZtUFeM2xJhNlRZv37qPNrMpvmN/
+ wU9YYEnmSxhblcNnuOaY2qS/apR0cBHULle4ZyXLED+Te1nTQ1CzcuTFh/tw7jvvIQLJOB
+ aM1EqeTHvWRtkZfHtwTgC/GldqYqnZK6ITghHQK2i7nNtCTtxl6ZQ3dsAd3cIQ==
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+Date: Tue, 22 Sep 2026 19:02:31 +0800
+Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.43.0
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+X-Lms-Return-Path: <lba+26ab2604f+1f6f27+vger.kernel.org+sandie.cao@deepcomputing.io>
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Subject: [PATCH 0/3] Enable USB and SD for Deepcomputing FML13V05 board
+Message-Id: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([183.23.111.1]) by smtp.feishu.cn with ESMTPS; Tue, 22 Sep 2026 19:02:38 +0800
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Hi Lee,
+This series updates Deepcomputing FML13V05 Device Tree: Add P1 PMIC regulator
+tree, add USB controller and USB phy, Enable SD card.
 
-On Tue, Sep 22, 2026, Lee Jones wrote:
-> What on earth is going on here:
->
-> https://lore.kernel.org/r/20260907-glymur_camss-v2-5-75f7982dc983@oss.qualcomm.com
+This series is based on next-20260918.
 
-Three postings for the same PMIC, in order:
+Sandie Cao (3):
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator
+    tree
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller
+    and USB phy support
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card
+    support
 
-- Nihal's Glymur CAMSS v2 (7 Sep) carried PM8010 support for qcom-pm8008
-  as patches 3-6, including the no-interrupt case.
-- My series (8 Sep) was a strict subset of that, written without
-  checking the list first. I withdrew it the same day on the cover
-  letter [1]; please drop it.
-- Nihal dropped the PMIC patches from his v3 (17 Sep), and Jishnu posted
-  them as a dedicated series, "mfd: qcom-pm8008: Add support for PM8010
-  over I2C" (18 Sep) [2]. That is the one to review. It runs on my
-  board, PM8010 with no interrupt line, and I sent a Tested-by there.
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 218 ++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi          |  66 ++++++
+ 2 files changed, 284 insertions(+)
 
-[1] https://lore.kernel.org/all/178887481187.4612.2819576206036967152@gmail.com/
-[2] https://lore.kernel.org/all/20260918-pm8010_i2c_support-v1-0-de33d78fad9d@oss.qualcomm.com/
 
-Sorry for the confusion,
-Oleg
+base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
+-- 
+2.43.0
