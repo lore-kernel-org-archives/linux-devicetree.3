@@ -1,88 +1,45 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AF8F522F0E
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E85E522EF4
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.128.198.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063536; cv=none; b=QI4H+/jMl17vI0yq2hiIQDxrGhirYvC0vLjj53bUI81gFIz5erfpfFPv04tI5Uo9zloma2Rnk3qM9OZVRk3hDVXjjwKq1PXo2YIESPtCvvK8U6afbtWaLhhSDF3ub1OwsfYq2aKY2BiiGH6jMB9+O0xdrj/tbhEgdfWmEafa7o8=
+	t=1790063850; cv=none; b=uJdAW/xvxIPDMoxi9i62zOVLDkmfSrvOn2xzHmHe7DuchoFQN2/RRDqYj23lMSvMlIWn2Ua/vyzViA77qfvlfG+a6fCtQgl8QvaMR5JnartcoYq6xsPV5SaZPFXGOYbJB8l6eUAy+mWX+0dB8PBtAXzgEyr/99gsaup440fLdjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063536; c=relaxed/simple;
-	bh=MXG5XS/+4BCQTMzaLndKsm/y3Bp827Iwa+Cw+2nxHZA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=df5kEi/Rna4TAyYUdVQe/HE6/24PrEP0Eus8Pqu7DhS1IBFHvWTVr5WNm//Icpfuy+liX6cNFcYTelZvmT8h5Xyp36x/LyC7SL2gJxvGj7Enx5mDVApSFzyANqOWW7uSLVm9uxq/lLeH6oSwmPjKD+xLR+iIbcRU4sHykREJQNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OpJAKZgW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IqrxJBqA; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OpJAKZgW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IqrxJBqA"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M702kt1978678
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:51:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jrg9f/q9rF7RMAcgkyXnFRKfIzTeJG6h9sR1u+OZIuU=; b=OpJAKZgW+3Py7w/L
-	qhLmbTkectaMQuhKuYpk/n55nNo6iGWBEPdSwFEvKSx1WOlx4Td6oiIZQluiahXj
-	kMLF4IE7OlEfv3R9qvT2NgB0RtIKqFU6UaJiKABKAEda70O/C2c3JotnWvPK6Vf8
-	jvSrJ5mcFYCMhwnf23il+RNbOZJWGOCNLOUsoBozGPUrKdLCob9limocf61VFTVT
-	BjaxBsvARrV7RGXWyUlEdbAEmvB/+ygMvE5fp5Rque/qOEcmM4z3CIUEf0t0wCvw
-	ayi7wyn4ebCj+3BafmkQctk6uTBxKrbWrh18hZAkHpTuShe/FBBoIQ7+mtjQMIE0
-	dEIR+A==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gudw0hq9h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:51:56 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939a6937513so582847085a.3
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 00:51:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790063515; x=1790668315; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jrg9f/q9rF7RMAcgkyXnFRKfIzTeJG6h9sR1u+OZIuU=;
-        b=IqrxJBqACnCIzNZoBEUNU3WX/rKurDWLjgxJMLqf4Ya6YrAfhi1FvQvb2rPQw+VG+t
-         sugi6rOjZ6OCXA1Y5WXgMLYkRRm+JPoaEzZbKvmZ/kSlLgpYZe8W4cvQBrJPtA1UClHD
-         QemnOs9NrVpbPwHBYNQYQ/YBHS3sIAJMOX5xsAJTVO20Ya/VfBQX8YMRR/pcU1pH9eNe
-         8u0V8933VEieELGNugT/nJrfLm64rlVvwyad9TE/eYWEdZgIGJEsHlj478+3hjOMIeW+
-         Kt0UK7UNBOLq1xSH0Kf9AcAEDC80XFqGnpYHwkvdvY17GeeMQXWlHuOMk/KW+xdjg7Du
-         SPcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790063515; x=1790668315;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jrg9f/q9rF7RMAcgkyXnFRKfIzTeJG6h9sR1u+OZIuU=;
-        b=N7xshpM93S80M8b4xmA7IeuF2fw9EPiCfNqlWCixTHELMPtbWdkQ3OO1vGupzTy1aM
-         TnZBo2zb8uL/e1J8janVqKpXMg6yHlCtewWjhf5uDZFDJqgfgoEIur070101ALw0ZPfa
-         6K55y70FKHyknXP1/ItxULQiZ8tVBNV8sVS0tBGRXtAwH51mjrxwXBg7Z1vlwTtS8zr3
-         gFR0sU2GsvpF35yHSTZ4OvMU0yT+6r+LMAXHNxJMYyAtTISRfubo7/KbHezXw+iKfYJ1
-         WhSHu0rrgKOdGbig3TOGWuUZA6hRCW7Vy5WTAhMSOObWVkeaU8Gxa8a6HSftPJ8G6gRf
-         Rimw==
-X-Forwarded-Encrypted: i=1; AKwUvByQHuu0A8Oc1KDWx9oxVPBjewjUXJ9hAb9hwCeq0yihmR2Rls9I4mXKP+RWvy0luFnOCNYIS3ewGKWW@vger.kernel.org
-X-Gm-Message-State: AFuF++lrAWZOIwMaibBsAJuvpz7EixRGGkx1aiBpGHloE8p1uypNl5qH
-	AU1hPMhFuyH5Fk4NH0DIVNNsE9y2RVyHd8EqIqaxP6yKqJRqbFlqhtHbH0krmzhrCW+01RUY22i
-	rMwKgKezUbVH+6bbZ4AB4L8WxJ+y4os/FgCtD3sDRH8gGDUfQsiTHrQ5Pmn0tQZn+
-X-Gm-Gg: AYBFou34eogYxzV5u86MlDDly+o0ZA2+qhu2o0SZPMSpJnMJNSK3xtQ6pB9IO7xV8od
-	3sZaVGEYPF8B8gTU/f9yXuBZ1f1eveeJp7lD6Fwr3npr/dLs2gsWNCvy0AcV8OTW4grlTcc3IEu
-	r4cGhw2Z75CZuyigRb+60eyrXa3THK2BHAksUHWbsBsaw/EnESfF7YOQe/1E5D/JfCWFHMkS1tD
-	Smk4p1KLCe18Ii2rAm5b3PBkKv9fYZwXgnMSYZdLhagMyHGc0W0fAav95qSjgMDKHgEgt82Bk+e
-	onz0aquVi/h1Jds6TIhMDaWiwj9plEzsFGbnEtPeAZKQtUXZkDs+mhJrCKuyzuGAfJlYDiLJG3T
-	H7CS5tUnv
-X-Received: by 2002:a05:620a:4888:b0:93b:c025:8508 with SMTP id af79cd13be357-93c197abc0amr234368185a.8.1790063515189;
-        Tue, 22 Sep 2026 00:51:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:4888:b0:93b:c025:8508 with SMTP id af79cd13be357-93c197abc0amr234364485a.8.1790063514570;
-        Tue, 22 Sep 2026 00:51:54 -0700 (PDT)
-Received: from [127.0.1.1] ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862789080sm3046925f8f.28.2026.09.22.00.51.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 00:51:53 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 10:51:21 +0300
-Subject: [PATCH v3 12/13] arm64: dts: qcom: x1-hp-omnibook-x14: Mark the EC
- reset gpio as reserved
+	s=arc-20240116; t=1790063850; c=relaxed/simple;
+	bh=UoDkm3gOOO7PAidsy67hbx+7JNKcjk/PhCqyQtSfZFg=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I1g/Awr3CXWJuu0kv2mQaggLusfeZ+uZmzM+2x6Qmp8omrPMKYDEjC+nfKPCTUpOmbFlGQsW723+tK7jy38FwI8wRuKDApYWu5nqQBwLvfL4veSpmCy0oArXBM+6fcsNxcjvkYLNYAKZoZFoTTcKLS7doXXgOZ2WmOdGM1BGtK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=220.128.198.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from mail.andestech.com (atcpcs55.andestech.com [10.0.1.155])
+	by Atcsqr.andestech.com with ESMTPS id 68M7uEdZ048257
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 22 Sep 2026 15:56:14 +0800 (+08)
+	(envelope-from cl634@andestech.com)
+Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs55.andestech.com
+ (10.0.1.155) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.43; Tue, 22 Sep
+ 2026 15:56:14 +0800
+Received: from swlinux02 (10.0.15.183) by ATCPCS34.andestech.com (10.0.1.134)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 22 Sep
+ 2026 15:56:14 +0800
+Date: Tue, 22 Sep 2026 15:56:10 +0800
+From: CL Wang <cl634@andestech.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+CC: <sashiko-reviews@lists.linux.dev>, <dmaengine@vger.kernel.org>,
+        <vkoul@kernel.org>, <robh@kernel.org>, <Frank.Li@kernel.org>,
+        <conor+dt@kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v7 2/2] dmaengine: atcdmac300: Add driver for Andes
+ ATCDMAC300 DMA controller
+Message-ID: <arI0moAjFUudQW4J@swlinux02>
+References: <20260916134258.2178081-1-cl634@andestech.com>
+ <20260916134258.2178081-3-cl634@andestech.com>
+ <20260916140120.3112D1F000FF@smtp.kernel.org>
+ <aqq62tSqUHvBkRs4@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,109 +47,295 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-dts-qcom-hamoa-reserve-ec-reset-gpio-v3-12-fde7f8a53382@oss.qualcomm.com>
-References: <20260922-dts-qcom-hamoa-reserve-ec-reset-gpio-v3-0-fde7f8a53382@oss.qualcomm.com>
-In-Reply-To: <20260922-dts-qcom-hamoa-reserve-ec-reset-gpio-v3-0-fde7f8a53382@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Marc Zyngier <maz@kernel.org>,
-        Aleksandrs Vinarskis <alex.vinarskis@gmail.com>,
-        Konstantin Shabanov <mail@etehtsea.me>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Ettore Chimenti <ettore.chimenti@linaro.org>,
-        Georg Gottleuber <ggo@tuxedocomputers.com>,
-        Xilin Wu <wuxilin123@gmail.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Val Packett <val@packett.cool>,
-        Laurentiu Tudor <laurentiu.tudor1@dell.com>,
-        Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
-        Dale Whinham <daleyo@gmail.com>,
-        =?utf-8?q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Konrad Dybcio <quic_kdybcio@quicinc.com>
-X-Mailer: b4 0.16-dev-0e65f
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1071;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=MXG5XS/+4BCQTMzaLndKsm/y3Bp827Iwa+Cw+2nxHZA=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqsjN9HvNb36IdIspCbybMd06yMA7W7FYdnuvZE
- SkTvt5NtmmJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCarIzfQAKCRAbX0TJAJUV
- VuknD/44HQo4t0fyHRAAwj+mOf5V5jAK18wUoIIzuJKJqTRwKBjNoH/dfxoV//pgl7vm2OkRBj7
- TwTJbwNLny7bSRZILOmZ8UrJXL3rxgaWvvA4ONb0f2zwDoSiE3a/sGfL0sHp6eYueC0b7Mz1HnZ
- eTjtBB4ddnKSi7MHOBa5EKp7F/dIiU7TQ8Ho/mXB8rBhKLVj5waQB/DvnpCupnjQM6fKNQA9qEB
- ZH/KhLiFFEdtRigzM+IaRCTz5diWZ2JDsa5arkl2WMAK82YpduVz21XwhVYGcTsdeBq0MbsbHw1
- SmVbtyJden/4rclAnzf8bJCWRdLYXSD8ef+PaHCPyk6Sf6ufU4RclZZW+UCBCnCt0RIxxJa/fot
- NroZdUz/NlMMIfEBUzAv7pJYvg7hcSnOm8wfe8Ey0ovVwGyhdeomL0wnQI7LSXHVBAL5fQOB1I7
- y9HH6cXHvlbF8pWAbP2/2bCH/GADUEVQFUkyD9ioZcjni2FYrhQnkaJU32wcM6z8g0vpBGSpfQx
- ZUDFzTkYEELExpYG7nOY20iJuWcdK1m4tV3Jp1PfXoXvZVzuBA13oe8THETjXrZjPEVBYguUfTk
- XiJr0z+sY4rOuTtOS48r5/kxbFTIE4GrgNL9IzWZu4u4IQ4FldLoqoOa6VfemHvvldlw/nSOuFW
- rgSkse3DZtej4EQ==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-ORIG-GUID: scAztCNh2Yn7D9h2XClWYGpYMUYGVjMk
-X-Proofpoint-GUID: scAztCNh2Yn7D9h2XClWYGpYMUYGVjMk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDExMSBTYWx0ZWRfX9fohK52Sa5wN
- KD/RT2oCTBv+YRZeatUwvVxgmimtnIGtEJbEHIKrqjHzdT/KOCixXzGYMAE2yap0nW0av2q4MIv
- uGJ6a1ZGphO5XFq1lZOqCMhDBoNVf5SC2nKzrCQQbpecspDq4PNeRsz83f1a2M3Xno37tHcrC3a
- 0vtKIKcZ78YxBLPuxB1aRCB74L66xNzd7MPzWPTO7bJHSB29gcX5r5SFRXvWoVuO9B3yN6XA4wf
- 2mTmgBhcOzOVx7sW1Ug/P1OxfMwRM/CLBkUG7xKECKqqAV0JdmDRmbDGagwi0ScZatSnbazF/Zn
- IstRJaQLnLVxVfiql51jAobPZ8Pk55esclUjaEa7nLGR5k3bzCSmycyZ0U5m5/VB5HSaBvKhwBx
- AEAVV31YqKmAArz8CvQCNiN5Q9Zl7RX4qgmLDFj8X+xVU+sWjhpSpsF6lwB4a+KoAEwdS6zoDx7
- /p/XzQddEzRf6HNuaFg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDExMSBTYWx0ZWRfX3io/jc6DO/wo
- bRO6QgNBmBYpk1eWDYXYoiWixS0wHTpT/LoSgGFGM8B7gRo2o3kw8wRuUMi9dCQpBRS+oIBi8dc
- WyMCRPlFpPC1xsn6+SrlaWWV1PhA2Qk=
-X-Authority-Analysis: v=2.4 cv=TvFzFzXh c=1 sm=1 tr=0 ts=6ab2339c cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=UFfQ5ueM2aPJ8qDrgdoA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220111
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqq62tSqUHvBkRs4@SMW015318>
+User-Agent: Mutt/2.2.12 (2023-09-09)
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs55.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 68M7uEdZ048257
 
-GPIO 65 from TLMM is used by the embedded controller as its reset line.
+Hi Frank,
 
-On some devices, toggling the embedded controller reset line makes the
-device not power up at all, unless the battery is unplugged.
+Thanks for looking at this, and thanks to the bot for a careful pass.
 
-So reserve it in order to prevent Linux from requesting or
-reconfiguring it.
+Five of the eight are fixed for v8. Three do not apply to this driver
+and I have tried to say why rather than just assert it.
 
-Fixes: 6f18b8d4142c ("arm64: dts: qcom: x1e80100-hp-x14: dt for HP Omnibook X Laptop 14")
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+> - [High] dmaengine: atcdmac300: UAF on driver unbind due to devres
+> lifecycle mismatch
+Fixed.
 
-diff --git a/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi b/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
-index 6b4b17acc069..443901a09d4c 100644
---- a/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
-@@ -1308,6 +1308,7 @@ &tcsr {
- &tlmm {
- 	gpio-reserved-ranges = <34 2>, /* Unused */
- 			       <44 4>, /* SPI (TPM) */
-+			       <65 1>, /* EC reset */
- 			       <72 2>, /* Secure EC I2C connection (?) */
- 			       <238 1>; /* UFS Reset */
- 
+> - [High] dmaengine: atcdmac300: permanent controller halt if suspend
+> times out
+Fixed.
 
--- 
-2.54.0
+> - [High] dmaengine: atcdmac300: NULL pointer dereference mixing cyclic
+> and non-cyclic transfers
+Fixed.
 
+> - [High] dmaengine: atcdmac300: cross-transfer corruption on
+> simultaneous TC and ERR interrupts
+I do not think this one can happen. The data sheet defines the terminal
+count bit of the interrupt status register at offset 0x30 as
+
+	The terminal count status is set when a channel transfer
+	finishes without the abort or error event.
+
+so for one transfer the two are mutually exclusive. Chained transfers do
+not widen the window either: the same document says that with IntTCMask=0
+an interrupt is "only be generated when data transfer of the last linked
+descriptor is complete", so a chain raises one terminal count rather than
+one per link.
+
+> - [Medium] dmaengine: atcdmac300: memory leak of unsubmitted
+> descriptors
+The desc_free half of this does not apply. The callback is reachable
+only through dmaengine_desc_free(),
+
+	static inline int dmaengine_desc_free(struct dma_async_tx_descriptor *desc)
+	{
+		/* this is supported for reusable desc, so check that */
+		if (!dmaengine_desc_test_reuse(desc))
+			return -EPERM;
+
+		return desc->desc_free(desc);
+	}:w
+
+and a client can only set DMA_CTRL_REUSE through dmaengine_desc_set_reuse(),
+which fails unless the channel advertises descriptor_reuse. This driver
+does not set dma_device.descriptor_reuse, so the callback can never be
+invoked and adding it would be dead code. Documentation/driver-api/
+dmaengine/provider.rst puts it the same way: dmaengine_desc_free() "can
+succeed only when DMA_CTRL_REUSE is already set".
+
+I looked at closing that properly and do not think the API allows it.
+There is no unprepare, so a client that abandons a descriptor makes no
+call the driver could hook. Tracking every descriptor handed out would
+move the recovery point from teardown to terminate or free_chan_resources
+but not remove it, at the cost of a list operation on prep and submit.
+Implementing DMA_CTRL_REUSE does not help either: dmaengine_desc_free()
+requires the client to have set that flag first, and a client that intends
+to abandon a descriptor is not one that asked to reuse it.
+
+No in-tree client of this driver prepares a transfer it does not submit,
+so I have left it. Say if you would rather have the tracking anyway.
+
+> - [Medium] dmaengine: atcdmac300: silent truncation of DT req_num
+> exceeding 15
+Fixed.
+
+> - [Medium] dmaengine: atcdmac300: transfers queued during suspend are
+> stranded on resume
+Fixed.
+
+> - [Low] dmaengine: atcdmac300: missing endianness conversions for DMA
+> descriptors
+This one cannot bite. The driver depends on ARCH_ANDES and Linux has no
+big-endian RISC-V: arch/riscv/Kconfig offers neither CPU_BIG_ENDIAN nor
+CPU_LITTLE_ENDIAN, so the conversions would be no-ops wherever this can
+be built.
+
+If here are no further comments, I will submit v8 with the five fixes.
+
+Thanks,
+CL Wang
+
+
+On Wed, Sep 16, 2026 at 10:50:50AM -0500, Frank Li wrote:
+> [EXTERNAL MAIL]
+> 
+> On Wed, Sep 16, 2026 at 02:01:19PM +0000, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 8 potential issue(s) to consider:
+> > - [High] dmaengine: atcdmac300: UAF on driver unbind due to devres lifecycle mismatch
+> > - [High] dmaengine: atcdmac300: permanent controller halt if suspend times out
+> > - [High] dmaengine: atcdmac300: NULL pointer dereference mixing cyclic and non-cyclic transfers
+> > - [High] dmaengine: atcdmac300: cross-transfer corruption on simultaneous TC and ERR interrupts
+> > - [Medium] dmaengine: atcdmac300: memory leak of unsubmitted descriptors
+> > - [Medium] dmaengine: atcdmac300: silent truncation of DT req_num exceeding 15
+> > - [Medium] dmaengine: atcdmac300: transfers queued during suspend are stranded on resume
+> > - [Low] dmaengine: atcdmac300: missing endianness conversions for DMA descriptors
+> > --
+> 
+> Please fix these problem or provide explain.
+> 
+> Frank
+> 
+> >
+> > commit 94fd62b6d9e6afc2cf50f8dff89eedcdc57f24c9
+> > Author: CL Wang <cl634@andestech.com>
+> > Subject: dmaengine: atcdmac300: Add driver for Andes ATCDMAC300 DMA controller
+> >
+> > This patch adds support for the Andes ATCDMAC300 DMA controller. It provides
+> > scatter-gather, cyclic, and slave transfer capabilities.
+> >
+> > > diff --git a/drivers/dma/atcdmac300.c b/drivers/dma/atcdmac300.c
+> > > index 0000000000000..e0a8a980e2fe8
+> > > --- /dev/null
+> > > +++ b/drivers/dma/atcdmac300.c
+> > [ ... ]
+> > > @@ -82,9 +82,6 @@ static struct atcdmac_desc *atcdmac_alloc_desc(struct dma_chan *chan,
+> > >             INIT_LIST_HEAD(&desc->desc_node);
+> > >             INIT_LIST_HEAD(&desc->tx_list);
+> > >             dma_async_tx_descriptor_init(&desc->txd, chan);
+> > >             desc->txd.flags = DMA_CTRL_ACK;
+> > >             desc->txd.tx_submit = atcdmac_tx_submit;
+> > >             desc->txd.phys = phys;
+> > >     }
+> >
+> > [Severity: Medium]
+> > The desc_free callback is omitted from the transaction descriptor here.
+> > If a client prepares a descriptor but aborts and frees it before
+> > submission, the DMA engine core won't be able to free it.
+> >
+> > [ ... ]
+> > > @@ -494,11 +494,11 @@ static irqreturn_t atcdmac_irq_thread(int irq, void *dev_id)
+> > >     for (i = 0; i < dmac->num_ch; i++) {
+> > >             dmac_chan = &dmac->chan[i];
+> > >
+> > >             if (test_and_clear_bit(ATCDMAC_STA_TC, &dmac_chan->status)) {
+> > >                     atcdmac_advance_work(dmac_chan);
+> > >                     handled = true;
+> > >             }
+> > >
+> > >             if (test_and_clear_bit(ATCDMAC_STA_ERR, &dmac_chan->status)) {
+> > >                     atcdmac_handle_error(dmac_chan);
+> > >                     handled = true;
+> > >             }
+> >
+> > [Severity: High]
+> > The lack of mutual exclusivity allows both conditions to execute if both
+> > status bits are asserted simultaneously by the hardware. In this case,
+> > atcdmac_advance_work() would complete the current descriptor and start the
+> > next one, followed immediately by atcdmac_handle_error() wrongly aborting
+> > the newly started, innocent descriptor. Should these checks be mutually
+> > exclusive?
+> >
+> > [ ... ]
+> > > @@ -911,10 +911,8 @@ atcdmac_prep_dma_cyclic(struct dma_chan *chan,
+> > >             if (!desc)
+> > >                     goto err_desc_get;
+> > >             atcdmac_chain_desc(&first, &prev, desc, true);
+> > >     }
+> > >
+> > >     first->txd.flags = flags;
+> > >     dmac_chan->cyclic = true;
+> >
+> > [Severity: High]
+> > This modifies the channel-wide state during descriptor preparation.
+> > If a client prepares a cyclic transfer, does not submit it, and
+> > subsequently prepares and submits a non-cyclic transfer, this global
+> > flag remains set. When the non-cyclic transfer completes, could this
+> > cause atcdmac_advance_work() to treat it as cyclic and attempt to
+> > dereference dma_desc->at->next in atcdmac_start_next_trans(), leading
+> > to a kernel panic?
+> >
+> > [ ... ]
+> > > @@ -1144,10 +1144,8 @@ static void atcdmac_free_chan_resources(struct dma_chan *chan)
+> > >     spin_lock_irqsave(&dmac_chan->lock, flags);
+> > >     list_for_each_entry_safe(desc,
+> > >                              desc_next,
+> > >                              &dmac_chan->free_list,
+> > >                              desc_node) {
+> > >             list_del(&desc->desc_node);
+> > >             dma_pool_free(dmac->dma_desc_pool, desc, desc->txd.phys);
+> > >     }
+> >
+> > [Severity: Medium]
+> > This loop only frees descriptors currently sitting in the free_list.
+> > Combined with the missing desc_free callback above, does this mean any
+> > prepared but unsubmitted descriptors are permanently leaked and never
+> > returned to the dma_desc_pool?
+> >
+> > [ ... ]
+> > > @@ -1189,8 +1189,8 @@ static struct dma_chan *atcdmac_dma_xlate_handler(struct of_phandle_args *dmac,
+> > >     if (!chan)
+> > >             return NULL;
+> > >
+> > >     dmac_chan = atcdmac_chan_to_dmac_chan(chan);
+> > >     dmac_chan->dev_chan = true;
+> > >     dmac_chan->req_num = dmac->args[0] & 0xff;
+> >
+> > [Severity: Medium]
+> > The request number is extracted and masked to 8 bits. However, the hardware
+> > request selection registers (SRC_REQ_SEL_MASK, DST_REQ_SEL_MASK) are only
+> > 4 bits wide. Since FIELD_PREP silently truncates values, a device tree
+> > req_num of 16 will be programmed into hardware as 0 without warning.
+> > Should this value be explicitly validated against the 4-bit maximum?
+> >
+> > [ ... ]
+> > > @@ -1305,9 +1305,9 @@ static int atcdmac_init_ioremap_and_regmap(struct platform_device *pdev,
+> > >     regmap_read(regmap, REG_CFG, &val);
+> > >     num_ch = val & CH_NUM;
+> > >     size = sizeof(*dmac) + num_ch * sizeof(struct atcdmac_chan);
+> > >     dmac = devm_kzalloc(&pdev->dev, size, GFP_KERNEL);
+> > >     if (!dmac)
+> > >             return -ENOMEM;
+> >
+> > [Severity: High]
+> > The DMA controller structure is allocated using devres, tying its
+> > lifetime to the device binding rather than the dma_device refcount.
+> > If a client driver still holds a channel reference when the device is
+> > unbound, could this lead to a use-after-free when the client later
+> > releases the channel and atcdmac_free_chan_resources() accesses the
+> > freed dmac structure?
+> >
+> > [ ... ]
+> > > @@ -1543,9 +1543,8 @@ static int atcdmac_resume(struct device *dev)
+> > >     list_for_each_entry_safe(chan,
+> > >                              chan_next,
+> > >                              &dmac->dma_device.channels,
+> > >                              device_node) {
+> > >             dmac_chan = atcdmac_chan_to_dmac_chan(chan);
+> > >             spin_lock_irqsave(&dmac_chan->lock, flags);
+> > >             if (!list_empty(&dmac_chan->active_list))
+> > >                     atcdmac_start_next_trans(dmac_chan);
+> >
+> > [Severity: Medium]
+> > This condition actively prevents queue_list items from being serviced if
+> > the active_list is empty during resume. Since transfers submitted during
+> > suspend are placed into queue_list (because stop_mask prevents them from
+> > starting), won't they remain stranded indefinitely unless issue_pending
+> > is also called here?
+> >
+> > [ ... ]
+> > > @@ -1568,9 +1568,9 @@ static int atcdmac_suspend(struct device *dev)
+> > >     synchronize_irq(dmac->irq);
+> > >
+> > >     ret = atcdmac_wait_chan_idle(dmac,
+> > >                                  chan_mask,
+> > >                                  ATCDMAC_CHAN_TIMEOUT_US * dmac->num_ch);
+> > >
+> > >     return ret;
+> > >  }
+> >
+> > [Severity: High]
+> > If atcdmac_wait_chan_idle() times out, the function returns the error code
+> > without reverting dmac->stop_mask back to 0. Since the PM core would abort
+> > the system suspend and resume normal operations, wouldn't this permanently
+> > prevent any new transfers from starting?
+> >
+> > > diff --git a/drivers/dma/atcdmac300.h b/drivers/dma/atcdmac300.h
+> > > index 0000000000000..3d2d07effc26d
+> > > --- /dev/null
+> > > +++ b/drivers/dma/atcdmac300.h
+> > [ ... ]
+> > > @@ -148,10 +148,10 @@ enum dma_sta {
+> > >   * @ll_ptr_hi: Linked List Pointer Register (high 32-bit).
+> > >   */
+> > >  struct atcdmac_regs {
+> > >     unsigned int ctrl;
+> > >     unsigned int trans_size;
+> >
+> > [Severity: Low]
+> > The hardware descriptor layout uses native unsigned int instead of
+> > explicitly sized __le32 types. When these fields are populated in
+> > atcdmac_build_desc(), values are assigned directly without cpu_to_le32().
+> > Does this lack of endianness conversion break portability if this driver
+> > is ever used on a big-endian system?
+> >
+> > --
+> > Sashiko AI review · https://sashiko.dev/#/patchset/20260916134258.2178081-1-cl634@andestech.com?part=2
