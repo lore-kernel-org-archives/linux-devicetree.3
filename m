@@ -1,130 +1,168 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C754E0B63;
-	Tue, 22 Sep 2026 15:09:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0AC270EC3
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089753; cv=none; b=Ra+XANeiZSAs+8dQuv44mvciwCD7qMCJCFnmuhe7Qqgm6Oxa4Xgf+c/SmZiOZSk0vFfzHbfcLGrMKOrrZ39TPBqfEAG6nD/f+74701YjKxCEFnwOkl9909CeP4Pc8b3oEJoaQxkesdIB7fodS6hDF4v/F0zBwtaXt2VpZ63CBLk=
+	t=1790089812; cv=none; b=IZaaKXtRV4bgR8GD2xxjXbEqSUEZ+xU9urUQkfjd3pFJaJS0j1GygBPSKBN8Rj7wU4uwDfTu2irNyhRY0ho0XEV+6iadD8PPs/s8hACD084H8cOp79rsYH87O11iz+aIdNdYC/5luk59fFF1EorcXH/5rdgC6C9Q5yq3AcsM6rE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089753; c=relaxed/simple;
-	bh=vMISu29z2RzK6u+xElcyptuoil66xrDONS/3//NHQ3g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rqp73BIeNg2qktxmQrhjcpv2M9tsfaztmc0Ot83D3J884fuZaoAbkfaLXw0RjF+sqD+XilXdf2f8Ay5i+4UBi/bWnf7uNGJOl16S8QShjpwmIMQPmh4M1sCygIiuoqQ+M2iQdDqdoWfsBXweIyhN6qJ1sHpddtOY8uWrf60HiNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=1rKcBwIg; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	s=arc-20240116; t=1790089812; c=relaxed/simple;
+	bh=eZvJzrFV596OF1br1NU0yVbzXelFlV68AjwAwCh1swg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=heyjGHD4gl4kNwbZMNDdwwEM5O1CcnO1c4WYsKhc9yo5fKNyOho37yDKBMHBxpoiH9ODppFODmEjBh98Kg+Er9woB9FkE8jRoIxVszQQkTeB0tbPv7HaYJMjdEsCEjQxBqyIsUbrpHvj8B9V+ZJwczNaUMwOSGSr6LiRXm7bpUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=d1IDzF4x; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="1rKcBwIg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=w2UXjozNG2f2VqdmOHhj+O4LU8O13gAFyAi3A95sx5A=; t=1790089751; x=1791299351; 
-	b=1rKcBwIg+Wkf/vCSTBeZ5GlpI/Hz3QDf8mhYxoFjCc1DdDM41kEQqJzo9jQ9yMVp8VWlDsRvJDF
-	G7ZiVM/E836zzJhHIzlVFo0WZARKNRZwaBFfGtrEQHOdz/ad9x/isw8eOB6F/+/Atkhpw/QcfjOur
-	kEb+teo7zHlx9WJfDjByqyWS6y2fIBf9QiWj531eTpRs/wTAZwx25vIX9KHzhrNgLKXrtCGR1EXzO
-	Ehq/zWrwdnGM0kYNnoBhQLCHfHRTOIp4mxLmppztRvCupdLtagP6Koe1vlrwFYVT8b6LWWGcsUlAj
-	LHQlNwvsvgvXkjF+IUSgo6kqzjGoKa8TwVrw==;
-Date: Tue, 22 Sep 2026 17:08:51 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, Aaro Koskinen
- <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
- <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, hns@goldelico.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
-Subject: Re: [PATCH RFC 2/9] drm: panel: Add panel for Epson Moverio BT200
-Message-ID: <20260922170851.46928a97@kemnade.info>
-In-Reply-To: <arJDcpvQlIMIGJaP@monoceros>
-References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
-	<20260922-b2-panel-via-bridge-v1-2-45ff36b364cf@kemnade.info>
-	<arJDcpvQlIMIGJaP@monoceros>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="d1IDzF4x"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f05ffcso34102085ad.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:10:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790089809; x=1790694609; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nEUSfYy3fMUXK5aMDHvOLpQjElNKnWNceOG4CaIeRdw=;
+        b=d1IDzF4xWm7B6UOIG67rVnH+XZYTiCxJ8+FXRmt4FCJSL+X8iUIgsu/p0mgi1uAOcQ
+         RYqOOYPL0Nv3qPMrkoRycv+2bsbUdUav7C2d0lNpgYxlh/2XK+J4IJjD5Hu6fZDvcWxj
+         H7bIm2avx+6d1dh4YVB9Lh9MfHf0CCrnFSVZbw/rmnyUvEDralSlxXpznAbFQzntWG7I
+         SylJv307id2rEXdXBd+i/r1Z2ZA0xs5b3M2yGnT8fDlTPzDjC7yCpgFQTfybWAvB3R/A
+         +4m/x3DRrd2ndHDAVZFyGS0USdUMr50f9dQv181MoxOkPPfE2/hwIDa7V5edRTIx83Bn
+         Xr1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790089809; x=1790694609;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nEUSfYy3fMUXK5aMDHvOLpQjElNKnWNceOG4CaIeRdw=;
+        b=mILJx5CgO95km/eGPz7+L6Y1zMmxbIbbGBfQWHrZcvu0wXdKD8XA2Tb2xgOk3RueR8
+         tzrXTX48MfX4yQa7mSNItZ70Qu86JVD2ayScW0k7oC/JoNTqwjm+QvcGPrtoOB47fkVv
+         CDFE+96qe1JwJBx7JUZ1GXnp5OmCoyqZ0/9tiJVOzjCwiTMyxyQDg1H0QJOOVXZmUruG
+         oyH3MzaYd5PY1P9u8NY3T9kbyvOPB6lzKNyLVOEEYXr+caOAwGMElssthSwzblMpnXgn
+         QaTmyNfkZ+4S+6wyMrz71qc78iyfybg0NdJ5xFZQ9mxd1kfGeoIhiCuuQV6b4BX82GYU
+         zkgw==
+X-Forwarded-Encrypted: i=1; AKwUvBzZcS/u+i4HK+/HxO3ZqosXukgtxtJah8spCS8MtrQARE/2O1jTGUlptN3g2XM12baMJ8OwBRCWn9e9@vger.kernel.org
+X-Gm-Message-State: AFuF++kKM9qvoyNC3gzOnFMFq54ud8/xDSUXSs9B9hLHk7Mb4lYWiQke
+	F7adhgPVui43MsQA/1BrgvasAxhRPQR5wpR7AqioyeruWBB3rTtlOyEZ5WRPhV24FSej7ZWSXuM
+	M8deJ
+X-Gm-Gg: AYBFou1z5bcUWYAJr6pe09rH9I2STi2KVmevhvIjM8T8+SdDCrgpoTPQfXR/LlLjdAe
+	waRoIdPz/Fl+MQCpFhHUVVpKKeNSFxhs8un3LQ3k6Oh1Tkz8NpSI9wwRrcMioRyBBVKFpIZjd3C
+	tqnlhoOeCtyJbCDdSsbafE/N7P9Nsdy6lAX44kFK1/r5YOEVbBMNCXe2ilILBXL9pej832tx/LP
+	UZ2fBkeFErXYEGOmSY1iip5Q+Sy7tecwwzp0sTW+uZJO6AKDPfo6trbPk/Ar4aAbgKF8/rYQbDG
+	uu8eh8zXp1RhYYyLkKqekoB6ninRDlu72IbZKh1ZOE0fnm67VuWO+awXyAkEnsvuUIuwrHAtcvW
+	SahheMCXmNw7TPmb6I0owrRyIjs9xhmquWVzfTyCoFXLHM9avOnMql1xDLzIqYNZRp56ZDl+bB3
+	HrlkeTHJGbC/ND5FsWBoh56HvQ0N7qNuZzBgtyp0dgozTjLOJyEW/FwlBS4LAtiZNkZ0rBxXMy
+X-Received: by 2002:a17:902:db0f:b0:2dd:76b1:3509 with SMTP id d9443c01a7336-2df609d1b62mr16580265ad.14.1790089809191;
+        Tue, 22 Sep 2026 08:10:09 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:1046:ab8:737c:d2e2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d0563eesm11964455ad.69.2026.09.22.08.10.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 08:10:08 -0700 (PDT)
+Date: Tue, 22 Sep 2026 09:10:05 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Francesco Valla <francesco@valla.it>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, virtualization@lists.linux.dev,
+	imx@lists.linux.dev, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 05/12] remoteproc: always report VIRTIO_F_VERSION_1
+ feature
+Message-ID: <arKaTaFuNW936nwg@p14s>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-5-dac8c5eb4aa9@valla.it>
+ <arFRqopkkJf7Nlq4@p14s>
+ <arIgI4E5rGXq9H0P@bywater>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arIgI4E5rGXq9H0P@bywater>
 
-On Tue, 22 Sep 2026 11:13:36 +0200
-Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com> wrote:
+On Tue, Sep 22, 2026 at 08:32:15AM +0200, Francesco Valla wrote:
+> On Mon, Sep 21, 2026 at 09:47:54AM -0600, Mathieu Poirier wrote:
+> > On Wed, Sep 16, 2026 at 11:10:50PM +0200, Francesco Valla wrote:
+> > > There is currently no way to report the VIRTIO_F_VERSION_1 using the
+> > > resource table alone, as the per-vdev feature array is limited to 32
+> > > bits.
+> > > 
+> > > Considering that the VirtIO 1.0 specification is now ~10 years old,
+> > > always report the VIRTIO_F_VERSION_1 feature, as some drivers depend on
+> > > it.
+> > > 
+> > > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > > ---
+> > >  drivers/remoteproc/remoteproc_virtio.c | 10 ++++++----
+> > >  1 file changed, 6 insertions(+), 4 deletions(-)
+> > > 
+> > > diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+> > > index 74e0da970f1d..cfd66d9d1c9e 100644
+> > > --- a/drivers/remoteproc/remoteproc_virtio.c
+> > > +++ b/drivers/remoteproc/remoteproc_virtio.c
+> > > @@ -249,7 +249,7 @@ static u64 rproc_virtio_get_features(struct virtio_device *vdev)
+> > >  
+> > >  	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
+> > >  
+> > > -	return rsc->dfeatures;
+> > > +	return rsc->dfeatures | (1ULL << VIRTIO_F_VERSION_1);
+> > 
+> > I understand this.
+> > 
+> > >  }
+> > >  
+> > >  static void rproc_transport_features(struct virtio_device *vdev)
+> > > @@ -275,14 +275,16 @@ static int rproc_virtio_finalize_features(struct virtio_device *vdev)
+> > >  	/* Give virtio_rproc a chance to accept features. */
+> > >  	rproc_transport_features(vdev);
+> > >  
+> > > -	/* Make sure we don't have any features > 32 bits! */
+> > > -	BUG_ON((u32)vdev->features != vdev->features);
+> > > +	/* Make sure we don't have any features > 32 bits except VIRTIO_F_VERSION_1 */
+> > > +	if (WARN_ON_ONCE((u32)vdev->features !=
+> > > +			 (vdev->features & ~(1ULL << VIRTIO_F_VERSION_1))))
+> > > +		return -1;
+> > 
+> > And this.
+> > 
+> > >  
+> > >  	/*
+> > >  	 * Remember the finalized features of our vdev, and provide it
+> > >  	 * to the remote processor once it is powered on.
+> > >  	 */
+> > > -	rsc->gfeatures = vdev->features;
+> > > +	rsc->gfeatures = vdev->features & ~(1ULL << VIRTIO_F_VERSION_1);
+> > >  
+> > 
+> > But I'm having trouble with this one.  
+> > 
+> > First bit 32 of vdev->features gets cleared and then bit 0 to 31 are assigned to
+> > rsc->gfeatures.  Why bother with clearing bit 32?
+> >
+> 
+> Bits > 31 gets silently dropped because rsc->gfeatures is a u32; this
+> was inserted to explicitly drop the flag that has been inserted before
+> and avoid the "silently". It has no real funtional impact and can be
+> safely dropped.
+>
 
-
-> > +/* found this table in vendor kernel */
-> > +static struct {
-> > +	u8 addr;
-> > +	u8 data;
-> > +} lcddr_init[] =3D {
-> > +	{0x01, 0x00}, {0x02, 0x00}, {0x03, 0x00}, {0x05, 0x01},
-> > +	{0x07, 0x00}, {0x0A, 0x00}, {0x10, 0x03}, {0x11, 0x44},
-> > +	{0x12, 0x44}, {0x13, 0x55}, {0x14, 0x03}, {0x15, 0x00},
-> > +	{0x16, 0x2A}, {0x17, 0x20}, {0x18, 0x00}, {0x19, 0x10},
-> > +	{0x1A, 0x12}, {0x1B, 0x0E}, {0x1C, 0x0F}, {0x1D, 0x10},
-> > +	{0x1E, 0x0F}, {0x1F, 0x1B}, {0x20, 0x0F}, {0x21, 0x00},
-> > +	{0x22, 0x00}, {0x23, 0x00}, {0x24, 0x00}, {0x28, 0x14},
-> > +	{0x29, 0x19}, {0x2A, 0x17}, {0x2B, 0x2B}, {0x2C, 0x99},
-> > +	{0x2D, 0x13}, {0x2E, 0x2A}, {0x30, 0x0B}, {0x31, 0x00},
-> > +	{0x32, 0x00}, {0x33, 0x01}, {0x34, 0x00}, {0x35, 0x0B},
-> > +	{0x36, 0x04}, {0x37, 0x21}, {0x38, 0x00}, {0x39, 0x46},
-> > +	{0x3A, 0x01}, {0x3B, 0x06}, {0x3C, 0x03}, {0x3D, 0x00},
-> > +	{0x3E, 0x06}, {0x3F, 0x04}, {0x40, 0x00}, {0x41, 0x0D},
-> > +	{0x42, 0x00}, {0x43, 0x2E}, {0x45, 0x08}, {0x46, 0x00},
-> > +	{0x47, 0x01}, {0x48, 0x00}, {0x49, 0x00}, {0x4A, 0x0B},
-> > +	{0x4B, 0x38}, {0x4C, 0x03}, {0x4D, 0x04}, {0x50, 0x0F},
-> > +	{0x51, 0x04}, {0x52, 0x01}, {0x53, 0x0E}, {0x54, 0x11},
-> > +	{0x55, 0x9F}, {0x56, 0x36}, {0x57, 0x00}, {0x58, 0x68},
-> > +	{0x59, 0x01}, {0x5A, 0xE0}, {0x5B, 0x00}, {0x5C, 0x00},
-> > +	{0x5D, 0x10}, {0x5E, 0x36}, {0x5F, 0x36}, {0x60, 0x00},
-> > +	{0x61, 0x04}, {0x62, 0x12}, {0x63, 0x00}, {0x64, 0x80},
-> > +	{0x65, 0x00}, {0x66, 0x80}, {0x67, 0x1C}, {0x68, 0x00},
-> > +	{0x69, 0x00}, {0x6A, 0x00}, {0x6B, 0x00}, {0x6C, 0x00},
-> > +	{0x70, 0x00}, {0x71, 0x55}, {0x72, 0x44}, {0x73, 0x33},
-> > +	{0x74, 0x22}, {0x75, 0x33}, {0x76, 0x22}, {0x77, 0x22},
-> > +	{0x78, 0x33}, {0x79, 0x22}, {0x7A, 0x44}, {0x7B, 0x55},
-> > +	{0x7C, 0x00}, {0x80, 0x00}, {0x81, 0x66}, {0x82, 0x22},
-> > +	{0x83, 0x33}, {0x84, 0x22}, {0x85, 0x33}, {0x86, 0x22},
-> > +	{0x87, 0x22}, {0x88, 0x33}, {0x89, 0x44}, {0x8A, 0x44},
-> > +	{0x8B, 0x44}, {0x8C, 0x00}, {0x90, 0x00}, {0x91, 0x77},
-> > +	{0x92, 0x66}, {0x93, 0x33}, {0x94, 0x11}, {0x95, 0x33},
-> > +	{0x96, 0x22}, {0x97, 0x22}, {0x98, 0x44}, {0x99, 0x44},
-> > +	{0x9A, 0x33}, {0x9B, 0x44}, {0x9C, 0x00}, {0xA0, 0x88},
-> > +	{0xA1, 0x88}, {0xA2, 0x88}, {0xA3, 0x88}, {0xA4, 0x88},
-> > +	{0xA5, 0x88}, {0xA6, 0x88}, {0xA7, 0x88}, {0xA8, 0x88},
-> > +	{0xA9, 0x88}, {0xAA, 0x88}, {0xAB, 0x88}, {0xAC, 0x88},
-> > +	{0xAD, 0x88}, {0xAE, 0x88}, {0xAF, 0x88}, {0xB0, 0x88},
-> > +	{0xB1, 0x88}, {0xB2, 0x88}, {0xB3, 0x88}, {0xB4, 0x88},
-> > +	{0xB5, 0x88}, {0xB6, 0x88}, {0xB7, 0x88}, {0xB8, 0x88},
-> > +	{0xB9, 0x88}, {0xBA, 0x88}, {0xBB, 0xA6}, {0xBC, 0x88},
-> > +	{0xBD, 0x88}, {0xBE, 0x88}, {0xBF, 0x88}, {0xC0, 0x88},
-> > +	{0xC1, 0x88}, {0xC2, 0x88}, {0xC3, 0x88}, {0xC4, 0x88},
-> > +	{0xC5, 0x88}, {0xC6, 0x88}, {0xC7, 0x88}, {0xC8, 0x88},
-> > +	{0xC9, 0x88}, {0xD0, 0x36}, {0xD1, 0x26}, {0xD2, 0x21},
-> > +	{0xD3, 0x1F}, {0xD4, 0x17}, {0xD5, 0x15}, {0xD6, 0x13},
-> > +	{0xD7, 0x10}, {0xD8, 0x08}, {0xD9, 0x08}, {0xDA, 0x18},
-> > +	{0xDB, 0x1D}, {0xDC, 0x1F}, {0xDD, 0x27}, {0xDE, 0x29},
-> > +	{0xDF, 0x2B}, {0xE0, 0x2E}, {0xE1, 0x36}, {0xE6, 0x00},
-> > +	{0xF1, 0x00}, {0xF2, 0x00}, {0xF3, 0x00} =20
->=20
-> Smells non-GPLly. Maybe ask the provider of the vendor kernel for "the
-> preferred form of the work for making modifications to it".
->=20
-hmm, e.g.
-panel-novatek-nt36523.c
-
-has similar large init sequences with magic numbers.
-So nothing unusual in upstream.
-
-Regards,
-Andreas
+We have come to the same conclusion.
+ 
+> > >  	return 0;
+> > >  }
+> > > 
+> > > -- 
+> > > 2.55.0
+> > > 
