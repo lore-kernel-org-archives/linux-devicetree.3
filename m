@@ -1,98 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D17541E5B
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 17:08:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A149552952;
+	Tue, 22 Sep 2026 17:13:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096889; cv=none; b=tEhPpPlskuw3GXjQDUXFWi4WIMaqmD9JEPyaKRrPsO7NsY0SyUm6gF1mgqTAGWoqKoxJ+fnDohW8Z9M7Ejo1O0ox1wiaHfKvTXMhLadGow/ytVjuwyBtFbP6BkvLTzGxga+33Ao6AJEu0KB4ypzakYNI0KBU6o50FH8NM0uPcsw=
+	t=1790097186; cv=none; b=gnswduHMJ72QQQ212d2SB2/A8BzxAfq93Y9CH/2590+t/trwJh3wGd5BGVGAApaHYiw+3oJ3GyjrrShsshjRcFN4QBNfFjBXfRI+3VUVR4axkC7xIr2cu9lvjrQPoOPk6rN9ci1CfwMkNhk5jJwdx4OjD/S/u7fQSz7oPUDqy64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096889; c=relaxed/simple;
-	bh=oB5H7xmmsDGwSrUthg5w1JANDnmG/YCERnbMBWlpE3U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oSUR//xgl1Jkxb0L1FvuHDJng4749GA22Kuj5f5wXNjrbL60xCSrDc0qy9gX+2TdWKJCoFa8kTZLweBs2DdbUS0ASOejFIoc+wbtLlvGE1EHhLZXV/jKz9rJlm32xkpQ3UrWGxfLWc2NvhLmWY1rmqNWCwMTrjLqrBKjXgtGnWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bg5xrMTs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790097186; c=relaxed/simple;
+	bh=Rb3nQmcbLxvZugiL4VtH9ek43O+CYgD5gTfh7xpL2kc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TVBjSH24VrIepdmZKN+r9wv+qpCgSFM5PIVgq8jGt4cTh6sr/VmY6JXGD5LnnhAN8oXmhpjYDtGTXhbxANgsvoFvaRjiUK2/VX/gMmSbgaIyJ9AEOfNMPVN0K/Gzm44GFM6XpU3VscKo2TGg+QGrfKoITRAIQIWS5g3SqSR03zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SHY8IfxD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bg5xrMTs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC76C1F000FF;
-	Tue, 22 Sep 2026 17:08:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SHY8IfxD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB7C1F000FF;
+	Tue, 22 Sep 2026 17:13:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790096887;
-	bh=tF2Z/iLS1R+C5ksggZumSjADuKGLwYVXKpUUk2/yIW8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Bg5xrMTs3f4let1nvjkwdHzxs/ouMBlUTwwFbEDgiKAAxwf9x9fjjsOC6CQuukRhF
-	 Qn1qnV0c3KtuhbXnb2XWhhtPaX98wCcq0LC6K6GoblwQzE6UaNybLlSUpVNJd1ZWF7
-	 v7SvdaefsY50Ou7qcTMNLxKmMMckbpnrlK7QrQIEV9GnLWpWFoAf4csdrMgz4M9Gya
-	 Bqq9cIuehP9tjPqdmEkH+6PRuf0yKmPGZG8j0D2DGkwCXGNURYQv9hoIktPz3eY3Pk
-	 YmmU5NXry4q1jySbrI9PoTcDTjT9vOHvUYZqsRGXklYa6O2pfJohc0GaX5GMWJ9uYm
-	 PvD7aY10SlpEQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] arm64: dts: ti: Add k3-am62p-wakeup.dtsi for AM62PX
- efuse GP_SW1
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Judith Mendez" <jm@ti.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260922165714.425576-1-jm@ti.com>
-References: <20260922165714.425576-1-jm@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 17:08:07 +0000
-Message-Id: <20260922170807.AC76C1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790097185;
+	bh=Rb3nQmcbLxvZugiL4VtH9ek43O+CYgD5gTfh7xpL2kc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SHY8IfxDJV64fXq6J3vIAr785FWgO22jlfCwc3HIiE9OfjPAvHkP34tcUFte7KmyW
+	 QeJoFYYjeFjC5NE3SWf/B6vGHIgPL9zmV2YSfH1WjtSGMdgCcGBaoI31ccT5AMWste
+	 Ot96+MIsocgC602Rv2B5YM4rhIgEABqM2vAhppgbOSwDPBJarPlc93y0g1ufkbDker
+	 SPcPEhGCPVvqPNf9c0jY+9X9/7RtbaxDdz0JpF26MF4k9XkVj/ThjzcZncHu0mcweX
+	 D1jIff2nqWb3Ec0hbWFbVKaOCH/Bbqx5DCEL9Y+SEnEheb6YTmKQfwU/sbWR2MMGdt
+	 e0Y+DGOyOsQuQ==
+Date: Tue, 22 Sep 2026 18:13:00 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Conor <mail@conchuod.ie>, Colin Huang <u8813345@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	colin.huang2@amd.com, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] hwmon: (pmbus/tda38740) Add driver for Infineon
+ TDA38740/TDA38725
+Message-ID: <20260922-pectin-backslid-9352303bb7c6@spud>
+References: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com>
+ <20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com>
+ <dbd0a721-898b-4524-a0cd-c9751fd4bd68@roeck-us.net>
+ <2646A11E-8D13-4587-8027-1370E0007F36@conchuod.ie>
+ <3a107337-8e2c-45b2-8847-6b4fb7b0405e@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cpqJA5S6VLdN78Gw"
+Content-Disposition: inline
+In-Reply-To: <3a107337-8e2c-45b2-8847-6b4fb7b0405e@roeck-us.net>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] dt-bindings: invalid fallback compatible causes bus fault on AM62P=
- WKUP_CTRL_MMR
---
+--cpqJA5S6VLdN78Gw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit b27457a62deb29b29e55d04f2bdab0cbcd3ef0cd
-Author: Judith Mendez <jm@ti.com>
-Subject: arm64: dts: ti: Add k3-am62p-wakeup.dtsi for AM62PX efuse GP_SW1
+On Fri, Sep 18, 2026 at 10:30:16AM -0700, Guenter Roeck wrote:
+> On 9/18/26 10:24, Conor wrote:
+> >=20
+> >=20
+> > On 18 September 2026 17:02:38 GMT+02:00, Guenter Roeck <linux@roeck-us.=
+net> wrote:
+> > > On 9/18/26 03:23, Colin Huang wrote:
+> > > > Add a PMBus driver for Infineon TDA38740 and TDA38725
+> > > > single-voltage synchronous buck regulators.
+> > > >=20
+> > > > Signed-off-by: Colin Huang <u8813345@gmail.com>
+> > >=20
+> > > For my reference (waiting for DT patch approval):
+> > >=20
+> > > Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+> >=20
+> > I'm on holiday and only have my phone, and cannot find the binding patc=
+h to reply to.
+> > I found it on lore and it looks okay.
+> >=20
+>=20
+> Hi Conor,
+>=20
+> it was copied to "Conor Dooley <conor+dt@kernel.org>". Is that the wrong =
+address ?
 
-This commit creates a new device tree include file for AM62P WAKEUP domain
-peripherals. It adds an efuse node for the GP_SW1 register, which will be
-used to determine the AM62P silicon revision.
+Nah nothing wrong with the address, just the limitations of k9 mail when
+combined with the volume of mails I get.
 
-Link to v1: https://lore.kernel.org/all/20260915001304.3781247-1-jm@ti.com/
+--cpqJA5S6VLdN78Gw
+Content-Type: application/pgp-signature; name=signature.asc
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-wakeup.dtsi b/arch/arm64/boo=
-t/dts/ti/k3-am62p-wakeup.dtsi
-> new file mode 100644
-> index 0000000000000..c56fb3890c983
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am62p-wakeup.dtsi
-> @@ -0,0 +1,25 @@
-[ ... ]
-> +&wkup_conf {
-> +	gpsw_efuse: efuse@230 {
-> +		compatible =3D "ti,am62p-efuse", "socionext,uniphier-efuse";
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-Does this fallback compatible cause a bus fault on boot?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarK3HAAKCRB4tDGHoIJi
+0obXAQCdKDcHTJG5AcuDfg6f7evT6RLagLyTl8k2vNPWC5fQBwEAh2b7ZHs8BLFy
+koqCHqdbvoS8ueN4DOiA+2+5oEZXpQ8=
+=zvxl
+-----END PGP SIGNATURE-----
 
-The ti,am654-chipid driver probes and calls nvmem_cell_read_u32() for the
-gpsw1 cell, which delegates the read to the NVMEM provider. By using
-"socionext,uniphier-efuse" as a fallback, the driver in
-drivers/nvmem/uniphier-efuse.c is bound. That driver sets word_size =3D 1 a=
-nd
-uses a byte-wise readb() loop in uniphier_reg_read().
-
-Because the efuse@230 node is in the TI K3 WKUP_CTRL_MMR space, it strictly
-requires 32-bit aligned accesses (readl()). The 8-bit accesses performed by
-the Uniphier driver violate this hardware invariant and cause a Synchronous
-External Abort during boot.
-
-Also, is it acceptable to piggyback on an unrelated vendor's IP compatible
-string just to bind a generic NVMEM driver?
-
-> +		reg =3D <0x230 0x10>;
-> +		#address-cells =3D <1>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922165714.4255=
-76-1-jm@ti.com?part=3D1
+--cpqJA5S6VLdN78Gw--
