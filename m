@@ -1,162 +1,125 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261713F39E8
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 04:34:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CE83C141F
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 04:41:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790051643; cv=none; b=hrFuhXFtro7od6Xpl7vd9pptIlbL3x0DSR4zQKOd8j5k1aq/8VEci0IucXA61GaFDmuIYIKC6/cQAGeiyBKUhkTUCh+Rnfq4flWYUxfYtTaxF2hyegmUrTtQ+jqcgzsr3CNA71fbvTtX1BrnCIusxpSJLCOXh6BQ728ySZCOhSk=
+	t=1790052114; cv=none; b=TnxhtfENkEDQQ4qyeZgb4j0+5DC1Ay/jNkDBQA7xSvqcg4G7JzJdwxGBy82uNml12na9ADYLUD0ujcW6N8poMzxDkp28lePk9e2SdBmHWOLqAImiM/Bt1+SuWXNnqMVfedaaY4p9M5dHDKlRC3dsmrDobMFxnCZakLHylcVYrwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790051643; c=relaxed/simple;
-	bh=WVV8y+rcjNFnB4LguK2GR1/TdwXx7ITLp4kAjYB9HTg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FOVPhvM+xYPI8HVxcfclNx3ASrW/fSTSTZJEIW5tEqBFUnYzJybmQW6eepRjPemu+UlNowKMJ4qHrted4zuhgVd0ZX7BKAMPPvtd8DH3NO48MRJ8qncVwNYyBewNubMK5bqntC+NhyZIDgkOQiW5zhxXfewuMbjd1pNH2wcUwhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gieDcc6m; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M8QfadV6; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790052114; c=relaxed/simple;
+	bh=wEgZesjWHRULdj0aq8mqOCyNSBILwvsW4dQtk9G8fJw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IPNn/FqINy9e0fVDGPCBa1OXGYhK5gPKtvbYb3gMyxfeyp1tEvIqa9Amzf934hQvGCnkYD8IM/mjl1a65G9+JQCq7es4OdOayfbN12AIMF0YfW+zvFbdVQKY2/SxfUmMeWQ1Cd1IaYjlGtUJovAgHMEvqDnabkozqFKa29A8AFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgMCz17A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gieDcc6m";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M8QfadV6"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M2sLoQ3675278
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 04:33:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	g2ZBm74Yk/Koo7aS1h6Sw1CThaL6RiYUvVn32kq3szE=; b=gieDcc6mprH9oWzA
-	QJEYFa/Xl61jZDFJd+deo8QUOYCXKpXe2AtVLQ4uPQYt4LUqUZufnWvwh/Y56WSC
-	WoYihXgTYVpQZYqL4sypS+QLC+uiKHcgdV3zTA5t/giGF9ym7qAWqpQ7yFC6ZYxu
-	llLyB1e3n7f8lAlncbkz0sgGuLNlgGDIJWMBZxnb9AiNmxYm5wXfAEObPzeIN4ma
-	8Y6RsONpGiFh5//d9TMenGvctA+T8YDDlw3IlwO4KylxBcYkA5AAY32ZVM/boVgG
-	BDe+k22z6ZFNS1v87izVyEIeDEqERM14y/3YEqjXfitHbGK7iH8GJc3snMd9hB4K
-	1uY1CQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guha5rach-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 04:33:59 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398dcfabbf8so12047585a91.0
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 21:33:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790051638; x=1790656438; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g2ZBm74Yk/Koo7aS1h6Sw1CThaL6RiYUvVn32kq3szE=;
-        b=M8QfadV64sEteaLZkZEJzOf7w3b4jNMOvp9cFVtrZZxLAsfJsCaX3e6hJ+BMNLWoKk
-         hU4szbm4RPrlb78LC57Y9IcnsRqpqA3R6O9rwZhAj0sch/1zbS03ZUD4Kibl38H2CD8N
-         6eFzaAh2VOdOy3WHzMulQx8JlIuk5PEpdFo8lejsBTimG1UpUy8P3uK9OC+nygSlV3VA
-         fEtXgr+j4OcxopvBwG7TYzreJaD24Cbdg3wTHmxDRGyL/LNLeDbTWBVMmYANTETpd8Ii
-         aiMN/CajCADNvwLmY/+VIb8APjyWHy3+2RstIwBBfNjk8HPTMbooTZyIELyUCKNF+6EA
-         yjTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790051638; x=1790656438;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g2ZBm74Yk/Koo7aS1h6Sw1CThaL6RiYUvVn32kq3szE=;
-        b=Lf5olVM2h2Bm7xa3wp5f1Q0KibvqJ3NpMUIx1E2tADtjtD1JxThBCSSVYcnYxHDc/K
-         1YPTZ24cUHYGHEkr7L+Is82pfR77xxnCjBS31P8W6jlxIB9l46ZskEbgZeNV1/l8KMcx
-         LQdKzbSNhyJaTDQsXvwURmxguMv3bS4Fqr+e3PA45Kgna+kcgbYbSM8Vo/3yP2Y4rHH/
-         0A7KzizFUN9R9SgDe2M3hmcrsgINVNRl7e6YLbAhee0MfzI89wzKSaKfIk6M5gHZAytn
-         tifGbDktUEP3QfSODN+CZcj5QhTyDQ6/5592BJR3rLGDrukxmOlPenrknL7kiVeRWKS0
-         3c8w==
-X-Forwarded-Encrypted: i=1; AKwUvBw4rFglROGTb7lKTGykao+16LDnz5SGMHSOqgbEUcTPtjG1+LIRSviucLzTc4X8fU1p+/xKi8Z0dkO8@vger.kernel.org
-X-Gm-Message-State: AFuF++mwNPjy8+biesSOkS7A8GQ/+sqhSe8J/oRXpddGE2ft6MXtW1bV
-	0TQ5e/llNAwNizlLGC4PqmrWQD7eOpQEJw2oXJhwhV09tssByNG/lAMVXNh0bpDyrGM3VePeELo
-	sHbzdx0OARZpTZE9cnLRmCxykTT9nS3j+eVc7vvXay5Ko9IaQTsdtuW9dJUaVtoxD
-X-Gm-Gg: AYBFou1aHmBz+amT4JiUxvLPNlW5B8Y/Q9zZlnwCGAfrpADwlyLojsBaDrTm3ADqeCD
-	JTZWNGE5G8r/RdkF278+E6aeVTUgj8B6dBkUuOTAmPOHnDwjBJVZSZhjIWReFSpj4mun9v2aUai
-	zbZaAf6YXABdH3xf5jSc0I0LnslRTCazq7VANyj9gqDnAiS/4zGMAttw+1jyzV4QaJyky2JimLh
-	1AZG99rXu3+2OtSpBSdg8BreBOGFQdbKBV5+b+shpz7XBSyryP1+IvG0TfNkrAcMOkSKwgbcvdS
-	41Yt+Am3srqdIK22OESNluuMXikq/e33oF2HsJv4JeB/3LcXftgnjKDJZaftsJecHn2P1nEvZ6i
-	D5Pyy2Won6VlcIb2AX3fosiB51sz7GuY+dNVHh8AtBFhrW1RF2s/HtWQ3iaoeOSyNFOWxPJQltw
-	pVevITycpTyH6SE7/clbZqtuUFqUhSX4KzHxE=
-X-Received: by 2002:a17:903:124e:b0:2dd:c100:313c with SMTP id d9443c01a7336-2ddc1003224mr123612615ad.56.1790051638378;
-        Mon, 21 Sep 2026 21:33:58 -0700 (PDT)
-X-Received: by 2002:a17:903:124e:b0:2dd:c100:313c with SMTP id d9443c01a7336-2ddc1003224mr123612265ad.56.1790051637903;
-        Mon, 21 Sep 2026 21:33:57 -0700 (PDT)
-Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e6129ad40sm1906375eec.12.2026.09.21.21.33.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 21:33:57 -0700 (PDT)
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 10:03:16 +0530
-Subject: [PATCH v2 3/3] cpufreq: qcom-nvmem: add support for QCF3211 &
- IPQ5211
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgMCz17A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2BCA1F000FF;
+	Tue, 22 Sep 2026 04:41:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790052113;
+	bh=FYB5S/b6MJ2mBC00lFkMl9q5wWY/JUieAXntSGr6wtg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dgMCz17AvzifqmH82qqJ8AltGhx/QlGEOjui23VzSeACA7KlitQrNWSmBLOGzaSzt
+	 XlAn+e4fg2c3GwLtny714YkKbvCwT8ubsskRihG48qjI3+1d1fRUzE9OcVXEX8ZPE0
+	 iBMuHxte0uJlvxWexdQrewPS2SP92U79qQSjjIUiP2ELyuKTIPEQlEuFkq7Xj0C3yF
+	 siVo92/5Ksiokxwq/rnywckd6karmFGBzyIKVj9vrPR0FdqSQcxlTilGnZPKSwCKWN
+	 Yc0Ak8qznG8YUzQ8h4MfsxaHqgH+xF0U7kShQlWG7KQryYUHOL6yYt6VcXyumzLngP
+	 6ti6tvCSqlXJg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 7/8] iio: adc: rzg2l_adc: Add RZ/G3L ADC support for
+ TSU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Biju Das" <biju.das.jz@bp.renesas.com>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260922042707.116378-8-biju.das.jz@bp.renesas.com>
+References: <20260922042707.116378-1-biju.das.jz@bp.renesas.com>
+ <20260922042707.116378-8-biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 04:41:52 +0000
+Message-Id: <20260922044152.D2BCA1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-ipq52xx_new_ids-v2-3-4b1a0f3d04b2@oss.qualcomm.com>
-References: <20260922-ipq52xx_new_ids-v2-0-4b1a0f3d04b2@oss.qualcomm.com>
-In-Reply-To: <20260922-ipq52xx_new_ids-v2-0-4b1a0f3d04b2@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ilia Lin <ilia.lin@kernel.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: DgyOg6tNrdlbnXHsHn9ohsaUMsX7Pzxz
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDA2MiBTYWx0ZWRfX90N7/WrfpSBp
- BpF6BH73g/hlbt6QdVwvDGZ9QqlhH2t9Nl4Y51AEkgSmw75m/zGkCE7YUC+mByHu4n6iLf0/zB0
- dmvQddez+E4Tlq/gwZwK01oO1u+m7NE=
-X-Authority-Analysis: v=2.4 cv=U+4Hnuru c=1 sm=1 tr=0 ts=6ab20537 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=y-kxD1SJUMLPT1neuUsA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: DgyOg6tNrdlbnXHsHn9ohsaUMsX7Pzxz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDA2MiBTYWx0ZWRfXwjZV9A+Z2SYA
- om5lePhlxeDjSZzMph2jHfmSunly6Yt9UAHTgeP84tLeJEW12AixhS9hoOEJMKGwK5dZvQz47pe
- D7Q5TG+/koHnzEyZCe/hRiTNiyaQ2um3lWGn1jw7RXCfmI+PHDPtC4FdAQchJMSa0H8B6Vn2caf
- k/3RbNBCz9ne8W0S/FpaT66/tJVYwcdHrhqn5foc+jHJO9kBE6vP5S0Ly/Q3hRfbwg97cL0LYes
- QJbDNQJWjDs8VesJv6eB1fcjbcudF2fC/KDcl37dNLBdjRQlmcFK5OrfN7ndUEzf2BurnMxVlYk
- 8YHhtP849+HjmY14xtNwkZVFBUWucgdT75NCYT8119n2gegF4LCZCLCrbLhSu1KAlYyXbT2dBEp
- vWwYJcriETOY4LpIzbG++892pmmnIlSjXHgcLD8ZeQSepwGcshdbbypuMIQcSF/BXYOUKSrffXZ
- l3YbgnQshfeBGN6m8Fw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220062
 
-Like all other SoCs in IPQ5210 family, cpufreq for QCF3211 & IPQ5211 is
-also determined by the eFuse. Add support for the same.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] iio: adc: rzg2l_adc: missing channel validation for RZ/G3L ADC1 ca=
+uses state leaks and potential crashes
+--
 
-Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
----
- drivers/cpufreq/qcom-cpufreq-nvmem.c | 2 ++
- 1 file changed, 2 insertions(+)
+commit 6a30a731629fb5bab54f976d5c01c9fd5c2d8432
+Author: Biju Das <biju.das.jz@bp.renesas.com>
 
-diff --git a/drivers/cpufreq/qcom-cpufreq-nvmem.c b/drivers/cpufreq/qcom-cpufreq-nvmem.c
-index efa766e98d86..9f2e6e6c0905 100644
---- a/drivers/cpufreq/qcom-cpufreq-nvmem.c
-+++ b/drivers/cpufreq/qcom-cpufreq-nvmem.c
-@@ -205,6 +205,8 @@ static int qcom_cpufreq_kryo_name_version(struct device *cpu_dev,
- 	case QCOM_ID_QCF2200:
- 	case QCOM_ID_QCF3200:
- 	case QCOM_ID_QCF3210:
-+	case QCOM_ID_QCF3211:
-+	case QCOM_ID_IPQ5211:
- 		drv->versions = (*speedbin == 0xcd) ? BIT(1) : BIT(0);
- 		break;
- 	case QCOM_ID_IPQ5424:
+iio: adc: rzg2l_adc: Add RZ/G3L ADC support for TSU
 
--- 
-2.34.1
+Add renesas,r9a08g046-adc1 compatible string and its hardware
+parameters for the ADC1 IP on RZ/G3L, which is dedicated to
+the on-chip TSU (thermal sensor unit).
 
+> diff --git a/drivers/iio/adc/rzg2l_adc.c b/drivers/iio/adc/rzg2l_adc.c
+> index aaf7e2ceff8ab..c892e355b7398 100644
+> --- a/drivers/iio/adc/rzg2l_adc.c
+> +++ b/drivers/iio/adc/rzg2l_adc.c
+> @@ -500,8 +500,17 @@ static const struct rzg2l_adc_hw_params rzg3s_hw_par=
+ams =3D {
+>  	.adint_inten_mask =3D GENMASK(11, 0),
+>  };
+> =20
+> +static const struct rzg2l_adc_hw_params rzg3l_adc1_hw_params =3D {
+> +	.max_channels =3D 9,
+> +	.default_adcmp =3D 0x1d,
+> +	.default_adsmp =3D { 0x7f, 0xff },
+> +	.adsmp_mask =3D GENMASK(7, 0),
+> +	.adint_inten_mask =3D BIT(8),
+
+[Severity: High]
+Does this mask inadvertently leak the interrupt enable state for channels 0=
+-7 if
+they are incorrectly configured in the device tree?
+
+With max_channels set to 9, rzg2l_adc_probe() accepts channels 0 through 8 =
+from
+the device tree. If an unsupported channel (e.g., 0) is probed and accessed=
+ via
+sysfs, rzg2l_adc_conversion_setup() sets BIT(0) in the interrupt enable
+register.
+
+However, because adint_inten_mask is restricted to BIT(8), the driver's tim=
+eout
+and cleanup paths will fail to clear BIT(0):
+
+drivers/iio/adc/rzg2l_adc.c:rzg2l_adc_conversion() {
+    ...
+		rzg2l_adc_writel(adc, RZG2L_ADINT,
+				 rzg2l_adc_readl(adc, RZG2L_ADINT) & ~hw_params->adint_inten_mask);
+    ...
+}
+
+Additionally, reading an unsupported channel data register in the ISR could
+cause a synchronous external abort:
+
+drivers/iio/adc/rzg2l_adc.c:rzg2l_adc_isr() {
+    ...
+	for_each_set_bit(ch, &intst, hw_params->max_channels)
+		adc->last_val[ch] =3D rzg2l_adc_readl(adc, RZG2L_ADCR(ch)) & RZG2L_ADCR_A=
+D_MASK;
+    ...
+}
+
+> +};
+> +
+>  static const struct of_device_id rzg2l_adc_match[] =3D {
+>  	{ .compatible =3D "renesas,r9a08g045-adc", .data =3D &rzg3s_hw_params },
+> +	{ .compatible =3D "renesas,r9a08g046-adc1", .data =3D &rzg3l_adc1_hw_pa=
+rams },
+>  	{ .compatible =3D "renesas,rzg2l-adc", .data =3D &rzg2l_hw_params },
+>  	{ }
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922042707.1163=
+78-1-biju.das.jz@bp.renesas.com?part=3D7
