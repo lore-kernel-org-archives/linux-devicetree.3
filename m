@@ -1,140 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208C353ECF7;
-	Tue, 22 Sep 2026 14:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1364D3254A8;
+	Tue, 22 Sep 2026 14:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790087677; cv=none; b=n7yFhrMmvZ9zsclaHMHF47GGjaAU2bElEYFoJTFNlQBJaJLhLfTfPbCkfsFflHUkE/JJSGcRITU46IR7BEl7Ye3E3bHyYCA7xbMK2GTB/9oOxYKXT6xh3LCNkfzXUc6aEnfXdf6L/AwZXXe6zYHQIA0xwUiTh3JXlAiLd+eEeUo=
+	t=1790088018; cv=none; b=RodVbru3zFGuTe9vBEawk5xFIxDno4SXhlJM6SMfGW4K4+ksTWqEBtPLsR4u+Bzs2i6lEu7DNxNuFJlC5dlyljPzW90OJ92h8M9F4Z4FG3IbtzlOSMhWc3xbzhoME/KFUo9UyBvnwpnimxYfoQEQtXbIMu0ZgXWdpyeI92W/VrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790087677; c=relaxed/simple;
-	bh=FcO8+gxKY+/nKD+LPd/eZyy4ldOArtG1kzAaFPbXiMM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OMFSs+sSUMg6fLglz71l/dZzQ33NMHEWvyil2+GVuEUr1MeC7kitzQ7ISSiRWUjDiUhlTZph5FNHFMghFilBKxk+aU1ELghYImXTMHcLymJ9o/1lFRCElMLNMyDe0PsSwmOb8gCWm6N3NFa+Mo9pgEl+IYgiGKOPJs1FEiswXSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IVXhlT5w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790088018; c=relaxed/simple;
+	bh=ZU1L5FxwTNjCoT1bS/uNXbQ6mHMkm3mg0gluJKahNMo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SlL6vfugj4cFxFsK4gJuU42+qhOj2Ox8K6SN/JSEMyC3bU117DdAZFIe5YAcFtH/GGfQE9NQwCtj5oFZ9ZPppRUK6DkTkxPD+Dz/7qoZFjJGJb5q0UaAhhgrAMzQM/FoDmnu6x2k/F7AoZhIhw3A7+A9syhxI5Suwl68lAjXdGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=h4lCMZzH; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IVXhlT5w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F92F1F000FF;
-	Tue, 22 Sep 2026 14:34:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790087675;
-	bh=BYx3UPsVK+IPBRssh3HUX31FUJIXkBIIqhrriLruBy4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IVXhlT5wGgb5gMxwF42e8R2ZWcR1LA9LWOJ9rscpXNJi/RTyrqB/SaXKwTgY+kVYw
-	 I983Mq5N0hNe0sp+WMA8b+OMwVlfi5DiifDQZu5EcNQ2nkvf/yCzgct4LBUzfXM3jM
-	 igMjR9zEJntsJ6QZdvyExImLzrdvt6nrUE8ptPWDUh4rX7dQNUXhhM5X/yVBI4HHHo
-	 K3wHjqLQJpF8pHPCVmD1MJk9+DFWjR2BwP5n5lNLkxvsABUWVwwMCyQDGDNFSWGkcW
-	 Uo4zBio81ZhVeyAQe4Sjhv/whR59s6oCJQ2u032m3h9+NkZpcmT25h5wpUH94SlU05
-	 /MKmVzHmf+6Hg==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id AA5011AC56C6; Tue, 22 Sep 2026 15:34:30 +0100 (BST)
-Date: Tue, 22 Sep 2026 16:34:30 +0200
-From: Mark Brown <broonie@kernel.org>
-To: joakim.zhang@cixtech.com
-Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com,
-	p.zabel@pengutronix.de, cix-kernel-upstream@cixtech.com,
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 2/4] ASoC: cdns: Add Cadence I2S-SC controller driver
-Message-ID: <arKR9oIjbrTM9fTS@sirena.co.uk>
-References: <20260922112134.4167305-1-joakim.zhang@cixtech.com>
- <20260922112134.4167305-3-joakim.zhang@cixtech.com>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="h4lCMZzH"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MBQ7sY3783304;
+	Tue, 22 Sep 2026 10:40:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=WKIoLQQASuTTmcTDw+jxDJmXinm
+	viOdYW61NdtUF+sI=; b=h4lCMZzH1R3365trAiQhqp9ROjoW16FRtcjBeQfpdjm
+	td9umdJhcU4gUqgWx4WjidC2VKAfEev8MQDpWL63oltQK7nhyaad+Gcv8Sf7ZqPE
+	EPav7QSEHP1oO5RJ7EyrAAkIFUTDTeX/TDRxMhuQD3Z+KBOPC7x5vEOtRxvhuNxq
+	afjizyAwqk2nzhDiH2DIHjWfz/NINUFGTWN20ZaAHbbbpqjUTdlFJ5ULR6mJAbtN
+	9NnBUeBU5XWaaEOtvhDhEyv16lbCS58Jc8jHT5F101pR5TYAua8gneSUhoSQztQT
+	Jo+HwCu4ZHSh6nycz2mJpatP3oXU34ZJvbQLLfNLNMA==
+Received: from nwd2mta3.analog.com ([137.71.173.56])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gsm83fff8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 10:40:13 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 68MEeCuk009953
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 22 Sep 2026 10:40:12 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 22 Sep
+ 2026 10:40:12 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 22 Sep 2026 10:40:12 -0400
+Received: from HYB-MkYHBcJRSnh.ad.analog.com (HYB-MkYHBcJRSnh.ad.analog.com [10.48.65.223])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68MEe1Mg017920;
+	Tue, 22 Sep 2026 10:40:03 -0400
+From: Liviu Stan <liviu.stan@analog.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David
+ Lechner <dlechner@baylibre.com>,
+        Andy Shevchenko <andy@kernel.org>, Rob
+ Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor
+ Dooley <conor+dt@kernel.org>, <linux@analog.com>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+CC: Liviu Stan <liviu.stan@analog.com>
+Subject: [PATCH] dt-bindings: iio: temperature: adi,ltc2983: Add ADT7604 datasheet link
+Date: Tue, 22 Sep 2026 17:39:49 +0300
+Message-ID: <20260922143950.176910-1-liviu.stan@analog.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="f03ZgCX7Ycsbfz7v"
-Content-Disposition: inline
-In-Reply-To: <20260922112134.4167305-3-joakim.zhang@cixtech.com>
-X-Cookie: Too clever is dumb.
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIxMyBTYWx0ZWRfX2b0aCwGqip0+
+ Gskl1qVZyIiyF5mPi4+HjppvWMuxyNNaLzHvSn53zovi1B5yCDfZyynPmjMfnVTOvIt6etphK3w
+ CzLXHYniYwQOxBwD1VMYGOUwisLUm9mlpzECx3SSYNbVtITWOmzA
+X-Proofpoint-GUID: b-l5PfEgCYCzosjy4eBtbGBdGlclt5n3
+X-Authority-Analysis: v=2.4 cv=e66T2qp/ c=1 sm=1 tr=0 ts=6ab2934d cx=c_pps
+ a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8 a=97kYdx552Tuj35SEOkUA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIxMyBTYWx0ZWRfX+GtoF2PgCKRI
+ fk5SWa5OWNPoa7ToAGSRpIfHvG16qFxsWb3hB8XeMvk+dcLBi9K/oqQnwyCUAYjUfVgHR/G1N0z
+ uB9p+OTWpeO6hl4NPJReWeJ7lVC77o6hficiOQRS5umWF2BfTeFBzmLI1DfmkeSs41BwbpRsulT
+ nrIe9R5mulxXOqCqqGPZFVIYYqbBS9vUtOfQXHEuZJshyHWYjEuug42YUFcpaSi3qeEuWCFsgfY
+ 1gUTpK5kouo+ah3DjX/OHeflzgapewqzgtw8eiAVOwtiVTLIY3VT5eyklSF2q5lFzAChnFhDDjL
+ lQuEG3PCXm/Z0Vh7mED3UnWVZVPIDftncbB9+tAx1nkmFdZTfcIY0K9CzZ1mOjV8lUkzccHQ1Xl
+ B+oadIFuwCMsbit8s6w72Yd+Zcrtbe+IUpfQTfBOG1iluLPay61TZ9Qc/JvQKvYlpcjoLns0DUC
+ b2VQsjmucxmtV8sTkiw==
+X-Proofpoint-ORIG-GUID: b-l5PfEgCYCzosjy4eBtbGBdGlclt5n3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 spamscore=0 clxscore=1011 impostorscore=0
+ adultscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609220213
 
+Add the ADT7604 datasheet URL to the binding description alongside the
+existing LTC2983/LTC2984/LTC2986/LTM2985 datasheet links.
 
---f03ZgCX7Ycsbfz7v
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Liviu Stan <liviu.stan@analog.com>
+---
+ .../devicetree/bindings/iio/temperature/adi,ltc2983.yaml         | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Tue, Sep 22, 2026 at 07:21:32PM +0800, joakim.zhang@cixtech.com wrote:
-> From: Joakim Zhang <joakim.zhang@cixtech.com>
->=20
-> Add support for the Cadence I2S-SC controller found in the CIX SKY1
-> audio subsystem.
+diff --git a/Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml b/Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml
+index 13e5f29f0588..09b809f01550 100644
+--- a/Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml
++++ b/Documentation/devicetree/bindings/iio/temperature/adi,ltc2983.yaml
+@@ -17,6 +17,7 @@ description: |
+     - LTC2986
+     - LTM2985
+ 
++  https://www.analog.com/media/en/technical-documentation/data-sheets/adt7604.pdf
+   https://www.analog.com/media/en/technical-documentation/data-sheets/2983fc.pdf
+   https://www.analog.com/media/en/technical-documentation/data-sheets/2984fb.pdf
+   https://www.analog.com/media/en/technical-documentation/data-sheets/29861fa.pdf
+-- 
+2.43.0
 
-> =20
->  obj-$(CONFIG_SND_SOC)	+=3D snd-soc-core.o
-> +obj-$(CONFIG_SND_SOC)	+=3D cdns/
->  obj-$(CONFIG_SND_SOC)	+=3D codecs/
-
-This should be sorted in with the vendors, after bcm.
-
-> +++ b/sound/soc/cdns/Makefile
-> @@ -0,0 +1,4 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +
-> +obj-$(CONFIG_SND_SOC_CDNS_I2S_SC) +=3D snd-soc-cdns-i2s-sc.o
-> +snd-soc-cdns-i2s-sc-objs :=3D cdns-i2s-sc.o
-
-We've moved to module-y for module objects.
-
-> +static int cdns_i2s_sc_probe(struct platform_device *pdev)
-> +{
-> +	struct cdns_i2s_sc_priv *i2s_sc_priv;
-> +	struct resource *res;
-> +	void __iomem *base;
-> +	int i, irq, ret;
-
-> +	ret =3D devm_request_irq(&pdev->dev, irq, cdns_i2s_sc_isr, 0,
-> +			       dev_name(&pdev->dev), i2s_sc_priv);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Failed to request irq: %d\n", ret);
-> +		return ret;
-> +	}
-
-We request the interrupt before we enable clocks or anything, an
-interrupt could be delivered as soon as we do the request and the
-handler will try to interact with the hardware which I imagine might go
-badly if it's unclocked or in reset (at least for some integrations).
-It's generally easier to make this one of the last thing we do in probe,
-once most things are ready.
-
-> +static void cdns_i2s_sc_remove(struct platform_device *pdev)
-> +{
-> +	if (!pm_runtime_status_suspended(&pdev->dev))
-> +		pm_runtime_force_suspend(&pdev->dev);
-> +	pm_runtime_disable(&pdev->dev);
-> +}
-
-For CONFIG_PM=3Dn forcing suspend won't do what you want, and when it's
-enabled it'll also disable.  devm_pm_runtime_enable() might be easier.
-
-> +static const struct dev_pm_ops cdns_i2s_sc_pm_ops =3D {
-> +	SET_RUNTIME_PM_OPS(cdns_i2s_sc_runtime_suspend,
-> +			   cdns_i2s_sc_runtime_resume, NULL)
-> +	SET_SYSTEM_SLEEP_PM_OPS(cdns_i2s_sc_system_suspend,
-> +				cdns_i2s_sc_system_resume)
-> +};
-
-
-RUNTIME_PM_OPS() and SYSTEM_SLEEP_PM_OPS() are the more modern things,
-and avoid the need for __maybe_unused.
-
---f03ZgCX7Ycsbfz7v
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqykesACgkQJNaLcl1U
-h9DFuwf5AZA0BHA8EDSLr3yT9wJi1GpTmM5ml1rYBCpGZX65b/A94t5G9/rv/JaK
-1U2MY1DOsWahuosjvdisvLkRPpsw7URMRcq/poT0R2uwuun/RE7ZVKl7O6XWTrYn
-B0wseq8VmrmIX1D3dZ/JSix1/tWbwo3LlhldEK3coNqE5FJj0i2uE1eLT73s63Qp
-5rrbx2ttDF3YUn8DPFMNv5vmsUnrwJNpTZGY5wFwJkMUFHtSzi6SEBP9v3jcVeD4
-/YIO5xZzZxYjH9n0MGSQ6jVwpoc5dH7k1CCXNPuHgUJulNIVBWaozuRBEJO5mDQI
-TLa9Ipsb9Y+5ibLODi60BjpXBN90Kg==
-=KQRK
------END PGP SIGNATURE-----
-
---f03ZgCX7Ycsbfz7v--
