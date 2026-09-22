@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E526424D6A
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:27:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B236F3DB62B
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:27:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069227; cv=none; b=pu5KuiYJ5owzAVYJ84uRcRD1bE9ioEfRD3CAMhugebFKiSRGkcDIreEgKaaFN8zGXdkgSS1tjR0wzNMOOATK8joqVaVdsPSwZVZHcNgxrtaqbdTtFZTjHhU01lr1m31JrdtWRKH3f6qiHSmWzBCWy7hRVQJNvbnNEMPUz/LsP3k=
+	t=1790069227; cv=none; b=g9Bk91m6fJiRdsvNF+rI2IQrZOn52WvoHjw/z1MFlm0zQg9tsRIPCenax7Ymc4JTloiAZ/2W0+zWX2RGSthtBTZyMp+7gYygE9+X2pCxoPsIqSvnnl5Wdbibk6pvD6td6AS3gQINOAxfODth8oRJJdz3sURzNTOtGDOg8Z5yWiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790069227; c=relaxed/simple;
-	bh=mzH7hsX4lSUCtCGvR1UfRYJLHQhuqhJOw2KLMTczZEI=;
+	bh=Vyvl9DHgZHWTNB0wJ5njpMRP92xZOP2bfnuQ5m30mvQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fuGpWte3AeyBZBw7hNLWkEh0EhNzH+++y9VxP6xERxi84xmvfK5JS1HHD7syTAwwyV9cHHjkYGF2QE+RyJtQKlt0Iiy0QAL+fDHKTmAUstnpEYSCLOCWIOqZopCNhPadq1p3w0TN47MC2KlW8WoC+ZlAEXmKsTxbMHrQIw522nQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hcYJS3cC; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=fBCjOxWQ8GpFypaNpgmwnuVOCh9xktP3hzEI4arXE+q7dYKbBsocimoP/57INrEq48VCQ4hppnkzhWWW1NDjXjRhE12ZQCwdFF3fnrLowKZg2tY5N1TRdtMM6ZQpRh00FTUc/FKjFZrH6DyDGeG27H5H8w3BdUoVwFteqd5naFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SRvOuUPO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hcYJS3cC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADAD1F000FF;
-	Tue, 22 Sep 2026 09:27:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SRvOuUPO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4505E1F00893;
+	Tue, 22 Sep 2026 09:27:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790069225;
-	bh=cVmOUs2CNolqjKbrn92CVnXXlzpivFXtVqZsEpJhXeA=;
+	s=k20260515; t=1790069226;
+	bh=9OdmwklMUusa4uZK3N/T7gPPFocQpm3C7I+UaUpr7B8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hcYJS3cCuX9k/QUl+X4AOVLCyHpr+SdUOJ9qoeMc/sgweKGuIBlqUj77BLqau5sP3
-	 uF2bXjobQ3dK8LsjjgqkQfYLaPMhnCxwiU7+SvR7x9wMOidmB4ou6LAohSORWwWwpc
-	 PjzHU6OlRVfZOiwMOAjmITpILg2EwsubQdYtnRrEhE6vGXTf/z+uMs/cCIDb5ux+HI
-	 NbfSJnw/cVjZ6Prk+R5Or1ObEd4bd53/pmjmiV2wpoSgsRzue83n7xTsyucfR6IRtC
-	 OnfQnMIVxwEwc5cNXL13WVkNZg0zfYw62PWLtSkanMZM4IGvR2rPcu4mEvtpVmCuUY
-	 MR88YO0OploIg==
+	b=SRvOuUPOl1BbpkNLKHfsAOjXG51bREbLgJEJ4Hn4xTb4vBDAJGk1bAMvuGGBvdx31
+	 O3cbWssvpQt6waPmjEq2P7TrE7VABBRFC4k0qROuHwL8HcJzjAaN24doZaFxtbOJZx
+	 XS+IG2FNJU0801GcKpqmRdJjd1MwNwKDEjJgdap0S5P1tgbDU2v8YiLlKzuuq6b1Xh
+	 ofeCML6YqWEZzCpzQ/FnvBhUGQN43jUX//WGRZOiGS1qAdJwmm4v5lr3ZB0GdPviIr
+	 0i4Lw2mvDdXiSq/xgo49Epc9Mf8QMNK6R9nqbmkaRvFSfeia09dtaVVN8l808C4TRR
+	 Kw6gxMordAmSw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 04/12] media: mediatek: jpeg: Fix buffer completion
- on multi-core streaming stop
+Subject: Re: [PATCH] arm64: dts: qcom: nord: Add LLCC node
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: robh@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260922091530.241762-5-kyrie.wu@mediatek.com>
-References: <20260922091530.241762-1-kyrie.wu@mediatek.com>
- <20260922091530.241762-5-kyrie.wu@mediatek.com>
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260922091735.491481-1-shengchao.guo@oss.qualcomm.com>
+References: <20260922091735.491481-1-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 09:27:04 +0000
-Message-Id: <20260922092705.6ADAD1F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 09:27:05 +0000
+Message-Id: <20260922092706.4505E1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,78 +45,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] media: deadlock in mtk_jpeg_enc_stop_streaming() and dec_stop_stre=
-aming()
+- [Medium] dts: qcom: mismatch between DT reg addresses and commit message =
+stride
 --
 
-commit d57ed3ae2e0683991f6c5bdb99ad62cd27985d0d
-Author: Kyrie Wu <kyrie.wu@mediatek.com>
+commit 0675a08212d643f9f31ddc67dcf4a44b377036e9
+Author: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
 
-media: mediatek: jpeg: Fix buffer completion on multi-core streaming stop
-   =20
-Enhances the Mediatek JPEG driver's stability and reliability by ensuring
-that all queued buffers are processed before stopping the streaming in
-multi-core environments. It introduces a call to vb2_wait_for_all_buffers().
+arm64: dts: qcom: nord: Add LLCC node
 
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index 7856a556ce68e..d0fb68bc884b4 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> @@ -850,8 +850,12 @@ static struct vb2_v4l2_buffer *mtk_jpeg_buf_remove(s=
-truct mtk_jpeg_ctx *ctx,
->  static void mtk_jpeg_enc_stop_streaming(struct vb2_queue *q)
->  {
->  	struct mtk_jpeg_ctx *ctx =3D vb2_get_drv_priv(q);
-> +	struct mtk_jpeg_dev *jpeg =3D ctx->jpeg;
->  	struct vb2_v4l2_buffer *vb;
-> =20
-> +	if (jpeg->variant->multi_core)
-> +		vb2_wait_for_all_buffers(q);
+This commit adds the system cache controller to the Nord device tree. It
+defines sixteen banks across four DDR slices, along with the global broadca=
+st
+regions.
+
+> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
+m/nord.dtsi
+> index e0496fd40c308..6896bda14ef3c 100644
+> --- a/arch/arm64/boot/dts/qcom/nord.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
+[ ... ]
+> @@ -2071,6 +2071,46 @@ watchdog@17826000 {
+>  			clocks =3D <&sleep_clk>;
+>  			interrupts =3D <GIC_ESPI 848 IRQ_TYPE_EDGE_RISING>;
+>  		};
 > +
+> +		llcc: system-cache-controller@21800000 {
+> +			compatible =3D "qcom,nord-llcc";
+> +			reg =3D <0x0 0x21800000 0x0 0x100000>,
+> +			      <0x0 0x21a00000 0x0 0x100000>,
+> +			      <0x0 0x21c00000 0x0 0x100000>,
+> +			      <0x0 0x21e00000 0x0 0x100000>,
 
-[Severity: High]
-Does this cause a deadlock if unhandled software buffers remain in the queu=
-e?
-
-If userspace queues buffers to a single queue and calls STREAMOFF,
-vb2_wait_for_all_buffers() will block indefinitely waiting for
-q->owned_by_drv_count to reach zero. The loop that removes the buffers and
-decrements the counter via v4l2_m2m_buf_done() is placed sequentially after
-the wait, ensuring the wait never completes.
-
->  	while ((vb =3D mtk_jpeg_buf_remove(ctx, q->type)))
->  		v4l2_m2m_buf_done(vb, VB2_BUF_STATE_ERROR);
->  }
-> @@ -859,6 +863,7 @@ static void mtk_jpeg_enc_stop_streaming(struct vb2_qu=
-eue *q)
->  static void mtk_jpeg_dec_stop_streaming(struct vb2_queue *q)
->  {
->  	struct mtk_jpeg_ctx *ctx =3D vb2_get_drv_priv(q);
-> +	struct mtk_jpeg_dev *jpeg =3D ctx->jpeg;
->  	struct vb2_v4l2_buffer *vb;
-> =20
->  	/*
-> @@ -866,6 +871,9 @@ static void mtk_jpeg_dec_stop_streaming(struct vb2_qu=
-eue *q)
->  	 * Before STREAMOFF, we still have to return the old resolution and
->  	 * subsampling. Update capture queue when the stream is off.
->  	 */
-> +	if (jpeg->variant->multi_core)
-> +		vb2_wait_for_all_buffers(q);
-> +
-
-[Severity: High]
-Could this cause the exact same deadlock on the decoder path?
-
-It looks like mtk_jpeg_dec_stop_streaming() introduces the same behavior,
-which could lead to a deadlock when software buffers remain in the queue
-(for example, during a standard V4L2 dynamic resolution change).
-
->  	if (ctx->state =3D=3D MTK_JPEG_SOURCE_CHANGE &&
->  	    V4L2_TYPE_IS_CAPTURE(q->type)) {
->  		struct mtk_jpeg_src_buf *src_buf;
+[Severity: Medium]
+The commit message states the LLCC banks are placed at 0x100000 strides, but
+the bank addresses here show a 0x200000 stride (e.g., 0x21a00000 - 0x218000=
+00
+equals 0x200000). Could there be a typo in the commit message, or should th=
+ese
+physical addresses use a 0x100000 stride?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922091530.2417=
-62-1-kyrie.wu@mediatek.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922091735.4914=
+81-1-shengchao.guo@oss.qualcomm.com?part=3D1
