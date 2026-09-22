@@ -1,76 +1,164 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f43.google.com (mail-wr2-f43.google.com [74.125.225.107])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82325452BC;
-	Tue, 22 Sep 2026 12:50:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0940A545D9A
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 12:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081452; cv=none; b=bxxg6n6giPx/VykhjqUzno/YA1jQOjfNPAi2YHS2GdNZBfH2q9MV5t6p3y+SUA5c5tek9Sb6tvBGyFUZHHYzytsQdskndXHixehR0ehA7QdYamR5NyAvgwQx//AYYH0FPIsa+UlwlUCye1s1xOR9A/ZPbnTjynPg0Y2uZXIbw34=
+	t=1790081609; cv=none; b=lzxBjffInCu1fwwio9QopRyW2KPIPLTmI9SwLJylv0lEYbfgEtlCxfRCfUUO0hM/XLjJimAwTkY8aCXL2Weh2VhXtQ3tAmQsxnGFUw5SQclh+TjozsjiVAPy+rmc0g6GII6Aazivz2DAgw/q3cNRQW9/Jobl4nrGTlANKlW/t40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081452; c=relaxed/simple;
-	bh=TBCEHkUTcZd5RXV/4RGxi5DuCsTfSv69e2BM3k1GCO0=;
+	s=arc-20240116; t=1790081609; c=relaxed/simple;
+	bh=v4Ul7xXqzvPTm1KnAhXO58P90eD2KlGTNsegXWmzADU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HtRt62Cy0aiXQGZyNnTO6TZnFUB7ATuplkAzV51A5t0FulynRU5PRehXLdo5DvFlSkHdXxj4Ps/Jq0DNbwi3rqU/iJuVhZ5sNWA28Nc65LJARqt1mR8JU0dt1E5tstsEU8n3kZKAyxPMcGUWzkJjrHsm/U/1+c2EduKab6ZsBtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=x3Abvig9; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=XA3VhjnuJ4foOUVrBK/gFiRDiD0dmrdLeTnyWxdod+eNARtrvuTXGX+Z4YJVk2bIq79EjY6gd9eZ1jPFqMnAHQygJ1/HaYZV6Ps47sLDjJCYQG2vR4IjW2+uOPyVjwLVswyiUtozv+3B9TPYNOyELQQ2YudUKn6kZ2FWw8VSjgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YhybTcQE; arc=none smtp.client-ip=74.125.225.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="x3Abvig9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=q03pcSGxXBeOQEQK9TaS9voA66lNR23OiFk9hSJIVQ8=; b=x3Abvig9d7sJvUivUPXDYsKCqK
-	hoW1ohDpIZxqlg5HDIib5erf8VoS/iHn8gnn9nWBeEQrT151RrENa+vSIfCuWxrwglgUMAqNJV2w1
-	ztrZW7v+yRGwy79jSQ1pMM7tsh83AsxmVmwfr5elJFemVgsoXuaaMvkmYZIEZabLs9Gs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x8zx5-006alj-Mu; Tue, 22 Sep 2026 14:50:27 +0200
-Date: Tue, 22 Sep 2026 14:50:27 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Cc: joel@jms.id.au, andrew@codeconstruct.com.au, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, ryan_chen@aspeedtech.com,
-	billy_tsai@aspeedtech.com, tan.siewert@9elements.com,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 2/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
-Message-ID: <1b2b77f5-c10f-4de8-bcaa-aa410f73896e@lunn.ch>
-References: <cover.1790079398.git.prasanth.padarthi10@gmail.com>
- <cb05fc2f4158b03d312b94cd9361173fe92ac528.1790079398.git.prasanth.padarthi10@gmail.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YhybTcQE"
+Received: by mail-wr2-f43.google.com with SMTP id ffacd0b85a97d-482f62ccdb1so1434413f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 05:53:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790081599; x=1790686399; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UsAsHIO1y8RCUKiEPTTkY3IWmv6reNZonvZkfCzW3Ag=;
+        b=YhybTcQEyKITrmRourFyhi61KkzUyB1QwEiSQUkUdZrWhni2DxJp7ta4BVBp9zNwRF
+         y2I2IRbuSAEwaD27Ia+kB2jfwDci4L+rdlUS8iDjq4WZx5WmunC0XGR9eLRYI0L+G4rC
+         rlXWSwCHXLPFWJpIjRKlLVxRYqkvp51ft5gaVj1mBca1fv5h5UcMeOuwdEpcGx26pdtS
+         IvlINlotnj4BPFUg8Qc+oal3YsHg4Co+Nb0tHlX7GvLle9U+SBySrI+6eB9IRQ/L9RH5
+         Pd/hU95ZC0LGje58BGN4gks3b3x5Q96FoAqLfWJNHXETdcg5n115ejuEhmxM57Nrnkft
+         A7wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790081599; x=1790686399;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UsAsHIO1y8RCUKiEPTTkY3IWmv6reNZonvZkfCzW3Ag=;
+        b=AGR8IIBBBdDXMqvHkwkR9CLpf/ZUbhzaUJNld6UN3OGYNWq/zAVJmuXfW4Y04CobQM
+         luVzHNKNi4ri4OW4SoqBFmDBUE1MNll/cYQXcUQaYCyQxQ/Kc64Wtu8kfISXASnX6fqR
+         uWCTHQnu9rLNnVO4zW/4vecuIwBaYIvcEhvZHmoOfYsFg++5cFDVrQqNYdGvdkalW4uj
+         LIyiVNKnqsoZJtnaaZzoBgJExFlQmQZ52Uvu3juG+FtVnBrTGzQ/ZkCs7uQ4UZ9KybUx
+         CsfTM4uEzq7A6hzYrZbjXmE8SUn1SjNVMv1WUiv+9G+RGm0E4GwJVBBSgbjHm/GgJiiC
+         xP7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzUDNxR1pNbp6kQ4Lr2BWKGtqizvWX8e1nzkWqUORnyA6Tv3qikuS0YQBMVtwIHsvyAKYb6/277X/Nv@vger.kernel.org
+X-Gm-Message-State: AFuF++n9WhVTHcCnSnAt0KxnuhT6X6mfvoTrcJr59beCoTdM5FAJvR+2
+	wom9ZBIUTFLzm1h1h4ITwX14W+ODi9MQzbinSg4AgUM1ymgyinSXdFqcP8/4TSuy8Y8=
+X-Gm-Gg: AYBFou17Tq1Bv/tjg23YFRtn2OHu1OTC/KaOMNVd3ntyV5MN4/JCD3+UgN6uKW6ds8O
+	oj4Tqz5IgeZzyyTtnqrBQ4T8DcPHQeg7MJ2NMIX8Qskb3U0TIA0SRBhFq7klJWiJsIz7JxesW3W
+	KF95SQ3nA6gF17qq6FF7UY7Lwtja17/JweoZb2TToqLKfvLPl0f+prLd8owaAFtbAIfManiF8K9
+	8aRYEnU17Pn/nJ8o2Uq0UuSCjCkmX6f3cqKlZMoipkoqTDoViQ7lk0MQoG3OfH73KpKZ0ZK70Jd
+	DKVkuyIaJO3UmXVqZIvSqxw8B4lNRo+a+WMKCir6AwPMzlPuCjbWuAWgYWVndOce0FDhJlOTupz
+	JlNgb9LgcMCgChr+TLpO+IxjxgBO5XY3R3IBR8AFNNckWZagIyVZrVpO7Mu+jGXvo570cHVjhwt
+	/g4LPC1K71WEzIJm6zqbrVvvcZRy9SVxeTlmRu9kIjCwK6CoLB5bCdaQ48WO1gD2y0AlAbnuRzG
+	MGKxUKFEydW3gImMvXmrTmgkAUMVcpe13jargU5zQu8BpXyJ8rnkgXmeYqfOw==
+X-Received: by 2002:a05:6000:4608:b0:487:f31:857f with SMTP id ffacd0b85a97d-488610118bamr4476584f8f.15.1790081599025;
+        Tue, 22 Sep 2026 05:53:19 -0700 (PDT)
+Received: from localhost (p200300f65f19a9041d0e57515b2ea4c8.dip0.t-ipconnect.de. [2003:f6:5f19:a904:1d0e:5751:5b2e:a4c8])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48862731a53sm4931099f8f.4.2026.09.22.05.53.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 05:53:18 -0700 (PDT)
+Date: Tue, 22 Sep 2026 14:53:17 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, 
+	andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, kees@kernel.org, 
+	gustavoars@kernel.org, p.zabel@pengutronix.de, daniel@riscstar.com, 
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and reset
+ driver
+Message-ID: <arJ5gQmthKh2ayGg@monoceros>
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-4-elder@riscstar.com>
+ <arA1svdQzaj3VanR@monoceros>
+ <28ebbf27-24db-4b5f-87f0-831d13f93b8f@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ztliwx3eij5ch7ku"
 Content-Disposition: inline
-In-Reply-To: <cb05fc2f4158b03d312b94cd9361173fe92ac528.1790079398.git.prasanth.padarthi10@gmail.com>
+In-Reply-To: <28ebbf27-24db-4b5f-87f0-831d13f93b8f@riscstar.com>
 
-> +&mac0 {
-> +	nvmem-cells = <&eth0_macaddress>;
-> +	nvmem-cell-names = "mac-address";
-> +	phy-handle = <&ethphy0>;
-> +	phy-mode = "rgmii-id";
-> +	pinctrl-0 = <&pinctrl_rgmii1_default>;
-> +	pinctrl-names = "default";
-> +
-> +	status = "okay";
-> +};
-> +
-> +&mdio0 {
-> +	status = "okay";
-> +
-> +	ethphy0: ethernet-phy@0 {
-> +		compatible = "ethernet-phy-ieee802.3-c22";
-> +		reg = <0>;
-> +	};
-> +};
 
-For these nodes only:
+--ztliwx3eij5ch7ku
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and reset
+ driver
+MIME-Version: 1.0
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Hello Alex,
 
-    Andrew
+On Tue, Sep 22, 2026 at 07:37:53AM -0500, Alex Elder wrote:
+> On 9/20/26 2:39 PM, Uwe Kleine-K=F6nig wrote:
+> > On Fri, Sep 18, 2026 at 11:52:32AM -0500, Alex Elder wrote:
+> > > +#include <linux/bits.h>
+> > > +#include <linux/clk-provider.h>
+> > > +#include <linux/mfd/syscon.h>
+> > > +#include <linux/mod_devicetable.h>
+> > > +#include <linux/module.h>
+> > > +#include <linux/platform_device.h>
+> > > +#include <linux/regmap.h>
+> > > +#include <linux/reset-controller.h>
+> >=20
+> > Please rely on linux/platform_device.h to provide of_device_id and drop
+> > including <linux/mod_devicetable.h>. (If you want to go full iwyu,
+> > include <linux/device-id/of.h> instead.)
+>=20
+> In general I would like to "go full iwyu" but have never heard
+> it expressed that way.  Can you recommend a tool available that
+> will help me do that?
+
+There is `apt install iwyu`, but I only tried that shortly and didn't
+manage to make it work nicely with-in the kernel.
+
+> It looks like "mod_devicetable.h" doesn't help much unless I
+> need struct_cpu_feature (which I do not), so I'll include "of.h".
+
+Yeah, and for struct cpu_feature there is
+https://lore.kernel.org/all/ef103a4b9e1cd7477fa52ee347c4ec301354fba9.178998=
+8540.git.u.kleine-koenig@baylibre.com/
+=2E
+=20
+> > > +static const struct of_device_id tc9564_clk_ids[] =3D {
+> > > +	{ .compatible =3D "toshiba,tc9564-clock" },
+> > > +	{ },
+> > > +};
+> >=20
+> > Drop the trailing comma after the list terminator please.
+>=20
+> OK.  Only for the list terminator, right, because nothing
+> will ever follow it?  Non-empty final initializer is OK
+> to have a comma as far as you're concerned?
+
+correct. A non-empty last item even should have a comma.
+
+Best regards
+Uwe
+
+--ztliwx3eij5ch7ku
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqyejsACgkQj4D7WH0S
+/k47Vgf+MRlVLPMGuXHor1vwVO9Aio3Q8yy+NUEK/fWTE+YEMTA1w+6YqsgeiJ18
+k46MRbkEremJC2B/gZElmlpu4paEu99Qg+kif1t+k21ZaiC9Kl71V2ue+dNtbP93
+U6/uxACp6gAw5u3yAf2GFlAOJhCXVBaeVd25LntVeVdhRYQb48cp6V5Uo2C2ukK5
+WfEPetJwrAilKQUBpNladzLOIXT4/xVdzLTl1kQCTeJ+k+4f9ubiLI5C6cJOsf2j
+MC4jBXoimClS2rp5jMK42D8blKcvVDH4Z4X87FPzl1sqRy8EI+nFftpZt0hSW/ai
+gYSqxdYQ0cXLyu2XzCARC0BSUETt/g==
+=zJTm
+-----END PGP SIGNATURE-----
+
+--ztliwx3eij5ch7ku--
