@@ -1,137 +1,108 @@
-Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE174BB7E4
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 20:05:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BF23BF699
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 20:06:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790107528; cv=none; b=rISQ4fyQRJSYZesbMXicBWA/+yly6Q15QDja4KONWGv2quUaoBJVg9HD3dAWBx5XbZRANS8mupAROw6961MX0dqFkNcRys3Q+d8kulbM6FlPoJ1RoFYe1sJUdsnBDwhDmCbiMnAunCL0OHWZP+vho+hD871mVXVryg4R/fv0L2A=
+	t=1790107615; cv=none; b=HTszFEfEkcPX8mOQhrgRAbHXzHRDUp7QUDg7HX5lgsElnua3Z0dilTlwMSZv4qP8AZhbRhEMmnNAUAC+W5GxsUbVKgwrDevHgiB0a/xjy08jcZiZQo0Cs8kaNi+VUPbxo7JDbiHrnK8oIf7hANRcvgwxDwUfFsqDLlxO41qy6+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790107528; c=relaxed/simple;
-	bh=fh2Uu82ejF0DtKt0brgXH//fEo0R202bASP2cymwUFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o8lNO7ajf1ChRX4aNB/fp03Syg3b9i0vnWzs0+2I5IIiSb1Q/u3qLVSlp12LLX+H9omg6V8sbqAWEjyvoroxaFYO5RpGhg70ia0hih7jOFmSnFZ7SbuMMHJEE0kB+k4nmtDsSziHZF/9GCvElry0CzuQre/ET+WYk85yl87GB4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UdSVq3K+; arc=none smtp.client-ip=74.125.227.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790107615; c=relaxed/simple;
+	bh=DQ6pOyH9/gwI9NGnOmICJ+Z+AjY+ewLm9COTYSgD430=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=blr9bddwOgfZEcmF+tl4qOcHELjBw1gRtGoYlyOQokUIhv8YS9F0nnscAuD8TwQrZtVAVeM8Q/NX+NcKwh7glsL4NsejYoud6kEWVhWqvT29lUN0BRyOwxWQC6t3Hm8QJw4laCW+4Y1gFTSpmIRkPiXMz5X0cj+nmpMybb7tFyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IPnEarB3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UdSVq3K+"
-Received: by mail-pj2-f0.google.com with SMTP id d9443c01a7336-2df5ab2f7b4so758385ad.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 13:05:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790107512; x=1790712312; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bdJAnLwrz+/OjIyJtnetxy2JKy8P0MsUYxFs2QuKaus=;
-        b=UdSVq3K+yojQHpnGmXGkAEkPTwJMk03Ajk4hF9OLMwsODOjQCbvDf+WSAgGPzHIWq2
-         nRgmIJdoOtiaRZUQPD/DhCTuMORzVe9/jqNUoQDo7z8ZzIP1FdXm3Jbo7tZViUWx/m31
-         mfF3kkwqEvFh+8FkrYN59yqQKqKabszHdHIUpi3BwZZ4l9FlpmJHXUFjaMmFfT8kaew/
-         dqm+gs3l9v5N45jo9WZ/YYs9i92/yVuHWd1nTp1K2lPxtAkEO6cXxCakPlh1XJj13VRM
-         YMCFM8YYrgdAsN6HoQjVmGG1cS7BIFlI4ER2QtgfLQl7oyIKbQBmNofZOf90LUkmEbNL
-         KdyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790107512; x=1790712312;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bdJAnLwrz+/OjIyJtnetxy2JKy8P0MsUYxFs2QuKaus=;
-        b=TQu+CBGrHCy7WYwFarCQbL47U4duGMZXnqqzqdkGkdW0q8i6933hh42MnQfK8CIvHo
-         Awf3VMKsentKwRR720GtUU+Q0NOYqb+bRT0FHRvZDMqyGk5ZVTk4DBruzqZZmPUNviz8
-         0U+AL2sTkYWRZeXf2dcvqTMV3o0nlICcJWs3vLSRgL6WZAwyqv5EQgUlh7GenzGmJM+b
-         rJxVqprKcKWga0J5kvSdQz9o3tDpMZSZtPVl43APj6rE85p9M2sA4JI9pmvIXZbE2A1g
-         sz3GgoOHaqe/0+SgKZGZyPlxJOhQ7cV78Ec0xCuFdEN0e5ZTUdxfnx6Vl8n2bAR8kn/F
-         jzbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzzv2Oa8UHFfyXe5+jSzHV0XRbvcwF8gYiXFHpVU5YcL2ar6QPIipO28zywWQfmoXePGnozAnZdr7Az@vger.kernel.org
-X-Gm-Message-State: AFuF++lecQY1mH85RWDxiSZczXlbCPGtiotT8TeWNbyGcC96ZwpVVpTX
-	Te2DEgp/LsiC8iNlBfnlsVuF6lQdG0mboL2XgE1cyJTaoy03cUx+yxst
-X-Gm-Gg: AYBFou3VLUkc0R7xO/u7e0xBC3rJ0G1bL7HpeXpAiF68clSTYEw6wHiE9g85W1snzu4
-	t3ljw0SVRi50PvDkasXG/S3Sj0cnXh1m4xO6LlEhQUXI0nGN2msh0zPy9KaTQbeqyPWi+nk+hVM
-	wdFZsEEQ2GmPAnO+i1ewyO4NWjj1kG4LEJSiCuGnA6TZBpOhX15LSJKl675OX6hYnTyXFq2P2LT
-	H3GcMUbid4WfdanYc0C5MYlXZ1emYy+HyyBbGOjnDSj8Z2+iy0BZ2W4ZjLycx7jjltyDccAxgXO
-	+ANdRlxUK/NVFejgttGx9FavLrTGOX+bqYDk32ESU/k8nAECPhWfRcVe0gdi/6nyzbr0mqz1E8r
-	1XQ12BSHhPnvTC3+XLNyk/D9rGg6rCB+SLcAAh60m0rlDYjuSLGDhYZlTBjALQzrHnbuOsaLM2v
-	n6T20G9dVDKDthCL1bzI34DVgkDkTJoajNDkkcW7j4SWgz/HqbcCOVewanaNUp84yGKpV3
-X-Received: by 2002:a17:903:234e:b0:2dc:fcfc:bdeb with SMTP id d9443c01a7336-2df69d3649amr4211185ad.22.1790107512560;
-        Tue, 22 Sep 2026 13:05:12 -0700 (PDT)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5eea15sm654515ad.64.2026.09.22.13.05.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 13:05:11 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Coia Prant <coiaprant@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	David Heidelberg <david@ixit.cz>,
-	netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH net-next v10 11/11] MAINTAINERS: add entry for Rockchip XPCS driver
-Date: Wed, 23 Sep 2026 04:03:35 +0800
-Message-ID: <20260922200336.2201212-12-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260922200336.2201212-1-coiaprant@gmail.com>
-References: <20260922200336.2201212-1-coiaprant@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IPnEarB3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 423F51F008A1
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 20:06:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790107600;
+	bh=DQ6pOyH9/gwI9NGnOmICJ+Z+AjY+ewLm9COTYSgD430=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IPnEarB3y99S7CqDKkxw5Iqqacm0mKqK4TbmtiBYyoy/FwO/rFFWqFlNWnIZLD5Rs
+	 Ti+IwcjjF/1K0OsZDqnS42lYA6eZsR3D0ea4Ccx/AULS+dvkOajeAgEU867nrklSzs
+	 O/wS2tpW5ivg2skIolqvpBsibb+CQ/LcFeuTDXr/qmm1WMUULaK0H8nD4LgdxfLCcJ
+	 vWs1LdbMkUlThPbjuQ4KfyzxY+T8RZaRIl9Uk/ovWH3fhFVLgPr/mJ5Buafzt5+AXT
+	 vUaqMgrntVyCGuVfRPy7S/8q/Zs3cjdi3tAno55AkBl8dGesfcaCqDvpfr4Xg7Bw39
+	 gxZa3DzwNWtAQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1e419so64802e87.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 13:06:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByOC0zs91nHZvh70L7bTQvQFWafo+MAwAhnQYsaSs/0lLCN6mTIsaArzMnZ8HQQk78egiPjkOzoGDkf@vger.kernel.org
+X-Gm-Message-State: AFuF++k6Ddko02zEzibaqGl0ddNMW1rWouo0RQb8mcZcxN0GFYBT6hI0
+	SD/oXkzAb/K8vzt2wZ9DOYrxRyceqI+zZf5Ca0zlwYxgXCGAKfTstgaIUXiqVP7EUtEiuoM16Jv
+	VkwaBJyz0UcX5gaxmaNAJRxXQa0ujagc=
+X-Received: by 2002:ac2:5452:0:b0:5b8:9a95:e259 with SMTP id
+ 2adb3069b0e04-5b8d87955b0mr117714e87.27.1790107598761; Tue, 22 Sep 2026
+ 13:06:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260909-pci-tc9563-aux-v5-0-c9b33f56c8d3@oss.qualcomm.com>
+ <20260909-pci-tc9563-aux-v5-2-c9b33f56c8d3@oss.qualcomm.com> <fratyclnf6t232dg5s2kvsysw3gbovkwnrzfhnlblsax3wb6qy@debn6qdpp7jh>
+In-Reply-To: <fratyclnf6t232dg5s2kvsysw3gbovkwnrzfhnlblsax3wb6qy@debn6qdpp7jh>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 22 Sep 2026 22:06:26 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmDTR8hTqEaL+4MkYpNyJM1Xqw_yDVXWk37j0U_EXW8vQ@mail.gmail.com>
+X-Gm-Features: AclHuK9hkx-ggz7G0g38jTqdTsuWa6o6XzZhAY7sBjdJ2ocCBPHQ5wBU56tnIRc
+Message-ID: <CAD++jLmDTR8hTqEaL+4MkYpNyJM1Xqw_yDVXWk37j0U_EXW8vQ@mail.gmail.com>
+Subject: Re: [PATCH v5 2/5] gpio: tc9563: Add support for the embedded GPIO controller
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+	Alex Elder <elder@riscstar.com>, Daniel Thompson <daniel@riscstar.com>, 
+	Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a MAINTAINERS entry for the Rockchip RK3568 XPCS platform driver
-and its device tree binding.
+On Tue, Sep 22, 2026 at 6:19=E2=80=AFPM Manivannan Sadhasivam <mani@kernel.=
+org> wrote:
+> On Wed, Sep 09, 2026 at 04:55:54PM +0200, Lorenzo Bianconi wrote:
+> > From: Alex Elder <elder@riscstar.com>
+> >
+> > Add a driver for the GPIO controller embedded in the Toshiba TC9563
+> > PCIe switch (and the Qualcomm QPS615). The device implements 35
+> > GPIOs using two register banks: three registers control the first 32
+> > GPIOs (20 and 21 are reserved) and three more control GPIOs 32-36.
+> > GPIOs 22-24, 27-28, 31, and 34 are input-only.
+> >
+> > The driver is registered as an auxiliary device driver. The TC9563
+> > power controller creates the auxiliary device and provides a regmap
+> > that gives access to the GPIO registers, so the gpio-regmap helpers
+> > are used to implement the GPIO chip.
+> >
+> > Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.=
+com>
+> > Signed-off-by: Alex Elder <elder@riscstar.com>
+> > Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> > Co-developed-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> > Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+>
+> Linus, Bart, what is the merge strategy for this patch? Since Bart has Ac=
+ked
+> this patch, can I assume that this along with pwrctrl patches can be merg=
+ed
+> through PCI tree?
 
-Include the relevant mailing lists (netdev and linux-rockchip) so that
-future patches are properly distributed.
+That works for me but Bart manages the tree and any conflicts would
+be his problem so it's better if he says what to do. The MFD subsystem
+ususally produce an immutable branch that we can pull in if something
+would conflict, despite it nearly never does. I don't know if the PCI
+maintainer does immutable branches.
 
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b3..085589b8ba65e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23740,6 +23740,15 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
- F:	sound/soc/rockchip/rockchip_sai.*
- 
-+ROCKCHIP XPCS DRIVER
-+M:	Coia Prant <coiaprant@gmail.com>
-+L:	netdev@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
-+F:	drivers/net/pcs/pcs-xpcs-rk.c
-+F:	include/linux/pcs/pcs-xpcs-rk.h
-+
- ROCKER DRIVER
- M:	Jiri Pirko <jiri@resnulli.us>
- L:	netdev@vger.kernel.org
--- 
-2.47.3
-
+Yours,
+Linus Walleij
