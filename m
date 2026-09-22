@@ -1,109 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42913474263
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 17:51:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7B445D5E7
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 17:51:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099500; cv=none; b=dnIFikuCGxpE7L7vgzG9FVdSkJScu4U7dlhCYz90lhgrk31xvBWwwR8rVYMTZ54MKTdaaM/8psg0u4iGAdv2cMpUg0qcicFGFjg7Y3DKViVdN4MvY61EJqsZ8Z+Eqz/vzguRTSvBHa8lFtTNIc/tapUjlsW+cwvSZ4c+Sb6/k10=
+	t=1790099501; cv=none; b=oSfr7M98wIhWGBSAV3CN/fWF13UB2qyC8LQFhCp8KmJc5u8Li7Ct0tPhGXgpqLg02C/h1+5O491BMaxCw9re6NSLBKoVtK4QZ43IT1auN1g4B4aUtdR0fQxcs8hKPBAFzHqHkYCJbHzAC2GK3Lnhhq1zK5cp/At7oJAZGUA72JQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099500; c=relaxed/simple;
-	bh=yJMPHS559pAQOk83+QrHLv79BjByhZppXjFJdtDbAKE=;
+	s=arc-20240116; t=1790099501; c=relaxed/simple;
+	bh=8o7nq1tF3zXUjyCWw+pOPmKGL+OhqLV/Jm+DNH2TZXk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dFt/TzF/beMGF1oUTNc5WStkjVILesCLnE5fTBEGQcu+lzKOfS8liHUxE92XG6jlpSGUAMrerCMwmlxsb0uxkNwjZRehnpMbh18htgaKE4R9FBrMITyCcN+23Z/DkxLUDY7OgRmItplXuhr6APCjLq0TvtxkQmZf/umTkXEgZSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TE4pNksL; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=oQQt1ZJtlUoEMiA1092kGS412UOtuGBi/enmk84XOBLGpODvyo9cRNHeS6riFCgZgEu2KEaWlUkawW5VGwrHvTTqApABt6lk1XZyWldHTZibxNZnCfFSIuR3x21bdPVITeDe6Itxi5dOyokLaltEKufdUxzX6rf29H396vv7zz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jIlU8ihr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TE4pNksL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35161F00893;
-	Tue, 22 Sep 2026 17:51:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jIlU8ihr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3471F00898;
+	Tue, 22 Sep 2026 17:51:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790099499;
-	bh=BAyOa65Xh9mfY65VmyWU1S4XbraJwyuo9g9ztJwSzCo=;
+	bh=0sCpUgXGYCC5JLlYQG5Eg/tk+qv14Rfsf66NQV5rVHE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TE4pNksLwqP9owAUn5FWjrIiJpxckNowrOy+1NzJzEqjkvEZH4f+7vm6xqNX9Dkcp
-	 5hagIDeYf6DJxIAfephmMR7v0aBxVjjKV8cdOwxHIIcNh276Bj+rCJ01Kz7EsnTfT0
-	 tYrygYZcVPLnP3MW6rbaFoN+YbOk9g1Y4FJwOKVlo3jo5LiNLE4g+uWiz2CDRckkGQ
-	 QLZPQWkS9Th7xnBS0kDaz2CxqvfGbkOs8wRqtBWRRCV5bQ4Uy1//DJBWxOORLc5GtZ
-	 xH+WdhGJlRNR3eFzvcGIpFWpFhChRfjha9SNL0csIA8Jr4MffcDjJCe34AFncytH7n
-	 4KU7qFFzVq4zQ==
+	b=jIlU8ihr9oKiwoe8hxxcJftDYIX/mEYyTzNBxdD1tTnsOUBA+OeVtQR40woELnaC/
+	 1sZawvplSqMm568w2ZLFSlUBuJZvYbed2l2gewyoT8BqEiPd66rImUqpGF9q+UHHC/
+	 C9PlLV7OTGA4zthLlxusiXpgdyZ1+zGFQTNij9oQ3GfLVT90Whp1Qla/DcCTS0Js3x
+	 PPXvrbLS3ZaDQ0Rgjru60tN+vHKZ5NrgF+x/FfxPL+26sjnbiGbE4nL1sSFvb1xUT6
+	 Swx5uyq082GSLQYcBsBt9kssivtldP0EEv9JL8eWeFMILygz3UWxykXx7rGt0luqiQ
+	 YM3xOKzppc2aA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 05/10] net: ethernet: ravb: Propagate error
- from ptp_clock_register()
+Subject: Re: [PATCH net-next v5 03/10] net: ethernet: ravb: Simplify gPTP
+ start and stop
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260921175037.4084310-6-niklas.soderlund+renesas@ragnatech.se>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
+In-Reply-To: <20260921175037.4084310-4-niklas.soderlund+renesas@ragnatech.se>
 References: <20260921175037.4084310-1-niklas.soderlund+renesas@ragnatech.se>
- <20260921175037.4084310-6-niklas.soderlund+renesas@ragnatech.se>
+ <20260921175037.4084310-4-niklas.soderlund+renesas@ragnatech.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 17:51:38 +0000
-Message-Id: <20260922175138.C35161F00893@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 17:51:39 +0000
+Message-Id: <20260922175139.9B3471F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] net: ravb: ethtool timestamping capabilities are incorrectly sup=
-pressed when interface is down
+- [High] ravb: PTP clock resource leak and Use-After-Free on DMA stop timeo=
+ut
+- [Medium] ravb: PTP timestamping broken after TX timeout recovery
 --
 
-commit bba7bddbe4fcaec0df4875259d8239664ffaa696
+commit bd55489575ec22549ad9bb8e730d4b498b5d08a1
 Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
 
-net: ethernet: ravb: Propagate error from ptp_clock_register()
+net: ethernet: ravb: Simplify gPTP start and stop
 
-If the PTP clock registration failed, the error is silently ignored. This
-commit reworks callers of ravb_ptp_init() to handle and propagate the error.
-It also updates how the PHC index is handled.
-
-Link: https://sashiko.dev/#/patchset/20260610102432.3538432-2-niklas.soderl=
-und+renesas@ragnatech.se?part=3D1
+This patch reorganizes the initialization and teardown of the gPTP clock
+for different device generations. It moves ravb_ptp_init() into
+ravb_dmac_init() and ravb_ptp_stop() into ravb_stop_dma() for Gen2 devices.
 
 > diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ether=
 net/renesas/ravb_main.c
+> index a89f6fe7866fe..42d208e6b8ecd 100644
 > --- a/drivers/net/ethernet/renesas/ravb_main.c
 > +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> @@ -1774,7 +1774,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
->  	struct ravb_private *priv =3D netdev_priv(ndev);
->  	const struct ravb_hw_info *hw_info =3D priv->info;
+[ ... ]
+> @@ -1115,6 +1123,10 @@ static int ravb_stop_dma(struct net_device *ndev)
+>  			netdev_err(ndev, "failed to stop AXI BUS\n");
+>  	}
 > =20
-> -	if (hw_info->gptp || hw_info->ccc_gac) {
-> +	if (priv->ptp.clock && (hw_info->gptp || hw_info->ccc_gac)) {
+> +	/* Stop PTP Clock driver */
+> +	if (info->gptp)
+> +		ravb_ptp_stop(ndev);
+> +
+
+[Severity: High]
+If ravb_stop_dma() returns early due to a hardware timeout:
+
+ravb_stop_dma() {
+	...
+	error =3D ravb_wait(ndev, TCCR, info->tccr_mask, 0);
+	if (error)
+		return error;
+	...
+}
+
+This relocated ravb_ptp_stop() call is skipped. Since ravb_close() ignores
+failures from ravb_stop_dma() and proceeds to free the device structures,
+will this leave the PTP clock device leaked and tied to soon-to-be-freed
+memory, potentially causing a use-after-free when the module is removed?
+
+>  	/* Stop AVB-DMAC process */
+>  	return ravb_set_opmode(ndev, CCC_OPC_CONFIG);
+>  }
+[ ... ]
+> @@ -2056,10 +2058,6 @@ static void ravb_tx_timeout_work(struct work_struc=
+t *work)
+>  	ravb_emac_init(ndev);
+> =20
+>  out:
+> -	/* Initialise PTP Clock driver */
+> -	if (info->gptp)
+> -		ravb_ptp_init(ndev, priv->pdev);
+> -
+>  	netif_tx_start_all_queues(ndev);
+> =20
+>  out_unlock:
 
 [Severity: Medium]
-Does this new condition incorrectly suppress the static ethtool timestampin=
-g=20
-capabilities when the interface is administratively down?
+When ravb_stop_dma() fails late (for example, if ravb_set_opmode() returns
+an error at the end of the function), the PTP clock will have already been
+stopped by the new code in ravb_stop_dma() above.
 
-If a userspace tool calls ethtool -T on the interface while it is in the do=
-wn
-state, priv->ptp.clock will be NULL since the clock is only active while th=
-e=20
-interface is open. By checking priv->ptp.clock here, ravb_get_ts_info()=20
-completely skips reporting static capabilities like SOF_TIMESTAMPING_TX_SOF=
-TWARE=20
-and SOF_TIMESTAMPING_TX_HARDWARE.
-
-Could the priv->ptp.clock check be moved so that it only guards the
-info->phc_index assignment below, rather than the entire capabilities block?
-
->  		info->so_timestamping =3D
->  			SOF_TIMESTAMPING_TX_SOFTWARE |
->  			SOF_TIMESTAMPING_TX_HARDWARE |
-> @@ -1785,7 +1785,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
->  			(1 << HWTSTAMP_FILTER_NONE) |
->  			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
->  			(1 << HWTSTAMP_FILTER_ALL);
-> -		info->phc_index =3D READ_ONCE(priv->ptp.phc_index);
-> +		info->phc_index =3D ptp_clock_index(priv->ptp.clock);
->  	}
-
-[ ... ]
+If this happens during ravb_tx_timeout_work(), the code jumps to the 'out'
+label to safely resume queues, skipping ravb_dmac_init(). Since
+ravb_ptp_init() is now folded inside ravb_dmac_init(), doesn't this leave
+the PTP clock permanently disabled and break timestamping until the
+interface is manually restarted?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921175037.4084=
-310-1-niklas.soderlund+renesas@ragnatech.se?part=3D5
+310-1-niklas.soderlund+renesas@ragnatech.se?part=3D3
