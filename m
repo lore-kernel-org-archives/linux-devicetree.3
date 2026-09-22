@@ -1,161 +1,209 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6B8549371
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 16:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB82F53ED02
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 16:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790092873; cv=none; b=EKELCeyGohwMUCge/Omwa9cY3F4wlDbPvZfgCZPk7bU9vtWERE5XDjfWuixbEo7yqMret+IVknlzdAbXmLaJQquYhVNZ9XSi6ZGX5Y9n5Gv3s3WgMonZAQdLW5YYRCsUrWyzIKHuYe1dRCQnIeiBF5tmD/8auPMNaTZeDBc2UVk=
+	t=1790092897; cv=none; b=Asu4TlbSpSiIDY927rVinaKQu9kMHdY6Mt1s5KhMCQxLJHwmfqK8vFWFgoCyqL4cSGgGrJsyObaRQP7m3/0HFf7Bl0SkLSkCI2TBsVUgTdTEDQix94FVhvl47DTkcPCSm1mF4C7MpZLnZfQ/YN4cLYqiMa8nTGHDvsw/NF+wgsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790092873; c=relaxed/simple;
-	bh=LHDUfK5CwJ8lI9grWRG7EQmwkF5ujcavl1cQEzZTRu0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZLwnSLU/XEk0P3CDZ+GZ9cmdb2CJcx0hjwAfMqsl0lf8cUIHNfZaHg5NWpKaIDobmbPlk1a9LyLZ87M5dTSUp2kvPZtD78wsujpd0OlJOwGUA2aIDYt9Yzkt/1W7EGrvK+KaJGG8AcQqZ1YwMUlA+HGTu+bCAW0VA2F5ADKWlfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=g+P9tur5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OJ6OSGLK; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790092897; c=relaxed/simple;
+	bh=XzmF4J3qkuosZ/gMZETPgqXgKdShUdzjl28XPraIrmU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=doKKv63il3BJWLxX4AUW+jwMLhWVXevudDIO0eTBMZTmgAlzDUtMr+cFYm9m3jcnNLRh2Ghxk6SuLKZJsX87lqfMAv3RCxcoPjRp82/+yLBzYNi7rl3W/6yOTWlk9N5RQR8M9XaXjCZ8YupJy5+iu3zLZN5TCw1FhHMQuvPBWZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=iHDR6K3c; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="g+P9tur5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OJ6OSGLK"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MEjOwm3307624
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 16:01:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	p8ZoOpZLPLTN9GxMwfibhuWD6Q78yohDsw7Ophx9emI=; b=g+P9tur5DcPeVXU1
-	J/qxk7tS6vpW+LpaqIZgoV6OsWFqu+2NxYqnnsdLI6mW1cx3VKGG8SJm/0uF/RaH
-	G/mGn++EQ+U2oA/9gnjpqjPM9jofVKRzAJDrqv8zmIdrTOjPlyhGk6ekhX9LvCDk
-	Nw++VREeVpC3cEE9TUQLGN4XSN9d3svo2dJa7BamXRPvlqR3cEoz3qRe3qj/O3YB
-	EZJEe7OUMobU9lEtDtnaOnnawZn74eHElJVtfa3GsJPnQE5rvo/WDHFuq2OyHOoN
-	n3zAINhb+kxqhATK3AZHWtPqABhUM8wi9evV8ji9wA1reYgNB6FnilvZvO9la+IH
-	7S54ZA==
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guj1130nk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 16:01:07 +0000 (GMT)
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-451b3cca625so8483fac.3
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:01:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="iHDR6K3c"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso61758185e9.2
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:01:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790092867; x=1790697667; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p8ZoOpZLPLTN9GxMwfibhuWD6Q78yohDsw7Ophx9emI=;
-        b=OJ6OSGLKwgmrR2609CwYN85dvPyrBkAkKq5UlIw7ElQyg1/uLkAA4FJi6JP4tvZZ8z
-         Pmw4w8woSA1ndcmkkXDsBv2A3FIxcLMtqvw978yLh1TWB2RBiVFOBNJBxY86kcgog7Ge
-         Jk2Dx0ocRIGiRLQyPnzfMFxYDd1fWznWxmPajlvO1MACxxe1YDegvqMtl3dLMtUxRJl+
-         05CHKk7Vi2p8WVGz/Nw/xb6bfUbUnpy9An8n2vkXDSFr0HqAuza0aFu8GJPy53MFDRtE
-         xTkNq03RrF151CLvZMysh23W8iYoBKvy1qh9mAuFstftQOnc8DN1n9HfMS/FOD6ZZ37A
-         S5ZA==
+        d=baylibre.com; s=google; t=1790092892; x=1790697692; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=t+p/SUcWdkdCr+nTJjwTsUWB3w3VIv0PTBSmR+PYPBA=;
+        b=iHDR6K3cjfwxpkfRE7RvsFHVe/C+mB++IO+n6nQMxK316jH+ytEaB7OW0ouTx4on1/
+         l0LSEV46HwtWldV4j85Qs+iGcyioAqgmAR9BIIu5QbvnvZ1wIWjtqYaE+eOEYWR4UkrZ
+         hH8+WWzN8ADgLvkMUcXPL2RlVYpAzlh6Dx6lus8lY+sbZv/TCrFAtov5cVQYYTNu6JO6
+         K6NV+QevM3WT+4Ss3TPvMgwDLydpX29zHn76Ot0UcwFgEHZ0w+GOsvIYdR2tXn56Rdv0
+         eUaZsHMFuI1ZqOCvIYQ7YkQxBi+qSgWllg5X3y6bqhdbhvIXlfFxXw3qCAkU0c8WgfMB
+         fPug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790092867; x=1790697667;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p8ZoOpZLPLTN9GxMwfibhuWD6Q78yohDsw7Ophx9emI=;
-        b=rvN7R+G2Boq3Gf7PhUDI55l7iHb2rUayMgkwY4be/0Ppm0eSfbLyZUdkLqBQ27lTbA
-         mSA//+bVqijyXd/rfbj6Zns2WSfvO9i32bwhOjzU3vWFdbQu2DixtCjsOSo7mLIURbjD
-         +2kY0lF6rWy4P63X0wYoCLlgFFJe49SILCUFC4ibweE3Z2Nd3wQhjdEhS9YLkc4Gw5tE
-         SgwpsCxmZDn32BM652if3MljmFUFV1eguWVQDaWazdNylY0DGHdjUYvPHljiEroJeYTL
-         ZdSYDTYqZu/6vUxGyXWx0U9v90UyxVBEUVJpMn0O8de/qkC0L9SU9dzVLmYtDBKee/2Q
-         Om3g==
-X-Forwarded-Encrypted: i=1; AKwUvBzvqmrOQDZ9qzpRpTgaM9w2j0+2EIAGfTdE486cO+JLjQnLsu31cZ9x2L4qKYCkKO9qo9GsLEmVRa4p@vger.kernel.org
-X-Gm-Message-State: AFuF++k/uZ2dsgwMyH5iX8d+s6nHQGYD8ZVWorQ3l1qjd+i035dgZm+V
-	bQHyKeEE1+Fu6aGjC+0z86kFekLFvVbcGAWbQ7siPsw+vJsPW8mN5PfP80g7dxTKsYs6P3SqP48
-	yqOrksD5BLcKL6iFhfMivok3EPPvR4CELMD8P+JN1yVUPxOpyhgAHRZmNXIiojtcX
-X-Gm-Gg: AYBFou3w/Ay611elQ4t+23QcbwpIoZyVA9pogl027Sw7nzrkXoQQ55fW3hCYoOCbhNw
-	EpC2K91E9JmIWRDi6QP0nmgXoE+ar+BjvwJVph38/BAfdLWXUz6+wGY8jKt2G7+rjR63ebmiqVs
-	gQ6bh+LnElgN/qIhgxIdnsIgDAiWiln42BQiYDz3jN0c0dcZiHUGCGXNPv2/ZYt49EGPGkw+J8G
-	iG1LhmlnIExzUJzDPhSOiT15Ac70bh1k5hdZdV4NX4BwPcfNSiYRlkcHtIxSVwuiXrLVU8fXowa
-	DQeOwSCPiDin0OH2BNc6K3nJ6C6ZmQg+AkrrUlKrBVgRt9SMia/rAWRRp29IJaIkc+pUeulIfsG
-	dfnaXdMct/1zfq+HeSkNxlQ==
-X-Received: by 2002:a05:6820:e137:b0:6b3:6535:22e4 with SMTP id 006d021491bc7-6cb2e0d7dd3mr10165044eaf.2.1790092866700;
-        Tue, 22 Sep 2026 09:01:06 -0700 (PDT)
-X-Received: by 2002:a05:6820:e137:b0:6b3:6535:22e4 with SMTP id 006d021491bc7-6cb2e0d7dd3mr10165001eaf.2.1790092866108;
-        Tue, 22 Sep 2026 09:01:06 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c430a09sm110972866b.5.2026.09.22.09.01.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 09:01:05 -0700 (PDT)
-Message-ID: <03f5dc64-c631-41c1-9ab3-d28a867aadb2@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 18:01:02 +0200
+        d=1e100.net; s=20260707; t=1790092892; x=1790697692;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=t+p/SUcWdkdCr+nTJjwTsUWB3w3VIv0PTBSmR+PYPBA=;
+        b=nAOGZDXpwnjqtXNV7MFls4dbMR2dmkkAUF5NX7OKuZ2/QFs9xsOFYeOPk8Q30yao5i
+         1Hvdk0/fzZQftC01g7iBN6y4RlsLkdkyZHQ49hYs+Xkzbp7p6G+fMnWamMIW15h9raDS
+         7KjqqoeV6FaxfcKqfn3tbU21RjsIF8GSFo8gYZt5x5DIJN9lkKUOfHH/aqkkyEy52gIB
+         xU/iJrB/jfLxAIaL7m3DfakdFE1kk8MyVOHGh8nO2IxZnP0fWnBSIMdZua8tdeGPowni
+         btEq1v4CGK7hrgFqjds9n/uEclMj+BfeB3qBG9PR7OZ1sr9K1U9blnxNnt5sLg79+GUl
+         pSog==
+X-Forwarded-Encrypted: i=1; AKwUvByqmlejoOx0m8x/I6BSr9oNOpKN4D1hkxUTc81PszrKfnaVc3e82jFA2tmA3TNIV2te15WghXjTwXms@vger.kernel.org
+X-Gm-Message-State: AFuF++lvppcomkvH9VaI7iQsbWRiayPp7PCxr9O1qxRdPKngmNwnYNX4
+	S7YxHhXUT8jzj+u0bKZqbgiibHdE+OKMHAIcWF9piRtI+6rwiJUBqwbfX69wgf2AYnU=
+X-Gm-Gg: AYBFou1KirzQ+coKEjrmZtPk4M975KcOCkJeGZ5SZH2eXMNUmUJ9uObo5Wg+PK8dSZB
+	S60xiYKy/yXQNSocS6Mp6OAc60QYLe+GUua2KPrjbGqt1K+2lmbFOlDYMsNePWOH7XBlZC/HNvE
+	rPoiwWwk9/5T34wZ3WxuG4MtzhUxKzw3cGs2LX7ZWZm36UNEBmP2Pq12ilFQpxbi2XiifXNw9l7
+	o4+tJFxAREn3983ISoBOhIUyFlxqTYCxD/jc8Mtl+91XvOq9R6I1VcvKWVNyVxgONAn2IUtaLnf
+	yYET0yVAMF7thrrdG88utHuyqLaEGOKP2XR3wyA6SE+fLHGcQpXOCJPKcTrzf5wJ9JlguTMo8NB
+	TuaJIGzdaR3Ptsm9lv+XQCtZ63XQdWWwYenPgwZ4cLmo4m4ill6lLopOsMEyO2vqEvKSvdLxM+W
+	yYSY8kwhCieg7dAxoy2Rtpca4gOsYRrqCcK0NwP1Z8UDIYCYC0E0KzUzythMX94ys56Q==
+X-Received: by 2002:a05:600c:46c5:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-49fc566e635mr200087305e9.7.1790092892009;
+        Tue, 22 Sep 2026 09:01:32 -0700 (PDT)
+Received: from [127.0.1.1] ([151.42.87.32])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862786dc2sm6118020f8f.25.2026.09.22.09.01.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 09:01:31 -0700 (PDT)
+From: Valerio Setti <vsetti@baylibre.com>
+Subject: [PATCH v3 0/7] ASoC: meson: gx: add base support for I2S audio
+ input
+Date: Tue, 22 Sep 2026 18:00:45 +0200
+Message-Id: <20260922-audin-v3-0-a760312c076c@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/9] arm64: dts: qcom: shikra: Add gpr node
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-References: <20260910231642.1794948-1-mohammad.rafi.shaik@oss.qualcomm.com>
- <20260910231642.1794948-5-mohammad.rafi.shaik@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260910231642.1794948-5-mohammad.rafi.shaik@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: kbwSVby2wy7SBoBIm5BBDPqamftE0KqK
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIzNCBTYWx0ZWRfX4SnaamrzFTRm
- mxNm2m5ZVXyhUp371nrxldXd+GGQCORkVgnNwDXANjWYhPdb1MOpKNpAEV2TdO7GncknMxsvRXD
- gc5KTnP/F+mU/RfIy6DF3L8we8YVJm0=
-X-Proofpoint-ORIG-GUID: kbwSVby2wy7SBoBIm5BBDPqamftE0KqK
-X-Authority-Analysis: v=2.4 cv=atQnmiZV c=1 sm=1 tr=0 ts=6ab2a643 cx=c_pps
- a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=r52As28OqXcKNvlaLHgA:9 a=QEXdDO2ut3YA:10
- a=1zu1i0D7hVQfj8NKfPKu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIzNCBTYWx0ZWRfX6AINcydSEK5c
- 7Bn8tQfIQQEqkk75CNjHfmAHBJRybCHq568e2FcdzA42RZKTJlQs8OVHYY3FvoaHFD8qLytoLcj
- WwszxB7Ts95zCyUQK518Na6oPweRBR4mY9CkMjt/oKveUyrvm9zIrjh1kmWg6VWF/ShYjyqkuFv
- 1Cm+XBaLkKctAnSs+868i+7oilMYQiOqN7rd1WCiPWfvagtYSCVstRK3pH5uvQmC6Yz13GleCMV
- LJcdEbsC4sqkkMLzxP7cLxd21F1ArOz4L5OaUD/itI7pSCKgwlHwF7fckOu8WTFRRWTUDcKwkE6
- CqNj2fzq2oQLiw/uZCzIWV/Ihi8RN/scr77UHyASpJMV+a22ZVyih90Ja3Kq1OgXzVDs/gRnJmc
- LX0lmTQGH5UAwaxFfDw0epbYjAFskg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
- adultscore=0 bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609220234
+X-B4-Tracking: v=1; b=H4sIAC2msmoC/12Nyw6CMBQFf8V0bU1fCrjyP4yLPi5yjYJpoZEQ/
+ t0WNDEuJzkzZyIBPEIgx81EPEQM2LUJ5HZDbKPbK1B0iYlg4sBKyakeHLa0stoYtWfWVoqk7dN
+ Dja+lc76sHAZzA9tnOS8aDH3nx+Uo8rxbmxUXn2bklNGiNlBDJcqC85PR4x2Nh53tHiRno/gVi
+ 68okihLB8pY7kCqP3Ge5zfgu7el6AAAAA==
+X-Change-ID: 20260831-audin-9cabb450cc94
+To: Jerome Brunet <jbrunet@baylibre.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5272; i=vsetti@baylibre.com;
+ h=from:subject:message-id; bh=XzmF4J3qkuosZ/gMZETPgqXgKdShUdzjl28XPraIrmU=;
+ b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFmbloWGXumYF6Siv0A8etvdfGeZbf524n3M16WkV9Q7J
+ 6gm3fzWUcrCIMbFICumyMIy/d7vglK1h8YJJwtg5rAygQxh4OIUgIm8PcXIMG334pDvBeoXWp6l
+ f7mgf3/e1a2vWE14e9/fSe3qqGSdIc7wV9ZHhZ0/zdDOd1Fdas+WS592HXPnm+68SiJqVt0u6XP
+ dfAA=
+X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
+ fpr=0497DEFB707526E13360C970DE4B936DD13A0100
 
-On 9/11/26 1:16 AM, Mohammad Rafi Shaik wrote:
-> Add GPR (Generic Packet Router) node along with APM (Audio Process
-> Manager) and PRM (Proxy Resource Manager) audio services.
-> 
-> Add a dedicated MDSP carveout memory region for audio usecases on
-> Shikra and mark both existing audio heap and MDSP carveout regions
-> as shared DMA pools.
-> 
-> Update the Q6 APM DAI node to reference multiple memory regions,
-> where index 0 is used for control path buffers and index 1 is used
-> for MDSP data path buffers. This separation ensures proper memory
-> allocation and access for APM communication between APSS and MDSP.
-> 
-> Also add shared-dma-pool compatibility to the existing audio heap
-> region to align with upstream DMA pool usage.
-> 
-> Co-developed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-> Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
+This series is the 2nd part of the initial RFC [1] proposed to add audio
+input support to the Meson GX SoCs. After the AIU reshaping series [2] that
+has recently been merged, this one adds the audio input path itself.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Apart from some glue commits for gx-formatter Kconfig split, a fix for i2s
+clock divider disabling in aiu-encoder-i2s, DT, bindings and integration
+with gx-card, the core commit is the 4th one, which adds the AUDIN driver.
+This is the counterpart of AIU for capture: it gets the entire register
+range, it handles peripheral clock and reset, it instantiates the I2S data
+formatter as widget and FIFOs as DAIs.
 
-Konrad
+Resulting capture topology is:
+  pads --> AIU I2S Encoder -> AUDIN I2S Formatter -> AUDIN FIFO -> RAM
+
+This series includes all the changes related to this work (dt-bindings,
+drivers and device-tree) in order to give the full picture in one single
+place.
+
+Unfortunately, since no Meson GXBB/GXL board available in the tree features
+an I2S capture capable codec, this work cannot be directly tested out of
+the box. To test it an external codec must be connected to the SoC.
+When working on this series, a custom hat board with an NXP SGTL5000 codec
+has been plugged on top of an Odroid-C2 (GXBB). The last commit of this
+series fully details all the device-tree changes which are required to
+finalize the support for this scenario.
+With this hardware configuration it has been possible to successfully
+validate the implementation with:
+- alsa tools (arecord)
+- pcm-tests
+
+[1]: https://lore.kernel.org/linux-sound/20260411-audin-rfc-v2-0-4c8a6ec5fcab@baylibre.com/
+[2]: https://lore.kernel.org/linux-sound/20260610-reshape-aiu-as-axg-v2-0-cac3663a8b51@baylibre.com/
+
+Signed-off-by: Valerio Setti <vsetti@baylibre.com>
+---
+Changes in v3:
+- Fixed i2s clock divider disabling in 'aiu-encoder-i2s' 'hw_free'.
+  [Sashiko]
+- Specified const value of "#sound-dai-cells" property in dt-binding.
+  [Sashiko]
+- Advance 'last_pos' by whole periods in the FIFO polling timer to avoid
+  drifting period notifications. [Sashiko]
+- Link to v2: https://patch.msgid.link/20260917-audin-v2-0-38de4bc1de34@baylibre.com
+
+Changes in v2:
+- Dropped FIFO child nodes from AUDIN in device-tree. Now AUDIN is the
+  only sound component and FIFOs are its DAIs. This is the same design
+  used in AIU. [Krzysztof]
+- Renamed driver compatible, using 'amlogic,gx-audin' as fallback and
+  'amlogic,gx[bb|l]-audin' as SoC specific. Fixed also other reported
+  comments on the binding. [Krzysztof]
+- Adjusted headers inclusion in 'audin.c' and spacing in the empty entry
+  of 'meson_gx_audin_of_match'. [Uwe]
+- Replaced 'snd_soc_component_read' with 'regmap_read' in 'audin_fifo_pos'
+  in order to prevent sleeping in atomic context. Also changed the hrtimer
+  from hard-irq to a soft-irq one. [Sashiko]
+- Added 'sync_stop' callback in 'audin_component' to ensure the hrtimer is
+  fully stopped before attempting to restart the stream in a
+  "start->stop->prepare->start" scenario.
+- Link to v1: https://patch.msgid.link/20260912-audin-v1-0-7fbefe928711@baylibre.com
+
+To: Jerome Brunet <jbrunet@baylibre.com>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Valerio Setti <vsetti@baylibre.com>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Kevin Hilman <khilman@baylibre.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-sound@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-amlogic@lists.infradead.org
+
+---
+Valerio Setti (7):
+      ASoC: dt-bindings: amlogic,gx-audin: add schema
+      ASoC: meson: build gx-formatter as a separate module
+      ASoC: meson: aiu-encoder-i2s: ensure clk divider gets disabled in hw_free
+      ASoC: meson: add AUDIN driver
+      ASoC: meson: aiu: add I2S Capture DAI
+      ASoC: meson: gx-card: add support for audin FIFO
+      arm64: dts: amlogic: gx: add AUDIN node
+
+ .../bindings/sound/amlogic,gx-audin.yaml           |  69 ++++
+ arch/arm64/boot/dts/amlogic/meson-gx.dtsi          |   9 +
+ arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi        |   6 +
+ arch/arm64/boot/dts/amlogic/meson-gxl.dtsi         |   6 +
+ sound/soc/meson/Kconfig                            |  14 +
+ sound/soc/meson/Makefile                           |   7 +-
+ sound/soc/meson/aiu-encoder-i2s.c                  |  12 +-
+ sound/soc/meson/aiu.c                              |   7 +
+ sound/soc/meson/audin-fifo.c                       | 371 +++++++++++++++++++++
+ sound/soc/meson/audin-formatter-i2s.c              | 174 ++++++++++
+ sound/soc/meson/audin.c                            | 188 +++++++++++
+ sound/soc/meson/audin.h                            |  30 ++
+ sound/soc/meson/gx-card.c                          |  16 +-
+ 13 files changed, 894 insertions(+), 15 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260831-audin-9cabb450cc94
+
+Best regards,
+--  
+Valerio Setti <vsetti@baylibre.com>
+
