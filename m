@@ -1,222 +1,244 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F2C41F7C3
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6C2418A33
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064854; cv=none; b=iRgQ0v4qW1tnbvetj5QS+JL7JcNq5cBDub/r/FaqQkImE/URFG1IYxgCCf+jZT+Mi3txCDZ0oek3llYxTpPbSQ96AZ5VgHjcC157FRrKgVxLZstYmbEbDgjtKfi+ltrDp7ybvQM1I4dSKB3Kg0I65Jj/QrA3aqRqdie9XG/lJSA=
+	t=1790065137; cv=none; b=TFJ7dCaGaQ3NrNCjnkNqEmdPePx+Be0nA6FUxhGHUjc/tTviZf92aadQoLb6S21Q/Cd60ZD/Crz83+84a2ru1ocdQNn8FrNkrA6/q1BeaH87CGYRjOKrjdckYZNtq9IO9k+5Pp6ZrZeUKyOBv+OPBv0TSKxQCf4SXth34A33SC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064854; c=relaxed/simple;
-	bh=4m2du3hgT4GR5DvDaR64vT2WqTaNnm7oa6ZvyC5SLCo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tHZ5xEtZQj3R5wWABTvv8VOn0WxXtYB2CYogFF8MEHJS/wmunWEFRoCs1aZJnbAKU4dOKaOcqW+6ZNNRBHO+Qc/knV7UgENnrwVOJGQNCWXRzkFIGVN5h/i83gj0LO6Bz647oRErr0Fu2vfm103rl0PLKG8rM6Nq71QOjHEQSrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kOPhqr58; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g/POK2ib; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790065137; c=relaxed/simple;
+	bh=Tc+C7PBiMFJE0JrOaQMc4+04l3/PGYbm82C4FFBWOJs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lg9atfTeq24hl84z9guttvYjN+YGVfD5v5245719zjMjbBBqQYT/lHjAb7XbLkv5v5kJs5KUoRxyz/cdFXonXhN7rNf2CQqlUDQwPrrlE7B949S/uqg7nIL5exu+a+7bSAQqZIc2w1rdBlFAEM75OLsnCUslnPoripuJ+jIaoQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cmj7zQsX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kOPhqr58";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g/POK2ib"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M78J8k3840523
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:14:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ep+qvWrcnVbjtwDmimEQJq0arBzRXiRVSsy9QV64YfM=; b=kOPhqr58M7gceaFb
-	hzlvB0svdSgKkKZk7b8/OUT7/BmKlUYhQZ3OMIXSvaVEE6FgU7pUYfeG4EUA4Sg9
-	LtpbcUvLQ+Zj9Lw1Pup85g0Uh0gQiZBWd66/WSMLva6uIGFpf30VmZcrMv/VT+0i
-	MUoejGpy6fqleKbyHmdKie3NNp22agQ0/HI7Z5HiYlAEi5zsaDvT/0sWWmcnZjTP
-	YvMdLtsjs40Y5+H8cK2hAm8fDjaC1ePclgYAchwmpyz6MIhQfQZU+/VLWkxwOfVq
-	A8Cv2QqNtp58wbftsOJJBEQk3oPlrlmXVFMa3fITbNsftTgCxjgHNwlxoc+QPl6g
-	Phtrow==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu8v530mv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:14:07 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbb92868263so3250566a12.2
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:14:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790064847; x=1790669647; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ep+qvWrcnVbjtwDmimEQJq0arBzRXiRVSsy9QV64YfM=;
-        b=g/POK2ib026oXpUb7mQNBjmHrToF9a8vVqxqEXIDg7MGZFO0RFHlrb4zh7czJQLWRm
-         G3QtY/zPuBup2rBfX2EgKF6rlgGSVXClq6NkhsmHPuNKFT7vEkfZC8BWKyx1AeG8UFm4
-         o1hI9VuyXlVv1U4Fzq5D582zdzTflTblr7xvW+mPPSuX6MXNi9R7cGQhOsJLzreW43BV
-         KF6I3eoULNOJ5y/W/uE6dEGgodFWyPAm1BMe1duYkKocQ8bGvVKsxbrVbPtXJrzlcSBF
-         oncp9YMsFEXQwwjydeMffRIYmX9ZQ3S+MHYY8sii8hHMxWDMjwxRVYDzLpBTs5tp/Rxq
-         rq1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790064847; x=1790669647;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ep+qvWrcnVbjtwDmimEQJq0arBzRXiRVSsy9QV64YfM=;
-        b=tL120xD/o9aeE/KzxHgjvBJfk1zGQMEM5kBY9LtDaXXf/fOFq6O7qNRxsH/43NgEt8
-         JzffZcMgUvs4o8a5gIGk2S4ddZHpmkpt6L0+KwXLIDhPJhoOe7ZrImv90BPQFdSWgUTB
-         NmmB3on6h0UixR4Rqxzgg7GiJDePDJocrglqblz3Kw+8k4eu0zhYBC0zzHmisEQxwc5E
-         alc8oHgOFu2CsADaYtw4ZTzId7hiE7p7IEutmCdngAb1mB09cmYWCYpa0JQMk8XAOEAg
-         RZHKNpWpE8KOtb0TahrdRtRPB5Bd5Jhejm1T3evextHlpiGXPb4naOyKddYKu/JI95HP
-         5Q+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz6J9UFZaIKz504tvVsFLOtuiPZnrxycl8Mmq6GOR7MmDBEpJIoNLPUeYeBqr0uhnx5GTj9TpwlI/Gg@vger.kernel.org
-X-Gm-Message-State: AFuF++n06FVAsT0+a7XmxPKVGbNMyW333hAQe90ivesPxps2JGUFWRo/
-	9OjbNIOiTNCYj86AgSr9O/FwOVsA7HhtJcSe2sK2ctiZ7yBLwd2NWJyMoxf7YZqiomuLVUjtmNG
-	vaBl7h4XORmofoC21EJptiTla9jF97bAtvbUUEUJsEPd0qI56Osaou/cBjUBWM8aj
-X-Gm-Gg: AYBFou2fZkiUaku7lYhX/+KCKIdrN2FS5i+3dnbHoMPqdn3valpq3iKt/2fb/CO3o9h
-	bVKF68bqOtvutREWWhf2h4SjUt5aSwpWOCw+aQaWA25xxLDyw2sCr+0E4vNxZb9boq0k5h0dm4Y
-	ovRudPWSDWMSUrNXtN6jMLlN0lw3vqnQ7YZkyRTGfPhyN3NdkHRS6SW4xCKMeDMcQ/sKd5OpyMO
-	lHxFvpsb4FAQSzxaxOAsZ6eLIuZYZmFXr0zOCkFud23BlisaG/ymp85L5HL7sOxxQayrk0vE/eq
-	DAgKwzW+Yd3T4YD4D5PPudYd9TZ7+pfNtMhey/7OPXTCdIY56UI24/a3V6aImMgX8TbQtxeyMnc
-	NXPuBTW1WerXCVEzrjosE8LBMkNdOlHXRmjmXXkorGQ==
-X-Received: by 2002:a05:6a21:3a94:b0:3dd:a196:3091 with SMTP id adf61e73a8af0-3ddec80d83fmr438618637.65.1790064846804;
-        Tue, 22 Sep 2026 01:14:06 -0700 (PDT)
-X-Received: by 2002:a05:6a21:3a94:b0:3dd:a196:3091 with SMTP id adf61e73a8af0-3ddec80d83fmr438584637.65.1790064846273;
-        Tue, 22 Sep 2026 01:14:06 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f294d894sm5341693c88.2.2026.09.22.01.14.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:14:05 -0700 (PDT)
-Date: Tue, 22 Sep 2026 16:13:57 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Qiang Yu <qiang.yu@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: Re: [PATCH v4 0/6] Add PCIe support for Qualcomm Nord platform
-Message-ID: <arI4xchgg0ym4fzm@QCOM-aGQu4IUr3Y>
-References: <20260921-nord-v4-0-ed05c6e09240@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cmj7zQsX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160451F00893;
+	Tue, 22 Sep 2026 08:18:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790065135;
+	bh=Y1W0U92UWNdRkG+wBeVzD/WNoi385AALfQxh/VL7pIs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Cmj7zQsXIJj9TSlVcsmOgKNjOexQ4koqX9RwYS3+1Vjonar6+OGDg8ORSrOh9o7WG
+	 eIq8n3Mrqz7dFq7bYYodMu7GWnNetkNSgcoH61zmMrAJ1BquDDLVEz1M1qIjIwRdjt
+	 TT082wMJQ92zOxEAwsPyzBCay7OTGe9qzDBbgnKAIME7ujmPz/4rwLaVaCYSYFUcjG
+	 4HMGOQl/Ntnr63uE930RSHL1WFXtgV7HOJon6s1ragMRGZLz3fm63OffuVt2UYVlxe
+	 cY3CjZejbcxaR11wJpQXZZLM+iB7esiURLLt+eh6NDLfE3+aeG4IwORgfiT5b28o1J
+	 A1Lyyy14U3WHA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 09/11] accel/rocket: add devfreq support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Igor Paunovic" <royalnet026@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260922080114.44662-10-royalnet026@gmail.com>
+References: <20260922080114.44662-1-royalnet026@gmail.com>
+ <20260922080114.44662-10-royalnet026@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 08:18:54 +0000
+Message-Id: <20260922081855.160451F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260921-nord-v4-0-ed05c6e09240@oss.qualcomm.com>
-X-Proofpoint-GUID: PvI376nror_o41QPgu7kdTdmq_cf5ntE
-X-Authority-Analysis: v=2.4 cv=B+0sQ+tM c=1 sm=1 tr=0 ts=6ab238cf cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8
- a=1XWaLZrsAAAA:8 a=P-IC7800AAAA:8 a=JfrnYn6hAAAA:8 a=Arp2LTHWbRu_ztUwPq4A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
- a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22 a=d3PnA9EDa4IxuAV0gXij:22
- a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDExOCBTYWx0ZWRfXxMXsURJ4gKIs
- ENIVJ7WQhR19ICw8Rama+o/nuj6Mq4ocuFoXqlIbDLIJMy0qkZVmx3WZzYnMRq9FGp85wviC01N
- j6aetg/LZ9aGLuHl+ZVRoLzcc9IIxgg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDExOCBTYWx0ZWRfX7Ho1+WQ3YiGS
- 5sI+aypWDyeTgckbwW3mY6aRBT+37tJN68gA749hvCRzRnZRPj8kAmJ1Z9llfYrNFS87uvOL0y2
- 1R64UTf7gpv7vKzUSzB0c9ByQ5VILDbS3LL24BSM1yok54mkxac4kIM4c/i3mL/EYMS/dLyF+Ym
- k/hX4kPc79scxsfB5/x7PrQelPVxZGRtkPCf3dkOeyCGz+gauefxmL5B1xjjOrbHdCwaNFebm/e
- 0W65DZfk0khTqo6btmZpAvilgWFZuR8cwXrX2q/w+0PXmAiuQDv0S1Z99vNTIdf0/tD3CE3VXH9
- 9EBvsioFPNjn8wH1XA5bvskhm4sJM4KWfswNAzx6pYsJpROD7S+uRJcBKWTs7KSzQ5nDcybHVSB
- /NsChvysx82aYSykmMw+rL3sfuvTS2wa6NsV/KVfaL52uD/NRygZSoaAAFbKEh32zLQiy5yIcKP
- NWM/pwM4SIan+IqHKbQ==
-X-Proofpoint-ORIG-GUID: PvI376nror_o41QPgu7kdTdmq_cf5ntE
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 bulkscore=0
- lowpriorityscore=0 suspectscore=0 clxscore=1015 phishscore=0 spamscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609220118
 
-On Mon, Sep 21, 2026 at 11:07:08AM +0530, Krishna Chaitanya Chundru wrote:
-> This series adds PCIe support for the Qualcomm Nord (SA8797P) platform.
-> 
-> Nord has a single Gen5-capable QMP PCIe PHY block split into four
-> independently-clocked and independently-resettable ports (A/B/C/D).
-> Firmware selects the active lane topology at boot via a TCSR
-> configuration register, and the same PHY block can appear as a single
-> x16 port, x8+x8, x8+x4+x4, or x8+x4+x2+x2 depending on that mode. This
-> is similar in spirit to the Glymur multi-PHY support already posted,
-> except Nord's PHY registers are programmed by Linux rather than by
-> firmware, so this series adds the PLL, TXRXZ, PCS and PCS-lane init
-> tables along with the power-up/power-down/soft-reset sequencing needed
-> to bring each port up.
-> 
-> The series also documents and wires up the qcom,nord-pcie compatible
-> (reusing the existing SA8775P PCIe controller binding), and adds a
-> CORE_CLK_CGC_DIS/AUX_PWR_DET workaround required to avoid a timing
-> convergence issue in the PCIe power domain.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> ---
-> To: Vinod Koul <vkoul@kernel.org>
-> To: Neil Armstrong <neil.armstrong@linaro.org>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> To: Krzysztof Wilczyński <kwilczynski@kernel.org>
-> To: Manivannan Sadhasivam <mani@kernel.org>
-> To: Bjorn Helgaas <bhelgaas@google.com>
-> To: Bjorn Andersson <andersson@kernel.org>
-> To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> To: Philipp Zabel <p.zabel@pengutronix.de>
-> Cc: shengchao.guo@oss.qualcomm.com
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: shengchao.guo@oss.qualcomm.com
-> 
-> ---
-> Changes in v4:
-> - Couple of nits in dt binding & phy driver (shawn, Mani)
-> - Add proper description for link-mode & phy-cells
-> - Remove soc node and address cells from example (Mani)
-> - change cgc_dis_workaround to disable_cgc (Mani)
-> - Split common changes and nord changes (Mani) 
-> - Link to v3: https://patch.msgid.link/20260909-nord-v3-0-b0a82721c547@oss.qualcomm.com
-> 
-> Changes in v3:
-> - change the name to quadfurcated phy (Konrad).
-> - remove min items and change clocks order (Krzysztof).
-> - Factor out the common config and create overlays & try to use common
->   symbols for glymur and nord (Konrad).
-> - create  qphy_setbit and qphy_clrbit (Qiang Yu).
-> - and in qmp_pcie_exit() apply settings only when nocsr is present (Qiang Yu).
-> - Link to v2: https://patch.msgid.link/20260828-nord-v2-0-18bf59d19d6f@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Fix dtbinding errors (Krzysztof)
-> - Link to v1: https://patch.msgid.link/20260825-nord-v1-0-7c02f2b8765a@oss.qualcomm.com
-> 
-> ---
-> Krishna Chaitanya Chundru (6):
->       dt-bindings: phy: qcom: add Nord QMP PCIe PHY binding
->       dt-bindings: pci: qcom: add Nord PCIe controller compatible
->       PCI: qcom: Add Nord PCIe controller support
->       phy: qcom: qmp: Move qphy_setbits/clrbits/checkbits to common header
->       phy: qcom: qmp-pcie: Refactor common multiphy handling
->       phy: qcom: qmp-pcie: Add Nord Gen5x16 PCIe multi-PHY support
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] pm: power leak due to async pm_runtime_put_autosuspend() cancelled=
+ by pm_runtime_disable() in teardown
+- [High] pm: SError crash on resume due to ignored return value of dev_pm_o=
+pp_set_rate()
+- [High] pm: SError on power-on due to unsafe rounding up of the boot rate
+- [High] race: UAF / NULL pointer dereference in rocket_npu_restore_boot_ra=
+te() racing with shutdown
+- [High] race: double-free of devfreq and OPP table due to concurrent sysfs=
+ unbinds
+--
 
-On Nord platform:
+commit e0300730a57da6df01c259dea64c48000cbfedae
+Author: Igor Paunovic <royalnet026@gmail.com>
 
-Tested-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+accel/rocket: add devfreq support
+
+This commit introduces devfreq support to scale the NPU clock rate based on
+core utilization. It uses a single devfreq device for all cores and runtime
+resumes all cores when raising the clock rate to prevent hardware SError.
+
+> diff --git a/drivers/accel/rocket/rocket_devfreq.c b/drivers/accel/rocket=
+/rocket_devfreq.c
+> new file mode 100644
+> index 0000000000000..871fa370eb432
+> --- /dev/null
+> +++ b/drivers/accel/rocket/rocket_devfreq.c
+[ ... ]
+> +void rocket_devfreq_suspend(struct rocket_device *rdev)
+> +{
+> +	struct rocket_devfreq *rdevfreq =3D &rdev->devfreq;
+> +
+> +	if (!rdevfreq->devfreq)
+> +		return;
+> +
+> +	guard(mutex)(&rdevfreq->lock);
+> +
+> +	if (!rdevfreq->cores_held)
+> +		return;
+> +
+> +	rocket_devfreq_set_rate(rdev, rdevfreq->boot_freq);
+> +	rdevfreq->cores_held =3D false;
+> +	rocket_devfreq_release_all(rdev);
+> +}
+
+[Severity: High]
+What happens if rocket_devfreq_set_rate() fails here? The return value is
+ignored, and cores_held is cleared unconditionally. If the rate wasn't
+lowered successfully but we drop references and allow the core to suspend,
+will this cause an asynchronous SError when the core later powers on with a
+raised clock?
+
+[ ... ]
+> +	freq =3D rdev->npu_boot_rate;
+> +	opp =3D devfreq_recommended_opp(dev, &freq, 0);
+> +	if (IS_ERR(opp)) {
+> +		ret =3D dev_err_probe(dev, PTR_ERR(opp),
+> +				    "no OPP covers the %lu Hz boot rate\n",
+> +				    rdev->npu_boot_rate);
+> +		goto err_remove_table;
+> +	}
+> +
+> +	/*
+> +	 * From here on the boot rate is the OPP it maps to. The raw rate is
+> +	 * the firmware's number and need not be in the table at all.
+> +	 */
+> +	rdevfreq->boot_freq =3D freq;
+> +
+> +	/*
+> +	 * Program the supply for the rate the NPU is already running, so that
+> +	 * the regulator is not switched off underneath it by
+> +	 * regulator_late_cleanup(). That OPP is the boot rate rounded up to
+> +	 * the table, so this may raise the clock, and a raised clock is only
+> +	 * ever programmed with every core held: the same rule as ->target().
+> +	 */
+> +	ret =3D rocket_devfreq_hold_all(rdev);
+> +	if (ret) {
+> +		dev_pm_opp_put(opp);
+> +		dev_err_probe(dev, ret,
+> +			      "cannot resume the NPU cores to set the initial OPP\n");
+> +		goto err_remove_table;
+> +	}
+> +	ret =3D dev_pm_opp_set_opp(dev, opp);
+> +	rocket_devfreq_release_all(rdev);
+
+[Severity: High]
+Is it safe to round up npu_boot_rate to the nearest OPP and then allow the
+device to suspend? The commit message mentions that an island powered up
+while the clock is above the rate the bootloader left will take an SError.
+If devfreq_recommended_opp() rounds the frequency up, and we set it and
+drop references via rocket_devfreq_release_all(), won't the next power-on
+trigger the SError because the clock is now higher than the safe
+bootloader rate?
+
+[ ... ]
+> +void rocket_devfreq_fini(struct rocket_device *rdev)
+> +{
+> +	struct rocket_devfreq *rdevfreq =3D &rdev->devfreq;
+> +	struct device *dev;
+> +
+> +	if (!rdevfreq->devfreq)
+> +		return;
+> +
+> +	dev =3D rdevfreq->owner->dev;
+> +
+> +	devfreq_remove_device(rdevfreq->devfreq);
+> +	rdevfreq->devfreq =3D NULL;
+> +
+> +	/*
+> +	 * Lower the clock before letting go of the cores, not after: a core
+> +	 * that suspends while the clock is still raised would be unable to
+> +	 * come back.
+> +	 */
+> +	scoped_guard(mutex, &rdevfreq->lock) {
+> +		if (rdevfreq->cores_held) {
+> +			rocket_devfreq_set_rate(rdev, rdevfreq->boot_freq);
+> +			rdevfreq->cores_held =3D false;
+> +			rocket_devfreq_release_all(rdev);
+> +		}
+> +	}
+
+[Severity: High]
+Could concurrent sysfs unbinds cause a double-free here? Since
+rocket_remove() in rocket_drv.c calls rocket_devfreq_fini() without a
+driver-wide lock, multiple unbinds could pass the if (!rdevfreq->devfreq)
+check simultaneously and try to free rdevfreq->devfreq and destroy the
+mutex twice.
+
+Also, similar to rocket_devfreq_suspend(), if rocket_devfreq_set_rate()
+fails, won't unconditionally dropping references here lead to an SError on
+resume?
+
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
+ket_drv.c
+> index 8f03de1af488c..c6eab2239b6a9 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+[ ... ]
+> @@ -268,6 +283,9 @@ static void rocket_remove(struct platform_device *pde=
+v)
+>  	if (WARN_ON(core < 0))
+>  		return;
+> =20
+> +	/* The devfreq device drives every core, so it goes before any of them.=
+ */
+> +	rocket_devfreq_fini(rdev);
+> +
+>  	rocket_core_fini(&rdev->cores[core]);
+
+[Severity: High]
+If rocket_devfreq_fini() uses pm_runtime_put_autosuspend() under the hood
+to release PM references via rocket_devfreq_release_all(), does
+rocket_core_fini() immediately disable runtime PM? As per the PM subsystem
+guide, pm_runtime_disable() cancels any pending asynchronous suspend. Will
+this leave the device permanently powered on and cause a power leak?
+
+[ ... ]
+> @@ -314,7 +332,18 @@ static void rocket_npu_restore_boot_rate(struct rock=
+et_core *core)
+>  	if (!rdev->npu_boot_rate)
+>  		return;
+> =20
+> -	err =3D clk_set_rate(core->clks[2].clk, rdev->npu_boot_rate);
+> +	/*
+> +	 * Go through the OPP core once there is a table, never behind its
+> +	 * back: it caches the OPP it last applied and skips a request for that
+> +	 * same OPP, so a raw clk_set_rate() here would make the next request
+> +	 * for the raised rate a silent no-op, with sysfs reporting a rate the
+> +	 * hardware was not running.
+> +	 */
+> +	if (rdev->devfreq.owner)
+> +		err =3D rocket_devfreq_set_boot_rate(rdev);
+> +	else
+> +		err =3D clk_set_rate(core->clks[2].clk, rdev->npu_boot_rate);
+> +
+
+[Severity: High]
+Is there a race condition between rocket_npu_restore_boot_rate() and
+rocket_shutdown()? If a job finishes and the PM workqueue calls
+rocket_device_runtime_suspend() concurrently with system shutdown:
+
+CPU1 in rocket_shutdown():
+rocket_devfreq_fini(rdev); (sets rdevfreq->owner =3D NULL and frees OPP tab=
+le)
+
+CPU2 in rocket_npu_restore_boot_rate() sees rdev->devfreq.owner as valid
+just before it is set to NULL, and calls rocket_devfreq_set_boot_rate(rdev)
+which does:
+
+dev_pm_opp_set_rate(rdevfreq->owner->dev, rdevfreq->boot_freq);
+
+Could this result in a NULL pointer dereference or use-after-free of the
+OPP table since the devfreq owner has been destroyed?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922080114.4466=
+2-1-royalnet026@gmail.com?part=3D9
