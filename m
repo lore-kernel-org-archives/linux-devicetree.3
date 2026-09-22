@@ -1,93 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B637D559C92;
-	Tue, 22 Sep 2026 15:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5CC549378
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091314; cv=none; b=daBHjDkUi7msAjFEYYkNXc7RR4OvbLjyqGqGiNzQezTmXelUjRiUZJV2xg6o1lgQGsjTDhtNih7zEFfhVvhW61Nx8JlYHp9fdikbwKaWEMQFEjVKWN2T7O2ziDdUR6AZw1R2IrBTkxplVacNyvne/zziA3ZXoGydPkuJo3WCCEU=
+	t=1790091407; cv=none; b=J1nGQB0GumuDoTPqnCn3luWMcSx2e4UOLp97DmqV3gYZa2XoXtwBTlpbUQCGMPCzu2uv6MMjGomP0TH25Kx5kh2lnVynPBE9yBLn1Lo6V2JoG24DNpjB8UV9w5xzET1q1XMzh88vLfdulbzrGCfMcTFAqzFUtp27gHZurCZUJfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091314; c=relaxed/simple;
-	bh=8c9mOEfPLVh+05JwkGqkDFhZ4eGD9h3DRTAtQNs4Izk=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=lZTJ8EDCJAgnzIquWSdeLK58bHYsoy6vw3ql1x/mUaMFMeNzx3haxUVFLzq7R+CYKLikSBI1+ekC58e092meZgsfsBVMHHTXfUiAmm8mv8vA0nWd+Bps+iDguvS9LhaK5H1gLhTRBcOCxSuiTLykzu/yMqEtakWUQAMSm9UfPpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FAEuAuUn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FAEuAuUn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D1C1F00893;
-	Tue, 22 Sep 2026 15:35:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790091313;
-	bh=l0v14wN/DvIVEXrfeeixUuljRDiJFlaL5YhfUPp5MGg=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=FAEuAuUn7kgoyZZ5n2Ox49MDzAdPBYxMURL/+BCnLWgBGp3kM2N5Ov5hzVAm5GnW0
-	 bXGEil0Yiot1b8wRlwG/cD3mqBpEEaugJZ3dHLjjclotRwwecwJwQMIicScFoR6CMG
-	 UjhGV9ooobke83LAdjenFv6oZQT9nTYoIef3dgM0dQkWdbTvg5roJrjmpuZUqPbpWJ
-	 /yeprhGcOEwvD+DvumQLp753vt01BUoJWTFX3kJ6PbjheWdRKufgwQ069vDXW0sLXb
-	 E46tU47X/251YQSxrzr2YNuehN9c/zL/gx9uVwJZUV83IuBc37GMduyggKYy4RzHQR
-	 T/e1aJAx8ka5g==
-Date: Tue, 22 Sep 2026 10:35:12 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1790091407; c=relaxed/simple;
+	bh=0IK9+EwvsBoYDJYGUac8cxaRSG01Rz8fKvCBOkF5H0E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=koYCbG0rFaYhmIZ2V0ZPr+38G7rhnXM8I/R7+7Zlw39KHbPF1cZasGC1WPHAktEhV4CIjtwHFzVOCdAcsVy7tIp6WvDZz2+yQ1aAN3vAEFfD/52zAI9yNt4L1Zx87fzDPesPat1DA5o4VB6BAR2RYBCXxuS0ud+gi27QwVRzpaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93bfa7b2093so5750885a.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:36:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790091405; x=1790696205;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/Ivia3s8tcpv+jz42ruOpNgJ1iPkEln4U/VwumY2Fss=;
+        b=fEEMQR/odmIm/3+xMvaSpcPvi7duF8HUBiQSGgmd6hKkX0xvY8srpgId8uBU6STdeu
+         rXHAhu/Ui+Ltqk9b6ZmAk3DfBg0jtfty+iHVLaAXiqSNSx3GDWeOxUvB8npid+63Qpwe
+         sELpTtFDeKvonyexipoCNEqbXCEkpl9d0dv402bQZOuE4dwsjanpxVGpYOmvDb0j3nbb
+         7gJwedbzAI3a2UwqHVwxhDuP+QFQTNRjl7oMtE9MhB+UquXq9HTwQYN2rxzuSgbicebC
+         QQTlojysNtPCSlAH2hKHiQioFyv4Zy9w+ocN04iDAPlO1LBJOFdfCb7XwQ/9ZQES9F0J
+         5ruw==
+X-Forwarded-Encrypted: i=1; AKwUvBzKmD8YkGEyBtfC98rDHwcvEYZTzhvJIFhoYA84MBIQm0GhftPGqmE/pebYonNQP+Z7tZE+eGF5Biub@vger.kernel.org
+X-Gm-Message-State: AFuF++l0L3HVfOoA+gPF4rNwcdPZtMw1BL+pnK+abxg4KW5X+5oDNmWN
+	LV1WTAH/L7kj+IUg0+XnVk6humEPO9ss7ab2a0MoyLHriUEVO5XzfxkgWXKsoJ1e
+X-Gm-Gg: AYBFou1gnEZaGy5TBc+LRYfli8AEqW4UphQj68jpjDUaEDi9AjMznzhENNnRh3qD6vU
+	QTSE/v/qD4Uq+dZcMr2rd1zELlaXlb5jA3FeLIEZymi/UlGPFZPq2Q5YPZ6S/3pa1lSN0Pw8O+7
+	VEyUEPhsUG7oeq75I0+epFH7axKEZfhgQ3Ur1HenVX8CnBTzYNM2gfVqUYkogL5jCqt2gMm49GY
+	1Brq6Y4PlfNG842SoDikFlhaS51a/LK3j+i6x/EMCOwbhVi7u4eQqi6qbwveDrwSdcS2jR0ziw9
+	fXD0Ngt62UsRbVpqyN0A+imyvDqKv/v+Qcl59j2s6+jtbfwARyfpLRdEGkKGPNI4tWJD/+s80RF
+	Sc4aYcAjcp2wSv3t3BplAbjOaJCZ2rreZaFV4Y9cJSB/531avqYwEMq6xgkR6HikeN41qlNutkW
+	NJz/ZWo7h1Gu+rk0/VYlX3X+iZZs5WB2jQZGlPjckEGiIWBt0H0VBytNKJ2WtC2bpDB21DMguk7
+	V/jh5IhWCPGErR+hDY2fdTWg8CR5759UatMIA==
+X-Received: by 2002:a05:620a:459f:b0:93b:e448:2630 with SMTP id af79cd13be357-93c15ee9f89mr597200185a.72.1790091404976;
+        Tue, 22 Sep 2026 08:36:44 -0700 (PDT)
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com. [74.125.230.235])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c24823976sm57885a.13.2026.09.22.08.36.44
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 08:36:44 -0700 (PDT)
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-5309a20a55bso502371cf.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:36:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw/Zn13nOABKKI6fUOZ65Og65LyBiTXojgDcGWrU4ztGaidygfKVXazfpojk78byLTDFB3LxDzJ6J6b@vger.kernel.org
+X-Received: by 2002:a05:6122:e230:b0:5bd:b2e1:e1f5 with SMTP id
+ 71dfb90a1353d-5c9b58fd54cmr8860951e0c.2.1790091060069; Tue, 22 Sep 2026
+ 08:31:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, broonie@kernel.org, tiwai@suse.com, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-sound@vger.kernel.org, cix-kernel-upstream@cixtech.com, 
- perex@perex.cz, lgirdwood@gmail.com, krzk+dt@kernel.org, 
- p.zabel@pengutronix.de, conor+dt@kernel.org
-To: joakim.zhang@cixtech.com
-In-Reply-To: <20260922112134.4167305-4-joakim.zhang@cixtech.com>
-References: <20260922112134.4167305-1-joakim.zhang@cixtech.com>
- <20260922112134.4167305-4-joakim.zhang@cixtech.com>
-Message-Id: <179009091298.3383748.7497658110500328179.robh@kernel.org>
-Subject: Re: [PATCH 3/4] ASoC: dt-bindings: Add Cadence I2S-MC controller
+References: <20260921110144.44425-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260921110144.44425-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260921110144.44425-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 22 Sep 2026 17:30:47 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUX9s1q6SdrgiMciGfHYAvCp1kFzGYL4pHf7PzzipEPUw@mail.gmail.com>
+X-Gm-Features: AclHuK_p5w8PzHnOOSGm4t2QYnyy-nd81aSQvB28I4MJvz8KTxnmCW8kHjNnqd8
+Message-ID: <CAMuHMdUX9s1q6SdrgiMciGfHYAvCp1kFzGYL4pHf7PzzipEPUw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: renesas,r9a09g077-adc: Drop
+ unwired interrupts
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Prabhakar,
 
-On Tue, 22 Sep 2026 19:21:33 +0800, joakim.zhang@cixtech.com wrote:
-> From: Joakim Zhang <joakim.zhang@cixtech.com>
-> 
-> Add the DT binding for the Cadence I2S-MC multi-channel controller
-> integrated in the CIX SKY1 audio subsystem. The controller exposes a
-> transmit DAI and a receive DAI and moves audio through a configurable
-> set of its 8 data pins. Which pins are wired out and in which
-> direction is fixed by the board design and described by the
-> cix,pin-out-num, cix,pin-rx-mask and cix,pin-tx-mask properties.
-> 
-> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
-> ---
->  .../bindings/sound/cix,sky1-i2s-mc.yaml       | 124 ++++++++++++++++++
->  1 file changed, 124 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/cix,sky1-i2s-mc.yaml
-> 
+Thanks for your patch!
 
-My bot found errors running 'make dt_binding_check' on your patch:
+On Mon, 21 Sept 2026 at 13:01, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Remove the compare match and compare mismatch interrupts from the binding,
+> as these interrupts are not wired to the GIC on RZ/T2H and RZ/N2H SoCs
+> according to the hardware manual Rev. 1.30.
 
-yamllint warnings/errors:
+These are indeed only wired to the DMAC and Event Link Controller.
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.example.dtb: /example-0/dma-controller: failed to match any schema with compatible: ['cix,sky1-audss-dmac']
-Documentation/devicetree/bindings/sound/cix,sky1-i2s-mc.example.dtb: /example-0/dma-controller: failed to match any schema with compatible: ['cix,sky1-audss-dmac']
+>
+> While this change introduces an ABI break, the expected impact on existing
+> users is minimal, if any, since the interrupts are not wired to the GIC
+> and are not used by the driver.
+>
+> Fixes: 4d8d58987cb5 ("dt-bindings: iio: adc: document RZ/T2H and RZ/N2H ADC")
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-doc reference errors (make refcheckdocs):
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260922112134.4167305-4-joakim.zhang@cixtech.com
+Gr{oetje,eeting}s,
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+                        Geert
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
