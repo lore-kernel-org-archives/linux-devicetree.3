@@ -1,89 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF733EC69F;
-	Tue, 22 Sep 2026 17:04:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7135E2FE060;
+	Tue, 22 Sep 2026 17:06:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790096668; cv=none; b=AgAzELGkU0rXMy+qCx4xnc4OfFE19V6aNn7zzfAaEPUFZyqPJaGHKbxYnJFJtTZVauhrAdAfQVIXcln8pILrq/qo/Uy4udRiJVAKgtVIGF9a+TGM6uNtt2ubXhBqDw5ulNj+U3lSpbCnUsQCb5MJ8o4vVzS8nLT/G3HPP2ZIdbU=
+	t=1790096803; cv=none; b=MHXsHIlnWY2/5O70audxCAwxjVatWL5zm73HxA2EJMldJwyVZC5YUg5EuSmQ6enH2vncEAous20CxFXfGJxbyaNDEAHQJNkASv1JayBJzyosNfiaZpD9bEAjc/ZZGeGv/qAE6OhP/UvZjspXEYvaPfXXm6ACIFwWrgiPDY5nuXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790096668; c=relaxed/simple;
-	bh=ryw1ckC0LyGtXZnUSGqqdSw6vPzJYJA+e+eu0aiWzDk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hkq7Vh3U/QfPKTY7K++ZuuWtzt/Fxlo9hvvaXds2OFIaysNUX8kUzmabKljt1HR7rjyXzHypviD1SZJwPPq1JAJCLePLJCKenBvQnGvnzkxuQi9KFTsejGyLWxKf1KiqtdLpyDFjr1JXmS+9rMTHBlfCm7KBOAy8+jWN4Qw7GTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LK58FBno; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790096803; c=relaxed/simple;
+	bh=Ov2b86dC507G6BGRsSXQE6BgR/Y21isTMrUWiliPpwI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gkqwHEIHyl8y/fZ2N/FqpJFh0BJJ8bEiSC1zk2w7eEGvnERjGugYOP+23+CjU8WSIb6G61oVtbJpj5EBrPRgIgseh9bpxawaJI18i1USaGrwCwsoRHgS3VSug6lfCX7WBtq2qKfySkM4ToSQy+oXaJAY0/X60MflojZVH4mVsOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxkbwLoV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LK58FBno"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81CFC1F000FF;
-	Tue, 22 Sep 2026 17:04:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxkbwLoV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E8B1F000FF;
+	Tue, 22 Sep 2026 17:06:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790096666;
-	bh=ryw1ckC0LyGtXZnUSGqqdSw6vPzJYJA+e+eu0aiWzDk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LK58FBnokT4BZd7z9MJoSe+sT22fZ4uH11pNVyD5Mnf8sptKicd3R4Zy+yyywjppT
-	 J90leobk6npQIuX5A0tV/IzBrkt4ZNNTa243Me6IPtmqpiqe6ofOajL93TiDPqXRX0
-	 2OnMiHswX+S0rOndPrdHpznYnCEDLgnxjfZSFEBlEXgEMM1dUVsFti5Xm0slJ2lrgd
-	 HxAdDBlD5XtmyX2jQ5+ln5rKRBYM28oPRj6AViczIoSJd9L9szwCYaGRYxxWhP8+De
-	 I63x0txaW69cubtyDEF1Hd9JBWsiGVKOjk/J8WgRotBkoq/Xv/hjdFDWO5/y0wMGkD
-	 LE6F0fBW7CD3g==
-Date: Tue, 22 Sep 2026 18:04:22 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jelly Jia <Jelly.Jia@cixtech.com>
-Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	Frank.Li@kernel.org, robin.murphy@arm.com,
-	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 3/5] dt-bindings: dma: Add CIX Sky1 DMA-350 integration
-Message-ID: <20260922-perky-absently-2590fe901176@spud>
-References: <aqE42NzerAiD2U1E@squawk>
- <20260920051501.3620794-1-Jelly.Jia@cixtech.com>
+	s=k20260515; t=1790096802;
+	bh=TBChUqzt80rAa+G5CpFUfu65jXW29h6Fg2OgGocDwT8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bxkbwLoVuWulUxgEcn2zGg8jd5POpvVtOxWgEK72FVm7XCr7fzxn1A8EW6+LysAON
+	 PX+TqPZtajf4y9wi4sjkholmQBu2aQET2nd1seDcHLQz5MurfXPlz9C3GHIhpripsE
+	 TsTiH3YX1DyURGydGgGGm9ionQvcWuJXvgk/I0jyCaHzoQnHJumqDQzrWQKR3HTpRL
+	 8PH4uANvwi+uAzbXeId2Gf6YPw0dSsDMKH+xtAPjaFiDWxh1c+7Ylftigoikxxlq84
+	 n0zLovXymn1TRiiuSyMkSWo7gnjJOZjethnC+9gRWmBgPdATT/2ptErqole4UgSil7
+	 6e+y019Cgckag==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/3] platform/arm64: add Lenovo Yoga Slim 7x Gen 11
+ EC driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Oleg Keri" <okerixx@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260922165737.260443-3-okerixx@gmail.com>
+References: <20260922165737.260443-1-okerixx@gmail.com>
+ <20260922165737.260443-3-okerixx@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 17:06:41 +0000
+Message-Id: <20260922170641.B9E8B1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5dgaYu8dXVKiJatw"
-Content-Disposition: inline
-In-Reply-To: <20260920051501.3620794-1-Jelly.Jia@cixtech.com>
 
---5dgaYu8dXVKiJatw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] hwmon: subsystem layering violation by registering hwmon device =
+from platform driver
+--
 
-On Sun, Sep 20, 2026 at 01:15:01PM +0800, Jelly Jia wrote:
-> Hi Conor,
->=20
-> Thanks, understood: with the SoC-specific compatible scoping the
-> integration code, other platforms are unaffected either way.
->=20
-> For v2 my preference is to keep the wrapper, since it leaves the
-> generic arm-dma350 driver and its binding untouched. Does that work
-> for you, or would you rather see the dma-350 node itself carry a
-> device-specific compatible, with the clocks, resets and
-> memory-region described on it? I'd also like Robin's take on the
-> arm-dma350 side before restructuring that far.
+commit fad2a849321ec9af59f9a8420c3cb98f8ed6865e
+Author: Oleg Keri <okerixx@gmail.com>
 
-The latter, since that's what we do for almost every other device under
-the sun. Robin's take would probably be worth hearing, but you removed
-all the context while replying which makes that more difficult...
+platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
 
->=20
-> Best regards,
-> Jelly
+This commit adds an Embedded Controller (EC) driver for the Lenovo Yoga Slim
+7x Gen 11 laptop on the Snapdragon X2 Elite platform. It provides access to
+thermistors, battery cell voltages, CPU fan speed, and keyboard backlight
+control over I2C.
 
---5dgaYu8dXVKiJatw
-Content-Type: application/pgp-signature; name=signature.asc
+> diff --git a/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c b/drive=
+rs/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+> new file mode 100644
+> index 0000000000000..a16849877dd7b
+> --- /dev/null
+> +++ b/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+[ ... ]
+> +	if (!ec->temp_present) {
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "no thermistor reported a usable value\n");
+> +	}
+> +
+> +	dev_dbg(dev, "thermistors present: %#lx\n", ec->temp_present);
+> +
+> +	hwmon =3D devm_hwmon_device_register_with_info(dev, "yoga_slim7x_ec", e=
+c,
+> +						     &slim7x11_ec_chip_info, NULL);
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+Does registering the hardware monitoring device directly from outside the
+drivers/hwmon/ directory violate the subsystem guidelines?=20
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarK1FgAKCRB4tDGHoIJi
-0lGvAP4lmnDtOzTWLgbDhWbJVyNZ2BlGz/EtLftum4ZCqwvKLgEAgauaEkmh9CkC
-pA8yWGCGYUl0y/3PxtT6G5PsRZq1Agw=
-=X7Es
------END PGP SIGNATURE-----
+The HWMON guide dictates that hardware monitoring functionality in
+multi-function devices should be implemented as an auxiliary device driver
+residing in drivers/hwmon/, and that registering from outside this
+directory bypasses maintainer review.
 
---5dgaYu8dXVKiJatw--
+> +	if (IS_ERR(hwmon))
+> +		return PTR_ERR(hwmon);
+> +
+> +	ec->kbd_led.name =3D "platform::kbd_backlight";
+> +	ec->kbd_led.max_brightness =3D SLIM7X11_EC_KBLT_MAX;
+> +	ec->kbd_led.brightness_get =3D slim7x11_ec_kbd_led_get;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922165737.2604=
+43-1-okerixx@gmail.com?part=3D2
