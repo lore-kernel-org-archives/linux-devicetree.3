@@ -1,64 +1,63 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D26D2475D0
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 03:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37EBF388E69
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 03:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790048860; cv=none; b=Cu1VJs9hs0fODWHjWzjPicpfF9b+R1l4RzdySNB/v72ew0BhXf330n8WB4LCJRUSCA34UoouzbNZJGi9lT4GnLirDkLA/xbv4VlhAXG/zEicfudSBlRrr2AEkE/7JzyE9nPNPzv8phlNWWASgTy50L0Psr2e8gRxVg1Bt3CzaKM=
+	t=1790048863; cv=none; b=mihXcnyOvueVg+ZgRBJ39NZM+YGvKVfT5kfSP5gPG+7/uiojHon//5ri6AdJdsY17FB+GdgSr+WIn0/rE1OYA+h9P2PtGZoPPJULxolJOgZsMoJI6aRxpWweJvQiA+bN+HfW44ja1IyzdoAFeEyZoVHIDB/e1dz24n9qBI6xvqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790048860; c=relaxed/simple;
-	bh=bgbOau0A/tgP+tSmz6HeSpp4+sp/5nJ+lGbAkKaC0PU=;
+	s=arc-20240116; t=1790048863; c=relaxed/simple;
+	bh=vs0p7aKfRjm32/JARKxXOJKs9GaInGuJp6lBcXmuJBA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BK4EqeurUejY0GVPtAGXN6mdjJUlFsaW2uoGViJSYmxEi7YMsJUDYzBry2fQBEYIX8BQaFg5CuuOs5oV42gaR6ogIAZdOMczQNQ6hchLhurXON3fYawBqlJ9xZi7fJiVa21qFEeEz+KX+9HceXqzZQeIdez0xFsII0oCBFnCkbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kkXscl5k; arc=none smtp.client-ip=74.125.224.171
+	 MIME-Version; b=o+7ov2MbmYmV4ZfHxxw9S50N953SfTIEOp2MtsVdY9eNcV/4oQuYL76o1TJ4NWKP9vpL3mrr0GXCU5SyHeLbiHogSF49GN2Qm7iPcQY2+Gs2CKzV5o+e811NM+/9g6PJOZ3jtwIMfVdFNVhjVsEvWtKmWGUkTkCATZvPWR8hoiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qVUVX5ft; arc=none smtp.client-ip=74.125.224.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kkXscl5k"
-Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-895eaf30817so39581537b3.0
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 20:47:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qVUVX5ft"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d440939f0so28618997b3.2
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 20:47:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790048858; x=1790653658; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YQ2lTEyh9T+AWwJXsBgXvEk8Ip07SEOMmNsBvj/vfkI=;
-        b=kkXscl5kOHfWXHJ3rXOw1HnHpVzHuHpG3q6Tswm7RTgTjW7EoN+ttsUiF76RDKlI2T
-         f6weoi8PNrLGXPFFGOVvphq7nWyvc0p/nbyOGoDJeFFAvJU7H0OwrljmPXRnKljaDS4g
-         Vs/78/mGMm5i4nsgQr++/npmOv6DCm7HS44ITeedkg6EsGVyZuNqpNvJCtOQjGKnA/mK
-         9xG9kvz1SaYE/SK6ZK1SbEeb3qVChaMuhfXWiYxyoY6hjv9JFT4o41D2gC86kiowO12Q
-         pyS0xfuYJZ8CZyY2WYnA0dz6aj1bQQichBz+lMd78/Jk2ziN9PcRHJTzp1FzYfU5dGIC
-         i6Ug==
+        d=gmail.com; s=20251104; t=1790048861; x=1790653661; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4/zsDmJePgaslWzMD95723Em6EJMVLj62D0M57SSna4=;
+        b=qVUVX5ftJF5fLwjFoK8H2BnPZh1XrTMfdJbkP7eptBkB6j0sjxxVjtZqAI3VG3nJxe
+         Cnv2UvCVqaUC3NFw+aLiYrQciOLwrcYCR+MX/DKAZcF5SelXUeVzEes77wbbaIROLqje
+         /YKb8leEVc96mruQmgKrfZeipo0sx/lO1FYoRiWJEqPJWzzfHD6WkZafRdjLQgCbsKDS
+         5z/wyQOIn8F1GedCzQTvkLgKGpksXR5nORvgwWYX/nQEOL/PokZ+EHB/sAorALEFEL7+
+         DBPbnqbLq5V6Jma0iVtux+NTrZim5QLMruXPp1sGxjuME4TMu7GUhx9h4cPbRCejo7ED
+         vzzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790048858; x=1790653658;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YQ2lTEyh9T+AWwJXsBgXvEk8Ip07SEOMmNsBvj/vfkI=;
-        b=jCjmyd1NIyQ7xe6MKyaACA+gcyY725si7eSQYzuq9JYo4OSqbWTtasZKSiouTB4mT/
-         Z4QKq5/ptlHnlqPhanuJIfTCLk6+dKRq9qq7/qjI25n8bQXCyABMPp9rEAK71pVVklRI
-         wnAU/F0ZfD4GiunrPan4iUZ74BV/6pIOvQ+OK6W4W0Zsv/n6A7aDI0Ca/ExNBZS/iJbN
-         lFXGdG47C7XrTFROrPnLgmk46pfJOyxnZsA7Q4uLkuMOlVW9vfMtevzueMUHB98iLqK9
-         /wTec8Im/YZRt5xrcac6RfoPMNJBa5YuKWfeK3ZGk/guGJ+QO5Ao51WuxMu+VxFhoJob
-         nxdA==
-X-Forwarded-Encrypted: i=1; AKwUvByWklaTg/5aiwNUyVrGtQ+FVIVJ8nTKewc4vi6/M5NMIZskZ/6TTWmlj63GHsKCIl6nd+k4BHpJxO6U@vger.kernel.org
-X-Gm-Message-State: AFuF++ldMcCwPZD8YmIB8AB/D2ew+4ITKOuOBZiOKuiELZcYAELi4Cww
-	hjIFjnzxotePAzDqeJ6Wa0ck0N48BNpcU1KIMmumEymA97wpLoFmCE9P
-X-Gm-Gg: AYBFou3EGhUq7bJz69IAMRh6r8DSSdRCh/jmuJJWfuc4vYy/QC+hevRxwRqaWhkTm/Y
-	zY5Op+BTXjlg/lttvMPj18Y+mJwnIXSXeC6qf7Wb6xOfpBN+ctJQag22b4JSANsGvd91J3NGpvh
-	4XCcAIt0zJzopr7/Wvn4XDL1i2x8Xb3yM4K5XAzC+jdx/eCyGpNmFNyKfN75SKGZoREflwUccwZ
-	OHeneUQb7UlyYp7AjPoNEKMVmQf4Mpe++zOK+yKmqnqA50qSHrHt94xjawcI4mTxcsBHDBykyxL
-	rxI67t0viq7OJWQDdoaPXxWwmN+dgQA/TU9lyxV6hPiyn/iKhDQfDko0RjCsoq44cfgMsqaM1aZ
-	iMB+gz8h8ATgpqaWELUsBSw9unnmxad08nc7GAKTYWM5gc9YQalgCVAR7aKJMUn+1zYJ0pFi5cQ
-	gX+Bkypyum5epRVqEvEO9fTsSRk4j+3YQhvOB+vbngAhdhUEz8+T2RdzjQvHoi4Rio/Q==
-X-Received: by 2002:a05:690c:ec7:b0:89c:41f9:b8a5 with SMTP id 00721157ae682-89c41f9beabmr22270597b3.3.1790048857960;
-        Mon, 21 Sep 2026 20:47:37 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790048861; x=1790653661;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4/zsDmJePgaslWzMD95723Em6EJMVLj62D0M57SSna4=;
+        b=NOLPuz0mLQlQO9n7+YNA/TAKBhr/WsA+l/bKR3c9tFdcrYFlsvTYloV0fMAFcQazdL
+         ZVXpp8+yISET+W6c5pPIIEqudxVw/iRbatENUEeirShjAjaMT9yX8Ug7rVzGL/ALl1/o
+         cjI1RYV3QhefrSHg8cBtv8BsLMu6mut0rDSMxPAtYkW5c+sdFoSkdt2sloX+gGBwVGtn
+         ypc7/k8o/46ZJfVK0CP7RRIcV8EVoSa5rrFC65PCMJWWOikgLRAFuF88OHKSdBQwbHFI
+         AyVb35vvOcGSDlYePcZOTcxxDOLP8k9y0Iey3Kjl5bUMXIdDr30SXGMvgn+h4e3kg73J
+         WmfA==
+X-Forwarded-Encrypted: i=1; AKwUvBzY9mkm2fDZX2CV5nq48JB7V9dNxkGNs8cQ1kxhLbHQdmW8Cp8GUEb9uoK7P6sntEci+JKvuLkJ6zg3@vger.kernel.org
+X-Gm-Message-State: AFuF++k4Rg8PYyVmG6m8ELEf8CszdF05xCWP6fzM1QXqBJrvJPggS37r
+	7mEkCRW9e+yFNGa4GE+Yaf1mPRSCU5zfY9qRAnsSA9QSGJPWzy6kONuU
+X-Gm-Gg: AYBFou3u/IiokTeaiyS/Tv0heKNrW01d+AfBk9+RiFRKl6NzxNROB3DbTP+6ZMaXB79
+	j+3z2lfMFUbxNa0WkNT/mR3Kcvwy7iEt2ECxZ/m5bVQ0Cz8R5+lsm40PKDxGLH5Kxn+0HVl3mSp
+	gez+KmYgb1H6/OwCb+0K6fUyAWZ4d3I9Sv1J0q15/d2yJd+ETJll7d74FgqrhmirebzHkmVM5rU
+	hqnVMk9gZV4YcX7UMYyIDPE3lpEe6/HBTncYerqDvH28XgIRskTwiEIh1Xx6lpMh2FpdHTvgO+b
+	KQfaoDruqwsSR1XvQbm8yLudN5T1A0otmmtyM+4W3t96xr/4Cg/WkbhpIJUZ2fNcPcjzBH4oeON
+	9mFw0C9+ajFt7JPXn3GRhHX0LBNZRQPHWpM43Bt0d0P+f25dOf062GZEbRbhAma1R7UfgXCKMcG
+	Uiap42BV9u/oPhIC037s4+g/F0pr0TfPHB/AnUDXIFRZvN4Hrniu0W1Mmr1W6cxhPtBg==
+X-Received: by 2002:a05:690c:e3cf:b0:88a:4770:c2e9 with SMTP id 00721157ae682-897308f88c2mr50874537b3.14.1790048861342;
+        Mon, 21 Sep 2026 20:47:41 -0700 (PDT)
 Received: from hp ([71.12.40.102])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a2bd79e82bsm1822337b3.5.2026.09.21.20.47.36
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a2bd79e82bsm1822337b3.5.2026.09.21.20.47.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 20:47:37 -0700 (PDT)
+        Mon, 21 Sep 2026 20:47:41 -0700 (PDT)
 From: Tim Michals <tcmichals@gmail.com>
 To: linux-sunxi@lists.linux.dev
 Cc: wens@kernel.org,
@@ -67,14 +66,16 @@ Cc: wens@kernel.org,
 	Tim Michals <tcmichals@gmail.com>,
 	Bjorn Andersson <andersson@kernel.org>,
 	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@csie.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	linux-remoteproc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH 4/7] dt-bindings: remoteproc: add allwinner sun55i rproc binding
-Date: Mon, 21 Sep 2026 22:47:08 -0500
-Message-ID: <20260922034711.190253-5-tcmichals@gmail.com>
+Subject: [PATCH 7/7] arm64: dts: allwinner: add a523 msgbox and remoteproc nodes
+Date: Mon, 21 Sep 2026 22:47:11 -0500
+Message-ID: <20260922034711.190253-8-tcmichals@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260922034711.190253-1-tcmichals@gmail.com>
 References: <20260922034711.190253-1-tcmichals@gmail.com>
@@ -84,20 +85,19 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add Device Tree binding schema for the Allwinner XuanTie E906/E907
-RISC-V remote processor found on A523, A527, and T527 SoCs.
-
-The remoteproc node manages the co-processor lifecycle (clocks, resets,
-boot vector) and IPC (hardware mailbox). Memory regions are expressed
-via reg entries named "cfg", "r_sram", "r_sram1", and "remap".
+Add the hardware mailbox (CPUX_MSGBOX) node and the XuanTie RISC-V
+remoteproc node for Allwinner A523/A527 SoCs. Connect the remoteproc
+node to the MCU CCU clocks (bus, core) and resets (cfg, core) to
+support remote processor lifecycle management and RPMsg IPC.
 
 Cc: Bjorn Andersson <andersson@kernel.org>
 Cc: Mathieu Poirier <mathieu.poirier@linaro.org>
 Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
 Cc: Samuel Holland <samuel@sholland.org>
+Cc: Andre Przywara <andre.przywara@arm.com>
+Cc: Chen-Yu Tsai <wens@csie.org>
 Cc: Rob Herring <robh@kernel.org>
 Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
 Cc: linux-remoteproc@vger.kernel.org
@@ -106,168 +106,58 @@ Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-sunxi@lists.linux.dev
 Signed-off-by: Tim Michals <tcmichals@gmail.com>
 ---
- .../remoteproc/allwinner,sun55i-rproc.yaml    | 152 ++++++++++++++++++
- 1 file changed, 152 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.yaml
+ .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.yaml
-new file mode 100644
-index 000000000000..5d8b929f60b6
---- /dev/null
-+++ b/Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.yaml
-@@ -0,0 +1,152 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/remoteproc/allwinner,sun55i-rproc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+index 85ef492ffeae..7c5c39c56858 100644
+--- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+@@ -1144,5 +1144,44 @@ npu: npu@7122000 {
+ 			resets = <&mcu_ccu RST_BUS_MCU_NPU>;
+ 			power-domains = <&ppu PD_NPU>;
+ 		};
 +
-+title: Allwinner XuanTie E906/E907 RISC-V Remoteproc
++		msgbox: mailbox@3003000 {
++			compatible = "allwinner,sun55i-a523-msgbox";
++			reg = <0x03003000 0x1000>,
++			      <0x07094000 0x1000>,
++			      <0x07120000 0x1000>,
++			      <0x07136000 0x1000>;
++			reg-names = "arm", "dsp", "cpus", "rv";
++			clocks = <&ccu CLK_BUS_MSGBOX>;
++			resets = <&ccu RST_BUS_MSGBOX>;
++			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
++			#mbox-cells = <1>;
++		};
 +
-+maintainers:
-+  - Jernej Skrabec <jernej.skrabec@gmail.com>
-+  - Samuel Holland <samuel@sholland.org>
-+  - Tim Michals <tcmichals@gmail.com>
-+
-+description: |
-+  The Allwinner T527, A527, and A523 (sun55i) SoCs integrate a T-Head
-+  (XuanTie) E906 or E907 RISC-V co-processor alongside the ARM Cortex-A55
-+  cluster. The co-processor runs bare-metal firmware loaded and lifecycle-
-+  managed by the Linux remoteproc framework.
-+
-+  The driver controls CCU-integrated clocks (bus, core) and resets
-+  (cfg, core), programs the hardware boot-vector register, maps
-+  internal SRAM (SRAM_A3) windows, and connects to the Allwinner
-+  hardware mailbox (CPUX_MSGBOX) for VirtIO RPMsg IPC.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - allwinner,sun55i-a523-rproc
-+      - allwinner,sun55i-a527-rproc
-+      - allwinner,sun55i-t527-rproc
-+
-+  reg:
-+    minItems: 1
-+    maxItems: 4
-+    description: |
-+      Memory-mapped register regions. The following named regions are
-+      supported (all optional except at least one of r_sram or r_sram1):
-+        "cfg"    - RISC-V core control and boot-vector registers (0x07130000)
-+        "r_sram" - Dedicated MCU SRAM Space 0 (0x07280000 / 0x07200000; 256-512 KB)
-+        "r_sram1"- Switchable MCU SRAM Space 1 / SRAMA3_2 (0x072c0000 / 0x07280000; 256-512 KB)
-+        "remap"  - Hardware Remap Control Register (offset 0x364)
-+
-+  reg-names:
-+    minItems: 1
-+    maxItems: 4
-+    items:
-+      enum: [cfg, r_sram, r_sram1, remap]
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 5
-+    description: |
-+      CCU clocks required for co-processor operation. Typical clocks are
-+      "parent" (PLL source), "bus" (interconnect gate), "core" (CPU gate),
-+      "sram" (SRAM interconnect gate), and "msgbox" (mailbox interconnect gate).
-+
-+  clock-names:
-+    minItems: 1
-+    maxItems: 5
-+    items:
-+      enum: [parent, bus, core, sram, msgbox]
-+
-+  resets:
-+    minItems: 1
-+    maxItems: 4
-+    description: |
-+      CCU reset lines. Typical resets are "cfg" (configuration block),
-+      "core" (CPU core), "sram" (SRAM interconnect), and "msgbox" (mailbox interconnect).
-+
-+  reset-names:
-+    minItems: 1
-+    maxItems: 4
-+    items:
-+      enum: [cfg, core, sram, msgbox]
-+
-+  mboxes:
-+    minItems: 2
-+    maxItems: 2
-+    description:
-+      Exactly two mailbox channels from the Allwinner CPUX_MSGBOX controller —
-+      one receive channel (RISC-V-to-ARM) and one transmit channel
-+      (ARM-to-RISC-V) — used for VirtIO RPMsg kick notifications.
-+
-+  mbox-names:
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+  firmware-name:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      Name of the ELF firmware image to load from /lib/firmware/.
-+      Defaults to "riscv-firmware.elf" if not specified.
-+
-+  memory-region:
-+    description:
-+      Optional phandle list of reserved memory regions for VirtIO vring
-+      buffers or DDR carveouts. Region names "vram" and "dram" are
-+      recognized; "trace" selects the RemoteProc trace buffer carveout.
-+
-+  memory-region-names:
-+    description:
-+      Names corresponding to the memory-region phandle list entries.
-+      Recognized values are "vram", "dram", and "trace".
-+
-+  interrupts:
-+    maxItems: 1
-+    description:
-+      Optional hardware crash-notification interrupt. When present the
-+      driver calls rproc_report_crash() on assertion.
-+
-+  interrupt-names:
-+    items:
-+      - const: crash
-+
-+  status: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - clocks
-+  - clock-names
-+  - resets
-+  - reset-names
-+  - mboxes
-+  - mbox-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/sun55i-a523-ccu.h>
-+    #include <dt-bindings/reset/sun55i-a523-ccu.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    remoteproc@7130000 {
-+        compatible = "allwinner,sun55i-a523-rproc";
-+        reg = <0x07130000 0x1000>,
-+              <0x07280000 0x40000>,
-+              <0x072c0000 0x40000>,
-+              <0x07010364 0x4>;
-+        reg-names = "cfg", "r_sram", "r_sram1", "remap";
-+        clocks = <&mcu_ccu CLK_BUS_MCU_RISCV_CFG>,
-+                 <&mcu_ccu CLK_MCU_RISCV>;
-+        clock-names = "bus", "core";
-+        resets = <&mcu_ccu RST_BUS_MCU_RISCV_CFG>,
-+                 <&mcu_ccu RST_BUS_MCU_RISCV_CORE>;
-+        reset-names = "cfg", "core";
-+        mboxes = <&msgbox 0>, <&msgbox 1>;
-+        mbox-names = "rx", "tx";
-+        firmware-name = "testBasic.elf";
++		rproc: remoteproc@7130000 {
++			compatible = "allwinner,sun55i-a523-rproc",
++				     "allwinner,sun55i-a527-rproc";
++			reg = <0x07130000 0x1000>,
++			      <0x07280000 0x40000>,
++			      <0x072c0000 0x40000>,
++			      <0x07010364 0x4>;
++			reg-names = "cfg", "r_sram", "r_sram1", "remap";
++			clocks = <&mcu_ccu CLK_BUS_MCU_RISCV_CFG>,
++				 <&mcu_ccu CLK_MCU_RISCV>,
++				 <&mcu_ccu CLK_BUS_MCU_PUBSRAM>,
++				 <&mcu_ccu CLK_BUS_MCU_RISCV_MSGBOX>;
++			clock-names = "bus", "core", "sram", "msgbox";
++			resets = <&mcu_ccu RST_BUS_MCU_RISCV_CFG>,
++				 <&mcu_ccu RST_BUS_MCU_RISCV_CORE>,
++				 <&mcu_ccu RST_BUS_MCU_PUBSRAM>,
++				 <&mcu_ccu RST_BUS_MCU_RISCV_MSGBOX>;
++			reset-names = "cfg", "core", "sram", "msgbox";
++			mboxes = <&msgbox 8>, <&msgbox 9>;
++			mbox-names = "rx", "tx";
++			status = "disabled";
++		};
+ 	};
+ };
 -- 
 2.53.0
 
