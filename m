@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8FE7535FB3
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:53:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2362B4052A4;
+	Tue, 22 Sep 2026 10:54:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074401; cv=none; b=mSAhVmFxdrmGR3JX4LSj9UP0gpiYlDZXlmiW0fUsv1PEHXc+BbUK4nVeZDClw22KNLbvETCLXI0XZfcaKAujMcRijInG/Z71abr70NvVpOxS+kdT9rF9Rdfk5UgaegRIuZKpJfSZrFcsJsAwtGjIM/SLticpbvtBxaKSwLYpCSk=
+	t=1790074445; cv=none; b=feXEmcnSpEf/qxbxg5ds32GfllEgM2GPR1LTpe7vPthCto1T4fBztZ1BYkBNeXE3XpFjmDHruBtls79b2LxLvjMV8M1JDQaEmdcEkZkBJnIy9DcyqC2y2TUBRIG0wkig1fO7UUhBx/x/CjgXnfMPgKes+DHYMt6eQmgLe4ITS7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074401; c=relaxed/simple;
-	bh=phM6b5nxbwDLcnWqdARsUXK2QwmwE6e2PkJmh2Vgpew=;
+	s=arc-20240116; t=1790074445; c=relaxed/simple;
+	bh=22Rv0SGJY0dN5MjFkSSjHICF8Z/PEEu4kXk6WovqR0Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ENrOOLc63hdINTXLIh9dqcKoLSpICe+eCIY/W2XPlLZQBUc82lJLcPt5u9bJB878FwlIjRDUz2L7iEwPL9lNkJWu6vC+w5XxFSj1MoccfmMfOY8rE3+l5gBB8ySEm72QrJmmnaYaqHeeYGq9Zp+CMtbZTtmtVn0P3W11B2FcB0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGAUqW6Y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NZvpiV3wFv8ObuMiFNzIUiMRrKfRnQ6iei90c3GFpYmqugXUHImc6FZGJgOfbeOkTcA2XN2GsRJu6vC1Jk0XoZ8UjQueYtccRsSkRyUQjzvEr9grPrY8tlA47x0kbOWU1NDNYr0Wl4iYLffbmip/m1rkIlrhhBBSlMJiK7PMiM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fT8BFfzX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGAUqW6Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F431F000FF;
-	Tue, 22 Sep 2026 10:53:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fT8BFfzX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ABFF1F00893;
+	Tue, 22 Sep 2026 10:53:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790074396;
-	bh=9gX/7loJZxrdXBpa90Qqw2w5Xsy64j/sH1+mLHVUGF0=;
+	s=k20260515; t=1790074438;
+	bh=riCH2xQeou67pdAof+xjMVRgwfKowBYXjXWeRpybbYA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oGAUqW6YD7xQzbf3csEfEhn2k7ulTE+yd8FqJ4yqOgNuxUzLIrOlA0PEYLnB9TK/z
-	 6p3zKGGCx7dv6G83ZZOHyLtesosqIFG+Y8E7b72Us8YeKBUNrHqinGXntZgRYFQ3O7
-	 T6XE19BsVUAPrnotZrMvJsgprM/sg67WKTtJRFdyX3AoiUMZwiiuFr1h/2XTEspfK0
-	 5rmnKRH6ZJPQtqJbFbdDZJneOgVySui23Lt1d0KglmgdKreCnaX59uTqTk0pn83oBZ
-	 p+dYsE2iQ0uQPAnEOdbDenlZFkYPPxbV3Tp5DLLON7nOkAU5JS2TSd6n0tGzfj4iNf
-	 jWZjFDy2SvoXQ==
+	b=fT8BFfzXtvBTSdLUjSZQFAYdS+uWS9zSq9XVo571uFMT8/bZ8SLo+3OK6M53vQQQp
+	 dbH4AZI88pJExhEdpC/7P6LUQmiZJ9mALcr8LcnupiOdenel8Fyy0NmogBAly6gIOk
+	 IJXG7sdPsxWmq4x1emvzSRlqmxdvQm+21PFq//LbMvFRRQYSvo+DHpwbAK7HGRLmXb
+	 wJJmTsC+Lidqdv+vhsNve8OhN90z3IPHDHu/+3ah1xjFHtFZBgpgJnfaDTrEeGih6I
+	 pevT0+fVWzVxSZhz6dzMeFOU6qYcS43qU8KrCjS4qI+C8YzUWBD7pruUg95u7M1fFq
+	 b4ebKE+h5kWtA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v10 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
+Subject: Re: [PATCH v20 6/8] i3c: hub: Add support for the I3C interface in
+ the I3C hub
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arthur Crepin Leblond" <arthur@marmottus.net>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
-References: <20260921-wiznet-link-gpio-v10-0-5874a7a147a2@marmottus.net>
- <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, linux-i3c@lists.infradead.org, mfd@lists.linux.dev, lee@kernel.org
+In-Reply-To: <20260922103551.2754613-7-lakshay.piplani@nxp.com>
+References: <20260922103551.2754613-1-lakshay.piplani@nxp.com>
+ <20260922103551.2754613-7-lakshay.piplani@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 10:53:15 +0000
-Message-Id: <20260922105316.82F431F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 10:53:56 +0000
+Message-Id: <20260922105357.5ABFF1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,63 +48,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] net: w5100: race in w5100_suspend due to incorrect detach ordering=
- and missing work flushes
+- [High] i3c: hub: ENTDAA-discovered downstream devices are misrouted to pa=
+rent bus
 --
 
-commit 4b50b6b7047dc53f16eedfdba4f4a537ef54c0fd
-Author: Arthur Crepin Leblond <arthur@marmottus.net>
+commit bf3909722bdabc30e1d69d666d5732199356fb61
+Author: Lakshay Piplani <lakshay.piplani@nxp.com>
 
-w5100: detect carrier state using link status bit and optional interrupt
+i3c: hub: Add support for the I3C interface in the I3C hub
 
-This commit adds support for detecting the carrier state on the w5500 Ether=
-net
-controller using the Link Status bit and an optional interrupt. It also
-refactors the bring-up and teardown operations, including changes to when
-net device registration and work queue cancellations occur.
+This commit adds virtual I3C bus support for hubs by creating virtual
+master controllers for downstream ports and forwarding bus operations
+through the hub device.
 
-> diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/w=
-iznet/w5100.c
-> --- a/drivers/net/ethernet/wiznet/w5100.c
-> +++ b/drivers/net/ethernet/wiznet/w5100.c
+> diff --git a/drivers/i3c/hub.c b/drivers/i3c/hub.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/i3c/hub.c
 [ ... ]
-> @@ -839,9 +997,20 @@ static int w5100_suspend(struct device *dev)
->  	struct w5100_priv *priv =3D netdev_priv(ndev);
-> =20
->  	if (netif_running(ndev)) {
-> -		netif_carrier_off(ndev);
-> +		disable_irq(priv->irq);
-> +		if (priv->link_irq > 0)
-> +			disable_irq(priv->link_irq);
+> +static int i3c_hub_do_daa(struct i3c_hub *hub,
+> +			  struct i3c_master_controller *controller)
+> +{
+> +	struct i3c_master_controller *parent;
+> +	int ret;
+[ ... ]
+> +	mutex_lock(&hub->lock);
+> +	i3c_hub_enable_port(controller);
 > +
-> +		cancel_work_sync(&priv->restart_work);
-> +
->  		netif_device_detach(ndev);
+> +	/*
+> +	 * Downstream devices reachable through hub target-port routes share the
+> +	 * parent controller's I3C address space. The hub gates access to a
+> +	 * target-port network, but it does not create an independent dynamic
+> +	 * address domain per virtual bus.
+> +	 *
+> +	 * Run DAA on the parent controller so dynamic addresses remain unique
+> +	 * across all downstream devices, even when they are behind different
+> +	 * target ports.
+> +	 *
+> +	 * The current hub model shares the parent controller's dynamic-address
+> +	 * domain and does not support independent per-port DAA domains, so a
+> +	 * DAA result does not go stale behind a port toggle. Addresses reserved
+> +	 * from the Device Tree are held for the lifetime of the parent bus and
+> +	 * are never released on a port toggle, so enabling or disabling a port
+> +	 * only gates reachability and never causes an address to be handed out
+> +	 * twice.
+> +	 */
+> +	ret =3D i3c_master_do_daa(parent);
 
 [Severity: High]
-Does this code leave a race condition in w5100_suspend() due to the detach
-ordering?
+Does delegating DAA to the parent controller here misroute newly discovered
+downstream devices?
 
-If a TX timeout occurs between cancel_work_sync(&priv->restart_work) and
-netif_device_detach(), wouldn't restart_work be re-scheduled because the
-netdev watchdog is still active?
+When i3c_master_do_daa() executes ENTDAA on the parent controller, any
+downstream I3C device lacking a static address will be assigned an address
+and added directly to the physical parent's bus.devs.i3c list instead of
+the virtual hub bus.
 
-Also, rx_work, tx_work, setrx_work, and napi do not appear to be flushed or
-disabled in w5100_suspend(), unlike in w5100_stop(). Could this allow them
-to execute concurrently with or after w5100_hw_close(priv) and access
-suspended SPI hardware?
+Because these devices are attached directly to the parent, won't their
+subsequent transfers bypass the virtual controller's priv_xfers routing?
+If so, the hub port would never be enabled during normal communication,
+causing all transfers to the device to fail with a NACK or timeout.
 
-> =20
-> +		if (priv->link_irq > 0) {
-> +			mutex_lock(&priv->link_lock);
-> +			netif_carrier_off(ndev);
-> +			mutex_unlock(&priv->link_lock);
-> +		}
+> +	i3c_hub_disable_port(controller);
+> +	mutex_unlock(&hub->lock);
 > +
->  		w5100_hw_close(priv);
->  	}
->  	return 0;
+> +	return ret;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-wiznet-lin=
-k-gpio-v10-0-5874a7a147a2@marmottus.net?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922103551.2754=
+613-1-lakshay.piplani@nxp.com?part=3D6
