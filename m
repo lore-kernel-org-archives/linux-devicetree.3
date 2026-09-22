@@ -1,178 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B95B360EDC;
-	Tue, 22 Sep 2026 04:49:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B3729BD91;
+	Tue, 22 Sep 2026 05:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790052592; cv=none; b=jteH+nM0Oubu7B1GZnSrjeYdzF7+BEZpJ+soPvcVePS15n/o/0iyvwY4V7AO//5OvuxkpUV/CDDNJaer+2doCEjIYHfO8LjS5TGbQahOQG7AYFaVS5JIHw7vaGPMG+1LIYmAvhkwP/eSarWcgxFRKTeqSeqwECQ1c/ovQFKY7Uw=
+	t=1790053303; cv=none; b=OA3QjZ3D/MxYZ9MhbxNXbj1Y1WQvpmv6soOuY+A9GB0sAIvTiUWTt7fJ/rDHHrGfXrqjjqh7sRujRMDiu1i+HY49UI30Jl+fr4z2PORv/mQ4aclDfbC0G7WECVNHl1t+dvEfRn1npXmH3ZkyxxEyWdUKEIBxEiJmWAC+VC5LPIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790052592; c=relaxed/simple;
-	bh=LE3ktMvn8f20wey7b96+iSHLbZJasRdXGgoFtYTRWfs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=l6asmGmyRMsx1u8OVhTV15DF+2CHVga5cKldEppOgomuHtr0Haa+e0GYmE2nUuILlMwT0JZth84BXiLEE2NjnSmt0blD+eO1OaEEw2OBl3C8USFiiP+/IrNeLdaAODY2FwtDVu/DXb+vpKhglr1emzkkK/lDUARFtKsMTd5sV1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AfbtMN/S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790053303; c=relaxed/simple;
+	bh=YoOXX5aGMwZPcafG3imeRo5al+861WlcXUNrcECnlpQ=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=sDvhYCWPlxB6cKRQuWTVs8+sn+F7sL10cGLfd6NU0y0xMpn2cVxvUipXsUnj+LOLJL3kEM6yp2g8n9dhZmhufzLinpcz3Bw6t0lWm3Zf2kg6BbGkt9ikPi+Isa+/VIeAM1mES6PuG1YifuRv04YaAKhGco9OXxnPKzaSdr8YHjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=ulEcvzJn; arc=none smtp.client-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AfbtMN/S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 708931F000FF;
-	Tue, 22 Sep 2026 04:49:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790052591;
-	bh=qC/scIJ0wq4RMXDVdwbaYlepxpTiRdoR45/xM5+kulM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AfbtMN/S5YuBrDLCgvQ+s3VacCte4ChmcAdZre0KaXjG3gIl2gmqtOU4oF3jfpD3x
-	 XVE+vYYEZzZsuPYnsSu6cF0Hk35/QDYIv7SEnvMJxgXVlKZfxzi152/jaZbLjG+uz4
-	 STH03j8TsJ9A10TFWFAzlEIZgcZmDDPSA5kO7VQbU1rk58ZViSB+on/nH2Buw3I8Id
-	 VP+CNRLFNIn+4E7vuWXSuCyCLEuLpLhbXQYR31fkKhY66g8+nlFOw6liQTR1DvB3uP
-	 KxfOY8hBbmVuwd0AqR9I/Hyw7Uv16Tio3gm9euqFOaiwhdr/WC9x+rcMGkV6jNDLQz
-	 Ah1VvTespjzRg==
-Subject: Re: [PATCH net v3] net: pcs: rzn1-miic: Reset PRCMD state before
- unprotect sequence
-From: netdev-bot+sashiko@kernel.org
-To: yoshihisa.yamamoto.xn@renesas.com
-Cc: clement.leger@bootlin.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 22 Sep 2026 04:49:49 +0000
-Message-ID: <179005258996.2160803.11359360903588205993@kernel.org>
-In-Reply-To: =?utf-8?q?=3CTYCPR01MB7481CE8351FDB2CDCA229955A4872=40TYCPR01MB?=
- =?utf-8?q?7481=2Ejpnprd01=2Eprod=2Eoutlook=2Ecom=3E?=
-References: =?utf-8?q?=3CTYCPR01MB7481CE8351FDB2CDCA229955A4872=40TYCPR01MB7?=
- =?utf-8?q?481=2Ejpnprd01=2Eprod=2Eoutlook=2Ecom=3E?=
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="ulEcvzJn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1790053294; bh=UpG9HQLBo46AAjtVXTADz91ACMKaCoGZMDoKwMGC/Z4=;
+	h=From:To:Cc:Subject:Date;
+	b=ulEcvzJnKv1XKcwkjzrpPmwSkX8iDVW+BB/4LHworxDsG3JMmxFTuulMSIfHrLH6P
+	 GHjlLUl54XzO+VYM7jH5c/Lamz4juX+z5QIdL0ZpoUoIqqdiOCS6UdMuIQQYVqqElo
+	 U8pYx/dXmdKGd/XXmYVGNzbq+rC6zHBtlznCzYnw=
+Received: from localhost.localdomain ([218.84.96.154])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 11A9A70; Tue, 22 Sep 2026 13:00:17 +0800
+X-QQ-mid: xmsmtpt1790053217trsngqvb5
+Message-ID: <tencent_67B8796B733C275D1EF565D0D2CDB9B48306@qq.com>
+X-QQ-XMAILINFO: MMq8nqC7jH0BHMyc3eJ+GmwUFDEFZq7IuzaGmNt/VO4FcMbZdccDAinfqG+mZi
+	 C2gt5hAvib5fc031Dr6aXSngiNigkftpGCsrGFnU2A6DGfM9a1xeoTgNhZuFNP9Lf6nmYSdwMOwa
+	 tWOYqRJpdVRxNaOMDL3jfACU5xIfogygOV3NvdmYv/mo6+AkEx5JpE2EdM6Ql7L6LYvYyycyUhBi
+	 11RfhmDGdsE1z0pQjYo3JUPYVBuRpticxhpea/A0vnqGTKjfIII0bngP4kbM/H8N+ZUi2HUlVAu0
+	 QVNgWazFJgb2AcO2s66nFPencfSQK8WSsUm8kiKr+059N6/1N+jIOms2+cvRAiclzWgEE2zJAdkY
+	 EVipy/N0Vqa7nTpS1uCcyabYL1Rnfeme5jGTHZv2EONc5yWqlYItOaKKCEuLpq1/L5B0exhBsZDW
+	 /XcAWuUS4G2zHiGHkkD6F6d+tbjPAoNapRf8FlJL1tTYBhUOhq8ejSGZ1h7F9LKGCljJBFqQqH6+
+	 3tJwxbfU3185FqTLemW1MtkFxcxw0DK4qqXlOR5gkgCjggbvmMNpy/HRQKg3JSA3IpBQNm1jgqPv
+	 zBlWS4uvhqvYzIg2yZhsIY3Ym3VdlEW5bPBJT9X5EojMAxEK3ZNfEowwpavLa6JGdUvdNgiZcMAO
+	 P2T9ranHcAOX56i8BgZLtOvmQ+0wqSf1kN8qzqHELrbs5DgUj4qh1F1TpO6jok47xi9NE5PKyyXL
+	 kOUZjqfEn24z77vOKOD8HH/jEnHXr6fSi31iiJ5yaPB/68zJ6R7j4tqE0CuPil41vXi0HeW8wHkr
+	 LHrzA24FBYTF3+dMZ891Klg9ZWbK6miH4yzzpOkNTfto1BRU1Pxu0oEh3a9fjBvGWifqJBFPF+4e
+	 rF56IauUfnvaZ5V9NkjxHabtxj9noViv5WWFp6aoxEwrQXU+bFVCXJ9pWWyNvwpVqhDQHgAmodCj
+	 iGMExqAW7Xr3kwE57+aNnYuMI078VtGhMLsPiQyyECJVFkXvkjzyicskBcIfm/2EtAipIxnzdNNZ
+	 fGUqyEN9ZS/ErzUeHSTGloNsOV63sj9U+6LnqFktlZRaWkHb2t
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: dongsheng liu <2509730023@qq.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Mack <daniel@zonque.org>
+Cc: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: leds: Convert leds-lt3593.txt to yaml format
+Date: Tue, 22 Sep 2026 13:00:12 +0800
+X-OQ-MSGID: <20260922050012.811-1-2509730023@qq.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Convert binding doc leds-lt3593.txt to yaml format, so that nodes using
+the "lltc,lt3593" compatible are no longer reported by dtbs_check as:
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+  failed to match any schema with compatible: ['lltc,lt3593']
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Additional change:
+- reference common.yaml for the LED sub-node properties.
+- require the sub-node, matching the driver's check for exactly one child.
 
-- [Medium] SoC-specific PRCMD semantics are applied unconditionally in a
-  shared helper: the new `writel(0x0000, miic->base + MIIC_PRCMD)` is…
-- [Medium] Fixes-tag mis-attribution and a changelog that names no
-  failure mode.
+The schema was written with the help of an LLM coding assistant, based on
+the previous binding text and drivers/leds/leds-lt3593.c. It is validated
+with make dt_binding_check, and against the "lltc,lt3593" node in
+arch/arm/boot/dts/intel/pxa/pxa300-raumfeld-controller.dts.
 
---
+Assisted-by: LLM dtschema yamllint
+Signed-off-by: dongsheng liu <2509730023@qq.com>
+---
+ .../devicetree/bindings/leds/leds-lt3593.txt  | 37 -----------
+ .../devicetree/bindings/leds/lltc,lt3593.yaml | 62 +++++++++++++++++++
+ 2 files changed, 62 insertions(+), 37 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-lt3593.txt
+ create mode 100644 Documentation/devicetree/bindings/leds/lltc,lt3593.yaml
 
-net: pcs: rzn1-miic: Reset PRCMD state before unprotect sequence
-
-This adds a writel(0x0000, MIIC_PRCMD) ahead of the existing
-0x00A5/0x0001/0xFFFE/0x0001 unprotect key sequence in miic_unlock_regs(),
-so that the sequence starts from the IDLE state of the PRCMD command state
-machine as documented for RZ/T2H.
-
-> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-miic.c
-> index cb74861e823c..4a2a50827338 100644
-> --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> @@ -270,6 +270,9 @@ static struct miic_port *phylink_pcs_to_miic_port(struct phylink_pcs *pcs)
->  
->  static void miic_unlock_regs(struct miic *miic)
->  {
-> +	/* Reset PRCMD state before unprotect sequence */
-> +	writel(0x0000, miic->base + MIIC_PRCMD);
-> +
-
-[Severity: Medium]
-Should this write be gated on the SoC it is documented for?
-
-miic_unlock_regs() has two consumers, and they belong to different SoCs:
-
-  miic_reg_writel_locked()   /* only rzt2h_miic_of_data.miic_write */
-      miic_unlock_regs()
-      writel(value, ...)
-      miic_lock_regs()
-
-  miic_init_hw()             /* only rzn1_miic_of_data sets the flag */
-      if (miic->of_data->init_unlock_lock_regs)
-              miic_unlock_regs();
-
-rzn1_miic_of_data carries .init_unlock_lock_regs = true and
-.miic_write = miic_reg_writel_unlocked, while rzt2h_miic_of_data carries
-.miic_write = miic_reg_writel_locked and does not set the flag. So the new
-un-keyed PRCMD write is now also emitted on RZ/N1 (r9a06g032), where the
-driver has so far only ever written the documented key sequence to this
-write-protected register.
-
-The changelog justifies the write with RZ/T2H documentation only:
-
-  "On RZ/T2H MIIC, writing 0x0000 to PRCMD resets the command state
-  machine to the IDLE state."
-
-If the RZ/N1 protect block instead treats a bare 0x0000 as an
-out-of-sequence command of the A5/data/~data/data protocol, does the
-following unprotect sequence still release protection?
-
-In that case every write that miic_init_hw() issues afterwards, MODCTRL,
-CONVRST via miic_converter_enable(), SWCTRL and SWDUPC, would be dropped by
-the hardware. There is no read-back of a protected register and
-miic_init_hw() ends with:
-
-	return 0;
-
-so probe would still succeed and the only visible symptom would be a
-mis-muxed or dead Ethernet path on RZ/N1.
-
-Would it make sense to scope the reset write to RZ/T2H, either via
-of_data->type == MIIC_TYPE_RZT2H, a new of_data flag, or by doing it inside
-miic_reg_writel_locked(), or alternatively to state in the changelog that
-the extra PRCMD write was verified harmless on RZ/N1?
-
-[Severity: Medium]
-Does the Fixes tag point at the right commit?
-
-  Fixes: 419747319e3a ("net: pcs: rzn1-miic: Add per-SoC control for MIIC
-  register unlock/lock")
-
-git blame shows 419747319e3a only moved the pre-existing RZ/N1 four-write
-sequence into miic_unlock_regs(); at that point the helper was reachable
-only from the RZ/N1 miic_init_hw() path. The RZ/T2H side the changelog
-relies on came from the later commit 08f89e42121d4, which added
-miic_lock_regs(), miic_reg_writel_locked() and rzt2h_miic_of_data.
-
-A backport driven by this tag would therefore land the write on kernels
-that have no RZ/T2H support at all, where its only effect is an extra
-PRCMD write on RZ/N1. Should the tag reference 08f89e42121d4 instead?
-
-Also, which condition actually leaves PRCMD in a non-IDLE state?
-
-On RZ/T2H every register write goes through
-unlock, write, miic_lock_regs(), and miic_lock_regs() already does:
-
-	writel(0x0000, miic->base + MIIC_PRCMD);
-
-so PRCMD is 0x0000 after any driver-initiated access. On RZ/N1
-miic_unlock_regs() runs once during probe on a freshly reset block. The
-remaining source of unknown state would be pre-kernel firmware or the other
-master mentioned in miic_init_hw():
-
-	/* Unlock write access to accessory registers (cf datasheet). If this
-	 * is going to be used in conjunction with the Cortex-M3, this sequence
-	 * will have to be moved in register write
-	 */
-
-but the changelog does not mention it. And against a concurrent external
-agent, does one extra leading write really give the stated property,
-"always starts from a known state, regardless of any previous PRCMD
-activity", given the five writes are not atomic as a group?
-
-Could the changelog name the observed symptom or the condition that
-produces the stale PRCMD state?
-
+diff --git a/Documentation/devicetree/bindings/leds/leds-lt3593.txt b/Documentation/devicetree/bindings/leds/leds-lt3593.txt
+deleted file mode 100644
+index 24eccda..0000000
+--- a/Documentation/devicetree/bindings/leds/leds-lt3593.txt
++++ /dev/null
+@@ -1,37 +0,0 @@
+-Bindings for Linear Technologies LT3593 LED controller
+-
+-Required properties:
+-- compatible:		Should be "lltc,lt3593".
+-- lltc,ctrl-gpios:	A handle to the GPIO that is connected to the 'CTRL'
+-			pin of the chip.
+-
+-The hardware supports only one LED. The properties of this LED are
+-configured in a sub-node in the device node.
+-
+-Optional sub-node properties:
+-- function:		See Documentation/devicetree/bindings/leds/common.txt
+-- color:		See Documentation/devicetree/bindings/leds/common.txt
+-- label:		A label for the LED. If none is given, the LED will be
+-			named "lt3595::" (deprecated)
+-- linux,default-trigger: The default trigger for the LED.
+-			See Documentation/devicetree/bindings/leds/common.txt
+-- default-state:	The initial state of the LED.
+-			See Documentation/devicetree/bindings/leds/common.txt
+-
+-If multiple chips of this type are found in a design, each one needs to
+-be handled by its own device node.
+-
+-Example:
+-
+-#include <dt-bindings/leds/common.h>
+-
+-led-controller {
+-	compatible = "lltc,lt3593";
+-	lltc,ctrl-gpios = <&gpio 0 GPIO_ACTIVE_HIGH>;
+-
+-	led {
+-		function = LED_FUNCTION_BACKLIGHT;
+-		color = <LED_COLOR_ID_WHITE>;
+-		default-state = "on";
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/leds/lltc,lt3593.yaml b/Documentation/devicetree/bindings/leds/lltc,lt3593.yaml
+new file mode 100644
+index 0000000..5c1801e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/lltc,lt3593.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/lltc,lt3593.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Linear Technology LT3593 LED controller
++
++maintainers:
++  - Daniel Mack <daniel@zonque.org>
++
++description: |
++  The LT3593 is a step-up DC/DC converter designed to drive a single LED
++  string. Its output current is programmed by the number of pulses applied to
++  the CTRL pin, which also acts as the enable input.
++
++  The hardware supports only one LED. The properties of this LED are
++  configured in a sub-node in the device node. If multiple chips of this type
++  are found in a design, each one needs to be handled by its own device node.
++
++properties:
++  compatible:
++    const: lltc,lt3593
++
++  lltc,ctrl-gpios:
++    maxItems: 1
++    description:
++      A handle to the GPIO that is connected to the 'CTRL' pin of the chip.
++
++  led:
++    type: object
++    $ref: common.yaml#
++    unevaluatedProperties: false
++    description:
++      Properties of the LED driven by the controller.
++
++required:
++  - compatible
++  - lltc,ctrl-gpios
++  - led
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/leds/common.h>
++
++    led-controller {
++        compatible = "lltc,lt3593";
++        pinctrl-names = "default";
++        pinctrl-0 = <&lt3593_pins>;
++        lltc,ctrl-gpios = <&gpio 17 GPIO_ACTIVE_HIGH>;
++
++        led {
++            function = LED_FUNCTION_BACKLIGHT;
++            color = <LED_COLOR_ID_WHITE>;
++            default-state = "on";
++        };
++    };
++
++...
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/TYCPR01MB7481CE8351FDB2CDCA229955A4872%40TYCPR01MB7481.jpnprd01.prod.outlook.com
+2.43.0
+
