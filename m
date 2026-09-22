@@ -1,409 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010071.outbound.protection.outlook.com [52.101.228.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDB3525A6F;
-	Tue, 22 Sep 2026 10:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071714; cv=none; b=uozJlwUnWXP+n/u2hoiId9xAiGXMzm06iySq2HNcXoJb/omXyC/cjvb1W4cJkgcSyWgTaGyrcWrqEjaNv1Qs/RP83BenhTPGULzPItjV5C2hc+D71CdCkALZEeMnA49Nr1XlbZzR/F6WNKzW+L4RxFMWt1aaD7VW4bGrSMsHVVc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071714; c=relaxed/simple;
-	bh=QmZfZtuze3dEFQXNZRYfdssHxNZNo07AFj0Mtby0X0A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tAIRGpBRyA6oe+aumMrv4V1l1YKZBv1v/LjA109xj5YFIlxG8rgZuihHyRbozAMR3wUxyEbtxfOT2Nq6pRB8bd6INVdKQfy3rM8M2wAmxhHsv+ygVd7RjrxNoodBRsLEGtfK86IjgTNF9+vW9DJxkNMCrdyx5RWRU1YeF30YqaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ADtuIjEd; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD4952CCD0;
+	Tue, 22 Sep 2026 10:08:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790071730; cv=fail; b=sifj6+c36NdmJbg9/Ul8kQDnfEVNHLi0mvOmq4BAeREVXvRpeReMpp6tb+TUZ3WpzvwP1lfxWjzeMAhPxyEAIwopRhWlPD956Z1yGqDR1r/5Igstvs/sFTAOflZJNCYJcwKZ8yQmoppZ2vYnAEZ8X4/Q6r523NAy6OetSD6dtPY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790071730; c=relaxed/simple;
+	bh=Gnt4hLSQTVIvBFWSA45zBXNBawiFLTtU6FhWXJOM8Nw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=UitXbGA9VJHiX76F/Eo2LPoUIdQ7aqNBGOU6KJ8J1BBqWjgx0kcS+/rscyUukdNveh89WFsGoyRvIYUutIQZju9NSsXBBKQJDrTYFAmVJ8R7eDXtVc/DtBX5AlHzPmbgrd1rUZQlliRwtET9FCJDWdZgbPxc+5NdlUD+2yJ9LbY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=bFkPQHCr; arc=fail smtp.client-ip=52.101.228.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ADtuIjEd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385561F00893;
-	Tue, 22 Sep 2026 10:08:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790071707;
-	bh=zMGPVanaJFmZKoJ8Ctzglf8/9UTk6wyVAdM8sDzTyAs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ADtuIjEdpbhxunYVA/AIU7hbfT9+tHmrn5/uj3z6O/cmrV11l8SzHSvd8M7k1UQbc
-	 Na2qU6wv5z0jxVEVCflxK+4ohQA0msHjMw1rvssXjIolyr+p3xRUIZAVKLOLMy6dN8
-	 lWPIXidUn36X4AtJ6Jn0qziU0o18nukXeWJKjhDJz/eTWpztpWhyIG4qdfBS0gUgKA
-	 lGpH+tEklfI/SyLC/tyWKSE2qOTC95PggbslQl45jRhKgcZz8iixgOVM3lw5FAaJO3
-	 YMFC198a3626LSRTZt3GIxT48JAWsJIsgkFV3ouuKsCl+t+tydyaUCDcHqEDe1As8a
-	 rZIhryj0mdhUw==
-Date: Tue, 22 Sep 2026 11:08:22 +0100
-From: Lee Jones <lee@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 2/2] mfd: ac200: Add X-Powers AC200 support
-Message-ID: <20260922100822.GA2730113@google.com>
-References: <20260909-submit-ac200-mfd-v12-0-a44d6bc30a4f@gmail.com>
- <20260909-submit-ac200-mfd-v12-2-a44d6bc30a4f@gmail.com>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="bFkPQHCr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Zj96HZxuv9LbNGgVGwwa3ME/iv1Ac/d4VlZLKmlwHr4lhOBNO0ZUe9nnKJm1C/B6YYa8o7Ae3E0dCVQVWaAUI/xcAKXowlwqUYhyZCIyKUMVa55x+f2jA7O5LrZateZvQqYwfCUIl9gjK2xKrSR6GiBD0+Ai2l6kb1kZYv8vxHkuZXfjWLJL/Af5Y1dv82DS9nL90WqG92QAwQw4Xo0bhCSbN/9albO4CTcjRIwo6BsNxQp5XoBdhZneSO58K4eOmD/bzyNTHEW4zr1pM27soV2UvR+JhIqTgFZIuBSZI8or/QKKSRkSjHboviamEA5sBtBkSQOA6rlTdsJoToYtlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K6MHvAGB3X9mcXuK4F7JPPKcYDktsw860ImsPyK12/c=;
+ b=VQb/jDwJfJwCcu/fBx0HgHwIKswULLvbY7mkV+YdYWxsuU5QkR9eXsEec2j893q4cU3cSKkTxZYmfxMGpSRdxdFMl1mtT3KV9mSw1A+2Rm3iIy/DXmWXca/8tAfkqaTdgvdu7APO//PLPwflGck6uNGmrgQus6aG/CQy+sTg5Zv9Ir5j4Aa7B1678Ksgvgkablou97cWWyhyHK2PF/dLv7q9Z8p7NjBaPmosha/+3m0prKSDS2HM/NfLZCUX7A+S7LZQVwh6SugD1cdHKdDsRRiaAc65xngyfAlUkCJVFsLiAE4EvXgV6zPgjHFugRVihpuAWoUGqrAO0vj2ZJnaRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K6MHvAGB3X9mcXuK4F7JPPKcYDktsw860ImsPyK12/c=;
+ b=bFkPQHCr40p348xhLgoKVyDaAnc6f2EZzsOpH1MHS3YwYTiOqz5yYomg6NKRJUV4eqhFFtdOX+2vpZdDgYJqQXdaZ9Irs+Hih/2T2Oz3XCcYfEIsrcGF0WA+Qxg5YrDno8rd0yQfeJ3C3WibhfZlgf5WaC1cpopsvoSv0QX4ffQ=
+Received: from TYCPR01MB12093.jpnprd01.prod.outlook.com (2603:1096:400:448::7)
+ by TYRPR01MB15121.jpnprd01.prod.outlook.com (2603:1096:405:224::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
+ 2026 10:08:38 +0000
+Received: from TYCPR01MB12093.jpnprd01.prod.outlook.com
+ ([fe80::3468:d7ea:e817:1e6c]) by TYCPR01MB12093.jpnprd01.prod.outlook.com
+ ([fe80::3468:d7ea:e817:1e6c%6]) with mapi id 15.21.0428.011; Tue, 22 Sep 2026
+ 10:08:37 +0000
+From: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>, Geert Uytterhoeven
+	<geert+renesas@glider.be>, Linus Walleij <linusw@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"magnus.damm" <magnus.damm@gmail.com>
+CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] dt-bindings: pinctrl: renesas: Allow power-source
+Thread-Topic: [PATCH] dt-bindings: pinctrl: renesas: Allow power-source
+Thread-Index: AQHdSiCRDl0Do1MQz0+pWlKss+A7lLbaYEVw
+Date: Tue, 22 Sep 2026 10:08:37 +0000
+Message-ID:
+ <TYCPR01MB12093ED5954DA2226ADDD6B07C2832@TYCPR01MB12093.jpnprd01.prod.outlook.com>
+References: <20260921232551.3129244-1-robh@kernel.org>
+In-Reply-To: <20260921232551.3129244-1-robh@kernel.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYCPR01MB12093:EE_|TYRPR01MB15121:EE_
+x-ms-office365-filtering-correlation-id: 3b4e4c0c-8275-4b0d-b4a6-08df18917856
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|10067099003|56012099006|6133799003|18002099003|22082099003|11063799006|38070700021;
+x-microsoft-antispam-message-info:
+ palOzEBqBNwASQhi5SPUDekX1j8yKUfP9/US9CeduV10HlWFQfbViWT+LTEbOBp2+QIhWGDRXHYO+uS7wIaUjIExTO3wv6yzJDTGamI9aqpGXpTtRddj1+EpOxXIJ18MDywFNnoGtZdzLA0UESVVJZ99ra9QOBSOsfvuplxcqA560ULZV7IJW3zNvtwVm6C+I6tspCZY/ZXTOJ1TODB45y3FVspUDfCMtoq2DpWxRxFkkGf/inLs1cNJ7gS3YQcTuUPX/VKvqlvgDtHsuh4CEAasWQgnA8hCwaX+XlgmRHVV/7vrIPdT9A9/YMdbY9V61TW+RLqWmg9A2pdUkQjoaZrDD+kSgBX9LoqftjX9IWTIdSm9f9diIr2TIaVpAn0GkdLunnOijY5NVK7o+gZrK6bgGPRthV1IWLXEuyXyGvayIWos6dHO6jtWn0phB32WnvSdkpJYvWKolaa/pNQ3mGr4EnMEk7hEHCBXIMG/9qmUAmcvZ5W67nd641/aLVURWuSKrpCBy1AsLc/TUh/uY6KNU19Hzb6qcFzpoCNKtpH4TVM13Xr4d1sPiPFwVYpEDNbElwSRO8Pxlg11QHnweVGT9l71hX4blA3LFV8amqEccNR8H7u7NkVV4fcwKHWv2U6oXX8Z0scKpaAmoVgT93EqdwfNpEZVns93fAK57pRY/y8YVy6wKZoSCYwjyZplh74jWEkCKmujSPVmnzIMhe0iW6TL+ACLZABQEGMkklk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCPR01MB12093.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(11063799006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?cJLFbSArbQBj0qxFbNrdC/ZKkysgNj2c7KDw7NbqKJEFyfSiMsrdlc8AqAMk?=
+ =?us-ascii?Q?YxFOWn1X7Iy6SybLaP2aEykdlteEg0fFVrtNKFnjCNN6YnyWtkh4RDuZ8am1?=
+ =?us-ascii?Q?I1jRihv8LGLDJ/1RsSNiG3HFxz+lp3w7m0qe9REM5soNQF1zvc0+pdMOV5++?=
+ =?us-ascii?Q?VsKAI2xA4gBWTM5WcKxXVl+p3sYwc+nQaGMy2pWvzk7WojmQR2VazVDDumpR?=
+ =?us-ascii?Q?wwRvZMXr9nuXAa4Wxq4Fr1brDQ0z0BhVfUvoSr5gIdlgn7adXKZd2Lh3wFRZ?=
+ =?us-ascii?Q?pKuGdIP/78OXgCGCdMbhpa9bkDqHKrU6jX00mh4OwVyp2md7CzA61sEIcRHZ?=
+ =?us-ascii?Q?hXimSFw4vHxzRCODIRvVeMn/aMDTf7HRmRm2TwUBigLfGwbshpB4FB7z7i4n?=
+ =?us-ascii?Q?hXmLkVSdGk9bVh5+8+Bojnafx7GqvivSgmXP53h9ncD0fxwea6qzbL86wWMP?=
+ =?us-ascii?Q?y0vq8T0T4cxb3IjF36hyLGG7sTMsIAZLA72NRXdVlOMFt0OQv4Mi4nGNowFd?=
+ =?us-ascii?Q?kbdRPc2KFMNmNri5CQ3YIfwdOJWx15J7adSEUBJyqR+yAm1qDQvv2R+ZaczU?=
+ =?us-ascii?Q?H4y+phuzlj1HRbebbUIFyTsj1OTTTda33FNG2KQVLbY7dlB3moojJVe1NkPn?=
+ =?us-ascii?Q?4mar+yAQK5JhC1hVLt7/rl31G7+OHti2kC5p+/92GTHiG0z+mCF1cTLNTgZN?=
+ =?us-ascii?Q?HcM7SCC/53PpgKzCaX8UiIYOZdtJAnEZntC0p+bz1IK0Sy3naC99H+h6pP/L?=
+ =?us-ascii?Q?i7UFnbmB4wTLnXL2Flc4pOCh7JpYxmWzhjVwmLGz3ZTPiZN0phHpYigPrOOo?=
+ =?us-ascii?Q?FlG413h74ziuPiJVpE9VZSoFul7Y2mTNXqnbitgKIRJsl3XH/rC+0mT4edc5?=
+ =?us-ascii?Q?a3/pY3DuCE41BXdEFCfD1tmC0cgtHHgF8d+asKmZu3a7wjYiltkDz8S9erpM?=
+ =?us-ascii?Q?HzRUXySRxJl8D/zCtgD9fXEVwAWSbdJjHylax6geCV229xPD5JgDTnU4+EjW?=
+ =?us-ascii?Q?tvCBunerJFNPiTMwpBI/Dy05Me8xUi6RSNwxrlRTFVLglLW1RpFTDvJF6TVC?=
+ =?us-ascii?Q?vZM8qKgX/cev8jmEsXVh6OLvZhD2+04kvfEDid/P9Sjz2Gcbh2ASAzQxx4TN?=
+ =?us-ascii?Q?AdwLlQ10t8g0lW01r02CogFZOB+MYNfjm6V9mOaCLyDv2h41qRqbZON9K/GH?=
+ =?us-ascii?Q?VeH6/p7paeZIcISvzfY8RI+fklZWX0cUxh71vLqfUlBWHeVY2o6c1v4yAyFo?=
+ =?us-ascii?Q?EjsyvA9OfP2fFpacfcYBg4QIyzjrtJRbT4UavIP6n67fFFXvMZJCYPXvpFut?=
+ =?us-ascii?Q?oI0mYWIsc3moUbJEIgKaUjjkYSWdgG6Q8kdJinB6YT+neK5ZoJBH0tn1enTm?=
+ =?us-ascii?Q?xARqqA1lrJf/TaoecMKiGplCFuU9zroQfFfr/UXo4ZO37lv2b6/qNAmIbwhN?=
+ =?us-ascii?Q?Du/4VrNJYUskDDp+biK+7A1acAzJIU8i9HkjXFPTJ4mz8rUgyrUj7rnmevVo?=
+ =?us-ascii?Q?SIoR2YFRemui4fo9frKh+xQS7IpA+7lAIbZOLs9cZh1Y2PyqgcD5Iz3OdjXS?=
+ =?us-ascii?Q?ZKUr/pefUXGrbjcsmOstIMjsBUct6ONS2oEMzZt6/Fg/55YwhymRzSRyuK3m?=
+ =?us-ascii?Q?QyiMC3plObSAlLQeZJibwXxWeeKrVqhiRMnflwzlz4JCrHSoj/+YsOMcoT8m?=
+ =?us-ascii?Q?CoZDI40i9+pkGbKIg6iXtnrUtmzOuU36tkVQeTBQ+EwHe8YRJcf+URa4ffwR?=
+ =?us-ascii?Q?/e21N8gDnD3Hw0YTAq7MjMIVEsstAnc=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-submit-ac200-mfd-v12-2-a44d6bc30a4f@gmail.com>
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB12093.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b4e4c0c-8275-4b0d-b4a6-08df18917856
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Sep 2026 10:08:37.6956
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4SpraNvhiG+Sk0wzuuGHZFz5m2akZJHJ9ytg97OLLSRfWb9sXh315WPWOn4hFL1DB5CV8E5ULL3pKzQlacfzjooNBpqd7g/YV6Ywc+0oHTs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB15121
 
-On Wed, 09 Sep 2026, James Hilliard wrote:
+> From: Rob Herring (Arm) <robh@kernel.org>
+> Sent: 22 September 2026 00:26
+> To: Geert Uytterhoeven <geert+renesas@glider.be>; Linus Walleij <linusw@k=
+ernel.org>; Krzysztof
+> Kozlowski <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; magnu=
+s.damm
+> <magnus.damm@gmail.com>; Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+> Cc: linux-renesas-soc@vger.kernel.org; linux-gpio@vger.kernel.org; device=
+tree@vger.kernel.org; linux-
+> kernel@vger.kernel.org
+> Subject: [PATCH] dt-bindings: pinctrl: renesas: Allow power-source
+>=20
+> RZ/V2M pin configuration nodes describe the I/O voltage with
+> power-source. Add the property and allow the 1800 mV and 3300 mV
+> values used by the DTS.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 
-> The X-Powers AC200 is a mixed-signal companion IC with a paged register
-> map accessed over I2C.
-> 
-> Enable and rate-lock the shared input clock, retain the vendor resume
-> path's 40 ms wait before creating the regmap and accessing registers, and
-> deassert the common reset. No minimum delay is documented. Set only the
-> deassert bit instead of forcing a reset cycle, avoiding a chip-wide reset
-> of unrelated function registers. Leave the common reset deasserted during
-> driver removal and system shutdown; function drivers own their block
-> resets. Supplier unbind still tears down linked consumers and releases
-> the provider's clock references.
-> 
-> Cache only the common page selector. Individual functions can reset
-> independently and invalidate their other registers, so leave all
-> functional registers volatile.
-> 
-> Register the audio codec and TV encoder using static MFD cells and
-> automatically assigned platform device IDs. Their firmware properties
-> belong to the parent node. Map their supply lookups to the parent with MFD
-> supply aliases, without assigning separate OF nodes to the cells.
-> 
-> When INTB is connected, pass its physical IRQ to the TV encoder cell.
-> Select a cell array without IRQ resources when INTB is absent. No regmap
-> IRQ controller or private IRQ domain is needed.
-> 
-> Configure the level-triggered INTB output, defaulting to level-low when
-> the upstream IRQ has no trigger type. Mask all sources before enabling
-> INTB. Function drivers request shared threaded IRQs before enabling their
-> own source, check and clear their own status, and mask their source before
-> freeing the IRQ. Disable INTB after removing the children on failure or
-> removal, while the regmap and clock are still available.
-> 
-> The Ethernet PHY is enumerated on its MDIO bus rather than as an MFD
-> child. It follows the x-powers,ac200 phandle and uses this regmap for
-> ancillary package-control access.
-> 
-> Co-developed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-
-Why is Andre in there?
+Reviewed-by: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
 
 > ---
->  MAINTAINERS          |   1 +
->  drivers/mfd/Kconfig  |  14 ++++
->  drivers/mfd/Makefile |   1 +
->  drivers/mfd/ac200.c  | 231 +++++++++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 247 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 419340093c9b..1d03b0060bda 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -29510,6 +29510,7 @@ M:	James Hilliard <james.hilliard1@gmail.com>
->  L:	linux-sunxi@lists.linux.dev
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> +F:	drivers/mfd/ac200.c
->  
->  X-POWERS AXP288 PMIC DRIVERS
->  M:	Hans de Goede <hansg@kernel.org>
-> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-> index 857ca3bb0d5b..071cba7c775b 100644
-> --- a/drivers/mfd/Kconfig
-> +++ b/drivers/mfd/Kconfig
-> @@ -205,6 +205,20 @@ config MFD_AC100
->  	  This driver include only the core APIs. You have to select individual
->  	  components like codecs or RTC under the corresponding menus.
->  
-> +config MFD_AC200
-> +	tristate "X-Powers AC200"
-> +	depends on COMMON_CLK
-> +	depends on I2C
-> +	depends on OF
-> +	select MFD_CORE
-> +	select REGMAP_I2C
-> +	help
-> +	  Support for the X-Powers AC200 mixed-signal companion IC. The AC200
-> +	  contains audio, video, RTC and Fast Ethernet PHY functions and is
-> +	  co-packaged with some Allwinner H6 and H616 SoCs. This driver provides
-> +	  the shared register access and instantiates the individual function
-> +	  devices.
-> +
->  config MFD_AXP20X
->  	tristate
->  	select MFD_CORE
-> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-> index 72d3944b0ad8..f8101d2a9ce9 100644
-> --- a/drivers/mfd/Makefile
-> +++ b/drivers/mfd/Makefile
-> @@ -150,6 +150,7 @@ obj-$(CONFIG_MFD_DA9052_SPI)	+= da9052-spi.o
->  obj-$(CONFIG_MFD_DA9052_I2C)	+= da9052-i2c.o
->  
->  obj-$(CONFIG_MFD_AC100)		+= ac100.o
-> +obj-$(CONFIG_MFD_AC200)		+= ac200.o
->  obj-$(CONFIG_MFD_AXP20X)	+= axp20x.o
->  obj-$(CONFIG_MFD_AXP20X_I2C)	+= axp20x-i2c.o
->  obj-$(CONFIG_MFD_AXP20X_RSB)	+= axp20x-rsb.o
-> diff --git a/drivers/mfd/ac200.c b/drivers/mfd/ac200.c
-> new file mode 100644
-> index 000000000000..af0d27ff5f45
-> --- /dev/null
-> +++ b/drivers/mfd/ac200.c
-> @@ -0,0 +1,231 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * MFD core driver for the X-Powers AC200
-
-No it isn't.
-
-It's an "X-Powers AC200 Core driver".
-
-> + *
-> + * Copyright (C) 2019 Jernej Skrabec <jernej.skrabec@gmail.com>
-> + * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/i2c.h>
-> +#include <linux/irq.h>
-> +#include <linux/mfd/core.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/regmap.h>
-> +
-> +#define AC200_SYS_CONTROL_REG			0x0002
-> +#define AC200_SYS_CONTROL_CHIP_RESET_DEASSERT	BIT(0)
-> +#define AC200_SYS_IRQ_ENABLE_REG		0x0004
-> +#define AC200_SYS_IRQ_INTB_ENABLE		BIT(15)
-> +#define AC200_SYS_IRQ_INTB_ACTIVE_HIGH		BIT(14)
-> +#define AC200_SYS_IRQ_RTC			BIT(12)
-> +#define AC200_SYS_IRQ_EPHY			BIT(8)
-> +#define AC200_SYS_IRQ_TVE			BIT(4)
-> +
-> +/* Interface register accessible from every register page. */
-> +#define AC200_TWI_REG_ADDR_H	0x00fe
-> +#define AC200_MAX_REG		0xa1f2
-> +
-> +static const struct regmap_range_cfg ac200_range_cfg[] = {
-> +	{
-> +		.range_max = AC200_MAX_REG,
-> +		.selector_reg = AC200_TWI_REG_ADDR_H,
-> +		.selector_mask = 0xff,
-> +		.window_len = 256,
-> +	},
-> +};
-> +
-> +/*
-> + * Each AC200 sub-block can reset independently, invalidating its register
-> + * contents without regmap's knowledge. Cache only the common page selector;
-> + * this avoids a selector read-modify-write for every access on the same page
-> + * without ever returning stale functional-register values.
-> + */
-> +static bool ac200_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	return reg != AC200_TWI_REG_ADDR_H;
-> +}
-> +
-> +static const struct regmap_config ac200_regmap_config = {
-> +	.name = "ac200",
-> +	.reg_bits = 8,
-> +	.reg_stride = 2,
-> +	.val_bits = 16,
-> +	.ranges = ac200_range_cfg,
-> +	.num_ranges = ARRAY_SIZE(ac200_range_cfg),
-> +	.max_register = AC200_MAX_REG,
-> +	.volatile_reg = ac200_volatile_reg,
-> +	.cache_type = REGCACHE_MAPLE,
-> +};
-> +
-> +static const char * const ac200_codec_supplies[] = {
-> +	"ac-ldoin",
-> +};
-> +
-> +static const char * const ac200_tve_supplies[] = {
-> +	"tv-vcc",
-> +};
-> +
-> +static const struct resource ac200_tve_resources[] = {
-> +	DEFINE_RES_IRQ_NAMED(0, "intb"),
-> +};
-> +
-> +#define AC200_CELL(_name, _supplies, _resources)		\
-> +	{							\
-> +		.name = (_name),				\
-> +		.parent_supplies = (_supplies),			\
-> +		.num_parent_supplies = ARRAY_SIZE(_supplies),	\
-> +		.resources = (_resources),			\
-> +		.num_resources = MFD_RES_SIZE(_resources),	\
-> +	}
-> +
-> +static const struct mfd_cell ac200_cells[] = {
-> +	AC200_CELL("ac200-codec", ac200_codec_supplies, NULL),
-> +	AC200_CELL("ac200-tve", ac200_tve_supplies, ac200_tve_resources),
-> +};
-> +
-> +static const struct mfd_cell ac200_noirq_cells[] = {
-> +	AC200_CELL("ac200-codec", ac200_codec_supplies, NULL),
-> +	AC200_CELL("ac200-tve", ac200_tve_supplies, NULL),
-> +};
-> +
-> +static void ac200_disable_intb(void *data)
-> +{
-> +	struct regmap *regmap = data;
-> +	int ret;
-> +
-> +	ret = regmap_clear_bits(regmap, AC200_SYS_IRQ_ENABLE_REG,
-> +				AC200_SYS_IRQ_INTB_ENABLE);
-> +	if (ret)
-> +		dev_err(regmap_get_device(regmap), "failed to disable INTB: %d\n",
-> +			ret);
-
-Nit: Avoid these line-wraps by using up to 100-chars.
-
-This goes for the rest of the file too - I'll not comment at each location.
-
-> +}
-> +
-> +static int ac200_init_irq(struct device *dev, struct regmap *regmap, int irq)
-> +{
-> +	unsigned int trigger;
-> +	u16 value = 0;
-> +	int ret;
-> +
-> +	trigger = irq_get_trigger_type(irq);
-> +	switch (trigger) {
-> +	case IRQ_TYPE_LEVEL_HIGH:
-> +		value |= AC200_SYS_IRQ_INTB_ACTIVE_HIGH;
-> +		break;
-> +	case IRQ_TYPE_NONE:
-> +	case IRQ_TYPE_LEVEL_LOW:
-> +		break;
-> +	default:
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "INTB is level triggered, not type %u\n",
-> +				     trigger);
-> +	}
-> +
-> +	/* Mask every source before enabling the shared output. */
-> +	ret = regmap_update_bits(regmap, AC200_SYS_IRQ_ENABLE_REG,
-> +				 AC200_SYS_IRQ_INTB_ENABLE |
-> +				 AC200_SYS_IRQ_INTB_ACTIVE_HIGH |
-> +				 AC200_SYS_IRQ_RTC | AC200_SYS_IRQ_EPHY |
-> +				 AC200_SYS_IRQ_TVE, value);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Children are removed before INTB is disabled and the regmap released. */
-> +	ret = devm_add_action_or_reset(dev, ac200_disable_intb, regmap);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (trigger == IRQ_TYPE_NONE) {
-> +		ret = irq_set_irq_type(irq, IRQ_TYPE_LEVEL_LOW);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "failed to set INTB trigger\n");
-> +	}
-> +
-> +	/*
-> +	 * Function drivers request INTB with IRQF_SHARED | IRQF_ONESHOT before
-> +	 * enabling their own source. They check and clear their own status and
-> +	 * mask their source before freeing the IRQ. No IRQ domain is needed.
-> +	 */
-> +	return regmap_set_bits(regmap, AC200_SYS_IRQ_ENABLE_REG,
-> +			       AC200_SYS_IRQ_INTB_ENABLE);
-> +}
-> +
-> +static int ac200_probe(struct i2c_client *client)
-> +{
-> +	const struct mfd_cell *cells = ac200_noirq_cells;
-> +	unsigned int num_cells = ARRAY_SIZE(ac200_noirq_cells);
-> +	struct device *dev = &client->dev;
-> +	struct regmap *regmap;
-> +	struct clk *clk;
-> +	int ret;
-> +
-> +	clk = devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk),
-> +				     "failed to enable input clock\n");
-> +
-> +	ret = devm_clk_rate_exclusive_get(dev, clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to lock clock rate\n");
-> +
-> +	/*
-> +	 * No minimum delay is documented. Retain the vendor resume path's 40 ms
-> +	 * wait after enabling the input clock and before register access.
-> +	 */
-> +	msleep(40);
-> +
-> +	regmap = devm_regmap_init_i2c(client, &ac200_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap),
-> +				     "failed to initialize regmap\n");
-> +
-> +	ret = regmap_set_bits(regmap, AC200_SYS_CONTROL_REG,
-> +			      AC200_SYS_CONTROL_CHIP_RESET_DEASSERT);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (client->irq > 0) {
-> +		ret = ac200_init_irq(dev, regmap, client->irq);
-> +		if (ret)
-> +			return ret;
-> +		cells = ac200_cells;
-> +		num_cells = ARRAY_SIZE(ac200_cells);
-> +	}
-> +
-> +	/* Function drivers read their firmware properties from the parent. */
-> +	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, cells, num_cells,
-> +				   NULL, client->irq, NULL);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to add function devices\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct of_device_id ac200_of_match[] = {
-> +	{ .compatible = "x-powers,ac200" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, ac200_of_match);
-> +
-> +static const struct i2c_device_id ac200_i2c_ids[] = {
-> +	{ .name = "ac200" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, ac200_i2c_ids);
-> +
-> +static struct i2c_driver ac200_driver = {
-> +	.driver = {
-> +		.name = "ac200",
-> +		.of_match_table = ac200_of_match,
-> +	},
-> +	.probe = ac200_probe,
-> +	.id_table = ac200_i2c_ids,
-> +};
-> +module_i2c_driver(ac200_driver);
-> +
-> +MODULE_AUTHOR("Jernej Skrabec <jernej.skrabec@gmail.com>");
-> +MODULE_AUTHOR("James Hilliard <james.hilliard1@gmail.com>");
-> +MODULE_DESCRIPTION("X-Powers AC200 MFD core driver");
-> +MODULE_LICENSE("GPL");
-> 
-> -- 
+>  .../devicetree/bindings/pinctrl/renesas,rzv2m-pinctrl.yaml     | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/pinctrl/renesas,rzv2m-pinc=
+trl.yaml
+> b/Documentation/devicetree/bindings/pinctrl/renesas,rzv2m-pinctrl.yaml
+> index 88b2fa5e684d..f24d05136f19 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/renesas,rzv2m-pinctrl.yam=
+l
+> +++ b/Documentation/devicetree/bindings/pinctrl/renesas,rzv2m-pinctrl.yam=
+l
+> @@ -73,6 +73,9 @@ additionalProperties:
+>          bias-disable: true
+>          bias-pull-down: true
+>          bias-pull-up: true
+> +        power-source:
+> +          description: I/O voltage in millivolts.
+> +          enum: [ 1800, 3300 ]
+>          drive-strength-microamp:
+>            # Superset of supported values
+>            enum: [ 1600, 1800, 2000, 3200, 3800, 4000, 6400, 7800, 8000,
+> --
 > 2.53.0
-> 
 
--- 
-Lee Jones
