@@ -1,180 +1,804 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013062.outbound.protection.outlook.com [40.107.159.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA3349158D
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 18:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790102711; cv=none; b=pvUzWcOyW8cIdL04oWVBfTCGUvsHx1/5X0AxtpuJALke1Hn3esCBcE2f9uih07pfZ+HT9aY3o4CzJPVQd5YsPG2Ua++ESfaftAp2zPUdP10JNG/RUcfgrSlUQpxqVVX4aEXPFzUymlvCe18ALkQdN3V0ceJb7rOdwQxGNm8yqPs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790102711; c=relaxed/simple;
-	bh=1Q4uvfDk4TliYmTHYv2Ve5KSV0agU3eXHSIiw7O5VGE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J9PBrFt1pirynl8/P4eHE9LeF0KRH67z0rvu9Dce1x6RLkDUPV8bZuV1VJrBieud1bmANqKrFro4s4jXNCNGAmrv6maOBn6sI65HuOJgOugpcPkmxmWfo7dGsrj2P/AOuR5h2TaYs/CddEbdHImAV30vPfCaZZN6dKQ5mnRIho0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HC7Cx9nc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AfMrm9un; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2897F47C116;
+	Tue, 22 Sep 2026 18:51:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790103099; cv=fail; b=iaZZMFat0tKPEJKc/60F+4cPITAhczZD3J8uTUc2P1f4BzTPfDAmyp0eqyrvNKNCCO1Xzk5AzO2hg/9ydS7plRYFQyWTGXAFZFyyIxxKKkYmlZLHpVBoBb6gVL9Ulwqhh5bUhV9AEbA5feI6wKRzmi6JVaebGir25Tda9s26tts=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790103099; c=relaxed/simple;
+	bh=uGXdg2KYj9YrR65Ym59eACJ/jeEv/Wwq6kktinlhMtE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=lq3Af6d5R/JyV20nOfngxUfVW8ZO67+T0fQsgJGhyG3nnMy+p4bnWNgnKqIwwG6x/X9Evtz+bmqpxsOL7xqJ40su27xR/LHgQvyNWhOqJOQMFDPAkHA7TFTbqdtHEtwVihqyNOo650ecl0EkfFkX0GYXeRCDlaHobleNVaJVtPM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=mQPpAsLI; arc=fail smtp.client-ip=40.107.159.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HC7Cx9nc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AfMrm9un"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI79lv1024453
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 18:45:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=bre1XGDEQBs
-	b9HHiSPNRvoWE3fMANV820bNftGvNCDo=; b=HC7Cx9ncz0mEjr1+9IbG8KM9sv4
-	+L9JiNKuJMq4rC0/o1fyRIvvoFPoN/74WUdOp+Yoe+kqTa2E7z12cF8NVAJUt+ZS
-	rgxbggAjXvvnQh3q1s6iJaJ8/N9PJVV5R2ee97ozLLx5ttBfsNWKFMlvwaBABsf1
-	DUNHwzzbmkV+CPXKkenukCIZElY3ZaRkFsme/HQ9LIRof6rR74VLzWkoukMs6pR3
-	gLt+Ei7nZb+Di/09F5EyQTQtA8RXji7XAb7b1wAivhZZuLsfC11SDSnbtZN6nVu+
-	5mw4bg/9Dtk9wQOIWHI18HTfX8NIq5xu1eJs5bOUo4nz1XSWvCyNqmxTYsg==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gujkjbuqk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 18:45:03 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c98fd65daaso200636e0c.0
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 11:45:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790102702; x=1790707502; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bre1XGDEQBsb9HHiSPNRvoWE3fMANV820bNftGvNCDo=;
-        b=AfMrm9unS/yVCCbqVdOjJ+ZT94laTMIFmVa/GbiAAlXTruWUXK8RCL+rsxCJ0PLF9K
-         sZtgOjWiSsSsOdL2k7ZNl+Ft1ebYxWfN2kfmoEtl6FUu+P8yk+FR3IlwffArah/wA4/Y
-         fVvQMriGDLLlT4m12kpTKEUZFkKsViLF+ukKBVPGzbNEPNN1acByLeM0It1vy+juukLv
-         gi1K/U88wUB0IZVcXQ5whZX3Y+T1VTuVHmkixd5w+o82kjLedNJAONT4fa5A8/t5fp5r
-         VmAQqvfGxp1nfTcuc80eiMm9BfgVeYfoAh8ptY5Sn48fIQ2i9XMPSYzVqw5EpS1SWMrM
-         VpHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790102702; x=1790707502;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bre1XGDEQBsb9HHiSPNRvoWE3fMANV820bNftGvNCDo=;
-        b=wNALsmXmcIl4T+/v7Kl8UxotaJC/fySajgbILdTpp92qa7poFmr0rGAiPyDqyQanoy
-         2iRnvB42IctUOASfO4wehOt6SrTUc1rqlohDRlXgKAE05Wc5/crGj3G8cea4cc3yUrKM
-         DSC98UlkHfDcEIT/1JD8fUFSW8UGNzCiZnEL/mMj/nm3eoJRem8h0YTLdt49GtA9zdNz
-         oyElMe9KY4j5RasJ4AmPYEq/UHovlyvfVP9TtTLu/COmp5BIYyjoMNigTIr2dI+As+1O
-         tHj3va4aHC/PhbVBj6PrvWfcPJyWjE7z4dJ7K/P3/bIT1gQb4dKts7R0cVd/GDnbOWKt
-         ektQ==
-X-Forwarded-Encrypted: i=1; AKwUvByVwkGouUkajy2R/72IQT6m1fwmGUTpC13Bv7EbOOMBIHoHKKZgpB3K7XGKBwvIRRwtuISgRLo3SD8g@vger.kernel.org
-X-Gm-Message-State: AFuF++lao4fet80Ger5zNtzJiFKeKnHVBVqVIrlOXSDK8AJ1a0JjbcbU
-	E94eru5RTSviBJonemVJM41SEuZ1bbfA9v9mJjYAcH1lGCXWo+u7YZ/6agqMgiuCeTZAE4qY2yM
-	bj3D/Bu+n1SoOiIiqYlUNt9LMv3aYKp371lXAa5gsX6N6dt117L1P9WGRRPJbvmkl
-X-Gm-Gg: AYBFou3xvNL3Gd4WnlXSpA212ArmJYBr+HdCt5jfXZLc6Et6p+o4qP5sa3pC4eCUoyt
-	VlUPPxOupFxEjja7BHE/LPnhauptb4gTiqROB5kVhwcy4sjF4+tM6OkhjB7N5ODTrS9NvFu8ymX
-	H4r1EEE1Sqe9gp4+QzpELc8moYrUtwOP+LgUs33enGPczo74nqm2CxX3k2GbKeTgs4SmmqSBC+G
-	LNXBySKW7bz5mxqwoxFxuP6j6WxDJK/TbpBtMRznYVgrILaIAf1/C4PKc0IC6skAJbF/qxvpHNS
-	DwnU/OoXA8moMYoxd7f/iym1F6akO5bO+zHbQWTVyyaRbw/QHnKRQNuyt4zICwmU8ajHwpY69Hi
-	oinzBK7LNoRv3L6GcDkWvXx5vjL5Zy6wkm1bv9oobq8RxZmMM0hpzZh60hG3ebiY8
-X-Received: by 2002:a05:6122:ca8:b0:5c8:2852:36cf with SMTP id 71dfb90a1353d-5c9f159af31mr774603e0c.4.1790102702551;
-        Tue, 22 Sep 2026 11:45:02 -0700 (PDT)
-X-Received: by 2002:a05:6122:ca8:b0:5c8:2852:36cf with SMTP id 71dfb90a1353d-5c9f159af31mr774584e0c.4.1790102702146;
-        Tue, 22 Sep 2026 11:45:02 -0700 (PDT)
-Received: from debian (cust-west-par-46-193-35-178.cust.wifirst.net. [46.193.35.178])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c500sm374681f8f.19.2026.09.22.11.45.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 11:45:01 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH 4/4] clk: qcom: Add lpass clock controller driver for Glymur
-Date: Tue, 22 Sep 2026 19:44:25 +0100
-Message-ID: <20260922184425.56114-5-srinivas.kandagatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260922184425.56114-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260922184425.56114-1-srinivas.kandagatla@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="mQPpAsLI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dk33vYzCKBnNIwZ05hXQb2VuFqoaZZ3c00ESac6zzxnl/Iuw8UTZy6oO+zlEQ1KtLxmbuJDE8kmorPUz1MgVoldJSTV5ymbuzLEpamHIbkzXOCCDa0K4aI7gVQOJGNi8jRt4K/ET0kkFRQ9thRbSPUvjkHb4fgH/umrcJCyE/UoKbaG9+U5O4iZJGjcYu9hbxWI1ALc+Xz8+S8PHN8XPfq+ehb2yCVtXzUridW9Axk3Hz9ZqFiSij4jIDUC+r45jkyeYkiCVMNczUlao5NK5obCR08Paogzw2/J/zzO4WnLv4XlnPekgDgHOxxqscVXWtMVb29lzI/sogLehwEHeUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9Sambif4iduCFAYS9Exo3Oyz7NjUJYhf0fD/+9xgC24=;
+ b=Y5EqOvzys2Yy6AgrZr/lAht+bLT3UCoL6QkrgdauL+QU9ZJmhA+mY6frWzEfLsGa96BORa7iEANV5kd+hggz5VV9oHlr0Eg7Us0eFq/VGeXGzxklx1cVryolCVPPWE7WoA18cNw5ukcSSkGg2raotw20t7kL3pyiunaPM8+pzw8yJA7CLF9YifDyvifMMKTiVKnDVT4if4zRmK8ZwkTuYGG/+HxOx2ydNEunwCEpr/dw+lcsxFDBawYUiCNo8F1fFv+gLcZo02oXxjom93ilFEnEKbGTNQoAJiY5epm7pCEZRPU/fzsXsZ6Wo3e1Cxf107OOneSMrFAqIWP5sHv5Gw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9Sambif4iduCFAYS9Exo3Oyz7NjUJYhf0fD/+9xgC24=;
+ b=mQPpAsLIcwnjiNxYr2oHw/eoV9hoyVil/tIPP4kbjjUTEr8wuRpueBJDhJdc0fcEcM1VDIpQ+miAO8X/aYFAogwreHriH5oSPoGe8wFnzzru7gnkr/YZbcPoXK3JWdhocgKprRIQxf1MLl6WQKEFi0CUMkn+5amojLA6VFbAg+nTYI3PVB1iITGG+/k319v51YRWZ7AX8QC+B0q2aVNtf4kLTICLINJipJ8FGXtX/0CQ5vaYW4aks9zz4jXFLTtkqgoqreoLBDCCVLI+NhFCzFxR/fVSkngfbIwRgRDRHoXqVj6CCnv6f1POIKK2UKvsYBJmTk7N3d9FuI8j6ieivQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB9757.eurprd04.prod.outlook.com (2603:10a6:150:115::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Tue, 22 Sep
+ 2026 18:51:32 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Tue, 22 Sep 2026
+ 18:51:32 +0000
+Date: Tue, 22 Sep 2026 13:51:11 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Cc: NXP S32 Linux Team <s32@nxp.com>, Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Pedro Sousa <pedrom.sousa@synopsys.com>,
+	Hannes Reinicke <hare@suse.de>,
+	Joao Pinto <Joao.Pinto@synopsys.com>, linux-scsi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org, clizzi@redhat.com,
+	aruizrui@redhat.com, eballetb@redhat.com, echanude@redhat.com
+Subject: Re: [PATCH v5 09/12] scsi: ufs: Add NXP S32N79 UFS host controller
+ driver
+Message-ID: <arLOH4buRKhPOD0T@SMW015318>
+References: <20260922073009.1449688-1-larisa.grigore@oss.nxp.com>
+ <20260922073009.1449688-10-larisa.grigore@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922073009.1449688-10-larisa.grigore@oss.nxp.com>
+X-ClientProxiedBy: PH1PEPF00013316.namprd07.prod.outlook.com
+ (2603:10b6:518:1::5) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: VHtmCK7iOfvSPTk4spL5HsrLZawjZXSx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDI3NSBTYWx0ZWRfXz4kgs+1tIL01
- bIQ7iKLy2l15MT/adkhNiG0JICCrupW4CNisVWvbT6+5ziHGQryfNw1yP54eqxCe8fKxujbG2Ys
- gJ4roLDhlEyfTJT4RyCtSz1s7QG9vy/vBzdGOczxVNRbO6cik5femqBXnKto8GgajIZLTT6vJnu
- 0KSsXygzDxgCTqWh6vKRVuHlRX41PR1S6/0/a+XRBnWmx3Qhi0hrH5e1AWpt8Tvovb+1M7SgRTl
- to7tcTTJX8OfCzSivHjXcQXIgkEUHvo3qdeslk1M1XvgIii1ufKw6WyjlNfMT77a7qEpGYAAR8V
- etiPcyJhyovJCv3PMJWnNEARGCV2ckHD8pY61/4CUV41chDeRvXQ3L3RZIVT2iQl2BUl/LBwy9+
- lUZEK4FnowQfqdL+3WCg2O2KjHvGyiS8oGYL6DXouwcOjDSMHKanFTx5F0kAsQfknaMoYMOnvmw
- rkDjcTULTGhnpgoSdkg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDI3NSBTYWx0ZWRfXyYMHc4cKdF0p
- 1P0RUs4pD5oUMmEoKo16KxwZdK+Vf+Nz4QE7gDbYlXDtG/cLvXaB5CtU2TtYOW5zshUqCbA6Axg
- pDRlBxZxn3v/K4LwXLQBg3hH574XytE=
-X-Authority-Analysis: v=2.4 cv=SuAFe/O0 c=1 sm=1 tr=0 ts=6ab2ccaf cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=Hji71o54RgNgZYqDgtlrhw==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=9d4qlcpUcIswrQQTxZ8A:9 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-ORIG-GUID: VHtmCK7iOfvSPTk4spL5HsrLZawjZXSx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 suspectscore=0 spamscore=0 phishscore=0
- malwarescore=0 priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220275
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB9757:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d801e07-5212-4d63-13d6-08df18da84c3
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|19092799006|7416014|23010399003|376014|1800799024|6133799003|3023799007|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ HTeJppPuC7dE0v7irPPR8dUmi7k2a7QV2ZrZGsUwLbNvYrJcI4CR4RURlCOofyCCOjTiP/IjNRyJ5g+5Ezuy3/Y0clORIDFs0/6QU2Orf+juJyFlR+dPa7AA49RKsqJtoQYyV7tN4bAgPsQBOp/a+2oaK2XtsHZIETRXDj1fhsIfvKrFME3jm5JXAtjIcQXwKfqMQ7gcGOoZSyIiHs1fdR11lTvbHn5GXH34n8awHfg7pPydD7OYLXKa2tMTS6j3YKzo9lOHEm2YMtK1KK2OZRKTIKqx9XadkGhLDyCTvkyjNAYcKyOqVRvetBdN/BQvtQIlFfVVc6jfAbnsBWX3JZRSPI6z1J5jZZgSdEI2gnBHweVAcD63AzbKiYi2NkW9ACKRcQbRovF3IzfHKOrPCagfjnszh8WPY4cTWDS5K4XJ11mooVLhU6jQKFQlTz6xxJ4uF2SZkMyRPKEOhsbw2O92OHfy6dngfCDhl5060w9tCVN60Px1bZEa/C3dVAY24LAEXxlLR075LAGdpS0uk8s+QU134n6rvuETd0pSwYhg1f/YVSp3lVqHoIXcqAfEfh1CZ2KN+dDTA5xbmu/JnHLLldIVizzHbCK7E87yk8vDqTBCN2hBTb1a34TB8y2VMzl/2vN33LzYrdOUk4ruGW3vQ0LfvWMcdq6mRXHyQmg=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(23010399003)(376014)(1800799024)(6133799003)(3023799007)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?fAHfn8wNR/x3eBnG6mBlWVJa99wyAB8RxASrw8bDYp7AW0dArV16OtZtUSF5?=
+ =?us-ascii?Q?VbE+iWm/3L1gtdMPkMhA/y46PGZNaeN0FBrmZr5DaToYnbTTj0EKVldhO/zp?=
+ =?us-ascii?Q?yGFLj+twLVYEqNLsv+zTaeQPHLLftGAMh1BOltX9fHXxll1Wx/lrdpqBYhoY?=
+ =?us-ascii?Q?yHlr8l/GJvxqZUjcSLLN0FV3x3sgZAmoXoFQjreKdjUBZGmtYkChV0C/3BUc?=
+ =?us-ascii?Q?K2mnGjK9fk0u+aLl0OFfplQY6nH993+kzkHB4EzTKE+4PxZyBFkNqwa44R8H?=
+ =?us-ascii?Q?Lw1qh+t8QMCe37RQKHjHbbkavw0E+SLjiXtI/8MnUeHswTlC0Q4QeEl18mLm?=
+ =?us-ascii?Q?4jrGLcsUZ3Ucvs1pJPwsa/hzrs6tQilLzu2zhnwlA29Kg5d8GFSYEWOS62sA?=
+ =?us-ascii?Q?Bxu+/mOZve8esAjbv2Uzpw36GSTH6e/I+aBrjzTojKAwLHEYrmbEUVXTNjlH?=
+ =?us-ascii?Q?yWp1/XEcRnfyMe4emYquN98ETNeh+CsGOyjtKVrqrH2pzUjqnZqesOpu4PKe?=
+ =?us-ascii?Q?5YzO68Dc1OZy/UbUhW9F/xV4FdW7ObhlFaKGyVaRaZnkUnFeuhKZJyyMvLp/?=
+ =?us-ascii?Q?PUibRqWUPS88CWwSK53GUeaHoCU3lsM60UzpECnGfVZB6rhGDzRzGhzgpeYz?=
+ =?us-ascii?Q?Kc/QodQgf7BU3QuI0IxvfqOKgjCz+n8/jHHFdI28c6nqE99CIqAtQBOdinit?=
+ =?us-ascii?Q?Mk77dAVJXhrkHaoieSZS1jIryBDyuTWwVR3AcytM4CBREHeTTAkdvyyk8PRg?=
+ =?us-ascii?Q?72euRp2V5YmhCT5duJ/oy59tDXWjeL8dRUp5iCBNZ3PZgkWqb+Mv7xMrPL+A?=
+ =?us-ascii?Q?Yn43F+PM1T5t0codZz+2HzjDBFwsCf7vmeNuqBqduFgTO0klbPzY5XtCmsPT?=
+ =?us-ascii?Q?aP429AT220o2RvkwkOCbtR2AVbudkws2aylqt9u7HZOztUn20HApPO/qriLs?=
+ =?us-ascii?Q?YcqByOax8skMo012iHsM2tlI+CKf0oghdOBO8n5O1N1sNTHIlcdRkFFYDXnN?=
+ =?us-ascii?Q?LEurOLpgjW8yfNkiaQw+tWxt4Liymfvr6vLjT3xbFqZXHROWSOVTCnoNT6gN?=
+ =?us-ascii?Q?cUqA/z2oJ/j0amjlsIGCZJcwG7UFZUVPMIGEX30fVAsTuFvN6fxD6VxG6ebP?=
+ =?us-ascii?Q?R2Yi0yMkUU7fTviTIEaY9qC+abDAgd+xrcH3F3PPzYU9sAMPyzQORrEyguA5?=
+ =?us-ascii?Q?E3bzfLer5OmWjhzpYghzVOJ8b14CF7wPKS1yEHw8ZKi6d8NgL2zep/+q/PU4?=
+ =?us-ascii?Q?CnVyUEzhgA3qtRU1QNgnc5sHEwN6cQBV8qoVKdyWD1EfNkbNdZ28a0jd2abJ?=
+ =?us-ascii?Q?3SMEEfsc6G7Q9qFTezb2ywD0A0E6+rhCiuj1NS+k2iqhPZbHHz5qQBGL3mW4?=
+ =?us-ascii?Q?NpomY/DDf1qVfwSfc2eWGRSRXxrra8PmooPi4M5oLIbLcM+RiB0NJPdCtRUU?=
+ =?us-ascii?Q?vFdsjhQjwn7f7Kn5cYRsp9Mmt6FyeNcs0q1qqfbHM4AtlPMETfAgkhDrFiSQ?=
+ =?us-ascii?Q?AEToNb+VxvxfDq93k60WXyK292aVddow7Cy7q1KS066mOHLqgbXhhFnY9wyD?=
+ =?us-ascii?Q?w8/ebu6f3Bcw7b7xhIemJXWVeUH2HpXGojxxeNZ2DxWONCEkG9dUaOCC/Yfx?=
+ =?us-ascii?Q?G/hBjYdmRIknmko70Kx8APlrDDYeW4YIbalVThNGFtyVRFMDSHg10wIcfLLE?=
+ =?us-ascii?Q?eEdOKLMzCXJ98THi9Wd91Uz9x5pg/wYPAj0PZmt1xezHfV1wTtO1tJwaBP/7?=
+ =?us-ascii?Q?Yn0QuxftdPOS462Teu4iriEW2JjGh0+r1qWCUysT2QtWjJRevpRF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d801e07-5212-4d63-13d6-08df18da84c3
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 18:51:32.1541
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PNjOaFG2qyL3Fd7vVkQStU/C9IgY41mCMTjXvrgWSsHq8tSU38vzvftiSV54mGwHqiQQ5mgP1xh2Nvo5qcEmJvZAwV3HMwFrhOc1/KTofJrIY75+PEMditTydOggF9qM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9757
 
-Add support for the lpass clock controller found on Glymur based devices.
-This would allow lpass peripheral loader drivers to control the clocks and
-bring the subsystems out of reset.
+On Tue, Sep 22, 2026 at 09:30:06AM +0200, Larisa Grigore wrote:
+> Add support for the UFS host controller on the NXP S32N79 SoC, built on
+> the Synopsys DesignWare (DWC) UFS architecture, using the UFSHCD DWC and
+> UFSHCD platform glue.
+>
+> This controller requires S32N79-specific initialization prior to
+> UIC_LINKSTARTUP, including:
+>   - programming SCM.ONE_US_TICK and HC.HCLKDIV based on the core clock,
+>   - applying the vendor-defined M-PHY calibration sequence, and
+>   - performing post-link calibration steps needed for HS operation.
+>
+> The M-PHY supports several boot modes for loading its firmware. Only the
+> mode where the firmware runs from the internal ROM is supported for now.
+>
+> Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+> ---
 
-Currently this patch only supports resets as the Q6DSP is in control of
-LPASS IP which manages most of the clocks via Q6PRM service on GPR rpmsg
-channel.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
----
- drivers/clk/qcom/lpasscc-glymur.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
-
-diff --git a/drivers/clk/qcom/lpasscc-glymur.c b/drivers/clk/qcom/lpasscc-glymur.c
-index 97fc099983b6..782183012d97 100644
---- a/drivers/clk/qcom/lpasscc-glymur.c
-+++ b/drivers/clk/qcom/lpasscc-glymur.c
-@@ -39,10 +39,31 @@ static const struct qcom_cc_desc lpass_audiocc_glymur_reset_desc = {
- 	.num_resets = ARRAY_SIZE(lpass_audiocc_glymur_resets),
- };
- 
-+static const struct qcom_reset_map lpasscc_glymur_resets[] = {
-+	[LPASS_AUDIO_SWR_TX_CGCR] = { 0xa028, 1 },
-+};
-+
-+static const struct regmap_config lpasscc_glymur_regmap_config = {
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+	.name = "lpass-tcsr",
-+	.max_register = 0x12000,
-+};
-+
-+static const struct qcom_cc_desc lpasscc_glymur_reset_desc = {
-+	.config = &lpasscc_glymur_regmap_config,
-+	.resets = lpasscc_glymur_resets,
-+	.num_resets = ARRAY_SIZE(lpasscc_glymur_resets),
-+};
-+
- static const struct of_device_id lpasscc_glymur_match_table[] = {
- 	{
- 		.compatible = "qcom,glymur-lpassaudiocc",
- 		.data = &lpass_audiocc_glymur_reset_desc,
-+	}, {
-+		.compatible = "qcom,glymur-lpasscc",
-+		.data = &lpasscc_glymur_reset_desc,
- 	},
- 	{ }
- };
--- 
-2.53.0
-
+>  drivers/ufs/host/Kconfig         |  12 +
+>  drivers/ufs/host/Makefile        |   1 +
+>  drivers/ufs/host/ufs-nxp-s32n7.c | 546 +++++++++++++++++++++++++++++++
+>  drivers/ufs/host/ufshcd-dwc.h    |  10 +
+>  drivers/ufs/host/ufshci-dwc.h    |   6 +
+>  5 files changed, 575 insertions(+)
+>  create mode 100644 drivers/ufs/host/ufs-nxp-s32n7.c
+>
+> diff --git a/drivers/ufs/host/Kconfig b/drivers/ufs/host/Kconfig
+> index ff170c0b6da0..e8ee7dd05f1a 100644
+> --- a/drivers/ufs/host/Kconfig
+> +++ b/drivers/ufs/host/Kconfig
+> @@ -168,3 +168,15 @@ config SCSI_UFS_AMD_VERSAL2
+>
+>  	  Select this if you have UFS controller on AMD Versal Gen 2 SoC.
+>  	  If unsure, say N.
+> +
+> +config SCSI_UFS_S32N7
+> +	tristate "NXP S32N7 platform driver"
+> +	depends on SCSI_UFSHCD_PLATFORM && (ARCH_S32 || COMPILE_TEST)
+> +	help
+> +	  This selects the S32N7 specific additions on top of the UFSHCD DWC
+> +	  and UFSHCD platform driver. UFS host on S32N79 needs some vendor
+> +	  specific configurations like PHY and vendor specific register accesses
+> +	  before accessing the hardware.
+> +
+> +	  Select this if you have UFS controller on an S32N7 based board.
+> +	  If unsure, say N.
+> diff --git a/drivers/ufs/host/Makefile b/drivers/ufs/host/Makefile
+> index 7d8db67eb23c..a2f4a1d0b3ae 100644
+> --- a/drivers/ufs/host/Makefile
+> +++ b/drivers/ufs/host/Makefile
+> @@ -4,6 +4,7 @@ CONTEXT_ANALYSIS := y
+>
+>  obj-$(CONFIG_SCSI_UFS_DWC_TC_PCI) += tc-dwc-g210-pci.o ufshcd-dwc.o tc-dwc-g210.o
+>  obj-$(CONFIG_SCSI_UFS_DWC_TC_PLATFORM) += tc-dwc-g210-pltfrm.o ufshcd-dwc.o tc-dwc-g210.o
+> +obj-$(CONFIG_SCSI_UFS_S32N7) += ufs-nxp-s32n7.o ufshcd-dwc.o
+>  obj-$(CONFIG_SCSI_UFS_CDNS_PLATFORM) += cdns-pltfrm.o
+>  obj-$(CONFIG_SCSI_UFS_QCOM) += ufs-qcom.o
+>  obj-$(CONFIG_SCSI_UFS_EXYNOS) += ufs-exynos.o
+> diff --git a/drivers/ufs/host/ufs-nxp-s32n7.c b/drivers/ufs/host/ufs-nxp-s32n7.c
+> new file mode 100644
+> index 000000000000..f7a017a6d9ae
+> --- /dev/null
+> +++ b/drivers/ufs/host/ufs-nxp-s32n7.c
+> @@ -0,0 +1,546 @@
+> +// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-3-Clause)
+> +/*
+> + * Copyright 2026 NXP
+> + *
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/device.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm.h>
+> +
+> +#include "ufshcd-pltfrm.h"
+> +#include "ufshcd-dwc.h"
+> +#include "ufshci-dwc.h"
+> +
+> +/* SCM Register Offsets. */
+> +#define SCM_ONE_US_TICK			0x2CU
+> +#define SCM_STATUS			0x30
+> +
+> +/* SCM_ONE_US_TICK Register. */
+> +#define SCM_ONE_US_TICK_MASK		GENMASK(8, 0)
+> +
+> +/* SCM_MPHY_RAM_CONFIG_STATUS Register Fields. */
+> +#define SCM_STATUS_PHY_RESET_MASK		BIT(0)
+> +#define SCM_STATUS_SRAM_BYPASS_MASK		BIT(1)
+> +#define SCM_STATUS_SRAM_INIT_DONE_MASK		BIT(16)
+> +
+> +#define SCM_STATUS_PHY_RESET(val)		\
+> +	FIELD_PREP(SCM_STATUS_PHY_RESET_MASK, val)
+> +
+> +#define SCM_STATUS_SRAM_BYPASS(val)		\
+> +	FIELD_PREP(SCM_STATUS_SRAM_BYPASS_MASK, val)
+> +
+> +/* Driver-defined upper bound for the M-PHY SRAM init to complete: 3 s. */
+> +#define CFG_MPHY_INIT_TIMEOUT_VALUE_US	3000000
+> +/* Driver-defined poll interval while waiting for SRAM_INIT_DONE: 1 ms. */
+> +#define CFG_MPHY_INIT_POLL_INTERVAL_US	1000
+> +
+> +/* Clock validation limits. */
+> +#define MAX_VALID_ONE_US_TICK		SCM_ONE_US_TICK_MASK
+> +
+> +/* CPort definitions */
+> +#define CPORT_0				0
+> +
+> +/* Driver-defined upper bound for completing a Hibern8 transition: 1 s. */
+> +#define HBRN8_POLL_TOUT_MS		1000
+> +
+> +/**
+> + * struct s32n7_phy_reg - PHY CR (config-register) write entry
+> + * @reg: Register offset/address
+> + * @val: Value to write
+> + */
+> +struct s32n7_phy_reg {
+> +	u32 reg;
+> +	u32 val;
+> +};
+> +
+> +/**
+> + * struct s32n7_soc_data - SoC-specific configuration data
+> + * @vops: UFS host controller variant operations
+> + * @reset_config: MPHY reset DME attributes (programmed while PHY held in reset)
+> + * @reset_config_count: number of entries in @reset_config
+> + * @calib_mphy_disabled: CR calibration writes performed while the MPHY is disabled
+> + * @calib_mphy_disabled_count: number of entries in @calib_mphy_disabled
+> + * @calib_mphy_enabled: CR calibration writes performed while the MPHY is enabled
+> + * @calib_mphy_enabled_count: number of entries in @calib_mphy_enabled
+> + */
+> +struct s32n7_soc_data {
+> +	const struct ufs_hba_variant_ops *vops;
+> +	const struct ufshcd_dme_attr_val *reset_config;
+> +	size_t reset_config_count;
+> +	const struct s32n7_phy_reg *calib_mphy_disabled;
+> +	size_t calib_mphy_disabled_count;
+> +	const struct s32n7_phy_reg *calib_mphy_enabled;
+> +	size_t calib_mphy_enabled_count;
+> +};
+> +
+> +/**
+> + * struct s32n7_ufs - S32N7 UFS host controller data
+> + * @hba: UFS host controller instance
+> + * @reg_scm: SCM register base address
+> + * @core_clk: core reference clock used to derive ONE_US_TICK/HCLKDIV
+> + * @soc_data: SoC-specific configuration data
+> + */
+> +struct s32n7_ufs {
+> +	struct ufs_hba *hba;
+> +	void __iomem *reg_scm;
+> +	struct clk *core_clk;
+> +	const struct s32n7_soc_data *soc_data;
+> +};
+> +
+> +/**
+> + * ufs_s32n7_phy_write_sequence - Write a sequence of PHY registers
+> + * @hba: UFS host controller instance
+> + * @cfg: Array of register configurations
+> + * @count: Number of entries in the array
+> + *
+> + * Return: 0 on success, error code on failure
+> + */
+> +static int ufs_s32n7_phy_write_sequence(struct ufs_hba *hba,
+> +				       const struct s32n7_phy_reg *cfg,
+> +				       size_t count)
+> +{
+> +	int ret;
+> +	size_t i;
+> +
+> +	for (i = 0; i < count; i++) {
+> +		ret = ufshcd_dwc_phy_reg_write(hba, cfg[i].reg, cfg[i].val);
+> +		if (ret) {
+> +			dev_err(hba->dev,
+> +				"Failed to write PHY reg 0x%x = 0x%x (step %zu)\n",
+> +				cfg[i].reg, cfg[i].val, i);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static unsigned long ufs_s32n7_calculate_us_tick(unsigned long clk_rate)
+> +{
+> +	return clk_rate / USEC_PER_SEC;
+> +}
+> +
+> +static int ufs_s32n7_configure_clocks(struct ufs_hba *hba)
+> +{
+> +	struct s32n7_ufs *ufs = ufshcd_get_variant(hba);
+> +	struct device *dev = hba->dev;
+> +	unsigned long clk_rate = 0;
+> +	unsigned long one_us_tick;
+> +
+> +	clk_rate = clk_get_rate(ufs->core_clk);
+> +	if (!clk_rate) {
+> +		dev_err(dev, "Failed to get valid clock rate.\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	one_us_tick = ufs_s32n7_calculate_us_tick(clk_rate);
+> +	if (one_us_tick == 0 || one_us_tick > MAX_VALID_ONE_US_TICK) {
+> +		dev_err(dev, "Invalid one_us_tick value: %lu (clk_rate: %lu Hz).\n",
+> +			one_us_tick, clk_rate);
+> +		return -EINVAL;
+> +	}
+> +
+> +	dev_dbg(dev, "Core clock rate: %lu Hz, one_us_tick = %lu.\n",
+> +		 clk_rate, one_us_tick);
+> +
+> +	/*
+> +	 * Configure the micro-second tick rate generator based on core
+> +	 * clock rate.
+> +	 */
+> +	writel(one_us_tick, ufs->reg_scm + SCM_ONE_US_TICK);
+> +	ufshcd_dwc_program_clk_div(hba, one_us_tick);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ufs_s32n7_hce_enable_notify(struct ufs_hba *hba,
+> +				      enum ufs_notify_change_status status)
+> +{
+> +	u32 reg;
+> +
+> +	if (status != POST_CHANGE)
+> +		return 0;
+> +
+> +	/*
+> +	 * Clear the DWC low-power gating (BUSTHRTL) so a doorbell write can
+> +	 * wake the link out of hibernate. LP_PGE (generic low-power) and
+> +	 * LP_AH8_PGE (Auto-Hibern8) both reset to 1.
+> +	 */
+> +	reg = ufshcd_readl(hba, DWC_UFS_REG_BUSTHRTL);
+> +	reg &= ~(DWC_UFS_BUSTHRTL_LP_PGE | DWC_UFS_BUSTHRTL_LP_AH8_PGE);
+> +	ufshcd_writel(hba, reg, DWC_UFS_REG_BUSTHRTL);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ufs_s32n7_phy_initial_calib(struct ufs_hba *hba)
+> +{
+> +	struct s32n7_ufs *ufs = ufshcd_get_variant(hba);
+> +	int ret;
+> +
+> +	/* Calibrations that must run while the MPHY is disabled. */
+> +	ret = ufs_s32n7_phy_write_sequence(hba, ufs->soc_data->calib_mphy_disabled,
+> +					  ufs->soc_data->calib_mphy_disabled_count);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYDISABLE, 0), 0x0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Calibrations that must run while the MPHY is enabled. */
+> +	ret = ufs_s32n7_phy_write_sequence(hba, ufs->soc_data->calib_mphy_enabled,
+> +					  ufs->soc_data->calib_mphy_enabled_count);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
+> +}
+> +
+> +static int ufs_s32n7_link_startup_pre_change(struct ufs_hba *hba)
+> +{
+> +	struct s32n7_ufs *ufs = ufshcd_get_variant(hba);
+> +	struct device *dev = hba->dev;
+> +	int ret;
+> +	u32 reg;
+> +
+> +	ret = ufs_s32n7_configure_clocks(hba);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Reset SCM.MPHY_RAM_CONFIG_STATUS to default value; keep MPHY in reset. */
+> +	writel(SCM_STATUS_PHY_RESET(1), ufs->reg_scm + SCM_STATUS);
+> +
+> +	/*
+> +	 * The M-PHY firmware runs from the internal ROM:
+> +	 *  MPHY_RAM_CONFIG_STATUS.SRAM_BYPASS = 1
+> +	 *  MPHY_RAM_CONFIG_STATUS.SRAM_EXT_LD_DONE = 0
+> +	 */
+> +	writel(SCM_STATUS_PHY_RESET(1) | SCM_STATUS_SRAM_BYPASS(1),
+> +	       ufs->reg_scm + SCM_STATUS);
+> +
+> +	/* MPHY reset configuration: vendor attributes set while PHY in reset. */
+> +	ret = ufshcd_dwc_dme_set_attrs(hba, ufs->soc_data->reset_config,
+> +				       ufs->soc_data->reset_config_count);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Release PHY_RESET. */
+> +	writel(readl(ufs->reg_scm + SCM_STATUS) & ~SCM_STATUS_PHY_RESET_MASK,
+> +	       ufs->reg_scm + SCM_STATUS);
+> +
+> +	/* Wait until SRAM_INIT_DONE = 1. */
+> +	ret = readl_poll_timeout(ufs->reg_scm + SCM_STATUS, reg,
+> +			reg & SCM_STATUS_SRAM_INIT_DONE_MASK,
+> +			CFG_MPHY_INIT_POLL_INTERVAL_US,
+> +			CFG_MPHY_INIT_TIMEOUT_VALUE_US);
+> +	if (ret) {
+> +		dev_err(dev, "UFS MPHY init not done!\n");
+> +		return ret;
+> +	}
+> +
+> +	/* Start of initial calibration */
+> +	ret = ufs_s32n7_phy_initial_calib(hba);
+> +	if (ret) {
+> +		dev_err(dev, "UFS MPHY initial calibration failed!\n");
+> +		return ret;
+> +	}
+> +
+> +	/* End of Gear1 settings */
+> +
+> +	return ufshcd_dme_check_tx_hibern8(hba, hba->lanes_per_direction,
+> +					   HBRN8_POLL_TOUT_MS);
+> +}
+> +
+> +static int ufs_s32n7_link_startup_post_change(struct ufs_hba *hba)
+> +{
+> +	static const struct ufshcd_dme_attr_val cport_setup[] = {
+> +		{ UIC_ARG_MIB_SEL(T_CONNECTIONSTATE, CPORT_0),
+> +				CPORT_IDLE, DME_LOCAL },
+> +		{ UIC_ARG_MIB_SEL(T_CPORTFLAGS, CPORT_0),
+> +				CPORT_DEF_FLAGS, DME_LOCAL },
+> +		{ UIC_ARG_MIB_SEL(T_CONNECTIONSTATE, CPORT_0),
+> +				CPORT_CONNECTED, DME_LOCAL },
+> +	};
+> +	unsigned int data = 0;
+> +	int ret;
+> +
+> +	/* Network layer: set Local DeviceID. */
+> +	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(N_DEVICEID, 0), 0x0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Set Connection State to IDLE (it allows CPort Attributes to be set). */
+> +	ret = ufshcd_dwc_dme_set_attrs(hba, cport_setup, ARRAY_SIZE(cport_setup));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(T_CONNECTIONSTATE, CPORT_0), &data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (data != CPORT_CONNECTED)
+> +		return -EIO;
+> +
+> +	return 0;
+> +}
+> +
+> +static int ufs_s32n7_link_startup_notify(struct ufs_hba *hba,
+> +			     enum ufs_notify_change_status status)
+> +{
+> +	int err;
+> +
+> +	if (status == PRE_CHANGE) {
+> +		err = ufs_s32n7_link_startup_pre_change(hba);
+> +		if (err) {
+> +			dev_err(hba->dev, "MPHY setup failed (%d).\n", err);
+> +			return err;
+> +		}
+> +		return 0;
+> +	}
+> +
+> +	/* POST_CHANGE */
+> +	err = ufshcd_dwc_link_is_up(hba);
+> +	if (err) {
+> +		dev_err(hba->dev, "Link is not up.\n");
+> +		return err;
+> +	}
+> +
+> +	err = ufs_s32n7_link_startup_post_change(hba);
+> +	if (err)
+> +		dev_err(hba->dev, "Connection setup failed (%d).\n", err);
+> +
+> +	return err;
+> +}
+> +
+> +static int ufs_s32n7_pwr_change_pre_change(struct ufs_hba *hba,
+> +					  const struct ufs_pa_layer_attr *pwr)
+> +{
+> +	/*
+> +	 * RX rate-select override sequence: assert the override, then deassert
+> +	 * the value, then drop the override enable so normal operation resumes.
+> +	 */
+> +	static const struct s32n7_phy_reg pwr_change_phy_regs[] = {
+> +		{ RX_OVRD_IN_1(0), 0xc },
+> +		{ RX_OVRD_IN_1(1), 0xc },
+> +		{ RX_OVRD_IN_1(0), 0x8 },
+> +		{ RX_OVRD_IN_1(1), 0x8 },
+> +		{ RX_OVRD_IN_1(0), 0x0 },
+> +		{ RX_OVRD_IN_1(1), 0x0 },
+> +	};
+> +	u32 rate;
+> +	int ret;
+> +
+> +	/* Rate change only applies to the HS power modes. */
+> +	if (!ufshcd_is_hs_mode(pwr))
+> +		return 0;
+> +
+> +	/*
+> +	 * Select the M-PHY rate (rate series) that matches the mode the core
+> +	 * has negotiated with the device.
+> +	 */
+> +	rate = (pwr->hs_rate == PA_HS_MODE_B) ? CB_RATE_B : CB_RATE_A;
+> +
+> +	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(CBRATESEL, 0), rate);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Apply the RX rate-select override now that the target rate is set. */
+> +	return ufs_s32n7_phy_write_sequence(hba, pwr_change_phy_regs,
+> +					   ARRAY_SIZE(pwr_change_phy_regs));
+> +}
+> +
+> +static int ufs_s32n7_pwr_change_notify(struct ufs_hba *hba,
+> +				      enum ufs_notify_change_status status,
+> +				      struct ufs_pa_layer_attr *pwr)
+> +{
+> +	int err = 0;
+> +
+> +	if (status == PRE_CHANGE) {
+> +		err = ufs_s32n7_pwr_change_pre_change(hba, pwr);
+> +		if (err)
+> +			dev_err(hba->dev, "Power mode pre-change failed (%d).\n",
+> +				err);
+> +	}
+> +
+> +	return err;
+> +}
+> +
+> +static int ufs_s32n7_init(struct ufs_hba *hba)
+> +{
+> +	struct device *dev = hba->dev;
+> +	struct platform_device *pdev = to_platform_device(dev);
+> +	struct s32n7_ufs *ufs;
+> +
+> +	ufs = devm_kzalloc(dev, sizeof(*ufs), GFP_KERNEL);
+> +	if (!ufs)
+> +		return -ENOMEM;
+> +
+> +	ufs->hba = hba;
+> +	ufs->soc_data = device_get_match_data(dev);
+> +	if (!ufs->soc_data)
+> +		return -ENODEV;
+> +
+> +	hba->quirks |= UFSHCD_QUIRK_PERFORM_LINK_STARTUP_ONCE;
+> +	hba->spm_lvl = UFS_PM_LVL_5;
+> +
+> +	ufs->reg_scm = devm_platform_ioremap_resource_byname(pdev, "scm");
+> +	if (IS_ERR(ufs->reg_scm))
+> +		return dev_err_probe(dev, PTR_ERR(ufs->reg_scm),
+> +				     "ioremap failed for SCM registers.\n");
+> +
+> +	/*
+> +	 * The core reference clock is not managed by the UFS core (the DT node
+> +	 * has no clock-names/freq-table-hz, so it is never added to
+> +	 * hba->clk_list_head).
+> +	 */
+> +	ufs->core_clk = devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(ufs->core_clk))
+> +		return dev_err_probe(dev, PTR_ERR(ufs->core_clk),
+> +				     "Failed to get and enable core clock.\n");
+> +
+> +	ufshcd_set_variant(hba, ufs);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct ufs_hba_variant_ops ufs_hba_s32n79_vops = {
+> +	.name = "s32n79",
+> +	.init = ufs_s32n7_init,
+> +	.link_startup_notify = ufs_s32n7_link_startup_notify,
+> +	.hce_enable_notify = ufs_s32n7_hce_enable_notify,
+> +	.pwr_change_notify = ufs_s32n7_pwr_change_notify,
+> +};
+> +
+> +/*
+> + * MPHY reset configuration: vendor DME attributes programmed while the PHY is
+> + * held in reset. Programs the reference-clock, RX squelch, RX Rhold and
+> + * CR-parallel control attributes.
+> + */
+> +static const struct ufshcd_dme_attr_val s32n79_reset_config[] = {
+> +	/*
+> +	 * Disable reference clock gating support and override the UniPro and
+> +	 * application reference clock enable inputs to 0.
+> +	 */
+> +	{ UIC_ARG_MIB_SEL(CBREFCLKCTRL2, 0), 0x8A, DME_LOCAL },
+> +	/* RX squelch control. */
+> +	{ UIC_ARG_MIB_SEL(RXSQCONTROL, SELIND_LN0_RX), 0x1, DME_LOCAL },
+> +	{ UIC_ARG_MIB_SEL(RXSQCONTROL, SELIND_LN1_RX), 0x1, DME_LOCAL },
+> +	/* RX Rhold control option. */
+> +	{ UIC_ARG_MIB_SEL(RXRHOLDCTRLOPT, SELIND_LN0_RX), 0x2, DME_LOCAL },
+> +	{ UIC_ARG_MIB_SEL(RXRHOLDCTRLOPT, SELIND_LN1_RX), 0x2, DME_LOCAL },
+> +	/* CR parallel selection. */
+> +	{ UIC_ARG_MIB_SEL(CBCRCTRL, 0), 0x1, DME_LOCAL },
+> +};
+> +
+> +/* Calibrations that must run while the MPHY is disabled. */
+> +static const struct s32n7_phy_reg s32n79_calib_mphy_disabled[] = {
+> +	/* Bypass RX AFE calibration. */
+> +	{ FAST_FLAGS(0), 0x4 },
+> +	{ FAST_FLAGS(1), 0x4 },
+> +};
+> +
+> +/* Calibrations that must run while the MPHY is enabled. */
+> +static const struct s32n7_phy_reg s32n79_calib_mphy_enabled[] = {
+> +	/* Write ATT offset compensation code to internal DAC. */
+> +	{ RX_DAC_CTRL_OVRD(0), 0x1 },
+> +	{ RX_DAC_CTRL_OVRD(1), 0x1 },
+> +	{ RX_DAC_CTRL(0), 0x8E },
+> +	{ RX_DAC_CTRL(1), 0x91 },
+> +	{ RX_DAC_CTRL_SEL(0), 0x1 },
+> +	{ RX_DAC_CTRL_SEL(1), 0x1 },
+> +	{ RX_DAC_CTRL_EN(0), 0x1 },
+> +	{ RX_DAC_CTRL_EN(1), 0x1 },
+> +	{ RX_DAC_CTRL_OVRD(0), 0x0 },
+> +	{ RX_DAC_CTRL_OVRD(1), 0x0 },
+> +	/* Write CTLE offset compensation code to internal DAC. */
+> +	{ RX_DAC_CTRL_OVRD(0), 0x1 },
+> +	{ RX_DAC_CTRL_OVRD(1), 0x1 },
+> +	{ RX_DAC_CTRL(0), 0x71 },
+> +	{ RX_DAC_CTRL(1), 0x7F },
+> +	{ RX_DAC_CTRL_SEL(0), 0x2 },
+> +	{ RX_DAC_CTRL_SEL(1), 0x2 },
+> +	{ RX_DAC_CTRL_EN(0), 0x1 },
+> +	{ RX_DAC_CTRL_EN(1), 0x1 },
+> +	{ RX_DAC_CTRL_OVRD(0), 0x0 },
+> +	{ RX_DAC_CTRL_OVRD(1), 0x0 },
+> +	/* FW Calibration configuration. */
+> +	{ FW_CALIB_CCFG(0), 0x100 },
+> +	{ FW_CALIB_CCFG(1), 0x100 },
+> +};
+> +
+> +static const struct s32n7_soc_data s32n79_soc_data = {
+> +	.vops = &ufs_hba_s32n79_vops,
+> +	.reset_config = s32n79_reset_config,
+> +	.reset_config_count = ARRAY_SIZE(s32n79_reset_config),
+> +	.calib_mphy_disabled = s32n79_calib_mphy_disabled,
+> +	.calib_mphy_disabled_count = ARRAY_SIZE(s32n79_calib_mphy_disabled),
+> +	.calib_mphy_enabled = s32n79_calib_mphy_enabled,
+> +	.calib_mphy_enabled_count = ARRAY_SIZE(s32n79_calib_mphy_enabled),
+> +};
+> +
+> +static const struct of_device_id ufs_s32n7_match[] = {
+> +	{
+> +		.compatible = "nxp,s32n79-ufshc",
+> +		.data = &s32n79_soc_data,
+> +	},
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ufs_s32n7_match);
+> +
+> +static int ufs_s32n7_probe(struct platform_device *pdev)
+> +{
+> +	const struct s32n7_soc_data *soc_data;
+> +
+> +	soc_data = device_get_match_data(&pdev->dev);
+> +	if (!soc_data)
+> +		return -ENODEV;
+> +
+> +	return ufshcd_pltfrm_init(pdev, soc_data->vops);
+> +}
+> +
+> +static void ufs_s32n7_remove(struct platform_device *pdev)
+> +{
+> +	ufshcd_pltfrm_remove(pdev);
+> +}
+> +
+> +static const struct dev_pm_ops ufs_s32n7_pm_ops = {
+> +	SYSTEM_SLEEP_PM_OPS(ufshcd_system_suspend, ufshcd_system_resume)
+> +	RUNTIME_PM_OPS(ufshcd_runtime_suspend, ufshcd_runtime_resume, NULL)
+> +	.prepare	= pm_ptr(ufshcd_suspend_prepare),
+> +	.complete	= pm_ptr(ufshcd_resume_complete),
+> +};
+> +
+> +static struct platform_driver ufs_s32n7_driver = {
+> +	.probe = ufs_s32n7_probe,
+> +	.remove = ufs_s32n7_remove,
+> +	.driver	= {
+> +		.name	= "ufs-s32n7",
+> +		.pm	= pm_ptr(&ufs_s32n7_pm_ops),
+> +		.of_match_table	= ufs_s32n7_match,
+> +	},
+> +};
+> +
+> +module_platform_driver(ufs_s32n7_driver);
+> +
+> +MODULE_AUTHOR("Larisa Grigore <larisa.grigore@oss.nxp.com>");
+> +MODULE_DESCRIPTION("NXP S32N7 UFS Host Controller platform driver");
+> +MODULE_LICENSE("Dual BSD/GPL");
+> diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
+> index 1abf2b1deac4..d62cd4c085ba 100644
+> --- a/drivers/ufs/host/ufshcd-dwc.h
+> +++ b/drivers/ufs/host/ufshcd-dwc.h
+> @@ -13,6 +13,8 @@
+>  #include <ufs/ufshcd.h>
+>
+>  /* RMMI Attributes */
+> +#define RXSQCONTROL		0x8009
+> +#define RXRHOLDCTRLOPT		0x8013
+>  #define CBC10DIRECTCONF2	0x810E
+>  #define CBRATESEL		0x8114
+>  #define CBCREGADDRLSB		0x8116
+> @@ -27,7 +29,15 @@
+>
+>  #define CBREFREFCLK_GATE_OVR_EN		BIT(7)
+>
+> +/* CBRATESEL: 0 - rate A, 1 - rate B. */
+> +#define CB_RATE_A		0x0
+> +#define CB_RATE_B		0x1
+> +
+>  /* M-PHY registers */
+> +#define RX_DAC_CTRL(n)		(0x10AF + ((n) * 0x100))
+> +#define RX_DAC_CTRL_OVRD(n)	(0x10B0 + ((n) * 0x100))
+> +#define RX_DAC_CTRL_SEL(n)	(0x10B1 + ((n) * 0x100))
+> +#define RX_DAC_CTRL_EN(n)	(0x10B8 + ((n) * 0x100))
+>  #define RX_OVRD_IN_1(n)		(0x3006 + ((n) * 0x100))
+>  #define RX_PCS_OUT(n)		(0x300F + ((n) * 0x100))
+>  #define FAST_FLAGS(n)		(0x401C + ((n) * 0x100))
+> diff --git a/drivers/ufs/host/ufshci-dwc.h b/drivers/ufs/host/ufshci-dwc.h
+> index 6c290e272106..c66f33391b65 100644
+> --- a/drivers/ufs/host/ufshci-dwc.h
+> +++ b/drivers/ufs/host/ufshci-dwc.h
+> @@ -12,9 +12,15 @@
+>
+>  /* DWC HC UFSHCI specific Registers */
+>  enum dwc_specific_registers {
+> +	DWC_UFS_REG_BUSTHRTL	= 0xC0,
+>  	DWC_UFS_REG_HCLKDIV	= 0xFC,
+>  };
+>
+> +/* Low-Power Power Gating Enable. */
+> +#define DWC_UFS_BUSTHRTL_LP_PGE		BIT(16)
+> +/* Low Power - AH8 Power Gating Enable. */
+> +#define DWC_UFS_BUSTHRTL_LP_AH8_PGE	BIT(17)
+> +
+>  /* Clock Divider Values: Hex equivalent of frequency in MHz */
+>  enum clk_div_values {
+>  	DWC_UFS_REG_HCLKDIV_DIV_62_5	= 0x3e,
+> --
+> 2.43.0
+>
+>
