@@ -1,93 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA9B437130
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:53:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FEC441600;
+	Tue, 22 Sep 2026 08:54:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067189; cv=none; b=CuqhBIMyb7sN70FP0f48vWLyjosuPuAxFi0GaLHZXrdSfpezrOsg7zjGQTZmcM5E/HtIUCACjUZ8Z7PyNtnzuZHL1vcrPSMxFlIuBbk+l32ua4FzsOqgsNSFpeoOQ6jHmKDD5+FNALpyXx1sVd3p2gYa8Xz8wmXGfLJslcZo9KY=
+	t=1790067252; cv=none; b=s5WQT19jlSnhD3ShFbUnqwMnnDS5pmr+GyWOMBDyFz2gTaDnS8zlcbs5s4Gs6QRuf+gnAqeU4CsFPbVohqAdjR68Qn1lNHWgV9nNg3SXY/DnuyfG1dvlibcR7Ry3ftXyoqaU7JKwjHJe2nF39Y3JuniZ9n0rct7UJMK8HFl8gmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067189; c=relaxed/simple;
-	bh=pRTDJDK9EW1jEeZqKwFH96oBkO/dZl6A0f1ILw5pqSw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PrEKmcP49u7qUHA/ZUGIfYb7CXnHmrW58cYk4vVmDV9gtKCY88SW9DXZ+Zwuisw/wJHscqYRJW+S4VQnjRJhxDdWs15VCMtSFM8nU2SPF+6HiHUazGunoj/WRfYmNqUR0xqsL5Whg83na9k2aaA8m3TpOyP6oDLITxqk8ISbgk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KlhrzD68; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790067252; c=relaxed/simple;
+	bh=YLzEa2NgKc01BCihyFFvuyxmNzf4DGeagOdMFCmVpEw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VyxB1Xa9eprKAhka4NbYbSYqrbC90x+ooyIPrSASAZ62K2JVyVX6Ex6FtVelVbj82ZD2Mg5aWKuz6+EQbqT7x9KGgXIYcLxumg3eZEFDBIHBaPPscBP7e89XI1JKwEfBeHFG4cLOyGlkp1QO2os5rH8fut919YAMc4jTILzoIOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eZBhPXfe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KlhrzD68"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFAF51F0089B
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:53:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eZBhPXfe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18A301F000FF;
+	Tue, 22 Sep 2026 08:54:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790067186;
-	bh=pRTDJDK9EW1jEeZqKwFH96oBkO/dZl6A0f1ILw5pqSw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KlhrzD68zCgzYUViZwYOFPRjRUzOuT7fyO3U3rwgTcrxAwfyub62TdnRVitovVoNp
-	 KWR1turWzPPoOsSjEPUqt/wh4YDf90diNBX7nNV/wALDLpdn3no6oQSm5JN6+t7cA8
-	 QgoUDdm21iIOWcklji8pn/dj35y9WuWqJBfhjrIhVgs5/w4j/Jho9oOIlIdxXWuDbn
-	 2GzOscwzHZZ1WjYL2JNx3hMyXsoOt8KKhLnbODpQzmtR0uF2b4e4r7L2mrlQWbfjIG
-	 +qvXp6/aJSnfv+UKTYepNt/zYwNG/0QZirBMWlcIaTxqup2954a3YhRCFQwu/wKdtc
-	 TYC/JDJkPEing==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8cbb7b9cfso1498421e87.0
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:53:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw+SU1HdGUZVsUAihDaPr4XipLOfQpF/Wwcx+k61x7Vl/NeWXATSH44bHUh6KA2iaBVvd3A3OXogHeT@vger.kernel.org
-X-Gm-Message-State: AFuF++nabacvhWDgpZvFTCagxtRzDu/2lDdX1jDKCyUlqs6R8Wp9YIyk
-	QGn+PVnIzVO6xUzI38cSalAzbwGYanZ90GAllb4VJFX6EyU+u3vRY7qWSYA1kokI8O8GCj4pn2e
-	XP5q2vhZSNc1MGC1x1XsDUyKntlrztWo=
-X-Received: by 2002:a05:6512:3e08:b0:5b6:172a:c36e with SMTP id
- 2adb3069b0e04-5b8c17f2023mr4223635e87.8.1790067185256; Tue, 22 Sep 2026
- 01:53:05 -0700 (PDT)
+	s=k20260515; t=1790067250;
+	bh=YLzEa2NgKc01BCihyFFvuyxmNzf4DGeagOdMFCmVpEw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eZBhPXfeygiiU2f/pWtXEIFzdO1vnHyv9utcEzx5sCi5XdKNrN9kNs6QgfMYMO2cl
+	 JHdWSJG6JobZ2aIXM0UrxDOm/Nhuzxt9hTmfLApAHw2EqHRBVimWQRaS9tAfMLmfD6
+	 A28ePCpBvIfXoIdtIPyuQ1qyX5YDEPfFQzjLOLakzjCh9L9y9ITyD/W6GuRURRZhn3
+	 HG3zRcy7T1ZQr4VDjrCo+Vw8XsWqteTMKv/qE9J+UYlygb4nz3aKGuC3N0t5mEbeA7
+	 DD7oe4nIcp45NiurQv8bVw4Z4TwyviX22YWABtkICBG7pYIyGUvp/BPbFddhgrwRa8
+	 cftqB5tqV8T7Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 6/9] of: reserved_mem: add dumpable flag to opt-in
+ vmcore
+Reply-To: sashiko-reviews@lists.linux.dev
+To: robh@kernel.org, baoquan.he@linux.dev, rppt@kernel.org, "Wandun Chen" <chenwandun1@gmail.com>, m.szyprowski@samsung.com
+Cc: mingo@redhat.com, saravanak@kernel.org, pjw@kernel.org, linux-riscv@lists.infradead.org, pasha.tatashin@soleen.com, kernel@xen0n.name, iommu@lists.linux.dev, ruirui.yang@linux.dev, tglx@kernel.org, devicetree@vger.kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, catalin.marinas@arm.com, dave.hansen@linux.intel.com, loongarch@lists.linux.dev, robin.murphy@arm.com, linux-kernel@vger.kernel.org, bp@alien8.de, pratyush@kernel.org, alex@ghiti.fr, chenhuacai@kernel.org, linux-arm-kernel@lists.infradead.org, hpa@zytor.com, linux-mm@kvack.org, kexec@lists.infradead.org, mark.rutland@arm.com, x86@kernel.org, akpm@linux-foundation.org, conor+dt@kernel.org, will@kernel.org
+In-Reply-To: <20260922084256.1515554-7-chenwandun1@gmail.com>
+References: <20260922084256.1515554-1-chenwandun1@gmail.com>
+ <20260922084256.1515554-7-chenwandun1@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 08:54:08 +0000
+Message-Id: <20260922085409.18A301F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
- <CAD++jLkCNkcf-gn0FgvLZZTibLUvbKaH6L+=nRqkNZr2iKFqsQ@mail.gmail.com> <39641ec4.7a73.1a0c848bfa4.Coremail.zl020895@163.com>
-In-Reply-To: <39641ec4.7a73.1a0c848bfa4.Coremail.zl020895@163.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 22 Sep 2026 10:52:52 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkZ9F3_KQwGDZyKaFYBzO9PXVq+5v8geFE+oOM47KmagQ@mail.gmail.com>
-X-Gm-Features: AclHuK9Y1QMax6-R6N3W6XKZsP5OW6rOHXGLWKISlcK8k5n-6-JwlZacROssNGg
-Message-ID: <CAD++jLkZ9F3_KQwGDZyKaFYBzO9PXVq+5v8geFE+oOM47KmagQ@mail.gmail.com>
-Subject: Re: Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
-To: zl020895 <zl020895@163.com>
-Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>, 
-	mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 10:44=E2=80=AFAM zl020895 <zl020895@163.com> wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+>=20
+> Add a 'dumpable' flag to struct reserved_mem to decide whether a
+> reserved area should be included in the kdump vmcore. Non-dumpable
+> regions are later marked MEMBLOCK_NODUMP;the filtering itself happens
+> in memblock, keeping the arch kdump code independent of the DT API.
+>=20
+> Most reserved regions are owned by devices and do not contain data
+> useful for kernel crash analysis, so dumpable default to false.
+> Reusable CMA regions are different: their pages are handed back to the
+> buddy allocator and may contain key data for crash analysis, so set
+> dumpable to true in rmem_cma_setup().
+>=20
+> The dumpable flag is also used to check /memreserve/ entries for overlap
+> with other dumpable regions.
+>=20
+> Suggested-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
 
-> No LLM was used for coding or testing. Different developers are responsib=
-le for
-> different parts of the code. LLM was only used to polish commit messages.
-> Could you advise whether I still need to disclose this?
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-We add it even if it just used for commit messages, we don't really
-differentiate.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922084256.1515=
+554-1-chenwandun1@gmail.com?part=3D6
 
-Maybe this is to coarse but it's what we have.
-
-The tag doesn't really mean much, it just mean "an LLM was
-involved with something related to this patch", it could
-have been used just for testing or review.
-
-Since we have Sashiko reviewing everything I guess in theory
-we should even add it if we looked at the Sashiko reviews,
-but nobody does that. So it's a bit arbitrary. Nobody's gonna
-be upset about either, it's just some helpful metadata.
-
-Yours,
-Linus Walleij
