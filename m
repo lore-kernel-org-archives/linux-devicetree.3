@@ -1,188 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E382B3F8891;
-	Tue, 22 Sep 2026 07:14:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2524389115
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:18:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061257; cv=none; b=pXN3XYZniQFuDfG8eWuBlOp9L+eeeH0S+axoI3ohbw1Z6REKcE8Tm6MthDV6mLrjKUU+ZbN/ErnUVyX7jTbxa1FSkKr8QzF8Ge01Hcm5CvcduFLE2LbtHPNHVO4TRB55LY7pemnFwu+vSUkRmLYf+/UZQOjcEeMhnpSnLM0M1ko=
+	t=1790061496; cv=none; b=lvNmhESFCXw32cBPsA6AwF8wyEbaMpVbApBnN2cgVVLbb9y9FKdTRhyHFsxRa8AmAnl1BL24uanVuA/6XL8Ero6xI4XmQi/ErrlCZMc8acMKL/RQ4GSwxw23Qpr4DCDfFmZrSXtUACca2QzyIkV6LqvL8pb6owsVm/PjxdXMtkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061257; c=relaxed/simple;
-	bh=4ZVyXz6SHiLpbhe28V/OzygcfIdI5Tb2Cda8+NiEYSQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iDTwsmTGaQ8h/I8czZe9bI2KMwU4eV5inAD8Lo7OkD1LHoT9Cauw2nYcs635FVPp2WczCqpN6OSATk/sej8HlX0E3Hnih3uQOLHvR6QUMKeFFsX09nVJ8jrbwV3rJDq7FenVZ7gm1DacRukJei0w6oRuitrTxLk03Qkobq6yMhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DAbS6x8P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790061496; c=relaxed/simple;
+	bh=vfAOnWF9ma8enyqr4D1jm+4ryfaUF06KvZPYdakyP4g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GGq516iHZCg1RtvcCzSEClUcyQPSFP5HLtv/usn2R8IoZIACWCQiPu0j1gUArVb2JUfhPevxLsWqWV21ibOgKiq07HfdZe3a9xaXB/NyuEju/SmP9X9CpBl5oHdAa8FjqF6rVbqVnPlLN7BOXvNqQv7szqpuXUeFJfX2VIDEq5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TdgKWF2E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DAbS6x8P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA2A1F000FF;
-	Tue, 22 Sep 2026 07:14:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TdgKWF2E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CEE01F008A1
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:18:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790061255;
-	bh=aI06oI3UupUtss03KSUlJe1ny9XAks3A2UFfUY29z4s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DAbS6x8PJ4d7ZgF81X+Ki7oUK7GWy6UMdVEIdmqGoyftKKJ+vQqw1UuQvUyVYfDZ2
-	 hu4/hLe7GH+Prr5Kji/8E3KhKSkRHWOJ+uz8Inyv3qNZCICHSRoidrGJ7qeby17zJq
-	 KlvcbPgvcFsGEITaZGxw/ByxSHw8pwTSo+Etl3JtniphscCiDQVbWIcNBelebsQlPm
-	 fKh4ONUhFST4HIWxpndtN5fAqj16SO0SDnmnEE5jweMxhL2bDsPqp3vMJ5A2i/vF6Y
-	 e1uI1agMI0l+BsbZIu+ox8NFg/SQZ4kx/XJm/tn1wMxVPm3LK8UH0/OeIuUEFCDunU
-	 evHQR/mRlSVeQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 17/19] dmaengine: ti: k3-udma-v2: Add support for
- PKTDMA V2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
-Cc: vkoul@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260922064902.2719979-18-s-adivi@ti.com>
-References: <20260922064902.2719979-1-s-adivi@ti.com>
- <20260922064902.2719979-18-s-adivi@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 07:14:14 +0000
-Message-Id: <20260922071415.3CA2A1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790061482;
+	bh=Kiu2zTEU4eOPd6KYh9rbDUJ7UJD3txxYyQibAU4/O4U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TdgKWF2EpS1w3ADvij2BopLpxhHXGdHIunEVbiZcvtASTMdf/9sUcUsOCpknA/t97
+	 OUDjR9pY9+X6TC0C7nH/sd0n5JKYjOW0JKYTuP8kSz9UyZwWuiPuD1OnzwLncY14m+
+	 z1V4mE8i6JRQJ8xGQB6k1qtTQZeDJ4qv7cs7bLXpyPTP0U9wqBJH/nZLelCYQq7Oe/
+	 oVPXn1WdL76/wYtlx9Psk9Oc9CxpkcIhZFCd2IyFMqmD6QUbOpcXGzpKktQRoSmHOm
+	 ce6l5zgc+wWVOzGg3rCucrtknj4lDC33ancgZfwJYKmtGTfPVghJMT7Jko+pc3V0Te
+	 Uou8jemMlGVvg==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5da7416f9so27135181fa.2
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 00:18:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzamvw5XxLPZo5cDR1Zuc9XvApGN8TAAu4cKT5xD4pT9fug/NBHuTOJeyq4h2UjDVy9WhTwh2hwT97B@vger.kernel.org
+X-Gm-Message-State: AFuF++kKWO8vp7tvAyuE3EbhSZTkcWVT4KdqIQdcnyfa4JFgio1ldAhX
+	StBA9nOzqMcZTxVeHSNMd1LLzO5vXN7l3st18e9KjrGdEJMxGSuirOtayuULjycnD0eZCHwK/Pq
+	6Qhe2ZypYqJIdt3iUgpaZ4cLEfXRYLKA=
+X-Received: by 2002:ac2:51c3:0:b0:5b8:bc5e:b572 with SMTP id
+ 2adb3069b0e04-5b8c1845684mr4028396e87.42.1790061480637; Tue, 22 Sep 2026
+ 00:18:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-8-282ff5d98dda@ambarella.com>
+In-Reply-To: <20260921-cv75-v5-v8-8-282ff5d98dda@ambarella.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 22 Sep 2026 09:17:48 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkSfPvuO=ZgqwYnbBBjxuu4ns1EDpHXQxKgWGqK9E130A@mail.gmail.com>
+X-Gm-Features: AclHuK98tk4GqYStUdUYs2m51yzirRsfrNvcnULTogZGKv-tdFHo0QJgErcoW2U
+Message-ID: <CAD++jLkSfPvuO=ZgqwYnbBBjxuu4ns1EDpHXQxKgWGqK9E130A@mail.gmail.com>
+Subject: Re: [PATCH v8 08/18] gpiolib: regmap: add write_data_after_dir quirk
+To: longzhao@ambarella.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] dmaengine: ti: k3-udma-v2: IRQ name mismatch for PKTDMA mapped c=
-hannels
-- [Low] dmaengine: ti: k3-udma-v2: uninitialized pktdma_v2_driver check
-- [Low] dmaengine: ti: k3-udma-glue: enum passed as boolean parameter
---
+Hi Long,
 
-commit 0e040285780e7048563c2c5482644c2f9d9fa82b
-Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-Subject: dmaengine: ti: k3-udma-v2: Add support for PKTDMA V2
+this is starting to look good!
 
-This commit adds support for PKTDMA V2, which differs from V1 in that it
-uses unified channel spaces, direct IRQs, and static channel mapping instead
-of PSIL pairs. It also implements the allocation of TX and RX resources for
-the new PKTDMA V2 hardware.
+On Mon, Sep 21, 2026 at 6:23=E2=80=AFAM Long Zhao via B4 Relay
+<devnull+longzhao.ambarella.com@kernel.org> wrote:
 
-> diff --git a/drivers/dma/ti/k3-udma-glue.c b/drivers/dma/ti/k3-udma-glue.c
-> --- a/drivers/dma/ti/k3-udma-glue.c
-> +++ b/drivers/dma/ti/k3-udma-glue.c
-[ ... ]
-> @@ -166,6 +166,29 @@ static int of_k3_udma_glue_parse_chn(struct device_n=
-ode *chn_np,
->  		goto out_put_spec;
-> =20
->  	thread_id =3D dma_spec.args[0];
-> +
-> +	/*
-> +	 * V2 PKTDMA DT specifiers encode the hardware flow/channel ID in
-> +	 * args[0] rather than the PSI-L thread ID used by V1. Resolve the
-> +	 * PSI-L thread ID before the common path checks the direction bit.
-> +	 */
-> +	if (common->udmax->match_data->version =3D=3D K3_UDMA_V2 &&
-> +	    xudma_is_pktdma(common->udmax)) {
-> +		struct psil_endpoint_config *ep_cfg;
-> +		u32 psil_thread_id;
-> +		bool dev_to_mem;
-> +
-> +		ep_cfg =3D psil_get_ep_config_by_id(thread_id, DMA_TYPE_PKTDMA,
+> From: Long Zhao <longzhao@ambarella.com>
+>
+> Some controllers ignore data-register writes while a line is still an
+> input. Optionally write the output value again after switching the
+> direction, matching the existing PL061 behaviour.
+>
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+(...)
 
-[Severity: Low]
-Is it intentional to pass the DMA_TYPE_PKTDMA enum as the boolean is_pktdma
-argument here? While the enum value evaluates to true and behaves correctly
-by accident, this appears to be a type mismatch. Should this use
-xudma_is_pktdma(common->udmax) or a boolean literal instead?
+> +++ b/include/linux/gpio/regmap.h
+> @@ -48,6 +48,13 @@ struct regmap;
+>   *                     (Optional) Bitmap representing the fixed directio=
+n of
+>   *                     the GPIO lines. Useful when there are GPIO lines =
+with a
+>   *                     fixed direction mixed together in the same regist=
+er.
+> + * @write_data_after_dir:
+> + *                     (Optional) Write the output value again after
+> + *                     switching a line to output in ->direction_output(=
+).
+> + *                     Needed for hardware which ignores data register
+> + *                     writes while the line is configured as an input.
+> + *                     This is a legacy quirk (e.g. ARM PL061); new hard=
+ware
+> + *                     must not use it. Direction changes will glitch.
+>   * @drvdata:           (Optional) Pointer to driver specific data which =
+is
+>   *                     not used by gpio-remap but is provided "as is" to=
+ the
+>   *                     driver callback(s).
+> @@ -94,6 +101,7 @@ struct gpio_regmap_config {
+>         unsigned int reg_dir_out_base;
+>         int reg_stride;
+>         int ngpio_per_reg;
+> +       bool write_data_after_dir;
+>         struct irq_domain *irq_domain;
+>         unsigned long *fixed_direction_mask;
+>         unsigned long *fixed_direction_output;
 
-> +						  &psil_thread_id, &dev_to_mem);
-> +		if (IS_ERR(ep_cfg)) {
-> +			dev_err(common->dev,
-> +				"No PSI-L config for flow %u\n", thread_id);
-> +			ret =3D PTR_ERR(ep_cfg);
-> +			goto out_put_spec;
-> +		}
-> +		thread_id =3D psil_thread_id;
-> +	}
-> +
->  	if (dma_spec.args_count =3D=3D 2) {
->  		if (dma_spec.args[1] > 2 && !xudma_is_pktdma(common->udmax)) {
->  			dev_err(common->dev, "Invalid channel atype: %u\n",
+1. You have put the kerneldoc in a completely different place in the order
+of thing than where you put the flag in the struct.
 
-> diff --git a/drivers/dma/ti/k3-udma-private.c b/drivers/dma/ti/k3-udma-pr=
-ivate.c
-> --- a/drivers/dma/ti/k3-udma-private.c
-> +++ b/drivers/dma/ti/k3-udma-private.c
-[ ... ]
-> @@ -174,16 +174,30 @@ EXPORT_SYMBOL(xudma_is_pktdma);
-> =20
->  int xudma_pktdma_tflow_get_irq(struct udma_dev *ud, int udma_tflow_id)
->  {
-> -	const struct udma_oes_offsets *oes =3D &ud->soc_data->oes;
-> +	if (ud->match_data->version =3D=3D K3_UDMA_V1) {
-> +		const struct udma_oes_offsets *oes =3D &ud->soc_data->oes;
-> =20
-> -	return msi_get_virq(ud->dev, udma_tflow_id + oes->pktdma_tchan_flow);
-> +		return msi_get_virq(ud->dev, udma_tflow_id + oes->pktdma_tchan_flow);
-> +	}
-> +	struct platform_device *pdev =3D to_platform_device(ud->dev);
-> +	char irq_name[10];
-> +
-> +	snprintf(irq_name, sizeof(irq_name), "tx-%u", udma_tflow_id);
+2. Put a comment above the behaviour flags because there will
+invariably be more of them! Something like:
+/* Regmap GPIO behaviour flags */
 
-[Severity: Medium]
-Does this cause an IRQ name mismatch for PKTDMA mapped channels?
+3. Put a newline before & after the flags so they end up in a separate
+section of the struct, so people know where to add them.
 
-In pktdma_v2_alloc_chan_resources() in k3-udma-v2.c, the DMA engine channel
-allocation uses mapped_channel_id (via irq_ring_idx) to construct the "tx-%=
-u"
-IRQ name:
+I would put them:
 
-    if (uc->config.dir =3D=3D DMA_MEM_TO_DEV)
-        snprintf(irq_name, sizeof(irq_name), "tx-%u", irq_ring_idx);
+        struct device *parent;
+        struct regmap *regmap;
+        struct fwnode_handle *fwnode;
 
-However, this exported accessor xudma_pktdma_tflow_get_irq() uses the flow =
-ID
-to construct the exact same prefix.
+        const char *label;
+        int ngpio;
+        const char *const *names;
 
-If mapped_channel_id differs from default_flow_id, will this cause
-initialization to fail for one of the consumers because it cannot lookup the
-expected IRQ name from the device tree?
+HERE
 
-> +	return platform_get_irq_byname(pdev, irq_name);
->  }
+        unsigned int reg_dat_base;
+        unsigned int reg_set_base;
 
-> diff --git a/drivers/dma/ti/k3-udma-v2.c b/drivers/dma/ti/k3-udma-v2.c
-> --- a/drivers/dma/ti/k3-udma-v2.c
-> +++ b/drivers/dma/ti/k3-udma-v2.c
-[ ... ]
-> @@ -870,6 +1012,7 @@ static int udma_v2_resume(struct dma_chan *chan)
->  }
-> =20
->  static struct platform_driver bcdma_v2_driver;
-> +static struct platform_driver pktdma_v2_driver;
-> =20
->  static bool udma_v2_dma_filter_fn(struct dma_chan *chan, void *param)
->  {
-> @@ -879,7 +1022,8 @@ static bool udma_v2_dma_filter_fn(struct dma_chan *c=
-han, void *param)
->  	struct udma_chan *uc;
->  	struct udma_dev *ud;
-> =20
-> -	if (chan->device->dev->driver !=3D &bcdma_v2_driver.driver)
-> +	if (chan->device->dev->driver !=3D &bcdma_v2_driver.driver &&
-> +	    chan->device->dev->driver !=3D &pktdma_v2_driver.driver)
-
-[Severity: Low]
-Is pktdma_v2_driver intentionally left uninitialized here?
-
-Since the device is probed by bcdma_v2_driver (which matches both the BCDMA
-and PKTDMA compatible strings), this check against the unregistered driver
-struct seems like it would always evaluate to false, leaving pktdma_v2_driv=
-er
-entirely unused in memory. Does this structure need to be registered
-somewhere, or can this check be safely removed?
-
->  		return false;
-> =20
->  	uc =3D to_udma_chan(chan);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922064902.2719=
-979-1-s-adivi@ti.com?part=3D17
+Yours,
+Linus Walleij
