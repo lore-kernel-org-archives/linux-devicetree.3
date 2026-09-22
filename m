@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB6918FDDE
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:13:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360773E8C78
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:13:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790064809; cv=none; b=mw14M3Vp7foVLqGDHBPlgm0JSwP/4WyFPYeu+37BUhQMgi4ORexyHGRlMPWNuNl7MCWHRN8nN9hbqfEgt8atVyxqkpiGUeCcWxGuE6kjGPFQyboGIGtVHmUzy3N2Y5A3TBJRwrfQqM+Ytpt+x+qM4wQbQihgL0OkjhG6Pyvjzss=
+	t=1790064824; cv=none; b=CYl9BY7egKotrRxRU+p/gvIAl5IDXeq/2iFy5oXHaautJUbswr1AQmhCKoLNIWnfg7jQ5eFb6GygHJhackP+CACRQNDMNkDm81p84olTQh7OJ84YhZjEmfmN5/EF2F8owY9SodspFCfgq1SUwI2QoLplqqCtGOO3rJkNeVmY/SU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790064809; c=relaxed/simple;
-	bh=PcywF9rhCnpojUoPsDT7/JrWYHdMlty3PCYFjcvvb/g=;
+	s=arc-20240116; t=1790064824; c=relaxed/simple;
+	bh=KAo3wyIpDnfTx9jMJY3gXy5m0TMW6WPm2yb96FDCnYk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ade2AMd+4huyJjwwzUKNc8NIf6RYRlFj2z8dW+GGNMU1pA9EMmANZOfSLhebVHBjaLa/TksI7hjj1wWgwYsbNn/LbP34xUMwhRTbrx9p0zaQ7FJro7uYPQ0iTwOPXNUza0D4DCM1k1gcX810khouoAQzq7TWP2hsnxY+asalXIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AeySXJ1B; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=KhlVQP1QOlG3oc3ly0F5aB41pATfssbK67LJwZpKoNBRvZbB+0uIcCXObMYhAjqLaVU+IYAiBtS4jfiLC77lc721MHsnJx1fBw9SQcafv5c7LM1q8Bh3Se7CAN96xg4JfZkcA1jTURxdk+2F7xBOIjSA9ooHfLW/2KEzEygoiG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FGI3dduX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AeySXJ1B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46651F000FF;
-	Tue, 22 Sep 2026 08:13:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FGI3dduX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BEB71F000FF;
+	Tue, 22 Sep 2026 08:13:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790064807;
-	bh=1Q8GiMw0LVwZDNcTqiB3kPUJXrqPMft/MvgEzE6X2hs=;
+	s=k20260515; t=1790064822;
+	bh=IsQLe31enaQSDdOEVLf5cl0EaDhQPbtBswlUYDtTxMQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AeySXJ1BeIhD4sjyMjlTo+2khmUZCN+PvUwWwdFH9Vv3K1hMijE/5fKbXY3YAf7iv
-	 BfEMp1NLgdvrX9KyHrvwpGOtmazswEsKc0My9nFjRVTrXLfZT/mmjnc2Shat8TQjbs
-	 AzrQxkL5rwbvsVhR9m0gARdyKnvVR+2aK0uu0EO2I1/rLSe0rg4wiFp8rBpwBWBAoT
-	 6MJGQD4en1B5emJIrnu2XRZmcnxMa1FiiimK1xEkfSA8GAN5DHQGFqUoA8Rt1fqf+T
-	 hHj+aL3tQM/O+vCp0Bi48FoYd4uwcrklAfG0272RnyMAod+IXqo+l2BnPMjS09EmwM
-	 4DNUFeQnictLg==
+	b=FGI3dduXqTNK8wA8zh9nd091h0w4GZzyXuewyvCbGcvSjfeANGoLE7E2hlpj+fUXB
+	 aJ4ObKbrwesDGPlJVsk6kjBqca+jJAYiVOwBihj9XXdoHBYd8lGf6hiCoiMnt6QDVP
+	 h54Lbe5lD25dLkbIufiyeyqpTGihrkc5ymysl69kPSKJ5OHYqL4HjPkNSnDnQs9aEx
+	 0uIWCGxVTPapWfzABAYEFF62m+avz4YVsUw+CZ8BM4MFQlobtIVsKc8azNAKDiYRd3
+	 oDhyXJtKPjU7fWlH7F9M6Nj+9gCXaS18XTA8j5VoLDoHOrq68BRQiKZD/pHpxK1Ui3
+	 m0l7rg8z2zoCw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/11] accel/rocket: restore the NPU clock boot rate
- before powering the cores down
+Subject: Re: [PATCH] arm64: dts: qcom: nord: Add bwmon node for Nord
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Igor Paunovic" <royalnet026@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260922080114.44662-9-royalnet026@gmail.com>
-References: <20260922080114.44662-1-royalnet026@gmail.com>
- <20260922080114.44662-9-royalnet026@gmail.com>
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260922080416.484280-1-shengchao.guo@oss.qualcomm.com>
+References: <20260922080416.484280-1-shengchao.guo@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 08:13:26 +0000
-Message-Id: <20260922081326.B46651F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 08:13:42 +0000
+Message-Id: <20260922081342.9BEB71F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,60 +45,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] kexec: missing hardware quiesce and DMA halt in rocket_shutdown
+- [Low] dts: qcom: missing status disabled on incomplete bwmon nodes
 --
 
-commit a41629401e441e7353babe8449ad03dc39082ce0
-Author: Igor Paunovic <royalnet026@gmail.com>
+commit 2b4a55863dba14f87c025537e56ccb0a5f410f20
+Author: Pushpendra Singh <pussin@qti.qualcomm.com>
 
-accel/rocket: restore the NPU clock boot rate before powering the cores down
+arm64: dts: qcom: nord: Add bwmon node for Nord
 
-This commit records the initial NPU clock rate at probe and restores it dur=
-ing
-runtime suspend when the last core goes away. It also introduces a shutdown
-hook to restore the rate before system reboot or kexec, ensuring the hardwa=
-re
-does not fault when the domain is subsequently powered back on.
+Add BWMON nodes and associated OPP tables to enable dynamic DDR/LLCC
+frequency scaling.
 
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
+> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
+m/nord.dtsi
+> index e0496fd40c308..9925e770dfa46 100644
+> --- a/arch/arm64/boot/dts/qcom/nord.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
 [ ... ]
-> +/*
-> + * A kexec hands the next kernel whatever rate is set here, and that ker=
-nel
-> + * will power the islands up before it looks at the clock.
-> + */
-> +static void rocket_shutdown(struct platform_device *pdev)
-> +{
-> +	struct rocket_device *rdev =3D dev_get_drvdata(&pdev->dev);
-> +	int core;
+> @@ -1460,6 +1460,73 @@ uart13: serial@a98000 {
+>  			};
+>  		};
+> =20
+> +		bwmon_cluster2: pmu@1014400 {
+> +			reg =3D <0x0 0x01014400 0x0 0x600>;
+> +			interrupts =3D <GIC_SPI 739 IRQ_TYPE_LEVEL_HIGH>;
+> +			operating-points-v2 =3D <&bwmon_cluster_opp_table>;
+> +		};
+
+[Severity: Low]
+Should this bwmon_cluster2 node include a status =3D "disabled" property?
+
+Because this base node in arch/arm64/boot/dts/qcom/nord.dtsi is introduced
+without a compatible property, it is enabled by default. Any board including
+nord.dtsi without fully configuring this node will instantiate an incomplete
+platform device and trigger dtbs_check schema validation errors.
+
 > +
-> +	if (!rdev)
-> +		return;
+> +		bwmon_cluster1: pmu@1015400 {
+> +			reg =3D <0x0 0x01015400 0x0 0x600>;
+> +			interrupts =3D <GIC_SPI 812 IRQ_TYPE_LEVEL_HIGH>;
+> +			operating-points-v2 =3D <&bwmon_cluster_opp_table>;
+> +		};
+
+[Severity: Low]
+Does this bwmon_cluster1 node also need to be disabled by default for the
+same reason?
+
 > +
-> +	core =3D find_core_for_dev(&pdev->dev);
-> +	if (core >=3D 0)
-> +		rocket_npu_restore_boot_rate(&rdev->cores[core]);
+> +		bwmon_cluster0: pmu@1016400 {
+> +			reg =3D <0x0 0x01016400 0x0 0x600>;
+> +			interrupts =3D <GIC_SPI 813 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +			operating-points-v2 =3D <&bwmon_cluster_opp_table>;
 
-[Severity: High]
-Does this code leave the hardware executing active jobs and performing DMA?
-
-If the system reboots or executes a kexec while the NPU is actively
-executing a job, lowering the clock rate here does not halt the hardware or
-stop active jobs. Because this is a platform device, there is no automatic
-bus-master clearing.
-
-Can this lead to the NPU continuing to perform asynchronous DMA into memory
-while the new kernel boots, potentially causing memory corruption or fatal
-bus faults?
-
-Should the driver explicitly halt jobs, mask DMA, and reset the core (for
-example, via rocket_core_reset) before returning from this shutdown hook?
-
-> +}
+[Severity: Low]
+And similarly for this bwmon_cluster0 node, should it have status =3D "disa=
+bled"
+to prevent incomplete instantiation when the variant-specific compatible
+string is missing?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922080114.4466=
-2-1-royalnet026@gmail.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922080416.4842=
+80-1-shengchao.guo@oss.qualcomm.com?part=3D1
