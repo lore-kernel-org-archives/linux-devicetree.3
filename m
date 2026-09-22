@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48969334C1C;
-	Tue, 22 Sep 2026 10:48:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679F93BBA05
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:50:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074134; cv=none; b=PZHb3u0buG4RfiAm300d9drAsql3yFb+bLnRSnbWt7ZxR8lwPV3Go6TgztH+Bsvg+MjzNa/5eE9+9ET7oNZhIAcv7rGov5MiTVY6Y3ulkV7tnV6X6BPJ9WcCiaeAPp+nVs5TcH+0Wh7tXoaZUEiSDebipuyHEJ219tY0RWLwjSU=
+	t=1790074205; cv=none; b=r3WBHrCsOmFtBvP7QsQUCKyzv+qZDeX/vuyPB1PfGjdwoe3IbCB6a7U3QTCFeeoO1JRfe24tJpL42c1g4sKOHFbsnAFhzcQfjc1+3vfWlIsLSBft50sxs/ZsEuNCrrnW6Urx2sES53bim21EIEn7yVelk+vErsu9HlbehYFwnZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074134; c=relaxed/simple;
-	bh=sdoU+05LwGO/5IKHz2JWlLMFm+pfMdWGUdSvyfJT7bM=;
+	s=arc-20240116; t=1790074205; c=relaxed/simple;
+	bh=ZKymurpSO5NMsoo40LaCoidOjdwZMz0dmFI6ePj5M5w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LIAo1WSEmG7lcUd9LyCg46htN4W3D9y5RFeTNAOFUngMnahi/dTKvfBjHdVIQ/IoBo8T76SkqPdDK/3BE1mAcXW+V6rCpxBie+1OUAKI7bKr3I4ya3/In35WlREQcwI7cwkv8Gm0ifiZGKcf8yo7SFOEW+iHICtslfo/J6uPMfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MOCZ7uKD; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=j9hsU84+36NmsPvElUjYfglP36yYssByoOYaD5M3l5nX3yJaRm9lAE3CewSSi1fhVx396w08wpmNaQo/aMa7H3byuWSc8b4x2t/EFjKH+zZEsajWRr+2ViAsH82YJI75iMVZOGFFMvUkPbfCwoGMGwflGOcX6oymZZWKN8knm3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIOE8SYp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MOCZ7uKD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740561F000FF;
-	Tue, 22 Sep 2026 10:48:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIOE8SYp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98C4C1F000FF;
+	Tue, 22 Sep 2026 10:50:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790074133;
-	bh=tlFFiZRxfgx1Jj0XoMt/FlYoTm4Jk3kOQYOucZTA4lI=;
+	s=k20260515; t=1790074203;
+	bh=llhR4Z2ehPlYyJPIU8kUmd1XlojEmc99b86mrM5aAsM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MOCZ7uKD+yQJIe3pIxg++oA1F9B25OfBINPzRBIyqkfIEiJVN8XDTtVfuFpJkFiLk
-	 McrhI2qEt55ZTAulGfzVDjiJigkLmd8S34dTfcygzE0jcWzbaoMA4ByStcgI0U1RM1
-	 YBg2hsfNbmRWKF27PoimbHshBpSuUrExyRXajTCPK2E36ejfG9m7qsirs6PZilV8MU
-	 sHNuz5on7VeVS24WqxSK0V/4IGQt8MfLv/rksztiteyTqlW+TsC6i6OF9gmXFSWiOg
-	 YnM1q2CWX3Io9ncnu+NimclHyCK8Z3S1Rcg38IO9auLyF3Lj/T7c3YWXoKlBMRGeqH
-	 Jrpd6sdGJQyNg==
+	b=BIOE8SYp3OQsYnATwK7qdorwJhUWYoFHJmo1xXmY9e6LQD2cXXRWYcWWfVU+uG4Yg
+	 2BQoc0eM0Yzc+yBCLdwlTB+Td+fc/mEMUEyC3XEMs0PBPuHamtyAY1BRbtatTu08ii
+	 z7/K78FxlBO4vrGy/PEgi4RxCNpbvhJChjqUMYOd7J+h+jxcYZGloJTAwFYSo5UK7K
+	 OKXwJDdXTkgbXVYBJmrc460kKCW77W5Iu7t9n8+fqHOIY9kuMdCX9nISnA6EaQ2iBo
+	 j8yo1K/l/782D9aeDJ4Sw69rqMUmQMM7T10vx3EdANxn2UAJ/qmBApTarHj3j81PuE
+	 xhcB3zrLdqfXQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 1/8] i3c: master: Add APIs for I3C hub support
+Subject: Re: [PATCH v2 3/3] usb: mtu3: add mt6595 support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev, linux-i3c@lists.infradead.org, lee@kernel.org, robh@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260922103551.2754613-2-lakshay.piplani@nxp.com>
-References: <20260922103551.2754613-1-lakshay.piplani@nxp.com>
- <20260922103551.2754613-2-lakshay.piplani@nxp.com>
+To: "Roman Vivchar" <rva333@protonmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260922-6595-mtu3-v2-3-71203a362b36@protonmail.com>
+References: <20260922-6595-mtu3-v2-0-71203a362b36@protonmail.com>
+ <20260922-6595-mtu3-v2-3-71203a362b36@protonmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 10:48:52 +0000
-Message-Id: <20260922104852.740561F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 10:50:03 +0000
+Message-Id: <20260922105003.98C4C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,60 +46,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] i3c: missing locking documentation for exported i3c_bus_set_addr_sl=
-ot_status()
+- [High] usb: mtu3: missing NULL check for device_get_match_data result
 --
 
-commit 732589b2fdab035a70a02657f4550d825edf46a1
-Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-Subject: i3c: master: Add APIs for I3C hub support
+commit d5e4ea09babd67818d32de7a95b82922101210c1
+Author: Roman Vivchar <rva333@protonmail.com>
 
-Add CCC helpers to check CCC support and send CCC commands, address slot
-helpers to query and update I3C bus address slot state, registering virtual
-masters with an explicit firmware node, and exposing the bus maintenance
-lock helpers.
+usb: mtu3: add mt6595 support
 
-> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> index 2cdbffd33fd7f..d1e8cae374b97 100644
-> --- a/drivers/i3c/master.c
-> +++ b/drivers/i3c/master.c
-[ ... ]
-> @@ -423,11 +435,18 @@ static void i3c_bus_set_addr_slot_status_mask(struc=
-t i3c_bus *bus, u16 addr,
->  	*ptr |=3D ((unsigned long)status & mask) << (bitpos % BITS_PER_LONG);
->  }
+This commit adds platform data for the MediaTek mt6595 SoC to the MTU3 USB
+driver. It introduces a quirk to enable single FIFO slot mode for this
+specific platform.
+
+> diff --git a/drivers/usb/mtu3/mtu3_plat.c b/drivers/usb/mtu3/mtu3_plat.c
+> index bb67da4704b29..9d633695a9bed 100644
+> --- a/drivers/usb/mtu3/mtu3_plat.c
+> +++ b/drivers/usb/mtu3/mtu3_plat.c
+> @@ -611,11 +611,16 @@ static const struct dev_pm_ops mtu3_pm_ops =3D {
 > =20
-> -static void i3c_bus_set_addr_slot_status(struct i3c_bus *bus, u16 addr,
-> -					 enum i3c_addr_slot_status status)
-> +/**
-> + * i3c_bus_set_addr_slot_status() - Set I3C bus address slot status
-> + * @bus: I3C bus.
-> + * @addr: I3C address to update.
-> + * @status: Address slot status to set.
-> + */
-> +void i3c_bus_set_addr_slot_status(struct i3c_bus *bus, u16 addr,
-> +				  enum i3c_addr_slot_status status)
+>  #define DEV_PM_OPS (IS_ENABLED(CONFIG_PM) ? &mtu3_pm_ops : NULL)
+> =20
+> +static const struct mtu3_platform_data mt6595_platform_data =3D {
+> +	.fifo_single_slot =3D true,
+> +};
+> +
+>  static const struct mtu3_platform_data mt8173_platform_data =3D {
+>  	.fifo_single_slot =3D false,
+>  };
+> =20
+>  static const struct of_device_id mtu3_of_match[] =3D {
+> +	{ .compatible =3D "mediatek,mt6595-mtu3", .data =3D &mt6595_platform_da=
+ta },
 
-[Severity: Low]
-Could the kernel-doc for this newly exported function be updated to document
-the locking requirements?
+[Severity: High]
+Does this code allow an unprotected dereference of pdata if matched without
+OF data?
 
-Because i3c_bus_set_addr_slot_status() calls i3c_bus_set_addr_slot_status_m=
-ask(),
-which modifies bus->addrslots using non-atomic bitwise operations, the call=
-er
-needs to hold the bus->lock (for example, by calling i3c_bus_maintenance_lo=
-ck())
-to prevent data races. Documenting this requirement would help prevent futu=
-re
-consumers of this API from introducing concurrency issues.
+The mtu3 platform driver allows matching by name (via .driver.name =3D "mtu=
+3"),
+in which case device_get_match_data() returns NULL because there is no
+corresponding id_table with driver_data.
 
->  {
->  	i3c_bus_set_addr_slot_status_mask(bus, addr, status, I3C_ADDR_SLOT_STAT=
-US_MASK);
->  }
-> +EXPORT_SYMBOL_GPL(i3c_bus_set_addr_slot_status);
+The mtu3_probe() function gracefully tolerates a missing of_node, allowing
+execution to reach ssusb_gadget_init(), where pdata->fifo_single_slot is
+unconditionally dereferenced:
+
+drivers/usb/mtu3/mtu3_core.c:ssusb_gadget_init() {
+    ...
+    mtu->fifo_single_slot =3D pdata->fifo_single_slot;
+    ...
+}
+
+While typically bound via device tree, manual binding via sysfs or missing
+.data in future OF match entries will trigger a kernel panic (Oops) here.
+
+>  	{ .compatible =3D "mediatek,mt8173-mtu3", .data =3D &mt8173_platform_da=
+ta },
+>  	{ .compatible =3D "mediatek,mtu3", .data =3D &mt8173_platform_data },
+>  	{},
+>  };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922103551.2754=
-613-1-lakshay.piplani@nxp.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922-6595-mtu3-=
+v2-0-71203a362b36@protonmail.com?part=3D3
