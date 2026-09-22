@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E3348F85C;
-	Tue, 22 Sep 2026 10:50:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8FE7535FB3
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:53:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074221; cv=none; b=dVuTfYF+8bGXnx6ESoggOw1nbKLnQVn4htrC2W6x3sTAMtj+BrvOc1oQO81D0cxEbBu4+q/K2KmSueI0YCt950cHW87KNMRvVR5hkFZ48oe7I/tInmh6+MJ+u/hXB1lwG3PqjdQvxxS3oiVEN7NlEtF85sbJhq27ZK2jP4MvkTw=
+	t=1790074401; cv=none; b=mSAhVmFxdrmGR3JX4LSj9UP0gpiYlDZXlmiW0fUsv1PEHXc+BbUK4nVeZDClw22KNLbvETCLXI0XZfcaKAujMcRijInG/Z71abr70NvVpOxS+kdT9rF9Rdfk5UgaegRIuZKpJfSZrFcsJsAwtGjIM/SLticpbvtBxaKSwLYpCSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074221; c=relaxed/simple;
-	bh=PpkvljtiJh9ifAVwomC1pnrEIIPySBoDAR8ZhT9ufMU=;
+	s=arc-20240116; t=1790074401; c=relaxed/simple;
+	bh=phM6b5nxbwDLcnWqdARsUXK2QwmwE6e2PkJmh2Vgpew=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NoOLm0ynKoH9AilfoQ563Jm3T8U3j6CGXcZvqwPTrfomFGNNL72DUMoJnh0hjruotw1r8J9NDvK4NMdjVEmhRsHLZ9QjqqfVS/sJMF195siZNiYX+6Sqt9zAhvVnSuX7CnbAPEmxvqS5d7BfpgzxyNEpwqnVol1dgz60VcKJeFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYITFY11; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ENrOOLc63hdINTXLIh9dqcKoLSpICe+eCIY/W2XPlLZQBUc82lJLcPt5u9bJB878FwlIjRDUz2L7iEwPL9lNkJWu6vC+w5XxFSj1MoccfmMfOY8rE3+l5gBB8ySEm72QrJmmnaYaqHeeYGq9Zp+CMtbZTtmtVn0P3W11B2FcB0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGAUqW6Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYITFY11"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 685311F000FF;
-	Tue, 22 Sep 2026 10:50:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGAUqW6Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F431F000FF;
+	Tue, 22 Sep 2026 10:53:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790074219;
-	bh=D7joL9jnBPIgpSCdigDprJQYjlUtilYbRowEWg3+3u0=;
+	s=k20260515; t=1790074396;
+	bh=9gX/7loJZxrdXBpa90Qqw2w5Xsy64j/sH1+mLHVUGF0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oYITFY1100Pe9vg0QKxTIINdYmmQblmKWbmDSg4NXd4pQsmEj3YdOBa0knyjy/pXJ
-	 3MqJOIPs4nphaG8lZPNrITJ5JyghZAABJ7pN1DVBe9Il+T0k7jAQ1cXI1CTGP9TihG
-	 5IuE4X6W5E8VoKOY9XzEB/ZDtz43Y/MMGxBA9xJeYY8CPMNEcstf7jTfCmT7zm+1EX
-	 HIJAJnbCg0/E3Dhq54W2Z+UBImsGS54Y69Pe2XRT+4UIujS0rD9k4DbALVyI7xayFN
-	 gOt+SLkZm1wVcjyQIf+4eHMVsX1qdISkCNIcXU4olUbLXATOkU1aHE9or+3BAa0Gzi
-	 eUXQWzxBflYpA==
+	b=oGAUqW6YD7xQzbf3csEfEhn2k7ulTE+yd8FqJ4yqOgNuxUzLIrOlA0PEYLnB9TK/z
+	 6p3zKGGCx7dv6G83ZZOHyLtesosqIFG+Y8E7b72Us8YeKBUNrHqinGXntZgRYFQ3O7
+	 T6XE19BsVUAPrnotZrMvJsgprM/sg67WKTtJRFdyX3AoiUMZwiiuFr1h/2XTEspfK0
+	 5rmnKRH6ZJPQtqJbFbdDZJneOgVySui23Lt1d0KglmgdKreCnaX59uTqTk0pn83oBZ
+	 p+dYsE2iQ0uQPAnEOdbDenlZFkYPPxbV3Tp5DLLON7nOkAU5JS2TSd6n0tGzfj4iNf
+	 jWZjFDy2SvoXQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c
- hub and on-die regulator
+Subject: Re: [PATCH net-next v10 3/3] w5100: detect carrier state using link
+ status bit and optional interrupt
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: Frank.Li@kernel.org, linux-i3c@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org, lee@kernel.org, robh@kernel.org, mfd@lists.linux.dev, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20260922103551.2754613-5-lakshay.piplani@nxp.com>
-References: <20260922103551.2754613-1-lakshay.piplani@nxp.com>
- <20260922103551.2754613-5-lakshay.piplani@nxp.com>
+To: "Arthur Crepin Leblond" <arthur@marmottus.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
+References: <20260921-wiznet-link-gpio-v10-0-5874a7a147a2@marmottus.net>
+ <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 10:50:19 +0000
-Message-Id: <20260922105019.685311F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 10:53:15 +0000
+Message-Id: <20260922105316.82F431F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,47 +47,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] mfd: driver-specific header incorrectly placed in global include/li=
-nux/mfd/
+- [High] net: w5100: race in w5100_suspend due to incorrect detach ordering=
+ and missing work flushes
 --
 
-commit ee0020c355157050632a39b51c33798536ac333a
-Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+commit 4b50b6b7047dc53f16eedfdba4f4a537ef54c0fd
+Author: Arthur Crepin Leblond <arthur@marmottus.net>
 
-    mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub and on-die regulator
+w5100: detect carrier state using link status bit and optional interrupt
 
-This commit adds core MFD support for the NXP P3H2x4x family of multiport I=
-3C
-hub devices. The devices connect to a host via I3C/I2C/SMBus and expose
-multiple downstream target ports.
+This commit adds support for detecting the carrier state on the w5500 Ether=
+net
+controller using the Link Status bit and an optional interrupt. It also
+refactors the bring-up and teardown operations, including changes to when
+net device registration and work queue cancellations occur.
 
-> diff --git a/include/linux/mfd/p3h2840.h b/include/linux/mfd/p3h2840.h
-> new file mode 100644
-> index 0000000000000..eb4792de5440e
-> --- /dev/null
-> +++ b/include/linux/mfd/p3h2840.h
-> @@ -0,0 +1,41 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright 2025-2026 NXP
-> + */
+> diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/w=
+iznet/w5100.c
+> --- a/drivers/net/ethernet/wiznet/w5100.c
+> +++ b/drivers/net/ethernet/wiznet/w5100.c
+[ ... ]
+> @@ -839,9 +997,20 @@ static int w5100_suspend(struct device *dev)
+>  	struct w5100_priv *priv =3D netdev_priv(ndev);
+> =20
+>  	if (netif_running(ndev)) {
+> -		netif_carrier_off(ndev);
+> +		disable_irq(priv->irq);
+> +		if (priv->link_irq > 0)
+> +			disable_irq(priv->link_irq);
 > +
-> +#ifndef _LINUX_MFD_P3H2840_H
-> +#define _LINUX_MFD_P3H2840_H
+> +		cancel_work_sync(&priv->restart_work);
+> +
+>  		netif_device_detach(ndev);
 
-[Severity: Low]
-Could this newly introduced driver-specific header be moved to the local
-drivers/mfd/ directory instead of being placed in the global
-include/linux/mfd/ space?
+[Severity: High]
+Does this code leave a race condition in w5100_suspend() due to the detach
+ordering?
 
-The MFD subsystem guidelines specify that driver-specific headers containing
-private structures like struct p3h2x4x should not be placed in the global
-include/linux/mfd/ directory if they are only used by the parent and its
-immediate children.
+If a TX timeout occurs between cancel_work_sync(&priv->restart_work) and
+netif_device_detach(), wouldn't restart_work be re-scheduled because the
+netdev watchdog is still active?
 
-Placing it here causes a layering violation and introduces tight coupling by
-polluting the global include space at compile time.
+Also, rx_work, tx_work, setrx_work, and napi do not appear to be flushed or
+disabled in w5100_suspend(), unlike in w5100_stop(). Could this allow them
+to execute concurrently with or after w5100_hw_close(priv) and access
+suspended SPI hardware?
+
+> =20
+> +		if (priv->link_irq > 0) {
+> +			mutex_lock(&priv->link_lock);
+> +			netif_carrier_off(ndev);
+> +			mutex_unlock(&priv->link_lock);
+> +		}
+> +
+>  		w5100_hw_close(priv);
+>  	}
+>  	return 0;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922103551.2754=
-613-1-lakshay.piplani@nxp.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921-wiznet-lin=
+k-gpio-v10-0-5874a7a147a2@marmottus.net?part=3D3
