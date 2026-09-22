@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C95528454;
-	Tue, 22 Sep 2026 08:49:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1767541A571;
+	Tue, 22 Sep 2026 08:50:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066942; cv=none; b=rFwDkV9zQ7yBwRCL0qQ9QN60pOKVfJHx7+h7n58KnLosTqRjW1z7OTbBYM7kiYtcqYpWIWskWwmsNoFURYg9Nrnk4PduCFJj0bLIw0AhVw1XUCWWw61XbkbquG+orlDqH7f4x/urGOecLvA1mzb4PHS2olQ6Ifh2LXvKbnzwbHc=
+	t=1790067026; cv=none; b=EE5YDiodh9LVv9WiXbgCLj2qPXIKZW/zS8e75014iFty0g7pNvNW5PWYyxN5cK9sa2f0uBN7q3+QW7qoc02HrmjBVcpjbKqxL/Q0mJaAHcmZsXvmraZ0SgGrj4J2oN4r6y8oDjJZlrwgLGUOntsynBfAVL9gnBLKKouv0wXGqM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066942; c=relaxed/simple;
-	bh=XyoOzB8ihijh/xsKK0YcCfpk1RCVC/mcYFS9N53eUdw=;
+	s=arc-20240116; t=1790067026; c=relaxed/simple;
+	bh=usJ9k0xIu/92xmYleGav7bAWB7qWarZ6/FOF9OnKu/A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QOxPMo0Q31Y9OWnH7rpc7ieRydLVCB0RQFtVO3vYA6YR/TErGn+NGA2AlgSJaq5a3zKPa+daLA1eFD9UKG9CTs7M8KCUAB8BFXzChzhl36BN9Tjp2gwSqCwSgVBOfpU1cZGOnzx46tGPpqj5EW1Gv1RrXrSBhXgGaTQ00cC2G4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xl21csvZ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=gD/xN45nCUhZhv+CykhzcvATS3s+CNvAGYqjVz/llSAzPB2ieaH8kFIL2oIuWAk0lHLsnR7vtN/mBKn+otlsXCL+eEp9Op2a4LX3FYljsbjv28QsKvhJdoD4oE6LRO3r3tTGfMiZnlkONdZD45yybMUPHJa6RyDOQ2yVjJ50wEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=opWS6UUI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xl21csvZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC7261F00893;
-	Tue, 22 Sep 2026 08:48:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="opWS6UUI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97631F000FF;
+	Tue, 22 Sep 2026 08:50:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790066940;
-	bh=x2LbWyqsBJi8UoBpecRL5XHK+9G27RrqTqLAShUht5Y=;
+	s=k20260515; t=1790067024;
+	bh=MgnVfIs/WpyD4SY8L5DNXFoVYC8LNakfhMUHMvbFWI8=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Xl21csvZQzm6ARRrwxq6HULPt7eS8+OtYd2FFNzF+XvDYWhm9DnqTr1ZukIbSBV4B
-	 iBFeBb7m5kLiZvTutjgrAgMLxB6fGpn17i8S+yM9MDH5EBep8oxe17DJPjDt8fMNUk
-	 qADPT9tecGMPEkwx5h1xj4NgBOqQXdrIZk6utxNivuPgMsmS1b6gbseNlooBQcNx1D
-	 +ZIUO9TT7dgSDbk2FmiR4UAAtJOeVxaGNtw4ylHNUIcJYcjukQTqj7nqrETNJYxgsV
-	 k8U2EsceBqidp3YE9FS8W8SLurztwBQnkWLs6Kh88NvsfqMFoxrqGUtDWUjCblboEf
-	 jZ69U+kdUeSQA==
-Message-ID: <c356fbfa-0787-4314-862c-aa51972d59d7@kernel.org>
-Date: Tue, 22 Sep 2026 10:48:53 +0200
+	b=opWS6UUIeQBlbzi/lqwi28O+DUOes/PReZleyU9SEku2+DCGzbailNMW7b/ZtCdUv
+	 zOFvzBm1gjsHA5b0VHt7Pz0vmhsdWq04AGM0HtjGk7jUYkyz2/t2lz+9dMYddBo0/X
+	 Q/ODrq8zKKFCMOiWe6v40rMs3Yc+7q7me6TXdV6KKMcia5ljn8jBFx/hD3vFebYWbP
+	 esnI8HkZCnKOyEmkEjXDyq+om5pMh0kAWHuCjKl9j+BH8R1ylPLTZWTcbNqGbxday+
+	 kFzchDl/qpngYtFoyBC6wRozWKfkahqBvyI4f2sUuDr22/RyJfR7KzgUfrAHGQ5jOP
+	 EpURof2SIMj6A==
+Message-ID: <c6b2123b-539e-4c37-8105-3e53a5197ed0@kernel.org>
+Date: Tue, 22 Sep 2026 10:50:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,25 +35,25 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: input: gpio-keys: add pinctrl states
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
- Kendall Willis <k-willis@ti.com>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH 1/3] dt-bindings: i2c: dw: Add DWC_i2c compatible
+To: Aniket Limaye <a-limaye@ti.com>,
+ Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, s-kochidanadu@ti.com, a-kaur@ti.com,
- s-tripathi1@ti.com, vishalm@ti.com, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260912-upstream-gpio-wakeup-v1-0-f0e12484b836@ti.com>
- <20260912-upstream-gpio-wakeup-v1-1-f0e12484b836@ti.com>
- <20260914-unbreakable-competent-beluga-efb5ad@quoll>
- <20260915164819.nlgpuvf37rhzgc66@uda0506412>
- <dec4f6e1-115e-46dd-8fb9-a3c67f1a8811@kernel.org>
- <da881fb0-93da-4d75-88da-8898b2c734eb@kernel.org>
- <20260915174103.ad6tjy6w6s24h2yc@uda0506412>
- <20260916-dancing-loud-guan-fbb1eb@quoll>
- <DLGUOGCLFAI9.2JSS4DCFRYTNI@baylibre.com>
- <dfd82438-1c40-42b7-8a90-bd349a476489@kernel.org>
- <arGGhvIieis2_sZ9@google.com>
+ <conor+dt@kernel.org>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
+ Bin Du <bin.du@amd.com>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, vigneshr@ti.com,
+ nm@ti.com, u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+ Ritwick.Sharma@arm.com
+References: <20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com>
+ <20260919-tda54-upstream-i2c-v1-1-b0b9f77be18b@ti.com>
+ <20260920-warm-lurking-poodle-dd73ee@quoll>
+ <de66ac18-6bc3-4693-bd76-df8113bdb914@ti.com>
+ <20260921111407.GU106095@black.igk.intel.com>
+ <6fa3b1a7-33bb-4619-a0a5-42d99c076d2f@kernel.org>
+ <20260921141031.GX106095@black.igk.intel.com>
+ <203f72c8-4a06-41d4-9212-9625f6be0281@ti.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -99,125 +99,51 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <arGGhvIieis2_sZ9@google.com>
+In-Reply-To: <203f72c8-4a06-41d4-9212-9625f6be0281@ti.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/09/2026 21:35, Dmitry Torokhov wrote:
-> On Sun, Sep 20, 2026 at 12:24:32PM +0200, Krzysztof Kozlowski wrote:
->> On 16/09/2026 17:36, Markus Schneider-Pargmann wrote:
->>> On Wed Sep 16, 2026 at 9:17 AM CEST, Krzysztof Kozlowski wrote:
->>>> On Tue, Sep 15, 2026 at 12:41:03PM -0500, Kendall Willis wrote:
->>>>> On 19:07-20260915, Krzysztof Kozlowski wrote:
->>>>>> On 15/09/2026 19:05, Krzysztof Kozlowski wrote:
->>>>>>> On 15/09/2026 18:48, Kendall Willis wrote:
->>>>>>>> On 12:13-20260914, Krzysztof Kozlowski wrote:
->>>>>>>>> On Sat, Sep 12, 2026 at 04:33:53PM -0500, Kendall Willis wrote:
->>>>>>>>>> Document pinctrl properties on the gpio-keys device node. By using the
->>>>>>>>>> wakeup pinctrl state, the pins are able to wakeup the system from a
->>>>>>>>>> low-power state. The default pinctrl state describes the default pin
->>>>>>>>>> configuration.
->>>>>>>>>>
->>>>>>>>>> Signed-off-by: Kendall Willis <k-willis@ti.com>
->>>>>>>>>> ---
->>>>>>>>>>  Documentation/devicetree/bindings/input/gpio-keys.yaml | 16 ++++++++++++++++
->>>>>>>>>>  1 file changed, 16 insertions(+)
->>>>>>>>>>
->>>>>>>>>> diff --git a/Documentation/devicetree/bindings/input/gpio-keys.yaml b/Documentation/devicetree/bindings/input/gpio-keys.yaml
->>>>>>>>>> index cc78c2152921308fe0cad3e29ca78a5fad08f066..b554933e93412d8b6c2ec401dc1e1eeff57d4190 100644
->>>>>>>>>> --- a/Documentation/devicetree/bindings/input/gpio-keys.yaml
->>>>>>>>>> +++ b/Documentation/devicetree/bindings/input/gpio-keys.yaml
->>>>>>>>>> @@ -22,6 +22,22 @@ properties:
->>>>>>>>>>  
->>>>>>>>>>    poll-interval: true
->>>>>>>>>>  
->>>>>>>>>> +  pinctrl-0:
->>>>>>>>>> +    description: Default pinctrl state
->>>>>>>>>> +
->>>>>>>>>> +  pinctrl-1:
->>>>>>>>>> +    description: Wakeup pinctrl state
->>>>>>>>>> +
->>>>>>>>>> +  pinctrl-names:
->>>>>>>>>> +    description:
->>>>>>>>>> +      When present should contain at least "default" describing the default pin
->>>>>>>>>> +      states. The second state called "wakeup" describes the pins in their
->>>>>>>>>> +      wakeup configuration required to exit sleep states.
->>>>>>>>>> +    minItems: 1
->>>>>>>>>> +    items:
->>>>>>>>>> +      - const: default
->>>>>>>>>> +      - const: wakeup
->>>>>>>>>
->>>>>>>>> This will introduce new warnings, which should be being fixed in this
->>>>>>>>> patchset (e.g. at91-kizbox3-hs.dts).
->>>>>>>>>
->>>>>>>>
->>>>>>>> Will fix the binding to work with current device trees.
->>>>>>>>
->>>>>>>>> But nevertheless, isn't second state the sleep state? How can you
->>>>>>>>> configure pins for the wakeup state - like being in the wakeup? You
->>>>>>>>> configure the pins for given state, which will be a system suspend, so
->>>>>>>>> sleep?
->>>>>>>>>
->>>>>>>>
->>>>>>>> The sleep state usually refers to putting the pins in a state to save
->>>>>>>> power. The wakeup pinctrl state is for putting the pins in a state to
->>>>>>>> allow wakeup from suspend for that device. Both 'sleep' and 'wakeup'
->>>>>>>> are for system suspend, but they fill different functions. The CAN
->>>>>>>> subsystem also uses the 'wakeup' state in addition to the 'sleep' state
->>>>>>>> [1].
->>>>>>>
->>>>>>> So you mean sleep would be a separate state? But then aren't both
->>>>>>> exactly the same states? IOW, if device is wakeup-source, it will have
->>>>>>> for "sleep" state pin configuration allowing to wakeup.
->>>>>
->>>>> The 'sleep' and 'wakeup' pin states are both used for suspend. They
->>>>> would just be used separately since only one could be used at a time.
->>>>> The reason 'wakeup' is separated out is because it is more specific for
->>>>> allowing wakeup from the device.
+On 21/09/2026 19:25, Aniket Limaye wrote:
+> 
+> On 21/09/26 19:40, Mika Westerberg wrote:
+>> On Mon, Sep 21, 2026 at 04:00:52PM +0200, Krzysztof Kozlowski wrote:
+>>> On 21/09/2026 13:14, Mika Westerberg wrote:
+>>>> Hi,
 >>>>
->>>> If they cannot be used together, then it is the same state.
->>>
->>> If I understand this patch correctly, 'sleep' is not relevant here.
->>> But 'sleep' and 'wakeup' serve different purposes and can be
->>> used/defined together in a single device in the devicetree:
->>>  - 'sleep' describes the pin state during suspend if wakeup is not
->>>    enabled by the user or there is no 'wakeup' pin state defined.
->>>  - 'wakeup' describes the pin state during suspend if wakeup is enabled
->>>    by the user.
->>> If the user enables wakeup, 'wakeup' is the relevant state and otherwise
->>> 'sleep'. Which one applieas is a runtime decision of the the user.
->>>
->>> I introduced these two states for m_can for that reason. This was
->>> discussed here:
->>>   https://lore.kernel.org/r/DCD1YPX4T779.ADK4JCGW1MU7@baylibre.com
->>>
->>> And then reviewed/applied in v10:
->>>   https://lore.kernel.org/r/175993598226.3512549.5295923279078928995.robh@kernel.org
->>
->> So we seems to be discussing same issue again, because commit msg lacks
->> proper explanations.
->>
->> The problem and difference here is that there is no sleep state.
+>>>> On Mon, Sep 21, 2026 at 01:55:23PM +0530, Aniket Limaye wrote:
+>>>>> On 20/09/26 23:54, Krzysztof Kozlowski wrote:
+>>>>>> On Sat, Sep 19, 2026 at 02:36:06PM +0530, Aniket Limaye wrote:
+>>>>>>> Add the "snps,dwc-i2c" compatible for Synopsys Advanced I2C Controller
+>>>>>>> referred as DWC_i2c. Compared to the existing "snps,designware-i2c"
+>>>>>> dwc is designware, so snps,dwc-i2c = snps,designware-i2c
+>>>>>>
+>>>>>> I think this is *the* argument why generic compatibles are wrong.
+>>>>> These are 2 different controllers with some different registers and
+>>>>> vastly different register offsets.
+>>>>>
+>>>>> So, the official product name (short format) for the SNPS Advanced I2C
+>>>>> controller is "DWC_i2c", as per SNPS' own reference document [0].
+>>>>> Whereas the original "snps,designware-i2c" corresponds to the product
+>>>>> name "DW_apb_i2c" as per its own databook [1].
+>>>>>
+>>>>> So based on this I though it'd be best to keep "dwc-i2c" close to SNPS'
+>>>>> own naming, despite the fact that it does seem very similar to the
+>>>>> generic "snps,designware-i2c".
+>>>>>
+>>>>> If you'd prefer to make it more explicit, I could change this to something
+>>>>> like "snps,dwc-adv-i2c"? Although, again, this does deviate from the
+>>>>> convention that SNPS uses in it's own documents.
+>>>> What about just "snps,ai2c" or "snps,advanced-i2c"?
+>>> Can we just drop generic compatible completely instead? The block cannot
+>>> work alone, needs SoC integration.
+>> Works for me.
 > 
-> Isn't there? 
-
-Isn't. Quoting patch:
-
-+    items:
-+      - const: default
-+      - const: wakeup
-
-No sleep. :( So both the commit msg, rationale and could improve so we
-won't be asking the same questions at v2.
-
-> The wakeup can be controlled from userspace and can't we
-> possible have 2 distinct pin control states, one for when a device is a
-> potential wakeup source, and another one when the device is in "off"
-> state while system is asleep?
-> 
-> Thanks.
+> Original intent was to try to develop a generic driver so that it could be
+> re-used by other SoCs with some more work (referring to an earlier 
+> series [0])
 > 
 
+I did not comment on your driver. I did not even look there.
 
 Best regards,
 Krzysztof
