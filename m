@@ -1,127 +1,110 @@
-Received: from smtpcmd13147.aruba.it (smtpcmd13147.aruba.it [62.149.156.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A58341A56B
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:22:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040374189C5
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:24:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790065372; cv=none; b=Q6ceWGzrwGc+8Mgo4S6Xv124c0Jpeqm5NOga/bkVOVI8CYEWtlmw2jOeyKm4/t/tesQOJ3hgJa3bIWvR1eCZCUjw54+2Z+4aV6P2RJLoNOvVnOBVYl5C2r72/7imYoGdCmhbKjuVdxJrVlCUE0ZM1q8bzJkwfZNfSgSj9uncZGY=
+	t=1790065461; cv=none; b=m3vlXh5EZtIi+OMkOiRBqC7nCDPPnc1TpJTmzV0I0kvlJkkTBKfYcWy74mhYVGZY8WVn48VzZyfyyjHmaGoWEWC3yealblx75Eabp9BLYHvz0xv1lOfo42ktCbX/v75LBU+x8esABpgN9jpoTpUOAdzNukAXloK/if6IL2u8IpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790065372; c=relaxed/simple;
-	bh=rDoQb5mlFA5Th7ISk5na7ZXgI3XPc9PQbmWOFr3EV4U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YiFcQFQPivGoIMbVSjstERumNOYRkJU0B+QWRHZMV0TG5FtKt0s+PM4Q4jx3xb7N8Ea6Q/SPBFLSGh9ZvrPpIMrrnp9yftpNKTquO/PCtzprMv7Hzjmytx+A+bzlQdLsv1YZkJ5mt1Gh4eCCB35NbLp0ydCoJpsL9Ge8OEVooGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=PJl9nyo0; arc=none smtp.client-ip=62.149.156.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790065461; c=relaxed/simple;
+	bh=dIzwvHbubNIxzeAGu/6wR8vR/VcsOB80Qhi7H+evobY=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tJln4D1Tr2SJm4dpqozwlhIEiAErHSfCEcu6KV71c70OZsQjhmW0fQh6/fZHLUTKmhgk/i8JsAsgDJRYhy+DImlgQ4t7mnBAY9KVPtRJLzsl5bopZBxtlgauoyxG9+dT/LKrUq8LDDl8OrVc/K/9IuCSVAb1LSaDD5iR6IxQQxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bPS+1GyV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="PJl9nyo0"
-Received: from [172.18.100.99] ([109.238.20.116])
-	by Aruba SMTP with ESMTPSA
-	id 8vm3xQopKbk7m8vm3xvA4e; Tue, 22 Sep 2026 10:22:48 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790065368; bh=rDoQb5mlFA5Th7ISk5na7ZXgI3XPc9PQbmWOFr3EV4U=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=PJl9nyo0hkbuQaiZO9eNEwo0urQLcIqMblxFo+70Xq9y+AjK5+jskDd3OArA2bsm9
-	 OfmtUJs+QgP2I64shyPrF+19LvPlsOkWlQwVV2pvkNh0VsU0NIAbzWkTVaj2SI5xnn
-	 2g4tZWxKO3L+D/7kIBQ6BDSjvt4RN2LdUz+nGN3EXlr3SqIqEKWGyRRcyUCqJNAis8
-	 dMFAV45SYBoQhHLPtu+6k2xa/G6nn25A3Fb1/eFhNNgQPDxMHJVotqpAvOhGB4LTt7
-	 bqwk/CJChfD03roC0fluQ8AIbddNZyEHa1jGXxwFn6XWM0Av7eGj5F6tY2zeh/lCNb
-	 gVTvnDMdYfO0Q==
-Message-ID: <235b34e3-2eee-4904-9cdb-490859dabda7@enneenne.com>
-Date: Tue, 22 Sep 2026 10:22:47 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bPS+1GyV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ADA41F0089A
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:24:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790065459;
+	bh=QktO34jPXBfKdoHn+g231ToSz9I4E6jz14gUwoW6nA8=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=bPS+1GyVPa7XdVUiPA9k9+7yAa7xzmGu/WihUxoOrYyIg4jmIIk8rG9ar2msGlT1b
+	 XZse7Bb7wM/ST11PV5YpFYVzgjTFPRwsktBUE+thaF7vFFsLQdMDBLuHp2d5etL9jq
+	 QFJvMYdYRlBGke4Qxnri07n4W3y266itxD5UuU8m4jU1VykJQ/m69If93sTwODaNk9
+	 wYteKpT/AOs1Q8Es9F60ZJBIoBkxk2vr3fiX+zRhMCp8q4SLyFAdlVRn9DBhyFuPBn
+	 XLPX3JO+csjYHVzmWDy0oWaMzs34nx07GVPSex6iWFnobOJ8dcCzX3hPWAkt29aDzk
+	 ViUxiHxWoBVFw==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d6489419so101612e87.3
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:24:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwgr0jyJzEouUnLrssAUe6jvcq64orZVfouf/z2pG+py6rHcleLeYAX2xeT4ddPQ/PvAZF9pLSLsN8m@vger.kernel.org
+X-Gm-Message-State: AFuF++ktwhs1RQ/BANpF1e5a+2eIfZGgpq1CM1WDYO/GPOCTFalDpZiN
+	uOKUnEStgnw5vi7qVxMckXLD2dVJo/eI3Ob6jc4/KxorF2QUA8kYMvsm21JiQFy3kamKXPNVNjX
+	pQeewWNe9nSNaVgJULJukZKe+x/Ae7hrIdVulKau69Q==
+X-Received: by 2002:a05:6512:6281:b0:5b8:babd:dc2c with SMTP id
+ 2adb3069b0e04-5b8c1849028mr3748521e87.37.1790065458151; Tue, 22 Sep 2026
+ 01:24:18 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Sep 2026 01:24:16 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 22 Sep 2026 01:24:16 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <16f1b504-c414-4072-98d3-49f60d552028@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] pps: clients: gpio: propagate probe error codes
-Content-Language: en-US
-To: "Farber, Eliav" <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260917075611.47881-1-farbere@amazon.com>
- <20260919171157.5502-2-farbere@amazon.com>
- <9eb4bd5c-39f5-4236-a0e0-3c3679bf7f8c@enneenne.com>
- <BY3PR18MB4722454B7A78A0E47345EBE8C6832@BY3PR18MB4722.namprd18.prod.outlook.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-Autocrypt: addr=rodolfo.giometti@gmail.com; keydata=
- xsDiBD32DGIRBACHuT9E2vYO4e90iO84KDuDpkz+qZeTwnEj9ncOrG+RN6ES/MIgLRxleLOf
- g5NDT+jIOZhLkZ/x+ylHvBYKFQUA2wIKqHvnsANOor07OTIaLRxMJOMWW4KqiLxmx663a19i
- e8p/yI7MNyJlbNXiUTP9CtG0H0PwscY8D28LyRDd1wCg5egtPUxNUr/SKQKm1c1rUdaGqrUD
- /1sko9jCG6/cv1zNaT1Us3XEhuHGvcd/p6iotWZM2TZE/u4YMNcasxCxtgKHwIvuSFnBxAQ5
- I+gkU5g3GuvfnoZeW2wFlNz4TuuoEup/n1XGhMR2XebXHSVJcViaSLJ+506VEs0IDJ7+bEAS
- orTGmqmihOEQOtYcHqmAGFpqWNmWA/9gtrJdf2lcaLdoUExyyjUPTpiO69d9Y39Zmw8vGfU5
- VkmolrcJzeGyjNnCZj1XaGvJ0tKswsWl0Ux6rzUiVa1DUkYOwAk6ZMVzmS/mnhAnp5fi/A0b
- I2XOWogsDfsgBa6kg6GLNQChNcJK3IWHKEN7S250e2se6LazGEktrLHzCs0tUm9kb2xmbyBH
- aW9tZXR0aSA8cm9kb2xmby5naW9tZXR0aUBnbWFpbC5jb20+wngEExECADgWIQQffKHRJdpn
- mkhrSRZBpMJg0lpWMwUCXH92WAIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRBBpMJg
- 0lpWM+9RAJ91Nqq3vAnawtPncHn5G4Y2svLGDQCgzc5mI0/M9U3PSUrMsOCIKHxlgEXOwU0E
- QRVYPhAIAIvbMQcLOsyqWDJtBJuTlePpBggbNEqXAxIJdK9X/Kqd+RnfSQECoy2NBSerD1VK
- pbpHBjJaxe0maP2qOrt7/dqAg+FL1FL5nrAc/x6hnOeG7LdZL5HlkE2DxztevJpXaMfQ8dCI
- bCd5W8tunFqp7ay0Pqd9nyYrmiXIS7/Lz/6IE97Jia05JcyMJ7IzeYZIpfNV5q65Cge2jMQ6
- 36wMcfv8cVinACpXs/rFuvpeTM85osJwfFmJCyxOsYCbakyQ2a+0lBSwil2ZLT7a8iRKMYR+
- eFetybV3xo2dSmNlHXUOhmUusBs1e1b2PFQpFrPaC67OsIq3nyzkhg9H4hnBv/MAAwUIAITx
- sUsmu1KJ5xAkqBWfxAOtCGKitihvYFB2jqo816Nh1nQGlcOiZWpZeH4u1ST5P+m2IDgufFnR
- vZR0oEpN+0+F87dQH3qp/HzpZgihjF5EF7LrthRw+fs7xLPn3H8hEteKDFUKyqEt6XfdO1Hz
- YuOKKpDZaMng3UNvjtHC2x6+3uCXShHN3tPJH5nkFysZZzvjJWhVUTYv5N/bzl/Bu8Y/DguI
- p1NlBT16CIOmrTwH6XruHWl5gLcrcqfDLR+UffaOiTq+ntE99QcHLTOJyGCGISHCH1EnZIbJ
- x48brfPPFG6gyEsXR0cHVnpr/Iw8I5lcXOVCtXCQafyN/EcKBb7CSQQYEQIACQUCQRVYPgIb
- DAAKCRBBpMJg0lpWM55gAJwLLFWMuChhhl8kqaCx9PqyW5pIGwCgzQuV7XvNUa+bErd/OQIB
- umszsNs=
-In-Reply-To: <BY3PR18MB4722454B7A78A0E47345EBE8C6832@BY3PR18MB4722.namprd18.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfAa6Bsko+QdGN9bu0Wv/CXMde97K7wFy9dI5oE6wMHgekpO9MJGYFH1nk9eLT4/fiJp6ke1JMW/9EKxxkXtOilvROeUETWgSez3OC4cEdSlWyj0CxKJu
- FJByecSE0E6Ql997Wt3//vXXxIkvAuDVe3K2gSUNskzReS9hu13UbOXj3VIm/yCXgQu6dJKrf86R41LRgd6qyngxebMLeTK29f7N/7QRm5KpH1gzEbQFAPJZ
- Xib4yxVP94Jnjxr2faHlxqZJ5izHeJ+2Hw4zBnwAh5Q6v3UaPhk4ma5iZDdnH9xiTosbenQ0DMGsYsPhXPGXgBPGhul+L6oprFY0iMc+G83IGyXNMUd0HH+U
- Ne2ZK2OHPZ0FHVQNL0vAA0nuu5mmGDxR03JSpUrtuko1uY2qnk/xSu1s7WmXPhN4Kg158DXRG/z47hsIQp38+DrmLZvMxcU9lZGFZO7UNonGqjnUTZ63Fks5
- uIxHHX0P3wANeWPv7shtMGbbdfSElLaD8rPzzU50lXMSXfVn4R4u4EO0AW2TTaMG6j9Ddk5L2vFSU4CFP3m2JEAKFmeponhObilVXXh7JNEefsLabUyVFUpp
- Re7UK5O3aYGA1EBqTmMyQkX2
+References: <20260921-nord-gpi-dts-v2-0-4f297c983b94@oss.qualcomm.com>
+ <20260921-nord-gpi-dts-v2-1-4f297c983b94@oss.qualcomm.com> <16f1b504-c414-4072-98d3-49f60d552028@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 01:24:16 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfBGgJXhn_c6RY9qhe-JAYjcy8vZOeKgK=cSpOW1ap0zA@mail.gmail.com>
+X-Gm-Features: AcwNN1Uq-ON_akzO8Lb9slxy7TzsEXI6PEo-ClWH4f2m7UXrx1dbaD36Ih7SNas
+Message-ID: <CAMRc=MfBGgJXhn_c6RY9qhe-JAYjcy8vZOeKgK=cSpOW1ap0zA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: nord: add GPI DMA controller nodes
+To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 22, 2026 at 08:08:09AM +0000, Farber, Eliav wrote:
-> Agreed on silencing the deferral spam. I avoided return dev_err_probe()
-> because patch 3 turns both returns into goto err_release_pins, and
-> dev_err_probe()'s idiom is to return the error, not goto.
+On Tue, 22 Sep 2026 07:34:25 +0200, Mukesh Savaliya
+<mukesh.savaliya@oss.qualcomm.com> said:
+>
+>
+> On 9/21/2026 8:16 PM, Bartosz Golaszewski wrote:
+> [...]
+>
+>> +#include <dt-bindings/dma/qcom-gpi.h>
+>>   #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>
+>>   / {
+>> @@ -909,6 +910,28 @@ soc: soc@0 {
+>>   		dma-ranges = <0 0 0 0 0x10 0>;
+>>   		ranges = <0 0 0 0 0x10 0>;
+>>
+>> +		gpi_dma2: dma-controller@800000 {
+>> +			compatible = "qcom,nord-gpi-dma", "qcom,sm6350-gpi-dma";
+>> +			reg = <0x0 0x00800000 0x0 0x60000>;
+>> +			#dma-cells = <3>;
+>> +			interrupts = <GIC_SPI 588 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 589 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 590 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 591 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 592 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 593 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 594 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 595 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 596 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 597 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 359 IRQ_TYPE_LEVEL_HIGH>,
+>> +				     <GIC_SPI 360 IRQ_TYPE_LEVEL_HIGH>;
+>> +			dma-channels = <12>;
+>> +			dma-channel-mask = <0xfff>;
+>> +			iommus = <&apps_smmu_0 0x15b6 0x0>;
+>> +			status = "disabled";
+>
+> we should be keeping GPI node default enabled similar to common QUPv3
+> wrapper node.
+> status = "ok" for all the nodes.
+>
 
-You don't have to return it.  Calling it just for the message and then
-jumping is fine, and ret already carries the code the label needs:
+The pattern across Qualcomm platforms seems to disable the GPI DMA nodes at
+SoC-level and only enable them at board-level.
 
-	if (ret < 0) {
-		dev_err_probe(dev, ret, "failed to map GPIO to IRQ\n");
-		goto err_release_pins;
-	}
-
-But please don't open-code it: on the -EPROBE_DEFER branch it also
-calls device_set_deferred_probe_reason(), so the hand-written version
-silently drops the reason from /sys/kernel/debug/devices_deferred.
-
-One more thing: dev_err_probe() already prints the code as %pe, so drop
-the ": %d" from both messages -- data->irq of course stays in the second
-one.
-
-In this patch it can still be a plain
-
-	return dev_err_probe(dev, ret, "failed to map GPIO to IRQ\n");
-
-and patch 3 turns it into the goto form above.  Same for the request_irq
-one.
-
-Ciao,
-
-Rodolfo
-
--- 
-GNU/Linux Solutions                  e-mail: giometti@enneenne.com
-Linux Device Driver                          giometti@linux.it
-Embedded Systems                     phone:  +39 349 2432127
-UNIX programming
-
+Bart
