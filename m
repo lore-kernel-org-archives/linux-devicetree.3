@@ -1,85 +1,158 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC12E539784;
-	Tue, 22 Sep 2026 11:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C8853A397
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 11:19:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075910; cv=none; b=apgG9n7AegXIWQ3x7Ry6NMeZrLGH2AsvBELxlQZHRgq3wfHbDsFqzbCiqa/1Y0BGfJUoIMn+LjPkE367vx1pKigU9xrtPhDm8zP6kpEuOsVPXyhXzJjPlCc93VPAddrhwGbToiRZiRX4+0A+pwaqeGkpTNwmI/iCcfqxAwDP5qE=
+	t=1790075945; cv=none; b=CbJjamxnE74yl2vnhDj+qcY7C2qam2vY7PoYzvb4Fyrkd+HZaXadls83HIRfNVCEQlXX1RAKFWUR/VPXTu+RCE2hfVbFOuzDtlOxLptjfL9IltZ9CUs91Z9qO71Vw4Oisq6sZAXeqDMij4XJcYS21qVJCQO8ej7GUsuOyU5/4L4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075910; c=relaxed/simple;
-	bh=vmHKNujf04ClybYydx3hcwsqBhWnQx+QdwzxdTT29X0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=AcHeeJytG7iGi6DqDhsOrnKCWmoNI7r/TdCe5KxSW66IKLKvQKQ8LgFQ6U8BYoLtUJQ+ewxClDZC3Fon5CoP/K3p4KpPxEHzdNbNS0MLkghWL+Yk6x3NNbMJW9kFnrlciPqxVpS09mV+llJpKAXAX3qn4xAHJkWYXYCsPJPyjBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=gk1OjVpJ; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
+	s=arc-20240116; t=1790075945; c=relaxed/simple;
+	bh=jOmikA/O5fP9pDV1XBzoBiTDTyTc40YXTiJ8sKQG1ts=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VYzgT6zfKdX65fXlxqWVBZZj6DALweNx5hYWRcMMlVk9UzIuRWRUw8JZg720dNjN3hsBYArlB1WvfBrdehs7cYoNJP1AALKKtcwinLyDAy+kaPCHJOvaojRO2n54jdUNkU/jT8pxYFUkfIZ7UehiMqOQhztgjAmUpP958TlN2nE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGGqE83f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="gk1OjVpJ"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68MBHTc943573188, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
-	s=dkim; t=1790075850;
-	bh=vmHKNujf04ClybYydx3hcwsqBhWnQx+QdwzxdTT29X0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=gk1OjVpJ+qN21rf1ebCj8jVcix41KX4smsXom+CXRJaPmDwGWS3k6Czp4/z6bg4Iy
-	 pSo7DJ+eaXCdDWusXF3b+t0LWZjy/ryMOzF/B8TM8lH7y6W3j2ZO6v0xnpNNKVGO0z
-	 DRKmcfIvUMy+7dPNk2665VHuan8JdF6x/LwQWp1t+nt82XpN85C2UB1mNsgJ47iFE4
-	 G46HV9JwQhFFBLZ4am2Y4MDDF5smjvSbPllECQnKsEkeE5vEPqKIhTjCjs1gXmybjw
-	 46slVMOEok+EDLMInWl1XCrWD32dLY51uqpHAtY0Hyt4ZftZw5Wjpgi7HBQC9nUwDm
-	 aRiCQx7AJymJQ==
-Received: from RS-EX-MBS3.realsil.com.cn ([172.29.17.103])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68MBHTc943573188
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 22 Sep 2026 19:17:29 +0800
-Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
- RS-EX-MBS3.realsil.com.cn (172.29.17.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 22 Sep 2026 19:17:29 +0800
-Received: from RS-EX-MBS2.realsil.com.cn ([fe80::d17c:2fd0:cf8e:635]) by
- RS-EX-MBS2.realsil.com.cn ([fe80::d17c:2fd0:cf8e:635%9]) with mapi id
- 15.02.2562.049; Tue, 22 Sep 2026 19:17:29 +0800
-From: =?utf-8?B?5ZGo5a+F?= <zain_zhou@realsil.com.cn>
-To: Frank Li <Frank.li@oss.nxp.com>
-CC: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
-	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones
-	<lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
-	<broonie@kernel.org>, Vikash Bansal <vikash.bansal@nxp.com>, "Aman Kumar
- Pandey" <aman.kumarpandey@nxp.com>, Lakshay Piplani
-	<lakshay.piplani@nxp.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-i3c@lists.infradead.org"
-	<linux-i3c@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "mfd@lists.linux.dev" <mfd@lists.linux.dev>,
-	=?utf-8?B?546L54Kc?= <wei_wang@realsil.com.cn>
-Subject: =?utf-8?B?5Zue5aSNOiBbUkZDIFBBVENIIDQvNF0gaTNjOiBodWI6IEFkZCBSZWFsdGVrIFJUUzQ5MHggSTNDIGh1YiBzdXBwb3J0?=
-Thread-Topic: [RFC PATCH 4/4] i3c: hub: Add Realtek RTS490x I3C hub support
-Thread-Index: AQHdSOfLaKpFKLXJIUuzQzqoL4gPULbY2e6AgAGbpWA=
-Date: Tue, 22 Sep 2026 11:17:28 +0000
-Message-ID: <1453c25fb1fd4db1a928bf83e72187f9@realsil.com.cn>
-References: <20260920100501.4091351-1-zain_zhou@realsil.com.cn>
- <20260920100501.4091351-5-zain_zhou@realsil.com.cn>
- <arF6ifEpWAlO10B3@lizhi-Precision-Tower-5810>
-In-Reply-To: <arF6ifEpWAlO10B3@lizhi-Precision-Tower-5810>
-Accept-Language: en-US, zh-CN
-Content-Language: zh-CN
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGGqE83f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32BC41F000FF;
+	Tue, 22 Sep 2026 11:19:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790075943;
+	bh=9nIpG03lJ0YfXPoQK6DiDiPPqzvvaOv8r65KUl1uIC0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kGGqE83fmcceWe2Q0q2X/WjmsQNOsLKROgvvZGD0PA2LAWQXjVg2jvI+HvepBkxjl
+	 9vj73W2zhOxkgh3mkXE1ygmQF42olYicI7fZ6P9hWMI/Yp4F81Hh2M9U8h7yNN/m4h
+	 2XmdTjxddLpbPAvEGwo2xwhagvQPHBaYflphJ0tbCRsfMWM/6Yi+Ei6q6VzwxqfOZW
+	 DSjRECENMaEzLWTLToavk2jsVh6pKZiiQIY5H+4EUF/xyhDQl0c1a/FwyIh8dQICpN
+	 3gxM2b95ygEcJBdfp/E45Iml7Xa0oXzPOjEwhz7YSIDUAuzrpNs1SPsPzJwmWLUP9g
+	 zsWtzMSU5c4yw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
+ add USB controller and USB phy support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260922110434.3426051-1-sandie.cao@deepcomputing.io>
+References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
+ <20260922110434.3426051-1-sandie.cao@deepcomputing.io>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 11:19:02 +0000
+Message-Id: <20260922111903.32BC41F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-T24gTW9uLCBTZXAgMjEsIDIwMjYgYXQgMDI6NDI6MTdQTSAtMDQwMCwgRnJhbmsgTGkgd3JvdGU6
-DQo+IFRoaXMgcmVnaXN0ZXIgaXMgdGhlIGV4YWN0bHkgc2FtZSBhcyBQM0gyWDRYLiBDYW4geW91
-IGRpcmVjdCByZXVzZQ0KPiBwM2gyeConcyBkcml2ZXIuDQoNCkJvdGggUDNIMng0eCBhbmQgUlRT
-NDkweCBhcmUgYmFzZWQgb24gdGhlIEkzQyBIdWIgQ29tbW9uIEFyY2hpdGVjdHVyZQ0KU3BlY2lm
-aWNhdGlvbiwgc28gaWRlbnRpY2FsIHNwZWNpZmljYXRpb24tZGVmaW5lZCByZWdpc3RlcnMgYXJl
-DQpleHBlY3RlZC4NCg0KSG93ZXZlciwgdGhlIGN1cnJlbnQgUDNIMng0eCBkcml2ZXIgaXMgZGV2
-aWNlLXNwZWNpZmljIHJhdGhlciB0aGFuIGENCmdlbmVyaWMgaW1wbGVtZW50YXRpb24gb2YgdGhl
-IHNwZWNpZmljYXRpb24uIERvIHlvdSBtZWFuIHJlZmFjdG9yaW5nDQppdCBpbnRvIGEgY29tbW9u
-IGltcGxlbWVudGF0aW9uIGZvciBkZXZpY2VzIGJhc2VkIG9uIHRoaXMNCnNwZWNpZmljYXRpb24s
-IHdoaWxlIGtlZXBpbmcgdGhlIGRldmljZS1zcGVjaWZpYyBwYXJ0cyBzZXBhcmF0ZT8NCg0KQmVz
-dCByZWdhcmRzLA0KWmFpbg0K
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] dt: incorrect clock assignment for USB3 port B and C companion PHYs
+- [High] dt: incorrect hardware interrupt number assigned to usb3b controll=
+er
+- [Low] dt: missing Type-C and PD bindings for claimed port features
+- [Low] dt: space indentation used instead of tabs for usb3c node
+--
+
+commit 01e320732a69960438751a5d51ee72cfcf2179bc
+Author: Sandie Cao <sandie.cao@deepcomputing.io>
+
+riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller and USB=
+ phy support
+
+This commit adds USB device nodes to the DeepComputing FML13V05 board,
+configuring four USB-C ports with various features like PD 3.0 and DP 1.4.
+
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b=
+/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> index 804abc85602ab..55b0f63dcb2e3 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+
+[ ... ]
+
+> +&usb3b {
+> +	status =3D "okay";
+> +};
+
+[Severity: Low]
+Are the 'usb-c-connector' nodes and OF graph linkages missing here? The
+commit message claims Power Delivery and DisplayPort Alt-Mode capabilities,
+but without these bindings, any kernel-managed role switching, PD negotiati=
+on,
+or DisplayPort muxing might not function when a Type-C device is connected.
+
+[ ... ]
+
+> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
+pacemit/k3.dtsi
+> index b9977e78e096a..ae3f8bb1e5ed1 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+
+[ ... ]
+
+> +		usb3b: usb@81400000 {
+> +			compatible =3D "spacemit,k3-dwc3";
+> +			reg =3D <0x0 0x81400000 0x0 0x10000>;
+> +			interrupts =3D <125 IRQ_TYPE_LEVEL_HIGH>;
+                                      ^^^
+
+[Severity: High]
+Is this the correct hardware interrupt number for usb3b? Since the adjacent
+controllers usb3c and usb3d use 148 and 149, 125 appears to be a copy-paste
+error (perhaps it should be 147?). Using the wrong interrupt vector could
+prevent the kernel from processing USB events on Port B, causing it to fail=
+ on
+boot.
+
+> +			interrupt-parent =3D <&saplic>;
+> +			clocks =3D <&syscon_apmu CLK_APMU_USB3_PORTB_BUS>;
+
+[ ... ]
+
+> +		usb3b_u2phy: phy@81500000 {
+> +			compatible =3D "spacemit,k3-usb2-phy";
+> +			reg =3D <0x0 0x81500000 0x0 0x200>;
+> +			clocks =3D <&syscon_apmu CLK_APMU_USB2_BUS>;
+                                                ^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Should this use the port-specific clock (CLK_APMU_USB3_PORTB_BUS) instead of
+the shared USB2 bus clock? If the independent USB2 host controller is disab=
+led
+or runtime gated, the USB3 ports could lose their companion PHY clocks,
+leading to initialization failures or USB disconnects during power manageme=
+nt.
+
+> +			#phy-cells =3D <0>;
+> +			status =3D "disabled";
+> +		};
+> +
+> +               usb3c: usb@81700000 {
+  ^^^^^^^^^^^^^^^
+
+[Severity: Low]
+Does this node use space indentation? It looks like 15 spaces were used
+instead of tabs.
+
+> +			compatible =3D "spacemit,k3-dwc3";
+> +			reg =3D <0x0 0x81700000 0x0 0x10000>;
+
+[ ... ]
+
+> +		usb3c_u2phy: phy@81800000 {
+> +			compatible =3D "spacemit,k3-usb2-phy";
+> +			reg =3D <0x0 0x81800000 0x0 0x200>;
+> +			clocks =3D <&syscon_apmu CLK_APMU_USB2_BUS>;
+                                                ^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Should this also use its port-specific clock (CLK_APMU_USB3_PORTC_BUS) inst=
+ead
+of the shared USB2 bus clock? Similar to usb3b_u2phy above, relying on the
+standalone USB2 bus clock could cause power management issues for this PHY.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922110231.3426=
+011-1-sandie.cao@deepcomputing.io?part=3D2
