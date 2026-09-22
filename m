@@ -1,195 +1,90 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362E955D877
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:32:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC64155C305;
+	Tue, 22 Sep 2026 15:35:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091151; cv=none; b=GGQvmLJLBlCRy6s6XwRsd6u9JHrauama94gXAskEIAg+IUl4l5U+4O2uqgT5PynOPujzSVwE5YzxnvNsdmGqHxhnlqzgMnuxMVFKlwHUS4K0HI8g9cdT86pwpx6ZzD4x8p3f7TpbTaRAm68qzXfRXJbRwgxCvDJ872EXNamU1rk=
+	t=1790091314; cv=none; b=kSN2IKd9TfMdULG1fXLAdAHTZjltZBaT5gd1Bt1DdMair5VOKXInk3sabZNG5llFyifR34FFAlP3PAKW8f0+2RQN655fWDzoDmxpnxqh07qcuVe56YFNAc8cYNbJX+h8kmXEVcKsnTIA0wjKv0uP1aq1TRiGXCLkTN+LXG0xaDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091151; c=relaxed/simple;
-	bh=QWiYTLoT7AkiN37vBI/AE7LlJlRi/CqB8G17hwaEjjU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NczdzUBQPRhNbR359QsE8PSSVeDNltrLjNo631pQEGH/Fmm9lCn3lIVwgXUIMzzaLmU8SK5y6BRMUy2i/ON/n3+Tto0VJb3+SLMWI/x9ntLiq3MSSv+uHycxhGxkbaldO5IqR8NSbbLyNoLNZE4ngfRCXoqCVmXlAA13YV6Qcxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RXCpsOKb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZRGsbZ06; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790091314; c=relaxed/simple;
+	bh=ypWsx4p0Qcqo+3XCtIdEzsMYcaAoPzYRo8OzrIX4Qro=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=S4enHK9zp1UFnxsZ4QxNCjnIuriBiO8BMVZ/BjUy3+SPmL7YsWdpH8XnwwnC8zSTvUK8UZ7rmO/VDMFVN4Ap5GKpJahOhtKMJe81v5iY1iHCs4+LYoffDU8fbJZMBJuidoYIK0zRJnMM/50I1CXiM75T/KYrMXgIXVu0hSJrCj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VGaf6fuP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RXCpsOKb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZRGsbZ06"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MEjmCs3952751
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:32:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SHoCPwg3yKGYoepxE62TQiEAKgIIh9UVY9jZRidEOuw=; b=RXCpsOKbcS1DLbaX
-	DQTUgqXgUfSI/qXQtTiE0v6RCizspHNo90j1R5AfqDAhkGQmrnXqWSntnUibKOS3
-	m6p6/SON5c6VVRd8oMxt5BNYZNLUTXoLX0UuQp+YmrAumGTElBLCc5dUNGCnSO1H
-	78TQTLhE2lm+CDDB8DxAPsmxOQ8dHeKm7pKppPj7qmRWZbrBN9GpSRO9y+VzhV9L
-	Iz19Sd6XfB8+w5scYUXXSXEQdQ41emEe+TlGlutdypIwAJ+5+ZprhLYmGL4nePZV
-	b+dltydYmwBVdP98NpU9j0X91EyxEXbP+62YWjMUIK/0wieJfml4B5VDxSjRdtBg
-	P9cQcw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gufsqba1y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:32:28 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d001671a54so78402425ad.2
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:32:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790091148; x=1790695948; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SHoCPwg3yKGYoepxE62TQiEAKgIIh9UVY9jZRidEOuw=;
-        b=ZRGsbZ06zz6CfxwKtjI/aWG2plvPDQqgxDfIQYyB2/Og2oh9erQ14XsfYjxUwFpN2F
-         hZnHp67D7QE/3kvbl2/KNLNcsRlkwTmaKr2WpSqlKsqRWjA7NAsjpwEtVI5dUdgYS39/
-         o2JxdD7Z1HKOJjswc3aW167NqIcDTXF5qML2/1HwywIRQxAy8NvO1lnaScTn7Zl3NZ+i
-         rCYny8aG8lgwnhZ/4vdZFZ47PbI5usP6orx35JPFLBkIlnUNYWzbxd1w3daE3H6Y2qEn
-         IxBc6SUYHPkd+lEmy3GZkJU8/C552jX5uvWwXbZ2XZwUfYnINMYCbLHce13lGXQJMdhf
-         mTtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790091148; x=1790695948;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SHoCPwg3yKGYoepxE62TQiEAKgIIh9UVY9jZRidEOuw=;
-        b=dLnDczGzpLRsZhFc9ddjavULovrGbNMWCvjelmpkC/oEHUjZnSmIlKpm1uWnVBORIB
-         nrX36unjF3aP7uZTOCUYHO+r3WfJ/IynqsbUnZ9nXnydY+QYTS0kdPsmrNjTkbmRl86l
-         x8b/Ns7NCFTS9WGciAIKQet2J23zGEsiOKsrXK+O5SjkVU23cV8cOubAouBoEnmYra9I
-         QbqLb7LsPbjO9ncBqc9mSgOtBl/x/zYWQKhZ8GmQA9G5PWd1ZU71bi6JCF5DvVQcJsLj
-         s596aaWf/cs3UASV6SWBEtL/awJVcBDoIJq6JfM4Y8IWWB9n2UnvJFTRvlt4QiFjkkvg
-         BJ+g==
-X-Forwarded-Encrypted: i=1; AKwUvBwI1ffeyFK4uRbPzkBRWi3cQOEO620oGgBIZxY0H3DV3AgrEYl5LUQkoUJDfVpqUxLKXrTox4PYpuHl@vger.kernel.org
-X-Gm-Message-State: AFuF++kh5Yw3mjlqdLUG4DacmEdDKvNMiXapBo8/LmCyyqYFWo99nOih
-	aRiNKxFdFWqfuGP3tYhEu6pW/pQYtHnWnALTXcPxN9bwmvRf8fNhjjSQvAYSAbFd5LxFfYmv3sv
-	hMCNqtoC+ZwzRfasILYg5J7tJ85e4Sid7656I6yW459xhb61YSNtj2thmEH9U4O/bxDjPU/0Q
-X-Gm-Gg: AYBFou3YJBnR/4qeP73o+S5g/AQLDuU31v1g79nMXqYXWDcPVicE38vVmnI/a5P7A34
-	h4YyD1slGe15I/yZ+Cllr5UeTT2VwZtQkGpPfWGOOY5j6wHgC0KDoXrfg4eGGPjVTQgLfkhcAn5
-	BVYdCT2yENSjAvtSAyHqaXjd+8XoFlp5rF2Z8EU5uH+5nSBfjI37XWbNyTup4rQ5Q6Xuz9VsZJ4
-	uLBfH4Lbcdgo6PwHTZ4iCLu6eYeV3HYEOa2b6YmvPOQLDgdY3+CB7hqsq2bfyQMubr7hNEg2fnL
-	2AEGW9p/h6n380a0ZA306WZHErmQiVdlNPeWI+lmwOw0d8NHD+Rs7qSlqIuQGog3htlbQC9xmqY
-	tmf5LmXvnVyl8SWFNRJT8kZHGnmEgBlDCPV0=
-X-Received: by 2002:a17:903:230b:b0:2dd:c100:b2cf with SMTP id d9443c01a7336-2df60b7e85emr18775385ad.58.1790091147648;
-        Tue, 22 Sep 2026 08:32:27 -0700 (PDT)
-X-Received: by 2002:a17:903:230b:b0:2dd:c100:b2cf with SMTP id d9443c01a7336-2df60b7e85emr18774875ad.58.1790091147100;
-        Tue, 22 Sep 2026 08:32:27 -0700 (PDT)
-Received: from hu-ssmaurya-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d047c40sm12334945ad.50.2026.09.22.08.32.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:32:26 -0700 (PDT)
-From: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 21:02:00 +0530
-Subject: [PATCH v3 2/2] regulator: rpi-panel-v2: Add vcc-supply support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VGaf6fuP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FBCE1F000FF;
+	Tue, 22 Sep 2026 15:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790091312;
+	bh=qJu86Ld8XnTBZH5sZa1vlfZEborsNw+EF8dWwLK5Ra0=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=VGaf6fuPEs+fxknL+LWvY8Ddh2s5HsZrAcbSCbhvXY1Q21YQw/C2tg8oAtLptzDzc
+	 jiE9YRhok3zN6XksBeisZ5S73fSs2eDXZZYkqxfhpSTIV3JDoXT6QAhUsohrJpczN7
+	 EQUttGxwq1El5IDFC2suL22X0/uf7ApuXGMcNddZQrpylfRwlGPJTinJu4myn+3KRE
+	 lPs1UROEPRfTVmTAA92U7IkpnEWW/lom7CeUn7ng7hZLh48gnifsLKsw+ht0OlVtFD
+	 tIbOIi29yUJubmBPdrw72JrYsKFe2pAp+O2uxPLViCvPbjKOcZbmh5atdDhuhZJvA6
+	 2ZpK1v2hJFZ/A==
+Date: Tue, 22 Sep 2026 10:35:11 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-rpi_reg-v3-2-9214321c4070@oss.qualcomm.com>
-References: <20260922-rpi_reg-v3-0-9214321c4070@oss.qualcomm.com>
-In-Reply-To: <20260922-rpi_reg-v3-0-9214321c4070@oss.qualcomm.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790091133; l=1681;
- i=shashank.maurya@oss.qualcomm.com; s=20260828; h=from:subject:message-id;
- bh=QWiYTLoT7AkiN37vBI/AE7LlJlRi/CqB8G17hwaEjjU=;
- b=oQQWORenSVY+VYcyM+kJov0+Ffqr2lgTDDLrH9fI2K9UIJo07yqAwPyOpFgNw1oORFzYPjuPa
- JvGHfCS+ClJDQhFfizHLxJlmJo+wDZuKHJTi9TEw5xsD0AHaZuU6raB
-X-Developer-Key: i=shashank.maurya@oss.qualcomm.com; a=ed25519;
- pk=xld72d+QYBwDMDcn3+QLCb5AUsj/D0j8klGIuxWd860=
-X-Proofpoint-ORIG-GUID: ZcLDJtrVJlttrUmc-FLViYVJ-ggdyJzi
-X-Proofpoint-GUID: ZcLDJtrVJlttrUmc-FLViYVJ-ggdyJzi
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDIyNiBTYWx0ZWRfX3y5a3QK1yu1W
- 3sh327irP8ImCnUySMJkS/yRJQPudA0PXuYQlzytGQDu5cwL9zkQ0J6abwkoYX6RhCF7Yg8FBFr
- IEhkFgwlRJd82tY62cE7zQ1iYEa+5eU=
-X-Authority-Analysis: v=2.4 cv=NKBAaE6g c=1 sm=1 tr=0 ts=6ab29f8c cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=RYO69U5GnIJllgjd4B4A:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDIyNiBTYWx0ZWRfX/yyaO2P+87AW
- G/0sQRSnJaSoF+crFml5ltxfURq9oHvW8sTyvCOvi4wk/PL+cT6IMUf846hpdbQcMivHrocWZYW
- lItArVgSjWd6vuH3bVoVlt2E86PewraxPS3nukUaqkcXSwCJ6fa1Oe9UxJ/Ytk7FowaPhNTxJCX
- LBwwarRUOogIG4Be9p2wCfnbdi53TORA2bzfXsdy0f87f8TsXogjEtDvt2E6dTxzkDrmQxul9BB
- L/tHULdQMoOC/xu+YbeP39XRwiXkJ4XPbYtABlmT5GZdv22kAdBA7Ce/jnrG6JjSEju84UX24jU
- zOr8P081IdK1ydvNBgx78NsUU2UUSpN56m7BrTXNCm0DQtAb06qqzh45fTYmbgX4wWDz1tQtdKx
- 6NmxU6jHF9R8GqxQ3FmiVlSy+XDO9op+n2N0+nSLBsfXporNA8dMDJyqjuYXO9XZA6YhN5dZvKZ
- tQnRbDmO22o+CceF9GQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0
- clxscore=1015 phishscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220226
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, conor+dt@kernel.org, 
+ lgirdwood@gmail.com, devicetree@vger.kernel.org, broonie@kernel.org, 
+ perex@perex.cz, krzk+dt@kernel.org, tiwai@suse.com, 
+ linux-kernel@vger.kernel.org, cix-kernel-upstream@cixtech.com, 
+ p.zabel@pengutronix.de, linux-sound@vger.kernel.org
+To: joakim.zhang@cixtech.com
+In-Reply-To: <20260922112134.4167305-2-joakim.zhang@cixtech.com>
+References: <20260922112134.4167305-1-joakim.zhang@cixtech.com>
+ <20260922112134.4167305-2-joakim.zhang@cixtech.com>
+Message-Id: <179009091064.3383676.14654535260595852559.robh@kernel.org>
+Subject: Re: [PATCH 1/4] ASoC: dt-bindings: Add Cadence I2S-SC controller
 
-The Raspberry Pi 7" touchscreen panel V2 MCU is powered from an external
-power rail which has to be enabled before any I2C register access is
-attempted. Use devm_regulator_get() to obtain the vcc supply and enable
-it at the start of probe.
 
-devm_regulator_get() returns a dummy regulator when the supply is not
-described in the device tree, so device trees without a vcc-supply
-property keep working as before.
+On Tue, 22 Sep 2026 19:21:31 +0800, joakim.zhang@cixtech.com wrote:
+> From: Joakim Zhang <joakim.zhang@cixtech.com>
+> 
+> Add the DT binding for the Cadence I2S-SC controller integrated in
+> the CIX SKY1 audio subsystem. I2S-SC is a full-duplex stereo
+> controller supporting standard I2S, left/right-justified and DSP
+> formats, plus TDM operation with up to 16 slots.
+> 
+> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
+> ---
+>  .../bindings/sound/cix,sky1-i2s-sc.yaml       | 94 +++++++++++++++++++
+>  1 file changed, 94 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.yaml
+> 
 
-Signed-off-by: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
----
- drivers/regulator/rpi-panel-v2-regulator.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+My bot found errors running 'make dt_binding_check' on your patch:
 
-diff --git a/drivers/regulator/rpi-panel-v2-regulator.c b/drivers/regulator/rpi-panel-v2-regulator.c
-index 30b78aa75ee3..e54d675962e7 100644
---- a/drivers/regulator/rpi-panel-v2-regulator.c
-+++ b/drivers/regulator/rpi-panel-v2-regulator.c
-@@ -11,6 +11,7 @@
- #include <linux/module.h>
- #include <linux/pwm.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- 
- /* I2C registers of the microcontroller. */
- #define REG_ID		0x01
-@@ -66,10 +67,21 @@ static int rpi_panel_v2_i2c_probe(struct i2c_client *i2c)
- 		.parent		= &i2c->dev,
- 		.reg_set_base	= REG_POWERON,
- 	};
-+	struct regulator *vcc;
- 	struct regmap *regmap;
- 	struct pwm_chip *pc;
- 	int ret;
- 
-+	vcc = devm_regulator_get(&i2c->dev, "vcc");
-+	if (IS_ERR(vcc))
-+		return dev_err_probe(&i2c->dev, PTR_ERR(vcc),
-+				     "Failed to get vcc supply\n");
-+
-+	ret = regulator_enable(vcc);
-+	if (ret)
-+		return dev_err_probe(&i2c->dev, ret,
-+				     "Failed to enable vcc supply\n");
-+
- 	pc = devm_pwmchip_alloc(&i2c->dev, 1, 0);
- 	if (IS_ERR(pc))
- 		return PTR_ERR(pc);
+yamllint warnings/errors:
 
--- 
-2.34.1
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/sound/cix,sky1-i2s-sc.example.dtb: /example-0/dma-controller: failed to match any schema with compatible: ['cix,sky1-audss-dmac']
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260922112134.4167305-2-joakim.zhang@cixtech.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
