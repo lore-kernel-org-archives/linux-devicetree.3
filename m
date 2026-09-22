@@ -1,106 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00F8423E94;
-	Tue, 22 Sep 2026 08:52:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA9B437130
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:53:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790067155; cv=none; b=fEYIGCMLfF5gBQXAl4Vt52K0VUdBkNF6cRy9dMUjHt0ivDfumfkyFYdq8Uyouw6g5cHR6eWghjB8XsDx7SPru514XTiackgiTmV1X7Ai6GUWo86XhEH0dsVtrOPmQtTy/i0ZuNbd4KUi3xcqIjojn6fn+ZLEClk0ajchqrb3kBY=
+	t=1790067189; cv=none; b=CuqhBIMyb7sN70FP0f48vWLyjosuPuAxFi0GaLHZXrdSfpezrOsg7zjGQTZmcM5E/HtIUCACjUZ8Z7PyNtnzuZHL1vcrPSMxFlIuBbk+l32ua4FzsOqgsNSFpeoOQ6jHmKDD5+FNALpyXx1sVd3p2gYa8Xz8wmXGfLJslcZo9KY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790067155; c=relaxed/simple;
-	bh=FTkAw0lLThB6+Yhnh3RryyZUz+LXgw2CinerPGjZN1I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KVqvUPpvRWjU5rLF/jWPupv0zLSXF4RqZn9iPzd5RxAtGkEtyJSXDx+mpM1Uknr/Q55TU3BBAQ6oUkyueYX/6TO/RelLWuLatu4RFjh+6UAVLKlrDAAMNGQRqxI9wR6TKigh2mvgFOr9M52sIDRKIcncCuFh6FHRXVoXA/rfd+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gr/GpGQw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790067189; c=relaxed/simple;
+	bh=pRTDJDK9EW1jEeZqKwFH96oBkO/dZl6A0f1ILw5pqSw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PrEKmcP49u7qUHA/ZUGIfYb7CXnHmrW58cYk4vVmDV9gtKCY88SW9DXZ+Zwuisw/wJHscqYRJW+S4VQnjRJhxDdWs15VCMtSFM8nU2SPF+6HiHUazGunoj/WRfYmNqUR0xqsL5Whg83na9k2aaA8m3TpOyP6oDLITxqk8ISbgk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KlhrzD68; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gr/GpGQw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23DEB1F000FF;
-	Tue, 22 Sep 2026 08:52:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KlhrzD68"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFAF51F0089B
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:53:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790067153;
-	bh=6rI9Jl90INm2zy0DQhUYWCP8kKgYTm22ryajZ5iQcUQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Gr/GpGQw10l4JuYCf7Pjpxtzu36TjrsWSzV1Y6A8Enrhp/KCreOYEN+SRs7aaAA/p
-	 zZcpyLEVB4jDdN5AxTmwIyBe1tSk1V+Kfim0rUgLpX4kIyO0OQdNNuOaTEtRYVoCdy
-	 AAgn3SScF/hXjaJILiPyxGa3EVN+/UwM3A/N5osWpm7ulcghnl7ZZGdWMXTNUg012l
-	 xTvSR2WgimMyrmVruEO57JVPB5RXFHfDM++3hcNwxMYv827nSgPlGkjmDC1F+rMyBp
-	 e7Sx4JZY/3ZS/RmIh72ccfcRhmQkB7xvMPuPu5fOHiQlX/E4GNixsk/utuEcfGQP3I
-	 uM3LDPmnDyMdg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/3] dt-bindings: net: can: holt,hi311x: Convert to
- DT schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: "Vincent Mailhol" <mailhol@kernel.org>, linux-can@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, "Oliver
- Hartkopp" <socketcan@hartkopp.net>, "Oleksij Rempel" <o.rempel@pengutronix.de>, "Marc
- Kleine-Budde" <mkl@pengutronix.de>
-In-Reply-To: <20260922084542.104788-3-quchaosheng000406@163.com>
-References: <20260922084542.104788-1-quchaosheng000406@163.com>
- <20260922084542.104788-3-quchaosheng000406@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 08:52:32 +0000
-Message-Id: <20260922085233.23DEB1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790067186;
+	bh=pRTDJDK9EW1jEeZqKwFH96oBkO/dZl6A0f1ILw5pqSw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KlhrzD68zCgzYUViZwYOFPRjRUzOuT7fyO3U3rwgTcrxAwfyub62TdnRVitovVoNp
+	 KWR1turWzPPoOsSjEPUqt/wh4YDf90diNBX7nNV/wALDLpdn3no6oQSm5JN6+t7cA8
+	 QgoUDdm21iIOWcklji8pn/dj35y9WuWqJBfhjrIhVgs5/w4j/Jho9oOIlIdxXWuDbn
+	 2GzOscwzHZZ1WjYL2JNx3hMyXsoOt8KKhLnbODpQzmtR0uF2b4e4r7L2mrlQWbfjIG
+	 +qvXp6/aJSnfv+UKTYepNt/zYwNG/0QZirBMWlcIaTxqup2954a3YhRCFQwu/wKdtc
+	 TYC/JDJkPEing==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8cbb7b9cfso1498421e87.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:53:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw+SU1HdGUZVsUAihDaPr4XipLOfQpF/Wwcx+k61x7Vl/NeWXATSH44bHUh6KA2iaBVvd3A3OXogHeT@vger.kernel.org
+X-Gm-Message-State: AFuF++nabacvhWDgpZvFTCagxtRzDu/2lDdX1jDKCyUlqs6R8Wp9YIyk
+	QGn+PVnIzVO6xUzI38cSalAzbwGYanZ90GAllb4VJFX6EyU+u3vRY7qWSYA1kokI8O8GCj4pn2e
+	XP5q2vhZSNc1MGC1x1XsDUyKntlrztWo=
+X-Received: by 2002:a05:6512:3e08:b0:5b6:172a:c36e with SMTP id
+ 2adb3069b0e04-5b8c17f2023mr4223635e87.8.1790067185256; Tue, 22 Sep 2026
+ 01:53:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+ <CAD++jLkCNkcf-gn0FgvLZZTibLUvbKaH6L+=nRqkNZr2iKFqsQ@mail.gmail.com> <39641ec4.7a73.1a0c848bfa4.Coremail.zl020895@163.com>
+In-Reply-To: <39641ec4.7a73.1a0c848bfa4.Coremail.zl020895@163.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 22 Sep 2026 10:52:52 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkZ9F3_KQwGDZyKaFYBzO9PXVq+5v8geFE+oOM47KmagQ@mail.gmail.com>
+X-Gm-Features: AclHuK9Y1QMax6-R6N3W6XKZsP5OW6rOHXGLWKISlcK8k5n-6-JwlZacROssNGg
+Message-ID: <CAD++jLkZ9F3_KQwGDZyKaFYBzO9PXVq+5v8geFE+oOM47KmagQ@mail.gmail.com>
+Subject: Re: Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
+To: zl020895 <zl020895@163.com>
+Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>, 
+	mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: missing spi-peripheral-props.yaml reference rejects=
- valid SPI properties
---
+On Tue, Sep 22, 2026 at 10:44=E2=80=AFAM zl020895 <zl020895@163.com> wrote:
 
-commit daeb2992a77029d59549250b99f2dd7fac156a7f
-Author: Quchaosheng <quchaosheng000406@163.com>
+> No LLM was used for coding or testing. Different developers are responsib=
+le for
+> different parts of the code. LLM was only used to polish commit messages.
+> Could you advise whether I still need to disclose this?
 
-dt-bindings: net: can: holt,hi311x: Convert to DT schema
+We add it even if it just used for commit messages, we don't really
+differentiate.
 
-This commit converts the Holt HI-311X stand-alone CAN controller bindings
-from free-form text to DT schema format. It establishes the base properties
-using can-controller.yaml and strictly enforces them.
+Maybe this is to coarse but it's what we have.
 
-> diff --git a/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml b=
-/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
-> new file mode 100644
-> index 0000000000000..d9e3584590c65
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/can/holt,hi311x.yaml
-[ ... ]
-> +allOf:
-> +  - $ref: can-controller.yaml#
+The tag doesn't really mean much, it just mean "an LLM was
+involved with something related to this patch", it could
+have been used just for testing or review.
 
-[Severity: Medium]
-Since this device sits on an SPI bus, doesn't it need a reference to
-/schemas/spi/spi-peripheral-props.yaml# here to support standard SPI
-properties?
+Since we have Sashiko reviewing everything I guess in theory
+we should even add it if we looked at the Sashiko reviews,
+but nobody does that. So it's a bit arbitrary. Nobody's gonna
+be upset about either, it's just some helpful metadata.
 
-The v7 changelog mentions dropping this reference because the example doesn=
-'t
-use SPI properties. However, real-world device trees that instantiate this
-SPI device will routinely provide standard SPI properties, such as
-spi-max-frequency.
-
-[ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - interrupts
-> +
-> +unevaluatedProperties: false
-
-[Severity: Medium]
-Because unevaluatedProperties is set to false here, the missing reference to
-spi-peripheral-props.yaml means any standard SPI bus configuration properti=
-es
-will be treated as invalid by the schema tools.
-
-Will this cause dtbs_check to reject valid device tree nodes that include
-necessary SPI properties?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922084542.1047=
-88-1-quchaosheng000406@163.com?part=3D2
+Yours,
+Linus Walleij
