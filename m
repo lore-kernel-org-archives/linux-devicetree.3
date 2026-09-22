@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFDF439F90
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 17:51:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42913474263
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 17:51:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099499; cv=none; b=moIaZXjJt8hUVcn7hfpFzBDAAf+GNWIk/3EARh5oIBbPX9/YK1KyssqY1A9R/J8Ld1gbLF6Wo54OaSVxheAHffo1s+fH+wEv1hS2Os5eZ5tqgSxKJFAjbeI/yLuOmWz86Cn2RB/FyM1GSq9PVmjmjHWW87Ksu0VZ+O7VbUIIQEE=
+	t=1790099500; cv=none; b=dnIFikuCGxpE7L7vgzG9FVdSkJScu4U7dlhCYz90lhgrk31xvBWwwR8rVYMTZ54MKTdaaM/8psg0u4iGAdv2cMpUg0qcicFGFjg7Y3DKViVdN4MvY61EJqsZ8Z+Eqz/vzguRTSvBHa8lFtTNIc/tapUjlsW+cwvSZ4c+Sb6/k10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099499; c=relaxed/simple;
-	bh=rpcZQgGzM3/GDccwR9/zjRvAn9J3/hNlztKL5Hxg+PI=;
+	s=arc-20240116; t=1790099500; c=relaxed/simple;
+	bh=yJMPHS559pAQOk83+QrHLv79BjByhZppXjFJdtDbAKE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FicYHEswAhV3MEQupKRmtl9QMz6+zI564IpP1P1gy8ncfn5iFbxB6Eyfstkf2bqprvGGleHzf+XzBMMm20X/ZhSXtnTACFAxe7oKa6wv9JCYz2PqerpAuYzwmw+B02kzKtekYzUtB0XRsVS8CuXq2iPV2LnR27SmRTcq/ZjYu+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZqeIg2Y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dFt/TzF/beMGF1oUTNc5WStkjVILesCLnE5fTBEGQcu+lzKOfS8liHUxE92XG6jlpSGUAMrerCMwmlxsb0uxkNwjZRehnpMbh18htgaKE4R9FBrMITyCcN+23Z/DkxLUDY7OgRmItplXuhr6APCjLq0TvtxkQmZf/umTkXEgZSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TE4pNksL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZqeIg2Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD311F000FF;
-	Tue, 22 Sep 2026 17:51:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TE4pNksL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35161F00893;
+	Tue, 22 Sep 2026 17:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790099498;
-	bh=tRSxpUFXKXn00P9e7HEeNYVGQmx2mIM5Bz2wcFEoLh4=;
+	s=k20260515; t=1790099499;
+	bh=BAyOa65Xh9mfY65VmyWU1S4XbraJwyuo9g9ztJwSzCo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OZqeIg2Yr/qip+FdoHwEkq5nN8jdbcAzZ9Nz87MWthZPxAKLIizEoKX4XnuKHEpjR
-	 X2vAN4mO42t6g4j42i3a1vFdAy7Nytpjygxan/9OApa3511esnqrcKWAXJv7TbR6Il
-	 U81dZOHQX4d575Ji6JaQu59mbE528e0C5SdJx97N67qnB+VOGdcWrCPWXJcIsPYtc9
-	 1Uv/uchUkCnEQCl94Gxcjw2Ds8dhZ+yL5dkQyDHwqSvrODHoGPjwK0Ot+7jt4LmTlr
-	 qgSyWCDBOBDy+MQqxHvtsGypy6eVURAbuALkScrkQ/cnQUP6dtX+nSlijSZyISH2Eu
-	 9hdnI52D3RDWw==
+	b=TE4pNksLwqP9owAUn5FWjrIiJpxckNowrOy+1NzJzEqjkvEZH4f+7vm6xqNX9Dkcp
+	 5hagIDeYf6DJxIAfephmMR7v0aBxVjjKV8cdOwxHIIcNh276Bj+rCJ01Kz7EsnTfT0
+	 tYrygYZcVPLnP3MW6rbaFoN+YbOk9g1Y4FJwOKVlo3jo5LiNLE4g+uWiz2CDRckkGQ
+	 QLZPQWkS9Th7xnBS0kDaz2CxqvfGbkOs8wRqtBWRRCV5bQ4Uy1//DJBWxOORLc5GtZ
+	 xH+WdhGJlRNR3eFzvcGIpFWpFhChRfjha9SNL0csIA8Jr4MffcDjJCe34AFncytH7n
+	 4KU7qFFzVq4zQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 01/10] net: ethernet: ravb: Remove gPTP
- control from WoL setup and restore
+Subject: Re: [PATCH net-next v5 05/10] net: ethernet: ravb: Propagate error
+ from ptp_clock_register()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260921175037.4084310-2-niklas.soderlund+renesas@ragnatech.se>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260921175037.4084310-6-niklas.soderlund+renesas@ragnatech.se>
 References: <20260921175037.4084310-1-niklas.soderlund+renesas@ragnatech.se>
- <20260921175037.4084310-2-niklas.soderlund+renesas@ragnatech.se>
+ <20260921175037.4084310-6-niklas.soderlund+renesas@ragnatech.se>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 17:51:37 +0000
-Message-Id: <20260922175137.EAD311F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 17:51:38 +0000
+Message-Id: <20260922175138.C35161F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,85 +47,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] ravb: gPTP hardware left active during WoL suspend
+- [Medium] net: ravb: ethtool timestamping capabilities are incorrectly sup=
+pressed when interface is down
 --
 
-commit c8c6cfc94155923852023c6cb4cc2b70e6464d0d
+commit bba7bddbe4fcaec0df4875259d8239664ffaa696
 Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
 
-net: ethernet: ravb: Remove gPTP control from WoL setup and restore
+net: ethernet: ravb: Propagate error from ptp_clock_register()
 
-This commit removes the explicit gPTP hardware stop and start calls from the
-Wake-on-LAN setup and restore functions. The commit message indicates this =
-is
-redundant because the network device is closed and re-opened during system
-suspend and resume.
+If the PTP clock registration failed, the error is silently ignored. This
+commit reworks callers of ravb_ptp_init() to handle and propagate the error.
+It also updates how the PHC index is handled.
 
->     This makes the special case to stop and start it when resuming from W=
-oL
->     redundant. As the ndev will always be closed and re-opened when
->     resuming the system.
-
-[Severity: Medium]
-Is this assumption accurate for Wake-on-LAN?
-
-Looking at ravb_suspend(), the device explicitly bypasses ravb_close() when=
-=20
-WoL is enabled:
-
-ravb_suspend()
-{
-	...
-	if (priv->wol_enabled) {
-		ret =3D ravb_wol_setup(ndev);
-		rtnl_unlock();
-		return ret;
-	}
-
-	ret =3D ravb_close(ndev);
-	...
-}
+Link: https://sashiko.dev/#/patchset/20260610102432.3538432-2-niklas.soderl=
+und+renesas@ragnatech.se?part=3D1
 
 > diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ether=
 net/renesas/ravb_main.c
-> index ea1c7e536791e..36173a09e2fdb 100644
 > --- a/drivers/net/ethernet/renesas/ravb_main.c
 > +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> @@ -3182,9 +3182,6 @@ static int ravb_wol_setup(struct net_device *ndev)
->  	/* Enable MagicPacket */
->  	ravb_modify(ndev, ECMR, ECMR_MPDE, ECMR_MPDE);
+> @@ -1774,7 +1774,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
+>  	struct ravb_private *priv =3D netdev_priv(ndev);
+>  	const struct ravb_hw_info *hw_info =3D priv->info;
 > =20
-> -	if (priv->info->ccc_gac)
-> -		ravb_ptp_stop(ndev);
-> -
+> -	if (hw_info->gptp || hw_info->ccc_gac) {
+> +	if (priv->ptp.clock && (hw_info->gptp || hw_info->ccc_gac)) {
 
 [Severity: Medium]
-Because ravb_close() is bypassed in ravb_suspend() as noted above, does=20
-removing ravb_ptp_stop() here leave the gPTP hardware active and consuming=
-=20
-power during a WoL suspend?
+Does this new condition incorrectly suppress the static ethtool timestampin=
+g=20
+capabilities when the interface is administratively down?
 
->  	return enable_irq_wake(priv->emac_irq);
->  }
-> =20
-> @@ -3204,9 +3201,6 @@ static int ravb_wol_restore(struct net_device *ndev)
->  	if (error)
->  		return error;
-> =20
-> -	if (priv->info->ccc_gac)
-> -		ravb_ptp_init(ndev, priv->pdev);
-> -
+If a userspace tool calls ethtool -T on the interface while it is in the do=
+wn
+state, priv->ptp.clock will be NULL since the clock is only active while th=
+e=20
+interface is open. By checking priv->ptp.clock here, ravb_get_ts_info()=20
+completely skips reporting static capabilities like SOF_TIMESTAMPING_TX_SOF=
+TWARE=20
+and SOF_TIMESTAMPING_TX_HARDWARE.
 
-[Severity: Medium]
-Since the gPTP hardware may not have been stopped during suspend, will=20
-removing ravb_ptp_init() here cause problems upon resume, or leave the PTP=
-=20
-clock in an unexpected state?
+Could the priv->ptp.clock check be moved so that it only guards the
+info->phc_index assignment below, rather than the entire capabilities block?
 
->  	if (info->nc_queues)
->  		napi_enable(&priv->napi[RAVB_NC]);
->  	napi_enable(&priv->napi[RAVB_BE]);
+>  		info->so_timestamping =3D
+>  			SOF_TIMESTAMPING_TX_SOFTWARE |
+>  			SOF_TIMESTAMPING_TX_HARDWARE |
+> @@ -1785,7 +1785,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
+>  			(1 << HWTSTAMP_FILTER_NONE) |
+>  			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
+>  			(1 << HWTSTAMP_FILTER_ALL);
+> -		info->phc_index =3D READ_ONCE(priv->ptp.phc_index);
+> +		info->phc_index =3D ptp_clock_index(priv->ptp.clock);
+>  	}
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260921175037.4084=
-310-1-niklas.soderlund+renesas@ragnatech.se?part=3D1
+310-1-niklas.soderlund+renesas@ragnatech.se?part=3D5
