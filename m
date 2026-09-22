@@ -1,343 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38CF4F85B6;
-	Tue, 22 Sep 2026 06:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716473C1D6A
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 06:59:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790060274; cv=none; b=Kax/skQmtoIMjZjcgR9xFnaorNo7MyH8g5NfcH0Jf92ChTfYxIQSt/m3u2C+5yOA6Ef4tanfN86SmfNmttmtHEGNvLFYFGAzcAP3PVqmoOIVHf05maNmD8o35EFMCAkdbbuAWRF2ZTJMzgQTInO49gAbLuL2E7wcDFG0k3YXvIA=
+	t=1790060371; cv=none; b=pFvTQ741j+pYDZqYHS1BTAyQq2re3O5uKrcpIAC8Z9Ix8aMLliHdK1mucx5E6qgprGGKIANsD9MQ+wdgbMqri149IF5sMFW1QIlRFZiMqu+id+LukTe/7GVkyfJriu3TFgc8ToFFHYv4PR21HX5DazyAUf5xzYtRh3pusaGsmSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790060274; c=relaxed/simple;
-	bh=mqZ3m7qQnWJiU3C0xVz7yF3bBsmEzUsYEh10Y3nFmqI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dachG8go8gC960fusxO0wsmXk9W3vnzefFVNTXzPweO78Ln0+vxA3UN386uQfS0jGPuwjg4T/krdnpaUvPvcQjujPdSqP0Atc6O/zUaPDjP3CcWXDv57eP/1DrJYyu4icLnOPNS/9HC4j2l1KP3hD5IojdGxz2IfEBabUS3UFtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UCA4Oi5A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790060371; c=relaxed/simple;
+	bh=1TiV2Ip4e4Vs333/dEmHkKjYSPHQHH9TAPa+dveTvNc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=G2jnfiZiWWYMtq8f2s0MHgoajpHbqe0wkTHoIuLM36B3FT6ccTitFJorSpgHs6V2Tlz4ahH/DApkX43znnwbGq6xN7vRaX/78FM3C1h0TjOAPjEfSCQ+3k7hUyrckKihVMaeMWMfUdIXP0ytXLFKr6PzpUNYl3q8l8nAkVrnTYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=04z+sDMf; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UCA4Oi5A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E2131F00893;
-	Tue, 22 Sep 2026 06:57:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790060264;
-	bh=wW8a8o616DUzdAjD6CwK+b+Uo/lFg+x8oHawcTMiox4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UCA4Oi5AFR7OJmvro2G98gGLyf8qPVDjxfeVmBNMcAMRmKg5m7v/siJ4t+CPd3X+h
-	 gmbm9Y4BRNB/NlOLuJr7tfegfl3ctu+20ZKZIHUQ+9MlkIumLY95XOVhAR7A1+m1Hn
-	 AycUibTclkfbc/E+l2fYhWorgnUfZgtlXewhDVLZp/+UNY1Bjl7U5Wan9R+7nHKWt0
-	 Osri/YtqQESko3Zcfce15xpYkFfEnI/XA+5G5TGqLSEqGIfhQtNxH1ZZIY44Rpedbm
-	 R/8sfQWhXn0kI0o/43CVdRUe2sI4xNZVVVTRkkiQLsWhd8GTVGJkH7Gd3/sEQxTaqV
-	 N9k7MvL17takQ==
-Date: Mon, 21 Sep 2026 23:57:43 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	x86@kernel.org, devicetree@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v8 2/5] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-Message-ID: <arIm5yXDZhkH3KLm@thelio>
-References: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org>
- <20260917-dfustini-atl-sc-cbqri-dt-v8-2-7964e8d73fe8@kernel.org>
- <fb4813cf-b21e-43ca-9bd4-4b42d2214aa6@intel.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="04z+sDMf"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 37E7AC23DB0;
+	Tue, 22 Sep 2026 07:00:09 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9947560580;
+	Tue, 22 Sep 2026 06:59:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2AD541032920C;
+	Tue, 22 Sep 2026 08:59:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790060361; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=CYJeYVq+zoPSXgvrTiKhlttbrwfDZWH+MXsuurAOmL4=;
+	b=04z+sDMfWGyJYBXSgQNXBy3AkYLFY8XpueASItQKWpzYTtG8+ABBFthFjuGX7LlEsXTh5T
+	2TQ/8CPiNBsIHa5Wxg3NMxlaB/ekvbjTBgF/LPvPYvJjPEd9ZiDyHmMURMMwMt7RSSo09m
+	PRdjI3GEuMVpgPBiFEc45AXbxcuhVOm3pOb3eNgj1Y+hPTojTMjAtUgsZql5UnqYLxEzaf
+	JLQqOFIOz8QGxZOGo/0lln2uuvMiodSirzz3w1ZXmE6Jp/BJP1BoosQEmyTSEaJWT0K/SY
+	MKLBHtp3HUpFOMk+MPyJN35Gd2n1rfSIwY70mcoBkcc0nPUTrmM9FintCMWsJg==
+Message-ID: <839fd50c-f74a-4189-86f4-1d5173050fca@bootlin.com>
+Date: Tue, 22 Sep 2026 08:59:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fb4813cf-b21e-43ca-9bd4-4b42d2214aa6@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v6 4/4] net: stmmac: dwmac-socfpga: Add support
+ for Agilex5 TSN GMAC with FPGA converter
+To: muhammad.nazim.amirul.nazle.asmade@altera.com, dinguyen@kernel.org
+Cc: rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robh@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, andrew+netdev@lunn.ch, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260908070557.3585-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260908070557.3585-5-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260908070557.3585-5-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Sep 17, 2026 at 05:54:35PM -0700, Reinette Chatre wrote:
-> Hi Drew,
+Hi,
 
-Hi, thanks for the review.
-
-> On 9/17/26 9:39 AM, Drew Fustini wrote:
-> > diff --git a/arch/riscv/include/asm/resctrl.h b/arch/riscv/include/asm/resctrl.h
-> > new file mode 100644
-> > index 000000000000..b08f4e12f7aa
-> > --- /dev/null
-> > +++ b/arch/riscv/include/asm/resctrl.h
+On 9/8/26 09:05, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > 
-> ...
+> The Agilex5 SoCDK TSN Config2 board uses a GMII-to-RGMII converter
+> implemented as FPGA soft IP between gmac1 and its PHY. This converter
+> provides the RGMII TX/RX clock delays, so the MAC interface selector
+> must be configured for GMII while the PHY is configured without delays.
 > 
-> > +/**
-> > + * resctrl_arch_alloc_capable() - any CBQRI controller exposes resctrl alloc
-> > + *
-> > + * Returns true once at least one CBQRI controller has successfully probed for
-> > + * a resctrl-exposed cache capacity allocation feature. Only meaningful after
-> > + * cbqri_resctrl_setup() runs at late_initcall.
-> > + */
-> > +bool resctrl_arch_alloc_capable(void);
-> > +
-> > +/**
-> > + * resctrl_arch_mon_capable() - any CBQRI controller exposes resctrl monitoring
-> > + *
-> > + * The CBQRI driver implements capacity allocation only and wires up no
-> > + * monitoring events, so this always returns false. fs/resctrl references it
-> > + * unconditionally, hence the stub.
-> > + */
-> > +bool resctrl_arch_mon_capable(void);
-> > +
+> Add the "altr,socfpga-stmmac-agilex5-tsn" compatible with dedicated
+> match .data ops that extend the standard Agilex5 setup: force GMII for
+> the MAC interface selector and strip delay bits from phy_interface so
+> the PHY is not configured to add delays already provided by the FPGA
+> converter.
 > 
-> fyi ... I aim to comment more details later in this patch but for now please note that
-> there are plans to remove the above two hooks since resctrl self has needed
-> information via the rdt_resource::alloc_capable and rdt_resource::mon_capable flags.
+> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Maxime
+
+> ---
+> v6: No changes from v5.
+> v5: Replace of_device_is_compatible() probe check with dedicated
+>     socfpga_agilex5_tsn_gmac_ops via match .data, per Krzysztof
+>     Kozlowski and Dinh Nguyen.
+> v4: Add Reviewed-by from Andrew Lunn.
 > 
-> For reference:
-> 	https://lore.kernel.org/lkml/20260916231320.14502-7-tony.luck@intel.com/
+>  .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 23 ++++++++++++++++++-
+>  1 file changed, 22 insertions(+), 1 deletion(-)
 > 
-> I see this has impact on this driver that I comment more below.
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> index 1d7f0a57d288..0632105b420f 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+> @@ -69,12 +69,13 @@ struct socfpga_dwmac {
+>  	void __iomem *tse_pcs_base;
+>  	void __iomem *sgmii_adapter_base;
+>  	bool f2h_ptp_ref_clk;
+> +	phy_interface_t mac_interface;
+>  	const struct socfpga_dwmac_ops *ops;
+>  };
+>  
+>  static phy_interface_t socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
+>  {
+> -	return dwmac->plat_dat->phy_interface;
+> +	return dwmac->mac_interface;
+>  }
+>  
+>  static void socfpga_sgmii_config(struct socfpga_dwmac *dwmac, bool enable)
+> @@ -650,6 +651,8 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
+>  	plat_dat->pcs_exit = socfpga_dwmac_pcs_exit;
+>  	plat_dat->select_pcs = socfpga_dwmac_select_pcs;
+>  
+> +	dwmac->mac_interface = plat_dat->phy_interface;
+> +
+>  	ops->setup_plat_dat(dwmac);
+>  
+>  	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
+> @@ -670,10 +673,28 @@ static const struct socfpga_dwmac_ops socfpga_agilex5_ops = {
+>  	.setup_plat_dat = socfpga_agilex5_setup_plat_dat,
+>  };
+>  
+> +static void socfpga_agilex5_tsn_gmac_setup_plat_dat(struct socfpga_dwmac *dwmac)
+> +{
+> +	struct plat_stmmacenet_data *plat_dat = dwmac->plat_dat;
+> +
+> +	socfpga_agilex5_setup_plat_dat(dwmac);
+> +
+> +	/* FPGA converter supplies RGMII delays; MAC uses GMII, PHY gets plain RGMII */
+> +	dwmac->mac_interface = PHY_INTERFACE_MODE_GMII;
+> +	if (phy_interface_mode_is_rgmii(plat_dat->phy_interface))
+> +		plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
+> +}
+> +
+> +static const struct socfpga_dwmac_ops socfpga_agilex5_tsn_gmac_ops = {
+> +	.set_phy_mode = socfpga_gen10_set_phy_mode,
+> +	.setup_plat_dat = socfpga_agilex5_tsn_gmac_setup_plat_dat,
+> +};
+> +
+>  static const struct of_device_id socfpga_dwmac_match[] = {
+>  	{ .compatible = "altr,socfpga-stmmac", .data = &socfpga_gen5_ops },
+>  	{ .compatible = "altr,socfpga-stmmac-a10-s10", .data = &socfpga_gen10_ops },
+>  	{ .compatible = "altr,socfpga-stmmac-agilex5", .data = &socfpga_agilex5_ops },
+> +	{ .compatible = "altr,socfpga-stmmac-agilex5-tsn", .data = &socfpga_agilex5_tsn_gmac_ops },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(of, socfpga_dwmac_match);
 
-Thanks for letting me know. cbqri_resctrl_control_init() already sets
-rdt_resource::alloc_capable, so I will drop exposed_alloc_capable. I
-will have cbqri_resctrl_teardown() clear rdt_resource::alloc_capable.
-
-Should I wait to drop the hook until Tony's series is applied?
-
-> > diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resctrl.c
-> > new file mode 100644
-> > index 000000000000..0c4bfa2a7f43
-> > --- /dev/null
-> > +++ b/drivers/resctrl/cbqri_resctrl.c
-> > @@ -0,0 +1,785 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only
-> > +
-> > +#define pr_fmt(fmt) "%s:%s: " fmt, KBUILD_MODNAME, __func__
-> > +
-> > +#include <linux/bitfield.h>
-> > +#include <linux/cacheinfo.h>
-> > +#include <linux/cleanup.h>
-> > +#include <linux/riscv_cbqri.h>
-> 
-> Just an observation (I have no intention to comment on the style):
-> The new c files in this series seem to make an effort to have the #include
-> files organized alphabetically, except when if comes to the file above?
-
-Good catch, I'll fix that.
-
-> > +struct cbqri_resctrl_res {
-> > +	struct cbqri_controller *ctrl;
-> > +	struct rdt_resource     resctrl_res;
-> > +	bool                    cdp_enabled;
-> > +};
-> > +
-> > +struct cbqri_resctrl_dom {
-> > +	struct rdt_ctrl_domain  resctrl_ctrl_dom;
-> > +	struct cbqri_controller *hw_ctrl;
-> > +};
-> 
-> Is cbqri_resctrl_dom::hw_ctrl necessary? From what I can tell it is
-> initialized from cbqri_resctrl_res::ctrl when a new domain is created
-> and thus identical in all domains that belong to a resource. 
-> 
-> It looks to me as though the resource is always available when the associated
-> controller information is needed so it looks like just cbqri_resctrl_res::ctrl
-> could do?
-
-cbqri_resctrl_dom::hw_ctrl is needed when a cache level has more than
-one controller. Each cache instance has its own register block, so a
-domain has to reach its own controller.
-
-> The way the data is organized results in potentially confusing code since, for
-> example, when initializing the control values of a single domain
-> (cbqri_init_domain_ctrlval()) the RCID count is obtained from the domain's
-> cbqri_resctrl_dom::hw_ctrl::rcid_count but when initializing the control values of
-> all domains (resctrl_arch_reset_all_ctrls()) the RCID count is obtained from the
-> resource's cbqri_resctrl_res::ctrl::rcid_count instead of each domain's domain
-> cbqri_resctrl_dom::hw_ctrl::rcid_count.
-
-Good point, I will read the rcid_count from the resource.
-
-> > +static void cbqri_resctrl_accumulate_caps(void)
-> > +{
-> > +	int rid;
-> > +
-> > +	for (rid = 0; rid < RDT_NUM_RESOURCES; rid++) {
-> > +		struct cbqri_resctrl_res *hw_res = &cbqri_resctrl_resources[rid];
-> > +
-> > +		if (!hw_res->ctrl)
-> > +			continue;
-> > +		if (hw_res->ctrl->alloc_capable)
-> > +			exposed_alloc_capable = true;
-> > +	}
-> > +}
-> 
-> Since it captures whether any of the resources are alloc_capable it looks like
-> exposed_alloc_capable indeed reflects the same information as what resctrl will
-> use after resctrl_arch_alloc_capable() is dropped (see patch linked earlier).
-> Except that cbqri_resctrl_teardown() only resets exposed_alloc_capable but not
-> the rdt_resource::mon_capable and rdt_resource::alloc_capable flags that the new
-> helper will use to determine if a resource is capable of allocation or monitoring.
-> 
-> The new helper will thus change behavior. It looks like resctrl_exit() is only
-> called on error path during initialization so it seems unlikely that those flags
-> will be referenced by this driver.
-> 
-> If there are plans to call resctrl_exit() in other paths like MPAM driver does there
-> may be issues since the resctrl filesystem may still be mounted and when user space
-> unmounts it the rdt_resource::mon_capable and rdt_resource::alloc_capable will be
-> used and result in some arch callbacks called.
-> 
-> I wonder if it may simplify driver initialization to call resctrl_init() _after_
-> setting up the CPU online/offline handlers (this is how the x86 driver does it).
-
-I don't think there will be a need to call resctrl_exit() in other
-paths. I will move resctrl_init() after cpuhp_setup_state().
-
-> > +static struct rdt_ctrl_domain *cbqri_create_ctrl_domain(struct cbqri_controller *ctrl,
-> > +							struct rdt_resource *res,
-> > +							unsigned int cpu, int dom_id)
-> > +{
-> > +	struct rdt_ctrl_domain *domain;
-> > +	struct list_head *pos = NULL;
-> > +	int err;
-> > +
-> > +	domain = cbqri_new_domain(ctrl);
-> > +	if (!domain)
-> > +		return ERR_PTR(-ENOMEM);
-> > +
-> > +	cpumask_set_cpu(cpu, &domain->hdr.cpu_mask);
-> > +	domain->hdr.id = dom_id;
-> > +	domain->hdr.type = RESCTRL_CTRL_DOMAIN;
-> > +	domain->hdr.rid = res->rid;
-> > +
-> > +	err = cbqri_init_domain_ctrlval(res, domain);
-> > +	if (err)
-> > +		goto free;
-> > +
-> > +	err = resctrl_online_ctrl_domain(res, domain);
-> > +	if (err)
-> > +		goto free;
-> > +
-> > +	/*
-> > +	 * Publish only after the domain is fully initialized and online, so a
-> > +	 * reader walking the RCU list never sees a half-built domain.
-> > +	 */
-> > +	resctrl_find_domain(&res->ctrl_domains, dom_id, &pos);
-> 
-> The caller loops over the domain list to determine whether it needs to create
-> a new domain or not and then this domain create code loops over the list again
-> to determine where to insert the new domain. Could this perhaps be simplified if
-> the first loop  cbqri_attach_cpu_to_all_ctrls()->cbqri_find_ctrl_domain() determines
-> the position at the same time as determining the presence and pass that to
-> this function to just do the insert without searching the list again?
-
-Yes, that is a good idea. I will change this.
-
-> > +/*
-> > + * Attach a CPU to the capacity controller at each cache level whose cache
-> > + * the CPU shares. On failure, detach the CPU from everything attached so
-> > + * far: the cpuhp core does not run this state's offline teardown when its
-> > + * startup fails, so a partial attach would otherwise leak into the domain
-> > + * cpu_masks. Caller holds cbqri_domain_list_lock.
-> > + */
-> > +static int cbqri_attach_cpu_to_all_ctrls(unsigned int cpu)
-> > +{
-> > +	static const u32 levels[] = { 2, 3 };
-> > +	struct cbqri_controller *ctrl, *c;
-> > +	struct cbqri_resctrl_res *hw_res;
-> > +	struct rdt_ctrl_domain *d;
-> > +	struct cacheinfo *ci;
-> > +	int i, rid;
-> > +
-> > +	lockdep_assert_held(&cbqri_domain_list_lock);
-> > +
-> > +	/*
-> > +	 * Hold cbqri_controllers_lock across the walk so a controller
-> > +	 * registered after boot cannot corrupt it. The register path takes
-> > +	 * it as a leaf and never cbqri_domain_list_lock, so this nesting
-> > +	 * cannot invert.
-> > +	 */
-> > +	guard(mutex)(&cbqri_controllers_lock);
-> > +
-> > +	for (i = 0; i < ARRAY_SIZE(levels); i++) {
-> > +		ci = get_cpu_cacheinfo_level(cpu, levels[i]);
-> > +		if (!ci)
-> > +			continue;
-> > +
-> > +		rid = cbqri_cache_level_to_rid(levels[i]);
-> > +		hw_res = &cbqri_resctrl_resources[rid];
-> > +		if (!hw_res->ctrl)
-> > +			continue;
-> > +
-> > +		/* The controller backing this CPU's cache at this level. */
-> > +		ctrl = NULL;
-> > +		list_for_each_entry(c, &cbqri_controllers, list) {
-> > +			if (c->type == CBQRI_CONTROLLER_TYPE_CAPACITY &&> +			    c->alloc_capable &&
-> > +			    c->cache.cache_level == levels[i] &&
-> > +			    c->cache.cache_id == ci->id) {
-> > +				ctrl = c;
-> > +				break;
-> 
-> Is it necessary to loop over cbqri_controllers and repeat these tests? Above seems to
-> duplicate the work done during initialization (cbqri_resctrl_pick_caches()) that resulted
-> in initialization of cbqri_resctrl_res::ctrl so it seems that after testing for existence
-> this function could just use cbqri_resctrl_res::ctrl without again referencing cbqri_controllers?
-> 
-> If I understand correctly it may be that new controllers appear in cbqri_controllers 
-> after this driver is initialized and the resources are initialized so the CPU online/offline
-> helpers may need to take care how any controllers in cbqri_controllers not seen by
-> cbqri_resctrl_setup() are handled.
-
-The problem is that every controller that passed cbqri_cc_caps_agree()
-is forgotten except the first. I will change cbqri_resctrl_pick_caches()
-to keep every controller accepted for a level and have the online path
-look up the cpu's cache id in that set.
-
-> > +static int __init cbqri_arch_late_init(void)
-> > +{
-> > +	int err;
-> > +
-> > +	if (!riscv_isa_extension_available(NULL, SSQOSID))
-> > +		return -ENODEV;
-> > +
-> > +	err = cbqri_resctrl_setup();
-> > +	if (err)
-> > +		return err;
-> > +
-> > +	err = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "cbqri:online",
-> > +				cbqri_resctrl_online_cpu,
-> > +				cbqri_resctrl_offline_cpu);
-> > +	if (err < 0) {
-> > +		cbqri_resctrl_teardown();
-> 
-> cbqri_resctrl_teardown() calls resctrl_exit() that will complain
-> via WARN_ON_ONCE() if any domains exist at that time. It is not clear
-> to me if this can be guaranteed here.
-
-I think moving resctrl_init() after cpuhp_setup_state() should eliminate
-the possibility since a cpuhp failure then has nothing to tear down.
-
-Thanks,
-Drew
