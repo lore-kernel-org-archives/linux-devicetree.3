@@ -1,75 +1,110 @@
-Received: from va-2-35.ptr.blmpb.com (va-2-35.ptr.blmpb.com [209.127.231.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD03539764
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 11:02:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54BE2539789;
+	Tue, 22 Sep 2026 11:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074974; cv=none; b=IUzgi+HAg5fzmObuVE2BO26o86+eUlA8icuW/0keCoL0Xr4h6RyWa/PzDWUtIqnByD6/9Shtt5pqjZG9t2t7KvaRT4e5t/Q/Ph1cPdPvEFWtfoxAxSEY7HPTl5pnxAz1wLnrNprhCQRxuEKElfpKoGgMGA02RZoZN0DtPDQWI2A=
+	t=1790075004; cv=none; b=Z7NbfXfjFG3DiDrpW3eeoi9tvtHAZRD90LhYMNe0ZvE5QljjjGtp/CuZg5VLhM9PNwJfe3SaU/Z9w4Z5tXtJ5FRVM/yF4D5Rd9V42tRH9nlJFBMFdSEdhDncTas8vCoet+GhxgMbwyvdM/DR8/pt9V/qC+QSArpd8sdwDJZhMvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074974; c=relaxed/simple;
-	bh=1899KeD85uKRGfXlEpmON98ChfRq+XnW3qXz5M6N/+4=;
-	h=Cc:Date:To:From:Subject:Message-Id:Mime-Version:Content-Type; b=bKmMcTDF9gXRS00CU9kf2JHDaY+jrbSccgf30z7xc/rmYdXBiFah8Xna+omld0WinonY+bJA5G5bpNWkvwkt2AvI9gmBtCqTh2Rb1bO/sqiFbDBpHjXNWlJvg38CR8QSt7KO/XEiU93xBawCuwapkdK8bRWFObc8V0qI7fEbRFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=0NCiP/zK; arc=none smtp.client-ip=209.127.231.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	s=arc-20240116; t=1790075004; c=relaxed/simple;
+	bh=ik2TSWWSMDSo+wj+TTDCw/82I6ainBJxGpgZm7BMKIo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hnmxo97XlEVsgxRgVG1K31P/sUTKcUZwz6iTomJjVZMmjrsYwI153XgMTkfyjYQ7GvQjandIcM/r+50PakZSjI5gXg/1zRiWAYPyn/G3RGy7GfCM9A67QWSOtvsj6U2+mbo6GpKj4ubKHO45CSPzo/XJ6yaPiW7qkvyW/FO0gqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Xyulv73U; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="0NCiP/zK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1790074961;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=iFgJigE7aPx9rcthpS190in8b+smB38KzrjCrY8jyZE=;
- b=0NCiP/zKr/rJgj1+Zx+mOuh2xXMNG82cVBLX/lHIs3PjGSvbamCqznwvmbTuZV0ibJs8vt
- gMDyAd/xyuNw+zDfVJiS74ke+GMi/8RuzvVF6/v6kncxkaimuSqb0iWFIe/4DnYYxG0Ihm
- onYnfRnX0Z7+pRCsTOijy1qRbnVvmEaR+jGs07mMu8ZZtUFeM2xJhNlRZv37qPNrMpvmN/
- wU9YYEnmSxhblcNnuOaY2qS/apR0cBHULle4ZyXLED+Te1nTQ1CzcuTFh/tw7jvvIQLJOB
- aM1EqeTHvWRtkZfHtwTgC/GldqYqnZK6ITghHQK2i7nNtCTtxl6ZQ3dsAd3cIQ==
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Sandie Cao" <sandie.cao@deepcomputing.io>
-Date: Tue, 22 Sep 2026 19:02:31 +0800
-Content-Transfer-Encoding: 7bit
-X-Mailer: git-send-email 2.43.0
-X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
-X-Lms-Return-Path: <lba+26ab2604f+1f6f27+vger.kernel.org+sandie.cao@deepcomputing.io>
-To: "Yixun Lan" <dlan@kernel.org>, 
-	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
-Subject: [PATCH 0/3] Enable USB and SD for Deepcomputing FML13V05 board
-Message-Id: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Xyulv73U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790075003; x=1821611003;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ik2TSWWSMDSo+wj+TTDCw/82I6ainBJxGpgZm7BMKIo=;
+  b=Xyulv73Uptw/sqmR5n7WY2wgvwPg6DLkWYFgyNFjlPMyPLIqMkMg/TWd
+   Pb1vsbcacT0DnAjyFibbSScRgNcyJun+LYPV8Xx7iwqsE5StW9GxMeNIu
+   AWVOsYGijRHePz+VJu1lG8rJxBeARtPtc035yTzAnCyU1FVoX0kf0svgF
+   zgw7QH3I/NhXrFmFX4FhIg6dbq6lXQDUIQUUmAp3bCwLL37wtPXNNLljn
+   8VyY0ccIF+b6jXOLrCaAm4dgrrQ/lXDeHJPXLIfK8d1OyH3t+lPYki5qi
+   2pJaTqD5HebFpLvARreWwb9enGCMVYv2Kj2QUbPknzvde845qFzx0+1FL
+   g==;
+X-CSE-ConnectionGUID: zfHVlbbWS2+Jwwc1xEFVow==
+X-CSE-MsgGUID: /fHXh1uiQmaAWqTQYno1xw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116189874"
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="116189874"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 04:03:22 -0700
+X-CSE-ConnectionGUID: jYNSqwELSaymLJSVygnpkw==
+X-CSE-MsgGUID: JY29+J1BTgifCjMru4fGdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
+   d="scan'208";a="277871181"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa004.fm.intel.com with ESMTP; 22 Sep 2026 04:03:19 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 1DC5D99; Tue, 22 Sep 2026 13:03:18 +0200 (CEST)
+Date: Tue, 22 Sep 2026 13:03:18 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Amber Kao <ite_pd@ite.com.tw>
+Cc: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
+	Yaode Fang <Yaode.Fang@ite.com.tw>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] usb: typec: ucsi: itepd: Add DisplayPort
+ alternate mode support
+Message-ID: <arJgdmA9cWLMQpzV@black.igk.intel.com>
+References: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
+ <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([183.23.111.1]) by smtp.feishu.cn with ESMTPS; Tue, 22 Sep 2026 19:02:38 +0800
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
 
-This series updates Deepcomputing FML13V05 Device Tree: Add P1 PMIC regulator
-tree, add USB controller and USB phy, Enable SD card.
+On Fri, Sep 18, 2026 at 06:03:44PM +0800, Amber Kao wrote:
+> Add support for DisplayPort alternate mode. The driver retrieves
+> the current alternate mode from the PPM, configures the Type-C mux
+> and retimer accordingly, and reports HPD state and HPD IRQ events
+> through the DRM auxiliary HPD bridge.
+> 
+> Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
+> ---
+>  drivers/usb/typec/ucsi/Kconfig      |   8 +-
+>  drivers/usb/typec/ucsi/ucsi_itepd.c | 404 +++++++++++++++++++++++++++++++++++-
+>  2 files changed, 400 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/ucsi/Kconfig b/drivers/usb/typec/ucsi/Kconfig
+> index 0f10dac9b34b..c5eaf4967e4e 100644
+> --- a/drivers/usb/typec/ucsi/Kconfig
+> +++ b/drivers/usb/typec/ucsi/Kconfig
+> @@ -105,11 +105,15 @@ config UCSI_HUAWEI_GAOKUN
+>  	  called ucsi_huawei_gaokun.
+>  
+>  config UCSI_ITEPD
+> -	tristate "UCSI Interface Driver for ITE IT8851/IT8853"
+> +	tristate "UCSI Interface Driver for ITE IT885x and IT527x series"
+>  	depends on I2C
+> +	depends on DRM || !DRM
+> +	select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
+>  	help
+>  	  This driver enables UCSI support on platforms that expose an
+> -	  ITE IT8851/IT8853 Type-C Power Delivery controller over an I2C interface.
+> +	  ITE IT885x or IT527x series Type-C Power Delivery controller
+> +	  over an I2C interface. It also supports DisplayPort alternate
+> +	  mode, including HPD notification through the DRM bridge.
 
-This series is based on next-20260918.
+Please split this part into separate patch.
 
-Sandie Cao (3):
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator
-    tree
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller
-    and USB phy support
-  riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card
-    support
+Thanks,
 
- .../spacemit/k3-deepcomputing-fml13v05.dts    | 218 ++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi          |  66 ++++++
- 2 files changed, 284 insertions(+)
-
-
-base-commit: 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998
 -- 
-2.43.0
+heikki
