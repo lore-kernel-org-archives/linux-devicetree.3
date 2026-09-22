@@ -1,85 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5E34E4C4C;
-	Tue, 22 Sep 2026 07:29:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A8637DEA4
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:31:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790062155; cv=none; b=mo1n+910vHUCGpXzJGjw0LY6zOd1kHuMGX+4IEy1ZxQwc3Q4/1VZOpj9gqqXCyK6haI32cfTZ/baqbtqMcTAjyGKdwHlV5NL4Dny+lIvnocjs7lbFe3UQnMlvU3pAbGT8JEKWFvQ4QXEmEe8mDhzuy6OnoO5pEfsMTBzVnnXIrs=
+	t=1790062263; cv=none; b=j+jAuUboU0iHususxm3MeGknWSUl+LzRtXK6Xztvht2oeZJV8pScywaChWXPze65kq86Chbnzpfm2yIpD1jEXm41RAIKWSB7WxzQcrNZofVrgX87MKq9oLf1aZM321ad/vgTBvePEarV480lYbJqZPOZXNjZdpqqHY4NqtuCB+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790062155; c=relaxed/simple;
-	bh=PqIM2Qviukhcl3o+EC3IQOTxcs3TiUTloXus2jpKlWI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yc9jXjrBDXKZR8Rom7uK8iqSuwxrQRZulL/nBe/3gF8nGnptmZri4kFCVJNEIU9bfVFO8fo5ovKeBSf9DxAOV0lahYMsL/I6uJnDnJCq0xYohP650MArmlxVkxc3ZONss43tySAO9b//k6QHQSpvJ6BO5IsmEMShzRGf+v82Rqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lj4h3NN4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790062263; c=relaxed/simple;
+	bh=oDqW6T/eleBg+IVifKo8eY/xxzZd9a5JDL8hnibllLY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ltr1QQlOOak5fr/vLS4Pn3+y3RmE3uqVzE3L53ddoCJYt7jDUl0NW+4Zw9reCEa1rFhI7iWff4AYyZ0ZDcYia3Zu1pqKFsLoMMo6/s1gXV2Zptan63kXLlWVCTHZLBNjirjCk8J0sLPAVEkYpnHc11QjqnbOb/4Ee8qakPyYRos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g40mb1a2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lj4h3NN4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90ADA1F000FF;
-	Tue, 22 Sep 2026 07:29:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g40mb1a2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4BA1F008BC
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:31:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790062154;
-	bh=mrmWGHtOctOdZhqNCNIpUiwnnfhpa2OZaFb59cUmK9s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lj4h3NN4HFuNhjBGJO0IUmHXJZIe5Dwhvi97k38gWPKQSn/ezGBj34b/irhN3gLyM
-	 R+MVwWQbTuaDMbfD/9Tv0V4fXth90C054y8BTYzdhlR7/RTx+MAVweAMY2SFULTfU5
-	 vOaNN1ca3ug9IQPXoQF2R3R5BDZhS6IjaildgQKbhJmJRH8piTcYDKcvFd56o63bt0
-	 Fd33nMEWjwknaW/qe5bHXq1hJvAdooBxTzs/LeZsbNI/LKuywyQrV9o4gTe7V3hveB
-	 29EJmCcsssT9aD+DDYYFyx2RQx3LBe3r5BaobDEo4pShlkyrGVMOXogtDkgeS1OW3A
-	 w8AOLNMJCLE3g==
-Date: Tue, 22 Sep 2026 07:29:10 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Chukun Pan <amadeus@jmu.edu.cn>
-Cc: alex@ghiti.fr, aou@eecs.berkeley.edu, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com, pjw@kernel.org, robh@kernel.org,
-	spacemit@lists.linux.dev
-Subject: Re: [PATCH 1/1] riscv: dts: spacemit: set ETH MAC from eeprom for
- OrangePi
-Message-ID: <20260922072910-GKB353745@kernel.org>
-References: <20260921124206-GKI297024@kernel.org>
- <20260922065001.1888961-1-amadeus@jmu.edu.cn>
+	s=k20260515; t=1790062261;
+	bh=oDqW6T/eleBg+IVifKo8eY/xxzZd9a5JDL8hnibllLY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=g40mb1a26ZyzUuelCX1OT15116nPGtMHhS3st5kgkA5BYA13xkFrwXZ8ZMIjNKgzP
+	 f+8z25rLZezINkew+GWFVkmeLqBqHbo9W4pqzeNB64rGkOa5Nr/kL3ee66cm+trXg/
+	 BjF8gbfJ649PEU0cfdu1HNRsl5nQyLTE4GnTI0AZkxvrHm6GbrLzmy7M1HwD4MzmP8
+	 Ep/8BbY8GVbh9r7NwvcU6i3mAvTdiaVWzkrgRSbq4j4KbdMxSTvy9w7hnC8ptZkL6n
+	 mWQWh3nd1Xped7TnIzYwQUaWXqmOzQH5MwOkjXcQDBMu643kxwjrWJsWVvmU66AOrq
+	 oAEdpl6lTCKEg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1e023so1398250e87.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 00:31:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxkR3H+oQ25CItix6fiQGHlrNbopXYSrHngKvEDrM/2iwfRVGzzVvr/F0pNoEuP+jpDwVMX8YjzhG3P@vger.kernel.org
+X-Gm-Message-State: AFuF++ko/Tw8oqoIEJSKQMidISIwQ6t0tjw6F24bLRPVgCfNmD2fBs1p
+	86YazX9TuqsVmUXY0JdofBv52Xj2Ap+aq5lHU9QCBwHrk/F/hJMt97IE3z6mj1ozVMWFvQGTLg6
+	vUSElCIgVF3HKtkS6+QaUHQfB/YSK0AA=
+X-Received: by 2002:a05:6512:220f:b0:5aa:62df:cd0f with SMTP id
+ 2adb3069b0e04-5b8d28f3a47mr591510e87.2.1790062259696; Tue, 22 Sep 2026
+ 00:30:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260922065001.1888961-1-amadeus@jmu.edu.cn>
+References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+In-Reply-To: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 22 Sep 2026 09:30:46 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkCNkcf-gn0FgvLZZTibLUvbKaH6L+=nRqkNZr2iKFqsQ@mail.gmail.com>
+X-Gm-Features: AclHuK8hX4pHeDwobDyuxDvOk77GoFqK-3FPyH55F8XUpLTG8sIcoklXJFAKFds
+Message-ID: <CAD++jLkCNkcf-gn0FgvLZZTibLUvbKaH6L+=nRqkNZr2iKFqsQ@mail.gmail.com>
+Subject: Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
+To: longzhao@ambarella.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Chukun,
+Hi Long,
 
-On 14:50 Tue 22 Sep     , Chukun Pan wrote:
-> Hi,
-> 
-> > Could you point me where the u-boot patching the MAC address?
-> > I'm not fully aware of this problem..
-> 
-> This is handled by U-Boot's fdt_fixup_ethernet() function:
-> https://github.com/u-boot/u-boot/blob/main/boot/fdt_support.c#L639
-> 
-> do_bootm_linux()
->         |
-> boot_prep_linux()
->         |
-> image_setup_linux()
->         |
-> image_setup_libfdt()
->         |
-> fdt_fixup_ethernet()
-> 
-So checked the code, it's not a direct problem of /alias, but due to the
-env variable provided to override the mac address, see
+On Tue, Sep 15, 2026 at 1:15=E2=80=AFPM Long Zhao via B4 Relay
+<devnull+longzhao.ambarella.com@kernel.org> wrote:
 
-https://github.com/u-boot/u-boot/blob/main/boot/fdt_support.c#L698
-	tmp = env_get(mac);
-	if (!tmp)
-		continue;
+> This series adds minimal Ambarella CV75 support for early bring-up with
+> a serial console: DT bindings, RCT clocks, pinctrl, PL061 GPIO via
+> gpio-regmap, 8250_dw UART quirks, ARCH_AMBARELLA, CV75 EVK DT, and
+> MAINTAINERS.
+>
+> This is a single unified series. Please apply via the SoC
+> tree; subsystem maintainers are Cc'd for their pieces.
+>
+> GPIO data path uses gpio-regmap with two layouts (ARM PrimeCell and
+> Ambarella). IRQ stays a custom PL061 irqchip: a linear domain is
+> created after gpio_regmap_register(), attached with
+> gpiochip_irqchip_add_domain() via gpio_regmap_get_chip(), and the
+> chained handler uses gpio_chip as chip data. gpio-regmap girq and
+> regmap-irq are not used.
 
-In this case, I don't think it's necessary to drop the ethernet alias,
-I mean it's totally fine if there is uboot ethaddr env and it wins
+You patchset is big and complex yet you do quick respins.
 
--- 
-Yixun Lan (dlan)
+This indicates you might be using an LLM.
+
+It is required by kernel procedures to disclose this
+with:
+
+Assisted-by: LLM
+
+added to each patch, if this is the case.
+
+Yours,
+Linus Walleij
