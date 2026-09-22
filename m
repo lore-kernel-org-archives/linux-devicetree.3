@@ -1,112 +1,207 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA401456E17
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:27:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBDE4570E5
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:28:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069249; cv=none; b=p6Hi5i0J95XWLcPxlHLdqRUCew8e7e8nx94N1BTgafB3JDpyLNc5Wyp2d+5GPkvE7go5uTTW7auKrtAsuW5x8rZXT00viKi6P7bkb/dF7zbk5g2lchUjK048chImr/gle8mWrQPtqnQ506Ci/Jx94m5daqNAmz0KP/8HKQhgxT8=
+	t=1790069316; cv=none; b=Wf0N0grPUe2s0SInVrsqIkl5now7uPmFGE0fmYlnpj+tkm2vxMttzUGe28j+UtkpSSwGKOz6DfgYgbIhWFbnvXbI25ahZXOEtz6kXBKlT3ve8WtAHw1IVApZgRWtLKqJtj33sZ2Q41vdgpRiAnyxV0OdDESe3fmyleGLkDAScqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069249; c=relaxed/simple;
-	bh=WtmKOT4k00FyQf+g8/04mh/BSS0kCFU0KqKwYPiAanU=;
+	s=arc-20240116; t=1790069316; c=relaxed/simple;
+	bh=xQLGjsLLrlKoo6Ik/vmvLKXMDtNcCsbnMAs9OovaQhE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rHPysNMjk21d91jFSIinkaf7aPCrh7Gqu9XB+XAkjj/kWHIgg7oNmPWXc3hnDdsmGKPNRl4rEUzn45WtoLMBFhjjy7PQNOees2FZWD//mD0b9yUXqKNU6A0NXMkMK7/GMkcAKFYcCZfhWdz39wDAM67S1MnYGTpPFzjT6B+gLz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X5NuH2SG; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=MlaMpqbKDZhmTGdocM87oMjtjSGqxqfrhAgP1nu7HFnIxXDKkjmf3aUPyLyFaYfOED6FBVesg1SotZ7hDkvomFFSgygXKxilG40SlZjCToEEQMwsiXC9p8GOHVqLohQqgsPd2TsDLYTe297n6cMvVWkUlmwTca7lQZ/it37nfng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nvarn2Yk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X5NuH2SG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DFFD1F00893;
-	Tue, 22 Sep 2026 09:27:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nvarn2Yk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1450E1F000FF;
+	Tue, 22 Sep 2026 09:28:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790069247;
-	bh=pirclwzXi1OHa51U/KjF7yxsu8P2yVgqw6eiv3UgcRo=;
+	s=k20260515; t=1790069313;
+	bh=twrV6VmP+Y5Je9MtNdXbsjqWnqgVCAWNDQxpH7z7bNg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=X5NuH2SGCly0YOrIfmw+maEaJwI03bSVbji1RY5UMG9RkwN1B9u8HamaoAZy80iCn
-	 +8KhRcLFJRf2XuyCJRL8pcSHM5fLvaiyBV4w7fSuAiAqmmkCerqu6TBSIvq7Y8Pae8
-	 N73XWx3QvgpXEM3dH6jUg0uev5rbEATzrRI9Qv6TED0DCcWkmfdZTzY5p2aQr6kuo9
-	 oiebEIOZ0rHPF6el9L+ZvdSHowQLng/qAieUun9YbipmWZXtpC5ZPRWynMzWEjMXVJ
-	 yz3mu9Z/XICrEgr3YemNKC8+/NIV8N6dPHE3QpG5jZ026mtwAV+aAyWSA5k2rz4Udr
-	 5aZVcD2CS509A==
+	b=Nvarn2YkQCP1BsZe/OrIp5ZKe9caczGw8g/T6fHppsKtFl1ZoztOtEWUfR0jryFJ1
+	 TOe/Nav58nKLOP9UwkXZ4V+dkevqjxAHtcAlMl5550vhpnWKSYV1FQpkCcMbBKFQaD
+	 RTOqksGxK7+Y6dbDYbeh0v+CDz9LEa256CFncmXLUPaqN+6eCLhJWc+g2ASWgG995Y
+	 5OmguI0gZ7EruVk3ke0u+chBRMveUwMD+j6bo27cRvBFtnI0FMm6IBXyFaAERxUS3h
+	 2Q3GL3tYjF+lSYVWc3j44/3Gc1NLrrqeEeGjOu/NOuTU2YiBiCLCzf+CE1GwVmjPTe
+	 I/2g9nXj7EvvA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 02/12] media: mediatek: jpeg: fix jpeg buffer
- payload size setting
+Subject: Re: [PATCH v17 01/12] media: mediatek: jpeg: fix jpeg cores'
+ amounts setting
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260922091530.241762-3-kyrie.wu@mediatek.com>
+Cc: media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260922091530.241762-2-kyrie.wu@mediatek.com>
 References: <20260922091530.241762-1-kyrie.wu@mediatek.com>
- <20260922091530.241762-3-kyrie.wu@mediatek.com>
+ <20260922091530.241762-2-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 09:27:26 +0000
-Message-Id: <20260922092727.0DFFD1F00893@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 09:28:32 +0000
+Message-Id: <20260922092833.1450E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] media: mtk-jpeg: unnecessary duplication of vb2_set_plane_payload()
+- [High] media: mtk-jpeg: unbounded DT child nodes cause stack and heap buf=
+fer overflows
+- [High] media: mtk-jpeg: overwriting hw_rdy to zero deadlocks worker threa=
+ds
+- [Medium] media: mtk-jpeg: missing wake_up in child probes stalls waiting =
+workers
 --
 
-commit c0c8c5e4f25d1e1a980b86dc79d9084a8c169924
+commit 0bd01f62e3fa6a9492c56fbcebce1fed2d29d3bd
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: mediatek: jpeg: fix jpeg buffer payload size setting
-
-For multi-core jpegdec, if one core gets a resolution change event, the
-payload size needs to change but cannot be changed immediately while others
-decode, leading to mismatch warnings. This patch modifies the buffer prepare
-function to clamp the payload size to the buffer length.
+media: mediatek: jpeg: fix jpeg cores' amounts setting
+   =20
+Different ICs have different amounts of cores,
+use a variable to set the cores' amounts.
 
 > diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
 rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index 41c4cf8dc2626..34135706a4ac3 100644
+> index d147ec4830811..41c4cf8dc2626 100644
 > --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
 > +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> @@ -1325,7 +1325,8 @@ static int mtk_jpeg_probe(struct platform_device *p=
+dev)
+>  		for_each_child_of_node(pdev->dev.of_node, child)
+>  			num_child++;
+> =20
+> -		atomic_set(&jpeg->hw_rdy, num_child);
+> +		jpeg->max_hw_count =3D num_child;
+> +		atomic_set(&jpeg->hw_rdy, 0);
+
+[Severity: High]
+Does setting hw_rdy to 0 here cause a deadlock for worker threads?
+
+Since mtk_jpeg_probe() synchronously probes available child devices via
+devm_of_platform_populate() just before this, those probes will have already
+incremented hw_rdy correctly.
+
+If we unconditionally reset hw_rdy to 0 here, it overwrites that count.
+When jobs are queued, mtk_jpegenc_get_hw() assigns an idle hardware core and
+decrements hw_rdy, making it negative. When cores finish and increment
+hw_rdy, it will remain <=3D 0, causing all subsequent jobs that block on
+wait_event_interruptible(..., hw_rdy > 0) to sleep forever.
+
+>  		atomic_set(&jpeg->hw_index, 0);
 
 [ ... ]
 
-> @@ -710,12 +711,20 @@ static int mtk_jpeg_buf_prepare(struct vb2_buffer *=
-vb)
+> @@ -1462,7 +1463,7 @@ static int mtk_jpegenc_get_hw(struct mtk_jpeg_ctx *=
+ctx)
+>  	int i;
 > =20
->  	for (i =3D 0; i < q_data->fmt->colplanes; i++) {
->  		plane_fmt =3D q_data->pix_mp.plane_fmt[i];
-> +		max_size =3D plane_fmt.sizeimage;
-> +
->  		if (ctx->enable_exif &&
-> -		    q_data->fmt->fourcc =3D=3D V4L2_PIX_FMT_JPEG)
-> -			vb2_set_plane_payload(vb, i, plane_fmt.sizeimage +
-> -					      MTK_JPEG_MAX_EXIF_SIZE);
-> -		else
-> -			vb2_set_plane_payload(vb, i,  plane_fmt.sizeimage);
-> +			q_data->fmt->fourcc =3D=3D V4L2_PIX_FMT_JPEG) {
-> +			max_size +=3D MTK_JPEG_MAX_EXIF_SIZE;
-> +
-> +			vb2_set_plane_payload(vb, i,
-> +					      MIN(vb->planes[i].length,
-> +						  max_size));
-> +		} else {
-> +			vb2_set_plane_payload(vb, i,
-> +					      MIN(plane_fmt.sizeimage,
-> +						  vb->planes[i].length));
-> +		}
+>  	spin_lock_irqsave(&jpeg->hw_lock, flags);
+> -	for (i =3D 0; i < MTK_JPEGENC_HW_MAX; i++) {
+> +	for (i =3D 0; i < jpeg->max_hw_count; i++) {
+>  		comp_jpeg =3D jpeg->enc_hw_dev[i];
+>  		if (comp_jpeg->hw_state =3D=3D MTK_JPEG_HW_IDLE) {
 
-[Severity: Low]
-This isn't a bug, but does mtk_jpeg_buf_prepare() unnecessarily duplicate t=
-he
-vb2_set_plane_payload() call and clamping logic here?
+[Severity: High]
+This isn't a bug introduced by this patch, but can this locklessly
+dereference an unprobed child device?
 
-Since max_size is already initialized to plane_fmt.sizeimage before the
-conditional, could this be simplified by only adding MTK_JPEG_MAX_EXIF_SIZE
-to max_size inside the if block, and then doing a single
-vb2_set_plane_payload() call outside the branches?
+If userspace queues a video job before child devices are guaranteed to
+have probed (or if a child node is disabled in the device tree), this
+loop can read a null pointer from jpeg->enc_hw_dev[i]. Because
+mtk_jpegenc_hw_probe() publishes the device pointer to this array
+without synchronization, comp_jpeg can be null here, leading to a panic
+when checking comp_jpeg->hw_state.
 
->  	}
+>  			hw_id =3D i;
+
+[ ... ]
+
+> @@ -1592,7 +1593,7 @@ static void mtk_jpegenc_worker(struct work_struct *=
+work)
+>  		jpeg_work);
+>  	struct mtk_jpeg_dev *jpeg =3D ctx->jpeg;
 > =20
+> -	for (i =3D 0; i < MTK_JPEGENC_HW_MAX; i++)
+> +	for (i =3D 0; i < jpeg->max_hw_count; i++)
+>  		comp_jpeg[i] =3D jpeg->enc_hw_dev[i];
+
+[Severity: High]
+Does this code overflow the fixed-size comp_jpeg stack array?
+
+Since jpeg->max_hw_count is derived directly from the device tree without
+bounds checking against MTK_JPEGENC_HW_MAX, this loop can write out of
+bounds if the device tree has more child nodes than expected.
+
+>  	i =3D 0;
+
+[ ... ]
+
+> @@ -1687,7 +1688,7 @@ static void mtk_jpegdec_worker(struct work_struct *=
+work)
+>  	struct mtk_jpeg_fb fb;
+>  	unsigned long flags;
+> =20
+> -	for (i =3D 0; i < MTK_JPEGDEC_HW_MAX; i++)
+> +	for (i =3D 0; i < jpeg->max_hw_count; i++)
+>  		comp_jpeg[i] =3D jpeg->dec_hw_dev[i];
+
+[Severity: High]
+Does this code also overflow the fixed-size comp_jpeg stack array for the
+same reason?
+
+>  	i =3D 0;
+
+[ ... ]
+
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/dri=
+vers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> index 32372781daf57..9ca68cde45a48 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
+> @@ -668,6 +668,8 @@ static int mtk_jpegdec_hw_probe(struct platform_devic=
+e *pdev)
+>  	platform_set_drvdata(pdev, dev);
+>  	pm_runtime_enable(&pdev->dev);
+> =20
+> +	atomic_inc(&master_dev->hw_rdy);
+> +
+
+[Severity: Medium]
+Does this increment need a corresponding wake-up signal for pending workers?
+
+If child devices are probed asynchronously (e.g., due to probe deferral)
+and a worker thread is already waiting on hw_wq for a core to become
+ready, the thread will miss the readiness notification and sleep forever
+without a wake_up(&master_dev->hw_wq) call.
+
 >  	return 0;
+>  }
+
+[ ... ]
+
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c b/dri=
+vers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> index b312a15d707b2..44a064dc7b3d0 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
+> @@ -389,6 +389,8 @@ static int mtk_jpegenc_hw_probe(struct platform_devic=
+e *pdev)
+>  	platform_set_drvdata(pdev, dev);
+>  	pm_runtime_enable(&pdev->dev);
+> =20
+> +	atomic_inc(&master_dev->hw_rdy);
+> +
+
+[Severity: Medium]
+Does this also require a wake-up signal to prevent worker threads from
+stalling, just like in mtk_jpegdec_hw_probe()?
+
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922091530.2417=
-62-1-kyrie.wu@mediatek.com?part=3D2
+62-1-kyrie.wu@mediatek.com?part=3D1
