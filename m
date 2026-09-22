@@ -1,1418 +1,388 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1279642900A
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D84745628F;
+	Tue, 22 Sep 2026 10:36:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073369; cv=none; b=s/yjxIRAVDpCTFzOlMqOYY6qOq5W+UvjRimkQyZG5PDd8Lq8RpK4dSfLinazETnwFQwOemUeKsiPZTbZXoz80+L7FD1/JQih0oJDcDB0NKijqQDR4iPSbaXihcHsxYGHltwSEWxc2ebi3OmwGk4bujjZeINnTz93kb3DmzRLjig=
+	t=1790073374; cv=none; b=Hm7wK/oXR5xl65pe8+5/93WY3zvrGqOpRihefPHLSEeK5fstMIbCuKPWqQ0iCFu0rFefYmLuQ2z6FNjli51lXkZh7hMQjTI9xzf2iXD7//QUocZd0XvhIhdPZktLb9sFf0CUIU/29RQXxMoklC7jRHnJyechvWBOE1/jr7TiRBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073369; c=relaxed/simple;
-	bh=waKLqkLAlFWt5di+TQ3hvW0MaNOMOU81PirTXjGctXU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cPmVymjpkzn94A2YtIrgCWo0qlLFTLzjxGxQ5jY8JN/B50HGuiCtY6nYBAdJqNGMp00pyG47Qn1JECFg+5NoABwAC3fwuccZBeH13A4FyyVLVyKhU45qDvymnG4teQGxj6sZYx8gg7qGesBcFAAz4Ua4NYfe8u/qve3tm0itZoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oM/UZs5M; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DS8xkS35; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oM/UZs5M";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DS8xkS35"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M9WRX11842270
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:36:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	opNeGLuDsdYVt+4xHWJYFRw0Acs4NXd6K1r2bCdSmpU=; b=oM/UZs5M9DqlTAUM
-	opgfqB7Zu7ov8vSK/PQ8UiI//cAPQo9x9D5RV/FyFr62CEehKO5pFZ99qUQNmEkN
-	sRB5VFM1BCbaOdh8vYY9basidbv6l1KMJQJFcA0jGp60N5D0UBr0vk52dc3jMsC+
-	jzEOCNkSWdEesUMgUKdVRQlqFO0D9W3vNyhsB3SHncr9x4ePofESJ8NZHQrgni4i
-	Mr8lYQ8kna8ajUeIFSzsw+jDr6QekxsXB43zrdxYhuEaNpMYEfFJSl24ITJGAxsC
-	p2WV/NjyhBGZR2h8x3NkDcmhi5GOgpQoBjnS7BwRbyyUPJcQ/i612IUG8bVontew
-	HDYj+A==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guj111gvq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:36:02 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-381250979d5so4722097a91.0
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 03:36:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790073361; x=1790678161; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=opNeGLuDsdYVt+4xHWJYFRw0Acs4NXd6K1r2bCdSmpU=;
-        b=DS8xkS35q7IVmuoFS/r4IHnB2NhLrorA6cUl94yJ5dsLGSlnqARcgoAYUPhQgNyEp2
-         LfbKXadF5yXeVXgXsKDcp+ti47l5cMXFO3XSWt751jUnJ7eMo6RO0lSEMz7zA8nGfdNe
-         yxzWUltZnej+tswJJUSvlyOm87cyQmQnfO4GO4rE5l0OzpjiFVhn5vzHIuv0aQ5t0dxs
-         DkzuSzgFtR6WDZbIDuS/EWzc2cyRAnvRLXBNGyO/B6UkYl+fFeHOLtheiEZe9kUilw/D
-         ffDa6ztc/n80aqn5iT3IeTjvDoCX118/bOLq4zIj0VSQNyTOiw7RGmXcfB1fw8wCPWay
-         6+Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790073361; x=1790678161;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=opNeGLuDsdYVt+4xHWJYFRw0Acs4NXd6K1r2bCdSmpU=;
-        b=CWnv+6aXsqVWvO0F1MKE0yKBDtPLNNk9jRGiG9goP6+/DdBvx84zEaFDhoQS+31QSs
-         RJcyOWiPm5FLHR4I49yzW2DaltnTSeK/MciERKwfxHUxPkANuDeElKtv0GhZbSXdCvup
-         I0IqZz43rBui0We+XKGjTPaPZkJdkDKuiCe1AKJsD7/GBD7rZCorx5tVPOFUgS7SxOnM
-         ZHjMHN16gox+OI720eSkQw88u7Cj6evK/qbIFO8BK+wuhg0BjZ242dBxdHaRAQAaHtKC
-         6QL36VLHW1tcc5ja78vq6oUZRYmXqcYmHWtk9vYjgqOQrA4/xyBxqL5av7j9t3EcxM9f
-         MObA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXrLjsqdUlohqgvIaTW1LfcfValV5omwSX+lMYAE7/IfeWxEgGM221fjxnY5toKND1OkKoHUnTbP/Y@vger.kernel.org
-X-Gm-Message-State: AFuF++kqnYekqYAYV21sQK/VE8p7Q5Pb811fvSdOE2u+Am69HaiWrj1G
-	htplOWr+NirdSZlJH6eaxnVUVVFjwyk67SB0ecel6bY7KRm/YvKYcQNI4dj5C4T2tjh3+J0t5VM
-	FHP0+5BknMelSz1BAZaiamaakoPaitMtcBH1v0SLcJTMH208kFSjKD4G0Ut+F8zoBP64SMk+y8S
-	E=
-X-Gm-Gg: AYBFou0ZND3skGBta9SxUF4kejZK4Bo7lnidGVqsTWyluoTqRn/8AXcGJ6wn4aavOUM
-	Rz8RhvDsoIURt8dM5CBxDJ/4KtA0P/KmY1pb+Xw7PI1bsIPWbEin+ADsZs+dvkUDIIuvVp8TZtF
-	k6Fx3esryNwfW+n59rXOOhLe1CHulQ8bKMh56XPpncThHeil28QrFUD0iTPOosIXuc4qDt91lPu
-	i0C2RRMvyOAEcVEEYJCsBuu1vlMyxE/k4O6LqkqOvc9kS435IH5Tvy/85pamaveAhA7bJ09cN5H
-	SfIfDx1v13a7k4vNcwpiVjG5qD8V+/GT3UsY1wgovL7S7TXyIyTADOOLRcKRVxyhRqNZaZTW/4c
-	Sn16GzFs2U4s2qLH59AvUx3Sdk0C9CfK4SnhF/n8gXGa3bHQB5RBzHqechxCqxMU=
-X-Received: by 2002:a17:90b:288d:b0:3a0:22bd:6ec8 with SMTP id 98e67ed59e1d1-3a0730d3c6fmr891469a91.16.1790073361143;
-        Tue, 22 Sep 2026 03:36:01 -0700 (PDT)
-X-Received: by 2002:a17:90b:288d:b0:3a0:22bd:6ec8 with SMTP id 98e67ed59e1d1-3a0730d3c6fmr891431a91.16.1790073360532;
-        Tue, 22 Sep 2026 03:36:00 -0700 (PDT)
-Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0699aa221sm3670692a91.9.2026.09.22.03.35.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 03:35:59 -0700 (PDT)
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 18:35:24 +0800
-Subject: [PATCH 4/4] arm64: dts: qcom: glymur: Add CoreSight nodes for APSS
- debug block
+	s=arc-20240116; t=1790073374; c=relaxed/simple;
+	bh=Vg4bWcLlugAsTCG7HLlx82yMTTssM0zNWJauQHfVqdQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fIM5DL0dqQodsLKJz2r5iAXP3RcGqKxKEg2kI3ShqIKFfDepyztT4fJtMnqiAwZQWfobhppjqmlRkDJUkoZaBKBJjYAmZJGBsuiILJ5GZ1Ukywl/fHZrfcHQtaUak53ud5eFerNoeepfwtuKBYAcj/Y0xgmFy1yIUTOlYKU+EzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 4204A200091;
+	Tue, 22 Sep 2026 12:36:01 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E136420004E;
+	Tue, 22 Sep 2026 12:36:00 +0200 (CEST)
+Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 3BBAF18000BA;
+	Tue, 22 Sep 2026 18:35:57 +0800 (+08)
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: linux-kernel@vger.kernel.org,
+	linux-i3c@lists.infradead.org,
+	alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	broonie@kernel.org,
+	mfd@lists.linux.dev,
+	lee@kernel.org,
+	Frank.Li@nxp.com,
+	lgirdwood@gmail.com
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	aman.kumarpandey@nxp.com,
+	Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: [PATCH v20 0/8] Add support for NXP P3H2x4x I3C hub driver
+Date: Tue, 22 Sep 2026 16:05:42 +0530
+Message-Id: <20260922103551.2754613-1-lakshay.piplani@nxp.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-4-c2a8c3225a2e@oss.qualcomm.com>
-References: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-0-c2a8c3225a2e@oss.qualcomm.com>
-In-Reply-To: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-0-c2a8c3225a2e@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Jie Gan <jie.gan@oss.qualcomm.com>
-X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790073341; l=26045;
- i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=waKLqkLAlFWt5di+TQ3hvW0MaNOMOU81PirTXjGctXU=;
- b=XVMnlG+HVSaTI7uCo7Rn/UGdxqcnCeDB2WwnHdtBlNhFKPHGq4oaPxow4snQ4BrKr5S6ADOyU
- Vzm43kNBLS4Auw2AR/UwEZ0w91ZK2GnSVLrdLPaVIvF4ekQlHfwJOSG
-X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
- pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-GUID: er8IoUXTL2TtKbknLZBacZ-j1u_brdcE
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE1MiBTYWx0ZWRfX4g0WzOf/3GXf
- DPVnLRhHTPGKYkG8g7ivWYysDbwUg9VL6+O4x1W9FvAKGImT40Qogy9+wSaSzcEdH4UrZo47JP9
- hxivhdfaUHclOPgterCr91alH9K05w8=
-X-Proofpoint-ORIG-GUID: er8IoUXTL2TtKbknLZBacZ-j1u_brdcE
-X-Authority-Analysis: v=2.4 cv=atQnmiZV c=1 sm=1 tr=0 ts=6ab25a12 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=qXIjyuVdT6Q6OzA_mM0A:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE1MiBTYWx0ZWRfX4s0Mb4j33QPe
- 7fo4JiSZ+vp8DLSkNGxey/H2J2zWQsr9uaXf43avLzYz+M9COBSV23s8PqdyoOWYZ7xG9F8KGhF
- d1qKcejLuKcaP/K3F0K+k5q5XeG8i7HlSF6vmIcFC/S2khtRc2AXkf8oruqUJBJ70lqlcdRDqhK
- BceK5jTTFpQByktM486Ua7UEaxkaxVtjdzrsCpJKfz5Z8qT0BTdVV0vFuUhXfFHZyWLDkduNMYC
- 7QByvmb/UNxW+Uvt0Yq6X8/CcWhPp7p5DpRulHksoaYLLLFWbgbeX8NT4FEnMABvYY26AGvUjLv
- M6j38ZmA/DmQXUd2NZyicHq/G/f4xdfAYT+yU0EZiDX0gAxc1PeD5f2dg6VRuVZkswvATQFnduc
- 3suxJaJ2gSCbrhjHGf/2KxG/mXAJd7T6l277ovhiLb+cg9RhAE8i3isbPu2Za9GQeJjYaiUPQWP
- RwFffo4ddSvyPegg5Xw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
- clxscore=1015 priorityscore=1501 adultscore=0 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220152
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-The APSS debug block is built with CoreSight devices like ETM,
-replicator, funnel and TMC ETF. Add dt nodes for these devices to
-enable ETM trace.
+This series adds support for the NXP P3H2x4x family of multi-port I3C
+hub devices, including their on-die regulators and downstream I3C/SMBus
+target ports.
 
-The replicator, funnel and TMC ETF nodes in this block are physically
-powered by the CPU cluster power rail rather than by a dedicated
-always-on rail. Add a power-domains property referencing the
-corresponding cluster_pdN domain to each of these nodes, so their
-power state is tied to the CPU cluster domain and the runtime PM core
-can power the domain on before the devices are accessed and let it be
-powered off otherwise.
+The series introduces:
+- Core I3C master enhancements required for hub support
+- Generic I3C hub framework
+- MFD driver with regulator and I3C hub child drivers for the P3H2x4x I3C hub
 
-Mahua is based on glymur but only has 12 CPUs across two clusters
-instead of 18 across three, so delete the ETM and cluster2 CoreSight
-nodes that have no corresponding CPUs on that platform.
+The dependency order within the series is:
 
-Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur.dtsi | 1184 ++++++++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/mahua.dtsi  |   16 +
- 2 files changed, 1200 insertions(+)
+- Patches 1 and 2 provide the I3C core helpers required by the generic
+  I3C hub framework
+- Patch 3 provides the P3H2x4x Device Tree binding
+- Patch 4 provides the MFD parent required by both the regulator and
+  P3H2x4x I3C hub child drivers
+- Patch 5 provides the regulator child driver and depends on patch 4
+- Patch 6 provides the generic I3C hub framework and depends on the
+  I3C core changes in patches 1 and 2
+- Patch 7 provides the P3H2x4x I3C hub child driver and depends on
+  patches 4 and 6
+- Patch 8 extends the P3H2x4x hub driver with SMBus slave mode support
+  and depends on patch 7
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-index de7c395d9c35..049bebbb80f9 100644
---- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-@@ -397,6 +397,312 @@ eud_in: endpoint {
- 		};
- 	};
- 
-+	etm-0 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu0>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm0_out: endpoint {
-+					remote-endpoint = <&ncc0_0_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-1 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu1>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm1_out: endpoint {
-+					remote-endpoint = <&ncc0_1_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-2 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu2>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm2_out: endpoint {
-+					remote-endpoint = <&ncc0_2_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-3 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu3>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm3_out: endpoint {
-+					remote-endpoint = <&ncc0_3_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-4 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu4>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm4_out: endpoint {
-+					remote-endpoint = <&ncc0_4_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-5 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu5>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm5_out: endpoint {
-+					remote-endpoint = <&ncc0_5_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-6 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu6>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm6_out: endpoint {
-+					remote-endpoint = <&ncc1_0_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-7 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu7>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm7_out: endpoint {
-+					remote-endpoint = <&ncc1_1_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-8 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu8>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm8_out: endpoint {
-+					remote-endpoint = <&ncc1_2_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-9 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu9>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm9_out: endpoint {
-+					remote-endpoint = <&ncc1_3_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-10 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu10>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm10_out: endpoint {
-+					remote-endpoint = <&ncc1_4_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm-11 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu11>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm11_out: endpoint {
-+					remote-endpoint = <&ncc1_5_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm12: etm-12 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu12>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm12_out: endpoint {
-+					remote-endpoint = <&ncc2_0_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm13: etm-13 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu13>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm13_out: endpoint {
-+					remote-endpoint = <&ncc2_1_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm14: etm-14 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu14>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm14_out: endpoint {
-+					remote-endpoint = <&ncc2_2_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm15: etm-15 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu15>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm15_out: endpoint {
-+					remote-endpoint = <&ncc2_3_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm16: etm-16 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu16>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm16_out: endpoint {
-+					remote-endpoint = <&ncc2_4_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm17: etm-17 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu17>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm17_out: endpoint {
-+					remote-endpoint = <&ncc2_5_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
- 	firmware {
- 		scm: scm {
- 			compatible = "qcom,scm-glymur", "qcom,scm";
-@@ -7244,6 +7550,14 @@ tn_ag_in53: endpoint {
- 					};
- 				};
- 
-+				port@36 {
-+					reg = <0x36>;
-+
-+					tn_ag_in54: endpoint {
-+						remote-endpoint = <&apss_funnel_out>;
-+					};
-+				};
-+
- 				port@3f {
- 					reg = <0x3f>;
- 
-@@ -7625,6 +7939,51 @@ pcie_rscc_tpda_out: endpoint {
- 			};
- 		};
- 
-+		funnel@12080000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x12080000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					apss_funnel_in0: endpoint {
-+						remote-endpoint = <&ncc0_etf_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					apss_funnel_in1: endpoint {
-+						remote-endpoint = <&ncc1_etf_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					apss_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc2_etf_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					apss_funnel_out: endpoint {
-+						remote-endpoint = <&tn_ag_in54>;
-+					};
-+				};
-+			};
-+		};
-+
- 		tpdm@11c03000 {
- 			compatible = "qcom,coresight-tpdm", "arm,primecell";
- 			reg = <0x0 0x11c03000 0x0 0x1000>;
-@@ -8286,6 +8645,831 @@ rpmhpd_opp_turbo_l1: opp-416 {
- 			};
- 		};
- 
-+		funnel@1d021000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d021000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc0_2_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_2_funnel_out: endpoint {
-+						remote-endpoint = <&ncc0_etf_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc@1d029000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x1d029000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_etf_in: endpoint {
-+						remote-endpoint = <&ncc0_2_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_etf_out: endpoint {
-+						remote-endpoint = <&apss_funnel_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@1d081000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d081000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ncc0_1_funnel_in0: endpoint {
-+						remote-endpoint = <&ncc0_0_rep_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ncc0_1_funnel_in1: endpoint {
-+						remote-endpoint = <&ncc0_1_rep_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc0_1_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc0_2_rep_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					ncc0_1_funnel_in3: endpoint {
-+						remote-endpoint = <&ncc0_3_rep_out>;
-+					};
-+				};
-+
-+				port@4 {
-+					reg = <4>;
-+
-+					ncc0_1_funnel_in4: endpoint {
-+						remote-endpoint = <&ncc0_4_rep_out>;
-+					};
-+				};
-+
-+				port@5 {
-+					reg = <5>;
-+
-+					ncc0_1_funnel_in5: endpoint {
-+						remote-endpoint = <&ncc0_5_rep_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_1_funnel_out: endpoint {
-+						remote-endpoint = <&ncc0_2_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d090000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d090000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_0_rep_in: endpoint {
-+						remote-endpoint = <&etm0_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_0_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d0a0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d0a0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_1_rep_in: endpoint {
-+						remote-endpoint = <&etm1_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_1_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d0b0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d0b0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_2_rep_in: endpoint {
-+						remote-endpoint = <&etm2_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_2_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d0c0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d0c0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_3_rep_in: endpoint {
-+						remote-endpoint = <&etm3_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_3_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d0d0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d0d0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_4_rep_in: endpoint {
-+						remote-endpoint = <&etm4_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_4_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in4>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d0e0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d0e0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster0_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc0_5_rep_in: endpoint {
-+						remote-endpoint = <&etm5_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_5_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in5>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@1d121000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d121000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc1_2_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_2_funnel_out: endpoint {
-+						remote-endpoint = <&ncc1_etf_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tmc@1d129000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x1d129000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_etf_in: endpoint {
-+						remote-endpoint = <&ncc1_2_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_etf_out: endpoint {
-+						remote-endpoint = <&apss_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@1d181000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d181000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ncc1_1_funnel_in0: endpoint {
-+						remote-endpoint = <&ncc1_0_rep_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ncc1_1_funnel_in1: endpoint {
-+						remote-endpoint = <&ncc1_1_rep_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc1_1_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc1_2_rep_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					ncc1_1_funnel_in3: endpoint {
-+						remote-endpoint = <&ncc1_3_rep_out>;
-+					};
-+				};
-+
-+				port@4 {
-+					reg = <4>;
-+
-+					ncc1_1_funnel_in4: endpoint {
-+						remote-endpoint = <&ncc1_4_rep_out>;
-+					};
-+				};
-+
-+				port@5 {
-+					reg = <5>;
-+
-+					ncc1_1_funnel_in5: endpoint {
-+						remote-endpoint = <&ncc1_5_rep_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_1_funnel_out: endpoint {
-+						remote-endpoint = <&ncc1_2_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d190000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d190000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_0_rep_in: endpoint {
-+						remote-endpoint = <&etm6_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_0_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d1a0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d1a0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_1_rep_in: endpoint {
-+						remote-endpoint = <&etm7_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_1_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d1b0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d1b0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_2_rep_in: endpoint {
-+						remote-endpoint = <&etm8_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_2_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d1c0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d1c0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_3_rep_in: endpoint {
-+						remote-endpoint = <&etm9_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_3_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d1d0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d1d0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_4_rep_in: endpoint {
-+						remote-endpoint = <&etm10_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_4_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in4>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@1d1e0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d1e0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster1_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc1_5_rep_in: endpoint {
-+						remote-endpoint = <&etm11_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_5_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in5>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_funnel_l2: funnel@1d221000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d221000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc2_2_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_2_funnel_out: endpoint {
-+						remote-endpoint = <&ncc2_etf_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_etf: tmc@1d229000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x1d229000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_etf_in: endpoint {
-+						remote-endpoint = <&ncc2_2_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_etf_out: endpoint {
-+						remote-endpoint = <&apss_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_funnel_l1: funnel@1d281000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x1d281000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ncc2_1_funnel_in0: endpoint {
-+						remote-endpoint = <&ncc2_0_rep_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ncc2_1_funnel_in1: endpoint {
-+						remote-endpoint = <&ncc2_1_rep_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc2_1_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc2_2_rep_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					ncc2_1_funnel_in3: endpoint {
-+						remote-endpoint = <&ncc2_3_rep_out>;
-+					};
-+				};
-+
-+				port@4 {
-+					reg = <4>;
-+
-+					ncc2_1_funnel_in4: endpoint {
-+						remote-endpoint = <&ncc2_4_rep_out>;
-+					};
-+				};
-+
-+				port@5 {
-+					reg = <5>;
-+
-+					ncc2_1_funnel_in5: endpoint {
-+						remote-endpoint = <&ncc2_5_rep_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_1_funnel_out: endpoint {
-+						remote-endpoint = <&ncc2_2_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_0: replicator@1d290000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d290000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_0_rep_in: endpoint {
-+						remote-endpoint = <&etm12_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_0_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_1: replicator@1d2a0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d2a0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_1_rep_in: endpoint {
-+						remote-endpoint = <&etm13_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_1_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_2: replicator@1d2b0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d2b0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_2_rep_in: endpoint {
-+						remote-endpoint = <&etm14_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_2_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_3: replicator@1d2c0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d2c0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_3_rep_in: endpoint {
-+						remote-endpoint = <&etm15_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_3_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_4: replicator@1d2d0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d2d0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_4_rep_in: endpoint {
-+						remote-endpoint = <&etm16_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_4_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in4>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_5: replicator@1d2e0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x1d2e0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster2_pd>;
-+
-+			in-ports {
-+				port {
-+					ncc2_5_rep_in: endpoint {
-+						remote-endpoint = <&etm17_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_5_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in5>;
-+					};
-+				};
-+			};
-+		};
-+
- 		nsi_noc: interconnect@1d600000 {
- 			compatible = "qcom,glymur-nsinoc";
- 			reg = <0x0 0x1d600000 0x0 0x14080>;
-diff --git a/arch/arm64/boot/dts/qcom/mahua.dtsi b/arch/arm64/boot/dts/qcom/mahua.dtsi
-index a59c5ed7b48e..77a456fb0772 100644
---- a/arch/arm64/boot/dts/qcom/mahua.dtsi
-+++ b/arch/arm64/boot/dts/qcom/mahua.dtsi
-@@ -6,8 +6,18 @@
- /* Mahua is heavily based on Glymur, with some meaningful differences */
- #include "glymur.dtsi"
- 
-+/delete-node/ &apss_funnel_in2;
- /delete-node/ &bwmon_cluster2;
-+/delete-node/ &cluster2_etf;
-+/delete-node/ &cluster2_funnel_l1;
-+/delete-node/ &cluster2_funnel_l2;
- /delete-node/ &cluster2_pd;
-+/delete-node/ &cluster2_rep_2_0;
-+/delete-node/ &cluster2_rep_2_1;
-+/delete-node/ &cluster2_rep_2_2;
-+/delete-node/ &cluster2_rep_2_3;
-+/delete-node/ &cluster2_rep_2_4;
-+/delete-node/ &cluster2_rep_2_5;
- /delete-node/ &cpu_map_cluster2;
- /delete-node/ &cpu12;
- /delete-node/ &cpu13;
-@@ -22,6 +32,12 @@
- /delete-node/ &cpu_pd16;
- /delete-node/ &cpu_pd17;
- /delete-node/ &cti_wpss;
-+/delete-node/ &etm12;
-+/delete-node/ &etm13;
-+/delete-node/ &etm14;
-+/delete-node/ &etm15;
-+/delete-node/ &etm16;
-+/delete-node/ &etm17;
- /delete-node/ &pcie3_phy;
- /delete-node/ &pcie3a;
- /delete-node/ &thermal_aoss_6;
+Changes in v20:
+- Rebased the series onto v7.3-rc4
+- Moved the generic I3C hub MAINTAINERS entries from patch 6 to patch 7,
+  allowing patches 1, 2 and 6 to be applied independently of the P3H2x4x
+  driver
+- No functional driver changes
+- Link to v19: https://lore.kernel.org/linux-i3c/20260916070728.1088801-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v19:
+- Rebased the series onto v7.3-rc3
+- Expressed P3H2440, P3H2441 and P3H2841 using nxp,p3h2840 as their
+  fallback compatible in the DT binding
+- Reworked the binding description to contain hardware details only
+- Updated the binding example to demonstrate the fallback-compatible form
+- Retained only nxp,p3h2840 in the MFD driver's OF match table
+- Link to v18: https://lore.kernel.org/linux-i3c/20260903062108.2712296-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v18:
+- Rebased onto v7.3-rc1; no intended driver behaviour changes
+- Adapted i3c_master_register_fwnode() to the generic fwnode handling
+  introduced in v7.3-rc1
+- Link to v17: https://lore.kernel.org/linux-i3c/20260902102929.2268307-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v17:
+- Document the calling context of i3c_dev_recycle_ibi_slot_controller():
+  it runs in workqueue context without the bus lock held, while the 
+  controller owns and synchronizes its IBI pool
+- Retain the request_ibi capability check to preserve the pre-series
+  behaviour for regular I3C devices
+- Explain in the binding description that all variants share the same register
+  interface, software reads the target-port count from DEV_CAPAB, and
+  the x0/x1 variants differ only in power-up defaults that the driver
+  overrides
+- Remove the fixed post-enable delay; regulator settling is now handled
+  by the regulator core
+- Add .enable_time = 5000 through P3H2X4X_LDO_ENABLE_TIME_US to all four
+  LDO descriptors, so the regulator core applies the post-enable
+  settling delay
+- Move the lockdep-only routing-lock class assignment into a dedicated
+  helper, leaving hub context initialization unconditional when
+  CONFIG_LOCKDEP is disabled
+- Document that hub_dev must already be registered and remove the
+  WARN_ON_ONCE checks for its descriptor and parent controller
+- Export i3c_hub_master_ops as a const object and reference it directly
+  instead of returning it through an accessor
+- Document that downstream ports share the parent controller's dynamic
+  address domain and that independent per-port DAA domains are not
+  provided
+- Document that a broadcast CCC on a virtual bus reaches the parent bus
+  and devices behind other connected ports; directed CCCs must be used
+  for per-device scope
+- Document that fixed-DT address reservations remain allocated for the
+  lifetime of the parent bus, are reused across driver reprobes, and
+  that downstream hot-join support would also require reserving static
+  addresses
+- Use a named initializer for the platform_device_id table
+- Document why I3C target ports are connected once and left connected,
+  making their per-operation enable and disable callbacks no-ops
+- Reference the exported i3c_hub_master_ops object directly
+- Link to v16: https://lore.kernel.org/linux-i3c/20260826103819.1614843-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v16:
+- Rename the controller-only helpers with a "_locked" suffix to
+  make the parent-bus locking contract explicit, route IBI slot recycling
+  through the controller helper, and destroy the generic IBI workqueue when
+  request_ibi() fails
+- Fix a lockdep "recursive locking" false positive on the hub forwarding path
+  by giving the virtual bus lock and hub routing mutex per-nesting-depth
+  lockdep classes
+- Fix parent-bus dynamic-address reservation to reserve by assigned-address
+  and only when the slot is free, avoiding ENTDAA collisions
+- Make downstream reattach atomic against asynchronous IBI and reject it while
+  an IBI is live; detach IBI-lifetime invariant documented and checked with
+  WARN_ON_ONCE; underlying core IBI teardown fix deferred (known I3C-core
+  limitation)
+- Tighten the target-port reg schema (explicit minimum 0, maximum 7, and
+  maximum 3 for four-port variants)
+- Do not ignore regulator-enable failures during hub configuration
+- Widen the SMBus poll deadline to the datasheet SDA-stuck/SCL-low recovery
+  window and use DMA-safe buffers for controller-agent and SMBus-agent
+  transfers over I3C
+- Advertise I2C_FUNC_SLAVE only when CONFIG_I2C_SLAVE is enabled, reject slave
+  registration unless the upstream I3C device and IBI path are available, and
+  always clear the software slave state on unregister
+- Validate the SMBus-agent IBI payload length and bound the target-port loop
+  by num_target_ports before dispatching receive events
+- Link to v15: https://lore.kernel.org/linux-i3c/20260817103844.2142802-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v15:
+- Replace the direct attach and detach APIs with controller-only helpers
+  that do not modify address-slot state, device lists or generic IBI
+  lifecycle state
+- Add controller-only helpers for device attach, reattach and detach,
+  and for requesting, freeing, enabling, disabling and recycling IBI
+  resources
+- Rework the generic hub architecture to keep downstream logical device
+  descriptors associated with their virtual controllers
+- Add a permanent parent-facing descriptor for each downstream device
+  and use it for operations handled by the physical parent controller
+- Remove temporary descriptor reparenting and temporary hub dynamic
+  address replacement from downstream transfer paths
+- Forward downstream private transfers and the complete IBI lifecycle,
+  including IBI slot recycling, through the parent-facing descriptor
+  with appropriate parent-bus locking
+- Add binding and MFD support for the P3H2440, P3H2441, P3H2840 and
+  P3H2841 variants
+- Fix the target-port reg schema and update the binding examples to use
+  SMBus target-port nodes
+- Read the device capability register to determine whether the device
+  provides four or eight target ports
+- Configure and register only the target ports implemented by the
+  selected device variant
+- Preserve the MFD parent's driver data and store the hub context in the
+  shared MFD structure for use by IBI callbacks
+- Validate target-port types and indices while ignoring non-target-port
+  children, such as the regulators node, during Device Tree parsing
+- Correct the SMBus transfer timeout calculation for 400 kHz operation
+- Use I2C adapter quirks to enforce the maximum supported read and write
+  payload lengths
+- Publish callback-visible SMBus adapter state before adapter
+  registration and roll it back if registration fails
+- Rework SMBus slave registration and unregistration to use the shared
+  protected-register lock and update software state only after the
+  corresponding hardware operation succeeds
+- Update the MFD source description to identify the device as an NXP
+  P3H2x4x multi-port I3C hub instead of referring to it as an "MFD
+  device driver"
+- Link to v14: https://lore.kernel.org/linux-i3c/20260714092053.2461482-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v14:
+- Add i3c_master_register_fwnode() for virtual I3C masters and use it instead of temporarily changing
+  parent dev->of_node
+- Add runtime PM handling in i3c_master_send_ccc_cmd()
+- Export i3c_bus_maintenance_lock()/unlock() and use them in hub paths
+- Fix IBI request/free cleanup to handle forwarded callbacks that clear dev->ibi, and destroy the
+  allocated IBI workqueue on request failure
+- Add a shared MFD protected_reg_lock and use it for protected register accesses across P3H2X4X
+  child drivers
+- Rework regulator protected-register handling to restore the original protection state after
+  each operation
+- Serialize hub route selection around DAA, CCC, private transfer and IBI paths
+- Hold the parent maintenance lock across temporary hub address reattach, transfer and address
+  restore
+- Fix SMBus polling interval calculation
+- Clean up already registered SMBus adapters on adapter allocation or registration failure
+- Fix SMBus slave receive status handling by clearing receive flags on error paths, using FIELD_GET()
+  and explicitly clearing overflow status
+- Link to v13: https://lore.kernel.org/linux-i3c/20260701065755.2067793-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v13:
+- Fix I3C master address management in direct attach/detach paths by using i3c_master_get_i3c_addrs()
+  adding rollback on failure, skipping master self attach/detach, and properly releasing addresses to
+  avoid stale state and use-after-free issues.
+- Export and document address slot helper APIs for I3C hub support.
+- Reserve parent bus address slots for downstream devices with identical static and assigned addresses
+  by parsing target-port DT nodes prior to virtual controller registration, preventing DAA conflicts.
+- Keep broadcast RSTDAA blocked with added documentation, and clarify intentional no-op callbacks
+  and pending TODOs (e.g., IBI slot recycle).
+- Rework SMBus transaction handling to use polling instead of fixed delays
+  avoiding premature reads and data corruption.
+- Fix DT handling issues by preventing duplicate target-port node leaks and restoring dev->of_node
+  after temporary modification.
+- Improve resource management using devm-based cleanup for DT nodes, IBI setup, adapter unregister
+  and register relock paths.
+- Make IBI setup optional and robust to avoid probe failures on unsupported platforms, with proper cleanup.
+- Fix SMBus slave receive path by improving buffer handling, event delivery, and handling of unregistered ports.
+- Strengthen concurrency handling with proper locking around shared state.
+- Link to v12: https://lore.kernel.org/linux-i3c/20260617110355.1591844-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v12:
+- Rebased on i3c/next
+- Dropped patches 1/9 and 2/9 from v11 as they are already applied
+- Add address check in i3c_master_direct_detach_i3c_dev_locked() to skip
+  detach for unaddressed devices
+- Drop redundant depends on I3C from config I3C_HUB
+- Return -EOPNOTSUPP for unsupported I2C transfers in the generic hub ops
+- Correct default pull-up and drive-strength values
+- Add devm cleanup for the IBI request/enable path
+- Remove dead code and simplify cleanup by relying on devm-managed resources
+- Fix SMBus slave client NULL handling and unregister cleanup
+- Link to v11: https://lore.kernel.org/linux-i3c/20260612111816.3688240-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v11:
+- Convert i3c_master_supports_ccc_cmd() to return bool and align
+  semantics with CCC support checks used by the I3C core
+- Use MFD_CELL_NAME() for child device registration
+- Rename driver names to follow subsystem conventions:
+     - Use '-' instead of '_' in driver names
+     - Drop the "_drv" suffix from driver names
+- Fix virtual hub address reattach handling and parent bus locking
+- Fix IBI request and cleanup error paths
+- Improve SMBus slave mode payload validation and parsing
+- Link to v10: https://lore.kernel.org/linux-i3c/20260525064209.2263045-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v10:
+- Rename i3c_master_reattach_i3c_dev() to *_locked to reflect required
+  bus locking
+- Rename i3c_master_direct_attach_i3c_dev() and i3c_master_direct_detach_i3c_dev()
+  to *_locked, as these APIs must be called with the bus lock held for write
+- Drop redundant is_p3h2x4x_in_i3c flag from p3h2840.h
+- Remove unnecessary ibi_lock handling in request/enable/disable/free
+  IBI APIs
+- Remove redundant parent pointer from struct i3c_hub and derive upstream
+  master from hub_dev
+- Split SMBus target/slave mode support, including IBI and MCTP receive handling,
+  into a separate patch
+- Link to v9: https://lore.kernel.org/linux-i3c/20260420105222.1562243-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v9:
+- Renamed macros to follow consistent uppercase naming conventions
+- Made REGMAP selects in the P3H2X4X MFD Kconfig conditional, to avoid I3C/I2C dependency issues
+- Referenced i3c.yaml and i2c-controller.yaml for child bus nodes
+- Dropped unnecessary #address-cells and #size-cells from child nodes
+- Added CONFIG_I2C_SLAVE guards where necessary to avoid build errors when I2C slave support is disabled
+- Link to v8: https://lore.kernel.org/linux-i3c/20260323062737.886728-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v8:
+- Add compatible in i3c example
+- Link to v7: https://lore.kernel.org/linux-i3c/20260319112441.3888957-1-lakshay.piplani@nxp.com/T/#u
+
+Changes in v7:
+- Fix kernel-doc warnings across I3C core and hub code
+- Rework DT binding schema and examples to pass dt_binding_check
+- Update MFD Kconfig to use I3C_OR_I2C
+- Convert CONFIG_I3C_HUB to tristate
+- Remove unnecessary CONFIG_I2C_SLAVE guards
+- Replace custom helpers with find_closest()
+- Use devm_regulator_get_enable_optional()
+- Link to v6: https://lore.kernel.org/linux-i3c/64c5070c-aa9e-427a-933e-91e168f0510c@kernel.org/T/#u
+
+Changes in v6:
+- Update DT binding with vendor-prefixed properties
+- Add generic I3C hub support
+- Remove generic code from P3H2x4x driver
+- Link to v5: https://lore.kernel.org/linux-i3c/20260206120121.856471-1-aman.kumarpandey@nxp.com/T/#u
+
+Changes in v5:
+- Update supply naming and descriptions
+- Improve MFD Kconfig/Makefile ordering
+- Link to v4: https://lore.kernel.org/linux-i3c/20260113114529.1692213-2-aman.kumarpandey@nxp.com/T/#u
+
+Changes in v4:
+- Split driver into MFD, regulator and I3C hub parts
+- Update I3C master for hub support
+- Fix DT binding issues
+- Link to v3: https://lore.kernel.org/linux-i3c/20250811-bittern-of-abstract-prestige-aaeda9@kuoka/T/#u
+
+Changes in v3:
+- Add MFD support for hub and regulators
+- Add regulator integration
+- Link to v2: https://lore.kernel.org/linux-i3c/17145d2f-5d07-4939-8381-74e27cde303c@kernel.org/T/#u
+
+Changes in v2:
+- Fix DT binding warnings
+- Refine DT parsing logic
+- Link to v1: https://lore.kernel.org/linux-i3c/822d6dca-b2c6-4439-ade5-219620ebc435@kernel.org/T/#u
+
+Aman Kumar Pandey (5):
+  i3c: master: Add APIs for I3C hub support
+  dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
+  mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub and on-die regulator
+  regulator: p3h2x4x: Add driver for on-die regulators in NXP P3H2x4x
+    i3c hub
+  i3c: hub: p3h2x4x: Add support for NXP P3H2x4x I3C hub functionality
+
+Lakshay Piplani (3):
+  i3c: master: Add controller-only device operation helpers
+  i3c: hub: Add support for the I3C interface in the I3C hub
+  i3c: hub: p3h2x4x: Add SMBus slave mode support
+
+ .../devicetree/bindings/i3c/nxp,p3h2840.yaml  | 330 +++++++
+ MAINTAINERS                                   |  15 +
+ drivers/i3c/Kconfig                           |  15 +
+ drivers/i3c/Makefile                          |   2 +
+ drivers/i3c/hub.c                             | 832 ++++++++++++++++++
+ drivers/i3c/hub/Kconfig                       |  11 +
+ drivers/i3c/hub/Makefile                      |   4 +
+ drivers/i3c/hub/p3h2840_i3c_hub.h             | 362 ++++++++
+ drivers/i3c/hub/p3h2840_i3c_hub_common.c      | 413 +++++++++
+ drivers/i3c/hub/p3h2840_i3c_hub_i3c.c         | 178 ++++
+ drivers/i3c/hub/p3h2840_i3c_hub_smbus.c       | 651 ++++++++++++++
+ drivers/i3c/internals.h                       |  14 +
+ drivers/i3c/master.c                          | 385 ++++++--
+ drivers/mfd/Kconfig                           |  13 +
+ drivers/mfd/Makefile                          |   1 +
+ drivers/mfd/p3h2840.c                         | 164 ++++
+ drivers/regulator/Kconfig                     |  10 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/p3h2840_i3c_hub_regulator.c | 289 ++++++
+ include/linux/i3c/device.h                    |   2 +
+ include/linux/i3c/hub.h                       |  92 ++
+ include/linux/i3c/master.h                    |  17 +
+ include/linux/mfd/p3h2840.h                   |  41 +
+ 23 files changed, 3790 insertions(+), 52 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+ create mode 100644 drivers/i3c/hub.c
+ create mode 100644 drivers/i3c/hub/Kconfig
+ create mode 100644 drivers/i3c/hub/Makefile
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub.h
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub_common.c
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub_i3c.c
+ create mode 100644 drivers/i3c/hub/p3h2840_i3c_hub_smbus.c
+ create mode 100644 drivers/mfd/p3h2840.c
+ create mode 100644 drivers/regulator/p3h2840_i3c_hub_regulator.c
+ create mode 100644 include/linux/i3c/hub.h
+ create mode 100644 include/linux/mfd/p3h2840.h
 
 -- 
-2.34.1
+2.25.1
 
