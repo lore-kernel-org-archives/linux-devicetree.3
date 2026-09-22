@@ -1,322 +1,221 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B18B3B8BCC;
-	Tue, 22 Sep 2026 09:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE303C342F;
+	Tue, 22 Sep 2026 09:33:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790069616; cv=none; b=EeYi2QqAYGbYBA5UmDjdp58x/NXutx46lxo7P34X9sqPgV86ApcdE1Zh1pl0r90D1wCgMxtxR1+XeDC4sWoyvs8pz4SO2qEpBCybf0zOIwmf0Dkzv+c2I89Kqjtl1geXTIh2+3Zhuyxb1rNXXWFnhUGOX4qJBp+9IlNQCwECdcA=
+	t=1790069625; cv=none; b=Z4Ls54/c9BSpAiiRA8XiieS/RRqr3U0YQlJ6z+mHzdmzwPcsNF5sktzWuYSp3ekXpUTgvTZmavQPh7X1lkFvaKA/PVQx6Y17VKv+nDgcK3e8icj8QMBZoBAuM3S3OJD3sBjF5in+xW80bUn1bXFtnE0jtH+7l9NH3b6BdlTHH08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790069616; c=relaxed/simple;
-	bh=P5PFI2i9NF6vAhjsJetSiXcfuAsyNa3ZgMa/mu8YVC0=;
+	s=arc-20240116; t=1790069625; c=relaxed/simple;
+	bh=8/LU8g+oQ/fgM/4yJAu8riwgtOdYC3/QvQu1sWF3O6s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BiADzcS75FZqYedkh5Arp0N4AtNmYOS1h5Rot5+eIoFddWVsgNL+Em5i+eYDrcdLayrcsNSI2lYp5FbY1lR0qoBxORz09j1iGlUcWKM7qL1xzePAYCuVeG7y2/EeEt/f6LVw9bGF5n8pqQu0BOW9g8+LMMSqoAq83j6Y6P4ZrRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8JaTs8E; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=IFJ7l93X6NoP8PIvanzRr073vzZVzVE62pAiG+40qatN2uDUyaMJzUfEnNwkCdhpVwWvy9jddFPgag2A6wZJ+h/DpCGIOlqRYjFNDtQwlStPa2KEM4vGFq5qkvDqK5jkq1ehdjKyVwKzndYPh72XpDKdoWStcJlSON5uk11oA/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m1Pyw8Ih; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8JaTs8E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443711F00893;
-	Tue, 22 Sep 2026 09:33:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m1Pyw8Ih"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C1D81F000FF;
+	Tue, 22 Sep 2026 09:33:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790069614;
-	bh=LJxkyRUAo60XpYXubHX6Uk1I701DlaHNZCXFAFOsI0c=;
+	s=k20260515; t=1790069624;
+	bh=dCb5W6Rk/5EPP17UF6/L0m1Y5v4rBXDuqOA2WoWNKNg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z8JaTs8Ensplmvuw+aJhTy3BidoennUhosQqf2KjWQMed8VV5Utp9JgWhCTOUZPR3
-	 qkEUqoVn5uRGIhvzCOvKA5o7ihAg923jwu0EFcc2PwodhHcPJ3rTsyK9JZtIObA2UI
-	 nEDd1JvfqB7uwQ3LHL29NRa5P99NZx+sx52S9eErGHKhxq2ii6/smayAfKlK53kXjh
-	 KVz0pYNoErF44cJd31fGG0cEs4/lZHuTa6yuM+537gPTHrQqzKbwDRFo5dBIjSdiYE
-	 duuvj29NN51Ej0lQ+kDJuafLvIYP2LIQIkeY9ZFGkX44GneAR8CQJWLLiSNQuZOn5T
-	 GnmkmZCkS2znA==
-Date: Tue, 22 Sep 2026 10:33:27 +0100
-From: Lee Jones <lee@kernel.org>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Guru Das Srinagesh <linux@gurudas.dev>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, Suresh Vankadara <svankada@qti.qualcomm.com>,
-	Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 5/6] mfd: qcom-pm8008: Add support for PM8010 PMIC
-Message-ID: <20260922093327.GA2308615@google.com>
-References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
- <20260907-glymur_camss-v2-5-75f7982dc983@oss.qualcomm.com>
+	b=m1Pyw8IhvaefdHQYnwSdORaiScu/nthyi1JVG7nezctu2W77tsJrXvF6aNQ/yePlT
+	 OyfN6ewEzcwu0qtrmuaYhBS4Hy/7Ru5UwEsuD31ofqkIQXTNr4qhfJToAZbDFQe5Fx
+	 y/32JFxsI1bOpVDDqWnSsykyu5VS2khOQ0kGS7lbjZawpQUyzYmXdW5w3s/7JKZRjr
+	 g4t7POeS2BFo4Jbpl7Wr2YB6vJcT7EJJVcfS14jECuIbjornFqAt+B5dZZhuf43Zs/
+	 6v3k0BXyI6/Z/Ld8c8t/ARdpQoDtItpEw65hm19Hp9F48PQyVmKAvvs85cxbeWyxQl
+	 V1EQYq9k5bGWA==
+Date: Tue, 22 Sep 2026 10:33:39 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Michal Simek <michal.simek@amd.com>
+Cc: Frank Li <Frank.li@oss.nxp.com>,
+	Shubham Patil <shubhamsanjay.patil@amd.com>,
+	alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+Message-ID: <20260922-ethics-flap-9760347e869d@spud>
+References: <20260908094257.3196120-1-shubhamsanjay.patil@amd.com>
+ <20260908094257.3196120-2-shubhamsanjay.patil@amd.com>
+ <20260908-groin-undivided-0af701135404@spud>
+ <aqGHlWpQjpHEft3j@SMW015318>
+ <aqKWTT47S_zPzvbN@squawk>
+ <aqLQaHndX4t1kKLG@SMW015318>
+ <778da629-2f23-412b-885f-e87827ce2b5c@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5N8z9olhDGrkXlQd"
+Content-Disposition: inline
+In-Reply-To: <778da629-2f23-412b-885f-e87827ce2b5c@amd.com>
+
+--5N8z9olhDGrkXlQd
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907-glymur_camss-v2-5-75f7982dc983@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 07 Sep 2026, Nihal Kumar Gupta wrote:
+On Thu, Sep 17, 2026 at 01:23:19PM +0200, Michal Simek wrote:
+>=20
+>=20
+> On 9/10/26 17:44, Frank Li wrote:
+> > On Thu, Sep 10, 2026 at 12:36:45PM +0100, Conor Dooley wrote:
+> > > On Wed, Sep 09, 2026 at 11:21:41AM -0500, Frank Li wrote:
+> > > > On Tue, Sep 08, 2026 at 06:54:31PM +0100, Conor Dooley wrote:
+> > > > > On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham Patil wrote:
+> > > > > > In-Band Interrupt and Hot-Join are synthesis-time options of th=
+e AXI I3C
+> > > > > > IP. Describe them with two boolean properties.
+> > > > > >=20
+> > > > > > A Hot-Join request is acknowledged by the IBI machinery, so a h=
+ot-join
+> > > > > > capable design is always IBI capable as well. Both events are r=
+eported
+> > > > > > through the controller interrupt, which is therefore required w=
+henever
+> > > > > > the capability is present.
+> > > > > >=20
+> > > > > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+> > > > > > ---
+> > > > > > Changes in V3:
+> > > > > > - Move in-band-interrupt-capable and hot-join-capable into the =
+common
+> > > > > >    i3c.yaml schema and drop the xlnx, prefix.
+> > > > > > - Keep dependencies in the AMD binding.
+> > > > > > - Update the commit description accordingly.
+> > > > > > - Conor Dooley acked v2 with the xlnx,-prefixed properties in t=
+he AMD
+> > > > > >    binding [1].
+> > > > > >    That Acked-by is not carried here: the names lost the vendor=
+ prefix
+> > > > > >    and the definitions moved to i3c.yaml after Frank Li's comme=
+nt.
+> > > > > >    [1]:https://lore.kernel.org/all/20260824-tightwad-impose-495=
+476599087@spud/
+> > > > >=20
+> > > > > I disagree with Frank. These properties make sense for Xilinx bec=
+ause it
+> > > > > is an FPGA IP and synthesis options impact this. For other device=
+s, this
+> > > > > should be determined from the compatible.
+> > > > > Please revert to how things were done in v2, especially as no rat=
+ionale
+> > > > > was provided for why these should be common.
+> > > >=20
+> > > > It is common problems, when IP intergrate by SOC, which may defeatu=
+re some
+> > > > part, It is not appeared now just because IBI and HJ have not enabl=
+ed
+> > > > widely.
+> > > >=20
+> > > > IBI and HJ is optional features of I3C. Ideally it should be indica=
+ted by
+> > > > some registers. But not all vendor implement provide this CAP regis=
+ters.
+> > > >=20
+> > > > IBI and HJ depend on some slow clocks, which monitor SDA line chang=
+e.
+> > > > Some instances of IP may not have such slow clocks. Some IP's IBI a=
+nd HJ
+> > > > use seperate IRQ line, but these irq line may not connect of differ=
+ence
+> > > > instances.
+> > >=20
+> > > All of this should be able to be dealt with by appropriate use of
+> > > specific compatibles.
+> >=20
+> > I understand compatible can cover most cases. Need variance for propert=
+y.
+> >=20
+> > >=20
+> > > > like previous SPI vendor customized property, we takes efforts to c=
+onvert
+> > > > to common one and also meet back compatiblity problem at convert. I=
+ don't
+> > > > want to do it again. This kind property is most likely as below.
+> > >=20
+> > > What SPI controller specific properties are you talking about here?
+> > > There are relatively few properties in spi-controller.yaml, and none =
+of
+> > > them deal with these kinds of capabilities.
+> >=20
+> > num-cs vs fsl,espi-num-chipselects. Total number CS of IP is fixed, but
+> > some instances have not route all CS to pad.
+> >=20
+> > >=20
+> > > >=20
+> > > > default: 	decide by comaptible string or hardware cap
+> > > > force-disabled: force disable for some reason, like, miss connect i=
+rq line
+> > > > or missed some clock, or IP bugs, or board desgin's some level shif=
+t chip
+> > > > broken IBI/HJ timing requirements.
+> > >=20
+> > > Of these, only the last would be a valid reason for having a property
+> > > for it. Missing interrupts, clocks or IP bugs should all be dealt with
+> > > using device specific compatibles.
+> > > If board wiring causes the breakage, the property may be more
+> > > appropriate at the i3c device level rather than the controller given
+> > > that wiring to some devices on the bus may not have the problems?
+> >=20
+> > I3C.yaml is for both master controller and devices now. I3C is bus, whi=
+ch
+> > connect many devices, if wiring issue, whole bus can't support IBI. And
+> > if any broken devices happen at address arbitation, whole bus can't sup=
+port
+> > IBI.
+> >=20
+> > at beging, I suggest 3 state,
+> >=20
+> > [default, enable, disable], but now I think IBI_broken, HJ_broken is mo=
+re
+> > reasonable to disable it, default value should be set by compatible
+> > string or DCR of I3C regiser.
+> >=20
+> > And some I3C device may be failure to work with IBI even DCR of I3C reg=
+ister
+> > show it support IBI.
+> >=20
+> > I don't want to appear two similar property between vendor and common, =
+like
+> > num-cs vs fsl,espi-num-chipselects.
+> >=20
+> > such as IBI-broken can be used for controller and devices case.
+> >=20
+> > > That said, I think that problem should be dealt with when it arises,
+> > > rather than starting a trend of adding capabilities properties at the
+> > > controller level when I am not convinced that there's going to be oth=
+er
+> > > users in the same vein.
+> >=20
 
-> From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-> 
-> The PM8010 is a variant of the PM8008 PMIC with a slightly different
-> IRQ layout and MFD cells. Introduce per-variant match data (IRQ chip
-> descriptor and MFD cells) selected via the new "qcom,pm8010-i2c"
-> compatible string, and support probing without an interrupt line by
-> falling back to a reduced set of MFD cells when the client has no IRQ
-> assigned.
-> 
-> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> > Understand, I3C is realtive new protocal. 'IBI-broken' is more easy
+> > understand,  logically equial to in-band-interrupt-capable.
+> Conor: Any update on this one? I think this thread is stuck at this stage.
 
-Who are all of these people?
+I didn't think there was any need to reply. I took the first sentence of
+this snippet to be acceptance of what I was saying.
 
-Did they all work on this?  If so, where are their Co-developed-bys?
+If yous desperately want to have a generic property, the negative
+connotation of the "-broken" is probably better in that it'd be more
+likely to make people set stuff by compatible rather than have to use a
+property with that word in it.
 
-> ---
->  drivers/mfd/qcom-pm8008.c | 140 ++++++++++++++++++++++++++++++++++++----------
->  1 file changed, 112 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/mfd/qcom-pm8008.c b/drivers/mfd/qcom-pm8008.c
-> index 60204cc9a2dc60cc1fe1b64030f5d803100e7874..28532cef7908ef3409a3dfc0779aae3b1a3885b9 100644
-> --- a/drivers/mfd/qcom-pm8008.c
-> +++ b/drivers/mfd/qcom-pm8008.c
-> @@ -34,6 +34,7 @@ enum {
->  	PM8008_GPIO1,
->  	PM8008_GPIO2,
->  	PM8008_NUM_PERIPHS,
-> +	PM8010_NUM_PERIPHS = 2,
->  };
->  
->  #define PM8008_PERIPH_0_BASE	0x900
-> @@ -55,6 +56,10 @@ enum {
->  #define PM8008_IRQ_GPIO1	6
->  #define PM8008_IRQ_GPIO2	7
->  
-> +#define PM8010_IRQ_MISC_MBG_FAULT	0
-> +/* 1-3 are unused */
+--5N8z9olhDGrkXlQd
+Content-Type: application/pgp-signature; name=signature.asc
 
-This is not required.
+-----BEGIN PGP SIGNATURE-----
 
-> +#define PM8010_IRQ_MISC_LDO_OCP	4
-> +
->  enum {
->  	SET_TYPE_INDEX,
->  	POLARITY_HI_INDEX,
-> @@ -88,6 +93,12 @@ static const struct regmap_irq pm8008_irqs[] = {
->  	_IRQ(PM8008_IRQ_GPIO2,	      PM8008_GPIO2,	BIT(0), IRQ_TYPE_SENSE_MASK),
->  };
->  
-> +static const struct regmap_irq pm8010_irqs[] = {
-> +	_IRQ(PM8010_IRQ_MISC_MBG_FAULT, PM8008_MISC, BIT(0), IRQ_TYPE_EDGE_RISING),
-> +	_IRQ(PM8010_IRQ_MISC_LDO_OCP, PM8008_MISC, BIT(4), IRQ_TYPE_EDGE_RISING),
-> +	_IRQ(PM8008_IRQ_TEMP_ALARM, PM8008_TEMP_ALARM, BIT(0), IRQ_TYPE_SENSE_MASK),
-> +};
-> +
->  static const unsigned int pm8008_periph_base[] = {
->  	PM8008_PERIPH_0_BASE,
->  	PM8008_PERIPH_1_BASE,
-> @@ -158,6 +169,25 @@ static const struct regmap_irq_chip pm8008_irq_chip = {
->  	.get_irq_reg		= pm8008_get_irq_reg,
->  };
->  
-> +static const struct regmap_irq_chip pm8010_irq_chip = {
-> +	.name			= "pm8010",
-> +	.main_status		= I2C_INTR_STATUS_BASE,
-> +	.num_main_regs		= 1,
-> +	.irqs			= pm8010_irqs,
-> +	.num_irqs		= ARRAY_SIZE(pm8010_irqs),
-> +	.num_regs		= PM8010_NUM_PERIPHS,
-> +	.status_base		= INT_LATCHED_STS_OFFSET,
-> +	.mask_base		= INT_EN_CLR_OFFSET,
-> +	.unmask_base		= INT_EN_SET_OFFSET,
-> +	.mask_unmask_non_inverted = true,
-> +	.ack_base		= INT_LATCHED_CLR_OFFSET,
-> +	.config_base		= pm8008_config_regs,
-> +	.num_config_bases	= ARRAY_SIZE(pm8008_config_regs),
-> +	.num_config_regs	= PM8010_NUM_PERIPHS,
-> +	.set_type_config	= pm8008_set_type_config,
-> +	.get_irq_reg		= pm8008_get_irq_reg,
-> +};
-> +
->  static const struct regmap_config qcom_mfd_regmap_cfg = {
->  	.name		= "primary",
->  	.reg_bits	= 16,
-> @@ -179,10 +209,32 @@ static const struct resource pm8008_temp_res[] = {
->  
->  static const struct mfd_cell pm8008_cells[] = {
->  	MFD_CELL_NAME("pm8008-regulator"),
-> -	MFD_CELL_RES("qpnp-temp-alarm", pm8008_temp_res),
-> +	MFD_CELL_RES("spmi-temp-alarm", pm8008_temp_res),
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarJLcAAKCRB4tDGHoIJi
+0p7eAP4tFd9rr2uq/A+C1Y5UyVjJDiV5gOV1JvJgbx+lDNY8iQD/TrOOsgJoq3me
+FtYE9IDQ5RfCy9sedzqO/ChUFPsjWA4=
+=3f1n
+-----END PGP SIGNATURE-----
 
-Why is this cell being renamed from 'qpnp-temp-alarm' to 'spmi-temp-alarm'?
-There is no mention of this change in the commit log, and if intentional, it
-should be submitted in its own separate patch.
-
->  	MFD_CELL_NAME("pm8008-gpio"),
->  };
->  
-> +static const struct mfd_cell pm8010_cells[] = {
-> +	MFD_CELL_NAME("pm8010-regulator"),
-> +	MFD_CELL_RES("spmi-temp-alarm", pm8008_temp_res),
-> +	MFD_CELL_NAME("pm8008-gpio"),
-> +};
-> +
-> +static const struct mfd_cell pm8008_no_irq_cells[] = {
-> +	MFD_CELL_NAME("pm8008-regulator"),
-> +};
-> +
-> +static const struct mfd_cell pm8010_no_irq_cells[] = {
-> +	MFD_CELL_NAME("pm8010-regulator"),
-> +};
-> +
-> +struct pm8008_match_data {
-> +	const struct regmap_irq_chip *irq_chip_desc;
-> +	const struct mfd_cell *mfd_cells;
-> +	const struct mfd_cell *no_irq_mfd_cells;
-> +	int num_mfd_cells;
-> +	int no_irq_num_mfd_cells;
-> +};
-> +
->  static void devm_irq_domain_fwnode_release(void *data)
->  {
->  	struct fwnode_handle *fwnode = data;
-> @@ -192,15 +244,22 @@ static void devm_irq_domain_fwnode_release(void *data)
->  
->  static int pm8008_probe(struct i2c_client *client)
->  {
-> -	struct regmap_irq_chip_data *irq_data;
-> +	struct regmap_irq_chip_data *irq_data = NULL;
-> +	const struct pm8008_match_data *data;
->  	struct device *dev = &client->dev;
->  	struct regmap *regmap, *regmap2;
->  	struct fwnode_handle *fwnode;
-> +	const struct mfd_cell *cells;
->  	struct i2c_client *dummy;
->  	struct gpio_desc *reset;
-> +	int num_cells;
->  	char *name;
->  	int ret;
->  
-> +	data = device_get_match_data(dev);
-> +	if (!data)
-> +		return dev_err_probe(dev, -ENODATA, "Missing driver match data\n");
-> +
->  	dummy = devm_i2c_new_dummy_device(dev, client->adapter, client->addr + 1);
->  	if (IS_ERR(dummy)) {
->  		ret = PTR_ERR(dummy);
-> @@ -231,37 +290,62 @@ static int pm8008_probe(struct i2c_client *client)
->  	 */
->  	usleep_range(1000, 2000);
->  
-> -	name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
-> -	if (!name)
-> -		return -ENOMEM;
-> -
-> -	name = strreplace(name, '/', ':');
-> -
-> -	fwnode = irq_domain_alloc_named_fwnode(name);
-> -	if (!fwnode)
-> -		return -ENOMEM;
-> -
-> -	ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
-> -	if (ret)
-> -		return ret;
-> -
-> -	ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap, client->irq,
-> -				IRQF_SHARED, 0, &pm8008_irq_chip, &irq_data);
-> -	if (ret) {
-> -		dev_err(dev, "failed to add IRQ chip: %d\n", ret);
-> -		return ret;
-> +	if (client->irq) {
-
-Turn this massive if clause into a function.
-
-> +		name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
-> +		if (!name)
-> +			return -ENOMEM;
-> +
-> +		name = strreplace(name, '/', ':');
-> +
-> +		fwnode = irq_domain_alloc_named_fwnode(name);
-> +		if (!fwnode)
-> +			return -ENOMEM;
-> +
-> +		ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap, client->irq,
-> +						       IRQF_SHARED, 0, data->irq_chip_desc,
-> +						       &irq_data);
-> +		if (ret) {
-> +			dev_err(dev, "failed to add IRQ chip: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		/* Needed by GPIO driver. */
-> +		dev_set_drvdata(dev, regmap_irq_get_domain(irq_data));
-> +		cells = data->mfd_cells;
-> +		num_cells = data->num_mfd_cells;
-> +	} else {
-> +		cells = data->no_irq_mfd_cells;
-> +		num_cells = data->no_irq_num_mfd_cells;
->  	}
->  
-> -	/* Needed by GPIO driver. */
-> -	dev_set_drvdata(dev, regmap_irq_get_domain(irq_data));
-> -
-> -	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, pm8008_cells,
-> -				ARRAY_SIZE(pm8008_cells), NULL, 0,
-> -				regmap_irq_get_domain(irq_data));
-> +	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, cells,
-> +				    num_cells, NULL, 0,
-> +				    regmap_irq_get_domain(irq_data));
->  }
->  
-> +static const struct pm8008_match_data pm8008_data = {
-> +	.irq_chip_desc = &pm8008_irq_chip,
-> +	.mfd_cells = pm8008_cells,
-> +	.no_irq_mfd_cells = pm8008_no_irq_cells,
-> +	.num_mfd_cells = ARRAY_SIZE(pm8008_cells),
-> +	.no_irq_num_mfd_cells = ARRAY_SIZE(pm8008_no_irq_cells),
-> +};
-> +
-> +static const struct pm8008_match_data pm8010_data = {
-> +	.irq_chip_desc = &pm8010_irq_chip,
-> +	.mfd_cells = pm8010_cells,
-> +	.no_irq_mfd_cells = pm8010_no_irq_cells,
-> +	.num_mfd_cells = ARRAY_SIZE(pm8010_cells),
-> +	.no_irq_num_mfd_cells = ARRAY_SIZE(pm8010_no_irq_cells),
-> +};
-> +
->  static const struct of_device_id pm8008_match[] = {
-> -	{ .compatible = "qcom,pm8008", },
-> +	{ .compatible = "qcom,pm8008", .data = &pm8008_data },
-> +	{ .compatible = "qcom,pm8010-i2c", .data = &pm8010_data },
-
-We do not allow data from one registration mechanism (MFD) to be piped through
-another (OF).  Please pass through an enum identifier instead and select the
-cells and IRQ chip in a 'switch()' statement?  Also, why does this compatible
-carry an '-i2c' suffix when the existing device is just "qcom,pm8008"?
-
->  	{ },
->  };
->  MODULE_DEVICE_TABLE(of, pm8008_match);
-> 
-> -- 
-> 2.34.1
-> 
-
--- 
-Lee Jones
+--5N8z9olhDGrkXlQd--
