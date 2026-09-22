@@ -1,71 +1,70 @@
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com [74.125.231.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F94919C54E
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 00:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE9D20A5C4
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 00:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790035606; cv=none; b=hclxzp1TXlf9TagPi3yFgz2vUknY4RHz9jQhC0VobXHTKngPfqQmlhmAyOFO2XMoyjT4okRZRokGcx+LmxegIAgQaWHNZaaEZKhBBAluatLnkjCo4ugqqmD+CDRwq5fkpuLOMwEEiqLASZutdQzJ9VMLDnfLylHMTwMSrNl4sgg=
+	t=1790035611; cv=none; b=eWCDe+ex4QZyT0QZQ+AclcVnSHedDICqaRBAheVDYGn6HWjsQoJkN/akKjhjnDt9Y5X1eM6pjFtm0mUY1LNQA7jUxH+esU3G1+DNptQ4XUakJCfRtgw792sYjDJsxkLccrwTnYw0L1TqyIh2W/qcKRyPlCtG/aqjDCE7hnCe9H8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790035606; c=relaxed/simple;
-	bh=5k9VLU6OvtrGZi0gO1yZy16OfwqfrZmQwujeqIifWv0=;
+	s=arc-20240116; t=1790035611; c=relaxed/simple;
+	bh=AwEdnSqwNldsU46K3L8s8kozlkZ4yxHPkhkqHOBcOAk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WRujug1a+uvjnFPS2hWDvjARcagKnnBLPJIwTDQ4XtPy8mh+n1159HNlPWiGZFKbKajOApODQV/MN1tbMgmLDszbJsRZW4XbuLkf1WalJxQMNNEBrd4BSmym1kBDyyAqivBOwKYyZu1ZcJ00i8ty2up1wCYLPXYrKf/gWoOuv9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pbQMCghw; arc=none smtp.client-ip=209.85.161.48
+	 In-Reply-To:To:Cc; b=hGHZg5q2RcMCu0iN2M57ZoRcUxR0ubZKHtVAG6/BRduXcisB3at1+lB0Evxcj0KpkOjg0YVZI6S1a6s+B9olc+SgF6653ERf+FSGXoS/lNvqPUnByJkAu03JruEKmqM6JkVvM/SYewR6B0awx7j5Z0E69VoO00fDUiRRooGXGc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FB7xVBIX; arc=none smtp.client-ip=74.125.231.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pbQMCghw"
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6b9cb8883ecso342563eaf.1
-        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 17:06:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FB7xVBIX"
+Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-486e0f56cddso1421020fac.3
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 17:06:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790035603; x=1790640403; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790035607; x=1790640407; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M4cUR/bgVx/Ef4Tc/Iqux+0dgmZ5BenjLrR4X+eBZEU=;
-        b=pbQMCghwx775sfAFPnsvmRs0g6TDSRTGlRw2ADjh6A0dOLXoXIZgW9BiELmqATO17h
-         MzV01OiR5dd9zZc00gYmfEDuDGEj/59+w0wfDSoEqWdN6nSJN902MNF1kuRKKb4g2G9o
-         lPK9BSx8gJalKTetqlhcBYmxShB/xDxxnn0VVeA5JOP9VPZyZmgtC2/ALZ3KfXYnE71Y
-         ESDrXXq5QRVwuN0+bBWG5ToL5WKqwfNSqYPunAw+NMTnGyyRudFvuO2TYGG28Z5FWWSQ
-         7dXg8lYacrAcBVfNd00a3Gx4H/aZzHwnHnhiCz5P/Lsjs/9tOka3ZxCNvfzjiydJgxut
-         x/mQ==
+        bh=1mzlKbz8Phj+ip4hm3yiFbRMiYi293gbL25g7vO3mK8=;
+        b=FB7xVBIXXCRarQPro/vJZ9Lu3+Bg1yBKf3jxiZ9RfRifMkfAaGISg/krxrRbJtoyCs
+         N7tnoj6JfEttAmbmKO3fzWcedpTSFjmOR+60D99nglZQRVdpvFv41wCngVZiV0BQ19Cr
+         qKhohnLdyeVhD6TBBnJwc9SpYCYKDql34IC2KP8jYlU3e/rf6lqHk2KbGlL3Z7qUIz+J
+         lvT77ROcHJUF8Drvl6b2nCcowokGkHZ9VsXni7SXQYbDcOm+zRmCkRktFLwVMNT58tXl
+         sYVex8yzjdzs1zoUmQXTn3J2uMy36Jz6mZGvogOG63QrhvdfaQRtCVMxB3ZiXAoooA4q
+         lKJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790035603; x=1790640403;
+        d=1e100.net; s=20260707; t=1790035607; x=1790640407;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M4cUR/bgVx/Ef4Tc/Iqux+0dgmZ5BenjLrR4X+eBZEU=;
-        b=qXuv12Z5HlYxlroWEd0VfYewFCDVaA3hTl055AwzOCl9J5w1VKhrVTiTJdpTOZhwEG
-         vpI00DNe5N6o667zmO+GWwn4eYk1Q9qYrRJi77rQjcSFelp/ic+h35+/IKSf0c+Ng0Nv
-         BeeMvK9gYqGmTj6LsiVvNt18IZGf9w8I9DfFlu0oNhYvzrViocaxCKKrZGenUAOvlhUo
-         ZIRI+N65toK8XT2Al147ushX3AS2f1t+8SPHPjVPXRXYzbfaMS8o8jK2GC6jv93g5JUx
-         sppgyg17mJ2P/XSHlSRWGra2OzbYiTTxjhC57FCSO9keCEXDLigLikmYWV6Jq2Vr1tEs
-         j5iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzKk+zE0YExksixHSyJU4s8vgZLneOZtcB6VstcS8kazzrZs7/83wEhZ3JcWetjvjxkC+nDnttKg8zG@vger.kernel.org
-X-Gm-Message-State: AFuF++nYfoUQRoJ6qSCEeDUNIA5SMMCoPQgtOSes4v9WMdWhA1X5VICy
-	kXPBRG3SXw9Qsxm6WJFuMgtf84m5Li3RqhHYkuB9caXAgIoPZ7SsFgJg
-X-Gm-Gg: AYBFou0/69AbwrRTfzqqgJ7j5LDFknsOEgtqRq7bZmh+JTAcMMYn+6thUwFjm5YMayI
-	F5Z0joUnSi5siN2StfKiyGRX4Db357iMvkmQ0jkGvkOgWKCnaD2u99JiVJHbmE3VzQeBY66aK1A
-	OdydAORK12ACz03ZW9jN5bRL/+N97cwIYV5duqmui5krfOYUEVC6wmMt2X9Jgo/KxIGqoo+jcGQ
-	7EFqkiPacadGNKkePuAxpcUYCx8TzKNwG8tNHDX10DZ85Kff+iySY3K7XcFlJ962IG8keg3jw5W
-	TNs2HyoErnYz687YddE95bMlXpUJ84t+Yuc4unu5f4VnmkhDTXfFClJAep5/9b2OKgXDEJjuMxW
-	BLvepAyCkSpw9T/SM0nb7S7Oqj5/CRHKCt+dwYygzfdrGgQtUJqp+nyqFIHFQDF9yFOEpBwrJf5
-	Vzrf1GGlg5M5GufGof220JTickYHaIU/IhV9+L+A52PTaGnLSch0d3nf6vLRqZDh2Fu1ENqxmQQ
-	EdK1vej4lyZ7JdzjxS11F6+pwLlopU9F4DiJ4HVics2xDED7cCrExrFNhLz+FKjTWoYB9DJXwj6
-	7CpC1URLBav/RCnCm0WrFQAZwLkBJMkEiiqhaDxoLuSkiW/YYsgRRr4S6Uf2dlWDdtkjNk2Rj9q
-	07zIiZZAD8LrxK0StFRoW
-X-Received: by 2002:a05:6820:179b:b0:6b1:a146:1297 with SMTP id 006d021491bc7-6d157d893ddmr1041226eaf.1.1790035603341;
-        Mon, 21 Sep 2026 17:06:43 -0700 (PDT)
+        bh=1mzlKbz8Phj+ip4hm3yiFbRMiYi293gbL25g7vO3mK8=;
+        b=Y9+7yXuPw4OYhIxbPmYXJrxO5XtoctIQbczsSuMVBsVwvwb6ENACPDbX8VeyQEWwTW
+         /EOqzqdgBilP/LPUv1Qyoky7MRooWofiLOYOYUBjEpoS/gG+VhM7HzJTnSgk6nzebDcH
+         nYGFjDY9TXD4ITBC6QHANoiQR5okEs0IpYhHt0x9/CevkzHtzOHXBKRCcIJlwo6Cogve
+         VTo6StWiWDYnSqKHfPFyBujGDYg7OIyRJl4ojY/82Mr4QF+lmoOrbHYOJk569Di803a1
+         pVk+3mXr3R0jpyoC/mbpJwYn466g6LnQQVGq6MRkC9QBBdGG6T1ABYirW/nA8ZxfKLVx
+         Mt6w==
+X-Forwarded-Encrypted: i=1; AKwUvBy2KZ3sZKanSQVBBWTWYp9djJIuUPyMfplia/dTjM/btwhY101+HltQ7lU8YTMK5GAy7VuXaW3C7Kwm@vger.kernel.org
+X-Gm-Message-State: AFuF++mbkNKyLzc394y0om6IUoCBHEUgjzchUb6cZ8wjv8S+bdDX3hxM
+	8oGgDyT1CeO2XQAGXNa5EaT2r8uaNfhaO7qZ8Wf90o8uneR4OGUEpBVj
+X-Gm-Gg: AYBFou11SWyn5YUg2PpsU+31lzC9UXaqVdYvreW0QOpAQynTnF0wnvYD0Zm0q+p7rlp
+	jIcWI84jzObw0gFCVBBWvdZ7JHkTKYLsm5qlXC0+5Sj4RXuYUIcD30cKZ2hKJ0Cdg4aXUFL0w40
+	TJB9A81ufo8pnAadAj8xfYPmmgCVu2EjNW1B3nhV5JDOL0FQ2SljJi46QI47wY3u4xwX8RWZVou
+	lTI5lCsWVXRRzTn5E/hNeBPyMkeVrWGZuJQ0i84h1+MxZlJdcGojfCatLFzTo8NcXNkkbYqphS6
+	wX5YG6lFqctlYEkeOkRsDvB8PQ+WnAlpb+3yUHl1kEdwqOC9Prn+yi7cQk8hw57oTfI0aQhmwSD
+	AcJwtTN7bJ2AwQ/J9STUNbq+GdfaQbIDU5HyWPkDuh6qXmd5TtecfUZvgNfFoEbwPWSofdejJ1R
+	iSXDqsBUFBi2l25XnKs8m9EWhoYBis9qc/WpEHLhMzisZQwf02FRdmCd7rZGcBLUJMVXhwU3xsR
+	ybAqJ2B8xs+ouMHqp1UwfawSHh7ncsZ8rNIai1qAG3i4sH16yrQjBhOSK2SKq2/6MzdSfsoP8Yd
+	qQazPCI4UAVBk0qKD6bx618pknC6EBYH9GBlja42aH5mJdUAcGW5brNYD6YaL7ZgOehsmU4e3Yi
+	QEtJETIelYWi6AO9QXn62N2DaMRrhXgw=
+X-Received: by 2002:a05:6870:14d4:b0:47f:b0ff:8383 with SMTP id 586e51a60fabf-486e4df7aa7mr12381394fac.1.1790035607564;
+        Mon, 21 Sep 2026 17:06:47 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-48f7280cf14sm801683fac.13.2026.09.21.17.06.41
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-48f7280cf14sm801683fac.13.2026.09.21.17.06.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 17:06:42 -0700 (PDT)
+        Mon, 21 Sep 2026 17:06:46 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 21 Sep 2026 18:06:30 -0600
-Subject: [PATCH v9 1/5] dt-bindings: pwm: allwinner: add h616 pwm
- compatible
+Date: Mon, 21 Sep 2026 18:06:32 -0600
+Subject: [PATCH v9 3/5] pwm: sun8i: export the bypass outputs as clocks
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,7 +73,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260921-h616-pwm-v8-v9-1-37bec6201ff5@gmail.com>
+Message-Id: <20260921-h616-pwm-v8-v9-3-37bec6201ff5@gmail.com>
 References: <20260921-h616-pwm-v8-v9-0-37bec6201ff5@gmail.com>
 In-Reply-To: <20260921-h616-pwm-v8-v9-0-37bec6201ff5@gmail.com>
 To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
@@ -92,96 +91,330 @@ Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
  John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>, 
  bigunclemax@gmail.com, linux-clk@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, 
- Conor Dooley <conor.dooley@microchip.com>
+ James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
 From: Richard Genoud <richard.genoud@bootlin.com>
 
-The Allwinner H616 PWM block differs from the A10 and H6 blocks, but it
-uses the same input clocks as H6, so extend the existing Allwinner PWM
-binding.
+Expose each H616 PWM channel's hardware bypass as a CCF clock. Consumers
+such as the co-packaged AC200/AC300 PHY need a clock rather than PWM duty
+or polarity control. Keep the pair source protected for the complete
+prepared lifetime, and arbitrate ownership between PWM requests and clock
+prepare so both interfaces cannot drive the same output.
 
-The block has six channels that can generate PWM waveforms. Each channel
-also has a bypass that turns its output into a clock suitable for consumers
-such as the integrated X-Powers AC200 or AC300 Ethernet PHY.
+drivers/clk/clk-pwm.c advertises a fixed frequency without reading back the
+rounded PWM rate. A 42 ns, 21 ns request does select 24 MHz bypass when it
+is available. However, with the pair constrained to 100 MHz by its sibling,
+the PWM rounding rules select a 40 ns, 20 ns waveform (25 MHz), while a
+pwm-clock configured for 24 MHz still reports 24 MHz. The direct provider
+instead reports the actual pair rate and makes its shared-rate protection
+visible to CCF. Consumers must still check the rate they receive.
 
-Require #clock-cells for H616 because the bypass clocks are part of its
-provider interface, while continuing to disallow the property for the older
-variants.
+Use CLK_IGNORE_UNUSED to preserve unclaimed firmware bypass outputs, just
+as the PWM path preserves inherited waveforms. Normal consumer disable
+still turns the output off and releases its shared gate reference.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Richard Genoud <richard.genoud@bootlin.com>
+Co-developed-by: James Hilliard <james.hilliard1@gmail.com>
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- .../bindings/pwm/allwinner,sun4i-a10-pwm.yaml      | 33 +++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+ drivers/pwm/Kconfig     |   3 +-
+ drivers/pwm/pwm-sun8i.c | 180 +++++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 180 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml b/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml
-index 1197858e431f..3b1819c8630c 100644
---- a/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml
-+++ b/Documentation/devicetree/bindings/pwm/allwinner,sun4i-a10-pwm.yaml
-@@ -14,6 +14,13 @@ properties:
-   "#pwm-cells":
-     const: 3
+diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+index d87d166e7836..d3c35a11859f 100644
+--- a/drivers/pwm/Kconfig
++++ b/drivers/pwm/Kconfig
+@@ -754,7 +754,8 @@ config PWM_SUN8I
+ 	depends on HAS_IOMEM && COMMON_CLK
+ 	help
+ 	  PWM framework driver for Allwinner controllers whose channels share
+-	  paired source clocks.
++	  paired source clocks. In addition to PWM operation, each channel's
++	  hardware bypass path can be exported as a clock output.
  
-+  "#clock-cells":
-+    const: 1
-+    description:
-+      The cell selects the PWM channel whose hardware bypass path is exported
-+      as a clock. Its rate follows the selected shared pair source and divider;
-+      the PWM period, duty-cycle and polarity logic is bypassed.
-+
-   compatible:
-     oneOf:
-       - const: allwinner,sun4i-a10-pwm
-@@ -36,6 +43,7 @@ properties:
-           - const: allwinner,sun50i-h5-pwm
-           - const: allwinner,sun5i-a13-pwm
-       - const: allwinner,sun50i-h6-pwm
-+      - const: allwinner,sun50i-h616-pwm
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called pwm-sun8i.
+diff --git a/drivers/pwm/pwm-sun8i.c b/drivers/pwm/pwm-sun8i.c
+index 7e6c39815c18..fd81c5f5e326 100644
+--- a/drivers/pwm/pwm-sun8i.c
++++ b/drivers/pwm/pwm-sun8i.c
+@@ -113,6 +113,9 @@
+  * The bypass in PWM mode is used to achieve a 1/2 relative duty cycle with the
+  * fastest clock.
+  *
++ * SUN8I_PWM_clock_x/y serve for the PWM purpose.
++ * SUN8I_PWM_bypass_clock_x/y serve for the clock-provider purpose.
++ *
+  */
  
-   reg:
-     maxItems: 1
-@@ -62,7 +70,9 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: allwinner,sun50i-h6-pwm
-+            enum:
-+              - allwinner,sun50i-h6-pwm
-+              - allwinner,sun50i-h616-pwm
+ /* /div_m is a power-of-two divider limited to /256. */
+@@ -129,6 +132,12 @@ static const struct clk_div_table sun8i_pwm_div_m_table[] = {
+ 	{ /* sentinel */ }
+ };
  
-     then:
-       properties:
-@@ -83,6 +93,27 @@ allOf:
-         clocks:
-           maxItems: 1
++enum sun8i_pwm_mode {
++	SUN8I_PWM_MODE_NONE,
++	SUN8I_PWM_MODE_PWM,
++	SUN8I_PWM_MODE_CLK,
++};
++
+ struct sun8i_pwm_chip;
  
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: allwinner,sun50i-h616-pwm
+ struct sun8i_pwm_pair {
+@@ -142,8 +151,12 @@ struct sun8i_pwm_pair {
+ };
+ 
+ struct sun8i_pwm_channel {
++	struct clk_hw bypass_hw;
++	struct sun8i_pwm_chip *chip;
++	unsigned int index;
+ 	/* Separate CCF consumer, held only from PWM request to free. */
+ 	struct clk *pair_clk;
++	enum sun8i_pwm_mode mode;
+ 	u64 pending_period_ns;
+ 	bool rate_exclusive;
+ };
+@@ -153,7 +166,7 @@ struct sun8i_pwm_chip {
+ 	struct sun8i_pwm_channel channels[SUN8I_PWM_NPWM];
+ 	struct clk *bus_clk;
+ 	void __iomem *base;
+-	/* Protects shared registers and rate_exclusive. */
++	/* Protects shared registers, channel ownership and rate_exclusive. */
+ 	spinlock_t lock;
+ };
+ 
+@@ -317,6 +330,101 @@ static int sun8i_pwm_pair_rate_notifier(struct notifier_block *nb,
+ 	return active ? NOTIFY_BAD : NOTIFY_OK;
+ }
+ 
++static inline struct sun8i_pwm_channel *
++sun8i_pwm_channel_from_hw(struct clk_hw *hw)
++{
++	return container_of(hw, struct sun8i_pwm_channel, bypass_hw);
++}
 +
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 2
++static int sun8i_pwm_bypass_prepare(struct clk_hw *hw)
++{
++	struct sun8i_pwm_channel *chan = sun8i_pwm_channel_from_hw(hw);
++	struct sun8i_pwm_chip *sun8i_chip = chan->chip;
 +
-+        clock-names:
-+          minItems: 2
++	guard(spinlock_irqsave)(&sun8i_chip->lock);
++	if (chan->mode != SUN8I_PWM_MODE_NONE)
++		return -EBUSY;
 +
-+      required:
-+        - "#clock-cells"
++	chan->mode = SUN8I_PWM_MODE_CLK;
++	return 0;
++}
 +
-+    else:
-+      properties:
-+        "#clock-cells": false
++static void sun8i_pwm_bypass_unprepare(struct clk_hw *hw)
++{
++	struct sun8i_pwm_channel *chan = sun8i_pwm_channel_from_hw(hw);
++	struct sun8i_pwm_chip *sun8i_chip = chan->chip;
 +
- required:
-   - compatible
-   - reg
++	guard(spinlock_irqsave)(&sun8i_chip->lock);
++	if (chan->mode != SUN8I_PWM_MODE_CLK)
++		return;
++
++	chan->mode = SUN8I_PWM_MODE_NONE;
++}
++
++static int sun8i_pwm_bypass_enable(struct clk_hw *hw)
++{
++	struct sun8i_pwm_channel *chan = sun8i_pwm_channel_from_hw(hw);
++	struct sun8i_pwm_chip *sun8i_chip = chan->chip;
++	unsigned int pair = SUN8I_PWM_PAIR_IDX(chan->index);
++	u32 pccr, per;
++
++	guard(spinlock_irqsave)(&sun8i_chip->lock);
++	if (chan->mode != SUN8I_PWM_MODE_CLK)
++		return -EBUSY;
++
++	pccr = sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCCR(pair));
++	per = sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
++	if (!(pccr & BIT(SUN8I_PWM_PCCR_BYPASS_BIT(chan->index))) ||
++	    !(per & SUN8I_PWM_ENABLE(chan->index))) {
++		sun8i_pwm_set_enabled_locked(sun8i_chip, chan->index, false);
++		sun8i_pwm_set_bypass_locked(sun8i_chip, chan->index, true);
++		sun8i_pwm_set_enabled_locked(sun8i_chip, chan->index, true);
++	}
++
++	return 0;
++}
++
++static void sun8i_pwm_bypass_disable(struct clk_hw *hw)
++{
++	struct sun8i_pwm_channel *chan = sun8i_pwm_channel_from_hw(hw);
++	struct sun8i_pwm_chip *sun8i_chip = chan->chip;
++
++	guard(spinlock_irqsave)(&sun8i_chip->lock);
++	if (chan->mode != SUN8I_PWM_MODE_CLK)
++		return;
++
++	sun8i_pwm_set_enabled_locked(sun8i_chip, chan->index, false);
++	sun8i_pwm_set_bypass_locked(sun8i_chip, chan->index, false);
++}
++
++static int sun8i_pwm_bypass_is_enabled(struct clk_hw *hw)
++{
++	struct sun8i_pwm_channel *chan = sun8i_pwm_channel_from_hw(hw);
++	struct sun8i_pwm_chip *sun8i_chip = chan->chip;
++	unsigned int pair = SUN8I_PWM_PAIR_IDX(chan->index);
++	bool enabled;
++	u32 val;
++
++	guard(spinlock_irqsave)(&sun8i_chip->lock);
++
++	val = sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PCCR(pair));
++	enabled = (val & SUN8I_PWM_PCCR_GATE) &&
++		  (val & BIT(SUN8I_PWM_PCCR_BYPASS_BIT(chan->index)));
++
++	val = sun8i_pwm_readl(sun8i_chip, SUN8I_PWM_PER);
++	enabled = enabled && (val & SUN8I_PWM_ENABLE(chan->index));
++
++	return enabled;
++}
++
++static const struct clk_ops sun8i_pwm_bypass_ops = {
++	.prepare = sun8i_pwm_bypass_prepare,
++	.unprepare = sun8i_pwm_bypass_unprepare,
++	.enable = sun8i_pwm_bypass_enable,
++	.disable = sun8i_pwm_bypass_disable,
++	.is_enabled = sun8i_pwm_bypass_is_enabled,
++};
++
+ static void sun8i_pwm_put_rate(struct sun8i_pwm_chip *sun8i_chip,
+ 			       unsigned int idx)
+ {
+@@ -342,8 +450,12 @@ static int sun8i_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
+ 	int ret;
+ 
+ 	scoped_guard(spinlock_irqsave, &sun8i_chip->lock) {
++		if (chan->mode != SUN8I_PWM_MODE_NONE)
++			return -EBUSY;
++
+ 		was_enabled =
+ 			sun8i_pwm_channel_is_enabled_locked(sun8i_chip, idx);
++		chan->mode = SUN8I_PWM_MODE_PWM;
+ 	}
+ 
+ 	chan->pair_clk = clk_hw_get_clk(parent, NULL);
+@@ -372,6 +484,8 @@ static int sun8i_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
+ 	clk_put(chan->pair_clk);
+ err_clear_clock:
+ 	chan->pair_clk = NULL;
++	scoped_guard(spinlock_irqsave, &sun8i_chip->lock)
++		chan->mode = SUN8I_PWM_MODE_NONE;
+ 
+ 	return ret;
+ }
+@@ -382,6 +496,9 @@ static void sun8i_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
+ 	struct sun8i_pwm_channel *chan = &sun8i_chip->channels[pwm->hwpwm];
+ 
+ 	scoped_guard(spinlock_irqsave, &sun8i_chip->lock) {
++		if (chan->mode != SUN8I_PWM_MODE_PWM)
++			return;
++
+ 		sun8i_pwm_set_enabled_locked(sun8i_chip, pwm->hwpwm, false);
+ 		sun8i_pwm_set_bypass_locked(sun8i_chip, pwm->hwpwm, false);
+ 	}
+@@ -390,6 +507,9 @@ static void sun8i_pwm_free(struct pwm_chip *chip, struct pwm_device *pwm)
+ 	clk_disable_unprepare(chan->pair_clk);
+ 	clk_put(chan->pair_clk);
+ 	chan->pair_clk = NULL;
++
++	scoped_guard(spinlock_irqsave, &sun8i_chip->lock)
++		chan->mode = SUN8I_PWM_MODE_NONE;
+ }
+ 
+ static int sun8i_pwm_read_waveform(struct pwm_chip *chip,
+@@ -510,7 +630,8 @@ sun8i_pwm_pair_rate_constrained(struct sun8i_pwm_chip *sun8i_chip,
+ 	unsigned int sibling = idx ^ 1;
+ 
+ 	guard(spinlock_irqsave)(&sun8i_chip->lock);
+-	return sun8i_chip->channels[sibling].rate_exclusive ||
++	return sun8i_chip->channels[sibling].mode == SUN8I_PWM_MODE_CLK ||
++	       sun8i_chip->channels[sibling].rate_exclusive ||
+ 	       sun8i_pwm_channel_is_enabled_locked(sun8i_chip, sibling);
+ }
+ 
+@@ -984,6 +1105,42 @@ static int sun8i_pwm_register_pair_clocks(struct device *dev,
+ 	return 0;
+ }
+ 
++/* Register the bypass clock for each channel. */
++static int sun8i_pwm_register_bypass_clocks(struct device *dev,
++					    struct sun8i_pwm_chip *sun8i_chip)
++{
++	for (unsigned int i = 0; i < SUN8I_PWM_NPWM; i++) {
++		struct sun8i_pwm_channel *chan = &sun8i_chip->channels[i];
++		struct clk_hw *parent = sun8i_chip->pairs[SUN8I_PWM_PAIR_IDX(i)].hw;
++		const char *name;
++		int ret;
++
++		name = devm_kasprintf(dev, GFP_KERNEL, "%s#pwm-bypass%u",
++				      dev_name(dev), i);
++		if (!name)
++			return -ENOMEM;
++
++		chan->chip = sun8i_chip;
++		chan->index = i;
++		/*
++		 * Protect the shared rate while prepared. Preserve unclaimed
++		 * firmware outputs through CCF's unused-clock cleanup, as for
++		 * PWM waveforms; only a consumer may turn them off.
++		 */
++		chan->bypass_hw.init =
++			CLK_HW_INIT_HW(name, parent, &sun8i_pwm_bypass_ops,
++				       CLK_SET_RATE_PARENT | CLK_SET_RATE_GATE |
++				       CLK_IGNORE_UNUSED);
++
++		ret = devm_clk_hw_register(dev, &chan->bypass_hw);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "Failed to register bypass clock %u\n", i);
++	}
++
++	return 0;
++}
++
+ /*
+  * A disabled pair gate makes any set PER bits ineffective. Clear those stale
+  * enables before a clock consumer can turn the shared gate on and expose an
+@@ -1012,6 +1169,17 @@ sun8i_pwm_sanitize_disabled_pairs(struct sun8i_pwm_chip *sun8i_chip)
+ 	sun8i_pwm_writel(sun8i_chip, per, SUN8I_PWM_PER);
+ }
+ 
++static struct clk_hw *sun8i_pwm_get_clk_hw(struct of_phandle_args *clkspec,
++					   void *data)
++{
++	struct sun8i_pwm_chip *sun8i_chip = data;
++
++	if (clkspec->args[0] >= SUN8I_PWM_NPWM)
++		return ERR_PTR(-EINVAL);
++
++	return &sun8i_chip->channels[clkspec->args[0]].bypass_hw;
++}
++
+ static int sun8i_pwm_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -1050,6 +1218,14 @@ static int sun8i_pwm_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = sun8i_pwm_register_bypass_clocks(dev, sun8i_chip);
++	if (ret)
++		return ret;
++
++	ret = devm_of_clk_add_hw_provider(dev, sun8i_pwm_get_clk_hw, sun8i_chip);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to add HW clock provider\n");
++
+ 	ret = devm_pwmchip_add(dev, chip);
+ 	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "Failed to add PWM chip\n");
 
 -- 
 2.53.0
