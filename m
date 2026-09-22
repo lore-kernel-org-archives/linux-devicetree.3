@@ -1,138 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6019A515979
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BA74F7CC2
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073878; cv=none; b=DAktFk+0W1p7OB2F8GmdnlK3lzeO6v9I1ozTMV/x5+0gdEZMMcdgwYUQp2XHC72reXI5ohAzcg+xoS5Q25ZaBsm9O+gfenQcgSY6vhmut7OjXQnMaxpbjIhem4RSAXRsVuD308wWDiIclX95RWq7R/+TdHbWh5dLWqF7+Ifausg=
+	t=1790073885; cv=none; b=UxpwWJTdn8wWSrN6zEB0OFezvetYHqH4qXBVK5przwCV14YG/rF1cBHCTbTjLTz0wgpGELlVps50D0lz9btTpPKfnpF2Srsp5+pdMDRRDInaAS/UaVj6b7P1SXr56/db/pPJnWzdQzDccQog/OVXKma0yaZjHcfcng3dbuPgbyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073878; c=relaxed/simple;
-	bh=91FpfD5ux4o29ybKYtgxcpNziqSHbnI7bYjIapS35CY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aNxGEL+a1YrT/VhC3M3h/ZXdSJjS00NStBxyMm3F+jWKPh4ZNpOxuti/O/CXCx/egRNnnOsb3QNwtUo0u9Cdn+ddGaXlG+O5UXfTXp+U7eEY35bTUh6dEeF+5sRNx0uOAsoblAuIRsNyKBGdaX7x2NCs9VKB6oH+krvy3KFDcTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jPBKxsDR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790073885; c=relaxed/simple;
+	bh=umTzAitXHWmLYEotv+KuFJnI11K50uWLB9nmZJ251Lg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=JlGwEbJqi081XZdvsgrrDwiwvm0G7dFlhNFyEBBgOZHuH7QEjNL1sKk1haZiqlJZwDMO4J5DpBIuzScm9yTGnsAyjnM8pHEn4//RIZEIdQEVxEnFGG86chMS+hmIhiNiMnjw8uRuyGH+PAIKMm8UBZtSkzdrH5ikGrQLVxWudwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YhAlvLxs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A4tQf6gi; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jPBKxsDR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9171F000FF;
-	Tue, 22 Sep 2026 10:44:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790073875;
-	bh=4l8x8CTy4XuM/q3X7N5hXRy0/ThJcPXM+dH0+o15Wh8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jPBKxsDRWELEujddzJkpTR6VhAOnt4qDzoXQ8b6c7hFz3JvdrFr+mEjoLwxLEEOFT
-	 G+xinOjwNr3XEsNqBNh9ubOJF7mDLw7ynMZtQ+qXHbWUwvNwHUaaYuEqBPdvaG16Aq
-	 g+ve0kFFX7Q05retX/zdah59dCE4w5omm0JXLAvEIKqU121DG0AmtqpAtaGw2/KneF
-	 0sYKguRic4A7G1Ne+kb74feBfDJvunVkIzPl71fnXxSga9x5VPXeA/PlWpUTs9Fa3a
-	 HwdOtzsCeNjcgckaoS9vF4n30aiNA2hHmwU3I3GHg48FT9g9uYTLvo62rtTH66C231
-	 T4je/Wr3I8Fiw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] arm64: dts: qcom: glymur: Add CoreSight nodes for
- APSS debug block
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jie Gan" <jie.gan@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-4-c2a8c3225a2e@oss.qualcomm.com>
-References: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-0-c2a8c3225a2e@oss.qualcomm.com>
- <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-4-c2a8c3225a2e@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 10:44:34 +0000
-Message-Id: <20260922104435.0E9171F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YhAlvLxs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A4tQf6gi"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MA32KK801420
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:44:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	044jsrB67uaRkWcSYVBrDKkesOnR5wd9zo0iuc05Kz8=; b=YhAlvLxsdJGCWPoo
+	zK7eiPz8T6eJA5pWPuTzns/TNFFSsgrFv1b9KL3tMz7uGFk4yzPV5EdN0K1FRb3N
+	18EIveuauidwF2/6cCEkNhUFMp7QT27O7kd2tCSiTKAsu79sWgvm21ZadkPNvTf3
+	kK9CR9Glb5RBR0FHj9knlw19cNwtqaAZLP0IETZfKCXWiGRddq2bpVR3MHvNIHOs
+	3hDUrLjuOvhreG/8qDqHXR1fe+cm1pVuV27dNT0uIgh1fZaiZ30Mk87XPO2FTZuw
+	lWmfnFZ8VVr9qLsUFn3hsdXOIkBUav8VpPGyEm9dmUW0FeExovBoSWsZvyFyZZXU
+	LTumkw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guqk4r58a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:44:41 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-938fd633df7so125995985a.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 03:44:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790073880; x=1790678680; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=044jsrB67uaRkWcSYVBrDKkesOnR5wd9zo0iuc05Kz8=;
+        b=A4tQf6giWKfIPNqaZClsuvMHWCXs+mkGdUQgoErojHM+2fV5I0zJgUYJ9E+qWokdAf
+         fEfPNU5TC5/m2lduT3JEy/XThKsdVHl7Or2Rxg0wv079atJOP0wFAHkkbAatdpeRC/TR
+         8madP9JjLl+p7IHcoJemvsd1TM0UJPBDxyrDNd8pXIczDPF+0w9gO3i3rd69q81YywaK
+         JqReJQoeuGTHrot2yhGblf2f9qUwoBbazY9Uf5D87M8fhLx1AFA3Wcm9tn/VTElgqDVR
+         9F/jAzdlnOGWvjr0cm7i12/1hdKAhXKlTk4iQcB46uCgN0nZArJKVCgctB2VJ2L09RVY
+         ub8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790073880; x=1790678680;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=044jsrB67uaRkWcSYVBrDKkesOnR5wd9zo0iuc05Kz8=;
+        b=r5MqwgCK4Kb+rbHS5J4yCviu6rjM9bLjn+SX1uBnUzSHg7SyEHibgTxc+Y5X+Yxeij
+         rTceSE5a1VOpH2cAvUQ/tiX8QVM+95VRMzb0N1XfQfHnc5/eCds9D9N/upAIgFlKtTDj
+         LgvuY7ACyYdVQdKC8jz4k57e5CKqhDa33awYmqcihMlgn0u/sg2ezwMOZGCzAqtXL00G
+         pkoOxisexEPEDvQNXxzNATxSKP8kbP4A28A7T4RNy5svaptznbKoxq87WZqP+YUNEgH8
+         vGMdrsmU9fVrBO5Ie1vp3Ahydxpfg4fxJQ9QEYPUyFYyGLlITUlNCtnJvRfVmevyUfnV
+         wOSw==
+X-Forwarded-Encrypted: i=1; AKwUvByesSB2DvJqd8hJykctPkbmpmjo5xM6FgnU0iGtOwv7MOT71j6x0aSR8nR9jTHCQjXFhwPpVjdcGd7u@vger.kernel.org
+X-Gm-Message-State: AFuF++n3gO2UkjTslQXwek0sL2hBIS7kN9Bi21+A08zKnxu2lQRS76j0
+	dPX6HQ2UfPls7y4BdtLD0qdx/ZwgV7aPniEOrLK3ChIvc6MIPPYpIGGDSV/SEEngvkiiUTKJTe4
+	hXmLxlUJfwhIuCnAbCjeX/TjRCXlMcwbcZPA8SQvowFzo+yExdLwt4mhN0zbDecxD
+X-Gm-Gg: AYBFou3TRTzGJEy+x6y3Ft3JTIMKY0kZrparonskkVxdf+8rtYJYF9pd/bEZjJviV0n
+	hm1BETe25skbrrmuQdD3f9jU4ThwrBAwQPaO1Gl3rvhHz0n4hQQ11bPppyFZL3vrUdCQIBgjtW2
+	xiueqMmlMajUNlHGu/s8vCYOuiFg4Zv85zM+asIBDfuBXcB/YkZfV7makSxE+MVFIACpYuVrM8j
+	2RXxvzpMot6YKlxG3zLwu/W0in1eRP3qmlT4hx2b7g3htorKKEXU43LbWgAwwvsgrNkZJJL5tu7
+	/JRPY3OAvghj9H9b09dSzr+OXU7OYj3+3Izj70++kIhf+a79hBKcBiicbcAgSyT+QClnPNAMleV
+	3qQInIdiMZoOz8lGv78nxhA==
+X-Received: by 2002:a05:620a:d85:b0:93b:beb1:5790 with SMTP id af79cd13be357-93c15f855ccmr500229385a.5.1790073880171;
+        Tue, 22 Sep 2026 03:44:40 -0700 (PDT)
+X-Received: by 2002:a05:620a:d85:b0:93b:beb1:5790 with SMTP id af79cd13be357-93c15f855ccmr500226485a.5.1790073879816;
+        Tue, 22 Sep 2026 03:44:39 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c54fbc2sm63789366b.16.2026.09.22.03.44.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 03:44:39 -0700 (PDT)
+Message-ID: <58ced827-d6ec-49e1-9a2d-a4d5c4111721@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 12:44:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/11] remoteproc: qcom: pas: Add SDM670 ADSP support
+To: Richard Acayan <mailingradian@gmail.com>,
+        Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org
+References: <20260922015801.32373-1-mailingradian@gmail.com>
+ <20260922015801.32373-6-mailingradian@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260922015801.32373-6-mailingradian@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE1NSBTYWx0ZWRfX6SoN/tIGemtK
+ FRI8/zxb9rxdnXoqp2aW4nqdRqs9P4PHtaAsoshba02gxDlLByGPhorMaFWzsRg5seQ7rvL+UiM
+ HmWdufCiV4HALAcJgcxtcaqDCliLO7wUlCvm2j7DO8Cokv/3yh6ShCoMTBvNBKWN6Se2flKo4w0
+ IVCXJ8UarWAz1eb/a7kmCxuCpmDd6JnuaRv3u32dyFTc3faacQ2ki2Cj+rV0Df3l1ye3q9bNsmN
+ jQI2JG6mBrJRaocVPTIfV2gjf7RWy4O8qwnvV/FcVoDEtx6fDPGIdSE7WWi6UmSIaHWwYwAyqRU
+ WdPBMc20qikZm7xS575uMNYmX0R828ntCfjIPodcB4GAv5cFfVbqQOCo/kOGogRRWh8Rq3PP5ON
+ QHVhPuzSq3XtR4tXEJa/L5L1W/fSTU6tcQJwYxIPqyWWphCHsvm5OBMUNNFgBsKSl4L5Y+7KEf4
+ rEm6XpKveZ1Rs50/LTA==
+X-Proofpoint-GUID: JiUwHdECWBUA450dd22FbeWXbiOXZoKL
+X-Proofpoint-ORIG-GUID: JiUwHdECWBUA450dd22FbeWXbiOXZoKL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE1NSBTYWx0ZWRfX41Ke/iAWMzT0
+ 9n2aklrx6QTS+xGZ4yPXdTQYjP7wKD5XjYsIGuwN+MhKB5zV6iVBu/PsM2v18GhdjYGpjR41vi/
+ MFVDsG7a1BTHiDkZZLb3upe4TGuB2pw=
+X-Authority-Analysis: v=2.4 cv=XrVvqlF9 c=1 sm=1 tr=0 ts=6ab25c19 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=pGLkceISAAAA:8 a=do7GNnlObjUVy-8jmn8A:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
+ phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220155
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dts: empty port node left after endpoint deletion triggers dtbs_che=
-ck warning
---
+On 9/22/26 3:57 AM, Richard Acayan wrote:
+> The ADSP is used to control audio and sensors on the SDM670 SoC. Add the
+> compatible for it, with the same data as SDM845 since the driver
+> requires the load_state.
+> 
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> ---
+>  drivers/remoteproc/qcom_q6v5_pas.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> index ca8e61254c44..5272a462fc49 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> @@ -1865,6 +1865,7 @@ static const struct of_device_id qcom_pas_of_match[] = {
+>  	{ .compatible = "qcom,sc8280xp-nsp1-pas", .data = &sc8280xp_nsp1_resource },
+>  	{ .compatible = "qcom,sdm660-adsp-pas", .data = &adsp_resource_init },
+>  	{ .compatible = "qcom,sdm660-cdsp-pas", .data = &cdsp_resource_init },
+> +	{ .compatible = "qcom,sdm670-adsp-pas", .data = &sdm845_adsp_resource_init },
 
-commit b9b7f9e54234f4ce9f0f624d710b7719ad97a035
-Author: Jie Gan <jie.gan@oss.qualcomm.com>
+Would a fallback compatible be suitable here?
 
-arm64: dts: qcom: glymur: Add CoreSight nodes for APSS debug block
-
-This patch adds CoreSight devices such as ETM, replicator, funnel, and
-TMC ETF to the APSS debug block on Glymur. It also deletes the nodes
-corresponding to cluster 2 on Mahua, since that platform lacks the third
-CPU cluster.
-
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/q=
-com/glymur.dtsi
-> index de7c395d9c353..049bebbb80f92 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-[ ... ]
-> @@ -7625,6 +7939,51 @@ pcie_rscc_tpda_out: endpoint {
->  			};
->  		};
-> =20
-> +		funnel@12080000 {
-> +			compatible =3D "arm,coresight-dynamic-funnel", "arm,primecell";
-> +			reg =3D <0x0 0x12080000 0x0 0x1000>;
-> +
-> +			clocks =3D <&aoss_qmp>;
-> +			clock-names =3D "apb_pclk";
-> +
-> +			in-ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				port@0 {
-> +					reg =3D <0>;
-> +
-> +					apss_funnel_in0: endpoint {
-> +						remote-endpoint =3D <&ncc0_etf_out>;
-> +					};
-> +				};
-> +
-> +				port@1 {
-> +					reg =3D <1>;
-> +
-> +					apss_funnel_in1: endpoint {
-> +						remote-endpoint =3D <&ncc1_etf_out>;
-> +					};
-> +				};
-> +
-> +				port@2 {
-> +					reg =3D <2>;
-> +
-> +					apss_funnel_in2: endpoint {
-> +						remote-endpoint =3D <&ncc2_etf_out>;
-> +					};
-> +				};
-> +			};
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/qcom/mahua.dtsi b/arch/arm64/boot/dts/qc=
-om/mahua.dtsi
-> index a59c5ed7b48e7..77a456fb0772b 100644
-> --- a/arch/arm64/boot/dts/qcom/mahua.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/mahua.dtsi
-> @@ -6,8 +6,18 @@
->  /* Mahua is heavily based on Glymur, with some meaningful differences */
->  #include "glymur.dtsi"
-> =20
-> +/delete-node/ &apss_funnel_in2;
-
-[Severity: Low]
-Does this deletion of the endpoint leave the parent port@2 node empty?
-
-The device tree schema for graph ports strictly requires a port node to
-contain at least one endpoint child. Leaving the port node empty violates
-this schema and causes a dtbs_check validation regression.=20
-
-Is there a way to delete the entire parent port node instead of just the
-endpoint, to avoid leaving an empty port@2 behind in the device tree?
-
->  /delete-node/ &bwmon_cluster2;
-> +/delete-node/ &cluster2_etf;
-> +/delete-node/ &cluster2_funnel_l1;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922-add-etm-de=
-vices-for-multiple-qcom-platforms-v1-0-c2a8c3225a2e@oss.qualcomm.com?part=
-=3D4
+Konrad
