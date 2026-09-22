@@ -1,100 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143205650FC
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 16:17:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F1455D88F;
+	Tue, 22 Sep 2026 16:19:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790093833; cv=none; b=RL75SIP/Dlq4KdN7NpX2gBOEy4xhsNmsdmihfQM1BXMyacIn2EBqSe0Efue6g1+zBEJQAS2WKleeBOZs+AAUrVbyBmKbQiiYvUpLHQjE0t5VfUl9itpo++tlZb4yo192HB9M2U3Eid/0S8oEQIoguhBgAPUZ5NocEBrgI24+UCg=
+	t=1790093945; cv=none; b=Dfq8dByX5z7VD39wavwjkBuojyGc18owUICMVLR1hAX1RCwSDor5unkm+cJaYAHrasTuNPmTwONLE8f9J2QjviOjg6CGugcFZhF/beuqN/ujgu1AYcIh9nMEEZBR+EcvNRgkaZ5vg3wKEXyi9qrxzt2oKU/bSS9KPR8fiElL1B4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790093833; c=relaxed/simple;
-	bh=RR8VvNhLejpnu1zlz+rBVZfBRBM/i3/gANGSKjEU0aw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TVOy/9kvtN79zw5jq/4fUxvcXnzeqJhy1+5FQZ1a8l8ELOhzQS5ukwPyXRp52s+/xpFhdBlDqJ+ksJxY4F7Sun7QSqgFnJoFRZVP5hxuYf6B56LNdOWg8Gg3qMhM8ALw5rV4BDVyjHk6oeTdmJG030GmvzMGINW6m6CR5T/WNgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BrFJTaDO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790093945; c=relaxed/simple;
+	bh=a3LTGa3MhJXN2n2B8EPr5J17gLQO/MD/MCTXDGXbUIU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H+RKh9J8uAeXdcvEj+XnaT8OyJvRlfAQfSDE60lKVYFTKlPtOy+q3ug1agI6YIR2o17pNyfSUqc+lh9OXUy+kC8zGPezYCXbJCuIrTD/O3/KqNy78/XHShY+WLJN5YkHFrRX5zbOLwWJQE24IrkzOcP8wyD8Gin4KP9vwVMS+UY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nCXsy/+c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BrFJTaDO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596B61F000FF;
-	Tue, 22 Sep 2026 16:17:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nCXsy/+c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B881E1F000FF;
+	Tue, 22 Sep 2026 16:18:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790093831;
-	bh=7SCACIMkovCAQWYJ3tWhlfrEAq98q3CMl/z7bMnXMb4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BrFJTaDO3mR17/hKsGYBsCLmkp6civzOArLa0w0GGIl1BhQ01wig/m0wKG05VMyKc
-	 CjN8Tpp5LdKCiEVFGf6oY3feB7A2/czWMRbUOfmgUPXavTgKFlzvbkvpiXYR11I6q0
-	 pTBjSiZOaPS1fBx9xd5l+4YK7AuJB/sLF5RzOB/bhh0qxzVOzx/hOsYAdD+5vjG8Yh
-	 ix3PhNI9LtfMGiLqQ3B/mTiLvv4VrHiVQikDbNCVpSYQF8Q2iHIpzgAG/qe6z+aLoN
-	 rmeplLX5iO8J7K4olnTBCmpXIx/8NgF+GlzrT5FtSkgJkbKnls52g6gzAgM4lEgyiH
-	 eAcKb/2q6L1jA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/7] ASoC: meson: add AUDIN driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Valerio Setti" <vsetti@baylibre.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260922-audin-v3-4-a760312c076c@baylibre.com>
-References: <20260922-audin-v3-0-a760312c076c@baylibre.com>
- <20260922-audin-v3-4-a760312c076c@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 16:17:10 +0000
-Message-Id: <20260922161711.596B61F000FF@smtp.kernel.org>
+	s=k20260515; t=1790093943;
+	bh=iRBfCParkNtyS5c7cz2RRsQha1XxTa9n12NZaWfZ/24=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nCXsy/+cTBsYjPQjb4ORn0ACY4eQUoAN2P5bKbR9ceOXSp6jsUQPKUJXidVsczQIj
+	 qwHPHN9eerpgroSfwN/ExPSbYWv9VILJ2nhhC9C6InFra91fp2EnidSWiGcfuSc/jt
+	 wDk7O3WasgdIZPgU3vgLgSLFaxTjtaC4moNELmtLi9sA4GIqd7pMNs9ON8v2puAbzK
+	 1fqD06cxyVx39g0jgWkqrBETo4Mj20UBwmFybKvkpcidIP6ob3Wop+kLV84OMwHv8K
+	 PfdvA+HMgs9+wQ75aIhH0foyLEapkhNo0ZrfYqX5727dKfBfPaR9g1Bruvy7CBELqH
+	 xIfS/ziAn0g/Q==
+Date: Tue, 22 Sep 2026 18:18:53 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Michael Walle <mwalle@kernel.org>, Alex Elder <elder@riscstar.com>, 
+	Daniel Thompson <daniel@riscstar.com>, Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>, 
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 2/5] gpio: tc9563: Add support for the embedded GPIO
+ controller
+Message-ID: <fratyclnf6t232dg5s2kvsysw3gbovkwnrzfhnlblsax3wb6qy@debn6qdpp7jh>
+References: <20260909-pci-tc9563-aux-v5-0-c9b33f56c8d3@oss.qualcomm.com>
+ <20260909-pci-tc9563-aux-v5-2-c9b33f56c8d3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260909-pci-tc9563-aux-v5-2-c9b33f56c8d3@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] sound: soc: meson: data race due to global state modification in pr=
-obe
---
+On Wed, Sep 09, 2026 at 04:55:54PM +0200, Lorenzo Bianconi wrote:
+> From: Alex Elder <elder@riscstar.com>
+> 
+> Add a driver for the GPIO controller embedded in the Toshiba TC9563
+> PCIe switch (and the Qualcomm QPS615). The device implements 35
+> GPIOs using two register banks: three registers control the first 32
+> GPIOs (20 and 21 are reserved) and three more control GPIOs 32-36.
+> GPIOs 22-24, 27-28, 31, and 34 are input-only.
+> 
+> The driver is registered as an auxiliary device driver. The TC9563
+> power controller creates the auxiliary device and provides a regmap
+> that gives access to the GPIO registers, so the gpio-regmap helpers
+> are used to implement the GPIO chip.
+> 
+> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Co-developed-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 
-commit 19f0be491d181acce1da0bdd85fd37b9549fa25c
-Author: Valerio Setti <vsetti@baylibre.com>
+Linus, Bart, what is the merge strategy for this patch? Since Bart has Acked
+this patch, can I assume that this along with pwrctrl patches can be merged
+through PCI tree?
 
-ASoC: meson: add AUDIN driver
+- Mani
 
-This commit adds the AUDIN driver to provide audio input support for Amlogic
-GX based platforms. It incorporates FIFO handling and an I2S data formatter=
- to
-route audio streams.
-
-> diff --git a/sound/soc/meson/audin.c b/sound/soc/meson/audin.c
-> new file mode 100644
-> index 0000000000000..15824354abede
-> --- /dev/null
-> +++ b/sound/soc/meson/audin.c
-[ ... ]
-> +static struct snd_soc_dapm_widget audin_dapm_widgets[] =3D {
-> +	[AUDIN_WIDGET_I2S_FORMATTER] =3D
-> +		SND_SOC_DAPM_PGA_E("I2S Formatter", SND_SOC_NOPM, 0, 0, NULL, 0,
-> +				   gx_formatter_event,
-> +				   (SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_PRE_PMD)),
-> +	SND_SOC_DAPM_MUX("FIFO0 SRC SEL", SND_SOC_NOPM, 0, 0,
-> +			 &audin_fifo0_input_sel_mux),
-[ ... ]
-> +static int audin_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	ret =3D gx_formatter_create(dev, &audin_dapm_widgets[AUDIN_WIDGET_I2S_F=
-ORMATTER],
-> +				  &audin_formatter_i2s_drv, regmap);
-
-[Severity: Low]
-Is it safe to mutate the static audin_dapm_widgets array here in audin_prob=
-e()
-with a per-device allocated pointer?
-
-Calling gx_formatter_create() modifies w->priv where w points to the static
-global audin_dapm_widgets array.
-
-While ASoC's snd_soc_dapm_new_controls() uses kmemdup() to clone widget
-templates, modifying shared static global structs without synchronization
-introduces a structural data race if multiple instances are probed
-concurrently. This also appears to violate driver design principles against
-modifying static templates.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922-audin-v3-0=
--a760312c076c@baylibre.com?part=3D4
+-- 
+மணிவண்ணன் சதாசிவம்
