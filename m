@@ -1,146 +1,107 @@
-Received: from mail-yx2-f23.google.com (mail-yx2-f23.google.com [74.125.224.151])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9E75519B0
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 13:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.151
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790083605; cv=pass; b=TcuAfF9wWA2D5sYRbNNJeQZc1/h5AqYaP3yn5AuJOKcekXl4cWkFLvj5svIBKu9k3mSs4AwSbPGUpTPHNrOnWqAAwEkKzUttL7lo/YWkAE/GGU4938/kZMn/AeKNNt8k2MG9BxTQsiYSF6am1RT0twlhofcM4o0NJTuM0m0RUl0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790083605; c=relaxed/simple;
-	bh=KZk3ftFgsljw+yHRBP7QV66dcAilUaP73F6UAmO5w1Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UTzNiN/FMkrYvezfmDIYbI3K2I5muRmLsAi3EbQVU1iezwBp5EzyjcKvRjLmyyABmmvzdGUdgfxuZWASi4IeHI383oKiOnUD0OM6HigENDhxZFNrhvWohUqsmm2PSLxBMNz+Z7Q5uz+2JqF9yFNAZX5RtpxbFVe+H4J+S5U4/WY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g75hIR5U; arc=pass smtp.client-ip=74.125.224.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D53CC5592FD
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 13:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790083679; cv=none; b=WPkub+dloVxTTteFjiK8UAEsvYwQPatNDjoN0x5vUZ9frO543Qxvd5tOvutKR4a91EKekyRn10cc7uBRkx8OzH1KpVwM0Xe//wHLUMCcvGCWxMlPcxTj6TatmXrz+bnpRYE9t24fo421w/YVExzv8Dllolx5zimdF0FUwIFUOPU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790083679; c=relaxed/simple;
+	bh=WNeHYd3Vnw/6tw0XEiAyUXhCqoTIxF2ktmooC2skdD8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s0HR9Xibf4adz5uS/OSBbeIae9pI8o3TMD97OAOzdcMoaxFrPFO6a6ulVcy2S/3kXVBivDJ0ZWrZPitB3U5IWDeRrm5+YeCMoMkWAvZPrvW3aTinWWvUD80aoC5UZUaHHn7fx5vyUhy45h9C0KWCuYG/fSqjuSTdH/Z4kfEK9nI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=OVILplIw; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g75hIR5U"
-Received: by mail-yx2-f23.google.com with SMTP id 956f58d0204a3-66e4aa8e6bdso2221207d50.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 06:26:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790083603; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rQmXcs/6+aAS7VOO5529YTCfZjMpGhSeggmIYNvmGdP4sVyLeI4gczvoXz0tzCdlDy
-         zBcDCDjfty0eC1MXqNVtOYKPlaY4Bfjba+rYLv+2NtFrxJh4jogcLZEhLStsyqN9uCWP
-         4AURsVHAHtnESnuppdHjQ4qdb7vZs21SrY4mTuk1L6Q9a0sV2yEvIbCHPjh0gbIV3SpG
-         vRhrp3JcHrc0IVOsOM+RvhXLeYWVXrEcF+S7eD26j2X/CCdjlOm+OWfdBO2xV9arJdtg
-         LZrP1KmtwnZMrHCqIu1tv5EzYWLL1Ky80nnHXpWSqkCe9N/vDBeKS86lTd+C07o+WHzj
-         kMkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KZk3ftFgsljw+yHRBP7QV66dcAilUaP73F6UAmO5w1Y=;
-        fh=kdHgTvX9LFFMyeFv/GMtZ25ZtfCvBgUOfEE4Nig+kVA=;
-        b=F6nZY4G2EiCFMpGhtTNNDKNDyDMTYj+jvBB1O6DcvEWjiAdIKrdD5fplGy0nO0Uw3C
-         herVOpH5t8Bf2qEBUFsmKUkTH/gE87nsi+xP1GmN5wJR7MKjSgQoD5z/rt5lxNCpJYwO
-         Pc+4NFa7gVtvNvClr41rdCROMMvqUi0qDjFSaSGdn1HFhTwfj4Gqu8FfmG6rZiXY6OkN
-         fJS5aN03ZM8sw8e4hWLwIsffB85ZniqAXx+0J82xa5pVCPM7Ctkc5moS1o4r24oCwBzq
-         uX+40mbKg4KrcXwAwNHZjsmN3zPCCpbu/pAMEluARUiFbixl37YIYDCIfqcttfQNQ3gG
-         M/Qw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="OVILplIw"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb796so564158266b.2
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 06:27:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790083603; x=1790688403; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KZk3ftFgsljw+yHRBP7QV66dcAilUaP73F6UAmO5w1Y=;
-        b=g75hIR5UuVknX1OcK23E9JT+2EGsFu06ipzx3XkK288iChAS54pYGNDgOLyGLGMlpT
-         GAcczYCGRR6ckNGXcWBSk8+QEruijUthVehhwdCAxskMPD07aWshTQiVhcpXSMnIm3qG
-         BZXdU9Pm2KOQj6mmoQv6bSkm7FjL/8WU7MCARH/TpAt8nbOdbeJRkVvBVyDV5flcYKPp
-         zZjcReauhKT8/GYlpu8/F0GZjkD25cBMl5Xj1e1qaUIWWMgJawk4TeZqsNWJCq7r1W/Q
-         jgjyxzQ4WUBFUQz+K7nJDPf2YZMCq6MSH7ikEvJS7jWOBwcjAR3zd2/HvsFEsRuRw9q2
-         WQDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790083603; x=1790688403;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=9elements.com; s=google; t=1790083676; x=1790688476; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KZk3ftFgsljw+yHRBP7QV66dcAilUaP73F6UAmO5w1Y=;
-        b=xQ7L3LIFaNH5mC+7jrK3ev07Q0Ll2wnKQ5KBuSXvoo+0zSTnGK8yFR+jYrcEmugrYs
-         yaYhuNFUXxXNRtHeIX/m/KMc7h8U2ICJur7usSX1GL4TxNagcGCLHx+irzpAJWGBOIQC
-         EVKexWfESeTb8yippjHgC3kz/y2WMWl68n7j8DEKncFbbMHen72TuHtgBKQianwM9yvW
-         RZPB5ROBqpKksqx/SJt01Qt5hKQdXJVtZabikmfd+eje8HW9Z0aEvRPJiR5jZEacXVIy
-         XiieLOshjZOHGE2pSglJC6QFpdmyX5j4ed9TZguL1waDf49VuXNRe6Ln5kN8l7hEs3tk
-         aemw==
-X-Forwarded-Encrypted: i=1; AKwUvBxbB9nwvtDd6sGjwr38zX1eRN5xw8yGXPCbO6JLIghaGlYae8/k6kxDwxlJ6nqkyXRYqjsAm/vQZfR+@vger.kernel.org
-X-Gm-Message-State: AFuF++n9aQmPlK1KpjyBk2SPmz7F6rRl4QKHUQ6RerYyaIEzQGnQEKsS
-	kkJqol/y8y740zuLtOYatPA0R5rkJlGqkMk0S4wCrRd9YcZfncYgi7JyKgJedYA8VRp8YsQoQEp
-	ogz/vzIk4HfS7q/gbrZkTm2PNAQ46rQ7w6TcG
-X-Gm-Gg: AYBFou2m3aAaanJNLJuLkiXszUnT21xXV4gx+QSONMtr4hAUm637dcY4IqAjzZPZFx/
-	0JRryc6y1h7mF//xVm0DXBP0nJDYVfHLe6hJhLPBWtXwFrxceFqglHiU5XEfHFsJcpCT8DZ9gd4
-	LoGsp1UTOU68DMUkH+ZQdhgIPp7PjJwFetcwZlVIcjnMyj3az4QtXkPedvgDmIgbkBIg3tbVV1n
-	Ie9gGVvpWiq06uv/+FYIZqCtymAWjfVT9LWSkviD6FV7YgYYP9d1ioGEsJ840T2cvKm4pcKgmz8
-	6plo+BcIcCLTWwgHV9TBA19hQFbBFSb576I8fiyLIf7Lol5Whou/w0JRFPTEtzCyBJBeCA==
-X-Received: by 2002:a05:690e:144e:b0:671:4e37:a832 with SMTP id
- 956f58d0204a3-672c2a1492amr1424683d50.22.1790083602711; Tue, 22 Sep 2026
- 06:26:42 -0700 (PDT)
+        bh=2YIyBTYTKojaf4BmHidMuZkB2sDxpT30TjkIMwtTPhw=;
+        b=OVILplIwJvSmlfdN3F/ncf4ZOUcyG+L6fBdA9UquALyCo+GE1VKFN1RNKlAIST9WVO
+         yhARqo0w+BCjSXaHpO26Qx9t1clb3dnGvG9OSDbRADeXylqW1QdKl6D8kDbEvVzWuvLo
+         KaMFe+lvIF3vfDhQ4XuD/AMPnXuSPThAjShc8ocAELZrXFUhg5JfwZvUu+asvl8NdeY4
+         ToOVvgQ9im9I+5RcW+tn7STSWB+g7x3FsDKk/IeBGo0PuEfjcGXPCcBvTP2Crw7QoC3J
+         TF5P4T1kVOOn00bAOtcS4IxpnZcRikFYOjTSXWZPK5HfAK+eaWhBHKpy2RogKblgxe+3
+         t1qA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790083676; x=1790688476;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2YIyBTYTKojaf4BmHidMuZkB2sDxpT30TjkIMwtTPhw=;
+        b=WZI8u1jh5L/u4/AZGyzJFJdWylBGN6DPxL4plbQ668eKTMyjeUC8DKqghLUignrpgS
+         3pBPmVJzrevDtSxV7UJRNZykgAir3vQMYqghb4OW81XN5CACrSAW/jlz/HpInhg5sdrh
+         bxwxHDe9yhjPrwDKV43RULtODCj4OMRrvU1yRI1ZJMxIsw+BXpVWMPqYJFb22V8m485Y
+         GqE2eZ5Tu9CpnopMzzYlmOUz6a/msojY7KjbSGW//8gG1NGH7MnSpudzXNOPbbhK2z4v
+         PKKy7Z8OO1BUhn6Lcp2EfnX9R8TeNyKFfZspa7bQqvavGq3w60nobNZ9jEz5N8x9xAXy
+         2ZuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw00LBlaq4IkN2xudbvqTKBEaDqFdA2Q0iYWuscbTulpUX4HVVSDLJUToqvPUiaAafK7/aBUyd90B8n@vger.kernel.org
+X-Gm-Message-State: AFuF++lrAcdBrXtDjNmbYqxAyLDchkPy7yEVwqXLtlUemwv1oZ40zKgQ
+	uoJVdygW89XM38myGxFQeNsfBHtzqdSaTLQPQyOLJm7xp3vHs0+WsbXpQDzjXwVkvv4=
+X-Gm-Gg: AYBFou0pXl9JWWN3f9XAp2lzwVcV/3JKAFXL9KENwPj3yuFTTgivM/FFYiDtckzjjRO
+	U6ai6e/Ej4o6SRTcIX8KSFIqs/wgJfb/GUPHKbriPk9fSRJ/9BKdR+RqnPypeAuYQ/XRy19Yfr7
+	2b0OdUjpbOGzvYm55DvwRG10LSdT9QpIxg9FoM6/1E7eBDZ19Au3HHbvq3UMELk8s2fd8ih/Ymv
+	7EMOUTWa318OMwMsGC6+gixfpsyIa3RhukjesZUVw3BR4oLhEZsoP6E+QEn8ji6+4OXfCj4zYIo
+	Yjw+vbUY/rCi+PqXI1SJkprXjg7BTRHMiIpR8OiOJjEPvIgXP/n7w+WmHx1/fCn2fwpietl7KgP
+	mIuWVn9Y7su8OJJE5ua9OMy746c45cdp2asWyedxCg/s+W3PtlEYrnDrHBt9r6e91ZkO8zwaIDS
+	z8Xw2mSmH78iAkpN+34alRX2xrXX9cqJIKUBx7mqgD6BnqWvoAHAc7cvkalcF3piLATripyxaT2
+	Rm70EJ91NYKpSHnib93wHy6c6nEAEFpAoui6ymjJCc34TB7TmHK36VpJO+1Eg==
+X-Received: by 2002:a17:907:948f:b0:c26:1648:a060 with SMTP id a640c23a62f3a-c2a15e0fdddmr1199501866b.27.1790083675881;
+        Tue, 22 Sep 2026 06:27:55 -0700 (PDT)
+Received: from ?IPV6:2a01:599:842:c46f:7b1d:31f2:7a17:2f4c? ([2a01:599:842:c46f:7b1d:31f2:7a17:2f4c])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c54f249sm85420466b.21.2026.09.22.06.27.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 06:27:55 -0700 (PDT)
+Message-ID: <968796d6-811d-434a-a230-f05da451252c@9elements.com>
+Date: Tue, 22 Sep 2026 15:27:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790079398.git.prasanth.padarthi10@gmail.com> <8cb38ff6-1210-4c5a-b0bc-b0b50dd2b9aa@9elements.com>
-In-Reply-To: <8cb38ff6-1210-4c5a-b0bc-b0b50dd2b9aa@9elements.com>
-From: Prasanth <prasanth.padarthi10@gmail.com>
-Date: Tue, 22 Sep 2026 18:56:31 +0530
-X-Gm-Features: AcwNN1XaRXA3PPjiOAu8sy9beqIj3WvHMknSJQK0T_ZOITGdCWmSpx7UdDH1Lq4
-Message-ID: <CAMFFDGjJcmpaQYHe=F+jpstbdk9-uXPKkBxLkJqAJRiyyTkBvg@mail.gmail.com>
-Subject: Re: [PATCH v7 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC support
-To: Tan Siewert <tan.siewert@9elements.com>
-Cc: joel@jms.id.au, andrew@codeconstruct.com.au, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, ryan_chen@aspeedtech.com, 
-	billy_tsai@aspeedtech.com, andrew@lunn.ch, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+ support
+To: Prasanth <prasanth.padarthi10@gmail.com>
+Cc: joel@jms.id.au, andrew@codeconstruct.com.au, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, ryan_chen@aspeedtech.com,
+ billy_tsai@aspeedtech.com, andrew@lunn.ch, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1790079398.git.prasanth.padarthi10@gmail.com>
+ <8cb38ff6-1210-4c5a-b0bc-b0b50dd2b9aa@9elements.com>
+ <CAMFFDGjJcmpaQYHe=F+jpstbdk9-uXPKkBxLkJqAJRiyyTkBvg@mail.gmail.com>
+Content-Language: en-US
+From: Tan Siewert <tan.siewert@9elements.com>
+In-Reply-To: <CAMFFDGjJcmpaQYHe=F+jpstbdk9-uXPKkBxLkJqAJRiyyTkBvg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Tan,
+On 9/22/26 3:26 PM, Prasanth wrote:
+> Hi Tan,
+> 
+> Thank you for catching these issues.
+> 
+> You're correct about the defconfig. I used `aspeed_g5_defconfig` for
+> the DTB build and incorrectly reported it as validation for the
+> AST2600. I'll rebuild using the appropriate AST2600 configuration and
+> correct the statement in the next revision.
+> 
+> I'll also carry forward Andrew's Reviewed-by trailer for the unchanged
+> MAC0 and MDIO nodes, preserving the scope of his review.
 
-Thank you for catching these issues.
+Andrew has already resent the trailer, so no need to send another 
+revision for that.
 
-You're correct about the defconfig. I used `aspeed_g5_defconfig` for
-the DTB build and incorrectly reported it as validation for the
-AST2600. I'll rebuild using the appropriate AST2600 configuration and
-correct the statement in the next revision.
+Tan
 
-I'll also carry forward Andrew's Reviewed-by trailer for the unchanged
-MAC0 and MDIO nodes, preserving the scope of his review.
-
-Thanks,
-Prasanth
-
-On Tue, Sep 22, 2026 at 6:51=E2=80=AFPM Tan Siewert <tan.siewert@9elements.=
-com> wrote:
->
-> On 9/22/26 2:34 PM, Prasanth Kumar Padarthi wrote:
-> > Add support for the ASRock Rack B650D4U BMC, based on the ASPEED AST260=
-0 SoC.
-> >
-> > The series adds the board compatible string and describes the BMC memor=
-y, SPI NOR flash layout, UART console, GPIO line names, graphics reserved m=
-emory, I2C EEPROM, and MAC0 connected to an RTL8211F Ethernet PHY.
-> >
-> > MAC0 obtains its MAC address from the EEPROM on I2C7 and uses RGMII-ID =
-mode.
-> >
-> > Changes in v7:
-> >
-> > * Correct the GPIOP bank line names for the reset, power and NMI button=
-/control signals according to the confirmed board mapping.
-> > * Remove the obsolete GPIOF5 reset-button line name.
-> > * Leave the binding patch unchanged.
-> >
-> > The B650D4U DTB builds successfully using aspeed_g5_defconfig.
->
-> What? The B650D4U has an AST2600, so using `aspeed_g5_defconfig` means
-> you're using a config set for the AST2*5*00...
->
-> Also, please preserve the trailers from previous serieses (i.e. Andrew's
-> Reviewed-by trailer) if you don't change anything significantly for the
-> parts that got reviewed.
->
-> Tan
