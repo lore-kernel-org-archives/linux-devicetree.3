@@ -1,51 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A149552952;
-	Tue, 22 Sep 2026 17:13:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A9123C4F3;
+	Tue, 22 Sep 2026 17:15:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790097186; cv=none; b=gnswduHMJ72QQQ212d2SB2/A8BzxAfq93Y9CH/2590+t/trwJh3wGd5BGVGAApaHYiw+3oJ3GyjrrShsshjRcFN4QBNfFjBXfRI+3VUVR4axkC7xIr2cu9lvjrQPoOPk6rN9ci1CfwMkNhk5jJwdx4OjD/S/u7fQSz7oPUDqy64=
+	t=1790097334; cv=none; b=eYUWZyrwWAjyz+ZTiXR2qRskGRWgKgU8y60ULEujv7cxAT2SYlJRq38Jqo6+SH64YfhR/L1y0bkZwkE5ESC2+/J3+QMf6xWF46fsr3esNBvaIWYt7JAfDy560dk0T65E/7J/5PtSUKUaw8AguJPoQCPJg89uC7Z1Zcs08Ty8KN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790097186; c=relaxed/simple;
-	bh=Rb3nQmcbLxvZugiL4VtH9ek43O+CYgD5gTfh7xpL2kc=;
+	s=arc-20240116; t=1790097334; c=relaxed/simple;
+	bh=o7XCPms2Bib6bRfira2F3Orb6WqbjrC4QrVJj6MkpzI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TVBjSH24VrIepdmZKN+r9wv+qpCgSFM5PIVgq8jGt4cTh6sr/VmY6JXGD5LnnhAN8oXmhpjYDtGTXhbxANgsvoFvaRjiUK2/VX/gMmSbgaIyJ9AEOfNMPVN0K/Gzm44GFM6XpU3VscKo2TGg+QGrfKoITRAIQIWS5g3SqSR03zE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SHY8IfxD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gfQC7Ybt+nE9LHHNp+J9kJEYrrbDNce7MJlIqPkVa6td9/UyA/48nfJ7Hs4PIWST6Bko+1LSXEN30mcK1ZyOghRF+W8E0Rr5cQQDppZ79u4FCk4ns0gCLIk0oA29GCZY2kC6IEXm3gQO7BlKpvOT9BhDXORzDJ7OFIg/huWjrJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEpya1Hj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SHY8IfxD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB7C1F000FF;
-	Tue, 22 Sep 2026 17:13:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEpya1Hj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333831F000FF;
+	Tue, 22 Sep 2026 17:15:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790097185;
-	bh=Rb3nQmcbLxvZugiL4VtH9ek43O+CYgD5gTfh7xpL2kc=;
+	s=k20260515; t=1790097332;
+	bh=ruPuFqV56/fcI5FeCOr8sioenZxbHL6buJ4gcKubV/Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SHY8IfxDJV64fXq6J3vIAr785FWgO22jlfCwc3HIiE9OfjPAvHkP34tcUFte7KmyW
-	 QeJoFYYjeFjC5NE3SWf/B6vGHIgPL9zmV2YSfH1WjtSGMdgCcGBaoI31ccT5AMWste
-	 Ot96+MIsocgC602Rv2B5YM4rhIgEABqM2vAhppgbOSwDPBJarPlc93y0g1ufkbDker
-	 SPcPEhGCPVvqPNf9c0jY+9X9/7RtbaxDdz0JpF26MF4k9XkVj/ThjzcZncHu0mcweX
-	 D1jIff2nqWb3Ec0hbWFbVKaOCH/Bbqx5DCEL9Y+SEnEheb6YTmKQfwU/sbWR2MMGdt
-	 e0Y+DGOyOsQuQ==
-Date: Tue, 22 Sep 2026 18:13:00 +0100
+	b=oEpya1Hj4XKvcWRL9lJFg4zKI+YFLQPcbPAfGtQREOU4UW54RaTi6aXCk5E/as3Iy
+	 IJhgBCmXlOM2Wq0tfAFzfgep8aHOoU471XmgfPanYQN5X+4ZLOGpgsh/ohLqCKhToV
+	 aFsXXxj1ywJNoxsDsGyrmPfqs+BareTc8HGrwA8CWGjboHoqOfM7Wx19criKxyW4Fy
+	 nI/sw403O5eOKSBet+uJMW08vMz1Rh3FJPFkNd10VJnNn5ftQXfDIZsKL5lmmrWBp3
+	 y47ktNnM97xIipUkSwYZvwYcWwhftvMrOXfUxOsPMERcosLOcnnyumlYDQvR0DnlNd
+	 /V2LdXZkgp6aw==
+Date: Tue, 22 Sep 2026 18:15:29 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Conor <mail@conchuod.ie>, Colin Huang <u8813345@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	colin.huang2@amd.com, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] hwmon: (pmbus/tda38740) Add driver for Infineon
- TDA38740/TDA38725
-Message-ID: <20260922-pectin-backslid-9352303bb7c6@spud>
-References: <20260918-add-tda38740-and-tda38725-v6-0-a8b11018d850@gmail.com>
- <20260918-add-tda38740-and-tda38725-v6-2-a8b11018d850@gmail.com>
- <dbd0a721-898b-4524-a0cd-c9751fd4bd68@roeck-us.net>
- <2646A11E-8D13-4587-8027-1370E0007F36@conchuod.ie>
- <3a107337-8e2c-45b2-8847-6b4fb7b0405e@roeck-us.net>
+To: Minda Chen <minda.chen@starfivetech.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v1 1/3] dt-bindings: usb: dwc3: Add JHB100 device
+ controller PHY adapter
+Message-ID: <20260922-colonize-uncaring-c604b3529275@spud>
+References: <20260918071103.24482-1-minda.chen@starfivetech.com>
+ <20260918071103.24482-2-minda.chen@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,53 +46,69 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cpqJA5S6VLdN78Gw"
+	protocol="application/pgp-signature"; boundary="KHIdktmF23MupoFW"
 Content-Disposition: inline
-In-Reply-To: <3a107337-8e2c-45b2-8847-6b4fb7b0405e@roeck-us.net>
+In-Reply-To: <20260918071103.24482-2-minda.chen@starfivetech.com>
 
---cpqJA5S6VLdN78Gw
+--KHIdktmF23MupoFW
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 18, 2026 at 10:30:16AM -0700, Guenter Roeck wrote:
-> On 9/18/26 10:24, Conor wrote:
-> >=20
-> >=20
-> > On 18 September 2026 17:02:38 GMT+02:00, Guenter Roeck <linux@roeck-us.=
-net> wrote:
-> > > On 9/18/26 03:23, Colin Huang wrote:
-> > > > Add a PMBus driver for Infineon TDA38740 and TDA38725
-> > > > single-voltage synchronous buck regulators.
-> > > >=20
-> > > > Signed-off-by: Colin Huang <u8813345@gmail.com>
-> > >=20
-> > > For my reference (waiting for DT patch approval):
-> > >=20
-> > > Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-> >=20
-> > I'm on holiday and only have my phone, and cannot find the binding patc=
-h to reply to.
-> > I found it on lore and it looks okay.
-> >=20
->=20
-> Hi Conor,
->=20
-> it was copied to "Conor Dooley <conor+dt@kernel.org>". Is that the wrong =
-address ?
+On Fri, Sep 18, 2026 at 03:11:01PM +0800, Minda Chen wrote:
+> Add dt-binding of JHB100 server host field USB device controller PHY
+> adapter register IO region and its regs-name.
 
-Nah nothing wrong with the address, just the limitations of k9 mail when
-combined with the volume of mails I get.
+I don't understand the rationale here or the other binding patch.
+Why is it not always 2 regs? Either the device has 2 or it has 1, there
+shouldn't be variability unless there's more than one instance and the
+dfferent instances have different numbers?
 
---cpqJA5S6VLdN78Gw
+Cheers,
+Conor.
+
+>=20
+> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
+> ---
+>  .../devicetree/bindings/usb/starfive,jhb100-dwc3.yaml | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.y=
+aml b/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
+> index fbabe99e9d5c..b2fd98c06ba0 100644
+> --- a/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
+> +++ b/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
+> @@ -20,7 +20,16 @@ properties:
+>      const: starfive,jhb100-dwc3
+> =20
+>    reg:
+> -    maxItems: 1
+> +    minItems: 1
+> +    items:
+> +      - description: Core DWC3 region
+> +      - description: DWC3 device controller adapter region
+> +
+> +  reg-names:
+> +    minItems: 1
+> +    items:
+> +      - const: core
+> +      - const: adapter
+> =20
+>    interrupts:
+>      maxItems: 1
+> --=20
+> 2.17.1
+>=20
+
+--KHIdktmF23MupoFW
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarK3HAAKCRB4tDGHoIJi
-0obXAQCdKDcHTJG5AcuDfg6f7evT6RLagLyTl8k2vNPWC5fQBwEAh2b7ZHs8BLFy
-koqCHqdbvoS8ueN4DOiA+2+5oEZXpQ8=
-=zvxl
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarK3sQAKCRB4tDGHoIJi
+0szQAQCwh/dFafRZJB+jn62w8Y2QCRUr/K2AbBr0TrPFgM4FhgD9EGSlYvTElJBw
+EVOd58UALAYKOueaN3htPnZsmZEmNAU=
+=l681
 -----END PGP SIGNATURE-----
 
---cpqJA5S6VLdN78Gw--
+--KHIdktmF23MupoFW--
