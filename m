@@ -1,92 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFED4DE701
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:28:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5E34E4C4C;
+	Tue, 22 Sep 2026 07:29:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790062128; cv=none; b=rH42JpbGantcoieD6Yb+GsSx0SdVWgqMaz+OgfjAs5Du+V7T8eduuqzY8/HLo4gjeKbZPFIW43+wfk/FuaIbn3AriTuEMJZiWc4og3GYrX2x3mVKcLYfQ4+4MrshKUdaBbmhfISuB7+ip6OPtPO5n64Fhc0cWKg7f/YxsQWQIuQ=
+	t=1790062155; cv=none; b=mo1n+910vHUCGpXzJGjw0LY6zOd1kHuMGX+4IEy1ZxQwc3Q4/1VZOpj9gqqXCyK6haI32cfTZ/baqbtqMcTAjyGKdwHlV5NL4Dny+lIvnocjs7lbFe3UQnMlvU3pAbGT8JEKWFvQ4QXEmEe8mDhzuy6OnoO5pEfsMTBzVnnXIrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790062128; c=relaxed/simple;
-	bh=jUNbiy0xDuTi7c+5s9qvfuW81PbsVIyH32dQ/SjREYU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IUfPAtvpN2VxpHhsnUc3vr2ZrZgHatCopyMrY8Dhjfuhl5BATQg87d4XSOtXlcEfrW+R9UUr0K2GO+G0yEF2VdiQppN4yqykUe5wdHexoB8FhLcvAtu3/8WneDHbXYqmltmkFCaiq3fyY4YWwNZQjPI+D/DQyD6VDpfCVaNdYW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZp0caBb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790062155; c=relaxed/simple;
+	bh=PqIM2Qviukhcl3o+EC3IQOTxcs3TiUTloXus2jpKlWI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yc9jXjrBDXKZR8Rom7uK8iqSuwxrQRZulL/nBe/3gF8nGnptmZri4kFCVJNEIU9bfVFO8fo5ovKeBSf9DxAOV0lahYMsL/I6uJnDnJCq0xYohP650MArmlxVkxc3ZONss43tySAO9b//k6QHQSpvJ6BO5IsmEMShzRGf+v82Rqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lj4h3NN4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZp0caBb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC771F000FF
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:28:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lj4h3NN4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90ADA1F000FF;
+	Tue, 22 Sep 2026 07:29:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790062127;
-	bh=RlS/01WyyurIPf4QsRysWjeX/pYeyMHVRzkWTplgkuo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OZp0caBbpefIvj9oDAZUhKHN7HmbUmSQEDEtJyByiNinpZk0O8y4fxtBhC2HvSwG3
-	 nVn3uGo7rfGHO0FJAzg3l8b+9tkirrGKqpKntbc1kLUFH8BTKzyUGr51prwRh0TT8A
-	 jmKeyXJeVqznfFEmqluszLaZuv8CtgzLp19JetSlzAJSToGilc4NUXKXeZrCz2xhe6
-	 X7tA51sgsYuxNEbq10r+KXuYWZYb8M2U1qJxyJC9D5q3iqM8mHzzyusLZ8KQse/rV/
-	 VtDcdTYWoki9oBne42YfmbwPaJv9I98IdOA4Xf4FTY/WfuzkM8U5IDrx7TAxDxmisn
-	 0h0nFQkVVbtYg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f16cd1so3490971e87.3
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 00:28:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzLUtBXJek0s0ZnkuGh0HCrwNMunOM+zw1xR+gkOCXKSQVW3SbCjrIm9YX5G+a2EHrcWvlbNkwDaT6u@vger.kernel.org
-X-Gm-Message-State: AFuF++kisJkJnc2ztjpflHPX+Iw2jhMGL1rVyPxCQrXCJgHwGIjnrUBi
-	/Sgny+oOOmmp/Y5vKCbSNZgU4Zril5vi4WdhGuVOY5vSflWozgknPhP64qC74k5isqClE42lVND
-	8K+2eVqWh0ZYEE6xakqu1526xVrQjukA=
-X-Received: by 2002:a05:6512:3d1d:b0:5ae:c8da:6254 with SMTP id
- 2adb3069b0e04-5b8c18298d5mr3810337e87.22.1790062125682; Tue, 22 Sep 2026
- 00:28:45 -0700 (PDT)
+	s=k20260515; t=1790062154;
+	bh=mrmWGHtOctOdZhqNCNIpUiwnnfhpa2OZaFb59cUmK9s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Lj4h3NN4HFuNhjBGJO0IUmHXJZIe5Dwhvi97k38gWPKQSn/ezGBj34b/irhN3gLyM
+	 R+MVwWQbTuaDMbfD/9Tv0V4fXth90C054y8BTYzdhlR7/RTx+MAVweAMY2SFULTfU5
+	 vOaNN1ca3ug9IQPXoQF2R3R5BDZhS6IjaildgQKbhJmJRH8piTcYDKcvFd56o63bt0
+	 Fd33nMEWjwknaW/qe5bHXq1hJvAdooBxTzs/LeZsbNI/LKuywyQrV9o4gTe7V3hveB
+	 29EJmCcsssT9aD+DDYYFyx2RQx3LBe3r5BaobDEo4pShlkyrGVMOXogtDkgeS1OW3A
+	 w8AOLNMJCLE3g==
+Date: Tue, 22 Sep 2026 07:29:10 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: alex@ghiti.fr, aou@eecs.berkeley.edu, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com, pjw@kernel.org, robh@kernel.org,
+	spacemit@lists.linux.dev
+Subject: Re: [PATCH 1/1] riscv: dts: spacemit: set ETH MAC from eeprom for
+ OrangePi
+Message-ID: <20260922072910-GKB353745@kernel.org>
+References: <20260921124206-GKI297024@kernel.org>
+ <20260922065001.1888961-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-15-282ff5d98dda@ambarella.com>
-In-Reply-To: <20260921-cv75-v5-v8-15-282ff5d98dda@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 22 Sep 2026 09:28:33 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnL5h2AD5rYvUYGT_TvQ=m9CQd6bh_NT=T28G7hDGFLDw@mail.gmail.com>
-X-Gm-Features: AclHuK_pNJ1evLbofDMJ7O-GTWjLgf41H8iNHME4i3icaRDTTyzpN_Rs6YR6w7U
-Message-ID: <CAD++jLnL5h2AD5rYvUYGT_TvQ=m9CQd6bh_NT=T28G7hDGFLDw@mail.gmail.com>
-Subject: Re: [PATCH v8 15/18] pinctrl: ambarella: add CV75 pin controller
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260922065001.1888961-1-amadeus@jmu.edu.cn>
 
-On Mon, Sep 21, 2026 at 6:23=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+Hi Chukun,
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Add an Ambarella pinmux-only pinctrl driver with CV75 function/group
-> tables. GPIO is handled by the PL061 driver.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+On 14:50 Tue 22 Sep     , Chukun Pan wrote:
+> Hi,
+> 
+> > Could you point me where the u-boot patching the MAC address?
+> > I'm not fully aware of this problem..
+> 
+> This is handled by U-Boot's fdt_fixup_ethernet() function:
+> https://github.com/u-boot/u-boot/blob/main/boot/fdt_support.c#L639
+> 
+> do_bootm_linux()
+>         |
+> boot_prep_linux()
+>         |
+> image_setup_linux()
+>         |
+> image_setup_libfdt()
+>         |
+> fdt_fixup_ethernet()
+> 
+So checked the code, it's not a direct problem of /alias, but due to the
+env variable provided to override the mac address, see
 
-I feel I could just apply this patch.
+https://github.com/u-boot/u-boot/blob/main/boot/fdt_support.c#L698
+	tmp = env_get(mac);
+	if (!tmp)
+		continue;
 
-> +       select GPIO_PL061
+In this case, I don't think it's necessary to drop the ethernet alias,
+I mean it's totally fine if there is uboot ethaddr env and it wins
 
-This doesn't matter so much, I can just assume this will appear in
-the merge window.
-
-If some bots complain it we can just ignore it.
-
-Once the bindings are ACKed I will consider just apply the
-bindings and this patch to the pinctrl tree.
-
-Yours,
-Linus Walleij
+-- 
+Yixun Lan (dlan)
