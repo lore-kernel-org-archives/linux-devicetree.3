@@ -1,180 +1,95 @@
-Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4BB85304AA
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27EF5304D7;
+	Tue, 22 Sep 2026 08:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066678; cv=none; b=k5xl6E8KKR3xRnv+5dV/BGsE2ubh2GE2rBPx9uN08v4fcYAFb7/a9A8RCvI0TGSXwb4f5zFM9xFwA3GhGFh7Wk9ExdvRD0WIlhsDWFdIjwRw/i0h2kbLiHNYhfY6MsvHLPZbmHlPFdamqxSmqjPcV4ci/nhBPVeACqhxGnGJzOU=
+	t=1790066690; cv=none; b=S/LJah83EZuqljdXyKbyXiIBwo+YK0ER/n1JL/5X9Zf1rwOg/ucMA2TOsFcGq1FtfRmbwVUUh52VL0s4li5f3X66Fly9i3bzxP/Wl/8A85EB2s0wOZwHukK2Ak5BRsaPZqkf5oGtob4tDCUiraJZ4FKSy25LTpNWdYJMiSWzdJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066678; c=relaxed/simple;
-	bh=A4RBzJL9im7c/Ccl2wKHTfjmKax8oE4qb4M8Jusp82s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X5Ml9V1RlYQ3l9/k2JxhzHUkbN9Srd7ZgJldAvaOWfUKf97Yo4bnf4R2cawVakC8T2H9I8AaQ4O9g91qbqA5qpjd92KBfITQXhFCwKSza5YZ4sm0mYWCz4t2dG6yLz85OvgyFB+jIPG9BIoYuWLqyFCJ+e77vP6Imv8HKZ04ix4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pVJiMPPg; arc=none smtp.client-ip=74.125.227.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790066690; c=relaxed/simple;
+	bh=SlHuK7sAVWr7ztPPqfiAU5v0J17k8qzfkK0cYJ/qQfY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=HNi4gAriL/y8z3/RG1Qw71PF3CtrM5Q6Sq2KzhCZFQq1myrSLuH+x8wVhAqlNQc8qXc+2KwufZLgsgGmMGHX7Oqfz1uBzu+auGzRB70+MkFCZq8bw8iapBR/P4S6mcqEXLWhxFOp5pgOlNyXNhYnV1n2IQatUPRtG+xQf7DJUJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MZgZR9J/; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pVJiMPPg"
-Received: by mail-pj2-f0.google.com with SMTP id 98e67ed59e1d1-39e0e245eadso1692496a91.0
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:44:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790066676; x=1790671476; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JU/OT6l28quZrPrYfN7XUOSpOrASPsDzS2PQ3ztfmsA=;
-        b=pVJiMPPgRz7zhsa7+oRwkwWR9qR7bCdm5R55ODWF4mLzKD3hoEvOQQN9IOBMrO4rQC
-         K5BiqV9QLvHinFH4Kq17OsSHz8/XX/WSsPj9g3RuFHnRU7C0KAiPuDr2sO402WcG/wCG
-         pyY0p9AWxOh2J0Muj/vpKLzjS0oKp3mBADel4Xxudl01DBs4clv7sbe7Lr2VeSoN0kTl
-         +HlX4/I/xc3f7DUKp724D963/TfEowd4Nr3URrbiTtlMhcLaCd4HuK8oVzMM+ILDQinN
-         TFmPIPR9czMAnc+0bWteOMNCRIv4Gte7BCn9E2BAyPBB5rYcG32BYnNVGHqqpTJXwJVd
-         uIig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790066676; x=1790671476;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JU/OT6l28quZrPrYfN7XUOSpOrASPsDzS2PQ3ztfmsA=;
-        b=MlWzlkrpmBYo02XK49T/pwKEfaaA9knLz8MPFyFywOSzs5bTc5rrZTVPFlzOAeO+7X
-         ZNTKANKIY6GQI12JV6Qgk+bzFyty6WDMmqEbIOdAfd+qYDMujGhUjfAW51pC+7Vzwdvn
-         vFkX2t5wuZ3fkP+le+R0X0YyGTd2ArpAu9fHR4qeSvTRERCK74EIrV+A/eS8t9byj7UD
-         y6j8vV6Z3ngrmH9H/D1TsvG2JN34mznBj+3qt0WdXYzKA2Q5FnTg0A1QNsf9X7Q7jYbT
-         23e8bWT7LVBsh+sjzVjzKWQIKNwrhHneJuPRkjsN21VoUo67LwNj/+XPNqdb3cKZunq4
-         NWzg==
-X-Forwarded-Encrypted: i=1; AKwUvByGsV1qpdKAh/pyt9JSHKYOalNPkxhGQ3ToDqbC79BENTUiGURJduOYCypzNiJW/70bwjzT2Jo3VJ4G@vger.kernel.org
-X-Gm-Message-State: AFuF++mJIl/ntNcgGslUzvYme0kmnv2+NGHmfJvh1qb/9en06/oZHQQR
-	AlpF8WCRy4g+rc386be5Bo8dyNHm1lvG07GynLfGN4aCeHwtkBwPvYY2
-X-Gm-Gg: AYBFou3//8eKD/7qUi0TScKXTYQQCLH+VbFC/UYOD5dtl8CWHhmX0vELwAIbyY/Ao8o
-	tVRwYuiFzNkh6qKqbWsErBznhjxrH9wSZju0D/N97e/wAUBm6rmmq2hHOEoIEKHSEpu87hRt4hH
-	aVqWo/r58DD496DG+7kR7STmjd5AWd4Hq9I88b0T8GORddHM2x41r9gwOM7ITDRdvfbKqKR9VTI
-	BDtuSwqtmWwj95qt+VqgLRdXjOBa9jeAXPHYxiROWQntM54klCLwOf28Dh7BzzVguLIcU7QKDnn
-	qnfDsHs8pB/mt9xX7MMPEzMmFKfdUq3B38vPCEM2D8qZ+xH3fj0f6f4rrlZwZWiaKeqn3aofLqm
-	VHJSKYnohoidC1SwUoElZ4m3JY9pv+aPBVGm0xe8B2d8xVplYGFLcFgbSigddfs1cMb0jwUR/9/
-	D9BmIVTEql3Kx+GgSku7XqFKVDM53jJKo4HKdAREc5427itxsB8n7QaGZe6wCTjume49CIu9Xm9
-	WTaG3Eh24k=
-X-Received: by 2002:a17:90b:5408:b0:39e:6a81:f34d with SMTP id 98e67ed59e1d1-3a07320077dmr483552a91.39.1790066676289;
-        Tue, 22 Sep 2026 01:44:36 -0700 (PDT)
-Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0674a5ae4sm3670016a91.12.2026.09.22.01.44.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 01:44:34 -0700 (PDT)
-From: Wandun Chen <chenwandun1@gmail.com>
-To: robh@kernel.org,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	m.szyprowski@samsung.com
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	saravanak@kernel.org,
-	akpm@linux-foundation.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	ruirui.yang@linux.dev,
-	robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: [PATCH v7 7/9] of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
-Date: Tue, 22 Sep 2026 16:42:54 +0800
-Message-ID: <20260922084256.1515554-8-chenwandun1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922084256.1515554-1-chenwandun1@gmail.com>
-References: <20260922084256.1515554-1-chenwandun1@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MZgZR9J/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=SlHuK7sAVWr7ztPPqfiAU5v0J17k8qzfkK0cYJ/qQfY=; b=M
+	ZgZR9J/wm84kMpIZJWRkd1y6Qt62vu+ADp2EyCdHchxPTKVD6TulKbLvpMpxEOGT
+	qclozviUVzrb+pyBYOxsqr1OIgQMhw6bFHy+NetVNaUsIN+oXTet8aicXMo/AyFS
+	Q0xYdY6JI4ugK2CIYhoEn582YpF9d0B6z+ZdlAXjoQ=
+Date: Tue, 22 Sep 2026 16:43:25 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Jerome Brunet" <jbrunet@baylibre.com>,
+	"Bartosz Golaszewski" <brgl@kernel.org>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re:Re: [PATCH v7 00/15] Ambarella CV75 SoC minimal bring-up
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAD++jLkCNkcf-gn0FgvLZZTibLUvbKaH6L+=nRqkNZr2iKFqsQ@mail.gmail.com>
+References: <20260915-cv75-v5-v7-0-3297d3fbc9c0@ambarella.com>
+ <CAD++jLkCNkcf-gn0FgvLZZTibLUvbKaH6L+=nRqkNZr2iKFqsQ@mail.gmail.com>
+X-NTES-SC: AL_Qu2SAvyduU4r4ymfYekcn0wRhug/UMa4u/sm3YNXc84FpwPw5QMjZmNDNHL32tKTBxilqxOseRpTx8lTXqZ3Ry5OjzbKoVDkBi/GtP4C7w==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <39641ec4.7a73.1a0c848bfa4.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:gygvCgDX_zquP7JqF8AVAA--.40051W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxQ5Cs2qyP66lrgAA34
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-From: Wandun Chen <chenwandun@lixiang.com>
-
-Mark non-dumpable reserved-memory regions with MEMBLOCK_NODUMP so
-kdump can omit them from the vmcore.
-
-The marking is guarded by CONFIG_CRASH_DUMP so non-kdump kernels do not
-pay the cost of splitting memblock.memory entries at NODUMP boundaries.
-
-Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
----
- drivers/of/fdt.c             |  1 +
- drivers/of/of_private.h      |  1 +
- drivers/of/of_reserved_mem.c | 15 +++++++++++++++
- 3 files changed, 17 insertions(+)
-
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index a64afc3ded3d..286fd4db6312 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -1285,6 +1285,7 @@ void __init unflatten_device_tree(void)
- 
- 	/* Save the statically-placed regions in the reserved_mem array */
- 	fdt_scan_reserved_mem_late();
-+	fdt_mark_reserve_mem_nodump();
- 
- 	/* Populate an empty root node when bootloader doesn't provide one */
- 	if (!fdt) {
-diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-index 0ae16da066e2..505735732c13 100644
---- a/drivers/of/of_private.h
-+++ b/drivers/of/of_private.h
-@@ -187,6 +187,7 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
- 
- int fdt_scan_reserved_mem(void);
- void __init fdt_scan_reserved_mem_late(void);
-+void __init fdt_mark_reserve_mem_nodump(void);
- 
- bool of_fdt_device_is_available(const void *blob, unsigned long node);
- 
-diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index 8c9d6395d6a3..f29a07e8fb23 100644
---- a/drivers/of/of_reserved_mem.c
-+++ b/drivers/of/of_reserved_mem.c
-@@ -677,6 +677,21 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
- 	reserved_mem_count++;
- }
- 
-+void __init fdt_mark_reserve_mem_nodump(void)
-+{
-+	struct reserved_mem *rmem;
-+	int i;
-+
-+	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
-+		return;
-+
-+	for (i = 0; i < reserved_mem_count; i++) {
-+		rmem = &reserved_mem[i];
-+		if (rmem->size && !rmem->dumpable)
-+			memblock_mark_nodump(rmem->base, rmem->size);
-+	}
-+}
-+
- struct rmem_assigned_device {
- 	struct device *dev;
- 	struct reserved_mem *rmem;
--- 
-2.43.0
-
+SGkgTGludXMsCgpObyBMTE0gd2FzIHVzZWQgZm9yIGNvZGluZyBvciB0ZXN0aW5nLiBEaWZmZXJl
+bnQgZGV2ZWxvcGVycyBhcmUgcmVzcG9uc2libGUgZm9yIGRpZmZlcmVudCBwYXJ0cyBvZiB0aGUg
+Y29kZS4gTExNIHdhcyBvbmx5IHVzZWQgdG8gcG9saXNoIGNvbW1pdCBtZXNzYWdlcy4gQ291bGQg
+eW91IGFkdmlzZSB3aGV0aGVyIEkgc3RpbGwgbmVlZCB0byBkaXNjbG9zZSB0aGlzPwoKQmVzdCBy
+ZWdhcmRzLApMb25nIFpoYW8KCkF0IDIwMjYtMDktMjIgMTU6MzA6NDYsICJMaW51cyBXYWxsZWlq
+IiA8bGludXN3QGtlcm5lbC5vcmc+IHdyb3RlOgo+SGkgTG9uZywKPgo+T24gVHVlLCBTZXAgMTUs
+IDIwMjYgYXQgMToxNeKAr1BNIExvbmcgWmhhbyB2aWEgQjQgUmVsYXkKPjxkZXZudWxsK2xvbmd6
+aGFvLmFtYmFyZWxsYS5jb21Aa2VybmVsLm9yZz4gd3JvdGU6Cj4KPj4gVGhpcyBzZXJpZXMgYWRk
+cyBtaW5pbWFsIEFtYmFyZWxsYSBDVjc1IHN1cHBvcnQgZm9yIGVhcmx5IGJyaW5nLXVwIHdpdGgK
+Pj4gYSBzZXJpYWwgY29uc29sZTogRFQgYmluZGluZ3MsIFJDVCBjbG9ja3MsIHBpbmN0cmwsIFBM
+MDYxIEdQSU8gdmlhCj4+IGdwaW8tcmVnbWFwLCA4MjUwX2R3IFVBUlQgcXVpcmtzLCBBUkNIX0FN
+QkFSRUxMQSwgQ1Y3NSBFVksgRFQsIGFuZAo+PiBNQUlOVEFJTkVSUy4KPj4KPj4gVGhpcyBpcyBh
+IHNpbmdsZSB1bmlmaWVkIHNlcmllcy4gUGxlYXNlIGFwcGx5IHZpYSB0aGUgU29DCj4+IHRyZWU7
+IHN1YnN5c3RlbSBtYWludGFpbmVycyBhcmUgQ2MnZCBmb3IgdGhlaXIgcGllY2VzLgo+Pgo+PiBH
+UElPIGRhdGEgcGF0aCB1c2VzIGdwaW8tcmVnbWFwIHdpdGggdHdvIGxheW91dHMgKEFSTSBQcmlt
+ZUNlbGwgYW5kCj4+IEFtYmFyZWxsYSkuIElSUSBzdGF5cyBhIGN1c3RvbSBQTDA2MSBpcnFjaGlw
+OiBhIGxpbmVhciBkb21haW4gaXMKPj4gY3JlYXRlZCBhZnRlciBncGlvX3JlZ21hcF9yZWdpc3Rl
+cigpLCBhdHRhY2hlZCB3aXRoCj4+IGdwaW9jaGlwX2lycWNoaXBfYWRkX2RvbWFpbigpIHZpYSBn
+cGlvX3JlZ21hcF9nZXRfY2hpcCgpLCBhbmQgdGhlCj4+IGNoYWluZWQgaGFuZGxlciB1c2VzIGdw
+aW9fY2hpcCBhcyBjaGlwIGRhdGEuIGdwaW8tcmVnbWFwIGdpcnEgYW5kCj4+IHJlZ21hcC1pcnEg
+YXJlIG5vdCB1c2VkLgo+Cj5Zb3UgcGF0Y2hzZXQgaXMgYmlnIGFuZCBjb21wbGV4IHlldCB5b3Ug
+ZG8gcXVpY2sgcmVzcGlucy4KPgo+VGhpcyBpbmRpY2F0ZXMgeW91IG1pZ2h0IGJlIHVzaW5nIGFu
+IExMTS4KPgo+SXQgaXMgcmVxdWlyZWQgYnkga2VybmVsIHByb2NlZHVyZXMgdG8gZGlzY2xvc2Ug
+dGhpcwo+d2l0aDoKPgo+QXNzaXN0ZWQtYnk6IExMTQo+Cj5hZGRlZCB0byBlYWNoIHBhdGNoLCBp
+ZiB0aGlzIGlzIHRoZSBjYXNlLgo+Cj5Zb3VycywKPkxpbnVzIFdhbGxlaWoK
