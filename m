@@ -1,102 +1,125 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194E743DEDD;
-	Tue, 22 Sep 2026 17:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B28247CA9F;
+	Tue, 22 Sep 2026 17:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790099791; cv=none; b=rYR7pfEQu36wmdBi2UxPdBhpcp4/+LUef09Xlq2S7xBryF14dT3bsEL5qe9VOWRs4G3XpbnyoeGFxWiNAbKzXQ/AAZ+23+1jP7USUxhCJPi8oWKeElp0kRFLZoHHGH7eN+ksbOK3LVbsQ8Ng02Dw7Y/7REFtAIGew3o8RPpcVx4=
+	t=1790099980; cv=none; b=aEgKkhhbuvc85m7fBD3LyioBZkcX0+IsMc7AV9F0O5dPIY5QD2uoGyLAXBhJfHOyWVvCay4dq6E19+nX8fllHhBL4NULuGyC4039Ysy/ZyRBfHk1Plz935PBH9ka0ZuT+soZQmS0IjSl2sOaFHwLrcG8DeTngM91ZKV9BCzI3eA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790099791; c=relaxed/simple;
-	bh=aAZxGG3Ex/win+NDBfLS1UlOD9HHGvLU7fsGs/3OTls=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s6MYIABQbxPFhnGl/HU6/frghX6u6EVtHAehs47c/JXqb6AMF66Cxz9U4T/HeJb9RRohZ/9cCsfFSroppudW08q93gibxYTpEupk1TrzQoL6oqaz49CaWxY2UncnupEfrcYPXuhOEdvZw/sBofu2LoYuGWwk63NIp3f+8HJyrSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=YN2idxTR; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790099980; c=relaxed/simple;
+	bh=jx/uNNZLZk8HIxGNODSNoU3k029DQGMNduSX9wQ2sAE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Eybar1/RwGNeykjo19ye/RJBQa8Z4az+PHLWu9rC1RNO4vXiemy2keclFL8lhsP6sfk1v/jNT6BuQtfh6GLnIdkwcI+4rd5t6m2BFtncPpovLU6voxAcyCc2bRHoixaySVlNDdiG5xEKc43h3LolXR0jeWh8EUW+gw7WcZUWFfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgEMKb1j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="YN2idxTR"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hq77l42Y5zMlC7;
-	Tue, 22 Sep 2026 19:56:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790099779;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SBEG4FsK95j9fbviMkspvwm0pzpMNNtSJ/vuaMWtuIg=;
-	b=YN2idxTR11VFiGxOvfSxyQdczFiJaDPuFfuUlBUBMp3UIbOekODD3rd5o1earJIegJM/Gi
-	OIxyvum0bEIATNjOhrSH90tzpMQcQgVXoJcOod9ZrMAGhs72v4Ca18CDet8FRt9h+blwNd
-	Z1nTkw96wqeTc9OiJdrVCplnatl1v3uGRMq8fWq5mWe2vUjcDj1z830gz1kB1Q4C3e3R8W
-	ihRBlECgAF6ZBqUlwpUphwECTRYOoE5a7swEF0Ihl2liy2juNuWKGzK7IoVi0cUPL6dmFt
-	uk+FbrbQgi3izp+xDHQ45iS4NHiroXyJyUSFlYo85z7yoqlU8Pn0gzvx+HTSDQ==
-Message-ID: <69187db0-e50f-488b-bb83-08f5029e226c@mailbox.org>
-Date: Tue, 22 Sep 2026 19:56:14 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgEMKb1j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A75D11F000FF;
+	Tue, 22 Sep 2026 17:59:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790099979;
+	bh=0z2Cl7zCFc/oXc1HFK7tWPJd+ORPzl4GjpVmpaly0Os=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HgEMKb1jz4apgsm8YwOckQcZl21ofaQsrusnOGnysSr5YSINWlNlMYmxR+9v3w4SX
+	 X9qEinh5Je7qceMgW+PgwDJhkimfQ+vynUOQlSU32VeCvjeVPh90QVLDcfGpo/JKHJ
+	 Oely0D1AcBFhzWlS0qe4N/uxDKhnZUn7psIvMv5rPxsh02dutrAhgg5Qt3hQucVngU
+	 LYGSbxgjaRGq2mvUZaAOMYw3FVKJx5zb4uizmJYFQPk+Qc1QYEGOVVflJvapSGGxyZ
+	 eFQf+CuDrjKO06isIH8ev7Zr81XEQPB72wQo/LasdwJKzFgqlmIqxcPZfxFnkwzIzF
+	 noE48+ZmT9Axw==
+Date: Tue, 22 Sep 2026 18:59:35 +0100
+From: Conor Dooley <conor@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: "Rob Herring (Arm)" <robh@kernel.org>, conor+dt@kernel.org,
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+	dmitry.torokhov@gmail.com
+Subject: Re: [PATCH] dt-bindings: input: syna,rmi4: Allow incell supply
+Message-ID: <20260922-ebook-clumsy-2134d11c98f4@spud>
+References: <20260921232738.3135429-1-robh@kernel.org>
+ <20260921233407.17EF71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v3] PCI: rcar-gen4: Add missing PM ops
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-pci@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>,
- Koichiro Den <den@valinux.co.jp>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260907163554.725127-1-marek.vasut+renesas@mailbox.org>
- <dvcwgdif54jsxqog2v4573ofbheqcvyqcyerisbbuz4rekllqu@aivsgq44yte5>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <dvcwgdif54jsxqog2v4573ofbheqcvyqcyerisbbuz4rekllqu@aivsgq44yte5>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 75029b982b8b2165f24
-X-MBO-RS-META: tunbssyqix63x9t4nt3e8ee8zid8z67r
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="0fnDhJ7gWcnO4/jk"
+Content-Disposition: inline
+In-Reply-To: <20260921233407.17EF71F00893@smtp.kernel.org>
 
-On 9/22/26 4:28 PM, Manivannan Sadhasivam wrote:
-> On Mon, Sep 07, 2026 at 06:35:22PM +0200, Marek Vasut wrote:
->> The R-Car Gen4 PCIe controller is part of a power domain. On R-Car S4
->> and V4H, this is an always-on power domain which is not shut down in
->> suspend. On R-Car V4M, this is a dedicated A2PCIPHY power domain,
->> which is shut down during suspend, and the controller loses state,
->> which prevents the PCIe from working after resume.
->>
->> Fix this by adding generic suspend/resume noirq ops for the controller,
->> which tear the link down on suspend, and restart it on resume. Use the
->> same PM ops on all of R-Car Gen4 to gracefully suspend and resume the
->> PCIe link on V4H and S4 too.
->>
->> Test case which demonstrates the problem on R-Car V4M:
->> "
->> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/pre
->> $ echo s2idle > /sys/power/mem_sleep
->> $ echo platform > /sys/power/pm_test
->> $ echo mem > /sys/power/state
->> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/post
->> $ diff -Naru /tmp/pre /tmp/post
->> ...
->> -00000000  12 19 32 00 07 05 10 00  00 00 04 06 00 00 01 00
->> +00000000  12 19 32 00 07 05 10 00  00 00 00 ff 00 00 80 00
->>                                            ^^^^^
->>                                      Class 0604->00ff
->> "
->>
->> Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
->> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
->> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
->> Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> 
-> This patch doesn't apply even after applying [1]. Please rebase on top of
-> pci/controller/dwc-rcar-gen4 branch and repost.
-Rebased, retested and V4 submitted. Thanks !
+--0fnDhJ7gWcnO4/jk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Sep 21, 2026 at 11:34:06PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] dt-bindings: legitimize OS-specific fw_devlink hack in hardwar=
+e schema
+> --
+>=20
+> commit 18108c1337c210aa2101238d8a2bf5d5648f3f22
+> Author: Rob Herring (Arm) <robh@kernel.org>
+>=20
+> dt-bindings: input: syna,rmi4: Allow incell supply
+>=20
+> This commit adds the incell-supply property to the Synaptics RMI4 touch
+> controller device tree binding. It is intended to allow existing Sony Xpe=
+ria
+> Tama board device tree nodes to pass schema validation.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/input/syna,rmi4.yaml b/D=
+ocumentation/devicetree/bindings/input/syna,rmi4.yaml
+> > index fb4804ac3544d..464c83ece4186 100644
+> > --- a/Documentation/devicetree/bindings/input/syna,rmi4.yaml
+> > +++ b/Documentation/devicetree/bindings/input/syna,rmi4.yaml
+> > @@ -56,6 +56,7 @@ properties:
+> > =20
+> >    vdd-supply: true
+> >    vio-supply: true
+> > +  incell-supply: true
+>=20
+> [Severity: Medium]
+> Does adding this property to the generic hardware schema violate device t=
+ree
+> design principles by formalizing an OS-specific software workaround?
+>=20
+> Device tree bindings are typically expected to strictly describe actual
+> hardware. The user of this property is the Sony Xperia Tama board
+> configuration, which acknowledges it as a workaround:
+>=20
+> arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi:
+>         /*
+>          * This is a blatant abuse of OF, but the panel driver *needs*
+>          * to probe first, as the power/gpio switching needs to be precis=
+ely
+>          * timed in order for both the display and touch panel to functio=
+n properly.
+>          */
+>         incell-supply =3D <&panel>;
+>=20
+> Since the device tree source explicitly documents this as a mechanism to =
+force
+> fw_devlink probe ordering between the panel and the touch controller, sho=
+uld
+> we avoid spoofing a fake hardware property in the official schema?
+>=20
+> Would it be better to address the probe sequence dependency properly inst=
+ead
+> of institutionalizing this workaround into the formal hardware schema?
+
+Oh dear, do we actually want to merge this?
+
+--0fnDhJ7gWcnO4/jk
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarLCBwAKCRB4tDGHoIJi
+0payAP9VyfnB8jWSS7f02EJry4iQT7LVeEryta209l0EHGLrLwD9FlCnMAeKrY7g
+KsE8lE8gfxb8HIIIHHvYtzazMTxt5w0=
+=mGkw
+-----END PGP SIGNATURE-----
+
+--0fnDhJ7gWcnO4/jk--
