@@ -1,103 +1,115 @@
-Received: from mail-oi2-f43.google.com (mail-oi2-f43.google.com [74.125.231.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AE355C1D5
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5271B55D888
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:39:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790091442; cv=none; b=cvL7izknu6ESLtn4mL01r36VkfpSDAj1XkAbR+/vmrFXCiV76XGR707jPKma553QBzu5LfFYDjMrQWBvbwECjNIrfYemo8IcyzMRmklPAdv93wj+E9+5Hn266egoZqzi3FpDfYX9lrJuv/NN9XMvPSRprTXl5ZkPOuQ6hV3+yRs=
+	t=1790091544; cv=none; b=l8rb79EPnoX1vZURkD4BJvg4TEwXDNVPLg3fZGDy4pKjY3CVWz6GJCB13M6DEtqHuhrI6drb2qYr1BP5Y8A0UwoD4iI76pMQfObd6kzC3tG1OGozzyWANwyN8Gmx/BNH4S+zA5y58s1ofT8LkRmmdtYvxD3jBeg3pe2KsW/++JE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790091442; c=relaxed/simple;
-	bh=tAyiwXOmkifke3Bc+NxLOBMDbHXY6l1OlgnArNcsfhA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NENKYdeYVZb+r0bbClg8C92VZeLzCidPnGV86BO+Qqg50/i1foJXsjoP2GhaHYgzJVGP94CQqBWVZN1HC1iGIKk4kjwm1E20vZ9ezpjNf03Qb90t1pOuXhs4fWBRFLAwUZjN3wmFBEkKV5sdAanOF6rKgRMpELYp+yjllbpwz7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.231.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oi2-f43.google.com with SMTP id 46e09a7af769-8138dddb94bso68936a34.2
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:37:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790091439; x=1790696239;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EibhQgWiuapM4MkmPRwugdMJ27jgZzllZGbWfakUivA=;
-        b=rSRy81sV5YKwwQVhYI/tGG9LJ8QjLz/D+HfFIn0jdpPnakbB9ZGnomGYEMvNof92Q4
-         O8Bv686ucXzDcbYF/NbKd6m1ujPbnZj2xaan2eaZLs7kV7pXi7WFry0bwvIW90vsbZdA
-         f+J6d3A+hcYsOMUqNjzbN/pizL2rC2DS7B9ZKkyReft1tt5MaCUMok/RHYgVOKCXapsJ
-         E2Hq/HJGMyI94QRg9Nfm0dnSj5VAT1ChE+ktMAcCxDvrmupBzSFPjelLhmPj3RczbIpU
-         tCnB8eRSe3UmqI2zkaH+VAKwXgNZQL40UXrBIk/k6IN8mRYpL7pUe7JHOqsdKn2xHKh2
-         LVzg==
-X-Forwarded-Encrypted: i=1; AKwUvBw7YLNpclQdhd34IVG/ZsHawHgvbcJKp+6kuSEkbB+Suri0ZHtIvXghAqVSZtkObSCqbHhNhWs+1HFV@vger.kernel.org
-X-Gm-Message-State: AFuF++k2X+g7OqIwlXhKvjAbunRYfRyCr9L+SQGmFMa2Znm6ohha11NP
-	1iuydtzJykmLtZWzv4HZU6LHcW9bvZcw9NmmTUVapkSooEJkVpxoBEiiLJdw//o0
-X-Gm-Gg: AYBFou3n/GtyqaAnv8POifAHGemBSzbAwalmYKURiGS4846hiNKbOsM95a9KrFWAkL6
-	cQ9QEt/kwEw/KRN24KJRHbwT5mE/TcYacaroHh9JlhmI8yEkPJzm3q8SHg3s9gOlNUnm1NIn2pM
-	aitbU3ZkDxnGMH9DpYQ8uzUoaHSBrJ6RdNiACY2umbgKi1xnLIUpF9nKSqKeF0ick48deMB41jO
-	jUeJ4PTq4xR08NGcnJpisxdQ6QIBO0sibHaSgFVWo+rk/D1CmuR5oqZvqJhyPxVNwNWZrs1W//t
-	q6ufzyfs30mMx0q6txxBWdF7AtdVi4zlO5i6LAYQmJ2D89hwKkqmAIN6vJPfkw38x6ddSML80XE
-	h64CfwVf+IMS7UcAyiQB3tySSGmUkgKyfwYHuXj4zu3sIy2rSOmAzBqAdAkQd1bs4fP5V5YrycV
-	zkYlBXirMTC05sA/px3Xv1DVx2sZa4H3N2a8Uni4SfLTuGWKtdVEnbsJAxfNcuCXA4/aUoE8MVk
-	PfwHC4hQ3ywzmUu/taGzMDKaKgnh7tiueNeYw==
-X-Received: by 2002:a05:6830:4708:b0:80c:d30f:97c with SMTP id 46e09a7af769-80de30e222emr14413141a34.29.1790091439361;
-        Tue, 22 Sep 2026 08:37:19 -0700 (PDT)
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com. [74.125.231.205])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-814e0a13a73sm2441278a34.0.2026.09.22.08.37.19
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 08:37:19 -0700 (PDT)
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c2c368cb3bso12476b6e.3
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:37:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBysInCIesRY5HYp8jF6yD4CdydN/iF1aCtL1aTtWd2ss1dBYV2LkEftUG5F8+MxhSaXZyRd18dRYLw9@vger.kernel.org
-X-Received: by 2002:a05:6122:e183:b0:573:a779:62cf with SMTP id
- 71dfb90a1353d-5c9b592206emr9513571e0c.7.1790091082417; Tue, 22 Sep 2026
- 08:31:22 -0700 (PDT)
+	s=arc-20240116; t=1790091544; c=relaxed/simple;
+	bh=+JXLAV6v8woE1gkcSsznA5qX8B6kVzKRHcLH4jji2wU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NDP+CDz/9Kvnx1Aiy3y/zcq9N9p1gmTA3IAa4tCPkfgk+oy5jHnHh4evlDAEMKJqmhNa5b5/+w70APnwTJsMAZMRtzCllsr9IB9ad0piF4xj5RdMI/z8Gk4JeAA3bBdJKZuAUz4OktGyESmHzyaIAV5N2xF3fjBwlilJBsaVGW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lF7AxkCc; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lF7AxkCc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BEA1F00893;
+	Tue, 22 Sep 2026 15:39:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790091543;
+	bh=/L//Db6QMjIhKYim1X3AbTYL02GSw97y30shOd9Qno0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lF7AxkCclMw5w5ryEvrL6xI4ngjYn8SzJ+VZtx7tr/OZtYYPxQbxYTccuBHXO/M81
+	 /c9SKfEJL0gWT7DgQBj7/mR6rvly/Z1ZStxcATDQLJMCo/d79+Wv4++HBwJ4zM+qT1
+	 csfiLLS9m4p9Xdl8boNI+tIBwMBbcW1jkfCZWgABiJLscevZ8QCyc+nhjCbDCn6Tj3
+	 +vzn/VnV1fMsY1ac2PESkIQjrNX1RMV9iBvv8Oo3jKvlhzNS+nsoToHnsMPReJwHsz
+	 HJIwXWMrGb/WkWGpzmUgT7mTDUFzCKg6A+EPX4/3Ydz/XKb26Gc50xz5kIXSjzsmmM
+	 Ghgi5MD/FoJGQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] regulator: rpi-panel-v2: Add vcc-supply support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shashank Maurya" <shashank.maurya@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260922-rpi_reg-v3-2-9214321c4070@oss.qualcomm.com>
+References: <20260922-rpi_reg-v3-0-9214321c4070@oss.qualcomm.com>
+ <20260922-rpi_reg-v3-2-9214321c4070@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 15:39:02 +0000
+Message-Id: <20260922153902.C3BEA1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260921110144.44425-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260921110144.44425-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260921110144.44425-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 22 Sep 2026 17:31:11 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW44-25RV5uR2=mn63xMy9e8Q-nB8fteaUveigvBt2Zog@mail.gmail.com>
-X-Gm-Features: AclHuK8eE1mJ10XIW9ciQ8bZMT3j6oSiCVVbmbWm-UvOOnb6nS6TVY6Jb0Jgh4g
-Message-ID: <CAMuHMdW44-25RV5uR2=mn63xMy9e8Q-nB8fteaUveigvBt2Zog@mail.gmail.com>
-Subject: Re: [PATCH 2/3] arm64: dts: renesas: r9a09g077: Drop unwired ADC interrupts
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 21 Sept 2026 at 13:02, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Remove the compare match and compare mismatch interrupts from the ADC
-> device nodes, as these interrupts are not wired to the GIC according to
-> the hardware manual Rev.1.30.
->
-> Fixes: a82a42963c89 ("arm64: dts: renesas: r9a09g077: Add ADCs support")
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] regulator: leaked enable count on vcc regulator during probe failu=
+re and unbind
+--
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+commit db1c448e80eee7e671cad78e558097db3e8ec366
+Author: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
 
-Gr{oetje,eeting}s,
+regulator: rpi-panel-v2: Add vcc-supply support
 
-                        Geert
+The Raspberry Pi 7" touchscreen panel V2 MCU is powered from an external
+power rail which has to be enabled before any I2C register access is
+attempted. This commit uses devm_regulator_get() to obtain the vcc supply
+and enable it at the start of probe.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> diff --git a/drivers/regulator/rpi-panel-v2-regulator.c b/drivers/regulat=
+or/rpi-panel-v2-regulator.c
+> index 30b78aa75ee38..e54d675962e71 100644
+> --- a/drivers/regulator/rpi-panel-v2-regulator.c
+> +++ b/drivers/regulator/rpi-panel-v2-regulator.c
+[ ... ]
+> @@ -66,10 +67,21 @@ static int rpi_panel_v2_i2c_probe(struct i2c_client *=
+i2c)
+>  		.parent		=3D &i2c->dev,
+>  		.reg_set_base	=3D REG_POWERON,
+>  	};
+> +	struct regulator *vcc;
+>  	struct regmap *regmap;
+>  	struct pwm_chip *pc;
+>  	int ret;
+> =20
+> +	vcc =3D devm_regulator_get(&i2c->dev, "vcc");
+> +	if (IS_ERR(vcc))
+> +		return dev_err_probe(&i2c->dev, PTR_ERR(vcc),
+> +				     "Failed to get vcc supply\n");
+> +
+> +	ret =3D regulator_enable(vcc);
+> +	if (ret)
+> +		return dev_err_probe(&i2c->dev, ret,
+> +				     "Failed to enable vcc supply\n");
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[Severity: High]
+Could this introduce a regression where a matching regulator_disable() is
+missing in rpi_panel_v2_i2c_probe() for subsequent error paths and driver
+remove callbacks?
+
+> +
+>  	pc =3D devm_pwmchip_alloc(&i2c->dev, 1, 0);
+>  	if (IS_ERR(pc))
+>  		return PTR_ERR(pc);
+
+[Severity: High]
+If this allocation fails in rpi_panel_v2_i2c_probe(), does the function
+return directly and leak the vcc regulator enable count?
+
+The vcc regulator's enable count is incremented via regulator_enable() but
+is never decremented. When the driver unbinds or probe fails, devres calls
+regulator_put(), which triggers a WARN_ON(regulator->enable_count) and
+permanently leaks the underlying regulator device's use count. This prevents
+the power rail from ever being physically disabled. On systems with
+panic_on_warn, this triggers a kernel panic.
+
+This regression is reachable locally via device unbind, or automatically
+during boot if a downstream resource causes a probe deferral.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922-rpi_reg-v3=
+-0-9214321c4070@oss.qualcomm.com?part=3D2
