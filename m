@@ -1,81 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1EA4DF4DC
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:24:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 982C236DA0D;
+	Tue, 22 Sep 2026 07:26:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061891; cv=none; b=cegWPYa9USZgQKzPodNFFLyz+ek4ehapBZoQJeruQvDk3RMVwQGsC60VwkcHnjxyAyCJoQlaGgDjEsTe1V4UPVPwZUQvR3VPCOAeJcmSbXa+MzA1ZbfOjjuRVND3SZWlI9LpHXzT3hYe6y2fUfCwruuI0hbpq8Cqv5xLYwsFQtA=
+	t=1790061971; cv=none; b=P7Xlua5tcyRjSHfvcKwNhmllyPhAn1NbxJzolNBJG8AxkxeDchsHgRLVwufVQuPtrGUqCQ/q2jLNfcDusQ4Gu3CDYXCI8lkOK5UuY/rMUsjjtY72A1NeREhrj7TDd0QZomG4ZOfNuQInkGXaDyO2S+FOhs9uFn9IQzGxMd9aghg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061891; c=relaxed/simple;
-	bh=jv6MlIuZXXaVscNrKeKjACmCF9DaajcuzQUfRu2mAFE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OdwuQGSWc2unakYVD/eNf5n4zlTzCC+WccwkPx5GSsTbpEGQHsJT62JKJFKKYtekrzl+dF+EKI7fdPE+dmerz0bQGS/uMTXOlMOND5k3jI44pUToBrjrLtJiKbAFKDlLeAsiErahHuF80r0DxEVC01Ht7wEJgTqTP2/qLKhjDSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5byt1AG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790061971; c=relaxed/simple;
+	bh=UJKugOhJmyXZ6ojY37O84NndlKhSfWO9PDlcJ7VPK0s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sR5HgiwkHFpsQ22qydxuDNe953VV2j8BryCbc5tPIzz4LAkDMv3/wP1giiggxhfTTh8xQkcUuyXLmSfoIFlpov3CdugISKn80GdlcvCll7pHH+G4k2ZpDzBbZY3rbF+iyn2vlYgDn55zP/ZEPeFVtM2AzCkOiEtV8KPdxhvBxpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXZcaGxg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5byt1AG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952561F008BD
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:24:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXZcaGxg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CD371F000FF;
+	Tue, 22 Sep 2026 07:26:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790061889;
-	bh=jv6MlIuZXXaVscNrKeKjACmCF9DaajcuzQUfRu2mAFE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=a5byt1AG2ujcSfM+RR7j9cz1KjAzXibSWOuFJQ/0h/JQpfaz04mxmXP61RUh/aVXy
-	 vo1byg+7aGrWooKr9mk5fUUXnHTgA6UgYcPHOPiUrOi+vrQRC+4eD9uZtGKyjEm4Jz
-	 i0JBxBub7tvduMTaeuK11Mv3KE1yHrO1C+nY+vAY17a81Lmdz0ol3+6GdWRvEcaPY2
-	 JiuKq6V6Ve0DV3k6Fl4ntpxBZqKj9wEw1LGAT9rldh97KmTeW6FmPrbWkFpQQqrNJs
-	 e5XXfqwVZrw2FtbY2L8ECFoO7dMl0B4jxHMhggQSG29ZcIZxRCHbTjJhcHoUKmpSy7
-	 Yw81U2cuHJaJA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c9954ccbso2174460e87.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 00:24:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwj2d8+tkK8UHaycqhfljeGfDN69NlFhxUk/42wOIuQjQhfY37BRyqWrL8En86FE/xNOgJIyzhFgLlc@vger.kernel.org
-X-Gm-Message-State: AFuF++nSZ34M0Y+pRjqG9gPklVtqrIpKROW+lpSixqX1zz1qG634dO15
-	Lq8KlnX1Rg0bQAP9LMAF3yDL2KMbNAC4vRFXLp9X9+vsUNclb/bLGm7619u7T25/Qd8Nk6+gKv/
-	il/sanfFNfKPwffSpNvUUW7CtQrixuTo=
-X-Received: by 2002:a05:6512:23a2:b0:5b6:6b8:1fc5 with SMTP id
- 2adb3069b0e04-5b8c18226eamr4364173e87.17.1790061888255; Tue, 22 Sep 2026
- 00:24:48 -0700 (PDT)
+	s=k20260515; t=1790061970;
+	bh=BpljJpE1b315yujumf4I9jSTrDZ7KqlruhwMFwGQENQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RXZcaGxgFtDUK2pQ7klnorWoy1uX9YBvrE7vt2++fQNO7NMxfSdzel3zMjoDouKJ5
+	 j6rsuP78n9/LMf1q2PItkeIZOO9t1g2/wTEAvSH8j+SPHRJompY/PxQelvnUeqBYfb
+	 fyMoC0Coe/1rTL6gTdbs+s44MJoh7ajvN/z8DBGS5XbsE7koDf8sg4ViiZJbGJxYUk
+	 2RCQNlI3hN24IUY08M11W8M5kvfl/X/urKvOgb3oDeC754oPbFTRtAMqD9aiNCLyYn
+	 IlWbMZ+pvK8pu1aNvgOKKBLSTgYqx9OFPr2X9UT5mIZdnacXmQbjnHfby/F7Y0A0zg
+	 C0Ea5Ryp3lKuQ==
+Date: Tue, 22 Sep 2026 08:26:04 +0100
+From: Lee Jones <lee@kernel.org>
+To: Lakshay Piplani <lakshay.piplani@nxp.com>
+Cc: linux-kernel@vger.kernel.org, linux-i3c@lists.infradead.org,
+	alexandre.belloni@bootlin.com, krzk+dt@kernel.org, robh@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, broonie@kernel.org,
+	Frank.Li@nxp.com, lgirdwood@gmail.com, vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
+Subject: Re: [PATCH v19 0/8] Add support for NXP P3H2x4x I3C hub driver
+Message-ID: <20260922072604.GD2348773@google.com>
+References: <20260916070728.1088801-1-lakshay.piplani@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-12-282ff5d98dda@ambarella.com>
-In-Reply-To: <20260921-cv75-v5-v8-12-282ff5d98dda@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 22 Sep 2026 09:24:36 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkDOPyStRwtoeUysCCXxOFUs142xw8Cdcm2CCo5MghP7g@mail.gmail.com>
-X-Gm-Features: AclHuK_MFbUz-mrJnpdTRjizQpZ1o1JRe1ZMXbr4OoxUHWYI1Yt8b8NWQaKPwv4
-Message-ID: <CAD++jLkDOPyStRwtoeUysCCXxOFUs142xw8Cdcm2CCo5MghP7g@mail.gmail.com>
-Subject: Re: [PATCH v8 12/18] gpio: pl061: use cleanup helpers for locks
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916070728.1088801-1-lakshay.piplani@nxp.com>
 
-On Mon, Sep 21, 2026 at 6:23=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+On Wed, 16 Sep 2026, Lakshay Piplani wrote:
 
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Convert raw_spinlock critical sections to guard() from cleanup.h.
->
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> This series adds support for the NXP P3H2x4x family of multi-port I3C
+> hub devices, including their on-die regulators and downstream I3C/SMBus
+> target ports
+> 
+> The series introduces:
+> - Core I3C master enhancements required for hub support
+> - Generic I3C hub framework
+> - MFD driver with regulator and I3C hub child drivers for the P3H2x4x I3C hub
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Patches 4 & 5 never reached me.
 
-Yours,
-Linus Walleij
+Please submit a new version or [RESEND].
+
+-- 
+Lee Jones
