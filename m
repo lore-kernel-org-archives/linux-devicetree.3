@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155405448BD;
-	Tue, 22 Sep 2026 12:46:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6D7544D74;
+	Tue, 22 Sep 2026 12:46:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790081204; cv=none; b=ipJ6/taBrKgFji/aqRUoLR/fvyqdbNni1kOeUNpLaP6gHE29ghXILSxW2/jv67Qr+ts/CYNEkwdr2n+p+5uBJ2sxPw/zXyTjzNN3D44gINZ+VmR0wKUrrhJyzH2Xj0fbCGPfxspPx5TWwWfOPbHjGuEXpLIorsQKFWvCcU8kD94=
+	t=1790081205; cv=none; b=mmQ+lh3+1ykGKhMQms0G2RqtPeA4rUpL17ndoKgJZvUJlUi16YaQ7/6si8oGDqJ4Bj1cqG98bF/9RLOQ/shM02mbqr571j2FcfyYwBFkYuMTpPSBdzYZNnhy8Ne2WJt+6krtFacst5ZYvaI71Nici7o4A7TYwGp4Nkx9I8qzI9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790081204; c=relaxed/simple;
-	bh=vNIpBp7Mq3xucD0bjJbsHf7WV4eFM3nPd//WD4a1MoU=;
+	s=arc-20240116; t=1790081205; c=relaxed/simple;
+	bh=Gw6aJfDoYQxpcpJbIpH7MZEqUsXderoYhBMTr6z27s0=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=lcDnC/t1YFEUu1GfsIPNdy01QLvsWbn7yBZRfL34iLafWFazGsh+1FxG3JZaFPJ6fuXoGoItQzxupJYNXxxYsTKhkP/+IJUD94Nhzmhm+PFPhLX7wnSFG7VHI7bAPcDpcNV/PNc++QeM0I8AgWx8VUNHb8qwfCoTozWdulzqzOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5rB4Ibk; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id:Subject; b=Bl4hWJt5cbf8JfcKctGYpxaM7SalkA5Cqbi6ctKyjoiiWn34okkqAK3o7FEu5bzPSckRXLVZfbikyMkJY57HPVkAX11foS3qsJGzUIPFpFLkvIhGwn94dz7pF9oJb7e4MtqWRtS5rnCBqaTr2F2jZ+KKEk7r/vlOAGS5nhhPtYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JqSwa+yQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5rB4Ibk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70A4D1F00893;
-	Tue, 22 Sep 2026 12:46:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JqSwa+yQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B62C71F00898;
+	Tue, 22 Sep 2026 12:46:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790081202;
-	bh=G1rkZ0T46UId3nWIoXsTfrSshnJUSXvrkqOmBXIvNK8=;
+	s=k20260515; t=1790081204;
+	bh=d0Dyf0O5qsd2O0wkwEV3APMOPZn9BpCHwoGyAkHKWSo=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=I5rB4IbkwqDsxM+HeEmlyqq+u8L6ZoI2BXDwVR/HMoHSdfaQSJ48oeo5/mRJ7Wecf
-	 t5nrvUYxyanw6t7S1Jys0Jv1/aZ1/SESZII8G8MSTF/rOBdZu/5Ohp6ZLV3PMXxNqQ
-	 R5H5/1LUXGfLfnoQMMMIiwdP7I4TIvHPhHNHoEg6n1+TKFLgCOO9n42zZJu1SlJ6JG
-	 rVFoe4puudVX6xdyV+E3WbKVFCoDVo51wHOaPrzX7BIiejPrDuNIohJV8mOFx3NLwq
-	 +Lw+4DIn+p9dtbNd6Nc7RSZoyqSSAfI2fjtk31kkmtPX7P53Ww1eLim6wzqgBURyN1
-	 HGjkrSMGLT2BA==
-Date: Tue, 22 Sep 2026 07:46:40 -0500
+	b=JqSwa+yQbvWbjOBqQCLEP/8vpkYVdZSulDVVCVnruLKhhQYoiyqJMsuyObayafQX1
+	 IOStS6bCOQom7/8zyFAdXMtC++4yDoAjyvfvR+J4vTkYO5wwNYPk2a+JMAuBs1ZICc
+	 EIdHHq8tss+bleMbyPdb/wIcXEqN/wMnVg7UPrR/OMv9MSKBrMritfm801X1bDZofi
+	 rtTX5tbZ4T3I3BXmKXYKtDWeGcAFG5JsRwKhw25OJDu4KQK6nFIfUZOXiz0zecRBOI
+	 KsgRdPiyNMvDyj0yC4lInGJxfuTBLOiHUguWQCS0H3+Z6aZSb4F1uLJbqqJ1wXFRO3
+	 lsiCSkyVwTmQg==
+Date: Tue, 22 Sep 2026 07:46:42 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -36,36 +36,43 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-sound@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Jaroslav Kysela <perex@perex.cz>, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Srinivas Kandagatla <srini@kernel.org>, Takashi Iwai <tiwai@suse.com>
-To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <20260922-vmid-v4-v5-3-e79cfd7af5b3@oss.qualcomm.com>
-References: <20260922-vmid-v4-v5-0-e79cfd7af5b3@oss.qualcomm.com>
- <20260922-vmid-v4-v5-3-e79cfd7af5b3@oss.qualcomm.com>
-Message-Id: <179008111464.3145305.16495726545311526155.robh@kernel.org>
-Subject: Re: [PATCH v5 3/4] dt-bindings: sound: qcom,q6apm-dai: add
- memory-region and relax iommus
+Cc: samuel@sholland.org, Bjorn Andersson <andersson@kernel.org>, 
+ linux-remoteproc@vger.kernel.org, jernej.skrabec@gmail.com, wens@kernel.org, 
+ devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-sunxi@lists.linux.dev
+To: Tim Michals <tcmichals@gmail.com>
+In-Reply-To: <20260922034711.190253-5-tcmichals@gmail.com>
+References: <20260922034711.190253-1-tcmichals@gmail.com>
+ <20260922034711.190253-5-tcmichals@gmail.com>
+Message-Id: <179008111726.3145450.12515884714286046202.robh@kernel.org>
+Subject: Re: [PATCH 4/7] dt-bindings: remoteproc: add allwinner sun55i
+ rproc binding
 
 
-On Tue, 22 Sep 2026 00:38:11 +0530, Ajay Kumar Nandam wrote:
-> On modem-DSP (mDSP) platforms the DSP runs in a stage-2 protected
-> context and cannot use the SMMU. PCM buffers must live in reserved-memory
-> carveouts that are SCM-assigned to the appropriate VMIDs.
+On Mon, 21 Sep 2026 22:47:08 -0500, Tim Michals wrote:
+> Add Device Tree binding schema for the Allwinner XuanTie E906/E907
+> RISC-V remote processor found on A523, A527, and T527 SoCs.
 > 
-> Add an optional memory-region property (1-2 entries) for the
-> control-path and data-path carveouts, and remove iommus from the
-> required list since mDSP platforms have neither IOMMU nor VMID DT
-> properties.
+> The remoteproc node manages the co-processor lifecycle (clocks, resets,
+> boot vector) and IPC (hardware mailbox). Memory regions are expressed
+> via reg entries named "cfg", "r_sram", "r_sram1", and "remap".
 > 
-> Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+> Cc: Bjorn Andersson <andersson@kernel.org>
+> Cc: Mathieu Poirier <mathieu.poirier@linaro.org>
+> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Cc: Samuel Holland <samuel@sholland.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: linux-remoteproc@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-sunxi@lists.linux.dev
+> Signed-off-by: Tim Michals <tcmichals@gmail.com>
 > ---
->  Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
+>  .../remoteproc/allwinner,sun55i-rproc.yaml    | 152 ++++++++++++++++++
+>  1 file changed, 152 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -73,13 +80,20 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml: properties:memory-region: {'minItems': 1, 'maxItems': 2, 'items': [{'description': 'Control-path buffer (audio_heap_mem) for platforms where the DSP runs in a stage-2 protected context (e.g. modem-DSP).'}, {'description': 'Data-path buffer pool from which per-stream DMA buffers are allocated.'}]} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+Lexical error: Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.example.dts:29.32-53 Unexpected 'CLK_BUS_MCU_RISCV_CFG'
+Lexical error: Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.example.dts:30.32-45 Unexpected 'CLK_MCU_RISCV'
+Lexical error: Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.example.dts:32.32-53 Unexpected 'RST_BUS_MCU_RISCV_CFG'
+Lexical error: Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.example.dts:33.32-54 Unexpected 'RST_BUS_MCU_RISCV_CORE'
+Error: Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.example.dts:40.3-41.1 syntax error
+FATAL ERROR: Unable to parse input tree
+make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/remoteproc/allwinner,sun55i-rproc.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/linux-dt-review/Makefile:1714: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260922-vmid-v4-v5-3-e79cfd7af5b3@oss.qualcomm.com
+See https://patchwork.kernel.org/project/devicetree/patch/20260922034711.190253-5-tcmichals@gmail.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
