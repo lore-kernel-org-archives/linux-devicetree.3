@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AA342900A
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABA84EE866
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:35:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073357; cv=none; b=Gsp9vqwwkR2D/gZYoNmKPvcIVbWhjBLXYyYbb7ie/jdJ2ZoULn+cdJz1+ikjW9Wreoey2krjIftgIm28XQv6Xx7y9SI0bvMPCjwhQsgio/kyrP3Xl+zhWN6GQNHTUo5gKASD33LL9k2S/SZhtNmI0xnTOrepD7pd5GezJFWSjwQ=
+	t=1790073362; cv=none; b=Zq0480+Qb7GhXH5kUCrWEcxm2i73gK+qc7aN30sHWcouD4q1bL5yMkqb38jJvPmoa0LF7bKSULxqKXxYOJFg+Y23JPDeNg8QzYlyZozsi2RsC+iOeQu8uoL/O57/VtmBJkJNEmteu7Fzlz5cJ4ZZf8qpik8l9CDHjJZelBBynjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073357; c=relaxed/simple;
-	bh=uqBkLz67ZOu2nNeeqt8Br4W1TsfCl6u7EOZTQAS/kuQ=;
+	s=arc-20240116; t=1790073362; c=relaxed/simple;
+	bh=nb4+lvj6JefDxBotHuGt9JNIbOQP69sQ5dTkoieh+I4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HqlA8IoIzJJZSH66wEPCOafXn0+7l8rYsybr7vmn8stqJn8MhlCWH3UmcUCWzxF521IPG85CIlwWPZ/+LPIxPnpEAEbSwS0jx6UVGXkMVlR/G7wcMV0pazAEKx7Sm1DqiosKf6npETqwa5j456MmZhY4XrkODwqD5YWKucxYcc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HR70KYPf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b47PKp4l; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=iL2JjCDhB2gujU36D9iJVv60uuHSXYuIRc/3IywJ54Tp/Iaixwp+FgdkEIdRaw27WCvusneJNtHNPgZq7ri0CnBBKDm6rEAfticgp2F4ViBVmU5EjKnVgBOlVtTcjqWFhaOLiv/ZLkEUqmxnPtZrV33qJsEcFBoPnQkdc28jYls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mFW/V5tZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HNJiRCXK; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HR70KYPf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b47PKp4l"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mFW/V5tZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HNJiRCXK"
 Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M9WWZY3382589
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:35:50 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M9LKKZ3382685
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:35:54 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/qOZslFZQ/7/obmDCD7/GwhHesO88X1BWMhGggNF0i0=; b=HR70KYPf6sbIQRTe
-	QFO8tgZuvez90Hzzx+FM6xT5EumPFGJoTR1a/U/xxBvj0MFdKoVIByHMGpQpmZaB
-	OSUDNCCtTjpbh0jJjd0ssR9kPfT9OVL0w3R9297vgEsA4ul+UZ5krXQaniXS2r23
-	AJUY7/Wa8Wf/wNPiUKR2VwlZVSMardvAdO29UwGjehipghF4ibeX3qBTibV5PCAS
-	ciLbCnYLypMKKtUM33GORsSMmWl2wJ7caJldjOc6kyyPqR+1zhLHv04eAUcJNTNx
-	aX2EEl5ILqLJ4OzxdmEeKPaWF44YAUEVyP15bopLBhxUf7bILHjq3/1HY9Al+d2s
-	NahINw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gujkj9efx-1
+	CdC3IQB9sR5ZBlfVN2HJVDfSL/N67xmMTWZGToRGM34=; b=mFW/V5tZgrmnJE4C
+	LBT1h3y3H5Y8AZvTo+kxRtd1L7fVJCxP2/RQKYLbtV9gCHICMSi8/mhnxrs+BRT3
+	Rhqxz/bsPcyKuwx2ZLNcljIKir12ig6ZCGMQkarWWBIfbOXSyJ1exENF8hP/TLL6
+	IpqR2G0aM2yRqx0y5ayWlf72EymtVRWcHfLYhMR2Ak8lxQERSJD86ZVioFuFCntV
+	0eiLxl25ym4eXhlCepDbVRYnJcOjlW5ivdg53Eeti4N/eZW6YH9QwW+H6Ky+YU9p
+	X8H9eWKZLNoCVYSyJmr7FYIID05+SUiy5KgxlBpC7XpcGY9a19DHiJXhuo3XcobJ
+	/rqXUA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gujkj9eg9-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:35:50 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so7191723a91.2
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 03:35:50 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:35:54 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so7191785a91.2
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 03:35:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790073350; x=1790678150; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790073354; x=1790678154; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/qOZslFZQ/7/obmDCD7/GwhHesO88X1BWMhGggNF0i0=;
-        b=b47PKp4lYR1oh8H2z84/nl5dLK4gxv3XmfbIJ+ix7pr+VSHcYdq1GsttwDDuJkFQzs
-         zlyyOHvtBavzICxGghHOu6bQh7kG+8FEFt3mBDvrI7JsRKj/10/5sWWwX9Z+WL7AsxYO
-         SsJhKED5Rrolw2U9wvu8YVxXwFjN7QkXo8pgJaVypYVSFlJcObWa8QxbQ5lREziJx/af
-         V6YKiAGkx1I6wDGubxIikPIC1fNnOaNpDqmwuMcI8X6F+Db/2RDd90Xd1sJScSDHR/PR
-         0J66VXDaaMG0vREF8dW6ZlTkYEKA4P3qjpHDGsO1OipGOAF9eKd1l3X7cP24tSHznBXe
-         g0lA==
+        bh=CdC3IQB9sR5ZBlfVN2HJVDfSL/N67xmMTWZGToRGM34=;
+        b=HNJiRCXKPZHGp14ADKaAlbHU8eGhYoa8RmjvbujqrPkIoxkotuNn09vMLzwYZs8XZU
+         aqYDUBfKmwvfN6dPkNNumlHuO4ibLWHOiejft36qIsY/31eTcAUZziUmcd1EHWMeL2Qz
+         nstqcexHK9VB2U7cFY6jA1MQg7zJyRnpdzmfVxqpu0AbrWrp4V24DF1mhpfTojpGH3Z1
+         +fMCmEE2CfleaeflUW0GC0ypdayNeRK+rbwVH+bqg9CP0z/1C+8+ddof3cPYfsMKI2ap
+         fHNLaBsjUE15NNooGd2EKKboy13iFIp1L64eDBIiVbbFAwwVIQHR9FKzpJ39XUj+FTA1
+         aWhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790073350; x=1790678150;
+        d=1e100.net; s=20260707; t=1790073354; x=1790678154;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/qOZslFZQ/7/obmDCD7/GwhHesO88X1BWMhGggNF0i0=;
-        b=OQy9oA/LUNL/T8XUYNYBCb8RSG0LnIo2sZrYwVx3Zuewaqmi3mrbWtpc7Yu2EjePyI
-         mC99VkbNMUhfqIWN269N9XKJUKqeIWoOYhRvztpqXj86uTBsrPAdTexrWBsYchjXEKuA
-         9UX7zSKfZlWp1LK49U+uIcLixrEcivDRUljeJsPaI8x3HXnbr4yk6Bu3PB4b54oykHxF
-         2X4yOVgVEDhbl4X43jw1Qfl9PElwnK0XlhGBmt1oz/dSrKwqLwkfKMUDpdS6d0zsaBHh
-         N7uTmaphETqz7vkfv8P1KTV6ifzC40CThW0Vl7o55TeMl+CRRyUobCFb+/x+9beFGVkv
-         W4Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBz86WenzNUFHyF32bbk3y4dUHABWP3uFv2wqNQuUXIoA8A1/b6FBDgP5u/UB12blznd9LOb65liuCsh@vger.kernel.org
-X-Gm-Message-State: AFuF++kjCPyaOiPDXYb7YIF3cqujaNM6mcGhO496GmzMPOiEt/+Oz7bX
-	fMy2lgba88TpHfGkL0sVKUkAELmWKI0IdRXKxYnpLX1wyZUrl1OB3zguNp08TVTiCLMTwh4sQgg
-	eGqdC80Rp7eXSKL8SYaxMBce5FHPXhNiuViGhG8J4Atco48WAAKoYaZbOj4CND1A/
-X-Gm-Gg: AYBFou0GZjek2FCk9JKVm/WGetKTpN3j3vWhqfbFvnmGFOkHww89WPE2L6Xz8z8nBDz
-	KpLudmdodTJtWLqtsr6wFV7K2x8yWK7eEk3J4Q1cP3N8NzYnsN/7FYGlvFmhGDRIiJlS6Z654aK
-	IAniqhetoMzUUtg1YLqZUlkHmUT6AHhCfaHNYJ+AHT7FmDwOxxi6eszeotDwWRdatriyVNbZ1y+
-	HP4cg5Ew3fKEY0+wIaVWcJ9RH4IAn3YMwC6ViOPZWUej8BEHLAWhPkTKeM443ZjPceX4SdBnNsp
-	sVvRIodX2Sm6y8sp+JXVYq16p6JCgAJfFsw9Nk1KnQKCJhHS9oMgz30biFzPao4FKLqOkj7O1mU
-	PGvrmHcMD+4R8NQeOW9rfBbanOaPvyIlfWDwoeR+6+GvuHipIHsD+R19BW+m/VzM=
-X-Received: by 2002:a17:90b:1c01:b0:39e:5c88:ce10 with SMTP id 98e67ed59e1d1-3a072e8a6e2mr767687a91.0.1790073349340;
-        Tue, 22 Sep 2026 03:35:49 -0700 (PDT)
-X-Received: by 2002:a17:90b:1c01:b0:39e:5c88:ce10 with SMTP id 98e67ed59e1d1-3a072e8a6e2mr767657a91.0.1790073348738;
-        Tue, 22 Sep 2026 03:35:48 -0700 (PDT)
+        bh=CdC3IQB9sR5ZBlfVN2HJVDfSL/N67xmMTWZGToRGM34=;
+        b=b6l90nUz6TT+06WQ+rWR2Lz6BNtB8G3uPsRU+D5az35OV0hPzNDHdrEyZ3oxGhB+os
+         r/Tz0b2LoObEKiN3L4/+8DdxyLxFcCptuZZN6zMSRLD84rtmxSxWtJdJJsN07kto4Fd+
+         cPDX2D9IkvVf8OZdajrU+7Jg6OnxGtChjpEnOmDk9QpfmaQEeNGk6fSJj3DvPzbox4AL
+         le5HbvjcdowOMB4Gfbp/M8HwMuUA89zDOFRxOqdTsg9aQIgKuYUqrFp3aPbsccixDFME
+         hQD93BMeVeXdrPOaQeKdocOM/ibO8DwplqTWT63yFTfzvFy4HrEzCijwbGAVdbXMfWVy
+         kN9w==
+X-Forwarded-Encrypted: i=1; AKwUvBxIVY1NwdUzN4Lz6CxNI1qShm1Kbicj9xV+wqIYdF76h0tPXnDnLK5EnEC8goLTThpwProvR0DGl8IA@vger.kernel.org
+X-Gm-Message-State: AFuF++mqgYbk8o8Np9GUHD8JK+imO2nvBwynoXSg6i6H7M+oWHc9p2DR
+	3DIC9PZ6Zc35yh1loIDlArmknGlJ2Q6tY8LBGFa0mqY2i6K5MGfGzZi7Lm5FCS+HlnTCDfhIcIT
+	kRBZYK+ef8e0/EchxCmWGty64y9lo9mbSE6D/SdiYt+zWdAwnLsHshUZdHsDYjOO3
+X-Gm-Gg: AYBFou0BxbCJmYJ1zFM6j05HdnZCJYLsIqME+LjiVhfFujmeJ2TURghUalOAVExaZkx
+	nHj2vW8hs1RAm8ZRLOJNmzxboTCSb/Xd+oji3VilLKM2QhMkppocGaVdo2HfQeVDdNHhapHcb7s
+	PcNkzRVNvTigiSkSSmJ44/sywrm79HBspd2b2SY17tpvpGv0/0afQiqbVS9ahDX2W4h+gyR9s5U
+	9QCxehfZp2EyC1zvofsEeTEdWqS1TcoWMQIuoB2I/m1vEjeL7bgKsV6/3UKiB5CZ6tgEdGB39N+
+	Uf+ga8Lp+ySkj3ErGo7Exbykdi6kb3QoRYl6GZdcoZNexrGnEeUVY1hXiWKv/+7uUi6Enz0FjJC
+	ry2u+IkXQ3hlVR/823JL0MSrYmeV216gljGkd8k66qf+XfYhnuiyNZBHIph088Cg=
+X-Received: by 2002:a17:90b:2f84:b0:39e:4c80:44ba with SMTP id 98e67ed59e1d1-3a0731185e0mr731482a91.29.1790073353292;
+        Tue, 22 Sep 2026 03:35:53 -0700 (PDT)
+X-Received: by 2002:a17:90b:2f84:b0:39e:4c80:44ba with SMTP id 98e67ed59e1d1-3a0731185e0mr731458a91.29.1790073352742;
+        Tue, 22 Sep 2026 03:35:52 -0700 (PDT)
 Received: from jiegan-gv.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0699aa221sm3670692a91.9.2026.09.22.03.35.45
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0699aa221sm3670692a91.9.2026.09.22.03.35.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 03:35:48 -0700 (PDT)
+        Tue, 22 Sep 2026 03:35:52 -0700 (PDT)
 From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Tue, 22 Sep 2026 18:35:21 +0800
-Subject: [PATCH 1/4] arm64: dts: qcom: hamoa: Add CoreSight nodes for APSS
+Date: Tue, 22 Sep 2026 18:35:22 +0800
+Subject: [PATCH 2/4] arm64: dts: qcom: sm8750: Add CoreSight nodes for APSS
  debug block
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-1-c2a8c3225a2e@oss.qualcomm.com>
+Message-Id: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-2-c2a8c3225a2e@oss.qualcomm.com>
 References: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-0-c2a8c3225a2e@oss.qualcomm.com>
 In-Reply-To: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-0-c2a8c3225a2e@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -102,32 +102,32 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, Jie Gan <jie.gan@oss.qualcomm.com>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790073340; l=19708;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790073340; l=13075;
  i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=uqBkLz67ZOu2nNeeqt8Br4W1TsfCl6u7EOZTQAS/kuQ=;
- b=tMqnXUyvlyQ5gkPXFBunrXX5VNUbJO5Ixxvr1zrXvLrIEF/E0k1w9iDuEbQ31K0P9uT8jihtM
- yPn+Mq1MsuDAlXr0RRLefRxolazJQgrF8vTA+SMbJO89Yf15sp+wxRW
+ bh=nb4+lvj6JefDxBotHuGt9JNIbOQP69sQ5dTkoieh+I4=;
+ b=ZObrp2v//b8txLZmKHwH+Vl8s1zjH5kEmL0EQwE9FbQqIdUYB81uzNXEnDavoY7Rij+54qD4r
+ ZLgoxO0xYghDB1K3ajjI4B5y5JnUtGi2X4PY0VveXBEzUHDPwnl6bKo
 X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
  pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-GUID: JEmGjApcBGZr2PYCR7-mxrykG87SzOXY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE1MiBTYWx0ZWRfX0XcENjVLq5L0
- 1N3Dd2pyb3h3qNKGgLrKf3naXWQk4Opqgj4IlWGJr65uhv3G8ffeH1Pn1o3VDYowO8xkZ8J/t9H
- 2t+WhXHicdNfzUumWbwyFCilg8FBkOv5AXxaSGL1DhFoRGBshYrGk4AfMQf8W3LL0l4wbUVP7sq
- zttesVCzaCYvbEmPE8HQSirQ7EL2SEGY6cvNBhKwTRAXU6qgETf5R0Im84mBWqC1FAz6gVWvS+c
- m8Uivf327TA2uSd3W9ykq1YYAqyJ1ZSNr6wdBB/RhXtm03ZchozH0JT58XRbkv9njH8DGa4Ughl
- QH/mo/JyWGLBCEkYbCbQinQENCv+FlKV1jC0XSFEexg4pva1KZIQVuHqBaWkAtQFoKWmxXK+xrq
- oyqgAWZP9IBxYnv9SxemStOkDwBu4xefTdpNIyHz11PRnFi7qu6qlMiU/WzknQYKoTLKQT+1hmG
- 3ZW4UXgoQHjJocgtKTw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE1MiBTYWx0ZWRfX+PdkyS4sVo5L
- uYweD0XCKKlDc7NbRv9yvkI3D8+mSndwpUPtF0Svm3xX552YW51yzZn7O1EfcrIQFzwnH34/2Px
- HTBAkxprUa7ONm0nySSZoGYheMrElrM=
-X-Authority-Analysis: v=2.4 cv=SuAFe/O0 c=1 sm=1 tr=0 ts=6ab25a06 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Proofpoint-GUID: 1dI3eW87m6HpkGB8d7MJFB201cKdQip2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE1MiBTYWx0ZWRfX3jxVGoVX/ibZ
+ WIdMrsDwOeXUdFXFUroz8E2GJ62gMNnpKRRuGB8EG0OFYD13yFJ+ujYRZz4YdbI3xFp7aCNJC5j
+ hJFuK4QvDkGbrPdFxkeBuEGjV/C8I6j1cmjH571JF9PxulNytdL224SV1n9CIXcMQWdO2J1O+ih
+ N2WebvqofGPf76tL8f1PyxRszd1+7VZzxQNahpb8YCtBFJ4CscKHprXqKtzClo9F5+PzyQo0hbs
+ uXrnGyU6RAp1Sf6gN42sr/azXmtPLdssCiHW0oac2X7QSRzX2Sp6FAjCBD1AilKbwN3NLYb5mkb
+ iInZKoUBPB/bRc81E13u0TYhPwdzoEFc6X3pcAaZt9kHrJqMlXof6C9e12/9fi0Agy1Xgb5Sz67
+ 7VTeYFsOEj1ocJr0OUjSM7cofiI5MMH/HP+0EE4hpb6puz3lQnrkHx8NyabDFi+ttFnKCW4T88h
+ RzLMpiWO+MAvmpii8ag==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE1MiBTYWx0ZWRfX+xJBjPpRayZI
+ IPaZd5a+Q1Qhoch1rkiGTWAbNJJBZBKUTp919IWGXaQn5XzIR7IeTEJNv5sBCEVvuKSu57N4jD6
+ spt4jn46d6GHb2Z7+B8peMBusAFnYiw=
+X-Authority-Analysis: v=2.4 cv=SuAFe/O0 c=1 sm=1 tr=0 ts=6ab25a0a cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=RxcEU4ttGZRFM8buTTcA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: JEmGjApcBGZr2PYCR7-mxrykG87SzOXY
+ a=EUspDBNiAAAA:8 a=1maxGOkvq1oy3pDCtGYA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-ORIG-GUID: 1dI3eW87m6HpkGB8d7MJFB201cKdQip2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
@@ -144,22 +144,21 @@ ETM trace.
 The replicator, funnel and TMC ETF nodes in this block are physically
 powered by the CPU cluster power rail rather than by a dedicated always-on
 rail. Add a power-domains property referencing the corresponding
-cluster_pdN domain to each of these nodes, so their power state is
-tied to the CPU cluster domain and the runtime PM core can power the
-domain on before the devices are accessed and let it be powered off
-otherwise.
+cluster0_pd/cluster1_pd domain to each of these nodes, so their power
+state is tied to the CPU cluster domain and the runtime PM core can
+power the domain on before the devices are accessed and let it be
+powered off otherwise.
 
 Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/hamoa.dtsi | 884 ++++++++++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/purwa.dtsi |  12 +
- 2 files changed, 896 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8750.dtsi | 599 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 599 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-index 4e35254cdd11..370b6bba2594 100644
---- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-@@ -326,6 +326,210 @@ eud_in: endpoint {
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index 28cf22da854d..c8059c275606 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -216,6 +216,142 @@ domain_ss3: domain-sleep-0 {
  		};
  	};
  
@@ -242,7 +241,7 @@ index 4e35254cdd11..370b6bba2594 100644
 +		out-ports {
 +			port {
 +				etm4_out: endpoint {
-+					remote-endpoint = <&ncc1_0_rep_in>;
++					remote-endpoint = <&ncc0_4_rep_in>;
 +				};
 +			};
 +		};
@@ -259,7 +258,7 @@ index 4e35254cdd11..370b6bba2594 100644
 +		out-ports {
 +			port {
 +				etm5_out: endpoint {
-+					remote-endpoint = <&ncc1_1_rep_in>;
++					remote-endpoint = <&ncc0_5_rep_in>;
 +				};
 +			};
 +		};
@@ -276,7 +275,7 @@ index 4e35254cdd11..370b6bba2594 100644
 +		out-ports {
 +			port {
 +				etm6_out: endpoint {
-+					remote-endpoint = <&ncc1_2_rep_in>;
++					remote-endpoint = <&ncc1_0_rep_in>;
 +				};
 +			};
 +		};
@@ -293,75 +292,7 @@ index 4e35254cdd11..370b6bba2594 100644
 +		out-ports {
 +			port {
 +				etm7_out: endpoint {
-+					remote-endpoint = <&ncc1_3_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm8: etm-8 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu8>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm8_out: endpoint {
-+					remote-endpoint = <&ncc2_0_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm9: etm-9 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu9>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm9_out: endpoint {
-+					remote-endpoint = <&ncc2_1_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm10: etm-10 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu10>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm10_out: endpoint {
-+					remote-endpoint = <&ncc2_2_rep_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	etm11: etm-11 {
-+		compatible = "arm,coresight-etm4x-sysreg";
-+
-+		clocks = <&aoss_qmp>;
-+		clock-names = "apb_pclk";
-+		cpu = <&cpu11>;
-+		qcom,skip-power-up;
-+
-+		out-ports {
-+			port {
-+				etm11_out: endpoint {
-+					remote-endpoint = <&ncc2_3_rep_in>;
++					remote-endpoint = <&ncc1_1_rep_in>;
 +				};
 +			};
 +		};
@@ -369,23 +300,23 @@ index 4e35254cdd11..370b6bba2594 100644
 +
  	firmware {
  		scm: scm {
- 			compatible = "qcom,scm-x1e80100", "qcom,scm";
-@@ -6986,6 +7190,14 @@ funnel1_in2: endpoint {
+ 			compatible = "qcom,scm-sm8750", "qcom,scm";
+@@ -5072,6 +5208,14 @@ tn_ag_in32: endpoint {
+ 						remote-endpoint = <&tpdm_rdpm_cmb2_out>;
  					};
  				};
- 
-+				port@4 {
-+					reg = <4>;
 +
-+					funnel1_in4: endpoint {
++				port@21 {
++					reg = <0x21>;
++
++					tn_ag_in33: endpoint {
 +						remote-endpoint = <&apss_funnel_out>;
 +					};
 +				};
-+
- 				port@5 {
- 					reg = <5>;
+ 			};
  
-@@ -8433,6 +8645,678 @@ ddr_funnel1_out: endpoint {
+ 			out-ports {
+@@ -5349,6 +5493,461 @@ tpdm_swao_out: endpoint {
  			};
  		};
  
@@ -415,20 +346,12 @@ index 4e35254cdd11..370b6bba2594 100644
 +						remote-endpoint = <&ncc1_etf_out>;
 +					};
 +				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					apss_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc2_etf_out>;
-+					};
-+				};
 +			};
 +
 +			out-ports {
 +				port {
 +					apss_funnel_out: endpoint {
-+						remote-endpoint = <&funnel1_in4>;
++						remote-endpoint = <&tn_ag_in33>;
 +					};
 +				};
 +			};
@@ -440,7 +363,7 @@ index 4e35254cdd11..370b6bba2594 100644
 +
 +			clocks = <&aoss_qmp>;
 +			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd0>;
++			power-domains = <&cluster0_pd>;
 +
 +			in-ports {
 +				#address-cells = <1>;
@@ -470,7 +393,7 @@ index 4e35254cdd11..370b6bba2594 100644
 +
 +			clocks = <&aoss_qmp>;
 +			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd0>;
++			power-domains = <&cluster0_pd>;
 +
 +			in-ports {
 +				port {
@@ -489,113 +412,13 @@ index 4e35254cdd11..370b6bba2594 100644
 +			};
 +		};
 +
-+		replicator@13490000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x13490000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd0>;
-+
-+			in-ports {
-+				port {
-+					ncc0_0_rep_in: endpoint {
-+						remote-endpoint = <&etm0_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_0_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@134a0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x134a0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd0>;
-+
-+			in-ports {
-+				port {
-+					ncc0_1_rep_in: endpoint {
-+						remote-endpoint = <&etm1_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_1_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@134b0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x134b0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd0>;
-+
-+			in-ports {
-+				port {
-+					ncc0_2_rep_in: endpoint {
-+						remote-endpoint = <&etm2_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_2_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@134c0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x134c0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd0>;
-+
-+			in-ports {
-+				port {
-+					ncc0_3_rep_in: endpoint {
-+						remote-endpoint = <&etm3_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc0_3_rep_out: endpoint {
-+						remote-endpoint = <&ncc0_1_funnel_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@134d0000 {
++		funnel@13481000 {
 +			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x134d0000 0x0 0x1000>;
++			reg = <0x0 0x13481000 0x0 0x1000>;
 +
 +			clocks = <&aoss_qmp>;
 +			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd0>;
++			power-domains = <&cluster0_pd>;
 +
 +			in-ports {
 +				#address-cells = <1>;
@@ -632,6 +455,22 @@ index 4e35254cdd11..370b6bba2594 100644
 +						remote-endpoint = <&ncc0_3_rep_out>;
 +					};
 +				};
++
++				port@4 {
++					reg = <4>;
++
++					ncc0_1_funnel_in4: endpoint {
++						remote-endpoint = <&ncc0_4_rep_out>;
++					};
++				};
++
++				port@5 {
++					reg = <5>;
++
++					ncc0_1_funnel_in5: endpoint {
++						remote-endpoint = <&ncc0_5_rep_out>;
++					};
++				};
 +			};
 +
 +			out-ports {
@@ -643,13 +482,163 @@ index 4e35254cdd11..370b6bba2594 100644
 +			};
 +		};
 +
-+		funnel@13901000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x13901000 0x0 0x1000>;
++		replicator@13490000 {
++			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
++			reg = <0x0 0x13490000 0x0 0x1000>;
 +
 +			clocks = <&aoss_qmp>;
 +			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd1>;
++			power-domains = <&cluster0_pd>;
++
++			in-ports {
++				port {
++					ncc0_0_rep_in: endpoint {
++						remote-endpoint = <&etm0_out>;
++					};
++				};
++			};
++
++			out-ports {
++				port {
++					ncc0_0_rep_out: endpoint {
++						remote-endpoint = <&ncc0_1_funnel_in0>;
++					};
++				};
++			};
++		};
++
++		replicator@134a0000 {
++			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
++			reg = <0x0 0x134a0000 0x0 0x1000>;
++
++			clocks = <&aoss_qmp>;
++			clock-names = "apb_pclk";
++			power-domains = <&cluster0_pd>;
++
++			in-ports {
++				port {
++					ncc0_1_rep_in: endpoint {
++						remote-endpoint = <&etm1_out>;
++					};
++				};
++			};
++
++			out-ports {
++				port {
++					ncc0_1_rep_out: endpoint {
++						remote-endpoint = <&ncc0_1_funnel_in1>;
++					};
++				};
++			};
++		};
++
++		replicator@134b0000 {
++			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
++			reg = <0x0 0x134b0000 0x0 0x1000>;
++
++			clocks = <&aoss_qmp>;
++			clock-names = "apb_pclk";
++			power-domains = <&cluster0_pd>;
++
++			in-ports {
++				port {
++					ncc0_2_rep_in: endpoint {
++						remote-endpoint = <&etm2_out>;
++					};
++				};
++			};
++
++			out-ports {
++				port {
++					ncc0_2_rep_out: endpoint {
++						remote-endpoint = <&ncc0_1_funnel_in2>;
++					};
++				};
++			};
++		};
++
++		replicator@134c0000 {
++			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
++			reg = <0x0 0x134c0000 0x0 0x1000>;
++
++			clocks = <&aoss_qmp>;
++			clock-names = "apb_pclk";
++			power-domains = <&cluster0_pd>;
++
++			in-ports {
++				port {
++					ncc0_3_rep_in: endpoint {
++						remote-endpoint = <&etm3_out>;
++					};
++				};
++			};
++
++			out-ports {
++				port {
++					ncc0_3_rep_out: endpoint {
++						remote-endpoint = <&ncc0_1_funnel_in3>;
++					};
++				};
++			};
++		};
++
++		replicator@134d0000 {
++			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
++			reg = <0x0 0x134d0000 0x0 0x1000>;
++
++			clocks = <&aoss_qmp>;
++			clock-names = "apb_pclk";
++			power-domains = <&cluster0_pd>;
++
++			in-ports {
++				port {
++					ncc0_4_rep_in: endpoint {
++						remote-endpoint = <&etm4_out>;
++					};
++				};
++			};
++
++			out-ports {
++				port {
++					ncc0_4_rep_out: endpoint {
++						remote-endpoint = <&ncc0_1_funnel_in4>;
++					};
++				};
++			};
++		};
++
++		replicator@134e0000 {
++			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
++			reg = <0x0 0x134e0000 0x0 0x1000>;
++
++			clocks = <&aoss_qmp>;
++			clock-names = "apb_pclk";
++			power-domains = <&cluster0_pd>;
++
++			in-ports {
++				port {
++					ncc0_5_rep_in: endpoint {
++						remote-endpoint = <&etm5_out>;
++					};
++				};
++			};
++
++			out-ports {
++				port {
++					ncc0_5_rep_out: endpoint {
++						remote-endpoint = <&ncc0_1_funnel_in5>;
++					};
++				};
++			};
++		};
++
++		funnel@13d01000 {
++			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
++			reg = <0x0 0x13d01000 0x0 0x1000>;
++
++			clocks = <&aoss_qmp>;
++			clock-names = "apb_pclk";
++			power-domains = <&cluster1_pd>;
 +
 +			in-ports {
 +				#address-cells = <1>;
@@ -673,13 +662,13 @@ index 4e35254cdd11..370b6bba2594 100644
 +			};
 +		};
 +
-+		tmc@13909000 {
++		tmc@13d09000 {
 +			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x13909000 0x0 0x1000>;
++			reg = <0x0 0x13d09000 0x0 0x1000>;
 +
 +			clocks = <&aoss_qmp>;
 +			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd1>;
++			power-domains = <&cluster1_pd>;
 +
 +			in-ports {
 +				port {
@@ -698,113 +687,13 @@ index 4e35254cdd11..370b6bba2594 100644
 +			};
 +		};
 +
-+		replicator@13990000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x13990000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd1>;
-+
-+			in-ports {
-+				port {
-+					ncc1_0_rep_in: endpoint {
-+						remote-endpoint = <&etm4_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_0_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in0>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@139a0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x139a0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd1>;
-+
-+			in-ports {
-+				port {
-+					ncc1_1_rep_in: endpoint {
-+						remote-endpoint = <&etm5_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_1_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@139b0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x139b0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd1>;
-+
-+			in-ports {
-+				port {
-+					ncc1_2_rep_in: endpoint {
-+						remote-endpoint = <&etm6_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_2_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		replicator@139c0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x139c0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd1>;
-+
-+			in-ports {
-+				port {
-+					ncc1_3_rep_in: endpoint {
-+						remote-endpoint = <&etm7_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc1_3_rep_out: endpoint {
-+						remote-endpoint = <&ncc1_1_funnel_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		funnel@139d0000 {
++		funnel@13d81000 {
 +			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x139d0000 0x0 0x1000>;
++			reg = <0x0 0x13d81000 0x0 0x1000>;
 +
 +			clocks = <&aoss_qmp>;
 +			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd1>;
++			power-domains = <&cluster1_pd>;
 +
 +			in-ports {
 +				#address-cells = <1>;
@@ -825,22 +714,6 @@ index 4e35254cdd11..370b6bba2594 100644
 +						remote-endpoint = <&ncc1_1_rep_out>;
 +					};
 +				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc1_1_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc1_2_rep_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					ncc1_1_funnel_in3: endpoint {
-+						remote-endpoint = <&ncc1_3_rep_out>;
-+					};
-+				};
 +			};
 +
 +			out-ports {
@@ -852,249 +725,59 @@ index 4e35254cdd11..370b6bba2594 100644
 +			};
 +		};
 +
-+		cluster2_funnel_l2: funnel@13e01000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x13e01000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd2>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc2_2_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_2_funnel_out: endpoint {
-+						remote-endpoint = <&ncc2_etf_in>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_etf: tmc@13e09000 {
-+			compatible = "arm,coresight-tmc", "arm,primecell";
-+			reg = <0x0 0x13e09000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd2>;
-+
-+			in-ports {
-+				port {
-+					ncc2_etf_in: endpoint {
-+						remote-endpoint = <&ncc2_2_funnel_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_etf_out: endpoint {
-+						remote-endpoint = <&apss_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_0: replicator@13e90000 {
++		replicator@13d90000 {
 +			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x13e90000 0x0 0x1000>;
++			reg = <0x0 0x13d90000 0x0 0x1000>;
 +
 +			clocks = <&aoss_qmp>;
 +			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd2>;
++			power-domains = <&cluster1_pd>;
 +
 +			in-ports {
 +				port {
-+					ncc2_0_rep_in: endpoint {
-+						remote-endpoint = <&etm8_out>;
++					ncc1_0_rep_in: endpoint {
++						remote-endpoint = <&etm6_out>;
 +					};
 +				};
 +			};
 +
 +			out-ports {
 +				port {
-+					ncc2_0_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in0>;
++					ncc1_0_rep_out: endpoint {
++						remote-endpoint = <&ncc1_1_funnel_in0>;
 +					};
 +				};
 +			};
 +		};
 +
-+		cluster2_rep_2_1: replicator@13ea0000 {
++		replicator@13da0000 {
 +			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x13ea0000 0x0 0x1000>;
++			reg = <0x0 0x13da0000 0x0 0x1000>;
 +
 +			clocks = <&aoss_qmp>;
 +			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd2>;
++			power-domains = <&cluster1_pd>;
 +
 +			in-ports {
 +				port {
-+					ncc2_1_rep_in: endpoint {
-+						remote-endpoint = <&etm9_out>;
++					ncc1_1_rep_in: endpoint {
++						remote-endpoint = <&etm7_out>;
 +					};
 +				};
 +			};
 +
 +			out-ports {
 +				port {
-+					ncc2_1_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in1>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_2: replicator@13eb0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x13eb0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd2>;
-+
-+			in-ports {
-+				port {
-+					ncc2_2_rep_in: endpoint {
-+						remote-endpoint = <&etm10_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_2_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in2>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_rep_2_3: replicator@13ec0000 {
-+			compatible = "arm,coresight-dynamic-replicator", "arm,primecell";
-+			reg = <0x0 0x13ec0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd2>;
-+
-+			in-ports {
-+				port {
-+					ncc2_3_rep_in: endpoint {
-+						remote-endpoint = <&etm11_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_3_rep_out: endpoint {
-+						remote-endpoint = <&ncc2_1_funnel_in3>;
-+					};
-+				};
-+			};
-+		};
-+
-+		cluster2_funnel_l1: funnel@13ed0000 {
-+			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
-+			reg = <0x0 0x13ed0000 0x0 0x1000>;
-+
-+			clocks = <&aoss_qmp>;
-+			clock-names = "apb_pclk";
-+			power-domains = <&cluster_pd2>;
-+
-+			in-ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					ncc2_1_funnel_in0: endpoint {
-+						remote-endpoint = <&ncc2_0_rep_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ncc2_1_funnel_in1: endpoint {
-+						remote-endpoint = <&ncc2_1_rep_out>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					ncc2_1_funnel_in2: endpoint {
-+						remote-endpoint = <&ncc2_2_rep_out>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					ncc2_1_funnel_in3: endpoint {
-+						remote-endpoint = <&ncc2_3_rep_out>;
-+					};
-+				};
-+			};
-+
-+			out-ports {
-+				port {
-+					ncc2_1_funnel_out: endpoint {
-+						remote-endpoint = <&ncc2_2_funnel_in2>;
++					ncc1_1_rep_out: endpoint {
++						remote-endpoint = <&ncc1_1_funnel_in1>;
 +					};
 +				};
 +			};
 +		};
 +
  		apps_smmu: iommu@15000000 {
- 			compatible = "qcom,x1e80100-smmu-500", "qcom,smmu-500", "arm,mmu-500";
- 			reg = <0 0x15000000 0 0x100000>;
-diff --git a/arch/arm64/boot/dts/qcom/purwa.dtsi b/arch/arm64/boot/dts/qcom/purwa.dtsi
-index 4348dd3d1dc5..90069c8e1d40 100644
---- a/arch/arm64/boot/dts/qcom/purwa.dtsi
-+++ b/arch/arm64/boot/dts/qcom/purwa.dtsi
-@@ -8,7 +8,15 @@
- 
- #include <dt-bindings/clock/qcom,x1p42100-videocc.h>
- 
-+/delete-node/ &apss_funnel_in2;
- /delete-node/ &bwmon_cluster0;
-+/delete-node/ &cluster2_etf;
-+/delete-node/ &cluster2_funnel_l1;
-+/delete-node/ &cluster2_funnel_l2;
-+/delete-node/ &cluster2_rep_2_0;
-+/delete-node/ &cluster2_rep_2_1;
-+/delete-node/ &cluster2_rep_2_2;
-+/delete-node/ &cluster2_rep_2_3;
- /delete-node/ &cluster_pd2;
- /delete-node/ &cpu_map_cluster2;
- /delete-node/ &cpu8;
-@@ -19,6 +27,10 @@
- /delete-node/ &cpu_pd9;
- /delete-node/ &cpu_pd10;
- /delete-node/ &cpu_pd11;
-+/delete-node/ &etm8;
-+/delete-node/ &etm9;
-+/delete-node/ &etm10;
-+/delete-node/ &etm11;
- /delete-node/ &gpu_opp_table;
- /delete-node/ &gpu_speed_bin;
- /delete-node/ &iris_opp_table;
+ 			compatible = "qcom,sm8750-smmu-500", "qcom,smmu-500", "arm,mmu-500";
+ 			reg = <0x0 0x15000000 0x0 0x100000>;
 
 -- 
 2.34.1
