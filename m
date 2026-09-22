@@ -1,62 +1,64 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3559D4570D4
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6715158B8
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:05:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790071524; cv=none; b=q77izHL7DG85giX/QLNbsVpTiUzDnU1XVKAC7rH6ipJ8i8qdBZEjUMGf0N+3M4FmzYAa2oujsfvWduO73iiGF78PE/5+KHhKF/TC41l/8yXK9j82uwETMpCiuu67w+TFEP0BloIww0deseanbzy2/VsPazI1XIJp3MY+e+7y1kw=
+	t=1790071528; cv=none; b=NhiDCbTEnUbLqkc4Lr/MCe0iu/l9Ze7tY+1Wo9BiaHjSbZ9+YlB4PCdEG3VfF9trN+q2uJDCWmELfaZ6Lu+cWcuH7Ha4N491Ax4xsSonnTXN6ZRFbXQJwFN4ESHaAPiEOUGq9qunxk3wmIScO1EdXfrGh6LVFm0fbTC6mv6xsC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790071524; c=relaxed/simple;
-	bh=ZE7nqI7ReohaMIqdHQOYLxEmwtEvbS+hkW9GmiQfECg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KQVhFp7kiZOOzj8eHHhu0dTz7/tnEbbF7o1qQ4I9fXkLPIFVmDZmJhFYfr2UjNy1n637T8KP0ROr3fz6qhObGWe2EzYpl/9NEJxxPslHmC4ZOQTU0CfezJURVv7Qv7FPiaKSj9YvzLkdK7ItTxePCil3VvEQmBbdarEdMugHodY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iivziHVg; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1790071528; c=relaxed/simple;
+	bh=X446ITTdhXRNiM7YTNEvusfu90JyYJu+Hs/1GHYcdQE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uCzmEWeznJj+LLK6XkE+f4VomLfzR9dbi+up8pHHA9cw33aT+pxth22Ram4YZak6o2dHqpsvk9nyep/bW/VA06X7cVfqO9KZTsD6mW7xMayQkeeTElEAvVx6oOec+rOuU2BjMl4HQvhlnml9XtWOkOuiCHiKXGHR7whm3UF/me4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JHn2B+wx; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iivziHVg"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39da614ab21so301682a91.2
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 03:05:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JHn2B+wx"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396672b2569so422337a91.3
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 03:05:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790071522; x=1790676322; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K2+Rzsvc6cT42wPihpbCzyttfrFEcFhBrHOmp0V8ZiA=;
-        b=iivziHVgD5IWTAO2MO+0qIwBtuJXWx7A6lzDVKNDFAZ33ork4p1ah4qYWwWuAeMUcr
-         rVejHDOak9Wg34rDqPXBVjzIlq1pxwnzJh3mU0/d83E99R+Wyc8IQ72nSqWkwlIhESIT
-         DlZDr8Fe5Fb4c80jS6HJ7VUj7/b3yKs+xmfWYvo3VzLE+NehbPGjeVY6Suw7HFv38JCE
-         F8/CNjK/rRpwKo7SpAXo95QUuKll3tFCSdFaOfAjFgg5u1NGpH8sD3abxMYtXgx3Ki5p
-         i7LCsxZZxofFxeWkiXPmTgu06iorOx4E4BgfvSUOMgmGP46TV2axwJ7LWFZNQVrNsvf3
-         xRHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790071522; x=1790676322;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790071526; x=1790676326; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K2+Rzsvc6cT42wPihpbCzyttfrFEcFhBrHOmp0V8ZiA=;
-        b=twTsc2YV3DGWpJEdAaSOVslnZ1x4SVObGFMu5GII+UnL2OZ1UPRgdpICZ16egH7yqE
-         bVdtS+hynDldMzq2iV+eLgIH7375fRLJPvkKEKgBKiKNIWO/bqki7QtzJUCRLdHQqan9
-         aidggZcwOXFZnse6ylmK45R3NkxqhmP01JEeni4rCEVdEwfpRfgE9yxmZLuic+xZCpIz
-         LjX0F/Qo9/6KvK1ruWW+0pgS1JDBIqW0GJpctlhYwqYx8HCFXh2R7IxQx111j79hywiX
-         kWldGoCDaQtN9cjqIVzOxBGb9TuZ2b5ksYtR0UupPF5xO4eNDFI5nmejyGzbPMqnTwGf
-         wE5A==
-X-Forwarded-Encrypted: i=1; AKwUvBz/05PSxdzieFvlz7KpA3x/YAAweWQEozPyHwaczTuXSk84xQU4cKB+YMPCBoBbJ/929aMNHnrHOjjg@vger.kernel.org
-X-Gm-Message-State: AFuF++kw0pBY1UQgM52L6mc0pPeaaDWTo7l7YMDpS5rvfMOiwMswhfxj
-	2BQvnMpcxN97RD7F5TofJS2em1+5OBMTHVnMcYOPosB7VhiNrHuAVnZY
-X-Gm-Gg: AYBFou3jzndDiOC01tkZ6s9rHtLn1AY681lJPS1ONsING3k32wCHmaSA7nbV9W9efHI
-	UkjRZcgTZmLJHjasZZMgcvAcCDurmlkl9VNev31nQAhKmDEOcPFU7Sj6beBxA2ghvKUketV9+Ud
-	J4xLj761lDxoSJDVxAQxA5I4EyJBPyO1RWedJ6noGFKdh1IvE5LiT45jU6z6eWoPkMODNlhvhBj
-	lcyOg++KZYjeMznwVNmv2LTueyPAWm5SjmtGRxoVfhixxHkhrzrx+V7ILUsCCyv3DS5t6ef+q22
-	XqalgWWop89crpTXaadguuKXjVS5lai0aTGAL1jo8kwUUvDB0MsY2fCw4YOH5iCbak6j+N/NUIo
-	zhAMb/yE+CdYjcthWufb7iiLAv5h3NEA9qF9e1lWZZQ1oXH807I8FP0jK6s9UjXnl9EAwordCdQ
-	rzvKq2jZGiEJuwI1ngd9ht7sU6uVyjIK/O/PkeZFR5SCq44C+rRQmJycLQm1KcmouYqQgmp1arz
-	VI3Ou3iIy/TeJC9oUG9y6oG
-X-Received: by 2002:a17:90b:2ccb:b0:39e:fbf:e7b5 with SMTP id 98e67ed59e1d1-3a073394643mr1152114a91.6.1790071522133;
-        Tue, 22 Sep 2026 03:05:22 -0700 (PDT)
+        bh=arHmPU1bUxWfq8Vgi76eeXWsD0/kT35HZWCoWkjs938=;
+        b=JHn2B+wxgCUCR+qNTT5taEtfwRMisoJcBUkxpVmNlf885MWu5rIrbewnnwfq9mfh1/
+         FB5Ku6KP+F9Cqc0lz35a1ubepCchnX3Dl+m1JXAoYJ1bmI4YaD8gwcaG2LjnYqNOrEuA
+         Yihem0CVAK+aVdDUzLUDu6Esi3+KdTzL6iM47tW3tD885VorNSTt/scVUAELDjM4mdLf
+         C5i1k4leBNjF1zNH6nM65yI0/xcKxtPP/71YS49e5oLz1Ij3PK7haipQHYET5IFKr7IF
+         Kd3PizW4crOR15HubzP1t/nd8ij0OhxM46G826vZL7bxMJyZjWqW5K34imqjwJ29beqc
+         CxUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790071526; x=1790676326;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=arHmPU1bUxWfq8Vgi76eeXWsD0/kT35HZWCoWkjs938=;
+        b=ASklKzfreeLPhwRUIc41j18tPcGYsq2HDsC5+TpsOSATHvGvMfttlREQwuoRVvznQN
+         tGZ1AR7IFpWnuBP7bM/HkatoIbewU+O6/8vIFjAMhsz5cfBjI7cqXvGf5vq5IK3zFTuE
+         Z6GcyoM5lc1EEiZ+TQ+BylawUPglwvwY2UsLEPAcYdsCZofJINAQxUG9ieR5OwIqjakT
+         0Q4BfS2aGteML9M+1RZggcjZ1NAtHAJYWOyS76ppEt5Fpdfim+DcD25EDClzT4PWVMB1
+         uebC3Qj67kalWpMcfaZnrmiqFqoS2eDHNxQ8YLt2GHH00cTTT/WndDK1ADkYr7RQspEJ
+         9hNA==
+X-Forwarded-Encrypted: i=1; AKwUvBzln/8aEyCfu2XQ6JXcWxgZedS5hYI4xyHZEbnv35ks2ZM4F0rnWgvCwUUl9IpLiVAYWr4vbHKBLFsJ@vger.kernel.org
+X-Gm-Message-State: AFuF++nSeNDKlPGo1HUiDQmILeWnMc05JRC7ShBwXmiVC8ir97vNcjx7
+	TCZLn+3HIqUXpX2t3j8gSCO9Cni39fNGkjSNnRjmtcf7U4WpesUu7oZ1
+X-Gm-Gg: AYBFou15E+kyzbT1ZvxGQFSdwadzZJ13YZfg8jIWIlURHZx2tL22S37KLBFIwJJyyKT
+	WSokag/qenJaczrwUCCoXOo5rSoxH+JLccKtxzKENWMItzmxVyJLPShZqho13iY0wKTQDl8aB/i
+	KJ5ZFibZmtNZrKp9B2b235ahxA+mnnvGRqNOr2Xn0jaUwsRFPPEWySH0rbPvQ+Mf8xlxNPWL5ym
+	jN+SC+ztvOJQaArxedEIkEpO9FGUIHn7B1SN8xtkmCAe6GkaUdR986FD09YyR0HIyfjdDGImZNC
+	pI0FX3I7gLsPbTb5QkftjqwqCOv7xO4QyJNrtnVDSFvAMDGbu2bEwV0Q09ZDGTPqgJ3c/MwVuwy
+	ywXaRUqnwpwrHOHwxR0rAch9/uggMD9RrcHA1iFUBmiFrzER3Qk3hxwiXCZgUIazc7JpqvVP1B+
+	l6GBaX3Vz1LTfOgLkmavwuLLAeasz2ihes5ZEj7IpuUCwruOfj6yB9MQ6kii8B3WaDG1xVTrlel
+	fn90296AEdwEPv+M4E3nR/I
+X-Received: by 2002:a17:90b:2f90:b0:3a0:242e:7397 with SMTP id 98e67ed59e1d1-3a0732c5224mr1150055a91.4.1790071526290;
+        Tue, 22 Sep 2026 03:05:26 -0700 (PDT)
 Received: from jfliu-sfa1411.. ([129.227.183.200])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a067021ca6sm3984718a91.2.2026.09.22.03.05.18
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a067021ca6sm3984718a91.2.2026.09.22.03.05.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 03:05:20 -0700 (PDT)
+        Tue, 22 Sep 2026 03:05:24 -0700 (PDT)
 From: Jianfeng Liu <liujianfeng1994@gmail.com>
 To: linux-arm-msm@vger.kernel.org
 Cc: Jianfeng Liu <liujianfeng1994@gmail.com>,
@@ -68,10 +70,12 @@ Cc: Jianfeng Liu <liujianfeng1994@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] Add support for Acer Swift SFA14-11
-Date: Tue, 22 Sep 2026 18:04:34 +0800
-Message-ID: <20260922100501.8888-1-liujianfeng1994@gmail.com>
+Subject: [PATCH 1/3] dt-bindings: arm: qcom: Add Acer Swift SFA14-11
+Date: Tue, 22 Sep 2026 18:04:35 +0800
+Message-ID: <20260922100501.8888-2-liujianfeng1994@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260922100501.8888-1-liujianfeng1994@gmail.com>
+References: <20260922100501.8888-1-liujianfeng1994@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -80,50 +84,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for Acer Swift SFA14-11, a laptop based on the Qualcomm
-X1E78100 SoC.
+Document the X1E78100-based Acer Swift SFA14-11.
 
-The following hardware has been tested and is working:
-
-- NVMe SSD
-- WiFi and Bluetooth (UART)
-- USB-A ports
-- USB-C port with DP alt mode
-- eDP display with PWM backlight
-- HDMI (via DP bridge)
-- I2C HID keyboard and touchpad
-- Audio: speakers, headphone jack, DP alt mode and HDMI
-- GPU and video decoding
-- Battery charging
-
-Note on the compatible string: There are two names:
-- Swift SFA14-11[1]
-- SFA14-11[2]
-from the support site of acer.com, but the UEFI firmware reports the
-Product Name as SFA14-11. The compatible string follows the firmware
-("acer,sfa14-11"), while the model string uses "Acer Swift SFA14-11"
-for readability.
-
-[1] https://www.acer.com/au-en/support/product-support/Swift_SFA14-11
-[2] https://www.acer.com/au-en/support/product-support/SFA14-11
-
-
-Jianfeng Liu (3):
-  dt-bindings: arm: qcom: Add Acer Swift SFA14-11
-  arm64: dts: qcom: Add Acer Swift SFA14-11
-  firmware: qcom: scm: Allow QSEECOM on Acer Swift SFA14-11
-
- .../devicetree/bindings/arm/qcom.yaml         |    1 +
- arch/arm64/boot/dts/qcom/Makefile             |    2 +
- .../boot/dts/qcom/x1e78100-acer-sfa14-11.dts  | 1520 +++++++++++++++++
- drivers/firmware/qcom/qcom_scm.c              |    1 +
- 4 files changed, 1524 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts
-
+Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
 ---
-base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
-branch: sfa14-11-next-20260921
 
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 5c0414d4af9b9..85e62b2c7093f 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1203,6 +1203,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - acer,sfa14-11
+               - medion,sprchrgd14s1
+               - tuxedo,elite14gen1
+           - const: qcom,x1e78100
 -- 
 2.47.3
 
