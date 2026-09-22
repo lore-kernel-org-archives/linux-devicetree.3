@@ -1,54 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DB9488D91
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:24:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1EA4DF4DC
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:24:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790061870; cv=none; b=D7NAAmf4bnE2os0LQYzkp6redpMWu7UtJxBP6XFWThybi+hVaxz0HuOIseJg5EdfDRMF1GMiZZy8RlKpGC7OC8Mf8k2M3Hobu6fWaTfGvlQO/A5zcyHKfuXGZIzimVy9Ci4J5wvUg+RUskn4JA7rSWVZtGHcBYU0TSTukuc/0wc=
+	t=1790061891; cv=none; b=cegWPYa9USZgQKzPodNFFLyz+ek4ehapBZoQJeruQvDk3RMVwQGsC60VwkcHnjxyAyCJoQlaGgDjEsTe1V4UPVPwZUQvR3VPCOAeJcmSbXa+MzA1ZbfOjjuRVND3SZWlI9LpHXzT3hYe6y2fUfCwruuI0hbpq8Cqv5xLYwsFQtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790061870; c=relaxed/simple;
-	bh=dnHoQ9hJxT1jx4dONrAt87VQ3Ef84mxygQ9fqqx65vM=;
+	s=arc-20240116; t=1790061891; c=relaxed/simple;
+	bh=jv6MlIuZXXaVscNrKeKjACmCF9DaajcuzQUfRu2mAFE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hzdXp7kWhCagFrmnmyM6cwJqE5Q2xWaxGDt8KTXnaU219nCjqDfogZkMCMkm2okNjm45c3p2yA2lfnrX1dGkdptJo3l1AYl9hjHg4KWglPuUrWC7lqA5uL12B2ZYWH5SdEEbwcDz+1zEuhwXu4Uu5QUDNNARYrB0WJY7N48f3gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f+ZiLe9N; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=OdwuQGSWc2unakYVD/eNf5n4zlTzCC+WccwkPx5GSsTbpEGQHsJT62JKJFKKYtekrzl+dF+EKI7fdPE+dmerz0bQGS/uMTXOlMOND5k3jI44pUToBrjrLtJiKbAFKDlLeAsiErahHuF80r0DxEVC01Ht7wEJgTqTP2/qLKhjDSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a5byt1AG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f+ZiLe9N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 426A31F00900
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:24:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a5byt1AG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952561F008BD
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:24:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790061867;
-	bh=dnHoQ9hJxT1jx4dONrAt87VQ3Ef84mxygQ9fqqx65vM=;
+	s=k20260515; t=1790061889;
+	bh=jv6MlIuZXXaVscNrKeKjACmCF9DaajcuzQUfRu2mAFE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f+ZiLe9N+4HhobIOiXEkHSOzJPiavcqREHehqAwNFiC6345vzVqQ0XkFyy0KZLSon
-	 mL8vlDLDMcccOzT/PVl1scbUyc58IKW+EpJhksVggpBN7qVRYVOFrfk1dfoi8DTMLq
-	 XTsyDObN9lrEAZIOn9ddRz8TKaRrnEs+mS0QUYuqlPXuQqg0i/3o4HQSnBnBN2RlkL
-	 t/d7Mf/CRnjOGt/CFEOYqI1b2ZQ3umC3r4HNuAtWJ9HEwmjNVNMvGGPEdmhDctmzKK
-	 /MlckJ13teVFVlHezc3sFsPaWvdMGeBM/MWBUTpKBBKPDweGpMgVU1disO8Pej0Myh
-	 3y51cbIY09riw==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1b845so3121481e87.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 00:24:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy3YWooeF8TG0mIyxIjMH4Q5dW4+VrJOWvMvvdercR4/HGh5gWpRDpIESPqXRX7Bk9MSdfP3fIT5U8H@vger.kernel.org
-X-Gm-Message-State: AFuF++kBNeYU8Cz2jKs1cx/0qvBOGrHRQQQLVHJjn3bFlGvhpxAFYRjS
-	x2+sZWNv822MAhDkUZs0ig3XpO5GwgjrQaZhoRA9+0ddmzCyVwyR3XfuXCTxYKtPDUKneiFSWBM
-	jW2dpGihY/VCXCHQaYO4bA77AS1yQR5o=
-X-Received: by 2002:a05:6512:b95:b0:5ae:ba8f:f9fa with SMTP id
- 2adb3069b0e04-5b8c18411aemr4246334e87.18.1790061865764; Tue, 22 Sep 2026
- 00:24:25 -0700 (PDT)
+	b=a5byt1AG2ujcSfM+RR7j9cz1KjAzXibSWOuFJQ/0h/JQpfaz04mxmXP61RUh/aVXy
+	 vo1byg+7aGrWooKr9mk5fUUXnHTgA6UgYcPHOPiUrOi+vrQRC+4eD9uZtGKyjEm4Jz
+	 i0JBxBub7tvduMTaeuK11Mv3KE1yHrO1C+nY+vAY17a81Lmdz0ol3+6GdWRvEcaPY2
+	 JiuKq6V6Ve0DV3k6Fl4ntpxBZqKj9wEw1LGAT9rldh97KmTeW6FmPrbWkFpQQqrNJs
+	 e5XXfqwVZrw2FtbY2L8ECFoO7dMl0B4jxHMhggQSG29ZcIZxRCHbTjJhcHoUKmpSy7
+	 Yw81U2cuHJaJA==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c9954ccbso2174460e87.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 00:24:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwj2d8+tkK8UHaycqhfljeGfDN69NlFhxUk/42wOIuQjQhfY37BRyqWrL8En86FE/xNOgJIyzhFgLlc@vger.kernel.org
+X-Gm-Message-State: AFuF++nSZ34M0Y+pRjqG9gPklVtqrIpKROW+lpSixqX1zz1qG634dO15
+	Lq8KlnX1Rg0bQAP9LMAF3yDL2KMbNAC4vRFXLp9X9+vsUNclb/bLGm7619u7T25/Qd8Nk6+gKv/
+	il/sanfFNfKPwffSpNvUUW7CtQrixuTo=
+X-Received: by 2002:a05:6512:23a2:b0:5b6:6b8:1fc5 with SMTP id
+ 2adb3069b0e04-5b8c18226eamr4364173e87.17.1790061888255; Tue, 22 Sep 2026
+ 00:24:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-11-282ff5d98dda@ambarella.com>
-In-Reply-To: <20260921-cv75-v5-v8-11-282ff5d98dda@ambarella.com>
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com> <20260921-cv75-v5-v8-12-282ff5d98dda@ambarella.com>
+In-Reply-To: <20260921-cv75-v5-v8-12-282ff5d98dda@ambarella.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 22 Sep 2026 09:24:14 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk1WEwWRFdLjkbY3YSJmbQ3oLaoNAv3Ca6ZJ2ebubp2jA@mail.gmail.com>
-X-Gm-Features: AclHuK9erJBC7wstRYz1ZiKk7AbclZKt0-cY_QBUwQ7InLcjPRkXXHSAcSuac_8
-Message-ID: <CAD++jLk1WEwWRFdLjkbY3YSJmbQ3oLaoNAv3Ca6ZJ2ebubp2jA@mail.gmail.com>
-Subject: Re: [PATCH v8 11/18] gpio: pl061: use IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH
+Date: Tue, 22 Sep 2026 09:24:36 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkDOPyStRwtoeUysCCXxOFUs142xw8Cdcm2CCo5MghP7g@mail.gmail.com>
+X-Gm-Features: AclHuK_MFbUz-mrJnpdTRjizQpZ1o1JRe1ZMXbr4OoxUHWYI1Yt8b8NWQaKPwv4
+Message-ID: <CAD++jLkDOPyStRwtoeUysCCXxOFUs142xw8Cdcm2CCo5MghP7g@mail.gmail.com>
+Subject: Re: [PATCH v8 12/18] gpio: pl061: use cleanup helpers for locks
 To: longzhao@ambarella.com
 Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
 	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
@@ -71,8 +71,7 @@ On Mon, Sep 21, 2026 at 6:23=E2=80=AFAM Long Zhao via B4 Relay
 
 > From: Long Zhao <longzhao@ambarella.com>
 >
-> Use the standard IRQ_TYPE_LEVEL_MASK and IRQ_TYPE_EDGE_BOTH helpers
-> instead of open-coded edge and level comparisons.
+> Convert raw_spinlock critical sections to guard() from cleanup.h.
 >
 > Signed-off-by: Long Zhao <longzhao@ambarella.com>
 
