@@ -1,88 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-139.mta0.migadu.com [91.218.175.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202E655C307;
-	Tue, 22 Sep 2026 13:34:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABDE551988
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 13:37:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790084054; cv=none; b=fp/a7kDZGQcTEB3Wse7Tj6hhfmY7Vj1kHEBDRqlYhvRQYjULAuUC46eb44achQuILLqkdMna4FkLU3WRRp5bj/e2rxZyTxTqRisAHWGQoQGIDabuTlHzea95xJGMB7m5PoX8wcMU/SZQylsjF1bf8vrI1tvuoxNbz/aq9OQjZBM=
+	t=1790084227; cv=none; b=VypG4wuvKMz3mEvsmpNhc32CJZ0CDUBdwgDYzjqv6OJ6//06zCzp1Dp4QktEMQjHOeFoVITnmsI3LGicO3o4aK07mR+ucwwgxOU2IwDBYXa76avxk3zBO4FKGvywn9Zz2eyh0hsXZGGlXhmQeDGsBBBEsqxt6toQlh+pWqjXFE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790084054; c=relaxed/simple;
-	bh=AHSHaRam3VMD/yNqBolUcp4H09ueLegNu5acPLN9GTc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dGQk7bbJE15ZZYAmATKF/oVVq/2vFRS0nQuD1eKDu/8bP0HUKzrPl1KDAfjzEfQ6dKBalYOpIa0gWJAy5Frgk8kcQvvtIGXOEnWBbDpF6xIx+bFYTVE/ERu5RH7gkH3xn+iie0D59NRUt7Q2BmW5aVeCc9xp8aFCsGt3NWgqdUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kjFUrtQK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790084227; c=relaxed/simple;
+	bh=KPcw/ZopzzaYRfLPPDrflpmk4QBwx4LnGR3aDrupdxo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F43T+1kjPs3uVoZMNbeaB1L+A+jbMhqNniGy+PnV72ci8ka9Lg03yf/9cSMciFpmECwiifiTJKBDnVDkEIY/G7epu7p/s7UX56zsZrUv4xR9mOV/KOetoADopEs03AKjrwrXWm10nO0WeFKX+H9xzXz8i6oZCcXJlEzthnaIfzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=HygEBTiD; arc=none smtp.client-ip=91.218.175.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kjFUrtQK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 298D51F000FF;
-	Tue, 22 Sep 2026 13:34:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790084051;
-	bh=+GdK6pvcgWilvifm77f5f7Er+eZFy0j70nbF6Poz82E=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=kjFUrtQK451Ff80i9fopWt+Sz06531eTQLgjDNYF3lcBiceq7T8EhueLNBE+0PPGX
-	 854i5bsSmiltE2pdgg3aYmXgul25h+Ce6vF2ccke6XHAjPGfez63pCeJvQL68nQ49R
-	 ZC9MkPxLF9JIIlv1btUpzcojHkCoKhkaoZUapukyZ2QonX4NxGUoVBCfv7C83k5ql9
-	 MixCUitgDS9w8eAhpnnSsJfARhC/ZRQPGTESNE2K7jHNbilSEo395XT74s1KApMDAz
-	 7qyzeL9HBGXvwv40D3Bokn57DbiyJzdwcDYN4p0Hq+rrzEpiJnpFSr6KxrXJBy4cyu
-	 IkVd93eS5dT0g==
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 22 Sep 2026 15:34:01 +0200
-Subject: [PATCH 2/2] arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Add ISP
- and IVC nodes
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="HygEBTiD"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KPcw/ZopzzaYRfLPPDrflpmk4QBwx4LnGR3aDrupdxo=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790084222; v=1; x=1790689022;
+ b=HygEBTiD5SS2UBPfStNd4HRIGEvr4s6OBSemirUL6WK9ken+83Pi/QoCV4Hpf/+70M+piu7W
+ BlG6kgWyED6pEv4V3vdgDkv00SQaHnYz26kMEr0Y9NZI4OU7rqDritz/zBpV/kv5vEY099QGter
+ GhfG2IZAN0UpljWtEc7Hl6vBaHwxUI3/Fyu6enFid3w1U9bQ/P42PtKGe8o7vWs7UArnGbBoUxB
+ P9N53Hw1Ol/rW9H5RtSoeesrs0r4UiR9O96ggl+SuO5UdRydeE+z+RxsWJ4wS5JG0roJLJE1FoN
+ zWlGuKPb8wOyCidBl9zDuI3OpxKpMCwf2ws+NuZaMhmRw==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f43a4edae3204aa3;
+	Tue, 22 Sep 2026 13:36:52 +0000
+X-Mizu-Trace-ID: f43a4edae3204aa3
+X-Migadu-Flow: FLOW_OUT
+From: Diederik de Haas <diederik@cknow-tech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: =?UTF-8?q?Rapha=C3=ABl=20Jakse?= <raphael.kernel@jakse.fr>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Diederik de Haas <diederik@cknow-tech.com>
+Subject: [PATCH] arm64: dts: rockchip: Add supplies for es8316 on RockPro64
+Date: Tue, 22 Sep 2026 15:36:22 +0200
+Message-ID: <20260922133643.2730265-1-diederik@cknow-tech.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-mali-c55-renesas-dts-v1-2-cd63cdb51033@kernel.org>
-References: <20260922-mali-c55-renesas-dts-v1-0-cd63cdb51033@kernel.org>
-In-Reply-To: <20260922-mali-c55-renesas-dts-v1-0-cd63cdb51033@kernel.org>
-To: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
- Daniel Scally <dan.scally@ideasonboard.com>
-Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-From: Daniel Scally <dan.scally@ideasonboard.com>
+The DT binding for the es8316 got 4 power supplies added in commit
+e9966d450b46 ("ASoC: dt-bindings: es8316: Add regulator supplies")
 
-Add nodes to devicetree enabling the ISP and IVC that are found on
-the RZ/V2H(P) SoC.
+Page 28 of the schematic for both RockPro64 V2.0 as V2.1 describe those
+various supplies, so add them to the DTS's.
 
-[Rebase onto v7.3-rc1 and sort the board overrides by label.
- - Linus Walleij]
-
-Assisted-by: LLM
-Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
 ---
- arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3399-rockpro64-v2.dts | 4 ++++
+ arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts    | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts b/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
-index 637fc92dcc26..74b75be599ae 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
-@@ -305,6 +305,14 @@ versa3: clock-generator@69 {
- 	};
- };
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rockpro64-v2.dts b/arch/arm64/boot/dts/rockchip/rk3399-rockpro64-v2.dts
+index 883d9bcfe792..37124ad548cf 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-rockpro64-v2.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-rockpro64-v2.dts
+@@ -19,6 +19,10 @@ es8316: codec@10 {
+ 		reg = <0x10>;
+ 		clocks = <&cru SCLK_I2S_8CH_OUT>;
+ 		clock-names = "mclk";
++		avdd-supply = <&vcca3v0_codec>;
++		cpvdd-supply = <&vcca1v8_codec>;
++		dvdd-supply = <&vcca1v8_codec>;
++		pvdd-supply = <&vcc_3v0>;
+ 		#sound-dai-cells = <0>;
  
-+&isp {
-+	status = "okay";
-+};
-+
-+&ivc {
-+	status = "okay";
-+};
-+
- &mdio0 {
- 	phy0: ethernet-phy@0 {
- 		compatible = "ethernet-phy-id0022.1640";
-
+ 		port {
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts b/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
+index ae3ee91dba2f..144988515c62 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-rockpro64.dts
+@@ -19,6 +19,10 @@ es8316: codec@11 {
+ 		reg = <0x11>;
+ 		clocks = <&cru SCLK_I2S_8CH_OUT>;
+ 		clock-names = "mclk";
++		avdd-supply = <&vcca3v0_codec>;
++		cpvdd-supply = <&vcca1v8_codec>;
++		dvdd-supply = <&vcca1v8_codec>;
++		pvdd-supply = <&vcc_3v0>;
+ 		#sound-dai-cells = <0>;
+ 
+ 		port {
 -- 
 2.55.0
 
