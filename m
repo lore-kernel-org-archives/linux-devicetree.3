@@ -1,112 +1,121 @@
-Received: from smtpcmd13147.aruba.it (smtpcmd13147.aruba.it [62.149.156.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341DE519DFF
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 07:46:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B85F2DC79B;
+	Tue, 22 Sep 2026 07:47:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790063221; cv=none; b=ZQrNBP88XdpxzPt2qx8HOMsj3Sb7tFFcNWTdC3b6xY9yMLWhYkLQ8rS/rGOjis18cY8wzEelasJwoTQBzoVoGSn8gnvbm0tPu+eG5+ul2M+cISqI1lgiifD866CbZVByIxrNOsBFWvEbv+DsO9DvHLj4EVh+yd8Nrz3nwJ1hwYc=
+	t=1790063283; cv=none; b=Rx6aIKeslgmHrSJUTNwjFwXT9/wx72HXFgjZ3xrS0TV5twN1i0x0GzZKcmFWdvUhZraB2k9AWHg1O/v95vUw1I7DqZbo/+HeFxe5Cr+7DKkvZiOlp9SiwwBPzOY2eHFHYBXd9C4Gqkrfuuykz6UbRr3SutWP4kYrumsWEiG/vWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790063221; c=relaxed/simple;
-	bh=rAwrZSEnbhAjepFBanz1IEDBQr5LomBIXFm+PqctUXc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=on7pjogwGuB+Se4imKrMYPrlMeZiJleEiBDEUYHQx+HCWnG0JHyqMjUlquB6d+fhFhc855xWUFUWvT+JVk0hCzAWAPJQYKbf4Jk8znhB7xLJjrj+eEw3cdSQaPztFYDPbAAM+EduCQF4F2k71yulDw7iBFcA8JHzVTLpFoN4lhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=IEVYcNoj; arc=none smtp.client-ip=62.149.156.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790063283; c=relaxed/simple;
+	bh=lQsPYsbAPQ5pDzOqviHpFXvEmk6EvwmhbDS5PIp+ylM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nN6/Gc0lrPCIYbwK6k2JVo3ULQEquKgPsKNlWiMwUNWfp3wOQ+nizmDOk+JTbyfTXIcheC30o1Jz0UE/iHAW6DHF4NQr4TuQQOo1Ekw8CaAQHwWqqQXGTVBrQRBODvEfFzQZmNoCs582G8OtYQxWt6hHYLVr7Dd+qYNHNfRFTRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CpJwJ95R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="IEVYcNoj"
-Received: from [172.18.100.99] ([109.238.20.116])
-	by Aruba SMTP with ESMTPSA
-	id 8v7IxQF8Nbk7m8v7IxukAS; Tue, 22 Sep 2026 09:40:41 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790062841; bh=rAwrZSEnbhAjepFBanz1IEDBQr5LomBIXFm+PqctUXc=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=IEVYcNoj2wde8M6H80ef9P6bxjE4j+VEFCmwWpOnYYJWbhjSzPNhKWK8KoVIfmvD2
-	 o6gR1D9tgsaHYne+mS11HDnt6Ptmi4vXk4pweIIuPfZBT4OfFEd3VqeEzMznUgaohj
-	 Q1EimCXEUCi/ssPEBIrxuk0y+CRJF9XI1v4hBDGiHqRCvQTlzq5vPDYGl1ssWgTuE0
-	 qORGbOl2qZ13W6auCGDaCmjfuG7efw6REbEWbmH0QO6wMjYoWdto6VUyAHmaJtDnAm
-	 wqNTEGSl1HMqnaJQJelCOV3vZVJEcCFH+LisezXwN7DbFeSePEr0w3XeoUHQ5yM3pw
-	 HddXKphG2/HYw==
-Message-ID: <495ec89c-b035-4bc5-9c15-3ddbb108d312@enneenne.com>
-Date: Tue, 22 Sep 2026 09:40:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CpJwJ95R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264A51F000FF;
+	Tue, 22 Sep 2026 07:47:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790063277;
+	bh=71BnTTBfDHUjWPKQkT4aD/X5LnAp5WIflUcNL5vzZuA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CpJwJ95RVd8Nj3Kb59r5Cj/9R19uj5XmD8hy40byF3h8SkL0b08jwriUrhhs2H+0p
+	 yIZs4sn81BtCu0dIzkIrK7QeLCd6t0gplU/Koe+LUeCczb+BmD3a221eUzBtPGqaT1
+	 e3Tsg/Y/fzeYGuO4HRYGV/Vpf22R2c7Vcl+gWxBYT2XcuP7Lz1LEKG4oiYpbdkbcG5
+	 zhKzJ8ztiT8A4f4s2Qq2UuRlnFAByGVQu5EQi+RqyW0+D4h07cHv7b+2b41Lle13MH
+	 2SlRML0CaNOoV9l7BVzJkgfxAHhoXuH/splGzdzOm1KKOiTAFlhP0ixfXwuWgQF71v
+	 fngyMkxY/TlLA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 01/12] scsi: ufs: dwc: Return a negative error if the
+ link is down
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Larisa Grigore" <larisa.grigore@oss.nxp.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-scsi@vger.kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260922073009.1449688-2-larisa.grigore@oss.nxp.com>
+References: <20260922073009.1449688-1-larisa.grigore@oss.nxp.com>
+ <20260922073009.1449688-2-larisa.grigore@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 07:47:56 +0000
+Message-Id: <20260922074757.264A51F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] pps: clients: gpio: release pins to an inactive
- state on remove and shutdown
-Content-Language: en-US
-To: Eliav Farber <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260917075611.47881-1-farbere@amazon.com>
- <20260919171157.5502-4-farbere@amazon.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20260919171157.5502-4-farbere@amazon.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfEX+JZyOpmHRZkZKWpq5GHpt+/+Wou9W4ZmO6rpg+1ED4ppI72vV3Co0jMia9LFjD9LfvprRN7xA/bJervz3uRgOxxxPpbAtousLhawyffm02JeSX7cr
- 0+jYsJfb3D6enp7usAcO3caOfZG2xuOaui7MT/gkA84J6Sy6jx9j9lmQ1ubRq63tP7FClDujwn+GtTzfE+QzWOmDNUq4gCGkEYX0Ny5yZOZVMMAzbeV7FsI9
- FN1PZtO1Tf16zH1WkUSdiyPKdZA7wU0yf0z/nbrWbyznO3iuaR6+LgYg62TpaXAuSi73cGL4Hp6STH2G8k9hUBMnAWbSPaS3hbQlU2uM5Xfm61os+xiHXZ2X
- QDthuiWqxa/C1tsi5aRWg8zGKBz6fcXwBBjgTkp9gTmCh1S6sH7HhXzu+AqwzlApMcG9vCdnIhttwljJFM5bFKjvELRdTxoeNFoqGvJ/1W2+5sfD7z05doD7
- c+N81iHbdIbECQYnLZBZKVaWHOy/5r4ESmzSTS3ZF9FoafrWqaUO0n6pErjlzseLF9jlKs5wHZ2qH4+EXjcKihLWl9ehoiDfGwr8uQ==
 
-On Sat, Sep 19, 2026 at 05:11:57PM +0000, Eliav Farber wrote:
-> +static void pps_gpio_shutdown(struct platform_device *pdev)
-> +{
-> +	struct pps_gpio_device_data *data = platform_get_drvdata(pdev);
-> +
-> +	/*
-> +	 * The kernel keeps running after device_shutdown() (e.g. to load and
-> +	 * start a kexec image), so quiesce the hardware before touching the
-> +	 * mux: free the IRQ and stop the echo timer first, then release the
-> +	 * pins last, so no callback can drive a pin after it is handed back.
-> +	 * The PPS source is left registered; that is a remove-time concern.
-> +	 */
-> +	free_irq(data->irq, data);
-> +	timer_delete_sync(&data->echo_timer);
-> +	gpiod_set_value(data->echo_pin, 0);
-> +	pps_gpio_release_pins(&pdev->dev);
-> +}
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] scsi: ufs: dwc: ufshcd_dwc_link_is_up() propagates positive error v=
+alues
+--
 
-The ordering argument convinced me, and I checked it against remove():
-free_irq() really is the first thing remove() does, so releasing the
-pins last is safe in both.  Good.
+commit bbaf6092d07a94b81e19b83041bbd45bc5f8771f
+Author: Larisa Grigore <larisa.grigore@oss.nxp.com>
 
-The timer_delete_sync() worries me a little, though.  timer_setup()
-only runs when data->echo_pin is set, so on a board without echo-gpios
-this touches a timer_list that was never initialised.  remove() has
-carried the same line for years, but remove() only happens on an
-unbind, which hardly anyone does; .shutdown runs on every reboot and
-every kexec, on every pps-gpio board there is.  And as far as I can
-tell no in-tree DT using pps-gpio describes echo-gpios at all, so that
-is the ordinary case rather than the corner one.
+scsi: ufs: dwc: Return a negative error if the link is down
 
-Would you mind guarding it with if (data->echo_pin)?  The
-gpiod_set_value() beside it is already a no-op for a NULL descriptor,
-so that one is fine as it stands.  Whether you want to give remove()
-the same guard while you are there is up to you -- it is pre-existing,
-so I would not insist on it in this series.
+This commit updates ufshcd_dwc_link_is_up() to return -ENOLINK when the link
+is down, rather than returning 1. It also propagates any errors returned by
+ufshcd_dme_get() to the caller.
 
-> +/*
-> + * Look up the optional "inactive" pinctrl state. It requires a "default"
-> + * state (applied by the driver core before probe) and is rejected without
-> + * one. Absent pinctrl, or an absent "inactive" state, is not an error.
-> + */
-> +static int pps_gpio_get_pins(struct device *dev)
+> diff --git a/drivers/ufs/host/ufshcd-dwc.c b/drivers/ufs/host/ufshcd-dwc.c
+> index 21b1cf912dcc6..ccf785fce6cc6 100644
+> --- a/drivers/ufs/host/ufshcd-dwc.c
+> +++ b/drivers/ufs/host/ufshcd-dwc.c
+> @@ -48,20 +48,23 @@ static void ufshcd_dwc_program_clk_div(struct ufs_hba=
+ *hba, u32 divider_val)
+>   * ufshcd_dwc_link_is_up() - check if link is up.
+>   * @hba: private structure pointer
+>   *
+> - * Return: 0 on success, non-zero value on failure.
+> + * Return: 0 on success, a negative errno value on failure.
+>   */
+>  static int ufshcd_dwc_link_is_up(struct ufs_hba *hba)
+>  {
+>  	int dme_result =3D 0;
+> +	int ret;
+> =20
+> -	ufshcd_dme_get(hba, UIC_ARG_MIB(VS_POWERSTATE), &dme_result);
+> +	ret =3D ufshcd_dme_get(hba, UIC_ARG_MIB(VS_POWERSTATE), &dme_result);
+> +	if (ret)
+> +		return ret;
 
-The rest of the patch reads well to me, and the comments are the right
-length now.  My answer on the probe-failure question is on the cover
-letter.
+[Severity: Low]
+Are we propagating a positive error code here?
 
-Ciao,
+Looking at ufshcd_wait_for_uic_cmd() in drivers/ufs/core/ufshcd.c, when a D=
+ME
+hardware command fails, it extracts the positive error code from the UIC
+registers:
 
-Rodolfo
+	ret =3D uic_cmd->argument2 & MASK_UIC_COMMAND_RESULT;
+
+Since this value propagates up through ufshcd_dme_get(), returning it direc=
+tly
+means ufshcd_dwc_link_is_up() can still return positive error codes. Does t=
+his
+violate the updated API contract to return a negative errno value on failur=
+e?
+
+While upstream callers evaluate the result as a truthy value (if (err)) and=
+ the
+probe safely fails without crashing, returning positive error codes violates
+standard Linux driver conventions.
+
+> =20
+>  	if (dme_result =3D=3D UFSHCD_LINK_IS_UP) {
+>  		ufshcd_set_link_active(hba);
+>  		return 0;
+>  	}
+> =20
+> -	return 1;
+> +	return -ENOLINK;
+>  }
+> =20
+>  /**
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922073009.1449=
+688-1-larisa.grigore@oss.nxp.com?part=3D1
