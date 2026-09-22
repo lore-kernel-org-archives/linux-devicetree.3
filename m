@@ -1,205 +1,181 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012048.outbound.protection.outlook.com [40.107.209.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2894F1DF98F;
-	Tue, 22 Sep 2026 09:22:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790068949; cv=fail; b=O28OcffxRNzdOX2sqMK4mSb66xoS+/44L/mcZsro87V0rJLEYbMnH0gtkLl0pwSJz+7+adE3dEtcAJo3WGAHpcEqXRqz4flie9DRNvVOk2OOWb1ThFLwXzOkqWAzf1zSFLHhYPpt4aVEb2gd0EoPNNR4dd6GGR4+Ofmx+iaxr88=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790068949; c=relaxed/simple;
-	bh=0sB15q5cLCuxp3QkiEVe2wAdSKboWXctkecEnXH6F2w=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=MFPoZXuJ/I4yULOo3K33/gUIvrzLBC5ZD6VJvmHKGc7qktmOBfeZELoyRAFS6bWwq2pB024QGsh+My/xoSZJYtwVM/lv2mXmlC8albupThoVmi3zaWhIfBCSWRDN85/AMdMbehIYu9e450yLBhdFFqrdT5wFqEBg9RU9UrWLDl4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=tC+ovV5j; arc=fail smtp.client-ip=40.107.209.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDDE443E4D
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 09:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790069085; cv=none; b=KM6Ci6/AQ/XYiGlN2h/Rn6ch/yaWz9oERZ+DhrFYxQGCkhVFAG9f83RT5dgNy6hpeHQzeKNvPp/Hf5t6T+QR0Xtkpw4BkkpJF6/K2xG5o/UaF73fE/jn8HlkIzRRxczsXHsiIODGm+pQkegaoCz7mhSCJIBif2iVIth6XeKhO6M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790069085; c=relaxed/simple;
+	bh=GDxvF8dXYDG22RLP8EkHsfiu7VwDTSk8lU2Woa4WlXE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DMhgdx5HEUZpdQcQkxpEZQxZJOlLSvCbWpQWr/PyATB/YUCJ8k9U2rfZ1VyR0fkdR35ZPOUYsPKIbm82IS0J+zhD5Ilq62kNp9co5NmJE2anO6QVuos4GQSf0rF/9GHqfZZ9xf0hiwcfilhnSWiP7/1HIOgMFq6+PwX7mmAf+hM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JXu8umYp; arc=none smtp.client-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="tC+ovV5j"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kyewkjZl6SXpfd69nAvFX9cgJwXEiBmwetN2MIClHu1Go6OVzt/yPS4e8pysBv/UbCHuMSjyq8FWdIbqTLwO4AoZhJV+k2xybdsfi7IfozOcvMYhZJyw5WwtCMt285Jb5VKnfSUdAicUYPiUhFcv4/PH6Z+7gFXa5HYSf1xFvZ34wV7N6jHzUn1npEqQl9ib30WMBixOPmPjOQeWb1XSob+VrdQHDa7SakW71cVTb1/8NK+4YZp6KrwH3qLcb9WpoPu3DY2yvrIxsdQVIJQlZXGE7lsEcGsAkQGV1+8eRVGMOrab4NcaJj7E3MKPI/adEQROrFXkvwdm1l3gt1SFDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jedMmMbEMmPj2JEC7tbeXdHp/RvVsH35PBqpqv5pDFQ=;
- b=ZhHcaxkAkJ6d9dkIbhGLTNWIdf2ICuD8WcZIjpcg+ULVOhwbXNCgAf49SoCB94Dyb5mTTiwlCBQxRXsHUpuKn8zaVuDx1cItCi2nSfbXVmTrXbSg0fDm0ONHLJUblg8NOgEbbJxmQQI07g5xG6IYzfsrUqh/9oZgEPTCKzD0cwIrG6gNhZuEySlAiKWCOu0dbPvhqmpyr7qbiQ1IcsAjawTiGulgZNd7mBf4TBzh5SvpTD5gvGfJJ6F5qQBSEnzft3FS9jrUYbEIBZBCbi9/PBZSga2FMMAbqO7mDH3ZPKXY+5gQNrN+wNNvl3Dfviz2hVV2pd/8rlLC24SKC15kpQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jedMmMbEMmPj2JEC7tbeXdHp/RvVsH35PBqpqv5pDFQ=;
- b=tC+ovV5jrf8hfmJw1hsSBoK1FoQeaRlctRJQEOWiUvHPg+G7+2mcJ5EWiZWCddvEOyy+HdeXTVP4JaUT0LRw/GW9USm1OPj9NxFq6SpuChQc/zdLWb9mBDKoLlN+33xOdcOEa0vauQ0viJ4/9YzCRVO64gikLiv0gz9u6US6kxRieR2BvGtgEpMG6Qms+s7f1dJ9aLvoeCPvWOVsTRaYk/lTHSnU/OiQcG+YcCSQExkewcQlPi36IDRLmZyW3t9LPrrbuGvGmB22ceF22+kHbhg/+U5Ekqfksax3zu78JFSu4/w4QFzFPi0uaONS8horIB6vUSJ2WVHuZQfXguz+yg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN0PR12MB5716.namprd12.prod.outlook.com (2603:10b6:208:373::14)
- by CH1PR12MB9720.namprd12.prod.outlook.com (2603:10b6:610:2b2::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Tue, 22 Sep
- 2026 09:22:21 +0000
-Received: from MN0PR12MB5716.namprd12.prod.outlook.com
- ([fe80::bac8:2b43:2a64:4c76]) by MN0PR12MB5716.namprd12.prod.outlook.com
- ([fe80::bac8:2b43:2a64:4c76%6]) with mapi id 15.21.0451.014; Tue, 22 Sep 2026
- 09:22:21 +0000
-Message-ID: <86165a44-7d0a-4e6a-bc89-10bc83d69805@nvidia.com>
-Date: Tue, 22 Sep 2026 14:52:11 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: ufs: Add nvidia,tegra264-ufs
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Thierry Reding <treding@nvidia.com>,
- linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909-tegra264-ufs-v1-0-e4a9831702a0@nvidia.com>
- <20260909-tegra264-ufs-v1-1-e4a9831702a0@nvidia.com>
- <20260913-vivid-accurate-bee-4ccc5a@quoll>
-Content-Language: en-US
-From: Kartik Rajput <kkartik@nvidia.com>
-In-Reply-To: <20260913-vivid-accurate-bee-4ccc5a@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4PR01CA0019.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26e::11) To MN0PR12MB5716.namprd12.prod.outlook.com
- (2603:10b6:208:373::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JXu8umYp"
+Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2cb3f5bb19aso14893185ad.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 02:24:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790069084; x=1790673884; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XClesR6PCgee5pL1QNRk08L/1yXOaC+odjip8AQtXVU=;
+        b=JXu8umYpk/IABHw2T7IVSsn1IvQBC/nveMJIU8vA+U/2fakpB/XJOlgss7B6d9QPhh
+         OPcO0lGoRS3fX5HmyYNl7YXeYyD5/ulIjGJA4KbltsaRPaw7vCJ/QdpPvVN268skFF//
+         sGe1a6k3vdwjyGd4SfiEz/oeZrEPRHJJn/F3QeBJZRq4ZMUPmFT3+MNjZHjmUQd1qthd
+         Oo5sVp5wmjtpG5vUAlrTF9YsAug2jNWDHM5w5JkYNlS1FadNi8zphPmtIUqqi9iIBj1V
+         Y8/gvibhSdEm5171ecT0hF0otEs7AMsrBc6F2jO+Xto77xZHfkJM2VNA4IVvBDuiua7w
+         xu0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790069084; x=1790673884;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XClesR6PCgee5pL1QNRk08L/1yXOaC+odjip8AQtXVU=;
+        b=ZQcxwetu8bQDCkXGVHJv5d17mP7271EFJBdXLSkHcoDgKPF5QL2fzd3ADn/XatVZpz
+         +Xy+CQ8dBzHYfkQZ0y2ICXoG+e4fj8ueIDVQm8Y5/jpHHSuLfZjah65has7QG1X1JbkE
+         55IDW0d+25VaPSyY2PecqoBGJKoazjwXYefekNskwtZEsetej7afRncSYicQmOdR68yf
+         P8JuVL+b1k3em+Xy3QjzdA4xUI0gl5tJjAARmc+jqmHSUEOcBBYVEz6uVXDgehlMQYbM
+         t1ECdXOObdz0DqzUMnznOW1F/sudxqH1k8w1pN+q28wGbT5JMFti1QcMVBuJE//whBDx
+         I+6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxYIyUBJ+hrAxmcGqWV85MitXEoJQ4bVhSgv4/X7YhuF/i0D4M56dtvZk4txrKgqOYwZLB9V6e9HAwx@vger.kernel.org
+X-Gm-Message-State: AFuF++mij0ItOLyeKVpX0IL2jfnE6g7858ntFVIaaPvxz/o+8F8cS4ZC
+	J33ZmsReKn3XBwtOJ976ArMfOjw8T9qPCYI4byAs0fgsZMuY0Yfaj5/BXNBN/dLQoJc=
+X-Gm-Gg: AYBFou2QFKEyWKCAZMQF2vkE2/Hw/r4qdA/A7NKIzKVhAMALcALbfTYudmabcPrDDan
+	19zn0Quiz23vIAeoF2Ggdt7XBABkh1a941PJQikp95RBIAXlwjmbOes73c88mt0XqesEimwzJil
+	/Qsycbqjdn21lLBuv1p3BAOmB1uyguQi/1r1yF7bCEbJu1pqtnAPsYsE5qraQtH3ynAOcK9K/9l
+	hWDfRGGFzRbA1gIe2DxOoiAAkXwMfYrbvW7aKkRUaZj03QRVx77k1seqH69fEPz+IgyeGNdruCK
+	q45iFycgBxmwtU+aoNvWjPn1L+Wmv8agUCaM5tMnmv7iqOgpT1ePL2POo0fofiEZRRdWONGutqs
+	2VqP65zl3gtTKlPcMY204bt41rndALCiRW4BTr8awOI5Ladg4OyS9AFppd/BROOCvoZ6JZ/+Nqs
+	amAMd7MPn/Ply2RleNPkyrSCkqq3zVaS0xd5H3HsNphlOfAzEPKiUlY9jD7mB3LnbUnypPp0LCj
+	XJumQ==
+X-Received: by 2002:a17:902:d592:b0:2dd:c100:80bb with SMTP id d9443c01a7336-2df60b7e838mr5983985ad.54.1790069083577;
+        Tue, 22 Sep 2026 02:24:43 -0700 (PDT)
+Received: from [10.125.112.20] ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df5d02fb15sm6848565ad.40.2026.09.22.02.24.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 02:24:37 -0700 (PDT)
+Message-ID: <060fb694-ba1d-40e7-8a18-f32d5a4039ab@gmail.com>
+Date: Tue, 22 Sep 2026 17:24:32 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5716:EE_|CH1PR12MB9720:EE_
-X-MS-Office365-Filtering-Correlation-Id: 792e64aa-9afd-4976-1fdb-08df188b0133
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|4143699003|56012099006|11063799006|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	W1uxde/VtMpZ7Lkx7iWMatp2sryyxdvC4hyuNBsaRnnPtwkk+aB+bLmWc7+gxeTF2WMXxIZCFrjq6XDUxtYOALKJmjjuvhNiCVc82IlngsTeg7LObycirwMpSyd0lAN1UtpiDLAWLuX3UXptuCmwbXGnj4G9pDF2x8XvKg8Me1ozG10meH07WCfVcqBoWDIDIw0oe3zH7M1sPogWYjDVH06Ze8MFd4yAsTSCaOx3DiBroYxs5/p6zfayflsaRgYv3umoxZbMYql9ZNmVuid3og/WhD1Vt+s2J188CnKRXzu9EuZknJJF2SdwBeZ7/uF5ZZYpemaW63Ze9ymR1SvFwg+ovoSLNfAc9yV6L9z6MgjjTYyYJlQ2uu5E/Fs7OCFBI9/AbOEg3CD1r6Rcb5KwbncdakyneeSuDeNCZk11DPTtXLQ4M/TCYpe/mGzYJVMBn93WbceXXLCBZ6SLZCBbTT2+ZTk4DanjUgeY7Gvb2aJFVBbNLVXilNSTkG+UxZ0R/Ka40nSDuG2qvrSX9Opf364VH+5IasutiCD2bvmuyxsQ9gj5zt9odcQbX/qbqCcJYNsbg164GsjHnaI4JDESFvsxd8jmOI7T5ZFGh8hETtDb43zOk6oTC7boeS4R5n69FW6YEPyy3PmWXa0KlUvzKDfPbkRRcGWBt9OW4X2Gm2A=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5716.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(4143699003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RXRJaFNyenNZOXg0RWlQdS92dkllQURVc0lLb2g2NnhFVWxpbGkrbXl2b0tF?=
- =?utf-8?B?cWhVZ1NnMCtXTFVXWDdxTVFsN1F5TzAwUkg0OWlKTFdLaXJTYUh3UzlkNFgv?=
- =?utf-8?B?SlVMU0ltQ0MwRi9qMG5iM3YyNGlOS2JpVExMdGd6V1NTVXN4ajJQZkJFclQ3?=
- =?utf-8?B?QUFCNDEwbGF4N2loVGU0RUIwYkR0MEVGVzYrRWNia1VOTVZvRm1mbmpZWkE0?=
- =?utf-8?B?eDlSU3VYc3J6M3RoTTFGaThLU1h2c01xVVYzTXZGdGd2UDRJSHA0YkJISkRV?=
- =?utf-8?B?eTl3MmZMZmhRRTBETUN5OFJmQm9XZGZhQkJhK3JZSFpkWVpMM25zZzVkR2FE?=
- =?utf-8?B?TUI0TGxFcEd6UGRmS0ZDS0VKVTZReDZMTElMbUpuUWFLQ2NSUTBNaWd1SjU1?=
- =?utf-8?B?cE9LeElWcmJGSHdZeUpka2tUSFRmZWI1NS8yVGhyRjBwOE10NzZ0ek52eE5S?=
- =?utf-8?B?eHQ2aElyM21TdHdIZEEvUGlhazNka2NRTkl4SzRHWmZJVnVvVlVxSnRvcDl5?=
- =?utf-8?B?TElqWmlyV0F4UXZUZzh5enlwUnBoQTVtUXdQOHN6VldpNW5raG9YclJXdGRq?=
- =?utf-8?B?N2trRHcwWTZZemxNYnV4cVZJOElYdTlsemJLaWp4cUhDaWh4NTNYMUFqbzI3?=
- =?utf-8?B?OTQ1eXVPa3ZqckVjTE1lRnlYQUtIWlV1clI5MjQ3OFAwZWpsZUJKVUM2ejA2?=
- =?utf-8?B?NE1JUklLaUo2RytCQTFsUTJXcU9nMEVtZnIzSVVhQ2x1cVpzcjlTcTR3dWlI?=
- =?utf-8?B?L0JLN2NRV054STBvYlBoVUNhVmowdDJjMm90RWxmK243bDBEZi9tbHhhT3Qv?=
- =?utf-8?B?SzRYMzZBc2tydDFCcng2ZUtIbGJyOWtycmFnZ3pJYkRZbHpwbFdYS25nOGsy?=
- =?utf-8?B?TXZ3Zi9PdDBrdUpaTTZuWE9PTFo1alJDN1RlcEVDQWljQUozSkZmL2Z2S09N?=
- =?utf-8?B?bSt0aFQ5eE5URjk4Uy8vNkRockgxOFVyUHk2TFQ4RXdvOFVwa1lkQnNpdE1B?=
- =?utf-8?B?NHI4c240bFNwNWV0QjlzUUdlQ3dEVkNjOEtSaHErV0pGOE1yakFPZ3V4UTRs?=
- =?utf-8?B?cjBzak0rQVR4V2pHdHRsc3FET0I1S0YxbS9peHdDZTlKc3hQWldhbTR0R2FM?=
- =?utf-8?B?Y3UzWmVkeEd6eDNFMkk1OWFhbXFKOE9odzBFdUFLQ1g0c0tXTERSOURiRWxa?=
- =?utf-8?B?V2Q0VnJWK0F2VjlZT3MwRnNQQTRmZzFPREVTWlFZWWVyVkRqcGl5by9QaW0r?=
- =?utf-8?B?YmQ1VHBuUXJlVDE4RFErWmZCK2xsT2d1eW9sNmt6aWtiMkFxeDVNUzVScDRY?=
- =?utf-8?B?WjZZZUt3K1pqZUUwcUJqSUE3Ykl5bG9UYkVzMU0yVUc3NWZldlFac0NaS3M3?=
- =?utf-8?B?VEdBVzExVzZnN0Zna2grT2duZTJOZGlpWHlLa2hQOTBTVVdxcG4vYkJObXRW?=
- =?utf-8?B?YmdkSU9yNU1oT1pRVVNIRC8wNzl6UE52NDhLSm9SMDVFcUxoM2J1RGlaaDI0?=
- =?utf-8?B?WnU5ZkNSOWdLM21EZkJRMlhZV0RDRnhzcFQyL3hELy9xdURuclZaNUludEoz?=
- =?utf-8?B?Y3RrUWlad1l5QmU1Z3BTSUQ1RHYzTDJ1elk1N0lUQUVtc1BrUGVCMXpBaGQ2?=
- =?utf-8?B?b3VSM3pBVUV5RktFdzJaMmhRc0FtQ2xITVBhMVpmUkFJbUQrSFlhRGtwZEZT?=
- =?utf-8?B?Z2tXQ3RZb0g1UkVCNCsyQ2tFSjdsMDZoQ0NLQW05b0FRMzNON2tnR0dnQ2R5?=
- =?utf-8?B?b2hQdmVUcXh1QlBQc3FBOThBcGdxSkNQdmlSQzUxcFNCV3NoNVlXVzNkRHU0?=
- =?utf-8?B?eGp0Mk1Dd1BPYlVSMkhMdkV0eU9wNXE3WGlSbUVBWFFCNnp0Ukpld1hVbDJQ?=
- =?utf-8?B?YTd0V0JmUXBwTjkwaHJhTjNPN0lLNGMvRTB0QytMVWJmWUJNdlF3NkdkNFVP?=
- =?utf-8?B?cmxQdThXNnBObGpkVEkrUmpOUmZDQjJwQlNHUmsvN28zUnhnb1M2eGFwQWlY?=
- =?utf-8?B?dlo2RGkyUUVyRXZrZnUyenV3RWtiOExMUjZiUktrYlJ4OXdDQ2l2OTdFRjNS?=
- =?utf-8?B?NFgzd2NteHBVREdKeWthYTY0MEVIdkUwbFdTMGowNDE0V3JRN3JsN2c0REQv?=
- =?utf-8?B?TzBSalZaTDcyOFRGa0s4NnVhN3hTYlZDY2o1OWdPd1R6amE3TGVTaVUxN0pv?=
- =?utf-8?B?MjNaS2d4YWJJejBSUUtTZXppb0luN0kzVDZBdmRrMXJSMGgzVFRwdThZbkVU?=
- =?utf-8?B?ZTdMSjZIaGI5cU9ndW5hcVZZWEFLbGdlNm5vdXFKekxUMHRjNkd4NEVCNVU2?=
- =?utf-8?B?ditnR1lpeVdzYlNraDdjcmxHK0h5c3RPUGprSEdaK1Z6S01hclVZUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 792e64aa-9afd-4976-1fdb-08df188b0133
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5716.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 09:22:21.4758
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VOraB00PoY8khkkUccXdEfJwgWT68DAOfxPgArpXO+ZSLaLJNscXxt00xdeipj7lmdqKef053Cxmgv4WcIr25A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9720
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved
+ memory
+To: Mike Rapoport <rppt@kernel.org>
+Cc: robh@kernel.org, saravanak@kernel.org, m.szyprowski@samsung.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, akpm@linux-foundation.org
+References: <20260920092852.614973-1-chenwandun1@gmail.com>
+ <arJA6fOMetzoBhDH@kernel.org>
+Content-Language: en-US
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <arJA6fOMetzoBhDH@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof,
 
-Thanks for reviewing the patch and apologies for the delayed response.
 
-On 13/09/26 14:10, Krzysztof Kozlowski wrote:
-> External email: Use caution opening links or attachments
+On 9/22/26 16:48, Mike Rapoport wrote:
+> On Sun, Sep 20, 2026 at 05:28:47PM +0800, Wandun Chen wrote:
+>> From: Wandun Chen <chenwandun@lixiang.com>
+>>
+>> This series fixes several error-handling issues in the reserved-memory
+>> initialization paths.
+>>
+>> The first two patches fix cleanup of no-map regions after driver
+>> initialization failure.
+>>
+>> Static reserved-memory nodes are reserved during the early DT scan but
+>> initialized later. The third patch tags regions whose early reservation
+>> succeeded, so the late scan can skip the nodes whose early reservation
+>> failed.
+>>
+>> The last two patches reject overlapping static regions. Without
+>> these checks, overlapping nodes can be initialized over the same
+>> physical memory, result in data corrupt.
+>>
+>> Sashiko reported these issues in [1] [2] [3].
+>>
+>> [1] https://sashiko.dev/#/message/20260814090305.4C8741F00A3D%40smtp.kernel.org
+>> [2] https://sashiko.dev/#/message/20260814084718.29C341F000E9%40smtp.kernel.org
+>> [3] https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kernel.org
+>>
+>> v2 --> v3:
+>> 1. Rework the mechanism that checks in the late scan whether the early
+>>    reservation succeeded (patches 3-5, suggested by Marek, thanks).
+>>
+>>    Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
+>>    the early reservation of a static region succeeds and checked in the
+>>    late scan.
 > 
-> 
-> On Wed, Sep 09, 2026 at 04:11:19PM +0530, Kartik Rajput wrote:
->> +  clocks:
->> +    items:
->> +      - description: UFS host controller functional clock
->> +      - description: UFS host controller divider clock
->> +      - description: UFS reference clock (PLLREFUFS output)
->> +      - description: UFS device-side reference clock
->> +      - description: M-PHY reference clock (UPHY0 PLL4 digital output)
->> +
->> +  clock-names:
->> +    items:
->> +      - const: ufs
-> 
-> core? Names equal to block name are not really useful
-> 
+> Can we keep this local to of_reserved_mem please?
 
-ACK. Will rename it to "core".
+Probably not. I do not see a way to keep this entirely local to
+of_reserved_mem while handling the issue robustly.
 
->> +      - const: div
->> +      - const: ref
->> +      - const: ref-dev
->> +      - const: phy
-> 
-> Shouldn't the phy take its reference clock?
-> 
+I previously implemented an approach in of_reserved_mem that records
+static reserved-memory nodes whose early reservation failed in a local
+array [1]. However, the early scan runs before paging_init(), so the array
+cannot be dynamically expanded. If the number of failed nodes exceeds
+the array size, some failures cannot be recorded and the issue remains,
+and that is why Marek said "partial solution", although in practice
+having that many failed nodes is unlikely.
 
-The name is misleading and the description is wrong, I will fix both.
+To handle this robustly, the late scan needs a way to determine whether
+the corresponding early reservation actually succeeded. Current approach
+uses memblock to retain that state.
 
-The M-PHY's own reference clock and PLL are already described in the
-M-PHY node ("tx-ref" and "pll"), this is a different clock, UPHY0 PLL4's
-digital output, consumed by the host controller.
+[1] https://lore.kernel.org/lkml/20260818092420.2859026-1-chenwandun1@gmail.com/
 
 
->> +allOf:
->> +  - $ref: ufs-common.yaml
->> +
->> +unevaluatedProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/clock/nvidia,tegra264.h>
->> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +    #include <dt-bindings/phy/nvidia,tegra264-mphy.h>
-> 
-> You need to decouple dependencies. Otherwise how is this supposed to be
-> checked with tools? If applied, you just broke maintainer's tree.
-> 
+Best regards,
+Wandun
+
+>  
+>>    Patches 4 and 5 are reworked to reject regions that overlap or are
+>>    contained by an existing reservation. The code makes a little different
+>>    from what was acked in v2, so the Acked-by tags for these patches are not
+>>    carried over.
+>>
+>> 2. Reorder the patches: the two cleanup fixes in v2 now come first.
+>>    In v3, the first patch now introduces the 'dynamic' distinction in
+>>    fdt_init_reserved_mem_node(), which the following patche 3 build on,
+>>    so the series reads more fluently.
+>>
+>> v1 --> v2:
+>> 1. Rework failed-node tracking in patch 1: do not track zero-sized nodes,
+>>    and keep a reserved_mem slot when tracking overflows.
+>> 2. Reject static reserved regions overlapping existing no-map regions.
+>> 3. Keep MEMBLOCK_NOMAP flag for static no-map regions when init failure.
+>>
+>>
+>> Wandun Chen (5):
+>>   of: reserved_mem: release dynamically allocated no-map region on init
+>>     failure
+>>   of: reserved_mem: retain static no-map memory on init failure
+>>   of: reserved_mem: skip init for regions whose early reservation failed
+>>   of: reserved_mem: reject static regions overlapping no-map memory
+>>   of: reserved_mem: reject static mapped regions overlapping existing
+>>     reservations
+>>
+>>  drivers/of/of_reserved_mem.c | 86 +++++++++++++++++++++++++-------
+>>  include/linux/memblock.h     |  7 +++
+>>  mm/memblock.c                | 95 ++++++++++++++++++++++++++++++++++++
+>>  3 files changed, 170 insertions(+), 18 deletions(-)
+>>
+>> -- 
+>> 2.43.0
+>>
 > 
 
-ACK. I will drop the include and use raw cell values in the
-example:
-
-     phys = <&mphy 0>, <&mphy 1>, <&mphy 2>, <&mphy 3>;
-
-Thanks,
-Kartik
