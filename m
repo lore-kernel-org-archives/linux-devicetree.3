@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CF95187FB;
-	Tue, 22 Sep 2026 10:44:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E222B4FE2E2
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:44:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790073889; cv=none; b=fe5Ti2vyW/u2VAK19aaSu0cCtNw68F3Rw1gsPtNFak430zAWq1T0J4wvbzK/16v5gSXHOv6NEZdGavsoLB6gbxfbbRi4TAZuqc3FG+Hzp1ZlHUAbnXp36HJ9EEmHxPotk1jovdO3m67lwD2emrBsriEpbtjqJ7DMftzwX4j3ooE=
+	t=1790073899; cv=none; b=b6SYAQOvmbqxHTOiuCIUGJvjryzbI+rSHgHQRSH+v2HWJ8WrnFS9OkM5IoVVn0lU6/2EpWrleeDJuE8T4c7H3pJfUdaBFxirtBZMOYKGeybjOEKOooUlkJJL5aKdMRXZMw8JYE9+a6TwZeJFT2ON7gHWr54bKKcyw7dMBzbWWO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790073889; c=relaxed/simple;
-	bh=Watr4nNyZvGw/2SwCQxoDhWOiPZZjAIJe5quJ9+0Rf8=;
+	s=arc-20240116; t=1790073899; c=relaxed/simple;
+	bh=hK2Lfq5K1b355WCjatxrOTlkCm63SFejXt709L22neQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Mw5RqRlSYsN2f5Mk+tFoIRprdGZHR8k1OAD2LzyhLfAePFiS4fLDHyeJ7PFydLNnsS9mNKUusj1+h9aq8rDfrEYSDXDFI6PaZZQJqAxa/bdJFVLoYoV4/2Wz3QzlH+47XbT1gNKaZ9vwMFnRmBpsxbqORIkB3kCzq4optFtNmCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q2SsiAeW; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Y3nlW1ZPnzEia4GmiO+COd3ux9Oludd9NjSXIPxgozuFmmvl3kA1t89+ae3zy892DMPaVXtlRmYKOY23vS9FDdzmJJ0ZbZjvNrZ+Sjj20cu4NBcPV3/P8gmSpAvl1T1D2mFMGzQkC2LXnbAd0JoOmaf9wcIlD7JU7m2U7nbMlV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jEarRqbU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q2SsiAeW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5C791F000FF;
-	Tue, 22 Sep 2026 10:44:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jEarRqbU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF4F1F00893;
+	Tue, 22 Sep 2026 10:44:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790073886;
-	bh=3aPUPivC4b5ZIJUXeU1itKnx1QmlawxrfLmx6rLqt7Q=;
+	s=k20260515; t=1790073897;
+	bh=igggbBkMwAOXUpaeDWiX4uNsay1zAdu36o6EqcmzFM0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q2SsiAeW34O5majWfc/A/Z/Uh2w+n37JurYq/GHd/FUNIR0g3ZJ3z/gIARWNnstH2
-	 n/9iDbwJc5Bys65jnBjPye9sXWBIFmXp6TZ+O4jkFy3aqPWg9vOOh2EbmPUgSRF5Jw
-	 JKbDMLNHAii7kCEbh72oZeLX4XKgt2g2Yf3ITzWXs18yj+YvGYKEuz9p0V1qQd5L4A
-	 MoZEpDiBHoq6j2BjmRuNjGaB5cpW4N6ygjGlsry4JMAZfxlcvd2UPQtJItO8cbLmLF
-	 Qmq69hiYSzSQF4vt+lTl+qgYsWBqFhiMBblAd77VlH0Su5nf/9/oy2918IJySjjX9P
-	 iZaCMrh2isOPQ==
+	b=jEarRqbUKhIVk3se7eXkdwYHKFna1S2vsKZQNZUzN6WZziJ66H00rkaawIEL93RMU
+	 Q/6nkLS5QhQG5ePdvhDhr6M9dtqvz4e5d65/I0XxtABZKIperAR5yZHv+VCdobFoJV
+	 3sdgrguZYwcs/oLAq4btdtZe7n4mK9mJfrHJHA/pPd0VkQaYRJodZi86AQlfTe++p2
+	 UsDIKzE0DpgbReCtZbb+xv8clZ5A2IMwaBeB1VGaYg5CmNsj+i00DKCng1WM7ujznK
+	 wP6kaWPktaCpotd8MvThj06Zm9lEB3C3X04UIAv1t3WiMZKb9xs19/K/wDpLPU0WlZ
+	 5b/PoV5A4O+gA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 3/8] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub
- support
+Subject: Re: [PATCH v2 1/3] dt-bindings: usb: mtu3: add mt6595
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: lee@kernel.org, linux-i3c@lists.infradead.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>
-In-Reply-To: <20260922103551.2754613-4-lakshay.piplani@nxp.com>
-References: <20260922103551.2754613-1-lakshay.piplani@nxp.com>
- <20260922103551.2754613-4-lakshay.piplani@nxp.com>
+To: "Roman Vivchar" <rva333@protonmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260922-6595-mtu3-v2-1-71203a362b36@protonmail.com>
+References: <20260922-6595-mtu3-v2-0-71203a362b36@protonmail.com>
+ <20260922-6595-mtu3-v2-1-71203a362b36@protonmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 10:44:45 +0000
-Message-Id: <20260922104445.D5C791F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 10:44:56 +0000
+Message-Id: <20260922104456.EAF4F1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,54 +46,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: missing 'compatible' in top-level required list
+- [Low] dt-bindings: usb: mtu3: missing companion xhci compatible for mt6595
 --
 
-commit 4b70261c8ce41e64c7020f41bb3084f3d73d0e07
-Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-   =20
-dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
-   =20
-This patch adds device tree bindings for the NXP P3H2x4x multiport I3C hub
-family. These devices connect to a host via I3C/I2C/SMBus and allow
-communication with multiple downstream peripherals.
+commit 69c32994e4cd3df8ae84107c2e4552ba6293f82d
+Author: Roman Vivchar <rva333@protonmail.com>
 
-> diff --git a/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml b/Doc=
-umentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-> new file mode 100644
-> index 0000000000000..09508a7bcbeb6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+dt-bindings: usb: mtu3: add mt6595
 
-[ ... ]
+Add a compatible string for the MTU3 IP found on the MediaTek mt6595 SoC.
 
-> +      ldo-tpg1:
-> +        type: object
-> +        $ref: /schemas/regulator/regulator.yaml#
-> +        unevaluatedProperties: false
-> +
-> +required:
-> +  - reg
-> +  - '#address-cells'
-> +  - '#size-cells'
+> diff --git a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml b/D=
+ocumentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+> index 21fc6bbe954f9..4538df164a16d 100644
+> --- a/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+> +++ b/Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml
+> @@ -22,6 +22,7 @@ properties:
+>      items:
+>        - enum:
+>            - mediatek,mt2712-mtu3
+> +          - mediatek,mt6595-mtu3
 
 [Severity: Low]
-Should the top-level compatible property be included in this required list?
+Does the addition of this compatible string trigger a validation failure
+during dtbs_check for mt6595 boards utilizing host or OTG modes?
 
-Standard device tree binding schemas expect the top-level compatible proper=
-ty
-to be explicitly listed in the required array for standalone device nodes.
-Although dt-schema matches the node by compatible string, omitting it from =
-the
-required list allows a node to theoretically pass validation without one if
-referenced through other means.
+The mediatek,mtu3.yaml schema enforces that any xHCI child node must comply
+with the companion schema:
 
-> +
-> +patternProperties:
-> +  "^i3c@[0-7]$":
-> +    type: object
-> +    $ref: /schemas/i3c/i3c.yaml#
+Documentation/devicetree/bindings/usb/mediatek,mtu3.yaml:
+  "^usb@[0-9a-f]+$":
+    type: object
+    $ref: /schemas/usb/mediatek,mtk-xhci.yaml#
+
+When a device tree for mt6595 configures the MTU3 controller in host or
+dual-role mode, it requires a child xHCI node with the mediatek,mt6595-xhci
+compatible string.
+
+However, this companion schema is omitted from the patch and does not list
+the new compatible string:
+
+Documentation/devicetree/bindings/usb/mediatek,mtk-xhci.yaml:
+  compatible:
+    items:
+      - enum:
+          - mediatek,mt2701-xhci
+          - mediatek,mt2712-xhci
+
+Should mediatek,mtk-xhci.yaml be updated to include mediatek,mt6595-xhci to
+support the mandatory xHCI child node?
+
+>            - mediatek,mt8173-mtu3
+>            - mediatek,mt8183-mtu3
+>            - mediatek,mt8186-mtu3
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922103551.2754=
-613-1-lakshay.piplani@nxp.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922-6595-mtu3-=
+v2-0-71203a362b36@protonmail.com?part=3D1
