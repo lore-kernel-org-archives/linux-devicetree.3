@@ -1,70 +1,80 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023135.outbound.protection.outlook.com [40.107.44.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2AB237F337;
-	Tue, 22 Sep 2026 03:34:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.135
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790048107; cv=fail; b=TG8h0zhWi1hquLuIi+EaVILCGH/6jb4roaS1QqptM1jEYnX1aYF2CuehDddEM8xB2PjJOVonHoPeO4WsdPgsEFqGBn8SZC3KhOQ7DGMIYONbI9j1l0R13Z8aAwLumfNZZXWEH0mw98uhG2DfttZSHJ+V3ceZY9I79uWVt2NUjYM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790048107; c=relaxed/simple;
-	bh=pzwV7Rhi18YzPW0ZX3P8rBVNDYR3FSnysMgQ27SNFow=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FEvkMAbH1WtZn6AZsW/OqRcWsiOvNb/QGKfNh9mkawuGaSO3YwInnFx/Pd5nXCRWG8aWPt+1rxBOZOTMJXI2Zk+fojLF9fxKK/QNed/DLpuu+NAzCX3C0kW9M3F6hnABI91lLoiW+/QSKy5a5/muIIcG8isTcck32BwL3LKglJA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NtmNHhPANa0LMzgRrbrTFxD6lYNOdGxB4y4Uslpmw8TaGrrwW9qnMwmVdVo14CcqEu4MVLkuA0OfsaKkknp8FLSwtkx2YhBUGK39QukRKABoYUBUk/7M6O7qqbWYW1GUgaxSPtNLIQnV2wh02FB6Rl1+KBidywvHE3EJOkiG+45l/U5MevF8gZzMwfmIukUXf1VhZeIQjghbBFIJJKt7rMnrxgd9mxnyGUrcWscJeHcOK0Zueo7q37DyWoyiKyzid5ZjtR8tR9G8EyYNh7XIDR8PsNjfUAHTcTN4d3mBt0REedvV25JkfngCyJidSWfufwPctZJ5LxmSODlKAG93TA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NpbqVr5HyIk2SCyabfYXcZ+TYBkN2qY6yuK+RIjHt/o=;
- b=NyUCREbnuwiqPtd8QNMkFW3wXnc3YSXeT+QFj0qopK/zwIKYgIbmzHAj9dcvyAWtQXuaisinr2+SxyzmWUjFNp5uKEBfhAUSXFLD4JJ2eBoKDwGNZSP8nl2ZeGv+VZDyRqOt1mlQ1RVAItvlU6SCiDzm0LjLbGF40CLes9zYGl2R57tw1lL0cbddo+bZMoXj+7tfEuzu7c4my0jX9t6EBJtzb67JC1A4bmyeJIcaMJmmHH4XEzd/mBsNfNkvfPXprPlq+Ibz/QJHXFyOoerBtmgVX/NWW8sknKMJBDS2NnTYzuuCgla9nTpQRGr0Pfbl72sdc6twkbdmB0zujoNN7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI2PR01CA0025.apcprd01.prod.exchangelabs.com
- (2603:1096:4:192::10) by SEZPR06MB5558.apcprd06.prod.outlook.com
- (2603:1096:101:cc::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Tue, 22 Sep
- 2026 03:34:52 +0000
-Received: from SG1PEPF000082E8.apcprd02.prod.outlook.com
- (2603:1096:4:192:cafe::99) by SI2PR01CA0025.outlook.office365.com
- (2603:1096:4:192::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.12 via Frontend Transport; Tue,
- 22 Sep 2026 03:34:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG1PEPF000082E8.mail.protection.outlook.com (10.167.240.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Tue, 22 Sep 2026 03:34:50 +0000
-Received: from jfliu-System-Product-Name (unknown [172.20.64.65])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id D4FF8427F202;
-	Tue, 22 Sep 2026 11:34:48 +0800 (CST)
-From: Jianfeng Liu <Jianfeng.Liu@cixtech.com>
-To: cix-kernel-upstream@cixtech.com
-Cc: Jianfeng Liu <Jianfeng.Liu@cixtech.com>,
-	"Fugang.duan" <fugang.duan@cixtech.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Gary Yang <gary.yang@cixtech.com>,
-	Hans Zhang <hans.zhang@cixtech.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Peter Chen <peter.chen@cixtech.com>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B432F2475D0
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 03:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790048856; cv=none; b=Y9tn5ziWM0A5sdRhNWF0CJF3QWb58b8im8ZbqK/XPcwjjpTHGmHruDC/KR0CS87RDM+OmLXfuBxkfBl44MEO6c9SJ/OPHHWOEuCl8r1kFwDjoDIhUX9ES6lhVairZQ4i70hQRzRd4QU4+bZUmxlNQPFdBgFXXb5ySHPrThuXofk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790048856; c=relaxed/simple;
+	bh=HtavXwOO0OEHuiGVXTW8F+NzHuFXrh7lU+hDGXaFDgg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=X1BySB3K58L6aSaPsCSSbr3WTbmniiEV0Pgf3LcKfTda7s+sjavToBFM62KyYl6gUQAEmM5+bU65MvVOtfmxf6oIQ0aaFM5Z0ynRzrD6n+IT6iQePzs2fPldycXD/uAIz5BOeriK7jRhSazIvM/toU33QUTZNUn3kWbfwC172zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d7wZoolo; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d7wZoolo"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab20a33so3773129d50.1
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 20:47:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790048854; x=1790653654; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EeGfs7dlNwJSpSR2y2pu7Meyw4f/IE6ZSxzgz1gB6h4=;
+        b=d7wZoolo31o/NL6zWmMxbJqHyDpWBlFDZ3fIz8LW3Lmscs3EkZdShFXbmNWscQc97P
+         qQflaLt2fM9rPrTVz41GXaGw6xdhhXFiKlmtuvgyzbaEo9f0lSCO8TqOVlWQM8gkwBDp
+         WyCsyWnsnjycPxpRa+bNSwrLj9P4EayyCy/soJlA140CppL3rYXstwo/E3rv8X0qIUJK
+         gJ/3Lc1bf3NdLivsF+iShPHdm4b81k12taDFAWyHAD9lyjKG29KHmpyYxk5z3XqS1QFt
+         S8Sf2Fw7/EaA4xurwqWz+O51Nwy4V1KINRsdh68Y9kocKmCRk8e65iawTT08UoxzKjwI
+         ps5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790048854; x=1790653654;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EeGfs7dlNwJSpSR2y2pu7Meyw4f/IE6ZSxzgz1gB6h4=;
+        b=bKCDmqqR9Lzzt+RX0wzyyk1DbLcXZf/92L0GiQ22gkgR2WNl9RdSuJykPTqy/fMKOq
+         tt/tvBNildeiZKS8+YmcS+EXvLhlUpOyyzjI8jqyG9TdaH6ctg4rUKDw4TtssZVcMOI4
+         Pfwlt3kyHqw2oJoetQuSkVZKvnpcNImjL62yJszHBjJX2wH/jWGD/yq43tnk15OqDvPV
+         0V2IbWZjAW8VPVq9A+38sITUERcUxHJ1U28dipNLDDI3Pz4jTebyDsGqf20DWSfcRsmP
+         cEQWTfeb1WPlFzwsUpYvJd8UwqoMTKkMZYc+OQca0kBXRDszI+AzYJP51mrYQTskuIep
+         kycQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxRPDGIQJkqPGaUCBcAjqLvsYNXE8eLcQ3ZAfps5oUW/dGhwYDmkk2P2svXTzwPiQ6K2mYGoXGSg/qR@vger.kernel.org
+X-Gm-Message-State: AFuF++lL96I2kVh/TOyEs/gH65vA0ONMPXmFND6AyC53cOpyMy7hPg8N
+	Xfr35xrV9ru4TDRatR2LhzseOPRsJwyUOpOX48mJoBDq+hwzWtH+NZAX
+X-Gm-Gg: AYBFou0lz6NovFHcNZUyrvqCg+31UCZa0UzVQO+HCbKf6Nn9J9mtj9mB91zTFN9tNu6
+	IlnNiuEqVD1r7v2VNhU/c10wxY7fQGZmpnm1WqT6J/4TJzeu9yFeDnwvpVpHJrA/mEUwsf1RmZz
+	Dgf/d3y/F5FpFvZfFOPeNPUfA2EjKOvmY8QIu+ah1rPKpbCGL0Um+GC4bc4wRIQEnuDklo7nLwq
+	wuPPi6CfQEKGCtMVZRBG6Cyvq3FJ7i6uHMua56xpfIN2ji1W7THx4d2u4XPg+VWnNndKvJUHDCj
+	9KZ2WVxxF1m4rEtj1zzqeSBA86FHFASHbbvB2mQ0uAcQDh8vcV5fJEOAH0EoDsoJmRj0RnXb+e4
+	E+7VC/PUDLUZjjxpuybyqUkbehl4ZgEmkRWBEkBHMoFoPqgsFms2S2XWLLdtYbmUa2qaWtMkH8F
+	6BwGV1VHr3NWwcKuMQjsApuAJLqlp4wLxp7apftx5TPvsWJP16x1MWMDBTts7oBReNKA==
+X-Received: by 2002:a05:690e:4148:b0:672:99e0:ebdd with SMTP id 956f58d0204a3-67299e0ef69mr2889187d50.117.1790048853652;
+        Mon, 21 Sep 2026 20:47:33 -0700 (PDT)
+Received: from hp ([71.12.40.102])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a2bd79e82bsm1822337b3.5.2026.09.21.20.47.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 20:47:33 -0700 (PDT)
+From: Tim Michals <tcmichals@gmail.com>
+To: linux-sunxi@lists.linux.dev
+Cc: wens@kernel.org,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org,
+	Tim Michals <tcmichals@gmail.com>,
+	Jassi Brar <jaswinder.singh@linaro.org>,
 	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: cix: sky1: fix RCSU strap/status reg of pcie_x2_rc node
-Date: Tue, 22 Sep 2026 11:34:28 +0800
-Message-ID: <20260922033448.1094694-1-Jianfeng.Liu@cixtech.com>
-X-Mailer: git-send-email 2.55.0
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH 1/7] dt-bindings: mailbox: add Allwinner sun55i msgbox schema
+Date: Mon, 21 Sep 2026 22:47:05 -0500
+Message-ID: <20260922034711.190253-2-tcmichals@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260922034711.190253-1-tcmichals@gmail.com>
+References: <20260922034711.190253-1-tcmichals@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,77 +82,128 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG1PEPF000082E8:EE_|SEZPR06MB5558:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 0f9bd60b-8546-4ed0-06c2-08df185a753e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|36860700016|82310400026|1800799024|6133799003|10067099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	nlszQRPnuojlXLfyRmay4O+I8okyLIe0um2T4NEvrkBMsQVoV1DSqbNOXpVLT9SOC2QK6jcsvWDh6kCrYF2No4ajJhNiSTJr6o5RX3MEI8cSViK9yX+52YNu0qLiP2bW6oBVWBRmoM9OX6aJ35GoBehdjrBucz8rkcLc/LHAWTbK6bRj4G0iO4rV9K6BUGkfq8LtnBAMwS+nAgwZLKAx/jAooKS/TMRMfRZL/hMCmHjpIGG79+x1onwx1kBYUQQJ0rDLwD/aj6LZeJ3MmTvRsh0zQSHTXXdiqDMNm9ZlO6ambtWgvjfZwD2xNsi79eUvNQESRSpkMxj1b5wENE9PgZ73G45mt+nK8ue+xeg2m9N3IHkxjSG7qdRkubtq0OWL3SKJ0TijFFmc1nqOFR9BXW85B4MIITUEisglCxnw/0aYRx7xB1/nJqA34+KiD+yu908nmGVCOklN5VFaNZPYWtvH/4ELblxZvcTz0fLpR7Ivm0ZWyYCOksrAxtosE6EPIYI9cbymgyeV28mG3ZQEbZ8t97f7oH4tdX7C9D7nRG1V44xhXx7EE/sUqwFDiluWrQCzaM9/I+n3JqUEewZ+bzByEYcxuBjMVg3FffPRaN9XvrNIZMF5JhP8d1qB+CxJVf0BBBqsE+WcKMggTyVyZqv/oAXbJZcEmANKLe7iWqpHve8hUkgMJ8KMeyzfQJTQzYZv1mXxYdRyDMIVwj7/ng==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(6133799003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dfoyqmlLjY0X1zhQ9NYqVHrldc9MWKlGNPDmPXhrnI5hANk8xWaRY5izzF5+rz0l2pHeNEczcgeWE0hfBkFZmdYNDlZ4GJvNisQqzjJH4E56V+wByTaW9wfwV3DWtrJQFqNadrZo+Uy0lsZgHYRI7MqTVxsdzVe9aHwCVhtgWY3/bRj8IySDJ7rDZCgVvdr6KuQekjCefCGa41dG1zqOEJ0CHQzqRf/5JdbBMwKXlF9C/HLXJqh1BiJ/TBIG2peE51nkYcs0PYU5VdVoWwXqevtNSW2RrJhclyhrxmf0/Opa4guQknKVOWhtNVCAivfai2a/o0ZRVyOAc/AuinVrYjImoPcuVVrxlsaTu7JTHCyDcJmqi6d7JMWT+Lpv5MXFvd6hFbGXXCEy1MGhwzAQdknh0+D1w3+DRQDRolm1ssObNJcSb4blD3bwidj5Z12Q
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2026 03:34:50.0842
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f9bd60b-8546-4ed0-06c2-08df185a753e
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG1PEPF000082E8.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB5558
 
-The "rcsu_strap" and "rcsu_status" reg entries of the pcie_x2_rc node
-contain a spurious "0", yielding 9-digit addresses 0x0a0600340 and
-0x0a0600440 instead of 0x0a060340 and 0x0a060440.
+Add Device Tree binding schema for the Allwinner 4-port hardware
+Message Box controller found on sun55i (A523, A527, T527) and
+sun60i (A733) SoCs.
 
-The other Sky1 PCIe controllers use a 0x20 stride within the 0x0a060000
-RCSU block:
+The message box connects the ARM Cortex-A55 host cluster to the
+HiFi4 Audio DSP, Power Management Unit (CPUS), and XuanTie RISC-V
+co-processor across 12 logical channels with 8-entry hardware FIFOs.
 
-	pcie_x8_rc:   0x0a060300 / 0x0a060400
-	pcie_x2_rc:   0x0a060340 / 0x0a060440  (fixed)
-	pcie_x1_0_rc: 0x0a060360 / 0x0a060460
-	pcie_x1_1_rc: 0x0a060380 / 0x0a060480
-
-With the typo the driver reads the strap/status registers 0x1000 bytes
-off, landing in the neighbouring controller's RCSU bank. Fix the
-addresses so the correct registers are accessed.
-
-Fixes: 0b014cd8f15e ("arm64: dts: cix: Add PCIe Root Complex on sky1")
-Signed-off-by: Jianfeng Liu <Jianfeng.Liu@cixtech.com>
-Reviewed-by: Fugang.duan <fugang.duan@cixtech.com>
+Cc: Jassi Brar <jaswinder.singh@linaro.org>
+Cc: Samuel Holland <samuel@sholland.org>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-sunxi@lists.linux.dev
+Signed-off-by: Tim Michals <tcmichals@gmail.com>
 ---
+ .../mailbox/allwinner,sun55i-a523-msgbox.yaml | 93 +++++++++++++++++++
+ 1 file changed, 93 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mailbox/allwinner,sun55i-a523-msgbox.yaml
 
- arch/arm64/boot/dts/cix/sky1.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-index 0a820f45feb9..d64cd935970e 100644
---- a/arch/arm64/boot/dts/cix/sky1.dtsi
-+++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-@@ -661,8 +661,8 @@ pcie_x2_rc: pcie@a0c0000 {
- 			compatible = "cix,sky1-pcie-host";
- 			reg = <0x00 0x0a0c0000 0x00 0x10000>,
- 			      <0x00 0x26000000 0x00 0x3000000>,
--			      <0x00 0x0a0600340 0x00 0x20>,
--			      <0x00 0x0a0600440 0x00 0x20>,
-+			      <0x00 0x0a060340 0x00 0x20>,
-+			      <0x00 0x0a060440 0x00 0x20>,
- 			      <0x00 0x40000000 0x00 0x00100000>;
- 			reg-names = "reg", "cfg", "rcsu_strap", "rcsu_status", "msg";
- 			ranges = <0x01000000 0x0 0x40100000 0x0 0x40100000 0x0 0x00100000>,
----
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-branch: fix-mainline-pcie-x2
-
+diff --git a/Documentation/devicetree/bindings/mailbox/allwinner,sun55i-a523-msgbox.yaml b/Documentation/devicetree/bindings/mailbox/allwinner,sun55i-a523-msgbox.yaml
+new file mode 100644
+index 000000000000..4b73543c7902
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mailbox/allwinner,sun55i-a523-msgbox.yaml
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mailbox/allwinner,sun55i-a523-msgbox.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Allwinner sun55i 4-Port Message Box
++
++maintainers:
++  - Tim Michals <tcmichals@gmail.com>
++  - Samuel Holland <samuel@sholland.org>
++
++description: |
++  The hardware message box on sun55i (A523, A527, T527) and sun60i (A733)
++  SoCs is a 4-port multi-processor mailbox controller connecting the ARM
++  Cortex-A55 host cluster, HiFi4 Audio DSP, Power Management Unit (CPUS),
++  and XuanTie RISC-V co-processor.
++
++  It features independent 256-byte register banks for each processor port,
++  12 logical channels on the host (4 per remote processor), and 8-entry
++  hardware FIFOs with level interrupts.
++
++properties:
++  compatible:
++    enum:
++      - allwinner,sun55i-a523-msgbox
++      - allwinner,sun55i-t527-msgbox
++      - allwinner,sun60i-a733-msgbox
++
++  reg:
++    minItems: 4
++    maxItems: 4
++    description: |
++      Register banks for each of the four processor ports. Each port has
++      an independent 256-byte register bank.
++
++  reg-names:
++    items:
++      - const: arm
++      - const: dsp
++      - const: cpus
++      - const: rv
++
++  clocks:
++    maxItems: 1
++    description: bus clock
++
++  resets:
++    maxItems: 1
++    description: bus reset
++
++  interrupts:
++    minItems: 1
++    maxItems: 4
++    description: |
++      One interrupt per processor port. The host port interrupt is required;
++      remote port interrupts are optional.
++
++  '#mbox-cells':
++    const: 1
++    description: "channel number (0-11: 0-3 CPUS, 4-7 DSP, 8-11 RISC-V)"
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - clocks
++  - resets
++  - interrupts
++  - '#mbox-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    mailbox@3003000 {
++        compatible = "allwinner,sun55i-a523-msgbox";
++        reg = <0x03003000 0x1000>,
++              <0x07094000 0x1000>,
++              <0x07120000 0x1000>,
++              <0x07136000 0x1000>;
++        reg-names = "arm", "dsp", "cpus", "rv";
++        clocks = <&ccu 120>;
++        resets = <&ccu 45>;
++        interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
++        #mbox-cells = <1>;
++    };
++
 -- 
-2.55.0
+2.53.0
 
