@@ -1,96 +1,318 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2864E9C1A;
-	Tue, 22 Sep 2026 21:23:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A04D3F1ADE;
+	Tue, 22 Sep 2026 21:29:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790112196; cv=none; b=Pm6wkysSTs2IjWfozVE359GzhZdn9GOeBhWcCpAH69hDQCh3HsExty3DZthKI63kYuG0AmUYVcrUXf4pLNdi2x4V+mDXpV94tLKvTTGG0WLhf0XVWDUZ+OfSlTZEgi0sNuy3tnUs1ns4V66AxHebZ3YVsuG3blnEabAyRGVHEy8=
+	t=1790112589; cv=none; b=V/JC8VPVRYceLkosUEmp4aINvLKUhMCkzqiv+hadMWNHFKpdsN/HkES6zsEdblgKjfJdBEdQUJ5FOKOuyLGH1wv/vjtRkYPWr2r5g2znEG5l3mahlnvt/L5lGlM2xFJA0rnShy740+3VxLDv2YXgjQvrt/WPTijAfbAl2tJ7wdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790112196; c=relaxed/simple;
-	bh=SxtzDMpd4BOBSHxBGfxvK9bg3sZ2i5E5tzKBmQtzXUc=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=nsQDH0ekXLFaon3Z2X4qPO8bb06t98tDqgz3RdrjiUAicwaqZnqs3vfrf+mj/LFQXqQwkuI05uJB8fFsHbvVbTBeIVwm9BiqVh33bl8coaoX67moeuJYvyfuoHpAxmRxSBUFl87v5Dd5ZcyQXLVahkzANU8bf/3/nSUPWhOb+QM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CeG8u+eC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790112589; c=relaxed/simple;
+	bh=WRYsuw02M5uiU3Hup8d51SIi6ysZk/AvEI/aXNqoooE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RePbKbjEbBfg6kztM6XzcsfauC0goo4CZ15ApTkfYFOq5WK8TQdQ1gbo9GzktnIrXToyTeCtFZsHUP8pbReGONg/L6/Xbu0m5HY+XrBT230EneK2RnkGik0SN1fsCxitfJk8kJC3f4mUN/brPk/szgegEsFEW5FnWwpTVRbFLDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a36lGqaq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CeG8u+eC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CBA21F000FF;
-	Tue, 22 Sep 2026 21:22:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a36lGqaq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9FA1F000FF;
+	Tue, 22 Sep 2026 21:29:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790112177;
-	bh=1ZdkMU9inhU27Sz46y78NDuxZnAhsIJpwSLDKT9rQIw=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=CeG8u+eCPy3/q0g3QFP6oCSFYO88fpUB4LTJTZoWvF9k5Aefg7QPsJoZXoeT+KQCg
-	 44eGMQeHQRpNjbc0UcsmCIxk6smoZfVxbKtmuWFXrjHBbcLjNnz5xI7NWOQsVku1l4
-	 Z0XYcqrTGRTDLl0tNlXZ0usbCinrlpGox6CYlsd9kc+zp6tk0iHxvctyEg9peNbFzS
-	 dvc77gGjNtFOTFbGl7JTIiiOaLYMYGALEjkeLZVs9dWOMlELUdzuquR0m/VAho7p2L
-	 FLucOgkSzpOvtsdfcNj23GzxbqLnaxaFSbk7xpJLrLVloHr5jzXiEO3jFMdiBcLYug
-	 /Cy9HLaUD3Hbw==
-Date: Tue, 22 Sep 2026 16:22:56 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790112576;
+	bh=yKojB88UjpXGtOazU2N02Nu8K9kCYOGjnI2fYZ70c1A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a36lGqaqd3Pv41FJOCCFv/gToPy7yWy9a+rGuV5XEh9jGn3pAmk2/Re7X/2T14T4c
+	 XYbVENqyEjfdRCukK8xWbbBat5IU7uFJ/+Nd3rre19Rw7eAS6DZQe80te/WAeSLg0X
+	 u8EN1uITsAhOKRIqnkwXqvCJ4SvdqO+9Mn3Z8pKRoAGU58wPdwZxAHezLeRgwFxb4Q
+	 kEQ64ECFV6Nx42t+7+X0T2CFgunw51Mw3iqA3tUTP4LdOsaIKstSo11O1wJAF0VxiD
+	 +XiYHo2oHruR7VfwiglKPyawb4eNm4gSN8ze4laYrOtvZ942sN0JEOKWwivTH/Q6+i
+	 P64Y+LlCZ+s5g==
+Date: Tue, 22 Sep 2026 22:29:31 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Michal Simek <michal.simek@amd.com>,
+	Shubham Patil <shubhamsanjay.patil@amd.com>,
+	alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+Message-ID: <20260922-unadvised-stalling-5cbeff8f982a@spud>
+References: <aqGHlWpQjpHEft3j@SMW015318>
+ <aqKWTT47S_zPzvbN@squawk>
+ <aqLQaHndX4t1kKLG@SMW015318>
+ <778da629-2f23-412b-885f-e87827ce2b5c@amd.com>
+ <20260922-ethics-flap-9760347e869d@spud>
+ <20260922-bullpen-reprise-f62e01922d88@spud>
+ <20260922-immersion-salvage-00450539f1ce@spud>
+ <arKr-oapsl5qzo_E@SMW015318>
+ <20260922-purple-overnight-2cdd2ddd5270@spud>
+ <arLKWE1tJrKnzGdp@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: rahul@summations.net, pjw@kernel.org, broonie@kernel.org, 
- aou@eecs.berkeley.edu, anup@brainfault.org, alex@ghiti.fr, 
- conor+dt@kernel.org, lftan.linux@gmail.com, palmer@dabbelt.com, 
- linux-kernel@vger.kernel.org, krzk+dt@kernel.org, 
- linux-riscv@lists.infradead.org, lgirdwood@gmail.com, 
- devicetree@vger.kernel.org
-To: Joshua Yeong <joshua.yeong@starfivetech.com>
-In-Reply-To: <20260922161156.1088153-2-joshua.yeong@starfivetech.com>
-References: <20260922161156.1088153-1-joshua.yeong@starfivetech.com>
- <20260922161156.1088153-2-joshua.yeong@starfivetech.com>
-Message-Id: <179011214727.1123357.14799717245242010504.robh@kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: regulator: Add RPMI voltage service
- bindings
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LkC3daycRRxByKPg"
+Content-Disposition: inline
+In-Reply-To: <arLKWE1tJrKnzGdp@SMW015318>
 
+--LkC3daycRRxByKPg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 23 Sep 2026 00:11:52 +0800, Joshua Yeong wrote:
-> Add device tree bindings for the RISC-V Platform Management Interface
-> (RPMI) voltage service group, both for the supervisor-facing regulator
-> controller and for the SBI MPXY channel which the SBI implementation
-> uses to expose the service group.
-> 
-> Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
-> ---
->  .../regulator/riscv,rpmi-mpxy-voltage.yaml    |  65 ++++++++
->  .../regulator/riscv,rpmi-voltage.yaml         | 150 ++++++++++++++++++
->  2 files changed, 215 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
->  create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
-> 
+On Tue, Sep 22, 2026 at 01:35:04PM -0500, Frank Li wrote:
+> On Tue, Sep 22, 2026 at 06:24:52PM +0100, Conor Dooley wrote:
+> > On Tue, Sep 22, 2026 at 11:25:30AM -0500, Frank Li wrote:
+> > > On Tue, Sep 22, 2026 at 10:39:23AM +0100, Conor Dooley wrote:
+> > > > On Tue, Sep 22, 2026 at 10:38:17AM +0100, Conor Dooley wrote:
+> > > > > On Tue, Sep 22, 2026 at 10:33:44AM +0100, Conor Dooley wrote:
+> > > > > > On Thu, Sep 17, 2026 at 01:23:19PM +0200, Michal Simek wrote:
+> > > > > > >
+> > > > > > >
+> > > > > > > On 9/10/26 17:44, Frank Li wrote:
+> > > > > > > > On Thu, Sep 10, 2026 at 12:36:45PM +0100, Conor Dooley wrot=
+e:
+> > > > > > > > > On Wed, Sep 09, 2026 at 11:21:41AM -0500, Frank Li wrote:
+> > > > > > > > > > On Tue, Sep 08, 2026 at 06:54:31PM +0100, Conor Dooley =
+wrote:
+> > > > > > > > > > > On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham Pat=
+il wrote:
+> > > > > > > > > > > > In-Band Interrupt and Hot-Join are synthesis-time o=
+ptions of the AXI I3C
+> > > > > > > > > > > > IP. Describe them with two boolean properties.
+> > > > > > > > > > > >
+> > > > > > > > > > > > A Hot-Join request is acknowledged by the IBI machi=
+nery, so a hot-join
+> > > > > > > > > > > > capable design is always IBI capable as well. Both =
+events are reported
+> > > > > > > > > > > > through the controller interrupt, which is therefor=
+e required whenever
+> > > > > > > > > > > > the capability is present.
+> > > > > > > > > > > >
+> > > > > > > > > > > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@a=
+md.com>
+> > > > > > > > > > > > ---
+> > > > > > > > > > > > Changes in V3:
+> > > > > > > > > > > > - Move in-band-interrupt-capable and hot-join-capab=
+le into the common
+> > > > > > > > > > > >    i3c.yaml schema and drop the xlnx, prefix.
+> > > > > > > > > > > > - Keep dependencies in the AMD binding.
+> > > > > > > > > > > > - Update the commit description accordingly.
+> > > > > > > > > > > > - Conor Dooley acked v2 with the xlnx,-prefixed pro=
+perties in the AMD
+> > > > > > > > > > > >    binding [1].
+> > > > > > > > > > > >    That Acked-by is not carried here: the names los=
+t the vendor prefix
+> > > > > > > > > > > >    and the definitions moved to i3c.yaml after Fran=
+k Li's comment.
+> > > > > > > > > > > >    [1]:https://lore.kernel.org/all/20260824-tightwa=
+d-impose-495476599087@spud/
+> > > > > > > > > > >
+> > > > > > > > > > > I disagree with Frank. These properties make sense fo=
+r Xilinx because it
+> > > > > > > > > > > is an FPGA IP and synthesis options impact this. For =
+other devices, this
+> > > > > > > > > > > should be determined from the compatible.
+> > > > > > > > > > > Please revert to how things were done in v2, especial=
+ly as no rationale
+> > > > > > > > > > > was provided for why these should be common.
+> > > > > > > > > >
+> > > > > > > > > > It is common problems, when IP intergrate by SOC, which=
+ may defeature some
+> > > > > > > > > > part, It is not appeared now just because IBI and HJ ha=
+ve not enabled
+> > > > > > > > > > widely.
+> > > > > > > > > >
+> > > > > > > > > > IBI and HJ is optional features of I3C. Ideally it shou=
+ld be indicated by
+> > > > > > > > > > some registers. But not all vendor implement provide th=
+is CAP registers.
+> > > > > > > > > >
+> > > > > > > > > > IBI and HJ depend on some slow clocks, which monitor SD=
+A line change.
+> > > > > > > > > > Some instances of IP may not have such slow clocks. Som=
+e IP's IBI and HJ
+> > > > > > > > > > use seperate IRQ line, but these irq line may not conne=
+ct of difference
+> > > > > > > > > > instances.
+> > > > > > > > >
+> > > > > > > > > All of this should be able to be dealt with by appropriat=
+e use of
+> > > > > > > > > specific compatibles.
+> > > > > > > >
+> > > > > > > > I understand compatible can cover most cases. Need variance=
+ for property.
+> > > > > > > >
+> > > > > > > > >
+> > > > > > > > > > like previous SPI vendor customized property, we takes =
+efforts to convert
+> > > > > > > > > > to common one and also meet back compatiblity problem a=
+t convert. I don't
+> > > > > > > > > > want to do it again. This kind property is most likely =
+as below.
+> > > > > > > > >
+> > > > > > > > > What SPI controller specific properties are you talking a=
+bout here?
+> > > > > > > > > There are relatively few properties in spi-controller.yam=
+l, and none of
+> > > > > > > > > them deal with these kinds of capabilities.
+> > > > > > > >
+> > > > > > > > num-cs vs fsl,espi-num-chipselects. Total number CS of IP i=
+s fixed, but
+> > > > > > > > some instances have not route all CS to pad.
+> > > > > > > >
+> > > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > > default: 	decide by comaptible string or hardware cap
+> > > > > > > > > > force-disabled: force disable for some reason, like, mi=
+ss connect irq line
+> > > > > > > > > > or missed some clock, or IP bugs, or board desgin's som=
+e level shift chip
+> > > > > > > > > > broken IBI/HJ timing requirements.
+> > > > > > > > >
+> > > > > > > > > Of these, only the last would be a valid reason for havin=
+g a property
+> > > > > > > > > for it. Missing interrupts, clocks or IP bugs should all =
+be dealt with
+> > > > > > > > > using device specific compatibles.
+> > > > > > > > > If board wiring causes the breakage, the property may be =
+more
+> > > > > > > > > appropriate at the i3c device level rather than the contr=
+oller given
+> > > > > > > > > that wiring to some devices on the bus may not have the p=
+roblems?
+> > > > > > > >
+> > > > > > > > I3C.yaml is for both master controller and devices now. I3C=
+ is bus, which
+> > > > > > > > connect many devices, if wiring issue, whole bus can't supp=
+ort IBI. And
+> > > > > > > > if any broken devices happen at address arbitation, whole b=
+us can't support
+> > > > > > > > IBI.
+> > > > > > > >
+> > > > > > > > at beging, I suggest 3 state,
+> > > > > > > >
+> > > > > > > > [default, enable, disable], but now I think IBI_broken, HJ_=
+broken is more
+> > > > > > > > reasonable to disable it, default value should be set by co=
+mpatible
+> > > > > > > > string or DCR of I3C regiser.
+> > > > > > > >
+> > > > > > > > And some I3C device may be failure to work with IBI even DC=
+R of I3C register
+> > > > > > > > show it support IBI.
+> > > > > > > >
+> > > > > > > > I don't want to appear two similar property between vendor =
+and common, like
+> > > > > > > > num-cs vs fsl,espi-num-chipselects.
+> > > > > > > >
+> > > > > > > > such as IBI-broken can be used for controller and devices c=
+ase.
+> > > > > > > >
+> > > > > > > > > That said, I think that problem should be dealt with when=
+ it arises,
+> > > > > > > > > rather than starting a trend of adding capabilities prope=
+rties at the
+> > > > > > > > > controller level when I am not convinced that there's goi=
+ng to be other
+> > > > > > > > > users in the same vein.
+> > > > > > > >
+> > > > > >
+> > > > > > > > Understand, I3C is realtive new protocal. 'IBI-broken' is m=
+ore easy
+> > > > > > > > understand,  logically equial to in-band-interrupt-capable.
+> > > > > > > Conor: Any update on this one? I think this thread is stuck a=
+t this stage.
+> > > > > >
+> > > > > > I didn't think there was any need to reply. I took the first se=
+ntence of
+> > > > > > this snippet to be acceptance of what I was saying.
+> > > > > >
+> > > > > > If yous desperately want to have a generic property, the negati=
+ve
+> > > > > > connotation of the "-broken" is probably better in that it'd be=
+ more
+> > > > > > likely to make people set stuff by compatible rather than have =
+to use a
+> > > > > > property with that word in it.
+> > > > >
+> > > > > That said, technically this platform could be both
+> > > > > "amd,in-band-interrupt-capable" and "ibi-broken" at the same time=
+, since
+> > > > > one describes the way the IP has been compiled and the other wiri=
+ng. I'm
+> > > > > not entirely sure whether conflating the two is possible? Depends=
+ on if
+> > > > > your IP's programming model changes if the option is enabled even=
+ if it
+> > > > > cannot be used. Not beyond the realms of possibility.
+> > > > >
+> > > > > Also, ibi-broken doesn't work for your platform, since the default
+> > > > > before this patch is no ibi and requiring a property for no ibi w=
+ould be
+> > > > > an ABI break.
+> > > >
+> > > > The perils of FPGA IP I suppose, and not being quite careful enough=
+ to
+> > > > document all of the relevant options from the start. Been guilty of=
+ that
+> > > > myself.
+> > > >
+> > >
+> > > Check impliment code
+> > >
+> > > +       /*
+> > > +        * The interrupt only carries IBI events, so it is only descr=
+ibed for
+> > > +        * designs synthesized with that feature.
+> > > +        */
+> > > +       if (master->ibi_capable) {
+> > > +               xi3c_master_init_ibi_ops(master);
+> > > +
+> > > +               master->irq =3D platform_get_irq(pdev, 0);
+> > > +               if (master->irq < 0)
+> > > +                       return master->irq;
+> > > +
+> > > +               ret =3D devm_request_irq(master->dev, master->irq,
+> > > +                                      xi3c_master_irq_handler, IRQF_=
+NO_AUTOEN,
+> > > +                                      dev_name(master->dev), master);
+> > > +               if (ret)
+> > > +                       return dev_err_probe(master->dev, ret,
+> > > +                                            "Failed to request IRQ\n=
+");
+> > > +       }
+> > >
+> > > They can use master->irq is determinate if support IBI.
+> >
+> > That seems viable. Where does that leave them for hot join though?
+>=20
+> No reason to keep hj because the difference between HJ and IBI is the
+> address when address arbitration. If hardware support IBI, it should supp=
+ort
+> HJ. HJ just use special address 0x2.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+For this IP, they appear to be controlled by different configuration time
+parameters, so I don't think conflating the two is the right thing to do
+here:
+https://docs.amd.com/r/en-US/pg439-axi-i3c/Configuration-Tab
+Per this doc, and the original commit, hotjoin configuration is not
+permitted when ibi is not supported but can be enabled and disabled
+separately when it is.
 
-yamllint warnings/errors:
+--LkC3daycRRxByKPg
+Content-Type: application/pgp-signature; name=signature.asc
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.example.dtb: /example-0/sensor: failed to match any schema with compatible: ['vendor,sensor']
-Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.example.dtb: /example-0/codec: failed to match any schema with compatible: ['vendor,codec']
-Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.example.dtb: /example-0/phy: failed to match any schema with compatible: ['vendor,phy']
-Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.example.dtb: phy (vendor,phy): voltage-domains: b'\x00\x00\x00\x03\x00\x00\x00\x03\x00\x00\x00\x03\x00\x00\x00\x04' is not of type 'object', 'integer', 'array', 'boolean', 'null'
-	from schema $id: http://devicetree.org/schemas/dt-core.yaml
+-----BEGIN PGP SIGNATURE-----
 
-doc reference errors (make refcheckdocs):
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarLzOwAKCRB4tDGHoIJi
+0tlLAP0fpiGDzo/aM4C0+bwrQ47VfXaCXmELfQhUlx6RC3bwgAD/Yb6FqXnTDZ1l
+1Two2fYpvNw8zDGzFTi2XW+6yG8JYgQ=
+=j+JB
+-----END PGP SIGNATURE-----
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260922161156.1088153-2-joshua.yeong@starfivetech.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+--LkC3daycRRxByKPg--
