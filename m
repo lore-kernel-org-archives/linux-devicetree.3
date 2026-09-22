@@ -1,110 +1,206 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-36.ptr.blmpb.com (va-2-36.ptr.blmpb.com [209.127.231.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54BE2539789;
-	Tue, 22 Sep 2026 11:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156C853976C
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 11:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790075004; cv=none; b=Z7NbfXfjFG3DiDrpW3eeoi9tvtHAZRD90LhYMNe0ZvE5QljjjGtp/CuZg5VLhM9PNwJfe3SaU/Z9w4Z5tXtJ5FRVM/yF4D5Rd9V42tRH9nlJFBMFdSEdhDncTas8vCoet+GhxgMbwyvdM/DR8/pt9V/qC+QSArpd8sdwDJZhMvw=
+	t=1790075095; cv=none; b=E4kMQZG9/FC2zcKRiYTEJK3TXcXZkp0ENKNemK2cW724JVNvVPAH9z4K6OvUefXtGtvHFYwNIT9XLDOisMXThaR+3GV/aIYjuFsdJSrZApq7jwMor6nVLzjnxWIYAAafhmBd2E7k1JuCNKR00wZkupRSKTz2dyqWHSH2GOb2tY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790075004; c=relaxed/simple;
-	bh=ik2TSWWSMDSo+wj+TTDCw/82I6ainBJxGpgZm7BMKIo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hnmxo97XlEVsgxRgVG1K31P/sUTKcUZwz6iTomJjVZMmjrsYwI153XgMTkfyjYQ7GvQjandIcM/r+50PakZSjI5gXg/1zRiWAYPyn/G3RGy7GfCM9A67QWSOtvsj6U2+mbo6GpKj4ubKHO45CSPzo/XJ6yaPiW7qkvyW/FO0gqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Xyulv73U; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790075095; c=relaxed/simple;
+	bh=48yPuF0tDHCncmBzIxe6Adixm4tcOkeCt6YRyk9li4k=;
+	h=Date:In-Reply-To:To:Content-Type:Subject:Mime-Version:References:
+	 Cc:From:Message-Id; b=VPcO/0WDYGuEoBLOt1B8SUyCHxOGUQHkJHk+ycap2eMrUBdDTCEkKMZ7dNJvFFha+LmtHZPsiOJWxz0H5IAX7CZjSXdoIvZ6XohPKQvqzVeCfedrI+Vy4TlNTRGw2kOb0x6dZdw5E0elRBoHZhT6N02TS++I3upqQfcfaa4tHcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=BXapSEhx; arc=none smtp.client-ip=209.127.231.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Xyulv73U"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790075003; x=1821611003;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ik2TSWWSMDSo+wj+TTDCw/82I6ainBJxGpgZm7BMKIo=;
-  b=Xyulv73Uptw/sqmR5n7WY2wgvwPg6DLkWYFgyNFjlPMyPLIqMkMg/TWd
-   Pb1vsbcacT0DnAjyFibbSScRgNcyJun+LYPV8Xx7iwqsE5StW9GxMeNIu
-   AWVOsYGijRHePz+VJu1lG8rJxBeARtPtc035yTzAnCyU1FVoX0kf0svgF
-   zgw7QH3I/NhXrFmFX4FhIg6dbq6lXQDUIQUUmAp3bCwLL37wtPXNNLljn
-   8VyY0ccIF+b6jXOLrCaAm4dgrrQ/lXDeHJPXLIfK8d1OyH3t+lPYki5qi
-   2pJaTqD5HebFpLvARreWwb9enGCMVYv2Kj2QUbPknzvde845qFzx0+1FL
-   g==;
-X-CSE-ConnectionGUID: zfHVlbbWS2+Jwwc1xEFVow==
-X-CSE-MsgGUID: /fHXh1uiQmaAWqTQYno1xw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11912"; a="116189874"
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="116189874"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 04:03:22 -0700
-X-CSE-ConnectionGUID: jYNSqwELSaymLJSVygnpkw==
-X-CSE-MsgGUID: JY29+J1BTgifCjMru4fGdw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,116,1787036400"; 
-   d="scan'208";a="277871181"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa004.fm.intel.com with ESMTP; 22 Sep 2026 04:03:19 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 1DC5D99; Tue, 22 Sep 2026 13:03:18 +0200 (CEST)
-Date: Tue, 22 Sep 2026 13:03:18 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Amber Kao <ite_pd@ite.com.tw>
-Cc: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
-	Yaode Fang <Yaode.Fang@ite.com.tw>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] usb: typec: ucsi: itepd: Add DisplayPort
- alternate mode support
-Message-ID: <arJgdmA9cWLMQpzV@black.igk.intel.com>
-References: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
- <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="BXapSEhx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1790075082;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=rFGPbCu53GFL/4qegEhAxeYlom/jwwxA377ZvxKEsl8=;
+ b=BXapSEhxXphY83h5L5pGHH2v417LgfhNbPAB+FbroRg0OUqKD0hE6o3g/0thrQlVE7maR9
+ uVkKChscn8ErHMmdNmjoW1FUV9LnDurhGZOwbSx3qYp6ztzwMzt/r51JnuH0rTb577B1DD
+ gckWUi0aeklkWYeAF7A5pLH0NkuMac62OH79AcBYckatpQEpXBCKU8sTGCGXBT3swNKVTG
+ qeN80BQJvZZyg4lDKciMgE6W50Zf4Nrqv5kcGLcF96CXzUcUZRWjjTDSmkx6RPl8Fj2lmi
+ SYHihH1z5KXk8Xk6oGT8BSEGX0z260R9YKTl/4ttnNno/2m/6C0kZCz3ngvklA==
+Date: Tue, 22 Sep 2026 19:04:34 +0800
+Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([183.23.111.1]) by smtp.feishu.cn with ESMTPS; Tue, 22 Sep 2026 19:04:39 +0800
+In-Reply-To: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
+Content-Transfer-Encoding: 7bit
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>
+X-Lms-Return-Path: <lba+26ab260c8+9c5941+vger.kernel.org+sandie.cao@deepcomputing.io>
+Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller and USB phy support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
+Mime-Version: 1.0
+References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Message-Id: <20260922110434.3426051-1-sandie.cao@deepcomputing.io>
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+X-Mailer: git-send-email 2.43.0
 
-On Fri, Sep 18, 2026 at 06:03:44PM +0800, Amber Kao wrote:
-> Add support for DisplayPort alternate mode. The driver retrieves
-> the current alternate mode from the PPM, configures the Type-C mux
-> and retimer accordingly, and reports HPD state and HPD IRQ events
-> through the DRM auxiliary HPD bridge.
-> 
-> Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
-> ---
->  drivers/usb/typec/ucsi/Kconfig      |   8 +-
->  drivers/usb/typec/ucsi/ucsi_itepd.c | 404 +++++++++++++++++++++++++++++++++++-
->  2 files changed, 400 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/ucsi/Kconfig b/drivers/usb/typec/ucsi/Kconfig
-> index 0f10dac9b34b..c5eaf4967e4e 100644
-> --- a/drivers/usb/typec/ucsi/Kconfig
-> +++ b/drivers/usb/typec/ucsi/Kconfig
-> @@ -105,11 +105,15 @@ config UCSI_HUAWEI_GAOKUN
->  	  called ucsi_huawei_gaokun.
->  
->  config UCSI_ITEPD
-> -	tristate "UCSI Interface Driver for ITE IT8851/IT8853"
-> +	tristate "UCSI Interface Driver for ITE IT885x and IT527x series"
->  	depends on I2C
-> +	depends on DRM || !DRM
-> +	select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
->  	help
->  	  This driver enables UCSI support on platforms that expose an
-> -	  ITE IT8851/IT8853 Type-C Power Delivery controller over an I2C interface.
-> +	  ITE IT885x or IT527x series Type-C Power Delivery controller
-> +	  over an I2C interface. It also supports DisplayPort alternate
-> +	  mode, including HPD notification through the DRM bridge.
+Add USB device node (b, c, d) to DeepComputing FML13V05 board.
+USB A works on otg mode, it isn't configured currently.
+- 4 USB-C Ports
+     - Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
+     - Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (4K@60Hz)
+     - Port 3 & 4: USB 3.2 Gen 1
 
-Please split this part into separate patch.
+Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
+---
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 44 +++++++++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi          | 66 +++++++++++++++++++
+ 2 files changed, 110 insertions(+)
 
-Thanks,
-
+diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+index 804abc85602a..55b0f63dcb2e 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+@@ -179,8 +179,52 @@ dldo7: dldo7 {
+ 	};
+ };
+ 
++&combophy {
++	spacemit,apmu = <&syscon_apmu 0x17>;
++	status = "okay";
++};
++
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_0_cfg>;
+ 	status = "okay";
+ };
++
++&usb2_host {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	hub@1 {
++		compatible = "usb5e3,608";
++		reg = <1>;
++	};
++};
++
++&usb2_phy {
++	status = "okay";
++};
++
++&usb3b_u2phy {
++	status = "okay";
++};
++
++&usb3b {
++	status = "okay";
++};
++
++&usb3c_u2phy {
++	status = "okay";
++};
++
++&usb3c {
++	status = "okay";
++};
++
++&usb3d_u2phy {
++	status = "okay";
++};
++
++&usb3d {
++	status = "okay";
++};
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index b9977e78e096..ae3f8bb1e5ed 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -441,6 +441,72 @@ soc: soc {
+ 		dma-noncoherent;
+ 		ranges;
+ 
++		usb3b: usb@81400000 {
++			compatible = "spacemit,k3-dwc3";
++			reg = <0x0 0x81400000 0x0 0x10000>;
++			interrupts = <125 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-parent = <&saplic>;
++			clocks = <&syscon_apmu CLK_APMU_USB3_PORTB_BUS>;
++			clock-names = "usbdrd30";
++			resets = <&syscon_apmu RESET_APMU_USB3_B_AHB>,
++				<&syscon_apmu RESET_APMU_USB3_B_VCC>,
++				<&syscon_apmu RESET_APMU_USB3_B_PHY>;
++			reset-names = "ahb", "vcc", "phy";
++			phys = <&usb3b_u2phy>,
++				<&combophy 2 PHY_TYPE_USB3>;
++			phy-names = "usb2-phy", "usb3-phy";
++			phy_type = "utmi";
++			snps,dis_enblslpm_quirk;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_u3_susphy_quirk;
++			snps,dis-del-phy-power-chg-quirk;
++			snps,dis-tx-ipgap-linecheck-quirk;
++			snps,parkmode-disable-ss-quirk;
++			dr_mode = "host";
++			status = "disabled";
++		};
++
++		usb3b_u2phy: phy@81500000 {
++			compatible = "spacemit,k3-usb2-phy";
++			reg = <0x0 0x81500000 0x0 0x200>;
++			clocks = <&syscon_apmu CLK_APMU_USB2_BUS>;
++			#phy-cells = <0>;
++			status = "disabled";
++		};
++
++               usb3c: usb@81700000 {
++			compatible = "spacemit,k3-dwc3";
++			reg = <0x0 0x81700000 0x0 0x10000>;
++			interrupts = <148 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-parent = <&saplic>;
++			clocks = <&syscon_apmu CLK_APMU_USB3_PORTC_BUS>;
++			clock-names = "usbdrd30";
++			resets = <&syscon_apmu RESET_APMU_USB3_C_AHB>,
++				<&syscon_apmu RESET_APMU_USB3_C_VCC>,
++				<&syscon_apmu RESET_APMU_USB3_C_PHY>;
++			reset-names = "ahb", "vcc", "phy";
++			phys = <&usb3c_u2phy>,
++				<&combophy 3 PHY_TYPE_USB3>;
++			phy-names = "usb2-phy", "usb3-phy";
++			phy_type = "utmi";
++			snps,dis_enblslpm_quirk;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_u3_susphy_quirk;
++			snps,dis-del-phy-power-chg-quirk;
++			snps,dis-tx-ipgap-linecheck-quirk;
++			snps,parkmode-disable-ss-quirk;
++			dr_mode = "host";
++			status = "disabled";
++		};
++
++		usb3c_u2phy: phy@81800000 {
++			compatible = "spacemit,k3-usb2-phy";
++			reg = <0x0 0x81800000 0x0 0x200>;
++			clocks = <&syscon_apmu CLK_APMU_USB2_BUS>;
++			#phy-cells = <0>;
++			status = "disabled";
++		};
++
+ 		usb3d: usb@81a00000 {
+ 			compatible = "spacemit,k3-dwc3";
+ 			reg = <0x0 0x81a00000 0x0 0x10000>;
 -- 
-heikki
+2.43.0
