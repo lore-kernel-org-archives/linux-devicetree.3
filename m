@@ -1,137 +1,120 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99644F5E01
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A1052759F;
+	Tue, 22 Sep 2026 08:48:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790066869; cv=none; b=AvX+vPfpxg5syFJoBYqlE8dLZ4Prmo8uq/m0eADTe9nBxk3AH4cq3c4Hq1CRK66EqECO6S+NXjZXJFFCI8etJWxFHNkvqlxGc5HzSF4fgkv8GsOW5wLapS86JMmAf5FiSjFWgLETt4ns1tFV767VK17wBO9ejYwR3va95k2EywU=
+	t=1790066928; cv=none; b=Kb8IEgPYuTaxIDHpNfdqc2dbBLLcGj8rThpOQ7QsVuC7QZeR4BTnYTxRipBRYRurFtPtzhwclN6eCSI7Fav365K4aWOfdvmY42EyOCJFtSQOvTkDLk3tPwwuV2kcmc3tFls1m7cKAHlDZ9WqfBmr427Txz6tIu26Y8yGHBpitkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790066869; c=relaxed/simple;
-	bh=SKxdp95432XDvzCPjjgWzrtl8ftbBUukhI2StzJWGQA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J0CNCkJMvvZJpCsITLskLVzkF4E64szuYk0ZBHgaUKWASNhwlRG6mM21N95DpsQKcKpItiyXH4wuCa55VwbYaybBP5UP3vYrsJ5G2YaEO2fN8xURgE3B4dk4RGdcp5vla5Q2NbZdw9mSgqvtPgTwfLVSHPLFO8pIScwHv8dSwMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c83397eeeeso2496912e0c.2
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:47:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790066866; x=1790671666;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GWIDjRua9lHrNbDmVCrugzijNwD0WxzTJmDg4pdKZIc=;
-        b=LGzrHbf8CEikGbk/GMkOmQGVf0Kn6P5eND1SUH1bEGtwSpcLSysQxvV1WSrkWdclCI
-         LEuMh7YEjbVL4/efLMAEfjzdR0SYF67uJ6fhKPhhycsBMoiAveROUyEhnm76cgx6Z6oO
-         ePdAp9RBSK2oRONRplsxmkw1hHB0HZu+hQ1Fyb107SpvLNNZJajKLEDU4UZEvWewAOfs
-         O9xzvujRY4cCDLHVxkR2jpJ/KJ7LrqWDp+uoA/EziYAPFEWQakySuGj8aBJhBm1lNLkH
-         oNSc51D3rxsa64uaS9uR6fPkRTKO2nXdIibgZLFD32W8F9cM1cNXs43oeB8DeSEDW8sv
-         iAag==
-X-Forwarded-Encrypted: i=1; AKwUvByKiHExiaCtxIniLRmgux5N33a/5nY2kNiWu7ef2WWG5ceODoJzgs35ZkUWHYpJLipM994VSb9EtE9d@vger.kernel.org
-X-Gm-Message-State: AFuF++nkXdhfttvmxFrT5Zx38r2r3L7s8k9bSL72T4AeRXEsoiXXeMea
-	e9Of3OUSX+xpzKG1g0kGFMrscidAV44ZpJqSSKjiqVW4cj7GkDVA4hv5BVvdOrYalLs=
-X-Gm-Gg: AYBFou2lFbuT+KMMP9ijIS13d+dJZrFyaYWjCd2A8FtJXSOSVt6CQILywqi/jlkuKg7
-	/3Crb+McGYlQXbFQRmbYmhZepQg7Z5tQ+G5eUQnIIRG8En1lXXEwYFK3AX/ATeWzGMeQ62DwQ0Q
-	+aGXHOVZcSoNrg7N5JzdcuoZyL7Q1qdkg3mXtLA7y/Nzh3mZbvaL4OJsQHDEvSI9FvPlqVaj0/X
-	Uxhr6o7TvOJDY9cECeIz/dRcizrg5ijq9wHzk16aWdKZEL+lhwmJBtD+5ABQl0o+Rrg+7IqNtgi
-	DzG8qivwdlfk4UHgVBcNQgKY9uliGl6OqJ4cpR7fGV7mFZvJ5hqOplTaOKeVAbxz9pMT/qLBeVD
-	uOUJMdzbLmN9zclVMeOmanmu7v5Dkz56PJOW2sYN8rvGigyAN/bNhHuceeTrtfCIpJ+dz8NnpL4
-	6Qc8q+01MtCAMggrtd3zXqHIQbp8nu9ell2svfn8J3KLuhqhuHGbCCPj8IrWqCPlkVfTgUhalT/
-	GMZmzBHbWwSMlq/JWFU3h75QY1YtvQTLS+9uY8bOlv6xaQ=
-X-Received: by 2002:a05:6122:3486:b0:5c9:a60b:e5a3 with SMTP id 71dfb90a1353d-5c9b59abe8amr8056445e0c.14.1790066865678;
-        Tue, 22 Sep 2026 01:47:45 -0700 (PDT)
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com. [74.125.227.43])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9e7d4c733sm952832e0c.13.2026.09.22.01.47.45
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 01:47:45 -0700 (PDT)
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-78565b4db79so2096456137.3
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 01:47:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBycZAYNIBvIO6zqUuWpLyva1dmRv9LkUoW1ajMKJYj17a6AsYX98woM/9ZtQJvRDHT/rnEthL9FPiDo@vger.kernel.org
-X-Received: by 2002:a05:6102:6891:b0:7a5:391c:37ac with SMTP id
- ada2fe7eead31-7a55b439f6amr7821226137.10.1790066865188; Tue, 22 Sep 2026
- 01:47:45 -0700 (PDT)
+	s=arc-20240116; t=1790066928; c=relaxed/simple;
+	bh=7IaLVwkL5m+kF/7fXmKprmbdAFcNvaLKfR0y+DUCgl0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=itagJkKxKQsvUQXivH7aAusMqyTOuiHE1cpzGb5Sr6mDmjHe7qxk81fisVUIfdjX5b71vAh+WOoj2qzD89ajc33JVCJ2xhUgqyJycKDuQmtdIMSmcD5axgRFBcn9hcgYeipD59tIR9VCuAZ3XQYqymHzdArUi8TTSrpUMZFxxsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dP6cTy4A; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dP6cTy4A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBEDF1F000FF;
+	Tue, 22 Sep 2026 08:48:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790066927;
+	bh=mh0mGm1ld8tg6c7EhdkM1d4eVMd5E3LVT8DC3vIY5K4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dP6cTy4A0UXusAiIQuf7XHNmCf0oksDZeYiXkIeS4XXg4xTKSCusJ+1EB8onw5qko
+	 0SqSET7QFRY6zchqE3+lUMrykDB4zkFnSGVGn4rKXU4CoETSgIB9dWMp7VxXlihbOZ
+	 nqGQimkWf8DFDOBYHw7uhOjD4sB/STapR4N+cRzTtoxkPfUPADU3jGqhwBdkSpxta8
+	 SJ8bobM0qgqFd3Upoo9rp8QIn3hgrUxWrhrHHdhduBmJ7HytD0aTZujUSKTUogFBfY
+	 xzeXlmNQMsTaHDfep4OGfN2vD4Hy00fVfzkuoYcKTVH3TY23ue7cLBnmlEIhWDywRy
+	 boHs5zSa1dgBg==
+Date: Tue, 22 Sep 2026 11:48:41 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Wandun Chen <chenwandun1@gmail.com>
+Cc: robh@kernel.org, saravanak@kernel.org, m.szyprowski@samsung.com,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, akpm@linux-foundation.org
+Subject: Re: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved
+ memory
+Message-ID: <arJA6fOMetzoBhDH@kernel.org>
+References: <20260920092852.614973-1-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790065451.git.geert+renesas@glider.be> <b8f4648eb1151b75d41e561c6b2adbd9bc4c0782.1790065451.git.geert+renesas@glider.be>
- <20260922083355.B7BAF1F0089A@smtp.kernel.org>
-In-Reply-To: <20260922083355.B7BAF1F0089A@smtp.kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 22 Sep 2026 10:47:34 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVR_-TG_FkP36yQEhcbSOObXCqsFa7iw7gYbQB-4Go=uA@mail.gmail.com>
-X-Gm-Features: AclHuK8uO17HLkbg6-xa5vAIJjSfTAzcvmAvxN4S9JnEeQEAxUBJc4dK1JH3qYo
-Message-ID: <CAMuHMdVR_-TG_FkP36yQEhcbSOObXCqsFa7iw7gYbQB-4Go=uA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: spi: renesas,sh-msiof: Add support for
- R-Car X5H
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920092852.614973-1-chenwandun1@gmail.com>
 
-Hi Sashiko,
+On Sun, Sep 20, 2026 at 05:28:47PM +0800, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> This series fixes several error-handling issues in the reserved-memory
+> initialization paths.
+> 
+> The first two patches fix cleanup of no-map regions after driver
+> initialization failure.
+> 
+> Static reserved-memory nodes are reserved during the early DT scan but
+> initialized later. The third patch tags regions whose early reservation
+> succeeded, so the late scan can skip the nodes whose early reservation
+> failed.
+> 
+> The last two patches reject overlapping static regions. Without
+> these checks, overlapping nodes can be initialized over the same
+> physical memory, result in data corrupt.
+> 
+> Sashiko reported these issues in [1] [2] [3].
+> 
+> [1] https://sashiko.dev/#/message/20260814090305.4C8741F00A3D%40smtp.kernel.org
+> [2] https://sashiko.dev/#/message/20260814084718.29C341F000E9%40smtp.kernel.org
+> [3] https://sashiko.dev/#/message/20260806100605.2C2C01F000E9%40smtp.kernel.org
+> 
+> v2 --> v3:
+> 1. Rework the mechanism that checks in the late scan whether the early
+>    reservation succeeded (patches 3-5, suggested by Marek, thanks).
+> 
+>    Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
+>    the early reservation of a static region succeeds and checked in the
+>    late scan.
 
-On Tue, 22 Sept 2026 at 10:33, <sashiko-bot@kernel.org> wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] dt-bindings: weakened schema validation for older generations' dma counts
-> --
->
-> commit 339efeecd4721be8f1b5b945500191b6aa6436e7
-> Author: Thanh Quan <thanh.quan.xn@renesas.com>
->
-> dt-bindings: spi: renesas,sh-msiof: Add support for R-Car X5H
->
-> Document support for Clock-Synchronized Serial Interfaces with FIFO
-> (MSIOF) in the Renesas R-Car X5H (R8A78000) SoC, which is the first
-> member of the R-Car Gen5 family.
->
-> > diff --git a/Documentation/devicetree/bindings/spi/renesas,sh-msiof.yaml b/Documentation/devicetree/bindings/spi/renesas,sh-msiof.yaml
-> > index e0c7047ae8adb..41e423a42654d 100644
-> > --- a/Documentation/devicetree/bindings/spi/renesas,sh-msiof.yaml
-> > +++ b/Documentation/devicetree/bindings/spi/renesas,sh-msiof.yaml
->
-> [ ... ]
->
-> > @@ -100,11 +105,11 @@ properties:
-> >
-> >    dmas:
-> >      minItems: 2
-> > -    maxItems: 4
-> > +    maxItems: 6
->
-> [Severity: Medium]
-> Does this unintentionally weaken schema validation for older generations?
->
-> By relaxing the global maximum to 6, a device tree for older hardware (which
-> only supports up to 4 DMAs) could now silently pass validation with an invalid
-> number of DMA channels.
->
-> Should this preserve maxItems: 4 globally and only override it to 6 inside an
-> allOf: if-then conditional block for the new Gen5 compatible?
-
-I wouldn't bother adding further restrictions, as these are not related
-to the actual MSIOF block, but to on-SoC wiring.  DMARQ is just a single
-signal going from the MSIOF block to one or more DMAC instances.
-The number also differs among MSIOF instances on an SoC.
-
-See also my similar replies for rcar-i2c and serial:
-https://lore.kernel.org/all/CAMuHMdXj04QoxituCF3wRcyzN7qZrVBn7-ukNkKDd0OfhB8zOQ@mail.gmail.com/
-https://lore.kernel.org/all/CAMuHMdVgJkwkoF0-ptQ9g_8E5j1Oa8G41nBiiOfY+KF_p7XAxQ@mail.gmail.com/
-
-Perhaps it would be a good idea to remember this?
-Thanks!
-
-Gr{oetje,eeting}s,
-
-                        Geert
+Can we keep this local to of_reserved_mem please?
+ 
+>    Patches 4 and 5 are reworked to reject regions that overlap or are
+>    contained by an existing reservation. The code makes a little different
+>    from what was acked in v2, so the Acked-by tags for these patches are not
+>    carried over.
+> 
+> 2. Reorder the patches: the two cleanup fixes in v2 now come first.
+>    In v3, the first patch now introduces the 'dynamic' distinction in
+>    fdt_init_reserved_mem_node(), which the following patche 3 build on,
+>    so the series reads more fluently.
+> 
+> v1 --> v2:
+> 1. Rework failed-node tracking in patch 1: do not track zero-sized nodes,
+>    and keep a reserved_mem slot when tracking overflows.
+> 2. Reject static reserved regions overlapping existing no-map regions.
+> 3. Keep MEMBLOCK_NOMAP flag for static no-map regions when init failure.
+> 
+> 
+> Wandun Chen (5):
+>   of: reserved_mem: release dynamically allocated no-map region on init
+>     failure
+>   of: reserved_mem: retain static no-map memory on init failure
+>   of: reserved_mem: skip init for regions whose early reservation failed
+>   of: reserved_mem: reject static regions overlapping no-map memory
+>   of: reserved_mem: reject static mapped regions overlapping existing
+>     reservations
+> 
+>  drivers/of/of_reserved_mem.c | 86 +++++++++++++++++++++++++-------
+>  include/linux/memblock.h     |  7 +++
+>  mm/memblock.c                | 95 ++++++++++++++++++++++++++++++++++++
+>  3 files changed, 170 insertions(+), 18 deletions(-)
+> 
+> -- 
+> 2.43.0
+> 
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Sincerely yours,
+Mike.
