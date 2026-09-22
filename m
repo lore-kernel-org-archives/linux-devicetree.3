@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2362B4052A4;
-	Tue, 22 Sep 2026 10:54:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAD24EDCBB
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:54:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074445; cv=none; b=feXEmcnSpEf/qxbxg5ds32GfllEgM2GPR1LTpe7vPthCto1T4fBztZ1BYkBNeXE3XpFjmDHruBtls79b2LxLvjMV8M1JDQaEmdcEkZkBJnIy9DcyqC2y2TUBRIG0wkig1fO7UUhBx/x/CjgXnfMPgKes+DHYMt6eQmgLe4ITS7Y=
+	t=1790074457; cv=none; b=lAfPk9/B3BBLMe2iSO7a4MJx/KoeWym3kKm7av3F7D4A9TGM/Sb/2rbMiTVbIlHEwKCyum3CgvziynoqdtD+7Jry9346+caPq5lorqtPxZZBuo8MJGFrSrsmWem+2X2nPJp2XsZ8zUSSO9fWWHgvGxGP+VdfUE8G73IMjMvcX1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074445; c=relaxed/simple;
-	bh=22Rv0SGJY0dN5MjFkSSjHICF8Z/PEEu4kXk6WovqR0Y=;
+	s=arc-20240116; t=1790074457; c=relaxed/simple;
+	bh=QUDTAXE7gfzBY+KlF+iOAQ070EQjImYhvRFLM1PHsE4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NZvpiV3wFv8ObuMiFNzIUiMRrKfRnQ6iei90c3GFpYmqugXUHImc6FZGJgOfbeOkTcA2XN2GsRJu6vC1Jk0XoZ8UjQueYtccRsSkRyUQjzvEr9grPrY8tlA47x0kbOWU1NDNYr0Wl4iYLffbmip/m1rkIlrhhBBSlMJiK7PMiM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fT8BFfzX; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=PdWHL0MBAicmVDRk9qEYgKKZhCat7nXTtxt0T3j+04Uw2bzd8UTy+6sRmQfNcxq1yotILmWdcERVq/RB9OXk3aUyLrpIgjlvs41EdpfFBrJHnyh3jfE1+J8WRwZoi7lqxgdDwtkE8Rql1EOrRnL/ZVteT77jYjNhGRFc92DQHLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VBqtuyak; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fT8BFfzX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ABFF1F00893;
-	Tue, 22 Sep 2026 10:53:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VBqtuyak"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09B651F000FF;
+	Tue, 22 Sep 2026 10:54:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790074438;
-	bh=riCH2xQeou67pdAof+xjMVRgwfKowBYXjXWeRpybbYA=;
+	s=k20260515; t=1790074449;
+	bh=iStzlGp0VC2GlCcolkSJu1aZHn0Y8hQ5EQb/s/+AN7Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fT8BFfzXtvBTSdLUjSZQFAYdS+uWS9zSq9XVo571uFMT8/bZ8SLo+3OK6M53vQQQp
-	 dbH4AZI88pJExhEdpC/7P6LUQmiZJ9mALcr8LcnupiOdenel8Fyy0NmogBAly6gIOk
-	 IJXG7sdPsxWmq4x1emvzSRlqmxdvQm+21PFq//LbMvFRRQYSvo+DHpwbAK7HGRLmXb
-	 wJJmTsC+Lidqdv+vhsNve8OhN90z3IPHDHu/+3ah1xjFHtFZBgpgJnfaDTrEeGih6I
-	 pevT0+fVWzVxSZhz6dzMeFOU6qYcS43qU8KrCjS4qI+C8YzUWBD7pruUg95u7M1fFq
-	 b4ebKE+h5kWtA==
+	b=VBqtuyakeufAt9PESxiNPwlQ0X3EfD5OpvC33KAQkfIQ0lXi7rFZL23jt5bga4kGq
+	 OKhpmbgAL2HKG3bB5yrb9SZ/VbzsuBMFCmozU8NOuTrr0y2jwchdvw7jdW2CctRqp3
+	 S/GD/eEJunsh/ML+tDg2FdDW5jK04NxGeCWDaXiOscpTPRtiutyjIjUOY1vM+G66cg
+	 V30Bvp7Y6aDZQTLFWLNVXyDpsn1NDUyubpl65S1whSV4XCav8WnrIjNrG52O9/ntat
+	 LjyH42+vpUMoTYmBxBxGZIbhDuM72KZ5+3W2gVGerZlQS5ImG12tpMjYG/wMVQZdnj
+	 6rZ6IYCie8HjQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 6/8] i3c: hub: Add support for the I3C interface in
- the I3C hub
+Subject: Re: [PATCH 1/4] arm64: dts: qcom: hamoa: Add CoreSight nodes for
+ APSS debug block
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, linux-i3c@lists.infradead.org, mfd@lists.linux.dev, lee@kernel.org
-In-Reply-To: <20260922103551.2754613-7-lakshay.piplani@nxp.com>
-References: <20260922103551.2754613-1-lakshay.piplani@nxp.com>
- <20260922103551.2754613-7-lakshay.piplani@nxp.com>
+To: "Jie Gan" <jie.gan@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-1-c2a8c3225a2e@oss.qualcomm.com>
+References: <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-0-c2a8c3225a2e@oss.qualcomm.com>
+ <20260922-add-etm-devices-for-multiple-qcom-platforms-v1-1-c2a8c3225a2e@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 10:53:56 +0000
-Message-Id: <20260922105357.5ABFF1F00893@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 10:54:08 +0000
+Message-Id: <20260922105409.09B651F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,73 +47,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] i3c: hub: ENTDAA-discovered downstream devices are misrouted to pa=
-rent bus
+- [Low] dt: empty port@2 in funnel@12080000 violates OF graph rules
 --
 
-commit bf3909722bdabc30e1d69d666d5732199356fb61
-Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+commit 48f77584a29ad03f77385cb8599896371e32bbd1
+Author: Jie Gan <jie.gan@oss.qualcomm.com>
 
-i3c: hub: Add support for the I3C interface in the I3C hub
+arm64: dts: qcom: hamoa: Add CoreSight nodes for APSS debug block
 
-This commit adds virtual I3C bus support for hubs by creating virtual
-master controllers for downstream ports and forwarding bus operations
-through the hub device.
+The APSS debug block is built with CoreSight devices like ETM,
+replicator, funnel and TMC ETF. This patch adds device tree nodes for
+these devices to enable ETM trace, tying their power states to the CPU
+cluster domains.
 
-> diff --git a/drivers/i3c/hub.c b/drivers/i3c/hub.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/i3c/hub.c
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qc=
+om/hamoa.dtsi
+> index 4e35254cdd11a..370b6bba2594f 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+
 [ ... ]
-> +static int i3c_hub_do_daa(struct i3c_hub *hub,
-> +			  struct i3c_master_controller *controller)
-> +{
-> +	struct i3c_master_controller *parent;
-> +	int ret;
+
+> @@ -8433,6 +8645,678 @@ ddr_funnel1_out: endpoint {
+>  			};
+>  		};
+> =20
+> +		funnel@12080000 {
+> +			compatible =3D "arm,coresight-dynamic-funnel", "arm,primecell";
+> +			reg =3D <0x0 0x12080000 0x0 0x1000>;
+
 [ ... ]
-> +	mutex_lock(&hub->lock);
-> +	i3c_hub_enable_port(controller);
+
+> +			in-ports {
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+
+[ ... ]
+
+> +				port@2 {
+> +					reg =3D <2>;
 > +
-> +	/*
-> +	 * Downstream devices reachable through hub target-port routes share the
-> +	 * parent controller's I3C address space. The hub gates access to a
-> +	 * target-port network, but it does not create an independent dynamic
-> +	 * address domain per virtual bus.
-> +	 *
-> +	 * Run DAA on the parent controller so dynamic addresses remain unique
-> +	 * across all downstream devices, even when they are behind different
-> +	 * target ports.
-> +	 *
-> +	 * The current hub model shares the parent controller's dynamic-address
-> +	 * domain and does not support independent per-port DAA domains, so a
-> +	 * DAA result does not go stale behind a port toggle. Addresses reserved
-> +	 * from the Device Tree are held for the lifetime of the parent bus and
-> +	 * are never released on a port toggle, so enabling or disabling a port
-> +	 * only gates reachability and never causes an address to be handed out
-> +	 * twice.
-> +	 */
-> +	ret =3D i3c_master_do_daa(parent);
+> +					apss_funnel_in2: endpoint {
+> +						remote-endpoint =3D <&ncc2_etf_out>;
+> +					};
+> +				};
+> +			};
 
-[Severity: High]
-Does delegating DAA to the parent controller here misroute newly discovered
-downstream devices?
+[ ... ]
 
-When i3c_master_do_daa() executes ENTDAA on the parent controller, any
-downstream I3C device lacking a static address will be assigned an address
-and added directly to the physical parent's bus.devs.i3c list instead of
-the virtual hub bus.
+> diff --git a/arch/arm64/boot/dts/qcom/purwa.dtsi b/arch/arm64/boot/dts/qc=
+om/purwa.dtsi
+> index 4348dd3d1dc59..90069c8e1d400 100644
+> --- a/arch/arm64/boot/dts/qcom/purwa.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/purwa.dtsi
+> @@ -8,7 +8,15 @@
+> =20
+>  #include <dt-bindings/clock/qcom,x1p42100-videocc.h>
+> =20
+> +/delete-node/ &apss_funnel_in2;
 
-Because these devices are attached directly to the parent, won't their
-subsequent transfers bypass the virtual controller's priv_xfers routing?
-If so, the hub port would never be enabled during normal communication,
-causing all transfers to the device to fail with a NACK or timeout.
+[Severity: Low]
+Does this deletion violate the OF graph bindings? By deleting the
+apss_funnel_in2 endpoint node here, its parent node port@2 in funnel@120800=
+00
+(defined in hamoa.dtsi) is left as an empty shell containing only reg =3D <=
+2>.
 
-> +	i3c_hub_disable_port(controller);
-> +	mutex_unlock(&hub->lock);
-> +
-> +	return ret;
-> +}
+OF graph rules require port nodes to have at least one endpoint child. Leav=
+ing
+an empty port triggers a dtc compilation warning (graph port node has no
+endpoint children) during make dtbs_check.
+
+Could we assign a label directly to port@2 in hamoa.dtsi so that the entire
+port node can be deleted here in purwa.dtsi instead?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922103551.2754=
-613-1-lakshay.piplani@nxp.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922-add-etm-de=
+vices-for-multiple-qcom-platforms-v1-0-c2a8c3225a2e@oss.qualcomm.com?part=
+=3D1
