@@ -1,380 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f17.google.com (mail-qv2-f17.google.com [74.125.230.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B2547CA9E
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 11:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBF247535F
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 11:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790076972; cv=none; b=ZtVLgHB2rL3kSdYjF2TaYdU5TD1B2oymrjqX83aGj1YbAlUSc4Cja7uQPTbtOBDgd+9Z5KnTwKlips5SIK96QMEBrISlygRyurkF12ngF3vS3C2kQn8hThI7qxjAnOXOZiMSTi6v6bwFdCwMjjBHW0nV1PjL+R6lyutrhEAty2I=
+	t=1790077106; cv=none; b=rsrx6Odx/PI3pdatGiTweWM5s34NLeSmDWadiuqDBs+1dnWesmmKVNhzJBGO9+eT57zcX+CqSMB1Y92XEhDeHzBfcwnL8+P5unoslZ0o5D9XyXUsu++LNS+NUfCtoF3Z0RBA4xxxhA8mzAfvpL4DqtvKBTbgy9ZLGY9ZuAoTahg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790076972; c=relaxed/simple;
-	bh=QhsCvn9UCiHIccXvftx21JD3yFq52SY0D3rmhwDA6gw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N/cfYtAhddvKaTxb/gviwioe+b+t+aQnj2qENHrvt02DVPf/KNym68fl/dWnIypMoNB5K+Ktz3YbyBGIC/kr9OPOWVUihWkYgRbOd+Qfmg8Ik37tmx7zJX2eNQTZxgvtGnkTMq25gnepcAnjczXXTlx/fTG/6ZNMuFkjM82jYHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uql1OJAM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790077106; c=relaxed/simple;
+	bh=vAqHJkJK8NybKzUEyFkNm7wHMeyR870vyueLoGzt3yE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ATwRHJQqxKfAA2B37wqlBHh0VxW6k7xm6acnZMj2L4sDMdnIKWRlsbpoemyLESc8E4EsvK+hQw1CuVmt12te6D57V8kFkVKK/3BlTsv8QPNCApeJYoQI5l6cwuA4sdPObHbEanU3caMBtESDpBi789xzQPovXctsOtw2DGX/kQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Yd7UyZxu; arc=none smtp.client-ip=74.125.230.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uql1OJAM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6591F000FF;
-	Tue, 22 Sep 2026 11:36:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790076964;
-	bh=KqYu4BlaCHJYRygs6b981jmWAMG+/tcKtG7sfYpM/Wo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Uql1OJAM6EG/czEcAizyIJIHrNZHDTIkTdB8JOHbEKX1FOn0qg9NAnfF5q69nI3Yr
-	 l6J2DHTryUxTV/qYTskEp0MuLcrMfTQBer8Izku+T9IMfSwMA/BNprigGbUw7+LwXq
-	 y/1U/pTSqcAD/R+v7dG03dmsAO+KqBQ5FOxXa5euI1zKaYy0HRMH4e6xBdOjwg1eXt
-	 Cf0WObHxfqikfZhLknoujcLe6o9rfXahm3/2KmKvxIxQTLbDRkGDVVjsK0Umqvozsd
-	 5QObDCFWuKz1kRec5Qo57FSMuhlQbmshuUTNiMXzroDJOsKwUZi0DPK+5FJ1lQaYq9
-	 86VUffeMTex9Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] ASoC: cdns: Add Cadence I2S-SC controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: joakim.zhang@cixtech.com
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260922112134.4167305-3-joakim.zhang@cixtech.com>
-References: <20260922112134.4167305-1-joakim.zhang@cixtech.com>
- <20260922112134.4167305-3-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 11:36:04 +0000
-Message-Id: <20260922113604.9F6591F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Yd7UyZxu"
+Received: by mail-qv2-f17.google.com with SMTP id 6a1803df08f44-90cdfe57a3aso38015936d6.2
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 04:38:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790077104; x=1790681904; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fSk3TeVnQVuy0Nz0PmBxSCcv2Duz1teV8o735BciAQA=;
+        b=Yd7UyZxuYcpgdsBC7v+zr8ehmjbay9O+GlPey3zkmG/k5wfsjwV+Q/6Iu85siWQ9pb
+         727IFEVtdBncGtRG3inXhjGM2il4uAv0JqmoOnBN7Oc3GiDyRuA5UQuYaSlyn9LWSdOU
+         RojyWKNK5S4FWGDOTpM11e8GByKC4brR5GxZc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790077104; x=1790681904;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fSk3TeVnQVuy0Nz0PmBxSCcv2Duz1teV8o735BciAQA=;
+        b=jSXDhjW4BnCQ6fbxiWTTA64kjA+ioI+ET7VU2UtlKvYgenTKGrHrcDal34zlb9i5lS
+         OFm/qpaVpQzew2OMeRWqzzApMtV2fJcwsbQL0ICFtvyje3RfD0uBYUwKFO1Y6ZrYBL/V
+         3Zw1oRn9Flv/teJAZe860vS9oflS178OwGZbkvEInFVVU3Vx54ipBxaZ9MAgNlNb+W0N
+         BPbOxPG5vejCSIRRnrgsiLpg6QwDy+v+wf/m5a8zrJxWiDGOI7zhVp1gUHw4lOE+gIgx
+         riGUl1DtpstdRLe6N4cSOhd1F2Dc61PNmZ3OrgcN1A2+qfob0OUCnKATMusOhO+dwd1q
+         t0uw==
+X-Forwarded-Encrypted: i=1; AKwUvBzWbXTb9oV8gyDCck80yqTq6/hTKfyhD5bByekvxeCvXAMKauNFVKiJ4zKyuHpNcSd6zOaIrCNQJ/Ol@vger.kernel.org
+X-Gm-Message-State: AFuF++lMY+x3LA3L5Cr5sFAYlY3k5mbIO0cmfoKRNJRukQYmjRSvZDPI
+	H/z9Y2HU6l9LmnVShbXDIsk84sULpsUbz5ZKpOrN5gwncGAl0hsi7fgHJFduzZJh3U+0luOyH+p
+	xc9KszicW
+X-Gm-Gg: AYBFou1ad17jzQ3O3vKLQ3K82h0dDrAJSvK+0zATFc+2nciLBXldwrScebPqt2YXJfP
+	ylMriVME1739aeUj+V7Ek5W1+WBwRnqrvRjWf5VOxp4Jc7/HUA4v4bYTR4ojNNNhAcbN7VNEMKT
+	03Oh+H+jfTviBT4SAPsRDlVQBf7X+3v6p1rsW3necPDbiNM/HJc9t25KZ/jsZwL0BHqYY+JSwQ7
+	x5qCVnm1B8Ko5cxZa7k9gth3Xi1IUF1HdPWnOlnXZJsUo3sbTOl14/c6bNSVJXPePee73yaCx+n
+	gCcUnNyKQNMG/3f9EhZWq+ccdfJHzs73hweg9U2/NF1a6VIiAJGsuTDGkKu+MJmvcSRVZ8WiQiA
+	nzhE0etDVQr4Vvin4p1Px8YlO1TP4dklHlXhL8oDtDfJrKWXZZKqeB1M3g512F8Cp+BpP33EJnJ
+	abujJZzkxUkVfVtULxAwIPrlNXXxsxT4UgyWqMB6bnqhwgR7WWrrTdrQQMdGE9HFEYVXde8tAnI
+	iYS/UykJio4gSxsMg7lg4CIS/XuxbBOeHbrmg==
+X-Received: by 2002:a05:6214:5b04:b0:912:517b:9758 with SMTP id 6a1803df08f44-913fc9c0a29mr49707186d6.50.1790077104094;
+        Tue, 22 Sep 2026 04:38:24 -0700 (PDT)
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com. [74.125.230.234])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9140250b82asm13428356d6.39.2026.09.22.04.38.23
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 04:38:23 -0700 (PDT)
+Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-5329fc7e0bcso46097521cf.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 04:38:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByvWslkBJ+lDx1KhoIa3INqq6ofKYRl5DrslsM30zXYgVSeORDXwnz9scBLWcm04X4/ahijcR9Q+0HH@vger.kernel.org
+X-Received: by 2002:a17:90a:e183:b0:39e:6c6a:209b with SMTP id
+ 98e67ed59e1d1-3a0732aab47mr857626a91.60.1790076789532; Tue, 22 Sep 2026
+ 04:33:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <apqGlTiybdvQX3Ao@kekkonen.localdomain> <eff6fe78-cc4b-4192-93ed-53a738fc3c3a@gmail.com>
+ <aqU5QFGmYlCtbdiE@kekkonen.localdomain> <CANiDSCv=cwm=aHLfO_ccPfc-XyK3gS8Y+8DZpbb3gcXX0n8mqQ@mail.gmail.com>
+ <aqfyYSagcejWb4xD@stanley.mountain> <CANiDSCtEmAZippX45kaxjWAHs+cd+vpFFtxOnnz00nmVnkgqzQ@mail.gmail.com>
+ <arJjxjiWVlnHhioR@kekkonen.localdomain>
+In-Reply-To: <arJjxjiWVlnHhioR@kekkonen.localdomain>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 22 Sep 2026 13:32:56 +0200
+X-Gmail-Original-Message-ID: <CANiDSCsD_OO_7_ZQ0NvWHXRN4jo2Aqr-XGZamn3bCzwnZ6gmZQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XSEqnhRqXFFRQlQKzrgp_us5KopVV821iFq_cxHFRxG_Sd7N3TpS2PoSA
+Message-ID: <CANiDSCsD_OO_7_ZQ0NvWHXRN4jo2Aqr-XGZamn3bCzwnZ6gmZQ@mail.gmail.com>
+Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Dan Carpenter <error27@gmail.com>, Ceclan Dumitru <mitrutzceclan@gmail.com>, 
+	dumitru.ceclan@analog.com, 
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>, 
+	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org, 
+	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
+	Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu <Adrian.Suciu@analog.com>, 
+	Cosmin Tanislav <demonsingur@gmail.com>, Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] driver: devres component unregistration races with manual PM disab=
-le
-- [High] irq: regcache_cache_only enabled before irq disable causes storm
-- [High] driver: missing NULL check for device_get_match_data()
-- [High] irq: interrupt enabled before clocks are initialized
-- [High] ALSA: prepare modifies shared clock state without lock
-- [Medium] clk: clocks leak if CONFIG_PM is disabled
-- [Medium] irq: regmap_update_bits on volatile status register drops interr=
-upts
-- [Low] pm: unconditionally assigned dev_pm_ops causes dead code
---
+On Tue, 22 Sept 2026 at 13:17, Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
+>
+> Hi Ricardo, Dan,
+>
+> On Tue, Sep 15, 2026 at 05:56:43PM +0200, Ricardo Ribalda wrote:
+> > Hi Dan, Hi Sakari
+> >
+> > On Mon, 14 Sept 2026 at 15:11, Dan Carpenter <error27@gmail.com> wrote:
+> > >
+> > > On Mon, Sep 14, 2026 at 02:10:10PM +0200, Ricardo Ribalda wrote:
+> > > > Hi Sakari
+> > > >
+> > > > On Sat, 12 Sept 2026 at 13:36, Sakari Ailus
+> > > > <sakari.ailus@linux.intel.com> wrote:
+> > > > >
+> > > > > Hi Dumitru, Dan, Ricardo,
+> > > > >
+> > > > > On Tue, Sep 08, 2026 at 01:35:05PM +0300, Ceclan Dumitru wrote:
+> > > > > > > Can you check this
+> > > > > > > <URL:https://linux-media.pages.freedesktop.org/-/users/sailus/-/jobs/109521830/artifacts/junit/test-smatch.log.txt>
+> > > > > > > please? If there's a single patch that needs to be modified, I can squash a
+> > > > > > > patch into that, otherwise v17 it is.
+> > > > > > >
+> > > > > >
+> > > > > > These are the same warns reported by Niklas in V13. Dan fixed them in
+> > > > > > smatch in devel branch but fix is not in master. Testing with smatch on
+> > > > > > that branch yields no warnings.
+> > > > >
+> > > > > Dan: any plans to merge these things to master some time soon? Or:
+> > > > >
+> > > > > Ricardo: could we use devel branch of smatch for some time?
+> > > >
+> > > > Do you know what patch fixes it? If it is easy to cherry pick I can
+> > > > add it to our list of smatch patches
+> > > > https://gitlab.freedesktop.org/linux-media/media-ci/-/tree/main/third_party?ref_type=heads
+> > > >
+> > >
+> > > Commit d12183645a31 ("precedence: silence some false positives")
+> > >
+> > > Sorry, I felt like I was close to merging devel but then I started
+> > > another major surgery to the core and got stuck.
+> >
+> > Thanks for the pointer. I have added the patch to media-ci
+> > https://gitlab.freedesktop.org/linux-media/media-ci/-/merge_requests/351
+> >
+> > Now that I have your attention ... :P
+> >
+> > May I ask you to look int
+> > https://lore.kernel.org/all/20260914-unqual-v2-0-60a1407a0cd4@chromium.org/
+> > in case you have missed it?
+>
+> I understand the required commit is there and I tried to push the Maxim
+> serdes driver again but I'm still getting
+> <URL:https://gitlab.freedesktop.org/linux-media/users/sailus/-/jobs/110822240/artifacts/file/junit/test-smatch.log.txt>.
+>
+> I wonder if we could have the devel branch there or some more commits...?
 
-commit 85f61640451174adf94c765b39619f4cf7a43543
-Author: Joakim Zhang <joakim.zhang@cixtech.com>
-Subject: ASoC: cdns: Add Cadence I2S-SC controller driver
+I managed to reproduce it also in my computer, so I do not think that
+it is an issue in media-ci.
 
-Adds ALSA SoC support for the Cadence I2S-SC controller in CIX SKY1. Implem=
-ents
-standard I2S and TDM modes, sharing transceiver start/stop state. Registers=
- a
-DMA engine PCM helper and handles PM operations.
+I would prefer using only tagged versions in media-ci.
 
-> diff --git a/sound/soc/cdns/cdns-i2s-sc.c b/sound/soc/cdns/cdns-i2s-sc.c
-> new file mode 100644
-> index 0000000000000..54c819493e3e6
-> --- /dev/null
-> +++ b/sound/soc/cdns/cdns-i2s-sc.c
+Dan, how far are you from making a release?
 
-[ ... ]
+>
+> --
+> Regards,
+>
+> Sakari Ailus
 
-> +static irqreturn_t cdns_i2s_sc_isr(int irq, void *devid)
-> +{
-> +	struct cdns_i2s_sc_priv *i2s_sc_priv =3D (struct cdns_i2s_sc_priv *)dev=
-id;
-> +	struct device *dev =3D i2s_sc_priv->dev;
-> +	u32 stat;
-> +
-> +	regmap_read(i2s_sc_priv->regmap, I2S_STAT, &stat);
-> +
-> +	stat &=3D I2S_STAT_TDATA_UNDERR | I2S_STAT_RDATA_OVERR;
 
-[Severity: High]
-Does this code use uninitialized stack memory?
 
-If regmap_read() fails with -EBUSY (e.g. if the cache is in cache-only mode=
-),
-it will leave stat uninitialized. The ISR then checks stat, and if the
-uninitialized memory happens to match the interrupt bits, it will attempt to
-handle it and return IRQ_HANDLED, potentially leading to an unrecoverable
-interrupt storm if the hardware interrupt is never cleared.
-
-> +	if (!stat)
-> +		return IRQ_NONE;
-> +
-> +	/* Clear the status */
-> +	regmap_update_bits(i2s_sc_priv->regmap, I2S_STAT, stat, 0);
-
-[Severity: Medium]
-Will this read-modify-write drop concurrent interrupts?
-
-I2S_STAT is a volatile hardware status register. If the hardware asserts a
-new interrupt bit after regmap_update_bits() reads the register but before =
-it
-writes it back, the modified value written back will contain a 0 for that n=
-ew
-bit. Depending on whether the register is write-0-to-clear or write-1-to-cl=
-ear,
-this can accidentally clear the newly asserted interrupt or untouched bits,
-causing them to be lost.
-
-> +
-> +	/* Transmitter status */
-> +	if (stat & I2S_STAT_TDATA_UNDERR)
-> +		dev_dbg(dev, "isr: tx data underrun\n");
-> +
-> +	/* Receiver status */
-> +	if (stat & I2S_STAT_RDATA_OVERR)
-> +		dev_dbg(dev, "isr: rx data overrun\n");
-> +
-> +	return IRQ_HANDLED;
-> +}
-
-[ ... ]
-
-> +static int cdns_i2s_sc_prepare(struct snd_pcm_substream *substream,
-> +			       struct snd_soc_dai *cpu_dai)
-> +{
-> +	struct cdns_i2s_sc_priv *i2s_sc_priv =3D snd_soc_dai_get_drvdata(cpu_da=
-i);
-> +
-> +	/* Transceiver clock enable */
-> +	regmap_update_bits(i2s_sc_priv->regmap, I2S_CTRL, I2S_CTRL_I2S_STB, 0);
-
-[Severity: High]
-Can concurrent streams unexpectedly modify the shared transceiver clock sta=
-te
-here?
-
-cdns_i2s_sc_prepare() modifies the shared I2S_CTRL_I2S_STB bit and resets
-the FIFO without holding i2s_sc_priv->lock. ALSA permits concurrent prepare
-on one stream (like Capture) and trigger(STOP) on another (like Playback).
-
-If Playback runs trigger(STOP) concurrently, it takes the lock and can disa=
-ble
-the transceiver clock immediately after Capture prepare enabled it. Capture
-prepare would then attempt to reset the FIFO with the clock disabled, viola=
-ting
-hardware constraints.
-
-> +
-> +	/*
-> +	 * FIFO reset should meet two requirements
-> +	 * 1) after i2s_stb clock on
-> +	 * 2) before dma ready to receive trigger
-> +	 */
-> +	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-> +		/*
-> +		 * Transmitter FIFO reset
-> +		 * When LOW, FIFO pointer is reset to zero. Threshold levels for
-> +		 * FIFO are unchanged. This bit is automatically set to HIGH after
-> +		 * one clock cycle.
-> +		 * Deassert then assert this bit here, since I2S_CTRL register is not
-> +		 * volatile, would not read from hardware any longer. If not, it would
-> +		 * clear tx fifo every time when write this register.
-> +		 */
-> +		regmap_update_bits(i2s_sc_priv->regmap, I2S_CTRL, I2S_CTRL_FIFO_RST, 0=
-);
-> +		regmap_update_bits(i2s_sc_priv->regmap, I2S_CTRL,
-> +				   I2S_CTRL_FIFO_RST, I2S_CTRL_FIFO_RST);
-> +
-> +		/* Transmitter FIFO threshold set */
-> +		regmap_write(i2s_sc_priv->regmap, I2S_FIFO_AEMPTY,
-> +			     i2s_sc_priv->devtype_data->tx_fifo_aempty_threshold);
-
-[Severity: High]
-Does this code trigger a NULL pointer dereference if the driver is bound
-manually?
-
-device_get_match_data() can return NULL if the driver is bound manually via
-sysfs without a matching OF device node. Since i2s_sc_priv->devtype_data is=
-n't
-checked for NULL during probe, dereferencing it here to read FIFO threshold
-values would cause an immediate kernel panic.
-
-> +		regmap_write(i2s_sc_priv->regmap, I2S_FIFO_AFULL,
-> +			     i2s_sc_priv->devtype_data->tx_fifo_afull_threshold);
-> +	} else {
-
-[ ... ]
-
-> +static int cdns_i2s_sc_probe(struct platform_device *pdev)
-> +{
-> +	struct cdns_i2s_sc_priv *i2s_sc_priv;
-> +	struct resource *res;
-> +	void __iomem *base;
-> +	int i, irq, ret;
-> +
-> +	i2s_sc_priv =3D devm_kzalloc(&pdev->dev, sizeof(*i2s_sc_priv), GFP_KERN=
-EL);
-> +	if (!i2s_sc_priv)
-> +		return -ENOMEM;
-> +
-> +	spin_lock_init(&i2s_sc_priv->lock);
-> +
-> +	platform_set_drvdata(pdev, i2s_sc_priv);
-> +
-> +	base =3D devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	i2s_sc_priv->dev =3D &pdev->dev;
-> +	i2s_sc_priv->devtype_data =3D device_get_match_data(&pdev->dev);
-
-[ ... ]
-
-> +	irq =3D platform_get_irq(pdev, 0);
-> +	if (irq < 0)
-> +		return irq;
-> +	i2s_sc_priv->irq =3D irq;
-> +
-> +	ret =3D devm_request_irq(&pdev->dev, irq, cdns_i2s_sc_isr, 0,
-> +			       dev_name(&pdev->dev), i2s_sc_priv);
-
-[Severity: High]
-Is it safe to request and enable the interrupt before the hardware clocks a=
-re
-initialized?
-
-devm_request_irq() automatically unmasks the IRQ at the interrupt controlle=
-r.
-If a pending interrupt is asserted by the hardware (e.g. from a warm boot),=
- the
-ISR will execute immediately. Since the device clocks haven't been enabled =
-yet
-via cdns_i2s_sc_clks_enable(), the ISR's MMIO reads via regmap will typical=
-ly
-cause a severe bus stall or external abort, panicking the kernel during boo=
-t.
-
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Failed to request irq: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	i2s_sc_priv->playback_dma_data.addr =3D res->start + I2S_FIFO_ADDRESS;
-
-[ ... ]
-
-> +	ret =3D cdns_i2s_sc_clks_enable(i2s_sc_priv);
-> +	if (ret) {
-> +		dev_err_probe(&pdev->dev, ret, "Failed to enable clocks\n");
-> +		pm_runtime_disable(&pdev->dev);
-> +		pm_runtime_put_noidle(&pdev->dev);
-> +		return ret;
-> +	}
-> +
-> +	cdns_i2s_sc_rst(i2s_sc_priv);
-> +
-> +	/*
-> +	 * Let pm_runtime_put_sync() disable the clocks, and take regcache effe=
-ct.
-> +	 * If CONFIG_PM is not enabled, the clock will stay powered.
-> +	 */
-> +	pm_runtime_put_sync(&pdev->dev);
-
-[Severity: Medium]
-Will this cause a resource leak if CONFIG_PM is disabled?
-
-The driver explicitly enables clocks via cdns_i2s_sc_clks_enable() earlier
-in probe, and relies on pm_runtime_put_sync() here (and=20
-pm_runtime_force_suspend() in remove()) to invoke the suspend callback and=
-=20
-disable the clocks.
-
-If CONFIG_PM is disabled, both of these functions become no-ops. The suspend
-callback is never invoked, leaving the clocks permanently enabled.
-
-> +
-> +	ret =3D devm_snd_soc_register_component(&pdev->dev, &cdns_i2s_sc_compon=
-ent,
-> +					      &cdns_i2s_sc_dai, 1);
-
-[Severity: High]
-Does registering the component with devres create a race condition with dri=
-ver
-removal?
-
-The ALSA component is registered via devm_snd_soc_register_component(), mea=
-ning
-it will be unregistered automatically after cdns_i2s_sc_remove() returns.
-
-However, cdns_i2s_sc_remove() manually forces suspend and disables PM:
-
-    static void cdns_i2s_sc_remove(struct platform_device *pdev)
-    {
-        if (!pm_runtime_status_suspended(&pdev->dev))
-            pm_runtime_force_suspend(&pdev->dev);
-        pm_runtime_disable(&pdev->dev);
-    }
-
-When devres eventually unregisters the ALSA component, the core may invoke
-teardown actions (e.g. trigger(STOP)) on the DAI. These will attempt to acc=
-ess
-the hardware or regmap while the device is in a powered-down, cache-only st=
-ate,
-potentially leading to bus hangs or panics.
-
-> +	if (ret) {
-> +		dev_err_probe(&pdev->dev, ret, "Failed to register soc component\n");
-> +		pm_runtime_disable(&pdev->dev);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void cdns_i2s_sc_remove(struct platform_device *pdev)
-> +{
-> +	if (!pm_runtime_status_suspended(&pdev->dev))
-> +		pm_runtime_force_suspend(&pdev->dev);
-> +	pm_runtime_disable(&pdev->dev);
-> +}
-> +
-> +static int __maybe_unused cdns_i2s_sc_runtime_suspend(struct device *dev)
-> +{
-> +	struct cdns_i2s_sc_priv *i2s_sc_priv =3D dev_get_drvdata(dev);
-> +
-> +	regcache_cache_only(i2s_sc_priv->regmap, true);
-> +	disable_irq(i2s_sc_priv->irq);
-
-[Severity: High]
-Does setting cache-only mode before disabling the IRQ open a race window?
-
-If an interrupt fires after regcache_cache_only(..., true) but before
-disable_irq() completes, the ISR will attempt to read the hardware via regm=
-ap.
-This read will fail with -EBUSY, leaving the stat variable uninitialized
-and causing the interrupt storm issue mentioned earlier.
-
-The same ordering race exists in cdns_i2s_sc_runtime_resume(), where
-enable_irq() is called before cache-only mode is lifted.
-
-> +	cdns_i2s_sc_clks_disable(i2s_sc_priv);
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static struct platform_driver cdns_i2s_sc_driver =3D {
-> +	.probe =3D cdns_i2s_sc_probe,
-> +	.remove =3D cdns_i2s_sc_remove,
-> +	.driver =3D {
-> +		.name =3D DRV_NAME,
-> +		.pm =3D &cdns_i2s_sc_pm_ops,
-
-[Severity: Low]
-Is this unconditional assignment of dev_pm_ops causing dead code?
-
-Assigning &cdns_i2s_sc_pm_ops unconditionally forces the struct and its cal=
-lbacks
-to be linked into the kernel even when CONFIG_PM is disabled. Using pm_ptr()
-here prevents this.
-
-> +		.of_match_table =3D cdns_i2s_sc_of_match,
-> +	},
-> +};
-> +module_platform_driver(cdns_i2s_sc_driver);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922112134.4167=
-305-1-joakim.zhang@cixtech.com?part=3D2
+-- 
+Ricardo Ribalda
