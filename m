@@ -1,68 +1,67 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C2E3C6600
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 11:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84C853D0C4
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 11:48:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790077594; cv=none; b=hDxDrtQHtHa8Hm1e5sTRSM9qIz5Z4EXTKKQGfVay0x0yr1U1L98VMDNLius6tM08tARZD5klCXtZv3VfZB2jSmzvwhejfcRuZeUMZgfqeLVlT24NC8auxePhb+E75Bt96OVSHfo425EqjbrTckHO+bMGNNm3vlWWRRYSeaAr3Ss=
+	t=1790077706; cv=none; b=qyaT83BAXvL35iz2terWwijLVAuSOqVEZdCaeD2suuUoF9EBXFHEqAFGemugOybPLOwQE+my0LjTlu9hyRV+qV4Zoirkt7b2kroUraxW1JDQyIFXCbBdcwEQ+Y0qW/AsgfVv3I0Va+vQfI4nWTwWlvQt0aUKY0gRAr/CjKxUUnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790077594; c=relaxed/simple;
-	bh=M3Xr9iBMhROimwBT9eQQeQt6rCOhgjqnmrhUoKcVfnI=;
+	s=arc-20240116; t=1790077706; c=relaxed/simple;
+	bh=0fEuwFB4EDBgZytQZVYr5GO0ZMk7QxnRdFL3zHe9mKg=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=AGesgKBd275hrKLVA9YCe7zMftsPRgGK2F5xPD9VX675GSO57YEmU5zWx+/XJxs1eWwqYiN6Tg1C5KA93RQuG6l0fu54StEpeunZBPs8JlXYqAu5TsWWpJwDdpRqtqJ/a854mBo6tLdUDBoVcYO/LFbGSdR1VuA5fmgV+7HaGVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=hCPqAcWq; arc=none smtp.client-ip=74.125.225.99
+	 In-Reply-To:Content-Type; b=njCYPQYPw72A5Itjj0mWzbyaLcC27owZfnqbCfytijaA1aHeM74Jk3/FHGZLBaO3GSejSfkWeJpyPZmFj7Tp0V1gmhJcaTXXTpxHN+9BfEZCsSJJZuqzphGhXJzNoAcCNzS1W26ad7DY6NZdBfOtID8s0oXcDayfYf/qSMbhEKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nzBKs0V7; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="hCPqAcWq"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885d4825adso962557f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 04:46:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nzBKs0V7"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so20976355e9.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 04:48:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790077590; x=1790682390; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790077702; x=1790682502; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ovAKBw15uveBtm1L1gdlFwDkGVI31wzX0RWiaJj57Zg=;
-        b=hCPqAcWqhmGtvbbP4WxZQam+QdzZuzmX6+hCpv2eHAbQnMmPRz6p3OmqgW3vGpjVFv
-         y0eFjBjvvIE3NaQFiNV7mg6mL9sgGPMBs1JN75IN9/DKeGV3xEWLK/4R+tJCGSpHGgyL
-         xBLLw6OxEbIKsR9RF2CW7HUBx9TGFnwPYBycTW8+YUZajQs40FFUHIsq9q8MfxI+Af2f
-         GKMjyDPUKELiVqTuZus5UaXcev+S2lNbSlw8i4hQ9//PJ5NvzCvcngG5rcwKOIoAgg7H
-         EDOK9Hrf5Z+WalfAJSmaN4TNzPfvDmcpWeBMK2yrKgF6Vi5bSnDptXVNakpE40YwhJ7d
-         OjiA==
+        bh=aqEOVW0oYV76bRl1m3qya1gRiu6Xn1Kr6F2EDDby+mc=;
+        b=nzBKs0V7hi8cv7CHKEmom9Ignw3lrZ+3RtMPoc0lXjm0GmySN1ivjdqKSe8qFpWS3J
+         xer+O6Ijz4dNChydVggfb2rjk6ZjhZTqEwbbms1tdNfUG/qw8XwtuMc7INi+8+g5Mrp4
+         v7ebZ0hRloYgEtSboq7dWchiudyphkt6w3H3dT28L010EmobOkDoZO+6IgBYMeWUfK80
+         cosCLxcMYjjDFmdVFPWrCA3WO+aWy2iaTJIfLtY3M/L3dU/mvFgIlWd6o+/Lve3xri3E
+         z3aaI6hvQD0S/Hq+EYeRdKX/DBuIFXiFcxsOOYSZSxDDcq1zc86Pw2DHky81Rif9bCPL
+         kwUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790077590; x=1790682390;
+        d=1e100.net; s=20260707; t=1790077702; x=1790682502;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ovAKBw15uveBtm1L1gdlFwDkGVI31wzX0RWiaJj57Zg=;
-        b=l+AGuHJcsTQmlh6mSNycYRPh4q9l5BMAOuyRcauohzLVFxSys3+N9a68DP3L4m5WLb
-         lkYBWvji5fka7F/AFCWA/y7ckAaacLdRS1an81JoKCek3eiuBbJLXxEQR2cqVZiMDqRV
-         D3pC/p+eYW8HXKu2g3KJq40DCmzEqG3q02DKGnO2ub65TjH/H88xESGhmfP4141FDRiG
-         FePpptEiaV9Ldep4pYcU8PAVL4PekMLKg/g6aMTAIpu20ATp2G766aVIV1YFMMBEVNLT
-         Gp1poTbhgD9qrC57PqQRhxETbbatdZSMyOpayGSaAhHRkFuLlirf5G67qPMVXpTk5tsL
-         dg2A==
-X-Forwarded-Encrypted: i=1; AKwUvBwLrjSHL1Tkc9jWT2a8gRW1HJrN+qZJEWVD+6CwdbUiNEz0o+xVQTQfldUyGHaaF0VVea4EWBoB+SyJ@vger.kernel.org
-X-Gm-Message-State: AFuF++lHFxvij66nElX0gTOMMmSP+n7vksO63LOLuioFkhDoWuawrhM0
-	TgzopDq8sjF82oe27XAmDn6I7P1G/kJz4Ab7zeE68VypZZF3xt3v0pZNvNJxvwYTDOk=
-X-Gm-Gg: AYBFou0OQS+4hVds+29RQ2cuI4Dys4iEjO92DUkoKjNMbMgckhZysj5/1EVfZVyD0UQ
-	xLahEx/Qe6hj8kR2TOFV3mTO6xfe7JOVshVenvygiTE2kb8derHSOC7aOIFrvEqOdJn4I1498bR
-	RlzhVzbr7BBGOpsT2Kq+c5YZw3FNO/TtfTW4LD7fJvHg4Iza9UQ8fovjvqMiUvwwOOSxCXVUKg+
-	r55ja++rMaEUmGTemqmtHJBTEhnsYrLzw+pDxGzjJ2qXrsU+/oVG4xMhyjxTvhcbu3+w5Ks7GEd
-	KP/gOoN0TPSdE1RfwFXjzViz9EtUY3VygSRb5XP5WZKwkbDRhBmTIyrc8x6l1iO17tmzBnoLmYw
-	V/tGI+31B1zf7cYMqZt3W+ud2MzDNCDtbrPRzg6GbT7sEt3M0xuS+5k3uaWgA9fSbPzgd686Nnc
-	Uq7YVR51BJOMd0iXF/hoUI3O9ADf7nr8nrGviJ/tEY0YXpzMSb8Oakt8W9QTDis5MnjOSlrXMHK
-	b+ThvUW1pwb23/sve5zLmKG1uwZ3KQZtItAHKRNTiR1OT+g4mqSUKg=
-X-Received: by 2002:a05:6000:490d:b0:485:8a47:5b91 with SMTP id ffacd0b85a97d-4871e36cb87mr18628350f8f.46.1790077590353;
-        Tue, 22 Sep 2026 04:46:30 -0700 (PDT)
+        bh=aqEOVW0oYV76bRl1m3qya1gRiu6Xn1Kr6F2EDDby+mc=;
+        b=kGlRilo2i5hxj6qj65ORWc7YSlCdhCH4OhJnXNM5Lbzm2/cw12PDmupZGsbzOhQdJz
+         LAJQIg4XqTFJ+WHtct3058COItulD/vBJDz+o9A2h3DPVC92PtJF5bo/irDR8Ya4KYtU
+         2yo0YUnMCTM0tXbSFbIVjyFzvx5+OD2lu508C4y+zJGAp5vXEG/JsCXAbopVUbZn3sMz
+         OaM1FA/dl2UVDrvfH3h5trQhx8NJvcsHynh158uZ/E0OGFCe2ep60IT2Gl1a3Xl1Ed+1
+         z20dYEUuk6g78e0gwxRKccXhq0P8uaYmvDKg3JI63XJh0f0eEKoIhJEAAAw9DsOHc0cD
+         4YAQ==
+X-Gm-Message-State: AFuF++niS5iFF9KyvA9RMRK/KQsNff4rYad7fslxWqjpcjltK0nEOyXK
+	sfpfj+YOF3C9fu7JfNgADvi1QMbvmN9oaZ91nPKyUqC2y7GOBlm4FFPyi/66iq6yJiQ=
+X-Gm-Gg: AYBFou3+vjC4i3tBzAZvnu7lFRz0leXCHIaB1homfAU1TeD067HjSDecTjsI3B/jZ8b
+	b/AI8m7wv6P/x91KRY2AFzn1n2b2ZuzlvZ6pGVvjGLfQE/4n/xpDxbMx1mu9zTEHPh339zsE6l3
+	7nlbTaymZ2F2GQDGOokyjsC8TUds4j13yIklmBsW1YapuALo55adg6gKmWqR9MyEM98Hfk+zXtZ
+	axvyffWMUzq0jmLI3dhqP4VhDvBGbOHioLyeh6138xwIp43KktL2Kxdw20lybptumwImTHVx72Q
+	NtREb+qls7oasIEWXH5f2hbD3p4ZtU5mpYMFNmDBt3ye3hUmChF1nnsjn7f+7vEBHP0VvC4pJEO
+	5zl8pxw3l5eeGzzgCzCqmL+Ze9Sbf4iyysLtDu1fGk0o7Zh1JubEn7zqrpFmCnbKOZNZqpN3T3F
+	0hig0rtWs3VUMxxPc65bmhcbhD9ziNPWnjEPjeq33kHemllsSBPK6lvdd220RUtKV+89RKkIh5L
+	dMUnF1Q+pGkmOaKIT30dZLOarnnKv5IoQ+QcQa5daifbbVlmzdtnuAqnY4VMMbbIQ==
+X-Received: by 2002:a05:600c:1f95:b0:49e:7862:c09e with SMTP id 5b1f17b1804b1-49fc57238b8mr180239605e9.14.1790077702455;
+        Tue, 22 Sep 2026 04:48:22 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:ddd0:8cc7:9887:fa82? ([2a01:e0a:106d:1080:ddd0:8cc7:9887:fa82])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48862774543sm5000820f8f.11.2026.09.22.04.46.29
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdace7941sm54428815e9.2.2026.09.22.04.48.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 04:46:29 -0700 (PDT)
-Message-ID: <b2112da7-dbb6-49fa-ae10-b9e4d47d4495@linaro.org>
-Date: Tue, 22 Sep 2026 13:46:29 +0200
+        Tue, 22 Sep 2026 04:48:22 -0700 (PDT)
+Message-ID: <27a837f9-6e32-43e4-94db-b5180c0baad9@linaro.org>
+Date: Tue, 22 Sep 2026 13:48:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -74,17 +73,11 @@ From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Subject: Re: [PATCH 2/2] arm64: dts: qcom: sm8650: Add initial Valve Deckard
  devicetree
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
 References: <20260922-topic-sm8650-deckard-initial-dt-v1-0-c25e7759d04a@linaro.org>
  <20260922-topic-sm8650-deckard-initial-dt-v1-2-c25e7759d04a@linaro.org>
- <bc3d3df8-a2dd-4ac5-8064-d54d4eaa3f6a@oss.qualcomm.com>
+ <20260922114234.92CC21F000FF@smtp.kernel.org>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -111,173 +104,54 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <bc3d3df8-a2dd-4ac5-8064-d54d4eaa3f6a@oss.qualcomm.com>
+In-Reply-To: <20260922114234.92CC21F000FF@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On 9/22/26 13:42, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] dts: incorrect regulator supply names for vishay,vcnl4040
+> --
+> 
+> commit 04ec091c4806a5aef627fbe5d3809fe2eef39d6e
+> Author: Neil Armstrong <neil.armstrong@linaro.org>
+> arm64: dts: qcom: sm8650: Add initial Valve Deckard devicetree
+> 
+> This commit adds the initial devicetree for the Valve "Steam Frame" (codename
+> Deckard), a VR headset based on the Snapdragon 8 Gen 3 SoC. It includes
+> definitions for reserved memory, regulators, GPIOs, UFS storage, USB,
+> Wi-Fi/Bluetooth, and I2C peripherals.
+> 
+>> diff --git a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
+>> new file mode 100644
+>> index 0000000000000..cd801359d2b57
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
+> 
+> [ ... ]
+> 
+>> +	light-sensor@60 {
+>> +		compatible = "vishay,vcnl4040";
+>> +		reg = <0x60>;
+>> +
+>> +		vin0-supply = <&vreg_l2b_3p0>;
+>> +		vin1-supply = <&vreg_l15b_1p8>;
+> 
+> [Severity: Medium]
+> Will the vcnl4000 driver be able to properly find and enable these regulators?
+> 
+> The driver expects the regulators to be named vdd, vio, and vled, but here
+> they are provided as vin0-supply and vin1-supply. Because they are not bound
+> to the names the driver expects, they might remain off or get disabled by a
+> late initcall, potentially causing the sensor to fail probing or I2C
+> communication.
 
-On 9/22/26 13:39, Konrad Dybcio wrote:
-> On 9/22/26 1:28 PM, Neil Armstrong wrote:
->> Add an initial DeviceTree for the Valve "Steam Frame"
->> codename Deckard. The Steam Frame is a virtual reality headset
->> based on the Qualcomm Snapdragon 8 Gen 3 SoC (SM8650).
->>
->> Providing initial support for:
->> - System reserved memory, regulators, gpio keys, PMIC functions..
->> - PMIC ADC Channels
->> - UFS Storage
->> - USB Gadget
->> - WCN7850 Wifi7 + Bluetooth
->> - I2C + basic peripherals
->> - SDCard slot
->>
->> The bootloader starts Linux in EL2, thus a bunch of EL1 & DSP related
->> nodes needs to be removed and the reserved-memory mapping must
->> be defined.
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
-> 
-> [...]
-> 
->> +/* Remove nodes */
->> +/delete-node/ &ipa;
->> +/delete-node/ &gpu_zap_shader;
->> +/delete-node/ &lpass_wsa2macro;
->> +/delete-node/ &lpass_rxmacro;
->> +/delete-node/ &lpass_txmacro;
->> +/delete-node/ &lpass_wsamacro;
->> +/delete-node/ &lpass_vamacro;
->> +/delete-node/ &lpass_tlmm;
->> +/delete-node/ &remoteproc_adsp;
->> +/delete-node/ &remoteproc_cdsp;
->> +/delete-node/ &remoteproc_mpss;
->> +/delete-node/ &reserved_memory;
->> +/delete-node/ &swr0;
->> +/delete-node/ &swr1;
->> +/delete-node/ &swr2;
->> +/delete-node/ &swr3;
-> 
-> Hm, maybe we should think about sm8650-audioreach (simialrly to
-> how we have a split for the kodiak variants)
+Good catch, how did I miss that...
 
-I will probably go in this direction when adding support for audio.
-
-> 
 > 
 >> +
->> +/ {
->> +	model = "Valve Deckard";
->> +	compatible = "valve,deckard", "qcom,sm8650";
->> +
->> +	aliases {
->> +		serial0 = &uart15;
->> +		serial1 = &uart14;
+>> +		proximity-near-level = <220>;
 >> +	};
->> +
->> +	chosen {
->> +		stdout-path = "serial0:115200n8";
->> +
->> +		framebuffer {
->> +			compatible = "simple-framebuffer";
->> +			width = <4320>;
->> +			height = <2160>;
->> +			stride = <(4320 * 4)>;
->> +			format = "a8r8g8b8";
->> +			memory-region = <&framebuffer_mem>;
->> +
->> +			/* Bootloader will enable the node */
->> +			status = "disabled";
+>> +};
 > 
-> Is there a reason not to enable it? Does the bootloader prefer to
-> only enable it sometiems?
 
-Exact
-
-> 
-> [...]
-> 
->> +	reserved-memory {
->> +		ranges;
->> +
->> +		#address-cells = <2>;
->> +		#size-cells = <2>;
-> 
-> it's usually:
-> 
-> addr
-> size
-> ranges
-> <newline>
-
-Ack
-
-> 
-> [...]
-> 
->> +
->> +		aop_mem: aop-region@81c00000 {
->> +			no-map;
->> +			reg = <0x0 0x81c00000 0x0 0x60000>;
-> 
-> 0.dtsi
-
-Good catch
-
-> 
->> +		};
->> +
->> +		ramoops: ramoops-region@84a00000 {
->> +			compatible = "ramoops";
->> +			reg = <0 0x84a00000 0 0x100000>;
->> +			record-size = <0x40000>;
->> +			console-size = <0x40000>;
->> +			pmsg-size = <0x1000>;
->> +			ecc-size = <16>;
->> +		};
->> +
->> +		aop_cmd_db_mem: aop-cmd-db-region@81c60000 {
->> +			compatible = "qcom,cmd-db";
->> +			reg = <0x0 0x81c60000 0x0 0x20000>;
->> +			no-map;
->> +		};
-> 
-> Likewise many of these reservations also exist there
-
-Not sure slitting this would be worth it.
-
-> 
-> [...]
-> 
->> +	/delete-node/ smp2p-adsp;
->> +	/delete-node/ smp2p-cdsp;
->> +	/delete-node/ smp2p-modem;
-> 
-> I think these shouldn't hurt even if your usecase is different
-
-Right, but those describes a pure firmware interface.
-
->> +
->> +	wcn7850-pmu {
->> +		compatible = "qcom,wcn7850-pmu";
->> +
->> +		pinctrl-names = "default";
->> +		pinctrl-0 = <&wlan_en>, <&bt_default>;
-> 
-> nit:
-> 
-> property-n
-> property-names
-
-Will fix
-
-> 
-> please
-> 
-> otherwise looks pretty good
-> 
-> Konrad
-
-Thanks,
-Neil
