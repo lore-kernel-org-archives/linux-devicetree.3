@@ -1,87 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F1455D88F;
-	Tue, 22 Sep 2026 16:19:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6171F54489D
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 16:20:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790093945; cv=none; b=Dfq8dByX5z7VD39wavwjkBuojyGc18owUICMVLR1hAX1RCwSDor5unkm+cJaYAHrasTuNPmTwONLE8f9J2QjviOjg6CGugcFZhF/beuqN/ujgu1AYcIh9nMEEZBR+EcvNRgkaZ5vg3wKEXyi9qrxzt2oKU/bSS9KPR8fiElL1B4=
+	t=1790094009; cv=none; b=PAzCZ8oMnb2bCZ//xx/aljqgVmv6B0gLtxchaXay0DDjSUmC4grPihvUA/KbJo2PrPpamBpOhlwSEm1mYn/AnQDzOdYCrV7N7AqLn8siFO37LP4TqWPCk1H/LvkX1C/mdPVQyIDseBPaARi3a2VD+xQ41/+zp593/Dtl5Xh9an4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790093945; c=relaxed/simple;
-	bh=a3LTGa3MhJXN2n2B8EPr5J17gLQO/MD/MCTXDGXbUIU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H+RKh9J8uAeXdcvEj+XnaT8OyJvRlfAQfSDE60lKVYFTKlPtOy+q3ug1agI6YIR2o17pNyfSUqc+lh9OXUy+kC8zGPezYCXbJCuIrTD/O3/KqNy78/XHShY+WLJN5YkHFrRX5zbOLwWJQE24IrkzOcP8wyD8Gin4KP9vwVMS+UY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nCXsy/+c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790094009; c=relaxed/simple;
+	bh=QubFJOGYoK4Gw6gwrEteDQDPfBOvxgz4YCrPwM+CG4s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cwAKnw+qWQibcux3V/CB17unAecqE5wE5IS14gk8jUjcy6E1mi7XxDZ691Hn43hg/c7rdqc3j2uKwc5oYJtm4b2JJvLhI6Tl/luBHnDYGJhL5kAfbvgtcDVN3V9m1DI/Nt8qMBTN35vJMKPezKU00SBpXxbesSlv9xZESA3jZ60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YzXW+ySp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nCXsy/+c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B881E1F000FF;
-	Tue, 22 Sep 2026 16:18:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YzXW+ySp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD87C1F000FF;
+	Tue, 22 Sep 2026 16:20:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790093943;
-	bh=iRBfCParkNtyS5c7cz2RRsQha1XxTa9n12NZaWfZ/24=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nCXsy/+cTBsYjPQjb4ORn0ACY4eQUoAN2P5bKbR9ceOXSp6jsUQPKUJXidVsczQIj
-	 qwHPHN9eerpgroSfwN/ExPSbYWv9VILJ2nhhC9C6InFra91fp2EnidSWiGcfuSc/jt
-	 wDk7O3WasgdIZPgU3vgLgSLFaxTjtaC4moNELmtLi9sA4GIqd7pMNs9ON8v2puAbzK
-	 1fqD06cxyVx39g0jgWkqrBETo4Mj20UBwmFybKvkpcidIP6ob3Wop+kLV84OMwHv8K
-	 PfdvA+HMgs9+wQ75aIhH0foyLEapkhNo0ZrfYqX5727dKfBfPaR9g1Bruvy7CBELqH
-	 xIfS/ziAn0g/Q==
-Date: Tue, 22 Sep 2026 18:18:53 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Michael Walle <mwalle@kernel.org>, Alex Elder <elder@riscstar.com>, 
-	Daniel Thompson <daniel@riscstar.com>, Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>, 
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 2/5] gpio: tc9563: Add support for the embedded GPIO
- controller
-Message-ID: <fratyclnf6t232dg5s2kvsysw3gbovkwnrzfhnlblsax3wb6qy@debn6qdpp7jh>
-References: <20260909-pci-tc9563-aux-v5-0-c9b33f56c8d3@oss.qualcomm.com>
- <20260909-pci-tc9563-aux-v5-2-c9b33f56c8d3@oss.qualcomm.com>
+	s=k20260515; t=1790094008;
+	bh=Wq6QRYqCZHvQzz+EDFZQ16bJssxzviFBRIEa+7I1tGs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YzXW+ySpj1bdpgXlEVtbnm+ytirNM+KvSWLhhmVjdPpETU6kjuseC6Ssk1I4Li60V
+	 zqJa62TjNwRoA0EIoYsu3yyUVhlSpJ1WXaTjDSDQ33pDV/bGRMBFr9l1KoJXB/SgPc
+	 FWH6B7nGNw6tbm2yqX0vAEV4Vd5sDv5jEEfNYPR584zG+4toyw1QeG9vkZglR52Oyb
+	 ag45i3deDvjG1a9kBVMJzjpyH37cYRLVzZg42ps0UIIOIgjJJcAotzkB5b4SfcsJ++
+	 7Uy8LE8woBGQI/YXBk8ZMJfbSU/m1drWbNqUS/uWKcCkW/LZUYkI9w7IdO4Nj4EKVH
+	 JP8IsmeG8x+KA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: regulator: Add RPMI voltage service
+ bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joshua Yeong" <joshua.yeong@starfivetech.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260922161156.1088153-2-joshua.yeong@starfivetech.com>
+References: <20260922161156.1088153-1-joshua.yeong@starfivetech.com>
+ <20260922161156.1088153-2-joshua.yeong@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 22 Sep 2026 16:20:07 +0000
+Message-Id: <20260922162007.AD87C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260909-pci-tc9563-aux-v5-2-c9b33f56c8d3@oss.qualcomm.com>
 
-On Wed, Sep 09, 2026 at 04:55:54PM +0200, Lorenzo Bianconi wrote:
-> From: Alex Elder <elder@riscstar.com>
-> 
-> Add a driver for the GPIO controller embedded in the Toshiba TC9563
-> PCIe switch (and the Qualcomm QPS615). The device implements 35
-> GPIOs using two register banks: three registers control the first 32
-> GPIOs (20 and 21 are reserved) and three more control GPIOs 32-36.
-> GPIOs 22-24, 27-28, 31, and 34 are input-only.
-> 
-> The driver is registered as an auxiliary device driver. The TC9563
-> power controller creates the auxiliary device and provides a regmap
-> that gives access to the GPIO registers, so the gpio-regmap helpers
-> are used to implement the GPIO chip.
-> 
-> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Co-developed-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] dt-bindings: non-standard voltage-domains property bypasses regula=
+tor core
+--
 
-Linus, Bart, what is the merge strategy for this patch? Since Bart has Acked
-this patch, can I assume that this along with pwrctrl patches can be merged
-through PCI tree?
+commit f9ded6ad4ad8d417c9182647856a155cfddbfb6d
+Author: Joshua Yeong <joshua.yeong@starfivetech.com>
 
-- Mani
+dt-bindings: regulator: Add RPMI voltage service bindings
+   =20
+This commit adds device tree bindings for the RISC-V Platform Management
+Interface (RPMI) voltage service group. It defines the bindings for both the
+supervisor-facing regulator controller and the SBI MPXY channel used to
+expose the service group.
 
--- 
-மணிவண்ணன் சதாசிவம்
+> diff --git a/Documentation/devicetree/bindings/regulator/riscv,rpmi-volta=
+ge.yaml b/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.ya=
+ml
+> new file mode 100644
+> index 0000000000000..66d1c26592c16
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    description:
+> +      Intended for use by the supervisor software.
+> +    const: riscv,rpmi-voltage
+> +
+> +  mboxes:
+> +    maxItems: 1
+> +    description:
+> +      Mailbox channel of the underlying RPMI transport or SBI message pr=
+oxy channel.
+> +
+> +  "#voltage-domain-cells":
+> +    const: 1
+> +    description:
+> +      Lets a consumer name a domain by its RPMI DOMAIN_ID, the single ce=
+ll of
+> +      a "voltage-domains" entry, without a child node for the domain.
+
+[Severity: High]
+Does this non-standard provider cell count bypass the standard regulator co=
+re
+linkage? By using a custom voltage-domains property instead of the standard
+<name>-supply pattern, consumers using this linkage will globally fail
+dt_binding_check validation since voltage-domains is unrecognized by
+devicetree core schemas or standard consumer schemas.
+
+[ ... ]
+
+> +    codec {
+> +        compatible =3D "vendor,codec";
+> +        vdd-supply =3D <&volt2_reg>;
+> +    };
+> +
+> +    // Domains 3 and 4 by DOMAIN_ID, with no child node for either.
+> +    phy {
+> +        compatible =3D "vendor,phy";
+> +        voltage-domains =3D <&rpmi_voltage 3>, <&rpmi_voltage 4>;
+> +        voltage-domain-names =3D "vdda", "vddio";
+> +    };
+> +...
+
+[Severity: High]
+Will this custom linkage break driver core probe ordering?
+
+Since the driver core (fw_devlink) cannot track voltage-domains dependencie=
+s,
+it has no way of knowing this property names a supplier. If cell-based
+dynamic regulator mapping without subnodes is required, shouldn't it be
+introduced globally (e.g., #regulator-cells in regulator.yaml) and approved
+by the core devicetree and regulator maintainers rather than using a
+platform-specific model here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922161156.1088=
+153-1-joshua.yeong@starfivetech.com?part=3D1
