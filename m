@@ -1,138 +1,154 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07684A1DE0;
-	Tue, 22 Sep 2026 06:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7628C4D1794
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 06:29:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.40
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790058582; cv=pass; b=OYWEF3q26OsOKy8ZfPlGC0fBm7KbBfgJIJdyceNvLKESmCFUSAZQPqAFj2AkbY7PmCZb3IrOfDqUNzWgciRlNM1HqLxBp8czhNa/A11EUvBSfOhnboj32M1JUf103P6toEuXtMxibldlvtim4w9/QyFLnF8H6SXF3c4pcBsJi5M=
+	t=1790058586; cv=pass; b=ao4KfFSm7zaMuvJShjlbZP5x6YsmGzbBiXTs3W858XyYKKXDgV1SJgUDunZ8rZmKvHIS0+NNmXV4DI/gmgla7sMpwf2pgOHQsSXL3zxf00DB5D0KG9BqKZMAdGC2rl/JwnbQC1uASd3iocFGtFQvmnnymS7HRjW1dvfyATRVqvE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790058582; c=relaxed/simple;
-	bh=0Y/NG4nMOalFGTSNp/BfF0N3WtHCZpwOLy9J6i30EqE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JQGaJ739ynzutSEAvZQ4rSOgqNwJIVtGx+OW9LW98M/P3jCdRmJh9LQ2dPXEZtRDD0G8Za8zAyUZE2o1zMuvHvEmkNhlGiYAwdrdoLLSA6SgZiZ9iVR4TEcS9GACqnacA0F3I71lczXrQQ2r5EXbfiJhpk0PH8ta9UCWv43JSF4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=naj3cZUl; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=T5UqOveD; arc=pass smtp.client-ip=185.56.87.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	s=arc-20240116; t=1790058586; c=relaxed/simple;
+	bh=WMopLKvR/pUfd2YF3exYBV6b9DrcmKXGK/JBv+4BYaY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ld7EHPxIJ6UCfsXjRiUQVLCtccGP1FIXIN+1DsnY9ADGDpehDcs5l+OF/KNmeodXU9pDI9GY6JnyrWulmgpHmUGs0o9lRdnTuW6+p3IfuFfRAGC6yKW6fshW+5rejNvJBoHuRkS2yDDn11h/CNCwUjMCk/Exp5Fg0r0fnP1r7Vw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ads0/kQN; arc=pass smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="naj3cZUl";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="T5UqOveD"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com; s=arckey; t=1790058580;
-	 b=FUWFoMrJvY5fEbNmPPdbXJv20IjNhXSRNUxH07KjiZae918M69LEcg/yjevNQ1CEM0dS0eJhz0
-	  WeCYc5PWthhbOXQMMBVdgBQlpEjdlrKAMuKlxi+vPLXpGUSs+mccd2eRgoaYVAmWNPMS/ly+WL
-	  HFUMSLb20Dzpp7ypW1L0S83ZQDJz4GmQrzAVA6XfphYpbnKH6Gat5dtRh1cy82v6ytLoi3B4Cl
-	  n7PAniL4PfzroKSVFRJN1siCpfuPuJRJCyEiWnw/twhCFHrowJa87SmpCi5rs+zUoQ57FZUNcj
-	  +yV5u6wyr8z8J7M9BA12SevEOTBfUs3juqE7/B5nbWfn/Q==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com; s=arckey; t=1790058580;
-	bh=0Y/NG4nMOalFGTSNp/BfF0N3WtHCZpwOLy9J6i30EqE=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=jG49TKOOdrxlV6K7DMO3jxQd0+BwKiG/QhnxKL2D0F4dz7WaKfAL5JLvpzLi84tn2LBVHuHr74
-	  dBoPrnFJg64zlRjUqFTAeRMplkgqz0FhO/o4MFbMxDydttdz0xn5ohHeC56vd3q2p4jxCLuMaP
-	  eo8iu4e/fT13bsc6gIEp3uXU1yJkX3Gop+bvYiVodcyFEyi+zE1e2j/8oQCWEtAV9N5PsSn+TY
-	  NoMKLWzuMB4MFdn8NZ5kOlBvsB0Tj4881hY5KcSCH7u6wSJZGNLJ/6BNhX1ZlgMF7PSDK/QmC5
-	  qAQNLlbqrV86fBP/arPZeScOeJqRRx4UFrkVcP9UtVEeVg==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=5TziHwaXDLNZErCA1Nv3YhRq2q9+6p4PN2Do0dxKr38=; b=naj3cZUl1uE5wOWIl4cQ31FhHw
-	K+Druf/im+iqpqdcWzNlCj+QBJORk+fkvMk9ZtztZJ1HeJ9oJTsY8tfN79Y6By5l1RizBgOCtq2KN
-	lRHzSEIE06sJXROQAqLqgRloq578qIxnvKya8it8Lyj3LkRZYek8Uwc9WWeVSw9xAEec=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x8u07-0000000H2up-22fH;
-	Tue, 22 Sep 2026 06:29:32 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=5TziHwaXDLNZErCA1Nv3YhRq2q9+6p4PN2Do0dxKr38=; b=T5UqOveDeSk52U3za0f9ytME7m
-	zSVTX1ALLKtdubMCZNXtEZz3wf/27Dn9KwpzimGgCV3BJ9XriUrJYEKbSc+CYOb6rZxWE4+/+xnTL
-	Vlfj3qwDvFZqXE45GDc0jKkhkeLenT+u4HxOrUuAXVusycaW9qvA1txxbpcC7QJPHlAM=;
-Received: from [79.43.46.244] (port=63244 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <francesco@valla.it>)
-	id 1x8tzG-00000000GBl-2f8i;
-	Tue, 22 Sep 2026 06:28:18 +0000
-Date: Tue, 22 Sep 2026 08:28:16 +0200
-From: Francesco Valla <francesco@valla.it>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	virtualization@lists.linux.dev, imx@lists.linux.dev, iommu@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 00/12] remoteproc: add support for any virtio device
-Message-ID: <arIfj-1Ji6HEBHLJ@bywater>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <aq1sooGCYUiWbhMH@p14s>
- <aq453yukMHiNb1jp@bywater>
- <CANLsYkySF+eF-FURnnT6UJv7P5Sg2HdfMSBZnZy_BLyCMvuofw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ads0/kQN"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5121bcf1aso3055415a12.1
+        for <devicetree@vger.kernel.org>; Mon, 21 Sep 2026 23:29:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790058584; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rFZxjvnYJeLUmQ80ig+5VJ9M6IGXEtGsM9qlx9jSo5g+8h6pHzDY0Kw4xI8cyIjxlG
+         8Ob1uhwyu0fiwsafFE85boXgsexnm+XDPP10qnhMRLfElPdDIk7OxDkOEYmbNGy17fO1
+         hcGwE4pcrxAeLHuysgNLKWXUhd5BaVVbxVLfBTCTkru6pm/ghkJUzc6rQ1iEgAE9fIVP
+         6+qlvwm4yBElGG7OEe86JdHVSX2zFUPk0jtYsajq2wItKgDia9RgETBF9PxkZKkSUIZp
+         Ubx2IoleMpxpUeHb4QpDpx2m7CgAAx2hAb4AuUt8ySlYxyu+9SeFEM9ZWJ1F0DRNiJkM
+         IxDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ing5JC6tleS+Y5q+zrefvE9RUeGgTougjus6FkCTzfE=;
+        fh=wKcUYLkMrcoueqYprbOKYPVqWTEwWCvx6FB6rS0UnVY=;
+        b=Pl6RoA1+/a/x88sCdwfeYi3I8vi4AeNzCx0+59QxYdoYPKMoBDp9Yt8cfoxcogf5vf
+         /xqdt8EWFDcBQ1Qwzi+WAVMenSd9NWaynSU5Fqi/JMtiezBMgNu0KPMY70Tky8bq8EYY
+         kqL3yxBU1j/VHYtDj+ZH9m0BHZZ31Hm4Kr/BjQZJYK4H5ZbrydW97sRMZtkwPVksHcIc
+         9sD0USiEbjGQuBtfBFDNvvZBGuC/C1Sy8EQkP4Wn1m0EHh2qTAVDSK5QAeeEI7jfT/yj
+         EGPa2tguhdXV1/GByPVg6PXZinVgeQfbRFqiRXy2VxzJt4ZpAlArtUyK2YndwZKg+wmV
+         oznA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790058584; x=1790663384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ing5JC6tleS+Y5q+zrefvE9RUeGgTougjus6FkCTzfE=;
+        b=Ads0/kQN2vtUwcoG8QLHfoFhrM+QXCLgy/bTVR2HYnnIY/tlRnZDMrR1g/ejfPLW0f
+         XEqhj/WqZ802LJZ7RuAMIHTLdCiEJNP+LXRYmkbWZOMaxFtTgoULmZBaTBYU43qIMuRg
+         eIb+208ZJcLaJM6BQWjPm4rByHAB2LYTJExPetdZDiuJJorlmnCl6CTfjmyXPUlr0JEI
+         g6pnNgmi9NzUJcjyt9kcE9or1OD7eKBNnA/6qaOeMD5tkteCx4YYXwsTW0d+lKmvXFHu
+         EMmjBDyFg2J6FBPAtik4LbD/e9XeMCrY/JgA2HCUq3fA+0ISgOx6eWz+1BkZYDjY1B6Z
+         9icw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790058584; x=1790663384;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ing5JC6tleS+Y5q+zrefvE9RUeGgTougjus6FkCTzfE=;
+        b=Jh8lHACxkwyy9A3+/4pr3ckwH2s13pPutC+1TzrGOmznrqR/Nq2GS7DWbWB8uuy0NP
+         qB1w/GRk7SL5rNsct+XBwzMAuWUe9VICtj2dsgWMbC3jsdeGu5zkI85UdzhFlbBNNm8b
+         y7I0kSsK2FosVe55PLZKjEhjOZKR0kFwy4GP0OeQ6PnZp78OJmPgilWUzaXD5YJ2zgi/
+         UNiA+QfBXwOST0F4mz284T/gu+mZgEIs+FBUZK/PFmI8XNZ34t76RcbO3YJa+yl0iWfJ
+         IqVghaFPMNad5UKkx+Pk7onNOcYO4SAGl2oerji/vahexgkwUVj+A1pE29F3ylYyL1lU
+         m5Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBwvI5XxlN7pwdAtqHNYHH111CGq/HRMByjjJY9Lw00BJOu7Pk0yEXBZaoCOabgtTVYZ7vOCrSgDYDRC@vger.kernel.org
+X-Gm-Message-State: AFuF++kum2Ap4lIRDeTtaK2p6HrH6Nd42ZO7i7g9sSnXx6aMaccSj8Tz
+	UAOExl9J+xTgU9rysM2Fc1lL3Q97hcCPTxFG4kxs/cEJM9gUo+bpliqWVr8HKX/Tt4d3ibqDTfK
+	IfyBm9nbJnq+8w+cJf6cne+/8eHiBG9o=
+X-Gm-Gg: AYBFou1MTA/Txu9k86O4y7lriW/UYgFiecK7QUSPTTjESVU6oQGgUYhe3+ML9ipgUDy
+	2qT1TjKLrD+AZ7QY1LvFLOFnEVfuxJFVAaS31xHRynfWlWDQ6fRI7qXXhw4FWBnm9Kd9BHCk/iU
+	g/8lBvjfiYOPk5VIjvOa5lZagaSxc8BHHOZlg6zp94ukdOlXBp9FycH+CI9anJIJUz+u4ot2yT3
+	zHZJIv1TQ67qoIPL9nuVEvlEfE339uuaR+5S2CIiAGQibfkbN5rqgeqqmUqh72hXKCi/WkDvM0/
+	ZXvGToi4U5FqGfEgw22UdabzgA2vNGjvtGOd+yU8ztuiJmPXyVp0ExMXkTajXfHz8rNZALxjmQg
+	DHNu/bwT1qmzi
+X-Received: by 2002:a17:90b:48ce:b0:3a0:4066:d3b0 with SMTP id
+ 98e67ed59e1d1-3a07327d177mr173825a91.59.1790058584580; Mon, 21 Sep 2026
+ 23:29:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CANLsYkySF+eF-FURnnT6UJv7P5Sg2HdfMSBZnZy_BLyCMvuofw@mail.gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 3de4e25c723823d00761b3d2871eb9a2
-X-AntiAbuse: ID - 3de4e25c723823d00761b3d2871eb9a2
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1x8u07-0000000H2up-22fH-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-xhtg.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+References: <20260921180250.3223545-dts-florian.krischer@fkr.dev>
+In-Reply-To: <20260921180250.3223545-dts-florian.krischer@fkr.dev>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 22 Sep 2026 09:29:32 +0300
+X-Gm-Features: AcwNN1VHLuPJpyDqBJ6Nhj2r3qY1EQ09O50v17uUs5s9CMRX1Up_T9siUpW14aM
+Message-ID: <CAPVz0n1OrUwmwfhLEdMtfnQELMFyf-Br4itWTXin3b8pSSE1rQ@mail.gmail.com>
+Subject: Re: [PATCH] ARM: tegra: Add embedded controller to ASUS SL101
+To: Florian Krischer <florian.krischer@fkr.dev>
+Cc: Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-tegra@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 20, 2026 at 09:31:11PM -0600, Mathieu Poirier wrote:
-> On Sat, 19 Sept 2026 at 01:33, Francesco Valla <francesco@valla.it> wrote:
-> >
-> > Hi Mathieu,
-> >
-> > On Fri, Sep 18, 2026 at 10:53:54AM -0600, Mathieu Poirier wrote:
-> > > Hi Francesco,
-> > >
-> > > I have started reviewing this set but given the size and implications, it will
-> > > take me a few days to get through.
-> >
-> > I'm going through the review done by sashiko - would you prefer me
-> > sending a v2 with the trivial errors already ironed out before doing
-> > a complete review?
-> >
-> 
-> We can wait if the errors are trivial.
-> 
+=D0=BF=D0=BD, 21 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 21:03 Flor=
+ian Krischer <florian.krischer@fkr.dev> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> The ASUS Eee Pad Slider SL101 has an embedded controller for its
+> built-in sliding keyboard.
+>
+> Describe the EC on the PTA/GEN2 I2C mux leg. The EC responds at 0x19,
+> with DockRAM at 0x1b. AP_WAKE is GPIO S2 and EC_REQUEST is GPIO S3.
+>
+> The node has been tested on a physical SL101 with EC model
+> ASUS-EP102-DOCK and firmware SL101-0202. With the ASUS Transformer EC
+> MFD/serio driver and the SL101 event-protocol fixups, the built-in
+> keyboard works through serio/atkbd.
+>
+> This patch depends on the ASUS Transformer EC binding that provides the
+> "asus,sl101-ec-dock" compatible.
+>
+> Signed-off-by: Florian Krischer <florian.krischer@fkr.dev>
+> ---
+>  arch/arm/boot/dts/nvidia/tegra20-asus-sl101.dts | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> --- a/arch/arm/boot/dts/nvidia/tegra20-asus-sl101.dts
+> +++ b/arch/arm/boot/dts/nvidia/tegra20-asus-sl101.dts
+> @@ -59,3 +59,16 @@
+>                 };
+>         };
+>  };
+> +
+> +&lvds_ddc {
+> +       embedded-controller@19 {
+> +               compatible =3D "asus,sl101-ec-dock";
+> +               reg =3D <0x19>, <0x1b>;
+> +               reg-names =3D "ec", "dockram";
+> +
+> +               interrupt-parent =3D <&gpio>;
+> +               interrupts =3D <TEGRA_GPIO(S, 2) IRQ_TYPE_LEVEL_LOW>;
+> +
+> +               request-gpios =3D <&gpio TEGRA_GPIO(S, 3) GPIO_ACTIVE_LOW=
+>;
+> +       };
+> +};
+> --
 
-Not all of them are. I have been a bit to naive about the bounce buffer
-management w.r.t. what can happen if a memory area is not specified and
-I will need to rethink/rework that part.
+Hello Florian!
 
-Regrads,
-Francesco
+This patch is fragmentary and should not be applied. I have prepared a
+patch[1] that adds EC nodes to all supported generations of Tegra
+based ASUS transformers, but I did not submit it yet, because until EC
+is picked there is no sense in this. Patch will just hang and
+eventually be lost.
 
+[1] https://codeberg.org/clamor-s/linux/commit/5d7b9ca285781e0eac35e346a951=
+d949a61a2f0c#diff-8ffbb7ecec9cab371ba8535ba3c046f01371afd3
