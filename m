@@ -1,251 +1,156 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC0952F294;
-	Tue, 22 Sep 2026 10:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8535328C4
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790072347; cv=none; b=HYFcXxE6Kuevuat6+iinNLxkl+y4V9axBMckzRUkxvTr95fpShmtaeMhykjhz5KOlsmtP2qSqMxlL15ZYOVkRRPSEQZAUu+8VR4Yv7iuhZL2MXgmWOVlfBiey1au35TTzY54kxYmhsPltfZywMH/VZLLv8YepPIz04aXuPn/ouQ=
+	t=1790072511; cv=none; b=YtjLnWrE2wPESuD/KY8fT6vf7YuAfh/ZcNY2aLVrqrj4VQT+vzvYUDICd0E8Ack34zGRxKAzv/SlPkKTu1F0PSEw3uX7J5zkbplc1xIW2gDNyHvK8Rgg97foeNWC/1oF9wJzfKaIanmNDd2KdRl1Kq913V+vhk4WAfsb1yp+CMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790072347; c=relaxed/simple;
-	bh=U6nEAncarF04gBX0K2yID3ID7i4onnj70LFz7Tqwzf8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=diDeoIgtIWRVHGa5RjtqkueWAdlQ0jgmLXOaz0/j9J4+jLhIb7nLmE2B+8F5mp8KB5HnIIC8UTgclbNjbd2/s2DSOV15aiSYDWMModEbdWUR7Q0svqjajgyA0VmcvWUV+lKZiBtX8nYiiPV0QF6fhJVl1IBmcuyoVB3gvaJQGag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=YpydLbbd; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	s=arc-20240116; t=1790072511; c=relaxed/simple;
+	bh=0gDly2DjydPH7eG6XkrW3hL/VzSJZdDSMmMDrUfdRRM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hC4Q+Lfl8h4dwUMbT+/XY4z2g98SPcPIG4svDV6fqKFaOWnxxLE+LT9AeppI66AJwO2jgWTTcvMBaPCb/eyZmSbwLIszOIjmes9KGM+PUWwiBR2+erWZZQEIUJx+Yyd+1wIfPkd1XW+qOIX5XjklIigEWd4/FgBqaOYxU3HuXIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QLJBMg34; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eEYkDZbz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="YpydLbbd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=7+4D1ZWujrVYGEarDtTZ0KiIPF0wvGcfoxM/2VYhpL8=; t=1790072345; x=1791281945; 
-	b=YpydLbbdnm8MfiPXsii0WKc36ch03P1Kz4G2oC014Th4JcCE7i166bkZ50CTakp7UBJzZhyORGV
-	QI2g0fpHVorcwLKIQmeq6Qfm3rtqiJaJTJHI3ew7CWCgDey1Y97L9Y4dzFicJE86VgNJ+V5d7Xx4M
-	p4RvDWiUSbFbXjIdEnHFy+TJz+bDRvT3pOHQVh5ExqjT+VwdpLmf5tX9JOmjvlOLK9ZEgjiZBHHXN
-	qwMNauZsMTe1jbA0R3gJGDOYow7FHaf7SnmKBTIiBQRqf/rdXVk93Y/Cwd/mvgd4WGMm225M42fos
-	oFdiDV7kINSZ+xj+9MHK2P0gcZAPDcZipIBw==;
-Date: Tue, 22 Sep 2026 12:18:45 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
- <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>, Aaro Koskinen
- <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger Quadros
- <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, hns@goldelico.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
-Subject: Re: [PATCH RFC 2/9] drm: panel: Add panel for Epson Moverio BT200
-Message-ID: <20260922121845.1cb6cca0@kemnade.info>
-In-Reply-To: <arJDcpvQlIMIGJaP@monoceros>
-References: <20260922-b2-panel-via-bridge-v1-0-45ff36b364cf@kemnade.info>
-	<20260922-b2-panel-via-bridge-v1-2-45ff36b364cf@kemnade.info>
-	<arJDcpvQlIMIGJaP@monoceros>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QLJBMg34";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eEYkDZbz"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68M7RwU73253881
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:21:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qq079AvZdlE4x4HgFsKSI+fvGI2Gh2cpL12kLdf8LiQ=; b=QLJBMg34CZ/MlM/K
+	MzQJsvDpgbFiY+OtG5wBVptTPyvuGfvjQUTqjxGSHFcxGlVN+QTXEoGb+CqeSkA0
+	9G4u5HfpaX+9eV4eo1Jlp0ieFv5tk6jXCZAVMHbM0bE6ICrvR2lao795rmD+yjFQ
+	vp0ueGe+hyT7BSSYof+bF/wyV2JMQYhR9Cr/UTozbKeN6HKPutacuxvbytjKCqq+
+	MnLabpB/U/nwcPcpnkjbkbRpKZbzBbzJUN5ZQ2Lre4IqZ75voT+tGQICj3djM3gz
+	HRF55iN4bp6CRzgtZVQsOobbkBSM9DauczMen7Ew/cgr3n5g1HPED9cJ3MB6hZJa
+	yyob6w==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gueybj2uv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:21:48 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-530f1b3dc86so6078371cf.3
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 03:21:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790072508; x=1790677308; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qq079AvZdlE4x4HgFsKSI+fvGI2Gh2cpL12kLdf8LiQ=;
+        b=eEYkDZbz3u8cqiaMXfZq/p6gPPgYfL37BvQpk/1thUEJmsUcc0kOl+8F9kFpRCZLJY
+         zo87I/z/IRysxH9py9NOeluROBsODVrF20bTP9VZJPgXII3MrFZ4nni1A03z6K03IttH
+         wZDR6J1R4DzT86vRP0sXxiw+UwQrBqKPtML9ouQQlkQ1WfOS09m2UnKX1RWPsVeQ2mUy
+         iaqIIWAHMAip4VnrvUSw+LuYTYL035eceVm63NnnvaxmtKKYsQ2+QuNoeAb0m/4BFFEE
+         wv6S4xKPXJ8fjV3RREVPNfKYMyVTMdtJQNqpbNBbk8wihcjykIQti42dqsuf1Qxe44HK
+         Fahg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790072508; x=1790677308;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qq079AvZdlE4x4HgFsKSI+fvGI2Gh2cpL12kLdf8LiQ=;
+        b=w7CHkxyhO1aGdQdYrUurI9PKr/ixqnrDGoaHpoT752R5XTVXvE/d3C8SpF5zcCmX3E
+         LT3zI7QqrM1vGjrHm160rhLvNEScJfvbaxkOxzXtsfRwfljfo6i7xKn+77w3IVNC4ern
+         m6MubiINaoifeJuWV/SN/3JYfNDnjLwgDL7rhgDbavuNRqc5SHr8lRwRgRBPrg40BQ9k
+         4Mb9To5I56LFCM+nh7o729nlRMHZiK+9A0fNuChMgY+BKWFja68YOMY/tu4oUwhb5eSY
+         1mnMdSgtZelE2MCqiL3Zqjv78j4uO5futyv4DnCaynz4WBSDjtzD8AIV0qBw/D6JvwxL
+         pnvg==
+X-Forwarded-Encrypted: i=1; AKwUvBwTqN+iNI5L44bmYG6ZNUkPjDv1mPeUg02MtKwhvP4ZwMAKnyh+yh3YWU9/SA3QAG7WrnopQhQvpqcp@vger.kernel.org
+X-Gm-Message-State: AFuF++m3wyIO5ZfEggGl9Uhi6YoQFu2rKyxdL9ab6ShxYNB2cjCiPihN
+	CCXcZIxrrDiwAB01STgUe3/kvJvOyyTWRVaE0bW2So610EvtieyHPayEQRo70RMe8tBUALWawPd
+	8Mq2NoJHYUn26O/1+g+KBAExaWo/uBN7nwnLHqzjtFJaHwk4T1jWjJwo+/EH3D6E8
+X-Gm-Gg: AYBFou2uHOuOaCBRh7qkCr6LGIaKiAvEpa2GyLhLIdZkI+9xmzrX2RBmPLFxsNDTr1g
+	4gd2m6JDn4PLqK0SX721c45IPC4PYVGCb+IcKxb49jP5jtYO38JsXXMDI5wpTQzgFUTx9c5HCZE
+	da4DySUyFeKrlyY4yExIqS/ccpFqZeph+dMEPmF0pjjYC/lczJ0YilxO826BDTeGkLhHBBjToA0
+	aPqAIpo486cdWcO2+wtwOmZTgNfsQ6U6MQAhSwuK7KM5OXY7D84GVT4rKJ9RY6sTGKNJ4jhSB/h
+	TrX8pOh+mANn79EsLEYxJv/MDcJb2Lo7Sr1k7Gb3FFuA/l7aWCG70lAn5jgfK4v3ji5hMJc+NwP
+	06zIqOCmiLFNl9WlsHbfG8A==
+X-Received: by 2002:a05:6214:5b04:b0:912:4680:c97f with SMTP id 6a1803df08f44-913fc9f41d6mr50278116d6.4.1790072507993;
+        Tue, 22 Sep 2026 03:21:47 -0700 (PDT)
+X-Received: by 2002:a05:6214:5b04:b0:912:4680:c97f with SMTP id 6a1803df08f44-913fc9f41d6mr50277836d6.4.1790072507603;
+        Tue, 22 Sep 2026 03:21:47 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a9c6287b8sm60692866b.55.2026.09.22.03.21.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 03:21:46 -0700 (PDT)
+Message-ID: <0030499d-6a74-4483-9d2d-e636b58becb6@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 12:21:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] soc: qcom: llcc: Add LLCC configuration for Nord
+To: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, zhangfei.gao@oss.qualcomm.com,
+        shengchao.guo@oss.qualcomm.com
+References: <20260910-nord_llcc-v1-0-30fd1cca65fe@oss.qualcomm.com>
+ <20260910-nord_llcc-v1-2-30fd1cca65fe@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260910-nord_llcc-v1-2-30fd1cca65fe@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=bP6Ds/+Z c=1 sm=1 tr=0 ts=6ab256bc cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=OxrQ4fpuk6iiGASJZ2MA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: if9d_sWsjfAH-8_P6doDpfVDQii50Znm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIyMDE0OSBTYWx0ZWRfX3iE7bx8Vqelo
+ c7XvLfyOEjBZPbXFNc7Xa+jaa+laDNzp8qCS1YUGT9auh55cLBgOkgh/V8JX8/UzTZKGUtkLlbg
+ xdBnYWEo7VYPHEVYqA2aw1ZCbED9va8PLp9GsDfSFDmhedT3vbVD+DuGqH82zp7SkySTRd0b1Hn
+ td069F+rZqEmX2zVJ5QaZgX9rAt6ZnPc5Yrmg2NZOAx6mI+4p/1dTbjAFomc0Gs65G4NIA8um3p
+ s/nfrnwmmYtcDD1Fsu3WsvRRWT+G2fJcbhpajL/5/lvJdS7rZWSHF1S93533Hl5UK5GWlikrLW9
+ qNmr0/v08ihTuHHB/+VHCvEOGhay/VfZkCJj5uPYYOOMV6cefJJNAb4+XgMNWllUgClgxD20w4e
+ fnK8q9XKLbI9lMVN7Uj8gEJziMr0zWrOWJS4ltzms6clxCDi4fT156+pVMQz29xWU8bevsCK66T
+ 4cPZ1nmuNc1tuRrji3w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIyMDE0OSBTYWx0ZWRfX/AOEFENDBffa
+ m/CjInx4QdWFIif7USvjuVK4BkJwVGDWDrz0rvHmpOqVomEqtitI6Fr+Q0v8LYH4Zhm12OsFYYX
+ CYHtb/gVEmHqwcfvtQyjGwq4mnDOUd8=
+X-Proofpoint-GUID: if9d_sWsjfAH-8_P6doDpfVDQii50Znm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_07,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609220149
 
-On Tue, 22 Sep 2026 11:13:36 +0200
-Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com> wrote:
+On 9/10/26 3:00 PM, Anurag Pateriya wrote:
+> Add the sub-cache table for Nord, derived from the Nord AU (Safe IVI)
+> SCT table and limited to the POR use cases that have a unique SCID and a
+> usecase ID in llcc-qcom.h. Nord has the CFG0/CFG1 pairs and the full
+> ALGO_ALLOC0..3 set, so it uses the v6 register offsets.
+> 
+> num_banks is set explicitly because LLCC_LB_CNT in LLCC_COMMON_STATUS0
+> is four bits wide and cannot report sixteen banks; a wrong count makes
+> the driver map a bank aperture in place of the broadcast region and abort
+> on the first broadcast read. no_edac is set because the bootloader
+> leaves the LLCC EDAC registers locked, as on Glymur.
+> 
+> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> ---
 
-> Hallo Andreas,
->=20
-> On Tue, Sep 22, 2026 at 08:16:59AM +0200, Andreas Kemnade wrote:
-> > diff --git a/drivers/gpu/drm/panel/panel-epson-bt200.c b/drivers/gpu/dr=
-m/panel/panel-epson-bt200.c
-> > new file mode 100644
-> > index 000000000000..c26a4f8ae15e
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/panel/panel-epson-bt200.c
-> > @@ -0,0 +1,251 @@
-> > +// SPDX-License-Identifier: GPL-2.0-or-later
-> > +#include <linux/backlight.h>
-> > +#include <linux/errno.h>
-> > +#include <linux/delay.h>
-> > +#include <linux/module.h>
-> > +#include <linux/mod_devicetable.h> =20
->=20
-> Please don't include <linux/mod_devicetable.h>. You can rely on
-> <linux/spi/spi.h> to provide of_device_id and spi_device_id; or if you
-> prefer full iwyu include <linux/device-id/of.h> and <.../spi.h>.
->=20
-> > +#include <linux/spi/spi.h>
-> > +
-> > +#include <drm/drm_connector.h>
-> > +#include <drm/drm_modes.h>
-> > +#include <drm/drm_panel.h>
-> > +#include <drm/drm_print.h>
-> > +#include <drm/drm_probe_helper.h>
-> > +
-> > +static const struct drm_display_mode default_mode =3D {
-> > +	.clock			=3D 41600,	/* kHz */
-> > +#if 0 =20
->=20
-> huh, upstream code isn't supposed to have #if 0 blocks.
->=20
-correct, this will go away latest in the first non-rfc series.
+The robot concurs this matches the reference settings
 
-> > +	/* values matching struct omap_video_timings in vendor kernel */
-> > +	.hdisplay		=3D 960,
-> > +	.hsync_start		=3D 960 + 176,
-> > +	.hsync_end		=3D 960 + 176 + 20,
-> > +	.htotal			=3D 960 + 176 + 20 + 86,
-> > +#else
-> > +	/* values from what is writted to LCDCTRL on vendor kernel */
-> > +	.hdisplay		=3D 960,
-> > +	.hsync_start		=3D 960 + 33,
-> > +	.hsync_end		=3D 960 + 33 + 20,
-> > +	.htotal			=3D 960 + 33 + 20 + 86,
-> > +#endif
-> > +	.vdisplay		=3D 540,
-> > +	.vsync_start		=3D 540 + 9,
-> > +	.vsync_end		=3D 540 + 9 + 3,
-> > +	.vtotal			=3D 540 + 9 + 3 + 12,
-> > +	.flags			=3D 0,
-> > +};
-> > +
-> > +struct bt200_panel {
-> > +	struct drm_panel panel;
-> > +	struct spi_device *spi;
-> > +};
-> > +
-> > +static int bt200_panel_write(struct bt200_panel *ctx, u8 addr, u8 data)
-> > +{
-> > +	u8 val[2];
-> > +
-> > +	val[0] =3D addr;
-> > +	val[1] =3D data;
-> > +
-> > +	return spi_write(ctx->spi, val, sizeof(val));
-> > +}
-> > +
-> > +static inline struct bt200_panel *panel_to_bt200(struct drm_panel *pan=
-el)
-> > +{
-> > +	return container_of(panel, struct bt200_panel, panel);
-> > +}
-> > +
-> > +static int bt200_disable(struct drm_panel *panel)
-> > +{
-> > +	struct bt200_panel *ctx =3D panel_to_bt200(panel);
-> > +
-> > +	bt200_panel_write(ctx, 0x0A, 0);
-> > +	return 0;
-> > +}
-> > +
-> > +static int bt200_unprepare(struct drm_panel *panel)
-> > +{
-> > +	return 0;
-> > +}
-> > +
-> > +/* found this table in vendor kernel */
-> > +static struct {
-> > +	u8 addr;
-> > +	u8 data;
-> > +} lcddr_init[] =3D {
-> > +	{0x01, 0x00}, {0x02, 0x00}, {0x03, 0x00}, {0x05, 0x01},
-> > +	{0x07, 0x00}, {0x0A, 0x00}, {0x10, 0x03}, {0x11, 0x44},
-> > +	{0x12, 0x44}, {0x13, 0x55}, {0x14, 0x03}, {0x15, 0x00},
-> > +	{0x16, 0x2A}, {0x17, 0x20}, {0x18, 0x00}, {0x19, 0x10},
-> > +	{0x1A, 0x12}, {0x1B, 0x0E}, {0x1C, 0x0F}, {0x1D, 0x10},
-> > +	{0x1E, 0x0F}, {0x1F, 0x1B}, {0x20, 0x0F}, {0x21, 0x00},
-> > +	{0x22, 0x00}, {0x23, 0x00}, {0x24, 0x00}, {0x28, 0x14},
-> > +	{0x29, 0x19}, {0x2A, 0x17}, {0x2B, 0x2B}, {0x2C, 0x99},
-> > +	{0x2D, 0x13}, {0x2E, 0x2A}, {0x30, 0x0B}, {0x31, 0x00},
-> > +	{0x32, 0x00}, {0x33, 0x01}, {0x34, 0x00}, {0x35, 0x0B},
-> > +	{0x36, 0x04}, {0x37, 0x21}, {0x38, 0x00}, {0x39, 0x46},
-> > +	{0x3A, 0x01}, {0x3B, 0x06}, {0x3C, 0x03}, {0x3D, 0x00},
-> > +	{0x3E, 0x06}, {0x3F, 0x04}, {0x40, 0x00}, {0x41, 0x0D},
-> > +	{0x42, 0x00}, {0x43, 0x2E}, {0x45, 0x08}, {0x46, 0x00},
-> > +	{0x47, 0x01}, {0x48, 0x00}, {0x49, 0x00}, {0x4A, 0x0B},
-> > +	{0x4B, 0x38}, {0x4C, 0x03}, {0x4D, 0x04}, {0x50, 0x0F},
-> > +	{0x51, 0x04}, {0x52, 0x01}, {0x53, 0x0E}, {0x54, 0x11},
-> > +	{0x55, 0x9F}, {0x56, 0x36}, {0x57, 0x00}, {0x58, 0x68},
-> > +	{0x59, 0x01}, {0x5A, 0xE0}, {0x5B, 0x00}, {0x5C, 0x00},
-> > +	{0x5D, 0x10}, {0x5E, 0x36}, {0x5F, 0x36}, {0x60, 0x00},
-> > +	{0x61, 0x04}, {0x62, 0x12}, {0x63, 0x00}, {0x64, 0x80},
-> > +	{0x65, 0x00}, {0x66, 0x80}, {0x67, 0x1C}, {0x68, 0x00},
-> > +	{0x69, 0x00}, {0x6A, 0x00}, {0x6B, 0x00}, {0x6C, 0x00},
-> > +	{0x70, 0x00}, {0x71, 0x55}, {0x72, 0x44}, {0x73, 0x33},
-> > +	{0x74, 0x22}, {0x75, 0x33}, {0x76, 0x22}, {0x77, 0x22},
-> > +	{0x78, 0x33}, {0x79, 0x22}, {0x7A, 0x44}, {0x7B, 0x55},
-> > +	{0x7C, 0x00}, {0x80, 0x00}, {0x81, 0x66}, {0x82, 0x22},
-> > +	{0x83, 0x33}, {0x84, 0x22}, {0x85, 0x33}, {0x86, 0x22},
-> > +	{0x87, 0x22}, {0x88, 0x33}, {0x89, 0x44}, {0x8A, 0x44},
-> > +	{0x8B, 0x44}, {0x8C, 0x00}, {0x90, 0x00}, {0x91, 0x77},
-> > +	{0x92, 0x66}, {0x93, 0x33}, {0x94, 0x11}, {0x95, 0x33},
-> > +	{0x96, 0x22}, {0x97, 0x22}, {0x98, 0x44}, {0x99, 0x44},
-> > +	{0x9A, 0x33}, {0x9B, 0x44}, {0x9C, 0x00}, {0xA0, 0x88},
-> > +	{0xA1, 0x88}, {0xA2, 0x88}, {0xA3, 0x88}, {0xA4, 0x88},
-> > +	{0xA5, 0x88}, {0xA6, 0x88}, {0xA7, 0x88}, {0xA8, 0x88},
-> > +	{0xA9, 0x88}, {0xAA, 0x88}, {0xAB, 0x88}, {0xAC, 0x88},
-> > +	{0xAD, 0x88}, {0xAE, 0x88}, {0xAF, 0x88}, {0xB0, 0x88},
-> > +	{0xB1, 0x88}, {0xB2, 0x88}, {0xB3, 0x88}, {0xB4, 0x88},
-> > +	{0xB5, 0x88}, {0xB6, 0x88}, {0xB7, 0x88}, {0xB8, 0x88},
-> > +	{0xB9, 0x88}, {0xBA, 0x88}, {0xBB, 0xA6}, {0xBC, 0x88},
-> > +	{0xBD, 0x88}, {0xBE, 0x88}, {0xBF, 0x88}, {0xC0, 0x88},
-> > +	{0xC1, 0x88}, {0xC2, 0x88}, {0xC3, 0x88}, {0xC4, 0x88},
-> > +	{0xC5, 0x88}, {0xC6, 0x88}, {0xC7, 0x88}, {0xC8, 0x88},
-> > +	{0xC9, 0x88}, {0xD0, 0x36}, {0xD1, 0x26}, {0xD2, 0x21},
-> > +	{0xD3, 0x1F}, {0xD4, 0x17}, {0xD5, 0x15}, {0xD6, 0x13},
-> > +	{0xD7, 0x10}, {0xD8, 0x08}, {0xD9, 0x08}, {0xDA, 0x18},
-> > +	{0xDB, 0x1D}, {0xDC, 0x1F}, {0xDD, 0x27}, {0xDE, 0x29},
-> > +	{0xDF, 0x2B}, {0xE0, 0x2E}, {0xE1, 0x36}, {0xE6, 0x00},
-> > +	{0xF1, 0x00}, {0xF2, 0x00}, {0xF3, 0x00} =20
->=20
-> Smells non-GPLly. Maybe ask the provider of the vendor kernel for "the
-> preferred form of the work for making modifications to it".
->=20
-Well, this are address / data pairs. so probably the more
-preferred form would be symbolic names. I did not manage to get u-boot sour=
-ces
-from Epson either. So I think it would be even harder to get anything here.
-And since these things are very old, maybe more information
-does not even exist anymore.
-So how to progress here?
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> I guess {0x0A, 0x00} disables the display, so taking over an enabled
-> display setup by the bootloader doesn't work as is.
->=20
-The factory bootloader seems only to reset things. It seems not
-to initialize anything regarding display.
-
-Until just a few months my preferred way of booting this device
-was to boot vendor kernel, reprogram boot order temporarily,
-go through more recent u-boot and boot linux. During this procedure,
-the bridge setup was left intact. I just read things back to check
-if values are already set and happlily reinitialized display itself.
-No issue found doing it that way.
-
-[...]
-> > +MODULE_DEVICE_TABLE(spi, bt200_ids);
-> > +
-> > +static struct spi_driver bt200_driver =3D {
-> > +	.probe =3D bt200_probe,
-> > +	.remove =3D bt200_remove,
-> > +	.id_table =3D bt200_ids,
-> > +	.driver =3D {
-> > +		.name =3D "panel-bt200",
-> > +		.of_match_table =3D bt200_of_match,
-> > +		.suppress_bind_attrs =3D true, =20
->=20
-> Why suppress bind attrs?
->=20
-That was not intentional, maybe I had something in mind that
-it is common practice is certain areas, but not for panels.
-
-Regards,
-Andreas
+Konrad
