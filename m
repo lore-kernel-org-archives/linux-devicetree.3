@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679F93BBA05
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 10:50:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E3348F85C;
+	Tue, 22 Sep 2026 10:50:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790074205; cv=none; b=r3WBHrCsOmFtBvP7QsQUCKyzv+qZDeX/vuyPB1PfGjdwoe3IbCB6a7U3QTCFeeoO1JRfe24tJpL42c1g4sKOHFbsnAFhzcQfjc1+3vfWlIsLSBft50sxs/ZsEuNCrrnW6Urx2sES53bim21EIEn7yVelk+vErsu9HlbehYFwnZ8=
+	t=1790074221; cv=none; b=dVuTfYF+8bGXnx6ESoggOw1nbKLnQVn4htrC2W6x3sTAMtj+BrvOc1oQO81D0cxEbBu4+q/K2KmSueI0YCt950cHW87KNMRvVR5hkFZ48oe7I/tInmh6+MJ+u/hXB1lwG3PqjdQvxxS3oiVEN7NlEtF85sbJhq27ZK2jP4MvkTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790074205; c=relaxed/simple;
-	bh=ZKymurpSO5NMsoo40LaCoidOjdwZMz0dmFI6ePj5M5w=;
+	s=arc-20240116; t=1790074221; c=relaxed/simple;
+	bh=PpkvljtiJh9ifAVwomC1pnrEIIPySBoDAR8ZhT9ufMU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=j9hsU84+36NmsPvElUjYfglP36yYssByoOYaD5M3l5nX3yJaRm9lAE3CewSSi1fhVx396w08wpmNaQo/aMa7H3byuWSc8b4x2t/EFjKH+zZEsajWRr+2ViAsH82YJI75iMVZOGFFMvUkPbfCwoGMGwflGOcX6oymZZWKN8knm3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIOE8SYp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NoOLm0ynKoH9AilfoQ563Jm3T8U3j6CGXcZvqwPTrfomFGNNL72DUMoJnh0hjruotw1r8J9NDvK4NMdjVEmhRsHLZ9QjqqfVS/sJMF195siZNiYX+6Sqt9zAhvVnSuX7CnbAPEmxvqS5d7BfpgzxyNEpwqnVol1dgz60VcKJeFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYITFY11; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIOE8SYp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98C4C1F000FF;
-	Tue, 22 Sep 2026 10:50:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYITFY11"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 685311F000FF;
+	Tue, 22 Sep 2026 10:50:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790074203;
-	bh=llhR4Z2ehPlYyJPIU8kUmd1XlojEmc99b86mrM5aAsM=;
+	s=k20260515; t=1790074219;
+	bh=D7joL9jnBPIgpSCdigDprJQYjlUtilYbRowEWg3+3u0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BIOE8SYp3OQsYnATwK7qdorwJhUWYoFHJmo1xXmY9e6LQD2cXXRWYcWWfVU+uG4Yg
-	 2BQoc0eM0Yzc+yBCLdwlTB+Td+fc/mEMUEyC3XEMs0PBPuHamtyAY1BRbtatTu08ii
-	 z7/K78FxlBO4vrGy/PEgi4RxCNpbvhJChjqUMYOd7J+h+jxcYZGloJTAwFYSo5UK7K
-	 OKXwJDdXTkgbXVYBJmrc460kKCW77W5Iu7t9n8+fqHOIY9kuMdCX9nISnA6EaQ2iBo
-	 j8yo1K/l/782D9aeDJ4Sw69rqMUmQMM7T10vx3EdANxn2UAJ/qmBApTarHj3j81PuE
-	 xhcB3zrLdqfXQ==
+	b=oYITFY1100Pe9vg0QKxTIINdYmmQblmKWbmDSg4NXd4pQsmEj3YdOBa0knyjy/pXJ
+	 3MqJOIPs4nphaG8lZPNrITJ5JyghZAABJ7pN1DVBe9Il+T0k7jAQ1cXI1CTGP9TihG
+	 5IuE4X6W5E8VoKOY9XzEB/ZDtz43Y/MMGxBA9xJeYY8CPMNEcstf7jTfCmT7zm+1EX
+	 HIJAJnbCg0/E3Dhq54W2Z+UBImsGS54Y69Pe2XRT+4UIujS0rD9k4DbALVyI7xayFN
+	 gOt+SLkZm1wVcjyQIf+4eHMVsX1qdISkCNIcXU4olUbLXATOkU1aHE9or+3BAa0Gzi
+	 eUXQWzxBflYpA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] usb: mtu3: add mt6595 support
+Subject: Re: [PATCH v20 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c
+ hub and on-die regulator
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Roman Vivchar" <rva333@protonmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260922-6595-mtu3-v2-3-71203a362b36@protonmail.com>
-References: <20260922-6595-mtu3-v2-0-71203a362b36@protonmail.com>
- <20260922-6595-mtu3-v2-3-71203a362b36@protonmail.com>
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: Frank.Li@kernel.org, linux-i3c@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org, lee@kernel.org, robh@kernel.org, mfd@lists.linux.dev, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260922103551.2754613-5-lakshay.piplani@nxp.com>
+References: <20260922103551.2754613-1-lakshay.piplani@nxp.com>
+ <20260922103551.2754613-5-lakshay.piplani@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 22 Sep 2026 10:50:03 +0000
-Message-Id: <20260922105003.98C4C1F000FF@smtp.kernel.org>
+Date: Tue, 22 Sep 2026 10:50:19 +0000
+Message-Id: <20260922105019.685311F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,66 +48,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] usb: mtu3: missing NULL check for device_get_match_data result
+- [Low] mfd: driver-specific header incorrectly placed in global include/li=
+nux/mfd/
 --
 
-commit d5e4ea09babd67818d32de7a95b82922101210c1
-Author: Roman Vivchar <rva333@protonmail.com>
+commit ee0020c355157050632a39b51c33798536ac333a
+Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 
-usb: mtu3: add mt6595 support
+    mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub and on-die regulator
 
-This commit adds platform data for the MediaTek mt6595 SoC to the MTU3 USB
-driver. It introduces a quirk to enable single FIFO slot mode for this
-specific platform.
+This commit adds core MFD support for the NXP P3H2x4x family of multiport I=
+3C
+hub devices. The devices connect to a host via I3C/I2C/SMBus and expose
+multiple downstream target ports.
 
-> diff --git a/drivers/usb/mtu3/mtu3_plat.c b/drivers/usb/mtu3/mtu3_plat.c
-> index bb67da4704b29..9d633695a9bed 100644
-> --- a/drivers/usb/mtu3/mtu3_plat.c
-> +++ b/drivers/usb/mtu3/mtu3_plat.c
-> @@ -611,11 +611,16 @@ static const struct dev_pm_ops mtu3_pm_ops =3D {
-> =20
->  #define DEV_PM_OPS (IS_ENABLED(CONFIG_PM) ? &mtu3_pm_ops : NULL)
-> =20
-> +static const struct mtu3_platform_data mt6595_platform_data =3D {
-> +	.fifo_single_slot =3D true,
-> +};
+> diff --git a/include/linux/mfd/p3h2840.h b/include/linux/mfd/p3h2840.h
+> new file mode 100644
+> index 0000000000000..eb4792de5440e
+> --- /dev/null
+> +++ b/include/linux/mfd/p3h2840.h
+> @@ -0,0 +1,41 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright 2025-2026 NXP
+> + */
 > +
->  static const struct mtu3_platform_data mt8173_platform_data =3D {
->  	.fifo_single_slot =3D false,
->  };
-> =20
->  static const struct of_device_id mtu3_of_match[] =3D {
-> +	{ .compatible =3D "mediatek,mt6595-mtu3", .data =3D &mt6595_platform_da=
-ta },
+> +#ifndef _LINUX_MFD_P3H2840_H
+> +#define _LINUX_MFD_P3H2840_H
 
-[Severity: High]
-Does this code allow an unprotected dereference of pdata if matched without
-OF data?
+[Severity: Low]
+Could this newly introduced driver-specific header be moved to the local
+drivers/mfd/ directory instead of being placed in the global
+include/linux/mfd/ space?
 
-The mtu3 platform driver allows matching by name (via .driver.name =3D "mtu=
-3"),
-in which case device_get_match_data() returns NULL because there is no
-corresponding id_table with driver_data.
+The MFD subsystem guidelines specify that driver-specific headers containing
+private structures like struct p3h2x4x should not be placed in the global
+include/linux/mfd/ directory if they are only used by the parent and its
+immediate children.
 
-The mtu3_probe() function gracefully tolerates a missing of_node, allowing
-execution to reach ssusb_gadget_init(), where pdata->fifo_single_slot is
-unconditionally dereferenced:
-
-drivers/usb/mtu3/mtu3_core.c:ssusb_gadget_init() {
-    ...
-    mtu->fifo_single_slot =3D pdata->fifo_single_slot;
-    ...
-}
-
-While typically bound via device tree, manual binding via sysfs or missing
-.data in future OF match entries will trigger a kernel panic (Oops) here.
-
->  	{ .compatible =3D "mediatek,mt8173-mtu3", .data =3D &mt8173_platform_da=
-ta },
->  	{ .compatible =3D "mediatek,mtu3", .data =3D &mt8173_platform_data },
->  	{},
->  };
+Placing it here causes a layering violation and introduces tight coupling by
+polluting the global include space at compile time.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922-6595-mtu3-=
-v2-0-71203a362b36@protonmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260922103551.2754=
+613-1-lakshay.piplani@nxp.com?part=3D4
