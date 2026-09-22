@@ -1,150 +1,102 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7378555C1BF
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:01:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DEA8548564
+	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 15:02:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790089306; cv=none; b=VS+4qglr/YzkFayzYzAq/7D4f7uEHRsV4PBvnDjOQ5yBhq6gmeTM8/YDTMaUTDmrL/KS+3a+s5nDwBY42qSeGrD7EQACJwKpPVjPwxHfgxKG8eC1z7irGGilM0xx0pXntsnAyAWn10AVLfT7QVkmOHSqgm/X42PmxXwT/apy+Vg=
+	t=1790089321; cv=none; b=reb0YntYGxSvoT/QaJ7o9ZT9x7qxJLYLybnL6CxtNgtG+mbViQJGPfbJy+0Mq6VlP5hDrrJQ6jNj6am5i32fpXO67JfklMavcVkMu9BFTQ8wZ8yjqN9DcrHysf1X1SzIotejqYcFRJ4qo3sRQCXo5MK9i3B5xZ4/oUYwxRkqQMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790089306; c=relaxed/simple;
-	bh=XJCmuMzIjH2Ash+3rDlTx1D0Bka5esedUikVBBaQRiE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uFW9kGIHsCpn4GEENdZc+yOwwZA6pzYqec2Wkul/iJWhRzd2MzpZVfwRgVR0QHbCgD0fC85ern7iTJBmGTd37iM9ZrPij6BfHmDon0JNnFiHe2gP4JRWdOw158eVKsoz1+O4nF177IkPcJdppEXFQERseqLT4/WkJcJTBKCLjz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=UAy+3710; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790089321; c=relaxed/simple;
+	bh=nJaInej20W9dzeQHSkKI/1OjjvnAws+MmFssGn7W3Nk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=K9mhg6JRYh391D2rx4YJOn+wgb2F2je/nUGqINFXr1CrixIALo41yn4SowTK5NS5KO8Gg6WnuYv7iLujL9SimvAFjvxxThvUpCi62Z9R588TrzSq3An/7q/IKspPUCO1iTWyUdd3bliQoJoDVLfOhFfF4w/UCslzw0h2xricqcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hTwAL2XI; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="UAy+3710"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so23947975e9.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:01:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hTwAL2XI"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b91369d18so31954015e9.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 08:02:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790089301; x=1790694101; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790089318; x=1790694118; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=zYZSrvfaNRUF8vysf/3RvkJxXOyz3bEJ1eP7jW1LNrc=;
-        b=UAy+3710zPQw8zk4wz4x2cZRf9MRz6lpH3bQY8GBeQeUmtfm7tZcPhgilTnfgvUzEn
-         sXnxUlbWKfz2hChkse4UKjGsmUbZW8J+7v2wsUOIds2ip/0neBTXV0ZGqrsXCIRrSQ6a
-         fg5gMUTAOhMtuJoyfg4weX472v9r5zf2knPPOS/RqDL57F5ss5Hx4dU+gdLAPSZRSIet
-         7MtRCQa96z9VOiwq6SH3CjH5vbAYTkx7G7uDANmrkmM3OI8JOxAaUjw564N/+56rTwWI
-         Wz1wGaOQ32UMPGKCQRR2fPdxUPhpFDMP3+zN4puE+4ywT8kGLf3HjpuIUnn5xxkyPasa
-         QVEw==
+        bh=LPDTkB0QGhdPj3hyMEadxYVUHPg+JvQ6bPrYQoaa3EA=;
+        b=hTwAL2XI+1Q2PWSsIRnU+1NhMqw6409K+azDUXGp5ONJwU2xqXBFSzE4CeG1EczfUS
+         bJXSwgVQJmRgjWk4b4LTr0U251LoZbzIfkObUP/G3PTNz8jDRqSLCbvTpwPHP5fmWqee
+         i9LJlFQ36i9rIGgbhaV9cqbZWuvMFXtKgfimamfE+/yKye9zhv5g+g/owN+R9h7QR3QF
+         EfEkxvazVUMI79a7GZyaNnXZkTzSpydAHYYvu22Idu7D66JmlvEwmc1LMExYBDwVaorN
+         th9fzRKDAByp1q7B99aXWRDUWWWpKsPFlUa4RfyIJp0EKV6mj9HlA2oiWiPrWHqzRH2E
+         hOaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790089301; x=1790694101;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790089318; x=1790694118;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zYZSrvfaNRUF8vysf/3RvkJxXOyz3bEJ1eP7jW1LNrc=;
-        b=GjccISpxuhv6hVGgO3nhTeqQnXHh+tmCLYbu4qJYsJduEdzL1LJXqlUGpENb5x+DKu
-         O85W4jWLjxqHYDyxsXUuPvq3fpsP//nhn9QEIP0DpVhuSTpI4tUYcejh7Ugdu91IHYaM
-         sSosJ+wwr28bAMnXtnZIt81ndYfLNiN6oTBMcuOxZDXjJhzGx31T38q457mwEqBsLph5
-         WeWludghgE4vMIBCucEcJb+6lgkf21p3StdJE9KQM4a8OrzdS2FerJtTYrMwlBo3MB1G
-         QnG4yJzkJ4yep4c5e4IywaSvF0PtyAFVasLkRMK3Q5Z0lJgNapP1uV3rPdPk57JY40Up
-         POVA==
-X-Forwarded-Encrypted: i=1; AKwUvBx3KFKI4GRGwJJcci4zPPqPzd9RR28mTOGiIrVBWnJXdAfozttEp4zMtJK8C8CuSpQscwNxvCIIVKq3@vger.kernel.org
-X-Gm-Message-State: AFuF++mTFE9IlGDQETn0aO/CzoqBfmaLcT6R7gqT7xdtALF1e5qtqQng
-	q3ds076uyPI4Tzz7KzuSCy02emgKH/ozF0e8NWayDZM0Sf1oMWqMAQdYOXNH/uVAS4Q=
-X-Gm-Gg: AYBFou33u3Qeilv9Uen9pf7P4lopFOqTW/Gmx5f4+Md9Vkx7KAiIM47oN4D5nY/EVS/
-	7vyM7weYIHJivP3CaampA/i4A16jSt6er9B0mCjTtszhn87rRDHTgHDFoWpzhIBbytx2NPUXzuT
-	UCSD/LDqnhbT6sjpAfEpsB3pLKcoNQ1n1KHtqnhwpJYQRIi/Wfw56aU41GpwhSmEwNCZo7eyEay
-	YJTnlVbmSkT0BZRiI2ZxqNDYAgvNyhSr1PcsI0mDxmDPBYwlxHzRYzA57kd77YOF8eqpV88eBKf
-	Jb5DQ2Z2nrf/0hdSI7UhjzfloGBwYGrn6ZiGMwz5lWUA8ComojjkVGn/JIKvzGPDRbSPVFZBa+l
-	uDwU3lL9XCGMxZy1eej2sVBshhA5OK/UT7Mcaw4glXpiDFxCMzcOxqW8YWdlvZDo3jfWpsThsOa
-	G5s3Lbd7KOEPOo4BOxYH3EgSgou8ym/LPrxSzjHpyuEW2nQUdS6zKIqZFtCd0zqpaR6nR4iKgzv
-	vjowzTJhttM8SoPXoKAgl0cNcvP/kkj5vfxhk7I6nkdV5PgGniIp4kxDuE+ZA==
-X-Received: by 2002:a05:600c:6097:b0:49e:7cd8:b269 with SMTP id 5b1f17b1804b1-49fc57411a5mr205964555e9.21.1790089301582;
-        Tue, 22 Sep 2026 08:01:41 -0700 (PDT)
-Received: from localhost (p200300f65f19a9041d0e57515b2ea4c8.dip0.t-ipconnect.de. [2003:f6:5f19:a904:1d0e:5751:5b2e:a4c8])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fdaafa9cfsm61257695e9.4.2026.09.22.08.01.40
+        bh=LPDTkB0QGhdPj3hyMEadxYVUHPg+JvQ6bPrYQoaa3EA=;
+        b=Wf/u2tl0pCR+73XKXSAwL2umoWLyuXmNGGcdH12jh/8NVQvxwNBbRRu3AuOjv9oRF8
+         OSPlIclOmzTjMFm6eZZCZdJoMWDUYX7DRpi/Ril+p/iIJnx2sii6iVSHl4TTJalG15Cr
+         3YmOEjh+L/e6+fcV5M1rTWbLUguV41nTGmS/Vfa24RGwmG1twdkW460+wgEt+ZOE7pTk
+         8JlRpattYMk+UwTrFHfb7pRXvkNItsfdB8fMO+NP2qrgwJLscqHsaZ9Pq3gECqbi71jz
+         6rdDMRjwMUtibQeLyuokfGevB4Ve6FqFG3TDIPvwYZg4g9R5tH/SFDHXZNjxNONp4Fan
+         4UHg==
+X-Forwarded-Encrypted: i=1; AKwUvBxxkpFFzvoqAD8C0nxI3ZxrXdNw0+5sAQtTvV8v80udeAYzVpM4Dok9MzwAg+Yv3BstDtf4tb4+wsoz@vger.kernel.org
+X-Gm-Message-State: AFuF++nzBNUWzaD0qBl7HKE5SLC7mgTZUVsSxWyKh483AmaOOTW8l0cr
+	k7xYhDTy7huyyneK5ggziZAefH3gUMlpr2Cr16Nzn8zrDdZT1e3v22qis8QRKw==
+X-Gm-Gg: AYBFou0N/njc6zLDV1B19lPx1okuPKU6nHrV1BHMvgJZcMy5PRgqIOBIAUuBimZfr5e
+	75xSksh/UgJtwjzYFdDWo0+FGtKj+m0ME+xba4u07IE504Cn2EnG4uWY5yI5gJ0dVEwJS4z+8io
+	VrOqqMFyN8m3UfE7qLHaKfbTSUNnJblhIjiN+gZzclc/OG+sGa78Ii21uWxfXsiFytZ3NJXTV1/
+	Gj1YiUGO+dfj+pY8AC8ZObXJMCSpPOyZsplIXHyCTv2gGEdiSdIDbDkEMr9e4kf0bK+grBC4wKh
+	FGVB+RJPDFwIjk9GA/e2G6KXWAo2YIGarK1amcHpfwh5v1dVkE9a0+RJyyxQqsTE10RK4xImBXi
+	5RfC3q0h0goglmTRSu84eQMqYZLpTqcqqHE8ndM8YAzCVklxzfbTreHbBbPKidZsbzrp0Hz+CAR
+	KKi8f7xvq7+sa56278fHxlC0yvm+LIhi1YA50wEiCze4629TvrnUw429GpoDNE00zMvlJVbAsQJ
+	MfwBE6jCtCE9q8RKa8ANiKZe8CN/eRJznZE1UvA2cIhEoF8BW+c1b2y5iEXyRfCHSYLY6TfheWm
+	tgswUpuBZRTSIDeL9W5ANgfdB1biGKk+eREpPP4iTYtWW78eJ4/0PzICgt8tAJMl8w3gMjY+viB
+	juSt+SDxmIW/HCZalnA6KDokL2Lo12XjrxkywJpUSyCW0M04dLG+Fv0cxPG8z2S0F0km65BtRwu
+	ynxZAu
+X-Received: by 2002:a05:600c:4712:b0:49f:dd10:3c71 with SMTP id 5b1f17b1804b1-49fdd103ccfmr19072185e9.11.1790089318256;
+        Tue, 22 Sep 2026 08:01:58 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdaa9dbd6sm62767365e9.2.2026.09.22.08.01.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 08:01:40 -0700 (PDT)
-Date: Tue, 22 Sep 2026 17:01:38 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: joakim.zhang@cixtech.com
-Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, perex@perex.cz, tiwai@suse.com, 
-	p.zabel@pengutronix.de, cix-kernel-upstream@cixtech.com, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 4/4] ASoC: cdns: Add Cadence I2S-MC controller driver
-Message-ID: <arKXJ3mlnq8E5SGP@monoceros>
-References: <20260922112134.4167305-1-joakim.zhang@cixtech.com>
- <20260922112134.4167305-5-joakim.zhang@cixtech.com>
+        Tue, 22 Sep 2026 08:01:57 -0700 (PDT)
+Date: Tue, 22 Sep 2026 17:01:56 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kevin Tsai
+ <ktsai@capellamicro.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: iio: Add dedicated CM32181 schema
+Message-ID: <20260922170156.00001c8b@gmail.com>
+In-Reply-To: <20260921232752.3136129-1-robh@kernel.org>
+References: <20260921232752.3136129-1-robh@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q7aq3xdvldwxgy5c"
-Content-Disposition: inline
-In-Reply-To: <20260922112134.4167305-5-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 21 Sep 2026 18:27:51 -0500
+"Rob Herring (Arm)" <robh@kernel.org> wrote:
 
---q7aq3xdvldwxgy5c
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 4/4] ASoC: cdns: Add Cadence I2S-MC controller driver
-MIME-Version: 1.0
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +unevaluatedProperties: false
 
-Hello Joakim,
+Why not additionalProperties?
 
-On Tue, Sep 22, 2026 at 07:21:34PM +0800, joakim.zhang@cixtech.com wrote:
-> [...]
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/module.h>
-> +#include <linux/mod_devicetable.h>
-
-Please don't include <linux/mod_devicetable.h>. You can rely on
-<linux/platform_device.h> to provide of_device_id instead. (Or if you
-prefer it, use <linux/device-id/of.h>
-
-Same for patch #2.
-
-> +#include <linux/pinctrl/consumer.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> +#include <linux/reset.h>
-> +#include <sound/dmaengine_pcm.h>
-> +#include <sound/pcm_params.h>
-> +#include <sound/soc.h>
-
-But please don't rely on <sound/soc.h> pulling in
-<linux/platform_device.h>, so please include the latter explicitly.
-
-> [...]
-> +static const struct of_device_id cdns_i2s_mc_of_match[] = {
-> +	{ .compatible = "cix,sky1-i2s-mc", .data = &sky1_devtype_data},
-
-Missing space before closing }.
-
-> +	{ /* sentinel */ },
-
-Please no comma after the list terminator.
-
-> +};
-> +MODULE_DEVICE_TABLE(of, cdns_i2s_mc_of_match);
-
-Best regards
-Uwe
-
---q7aq3xdvldwxgy5c
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqymFAACgkQj4D7WH0S
-/k478Af/d+mXR7ED7qQBSPvWMVUXs1dj0eXbvlU1Lh5/nYAdu6XY6ghnYahPD6sd
-n5guUj6dgqPeGND4qQtAD2M3/dM0QUCC9hTxRNZhU2WPjJJ5K2GBgOzYKwBJZfOb
-sEFLS72glHFiOGAXLbEMgc+3YbAIq6t8iidG56ujbxCfk6f6Awxs47Ly8uU0Xu6q
-xqqHGYoEsPBZ3t+tDqC96+uRAThOXxUZ3Vz7Sj4ieXZhnE9HCeLd+rL2yb6CpC/5
-87kaauk0tor1zrnB4fGRI7XUxWeKR6ojH3NlJd7xFKSimohFKw1t/PFOVQI9iggq
-1pNvwN0bLxN7Vx0RnlTeKcBO9cZ4BQ==
-=rB0Z
------END PGP SIGNATURE-----
-
---q7aq3xdvldwxgy5c--
+-- 
+Kind regards,
+Joshua Crofts
