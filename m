@@ -1,133 +1,71 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC67C5437D6
-	for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 12:37:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4B73BFE3F;
+	Tue, 22 Sep 2026 12:38:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790080680; cv=none; b=MMFB+KBEF+64OO/lwancANYx2HXQeV+OVaIqYT6ZlHeFAWYfs4QXG94EFVE593sDMk0TONKQ92KeJQg3pzyruL2aHTsPnxb3b7B6fGGi/df1b/dZP5gRWAIurEt1OXE+QBXeF0f8qaglLL+za2elvSE333FvvRG+hy2nEg5oQR4=
+	t=1790080686; cv=none; b=oTnBhD95hzatZK/+ZQ+9ofD5N21aLC3xXkqvyYXJMlM+qEwubTgcxIcLMeLa5YPp95U1wZOxtMqa5O2AJ9MKO4rSAcorvS9/kxjnTUWQOEvE/fOZmnxNnudExRG7hlHhv5fQUzBH7duDQTzF/Z7kOQytf4zVvxw4+jY3XgMN410=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790080680; c=relaxed/simple;
-	bh=H/P/6p4tn/F1HONtpik9rVj8NHKsX7jwfbvX1rYbyC8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZITdheuBhWC5tRCvrti8zQS2hmLz8rugU9iC6qRuG1beWlRgpXOEqrJ0VuoXhL6wKjb3gn//Rj9hyOHLD4eYo8Ha6OTZP7+A50Pe64hAOKmAP1KXGh9GjXbc1MYrEtAf9/HsqSlR5L0Hsw2OLTs4OZIIrEcJ8XwBQL6vScT7CMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=FkfWRGaZ; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1790080686; c=relaxed/simple;
+	bh=2A4lC32lS8scRN7uTcTXPY1AN63fKpTgCO4ThYXNRcE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q+IBeCQR9f8tZWdI+CspgfMsEoIFxVwl2qkYgvhDoIKGfDnyrmE7n0OkIVTuBoPcUuBlFNI/8NXoqRZ45eMuNcnRyxxzcvlC562YufYAy6n6awYeiv9/WEBfH6MKCf2LVnafkx4RCo0WT6/uW5gRN0LK0zCjo4Dvrotpq7LHve0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qunjsvms; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="FkfWRGaZ"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76906adso61524951cf.0
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 05:37:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790080676; x=1790685476; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DMkuwapQF5xBh7yi5E/o9NS5zNE7MVMoqBZQFdDzhrg=;
-        b=FkfWRGaZwREVIsrqzjVFGBGzPV1U1peitkJIphN7YFqzJ6K67G2ePRscEg1Sldl5Ap
-         mZr741X53n5wqw2unVOMRQJqYlVP2vgxX1CgV3LDSH2QHN64dDiK9wTXTx1E1cZFu+iG
-         4wIUG+I5m/uwL/t7YZixMmRU4tlLbZYRPWOKO8NrM0aT3wZT+/2JzoF530Xyn4d5GXpA
-         GkSb9lmn5d2QL3o6aRABwaKepKcHuIm6Y4Vv/EG+Tr14bqDOiIY+EDphfJE70aeiDUzl
-         t0hlGCLOI91vmsUOolLi67nxaV3NokjtYRjiXM+BWRxsqkwJu2YnrJC/MnfJ7CsEDZG1
-         ciMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790080676; x=1790685476;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DMkuwapQF5xBh7yi5E/o9NS5zNE7MVMoqBZQFdDzhrg=;
-        b=FXLCOrOQFNZL55iHhO8Jjhscalca1Hrj3pYFi6SwYf9e6XmJDJ6msEZ4bPhYrKlt1q
-         46bYwEwF5U2oI7jkjCGbpCmbD/2BDgbP6mLrq6qu9M0FPwbZCEKDnPrnqW/5SAA71a3h
-         WFL8PTBNPIzrbpNVYRu3ZjpUTNILIklh8+TLeBoGYm76ys3L70J4rH58RFrSnjcXeMK2
-         QxqMZn8SOA+Wxi89ZHzg1n4vJUDzTSQihzkV6gvMvjOug1uiZZDxrsKjzAGOHibmgd4q
-         T7D8NvI44AjfSN7/gswvysqjZN5y8hJdwQjzk1/kQo4i5JGIq6v+iyOX3wrIBfUSrLFk
-         8vUw==
-X-Forwarded-Encrypted: i=1; AKwUvByHOTwkpBklDFUCYOiFlZVcxahU831scmW4xDXMREZiTBDH0oDmF/5UMEBqEaT/QesbZIAiEWLFAHqy@vger.kernel.org
-X-Gm-Message-State: AFuF++n699zDOl1dqYafjtChAG0dGh+DUNIh9uorbjpvvFr9/ufqiEv7
-	cvzpu47ENxt/++z+TXUmITSaJzJ9nGvYGW1ZCgZsBbCs1HBXfal/X3ONKqB1Hm8Ia8A=
-X-Gm-Gg: AYBFou3gNg3C78+iWAKHOm9tEshEJIvBzeFQ7xTK+j9+Pblqo80Wknw2YuCSxXHqEih
-	MX8DV1VfqZkpefAyj/fNp+0R2uRg3oslKL2UDzfuDU9JQ5G9FTeiHm7htiX6dbeG00M13oN63A5
-	GtNNjOj0C6hgkqUtD6HY8TucH1PSbaylIe6EIbSm6MfAWUYFq1UiJyb6jW6AW7hH4gyGQiI9+6a
-	vlfIfYetaD4zwAUrROFH6NJupLOYy+0vOJBDZq8N9zvYLs0jePiK6lcBcpblyxUlMCthU+ndHS2
-	VDjCmR++tCR0JzCswMXEou6/yPvgHbeZSixoRahwLnPkrAGfRYEIuFDaUzfPmifn8XtABTdcAH/
-	qJ4b8ZMtlCuIuDsxntSjRPTuXekCWkUDPuh17hCg7g3Sf0110O1mLhY4kH2DC9VOthm4z8wrp4v
-	eoCcMPuHAnBpplwSKw3MOangfIL+choaX2XymPoDpKuLWhogC2lysh9sPDjuMMvggxN/HYCQZI
-X-Received: by 2002:a05:622a:1790:b0:531:190c:85d4 with SMTP id d75a77b69052e-532dd3ccc11mr36804681cf.1.1790080675565;
-        Tue, 22 Sep 2026 05:37:55 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532e18d753fsm11687481cf.13.2026.09.22.05.37.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 05:37:55 -0700 (PDT)
-Message-ID: <28ebbf27-24db-4b5f-87f0-831d13f93b8f@riscstar.com>
-Date: Tue, 22 Sep 2026 07:37:53 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qunjsvms"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D391F008A0;
+	Tue, 22 Sep 2026 12:37:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790080685;
+	bh=J8+ca+gcpuLslZLTovu0Gzm9+ZZc7DYd8Nmf5QdLI6A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QunjsvmsZuEbdErQzbL2KnbidMZvxv7Kdr8MUmJ9yOICqRkOoZvEnZfPSsjl8ZSI5
+	 3FbgUpG8pDmZTil+8Py5ZK2ZhxoBNhrICg+mV1YGtfHBma6BEhAsyXQvKqmYrBoihC
+	 a8fdsFBAsvV1n/vcWSN7wH4T5eN/GOHOUBXFAHCIrhBARSH0fcQSmCkNq6YW9aPL5n
+	 42WDBjx8nxl99BG5A6H/lS14Ua6AAQsSCgMCL5qVPFDMGmZxCXhtDvU7CZrfW7QXiq
+	 bSlhmqip2n1wxBe0xmMrf9KRDfSTtnakaWcY7CqACBiLpqNbLRuSL0RSAboXPtzXeJ
+	 e3rECrvz5iaLQ==
+Date: Tue, 22 Sep 2026 14:37:53 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Bryan O'Donoghue <bod@kernel.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
+	Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v20 4/6] phy: core: Add missing kerneldoc colon in two
+ locations
+Message-ID: <qjmvybdgxf7vpxhiqogzgwgaiz3klheil33lxohgrlbjaexm74@wvjxm6clvmfe>
+References: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org>
+ <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-4-dc244e124e71@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and reset
- driver
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260918165234.687224-1-elder@riscstar.com>
- <20260918165234.687224-4-elder@riscstar.com> <arA1svdQzaj3VanR@monoceros>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <arA1svdQzaj3VanR@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-4-dc244e124e71@linaro.org>
 
-On 9/20/26 2:39 PM, Uwe Kleine-König wrote:
-> Hello Alex,
+On Fri, Sep 18, 2026 at 02:56:39PM +0100, Bryan O'Donoghue wrote:
+> Correct missing colon after Return in kernel doc.
 > 
-> On Fri, Sep 18, 2026 at 11:52:32AM -0500, Alex Elder wrote:
->> +#include <linux/bits.h>
->> +#include <linux/clk-provider.h>
->> +#include <linux/mfd/syscon.h>
->> +#include <linux/mod_devicetable.h>
->> +#include <linux/module.h>
->> +#include <linux/platform_device.h>
->> +#include <linux/regmap.h>
->> +#include <linux/reset-controller.h>
-> 
-> Please rely on linux/platform_device.h to provide of_device_id and drop
-> including <linux/mod_devicetable.h>. (If you want to go full iwyu,
-> include <linux/device-id/of.h> instead.)
+> Suggested-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-In general I would like to "go full iwyu" but have never heard
-it expressed that way.  Can you recommend a tool available that
-will help me do that?
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-It looks like "mod_devicetable.h" doesn't help much unless I
-need struct_cpu_feature (which I do not), so I'll include "of.h".
+- Mani
 
->> +static const struct of_device_id tc9564_clk_ids[] = {
->> +	{ .compatible = "toshiba,tc9564-clock" },
->> +	{ },
->> +};
-> 
-> Drop the trailing comma after the list terminator please.
-
-OK.  Only for the list terminator, right, because nothing
-will ever follow it?  Non-empty final initializer is OK
-to have a comma as far as you're concerned?
-
-Thanks for your review.
-
-					-Alex
-
-> Best regards
-> Uwe
-
+-- 
+மணிவண்ணன் சதாசிவம்
