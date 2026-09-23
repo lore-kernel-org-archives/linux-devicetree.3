@@ -1,114 +1,365 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f26.google.com (mail-ej2-f26.google.com [74.125.228.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CBC403EB9;
-	Wed, 23 Sep 2026 15:44:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A124A4A0127
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 15:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178273; cv=none; b=FTpaJeZBDgHbA+24PDcOF5rUAja3NAeTpowIUTCDaNYrU0asTyFwkxusASdt9CBTu5M8vuN5Xjvzj45r4h4YXaorykMclYmcUEcObaZBYn+PIQSwyyoFQD2sSmJkOEnoT2otXRVEvD7MYhRdVUeGv02CK2zgKszyKycItAdJiWw=
+	t=1790178551; cv=none; b=OqFLRDZwxycj6pnddCa10t/+ZiUZo1BO8wiHazyUm+pla66jY6TvW8LP1/ayrojfxlBuDXhrBPYRi5SF3VsfQYR+8u4dyOVME4RUW9XdI+YcRcQtRg9F0D7fMhwuQD181fqOOyKYLbsEm1eAyUiVq9sATW7fHjXFovqxsZ0cS7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178273; c=relaxed/simple;
-	bh=Jj9QL+UbNTS5PSfoDhE2IyaEQhsh6t1d27dLirk2Ubk=;
+	s=arc-20240116; t=1790178551; c=relaxed/simple;
+	bh=D7cyQBV9qs11eHhXM8csmYcI53GAL/ttmttLP1deXns=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k9a3r+4uzTt06jGjeYZMoVq0iTiHnNU6pzkEod2SDIy/r26sxDwxSloQz/qHbYSE5/wWyx1sqaoVkWqLeFv5ocVxG7U4ekbtUUe92pyz5uPSS+yCsfJjBRGZrhShbKHlC7hW+6t3bx8h8LsNPQuo/T7JpdGvDJGZADgPENdSpYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZCvKnDvy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=E6ek4QraEX3Ms8ODOMamhzqc+VTBJfZSXBzOAORZ5ep9Ur+UZCTnEy65nBwmfc5/LXLv7rob1Kd0eL0GjRc/yjFFvp+hoEndseQ68DOGzi9V5idQM4ePDVRDm3UvVbJhwD/kpWlSDLPUKn6qCSPy7OI/QXA4qDlT6ByoBHCV+tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=XZv55R1l; arc=none smtp.client-ip=74.125.228.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZCvKnDvy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDAAF1F000FF;
-	Wed, 23 Sep 2026 15:44:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790178271;
-	bh=9PPxBgUPMs5vchL7SR1fadKjrntsb9RgCKzLY/cjVMM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZCvKnDvyFD4Ed5hludzd7plkpUV5xgTorV53CLht/02a3pPU8pxjsaNP+vl3RM6u0
-	 HHdcQrXYtJlRDswS+twP65Os5BLKtpUkF0NliYzgprI821NcdMJy4ICi0Vyzz/Ki+5
-	 n1f4aAAXIIPaqAuzkYZte48uwP0JSDtUbo9VMn8frp3k0UNWEggB00c8b+uH5t+6mT
-	 /b+nrhZH7sqBUiqOVota1eT4fe1qPNYIZ7ZQUoKJvp/Y4Y+OyFw57kNdnnPO6C0ONW
-	 TsqtVuNCK4mnlbY5ovdQ9umxwMjqtOuKpkvHSbiM4JQSx7VjoVvL4JZoHzwGDxCOPa
-	 JL/cPq7+7qwgg==
-Date: Wed, 23 Sep 2026 16:44:27 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Wei Xu <xuwei5@hisilicon.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: soc: hisilicon: Add HIP05 CPLD
-Message-ID: <20260923-strenuous-faceless-dfad20f6b872@spud>
-References: <20260921232540.3128596-1-robh@kernel.org>
- <20260922-cheer-reference-c31fc6fb946d@spud>
- <20260923150409.GD27237-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="XZv55R1l"
+Received: by mail-ej2-f26.google.com with SMTP id a640c23a62f3a-c2940ef15d3so146799166b.2
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 08:49:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790178547; x=1790783347; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AC1V7c4WU6arvaHg1fiICTCR6GKg0EaeyLEpLHxpNDY=;
+        b=XZv55R1lpsNiAARSNYFtDYe+86tS/CF5jhSgsGMGbzqIkrZ/DtPsTMdmeams0N7wEU
+         qBjq95Se3/8Z6a2JLHMj/O19d2fjEYRZ6EXohJ7FGZ+ALQZNdOGBbLoEjpU4DY/8mAwC
+         K4jn3l6eBrHXpV1AiMjz8n8x00Yjv9cmM9GT/FigaVg4xCRktR4Mn2ZuWoC/VdsIXhTc
+         /M+xhWmrdSR9X2X4VhCd61Od5HJ324qhjV0c2sF0UJzJTvojaH+qdF/+OwN2MynCuZvZ
+         k2Ar076Esrg8OhQHIb8XEu+lRcMGZRneOmPtjG6NYayKBna9Gb9r+Akyz3JS0x+mqT7i
+         flSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790178547; x=1790783347;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AC1V7c4WU6arvaHg1fiICTCR6GKg0EaeyLEpLHxpNDY=;
+        b=UuqFlLAM69VzbfWODrH7MyrEYHv4tCXChtURDqPkDZD8wLn62U7bYW5nQ685XJ5sak
+         V+36DGgO5JdRiUH0SNTrcxJJRsH0Yl4E2wjjrVGF4Iy7TSoNizBjUAk+5LsrQAOkzabs
+         g5fFeRz+Phk9JdwUhu9p4r6GOLIju9HXLKgHwydrP3ninh6Cr08iWCW7cqBdOurSR/tA
+         H3sudAgDqFIMstaQDpQFTsbqkFe3adgyDPWRfVwz+Y3DyfrYPfCtq4ksAPQU1khYs+Nn
+         xXYhXiybaKZNmxw5GEUDc2zRh5tiM2qOVlxe1/Q0+V6pFqf9e84OAKx5o9MEL0/UCjof
+         DlNw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDbhV1vZXujgLQ8o3brDKDFdp3E31FRFyOGKGbYsj3d2xXRGyKU9RKEKVl0XSAQ80oQkuStANer6/m@vger.kernel.org
+X-Gm-Message-State: AFuF++neL1+cbTcm2S1JPqzN9J/y8E2AHwAMrAi8twT/LLObIWoEyqDr
+	vntUVrW1WZ6DCyWRhmg4c9aIa/HN+XXAYpQFaJTS2VB+l+LUYXtRcohMUe8alVLyKvc=
+X-Gm-Gg: AYBFou1E0/N2e8jtjBWomWkWLE6yZmIP0kSX2CVe8rsMhVpjyAysZS6aqPXMBbj1f4o
+	QfEy2DQp8q8eJnNHuUowUT2YTkBji2ahjfKIn8/NJYy/M5leRutE7AgPTMQ5dHvnxvEUz2YzvWz
+	XdrQJJR8jNxpY3Ll9/Djpjq+8Ni6asRpLcrPDlqVYarCxzMbbhp+8qRUEaKHUvuofFzmbJ6NPkc
+	ISkY20SnVvIni2uQKA4hdlcsIt17N5m36zeKHRcMgZos4C2Y1S7eDzmK4RqU4Yg8RfDPbOxZgkx
+	5DUZCcHRBbxNtTDmJScuFV7jO13LphPCIjT54PGtEPUAd3rrhFkL45a+f9ZeEDs7NTVcF8SMpjM
+	XwHM1IgQYeZJDsfzTBxosUGqZYgPEG91PBBIvnZIT/QK8cxQ3es0+S+RoqWU5Me84/yBP1kVHjJ
+	XcLMCo5D6S/l23P56WTCyM940mtJGywBBzZkUj+hb0730t4FsHs9HP+5q6U4L2ijq1vqfRqZo=
+X-Received: by 2002:a17:907:c02:b0:c25:c67d:53cc with SMTP id a640c23a62f3a-c2aadeb4e22mr229458566b.8.1790178546725;
+        Wed, 23 Sep 2026 08:49:06 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:b4a:dc6a:68e:2592])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae687318sm152318266b.44.2026.09.23.08.49.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 08:49:06 -0700 (PDT)
+Date: Wed, 23 Sep 2026 09:48:58 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Francesco Valla <francesco@valla.it>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, virtualization@lists.linux.dev,
+	imx@lists.linux.dev, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
+ multiple vdevs
+Message-ID: <arP06mWDehsIDh5s@p14s>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
+ <arKiOCGrWAKyc-bc@p14s>
+ <arLawAw6kgFT2e0W@bywater>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fXQyoIfMWTM8pali"
-Content-Disposition: inline
-In-Reply-To: <20260923150409.GD27237-robh@kernel.org>
-
---fXQyoIfMWTM8pali
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <arLawAw6kgFT2e0W@bywater>
 
-On Wed, Sep 23, 2026 at 10:04:09AM -0500, Rob Herring wrote:
-> On Tue, Sep 22, 2026 at 07:06:02PM +0100, Conor Dooley wrote:
-> > On Mon, Sep 21, 2026 at 06:25:39PM -0500, Rob Herring (Arm) wrote:
-> > > Add schema for the hisilicon,hip05-cpld node on the HIP05 D02 board. =
-The
-> > > node only contains the compatible string and one register window on t=
-he
-> > > local bus.
-> > >=20
-> > > Assisted-by: LLM
-> >=20
-> > Guidance to the LLM should probably include including the reason that
-> > this is being added to the commit message.
->=20
-> Not sure what you are looking for... I told it to convert all the .txt=20
-> bindings to schema. Then I told it fix all the errors. Then I fixed some=
-=20
-
-I meant that it should say something like "Add schema for ... node that
-is undocumented but appears in the ... board dts".
-Otherwise this seems like a completely random addition, other than the
-submitter being you pointing towards it being cleanup for undocumented
-stuff.
-
-> things throughout the 900 commit branch upstreaming things bit by bit. =
-=20
-> Then it mostly sat for a year and I told a new model to review them and=
-=20
-> fix these common problems a, b and c. Then I said fix all the=20
-> dtbs_checks warnings on arm64. Then I said there's still warnings, do it=
-=20
-> again. Repeated that ~10 times. Now I'm going thru to weed out all the=20
-> wrong and sometimes unnecessary changes.
->=20
-> So LLM did all the easy parts and I did everything that requires any=20
-> judgement. The hardest part is typically just figuring out the=20
-> correct maintainers...
->=20
-> > > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+On Tue, Sep 22, 2026 at 10:19:48PM +0200, Francesco Valla wrote:
+> On Tue, Sep 22, 2026 at 09:43:52AM -0600, Mathieu Poirier wrote:
+> > On Wed, Sep 16, 2026 at 11:10:57PM +0200, Francesco Valla wrote:
+> > > Add rings for multiple vdevs, as well as the required virtio nodes for
+> > > I2C, SPI and GPIO functionalities. On top of that, add example
+> > > peripherals using all of them.
+> > > 
+> > > NOTE: this is a Proof-Of-Concept, not meant to be integrated!
+> > > 
+> > > Signed-off-by: Francesco Valla <francesco@valla.it>
 > > > ---
-> > >  .../soc/hisilicon/hisilicon,hip05-cpld.yaml   | 35 +++++++++++++++++=
-++
-> > >  1 file changed, 35 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/soc/hisilicon/h=
-isilicon,hip05-cpld.yaml
+> > >  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++++++++++--
+> > >  1 file changed, 119 insertions(+), 9 deletions(-)
+> > > 
+> > > diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> > > index bd14ba28690c..dfa3b122ac5f 100644
+> > > --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> > > +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> > > @@ -53,6 +53,32 @@ button-k3 {
+> > >  		};
+> > >  	};
+> > >  
+> > > +	gpio-keys-virtio {
+> > > +		compatible = "gpio-keys-polled";
+> > > +		poll-interval = <100>;
+> > > +
+> > > +		button-v1 {
+> > > +			label = "Button V1";
+> > > +			linux,code = <BTN_3>;
+> > > +			gpios = <&v_gpio 23 GPIO_ACTIVE_LOW>;
+> > > +		};
+> > > +
+> > > +		button-v2 {
+> > > +			label = "Button V2";
+> > > +			linux,code = <BTN_4>;
+> > > +			gpios = <&v_gpio 24 GPIO_ACTIVE_LOW>;
+> > > +		};
+> > > +	};
+> > > +
+> > > +	leds {
+> > > +		compatible = "gpio-leds";
+> > > +
+> > > +		led {
+> > > +			gpios = <&v_gpio 18 GPIO_ACTIVE_HIGH>;
+> > > +			label = "LED V";
+> > > +		};
+> > > +	};
+> > > +
+> > >  	reg_usdhc2_vmmc: regulator-usdhc2 {
+> > >  		compatible = "regulator-fixed";
+> > >  		off-on-delay-us = <12000>;
+> > > @@ -89,11 +115,6 @@ linux,cma {
+> > >  			linux,cma-default;
+> > >  		};
+> > >  
+> > > -		rsc_table: rsc-table@2021e000 {
+> > > -			reg = <0 0x2021e000 0 0x1000>;
+> > > -			no-map;
+> > > -		};
+> > > -
+> > 
+> > Why is the resource table removed?  There is no mention of that in the
+> > changelog...
+> >
+> 
+> You are obviously right, the commit message here should have been a
+> poem, not a form of hermetic poetry. My bad.
+> 
+> The resource table here is causing problems with how Zephyr is managing
+> it at its side. If it is kept in a separate memory location and copied
+> there at runtime by the remote processor firmware during its startup
+> (which is the current Zephyr behavior), then there might be a race
+> condition when the aforesaid firmware is loaded and started by Linux
+> *and* at least one of the vdev drivers (here including rpmsg_bus) is
+> built-in. In this case, the copy of the resource table done by the
+> remote processor might - depending on the async execution of the two
+> processors - overwrite the status bit set by the Linux driver:
+> 
+>   Firmware load and startup (echo start > /sys/.../state)
+>                            |
+> 			   |
+> 			   V
+>   The vdev devices get registered (by register_virtio_device())
+>                            |
+> 			   |
+> 			   V
+>   If a driver is built-in, it probes and sets the vdev status
+>   inside the resource table @rsc-table.
+>                            .
+> 			   . (in the mean time)
+> 			   .
+>   The remote processor starts up and copies the resource table from its
+>   dedicated section to @rsc-table.
+> 
+> Depending on the system load and the complexity of the firmware, the two
+> operations can happen in whatever sequence, causing a race condition.
 
---fXQyoIfMWTM8pali
-Content-Type: application/pgp-signature; name=signature.asc
+This would happen regardless of this patchset.
 
------BEGIN PGP SIGNATURE-----
+> 
+> This is somewhat masked if vdev drivers are built as modules, as the
+> devices does not probe immediately but only after the modules have been
+> loaded, giving the remote processor time to start. Note that this is not
+> a solution! but a workaround.
+> 
+> If the rsc-table node is not there, the startup logic falls back to the
+> classic rproc_elf_find_loaded_rsc_table().
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarPz2wAKCRB4tDGHoIJi
-0qo5AQDoHJLM3dY0FK4aNlll5Vp276wV+D0l/vFY92imoN9xJwD/S/lJE2a7bcHD
-Q7vOIv9sEQqziJ6J3fePaQYs5nrnIw8=
-=v+dZ
------END PGP SIGNATURE-----
+We can't remove @rsc-table to make a problem go away.  
 
---fXQyoIfMWTM8pali--
+> 
+> This is specific to i.MX platforms [1] and is probably not normally an
+> issue because - as stated in [1] - the offical SDK from NXP seems not
+> to check the status inside the resource table.
+> 
+> > >  		vdev0vring0: vdev0vring0@a4000000 {
+> > >  			reg = <0 0xa4000000 0 0x8000>;
+> > >  			no-map;
+> > > @@ -105,12 +126,42 @@ vdev0vring1: vdev0vring1@a4008000 {
+> > >  		};
+> > >  
+> > >  		vdev1vring0: vdev1vring0@a4010000 {
+> > > -			reg = <0 0xa4010000 0 0x8000>;
+> > > +			reg = <0 0xa4010000 0 0x1000>;
+> > > +			no-map;
+> > > +		};
+> > > +
+> > > +		vdev2vring0: vdev2vring0@a4011000 {
+> > > +			reg = <0 0xa4011000 0 0x2000>;
+> > > +			no-map;
+> > > +		};
+> > > +
+> > > +		vdev2vring1: vdev2vring1@a4013000 {
+> > > +			reg = <0 0xa4013000 0 0x2000>;
+> > > +			no-map;
+> > > +		};
+> > > +
+> > > +		vdev3vring0: vdev3vring0@a4015000 {
+> > > +			reg = <0 0xa4015000 0 0x2000>;
+> > > +			no-map;
+> > > +		};
+> > > +
+> > > +		vdev4vring0: vdev4vring0@a4017000 {
+> > > +			reg = <0 0xa4017000 0 0x4000>;
+> > > +			no-map;
+> > > +		};
+> > > +
+> > > +		vdev5vring0: vdev5vring0@a401B000 {
+> > > +			reg = <0 0xa401B000 0 0x2000>;
+> > > +			no-map;
+> > > +		};
+> > > +
+> > > +		vdev5vring1: vdev5vring1@a401D000 {
+> > > +			reg = <0 0xa401D000 0 0x2000>;
+> > >  			no-map;
+> > >  		};
+> > >  
+> > > -		vdev1vring1: vdev1vring1@a4018000 {
+> > > -			reg = <0 0xa4018000 0 0x8000>;
+> > > +		vdev5vring2: vdev5vring2@a401F000 {
+> > > +			reg = <0 0xa401F000 0 0x1000>;
+> > >  			no-map;
+> > >  		};
+> > >  
+> > > @@ -149,8 +200,67 @@ &cm33 {
+> > >  		 <&mu1 3 1>;
+> > >  	mbox-names = "tx", "rx", "rxdb";
+> > >  	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
+> > > -			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
+> > > +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
+> > > +			<&vdev3vring0>, <&vdev4vring0>,
+> > > +			<&vdev5vring0>, <&vdev5vring1>, <&vdev5vring2>;
+> > 
+> > Who is using vdev5 vrings?  
+> > 
+> 
+> Another thing that should have been in the commit message. Vdevs are
+> defined, in the Zephyr application I am using as PoC, as follows:
+> 
+>  - vdev0: RPMSG (tx and rx vrings)
+
+To be backward compatible, there has to be a way to make vdev0 defaulting to
+RPMSG.  It would also be nice if bindings were define for RPMSG so that it can
+show up in the list of remoteproc-virtio devices like i2c, gpio and others.
+
+
+>  - vdev1: entropy (single request vring)
+>  - vdev2: GPIO (request and event vrings)
+>  - vdev3: I2C (single request vring)
+>  - vdev4: SPI (single request vring)
+>  - vdev5: CAN (tx, rx and control vrings)
+> 
+> vdev5 is not represented inside the devicetree because the can-virtio
+> driver registers a single CAN network device and has thus no need for
+> such representation.
+
+Then why is it part of the remoteproc's memory-regions?
+
+> 
+> > >  	status = "okay";
+> > > +
+> > > +	virtio {
+> > > +		#address-cells = <1>;
+> > > +		#size-cells = <0>;
+> > > +
+> > > +		vdev@2 {
+> > > +			reg = <2>;
+> > > +
+> > > +			v_gpio: gpio {
+> > > +				compatible = "virtio,device29";
+> > > +				gpio-controller;
+> > > +				#gpio-cells = <2>;
+> > > +				interrupt-controller;
+> > > +				#interrupt-cells = <2>;
+> > > +			};
+> > > +		};
+> > > +
+> > > +		vdev@3 {
+> > > +			reg = <3>;
+> > > +
+> > > +			i2c {
+> > > +				compatible = "virtio,device22";
+> > > +				#address-cells = <1>;
+> > > +				#size-cells = <0>;
+> > > +
+> > > +				eeprom@50 {
+> > > +					compatible = "atmel,24c1025";
+> > > +					reg = <0x50>;
+> > > +				};
+> > > +			};
+> > > +		};
+> > > +
+> > > +		vdev@4 {
+> > > +			reg = <4>;
+> > > +
+> > > +			spi {
+> > > +				compatible = "virtio,device2d";
+> > > +				#address-cells = <1>;
+> > > +				#size-cells = <0>;
+> > > +
+> > > +				sram@0 {
+> > > +					compatible = "microchip,mchp23k256";
+> > > +					reg = <0>;
+> > > +					spi-max-frequency = <20000000>;
+> > > +				};
+> > > +
+> > > +				lcd@1 {
+> > > +					compatible = "adafruit,yx240qv29", "ilitek,ili9341";
+> > > +					reg = <1>;
+> > > +					spi-max-frequency = <10000000>;
+> > > +					dc-gpios = <&v_gpio 21 GPIO_ACTIVE_HIGH>;
+> > > +					reset-gpios = <&v_gpio 20 GPIO_ACTIVE_HIGH>;
+> > > +					rotation = <90>;
+> > > +				};
+> > > +			};
+> > > +		};
+> > > +	};
+> > >  };
+> > >  
+> > >  &eqos {
+> > > 
+> > > -- 
+> > > 2.55.0
+> > >
+> 
+> Thank you!
+> 
+> Regards,
+> Francesco
+> 
+> 
+> [1] https://lore.kernel.org/all/20240719-imx_rproc-v2-2-10d0268c7eb1@nxp.com/
