@@ -1,140 +1,118 @@
-Received: from mta1.migadu.com (out-129.mta1.migadu.com [95.215.58.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp1.tecnico.ulisboa.pt (smtp1.tecnico.ulisboa.pt [193.136.128.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1825349D6
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8A553B330;
+	Wed, 23 Sep 2026 16:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.136.128.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790181806; cv=none; b=VrtTNKiGEBdw2TFAMHilL0mdKQy+2NAxOYsC8vwZTS+hD8JTVNa0VBQyG9OODnw8Dzsqff1jy6JlKfTxaVsugZLJepq4zz2QBl63pqt0LTRNXK3n3Ju8lqZT1hVkUd7oudUY5TMdMDnKtVXtf+mCiuZgAVLypvUdFC7FW2wSTYs=
+	t=1790181929; cv=none; b=P46BaNYUuDn6YqU4Ewp3CKXWv0y++Vz39YGxZoYrPl2/roRSOomN9vkdOovkMRmnJL+M0/3xZjwmyJbyX0FrlyzWE5ed78ddP2NHzFiqzwT8mrgGnGi543P5yapMVtP7dF/1jG4wvi4SXMSwqYADnN7ok+h3nK4tjofGJgKnRGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790181806; c=relaxed/simple;
-	bh=z5PVQJxayxGeNQifTwwvxx8fDx6857gHo9VSiCt+4cY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j0upaZvL1Ge9PB6RSi8zJVDMRwBGNJ1fyygsuzu6EgZwiXuNaLPDPafl+/g/Hqjh0dWgHCGppAmWimZ/iBRM/dXAu/T7kC38csFNQvePYUMchPUcH7kN1GqmeD0H1NWbe1eTF8XLTXGIe6g/hIGet1Hc6LqgxhwKOadwndmi0r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OvHxP9xf; arc=none smtp.client-ip=95.215.58.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790181929; c=relaxed/simple;
+	bh=PBYgvduEUT6jxsOixdvm+WamBf/qjCs6W58+PTNYzvc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mUI4TUN2ECpz8zhHhWF30PNpaBe0rowk2yaciDChg/j+2YaZA86VPXg7OIO72M5cb2KzEejujG/pYwEpjzXyJ++SE8/4I+97K46BmtmfbQDjJ/cBJwVZLaX0e8kl+WnKUeoZ2oGZp8vosCGODq0/ubuLWb0PWYAPi49Dqk4Bfxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt; spf=pass smtp.mailfrom=tecnico.ulisboa.pt; dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b=a9eWTc8/; arc=none smtp.client-ip=193.136.128.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tecnico.ulisboa.pt
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OvHxP9xf"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=z5PVQJxayxGeNQifTwwvxx8fDx6857gHo9VSiCt+4cY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790181793; v=1; x=1790786593;
- b=OvHxP9xf1DVCchKRxQ/+HFpSC1KOAKXV+Qx3KmfU258EQ4IKCfjd+xF9Wt4DZsdiGhyeOMOy
- nQ10EGSXmBzWVgNUNZUVL4REk6tuU40hESCOvxDXiw8WhbfD8fpstdZJoqjp4BJ37kyWh4qABl5
- qH6rO8Rwk2s+1NEg5YHO5XGs=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 64eb0ac43514703d;
-	Wed, 23 Sep 2026 16:43:13 +0000
-X-Mizu-Trace-ID: 64eb0ac43514703d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <12839ca0-cb1d-41da-9e48-bbec59ebf230@linux.dev>
-Date: Wed, 23 Sep 2026 18:43:12 +0200
+	dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b="a9eWTc8/"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTP id 39D706005419;
+	Wed, 23 Sep 2026 17:45:18 +0100 (WEST)
+X-Virus-Scanned: by amavis-2.13.0 (20230106) (Debian) at tecnico.ulisboa.pt
+Received: from smtp1.tecnico.ulisboa.pt ([127.0.0.1])
+ by localhost (smtp1.tecnico.ulisboa.pt [127.0.0.1]) (amavis, port 10025)
+ with LMTP id cbK6P5olbJKV; Wed, 23 Sep 2026 17:45:16 +0100 (WEST)
+Received: from mail1.tecnico.ulisboa.pt (mail1.ist.utl.pt [IPv6:2001:690:2100:1::b3dd:b9ac])
+	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTPS id 40AED6005413;
+	Wed, 23 Sep 2026 17:45:16 +0100 (WEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tecnico.ulisboa.pt;
+	s=mail2; t=1790181916;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UNrBCyt384EeqR+3hi2LdUMpUYUFizfCHss8rjaEsQY=;
+	b=a9eWTc8/X5nJZgdcVXk/BSGe06n7Xq14fMep5kJtQb6rn4yJX0Lk65nkndKWJ/FjSl2ZDA
+	yq5wKVKqqd4lXcya18MFRE0nT5MPgl0K4ivG5lXIKp2x2UkVgMFONKcKJe1ovHWOzPMzi0
+	Ae9X8hildGoNlsNONpiLTLjBk7SJU7jobYq/0OKW+oFqjaeHatZM9f24tCtnZUJd9PR8Kc
+	pRbmCsAp5iCozSCGtfLSSEFRGh2M/uoeIxLcLfUkuGy6GpUpdi/EQlUtjgyqJvoO4EQ67B
+	ANZaxus3HZtz5rEag/Y8YwQQ2WvoLdpPbzLW/MOMPdVbDnvgvK3wyWGt9w05KA==
+Received: from [192.168.1.82] (unknown [IPv6:2001:8a0:67f3:eb00:ee56:8d5c:4e29:8df0])
+	(Authenticated sender: ist187313)
+	by mail1.tecnico.ulisboa.pt (Postfix) with ESMTPSA id 0E68536012F;
+	Wed, 23 Sep 2026 17:45:16 +0100 (WEST)
+From: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+Date: Wed, 23 Sep 2026 17:45:10 +0100
+Subject: [PATCH v2 1/2] ASoC: dt-bindings: realtek,rt5677: Add MCLK1 clock
+ property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] fpga: region: Add support for FPGA region variants
-To: Krzysztof Kozlowski <krzk@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
- Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <417b510f-0f6d-4695-97f5-3fc19b9377b9@linux.dev>
- <amCn8UYdybT+RRnq@yilunxu-OptiPlex-7050>
- <9d4af487-69a7-4a0d-9335-35c3a057de54@linux.dev>
- <anBfAa4LpjbmYHIc@yilunxu-OptiPlex-7050>
- <db7cfe9e-b2ba-4323-bff9-44598e1f70bb@linux.dev>
- <anl8891cH+bUfsGY@yilunxu-OptiPlex-7050>
- <4dbdb52e-1b28-432e-a3a7-ad9c44f17d27@linux.dev>
- <aoJ6paA/8ndpJ17y@yilunxu-OptiPlex-7050>
- <8848432d-45b0-4efe-adf3-adfb64fe0899@linux.dev>
- <11b1a792-f8b1-4fce-8a7a-8352149febcf@linux.dev>
- <aq12s+hUVnnvCKmZ@yilunxu-OptiPlex-7050>
- <2adefc6f-328c-4683-8cba-091d9f3425ab@linux.dev>
- <1857df9a-8952-426e-988b-cd05d45a04cc@kernel.org>
-Content-Language: en-US
-From: Marco Pagani <marco.pagani@linux.dev>
-In-Reply-To: <1857df9a-8952-426e-988b-cd05d45a04cc@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-rt5677-mclk-v2-1-6ca31e8f68a4@tecnico.ulisboa.pt>
+References: <20260923-rt5677-mclk-v2-0-6ca31e8f68a4@tecnico.ulisboa.pt>
+In-Reply-To: <20260923-rt5677-mclk-v2-0-6ca31e8f68a4@tecnico.ulisboa.pt>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Animesh Agarwal <animeshagarwal28@gmail.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Oder Chiou <oder_chiou@realtek.com>, 
+ Ben Zhang <benzh@chromium.org>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790181915; l=1300;
+ i=diogo.ivo@tecnico.ulisboa.pt; s=20240529; h=from:subject:message-id;
+ bh=PBYgvduEUT6jxsOixdvm+WamBf/qjCs6W58+PTNYzvc=;
+ b=oDoNDKDWpXmiC3aU4xX5/hqR9tk+ZWuO4wN20bqGpK/COEM76mtlIQk6RcQHf4GWD1UiZzppC
+ MrNoN/pf0NJD9JcBoM/w/cts/mQ7sJiCgMOOvk75ly8qLMeblD1gmeP
+X-Developer-Key: i=diogo.ivo@tecnico.ulisboa.pt; a=ed25519;
+ pk=BRGXhMh1q5KDlZ9y2B8SodFFY8FGupal+NMtJPwRpUQ=
 
+Add a clocks property so that boards can describe the clock feeding
+the codec's MCLK1 input.
 
+Signed-off-by: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+---
+ Documentation/devicetree/bindings/sound/realtek,rt5677.yaml | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-On 23/09/2026 17:09, Krzysztof Kozlowski wrote:
-> On 23/09/2026 16:30, Marco Pagani wrote:
->>
->>
->> On 18/09/2026 19:36, Xu Yilun wrote:
->>> On Fri, Sep 18, 2026 at 05:07:07PM +0200, Marco Pagani wrote:
->>>>
->>>> Hi Yilun,
->>>>
->>>> Is it okay with you if I CC the DT people to ask for an opinion?
->>>
->>> Of course. It's good to know in which case could a DTO be applied.
->>>
->>> But to be clear, I think that only affects how we accept and apply the
->>> image-DTO pair. For now, I basically don't want a varient selection
->>> interface.
->>
->>
->> Hello Rob, Saravana, Krzysztof, Conor,
->>
->> I'm CC-ing you on this thread as OF/DT maintainers to kindly ask
->> for your input on this debate we are having about how to implement
->> userspace FPGA reconfiguration, an important feature currently
->> lacking in mainline kernel.
->>
->> https://lore.kernel.org/all/20260608164247.1998417-1-marco.pagani@linux.dev
->>
->> To recap: modern FPGAs allow portions of the fabric to be reconfigured
->> at runtime to dynamically swap soft IPs. Usually, these IPs are
->> connected through a non-discoverable on-chip bus like AMBA AXI.
->> From a kernel perspective, this means the FPGA device configuration
->> image (bitstream) must be paired with a DT fragment that describes
->> the new topology.
->>
->> In this thread, we are essentially debating between two approaches for
->> implementing FPGA userspace reconfiguration at runtime:
->>
->> - Statically defined Variants (this RFC): Userspace can change FPGA
->>   configuration by selecting from a pre-validated set of variants
->>   (DT fragments) baked into the base DT.
-> 
-> I don't know what DT fragments are, maybe you meant overlays? But they
-> are not baked into the base DT.
-> 
-> There are no bindings here and no DT maintainers were CCed on this RFC,
-> so I really do not get how this patch can enable something like that.
-> 
-> Linked URL shows some undocumented ABI, so obviously this would be a no
-> go. And RFC prefix does not justify undocumented ABI. At least one
-> without clear explanation in the cover letter, why is this RFC and why
-> it cannot be merged/reviewed.
+diff --git a/Documentation/devicetree/bindings/sound/realtek,rt5677.yaml b/Documentation/devicetree/bindings/sound/realtek,rt5677.yaml
+index ae27ae78b1b2..f76aad0d3016 100644
+--- a/Documentation/devicetree/bindings/sound/realtek,rt5677.yaml
++++ b/Documentation/devicetree/bindings/sound/realtek,rt5677.yaml
+@@ -44,6 +44,14 @@ properties:
+   '#gpio-cells':
+     const: 2
+ 
++  clocks:
++    items:
++      - description: phandle and clock specifier for the codec MCLK1 input.
++
++  clock-names:
++    items:
++      - const: mclk1
++
+   realtek,pow-ldo2-gpio:
+     maxItems: 1
+     description: CODEC's POW_LDO2 pin.
+@@ -127,6 +135,8 @@ examples:
+             interrupts = <3 IRQ_TYPE_LEVEL_HIGH>;
+             gpio-controller;
+             #gpio-cells = <2>;
++            clocks = <&osc>;
++            clock-names = "mclk1";
+             realtek,pow-ldo2-gpio = <&gpio 3 GPIO_ACTIVE_HIGH>;
+             realtek,reset-gpio = <&gpio 3 GPIO_ACTIVE_LOW>;
+             realtek,in1-differential;
 
-Sorry, I couldn't have imagined that missing ABI documentation in a
-"proof of concept" RFC would be so detrimental while asking for a
-high-level opinion.
+-- 
+2.55.0
 
-
-> 
->>
->> - Runtime DTOs (Nava's RFC): Userspace can change FPGA configuration
->>   by loading DTOs that are validated at runtime.
-> 
-> If runtime overlays were working, this looks suitable to the problem of
-> runtime change of the hardware. This also fits hot-pluggable hardware
-> problem, which Bootlin is working on.
-
-Glad to know the problem is already being solved.
-
-
-Thanks,
-Marco
