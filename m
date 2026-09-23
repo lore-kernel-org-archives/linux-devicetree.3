@@ -1,216 +1,411 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020143.outbound.protection.outlook.com [52.101.196.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708435349D2
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:45:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790171150; cv=none; b=s80ClOFoxZfc6vk+vC/j7r3mjpVE9wjp5y5Q/XM5Kh8tk/BFixaixCphY5r/YpwiUzryXA3cqqS+5BqCLnfO/ycaJdkJg6E3r3yVtCSkkQLpSpozVnagfBwXFptzbLzT69GF9xNIhMa1WMep105Zzdp7ETbJduSdze45qlFeEJI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790171150; c=relaxed/simple;
-	bh=hAUIAJP2KyIPOrXkm/QtyPmhhjrZyPRauTKH3tyreRE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BkMzRWsUr5TLJxAmM4kapmPLEf7WuNi/usuGmaSSe3HpVKlzlRoN35f1P59El/8K3NYmeF21nLDjJWE8+GiuR2B4BLtPJlSlasTrY2gule7gwgwiVYE3dV3vciDRjhyWpF+11LTjI7fPP1du7qByAbS/fd7WEkSoI9hFVYMgRfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NHhZfGyt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f+6D2VkL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A3151D516;
+	Wed, 23 Sep 2026 13:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.143
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790171170; cv=fail; b=GTmVZ3FuY9kLbpjBtb9NKdNzcVs3lVVIzMmiilryUVjcPf16bJml1eiQve6GOeQc6/J6eNrbU20GhqbbgsiUvvBIN49k29tMjkotvMMRXZZeB3Pczz8ioa1MH768httf2JG0K643lfhSZRA9UHVuZE1g341zNf1zW9I88NZga2U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790171170; c=relaxed/simple;
+	bh=/bMOef3T9Oc2pAmSiQtlIxN/wcytN8CpRXBChs4GzxY=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=qruGsfIaAWPGS20cP94JOe1stwO93gtqHM4Jub75ziQDmL6t03Rc3wM8URVXj4m+S246muXZI294hzsguGvC0jM84V+ibB69vo/HXEK674JfrSxQma3plYvt6iL2PTnIxcmgL6+CsDhBl4c12bBneeoB6rpUkSzrWTjSOjtav5s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=sIlUzyrl; arc=fail smtp.client-ip=52.101.196.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NHhZfGyt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f+6D2VkL"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NDM6QA3842962
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:45:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bvAW3yceqnT6AttFLk4NW8DsgIwVtqPiNNE7x4zTQZg=; b=NHhZfGytzmWFyCsj
-	Zbq1+A+FQqTZC64KnzfYTjTVPG4qQ2PppdfaDev7x8JA0PLgl8xEusRGtaUk2Jnu
-	dktSsj6AkBdohfO4tO1sewfq6TnnSSJAfWsSJiulrAuLH1YzPMPiVH1eN1YzL+gr
-	rXl5tjJO3b9ESRI7PcAkNumaqBIipyJqWDIi7+ikcMskQZRd0A3wRk2DfxasF1it
-	2mcq9TNtRWWuNicMFsLObGoyuSiP7WGMx9NrG7MnL3ooMu+9W0VVVhVHfTo5swQf
-	RGt6T1OymuOg3EfZA02+riv6lxDfUWyRTWk+mzOgJ+2ZyLA7Gl/eBGkdBvnXp9gg
-	Mxdl+Q==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfkbg347-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:45:47 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7a57ef025a3so61522137.2
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:45:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790171147; x=1790775947; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bvAW3yceqnT6AttFLk4NW8DsgIwVtqPiNNE7x4zTQZg=;
-        b=f+6D2VkL/jknXjInW6WrpzfdBaBovpXfNFUQXbMlJWkhAi3tEEnadw+Uo6PZwLeEux
-         Ic7a76SpTnD/qQ+gkheRvYfEsuhy731zBL5baFjGzqrw/OhFN2i2CvEBtwZQKP7H0TFw
-         3H+xRsjXr1AAIOmTU7xG1JVuehZXfWIEmHG1R5rJOQM3ctVFurJT0NoY/8NPKYvVJCd6
-         S9EQHxakCvgZGiWVLZi3670LNRTS/1h0VloKPq4urOnC4ZfViSr2MhNLc9thR+G9n0S5
-         j8bMbMxoPDJkvPM0O2CFfOaPMezsXFKNo7/RNP8ZWzzvOB7yzwjrz4tk+tifU56peaB8
-         0Acw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790171147; x=1790775947;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bvAW3yceqnT6AttFLk4NW8DsgIwVtqPiNNE7x4zTQZg=;
-        b=ecMPp0gRWD+PvSMK8Rc+K8iNUCWnMow4ArOeXbAae2hNAKTWULM4JDdj4+1BfAKoiD
-         B/JbjfSX1KGojZtlbz3TV2plWVsN17bO62mnpcbpLOhYq8llje6YZ51EYvYkRkUXD0QC
-         w4jvoDA4f4ezCwsRlaIFLO0PziDl71t9hJtXhz8cTVjPIEUgPbiAXNfeaWjvBObEv9dU
-         t3BcKcyQfrQrvVIU5bykvWnHl0UJjKEh6phnBbY9HDrH3LA7lV4inAAFRgut6ky1LmPJ
-         xMCQfLpkAjEwZqPWKZMYka8DF8rXnPMslg9o0WSN9VRTVVkNTISWhhGEHNsPHQX0Q587
-         yqdg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2TR4QlyV8LhGGZ3pI5ErnRiNWoNyVrWCTt67T/VmX2R775PtT/c7poW+VNYK1a/SCsDPPvGozdVb8@vger.kernel.org
-X-Gm-Message-State: AFuF++njGh1RcI2pRd6kb21LVwrNVH8a3oeZjA2Jd1o9XBJJMaPfjD/7
-	fO73HzbrJnvqGV/FXBUvPM8oIW/+JJzxKeWNbEsup2mQGQJyG8s8fWCsdq6OJaZnSb/HcQAv4D+
-	jsyJRDDV3tWKF8KwwnQRrFBup8b3pPJBYPnZDoLsKAW/1lNOYeWqzKgF/C3XgEZ6m
-X-Gm-Gg: AYBFou1e+M93rVKdueY3Yxlpk+aLhgjpFqzPerr7Ie0fCbiUQ3lV4uNOF3WDY0dMfde
-	OXunXQBIGNrRkpEi9nQPDqQLYgsOnxl2P/71xf0dF+ebas6GPFFZP1IefTsi75cb9TRnCaPZrz7
-	5mUmyAR3CwPR86YeTcPqHqlARXP54wLUU/V/GKGXnHaQkE1ApP1wcUucYniypW9O6a0DjU7BHyl
-	zqq/19x1Eq/Pz3qzOhE+TDTP/u5p13qru1Ul/3lmdCVlyjy3u+4Y1sDQDpfASKmS+xOdMFCtQL2
-	dke08eszqbMsgd5/YC8xD/BkPb9AHPPOPj/aWrAYcWkvOf0qNwZScRuckHP1uDuko8eEY6nkxaV
-	q7rcwOPyE7jRhFU8s3XcM7A==
-X-Received: by 2002:a05:6102:5121:b0:7a7:326b:688d with SMTP id ada2fe7eead31-7ac1c454b57mr2548250137.2.1790171146472;
-        Wed, 23 Sep 2026 06:45:46 -0700 (PDT)
-X-Received: by 2002:a05:6102:5121:b0:7a7:326b:688d with SMTP id ada2fe7eead31-7ac1c454b57mr2548220137.2.1790171145961;
-        Wed, 23 Sep 2026 06:45:45 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab37478c9sm1722267a12.0.2026.09.23.06.45.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 06:45:44 -0700 (PDT)
-Message-ID: <32bceb7e-d06b-4537-9d34-91bfe27f4ff7@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 15:45:40 +0200
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="sIlUzyrl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=roTChYKXLhfvrJ1WJgwqw1CUuhJf/NSNak9kKu6AwBKu44AB2zp5kkCQSDJfK/+mxCh+Fx+FECOfBK64eSgDzuYq0ITWpxrW+o30FhwkL1drrSo04SCm+LRfdh9JvH4DtqRMxwqbdwV8xF3PL+Mg4qvBltH+YQEsKJqRSKIpF+KLHcAHAgg1trdZRUQVN9xAfwR0xM35yIDk1DEw9fViuuGRSHrJo6QKTIgdNFGYl/UoAoceoUUOG6RfyIWLfNJNbyvNhIqNZJmw0qDTmVQhVwnyS0knfwStHSRmQ5xeCPZuysxOJRSTTbuKjUKrqMWRZjQUa1YaXiHebOy9/O8d1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9cbHxkRN7Kj7bx8Pw1O1h1gJUwL+dGfcKJdqg/bxzVc=;
+ b=ILH/1Iqbx1/jbc+J3F8tAcdFwiia16sbPmnpLkUymUvOJ2o/tQzfMc8V7vEMZXPrlAazr6AEEFUPgUsbnd0H+6jxFhVWNMbYN0e7ulPY+wzharH+JQ6Bdk8SPUDTmy7wHFa2wZ1+0G5jaeXBMWVo5o+Bp7asoJ1Pp7aXVjKhj0ZpZUjz+faes8+2lNYwkPCohje8vITrTjScxa+h06yuhpZCcJqgAmT/fYSvNhfCJdlQAaJblbUqNqcmHOD0yxyN5Pkafj65wHUf5H35P/YaeulmI+WMPAiyHlEo7aU41q3n6LRN88YDulOi5j7+gvDbGC1JllQYLOn1AqefoPnTig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9cbHxkRN7Kj7bx8Pw1O1h1gJUwL+dGfcKJdqg/bxzVc=;
+ b=sIlUzyrlH3jimWkGiXj1m/GmPzYiDHa9vM5y7CHtqKu4AReUZwhvZMRn0g1i66YefLksq8T9HiHZEvwQGgs9A2KHetPhsZh+OtNqzcmrVHZlZ334eJx9kJrO0lTX7YwQvSI37aSQCjPnA9FSt7beUEehEoXTa1qo5w3pvbpx0zo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO4P265MB6043.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:29e::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 13:46:03 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 13:46:03 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 14:46:02 +0100
+Message-Id: <DLMQPQRYTSNW.2Z6C0408NMCYK@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: "Andrea della Porta" <andrea.porta@suse.com>, "Gary Guo"
+ <gary@garyguo.net>
+Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ <linux-pwm@vger.kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Florian Fainelli" <florian.fainelli@broadcom.com>, "Broadcom internal
+ kernel review list" <bcm-kernel-feedback-list@broadcom.com>,
+ <devicetree@vger.kernel.org>, <linux-rpi-kernel@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ "Naushir Patuck" <naush@raspberrypi.com>, "Stanimir Varbanov"
+ <svarbanov@suse.de>, <mbrugger@suse.com>, "Sean Young" <sean@mess.org>,
+ "Julian Braha" <julianbraha@gmail.com>, "Christophe JAILLET"
+ <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH v9 2/3] pwm: rp1: Add RP1 PWM controller driver
+X-Mailer: aerc 0.22.0
+References: <cover.1789724999.git.andrea.porta@suse.com>
+ <22f454003902173a7230d0aee5fbd7261fcc163e.1789724999.git.andrea.porta@suse.com> <DLM3VDAEVVEO.1STV7HI3M3YXK@garyguo.net> <arPLa_g4mAg1t2rq@apocalypse>
+In-Reply-To: <arPLa_g4mAg1t2rq@apocalypse>
+X-ClientProxiedBy: LO4P265CA0047.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ac::14) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/16] usb: hub: Associate port@ fwnode with USB port
- device
-To: wens@kernel.org
-Cc: Chen-Yu Tsai <wenst@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        Daniel Scally <djrscally@gmail.com>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Matthias Brugger
- <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Alan Stern <stern@rowland.harvard.edu>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20260721065413.2306137-1-wenst@chromium.org>
- <20260721065413.2306137-7-wenst@chromium.org>
- <c6526ba0-be08-46c6-a501-1b161939657c@oss.qualcomm.com>
- <CAGb2v66c8L20yNNmvj6TaQbS7LnqAyuv0tMQfj+0PSjMUcSByA@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CAGb2v66c8L20yNNmvj6TaQbS7LnqAyuv0tMQfj+0PSjMUcSByA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1NCBTYWx0ZWRfXy61b8ZdgHAxS
- dVdFiSNXYmRMxfPCXgVWAIdXUK6wA6gYkfMZb4BZVcfT+86oE5Pwji1Qad+uvFefRlY41Mu+19m
- 3us1V4OlVkRZkFX0nqcVZlyeU9l5NHQ=
-X-Proofpoint-GUID: uVtS0HidMXwevE-rSFB2UDiiF-gG63uo
-X-Authority-Analysis: v=2.4 cv=RYMFmFtv c=1 sm=1 tr=0 ts=6ab3d80b cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=M7ONEjnSaIfHBpTaVFwA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1NCBTYWx0ZWRfX7G7WgOQoDnVj
- IrwEZdRlfana/lBr2mTrm6kzS3wCQIKpcnl351Ib0wZFwkMlYY9S0uYdNlEJQ61gpOZWvTvt3mP
- lGliA3sFo9UhFEAEPo69LOW6bx/xRRr0aLRAmnWILcskbG3y27JHrTkZCEIC7247LrY+X65Er9F
- LyfPlSdBBjmwe3AIaLVxjJfyWyVD8oVtLKupNGYAG0O3zvgc1wMjPkr7duZjbVQ0hbeWkdB4can
- ph8Snp9MoqQpGMQIKpd5LibcBm1jOKuxbnvlv7Ewen8BzCkgHslurilG23CFjLJIszs021NOzF8
- DDh99khnRkpNA35/sj6FSfxInSY51wylMBJWmmUKKBFOL/0ijR0sNljpNYp0h9qXd4ZF381abis
- 4Xt9vSOka8q1mEppHA5B64nQIwLAWU9+VrLxLqNPdq9M7x1SapZzmq21h8Shqlcp5J96kfAxExt
- gvs7niqFt5s1rinDRPg==
-X-Proofpoint-ORIG-GUID: uVtS0HidMXwevE-rSFB2UDiiF-gG63uo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230054
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO4P265MB6043:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a3d0a1a-4146-4d1d-6d11-08df197902a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|366016|7416014|376014|23010399003|1800799024|3023799007|10067099003|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	4rEpAgV5NzOC+uHoyOhwyHJZvAx7rx/YTVqK4mwnJZUpRrftc4Ee8b8KZlmcrHxX//m0qqqz1wgSz2wch6V94Dw1rHF3ypaZrDZ/hs4g8hUJOYUAWvdXkNa0m5qMKMCclUW9C2PLxPPsLMqwc+nSA5xHaPHe6CJkw+wRXPfQICbIjyZIAUtL5tTe81exS8g9wgahqpaGAeAY4t0oP91D1/md/z1Kdy+XAcFkLVva3DuDN4MrTrTUKSERSQNbwpaCSufWsc/sRP1HDwFmvRd7RvF3oc3yUqXaSimNH3mLrXyu7fl1PwTSf7jZV7RdrNVRk7ZB98CSlN5OgBs6YBxKT0e3r56HZgEitlZhDxjzN8sFvTAWkMElnegq21Xp9WDeNjszQevRuOUynzNK+Qlfd7Koh893GWi7qvzrB06g7+hfNitjuVvjBlh9Zbwd/esC1rdJu6iHH+R0Eb6pMxG2MRkdLtjp8dWllfAC294fuWHrGMdJNOZ9ge1ykjLkehWElsSd4rJVUN7baUn1mKZTlGWUOK/mzn77O1BkHw1TH0lekgcRSmqdpN/JvkbfZ6zXqzJWkS0kUJp7HFBun5yRHmPKS2Nug06TZB2Iu6eXu/dV5Z2nOcr8+0NnixLVLzIWCz6r+fvKkMrKxBm09VCC0lYHf07bQo/3gY0sMNv8/C4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(7416014)(376014)(23010399003)(1800799024)(3023799007)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?azR2NS9nUG1qdmc0MkpFUEJLZU0wZmZMQzNOVGYrS0RyZFF2R0JnTnlrb0o5?=
+ =?utf-8?B?eVYyTzdMS2g1TWRzbjZ5S3hpK0tSR0RnbFBFVWJxb3U5SEdrWUd4MTFvbElo?=
+ =?utf-8?B?dnlRQTNrS0VOR0tEMURZUisydDVWZUV4RCtvV045ajNPN3hMcy9FY3RpTWhM?=
+ =?utf-8?B?U3o5YjU3Nnk0djdseEJMdms5TjdmZUJWS2lzQk9KSVNvbk9zVXo3bVlaY2N4?=
+ =?utf-8?B?R0dqTkt6cVJ4SlFUUUl0d05iK0NyUU8yUFZlbjVTTk9naVNiZTgrRFdMcndp?=
+ =?utf-8?B?RlNMb3ZoN0s0QXEzQTZ3dFhSdWoxVlpjcFNTcmJwdUZad3Vmb1VkY00zYTBV?=
+ =?utf-8?B?SW1KMHRPRU1ZVEl3UEpkRGVoUk9OL1RiV0JsTGgvYVJXcjIyR2NxM2thcjVl?=
+ =?utf-8?B?ZmlnbE1JL0pUSVpMeVM5MmR3MDluZlJxMlJpbXM2WUE3MjRpWjBZY0xSV1Zh?=
+ =?utf-8?B?RmkrWUJUUjUxdU94aFpFUjZjOGVOeEhnSGV1VEVPeUlseFpDTTI2L0VEV2ZQ?=
+ =?utf-8?B?b08yaUsrMld2NUk4bWg0djY1aTdKVzVFWWJTNnVYTkJaeURCcHFhMnZMTnV5?=
+ =?utf-8?B?RmpBYTVQbysxTXZoZUttcHZUY1RJRnVvL0pQVUtPY1owejY1NmFxL29mKzRQ?=
+ =?utf-8?B?UjB6WlVHZmJyM2pMT25JYndJZlpIRU9UL1A4NXhBeUpLc3l0b0ErYmVIVjlN?=
+ =?utf-8?B?bDFSb1gydWVqamt5M3ZWSDltczFEcTRNVHdnK2NZUno3cjZzVEtyN1IxRzNG?=
+ =?utf-8?B?WHlNYUdaS2I1cTV3Y1BXeGY3NHVVME13NExlOVFTMmpQbnY5L1kyVWNFWUVG?=
+ =?utf-8?B?UEFTckFtVk9MejBSeHNiclF5ZENxNzBTelFMM05xQjJ3OCtjMDJiV2d1cFMz?=
+ =?utf-8?B?L1BnSlZldjAzazhRYW9kcFlRR21BSzJqaGtyT3lHR2g5WXdMY2htYWtQL1BX?=
+ =?utf-8?B?ZXVJSnRXWHVkZWkzSFdleWpPYXVCVVAvallMUldBOWJZd0s2NUhHMWVpalN6?=
+ =?utf-8?B?dmdqOC9KR0N1dWpZa2xFOEJqU1RzRFJGQUprd05hVXFlZnQ2b095Z1R5K09X?=
+ =?utf-8?B?L0dENEw5Z25nUGhDOVFBNnpra3U2ekdjdWlZQVdmMk5leldxMEdQUGtWVjRZ?=
+ =?utf-8?B?KzgzcHFUMHhBL0xoT0pCL2VVdWgwc0lwTzlaQVQxMjBCdExHekZGQ1dFSnl3?=
+ =?utf-8?B?WlUzZTEvbVA3dFdTVy9OVlBoSm1ldU1aT3I2R1dRTmpvRzhJbHdrMnRHdzla?=
+ =?utf-8?B?Vy9KZWVYU3NaY3FPa1kxR2ROcTQ5aVkycmdUQ1lmeVRRUEhsa3dhSTFLZlJK?=
+ =?utf-8?B?VzRQdUlRUmJXdmxyMnlCNGIvd2JrelhQa0Y3WGFzZjZGcjVtL0VnVWdtWUN1?=
+ =?utf-8?B?a0dSNE1EeFlxS3pEN1o1Q1B5amt6ZVZ6UHdIM0czQTluRkJsVTRLNHdxWGhP?=
+ =?utf-8?B?MVBWZ3J4UUhNdjFTd0JBZjFwY3pnRDVVZmxJeHZEcEROajBqNUR4S2pNWTdH?=
+ =?utf-8?B?Z21CUUZPTFdsZ21PWXpkSU1RbHNkTFB0TDEyTFZwY05MZDFSTGp1ZXI1dUFE?=
+ =?utf-8?B?U0pRdCtLYWNQamNpRTcxa0xnRjZLYkh3Q0hRRVhIR0NvdTZteFRMbDFKSW1q?=
+ =?utf-8?B?SFBlWmsvdkxXSkpPR1dEMnZ3citXVGI5SzYwL1hOenppOHE2bE9Qd2V1V1Uy?=
+ =?utf-8?B?eGt3TjFjVlA1ek4xTStZa2M5bHZpay8rRjlvYlZ0TTU2WlZsRTk0Ykp6OGx5?=
+ =?utf-8?B?dURNU2t2NnRzMy9WK3hSL3dvM1R0Y1AyOVB1c1hPSzd6Qm0zU1VCU2lFN095?=
+ =?utf-8?B?M21BZXpadDdTRXhwZ2dLMjl3RU1hRUFxeDA5ZDhhTGE1Z01uTXpJQmVGMjRL?=
+ =?utf-8?B?MXFLbFBqVnNVS1JWeDNoYURMeDhubnBkNXhrS3J0bU5ZalRyK3h4ZVI0RmZj?=
+ =?utf-8?B?elQ3MDBnQTEvSDNBdkZhQi9kMHBPZCtXZ016ei82Zmxsd0QwQytvY0JMY0xT?=
+ =?utf-8?B?eWJENFN3UDFBK0g1RXd3REk4NkpjTkhKQ0kxcy9QS2w4Nnl4aXV4WG42eW9s?=
+ =?utf-8?B?akFKS2dQUnNNWTFLYml3V1hINGhoanhaYXVnWlF0S05nSSsvUjVOZnc3U1hw?=
+ =?utf-8?B?R0RSYXNnUUlVTjV3RnhRc2pmbFJIelR5bG54cnVHUU4wL3JMNDR4TmlkWlFo?=
+ =?utf-8?B?RHN4dnVqQnZHcngxSmcxNVdHZTlVZ21PbzB1ZWREYURMeVBCRWhBeDNpT1E1?=
+ =?utf-8?B?NmRPM2lTKy9URWZuandHclJ2MXFZUTBndmdsd0h3MlUvQnh2aXk3MDZpRGlq?=
+ =?utf-8?B?QzI3ZWZzSDlUU29CVnNDcDY2UkdjUmlpbCtOTTBXSlRUOGdGZE9DUT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a3d0a1a-4146-4d1d-6d11-08df197902a3
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 13:46:03.7135
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QmvF7Yo1H7ZnN25/Y2kUAXeN7wivWlDyBDpAEUJcYvN4n1s19/AzefqtFyjvI85ixjz+Yj56GYueNPYpOuYqfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6043
 
-On 9/4/26 12:30 PM, Chen-Yu Tsai wrote:
-> (dug this out of my kernel.org email)
-> 
-> On Fri, Jul 31, 2026 at 10:44 PM Konrad Dybcio
-> <konrad.dybcio@oss.qualcomm.com> wrote:
+On Wed Sep 23, 2026 at 1:51 PM BST, Andrea della Porta wrote:
+> Hi Gary,
+> thanks for your feedback!
+>
+> On 20:51 Tue 22 Sep     , Gary Guo wrote:
+>> On Fri Sep 18, 2026 at 10:59 AM BST, Andrea della Porta wrote:
+>> > From: Naushir Patuck <naush@raspberrypi.com>
+>> >
+>> > The Raspberry Pi RP1 southbridge features an embedded PWM
+>> > controller with 4 output channels, alongside an RPM interface
+>> > to read the fan speed on the Raspberry Pi 5.
+>> >
+>> > Add the supporting driver.
+>> >
+>> > Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
+>> > Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
+>> > Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+>> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+>>=20
+>> Put yourself a Co-developed-by perhaps? You made significant changes.
+>
+> Ack.
+>
+>>=20
+>> I've tested the device on my Pi 5, and the fan is indeed spinning now :)
+>
+> Nice! Thanks for testing it :)
+>
+>>=20
+>> > ---
+>> >  drivers/pwm/Kconfig                       |   8 +
+>> >  drivers/pwm/Makefile                      |   1 +
+>> >  drivers/pwm/pwm-rp1.c                     | 499 +++++++++++++++++++++=
++
+>> >  include/soc/bcm2835/raspberrypi-pwm-rp1.h |  10 +
+>> >  4 files changed, 518 insertions(+)
+>> >  create mode 100644 drivers/pwm/pwm-rp1.c
+>> >  create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
+>> >
+>> > diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+>> > index 7297760868790..e1baec8d294d1 100644
+>> > --- a/drivers/pwm/Kconfig
+>> > +++ b/drivers/pwm/Kconfig
+>> > @@ -637,6 +637,14 @@ config PWM_ROCKCHIP
+>> >  	  Generic PWM framework driver for the PWM controller found on
+>> >  	  Rockchip SoCs.
+>> > =20
+>> > +config PWM_RASPBERRYPI_RP1
+>> > +	tristate "RP1 PWM support"
+>> > +	depends on MISC_RP1 || COMPILE_TEST
+>> > +	depends on HAS_IOMEM
+>> > +	select REGMAP_MMIO
+>> > +	help
+>> > +	  PWM framework driver for Raspberry Pi RP1 controller.
+>> > +
+>> >  config PWM_SAMSUNG
+>> >  	tristate "Samsung PWM support"
+>> >  	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TE=
+ST
+>> > diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+>> > index 5630a521a7cff..c07fd24f69f39 100644
+>> > --- a/drivers/pwm/Makefile
+>> > +++ b/drivers/pwm/Makefile
+>> > @@ -57,6 +57,7 @@ obj-$(CONFIG_PWM_RENESAS_RZG2L_GPT)	+=3D pwm-rzg2l-g=
+pt.o
+>> >  obj-$(CONFIG_PWM_RENESAS_RZ_MTU3)	+=3D pwm-rz-mtu3.o
+>> >  obj-$(CONFIG_PWM_RENESAS_TPU)	+=3D pwm-renesas-tpu.o
+>> >  obj-$(CONFIG_PWM_ROCKCHIP)	+=3D pwm-rockchip.o
+>> > +obj-$(CONFIG_PWM_RASPBERRYPI_RP1)	+=3D pwm-rp1.o
+>> >  obj-$(CONFIG_PWM_SAMSUNG)	+=3D pwm-samsung.o
+>> >  obj-$(CONFIG_PWM_SIFIVE)	+=3D pwm-sifive.o
+>> >  obj-$(CONFIG_PWM_SL28CPLD)	+=3D pwm-sl28cpld.o
+>> > diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
+>> > new file mode 100644
+>> > index 0000000000000..cfd38e46cc589
+>> > --- /dev/null
+>> > +++ b/drivers/pwm/pwm-rp1.c
+>> > +
+>> > +int rp1_pwm_read_tachometer(struct device *dev)
+>> > +{
+>> > +	struct pwm_chip *chip;
+>> > +	struct rp1_pwm *rp1;
+>> > +	u32 tach_val;
+>> > +	int ret;
+>> > +
+>> > +	if (!dev)
+>> > +		return -EINVAL;
+>> > +
+>> > +	device_lock(dev);
+>>=20
+>> You should use the device link mechanism for synchronizing unbind / runt=
+ime PM.
+>> That can be done in your RP1 fan driver, and it doesn't need locking on =
+this
+>> driver.
+>
+> This does not enforce the locking though.
+
+What locking do you think is needed?
+
+Driver core takes care of ordering so you will never see a depended device
+going away while a dependant device is still bound. Your RP1 fan driver jus=
+t
+need to make sure that it never calls this API after it's itself unbound --
+which it needs to guarantee anyway.
+
+> Is it enough to just rely on
+> caller to create the device link in advance? IOW, just add a documentatio=
+n
+> comment to the exported function prologue stating that the consumer is
+> responsible to sync via a device link is acceptable?
+
+If you use pwm_get API then a device link is automatically created for you
+already (however, this automatic link does not pass runtime PM flags, so if=
+ you
+need that you still need to add link explicitly).
+
+How this is supposed to be synchronized or documented is very hard to get r=
+ight
+without seeing the user side driver -- if you already have a working versio=
+n of
+the RP1 fan driver it might benefit to have it attached as a RFC patch in t=
+he
+series; or an option to to drop the tachometer API and add it as part of th=
+e fan
+driver series.
+
+> Otherwise the only way I see to protect it in any scenario is via the mut=
+ex
+> I've already implemented and a second flag for the removing path (device_=
+lock
+> will be dropped, of course).
+>
+>>=20
+>> So Sashiko is kinda reporting a false positive here.
+>>=20
+>> > +
+>> > +	chip =3D dev_get_drvdata(dev);
+>> > +	if (!chip) {
+>> > +		ret =3D -ENODEV;
+>> > +		goto err_dev_unlock;
+>> > +	}
+>> > +
+>> > +	rp1 =3D pwmchip_get_drvdata(chip);
+>> > +	if (!rp1) {
+>> > +		ret =3D -ENODEV;
+>> > +		goto err_dev_unlock;
+>> > +	}
+>> > +
+>> > +	mutex_lock(&rp1->lock);
+>> > +	if (!rp1->clk_enabled) {
+>> > +		ret =3D -EBUSY;
+>> > +		goto err_clk_unlock;
+>> > +	}
+>> > +
+>> > +	ret =3D regmap_read(rp1->regmap, RP1_PWM_PHASE(2), &tach_val);
+>> > +	if (ret)
+>> > +		goto err_clk_unlock;
+>> > +
+>> > +	ret =3D (int)tach_val;
+>> > +
+>> > +err_clk_unlock:
+>> > +	mutex_unlock(&rp1->lock);
+>> > +err_dev_unlock:
+>> > +	device_unlock(dev);
+>> > +
+>> > +	return ret;
+>> > +}
+>> > +EXPORT_SYMBOL_NS_GPL(rp1_pwm_read_tachometer, "RP1_PWM_FAN");
+>> > +
+>> > +static int rp1_pwm_probe(struct platform_device *pdev)
+>> > +{
+>> > +	struct device *dev =3D &pdev->dev;
+>> > +	unsigned long clk_rate;
+>> > +	struct pwm_chip *chip;
+>> > +	void __iomem	*base;
+>> > +	struct rp1_pwm *rp1;
+>> > +	int ret;
+>> > +
+>> > +	chip =3D devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
+>> > +	if (IS_ERR(chip))
+>> > +		return PTR_ERR(chip);
+>> > +
+>> > +	rp1 =3D pwmchip_get_drvdata(chip);
+>> > +	ret =3D devm_mutex_init(dev, &rp1->lock);
+>> > +	if (ret)
+>> > +		return ret;
+>> > +
+>> > +	base =3D devm_platform_ioremap_resource(pdev, 0);
+>> > +	if (IS_ERR(base))
+>> > +		return PTR_ERR(base);
+>> > +
+>> > +	rp1->regmap =3D devm_regmap_init_mmio(dev, base, &rp1_pwm_regmap_con=
+fig);
+>> > +	if (IS_ERR(rp1->regmap))
+>> > +		return dev_err_probe(dev, PTR_ERR(rp1->regmap), "Cannot initialize =
+regmap\n");
+>>=20
+>> You mentioned "rework regmap error paths" in cover letter.
+>>=20
+>> But the issue is that regmap doesn't need be used here at all. RP1 is on=
+ PCIe
+>> so there is no need for bus abstraction, direct use of MMIO is sufficien=
+t.
+>> MMIO accessors have no error paths, so you're saying yourself from havin=
+g to
+>> handle that, and also reduce the overhead by not having to go through an
+>> abstraction w/ indirect funicton calls.
 >>
->> On 7/21/26 8:54 AM, Chen-Yu Tsai wrote:
->>> When a USB hub port is connected to a connector in a firmware node
->>> graph, the port itself has a node in the graph.
+>> I suppose regmap was used when syscon was there; but it's not needed any=
+more.
+>
+> True, and I don't have any issue in converting back to MMIO call and drop=
+ the conditional for
+> error checking, but please consider the following, since the driver may b=
+e extended in the
+> future to support more features:
+>
+> - regmap gives you free debugfs view on the registers, which may be usefu=
+l to test
+>   the new features.
 
-[...]
+Do you have any register that we want to access that is not part of the PWM
+facility, other than tachometer?
 
->> But something I faced when I was poking at USB4 was that dt-bindings
->> currently assume every controller is effectively single-port and the
->> of_graph ports under it represent HS/SS lanes, i.e. the entire
->> "ports" subnode represents a single USB port
-> 
-> Which controller is this? AFAIK for xHCI hosts there currently is no
-> "ports" node specified in the common usb-hcd.yaml binding. I plan to
-> add this separately, as it can already be used for USB A connectors.
+> - regmap_write/read may still return an error in case the passed register=
+ is not in range.
+>   This will be trapped at runtime only, but could still be useful during =
+development
 
-DWC3, the qcom flavor specifically (qcom,snps-dwc3)
+I think this is rather a anti-feature. Having additional error paths for so=
+me
+thing that never happens is not a good idea, especially that you basically =
+get 0
+coverage for these paths.
 
-> The kernel maps every downstream port of the root hub to a separate
-> node. On the XHCI it is more complicated because it has two root hubs,
-> one for HS and one for SS. I'm not familiar with the hardware specifics
-> but they seem to map into one common namespace, so you probably get
-> ports 1~8 for HS and then 9~12 for SS. Note the number of ports is
-> different. This is just an example from my x86 workstation. And on
-> x86 each port is mapped to a different ACPI node.
-> 
->> I think the solution here would be to do ports {} under the controller
->> and have every one of them have 2 endpoints (for HS and SS
->> respectively) - then, each DT-port would correspond to a USB port
->> (sorta like in the hub case, minus the hubs are split for HS/SS so
->> they have just a single endpoint under each port)
-> 
-> But the hardware descriptors actually give two ports, one for HS and one
-> for SS. And in the case of dwc3, I suspect that they always come with
-> one downstream HS port and (optionally) one downstream SS port. So the
-> binding is actually correct, except for the numbering.
+You already know the shape of the register region, so the bounds checking
+provided by regmap would be better served by an ahead-of-time check:
 
-Ohh yeah I overlooked the HS/SS port split.. I think you're right!
+    #define RP1_PWM_REG_MAX (RP1_PWM_DUTY(RP1_PWM_NUM_PWMS) + 4)
 
-> I'm looking into the dwc3 case. Changing the numbering might actually
-> not break anything. Linux seems to just need one *a* graph connection,
-> but doesn't care about the number. I looked through some other projects:
-> 
-> - FreeBSD doesn't use the OF graph for anything
-> - U-boot doesn't use the OF graph for USB
-> - OpenBSD doesn't support dwc3, only the XHCI in dwc3, and doesn't use the
->   OF graph for USB
-> - coreboot doesn't use the OF graph for anything
-> - Zephyr doesn't support dwc3
-> - TF-A doesn't use the OF graph for anything
-> - EDK2 doesn't support dwc3 and doesn't support OF graph
-> - OP-TEE doesn't support dwc3 and doesn't support OF graph
-> 
->> But that comes with a big breakage, as always..
-> 
-> As I mentioned, it probably isn't as large of a breakage.
+    struct resource *res;
+    base =3D devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+    if (IS_ERR(base))
+        return PTR_ERR(base);
 
-That's very welcome for a change! Thanks for checking all of them.
+    if (resource_size(res) < RP1_PWM_REG_MAX) ...
 
-Konrad
+Shameless plug: Rust abstractions for I/O access is actually pretty good in=
+ this
+regard in the sense that we try to prove statically that access canot fail.=
+ It
+also has PWM and platform abstractions. If you're interested in learning Ru=
+st
+this driver might be a good candidate :) If you're going to LPC we can chat
+about this there.
+
+Best,
+Gary
+
+> - I expect the PWM driver to be a access with very low frequency, so I gu=
+ess the overhead=20
+>   imposed by regmap is negligible.
+>
+> Since we already have it, I'd prefer to leave regmap if possible for the =
+aforementioned reasons,
+> but I'm obviously open to drop it in favor of direct MMIO calls in case y=
+ou or anyone else are
+> not seeing those as real benefits.
+
+
