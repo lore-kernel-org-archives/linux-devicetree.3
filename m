@@ -1,92 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05925304A1;
-	Wed, 23 Sep 2026 13:29:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18433531AED;
+	Wed, 23 Sep 2026 13:29:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170153; cv=none; b=duLxmaiU9P0jxFSESskNOEj35PTI150m+v10PrTbJO6pczE3T39/hLHW92a0Bc5JTY4jWVK1Nnk+T+eOfjA2je4x/GIjy31JnXQMCgtJEtGYm7CNF23jjofV8nfJMR1N+6yBsZL1Z1MpyLl1Dn/LnACUmhhnPVByTWsYfgHeoeQ=
+	t=1790170158; cv=none; b=KZoz6JRVYqk7oIF5gv3KEwEYCSBoW/rGTEEBK07olpuW56XAil3+VkQBXADF0imwK2e2sSYLaKo2aydOLyfXq0ZKDvvFMynlPR1lT/loCNnJGjbiv2MEAjuGz5ibjpfZEBT97mEMeVLAsMN9KwjsCADEAxY0PnbnEY2iIhlNTCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170153; c=relaxed/simple;
-	bh=geG71kIQHu4AeAzA3LdZm2dSG80TTngPRG09cR08t3A=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=e1Fq7ZZtYGrEpMAVSnKBrqveBbW8sh41rV6pK8P87OZ0SVcMSgBobOlWcJUROWQkiqbaAENkiYf1VX1PXDeKwOybOugWlr2uk3aLwMGnUZTzTqIWc1tXOW81cf8wFDH5BSTHrTLhbfX3x8QTaV4NPc0F3w4pmvIM1nsEgGCsA6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=doRlZZsd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790170158; c=relaxed/simple;
+	bh=X3iHfkBmDnJ2r73DOu/shzQ6mOn6JbNhX6svfNlv7KI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RE5bT2c89NwSDfDooCi8SRCsg3o22udBUqnE29emUlMABD8SZfbPac88C6PnfKzNyHlKwTqslCW9xdKMO/FCLoqd57zaZNi+dxjE2ib/rosCOEjUoPDoJgtvzrbxLL1SIdOt9p6cU1igXKIWchzRk8s55gH2JRcP+zFcKHPwp44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PfBBgcU+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="doRlZZsd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D762F1F000FF;
-	Wed, 23 Sep 2026 13:29:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PfBBgcU+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83D871F00893;
+	Wed, 23 Sep 2026 13:29:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790170152;
-	bh=wuZnGbcVSoDdUYd590lo0xP01Qx6KBsw7GVHfUbfXc0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=doRlZZsd6urMjfEKAwHUt/zzQSZjpWmWe4tUFA4h8YOTp49a6ELOpzI6Rf9fYnADu
-	 4mmsIZCxEyowCv5FYdrd05mI1HSiYHKKHJk4okgBMQbro263quWEuXCOQdDZIWjOKq
-	 RuaecCR+LbzX+FAntGpTtQyURfW5/aj9LfjA9qXI4ifN+Ehra8jmyo2IaZ8aklJK6k
-	 cXetivXMwiXkBzy2XioadBrC5Ygd0TU8HjJ/bSJIgd8DUbX+8kNKamRsECNoiLYAra
-	 R4Nosuhc+c0a6RV2hSiT5rWJ+nWzZzMsiJPX6mN1LwBlOcx1VtjoYDQLkJP1Vcm4P0
-	 sBEWz2niYELwQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, John Stultz <john.stultz@linaro.org>, 
- "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260922183128.289564-1-robh@kernel.org>
-References: <20260922183128.289564-1-robh@kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: hi6210-i2s: Allow graph ports
-Message-Id: <179015959360.322763.6533233354859331541.b4-ty@b4>
-Date: Wed, 23 Sep 2026 12:33:13 +0200
+	s=k20260515; t=1790170155;
+	bh=VHd+JW/U8mZqTt5Y+1LBX5uivdCUKUUyqbTA27UOKXw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PfBBgcU+thb4rpybY5HwbpTKlCjeTkrFVTXO2Doo3ifLEFTgyQSOU1SpTQmMjwMWw
+	 NTffp/XMaU3uuvOlF/bKSBBRrpDQRfUz1IZNR4H4XW6du0gWfQffSMnlDMs+cBvKRv
+	 IQsMTAoDTKPDEdBvcGhhQiXqQmBLZXloeYv/nxQWssAPoVfpl/6scNtcDcErHjA2pD
+	 ZEOyfy3Yc6iSGOqwvwZKz1YMOcpVp5yWfL8QbqMOVXwL1jAmZgyqBHrPRWFyCrgnJi
+	 fRkS6lquzQsdRL2nYcHmKBJVhlrE6eTLYrKY7yoxsUGV+izBHy9njSKjpWX39rOzmF
+	 Luq8LXcHj0oog==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] rtc: Add Raspberry Pi 5 RTC driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sander Speetjens" <sander.speetjens@gmail.com>
+Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260923131323.1099979-3-sander.speetjens@gmail.com>
+References: <20260923131323.1099979-1-sander.speetjens@gmail.com>
+ <20260923131323.1099979-3-sander.speetjens@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 13:29:15 +0000
+Message-Id: <20260923132915.83D871F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1119; i=broonie@kernel.org;
- h=from:subject:message-id; bh=geG71kIQHu4AeAzA3LdZm2dSG80TTngPRG09cR08t3A=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqs9QihWVPK4llzrDyTiHWMUNvkpVboF/jt0Lab
- YRuBw9S+ouJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarPUIgAKCRAk1otyXVSH
- 0H1mB/9jDvdTOHZVbv03ObVZGwmN+Aa7jtGI6PQJFqr3gKhx3RaS+2kmC1aR/3pW61xt3OX2+zb
- oJlagwC1rso4/PSq9wKpSYlL4PWnZMWIWoHyuJWMsnk+OSWKkogSY9jqy0IpuVkM1T9OGNDC7o5
- 190zTwaWkLu3wRoMMnHzWtZxZiuVdFAfDRvmu5zBr3xm2Oltkgq0Q4leIhk7GaG3veKwa7LufI3
- MR/vu2JL7nnIKGTe8B4FWTMg5vXF2SJyu5pDPTmV8SQmSw4BRoVKRkefAX4QGC1vD2fQn0Onu12
- folSzZTKK7NjuLUhernk0HLRKkSkjBhnrGfbkPfke23kNzBj
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 22 Sep 2026 13:31:28 -0500, Rob Herring (Arm) wrote:
-> ASoC: dt-bindings: hi6210-i2s: Allow graph ports
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] rtc: dt binding violation by reading property from parent node
+- [Low] firmware: global device pointer race and leak on multiple probes
+--
 
-Applied to
+commit f13bdcb7308fe3b9ecc514f418f2d57fa4e0247f
+Author: Sander Speetjens <sander.speetjens@gmail.com>
+Subject: rtc: Add Raspberry Pi 5 RTC driver
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+This upstreaming patch introduces support for the downstream Raspberry Pi 5
+RTC driver. The driver enables support for the custom DA9091 RTC, which is
+accessed through the firmware mailbox.
 
-Thanks!
+> diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberryp=
+i.c
+> index 0aa322e9a2e73..a35f00c6fb2c1 100644
+> --- a/drivers/firmware/raspberrypi.c
+> +++ b/drivers/firmware/raspberrypi.c
+[ ... ]
+> @@ -231,6 +232,27 @@ static void rpi_register_clk_driver(struct device *d=
+ev)
+[ ... ]
+> +static void rpi_register_rtc_driver(struct device *dev)
+> +{
+[ ... ]
+> +	rpi_rtc =3D platform_device_register_data(dev, "raspberrypi-rtc",
+> +						-1, NULL, 0);
+> +}
 
-[1/1] ASoC: dt-bindings: hi6210-i2s: Allow graph ports
-      https://git.kernel.org/broonie/sound/c/425733d0aea9
+[Severity: Low]
+Does locklessly overwriting the global rpi_rtc pointer here risk a resource
+leak? If multiple probes occur (for example, via a custom Device Tree
+overlay), it appears the initially registered platform device could be
+permanently leaked since the pointer is overwritten without synchronization.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+[ ... ]
+> @@ -327,6 +350,8 @@ static void rpi_firmware_remove(struct platform_devic=
+e *pdev)
+[ ... ]
+>  	platform_device_unregister(rpi_clk);
+>  	rpi_clk =3D NULL;
+> +	platform_device_unregister(rpi_rtc);
+> +	rpi_rtc =3D NULL;
+> =20
+>  	rpi_firmware_put(fw);
+>  }
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+[Severity: Low]
+If a secondary probe occurred and overwrote the global pointer as noted abo=
+ve,
+could this cross-unregister the wrong device during removal in
+rpi_firmware_remove(), leading to a double-unregister of NULL and a leaked
+device?
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> diff --git a/drivers/rtc/rtc-raspberrypi.c b/drivers/rtc/rtc-raspberrypi.c
+> new file mode 100644
+> index 0000000000000..494b949374064
+> --- /dev/null
+> +++ b/drivers/rtc/rtc-raspberrypi.c
+[ ... ]
+> +static int rpi_rtc_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	rpi_rtc_alarm_clear_pending(dev);
+> +
+> +	vrtc->bbat_vchg_millivolts =3D 0;
+> +	of_property_read_u32(dev->parent->of_node, "trickle-voltage-millivolt",
+> +			     &vrtc->bbat_vchg_millivolts);
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+[Severity: Medium]
+Is it intentional to unconditionally read the trickle-voltage-millivolt
+property from the parent MFD firmware node instead of the driver's own RTC
+subnode?
 
-Thanks,
-Mark
+If this property is placed correctly in the raspberrypi,firmware-rtc subnod=
+e,
+it seems it would be silently ignored, causing trickle charging to be disab=
+led
+and breaking standard Device Tree encapsulation.
 
+> +
+> +	rpi_rtc_set_limits(dev);
+> +	rpi_rtc_set_charge_voltage(dev);
+> +
+> +	return devm_rtc_register_device(vrtc->rtc);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923131323.1099=
+979-1-sander.speetjens@gmail.com?part=3D2
