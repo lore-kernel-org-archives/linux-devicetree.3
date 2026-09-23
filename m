@@ -1,154 +1,128 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBA83F1640
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 14:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F3D37F339;
+	Wed, 23 Sep 2026 15:04:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175552; cv=none; b=G81YANegpZacnKjGpDmsHMw+R997ztTXXFGWzmHzoHgMKyKVdWz7rHeT1PMSH5coE0Lo4AATLlUPYodaZOPfymSQO+tQvg3IfKtLqgmMiEeaI4lM7//q9/gccBUxSRh67kVgpn4dCCGxmNCBTCqYA7//zcFLUULsJm8QFEHnMfc=
+	t=1790175852; cv=none; b=tfs+jWteRPEeYP+VrDCN9JzDAUln16zJIettYxW7Z43zi7n2aeHs9q8KH07xhnR0JNJM2RB9O6McvRhVOCmdwp/F9aOOVTmVq/LOcm4Gr3erzeFOgezRHSO24nF0uNmFTGxpk0Vz2D2P4nqPHXHtftb0mmgH5KGgLZIs7Q4D8gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175552; c=relaxed/simple;
-	bh=AfFgK5O94TRbSz0v+n2agZrfGhkoCKVuFplQhBhnZO0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tMO8/DnNCFoX6iJnZO/Dlrg2A6JpzzhrX1DLa4Bk/7DhIf+wjRoOXZdH6SsWvOMKryhdR9tJX6hTAxZALaXYol0rWO+/QTaB2NQF6sPsph9KTpwzO/c7LdZjC7AWyjj9jsMtx+hICv0Nul3UQEqrgqxDmFcY29P6d3Rvl83bKCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d43db0c17so16343767b3.3
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 07:59:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790175546; x=1790780346;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OTVINLgc5+4Z1oNwbQRG/rtTEB6pkVDW8ACRGjhrMlE=;
-        b=pTAAkMt25xqnG7k5HHe4P0s+WpWKu1ATQ/cNZuMP7D6rzR2aBF4wnERZ9UxqqrjLXV
-         o+4M0itzF9j/vCUXW05pa06A1koy5xUlalX1k7L6Q1Xrq2rZM/m00C5e8Mb6zrhsZSpD
-         msPtboQfaX00Yy9GTqcbf6vMimDiQBr+gqcLBCcqMKOo9LAJPPTmkSQ/5JcwUlcZzX1t
-         2zM+Wg4yY+1stKaYjbAPm6S5Ba9x7oOozP7kLw7zD4aPrFB1FzTEU51WKOx3HZhEwgk0
-         ACGdOWaK0CUdOJKXNKVlGuhmbV7j8Eq35r8c89foq3l+PRiprHZYfrfzJS8WRCQuR3vz
-         /k+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxfPuij9ujbfI8DnMycWJ1v3lnLPGjDJ9H7wlifFQ9DeBbE7BicEVZAzTtR68Esy599yDzUouulU3tM@vger.kernel.org
-X-Gm-Message-State: AFuF++mWnl49GbFnzKCxACarB9S7fy5wbQV7202CH3qdec+S9Yp/Jc4C
-	Mbf6hJ5KiENy8Y5ATx2jVKaPdPwtybQQaxoQ9wUGrfh5m2Qg+gtflYxQARqXZD0Eq8w=
-X-Gm-Gg: AYBFou2UbIgxidg9QfZekTimi9RymzmFJyTWYbL43jxQBgE/u9TUw/C5iCe8qeKo/g/
-	fa+ZMZQw+EBpjvjCJkXl8hcXQar63Dt/kT3Ehwk5cuRrRrUz9MLCLMYoKUmsQnbyemafoo9gzfG
-	RKPde+g1kldQG/hP7nFJRAUd6a5bb1+a6EXEzU7rtnSoW4bsLTm9uXxFDOiHfeyUtRb+A4p2Tdk
-	74IeX1ZRSjDiu4kOyBm9rkOEkvCixl6P2AsI1dU4/dHNrpq8dR61ckEisZyoMnyhKxIzLQIXtXo
-	DE+XKULM91cRjQM7jVVv0NXEhjcUL/jj0HHAzfthcorac3gpuZjDwCHy+RWcZL/zjHGpa0n4H9l
-	nLJPcfyfspQr4HPN7rxBD1eo2+cfrkfpwPp/R90lFFQprV/ehCr5YrERo4NDVTT2lzXUxlEsm3J
-	83PA8LPr15x65f07O0H1soK1BdSwZU6ewm7/zIeB+edY0uGAWWHTBJ4WnV1acofDdI8zCqqt9my
-	RM03+B7xt08eh2ofXcZPDjOVmS5s+qO3t8SOQ==
-X-Received: by 2002:a05:690c:6b01:b0:873:5c6b:a310 with SMTP id 00721157ae682-8a45c07ddd5mr15507667b3.62.1790175545571;
-        Wed, 23 Sep 2026 07:59:05 -0700 (PDT)
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com. [74.125.224.140])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a466ab7e7csm10588727b3.44.2026.09.23.07.59.05
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 07:59:05 -0700 (PDT)
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab20f4bso1292571d50.0
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 07:59:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwVnlQ74TsC2TfJ/6iIME5ak2ETtBbs2G9b1Vr+iQv0QGZWqgYHPO6G8nlqqGvzH5YIwURfRrJRwKGl@vger.kernel.org
-X-Received: by 2002:a05:6102:370a:b0:7a7:3485:33ea with SMTP id
- ada2fe7eead31-7ac1db33f0dmr2430482137.19.1790175126732; Wed, 23 Sep 2026
- 07:52:06 -0700 (PDT)
+	s=arc-20240116; t=1790175852; c=relaxed/simple;
+	bh=uTJqJYri0QvmQvrYQ0xJpsho88RYe5rDGLL9uGp0kgo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vDhKoaYH+bBmXIFddruaA+ns5XSAEuyL3wI502QFpldh31CbpA6SGE/aKLNTXoYhIBcuJ0p92tkK4V3q22yDybX6mcZaX/yeHooXNde9IPRdWz5qC2YVNgNRCnZ3fWBhPB+F134aynu00rVj9QjT8NuwN7vC04Pe4VQ35+rVJqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCTa9NLG; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCTa9NLG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCBE1F000FF;
+	Wed, 23 Sep 2026 15:04:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790175850;
+	bh=EBwjIZDKfun2zrL9E4dNc/T4J4zF9FUO6dKyh0B3FjE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NCTa9NLGFZRIWCIe1CzcwAWNx7b/8EYkY9lKFagdQvCwYIz1XSrjFaGXEfivEPSLU
+	 gBd3eFL9t7JZe4K0Yl4ZIcd+TjgH2//fXhi6us4SKoiZCm47DsxM7KsADJHMjGaYzr
+	 pT2eWqe4Eqi7+uRBsFkAb1Urxra6w+zsdncC94Z5QsPIUZHUxpZ9lU6Pmenn+DGn8H
+	 bDrww/sOyZMwE8vYh5YMlskX8zEYJC7v6N//s7ec/rH8uAVa6HSZ1bgafifYO/nHG0
+	 hXXoUItPc2Q/ofoWzq2WPhauKOz3DpRUV3Av+ltK877NQzYa/aGbX6TwBcHtJVHeg4
+	 G5KXF3IlLDSHQ==
+Date: Wed, 23 Sep 2026 10:04:09 -0500
+From: Rob Herring <robh@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Wei Xu <xuwei5@hisilicon.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: soc: hisilicon: Add HIP05 CPLD
+Message-ID: <20260923150409.GD27237-robh@kernel.org>
+References: <20260921232540.3128596-1-robh@kernel.org>
+ <20260922-cheer-reference-c31fc6fb946d@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-6-94c4674927e8@solid-run.com>
-In-Reply-To: <20260904-rzg2-sr-boards-v8-6-94c4674927e8@solid-run.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 16:51:55 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV5HkURikoQjpm_tw7qnHfGbLFtug4nBMgO7vEtpyjA2g@mail.gmail.com>
-X-Gm-Features: AclHuK-gsUhfafKUl3WYFPzbbNPmdS5PRweR7PwdMXMcSw8FWUkpxbAv7z94Jqg
-Message-ID: <CAMuHMdV5HkURikoQjpm_tw7qnHfGbLFtug4nBMgO7vEtpyjA2g@mail.gmail.com>
-Subject: Re: [PATCH v8 06/11] arm64: dts: renesas: add support for solidrun
- rzg2lc som and hb-iiot evb
-To: Josua Mayer <josua@solid-run.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
-	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
-	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-cheer-reference-c31fc6fb946d@spud>
 
-Hi Josua,
+On Tue, Sep 22, 2026 at 07:06:02PM +0100, Conor Dooley wrote:
+> On Mon, Sep 21, 2026 at 06:25:39PM -0500, Rob Herring (Arm) wrote:
+> > Add schema for the hisilicon,hip05-cpld node on the HIP05 D02 board. The
+> > node only contains the compatible string and one register window on the
+> > local bus.
+> > 
+> > Assisted-by: LLM
+> 
+> Guidance to the LLM should probably include including the reason that
+> this is being added to the commit message.
 
-On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
-> Add support for the SolidRun RZ/G2LC SoM [1] on HummingBoard IIoT [2].
->
-> The SoM features:
-> - 100Mbps Ethernet with PHY
-> - eMMC
-> - 1/2GB DDR
-> - WiFi + Bluetooth
-> - SDHI Mux switching between eMMC and Carrier Board
->
-> The HummingBoard IIoT features:
-> - 3x USB-2.0 Type A connector
-> - 1x 100Mbps RJ45 Ethernet
-> - USB Type-C Console Port
-> - microSD connector
-> - RTC with backup battery
-> - RGB Status LED
-> - 1x M.2 B-Key connector with USB-2.0 + SIM card holder
-> - 1x DSI Display Connector
-> - GPIO header
-> - 2x RS232/RS485 ports (configurable)
->
-> The RZ/G2LC SoM was designed to be pin compatible to G2L SoM, with
-> slightly reduced feature set.
->
-> Descriptions for eMMC, microSD, and RS485 are shared with G2L.
->
-> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2lc-som/
-> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
->
-> Signed-off-by: Josua Mayer <josua@solid-run.com>
+Not sure what you are looking for... I told it to convert all the .txt 
+bindings to schema. Then I told it fix all the errors. Then I fixed some 
+things throughout the 900 commit branch upstreaming things bit by bit.  
+Then it mostly sat for a year and I told a new model to review them and 
+fix these common problems a, b and c. Then I said fix all the 
+dtbs_checks warnings on arm64. Then I said there's still warnings, do it 
+again. Repeated that ~10 times. Now I'm going thru to weed out all the 
+wrong and sometimes unnecessary changes.
 
-Thanks for your patch!
+So LLM did all the easy parts and I did everything that requires any 
+judgement. The hardest part is typically just figuring out the 
+correct maintainers...
 
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/r9a07g044c2-hummingboard-iiot.dts
+> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> > ---
+> >  .../soc/hisilicon/hisilicon,hip05-cpld.yaml   | 35 +++++++++++++++++++
+> >  1 file changed, 35 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
+> > 
+> > diff --git a/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
+> > new file mode 100644
+> > index 000000000000..f9d48b871a4b
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
+> > @@ -0,0 +1,35 @@
+> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/soc/hisilicon/hisilicon,hip05-cpld.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: HiSilicon HIP05 CPLD registers
+> > +
+> > +maintainers:
+> > +  - Wei Xu <xuwei5@hisilicon.com>
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: hisilicon,hip05-cpld
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    local-bus {
+> > +        #address-cells = <2>;
+> > +        #size-cells = <1>;
+> > +
+> > +        cpld@100000000 {
+> > +            compatible = "hisilicon,hip05-cpld";
+> > +            reg = <1 0x0 0x100>;
+> 
+> Also what's with this example? 1 0x0 0x100 should be 0x1 0x0 0x100?
 
-> +&eth0 {
-> +       phy-handle = <&phy0>;
-> +       pinctrl-0 = <&eth0_pins>;
-> +       pinctrl-names = "default";
-> +       /*
-> +        * ravb driver does not configure mac internal delays for RZ/G2L(C),
-> +        * instead delays are added by the ADIN1200 phy driver.
-> +        */
-> +       phy-mode = "rgmii-id";
-> +       status = "okay";
-> +
-> +       phy0: ethernet-phy@0 {
-> +               reg = <0>;
-> +               /* Level interrupts are typical for phy but not supported on rz/g2l gpios. */
+Shrug. Sure. Honestly, I think the example can just be dropped.
 
-Nit: "RZ/G2L" (in all patches)
+I'm converting all the crap no one cares enough about to convert. That's 
+pretty much all of the HiSilicon stuff. Mediatek needs some renewed 
+public shaming too. I only care about getting arm64 down to no warnings.
 
-> +               interrupts-extended = <&pinctrl RZG2L_GPIO(27, 0) IRQ_TYPE_EDGE_FALLING>;
-> +       };
-> +};
-
-I didn't compare with the board schematics, but the rest LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Rob
