@@ -1,88 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E510A3C062F
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:34:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B40389111
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:34:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790181261; cv=none; b=Vg3wMAM9O/xMLIavXmzkQCvpJiALWihlGwHrzCR7iCsj9IwEmUUIgYjQoCF+InBKoedxVi+0/9KJY1YXf4U6qAoTP0VBH+5dMOLM0upRulQmsHRVEvlv+7z1oJsIrbdeb7d4KhD3dM5q4JVXQvaCAZzS6mSgsWnRVtfWvhnfBsg=
+	t=1790181278; cv=none; b=XMfq8beFu3nyzvA0bXRKLdhodC8x4lhfkzPiy85CWBhgIQJ1D6w+quWw2kP+ojmamRJMDxlrR9mr+LHJ+Pyr4n6HAjzKcvhm0YyxiZkPnqGwfXGzR0djEDOtlgx0b7xIUgos7T0wx/LqUP9JA66kpVgcG8o7jhPIkzb/6Qb6CVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790181261; c=relaxed/simple;
-	bh=bZFCmikbhjibr37QyYsw1BYnrmuWJX2eRfQcgt38jzw=;
+	s=arc-20240116; t=1790181278; c=relaxed/simple;
+	bh=uDdbjW1wgPXLst03nu/80GZBOsK0nNDqK4JPVRaArJM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=H29b853wSymth7iBBMWRSdSvajiBKecZtIJE0v3JPK8lCVnx3yHXGoaxxegF8ZfvB09NmL95oefpMiFRNLDrJI+wgDTS4W4eVaohdgJMCGwXADfAU1s3VYDEzdWs3FIjgSnNfwG5X8hx74s/TqTgkaZMKM9elsuu1t4pVDKC61Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nahf0l9F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fz10Hl1e; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=AV3IVlLRfzpyrJ9aY5ONMBD7XkssepFpguoKXMTFFHawilV+z/oL4jx+Idyl9SdfGUpoIgaWeQul9AKHoW2mH5jGseFkcGIwl3ELaWjSOOVKq9pezjHqMN7CYfVo7Br2wPSk9ezIOstVDTTcWkJ0VsO3xPhRHGP4kmJ9t+kzTyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f3MGHxkk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bUPmeTxC; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nahf0l9F";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fz10Hl1e"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGTsUV2470361
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:34:13 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f3MGHxkk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bUPmeTxC"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGTZEO740268
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:34:18 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	d0pBwxzDmGvmNSPMqwBbxTyOwURg+F3QxfDPjVKyU68=; b=nahf0l9FZwqO/OFE
-	YtKXTqp3WUrfiS6yFO7MwJoQSV+O8vg1FEkNYZZoJiPrc6kIb1vYwu0fGqql/9Wf
-	IdZG6Q0qROLFo5bTn4CZ0hoIpWHDMRbv20dueCA+U3VZb1nYN41lsPsa6u2hLRkL
-	9GyOXAuRRBThbUCYjDLLZkFBFUtfYnE1SJ47+6g5ghMJzElhqvrUBOt1dnMVP0C1
-	Fn+bK6artLcmN0agK4NsXccxSNZnUb/DlWNOhEUFOGLkEp3T/0UIw4Bs/F9ak4e2
-	vAKX2XYofATsoLY07hkk7bqM20PyfqJMwAKA9dDsNOgcL49OiUOOBIgv3LgOmL+1
-	FA+vyA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjv0w4s-1
+	YYgq8ukVkamqpLx6ueAcBUNKVzC7nymdRLqglEcoI60=; b=f3MGHxkkOZiSxEE0
+	qW4tPOMzJpfuDv+NvVTeQiDxGYSiBZKEmINRNOnh3BqeOqwMcxTeiiweXT6qlvlA
+	dSGIilQ4WGuS7GJrr2ZKvtZjN7aqIfRqeGlNbZKD/5wPRJKL+JwzJYMSdgWlOPFh
+	bvA/RYjFmShaY/3PKJlLX/mLqkQZqWSeQAJMym3BYVhglzc6xJbLBsumdu0fohPD
+	6bWVbLxvQnqEOMEhuEkBLXcAm6I4Vn0HnzOPt7/5jJRgjaOy1Pt008/r9Zfncqm/
+	3y4xJaL3hZnVt/7d6Bc5Me+gLcQwzQcZBtEeJ0faMSbLnGWUy/kXbRK6uJyDe1m8
+	OP6d4w==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjsgwxk-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:34:13 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfc52ddc55so9979455ad.3
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:34:12 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:34:17 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d6f80c76e6so9488755ad.3
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:34:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790181252; x=1790786052; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790181257; x=1790786057; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d0pBwxzDmGvmNSPMqwBbxTyOwURg+F3QxfDPjVKyU68=;
-        b=fz10Hl1eBV44ofxsDS/c+c5/FOZaCT6gf6GttIaDuYNiv51rIeiTBbXOWWwJ1kBZCr
-         pVDe4SAxYZJxdzhxrTOvSEkXSOq6Ib1kKspbRoOZh1xSXXg7NTwmt0xhUZ3Vy5E5KqJv
-         M8lEmakRQNH4yKHozhesb2Q3MiDTJBqRwbKbuzChBue4eKBqnBAtPMMMoRwl7IrXl6It
-         tIYdSbIzcyLne5lWTYFqXpajb8UCS35ETQSG25IOTsopucctjMWCdHRh5UmlcwhpUKTQ
-         eML1PKaYxlD/rDjbayo7UrVdA6bqNWvuqZ1kkwmfKrrGTR7xizytvhA6GEunFe0xp9ee
-         1kPQ==
+        bh=YYgq8ukVkamqpLx6ueAcBUNKVzC7nymdRLqglEcoI60=;
+        b=bUPmeTxCbKOKNsSoNZF+XRTjD8jK79crsfkHxG7AKM1goOSlGj6921vlFJEN4Q0Evp
+         pODA3DdFvPPDGt9whNZWrdBGn+UBHbNcsG7FAOjoS+V16a/q4+4+2UIqG9kR4HymKY+j
+         gQ8Ky0hUIzMsGIKSTpZymLdvpmZMsif3NIJLkBlcNAZHHsBOd4/DL+s5F3Log9vDt2FS
+         tNpbN272rRSRN7B+g7Je9resNM1I/F8HHpyc5syz3h0wztgD5YoBR7ExytYKeaDpV+jA
+         ccFrWUEihrtYu3EKvnajRyE62qmTeC+WsRjl0DAhxhfqmpzuC2bTdaNAkZnn6em+q/jL
+         W/1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790181252; x=1790786052;
+        d=1e100.net; s=20260707; t=1790181257; x=1790786057;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d0pBwxzDmGvmNSPMqwBbxTyOwURg+F3QxfDPjVKyU68=;
-        b=ABjkapGaXpyyH8SsFARNDwmotAdaPi2gQwghIvrfmYNQVoDdQAuYHQhAHF5HPa+Yoy
-         z6UIwNew2T8zQc9Xiz3v1liHhX0kfP6iCiqwn6hGl1YD+WvgiV/orTms5/4gVFTGy3AJ
-         eOTZH3zd2f6mFeMPMCaRzyaLTAVuUmO87oSnUhzNG1W/iE8P41teRdCIG9cDRTjyuJ24
-         837mZnPDAq152EbmRRgZLHkx4lp1TwSKNOsg6HWJzjuzBJ6n8Y5Kr3eJ64ZnXSvQjwlW
-         scrFtpwXFKTFLK5hKYdoIBA55gNCnu89JBni3V6IqZblnnW1yfOq1Ce0Mih+FWbnAqvR
-         +4jQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwq8KYNlBFXuKVy9lcZcHmYJkuNeKdZsF717WzOHuO01LfwuH0EDTkuSfHDS4xFMtFdNeC79RYivwaN@vger.kernel.org
-X-Gm-Message-State: AFuF++kOaw52TkHsIcB/LlEQrlJxg7DPaWQWKxg0sq9iJ7haVvMM8ISv
-	xhItnt24A4jo7YQ4xZG5OaHjHHG6Yt7ujoSyo3vYhRRrHOhWNnplvwxba6BqlKwpvfHoX0Wr4Hy
-	H0BqdgaJ1Js0i5XckmXV8QvzdcBJ6pH0j3FpazoMwBjM8rA7ttDMpGWRn9L/xli00sW8QyIqm
-X-Gm-Gg: AYBFou1SMrofF5G68xS7Sc6c4KJnCkpZKEWbmo4DEbokgJubptivPuNd8Fis2p65Zyd
-	/X9jn4yWwmQYbQDVlDpzDLhwThUmG+GcWM8+therKUqsqzNVRrGJ/4KG3FaNDKja7hS/vlOgTTQ
-	gmKKAeaKs5FEa7ezjcUiNrunhVu0D4AIfyx0IhEcs19a3Xuu3Eo8XelA58wHvvg/sK0VkAFh7kP
-	28r/65YQREe6+d8VENOzgrgOM2PhJ48c30Qijy+R7W8anQOXHWn7dCxWaht/on/6b/WOX8YtjIY
-	4WYUH32VdvLlxA8oVJB1Nf5502uTBch0m5ShajTg1OEkaJ2mWZNdI2nB2Cn5gBRPClhSjef54Qh
-	au2U8zJk+2eeIHRhSpP7m+xy88iE=
-X-Received: by 2002:a17:903:3503:b0:2dd:c053:e0f3 with SMTP id d9443c01a7336-2df69ddf227mr25747755ad.34.1790181251378;
-        Wed, 23 Sep 2026 09:34:11 -0700 (PDT)
-X-Received: by 2002:a17:903:3503:b0:2dd:c053:e0f3 with SMTP id d9443c01a7336-2df69ddf227mr25747375ad.34.1790181250803;
-        Wed, 23 Sep 2026 09:34:10 -0700 (PDT)
+        bh=YYgq8ukVkamqpLx6ueAcBUNKVzC7nymdRLqglEcoI60=;
+        b=thna7UsF5MV7k5i2pnUlHkGjrbswm7RMzOE4wI+WEMnei702g0TaBM67MSARhtOQUW
+         sv89j8zxQz/mOt46TVud6wXVItxxcpdAs8XwC3hvF/kToVJ3W/4VBDfi7AvqMas7czDa
+         u9aJEF3LSPApg+DJnkJwRkaiDPfFv74D1CCXKko6kQaiK8MwmQiDAP+TDMlG+DOO81nE
+         HQn+vPGrr/OBIBQjgseBUKtwjFGtbheHl5I7YVBW3RBZNb4nIUQ76lUyGhvAUf1AVUxY
+         RSOIOEt9tDPPP/eSDInaefOs+eSBEiyr1Rxl5x8ybwEU+eXkJfNGZ4j3HOyotpmtFsvC
+         tcWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzTfazzeWUmwDKtuYM1wSKMIvxKPzdHUQo6OsI65qk80MeYsHf4YU22X0xIPLjyhHtBDGs3biClN6i7@vger.kernel.org
+X-Gm-Message-State: AFuF++kVV1qTDAYzy8rykoA2IkYOm/2+vBwxp4+7I23rEOmEnsfLgdso
+	crQm4aBj5ZSSgl7U3+bVj/5/MfRyM5a+ic14KuceX566J4rAKVAhGEqnjrW45M63CI6+K+Yktv0
+	Y3BQ9Ge9qg0kvmHT/pLm+wgBgLDOF7OWcUvtzP9yUbObzm+t603lva0W113bMXlQm
+X-Gm-Gg: AYBFou2tjV6tPgdJCTZneYxqzU9HSNrCCe9+7z0HFoWLR6zGgln4hbt1XZZeLB9MOHL
+	8Qqpe1bOm7smXL8DJJR1EsPSyJIrHn5J3Yiy/cVaZKUBTmXfiX65yhdh2oyXejaRSxU91so9Cpf
+	1MgQGYhOiUunanPFjj5VZT5MeJrkjqCiirRn+u26AiBcAo05X4ruH501iufUwipnLGxAwsYV+Yj
+	4M54BBcTAg/n2ySNLUfHaAdbiIJwxv9vfEox+Kwbwiz+gGGB+yTSXUivy/KeZaJjDq/fKQrUIql
+	B0iyTnvTz9xccAmk/LUoONkUyFZufxgXpgFeTdgqCF8VldeliYrztUOYZ9tCcImG+I29EctC4DZ
+	NjIv+bpTYZJtO/ucQ1v2HTCJsfp4=
+X-Received: by 2002:a17:902:e886:b0:2de:834b:b59e with SMTP id d9443c01a7336-2df69e097e6mr27291525ad.71.1790181256439;
+        Wed, 23 Sep 2026 09:34:16 -0700 (PDT)
+X-Received: by 2002:a17:902:e886:b0:2de:834b:b59e with SMTP id d9443c01a7336-2df69e097e6mr27291085ad.71.1790181255789;
+        Wed, 23 Sep 2026 09:34:15 -0700 (PDT)
 Received: from hu-nandam-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a6d35sm13994895ad.19.2026.09.23.09.34.06
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a6d35sm13994895ad.19.2026.09.23.09.34.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 09:34:10 -0700 (PDT)
+        Wed, 23 Sep 2026 09:34:15 -0700 (PDT)
 From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 22:03:40 +0530
-Subject: [PATCH v6 3/4] ASoC: dt-bindings: qcom,q6apm-dai: add
- memory-region and relax iommus
+Date: Wed, 23 Sep 2026 22:03:41 +0530
+Subject: [PATCH v6 4/4] ASoC: qcom: q6apm-dai: add SCM buffer assignment
+ for mDSP platforms
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-vmid-v4-v6-3-3d61a0319b1c@oss.qualcomm.com>
+Message-Id: <20260923-vmid-v4-v6-4-3d61a0319b1c@oss.qualcomm.com>
 References: <20260923-vmid-v4-v6-0-3d61a0319b1c@oss.qualcomm.com>
 In-Reply-To: <20260923-vmid-v4-v6-0-3d61a0319b1c@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
@@ -103,81 +103,593 @@ To: Srinivas Kandagatla <srini@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>
 Cc: ajay.nandam@oss.qualcomm.com, linux-sound@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org
+        devicetree@vger.kernel.org,
+        Mohit Sharma <mohit.sharma@oss.qualcomm.com>
 X-Mailer: b4 0.15.0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2NiBTYWx0ZWRfX6NpgoWIy2V/2
- h/1M/Xbypj6KuhnuVgttKPkY5QO/qDRUgmtfF7Xh8SOAdDL56/8nrYdDoYXkDP7E144F0SymkMj
- wRjlneOonkpSqb8CVgyGHjvWDnSe5LnVu21WVUaYugSZ2B3Fdjq6cekXMAutjskHHUIudQ1sLWH
- wrkLt+maXSTVS+YSjeHHoyFMlMlYKyS4IpHx62WIPGJsUOWlc4OnqwyPrSlR8Pni8xapRKLZW7G
- 5wfHt2H384OVSWobv3gnTdkRewmCogVuAGxLH65xJy5HL+qyzgDIa/OBLoM1YkH/3vwm7L9ont0
- JHoKnRWvHBS2jpJBKZ7vwxPb8ebAMehr4UQYFlnLD93yDjO42mSKeV/AeBIpKt9bUILCkGeWhUt
- mGzgGYHU4cVnt0QZWvbhq8dny5IkU4xo3s/WEHoxRs7EbTDR1OCdHYl/NY8Gt3tNHWBwcChzm9J
- NRWOe9DFq0GVWfVyH3g==
-X-Authority-Analysis: v=2.4 cv=aIxlOr9m c=1 sm=1 tr=0 ts=6ab3ff85 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2NSBTYWx0ZWRfXyEFgyfuFZeMJ
+ nVeQ5iPXgxzK6bFG1z1FeN3yDZBtIKavIwvlsdg67cUsgi9Sk0l4ge9d0be4Mx2c5KiehCyyvE7
+ aeOAV7+Zf//oKmD9WK2MrMX7mRpzF6OQLlmmGaL2AeoRBia+j2lm0YN1BnVFx2/eCvumtP1dFbP
+ 6I4JL+4Mng+2vNUbEvmOpJHFQgMtD1Td1DWHUUJMUx5gqoE7Y8izfhSCyAQjnkFi0yb7YJhSB7J
+ 7DnvlT0K0atcIyzrxJHj6Tf0K2cSJEu6l6GnfnMas/HXdiaEyORsRo5qF89R0XUFu69iRYaNRtD
+ 87R0cBD+/jpsZrNDtwxPKD4GKFeGuNAjr0nmkMqXW2wIs8HMsEOgTAFPXZh0AljYDKhCQs/atxF
+ cpGywItStzPes539t9njQqrkCKyWvIqJoxmVU7lwUTmCKs6XD5qg0hl0LlLiQv8YIQZLocg5oQR
+ hvcngRguK/hmUsTVYRA==
+X-Proofpoint-GUID: QWcqUKsheqKXAjHrUGtegDOwbKgKu58p
+X-Proofpoint-ORIG-GUID: QWcqUKsheqKXAjHrUGtegDOwbKgKu58p
+X-Authority-Analysis: v=2.4 cv=K4+3jCWI c=1 sm=1 tr=0 ts=6ab3ff89 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=d-o4ErlZh7ezHBmBfcwA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: yf6b-9clFZskt93JJ9cOzashybwxN6h9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2NiBTYWx0ZWRfX3niGnA/83Ydf
- AtXOuYIvxzQUwn7/vFxJtoYMyw8ZMr6D0tQCj+cLEqA5Ibko1kkCHebIFYLGpjbp5srXCqbk+Io
- J5/qFuqczWHkZhQJ+ZY+wU8WJrq0cb8=
-X-Proofpoint-ORIG-GUID: yf6b-9clFZskt93JJ9cOzashybwxN6h9
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=KIwk5gsWPQ7PVTwXBQkA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2NSBTYWx0ZWRfX9HrmQKgmHK+0
+ Z8X5Q08/+TZblvq90FMqUxmw/0pQacHJ4sujvVz1liy4fu/wBQYIqC+7PFZMsg6NRkOP0EC+agO
+ tHjJGEnYBEN3/II9fPpwIjYFIR+rbF0=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 priorityscore=1501 spamscore=0 phishscore=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ impostorscore=0 phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230066
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230065
 
-On modem-DSP (mDSP) platforms the DSP runs in a stage-2 protected
-context and cannot use the SMMU. PCM buffers must live in reserved-memory
-carveouts that are SCM-assigned to the appropriate VMIDs.
+On platforms such as Qualcomm Shikra, audio is served by the modem DSP
+(mDSP) which runs in a stage-2 protected context. Unlike ADSP targets
+where SMMU-mapped system RAM is directly accessible, the mDSP cannot
+reach the PCM buffers unless they are explicitly SCM-assigned to the
+appropriate Virtual Machine IDs (VMIDs). Without this assignment, audio
+does not function on these platforms.
 
-Add a memory-region property (1-2 entries) for the control-path and
-data-path carveouts, and require q6apm-dais nodes to describe exactly
-one access path: iommus for SMMU-backed systems or memory-region for
-mDSP systems. Remove iommus from the common required list since mDSP
-platforms have neither IOMMU nor VMID DT properties.
+At probe time, the driver reads the GPR domain_id from the parent APM
+device to determine which DSP serves audio. When domain_id matches
+GPR_DOMAIN_ID_ADSP the existing SMMU/iommus path is taken and no new
+code is exercised. When domain_id matches GPR_DOMAIN_ID_MODEM, the
+driver verifies that qcom_scm is available (deferring otherwise) and
+that iommus is absent (the two mechanisms are mutually exclusive), then
+enables the SCM assignment path.
 
+In the SCM path the driver parses the optional memory-region entries in
+DT. The first entry (memory-region[0] / audio_heap_mem) is the
+control-path carveout used by the DSP firmware for command traffic; since
+the mDSP operates on stage-2 protected memory, this carveout must be
+SCM-assigned at probe time itself for the firmware to function. It is
+SCM-assigned to HLOS (retained as source owner, RW) plus MSS_MSA and
+LPASS (consumer VMIDs, both RW) and restored to HLOS-only ownership via
+devm_add_action_or_reset() at device removal. The second entry
+(memory-region[1]) is the data-path buffer pool from which per-stream
+DMA buffers are carved out. This pool is attached via
+of_reserved_mem_device_init_by_idx() so that PCM buffers allocate
+directly from the carveout instead of system RAM.
+
+The data-path pool (memory-region[1]) is SCM-assigned to the consumer
+VMIDs as a single whole-pool operation at probe time, rather than
+per-stream in pcm_new()/compr_open(). qcom_scm_assign_mem() consumes an
+entry in a small fixed-size TZ memory-protection table that is shared
+platform-wide; assigning individual per-stream slices (up to
+Q6APM_POOL_MAX_STREAMS times) exhausts that table and hangs the SMC
+call, which was observed as a crash while bringing up the sound card on
+Shikra. Since the whole pool is already accessible to the mDSP once
+assigned, pcm_new()/pcm_free()/compr_open()/compr_free() skip the
+per-buffer SCM assign/unassign entirely when the data-path pool is in
+use (has_reserved_mem), and only fall back to per-buffer assignment when
+use_scm_assign is set without a data-path pool present.
+
+Compressed audio streams follow the same pattern: the DMA buffer
+allocated in compr_open() is SCM-assigned immediately after allocation
+and unassigned in compr_free() before the buffer is freed, unless it was
+carved from the pre-assigned data-path pool.
+
+The VMIDs are static per SoC and hardcoded in the driver (HLOS, MSS_MSA,
+LPASS) rather than read from DT, following the upstream pattern used by
+rmtfs_mem and qcom_q6v5_pas. Buffer constraints are capped at
+reserved_buf_size when the data-path pool is present, and
+snd_pcm_set_fixed_buffer_all() is used for both paths so the carveout is
+not subject to the preallocate_dma module parameter.
+
+All new code paths are gated on use_scm_assign (false when domain_id is
+not GPR_DOMAIN_ID_MODEM), ensuring existing ADSP/iommus targets are
+completely unaffected.
+
+Co-developed-by: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
+Signed-off-by: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
 Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
 ---
- .../devicetree/bindings/sound/qcom,q6apm-dai.yaml       | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ sound/soc/qcom/Kconfig           |   1 +
+ sound/soc/qcom/qdsp6/q6apm-dai.c | 317 ++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 297 insertions(+), 21 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-index 9e5b30d9c6e6..c1f9fc9eab64 100644
---- a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-@@ -20,9 +20,24 @@ properties:
-     minItems: 1
-     maxItems: 2
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index e6e24f3b9922..991feb317940 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -102,6 +102,7 @@ config SND_SOC_QDSP6_ASM_DAI
+ config SND_SOC_QDSP6_APM_DAI
+ 	tristate
+ 	select SND_SOC_COMPRESS
++	select QCOM_SCM
  
-+  memory-region:
-+    minItems: 1
-+    items:
-+      - description:
-+          Control-path buffer (audio_heap_mem) for platforms where the DSP
-+          runs in a stage-2 protected context (e.g. modem-DSP).
-+      - description:
-+          Data-path buffer pool from which per-stream DMA buffers are
-+          allocated.
+ config SND_SOC_QDSP6_APM_LPASS_DAI
+ 	tristate
+diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
+index 033197bdd870..b0b10ba51c99 100644
+--- a/sound/soc/qcom/qdsp6/q6apm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+@@ -1,20 +1,25 @@
+ // SPDX-License-Identifier: GPL-2.0
+ // Copyright (c) 2021, Linaro Limited
+ 
+-#include <linux/init.h>
++#include <dt-bindings/firmware/qcom,scm.h>
++#include <dt-bindings/soc/qcom,gpr.h>
++#include <linux/dma-mapping.h>
+ #include <linux/err.h>
++#include <linux/firmware/qcom/qcom_scm.h>
++#include <linux/init.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
++#include <linux/of_reserved_mem.h>
+ #include <linux/platform_device.h>
+ #include <linux/slab.h>
+-#include <sound/soc.h>
+-#include <sound/soc-dapm.h>
+ #include <linux/spinlock.h>
+ #include <sound/pcm.h>
++#include <sound/pcm_params.h>
++#include <sound/soc.h>
++#include <sound/soc-dapm.h>
+ #include <asm/div64.h>
+ #include <asm/dma.h>
+-#include <linux/dma-mapping.h>
+-#include <sound/pcm_params.h>
+ #include "q6apm.h"
+ 
+ #define DRV_NAME "q6apm-dai"
+@@ -36,6 +41,16 @@
+ #define COMPR_PLAYBACK_MIN_NUM_FRAGMENTS (4)
+ #define SID_MASK_DEFAULT	0xF
+ 
++#define Q6APM_MAX_SCM_REGIONS	16
++#define Q6APM_POOL_MAX_STREAMS	8
 +
- required:
-   - compatible
--  - iommus
++struct q6apm_scm_region {
++	phys_addr_t addr;
++	size_t size;
++	u64 src_perms;
++	bool assigned;
++};
 +
-+oneOf:
-+  - required:
-+      - iommus
-+  - required:
-+      - memory-region
+ static const struct snd_compr_codec_caps q6apm_compr_caps = {
+ 	.num_descriptors = 1,
+ 	.descriptor[0].max_ch = 2,
+@@ -84,9 +99,103 @@ struct q6apm_dai_rtd {
+ };
  
- additionalProperties: false
+ struct q6apm_dai_data {
++	struct device *dev;
+ 	long long sid;
++	bool use_scm_assign;
++	bool has_reserved_mem;
++	size_t reserved_buf_size;
++	struct mutex scm_lock; /* protects scm_regions and num_scm_regions */
++	struct q6apm_scm_region scm_regions[Q6APM_MAX_SCM_REGIONS];
++	int num_scm_regions;
+ };
  
++static int q6apm_dai_scm_assign(struct q6apm_dai_data *pdata,
++				phys_addr_t addr, size_t size)
++{
++	struct qcom_scm_vmperm dst[] = {
++		{ .vmid = QCOM_SCM_VMID_HLOS, .perm = QCOM_SCM_PERM_RW },
++		{ .vmid = QCOM_SCM_VMID_MSS_MSA, .perm = QCOM_SCM_PERM_RW },
++		{ .vmid = QCOM_SCM_VMID_LPASS, .perm = QCOM_SCM_PERM_RW },
++	};
++	struct q6apm_scm_region *r;
++	u64 src = BIT(QCOM_SCM_VMID_HLOS);
++	int ret;
++
++	mutex_lock(&pdata->scm_lock);
++
++	if (pdata->num_scm_regions >= Q6APM_MAX_SCM_REGIONS) {
++		mutex_unlock(&pdata->scm_lock);
++		return -ENOSPC;
++	}
++
++	ret = qcom_scm_assign_mem(addr, size, &src, dst, ARRAY_SIZE(dst));
++	if (ret) {
++		mutex_unlock(&pdata->scm_lock);
++		return ret;
++	}
++
++	r = &pdata->scm_regions[pdata->num_scm_regions++];
++	r->addr = addr;
++	r->size = size;
++	r->src_perms = src;
++	r->assigned = true;
++
++	mutex_unlock(&pdata->scm_lock);
++
++	return 0;
++}
++
++static void q6apm_dai_scm_unassign(struct q6apm_dai_data *pdata,
++				   phys_addr_t addr)
++{
++	struct qcom_scm_vmperm hlos = {
++		.vmid = QCOM_SCM_VMID_HLOS,
++		.perm = QCOM_SCM_PERM_RW,
++	};
++	int i;
++
++	mutex_lock(&pdata->scm_lock);
++
++	for (i = 0; i < pdata->num_scm_regions; i++) {
++		if (pdata->scm_regions[i].addr != addr ||
++		    !pdata->scm_regions[i].assigned)
++			continue;
++
++		if (qcom_scm_assign_mem(addr, pdata->scm_regions[i].size,
++					&pdata->scm_regions[i].src_perms,
++					&hlos, 1)) {
++			dev_err(pdata->dev, "SCM unassign %pa failed\n", &addr);
++			mutex_unlock(&pdata->scm_lock);
++			return;
++		}
++
++		pdata->scm_regions[i].assigned = false;
++		pdata->num_scm_regions--;
++		pdata->scm_regions[i] = pdata->scm_regions[pdata->num_scm_regions];
++		mutex_unlock(&pdata->scm_lock);
++		return;
++	}
++
++	mutex_unlock(&pdata->scm_lock);
++}
++
++static void q6apm_dai_scm_cleanup(void *data)
++{
++	struct q6apm_dai_data *pdata = data;
++	int i;
++
++	for (i = pdata->num_scm_regions - 1; i >= 0; i--) {
++		if (pdata->scm_regions[i].assigned)
++			q6apm_dai_scm_unassign(pdata,
++					       pdata->scm_regions[i].addr);
++	}
++}
++
++static void q6apm_dai_reserved_mem_release(void *data)
++{
++	of_reserved_mem_device_release(data);
++}
++
+ static const struct snd_pcm_hardware q6apm_dai_hardware_capture = {
+ 	.info =                 (SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_BLOCK_TRANSFER |
+ 				 SNDRV_PCM_INFO_MMAP_VALID | SNDRV_PCM_INFO_INTERLEAVED |
+@@ -409,8 +518,11 @@ static int q6apm_dai_open(struct snd_soc_component *component,
+ 	}
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		size_t buf_max = pdata->has_reserved_mem ? pdata->reserved_buf_size :
++							   BUFFER_BYTES_MAX;
++
+ 		ret = snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
+-						   BUFFER_BYTES_MIN, BUFFER_BYTES_MAX);
++						   BUFFER_BYTES_MIN, buf_max);
+ 		if (ret < 0) {
+ 			dev_err(dev, "constraint for buffer bytes min max ret = %d\n", ret);
+ 			goto err;
+@@ -431,17 +543,20 @@ static int q6apm_dai_open(struct snd_soc_component *component,
+ 	}
+ 
+ 	runtime->private_data = prtd;
+-	runtime->dma_bytes = BUFFER_BYTES_MAX;
++	runtime->dma_bytes = pdata->has_reserved_mem ? pdata->reserved_buf_size :
++						       BUFFER_BYTES_MAX;
+ 	if (pdata->sid < 0)
+ 		prtd->phys = substream->dma_buffer.addr;
+ 	else
+ 		prtd->phys = substream->dma_buffer.addr | (pdata->sid << 32);
+ 
+ 	if (q6apm_is_graph_in_push_pull_mode(prtd->graph)) {
++		size_t buf_max = pdata->has_reserved_mem ? pdata->reserved_buf_size :
++							   BUFFER_BYTES_MAX;
+ 		void *pos_buffer;
+ 
+-		prtd->pos_phys = prtd->phys + BUFFER_BYTES_MAX;
+-		pos_buffer = (void *)(substream->dma_buffer.area + BUFFER_BYTES_MAX);
++		prtd->pos_phys = prtd->phys + buf_max;
++		pos_buffer = (void *)(substream->dma_buffer.area + buf_max);
+ 		prtd->pos_buffer = (struct sh_mem_pull_push_mode_position_buffer *)(pos_buffer);
+ 	}
+ 
+@@ -535,6 +650,7 @@ static int q6apm_dai_memory_map(struct snd_soc_component *component,
+ {
+ 	struct q6apm_dai_data *pdata;
+ 	struct device *dev = component->dev;
++	size_t buf_max;
+ 	phys_addr_t phys;
+ 	int ret;
+ 
+@@ -544,20 +660,23 @@ static int q6apm_dai_memory_map(struct snd_soc_component *component,
+ 		return -EINVAL;
+ 	}
+ 
++	buf_max = pdata->has_reserved_mem ? pdata->reserved_buf_size :
++					    BUFFER_BYTES_MAX;
++
+ 	if (pdata->sid < 0)
+ 		phys = substream->dma_buffer.addr;
+ 	else
+ 		phys = substream->dma_buffer.addr | (pdata->sid << 32);
+ 
+-	ret = q6apm_map_memory_fixed_region(dev, graph_id, phys, BUFFER_BYTES_MAX);
++	ret = q6apm_map_memory_fixed_region(dev, graph_id, phys, buf_max);
+ 	if (ret < 0)
+ 		dev_err(dev, "Audio Start: Buffer Allocation failed rc = %d\n",	ret);
+ 
+ 	if (is_push_pull) {
+ 		if (pdata->sid < 0)
+-			phys = substream->dma_buffer.addr + BUFFER_BYTES_MAX;
++			phys = substream->dma_buffer.addr + buf_max;
+ 		else
+-			phys = (substream->dma_buffer.addr + BUFFER_BYTES_MAX) | (pdata->sid << 32);
++			phys = (substream->dma_buffer.addr + buf_max) | (pdata->sid << 32);
+ 
+ 		ret = q6apm_map_pos_buffer(dev, graph_id, phys, POS_BUFFER_BYTES);
+ 		if (ret < 0)
+@@ -572,20 +691,22 @@ static int q6apm_dai_memory_map(struct snd_soc_component *component,
+ static int q6apm_dai_pcm_new(struct snd_soc_component *component, struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
++	struct q6apm_dai_data *pdata;
+ 	struct snd_pcm *pcm = rtd->pcm;
+-	/*
+-	 * Allocate one extra page as a workaround for a DSP bug where 32-bit
+-	 * address arithmetic can overflow when the buffer is placed near the
+-	 * end of the addressable range.
+-	 */
+ 	int size = BUFFER_BYTES_MAX + PAGE_SIZE;
+ 	int graph_id, ret;
+ 	bool is_push_pull;
+ 	struct snd_pcm_substream *substream = NULL;
+ 
++	pdata = snd_soc_component_get_drvdata(component);
++	if (!pdata)
++		return -EINVAL;
++
++	if (pdata->has_reserved_mem)
++		size = pdata->reserved_buf_size + PAGE_SIZE;
++
+ 	graph_id = cpu_dai->driver->id;
+ 
+-	/* Note: DSP backend dais are uni-directional ONLY(either playback or capture) */
+ 	if (pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream)
+ 		substream = pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
+ 	else  if (pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream)
+@@ -603,9 +724,24 @@ static int q6apm_dai_pcm_new(struct snd_soc_component *component, struct snd_soc
+ 		if (ret)
+ 			return ret;
+ 
++		if (pdata->use_scm_assign && !pdata->has_reserved_mem) {
++			ret = q6apm_dai_scm_assign(pdata,
++						   substream->dma_buffer.addr,
++						   ALIGN(size, PAGE_SIZE));
++			if (ret) {
++				dev_err(component->dev,
++					"SCM assign buffer failed: %d\n", ret);
++				return ret;
++			}
++		}
++
+ 		ret = q6apm_dai_memory_map(component, substream, graph_id, is_push_pull);
+-		if (ret)
++		if (ret) {
++			if (pdata->use_scm_assign && !pdata->has_reserved_mem)
++				q6apm_dai_scm_unassign(pdata,
++						       substream->dma_buffer.addr);
+ 			return ret;
++		}
+ 	}
+ 
+ 	return 0;
+@@ -635,15 +771,26 @@ static void q6apm_dai_memory_unmap(struct snd_soc_component *component,
+ 
+ static void q6apm_dai_pcm_free(struct snd_soc_component *component, struct snd_pcm *pcm)
+ {
++	struct q6apm_dai_data *pdata;
+ 	struct snd_pcm_substream *substream;
+ 
++	pdata = snd_soc_component_get_drvdata(component);
++
+ 	substream = pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream;
+-	if (substream)
++	if (substream) {
+ 		q6apm_dai_memory_unmap(component, substream);
++		if (pdata && pdata->use_scm_assign && !pdata->has_reserved_mem)
++			q6apm_dai_scm_unassign(pdata,
++					       substream->dma_buffer.addr);
++	}
+ 
+ 	substream = pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
+-	if (substream)
++	if (substream) {
+ 		q6apm_dai_memory_unmap(component, substream);
++		if (pdata && pdata->use_scm_assign && !pdata->has_reserved_mem)
++			q6apm_dai_scm_unassign(pdata,
++					       substream->dma_buffer.addr);
++	}
+ }
+ 
+ static int q6apm_dai_compr_open(struct snd_soc_component *component,
+@@ -683,6 +830,17 @@ static int q6apm_dai_compr_open(struct snd_soc_component *component,
+ 	if (ret)
+ 		return ret;
+ 
++	if (pdata->use_scm_assign && !pdata->has_reserved_mem) {
++		ret = q6apm_dai_scm_assign(pdata, prtd->dma_buffer.addr,
++					   ALIGN(size, PAGE_SIZE));
++		if (ret) {
++			dev_err(dev, "SCM assign compr buffer failed: %d\n",
++				ret);
++			snd_dma_free_pages(&prtd->dma_buffer);
++			return ret;
++		}
++	}
++
+ 	if (pdata->sid < 0)
+ 		prtd->phys = prtd->dma_buffer.addr;
+ 	else
+@@ -700,11 +858,16 @@ static int q6apm_dai_compr_free(struct snd_soc_component *component,
+ {
+ 	struct snd_compr_runtime *runtime = stream->runtime;
+ 	struct q6apm_dai_rtd *prtd = runtime->private_data;
++	struct q6apm_dai_data *pdata;
++
++	pdata = snd_soc_component_get_drvdata(component);
+ 
+ 	q6apm_graph_stop(prtd->graph);
+ 	q6apm_free_fragments(prtd->graph, SNDRV_PCM_STREAM_PLAYBACK);
+ 	q6apm_unmap_memory_fixed_region(component->dev, prtd->graph->id);
+ 	q6apm_graph_close(prtd->graph);
++	if (pdata && pdata->use_scm_assign && !pdata->has_reserved_mem)
++		q6apm_dai_scm_unassign(pdata, prtd->dma_buffer.addr);
+ 	snd_dma_free_pages(&prtd->dma_buffer);
+ 	prtd->graph = NULL;
+ 	kfree(prtd);
+@@ -1021,6 +1184,7 @@ static int q6apm_dai_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct device_node *node = dev->of_node;
++	struct q6apm *apm = dev_get_drvdata(dev->parent);
+ 	struct q6apm_dai_data *pdata;
+ 	struct of_phandle_args args;
+ 	int rc;
+@@ -1029,12 +1193,123 @@ static int q6apm_dai_probe(struct platform_device *pdev)
+ 	if (!pdata)
+ 		return -ENOMEM;
+ 
++	pdata->dev = dev;
++	mutex_init(&pdata->scm_lock);
++
+ 	rc = of_parse_phandle_with_fixed_args(node, "iommus", 1, 0, &args);
+ 	if (rc < 0)
+ 		pdata->sid = -1;
+ 	else
+ 		pdata->sid = args.args[0] & SID_MASK_DEFAULT;
+ 
++	if (apm && apm->gdev &&
++	    apm->gdev->domain_id == GPR_DOMAIN_ID_MODEM) {
++		if (!qcom_scm_is_available())
++			return -EPROBE_DEFER;
++
++		if (pdata->sid >= 0) {
++			dev_err(dev,
++				"iommus and mDSP SCM path are mutually exclusive\n");
++			return -EINVAL;
++		}
++
++		pdata->use_scm_assign = true;
++
++		rc = devm_add_action_or_reset(dev, q6apm_dai_scm_cleanup,
++					      pdata);
++		if (rc)
++			return rc;
++	}
++
++	if (pdata->use_scm_assign) {
++		int mem_count;
++
++		mem_count = of_count_phandle_with_args(node, "memory-region",
++						       NULL);
++		if (mem_count >= 1) {
++			struct device_node *mem_node;
++			struct reserved_mem *rmem;
++
++			mem_node = of_parse_phandle(node, "memory-region", 0);
++			rmem = of_reserved_mem_lookup(mem_node);
++			of_node_put(mem_node);
++			if (!rmem) {
++				dev_err(dev,
++					"memory-region[0]: lookup failed\n");
++				return -ENODEV;
++			}
++
++			rc = q6apm_dai_scm_assign(pdata, rmem->base,
++						  ALIGN(rmem->size, PAGE_SIZE));
++			if (rc) {
++				dev_err(dev,
++					"SCM assign memory-region[0] failed: %d\n",
++					rc);
++				return rc;
++			}
++		}
++
++		if (mem_count >= 2) {
++			struct device_node *mem_node;
++			struct reserved_mem *rmem;
++			size_t per_stream;
++
++			mem_node = of_parse_phandle(node, "memory-region", 1);
++			rmem = of_reserved_mem_lookup(mem_node);
++			of_node_put(mem_node);
++			if (!rmem) {
++				dev_err(dev,
++					"memory-region[1]: lookup failed\n");
++				return -ENODEV;
++			}
++
++			per_stream = rmem->size / Q6APM_POOL_MAX_STREAMS;
++			if (per_stream <= POS_BUFFER_BYTES + PAGE_SIZE) {
++				dev_err(dev,
++					"reserved-memory pool too small: %pa bytes\n",
++					&rmem->size);
++				return -EINVAL;
++			}
++
++			/*
++			 * Assign the whole pool to the consumer VMIDs once here,
++			 * instead of per-stream in pcm_new()/compr_open(). Each
++			 * qcom_scm_assign_mem() call consumes an entry in a small
++			 * fixed-size TZ memory-protection table shared platform-wide;
++			 * assigning per-stream-slice (up to Q6APM_POOL_MAX_STREAMS
++			 * times) exhausts that table and hangs the SMC call.
++			 */
++			rc = q6apm_dai_scm_assign(pdata, rmem->base,
++						  ALIGN(rmem->size, PAGE_SIZE));
++			if (rc) {
++				dev_err(dev,
++					"SCM assign memory-region[1] failed: %d\n",
++					rc);
++				return rc;
++			}
++
++			rc = of_reserved_mem_device_init_by_idx(dev, node, 1);
++			if (rc) {
++				dev_err(dev,
++					"reserved-memory pool init failed: %d\n",
++					rc);
++				return rc;
++			}
++
++			rc = devm_add_action_or_reset(dev,
++						      q6apm_dai_reserved_mem_release,
++						      dev);
++			if (rc)
++				return rc;
++
++			pdata->reserved_buf_size =
++				min_t(size_t,
++				      per_stream - POS_BUFFER_BYTES - PAGE_SIZE,
++				      BUFFER_BYTES_MAX);
++			pdata->has_reserved_mem = true;
++		}
++	}
++
+ 	dev_set_drvdata(dev, pdata);
+ 
+ 	return devm_snd_soc_register_component(dev, &q6apm_fe_dai_component, NULL, 0);
 
 -- 
 2.34.1
