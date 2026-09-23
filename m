@@ -1,139 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E684A0EED;
-	Wed, 23 Sep 2026 11:52:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32624EB86E
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:52:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164366; cv=none; b=iN0tGrTnAnshQnd2Pee/MONLD0Iieptn3h0TNf7RXC7FC6prV6KAAEMLcA9hG0JAqSusjhSLG7lotbM9Q1wT95LjCpcgL7abt4F0MCZcmLaa/K8v3N5Pe4CY2Fa7JN2urK6gkf2c+FXlOhrbo/cYEcgqZhyt7N6hePxRXVP+FHU=
+	t=1790164375; cv=none; b=TU5eLYYpp88EasNIwMrBl8nbfSaHkL3vTyi90TDrsblkw7WtR0V2JozGnaTPEhKroSZmHLm0PZacqOU5xvvpME8W685rECc1U8hSoqaJsGoYcwD8ybd0VGMrMnNcR34ebf91ZvZV/enoI91M9UdIPX3qLE2ILIs8w/zKll6NkZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164366; c=relaxed/simple;
-	bh=APmX+ZhRu2oIf8MMO1KHUlLlqrR5kvAOmZ4FceVRgMQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MoKNWfoQUPSdt4gEgzVPQh3HCAZiBwEs+Lh6av/T0/4e/4to0oYun2Q9TwXLMi9XGn5GthgQHt6SvIwgIYDq69SRx+QPX8L/J5tPdVabkt1Mr9U0EjmtxmNsc2M9iksTqKqKgVKuCMV1Gr1aywU5+TG41+yNw+h8VzzmRMzkTkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uKyNHwNn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790164375; c=relaxed/simple;
+	bh=F2lmUoAjfo9h+YnqRWnZGIPu+0W+o6EEbYJc1by4+7Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yj8dphNZpasDtNZEm4rFOq6KYfM3O/dvvXQJ9pZaQ95G17b80nyOokzgsXplV7PWLCWxJgYYPUzUiUfn0Ql/1NFJpRe0r1NEYy89PrFrRDKLJAlejS6P/PAauMwZrY95zZMdlC36hZo01EbnRZ0I8p6bzZ4mLeP35xEikm97CPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=fuStAAtG; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uKyNHwNn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C8200C2BCFA;
-	Wed, 23 Sep 2026 11:52:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790164365;
-	bh=APmX+ZhRu2oIf8MMO1KHUlLlqrR5kvAOmZ4FceVRgMQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=uKyNHwNnsHlU+uRen22QJk8ve9GyQ3bsLZytOfKJ7A3mvkLWkBrDqifae/0TYQ6YF
-	 z3i8l3Y4v28YDHgX8H18u1Zq4cBx+1HA7fEp+R8n+b7ne8abuCz4wVaL03aNzDMgNd
-	 j1GMmnyHm08qE+1sHnYItnvRjH5JTHstFHDXaw9NXkSyxhTyBlxWQx9dnOzHUk3iLg
-	 llsez22oPvtkjSeUos8h77Z1S4HLkvGOTY6UbxUH/3xYhU+N2xdmIdOR91TfF/xRtz
-	 /RAo1fGCTXSZbdetSjfdSIktDBESbRZHdHNOQ2g7/LTl7hEwiKZDH6zQKvIAMV8eg6
-	 ETBX9YgzzttRQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A99B2C982FA;
-	Wed, 23 Sep 2026 11:52:45 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Wed, 23 Sep 2026 13:51:03 +0200
-Subject: [PATCH 2/2] thermal/drivers/amlogic: switch to clk_bulk API to
- support multiple clocks
+	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="fuStAAtG"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 048ED240105
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:52:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1790164363;
+	bh=lWuEHByYW7PJ7uyRtCFsmzNtANJLIM43E0XB3a/uqEw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:From;
+	b=fuStAAtGUtJzqWqcmpUSbJbW/JTKUgddsafXquXDY2531joRLiqTgqA0KCRIAyGw1
+	 AZrjUUufBouNKFroAGLQeNyS1uoAthOKBExNSI+rDXR1zBl9czR8Iv2RIHwpBiUQ9s
+	 BftzMVQ+ZzR1Kovuv3LGQ7lLGkT59cCpcTWcH/oNVitSNDizduMmLRA0nfSSIYhlgJ
+	 thuUYxq+OwzVRGgv9cItck6IaHxGPNHdNqaDeMRcVsBaZkQe5Yf04+RBxwutcumPF8
+	 HeK5wai0cA+vTMFS35cETC2Xkje2nYbk9jlnmSxXamf1s7nvwrCTzeZf/esIo0ZF7b
+	 npojOoOCIuaRg==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hqb1h5rjTz9rxD;
+	Wed, 23 Sep 2026 13:52:40 +0200 (CEST)
+From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+To: alexandre.torgue@foss.st.com,
+	mcoquelin.stm32@gmail.com
+Cc: antonio.borneo@foss.st.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	lionel.debieve@foss.st.com,
+	amelie.delaunay@foss.st.com,
+	patrice.chotard@foss.st.com,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: st: fix arm,smc-id of the SMC watchdog on stm32mp2
+Date: Wed, 23 Sep 2026 11:52:42 +0000
+Message-ID: <20260923115234.142728-1-mateusz.nowicki@posteo.net>
+In-Reply-To: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
+References: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-fix-t7-thermal-clock-v1-2-7d4c4682f182@aliel.fr>
-References: <20260923-fix-t7-thermal-clock-v1-0-7d4c4682f182@aliel.fr>
-In-Reply-To: <20260923-fix-t7-thermal-clock-v1-0-7d4c4682f182@aliel.fr>
-To: Guillaume La Roque <glaroque@baylibre.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Conor Dooley <conor.dooley@microchip.com>, linux-pm@vger.kernel.org, 
- linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2477;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=ioP7fZ0RSW6MezWCgPIvZyXQs7PdrAR6YY8F77TqFTw=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9bmvdVmCr+z0k/9klS7ePj31Q+N6fOTrqxxahfjiLd6z
- CiouOF3RykLgxgXg6yYIkv/XMsT7y4fPfN1j3oKzBxWJpAhDFycAjARTTmG/2UPshqv86sluNfm
- NPx5fC+CRbTpZEbBjPD/6tolEl5+fowME8602/lPYTFks0uYfMviZ/P6af1uT3ttrx89YvFBbNI
- yRgA=
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
+Content-Transfer-Encoding: 8bit
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Hi Alexandre,
 
-The t7-thermal variant now exposes two clocks (bus and core) in its
-devicetree binding, but the driver only knows how to get and manage
-a single struct clk. Using devm_clk_get() would silently ignore the
-second clock, so switch to devm_clk_bulk_get_all() and the matching
-clk_bulk_prepare_enable()/clk_bulk_disable_unprepare() calls. This
-lets the driver transparently handle however many clocks a given
-compatible declares, without needing per-variant clock-handling code,
-and keeps working for existing SoCs that only have one.
+Gentle ping on this fix, Antonio gave his Reviewed-by on Sep 8.
 
-Fixes: 18d65de8157c ("thermal/drivers/amlogic: Add support for secure monitor calibration readout")
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- drivers/thermal/amlogic_thermal.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+On current stm32-next the SMC watchdog still fails to probe on the
+STM32MP257F-DK:
 
-diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_thermal.c
-index a0b530624b60c..2e8d042067079 100644
---- a/drivers/thermal/amlogic_thermal.c
-+++ b/drivers/thermal/amlogic_thermal.c
-@@ -100,7 +100,8 @@ struct amlogic_thermal {
- 	const struct amlogic_thermal_data *data;
- 	struct regmap *regmap;
- 	struct regmap *sec_ao_map;
--	struct clk *clk;
-+	struct clk_bulk_data *clks;
-+	int num_clks;
- 	struct thermal_zone_device *tzd;
- 	u32 trim_info;
- 	struct meson_sm_firmware *sm_fw;
-@@ -142,7 +143,7 @@ static int amlogic_thermal_enable(struct amlogic_thermal *data)
- {
- 	int ret;
- 
--	ret = clk_prepare_enable(data->clk);
-+	ret = clk_bulk_prepare_enable(data->num_clks, data->clks);
- 	if (ret)
- 		return ret;
- 
-@@ -156,7 +157,7 @@ static void amlogic_thermal_disable(struct amlogic_thermal *data)
- {
- 	regmap_update_bits(data->regmap, TSENSOR_CFG_REG1,
- 			   TSENSOR_CFG_REG1_ENABLE, 0);
--	clk_disable_unprepare(data->clk);
-+	clk_bulk_disable_unprepare(data->num_clks, data->clks);
- }
- 
- static int amlogic_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
-@@ -323,9 +324,10 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
- 	if (IS_ERR(pdata->regmap))
- 		return PTR_ERR(pdata->regmap);
- 
--	pdata->clk = devm_clk_get(dev, NULL);
--	if (IS_ERR(pdata->clk))
--		return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get clock\n");
-+	ret = devm_clk_bulk_get_all(dev, &pdata->clks);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to get clocks\n");
-+	pdata->num_clks = ret;
- 
- 	if (pdata->data->use_sm)
- 		ret = amlogic_thermal_probe_sm(pdev, pdata);
+    arm_smc_wdt watchdog: probe with driver arm_smc_wdt failed with error -5
 
--- 
-2.49.0
+Could you take it for v7.4?
 
-
+Thanks,
+Mateusz
