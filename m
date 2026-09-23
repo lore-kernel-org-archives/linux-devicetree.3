@@ -1,221 +1,165 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11020142.outbound.protection.outlook.com [52.101.201.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626C457EDBE
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 20:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790196475; cv=none; b=ZNrMx5exaiNAYKdzL2hQfIkOMpIVm23shhVl5tpKsDttZrhMYGzYKy712V+GEM08KHhozxOR0h1s0bOEsBXShOCWFM16BiWstC9XsUjjk8wL20RV2k9/Zy76XtL6QbihrqnNqeJvpohNIF+/PKaLfCqKSg2wq2FMgb2msqj1BBs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790196475; c=relaxed/simple;
-	bh=sjLoecwDQJXaWVmzvGOQ+F7IRuyAd48CcawjSycmYoQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E+ke4rH8pJTEZBvheEEhf0pTwBeBA6/bMVZU1M5dfajYRi+LwjLrrn8Oa6ZUQb8DSWZni2oCqR6JLmU//A2ns/NOJNhZ09F3Ttruc4cFXNTj9LJglp47bkxEhwqFTyM+GspLY4Vm0LLp5rVD7KtB5JdgKf47JHf/nFJu/WixeGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=GdXWg9yK; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6C356E067;
+	Wed, 23 Sep 2026 20:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.142
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790196667; cv=fail; b=KjxE35GqzAmOyLKObmVioyF99RSjJ7nCPhzhUXaF+dolfmXlY4VH8mFaivfCD9i8Lxv96zLbTHH/5Y+6Dc8GqfnedT+CVCVqqrPPJBfZBqgUQGdwnUFGlg8NGRJTZdZZNox4VFxt/NjOifve2CkjB0R0yieOOZWFcRhvU+0K2vo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790196667; c=relaxed/simple;
+	bh=irM/a+9wZBPefeUtGt2BTB6HzQuwD+vPCBzxOoU2YDs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=X4kFqBtgNnbS1Hfm3BKtCAU2wOhiv6VqsN0Fc/huyASpLMQ8ObQVc8wARGsaSlBZDy0LptyAFMCYAF1IvFicw+VhpIZ1aTcQNGLFtRoRTUGixSnGGc0jc+rkSdmHOhHKR3zgyGdoZQVgu2rhSpy6jvrrX31nzEKRQ6jQQozLL68=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=R0UyrwZ3; arc=fail smtp.client-ip=52.101.201.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="GdXWg9yK"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so9521515e9.2
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:47:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790196469; x=1790801269; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kHpHp+F5tI4LZnE8xFoLfG2BiWUFVvoyvHapbJH+e74=;
-        b=GdXWg9yKY3WsQbWY+qukXrmughfq/vMpqLEGv80D9insKkvIJOoM1G+DNShWVo7s8D
-         5F6DeV55aqJguZEEJvm06neTVEf30HFQD0uL/OSSKJ3OPJE9BhJ2D6+j+Q7aozT1NEMg
-         o/5/n5I3ZKmwNdKxBC6alBBdg9eAQrHu0GhWZEZXQPccKcsIYEtzxRFgTPHz/iNCxcC7
-         dH0ajzmA/s6XNrxFr8qzfpdVM/f5g3e2pVV+kO3ytp1IB7NzeBk5+XZwD1Zpt5j6Dgqn
-         hFkNByafO6sKI8pEt01UBD0fFFPU5clXR51r7RfUUT0tcZsO+0L2xDJ6BI/tkxitg4hl
-         12jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790196469; x=1790801269;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kHpHp+F5tI4LZnE8xFoLfG2BiWUFVvoyvHapbJH+e74=;
-        b=RRbYWwQJ4FyyYH1eL7Yedw/Dvx7dLSgtNeQe31d2zLJoN/bLXP7vSWQ3l1z3h5ZA/n
-         9d7PfbvaBuLq6OJWmVwQ/ak50pO5czqzV/ZRyG+Qn/UtPkOdLKvs3mmRrz7v1gao5WqW
-         8WS+TOUmBuYuHY2NGX+Ihwjwg2zuap6p4qyYVRRV7af68rvwTUZi5Tbx+2qnqyOITuEM
-         xNxtwPvgYnarZt7p6lyAzbvHYiRp6P6cQi13JLSYzuTnw/H/lo8H8B6JcYb1RUvprbsR
-         eRPQ0WoBF8R1sm4gNxFJxZKHzFZotFeVVTZb+4/6Y70S9KQVgNW04sbagwTn49tyzzCT
-         zcXg==
-X-Forwarded-Encrypted: i=1; AKwUvBzoZuwrAf7P5u5Ao77wfzM92+dbXFG7t501dnMje90IQzybpX06cJlG56DJh1BWWpCSIsMwmRhtFh70@vger.kernel.org
-X-Gm-Message-State: AFuF++nGnyL1f3JR6pezoa+wVafuD/Nlb5l00sPFzgrXWD8bYhgDPfwC
-	HjVtdLUwWs5RNVV58PrTQs7XNtCFVsfQdeG2GE64ANV9Q9WSAq2VnoNzrntRCblHl7k=
-X-Gm-Gg: AYBFou2Z8ZU5OPNW5b1sxqlotwU1vo85VsTVnl7fvaSYrXFXqsnIiNAwAbeBDFIiP0s
-	j22xFPBR5FLeUXZ6fe7KbSLoSAUwvDbhIDH8nT3unW+wd4DqOfBoJzEjBOl6kSkkY1D7wCzUFmh
-	NASj21WEgIBkXKLQeIPVUJbond4g8+PtuznC1rP+9Da/umHQ01XbNYe4fd7Tg7F1GpR7g7RgZAB
-	iFZRd8Q42e3ATupk2ATdCFiDb3dJPUzVTkayro6odp8yq/F4mrYsp5hscQkiwVOykFRxbHvNEtk
-	dcNKeL7b3kdBAMSqCMdUM7vSdTB16KiOx75Swz9O8VUi2QALJsaa9TAZwGLJzLg7uGL09Ejg48d
-	3y7G9i4UHvFmpn2OgdN9Tlv7pGToIf7lURJb8cCzY8eoJxc9bUc7oXQ+jnf8qU5B81JcZjU3ijw
-	HJzYMSdnunMhr7OSsUxr0gdnx5ZAmbaZpR/n3wSEsrYxobe6+CeEkEdiBNtyrbuZqiPqcBWAANU
-	IisNmFRPpjgqOX8uw==
-X-Received: by 2002:a05:600c:1989:b0:49d:16df:8521 with SMTP id 5b1f17b1804b1-49fe66ab9d1mr6607445e9.4.1790196469631;
-        Wed, 23 Sep 2026 13:47:49 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5b44db6sm14839105e9.0.2026.09.23.13.47.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:47:49 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Wed, 23 Sep 2026 22:47:35 +0200
-Subject: [PATCH net-next v3 5/5] net: stmmac: sun55i: Add support for
- Allwinner A733 GMAC210
+	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="R0UyrwZ3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CL4Nepd+qLhBtqbr8PcKSeH8QQ7db+kQbM3xzN4wVZM+rPd1oKgXH3cC7MzFuNrFEWUeOqsLgCfeNolulPrjk3F8fNksfhtl24AEjJ/YQA7aDBR0kguGJvAUiEWEdqH4UM+si/TC+7BVF3nZo+Urs0xQseddcSYH640pluxUAOakyzI3M7g5JqyewFuUazhrVq0wgKXoHQ3NsgyuXpsHtEwvCr/2EXhXhjlJPFhyHELO0inTfzsh211QYQo7iwXqbbtliPCukhJYYEH/M0fijhHmedb+SWTy6AQi6Lz+eddoINJ8kr2Uz06/7HiusKl6lvdM2g+bc0OFcucGJ/qW9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RbYlQhT4Aq9TWP2c6LFyxCybJnqxPnaUrNzfPZdEuPc=;
+ b=GW7JCHOLdLUnL7pBW+MNjZgsObZSGPuEYgMj0N6ptmoSQkz5TyNSDEPPbkr42cFW7vzTy8al7mc4NKTuDeFh9nGMXd1UfUfCRM5vE5eX9nyh1rrRkzMaMeA0yf3Fc3QSw6uReAaQbeoInc74Rjkv+R2b8reYRAemUYz2eLjZBb8qZJXt4SCq7oVkTnu6bDKSZR0XuV+KyVoW3lZ+mySPA3jRc8auusuBYdM5I/rwhoGzd8MV1k1y4vDiFyQ/3+IDZKXVJ61bakOj3plx8qu+yue1YVLawrAQC9eZ0vvgCxkFgN8PfNlTZK2ISWB3i8o2bISODL6qBrFjHx3J1oaIsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
+ dkim=pass header.d=rambus.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RbYlQhT4Aq9TWP2c6LFyxCybJnqxPnaUrNzfPZdEuPc=;
+ b=R0UyrwZ3DXDke70gm/cAcKAOu/5JoSXw/jKwQB1peleaf+ZeK5P2dy60LGMgoPR1p4aOHO+0qMbVGZJ9inRhqTwdgL73RHqy5ocG7/cZmWINCUgYiEuRsHXNlmhT/s6U4deybvuc8qYp7HzO4L12loac9fXhZBQWi8BAcan6NvID9vLhsAZ5026zEgR10AXqKdWqshm3iPMFA930COfZvbFA57hjGzB9d8yEAhvz4KbYI+ljNf+7A/YRGKC+SEdZm0RrWfv/EkKX6q3q/fSyZjEw2+F75bVekyga7N8TyICQkhF3Fiapgkj2+8QgeQLRbj4uDnS8gLgdPy7UeqjNTQ==
+Received: from LV8PR04MB9006.namprd04.prod.outlook.com (2603:10b6:408:186::11)
+ by LV8PR04MB9241.namprd04.prod.outlook.com (2603:10b6:408:259::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 20:50:55 +0000
+Received: from LV8PR04MB9006.namprd04.prod.outlook.com
+ ([fe80::3e2f:2514:159c:85b2]) by LV8PR04MB9006.namprd04.prod.outlook.com
+ ([fe80::3e2f:2514:159c:85b2%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 20:50:55 +0000
+From: "Ousherovitch, Alex" <aousherovitch@rambus.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+CC: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Rob Herring
+	<robh@kernel.org>, "Krishnamoorthy, Saravanakrishnan"
+	<skrishnamoorthy@rambus.com>, Shuah Khan <shuah@kernel.org>, Alexandre Ghiti
+	<alex@ghiti.fr>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
+	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Shuah
+ Khan <skhan@linuxfoundation.org>, "Nguyen, Thi" <thin@rambus.com>
+Subject: RE: [PATCH v5 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
+Thread-Topic: [PATCH v5 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
+Thread-Index: AQHdRvg30t1+45dAjEm+KmT5OENVbLbbsCeAgAD8JwA=
+Date: Wed, 23 Sep 2026 20:50:55 +0000
+Message-ID:
+ <LV8PR04MB9006374FD8621EBF3C7E7F6CD7822@LV8PR04MB9006.namprd04.prod.outlook.com>
+References: <20260917225929.2494111-1-aousherovitch@rambus.com>
+ <20260917225929.2494111-5-aousherovitch@rambus.com>
+ <arNn_fjy4jamSitO@gondor.apana.org.au>
+In-Reply-To: <arNn_fjy4jamSitO@gondor.apana.org.au>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=rambus.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV8PR04MB9006:EE_|LV8PR04MB9241:EE_
+x-ms-office365-filtering-correlation-id: 3f8a87bf-f1d1-4ecd-2227-08df19b45d1f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|38070700021|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ hEJ2pw3lF5CpG9i9AXhEm8k6qFDlTehmxpCb7OUxnHjUyBwZmuyRywaZIOlt30BP8iAwXPNaxluzsPMra5qvW21p+Hp/NolPU00gF4QNuRWBTeweOCQ8UbikEWL92lWF3CfUh9w6kq2EefQZeiw6exjtRU7GlGchWo9UUCPoGTGx2LGNKp6hXEK80LlNSh2Xc0Jepa9L6jSKilRMZOLkjZIRXG1u2vxCVB4Q5gRyVKc5DNbnE9Kk2kVCZF5pNfOnJp6hERrXvwaHTV1X6xBSADDXyvLJrBR4KgdY6onkQliBKH+qCxONvGnCjKABlCHumKTQOrjp46XOCNaTKChtNIRw4RG0FDOUNNQXSMN3a5+qPvkWGUzGOOJNv4pOkSS+HBUD0+VVUqsEmZmBGb6Q3H0vRyixeoAPj6woL7f96DxLhlz25TLAlWXVQksM55nL9E60Gtm0g+R7yfM0r0Bu0pjolDPVK+8IUudZSvoni8CVxpsTVlAUuytRkmUR3qCmE5qo/kRUDrxiHkcyEsBt2L+uKmKh5P5AhCd7ht6luN+Ers7pyLOFv7oQFJ4poZVxYxW29Es7NVp8CIgyBf/MVueBazBhIu8+g+U8fS1QwbiXroQrYxo9m4FPABfbNTS+gufDLvPn1dxHyDiwsYyOkWEKhyL8m//cgIoqCjw2l1gGFvIUBRTNGRLXEsk9vpby6q2O26uIRjahdJ1sRSEEZznjAV3EYdNifvyzhVAVa5g=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR04MB9006.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(38070700021)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?JOkNtSddroB9sKuxWMQXu6MySCvAQ2aDINDQDIoNVt5DcDV16vfYYNHtAKhV?=
+ =?us-ascii?Q?1yYCkHbF3sAvU/Po8kZA+dgkyjpwJLu4Dtun4mQpmTbUI7A3cgo1ogtRvtMd?=
+ =?us-ascii?Q?qrp1H/jaftF4OBL9vCnfGz2luwmqCaOmnQE9i0lnUcK0x8ehF5C6Yvk5d4ni?=
+ =?us-ascii?Q?8iYtaaEOQlvTFui4H1aYNUVYRnLalckiYVC4q6xFqypBLyUriCu8kmb0HasQ?=
+ =?us-ascii?Q?2VOI+NSbfZJ9Q0J3NjmeV6D6UvkWTGxJ61cbWTrC8N12AXqcCAdc8Tj/UHFj?=
+ =?us-ascii?Q?zcu338yNU+YoRI/g+itg7IIAh7Xw6MaVNeHsAeemjaVOLKBI3hEQlV3S+1F/?=
+ =?us-ascii?Q?0DdrcgHynEsWT/U0Z5noUBTrl3MwJNLg/VkWWyXs6vQefiWH9G6Nmh3bw+SO?=
+ =?us-ascii?Q?WbeUCoDtBDmVXcTOvIRJSs/gBma6c9znkIqsiXIns8LrYhVa8cuewbb2gLjX?=
+ =?us-ascii?Q?LiF6INCP/nksKWY4NjaHSTWw+8NGtYQ7c71lbJU5wlhjsokECWIp6J3220Kj?=
+ =?us-ascii?Q?pn96ab2Ut4epcpPeFQ1zdAxcq1WH4/xV+h2LZ+LN+uCmFen+2Pz73YjwB9Tg?=
+ =?us-ascii?Q?izCLEc9/7NOVBPqiQ61MXtlTPPoiOqTHsrYA9dBuRvC9yQ6rFvkcpddaJbyi?=
+ =?us-ascii?Q?MZWIgdwPwW0RC9zDQQY31IlS1qA/EbWvldMwJMrifTMPDVLuwvrLkFsSpWfc?=
+ =?us-ascii?Q?UiHWBehiJm2HHEC16lm88LHAsLBp3i1ddrHRLUVzqJpDyvWYbVpjN51HbxZM?=
+ =?us-ascii?Q?3Uyi7kmCTC/D5GKbKxbjDmQMeutVKk2cL39mO1bQPYGsolVMO+zweQHlIsVd?=
+ =?us-ascii?Q?0neijWscnECtmm/g5Cu930URsBO/ogrbOTjlNWFVS1lxqh/3gOnVkYBhmo/g?=
+ =?us-ascii?Q?Ca4jSdnYKUB+tXbLBg7VrgipZBA2KRUSDI/VNl8ReVq1qkrC0ZhTUYB7V+x/?=
+ =?us-ascii?Q?PPTA48GiKA46dJhRNY94IfW2Zt7g4Oo1+oK78AncYuZak3Uw849AMjUJ9kr+?=
+ =?us-ascii?Q?i1SY8lNqKKygPKfKW5uNalmvTBTSiMWBNP/koQAVjoLs6mv5iRdC09pcJfm4?=
+ =?us-ascii?Q?h3TPIRRs7s5i3gjYOwG0kiQatYmarGi5erkLP1HW2ZbWSNzFm8O3u2ZePtgG?=
+ =?us-ascii?Q?4kg5888CjxI0NL/r5XT7jHjx+8C31hFVoGMNrs8nXlpxjnRy1oufeqIs+5ll?=
+ =?us-ascii?Q?PDl1mjK4uRcEQDa77P1g0tFw4dCW39WEpv9qBeiCpYxBlO+sByyY8HCHICDi?=
+ =?us-ascii?Q?DAvZT2KFPjMSsqXoI0v0HQcPICFmMILL/Eas6Y8SAs1v7gtlYqDy8d4uJCLD?=
+ =?us-ascii?Q?MfzUFo8B6vIwZ/V3YfnREx8V6jpUrtye7riZiFSAuzWNBbZjtZUsSXmYefdD?=
+ =?us-ascii?Q?MnXIIRJvy1/+g+l3v86dbKcRHZ3YfelWD1nCGAeS8xNxxdNzq7pwwF7UXNqH?=
+ =?us-ascii?Q?Gd8u2Xl0gCe5x0QkG6pKLAh3b3c0p6jM4OQWbw/T7EKfBCooVU4+0cbSfK4H?=
+ =?us-ascii?Q?vsV405Ixw380fpzLL+vK7d/CxFRxoJ4SYvI1gFjF7+Vrxo1jPeC0c+xxQycU?=
+ =?us-ascii?Q?huaWXCEbQEzqYD9gfCyDkMeBE3yGbWM+BCoC7+S2bI6P8gyF1N8aPuU9YT6y?=
+ =?us-ascii?Q?0q6z757jzSroXd7swG0U9rNsN/4qAfSWhQAHzIwXNx1hdRYcIsyi+1LB3abw?=
+ =?us-ascii?Q?2BCD+hPlCITPF3V18Ei6B3r2mA4/L3chD9Mzf3EtkL8cxg53MKDV5DyNBA1s?=
+ =?us-ascii?Q?z3i9Z8fjQQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-allwinner-a733-gmac-support-v3-5-15735155a789@baylibre.com>
-References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
-In-Reply-To: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Maxime Ripard <mripard@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- Andre Przywara <andre.przywara@arm.com>, 
- Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4132; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=sjLoecwDQJXaWVmzvGOQ+F7IRuyAd48CcawjSycmYoQ=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlbrN669B39qPeAbW7OgdsplxQT71j87Zx16uqMiimtn
- Lp1lh6lHaUsDGJcDLJiiiw13NXi7yS1vsyarnMbZg4rE8gQBi5OAZiIihkjwyb31d8uyoQbH75s
- 9sfsjf4n69Uei5jkzL5psmk98r3+tIrhv7f6q8R7G+4cYbbpqebm5Ntqsd2bf3uH2dmQ2SHdm9s
- c+AA=
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+X-OriginatorOrg: rambus.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR04MB9006.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f8a87bf-f1d1-4ecd-2227-08df19b45d1f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 20:50:55.6655
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EBPMC5B0wd+HyIGhH4S694BMr424WdIYZvJqDfPtsDRugB/joEzQBxj4NzCXWBEBNUJRmeFqznZV/3nR8FrMxo6FRdI7xOqUydnVO4/IY4Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR04MB9241
 
-The A733 GMAC210 is a DesignWare MAC 5.20 using an Allwinner glue close to
-the A523 GMAC200 already supported by this driver, with the following
-differences to handle:
+On Wed, Sep 23, 2026 at 03:47:41PM +1000, Herbert Xu wrote:
+> Why did you set the NO_FALLBACK flag? This is only meant to be used
+> by very specific cases such as s390.
 
-* The glue configuration registers are a dedicated MMIO region of the
-  controller instead of a syscon register. This region is in the AHB
-  reset domain, so the glue driver releases the shared AHB reset before
-  writing the configuration.
-* The TX clock delay value is 5 bits wide, split over 2 register fields.
-  Both TX and RX delays use a 180ps step.
-* The DMA channels have their own interrupt lines, so the per-DMA-channel
-  interrupt mode is enabled, as the vendor SDK does.
-* TX LPI clock gating is supported, as the vendor SDK indicates. Follow
-  the PHY capability with STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP rather than
-  forcing it on with the deprecated 'snps,en-tx-lpi-clockgating' DT
-  property.
+Being async, these algs get NEED_FALLBACK forced by ahash_prepare_alg()
+unless NO_FALLBACK is set, so crypto_ahash_init_tfm() tries to allocate a
+same-name synchronous REQ_VIRT provider -- which doesn't work here:
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c | 53 +++++++++++++++++++++-
- 1 file changed, 52 insertions(+), 1 deletion(-)
+- shake128/256, cshake, kmac and poly1305 have no matching provider
+  registered in this tree, so the allocation fails and the transform can't
+  be created at all. NO_FALLBACK is required to instantiate them.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-index 49abbb248b61..675b83cd52c8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-@@ -19,6 +19,7 @@
- #include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/reset.h>
- #include <linux/stmmac.h>
- 
- #include "stmmac.h"
-@@ -65,6 +66,41 @@ static int sun55i_gmac200_init_resources(struct platform_device *pdev,
- 	return 0;
- }
- 
-+static const struct regmap_config sun60i_a733_regmap_cfg = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+};
-+
-+static int sun60i_gmac210_init_resources(struct platform_device *pdev,
-+					 struct sun55i_gmac *gmac)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct reset_control *ahb_reset;
-+	void __iomem *base;
-+
-+	/*
-+	 * Get the configuration region out of reset before changing it.
-+	 * stmmac core holds the same shared reset but only deasserts it later.
-+	 */
-+	ahb_reset = devm_reset_control_get_shared_deasserted(dev, "ahb");
-+	if (IS_ERR(ahb_reset))
-+		return dev_err_probe(dev, PTR_ERR(ahb_reset),
-+				     "Failed to get ahb reset\n");
-+
-+	base = devm_platform_ioremap_resource(pdev, 1);
-+	if (IS_ERR(base))
-+		return dev_err_probe(dev, PTR_ERR(base),
-+				     "Unable to get config memory region\n");
-+
-+	gmac->regmap = devm_regmap_init_mmio(dev, base, &sun60i_a733_regmap_cfg);
-+	if (IS_ERR(gmac->regmap))
-+		return dev_err_probe(dev, PTR_ERR(gmac->regmap),
-+				     "Unable to get regmap for config memory region\n");
-+
-+	return 0;
-+}
-+
- static int sun55i_gmac200_validate_delay(struct device *dev, const char *dir,
- 					 u32 *val, u32 step, u32 max)
- {
-@@ -132,9 +168,11 @@ static int sun55i_gmac200_setup(struct device *dev,
- 				     phy_modes(plat->phy_interface));
- 	}
- 
-+	/* The dwmac will sample this when stmmaceth reset is deasserted */
- 	ret = regmap_write(gmac->regmap, gmac->data->offset, reg);
- 	if (ret < 0)
--		return dev_err_probe(dev, ret, "Failed to write to syscon\n");
-+		return dev_err_probe(dev, ret,
-+				     "Failed to write glue configuration\n");
- 
- 	return 0;
- }
-@@ -202,9 +240,22 @@ static const struct sun55i_gmac_data sun55i_a523_gmac200_data = {
- 	.rxdly_step_ps = 100,
- };
- 
-+static const struct sun55i_gmac_data sun60i_a733_gmac210_data = {
-+	.init_resources = sun60i_gmac210_init_resources,
-+	.flags = (STMMAC_FLAG_SPH_DISABLE |
-+		  STMMAC_FLAG_MULTI_MSI_EN |
-+		  STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP),
-+	.offset = 0x0,
-+	.etxdc_ext_mask = GENMASK(17, 16),
-+	.txdly_step_ps = 180,
-+	.rxdly_step_ps = 180,
-+};
-+
- static const struct of_device_id sun55i_gmac200_match[] = {
- 	{ .compatible = "allwinner,sun55i-a523-gmac200",
- 	  .data = &sun55i_a523_gmac200_data },
-+	{ .compatible = "allwinner,sun60i-a733-gmac210",
-+	  .data = &sun60i_a733_gmac210_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, sun55i_gmac200_match);
+- sha2, sha3 and sm3 do have a software provider, so the transform loads,
+  but the auto-fallback can't stand in for the hardware on the streaming
+  path: our exported state is the opaque HW save/restore checkpoint, not
+  the canonical state, so a multi-part export/import round-trip through the
+  fallback misinterprets it (and for SHA-2/SHA-3 the statesize exceeds
+  HASH_MAX_STATESIZE, so ahash_do_req_chain() returns -ENOSYS). A one-shot
+  digest could still use the software provider, but a fallback that only
+  covers one-shot and corrupts streaming isn't usable.
 
--- 
-2.53.0
+Same flag as s390, same underlying reason -- no generic transform can stand
+in for the hardware -- though the obstruction differs: protected keys
+there, opaque (and for SHA-2/SHA-3 oversized) HW state here.
 
+Thanks,
+Alex
