@@ -1,71 +1,72 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2D2372ED3
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 297E0443AB8
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:43:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156536; cv=none; b=m8DOVPmJBM4Q9/eOe+IT1Zy+KFMSBfGt0Tnj1xMEs3xuh1XiwSdbz4KK6NYnNvwAWnc5iwfgauHoBS6cDKuIrMWovqnuO3F40Pj4xbME15VOQz7axRkPW0ivHqTI0KC+Y6zA1BNiQitS0oQzACp0iF1hQICHO9rC/PriIcdh5+k=
+	t=1790156591; cv=none; b=dBQBZsFLoHyni9gq3a8U9nrlkpGElIoOS6OV1fGj27rYcWPkyMcrPRFxNaw798B21A+EWWapWizL5bGtPb98CTIy3Z/xRRHYWqP1p63BZtmxlmm6HIiJXWQpKVrNm28N+sbVo6n8w/Acc8/o2c/6QY6vmpitiVKXKoumnuCml2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156536; c=relaxed/simple;
-	bh=BujUuQDfVekCTjQYxnZ274Y/mBqoA8yucwSuWPHk9zQ=;
+	s=arc-20240116; t=1790156591; c=relaxed/simple;
+	bh=kXRIYiD+xenQqUzM6yr57E7e+H4wDyAglPgjREDARWw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HXGo1TnQEKCk8HO7/tIHg8GCKSAFWBjKG4ccvTPkSaZE0p2DHULqHvfRY0SSjmbdfb1OkXRRSviU8fZ91a43U4eUfxL2usdqJ8J/Ylm1d4Tze5X17/upkHGIwfDfZBwLzYWhUhbHvSgCtUU21lJvcN5gi8OiiHu6LPGpPboIyyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+	 To:Cc:Content-Type; b=D1XRor8ODSipR32Ze17/84VoS7nsAETFMjt98Idi1MesAwOxex4qKTcdSn/3mWf3AcrnHPLvcRqvuqgHsv5d1EVVCUHlyriML/vHGLqSjHznGjpxwMnPhOc6bXjR9+AI6AOXVcllCKVLekaoac5avkGyQCFt6jUpGZ2HTBTD04M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e2ff27eso658546e0c.0
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:42:14 -0700 (PDT)
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97eaa1155fdso228645241.2
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:43:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790156534; x=1790761334;
+        d=1e100.net; s=20260707; t=1790156588; x=1790761388;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=ki/L6uAzwSlL4d976xkfrPadyRlvh6KDNvRFETqhN1o=;
-        b=Wlz5bYYxzGxaGZ5Mvyd8aZaq66GG/FRx0wuioroA808uxseE+8PrpcVvBICH4P48cs
-         VxeFszAzqBZ/FUi0/OsUZBxdjhsK9g76cqhZQier9lCVzqdemlfsgBuXH23l9d/A5Rpd
-         wtgQK2D4SaAWLdN/9WWnQMy4Q0xGAEV2TBtuxy2MAADZlJjwLdq9Q2U3WIKc82BUbA1l
-         BdWF6j8vgKWklyZja5teJ8UrYx+j2Ys3LZY82bBpddlHdSa06nLGdKKJkmyCTZLOGUKo
-         ONCA22wlQ8E9Ez7eD+6KD4cuassKNLBouvU6BLzQ/VsO86Vjd60Fp+tvv6m8MN62RtI/
-         ZANA==
-X-Forwarded-Encrypted: i=1; AKwUvByVyfoeC2cTwIkfP02IrjFMcu7mZXToHuXu3eR0O1QyAbvcm53ZnaIumhrE0gSIojAmer92cheNmSOn@vger.kernel.org
-X-Gm-Message-State: AFuF++nxxCGn+sFP+AIAWEClo8sykdzAIEppHlotfNwxzYaHEm47fstV
-	gBjPc0XbgFdQiFyHwzAy2BwLq/T4RWE9QJncmxnoevN5NHHih+EdphQaPYJ7pzPgZYQ=
-X-Gm-Gg: AYBFou0ck3ehI9kWvQD71igJlxjW/NgRQYdIhp49bv5c/EXySvRVgGRymdlRlskBepA
-	W6ty1EtHnKryvIWzyMvfc9h+0B8koHayyElOygwwBiDE+5cGh/D4trtPlHNXnxi4C0mjG3dnogz
-	sOfp8NUmiJQsSXMSFN/5o/5aZdHlNH322r3331CnGOaVgIlFqTisc+mCDReM26CMKUVWiKpXCV8
-	aem963hQ4qlTXen42tdcOQLCGQF5rhdjZkbtYfpPX58RoN2JvZy9Qk0c+O7QseA5d2IU6w/v9LN
-	HmZQAghkFTzRFwq9EFd9Hck3Xop8BrcTmBdhUJBXFK5BK7cymiBPB7kqxYfLbcfE8l93aY1se23
-	rVcX2j3THMdjDJR91gKoG+9LROoqS6/Ia7TPy39SUNgPFrC1ZCPrbXbLkY1Hrd7BZJS3M6sDVd9
-	bzXOUD7yI6UWPzLAyi6gStlq/aebZcJV75MCMb51vIncqYP+3d5xb7efDko7rkDN7U97sJZTh2j
-	qelBw61A2MK/VwL9yl4pbJfxWUsQbahzXLO3A==
-X-Received: by 2002:a05:6122:5018:b0:5c9:a60b:e5a1 with SMTP id 71dfb90a1353d-5c9f1659116mr2084855e0c.12.1790156533730;
-        Wed, 23 Sep 2026 02:42:13 -0700 (PDT)
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f0582b6bsm2612722e0c.18.2026.09.23.02.42.13
+        bh=SiQX30aX3aRyR4XyZV6+3F+T8bea/FfKCnzec63MSFM=;
+        b=fdyWy9otbeDbdXZ5/nlrHVkh3iG2dF5scoqiao5FfqztICqewFpHYerZ+llqNRKrU3
+         Cf2K6qkOTBcQahe7cafkRu4lzOPF6b+s37oAiFYGo80y4jPleT9YdcOFXccoQwNv+31m
+         ChHgwEdUg6nhBK7FuWOI5hPRWbwM+Jf2uQu1EeGDYm0u61UK+Gw2fEINXgI8a9VfZlbf
+         JX1wRniNk4hQ3SicZVI+m927yQmeZIEwy1PMgzYM0duDgLq0M3/oXGNMvmJ8bivA6fki
+         uCg3vohRS2IHmjg+aJiEIomMU6A5/TCCAE32nkZZTEw/lDoHkfS8W5FiZyBLu3kH0nBt
+         4eVQ==
+X-Forwarded-Encrypted: i=1; AKwUvByYQWInBCluSoh+DEwK8sqV4p11XQOjsbCifaTV3A1GHKraYdVhOb9x+j9cd4Ysou/YfBNn0pj4ZpgT@vger.kernel.org
+X-Gm-Message-State: AFuF++lqsi5FiH9zYh/x+zGRmZTeRER3JfkPVLaB6w23UpDAcYlPpzxn
+	SB1ZnTcTNCZzILXaFfIk0asQl8jUxw7qOkPW17vNnNn5BFWSKjOiOEF6i33QAik6EOQ=
+X-Gm-Gg: AYBFou1Me2dox9XXGkEeu0khabIVu2GBqbj81FAmwyJOxCLBX9quzkdBsCd5tk6GK5n
+	iJEXoJU3phxKuiLYnD9DZioKl0jQP/5+s1mcvyNkjSzEwKVPnJCmSB1BLQvQj2eybHvienA2u1Y
+	DhBKni5XrbBXQ9YPqL+KkDjTPYK4yq7yir+4xxSdsC3LUVZSmCGCEckg8h35zT1E4htkv8OAIU4
+	OVsx34pXSwdPrQsVzA9JUKhWJicdRuH8nJCtB+0brVJunK/9NoRaUsBo7myENTAiI/WAi9B4mWT
+	WjQlxGWW5s7watnjhNZyMkxFVXFIxr1OLsdzOEaGHIr7QrPZGMUcOTk/g5y0nMWupl96MnfwXPu
+	bcIAFUnRqw7hYm1fnVN55YAyr7Lo7yZCeJYTTTE4Tvt0xgQJoNhehCwU3jrOH78sm5lF7uvmCMo
+	VhgypPiRt3S7ntATDYtJE6GY3wdYckKxmlX+o2iKLMDLAtZoZC2j6F4/QQenbPC0/GH+DgPARSn
+	2pO/uha0heDsPJU1eGHqNwRf+l+NVkURzrV
+X-Received: by 2002:a05:6102:3e8a:b0:7ab:f00e:8d59 with SMTP id ada2fe7eead31-7ac1ceb1b8dmr1732087137.17.1790156587882;
+        Wed, 23 Sep 2026 02:43:07 -0700 (PDT)
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com. [74.125.227.41])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf35bcb07sm2968909137.2.2026.09.23.02.43.07
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 02:42:13 -0700 (PDT)
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-982dd15d169so385425241.2
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:42:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByvSJTmrOidvNRE0pfaS593yycACtviZO0ycbnDVK3srJrAA2BTjSTc9iqGs/3qcZuCqCZmjdAFxzNN@vger.kernel.org
-X-Received: by 2002:a05:6102:26c5:b0:7a5:2427:ecc1 with SMTP id
- ada2fe7eead31-7ac1c998ff2mr1923273137.19.1790156533341; Wed, 23 Sep 2026
- 02:42:13 -0700 (PDT)
+        Wed, 23 Sep 2026 02:43:07 -0700 (PDT)
+Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c7f7cc52efso323713e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:43:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzhTuhffk67msuWSheQyC0yclka+IN07DkdxCEvKWSmEQrmHYMV3pic4+uRfy8D0+CEfhwhSr6RnY3+@vger.kernel.org
+X-Received: by 2002:a05:6102:162a:b0:7a5:d652:2e3c with SMTP id
+ ada2fe7eead31-7ac1b41557dmr1905945137.9.1790156586853; Wed, 23 Sep 2026
+ 02:43:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790005703.git.tommaso.merciai.xr@bp.renesas.com> <d281677b5759f15ced1f59fdcb3eb7ca29c72dd5.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <d281677b5759f15ced1f59fdcb3eb7ca29c72dd5.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
+References: <cover.1790005703.git.tommaso.merciai.xr@bp.renesas.com> <540fcb8ccfe7efd15844823c030f393efb536076.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <540fcb8ccfe7efd15844823c030f393efb536076.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 11:42:01 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXjaTJfe7P3+w7P40K0evj4SvdKtTS-QLqK7Rhd8c=3-A@mail.gmail.com>
-X-Gm-Features: AclHuK9FXFIal8yiY-Qs9cVDiOssigpeQqL3VZL-ls6OCUB1RtSj6-ENt-hknTI
-Message-ID: <CAMuHMdXjaTJfe7P3+w7P40K0evj4SvdKtTS-QLqK7Rhd8c=3-A@mail.gmail.com>
-Subject: Re: [PATCH v4 2/3] arm64: dts: renesas: r9a09g047: Add USB2.0 support
+Date: Wed, 23 Sep 2026 11:42:55 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWFUM7xVNOfEhCN08UgdgEu7ZAnkR8GDGgT4d-wg5TpJw@mail.gmail.com>
+X-Gm-Features: AclHuK-GoN-PXrLEwtbZvvcfh_d25jq7EgJX0WCMepbHIeyPLfj-FzR3-jNoD1U
+Message-ID: <CAMuHMdWFUM7xVNOfEhCN08UgdgEu7ZAnkR8GDGgT4d-wg5TpJw@mail.gmail.com>
+Subject: Re: [PATCH v4 3/3] arm64: dts: renesas: r9a09g047e57-smarc: Enable
+ USB2.0 support
 To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
 	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
@@ -76,25 +77,22 @@ Content-Type: text/plain; charset="UTF-8"
 
 On Tue, 22 Sept 2026 at 00:27, Tommaso Merciai
 <tommaso.merciai.xr@bp.renesas.com> wrote:
-> The Renesas RZ/G3E ("R9A09G047") SoC supports 1x channel with OTG/DRD
-> and 1x channel with host interface.
+> Enable USB2.0 support on the RZ/G3E EVK board. The USB1B_1A_HOST and
+> USB5_4_HOST connectors support host operation only, while USB0_OTG
+> supports both host and peripheral operation.
 >
-> Add the EHCI, OHCI, USB2.0 PHY and reset control nodes for USB2.0 channels
-> in R9A09G047 SoC DTSI.
+> renesas-smarc2.dtsi is shared by all boards based on the RZ SMARC
+> Carrier II Board. USB2.0 is not yet supported on the RZ/G3L SMARC
+> EVK, so disable the common USB2.0 nodes in its board DTS until proper
+> support is added.
 >
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> ---
+> v3->v4:
+>  - Drop usb21_pins.
 
-> --- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-> @@ -1773,6 +1773,130 @@ usb3_phy: usb-phy@15870000 {
->                         status = "disabled";
->                 };
->
-> +               ohci0: usb@15800000 {
-
-Moving up to preserve sort order while queuing in renesas-devel
-for v7.4.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4.
 
 Gr{oetje,eeting}s,
 
