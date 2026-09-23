@@ -1,169 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E17271443;
-	Wed, 23 Sep 2026 15:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058CD285CBA
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 15:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176205; cv=none; b=R3VS73qUjdVOUZOEq/XPc6uQZKehQNnIaTiKAPWGVKyDvEE3hl8FoQqdBP+zF6DgbV35VUW6SRLpoPeCCF0+pTet/dBHrB9Dyb1WpP7V94c0fC5SvngQHjYyJXPn+n6Dgushn+8lUwLwCbunndM3LLrqtBTEU7pv1ndyH7VFavI=
+	t=1790176230; cv=none; b=ebZt3+o4LszmWev7/1vZ2o7dP4X0c9ZVJNGxziTi4JcbfHLs4Wa3tIpmf1zgCgboEJaUuT8Gg858yFFSPkNQgaQGjxRQpy4wWmtn70eSbEfF7WB4E1geqDeoBOVLgm7S3wyEjImYjosz2TNoIbUHxneNoCFMrHpZY29LGg+aMck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176205; c=relaxed/simple;
-	bh=ZsCiCgubVfsHQuLEBzKfRq8LU4r2cNza4kmPyv0Ar34=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eWYQ1eJOqAm7JqjbaOwFU0G0XpEyfO9X5Q22TRtlERn0KwcizAGZY/zEJJxr/6HnLRWGfF6kVM/1esjRvA/Tu9yGIsWmG9weniV2Ec26yz+SsNQuUAw3L4Ugr1ql4BN/8yAmD0toQalX6iEODizHoxQQEklk42SjXjvey6bBuc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9k+J1Xv; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9k+J1Xv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F41101F00898;
-	Wed, 23 Sep 2026 15:09:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790176203;
-	bh=4tUYPNtyNh01xCJ2PLgysU7v0U9kxuU1XJhtJwMfEio=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=A9k+J1Xv8H8FlYMbCo5VEee282+QP0qM1mxPpKCknxblZba3vik10szV2Grl23HTF
-	 OdhkfcRQhNcFuksIR073l7cXQs4kpB7X1qLbpYCwRbNmIWM9sxWl7Z2M2i5sR5/xc6
-	 VlxeK+yTWZ5D9aHtmwk2TvDkw72If4pGYi5TjFz/86tLcnf7cVcx9tK2Xml/jmlYUb
-	 nXbGKtqEwSAT/JuuCAT7PpIRv0RrHdbNgOCBhQwgAn2wJkd7slhonzJLo7MLfL/L41
-	 AHWGPU7pjxW/DUxdkyGj8W8oE07LvQ9J7aGlXtGzBkE4/L0M6uOwRmDqRbAgTWCvvg
-	 Z8xvUoLdf0GXQ==
-Message-ID: <1857df9a-8952-426e-988b-cd05d45a04cc@kernel.org>
-Date: Wed, 23 Sep 2026 17:09:57 +0200
+	s=arc-20240116; t=1790176230; c=relaxed/simple;
+	bh=EhjWSKImZwoAXYfqAyTmCpINsx0oSO9M/RawkNvcdAI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U68GD16QmAfJ2moba/HXn2/XHPJEq3GVMRIgB/v5I08PPpZ54qBqIh70Cx53/x7wZyOCzitkf9LL8wSguMNu8DrWVUDse26Mq+G//pO2sOXn3h9p7L5ESoD9ljBeAi0KUTvx9TtB/7cGoWTlDJNwz0TdaQqrVDUfb6TxqJrTqbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c7f7cc52efso451987e0c.3
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 08:10:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790176228; x=1790781028;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sDvgyyoRqIDDfI9/dyDxtj/9kppA0KcEIyfQ/4/NmrM=;
+        b=iOeMx0YNCNecamdmtkvlzEARwRZlVb6Ibed21MJBlstionneuoxQ+Fs48YGbksUNNJ
+         C0s4i865sHwTNQKrtmL51WLg/7pKGjdbxkwYEyn7q6NlCT6DpMFlxs/8YWqCEzvhoOZP
+         uVJcehlgzRjV48euaw0chyuIqZYTM9g0EzJdX6nQMCHcDHU/qWYISeX5M9W4PX9gEXoo
+         TK1JEGjnjoHJ+HoYAFdel4gQ4ag1ztLfNJdihldKDwSf+L4cqzJ4UsIK8DcB+v1RFmsq
+         8cl1eTvU4j9eUlSHEwFFesP7VnsNnRjRr8MP1K325j/ZRZQ/ILv6Mt/kaGwkcqLPFbcV
+         dJgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxDht+FrupzavAuYd7pTvuuYwIBH/KeGJs5eYjbyyGG6wc3Wht7C26t19P77ItNdZeM8xMMzH0aLZja@vger.kernel.org
+X-Gm-Message-State: AFuF++le7Iy+VkmTWGgLGzhyZfQBnKjC1yo56XeKAevfStTCAHBU5O2N
+	GNFetrOnJPDyzXsXlu0FbVAJ7Rw9UG/htiegbVxvojBDwJmfVxSO8JsuxeFMTcr2tAc=
+X-Gm-Gg: AYBFou0m5RcRadKaSFrCpnpf2uRV8p3SiTfIrWtOIOyM1C29ln0xJGVJXBa3o1URgbe
+	K/A9RwJxXK0NLEOMMqGSoqtfSDObBwRu3i7yeKNK3oxbD3dKLRYpQtzRBIKXqmFLly0dRWgLjXR
+	1oZXqEa6nZJHo5bUqIhfzQ6P0XQscqikP8XK8nTs2s7qj2L+/6CBZE3VvS/AyJKlUuc/Er5CMtn
+	upuSP6sqb+Eb4mk5slDF+9mMUMz7t1F4z3f6QVXvduC8DrWF8h6OTpW0nDJRbw0lQbHA0bNm9Xb
+	7CP0HRiUyDyBfKwezzAifCZREBhvB4nah09uBRm/vHZgCV9PI0pMvwiMSOUjDBxb2G3crwPTsba
+	qjslsxqfwGQQHvFiESyZyai10SS5Jl0ZEYfFBWTf6+YrzN2P2P9nKYt0jLV/EneGDGsoAfO1ZwK
+	DSCbmqJmuhc+/yMqqiIvHXWKjqzVkD7/bUu6VLDFVkWuVvrIufTvLpIstH5wsjpr+zFdbBGwErH
+	QI/7B+Oyc+vLlbO394oxvTfHySr8ohDw3Nb
+X-Received: by 2002:a05:6122:32d0:b0:5c9:a60b:e5bf with SMTP id 71dfb90a1353d-5c9f165e93bmr3491238e0c.15.1790176227650;
+        Wed, 23 Sep 2026 08:10:27 -0700 (PDT)
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com. [74.125.227.43])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f0537ec5sm3313979e0c.12.2026.09.23.08.10.27
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 08:10:27 -0700 (PDT)
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-79028ca9371so403066137.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 08:10:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx2s7dRFu0E0XhK+pRo7aLrQMrUXzzkLLCvoFVBxSoIC/6s2SP+tJov8kypi2pRP7+OylJYmgjVeaHO@vger.kernel.org
+X-Received: by 2002:a05:6102:26d3:b0:7a6:accf:72c1 with SMTP id
+ ada2fe7eead31-7ac17ff1a5cmr2593444137.0.1790176226764; Wed, 23 Sep 2026
+ 08:10:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] fpga: region: Add support for FPGA region variants
-To: Marco Pagani <marco.pagani@linux.dev>, Xu Yilun <yilun.xu@linux.intel.com>
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
- Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <417b510f-0f6d-4695-97f5-3fc19b9377b9@linux.dev>
- <amCn8UYdybT+RRnq@yilunxu-OptiPlex-7050>
- <9d4af487-69a7-4a0d-9335-35c3a057de54@linux.dev>
- <anBfAa4LpjbmYHIc@yilunxu-OptiPlex-7050>
- <db7cfe9e-b2ba-4323-bff9-44598e1f70bb@linux.dev>
- <anl8891cH+bUfsGY@yilunxu-OptiPlex-7050>
- <4dbdb52e-1b28-432e-a3a7-ad9c44f17d27@linux.dev>
- <aoJ6paA/8ndpJ17y@yilunxu-OptiPlex-7050>
- <8848432d-45b0-4efe-adf3-adfb64fe0899@linux.dev>
- <11b1a792-f8b1-4fce-8a7a-8352149febcf@linux.dev>
- <aq12s+hUVnnvCKmZ@yilunxu-OptiPlex-7050>
- <2adefc6f-328c-4683-8cba-091d9f3425ab@linux.dev>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <2adefc6f-328c-4683-8cba-091d9f3425ab@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-9-94c4674927e8@solid-run.com>
+In-Reply-To: <20260904-rzg2-sr-boards-v8-9-94c4674927e8@solid-run.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 17:10:15 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVQ47vaVRKRGvwSY1Sy5B9VADC6YOJ7XMt9ruPZdd+hrg@mail.gmail.com>
+X-Gm-Features: AclHuK9nr5QPs8sC-PMKUOwR3cdMhCa7cZVvTQqDSW5Li8NuNQleAMbNnooakSU
+Message-ID: <CAMuHMdVQ47vaVRKRGvwSY1Sy5B9VADC6YOJ7XMt9ruPZdd+hrg@mail.gmail.com>
+Subject: Re: [PATCH v8 09/11] arm64: dts: renesas: add support for solidrun
+ hb-ripple with rzv2l som
+To: Josua Mayer <josua@solid-run.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
+	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 23/09/2026 16:30, Marco Pagani wrote:
-> 
-> 
-> On 18/09/2026 19:36, Xu Yilun wrote:
->> On Fri, Sep 18, 2026 at 05:07:07PM +0200, Marco Pagani wrote:
->>>
->>> Hi Yilun,
->>>
->>> Is it okay with you if I CC the DT people to ask for an opinion?
->>
->> Of course. It's good to know in which case could a DTO be applied.
->>
->> But to be clear, I think that only affects how we accept and apply the
->> image-DTO pair. For now, I basically don't want a varient selection
->> interface.
-> 
-> 
-> Hello Rob, Saravana, Krzysztof, Conor,
-> 
-> I'm CC-ing you on this thread as OF/DT maintainers to kindly ask
-> for your input on this debate we are having about how to implement
-> userspace FPGA reconfiguration, an important feature currently
-> lacking in mainline kernel.
-> 
-> https://lore.kernel.org/all/20260608164247.1998417-1-marco.pagani@linux.dev
-> 
-> To recap: modern FPGAs allow portions of the fabric to be reconfigured
-> at runtime to dynamically swap soft IPs. Usually, these IPs are
-> connected through a non-discoverable on-chip bus like AMBA AXI.
-> From a kernel perspective, this means the FPGA device configuration
-> image (bitstream) must be paired with a DT fragment that describes
-> the new topology.
-> 
-> In this thread, we are essentially debating between two approaches for
-> implementing FPGA userspace reconfiguration at runtime:
-> 
-> - Statically defined Variants (this RFC): Userspace can change FPGA
->   configuration by selecting from a pre-validated set of variants
->   (DT fragments) baked into the base DT.
+On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
+> Add support for the SolidRun HummingBoard Ripple [2] with RZ/V2L
+> SoM [1].
+>
+> The HummingBoard Ripple is a reduced version of HummingBoard Pulse,
+> featuring:
+> - 2x USB-2.0 Type-A connector
+> - 1x 1Gbps RJ45 Ethernet
+> - micro-HDMI connector
+> - microSD connector
+> - mini-PCI-E connector with SIM slot supporting USB-2.0 interface
+> - MIPI-CSI Camera Connector (not described without specific camera)
+> - RTC with backup battery
+>
+> The carrier board is identical between RZ/G2L, RZ/G2LC, RZ/G2UL and
+> RZ/V2L SoMs, yet only the RZ/G2LC combination has a product page [2].
+>
+> The RZ/V2L SoM shares PCB with RZ/G2L, differing only in the SoC itself.
+> RZ/V2L is adding a powerful DRP-AI NPU which G2L lacks.
+>
+> Due to the similarities, all descriptions except SoC are shared with
+> RZ/G2L.
+>
+> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/
+> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2lc-base/
+>
+> Signed-off-by: Josua Mayer <josua@solid-run.com>
 
-I don't know what DT fragments are, maybe you meant overlays? But they
-are not baked into the base DT.
+I didn't compare with the board schematics, but it LGTM, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-There are no bindings here and no DT maintainers were CCed on this RFC,
-so I really do not get how this patch can enable something like that.
+Gr{oetje,eeting}s,
 
-Linked URL shows some undocumented ABI, so obviously this would be a no
-go. And RFC prefix does not justify undocumented ABI. At least one
-without clear explanation in the cover letter, why is this RFC and why
-it cannot be merged/reviewed.
+                        Geert
 
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> 
-> - Runtime DTOs (Nava's RFC): Userspace can change FPGA configuration
->   by loading DTOs that are validated at runtime.
-
-If runtime overlays were working, this looks suitable to the problem of
-runtime change of the hardware. This also fits hot-pluggable hardware
-problem, which Bootlin is working on.
-
-
-Best regards,
-Krzysztof
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
