@@ -1,162 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011016.outbound.protection.outlook.com [40.107.130.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303DB44F56F;
-	Wed, 23 Sep 2026 20:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790195716; cv=none; b=E4Ea7DwWg4YrQJ1LqKcyC3mf1BDvOYe2gBghJmk9pLRYgPMSO+CS6aD4RZYloW+UcbllVaPf1e7raK8ovl46kjUHwPPgW/db078SARgXruccJTPwyEIjdPrdTPZgLvwU/EsG8Gyrdv3sLmTI/VjueHdW+7PNlpri1AC5jaqf85Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790195716; c=relaxed/simple;
-	bh=R28eoADJYrUGqzRe6fw7DC/AK+sn6SrqdLji3vk2qY8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pSKpYNV8F9MczKmtQccEZkLC2M8wtgAr/N3G4gAI+E1NAVXm6WLoTKW6CWmmG1I9in7Xop9xRoKutuXFXQSBQIlyMsIJ4lNNJBjVSDRxoU5ZeqCO21eA19J/WwEIlwevTk0hOPGZoRXKmQUDK+NkeUMIlcwTm7ocwz7IAP2KIfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gm9pJzT7; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCAE52ED23;
+	Wed, 23 Sep 2026 20:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790195890; cv=fail; b=lLtbIP/pbfzE4YmElEK9YyMG5I+I8HWsdmmSmWjBgiFf7rsjCQBVJC8FLmG6+GA9NPJzSoRAa6yNEGUyzlM4r5HxgJs/BGZ9w2FsOWA2gSD8Dy+s6QV8waZjXmN21i5GFTTFZaWQR7PMNI6Q/XTo1Xz15PKcNgB3wWidw+8WUgE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790195890; c=relaxed/simple;
+	bh=c1xeEh5fEvNJEDuGUiEHr6fLAJ2yO8bBssYbHdsxcG0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DCSZVXtfq9/fUjk3rQoiUpxmOHdqfe4dkd+FobTKnKQlnHeZ80o/9PBFfi3HUsaIEoQsbW23jGIyEB0jmUOC5JXhg/dEhZni+6TfeWBh2EbPSxAgqmi4fhCVv6eBFHpKfqLDrrDfLzR07MsgOGNGJ/96n9eX8ntw+dZciOfT39w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=fsuxkPgm; arc=fail smtp.client-ip=40.107.130.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gm9pJzT7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 762CB1F00893;
-	Wed, 23 Sep 2026 20:35:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790195713;
-	bh=T1k9Cc/Sw8N1ua3Pm3RCgtLTIt+A5ISNV70edTDVtP0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Gm9pJzT7mXoLkqF6tO0Nbe5fKlj9CAtAl87BbFQrxIJBYYEGogwjAKnu1EiugrZca
-	 JuVIGl/M3OzmErjZAlcx1QMJWsZs7XZaJmhVmJfP2NckU5QCAR15MRRnQa7ijUOPlR
-	 XGDVWbb17yBwszX6yWFErN+NUTDdGcDL/dn3466piUcD7C1ovruvBfQvNApDuE7Uvx
-	 3nrw/MuKBOGWzdFAifnptur3AInLn7M6JdfWDEIiQ87JkmCVBDgZZXsVRxAqWRp95W
-	 hhaiFOFrz1qpw1e0JK++d3NFBR+pe0mBSW8VUXKALKjlO6jzfD/WgX1Iy4y+1UtDfr
-	 H7H4pl7Y0IjTQ==
-Message-ID: <9c0ae39b-d214-40f5-b010-cdea14ccc774@kernel.org>
-Date: Wed, 23 Sep 2026 22:35:08 +0200
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="fsuxkPgm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MYMpreGJf0bGn4AfwZGMF7DyF7qiw6ZhgXzj98A6WXA3uq9D6j2yepOcwLCvAEKwnL7Xhotc0uWRhNu7NZ4LuQNwlzWPuOI3JgnZK+FuX4dBMaZDowA+/R7IkVEDbWnYfR7kIb//p67/FJt5LIJp3iAEoguDvhdYN2ix7+zLDzc0n3HS/b0vOA3iW7SERenO4JciHtk3BDiJrmAHE9gAp1vDaSzB2bu3amO6dolDI1JB3PmtjGNw1GYGNLTuaexpbKYQ5iRqUncVX6DOB+VsEAyUdpFkjpAH8M1aKW6YMODbeX1jNqubLP5h99HYx04PX1JCcsokFIujw99I4j11XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1nFBpexLejNaK+rsHO5eMTZYnY5BD8no9Z/Nrg3DkfY=;
+ b=ygzEq+XIssH8wTyM4DYfOm0Jpeor8VtX2tU6hSt9DmZKhUMK1HVWNNM+Bfd/OmXDOcNoK96EUw2i4q2GgOTUQapcEg7W+uS6V+MnUc3B9kTugXpjcpykHTSACyJqS8mBL9iHOVesgtl8M7YUScLEnTkXaFx8GdgnZMUq4OEpKuuSmd+3SIZ/+5SF/sMyuffM6yysS4iKDl8NxA4AGMa/IOKnzzfL20mDTL3fQG66tar6p8E4ggeyYeVKCgCquInwLFAmCNkb+UZEfu+eLnzecOme8zEf9GQEtLdcE1kXC9S4knj2DyqUKfS46vb6g5hGu6WMIpjpSJuAU5lWnA8MDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1nFBpexLejNaK+rsHO5eMTZYnY5BD8no9Z/Nrg3DkfY=;
+ b=fsuxkPgmBL00QX0Bt7QkAlh/oYpE+cTDYufnHxy+4JlNUW9wADCnVLUAC2ch+Mnh/QrkDFCRbuZYcyOrydk/0POGBDNa7VAv/lNJUSsPuIKoR2C5L5/oCRXpfKq+FN8WsfKf14xtljeTG0P/PgDRsRJoxznlQDIYOzUVnc6WcitA80e1292kzCW6TcsW1fv9k1+XFHSbDYiNlCpSzS8femFM8DrD3SyTU9JZaS6y/q+qebFEwU6qyeT14PkuDxYbrckUXfU2GoH+WyL1unqQjwnuJvmzieAvr4fa5eTuObIKn/Rd2GHzx/1VTT6OxUts5TlBMJOvwqEoAO7gBymM6Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB9877.eurprd04.prod.outlook.com (2603:10a6:150:113::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 20:38:05 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
+ 20:38:05 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 0/2] arm64: dts: freescale: Add Toradex OSM iMX95
+Date: Wed, 23 Sep 2026 16:37:58 -0400
+Message-ID: <179019586937.3763388.2864908684573790285.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260917102011.69071-1-francesco@dolcini.it>
+References: <20260917102011.69071-1-francesco@dolcini.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SJ0PR13CA0125.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: regulator: Add RPMI voltage service
- bindings
-To: Joshua Yeong <joshua.yeong@starfivetech.com>, broonie@kernel.org,
- lgirdwood@gmail.com, rahul@summations.net, anup@brainfault.org,
- lftan.linux@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu
-Cc: alex@ghiti.fr, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
- <20260923070014.1340761-2-joshua.yeong@starfivetech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260923070014.1340761-2-joshua.yeong@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB9877:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f8245fd-9b57-42ee-74b5-08df19b29224
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|19092799006|376014|7416014|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	RpsRbj1U1Lo5jU+bjg2DsjdTU9cFqb1AUQ5a5vMJjgQ+3Q8ulAeSmYebxZQWa6hTGPjmBLkTQ9r81q1IQpRueVCrmgFQ8EL0SqYzVVHgbuQSxrKksaUkniHysfxwioyxp3uw3cdpl7xd49LmfJ5qaYMOTbQiO201fAASMuFoCijtJNaWT++nobXs7hK6qTDIPC6FsHgC4rtpU4VwUSQfpVpUftUX28oYzOx79VSpSAn1iBQ4UaHqez57IC/w8pFOxeqyG301yZ535a/GPHYNYtjd6ob24dfocS8eLAwK9dL+hPGL33Z4V7r8G4fEf1v7ORliJ4w8UPFENOdCx+Qi4ahWCTCVIjKWQtfSIJAYJkR78gvVT7sjexi7QK13f2ud41x7zhv1mduiDYCf6dkNqgQXnVKjoIKNPZMU9a2e8veWOAZ7BCNh9/uzztSt+KDz8mCm36/T1jSAceYhPB5V1BQNA9OfOg/yNUd992WmEKqYh9RW5qVV7IL5mrvJthc/NeNkGONcAbuZktf128zcVkcJggB9TMwSEAeR/mGl59uh55cKZo7lZuMmTaWG9u4qPIVlPuof53jC8/MyJ4XUQMTB/3R99MOmom8uKq//FlgrmgojUS/ns0ibYYjDbzgI2s8mk9ALp0LhP3BhpB9aYv9aAa0NoC0Ggsec84tXOWY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(19092799006)(376014)(7416014)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WnhlRzA0SDN1MHdzZkFhTFVKaWVNcGtEZnd2NU82WWFZNjFBRmRQajA5QXdX?=
+ =?utf-8?B?ZDZYL05XZElva3ZtOXFBWEgvS1o3Sk54SDlSZThPOXVvaXIzb2w2N0FJeXdO?=
+ =?utf-8?B?c3pIazNmVmZObkVPZFNwQlY5dkxzUWR6bFJ0dXV4dU5yQ0RYUlNYY0hneTZZ?=
+ =?utf-8?B?WXRqSFFINUFOY1BteVhnY2FsSkxQZSs0WnY4RUZTVXluY2wvV3V5NEpIemNR?=
+ =?utf-8?B?TzVpYVZCNk5UZVFIbnFJOHQvd2N0VmpKQkp0VTRKa2xiN2FFR2QyYVpuZXFz?=
+ =?utf-8?B?Rk82UHpFaG1UNmlVeUlCUmFmVEJpcTQ0ZVU1T2RuQzdSQ1pFdWg3NXJzbDJW?=
+ =?utf-8?B?dWdWVno3ak1SS1B2OG43UFpEdHY4TDE1NWdENzVXUjdOeUptMXpCNDdlcC83?=
+ =?utf-8?B?NnUwREdSZS9FUkU2RGp3Q293bE44VWFYYityRW56Vmp3TGJQMjludHdNUGhr?=
+ =?utf-8?B?Q3BoWHlEbFNZblJGS0JRZ3I2RGxXbjEwQWpXdzVHUFphYVBORDlXNThxK0kz?=
+ =?utf-8?B?bURmRUVSNnVUMVJjZ0E4aEFtM0lWWkphUlF0NTNOcnRENmJkd3BpMU9pTzZh?=
+ =?utf-8?B?eXVmQlprNHVwWm84NlAxdDd4a1JqTjI3RnV1bDY3T2VHOW1rZDFsR1FvOEdo?=
+ =?utf-8?B?NDlPN3ZFQmFueCtkTlJZcUh1VjZ5dkh0RXhLUjlOODRIbkZmM0lMUEZuYndj?=
+ =?utf-8?B?SU9YWGg3MEtHUUdTTnpNNm95Rmx3WDJkaU9jalQ0eHJrYTEyNkxCYllsK1ZI?=
+ =?utf-8?B?aXBuUTZvYkRzMHA0TmU1RzNpK3ZCQkVmY0tERzk0ZVZVTU5wYm8rdjRSZFI2?=
+ =?utf-8?B?MFJPdzc3SW00S1NMYVQwSzQrU211NG5YSW5MVTlJUmVUdFpUVkRHY3U5QmpW?=
+ =?utf-8?B?OU03MFBxZ3RPVEovSi9Hb3lybzYzWVRpck9mdjJzK2haS2lMTlJ3bWQ2eGhK?=
+ =?utf-8?B?WUNFdXhUZVlkNU9TazNSWkpsbS9jRE9EUHh2WlZQUDFFaTRSUXh1NGMzUTZN?=
+ =?utf-8?B?VG11d0pxSEIvOUVkQTFwbTNIdFVwbHpSWlJwdFZaZ0I4Q0w1YVV2S1F4dnhW?=
+ =?utf-8?B?V0pWRERIM3FsV3p5QkZGcFdUTjFaMWlSdzIvTGx6TkdYQXdLbWZNYWlqYXZB?=
+ =?utf-8?B?eVZVcm5Sd09pemUzci9iUS8xYUtscCtHdFJsVlp3b1dQR1B5a1dnZzU1L25O?=
+ =?utf-8?B?TUMyeFRVT3VGTTZvcUVlWUt6SXNaRE4zWlJkdnlzbHdWUlYyMkR5aVVMckNq?=
+ =?utf-8?B?dkN4V2l3NERaOFIzaTBJU3o3T2lwRXphcG4xU21wYlkwNEJqSDNtczdLRXgy?=
+ =?utf-8?B?MTk5Z3FQdEEvRWRjZ2p4ZWZpMW1jRTkzbW1wQ2xmczkvQzIvaEZCZVRhM0Y2?=
+ =?utf-8?B?bDEwcjFveHlEZFIvWDRWaUVnMXZxMlNqQ2dML1NYajNwbTlnZ2V0ak9UWDJj?=
+ =?utf-8?B?OEViSU90ckFJa3NqMkNsWForYjlDdUF2dVJ0cFZ4S2Y0YXRXOHY0ejJLWldW?=
+ =?utf-8?B?ODI4bkg4RUd2amRkbU40Z21ReVVORnNZU3FuNi9rWTI4ZTRQRmYzd2llTkVO?=
+ =?utf-8?B?eDMrZlpzQm42UUh0clVRN1ZJRjdEc2d0RkptM3hBYU92RHV4Ym1TaG13Z2Rq?=
+ =?utf-8?B?N1NPLy9kenNNNGZDZDZ0NTF1NGQ0MHl6Y21adFlGeERCL05lSG9jWEhtVHVa?=
+ =?utf-8?B?amJSNkRsV1ptdzlCREs1R3BmQmFiN3FlV1NsOHgvUlh2ODhnOVZTeU1ERVZr?=
+ =?utf-8?B?cllURExkd0p4UHZuSVZnaFFwWUpkTUVDdVdWcnlPMUYzbnE2czRVSHBXakJr?=
+ =?utf-8?B?MU8vKzBselgvaUdGZEJXazFKOGkvai9ybHdqZ2hzQ1d0bzdZWW1yVm9QUmZj?=
+ =?utf-8?B?VEpOMkltR205enhkVWlKbUJCR1cwTk9yRExiRDB5aitJMElENUxqc0U1SEdW?=
+ =?utf-8?B?KzNINTJoUjU1eTAxbm9jcEhNWVYrTyt5Mi9sSVFIaDNxWk5XbUxCOWhKNkxR?=
+ =?utf-8?B?MEFEa3dNNlJJdGp5VG1qdk5aNEpQZSt4RjIvbUg3Z1hmUkQvYS9HQ3oydVgy?=
+ =?utf-8?B?cThSNVFGRkxSZW4yTFh2VmxzZml4S1dEaEhvdDhjLzJTYm9xRG5WR1NBMHps?=
+ =?utf-8?B?SmpIRU1vcjZRbWMzSkZTYlFXc0FhUWpDS0xlcDVwTmZoTXM3ZDlIcXhYZ2NZ?=
+ =?utf-8?B?V014YTN4eFp5VVlkRWRGVFBEVm5SVUU0aXVUb2RkU3QvTWc5VmEwbmpjL0xJ?=
+ =?utf-8?B?NHQwVkd4VzVoR3dzY2hBeWZMK2RlMSt6Tno3bnVKNHN1dWNKQlFOZCtPUFF5?=
+ =?utf-8?B?U0hRVlc5WEtsZnA0cU4xV2l3UHB3TnhydXZPTzRnTnh4ek8rb1F6Z2RaTUF0?=
+ =?utf-8?Q?Jd2C0O+hwDyxtZ/LjsbPuxfHbvlJ5BxGCUHu1?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f8245fd-9b57-42ee-74b5-08df19b29224
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:38:05.8338
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IkOANqwyiVFN4xWkKd6tPAIlH80fNmr7ap8CfglLEXcLtnl63VLlybrGKAJkGzoDdvmDmuVvudYzxD8zfj1R7gjI7z51TFYE9Ip2lhYYSze5W/jDr2eWgkZimtY910KE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9877
 
-On 23/09/2026 09:00, Joshua Yeong wrote:
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    voltage-service {
+From: Frank Li <Frank.Li@nxp.com>
 
-There is no such service. Don't invent names. See DT spec.
 
-> +        compatible = "riscv,rpmi-mpxy-voltage";
-> +        mboxes = <&rpmi_shmem_mbox 0x7>;
-> +        riscv,sbi-mpxy-channel-id = <0x1004>;
-> +    };
-> +...
-> diff --git a/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml b/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
-> new file mode 100644
-> index 000000000000..6334ebd31dc8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
-> @@ -0,0 +1,147 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/regulator/riscv,rpmi-voltage.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V RPMI voltage service group based regulator controller
-> +
-> +maintainers:
-> +  - Joshua Yeong <joshua.yeong@starfivetech.com>
-> +
-> +description: |
-> +  The RISC-V Platform Management Interface (RPMI) [1] defines a
-> +  messaging protocol which is modular and extensible. The supervisor
-> +  software can send/receive RPMI messages via SBI MPXY extension [2]
-> +  or some dedicated supervisor-mode RPMI transport.
-> +
-> +  The RPMI specification [1] defines voltage service group for accessing
-> +  and controlling the voltage domains managed by a platform
-> +  microcontroller. The supervisor software can access RPMI voltage
-> +  service group via SBI MPXY channel or some dedicated supervisor-mode
-> +  RPMI transport.
-> +
-> +  The voltage domains are discovered at runtime from the platform
-> +  microcontroller, which reports the name, the level format, the supported
-> +  levels and the always-on capability of each one, so none of that is
-> +  described here.
-> +
-> +  A consumer names a domain in one of two ways. The first is through a
-> +  "<name>-supply" phandle to a child of the optional "regulators" container,
-> +  whose "reg" is the domain's RPMI DOMAIN_ID. The second needs no child with
-> +  "#voltage-domain-cells" on the provider, a consumer lists
-> +  "voltage-domains = <&provider DOMAIN_ID>" and names each entry in
-> +  "voltage-domain-names", the way it names a voltage power domain. Both
-> +  properties belong to the consumer, so a consumer binding describes them
-> +  itself:
+On Thu, 17 Sep 2026 12:20:07 +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> This patch series adds support for the Toradex OSM iMX95 SoM and its OSM
+> Development Board.
+> 
+> The Toradex OSM iMX95 is a SoM compliant with the OSM V1.2 specification
+> from SGET, based on the NXP i.MX95 SoC and available in Size L
+> (45x45 mm).
+> 
+> [...]
 
-And where do you explain what is that "voltage domain" and why it is
-completely different than everything else we have?
+Applied, thanks!
 
-No, don't come up with your own naming for standard things.
-
+[1/2] dt-bindings: arm: fsl: Add Toradex OSM iMX95
+      commit: 4fed69596d776c1361150839acb9e089aaa0116e
+[2/2] arm64: dts: freescale: Add Toradex OSM iMX95
+      commit: 7cb2afdcf226b76134db909e411b915f9fb28852
 
 Best regards,
-Krzysztof
+-- 
+Frank Li <Frank.Li@nxp.com>
