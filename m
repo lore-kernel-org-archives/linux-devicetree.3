@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5411A23A561;
-	Wed, 23 Sep 2026 03:02:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 758ABC8D9
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 03:02:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790132531; cv=none; b=fgdDaK3ZoSkIcecfD7fEtOgGdvLNmgWC47AUtdmouBgGEP1cFCBsnLYrKA0Hqffpv40Xby0Gk2EBo+Ytul3WNhEzaWZFvT1wECMU/Tr6/NCk0nZ7cQkn9qGIxv0sTevogPxJ2Jik+qEQTfShLgmzwGvaQxOfbMi5z+7U+wk5xCM=
+	t=1790132562; cv=none; b=cdqtl5t/+TUDjshoF1c7SwbXRJ19LCNKTiiXECap766pqQwwIsLvO4XV+DD9nyM5wR86OelM3waCb0nnMZfKX7dHPmr9KOfXgGyHsXQXWZbzoeFj6CynIauSkvM9qNwHah3YQ36E81xEmz2D4PDaV3aQka0PKIMuyJgaVZoK1Hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790132531; c=relaxed/simple;
-	bh=wTpfdpzownhQR6qzvURPJ1CVE/LkBzMfXkm3CpJemiU=;
+	s=arc-20240116; t=1790132562; c=relaxed/simple;
+	bh=8H9ntk0dufll4bnSBFW/CqtF1Y0Wgy+JP8i8/opLxzQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Av+T4nUJbGREEUAp0r/kGQPMG+Th+X+fQEcrRJE5MYIvq9IBq+gP9OJv+uISA9TwhWQSb6xW3ZNDgjKVxUOe3/cIPup061c8X2oadaB3aMGW/7Wv5q9xXjc3mpIXQXZDPND4YK7YqExPESPs2hIcOWeIY9i1VpN4fEfaBSdnRx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bj3BsvQX; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sbk/opj2Lj8f7AhZpY9r7ZdtbUqqfPwGqxLNRoHm0tFoWKSCyo7aC2uaRT4gafehuxg/czWPYoFUOSmWZ6KXCP/5vQs7OwtJwGuwL4duHToW46taVrQKHkHhVcG5olyLKvc88hD83utu5lzG97zSy9QGQah7CHNgUP+G3EDXz6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Giy8oJt1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bj3BsvQX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98E861F000FF;
-	Wed, 23 Sep 2026 03:02:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Giy8oJt1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0130A1F000FF;
+	Wed, 23 Sep 2026 03:02:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790132530;
-	bh=c5Jdc52pbKHhGVDNF80z6ad86uu4NAyzh4rLRaTvDJ0=;
+	s=k20260515; t=1790132561;
+	bh=O61ijrfsiBSmyym0RakGjF4qJUrBGsIo5/Vrt00BxN4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bj3BsvQXQevi/KyGsvhA5AGkHn5qu7rLd/lIOo4kpfwxLQXct6eR2yz6J04VUEroW
-	 QPg1Vg2qzjrax0gJUIRBSvReBjRNX1Sv/ptCHwy+PNjxqIIuwSZxDfr44UD/T5sblD
-	 Zy+6agOBfWR3nlTDbjl6nwSBl/oWRiYWdiMn28xPR19OIlvPrDdIteBYvTdWtaf6lZ
-	 mHBgA4Dq29Bj2Gg+c4jv3TypdkXz+Q7DqYZmhGeqG705sgjvR5J1/Tvun5MgjMBRl0
-	 pithxdxnGln8b7qgX22fnbTzjriWPQ4Sxm0COzmk8jcRfq477TKGdWzlg1MUBuzz28
-	 aiRNUTC1ZnomQ==
+	b=Giy8oJt1Kfu3A/9e35xBAFFjFb15Ub5SGFNPH30Ntituzde6gRsOvlWErk15rMvWX
+	 sJ9LLQJfIsXCaorT/WEdiVz8e7MLqgW5iVysh420Qs9IPrB5EDBGbP4puenoZVuplz
+	 4g+gRS9oldUcZ7/8o03DZ1ZNHatGxZXH40L7iOEQeeiK0qQMfTX1g08TNMy/dhnpri
+	 gyCF6QpuuOOo/C+AKMa50P6iMLQTG8206vTXzdHRIJrbnogOsRsR+PtPimApL9cJKj
+	 +47R7E97uREel9CmNkFfQrGKKHkafwF/VsU79TUFmC0I9oMeep0Qr8e5DpsfkyE3Uy
+	 IODvpR/hGH1gA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: mfd: convert rk805 pinctrl to DT schema
+Subject: Re: [PATCH v7 12/14] media: mediatek: vcodec: clean xpc status
 Reply-To: sashiko-reviews@lists.linux.dev
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: conor+dt@kernel.org, lee@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, mfd@lists.linux.dev
-In-Reply-To: <20260923025302.374919-1-quchaosheng000406@163.com>
-References: <20260923025302.374919-1-quchaosheng000406@163.com>
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260923024258.257846-13-kyrie.wu@mediatek.com>
+References: <20260923024258.257846-1-kyrie.wu@mediatek.com>
+ <20260923024258.257846-13-kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 03:02:09 +0000
-Message-Id: <20260923030209.98E861F000FF@smtp.kernel.org>
+Date: Wed, 23 Sep 2026 03:02:40 +0000
+Message-Id: <20260923030241.0130A1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,65 +46,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: mfd: rk805: missing required pins property in schema
+- [Low] media: mediatek: wrong enum type used to index main_dev->reg_base a=
+rray
 --
 
-commit 4d34a5e42e890c7b86f9784a47518ab08b74d070
-Author: Quchaosheng <quchaosheng000406@163.com>
+commit c332070b6bf8a16fa63f12155e0ac06b323d2142
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-dt-bindings: mfd: convert rk805 pinctrl to DT schema
+media: mediatek: vcodec: clean xpc status
 
-This commit converts the pinctrl-rk805.txt binding to device tree schema by
-folding the pinmux description directly into rockchip,rk805.yaml. It also
-adds the missing -pins$ child node pattern property to correctly validate
-pin configuration nodes.
+The driver need to clean xpc status when receive decoder hardware
+interrupt for mt8196 platform.
 
-> diff --git a/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml b/=
-Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
-> --- a/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
-> @@ -86,6 +86,31 @@ properties:
->          unevaluatedProperties: false
->      unevaluatedProperties: false
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
+c_hw.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
+> index 881d5de41e050..46ac3e41c401c 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
+
+[ ... ]
+
+> @@ -166,6 +196,7 @@ static int mtk_vdec_hw_probe(struct platform_device *=
+pdev)
+>  	subdev_dev->hw_idx =3D hw_idx;
+>  	subdev_dev->main_dev =3D main_dev;
+>  	subdev_dev->reg_base[VDEC_HW_SYS] =3D main_dev->reg_base[VDEC_HW_SYS];
+> +	subdev_dev->reg_base[VDEC_HW_XPC] =3D main_dev->reg_base[VDEC_HW_MISC];
+                                                                     ^^^^^^=
+^^^^^^
+
+[Severity: Low]
+Is the wrong enum type used here to index main_dev->reg_base?
+
+The array main_dev->reg_base is explicitly sized by NUM_MAX_VCODEC_REG_BASE
+and expects to be indexed by enum mtk_hw_reg_idx (which includes VDEC_MISC).
+However, this line uses VDEC_HW_MISC, which belongs to enum
+mtk_vdec_hw_reg_idx.
+
+While both VDEC_MISC and VDEC_HW_MISC happen to evaluate to 1, avoiding an
+out-of-bounds fault or incorrect register access today, this cross-enum
+type mismatch creates a logic flaw that could be fragile if the enums change
+in the future.
+
+>  	set_bit(subdev_dev->hw_idx, main_dev->subdev_bitmap);
 > =20
-> +patternProperties:
-> +  '-pins$':
-> +    type: object
-> +    description:
-> +      The RK805 has two output-only GPIOs which can be muxed to the GPIO
-> +      function and driven low or high at boot.
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      pins:
-> +        description:
-> +          List of GPIO pins to configure.
-> +        items:
-> +          enum: [gpio0, gpio1]
-> +        minItems: 1
-> +        maxItems: 2
-> +
-> +      function:
-> +        description:
-> +          The RK805 only supports the GPIO function.
-> +        enum: [gpio]
-> +
-> +      output-low: true
-> +      output-high: true
-> +
-
-[Severity: Medium]
-Does this new patternProperties.-pins$ schema block allow empty or malformed
-pin configuration nodes to pass validation?
-
-If a device tree author creates an empty or malformed pinctrl node matching
-the -pins$ pattern, it will silently pass dt_binding_check and dtbs_check
-validation because there is no constraint mandating the pins property. The
-older text binding previously documented this property as required.
-
-Should a required: [ pins ] constraint be added to the -pins$ object
-definition to ensure the schema strictly enforces valid pin configurations?
+>  	if (IS_SUPPORT_VDEC_HW_IRQ(hw_idx)) {
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923025302.3749=
-19-1-quchaosheng000406@163.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923024258.2578=
+46-1-kyrie.wu@mediatek.com?part=3D12
