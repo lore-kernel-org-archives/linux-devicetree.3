@@ -1,138 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11020112.outbound.protection.outlook.com [52.101.193.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BEA5483819;
-	Wed, 23 Sep 2026 10:24:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159099; cv=none; b=NSEblt9l2q5Xd0iCKFsHLa4TKHoxuvHDqIzt/exPLNAs9qnkVN6oSCyTmYlReFk+uxUI7td275DVLIEpBaRJK/JvKybpw0cHVKy9Q1M1bvvNvvaE/RRXHYbkDIGthtABC7dq8VwEHZYpMo9jDE7luchPAJXX5DfiD/fajav2bi8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159099; c=relaxed/simple;
-	bh=hzewqaTjqjDjb5gutbAPb57IWxVWZzy/HnJJbow/GQ4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H3UVwNiqINJ/sFntggmEOOgjT0zpOEGdST/n8GUouq2TPguAKTjKOt1nTwoYBriAJMiujcPGhUVHcSE7rGanwbh1eFx85acCam3hL3Ps4NyXgLymxD1spZ3CDnOhqpmTRUpUoVipzXvcRLVCYFRAicXGRwkvrb+W5gWGj2Viiaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FkOkgHHK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE4248125B;
+	Wed, 23 Sep 2026 10:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790159175; cv=fail; b=mVhxO65nJ9nEG7nbVJHSnZE0rEejbX/FgPXKQbnn0iLBl7RB+jJ6DEcuxPCG5Odz3rgxdKtwCP01o5u7dycJASjx+Dtgtf9rIoxh2o0mDYf7kaDmKGdUJiHibhuMUrqg0EvQt89uK/Z5bxA8xR6w5R9iXYRDjpy5LQ7uyoZqBL8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790159175; c=relaxed/simple;
+	bh=XPh2wuVOdQIrvUrQbhILg3+ruve7+5YjOow1rY9hmfY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=RUmPl4WjMR6XA8suyBt5fr/+9eV9hS4j5E44haBshglZ0y78/yPcjEXK1dig6CCTDA5bdv52U0zUkRTOwIas1O+c5UJ+qBQ2yGXl8R0R1ai9CxVWOdqDFbCgWKPy1pvFHlJVL6yzxTibUnzDKfdZJCQr7TTpygUBOi/U+P8Dtnk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=peCrqTfv; arc=fail smtp.client-ip=52.101.193.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FkOkgHHK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14611F00898;
-	Wed, 23 Sep 2026 10:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790159090;
-	bh=2jdPYcdDsSoyO0/75JjnuQqWSX/Qg3oXmCZgMK6+M2A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FkOkgHHKBt4PEkGa7LptBFfSAJ/1KKNb9aZ3i5TYk5JJFTd8c+VoB8+Md0sPs+jP4
-	 w3Lft2fzRSwsGR7s8QCpUAEuvFM7zAUId4vdLp3rAg0pjIeaS+/9bIyI2y8re9ilNe
-	 I7HrRS8p9SAM06FTC8WjcoUlQAkxTLS2gUy0/vHVyCbUlyqH8LJ9u3TRyPWOhF9QO3
-	 iujS89JxFwaqPjjjcbQiVHmSm4ezLYx2ZewEG67V62k4bpJPJg6mZGacMldqvbPoQN
-	 +FCOtSw2rSN6rGyoru9uVwT+dliaCk1oQBGo47QtJvV3XsSdGQVH/Zn/9CmxguMTyG
-	 Y560wVQ+vTvgA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] platform: arm64: Add a driver for the EC found
- on ASUS Glymur machines
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260923-topic-asus_ec-v3-2-2bf3bb9da879@oss.qualcomm.com>
-References: <20260923-topic-asus_ec-v3-0-2bf3bb9da879@oss.qualcomm.com>
- <20260923-topic-asus_ec-v3-2-2bf3bb9da879@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 10:24:49 +0000
-Message-Id: <20260923102449.E14611F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="peCrqTfv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eAwb0IYFjY6JUrp7pd3jspoU5EC6EWhiSYsn4VxwdMtdSAbo7QkmgIT7wIql5srnjGFEZwv/NXOZPr71Ww7h8yTum8uqa4U0G3mswfpxSuDMlYjh5GKwGxByjmu647UYXcAjSwnsZi8Am2n6AZsMVPFgW6v7unSXlvIL1iwRE85/0f6WFiUb5CRoPVtf5UQ6mpWx4dmP4vFPa9xfjwwBVbquLi0XJki0ScVYHn2H44PLbcx/FXV45WfqAu5+adKFYg5co3zgZHgVWasuKnHptps3Sb/X6xsEiM2z3gaTzxJsLdeF6Pj6q3uz3doNxRLxiYCPQRCC32wLk1bWS9fxXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=efvDDmFd0U8WBzJlviu8phus6moO634rZNL/3W/1XFk=;
+ b=CnEwCFvWbvg8/rzvJiYQRkdMncRlwM4JfEmC/vOpQbCgkGraOGWDhRHdj3aFIn01p5fwzqZx0rZXlhgoPBnl10tYuOQ9o9Sc6fxQiEftfglGDA5OE5xe4ZA+/vjkMa472AaUB+HIYvzjQUGqGzdzXyab8F9H42iyRfcuduLBq7ADdfebuTiil1OB5x2Omn8eij9sGFV342OTr9fy0oFyGiiX8tMgNPgOAIwXhakLQpRjcCPj2b6hyGNT2ezcos+KtWK0MSzdo/tgXeMBWF885KDsu3oejkYOtLLznUaWdAKCtIKcFqdGRq0uJrM0HfQjP9cExVO9JUZEJ6M9u8BARw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=efvDDmFd0U8WBzJlviu8phus6moO634rZNL/3W/1XFk=;
+ b=peCrqTfvM8fvlW/v7Ow44tuXcT9VTp0JYhvl2N61bICrzeyK0jjgwEnC4XJHphPwMpoDCwUc23SBm8dZMf1CXRWjTNvsTXaCdw6q9vHfun13vLObmRED07wol7zp8tSBkpRtOlFFuKVuMNVllqqGDiFDKU6VKhMf5kgWWZOFvPJE1V65OnL7jEBbQmDl5TPhtuvhEGet9PY6zUeECwXXk8o81LYIep0dnfuYcoFDhAeLSkWsPZIsJyxbuA01Ubjzs/8mSmSjN33BzxYJgXUV78Zr/kNFYvQbHWIbK5PZPOTLbyeQxkCsiLBysHqg42zanwjlEZN2i5kW+cpOyBi9/A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
+ DS7PR18MB6387.namprd18.prod.outlook.com (2603:10b6:8:255::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.16; Wed, 23 Sep 2026 10:25:57 +0000
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 10:25:57 +0000
+Message-ID: <654a7c50-86f1-489f-9542-f77d63550ea4@axiado.com>
+Date: Wed, 23 Sep 2026 12:25:52 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] dt-bindings: pwm: add Axiado AX3000 PWM
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20260921-axiado-ax3000-pwm-v5-0-202aad28e129@axiado.com>
+ <20260921-axiado-ax3000-pwm-v5-1-202aad28e129@axiado.com>
+ <arFAj7yU2x42-76G@monoceros>
+Content-Language: en-GB
+From: Petar Stepanovic <pstepanovic@axiado.com>
+In-Reply-To: <arFAj7yU2x42-76G@monoceros>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0011.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c8::8) To DM4PR18MB4144.namprd18.prod.outlook.com
+ (2603:10b6:5:38b::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|DS7PR18MB6387:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7e2556a-19b6-4848-5d9d-08df195d0e6f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|56012099006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	JO1lhFdkbUnDj5wDUBmmCBliVHhjusyrb69zLpV55IOjrSHTQpl1SJ96NmgGHaxdobTBE5R9sKmBQ11B2Mz5kS7Bssg85PoxdjkErwIcCJJrtdqlSkuxTG1VNc+tQRsHSHm+B/9mEdRAkIsvlt+sfLL5MUtxjPrAxYhnjnIhjg84s+fPUuHqvHl0RBbqz/y6cPmK2tNOI7vx3YuN49N6wKEa/leGf2A30j5V4spJS7DrEn4ZbdY1ni5kmGFMTaqEPKwyxWNd7b50iPzuutQrb1SQ3uAe/ZKbz5Xo4/aWPDwhMreNBl3ZN1GI1TQi/wsdGsObzjZYBtRIHLHYbsJSOiPor4VLffVtZcm+U150YPmPhhopmlAP0E2lcDhfYuo4/WO/W9+taDB57TNep3Xc75Tfc8Y0hC7b1Nh9n67CF/x4vCSv09jDd+geDur1KyVJ/8qVNFWdWfFXh8ModhH8r1idkkSQyjZCqL4bjcpNiRdPhqlUe4spo0Hh3+FJmTVEvOE/4qBDdmrEEGS7BM+/TWIjLvezT+coJhOm8EYscf9MXnw1KpypcFjME2YVtNKIo23SA1M9LJO59Xr7G+4+jpvy3c2gZVBCftefthemRYB+A7GmkyPdNxE8PxeifMDnKjVqNWOu+Tq1bnECfzHhrKvfg/MVkfYPCIg/V9qGuLk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bGUrTUpURFpLdEd2TGxHZ2tlTUZGb1pyaWp4K1hqUWhQNlJuUHkyZVhzNktU?=
+ =?utf-8?B?dXAvV0dTRG12Q2phclB5UENkUUtNR3l4NU5ETTk2RjI1TDc2SVM1Q2txcWI0?=
+ =?utf-8?B?OXlxUk1acjVXSVlPa3BVazZ5RWFtY3JyVlBzMFVEby9ZSTBTRW1DUW5rKzBJ?=
+ =?utf-8?B?bVZGdDZxTXRLdWllUVdOcW1TWVVldGNFVzNGVHJoODdDeGFVeHpvZTdxZTVm?=
+ =?utf-8?B?WFV1Y2ltNkxJRXZOWFh2VzN3QkxiQ21waUU0azd0WDc2MjFTTllZUFpaK2VH?=
+ =?utf-8?B?MEFnL2dCSVRJcTVwZW51Nlk2ekdhOWpQVysxcWkzUTNBSklMYTkvRTdyc3dK?=
+ =?utf-8?B?bXhaM0FzN093cnhUelY0NzlrNmZLa2t5a1dGbGdWSXVpdlF2ZEMxcm0wVmF1?=
+ =?utf-8?B?N29xOTAvQ2VvMW4vTXhrUktpWHp2VVdSK2hMRHZHdTZGaU1GMlArRGoxVFA5?=
+ =?utf-8?B?Zm13U0drMFd5UHFhUUVrTGFranlabndXSDVObnRjZDdvbGM5OTJhZEE1emYv?=
+ =?utf-8?B?VVlGUmRsUGplVU40NlcwNEc4RWNyZjZvOTM3NnliaytKVHNjNEo4RDk2cHMz?=
+ =?utf-8?B?QlU1dVFNczFOY2hXcjUrVlV4ZlFBaHZJV3N4K0lxVkh0TCtlcDNTTFA2R2t6?=
+ =?utf-8?B?bmlXaWRiYWcvOW9mNFpISldTaXRHOUpHSDUxbVBwQXE2NG1kRWJEbCtBaGVR?=
+ =?utf-8?B?YWRSRXVubFdiRWFLYVdYWTVIMGxrTTRlNi92YzN3RkJqNGp4d0VVS0VlQ3Ev?=
+ =?utf-8?B?d3FTN3VoUUZKVzk1Y05Sa3psVzNjMXhoa3lLa2Rnc1lKMUprWmVIdERJL1V4?=
+ =?utf-8?B?OXNIV3U5VkVWNG9Oa2VtekcvWFdTc29ObGpHa1ZrZkluckVYV0lWczBVdFdu?=
+ =?utf-8?B?U2J5M25ocTBQUktqYkpZZmxhbnV5UVhDdEw1UHdoaUNJTVJ3aVlYR1llTHhU?=
+ =?utf-8?B?ZkVXRlhBL2ZXZ2duT1FIQlJQNVdKM3RrRXh0dFBUaVgzcnR0aTFvK3dFb0pJ?=
+ =?utf-8?B?MENqNGRyNjg3R2ZZMnNhdXNsYWd5UklvR0QwMEp6dnlNQ3VtZ0RsS1UyYTE2?=
+ =?utf-8?B?Zjh6VEFKQzZydGxUdlhsQzZZWFRIbDJ2TXNKdzREd0NNRng3a2laaEQ3UWJJ?=
+ =?utf-8?B?NC9HTThrQWYvZ0RSdUxRRVVaUlZUQXh3Sk1rRW9xNlhjYVRPODNWLy9yczJl?=
+ =?utf-8?B?R3p2Q1p6bjhXanJ1YnlJYTYyVUlFditZTXdwQ1J0RWlWNExBYjR1cmNYWkY5?=
+ =?utf-8?B?aGtjWGpsaDN2SVZQSGYya3pvMWNmSEhEbGJOTUx5RHcyZ1JsS3k4RGNidFlC?=
+ =?utf-8?B?T2JZeVB5M2hEMjhsZkFIb0dKZDN0NjdEK2tmc0ZpL0tDalMzaDI1VjU0aXpa?=
+ =?utf-8?B?ZFVEZUlUYmVIcWtWSVlOK1Q2cG5jY2dXS1cwWWw5UXFIQXRVeVpqNTl5WWw2?=
+ =?utf-8?B?d3R1dnd0R3VVMnp4Mm1lenNmT2dsMzhvdE1mbDVGNytBREtEdnRSWVE0RmZ4?=
+ =?utf-8?B?YlR1ZFk5bUVXZ25zQ2M3YlVIaWpuVVZUVFRxQ0s4YVZOdHJkbFZjZ2ZBV3By?=
+ =?utf-8?B?aVNVV0FaUVdONzNtaEJqcGhKcjRKSDVOZUljZXNROXM1YVpTV1JTSXNuSDV1?=
+ =?utf-8?B?N05aV0h1VGZEN0hIbldJUTFhOFJ2RDI3SmtpRmZMQjQ0S1dHNG1LVkZETjN1?=
+ =?utf-8?B?ZVkycXhuSEYxS0U3elg4SmVKT3FZQ0tzM1RWR1BCYlZVZU5pQUV1QW9PR0pk?=
+ =?utf-8?B?djFyakU4OHcrQ09NUWhLdnJ6Vm5GR3lST2VEUXdOQkE3MkZGRURZYlNVRWVq?=
+ =?utf-8?B?WStBWUYrWFExbERTdG5IMG0yVlkxNHlDVlE5SVBsMlJtSmlvaWt2d1YzZFhK?=
+ =?utf-8?B?VnBrWXVGQndnRmZoZEJrdkd1Y0xNMXpidE5zYjVOQ0RSQWdUeWI3UDhSR1Qw?=
+ =?utf-8?B?LzRYdFJUblpLU0tNR25NWkVkam56eUViYXZRa0tvcmhvT0NYSTZHN1JZUk5n?=
+ =?utf-8?B?NllHdmx0TjVWcjJwNytYSnRxWUtuWjQ5ekxtaW4zdmliMVcwZmZoWEllNnov?=
+ =?utf-8?B?WnlJOVR0OHZ0aFJhQ3djeUV1Q0VFZTNNSlpZWXkweVRKVkxkSktPQTBRVENK?=
+ =?utf-8?B?dnJRZGs3QXRMSmFuMytjMHZNUG5INTlZdzJpSUthcm8vRGVFUlJta3NiZmhl?=
+ =?utf-8?B?TVZTVXR5NnJoNnRrV05CNlpzRzBMNGllNWdVNkZqQ3REOEVON2lKVENEYnBi?=
+ =?utf-8?B?NmMxbFAzeStmUXczU2c5M0lsR25LaWFlREhZRUlVbHBOMTBKbGdnT3Vvdk82?=
+ =?utf-8?B?L3NmWlNiUTMwaUk2VDNzK1UwbjNXOHZQM2ZZRitNY0RLc0ptaFNldz09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7e2556a-19b6-4848-5d9d-08df195d0e6f
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 10:25:57.7751
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /R9S5JRpKWnouNXSsKetxAgYUxBdgTAacm4WVrMd5b4tRJQU/vpIduMXQGWV98vT0VbDaQB/tEqVcQkWn7BLnA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR18MB6387
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] hwmon: direct registration in platform driver violates subsystem la=
-yering
-- [Low] kconfig: unnecessary dependency on INPUT subsystem
---
 
-commit e53dc01a9d2f191fcc367745d68b96bde8983fd7
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On 9/21/2026 4:35 PM, Uwe Kleine-König wrote:
+> Hello Petar,
+>
+> On Mon, Sep 21, 2026 at 12:21:30AM -0700, Petar Stepanovic wrote:
+>> +  "#pwm-cells":
+>> +    const: 2
+> Can you please make this 3?
 
-platform: arm64: Add a driver for the EC found on ASUS Glymur machines
+Hello Uwe,
 
-This commit introduces a new platform driver for the EC found on ASUS Glymur
-machines. It allows for fan speed reporting, keyboard backlight setting, and
-receiving miscellaneous sideband events.
+Sure, I’ll update |#pwm-cells|to 3 and adjust the DT example accordingly.
 
-> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kcon=
-fig
-> index e32e01b2a9bdd..84c475c62990b 100644
-> --- a/drivers/platform/arm64/Kconfig
-> +++ b/drivers/platform/arm64/Kconfig
-[ ... ]
-> @@ -33,6 +33,22 @@ config EC_ACER_ASPIRE1
->  	  laptop where this information is not properly exposed via the
->  	  standard ACPI devices.
-> =20
-> +config EC_ASUS_GLYMUR
-> +	tristate "ASUS Zenbook A16 (Qualcomm) Embedded Controller driver"
-> +	depends on ARCH_QCOM || COMPILE_TEST
-> +	depends on I2C
-> +	depends on HWMON
-> +	depends on INPUT
+Best regards,
+Petar
 
-[Severity: Low]
-Is this dependency on the INPUT subsystem necessary? The driver source code
-does not appear to include linux/input.h, register any input devices, or
-use any input APIs, which restricts build combinations unnecessarily.
-
-> +	depends on PM
-> +	depends on THERMAL || THERMAL=3Dn
-> +	select NEW_LEDS
-> +	select LEDS_CLASS
-> +	help
-> +	  Say M or Y here to enable the EC driver for the Qualcomm Snapdragon-
-> +	  based ASUS Zenbook A16 (UX3607OA) and similar machines. It provides
-> +	  temperature sensors readout, fan monitoring, keyboard and EC event
-> +	  reporting.
-> +
->  config EC_HUAWEI_GAOKUN
->  	tristate "Huawei Matebook E Go Embedded Controller driver"
->  	depends on ARCH_QCOM || COMPILE_TEST
-> diff --git a/drivers/platform/arm64/asus-glymur-ec.c b/drivers/platform/a=
-rm64/asus-glymur-ec.c
-> new file mode 100644
-> index 0000000000000..3e7706e3bdaac
-> --- /dev/null
-> +++ b/drivers/platform/arm64/asus-glymur-ec.c
-[ ... ]
-> @@ -0,0 +1,600 @@
-[ ... ]
-> +static int asus_glymur_ec_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	ec->hwmon_dev =3D devm_hwmon_device_register_with_info(dev,
-> +							     "asus_glymur_ec",
-> +							     ec,
-> +							     &asus_ec_hwmon_chip_info,
-> +							     NULL);
-
-[Severity: Low]
-Does registering the hwmon device directly from this platform driver bypass=
- the
-hwmon subsystem architecture rules?
-
-According to the hwmon subsystem guidelines, if a multifunction device supp=
-orts
-hardware monitoring as a secondary functionality, its hardware monitoring
-features should be implemented as an auxiliary driver located in
-drivers/hwmon/.
-
-> +	if (IS_ERR(ec->hwmon_dev)) {
-> +		return dev_err_probe(dev, PTR_ERR(ec->hwmon_dev),
-> +				     "Failed to register hwmon\n");
-> +	}
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-topic-asus=
-_ec-v3-0-2bf3bb9da879@oss.qualcomm.com?part=3D2
