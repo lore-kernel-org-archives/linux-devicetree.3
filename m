@@ -1,80 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BACA25B091
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 07:09:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD50E43DA3C
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 07:09:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147344; cv=none; b=FB1SYuiwRe9IdI/9K/E6PqgOoP5OY8LHA2f3gVb3daSEajV9tBdo6Jt1jcS3pZwUaFzY9Qw1WGRbhoEO8neBpNqYAlT/nQ94lvvF6tJBaa6L6Ywty1ax/vNPlYUpEkbKK0tHpLq0z6xHxb+XnByHHQKqUn1eYJZNkA827YUESm8=
+	t=1790147376; cv=none; b=H18eub9CskwoDjra9FNW11PhhbRmP7nAS7XHPA+B+vyQ9m5/c+I5B6ME9is+LnsY02o3hqo8cjpPDQswrnmp1IeHgn9FGtd0iDHDgXsUAQsywHl8DZlys9NsNz/3KTQQn2hoX5Svvm0snPD55WD0ggq1/eNjQIebwwtc9NkoWs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147344; c=relaxed/simple;
-	bh=TEDBnX1lzLmQHX4CFyGy7UEUczM3xTnw+yYkHXz3xP4=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qER1eIpp1SlE8r0O1LKrhiKTolXrbbo6KwgmubLnC8sk+zn+F2BztxHhgB8WMZoX5g+fOrXcZA07eBjChFcx/vFY0pWa14e20N7mJr5CIhtndQnxmX4mpAQ0BfOIc7MQqqtYSRYyB4+hSOyMppjuS5OCtF1Toc0ZNnV2FLDDgp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOYhSaBu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790147376; c=relaxed/simple;
+	bh=Rl5L1ZY9XmSnnsjctz/ZJncqAyzJ620lTI/YqgOXQvQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VIn1yUeSHgA6TZeukaEXXI0cyOD7ztZMdmWzMAha+iHHDlF9C6jRTYnvqhZt+8zRlQxrQXTSubhIwExX993CQ2e3Ifw2vlsCv9GP0C2e1yh2/aOpM2JifH3AQ2G6P+Ggp8QJNhbJPomfX6Psdkkf8V2jKziknMOtEqKC2Hq1J4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EvAZ87Mf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOYhSaBu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52BE01F00893
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 07:09:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EvAZ87Mf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFE3E1F000FF;
+	Wed, 23 Sep 2026 07:09:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790147342;
-	bh=TEDBnX1lzLmQHX4CFyGy7UEUczM3xTnw+yYkHXz3xP4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=kOYhSaBuaEMdwZYyUJxUpENL4labCdjRU2gD1CSJLo4ilU/644HDFsUGrDKI5/Uhw
-	 nwwTBTC2VD3u75DuWTwwywxfGtwL67CvaQzZ6UZdSYbNEpL8hs/JfyMC97VP5dYvqA
-	 6wLPY/y8Wgfqsx2g/pOxS8ZaFGCtpjtiCgbrO/rNQtkZliG8uuVjqqpfAqYUS9Fp7o
-	 WH+Gmjh1du3ZEhUwFMy1Zp9cnRCNJKuN1NqakFnODsIP++VJVoiBTHQ+dJkZZ/bRQg
-	 yLCllWZWJEenwBC7aWaFBkxtN/tDLgbUInZ3SLDVNc+y7rBpXuTCuYaDI0kBgK3hg4
-	 xvxaCu9aYTBWQ==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a49a40209dso10586601fa.0
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 00:09:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzz8bVNd4Etv317Uxr8/qAMLd8XdJ7xHiiIfpbuP48pCrpvp2aXP6w3GCSMiRgVAVetzv0Bj1iCnLAE@vger.kernel.org
-X-Gm-Message-State: AFuF++nv6Zn2uvIeVj14G8gNj65Jd6wrbUz/VfEXf8lHonQBM2Nay960
-	+YzF6Kql5pQaET5tCSGbWm8kCl1bc1J0ktr3Q5xGnS4EB+EuCGT5/XZl1fUwXTD1dQaDaVN+OTb
-	FFcN3nXwuuqBKoFuNyr/U1N6sNwvYyNanzM2BikL1yg==
-X-Received: by 2002:a05:651c:982:b0:3a5:d78c:c0df with SMTP id
- 38308e7fff4ca-3a624d707cemr10895031fa.13.1790147340949; Wed, 23 Sep 2026
- 00:09:00 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Sep 2026 00:08:59 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Sep 2026 00:08:59 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260922091735.491481-1-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1790147370;
+	bh=7s0aNz3ugd9AHWUSgJthdieQ8CGDS2UokSpx1oU+KsA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EvAZ87MfsawVMMX9eNYFbA7u9DZSlG8Rmi6Y3Z2mUC7WPFblZuV+tLs5s89UIiqDC
+	 7xvdsxFzKjwhLVRGRR5BxwpjZFCG0VyqMfngewgh3UFTN8r0P7XvTj9rVcyxkA/xEd
+	 ltGVVnISbzKPjI5rZMqDTcgYGffRaB/xmbMvK0JoKOnCv9BQsm36EzzpNA3gxfVwJ3
+	 qolSxDhoTeZVJS7f+jB1ptcJioI7+jfQo2Qqkce6rRb0O49rvul9Hnl2pfQLLad6nH
+	 /HM+107VmCAQC5T4Jj6CL+z1bVJLduPL5CarcxhFizH9b65ceR5MD2wwSbB9BsjdyZ
+	 lsmKfL0w+qpFg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 09/10] ASoC: qcom: Add Shikra QAIF support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260923-b4-qaif-shikra-audio-v7-9-d5b6f056568e@oss.qualcomm.com>
+References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
+ <20260923-b4-qaif-shikra-audio-v7-9-d5b6f056568e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 07:09:29 +0000
+Message-Id: <20260923070929.CFE3E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260922091735.491481-1-shengchao.guo@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 00:08:59 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdmCgbxc+WQHCWvXZ5Wywv+3x7Ncy5kQ5HF=V6u5-gsiQ@mail.gmail.com>
-X-Gm-Features: AcwNN1V-Og3bFufMot9xYEqrGg76kE38VSvV-ukP2Jt5ACNQwZyhsphBMWLukHc
-Message-ID: <CAMRc=MdmCgbxc+WQHCWvXZ5Wywv+3x7Ncy5kQ5HF=V6u5-gsiQ@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: qcom: nord: Add LLCC node
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 22 Sep 2026 11:17:35 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
->
-> Add the system cache controller. All sixteen banks are listed, four per
-> DDR slice at 0x100000 strides from slice + 0x800000, followed by the
-> global broadcast OR/AND regions, which the driver expects at the reg
-> indices right after the last bank.
->
-> No ECC interrupt is described, as the Nord interrupt map does not expose
-> one for the LLCC. The driver treats it as optional.
->
-> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Logic error in shikra_qaif_get_dma_idx due to contiguous DAI ID =
+assumption
+- [Low] Build failure due to undefined AIF_* constants
+--
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+commit 8d479b4be68dbcc2201e8313200c13e70d03bca1
+Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+
+ASoC: qcom: Add Shikra QAIF support
+
+Add the Shikra variant data for the Qualcomm Audio Interface driver so
+the common QAIF code can bind to the Shikra QAIF device and expose the
+SoC-specific DAIs. This commit provides the Shikra DMA-to-DAI mappings,
+layout, clock names, DAI driver data, and PM hooks required by QAIF.
+
+> diff --git a/sound/soc/qcom/qaif-shikra.c b/sound/soc/qcom/qaif-shikra.c
+> new file mode 100644
+> index 0000000000000..0d5c2baade28f
+> --- /dev/null
+> +++ b/sound/soc/qcom/qaif-shikra.c
+> @@ -0,0 +1,447 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * qaif-shikra.c -- ALSA SoC CPU-Platform DAI driver for QTi QAIF
+> + */
+> +
+> +#include <linux/module.h>
+> +#include <linux/pm.h>
+> +#include <sound/pcm.h>
+> +#include <sound/soc.h>
+> +#include "qaif.h"
+> +
+> +static const struct qaif_dmaidx_dai_map shikra_mi2s_dma_dai_map[] =3D {
+> +	{ AIF_MI2S_RX_0, QAIF_DMA_IDX0 },
+
+[Severity: Low]
+Are the AIF_MI2S_RX_0, AIF_TDM_RX_0, and similar constants defined anywhere
+in the kernel tree?
+
+It appears their definitions might be missing, which could cause an immedia=
+te
+compilation failure when building this newly added file.
+
+[ ... ]
+
+> +static int shikra_qaif_get_dma_idx(unsigned int dai_id)
+> +{
+> +	const struct qaif_dmaidx_dai_map *map;
+> +	int i, size;
+> +
+> +	if (dai_id >=3D AIF_MI2S_RX_0 && dai_id <=3D AIF_MI2S_TX_12) {
+
+[Severity: Medium]
+Could this condition incorrectly classify non-MI2S ports if they fall
+between the RX and TX ranges?
+
+This logic assumes that AIF_MI2S_RX_0 through AIF_MI2S_TX_12 form a
+contiguous block of IDs. However, in the shared header,
+qaif_is_aif_mi2s_port() treats the RX and TX ranges as distinct:
+
+sound/soc/qcom/qaif.h:qaif_is_aif_mi2s_port() {
+    ...
+    return (dai_id >=3D AIF_MI2S_RX_0 && dai_id <=3D AIF_MI2S_RX_12) ||
+           (dai_id >=3D AIF_MI2S_TX_0 && dai_id <=3D AIF_MI2S_TX_12);
+}
+
+If the underlying enum places other IDs (such as TDM ports) in between
+the MI2S RX and TX ranges, this function could misclassify them as MI2S
+ports, fail to find them in shikra_mi2s_dma_dai_map, and return -EINVAL.
+
+> +		map =3D shikra_mi2s_dma_dai_map;
+> +		size =3D ARRAY_SIZE(shikra_mi2s_dma_dai_map);
+> +	} else if (dai_id >=3D AIF_TDM_RX_0 && dai_id <=3D AIF_TDM_TX_12) {
+> +		map =3D shikra_tdm_dma_dai_map;
+> +		size =3D ARRAY_SIZE(shikra_tdm_dma_dai_map);
+> +	} else {
+> +		map =3D shikra_cif_dma_dai_map;
+> +		size =3D ARRAY_SIZE(shikra_cif_dma_dai_map);
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-b4-qaif-sh=
+ikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com?part=3D9
