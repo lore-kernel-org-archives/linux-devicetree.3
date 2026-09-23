@@ -1,132 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B07463B70;
-	Wed, 23 Sep 2026 08:06:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477FB45C710;
+	Wed, 23 Sep 2026 08:12:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790150768; cv=none; b=PpyFmr2FAtM/YLxoJG02UhkTb9+KBv+LqbZXgVJArMrPmX99XmVucL3UIoQP1QyBwlFVs/ED6LlKMh/C3juq06Zb3KaWsnKObGV0/dloepAzmHfxsptsbIqi1Vp+oLtAU+166PBrRAldMe6z4xbOJut0H4DYTJJCya8FL0Df8OQ=
+	t=1790151181; cv=none; b=jIyrLSrBMCRwKxkHrdubkE5SF+vR+sOKl7QcSQ5Jpr7zFBTatc6IZiW0xedC6EKiV53mU9jToUHlhvg+n0tvJB0b+JWs5eOMPhSn0cOYqxmpqLIbPRJbmRyZR8hMoJLgZY+2cFY34ZqDMcDfV1YOwQ9pY/OUJ7Z6PLoSQcCPBzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790150768; c=relaxed/simple;
-	bh=1PZwIE8TVU5soElAe+9hqBxDNKLiuQmotjGe3sg8bxA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zx4/HZmlG0xqaB1DbUmOYIeqHhY3R7qRv0+jgsL2tawJpv3jUeX/nGvzUkPIxTvyY+csNCg6oIOLbDDqi9MnEENb38dRce5IY8Zgs/213LcP9htq/Z6Eb3YfJ5lwnrYgG5mJhfMq/vqSO6TGB86O7uRBbOdXLuPz5IH2lIKLDPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m/1ZYNir; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790151181; c=relaxed/simple;
+	bh=4J6GFc8K8C2Yd2ciWnpV+Hv17k4b8a5sitRXNVd2/VQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IhqHSdWtiQJLoulTxfv+v0XPwLGbqf6QB+LtydnQwvhs4rmKmProsg8P1RDkhNqePqMNHN6TYcFH0Ke/IqPSa0UcswDr/6Bkw9Z63zLiB1qCZoAXcBaFSJ/zQAtNXvfiU4l9wzq2thwz5eYF+tMkKRXejFUbiPzz69rIeA/2dDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=ryd/mHfL; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m/1ZYNir"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 567B11F000FF;
-	Wed, 23 Sep 2026 08:06:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790150766;
-	bh=Xil8py5E3/ndIBs9IcR+eVULmt4f0WzoAU5Rtvj5GqA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=m/1ZYNirgaoPCynZpFJy/4+yEbz3WvWqPgEpgsFnWqQZ7y/UKyBvF9rUuS1qoHN8j
-	 pDibh2CeJH6fXVmwlF6WQ1eh+9WIJExXiP6cC3M6/s7ns32q3GIFvJgiW1JeXpsc8c
-	 mKR5tvDNeHrS2DpQjoWz7U1keT+Wg0MrdvkjQooIEAh17fnh8I+kcHIqMifEvBSvx5
-	 0lIY/xIleJr8B1hSC+ASQKXZynZyiInQX53cfcStII+GE5yd7GUKrxGf/K03CXSVX3
-	 o44XS1vz/M5hCpWSODu7eou6pUSpo+tLuSZsT/yjpOhrDWPWLzd2axlo8e2lPx4r9e
-	 KkSnHNDqfm+NA==
-Message-ID: <26d37b51-fa03-4d91-b160-3c0b8b7e1bb3@kernel.org>
-Date: Wed, 23 Sep 2026 10:05:55 +0200
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="ryd/mHfL"
+X-UUID: 926369fcb72611f18dc8c9802ae25ab1-20260923
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=nXFx24uHxr9xP0FU0RdXpsSyEvVzbxC7Cx4KbtNOMGc=;
+	b=ryd/mHfL4NNyI4I5IXU0czBURmvlTKvyis5VMHYWK0JjCVAEpn88AFt4pyuyBiF2fPNskH/xXOnr9UGnvjsN8IVabiX18Ff0WPDM+nDqqTDlbC7zRqLoqHt/QVcSj9oVQ8J4XmHPszbgvBPBHrZbpxq66MZQt+eq9pjFSI7N+hw=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:8052bbdb-727b-416f-a580-827b51d749d9,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:efe6e108-d10d-41b3-a8f1-bc707284d0ce,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 926369fcb72611f18dc8c9802ae25ab1-20260923
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1381347116; Wed, 23 Sep 2026 16:12:51 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 23 Sep 2026 16:12:50 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 23 Sep 2026 16:12:48 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
+	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
+	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
+ Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
+	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
+	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
+Subject: [PATCH v10 00/10] Enable video decoder & encoder for MT8189
+Date: Wed, 23 Sep 2026 16:12:36 +0800
+Message-ID: <20260923081246.268182-1-kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 7/8] dt-bindings: sound: qcom: add Tambora WCD9378 SDCA
- codec
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Maciej Strozek <mstrozek@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
-References: <20260918131914.681588-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260918131914.681588-8-srinivas.kandagatla@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260918131914.681588-8-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-On 18/09/2026 15:19, Srinivas Kandagatla wrote:
-> +  vdd-mic-bias-supply:
-> +    description: Mic bias supply.
-> +
-> +  '#sound-dai-cells':
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - qcom,sdca-compliant
-> +  - qcom,port-mapping
-> +  - reset-gpios
-> +  - vdd-buck-supply
-> +  - vdd-rxtx-supply
-> +  - vdd-io-supply
-> +  - vdd-mic-bias-supply
-> +  - '#sound-dai-cells'
-> +
+It adds the MT8189 decoder and encoder bindings and compatible data,
+updates the decoder capability data, and fixes two existing decoder
+issues.  Patch 3 moves decoder firmware selection from optional DT
+properties into platform data, matching the encoder implementation.
 
-You need $ref to dai-common.yaml
+Patch layout:
+  1  Add the MT8189 decoder binding.
+  2  Add decoder platform-data support.
+  3  Move decoder firmware selection to platform data.
+  4-5  Refactor decoder profile, level, and VP9 probability-size data.
+  6  Fix VP9 4K profile-2 decoding.
+  7  Add the MT8189 decoder compatible data.
+  8  Fix the media-device node number.
+  9-10  Add the MT8189 encoder binding and compatible data.
 
-> +additionalProperties: false
+This series depends on:
+  [1] MT8196 decoder/VCP v7
+      https://patchwork.linuxtv.org/project/linux-media/cover/20260923024258.257846-1-kyrie.wu@mediatek.com/
+  [2] MT8196 encoder v8
+      https://patchwork.linuxtv.org/project/linux-media/cover/20260914073423.16131-1-irui.wang@mediatek.com/
 
-And this becomes unevaluatedProperties.
+Testing on MT8189:
 
+H.264:
+  ./fluster.py run -d GStreamer-H.264-V4L2SL-Gst1.0 -j2 -t 90
+  JVT-AVC_V1: 96/135 tests passed
 
+VP9:
+  ./fluster.py run -d GStreamer-VP9-V4L2SL-Gst1.0 -j2 -t 90
+  VP9-TEST-VECTORS: 276/305 tests passed
 
-Best regards,
-Krzysztof
+v4l2-compliance:
+  mtk-vcodec-enc (/dev/video2): 46/47 passed, 1 failed, 0 warnings
+  mtk-vcodec-dec (/dev/video3): 48/48 passed, 0 failed, 0 warnings
+
+SCP upstream link:
+https://patchwork.kernel.org/project/linux-mediatek/patch/20250811015922.32680-1-huayu.zong@mediatek.com/
+
+DTSI upstream link:
+https://lore.kernel.org/linux-mediatek/20251030134541.784011-12-jh.hsu@mediatek.com/T/#m847e35de0a5b18fac0ca0624a8559d84964ad5c7
+
+Changes compared with v9:
+  - Rebased on the latest media tree.
+  - Rebased on MT8196 decoder/VCP v7 and encoder v8.
+  - Add a separate decoder firmware-platform-data patch following review.
+
+Changes compared with v8:
+--Rebased on top of the latest media tree
+
+Changes compared with v7:
+--relocate the patches set
+--refactor decoder platform data patch
+--fix commit message errors
+
+Changes compared with v6:
+--refactor the patches of set compatible data, profile and level
+--add reviewer to commit messages
+--fix commit message errors
+
+Changes compared with v5:
+--refactor the patches of set compatible data, profile and level
+--add reviewer to commit messages
+--fix commit message errors
+
+Changes compared with v4:
+--update H264 & vp9 fluster test results
+--update vp9 single core decoder prob size setting and commit messages
+
+Changes compared with v3:
+--add reviewer to commit messages
+--Rebased on top of the latest media tree
+
+Changes compared with v2:
+--add H264 fluster test results
+--reorder compatible string for dt-bindings
+
+Changes compared with v1:
+--add v4l2-compliance test results
+--add scp upstream link
+--add HW difference discriptions for dt-bindings commit messages
+
+Kyrie Wu (10):
+  dt-bindings: media: mediatek: decoder: Add MT8189
+    mediatek,vcodec-decoder
+  media: mediatek: decoder: Add a new platform data member
+  media: mediatek: decoder: Move firmware selection to platform data
+  media: mediatek: vcodec: Refactor Decoder profile & level Handling
+  media: mediatek: vcodec: Add VP9 Probability Size Configuration
+  media: mediatek: vcodec: Fix vp9 4096x2176 fail for profile2
+  media: mediatek: vcodec: add decoder compatible to support MT8189
+  media: mediatek: vcodec: Fix media device node number
+  dt-bindings: media: Add MT8189 mediatek,vcodec-encoder
+  media: mediatek: encoder: Add MT8189 encoder compatible data
+
+ .../media/mediatek,vcodec-encoder.yaml        |   2 +
+ .../media/mediatek,vcodec-subdev-decoder.yaml |   5 +-
+ .../mediatek/vcodec/decoder/mtk_vcodec_dec.c  |   2 +-
+ .../mediatek/vcodec/decoder/mtk_vcodec_dec.h  |   6 +
+ .../vcodec/decoder/mtk_vcodec_dec_drv.c       |  68 ++---
+ .../vcodec/decoder/mtk_vcodec_dec_drv.h       |  42 +--
+ .../vcodec/decoder/mtk_vcodec_dec_hw.c        |   2 +-
+ .../vcodec/decoder/mtk_vcodec_dec_stateful.c  |  16 ++
+ .../vcodec/decoder/mtk_vcodec_dec_stateless.c | 253 ++++++++++++------
+ .../vcodec/decoder/vdec/vdec_vp9_req_lat_if.c |  14 +-
+ .../vcodec/encoder/mtk_vcodec_enc_drv.c       |  17 ++
+ 11 files changed, 279 insertions(+), 148 deletions(-)
+
+-- 
+2.51.0.windows.2
