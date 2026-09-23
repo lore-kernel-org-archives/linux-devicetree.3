@@ -1,173 +1,100 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC65542EE8
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 18:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8BC530DFF;
+	Wed, 23 Sep 2026 18:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188836; cv=none; b=EKo+Kgb0rbksr4K3ijPGyO9Ht1+CsstSYmqRMOLpBwWLJlvFh9SygMnI9Y2QxouMQnFEOtpV/TWBPsX3Jkhh5neblVp3fLFYJCN0lSWpbejUKGiVmerHS5WLgc96dkTf6MUxqWUuneoToOonAVybDDRxbJc1JLA78S0QR+5XqbU=
+	t=1790188856; cv=none; b=l4mvDeU92BgZ8pAVMEui6eFjuJdahxk4vdX5MSBa0XLC342/JpaD4FcTrym/Q4N+PRfVx6seA0E//Zx8HQqmBgkAVye+Vdpm9pdf5LkBg6gmLTL0yergXYZ1Dx4gI5aw+xCMItnSGAdB0XiVVUFei8NYj6QpxJiO1+0ymkj8VaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188836; c=relaxed/simple;
-	bh=LjI2SsSWKQZX7ULnYkf78v7gp2sgIgsQTM6Mv73WTwc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LOCXe77PQUm8K+dB1WeDm2wu14C0km+yvlC6I+ZK3xzdye127W/x8UIYyHyrqCTlWVw82eumoa2Q5Ibd/UxB576AzIr7wTbCUAPe7L1CJoFAJTklgfHlWM8vxkRv2slx/uQnjEMdE1Kt0qKFBSaNwOMMyzz2kKaw/nYqasphgMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KXbJh+/d; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790188856; c=relaxed/simple;
+	bh=fufgafUjt5ss16o0es0hiwBt60ZX7JQfj3DkvX16e0M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=t4CWFzNtyKFIzSwTsU6smL4z4Af14iy+7/G6Vy+fEG47ugYSQuBaKinqRWt8YHus5aPVYwsB41JMtSrGaTL/Ewbl9fag19BJA+fyb51FIc1l4smemroEfOjwsDNNsr1i7iGm2bVxXTPtqxqnalFqcMFpP2Np0RGotU65U939TwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PTxzIYJw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KXbJh+/d"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso977291a12.2
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:40:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790188830; x=1790793630; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3gc3lVJFpeHvTVPTQlhw9bRs3DHSZ5NaiLqgYc9qgEg=;
-        b=KXbJh+/dP+H/DVta2SZjpyc6dT+zKM0g2loVnfAddOHhWjdLlHCqhNc++/Q/682VBz
-         iaNnQALzrBBhWhSUBLQ0LC6N1/489yvOCWRz4bVrbjYzrfjZDGIbZ92Q4oQctw9ncOZZ
-         V9HsxJ17HQ2BqKZ9AvrlI9MNz9s/FjX2lU5yEot4BZ41S++7joy2Ll6qWQRavgjhZ0bn
-         cBj4FALxgDPm4RCCdiucgK01PZ1/q8yB5qADIQT3KIm2Kop1cLJpUvyODk8f/m1ODn4+
-         3rryejjNb0oRd5QnhX2rhlaSHTRut8O1JdMuTyACKFyMSIliuESIYpxLl0FRuGQTu+Jf
-         dlqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790188830; x=1790793630;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3gc3lVJFpeHvTVPTQlhw9bRs3DHSZ5NaiLqgYc9qgEg=;
-        b=nnBT2sdH4Wnio0FYSjBUf/cFfft9yCXyLTP0ijox4Nhm9wALo6JeMoQTKuuF71N+J7
-         YePEOpdp3olrKs03eRf6Nbcg/r7RJU/M0O4ujeXcsPPZJd6icbO51jj89q05EcCeV3a7
-         th2UucSZG2FnBMkIKtIaQmcQtpdR6oscUb9cGy7US8l5eMy9GgRzpTwEndjp9Qe4rrks
-         i0ZXHRl7xNi8nMRehsVFr/tNxCRxKyeFCXqvR4kNmVxNnSP7P02irhF7D9kF4fx1wjvy
-         twz4/NshAbCgUSKjaZdZpp6/ONFm0JJL35c3EhnJsiIMWhWCXKsBoK9uRvnRCgB4bO+e
-         hIVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzqz/GYuMEgzA3UxhjQDGgH9ewqKgBmbnjJwOAz35/pX8+U9RfUFwaBbzxh0L3HyX1njDm/w59elZW6@vger.kernel.org
-X-Gm-Message-State: AFuF++kvSp+rFaEQ+d+FAFSAjcyLt7KlSJhDjhdHsUqikIY2Y9/a3Zkh
-	ADXYMTHDdibwv1b42sP73og7M2zd6sEgN+VtuNmQ5oqNiMFUgk54XsQv
-X-Gm-Gg: AYBFou29gIcb20SYD3SWYQDIf2kd4NqiqE8kK1vwqonKxRroD10mqMDJrc9XBeJLSB/
-	0pXWC7mhjOCQstnSpXphLbTeQjg/Gp7/wizpvWkLD3EVoGdPXmrA05UjhQARCSwTi0FEQlVtR1A
-	dYeFjXDIzsXgb4uvepT+Be3wU1h0t2AdadAo+/4dGBMBlaQBlhkODUKSE0F7NB61lrMN5hNVV+N
-	RBwoheV+4JCUFjd3qi3D0wsC5xNhMGMkQCNgrFFyYmMztDybjVvXc3X+tndxtOnjELccrcwcNTi
-	cUp9s/rSWlcEsVmPoxd9E4y4uFBzx0M3GD5X7rZz/tPfvJaXF6J2X/3O3ACcSCKt83x1KxTNQGo
-	8rw5w3zpYlbaSAOVNamazfpXin4HoCPTh+HpVd+HQodMj2JJwpSfwE/oxDEAS/jfDSTw9sYI4go
-	g6oqo+HMFX+qs1A7qGxhB7fWBOlOXei9+j4AuycvviXUV+o6eDs4ZmBeVacxdxW9uJ03/wZCzH1
-	coA4xqDf3byY+NuS2lsKtsGjlgMTA7ffekCO87pdrSa0YztkX9deF1++ylqT8WsexAodbAZMiM2
-	zuNCGU+G0/KmQJKS6ICQnFjs/lZFOFn/uvjhPP9foLCiv5KP
-X-Received: by 2002:a05:6a20:6f07:b0:3cc:8f53:26c0 with SMTP id adf61e73a8af0-3de0e73d922mr85921637.17.1790188830372;
-        Wed, 23 Sep 2026 11:40:30 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3b82aasm1644341a12.9.2026.09.23.11.40.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 11:40:29 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] powerpc: dts: turris1x: use qca8337 internal PHYs
-Date: Wed, 23 Sep 2026 11:40:28 -0700
-Message-ID: <20260923184028.13830-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PTxzIYJw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA291F0089E;
+	Wed, 23 Sep 2026 18:40:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790188851;
+	bh=S/W2Po2BbF5aq98WhvE/IfdysqS3aPARdILD9rgtljQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PTxzIYJw9OCK0Dbv1BWI/GJin4ZmTvnbH+9ja8Y0VBEW22iMifb5qzEEo0VI4Eqmv
+	 nhbQ06WCWtnoOnwm93dYH44E5AGzTGq7CLgIUvy0am1tpnHhUoZhHhPz+g0aG9Cixd
+	 IPKHPZWErBK3nzrPR+vOg8KnzqLiBXiBbnW6Avz2O/P1rItyD7KtX2DJpkBRhW03J+
+	 s+uOn1HHXjc27M776anNxxZ8Cp3ywXdK9otBwJOiZoy5ZLaAWbDb2xK4eOxx/YX0j6
+	 glIBwBXDmnfjpGE69Zwez+6TH2KQRsCBbVVcUApcN/m9lFv+Fad2Z6qy3CdHOL+WqP
+	 G+CsMSblha3MQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 09/12] clk: zte: Introduce a driver for zx297520v3
+ matrix clocks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
+Cc: lee@kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, linux-clk@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, robh@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260923-zx29clk-v12-9-9c243796b6d2@gmail.com>
+References: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
+ <20260923-zx29clk-v12-9-9c243796b6d2@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 18:40:50 +0000
+Message-Id: <20260923184051.0BA291F0089E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The QCA8337 switch has a managed internal MDIO bus for its built-in
-PHYs.  Declare the five PHYs in an mdio subnode of the switch and
-link the LAN ports to them with phy-mode = "internal" and
-phy-handle, so each switch port is connected to the correct internal
-PHY instead of relying on the implicit legacy port-to-PHY mapping.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] clk: zte: missing DT export for ZX297520V3_RFFE_WCLK
+--
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- arch/powerpc/boot/dts/turris1x.dts | 35 ++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+commit 4d2c5025ee60ae5cdf0e636caff70b2cdc8a3e60
+Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
-diff --git a/arch/powerpc/boot/dts/turris1x.dts b/arch/powerpc/boot/dts/turris1x.dts
-index d0b7c62b8c6e..58c9e7b34e50 100644
---- a/arch/powerpc/boot/dts/turris1x.dts
-+++ b/arch/powerpc/boot/dts/turris1x.dts
-@@ -174,26 +174,36 @@ fixed-link {
- 					port@1 {
- 						reg = <1>;
- 						label = "lan5";
-+						phy-mode = "internal";
-+						phy-handle = <&phy_port1>;
- 					};
- 
- 					port@2 {
- 						reg = <2>;
- 						label = "lan4";
-+						phy-mode = "internal";
-+						phy-handle = <&phy_port2>;
- 					};
- 
- 					port@3 {
- 						reg = <3>;
- 						label = "lan3";
-+						phy-mode = "internal";
-+						phy-handle = <&phy_port3>;
- 					};
- 
- 					port@4 {
- 						reg = <4>;
- 						label = "lan2";
-+						phy-mode = "internal";
-+						phy-handle = <&phy_port4>;
- 					};
- 
- 					port@5 {
- 						reg = <5>;
- 						label = "lan1";
-+						phy-mode = "internal";
-+						phy-handle = <&phy_port5>;
- 					};
- 
- 					port@6 {
-@@ -208,6 +218,31 @@ fixed-link {
- 						};
- 					};
- 				};
-+
-+				mdio {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					phy_port1: ethernet-phy@0 {
-+						reg = <0>;
-+					};
-+
-+					phy_port2: ethernet-phy@1 {
-+						reg = <1>;
-+					};
-+
-+					phy_port3: ethernet-phy@2 {
-+						reg = <2>;
-+					};
-+
-+					phy_port4: ethernet-phy@3 {
-+						reg = <3>;
-+					};
-+
-+					phy_port5: ethernet-phy@4 {
-+						reg = <4>;
-+					};
-+				};
- 			};
- 		};
- 
--- 
-2.55.0
+clk: zte: Introduce a driver for zx297520v3 matrix clocks
 
+This clock controller controls high speed devices: CPU, DMA, RAM, SDIO,
+Ethernet. The only non-clock, non-reset registers I have spotted here
+are hardware spinlocks.
+
+> diff --git a/drivers/clk/zte/clk-zx297520v3.c b/drivers/clk/zte/clk-zx297=
+520v3.c
+> index 68bfeab84d745..92b56571b1556 100644
+> --- a/drivers/clk/zte/clk-zx297520v3.c
+> +++ b/drivers/clk/zte/clk-zx297520v3.c
+
+[ ... ]
+
+> +static const unsigned int zx297520v3_matrix_exports[] =3D {
+> +	[ZX297520V3_SYS_TIMER_WCLK] =3D		ZX_CLK_SYS_TIMER_WCLK,
+> +	[ZX297520V3_CPU_WCLK] =3D			ZX_CLK_CPU_WCLK,
+
+[ ... ]
+
+> +	[ZX297520V3_PDCFG_WCLK] =3D		ZX_CLK_PDCFG_WCLK,
+> +	[ZX297520V3_PDCFG_PCLK] =3D		ZX_CLK_PDCFG_PCLK,
+> +	[ZX297520V3_SSC_WCLK] =3D			ZX_CLK_SSC_WCLK,
+> +	[ZX297520V3_SSC_PCLK] =3D			ZX_CLK_SSC_PCLK,
+
+[Severity: Medium]
+Is the mapping for ZX297520V3_RFFE_WCLK intentionally missing from
+zx297520v3_matrix_exports?
+
+Because this mapping is omitted, any device querying for the RFFE work clock
+via the device tree will be silently mapped to index 0. This index correspo=
+nds
+to the ZX_CLK_MATRIX_OSC26M_D4 clock rather than the intended rffe-wclk.
+
+Could this incorrect mapping break the LTE radio hardware and potentially
+disrupt actual consumers of the 6.5 MHz matrix-osc26m-d4 clock when a driver
+probes and operates on the hardware block?
+
+> +	[ZX297520V3_AXI_WCLK] =3D			ZX_CLK_AXI_WCLK,
+> +	[ZX297520V3_GMAC_WCLK] =3D		ZX_CLK_GMAC_WCLK,
+> +	[ZX297520V3_GMAC_PCLK] =3D		ZX_CLK_GMAC_PCLK,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-zx29clk-v1=
+2-0-9c243796b6d2@gmail.com?part=3D9
