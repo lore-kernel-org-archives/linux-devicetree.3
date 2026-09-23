@@ -1,471 +1,251 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C634639023F
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C4543CE72;
+	Wed, 23 Sep 2026 06:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790144222; cv=none; b=oCCHVNEFnJLNU0WkT/SMRCRx8sB+bvshI00PSQCRAEMtBUdipESY2vl+ByQH/rvEmrQqz3tOW8xv8Fph/lZS7Ar15hUOnI0YI7AP1EDfDjcx/SAniJWtDXQGyjjYHjOAeMdgYADP1oeH/ig2Mj2q+YKa1ZxeYJus0OWSN4iBvBM=
+	t=1790144934; cv=none; b=uAWHSImI0MPzg3Z3KD/jE8gEuxwy1MsY6aEG76Z0p/tG9AwRFsxqAIPBI4+eNOzhYM7/KENlvSxDqAMjfNJXGQlAg8E1B1Empg4mHA86p2D1DrrKBoI+Hfaoz1aQQTEM/BY6Wr1sf/cqscPBXOfcHmuIhyzuQNeVMLdBoNrZaJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790144222; c=relaxed/simple;
-	bh=peXXU50xndQ4gAoFBh6lBioyyPiw7OjAKlIqeV7t6ic=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FyV8f5qzGzcf8fCPhFJ6BJpIy5jLbDbubl3E1m9kaQKD89cLVyRmYqGzbxcr3rl2wU3BlvyEbghj0L/TmDRH8BJxx9uJRJTAEkgYLEV2PbXZhhNxGNKNTtQb6zkUY0lOFMsgu6DNppNqUCcDHIXJd9GxVbM3raZ86so3snRP8yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LTGNdvh+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aBYvZmOX; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790144934; c=relaxed/simple;
+	bh=VuMkuZEJlA66qR9gZhAUv9Xru4s5l8CfOR/FkcXT30M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SQnSE+Asyurj1jXm/5gd5/FZQUt0729pIWCMgANemgnzS9un68DtosOl5FwFcXtuPuXo1oZ7pqTwWXNKH2W6BQWxq9N2aZpIfP7773r0ZO3WivPJMSyh4lIxlmZSvfJcA0z3lgn4K1m6womFDuhZ96Gn6r+bWf/WEKkSlIm/Z/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=eqdKrPgu; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LTGNdvh+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aBYvZmOX"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3iRLJ2571440
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:16:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XAVSQafxI3Jl7WTU6fUPik0vtCcJL5EtlAGkPjfSPC8=; b=LTGNdvh+tK4uTGe3
-	dBVpvQxGhbf9BoBC++S/Kx47e6bhEBx6Y7GO3GBfExQ1IMaljtbScDjHP/Mb2kTD
-	TY87oyqfAjnTfbN6tZTLUkRJpOjxI+oZ9Drr+4NkWoTROCmNG5NwgfIZ2C8mFR40
-	6Y0NO4vS+0MU4e6DLHN/Zebg2d40KaUAJxdDKx9EmDOUCRvUnRuhBuUDcS34b0x3
-	DxLgfMixbbks82ORZavdA9VU/zx3l8ZpQgmM7JbbbZrVT/6SBO7Dthi3mTgv2qRW
-	NN0Hpq7Wwq+YevdOHzudqa0YK3IlHSb137KDPPgmthg17kyzEipCkx0cf+DQ8RBT
-	6/OamQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux862utc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:16:58 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30f1b904861so745127eec.0
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 23:16:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790144217; x=1790749017; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XAVSQafxI3Jl7WTU6fUPik0vtCcJL5EtlAGkPjfSPC8=;
-        b=aBYvZmOXP6lkAcU5i+XOYZTNZiIsxDQCygSG+CT/QwVN35BOdFpG6MI1L42ZrP09D3
-         gLTaJDz2VbIVLAwfCeOn0M8Ui8N1+InJSymZyKrkn7Vv9hMvrrEUSGmFI9gceke7w7Ry
-         CaDhOzHtRjlXusnIF2DMdn3l0rbYblYVkrn9TN+AgI22PDef8dkhKa0yrAt8777qnoQm
-         IRecteWp/Lul8fmP+oYY1JTI3yzm/UNEPmcGWoAAfE/QHrT3Sr3rWW+NZDrW5mZA7n/L
-         /iWrE/XpBTOQm27n8VF4HPuUGgEb7WpY3kTtbC6oaadngyS0kKh3XOYDZDqv1ttvPILg
-         lS6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790144217; x=1790749017;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XAVSQafxI3Jl7WTU6fUPik0vtCcJL5EtlAGkPjfSPC8=;
-        b=cRckhMzjHEa+vdgEENuO8CnwzUWxHiKd0eJ6TvWRg2/P0U64ldkMe1UIGgJAYNqRPQ
-         OURzN4wYVkX0faYYw3h8RIkewKiom72sG2khVeEWZXTOoBTXoc8FZuJDQnzbxmmNYsLk
-         okrBp9lIxB50MR7Ol46I6/B0OI9e53wD7hZrKsfOqfcbbUN61lNTRHlBHgqa8uTvjD5J
-         we2acjrWz+JcZSkAiMT+ivauBdhLCDyXpTI1uZx/44GTHiY+cfE2pV49wvVpB/Zjixnc
-         YJQiFJDBYsAy+zgjnUBbl4F2eXkE3YKli5qK1KE0mKeK/u2qeG6hLWCPu5936mWzlNnH
-         Vc6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzY2n5cCinEqo4RJnA87Lii94BK0BtSFU2o9OZYZUKYD2sdz1WgarUbJIcdokypnYrs+1kcl38MPBVg@vger.kernel.org
-X-Gm-Message-State: AFuF++nUb5ePbs/S3Qt9fOGKcgjQUX+9XDqH4j7d/3K+8lNXANAihZYg
-	SmKRdzzqx6Dzf5ep8AVoA9YZeP7NIRH2xVfO16wbwPV+0YE9WYfpOV2BAgyDnFbQdVIug7HR7Vr
-	ewuhPFeC84dpbottwOVMnk1TQ+y+TjR04Ayic3QJNK93HU6h1SNpSc5Re8xBEuMVB
-X-Gm-Gg: AYBFou0x41uuLw5uRLbmenMNlH993uDpM95q/UJqHx7jyNuOpZa+W/0Faj67yHLo7T3
-	0kOBlIYrJBB94yZI2EVjRO/hyZvhYDixttlK5InnfmzMM4iIZE9Bf+eba8zMAO6yXgcJduMIa9e
-	jqTk3vvWPK6NTnSQNRdP31WlKimDHOrOnwGdD2cld3pfJTOHRhaPaKI9RhlzmlDCj5sHw3EeQK/
-	dkKU29iyFz1gDPqvYFT1kWZ/X1oxcG+IapI7NEx8X36ykwhFEQwrXCifdEXcEdUWhgv/5OA4MmK
-	O63tr9O6YdpTyr9O3gRENouJbqeTmiwXtzFtRvXq3eVYRgX34J2Q2Gexzpp1HODt/+wU7lIE9zo
-	WRM+5WugodwIXazmD/d6GfPdsYQhMI50=
-X-Received: by 2002:a05:7022:208a:b0:137:f532:e360 with SMTP id a92af1059eb24-144f9086f02mr1827459c88.3.1790144217242;
-        Tue, 22 Sep 2026 23:16:57 -0700 (PDT)
-X-Received: by 2002:a05:7022:208a:b0:137:f532:e360 with SMTP id a92af1059eb24-144f9086f02mr1827431c88.3.1790144216582;
-        Tue, 22 Sep 2026 23:16:56 -0700 (PDT)
-Received: from [10.206.101.140] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96e498f0sm3375833eec.27.2026.09.22.23.16.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 23:16:56 -0700 (PDT)
-Message-ID: <023d4410-a730-a5e5-ea84-474e957d7a5b@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 11:46:49 +0530
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="eqdKrPgu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=4h
+	FDy2VVoz7RTyWjulrvxuTdYcehFGuSNRNctvS4gQE=; b=eqdKrPguK5Usl/D905
+	qSORraqtnH9L2jyVnz0R4yrWWfYo+zono7VwU6QQabHk2Hrb+ByS28gDaRsEgTgs
+	/X7a54u2Bad2DOi3HkRxgTBZ/yqEtz4rtNkybmGnKNGMhCyCb7U3LvDKcQfxlWsP
+	TjCdJwLRvRVdMhrez5bXaStiQ=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3n95rcbNqvBgRAQ--.5203S2;
+	Wed, 23 Sep 2026 14:27:57 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Chris Zhong <zyw@rock-chips.com>,
+	Zhang Qing <zhangqing@rock-chips.com>,
+	mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	quchaosheng000406@163.com
+Subject: [PATCH v3] dt-bindings: mfd: Convert rk805 pinctrl to DT schema
+Date: Wed, 23 Sep 2026 14:27:46 +0800
+Message-ID: <20260923062746.516666-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v9 01/19] Revert "media: iris: Add Gen2 firmware
- autodetect and fallback"
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-References: <20260731-iris-ar50lt-v9-0-d71a782001c0@oss.qualcomm.com>
- <20260731-iris-ar50lt-v9-1-d71a782001c0@oss.qualcomm.com>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20260731-iris-ar50lt-v9-1-d71a782001c0@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Trm-SMnuZz_kSme5lx6YbSGOllvvpZZ1
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAyNCBTYWx0ZWRfX6nN37gtE8nvr
- yYKCxZja8gkOSkW4ZIGyqXFSR5YEOKsUc6+OC8PHrWv9DtQVzZJG/9zojFEmuOj4VDVi5ji2e3d
- jcnf3GgyhGCvaa0XG76pszAQpP/9h9M=
-X-Proofpoint-ORIG-GUID: Trm-SMnuZz_kSme5lx6YbSGOllvvpZZ1
-X-Authority-Analysis: v=2.4 cv=eIOGH3p1 c=1 sm=1 tr=0 ts=6ab36eda cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=fAD_4TVitci44sXei48A:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAyNCBTYWx0ZWRfXw+ZBjRkXKqNk
- KTAAhLi+xvbTUx9VWYbk6RX10Q2yMwPvjcdJscy2Pc/Qss34WF/hIhJ49FKxPXDx2MgP0R6xWoO
- 9msG3TkRNTHV2uofz3pEQXMQ/tD0IGqJvpAP9kRG1LoNx2vuf/LI78sSnPH1mj6ON8rPFcC/Hs3
- rKEGLVXrZewWsy03PeGqub/rvGjvmo7vHptMmiHWu3vwCtQ7xffmlvE0BXnM7J5SopKGjU8N1Xl
- PptQps9FDPlnPu4o8c0rt4pyMl3BTvDJ96CpuNASO+nGg1SL6ZLvK5Orp57i9CNkQ8jEVbR84QM
- dKy4aSh1CFihO6cpD+uAjbfOH5bWc0Fo4P3rxJ42zZooPOuvxcuWiFSeBytA44/gCo2RCUo9Vrq
- SVAWRuvMfr0MNYm/PRwRlOJ5MBRaVVncBzcNPqKtp20HHtG7nA0jFLlgnP+ohyj/3dqGmZdMqZ9
- 4U1kN9t8xq1zFH6Gpkw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- phishscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230024
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n95rcbNqvBgRAQ--.5203S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuw47tr48KFWkAFyxJw15twb_yoWxWw4DpF
+	W3AFZ3Jrn2gF4fuw4Utw18C34fWan7Ar47G3WDGryIqa15uryjvr15Kw1rZF98GrW8Za4a
+	vrsrWryDXwnrCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUjfOrUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5A3+dGqzcW2tHgAA3V
 
+pinctrl-rk805.txt describes the pinmux controller that is part of the
+Rockchip RK805 PMIC. The PMIC itself is already described by
+rockchip,rk805.yaml, so the pinmux part belongs there as well: the
+pinctrl node is a child of the PMIC node, not a separate device.
 
-On 7/31/2026 5:18 AM, Dmitry Baryshkov wrote:
-> The commit 412a2e5955e0 ("media: iris: Add Gen2 firmware autodetect and
-> fallback") added support for detecting the firmware HFI interface based
-> on the firmware contents, but it has issues with the MDT split files and
-> with synchronisation / locking. Revert the commit, it will be replaced
-> by the better version.
->
-> Fixes: 412a2e5955e0 ("media: iris: Add Gen2 firmware autodetect and fallback")
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_firmware.c   | 119 +++------------------
->  .../platform/qcom/iris/iris_platform_common.h      |   6 +-
->  .../media/platform/qcom/iris/iris_platform_vpu2.c  |  11 +-
->  .../media/platform/qcom/iris/iris_platform_vpu3x.c |  10 +-
->  drivers/media/platform/qcom/iris/iris_probe.c      |   4 +
->  drivers/media/platform/qcom/iris/iris_vidc.c       |   3 -
->  6 files changed, 33 insertions(+), 120 deletions(-)
->
-> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
-> index 965384fdd339..1a476146d758 100644
-> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-> @@ -16,109 +16,20 @@
->  
->  #define MAX_FIRMWARE_NAME_SIZE	128
->  
-> -/* Detect Gen2 firmware by scanning the blob for:
-> - *   QC_IMAGE_VERSION_STRING=<version>
-> - * and then checking:
-> - *   - version starts with "vfw", OR
-> - *   - version matches "video-firmware.N.M" with N >= 2
-> - */
-> -
-> -static bool iris_detect_gen2_from_fwdata(const u8 *data, size_t size)
-> -{
-> -	static const char *marker = "QC_IMAGE_VERSION_STRING=";
-> -	const size_t mlen = strlen(marker);
-> -	static const char *vfw = "vfw";
-> -	const size_t vfwlen = strlen(vfw);
-> -	static const char *vf = "video-firmware.";
-> -	const size_t vflen = strlen(vf);
-> -
-> -	for (size_t i = 0; i + mlen < size; i++) {
-> -		const char *found;
-> -
-> -		if (memcmp(data + i, marker, mlen))
-> -			continue;
-> -
-> -		found = data + i + mlen;
-> -		size -= i + mlen;
-> -
-> -		/* vfw => Gen2 */
-> -		if (size > vfwlen && !memcmp(found, vfw, vfwlen))
-> -			return true;
-> -
-> -		if (size < vflen ||
-> -		    memcmp(found, vf, vflen))
-> -			return false;
-> -
-> -		found += vflen;
-> -		size -= vflen;
-> -
-> -		/*
-> -		 * video-firmware.1.x is Gen1.
-> -		 * video-firmware.2.x and video-firmware.10.x are Gen2.
-> -		 */
-> -		return size >= 2 &&
-> -			(*found >= '2' || (*found == '1' && found[1] != '.'));
-> -	}
-> -
-> -	return false;
-> -}
-> -
-> -static const struct firmware *iris_detect_firmware(struct iris_core *core,
-> -						   const char **fw_name)
-> -{
-> -	const struct firmware *firmware;
-> -	bool has_both_gens;
-> -	int ret;
-> -
-> -	*fw_name = NULL;
-> -	if (core->iris_platform_data->firmware_desc_gen2)
-> -		core->iris_firmware_desc = core->iris_platform_data->firmware_desc_gen2;
-> -	else if (core->iris_platform_data->firmware_desc_gen1)
-> -		core->iris_firmware_desc = core->iris_platform_data->firmware_desc_gen1;
-> -	else
-> -		return ERR_PTR(-EINVAL);
-> -
-> -	has_both_gens = core->iris_platform_data->firmware_desc_gen2 &&
-> -		core->iris_platform_data->firmware_desc_gen1;
-> -
-> -	ret = of_property_read_string_index(dev_of_node(core->dev), "firmware-name", 0, fw_name);
-> -	if (ret) {
-> -		*fw_name = core->iris_firmware_desc->fwname;
-> -		ret = request_firmware(&firmware, *fw_name, core->dev);
-> -		if (ret && has_both_gens) {
-> -			core->iris_firmware_desc = core->iris_platform_data->firmware_desc_gen1;
-> -			*fw_name = core->iris_firmware_desc->fwname;
-> -			ret = request_firmware(&firmware, *fw_name, core->dev);
-> -		}
-> -
-> -		return ret ? ERR_PTR(ret) : firmware;
-> -	}
-> -
-> -	ret = request_firmware(&firmware, *fw_name, core->dev);
-> -	if (ret)
-> -		return ERR_PTR(ret);
-> -
-> -	if (has_both_gens &&
-> -	    !iris_detect_gen2_from_fwdata((const u8 *)firmware->data, firmware->size)) {
-> -		dev_info(core->dev, "Gen1 FW detected in %s\n", *fw_name);
-> -		core->iris_firmware_desc = core->iris_platform_data->firmware_desc_gen1;
-> -	}
-> -
-> -	return firmware;
-> -}
-> -
-> -static int iris_load_fw_to_memory(struct iris_core *core)
-> +static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
->  {
->  	const struct firmware *firmware = NULL;
->  	struct device *dev = core->dev;
->  	struct resource res;
->  	phys_addr_t mem_phys;
-> -	const char *fw_name;
->  	size_t res_size;
->  	ssize_t fw_size;
->  	void *mem_virt;
->  	int ret;
->  
-> +	if (strlen(fw_name) >= MAX_FIRMWARE_NAME_SIZE - 4)
-> +		return -EINVAL;
-> +
->  	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
->  	if (ret)
->  		return ret;
-> @@ -126,11 +37,9 @@ static int iris_load_fw_to_memory(struct iris_core *core)
->  	mem_phys = res.start;
->  	res_size = resource_size(&res);
->  
-> -	firmware = iris_detect_firmware(core, &fw_name);
-> -	if (IS_ERR(firmware))
-> -		return PTR_ERR(firmware);
-> -
-> -	core->iris_firmware_data = core->iris_firmware_desc->firmware_data;
-> +	ret = request_firmware(&firmware, fw_name, dev);
-> +	if (ret)
-> +		return ret;
->  
->  	fw_size = qcom_mdt_get_size(firmware);
->  	if (fw_size < 0 || res_size < (size_t)fw_size) {
-> @@ -157,12 +66,18 @@ static int iris_load_fw_to_memory(struct iris_core *core)
->  int iris_fw_load(struct iris_core *core)
->  {
->  	const struct tz_cp_config *cp_config;
-> +	const char *fwpath = NULL;
->  	int i, ret;
->  
-> -	ret = iris_load_fw_to_memory(core);
-> +	ret = of_property_read_string_index(core->dev->of_node, "firmware-name", 0,
-> +					    &fwpath);
-> +	if (ret)
-> +		fwpath = core->iris_firmware_desc->fwname;
-> +
-> +	ret = iris_load_fw_to_memory(core, fwpath);
->  	if (ret) {
-> -		dev_err(core->dev, "firmware download failed %d\n", ret);
-> -		return ret;
-> +		dev_err(core->dev, "firmware download failed\n");
-> +		return -ENOMEM;
->  	}
->  
->  	ret = qcom_scm_pas_auth_and_reset(IRIS_PAS_ID);
-> @@ -184,7 +99,7 @@ int iris_fw_load(struct iris_core *core)
->  		}
->  	}
->  
-> -	return 0;
-> +	return ret;
->  }
->  
->  int iris_fw_unload(struct iris_core *core)
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> index 974809509146..a9453d539fc2 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> @@ -292,7 +292,11 @@ struct iris_firmware_desc {
->  };
->  
->  struct iris_platform_data {
-> -	const struct iris_firmware_desc *firmware_desc_gen1, *firmware_desc_gen2;
-> +	/*
-> +	 * XXX: replace with gen1 / gen2 pointers once we have platforms
-> +	 * supporting both firmware kinds.
-> +	 */
-> +	const struct iris_firmware_desc *firmware_desc;
->  
->  	const struct vpu_ops *vpu_ops;
->  	const struct icc_info *icc_tbl;
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> index bbdbf21961d7..fa5bb143158d 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> @@ -29,12 +29,6 @@ static const struct iris_firmware_desc iris_vpu20_p1_gen1_desc = {
->  	.fwname = "qcom/vpu/vpu20_p1.mbn",
->  };
->  
-> -static const struct iris_firmware_desc iris_vpu20_p1_gen2_s6_desc = {
-> -	.firmware_data = &iris_hfi_gen2_data,
-> -	.get_vpu_buffer_size = iris_vpu33_buf_size,
-> -	.fwname = "qcom/vpu/vpu20_p1_gen2_s6.mbn",
-> -};
-> -
->  static const struct iris_firmware_desc iris_vpu20_p4_gen1_desc = {
->  	.firmware_data = &iris_hfi_gen1_data,
->  	.get_vpu_buffer_size = iris_vpu_buf_size,
-> @@ -106,8 +100,7 @@ const struct iris_platform_data milos_data = {
->  };
->  
->  const struct iris_platform_data sc7280_data = {
-> -	.firmware_desc_gen1 = &iris_vpu20_p1_gen1_desc,
-> -	.firmware_desc_gen2 = &iris_vpu20_p1_gen2_s6_desc,
-> +	.firmware_desc = &iris_vpu20_p1_gen1_desc,
->  	.vpu_ops = &iris_vpu2_ops,
->  	.icc_tbl = iris_icc_info_vpu2,
->  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
-> @@ -136,7 +129,7 @@ const struct iris_platform_data sc7280_data = {
->  };
->  
->  const struct iris_platform_data sm8250_data = {
-> -	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
-> +	.firmware_desc = &iris_vpu20_p4_gen1_desc,
->  	.vpu_ops = &iris_vpu2_ops,
->  	.icc_tbl = iris_icc_info_vpu2,
->  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
-> index 74626b35d9cb..2c63adbc5579 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
-> @@ -90,7 +90,7 @@ static const struct tz_cp_config tz_cp_config_vpu3[] = {
->   * - inst_caps to platform_inst_cap_qcs8300
->   */
->  const struct iris_platform_data qcs8300_data = {
-> -	.firmware_desc_gen2 = &iris_vpu30_p4_s6_gen2_desc,
-> +	.firmware_desc = &iris_vpu30_p4_s6_gen2_desc,
->  	.vpu_ops = &iris_vpu3_ops,
->  	.icc_tbl = iris_icc_info_vpu3x,
->  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
-> @@ -119,7 +119,7 @@ const struct iris_platform_data qcs8300_data = {
->  };
->  
->  const struct iris_platform_data sm8550_data = {
-> -	.firmware_desc_gen2 = &iris_vpu30_p4_gen2_desc,
-> +	.firmware_desc = &iris_vpu30_p4_gen2_desc,
->  	.vpu_ops = &iris_vpu3_ops,
->  	.icc_tbl = iris_icc_info_vpu3x,
->  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
-> @@ -154,7 +154,7 @@ const struct iris_platform_data sm8550_data = {
->   * - controller_rst_tbl to sm8650_controller_reset_table
->   */
->  const struct iris_platform_data sm8650_data = {
-> -	.firmware_desc_gen2 = &iris_vpu33_p4_gen2_desc,
-> +	.firmware_desc = &iris_vpu33_p4_gen2_desc,
->  	.vpu_ops = &iris_vpu33_ops,
->  	.icc_tbl = iris_icc_info_vpu3x,
->  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
-> @@ -185,7 +185,7 @@ const struct iris_platform_data sm8650_data = {
->  };
->  
->  const struct iris_platform_data sm8750_data = {
-> -	.firmware_desc_gen2 = &iris_vpu35_p4_gen2_desc,
-> +	.firmware_desc = &iris_vpu35_p4_gen2_desc,
->  	.vpu_ops = &iris_vpu35_ops,
->  	.icc_tbl = iris_icc_info_vpu3x,
->  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
-> @@ -220,7 +220,7 @@ const struct iris_platform_data sm8750_data = {
->   * - different num_vpp_pipe
->   */
->  const struct iris_platform_data x1p42100_data = {
-> -	.firmware_desc_gen2 = &iris_vpu30_p1_gen2_desc,
-> +	.firmware_desc = &iris_vpu30_p1_gen2_desc,
->  	.vpu_ops = &iris_vpu3_ops,
->  	.icc_tbl = iris_icc_info_vpu3x,
->  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
-> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-> index 5db6398433a4..81cccb756b94 100644
-> --- a/drivers/media/platform/qcom/iris/iris_probe.c
-> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
-> @@ -253,6 +253,8 @@ static int iris_probe(struct platform_device *pdev)
->  		return core->irq;
->  
->  	core->iris_platform_data = of_device_get_match_data(core->dev);
-> +	core->iris_firmware_desc = core->iris_platform_data->firmware_desc;
-> +	core->iris_firmware_data = core->iris_firmware_desc->firmware_data;
->  
->  	core->ubwc_cfg = qcom_ubwc_config_get_data();
->  	if (IS_ERR(core->ubwc_cfg))
-> @@ -271,6 +273,8 @@ static int iris_probe(struct platform_device *pdev)
->  	if (ret)
->  		return ret;
->  
-> +	iris_session_init_caps(core);
-> +
->  	ret = v4l2_device_register(dev, &core->v4l2_dev);
->  	if (ret)
->  		return ret;
-> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-> index fcbc60016bee..1c052ca235be 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-> @@ -9,7 +9,6 @@
->  #include <media/v4l2-mem2mem.h>
->  #include <media/videobuf2-dma-contig.h>
->  
-> -#include "iris_ctrls.h"
->  #include "iris_vidc.h"
->  #include "iris_instance.h"
->  #include "iris_vdec.h"
-> @@ -197,8 +196,6 @@ int iris_open(struct file *filp)
->  		goto fail_m2m_release;
->  	}
->  
-> -	iris_session_init_caps(core);
-> -
->  	if (inst->domain == DECODER)
->  		ret = iris_vdec_inst_init(inst);
->  	else if (inst->domain == ENCODER)
+Fold the pinmux description into rockchip,rk805.yaml and drop the
+standalone text binding.
 
-Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+While doing so, add the missing '-pins$' child node schema. The
+rockchip,rk805.yaml schema ends with 'additionalProperties: false' but did
+not describe the pin configuration child nodes at all, so a valid pinmux
+node like the one shown in pinctrl-rk805.txt was rejected:
+
+    pmic@18 (rockchip,rk805): 'rk805-default-pins' does not match any of
+    the regexes: '^pinctrl-[0-9]+$'
+
+The pin configuration nodes require 'pins'; without it a node that names
+no pin is accepted silently, while the text binding it replaces listed
+'pins' as required. The RK805 exposes two output-only GPIOs, so 'pins' is
+an enum of gpio0 and gpio1 and a typo such as "gpio2" is caught.
+
+The example regains the gpio-controller and #gpio-cells lines that the
+text binding's example had.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260923034245.396417-1-quchaosheng000406@163.com?part=1
+Assisted-by: LLM
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+Changes in v3:
+- Capitalize the summary phrase. dt-bindings: mfd: titles are capitalized
+  after the subsystem prefix (Add 61, Convert 20 against convert 6).
+- Add gpio-controller and #gpio-cells to the example, which the text
+  binding's example had and the conversion dropped.
+- gpio-controller and #gpio-cells are deliberately *not* added to the
+  required list. rv1108-evb, rv1108-elgin-r1 and rk3328-a1 do not set
+  them, so requiring them breaks three in-tree boards:
+
+    rv1108-evb.dtb: pmic@18 (rockchip,rk805): 'gpio-controller' is a required property
+
+  No rk8xx PMIC schema requires the pair, and gpio.yaml already enforces
+  that they appear together ("'#gpio-cells' is a dependency of
+  'gpio-controller'"). The pinctrl driver calls devm_gpiochip_add_data()
+  unconditionally, so the property is not what makes the GPIO controller
+  work either.
+
+Changes in v2:
+- Require 'pins' in the pin configuration nodes. Without it a node that
+  names no pin passes validation, while the text binding listed 'pins'
+  as required.
+---
+ .../bindings/mfd/rockchip,rk805.yaml          | 38 ++++++++++-
+ .../bindings/pinctrl/pinctrl-rk805.txt        | 63 -------------------
+ 2 files changed, 37 insertions(+), 64 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
+
+diff --git a/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml b/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
+index da2391530c16..681a90a265c0 100644
+--- a/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
++++ b/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
+@@ -86,6 +86,34 @@ properties:
+         unevaluatedProperties: false
+     unevaluatedProperties: false
+ 
++patternProperties:
++  '-pins$':
++    type: object
++    description:
++      The RK805 has two output-only GPIOs which can be muxed to the GPIO
++      function and driven low or high at boot.
++    additionalProperties: false
++
++    properties:
++      pins:
++        description:
++          List of GPIO pins to configure.
++        items:
++          enum: [gpio0, gpio1]
++        minItems: 1
++        maxItems: 2
++
++      function:
++        description:
++          The RK805 only supports the GPIO function.
++        enum: [gpio]
++
++      output-low: true
++      output-high: true
++
++    required:
++      - pins
++
+ allOf:
+   - if:
+       properties:
+@@ -125,9 +153,11 @@ examples:
+             interrupt-parent = <&gpio2>;
+             interrupts = <RK_PA6 IRQ_TYPE_LEVEL_LOW>;
+             pinctrl-names = "default";
+-            pinctrl-0 = <&pmic_int_l>;
++            pinctrl-0 = <&pmic_int_l>, <&rk805_default>;
+             rockchip,system-power-controller;
+             wakeup-source;
++            gpio-controller;
++            #gpio-cells = <2>;
+             #clock-cells = <0>;
+ 
+             vcc1-supply = <&vcc_sys>;
+@@ -137,6 +167,12 @@ examples:
+             vcc5-supply = <&vcc_io>;
+             vcc6-supply = <&vcc_io>;
+ 
++            rk805_default: rk805-default-pins {
++                pins = "gpio0", "gpio1";
++                function = "gpio";
++                output-high;
++            };
++
+             regulators {
+                 vdd_logic: DCDC_REG1 {
+                     regulator-name = "vdd_logic";
+diff --git a/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt b/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
+deleted file mode 100644
+index 6ad49e51c72e..000000000000
+--- a/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
++++ /dev/null
+@@ -1,63 +0,0 @@
+-Pincontrol driver for RK805 Power management IC.
+-
+-RK805 has 2 pins which can be configured as GPIO output only.
+-
+-Please refer file <devicetree/bindings/pinctrl/pinctrl-bindings.txt>
+-for details of the common pinctrl bindings used by client devices,
+-including the meaning of the phrase "pin configuration node".
+-
+-Optional Pinmux properties:
+---------------------------
+-Following properties are required if default setting of pins are required
+-at boot.
+-- pinctrl-names: A pinctrl state named per <pinctrl-bindings.txt>.
+-- pinctrl[0...n]: Properties to contain the phandle for pinctrl states per
+-		<pinctrl-bindings.txt>.
+-
+-The pin configurations are defined as child of the pinctrl states node. Each
+-sub-node have following properties:
+-
+-Required properties:
+-------------------
+-- #gpio-cells: Should be two. The first cell is the pin number and the
+-  second is the GPIO flags.
+-
+-- gpio-controller: Marks the device node as a GPIO controller.
+-
+-- pins: List of pins. Valid values of pins properties are: gpio0, gpio1.
+-
+-First 2 properties must be added in the RK805 PMIC node, documented in
+-Documentation/devicetree/bindings/mfd/rockchip,rk808.yaml
+-
+-Optional properties:
+--------------------
+-Following are optional properties defined as pinmux DT binding document
+-<pinctrl-bindings.txt>. Absence of properties will leave the configuration
+-on default.
+-	function,
+-	output-low,
+-	output-high.
+-
+-Valid values for function properties are: gpio.
+-
+-There are also not customised properties for any GPIO.
+-
+-Example:
+---------
+-rk805: rk805@18 {
+-	compatible = "rockchip,rk805";
+-	...
+-	gpio-controller;
+-	#gpio-cells = <2>;
+-
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pmic_int_l>, <&rk805_default>;
+-
+-	rk805_default: pinmux {
+-		gpio01 {
+-			pins = "gpio0", "gpio1";
+-			function = "gpio";
+-			output-high;
+-		};
+-	};
+-};
+-- 
+2.43.0
 
