@@ -1,81 +1,132 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93BAE56C634
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D9C53A397
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790192333; cv=none; b=ElgViTcIaSI10oRbtBTGuYNBocYftWkuvgGlu/Nsn1gV9CPCyh8HLFgiy4tMuvMonnnBQr0wVA3p62n1X+F163UAYu91/G5gUKsei1NOj7EERKarnk09gbsVuIlGMly2BIiqbxpBIF5RHSqgtmd+SCFWz0GRSOUVhneG/Bi1ke8=
+	t=1790192402; cv=none; b=deC9SbiLDTeT111XKN3/gINoyT0zuquD5IOrUmS4YMzxA2NQGKVdqw1GZsAKnmD+QpGu+3D+YlCd4tf6haNvN8SduHH4n+RAP8DJjbbTQZf+Dzi6huW13UXrhiE90ueaoYcWwvlJTtdhHlsV4OnuAWvdJf0yif5uFQYK5q0KD50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790192333; c=relaxed/simple;
-	bh=/c4aAsyg4wk9o6KE/BZZp42wDVt5nAVLd6jz/4l5Tc4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fNGw5xjcm3FKillZvvkRs8CFRVevMcfhxVz2Ho9bIz/4TcXBXFPUJjtoXkrv/FMJNRtqysyaeUz+5jn82Uf8kVcpso8+ckoS+Fwp3fDv66Kr2Ol2JqAptmEoX4ZoWGd0Bi8C/K3SUREu+aQsgJ107ldGqJGbrLfouDByhmH1yLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=BevtsdKY; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790192402; c=relaxed/simple;
+	bh=HgLOhvdawnP4XhrridZyPRbqRyxnQGHPFHszvicM6Nw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iWvnpGNM/mXF1aAiDWs3XDHEVuhCh4dEAA0cnt7HaIEljgko9mOvFZ67bC0Zcc6O0h7Y7QNya8FxsEd/uMeisiE0Suxj5n+2bfyD4ABEnfXN5jwUwv8LT+FR8or7PCnMKf/NPQpzaMapgcjh13FONy+fkVbkrjEsbGkJowkDONk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVwfovaL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="BevtsdKY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790192328; x=1790451528;
-	bh=/c4aAsyg4wk9o6KE/BZZp42wDVt5nAVLd6jz/4l5Tc4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=BevtsdKYhtKRRyzozhonSgBowArTWrp5FHvAD9A5JJAj9mrdlJFR4CsejRO+6p9VZ
-	 31BGEQtIczPlgrGw2NtUWZPC1sC7zcSjvR59QG8ZKLXWm25nkqkOkc8QGNP85xMEh8
-	 jQrkfCoLKcga1vB0G+xEuBdVsTXXeRfldIzQNC3F/GG1ijktsE60CXY6ytI6JQ6hla
-	 VyE2NRlB8hhrlDF4W5f3cEDEIsJ/FK5gLHOINLRU6uYF1+SLAqs+buZB3q76eOARAX
-	 +bybMsss4JD1yZsHPPa+LDUawoMXruKiyKyZtA4jU1S1W7QCb5XL/q2xqjCqJgdcOg
-	 iG4Oi7GJF++NA==
-Date: Wed, 23 Sep 2026 19:38:43 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v6 3/3] media: ipu-bridge: Add Sony IMX681
-Message-ID: <20260923193805.83998-4-lsa.uz@pm.me>
-In-Reply-To: <20260923193805.83998-1-lsa.uz@pm.me>
-References: <20260923193805.83998-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: a7db8f2a6c398cdd7262f06584a9c1c2a95c95a2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVwfovaL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE94D1F000FF;
+	Wed, 23 Sep 2026 19:40:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790192401;
+	bh=TzuSvCAl0f08OJ2GOCY3/xrgxy2szK/GBR1ZffvwHzk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MVwfovaLIdsiFN7qLjC5cuAElQ5nH5VGfbLuwKNVPpdSzyG+ZAtUDJBxZr4Bih4ND
+	 9HkM1tn4P07JEdxSLtyxCV5kR8CEYJTG6F+26nrc6EqHHfjxi8WOJRW1FH4f+qis7z
+	 1eaHteJzKpxjtVe3O5IflarP7m6onBbyO1XoQlfhr2InBR1B/lQbW6AkIhg5n3q6x2
+	 N1MVMKpSHvjTgund6YRtsvhbnJOB/8FxdmVz3AKoPYO+o8jtjp26fwX0rIiMZwr2hD
+	 LOKXTByybjs/f/zsEve0PsUkoJ9SjUQg9Iqe1WJf79Tl0hEzw1FYwGATAdWk9d2jTZ
+	 PCsCvndstObEQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] arm64: dts: ti: k3-am62l3-evm: Add HDMI support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Swamil Jain" <s-jain1@ti.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260923192643.1362891-3-s-jain1@ti.com>
+References: <20260923192643.1362891-1-s-jain1@ti.com>
+ <20260923192643.1362891-3-s-jain1@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 19:40:00 +0000
+Message-Id: <20260923194000.DE94D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-a Sony IMX681 as its user-facing sensor, enumerated as ACPI device
-SONY0681. Add it so ipu_bridge_connect_sensors() builds its half of the
-graph; without the entry the sensor is never connected, whatever driver is
-present.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dts: missing reset-gpios in sii9022 HDMI bridge node
+- [Medium] dts: unmanaged VOUT0_FET_SEL0 multiplexer signal
+--
 
-One link frequency, 969.6 MHz, on two CSI-2 lanes.
+commit 4ee6007c0b1e46ee93bc1bd222e57649c25a3e88
+Author: Devarsh Thakkar <devarsht@ti.com>
 
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+arm64: dts: ti: k3-am62l3-evm: Add HDMI support
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 77257311d1d..a1a4023f813 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -116,6 +116,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("OVTI5693", 1, 419200000),
- =09/* Omnivision OV8856 */
- =09IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
-+=09/* Sony IMX681 */
-+=09IPU_SENSOR_CONFIG("SONY0681", 1, 969600000),
- =09/* Sony IMX471 */
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
+Add the SII9022 HDMI bridge and HDMI connector nodes, along with the
+DPI pinmux configuration connecting VOUT0 to the bridge. Enable the DSS
+and hook up its DPI output port to the SII9022 bridge input, and the
+bridge output to the HDMI connector.
+
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/d=
+ts/ti/k3-am62l3-evm.dts
+> index 84a0cfaaf196a..8ff7c4baaadba 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+
+[ ... ]
+
+> @@ -192,6 +208,41 @@ exp2: gpio@23 {
+>  		bootph-all;
+>  	};
+> =20
+> +	sii9022: bridge-hdmi@3b {
+> +		compatible =3D "sil,sii9022";
+> +		reg =3D <0x3b>;
+> +		interrupt-parent =3D <&exp1>;
+> +		interrupts =3D <20 IRQ_TYPE_EDGE_FALLING>;
+
+[Severity: Medium]
+The exp2 IO expander defines GPIO_HDMI_RSTn on this board, which defaults t=
+o a
+high-impedance input on power-up. Should this node define the reset-gpios
+property to map and drive that line?
+
+Without explicitly mapping and driving this line via reset-gpios, the HDMI
+bridge may remain in reset or an undefined state. This could prevent the dr=
+iver
+from satisfying the hardware's reset timing requirements, potentially causi=
+ng
+I2C probe failures or non-functional HDMI output.
+
+> +		#sound-dai-cells =3D <0>;
+> +		sil,i2s-data-lanes =3D < 0 >;
+> +		bootph-all;
+
+[ ... ]
+
+> @@ -221,6 +272,41 @@ usb_con_hs: endpoint {
+>  };
+> =20
+>  &pmx0 {
+> +	dpi_pins_default: dpi-default-pins {
+> +		pinctrl-single,pins =3D <
+> +			AM62LX_IOPAD(0x00e4, PIN_OUTPUT, 1) /* (L20) GPMC0_CSn0.VOUT0_VSYNC */
+> +			AM62LX_IOPAD(0x00dc, PIN_OUTPUT, 1) /* (N21) GPMC0_WPn.VOUT0_HSYNC */
+
+[ ... ]
+
+> +			AM62LX_IOPAD(0x00ec, PIN_INPUT,  5) /* (M23) GPMC0_CSn2.VOUT0_EXTPCLK=
+IN */
+> +		>;
+> +		bootph-all;
+> +	};
+
+[Severity: Medium]
+The exp2 IO expander defines a VOUT0_FET_SEL0 signal, which controls the FET
+switch for routing the DSS VOUT0/DPI signals on the board. Should this patch
+configure that pin (e.g., via a gpio-hog or within a display controller nod=
+e)?
+
+Since the TCA6424 IO expander defaults to high-impedance inputs, the FET sw=
+itch
+is currently left unmanaged. If the default or floating hardware state does=
+ not
+route the signals to the HDMI bridge, the hardware path is physically
+disconnected and the display will remain blank despite software succeeding.
+
 --=20
-2.54.0 (Apple Git-157)
-
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923192643.1362=
+891-1-s-jain1@ti.com?part=3D2
