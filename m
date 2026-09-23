@@ -1,78 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFAE3E6399
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 17:21:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010333EDAB5
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 17:28:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184085; cv=none; b=BWj+HTv2o02zvBsYerqU6yDa5WCHb3tU4syr/tqqNunbWm9wLTFgs+DumgSFA870SqyWVIeZZiIcxgSI0E0vm0X+7Geun7UqzdIy4ME8c9oL0J9/0YaBIwI1031C4bJbM4T6kNof1XMI+vxTxtyRJikzlaHxDJ000oS8HysnIYE=
+	t=1790184492; cv=none; b=nrYeg0Tg9LhhIdqdu186dwr99XmS8WpQH4CgD4xsZglo3rJ3DqTJfwp1Jj4rnjQvX765h7tZrQFNOKAu8s76k0rvdmHnyYDeV8qbQjQMj0REj1XTh9AhKboF81OcGfqKZ0eQupOWJ8UrY/GflJMwLR5wwFcoS1YTfWfcoOkqGt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184085; c=relaxed/simple;
-	bh=LgsdIdG+zGM1ANt8ONaeUUV61KHbsRslUWzcjqgbfr0=;
+	s=arc-20240116; t=1790184492; c=relaxed/simple;
+	bh=Cc+kmMQpFSYKCu+YbHyMQJivl+pk5zH2psxS0LqXXyI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YiYC0yAEP2p0qa5KlCysP9YovDCfauDqSDTamnOOQIm9wtrLzRAb06b+dbyrDHXZw8BWDCe/yTFAZOMkGUZjXbXl+4oc7qa1E8TKlGa4u6HKTBTBE74JyHTQHsndl2ZinpB11Fb6VB39sahlStYTOPczAWUFzTh+Q5dBDKdIQ9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooOIG0Zf; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=Q+hui/UYr7SyNPC1GwwdvAlrH+fVpgItSde5E4HWwYYHt64n0/Xv/g08VbYL7BnRPCBgWHUKxuAYYEiMhB/m+JZu5RBNgVHW3kWVV21IL9lzyzP6zQyGANw8ZwG0jDvU5/f/ShFobMtRRv71MpVmBU/c3h3ps4Aq7GZ+vGxoenk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kjR1f9n7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooOIG0Zf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B4791F00898
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 17:21:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kjR1f9n7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 964E31F0089D
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 17:28:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790184079;
-	bh=q85OFS0/wcmxsg3cy/PCsW6K+vmLUTrQvpSWJO/mpH4=;
+	s=k20260515; t=1790184490;
+	bh=Cc+kmMQpFSYKCu+YbHyMQJivl+pk5zH2psxS0LqXXyI=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ooOIG0ZfNOU4hcI/I0WM2jG6AjFEXMtGvioBZyC8o5eD+6I3jqkT1RdDYPu3dg45w
-	 H4SlISHNfqnrbDsZ9yQuoBX1YuNztPBnKk8DhsypnRg19I1kBZie8uHr6arYAtVIav
-	 getEYnTmH4y+kww2cHGGTHTq7aa/7m2obuZCKQzRIahoq4qJ7fe+5YFaKqvRfLPomw
-	 VN1HsmBxZnOw6kUNpUSR8MlFQxrfRuq6DtiUlD/mk9vZYVpJcRxO6umE6IsC4N8/za
-	 XgGzr+nVXoEw0lASaRqTcHbct9NzYzzBqsF0W2v9oEJP9TQuXDfwjIlA0DHOkGbq7q
-	 ebiZ7rYVvDQ1Q==
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466ccbd478bso608207fac.3
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:21:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzbvU0D1Un9RxYYap1kIT4ulOrx7oNtNMR8DnXlIOYQWgoMOvH8btRZ+2rzTMzvIrqi/l5s526EyfCp@vger.kernel.org
-X-Gm-Message-State: AFuF++mj6y9PxM0DdPjnfH4joTIIi4M/5Gbb8M4mE+optGGfa0UjWRpk
-	L+BJ0c5GSsu2T0oU/poYd6twXITNZzc/w+7+A5gzLsZw3IiYzWwmRMjav+nlAjp/zdFagFW64w7
-	VdkLWKaT1uB48acKa+WpDg/sQGjixp1s=
-X-Received: by 2002:a05:6870:d62c:b0:481:7027:16f3 with SMTP id
- 586e51a60fabf-4908b1aa7f3mr3359673fac.30.1790184078838; Wed, 23 Sep 2026
- 10:21:18 -0700 (PDT)
+	b=kjR1f9n7Bnbpwah7NKquK/z3KO0YjB6mEhI7NuwSq8Ys+Ltz+qau7l2eKLB6WH8rW
+	 apnLloQsPeIV8MalvygclXsageLvIZ/FHCDScYdppYsGw2QIqewHfQBJmLMDCLUkf3
+	 8hjDhFSvjb4ykJO82FiyJVEop+jbZ4tLZhqFCCnk7SlOd4w1c6x8c714qd5D9ncwIm
+	 R5TPSnLW2n6NsbNdvLmxaDOWvU9g3VFMc7hyupHT8bdcyfXxy1+BXKe3H2eX9Fb/HO
+	 aeaVp8YLS21DnK1BCOkQ4sAm0XxI8iB2/pTl8sJHr/J4jDGHQv4VUiN0L1ak85uRfL
+	 q73G4DL3mn5hQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d76so1096938e87.3
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:28:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzKNLpiSOyLv/niLBzTsk5WMcZbM6KV5BHs+qPejjIXS4WMXybFHwY3bY2dIMOpeqVm52LEw78t2OLy@vger.kernel.org
+X-Gm-Message-State: AFuF++nrIA3kcG7tnZ0r6xh5uIs499BZNNjRmKPtPxC6+ffJvsom8apQ
+	eQcFrVbKtylknyypBBL3vJruCyWtv8sMxImBbXiYiXLPS+NMSTywo9c/lMGfv7kBamEqq2O6Ycm
+	xG5LRTV/dL9isP4DHryLE+HNQP3oz9B4=
+X-Received: by 2002:a05:6512:3d0d:b0:5b8:b419:c8ad with SMTP id
+ 2adb3069b0e04-5b8d8979194mr1060604e87.17.1790184489272; Wed, 23 Sep 2026
+ 10:28:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-ux500-power-domains-v7-1-v2-0-9d0c17e1f816@kernel.org>
- <20260914-ux500-power-domains-v7-1-v2-18-9d0c17e1f816@kernel.org> <20260923152034.GI3864833@google.com>
-In-Reply-To: <20260923152034.GI3864833@google.com>
+References: <20260918-ux500-simple-sound-v2-0-88d29416e3c3@kernel.org> <20260918-ux500-simple-sound-v2-6-88d29416e3c3@kernel.org>
+In-Reply-To: <20260918-ux500-simple-sound-v2-6-88d29416e3c3@kernel.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 23 Sep 2026 19:21:03 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk+uqjOoJ8EgRYr2fyM1aXLjyJWMBS-d0TAOTFBQuNV+A@mail.gmail.com>
-X-Gm-Features: AclHuK9itPFOvp6R2-cC4u0O4UlC0wT8IFEhaoWAUi8CY_OZQDIKlQwDDa6vJaE
-Message-ID: <CAD++jLk+uqjOoJ8EgRYr2fyM1aXLjyJWMBS-d0TAOTFBQuNV+A@mail.gmail.com>
-Subject: Re: [PATCH v2 18/20] mfd/regulator: db8500-prcmu: Remove EPOD regulators
-To: Lee Jones <lee@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Mark Brown <broonie@kernel.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	dmaengine@vger.kernel.org
+Date: Wed, 23 Sep 2026 19:27:55 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=yLFiYcWsRF6eR4a8o=27wcmj4nxa8jirDaOfR3JBHkw@mail.gmail.com>
+X-Gm-Features: AclHuK_-UVmPGIePjUjF3dX8xYRAyOgnfC7Kt7jTimuuvtdsVniy9gpSsWuCuCg
+Message-ID: <CAD++jL=yLFiYcWsRF6eR4a8o=27wcmj4nxa8jirDaOfR3JBHkw@mail.gmail.com>
+Subject: Re: [PATCH v2 6/9] ARM: dts: ux500: Add sound DAI provider cells
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lee Jones <lee@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	mfd@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 5:20=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
+On Fri, Sep 18, 2026 at 12:51=E2=80=AFAM Linus Walleij <linusw@kernel.org> =
+wrote:
 
-> Looks good.  What's the plan?
+> Describe each MSP as a single-DAI provider and the AB8500 codec as a
+> two-DAI provider. This lets audio graph endpoints resolve the MSP DAI
+> and select the codec playback or capture interface by port number.
+>
+> Assisted-by: LLM
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
 
-I need to address some binding issues, then I'll send out a v3
-which I think can be applied.
-
-If you could just apply this one at that point I thin the rest will
-trickle in nicely through the Power Domain and SoC trees.
-
-I'll add a blurb to the patch to this effect in v3.
+Assuming Lee will apply the ACKed binding patch so I applied this and
+the rest of the DTS patches to the ux500 DTS branch for v7.4.
 
 Yours,
 Linus Walleij
