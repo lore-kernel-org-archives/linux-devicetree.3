@@ -1,138 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AA1495504;
-	Wed, 23 Sep 2026 18:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C864E2F28
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 18:42:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188926; cv=none; b=qNKtL7b3EGZqBjLTw8ld+UOuT898Wq7jmnFMLbbRjidIGj2E3cvviAUu7phIOr0HRBC4NeHw7iiLRYYUsuWt1Z1bXUbl6xnHWIpFbK5M8naqaBSbuIHVrH/J4/C90UKchcy5F7tzsPEuP2m1xgqhCvBxbaG2MpnCWkUCVW9VLB4=
+	t=1790188960; cv=none; b=GDfJepBtpJXXgKkEGyk3TRC3Ky3kQ1K0EkL/Z6LjoSZHyl1F3iMDTD2kwgQtahvMJYevhqbn1bdlqeahSxrxNAVPbP3/W770sh3EDtA1LM6liD/1WPHrnkT7g8VQD/6xm/W/KQlwq7/7XrX/6E9DWIa5WgWICd06IAVf4SyNnrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188926; c=relaxed/simple;
-	bh=oq9m92o6w9sZRBrmawFn+n0rCYT5VmXenCBOW43xTeU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GWYsHEoF86i/T9b9jY5cIycf9gR0BFu4rjSOCULnqWC7lEP1IKEZesWr7vc0oZIhITI/5p21SjNhOa+5ri8jl8Jab0vl+AnVAGYpQlU1fqBaPRIRJDNfRJVILrGYuVs8THbtEQFbPDk0+bunGXgCiO6RVfc2ezByQRaZflWuOPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mO+b/PQ9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790188960; c=relaxed/simple;
+	bh=e5ziL31xDeZoDLStJOgoy8SPom8Qd56Yk7OU6OSCX9I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LcbwPnnAztwgT1CUk9qu8Ko2VoUXMjA8ivAobdo1FG/fLS4oLqDtH3M4hKDE2uNN4jfR65rpzy18QbE0595gvvbxVfYQSqZfYvkDH9QwLXcPFpNA4tJL7jEZMEUE2ljnT3YXzfGMkPQjCsK9WhR5ZwEsJolPbn+OaZyIz/+5hHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net; spf=pass smtp.mailfrom=pardini.net; dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b=bYMdwxRZ; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pardini.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mO+b/PQ9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F1C1F000FF;
-	Wed, 23 Sep 2026 18:42:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790188925;
-	bh=CLXnsVVcSPkhF7h8dHKlhuo4Ss7UfHsEXXx8kfXdW60=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mO+b/PQ9oPMQT4wsPcASUhT4kB8nXrtcIXzwH/3H44bGB8Zvo4xK4CeXV/TGM/lyO
-	 xhDxN7b1gJ6tcOtA6PqSIsVgPl32/o1sePi4ckUaFuIsR5Vtvs8qqS3jIHC3NVIqKx
-	 faw0ZkPZkmdQc+rQQim0p2K7WRVVH80jyv47gsPFgCXDKesDEgQJs89khUht2hdneN
-	 CSoEw5Kj4QPrwWgRgAjEH+h4RklNFvm6Wzx0DRkS4PmMtv1GuhQmNJd4/eD9AeoiHJ
-	 hamzIBscKJbnmPKJXC6gjAIZV3JQ7HSXAKUSYwDnL3aIuHCWJ3Lb7iXSCBXuUPcP4e
-	 onbgysd0Mcpfw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 07/12] clk: zte: Add zx PLL support infrastructure
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, lee@kernel.org, linux-clk@vger.kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org
-In-Reply-To: <20260923-zx29clk-v12-7-9c243796b6d2@gmail.com>
-References: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
- <20260923-zx29clk-v12-7-9c243796b6d2@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 18:42:04 +0000
-Message-Id: <20260923184204.82F1C1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b="bYMdwxRZ"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9adea43b6so1848374a12.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:42:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pardini.net; s=google; t=1790188955; x=1790793755; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uksp8NEMMONI77zNPQYkgJlajaAnPtQHDaqlgAf0/EA=;
+        b=bYMdwxRZc4taVqSILtC7IKy9pdzWOZt7u66I0SgEiuqFXXijHJf5sqvl6NSFLEODmH
+         7wHvV8gRG02EKHLP0j2oW3jysvkl3YKBZTZMviz9sEysWZ8vz5O729WLYifkAVuQNZeH
+         kQS9Oj5ix7B/bXmeZXXthRGUGQ78+uwd6FJoJx8SvSjuT1UEV5DnKFUDxYd8515uw1zd
+         7o8+dcXHKxEyK1+LacrZ7pwzS/Nx9oJ8iiY5yg7ka3EXphaZ32bxv80wH3NdAPRl0I3Q
+         yfTMDqfUAk0RhMr3JfKLouKufq+AmHO29M0NUh/KZ+/mNDGKnFw7Do51FFIljo6c7PWf
+         UjGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790188955; x=1790793755;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uksp8NEMMONI77zNPQYkgJlajaAnPtQHDaqlgAf0/EA=;
+        b=euWj3+aP/bGdpby1X6FiFl/w7UBBUXbe5Ey08NTrsUxnMGUlnnXSK4QDZ82w6xx2uH
+         I7yDDsMwzZIqomH7P/KwBDZmkU/Ng73UaAO3hEgxaIALWVtAnW4swwm5DFzyOSm10XF1
+         7JRpkNPplhsdn7+QQ8b8YEjkUOds6ySuxwQRVtcxy1tsnsnr/qzSMcqWQGus+vcO+DJo
+         iV5Uy5qjTB74uFh7TZeX1aFteozVAC5UEdfQL+1LU0MTAgNN+pfi2sBCbjQCUjya31+E
+         flnePYyG5Qs80h0U+I6sFxLJapDT4JdxHZJVslA4HHlMiOx9DSE9EISy/+wXk+XnpwMt
+         rO4g==
+X-Forwarded-Encrypted: i=1; AKwUvByPplR8p0h6xQdCSToTI5i270NLCrDtAiDK6VpoiePxRuV7Ymh7jbcXuaAVzMbhCzlWQfG1mWhcjf2Z@vger.kernel.org
+X-Gm-Message-State: AFuF++m6ysbenFD7Srj060kP2oikrejMFabLEnHZ4koJf3IP1qqPFngF
+	iqIXIjiCSfCQgNx0UxJblr8ygilT9oPibjQm+4aoYVUKD1LWdXQvhiAWnjDxNVGQqw==
+X-Gm-Gg: AYBFou20V3ktJWvIROsQLv942BwNmtIdhX0vwpgjkxxUr0Y8pY6tOsJUt6LAdq1Unz1
+	CjJpcsYP52NI9BeddMd8j9Gp2SN65aHBbKwjXN9731vVwW60lEFDSHhVf2Q+q/4k3za6u+/G68Z
+	Xm+nGf073eAkgGAaO51BSlLn4o4u4c123Tc30mq/XPvdXyDXeevOkLcQ4C5MF5hDqU6fdzua7bY
+	jTyWuRWK9sLtN++eIZ953tJpFYRD5ykvv/PAcPTvIWJ3iBcI/h/A3EbaGr2odQb9gyBTJ0euU07
+	Ksa2TS/nyyqjkHiVXBWHoHYocRq4k4bFrCcgTSTBURsoU1qflBvYDR7O+7gcT+lf4tpOBEhqFYW
+	NXnw3DZl8i4onFe49H6b4wRz4jAF+zacFi+AOCALK3OATpnDIT3zTCleBGnBW2QJ3eV6EEF5Hqs
+	Bn9NLkFaoGnI/d2UevU8YbID2jq3tdy4FTVbZ/uTFns5vVcEVnYdDmRAPGDQ3HI7VyDX5kFpHdi
+	5As8sKTQn2pernvTk0UjwRPkZooBR0XwImCYY2RSKzEA2+/qcQ3lqk/uyohUS/hZXmlR/DT3guj
+	2j0qo0JgAnmTfkp7P8MCSdoXR+x6XNXxgtoAlG7yYYiT9Q==
+X-Received: by 2002:a05:6402:13ce:b0:6aa:c767:ab47 with SMTP id 4fb4d7f45d1cf-6aac90b04ebmr66607a12.35.1790188955272;
+        Wed, 23 Sep 2026 11:42:35 -0700 (PDT)
+Received: from ?IPV6:2a02:a466:4d7a:0:1072:bb1c:c0f3:280f? (2a02-a466-4d7a-0-1072-bb1c-c0f3-280f.fixed6.kpn.net. [2a02:a466:4d7a:0:1072:bb1c:c0f3:280f])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab37eaab7sm2367557a12.4.2026.09.23.11.42.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 11:42:34 -0700 (PDT)
+Message-ID: <e166f6e2-05b3-4f36-a1c3-b75861618c75@pardini.net>
+Date: Wed, 23 Sep 2026 20:42:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/7] describe RTL8125 PCIe NICs on Rockchip boards (and
+ add DT binding)
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
+References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
+ <CAMuHMdXMjxgj+pT5A=jd_A5BVQctHXJqeiU4EhPA_ZSANZAAmQ@mail.gmail.com>
+Content-Language: en-US
+From: Ricardo Pardini <ricardo@pardini.net>
+In-Reply-To: <CAMuHMdXMjxgj+pT5A=jd_A5BVQctHXJqeiU4EhPA_ZSANZAAmQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] clk: zte: set_rate rejects valid rates due to strict VCO bounds =
-check
---
+On 22/09/2026 11:17, Geert Uytterhoeven wrote:
+> Hi Ricardo,
+> 
+> On Thu, 10 Sept 2026 at 22:08, Ricardo Pardini via B4 Relay
+> <devnull+ricardo.pardini.net@kernel.org> wrote:
+>> Several Rockchip rk35xx boards carry on-board Realtek RTL8125 2.5GbE
+>> NICs whose PCI function nodes are not described in the DT. Describing
+>> them allows for stable ethernetN aliases (matching the GMAC alias
+>> convention on these boards) and lets U-Boot's fdt_fixup_ethernet()
+>> inject mac-address properties from its ethaddr/ethNaddr env, so MACs
+>> stay stable across boots and U-Boot and kernel MAC match.
+>>
+>> Tested on a NanoPC-T6: /sys/bus/pci/devices/0004:41:00.0/of_node ->
+>> /sys/firmware/devicetree/base/pcie@fe190000/pcie@0,0/ethernet@0,0 and
+>> u-boot correctly adds local-mac-address property there which is
+>> correctly picked up kernel-side:
+> 
+> Have you tested this at 2.5Gbps? With which firmware?
+> I am asking because I have problems at 2.5Gbps using the firmware from
+> linux-firmware (on a different platform, though)
+> https://lore.kernel.org/CAMuHMdXPAeHoeaQbM9rXbXukoMbFV+0k28n6sRMw8XF8720WUA@mail.gmail.com
 
-commit 03d27f14b3d2dbba9c34e624628df45495020947
-Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+Hi Geert, yes, the RTL8125's on those boards work at 2.5gbps just fine 
+(both with and without the fixed-function nodes in this series). They do 
+get quite warm at 2.5gbps. I'm using one of those el-cheapo 8-port 
+2.5gbps switches.
 
-clk: zte: Add zx PLL support infrastructure
+Currently:
 
-This patch adds code to decode and program PLL settings on ZTE's
-zx297520v3 SoC.
+[    3.254450] r8169 0002:21:00.0 eth0: RTL8125B, 8e:b4:90:97:32:30, XID 
+641, IRQ 124
+...
+[   10.480872] r8169 0002:21:00.0 end0: Link is Up - 2.5Gbps/Full - flow 
+control rx/tx
 
-> diff --git a/drivers/clk/zte/pll-zx.c b/drivers/clk/zte/pll-zx.c
-> index fc76c6524a163..d3687495d06ce 100644
-> --- a/drivers/clk/zte/pll-zx.c
-> +++ b/drivers/clk/zte/pll-zx.c
-[ ... ]
-> +static u32 zx29_pll_calc_values(const struct zx29_clk_pll *pll, unsigned=
- long parent_rate,
-> +				unsigned long rate, unsigned long min_rate, unsigned long max_rate)
-> +{
-[ ... ]
-> +	for (j =3D 1; j <=3D postdiv2_max; j++) {
-> +		for (i =3D 1; i <=3D postdiv1_max; i++) {
-> +			u64 vco =3D (u64)rate * i * j;
-> +			unsigned long out;
-> +
-> +			if (vco > ZX29_PLL_VCO_MAX_FREQ || vco < ZX29_PLL_VCO_MIN_FREQ)
-> +				continue;
+# sensors r8169_2_2100:00-mdio-0
+r8169_2_2100:00-mdio-0
+Adapter: MDIO adapter
+temp1:        +52.0°C  (high = +120.0°C)
 
-[Severity: Medium]
-Will this strict bounds check reject valid rates during zx29_pll_set_rate()?
+I'm using whatever is in Armbian's armbian-firmware package:
 
-If the requested target rate maps to a VCO frequency at the very bottom edg=
-e of
-the valid bounds (e.g. exactly 900 MHz), the rational approximation for the
-dividers could produce an actual VCO frequency just below 900 MHz.
+# ethtool -i end0 | grep -i firmware
+firmware-version: rtl8125b-2_0.0.2 07/13/20
 
-When zx29_pll_determine_rate() returns this slightly truncated output rate,=
- it
-is then passed to zx29_pll_set_rate() which passes it back to this function.
+# sha256sum /lib/firmware/rtl_nic/rtl8125b-2.fw
+529bf1c25c97ff52b401090d00ff89cc22351012336e5a0c9662728a3ee909ef 
+/lib/firmware/rtl_nic/rtl8125b-2.fw
 
-At that point, the recalculated VCO will fall slightly below
-ZX29_PLL_VCO_MIN_FREQ and be strictly rejected.
 
-[ ... ]
-> +static int zx29_pll_set_rate(struct clk_hw *hw, unsigned long rate,
-> +			     unsigned long parent_rate)
-> +{
-> +	struct zx29_clk_pll *pll =3D to_zx29_clk_pll(hw);
-> +	u32 setting;
-> +
-> +	/*
-> +	 * TODO: Implement gradual PLL rate change. PLLs can be changed while t=
-hey are running and
-> +	 * downstream hardware is generally fine with that. The exception is DR=
-AM, which reads
-> +	 * incorrect values if changed too fast.
-> +	 *
-> +	 * Changing the mpll rate is potentially useful for over/underclocking.=
- Gating mpll is
-> +	 * unrealistic because too many devices depend on it.
-> +	 */
-> +	setting =3D zx29_pll_calc_values(pll, parent_rate, rate, rate, rate);
+mvg,
+Ricardo
 
-[Severity: Medium]
-Since zx29_pll_calc_values() can fail due to the strict VCO bounds check, d=
-oes
-this cause zx29_pll_set_rate() to unexpectedly return -EINVAL for a rate th=
-at
-was just validated by zx29_pll_determine_rate()?
+> 
+> Thanks!
+> 
+> Gr{oetje,eeting}s,
+> 
+>                          Geert
+> 
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                  -- Linus Torvalds
 
-This breaks the Common Clock Framework (CCF) contract, which expects set_ra=
-te()
-to succeed when passed a rate validated by determine_rate(). Could this cau=
-se
-regressions through unexpected driver probe failures?
-
-> +	if (!setting)
-> +		return -EINVAL;
-> +
-> +	dev_dbg(pll->dev, "%s: Setting new configuration: 0x%08x\n", clk_hw_get=
-_name(hw), setting);
-> +
-> +	return regmap_update_bits(pll->map, pll->reg, 0x00ffffff, setting);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-zx29clk-v1=
-2-0-9c243796b6d2@gmail.com?part=3D7
