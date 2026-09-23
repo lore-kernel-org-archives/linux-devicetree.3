@@ -1,43 +1,53 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E9537A840;
-	Wed, 23 Sep 2026 02:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE27331EB7;
+	Wed, 23 Sep 2026 02:31:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130669; cv=none; b=WV1fcTC3zXI4pW9gVKLqPHNpQ8n+nAW2wj6fojvwOGWCJ9x+AW1h4yJj7ZyoNILgq5HtECP/ieVa3ZC6GWqm71fCP5rZv7ZApOqcx82APOwXCVrH+59Decw6kd5nhVwSQ7+LPy9Q1rdPoZy05+yO02iTQYZccmCfNxqI0qKC9xs=
+	t=1790130694; cv=none; b=O4aTvZReWoBSUbbkxMBtNB+mDy69u+Bf4k1DKQJs8hlgvL+FVJIYbk2Dl/QaCAnuMLAPsa+nA7Y9+oYIQQDfAJR/3sGDhom/taYBltnGHZAzlhcR+Afv7t2gfRZ5I17civJP5ehXVKiSje7bGP1t7HR6QMco3vX1EAxGQrtHD8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130669; c=relaxed/simple;
-	bh=r1PyjHplFWLo0qH2k0g8IQNAGk+vBXKJq4wxfsUBQA4=;
+	s=arc-20240116; t=1790130694; c=relaxed/simple;
+	bh=OhfymdJln9OE7r+FniGZ7W0monMkJyMBEPLhtJsVU/w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VOvHc9MrXMYWaQ3g/ETtbBUwFw0Egv92HR1MJ0xYpg/5H+sbagTurgoaw3gQ/JftAJkEdmtf+2LU/TwGguhat3su/FPnCkzrjQIavaKKF1Znt1fdb77cTjo9Q+lWefJYzdccIhO2GLvIBQ26x7La3l/242Shw3MPnIA6tUb3Cm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SOtLGYwe; arc=none smtp.client-ip=220.197.31.5
+	 MIME-Version; b=qeloE/8dIF/riTkiQkTPHi/PS+8G/j6QjNDoahzjUCryuIH/15GxOq13v9x+lcG3hl3BG5OAId8W6PxRfH0RLx9Su835yAGzrb62suQIuhDHP8DTLjBWi6Uxndyv23ubTAV2b2eA/lg1w93xOZy7UpwgaZJOS5a33Q5mBNaDr8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=QLwiQBXr; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SOtLGYwe"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="QLwiQBXr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=0N
-	sqepxNeBVmgMj8c92zRAqIkxsPWhSpvLpOBd8wNAY=; b=SOtLGYweNJnbLyWbUZ
-	uu1TwYgjlnDoPVTgD34a/NLWYxtfyNbtMPC7mx7qIgvaQJtmeKCmzYqVB93NE3zW
-	/F5hEIOSg+9J7WQWXwZCqiGVJViFB+Tuy6M4SLMJIruPCpbeohSoT1sqd4DO9gVl
-	0ZkvEpAyKrjDpSL0LR8SK8+f0=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=vS
+	VPHuHrUkL51UPG382mmuvFtW0RKjV7Xs34RRuVjd4=; b=QLwiQBXr0bluuCqXd/
+	joxI1295RlePrkVqLaTPNbog2ZsogoWRYMbmNvNEzWPjj5g8zxdayYQrI2erMkHg
+	lXA2i5AiKFNf7wctYCfmpZ4XxAywm2ze2W9MngrwZvCAq4HQoga4PQ5WmK2QCulg
+	ssjK1LDmG1jfC0IHdzdUizmb0=
 Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDH07rNObNqApTsAA--.33096S2;
-	Wed, 23 Sep 2026 10:30:38 +0800 (CST)
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3v_XEObNqGdr1AA--.62171S2;
+	Wed, 23 Sep 2026 10:30:29 +0800 (CST)
 From: Quchaosheng <quchaosheng000406@163.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-can@vger.kernel.org,
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	linux-omap@vger.kernel.org,
 	quchaosheng000406@163.com
-Subject: Re: [PATCH] dt-bindings: net: can: bosch,cc770: Convert to DT schema
-Date: Wed, 23 Sep 2026 10:30:27 +0800
-Message-ID: <20260923023027.352131-1-quchaosheng000406@163.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: display: ti,tpd12s015: Convert to DT schema
+Date: Wed, 23 Sep 2026 10:30:18 +0800
+Message-ID: <20260923023018.352035-1-quchaosheng000406@163.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914030215.437602-1-quchaosheng000406@163.com>
-References: <20260914030215.437602-1-quchaosheng000406@163.com>
+In-Reply-To: <20260916123210.107841-1-quchaosheng000406@163.com>
+References: <20260916123210.107841-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,50 +55,44 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDH07rNObNqApTsAA--.33096S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZryUuw15uFykJrWkWr13XFb_yoW8ZryxpF
-	ZxKrWrKryvvayY9wn7W3W8ArZxZF9Igr4j9FyUK34qvas8uw18XrykK34UWF47CrZrCa15
-	XFn0gwnrK3Z8ZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUJOzcUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAA4JfmqzOc5bOAAA30
+X-CM-TRANSID:_____wD3v_XEObNqGdr1AA--.62171S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tw1xXrWruF4xtF47AF1rCrg_yoW8Gw18pa
+	98tFWxCF1vqr1xC3y7Wr1jqw4rtwsxXF45GFyS9r15A3Z8G3yIkrsakw4qqrW2krZ7Zw4j
+	qr1Yg3srtwn0qaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JU_73gUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-wYHfGqzOcZSUAAA3m
 
-Marc, Vincent,
+Hi Tomi,
 
-These four cc770 patches are still sitting unread. Three went out on 09-14 and
-the fourth on 09-17. Sending one summary rather than four pings.
+v3 of this series went out on 09-16 and has not had a comment since. I do not
+want to keep reposting it, so this is just a nudge in case it fell off the pile.
 
-  1. dt-bindings: net: can: bosch,cc770: Convert to DT schema
-     <20260914030215.437602-1-quchaosheng000406@163.com>
-  2. net: can: cc770: update the binding file reference in the driver comment
-     <20260914030215.437602-2-quchaosheng000406@163.com>
-  3. net: can: cc770: propagate the error from platform_get_irq()
-     <20260914055611.495105-1-quchaosheng000406@163.com>
-  4. can: cc770: fix the clock divider check on the platform bus
-     <20260917114311.534863-1-quchaosheng000406@163.com>
+  1/2 dt-bindings: display: ti,tpd12s015: Convert to DT schema
+      <20260916123210.107841-1-quchaosheng000406@163.com>
+  2/2 ARM: dts: ti/omap: drop unit-address from tpd12s015 endpoints
+      <20260916123210.107841-2-quchaosheng000406@163.com>
 
-1 is the conversion; the schema is in net/can and references
-can-controller.yaml. 2 is the one-line path in the driver's header comment,
-and it only makes sense once 1 is in.
+Where it stands:
 
-3 and 4 came out of sashiko's review of 1, which flagged two things in the
-platform driver. Both are still there in current mainline:
+ - 1/2 replaces ti,tpd12s015.txt with a schema. The one thing that changed
+   after v2 is the gpios range. v2 capped it at three on the assumption that
+   no board passes more, but omap5-igep0050.dts passes five, its DDC SCL and
+   SDA lines following the three the driver uses. v3 allows three to five and
+   says so in the description, so igep0050 keeps validating.
 
-  cc770_platform_probe() collapses every platform_get_irq() failure into
-  -ENODEV, so an -EPROBE_DEFER is thrown away and the probe is not retried.
+ - 2/2 drops a unit-address that has no matching reg property from four
+   endpoint nodes on am5729-beagleboneai and am57xx-idk-common. That is the
+   only reason the two are in one series; 1/2 does not depend on it and it
+   can go in separately if you would rather.
 
-  cc770_get_platform_data() tests priv->cpu_interface for CPUIF_DSC before
-  assigning it from pdata->cir. priv comes from alloc_cc770dev() ->
-  alloc_candev() -> alloc_netdev_mqs(), which uses kvzalloc_flex(), so the
-  field is still zero at that point and the test never matches. A board whose
-  pdata->cir has CPUIF_DSC set gets its clock halved in hardware but not in
-  can.clock.freq, so the bit timing is computed from twice the real rate. The
-  platform data example in the header of that file sets exactly that bit
-  (.cir = 0x41), and cc770_isa.c already assigns before testing.
+dt_binding_check is clean on both.
 
-Neither 3 nor 4 is a dt-binding change, so they can go in on their own. If
-you would rather have them as one series under net/, say so and I will repost
-them that way. And if any of this is out of scope for you, tell me and I will
-drop it.
+I have left aaro.koskinen@iki.fi off this message. Mail to that address
+bounces: the alias forwards to musicnaut@musicnaut.iki.fi, which discards it,
+so he has not seen any of the three postings. If the igep0050 part needs his
+input, someone else will have to supply it.
+
+If neither patch is wanted, say so and I will drop them.
 
 Thanks,
 Quchaosheng
