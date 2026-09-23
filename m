@@ -1,128 +1,226 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F3D37F339;
-	Wed, 23 Sep 2026 15:04:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E853AEB37
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 15:04:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175852; cv=none; b=tfs+jWteRPEeYP+VrDCN9JzDAUln16zJIettYxW7Z43zi7n2aeHs9q8KH07xhnR0JNJM2RB9O6McvRhVOCmdwp/F9aOOVTmVq/LOcm4Gr3erzeFOgezRHSO24nF0uNmFTGxpk0Vz2D2P4nqPHXHtftb0mmgH5KGgLZIs7Q4D8gk=
+	t=1790175888; cv=none; b=h1Y3NpsV3456M/HerC9vyFyb7mBPdFqWCgprnrrLDuDKht8GfRDiWIsTx2fOKKoJr4zJpihEZ+niKApGV70jpYMYILfByDNIuNB0zOEtLteEHmSUAHhST9DsAop0MZRP8akRl5Bv8qrQorFLRNJtBZwjwhSTH+LYzgow9+w4crE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175852; c=relaxed/simple;
-	bh=uTJqJYri0QvmQvrYQ0xJpsho88RYe5rDGLL9uGp0kgo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vDhKoaYH+bBmXIFddruaA+ns5XSAEuyL3wI502QFpldh31CbpA6SGE/aKLNTXoYhIBcuJ0p92tkK4V3q22yDybX6mcZaX/yeHooXNde9IPRdWz5qC2YVNgNRCnZ3fWBhPB+F134aynu00rVj9QjT8NuwN7vC04Pe4VQ35+rVJqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCTa9NLG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790175888; c=relaxed/simple;
+	bh=lZXV/H4nXZyv6JcT9/MzIxxUpHVh4OZbab9HF4HEKOs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IkpxV8LF0mUosjYHMm42JWxGAECwsu9/5uRsDfoCxJoCDRYeGgnunHTyfm3o+KTV41UosGV9sC4gk2LDb+haJMjzzyaIZY2P31A9KCF7j8t8fr3QLNbTfaagHBPjH56NjOalKJ1Hv5gZm9QIxYgTcgXEZehBXeWIFLUPku3+Buk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQJIohyJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCTa9NLG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCBE1F000FF;
-	Wed, 23 Sep 2026 15:04:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQJIohyJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051171F000FF;
+	Wed, 23 Sep 2026 15:04:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790175850;
-	bh=EBwjIZDKfun2zrL9E4dNc/T4J4zF9FUO6dKyh0B3FjE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NCTa9NLGFZRIWCIe1CzcwAWNx7b/8EYkY9lKFagdQvCwYIz1XSrjFaGXEfivEPSLU
-	 gBd3eFL9t7JZe4K0Yl4ZIcd+TjgH2//fXhi6us4SKoiZCm47DsxM7KsADJHMjGaYzr
-	 pT2eWqe4Eqi7+uRBsFkAb1Urxra6w+zsdncC94Z5QsPIUZHUxpZ9lU6Pmenn+DGn8H
-	 bDrww/sOyZMwE8vYh5YMlskX8zEYJC7v6N//s7ec/rH8uAVa6HSZ1bgafifYO/nHG0
-	 hXXoUItPc2Q/ofoWzq2WPhauKOz3DpRUV3Av+ltK877NQzYa/aGbX6TwBcHtJVHeg4
-	 G5KXF3IlLDSHQ==
-Date: Wed, 23 Sep 2026 10:04:09 -0500
-From: Rob Herring <robh@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Wei Xu <xuwei5@hisilicon.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: soc: hisilicon: Add HIP05 CPLD
-Message-ID: <20260923150409.GD27237-robh@kernel.org>
-References: <20260921232540.3128596-1-robh@kernel.org>
- <20260922-cheer-reference-c31fc6fb946d@spud>
+	s=k20260515; t=1790175886;
+	bh=G81+bG01BaptnrXIGPktl9K2+i7NxNNWfE7ZSMIuGRc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IQJIohyJoTNpQR0QBj6QFQndIik140vrSL6oOzu0BwQcrQQbdwaE+RVvcpkm0l2EL
+	 KSpkV4kgoF8X0AdEGwOwZE+iDgzM1SRa3oGwe2GnPf7WCeHe4Z2Am7yLbuQIgrkIju
+	 B3fhgFnnMVj2TE2D8thc3k9HAHnWRMaDitF5cHyXNODuzV7F8u+wWqNuJUOOGMD56Q
+	 bTukRdl8rodb+FDhHzxbBolUJSX6J2muQ5JeTNAcektrRKSIiLV5QOCf+hcikmDIhJ
+	 +0LVsU1k+wfPh4O/feYusUu2v8B2KIMWS/fPw+BmVDhjG/KmSARnSg4Tzq8zzSFuOT
+	 37y8nH56OEwWw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/2] arm: dts: nxp: imx: Add devicetree files for M48
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Petko Manolov" <petko.manolov@konsulko.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260923144905.3365851-3-petko.manolov@konsulko.com>
+References: <20260923144905.3365851-1-petko.manolov@konsulko.com>
+ <20260923144905.3365851-3-petko.manolov@konsulko.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 15:04:45 +0000
+Message-Id: <20260923150446.051171F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922-cheer-reference-c31fc6fb946d@spud>
 
-On Tue, Sep 22, 2026 at 07:06:02PM +0100, Conor Dooley wrote:
-> On Mon, Sep 21, 2026 at 06:25:39PM -0500, Rob Herring (Arm) wrote:
-> > Add schema for the hisilicon,hip05-cpld node on the HIP05 D02 board. The
-> > node only contains the compatible string and one register window on the
-> > local bus.
-> > 
-> > Assisted-by: LLM
-> 
-> Guidance to the LLM should probably include including the reason that
-> this is being added to the commit message.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] pinctrl: imx: heap buffer overflow during probe due to invalid GPR=
+ pad config
+- [High] drm/imx: LDB probe failure due to unsupported and missing device t=
+ree properties
+- [Medium] dts: imx6qp-draeger-m48: missing Quad Plus hardware features due=
+ to wrong include
+- [Low] dts: include of non-existent U-Boot dtsi file breaks compilation
+- [Low] kbuild: missing device tree binary target for i.MX6 Quad Plus
+- [Low] dts: missing #else directive causes skipped properties or duplicate=
+ syntax error
+--
 
-Not sure what you are looking for... I told it to convert all the .txt 
-bindings to schema. Then I told it fix all the errors. Then I fixed some 
-things throughout the 900 commit branch upstreaming things bit by bit.  
-Then it mostly sat for a year and I told a new model to review them and 
-fix these common problems a, b and c. Then I said fix all the 
-dtbs_checks warnings on arm64. Then I said there's still warnings, do it 
-again. Repeated that ~10 times. Now I'm going thru to weed out all the 
-wrong and sometimes unnecessary changes.
+commit a3be5f85dbb9af1e9cf58843b4f41c4f63c8e8f5
+Author: Petko Manolov <petko.manolov@konsulko.com>
+arm: dts: nxp: imx: Add devicetree files for M48
 
-So LLM did all the easy parts and I did everything that requires any 
-judgement. The hardest part is typically just figuring out the 
-correct maintainers...
+This commit adds device tree definitions for two variants of the Draeger
+M48 board based on the i.MX6Q and i.MX6DL SoCs. It includes a common
+dtsi and specific dts files for the Quad, DualLite, and Quad Plus variants.
 
-> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> > ---
-> >  .../soc/hisilicon/hisilicon,hip05-cpld.yaml   | 35 +++++++++++++++++++
-> >  1 file changed, 35 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
-> > new file mode 100644
-> > index 000000000000..f9d48b871a4b
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
-> > @@ -0,0 +1,35 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/soc/hisilicon/hisilicon,hip05-cpld.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: HiSilicon HIP05 CPLD registers
-> > +
-> > +maintainers:
-> > +  - Wei Xu <xuwei5@hisilicon.com>
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: hisilicon,hip05-cpld
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    local-bus {
-> > +        #address-cells = <2>;
-> > +        #size-cells = <1>;
-> > +
-> > +        cpld@100000000 {
-> > +            compatible = "hisilicon,hip05-cpld";
-> > +            reg = <1 0x0 0x100>;
-> 
-> Also what's with this example? 1 0x0 0x100 should be 0x1 0x0 0x100?
+> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/i=
+mx/Makefile
+> --- a/arch/arm/boot/dts/nxp/imx/Makefile
+> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
+[ ... ]
+> @@ -220,6 +220,8 @@ dtb-$(CONFIG_SOC_IMX6Q) +=3D \
+>  	imx6q-dmo-edmqmx6.dtb \
+>  	imx6q-dms-ba16.dtb \
+>  	imx6q-ds.dtb \
+> +	imx6q-draeger-m48.dtb \
+> +	imx6dl-draeger-m48.dtb \
+>  	imx6q-emcon-avari.dtb \
 
-Shrug. Sure. Honestly, I think the example can just be dropped.
+[Severity: Low]
+Does this Makefile section miss the target for the Quad Plus variant?
 
-I'm converting all the crap no one cares enough about to convert. That's 
-pretty much all of the HiSilicon stuff. Mediatek needs some renewed 
-public shaming too. I only care about getting arm64 down to no warnings.
+The patch introduces imx6qp-draeger-m48.dts, but it appears to be omitted
+from the dtb-$(CONFIG_SOC_IMX6Q) compilation list. This means it might not
+be built during a standard make dtbs run.
 
-Rob
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts b/arch/arm/=
+boot/dts/nxp/imx/imx6dl-draeger-m48.dts
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
+[ ... ]
+> +#include "imx6dl.dtsi"
+> +/* PAD config disabled in imx6qdl-draeger-m48.dtsi by setting value to 0=
+x80000000
+> + * PAD configuration register must not be 0, so it is set to 0xfff
+> + */
+> +#define MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII        0x768 0xfff 0x000 0x000=
+C0000 0x0
+> +#define MX6QDL_PAD_CTL_GRP_RGMII_TERM            0x788 0xfff 0x000 0x000=
+00200 0x0
+
+[Severity: High]
+Could these macro definitions cause a heap buffer overflow during the imx
+pinctrl driver probe?
+
+These macros appear to define raw IOMUXC GPR register offsets (0x768 and
+0x788) in the position normally used for pad mux_reg values.=20
+
+When the pinctrl-imx driver parses these entries in imx_pinctrl_parse_pin_m=
+mio():
+
+	*pin_id =3D (mux_reg !=3D -1) ? mux_reg / 4 : conf_reg / 4;
+	pin_reg =3D &ipctl->pin_regs[*pin_id];
+	pin->pin =3D *pin_id;
+	pin_reg->mux_reg =3D mux_reg;
+	pin_reg->conf_reg =3D conf_reg;
+
+It calculates the array index as mux_reg / 4 (which evaluates to 474+). Sin=
+ce
+the destination array ipctl->pin_regs is allocated based on the total numbe=
+r of
+pins (~216 for i.MX6), writing to these calculated indices writes past the =
+end
+of the heap allocation, likely causing memory corruption and an early kernel
+panic. (The same issue applies to the i.MX6Q and i.MX6QP dts files).
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi b/arch/ar=
+m/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
+[ ... ]
+> +	lvds-channel@0 {
+> +		fsl,data-mapping =3D "spwg";
+> +		fsl,default-data-width =3D <24>;
+
+[Severity: High]
+Will the imx-ldb driver probe fail here due to this property name?
+
+The property fsl,default-data-width does not seem to exist in the bindings.
+Because fsl,data-width is missing on the channel node, of_get_bus_format()
+resolves the width to 0.=20
+
+When the driver compares datawidth =3D=3D 0 against valid widths (18 or 24)=
+ in
+imx_ldb_bit_mappings, it will return -ENOENT, aborting the entire LVDS
+controller probe and leaving the display non-functional.
+
+> +		status =3D "okay";
+> +
+> +		display-timings {
+> +			native-mode =3D <&timing0>;
+> +
+> +			timing0: 1920x1080-32@60 {
+> +				fsl,dual-channel;
+
+[Severity: High]
+Is this property nested too deeply to be parsed?
+
+Properties like fsl,dual-channel and fsl,data-width appear to be wrongly
+nested inside the display-timings subnodes, where the imx-ldb driver's pars=
+er
+will likely ignore them. They should be placed directly on the lvds-channel=
+@0
+node.
+
+[ ... ]
+> +	config {
+> +		#ifdef LEGACY_BOOT
+> +		bootcmd =3D "startM48;errorMsg";
+> +			bootcmd =3D "startKernel;errorMsg";
+> +		#endif
+> +
+> +	};
+> +};
+
+[Severity: Low]
+Is there a missing #else directive in this block?
+
+If LEGACY_BOOT is defined, dtc will fail with a 'Duplicate property name'
+syntax error. If it is undefined, both properties are excluded by the
+preprocessor, leaving the config node unexpectedly empty.
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts b/arch/arm/=
+boot/dts/nxp/imx/imx6qp-draeger-m48.dts
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
+[ ... ]
+> +/dts-v1/;
+> +
+> +#include "imx6q.dtsi"
+
+[Severity: Medium]
+Does this include the incorrect SoC base definitions?
+
+The device tree explicitly declares compatibility with fsl,imx6qp below, but
+it includes imx6q.dtsi instead of imx6qp.dtsi. This omits the Quad Plus
+specific fixes, clocks, and peripheral updates (like fsl,imx6qp-pre and
+fsl,imx6qp-prg), causing the Quad Plus hardware to be initialized with miss=
+ing
+hardware features.
+
+> +/* PAD config disabled in imx6qdl-draeger-m48.dtsi by setting value to 0=
+x80000000
+> + * PAD configuration register must not be 0, so it is set to 0xfff
+> + */
+> +#define MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII        0x790 0xfff 0x000 0x000=
+C0000 0x0
+> +#define MX6QDL_PAD_CTL_GRP_RGMII_TERM            0x7ac 0xfff 0x000 0x000=
+00200 0x0
+> +#define IMX_PAD_SION	                         0x40000000	/* set SION */
+> +
+> +#include "imx6qdl-draeger-m48.dtsi"
+> +#include "imx6qdl-draeger-m48-u-boot.dtsi"
+
+[Severity: Low]
+Does this include cause a fatal build error?
+
+The file imx6qdl-draeger-m48-u-boot.dtsi does not appear to exist in the
+upstream kernel source tree. Attempting to build this device tree results
+in a C preprocessor 'No such file or directory' error.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923144905.3365=
+851-1-petko.manolov@konsulko.com?part=3D2
