@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F484BF941;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD7F4F93A4;
 	Wed, 23 Sep 2026 12:05:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165123; cv=none; b=a/INbdj7ivs02ojIwA+jgNFN4EGigV94kcibP27wycSRjOXqUzakmm2wfU9WZ17+mELtUC4mvt0i2a6o3YHId/ZVkOBCfvNGc8RdJtZplbVbHhlLNUnxLnqE0+kQg5AAC5E4Xoh+EfNZw0hr+o74cqe5jjr+4bA+4sGnhHxLBlI=
+	t=1790165123; cv=none; b=O4Q0r9zC/bC4c9yvbk59n5IzZPm5m9nW5tOou8tXeZEgFakOv+UxOnKT+tcyyqRjn4Wvgp8r0rOBtULTbfqxmdOcyNIUV1LpG+ZzMDiwqFuA2KClZTkoVhDw2ZAigKvKHncuE8C8wWyvXgc4a6U5tYvycRCkU3Fl1BUVTQrzwDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790165123; c=relaxed/simple;
-	bh=DP7ZakM0RfG18wmgJmMLdmBWCDvPQiNf/lyndgVxw7o=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NRKIbctsYf7lESivbd70Be6VtnebQ1EEY4uZiUJI5u/5eb1uBws7aR/7x1abm4TjEwWrg/aEjA89u7o1ln1Ay0IjOg2vZ1jplWIQa2WgA3XKRuNe6TaVMDX4+DAQpXByg8Ek+qoUjMfNcm0Uu1WblcQC2JWOHhZE3CvVxuGJhGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b/niJeLT; arc=none smtp.client-ip=10.30.226.201
+	bh=U65tT/XuausYcSGRR+nBv1qFV7Ddpj0lJkZ4vH1copM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pUWWLZR/yOzXL3+V3MU9N+GVs5aCulK8tRLYNVnk0qW3NDVYXR8hVK0hl1DrWdmp+xMhaogZYcErfdtgTqsmU87YX5F4w7+061Mif8QkD2wI7PP7T8ZGyR3kalOPzduMpLSG3qVgvojb2cw4IgVYUITbW973SNebI0m+aWXS+qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pS9WqHms; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b/niJeLT"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B142FC2BCC7;
-	Wed, 23 Sep 2026 12:05:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pS9WqHms"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1626AC4AF14;
+	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790165120;
-	bh=DP7ZakM0RfG18wmgJmMLdmBWCDvPQiNf/lyndgVxw7o=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=b/niJeLT2ZU2trAA4Kk1o+BVKX/W+XHzz+VsVKfVInoMY2kmNWK8OpFZI3QNkZVzS
-	 SKkaVbGFUX6qjwMDycKcR9GDKRNYMj3DhSJsFa/Ywhu5oF2lPEiI3zaGdbYRrMAH60
-	 m0u6E6nek5v0qWt+YHuSCBRVQ1xTGNIzNLmrFXRlApjaSyCZ76OfMe6Oo2cFFCuNWL
-	 9uHYl1LvpohKz9V3iRYLNtQAKxStPFyIrLONPQwiYZwUbA8wSb28uXlHIYvCg7GuBC
-	 AoRBhvtlwWUnHG6CZ6FT/4YnZXOph4Y58o0aV8yn05ml6L/tijysn4H4KcGRf6juyE
-	 nOj46akfNDljw==
+	s=k20201202; t=1790165121;
+	bh=U65tT/XuausYcSGRR+nBv1qFV7Ddpj0lJkZ4vH1copM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=pS9WqHmsxjiQz6raHXOxBZg/V2RhegwdP0S/q/wzVJDNaiOB/0dlgRWy5CCIxddvt
+	 w6YdYiDspFb3gX/o2VQGxelLJf1cC0twNci7qRnzLxMyBFG1fUQwMAojoCwiMFPa9z
+	 BRwQJUPatSlb9Kg4LkTTfYTs0HcoweWty05fuumO3pcYESQPlpnSV5LTr6Qqeq1Ht6
+	 9CWzbePnZg0SkQR7j1Y11jyWu27FTWZUJ5C4Xed+SQhSvIvdK6n9ghgR0Ej1PHQj59
+	 wrY0ZDS+GVjo/i1pgyRxsMNobMG/y0s2arbeDkyUnl6GA/VzcKz7gtn35Mxrh/t6g2
+	 w56pBik4EbSJg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80D35C98309;
-	Wed, 23 Sep 2026 12:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 027A3C98307;
+	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Subject: [PATCH ath-next 00/16] wifi: ath11k: add MultiPD support for AHB
- platforms
-Date: Wed, 23 Sep 2026 16:05:06 +0400
-Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
+Date: Wed, 23 Sep 2026 16:05:12 +0400
+Subject: [PATCH ath-next 06/16] firmware: qcom: scm: Add support for
+ setting internal WiFi power mode
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,10 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQ6DMAxA0asgz1iK3RI1vQpigGDAQ9OQRBUS4
- u5EHd/w/wlZkkqGd3NCkp9m/YYKahvw2xhWQZ2rgQ1b48igxr0z9MLdB0vM+IkzPi131j9ock6
- gljHJosf/2sNYNgxyFBiu6wZ5C1dabwAAAA==
-X-Change-ID: 20260910-ipq5018-qcn6122-mpd-46256c31b99e
+Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-6-86729521a75c@outlook.com>
+References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
+In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 To: Johannes Berg <johannes@sipsolutions.net>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
@@ -57,11 +56,11 @@ Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=4766;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=3732;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=DP7ZakM0RfG18wmgJmMLdmBWCDvPQiNf/lyndgVxw7o=;
- b=6n/qkdAoTe9c56sFXBkMQiIhMPZANlM6ClgA6cmMYrO+R24jrQ8EGwTec/yEhk+Bxot49e/bC
- h7Yu4a8MouHAdM5V5e2nmXjk7/IEiUYt82kbAHCiVCl1gIRvz+JDaly
+ bh=S3tayyPPojcv8MgCJKPIjYb3bobuwrtC6mchI6StDhA=;
+ b=yEeCFoFH8MkwAgM7jDcHmtMYntNrocu/jD5KcO5zp83+wJabLj9r+0QEamATBQeJh3sWOsb7U
+ Gd89W0Ww3VbAn0Yd3d30H9ILQQwoC4ZLMpo77DHPMN3Ne66bDVp30YL
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -69,97 +68,110 @@ X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
 X-Original-From: George Moussalem <george.moussalem@outlook.com>
 Reply-To: george.moussalem@outlook.com
 
-Add multiPD support for AHB platforms following the approach for ath12k:
-link: https://lore.kernel.org/linux-wireless/20250321-ath12k-ahb-v12-0-bb389ed76ae5@quicinc.com/
-link: https://lore.kernel.org/linux-wireless/20260721065038.126046-1-aaradhana.sahu@oss.qualcomm.com/
+From: George Moussalem <george.moussalem@outlook.com>
 
-The IPQ5018 platform is a multiPD platform and the current ath11k driver
-supports standalone IPQ5018 WiFi only. However, IPQ5018 boards come with
-up to two optional SoC-specific QCN6122 WiFi companion chips for 5G/6G
-WiFi.
+Add SCM call to power up / down the SoC's internal WiFi radio.
+The SoC's internal WiFi radio needs to be powered up/down through a SCM
+call when MPD firmware is loaded by the rproc driver. Multi-PD firmware
+only loads the root PD and provides services and resources to one or
+multiple user PDs which are firmware segments required for each WiFi
+radio (for ex. in the case of the MPD firmware for IPQ5018 which
+contains the firmware binaries for the SoC's internal WiFi radio and one
+or two IPQ5018-specific QCN6122 WiFi companion chips).
 
-IPQ5018 implements the multi-PD architecture as follows:
+For non-MPD firmware, this call is not required.
 
-                     +-----------------------------+
-                     |     Q6 Remote Processor     |
-                     |            RootPD           |
-                     +--------------+--------------+
-                                    |
-                                    |
-                                    |
-              +---------------------+---------------------+
-              |                     |                     |
-        +-----v-----+         +-----v-----+         +-----v-----+
-        |  UserPD1  |         |  UserPD2  |         |  UserPD3  |
-        |  IPQ5018  |         | QCN6122 #1|         | QCN6122 #2|
-        |  (Radio)  |         |  (Radio)  |         |  (Radio)  |
-        +-----------+         +-----------+         +-----------+
-
-The rootPD is responsible for managing the lifecycle of the UserPD and
-shared resources and providing SSR notifiers. There are different
-firmware blobs that include either the rootPD and userPD binaries for
-IPQ5018-only which auto-spawns the userPD for IPQ5018 WiFi, or for
-IPQ5018 and QCN6122 for which the userPDs for each radio must be spawned
-by the ath11k driver.
-
-It's worth noting that QCN6122 does not have its own Q6 firmware blobs.
-Instead, the firmware segments for QCN6122 are included in the MPD
-version of the IPQ5018 firmware blob(s). The QCN6122 M3 firmware does
-come separately and is loaded into the Q6 memory carveout of IPQ5018.
-
-In high-level, the path series covers:
-- Addition of multiPD IPQ5018 binding definition
-- Updates to the ath11k driver to register handle standalone vs multiPD
-  remoteproc boot sequence with required notifiers.
-- Support for loading M3 firmware files during remoteproc boot sequence
-- Ability to set required memory carveouts for Q6, BDF, and M3 firmware
-  segments.
-- Addition of SCM call to manage power state of the internal IPQ5018
-  WiFi radio
-- Driver support for resource acquisition and power up/down of userPDs
-- Binding definition and AHB driver support for QCN6122
+Not all Trusted Execution Environment (QSEE) images support this call,
+so first check if the call is available.
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
-George Moussalem (16):
-      dt-bindings: net: wireless: ath11k: Sort compatible names alphabetically
-      dt-bindings: net: wireless: ath11k: Add bindings for IPQ5018
-      wifi: ath11k: Register root PD rproc notifier
-      wifi: ath11k: Add support for loading m3 mbn firmware
-      wifi: ath11k: Add ability to set BDF and M3 dump memory addresses
-      firmware: qcom: scm: Add support for setting internal WiFi power mode
-      wifi: ath11k: Register userPD interrupts and SMEM entries
-      wifi: ath11k: Power up userPD
-      wifi: ath11k: Power down userPD
-      dt-bindings: net: wireless: ath11k: Add bindings for QCN6122
-      wifi: ath11k: add hw params for QCN6122
-      wifi: ath11k: add hal regs for QCN6122
-      wifi: ath11k: add hw ring mask for QCN6122
-      wifi: ath11k: update hif and pci ops for QCN6122
-      wifi: ath11k: define userPDs for QCN6122
-      wifi: ath11k: add QCN6122 device support
+ drivers/firmware/qcom/qcom_scm.c       | 43 ++++++++++++++++++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.h       |  2 ++
+ include/linux/firmware/qcom/qcom_scm.h |  1 +
+ 3 files changed, 46 insertions(+)
 
- .../bindings/net/wireless/qcom,ath11k.yaml         | 569 ++++++++++++++++++++-
- drivers/firmware/qcom/qcom_scm.c                   |  43 ++
- drivers/firmware/qcom/qcom_scm.h                   |   2 +
- drivers/net/wireless/ath/ath11k/ahb.c              | 555 +++++++++++++++++++-
- drivers/net/wireless/ath/ath11k/ahb.h              |  54 +-
- drivers/net/wireless/ath/ath11k/core.c             |  99 +++-
- drivers/net/wireless/ath/ath11k/core.h             |   1 +
- drivers/net/wireless/ath/ath11k/hif.h              |   9 +
- drivers/net/wireless/ath/ath11k/hw.c               | 112 ++++
- drivers/net/wireless/ath/ath11k/hw.h               |  10 +
- drivers/net/wireless/ath/ath11k/pcic.c             |   9 +
- drivers/net/wireless/ath/ath11k/qmi.c              |  70 ++-
- drivers/net/wireless/ath/ath11k/qmi.h              |   3 +-
- include/linux/firmware/qcom/qcom_scm.h             |   1 +
- 14 files changed, 1501 insertions(+), 36 deletions(-)
----
-base-commit: 10cfa109c880092df32e396647b4afdca9be8350
-change-id: 20260910-ipq5018-qcn6122-mpd-46256c31b99e
+diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+index 3eaa4c9ccf3c..8e5f5c235cb7 100644
+--- a/drivers/firmware/qcom/qcom_scm.c
++++ b/drivers/firmware/qcom/qcom_scm.c
+@@ -1084,6 +1084,49 @@ static bool qcom_scm_is_pas_available(void)
+ 	return true;
+ }
+ 
++/**
++ * qcom_scm_pas_set_wifi_power_mode() - Power on/off internal wifi
++ * @peripheral:	peripheral id
++ * @enable:	true to power up, false to power down
++ *
++ * Return 0 on success.
++ */
++int qcom_scm_pas_set_wifi_power_mode(u32 peripheral, bool enable)
++{
++	struct qcom_scm_desc desc = {
++		.svc = QCOM_SCM_SVC_PIL,
++		.cmd = enable ? QCOM_SCM_PIL_PAS_WIFI_PWR_EN :
++		       QCOM_SCM_PIL_PAS_WIFI_PWR_DIS,
++		.arginfo = QCOM_SCM_ARGS(1),
++		.args[0] = peripheral,
++		.owner = ARM_SMCCC_OWNER_SIP,
++	};
++	struct qcom_scm_res res;
++	int ret;
++
++	if (!__qcom_scm_is_call_available(__scm->dev, QCOM_SCM_SVC_PIL,
++					  enable ? QCOM_SCM_PIL_PAS_WIFI_PWR_EN :
++					  QCOM_SCM_PIL_PAS_WIFI_PWR_DIS))
++		return -EOPNOTSUPP;
++
++	ret = qcom_scm_clk_enable();
++	if (ret)
++		return ret;
++
++	ret = qcom_scm_bw_enable();
++	if (ret)
++		goto disable_clk;
++
++	ret = qcom_scm_call(__scm->dev, &desc, &res);
++	qcom_scm_bw_disable();
++
++disable_clk:
++	qcom_scm_clk_disable();
++
++	return ret ? : res.result[0];
++}
++EXPORT_SYMBOL_GPL(qcom_scm_pas_set_wifi_power_mode);
++
+ static int __qcom_scm_pas_mss_reset(struct device *dev, bool reset)
+ {
+ 	struct qcom_scm_desc desc = {
+diff --git a/drivers/firmware/qcom/qcom_scm.h b/drivers/firmware/qcom/qcom_scm.h
+index cf90a565fdfb..e1554997ca08 100644
+--- a/drivers/firmware/qcom/qcom_scm.h
++++ b/drivers/firmware/qcom/qcom_scm.h
+@@ -105,6 +105,8 @@ int qcom_scm_shm_bridge_enable(struct device *scm_dev);
+ #define QCOM_SCM_PIL_PAS_SHUTDOWN	0x06
+ #define QCOM_SCM_PIL_PAS_IS_SUPPORTED	0x07
+ #define QCOM_SCM_PIL_PAS_MSS_RESET	0x0a
++#define QCOM_SCM_PIL_PAS_WIFI_PWR_EN	0x17
++#define QCOM_SCM_PIL_PAS_WIFI_PWR_DIS	0x18
+ #define QCOM_SCM_PIL_PAS_GET_RSCTABLE	0x21
+ 
+ #define QCOM_SCM_SVC_IO			0x05
+diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
+index 5747bd191bf1..9258839ae746 100644
+--- a/include/linux/firmware/qcom/qcom_scm.h
++++ b/include/linux/firmware/qcom/qcom_scm.h
+@@ -93,6 +93,7 @@ struct resource_table *qcom_scm_pas_get_rsc_table(struct qcom_scm_pas_context *c
+ 						  size_t *output_rt_size);
+ 
+ int qcom_scm_pas_prepare_and_auth_reset(struct qcom_scm_pas_context *ctx);
++int qcom_scm_pas_set_wifi_power_mode(u32 peripheral, bool enable);
+ 
+ int qcom_scm_io_readl(phys_addr_t addr, unsigned int *val);
+ int qcom_scm_io_writel(phys_addr_t addr, unsigned int val);
 
-Best regards,
 -- 
-George Moussalem <george.moussalem@outlook.com>
+2.53.0
 
 
