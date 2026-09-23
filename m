@@ -1,190 +1,320 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16A54F68A4
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D70542ECF
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:25:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790180573; cv=none; b=l4aOj2lK7Fg55xOpb0u0FDJMYulvarRSIZ7TfsoPWZRKMbgS7nnjkZT8ZL3/jPjHRFQDA3mAq9OrPbr2p8zj8DcblDnu4+0Is1zqGmeD12/g+EqKLpM+Wa0HldObFVUFAXhGpcBdx1FpYbJHFP25RGibs9rX6x7C1w0GHpmVaSw=
+	t=1790180713; cv=none; b=uschAcyq5ke+JlEZLKWeSyCjhKhLT44a4uDCcPourmcV/sQ3Zh1TiY9s+x5cIpGUeSjvDUxvdykwCOe9ziuGohWvmpnSHmt5UbP4EuxDsLDiBVf/NGqXzjWzGoXKb3V5LZj6T+GFnCum2g54RCzdQhz6sqG8l0gaesW941buYWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790180573; c=relaxed/simple;
-	bh=+Fr2pb3MlceLafCJN3oInlXw5sC9AmlPwt+XBu/LWmY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G6vdCtFgskEBxRazplgtccxAGxtylX0R9H3EjryJqu7LZb40uFRbVVkEbC+noCbV1h0nmcMQK3VpGIarNIgN3kgFYxNO5EcywuBL5mdoL2aA3279p83eRBHhL3OasVdOc+ridCIyTAr486ukT2WDYpvNFuwyQfzF5If2K3srb1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JOUvwRZJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ns1+rBnQ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790180713; c=relaxed/simple;
+	bh=FnBZz2rwbEXSSYx5Rf7kopIfq4oTw76NqAv0lfIxYYw=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u+ZZdLniYIuIguPCHJN8CCxbOuwwiEVCuZO8jTmBD3+Db8t4hvuW7O/vIrEV46087P53W9CxHGNYtJu6ria0g6BVoVPImy5b02I2vdmm7+Ma+4ABKPZG+Wb8hrB8gu2slS+1LgbxWJ6uu00a6I5Rd1XEAZyPChyHo8ErmMFpGWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=PbhddKNQ; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JOUvwRZJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ns1+rBnQ"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NG9kUb3893652
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:22:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pgBNUPHEEKVkm4oZQk6Lvcojji4szSfv3iV2gwgCPzc=; b=JOUvwRZJMomDM9DA
-	OznHK4Jr+4VZkFTDf0IMAZQWSmopNpAP3JSePnQEb55SzUuw78etHe7MMXpzDuPl
-	5iQmLeYva14qYS6EW3ZpiDrQEfBHYj3Amq7YT5BqicIn+iT/HRdymXNCq3HZZG1h
-	TPybkF+a3zzAoa43XefFi2B9jDXKHMAqdi1Fpv3cqC29OBEejT1KzcnTXNhPVTZR
-	jDplJZO6vULBdxAd08WctjkA2jvtwqvknzSAPLZQRLe24cBQ0oHQd3MElLu8dMBm
-	mVWfjKfrtPzUVqu1hUNmbKKmNyCEwTh7M2p61y8WivJmc7HR7p/FvbSBHbUd4rGY
-	SaWkhg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvbwm9tme-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:22:50 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cbb92868263so783805a12.2
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:22:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="PbhddKNQ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dcb8so906891f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:25:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790180570; x=1790785370; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pgBNUPHEEKVkm4oZQk6Lvcojji4szSfv3iV2gwgCPzc=;
-        b=Ns1+rBnQorCE0NFEIR53EjNuQh5hPWFEMY7pX9EfdAioMHRU/cqrTH5hote1mo8QUU
-         44Y+0atw8+m4seSaw3efVZCf2bYeUWz6jJdQPjqC/Fy7Yz5IuxxXVtm1hhFM49yopKXG
-         QpiiXb3xurO3v9CgmcU5QU6TuXsYO+ZUvU13ZNROe+Gb7Gljl3cfSUdkv8vGeK+e5s/u
-         //oRp2T3dAcTq7OW8xIXojx4a0ySYSWXABk1PbMU4PjFxwiDdUFFGraNCcC9xuZIAPCn
-         Z9gThQU2JY1Ue9XEGEwQIKJ6P/u9k0Ybodj66d+wbmOXcB7XiySEZBPkmrxRQ8miwCvL
-         G7gg==
+        d=suse.com; s=google; t=1790180707; x=1790785507; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uK06dRcc183p1gV2Bdi0P3JOfOANYfMBgsbGabniYGA=;
+        b=PbhddKNQubPsTU15jq0xoks9b8/luKnt1AJwHEiqOLqaZ7jAQ7Mt+0QjbYeLEz0VeI
+         IVu3XvQo9jbMtJxi6mFGtF8r+zKiJmoHtU0Cl9cm0L2oy76kq1YtYEhthlOA30h5wBti
+         GhtmICCCiQfq7ztf5vvJcV+DKA2ubso0QJDVOlSWcpVxtv6dHaEdKWGsOGkKZm8tHn3p
+         BakB9HbVWqWJ3Dwxw187YFd02H49VFHdVQJ4IKfRiXt1JqG7NNM+pb939PlMirsVka+l
+         9fNOxemtxlZtfqBRZOL8UOk3ORS3h0JomqgH8mWPGW78d8BNvu0iNACqR6jB392cIeSM
+         pB+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790180570; x=1790785370;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pgBNUPHEEKVkm4oZQk6Lvcojji4szSfv3iV2gwgCPzc=;
-        b=VgaAY2fLcZ/UBUyo8bpnN5M6A5KDdNUZYLZlaY0vc2Bgl37S2IMNnprF570ohxUXws
-         1Uy07AOE0UYvDRUGklyYuKeXpE0kqfmESYzB4y9GQ7V51+XYBwfV4++eCPknOFJm6dDq
-         +2wp14+xU7nEtMBosGWNN6S/R3ouyRRC9lWyA+isTHLmTHFt+Ky/35NwReV6v/IDXVWY
-         GjTWJvSq1inYWe8ZY1yWw1pt6JicirLU1hpm3KbmgBKeZFQeK3hVB6hC7XMzVvmiy/Hm
-         a0a2PTtw6CCf/aWXYozEN6EW7XtVW8aYL9+4ITPj7zsnqW0fg16OPWLWthcEVqAQHuvu
-         +XUg==
-X-Forwarded-Encrypted: i=1; AKwUvByU/qc9XwwbGPZO46YvAb9Vo7tzev5tBrsN2vVC4qCSJLBzb+aCZvZV/nCV72MadKTtwDkABwAqvYsa@vger.kernel.org
-X-Gm-Message-State: AFuF++mpXnIHJJljdviZ8q+/PKzlO4MIBAg0eEpGcUpr8TikYEUUj3vQ
-	UkiVhVVzOk2p3JaVtm5qILiz99drf9FvBqdfJxBdd1MqCxnOgk5QyEGrJvFJl6z7Ds+wElptxn1
-	VIWxlj7htyabwodhjOJQz1t4oTX+thNXka0XoliN4QNzsCsRo5gQaGOZ+trA4lK5h
-X-Gm-Gg: AYBFou1Gnw/UwtfvtjudQqTWHVuG1xddp47a2/gKiITx/wEhvt8Oe6pDYY62dL4cDaN
-	kDtmCmXpeuP7F4Xx1XQoeVhKpdMuts1PhRnDZxPP9U2yqXrR8cqVo/YjWvbyuHvB3+qvV7PTM9m
-	5MlJxu80S2DpfnHIdHgqHISWCMkWNry1C8RslyN802RzC8f+DNztIA/8viUSxsVo07Qg+uG1CUt
-	z7Rx2UMMTFLGNLx6GOv9SwfinpzAoH4toK06bGJYExE6CSrSXxS3Nmg3fBX29VNTBuYgVrNfRuA
-	/HiU3f3QWWwjG8QoEYMj0bLMyMggroYd8t8yaOyoAhKsf+mQNQvPow+42834Xe+dfBUbkZY69ip
-	zOiOIOgX5J3cVKCN9APSY+4jo0oc1
-X-Received: by 2002:a05:6a21:151b:b0:3dd:a196:3090 with SMTP id adf61e73a8af0-3ddf830c18amr3182997637.64.1790180570111;
-        Wed, 23 Sep 2026 09:22:50 -0700 (PDT)
-X-Received: by 2002:a05:6a21:151b:b0:3dd:a196:3090 with SMTP id adf61e73a8af0-3ddf830c18amr3182957637.64.1790180569474;
-        Wed, 23 Sep 2026 09:22:49 -0700 (PDT)
-Received: from [192.168.1.25] ([122.183.173.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1cfbcc08sm1623120b3a.15.2026.09.23.09.22.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 09:22:49 -0700 (PDT)
-Message-ID: <50b1dabd-4e5f-49a6-b682-1059681b00a0@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 21:52:33 +0530
+        d=1e100.net; s=20260707; t=1790180707; x=1790785507;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uK06dRcc183p1gV2Bdi0P3JOfOANYfMBgsbGabniYGA=;
+        b=k5OfPXCWU4rKHufOJhrYuy+CpDblwHcItuSnUsj75OC93bEpXCzhYd4APUti1d41p8
+         oobwvfiVs8g7vS3HT4VwcEx6pbMiR3LFb3Aje2A/iKjsQ8ipBR1C9Mro25Z9ucIbC571
+         obSjqMzOAgCTROvT8F9skkTUrFTVMM/UNW2/3wD4fjojVhU4s6e36Ef0u01j0sPD8exq
+         r6Jvegee20p0MXBT7X1iYk/XYBS91mXiirD0h2JIdw691f8kclsbhz0ZhVVuEMuAmlZv
+         EnWf3ym8JNprqOw8Oxf/QwhOnGh1cF4BbpngFYgRudxsFIlHcFfnCX/ktxuv5vqfb3gX
+         LxcA==
+X-Forwarded-Encrypted: i=1; AKwUvByNKMfaNGriDs8k2O17ifavbJYPCRXOgLcz4uA+aBolTtO1csPi2xXmyco/VVxH0O5DSolYWU/ilR+Y@vger.kernel.org
+X-Gm-Message-State: AFuF++lCWCMa4Ov5IJ+UsP5IuHz26KY4jZjsZNjs3JQwMz4OAMonXX8G
+	KXVPXCw3HeKeufEiVunLR/bMG2v3lpsCgqzvQI6N2LK4MXL7TDgMK7gWgHYbdIk9pcI=
+X-Gm-Gg: AYBFou1BVwpep2Vd8IKiH19MTseeDEYiobkt6lynGRIhpdc/xqKmYhvZWYJAZwKxPR5
+	ST+Z9KXaC8J6gfjVPRqjxLakNOKLuaRGTuB/fno7yi/yHEdg4brlSQnnNQpVaVNv8QjRGKC+n4v
+	LrLhmeWsOtj/9aVG3yZ7zYtVsvuJJV50e2rJJWUnB11FvRnjMWv6xdKscwUFJsgAb4ybTE8K6FR
+	nIMFRhNifyMFdiIBq8JrgIrC3Jo9fZ/1wMg97mn9xTVPn6t32E5rEPE1rY8opDh9VHe4/CijhOR
+	Li5bCoo/slUKhlDGi1pqkNf0KfYWiHpjoxRL3VSgdmY21k3avMTp9tXryxBYq2vzEnX+O3FdVPP
+	1eG3UsA4s4Lw2I1eK+J/wk0N+FEPWvH+k42A0yocZCYnRm6UVta4RBBJ4sVV0gbIQRejqpTuGVz
+	h7IMjB/q+bE467/M5d4qm/leZSzH4P7u4G4tEcTINPJO3Zr1mYGM6dYTZwDeYZFxAPYHxhl6I1h
+	TTwBcN35DbWQTYvxBY=
+X-Received: by 2002:a05:6000:491e:b0:487:7fd:734 with SMTP id ffacd0b85a97d-48867081acdmr4844345f8f.18.1790180706879;
+        Wed, 23 Sep 2026 09:25:06 -0700 (PDT)
+Received: from localhost ([195.94.147.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c1fdsm9260151f8f.14.2026.09.23.09.25.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 09:25:06 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Wed, 23 Sep 2026 18:28:47 +0200
+To: Gary Guo <gary@garyguo.net>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
+	Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH v9 2/3] pwm: rp1: Add RP1 PWM controller driver
+Message-ID: <arP-P_a7OyhtMQyr@apocalypse>
+References: <cover.1789724999.git.andrea.porta@suse.com>
+ <22f454003902173a7230d0aee5fbd7261fcc163e.1789724999.git.andrea.porta@suse.com>
+ <DLM3VDAEVVEO.1STV7HI3M3YXK@garyguo.net>
+ <arPLa_g4mAg1t2rq@apocalypse>
+ <DLMQPQRYTSNW.2Z6C0408NMCYK@garyguo.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/4] dt-bindings: sound: qcom,q6apm-dai: add
- memory-region and relax iommus
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260922-vmid-v4-v5-0-e79cfd7af5b3@oss.qualcomm.com>
- <20260922-vmid-v4-v5-3-e79cfd7af5b3@oss.qualcomm.com>
- <0d2a8e7b-6a7c-4cb8-a6e4-98a7a5615764@kernel.org>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <0d2a8e7b-6a7c-4cb8-a6e4-98a7a5615764@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2NSBTYWx0ZWRfX+WwMdAijEkrb
- LLhT6USeNA/w+/+TtE2zzhAhSc3v+zi0B49jREK1aB2faKCTS8XHa2TXi6azL8Hzm5GmRcIOsAi
- XtV9rcbJvWxJjJBqrdTITs5WqZ/Y698=
-X-Authority-Analysis: v=2.4 cv=R/6WitRX c=1 sm=1 tr=0 ts=6ab3fcda cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=uk8ae9/F1LYL5lfeGCaUoA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=t8jTToblx4jCBEoCdggA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: kidM1RY-EEqubt-zeHQQdW8XfAQSWB_w
-X-Proofpoint-ORIG-GUID: kidM1RY-EEqubt-zeHQQdW8XfAQSWB_w
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2NSBTYWx0ZWRfX4Wkwp26prGMm
- iOdytSBemSeRD8k5xTroNzRr1RnaeOZq1KcnYIih4zXjBy+zY5xdpR/aLmPhS70BZJTABXy7Gnp
- TwfZnvVoNWoexEiR7vx8RpD0yVPJZy9nDxFvdaJHsUMAkSX7ieO46STPMQQlaeSia06fq20DnuD
- m2ILe2L4turP545FNTUUvDFeZ8k/WM4gY+7vM8rlDqvTgCl9wbFvn1GHh8tzIhDuxKZZkofVAhq
- KmuNOXgdXjKmk19eaClUMQJcwQH4R2gHpTbKCdZqNB1B4hPj0Fqkxi/iYR/bJYc7tVTwqXJqv+h
- F7ZwGBum+m/mOlIONIxR68M7Dd70D6duf3+Y7IstPhiF7CNg/d9of3fu1CYPNfPlYa4UjnesHYU
- pEz1dV854xLTN8b8I9qqGnHen4wWfsRV27EQK+ng9i7y5g45dv3ZMh9oQ4snG8z99CLBFmSxRAx
- DhNdX2AXZ6rVYnuLNog==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 suspectscore=0 phishscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230065
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLMQPQRYTSNW.2Z6C0408NMCYK@garyguo.net>
 
+On 14:46 Wed 23 Sep     , Gary Guo wrote:
+> On Wed Sep 23, 2026 at 1:51 PM BST, Andrea della Porta wrote:
+> > Hi Gary,
+> > thanks for your feedback!
+> >
+> > On 20:51 Tue 22 Sep     , Gary Guo wrote:
+> >> On Fri Sep 18, 2026 at 10:59 AM BST, Andrea della Porta wrote:
 
+<...snip...>
 
-On 9/23/2026 5:27 PM, Krzysztof Kozlowski wrote:
->> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
->> index 9e5b30d9c6e6..7d0415f2463a 100644
->> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
->> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
->> @@ -20,9 +20,19 @@ properties:
->>       minItems: 1
->>       maxItems: 2
->>   
->> +  memory-region:
->> +    minItems: 1
->> +    maxItems: 2
->> +    items:
->> +      - description:
->> +          Control-path buffer (audio_heap_mem) for platforms where the DSP
->> +          runs in a stage-2 protected context (e.g. modem-DSP).
->> +      - description:
->> +          Data-path buffer pool from which per-stream DMA buffers are
->> +          allocated.
->> +
->>   required:
->>     - compatible
->> -  - iommus
-> I imagine you either have iommus or memory-region, no? IOW,
-> oneOf:
->    - required:
->        - iommus
->    - required:
->        - memory-region
-> ?
+> >> > +++ b/drivers/pwm/pwm-rp1.c
+> >> > +
+> >> > +int rp1_pwm_read_tachometer(struct device *dev)
+> >> > +{
+> >> > +	struct pwm_chip *chip;
+> >> > +	struct rp1_pwm *rp1;
+> >> > +	u32 tach_val;
+> >> > +	int ret;
+> >> > +
+> >> > +	if (!dev)
+> >> > +		return -EINVAL;
+> >> > +
+> >> > +	device_lock(dev);
+> >> 
+> >> You should use the device link mechanism for synchronizing unbind / runtime PM.
+> >> That can be done in your RP1 fan driver, and it doesn't need locking on this
+> >> driver.
+> >
+> > This does not enforce the locking though.
+> 
+> What locking do you think is needed?
+> 
+> Driver core takes care of ordering so you will never see a depended device
+> going away while a dependant device is still bound. Your RP1 fan driver just
+> need to make sure that it never calls this API after it's itself unbound --
+> which it needs to guarantee anyway.
 
-Yes, that matches the intended split.
-
-For existing ADSP/SMMU platforms, q6apm-dais uses iommus. For the 
-mDSP/VMID path, the DSP cannot access normal SMMU-backed system 
-memory,so the buffers have to come from reserved-memory carveouts which 
-the driver SCM-assigns to the fixed VMIDs.
-
-I will add the oneOf constraint in v6 to require either iommus or 
-memory-region. VMIDs remain internal to the driver and are not described
-in DT.
-
-Thanks
-Ajay Kumar Nandam
-
+I think you're referring to the struct device (data) and module binary unloading
+from memory, which is guaranteed not to happen when there is a dependent device
+using it, but what happens when you try to unbind or suspend the device?
+More on that below...
 
 > 
-> Best regards,
-> Krzysztof
+> > Is it enough to just rely on
+> > caller to create the device link in advance? IOW, just add a documentation
+> > comment to the exported function prologue stating that the consumer is
+> > responsible to sync via a device link is acceptable?
+> 
+> If you use pwm_get API then a device link is automatically created for you
+> already (however, this automatic link does not pass runtime PM flags, so if you
+> need that you still need to add link explicitly).
 
+This driver implements only static PM ops so I think both pwm_get API or
+device_link_add should deal automatically with races.
+OTOH, what if the consumer obtains a reference to the PWM device via of_* API (or
+other means)? Thhose calls does not create device link and we would still have unsync
+critical paths.
+I'm just trying to figure out whether I should design the exported function as
+foolproof and caller agnostic wrt sync issues.
+If relying on the caller to use pwm_get/device_link_add is enough, I'd be happy to
+find out I'm just being overly paranoid, dropping all the locking to make teh code
+simpler.
+
+> 
+> How this is supposed to be synchronized or documented is very hard to get right
+> without seeing the user side driver -- if you already have a working version of
+> the RP1 fan driver it might benefit to have it attached as a RFC patch in the
+
+Agreed, that's why I was trying to be as consumer agnostic as possible. After all,
+coupling two modules wrt their locking requirements is usually better to be avoided.
+As for the sample fan driver, I have only a simple module that grab a reference
+to the pwm device and call the exported tachometer function, so nothing really useful
+for this discussion, yet.
+
+> series; or an option to to drop the tachometer API and add it as part of the fan
+> driver series.
+
+That is a great advice. I think it's beneficial to discuss everything in one place,
+and as a plus we won't block the pwm driver.
+
+> 
+> > Otherwise the only way I see to protect it in any scenario is via the mutex
+> > I've already implemented and a second flag for the removing path (device_lock
+> > will be dropped, of course).
+> >
+> >> 
+> >> So Sashiko is kinda reporting a false positive here.
+> >> 
+> >> > +
+> >> > +	chip = dev_get_drvdata(dev);
+> >> > +	if (!chip) {
+> >> > +		ret = -ENODEV;
+> >> > +		goto err_dev_unlock;
+> >> > +	}
+> >> > +
+> >> > +	rp1 = pwmchip_get_drvdata(chip);
+> >> > +	if (!rp1) {
+> >> > +		ret = -ENODEV;
+> >> > +		goto err_dev_unlock;
+> >> > +	}
+> >> > +
+> >> > +	mutex_lock(&rp1->lock);
+> >> > +	if (!rp1->clk_enabled) {
+> >> > +		ret = -EBUSY;
+> >> > +		goto err_clk_unlock;
+> >> > +	}
+> >> > +
+> >> > +	ret = regmap_read(rp1->regmap, RP1_PWM_PHASE(2), &tach_val);
+> >> > +	if (ret)
+> >> > +		goto err_clk_unlock;
+> >> > +
+> >> > +	ret = (int)tach_val;
+> >> > +
+> >> > +err_clk_unlock:
+> >> > +	mutex_unlock(&rp1->lock);
+> >> > +err_dev_unlock:
+> >> > +	device_unlock(dev);
+> >> > +
+> >> > +	return ret;
+> >> > +}
+> >> > +EXPORT_SYMBOL_NS_GPL(rp1_pwm_read_tachometer, "RP1_PWM_FAN");
+> >> > +
+> >> > +static int rp1_pwm_probe(struct platform_device *pdev)
+> >> > +{
+> >> > +	struct device *dev = &pdev->dev;
+> >> > +	unsigned long clk_rate;
+> >> > +	struct pwm_chip *chip;
+> >> > +	void __iomem	*base;
+> >> > +	struct rp1_pwm *rp1;
+> >> > +	int ret;
+> >> > +
+> >> > +	chip = devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
+> >> > +	if (IS_ERR(chip))
+> >> > +		return PTR_ERR(chip);
+> >> > +
+> >> > +	rp1 = pwmchip_get_drvdata(chip);
+> >> > +	ret = devm_mutex_init(dev, &rp1->lock);
+> >> > +	if (ret)
+> >> > +		return ret;
+> >> > +
+> >> > +	base = devm_platform_ioremap_resource(pdev, 0);
+> >> > +	if (IS_ERR(base))
+> >> > +		return PTR_ERR(base);
+> >> > +
+> >> > +	rp1->regmap = devm_regmap_init_mmio(dev, base, &rp1_pwm_regmap_config);
+> >> > +	if (IS_ERR(rp1->regmap))
+> >> > +		return dev_err_probe(dev, PTR_ERR(rp1->regmap), "Cannot initialize regmap\n");
+> >> 
+> >> You mentioned "rework regmap error paths" in cover letter.
+> >> 
+> >> But the issue is that regmap doesn't need be used here at all. RP1 is on PCIe
+> >> so there is no need for bus abstraction, direct use of MMIO is sufficient.
+> >> MMIO accessors have no error paths, so you're saying yourself from having to
+> >> handle that, and also reduce the overhead by not having to go through an
+> >> abstraction w/ indirect funicton calls.
+> >>
+> >> I suppose regmap was used when syscon was there; but it's not needed anymore.
+> >
+> > True, and I don't have any issue in converting back to MMIO call and drop the conditional for
+> > error checking, but please consider the following, since the driver may be extended in the
+> > future to support more features:
+> >
+> > - regmap gives you free debugfs view on the registers, which may be useful to test
+> >   the new features.
+> 
+> Do you have any register that we want to access that is not part of the PWM
+> facility, other than tachometer?
+
+Not at the moment, no. But I don't see how this impact the debugfs usefulness.
+
+> 
+> > - regmap_write/read may still return an error in case the passed register is not in range.
+> >   This will be trapped at runtime only, but could still be useful during development
+> 
+> I think this is rather a anti-feature. Having additional error paths for some
+> thing that never happens is not a good idea, especially that you basically get 0
+> coverage for these paths.
+
+Sure. Well this is true once the code is crystallized and tested, so it's somewhat
+still useful (only) during future development. But I got the point, and I agree.
+
+> 
+> You already know the shape of the register region, so the bounds checking
+> provided by regmap would be better served by an ahead-of-time check:
+> 
+>     #define RP1_PWM_REG_MAX (RP1_PWM_DUTY(RP1_PWM_NUM_PWMS) + 4)
+> 
+>     struct resource *res;
+>     base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+>     if (IS_ERR(base))
+>         return PTR_ERR(base);
+> 
+>     if (resource_size(res) < RP1_PWM_REG_MAX) ...
+
+Fine for the probe method, but regmap_read/write also check for the range, for free.
+
+> 
+> Shameless plug: Rust abstractions for I/O access is actually pretty good in this
+> regard in the sense that we try to prove statically that access canot fail. It
+> also has PWM and platform abstractions. If you're interested in learning Rust
+> this driver might be a good candidate :) If you're going to LPC we can chat
+> about this there.
+
+Now I'm tempted! :)
+Although it will took far more time to upstream the driver so I think I have
+to posticipate Rust for another driver.
+Thanks for being so available for the LPC, really appreciated! Not sure if I
+can make it this year but we'll see...
+
+Regards,
+Andrea
+
+> 
+> Best,
+> Gary
+> 
+> > - I expect the PWM driver to be a access with very low frequency, so I guess the overhead 
+> >   imposed by regmap is negligible.
+> >
+> > Since we already have it, I'd prefer to leave regmap if possible for the aforementioned reasons,
+> > but I'm obviously open to drop it in favor of direct MMIO calls in case you or anyone else are
+> > not seeing those as real benefits.
+> 
+> 
