@@ -1,117 +1,126 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022123.outbound.protection.outlook.com [52.101.126.123])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FB3358D37;
-	Wed, 23 Sep 2026 02:10:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.123
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790129440; cv=fail; b=UVhH/sLfNap7wN9M7APFuvdZaYdlPc4yfWUfaObAoLKvldZ6F6fMG1RWUlSPIIr+SJ5O91hRWZ54KUj4gDfxK4wyAT4B4tp5hBUyvf2/wI7gCuH1OpPT0vp9c/2drHfkp/Df8TNkeC3TXc6ktup7q8vxizyVNgB/jCWxZ0Q3knQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790129440; c=relaxed/simple;
-	bh=JtX4IYHJBHH9nu5PK7b9bb5RF1Cf861jiEF1RVf8+tI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UqxDCs4Ff6/dTop1s+SZsjNqMtCGioQCDc/UPvO3e2fUA5swh+ratAzUY/5kwltdQm3aHdkq71sDmR48Lf87ylAWJFuuQCn6os+x1Cwy2g5kfi8/VL/AUr+PeTWTeyoFfdWivumb74Ae8QC+hMg9yL5lSM7fuGpBLtd3woCgJeo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v62iWZCwdpPiudXjYVRd2lpUBX19fgsL+VLr9GEc8mCJlaar70bfsz7D9vjJ+T5lkHZc3fIy4+hFz7M2y4WgkmVkoJ5BLaXI7Xzw5OeUmFU28Bfbjl+2ilY6IQSFSAQcIDfwPnqx7gbFPk4IcQQbLwEIbytS3LMCyMhwofTz4pisDVApD8PJPRcqvWlEucnkTVKHy9cD5jBgj5/7gMyS07KUjc/EaJufltmWVbEwlqduCw2l6i/XYnZJsJ08//vt91DB3xELWnWeEv4DyXp7RwwEeWNvcq532vJW4rGXTFFelFr9tn3QQNDP984GxscDLwQwPqr1Xd79zV2P3xtxEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JtX4IYHJBHH9nu5PK7b9bb5RF1Cf861jiEF1RVf8+tI=;
- b=gL9NILr3uTg+ZdBAdtoXLoajqC1Z9YWBbEd/3yIxVw/fUQwnSOxYZipN5dtjGYrBh976b7tU5N5+UYlTT3r0MFx7taKsltYlv5w3WZ3Kre9GgCO3WROwgvzyXBUshpMi2zUfniYH89sJ8Jm5fdMfEGt132jdEKyohpqD6WXo4lwlbjvmVD88jmxkw4LIW5iFcfUpfRq1eeLSXPXdpsja3bdUqNHHs5Nj4Hpnoso4NIJ4LKsfJ3hI2dK0pLqC4ikzm3FfWJlykcDNlhCu9R8tg3pzmAFFKUhHMmCnYWzKWFjXxkUWrHZxpVHfHhU+TLScFCVF5FRGi4LvK/uDUnyshA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI3PR03CA0012.apcprd03.prod.outlook.com (2603:1096:4:297::12)
- by PUZPR06MB5721.apcprd06.prod.outlook.com (2603:1096:301:f7::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 02:10:34 +0000
-Received: from OSA0EPF000000CB.apcprd02.prod.outlook.com
- (2603:1096:4:297:cafe::4d) by SI3PR03CA0012.outlook.office365.com
- (2603:1096:4:297::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
- 23 Sep 2026 02:10:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- OSA0EPF000000CB.mail.protection.outlook.com (10.167.240.57) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 02:10:33 +0000
-Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 288A343B1061;
-	Wed, 23 Sep 2026 10:10:32 +0800 (CST)
-From: Hongliang Yang <hongliang.yang@cixtech.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
-	peter.chen@kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	krzk@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	p.zabel@pengutronix.de,
-	gregkh@linuxfoundation.org,
-	cix-kernel-upstream@cixtech.com
-Subject: Re: [PATCH v4 2/3] phy: cix: Add CIX Sky1 USB3 PHY driver
-Date: Wed, 23 Sep 2026 10:10:31 +0800
-Message-ID: <20260923021031.815275-1-hongliang.yang@cixtech.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260906032431.470744-3-hongliang.yang@cixtech.com>
-References: <20260906032431.470744-3-hongliang.yang@cixtech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A368379990;
+	Wed, 23 Sep 2026 02:18:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790129908; cv=none; b=oiLfZ+URX4Ki+BHurmjOjGbESehh7FMZ5REGsyAmv/btwWjgSCgvJoa9yVPmoQk9rK1X41hLRrGBKLx2wsdIVVOcwaDFrvZPU8/9ePdjsMjRq65vknUbaM037kQ4mytU07A0KIjB0lUjzfiqWWIAtDYgg9IcmRiPph/h/yVWnGI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790129908; c=relaxed/simple;
+	bh=sbdU4Q5D/LstC2WUTuiP3pcjcK0GAJxb3ROux06l8Xs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 In-Reply-To:References; b=ktFufEQ1ufAO0uV+xsuXRutXQ3nTe3L7xTtazwjAkr+NbCdAvXBSVJTzs087E/Zon3kWIKXeF9XEV0foNd1EfTFPUPWHRd/UalPuQ3jvWBF2HCPcAcRXm7gj7I6++mxRyw1Jzigx01324/OW05X8hkiQzzYWmLqbrCiMO8Mv0Sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=rJdQikee; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="rJdQikee"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1790129895;
+	bh=HsUHDmsVehcHWKUK7oJBtX9pkySO3eKim9u+3rp9Bko=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=rJdQikeejBuSo5reflZegyaGrtBbC+TXu03wiWZ2pRrz/V8CIL1Kwfy4ENzDWm7QC
+	 0HEM8A3G5UumQ6nyB8PhEjIIPUBZWlw3PDNyOYn/mNYpFuLlkPnSWLFG0WUdosMwQI
+	 gpaI8ESXLo4nX5P6MfbGFtOd1Cgf010f7JsbDXQA=
+X-QQ-mid: esmtpsz10t1790129894t25376d77
+X-QQ-Originating-IP: 0Lfhv4AIErF+dHYAdIw4Ywjd5xgJufwHFdrpdtg487M=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 23 Sep 2026 10:18:11 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 12085916592293753369
+EX-QQ-RecipientCnt: 14
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSA0EPF000000CB:EE_|PUZPR06MB5721:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 4e811cd2-16cb-40e1-1b7f-08df1917d9a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|7416014|23010399003|376014|10067099003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	l4+qGz4o4dffyc/iXgKb3SsxbB1CZcmlJEY4EieCrVPb//DBODLRVEvKfQTglMLFhyrE9abUaurzQzB4fJ9WC56KvNH0QAWPnMDGOQSaHfLXG79DMoZtTgEXOGHGyqwzqEjrKEnbBo1k8ngezu4LnMFZWEyWQjJBtpzUgskbX3wD6Q2FCDded5F5BCxQEjfQxnap7WqX8+I54fvmJGPQ+kBh+/UGbOnAWWrdH8l8Df+nZcl7mE46ixYkTPOWtS9onWM3fvtPn2171j+1LY3dfEFISgfO71ioSI7uBPYeY8XPUowCiabc50ezOWWuW25tMWjhGK3m2mLDyv3v2elqem22qcxDmkWX6TlrqWBIBzPtr40NBD2i9M1CphX6t7V4TwX9DK4YpvbuA/Jfe70ux8yHE9TIua2jHeF766aTGF2X+dZGIOiTJmhHhB4f+XjzxK6lZTGe+g5Ec9TR3Hxzy4XTKibLmaoEKumXFgbFVlzMyD5jjvfpfEyTX3NSnA0nVGhBNIwxz1FdPplEiDoMSbky2WycaMS98QRDYpf/WFY9qBiP9xfEQw4DDV6jtEv/FHrR7pUUcMbUBz7uYCwC/mN4RgF6A/ygMxyA5eTGxRKuQp78o82keVDnkuJcFU+S3cpmV6uDupqvAAE5jf6kVBo29OgbQ9R2EYmqr4RhXSZUXJA75Ks5D00xIjYcmuRvPshbzpHHYV/yvpz7118xEA==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(7416014)(23010399003)(376014)(10067099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	2uI9ZaesvWZnNi46dBIwbF3UGudV8pBsTr0TGMBcq5LufZRVUHjF2pudP420BMP7CeeoDT9cj9IzcnNb606zYUA2AmPvN8eUty6R/+3XlC2x5geOPz7vIAKxd0UP7F+WzN8SUQIFW30ChiJNBr4gC5Ll2amWLVoft8urNPFpt/6sB5GSO2AfbZw1d6NtOqgFm2xu0CL7Yp6doTiqGdsI4Vl7BGmCiAfmKMY/8BJJpXJLKaqIPURukDREAaxdA/jvxEFBwEVVzFBlIq6oXeeNKi9b8dU+9eI7XL1GzmgJMnl7lWOaNnF0nUsUKc47s/ZBD+8Ro8l4LQ7JalOLPia4Ghp/OHskjEG0GBstEsCuX8QgYDOddB0LilvHoEhllbsPwGMzwLp0lBoudHwB1ViZPM+uq1gtzVulJTOh/bv1z8awFcc+rckCYwegKH7Sjfmq
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 02:10:33.4038
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e811cd2-16cb-40e1-1b7f-08df1917d9a7
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	OSA0EPF000000CB.apcprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB5721
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=57b5d87d32bc9ece3cb6ef40e4dde09507a22fc2dba109df05cb5c4a9b74;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Wed, 23 Sep 2026 10:18:09 +0800
+Message-Id: <DLMC322TOCGJ.2GTJG14AFBACW@linux.spacemit.com>
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, "Sandie Cao" <sandie.cao@deepcomputing.io>
+Subject: Re: [PATCH 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
+ add USB controller and USB phy support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Sandie Cao" <sandie.cao@deepcomputing.io>, "Yixun Lan"
+ <dlan@kernel.org>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Paul Walmsley"
+ <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
+ <aou@eecs.berkeley.edu>
+In-Reply-To: <20260922110434.3426051-1-sandie.cao@deepcomputing.io>
+References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
+ <20260922110434.3426051-1-sandie.cao@deepcomputing.io>
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OE3tIrIEWSq43rDHmXEwWm6YamyBTwRvidVnM1uaWIPCTXslRtIdAJeH
+	DO5d/fjbUi6M4pK+V+YbgsGh/aMUgvNfsTOVKqdF9dyjQHhX9mYcVF5mWa8H2HGhEA+gY0V
+	UqwM/Ursv212CCqjVVIGJaGJJ/4XAojHl0svAz5yMYnA8wrR0b7woV5+dfDGXzWSZGzT4Oj
+	sM+pSL9RybQiHolhzKHkojlkQc6cmtFIF47weSd8DfBO2BTJPHa19PXYYjM6OaFr2VpuiCp
+	SLz9rYHjqKXN2mfQlrMztAIBbGCKDmNwgxewrRZj6+J5Fl802rjOZSs7b3lneuxGJHsfQ1K
+	FpphpSVpV+ln82CS1JibPYZwhtw7E7/gCkZW0LScetHLAeAchq2nqqDlubRdZoJriAuMvjL
+	pJW8aBiPkBGQQ4MtXtdcYp0XiaKi/+mnIWh8KFrbgW9XNCVBq2UhviXvK0OUDtyt3lkzZqB
+	NshLhVIIr2D3VPg7T18vnXigA0K74AGeQJKO515Y/p2KQRpX8uiEBfefm0NMtz3thowObZt
+	Xtj1eOvdbdNErBxv0uZr3Bv2Br6CZ+qJ9lrI/C19V3FajTmwnsYsl4O7AHsR8iP+RccD3Js
+	mkNqWZOMq/5WZWbZE5VecsRw+bHT4RqulY9OeKcxrHmZAMvmL1NjTtIpepz3Hykq80QsntP
+	LZ32zPYRJvfoi0/Ur3bcUmMtPxjwlenfXvepOkeSVD+oDs0n9YzEW+ZcyVkbRijK8kbSTY1
+	lGdTQJkAV386X+AplhhwdkPttfZx13+ejrVMsR+o+P6wANCTytdd8IBHvriO1hEnqHG05de
+	H/FbP1Y98Tg5pwUfxodZkWn4iQ32BxxVC9YEyI1DdzQ+/rc5R3B+9WrINmb9DO3Q7qeSQ4J
+	UGQK8PtIxkUwjk1V8gS/Jk3I28VQdjt0QpqFIM/rAmIpAeqfsCf96qmxjg3bBWY62LWmIlA
+	SCx14TJ13FY7xcTIM8/ICRztJGEQEQPFuLNXpJt3fnFzzWAPjQnGjOq7UkDdKHidLtPShK/
+	gDrWrxE+Lq5U5IfDugHWW+qOpskVTcxfj6uMTVXY2iQ4RQqUWkdxHSg3OY1qMLKCNxitriY
+	+futk5ODbAI
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-Hi Vinod,
+--57b5d87d32bc9ece3cb6ef40e4dde09507a22fc2dba109df05cb5c4a9b74
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Gentle ping on this series. The binding (1/3) has Conor's Acked-by.
-The driver patch (2/3) could still use a review.
+On Tue, Sep 22, 2026 at 07:04:34PM +0800, Sandie Cao wrote:
+> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
+pacemit/k3.dtsi
+> [...]
+> @@ -441,6 +441,72 @@ soc: soc {
+> [...]
+> +		usb3b_u2phy: phy@81500000 {
+> +			compatible =3D "spacemit,k3-usb2-phy";
+> +			reg =3D <0x0 0x81500000 0x0 0x200>;
+> +			clocks =3D <&syscon_apmu CLK_APMU_USB2_BUS>;
+> +			#phy-cells =3D <0>;
+> +			status =3D "disabled";
+> +		};
+> [...]
+> +		usb3c_u2phy: phy@81800000 {
+> +			compatible =3D "spacemit,k3-usb2-phy";
+> +			reg =3D <0x0 0x81800000 0x0 0x200>;
+> +			clocks =3D <&syscon_apmu CLK_APMU_USB2_BUS>;
+> +			#phy-cells =3D <0>;
+> +			status =3D "disabled";
+> +		};
+Should these use CLK_APMU_USB3_PORTB_BUS and CLK_APMU_USB3_PORTC_BUS,
+respectively?
 
-The USB controller glue series that consumes this PHY is also under
-review, so having the PHY side settled would help both.
+--=20
+Troy Mitchell
 
-Thanks,
-Hongliang
+--57b5d87d32bc9ece3cb6ef40e4dde09507a22fc2dba109df05cb5c4a9b74
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCarM24Q0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQvAmYA/iFLvoo8oOH/IDlcVXEOznjisdfEqNwOm+oJljGB
+ZmcGAQDPw3wYW5xpApTx/6vIfixeGWSBTL26yVlHUBqZlx8QBw==
+=zTrC
+-----END PGP SIGNATURE-----
+
+--57b5d87d32bc9ece3cb6ef40e4dde09507a22fc2dba109df05cb5c4a9b74--
