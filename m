@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C707A331200
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:28:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403A04A92C1
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:29:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166517; cv=none; b=MKKsDrz0LvK1IH2z5vxbJF+1pMZV/ElLTnZeYZV4nQfxBczgdkz9XUvLwNvA1RsiV0Z4G3Mzlrn6GMyuG75p6ZNOkZpRWVCBF7kiB92TDEG0nt1adjcdGL3b+t8bChs/KS6+i+Yd+9OrBHDObzbgmdxW88V14gj1+cHYAnh8T0k=
+	t=1790166551; cv=none; b=hyVW7sQQr+blxSzpSAt91iwpr8XN/f9Dg+NEuH7nD6ovpaqCNYR0pdfTZdMrYRtF5pjaDuMGoiwQhoZkqmnEqCuOoNgJ+07JCrnUHZgKaS/uIWS5bUIjJX+LaaAaUxVLbXhs0IA6rBPACkLiIv17HQPMIayCoOWCvuC1EyhlhC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166517; c=relaxed/simple;
-	bh=LS24cGQ9R2yH84EBdCv3BtkUBb1kgx4nPbefijs7WE8=;
+	s=arc-20240116; t=1790166551; c=relaxed/simple;
+	bh=i0JXI+PL7OJyNzgzug2EwJrVI5CK01AR4iAGhHTej68=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iUXHSirk3b1CPiYXNH4/yE8UL8uZJp9DCJM9by11qpVQTRUZ/5zpkmtJeA1UljDx3G/qwxvaXIqJ8k8/JhTbE3GDFdtV3nvHvJtBYGtnlzEgiWjwBomDyIJDEMhjIz47XDGcAozlXzM1d7SiSSscXuOr7eh92KwgbnGYJkanrBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=irHw/xKq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UzX5zrKYmt03xr59ggtZDgiVACNfnWDPwNH/+YNs2yP9BuSnozR4iJ8P/ZL4wXUX9S6JXWl7x3BycjVCdGjSu9vYOCGUgOQr8sHf0SzfOSPKkwJMWYVCXk0WarXrCInLtOv7fh16i2uoRa8inkkVCulY0oGxKka6Mg5zcpRMO00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhxYiSRZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="irHw/xKq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32C651F000FF;
-	Wed, 23 Sep 2026 12:28:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhxYiSRZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4AE81F000FF;
+	Wed, 23 Sep 2026 12:29:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790166514;
-	bh=NLO75+JdUj/wOvE+TF1sbsKjj4H0Y/tOjBOnlp1Uuoc=;
+	s=k20260515; t=1790166550;
+	bh=88cFTx9ma+1QDm3ykVNT3jroBfuO09ttwTUFLg+1vTo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=irHw/xKqW+PF2zuB5dG0h3qoOtg53V3aP+Rvta7YEa0RXLsJkOEfbnNkxzSjAlpEB
-	 7qeU1GFWt4CKXtEUFHXyQO1aB10eJQDRMF3BqaQpANXSyusVqdYTLpOas5cK1hZkR+
-	 qX9RvIwvg6BxA9YNLipXKSeHZv+GXcbhTRX2jDlBig6IuJVzCc0U+XdJPid1Otndp+
-	 K+RMe69yx5K947c2wgX03P2KXBwrRfsVdy0J5TxchdOBrpBeaFZAOXEekGBe0BotMl
-	 zCV8kbO+hAVulqM0MFSFGU+bJEqN++np/0BKxQyitRpA4VN2l4BA1RcTUq4e2ug5M6
-	 3dZFhQ1o5ZaZg==
+	b=nhxYiSRZdKYH45t0s8dOVljD5DlnkLaFzr/UPRkCbRU2b1lRgm8hjEYNJyWqVim/v
+	 O5yly3/jPhbatyGZzjQzB7Lg6NZJSeC9xnbJJGtkHvEjvBkbPFoeCRNggbPjdHfKfG
+	 5u0J8jkC91D8CqUU+YSKoa4JOSDssfCYnxLUvQIRxjMKlsXca83NtkE2OUeMvmsWnK
+	 wUjYqyRhcljHXJsiz/hSxBmXJbrKuGOLFmoeqnjHOYG9p9z4+7MruidMvZ+fjqq/MO
+	 2GcmfA29il6WMPx6h/5Du4TZE3NoDRoTqgN2lQYJ0Bt6hZHA1rRtyB6yOp79sNzqHm
+	 7BZX+cp0+Fjbw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH ath-next 15/16] wifi: ath11k: define userPDs for QCN6122
+Subject: Re: [PATCH ath-next 13/16] wifi: ath11k: add hw ring mask for
+ QCN6122
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "George Moussalem" <george.moussalem@outlook.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-15-86729521a75c@outlook.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-13-86729521a75c@outlook.com>
 References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
- <20260923-ipq5018-qcn6122-mpd-v1-15-86729521a75c@outlook.com>
+ <20260923-ipq5018-qcn6122-mpd-v1-13-86729521a75c@outlook.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 12:28:33 +0000
-Message-Id: <20260923122834.32C651F000FF@smtp.kernel.org>
+Date: Wed, 23 Sep 2026 12:29:09 +0000
+Message-Id: <20260923122909.E4AE81F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,65 +47,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] ath11k: invalid QCN6122 userpd_id silent failure during probe
+- [High] ath11k: unhandled IRQ storms/spurious wakeups due to TX ring mask =
+mismatch
 --
 
-commit 4463bfc0a33ebb5b811e53822f3dfc8436afe153
+commit 3b2799aad0073fb22a0ae0ac93a828666b2e2126
 Author: George Moussalem <george.moussalem@outlook.com>
 
-wifi: ath11k: define userPDs for QCN6122
+wifi: ath11k: add hw ring mask for QCN6122
 
-The IPQ5018 platform can come with one or two optional QCN6122 wifi cards.
-To differentiate the two, the user PD instance number is added to the QMI
-service instance ID. This lets the firmware know which radio instance to
-use and on what PCIe rail it is on.
+This commit adds the hardware ring mask configuration for the QCN6122 chips=
+et
+and registers it in the hardware parameters.
 
-> diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless=
-/ath/ath11k/ahb.c
-> index 03936f574c8d4..26110c9275776 100644
-> --- a/drivers/net/wireless/ath/ath11k/ahb.c
-> +++ b/drivers/net/wireless/ath/ath11k/ahb.c
-> @@ -969,6 +969,14 @@ static int ath11k_ahb_init_userpd(struct ath11k_base=
- *ab, int userpd_id)
+> diff --git a/drivers/net/wireless/ath/ath11k/hw.c b/drivers/net/wireless/=
+ath/ath11k/hw.c
+> --- a/drivers/net/wireless/ath/ath11k/hw.c
+> +++ b/drivers/net/wireless/ath/ath11k/hw.c
+[ ... ]
+> @@ -2070,6 +2070,43 @@ const struct ath11k_hw_ring_mask ath11k_hw_ring_ma=
+sk_wcn6750 =3D {
+>  	},
+>  };
 > =20
->  		ab_ahb->userpd_id =3D userpd_id;
->  		break;
-> +	case ATH11K_HW_QCN6122_HW10:
-> +		if (userpd_id !=3D ATH11K_AHB_USERPD_ID_2 &&
-> +		    userpd_id !=3D ATH11K_AHB_USERPD_ID_3)
-> +			return -EINVAL;
+> +const struct ath11k_hw_ring_mask ath11k_hw_ring_mask_qcn6122 =3D {
+> +	.tx  =3D {
+> +		ATH11K_TX_RING_MASK_0,
+> +		ATH11K_TX_RING_MASK_1,
+> +		ATH11K_TX_RING_MASK_2,
+> +	},
 
-[Severity: Medium]
-This correctly returns an error for invalid IDs, but it uses -EINVAL, which
-overlaps with the error code returned for missing properties.
+[Severity: High]
+Does this TX mask configuration cause unhandled interrupts or spurious wake=
+ups?
 
-In ath11k_ahb_configure_rproc(), the -EINVAL returned by this function
-(via ath11k_ahb_config_userpd_irq()) is explicitly masked:
+QCN6122 uses ath11k_hw_hal_params_ipq5018 which specifies num_tx_rings =3D =
+1.
+However, this mask enables three TX ring masks.
 
-ath11k_ahb_configure_rproc() {
-...
-	ret =3D ath11k_ahb_config_userpd_irq(ab);
-	if (ret && ret !=3D -EINVAL && ret !=3D -ENXIO)
-		return dev_err_probe(&ab->pdev->dev, ret,
-				     "failed to configure userpd interrupts\n");
+When an MSI vector fires for these extra groups and schedules NAPI,
+ath11k_dp_service_srng() bounds its polling loop to num_tx_rings:
 
-	return 0;
-...
+drivers/net/wireless/ath/ath11k/dp.c:ath11k_dp_service_srng() {
+    for (i =3D 0; i < ab->hw_params.hal_params->num_tx_rings; i++) {
+        if (BIT(ab->hw_params.hal_params->tcl2wbm_rbm_map[i].wbm_ring_num) &
+            ab->hw_params.ring_mask->tx[grp_id])
+            ath11k_dp_tx_completion_handler(ab, i);
+    }
+    ...
 }
 
-Does this cause a misconfigured Device Tree specifying an invalid userpd_id
-for QCN6122 to silently fail and report a successful probe, while leaving t=
-he
-device uninitialized?
+Since num_tx_rings is 1, the extra rings defined in the mask=20
+(ATH11K_TX_RING_MASK_1 and ATH11K_TX_RING_MASK_2) will not be processed. Co=
+uld=20
+this lead to an unhandled interrupt storm or persistent performance degrada=
+tion=20
+from spurious NAPI executions if the hardware actually signals these extra=
+=20
+rings?
 
-> +
-> +		ab_ahb->userpd_id =3D userpd_id;
-> +		ab->qmi.service_ins_id +=3D (ab_ahb->userpd_id - 1);
-> +		break;
->  	default:
->  		return -EINVAL;
->  	}
+> +	.rx_mon_status =3D {
+> +		0, 0, 0,
+> +		ATH11K_RX_MON_STATUS_RING_MASK_0,
+> +	},
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-ipq5018-qc=
-n6122-mpd-v1-0-86729521a75c@outlook.com?part=3D15
+n6122-mpd-v1-0-86729521a75c@outlook.com?part=3D13
