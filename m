@@ -1,137 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482BA518131
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1254F497B99;
+	Wed, 23 Sep 2026 12:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165856; cv=none; b=SnKjkgEaeBqtJhSTs8rMmpbOI9oYB69SKPPkynufjCWBLvrvFCPZykj8DZ/JPp58fbdyTtbXIZucAwSVH0eKku2jfJQnKzRhlmb/Ffp+qeLEmp7ieopyx7LPOexXQ68YKxVL2cOiDDuGEypkhR43XYlAqwTA95cnEP/38MQUvO0=
+	t=1790165918; cv=none; b=ebj70iU5dra9D0zrXtIrXhE4N5UTrI0TxpR255t+sbKClncAGsu0TEYONSh0Na9FMdQ5LwzxO2hZHCqs5GRPNEIkCW11h55JjoVhI1Mxr7DQZY/u8VRn137/bHT88t1z3va7JkKfrJxQECPV3mCmIbE+kDi+A6rJ2/pPxc3dXms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165856; c=relaxed/simple;
-	bh=zGIZZVGPBU2YLJRhXTWe0H9hOz0ckgx23kytrXdfZsQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X6OhmlW1V3QUcVkrQX9h6qtpYzzCLd5G4F9md36EzW0Hy/hR5wFZr/MUlHOHi7RzKZ8th8f1QOjWjdlfCf4AbcSuX17aUeJ1tSMxN+mBYNMmvlKWlC6vuAd1qUtqJPVup+rR/zwP9Htod4sGlSAcSfqboym4+9fWurkxOzEkhaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLQzeA/A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790165918; c=relaxed/simple;
+	bh=5fGxk9HhwjCb6xTY1ZXljQ8LJNbL1+NlyXYyVEhbq/c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L6T5jVs9XmbV+cpwPGCtos2S6fKiX0OlafCDjmga+LOJASzU30KZSFxo5WdcQ8Xt54VavxVVn/qYHIyRsCi1RBSHwyTRPpHS84gQ1wfqE8I+j+vTvFGaLgNFnYqwdJcWYluwkmXKpkjz3jKM6abJARrKQ9OOL2E7KqXW3UN95xA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MvwxdJ8T; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLQzeA/A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C951F00893;
-	Wed, 23 Sep 2026 12:17:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790165846;
-	bh=g7VBGEx39WKvW3jzIEaIN3oEndDPWSFC5/+C/Rhqkjk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mLQzeA/AvmJlrW9muM8qcCOllt4izZtC/VHkFp2b3Ov173fGgghbMxjlQLcznN2lo
-	 N/1GDWPjwY3hkdT9vuyUMEy725vJr/wJqPOklkheP1tigfp7beJTf1S5enRjaM/wDs
-	 r3cK+q7xttcWrultfTk1g2l976B58YHonleDvnTAX+25oLhPtwumo85K9VaaoqeJIf
-	 9CSpiwl0AglFGB1mXmIowYSr57qD467mctN5dx1yIonvU0+Z8uHaFq62KLc+u+CIX7
-	 LCPXfxcS7/xIsuOEjt3dGQJSl2aIqegd3rI3qWtMH+bDwMIHk4+H8lDYL2YW55xYDw
-	 LCDBfupNHrCmw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH ath-next 03/16] wifi: ath11k: Register root PD rproc
- notifier
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "George Moussalem" <george.moussalem@outlook.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-3-86729521a75c@outlook.com>
-References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
- <20260923-ipq5018-qcn6122-mpd-v1-3-86729521a75c@outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 12:17:26 +0000
-Message-Id: <20260923121726.97C951F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MvwxdJ8T"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=rZ+t0r04A9n4IJdQ/W6j5U+mLAScXuxePRrybklmGrA=; b=MvwxdJ8TIg3NSfmiO5iN5pdkZG
+	JUO4RZhctuuY1g0lTouZ0uOHLv5w4RqCHLbA0DXxhwDKOGAocM5rWmVIifmRXQC+WIXDbh9MzSf6e
+	JF5C/3399TTWE7+MtoK8/EZDaYwMlJY8BXK2d9zhvyB4vO75g25SqsCYQFIt8vH/Dxr4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9LvV-006nYe-3Q; Wed, 23 Sep 2026 14:18:17 +0200
+Date: Wed, 23 Sep 2026 14:18:17 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Subject: Re: [PATCH RFC net-next 3/9] net: pcs: xpcs: add custom platform
+ register accessors
+Message-ID: <be09d6dc-c1c0-4a0c-9836-2b686ad096f4@lunn.ch>
+References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
+ <20260923-qcom_xpcs_nord_emac-v1-3-4b1c682af70f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-qcom_xpcs_nord_emac-v1-3-4b1c682af70f@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] ath11k: firmware reset and recovery broken for non-MPD targets
-- [High] ath11k: NULL pointer dereference in root PD notifier debug log
---
-
-commit cebde61194c39a9cdbfb9178d0b280c99923a9c0
-Author: George Moussalem <george.moussalem@outlook.com>
-
-wifi: ath11k: Register root PD rproc notifier
-
-This commit prepares for multi-PD support by registering the rproc notifier
-for the Q6 rootPD. It handles booting the root PD and waiting for power-up
-notification before proceeding, adding driver-level locking to avoid races.
-
-> diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless=
-/ath/ath11k/ahb.c
-> index 27d01411b6e9c..86723a2eb3d26 100644
-> --- a/drivers/net/wireless/ath/ath11k/ahb.c
-> +++ b/drivers/net/wireless/ath/ath11k/ahb.c
-
-[ ... ]
-
-> @@ -408,21 +415,12 @@ static void ath11k_ahb_stop(struct ath11k_base *ab)
-> =20
->  static int ath11k_ahb_power_up(struct ath11k_base *ab)
->  {
-> -	struct ath11k_ahb *ab_ahb =3D ath11k_ahb_priv(ab);
-> -	int ret;
-> -
-> -	ret =3D rproc_boot(ab_ahb->tgt_rproc);
-> -	if (ret)
-> -		ath11k_err(ab, "failed to boot the remote processor Q6\n");
-> -
-> -	return ret;
-> +	return 0;
->  }
-> =20
->  static void ath11k_ahb_power_down(struct ath11k_base *ab, bool is_suspen=
-d)
->  {
-> -	struct ath11k_ahb *ab_ahb =3D ath11k_ahb_priv(ab);
-> -
-> -	rproc_shutdown(ab_ahb->tgt_rproc);
-> +	return;
->  }
-
-[Severity: High]
-Does making ath11k_ahb_power_up() and ath11k_ahb_power_down() empty stubs
-break the firmware recovery mechanisms for non-MPD targets like IPQ8074?
-
-When ath11k_qmi_fwreset_from_cold_boot() or ath11k_core_reset() are called,
-they invoke ath11k_hif_power_down() and ath11k_hif_power_up(). If these
-hardware operations do nothing, wouldn't the hardware fail to restart
-during firmware crash recovery or cold boot calibration, leaving the WiFi
-subsystem broken?
-
-[ ... ]
-
-> @@ -832,24 +830,200 @@ static const struct ath11k_hif_ops ath11k_ahb_hif_=
-ops_wcn6750 =3D {
->  	.ce_irq_disable =3D ath11k_pci_disable_ce_irqs_except_wake_irq,
->  };
-> =20
-> +static int ath11k_ahb_root_pd_state_notifier(struct notifier_block *nb,
-> +					     const unsigned long event, void *data)
-> +{
-> +	struct ath11k_ahb_rproc_info *rproc_info =3D
-> +		container_of(nb, struct ath11k_ahb_rproc_info, root_pd_nb);
+On Wed, Sep 23, 2026 at 06:37:29AM +0530, Mohd Ayaan Anwar wrote:
+> Some XPCS integrations do not expose the standard direct or indirect
+> register layout. Allow the platform driver to use optional register read
+> and write callbacks for both Clause 22 and Clause 45 accesses, while
+> retaining the existing access paths when no callbacks are supplied.
+> 
+> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+> ---
+>  drivers/net/pcs/pcs-xpcs-plat.c | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
+> diff --git a/drivers/net/pcs/pcs-xpcs-plat.c b/drivers/net/pcs/pcs-xpcs-plat.c
+> index e669a7b248ac4677aeb5cd1874108f5c87f837d2..e78a233fb198d940951064a71e8597c6c666bc9d 100644
+> --- a/drivers/net/pcs/pcs-xpcs-plat.c
+> +++ b/drivers/net/pcs/pcs-xpcs-plat.c
+> @@ -24,8 +24,16 @@
+>  /* Page select register for the indirect MMIO CSRs access */
+>  #define DW_VR_CSR_VIEWPORT		0xff
+>  
+> +struct dw_xpcs_plat_ops {
+> +	int (*reg_read)(struct platform_device *pdev, void __iomem *reg_base,
+> +			int dev, int reg);
+> +	int (*reg_write)(struct platform_device *pdev, void __iomem *reg_base,
+> +			 int dev, int reg, u16 val);
+> +};
 > +
-> +	if (event =3D=3D ATH11K_RPROC_AFTER_POWERUP) {
-> +		ath11k_dbg(NULL, ATH11K_DBG_AHB, "Root PD is UP\n");
-
-[Severity: High]
-Will passing a NULL pointer as the struct ath11k_base *ab argument to
-ath11k_dbg() cause a kernel panic?
-
-If debug logging or tracepoints are enabled, it looks like __ath11k_dbg()
-will unconditionally dereference ab->dev, which would be triggered
-automatically when the root PD powers up.
-
-> +		complete(&rproc_info->rootpd_ready);
-> +	}
+>  struct dw_xpcs_plat {
+>  	struct platform_device *pdev;
+> +	const struct dw_xpcs_plat_ops *ops;
+>  	struct mii_bus *bus;
+>  	bool reg_indir;
+>  	int reg_width;
+> @@ -169,6 +177,10 @@ static int xpcs_mmio_read_c22(struct mii_bus *bus, int addr, int reg)
+>  	if (addr != 0)
+>  		return -ENODEV;
+>  
+> +	if (pxpcs->ops)
+> +		return pxpcs->ops->reg_read(pxpcs->pdev, pxpcs->reg_base,
+> +					    MDIO_MMD_VEND2, reg);
 > +
-> +	return 0;
-> +}
+>  	if (pxpcs->reg_indir)
+>  		return xpcs_mmio_read_reg_indirect(pxpcs, MDIO_MMD_VEND2, reg);
+>  	else
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-ipq5018-qc=
-n6122-mpd-v1-0-86729521a75c@outlook.com?part=3D3
+Ugly.
+
+How about changing pxpcs->reg_indir to an enum, with values indirect, direct.
+
+One patch.
+
+Then look at
+
+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "direct") ?:
+	      platform_get_resource_byname(pdev, IORESOURCE_MEM, "indirect");
+	if (!res) {
+		dev_err(dev, "No reg-space found\n");
+		return -EINVAL;
+	}
+
+	if (!strcmp(res->name, "indirect"))
+		pxpcs->reg_indir = true;
+
+	if (pxpcs->reg_indir)
+		spc_size = pxpcs->reg_width * SZ_256;
+	else
+		spc_size = pxpcs->reg_width * SZ_2M;
+
+Look how easy it is to cleanly extend this with a new resource name?
+And add accessors using the funky mapping your device has. Another
+patch.
+
+    Andrew
+
+---
+pw-bot: cr
