@@ -1,59 +1,281 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED6A53CA62;
-	Wed, 23 Sep 2026 18:38:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB6454CF78
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 18:39:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188695; cv=none; b=TY1DRHjLXtZufGkoW3l2bvXDLV3KWrVZAlC5nSEX1Ylv9T6F3Gal/BGtu1Fr6awi6L2/agMgnxgY5Oj30PXxdmCKl8x0i86cwlfMggqCdQ4RmFxtTF9za94poWe0Rfc1+istTLp72MirVmpymOEZc0JB3PHC8yvIyk/4k87nXY0=
+	t=1790188758; cv=none; b=ew5NQwyRb/N2Xc9qRqp72GwryJZE6ZL3EHsdGhJRLgFyio8DoLZabQS+iuix1dgvKh3vLdh53HgLdNRcDoEDxDZmpxFjEgT9FJp+va7Inryri8z334jhqjxtFPOFFc4i3ir/DTIDmvUTQY1vNTVc+09ap6ND3B5iBbPBy0xWMZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188695; c=relaxed/simple;
-	bh=YGiK61qXotPf1rDMJmlR+tmCh2Dz3TZ0IYf6maDz+6U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J71RMpjLh4jeAa1GRDVlQxUB9iEgCV1UPbiLcc4IBOVTI2W5sI97d8bqveNNWtaxh0cDVP2fTOK3h9uhOkdZAOsjxNiQAcfQtY006Gu4zJV8DltRYFOXt7U7tGZ72JYz4xcozaONXTC0MbSd84gCQxhISCOIgVG7RSvR3Yjin2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUPpWEKs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790188758; c=relaxed/simple;
+	bh=GrDNSSO0nvFb2unWTPFRpJmvnJFmkqSGVidtNmo3vmw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gTTJG+zm4OF3YurQg+6mtocwslVEYORt47DPfBVs2OYasJphcosktR65KpGh3RGFftG6TiGp/gEUcfkUz5uP9nBff5QTmrZajiMnY22kMYxK82x1VhCIchxjovG+kAPt27lDQSg0QgH3nLveh6uB/zJ93s9rzjBmwpea5lIdGxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i5qoEp5E; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUPpWEKs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 272BE1F000FF;
-	Wed, 23 Sep 2026 18:38:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790188686;
-	bh=YGiK61qXotPf1rDMJmlR+tmCh2Dz3TZ0IYf6maDz+6U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iUPpWEKsh+5uxxS65s6ha51IFpV/bYGeO/c95LsAXWAGtrRJ7bDWdZogkrO7OztTw
-	 qj6pK2QzvrEk62V9R4HNHXvSW+oQI1+kz7xE/PTy3/1X7lkzaz5ayZI0Pbz2QZMyYc
-	 d3Y+3u5+yNi/9xxhZTqUs72stLVOx4fLYPq9VIPkLuGklf/pqRnosibWQiDSYBTmGT
-	 KklNO1gE/NnhXSGEfYuBuAadBpl7pNKJs54+uqDTxfuWP+5z4bWUfzrLHTu9k7TujX
-	 1b42dNSQg4/2UTZvVRe20Eah9Mh4UVnez/gr2h/k74PZ1Fi1meOQyhMr5jpZ4ayBGZ
-	 emmYy2O95qGyQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 06/12] clk: zte: Add regmap-based clocks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
-Cc: mfd@lists.linux.dev, vkoul@kernel.org, olteanv@gmail.com, lee@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, linux-clk@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org
-In-Reply-To: <20260923-zx29clk-v12-6-9c243796b6d2@gmail.com>
-References: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
- <20260923-zx29clk-v12-6-9c243796b6d2@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 18:38:05 +0000
-Message-Id: <20260923183806.272BE1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i5qoEp5E"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd4b43b20bso6630995ad.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:39:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790188755; x=1790793555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8VWM3B8ZR2suQS0fAZFWbkbtS6he0VILtB/lGED1UXs=;
+        b=i5qoEp5ELH292yx17My+lOGlk37sxh+HtVyZSCsfwPkGmbzOYfbxcB2Wel5I/BWwP0
+         L6Qp4LINKRVlG0puGVQkIBp6YWnF6uwnvL86yrZrSWTaLnl8omE1PaLWoTH1qbnKQ353
+         kQE3cmjssXjMJukAGHciLZd2ICkqFHmMcCGvdoyye9c/4CZNruJbKp3JgG8FMGeGfJGa
+         AOQtvHTJR6xQVDJY+mPXGLQAEELrGsvTfPdjIFOzDTkVAzBMrn6z9PD95iYuhqf9lPnN
+         6WEUONWmHvRQ69cg/GQTv2B/ijW6ozYyQ2ajDWeqze//gs9En0PEcKO7xPP+7bDBP9aa
+         yf/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790188755; x=1790793555;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8VWM3B8ZR2suQS0fAZFWbkbtS6he0VILtB/lGED1UXs=;
+        b=YGRY1jf2d0dQhT3MCPs6QjyhDCTGB2Z49kZxS0XYNcMtByoUZd1qH8dyODJT3bunKq
+         NbgcXqLYkgUFB3CJdAjrMXS9OOnpDXOYFJVcOSdGP+gHEAk/4KGzz7ZM8zwazcLomkc2
+         63gUNlNouGBBfkVcbl1q7HD5vxpjlIBTnjAUUcf5QzBsqgjSoSt1eX6uF+4MbSpjUMYl
+         eU6iPc2cmyAthXQJ86vZDA2wLopRfB3Xd1boTELDs2lRA/ibzCGs4ET7AY5kJ+llNBFK
+         J+kEsK/OCgl0DfCTq53hyjkMW8GxngxJwgCCn+Kg/51xMV87yiuZAhy1UQNSvdlyHymm
+         /MMQ==
+X-Gm-Message-State: AFuF++mOccTv0Tx52/7/SmCzEi0+R4ckK5ED2TSq0AjtRxJz3uMFlKm0
+	OgbWC3ES3AH0HRdcIn90GBlrJatAewrU8C3ordnzAgLWK8dB7NX7rPwmVqx6UQ==
+X-Gm-Gg: AYBFou3+orG44B2gstKI6AsW6qoI4FvIi9a2+uIRLzTjjaJ7xgAWDy/KhKOXq6g1Dgg
+	RiVkbrcP4rYAsr/S+kEd+b8CTBguemy1bkpY+6931Qax8avBZfBGIthlla4ji4ouXwkvapw5W8B
+	Xfqk2CuaWA6Si55ucdta7vsS+PTX+XbtOAVc+RgdLfT7Wu5YTRu5e8rLXsDS87JXqZBm+cReEUi
+	GQfhxVXWoMn3qV8uea0uddLaH1B7n++RQqLDJS+RSp3cqTa2DE8a1aUxRPf6MLkug++Q6Rk3VpL
+	wvLbkBamgXZfj6GOACsZQCPOALzrtDcAwGxzMT4kBIlIBizSZ2/u5gsfTezCFzsFI9lfxOCCcV/
+	XDIZFxiAwc5G9kUhu4vSHR25G89iFo7zE1KRLvOH/bGkj8OmdHLKdrPuMOYUMquXYu5AFTgs420
+	aPM9wH7Q1n8xFOUAowzNvw0d9OMnkO3m+NCpobkU3ccIps76By0CxUEZkov894AJPH/Cji823v8
+	Ijr3cK5LocqWpgMUCSH9fkMdvDNYV61y+sKERVai75y0yG6vr4A0Obz6rN6c3iAw9sU0HRRrbbV
+	Zcbf6bdkCf1veWZjPW5gTlrDPFE7ksN88mCvdf17/0W0vCg3
+X-Received: by 2002:a17:902:db05:b0:2df:556c:1581 with SMTP id d9443c01a7336-2df7e11a469mr224415ad.31.1790188754814;
+        Wed, 23 Sep 2026 11:39:14 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5dc32csm15528625ad.53.2026.09.23.11.39.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 11:39:14 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: alamo: use qca8337 internal PHYs
+Date: Wed, 23 Sep 2026 11:39:12 -0700
+Message-ID: <20260923183912.13389-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-> This is based on meson/clk-regmap.c, although slightly simplified. I
-> have kept the copyright lines at the top of the file to indicate its
-> origin.
->=20
-> Reviewed-by: Brian Masney <bmasney@redhat.com>
-> Signed-off-by: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+The QCA8337 switch has a managed internal MDIO bus for its built-in
+PHYs.  Move the PHY nodes from the external mdio@0 bus into a
+subnode of the switch, and mark the connected switch ports with
+phy-mode = "internal", so the ports are linked to the correct PHYs.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ .../dts/broadcom/bcm958625-meraki-alamo.dtsi  | 100 +++++++++++-------
+ 1 file changed, 60 insertions(+), 40 deletions(-)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-zx29clk-v1=
-2-0-9c243796b6d2@gmail.com?part=3D6
+diff --git a/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi b/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi
+index c54451dde6dd..d0199c07707c 100644
+--- a/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi
+@@ -85,26 +85,6 @@ mdio@0 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 
+-			phy_port6: phy@0 {
+-				reg = <0>;
+-			};
+-
+-			phy_port7: phy@1 {
+-				reg = <1>;
+-			};
+-
+-			phy_port8: phy@2 {
+-				reg = <2>;
+-			};
+-
+-			phy_port9: phy@3 {
+-				reg = <3>;
+-			};
+-
+-			phy_port10: phy@4 {
+-				reg = <4>;
+-			};
+-
+ 			switch@10 {
+ 				compatible = "qca,qca8337";
+ 				reg = <0x10>;
+@@ -128,60 +108,70 @@ fixed-link {
+ 					port@1 {
+ 						reg = <1>;
+ 						label = "lan8";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port6>;
+ 					};
+ 
+ 					port@2 {
+ 						reg = <2>;
+ 						label = "lan9";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port7>;
+ 					};
+ 
+ 					port@3 {
+ 						reg = <3>;
+ 						label = "lan10";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port8>;
+ 					};
+ 
+ 					port@4 {
+ 						reg = <4>;
+ 						label = "lan11";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port9>;
+ 					};
+ 
+ 					port@5 {
+ 						reg = <5>;
+ 						label = "lan12";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port10>;
+ 					};
+ 				};
+-			};
+-		};
+ 
+-		mdio-mii@2000 {
+-			reg = <0x2000>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
+ 
+-			phy_port1: phy@0 {
+-				reg = <0>;
+-			};
++					phy_port6: ethernet-phy@0 {
++						reg = <0>;
++					};
+ 
+-			phy_port2: phy@1 {
+-				reg = <1>;
+-			};
++					phy_port7: ethernet-phy@1 {
++						reg = <1>;
++					};
+ 
+-			phy_port3: phy@2 {
+-				reg = <2>;
+-			};
++					phy_port8: ethernet-phy@2 {
++						reg = <2>;
++					};
+ 
+-			phy_port4: phy@3 {
+-				reg = <3>;
+-			};
++					phy_port9: ethernet-phy@3 {
++						reg = <3>;
++					};
+ 
+-			phy_port5: phy@4 {
+-				reg = <4>;
++					phy_port10: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
+ 			};
++		};
++
++		mdio-mii@2000 {
++			reg = <0x2000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 
+ 			switch@10 {
+ 				compatible = "qca,qca8337";
+@@ -206,33 +196,63 @@ fixed-link {
+ 					port@1 {
+ 						reg = <1>;
+ 						label = "lan3";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port1>;
+ 					};
+ 
+ 					port@2 {
+ 						reg = <2>;
+ 						label = "lan4";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port2>;
+ 					};
+ 
+ 					port@3 {
+ 						reg = <3>;
+ 						label = "lan5";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port3>;
+ 					};
+ 
+ 					port@4 {
+ 						reg = <4>;
+ 						label = "lan6";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port4>;
+ 					};
+ 
+ 					port@5 {
+ 						reg = <5>;
+ 						label = "lan7";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port5>;
+ 					};
+ 				};
++
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					phy_port1: ethernet-phy@0 {
++						reg = <0>;
++					};
++
++					phy_port2: ethernet-phy@1 {
++						reg = <1>;
++					};
++
++					phy_port3: ethernet-phy@2 {
++						reg = <2>;
++					};
++
++					phy_port4: ethernet-phy@3 {
++						reg = <3>;
++					};
++
++					phy_port5: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
+ 			};
+ 		};
+ 	};
+-- 
+2.55.0
 
