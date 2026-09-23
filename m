@@ -1,45 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E373555C30F;
-	Wed, 23 Sep 2026 15:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95ABE481255;
+	Wed, 23 Sep 2026 15:16:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176541; cv=none; b=cVF8+2PBgdc9Rr3uinj2mdoZT4OBXXPfqNZKFVn7Cc6uqN/yxGqqW5YUD39RDB74uUAmqaS2WsCTlakrKtny0+I0uPS+9/Uu+G0Z5XzpSPQ77G141E0W+wQeAn2q5u1/7Yk8OFwRzzaPrekdtfTY8XzdFYGiZoGO4zFSEMFNVSE=
+	t=1790176597; cv=none; b=RVUqxkPL+rHPdWtW3zQ7odF7AikSxHTYpS2rO/3+Z+rvDifnRvVzl4NFxUrll/5X+1Tgv2lCRn+4+X9nSEXGDEIFFis1mkchv66XdarvfC9SYBCK8HqfXERjW6S/mL5hkGYNdST+z6cQEagrmtCamtGph4h9JbSo8Z007VBQlXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176541; c=relaxed/simple;
-	bh=PSoTGgwxFO1uCvYDRzbcGxm/t8J0kz+SLJBinX5fy+Y=;
+	s=arc-20240116; t=1790176597; c=relaxed/simple;
+	bh=05dlzMt6G88nV3zR2PPD19DDLvKz4gMdaNvj7ZzU0lo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VfkBQ6PEacJSDUufxvme0ezEO2LLd/4gNCR0rrbQgl69SoDJD0P9nvYQF+kGPgsDu8K36xT92LKZAoONu5gl5o/VSfqyieE8XrKRrNqzrbzHX3AoEp2NgP7K+eqHWRWv+k1tVtB/a1apDgTynyxzWr04D6v3PRvwgSSJSKtv1lI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FgPU2hoo; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=n+0vXmzdTWFQDySaIDU5NjdJBT1SNjhsOywvqze7vBdKOX4YTxk6L2udtt6qaITl8jO6suzsRAw+7oP0lScy+oi0pfgvItTQFWz3j5Um38i2xlEKS8SEImnSxATPjxWcBzczz506D+lda9fIeu9DtVlLJDHaZVv16xLy078GSIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=mAps+FK/; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FgPU2hoo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4F611F000FF;
-	Wed, 23 Sep 2026 15:15:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790176536;
-	bh=PaGX3PY3xLIFNuvF1m4eTRbikorgJo9leVEOR5Sev2k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FgPU2hoo4XtjoaYWhuTRw+nVRcqmOthcztcu8bVLLcDNgqcQyE+g5OHNKVl8FUhl8
-	 ZrKOmxDo10BO/4Ht2lnXA/fMA+Cm+BsFauq+IRhzUFKD1fB7kNGSWxYiPe9tMU++1G
-	 a8WyJaVPxPZY7u9BwztISjUeI3DySmetKDFeGjvZAqMfdlvOdeifkDV34noa4K91dO
-	 7UgIj7MHv3DxWnTbo0icazxI8FE+0zZrWQBEVt5c5bFCuBulQ94c8S3KCwsF4nVnwq
-	 OoL7RN1RIsiRKWl2Gk0pQjasRbFxVEBCJ/Ci8WrLZ0L7R2La3e6K6VwY5Dp3Nm1JN3
-	 3RyPuaRACMK2w==
-Date: Wed, 23 Sep 2026 10:15:35 -0500
-From: Rob Herring <robh@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Linus Walleij <linusw@kernel.org>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="mAps+FK/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=DpKeGCK87szjoNyGISCstPHlTshXz1Y1JnVLiGLvX08=; b=mAps+FK/IKHLGJ6ryyNEBZvMiy
+	bcob3AzJv2CKb4NGjVgsMdiqL88mKJMrEMrOitydGxlvnFVAH7TAL0K0g5ZmX0seI42XjRW1qWwFs
+	9Z2qzk2hlUukq5g+5UsTbSlX/yXgea5nXAmrpo2fjnbSub8+8MUOwkdr6Ko4Dq9tAF7Y=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9OhO-006pZU-S5; Wed, 23 Sep 2026 17:15:54 +0200
+Date: Wed, 23 Sep 2026 17:15:54 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: pinctrl: renesas: Allow power-source
-Message-ID: <20260923151535.GF27237-robh@kernel.org>
-References: <20260921232551.3129244-1-robh@kernel.org>
- <CAMuHMdV7D4RZ6zA_0jBqnCz8gee2=9bbNAXETbbNQxANhJ5pZg@mail.gmail.com>
+	Serge Semin <fancer.lancer@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Subject: Re: [PATCH RFC net-next 0/9] net: introduce Qualcomm XPCS support
+ and add Nord Ethernet plumbing
+Message-ID: <5e6dc1ec-3602-4cbf-95e8-58e2b94feed9@lunn.ch>
+References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
+ <CAFkd8hsUzJEsDYjGSM3tsJzzwByuEkA+G4k1c75uYD-y5qU3iA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,45 +69,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdV7D4RZ6zA_0jBqnCz8gee2=9bbNAXETbbNQxANhJ5pZg@mail.gmail.com>
+In-Reply-To: <CAFkd8hsUzJEsDYjGSM3tsJzzwByuEkA+G4k1c75uYD-y5qU3iA@mail.gmail.com>
 
-On Tue, Sep 22, 2026 at 03:18:53PM +0200, Geert Uytterhoeven wrote:
-> Hi Rob,
+> Good Job, Mohd
 > 
-> Thanks for your patch!
+> Tested-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
 > 
-> On Tue, 22 Sept 2026 at 01:26, Rob Herring (Arm) <robh@kernel.org> wrote:
-> > RZ/V2M pin configuration nodes describe the I/O voltage with
-> > power-source. Add the property and allow the 1800 mV and 3300 mV
-> > values used by the DTS.
-> >
-> > Assisted-by: LLM
-> 
-> Dear LLM: please consider the actual driver source code, too.
-> 
-> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> 
-> > --- a/Documentation/devicetree/bindings/pinctrl/renesas,rzv2m-pinctrl.yaml
-> > +++ b/Documentation/devicetree/bindings/pinctrl/renesas,rzv2m-pinctrl.yaml
-> > @@ -73,6 +73,9 @@ additionalProperties:
-> >          bias-disable: true
-> >          bias-pull-down: true
-> >          bias-pull-up: true
-> > +        power-source:
-> > +          description: I/O voltage in millivolts.
-> > +          enum: [ 1800, 3300 ]
-> >          drive-strength-microamp:
-> >            # Superset of supported values
-> >            enum: [ 1600, 1800, 2000, 3200, 3800, 4000, 6400, 7800, 8000,
-> 
-> drivers/pinctrl/renesas/pinctrl-rzv2m.c does not implement support
-> for PIN_CONFIG_POWER_SOURCE yet.  So I'd rather not advertise the
-> power-source property in the DT bindings until the driver is fixed.
+> Tested on both IQ10 RRD and Ride
 
-What A driver does, doesn't really matter. If you use it in the dts or 
-the client(driver), then it must be documented.
+Thanks for testing, but its a bit early yet. You might want to wait
+until we get to version 5 or more, and it is no longer RFC, code the
+author no longer is requesting comments on but is Mainline Linux
+production quality. And after the AI reviews have stopped pointing out
+issues.  Only then does a tested-by: make any real sense.
 
-The alternative is remove it from the .dts, but that feels wrong to me 
-knowing that you will need it some day.
+Reporting your test results internally is probably appreciated as the
+patchset goes through revisions.
 
-Rob
+	 Andrew
