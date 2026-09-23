@@ -1,50 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2BD57D20F;
-	Wed, 23 Sep 2026 22:20:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9155803BC;
+	Wed, 23 Sep 2026 22:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202011; cv=none; b=S5qQffYY2WD6dJSzEMZiOL7l1638lZ4sb1aCUZc2Z9VVB8JSCvbGfPoL7rmpXNpgsqDPgxamfKidJcQXQxztqGXM5l1Z8QtVLKSfCncLuRCtZpS1XkVBWM37nrtdiZBoDPbiSZi+AELh+sow/JwPYuhnbkSsznIHYmCqjoJRgas=
+	t=1790202014; cv=none; b=aOwMVgONl6S2Rmrihmqo0EUYICd2As0fJiOl08vAbogpVCa0f0pUzwmm5yTCF6d/C1kdx6Ti3GyQLVWItJWkIc32k+R0Hh7Z5No8SVR78WX+kW2T9OGPgZLbwfoqQoe3C0q6zeIUU3BmbGXAiATefQPv+saAaSX4/HuZxkU9VUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202011; c=relaxed/simple;
-	bh=c7xRQvjev6FI9goJnRD+xaE73W3eImEpxUCgCwOTdPg=;
+	s=arc-20240116; t=1790202014; c=relaxed/simple;
+	bh=F53nNU0wXec6AzBAjskJDj4i4Joo7Ei2YwmJgHzi8V8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZcnUdETeDUTXFTShghudV+TjBH1H4Ns/aYKsG0KJGV7dj/i+ETZMZ+5i/qID4856a1d6kMygANwYWy6R1gw1B3Scba51jR7EFkjUq37NfHFHF053tJ3hyk44qUW2tQwxymiddAMU/61EzhWAw7mqG8DXzzWttiP7JxRhCgvfzQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2NMzjzH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ktb1x7lycbq0T/9clxPuM/QWqa0sqs1KPwPOuCXWX5uTXmJUyXTr0NzmlvEiqsLQ8WA++kPXSKet3tRmFxIsiqBftUQH8e3/cjx3kGn2I1e7ZUZDqwphAwPRXh04HIVSMOZBjLHIYFBWVScK33ESKsdh0ufi6er9XheXdwkvRnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dPMYtCZe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2NMzjzH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9F61F0089A;
-	Wed, 23 Sep 2026 22:20:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dPMYtCZe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7941F0089B;
+	Wed, 23 Sep 2026 22:20:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790202008;
-	bh=qRkgS31R+IBSjblbvA33Egk91uOqtFKbpa0908VuovY=;
+	s=k20260515; t=1790202012;
+	bh=Mw/ozZj9QROt/zFzIPCo8EadaGV2JiwL2xsv/dEH7fo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M2NMzjzHWbZ2apHVgn9gomaEe+OR1eNCHgK67kFy3OCgRCezMmDg1JoXEX7RBFXxs
-	 jKgTN5nE0xirlkgfFwI0ugYZeNVfdpeiZ7BAyZez6i8BlQlAO9dxOhWfXefW0wdnMf
-	 nruGr3VYM8E8zvrDynC0JOtg4jg6yV7jw8fe9m2eld/ti3Xd5/z8p3LiAAfpQjR/lZ
-	 kpc4yufmqVNQZy5MfjjjvGY6nUfvZzfWO51Cyxsr5V/qYccQb0mxIlW0XbJAOkhUoy
-	 8VGsA0u4HTEEkwCcINW6WIAAIZy4X/L2/kNoFQznkXAq2QswjVUEmsYVISgMpQy2RY
-	 HP6+tCOoTMpQA==
+	b=dPMYtCZe2FuBnFfy9FTVhirSfPLay/Vm+wTso4biVKEa34OqEFnF/D7zq1ROwThK2
+	 DXS8xoUYsdEIDjZqgh4+auM8J4+fMUFcDZk4NT/a9jcWaSn5/JEUfAnvcwLnyh8ZhF
+	 06BnzkKel5k0IrloVsC5NBgSp4tUNyoXHqjsi87pd1Pb4ZOb0NTPmHOZnkOrMO9awh
+	 VJ9aooY+wLNOGj8yw0ww1i9HHO7rOz0BfqdjnciedIHWHm9HW81C9iA1tWczYHoARU
+	 sSsDXsWLABZ2tmPfW4Sug7m5G8nnlyMbzys0FHseHvEQh/E3fPvzO4EHkWhsvxXvhl
+	 Zv3LKnhCFU42g==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Charlie Garner <charlie@akao.au>
-Cc: Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Val Packett <val@packett.cool>,
-	Laurentiu Tudor <laurentiu.tudor1@dell.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] arm64: dts: qcom: Dell Inspiron 14 Plus 7441 backlight and touchscreen fixes
-Date: Wed, 23 Sep 2026 17:19:57 -0500
-Message-ID: <179020199813.520949.7877582559956876256.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Le Qi <le.qi@oss.qualcomm.com>
+Cc: kernel@oss.qualcomm.com
+Subject: Re: [PATCH v1] arm64: dts: qcom: purwa-evk: add DP0/DP1 audio playback support
+Date: Wed, 23 Sep 2026 17:19:59 -0500
+Message-ID: <179020199815.520949.2651629277241563110.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923152506.44989-1-charlie@akao.au>
-References: <20260923152506.44989-1-charlie@akao.au>
+In-Reply-To: <20260701063003.3082899-1-le.qi@oss.qualcomm.com>
+References: <20260701063003.3082899-1-le.qi@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,28 +52,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 24 Sep 2026 00:55:04 +0930, Charlie Garner wrote:
-> Two fixes for the Dell Inspiron 14 Plus 7441.
+On Wed, 01 Jul 2026 14:30:03 +0800, Le Qi wrote:
+> The purwa-evk DTS currently lacks DAI links for DP0 and DP1, preventing
+> the sound card from exposing these playback paths. Add the missing links
+> to enable audio output on both DP interfaces.
 > 
-> Patch 1 gives the eDP panel a PWM backlight. The AUO B140QAX01.H panel
-> only supports PWM-pin brightness, so the DP AUX fallback registers a
-> backlight with max_brightness 0 and brightness cannot be changed. The PWM
-> wiring (PMK8550 gpio5 func3, pmk8550_pwm) matches the HP OmniBook X14.
-> It goes in the Inspiron DT rather than x1-dell-thena.dtsi, because the
-> Latitude 7455 was submitted with a different panel and a working
-> backlight, and only the Inspiron has been tested. The dtsi only gains a
-> panel label, which leaves the Latitude DTB functionally unchanged. If a
-> Latitude 7455 owner can confirm the same PWM wiring, this can move to the
-> dtsi.
+> This change follows the same approach as the fix for hamoa-evk.
+> 
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] arm64: dts: qcom: x1e80100-dell-inspiron-14-plus-7441: add PWM backlight
-      commit: 6f4139020847738d646db0b6589297f71fc0710c
-[2/2] arm64: dts: qcom: x1e80100-dell-inspiron-14-plus-7441: fix touchscreen i2c address
-      commit: 66de84159065c9c08be4ce17a8c016efa0382121
+[1/1] arm64: dts: qcom: purwa-evk: add DP0/DP1 audio playback support
+      commit: 84001114134866c61340614fb6e3bd14b7013bf9
 
 Best regards,
 -- 
