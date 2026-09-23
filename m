@@ -1,88 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F793D810F
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 17:17:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFAE3E6399
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 17:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790183880; cv=none; b=SfGVfvoPSJ5MEIENL9EOIa+vnzlwsimdnUO7NeYDZXB03rZneppRdatK3D7fw9qVGqslc1KWz9LeXNaAVDohi335/lPhgLq9VOu8RpxeE3OUTNeLWmnbGNNDBpJq6ccz6oLdfBCewwkJOTDfJtEC0avSMtXs97QamqtN46Bn/do=
+	t=1790184085; cv=none; b=BWj+HTv2o02zvBsYerqU6yDa5WCHb3tU4syr/tqqNunbWm9wLTFgs+DumgSFA870SqyWVIeZZiIcxgSI0E0vm0X+7Geun7UqzdIy4ME8c9oL0J9/0YaBIwI1031C4bJbM4T6kNof1XMI+vxTxtyRJikzlaHxDJ000oS8HysnIYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790183880; c=relaxed/simple;
-	bh=ZljQMqHwG6v549mZDkNZDLzWMMaE3AUJ15PolrDNw9Q=;
+	s=arc-20240116; t=1790184085; c=relaxed/simple;
+	bh=LgsdIdG+zGM1ANt8ONaeUUV61KHbsRslUWzcjqgbfr0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NRwl2kWPr2E43oRE/txerJc/xHkuIexXEVXxDE09D9wRQCJ4pielC8pTD0PJrtq61SLHOrhWhrZiMklvyFycfpqUnHt1XnGeFhRhVNmMSuCRkPWux+9YCFqBadG6hjzoLLgzJPdazy3/5sdfJnykn937f0L/sO5YIkbgVLgX2j8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kPCf4TPp; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=YiYC0yAEP2p0qa5KlCysP9YovDCfauDqSDTamnOOQIm9wtrLzRAb06b+dbyrDHXZw8BWDCe/yTFAZOMkGUZjXbXl+4oc7qa1E8TKlGa4u6HKTBTBE74JyHTQHsndl2ZinpB11Fb6VB39sahlStYTOPczAWUFzTh+Q5dBDKdIQ9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooOIG0Zf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kPCf4TPp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 451221F000FF
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 17:17:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooOIG0Zf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B4791F00898
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 17:21:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790183879;
-	bh=5/HoST3GzR63df+Uvj/3fSC/SiRAcz85RlsI38ulKQY=;
+	s=k20260515; t=1790184079;
+	bh=q85OFS0/wcmxsg3cy/PCsW6K+vmLUTrQvpSWJO/mpH4=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kPCf4TPpXdG00im1YFmuExugL12qlxr5eXpZhHYpKLJPAjjXg/+c4jwYtYBlbDyXR
-	 u1ilx+VZLfYhcrbJhfkcV/tridnYlResg0ohNSfnqycyf7A95bz+EDZTNMUZX00TwR
-	 dY8MUYtS5wNk1p8YM53VAAnvczZ4XJEBy6q/ENiiNlUh7N4g0805MSdJ74VMP1otPX
-	 z8fsc1jAA/UeweRgY0blN9J30y/HRANZ6u84qcAsJumJ+xoM0QPg8KIXmcHxg4mw8u
-	 +FoHQTqc05UeWd3moWkRj+khB+rcUOS2jCQbeC64UlbTqjd29RCqqDTK811Q4G6tNA
-	 nf+gaXqTo1dFw==
-Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6b1ae6f5fc7so645168eaf.3
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:17:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz1Rzv6nupTtxZ2HCadtyoSd2j9A7CP5w/YS5hpnVVjMO1KBKw9Fxrqno4IukmAq/cnhbkFe26978uu@vger.kernel.org
-X-Gm-Message-State: AFuF++kCxi6x28ZHN/ZnqFV1sz/3EzHQhEjkzKGizERGJvUUWqVfFp87
-	4Yf125qbX4///KdBfw6Z1kDiW4rbxVFZZZThCNhRDUYEw85C0xw2rrWjsznvPKK8w99GMZz8L0E
-	5w3knxZutUlj60Ec6dbQ7Lf1QOA1XVgQ=
-X-Received: by 2002:a4a:ec45:0:b0:6cd:3fdb:fa5f with SMTP id
- 006d021491bc7-6d2d3110fa4mr2598258eaf.74.1790183878613; Wed, 23 Sep 2026
- 10:17:58 -0700 (PDT)
+	b=ooOIG0ZfNOU4hcI/I0WM2jG6AjFEXMtGvioBZyC8o5eD+6I3jqkT1RdDYPu3dg45w
+	 H4SlISHNfqnrbDsZ9yQuoBX1YuNztPBnKk8DhsypnRg19I1kBZie8uHr6arYAtVIav
+	 getEYnTmH4y+kww2cHGGTHTq7aa/7m2obuZCKQzRIahoq4qJ7fe+5YFaKqvRfLPomw
+	 VN1HsmBxZnOw6kUNpUSR8MlFQxrfRuq6DtiUlD/mk9vZYVpJcRxO6umE6IsC4N8/za
+	 XgGzr+nVXoEw0lASaRqTcHbct9NzYzzBqsF0W2v9oEJP9TQuXDfwjIlA0DHOkGbq7q
+	 ebiZ7rYVvDQ1Q==
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466ccbd478bso608207fac.3
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:21:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzbvU0D1Un9RxYYap1kIT4ulOrx7oNtNMR8DnXlIOYQWgoMOvH8btRZ+2rzTMzvIrqi/l5s526EyfCp@vger.kernel.org
+X-Gm-Message-State: AFuF++mj6y9PxM0DdPjnfH4joTIIi4M/5Gbb8M4mE+optGGfa0UjWRpk
+	L+BJ0c5GSsu2T0oU/poYd6twXITNZzc/w+7+A5gzLsZw3IiYzWwmRMjav+nlAjp/zdFagFW64w7
+	VdkLWKaT1uB48acKa+WpDg/sQGjixp1s=
+X-Received: by 2002:a05:6870:d62c:b0:481:7027:16f3 with SMTP id
+ 586e51a60fabf-4908b1aa7f3mr3359673fac.30.1790184078838; Wed, 23 Sep 2026
+ 10:21:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922-mali-c55-renesas-dts-v1-0-cd63cdb51033@kernel.org>
- <20260922-mali-c55-renesas-dts-v1-1-cd63cdb51033@kernel.org> <CAMuHMdVkhSNDn3BpBt-9K8FPKhmODYVF-PCKr+AH8B+o4GHuJA@mail.gmail.com>
-In-Reply-To: <CAMuHMdVkhSNDn3BpBt-9K8FPKhmODYVF-PCKr+AH8B+o4GHuJA@mail.gmail.com>
+References: <20260914-ux500-power-domains-v7-1-v2-0-9d0c17e1f816@kernel.org>
+ <20260914-ux500-power-domains-v7-1-v2-18-9d0c17e1f816@kernel.org> <20260923152034.GI3864833@google.com>
+In-Reply-To: <20260923152034.GI3864833@google.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 23 Sep 2026 19:17:37 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk6015ShhR0XAB+NfKF1Gf9ZWA8Z_=9uU6zNZ+wHS97fg@mail.gmail.com>
-X-Gm-Features: AclHuK9qcxsg_lsJQiEmVWX238l2BVV4tmPh6rvzYQgz4V44D7-NMDrSTTn0z90
-Message-ID: <CAD++jLk6015ShhR0XAB+NfKF1Gf9ZWA8Z_=9uU6zNZ+wHS97fg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Date: Wed, 23 Sep 2026 19:21:03 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk+uqjOoJ8EgRYr2fyM1aXLjyJWMBS-d0TAOTFBQuNV+A@mail.gmail.com>
+X-Gm-Features: AclHuK9itPFOvp6R2-cC4u0O4UlC0wT8IFEhaoWAUi8CY_OZQDIKlQwDDa6vJaE
+Message-ID: <CAD++jLk+uqjOoJ8EgRYr2fyM1aXLjyJWMBS-d0TAOTFBQuNV+A@mail.gmail.com>
+Subject: Re: [PATCH v2 18/20] mfd/regulator: db8500-prcmu: Remove EPOD regulators
+To: Lee Jones <lee@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Mark Brown <broonie@kernel.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	dmaengine@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Geert,
+On Wed, Sep 23, 2026 at 5:20=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
 
-> Hi Linus,
->
-> Thanks for your patch!
->
-> On Tue, 22 Sept 2026 at 15:34, Linus Walleij <linusw@kernel.org> wrote:
-> > From: Daniel Scally <dan.scally@ideasonboard.com>
-> >
-> > Add the Input Video Control Block and Arm Mali-C55 ISP to the device
-> > tree file for the RZ/V2H(P) SoC.
-> >
-> > [Rebase onto v7.3-rc1, place the nodes in address order, and sort
-> >  the interrupt properties. - Linus Walleij]
-> >
-> > Assisted-by: LLM
->
-> Dear LLM: Please take into account the review comments on the original
-> submission:
-> https://lore.kernel.org/CAMuHMdVCeMaQ8yFnMgr1Nko+0yQxn69BR9fGJ2WPvADMc2gvRQ@mail.gmail.com/
+> Looks good.  What's the plan?
 
-Don't blame the LLM, it's me.
+I need to address some binding issues, then I'll send out a v3
+which I think can be applied.
 
-I didn't find Daniel's original submission, just noticed this
-never made it upstream.
+If you could just apply this one at that point I thin the rest will
+trickle in nicely through the Power Domain and SoC trees.
 
-I'll address the comments and send a v2.
+I'll add a blurb to the patch to this effect in v3.
 
 Yours,
 Linus Walleij
