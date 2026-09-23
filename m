@@ -1,123 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987663EFFA9;
-	Wed, 23 Sep 2026 11:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9194F391B
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:55:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164420; cv=none; b=tmC6JqQXARdi5wvGDSdiRWBz5Zhd8/K6KWxO00Yzy/nxZauIQUkqSyIC9yO3csZL00ELNsymHOePqEGXNXF9ydJ0IfYuExVW2rUXSsjSac3XevbcbBukL7nNg3i7YauZwYIaO6tr/kHZW6jCMP5QSpdrvKEHMBj5iFVhx/HYXMM=
+	t=1790164559; cv=none; b=R6udiM2YblJrsKWHAwkM1kZX/5Ta3Tz2LC3N0EC6jUpQQzsKGVDUMwkvw0qOVrYuinVHXMEaEe1rMwbXSiVQ6UyNfw4bBjuBy/BitqsO5/zg8A5qzunMfWy1uYB7gMecJ7mIHPPP8yeCmDAfd9B2hjhtrJqX4DFRKR0ZPYW3j88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164420; c=relaxed/simple;
-	bh=HxNV3e9FWyXrPxPlTc4b9sItq0dV9FJY1WwT+PFt2hs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T0hPub7hgB28UwteMsSE5sSDV1bH0YdrRAQlS2izjPeE08K71Csk9Y0kkkfiMlAI7JkT3QIIDoAAhPklVD8apbvTxFzFhSfsRyS4+5MbSxWXW5ZRNcxYxrrNcMI6w6lTanTSbgTiS8oXDwIGFWj+r99BojRzAM9bMzWLNcx4W9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BWJGWyX4; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BWJGWyX4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048191F000FF;
-	Wed, 23 Sep 2026 11:53:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790164406;
-	bh=gGyo6Eb0jT42lGzTz4kJcOSvoayimItz3MEoCgBysnQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BWJGWyX4HY70wsPo4+lxHMr6LaBKE5+9mCvYEIbzfsweyZVyxM0EnFo9aWYnnGaBg
-	 OzMs/4iAfmI5wGPjlppUjReUGeliYbzZg+v+vAlzaSIud39QZJmCgidmLZRRMIn2oX
-	 X8jRvhONrzuHxDHtH2TM1hXgR1hgyjnew/dqjCWo8JggbUrXQ6h+1ITqJuBwme6c75
-	 n1+Jsl+MUCm9WFcKa6QYm8VVErT5++5F9aFLDN/lMesmo8K6dGiSB8wMbQEhAr+xW2
-	 GlwqahlVUo9b5qVweX/hNZpS+CXxCDJDr33IU5sWzz9cM/eV1UibTvjImFXL3tZ76V
-	 ysZp/r/8584SA==
-Message-ID: <8f2fe9d2-13c9-42aa-a326-58a48917a215@kernel.org>
-Date: Wed, 23 Sep 2026 13:53:18 +0200
+	s=arc-20240116; t=1790164559; c=relaxed/simple;
+	bh=cdUu+2P+AtFzsdIyFUxyBK0BNNipSTAuWCzqPtH9ZDc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VoWK1iF4hHgKUM1nvva8AeRuc1Ih0RjWAyvRSzjzt33o963qvpl+01DKhRkH3pFQice4Mx2rCHQLofMYXvIkPromLv9O2xoeARPbfCnfS/YWIZnWC+6isvtTa9FtKV0ihM0yF2y0C8Q36cJzCyudkH3zoIs4KT5KLFLoQkJlmGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa135d6e97so1308868a12.2
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:55:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790164540; x=1790769340;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=u/j7x66zXOrBYdEe6fVcwfenLhVDHg3t8DyPsU453Nk=;
+        b=lIJSDPFaNrbllPcllHonuzcbf9KQk193wcXUanUWJm1MmzTJ7Te/tMMfjsbpTpe6A0
+         cMhGGN1dPUsgoRS3k1fSC6sDtGXbzd4Eo8KOyBIgSUdHheQ27IxiHEd4RdSHmf9xd0lx
+         R4tvNqmh6DXRhrGDqLS4gmLFci/jfvw/V49iZdZcQ5apOSUkra4jDhhYqTE/kyYjFEi/
+         kr8baAs4AQ7RSCEmn4ZUqVLFPy+1XcPIztTXafaWSQkTcMJjHVBd0l2Bnj3C/HqteFse
+         iLbey8tfhD6Lw56l6T9w25oCqcA/PXEqiNL+n7vw9zIL45U/CBSLlsjszAyE6IJFueLf
+         uimw==
+X-Forwarded-Encrypted: i=1; AKwUvBxagRgnV+PZl/5lhmXf1aYwZUacG2holzPdeLNJgoqJkNXeUesBrsF0v8786Fsd+E01sKf+w0xPMutG@vger.kernel.org
+X-Gm-Message-State: AFuF++lheWWMveUzERmunQ5NYWrNfw6j0BrecZM964DeTAaB3BsHs8Pf
+	TkZpLXrEE90Ahcac0hYs5l2Vb0BMgSAmLRkrYFUinVCelePgiJXiX3aWPSC2lS47Kok=
+X-Gm-Gg: AYBFou2aWITgOfNlDb50h4K2GvxMLBBtQLVkvB/kSVJah1o2KvluzrYoEVxrRCYF0j3
+	Ed0jri42hbsx0ig1Zrh9vzkqW9KWxicU04c28iyqbw2Bf+/NIhETLxROz9DR0NfjS2gkLyhUIMZ
+	7QDO4GaG07XHwXCJHuo98pQLcgIuzjAvl371YywMV4dOs2fzlOyACR/hM8HeghmNeqpeeoOvyzd
+	yRENfquvSBbPPxtPvw1ITuIbZ8GbeL/j4R9JI2f5H4zfKL+NKKuehaqkSxMlNGEsQ15fBG52iQD
+	98Ydx+cmvEEJ/YTBAePv2g+Q8YvIi/qS1ruTSjFZ17AQ53GvtHwYu5sRE+ffnz2v6j/CpbJVfjb
+	7HcoYNqGD2OEiQdPiCbMC5MdEuOhxS6SpGLpmCOL4RDCK4IaX0nb5+Yx7DjolzcEqLON0dEn8vG
+	1CXAqa4noQztzF0S9JKVKRGM30P5ugt32vaoV1m/pTMRiPJ88Fxqp3KALuK+SKcYLkCxJLqL6ak
+	P51L3b9ftuDHuOY9UYOqBvsBSwjBlZllMOA
+X-Received: by 2002:a05:6402:1f10:b0:6aa:734a:a095 with SMTP id 4fb4d7f45d1cf-6aab3bc306fmr2034562a12.44.1790164539529;
+        Wed, 23 Sep 2026 04:55:39 -0700 (PDT)
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com. [74.125.228.76])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab3883151sm1515265a12.14.2026.09.23.04.55.36
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 04:55:37 -0700 (PDT)
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae54so1389541a12.3
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:55:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwVG/1lgMBx/NysR3qUdKMas/IexSgeewzsdqEuV7U8ysTlG+37AHstaLjDeqlH+ADrvhb9wi7eepPu@vger.kernel.org
+X-Received: by 2002:a05:6402:23c7:b0:6aa:9fd4:987a with SMTP id
+ 4fb4d7f45d1cf-6aab3b985dcmr1953506a12.20.1790164534610; Wed, 23 Sep 2026
+ 04:55:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] dt-bindings: media: qcom,glymur-camss: Add Glymur
- CAMSS
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
- Guru Das Srinagesh <linux@gurudas.dev>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
- <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com> <20260921134432.50338-9-ayman.chaudhry.kc@renesas.com>
+In-Reply-To: <20260921134432.50338-9-ayman.chaudhry.kc@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 13:55:20 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVuY2esH4hTQPQ2dvTu759ehPuJ2uOimX53y9We2-PS1A@mail.gmail.com>
+X-Gm-Features: AclHuK9-osA0MxsPMPyeNE-WDoQrmvKbRa3ko9lUZaESlIsKhQY66FTC8uoGLsg
+Message-ID: <CAMuHMdVuY2esH4hTQPQ2dvTu759ehPuJ2uOimX53y9We2-PS1A@mail.gmail.com>
+Subject: Re: [PATCH v2 8/9] arm64: dts: renesas: Add HiHope RZ/G2M v3.0 SoC
+ main board support
+To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 07/09/2026 10:13, Nihal Kumar Gupta wrote:
-> X1E80100 supports both the legacy CSIPHY resources and the new PHY API;
-> Glymur uses only the new PHY API via standalone phy@ child nodes,
-> so per-CSIPHY clocks, interrupts and supplies are absent here.
-> 
-> X1E80100 has four CSIPHY instances while Glymur has three
-> (CSIPHY0, CSIPHY1, CSIPHY4), expressed entirely in DT.
-> 
-> Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Hi Ayman,
 
+On Mon, 21 Sept 2026 at 15:45, Ayman Chaudhry
+<ayman.chaudhry.kc@renesas.com> wrote:
+> Add support for the HiHope RZ/G2M v3.0 (a.k.a. R8A774A3) SoC main
+> board.
+>
+> The RZ/G2M v3.0 SoC main board is similar to the RZ/G2M v1.3 SoC main
+> board, so there are already DTSI files available in the kernel. These
+> DTSI files will be included once additional support (e.g. I2C, GPIO
+> and sound) is added for the RZ/G2M v3.0 SoC.
+>
+> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+> ---
+> v1->v2:
+> - Dropped bootargs from chosen.
+> - Updated licensing to "GPL-2.0-only OR BSD-2-Clause"
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Thanks for the update!
 
-Best regards,
-Krzysztof
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/r8a774a3-hihope-rzg2m.dts
+> @@ -0,0 +1,49 @@
+> +// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +/*
+> + * Device Tree Source for the HiHope RZ/G2M v3.0 SoC main board
+> + *
+> + *Copyright (C) 2026 Renesas Electronics Corp.
+
+Missing space, as pointed out by Sashiko.
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4 with the above fixed.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
