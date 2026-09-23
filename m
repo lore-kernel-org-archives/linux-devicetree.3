@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FD953445D
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:14:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FA0353A80
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790180048; cv=none; b=M0CASG/dSVA42wXC64WJRo9pGRsIY4QY0gyeVIGBqmNxo+acFW5KL62Zm2Yvg4Du4cdkwExdqx1c4Z6wYdRu2zDHB2hdD31pKh0QGAoaKR1wtKnkQ9OL4Cvq7xI6xNJFD8mqoV1/iX3u/c+kwAOKXrCOghToeXHFMNAZk86mFBg=
+	t=1790180153; cv=none; b=s8ShTuSk/nevGBxpHieAT59ahIQGL4OMR9QmXBsHH5JgHaKdlVdcx135iefsTV4fC0WN/AXeWK7PDduhHfgQqGMGpXzPLKt89PUA2rsOONzwXYcZY/CHFa+lUwuV46edIorBzHJ8LS/Glj37MDuMFBrsFKRI2QS7Sz5Gu1lKjOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790180048; c=relaxed/simple;
-	bh=LA+TZNcsxNoCaHmurQJZgkQulZFuien0k1bbk5sj178=;
+	s=arc-20240116; t=1790180153; c=relaxed/simple;
+	bh=q774RUlMBNKYdq/Ik/CngHpytu7SWD8PogGY3EIJOTA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hKfak1j5BxvydRvjPoHvk5lZnJu0Jy68V7xreoendLjNnzCOISmNLrUpIQRcxRJb5cksNItcKtybnnnMid/ANsADgyiHrflZ5KVIl9V6x+4CMgx8xKT9Uw+TrzpKBXSl2DyKD19Tdetbr3lUaVVPk3LesX5RIBjJZaQl5l21VTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HY4oPiQe; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=D/I2mLXrTuuSYxaQTR1SwAZo2wtJNrqUzAsHbZtDwyrAu7bnTAWl2AvLXS0ZKlmrm3t+Lgq3jz9v2U+oYs5B2OpJtTWk9lCckw5tpIX3qYQtj9NIgpEAnXTkhJrx9EXW+e6lhEhwqhGqxar2xAn1K63zgZgNLHSGAubbCQ9W7dE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZGAHKJ0e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HY4oPiQe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD371F000FF;
-	Wed, 23 Sep 2026 16:14:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZGAHKJ0e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 986A21F00893;
+	Wed, 23 Sep 2026 16:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790180046;
-	bh=El7IfjDsY7EkJNmDY1uH2K89jVJIYBj4hOg/J3OexzQ=;
+	s=k20260515; t=1790180151;
+	bh=kdumpIXMMoUGUFB5Z0XFAMENtI4nHaNSA7YglMw54nE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HY4oPiQe6Wf54Rr0tj6JsYBB/vAAYka0jv56mtziesdLgj/bB0wPDYa5MV2dP2RPy
-	 btV+i/NaEb0eWONwTC4RP/yPleaJ1PJpGnRYTGoQGcco9jdIxjvV7StNom5WuOHuwv
-	 aPD2NbSNDrHMxxtakOCu1sy/KvfgqwauT5Vg2Ax4ZAlzQvY+4w9ee+bA1Lf3PRgQF4
-	 oT3l0HNGRYIxlVlsar/nK7xujKUuE8ewVYDz43KrHHcSdPGw58TFqDFqtoPehjPNRI
-	 4GwQmkY9u4OtFqZWa0fg1XZ+GDw38MxC7dWFYS3maKedGouL5sjKx665hFhK2efWYe
-	 TyQ9dlGL6vmrg==
+	b=ZGAHKJ0e0htVgycdhcHMrsjYLTOWiynpCNZ44qGQIKjmxE7O8BmmyzfMT3bVwQ7Q/
+	 WaHss7AwTvLmNfWyFY4nAHa1mnaNkW6lRNmRmKvgjDnu29W4W/mcvd7/7ynkA1OOqL
+	 L4uvpXx4zISY+JfH3zRe9QEgQx/onDRuFOkVQ6vJ2ySBuNe44rnqI/zc7bZ+Pbqx/M
+	 4JXKxju1pSqLNTEZYQq8HP2wKYRuG5LX8Epj8i5O7jFwdesj2530JEGEVLvInzOe12
+	 T2sfPYgUeev24r6y1dxNr+ApdBHqWHGqDT//IgjAJwtY/r/w5Q4oJ4K4cmXXSPZyKP
+	 mu/Zjmw16OypA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/14] iio: adc: stm32-adc: add support for stm32mp25
+Subject: Re: [PATCH v9 7/9] arm64: dts: qcom: agatti: Add OPE node
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fabrice Gasnier" <fabrice.gasnier@foss.st.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260923-adc-stm32mp25-v1-v2-7-46bc019537c6@foss.st.com>
-References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
- <20260923-adc-stm32mp25-v1-v2-7-46bc019537c6@foss.st.com>
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260923-camss-isp-ope-v9-7-86a75dc18b83@oss.qualcomm.com>
+References: <20260923-camss-isp-ope-v9-0-86a75dc18b83@oss.qualcomm.com>
+ <20260923-camss-isp-ope-v9-7-86a75dc18b83@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 16:14:05 +0000
-Message-Id: <20260923161405.CFD371F000FF@smtp.kernel.org>
+Date: Wed, 23 Sep 2026 16:15:51 +0000
+Message-Id: <20260923161551.986A21F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,98 +46,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] iio: adc: stm32-adc: DIFSEL and CFGR writes fail silently when ADE=
-N=3D1
+- [Medium] dts: overlapping iommu stream IDs artificially merge IOMMU groups
 --
 
-commit 100a3f1abe7bc0887c43d25f1c79c051b323c2a8
-Author: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+commit f837397d169ca6bd9f29b986ea39a8a6e4ab9b26
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-iio: adc: stm32-adc: add support for stm32mp25
+arm64: dts: qcom: agatti: Add OPE node
 
-This commit adds support for the ADC on the STM32MP25 SoC. It introduces new
-hardware configurations, trigger lists, and a dedicated software calibration
-procedure for the new SoC.
+Add the Offline Processing Engine (OPE) device tree node for the
+Agatti platform (QCM2290).
 
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index eecdc4cce1b4b..a5bffc09898ba 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-
-[ ... ]
-
-> @@ -1304,6 +1437,184 @@ static void stm32h7_adc_unprepare(struct iio_dev =
-*indio_dev)
->  	stm32h7_adc_enter_pwr_down(adc);
->  }
+> diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/q=
+com/agatti.dtsi
+> index 590bd2432d85b..69237959adc15 100644
+> --- a/arch/arm64/boot/dts/qcom/agatti.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
+> @@ -1984,6 +1984,83 @@ port@1 {
+>  			};
+>  		};
 > =20
-> +/*
-> + * STM32MP25 offset calibration software procedure. Basically the calibr=
-ation routine is
+> +		isp_ope: isp@5c42000 {
+> +			compatible =3D "qcom,qcm2290-camss-ope";
 
 [ ... ]
 
-> +static int stm32mp25_adc_calib(struct iio_dev *indio_dev)
-> +{
-> +	struct stm32_adc *adc =3D iio_priv(indio_dev);
-> +	bool add_offset =3D false;
-> +	bool diff_below_zero;
-> +	u32 average, calfact;
-> +	int ret;
+> +			interconnect-names =3D "config",
+> +					     "data";
 > +
-> +	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADCAL);
-> +	/* Use default resolution (e.g. 12 bits) */
-> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR, STM32MP25_RES_MASK);
+> +			iommus =3D <&apps_smmu 0x800 0x0>,
+> +				 <&apps_smmu 0x820 0x0>,
+> +				 <&apps_smmu 0x840 0x0>;
 
-[Severity: High]
-Does this clear the resolution bits correctly?
+[Severity: Medium]
+Does this create a resource conflict with the existing camss node?
 
-Since stm32h7_adc_enable() was already called in stm32mp25_adc_prepare(), A=
-DEN
-is set to 1. On STM32 ADCs, configuration registers like CFGR are locked by
-hardware when the ADC is enabled, so this write might be silently ignored.
+The newly added isp_ope node claims stream IDs 0x800, 0x820, and 0x840,
+but these IDs are already claimed by the sibling camss node:
 
-This could cause calibration to run at the wrong resolution if a non-default
-resolution was configured by the user.
+camss {
+	...
+	iommus =3D <&apps_smmu 0x400 0x0>,
+		 <&apps_smmu 0x800 0x0>,
+		 <&apps_smmu 0x820 0x0>,
+		 <&apps_smmu 0x840 0x0>;
+	...
+}
+
+Because these overlapping stream IDs are unconditionally parsed during boot,
+arm_smmu_master_alloc_smes detects the exact SMR overlap and forcefully
+places both distinct platform devices into the exact same IOMMU group.
+
+Will this artificially intertwine their DMA domains, break device isolation,
+and cause both drivers to map IOVAs into a shared context?
+
+Should the OPE stream IDs be removed from the camss node since OPE is now
+split into its own distinct platform device?
+
+> +
+> +			operating-points-v2 =3D <&ope_opp_table>;
+> +			power-domains =3D <&gcc GCC_CAMSS_TOP_GDSC>,
 
 [ ... ]
-
-> +static int stm32mp25_adc_prepare(struct iio_dev *indio_dev)
-> +{
-> +	struct stm32_adc *adc =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	ret =3D stm32h7_adc_exit_pwr_down(indio_dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Must enable the ADC before running software-assisted calibration */
-> +	ret =3D stm32h7_adc_enable(indio_dev);
-> +	if (ret)
-> +		goto pwr_dwn;
-> +
-> +	/* Always run offset calibration */
-> +	ret =3D stm32mp25_adc_calib(indio_dev);
-> +	if (ret)
-> +		goto adc_dis;
-> +
-> +	stm32_adc_int_ch_enable(indio_dev);
-> +
-> +	stm32_adc_writel(adc, adc->cfg->regs->difsel.reg, adc->difsel);
-
-[Severity: High]
-Will this configuration of differential channels be silently ignored?
-
-The ADC is already enabled (ADEN=3D1) from the earlier call to
-stm32h7_adc_enable(). Hardware locking prevents writes to DIFSEL while the
-ADC is enabled, which would leave the channels configured as single-ended.
-
-> +
-> +	if (adc->cfg->has_presel)
-> +		stm32_adc_writel(adc, STM32H7_ADC_PCSEL, adc->pcsel);
-> +
-> +	return 0;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-adc-stm32m=
-p25-v1-v2-0-46bc019537c6@foss.st.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-camss-isp-=
+ope-v9-0-86a75dc18b83@oss.qualcomm.com?part=3D7
