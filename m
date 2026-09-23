@@ -1,375 +1,327 @@
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B7F471CE4;
-	Wed, 23 Sep 2026 18:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.1.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9601C49551D
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 18:29:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187785; cv=none; b=hJDDMbjO+s04OGisDKp1yC0om0ZgaM7YU0jR8NpNpMthGxocuxQLvDx2TbSCaRKnsTVIHwGiDi4qnMnNN2mmyvsV2gJFnSMpcfXpY4LR6H2kHPjWeJKIpmbMZkvcy7tlhFq4FAGPPU0TcE9xijRbpAEo2Lq0atp0MPTjgg5I7QI=
+	t=1790188155; cv=none; b=TWv+CsWVd6JVxqfXuTRYzy5cOWx21hDJs1KoTdUoQBnGS/n3bS++BG2R5DxerxzGPbCP1cvr7yK+nh2DpBPZqYO/jETx2A5soUYzlLA5agdwGvUY3rs4xu3BLcuL/cGN5l7LQgDqGXUm/+mE/IpGcrXWwihSINeS2ZFJJ7TJ+oY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187785; c=relaxed/simple;
-	bh=mwMb65J27yexuTf7Xlp2+jX1iomL2YXwD0Q/Ln7R3CI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nu1UzRjUaQFCKjRnUOh+F+2QhSVmb/FapsQiRZruRYCavyHyGh/s3DFgMxRuM+SR0Ypwd07cjyv6AYrTqD+VC/ghgeUSV23ngv8m1hjeoLpVzS5fkHD/Y8Z1eE2BHjgx2wbMeDLcgCtRzGrzyEZLiq5PrXBVHHzwZfGOVZDQJ78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=qfJwG+vr; arc=none smtp.client-ip=44.246.1.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790188155; c=relaxed/simple;
+	bh=odLYXBLLTAUFSAcct0giyKXVG6mXLsRBOh+Bu7S8H/s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bAQ0fQxKh4aHCMIYhSH4DlBi8FF9NQagLpf2qfeNxbQolOA4R/9qCOC4cjhLGEIyt05kTDrMOFfMeaZrHcr9BHPAv2c89ACGvOmLHnUP+UEKL+VmrUJjcEGVcsknALQjMU7xjd0lU4u5GTgrFS9FPVLqx1fnYMKNMO+F9VwUTrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=omy7rOxZ; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="qfJwG+vr"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="omy7rOxZ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e620fa473so7534105e9.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:29:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790187783; x=1821723783;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=gZylmkN0FLVQrDyk8C5q+ntl1f8q57F7WItzjmlxp8o=;
-  b=qfJwG+vrrIJZ9zSeovDQjtFXK2vELhg4tBMMdh5jDl366FnECG8NifbO
-   74d+Fmoma1w1IdxK4VYbpoVgfBefibFYMm1i87jMkyJNnZLv5rBB8L8G3
-   IdGpnrQsNsByV50kX5w0dbn5zgoUyzd4Bt4+1TBFxl802x4//g2UzhZy4
-   BUK13gtWkUp0ONEef82u58heskHBqO4sjDnNnuTzaGYm6DJBc4kP/UfOM
-   ctUXMqyO0o9BPSnKGh1FMlzZyJI8Jb2ZyWLE184izi5I5uJIpvxeW29Sz
-   CF2CMrjUwdURnjUG4JFD3lUNTGBela1g4+AL0bcxBuf80F/Aq3IFVMVU6
-   g==;
-X-CSE-ConnectionGUID: /MnecoGYRIaiCwAdHzcuLQ==
-X-CSE-MsgGUID: o0m2QqKYSrm47lbRXPy2cQ==
-X-IronPort-AV: E=Sophos;i="6.27,119,1787011200"; 
-   d="scan'208";a="29466299"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 18:23:00 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:28215]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.45.34:2525] with esmtp (Farcaster)
- id 693cbdea-4af6-4bcc-afa6-03bbd2fcd501; Wed, 23 Sep 2026 18:23:00 +0000 (UTC)
-X-Farcaster-Flow-ID: 693cbdea-4af6-4bcc-afa6-03bbd2fcd501
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 23 Sep 2026 18:22:59 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Wed, 23 Sep 2026
- 18:22:57 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>, Andrew Morton
-	<akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Eliav Farber <farbere@amazon.com>, <devicetree@vger.kernel.org>,
-	<linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v6 4/4] pps: clients: gpio: release pins to an inactive state on remove and shutdown
-Date: Wed, 23 Sep 2026 18:22:43 +0000
-Message-ID: <20260923182243.41060-5-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260923182243.41060-1-farbere@amazon.com>
-References: <20260922103051.5257-1-farbere@amazon.com>
- <20260923182243.41060-1-farbere@amazon.com>
+        d=gmail.com; s=20251104; t=1790188150; x=1790792950; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AfG7nyA7zL2ZXlQFwQ/K4+VIU8z6ZJGl6YJba+Cg2mQ=;
+        b=omy7rOxZ4G4Etq6/OAmSNVUdarqd6GTtdljtbeAxwQiIASuEPT+4l7Yvs6G3FO/Ai4
+         Ihirt86HaXB4YtBc1GpG+e8sjlLuZP+N10ii7qlzsbXEf0XY5AeB53jvXeRNPPeNGgpu
+         d4XkGO4uoLLQR/UavF4d2pq/gA2MrySyaFdaZ133Qv2mLFsmYlDal+ULG/8FNpYyNoid
+         0NFu6MHcconpuNmyvpUslEmow3cuxZ97yNpHNB44KbBZdYFTTmolCip/bg32diOYdHAQ
+         aOj/hvwyKKbxaR7Mk3mW39bkcFucAKD3mSn1gCc1rmIq49aqqGSngP/ZKb/aMBqNyAW7
+         hT4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790188150; x=1790792950;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AfG7nyA7zL2ZXlQFwQ/K4+VIU8z6ZJGl6YJba+Cg2mQ=;
+        b=vnM0BjrbOf/vz0GRbGgCO0PVrgl3Yaps5FdGyQN8UFoSox87s70FCsl9fTIepXl3s5
+         MMXPtMTNCCgsyECcQmrdy+XpTZi5OYrslwWgxT7pT2YqMYI9eKZSRI6PAzGekeTGYGVc
+         ppQpP2jX2VHPFF1PjRFfQrK6tycX5w68oXWVxFH7nbFyZyDeK5fpPdpREAhHoLmJ0STm
+         9kyYmSsFrz/yN4zmdeWOHARJji4UJlC3j2FNRU98JSCGSZfnHBgVInvwsVGT1PymgMJ7
+         Ap5yKuZh23ZMi7ehEiGj1Cb/v+jIGkslJviHNdl9FCaKqQUxwjdsdJSMd4eoJzBnuGc6
+         UdgA==
+X-Forwarded-Encrypted: i=1; AKwUvBzWFuhEnt7p65DD93quvFeOXiOolfkWwTo5tIOjaDJn9OtNqDgEjWVpRRHkmjYejM9xnTpEdtPxyXms@vger.kernel.org
+X-Gm-Message-State: AFuF++kFZgmuRxE6n/EO0iO3ycCPQXmSbU07pdMKQfwTb/wrCBNA1ZCI
+	h+i1l9Y5kWw42g4hlr+k0H+sViJ62xqexapK2rxdmJpZh34R9w1hxGFC
+X-Gm-Gg: AYBFou3FE3x0m/uVqlIbD+oxSZfVQ4dxG1otUphmKd+85XNBjK8ddD/zn05uuL+Xedk
+	0bboSkn5L9c3uPdlY2jknv2/qDxwTFjfDSojUdYnfQJgSjyYNIPSn0HyCAcYCAxUDbazXIanTHi
+	iaEao+OLsEGBMncq6+5zHc++m6RsIgQzSRnbX4evp3cFndXbfpSqN0HJ1Y16KgANlD2rDq+WdPq
+	dxE+WIOK5VQsHPibG8chV/68ot6weeGTLNHy5tWjIAxnvY61oLWYkzmua2kbSNOciWMS366RbyC
+	dQd2sJxFpso42+DVPBpsqBO0telhfImeqtruoo+6C74AZXsQqPKfUZPHU1sNfvyyvg+dTsmTwj0
+	H0H4mtbq50NlT0Gb98O2NYS1czyJvPjBhh4yz7+WZLAd1/InDVyWg1UEEXpiuSrdL2F5UHE7hxs
+	Q2H0Gs2Tsv2jryvK/JXlDeXfqdL473bkaZNFLfyN+k2gwt0COsajOtUaAv69jC8C8GGuCdP2Ahf
+	kun
+X-Received: by 2002:a05:600c:1d0c:b0:49f:bc43:9e96 with SMTP id 5b1f17b1804b1-49fe66d103bmr1265635e9.8.1790188150285;
+        Wed, 23 Sep 2026 11:29:10 -0700 (PDT)
+Received: from [192.168.0.2] ([197.250.51.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd3d5csm4711835e9.14.2026.09.23.11.29.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 11:29:08 -0700 (PDT)
+From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+Subject: [PATCH v12 00/12] ZTE zx297520v3 clock bindings and driver
+Date: Wed, 23 Sep 2026 21:28:46 +0300
+Message-Id: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D039UWA002.ant.amazon.com (10.13.139.32) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XSzVLjMAwH8Ffp5EwYSZa/OPEezB4cW4IMlO4m3
+ Q67TN8dtxxs0qM9/v0tW/ocVllmWYeH3eewyGle58N7XSDd7Yb8kt6fZZxL3RgIyIFFGP9/UMx
+ vryMJFxPFIIU81NO/F9H54xr19Ot7vcifvzXx+L05TGmVMR/2+/n4sEsh24hS3OQ8RbQCk1gf2
+ Ghkkyh5MkmVYbhkvczr8bD8u1Z5wmvYTT0nHGEUnFJWVYnOPz7v0/x2Xy+8Zpyod9gcVUdRQUo
+ 2AGq3znSOYnOmuuxVLEsyIejWcXMOXXN8cSlGngqRxLJ1tnMUmrPV+agKzMIYaetccx6oOVed8
+ X7ywBog89b5zqFvzlfHEBgxa1bjti50jjoXLnUmBD/V38Ry877YXOjrjNUVsNZACbZQ2DqEDv5
+ oPFTpTGDHsT6B8o3sRiZQ1wq8zIyGVGzMjsn9kOfz+Qvmhi6zHwMAAA==
+X-Change-ID: 20260510-zx29clk-2e4d39e3128c
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-phy@lists.infradead.org, mfd@lists.linux.dev, 
+ =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9398;
+ i=stefandoesinger@gmail.com; h=from:subject:message-id;
+ bh=odLYXBLLTAUFSAcct0giyKXVG6mXLsRBOh+Bu7S8H/s=;
+ b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBqtBpp8OZs4ISR+FwZwkd6z+T71oTjnq3eJG0q7
+ 8G2L03OGWWJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCarQaaRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiKKHhAAiMLG/Dvcb48pJqYR1gv+AthCuSJh4m0
+ zI2FCVglu5juOA5vdMJMN2O8VEgoDrWWW0YsDRJNnT7vxQ6Jb32ft+MQOlwNCHVjQsQ58Sn4txl
+ iK2yRNOjIyPyOVZ2ReIoLOwJzR3B5bG6szrNPBiH8Dau4QSgLHZkXnwkQYqeZx4f/vp5TKHuefl
+ O7Yd/KXFNubLbSEyYvEpgBr/Ct5WMM0iUsSqocGb9E1s+gPQq2g1Z658Zybxglhg21mIplY69zl
+ AoK7FYkREMVD3EF0FNv40RkK//O3ACpgO4yuNUN5DA7MIcl2ljDEc9w2LkSadhhSZ//ocfvKI0/
+ 0maevZ8463aw2+ygkgbao0VLBDtezOd8z7KJNpkjbFnqP7GDpdA3aWPnWeDGgL7CqrEzAKcMOyD
+ lzQmzumfAGJwSHsV5rG1KaMwtzrvFYATjEKnrbgtN/xzp/Dpomh2gAdMJLrT3SXF/E3GAP2MY7U
+ SILTOEde7HiFiphBnsz54QhqLNsvFjamh5irzyICejP7nYHcyJ+5Jowy0+KDJWIcVUymUh2ge87
+ HR3ilhCEJRETUxVa5NrcnqzB9kxetKzqyyJjgHR9gXFpQGp3GAv1106v2Up2lVfFVsTpP0HeOFo
+ 5ukWisYrdIs/ZFtGIEErv/K1R4idlHzOsTr9LQb7ALAwH2v5O/DA=
+X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
+ fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
 
-Some boards route the PPS input GPIO through a pin controller and need to
-mux it to another function when pps-gpio is not driving PPS. The driver
-core applies the "default" pinctrl state before probe, so the pins are
-muxed for GPIO/PPS use while the driver is bound. Nothing, however, hands
-the pins back when the driver is unbound or the system is shut down, so
-they stay stuck in the GPIO function for whatever runs next, kexec
-included.
+Hi,
 
-Look up an optional "inactive" pinctrl state in probe via
-devm_pinctrl_get() and pinctrl_lookup_state(), and select it with
-pinctrl_select_state() in remove() and shutdown(). The state is looked up
-and selected by the driver itself rather than reusing the runtime-PM
-"idle"/"sleep" states, so its meaning is unambiguous and it does not
-depend on CONFIG_PM. Boards that do not describe an "inactive" state are
-unaffected.
+I am sending version 11 of my zx297520v3 clock patch. It addresses review 
+comments for the MFD driver but has no other substantial changes
 
-Since "inactive" is only meaningful as the mux to restore after the
-core-applied "default" state, reject an "inactive" state that is not
-paired with a "default" one rather than releasing pins that were never
-put into a defined PPS state.
+I think the list of clocks in my driver is fairly complete; It is 
+certainly a lot better than what the downstream ZTE drivers have. I 
+deduced a lot of it by trial and error. I am sure there are some clocks 
+missing that will need to be added to the binding later. AFAIU adding 
+clocks is not an issue, but removing or reordering them is an ABI break.
 
-Look up the pinctrl states first in probe(), before pps_gpio_setup(), and
-route every subsequent failure through a common err_release_pins label.
-The driver core applies the "default" mux before probe(), so a probe that
-fails after this point would otherwise leave the pins stuck in "default";
-releasing them to "inactive" on the error path is the symmetrical
-counterpart to what the core did on the driver's behalf. A failure in
-pps_gpio_get_pins() itself returns directly, as no state was taken yet;
-pps_gpio_release_pins() is a no-op when no "inactive" state was found.
+Merge dependencies: The binding patches (1, 2, 3) and DT patch (4) in 
+order. The MFD parent (5) is independent, although changing the ordering 
+likely needs trivial adjustments in MAINTAINERS. The clock driver 
+patches depend on the headers added by 1-3 and apply in order 
+(6-11). Reset needs headers (1-3), but it is independent of clock.
 
-Convert the pps_register_source() failure path to dev_err_probe() too,
-so all three probe error paths that share err_release_pins log the same
-way. This path already returned PTR_ERR(data->pps), so this is a logging
-change, not a fix.
-
-The mux must not change while something can still drive the pins. On
-shutdown() the requested IRQ and the echo timer would otherwise outlive
-the mux change -- device_shutdown() is not the end of the road, the
-kernel keeps running to load and start the kexec image -- so a timer
-callback or the PPS handler could poke a line that by then belongs to
-another function. Tear down in the same order as remove(): free_irq()
-first, then the echo timer (only when the board has an echo GPIO, as in
-remove()), and the mux change last. shutdown() does not unregister the
-PPS source, which is a remove-time concern.
-
-Signed-off-by: Eliav Farber <farbere@amazon.com>
+Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
 ---
+Changes in v12:
+*) Add more comments to the MFD driver, explaining what the devices do 
+and where the names come from
+*) Correct SSC reset bit
+*) Add some LTE and GSM related clocks that popped up during my 
+experimentation with the phone hardware
+
+- Link to v11: https://lore.kernel.org/r/20260826-zx29clk-v11-0-f8ad59c6426c@gmail.com
+
+Changes in v11:
+Addresses Lee Jones's comments on the MFD patch
+Reorder the DTSI patch ahead of the driver patch to give it more 
+visibility - it is the only patch in the series that hasn't seen a review 
+so far. It is also order independent of the driver patches.
+
+What's the next step after all the individual patches are reviewed? 
+Should I submit them as pull requests to the DT, mfd, clock, reset 
+trees? Or do the maintainers pick them from the list?
+
+Changes in v10:
+*) Clock infrastructure: Fix issues pointed out by Brian. The individual 
+patches have more details in the changelog
+*) MFD infrastructure: Remove _MFD_ from the match data enums
+*) Further refinement of LTE related clocks and resets: The ZSP rproc 
+has two resets, one in topcrm and one in matrixcrm. I don't know what 
+the difference between them is, but both need to be deasserted for it to 
+work. Previously I thought the matrixcrm register 0x3c is a clock. The 
+clock gate is actually in 0x34.
+
+Changes in v9:
+*) Use parent_data in the clock driver instead of parent_names. That 
+required some infrastructure to keep track of registered clocks rather 
+than devm-and-forget. A nice side effect is that it uncovered a missing 
+top->matrix clock link. (Brian)
+
+*) Remove the self-referencing USB PHY reset in topcrm (Krzysztof)
+
+*) (Hopefully) get unevaluatedProperties and additionalProperties right 
+in topcrm (Krzysztof)
+
+*) GMAC and SDIO on the matrixcrm controller need topcrm's ahb clock as 
+parent. It is added to Matrix's binding and fixed in the driver
+
+*) LSP reset and pclk handling moved from clock child to mfd parent 
+driver
+
+- Link to v8: https://lore.kernel.org/r/20260727-zx29clk-v8-0-7a107b00f1dd@gmail.com
+
+Changes in v8:
+*) Put #phy-cells into topcrm. The mfd child will have to assign itself 
+the MFD parent's of_node to satisfy the check in phy-core.c's
+__of_phy_provider_register().
+
+*) Added another register to matrixclk that controls in-controller 
+distribution gates. No functional change, but it nicely confirms the 
+top->matrix interface
+
+*) Changed clock indices to start at 0, adjusted driver to not use 0 as 
+"do not export" marker.
+
+*) Rename DT fixed clock nodes from osc26m -> clock-26m and osc32k -> 
+clock-32k
+
+*) Fixed more issues pointed out by Sashiko
+
+- Link to v7: https://lore.kernel.org/r/20260717-zx29clk-v7-0-408411cfcf36@gmail.com
+
+Changes in v7:
+
+*) Moved DT bindings back to clock/ (Krzysztof)
+*) Added a usb-phy child node to top to expose the USB status register
+*) Add clock gates that control input of PLL clocks into topcrm and 
+forward to matrixcrm. Strip down matrixcrm inputs in the bindings to the 
+known clocks in this register
+*) Add DDR clocks and resets, arm arch timer clock. They are marked 
+critical and tell CCF not to gate off the aforementioned input/forward 
+gates
+*) Remove syscon from matrixcrm (Krzysztof). The DDR mailbox system is 
+on a different controller (soc_sys at 0x140000). ZTE's code merely 
+controlled clocks in matrixcrm, which doesn't require syscon on this 
+controller.
+*) Consistently use double quotes in bindings and full include paths 
+(Krzysztof)
+
+The individual patches call out changes in more detail.
+
+- Link to v6: https://lore.kernel.org/r/20260702-zx29clk-v6-0-377b704f80c4@gmail.com
+
 Changes in v6:
-- Convert the pps_register_source() failure path to dev_err_probe() +
-  goto err_release_pins as well, so all three probe error paths sharing
-  err_release_pins log the same way. It already returned PTR_ERR(data->pps),
-  so this is a logging change, not a fix. Fold in here rather than a
-  separate patch since this block is rewritten by this patch anyway, with
-  a commit-message note (Rodolfo Giometti)
+*) Use MFD for all 3 controllers - I hope both Conor and Philipp will 
+agree. I kept top and matrix bindings in soc/zte and lsp in clock/ 
+though.
+
+*) Clean up issues found by Sashiko. I pointed them out in the individual 
+patches. They are localized fixes and don't affect the overall design
+
+*) Small code consistency: Changed "zx297520v3_lsp" to use "-" , "rst" 
+in driver names to "reset"
 
 Changes in v5:
-- Resolve the v4 probe-failure open question by taking option "A + keep
-  the NULL guard": look the pinctrl states up first in probe(), before
-  pps_gpio_setup(), and route the pps_gpio_setup() failure through
-  err_release_pins too, so every path the driver can act on restores
-  "inactive". pps_gpio_release_pins() keeps its NULL guard, so it is a
-  no-op when no "inactive" state was found. Verified on the AL11 K2V6
-  JRD10 with a forced-defer test: the pins are released to "inactive" on
-  each failed attempt, the core re-applies "default" before the next, and
-  the mux settles at "default" on the eventual success, with no spurious
-  PPS event (Rodolfo Giometti)
-- Clear data->pins_inactive when rejecting an "inactive" state that has no
-  "default", so a board deliberately rejected here can never have its pins
-  released to "inactive"
-- Guard the echo-timer teardown in the new shutdown() with data->echo_pin,
-  matching remove() after the preceding patch (Rodolfo Giometti)
-- Convert the gpiod_to_irq()/request_threaded_irq() error paths to the
-  log-only dev_err_probe() + goto err_release_pins form, following patch 1
+*) Use MFD instead of aux bus for top and matrix clocks
+*) Move top and matrix bindings to soc/zte
+*) Give USB PHY its own resets
+*) Other localized changes are noted in the individual patches
+- Link to v4: https://lore.kernel.org/r/20260616-zx29clk-v4-0-ca994bd22e9d@gmail.com
 
 Changes in v4:
-- No functional change (probe-failure raised as an open question, now
-  resolved in v5 above)
+*) Use syscon and regmap instead of raw IO
+*) Move reset to its own driver on the aux bus, but keep reset and clk 
+in the same binding as it matches the way the hardware works
+*) Go back to having matrixclk in its own device because syscon deals 
+poorly with multi io reg devices. List all PLL outputs from topclk as 
+inputs to matrixclk
+*) Some more hardware research: Figure out the parents of the 4 possible
+GPIO clock outputs and declare them in the driver. They are unused on 
+the hardware I have, but they show that all PLLs can be used.
+
+- Link to v3: https://lore.kernel.org/r/20260529-zx29clk-v3-0-c7fe54ea388f@gmail.com
 
 Changes in v3:
-- Treat -ENODEV from devm_pinctrl_get() as "no pinctrl", not a probe
-  failure; keep propagating everything else, e.g. -EPROBE_DEFER
-- Restore the "inactive" mux on probe failure via a new err_release_pins
-  label
-- Warn if pinctrl_select_state() fails to apply the "inactive" state
-  rather than silently ignoring the error
-- Trim and de-duplicate the added comments
+Model top and matrix clocks as one device
+Add PLL driver
+Fixed a few issues found by Sashiko: register lock, some missing devm_, 
+error handling
 
-Changes in v2:
-- Rename the released state from "idle" to "inactive"
-- Look the state up in the driver with devm_pinctrl_get() +
-  pinctrl_lookup_state() + pinctrl_select_state() instead of
-  pinctrl_pm_select_idle_state(), removing the CONFIG_PM dependency
-- Fix shutdown() to free_irq() and the echo teardown before the mux
-  change, matching remove()
-- Require a "default" state whenever "inactive" is present and reject the
-  mismatch
+spot earlier.
 
- drivers/pps/clients/pps-gpio.c | 121 ++++++++++++++++++++++++++++++---
- 1 file changed, 113 insertions(+), 8 deletions(-)
+To: Stefan Dösinger <stefandoesinger@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>
+To: Brian Masney <bmasney+clk@redhat.com>
+To: Jerome Brunet <jbrunet+clk@baylibre.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+To: Lee Jones <lee@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-clk@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-phy@lists.infradead.org
+Cc: mfd@lists.linux.dev
+v2: Fix build issues introduced by checkpatch.pl fixes that I didn't
 
-diff --git a/drivers/pps/clients/pps-gpio.c b/drivers/pps/clients/pps-gpio.c
-index aec534c246af..e6d39ca6777d 100644
---- a/drivers/pps/clients/pps-gpio.c
-+++ b/drivers/pps/clients/pps-gpio.c
-@@ -17,6 +17,7 @@
- #include <linux/slab.h>
- #include <linux/pps_kernel.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/pinctrl/consumer.h>
- #include <linux/list.h>
- #include <linux/property.h>
- #include <linux/timer.h>
-@@ -30,6 +31,8 @@ struct pps_gpio_device_data {
- 	struct gpio_desc *gpio_pin;	/* GPIO port descriptors */
- 	struct gpio_desc *echo_pin;
- 	struct timer_list echo_timer;	/* timer to reset echo active state */
-+	struct pinctrl *pinctrl;	/* pin control handle */
-+	struct pinctrl_state *pins_inactive;	/* pins released when unbound */
- 	bool assert_falling_edge;
- 	unsigned int echo_active_ms;	/* PPS echo active duration */
- 	unsigned long echo_timeout;	/* timer timeout value in jiffies */
-@@ -96,6 +99,68 @@ static void pps_gpio_echo_timer_callback(struct timer_list *t)
- 	gpiod_set_value(info->echo_pin, 0);
- }
- 
-+/*
-+ * Look up the optional "inactive" pinctrl state. It requires a "default"
-+ * state (applied by the driver core before probe) and is rejected without
-+ * one. Absent pinctrl, or an absent "inactive" state, is not an error.
-+ */
-+static int pps_gpio_get_pins(struct device *dev)
-+{
-+	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-+	struct pinctrl_state *pins_default;
-+
-+	data->pinctrl = devm_pinctrl_get(dev);
-+	if (IS_ERR(data->pinctrl)) {
-+		/*
-+		 * A DT device without "pinctrl-0" yields -ENODEV, which
-+		 * is not an error here; propagate anything else.
-+		 */
-+		if (PTR_ERR(data->pinctrl) == -ENODEV) {
-+			data->pinctrl = NULL;
-+			return 0;
-+		}
-+		return dev_err_probe(dev, PTR_ERR(data->pinctrl),
-+				     "failed to get pinctrl\n");
-+	}
-+
-+	/* The "inactive" state is optional. */
-+	data->pins_inactive = pinctrl_lookup_state(data->pinctrl, "inactive");
-+	if (IS_ERR(data->pins_inactive)) {
-+		data->pins_inactive = NULL;
-+		return 0;
-+	}
-+
-+	/* "inactive" requires a "default" state to return from. */
-+	pins_default = pinctrl_lookup_state(data->pinctrl, "default");
-+	if (IS_ERR(pins_default)) {
-+		data->pins_inactive = NULL;
-+		return dev_err_probe(dev, PTR_ERR(pins_default),
-+				     "\"inactive\" pinctrl state requires a \"default\" state\n");
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Restore the "inactive" pinctrl state, handing the pins back to whatever
-+ * function uses them while pps-gpio is not driving PPS. This undoes the
-+ * "default" state the driver core applied before probe. A no-op for boards
-+ * that describe no "inactive" state.
-+ */
-+static void pps_gpio_release_pins(struct device *dev)
-+{
-+	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-+	int ret;
-+
-+	if (!data->pins_inactive)
-+		return;
-+
-+	ret = pinctrl_select_state(data->pinctrl, data->pins_inactive);
-+	if (ret)
-+		dev_warn(dev, "failed to select inactive pinctrl state: %d\n",
-+			 ret);
-+}
-+
- static int pps_gpio_setup(struct device *dev)
- {
- 	struct pps_gpio_device_data *data = dev_get_drvdata(dev);
-@@ -156,15 +221,25 @@ static int pps_gpio_probe(struct platform_device *pdev)
- 
- 	dev_set_drvdata(dev, data);
- 
-+	/*
-+	 * pinctrl setup (optional states) first, so the "inactive" mux can be
-+	 * restored on any later probe-failure path via err_release_pins.
-+	 */
-+	ret = pps_gpio_get_pins(dev);
-+	if (ret)
-+		return ret;
-+
- 	/* GPIO setup */
- 	ret = pps_gpio_setup(dev);
- 	if (ret)
--		return ret;
-+		goto err_release_pins;
- 
- 	/* IRQ setup */
- 	ret = gpiod_to_irq(data->gpio_pin);
--	if (ret < 0)
--		return dev_err_probe(dev, ret, "failed to map GPIO to IRQ\n");
-+	if (ret < 0) {
-+		dev_err_probe(dev, ret, "failed to map GPIO to IRQ\n");
-+		goto err_release_pins;
-+	}
- 	data->irq = ret;
- 
- 	/* initialize PPS specific parts of the bookkeeping data structure. */
-@@ -183,9 +258,10 @@ static int pps_gpio_probe(struct platform_device *pdev)
- 	pps_default_params = PPS_CAPTUREASSERT | PPS_OFFSETASSERT;
- 	data->pps = pps_register_source(&data->info, pps_default_params);
- 	if (IS_ERR(data->pps)) {
--		dev_err(dev, "failed to register IRQ %d as PPS source\n",
--			data->irq);
--		return PTR_ERR(data->pps);
-+		ret = PTR_ERR(data->pps);
-+		dev_err_probe(dev, ret, "failed to register IRQ %d as PPS source\n",
-+			      data->irq);
-+		goto err_release_pins;
- 	}
- 
- 	/* register IRQ interrupt handler */
-@@ -195,14 +271,20 @@ static int pps_gpio_probe(struct platform_device *pdev)
- 			  data->info.name, data);
- 	if (ret) {
- 		pps_unregister_source(data->pps);
--		return dev_err_probe(dev, ret, "failed to acquire IRQ %d\n",
--				     data->irq);
-+		dev_err_probe(dev, ret, "failed to acquire IRQ %d\n",
-+			      data->irq);
-+		goto err_release_pins;
- 	}
- 
- 	dev_dbg(&data->pps->dev, "Registered IRQ %d as PPS source\n",
- 		data->irq);
- 
- 	return 0;
-+
-+err_release_pins:
-+	/* Restore the inactive mux on probe failure; safe to do last here. */
-+	pps_gpio_release_pins(dev);
-+	return ret;
- }
- 
- static void pps_gpio_remove(struct platform_device *pdev)
-@@ -216,9 +298,31 @@ static void pps_gpio_remove(struct platform_device *pdev)
- 		timer_delete_sync(&data->echo_timer);
- 		gpiod_set_value(data->echo_pin, 0);
- 	}
-+	/* release the pins last, once nothing can drive them */
-+	pps_gpio_release_pins(&pdev->dev);
- 	dev_info(&pdev->dev, "removed IRQ %d as PPS source\n", data->irq);
- }
- 
-+static void pps_gpio_shutdown(struct platform_device *pdev)
-+{
-+	struct pps_gpio_device_data *data = platform_get_drvdata(pdev);
-+
-+	/*
-+	 * The kernel keeps running after device_shutdown() (e.g. to load and
-+	 * start a kexec image), so quiesce the hardware before touching the
-+	 * mux: free the IRQ and stop the echo timer first, then release the
-+	 * pins last, so no callback can drive a pin after it is handed back.
-+	 * The PPS source is left registered; that is a remove-time concern.
-+	 */
-+	free_irq(data->irq, data);
-+	/* reset the echo state, if the board has an echo GPIO */
-+	if (data->echo_pin) {
-+		timer_delete_sync(&data->echo_timer);
-+		gpiod_set_value(data->echo_pin, 0);
-+	}
-+	pps_gpio_release_pins(&pdev->dev);
-+}
-+
- static const struct of_device_id pps_gpio_dt_ids[] = {
- 	{ .compatible = "pps-gpio", },
- 	{ /* sentinel */ }
-@@ -228,6 +332,7 @@ MODULE_DEVICE_TABLE(of, pps_gpio_dt_ids);
- static struct platform_driver pps_gpio_driver = {
- 	.probe		= pps_gpio_probe,
- 	.remove		= pps_gpio_remove,
-+	.shutdown	= pps_gpio_shutdown,
- 	.driver		= {
- 		.name	= PPS_GPIO_NAME,
- 		.of_match_table	= pps_gpio_dt_ids,
--- 
-2.47.3
+---
+Stefan Dösinger (12):
+      dt-bindings: clk: zte: Add zx297520v3 top clock and reset controller
+      dt-bindings: clk: zte: Add zx297520v3 matrix clock and reset controller
+      dt-bindings: clk: zte: Add zx297520v3 LSP clock and reset controller
+      mfd: zx297520v3: Add a clock and reset MFD driver
+      clk: zte: Add Clock registration infrastructure
+      clk: zte: Add regmap-based clocks
+      clk: zte: Add zx PLL support infrastructure
+      clk: zte: Introduce a driver for zx297520v3 top clocks
+      clk: zte: Introduce a driver for zx297520v3 matrix clocks
+      clk: zte: Introduce a driver for zx297520v3 LSP clocks
+      reset: zte: Add a zx297520v3 reset driver
+      ARM: dts: zte: Declare zx297520v3 CRM device nodes
+
+ .../bindings/clock/zte,zx297520v3-lspcrm.yaml      |  101 ++
+ .../bindings/clock/zte,zx297520v3-matrixcrm.yaml   |   98 ++
+ .../bindings/clock/zte,zx297520v3-topcrm.yaml      |  122 ++
+ MAINTAINERS                                        |    9 +
+ arch/arm/boot/dts/zte/zx297520v3.dtsi              |  101 +-
+ drivers/clk/Kconfig                                |    1 +
+ drivers/clk/Makefile                               |    1 +
+ drivers/clk/zte/Kconfig                            |   28 +
+ drivers/clk/zte/Makefile                           |    6 +
+ drivers/clk/zte/clk-regmap.c                       |  237 +++
+ drivers/clk/zte/clk-zx.c                           |  192 +++
+ drivers/clk/zte/clk-zx.h                           |  137 ++
+ drivers/clk/zte/clk-zx297520v3.c                   | 1656 ++++++++++++++++++++
+ drivers/clk/zte/pll-zx.c                           |  576 +++++++
+ drivers/mfd/Kconfig                                |   12 +
+ drivers/mfd/Makefile                               |    2 +
+ drivers/mfd/zte-zx297520v3-crm.c                   |  111 ++
+ drivers/reset/Kconfig                              |   13 +
+ drivers/reset/Makefile                             |    1 +
+ drivers/reset/reset-zte-zx297520v3.c               |  237 +++
+ include/dt-bindings/clock/zte,zx297520v3-clk.h     |  154 ++
+ include/dt-bindings/phy/zte,zx297520v3-topcrm.h    |   12 +
+ include/dt-bindings/reset/zte,zx297520v3-reset.h   |   62 +
+ 23 files changed, 3857 insertions(+), 12 deletions(-)
+---
+base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
+change-id: 20260510-zx29clk-2e4d39e3128c
+
+Best regards,
+--  
+Stefan Dösinger <stefandoesinger@gmail.com>
 
