@@ -1,534 +1,166 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010008.outbound.protection.outlook.com [52.101.229.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B6547DD4A;
-	Wed, 23 Sep 2026 10:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790160003; cv=none; b=FTT3EFLgRU802lEqi3XAhYQ93DgcCtt9XX4W6Lz1HLp1wEWuQbmcFjN5X/Vtbi2qCXTFZ7N3QBVPX1NQHP+8cMd8xpbZxzyKrXm+d2C0FAmGXVmHfc5kZVDCCx6BnGXoUdsKOopKC0H6qBxfM+d2r3fZf47PloQA20tZQqjoJbY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790160003; c=relaxed/simple;
-	bh=DWT9MbCHPQn6zdPwdCWFrIndrpMFdiYIVnm2hh8er24=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B6uHF3jMW3idpdJNs1EphyGLsQvjlYDqiQ0e+ZbMMmSSBOu1w8uc4QCs6JYtuRNiX5KiApYl/EbN6yefp3n1vPtWfAw3LG+xY+2rWEsGb5SBSKobBBdSXOGZZiRzZJ6ZugdyD9jCOUzmOXukE9PNQh+4yTgWBM9q0frcK5c3gV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hIx5KBKd; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ArdMpQsd; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F2E63C7E13;
+	Wed, 23 Sep 2026 10:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790160012; cv=fail; b=JqP7JYEn7KDLbUFNWnSNt32DyiE5GXrtYl1V+YA2Ko3ckXHIJyFuy1TVaY+TYpeQLPQzOg6l2M85H/NG9ew4DMTYdTM1SNL3p3sOafYdslfHKam+AeszoZbd9hGmSTN+f+zkwKhg5B2Y44UgwQpkNzx4cFOCYzbZxqAOduG/xp8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790160012; c=relaxed/simple;
+	bh=ZE79ZepsXm+jMaskQwkrtC3mue1TVDK+vjLcqJ1NaNI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=QzkziceO6borfmmNVIpDfr2ckrvvR8hALKPLXAd/d0uZmonUNatsBG2l5dazCFYX/yrssLXml2TM4p3emUD+JuZEjgjkVf63A5uM+308zBVcDBH7gwS9Ao3He143oyh1DXEKH6f0QdHQY9o9mrb5qxgei06ZpxGGNiCxzkR3Q5Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=PwyALHk9; arc=fail smtp.client-ip=52.101.229.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hIx5KBKd";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ArdMpQsd"
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790159986;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SGV5gJ1K+1hayQcpyLjku4E+AA+xGbM2+h3g9lK5ihY=;
-	b=hIx5KBKdMG59v/ZU5oECKrofkucueS2RzppScDbaX3J4wFffJgpwwNQQ9SlxMRrxuMy43g
-	mNxp/w7VvnBO3p5JAJsuO0edjnW+/MrqsIap1l22qTDtz+fgzNzKUYSICfznoiZjR6ycfp
-	h2Epq/Ur1Go0IYCShVLgrkvzidE34Di3KyYwEnGbXNacPmkxLkIFtVX9sKsaHWowe/Zo3m
-	Mak4TM5wj+OgMR9MjorI59dnq/m19mvsJDlswUKxqLHjKXu6EHnGwFd3XHr6s2Gp+Tpz9O
-	OPPYtEVCBGxic0Pwa+GaCGQsBydlZW3SOT0KorixRqzP3pgjp+o9TeYSUXBZiA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790159986;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SGV5gJ1K+1hayQcpyLjku4E+AA+xGbM2+h3g9lK5ihY=;
-	b=ArdMpQsdVr4JRqhdVWRmhoc+niKMFhDwWSCtfTisGQa0lXJJfiIM9le7cjB1p7gm++/16/
-	d88ASMVZWhk327BQ==
-Date: Wed, 23 Sep 2026 12:39:33 +0200
-Subject: [PATCH net-next v3 6/8] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="PwyALHk9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X7XQg+GIeXqeqAxHabyOFBToCbCQ0X6CN0RXnANBMidyHTCMlENP/IqOqu74xnJGtEYPP9fAhzBEW5yCssZwbA6G7JwvYH3SgA56/LFZNhARCDPMFQKFLHKPMf5nIP60a6AS74UqWqz5BKl4SqZs6BLrlVQhVOnFuA6AiKVf3VJLUT60Zv/22C37VMIE4lYKDPjB6V9DLSn29r4eiAUTWoCg7yDd4lnAYneT4yFR0MpatXqmlSucx9/Ctp4sPo8oxxIthqgd3jKPRig/VDi62rFrR61Yfesu592peYCK+JnosFO96Rw6RH0m/sQdLj/eVmuoGZsB1WGMwgTgUD+pDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZE79ZepsXm+jMaskQwkrtC3mue1TVDK+vjLcqJ1NaNI=;
+ b=MooWlmw9jtWGN1BLjEKTHhcwIH+gW3eoHN/GWWQi9vYO08X4Yxuc4FsPvpy0MHghqjnB2HWPjRGAXksHamuKKcLlHxlU7gGmL4EiSl+GJkSeJlE1QiXSYUpt2Bh8++RR7+a/UNrAhJEtsS+z01XQJBS0sJ5f4RCLHwyyo5c6JIZzrGygz0xyPB2Z3ioEoV07eElYFp5a5bPyLH0wd/5ZPzEBkPwn2t1QcA5wVDEG5zx+hO+KoUTIRgL0GYEOkl/bkJBIkeDei9a+d0LX9bmFDIVK1p5rE+mRcrMFn71tHIwGRBfYxgDw9L23cAF/64aovis3uPT6W0gA3xxSyOcp0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZE79ZepsXm+jMaskQwkrtC3mue1TVDK+vjLcqJ1NaNI=;
+ b=PwyALHk9TT1zVEfSRUoX8vz/Raj+YzcOuvvJ5GHC+A537gTl2r/jY+e2/RI0LOpHt4fJQQY1tnZ7cSsx8MS2gYlrvS6iYnYrimAqYRnnuUGurH8DZb2TDN2RbdTFi2y0u6VmxpyREVeEkSoeI4m9qAF+9Uiduq5d32Qqm2nvnCI=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OSCPR01MB13085.jpnprd01.prod.outlook.com (2603:1096:604:332::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
+ 2026 10:39:58 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 10:39:58 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: geert <geert@linux-m68k.org>
+CC: "magnus.damm" <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, Chris Paterson
+	<Chris.Paterson2@renesas.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH 5/5] arm64: dts: renesas: r9a08g046l48-smarc: Enable CANFD
+Thread-Topic: [PATCH 5/5] arm64: dts: renesas: r9a08g046l48-smarc: Enable
+ CANFD
+Thread-Index: AQHdScv+inCXpKcCe0mkEFwADyxU3rbb5xsAgAATfOA=
+Date: Wed, 23 Sep 2026 10:39:58 +0000
+Message-ID:
+ <TY3PR01MB113464CD88B130B5C9F17A28786822@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260921131951.187981-1-biju.das.jz@bp.renesas.com>
+ <20260921131951.187981-6-biju.das.jz@bp.renesas.com>
+ <CAMuHMdVUQiOr1oetds27ovQy_7aYLEwc7GP_wTkokyft9UMy4w@mail.gmail.com>
+In-Reply-To:
+ <CAMuHMdVUQiOr1oetds27ovQy_7aYLEwc7GP_wTkokyft9UMy4w@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSCPR01MB13085:EE_
+x-ms-office365-filtering-correlation-id: 56f5c2a1-8fd4-4e57-6868-08df195f03e8
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ FpkMYgW8V2+DXwM6iALO9VBtaYPrZ5ZMhJ5J+Qgumg4ENl7trDVpbGE4GSjiXYSgIixI1+tolEiWPFfKOWv5WbKzAaz+FtXuTq0+aD6nF4j++nU3padQW4hm4fWAWslv3pglnI03jlx0Jst+R2dnd/rxqdpJQcudNZyE/0CR7pw174Bs9e2Bf0CVuRPS1Ev7iZak1zqsfLLmWBxiQiEixxD/4yLkBdflFV6AgRX4lYIXniLxXdouVsBUSOa0EgJCLoXQLWYW0EFFhuhgG4RarYo3zN9oA7z0XbIVA0FXebNsDPSkY7js9jd2uWQnU7QhO78Cy9yDGIJAqHcPVHK3Xh3piHYhv2CZbrHch+XlyZxfsvYbAH3M0vSwPzV/0mltWXOVXm72SL6NZtdhFwM/RfrwT9SLewSr6Gny5uSwZy2fFpM1UdLf2XOcTQ+Ay7NnsYHFHJdybFobH38jjpwnNchSqh5dIhE39LXOgdADztiP7fs+jaOTw6KroPe1FcSlGakysEqlxED1SaNa8W69w8ocYlOilRkxjmgub7a/Klpa4dSsUFIXWsVRXwMRnpi6BGfM9TapTY66PGadKjyYB+gWIo4Xvy4Dj5B1VZIsybMplG7egvJuT0oGh4iHloA5sy0dhdk9QAm/6jaylS/b9jEnvzyA806po25K/jlCtkBN4kAuBNIKu5L/pdzsvj5nU8fjRcLtUSB3MrDB7mK99sjA9aYEdv2vRWL+Xmz6LL8=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?ajNxaWxvYWFjYlNuWnBpUFFtRmo5YUR1NkJZb2VLNnh3NHlZczNKOE1udGd4?=
+ =?utf-8?B?c2RoeEdsM0NxbzlNT0RPRE4xUEJDZ1VWL0orTEMzd1hkUUxkeTM4RDZ3b0p6?=
+ =?utf-8?B?eHdySy9RbHZvRnJTdXdISWhYOUVTWGN5TDhJb084c0djOGNIS05yVm9RV3li?=
+ =?utf-8?B?ZUxMcWtOWUE5TStzSFBqcXhCWFpFM3VoVWUybmE1V1Z5dVJvZjZENE5mUFFu?=
+ =?utf-8?B?aXVIeG84MlRiQ3VGa0I1azMva1hteE5VRzk2ZzRaaUVHekJLSHlLZTN1MHVC?=
+ =?utf-8?B?MkRTSWNGSWx2M25RR09tT3FWVWtRdjVpWjRMYlN4bmordTVLbnE5WHpKRytq?=
+ =?utf-8?B?bStIdGJLbFNWUnF0UnhJajIrd3NWK1o4aDIwZkVpK3hSVkhDbWJrcEJmM1NF?=
+ =?utf-8?B?Y1pPejZVRXpwMzhzb25xejdmNk5DM0laSmlaUk9GN0l4cmlYNTh3R21aWHNt?=
+ =?utf-8?B?cmNVYk1IUXFpMFl4QnV5ZWdVbzZNNVRTM1VQc0F2U25kaU9pV3FadUwyMExk?=
+ =?utf-8?B?VERMNGFIa2NkcjdyekM3ZDdOOWtITnE1aFdUUGsxS1JrQ2wzY3FrU0JMaEJh?=
+ =?utf-8?B?TkZoVmpocEMzcnZ4Y1lVUkVsTC82cU1Rc09sZEh3NTBhY3FPZlYxdmlPZysz?=
+ =?utf-8?B?T3Z0YU5KREFuODJVS3A3SXRtdjVZN1huT3VVZTk4RzQrdG1zNE5BdGE4TG45?=
+ =?utf-8?B?Tktxa3VsUDlFMWRzRHJaSFdFdFZHVThOSVBjelRJUlFVZTF4TUs3ZVluMEZI?=
+ =?utf-8?B?dGM4S0xsMzhYUWtqWXhHRkxQc2dNa0hjV0c0T1lMRk5YN2pkODlJcjdaLytX?=
+ =?utf-8?B?enVMSzBob3k1cFdHUDBybFh3eURLczdMY0ZvTm94ZEVjUDR3Y3Vhc0FXT3pX?=
+ =?utf-8?B?T2dvaG5nT3RXeFZWYm5tcGNESUFYZnNid0Q5V2kzdnBGQi9SZnFOd2thK21J?=
+ =?utf-8?B?MHFISkl3VjU2UTBvZE56S2cvQ0RtNy9SNFdhZ3pqUzVTWC82aEZNRVh1YS9F?=
+ =?utf-8?B?N1IrcHBoNkxIUWQvYW05eVNsSFgyZks4cFVlc0RvSUNjcno1U1pXeUxUc3N3?=
+ =?utf-8?B?UmtmSllyZFB5MHhKaG9UZjUrMS92NU5GR2trd1dHbzZjeml5YVBOY2NUOTZW?=
+ =?utf-8?B?V3ppV1NqUXFmSElRL0FnWkF3UnMyUEFMVXpoR09NR2lHRVZMK3RraWs5RzB6?=
+ =?utf-8?B?Y0Y0YW1lMjhvZ3BlUXBYaGw1Nnk5bERHa043T0ZlZ05CamdJd296WFh3dDZy?=
+ =?utf-8?B?MXR0NTd1Y1JnamUvWmtXUXNSa0RmQnFYR2pWZ2dqaGhwRlN2U3FBQk1ybC9a?=
+ =?utf-8?B?TkVGTitQSWhMSHhiWVZRZnF3UkVkbXRUWGcvcWZOb2t1ZGVpVG9KeTVhSUJ2?=
+ =?utf-8?B?UHVRdGdmRkwyNVVTQmw2WStYSHkvWUxiY2RnOW9UdlBYSGU2dzJINGF2di9r?=
+ =?utf-8?B?cFllaTRIQmN0TmtKTGU0dkZEZWlGNmJKUStPM0pvQThNMWRYVURXU2Qzc1hq?=
+ =?utf-8?B?bmI5RFhxdlVHNHl6U2NhN3gyNGgyMTlLREhZQy9weHplYkNjaGRZOWg1QU9C?=
+ =?utf-8?B?STUzN2hBbmd1NUcvZzFmbnZHa28yZ2p4RDlVZTJmaVEyNFFjQXdaNHo2RCtK?=
+ =?utf-8?B?WWk1T0JKdDNjZGRjODU2WnUrOTlOYmhvVFBoZENGWWQyMUxHZEJCZFlvQjhi?=
+ =?utf-8?B?WVFWSWdQcW5aeFdXdWRXZmllZWlBYlR0V3Nkb2loYU96UUl1bkJudEFZL29D?=
+ =?utf-8?B?a21oZGhzd0wzYW9PQTh5NTZ5WWlSaVUyNE5RNUVVY2JOQzB6V3hSaXlqdUhw?=
+ =?utf-8?B?bmE1RkxXN0JNNE9jZ1dWaytjZEhLTmxzMXhCYk5zWlZXQ3Y1WlhxWUtYajZM?=
+ =?utf-8?B?Q2JsS3VzaDlIdFZkd3BXSkxkbEFPR29QYTVXWHNKSDNDSFhia3lvaEFqQlY0?=
+ =?utf-8?B?UHVUU2F3YjBwQSt1U2kwMi9ybVN3WWhzaHNKQWxJNjZWN0ZnTnhlR0dlYTE3?=
+ =?utf-8?B?Y2V6V3hScDNvVnpac3FoSlo4L0pBQTBkSk55VjlZNHIwTURaMDF1K3JNbFBX?=
+ =?utf-8?B?UGM1aXRsN2grdTBXL1hvNzVJaGdaWmkvanBIN1RJT3Fod0N3OTFqTFJQbmpG?=
+ =?utf-8?B?a3ROVnM5QjUwMnhRQTBYSVVmTkdUZjAwMFFyRGhreElZeVZsam1seTYyUlVH?=
+ =?utf-8?B?bXhjK1BsN3gyZ0hRN2RaOEpOSkE5TjNYVTUrWUZqZHE3eGExMkRYRkxYVkhW?=
+ =?utf-8?B?Y01DWlFwZ0pQOVpwUHZjSnFLYk9VeXJZNlNEVXJjQWVlUm1UU0FORXVNVXRY?=
+ =?utf-8?B?R3ZDVFdPa094a3J0ejJIYlI5ZGVHMDYwNFRsNEpWTXZ5NE4za253dz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
-References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
- Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, Martin Kaistra <martin.kaistra@linutronix.de>, 
- Benedikt Spranger <b.spranger@linutronix.de>, 
- Vasilij Strassheim <v.strassheim@linutronix.de>
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56f5c2a1-8fd4-4e57-6868-08df195f03e8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 10:39:58.7551
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: AoUFyk0ptE6whnwUTxQrjns9K0UmlR4lvbKRLxxZu/S9yMgTMq0SYeAtwhI7genROqQieTGcVe06TXBHzeyjsy3exy5EKAj0AQJbn0bfETw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB13085
 
-Add a DSA driver for SoC-e FPGA-based Ethernet switch IP cores.
-
-Read the core version and synthesis-time feature registers during probe.
-Require DSA support and between 3 and 31 implemented ports, without
-exceeding the licensed port count. Derive each port's phylink
-capabilities from its phy-mode.
-
-Enable "DSA custom rules" tagging for all frames during setup. This
-directs ingress traffic from user ports to the CPU port while standalone
-ports remain isolated. Enable and disable port ingress and egress
-through the DSA port callbacks, and disable tagging again during
-teardown so that unbinding the driver does not leave its managed
-configuration active.
-
-Populate the integrated MDIO controller and mux child devices used for
-external PHY access.
-
-Tested with a SoC-e MRS 25.01 IP core on a Xilinx ZynqMP platform.
-
-Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
----
- drivers/net/dsa/Kconfig              |   2 +
- drivers/net/dsa/Makefile             |   1 +
- drivers/net/dsa/soce/Kconfig         |  14 ++
- drivers/net/dsa/soce/Makefile        |   4 +
- drivers/net/dsa/soce/soce_dsa.h      |  26 +++
- drivers/net/dsa/soce/soce_dsa_core.c | 343 +++++++++++++++++++++++++++++++++++
- 6 files changed, 390 insertions(+)
-
-diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-index fe8cd5338fda..879fbede83f0 100644
---- a/drivers/net/dsa/Kconfig
-+++ b/drivers/net/dsa/Kconfig
-@@ -94,6 +94,8 @@ source "drivers/net/dsa/ocelot/Kconfig"
- 
- source "drivers/net/dsa/qca/Kconfig"
- 
-+source "drivers/net/dsa/soce/Kconfig"
-+
- source "drivers/net/dsa/sja1105/Kconfig"
- 
- source "drivers/net/dsa/xrs700x/Kconfig"
-diff --git a/drivers/net/dsa/Makefile b/drivers/net/dsa/Makefile
-index 7e637d56b35c..97de3d181440 100644
---- a/drivers/net/dsa/Makefile
-+++ b/drivers/net/dsa/Makefile
-@@ -26,4 +26,5 @@ obj-y				+= ocelot/
- obj-y				+= qca/
- obj-y				+= realtek/
- obj-y				+= sja1105/
-+obj-y				+= soce/
- obj-y				+= xrs700x/
-diff --git a/drivers/net/dsa/soce/Kconfig b/drivers/net/dsa/soce/Kconfig
-new file mode 100644
-index 000000000000..c31b7c5af695
---- /dev/null
-+++ b/drivers/net/dsa/soce/Kconfig
-@@ -0,0 +1,14 @@
-+# SPDX-License-Identifier: GPL-2.0
-+config NET_DSA_SOCE
-+	tristate "SoC-e switches"
-+	depends on NET_DSA
-+	depends on OF
-+	depends on HAS_IOMEM
-+	select MDIO_BUS_MUX_MMIOREG
-+	select MDIO_SOCE
-+	select NET_DSA_TAG_SDSA
-+	help
-+	  This enables support for switches based on SoC-e IP cores.
-+	  Frames are exchanged with the CPU port using the SDSA DSA tag protocol.
-+	  The driver supports switch variants whose features and number of ports
-+	  are selected at synthesis time and detected at runtime.
-diff --git a/drivers/net/dsa/soce/Makefile b/drivers/net/dsa/soce/Makefile
-new file mode 100644
-index 000000000000..2a6d95ef663f
---- /dev/null
-+++ b/drivers/net/dsa/soce/Makefile
-@@ -0,0 +1,4 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+obj-$(CONFIG_NET_DSA_SOCE) += soce_dsa.o
-+soce_dsa-objs := soce_dsa_core.o
-diff --git a/drivers/net/dsa/soce/soce_dsa.h b/drivers/net/dsa/soce/soce_dsa.h
-new file mode 100644
-index 000000000000..2acd4dbaf958
---- /dev/null
-+++ b/drivers/net/dsa/soce/soce_dsa.h
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (c) 2020-2026 System on Chip engineering, S.L.
-+ * Copyright (c) 2026 Linutronix GmbH
-+ * Author: Vasilij Strassheim <v.strassheim@linutronix.de>
-+ */
-+
-+#ifndef __SOCE_DSA_H
-+#define __SOCE_DSA_H
-+
-+#include <linux/types.h>
-+
-+#include <net/dsa.h>
-+
-+#define SOCE_MAX_NUM_PORTS 31
-+
-+struct soce_dsa_local {
-+	void __iomem *base_addr;
-+};
-+
-+struct soce_priv {
-+	struct soce_dsa_local local;
-+	struct dsa_switch ds;
-+};
-+
-+#endif /* __SOCE_DSA_H */
-diff --git a/drivers/net/dsa/soce/soce_dsa_core.c b/drivers/net/dsa/soce/soce_dsa_core.c
-new file mode 100644
-index 000000000000..d391b11b94ad
---- /dev/null
-+++ b/drivers/net/dsa/soce/soce_dsa_core.c
-@@ -0,0 +1,343 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2020-2026 System on Chip engineering, S.L.
-+ * Copyright (c) 2026 Linutronix GmbH
-+ * Author: Vasilij Strassheim <v.strassheim@linutronix.de>
-+ */
-+
-+#include <linux/io.h>
-+#include <linux/module.h>
-+#include <linux/netdevice.h>
-+#include <linux/of.h>
-+#include <linux/of_net.h>
-+#include <linux/of_platform.h>
-+#include <linux/phy.h>
-+#include <linux/phylink.h>
-+#include <linux/platform_device.h>
-+
-+#include <net/dsa.h>
-+
-+#include "soce_dsa.h"
-+
-+#define SOCE_MIN_NUM_PORTS			3
-+
-+#define SOCE_CORE_VERSION_OFFSET		0x0000
-+#define SOCE_CORE_VERSION_VERSION_SHIFT		24
-+#define SOCE_CORE_VERSION_SUBVERSION_SHIFT	16
-+#define SOCE_MIN_CORE_VERSION			0x24
-+#define SOCE_MIN_CORE_SUBVERSION		0x01
-+
-+#define SOCE_LIC_FEATURES_OFFSET		0x0004
-+#define SOCE_LIC_FEATURES_NUM_PORTS_MASK	GENMASK(31, 27)
-+
-+#define SOCE_IMPL_FEATURES0_OFFSET		0x000c
-+#define SOCE_IMPL_FEATURES0_NUM_PORTS_MASK	GENMASK(31, 27)
-+#define SOCE_IMPL_FEATURES0_PORT_VLAN		BIT(9)
-+#define SOCE_IMPL_FEATURES0_DSA			BIT(23)
-+
-+#define SOCE_DSA_REGS_BASE			0x1200
-+#define SOCE_TAG_ALL_FRAMES_CTRL_OFFSET		(SOCE_DSA_REGS_BASE + 0x001c)
-+#define SOCE_TAG_ALL_FRAMES_CTRL_ENABLE		BIT(0)
-+#define SOCE_CUSTOM_RULES_TAGGING_OFFSET	(SOCE_DSA_REGS_BASE + 0x0020)
-+#define SOCE_CUSTOM_RULES_TAGGING_ENABLE	BIT(0)
-+
-+#define SOCE_PORTS_REGS_BASE			0x3000
-+#define SOCE_PORTS_SELECTOR_OFFSET		SOCE_PORTS_REGS_BASE
-+#define SOCE_PORTS_SELECTOR_PORT_MASK		GENMASK(7, 0)
-+#define SOCE_PORTS_CTRL_OFFSET			(SOCE_PORTS_REGS_BASE + 0x0004)
-+#define SOCE_PORTS_CTRL_INGR_EN			BIT(0)
-+#define SOCE_PORTS_CTRL_EGR_EN			BIT(1)
-+
-+static void soce_phylink_get_caps(struct dsa_switch *ds, int port,
-+				  struct phylink_config *config)
-+{
-+	struct dsa_port *dp = dsa_to_port(ds, port);
-+	phy_interface_t mode;
-+	int ret;
-+
-+	ret = of_get_phy_mode(dp->dn, &mode);
-+	if (ret)
-+		return;
-+
-+	if (phy_interface_mode_is_rgmii(mode))
-+		phy_interface_set_rgmii(config->supported_interfaces);
-+	else
-+		__set_bit(mode, config->supported_interfaces);
-+
-+	config->mac_capabilities = MAC_SYM_PAUSE | MAC_ASYM_PAUSE;
-+
-+	switch (mode) {
-+	case PHY_INTERFACE_MODE_MII:
-+		config->mac_capabilities |= MAC_10 | MAC_100;
-+		break;
-+	case PHY_INTERFACE_MODE_GMII:
-+		config->mac_capabilities |= MAC_10 | MAC_100 | MAC_1000;
-+		break;
-+	case PHY_INTERFACE_MODE_RMII:
-+		config->mac_capabilities |= MAC_10FD | MAC_100FD;
-+		break;
-+	default:
-+		if (phy_interface_mode_is_rgmii(mode))
-+			config->mac_capabilities |= MAC_10FD | MAC_100FD |
-+						    MAC_1000FD;
-+		break;
-+	}
-+}
-+
-+static int soce_sw_validate_core_version(u8 version, u8 subversion)
-+{
-+	if (version < SOCE_MIN_CORE_VERSION ||
-+	    (version == SOCE_MIN_CORE_VERSION &&
-+	     subversion < SOCE_MIN_CORE_SUBVERSION))
-+		return -ENODEV;
-+
-+	return 0;
-+}
-+
-+static void soce_sw_read_core_version(struct soce_dsa_local *local,
-+				      u8 *version, u8 *subversion,
-+				      u16 *revision)
-+{
-+	u32 regval;
-+
-+	regval = readl(local->base_addr + SOCE_CORE_VERSION_OFFSET);
-+	*version = (u8)(regval >> SOCE_CORE_VERSION_VERSION_SHIFT);
-+	*subversion = (u8)(regval >> SOCE_CORE_VERSION_SUBVERSION_SHIFT);
-+	*revision = (u16)regval;
-+}
-+
-+static int soce_sw_detect_features(struct soce_dsa_local *local,
-+				   u32 *numports)
-+{
-+	void __iomem *base = local->base_addr;
-+	u32 implemented_numports;
-+	u32 licensed_numports;
-+	u32 regval;
-+
-+	regval = readl(base + SOCE_LIC_FEATURES_OFFSET);
-+	licensed_numports = FIELD_GET(SOCE_LIC_FEATURES_NUM_PORTS_MASK, regval);
-+	if (!licensed_numports || licensed_numports > SOCE_MAX_NUM_PORTS)
-+		return -EINVAL;
-+
-+	regval = readl(base + SOCE_IMPL_FEATURES0_OFFSET);
-+	if (!(regval & SOCE_IMPL_FEATURES0_DSA))
-+		return -ENODEV;
-+
-+	implemented_numports =
-+		FIELD_GET(SOCE_IMPL_FEATURES0_NUM_PORTS_MASK, regval);
-+	if (implemented_numports < SOCE_MIN_NUM_PORTS ||
-+	    implemented_numports > licensed_numports)
-+		return -EINVAL;
-+
-+	*numports = implemented_numports;
-+
-+	return 0;
-+}
-+
-+static void soce_sw_enable_tagging(struct soce_dsa_local *local)
-+{
-+	void __iomem *base = local->base_addr;
-+	u32 regval;
-+
-+	regval = readl(base + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-+	regval |= SOCE_TAG_ALL_FRAMES_CTRL_ENABLE;
-+	writel(regval, base + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-+
-+	regval = readl(base + SOCE_CUSTOM_RULES_TAGGING_OFFSET);
-+	regval |= SOCE_CUSTOM_RULES_TAGGING_ENABLE;
-+	writel(regval, base + SOCE_CUSTOM_RULES_TAGGING_OFFSET);
-+}
-+
-+static void soce_sw_disable_tagging(struct soce_dsa_local *local)
-+{
-+	void __iomem *base = local->base_addr;
-+	u32 regval;
-+
-+	regval = readl(base + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-+	regval &= ~SOCE_TAG_ALL_FRAMES_CTRL_ENABLE;
-+	writel(regval, base + SOCE_TAG_ALL_FRAMES_CTRL_OFFSET);
-+
-+	regval = readl(base + SOCE_CUSTOM_RULES_TAGGING_OFFSET);
-+	regval &= ~SOCE_CUSTOM_RULES_TAGGING_ENABLE;
-+	writel(regval, base + SOCE_CUSTOM_RULES_TAGGING_OFFSET);
-+}
-+
-+static void soce_port_select(struct soce_dsa_local *local, int port)
-+{
-+	writel(FIELD_PREP(SOCE_PORTS_SELECTOR_PORT_MASK, port),
-+	       local->base_addr + SOCE_PORTS_SELECTOR_OFFSET);
-+}
-+
-+static void soce_port_set_enabled(struct soce_dsa_local *local, int port,
-+				  bool enabled)
-+{
-+	void __iomem *base = local->base_addr;
-+	u32 regval;
-+
-+	soce_port_select(local, port);
-+
-+	regval = readl(base + SOCE_PORTS_CTRL_OFFSET);
-+	if (enabled)
-+		regval |= SOCE_PORTS_CTRL_INGR_EN | SOCE_PORTS_CTRL_EGR_EN;
-+	else
-+		regval &= ~(SOCE_PORTS_CTRL_INGR_EN | SOCE_PORTS_CTRL_EGR_EN);
-+	writel(regval, base + SOCE_PORTS_CTRL_OFFSET);
-+}
-+
-+static int soce_port_enable(struct dsa_switch *ds, int port,
-+			    struct phy_device *phy)
-+{
-+	struct soce_priv *priv = ds->priv;
-+
-+	soce_port_set_enabled(&priv->local, port, true);
-+
-+	return 0;
-+}
-+
-+static void soce_port_disable(struct dsa_switch *ds, int port)
-+{
-+	struct soce_priv *priv = ds->priv;
-+
-+	soce_port_set_enabled(&priv->local, port, false);
-+}
-+
-+static int soce_setup(struct dsa_switch *ds)
-+{
-+	struct soce_priv *priv = ds->priv;
-+
-+	soce_sw_enable_tagging(&priv->local);
-+
-+	return 0;
-+}
-+
-+static void soce_teardown(struct dsa_switch *ds)
-+{
-+	struct soce_priv *priv = ds->priv;
-+
-+	soce_sw_disable_tagging(&priv->local);
-+}
-+
-+static enum dsa_tag_protocol soce_get_tag_protocol(struct dsa_switch *ds,
-+						   int port,
-+						   enum dsa_tag_protocol mprop)
-+{
-+	return DSA_TAG_PROTO_SDSA;
-+}
-+
-+static const struct dsa_switch_ops soce_switch_ops = {
-+	.get_tag_protocol	= soce_get_tag_protocol,
-+	.setup			= soce_setup,
-+	.teardown		= soce_teardown,
-+	.phylink_get_caps	= soce_phylink_get_caps,
-+	.port_enable		= soce_port_enable,
-+	.port_disable		= soce_port_disable,
-+};
-+
-+static int soce_sw_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct soce_dsa_local *local;
-+	struct soce_priv *priv;
-+	struct dsa_switch *ds;
-+	u8 hw_subversion;
-+	u16 hw_revision;
-+	u32 hw_numports;
-+	u8 hw_version;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	ds = &priv->ds;
-+	ds->dev = dev;
-+	ds->priv = priv;
-+
-+	local = &priv->local;
-+	local->base_addr = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(local->base_addr))
-+		return PTR_ERR(local->base_addr);
-+
-+	soce_sw_read_core_version(local, &hw_version, &hw_subversion,
-+				  &hw_revision);
-+
-+	ret = soce_sw_detect_features(local, &hw_numports);
-+	if (ret) {
-+		if (ret == -ENODEV)
-+			dev_err(dev, "switch core does not implement DSA\n");
-+		else
-+			dev_err(dev,
-+				"invalid licensed or implemented features register\n");
-+		return ret;
-+	}
-+
-+	ret = soce_sw_validate_core_version(hw_version, hw_subversion);
-+	if (ret) {
-+		dev_err(dev, "unsupported switch core version %.2X.%.2X.%.4X\n",
-+			hw_version, hw_subversion, hw_revision);
-+		return ret;
-+	}
-+
-+	ds->ops = &soce_switch_ops;
-+	ds->num_ports = hw_numports;
-+	ret = devm_of_platform_populate(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to populate child devices\n");
-+
-+	dev_set_drvdata(dev, priv);
-+
-+	ret = dsa_register_switch(ds);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to register DSA switch\n");
-+
-+	dev_info(dev,
-+		 "probed soce switch core version %02x.%02x.%04x with %u ports\n",
-+		 hw_version, hw_subversion, hw_revision, hw_numports);
-+	return 0;
-+}
-+
-+static void soce_sw_remove(struct platform_device *pdev)
-+{
-+	struct soce_priv *priv = platform_get_drvdata(pdev);
-+
-+	if (!priv)
-+		return;
-+
-+	dsa_unregister_switch(&priv->ds);
-+	platform_set_drvdata(pdev, NULL);
-+}
-+
-+static void soce_sw_shutdown(struct platform_device *pdev)
-+{
-+	struct soce_priv *priv = platform_get_drvdata(pdev);
-+
-+	if (!priv)
-+		return;
-+
-+	dsa_switch_shutdown(&priv->ds);
-+	platform_set_drvdata(pdev, NULL);
-+}
-+
-+static const struct of_device_id soce_of_match[] = {
-+	{ .compatible = "soce,swip-00-04-0c-10" },
-+	{ /* sentinel */ }
-+};
-+
-+static struct platform_driver soce_driver = {
-+	.probe = soce_sw_probe,
-+	.remove = soce_sw_remove,
-+	.shutdown = soce_sw_shutdown,
-+	.driver = {
-+		.name = "soce-swip",
-+		.of_match_table = soce_of_match,
-+	},
-+};
-+
-+module_platform_driver(soce_driver);
-+MODULE_DEVICE_TABLE(of, soce_of_match);
-+MODULE_AUTHOR("Vasilij Strassheim <v.strassheim@linutronix.de>");
-+MODULE_DESCRIPTION("Driver for SoC-e ethernet switch family");
-+MODULE_LICENSE("GPL");
-+MODULE_SOFTDEP("pre: mdio-soce mdio-mux-mmioreg");
-
--- 
-2.39.5
-
+SGkgR2VlcnQsDQoNClRoYW5rcyBmb3IgdGhlIGZlZWRiYWNrLg0KDQo+IC0tLS0tT3JpZ2luYWwg
+TWVzc2FnZS0tLS0tDQo+IEZyb206IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnRAbGludXgtbTY4
+ay5vcmc+DQo+IFNlbnQ6IDIzIFNlcHRlbWJlciAyMDI2IDEwOjI1DQo+IFN1YmplY3Q6IFJlOiBb
+UEFUQ0ggNS81XSBhcm02NDogZHRzOiByZW5lc2FzOiByOWEwOGcwNDZsNDgtc21hcmM6IEVuYWJs
+ZSBDQU5GRA0KPiANCj4gSGkgQmlqdSwNCj4gDQo+IE9uIE1vbiwgMjEgU2VwdCAyMDI2IGF0IDE1
+OjIwLCBCaWp1IERhcyA8YmlqdS5kYXMuanpAYnAucmVuZXNhcy5jb20+IHdyb3RlOg0KPiA+IEVu
+YWJsZSBDQU5GRCBjaGFubmVsMCBhbmQgY2hhbm5lbDEgb24gdGhlIFNNQVJDIGNhcnJpZXIgYm9h
+cmQuDQo+ID4NCj4gPiBDaGFubmVsMCBpcyBhbHdheXMgZW5hYmxlZCwgd2hpbGUgY2hhbm5lbDEg
+aXMgZ3VhcmRlZCBieSBTV19EUElfRU4NCj4gPiBzaW5jZSBpdCBzaGFyZXMgcGlucyB3aXRoIHRo
+ZSBEUEkgaW50ZXJmYWNlLiBUaGUgQ0FOIHRyYW5zY2VpdmVyJ3MNCj4gPiBzdGFuZGJ5IEdQSU9z
+IGFyZSBjb25kaXRpb25hbGx5IHdpcmVkIHVwIGJhc2VkIG9uIHRoZSBjYXJyaWVyLWJvYXJkDQo+
+ID4gc3dpdGNoIHNldHRpbmdzIChTV19HUElPOF9DQU4wX1NUQiwgU1dfR1BJTzlfQ0FOMV9TVEIp
+Lg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogQmlqdSBEYXMgPGJpanUuZGFzLmp6QGJwLnJlbmVz
+YXMuY29tPg0KPiANCj4gVGhhbmtzIGZvciB5b3VyIHBhdGNoIQ0KPiANCj4gPiAtLS0gYS9hcmNo
+L2FybTY0L2Jvb3QvZHRzL3JlbmVzYXMvcjlhMDhnMDQ2bDQ4LXNtYXJjLmR0cw0KPiA+ICsrKyBi
+L2FyY2gvYXJtNjQvYm9vdC9kdHMvcmVuZXNhcy9yOWEwOGcwNDZsNDgtc21hcmMuZHRzDQo+IA0K
+PiA+ICsNCj4gPiArJmNhbl90cmFuc2NlaXZlciB7DQo+ID4gKyAgICAgICBzdGFuZGJ5LWdwaW9z
+ID0NCj4gPiArI2lmICghU1dfRFBJX0VOKSAmJiAoIVNXX1NEMl9FTikgJiYgKFNXX0dQSU84X0NB
+TjBfU1RCKQ0KPiANCj4gUGxlYXNlIHJldmVydCB0aGUgb3JkZXIgb2YgdGhlIFNXX0RQSV9FTiBh
+bmQgU1dfU0QyX0VOLCB0byBtYXRjaCB0aGUgc2lnbmFsIGZsb3cgb3JkZXIuDQoNCk9LLg0KDQo+
+IA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIDwmcGluY3RybCBSWkczTF9HUElPKEssIDAp
+IEdQSU9fQUNUSVZFX0hJR0g+LA0KPiA+ICsjZWxzZQ0KPiA+ICsgICAgICAgICAgICAgICAgICAg
+ICAgIDwwPiwNCj4gPiArI2VuZGlmDQo+ID4gKyNpZiAoIVNXX1NEMl9FTikgJiYgKFNXX0dQSU85
+X0NBTjFfU1RCKQ0KPiANCj4gTWlzc2luZyBjaGVjayBmb3IgIVNXX0RQSV9FTj8NCg0KQWdyZWVk
+LiBXaWxsIGZpeCB0aGlzIGluIG5leHQgdmVyc2lvbi4NCg0KQ2hlZXJzLA0KQmlqdQ0KDQo=
