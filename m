@@ -1,100 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2310042586E;
-	Wed, 23 Sep 2026 18:41:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AA1495504;
+	Wed, 23 Sep 2026 18:42:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188916; cv=none; b=S7Lad7C8Sa/+5BIfL0jG+Zx0GiBnw4semhQCC1RfRZTMxE/XedABb3hUFacogaJV+gyM8zMhoGjYYqx6FRn3NNuNMSfoPm8Zysjp8DkbdQsgtots/0py81wTTvU0b7e7kTwUy0I4QtzoMCzazMz/NbeUHZpTKfYJW24sOCTVXPw=
+	t=1790188926; cv=none; b=qNKtL7b3EGZqBjLTw8ld+UOuT898Wq7jmnFMLbbRjidIGj2E3cvviAUu7phIOr0HRBC4NeHw7iiLRYYUsuWt1Z1bXUbl6xnHWIpFbK5M8naqaBSbuIHVrH/J4/C90UKchcy5F7tzsPEuP2m1xgqhCvBxbaG2MpnCWkUCVW9VLB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188916; c=relaxed/simple;
-	bh=wH9fzjJjsVJJiazkPUrC9dGMua0cFBByR9nN52HAB/Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RkxShijjQxRy/4u0d8HqSaWwVVqbvn9CPomJNX906L8S3klwYOt7hA5SI4Yorbm4v6qPlYf3+MYhmCg5DDnny4aqKYiUU+3KnMYBh/oNoKu3LVF3wSoMk0cvKkhHFl8x999oZQYF1ewm1HejNFmEG3xa8psjblrFV09MnRlxk1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IIWKXPZf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790188926; c=relaxed/simple;
+	bh=oq9m92o6w9sZRBrmawFn+n0rCYT5VmXenCBOW43xTeU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GWYsHEoF86i/T9b9jY5cIycf9gR0BFu4rjSOCULnqWC7lEP1IKEZesWr7vc0oZIhITI/5p21SjNhOa+5ri8jl8Jab0vl+AnVAGYpQlU1fqBaPRIRJDNfRJVILrGYuVs8THbtEQFbPDk0+bunGXgCiO6RVfc2ezByQRaZflWuOPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mO+b/PQ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IIWKXPZf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83B251F000FF;
-	Wed, 23 Sep 2026 18:41:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mO+b/PQ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F1C1F000FF;
+	Wed, 23 Sep 2026 18:42:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790188914;
-	bh=nZDXKbITpkcrKWVXOtjBg8RScce4/HXC6iV6SD+Qpjo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IIWKXPZfrpQ/JNdqTX5pQJafUbZWRo1HUujmYERtrtWGbcwrgWdbuQODm8/kNzcpd
-	 aXUPINmFbvmEevIrKto6XLcE+9uKPn9HCFLAh4/D3VrmhQe01ptdkOPPBuYBn0rFu7
-	 Zkc8FTgqrT8xohyYcES+XvlV0FGYvMIqwpWqyb4sE6hheiYUo8Nu78TNnzqBdNKdjN
-	 Ek60ppSsKSmmVJxQMVtEdeWSiBRbRLFqp6HyslkWtuSrL7oj4tRI4WCJRwKjhlTk28
-	 qMMbjRiMlorL2liTIbnzg3K1ezL56YDeUfmlHczfIGrnVUnP+tjV+On0AgB1UzGtoq
-	 u/7cnt/iZGFSw==
-Date: Wed, 23 Sep 2026 13:41:52 -0500
-From: Rob Herring <robh@kernel.org>
-To: Eliav Farber <farbere@amazon.com>
-Cc: Rodolfo Giometti <giometti@enneenne.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 3/4] dt-bindings: pps: pps-gpio: document optional
- pinctrl states
-Message-ID: <20260923184152.GN27237-robh@kernel.org>
-References: <20260922103051.5257-1-farbere@amazon.com>
- <20260923182243.41060-1-farbere@amazon.com>
- <20260923182243.41060-4-farbere@amazon.com>
+	s=k20260515; t=1790188925;
+	bh=CLXnsVVcSPkhF7h8dHKlhuo4Ss7UfHsEXXx8kfXdW60=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mO+b/PQ9oPMQT4wsPcASUhT4kB8nXrtcIXzwH/3H44bGB8Zvo4xK4CeXV/TGM/lyO
+	 xhDxN7b1gJ6tcOtA6PqSIsVgPl32/o1sePi4ckUaFuIsR5Vtvs8qqS3jIHC3NVIqKx
+	 faw0ZkPZkmdQc+rQQim0p2K7WRVVH80jyv47gsPFgCXDKesDEgQJs89khUht2hdneN
+	 CSoEw5Kj4QPrwWgRgAjEH+h4RklNFvm6Wzx0DRkS4PmMtv1GuhQmNJd4/eD9AeoiHJ
+	 hamzIBscKJbnmPKJXC6gjAIZV3JQ7HSXAKUSYwDnL3aIuHCWJ3Lb7iXSCBXuUPcP4e
+	 onbgysd0Mcpfw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 07/12] clk: zte: Add zx PLL support infrastructure
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, lee@kernel.org, linux-clk@vger.kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org
+In-Reply-To: <20260923-zx29clk-v12-7-9c243796b6d2@gmail.com>
+References: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
+ <20260923-zx29clk-v12-7-9c243796b6d2@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 18:42:04 +0000
+Message-Id: <20260923184204.82F1C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923182243.41060-4-farbere@amazon.com>
 
-On Wed, Sep 23, 2026 at 06:22:42PM +0000, Eliav Farber wrote:
-> When the PPS input GPIO is routed through a pin controller, a board may
-> need to mux those pins to a different function while pps-gpio is not
-> driving PPS (for example after the driver is unbound or across a kexec).
-> 
-> Document the optional "default" and "inactive" pinctrl-names and show
-> both in the example. The "default" state selects the PPS/GPIO function
-> and is applied by the driver core before probe; the optional "inactive"
-> state, when present, describes the mux to restore when the driver is
-> unbound or the system is shut down. "default" is pinctrl-0, matching the
-> implicit ordering the pinctrl core already assigns it, and "inactive" is
-> pinctrl-1; the driver looks each state up by name.
-> 
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> Changes in v6:
-> - No change. Rob Herring confirmed the two-entry ["default", "inactive"]
->   items list is fine as-is; the "sleep" state discussed on the list is not
->   something this binding needs
-> 
-> Changes in v4:
-> - Rework per Rob Herring: do not express the ordering in prose; use an
->   ordered "items" list ("default" then "inactive") with minItems: 1,
->   since pinctrl-0 is already implicitly "default" and its position is
->   fixed. This also fixes the "['default', 'inactive'] is too long"
->   dt_binding_check error seen on v3. Reword the commit message accordingly
-> 
-> Changes in v3:
-> - Do not constrain pinctrl-names to a fixed ["default", "inactive"]
->   tuple. The driver looks the states up by name, so "inactive" may
->   appear in any position and other states may coexist; only require
->   (via "contains") that a "default" state exists, and reword the
->   description accordingly
-> 
-> Changes in v2:
-> - Rename the released state from "idle" to "inactive"
-> 
->  .../devicetree/bindings/pps/pps-gpio.yaml          | 14 +++++++++++++-
->  1 file changed, 13 insertions(+), 1 deletion(-)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] clk: zte: set_rate rejects valid rates due to strict VCO bounds =
+check
+--
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+commit 03d27f14b3d2dbba9c34e624628df45495020947
+Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
-In the future, don't thread new versions to old versions.
+clk: zte: Add zx PLL support infrastructure
+
+This patch adds code to decode and program PLL settings on ZTE's
+zx297520v3 SoC.
+
+> diff --git a/drivers/clk/zte/pll-zx.c b/drivers/clk/zte/pll-zx.c
+> index fc76c6524a163..d3687495d06ce 100644
+> --- a/drivers/clk/zte/pll-zx.c
+> +++ b/drivers/clk/zte/pll-zx.c
+[ ... ]
+> +static u32 zx29_pll_calc_values(const struct zx29_clk_pll *pll, unsigned=
+ long parent_rate,
+> +				unsigned long rate, unsigned long min_rate, unsigned long max_rate)
+> +{
+[ ... ]
+> +	for (j =3D 1; j <=3D postdiv2_max; j++) {
+> +		for (i =3D 1; i <=3D postdiv1_max; i++) {
+> +			u64 vco =3D (u64)rate * i * j;
+> +			unsigned long out;
+> +
+> +			if (vco > ZX29_PLL_VCO_MAX_FREQ || vco < ZX29_PLL_VCO_MIN_FREQ)
+> +				continue;
+
+[Severity: Medium]
+Will this strict bounds check reject valid rates during zx29_pll_set_rate()?
+
+If the requested target rate maps to a VCO frequency at the very bottom edg=
+e of
+the valid bounds (e.g. exactly 900 MHz), the rational approximation for the
+dividers could produce an actual VCO frequency just below 900 MHz.
+
+When zx29_pll_determine_rate() returns this slightly truncated output rate,=
+ it
+is then passed to zx29_pll_set_rate() which passes it back to this function.
+
+At that point, the recalculated VCO will fall slightly below
+ZX29_PLL_VCO_MIN_FREQ and be strictly rejected.
+
+[ ... ]
+> +static int zx29_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+> +			     unsigned long parent_rate)
+> +{
+> +	struct zx29_clk_pll *pll =3D to_zx29_clk_pll(hw);
+> +	u32 setting;
+> +
+> +	/*
+> +	 * TODO: Implement gradual PLL rate change. PLLs can be changed while t=
+hey are running and
+> +	 * downstream hardware is generally fine with that. The exception is DR=
+AM, which reads
+> +	 * incorrect values if changed too fast.
+> +	 *
+> +	 * Changing the mpll rate is potentially useful for over/underclocking.=
+ Gating mpll is
+> +	 * unrealistic because too many devices depend on it.
+> +	 */
+> +	setting =3D zx29_pll_calc_values(pll, parent_rate, rate, rate, rate);
+
+[Severity: Medium]
+Since zx29_pll_calc_values() can fail due to the strict VCO bounds check, d=
+oes
+this cause zx29_pll_set_rate() to unexpectedly return -EINVAL for a rate th=
+at
+was just validated by zx29_pll_determine_rate()?
+
+This breaks the Common Clock Framework (CCF) contract, which expects set_ra=
+te()
+to succeed when passed a rate validated by determine_rate(). Could this cau=
+se
+regressions through unexpected driver probe failures?
+
+> +	if (!setting)
+> +		return -EINVAL;
+> +
+> +	dev_dbg(pll->dev, "%s: Setting new configuration: 0x%08x\n", clk_hw_get=
+_name(hw), setting);
+> +
+> +	return regmap_update_bits(pll->map, pll->reg, 0x00ffffff, setting);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-zx29clk-v1=
+2-0-9c243796b6d2@gmail.com?part=3D7
