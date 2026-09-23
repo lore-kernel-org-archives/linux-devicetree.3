@@ -1,126 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC89423E9F;
-	Wed, 23 Sep 2026 18:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB04D5335AA
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 18:59:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790189973; cv=none; b=g6O+KhPO6XfcNSRjV9m7DlDn2Up69RtrDRecmwUvr9qUn0V/MI/cVjqc2SaU/1GgPb0MzGrnIpT0t/y1Q+5LJLiOqsC31sKLLXpsp4HIGN3Pa0MBOLj+6xiKqUSc/fSmTaPvtcn0K529npE6IXWCx1oX93xFjGhptSZ34VJ/l0Y=
+	t=1790189994; cv=none; b=FCmdKUWpDPEFBV/hFrbriq1+McuG80RADDIhIYFK4sr6aZ4bpSAv0+e9yEtzd8q6WceaqyvTP+m+kg6EbyV1mOH3nUSKonlGIo8VZQvv4as+StLvUeoxQpi+hSrq7m//lyszILfAf2Xq64xvaLaqdGkRZii8M3FRdIshaW3VeNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790189973; c=relaxed/simple;
-	bh=Hj/kSaEbmfqUMsoxcGhkmDa0Ct8OEDeD/sGHxQawzCc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EShw4Y3LqweifJgLu+aJQl5KOsiKe4iCemOGWuBkxUNcOsPAE/FjlYyWvS/EeyoGskJXbLAMLo39GCGc7BGwvF+3nwTwAEJfo10xg/SJL/41v4dUpxAFdwh5se3ZWYLGCAS+B2nsfri/kziaXSjqUBR7MThsXmXNNH0DnqssRus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCD0KAeU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790189994; c=relaxed/simple;
+	bh=xI96Dl/fhao6wWEyzLZsy9TSrK8H0E0M06bNe3IR5xw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UG3sZXDLdeBXvbOrUbQPs317OtKTMc1fb+n1bqg9QIdYUlsT+h231wj3EDIGi7q+MTTRPiliWSpHGiwBuXGAorb+xaQM00tfls5bcysO7yIn7rPzWHhIp9DyBmQWTQxBLqaq8YWCq+XBH4zYGkJoXFMnAX2rvbqx3YxQRhQzYBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=W2yGrN9v; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCD0KAeU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C52C01F000FF;
-	Wed, 23 Sep 2026 18:59:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790189972;
-	bh=7ltHVUkdMKBR02/Pe35j6GAQk1MTYNMANOs5s3Bxr4E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lCD0KAeUNuY6XF4lxqeH+UO1J19WfzAeNC4YX/qe0KLy0P+PHmtwyJQfCAdK41XFL
-	 MBkc9sAkUra50eutePfOwCb0PEkHGeaQbznlFAKl5wfILAGVlLghZrNCQCCMKZCxnH
-	 DusDlecqIzr1KyWFdiPPfq7L/ro7L6sbUQPPgU61ds5kjh0cfhvHvqmGOMRABbZMbU
-	 F0h+rpZgkFc9pWoft4cIWH/nqM/8NMaYw4qcOYVwOOWMCS+EtFuofa3Y3xRtUDUmtS
-	 9f/2B+KI0SFrplC7EVmz4MFKG/nm4RPA1OgfAzMj+ctfNiwOxoRV5Oi79DaCQtQIyO
-	 G3LLTTZp5j9mg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 3/5] rpmsg: core: match rpmsg device IDs by prefix
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shenwei Wang" <shenwei.wang@oss.nxp.com>
-Cc: imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260923184255.299034-4-shenwei.wang@oss.nxp.com>
-References: <20260923184255.299034-1-shenwei.wang@oss.nxp.com>
- <20260923184255.299034-4-shenwei.wang@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 18:59:31 +0000
-Message-Id: <20260923185931.C52C01F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="W2yGrN9v"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6e3so11755576d6.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:59:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790189992; x=1790794792; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1y+0wCr5i5MV3nD9ttzhvDEOrHuQJqJ4iBqK0B1ubkY=;
+        b=W2yGrN9v0WdJhn9Xrgi1vqJVcofTC8KakwZOY6LRG9Qs+2sRDfOO9pwCTpUM7+oE+l
+         xzs6k9jBB5XHbWig9stw8UifrLtcz1sHuDuH7wPE5OiQTSgNpHTklAt9RfcXhf1Q9dWF
+         mSUfktXeutfJ5feQNd6TlhYZveZ/zI0E5g5K9/gGvKerhmEXFAc7e9G8Omw947U/RWr9
+         EyObXCtKcQvFvS+MNgSTBjU9STFYh0c+hkxIofEUE4J1rivWDoTjxWv8s6bFb6dHGSI/
+         gVjicODBHR1B4EPaNUrBKK5dtJqOFM6rRkapI7jzqWwTOJjzk8VbdrskWrgwICs1LvIw
+         qutg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790189992; x=1790794792;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1y+0wCr5i5MV3nD9ttzhvDEOrHuQJqJ4iBqK0B1ubkY=;
+        b=tKKfHqxPneOxXkr6ezQUeqzJ4WWcfLC1FORWjmGB6hYKU8cRLPcG3sQSCHxRd1Czto
+         djk9iOTEGYDyH/8tjIPc7z/Om7C7WAQ/W38N8MDJCW5y5v3bwasgBLsN2HJnXq5dlUGp
+         WC9vpizuxwmD40is6i1CmQr1ZgvdEzdzCzP6aZiaTBwx5MnAdDblacETnqHR9d8jGQnx
+         6LtUIrUacxQqFcdyuneo2tOkHt6pfz+DIxl7qwlDzTQsY7pscxL9Gnsz3G3qpy1iDtK3
+         G5VSQe4yCqhIJXB7bHlo+p9XO3n8oZ3vpNhUJJp1YPts7YvH0lQ03nVmySc853qSlGNr
+         YMtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwCs8/P5E+/WD7wQlUUxi8zuYu8yYrtf2v5GYvW0cTCbtPq7c/Mtu/5xGFIAun37zfLg+msoBS5mGf3@vger.kernel.org
+X-Gm-Message-State: AFuF++meYD8D3uTTrOvNUqG04tTKUYbPuAU1TSEWwfrp2W10/FRxRLO2
+	Q8i0nufz8Ctf+zJg2PvL74eEfM6pq+cPc8oDi/KE6G11BR/L+fu79i0IVEP18TlR4Jk=
+X-Gm-Gg: AYBFou3xW/amyhXyXpK0Xse8Irj/bb/q2zBxfnOcGp5nCRBPxeNLGD9uUqCQEjIdBY1
+	ewt26u/HJDWmDoI1b4r15JxZZh3v2zcyI+2TYxRP4dum4eB+Hr4rpLJPmPA3DfQU4ZvWVVQ8jkF
+	WJVlIlo/qjiXIvQmu3UQ5+PmTrN9bCVx1DDSKs5PwnePSHaAheoVm4rfeSkLx8LdQNNSmQUXtUa
+	/XcphNGTmZnQSIyOWvaRL3+dlf04YY/+jB99o6Usk+i2TPl9M6fPzFMq1q6mvpeanMabxwMBxbK
+	qabY7v28J/GOvsYZi2Q9P5WLdB5INPXrCGJg5DKpmhMvwi4VjhP/f5T4ZWw4oLf2/yprF8AxpA/
+	qj4egKtDxaoc1RLWSaeZtmBNJOuLzOFZxx3ydD9HEfuQJ6q7cf1qOPYxdQ5bJZEvQACAHfJLFcU
+	VLFyIdkkulJooMqiuQRoWgGRv9hjNVM8FraZiBdkMCG1JHyomALxMJDGKCW+3KSmPPRi6xdMPJK
+	Mjv9LCXdg==
+X-Received: by 2002:a05:6214:4609:b0:910:3453:7d8f with SMTP id 6a1803df08f44-9141e8df748mr859276d6.36.1790189991722;
+        Wed, 23 Sep 2026 11:59:51 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9141e21995fsm1074486d6.10.2026.09.23.11.59.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 11:59:51 -0700 (PDT)
+Message-ID: <ea49aa8c-af1d-445d-b15b-25079cdcc72f@riscstar.com>
+Date: Wed, 23 Sep 2026 13:59:49 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/5] gpio: tc9563: Add support for the embedded GPIO
+ controller
+To: Bjorn Helgaas <helgaas@kernel.org>,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>,
+ Daniel Thompson <daniel@riscstar.com>,
+ Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>,
+ linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+References: <20260923185242.GA1909536@bhelgaas>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260923185242.GA1909536@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] rpmsg: core: global prefix matching causes driver binding collisio=
-ns
-- [High] rpmsg: core: broken module autoloading for dynamically suffixed de=
-vices
---
+On 9/23/26 1:52 PM, Bjorn Helgaas wrote:
+> Patch [1/5] and a comment below mention 37 GPIOs, this mentions 35.
+> Are they supposed to match?  Maybe 35 doesn't include the two reserved
+> ones?
 
-commit b3b593160f090b0f9bdaa3003ed014a224f40238
-Author: Shenwei Wang <shenwei.wang@nxp.com>
+They are numbered 0..36, and two of them (20 and 21) are reserved.
 
-rpmsg: core: match rpmsg device IDs by prefix
+Of those, 10 (numbers 0-6, 12, 35, and 36) exposed outside the
+TC9564 chip itself.
 
-The current rpmsg_id_match() implementation requires an exact string match
-between the driver id_table entry and the rpmsg device name. This commit
-updates the matching logic to compare only the length of the id->name strin=
-g,
-allowing id_table entries to act as prefixes for matching devices.
-
-> diff --git a/drivers/rpmsg/rpmsg_core.c b/drivers/rpmsg/rpmsg_core.c
-> index 04bfcc75f05b4..97a4db52b0401 100644
-> --- a/drivers/rpmsg/rpmsg_core.c
-> +++ b/drivers/rpmsg/rpmsg_core.c
-> @@ -386,7 +386,9 @@ ATTRIBUTE_GROUPS(rpmsg_dev);
->  static inline int rpmsg_id_match(const struct rpmsg_device *rpdev,
->  				  const struct rpmsg_device_id *id)
->  {
-> -	return strncmp(id->name, rpdev->id.name, RPMSG_NAME_SIZE) =3D=3D 0;
-> +	size_t len =3D strnlen(id->name, RPMSG_NAME_SIZE);
-> +
-> +	return strncmp(id->name, rpdev->id.name, len) =3D=3D 0;
->  }
-> =20
->  /* match rpmsg channel and rpmsg driver */
-
-[Severity: High]
-Since this unconditionally changes bus matching to prefix matching for all
-drivers, will this cause a regression for existing drivers that rely on
-exact match semantics?
-
-For example, if a driver like rpmsg_wwan_ctrl expects an exact match:
-
-drivers/net/wwan/rpmsg_wwan_ctrl.c:
-static const struct rpmsg_device_id rpmsg_wwan_ctrl_id_table[] =3D {
-    { .name =3D "DATA1", .driver_data =3D WWAN_PORT_AT },
-    ...
-};
-
-Could this now erroneously bind to overlapping device names like "DATA10",
-leading to unpredictable behavior? This breakage in exact match semantics
-does not appear to be addressed in subsequent patches in the series.
-
-[Severity: High]
-With driver matching now operating by prefix, does this introduce a
-regression for module autoloading with dynamically suffixed devices?
-
-When the device is discovered, rpmsg_uevent() emits the full device name:
-
-drivers/rpmsg/rpmsg_core.c:rpmsg_uevent() {
-    ...
-    return add_uevent_var(env, "MODALIAS=3D" RPMSG_DEVICE_MODALIAS_FMT,
-                          rpdev->id.name);
-}
-
-However, scripts/mod/file2alias.c:do_rpmsg_entry() does not append a
-wildcard when generating the alias:
-
-scripts/mod/file2alias.c:do_rpmsg_entry() {
-    ...
-    module_alias_printf(mod, false, RPMSG_DEVICE_MODALIAS_FMT, *name);
-}
-
-Because the exported module alias is strictly exact (e.g., alias
-rpmsg:rpmsg-io-), will udev fail to load the module for a device named
-"rpmsg-io-0" since the required wildcard '*' is missing? This omission
-doesn't seem to be fixed later in the patch series.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923184255.2990=
-34-1-shenwei.wang@oss.nxp.com?part=3D3
+					-Alex
