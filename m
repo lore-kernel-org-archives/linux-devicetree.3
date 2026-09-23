@@ -1,109 +1,112 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61E451FCD1
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AD53B42E7;
+	Wed, 23 Sep 2026 12:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790167259; cv=none; b=cNCHWyccXJ7QGNeq2htGHzdsKwHk5Du9GExjdlJiAmb0s1sHk5FxFqCCRdxUDQYfirYs0kVr05JToTuyhehN6y4wRdDSZ8o8Dif5oxm5juSCmlEtrqImzqasIdpDJXCuhR05gmESwQrXHYzUcO+BJYeTU0RwLi16vtwp3Bg/SRg=
+	t=1790167380; cv=none; b=nJ+cPUFUBYgAQeGKxrQeP6LW2mXJxre5Hzvf9Kclqa0LgV8bFvjQ1DwD7GjOayb+bzZ24dpljkQL4zZag1900v+SWlekXyJEOGUSKY5F6wYVsxyVKZX42K3y0wh1IJ4+83HwUmlvcaoj9XkCu0vgXaeTmS1DC47m1O3wzzMh00c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790167259; c=relaxed/simple;
-	bh=EfNXHDSpd8SaNyXGdUaOjzW2OpbKeUB9UNXfiskVQ6Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gHRu43yBzU2ZrSbr8+xrryHLt3xyamyazAFuAP1V9xMr0cvsQP9dQwtjC4Uc2avp7zXiKAZOlwEMnhfk3x28/A1sRkpRZr3qiSdgkJyK26AaAMtysZBpYuPH0Agx/5hUfdx13usjOeOcn1WhDSS16iJ/g/NZnv0BKH7jiqSkJUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97ea1a712deso306186241.3
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 05:40:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790167256; x=1790772056;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5hc1TTWP/ig0ekllF54ZiQ7BuKR9C4G2lvuDy9dKjh8=;
-        b=fjibe7UudO7sVElKL4KRvHTK4WQ1lZpjZ2lG76eJk9nfYxbHzQc9RDWhKfHHmDTOp3
-         2Bzq7keEO51PL0O1PhQspK+h5vk5MtioCgqWEgw5uSq7o05WihkLOhCTjz6bUIKoNPe/
-         xBSSbo+4z5WUYPyGMouKBomYgN8VzIwrm3g5GiyN6Z73w5AI7f9SQNjIry+WL14ZB7MW
-         DxhvwA5f9783lV2aheB6Uo14xIfvLHEX7vJ+/sWmWzGVJdgULVvESPhr+nrG+foOVHXd
-         7A/bUNTb4ftI6GLJOkkiSLtowwdQHlJm4h4s4yIg+4Q0dYC74uZ9qI6rpkJ7jDMBJ91O
-         q6qg==
-X-Forwarded-Encrypted: i=1; AKwUvBxuj5t1jiuwgrL0upFpaw66RP6DTt2j21DqpUi3WrheRP+AUM2g44wxsC5+nqsIBm1cAajfPseGdP8m@vger.kernel.org
-X-Gm-Message-State: AFuF++kktY6G5q0ixWayajiBv/M05Uax6cR8Dp3JjgBrVkHxR5rnv++9
-	oXp4FXKZe4Uz2pdNuYTmtx6h3BYj9qXIpwZzzkbSjmXtEcvvTU/G+sSS4as3Qx8imBc=
-X-Gm-Gg: AYBFou3lNQQz7dhBsFfbdouyYYPoTktwSUHwq1QZR2tPeDCNpU9WBbtEyBzEzPv+E5i
-	KXLFj4B3HTHCD5IFRB7MooaJEVuhFmooh1jBEWoh3nit+0az1TcQho0t20GIKxm5LPq3/cosivO
-	xgx8Lv8xqJk/fMixrJW4l1yIp37c4IO6B1ewKf+IOXabSjh/k5yu50zKO4ykvrnBLkyZeHK/Sqa
-	2AysJOaeGXcTB9aEWcpU8CWjHdjIyCCJzD16yG4Bq4K8VxLDpDIktobT43rWNazMgFyL84HrR06
-	MfytxfRUBo24WN51d0kTZMadioD4Ld4DIbseIlYpTKWSIRL9u5TiHik79Rl1MzINA4tvQlf/0Uq
-	yf6POmUKhD832voihiNCxcWFGJdySccVCouzJPsuS/HUWcNFPP/MscttmCLpjRd0hV9yHOROxJE
-	FKeEwQCeJneHiMHsBmdTZTg0hiDYAc6FgU+zR9bq4yt0Nm7iA6ok3IilRppieULDXR+JR8WghlY
-	TejkvA7r9nK/LHaNBwsE8oILUNVOZ/XB/SV8XXCHaCsF/I=
-X-Received: by 2002:a05:6102:370c:b0:7a3:833c:49a4 with SMTP id ada2fe7eead31-7ac1d4f01edmr2072624137.26.1790167256494;
-        Wed, 23 Sep 2026 05:40:56 -0700 (PDT)
-Received: from mail-vs2-f13.google.com (mail-vs2-f13.google.com. [74.125.227.13])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf566d033sm3291888137.5.2026.09.23.05.40.55
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 05:40:55 -0700 (PDT)
-Received: by mail-vs2-f13.google.com with SMTP id ada2fe7eead31-795a0ab5227so332783137.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 05:40:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBytsghcqmmUAjSvvarE+5SUqYWndSyMkzFK+rL+Bn68DuiLu4H3/V+Hbr5HGhe+4sqGhyORcMpKieKW@vger.kernel.org
-X-Received: by 2002:a05:6102:4b0a:b0:7a5:e455:1823 with SMTP id
- ada2fe7eead31-7ac1d4f39fdmr2199964137.27.1790167254685; Wed, 23 Sep 2026
- 05:40:54 -0700 (PDT)
+	s=arc-20240116; t=1790167380; c=relaxed/simple;
+	bh=q8Bk6TbrCKX2zBRVtSc69cfeVEpf25HM21zhm2za2QA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Wl+xduvIh7+oHUhKA5iNId0v8sVkU2G/9wUopVaMCtfgmzMdrROtkA+WZDO2+zGNRI00XM27A5OnYfVBeQP/y5CUWRrtR7+UhapX9BrtdgA2Hs+B1o+5Sqt5mCYlPweuwjdShuelwETAbgRJSP7ooYDvhst11fwYS4KGJDilc1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h70gejA/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h70gejA/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 628FF1F000FF;
+	Wed, 23 Sep 2026 12:42:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790167379;
+	bh=q8Bk6TbrCKX2zBRVtSc69cfeVEpf25HM21zhm2za2QA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=h70gejA/vGPxmBdrJENefkExCq5bNvy5XZ7uaRTPTsVilUajkrC8fsy9EWfc67Tw3
+	 nCR/OFfO/cozHoWmZjJMdE3zIxA/5R/xJ9g7UZ4pZJmTAYg18Db7UKahqpEEK8f2nz
+	 aa8wonwwjgLh7LrSGlPgS5vmVBmX7p3BeF2SIzpH+HnlujjMeA1xJ2uRd6ZWXYOylx
+	 KfELU3fO9ppH+LSzsp8yLwdyVYedEpMgx/yXGyaZD3HYB3BENv8Wh/HZv9Aule0UCk
+	 KdXfNzyGmWyYIYFKZvSMGj9xyy1qjQ76i/bAQnDti0KerajotjcY8nXea91wr9tpBH
+	 bxPAgu2Aphlcw==
+Message-ID: <4582a6a6-12d9-4ed3-963d-314a54ef9adc@kernel.org>
+Date: Wed, 23 Sep 2026 13:42:54 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com> <20260921134432.50338-10-ayman.chaudhry.kc@renesas.com>
-In-Reply-To: <20260921134432.50338-10-ayman.chaudhry.kc@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 14:40:43 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUkhnGxssjiV5+v9VizEMK6BEyYm9Eor2_b=H9VpPKLrw@mail.gmail.com>
-X-Gm-Features: AclHuK85Jpqk5GFMNdOgnv-jyW7mXfscimJBoxQw6oeOM-P6bOVrQRWi9Fs-eqY
-Message-ID: <CAMuHMdUkhnGxssjiV5+v9VizEMK6BEyYm9Eor2_b=H9VpPKLrw@mail.gmail.com>
-Subject: Re: [PATCH v2 9/9] arm64: dts: renesas: Add HiHope RZ/G2M v3.0 SoC
- sub board support
-To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 08/15] arm64: dts: qcom: hawi: Add CCI definitions for
+ Hawi
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com>
+ <sUHuCGYrY3xhg-24U-SheZeeAV9xPLgPEvLMnHk_f_uoiK6tOHAd2n4nznCZMtVm4YkyUHnqIEC41E48Z6Upxg==@protonmail.internalid>
+ <20260923-hawi-maili-camss-v1-8-cbbb42e534ef@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260923-hawi-maili-camss-v1-8-cbbb42e534ef@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 21 Sept 2026 at 15:45, Ayman Chaudhry
-<ayman.chaudhry.kc@renesas.com> wrote:
-> The HiHope RZ/G2M sub board sits below the HiHope RZ/G2M v3.0
-> (a.k.a. R8A774A3) SoC main board.
->
-> The RZ/G2M v3.0 SoC sub board is similar to the RZ/G2M v1.3 SoC sub
-> board, so there are already DTSI files available in the kernel. These
-> DTSI files will be included once additional support (e.g. CAN, PCIe
-> and ethernet) is added for the RZ/G2M v3.0 SoC.
->
-> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-> ---
-> v1->v2:
-> - Corrected indentation
-> - Updated licensing to "GPL-2.0-only OR BSD-2-Clause"
+On 23/09/2026 12:02, Nihal Kumar Gupta wrote:
+> Signed-off-by: Hangxiang Ma<hangxiang.ma@oss.qualcomm.com>
+> Signed-off-by: Nihal Kumar Gupta<nihal.gupta@oss.qualcomm.com>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+Fix your Co-Developed-by and Signed-off-by chain
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+---
+bod
