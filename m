@@ -1,82 +1,52 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8962341D63F
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 22:48:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDDD37F313;
+	Wed, 23 Sep 2026 22:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790203730; cv=none; b=XNKltQzFCsOyFapjwwUZQ8LRUxmDy8IE2EuZjKlsYKwpOT7MDwtQ/kFKbDy4S3lNv/jBqX/2dNCwHJBdb8HTWHQUJpSwpksgSQVpCvN0oILKhsXFthJToUyi3U5PXpfLVSvr1ro9XiTrdbKhQaOH4ppbh43pBlFAmZI1bM4SEvg=
+	t=1790203799; cv=none; b=SpxzNeH3QAH3W9m6Yj4QZ6VqyI029rZoCJP4hlWJ9KHshkcrsQCc+m/QZjkb0BCF1GfLEKj02fHpCKW5KlrgwxeU7mxyo4CK4+Z8KPlqS1QUhJsi3N+AO4UAcVwdC6isgF6iupC6mwaEgSRnP34ezbBHBC6luHQrdwreCs8JfNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790203730; c=relaxed/simple;
-	bh=6Nk6QdgYo95ZGM13mOWSLDDAGGI4lM1uB9pdRziF/P0=;
+	s=arc-20240116; t=1790203799; c=relaxed/simple;
+	bh=7N+PHYhwYb4DDxIKQU9bG1rsHVF5yIkzKWglWZwr0YE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H3+LdKppSm8sTqOemNLb9XBjrbAhXdNRoIa1WbthlH5KApbEi0zvGYq3JT+Ut5QnNei5tXOdvX//Z2pcUlR6vYLCdse2nXqeFul8c0R2wBa2j1IkvfE5RfNBziF1Nc7UxpozwaIpZgO9/vLsJAhKftpwNoT4Jc4v9bEwibnpAPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mWp+f43c; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=FWr2n/sYMMBmdxkuwdQcn+/GoCEUIr30rb+WBcfjVUC8V5ZqSAYVO0CZcnGYunn0IthqKj+httqNuHshtVC+v1dOeNROcRDvaO86t6fY4Epgvpmu9fan7i0luCVf6AStR1N/bhIPsOGQ5w1zFJmA7YkFgq/R+VkF7zGxjK7k+LQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=l8as964Z; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mWp+f43c"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so1175975f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 15:48:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790203727; x=1790808527; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:reply-to:message-id:subject:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0bBcYE+SQRKaZ3abUhRDaAJqY0dLEhd7Hp6zqwKtzbA=;
-        b=mWp+f43caqaOgJy3Me2J0R5EcGIgkYvvgdxqxJwqQgvEnPSsWuOVAfdZh7h/nFxWCY
-         yEOJagKxXKUAejeaebs48LLa68oxSQttr4TTbdpfiz6CM/wW7fcVZWTzK2SASHE6ZgsF
-         72UmOgwOUXKlaAvips1w8LHSxSfHrknpGZCT7oBsexbtjTegcyzc9EovYlSvDQB5JDLe
-         4w7k8DB1sBkl1vpJUBFO82hB01mx6GFRiM9HfvU4EqRQnLKhxGGTYoyU/sXPyzRNjyPP
-         3Igbr61kGGAPFun6Lq7g9v9K5GxVr3krukblaK/vIbK/HsW39KOOMNC+npWdYJlNCuYP
-         NMYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790203727; x=1790808527;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0bBcYE+SQRKaZ3abUhRDaAJqY0dLEhd7Hp6zqwKtzbA=;
-        b=05gOunQVcoaB/px24LklA43jfGX6mJCvX3fOG2OPKDM74N1C2wm7xVKwWnsXxI3fzh
-         Vv7TJxROZMZ8HEkZ9qrLuynImFnqNe39s+YD/Zl3kNha3JepLVt0TqLErmGp5NKpxRNy
-         pQxCoDOsTeRicXtdf+zBFKmIyhijrXYVkMbLjMyfzP91zop42oGwf0fwyo/+QgifKg6b
-         TXYDaUCbUA6ickpRNyAStDICFhtBmJ5rzrqVxW2d1M6dMnbZ5u6/se91b4Ssb8E1QWG0
-         YM0DxQtHW4X6UPZ8xyf9/jkzpBVIauBTTo9p9tv4V0wOUAroC4L+4JtIRtEeqrBRTPCS
-         VGWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzFcEcMAOysZUFOZ6+bJZXOMhy1n8UtHHZBp07f9Laz3scF/jUlPt9XhSTWDiIqhvQ+5VeRWnm3kMGX@vger.kernel.org
-X-Gm-Message-State: AFuF++lvG0FEW3hsTSu9sSDPrmO2UkMysgyweuvXSPGsldJV6R5aVi7E
-	gNM51TexhKMMrRwywrEyhYvSXQ+qqj5jDaAnuCU8e/kppJL8lGF8xJeY
-X-Gm-Gg: AYBFou2wNqNtgTQg3dagWbv233AEsHqSYFTRdB2fkiRJ9p1cD65nmkTDWWnmKQZ003h
-	INEJ+TrUtgISscKV/qDueUvkC7rcDjDu3vs9qMPYTXfvGbaIx/J+blw0bVL/cVmHw69XXyjkcIa
-	gxSoFwJq/J4fzBgyC7KCSrY736nfx9LCM4aZoLNpHzEHdFI0obJUj5/krI05ZAKxn2D3zQLRD9i
-	pGQVo66ltxLs7AnjVK542HFk1fUQcrJllsEuImvu/BL/oiwnXiZ+kLZK+fWh2SK4ink2LfIikLr
-	DP+slICwU0M+I3XLwQNHX0USeb9UmsKfxEkBWReyLrLiDpYCih7tPqwxhaD0DoB2wKweGnBjWbP
-	YsC5k8wqCGBTCdhwKLa0jNL6hRKqYtp+ly2RJ/uTWBLVYKvOj3g/D9pImPuBDpVSTxrax3mLUwX
-	dY3nixk1IwxKHToaZCvkJZd+zz/sBiCHF28Rjnml9pG9sfS7wDL4IkCRem3Nqc1mW3bWOywq8aX
-	7FUly0+/ACcd/IwnlWbBhGDyUlfJxE98qc=
-X-Received: by 2002:a5d:6f1c:0:b0:487:27f9:83b with SMTP id ffacd0b85a97d-48871718605mr854372f8f.48.1790203726768;
-        Wed, 23 Sep 2026 15:48:46 -0700 (PDT)
-Received: from pevik (gw1.ms-free.net. [185.243.124.10])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877a2a5sm10789083f8f.26.2026.09.23.15.48.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:48:46 -0700 (PDT)
-Date: Thu, 24 Sep 2026 00:48:43 +0200
-From: Petr Vorel <petr.vorel@gmail.com>
-To: devnull+david.ixit.cz@kernel.org
-Cc: abelvesa@kernel.org, airlied@gmail.com, andersson@kernel.org,
-	conor+dt@kernel.org, david@ixit.cz, devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, dsankouski@gmail.com,
-	jesszhan0024@gmail.com, konradybcio@kernel.org, krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	neil.armstrong@linaro.org, phone-devel@vger.kernel.org,
-	robh@kernel.org, simona@ffwll.ch, tzimmermann@suse.de
-Subject: Re: [PATCH 09/11] arm64: dts: qcom: sdm845-samsung-starqltechn:
- Update
-Message-ID: <20260923224843.GA185053@pevik>
-Reply-To: Petr Vorel <petr.vorel@gmail.com>
-References: <20260920-crosshatch-panel-v1-9-de6e9512da96@ixit.cz>
- <20260923222521.188197-1-petr.vorel@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="l8as964Z"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=+L5gxY5rh4nIH2Gf98GBghWlzuQmbFzFgvb3CQBZaFY=; b=l8as964ZT6nGCW65whU2xXAnqD
+	oXPLOPtXKMZ+QK8B4o9CEuIpg/98nkGFvLCUehUS/Q3lAiiqkdyH/5YT4kXNXnCzzkTXDMBYi6tPC
+	lf0qnh2TfnUFhU1CIfkHjVQ7CAkk9QVA0AhP9wrRQxqCRQC+Wm8IXjqBVk/uFH8ienYM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9VmY-006tGu-UH; Thu, 24 Sep 2026 00:49:42 +0200
+Date: Thu, 24 Sep 2026 00:49:42 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Liu Changjie <liucj1228@outlook.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Luo Jie <jie.luo@oss.qualcomm.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 0/2] net: phy: Add Maxio MAE0621A support
+Message-ID: <2ecfaee1-921b-4d2a-bac3-ce2467b24ea7@lunn.ch>
+References: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
+ <2635661d-4be2-4abf-84aa-c3024941f787@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,35 +55,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923222521.188197-1-petr.vorel@gmail.com>
+In-Reply-To: <2635661d-4be2-4abf-84aa-c3024941f787@arm.com>
 
-...
-> > +++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
-> > @@ -262,23 +262,23 @@ &mdss {
-> >  	status = "okay";
-> >  };
+> https://www.lcsc.com/datasheet/C49308069.pdf
 
-> >  &mdss_dsi0 {
-> >  	vdda-supply = <&vreg_l26a_1p2>;
-> >  	status = "okay";
+Cool, thanks for the link.
 
-> >  	panel@0 {
-> > -		compatible = "samsung,s6e3ha8";
-> > +		compatible = "samsung,s6e3ha8-amb577px01";
+24.13 1: A broadcast from MAC (A command with PHY address = 0) is
+valid. MDC/MDIO will respond to this command.
 
-> I guess that keeping the original "samsung,s6e3ha8" would cause that ABI break ABI, right?
+Please ensure this is disabled. Doing that now before anything is
+merged will make life easier in the future.
 
-> compatible = "samsung,s6e3ha8-amb577px01", "samsung,s6e3ha8";
+I don't see any way to control the RGMII delays, or know how it has
+been strapped. So this PHY is going to be a real problem. DT
+developers make a mess of RGMII delays even when the MAC and PHY do
+the right think.
 
-OK, I now see the deprecation in 4th patch.
+Unless a way is found to either control the delays, or at least know
+what it is doing, the only phydev->interface accepted should be
+PHY_INTERFACE_MODE_NA. This means 'don't touch'. We have to assume
+something else has correctly set the delays in a consistent way. That
+is likely to be strapping.
 
-{ .compatible = "samsung,s6e3ha8" }, /* deprecated */
-
-Kind regards,
-Petr
-
-> Anyway, LGTM.
-> Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
-
-> Kind regards,
-> Petr
+	  Andrew
