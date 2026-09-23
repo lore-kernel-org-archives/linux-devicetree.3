@@ -1,67 +1,84 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-26.ptr.blmpb.com (va-2-26.ptr.blmpb.com [209.127.231.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085542773D;
-	Wed, 23 Sep 2026 06:40:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF1F343889
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790145638; cv=none; b=OP/MTnNFbqwCHfQ0mxjPlfcVlEpmxNtATpBOv39TkAR/sACoRvVtAD5YDKsvPt4GyiRWm8wDF+i+0F8gcU6v5n6PKX6i6U+GszXHuOHT/IW+CvMFZktHnJZtOxqhYNlGiL3/E7d7GBcKmu58QxMhH7Hz2XN6Kcn9OOZ3x1Rnwpw=
+	t=1790145916; cv=none; b=nlNo/fhE53S1VvcpTWiCoYCbVIdVZrrkqftq3FghA1fxyQPE/DlqnDfAcfDJJommxuNFoVjdt7QwfrjKUmd3TiTgufMfJZSM1LRg25Dwl7AMjrNyvc0IBTQ11YG8EnhFM94LP2UjU4ldwZFHEBOCzTZSh4fJGf+h67hrkVQCGUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790145638; c=relaxed/simple;
-	bh=IkxXwRhPR1hKjCD1EX3tRkdvMw33DfJIfWTZfOVmEBg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VFzGIDv0EhO0LykVfz6T5/9pvObNJh+KXICMJqijrpXjC8jxR1I0y1CNiDpaZzMDB/nl1lw4/OQXLUBDrXwMIVfji4YD8iBhJNhTbINj/c1IudFCGuE11ro4by/002V9tPSBu9221HcaEPXqEBGaN3CNclX1oUdWnKo5s5UHsUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.. (unknown [14.220.232.127])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4ed5b22fd;
-	Wed, 23 Sep 2026 14:40:24 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: dlan@kernel.org
-Cc: alex@ghiti.fr,
-	amadeus@jmu.edu.cn,
-	aou@eecs.berkeley.edu,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	robh@kernel.org,
-	spacemit@lists.linux.dev
-Subject: Re: [PATCH 1/1] riscv: dts: spacemit: set ETH MAC from eeprom for OrangePi
-Date: Wed, 23 Sep 2026 14:40:20 +0800
-Message-Id: <20260923064020.210794-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260922072910-GKB353745@kernel.org>
-References: <20260922072910-GKB353745@kernel.org>
+	s=arc-20240116; t=1790145916; c=relaxed/simple;
+	bh=mfwKAVk2tgsaRf3EcqdDECyLiqTSD7GjUlH9PDB78fo=;
+	h=Subject:References:Content-Type:Date:To:Cc:In-Reply-To:Message-Id:
+	 From:Mime-Version; b=VpiRB7i50jxdSdHTN/95oruANQOJfYdrUuLRmnazz2DlQlfJXU4Mnn2afZCYPrpQkDA/knRtOEZhJBcywlwbnObWgplLe1Qk4oiNke/KcVXWEoOmMs1NGKWTMhX2hi2ypjp0rP9j7EeKgkdQMQhhYeS01rO1blu3wdUHL3/Y8b4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=GgujK1/I; arc=none smtp.client-ip=209.127.231.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="GgujK1/I"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1790145899;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=mfwKAVk2tgsaRf3EcqdDECyLiqTSD7GjUlH9PDB78fo=;
+ b=GgujK1/IVLZBna5OOZMywCOZSsTVGew5L3F0W0/VkM1dFlzQrUtvjeLJGjXOATZNyvkUif
+ eZD/qI9qvc4uAdAB85c1AtLWUFZEwdmdooxoY+8k3YcOcnQ27Zy5I+fcPS4gCJ8EHChJno
+ njC9rtkl3RE+RJFW4gzt4gky6AwFUkkqdKeUZgKg47N1hj+BRN0h1ualRvg/4gFu/UeR/r
+ rvJ2g97qU7tpe9Uk6KretbVvG3S4Jr+H0F2iADLEM4iXRm6x84h8pcIGY1pNnP3FJL7XPe
+ 2r7pEhu7PGKDvWb8LxOOf5+klOYf+rO3ZokDUqoNZXPmsNxnhZ2SZCgfAd4k7Q==
+Subject: Re: [PATCH 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller and USB phy support
+X-Lms-Return-Path: <lba+16ab37569+38461e+vger.kernel.org+sandie.cao@deepcomputing.io>
+References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io> <20260922110434.3426051-1-sandie.cao@deepcomputing.io> <DLMC322TOCGJ.2GTJG14AFBACW@linux.spacemit.com> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.b414918c.4333.4215.b208.49d99e9be044@feishu.cn>
+	<DLMHKHTDP2W9.3GX33KSJ2YIJM@linux.spacemit.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 14:44:56 +0800
+To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Yixun Lan" <dlan@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, 
+	"Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
+	<devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
+	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+In-Reply-To: <DLMHKHTDP2W9.3GX33KSJ2YIJM@linux.spacemit.com>
+Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.87aa009f.6c8d.46bc.aa71.f3065515c380@feishu.cn>
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0ccfe7abf03a2kunma5b305ac7f7e3
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSh0eVhlISk5MSEwZGUNMQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVQkJJTk
-	tVSktLVUpCS0JZBg++
+Mime-Version: 1.0
 
-Hi,
+Hi, Troy:
 
-> So checked the code, it's not a direct problem of /alias, but due to the
-> env variable provided to override the mac address, see
+> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
+> Date:=C2=A0 Wed, Sep 23, 2026, 14:36
+> On Wed, Sep 23, 2026 at 12:07:20PM +0800, Sandie Cao wrote:
+> > Please note: usb3d_u2phy also use CLK_APMU_USB2_BUS.
+>=C2=A0
+> Could you share which tree and commit this snippet comes from? I checked
+> k3.dtsi at the base-commit listed in your cover letter,
+> 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998 [1], and usb3d_u2phy has:
+>=C2=A0
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 clocks =3D <&syscon_apmu CLK_APMU_USB3_PORTD_=
+BUS>;
+>=C2=A0
+> Are we looking at different versions?
 
-> In this case, I don't think it's necessary to drop the ethernet alias,
-> I mean it's totally fine if there is uboot ethaddr env and it wins
+I'm sorry, I check the wrong version of v7.2.=C2=A0 I will correct it in ne=
+xt patch.
 
-Once U-Boot overwrites the MAC address in the DT, of_get_mac_address()
-will return 0, and of_get_mac_address_nvmem() will not be called.
-Then I think this patch is useless.
+Best regards
+Sandie
 
-Thanks,
-Chukun
+>=C2=A0
+> Link: https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux=
+-next/+/3f2425f5b5bbbdd991ca9cdfd5502e68d8895998/arch/riscv/boot/dts/spacem=
+it/k3.dtsi [1]
+>=C2=A0
+> --=C2=A0
+> Troy Mitchell
+>=C2=A0
