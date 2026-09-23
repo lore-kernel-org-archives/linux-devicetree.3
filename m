@@ -1,98 +1,471 @@
-Received: from spam01.horizon.auto (spam01.horizon.auto [42.62.85.75])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233A9369D75
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=42.62.85.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C634639023F
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143961; cv=none; b=kYs4ePRvmT4Uvv/Z4u0IQRC2nIrd3a08sIVYBpk2GExQFASQLjWXihRzn5CIHkb7XhAwHKZppDdmhhvJ7rjudK8fq+450PFCfM9AjY1x1/vsZ1LIaf0974wvNuP0wKI8TYTAQ8dbR8tEPWD9w86X/3pzzinh2maf+7UxRt8Yybg=
+	t=1790144222; cv=none; b=oCCHVNEFnJLNU0WkT/SMRCRx8sB+bvshI00PSQCRAEMtBUdipESY2vl+ByQH/rvEmrQqz3tOW8xv8Fph/lZS7Ar15hUOnI0YI7AP1EDfDjcx/SAniJWtDXQGyjjYHjOAeMdgYADP1oeH/ig2Mj2q+YKa1ZxeYJus0OWSN4iBvBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143961; c=relaxed/simple;
-	bh=bCUCYlEaXgZNmby4tA1+BtoGfMqjNJTX72dC0mvaqRg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WbvSgELU/xVj+yUdfSKKNt4w9ckR7nipqIXVpGULg6KttR2YUHIS+ri41OngmxT2MDbCccF1Hn1cltTbvxLlpYG8zMr7Mz8G7xeI/XOjYcuAD9pidp/WGTM+Ebalr2UxMQwVp6BU/x5wqLOF9jIbsDEuIzNGp6qMKV4bIIv9RtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=horizon.auto; spf=pass smtp.mailfrom=horizon.auto; dkim=pass (2048-bit key) header.d=horizon.auto header.i=@horizon.auto header.b=hKfO3SBG; arc=none smtp.client-ip=42.62.85.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=horizon.auto
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=horizon.auto
+	s=arc-20240116; t=1790144222; c=relaxed/simple;
+	bh=peXXU50xndQ4gAoFBh6lBioyyPiw7OjAKlIqeV7t6ic=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FyV8f5qzGzcf8fCPhFJ6BJpIy5jLbDbubl3E1m9kaQKD89cLVyRmYqGzbxcr3rl2wU3BlvyEbghj0L/TmDRH8BJxx9uJRJTAEkgYLEV2PbXZhhNxGNKNTtQb6zkUY0lOFMsgu6DNppNqUCcDHIXJd9GxVbM3raZ86so3snRP8yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LTGNdvh+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aBYvZmOX; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=horizon.auto header.i=@horizon.auto header.b="hKfO3SBG"
-Received: from spam01.horizon.auto (bogon [10.9.15.211] (may be forged))
-	by spam01.horizon.auto with ESMTPS id 68N6CHuS018985
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
-	Wed, 23 Sep 2026 14:12:17 +0800 (+08)
-	(envelope-from fei.xie@horizon.auto)
-Received: from server227.horizon.auto (10.9.0.252) by robotics002.hobot.cc
- (10.9.15.211) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.8; Wed, 23 Sep
- 2026 14:12:17 +0800
-From: Fei Xie <fei.xie@horizon.auto>
-To: Mark Brown <broonie@kernel.org>
-CC: Fei Xie <fei.xie@horizon.auto>, Miquel Raynal <miquel.raynal@bootlin.com>,
-        Richard Weinberger <richard@nod.at>,
-        Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Parshuram Thombare
-	<pthombar@cadence.com>,
-        <linux-spi@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH 2/4] spi: cadence-xspi: add ACMD support for SPI NAND
-Date: Wed, 23 Sep 2026 14:12:11 +0800
-Message-ID: <20260923061211.1608907-1-fei.xie@horizon.auto>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <arFEjzkHGMbecWWV@sirena.co.uk>
-References: <20260921093701.1341766-1-fei.xie@horizon.auto> <20260921093701.1341766-3-fei.xie@horizon.auto> <arFEjzkHGMbecWWV@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LTGNdvh+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aBYvZmOX"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3iRLJ2571440
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:16:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XAVSQafxI3Jl7WTU6fUPik0vtCcJL5EtlAGkPjfSPC8=; b=LTGNdvh+tK4uTGe3
+	dBVpvQxGhbf9BoBC++S/Kx47e6bhEBx6Y7GO3GBfExQ1IMaljtbScDjHP/Mb2kTD
+	TY87oyqfAjnTfbN6tZTLUkRJpOjxI+oZ9Drr+4NkWoTROCmNG5NwgfIZ2C8mFR40
+	6Y0NO4vS+0MU4e6DLHN/Zebg2d40KaUAJxdDKx9EmDOUCRvUnRuhBuUDcS34b0x3
+	DxLgfMixbbks82ORZavdA9VU/zx3l8ZpQgmM7JbbbZrVT/6SBO7Dthi3mTgv2qRW
+	NN0Hpq7Wwq+YevdOHzudqa0YK3IlHSb137KDPPgmthg17kyzEipCkx0cf+DQ8RBT
+	6/OamQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux862utc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:16:58 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30f1b904861so745127eec.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 23:16:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790144217; x=1790749017; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XAVSQafxI3Jl7WTU6fUPik0vtCcJL5EtlAGkPjfSPC8=;
+        b=aBYvZmOXP6lkAcU5i+XOYZTNZiIsxDQCygSG+CT/QwVN35BOdFpG6MI1L42ZrP09D3
+         gLTaJDz2VbIVLAwfCeOn0M8Ui8N1+InJSymZyKrkn7Vv9hMvrrEUSGmFI9gceke7w7Ry
+         CaDhOzHtRjlXusnIF2DMdn3l0rbYblYVkrn9TN+AgI22PDef8dkhKa0yrAt8777qnoQm
+         IRecteWp/Lul8fmP+oYY1JTI3yzm/UNEPmcGWoAAfE/QHrT3Sr3rWW+NZDrW5mZA7n/L
+         /iWrE/XpBTOQm27n8VF4HPuUGgEb7WpY3kTtbC6oaadngyS0kKh3XOYDZDqv1ttvPILg
+         lS6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790144217; x=1790749017;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XAVSQafxI3Jl7WTU6fUPik0vtCcJL5EtlAGkPjfSPC8=;
+        b=cRckhMzjHEa+vdgEENuO8CnwzUWxHiKd0eJ6TvWRg2/P0U64ldkMe1UIGgJAYNqRPQ
+         OURzN4wYVkX0faYYw3h8RIkewKiom72sG2khVeEWZXTOoBTXoc8FZuJDQnzbxmmNYsLk
+         okrBp9lIxB50MR7Ol46I6/B0OI9e53wD7hZrKsfOqfcbbUN61lNTRHlBHgqa8uTvjD5J
+         we2acjrWz+JcZSkAiMT+ivauBdhLCDyXpTI1uZx/44GTHiY+cfE2pV49wvVpB/Zjixnc
+         YJQiFJDBYsAy+zgjnUBbl4F2eXkE3YKli5qK1KE0mKeK/u2qeG6hLWCPu5936mWzlNnH
+         Vc6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzY2n5cCinEqo4RJnA87Lii94BK0BtSFU2o9OZYZUKYD2sdz1WgarUbJIcdokypnYrs+1kcl38MPBVg@vger.kernel.org
+X-Gm-Message-State: AFuF++nUb5ePbs/S3Qt9fOGKcgjQUX+9XDqH4j7d/3K+8lNXANAihZYg
+	SmKRdzzqx6Dzf5ep8AVoA9YZeP7NIRH2xVfO16wbwPV+0YE9WYfpOV2BAgyDnFbQdVIug7HR7Vr
+	ewuhPFeC84dpbottwOVMnk1TQ+y+TjR04Ayic3QJNK93HU6h1SNpSc5Re8xBEuMVB
+X-Gm-Gg: AYBFou0x41uuLw5uRLbmenMNlH993uDpM95q/UJqHx7jyNuOpZa+W/0Faj67yHLo7T3
+	0kOBlIYrJBB94yZI2EVjRO/hyZvhYDixttlK5InnfmzMM4iIZE9Bf+eba8zMAO6yXgcJduMIa9e
+	jqTk3vvWPK6NTnSQNRdP31WlKimDHOrOnwGdD2cld3pfJTOHRhaPaKI9RhlzmlDCj5sHw3EeQK/
+	dkKU29iyFz1gDPqvYFT1kWZ/X1oxcG+IapI7NEx8X36ykwhFEQwrXCifdEXcEdUWhgv/5OA4MmK
+	O63tr9O6YdpTyr9O3gRENouJbqeTmiwXtzFtRvXq3eVYRgX34J2Q2Gexzpp1HODt/+wU7lIE9zo
+	WRM+5WugodwIXazmD/d6GfPdsYQhMI50=
+X-Received: by 2002:a05:7022:208a:b0:137:f532:e360 with SMTP id a92af1059eb24-144f9086f02mr1827459c88.3.1790144217242;
+        Tue, 22 Sep 2026 23:16:57 -0700 (PDT)
+X-Received: by 2002:a05:7022:208a:b0:137:f532:e360 with SMTP id a92af1059eb24-144f9086f02mr1827431c88.3.1790144216582;
+        Tue, 22 Sep 2026 23:16:56 -0700 (PDT)
+Received: from [10.206.101.140] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96e498f0sm3375833eec.27.2026.09.22.23.16.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 23:16:56 -0700 (PDT)
+Message-ID: <023d4410-a730-a5e5-ea84-474e957d7a5b@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 11:46:49 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: exchange005.hobot.cc (10.9.15.212) To robotics002.hobot.cc
- (10.9.15.211)
-X-DKIM-Results: [10.9.15.211]; dkim=none;
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:spam01.horizon.auto 68N6CHuS018985
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=horizon.auto;
-	s=auto; t=1790143945;
-	bh=bCUCYlEaXgZNmby4tA1+BtoGfMqjNJTX72dC0mvaqRg=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References;
-	b=hKfO3SBG9GrxjrtfmIdjL5LUpvxoUXI5EsGIi8+DYl8pG6726oYNJM8/DGN4CS1kD
-	 d7qE7ybuzlPB7QLjwADTC1OtF4C6bBR8swpP2Bv7Ke8VZMd43sV4Kvhs1w8wi2ojoW
-	 ephl0kfugh3Tzye10h/1hTNFWMUpAiD5gXqEVAejLKP3lMYf2QCmi74MP+yHd4nfur
-	 n4jvfBI+tDDi06dkbZpfr3qEnjpWmp3haVmRkyhmdoeBdU9UWToDTfvJqgaMYWAzqH
-	 H54AfukLW11jDPBlb2egDfkI/eXVnFieXgjA1rEwQblOD+DZiTVCq7pxdiuQfPnIQv
-	 aLPOkLFD2EtOQ==
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v9 01/19] Revert "media: iris: Add Gen2 firmware
+ autodetect and fallback"
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+References: <20260731-iris-ar50lt-v9-0-d71a782001c0@oss.qualcomm.com>
+ <20260731-iris-ar50lt-v9-1-d71a782001c0@oss.qualcomm.com>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260731-iris-ar50lt-v9-1-d71a782001c0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Trm-SMnuZz_kSme5lx6YbSGOllvvpZZ1
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAyNCBTYWx0ZWRfX6nN37gtE8nvr
+ yYKCxZja8gkOSkW4ZIGyqXFSR5YEOKsUc6+OC8PHrWv9DtQVzZJG/9zojFEmuOj4VDVi5ji2e3d
+ jcnf3GgyhGCvaa0XG76pszAQpP/9h9M=
+X-Proofpoint-ORIG-GUID: Trm-SMnuZz_kSme5lx6YbSGOllvvpZZ1
+X-Authority-Analysis: v=2.4 cv=eIOGH3p1 c=1 sm=1 tr=0 ts=6ab36eda cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=fAD_4TVitci44sXei48A:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAyNCBTYWx0ZWRfXw+ZBjRkXKqNk
+ KTAAhLi+xvbTUx9VWYbk6RX10Q2yMwPvjcdJscy2Pc/Qss34WF/hIhJ49FKxPXDx2MgP0R6xWoO
+ 9msG3TkRNTHV2uofz3pEQXMQ/tD0IGqJvpAP9kRG1LoNx2vuf/LI78sSnPH1mj6ON8rPFcC/Hs3
+ rKEGLVXrZewWsy03PeGqub/rvGjvmo7vHptMmiHWu3vwCtQ7xffmlvE0BXnM7J5SopKGjU8N1Xl
+ PptQps9FDPlnPu4o8c0rt4pyMl3BTvDJ96CpuNASO+nGg1SL6ZLvK5Orp57i9CNkQ8jEVbR84QM
+ dKy4aSh1CFihO6cpD+uAjbfOH5bWc0Fo4P3rxJ42zZooPOuvxcuWiFSeBytA44/gCo2RCUo9Vrq
+ SVAWRuvMfr0MNYm/PRwRlOJ5MBRaVVncBzcNPqKtp20HHtG7nA0jFLlgnP+ohyj/3dqGmZdMqZ9
+ 4U1kN9t8xq1zFH6Gpkw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ phishscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230024
 
-Hi Mark,
 
-Thanks for the review.
+On 7/31/2026 5:18 AM, Dmitry Baryshkov wrote:
+> The commit 412a2e5955e0 ("media: iris: Add Gen2 firmware autodetect and
+> fallback") added support for detecting the firmware HFI interface based
+> on the firmware contents, but it has issues with the MDT split files and
+> with synchronisation / locking. Revert the commit, it will be replaced
+> by the better version.
+>
+> Fixes: 412a2e5955e0 ("media: iris: Add Gen2 firmware autodetect and fallback")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_firmware.c   | 119 +++------------------
+>  .../platform/qcom/iris/iris_platform_common.h      |   6 +-
+>  .../media/platform/qcom/iris/iris_platform_vpu2.c  |  11 +-
+>  .../media/platform/qcom/iris/iris_platform_vpu3x.c |  10 +-
+>  drivers/media/platform/qcom/iris/iris_probe.c      |   4 +
+>  drivers/media/platform/qcom/iris/iris_vidc.c       |   3 -
+>  6 files changed, 33 insertions(+), 120 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+> index 965384fdd339..1a476146d758 100644
+> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+> @@ -16,109 +16,20 @@
+>  
+>  #define MAX_FIRMWARE_NAME_SIZE	128
+>  
+> -/* Detect Gen2 firmware by scanning the blob for:
+> - *   QC_IMAGE_VERSION_STRING=<version>
+> - * and then checking:
+> - *   - version starts with "vfw", OR
+> - *   - version matches "video-firmware.N.M" with N >= 2
+> - */
+> -
+> -static bool iris_detect_gen2_from_fwdata(const u8 *data, size_t size)
+> -{
+> -	static const char *marker = "QC_IMAGE_VERSION_STRING=";
+> -	const size_t mlen = strlen(marker);
+> -	static const char *vfw = "vfw";
+> -	const size_t vfwlen = strlen(vfw);
+> -	static const char *vf = "video-firmware.";
+> -	const size_t vflen = strlen(vf);
+> -
+> -	for (size_t i = 0; i + mlen < size; i++) {
+> -		const char *found;
+> -
+> -		if (memcmp(data + i, marker, mlen))
+> -			continue;
+> -
+> -		found = data + i + mlen;
+> -		size -= i + mlen;
+> -
+> -		/* vfw => Gen2 */
+> -		if (size > vfwlen && !memcmp(found, vfw, vfwlen))
+> -			return true;
+> -
+> -		if (size < vflen ||
+> -		    memcmp(found, vf, vflen))
+> -			return false;
+> -
+> -		found += vflen;
+> -		size -= vflen;
+> -
+> -		/*
+> -		 * video-firmware.1.x is Gen1.
+> -		 * video-firmware.2.x and video-firmware.10.x are Gen2.
+> -		 */
+> -		return size >= 2 &&
+> -			(*found >= '2' || (*found == '1' && found[1] != '.'));
+> -	}
+> -
+> -	return false;
+> -}
+> -
+> -static const struct firmware *iris_detect_firmware(struct iris_core *core,
+> -						   const char **fw_name)
+> -{
+> -	const struct firmware *firmware;
+> -	bool has_both_gens;
+> -	int ret;
+> -
+> -	*fw_name = NULL;
+> -	if (core->iris_platform_data->firmware_desc_gen2)
+> -		core->iris_firmware_desc = core->iris_platform_data->firmware_desc_gen2;
+> -	else if (core->iris_platform_data->firmware_desc_gen1)
+> -		core->iris_firmware_desc = core->iris_platform_data->firmware_desc_gen1;
+> -	else
+> -		return ERR_PTR(-EINVAL);
+> -
+> -	has_both_gens = core->iris_platform_data->firmware_desc_gen2 &&
+> -		core->iris_platform_data->firmware_desc_gen1;
+> -
+> -	ret = of_property_read_string_index(dev_of_node(core->dev), "firmware-name", 0, fw_name);
+> -	if (ret) {
+> -		*fw_name = core->iris_firmware_desc->fwname;
+> -		ret = request_firmware(&firmware, *fw_name, core->dev);
+> -		if (ret && has_both_gens) {
+> -			core->iris_firmware_desc = core->iris_platform_data->firmware_desc_gen1;
+> -			*fw_name = core->iris_firmware_desc->fwname;
+> -			ret = request_firmware(&firmware, *fw_name, core->dev);
+> -		}
+> -
+> -		return ret ? ERR_PTR(ret) : firmware;
+> -	}
+> -
+> -	ret = request_firmware(&firmware, *fw_name, core->dev);
+> -	if (ret)
+> -		return ERR_PTR(ret);
+> -
+> -	if (has_both_gens &&
+> -	    !iris_detect_gen2_from_fwdata((const u8 *)firmware->data, firmware->size)) {
+> -		dev_info(core->dev, "Gen1 FW detected in %s\n", *fw_name);
+> -		core->iris_firmware_desc = core->iris_platform_data->firmware_desc_gen1;
+> -	}
+> -
+> -	return firmware;
+> -}
+> -
+> -static int iris_load_fw_to_memory(struct iris_core *core)
+> +static int iris_load_fw_to_memory(struct iris_core *core, const char *fw_name)
+>  {
+>  	const struct firmware *firmware = NULL;
+>  	struct device *dev = core->dev;
+>  	struct resource res;
+>  	phys_addr_t mem_phys;
+> -	const char *fw_name;
+>  	size_t res_size;
+>  	ssize_t fw_size;
+>  	void *mem_virt;
+>  	int ret;
+>  
+> +	if (strlen(fw_name) >= MAX_FIRMWARE_NAME_SIZE - 4)
+> +		return -EINVAL;
+> +
+>  	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
+>  	if (ret)
+>  		return ret;
+> @@ -126,11 +37,9 @@ static int iris_load_fw_to_memory(struct iris_core *core)
+>  	mem_phys = res.start;
+>  	res_size = resource_size(&res);
+>  
+> -	firmware = iris_detect_firmware(core, &fw_name);
+> -	if (IS_ERR(firmware))
+> -		return PTR_ERR(firmware);
+> -
+> -	core->iris_firmware_data = core->iris_firmware_desc->firmware_data;
+> +	ret = request_firmware(&firmware, fw_name, dev);
+> +	if (ret)
+> +		return ret;
+>  
+>  	fw_size = qcom_mdt_get_size(firmware);
+>  	if (fw_size < 0 || res_size < (size_t)fw_size) {
+> @@ -157,12 +66,18 @@ static int iris_load_fw_to_memory(struct iris_core *core)
+>  int iris_fw_load(struct iris_core *core)
+>  {
+>  	const struct tz_cp_config *cp_config;
+> +	const char *fwpath = NULL;
+>  	int i, ret;
+>  
+> -	ret = iris_load_fw_to_memory(core);
+> +	ret = of_property_read_string_index(core->dev->of_node, "firmware-name", 0,
+> +					    &fwpath);
+> +	if (ret)
+> +		fwpath = core->iris_firmware_desc->fwname;
+> +
+> +	ret = iris_load_fw_to_memory(core, fwpath);
+>  	if (ret) {
+> -		dev_err(core->dev, "firmware download failed %d\n", ret);
+> -		return ret;
+> +		dev_err(core->dev, "firmware download failed\n");
+> +		return -ENOMEM;
+>  	}
+>  
+>  	ret = qcom_scm_pas_auth_and_reset(IRIS_PAS_ID);
+> @@ -184,7 +99,7 @@ int iris_fw_load(struct iris_core *core)
+>  		}
+>  	}
+>  
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  int iris_fw_unload(struct iris_core *core)
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> index 974809509146..a9453d539fc2 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
+> @@ -292,7 +292,11 @@ struct iris_firmware_desc {
+>  };
+>  
+>  struct iris_platform_data {
+> -	const struct iris_firmware_desc *firmware_desc_gen1, *firmware_desc_gen2;
+> +	/*
+> +	 * XXX: replace with gen1 / gen2 pointers once we have platforms
+> +	 * supporting both firmware kinds.
+> +	 */
+> +	const struct iris_firmware_desc *firmware_desc;
+>  
+>  	const struct vpu_ops *vpu_ops;
+>  	const struct icc_info *icc_tbl;
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+> index bbdbf21961d7..fa5bb143158d 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
+> @@ -29,12 +29,6 @@ static const struct iris_firmware_desc iris_vpu20_p1_gen1_desc = {
+>  	.fwname = "qcom/vpu/vpu20_p1.mbn",
+>  };
+>  
+> -static const struct iris_firmware_desc iris_vpu20_p1_gen2_s6_desc = {
+> -	.firmware_data = &iris_hfi_gen2_data,
+> -	.get_vpu_buffer_size = iris_vpu33_buf_size,
+> -	.fwname = "qcom/vpu/vpu20_p1_gen2_s6.mbn",
+> -};
+> -
+>  static const struct iris_firmware_desc iris_vpu20_p4_gen1_desc = {
+>  	.firmware_data = &iris_hfi_gen1_data,
+>  	.get_vpu_buffer_size = iris_vpu_buf_size,
+> @@ -106,8 +100,7 @@ const struct iris_platform_data milos_data = {
+>  };
+>  
+>  const struct iris_platform_data sc7280_data = {
+> -	.firmware_desc_gen1 = &iris_vpu20_p1_gen1_desc,
+> -	.firmware_desc_gen2 = &iris_vpu20_p1_gen2_s6_desc,
+> +	.firmware_desc = &iris_vpu20_p1_gen1_desc,
+>  	.vpu_ops = &iris_vpu2_ops,
+>  	.icc_tbl = iris_icc_info_vpu2,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
+> @@ -136,7 +129,7 @@ const struct iris_platform_data sc7280_data = {
+>  };
+>  
+>  const struct iris_platform_data sm8250_data = {
+> -	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
+> +	.firmware_desc = &iris_vpu20_p4_gen1_desc,
+>  	.vpu_ops = &iris_vpu2_ops,
+>  	.icc_tbl = iris_icc_info_vpu2,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
+> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> index 74626b35d9cb..2c63adbc5579 100644
+> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu3x.c
+> @@ -90,7 +90,7 @@ static const struct tz_cp_config tz_cp_config_vpu3[] = {
+>   * - inst_caps to platform_inst_cap_qcs8300
+>   */
+>  const struct iris_platform_data qcs8300_data = {
+> -	.firmware_desc_gen2 = &iris_vpu30_p4_s6_gen2_desc,
+> +	.firmware_desc = &iris_vpu30_p4_s6_gen2_desc,
+>  	.vpu_ops = &iris_vpu3_ops,
+>  	.icc_tbl = iris_icc_info_vpu3x,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -119,7 +119,7 @@ const struct iris_platform_data qcs8300_data = {
+>  };
+>  
+>  const struct iris_platform_data sm8550_data = {
+> -	.firmware_desc_gen2 = &iris_vpu30_p4_gen2_desc,
+> +	.firmware_desc = &iris_vpu30_p4_gen2_desc,
+>  	.vpu_ops = &iris_vpu3_ops,
+>  	.icc_tbl = iris_icc_info_vpu3x,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -154,7 +154,7 @@ const struct iris_platform_data sm8550_data = {
+>   * - controller_rst_tbl to sm8650_controller_reset_table
+>   */
+>  const struct iris_platform_data sm8650_data = {
+> -	.firmware_desc_gen2 = &iris_vpu33_p4_gen2_desc,
+> +	.firmware_desc = &iris_vpu33_p4_gen2_desc,
+>  	.vpu_ops = &iris_vpu33_ops,
+>  	.icc_tbl = iris_icc_info_vpu3x,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -185,7 +185,7 @@ const struct iris_platform_data sm8650_data = {
+>  };
+>  
+>  const struct iris_platform_data sm8750_data = {
+> -	.firmware_desc_gen2 = &iris_vpu35_p4_gen2_desc,
+> +	.firmware_desc = &iris_vpu35_p4_gen2_desc,
+>  	.vpu_ops = &iris_vpu35_ops,
+>  	.icc_tbl = iris_icc_info_vpu3x,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> @@ -220,7 +220,7 @@ const struct iris_platform_data sm8750_data = {
+>   * - different num_vpp_pipe
+>   */
+>  const struct iris_platform_data x1p42100_data = {
+> -	.firmware_desc_gen2 = &iris_vpu30_p1_gen2_desc,
+> +	.firmware_desc = &iris_vpu30_p1_gen2_desc,
+>  	.vpu_ops = &iris_vpu3_ops,
+>  	.icc_tbl = iris_icc_info_vpu3x,
+>  	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu3x),
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+> index 5db6398433a4..81cccb756b94 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -253,6 +253,8 @@ static int iris_probe(struct platform_device *pdev)
+>  		return core->irq;
+>  
+>  	core->iris_platform_data = of_device_get_match_data(core->dev);
+> +	core->iris_firmware_desc = core->iris_platform_data->firmware_desc;
+> +	core->iris_firmware_data = core->iris_firmware_desc->firmware_data;
+>  
+>  	core->ubwc_cfg = qcom_ubwc_config_get_data();
+>  	if (IS_ERR(core->ubwc_cfg))
+> @@ -271,6 +273,8 @@ static int iris_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return ret;
+>  
+> +	iris_session_init_caps(core);
+> +
+>  	ret = v4l2_device_register(dev, &core->v4l2_dev);
+>  	if (ret)
+>  		return ret;
+> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
+> index fcbc60016bee..1c052ca235be 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+> @@ -9,7 +9,6 @@
+>  #include <media/v4l2-mem2mem.h>
+>  #include <media/videobuf2-dma-contig.h>
+>  
+> -#include "iris_ctrls.h"
+>  #include "iris_vidc.h"
+>  #include "iris_instance.h"
+>  #include "iris_vdec.h"
+> @@ -197,8 +196,6 @@ int iris_open(struct file *filp)
+>  		goto fail_m2m_release;
+>  	}
+>  
+> -	iris_session_init_caps(core);
+> -
+>  	if (inst->domain == DECODER)
+>  		ret = iris_vdec_inst_init(inst);
+>  	else if (inst->domain == ENCODER)
 
-I agree that the controller should not interpret the child driver's
-private data and that this dependency should be removed.
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
-The difficulty is that the hardware ACMD sequencer needs the complete
-multi-operation sequence to be described before it is started. For
-example, the SPI NAND core currently submits PAGE READ, status polling
-and READ CACHE as separate spi_mem_exec_op() calls. The STIG path can
-execute those operations individually, while the ACMD hardware combines
-them into one programmed sequence.
-
-Would an SPI-mem operation-sequence interface be a reasonable direction
-to explore? The NAND core could describe the ordered operations and
-polling condition, and the controller could either execute the sequence
-in hardware or fall back to the existing individual operations. This
-would keep NAND-specific knowledge out of the controller driver.
-
-I would appreciate your guidance on the interface direction before
-reworking the implementation for v2.
-
-The implementation issues you identified, including use of the interrupt
-callback, timeout cleanup, DMA handling and short transfers, will also be
-addressed in the next revision.
-
-Thanks,
-Fei
