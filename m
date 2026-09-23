@@ -1,66 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64674EB85E;
-	Wed, 23 Sep 2026 15:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368C0311C1B
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790179042; cv=none; b=qchiLEyQtIeBGldAMpZbx8FITzByBS/rA//0h7CRkaYobfbjNnyz5Bl+a5ZtKU7gJpl5/kinvCJ2V4cfZLn9bFz9s0WaNiiDY/wFfGB9MPkQ05ImP+GwYS+tho3/ale9EVbFGo82ylEpLEvnSifNmlU6iBCiFkj/fupkvgNLM4w=
+	t=1790179235; cv=none; b=RZqBh7h516L12ZCWgPv6NkFtDDGrtqUKoAJxEovmhVnQHXnDtv2KStpxTEzXmzutJ9fFsKO0hueWKihYG3GERe3ngaLvIGJYr8A+0+GQL/uZnyl8MvnNofonLKbnaUWUFdn4/5HlwM3CLz3bxbrYCX9cBltFsw3qmUtgHe+1FFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790179042; c=relaxed/simple;
-	bh=dH1zh7QkL5jIxgg6r/MNhC42g1LfEW7PADxJ/Jd2GVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ov1XVBL9MJ2Oe/bmPBijGWxZdIMyuNfurkbGEIE8kcbd0sAO8uk2py5Rznb2zvI8XpKXHmWdpfB96QpdrlRADxOsDlZnF8rB9ENiCrUWClWzVwumwdnR3GNeb30AdJz4H7hbR3T0togm8lbg9k1X9RxAtw6SNeAyKadl17nm5m4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=El4Zf1lk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790179235; c=relaxed/simple;
+	bh=t9VRl1nMX4c51HXGRlVcUrJ2vYPgoDYjYMTLiyXwefU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=L+Btj6wJlogC5ty3e/MDcp/+JpR9M2VkOX/mIxJMtyzae9FxaiIhbFiKlY54R9oQMU+aKwPCuh6MdLAolU3sLvwjFd/FvoGOvjjZUMU4XnZnF9Swn25ogg6SkF2JmXuUvAZ9sv1L4+zYlfzJYzomnfmedNDhFQailpNZsa3TxP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F16QVdTc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=O/hhmSGU; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="El4Zf1lk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D101F000FF;
-	Wed, 23 Sep 2026 15:57:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790179039;
-	bh=4P0k3hiKGkpk1Fi1QdfvymEGAMVjJIDevylceiC3XnI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=El4Zf1lkzCwXQ1+o2MLB2VmC3YE1om69fiHU41tHfctUSij3bfIWxCcUcd2fwlH7+
-	 eJUymQ0VGc/4/3ZpNgw+flxz/v6SoBqs/mDE0qGc2jES7+RKw8PJ1ll2hInOUJ+FRV
-	 2WfyL4bRk1oj5Kyo0FXCGw/bYmfOgn9R4ogfk2j80bFZ2RSJxEOj86q3Y2m57dgk+T
-	 F8BJB8svO+7DvEdUXYshAcbg6NvFNr3VOhUxMN2QJWRMEZbZVtU+nkvAnmZZbQgXL1
-	 ZKjezw1N5ZwVOTWUS2IMkZSOT8FCuclWXdcimT+F9lrH2x8mZagysE5MKfxpCBLHHN
-	 qzIFw5ZLkYNJw==
-Date: Wed, 23 Sep 2026 10:57:18 -0500
-From: Rob Herring <robh@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Yong Wu <yong.wu@mediatek.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, iommu@lists.linux.dev,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: iommu: Describe MT8195 infra IRQs
-Message-ID: <20260923155718.GG27237-robh@kernel.org>
-References: <20260921232716.3134140-1-robh@kernel.org>
- <bef176a0-7b13-4753-9d9c-494a0bf04cea@collabora.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F16QVdTc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O/hhmSGU"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBbRRu3295400
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:00:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	owC/0Uitd+RPnqSaxCQ8n2UoAK7Gqnd+PP1VG0zdCcc=; b=F16QVdTcNUJRuMuA
+	XKkjm6q6esG4MrS3GldZDLLE02D3Wsc72I0C3CCsVyacT4az5+qXv6n99JWBRqLG
+	8iAWAMxVgagy/gxaiv2KRcJTgHTLqTvDVbubrz570ocyZfyKkx8GdkYGeVP1klhn
+	KLzSpNbNQ7O1CCiubaHHst2aNCBhFF15BQGtut3DzeazyBWPeptpz7CqfsfEdFUG
+	G13US7jFtZX+2if36w0rQcMtq6qTkxjgArcRHjrDxc4S36kxrUVJLBStkD4ONYs6
+	dEPdjbpXrpI5AcJgJLjAmrL0AbL/mhDhIRa+nZtqVOGL/gWyf5EPtjMfm44sWpks
+	G82dlA==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvbwm9qaw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 16:00:33 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-78fb9f59781so1052899137.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:00:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790179232; x=1790784032; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=owC/0Uitd+RPnqSaxCQ8n2UoAK7Gqnd+PP1VG0zdCcc=;
+        b=O/hhmSGUhIODLiMG1nJ8jsJPLar6kCFi9302La+bHzDGf2MpPqg3SAEZugAZawJ1Ae
+         wI3uF3RMMdRdFXFBfi7AqkijLy2zqNiEHL5EFxlYA1zh8/6qaJ0iEfkkeLXE0/qnJshy
+         RRGSTi2LxPc+EZLWS4Ttls/rZrsIdgxzUWIMHKeUnpV1INmmcgRenPnFg+wQSww9RcfG
+         eXzJexspzcRl/oHHpAdOHb9OGph8AVuCyBSLJ4zq2/6fDw0Fp0ETGpDhJYDdSov5itGn
+         k7+GVr1AiWB0mm5wxIZelIsRWSDP1BuLuhm7bslFEyu8tsEnaplt16jPSu2g1NZMraIc
+         PYSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790179232; x=1790784032;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=owC/0Uitd+RPnqSaxCQ8n2UoAK7Gqnd+PP1VG0zdCcc=;
+        b=Zq8/+IxEdXr2EGrsZwBCtXOFs02x5c8oeIuziM5qs3LGlmhTfFyAmW2ytcsJ3N9Ejw
+         n++m3PAc2HCM3/aWJWymjqd5NuClD5wrfCUf1nRiF3Y82hVAi0C+d85FNdUu3plQIvi+
+         /Q26cBSqL4Dwqgh2HXy9rzAOjXWGWgQgehj81Z7XpeYBn5NWbInNPSm4uXYPk9MFboEk
+         UIm0ojioQ8JRFQrCS5BmDTAv6aqme+UswgoVDEBwqQ79iLRq1r+C3o1styqIR6zy+e+4
+         OUQnS0tRqlxFZG6/QN0eDFwHN7+c79mrDPBY7Y1Kyqi+ElG1PhvIFhFtz0/QSjwFBVf1
+         Kktg==
+X-Forwarded-Encrypted: i=1; AKwUvBwQtJxVpLq9TO6b9ZuM7Wd/kXIeFtYNdtcwS3QfIurO1JBiu+EVxnpBObj8tUzOEkrRPlO3AH/B4RkG@vger.kernel.org
+X-Gm-Message-State: AFuF++k7x1yWbwjDe6q+7hQIau5Z7XoH1XmyT+tY7LEDn5xByiPWU2Y3
+	pTcCYOElSNKUc7QnILq/GU1e+O0ped2R0x/KnlaVbXhQ6Wq/VbQ+eYQCInHgFu8mPibujYaFOnG
+	ves6SGiw5bm8DFB1xMalo7L0r8ZpbnjnpE22By+tObOQJmif3EfPOK29T6+dBThlv
+X-Gm-Gg: AYBFou01IKdEh9HqeiTqL8XVRxgVOakzVfj0SXufbGvDUqQ2CsOwxTFNqhwFkeSv7ax
+	m8L8E4xzGMm3ffD17s7O+T8vtu1l8LzxGZAVuoAA0sS2SNBcpG05lpm8J2imkG95iBp9P5m7PN3
+	7fd44m9dkghci5DuNF6AC69LG3kuykcai63gWsNxUVhE2Bm4E6XKFZDUXCA+jI4Ws9rzSabUgnO
+	K14TACpyy9ItdMf8k1HtU4KfUMKLR/pANfNqAOSHrw0UIjUxIn5qnmpAtChA+Z8GunK9qHdnsEj
+	Cr6GyBYVRbQPJulQjyzHoGN/1P4rIva7cFMQRsDZLtoqkXwWj/bMR4e4kCBIjjl6kPsh9Zbci0C
+	7L0jtIZ6PDAmbxDHYrGp6o7V/FWnTyo9+QMyFs5qTwk4Genu1pcJ2Q9gU2xeTwoyfUF9plK/ugE
+	m5y26D/ORaLOzWl+MpZI407Tmg7g9hC5zYO/IaZznGKiF7dDHTIN4=
+X-Received: by 2002:a05:6102:1:b0:7ae:c2ca:8dd with SMTP id ada2fe7eead31-7aec2ca163fmr621406137.18.1790179231962;
+        Wed, 23 Sep 2026 09:00:31 -0700 (PDT)
+X-Received: by 2002:a05:6102:1:b0:7ae:c2ca:8dd with SMTP id ada2fe7eead31-7aec2ca163fmr621358137.18.1790179231302;
+        Wed, 23 Sep 2026 09:00:31 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:d5b5:76d2:82e3:e5fb])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde197466sm80739325e9.7.2026.09.23.09.00.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 09:00:30 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 18:00:22 +0200
+Subject: [PATCH v9 1/9] media: qcom: camss: Add V4L2 meta format for CAMSS
+ ISP parameters
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bef176a0-7b13-4753-9d9c-494a0bf04cea@collabora.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-camss-isp-ope-v9-1-86a75dc18b83@oss.qualcomm.com>
+References: <20260923-camss-isp-ope-v9-0-86a75dc18b83@oss.qualcomm.com>
+In-Reply-To: <20260923-camss-isp-ope-v9-0-86a75dc18b83@oss.qualcomm.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-hardening@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2MyBTYWx0ZWRfX21Dudeg6rx7Q
+ L4dgyC6lv8fJcWKCpLw82BpWrOTK7mXLGW6y7M6IXyMGwIY9507253TPcbCSCmVD3cElwUQ3fs1
+ bJLr2iwO9/nl+5vg3Z+9bihq/0omr3g=
+X-Authority-Analysis: v=2.4 cv=R/6WitRX c=1 sm=1 tr=0 ts=6ab3f7a1 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=mDm0RygAtmZY0osY0NEA:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-GUID: 1tgMe2JjjZwIEqhRE8rARe9vK-xgpi52
+X-Proofpoint-ORIG-GUID: 1tgMe2JjjZwIEqhRE8rARe9vK-xgpi52
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2MyBTYWx0ZWRfX5MDIaZsqDv4p
+ n2LHKJOVtIGtAUmqpaG/xiVy/pNPpE30wY13pdKXSE8Q5wDm3u1ZjMdv3V/DEkD04Q4vTRo4c4z
+ VQ1BRur/BdbNHO09hl6sXlynb0jVhCbsuGnJcoAJzbZ231xoyvXkJbVm0EuEPz8ZKKaoA0VpG/v
+ B31AunGW5OjPSc1ng2kDy4be+eToRUULlI9+o5hJ25skAJUDrw80aVdoSQG1tkRQ5HhaePWH9Xw
+ JTBqKfhjhdSDNZ9JZuSJ98yxSWm0FraN22X7PrOg48LK6HGZUC6Qm1Za2fJDegE4mFkZTPbnHgb
+ IiQFOa9QmvvTuUWRUZMwYOzXaO+4lkI4g84WYvtRxK4AyfpqJC6R7YLZjgwztoMBbcAKEiwfJcx
+ GgJX2F/XN/rt/Tu6ddvqHUpK/Qb5i0xvg8f5s0kmhDbTSXTd+vqJMI28w7ixPzQaqeigySu1bp5
+ 36YmxCU7+vU0hEjWjDQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 suspectscore=0 phishscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230063
 
-On Tue, Sep 22, 2026 at 01:45:05PM +0200, AngeloGioacchino Del Regno wrote:
-> On 9/22/26 01:27, Rob Herring (Arm) wrote:
-> > The MT8195 infra IOMMU has one fault interrupt per IOMMU bank. Require
-> > the five bank interrupts, named bank0 through bank4, for this
-> > compatible. Keep other MediaTek IOMMUs limited to one unnamed interrupt.
-> > 
-> 
-> Why are you introducing interrupt-names, and why would that be a required property?
-> 
-> I disagree - interrupt names are not necessary here.
+Add a V4L2 meta format code (V4L2_META_FMT_QCOM_ISP_PARAMS) for the
+Qualcomm CAMSS ISP parameter buffer. This format is used by the params
+video node exposed by CAMSS offline ISP drivers (e.g. OPE) to carry
+ISP tuning data such as white balance, color correction and chroma
+enhancement settings.
 
-I agree. Not enough review of this one on my part.
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+---
+ drivers/media/v4l2-core/v4l2-ioctl.c | 1 +
+ include/uapi/linux/videodev2.h       | 3 +++
+ 2 files changed, 4 insertions(+)
 
-Rob
+diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-core/v4l2-ioctl.c
+index 17ba1ae707355a134047de646f61fcc2d1512d4c..cef1593c1835070f7b34a8b8c860738fb77f533a 100644
+--- a/drivers/media/v4l2-core/v4l2-ioctl.c
++++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+@@ -1471,6 +1471,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
+ 	case V4L2_META_FMT_C3ISP_STATS:		descr = "Amlogic C3 ISP Statistics"; break;
+ 	case V4L2_META_FMT_MALI_C55_PARAMS:	descr = "ARM Mali-C55 ISP Parameters"; break;
+ 	case V4L2_META_FMT_MALI_C55_STATS:	descr = "ARM Mali-C55 ISP 3A Statistics"; break;
++	case V4L2_META_FMT_QCOM_ISP_PARAMS:	descr = "Qualcomm CAMSS ISP Parameters"; break;
+ 	case V4L2_META_FMT_RPPX1_PARAMS:	descr = "Dreamchip RPP-X1 ISP Parameters"; break;
+ 	case V4L2_META_FMT_RPPX1_STATS:	descr = "Dreamchip RPP-X1 ISP Statistics"; break;
+ 	case V4L2_PIX_FMT_NV12_8L128:	descr = "NV12 (8x128 Linear)"; break;
+diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
+index 5373dba640fae3d19247ab1c74ba336e05dc0fe0..70208a9443d8ade569f130e2fc3d6beebab6b636 100644
+--- a/include/uapi/linux/videodev2.h
++++ b/include/uapi/linux/videodev2.h
+@@ -893,6 +893,9 @@ struct v4l2_pix_format {
+ #define V4L2_META_FMT_RPPX1_PARAMS	v4l2_fourcc('D', 'R', '1', 'P') /* Dreamchip RPP-X1 Parameters */
+ #define V4L2_META_FMT_RPPX1_STATS	v4l2_fourcc('D', 'R', '1', 'S') /* Dreamchip RPP-X1 Statistics */
+ 
++/* Vendor specific - used for Qualcomm CAMSS ISP */
++#define V4L2_META_FMT_QCOM_ISP_PARAMS	v4l2_fourcc('Q', 'C', 'I', 'P') /* Qualcomm CAMSS ISP Parameters */
++
+ #ifdef __KERNEL__
+ /*
+  * Line-based metadata formats. Remember to update v4l_fill_fmtdesc() when
+
+-- 
+2.34.1
+
