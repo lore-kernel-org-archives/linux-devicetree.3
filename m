@@ -1,190 +1,147 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8182537E5D1
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:31:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E35251CF76
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:42:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170294; cv=none; b=ISFUHgpeLvndGp1djM9tt9bhX/ztEnUn/n9QZKSGcYEI15GHxVf9BM4Bo4GlvVFthx7/JaY+C0dSsxOrbEJ9/vOi/igHFDhI79uFu7kQbXDBbVSbsNgaNTs6C/GylyZWJmaU4sJyIxvjPIPFcF5AScWXkV/wBY+E8GgtzUPK8ZI=
+	t=1790170955; cv=none; b=AFPCqe1e2OaPexts0WhrLYwApp7uDTBpFXozs3pTN4QRjqi9d6owEeb+SkQ1qo10aRXC9+WOaWuPkHIJpVSNlaZI/sw5cAxGxDCWPNwPO/73+TtA3f4ESwRKYeXEftbVnGRVJsviLE3g1ydKxF3ftL8V4XWcPFiB8UyguzwE+0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170294; c=relaxed/simple;
-	bh=ASCO0Lh4SYfqFZo+QWVw9DfS6fnJxkZnm06PI6d+M88=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tNBE9cdKgqgZcqzHKOfIp8ufLyyzp11XJ8gvk4zxb03IQ8M9b7sU8BPLBcfT3geiZqtXmqvIq3DwUjluqgH8plWXOeE9qpg4AwEORt4yICMeWKjbAvqZU8ikZuF5ILTdWvqzuggiMBTSyaphzflLs8E1mNzodlxGPG9EVu6n8+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Xe7bp9sb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kYriovbz; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xe7bp9sb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kYriovbz"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBcoUq3161386
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:31:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Qq6xeq+5N6XfyP0fS9pBoOWP
-	w0EfK2lsnoPvPTiFh/k=; b=Xe7bp9sbIhdsqaUU+Tp+K0Y+SLJ+Vscvz99AoTUM
-	JXaeKQTGH7Y2onQk0FVAHZd7oIZxf+r9U/22PbkJ+HFqBn+hhnY6D4NRMDSsOJjw
-	UmFVWC+Ft9yf4ZBtuGLaH99BwdE2GIv9MMgxol+PhoYAk3e+VJtlPpSgUuUMNbu9
-	bzJk2jbU5YYUQaFMoSPgyss/rCskrML562gC4vToTHNy/NJ3HS3zCN91njsZ5T50
-	x06PJt34V+fDI90RaNbbz4mU0QlIuCsdg4w8tl+VVR8a+gzI64QLHBcVbkyCqon0
-	V2D6Zd8YLVfX30mWUn5REjYQf4nFSXPfaOXmqy8XUhccdw==
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv32qu2m5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:31:32 +0000 (GMT)
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-671321441d1so1137207d50.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:31:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790170291; x=1790775091; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Qq6xeq+5N6XfyP0fS9pBoOWPw0EfK2lsnoPvPTiFh/k=;
-        b=kYriovbzX41ksgH3RiD8fBPLYA2dpM8rWtGplPzbDhBzYqkzpGkoo1c6ZdTLWVbyFv
-         Wqxc7cZitQgASM8AwbDKfPWigqCPEKYCrgYjm1kX4BqkMBot8DIoHFbnI9SXqGKTVGh+
-         jcn0+qBVAgilNSXtvRM5u5BMDRxhXk2mnpsOMqt4+2ijU9ltnqWo1S38bDm+HMGbFhvw
-         JZPcuS6Sm6VaRFhzMtC5Asy38OJxKls28DtDE67NHtzWZhnr8ONcYfe/uKa0qVKfQW/A
-         IFQk4Wp8jH8XAZ+OQEvtoy4cbW27G0CMdrYnaMFey+rZTaUzE3mZni3vvzApxgA8UhV/
-         wJlQ==
+	s=arc-20240116; t=1790170955; c=relaxed/simple;
+	bh=zQLNcKwt8lnNKrUhZWYc0UbpzKFARTsV6kXIZiSRVZ0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cqt5Ffq376b4LLaCeaMAGRFZ1iI3OTEAhz5OIgE7VG4z3rbeXOQ9YWetqITei7hjdqSZ8BxpfEskZCdWccg07wii3UPhfy8WSMXS9fNEYB1VPOQb36H/cDctac2c0UF7VNxr0/6M8fztfQttW2cJLg/qxFci6qU6Z5SbcfBsLXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f40.google.com with SMTP id 71dfb90a1353d-5c9b0bdf5b5so414758e0c.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:42:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790170291; x=1790775091;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qq6xeq+5N6XfyP0fS9pBoOWPw0EfK2lsnoPvPTiFh/k=;
-        b=Wco7qhsxJ87TcUhB6YRWDYVHkcIQhs6RLKMquBWXRzMbgtdJb3WuAFdNIJwxPpclmr
-         a9iAsxpxPhV/7e1mEBJDKhRH/KaJ8jz6icXFGHlOg5l4PCiwQnyVA/JWoMkOkhjfZkee
-         mJZwAD5ZdLnbWW/8BSgT57/1cqHyK6pfulDWugII2Os2OvOoo0idqB748Fsq6grgwfix
-         xCeKE7cr3gtsDqwOtycnNkl++pOZ4txNUygzh+QHgt+Bcbes3IaAdI/3g3qJMaq3YZDK
-         Pwo00eWbprlO1P792ucv2E3tI29x5gwkpXyGOqyg83IPQfgFeBB4K98tqJT7bEsUokNW
-         yRhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9PC/xZKc3GPWkvlqQvlu+dG9v5GjC70acBW/S4MeAJYiPJLD2Zim3FXwu1cSJK98aNlw0P+Jtm8cu@vger.kernel.org
-X-Gm-Message-State: AFuF++k+AELM2o4S4BJlbeIWkPVOTN/Qsg6wR2R08n5e4iUUfqBTFB81
-	TcQ2Lflweg4yqZ7K/uNe2oImgU3To2CX3rM4UFZEn5QKwR0xEszUlBdYS54MHTkPQLGUeAzXpsD
-	U9D6rsyzZUnUvMxYdhfJwRPfosHl0+nle15OQ2tbTO8C3ssxvHQirqDFMKJx0bCD7
-X-Gm-Gg: AYBFou0M9Rjn9H3Qv1sQDTH0JEcF2ItaBeXGpWOcLeme9U8IG8n/i1aZ+LXGOSleFJH
-	QsD3KQslM6jD4naqewLDDRpnEQjPhH7BEvpjEKWMPYsupgXEj2zcrueh7K6rHUwOjJK+fjsV+0f
-	PRiUfGHf7ifYpwaBZY9W8Nqnktf1wllWWU5Rix5FKpTb5glxNUBQZb5UrovFtVeuTBV6l0/oLHg
-	Ncm6kGl4fW+W0dz4ONfBkBC5ZF4a6JM7GDVjgREJcUjd3FrjzqtgNdAXo/DI0uNgKyGb3NjAvcQ
-	UvJdQHVRXN3662ixfSbqRodXKfRCh1iUcK5G0+4OCQt7YLf03lJBuuYXJdV+LEeC/c0chBgvlRO
-	1ucEkeDtPmcP/
-X-Received: by 2002:a05:690e:4503:20b0:672:a4a6:298c with SMTP id 956f58d0204a3-672d5728d7amr1011729d50.6.1790170291070;
-        Wed, 23 Sep 2026 06:31:31 -0700 (PDT)
-X-Received: by 2002:a05:690e:4503:20b0:672:a4a6:298c with SMTP id 956f58d0204a3-672d5728d7amr1011687d50.6.1790170290514;
-        Wed, 23 Sep 2026 06:31:30 -0700 (PDT)
-Received: from oss.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9140c43b6dfsm20549436d6.31.2026.09.23.06.31.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 06:31:30 -0700 (PDT)
-Date: Wed, 23 Sep 2026 19:01:18 +0530
-From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-        Jose Abreu <joabreu@synopsys.com>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org,
-        Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-        Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Subject: Re: [PATCH RFC net-next 2/9] net: pcs: xpcs: add USXGMII Clause 37
- autoneg support
-Message-ID: <arPUpiLe/y/aKR/a@oss.qualcomm.com>
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
- <20260923-qcom_xpcs_nord_emac-v1-2-4b1c682af70f@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1790170953; x=1790775753;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cZcaHlSLoWG/YlsEmorJF69zsl7G8OYYQpV3ToGZCjU=;
+        b=g6IoBtqZjp9OcOk6s29JDgRUoCHKPbHx1Ll7+iODpsjsxVVoBlj24rAyO9d4HioFfK
+         LnwvUUG/UIImmbWh4Xh+fYJl0sqWEMbgZ6/MOFLhfkwjx1Apv2cgjmNTXh38Mt+XUXWj
+         E7m3gtKz/6QjV6SdbCEZJFhp6BmtMwrIqKOG7by1IzniA8fLT3SPykALT7S5KlMolVUB
+         BjaLYumJDDyDuPAQElo5DPOQg1ldat/sWjvF0wYoM/dzSAh6JgKuya3h8os12d9ssNyL
+         OCh9PBDuj+gtZogDBfpxq0nBEX6Vqzh/g2zEjVy9BN45vbwTB1eSOi3Qx+yaKCBCqsGO
+         h7DQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQYjeErSTOpwn0ptj3vXQotUQqF+ZyCoPILLQX+7HJ6im8TxCyZXZ94f6fZShCuLMasgNnt/USn2+f@vger.kernel.org
+X-Gm-Message-State: AFuF++lgBExq9DvPt3ddT0SusMe+D4AN8dWSjlBr9kj4BKmOLDue8OkC
+	haVcgcT7nl4+H56TiQxY08vOXJxm2nSMQO/EfwnZxMu2+BaIKvIqgN2WSyuylIIbpZ8=
+X-Gm-Gg: AYBFou209ebhVXekYJVzLxc409Q0rkUXWrQC4kZPgSIVQzlA8QrlWeOO+L1XPqMqOtF
+	+5PWaiSJ5WodlF8kVUq6IWvxH9yJTSsABtFmsGAIO9Vbv/KLVUjSBUl5k842ghl48nfw2yrY3um
+	CJz2SzvMoU9JccftoPZkXcUOf8vkPbh0xxWbyCG0i3plPEsWBLLN3t3cfTT1nj1N9WqLwf63u2h
+	WFO8+Aw5XdT2nwq4qtPNcULUX8wptzqEh/lw/zXPKwe8dFD2j09elZrJBFz3NNvLnYO/daLmsm5
+	8oyKIKLTsWvc9dIeuZ/oTEL6yrJq8Ix9MhvNO56gi2pDrC23czAtu6YrpHmHlXrfhx+gfhPZYPJ
+	o79XxkSoHc5pZ7JH9yfLatMKqb8kvjaO3uklrAACa8DgwQpDa87EB6x5PgNFWPS9ZiAuj4f484d
+	nVuKTNTe5mlCEA6TWz7/TKdjlLMcRjgaSbbUYwwulwZA2LKAG2nQl3GTjrqSxRjNNOG5fnnfUfK
+	jzp139G+lp4jXZ2QwZNAdI8MK0fAI/VWNapTQ==
+X-Received: by 2002:a05:6122:8f8f:b0:5c9:c60a:e9ac with SMTP id 71dfb90a1353d-5c9f168ad35mr2923319e0c.18.1790170952298;
+        Wed, 23 Sep 2026 06:42:32 -0700 (PDT)
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cac7115b29sm20111e0c.11.2026.09.23.06.42.30
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 06:42:31 -0700 (PDT)
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-982db8d3b79so302493241.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:42:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwqo9cEFV1GKbK3+kuK2hFk6L5h016ykL/XwAW/m6xvvxnNdxtxjHULmlGyBc7Id12WueEkDGfJbGZP@vger.kernel.org
+X-Received: by 2002:a05:6102:390e:b0:7a7:195a:1b26 with SMTP id
+ ada2fe7eead31-7ac1de3a707mr2471914137.32.1790170950472; Wed, 23 Sep 2026
+ 06:42:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-qcom_xpcs_nord_emac-v1-2-4b1c682af70f@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=SJnXx+vH c=1 sm=1 tr=0 ts=6ab3d4b4 cx=c_pps
- a=VEzVgl358Dq0xwHDEbsOzA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=U1nmBBJXYHZWlwlGUpAA:9 a=CjuIK1q_8ugA:10
- a=uujmmnXaIg8lM0-o0HFK:22
-X-Proofpoint-GUID: CunaNjMThYkGp0X6hwbQvAo0CMiLj0qW
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1MyBTYWx0ZWRfX/ok2SpcSsgC7
- OxrY8kvFY3VkZaIzBi5Ww1M3yRiTNSL4IFD//iXjJki1JAHNEGG7LSGttPVEJWBXlJ+oCo2Ak+P
- 8nnIqhF5u/F/RJeDpYERrX3kw1Q1j0Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1MyBTYWx0ZWRfX/M7Tezs2er+G
- EbGRFi9ZIdLSpDxG2gam9SJDlHkc0YZLgdb4Sbq4WFITSH6WrEg+LNspS3Thg7acf6AhD5HEaxg
- InMu+Hq8MMxyZsBpSklCoqHehAFJYD9CgxXWSua+IiiB6Gnd9BzyaENsoqrHmqSaPFkjerXbP5o
- oT/tiLQScX2Iqzj4BL+4RE0zsiFyo7y2QfC9JIrg2PNjJjE6C+KYqapo7z/PiU7XMsO4NeJnZzG
- NQcOp8IDBEiZH+14XJ+tRwLWx8GHu0ThEuuzaV7iZ1zxZOXbzTEMefgtCtd9pXxusLus2Wk+S62
- GSMf1AvHTznVgj4VqEU7qmFOtesM+YOo8/t7001lVSoJILZi8ukaqI7xGabs42baD+5Jb4nBQmP
- 0MPaLCCC5PDeBR6Y8OtBalatKJLgTK8Q9gPAM/scMVY7CokY7x0OS2cmQgpW+8RwYNJl8Bd1vV1
- +fCzYwjZn3maEdqyoGA==
-X-Proofpoint-ORIG-GUID: CunaNjMThYkGp0X6hwbQvAo0CMiLj0qW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
- clxscore=1015 bulkscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230053
+References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-1-94c4674927e8@solid-run.com>
+In-Reply-To: <20260904-rzg2-sr-boards-v8-1-94c4674927e8@solid-run.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 15:42:17 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXtcxyD4Zh+HyM1D43zu8KND-18FiLhi9OXTHZPojRH=A@mail.gmail.com>
+X-Gm-Features: AclHuK-TckegHvHKUKBwHK2truVsVTBXY6gTl27m7I0mB2ihxriiWdVUDyPODHw
+Message-ID: <CAMuHMdXtcxyD4Zh+HyM1D43zu8KND-18FiLhi9OXTHZPojRH=A@mail.gmail.com>
+Subject: Re: [PATCH v8 01/11] dt-bindings: soc: renesas: Add various SolidRun
+ RZ/G2 based boards
+To: Josua Mayer <josua@solid-run.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
+	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Andrew,
-On Wed, Sep 23, 2026 at 06:37:28AM +0530, Mohd Ayaan Anwar wrote:
-> The generic DesignWare XPCS support currently associates USXGMII with
-> Clause 73 auto-negotiation. The XPCS integration on Qualcomm Nord
-> instead uses the vendor MII register block and Clause 37 control and
-> status for USXGMII.
-> 
-> Add a separate Clause 37 USXGMII mode which configures the PCS for
-> BASE-R, enables single-port 10G-SXGMII operation and enables
-> PHY-side Clause 37 auto-negotiation.
-> 
-> Also decode the negotiated link, speed and duplex from the vendor
-> Clause 37 status register. This supports 10 Mbps through 10 Gbps link
-> rates exposed by the USXGMII status fields.
-> 
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> ---
+Hi Joshua,
 
-Seeing your question below, I think I should have probably mentioned
-here that this sequence is given in the programming guidelines of the
-XPCS 3.50a databook. Section 7.6 Switching to USXGMII Mode, point 10.
-states:
-  Set bit(12) of SR_MII_CTRL to 1 to enable CL37 auto-negotiation
-  (paraphrased).
+On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
+> Add bindings for various SolidRun boards and System on Module built
+> around Renesas RZ/G2 family of SoCs:
+>
+> - RZ/G2L SoM [1]
+> - RZ/V2L SoM [2]
+>   (shares PCB with G2L and has very similar programming model)
+> - RZ/G2LC SoM [3]
+> - RZ/G2UL SoM [4]
+>   (shares PCB with G2LC but programming model differs largely)
+> - HummingBoard IIoT [5] (RZ/G2L, RZ/V2L, RZ/G2LC)
+> - HummingBoard Pro [6] (RZ/G2L, RZ/V2L)
+> - HummingBoard Base (Ripple) [7] (RZ/G2L, RZ/V2L, RZ/G2LC, RZ/G2UL)
+>
+> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2l-som/
+> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/
+> [3] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2lc-som/
+> [4] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2ul-som/
+> [5] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+> [6] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-sbc/
+> [7] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2lc-base/
+>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Josua Mayer <josua@solid-run.com>
 
-So this is a part of the licensed IP, rather than a Qualcomm specific
-addition.
+Thanks for your patch!
 
-> @@ -687,6 +736,7 @@ static unsigned int xpcs_inband_caps(struct phylink_pcs *pcs,
->  
->  	case DW_10GBASER:
->  	case DW_2500BASEX:
-> +	case DW_AN_C37_USXGMII:
->  		return LINK_INBAND_DISABLE;
->  
+> --- a/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
+> +++ b/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
+> @@ -508,6 +508,14 @@ properties:
+>                - renesas,r9a07g043u12 # RZ/G2UL Type-2
+>            - const: renesas,r9a07g043
+>
+> +      - description: SolidRun RZ/G2UL based boards
+> +        items:
+> +          - enum:
+> +              - solidrun,rzg2ul-hummingboard-ripple # SolidRun RZ/G2UL HummingBoard Ripple
 
-This is incorrect and I did not find out its side effect as I was
-working with a firmware managed external sitch. The XPCS supports
-USXGMII with AN always, so this case should return LINK_INBAND_ENABLE.
+As RZ/G2UL is pin-compatible with RZ/G2LC, I guess you could have an
+RZ/G2UL-based HummingBoard IIoT, too?
 
-	Ayaan
+> +          - const: solidrun,rzg2ul-sr-som
+
+Is there any special meaning of the "sr" in the middle of this and all
+other SoM compatible values?
+If it just means "SolidRun", I think it can be dropped.  However,
+you already have that for various SoMs with non-Renesas SoCs.
+
+> +          - const: renesas,r9a07g043u12 # RZ/G2UL Type-2
+> +          - const: renesas,r9a07g043
+
+The rest LGTM, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
