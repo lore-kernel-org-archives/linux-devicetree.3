@@ -1,172 +1,119 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDAD5650E7
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 15:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3AB577E56
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 15:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177447; cv=none; b=MSnVWgtofYfqMVGoPOuEg9eIGiHczG2TPHOD7EmH4b3I4IudNyBHFok5bAF6qrsXWMCmsfoE4Yavr9yqU7KBSy4CrS4+0RMo0Czabova2CF70TF7qYEGWrdNVJmfUyNTRU+QzJk1IpyQRbZDpqVdQ2arMnvfY+5aTrlT+JkAn64=
+	t=1790177503; cv=none; b=C9EaWHvW86f/FGmDeTqjqE2RLLe0c58dC50WahkBuY8rcLvgmd0KfVf73oMutrBTgDpHfD8RV+lAUzQPcby1eacmAcKmqyYlnMcOp3sJJ2eKxVCS6RJNSJCelAlIipOjfFN0e1n0bgQkR13oUCNBFfmDwGdgUEjXhGu1C/YpxBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177447; c=relaxed/simple;
-	bh=1vmm0wkc2HkHONRH8pVcOgqdwW78+bTinZ2FzAKmk3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bwLy6oP6DcK8I0o++UEZF/7CCyWbmQrvz8z2CAp4yGoosRCXImzRkZbWg8MsU1uGgqgp7oxTy2Qdc+/emGHWF06EYUrhCd/OmWSfqzxsucLnEdWROJHzJBYPmMsC9DGP5k3ddylKrl41VGgGoFuIeMEU3+TSVJ3VD5DyUj8ah2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=U+rRjNcm; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790177503; c=relaxed/simple;
+	bh=EIYWhK0wVRsFaOfR0R7jdOMIoYNlnmEdp5Y/9QAKa/Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=m/c8UP8GCiHtkwz7PluO1RdcyXyJUgDmn4zUW0oE54ht+aKs8rdaJueqASuXcU+cXVvXZib0NQQVnmVVXVGEhSzbkwaYRy+jkY4PQlS+mmL/s2xjgeIkQ6WumF65K/wNVRTq6eFDgm/hmWWAmuS4V+6CXt/FRF5HTFFhQiQyaTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMk5c3GL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="U+rRjNcm"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso613380a91.2
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 08:30:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790177437; x=1790782237; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=W4AqH3BG39Ccw9rat1s2LDjmKzSlLDWMcVufSeoX/Lk=;
-        b=U+rRjNcm7ugzc5Soz10jkunYElefyJ/mmDKlhLWKxx6z11zYyaHFhhSoYKfXPKWBFw
-         27xgR+M2sA6H2ZWxkjODi5uha64syM1YHfvjc6sczDTfgx/+9+bAmL/LLTQGX2im1r24
-         vnbBTToGn5eTvwUOy0ufX/Y9l8EbodyBTpgTAYpNBr8tNrl80i8S6OmUfpvYK9QXlPUZ
-         K40XB5d98svdxNzLOY1cjwqKXKjYZaYzBsmQx00jERdfe9HVzCgLQ6c4ydWL4cFWEZT2
-         3a3N22hOtj6qhEGw0unwpMeGCo2sSv68PYITFdMGaA174wdpTQhDtvyvnggx+37Z/bAW
-         7AsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790177437; x=1790782237;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W4AqH3BG39Ccw9rat1s2LDjmKzSlLDWMcVufSeoX/Lk=;
-        b=BhAVB3N1dnkYxuBs9jJeKY2fx7SOx/4pSsGNPV2+r6/rX+pDSKP+9rJ5pWY64ZPAMO
-         0WK4quZzC3VREElompO9rQ5DyLA9ImSP6vE9dqmBYAvXq1+/pdUJp8l5HpYOvFM/b1AT
-         txYBG6AZJSIgDqDqDPk31j7AD4PxpwQkToiLkVDZIP+SE/Pkhy0S/XiQvtqv3ffzfM1w
-         I+Wc2GPPeOPjIbAnNSD5TJPjjgkc2SJvM2Go0vPqHscUBmcEgZ0Y5JhnKDwY8B1xyl5L
-         0Lys42nh5veTd8lRmSueRo/O2Z8eFZjSTWS4zVItCO8LpWaCMymypdCqdLoD/2Zb1SU2
-         UlYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzWmQuEswbcQP91wwF5P0E7wmAqmEVtV9zVe9FkRAu2KQ/B4RlBe6Dje8A0tq7BXGofadsuXTNAAD4y@vger.kernel.org
-X-Gm-Message-State: AFuF++lybXDDbuN0tJkDBjiTeEGFBUaM1wMuzkhw9HZHIyboyIL/SdAP
-	GzLznY7ZzghveBE99cDSG06QXo++grNHDgfmqa+iC3rU6xVyXnPAgflCCfVyW89Ep4Q=
-X-Gm-Gg: AYBFou0NcK4vkDACzEqaUNfwVCBtxQsEV898MHG0q1TzBoj2mFbSDjy66E4AOORVJVp
-	28CQKMNGf/Ie+lzhVTdWPrReLfe6oZiQXlQC72FSqQEknF+HN+ODgkbwrCCPfSzPy8WrGFLs4e4
-	fUA4ef2BEvW2YLB0InPW7vQ2uRvctnQzAV5Hvs8fA0XDv59OPA6bOI9oF/VgYj94b8uBiiivX6n
-	Ku/aLVzOZ0w7Hxo8gl6ihaNSpZX2liUnOB2YV69Qhu99ES87LrW2in0GL8tlH2+IAProFiyPOZJ
-	Dmtbr0qg+WINWLQJg+O9qlOC55mh9BxauMa4UgnosEtuMS0Jax3E4K5ZnIdYbaugCEvz2wztdfm
-	raJ/HTmzPLfMQRFlUvGIgKoZMNY1vfNfsjACQnHLGzRnYOGqoDwPLYHc/Na85nv191sUJz4NeK5
-	jSCv92NHSoDw27WoINyUrEpM734tz3mynBlLIGDoLP0bN3E0EwzSZ+2Ea8SPExYBVmE7pNPjY=
-X-Received: by 2002:a17:90b:4d0e:b0:39e:6a7e:ee19 with SMTP id 98e67ed59e1d1-3a07e6540e2mr2620920a91.37.1790177436748;
-        Wed, 23 Sep 2026 08:30:36 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:b4a:dc6a:68e:2592])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07ddf1cf3sm5652074a91.9.2026.09.23.08.30.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:30:35 -0700 (PDT)
-Date: Wed, 23 Sep 2026 09:30:33 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: remoteproc: Fix MT8188 SCP regs
-Message-ID: <arPwmV6I6e2hCqo6@p14s>
-References: <20260921232520.3127457-1-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMk5c3GL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0451F00899;
+	Wed, 23 Sep 2026 15:31:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790177493;
+	bh=+LUs7u+N94At2FfZ46011LEuhmJ3nY7hXTFUxN6NMjg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OMk5c3GL1I/rj617uAxfAM3oslPSY1ZvDbZtKroP/NMHGKk56YGVPkv3B3yOsOWQr
+	 468b7Ptpp20UFX6fPedoJcDPuo+eDIwqrxjOzlzFZDu3pzPIldDOjnBFLgjLfA5+uY
+	 PhBufab6AkaldzR460coaqdNcLNTaiuaZMXE9F5R//Z6YMlfxjtA3rhNRtTk7U5SMp
+	 EDVwmKVfY5zcvf2StQu3DTcXjPAWuS244dCiFhQPqqM4GkIxGaoCDaNBozKO6gRk9O
+	 eZb9cWpRb0MJklSFekKXnc8IZefIOlcyRryYwyzTNpjT1h9actwUU+ikdwqBoydcqG
+	 g6La9xARzSZdg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] media: i2c: Add Samsung S5K3T2 image sensor
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Armandas Kvietkus" <armandas.kvietkus@proton.me>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260923-upstream-s5k3t2-v2-2-04ffda3350c1@proton.me>
+References: <20260923-upstream-s5k3t2-v2-0-04ffda3350c1@proton.me>
+ <20260923-upstream-s5k3t2-v2-2-04ffda3350c1@proton.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 15:31:33 +0000
+Message-Id: <20260923153133.8D0451F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921232520.3127457-1-robh@kernel.org>
 
-On Mon, Sep 21, 2026 at 06:25:19PM -0500, Rob Herring (Arm) wrote:
-> Allow single-register MT8188 SCP dual nodes with only the cfg
-> region. Keep two-register and three-register requirements for the
-> other MediaTek SCP variants that need SRAM and L1TCM regions.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../bindings/remoteproc/mtk,scp.yaml          | 22 ++++++++++++++++---
->  1 file changed, 19 insertions(+), 3 deletions(-)
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] media: i2c: s5k3t2: V4L2 controls are silently ignored when CONFIG=
+_PM=3Dn
+- [Medium] media: i2c: s5k3t2: unchecked dereference of v4l2_subdev_state_g=
+et_format()
+--
 
-Applied.
+commit 0ff25daea454ea586f399f585c1432a8ce3f431a
+Author: Armandas Kvietkus <armandas.kvietkus@proton.me>
 
-Thanks,
-Mathieu
- 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> index bdbb12118da4..2f0a28c7a24c 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
-> @@ -28,11 +28,11 @@ properties:
->      description:
->        Should contain the address ranges for memory regions SRAM, CFG, and,
->        on some platforms, L1TCM.
-> -    minItems: 2
-> +    minItems: 1
->      maxItems: 3
->  
->    reg-names:
-> -    minItems: 2
-> +    minItems: 1
->      maxItems: 3
->  
->    clocks:
-> @@ -171,6 +171,7 @@ allOf:
->      then:
->        properties:
->          reg:
-> +          minItems: 2
->            maxItems: 2
->          reg-names:
->            items:
-> @@ -185,6 +186,7 @@ allOf:
->      then:
->        properties:
->          reg:
-> +          minItems: 3
->            maxItems: 3
->          reg-names:
->            items:
-> @@ -195,17 +197,31 @@ allOf:
->        properties:
->          compatible:
->            enum:
-> -            - mediatek,mt8188-scp-dual
->              - mediatek,mt8195-scp-dual
->      then:
->        properties:
->          reg:
-> +          minItems: 2
->            maxItems: 2
->          reg-names:
->            items:
->              - const: cfg
->              - const: l1tcm
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - mediatek,mt8188-scp-dual
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 1
-> +          maxItems: 1
-> +        reg-names:
-> +          items:
-> +            - const: cfg
+media: i2c: Add Samsung S5K3T2 image sensor driver
+
+This commit adds a V4L2 driver for the Samsung S5K3T2 20 Mpixel CMOS
+image sensor, supporting three modes up to 5184x3880.
+
+> diff --git a/drivers/media/i2c/s5k3t2.c b/drivers/media/i2c/s5k3t2.c
+> new file mode 100644
+> index 0000000000000..de24a6b9dacae
+> --- /dev/null
+> +++ b/drivers/media/i2c/s5k3t2.c
+[ ... ]
+> +static int s5k3t2_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct s5k3t2 *s5k3t2 =3D container_of(ctrl->handler, struct s5k3t2,
+> +					     ctrl_handler);
+[ ... ]
+> +	}
 > +
->  additionalProperties: false
->  
->  examples:
-> -- 
-> 2.53.0
-> 
+> +	if (pm_runtime_get_if_active(s5k3t2->dev) <=3D 0)
+> +		return 0;
+
+[Severity: High]
+When the kernel is built with CONFIG_PM disabled, pm_runtime_get_if_active()
+returns -EINVAL. Could this condition evaluate to true for that -EINVAL
+return, incorrectly treating it as a suspended state?
+
+If so, this would cause the function to return 0 without writing any values
+to the hardware registers, silently ignoring all V4L2 control updates like
+exposure and gain permanently.
+
+> +
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_ANALOGUE_GAIN:
+[ ... ]
+> +static int s5k3t2_set_pad_format(struct v4l2_subdev *sd,
+> +				 struct v4l2_subdev_state *state,
+> +				 struct v4l2_subdev_format *fmt)
+> +{
+[ ... ]
+> +	if (s5k3t2->sd.ctrl_handler->error)
+> +		return s5k3t2->sd.ctrl_handler->error;
+> +
+> +set_format:
+> +	*v4l2_subdev_state_get_format(state, 0) =3D fmt->format;
+
+[Severity: Medium]
+Can v4l2_subdev_state_get_format() return NULL here and lead to an unchecked
+pointer dereference?
+
+While the check_format() guard normally executes for standard ioctls,
+s5k3t2_init_state() acts as a direct caller that bypasses the check_state()
+core validation wrapper. Additionally, this performs a mismatched lookup by
+hardcoding pad 0 instead of matching the fmt->pad parameter.
+
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-upstream-s=
+5k3t2-v2-0-04ffda3350c1@proton.me?part=3D2
