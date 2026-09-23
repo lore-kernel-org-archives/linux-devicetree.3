@@ -1,146 +1,110 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B398447DF8E;
-	Wed, 23 Sep 2026 09:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156322; cv=pass; b=aE7Y0C7zgD3Xwqi2ORcmK+eAlOSI185w7sPIToNMln2coAYbnAawMyaETNa81zHCIDVEuzyGQucLI0hNj7tGfRE55VUMpdKaS2rjtvDaU75RD6OZP5sf9NL1EzUBC6bSdr/0qdVMFWN9xUsRcMHikXFr3JXc6djxU4ny3JxYYi0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156322; c=relaxed/simple;
-	bh=swDuco5gGLH2qmEhxP9eVU/MvfrHGMSd/vEuH4c9mik=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e6lvFZIJcOFKC2DcJP4k9wC2FeHlnNlvD4vWXuNSHsnFMoWDrzlvdE38nOI9mMx8Zt4x6rZGCaPvHH7YEIemVeODCq3IQ5oSg5nYmLNSEeKtzXSfEzgzB3+lpejfpk0ybKBEd2KzUbDe4qHb68S2hC4rZkrT05oPos/riMd+j6o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Fk5qHw/G; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Fk5qHw/G"
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 48EA120075E;
-	Wed, 23 Sep 2026 11:38:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790156316;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R2luf5FpXldw90OHT8OQuHmYGfdfhlpHFtUCjoFB6wc=;
-	b=Fk5qHw/GwqojBgyM1RAsKEQvGJucuqJl/0K53H7wYOYFLQEsSFQCBZLaR3HVk0JavRUzQx
-	BDOaWCv9djjPVI0cvvZ49K5A4QFYTv7ORPCSaPaXhoXxP56e50tVgTIGb1kUxoPXSBkBU6
-	GCCOBYj5yGEZVtjV3Q//z8UKXKQ6dMnQRALOqsH6GVAKIq3R0KOISskMJex/xso53LCkD2
-	8WChiNSoe6Nh2+l6DMoozM1PUyZ2VajBkETLws1+HMsPxre7dgQhjbpVs3xrzTS5lTcvkP
-	yatb8pORlgr/M6vTPbAw6Yv1DjUlEc7MXRLu50JkRqGMLqdFCazS0cU8qDgf9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790156316;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=R2luf5FpXldw90OHT8OQuHmYGfdfhlpHFtUCjoFB6wc=;
-	b=IYeUJbujtGMKfxIRx+ZRlWuuIQglCiRl4RXQgNtwRZ1lzJsgig9Te8S+noB+NPNwJ2aMoe
-	qkOFQmxHwynWl4EnyticqudML3Cg4fqsqNoWGZgZtsEFrlGwb47pYKb+2MLS+IUdRy/3hU
-	CKj5DcbLhYlNiAD2KujUscOdJd0D9+yab3v0tiOo1nCjzg7A13suYmjV4MKKVeWmGbLYZN
-	sNQ82kWdjn0E41UhxS/zQTkM2jSu6anePzGxQ0D+PaQU11+WuiZcoeilpueNjFsMemeMB1
-	r+q565QdrZ7OOom+c1TpncU7jtTk5bz1EaI+3lUeywuAXBGt1hRvk6TKauOz5A==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790156316; a=rsa-sha256;
-	cv=none;
-	b=LhQiXJpCcP6Ida7LESO4TzKQ2rW8h48dHwyT1Easm9Mf7RsEPcNmfXqqHdFAoiiTX/wIvf
-	xuxiakYloC4ZwThB24fkXpkzk+JHi9xFYOFAUBBtPko+JddH80S0vJ1fUXlD6qGcR46v8q
-	bv7ualU7GxkuR0nc6d5vUKw/a2ibICzOZFmcBVjMA0YCXK4I7HtngA+st+QsgYxWUvB5tz
-	Aj4nujaQKReuzomiMjrPihuriCalMwTsuQA2SPdRqsnN+d1sU3JFCK+z2wBN+ssFKJRXWQ
-	sQ8ATgRmyXcxNdGZ9AdImiRfHNhU5zO1nEW5vyyCmuKhlbcuJVhFdQAhGzqOKw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <bbecbfd1c2e465f5daa6476e8555f373a6e1bd0b.camel@pengutronix.de>
-Subject: Re: [PATCH v13 10/14] pmdomain: rockchip: cycle optional
- power-domain resets on power-on
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
- heiko@sntech.de, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- joro@8bytes.org, 	will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
- ogabbay@kernel.org, 	zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, abel.vesa@oss.qualcomm.com, 
-	sebastian.reichel@collabora.com, sidong.yang@furiosa.ai, 
-	u.kleine-koenig@baylibre.com, chaoyi.chen@rock-chips.com, 
-	diederik@cknow-tech.com, alchark@flipper.net,
- dri-devel@lists.freedesktop.org, 	linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, 	linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 23 Sep 2026 11:38:36 +0200
-In-Reply-To: <20260915104328.45901-11-gahing@gahingwoo.com>
-References: <20260915104328.45901-1-gahing@gahingwoo.com>
-	 <20260915104328.45901-11-gahing@gahingwoo.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAAE3AFCE4
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790156466; cv=none; b=b90tByRhofq7CwsgI52HLMiF+O4uFpz10Xv2xuwo89C2zE9nEaXyHemc6Yiqz027TduG6XKnN+k3C50J5/CwE/rI6583053tBeLCRCmshthiHUphucvs9wKhb2sTvpBwy25ghCUaGM6yLROEwk44VIbx1qHSEWeyPH+nhMymGiQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790156466; c=relaxed/simple;
+	bh=wHIiCEgdZtfqmIfAflpfV641BfeO9lzUS6fjDGeRjIQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fEnb7RdWQnYFJzPxwceVjTXL+xqINqoA7O0sjMbCvjCYjAShAoMUfts8WIHy0fLNiDK770pWVAOSCYp9qZZTbKkZ6bvhSzqj12haSV4FNzJrs9UJAVDQMgaaKw3bM62LUocLqeRqC/hes4KPoH5iJRgT4DSqVXNph/x+SOr52B8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-786c3d55c99so230938137.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:41:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790156463; x=1790761263;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Nr90W5Fnz0vjayQ2rPJMI4dvvs1Oph2WPp0m5lztwRY=;
+        b=A5kRyiD1YmXX2SA0AuTnTngfEHiuT2Gzit8FdIbAVhvvnuIcOHxrZaPTAvQry4XQmb
+         D5F+S2FlbpZHR6GKVxuo20xacNdYE4BYgWAowMAwTvgasilZie4xr2R31XvqogW4gaDM
+         GwszcWt254K9DJMltPo5SEGiI8ssRcweBhljgJWXE0QNGmr89bTV3E+weKGYI/quW7qi
+         zDy6TT556iucDAqCLYP73IZjoFCrDw/7s/XdZb96/M3k6IHRNDyioEYiziSatGpmd5mR
+         4tBBWiG00mJw0SyqB0UFDUl1szsLW/Kw96N27JJXgHVQYZPK6m6Ah4AFeEpe88o2HJvl
+         euzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwas+cVb1Cb8GSJ92iyVQvV852O5GWkbob0MD12kVd8ToV38FeabNi/k4OfIurmFok9obwHoEDXI0f7@vger.kernel.org
+X-Gm-Message-State: AFuF++kwED58tnx7RVqzTMRvBV2c2hT164X9zTbhX1HV3MkS+qx4jYbG
+	wcvuV+/5vxRo/oKUfW03ZX/muH21nhA3you5Yf41orU1DsG6+SAHjuyPVjm6JALZk1Y=
+X-Gm-Gg: AYBFou1W7tEkKU6qKVEqc/5e1SC1OxlKqilqSr3WPt/qxg/9mOB/JEH+tLtTrcFnsrc
+	vhC1EK22NO61+0MGX/18jHXaVobbaD3/GFQhXjiawl5mbSa7oEsJ93wR66m7VyVkiMVlitYzyjE
+	ApzpuzRsa6o7d8FEjHLt0j7k1+5+2Dywr4DbamEDh4YlCWV6pZytnYYS9QsADMZO1w2vOMf3BBl
+	y9JfkNZ2oLHFwckIt+ySKSQVLpr3B9FekDXeA7d5R+VPAty8SwyFOQoqbPjLpmzuWjMcQQrotcj
+	2HbvNjpklZPjSMq0wtePo9XiCdI9f8rYHNMHy8OF7E/7kkUlHZtPGDLnD/3OMd0ji1B/11IFFou
+	lUwvorzqhEfY+aZrKm2UazykRKdX8HOnWmtRa3fEgQSvf2SAAP4aqfd4gQBS6aooeijpGmbHMkV
+	0MpiD/wGjiWAin47ScoWjKdKVA8UXxdUYj62XF0S3x7DQ9Oxfgm3nJ5adI8+JlDl/WKhPZRdw1K
+	xvLBHFoQd7iWTHMLd2ip0E0TfDQh08X+AnjLcdOif8fBvk=
+X-Received: by 2002:a05:6102:578b:b0:7a7:ad9f:53b3 with SMTP id ada2fe7eead31-7ac0ca164d9mr1772284137.9.1790156463492;
+        Wed, 23 Sep 2026 02:41:03 -0700 (PDT)
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com. [209.85.222.43])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf5a7fb17sm2840175137.7.2026.09.23.02.41.03
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 02:41:03 -0700 (PDT)
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-98515937bcdso455606241.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:41:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzgp1SRmi5ZAulVp2LezkdyMQ77uQGufh4kC1WYRfKziBY2qlgkcmZ3VUVzJ6e/erQ3u1WwX7wZnZGs@vger.kernel.org
+X-Received: by 2002:a05:6102:f0a:b0:7a7:69a1:add2 with SMTP id
+ ada2fe7eead31-7aaa0708f72mr5644581137.30.1790156462933; Wed, 23 Sep 2026
+ 02:41:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <cover.1790005703.git.tommaso.merciai.xr@bp.renesas.com> <15cfcb44c2d6b6e03b5c3d0d5af8ed997c4d179a.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <15cfcb44c2d6b6e03b5c3d0d5af8ed997c4d179a.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 11:40:52 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUw3vsV+rs0wuYbDmLpA_EXWZAKtpoP1ZXTY6Xt_FPLsA@mail.gmail.com>
+X-Gm-Features: AclHuK-4kOrbGKvyDLh28vAfMHGiFQCwXQMIlG3sAkDSk9boruM0x-6nSZuHeBU
+Message-ID: <CAMuHMdUw3vsV+rs0wuYbDmLpA_EXWZAKtpoP1ZXTY6Xt_FPLsA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] arm64: dts: renesas: r9a08g046: Add USB2.0
+ placeholder nodes
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Di, 2026-09-15 at 22:43 +1200, Jiaxing Hu wrote:
-> Some Rockchip domains come out of power-on with their bus interface in an
-> undefined state. On the RK3576 NPU this shows up as a hang on the first
-> register access after the domain is switched on, and pulsing the domain's
-> resets at this point clears it.
->=20
-> Take the domain node's resets if it has any, and pulse them between
+On Tue, 22 Sept 2026 at 00:27, Tommaso Merciai
+<tommaso.merciai.xr@bp.renesas.com> wrote:
+> The USB2.0 wiring on the RZ SMARC Carrier-II board is the same for the
+> RZ/G3E and RZ/G3L SoMs, so the nodes belong in the shared
+> renesas-smarc2.dtsi. Enabling them there breaks the RZ/G3L SMARC EVK
+> build, as the r9a08g046 (RZ/G3L) SoC DTSI describes neither the USB2.0
+> host (OHCI/EHCI) nor function (HSUSB) instances:
+>
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:94.1-7 Label or path ehci0 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:99.1-7 Label or path ehci1 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:104.1-8 Label or path hsusb0 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:114.1-7 Label or path ohci0 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:119.1-7 Label or path ohci1 not found
+>
+> Add minimal placeholder nodes carrying only the reg property.
+> The remaining properties will be filled in once USB2.0 support for
+> RZ/G3L is complete.
+>
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-Why 'resets' plural? The binding specifies maxItems: 1.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4.
 
-> releasing idle and restoring QoS. The resets are optional, so domains tha=
-t
-> do not list any are unaffected.
->=20
-> The cycle goes before the settle delay 9/14 adds, not after it. A domain
-> that asks for both is asking to settle before the QoS registers answer, a=
-nd
-> a reset deasserted after the delay would leave nothing between the deasse=
-rt
-> and rockchip_pmu_restore_qos(). On RK3576 PD_NPU0 and PD_NPU1 ask for bot=
-h,
-> and the reset they cycle is SRST_A_RKNN0/1_BIU, the bus interface those Q=
-oS
-> writes go through.
->=20
-> It only runs when the domain actually changes state: rockchip_pd_power()
-> returns early when the hardware already reads the state being asked for. =
-A
-> bootloader that leaves the NPU powered would therefore skip both this and
-> the delay, which is why 9/14 gives RK3576_PD_NPU need_regulator and force=
-s
-> the domain off at probe.
->=20
-> No in-tree DTS puts resets in a power-domain node today, so every other
-> Rockchip SoC takes the optional get's NULL and is unchanged.
->=20
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  drivers/pmdomain/rockchip/pm-domains.c | 27 ++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->=20
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> index 39988efd8..6cc8d6efd 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-[...]
-> @@ -861,6 +878,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
-p_pmu *pmu,
->  	if (error)
->  		goto err_put_clocks;
-> =20
-> +	pd->resets =3D of_reset_control_array_get_optional_exclusive(node);
+Gr{oetje,eeting}s,
 
-This should be of_reset_control_get_optional_exclusive() if there is
-only a single reset.
+                        Geert
 
-regards
-Philipp
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
