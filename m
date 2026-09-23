@@ -1,133 +1,125 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA142496D24
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:52:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF8C3CB560;
+	Wed, 23 Sep 2026 10:52:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790160766; cv=none; b=OYgvMkDVYDvINNpPSgxcdTnH+HA3a+Nn8uvps0ZiUQPqdq3gBRiTkH+vYvZplRw0pz87zVvNrtcQYMQJTJpQM7qaqh3sIjWqqj7cTJH04w8YXr2rP/r8fGRnctYznbGmwOV+Hj3oIyXLSQuHbAU6ooWPRYl/0u2T/0JKpziIr/Q=
+	t=1790160770; cv=none; b=rXuw/L6waZ9hJLYZL6TCRqtFmC0aoqcW6/j/KnUF4ykzZFJCquxduk5lSATJyByyIkOdg+BY2zFF0ixao6rhm0AYkbpdxQOdLmCpzvUkNmy/b5XHG1jaxP2mPS5s0rFsBp6fHqdDp18mw/FMA5X/dUSIcMCnF5o4SZry+6SOyV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790160766; c=relaxed/simple;
-	bh=OYgwkeWjfaPzXeZYfd3LbE9wNpgo6gIQfwCz7/uINqk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Az5lyJhb9eSvffVa6U3oJ0ghGPKh7tGNt2+f8Ilpo2V05FYAjfD5wiVaz+AYLISpTsYlJAQW+nMDnJepZ/uiGCKTu/t3XKoc8mwLNTXsx7SdXx/tvWcalXone/LiWDjOs9SsYINrX0BMcDWteJErASPX1q1iQcGW3z7esYfSom4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n3FRo4wy; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790160770; c=relaxed/simple;
+	bh=fXC7LSy1JnsibxzFHLcXEiJVVDJTX7GUrYdbzs82IRM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cmcFgDDYatZhfPqCKQGA1fuO4U2/9Rceu4tCGeZZHAi87E32+quLwO50Y6rfkRo64sGWwAmWZ63XBw5UMC85CXiJ5OmRuOJdkfk+M0DgAveN4jYYkTjG3MLaIJUL3u1xZaS1vid1iZl0eLc5pPftaV/2CzhQ9BTfY9gyEjzlNho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HbySN59r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n3FRo4wy"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so641797e87.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 03:52:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790160734; x=1790765534; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jd3pD5snZnHs7zfXJzo2aSY9ZvIn735yOScE5LBtrBM=;
-        b=n3FRo4wyRzm/wIbYydfCXLwlh3HhFlEZkcWABGqmiKetBDAbUmTqiEd/+LITtGTT99
-         KXkakOMw844pkgrQlo2/UfUTpQhiJZUKukxsncoupQMBEasbTgfEPZ6gTJjBuHpBTvT3
-         pPh556qAZ5kOb2pWpOLv87IMS5mXoza15DxqHe6xblcxjSLvgX0unO+qKIAwI6SEeuRO
-         QMvIocmt1c8fl65oFQLrpNfJCsr4vl1PKUUElKfjxWMhXn80HlHlKS4pW/7AMForjNiY
-         B7oFOMomAvOiMMuo1mn/hz5U80ZE/cn3ebwrVAAUaJOzohGxzp3QyY2B6DUMk9eych3u
-         DL7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790160734; x=1790765534;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jd3pD5snZnHs7zfXJzo2aSY9ZvIn735yOScE5LBtrBM=;
-        b=uy19sIXtzt+0noavic0g1+pU0+HtqPJto642GQ5fl8/v4TPREMpaK3p3YohMT4FCNM
-         klw6ECgFWcIOOY9586epQNDTVQTNoI2M5flp5YfQANrm5231g5QYsx4qJTwdM/txrC5g
-         yzxK2Rhfo9qfc/ohwhm2a33bA3kA6FpbV6XVxCf22jMToR743KAAvkR6HBqXFEqPI6bi
-         Pujh4QSCHU7eROIx5RTOKVL7aBlI8gfUg35tWR4o5Dhi0ZTpdmKJ3N8LsPmo1eDyBf7t
-         95i7LYw4V7wbVTjN/R0tXy017CwH1WwtCPb9P6lnUBLG2iFaz2NjRiSsQG90StctaZvo
-         NE/g==
-X-Forwarded-Encrypted: i=1; AKwUvBysF2iFiiHbJiNW0XR9x/ETntzR70qj34p9V2qzPupg7q7KPEnyWKcUC09KhVLJDdoxm1YpPToXKut4@vger.kernel.org
-X-Gm-Message-State: AFuF++mrHSUE4gRSvyEc97qvitBYwjB+1rAO3c8zzRPZCIrbkWjmovii
-	kj0AuhNhpveNB65yMX0//cXhS356tnX1kUaM5AOkBeDjqYbAwfziG1TF
-X-Gm-Gg: AYBFou0Bz08yC9K35kcNxxWLTy1M8hfRUn0MPTrapBqzwLSi9/GaYZYW67Q/im8Z4di
-	u7fpSz3xm5oNzb31PPfXqfxCuIimcxFYJYIRIkRtBBaJGGJxnuHjP99ze0Tcta1IOjeCjq3YKe5
-	mIIonYqJOW3NowyoELK1FsxWZ20bEvVj2nuqrqllqivLdeQS7CxEWvxVwkvXjjH/eGMjSUpekDu
-	2gE4pU69E6NB0yzdFqIZOjXPMSSF4jJ2EsjV96j3idXlNsUW9Z1BdFq5nmBQ2n10NA497UkCLXk
-	Wed9mbTyYGGnrmvA2i4B4I2mAAwnhBHkY7cAY9q2s20NJJbEhfq9sI6YOOzZAK1OtczqvlMutRF
-	zSj5zaPUCae+6Ve9KU1pBaWaFOIKh34EtINzfcMYvOQdUk+vrOwa+6eP0X7AY6DDzaaQSiKEliQ
-	yDNXkrrJ7EzV26L1WVlqBPPR4GZP6aPv7swT/BmtdL5G0Ab8ogqScgMznnhvT155I8RvLVkLgkg
-	N8/6waGXZ4UICg6ItsqzDbDhtDN8SC9Rw9x6C0s
-X-Received: by 2002:ac2:5696:0:b0:5b8:bc5e:b583 with SMTP id 2adb3069b0e04-5b8d89c6344mr856658e87.59.1790160733833;
-        Wed, 23 Sep 2026 03:52:13 -0700 (PDT)
-Received: from DESKTOP-7GRJKK0 ([188.226.104.175])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d8552dafsm497428e87.7.2026.09.23.03.52.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 03:52:13 -0700 (PDT)
-From: Vladimir <anykey196@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	Vladnwx <vladnwx@users.noreply.github.com>
-Subject: [PATCH] arm64: dts: allwinner: h616: orangepi-zero2w: add 24-pin expansion buttons and IR
-Date: Wed, 23 Sep 2026 15:52:07 +0500
-Message-ID: <20260923105208.198-1-anykey196@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HbySN59r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B87D1F00893;
+	Wed, 23 Sep 2026 10:52:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790160757;
+	bh=92/ElpDMlBZgaBQ5uGzKx0uoF63WiGA9KSHDnkIehqw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HbySN59rQiIdL1Z3vbaggWijGaHh1QA9mHvveAUQY9c0we2awqfBU1SuoMTr03oca
+	 1ojpMqgJLcJ0h9CJa/Ndkz9AKmqF7sXIcjCDUlGhpe5gbjuu1VpEiOSkioGjUPr63U
+	 PkSz2obdQrk1H8w5+TvGznKnxxojw8el/HGuKiSVHRziujIX33wdJV39bIU+tRMRSw
+	 zpaEzFBH9cbS7+o/4WS1WF/BLkufHqTPr5Cvs5D8hhUc91YTAU/2I/eTckfSWPBNdY
+	 ZRdl43TIItDj5Lg+5MwoHd9detw4IQ5oLwqU2B5JN1r/Y6IqgJcQ1xhlia51rXytZ4
+	 BQfAjMqAhXP1Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 6/8] watchdog: rzv2h: Add syscon support for WDTDCR
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
+In-Reply-To: <20260923104054.3324830-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260923104054.3324830-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 10:52:37 +0000
+Message-Id: <20260923105237.7B87D1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Vladnwx <vladnwx@users.noreply.github.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] watchdog: rzv2h: Deadlock in restart handler via syscon regmap loc=
+king
+--
 
-The optional 24-pin expansion board exposes two LRADC buttons and an IR
-receiver. KEY1/KEY2 are on LRADC channel 0 (measured ~1.0 V / ~1.6 V) and are
-wired to KEY_1 / KEY_ENTER; the IR receiver is on the SoC ir controller (PH10).
+commit 1e1b26069f70735a537750b22a51257bb422c2e4
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Tested on: OrangePi Zero 2W (Allwinner H618).
+watchdog: rzv2h: Add syscon support for WDTDCR
 
-Signed-off-by: Vladnwx <vladnwx@users.noreply.github.com>
----
---- a/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
-@@ -10,6 +10,7 @@
- 
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
- 
- / {
-@@ -189,3 +190,31 @@
- 	usb1_vbus-supply = <&reg_vcc5v>;
- 	status = "okay";
- };
-+
-+/*
-+ * Buttons and IR receiver on the optional 24-pin expansion board.
-+ * KEY1 -> KEY_1, KEY2 -> KEY_ENTER (LRADC channel 0).
-+ */
-+&lradc {
-+	vref-supply = <&reg_vcc3v3>;
-+	status = "okay";
-+	wakeup-source;
-+
-+	button-1000 {
-+		label = "KEY_1";
-+		linux,code = <KEY_1>;
-+		channel = <0>;
-+		voltage = <1000000>;
-+	};
-+
-+	button-1600 {
-+		label = "KEY_ENTER";
-+		linux,code = <KEY_ENTER>;
-+		channel = <0>;
-+		voltage = <1600000>;
-+	};
-+};
-+
-+&ir {
-+	status = "okay";
-+};
--- 
-2.45.0
+The commit adds support for accessing the WDTDCR register via a syscon
+regmap interface for RZ/T2H and RZ/N2H SoCs. It looks up the SYSC regmap
+using the "renesas,sysc" property or falls back to MMIO access if absent.
+
+> diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
+> index 76c1d315b0e77..30b0b70fecaa9 100644
+> --- a/drivers/watchdog/rzv2h_wdt.c
+> +++ b/drivers/watchdog/rzv2h_wdt.c
+
+[ ... ]
+
+> @@ -93,18 +104,22 @@ static int rzv2h_wdt_ping(struct watchdog_device *wd=
+ev)
+> =20
+>  static int rzt2h_wdt_wdtdcr_count_stop(struct rzv2h_wdt_priv *priv)
+>  {
+> -	guard(spinlock_irqsave)(&priv->regmap_lock);
+> -	return regmap_set_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTOPCTRL);
+> +	struct rzv2h_sysc_wdtdcr *sysc =3D &priv->sysc;
+> +
+> +	guard(spinlock_irqsave)(&sysc->regmap_lock);
+> +	return regmap_set_bits(sysc->regmap, sysc->offset, WDTDCR_WDTSTOPCTRL);
+>  }
+
+[Severity: High]
+Is the external sysc->regmap_lock still necessary here?
+
+When using the syscon regmap returned by syscon_regmap_lookup_by_phandle_ar=
+gs(),
+the regmap has internal locking enabled by default. Since regmap_set_bits()
+already performs an atomic read-modify-write using the syscon's internal lo=
+ck,
+this external wrapper lock appears redundant for the syscon path.
+
+> =20
+>  static inline int rzt2h_wdt_wdtdcr_count_start_nolock(struct rzv2h_wdt_p=
+riv *priv)
+>  {
+> -	return regmap_clear_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTOPCTR=
+L);
+> +	struct rzv2h_sysc_wdtdcr *sysc =3D &priv->sysc;
+> +
+> +	return regmap_clear_bits(sysc->regmap, sysc->offset, WDTDCR_WDTSTOPCTRL=
+);
+>  }
+
+[Severity: High]
+Could this lead to a deadlock during a system panic or restart?
+
+This function is called by the rzv2h_wdt_restart() handler, which executes =
+in
+atomic or panic context and must remain strictly lockless to prevent deadlo=
+cks.
+
+While bypassing the driver's local sysc->regmap_lock was safe in the legacy
+MMIO fallback case (where rzv2h_wdtdcr_regmap_config disables locking), the
+syscon regmap has internal locking enabled.
+
+Calling regmap_clear_bits() unconditionally attempts to acquire the syscon
+regmap's internal spinlock. If the system panics while another CPU is acces=
+sing
+the shared syscon block, the restart handler could hang trying to acquire t=
+his
+lock, defeating the purpose of the watchdog restart recovery.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923104054.3324=
+830-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D6
