@@ -1,132 +1,98 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076E7440627
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EF943CE73;
+	Wed, 23 Sep 2026 09:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155490; cv=none; b=IiCot4W4rK/1J208g7EUBmzdismALizMhWzzbDYF/gMBDuMDJ48tIZ1x7fOxAWo5wivgLJ1QyIeBtJIWAjNiisFVLYBj37cgF0rC5C5yNHuRTzU05UEmWakgxcp24zb6zorBssnJolUH31G4wLr0i6bg2bxjH/GTVMtMHqZmvwg=
+	t=1790155648; cv=none; b=genRPwi7UizCtZXDK/4ouRNV1+gBm1fSzkBCQ2xZ7z4ih/UqSD6Bm8ctDD3ulzhLi/vLzYFSmIme7nps1sRAeSKZPkcXzUmX0L4/IPLEe/ClZ4UD7ti/pHG6RXAyiTuQ6lOtM6pkmYB7R//8h23nHIliPwrHBzdEqvzpd/b+o/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155490; c=relaxed/simple;
-	bh=giLw9ZC7rwC4GyqyRaXAh/5vOpDJdRZPgq8bl9w7pNc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iS7SjytmNKIXGNc7xiO9aJuu3WF4zxmRbSRwV3pK2zgaY4yRuD4ghMSAPWSU3KcUGc+AG6Xh6AAKdqbQ7gbK0ejwCKV0e8y0Yvjn70el589lt4R5hi+kk6WjwEPcubHadKANpJ0vo78mLbW8d/mFI0zHcJ2HBkfCYAj+w3UYmCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e5059faso274641e0c.0
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:24:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790155488; x=1790760288;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kx3tronudNhFXSg3haWqBf1SOxfgb2tJlD6OgG0oOzs=;
-        b=T36v5fn74jgz0syR73k9QLA7fR9CVxsemkqaCCh8y1cE6t5bdZ6swkOauTnswYHPG/
-         8/RXo4+MLMVWZvTpu4yPJtdA8CH4Rbvh9+r4sngqQeXuaWy4UCK/oGAgVYJrRZcx/qbs
-         XCu+v96CQK3+6SKJiS7EnV/RXf9kWqgfkJ9d2uAZrnC1qauVqlactSueeNN4IASqVK92
-         Y6UtdNNxm1rtlws+vFIIH4Y89e6wCBeT52Z+HKSpuheUal0HWejQxZ9nslV87Lhp5yUu
-         XrYlJibFn7TYsbT/pHZlSQPDtVeGHo6Putk+YWP7IppaBzuO89fSoKCb5K3hOUsyEFDw
-         E+NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzCtfYJAcbmhDWeVwXca5oIv0t8J0os0HghpDgSTY+g0szX7yJj3RlQ0KhFQTfJb/Qy7TjJIbQ2mk+s@vger.kernel.org
-X-Gm-Message-State: AFuF++nI8xEFJ2bDPDagedQ1i5WXztynqbDpLqTjlDsorgC15s/tMnG0
-	CTQszdeB9AYThI2EAOUzng7i2rTs1rmYgeglNdTAnviVyGgmALHbIP5kXK/LglmAUBM=
-X-Gm-Gg: AYBFou2k7WOOKCuZ5bMldOx1MwylQ8iTzgcjGCbuDz/yHlhNWSfqnIfLoQeLFKQQtF0
-	98X4LXYHvhiEkmtvmA5P5G0wq6DWMZH3zKsNmgNs0Pi9eiocCHHhl43WpsQO1Dw81klYWk3eWds
-	2gqWh7wAvaN9nJa3FUyHm9Af83Hkh5BsySK44Bl7FLSYaxjsnmeoDr7ojRVJk4PXOjPLQ5kwDep
-	7uUdHtcLh5WwV+8v+IBjqfCP7+5ud5HOW6oa7vZCtp7oFhI8JUzI2W4jbOXeCDPnnWuoE7vDKa5
-	W9MHSrp1CBs/pFGH4vytAlmyNJStKAJFxO78/Wt17hyEMZdjr9lodaKMDQpuWTdtTLx+b1ql+m1
-	nKWXpjTgM6TTaU1/YBZ1KX/Op7HtXoyBAhiMBRrqFsQ+6gixfBZGjjZdNvwHdLStnUuU0lVsiu+
-	m4Nlf4brK4oLgSjUZsrMpR98Jdgcpm/R3vJG9l4gZ7YZ9e0EZhs9EGQB5Kt93Qlde0Xnwz6z/P3
-	vrht50XJQ8bZo1qmkEaXoQcVA4I89pFbIw7OA==
-X-Received: by 2002:a05:6122:3c4b:b0:5c9:c60e:3a45 with SMTP id 71dfb90a1353d-5c9f16b4cf0mr2308921e0c.23.1790155487737;
-        Wed, 23 Sep 2026 02:24:47 -0700 (PDT)
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f04c05b3sm2628127e0c.6.2026.09.23.02.24.47
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 02:24:47 -0700 (PDT)
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7dba0631so258643241.3
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:24:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxYv7RJpdWXr0Sda7S57MNQJZuXIhmvNZ3QNRaId0EkXwnWMOwgL0kqfWJkmNtZJF6Vdzjmr1WVwNNa@vger.kernel.org
-X-Received: by 2002:a05:6102:3ec3:b0:7a7:ce1f:6b95 with SMTP id
- ada2fe7eead31-7ac1aad345cmr2119395137.2.1790155487273; Wed, 23 Sep 2026
- 02:24:47 -0700 (PDT)
+	s=arc-20240116; t=1790155648; c=relaxed/simple;
+	bh=Oc3I9oM07fQXOzzlZmp9DA8/cglCDSgCrJ3EQT7iH0o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iq45NiV+7a0sP7NrAoSzrVn9zcKc4E0EjcNgStG5ZVqSLItY+AxDLklEv2Pcyb6JUspfoVHUq1DRzfzG+WVl4sgB8Kgu96yLj47mXeE6+wC0ac6ZAqHMZoMoLqMFx/iTEcbvXlE5ijib55KW/+IdsVV6odViN9JujT4d/95z6og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AyWMMTiQ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AyWMMTiQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571651F000FF;
+	Wed, 23 Sep 2026 09:27:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790155646;
+	bh=/O9z/zdlbyFkDq4QkzPdgb25n16zFLBUEpRgnQqB/Mo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AyWMMTiQL6QY9D1XC/zFhcD3u/KfKA7aJIAYE39KBVbGKN5CcD8y/zGCbQO9KDhmR
+	 Yx3ocCfLDLV+6f8HCOiAe+9/Kom1WsHtFBOa1RW9nB44oC9Q3ADmrupsVV+fgZ2iq+
+	 3FtQPVYoULrc7ztk7u+4t8K1pFptPZNAgtpjEoXAMQyV3VdD3TAsldb238oecrN2e8
+	 WdOVl3xays+4cmYIln4b/D575CsJ2h3JTvoqoUTx4m3tF0rBj6bqe4hM7yfZ7329MJ
+	 4hTCHHbwZZ/Sb2xPszUz1r9VNxSM9cCDkruzNiRGVXaF5D0F7EkSN7ET4Y6PSLIBi8
+	 wuLkSFGRdHv6A==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 2F1BB1AC5737; Wed, 23 Sep 2026 10:27:23 +0100 (BST)
+Date: Wed, 23 Sep 2026 11:27:23 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH v7 00/10] ASoC: qcom: Add QAIF driver for Shikra audio
+ platform
+Message-ID: <arObexxuRRmQ5qqw@sirena.co.uk>
+References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921131951.187981-1-biju.das.jz@bp.renesas.com> <20260921131951.187981-6-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260921131951.187981-6-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 11:24:36 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVUQiOr1oetds27ovQy_7aYLEwc7GP_wTkokyft9UMy4w@mail.gmail.com>
-X-Gm-Features: AclHuK_vMjP-0WXG5Enu7q8Kh8Ojjt6gbc3hJeq0p0vSo9g7mG-PtYy2Hv7jehg
-Message-ID: <CAMuHMdVUQiOr1oetds27ovQy_7aYLEwc7GP_wTkokyft9UMy4w@mail.gmail.com>
-Subject: Re: [PATCH 5/5] arm64: dts: renesas: r9a08g046l48-smarc: Enable CANFD
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	Chris Paterson <Chris.Paterson2@renesas.com>, Biju Das <biju.das@bp.renesas.com>, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YJywhoxg+swNLprd"
+Content-Disposition: inline
+In-Reply-To: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
+X-Cookie: Too clever is dumb.
 
-Hi Biju,
 
-On Mon, 21 Sept 2026 at 15:20, Biju Das <biju.das.jz@bp.renesas.com> wrote:
-> Enable CANFD channel0 and channel1 on the SMARC carrier board.
->
-> Channel0 is always enabled, while channel1 is guarded by SW_DPI_EN
-> since it shares pins with the DPI interface. The CAN transceiver's
-> standby GPIOs are conditionally wired up based on the carrier-board
-> switch settings (SW_GPIO8_CAN0_STB, SW_GPIO9_CAN1_STB).
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+--YJywhoxg+swNLprd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks for your patch!
+On Wed, Sep 23, 2026 at 12:18:20PM +0530, Harendra Gautam wrote:
 
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+> base-commit: 46e864b539a2d2f6c0e5d08623654513ee50c556
+> change-id: 20260907-b4-qaif-shikra-audio-729007ceff72
+> prerequisite-message-id: <20260918-qaif_dai_id_support-v1-0-ed863c0e5e45@oss.qualcomm.com>
+> prerequisite-patch-id: 446fe28b27dbf5ce4240704d89296a5af69e8b21
+> prerequisite-patch-id: dc5ac9645789f25b3742dc4fca08dab4c1e4826d
+> prerequisite-patch-id: 0521512205679cad2462ecda959239aadc48cce6
 
-> +
-> +&can_transceiver {
-> +       standby-gpios =
-> +#if (!SW_DPI_EN) && (!SW_SD2_EN) && (SW_GPIO8_CAN0_STB)
+So, this does actually apply independently but does have the
+dependencies above.  I have repeatedtly asked Qualcomm in general to
+please stop sending things with in flight dependencies, it makes things
+very hard to manage.
 
-Please revert the order of the SW_DPI_EN and SW_SD2_EN, to match the
-signal flow order.
+--YJywhoxg+swNLprd
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +                       <&pinctrl RZG3L_GPIO(K, 0) GPIO_ACTIVE_HIGH>,
-> +#else
-> +                       <0>,
-> +#endif
-> +#if (!SW_SD2_EN) && (SW_GPIO9_CAN1_STB)
+-----BEGIN PGP SIGNATURE-----
 
-Missing check for !SW_DPI_EN?
+iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqzm3oACgkQJNaLcl1U
+h9AAbAf2Iz8v6VhOlWsVms2yyOdc36qKA6LwSz7G8avXO29wlrAYzARI6W+4gbI4
+ugjAVQrFgmx4XEjNxb0iTznS8+5wcZfQATQ6R5h7YoZ18lE2A8NCVwAUhZb8XhAJ
+E+kJWOqyevN7Z09ht3fcjagPsiVsC9n1iuPeLn1pCWkhLDwBtblEEv0kJxzmVrN3
+Cb8xG9ekXgPaBFmL4rb/yQk028sBP3HGWBtNgM4Sq+Gy7N/W1yI2ETbZSHU+YSu/
+lHICwrH6zj5iRzLHrve84i5L1rV0/CfsXboLJLtqZxKQqW4vJOHsJV/b3L/VsJ4E
+z+ZkcwLKh/RdzRqi0SVEUORqbQoY
+=84BN
+-----END PGP SIGNATURE-----
 
-> +                       <&pinctrl RZG3L_GPIO(K, 1) GPIO_ACTIVE_HIGH>;
-> +#else
-> +                       <0>;
-> +#endif
-> +       status = "okay";
-> +};
-> +
->  &ehci0 {
->         dr_mode = "otg";
->         status = "okay";
-
-The rest LGTM.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--YJywhoxg+swNLprd--
