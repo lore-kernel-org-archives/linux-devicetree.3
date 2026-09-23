@@ -1,239 +1,209 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011034.outbound.protection.outlook.com [40.107.208.34])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010034.outbound.protection.outlook.com [52.101.193.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E480361974
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 07:10:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04B34457A4;
+	Wed, 23 Sep 2026 07:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.34
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147454; cv=fail; b=eflOiCpnwmHzrqPBAgRP502vGzDTIF3HwXAzYHt4b9ROxLaG4CzI/s/DtVaupaJJsEy4n8A6X+xh7HY/7SvkIhPkQvhisUAyndMBAsHCJcd+kwSZ6ki3905xAZLhYZn8MgiW0avia1J74kBfWkiy3P2JR4TgGIRm/dgyV8Ee5qQ=
+	t=1790147658; cv=fail; b=fU6GWTYapKOJyOiD8lSvKQ0y6KM0DOF02WoH8VtzMIH/b0gVd3f+lwkMT8109hVd1EorNq9GPiw2rmhTcDNMZkVcBaPbonCVrlqCCgePkvPwbTgYJ1Fm0yjAjqd8Uv4eCnfucLwNaAPsKWKC4+9MSzBSVKJuZpXnGW1k5D/kTNw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147454; c=relaxed/simple;
-	bh=6qQr/xDOv9Aa48t2yqeFVFwMRqMBQwiGgNWC6v8tQmo=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=gHDcC7QP9blXfW3D4IynJmp/Uw3OiWahkU5IzUUrSiW2aJFkCfriNrxlzQFQUWxJI9eDx7PILqXOp0a9jKxXxpzqqLpbjLVOFzHpdgL+HB+QLzZLufkzRQ5hl//m4obYbtjvu5VnaNptd/Dc+6h0I7WULqPVjWBed4waIi4xKVk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WhePRXEh; arc=fail smtp.client-ip=40.107.208.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790147658; c=relaxed/simple;
+	bh=f0U2U/wtJycMUgR9Z8rw6qlBUxLsBPha+MMlrnTSdEo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gf8TEonFnEQFsyQviwvHoHMMWlpVSDr+ZmaR20Pw1pDz3lty83NmM5tV+iJ96yHrgM02aDCm1jg8X5hZD549kc2AmWqeCydVJ80fa0x4Rtjowh37KaGfU1g9hdj5n59l9a1pSpaH7lrdoo9RWeKk3KZniYLHSAzGxiMI8XA3X1w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qOw071Br; arc=fail smtp.client-ip=52.101.193.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WhePRXEh"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qOw071Br"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CqSV0hFYN2IpldzbiZ67E9+0xYDakxmZEeiWvCu2maUoYzQlfNxNvDYACPC0Z0+h1fQtFjtWWtSl4PVWPByfBnEhwsMHRAIPIRp9k/jj0q7FXHh5nu0vQWIvK4m6vgjYEDMVM7GrY8QvGpQ9qcJJdieZ3CnlNRb8wvkQxhx9EodgbggiZaaPWvrdBiJFEjAC/PQiLIE7s7BUt6iGWtf/tqiPgu+qlMDJIZexD2WWHFFxA8vnCOcb3Z6VIq8V1qqcTja6EZYIdF+IHb8hP4K5yYr4Fp8afqbPD5VWyAgVlOKIMzacstkfj9ZEhco2yek4EpFggL8o25fdMfzPreH4dw==
+ b=gVzXw+5LI8MEI33tqVySqiL3NO3pK+HTaVB9qasNtwLoqla3wzDtSS2LKSDkq/0gY3aX6IMqMWz1M6Xx3qJ7Ntx9V23MEtrlD39HjNYjUHep89GrZi8RNHKHJ0r1uL/2T6kjdrEU9rWEsq/O38041/GEJAx40mRbG5rYrAC7f63UmQQMFVo74xXhgBhsmV7GzEfQ7y7KY/lPp8lsL6QAa9AG/nn+KgQSKZXP4nUD+56b/bZVtdrJu50dnBonn5MMknvK52ckNvRHevzkVw5GrEI9EjkD3CCRYEU29vdoPNwhuHRN6miyZ1l04x/3KfFgqi8pFLCYG5ux6FQsOVauoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8WtNNmeOAQ8yVBGyxsSiKdWhy1kdlk+RXa1wrIZBfgk=;
- b=bLPO1fg2qrBjmFb3HrDBH8Auuodm5Wn2F23tK7Q0p7V4FPxu/eYXgLNqBgvCCLh3EERc/iBlkf7hAAFNbdORydtykLf7xt3OFAhZNLigevQE0ohx+kKk/0Pw3CvFe8v0E3iOOG2WL4VrlvsXwELImA3mdFQDm0L6oAII71bHJjNxWxhb40kj2c639FDwmS78gyrRGkkctV3ztnW/sdSC4oFaLGt22fDDS3rgmC6nfpCazQV7sehIyunELCiTV7YJwXQbgmcQEIqTmi18GdZ8KF3d5J0xf42sNxWrFsEzykVHbnBhqXq8tPTWrHBXeYfQdYRDhV5KfXeEfusG2B9T7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=X64djyfCFesYP6GYdHBjrhOilZOkCf82vc9oEQQFdHc=;
+ b=BlwyexK7xs4dSPCCaKlSwpgq3yiGZxPOUzQwKIuTH0IpRoQ0BsgMt+fk6DzWlFsu3+0iMD1iT6Oy6IMvI3L1muf6wGExiF1wznuz5+QEcc6Xi3T7Hv6GK7iNwsUWpTHoLHnHbL4u/byERouD7Fr/0EdEXILuFDUSB7OixHz2V/O6bvS5nk9G947ADyERwRcX1sig3SdS4fsn5Y/JvEZMECqGNS28g5g+GVH/5fIvxjwDGThYFBOmuE+nQGsSfEdBz1NQ9giHCCjfYqDnxMk4v5zwigwqu9r9eCR1fgqBZV8hGjdFidwZXQOXUFO8Xlw3znSL066Gq1ETgpvnVr3eQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8WtNNmeOAQ8yVBGyxsSiKdWhy1kdlk+RXa1wrIZBfgk=;
- b=WhePRXEhbsrmF1aOeUswPpF8KKJwmKonHw3djgmzqKIX8KWgbLc/Te7AmqZxknQVs/QMQhSXkG4+HSweodDp418mvqxu8dmjo5kbhi9pU5UZPl4nnkLEhYQ1eB2U4pfZZAIdWuNNNhLHt+QAt96h9Z7OB07ZIxixs6I5/XK5J9k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS7PR12MB9475.namprd12.prod.outlook.com (2603:10b6:8:251::6) by
- CH1PPFF9270C127.namprd12.prod.outlook.com (2603:10b6:61f:fc00::62b) with
+ bh=X64djyfCFesYP6GYdHBjrhOilZOkCf82vc9oEQQFdHc=;
+ b=qOw071BrlDYXbPERjD4xXwzT+yo/Yh9VbQexnp9Ymyowsz0uEgcBirOgbx+K0A+NJtg4O6hJOBNU4cmCkVPnKRsEXOuH1aO3qJypBntJJm0UZX5PCzx9pAteDsNw7tOTAzDelzcKgj8v5yK9NsRANkZsi8ppcz9G/4QH5IrsH+HD/AWHTH8kA6kgbpElMJ0SyafyiLeQSeFcYDgL7xngw1tHWYXIFftsQWYusy7+DLc18nIHOgOd9ggEVF/fUfztnUL1M3gRHaXQwF6j1xso7vcWhgNa6puvpsxEoWm3N3pV/CmbAp59M7jWBEfqdMrUtQG2p8Q92stRH8n3GxFirg==
+Received: from MW4PR03CA0280.namprd03.prod.outlook.com (2603:10b6:303:b5::15)
+ by PH8PR12MB6867.namprd12.prod.outlook.com (2603:10b6:510:1ca::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 07:10:45 +0000
-Received: from DS7PR12MB9475.namprd12.prod.outlook.com
- ([fe80::4371:c924:8800:2587]) by DS7PR12MB9475.namprd12.prod.outlook.com
- ([fe80::4371:c924:8800:2587%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 07:10:45 +0000
-Message-ID: <666edc7e-ddd1-45ba-a690-2e4888a0f0db@amd.com>
-Date: Wed, 23 Sep 2026 12:40:37 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] irqchip: Add Xilinx Versal NET SMMU CSR interrupt
- controller driver
-To: sashiko-reviews@lists.linux.dev, Tushar Nimkar <tushar.nimkar@amd.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20260918-smmu-changes-v2-v2-0-adda681ab983@amd.com>
- <20260918-smmu-changes-v2-v2-2-adda681ab983@amd.com>
- <20260918064831.92E5C1F000FF@smtp.kernel.org>
-Content-Language: en-US
-From: Tushar Nimkar <tunimkar@amd.com>
-In-Reply-To: <20260918064831.92E5C1F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4P287CA0028.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:26f::15) To DS7PR12MB9475.namprd12.prod.outlook.com
- (2603:10b6:8:251::6)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
+ 2026 07:14:11 +0000
+Received: from MWH0EPF000C6186.namprd02.prod.outlook.com
+ (2603:10b6:303:b5:cafe::52) by MW4PR03CA0280.outlook.office365.com
+ (2603:10b6:303:b5::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.16 via Frontend Transport; Wed,
+ 23 Sep 2026 07:14:11 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ MWH0EPF000C6186.mail.protection.outlook.com (10.167.249.118) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 07:14:11 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
+ 2026 00:13:51 -0700
+Received: from mmaddireddy-ubuntu.nvidia.com (10.126.230.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 23 Sep 2026 00:13:48 -0700
+From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>
+CC: <devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Subject: [PATCH] arm64: tegra: Use iommus for PCIe endpoint controllers
+Date: Wed, 23 Sep 2026 12:43:20 +0530
+Message-ID: <20260923071320.1131096-1-mmaddireddy@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB9475:EE_|CH1PPFF9270C127:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82750dbc-85a0-44c4-6747-08df1941c936
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6186:EE_|PH8PR12MB6867:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa95af56-ce9c-4fdf-eeef-08df19424436
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|10067099003|56012099006|18002099003|22082099003|4143699003|11063799006;
+	BCL:0;ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|6133799003|10067099003|11063799006|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	ArdpPpjYh7xvvz/AIcspWg/OLIcc62UKFbLAwf4TO87BDdRLZfxhxRfcl2utgEOCbhb9S1cVmCsdcjSWbSbsazQ9IJgpmtdlyHkT+93LzLKpfkhjX2YRql+Q0PJMZadME7U62Anx7A/zLNMkT3SeAvlFHH0bzPzSRnDbMytMpGiNTLGyP1KjAMbVr8YmxARflWD9KC1ERr6QVodPNRM9f9WcNsSruRHq4IMI2VMK6UXarvgiZKZ+YLE64QO16lwRHR9GqpbZHTX+lDkuhOVIZsYhiOt0YQz2k15hcu4gOAb/MNEuJzUzdZst0i1LkqfvotiEUzLszgnNjc540fSBL57a9LQAhJF3nctkejGlvb8Sck3LwaElx8HIomMY3r4yliC4hOjuAdVtiWjCS2g3iIj76Rnu9twQID4dp+CADPctchkKmUryOMS4rk+Q6I/Xc8zQ/NPk1CcO/AOidYnJ7+xhLOnBl1P+8vsDsi7/dQQDoieH/Xuhkl6s7hzWZVJOqsjOiDlXl/kLB+PJzzE5JWgiQXGDOv6c1VgVfj8WMOYwDdWR7/TVtfUH4W7YX+6COHlnUTF9ydP/2rKsP4cLnIoTP1I0t8QnkxxaGSyDfY8=
+	W8g+5a4w5LjehZ/CxsxWRDdeFZPkF1c0KBSUPMDkFb3cygo1VAanZMMJb25io7fzYOwaZ4gI+MZvaztuld3pwkdFJGBu4PKZZL+gFs60B5gBZC0lf5yU/26wzNVtmSOD5NKa0JgAzmkoaRhxYI7ma/HlC0Uzib8Kst7jsXbH5Nfa/6OuYbjtOSjbgyVUYbyBN8BLenjT9S2a3Gj0GjcOH3hEihqCmH1hGKWZOOpLcKzbySJcbZjwJcq0JLu+vcX3YCXZN9rEFoIoP3EgIh29MbNG6il3PMylWDQGBrAceJTnAKlWvmIwsxmNiCvtYa6Jn+AozSZrBdzaF9Ooj9/jTWIE6tfGfmOJ74jcUg4xIUMO0q/SqtPHC9QooRjBZCiC80QFC4BV4s9sFBljay9kKNDs7NajnMJnfxwVLi8eW/CyKdne7cdMqIfiH2NXv+YPBx45MN7Ewt7N9l5LJvJTwk99aXtdpjLz4jRglB5Bex4/ta2PGsRBfTH8vjYl1VPpc+1qElAz+rl1riIwak7Eh75FAdxVTXDvAfIdeZCxHTvtTcA8YbMoXL542T9D1NVTVedTgoJgXGf7Dzvpjs0/8k7+A5HwVNtrqvp5TYSTar2cqsb77CLHnxTh1uchZW0Px7cfvbONFPFDv8zJubKU90i0UnfqCXZG4g7Kb9hN8yIkXXGrscC2lFJJdXh4nmUeFEwn2krurDxmnbPXTg6trA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9475.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZERKUFZCbVBEK21vWDUrZ3RMZHZyY3JVR3A5UE51Wmg4dU1aV2JjWnBONTdT?=
- =?utf-8?B?U1NuZVpHT0luLytPcExjejFPT1lwUlg0ZHFZckk2NmlmSzlHQlA1NmZwRUZ4?=
- =?utf-8?B?akkrZGtxNitMMFg0d25GYUFCamJzMi9pRjU5aDZZREdCcjNLaGtWMlZ0eWNY?=
- =?utf-8?B?NlNPVW1yMHB4ak5ycXVJUnVsT2NhamZLNFpObkw2M05JOVlPeW5sdUlSaXhO?=
- =?utf-8?B?aHhybXVDQUxHZ2VmMGEzeUwrTEZtRkNWTm5DS29rYml6eUVBZUFIOGFiR0tk?=
- =?utf-8?B?eEtDUkNmMmpjdTYwS3E3S2ozaTlvV0ZkdW91V3hSME9aTkU2cERxanJ6TlRT?=
- =?utf-8?B?eGF4am91M3M4elo1MjZzcHd0bkJWWEVkNnRsbFNYQnU2UkU0eWI3UWFadmwr?=
- =?utf-8?B?Y3F2WllCdmJnTmxab1hhdmUzeENoZ2FJVHR5MlFVN0xLOGU3SWR1dEJoM1hj?=
- =?utf-8?B?c1dMUHBzSTF2blVnUllLWHRSNXhKTWtiWFFqQXdlL1JkbTB2aGFqMHMwMDZq?=
- =?utf-8?B?YkU2NEZMb3EyOE1MZFRrM1pVMU9mRk16VUVsUTVrVkRvKytqQkx4MVlnN3dW?=
- =?utf-8?B?am5mOXh6Z2xCUW1tNUpSWnhRTk5VOWluWTZpZ24yQ0k2RkhvWkJySzZkOEdX?=
- =?utf-8?B?ZzB0VkNDdGMxQ0tJekRQMCttYWcwTVBpL1BFWGthNmdVSnhTN3JKK01aUTJm?=
- =?utf-8?B?elhjRjFDSVVXMDJnUHVHUUlWc1E5bEYvK0N4U08vNGRXQWROR0UxUndxT2tO?=
- =?utf-8?B?UWVEbUZweFhGVVpZZkR1bG9MdGtoOTcrc0hhRGJlcHp6bnJFTGF6V2ZNdVhQ?=
- =?utf-8?B?UkNlS1UwRkRabnRYM0gvaUJnK01MWGZ3MWVYOVNMMTVGSnZ4VXk2RUdldVE0?=
- =?utf-8?B?b2FwWWNrdXloQnl4Q3k3eDF4TmtFZzIrQkdNTVdlR2ptbjR2d1RnUkJRK2xN?=
- =?utf-8?B?ZGs3aFJ6UzE0N1oveTNXcGk5MnRLdU51Q2FKZ1JOOFllaU1nd0FKSlZQSGlj?=
- =?utf-8?B?U3ByRHVOK043SFc2L0ZOVFpVSkFpVWVCZFNlMmg5S2FzdnhuVi94TzJXYlc5?=
- =?utf-8?B?UXFJbm9IMytYTGdxMHBpcStqclJ4Um82VGE0RytFcERzRHZNRU1oUVc1Mjhi?=
- =?utf-8?B?VldvTis5YllLUGcwbFFSaFNIVkFqWUtDcmduZVNHeGg2L2NaYzJ4S2pWR1lZ?=
- =?utf-8?B?WlcrTkhHbkJETXhIZm9COGtYNzc5S1RlY1c1UHpPUmNWQVVUekhXdnhjOWNV?=
- =?utf-8?B?amRtWFJCSG5jZVFONmFtZk45Skg0blJHZ1NLMDZZc3E5SDJVL2FmNDNWZlM0?=
- =?utf-8?B?SDZJL2JJcGdhVkt2NlVQakFZVkcwOVRRTWtsZEQwcXk0YnRWcmx3S20vVEl6?=
- =?utf-8?B?T0U0Y0x2dU02Y2JHTlZjVFNUTE5CQVZrZE5neFFRZ29tVXJuTE9PYUdLVGYv?=
- =?utf-8?B?bFpMdk1sM3hLQnAwc3BiNzFtakp4K2ZYRnYvL1NKK29UL0xpRVZEWXJjMDNO?=
- =?utf-8?B?ZnZxUStONXJIa2NYaEhvSzAwVmFPZFpCNE53dGFiWlg4MFVkOUp0WDZKVGhp?=
- =?utf-8?B?TDA5MmFmblMvMjB2dnp6blJXbEtMSFU2MG55M2QwWm9SbWpaOUlwOEprVnht?=
- =?utf-8?B?STNKSFZOdDNrYTRVLzJuOENaNFBIVzRKVUVmY3M2NGx1WFNiZVJmWDRoOGx4?=
- =?utf-8?B?aUxJanRIT3RVK0lRZTc0S24xckxEWjEvRzg4dXN0S2U2NjN1WHlsa1F4WDU0?=
- =?utf-8?B?LzI0bDNCMFlEWUJoOEY4ZVJwZ2FLOEQzTlJ0Z1VyOE1rUGFmZ1dNeEI0L1Z6?=
- =?utf-8?B?cUtGUUp6UmNIWjdDR2NSM1FiNUpUemllSkFFbUQrTEVhUS9QMk41YjNLcXFn?=
- =?utf-8?B?ZEJWS0FBRC9DSExZVUZLYVZicDcyK2dzUTJ1K1c3ekRRelpydExBSHphSEs5?=
- =?utf-8?B?aFk4UlpqdGxicUNreEUramNQOUJSNy9BUG13ekRnWFpycnhvNmJxQ1JVWFM4?=
- =?utf-8?B?cWtZSktlMjVaSnNGN1RXRmNWZ3RqTjYrbC9KWTJ0aHlFM29jWUpZYmVpTjVi?=
- =?utf-8?B?bE1GQU43QWZKK0Q0d3JlSzFXanE5aHZXam5zZmlzV0xvVEVNc0dQamd1Qm16?=
- =?utf-8?B?N2ExT1l3K0hzZngwb2VoN3l5M2ZMcEM2VmRnd1k1S3dRUDdlYkFFa2xMeTZP?=
- =?utf-8?B?dUwyc1VoZ3MrWlRjZU9hVzZIdXVGemVPRmhCVzZEclBXdWFURFhTVFRna1pa?=
- =?utf-8?B?dUJPa1hlZU81RjIrbVNMZnZkZ3ZUKzBGWHVzUGtoYzdNaVhrYnBsak9tbkZu?=
- =?utf-8?B?WU1VbG5FZ2NyVGczZVV0RDRTTGplMnpvQUtKSVRwelZ0ZjNoSFdlQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82750dbc-85a0-44c4-6747-08df1941c936
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9475.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 07:10:45.2754
+	/j8eo/2XgEs02L++jIlSq0FT5JBWSsC8d3OVgfutapVh5gyrDyocLMMtsllxJqzBMirJCY/NdjnchYpiHbr0KSw8WGCYl657d+3Wfmo/CMI76rONuU7iuy3jL4XkV5KQhYyv6ap6/s1nhSn87kLZIjSjMpgKKUyDKWb8KlixQZQKRrvpgIpbGF7Zf4BDRuRO2cx4a+gC5LmlWCpiPccZ8PiR+T1amwmTLkYyZFthvHvnvLPgV6nity99gl/MuIkXOUg+l3I3uSCv1g/+AevBn71/7OMCTe6Le7jkuJEwAjiE7mXOzxq0tngi/ugKA3x8E9Fe3XDyAErBFqehAf51zPkZcjgLapoEMfxAZeA+tsm1Za412bJbT3Buf/fwd6+KEfaHQEaVkYB84cuAnOre+yKk2se5KV5yhsvHqDuMQebBnNUZn8joHqk2fPEWDHCC
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 07:14:11.1423
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GJVk3SXECnzMGZ8Lyq+RK3M+Fi8D93M5FoLO3Kux/CxgzVGFy83fHRfdOlXs67lAsjKnfZziJP7Ng4vTPOYCMw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFF9270C127
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa95af56-ce9c-4fdf-eeef-08df19424436
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C6186.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6867
 
+Tegra PCIe endpoint controllers are platform devices and issue DMA as SoC
+masters. Attach them directly to the SMMU with an iommus property so the
+platform device gets an IOMMU fwspec and domain during probe.
 
-On 9/18/2026 12:18 PM, sashiko-bot@kernel.org wrote:
-> [You don't often get email from sashiko-bot@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
->
->
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] irqchip: unrecoverable interrupt storm due to unhandled CMDQ_SYNC
-> - [Medium] irqchip: spurious handling of disabled interrupts causes log spam
-Thanks Sashiko for the review,  all issues addressed in v3 and validated.
-> --
->
-> commit bfa978fa90b50ee4257046a8002784c0f7fc45f7
-> Author: Anirudha Sarangi <anirudha.sarangi@amd.com>
->
-> irqchip: Add Xilinx Versal NET SMMU CSR interrupt controller driver
->
-> The Xilinx Versal NET SoC implements a Control and Status Register (CSR)
-> block in front of the ARM SMMUv3 to manage EVENTQ, PRIQ and GLOBAL
-> interrupts. This commit adds an irqchip driver to demultiplex these
-> interrupts and chain them to the upstream SMMUv3 driver.
->
->> diff --git a/drivers/irqchip/irq-xilinx-smmu-csr.c b/drivers/irqchip/irq-xilinx-smmu-csr.c
->> new file mode 100644
->> index 0000000000000..d9b575c6c58b0
->> --- /dev/null
->> +++ b/drivers/irqchip/irq-xilinx-smmu-csr.c
-> [ ... ]
->> +static void xilinx_smmu_csr_irq_handler(struct irq_desc *desc)
->> +{
->> +     struct xilinx_smmu_csr *csr = irq_desc_get_handler_data(desc);
->> +     struct irq_chip *chip = irq_desc_get_chip(desc);
->> +     u32 status, pending;
->> +
->> +     chained_irq_enter(chip, desc);
->> +
->> +     status = readl(csr->base + SMMU_CSR_ISR);
->> +
->> +     /* Only service sources we support; SMMU_CSR_ISR latches raw status */
->> +     pending = status & SMMU_INTR_ALL;
-> [Severity: High]
-> If the CMDQ_SYNC interrupt (bit 1) was enabled or asserted by a previous boot
-> stage like u-boot or kexec, it is filtered out of this pending mask. Because
-> it is never cleared or acknowledged, will this cause an interrupt storm on the
-> parent GIC line and a system hard lockup?
-Yes — fixed in v3. The handler now gates on the hardware mask register 
-and defensively masks+clears any active source it doesn't demultiplex 
-(e.g. CMDQ_SYNC), so it can't hold the GIC
-line asserted.
-> [Severity: Medium]
-> Additionally, since SMMU_CSR_ISR latches the raw status, does masking against
-> SMMU_INTR_ALL instead of a shadow mask of actually enabled interrupts lead to
-> processing disabled or unmapped events?
-Fixed in v3 - dispatch is now gated on active = status & ~mask using the 
-hardware mask register (SMMU_CSR_MASK), so masked/disabled-but-latched 
-sources are never processed.
->> +
->> +     while (pending) {
->> +             irq_hw_number_t hwirq = __ffs(pending);
->> +             int ret;
->> +
->> +             ret = generic_handle_domain_irq(csr->domain, hwirq);
->> +             if (ret)
->> +                     pr_err_ratelimited("xilinx-smmu-csr: Failed to handle domain IRQ %lu: %d\n",
->> +                                        hwirq, ret);
-> If an unmapped interrupt fires, generic_handle_domain_irq() will fail with
-> -EINVAL and log this error. Because the driver cannot ACK an unmapped
-> interrupt, the bit remains set in the ISR. Does this result in permanent
-> ratelimited log spam and wasted CPU cycles on every subsequent valid
-> interrupt?
-Fixed in v3 -  On an error return the handler now masks+clears that 
-source instead of logging, so the bit can't stay set
->> +
->> +             pending &= ~BIT(hwirq);
->> +     }
->> +
->> +     chained_irq_exit(chip, desc);
->> +}
-> [ ... ]
->> +static int __init xilinx_smmu_csr_init(struct device_node *node, struct device_node *parent)
->> +{
-> [ ... ]
->> +     /* Start from a known state: all sources disabled, latches cleared. */
->> +     writel(SMMU_INTR_ALL, csr->base + SMMU_CSR_IDR);
->> +     writel(SMMU_INTR_ALL, csr->base + SMMU_CSR_ISR);
-> [Severity: High]
-> SMMU_INTR_ALL omits bit 1 (CMDQ_SYNC). If a prior boot stage left CMDQ_SYNC
-> enabled or pending, doesn't writing only SMMU_INTR_ALL fail to disable and
-> clear it, setting up the interrupt storm described above?
-Correct — fixed in v3. Init now masks and clears every source the block 
-implements (SMMU_INTR_HW_ALL = GENMASK(3,0)), including CMDQ_SYNC:
+The endpoint controllers supported by the Tegra194/234 PCIe driver expose a
+single endpoint function. They do not need iommu-map or iommu-map-mask
+properties because there is no endpoint function/device ID mapping to
+express. Those properties also do not attach the endpoint controller
+platform device itself to the SMMU.
 
-   writel(SMMU_INTR_HW_ALL, csr->base + SMMU_CSR_IDR); /* mask all  */
-   writel(SMMU_INTR_HW_ALL, csr->base + SMMU_CSR_ISR); /* clear all */
+Use direct iommus properties for the Tegra194 and Tegra234 PCIe endpoint
+nodes and remove the unnecessary iommu-map properties from those nodes.
 
-so an inherited enabled/pending CMDQ_SYNC is disabled and cleared before 
-the parent line is enabled.
+Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+---
+ arch/arm64/boot/dts/nvidia/tegra194.dtsi |  9 +++------
+ arch/arm64/boot/dts/nvidia/tegra234.dtsi | 12 ++++--------
+ 2 files changed, 7 insertions(+), 14 deletions(-)
 
->> +
->> +     csr->domain = irq_domain_create_linear(of_fwnode_handle(node), SMMU_CSR_IRQ_NR,
->> +                                            &xilinx_smmu_csr_domain_ops,
->> +                                            csr);
-> [ ... ]
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260918-smmu-changes-v2-v2-0-adda681ab983@amd.com?part=2
-Thanks, Tushar Nimkar
+diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
+index 5e510f77b538..a7843bae02ac 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
++++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
+@@ -2596,8 +2596,7 @@ pcie-ep@14160000 {
+ 			interconnects = <&mc TEGRA194_MEMORY_CLIENT_PCIE4R &emc>,
+ 					<&mc TEGRA194_MEMORY_CLIENT_PCIE4W &emc>;
+ 			interconnect-names = "dma-mem", "write";
+-			iommu-map = <0x0 &smmu TEGRA194_SID_PCIE4 0x1000>;
+-			iommu-map-mask = <0x0>;
++			iommus = <&smmu TEGRA194_SID_PCIE4>;
+ 			dma-coherent;
+ 		};
+ 
+@@ -2689,8 +2688,7 @@ pcie-ep@14180000 {
+ 			interconnects = <&mc TEGRA194_MEMORY_CLIENT_PCIE0R &emc>,
+ 					<&mc TEGRA194_MEMORY_CLIENT_PCIE0W &emc>;
+ 			interconnect-names = "dma-mem", "write";
+-			iommu-map = <0x0 &smmu TEGRA194_SID_PCIE0 0x1000>;
+-			iommu-map-mask = <0x0>;
++			iommus = <&smmu TEGRA194_SID_PCIE0>;
+ 			dma-coherent;
+ 		};
+ 
+@@ -2788,8 +2786,7 @@ pcie-ep@141a0000 {
+ 			interconnects = <&mc TEGRA194_MEMORY_CLIENT_PCIE5R &emc>,
+ 					<&mc TEGRA194_MEMORY_CLIENT_PCIE5W &emc>;
+ 			interconnect-names = "dma-mem", "write";
+-			iommu-map = <0x0 &smmu TEGRA194_SID_PCIE5 0x1000>;
+-			iommu-map-mask = <0x0>;
++			iommus = <&smmu TEGRA194_SID_PCIE5>;
+ 			dma-coherent;
+ 		};
+ 
+diff --git a/arch/arm64/boot/dts/nvidia/tegra234.dtsi b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
+index 5e29316a4d75..6fb2ff1253c4 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra234.dtsi
++++ b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
+@@ -4694,8 +4694,7 @@ pcie-ep@140e0000 {
+ 			interconnects = <&mc TEGRA234_MEMORY_CLIENT_PCIE10AR &emc>,
+ 					<&mc TEGRA234_MEMORY_CLIENT_PCIE10AW &emc>;
+ 			interconnect-names = "dma-mem", "write";
+-			iommu-map = <0x0 &smmu_niso1 TEGRA234_SID_PCIE10 0x1000>;
+-			iommu-map-mask = <0x0>;
++			iommus = <&smmu_niso1 TEGRA234_SID_PCIE10>;
+ 			dma-coherent;
+ 
+ 			status = "disabled";
+@@ -5099,8 +5098,7 @@ pcie-ep@141a0000 {
+ 			interconnects = <&mc TEGRA234_MEMORY_CLIENT_PCIE5R &emc>,
+ 					<&mc TEGRA234_MEMORY_CLIENT_PCIE5W &emc>;
+ 			interconnect-names = "dma-mem", "write";
+-			iommu-map = <0x0 &smmu_niso0 TEGRA234_SID_PCIE5 0x1000>;
+-			iommu-map-mask = <0x0>;
++			iommus = <&smmu_niso0 TEGRA234_SID_PCIE5>;
+ 			dma-coherent;
+ 
+ 			status = "disabled";
+@@ -5195,8 +5193,7 @@ pcie-ep@141c0000 {
+ 			interconnects = <&mc TEGRA234_MEMORY_CLIENT_PCIE6AR &emc>,
+ 					<&mc TEGRA234_MEMORY_CLIENT_PCIE6AW &emc>;
+ 			interconnect-names = "dma-mem", "write";
+-			iommu-map = <0x0 &smmu_niso0 TEGRA234_SID_PCIE6 0x1000>;
+-			iommu-map-mask = <0x0>;
++			iommus = <&smmu_niso0 TEGRA234_SID_PCIE6>;
+ 			dma-coherent;
+ 
+ 			status = "disabled";
+@@ -5291,8 +5288,7 @@ pcie-ep@141e0000 {
+ 			interconnects = <&mc TEGRA234_MEMORY_CLIENT_PCIE7AR &emc>,
+ 					<&mc TEGRA234_MEMORY_CLIENT_PCIE7AW &emc>;
+ 			interconnect-names = "dma-mem", "write";
+-			iommu-map = <0x0 &smmu_niso1 TEGRA234_SID_PCIE7 0x1000>;
+-			iommu-map-mask = <0x0>;
++			iommus = <&smmu_niso1 TEGRA234_SID_PCIE7>;
+ 			dma-coherent;
+ 
+ 			status = "disabled";
+-- 
+2.34.1
+
