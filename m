@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EF943CE73;
-	Wed, 23 Sep 2026 09:27:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F582421239;
+	Wed, 23 Sep 2026 09:29:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155648; cv=none; b=genRPwi7UizCtZXDK/4ouRNV1+gBm1fSzkBCQ2xZ7z4ih/UqSD6Bm8ctDD3ulzhLi/vLzYFSmIme7nps1sRAeSKZPkcXzUmX0L4/IPLEe/ClZ4UD7ti/pHG6RXAyiTuQ6lOtM6pkmYB7R//8h23nHIliPwrHBzdEqvzpd/b+o/8=
+	t=1790155792; cv=none; b=Q99IHd8jSMvWIv16NA4M3SZKJD4clMBVm20mLbCBh6PSPw/zufExPf9PZCUrbhshyKJ8gRYRUH2mcdaKm15Y2d7NkE4NFFFS7Bf03SRGgRxZ/fDiSqdnIas3beh1it8U1yRkIGaQT/nrscO4aCSaGmPy3s1VUaOTIQ2OhxFPs2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155648; c=relaxed/simple;
-	bh=Oc3I9oM07fQXOzzlZmp9DA8/cglCDSgCrJ3EQT7iH0o=;
+	s=arc-20240116; t=1790155792; c=relaxed/simple;
+	bh=65clxju926Ezay/iZzxLg+Id+l6luEUCeaS/XQLYTiQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iq45NiV+7a0sP7NrAoSzrVn9zcKc4E0EjcNgStG5ZVqSLItY+AxDLklEv2Pcyb6JUspfoVHUq1DRzfzG+WVl4sgB8Kgu96yLj47mXeE6+wC0ac6ZAqHMZoMoLqMFx/iTEcbvXlE5ijib55KW/+IdsVV6odViN9JujT4d/95z6og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AyWMMTiQ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=sOpmDZR7CW4oLY22/SXGiPTJGPCh3fAv7C7ZUeAM4Cb2qK51358/3mM5kH4Fk3Z0COoH4S87yVHE5Z3XNTGCHJIrmwhNMq/j/PhqbjfvrOo4sNzcjP8txzrbnG8rbi2uOVV1MIGnLEJqn+3Jl/Na6xdNw4HTI8kvpPGApxe5rpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K2DApsy/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AyWMMTiQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571651F000FF;
-	Wed, 23 Sep 2026 09:27:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K2DApsy/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB13B1F000FF;
+	Wed, 23 Sep 2026 09:29:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790155646;
-	bh=/O9z/zdlbyFkDq4QkzPdgb25n16zFLBUEpRgnQqB/Mo=;
+	s=k20260515; t=1790155791;
+	bh=fa3//q+AO+jYBEjkP36YJDAcZoXi3LGE10xm8vlk4K4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AyWMMTiQL6QY9D1XC/zFhcD3u/KfKA7aJIAYE39KBVbGKN5CcD8y/zGCbQO9KDhmR
-	 Yx3ocCfLDLV+6f8HCOiAe+9/Kom1WsHtFBOa1RW9nB44oC9Q3ADmrupsVV+fgZ2iq+
-	 3FtQPVYoULrc7ztk7u+4t8K1pFptPZNAgtpjEoXAMQyV3VdD3TAsldb238oecrN2e8
-	 WdOVl3xays+4cmYIln4b/D575CsJ2h3JTvoqoUTx4m3tF0rBj6bqe4hM7yfZ7329MJ
-	 4hTCHHbwZZ/Sb2xPszUz1r9VNxSM9cCDkruzNiRGVXaF5D0F7EkSN7ET4Y6PSLIBi8
-	 wuLkSFGRdHv6A==
+	b=K2DApsy/sEaSmDfcyIH+F9V9Woq4NVAzjmRGcK2P9pWwiDoCZV7ANas6JRtg+LJUA
+	 K17E4M3M3Paw7U8YxttYp3lydYVbNtVc3/9gbsAQwXL/xLfUOzi+sjpAjHxZjarF0h
+	 KlrRSfxY9nfAXKPQqOpRtGvy+rNXvq+f7RU8ZPaMCWoIAqqmaCrVoQvcpAqr7OBGg5
+	 Im47bFw2m3mUuXMiwtqytZMrgK2Z9WTGlZCq69psHmx0xA+7f141FXeLV1kqc0bVSJ
+	 37HiYyLWcugqTdDWORLTGJKOpP41F2WMZHfK6aBQVgGJiN2xX/KXkaZHA2vdxWlEeR
+	 SNxq37vYEY7SA==
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 2F1BB1AC5737; Wed, 23 Sep 2026 10:27:23 +0100 (BST)
-Date: Wed, 23 Sep 2026 11:27:23 +0200
+	id 7661A1AC5737; Wed, 23 Sep 2026 10:29:48 +0100 (BST)
+Date: Wed, 23 Sep 2026 11:29:48 +0200
 From: Mark Brown <broonie@kernel.org>
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
@@ -45,10 +45,11 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
 	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
 	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Subject: Re: [PATCH v7 00/10] ASoC: qcom: Add QAIF driver for Shikra audio
- platform
-Message-ID: <arObexxuRRmQ5qqw@sirena.co.uk>
+Subject: Re: [PATCH v7 02/10] ASoC: qcom: Add QAIF shared data structures and
+ variant interface
+Message-ID: <arOcDLy_ESS6Qwcs@sirena.co.uk>
 References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
+ <20260923-b4-qaif-shikra-audio-v7-2-d5b6f056568e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,43 +57,39 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YJywhoxg+swNLprd"
+	protocol="application/pgp-signature"; boundary="EvifuDrkTJZzlz2v"
 Content-Disposition: inline
-In-Reply-To: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
+In-Reply-To: <20260923-b4-qaif-shikra-audio-v7-2-d5b6f056568e@oss.qualcomm.com>
 X-Cookie: Too clever is dumb.
 
 
---YJywhoxg+swNLprd
+--EvifuDrkTJZzlz2v
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Wed, Sep 23, 2026 at 12:18:20PM +0530, Harendra Gautam wrote:
+On Wed, Sep 23, 2026 at 12:18:22PM +0530, Harendra Gautam wrote:
+> Add qaif.h to hold common definitions shared by the QAIF CPU DAI and PCM
+> platform drivers.
 
-> base-commit: 46e864b539a2d2f6c0e5d08623654513ee50c556
-> change-id: 20260907-b4-qaif-shikra-audio-729007ceff72
-> prerequisite-message-id: <20260918-qaif_dai_id_support-v1-0-ed863c0e5e45@oss.qualcomm.com>
-> prerequisite-patch-id: 446fe28b27dbf5ce4240704d89296a5af69e8b21
-> prerequisite-patch-id: dc5ac9645789f25b3742dc4fca08dab4c1e4826d
-> prerequisite-patch-id: 0521512205679cad2462ecda959239aadc48cce6
+> +struct qaif_variant {
+> +	u32 rd_len;
+> +	u32 wr_len;
 
-So, this does actually apply independently but does have the
-dependencies above.  I have repeatedtly asked Qualcomm in general to
-please stop sending things with in flight dependencies, it makes things
-very hard to manage.
+Does anything use these?
 
---YJywhoxg+swNLprd
+--EvifuDrkTJZzlz2v
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqzm3oACgkQJNaLcl1U
-h9AAbAf2Iz8v6VhOlWsVms2yyOdc36qKA6LwSz7G8avXO29wlrAYzARI6W+4gbI4
-ugjAVQrFgmx4XEjNxb0iTznS8+5wcZfQATQ6R5h7YoZ18lE2A8NCVwAUhZb8XhAJ
-E+kJWOqyevN7Z09ht3fcjagPsiVsC9n1iuPeLn1pCWkhLDwBtblEEv0kJxzmVrN3
-Cb8xG9ekXgPaBFmL4rb/yQk028sBP3HGWBtNgM4Sq+Gy7N/W1yI2ETbZSHU+YSu/
-lHICwrH6zj5iRzLHrve84i5L1rV0/CfsXboLJLtqZxKQqW4vJOHsJV/b3L/VsJ4E
-z+ZkcwLKh/RdzRqi0SVEUORqbQoY
-=84BN
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqznAsACgkQJNaLcl1U
+h9A15Qf+ODvs4O9cxzPAeZ29029Stq6ItNi+Q9Itn7hiVMsr8Q8bOj6hTweXj+iH
+jzRQ4sZuCXhMWJ2vgCLKaC1bKJtk3NSCcbpbvWACOYDN4K+FbMfLbSuyWJPGsV2O
+Zg4yISPbjMUT9JQReJItS1WEpegJ0I/24tV4GdVw2ceXus7ZvpeGM+CYTmSiAzR1
+SUHXQCdkiF21KLG1kJcDWHkvlTSTmv9lNc1zli8swE0sRgSaqG6vEkUbl5/MPkhj
+I+qCxbi3yUjCYspP3kGrz7ksAQ8NwblAHJrN7Bxex812VNjmhKfYipqddxA8Z2x2
+yeLwUTVKyeL5zE+QpSX7m928dMCxag==
+=M7hL
 -----END PGP SIGNATURE-----
 
---YJywhoxg+swNLprd--
+--EvifuDrkTJZzlz2v--
