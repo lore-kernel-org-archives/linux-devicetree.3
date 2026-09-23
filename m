@@ -1,110 +1,116 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAAE3AFCE4
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6DE42901D;
+	Wed, 23 Sep 2026 09:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156466; cv=none; b=b90tByRhofq7CwsgI52HLMiF+O4uFpz10Xv2xuwo89C2zE9nEaXyHemc6Yiqz027TduG6XKnN+k3C50J5/CwE/rI6583053tBeLCRCmshthiHUphucvs9wKhb2sTvpBwy25ghCUaGM6yLROEwk44VIbx1qHSEWeyPH+nhMymGiQ=
+	t=1790156502; cv=none; b=UwGjojRieYVAKWzu4bmb7GWW0mF9UXbyWbwGMW5etiIl7Ps4eH+8uPPgVaHebHfeV+DgiMn/guj5uzbnFNrTuNq4hTzswpIchOUYtsZHHT/IJbZlQ56G/1GmR1O6tkfoAqdnaU6bOnTWzTIoe92v7ZuzP3ayPImiEMYmHNObvIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156466; c=relaxed/simple;
-	bh=wHIiCEgdZtfqmIfAflpfV641BfeO9lzUS6fjDGeRjIQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fEnb7RdWQnYFJzPxwceVjTXL+xqINqoA7O0sjMbCvjCYjAShAoMUfts8WIHy0fLNiDK770pWVAOSCYp9qZZTbKkZ6bvhSzqj12haSV4FNzJrs9UJAVDQMgaaKw3bM62LUocLqeRqC/hes4KPoH5iJRgT4DSqVXNph/x+SOr52B8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-786c3d55c99so230938137.0
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:41:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790156463; x=1790761263;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Nr90W5Fnz0vjayQ2rPJMI4dvvs1Oph2WPp0m5lztwRY=;
-        b=A5kRyiD1YmXX2SA0AuTnTngfEHiuT2Gzit8FdIbAVhvvnuIcOHxrZaPTAvQry4XQmb
-         D5F+S2FlbpZHR6GKVxuo20xacNdYE4BYgWAowMAwTvgasilZie4xr2R31XvqogW4gaDM
-         GwszcWt254K9DJMltPo5SEGiI8ssRcweBhljgJWXE0QNGmr89bTV3E+weKGYI/quW7qi
-         zDy6TT556iucDAqCLYP73IZjoFCrDw/7s/XdZb96/M3k6IHRNDyioEYiziSatGpmd5mR
-         4tBBWiG00mJw0SyqB0UFDUl1szsLW/Kw96N27JJXgHVQYZPK6m6Ah4AFeEpe88o2HJvl
-         euzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwas+cVb1Cb8GSJ92iyVQvV852O5GWkbob0MD12kVd8ToV38FeabNi/k4OfIurmFok9obwHoEDXI0f7@vger.kernel.org
-X-Gm-Message-State: AFuF++kwED58tnx7RVqzTMRvBV2c2hT164X9zTbhX1HV3MkS+qx4jYbG
-	wcvuV+/5vxRo/oKUfW03ZX/muH21nhA3you5Yf41orU1DsG6+SAHjuyPVjm6JALZk1Y=
-X-Gm-Gg: AYBFou1W7tEkKU6qKVEqc/5e1SC1OxlKqilqSr3WPt/qxg/9mOB/JEH+tLtTrcFnsrc
-	vhC1EK22NO61+0MGX/18jHXaVobbaD3/GFQhXjiawl5mbSa7oEsJ93wR66m7VyVkiMVlitYzyjE
-	ApzpuzRsa6o7d8FEjHLt0j7k1+5+2Dywr4DbamEDh4YlCWV6pZytnYYS9QsADMZO1w2vOMf3BBl
-	y9JfkNZ2oLHFwckIt+ySKSQVLpr3B9FekDXeA7d5R+VPAty8SwyFOQoqbPjLpmzuWjMcQQrotcj
-	2HbvNjpklZPjSMq0wtePo9XiCdI9f8rYHNMHy8OF7E/7kkUlHZtPGDLnD/3OMd0ji1B/11IFFou
-	lUwvorzqhEfY+aZrKm2UazykRKdX8HOnWmtRa3fEgQSvf2SAAP4aqfd4gQBS6aooeijpGmbHMkV
-	0MpiD/wGjiWAin47ScoWjKdKVA8UXxdUYj62XF0S3x7DQ9Oxfgm3nJ5adI8+JlDl/WKhPZRdw1K
-	xvLBHFoQd7iWTHMLd2ip0E0TfDQh08X+AnjLcdOif8fBvk=
-X-Received: by 2002:a05:6102:578b:b0:7a7:ad9f:53b3 with SMTP id ada2fe7eead31-7ac0ca164d9mr1772284137.9.1790156463492;
-        Wed, 23 Sep 2026 02:41:03 -0700 (PDT)
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com. [209.85.222.43])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf5a7fb17sm2840175137.7.2026.09.23.02.41.03
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 02:41:03 -0700 (PDT)
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-98515937bcdso455606241.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:41:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzgp1SRmi5ZAulVp2LezkdyMQ77uQGufh4kC1WYRfKziBY2qlgkcmZ3VUVzJ6e/erQ3u1WwX7wZnZGs@vger.kernel.org
-X-Received: by 2002:a05:6102:f0a:b0:7a7:69a1:add2 with SMTP id
- ada2fe7eead31-7aaa0708f72mr5644581137.30.1790156462933; Wed, 23 Sep 2026
- 02:41:02 -0700 (PDT)
+	s=arc-20240116; t=1790156502; c=relaxed/simple;
+	bh=H7g9+yDN3x5kwltj5KPOLI2Ok2pctzcjorpZkubHj0o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=imkCAxQggVyt9jDqmCCiIvJfQCAMNhLkHJB+MyVU2BeZpI/kh4PDmIHe1knTL3Vdjp3FgIM5/CX/ZEwOrithJ+fZgE7E7KOl1TPiiTdvx5TRAyN+/KS0rPv8FPkKrSdJDt7v5/IQdsaTVdJ/zjnYAtXO3xgbb53+us/a8BQe+TQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OLRLlN9l; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OLRLlN9l"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 9525CC21AAF;
+	Wed, 23 Sep 2026 09:42:24 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 941C460580;
+	Wed, 23 Sep 2026 09:41:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 11D91103293EF;
+	Wed, 23 Sep 2026 11:41:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790156495; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=14/vh+QzZPhsx5uvQM0Uz7p1ZDkGwAb8ilKyyQwVJng=;
+	b=OLRLlN9lAltV/1QbWWGR8Pkwn1w2rOSYmM9jOs/uT+NrrfciKSQQCasv29uuO5DEMaFR58
+	kiPMFvNV8H6IE3jBlcPiiCjNNx/R/Nqr7q04XX0GiAX23f/h6yviJEx+jFfsPPAqEmwuyY
+	a4SYRoP6aAFTY11A/ccCU1un7OFtTElsmd2lrlkZC5q9iPcW9SWiZ2VatsdINJfOxhKkgm
+	E3GL4eyV5t89ETSfKPYSgaPcJGOaWJlASpKxlHRm6aZhaBnOD95TDLcy11Cl565UDL4dnK
+	Z7zC92+KvlCltjZzeUQtLgh1HOnkzmlDpGYVQ6ysLRtkFvkjkVGCoyg1+HiMbg==
+Message-ID: <5135e15d-b6ac-476c-9a7d-b7d64e4eed5c@bootlin.com>
+Date: Wed, 23 Sep 2026 11:41:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790005703.git.tommaso.merciai.xr@bp.renesas.com> <15cfcb44c2d6b6e03b5c3d0d5af8ed997c4d179a.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <15cfcb44c2d6b6e03b5c3d0d5af8ed997c4d179a.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 11:40:52 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUw3vsV+rs0wuYbDmLpA_EXWZAKtpoP1ZXTY6Xt_FPLsA@mail.gmail.com>
-X-Gm-Features: AclHuK-4kOrbGKvyDLh28vAfMHGiFQCwXQMIlG3sAkDSk9boruM0x-6nSZuHeBU
-Message-ID: <CAMuHMdUw3vsV+rs0wuYbDmLpA_EXWZAKtpoP1ZXTY6Xt_FPLsA@mail.gmail.com>
-Subject: Re: [PATCH v4 1/3] arm64: dts: renesas: r9a08g046: Add USB2.0
- placeholder nodes
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC net-next 0/9] net: introduce Qualcomm XPCS support and
+ add Nord Ethernet plumbing
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Coia Prant
+ <coiaprant@gmail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+ Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 22 Sept 2026 at 00:27, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
-> The USB2.0 wiring on the RZ SMARC Carrier-II board is the same for the
-> RZ/G3E and RZ/G3L SoMs, so the nodes belong in the shared
-> renesas-smarc2.dtsi. Enabling them there breaks the RZ/G3L SMARC EVK
-> build, as the r9a08g046 (RZ/G3L) SoC DTSI describes neither the USB2.0
-> host (OHCI/EHCI) nor function (HSUSB) instances:
->
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:94.1-7 Label or path ehci0 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:99.1-7 Label or path ehci1 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:104.1-8 Label or path hsusb0 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:114.1-7 Label or path ohci0 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:119.1-7 Label or path ohci1 not found
->
-> Add minimal placeholder nodes carrying only the reg property.
-> The remaining properties will be filled in once USB2.0 support for
-> RZ/G3L is complete.
->
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Hi,
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+On 9/23/26 03:07, Mohd Ayaan Anwar wrote:
+> Hi,
+> 
+> This is an early RFC which adds the XPCS and ETHQOS plumbing required
+> to enable 10 Gigabit Ethernet on the Qualcomm Nord SoC. This is the
+> first time USXGMII together with an external PCS is being supported by
+> the dwmac-qcom-ethqos driver.
 
-Gr{oetje,eeting}s,
+There are currently 3 in-flight series that adds glues to DW XPCS and stmmac: 
 
-                        Geert
+This one,
+The Rockchip one from Coia [1]
+The S32 one from Jan [2]
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[1] : https://lore.kernel.org/netdev/20260922200336.2201212-1-coiaprant@gmail.com/
+[2] : https://lore.kernel.org/netdev/20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com/
+
+MAINTAINERS entry for XPCS says :
+
+SYNOPSYS DESIGNWARE ETHERNET XPCS DRIVER
+L:      netdev@vger.kernel.org          
+S:      Orphan                          
+F:      drivers/net/pcs/pcs-xpcs.c      
+F:      drivers/net/pcs/pcs-xpcs.h      
+F:      include/linux/pcs/pcs-xpcs.h    
+
+It would nice if some of you could help maintain the core XPCS driver, and make sure
+these series aren't stepping on one another :( I personnaly don't have any XPCS HW
+for tests.
+
+You don't have to do it alone, multiple people can co-maintain that :) Maybe
+Synopsys folks can also chime in ?
+
+Maxime
