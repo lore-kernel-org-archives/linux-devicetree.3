@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66E6517BA1
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:25:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C707A331200
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:28:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166330; cv=none; b=IKZjqpLw6HTiO9t6/y/v8ZAPX/T6WfmXHnBh/qU/JMfpUSOQYoqRmxr/QaygKfFr0dY9YnmZ3dzeHCZCxu3AmCWQyZ/ECqPkdSyl/rGe+vojJufByFhqE3ExIiuCHQvUSma8jvZR1Hc3wHTWF317Sz3wl6kF6x8HKEWOp2Iruh0=
+	t=1790166517; cv=none; b=MKKsDrz0LvK1IH2z5vxbJF+1pMZV/ElLTnZeYZV4nQfxBczgdkz9XUvLwNvA1RsiV0Z4G3Mzlrn6GMyuG75p6ZNOkZpRWVCBF7kiB92TDEG0nt1adjcdGL3b+t8bChs/KS6+i+Yd+9OrBHDObzbgmdxW88V14gj1+cHYAnh8T0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166330; c=relaxed/simple;
-	bh=Wg3k+mTG/WEBX6+940udFIwkGO4cM3lAiyr9Wfd5O0U=;
+	s=arc-20240116; t=1790166517; c=relaxed/simple;
+	bh=LS24cGQ9R2yH84EBdCv3BtkUBb1kgx4nPbefijs7WE8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R5uVkLz5K0td5L58Ul1Fp01EtdzSCTQS2RhP4ZdCTbbRxep0By6GCkxzcBBf2BeZTki17mflaL4o/3o/tukhtoCQ4Vm547rVkLU7axP9faGaC8bx2cEAboeXQttu2hRv6Sho4LYg8DX3f4IQ78BKu39TGv7FPFf9QYrxtZ9tpbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOJbLC8I; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=iUXHSirk3b1CPiYXNH4/yE8UL8uZJp9DCJM9by11qpVQTRUZ/5zpkmtJeA1UljDx3G/qwxvaXIqJ8k8/JhTbE3GDFdtV3nvHvJtBYGtnlzEgiWjwBomDyIJDEMhjIz47XDGcAozlXzM1d7SiSSscXuOr7eh92KwgbnGYJkanrBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=irHw/xKq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOJbLC8I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E199E1F000FF;
-	Wed, 23 Sep 2026 12:25:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="irHw/xKq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32C651F000FF;
+	Wed, 23 Sep 2026 12:28:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790166327;
-	bh=WJ0I6zVIX4A7I2KuZGZAFJkBhU4yHVLH0HTKOMyiYWM=;
+	s=k20260515; t=1790166514;
+	bh=NLO75+JdUj/wOvE+TF1sbsKjj4H0Y/tOjBOnlp1Uuoc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KOJbLC8IfE7ZVmM1omSuD2qnCH1TP8V2L7tUQzcWtmSidJAoMHVTlIYxBhFNhlwYR
-	 jUHBCqi8I0hbjDpT66MfxxmHZKih/lVqkrf4zAZjGHWde+PrlkFoMbqS/cOjey7+Bh
-	 zT6zD8gKnae+ceeT/WKAEhiNIbOt5kWcyE0YZBuRzbMukEfBoSDl7OJBB9K43L1Nr1
-	 FFR2PA1rP4zMtXLPl2szfQLIAjiWOFT6+Q7Z5kcGhF5FJd7mUTelMBN5zQvb6HDn0y
-	 D3Ss1fxDSb/b3Fi96ndhoB0oNPiwUSWhjaKVFotSqqDIQAJEHIP9tsUlcwAWY/x/nO
-	 5PRJ9amjHE/5g==
+	b=irHw/xKqW+PF2zuB5dG0h3qoOtg53V3aP+Rvta7YEa0RXLsJkOEfbnNkxzSjAlpEB
+	 7qeU1GFWt4CKXtEUFHXyQO1aB10eJQDRMF3BqaQpANXSyusVqdYTLpOas5cK1hZkR+
+	 qX9RvIwvg6BxA9YNLipXKSeHZv+GXcbhTRX2jDlBig6IuJVzCc0U+XdJPid1Otndp+
+	 K+RMe69yx5K947c2wgX03P2KXBwrRfsVdy0J5TxchdOBrpBeaFZAOXEekGBe0BotMl
+	 zCV8kbO+hAVulqM0MFSFGU+bJEqN++np/0BKxQyitRpA4VN2l4BA1RcTUq4e2ug5M6
+	 3dZFhQ1o5ZaZg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH ath-next 16/16] wifi: ath11k: add QCN6122 device support
+Subject: Re: [PATCH ath-next 15/16] wifi: ath11k: define userPDs for QCN6122
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "George Moussalem" <george.moussalem@outlook.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-16-86729521a75c@outlook.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-15-86729521a75c@outlook.com>
 References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
- <20260923-ipq5018-qcn6122-mpd-v1-16-86729521a75c@outlook.com>
+ <20260923-ipq5018-qcn6122-mpd-v1-15-86729521a75c@outlook.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 12:25:26 +0000
-Message-Id: <20260923122526.E199E1F000FF@smtp.kernel.org>
+Date: Wed, 23 Sep 2026 12:28:33 +0000
+Message-Id: <20260923122834.32C651F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,57 +46,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt: hardcoded index used to parse interrupts-extended property
+- [Medium] ath11k: invalid QCN6122 userpd_id silent failure during probe
 --
 
-commit a671c63204dc1d7f92a92604acce5ee3fdc7bce5
+commit 4463bfc0a33ebb5b811e53822f3dfc8436afe153
 Author: George Moussalem <george.moussalem@outlook.com>
 
-wifi: ath11k: add QCN6122 device support
+wifi: ath11k: define userPDs for QCN6122
 
-This commit adds support for the QCN6122 2x2 11AX PCIe chipset which is
-enumerated by the WPSS Q6 processor. It introduces Q6 firmware segments
-and device information configuration, including fetching details over QMI.
+The IPQ5018 platform can come with one or two optional QCN6122 wifi cards.
+To differentiate the two, the user PD instance number is added to the QMI
+service instance ID. This lets the firmware know which radio instance to
+use and on what PCIe rail it is on.
 
 > diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless=
 /ath/ath11k/ahb.c
+> index 03936f574c8d4..26110c9275776 100644
 > --- a/drivers/net/wireless/ath/ath11k/ahb.c
 > +++ b/drivers/net/wireless/ath/ath11k/ahb.c
-[ ... ]
-> @@ -1395,6 +1398,10 @@ static int ath11k_ahb_setup_msi_resources(struct a=
-th11k_base *ab)
->  	ab->pci.msi.addr_hi =3D upper_32_bits(msi_addr_iova);
+> @@ -969,6 +969,14 @@ static int ath11k_ahb_init_userpd(struct ath11k_base=
+ *ab, int userpd_id)
 > =20
->  	ret =3D of_property_read_u32_index(ab->dev->of_node, "interrupts", 1, &=
-int_prop);
-> +	if (ret =3D=3D -EINVAL)
-> +		ret =3D of_property_read_u32_index(ab->dev->of_node,
-> +						 "interrupts-extended", 2,
-> +						 &int_prop);
+>  		ab_ahb->userpd_id =3D userpd_id;
+>  		break;
+> +	case ATH11K_HW_QCN6122_HW10:
+> +		if (userpd_id !=3D ATH11K_AHB_USERPD_ID_2 &&
+> +		    userpd_id !=3D ATH11K_AHB_USERPD_ID_3)
+> +			return -EINVAL;
 
-[Severity: Low]
-Does this logic safely handle device trees where the interrupt controller
-does not use exactly 3 interrupt cells?
+[Severity: Medium]
+This correctly returns an error for invalid IDs, but it uses -EINVAL, which
+overlaps with the error code returned for missing properties.
 
-Looking at ath11k_ahb_setup_msi_resources(), this bypasses standard Open
-Firmware interrupt parsing by hardcoding index 2 for the interrupts-extended
-property.
+In ath11k_ahb_configure_rproc(), the -EINVAL returned by this function
+(via ath11k_ahb_config_userpd_irq()) is explicitly masked:
 
-If the device tree uses an interrupt controller with #interrupt-cells
-other than 3 (for instance, 2 or 4 cells), won't reading index 2 fetch eith=
-er
-the interrupt flags or part of the next specifier instead of the correct
-hardware interrupt number used for MSI configuration?
+ath11k_ahb_configure_rproc() {
+...
+	ret =3D ath11k_ahb_config_userpd_irq(ab);
+	if (ret && ret !=3D -EINVAL && ret !=3D -ENXIO)
+		return dev_err_probe(&ab->pdev->dev, ret,
+				     "failed to configure userpd interrupts\n");
 
-Could the driver extract the hardware irq more robustly here, perhaps by us=
-ing
-irq_get_irq_data(platform_get_irq(pdev, 0))->hwirq instead of raw property
-parsing?
+	return 0;
+...
+}
 
->  	if (ret)
->  		return ret;
->
+Does this cause a misconfigured Device Tree specifying an invalid userpd_id
+for QCN6122 to silently fail and report a successful probe, while leaving t=
+he
+device uninitialized?
+
+> +
+> +		ab_ahb->userpd_id =3D userpd_id;
+> +		ab->qmi.service_ins_id +=3D (ab_ahb->userpd_id - 1);
+> +		break;
+>  	default:
+>  		return -EINVAL;
+>  	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-ipq5018-qc=
-n6122-mpd-v1-0-86729521a75c@outlook.com?part=3D16
+n6122-mpd-v1-0-86729521a75c@outlook.com?part=3D15
