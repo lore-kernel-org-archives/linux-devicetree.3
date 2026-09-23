@@ -1,134 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD8C56B84D;
-	Wed, 23 Sep 2026 19:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A880B56B857
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790191960; cv=none; b=tKEtTEKTCd2499dGC4JPkHxIuBKb9uE13FLb6sf4jGiLo04pvbTG4OX3twh7tqhMXA7ECkASmI7Wk5R07DRGF6yc4c2TQfI14c5r3OhQRaBY47vchFO4yQCwhbU9YC3mizJ1E9u6E8XtkgxpQNRt255Ryxj2DXlbuwm1u0CZ1js=
+	t=1790192162; cv=none; b=WiBrODhKNnZVYD2esymXFWr4hxTOIscjYElz7vcj8foDOkXVJ9Xw/vEXZDGbXCYLzjOlD/xEKvLBINJoyl0+MbgQemgby76d9WRBfLWQgj3JyXd32qd6+7qOrPL3/FcZbGK/ktebC/1P0qKl7+LDDJuxeO4wnHcq6ZQLbNkcYoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790191960; c=relaxed/simple;
-	bh=JhNdPL+X7uge7QS+c2mY0s/gB/3HfBG4bMzBzw4v9+o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BAWMJ6TA5iInhs3dhh01wS0y9JEHYJ/vDcaJI25wQB7natb6SLxFmoJoOl91KUpqNAN5sQcKI0zGnTya4j7JKhfhyozP/MEU7NV+0D3LuBnuBj/TzlKQvZb7SY6au5TikpNKEMbyDKOjWZvb3nuvy/o3EPdNv7xJSYFh0yc+j/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kMsHD9LG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790192162; c=relaxed/simple;
+	bh=2LDuMRNED5wdqW1AY6gA1vtr2Aph4RkKWDgvfunq4v4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rPT9Kl+bkotIE5gndqX1jxccWEBFRgx9pux3ejM6QdQdNuk574YletekzyV6PaTzBZgLZ1b2Y6zO3tHi+ZtY+8HDwbhYaZqR8J6oJWPfQo4PnSM/3Hd8GGlTWE8VHF9vau9Uc/SfK6AIFWj+TnzJ0a7GnnfmP0Mb4+zDONOuthg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=eHDVl/cG; arc=none smtp.client-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kMsHD9LG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03411F00893;
-	Wed, 23 Sep 2026 19:32:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790191957;
-	bh=wHt8mpVVuG/4jDTOL+pB/tE1+yNTlh9v3xlGah0CZtg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kMsHD9LGhh2kVv9LdsdfWLbfonYy+B5jpAMlqNnHA+m5cGeeHvAPCOvSIo6bXuyJB
-	 WPhz5JsQMVdwQRfsYh4BVTAL2gBI8Eh5ecsE6JCbJOKXtnrQ/KWAor46d76U8chKKf
-	 ZwNNTmlJvGxZEGoSgPajZczA1FK0puCCJ6tCqXBG0Q+oeHSvW4Vwvhg3geEb40AjEl
-	 qJ/ALBEFIuVcIcJlua9eFMMnARkF6zkmtMNUMHJsBY8yYJ4erU4OIIR2ZVgagZD+hQ
-	 vsatBTIg3AbrCrjPFAW+wSrZT4i2cpwc/lS2e/5nFJezkdqzpVKbj9YhLd5HjMLPw8
-	 NfA698FIjGLBw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] clk: qcom: dprxcc: Add Nord DPRX clock
- controller support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260924-nords_dprx-v2-3-fa4364e087ef@oss.qualcomm.com>
-References: <20260924-nords_dprx-v2-0-fa4364e087ef@oss.qualcomm.com>
- <20260924-nords_dprx-v2-3-fa4364e087ef@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 19:32:36 +0000
-Message-Id: <20260923193236.E03411F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="eHDVl/cG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1790192149; x=1790451349;
+	bh=fhmnpnkcxvujnteMRxUDsHManAcGr3a7xj98F4dZP7s=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=eHDVl/cGeazikvfpoDbxUc+rLnR8gVrH2V2avAJoEwpE2vOEMXm+DC0aeePJAw274
+	 LmIM7/QgX2msJaRbVtlZL36LT2BJgCLthykGULLv3hPD1oGtWYMEiuIbwMSDkaKi08
+	 Wb2gNnlembAes730gqoSB1w66jI6V+wPvtOIvbtSxy8VhFdirvK1/J96KmenP0EmVQ
+	 ifA26qZAc8kZyfuIPmIJS8u2dFB9g5RO/J4aUHZLGUNgbcGnCUA9JwoamCyIhhOHm1
+	 r08MpUAt5IPRP99GkklNJlEBieU4L/eBX7vrXY2uPwcbW8XJgU1NocXv4S27A53KXq
+	 ZvDiNzbRhdaFQ==
+Date: Wed, 23 Sep 2026 19:35:41 +0000
+To: Luca Weiss <luca.weiss@fairphone.com>
+From: Kristian Brox <isyourbrainfoss@proton.me>
+Cc: David Heidelberg <david@ixit.cz>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v4 0/3] nfc: st-nci: Fairphone 5 NFC bring-up (ST21NFCD)
+Message-ID: <20260923193525.190747-1-isyourbrainfoss@proton.me>
+In-Reply-To: <DLIAEGGE6ON6.TF50P7IWGBZO@fairphone.com>
+References: <20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me> <DLIAEGGE6ON6.TF50P7IWGBZO@fairphone.com>
+Feedback-ID: 203906395:user:proton
+X-Pm-Message-ID: d779e2a9e7d07146ec86f89b93919ed664fa8db4
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] clk: qcom: missing runtime PM enablement in DPRX CC probe
---
+Hi Luca,
 
-commit 6de521e23dcd665ee6611adb907119066bae1783
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+On Fri, Sep 18, 2026 at 10:08:20 +0200, Luca Weiss wrote:
+> Can you please share how you've been testing these patches?
 
-clk: qcom: dprxcc: Add Nord DPRX clock controller support
+The cover letter was nfctool, not neard turning polling off and on.
 
-This commit adds support for the DisplayPort Receiver (DPRX) clock controll=
-ers
-on Nord devices. Two identical instances, DPRX0 and DPRX1, are introduced to
-provide core, audio, AHB, and video memory clocks.
+On the 7.2.0-nfc-test+ phone from that letter: nfctool -d nfc0 -1 -p
+with a Type 2 tag in the field, repeated, then the same poll with no
+tag and Ctrl-C. Powered stayed Yes. I did not cycle neard before
+sending v4.
 
-> diff --git a/drivers/clk/qcom/dprxcc0-nord.c b/drivers/clk/qcom/dprxcc0-n=
-ord.c
-> new file mode 100644
-> index 0000000000000..d17b9338f33bf
-> --- /dev/null
-> +++ b/drivers/clk/qcom/dprxcc0-nord.c
+I tried that today on the same phone, neard 0.20, with no tag.
+StartPollLoop Initiator, stop, start again: no error. Dual prints
+this on every start, including the first:
 
-[ ... ]
+  nci: nci_start_poll: failed to set listen parameters
 
-> +static void dprx_cc_0_nord_regs_configure(struct device *dev, struct reg=
-map *regmap)
-> +{
-> +	/*
-> +	 * Configure cdiv 20 for core aud and 11 for core ahb clks of DPRX CC
-> +	 */
-> +	regmap_write(regmap, dprx_0_dprx_cc_core_aud_div_clk_src.reg, 0x13);
-> +	regmap_write(regmap, dprx_0_dprx_cc_core_ahb_div_clk_src.reg, 0x0A);
-> +}
+That is CORE_SET_CONFIG id 0x54 returning status 0x09. RF_DISCOVER
+still returns 0, and stop/start again does the same. Powering the
+adapter off and on does not turn it into a timeout. I did not get
+"failed to set local general bytes" or
+wait_for_completion_interruptible_timeout failed 0.
 
-[Severity: High]
-Will this direct register access trigger a synchronous external abort?=20
+With a Type 2 on the phone afterwards, nfctool -d nfc0 -1 -p found
+tag0. neard StartPollLoop Initiator showed Type 2, UID
+53:d9:49:68:b5:00:01, no NDEF.
 
-Since the probe function unconditionally calls qcom_cc_probe() which then
-directly invokes this configuration callback, the registers are accessed
-before the power domain is asserted. Accessing physical registers of a
-peripheral clock controller without its power domain being ON can hang the
-system at boot.
+So I have not reproduced the failure that needs a reboot. If you
+still have the dmesg from just before the first "failed 0", that
+would show which command was outstanding.
 
-[ ... ]
+Regards
+Kristian
 
-> +static const struct qcom_cc_desc dprx_cc_0_nord_desc =3D {
-> +	.config =3D &dprx_cc_0_nord_regmap_config,
-> +	.clks =3D dprx_cc_0_nord_clocks,
-> +	.num_clks =3D ARRAY_SIZE(dprx_cc_0_nord_clocks),
-> +	.resets =3D dprx_cc_0_nord_resets,
-> +	.num_resets =3D ARRAY_SIZE(dprx_cc_0_nord_resets),
-> +	.driver_data =3D &dprx_cc_0_nord_driver_data,
-> +};
-
-[Severity: High]
-Should this descriptor include .use_rpm =3D true?
-
-Without it, the QCOM CC core does not automatically call
-devm_pm_runtime_enable() and pm_runtime_resume_and_get() before invoking
-the clk_regs_configure callback, which leads to the unpowered register
-access above.
-
-> diff --git a/drivers/clk/qcom/dprxcc1-nord.c b/drivers/clk/qcom/dprxcc1-n=
-ord.c
-> new file mode 100644
-> index 0000000000000..851a97c196c0a
-> --- /dev/null
-> +++ b/drivers/clk/qcom/dprxcc1-nord.c
-
-[ ... ]
-
-> +static const struct qcom_cc_desc dprx_cc_1_nord_desc =3D {
-> +	.config =3D &dprx_cc_1_nord_regmap_config,
-> +	.clks =3D dprx_cc_1_nord_clocks,
-> +	.num_clks =3D ARRAY_SIZE(dprx_cc_1_nord_clocks),
-> +	.resets =3D dprx_cc_1_nord_resets,
-> +	.num_resets =3D ARRAY_SIZE(dprx_cc_1_nord_resets),
-> +	.driver_data =3D &dprx_cc_1_nord_driver_data,
-> +};
-
-[Severity: High]
-Does this second instance also need .use_rpm =3D true added here to prevent
-the same unpowered register access issue during probe?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-nords_dprx=
--v2-0-fa4364e087ef@oss.qualcomm.com?part=3D3
