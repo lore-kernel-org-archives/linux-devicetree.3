@@ -1,112 +1,79 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A28843B489;
-	Wed, 23 Sep 2026 05:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C24236B054;
+	Wed, 23 Sep 2026 05:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142232; cv=none; b=s0deSNF612jXKbA9b5zKFoQ0XWyXz9/pLocxlDlFuV8ngpeu5e9N/XOiXw3cjHz3VP80UZ59DUyCE7s7KZMjh1sjonhJ3l4YQJ8szvvHcINd97HfXx9JducMahwC+4NEQtJjcHf2uddducb5e/ox6alxS6m4pG472AkYXRTbzGM=
+	t=1790142479; cv=none; b=HSP59hzpRoJ2Z4iKn0hjRtzuAZmRczHMfb3pEKbHj1kG8xNnpVVTg5zpH5xyCXGpqv7Dx800MeMw0hXuuC0jAzgK45egoV4shtjSWZ8u11arJwYglzbzNsNRqJlbUx/2wbMjymj0yfC0DGdcsxzPMmUTm0ElV67ywdI9ZzAdsh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142232; c=relaxed/simple;
-	bh=YKketelVx+eNuE6jGxke2Jwkoy7/zEgJnLQ30rzBBqo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=arfwqjA/YyNYrrvvlmFjzzzDfJSZ0Vk4+9Ua2dT1CP5V5i+a5wjche0Gn1UFBHBsUbD9pav0iC+MDiE97sfvnOhqCJRx1/RzAJ119WKRKCXBVwk12reCv9jLpqJpEYqRujIQzWbXG0iFpFaaaEAE5UOwQ1kvfTnvVdsW8g4AYr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=uo6EEZ4N; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1790142479; c=relaxed/simple;
+	bh=TNIUVnMy2x3vQX/5pT7Dhx0BP310NZcgzcsOZKT9mkA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y7SQPkOxSNcdWrmh2amUXU0iJy6J/hc52+frRE58kEZbTQXsp9r7v8VbFSq0Ax9tYNuw4I8Afgbu7cfBnkF7wSGxbaa/OSLhwRlXiEskZSE83zt7xqs0ioatWL4VOBq/c9FlNYaz4RSspCLQ6k8kor/Ztm66fbs9KjhRgO0hfJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=fQjpyr+B; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="uo6EEZ4N"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68N5hIltD096178, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790142198; bh=YKketelVx+eNuE6jGxke2Jwkoy7/zEgJnLQ30rzBBqo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=uo6EEZ4NuL78mWKXT+ZsJ34oSvNMFHTTSn/XgSs2PlP9zyPwHa33K/vhGVLBb4EQX
-	 jWPmE9DzTFwxWa6L2ldMZawfNscL+jv0uD863lpZPF9qKVYyDD8xWr4kbN4o/nraS1
-	 oBnJg7I//ejKS51Rt7dLuyS2tys5lg6cNmrPDjSJ8/7sEOJX9SYvE0MFB7ExXzt8ux
-	 IKsG19sD3pPkHc00srLa8rcOJ7tjJY40GKzuTTJ2XmFzM6h4IWzdNEvodZ7d2IH2qH
-	 BfbMB5bgKBYlZbjXb9RmE/rF3AW535OcICu4y2l/tfAN0BXclP8aH3No/WUdjOnREM
-	 fQs4u/NeRsUvw==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68N5hIltD096178
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 23 Sep 2026 13:43:18 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 23 Sep 2026 13:43:17 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Wed, 23 Sep 2026 13:43:17 +0800
-From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-To: Jerome Brunet <jbrunet@baylibre.com>
-CC: "sboyd@kernel.org" <sboyd@kernel.org>, "bmasney+clk@redhat.com"
-	<bmasney+clk@redhat.com>, "jbrunet+clk@baylibre.com"
-	<jbrunet+clk@baylibre.com>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	=?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
-	"afaerber@suse.com" <afaerber@suse.com>,
-	=?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>,
-	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
-	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
-	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>,
-	Brian Masney <bmasney@redhat.com>
-Subject: RE: [PATCH v14 09/11] clk: realtek: Add RTD1625-CRT clock controller
- driver
-Thread-Topic: [PATCH v14 09/11] clk: realtek: Add RTD1625-CRT clock controller
- driver
-Thread-Index: AQHdOeMAtkU9yq5qUkW8LZXsVLtozbbPKxAAgAyd7PA=
-Date: Wed, 23 Sep 2026 05:43:17 +0000
-Message-ID: <b9d5a1a82df34aadaee2390af871f7c8@realtek.com>
-References: <20260901072446.2563145-1-eleanor.lin@realtek.com>
- <20260901072446.2563145-10-eleanor.lin@realtek.com>
- <178947735404.448573.10061486937030065064.b4-reply@b4>
-In-Reply-To: <178947735404.448573.10061486937030065064.b4-reply@b4>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="fQjpyr+B"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=vjVcIyF3kkMlZyzd56bm3scXTaq3Opyr7xmaB4B2Hds=; 
+	b=fQjpyr+BmwmCnb2wn8FgspFTB/fV2AOUx20SW/K0WXbOBgwzSIj6itpncVmckPhInMgMVrr7M2Y
+	idhFzE1gbqvR4s0K1kfiHjNxejXYmpWDMTDjp2guUwP0AswDMavepSRkC0kKniYvmFiHbfqQYXjYZ
+	zysKaGXEUQeDeEcqMZLbV+XDYX759yDIymCal4GriDKMmbSNGKTVbA5UPkmw0SbHRNKnOjtdoSSQn
+	WYU6T/U0IRE7+l2AttIExnjPqqcXbBh0gTcqg4a1xnbj/eq1kQSBxy0QW6x24hezQRi7P9z/fRoZA
+	GqxrBxZ2vh7BTJHu51gD5fDTHNg5Alc/omkA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x9FpV-0000000Gupv-0dgl;
+	Wed, 23 Sep 2026 13:47:42 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 15:47:41 +1000
+Date: Wed, 23 Sep 2026 15:47:41 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Alex Ousherovitch <aousherovitch@rambus.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
+	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org,
+	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
+	linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Thi Nguyen <thin@rambus.com>
+Subject: Re: [PATCH v5 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
+Message-ID: <arNn_fjy4jamSitO@gondor.apana.org.au>
+References: <20260917225929.2494111-1-aousherovitch@rambus.com>
+ <20260917225929.2494111-5-aousherovitch@rambus.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917225929.2494111-5-aousherovitch@rambus.com>
 
-SGkgSmVyb21lLA0KDQo+ID4gKw0KPiA+ICtzdGF0aWMgY29uc3QgY2hhciAqIGNvbnN0IGNsa19n
-cHVfcGFyZW50c1tdID0geyJwbGxfZ3B1IiwgImNsa19zeXMifTsNCj4gPiArc3RhdGljIFJUS19D
-TEtfUkVHTUFQX01VWChjbGtfZ3B1LCBjbGtfZ3B1X3BhcmVudHMsDQo+IENMS19TRVRfUkFURV9Q
-QVJFTlQgfCBDTEtfU0VUX1JBVEVfTk9fUkVQQVJFTlQsDQo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgMHgyOCwgMTIsIDB4MSk7IHN0YXRpYyBjb25zdCBjaGFyICogY29uc3QNCj4gPiArY2xr
-X3ZlX3BhcmVudHNbXSA9IHsicGxsX3ZvIiwgImNsa19zeXNoIiwgInBsbF92ZTEiLCAicGxsX3Zl
-MiJ9Ow0KPiA+ICtzdGF0aWMgUlRLX0NMS19SRUdNQVBfTVVYKGNsa192ZTEsIGNsa192ZV9wYXJl
-bnRzLA0KPiBDTEtfU0VUX1JBVEVfUEFSRU5UIHwgQ0xLX1NFVF9SQVRFX05PX1JFUEFSRU5ULA0K
-PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIDB4NGMsIDAsIDB4Myk7IHN0YXRpYw0KPiA+ICtS
-VEtfQ0xLX1JFR01BUF9NVVgoY2xrX3ZlMiwgY2xrX3ZlX3BhcmVudHMsIENMS19TRVRfUkFURV9Q
-QVJFTlQgfA0KPiBDTEtfU0VUX1JBVEVfTk9fUkVQQVJFTlQsDQo+ID4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgMHg0YywgMywgMHgzKTsgc3RhdGljDQo+ID4gK1JUS19DTEtfUkVHTUFQX01VWChj
-bGtfdmU0LCBjbGtfdmVfcGFyZW50cywgQ0xLX1NFVF9SQVRFX1BBUkVOVCB8DQo+IENMS19TRVRf
-UkFURV9OT19SRVBBUkVOVCwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAweDRjLCA2LCAw
-eDMpOyBzdGF0aWMNCj4gPiArUlRLX0NMS19SRUdNQVBfR0FURV9OT19QQVJFTlQoY2xrX2VuX21p
-c2MsIENMS19JU19DUklUSUNBTCwgMHg1MCwNCj4gMCwNCj4gPiArMSk7IGNsa19lbl9wY2llMCwg
-MCwgMHg1MCwgMiwNCj4gPiArMSk7IGNsa19lbl9nc3BpLCAwLCAweDUwLCA2LCAxKTsNCj4gPiAr
-Y2xrX2VuX2lzb19taXNjLCAwLCAweDUwLCAxMCwNCj4gPiArMSk7IGNsa19lbl9zZHMsIDAsIDB4
-NTAsIDEyLCAxKTsNCj4gPiArY2xrX2VuX2hkbWksIDAsIDB4NTAsIDE0LCAxKTsNCj4gDQo+IFRo
-aXMgaXMgYSBsb3Qgb2YgY2xvY2sgd2l0aCBubyBwYXJlbnRzIHdoaWNoIGlzIGEgYml0IHN1c3Bp
-Y2lvdXMgZXNwZWNpYWxseSBmb3INCj4gZ2F0ZXMuDQo+IFdoYXQgaXMgcmVhbGx5IGZlZWRpbmcg
-dGhvc2UgPw0KPiANCg0KSW4gdjE1LCB3ZSB3aWxsIGRvIG91ciBiZXN0IHRvIHJlZHVjZSB0aGUg
-bnVtYmVyIG9mIGdhdGUgY2xvY2tzIHdpdGhvdXQgYSBwYXJlbnQuDQoNCkhvd2V2ZXIsIGFmdGVy
-IGRpc2N1c3Npbmcgd2l0aCBvdXIgY29sbGVhZ3VlLCB3ZSBjb25maXJtZWQgdGhhdCBmb3Igc29t
-ZSBvZg0KdGhlc2UgTk9fUEFSRU5UIGdhdGUgY2xvY2tzLCB0aGVpciBhY3R1YWwgdXBzdHJlYW0g
-Y2xvY2tzIChsaWtlIFBMTHMgYW5kDQpNdXhlcykgYXJlIGxvY2F0ZWQgaW4gc2VwYXJhdGUsIGlu
-ZGVwZW5kZW50IGhhcmR3YXJlIHN1YnN5c3RlbXMuIFRoZSByZWdpc3RlcnMNCmNvbnRyb2xsaW5n
-IHRob3NlIHVwc3RyZWFtIGNsb2NrcyBhcmUgcGh5c2ljYWxseSBpbmFjY2Vzc2libGUgZnJvbSB0
-aGUgTGludXgNCkNQVSBkb21haW4uDQoNCkJlc3QgUmVnYXJkcywNCll1LUNodW4NCg==
+On Thu, Sep 17, 2026 at 03:59:13PM -0700, Alex Ousherovitch wrote:
+>
+> +		alg->halg.base.cra_flags       = CRYPTO_ALG_KERN_DRIVER_ONLY |
+> +						 CRYPTO_ALG_NO_FALLBACK |
+> +						 CRYPTO_ALG_ASYNC |
+> +						 CRYPTO_AHASH_ALG_BLOCK_ONLY;
+
+Why did you set the NO_FALLBACK flag? This is only meant to be used
+by very specific cases such as s390.
+
+Cheers,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
