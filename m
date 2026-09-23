@@ -1,267 +1,249 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABCC3F39D0
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83750429CFC
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 05:25:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790139518; cv=none; b=bop7eeoXoYRBaGrVGMH3mTl9UsU67WiAkgp48t7dWFQV9VPto6NPaCoPJoegRxSxSBu8B5pvJvrUEye8ZIPjF1sQ5B+tc4ixnRLMbn/IJ3Uskf84cPsETklFCJ5oQKIzj8flq54mEgX6Q2i0lwM4W4KMs8cegKdyLkeeThYFi1g=
+	t=1790141130; cv=none; b=GCcl7GpnApObKlxUn5Bp1OKO+EgeYpEaXgSgvnIHbD2IbP8exyxlMiI7jOhhusms7G3y9Cy7JMnJk9+6Lx8PUKaeDe8nnbtMrM07m+2YLMdFuTNbVDE8QVzNjn4+KzLNdDSZwRp5cS5rs6kXg/sj07ELXW6MZBktvWlgLPkzfQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790139518; c=relaxed/simple;
-	bh=Ypq6Dg2eVufbD0MjECY4yykbq5Ag7/VlnHbUB0+5woo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=W8HjDf9oxixWTLcI7JOBy1k5vWKJq4nCu6PxOtwUOXqks3JwFAJkxNKTcRYyraCQQij5jh4lOehx4jhMxpo7RMoZ9G83sLoYZdfOkORb7aOJ0vy8BIczWyNpNz/LCWIycnuP6wChF0d8DvhzZa5Fzep1YkhtVQMfdvGzTL5UizI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hDfm6N9L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ByLGRl5S; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790141130; c=relaxed/simple;
+	bh=I/wqOkw3aQ/Ls4RKsrHTDGcOzyOKHNIBEpq23pj3EmQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aZvVUcxrzT9isAR1tPqrThgzZxV1ghy6YN02Qx551bHCYy7u2SPPoHlL3bEHYG4ffh6yJbUt2aW+LnvDQNv1TeqTrWxdqxkVLzsrmJxJTEP/NvJGMiiMp6eJhslEBYg01RoyZ3K75uJ3DdMNX1hlHZEJeeFKMSOyruGfkR+MBC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sRoWlt+c; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hDfm6N9L";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ByLGRl5S"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3iXd12728537
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:58:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ALesk1DpfGIEfjQUFR4dRWvtQCbr1M6t9o6IkKBqb7k=; b=hDfm6N9LGUkWs1rc
-	ziVwnB6GrscRv4S59/jPdpkqTgsuGJtBSozxi2VPs74e/8OVHmpScSRkTlk4zfAk
-	W4wpcD9wUEKiSkmx1uSfthMxEWaqSNW7WCmDdF8YjYuf20isoDw6qQ8Ff4daplYR
-	nPOWnGmaxCqcFJpgt/ygygzUXpdNdktosjFSxVGa/1L8QldG0wQjmExGoBEbThrd
-	iZEb5zUGVH4x2CuIE/WlL/Aq9MSj4H1k7zoUP3u7FqSpUxr65X734kv+QDTHOS1u
-	e+bzLfgxu7Tj8f7cO/vr/wUvoGZRDNQDRrlRW8Qz+THF0JosY9AWkhwLVwsLzjjX
-	hs9nCg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux7xtjbu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:58:29 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-313d1015161so1287675eec.1
-        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 21:58:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sRoWlt+c"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd025d06so441093c88.1
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 22:25:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790139508; x=1790744308; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ALesk1DpfGIEfjQUFR4dRWvtQCbr1M6t9o6IkKBqb7k=;
-        b=ByLGRl5SyLazQBLWxFWKqaDC+xxRFiphK267C5p3upZNvh2oQL44hFk9mO2DH+gGuc
-         Ze9s6n+XGzvCr1oCcBvw2b/nwIsTBg8R/vrvoJpiPxOOplEFRPJfk1KQnkYTXzFS8nFH
-         GvzpV5r13/dUZoiOwWS/zuTRfHj0QbPyhSkqZ8z4J+SNlNS6iB3nFYkfp83YFms79Hf7
-         fUhq/jenqi1gNdg2Ak/hIML+9l3t+ccHhhzHT711FzBlcIaj/y2WDT0aLiNJK4PcONps
-         PmbxuTjv40OzDvF65fUNL7POMJZwB+6IXaqSLopp/gcJZcylYFAihEYYlBxdCBn3fmUa
-         NNwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790139508; x=1790744308;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790141127; x=1790745927; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ALesk1DpfGIEfjQUFR4dRWvtQCbr1M6t9o6IkKBqb7k=;
-        b=D0BvwgJ2M6Mw85keC9h/NU9kLE4AZQYPz0pnczDxdLQXo4IQKvXrH7CH2mf+HzcpyB
-         Yt9mq+2G//hyGvUl8DpCAOua/LDsBSJrTSy+Pb/ZeekN/hjvfBeBv520CGBBHmDZMiTM
-         68gH0NBAHah15WsdIQqo0lUKiIr81YJQRLbK9KAa64dPt1WFp3c5KoSMnxZ7IquvqBOb
-         /8kAKmdRA4kN2oMRhdqR/c2hbc0OO+78rZF+de0y1eKzUKvD1puH4d3McNdM4eKccDz2
-         2am2Gq/KyLP3tUI2MgqQEq9UZPt0Uhxho0gG/7Gofy+8e6gBJBbO/llguzDpHeD2Tqo5
-         LlpA==
-X-Forwarded-Encrypted: i=1; AKwUvBzNsN3VgC0EqBWiTcN1jitdYSWcwjfW92/xGvzbrkd9NuL0aa8D+tnYVLyJ39HN7+j1eSnYUw0mqVbi@vger.kernel.org
-X-Gm-Message-State: AFuF++nDaRKiSyCC3Dp9iaTT9LABtmIFUgTHs53pSsT50//mQYRlan3S
-	LAgQLn9fkC82Rw1W/0dHqmuwQI1mmkz70J28vb8A7lbfsZyyf7MpR/OCFtMQSv3ZKQxgV2XvXYl
-	Y+Sdp1pgdujrCw1Zg7UEzCZVAZO9oB57nzekfiUHg7vAHjqyNHlTiaoSRI5Py+uZH
-X-Gm-Gg: AYBFou1t6c54SO4mPlKi083DZv9+FAIZuAVa3f0XMpzzzAfgkmB/yEAJLfq0RFGjq/m
-	1YW6mS2mKHt+Q24eLgOKbitu/t7Rrd/VdmmOvDM5RNE9czMG/MxAQuPMxM8rxOPuAscVKfnWXwU
-	6rJcf+8c+SwtOC9XFz+plqIvNt2IKtE58YykCom9/NRbZ5qwSMfAZ2zd807UEuDfw2QQSB14dpx
-	pdfn6l/ZEY17755Hl5cyB3mq35OoGkogQMjl5p/xyITI+7MvuMUZO/Wcx7SzitN+EILqURPIONQ
-	VZDWBkOgXtqAkX4VeKI1YwE1ekxnCoUiLCJOKytw3N4H+1nu4PyA5fD4JoM5t/LWkYrBcGmsohF
-	v6tj3AAPA203+vbzytdDMv/wXnvCXLjkKinYfDQdW
-X-Received: by 2002:a05:7022:6984:b0:142:d676:146a with SMTP id a92af1059eb24-144f90a43camr2679266c88.9.1790139508222;
-        Tue, 22 Sep 2026 21:58:28 -0700 (PDT)
-X-Received: by 2002:a05:7022:6984:b0:142:d676:146a with SMTP id a92af1059eb24-144f90a43camr2679224c88.9.1790139507627;
-        Tue, 22 Sep 2026 21:58:27 -0700 (PDT)
-Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96e48e3esm3168907eec.26.2026.09.22.21.58.19
+        bh=+kzJR8k++x/AUghqCXqQ6tGrTm69KLHS6yLDY8MNUo4=;
+        b=sRoWlt+cDUUve+36v6/RYliqoPrQ7Ms2zVTtyd2DBwKh1WXhSSXhQJxFb1WdvF/dgC
+         faGTTHWniyFSzaSol5Y6JeDGz3z+Wxi38VCuBPJdqIF6mO/KaDRVOHHc9O1n5SjaADvM
+         dR35fP8qpkyU3eBc0C8Fhc2IYKcLmeh5HKmtrTcTdN/V75qlJ80wmmp8U7pIYbnDTb1w
+         0IH1uAZQU7jxJflijVZ8BgK9NNKsxp0nlFlUjSRbyamSA9R7kLIQGudTOpyxEWwCng/P
+         RhQzv9ParDUhVuQdBARODYQxTaBtmxR3fTiDJ59fcxPnLCdB/wXRMUSTQ+PKORwhIOfv
+         QSYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790141127; x=1790745927;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+kzJR8k++x/AUghqCXqQ6tGrTm69KLHS6yLDY8MNUo4=;
+        b=ZA0wVEPJ9Ypuk26+NQwm2APfVqJzHfl/8FYxDhWS/0MoHD18waTgtSJUxys8hd6jHv
+         G85/DX9z5+xWHZi6zIUZk3opkPDUH+5QVoYn72ysL7+7uQdK+z0z0AhFXYuN6SJBEiID
+         cU5xJOD0I149tP4EcRjJbjOj00Hg/DznQiQ0a/YTwTmZI0BGJ93TGIOXggEsHkUIvxBb
+         nQkc2aqqbq9/PPYSETwxdBwk7bjJN6xANb8gl0crQ0vK9CSRHG0OTLPm4VQzBVIZayVo
+         E+sOD214adApX2/DdoTcTBXlg/3Up34TEy+je0aH5OSxn74wcorfFcbmD8faVU4jwMhf
+         3Uiw==
+X-Forwarded-Encrypted: i=1; AKwUvByYIIuYKObQkND03WE+PV8VTCwKaSHPkjWmm3uFUBZgFiqR8aQhgM5lDjUBAiI6utAknA17AewEU1n5@vger.kernel.org
+X-Gm-Message-State: AFuF++nF4QzInemzhNQMDyKgyRmyveUqoxb5ajZ9fe0nBtF2aY8QW1Wx
+	A6Y1EjfOiZLFB7eKu0Aw+26e0csDYkdriU9/XecdX2MjRFfOL1XTDMV5
+X-Gm-Gg: AYBFou06vgNs1cbfL7y/J0IVSW43MX9kIO+C4YsFJzH75bgZlGG+VLPNObqnKAtAu1H
+	9mNX8WQ5PtvcKVGG8By07OAccT7a8/1J6jUF0ZUtSEeeOul4fzl/5BuGNa1bQ7gLjNxEznW/ITv
+	yuwuasDpMy5Hcu+G+6hexeqp8obvSp7ghTeYHnd103jzk7iCS3gu1H6R+da4GsN3EyeppT70vpf
+	vizIOQd0n93JGXkDPtKKNo698WGaMhmZL1ShjX9elgohb6pGe5vEIUQhDqLVjD+aRfAcZFcAItD
+	QnMB9b0ezAlo5K3flnp///8qrpibRnfJE9QtKP+AjtgXZS/EEPETDnTIaoL1Cno1ThdmHIn55oV
+	ggaVWgVLJLYZCsrm6CXveO8rPNJkxmomppegoBsVDtUo4qdmWxA8BlrPXjef/82wmf4YJkY+TRk
+	rBx12wawZxqLoynM/XX2VgiO1yh5x0x4DGxCkC9XUlFiNKLuORvd8XogPE/n3i3MLyDPvoarZCh
+	0lGEw+6jb5IOFd2OsY=
+X-Received: by 2002:a05:7300:1c1e:b0:33b:c29a:7c3b with SMTP id 5a478bee46e88-33e8901a281mr1702352eec.0.1790141126681;
+        Tue, 22 Sep 2026 22:25:26 -0700 (PDT)
+Received: from [10.25.133.25] ([165.85.205.162])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96e48e3esm3414262eec.26.2026.09.22.22.25.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 21:58:27 -0700 (PDT)
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 10:27:32 +0530
-Subject: [PATCH v9 5/5] arm64: dts: qcom: shikra-iqs-evk-imx577-camera: Add
- DT overlay for Shikra
+        Tue, 22 Sep 2026 22:25:25 -0700 (PDT)
+Message-ID: <6b1637d5-ce36-4702-a404-89ed6c65155f@gmail.com>
+Date: Wed, 23 Sep 2026 13:25:20 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-shikra-camss-review-v9-5-09f5fbea1309@oss.qualcomm.com>
-References: <20260923-shikra-camss-review-v9-0-09f5fbea1309@oss.qualcomm.com>
-In-Reply-To: <20260923-shikra-camss-review-v9-0-09f5fbea1309@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        Suresh Vankadara <quic_svankada@quicinc.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790139451; l=3645;
- i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
- bh=Ypq6Dg2eVufbD0MjECY4yykbq5Ag7/VlnHbUB0+5woo=;
- b=NHlaTzoTtEfC1dvSh+miiBbhXHuphwoVF4uPUO8q58vHBJp51O0iu6shpajiOpelJgb4yzArI
- LrrGc+pOAF5DyR1VjslbZJT7r3bfTurAcwVbswgTofksQnDIzfAK/ar
-X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
- pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
-X-Proofpoint-GUID: -PMoqDwj-6U-uZ5A3YpxNKoqpgngK4kO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAxOSBTYWx0ZWRfX3U3PhrFSUvQ4
- Bg7J11eBtnZI6dAgNf+PNJ5PwYfrH68Vh5caGFk+adJR9HNSn6QooGFzXFolHJk6nSNklegP/K2
- kW+KWmsiHmbKSjj3EcokICJWAeR8s4+S7oMx5GZHAuT0Za5xmloj91xifqQ47M1ofxHm1sVaILS
- Nhl15LrLuwSPUtvlynCsOApeCW04YW6PqkszzDmk4DTiUA0S91CzGFJyreLU/pgPj9KcdJytFIV
- Nw2bcdPofuIAHJEgWl/xU+jXefBsy4Nx7VnfihWRcjiBstTkL5rO9NYNqMxRDDwKw66Bc8u4heD
- /lXMT/oxf4AEKRnsy2rDEwuTupBfsTCYx6Ai6Y0M+rzxdYwRnElJuzGVFXVry3saMpSHXvK3b8q
- bJj4H0PvE7cm6k6XcLryA1qoRM3T93uQNrdwPtyVr4NcdVCGOrbTsKmtDW4QfHWg1+BtvkCJbjS
- o3l6lkIicvseJTTEYGQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAxOSBTYWx0ZWRfX6G5/Gr0HNTAm
- vIErTEkC7u5jYh/RaDgLhR6XwCmoE8Pm8qCKoqS1RFfJgtys5sZ7cLHvF2EL3NwHQVz6b2KJLfh
- xRBskysN+xhK+CpjrMtSf8jdZFc966M=
-X-Authority-Analysis: v=2.4 cv=QsDLTlyd c=1 sm=1 tr=0 ts=6ab35c75 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=OGCdAuOInqFJiNoUztwA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: -PMoqDwj-6U-uZ5A3YpxNKoqpgngK4kO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 lowpriorityscore=0 phishscore=0 bulkscore=0
- suspectscore=0 impostorscore=0 adultscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230019
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] ASoC: cdns: Add Cadence I2S-MC controller driver
+To: joakim.zhang@cixtech.com, lgirdwood@gmail.com, broonie@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, perex@perex.cz,
+ tiwai@suse.com, p.zabel@pengutronix.de
+Cc: cix-kernel-upstream@cixtech.com, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260922112134.4167305-1-joakim.zhang@cixtech.com>
+ <20260922112134.4167305-5-joakim.zhang@cixtech.com>
+Content-Language: en-US
+From: Chancel Liu <chancel.liu@gmail.com>
+In-Reply-To: <20260922112134.4167305-5-joakim.zhang@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Shikra IQS is an industrial-grade variant using PM8150 PMIC, requiring
-different CSIPHY and sensor supply rails compared to the retail boards
-(CQM and CQS) which use PM4125.
+> +static int cdns_i2s_mc_clks_enable(struct cdns_i2s_mc_priv *i2s_mc_priv)
+> +{
+> +	int ret;
+> +
+> +	ret = clk_prepare_enable(i2s_mc_priv->clk_hst);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = clk_prepare_enable(i2s_mc_priv->clk_i2s);
+> +	if (ret)
+> +		clk_disable_unprepare(i2s_mc_priv->clk_hst);
+> +
+> +	return ret;
+> +}
+> +
+> +static void cdns_i2s_mc_clks_disable(struct cdns_i2s_mc_priv *i2s_mc_priv)
+> +{
+> +	clk_disable_unprepare(i2s_mc_priv->clk_hst);
+> +	clk_disable_unprepare(i2s_mc_priv->clk_i2s);
+> +}
+> +
 
-Add a dedicated overlay for optional IMX577 integration via CSIPHY1.
+It's better disable the clocks in reverse order of enablement。
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |  2 +
- .../dts/qcom/shikra-iqs-evk-imx577-camera.dtso     | 72 ++++++++++++++++++++++
- 2 files changed, 74 insertions(+)
+> +static void cdns_i2s_mc_adjust_pin_config(u8 *pin_mask, u32 slots)
+> +{
+> +	u8 mask = 0, num = 0;
+> +	int i;
+> +
+> +	/*
+> +	 * Wired-out pins may sit at any index among the 8 data pins, so
+> +	 * scan the whole mask and keep the lowest pins until enough slots
+> +	 * are covered.
+> +	 */
+> +	for (i = 0; i < BITS_PER_BYTE; i++) {
+> +		if (*pin_mask & (0x1 << i)) {
+> +			mask |= (0x1 << i);
+> +			if (++num == slots / 2) {
+> +				*pin_mask = mask;
+> +				break;
+> +			}
+> +		}
+> +	}
+> +}
+> +
+> +static void cdns_i2s_mc_tx_config(struct cdns_i2s_mc_priv *i2s_mc_priv, bool on)
+> +{
+> +	u32 irq_mask = 0, clk_mask = 0, i2s_mask = 0;
+> +
+> +	irq_mask |= FIELD_PREP(I2S_CID_CTRL_I2S_MASK,
+> +			       i2s_mc_priv->pin_tx_mask_adjust);
+> +
+> +	clk_mask |= FIELD_PREP(I2S_CID_CTRL_I2S_STROBE,
+> +			       i2s_mc_priv->pin_tx_mask_adjust) |
+> +		    I2S_CID_CTRL_STROBE_TS;
+> +
+> +	i2s_mask |= FIELD_PREP(I2S_CTRL_I2S_EN, i2s_mc_priv->pin_tx_mask_adjust);
+> +
+> +	if (on) {
+> +		/* Transmitter data underrun interrupt unmask */
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CID_CTRL, irq_mask, irq_mask);
+> +
+> +		/* Transmitter clock enable */
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CID_CTRL, clk_mask, 0);
+> +
+> +		/*
+> +		 * Transmitter enable
+> +		 * Transmitter synchronizing unit out of reset
+> +		 */
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CTRL,
+> +				   i2s_mask | I2S_CTRL_TSYNC_RST,
+> +				   i2s_mask | I2S_CTRL_TSYNC_RST);
+> +	} else {
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CTRL,
+> +				   i2s_mask | I2S_CTRL_TSYNC_RST, 0);
+> +
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CID_CTRL, clk_mask, clk_mask);
+> +
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CID_CTRL, irq_mask, 0);
+> +	}
+> +}
+> +
+> +static void cdns_i2s_mc_rx_config(struct cdns_i2s_mc_priv *i2s_mc_priv, bool on)
+> +{
+> +	u32 irq_mask = 0, clk_mask = 0, i2s_mask = 0;
+> +
+> +	irq_mask |= FIELD_PREP(I2S_CID_CTRL_I2S_MASK,
+> +			       i2s_mc_priv->pin_rx_mask_adjust);
+> +
+> +	clk_mask |= FIELD_PREP(I2S_CID_CTRL_I2S_STROBE,
+> +			       i2s_mc_priv->pin_rx_mask_adjust) |
+> +		    I2S_CID_CTRL_STROBE_RS;
+> +
+> +	i2s_mask |= FIELD_PREP(I2S_CTRL_I2S_EN, i2s_mc_priv->pin_rx_mask_adjust);
+> +
+> +	if (on) {
+> +		/* Receiver data overrun interrupt unmask */
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CID_CTRL, irq_mask, irq_mask);
+> +
+> +		/* Receiver clock enable */
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CID_CTRL, clk_mask, 0);
+> +
+> +		/*
+> +		 * Receiver enable
+> +		 * Receiver synchronizing unit out of reset
+> +		 */
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CTRL,
+> +				   i2s_mask | I2S_CTRL_RSYNC_RST,
+> +				   i2s_mask | I2S_CTRL_RSYNC_RST);
+> +	} else {
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CTRL,
+> +				   i2s_mask | I2S_CTRL_RSYNC_RST, 0);
+> +
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CID_CTRL, clk_mask, clk_mask);
+> +
+> +		regmap_update_bits(i2s_mc_priv->regmap, I2S_CID_CTRL, irq_mask, 0);
+> +	}
+> +}
+> +
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index c049c3b0637f306c242eb42bc3cc11a333ae012f..15068e8dcbf451c1c3f10e3754d1ea430c20b030 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -366,9 +366,11 @@ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
- 
- shikra-cqm-evk-imx577-camera-dtbs	:= shikra-cqm-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
- shikra-cqs-evk-imx577-camera-dtbs	:= shikra-cqs-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
-+shikra-iqs-evk-imx577-camera-dtbs	:= shikra-iqs-evk.dtb shikra-iqs-evk-imx577-camera.dtbo
- 
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-imx577-camera.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-imx577-camera.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-imx577-camera.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso
-new file mode 100644
-index 0000000000000000000000000000000000000000..e10fb33996e8e8a01e72a23d4e6b59f4ebbd9b1a
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso
-@@ -0,0 +1,72 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/clock/qcom,shikra-gcc.h>
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&camss {
-+	vdd-csiphy-1p2-supply = <&pm8150_l11>;
-+	vdd-csiphy-1p8-supply = <&pm8150_l12>;
-+
-+	status = "okay";
-+};
-+
-+&camss_csiphy1_port {
-+	camss_csiphy1_inep: endpoint {
-+		data-lanes = <0 1 2 3>;
-+		remote-endpoint = <&imx577_ep1>;
-+	};
-+};
-+
-+&cci {
-+	status = "okay";
-+};
-+
-+&cci_i2c1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	camera@1a {
-+		compatible = "sony,imx577";
-+		reg = <0x1a>;
-+
-+		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&cam_mclk1_default &cam1_reset_default>;
-+		pinctrl-names = "default";
-+
-+		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-+		assigned-clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-+		assigned-clock-rates = <24000000>;
-+
-+		/*
-+		 * avdd and dvdd are supplied by on-board regulators on the
-+		 * IMX577 module from the connector's 3.3 V rail; they are
-+		 * not SoC-controlled. dovdd (1.8 V) powers the carrier board
-+		 * level-shifter that translates CCI I2C and reset lines
-+		 * between the SoC and the connector.
-+		 */
-+		dovdd-supply = <&pm8150_l15>;
-+
-+		port {
-+			imx577_ep1: endpoint {
-+				link-frequencies = /bits/ 64 <600000000>;
-+				data-lanes = <1 2 3 4>;
-+				remote-endpoint = <&camss_csiphy1_inep>;
-+			};
-+		};
-+	};
-+};
-+
-+&tlmm {
-+	cam1_reset_default: cam1-reset-default-state {
-+		pins = "gpio33";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+};
+The TX and RX configuration look similar. Perhaps they be factored out
+into a helper to reduce duplication?
 
--- 
-2.34.1
+> +static int cdns_i2s_mc_hw_params(struct snd_pcm_substream *substream,
+> +				 struct snd_pcm_hw_params *params,
+> +				 struct snd_soc_dai *cpu_dai)
+> +{
+> +	struct cdns_i2s_mc_priv *i2s_mc_priv = snd_soc_dai_get_drvdata(cpu_dai);
+> +	struct device *dev = i2s_mc_priv->dev;
+> +	u32 rate, sample_rate = 0;
+> +	u32 slots, slot_width, resolution, ctrl;
+> +	unsigned long i2s_clk_rate;
+> +	u8 pin_tx_num, pin_rx_num;
+> +	struct clk *clk_parent;
+> +	bool is_master_mode;
+> +	int ret;
+> +
+> +	rate = params_rate(params);
+> +	slot_width = i2s_mc_priv->devtype_data->data_width;
+
+Is the slot width fixed by the hardware? If it is configurable, it might
+be better to obtain it through .set_tdm_slot().
+
+> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> +		is_master_mode = ctrl & I2S_CTRL_T_MS;
+> +	else
+> +		is_master_mode = ctrl & I2S_CTRL_R_MS;
+> +
+
+The master mode is already known in .set_fmt(). It might be cleaner to
+store the master state in the private data and use it here. This would
+avoid an unnecessary register read.
+> +static const struct snd_soc_dai_ops cdns_i2s_mc_dai_ops = {
+> +	.probe = cdns_i2s_mc_dai_probe,
+> +	.set_fmt = cdns_i2s_mc_set_fmt,
+> +
+> +	.hw_params = cdns_i2s_mc_hw_params,
+Nit: Remove blank line here.
+
+Regards,
+Chancel Liu
 
