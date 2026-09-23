@@ -1,91 +1,95 @@
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73F2479863;
-	Wed, 23 Sep 2026 09:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F3447ACE9
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154755; cv=none; b=qCtkut0PY+Co8WeXsTUBzO689ykbjdeOyux7tbLDpjCTqhNFSOLMGC/VrimAYVyaO09Se2IQ4euSVXjszZmTOzmrNuScpL0pCGiCYMLOiIoCoDj91bdmmlx+a1vuuIylZcTuisa+I4j/YJr7oALgbKo/lvyC2bf5beF5NiLlKxU=
+	t=1790154802; cv=none; b=B05xQDQiFhFtN4fCXlpW4/ehFhUD7bMh4PUWD9rWMSSA3s+4iKMdV0GSmtrYae+xusYbyUPhA2Dc8RS/CDeXPlZjIgrC3UAJvExoaZM7kURXZ6zPKu65nVaHD0C7L/5Q2//qCDDuVGx0Ecez4Qh083wqVZFwg0uSm/NE4e+I/Sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154755; c=relaxed/simple;
-	bh=SAGVK9OPDvqZ1jJKLqmuMYQ2rVjzfprfyjrxl+sHNTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E/1vzKVHST3XeMYZ5b1PNFqYxjgCeVpWr5gb4Iyy+wXDbpVsY2l7imW5owez8f1LMzJq7SqJZ8pdEJ+uzi0Fz2xPFK6hf3z8v/dHfZePmY3kn8ibEu2Y7qSinxTaU18Dh8uMiSOoG7mJYKH+uyOhvnndZA5Ga3XfzXX0AZT2TJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=oHfb5M+F; arc=none smtp.client-ip=217.70.183.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="oHfb5M+F"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id AC7F53EBC9;
-	Wed, 23 Sep 2026 09:12:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1790154745; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=XaWFynU97Xs0bJVkikFT8nA/Q51SOMSnMNYGzRCbHhg=;
-	b=oHfb5M+FSYpxbL2hzH6kdAlfs2u0jFGnmNU6ywtPYtrJG+D07go/nlkttBqpAaZSBtZdE3
-	PgbhZd1+qdTFBfUtYrvwBDE1QE/uVEVwrUaytqvKKziCLrP2qO/5DlhDF5WZe3GS+hoqj2
-	gDUE5tVN+G40zotFoOIA/aUtlFtdVnyan7gu1Cy/ajvUrQ8/zJfno9MVz+UBrK/09grFfH
-	lN0+I8TFebd7nigqzaw8zjs15vxYfTkOXo2RYVRAnYmcI8tgy2bQcd4h+5R+aVC8m/wFK6
-	p6Ya1plZJO5fKPcBXz5Zq6HFSt47qdwkPuls7nfC9g/awUjxvfXRmS5mEI9sGA==
-Date: Wed, 23 Sep 2026 11:12:21 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v9 1/3] dt-bindings: net: wiznet,w5100: convert
- to DT schema
-Message-ID: <20260923091221.GA90128@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260918-wiznet-link-gpio-v9-1-5536f24d8d6d@marmottus.net>
- <179009180465.2160803.12754142201441824675@kernel.org>
+	s=arc-20240116; t=1790154802; c=relaxed/simple;
+	bh=pChAlCbUWivP0jckC5mbXA4KLqm12IMiCjsns2Xs9aA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e0qh5bTi3kM2/4SHn/6eJChi4t0js7z5DwRWVosbu41A7tS/Vmt4SswltRVsyuSRDQene50ELuA2/gaMvy1l/wahIN/j15yECghtozSm0LYJT/MZmMx47hNoeI/jaTgEFQZbh56buYKKa6Zew7SzYM2ly9XKHwq5yA+AJPFXb4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-785692e5907so430314137.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:13:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790154800; x=1790759600;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XAKYyai8psRXv0/QFZ5hHt6xP/WwuL0KY0YP7Ej03uE=;
+        b=tXp6KloQ9oOfqFOrkVpg9si/xoajGvIhNP8snWlbiFdVzbBV2wFZntpWefA2mXAM9x
+         VXPsXntAakc2UOVvTy0GxWJd8AF8gWyWeLDFO8l+J+fwcFTDjmJ370t5jJ1oqLLFSutX
+         imyYLdKqR4UV18QkG9Y1Hzoaq1e4t04f0FgVczM6cvtCdZQOjo6fWSMTp1SRwtS4FJZT
+         T1JOaCPO9cDTkuXbgKV2dvtUEcXRZXdmVCqvkm1654FmCWl46jxguTbraCwQXVZ1Zd4u
+         1vINRZSOcdKI4JXmiF6rx8gKNS75UsziiNOKM/Hmi/dEw8VGLxxXJn+RbvhOjm1phCFI
+         +M/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx2JAQoUWD0qcTRayx/zgaRh5UveIT9zJmuVR8kWefcLrorAFJWxpi0rDBWELYM+NBwyp1WdoptV6Iz@vger.kernel.org
+X-Gm-Message-State: AFuF++n9GXt1XOGKLy6JIVGkuECNLYWRXlOOQWQ3djRkC11zyWEgB/dS
+	wV1sxjcur4pQQxAgmmkksODrmwrPzY6tvASW9fUi/jh2Uo7TrB5IW8xYLo89iO+62Ik=
+X-Gm-Gg: AYBFou2HuxSbDiotlYDXbdALUtp0y1AiQED0wNHRD2KALIXf5xbR+MqRhJHiJvvanSw
+	ZvfZfbx6m7ziNV1ULkUyulW3uRLHUVrY+CMeKe5s/kVROWKktr7eZtsIO+Vmuoa1u2o4+oVQ+nB
+	6nFE6a6enucFvA03HvzqmBV316YsENQcFLRVuW3ODlK4DdJXeDaKP78cmZ82yEKH4+yTvBJ4F/X
+	CjqDKzrIYn1gLBaqujaDoZs00zSsZp7bkf6wdiB8fll6gD3+HrsZoepgJ0Ed8uXJjbAMOvj1x/c
+	yUcnV18aHZsZHFgMLvjxLIx4N8i9PJpsX+EhrqPP3oAu2SBRFAX7YRAAA6h5ZdUuxFjbWzvcbrX
+	T33xX7lOc+WGti1wybq6jNp8Jf0YZ6ZH4gxggMkFYiKozy/A8U5nQ9RO+HAXKcap5hufnqQhSWR
+	0PktKoLkavlIUpqVsQcCe18n12+7yvOPQklXhreKSUxZ+ZBH6Ixo+MLorXSRwmkMIFjt5CoATgA
+	vNfcC83lfCz/fr217Ufe/5LO3bquHOhzudK/Is=
+X-Received: by 2002:a05:6102:3910:b0:7a7:3485:3385 with SMTP id ada2fe7eead31-7ac1c79025bmr1977653137.21.1790154800261;
+        Wed, 23 Sep 2026 02:13:20 -0700 (PDT)
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com. [74.125.226.235])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf65b6a0esm2814102137.12.2026.09.23.02.13.19
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 02:13:19 -0700 (PDT)
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-9852048ab71so14397241.3
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:13:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzT15VJpQVIXVADnXNn7ujIAfJmIjU0cCDsyFDsMY3Qg3YUz3QSxxjvf5d+mzjstcW8oqHAHyIHv3Kg@vger.kernel.org
+X-Received: by 2002:a05:6102:3a08:b0:7a7:19aa:8a89 with SMTP id
+ ada2fe7eead31-7ac1d6f6461mr1654647137.36.1790154799016; Wed, 23 Sep 2026
+ 02:13:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <179009180465.2160803.12754142201441824675@kernel.org>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Score: 0
-X-GND-Cause: dmFkZTEbO+S7deTUsJDFY882Iwbc5iPiEjvYLSxRbrdyUBxZ8cKU/OJLRSfMrv9Odm7Wm1uqjo2WHtggfCf+d3x02XnqFbNm7e/idwNvSTj0VoV/5obZ7szriDueefipeyQC4PO8Bu5q+tdPu+Vzwm9grBQlmXo2/eAL7lzvTI97U7bjRkJCYyiproJcYyM8AZiLNbq788XY+mCvyUlr2oRfOCSIpeOZ8tY4ZEXRxcvgz0HSoPTfLrucbG/UcRTvnntgu23/+0703Y1w9Fp9wM3fGlFbc3mCAhufQ7a2dWOhxIbtHzKKDaYyq9xzOxt9NTPh8UGc2tyqh6LJAeCRPtKT5JrzjxJEmz7lgVDJxoX0hvISTJl/fE5zgXk8RBwIsah65FHr1koUKlZY+Mnsify4WTq3+wK4DIpkOawB2se441UnHEBlf0PBvtCFYQ0iuBJ+LqFZbc2zFkq1GMDXztH/VIrZrqRBIr2xQN5YnwlX+3VQC74RnO1p440yNx/QIniyrzNJqmes6LVf2h91z/IJq79vC+Qti6kKQz5EiknU99wxsSqCqlYuFysFt66lRy6kLidIzRKsyBLKAESFLlitpm9D2B5XCAn1EDG0ABXGRVh6wBuXiJRKCMv6s773GEpfyQamtLTZ/uAq9WbYDs3LjttTX9XvviCvJry8X+Qk6ss6uA
-X-GND-State: clean
+References: <20260921131951.187981-1-biju.das.jz@bp.renesas.com> <20260921131951.187981-5-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260921131951.187981-5-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 11:13:08 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV_fR8-NpJgb5_J8aZ8XypHis9Lf=C-yW-U2ehrut-aag@mail.gmail.com>
+X-Gm-Features: AclHuK_ep9PIij6_rn7bpnDa0DbLwc_cLRHpWMpcqauyM0t_Uefy3670sPqkvj8
+Message-ID: <CAMuHMdV_fR8-NpJgb5_J8aZ8XypHis9Lf=C-yW-U2ehrut-aag@mail.gmail.com>
+Subject: Re: [PATCH 4/5] arm64: dts: renesas: r9a08g046: Add CANFD node
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	Chris Paterson <Chris.Paterson2@renesas.com>, Biju Das <biju.das@bp.renesas.com>, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 22, 2026 at 03:43:24PM +0000, netdev-bot+sashiko@kernel.org wrote:
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index cae5962045dd..e6a5a4e245a0 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -29439,6 +29439,12 @@ M:	Miloslav Trmac <mitr@volny.cz>
->>  S:	Maintained
->>  F:	drivers/input/misc/wistron_btns.c
->>
->> +WIZNET W5100 ETHERNET DRIVER
->> +M:	Arthur Crepin Leblond <arthur@marmottus.net>
->> +L:	netdev@vger.kernel.org
->> +S:	Maintained
->> +F:	Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+On Mon, 21 Sept 2026 at 15:20, Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> Replace the CANFD placeholder with the full node description:
+> interrupts, clocks (fck, ram_clk, can_clk), resets, power-domain,
+> and three disabled channel sub-nodes.
 >
->[Severity: Low]
->Could the commit message mention this new MAINTAINERS section?  The
->preserved log text only describes the .txt to YAML conversion and the
->edge-falling to level-low trigger change; the new maintainership claim is
->mentioned only in the changelog below the --- separator, which does not end
->up in git history.
->
->The section is named as a driver entry, but its only F: line matches the
->binding file, so at this commit scripts/get_maintainer.pl will not route
->drivers/net/ethernet/wiznet/ changes here.  That part is addressed later in
->the same series: the commit "w5100: detect carrier state using link status
->bit and optional interrupt" adds F: drivers/net/ethernet/wiznet/ to this
->section, so the mismatch exists only between this patch and that one.
->
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-I'll update the commit and the MAINTAINERS file.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Arthur
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
