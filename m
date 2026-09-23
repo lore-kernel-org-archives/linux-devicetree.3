@@ -1,154 +1,159 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA8F41A4EE
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154117; cv=pass; b=QmTpcmKNVOTDwaiwVGDG9H/kTAZ6kC9ykzm0xlP155a8co5IzDvG3F5lh3sRNYGAZs1ImLOW47iZWq1yj8YCBOs/qK1pxIpPzwmvavEQ2Wtmt++GZW2D3cEU4akv9O50ktUYNNWQlVuWO35LKmS2CDvS3/9OGwj3zooqvTHjHIQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154117; c=relaxed/simple;
-	bh=XWasmCLbTpkMtaNIBxcFyKlUZqMngOiMWH9z3MuADco=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XxRAf7QnttT0pAdcUgdzmdWYBJRVDCXG281GXkXkTbjIwoaxWkX4LYWHdDc1v+n0sT2zj3DE9SZRxRfQCVFR+Rcyw+EDvKOEe3gwsWoSX19fTpPk+qfbhvos6P0qpp86mqLjpZvgkCqPl0gQonfBlSlPb5Sgz9hs2kvUVU7JiyI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qnVagqEn; arc=pass smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C889C46EC7C;
+	Wed, 23 Sep 2026 09:03:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790154197; cv=none; b=KoqZsDxqYdI5JhjGEawhWHwWiGrzvkwL9kJB6T3f+wbbp79wHEk9ZK4fde6PEVluLsqwi3PuVYo8Eaagr7vDH0PQkCa3l2siCdcAm7dzfoHJsrgQiSLYgdU4RBM/NDsMxzI+S8sFeKKAil9S7Y6ioTzY+R30kIQcdYLNKC67yl4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790154197; c=relaxed/simple;
+	bh=lwOsIlMSIMMhxLqlYday9G0StXwsB4a3fRxpMnydcCQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CpESfbgzup2BWyx+MVHlV/zVE/kMMO6tvisblRkFGnL8E0ikdcPYncRrQnlDyAtLU8F31rxCPw+SMOPWA13ibj65TfLyQ3mwuWLTehmGd1u9YN/u4S00qW450FLFPBz2qAodqs1zjwlIBfi7nnqwmVVdUeQW/H/qjysVGjy9CwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=R1EC5uSH; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qnVagqEn"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664ef78fso406487eec.2
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:01:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790154114; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ngaz07ol1/xoTe9exHcSLZXy+C8ISHhLWrFg8zeGLLObfA7T4B6MfdUvPPUsHAA4av
-         C1GMBGRXWOxaJLVaSdtODke8EfLNBmm2SFGKcYqZ94R8t6gA5tTvnkLU/ggG5/vE0cfF
-         9Xo7NK3/jXYterdk3fHalDJTrti9xoAHwkus4FkjLeo/PrTBqv07git13fElN/D2Unzq
-         Yk8lgTwjmmGhddSazG2wpjKfoM331lECRNhYfes53Rvd+0ypBdH+ReWxvQl7O5LVUP8b
-         puwZwv8tJC0PJffvYMfuARgz0y3YMiZnwIeKwcbTz9gyNpamCgp7nNme9ZYxYmTZZIBZ
-         W1bA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tjOcACOQ84uZLyigV2GcZi49bVP1E0iHpSer6k3KKIE=;
-        fh=pieZwkn6YH0ie7di7jGSh6gHHzaCOvjbF9zqhbtAgr8=;
-        b=nU66j2G0o5MfeWg0hO2vhsn4LROvsfTO1XkGqxXEyPdeyjtuusRJSq3qGrmSv5EnN1
-         ViTeY9vUUqYyTyKQb1fQSJcI682/DQr/cjeL2O+tA25NExiusKv6vluB0UMElpi0ifG9
-         uxJvTCdKKk7D+vWQPvqgbrydbonsLy4cBdX1B+JYd5Nw0myJjGr3n+0hXEu7qrdVj+tR
-         rBkrx6GPjnp9dabT3/yqvmwHCNjapWUWboYUpyj7GcIlFXIUz+W9f/iI4MJUEufj6bwK
-         Gjot7rC97mVHpBLiArvfJ1V8O8aEMejO7clx9w949rK9WdoH7MWt8wSqsaXEBWd4xBMZ
-         s8Ig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790154114; x=1790758914; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tjOcACOQ84uZLyigV2GcZi49bVP1E0iHpSer6k3KKIE=;
-        b=qnVagqEnVQpTsiWR7/ywwfwXpzbqVhwJWww5RBeM9nv7u09qFe7uagWkubODNeqmX2
-         bTkYPbc4W4X4Dr3SoFHGmRTUnI7veb0NlTj7hDtUUo5mgJXvXDKIQgVjF23idqcig0AH
-         D7iPNs9yfch/ZkVyxku8YlTcoLJSIrHUXOpEKiT/vXJnl/oJlYyXZXix7J/GBZ3xP9Ch
-         6loAe4BIE76Nu47e9mWnflZtLRMBC98Mmvzl8rSM+Y75Jmm3t3+tzkbjsk01efm2kH5P
-         bDAvkwjlyLQsooxNpT8Jet2BEZoNGBvawHrJJv5FR+E1B1Iu/Zuhs3nIgbmIc/DnqHcp
-         tSwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790154114; x=1790758914;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tjOcACOQ84uZLyigV2GcZi49bVP1E0iHpSer6k3KKIE=;
-        b=cYh/h1hGnc252o9Zrw90m//w58skfd2r5FOcg6q/8KpmBJqAOjbUA6APBGJy2zECmF
-         aUedkz5EpT0ZtZDJpaYIOG6A2f5MbA+O1e3uJTNEMFK5kJqDXU+pSdSEb9x3wEyYPpxO
-         ew9I/I+GuRGXkLZAWOFQ4Pwam4K1S/fXObuoSnDapKvnqyWI69Xzm3pUPNKTjvPFrq1A
-         8mbbPY3y21EuqVgUrJ4ZVxh6A72qllko+pKWFXUkExMtoer4wP6FjEZrfalAhoN39Sy2
-         KWUgSQCLKqGWhmpUS3KkSmjgLbdOVEfEc7x6EtFZsgc/a2zgblQ7Tg57iX+MQ3sstMg+
-         TEOA==
-X-Forwarded-Encrypted: i=1; AKwUvBx0coXvcY8FaV0zv6cq61IrPvc+JpDmlujMLBJD+pwxYjhp9lOHetrbW0vzR8B28CvC5KamUK3clDQI@vger.kernel.org
-X-Gm-Message-State: AFuF++mZofEeLJ+jnTbnFL5qIpcuNivIXg4v2VE6zeoZCvp2llS5PP1Y
-	xaKsCqsgDzB7dfOBnns5XayDW3Y9RG0kvXWTSCCyLlJ88ZUr9qX2ZGM6bU1BKbK2ZBLg0EO2F4m
-	tXlSpX4XytDxNaZzkfns5PpClcfQjtTI=
-X-Gm-Gg: AYBFou1eOQb0mYx2LSd7oVbmvtZfT6M36gjYWBy0pqb8nYTzKV9JFmIVmY/kLweH3Zx
-	Q6AFPkW5d5nPepEXnyqPBjhJRC1355gxLaXvL4UNegltMqg+/DZz1PIcuNjTxyxfY1mlnzE5yiJ
-	mawt/sbQNAR5cOIDN/J7nZGXkGexPvT7YBvQFXlwI3jJj/QlKJ69V3muraaoOaHOgvyiC5fdoo3
-	Pde8ru8DUxQPkBfDpZ0QzN6FLJljiviGqamm5oeRsHOprDXCTBf6uIrzmtagfF7yHPZ3iEOSl9v
-	JLbVsgRFEYMrTMjA4MQdpyFCVmYyFs2EY0enOrn6kD86LlC2HJm3lqQoLvMnk6xsEyEoGxLJURX
-	H9Jqkb190bCVB8/G0D5GCaPcBNoTyK10JRw==
-X-Received: by 2002:a05:7300:7aa1:b0:333:b6d8:c2fe with SMTP id
- 5a478bee46e88-33e8bc73e92mr2136223eec.3.1790154114330; Wed, 23 Sep 2026
- 02:01:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="R1EC5uSH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790154194;
+	bh=lwOsIlMSIMMhxLqlYday9G0StXwsB4a3fRxpMnydcCQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=R1EC5uSHoYqOk5zNTXJ8bxduiHuBK+/d4+xOGnoy8giM/8T4YjSj+ZHNkRkUNC9HK
+	 ZY/QHa9itCoVDvxd5K2SDyMC6KdGDYPzb36xsj7zFtmHViX3PzTE6qUQQjeWdtxrT4
+	 Pzc1lXa4W/7e0URmfbAmywtR/EY+pfc7zmeJy3/OmjloSxEfy1/2XbmlpXJKr2ndKl
+	 TPCFC5LvjezZc4rflRxUEQWST+dBdRhbJvCGqEjCTWUToeYABmohLg4aLudOVmuWL8
+	 mYtQvQbT+g6uLSedXwhu2DK0iGQSJ9ao1rcjHP3QBTnzI+suSaG5zeUWmZ0CHgcgc7
+	 1yTD4y2YzKGUw==
+Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: benjamin.gaignard)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A73CC17E09ED;
+	Wed, 23 Sep 2026 11:03:13 +0200 (CEST)
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+To: nicolas.dufresne@collabora.com,
+	benjamin.gaignard@collabora.com,
+	p.zabel@pengutronix.de,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com
+Cc: linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: [PATCH 2/2] media: verisilicon: Remove useless internal fields
+Date: Wed, 23 Sep 2026 11:03:07 +0200
+Message-ID: <20260923090307.49959-3-benjamin.gaignard@collabora.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923090307.49959-1-benjamin.gaignard@collabora.com>
+References: <20260923090307.49959-1-benjamin.gaignard@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922212140.1118832-1-robh@kernel.org>
-In-Reply-To: <20260922212140.1118832-1-robh@kernel.org>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 23 Sep 2026 12:01:42 +0300
-X-Gm-Features: AclHuK--rrpTa2MdKLfMK3GbLeSYH8PrO-a7xgk48uzyykmF1zLZGB5x0hLGZSA
-Message-ID: <CAPVz0n3G603j60SF4mhOZYkDPs8OX4QgZnYy_zKpOH8iQaxJqQ@mail.gmail.com>
-Subject: Re: [PATCH] regulator: dt-bindings: Add MAX20024 sd4
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-=D1=81=D1=80, 23 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 00:21 Rob =
-Herring (Arm) <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Allow the MAX20024 extra sd4 regulator and its in-sd4 supply in the
-> MAX77620 regulator schema. The other DCDC and LDO names remain
-> unchanged.
->
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../bindings/regulator/maxim,max77620-regulator.yaml | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/regulator/maxim,max77620-r=
-egulator.yaml b/Documentation/devicetree/bindings/regulator/maxim,max77620-=
-regulator.yaml
-> index 7118c34961ba..0f2901cab8af 100644
-> --- a/Documentation/devicetree/bindings/regulator/maxim,max77620-regulato=
-r.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/maxim,max77620-regulato=
-r.yaml
-> @@ -10,17 +10,17 @@ maintainers:
->    - Svyatoslav Ryhel <clamor95@gmail.com>
->
->  description:
-> -  Device has multiple DCDC(sd[0-3]) and LDOs(ldo[0-8]). The input supply
-> -  of these regulators are defined under parent device node. Details of
-> -  regulator properties are defined as child node under sub-node "regulat=
-ors"
-> -  which is child node of device node.
-> +  Device has multiple DCDC (sd[0-3], plus sd4 on MAX20024) and LDOs
-> +  (ldo[0-8]). The input supply of these regulators are defined under par=
-ent
-> +  device node. Details of regulator properties are defined as child node=
- under
-> +  sub-node "regulators" which is child node of device node.
->
->  patternProperties:
-> -  "^in-(sd[0-3]|ldo(0-1|2|3-5|4-6|7-8))-supply$":
-> +  "^in-(sd[0-4]|ldo(0-1|2|3-5|4-6|7-8))-supply$":
->      $ref: /schemas/types.yaml#/definitions/phandle
->      description: Input supply for DCDC or LDO
->
-> -  "^(sd[0-3]|ldo[0-8])$":
-> +  "^(sd[0-4]|ldo[0-8])$":
->      type: object
->      $ref: /schemas/regulator/regulator.yaml#
->      unevaluatedProperties: false
-> --
-> 2.53.0
->
+No more variants are using multiple registers regions.
+Remove the useless fields and simplify driver code.
 
-Thank you!
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+---
+ drivers/media/platform/verisilicon/hantro.h   |  8 ++------
+ .../media/platform/verisilicon/hantro_drv.c   | 20 +++++--------------
+ 2 files changed, 7 insertions(+), 21 deletions(-)
 
-Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/platform/verisilicon/hantro.h
+index ffc214ff3438b..fc4eb2ae01430 100644
+--- a/drivers/media/platform/verisilicon/hantro.h
++++ b/drivers/media/platform/verisilicon/hantro.h
+@@ -75,8 +75,6 @@ struct hantro_irq {
+  * @num_irqs:			number of irqs in the array
+  * @clk_names:			array of clock names
+  * @num_clocks:			number of clocks in the array
+- * @reg_names:			array of register range names
+- * @num_regs:			number of register range names in the array
+  * @double_buffer:		core needs double buffering
+  * @legacy_regs:		core uses legacy register set
+  * @late_postproc:		postproc must be set up at the end of the job
+@@ -100,8 +98,6 @@ struct hantro_variant {
+ 	int num_irqs;
+ 	const char * const *clk_names;
+ 	int num_clocks;
+-	const char * const *reg_names;
+-	int num_regs;
+ 	unsigned int double_buffer : 1;
+ 	unsigned int legacy_regs : 1;
+ 	unsigned int late_postproc : 1;
+@@ -187,7 +183,7 @@ hantro_vdev_to_func(struct video_device *vdev)
+  *			dev_ macros.
+  * @clocks:		Array of clock handles.
+  * @resets:		Array of reset handles.
+- * @reg_bases:		Mapped addresses of VPU registers.
++ * @reg_base:		Mapped address of VPU registers.
+  * @enc_base:		Mapped address of VPU encoder register for convenience.
+  * @dec_base:		Mapped address of VPU decoder register for convenience.
+  * @ctrl_base:		Mapped address of VPU control block.
+@@ -207,7 +203,7 @@ struct hantro_dev {
+ 	struct device *dev;
+ 	struct clk_bulk_data *clocks;
+ 	struct reset_control *resets;
+-	void __iomem **reg_bases;
++	void __iomem *reg_base;
+ 	void __iomem *enc_base;
+ 	void __iomem *dec_base;
+ 	void __iomem *ctrl_base;
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index 70de47ddb023b..f418b04279856 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -1080,7 +1080,6 @@ static int hantro_probe(struct platform_device *pdev)
+ {
+ 	const struct of_device_id *match;
+ 	struct hantro_dev *vpu;
+-	int num_bases;
+ 	int i, ret;
+ 
+ 	vpu = devm_kzalloc(&pdev->dev, sizeof(*vpu), GFP_KERNEL);
+@@ -1137,21 +1136,12 @@ static int hantro_probe(struct platform_device *pdev)
+ 	if (IS_ERR(vpu->resets))
+ 		return PTR_ERR(vpu->resets);
+ 
+-	num_bases = vpu->variant->num_regs ?: 1;
+-	vpu->reg_bases = devm_kcalloc(&pdev->dev, num_bases,
+-				      sizeof(*vpu->reg_bases), GFP_KERNEL);
+-	if (!vpu->reg_bases)
+-		return -ENOMEM;
++	vpu->reg_base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(vpu->reg_base))
++		return PTR_ERR(vpu->reg_base);
+ 
+-	for (i = 0; i < num_bases; i++) {
+-		vpu->reg_bases[i] = vpu->variant->reg_names ?
+-		      devm_platform_ioremap_resource_byname(pdev, vpu->variant->reg_names[i]) :
+-		      devm_platform_ioremap_resource(pdev, 0);
+-		if (IS_ERR(vpu->reg_bases[i]))
+-			return PTR_ERR(vpu->reg_bases[i]);
+-	}
+-	vpu->enc_base = vpu->reg_bases[0] + vpu->variant->enc_offset;
+-	vpu->dec_base = vpu->reg_bases[0] + vpu->variant->dec_offset;
++	vpu->enc_base = vpu->reg_base + vpu->variant->enc_offset;
++	vpu->dec_base = vpu->reg_base + vpu->variant->dec_offset;
+ 
+ 	/**
+ 	 * TODO: Eventually allow taking advantage of full 64-bit address space.
+-- 
+2.53.0
+
