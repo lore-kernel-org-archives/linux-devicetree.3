@@ -1,110 +1,255 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E264043A7FF
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 22:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365E8381EBC
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 22:57:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790203878; cv=none; b=OO+fPccPGmLC2F2zGwMY0FPrrskBcksKWpf2bJ/1zyFgnCTuaT1LyMFMU0ms2tLeqZ4O1AZkB6PlYDHKyMrXeIMj/irmKbCHg80gUHYDv0TO58RXfl52IoMNfq1BFtw0TTsDcjU+dK5OvT7iTxiZZhOzgxCOwcJzgLbq0dlAjXM=
+	t=1790204228; cv=none; b=nNcAn+cp84t98FKA318wRs+vAJqgReOpJHuwkw/dS30I0YuI8j2sApP936LEBnd0thdbhUFf6svkMqV1Zpuu3B3E1AxxXWxG9oMIk5U+sU5B0+UyTnIKwUbJmSeBJTHR4fN5oxpMLcSLA4VE7yDSTE6pEsxbUc/AlwoJXPUF2z0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790203878; c=relaxed/simple;
-	bh=EKX35ie9/USsn0Lh1pIBDFxv7amLEruPOvFxMnWeGnI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j4sIe3JeHncPraga4SpeNdkO3f6dDcYzuTCdzQrlw5GZW5FYyNKZsmIUKoah/A6+mzBTb3RiLcWtPKlLlpi/a1QZfaXsmXeuYnpEgbS8CTln/PpVMKVg9v2oBA8hzUWw2xK0JfU70ges2S1bLDetF2v8G7Y0aHcGdNX5yVY6knM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q7P36F21; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790204228; c=relaxed/simple;
+	bh=ZilTMEtVPJjvihBFrMRBpjuLUe/PdXlxNVkBftkwD68=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Y+18raJYBLunu7q7loq+Fr8hfsq3TVqIHgvWHlxmdMXPvPusauAptPui6zs6CTNYoUScIhO5lDAP9qj6ehMaAnYF78oidvf5ucogUO7GK6L21uhANiMFyalJX8rm2+IdLwN7L98j1p1UzFzuzD/IdzWx4iWgZTr474jg1Qn6/CY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVZjkp8d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q7P36F21"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49e73611928so2286845e9.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 15:51:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790203874; x=1790808674; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mI1/ZYE5YHBF2sXaFTZzYUzCnN//3DiBm/zH9LcBkPw=;
-        b=q7P36F21o8SR9xcYCLCdLlzodnr/WLXRH3eQy77uiPD1la8KmWVLJpczwS36SDjxz3
-         WjqMrm3e5Tq+zY7m8dB92immHr+Y52qat2rwiCO5ILWnABEd9eWCZoDfaIe4omahsXu4
-         OEyRfurBc01MmD7qj7GxH4PDciCVoXOM+L4Ul1Ayod71ZYCiz6wLApQqHtMG3ZaJjRsy
-         On+ey/i6RvKmYhd7sNIR3gHrKWi88u5i9NTXBmjtsx3q/2V8X7LeBOvXkvR+zFk3PZul
-         maCDCs6yQjo8ZPVFJSFmwZ0D4DF5MM9/Tk0ICrQ4FRxa3Rmb6tI7fNeXlBgD+S7xnZVJ
-         BEMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790203874; x=1790808674;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mI1/ZYE5YHBF2sXaFTZzYUzCnN//3DiBm/zH9LcBkPw=;
-        b=YhsgtV35zw1PNVCP3VnxwgijkZOUa3BMVAoIlPXrpzOv0pi/9eia3ghH8FH6j59J1D
-         3rorY2DW9EkC5XYZBo/9edTom6lKD8/imxmkGYBQSWIFfTEXS179BlapFY5UFz/RwdC0
-         K1VkHAR91yPXlp4VqvF9IjnNK6CB24Hbi6DbWFDY0XkqwsXB4tOAmJu5GDLcruRhLTp7
-         JUfpTq6cqAWbTkM3+ppI+dB+MG8Q/QFoI0aeF5EixHptnItc6baGnc3X5pgGiT1/2UJd
-         akP4jXdgFYCeKdq5tVbAU/MTpQgc7Ed9DxQVcc/M37UaKozbSInh3TEzNvlOhMGqR/SQ
-         h3uA==
-X-Forwarded-Encrypted: i=1; AKwUvByim1t0YoJIDdYassrBpNM7EInDl7lcdWkuEIv0Nt2zDVh/0lIU8nMTB/jdxc4MjCRBrjD9I2A8N6N6@vger.kernel.org
-X-Gm-Message-State: AFuF++kubmZTtLq2rbqQmDk2T7zXY0Vq/AdxAKQ+q5THbYiBjotz+hHn
-	rWhsT7OmcNaPGWN6wEU38yQsCDFqpW6keeXorAy0Ql2V032rSglg90yB
-X-Gm-Gg: AYBFou2WIy0Y7EhWCtVSABiYrBeQsHVG9Tq+gJhJcF6uNfRPM4a5xIn7rc141PC1d7V
-	REdHvau5+r0HwPkVsyRtZEifOIewUmURKs6VMP1dSgo5lJNve1Pysfpjbkka3VHjMDXuppEHk/s
-	GZCH1L/DtfmWWXfOhgM6Z0PRgEsdBOH96onbYEBd4U0aaacJ9leiLwiOiBDA8tRkMftEn3h1ron
-	mfAa5+86K2kBR01Qo+NbmqSgJtnReMU3wd42B9oBZC7yYB+ShxYxovap6nhJ0nMZtjE+BBw9y2k
-	DD41zhYTWX8Ek8WNomSSFKxdr//aE0gcqQGhNaMO2GSVEdlsNh5SQ7WaVMdaZmwlbvd7fDnEgZt
-	M1toMXCwqKV9TafsNDtolEfJtlJRrWc1rqREFbJj9K4yO+Rab/eF1/3JTbOSz9+7UjI/W0wBZhE
-	lNcDBh9Pk8qa0lgmqXVE4ES+hBbVmlHiUrTYGbMQzuVH8MLl+ivp629f2NjtvUs9B2UL2ibUAh/
-	5nHX+KCVkb9wP2Y9ARYAgjV/pXcQ8pm1A==
-X-Received: by 2002:a05:600d:8642:10b0:49f:c305:f4ce with SMTP id 5b1f17b1804b1-49fe6705708mr6898435e9.16.1790203873928;
-        Wed, 23 Sep 2026 15:51:13 -0700 (PDT)
-Received: from x230 (gw1.ms-free.net. [185.243.124.10])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488682673bdsm9822109f8f.2.2026.09.23.15.51.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:51:12 -0700 (PDT)
-From: Petr Vorel <petr.vorel@gmail.com>
-To: devnull+david.ixit.cz@kernel.org
-Cc: abelvesa@kernel.org,
-	airlied@gmail.com,
-	andersson@kernel.org,
-	conor+dt@kernel.org,
-	david@ixit.cz,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	dsankouski@gmail.com,
-	jesszhan0024@gmail.com,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	phone-devel@vger.kernel.org,
-	robh@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	Petr Vorel <petr.vorel@gmail.com>
-Subject: Re: [PATCH 04/11] drm/panel: s6e3ha8: Introduce AMB577PX01 panel
-Date: Thu, 24 Sep 2026 00:51:07 +0200
-Message-ID: <20260923225107.191388-1-petr.vorel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260920-crosshatch-panel-v1-4-de6e9512da96@ixit.cz>
-References: <20260920-crosshatch-panel-v1-4-de6e9512da96@ixit.cz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVZjkp8d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F951F000FF;
+	Wed, 23 Sep 2026 22:57:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790204226;
+	bh=ZQFBBP8jq8IEP5LpJ0LJAL83WTCxBJhGybFWhbO116Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EVZjkp8dm4kMd+Q46ELgyqtTPUkfxjgSJfXmn9WD3VlQV+yMxUU1F8Lnsf/ifSyF1
+	 hTQUXlNGFBdFPnQ8uMLHZpzcgnGFk13BSwKABD2cYhzrxrK6WHDV/4OpfwQ+jucb69
+	 INewHCVAGVHiSM5dXytni7SVJjSwSJ7w/17NZUUC8S4Bj/3QsN9ggRAroGll1DOBNP
+	 7HTrL+ylclIMvM9F/z/AsM64ScqPd8lzGWwN42YIDznmNfGNgnqdNQf4baf8Cct2vN
+	 G1cLxw24L9Mr7TW8fnn5IryA10Ul0B1YIme6Qrg6FfHdk1GjdtOoaVKxkZ1wA6vH4n
+	 WU/jQgtsYh9aA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/3] drm/ch1115: add support for Chipwealth CH1115
+ OLED controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Tmljb2zDoXMgQW50aW5vcmk=?= <nico.antinori.7@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <29b7f9786f08989c8f941ab85a76c62d1f5ee43b.1790200427.git.nico.antinori.7@gmail.com>
+References: <cover.1790200427.git.nico.antinori.7@gmail.com>
+ <29b7f9786f08989c8f941ab85a76c62d1f5ee43b.1790200427.git.nico.antinori.7@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 22:57:06 +0000
+Message-Id: <20260923225706.85F951F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-...
-> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-...
->  static const struct of_device_id s6e3ha8_amb577px01_wqhd_of_match[] = {
-> -	{ .compatible = "samsung,s6e3ha8" },
-> +	{ .compatible = "samsung,s6e3ha8" }, /* deprecated */
-> +	{ .compatible = "samsung,s6e3ha8-amb577px01" },
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] core: uninitialized variable `bl` used in IS_ERR check
+- [High] drm: out-of-bounds heap read in ch1115_transform_xy()
+- [High] drm: sleeping in atomic context during plane and encoder callbacks
+- [Medium] sysfs: unprotected state modification on registered I2C device
+--
 
-Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+commit 63d6db1725e38b56da7d2687e33c28c0f46a0455
+Author: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
 
-Kind regards,
-Petr
+drm/ch1115: add support for Chipwealth CH1115 OLED controller
+   =20
+This commit adds DRM support for the Chipwealth CH1115 monochrome dot matrix
+OLED controller connected via an I2C bus.
+
+> diff --git a/drivers/gpu/drm/tiny/ch1115-i2c.c b/drivers/gpu/drm/tiny/ch1=
+115-i2c.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tiny/ch1115-i2c.c
+[ ... ]
+> +static inline u8 ch1115_transform_xy(const char *p, int x, int y, u8 byt=
+es_per_row)
+> +{
+> +	int xrest =3D x % 8;
+> +	u8 result =3D 0;
+> +
+> +	/*
+> +	 * Transforms an (x, y) pixel coordinate into a vertical 8-bit
+> +	 * column from the framebuffer. It calculates the corresponding byte in=
+ the
+> +	 * framebuffer, extracts the bit at the given x position across 8 conse=
+cutive
+> +	 * rows, and packs those bits into a single byte.
+> +	 *
+> +	 * Return an 8-bit value representing a vertical column of pixels.
+> +	 */
+> +
+> +	x =3D x / 8;
+> +	y =3D (y / 8) * 8;
+> +
+> +	for (int i =3D 0; i < 8; i++) {
+> +		int row_idx =3D y + i;
+> +		u8 byte =3D p[row_idx * bytes_per_row + x];
+
+[Severity: High]
+Can this result in an out-of-bounds memory read?
+
+In ch1115_probe(), the hardware buffer ch1115->hwbuf is allocated with a si=
+ze of
+bytes_per_row * ch1115->height.=20
+
+Here, the loop unconditionally iterates 8 times to pack 8 vertical pixels. =
+If
+ch1115->height is not a multiple of 8, the final loop iterations will calcu=
+late
+a row_idx that exceeds the allocated height, causing a heap out-of-bounds r=
+ead.
+
+> +		u8 bit =3D (byte >> xrest) & 1;
+> +
+> +		result |=3D (bit << i);
+> +	}
+> +
+> +	return result;
+> +}
+[ ... ]
+> +static void ch1115_primary_plane_helper_atomic_update(struct drm_plane *=
+plane,
+> +						      struct drm_atomic_commit *state)
+> +{
+> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
+ate(state, plane);
+> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
+state, plane);
+> +	struct drm_shadow_plane_state *shadow_plane_state =3D to_drm_shadow_pla=
+ne_state(plane_state);
+> +	struct drm_framebuffer *fb =3D plane_state->fb;
+> +	struct drm_atomic_helper_damage_iter iter;
+> +	struct drm_device *dev =3D plane->dev;
+> +	struct drm_rect damage;
+> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(plane->dev);
+> +	int idx;
+> +
+> +	if (!fb)
+> +		return;
+> +
+> +	if (drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE))
+> +		return;
+
+[Severity: High]
+Does this execute sleepable functions in atomic context?
+
+Plane atomic_update callbacks run in atomic context during non-blocking com=
+mits,
+so sleeping is forbidden. Here, drm_gem_fb_begin_cpu_access() is called, wh=
+ich
+waits for fences and can sleep.
+
+Additionally, this path calls ch1115_fb_update_rect() -> ch1115_draw_screen=
+() ->
+regmap_raw_write(), which executes a sleepable i2c_transfer(). This will ca=
+use
+kernel warnings and potential deadlocks.
+
+> +
+> +	if (!drm_dev_enter(dev, &idx))
+> +		goto out_drm_gem_fb_end_cpu_access;
+[ ... ]
+> +static void ch1115_encoder_atomic_enable(struct drm_encoder *encoder,
+> +					 struct drm_atomic_commit *state)
+> +{
+> +	struct drm_device *drm =3D encoder->dev;
+> +	struct ch1115_device *ch1115 =3D drm_to_ch1115(drm);
+> +
+> +	ch1115_oled_init(ch1115);
+> +
+> +	u8 command =3D CH1115_CMD_ON;
+> +
+> +	ch1115_send_command_list(ch1115, &command, 1);
+> +
+> +	backlight_enable(ch1115->bl_dev);
+
+[Severity: High]
+Does this callback also sleep in atomic context?
+
+Encoder atomic_enable callbacks also execute in atomic context. Calling
+backlight_enable() attempts to acquire a mutex, and ch1115_oled_init() perf=
+orms
+sleepable I2C transfers. These operations are unsafe here.
+
+> +}
+[ ... ]
+> +static int ch1115_probe(struct i2c_client *client)
+> +{
+> +	struct ch1115_device *ch1115;
+> +	struct device *dev;
+> +	struct backlight_device *bl;
+> +	int ret;
+> +
+> +	dev =3D &client->dev;
+> +	ch1115 =3D devm_drm_dev_alloc(&client->dev, &ch1115_driver,
+> +				    struct ch1115_device, dev);
+> +	if (IS_ERR(ch1115))
+> +		return PTR_ERR(ch1115);
+> +
+> +	dev_set_name(dev, "ch1115-i2c");
+
+[Severity: Medium]
+Is it safe to alter the kobject name of an actively registered device here?
+
+The driver modifies the kobject name of the already-registered I2C client d=
+evice
+(dev =3D &client->dev) without using device_rename().
+
+Modifying the name while the device is exposed in sysfs frees the existing =
+name
+string, creating a race condition that can lead to sysfs corruption and
+use-after-free bugs if concurrently read.
+
+> +
+> +	i2c_set_clientdata(client, ch1115);
+[ ... ]
+> +	ch1115->hwbuf =3D devm_kzalloc(dev,
+> +				     DIV_ROUND_UP(ch1115->width, 8) * ch1115->height,
+> +				     GFP_KERNEL);
+> +
+> +	if (!ch1115->hwbuf)
+> +		return -ENOMEM;
+> +
+> +	ch1115->row =3D devm_kzalloc(dev, ch1115->width, GFP_KERNEL);
+> +	if (!ch1115->row)
+> +		return -ENOMEM;
+> +
+> +	// Backlight
+> +	const struct backlight_properties bl_props =3D {
+> +		.type =3D BACKLIGHT_RAW,
+> +		.brightness =3D ch1115->contrast,
+> +		.max_brightness =3D CH1115_MAX_CONTRAST,
+> +	};
+> +
+> +	ch1115->bl_dev =3D devm_backlight_device_register(dev, dev_name(dev), d=
+ev, ch1115,
+> +							&ch1115_bl_ops, &bl_props);
+> +	if (IS_ERR(bl))
+
+[Severity: High]
+Is the uninitialized variable bl being evaluated here instead of ch1115->bl=
+_dev?
+
+The result of devm_backlight_device_register() is stored in ch1115->bl_dev,=
+ but
+the error check uses the uninitialized stack variable bl. This will evaluate
+stack garbage, either causing spurious probe failures by returning garbage,=
+ or
+bypassing the error check entirely if registration fails, guaranteeing a pa=
+nic
+when the ERR_PTR is dereferenced later.
+
+> +		return dev_err_probe(dev, PTR_ERR(bl),
+> +				     "Unable to register backlight device\n");
+> +
+> +	// DRM
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790200427.gi=
+t.nico.antinori.7@gmail.com?part=3D2
