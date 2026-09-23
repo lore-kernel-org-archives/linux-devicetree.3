@@ -1,80 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-38.ptr.blmpb.com (va-2-38.ptr.blmpb.com [209.127.231.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12CE450409;
-	Wed, 23 Sep 2026 09:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA58384CC6
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157011; cv=none; b=TetpyU+nprawLamFfRvGiFr9ZfgljliIwKdE/KA5JOhjmf6iRPqdI8KurzlOagcOn1QPJ/lBxRgfrOHipZwBa7eUvrXJgOCwKsOMvkYnXId8b5pCimo2sd1ay1wtOa5BPAEW0JPWHEFyCyvIKiomeHT8SaiuhP+8uchaJaEp6G8=
+	t=1790157087; cv=none; b=u+qWYG+36dtXIpIM/V8BtDkpcm2+fHUL8LaSauTL4z/hhL/25qphSAfl7SJrh0SLvj/1wLLRwIo2M1TM6gPRP1xUdzgv0oW08IYrrXsnT/GOugNEk6Z9I+KLMCc1Z2X5ixk/OBKRilzx/d+iYmzEpehNRzVj+vKPE1AAjQQ8fp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157011; c=relaxed/simple;
-	bh=2DEptU/BCQCCbP+o7ogqK7gMveBuRg0Fat/2M40Jruw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ddXmwxh0hx3AMKqsapJzyitehSRacGXEtrdkbnlZ2bdiqjUWVKiVPlKrz+E4Vdx6SZTPPCVRH7z0BOHUCB0/iRo9rHhgKC5VxQysLkDXFrSBa6psRtRv9smrFF2HjPZez0YouQSwEMHlFxPFgY1QSaFaQHUmZRtZI6wlx/tuusA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mVw8v3yP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790157087; c=relaxed/simple;
+	bh=UuWqsWA9strdMyWMxsoB9b/nhWJSlI8PVXRAHFyk1to=;
+	h=To:References:In-Reply-To:Mime-Version:Content-Type:Date:
+	 Message-Id:Cc:Subject:From; b=auTuazlUDkiuQaZPnBj++6SKIi8CtdZOffeLINVTZmDGAZ5kZJOkkC2fEf+azG14sdMH5itIQWQsSHzh+faCNsUbZSQBFmCSNzWrSrzhdIFFbUbtutzYgp/6TwT56NDWKtjLE7lSPv5PkiAZ06mldWA/sw9G4OD3IU0M/aHHJhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=La1OzKRW; arc=none smtp.client-ip=209.127.231.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mVw8v3yP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3C41F00893;
-	Wed, 23 Sep 2026 09:50:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790157010;
-	bh=Dpkfxbn6T1G7p7lIRLe3ir/ZubE3QQzEvQyVg576vgM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mVw8v3yPtxTe3gax/J4dXiqC5bzIurnEJOX9pazK+We0g3pQgbZaKiGeiyRfinSTG
-	 yhPzkAUOuMf07sUmVY3NhJU9iLpUGCJjNdvSFgQUOBc7/o/1FTB+yQD9eO8gjzJmP4
-	 P6isekAlyeLIRpCw+UuawTpbJbpVJ5QxIMjRtf0Lwpb6dFOUpSKAQ58zb57+as7UjJ
-	 TsDjfwuEUro+uPUL49Ab5ziiEejqkSPrKXk9RxPkWZLycjFp6zMl9iWKOFkp4INr5a
-	 N3XWgeK3TYz2qVkUrrCWZprDaa8+/h4A4ELP9/Pa+C4HBC0bP23oEvwOhcpxsIwfFW
-	 ln3RnwM2zwQSA==
-Date: Wed, 23 Sep 2026 10:50:03 +0100
-From: Lee Jones <lee@kernel.org>
-To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Manivannan Sadhasivam <mani@kernel.org>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	mfd@lists.linux.dev
-Subject: Re: [PATCH v11 05/12] mfd: zx297520v3: Add a clock and reset MFD
- driver
-Message-ID: <20260923095003.GB3864833@google.com>
-References: <20260826-zx29clk-v11-0-f8ad59c6426c@gmail.com>
- <20260910161711.GK1051768@google.com>
- <x9tzyTnKRAOyrdtSGnka0g@gmail.com>
- <lIjduhk6Sb-yyUCQAY-CKQ@gmail.com>
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="La1OzKRW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1790157072;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=UuWqsWA9strdMyWMxsoB9b/nhWJSlI8PVXRAHFyk1to=;
+ b=La1OzKRWAVGb46YbIVnZkXn4RbClf2Vk8YdxeNBC0gOQyNasPEs90RCyHoPy9O34Gvp9Iv
+ X8lpNT76GTnTEs3YhqN/BzBqG32KTcQLKjfx1I7DgHnXVZiym8iEnulokd4JOLYBQeMaX0
+ 47RrD745Ri1kgnc6IhmLGHCUdG3LvrAg1p8ZRzceyPYq0cr04WF/8+kpyWJfB5lqp9M29i
+ 5DVEmm+QC+FJZv+vKtSFd3tIj4MipV0Ay5mBisXTJDDPiEU5zGT/x2qQRzfkVGOFOEUtrV
+ PkDzntpFmxvI2ps9XmkKUIXEAJduaAH90JVKxEc1Ejs/AOwJvLWhRpIQHb9G5Q==
+To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io> <20260922110450.3426070-1-sandie.cao@deepcomputing.io> <DLMC741RLFU5.3FF1DL7YEIFK9@linux.spacemit.com> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.2bcc8e57.b8bf.421b.9230.3eea00252952@feishu.cn> <DLMI4JHT5Q8L.2MHI30VCCP3W9@linux.spacemit.com> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.64156e26.f1af.46d5.a18c.19bc541257f8@feishu.cn>
+	<DLMKXCP8EDNL.JW6NFGCTMJVN@linux.spacemit.com>
+In-Reply-To: <DLMKXCP8EDNL.JW6NFGCTMJVN@linux.spacemit.com>
+X-Lms-Return-Path: <lba+16ab3a10e+98bdf8+vger.kernel.org+sandie.cao@deepcomputing.io>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <lIjduhk6Sb-yyUCQAY-CKQ@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 17:51:09 +0800
+Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.a37d568d.f88e.4fdb.8c5f.8da4b148415f@feishu.cn>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Yixun Lan" <dlan@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, 
+	"Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
+	<devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
+	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card support
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
 
-On Thu, 17 Sep 2026, Stefan Dösinger wrote:
+Hi, Troy:
 
-> Hi Lee,
-> 
-> Am Donnerstag, 10. September 2026, 22:14:54 Ostafrikanische Zeit schrieben 
-> Sie:
-> > Hi Lee,
-> > 
-> > Thanks again for your review!
-> 
-> This is a ping regarding my reply[0] to your review from last week. Do you 
-> have any comments on my responses?
+> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
+> Date:=C2=A0 Wed, Sep 23, 2026, 17:14
+> On Wed Sep 23, 2026 at 4:01 PM +08, Sandie Cao wrote:
+> > Hi, Troy:
+> >
+> >> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
+> >> Date:=C2=A0 Wed, Sep 23, 2026, 15:02
+> >> On Wed, Sep 23, 2026 at 02:35:20PM +0800, Sandie Cao wrote:
+> >> > FML13V05 SD card slot is inside the board, it doesn't need cd-gpio,
+> >> > FML13V05 Keeps GPIO88 to low, Then SD card is always on for SD Card
+> >> > driver.
+> >>=C2=A0
+> >> An internal slot does not necessarily mean the card is non-removable.
+> >> I don't think its location alone justifies keeping card detect asserte=
+d:
+> >> GPIO88 would report a card present even when the slot is empty.
+> >
+> > Yes. The FML13V05 hardware is designed for this. We can't change it.=C2=
+=A0
+>=C2=A0
+> I may not have been clear: an internal card slot does not necessarily
+> mean the card is non-removable. If GPIO88 is connected to the
+> card-detect switch, it still needs a pull-up. Is GPIO88 tied low on
+> the board, or does it reflect the state of that switch?
 
-Nope. =:-)
+The FML13V05 SD card slot doesn't have cd-gpio. But the K3 SD card driver n=
+eed it, so the GPIO88 is tied low on board.=C2=A0
+=C2=A0
+>=C2=A0
+> >
+> >>=C2=A0
+> >> > We check the vmmc-supply is p3v3. We have the same SDK DTS config wi=
+th
+> >> > k3_com260[1] , so, this patch follows the SD card patch of k3_com260
+> >> > dts[2].
+> >> >
+> >> > If this is not correct, we will change it.
+> >>=C2=A0
+> >> Could you confirm from the schematics that the SD power wiring matches
+> >> CoM260 and that the card's VDD is actually connected to ALDO4? If so,
+> >> this supply reference is fine. The same SDK configuration alone does
+> >> not establish the wiring.
+> >>=C2=A0
+> >> If the card instead uses a fixed, always-on supply with no software po=
+wer
+> >> control, vmmc-supply is optional for the MMC core; it should not point=
+ to
+> >> an unrelated ALDO4 rail.
+> >
+> > We check the schematics both of COM260 and FML13V05, both use p3v3 (a f=
+ixed, always-on supply with no software power control), not ALDO4. ALD04 is=
+ only for USB.
+> > We will correct it in next patch.
+> I'll send a separate patch to fix the CoM260 vmmc-supply reference.
+> You can focus on FML13V05 in this series.
 
--- 
-Lee Jones
+Got it. Thanks
+
+Best regards
+Sandie
+
