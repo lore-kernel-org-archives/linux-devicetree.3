@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53EA651475A;
-	Wed, 23 Sep 2026 12:05:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC0E50129B;
+	Wed, 23 Sep 2026 12:05:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165125; cv=none; b=l7dByBlo14o9V0L9cmG4OYSPW0qgxYWam/BUI4+9R5nevkaxrDloXSG3yWbnQhBxlnZ6bBo3+/fX9rStI/HfMv6BFUzZVs9JTs9u8mBlCAKYe3/hCqFwW5sq5m4bJhFzZ73BMQAjD4fj5TK5sQ+78jJw+o6DNKY5MIGZaBFtqr8=
+	t=1790165123; cv=none; b=i8qVXaaGXu/ciCQVSfouVr2RQejzrthsDTWLdLOlDIdso56f04DUQsKtF3HqWzY3s1zfcjtWefmhsyTbY0rY4yq6MCrQoUYo+GnLPzVno1GGRgm0n2kNkjsesjEesfAIklkx0V17VH4i4TB2/4fBNbFwM/PEMgyekEfiPJNE5sE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165125; c=relaxed/simple;
-	bh=+v0rqjwUQgtaaLTpQID1QK2JxJIvh8LNAtxyU29DchY=;
+	s=arc-20240116; t=1790165123; c=relaxed/simple;
+	bh=cL5+YFpsqpZKGpz68YOUSSKCHE8atf18HiZnV4MKXmo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aWvLnxMXOv8DEtQ8MzKUIdKzugMdRoK8e2va/tAkgoUNIE44j5IbD8D8M2NWkwnD19aRrYUPw8AyMPRvI5SgisZgdX8yIY83TANd9QWutaaSYu1KBZAicoxaDlhgF+zmKlL4CWNWoGy+3+8/sAYVSBOJQVTMMwZ5tpdP3HIxxqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cg9fvkrP; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=updOnLmt/6V+SApJmNYSxDGOAV7eZkKseQOL+KPKaOtr9UJ8TSkegExib78kegjkYYIJp5cQ5QVBdFi93WxON9e58dC0doscScSEiMDYIJfhRWvs94FHBEJ3EJXnTqmmiOkVvaT12zrKQUmgDmcMD6g8HUjQkk65bWwYFXmB7/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vAK5zYOt; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cg9fvkrP"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3CF48C2BCFA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vAK5zYOt"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C1923C4AF0B;
 	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790165121;
-	bh=+v0rqjwUQgtaaLTpQID1QK2JxJIvh8LNAtxyU29DchY=;
+	bh=cL5+YFpsqpZKGpz68YOUSSKCHE8atf18HiZnV4MKXmo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Cg9fvkrP3kshvhtKyRAX5GHIfxGh0kON0BidN4V9+GXFGNEjTBGNQPU88ES9ggAjf
-	 AVVf++CwoM8jNmOXIFUlPDfj0yVoBMkuLfaPufYNXURz3VRrbbSJz8sxDkJfNOiWvT
-	 u1B/M/+h3hRq+hu8Tzpvqr8sjDjSRpkAVQei5nxi+FX7HbttEIg1uLvP6/IpYhY2/Z
-	 xrF/D6GkU/80ScHh8YRXfvwXUp9DBS1LBtSUOfYgrkLnb6+mDRRPup4AXhjsKj4yeh
-	 nDFdqbNoTdW8hPUBxqwC88der3RQGMQNTRVa7vwHyFLTVh2kpGFpO0IcRSryVO/Cea
-	 vgAOxxUBopBcQ==
+	b=vAK5zYOtijl1haOI9gXqsv8ACUPMutJwUPLC6WTnT1AZh3Y6sZE3xXDrp6OiFM7JK
+	 UVObtbnF9HeL0DjifTgJ56SIYL5et9/OfuUH4g97Q1mLDfQJ2Kzxm5yvyumOCH9puM
+	 oaAVBiUpFVCTibcsfJCs9Am84DrNXPNf43UtmpLXD6+bnPe05S6CkClPLU+QZXuPhB
+	 YRa1xpIo76ugmj3f1v8SWVG272xJjlV3vYBBS/hxxBdNEYh4qVoCku9K6f2BZECF97
+	 33lByZA+6YX4xc+SyIuf+wyT3RfRlX9Z5LNHF3qk7wEV4T6lGh9QrygnHV9gbXEHoP
+	 MV3vRJo6IOqgg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A42CC982FA;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD9AEC982FA;
 	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Wed, 23 Sep 2026 16:05:14 +0400
-Subject: [PATCH ath-next 08/16] wifi: ath11k: Power up userPD
+Date: Wed, 23 Sep 2026 16:05:22 +0400
+Subject: [PATCH ath-next 16/16] wifi: ath11k: add QCN6122 device support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-8-86729521a75c@outlook.com>
+Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-16-86729521a75c@outlook.com>
 References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 To: Johannes Berg <johannes@sipsolutions.net>, 
@@ -55,11 +55,11 @@ Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=3294;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=2721;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=blryMPihJDe3QtxZzbmPzNM8CFDhfBVHVgX5a2hkIxQ=;
- b=9hjw2jEOld1XMsIhO0M9lg/fpvmOgz2+LYOHgijLKI10d7TIalZds5O8qjonbkonLd7w3aGfz
- UYDqoL8Ic3xDweFd1/CEGee56UJzQ8HCr3zCn0pHOLkDLJTggLjsnMI
+ bh=N0lWRlkViy66JiabYe3wnlNpM0tjJSjRzUVdOXoZ9Gs=;
+ b=ToSFrdMAsPUqm34M8ORvBROXcmsCcULlAR9RBecaTVXwiXWOjpr9vkoHJZdK+tfkF0OdSXTgR
+ 8mBh+8gPFSZDoPSuVKzWN20Nk8CGHwe/JuaZ7Nci5MMz30OhGbHNugr
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -69,110 +69,77 @@ Reply-To: george.moussalem@outlook.com
 
 From: George Moussalem <george.moussalem@outlook.com>
 
-Set the spawn bit to instruct Q6 to spawn the userPD thread.
-Wait for userPD to spawn which is indicated by spawn interrupt. The
-ready interrupt is triggered once the userPD is powered up completely.
+QCN6122 is a 2x2 11AX PCIe based chipset, but it is attached to the WPSS
+(Wireless Processor SubSystem) Q6 processor, hence it is enumerated
+by the Q6 processor. It is registered to the APSS processor as a
+platform device (AHB).
+
+Q6 firmware segments for QCN6122 are contained within the multi-PD
+version of the shared firmware package for IPQ5018. Each (up to 2)
+QCN6122 radio present runs in its own user PD which the ath11k driver
+manages to power it up or down.
+
+Also, device information like BAR and its size is not known to the APSS
+processor as the chip is enumerated by WPSS Q6. These details are
+fetched over QMI.
+
+The QCN6122 chip supports STA, AP, and MESH modes.
+
+Tested on: Linksys MX2000 and GLiNET B3000 wireless access points for
+prolonged duration tests spanning multiple days with multiple clients
+connected with firmware WLAN.HK.2.7.0.1-01744-QCAHKSWPL_SILICONZ-1
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- drivers/net/wireless/ath/ath11k/ahb.c | 56 +++++++++++++++++++++++++++++++++++
- drivers/net/wireless/ath/ath11k/ahb.h |  7 +++++
- 2 files changed, 63 insertions(+)
+ drivers/net/wireless/ath/ath11k/ahb.c  | 7 +++++++
+ drivers/net/wireless/ath/ath11k/pcic.c | 9 +++++++++
+ 2 files changed, 16 insertions(+)
 
 diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
-index 25f9a992a7d2..2c41cf585d00 100644
+index 26110c927577..51908e779b7c 100644
 --- a/drivers/net/wireless/ath/ath11k/ahb.c
 +++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -11,6 +11,7 @@
- #include <linux/of.h>
- #include <linux/of_reserved_mem.h>
- #include <linux/dma-mapping.h>
-+#include <linux/firmware/qcom/qcom_scm.h>
- #include <linux/iommu.h>
- #include "ahb.h"
- #include "debug.h"
-@@ -430,8 +431,63 @@ static void ath11k_ahb_stop(struct ath11k_base *ab)
- 	ath11k_ce_cleanup_pipes(ab);
- }
+@@ -46,6 +46,9 @@ static const struct of_device_id ath11k_ahb_of_match[] = {
+ 	{ .compatible = "qcom,ipq5018-wifi",
+ 	  .data = (void *)ATH11K_HW_IPQ5018_HW10,
+ 	},
++	{ .compatible = "qcom,qcn6122-wifi",
++	  .data = (void *)ATH11K_HW_QCN6122_HW10,
++	},
+ 	{ }
+ };
  
-+static int ath11k_ahb_boot_user_pd(struct ath11k_base *ab)
-+{
-+	struct ath11k_ahb *ab_ahb = ath11k_ahb_priv(ab);
-+	unsigned long time_left;
-+	int ret;
-+
-+	if (ab->hw_rev == ATH11K_HW_IPQ5018_HW10) {
-+		ret = qcom_scm_pas_set_wifi_power_mode(MPD_WCNSS_PAS_ID, true);
-+		if (ret) {
-+			ath11k_err(ab, "failed to power up wifi: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+
-+	ret = qcom_smem_state_update_bits(ab_ahb->spawn_state, BIT(ab_ahb->spawn_bit),
-+					  BIT(ab_ahb->spawn_bit));
-+	if (ret) {
-+		ath11k_err(ab, "Failed to update spawn state %d\n", ret);
-+		return ret;
-+	}
-+
-+	time_left = wait_for_completion_timeout(&ab_ahb->userpd_spawned,
-+						ATH11K_USERPD_SPAWN_TIMEOUT);
-+	if (!time_left) {
-+		ath11k_err(ab, "UserPD spawn wait timed out\n");
-+		return -ETIMEDOUT;
-+	}
-+
-+	time_left = wait_for_completion_timeout(&ab_ahb->userpd_ready,
-+						ATH11K_USERPD_READY_TIMEOUT);
-+	if (!time_left) {
-+		ath11k_err(ab, "UserPD ready wait timed out\n");
-+		return -ETIMEDOUT;
-+	}
-+
-+	qcom_smem_state_update_bits(ab_ahb->spawn_state, BIT(ab_ahb->spawn_bit), 0);
-+
-+	ath11k_dbg(ab, ATH11K_DBG_AHB, "UserPD%d is now UP\n", ab_ahb->userpd_id);
-+
-+	return 0;
-+}
-+
- static int ath11k_ahb_power_up(struct ath11k_base *ab)
- {
-+	struct ath11k_ahb *ab_ahb = ath11k_ahb_priv(ab);
-+	int ret;
-+
-+	if (ab_ahb->userpd_id > 0 &&
-+	    ab_ahb->userpd_id < ATH11K_AHB_USERPD_ID_MAX) {
-+		ret = ath11k_ahb_boot_user_pd(ab);
-+		if (ret) {
-+			ath11k_err(ab, "failed to boot userPD%d: %d\n",
-+				   ab_ahb->userpd_id, ret);
-+			return ret;
-+		}
-+	}
-+
- 	return 0;
- }
+@@ -1395,6 +1398,10 @@ static int ath11k_ahb_setup_msi_resources(struct ath11k_base *ab)
+ 	ab->pci.msi.addr_hi = upper_32_bits(msi_addr_iova);
  
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.h b/drivers/net/wireless/ath/ath11k/ahb.h
-index 12e0c4d27a0c..0647bdb9ea62 100644
---- a/drivers/net/wireless/ath/ath11k/ahb.h
-+++ b/drivers/net/wireless/ath/ath11k/ahb.h
-@@ -19,6 +19,13 @@
- #define ATH11K_ROOTPD_READY_TIMEOUT		(5 * HZ)
- #define ATH11K_RPROC_AFTER_POWERUP		QCOM_SSR_AFTER_POWERUP
+ 	ret = of_property_read_u32_index(ab->dev->of_node, "interrupts", 1, &int_prop);
++	if (ret == -EINVAL)
++		ret = of_property_read_u32_index(ab->dev->of_node,
++						 "interrupts-extended", 2,
++						 &int_prop);
+ 	if (ret)
+ 		return ret;
  
-+#define ATH11K_USERPD_SPAWN_TIMEOUT		(5 * HZ)
-+#define ATH11K_USERPD_READY_TIMEOUT		(10 * HZ)
-+#define ATH11K_USERPD_STOP_TIMEOUT		(5 * HZ)
-+#define ATH11K_USERPD_FW_NAME_LEN		35
-+
-+#define MPD_WCNSS_PAS_ID			0xD
-+
- enum ath11k_ahb_userpd_id {
- 	ATH11K_AHB_USERPD_ID_1 = 1,
- 	ATH11K_AHB_USERPD_ID_MAX,
+diff --git a/drivers/net/wireless/ath/ath11k/pcic.c b/drivers/net/wireless/ath/ath11k/pcic.c
+index 2259adc3bbdc..cdcf3df26438 100644
+--- a/drivers/net/wireless/ath/ath11k/pcic.c
++++ b/drivers/net/wireless/ath/ath11k/pcic.c
+@@ -138,6 +138,15 @@ static const struct ath11k_msi_config ath11k_msi_config[] = {
+ 		},
+ 		.hw_rev = ATH11K_HW_QCA6698AQ_HW21,
+ 	},
++	{
++		.total_vectors = 13,
++		.total_users = 2,
++		.users = (struct ath11k_msi_user[]) {
++			{ .name = "CE", .num_vectors = 5, .base_vector = 0 },
++			{ .name = "DP", .num_vectors = 8, .base_vector = 5 },
++		},
++		.hw_rev = ATH11K_HW_QCN6122_HW10,
++	},
+ };
+ 
+ int ath11k_pcic_init_msi_config(struct ath11k_base *ab)
 
 -- 
 2.53.0
