@@ -1,264 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA23D49DBA0
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE84A517BD3
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:19:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165960; cv=none; b=goiZiCM4iD4mzVJKNvUVIDBzue+7jTRjbWxk+midHMEqHVZA0WJe4+KqRrt3LrGUilBgskz/Py1mWQ9dKAE8VjAursqCdjKZ988sgGXX6n+nT4ZCCL7rknLuVb2hWBEcA5Lh88ROpVOPJvYvfD/2gc0yaJfs9pF8Q0kv1LyIQgY=
+	t=1790165983; cv=none; b=NNQKKmlZ+jlJkHcSfVEVhF/lPKaJcL/rpzZUclXwohLMBKLDKeZGNrCLSPjS7BIvyNMQaK3mP+65Vud+B98fE19G5o0ZrSgh1drxExNJsOCR09pvU/hFZPJ25uXazbRQoDHhme7aDLhX/NQqo/n6Nb5S3THKcMPl8eQ4t1FmUtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165960; c=relaxed/simple;
-	bh=JTHxqkNS9oWH+qaQPiHaURACeLqtW5/iSGcM79LccGk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QJXOeBOviVINSIKG+Ta/RUVXyd6Et6BcAYXJdrr99QY9tkn5u5UHcvKdGwn69KY7eF6jzHaV63u091MFtq/1BLjqJ6ogwMK5JSf7FawhQPB43X6LDdsSyXOmHipmM0j4oZgdJE7T/c7jhwh17HuVufZ01oZAcruLTRtTc91K7qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGpGdDfk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790165983; c=relaxed/simple;
+	bh=FRdZr1Qf2ewNAG90/1w19BygcGtrxeTxuYozL/kI2NM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CP6naOJd2ySFBF2iD0WpgfuPhAy5r084RFocyi4hn1fAylAZaE9QiYr+fsbO+Q0NP3ox5WHzZXdgNih+cABx/l2DfFKZQ12XJM3/4k2DTwXoqfPkHXsVj+0S/1FZhxXX0s7uvt6bEZfmeq/gxUCa2Gz4hwdQ/EtY4q3RV/YkNcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kSFRmsHs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R0oBM9n3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGpGdDfk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0951F000FF;
-	Wed, 23 Sep 2026 12:19:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790165958;
-	bh=yjR/SfM9xIPDsJAHoUybd9jYq8x5+rcN2Q8ZfZ/qurw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oGpGdDfkVpFKCA6KjSr8LObjPriHaN02GoOPEOdofpJp9a7j1hCqvAQzMo2mf9H+Q
-	 0i2dPxC1kLrraT3cUs12ZKGsPRXqf0xB7eaadYXQ/e5aOp9p1GJZOHzQTuNy5pX12s
-	 Fr1xUEmpxAEawNmyX8NT8tSKDuQrHgCzXfir7OPCeAfWraS0X1rimeG9TYR6AhSsdH
-	 JerrrQDU19FWs5vvcnX55Z+yFaBsAEx0SikIjhzi5GU10f0XG6Rr8ktophMMCB3xTX
-	 vBTE93Zw9aYz5VAQXreySMNW/+7t8apXCHu/k/CNtbJDAXHAW3/vuT/h6BmJcaWyw+
-	 lX7gEYg2AY53Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH ath-next 07/16] wifi: ath11k: Register userPD interrupts
- and SMEM entries
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "George Moussalem" <george.moussalem@outlook.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-7-86729521a75c@outlook.com>
-References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
- <20260923-ipq5018-qcn6122-mpd-v1-7-86729521a75c@outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 12:19:17 +0000
-Message-Id: <20260923121918.2A0951F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kSFRmsHs";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R0oBM9n3"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBbUum2443305
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:19:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GnMmorU5z7ubvp2RV2au0vwumoI2G82ZHEvqLawCVIM=; b=kSFRmsHs+oW+GSUU
+	LEz6kZCbnLmpB6rmdxPPBwFZ8nEOw6U3TrYlxIcfTNQg5rpTCFb0P4h3jowlyhRA
+	HkpRBwcDwfH0kDYeBBhUwa8GRa/Z+H+mmVWHOHw4mlbl1kjQSo10i3kN5LrrPcdm
+	knEs9W5dcHZjmPCaoFnVPTQKtchQqGhmyNFg1xf7jYj4cfgyizDvxcQGUmf00e06
+	1sjSaUZgzZvoo7wcoRn5JT20n818K2hSJOWlNULI1wz2xV+So11VZTZyIK/lml3g
+	8HR0IsaDkrXUpzcJUFH/m6yy5ETHH+tyjj+bTYuEnUGPDq9+6/y3ursRtUiGw6j4
+	ysbULQ==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvbx7gr4d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:19:40 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-97f18b9d6feso28940241.3
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 05:19:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790165980; x=1790770780; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GnMmorU5z7ubvp2RV2au0vwumoI2G82ZHEvqLawCVIM=;
+        b=R0oBM9n3EsHbNbGF+9YMcC/vXlvEigwOm9e2vI7nSKjQ22Qb7wK1t6oPKhgEo+TqQb
+         drf/5EBOBKpD8MEqg0T2Mzca+0yJxfmV0mLP7oQkmfHnFA/HF7oXrw4KcWs6j+gqHUtb
+         4s6kGhCN/uY20hKOKV4iepYAqN+2fZDCdV8hlKliTs3CYmF212jjt7zrPjh6TYMNK0FF
+         aRWqd1prUe1apnA0M2L1smnqhYJW/omid6ttEpgGv6IzurlcGmhjtvjWtcfav1+vlDh7
+         j1TJsG3WoCNC6Dl0bvfxDMlj5rOtvc1ZXRYq4H5TV+wMPKx0OUONksYdrw4fzZ+9SYoD
+         2JXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790165980; x=1790770780;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GnMmorU5z7ubvp2RV2au0vwumoI2G82ZHEvqLawCVIM=;
+        b=qlcBe14oSAWhQhkbabmm1sjrzLZhBYJVJe+1Oi/4N3V5TtDaUU5E5Za71koHzfd7kz
+         3zJPSSYRh5TTJmhtaOqOv3hQKg3GAPJk67xEFFloXcOPmeslAuwQLHEOvjJolCQeliSc
+         oBmI0aTL4YGWcXE+IMg21rY95wMPbbvJdFkSwwhVtfRL9brCWS7W6p7NDtCEyb/Q099t
+         sXiQeM06Tjjvye8zR61973PWSvecm/KVvKJVZ0wyfnCCaENdv2kgnfrtLCZWi8LF9ZBx
+         txrFnovRf1yV6hu4Z8yvKgMrzJmbdEen4eKnjlyXDrDCEAL2Kt1yomxrPfPApALwnLQF
+         auzA==
+X-Forwarded-Encrypted: i=1; AKwUvBxR9/cNdLdZ3Qi7Rhhs19DRrRLQ3+4Z3QDkT2/cvqic11NT3GD/ZjzGCvYQfrZNO3UTtUv4FWpuDvpQ@vger.kernel.org
+X-Gm-Message-State: AFuF++lSYPduNkN5b4ulFoPORPX0trMo03/GcyZt2wNbBtwrk0BAiP7m
+	/lJ0mnsWKbiRMYzNzkFSibnblrnjwUo30ZBPUzH+PoateRXVaewbsz+L6L3foB0zer/+7Ga7BZe
+	0UR4DpAEnMasgYIvIohOZKAfCjN2bDDvZCeTnPRA2hu9eELGXr4RUGtpRbpTeaaMM
+X-Gm-Gg: AYBFou05ZlOlDTZazYyjnSvqk+k7HcAhIcmP5RkFB/X4vJdoMKEQTMFfJwstfrpgYs/
+	xtZAa4ngg2IgM0nJTPRI395Wlfta0vvRb/ZocCPJzNE0BBso6/qWISVeKzdPDU40CpOF+Lq7OS+
+	DFYUfZ3dHFstJuWW9fq5rfOIgu1MTAG+MNnNsoClXBwqpAwjOjuMVgpQhLyi/VdN8/plLOBcCQS
+	8AMXiVU8x1NDRn1Pm8dVDsDhe7zw1rtonOeg1zxHKaOl/b9hJTOG9u23NxBoJHEMFtsOtw9d+1s
+	AzKw2eXVEnVxZ9+bPLJ9+AQhTfpCyd8NZM1WNEt61iRmom2iQQohYKhXyxbq8cpY7azEG96YU09
+	tFsF+/3ci98FAe7soW1xPNw==
+X-Received: by 2002:a05:6102:5e93:b0:7a7:ad9f:539c with SMTP id ada2fe7eead31-7ac1ca9015dmr1987607137.2.1790165979966;
+        Wed, 23 Sep 2026 05:19:39 -0700 (PDT)
+X-Received: by 2002:a05:6102:5e93:b0:7a7:ad9f:539c with SMTP id ada2fe7eead31-7ac1ca9015dmr1987594137.2.1790165979587;
+        Wed, 23 Sep 2026 05:19:39 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ab0aae727sm92143166b.0.2026.09.23.05.19.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 05:19:38 -0700 (PDT)
+Message-ID: <07ad0b0e-f666-44f7-b5a2-bf9ad016b297@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 14:19:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] phy: qcom: qmp-pcie: Add endpoint PHY configuration
+ for QCS8300
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pci@vger.kernel.org
+References: <20260921-monaco_ep-v1-0-63c5282fb0db@oss.qualcomm.com>
+ <20260921-monaco_ep-v1-3-63c5282fb0db@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260921-monaco_ep-v1-3-63c5282fb0db@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: sAa2n_88PqF-9SzM-5j1K0QfuRkO-a2V
+X-Authority-Analysis: v=2.4 cv=J4s/fwnS c=1 sm=1 tr=0 ts=6ab3c3dc cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=Z49P6srHwRQ8gCsPR7EA:9 a=QEXdDO2ut3YA:10 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0OSBTYWx0ZWRfX2Wk3uBy+wuE9
+ 3rdgO/f/ijRsTRMc7SlA6r6pfUXxEe+aOseq7VmgmyqKTCffT28qNq2+K0UFrIQ7lxIAffTJIyu
+ Kh+xeb2GuqtmrHpN1DJE7axoGzR8jWHBFVnnZGLO00ml5qtSZdmGn7sjVu71b+oyraZNs8GTBuD
+ pB2Kp3ecAynoVnKJQWVrkikReI2XJdM2F6GHbBDUiREOk/pimzis+HwFOrp6WrTPY8uczCOPtK3
+ iTi85GQHuprNZOIhonQRikMl3P9k0OdsgJmuNT2ThL3UU/9XhwJV2Om02rAfrRGNOK1mdxp2pz8
+ R0wv02vlxD86EQ1yW78cSdQvGOb9hFInB9Wrv5tl5UpAh7MW26I7RZryAR27WGyNn4cRqgwVfvF
+ 2BYVDd2bhTk4Fba/VtUMUJrng2nJBJ+Rqdqk7sfQhyEM6c/biLX9hHMefUxAbhT9HfVgzK1lL8b
+ k2SrkjU6lpAWn7CNXeQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0OSBTYWx0ZWRfX5GTdRxb5zPK6
+ u96+V2lgObsoBPi8wFTxfo5kD0VH2FHHKAN7TP8M7hOaP7rbQiE8mDZK1HZZW1CZAb5hLSgm0aH
+ W66AvHfvWZNUKhvvSrxcq/0mNhR6LMA=
+X-Proofpoint-GUID: sAa2n_88PqF-9SzM-5j1K0QfuRkO-a2V
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 spamscore=0 impostorscore=0 priorityscore=1501
+ phishscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230049
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] ath11k: resource leak and global state UAF on rproc configure error
-- [High] ath11k: uninitialized completion usage and kernel panic when ignor=
-ing -ENXIO
-- [High] ath11k: Use-After-Free of `ab` due to devm-managed IRQ lifecycle
-- [High] ath11k: unbalanced remoteproc power refcounting due to RPROC_RUNNI=
-NG bypass
-- [Medium] ath11k: race condition accessing uninitialized completions in IR=
-Q handler
-- [Low] ath11k: spurious error messages printed on non-MPD platforms
---
+On 9/21/26 12:58 PM, Krishna Chaitanya Chundru wrote:
+> Monaco supports PCIe Endpoint mode on both PCIe controllers. Reuse
+> the existing SA8775P Endpoint PHY programming for the 16 GT/s x2 PHY and
+> add a new 16 GT/s x4 Endpoint PHY configuration with the required RX
+> tuning parameters.
+> 
+> This allows both Monaco PCIe controllers to operate reliably in
+> Endpoint mode.
 
-commit 5d140036183a0669ee53fb034ef758801c8d354d
-Author: George Moussalem <george.moussalem@outlook.com>
+Does that also apply to lemans?
 
-wifi: ath11k: Register userPD interrupts and SMEM entries
-
-The patch sets up communication between the Q6 and the ath11k driver using
-SMEM and IRQs. It manages UserPDs spawning and stopping, introducing
-interrupts for spawn, ready, and stop-ack events, and moves RootPD
-boot/shutdown to probe/remove.
-
-> diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless=
-/ath/ath11k/ahb.c
-> index 9fe2e112dfb81..25f9a992a7d2f 100644
-> --- a/drivers/net/wireless/ath/ath11k/ahb.c
-> +++ b/drivers/net/wireless/ath/ath11k/ahb.c
-[ ... ]
-> @@ -831,6 +847,126 @@ static const struct ath11k_hif_ops ath11k_ahb_hif_o=
-ps_wcn6750 =3D {
-[ ... ]
-> +static int ath11k_ahb_config_userpd_irq(struct ath11k_base *ab)
-> +{
-> +	struct ath11k_ahb *ab_ahb =3D ath11k_ahb_priv(ab);
-> +	char *upd_irq_name;
-> +	int userpd_id;
-> +	int i, ret;
-> +
-> +	ab_ahb->spawn_state =3D devm_qcom_smem_state_get(&ab->pdev->dev, "spawn=
-",
-> +						       &ab_ahb->spawn_bit);
-> +	if (IS_ERR(ab_ahb->spawn_state))
-> +		return dev_err_probe(&ab->pdev->dev, PTR_ERR(ab_ahb->spawn_state),
-> +				     "Failed to acquire spawn state\n");
-
-[Severity: Low]
-For standard non-MPD platforms that intentionally lack "spawn" in smem
-states, devm_qcom_smem_state_get() will return -EINVAL. Will
-dev_err_probe() needlessly print an error message to the system log on
-every boot for these hardware configurations?
-
-> +
-> +	ab_ahb->stop_state =3D devm_qcom_smem_state_get(&ab->pdev->dev, "stop",
-> +						      &ab_ahb->stop_bit);
-> +	if (IS_ERR(ab_ahb->stop_state))
-> +		return dev_err_probe(&ab->pdev->dev, PTR_ERR(ab_ahb->stop_state),
-> +				     "Failed to acquire stop state\n");
-> +
-> +	mutex_lock(&ath11k_rproc_info_lock);
-> +
-> +	userpd_id =3D ab_ahb->spawn_bit / 8;
-> +	ret =3D ath11k_ahb_init_userpd(ab, userpd_id);
-> +	if (ret) {
-> +		mutex_unlock(&ath11k_rproc_info_lock);
-> +		return ret;
-> +	}
-> +
-> +	mutex_unlock(&ath11k_rproc_info_lock);
-> +
-> +	for (i =3D 0; i < ATH11K_USERPD_MAX_IRQ; i++) {
-> +		ab_ahb->userpd_irq_num[i] =3D platform_get_irq_byname_optional(ab->pde=
-v,
-> +									     ath11k_userpd_irq[i]);
-> +		if (ab_ahb->userpd_irq_num[i] < 0)
-> +			return ab_ahb->userpd_irq_num[i];
-
-[Severity: High]
-If an IRQ is missing, this returns -ENXIO early. The caller
-ath11k_ahb_configure_rproc() explicitly ignores -ENXIO to support non-MPD
-platforms, but ath11k_ahb_init_userpd() has already set ab_ahb->userpd_id.
-Because we exit early, the completions below are never initialized.
-
-Will this cause a kernel panic when ath11k_ahb_power_up() checks
-userpd_id > 0 and attempts to wait on these uninitialized completions?
-
-> +
-> +		upd_irq_name =3D devm_kzalloc(&ab->pdev->dev, ATH11K_UPD_IRQ_WRD_LEN,
-> +					    GFP_KERNEL);
-> +		if (!upd_irq_name)
-> +			return -ENOMEM;
-> +
-> +		scnprintf(upd_irq_name, ATH11K_UPD_IRQ_WRD_LEN, "UserPD%u-%s",
-> +			  ab_ahb->userpd_id, ath11k_userpd_irq[i]);
-> +		ret =3D devm_request_threaded_irq(&ab->pdev->dev, ab_ahb->userpd_irq_n=
-um[i],
-> +						NULL, ath11k_userpd_irq_handler,
-> +						IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-> +						upd_irq_name, ab);
-
-[Severity: High]
-The IRQs are requested using devm_request_threaded_irq() with 'ab' passed
-as the context. Devres IRQ cleanup runs after the remove function finishes.
-If probe fails later or the driver is removed, ath11k_ahb_probe()
-explicitly frees 'ab' using ath11k_core_free(ab). Does this create a
-window where the IRQs are still active while the 'ab' context has been
-freed, leading to a use-after-free if an interrupt fires?
-
-[Severity: Medium]
-Since the interrupts are enabled in this loop before the completions
-(userpd_spawned, etc.) are initialized below, could a pending interrupt
-fire immediately and cause the IRQ handler to access uninitialized
-completions?
-
-> +		if (ret)
-> +			return dev_err_probe(&ab->pdev->dev, ret,
-> +					     "Request %s irq failed: %d\n",
-> +					     ath11k_userpd_irq[i], ret);
-> +	}
-> +
-> +	init_completion(&ab_ahb->userpd_spawned);
-> +	init_completion(&ab_ahb->userpd_ready);
-> +	init_completion(&ab_ahb->userpd_stopped);
-> +
-> +	return 0;
-> +}
-[ ... ]
-> @@ -1032,7 +1168,7 @@ static int ath11k_ahb_configure_rproc(struct ath11k=
-_base *ab)
-[ ... ]
->  	if (g_rproc_info->tgt_rproc->state !=3D RPROC_RUNNING) {
->  		ret =3D ath11k_ahb_boot_root_pd(ab);
->  		if (ret) {
->  			ath11k_err(ab, "failed to boot the remote processor Q6\n");
->  			goto err_unreg_notifier;
->  		}
->  	}
->  	g_rproc_info->root_pd_booted =3D true;
-> =20
->  	mutex_unlock(&ath11k_rproc_info_lock);
-> =20
-> +	/*
-> +	 * UserPD interrupts are specific to multi-PD configs/firmware only.
-> +	 * If interrupts aren't found, continue execution for non-MPD platforms.
-> +	 */
-> +	ret =3D ath11k_ahb_config_userpd_irq(ab);
-> +	if (ret && ret !=3D -EINVAL && ret !=3D -ENXIO)
-> +		return dev_err_probe(&ab->pdev->dev, ret,
-> +				     "failed to configure userpd interrupts\n");
-
-[Severity: High]
-If ath11k_ahb_config_userpd_irq() returns an error such as -ENOMEM, this
-direct return bypasses the err_cleanup_userpd label. Since
-ath11k_ahb_init_userpd() already saved the 'ab' pointer into the global
-g_rproc_info->userpd[] array, does this leave a dangling pointer in the
-global state after the probe fails and 'ab' is explicitly freed?
-
-> +
->  	return 0;
-> =20
->  err_unreg_notifier:
->  	ath11k_ahb_unregister_rproc_notifier();
-> =20
-> -err_put_rproc:
-> -	rproc_put(g_rproc_info->tgt_rproc);
-> +err_cleanup_userpd:
-> +	ath11k_ahb_cleanup_userpd(ab);
-> +	if (g_rproc_info && !g_rproc_info->num_userpd) {
-> +		rproc_put(g_rproc_info->tgt_rproc);
-> +		kfree(g_rproc_info);
-> +		g_rproc_info =3D NULL;
-> +	}
-> +
->  	mutex_unlock(&ath11k_rproc_info_lock);
->  	return ret;
->  }
-> @@ -1078,15 +1229,19 @@ static void ath11k_ahb_deconfigure_rproc(struct a=
-th11k_base *ab)
-> =20
->  	mutex_lock(&ath11k_rproc_info_lock);
-> =20
-> -	ath11k_ahb_unregister_rproc_notifier();
-> +	ath11k_ahb_cleanup_userpd(ab);
-> =20
-> -	if (g_rproc_info->root_pd_booted &&
-> -	    g_rproc_info->tgt_rproc->state =3D=3D RPROC_RUNNING)
-> -		rproc_shutdown(g_rproc_info->tgt_rproc);
-> +	if (!g_rproc_info->num_userpd) {
-> +		ath11k_ahb_unregister_rproc_notifier();
-> =20
-> -	rproc_put(g_rproc_info->tgt_rproc);
-> -	kfree(g_rproc_info);
-> -	g_rproc_info =3D NULL;
-> +		if (g_rproc_info->root_pd_booted &&
-> +		    g_rproc_info->tgt_rproc->state =3D=3D RPROC_RUNNING)
-> +			rproc_shutdown(g_rproc_info->tgt_rproc);
-
-[Severity: High]
-In ath11k_ahb_configure_rproc(), we bypass calling rproc_boot() if the
-remote processor is already running, which means the power refcount is not
-incremented. However, during teardown here, we unconditionally call
-rproc_shutdown() since root_pd_booted is true. Does this steal a power
-reference and prematurely shut down the remote processor for whoever
-originally booted it?
-
-> +
-> +		rproc_put(g_rproc_info->tgt_rproc);
-> +		kfree(g_rproc_info);
-> +		g_rproc_info =3D NULL;
-> +	}
-> =20
->  	mutex_unlock(&ath11k_rproc_info_lock);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-ipq5018-qc=
-n6122-mpd-v1-0-86729521a75c@outlook.com?part=3D7
+Konrad
