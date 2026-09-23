@@ -1,226 +1,182 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1923C3F5C
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 21:17:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691743F106E;
+	Wed, 23 Sep 2026 21:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790198251; cv=none; b=LGfzlvfScB/ARy07bIdioRj0mpLBZZRp1w5c/UGW6M75J0nw+bdFYI4Fzf6/qNi9BzuvD0C9cqfHnhMEs2rHY2lfS5Sq1RVPpCi+L32nwQahUCDXGWQu5e85KjWJ+gKybAjVAbHWLsOgZ12Ugni1+yjZwnNak+qQnycRNUKS00E=
+	t=1790198322; cv=none; b=XnffgK/i402Cz5PlrigZezKm4ADDcj9Va8iYRvX2iqgNyhWSaHnXQ05vAfepbP/z217kju3wWxevRxlgw0KGRjpLTJqfyNxNXVwlDD4sQzVv0sw5OZPHvdyWP12E3p5VgZwrTKcwdmJsiUFZAuyWj5JHRtXWqtwqAmqwD6Mg+Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790198251; c=relaxed/simple;
-	bh=LcXuePjtl2W9YsHMLCydrUdYk69iIHGpmbCxJSwqc4s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NkaSsyNn8ryxrCExp4RiRn3IOI8MOky5s4GvKzTnh6+dBR1OMZaef8m6wWV6xl6uZ9BeuSr9e78lnnAhXrmwggRUoVRNjdsce3QWEcU2VkfmxLiqtqfDoviONZxcf4xRxTfrVFt/vZ1G9zqTGf8rxWvG3Rr63XjgWEgnupMUy/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Snx1vjV4; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790198322; c=relaxed/simple;
+	bh=j/lDzBjN2rAc1lI4kJqKG6iCbBX0dO4INeVVU1Y+riQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QNGcXfw0/SVCUuZb7Rv4iWH1bi3xkHhYi++leP7rmwo3JkNMDx35jOmM3p+6F89mO7LGutlHvT86uwtVOFgqSO3TBvLuDeWlJDHZ8PEx6wfjwr1UxwVqJB0hjGFk2gR89l2jc32ayGwTcgqCKmgAvlcWc/CLYn8AshexkCX51rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ODfmvCfM; arc=none smtp.client-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Snx1vjV4"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4aa0f1766so960555a12.0
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 14:17:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790198244; x=1790803044; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VOIjs3wmQAgHgZ83QmrBpj8tiZLeHbDXLko9JL+GaUk=;
-        b=Snx1vjV4tsum7GCNnFx0467N4WgLp+Blyeo2jnkB0EgaNRrMzZOC3IP2zmfoWiV2CC
-         QlwEZ1Nucwl9RQYCUuivB1nkIVBWw5eyBQwGRZpp6WBsZSnj2fQd0g+j0JBYz4d2HRTK
-         /9CANf6mucV8flTdWHcwr0jUjuD4mQaydXn0TqmXNVl6nZY1boebVUIXqXKarEHTtW+H
-         Q8yo7kJ6AIZyLo1HfhBFPP1aib1klBmL6BSwmAyFshc52iQwP50l9y9AtEVTg9P4Px2D
-         /GO6eiWoRnJ+5flzmdTyHl7fGjiAlpMFo6ONbH9UAKpQJBWkhFnFmeUIct3YXeRTwRzh
-         gX5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790198244; x=1790803044;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VOIjs3wmQAgHgZ83QmrBpj8tiZLeHbDXLko9JL+GaUk=;
-        b=ceJofiUkw3NOV30h6xXwrzlYGOB2bKNeLGGk8Sb3hYZAFMGCQgpPc8tIK8ptvFSMhO
-         nuowKcW8If9zG7NxfdshleWEvpj59DVPe+eJwBQHfwDlAvkaYp138HWc64cqFa8GdGQM
-         4pMOoBJ5CgkscnqTfhVkXm2a9mRw48hSI6XxLTIe/j5m5XztD0XabciwdyiqrXoEvhjz
-         q/0E5lWMsno+GQvEM+JC5KATS7rHgcRRQd9J5HsoxFgIN4TDpaIxpCUcdBy1jIT3+8kl
-         bnszPRpmHUtS9VMfS73Mu0Qqi0/RJIFdWc+2df2xX/lNA+2tBhF9lB1BILaDtPnz7lAG
-         evEA==
-X-Forwarded-Encrypted: i=1; AKwUvBwJi+BqLElMT4tM5H5z0oxOmppka3h5XXZ4StIXnMmQ4o/VI/iGakPSM24obdh3WL9ITVmKkLgJsWlF@vger.kernel.org
-X-Gm-Message-State: AFuF++lRH95J4t4sDJInPSlVF4W6Pw+uSZMPHc4QmLAaAAblgRgdfqqT
-	govOvmrEQZEIHC2utgntUT0ni1wvJW4ROT2R/hYs38tpuCOuWizcBObj
-X-Gm-Gg: AYBFou1qulXftmhfwb/FKsjH0CMCUcxVaFBN5fhZPqvBvyAabixsJvx4j8c9SXJpVlf
-	M/TGN2yhn1CXHQo9AYSIScFD1MdEQ3VYhIgCqirivjMmMgvt0JUqgRjeNeGK+uGJCTB+6O/RCdd
-	6XZyBJ7PQlAG9mB3CL+a/9/Tn3PjK1TCzMXTO9ZOudhY7C5uVy8dY/g0TLpAlSmd5Q9QAkXU/3b
-	yJwns7K7CvKh/wjVNv1BiuE2cmA5DwTnUh/lOgXcFT/lc7NEQz7CUcBtj+RQknHo4tYAd86MdWl
-	TlOgYktjsNdC8Aqc4+sz25FHyB7jCm8ZNs8PLgA+gb299SH0V4DIvyf6RFgi8+cPzZ/f7LOr9I0
-	xUXLbcbUSekK8r6W/PNNR92EQYssfP8aEbRLW0cH3AsSUfIKxt+x0TnrAF4X3APV+mHT5ISzSDY
-	WCxj64e95bAWuShXraOUhDjA3bR9+JySzzFEpwSrGO6WmMAw4T6mMcSLg8XUagbLIdivvRxRwuL
-	fVYuUFXuGCKqjK7S5gQj6t+
-X-Received: by 2002:a17:90b:3852:b0:39e:6c6a:656c with SMTP id 98e67ed59e1d1-3a09896a59amr321272a91.47.1790198243551;
-        Wed, 23 Sep 2026 14:17:23 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a097663e1dsm884946a91.7.2026.09.23.14.17.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 14:17:22 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 23 Sep 2026 14:17:21 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v6 4/8] watchdog: rzv2h: Propagate WDTDCR access errors
-Message-ID: <fb5f25b4-33e4-4cb1-b790-3fd078c61e5d@roeck-us.net>
-References: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260923104054.3324830-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ODfmvCfM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790198315; x=1790457515;
+	bh=SL3XhxBzEFXiNAg2QPAIXN4w3WwM/gjEaFs3ld7y99s=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ODfmvCfMWRYEjMaX2yOLmhlEi5+Lb0cKn5LGRbXclO43Pbu9kz5RkXjp6YdXtU3ng
+	 Lm1ERROOvxMI2nX7Rhrr64CGVHWDiVg9F8/QyOnaggmqnV0VzLiHx99lR/G3nahkCY
+	 t7kvWCUXYY0FcT2/C+z/5oXd5k7b7JiqjMrnipkH8kzA2yFrq3BkSPzaPR2aawru9Y
+	 nr2q7PcxoiS5LBflcC87k2Oz+y8GXVsrrCtn5A2rgIgL3phSAcAdysyt1CMPORNGVu
+	 dhEXKAOnASaRlR6Z220QrEGjiv80GepftLaszqHQP6s8wWISRrSdbEIBtPVt4UCWM6
+	 oNBFl39jvT3LQ==
+Date: Wed, 23 Sep 2026 21:18:32 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v7 1/3] dt-bindings: media: Add Sony IMX681
+Message-ID: <20260923211816.89954-2-lsa.uz@pm.me>
+In-Reply-To: <20260923211816.89954-1-lsa.uz@pm.me>
+References: <20260923211816.89954-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: d73c076f56e59b623e12fb6bf308246d03d2d3b8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923104054.3324830-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 11:40:50AM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> The WDTDCR helpers access the register directly using readl()/writel() and
-> therefore cannot report failures to their callers. WDTDCR is located in a
-> shared syscon region and will be accessed through regmap in a subsequent
-> change, where register accesses can fail.
-> 
-> Make rzt2h_wdt_wdtdcr_count_start() and rzt2h_wdt_wdtdcr_count_stop()
-> return an error so their callers can propagate failures.
-> 
-> Handle these errors in the watchdog start and stop paths and unwind the
-> resources acquired before the WDTDCR access, restoring the reset state.
-> 
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> ---
-> v5->v6:
-> - No change
-> 
-> v4->v5:
-> - Dropped checking rzt2h_wdt_wdtdcr_count_start() return value in
->   restart path.
-> 
-> v2->v3:
-> - New patch, split from v2 patch #1 to make thing easier to review.
-> ---
->  drivers/watchdog/rzv2h_wdt.c | 35 ++++++++++++++++++++++++++---------
->  1 file changed, 26 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
-> index 9774fe8e441e..a65e5d6c48ad 100644
-> --- a/drivers/watchdog/rzv2h_wdt.c
-> +++ b/drivers/watchdog/rzv2h_wdt.c
-> @@ -87,18 +87,22 @@ static int rzv2h_wdt_ping(struct watchdog_device *wdev)
->  	return 0;
->  }
->  
-> -static void rzt2h_wdt_wdtdcr_count_stop(struct rzv2h_wdt_priv *priv)
-> +static int rzt2h_wdt_wdtdcr_count_stop(struct rzv2h_wdt_priv *priv)
->  {
->  	u32 reg = readl(priv->wdtdcr + WDTDCR);
->  
->  	writel(reg | WDTDCR_WDTSTOPCTRL, priv->wdtdcr + WDTDCR);
-> +
-> +	return 0;
->  }
->  
-> -static void rzt2h_wdt_wdtdcr_count_start(struct rzv2h_wdt_priv *priv)
-> +static int rzt2h_wdt_wdtdcr_count_start(struct rzv2h_wdt_priv *priv)
->  {
->  	u32 reg = readl(priv->wdtdcr + WDTDCR);
->  
->  	writel(reg & ~WDTDCR_WDTSTOPCTRL, priv->wdtdcr + WDTDCR);
-> +
-> +	return 0;
->  }
->  
->  static void rzv2h_wdt_setup(struct watchdog_device *wdev, u16 wdtcr)
-> @@ -148,8 +152,14 @@ static int rzv2h_wdt_start(struct watchdog_device *wdev)
->  	rzv2h_wdt_setup(wdev, of_data->cks_max | WDTCR_RPSS_100 |
->  			WDTCR_RPES_0 | of_data->tops);
->  
-> -	if (priv->of_data->wdtdcr)
-> -		rzt2h_wdt_wdtdcr_count_start(priv);
-> +	if (priv->of_data->wdtdcr) {
-> +		ret = rzt2h_wdt_wdtdcr_count_start(priv);
-> +		if (ret) {
-> +			reset_control_assert(priv->rstc);
+The Sony IMX681 is a CMOS image sensor used as the user-facing camera on
+several Microsoft Surface devices. It operates from analog 2.8 V, digital
+1.05 V and interface 1.8 V supplies, is programmable over I2C, and outputs
+10-bit Bayer data over a two-lane MIPI CSI-2 D-PHY interface.
 
-It seems to me this does way more than handling the error:
-it puts the module into reset and calls pm_runtime_put()
-on the parent. This is a substantial functional change
-that is not explained.
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../bindings/media/i2c/sony,imx681.yaml       | 107 ++++++++++++++++++
+ 1 file changed, 107 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
+.yaml
 
-> +			pm_runtime_put(wdev->parent);
-> +			return ret;
-> +		}
-> +	}
->  
->  	/*
->  	 * Down counting starts after writing the sequence 00h -> FFh to the
-> @@ -169,8 +179,13 @@ static int rzv2h_wdt_stop(struct watchdog_device *wdev)
->  	if (ret)
->  		return ret;
->  
-> -	if (priv->of_data->wdtdcr)
-> -		rzt2h_wdt_wdtdcr_count_stop(priv);
-> +	if (priv->of_data->wdtdcr) {
-> +		ret = rzt2h_wdt_wdtdcr_count_stop(priv);
-> +		if (ret) {
-> +			reset_control_deassert(priv->rstc);
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml b=
+/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+new file mode 100644
+index 00000000000..6d2e4ddcee9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+@@ -0,0 +1,107 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/sony,imx681.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sony IMX681 CMOS Image Sensor
++
++maintainers:
++  - Andre Gilerson <andre.gilerson@gmail.com>
++
++description:
++  The Sony IMX681 is a CMOS active pixel image sensor with a square pixel
++  array, used as the user-facing camera on several Microsoft Surface devic=
+es.
++  It operates from analog 2.8 V, digital 1.05 V and interface 1.8 V suppli=
+es,
++  is programmable over I2C, and outputs 10-bit Bayer data over a two-lane
++  MIPI CSI-2 D-PHY interface.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: sony,imx681
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Input clock (19.2 MHz)
++    maxItems: 1
++
++  avdd-supply:
++    description: Analog power supply (2.8 V)
++
++  dvdd-supply:
++    description: Digital power supply (1.05 V)
++
++  dovdd-supply:
++    description: Interface power supply (1.8 V)
++
++  reset-gpios:
++    description: Sensor reset (XCLR) GPIO, active low
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - avdd-supply
++  - dvdd-supply
++  - dovdd-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells =3D <1>;
++        #size-cells =3D <0>;
++
++        camera-sensor@10 {
++            compatible =3D "sony,imx681";
++            reg =3D <0x10>;
++            clocks =3D <&clock_cam>;
++            avdd-supply =3D <&vcc2v8_cam>;
++            dvdd-supply =3D <&vcc1v05_cam>;
++            dovdd-supply =3D <&vcc1v8_cam>;
++            reset-gpios =3D <&gpio 4 GPIO_ACTIVE_LOW>;
++            orientation =3D <0>;
++            rotation =3D <0>;
++
++            port {
++                imx681_ep: endpoint {
++                    data-lanes =3D <1 2>;
++                    link-frequencies =3D /bits/ 64 <969600000>;
++                    remote-endpoint =3D <&csi_in>;
++                };
++            };
++        };
++    };
++...
+--=20
+2.54.0 (Apple Git-157)
 
-Same here, and the logic behind taking the module out of reset
-in the stop function and putting it into reset in the start function
-isn't obvious to me.
 
-Frankly, I think it would be much better and risk fewer problems
-to just ignore the theoretic errors from the regmap functions.
-
-> +			return ret;
-> +		}
-> +	}
->  
->  	pm_runtime_put_sync(wdev->parent);
->  
-> @@ -219,8 +234,10 @@ static int rzv2h_wdt_restart(struct watchdog_device *wdev,
->  	rzv2h_wdt_setup(wdev, priv->of_data->cks_min | WDTCR_RPSS_25 |
->  			WDTCR_RPES_75 | WDTCR_TOPS_1024);
->  
-> -	if (priv->of_data->wdtdcr)
-> +	if (priv->of_data->wdtdcr) {
-> +		/* best effort, ignore ret */
->  		rzt2h_wdt_wdtdcr_count_start(priv);
-> +	}
->  
->  	rzv2h_wdt_ping(wdev);
->  
-> @@ -251,11 +268,11 @@ static int rzt2h_wdt_wdtdcr_init(struct platform_device *pdev,
->  	if (ret)
->  		return ret;
->  
-> -	rzt2h_wdt_wdtdcr_count_stop(priv);
-> +	ret = rzt2h_wdt_wdtdcr_count_stop(priv);
->  
->  	pm_runtime_put_sync(&pdev->dev);
->  
-> -	return 0;
-> +	return ret;
->  }
->  
->  static int rzv2h_wdt_probe(struct platform_device *pdev)
-> -- 
-> 2.55.0
-> 
