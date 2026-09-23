@@ -1,209 +1,164 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010034.outbound.protection.outlook.com [52.101.193.34])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2126.outbound.protection.partner.outlook.cn [139.219.17.126])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04B34457A4;
-	Wed, 23 Sep 2026 07:14:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7403943DED9;
+	Wed, 23 Sep 2026 07:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.126
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147658; cv=fail; b=fU6GWTYapKOJyOiD8lSvKQ0y6KM0DOF02WoH8VtzMIH/b0gVd3f+lwkMT8109hVd1EorNq9GPiw2rmhTcDNMZkVcBaPbonCVrlqCCgePkvPwbTgYJ1Fm0yjAjqd8Uv4eCnfucLwNaAPsKWKC4+9MSzBSVKJuZpXnGW1k5D/kTNw=
+	t=1790147759; cv=fail; b=YajziBlquah/LXypLeFMI2L0vom69LFcKEATA/gLaQBBc/qGla7Dtn8eAKvQRV3PbTLs4p34oE7eMDf6S1PwZZKw0vi9xjSGF7NFggjQBbhXETJtyTg+LZp4Wv6ATc3TtmLRO7J6US1m8hFnYnAk4uhevJpIv/xVcb4s/nfIFBE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147658; c=relaxed/simple;
-	bh=f0U2U/wtJycMUgR9Z8rw6qlBUxLsBPha+MMlrnTSdEo=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gf8TEonFnEQFsyQviwvHoHMMWlpVSDr+ZmaR20Pw1pDz3lty83NmM5tV+iJ96yHrgM02aDCm1jg8X5hZD549kc2AmWqeCydVJ80fa0x4Rtjowh37KaGfU1g9hdj5n59l9a1pSpaH7lrdoo9RWeKk3KZniYLHSAzGxiMI8XA3X1w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=qOw071Br; arc=fail smtp.client-ip=52.101.193.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="qOw071Br"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gVzXw+5LI8MEI33tqVySqiL3NO3pK+HTaVB9qasNtwLoqla3wzDtSS2LKSDkq/0gY3aX6IMqMWz1M6Xx3qJ7Ntx9V23MEtrlD39HjNYjUHep89GrZi8RNHKHJ0r1uL/2T6kjdrEU9rWEsq/O38041/GEJAx40mRbG5rYrAC7f63UmQQMFVo74xXhgBhsmV7GzEfQ7y7KY/lPp8lsL6QAa9AG/nn+KgQSKZXP4nUD+56b/bZVtdrJu50dnBonn5MMknvK52ckNvRHevzkVw5GrEI9EjkD3CCRYEU29vdoPNwhuHRN6miyZ1l04x/3KfFgqi8pFLCYG5ux6FQsOVauoA==
+	s=arc-20240116; t=1790147759; c=relaxed/simple;
+	bh=iDBr1ig+eSGaxNJj1HY7Ttt/n2s3v/QIDlcnD626hBE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=suGCSSNVWhVjEY9VPTQSyMefD23BwVO45BeKIqDLsXtAMOLuY5NEQRfQelj/80l9ZwxqnWY7bTOYfmp0eDIqbsgvGgbNlNo7mLMO0SUnynb1FtHYLZ6kyTw0dLkdKzkuy3CqZsIwlG1JH+pUNHstUCscYgOr8JPT76JLhRZK950=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.126
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QmEYd1oHZytivYiaz83jVhnn4Dh0S/QUhk/4fgATa1qLI5A0ve8X8sgLxBpRQi6LvHzDZZK0cvP6UnCJ01SthnHldmcG43VHmdXdBgUBKYUHCMMDAYXiLBdoDucbCxSfVk/8wY2LRfeiPSh4nrRgIggGbNOJgDDy36RU3gjcOunM7JzA2Ib+UQXBTp8yln68YbKwdI1k9PHxPO1zu38HSiRHxGaWTVJBgHWJrfyjE+ixBEzQP8QBXAmrsPAY4NVc5vE5e5cxeI8SRqwQ835QRisdvJl4Q7uUwLwnyAbuL99GlCwFh1Vi7N4lg9hxLNJB9QeeV+onnXisG5FVy3Le8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X64djyfCFesYP6GYdHBjrhOilZOkCf82vc9oEQQFdHc=;
- b=BlwyexK7xs4dSPCCaKlSwpgq3yiGZxPOUzQwKIuTH0IpRoQ0BsgMt+fk6DzWlFsu3+0iMD1iT6Oy6IMvI3L1muf6wGExiF1wznuz5+QEcc6Xi3T7Hv6GK7iNwsUWpTHoLHnHbL4u/byERouD7Fr/0EdEXILuFDUSB7OixHz2V/O6bvS5nk9G947ADyERwRcX1sig3SdS4fsn5Y/JvEZMECqGNS28g5g+GVH/5fIvxjwDGThYFBOmuE+nQGsSfEdBz1NQ9giHCCjfYqDnxMk4v5zwigwqu9r9eCR1fgqBZV8hGjdFidwZXQOXUFO8Xlw3znSL066Gq1ETgpvnVr3eQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X64djyfCFesYP6GYdHBjrhOilZOkCf82vc9oEQQFdHc=;
- b=qOw071BrlDYXbPERjD4xXwzT+yo/Yh9VbQexnp9Ymyowsz0uEgcBirOgbx+K0A+NJtg4O6hJOBNU4cmCkVPnKRsEXOuH1aO3qJypBntJJm0UZX5PCzx9pAteDsNw7tOTAzDelzcKgj8v5yK9NsRANkZsi8ppcz9G/4QH5IrsH+HD/AWHTH8kA6kgbpElMJ0SyafyiLeQSeFcYDgL7xngw1tHWYXIFftsQWYusy7+DLc18nIHOgOd9ggEVF/fUfztnUL1M3gRHaXQwF6j1xso7vcWhgNa6puvpsxEoWm3N3pV/CmbAp59M7jWBEfqdMrUtQG2p8Q92stRH8n3GxFirg==
-Received: from MW4PR03CA0280.namprd03.prod.outlook.com (2603:10b6:303:b5::15)
- by PH8PR12MB6867.namprd12.prod.outlook.com (2603:10b6:510:1ca::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
- 2026 07:14:11 +0000
-Received: from MWH0EPF000C6186.namprd02.prod.outlook.com
- (2603:10b6:303:b5:cafe::52) by MW4PR03CA0280.outlook.office365.com
- (2603:10b6:303:b5::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.16 via Frontend Transport; Wed,
- 23 Sep 2026 07:14:11 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- MWH0EPF000C6186.mail.protection.outlook.com (10.167.249.118) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 07:14:11 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 00:13:51 -0700
-Received: from mmaddireddy-ubuntu.nvidia.com (10.126.230.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 23 Sep 2026 00:13:48 -0700
-From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
-	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>
-CC: <devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Subject: [PATCH] arm64: tegra: Use iommus for PCIe endpoint controllers
-Date: Wed, 23 Sep 2026 12:43:20 +0530
-Message-ID: <20260923071320.1131096-1-mmaddireddy@nvidia.com>
-X-Mailer: git-send-email 2.34.1
+ bh=u42D1MYm9uib6R4RGuK19vJPl9D+e0d5388SjZh0pW8=;
+ b=BDMI88bPs4M1Z6WjndrAEsPi3hsJHCKs1iqtQMfSdMAOnpv+STwFYbGYsxOrHXXTnYSdKAFWBXapRj8GzolmgpoVJ5cwspECACqjLpECmFCY557MjubHpJLk87imIPGikQJDtadppyOKqq75J4kJ4G145CmpTj5XmMDJzmIVaa9YcSABglryDXuG15epjtOqXMjAwCulR9okxKalnsX3pow58MfhQTYelPZ6MZPvKOQvWl0QDuKod9PYIc6SAbSLBHzt/LNsNsunx2gT5l40TVOoHB47qjPbb4Jn6C9u0XJj6XgO8I+bwXNMY5LhWkm6KajUewxb2ob7qGM/xQgwNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:1b::23) by BJXPR01MB0517.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:14::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 07:01:28 +0000
+Received: from BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e644:7bf5:5a3c:e548]) by
+ BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn ([fe80::e644:7bf5:5a3c:e548%3])
+ with mapi id 15.21.0451.014; Wed, 23 Sep 2026 07:01:28 +0000
+From: Joshua Yeong <joshua.yeong@starfivetech.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	rahul@summations.net,
+	anup@brainfault.org,
+	lftan.linux@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	joshua.yeong@starfivetech.com,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/3] MAINTAINERS: Add RISC-V RPMI voltage driver
+Date: Wed, 23 Sep 2026 15:00:14 +0800
+Message-ID: <20260923070014.1340761-4-joshua.yeong@starfivetech.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
+References: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJSPR01CA0020.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:c::32) To BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:1b::23)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6186:EE_|PH8PR12MB6867:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa95af56-ce9c-4fdf-eeef-08df19424436
+X-MS-TrafficTypeDiagnostic: BJXPR01MB0838:EE_|BJXPR01MB0517:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d6c31a5-9796-4602-2fde-08df19407d4c
 X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|6133799003|10067099003|11063799006|56012099006|18002099003;
+	BCL:0;ARA:13230040|376014|23010399003|366016|7416014|1800799024|52116014|38350700014|921020|6133799003|10067099003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	W8g+5a4w5LjehZ/CxsxWRDdeFZPkF1c0KBSUPMDkFb3cygo1VAanZMMJb25io7fzYOwaZ4gI+MZvaztuld3pwkdFJGBu4PKZZL+gFs60B5gBZC0lf5yU/26wzNVtmSOD5NKa0JgAzmkoaRhxYI7ma/HlC0Uzib8Kst7jsXbH5Nfa/6OuYbjtOSjbgyVUYbyBN8BLenjT9S2a3Gj0GjcOH3hEihqCmH1hGKWZOOpLcKzbySJcbZjwJcq0JLu+vcX3YCXZN9rEFoIoP3EgIh29MbNG6il3PMylWDQGBrAceJTnAKlWvmIwsxmNiCvtYa6Jn+AozSZrBdzaF9Ooj9/jTWIE6tfGfmOJ74jcUg4xIUMO0q/SqtPHC9QooRjBZCiC80QFC4BV4s9sFBljay9kKNDs7NajnMJnfxwVLi8eW/CyKdne7cdMqIfiH2NXv+YPBx45MN7Ewt7N9l5LJvJTwk99aXtdpjLz4jRglB5Bex4/ta2PGsRBfTH8vjYl1VPpc+1qElAz+rl1riIwak7Eh75FAdxVTXDvAfIdeZCxHTvtTcA8YbMoXL542T9D1NVTVedTgoJgXGf7Dzvpjs0/8k7+A5HwVNtrqvp5TYSTar2cqsb77CLHnxTh1uchZW0Px7cfvbONFPFDv8zJubKU90i0UnfqCXZG4g7Kb9hN8yIkXXGrscC2lFJJdXh4nmUeFEwn2krurDxmnbPXTg6trA==
+	HYoDxqRKsJB0fdzh8SiIKszrGuX2CigHgJ1Y7BcOVXKXIHoAgppsR0zqXo0GNDV3rLZQLwPICG75OaRVsowXrvJCoqSg+1F26lf7ED3mk2qlOIp0w0xcxJL8UAhMVHPZFiv+iJKwTSztmborg8/knMc2xTeLNxqabaLPfdDDNBuL5MaxXn69O1UPa8rPK1iJ1ZwFxIS2Ea+CxtB8eOgH6q8J3lzW9Pehxj76O7Q0tSA0yCrB10jMu6XvEEcVPYTWRtZ90pOfr57jNaDK0P0oL6vsq2A0eEQoBuZ4XRlPjNon8+46wU/9bScIG5j7IBN31yF123RLY6z+9H9RY3sGrxV9hWcMGjTLpYUITa2ZCb2nkDLX6S0RKhH2qLhbPjLtaR469UajsOi8v2vua8sOUtiuAvSchG+eR2l7utfdjCYqCoKB89kNJeTIyIS0WI763VsT1RMqEhxTBBkFHxPMg1yiZBRhyKxPnhiayeixmdKSpF1+EMSuGqKC43Vp9eMpN7DsxifzC6V0YCm7+qavu+j8NJzP0VboUY0ZWxwBW5AcC/LAkKA4OcmzcOWUqzs2RBhm/yYxLhT+fvGL4rmu+Q==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(7416014)(1800799024)(52116014)(38350700014)(921020)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	/j8eo/2XgEs02L++jIlSq0FT5JBWSsC8d3OVgfutapVh5gyrDyocLMMtsllxJqzBMirJCY/NdjnchYpiHbr0KSw8WGCYl657d+3Wfmo/CMI76rONuU7iuy3jL4XkV5KQhYyv6ap6/s1nhSn87kLZIjSjMpgKKUyDKWb8KlixQZQKRrvpgIpbGF7Zf4BDRuRO2cx4a+gC5LmlWCpiPccZ8PiR+T1amwmTLkYyZFthvHvnvLPgV6nity99gl/MuIkXOUg+l3I3uSCv1g/+AevBn71/7OMCTe6Le7jkuJEwAjiE7mXOzxq0tngi/ugKA3x8E9Fe3XDyAErBFqehAf51zPkZcjgLapoEMfxAZeA+tsm1Za412bJbT3Buf/fwd6+KEfaHQEaVkYB84cuAnOre+yKk2se5KV5yhsvHqDuMQebBnNUZn8joHqk2fPEWDHCC
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 07:14:11.1423
+	=?us-ascii?Q?6yzmGgLkxOV9qpLKb4ZK5C/MtGfvijPljXIutsi7KDlFa0M+3rN8Ib8IjLKI?=
+ =?us-ascii?Q?kyPW7K4zEJajVHHUKxFiZG9+qu9sofiH75TZnEoGPe93q+2Aj5PURrq+KrCb?=
+ =?us-ascii?Q?pdoxeR1CwAHuqH6T47hkn5IX5Cu95O54dOq47ztl3cxkDWTQ541KmsLL0acr?=
+ =?us-ascii?Q?e/Gi7RYAQD37/AmwHYIMwT+5l790OjUvK6Ws9GM9eFCsMrZjIF72g99ywpCh?=
+ =?us-ascii?Q?PLfXg1voZ10zdYgWy3d9iyeB4YP7EOUkCAznyHyF7tgKbST+ltcg/myHRbT9?=
+ =?us-ascii?Q?tBiQ7gbwAxtkXQlk4J6xnqaVnDkxLyldFFs6+4cXejrRy8D1CNEJ2aU9+3BI?=
+ =?us-ascii?Q?PFZK99+lC2rFYfK3Fl7pnHpFWfAqmMw5/anwgLKLyp2sfMqJ3OlqTb0v634q?=
+ =?us-ascii?Q?TaQg/WPRD8kHkE/vFIQAGbCAn3HajtlTvfydIAQtoVNA9LUljxMZY9m2RD51?=
+ =?us-ascii?Q?V+nRLFe349PyjzqA/Sq8K1xsmc3n5oQX/YsRDgrr8jFT2i3fwE2B2GYOn16n?=
+ =?us-ascii?Q?PKN6vejOZEsMQpCPKAYDlRYP/tPoXPRBpwj3GdsonJwXRgomSFaGR2i6q62s?=
+ =?us-ascii?Q?+R3LzvWH/iic4RD2K5sne5Y691DYF8pKZLcuIHcK0lf3qHAW71/liRuf08F5?=
+ =?us-ascii?Q?KfWI7wjgRn4BpepDWplszMYL/8VjnMgIilVuHKJc9hIo5VsJDxRLdIgo3+k0?=
+ =?us-ascii?Q?dVKhd0u2ZTEYyoeiFreDHnJa6f+QCwMFrkDHegxvH7IttivsA8GcPCoOeo9/?=
+ =?us-ascii?Q?6mqYW9uY4nv4sWv6QiI+nrzEwQzjWzafPgad9OeJHoJDAV5OGaS3OfjporEy?=
+ =?us-ascii?Q?z0cidz00tPOUD5a1rgUu6FnL50N57tLKwOdBs/rJG8Dpb9Uw5NGrx86EccSz?=
+ =?us-ascii?Q?MgK+S7N9VQFjDlA++1PRKwbw9TtiQffb2qRUorqiRvYRfmsN4vpNGelZFjx7?=
+ =?us-ascii?Q?SSjs7lCxvTsplL0N6QnhyPDHnMK739ai0f7fzvsn5WpwxZdJ337Imr+nfbuv?=
+ =?us-ascii?Q?eEa/9HRtIPpW4uUmZjYaQOji2+qdMYDu4QnEfaVA7x2GNUA9FgZFk1yG68yI?=
+ =?us-ascii?Q?YPBCrCGOtFExx2g1X1Ln0x03luSFp+08RW+Dsk6EREegKnFXIYa9csYlvB1k?=
+ =?us-ascii?Q?JBDbYz8O7QPKYs7RPOYDEbgsrnW4AuI4RZ6paBuCH4ekMuTDNYzi6Z/syaCP?=
+ =?us-ascii?Q?5olBGKF+KkfEturG3cCapeiw6pJdngHNbB3wJNhxxlAW+xNsOroZo2LTIzdT?=
+ =?us-ascii?Q?9K/EjGmdbLhRMicFvYBW3mIPYhkBNWQ6pRdFCfH0G/3rRubQ7sOa+ioOKhQS?=
+ =?us-ascii?Q?ljc77naJfoPGWk1IzN2/dg8keGTjgQfsRJuZRc62vIOLbfyz3v/orSSHjQ7P?=
+ =?us-ascii?Q?IrrGBTMJB60S6/UOhWeL8yQ30WDbTvItnAuC+WIqpae9giPmtUkVECm7fiNM?=
+ =?us-ascii?Q?iOATQZbI9NmgurWjYuaUchNG2vPCTebfj5wg2K8vHephryWpTUSMYFqypv5O?=
+ =?us-ascii?Q?X7yA7hsG4JqHLeql3Ng0fOlNfU8dLZ8OysaG3hGs/L3MA+nQVXBWBZcMJ8i9?=
+ =?us-ascii?Q?uKEKpmnkkjoBKCRcj0sTfjk/tp+Andp/gVG+D6iDVq0XEq0gJNRrfqOcmbCI?=
+ =?us-ascii?Q?Miq4q+0k+hco6J0WokqbmFyOnRnMsLJ2ePJ/MeHrfyOO0gvtDvD5LHx+y/31?=
+ =?us-ascii?Q?HRCmuDIGcpmpsCVnjXrNeD5mEa3ot0UPE3M52NWuWqAEFgEYw3UIru225qSu?=
+ =?us-ascii?Q?cEXlxhrDnMv/g+R3/hmoN3Oo2ULCOhU=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d6c31a5-9796-4602-2fde-08df19407d4c
+X-MS-Exchange-CrossTenant-AuthSource: BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 07:01:28.3675
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa95af56-ce9c-4fdf-eeef-08df19424436
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6186.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6867
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wvAipCpPOKoECKJsndpVrtiqhJ7FH+f5tihtOHvF4HeP+p1fG68MzHY7bGbpmxACst2hXoVNvy+mr/bC+cECss9P4Slf3bZPjVw4Axzrr5Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BJXPR01MB0517
 
-Tegra PCIe endpoint controllers are platform devices and issue DMA as SoC
-masters. Attach them directly to the SMMU with an iommus property so the
-platform device gets an IOMMU fwspec and domain during probe.
+Add the RPMI voltage driver and its bindings to the RPMI device power
+entry, renamed to cover both, rather than extending the existing RISC-V
+RPMI and MPXY drivers entry, which covers drivers maintained by others.
 
-The endpoint controllers supported by the Tegra194/234 PCIe driver expose a
-single endpoint function. They do not need iommu-map or iommu-map-mask
-properties because there is no endpoint function/device ID mapping to
-express. Those properties also do not attach the endpoint controller
-platform device itself to the SMMU.
-
-Use direct iommus properties for the Tegra194 and Tegra234 PCIe endpoint
-nodes and remove the unnecessary iommu-map properties from those nodes.
-
-Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
 ---
- arch/arm64/boot/dts/nvidia/tegra194.dtsi |  9 +++------
- arch/arm64/boot/dts/nvidia/tegra234.dtsi | 12 ++++--------
- 2 files changed, 7 insertions(+), 14 deletions(-)
+Based on the RPMI device power series ("Add RISC-V RPMI device power
+service support"), which has been applied for next. The cover letter
+links the mail saying so.
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-index 5e510f77b538..a7843bae02ac 100644
---- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-@@ -2596,8 +2596,7 @@ pcie-ep@14160000 {
- 			interconnects = <&mc TEGRA194_MEMORY_CLIENT_PCIE4R &emc>,
- 					<&mc TEGRA194_MEMORY_CLIENT_PCIE4W &emc>;
- 			interconnect-names = "dma-mem", "write";
--			iommu-map = <0x0 &smmu TEGRA194_SID_PCIE4 0x1000>;
--			iommu-map-mask = <0x0>;
-+			iommus = <&smmu TEGRA194_SID_PCIE4>;
- 			dma-coherent;
- 		};
+ MAINTAINERS | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4716da916aa1..cd13d6172655 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23308,13 +23308,17 @@ F:	drivers/irqchip/irq-riscv-rpmi-sysmsi.c
+ F:	drivers/mailbox/riscv-sbi-mpxy-mbox.c
+ F:	include/linux/mailbox/riscv-rpmi-message.h
  
-@@ -2689,8 +2688,7 @@ pcie-ep@14180000 {
- 			interconnects = <&mc TEGRA194_MEMORY_CLIENT_PCIE0R &emc>,
- 					<&mc TEGRA194_MEMORY_CLIENT_PCIE0W &emc>;
- 			interconnect-names = "dma-mem", "write";
--			iommu-map = <0x0 &smmu TEGRA194_SID_PCIE0 0x1000>;
--			iommu-map-mask = <0x0>;
-+			iommus = <&smmu TEGRA194_SID_PCIE0>;
- 			dma-coherent;
- 		};
+-RISC-V RPMI DEVICE POWER DRIVER
++RISC-V RPMI DEVICE POWER AND VOLTAGE DRIVERS
+ M:	Joshua Yeong <joshua.yeong@starfivetech.com>
+ L:	linux-riscv@lists.infradead.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/power/riscv,rpmi-device-power.yaml
+ F:	Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-device-power.yaml
++F:	Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
++F:	Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
+ F:	drivers/pmdomain/riscv/
++F:	drivers/regulator/riscv-rpmi-regulator.c
++F:	include/linux/regulator/riscv-rpmi-regulator.h
  
-@@ -2788,8 +2786,7 @@ pcie-ep@141a0000 {
- 			interconnects = <&mc TEGRA194_MEMORY_CLIENT_PCIE5R &emc>,
- 					<&mc TEGRA194_MEMORY_CLIENT_PCIE5W &emc>;
- 			interconnect-names = "dma-mem", "write";
--			iommu-map = <0x0 &smmu TEGRA194_SID_PCIE5 0x1000>;
--			iommu-map-mask = <0x0>;
-+			iommus = <&smmu TEGRA194_SID_PCIE5>;
- 			dma-coherent;
- 		};
- 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra234.dtsi b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-index 5e29316a4d75..6fb2ff1253c4 100644
---- a/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-@@ -4694,8 +4694,7 @@ pcie-ep@140e0000 {
- 			interconnects = <&mc TEGRA234_MEMORY_CLIENT_PCIE10AR &emc>,
- 					<&mc TEGRA234_MEMORY_CLIENT_PCIE10AW &emc>;
- 			interconnect-names = "dma-mem", "write";
--			iommu-map = <0x0 &smmu_niso1 TEGRA234_SID_PCIE10 0x1000>;
--			iommu-map-mask = <0x0>;
-+			iommus = <&smmu_niso1 TEGRA234_SID_PCIE10>;
- 			dma-coherent;
- 
- 			status = "disabled";
-@@ -5099,8 +5098,7 @@ pcie-ep@141a0000 {
- 			interconnects = <&mc TEGRA234_MEMORY_CLIENT_PCIE5R &emc>,
- 					<&mc TEGRA234_MEMORY_CLIENT_PCIE5W &emc>;
- 			interconnect-names = "dma-mem", "write";
--			iommu-map = <0x0 &smmu_niso0 TEGRA234_SID_PCIE5 0x1000>;
--			iommu-map-mask = <0x0>;
-+			iommus = <&smmu_niso0 TEGRA234_SID_PCIE5>;
- 			dma-coherent;
- 
- 			status = "disabled";
-@@ -5195,8 +5193,7 @@ pcie-ep@141c0000 {
- 			interconnects = <&mc TEGRA234_MEMORY_CLIENT_PCIE6AR &emc>,
- 					<&mc TEGRA234_MEMORY_CLIENT_PCIE6AW &emc>;
- 			interconnect-names = "dma-mem", "write";
--			iommu-map = <0x0 &smmu_niso0 TEGRA234_SID_PCIE6 0x1000>;
--			iommu-map-mask = <0x0>;
-+			iommus = <&smmu_niso0 TEGRA234_SID_PCIE6>;
- 			dma-coherent;
- 
- 			status = "disabled";
-@@ -5291,8 +5288,7 @@ pcie-ep@141e0000 {
- 			interconnects = <&mc TEGRA234_MEMORY_CLIENT_PCIE7AR &emc>,
- 					<&mc TEGRA234_MEMORY_CLIENT_PCIE7AW &emc>;
- 			interconnect-names = "dma-mem", "write";
--			iommu-map = <0x0 &smmu_niso1 TEGRA234_SID_PCIE7 0x1000>;
--			iommu-map-mask = <0x0>;
-+			iommus = <&smmu_niso1 TEGRA234_SID_PCIE7>;
- 			dma-coherent;
- 
- 			status = "disabled";
+ RISC-V SPACEMIT SoC Support
+ M:	Yixun Lan <dlan@kernel.org>
 -- 
-2.34.1
+2.43.0
 
