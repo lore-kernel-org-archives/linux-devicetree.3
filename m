@@ -1,141 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF5C1ADC97
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 00:12:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670E52D8364;
+	Wed, 23 Sep 2026 00:21:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790122348; cv=none; b=FdAg330gRSeDwZMSdghCX3EJLixGsIzTG+N1zT0EjPxZQaxZrXqZwQgZfJbWyil5iWw13JQkVLIXxGMngNgDLukWznpjXTfua6Ve0z/bQomkm4IGdG8Ym1ejWmPUx9+GoIwBgWAdvPxnApXghCqUzc7WIKAd6ENrMNUtS2UGOIc=
+	t=1790122872; cv=none; b=IAtHBG/DBefBo+YnlGr3gUKoTHsdxJBt3FdJy/9VGPs277Hi0gklv3CZjlRcTXma1tYkNO4cyunmyHP9F2Nf5vkttxKhdJG2yJUfIMT2Je6pJd2RnCQnh52bj5DdtV3VPMKETpZbevpf97YXDRsyeidUBLA7g35iqylXfNRxEXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790122348; c=relaxed/simple;
-	bh=YHZWub1dEp+o3tQt6xso7QeE4pmUYb1+RMCKOt/kU+E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TZEfqkjXSxRlaJcoE+MpU1p+3qWAd1Plif5/csBbS4G75/qe99cjQL9cyZ5MTBHSYB6BJSc0Fhawp5VzPpDtpct5Ymv0REJzCNnsbHO/gT8hCtCavyDZN06i05PlKJWFkB26ntF7hq7z0Bx7KBBiVFcBqame94wb2sXvQPBCEm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efb8H70f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790122872; c=relaxed/simple;
+	bh=giO1ZIKP0mFR/FkPOEifG1Q78vinp8tTBn4oAZoyxM8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FZfQ9fQHimcsqhjKgy540PuktEDxMEtLa2/agCKzgsAapDQ0r4lbTGcRigBIVwP6cwRNEbaGVZrZJipu+RRMr9CCwbb+n5grA89N6lVjmlNmub1uOFefbJG30qeuwu9AgvjmeGp+Wgd5ef2XqLOAZDIVK4yA8WhcLscBTzgCJz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UP5W3GZl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efb8H70f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3412A1F000FF;
-	Wed, 23 Sep 2026 00:12:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UP5W3GZl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D2BD1F000FF;
+	Wed, 23 Sep 2026 00:21:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790122346;
-	bh=7oP6ps8gAOM4ixs7A9+9AtPlLIz2wupiiDoXMkVxS80=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=efb8H70fa6Ni2DLJX79xbG2z79vJzDWjWJs11LjfE4dYwjqIFkZArfCLt5smlut3r
-	 9mrUU5Xg3Q8MRePPfD/umyxeOqLv9n5xAbFbzcMQXWIO5f4aIeKIVyua8dYkHqyp2H
-	 oS5+7CyInoeKSFP1wh9LGC/fbk/tTQzn522IYTh+cPTT10badMnUgE4WGsJDf/M6Zu
-	 eMiIxQD49+2SEAJ94vwR5tUIhFVojLR0YJW3IuFbeKdfKeLZl/1mupXxpjFFspB5p0
-	 HwWUbWZd5X5dXriupCbs7JwqqTQGpW/tjtyPGIAi2OtjV48tVpR3nN7Z6dGPKGqozB
-	 BWiVzrxg9uTOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] phy: qcom: sgmii-eth: add Nord USXGMII support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohd Ayaan Anwar" <mohd.anwar@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, olteanv@gmail.com, vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260923-nord_ethernet_serdes-v1-3-f8ac1c487882@oss.qualcomm.com>
-References: <20260923-nord_ethernet_serdes-v1-0-f8ac1c487882@oss.qualcomm.com>
- <20260923-nord_ethernet_serdes-v1-3-f8ac1c487882@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 00:12:25 +0000
-Message-Id: <20260923001226.3412A1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790122870;
+	bh=uzB1bIu4DCAXkv+EdyAIgxF9xElFNSnl6zM2ZgAtCWQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UP5W3GZlkEXz0RmChr/UZd5XuxVjbLtw/24ppTpDkV7iRPvGRVoFmS/7rTsUDKWbs
+	 TQEuHvWtVPskwH4QBnZoOYuNkgZ8O3GRJGjuRxa/Wk+GgMAsQlJOow7q+0DcEFEmyW
+	 PpyjJgWaoPsn3EZIY2g4hD8/DaiMrrWFQDaxiXQLvNUSA4dztpn8duHDqjKsP3rv3n
+	 XAS7XoRlTEYPuWL4QpBOMztATDHSMTbO085x9nfyYi/uITT1IbqZr0ZYUCscLmLpFa
+	 0x2SBL42d1tEDMDJb/u564g1YjuxtuFFkLhHTNDH4g49MEn7ckFtHlP9eRZb4gCdj3
+	 Gz7d2tqU9o3tg==
+Date: Tue, 22 Sep 2026 17:21:09 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew
+ Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Vladimir
+ Oltean <olteanv@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ "Chester A. Unal" <chester.a.unal@arinc9.com>, Daniel Golle
+ <daniel@makrotopia.org>, Heiner Kallweit <hkallweit1@gmail.com>, Russell
+ King <linux@armlinux.org.uk>, Simon Horman <horms@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ netdev@vger.kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v22 4/9] mfd: an8855: Add support for Airoha
+ AN8855 Switch
+Message-ID: <20260922172109.1e666b56@kernel.org>
+In-Reply-To: <CA+_ehUyFH_ZSsjhp-U9WBFoRZR-ZMWnNQ5pY5vAy1LxUU5hSsw@mail.gmail.com>
+References: <20260915123812.14747-1-ansuelsmth@gmail.com>
+	<20260915123812.14747-5-ansuelsmth@gmail.com>
+	<20260921134410.13a7173c@kernel.org>
+	<CA+_ehUyFH_ZSsjhp-U9WBFoRZR-ZMWnNQ5pY5vAy1LxUU5hSsw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] phy: qcom: sgmii: incorrect hardware offsets written on mode change
---
+On Tue, 22 Sep 2026 12:14:22 +0200 Christian Marangi (Ansuel) wrote:
+>  I also didn't receive the email for the AI review... Did it broke also here?
+> If everything else is ok, should I send new revision or maybe we can pick this
+> and I can send followup for this warning?
 
-commit eb8579d974b41d6c98fd95052875c10ccf3e31fa
-Author: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-
-    phy: qcom: sgmii-eth: add Nord USXGMII support
-   =20
-    Nord uses a QMP v7 SerDes block which is an updated version of the
-    SGMII SerDes PHY IP. The driver currently handles SGMII and 2500BASE-X
-    configurations only. This patch adds support for configuring the SerDes
-    to operate at 10.3125 Gbaud, enabling USXGMII and 10GBASE-R PHY modes
-    for the Nord compatible.
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c b/drivers/phy/qual=
-comm/phy-qcom-sgmii-eth.c
-> index 029dafacee785..3c68bfe0ea443 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
-[ ... ]
-> @@ -275,16 +419,19 @@ static int qcom_dwmac_sgmii_phy_calibrate(struct ph=
-y *phy)
->  	case PHY_INTERFACE_MODE_1000BASEX:
->  		/* 1.25Gbps mode */
->  		qcom_dwmac_sgmii_phy_init_1g(data->regmap);
-> -		break;
-> +		return qcom_dwmac_sgmii_phy_poll_sgmii_ready(dev, data->regmap);
->  	case PHY_INTERFACE_MODE_2500BASEX:
->  		/* 3.125Gbps mode */
->  		qcom_dwmac_sgmii_phy_init_2p5g(data->regmap);
-> -		break;
-> +		return qcom_dwmac_sgmii_phy_poll_sgmii_ready(dev, data->regmap);
-> +	case PHY_INTERFACE_MODE_USXGMII:
-> +	case PHY_INTERFACE_MODE_10GBASER:
-> +		/* 10.3125Gbps mode */
-> +		qcom_dwmac_sgmii_phy_init_10g(data->regmap);
-> +		return qcom_dwmac_sgmii_phy_poll_usxgmii_ready(dev, data->regmap);
-
-[Severity: High]
-Does this logic incorrectly route SGMII and 2500BASE-X requests directly to
-V5 hardware initialization sequences, regardless of whether the underlying
-hardware is V5 or V7?
-
-If a MAC driver using phylink dynamically falls back to SGMII, 1000BASE-X, =
-or
-2500BASE-X on the Nord (v7) platform during link state changes (e.g., when
-plugging in a different SFP module), it appears this will write completely
-wrong offsets to the PHY SerDes block.
-
-Similarly, if phylink falls back to USXGMII or 10GBASE-R on the sa8775p (v5)
-platform, won't it run the V7 initialization sequence instead?
-
-Writing incorrect register offsets into the hardware IP can lead to
-unpredictable behavior or system crashes.
-
->  	default:
->  		return -EINVAL;
->  	}
-> -
-> -	return qcom_dwmac_sgmii_phy_poll_sgmii_ready(dev, data->regmap);
->  }
-[ ... ]
-> @@ -340,7 +487,9 @@ static int qcom_dwmac_sgmii_phy_validate(struct phy *=
-phy, enum phy_mode mode,
-> =20
->  	if (submode =3D=3D PHY_INTERFACE_MODE_SGMII ||
->  	    submode =3D=3D PHY_INTERFACE_MODE_1000BASEX ||
-> -	    submode =3D=3D PHY_INTERFACE_MODE_2500BASEX)
-> +	    submode =3D=3D PHY_INTERFACE_MODE_2500BASEX ||
-> +	    submode =3D=3D PHY_INTERFACE_MODE_USXGMII ||
-> +	    submode =3D=3D PHY_INTERFACE_MODE_10GBASER)
->  		return 0;
-
-[Severity: High]
-Does this validation incorrectly advertise that all PHY interface modes
-are supported by all hardware instances?
-
-By returning 0 for all these modes, this allows phylink to believe the plat=
-form
-supports them unconditionally.
-
-This is what permits consumers to switch into incompatible modes during
-standard PHY mode negotiation, ultimately triggering the incorrect hardware=
- IP
-initialization sequences in qcom_dwmac_sgmii_phy_calibrate() mentioned abov=
-e.
-
-> =20
->  	return -EINVAL;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-nord_ether=
-net_serdes-v1-0-f8ac1c487882@oss.qualcomm.com?part=3D3
+Clashiko gates on build and kdoc being clean, to try to save tokens.
+FWIW this is also how the CI (kselftests) are gated.
