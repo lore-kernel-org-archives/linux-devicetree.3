@@ -1,145 +1,114 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838A33ADB94
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:58:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E8B493649;
+	Wed, 23 Sep 2026 10:59:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790161087; cv=none; b=JUy0Qk1gTQvpHhDRYkhXnexAd8HHRGgggSan/Clj+TH+kPGtCNYAb2EbNe6Wtar7koknk1UYlaeQ2BoGFupIh5O3D4hEHlu6H4m7fXAQ0YfGXMDRCUqrZn+Zja1XRJsE6M1eVDWv+3cMLZ+gmJLE/yt8A37H3l4P177Nco8EeQc=
+	t=1790161169; cv=none; b=YTGxybMPMlaS2Z+78K592KpRQ9Rpanbx3u8MwcovqiaW0llVEMRw6gbMRpTgm+VT3LfjmCsXQdQz1hCaksCFR3vUfLDx8zaJxR97B2bSrBOJvoTGbyK6WZwfvYXptac7nv8F+j/OgrbNfRl9UYhNEMOyJy9euW2S1mm1JRKpmZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790161087; c=relaxed/simple;
-	bh=VkwdKB+MXQWKmoYFPDHYwms7Ci1KdIZEugREExK9jsY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CmZQWJzxL92nAvefMqZWXV5Eeq1Ugdf4sGo1CCG2SsV6DQbXVlVyuVArtwByjy1iUcILtVV2qTKh4ZaPBZxPoMe667Jb65Zcwdg9a50anwwXrE9PuRx8Fa5nYXixNt8ZN/jDwf6Y8PJyr9aXn2XTGrnsfa/fKtpqfFvgcU0x8zE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r05/6MNS; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790161169; c=relaxed/simple;
+	bh=grdzwYQ8QkHJXxd3sYFOKO/vCBIeL4B21BD1W8y/dh0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IgJgQ089+xcdueDSlrPEgREjtZbo/KaIdmMWipd0Wl2EPjiaWfF1xnZFhALmh/kluUhHTdcv4N0RoxE3skubnGe1pXtbNMm39rywdFjWdwR0f8u1anir0AgwaRcf1dTMStys2ClfgTKdYUQPCJU7AWzd3AP0Hjuk9ylhlMpLUmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Etu7HLE2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r05/6MNS"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15cfdso605936e87.3
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 03:58:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790161077; x=1790765877; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nw6Jfgol+yDjTzgndHSV7uyj9H85igiM05o9ZsjDnik=;
-        b=r05/6MNSgAH0yuLglMIxpWaNzJiZ5I1r3Y8/A0AMZJkVYBAGFRnEyoFn8i19vj/V47
-         w1VTzBOpJeatNr3wfg83Nx1KLoY8GGR9W1BnxN/raUaeSmaXKj6JeZd5ArCeusPeYsLT
-         XMIDxY53T2CaldayjBQAkVlJAtG1TB8ypF4Cyz3wdjxdTEk+L/7hV1cZZ/4nTA0bGr8M
-         7C/pLKGR1e5vggREhuHgBFJ8zAjsl2z5TyMEB1NYruTcLoZLGjG0kklqbksOknuSL4tH
-         qolk0yZ7yckRbCuvx5qVzvwxuenG163kaOijAfEZcJhty185iyKa29xYls1ELpKT6tCw
-         4jvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790161077; x=1790765877;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nw6Jfgol+yDjTzgndHSV7uyj9H85igiM05o9ZsjDnik=;
-        b=PXZ1X2gwc2cWWyTnv0y+K23QryTyvtPsRDYjaKNBgCAEhELsELqXwkWfPvlUKuBxy3
-         8tj+xv1+aKGQ9LMgkEvtOweV7Xh6jminWVSr5122lhXne5YGvJR3Xm78/XqdcvzyLZRY
-         0IC2Ngtkdc2UdaordXOwi93p14HisKbiJfeE2Yt+5upS68QuiC9R4YhaoyfnxpS1pHKD
-         hHTkZENPukxstPElXfRQgLhIIM9rMgUvH5a//qlbUa05AoN43NGChGQZpssdvk5z+Van
-         H/r+J6MfF7AhIZk7ikl84vjeLmnMFSQ0h7z2C+xjlOqDnX5hUP30STc1J5Y8VXsiV9WL
-         xTdg==
-X-Forwarded-Encrypted: i=1; AKwUvBxkXkWT5FU9+uQp1E0JCzF3hBVB84s3C61QsN34Pi9AFlZmVfMjw3G4xmwPTD5nM0EguHRwRNpeoUlS@vger.kernel.org
-X-Gm-Message-State: AFuF++kR4re528CCGhoDc0X800AaQ37UWUaO4nbuujqnRRipV4xpulAf
-	Uqe99pTsOMc5c7s52xeR28pY+iwJ3xifFQsJYm5NFq3B0MfRL6nfMhZd
-X-Gm-Gg: AYBFou2CGeb6NhZQHS70iA5GTzh2U7PaEjTfw3tGT6PU0Yn9hSKYTY9ValdFHy0OdoB
-	nnq6FcFL/5fETr1ToSSEG78Gyaeiz3za5JBRo5EHTNo1BDgSjXHnBbPvP7i33PAAVx4VQS0EK7V
-	nUcoAOM1GGgWKwJhdNR2cwALc1+huvVevyzCKR+JnLFVKcAJM12jrlQinbgx701IBozyOr/1781
-	gjkT2WPBbkfaoKSUEMBm/E9lH0csN1snGKpVfPGb7HiVWOCH9SBVtUiDkd+0tVe2reP+dFaP5pI
-	s/4aWGRiuE5SvmGQ0mDaa9o+V57iOeybw9f1AQVbsMYe6rGN5c8LvZeT3Wn/ZmkXmS6I5ZNpuk8
-	F2QrC1IfTB0YuH9dl7uU0n6MVE4JqiBAWMOrdJgoSvvpEwmc4ZYfp0WlK+LJs4VJInvBzEdfB3q
-	dt3/NGFldNtKvv+3FB9eRdUtQw6Dkw05aVBh6XYeIpt0PFz5eQCYdj69jfcfzIgSa4CV2W7NhY5
-	dmkUT/4Sc3R8EfRjCc=
-X-Received: by 2002:ac2:5696:0:b0:5b6:1a7c:59db with SMTP id 2adb3069b0e04-5b8d89c2a3dmr808727e87.53.1790161077408;
-        Wed, 23 Sep 2026 03:57:57 -0700 (PDT)
-Received: from DESKTOP-7GRJKK0 ([188.226.104.175])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d857873asm506392e87.17.2026.09.23.03.57.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 03:57:57 -0700 (PDT)
-From: Vladimir <anykey196@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	Vladimir <anykey196@gmail.com>
-Subject: [PATCH 3/3] arm64: dts: allwinner: h616: orangepi-zero2w: add SDIO WiFi/BT (AW859A)
-Date: Wed, 23 Sep 2026 15:57:51 +0500
-Message-ID: <20260923105751.435-2-anykey196@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.3
-In-Reply-To: <20260923105751.435-1-anykey196@gmail.com>
-References: <20260923105751.435-1-anykey196@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Etu7HLE2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC761F000FF;
+	Wed, 23 Sep 2026 10:59:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790161161;
+	bh=SBEX6OZHWQHpa2HIuCbCcItdBsRxtub4QYIe1WssXQo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Etu7HLE2A2cS9AyjCM3EeywN6sNPA63F8xoICKADdnYMRrHX+mTsksEIXXQzuDc/W
+	 dwaPn0bys6rKTM9QCWbxiyxRR7YkEdBJDwRSKqvPj4rPjT/Br/HQghn/mQrQax01uQ
+	 F4S2E2RhbxyuhtfahqalP6ndKEsqB6IURFm75PXx7veWSq5q2CeEJE6U01MaZ72fFv
+	 avQevpgvl8sEfJzk7dlpvi+ypSqn2pC1rfoZrdI1VbzKMggpZCZ4KFx2ZXhzWn4qzK
+	 r2971eUIMuc2aTTIk0ewNPK1t6fD3c10IfKYCpPb+xkng09N8AhsGvPywc2k/Sc12a
+	 N00HMsCb8D54Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: allwinner: h616: orangepi-zero2w: add
+ 24-pin expansion buttons and IR
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Vladimir <anykey196@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260923105208.198-1-anykey196@gmail.com>
+References: <20260923105208.198-1-anykey196@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 10:59:20 +0000
+Message-Id: <20260923105920.CAC761F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Enable the SDIO bus (mmc1) and power the on-board AW859A (UWE5622)
-WiFi/BT combo through an mmc-pwrseq-simple that resets WL_REG_ON (PG18), with
-the 3.3 V and 1.8 V supplies and the RTC 32 kHz clock.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] arm64: dts: unconditionally enabling optional expansion board risk=
+s phantom inputs and IRQ storms
+--
 
-Tested on: OrangePi Zero 2W (Allwinner H618) with the out-of-tree uwe5622 driver.
+commit 51b58a06db4b29809dc98ff86ac9cae923d63f7c
+Author: Vladnwx <vladnwx@users.noreply.github.com>
 
-Signed-off-by: Vladimir <anykey196@gmail.com>
----
- .../allwinner/sun50i-h618-orangepi-zero2w.dts | 40 +++++++++++++++++++
- 1 file changed, 40 insertions(+)
+arm64: dts: allwinner: h616: orangepi-zero2w: add 24-pin expansion buttons =
+and IR
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts b/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
-index 1b690e3cd..3ec060228 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
-@@ -218,3 +218,43 @@ button-1600 {
- &ir {
- 	status = "okay";
- };
-+
-+/ {
-+	reg_vcc33_wifi: vcc33-wifi {
-+		/* Always-on 3.3V regulator for WiFi and BT */
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc33-wifi";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+		vin-supply = <&reg_vcc5v>;
-+	};
-+
-+	reg_vcc_wifi_io: vcc-wifi-io {
-+		/* Always-on 1.8V regulator for WiFi and BT IO */
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc-wifi-io";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-always-on;
-+		vin-supply = <&reg_vcc33_wifi>;
-+	};
-+
-+	wifi_pwrseq: wifi-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		clocks = <&rtc 1>;
-+		clock-names = "osc32k-out";
-+		reset-gpios = <&pio 6 18 GPIO_ACTIVE_LOW>;	/* PG18 */
-+		post-power-on-delay-ms = <200>;
-+	};
-+};
-+
-+&mmc1 {
-+	vmmc-supply = <&reg_vcc33_wifi>;
-+	vqmmc-supply = <&reg_vcc_wifi_io>;
-+	mmc-pwrseq = <&wifi_pwrseq>;
-+	bus-width = <4>;
-+	non-removable;
-+	mmc-ddr-1_8v;
-+	status = "okay";
-+};
--- 
-2.53.0
+This commit adds device tree nodes for the LRADC buttons and IR receiver on
+the OrangePi Zero 2W. It maps the buttons to KEY_1 and KEY_ENTER and enables
+both the LRADC and IR controller hardware.
 
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dt=
+s b/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
+> index ff9b40352a545..1b690e3cd041e 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
+[ ... ]
+> @@ -189,3 +190,31 @@ &usbphy {
+>  	usb1_vbus-supply =3D <&reg_vcc5v>;
+>  	status =3D "okay";
+>  };
+> +
+> +/*
+> + * Buttons and IR receiver on the optional 24-pin expansion board.
+> + * KEY1 -> KEY_1, KEY2 -> KEY_ENTER (LRADC channel 0).
+> + */
+> +&lradc {
+> +	vref-supply =3D <&reg_vcc3v3>;
+> +	status =3D "okay";
+
+[Severity: High]
+Could unconditionally enabling the optional LRADC on the base board cause
+phantom key presses? If the 24-pin expansion board is not attached, it seems
+the floating LRADC pin could drift into the configured 1.0V/1.6V voltage
+thresholds and trigger unexpected button presses for users out of the box.
+Should this be enabled via a device tree overlay instead?
+
+> +	wakeup-source;
+> +
+> +	button-1000 {
+[ ... ]
+> +	button-1600 {
+> +		label =3D "KEY_ENTER";
+> +		linux,code =3D <KEY_ENTER>;
+> +		channel =3D <0>;
+> +		voltage =3D <1600000>;
+> +	};
+> +};
+> +
+> +&ir {
+> +	status =3D "okay";
+> +};
+
+[Severity: High]
+Does unconditionally enabling the IR receiver risk interrupt storms? If the
+optional board is missing, a floating IR RX pin lacking an internal pull-up
+might pick up electrical noise and oscillate rapidly. This could severely
+degrade system performance. Would it be safer to relegate this to an overlay
+rather than the base device tree?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923105208.198-=
+1-anykey196@gmail.com?part=3D1
