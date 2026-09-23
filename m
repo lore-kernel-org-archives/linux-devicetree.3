@@ -1,108 +1,175 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46F35304AA;
-	Wed, 23 Sep 2026 13:57:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C881448D11
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:58:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790171872; cv=none; b=sD3Yb2MKIqi9vremkg8dNoelW3aiqDu7jxORxt44OzQTVWckEAoSkrsajgWatVYkHjNL18JRi9uFZgWMl0yxy7uO50DzPxC652dtpA9f9O60DoWDmk5eXwMj3KVvrVkuwnV3MbTpiIr6OwXCeJxtvN/bVs2KJFnxQLmkIXwoOWU=
+	t=1790171891; cv=none; b=T/1EgPgdK+0xVxDjmOxp65yXzIGvM/2m4lQ+Ek7MCt/33Js0sib1+0GUjpKs2DXPALsh9+0K9bjHeU4t+TcYtFxI5ofmUw5OpZYD/nzaq7ZfH9/iB1YjMjVf12/Oo7FnGu6Q5YQ3/D8K0ywJIUjUi0ffupBYE+K0YpnM9DnWOLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790171872; c=relaxed/simple;
-	bh=tyz0BiFVO82wO/XNplEEOJL0mTV8TvyIUHvpIGOsmug=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JlS78xZhM1mVFwpL5x6yYY2rpwN+e2L39ET0aGZWgBPlsI3wJeqra7rXWVSTfQWzwQWrjmDKtRdT0gTcPFdY0gGU+rbFYYbwdlvkYIXmyWR/WfXJtIMaPQto2j8WMN/Metf7KZjyf2dGqvdhUjMZqFA+zXg9gtAVRN2mfwM/UbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=luk0N+K/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790171891; c=relaxed/simple;
+	bh=XEvTOvF4wYnne3wZOh54NpvuvEkTXYQVGec++WrfQ10=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=srdmCGaogzuPzF7YD8/G2oD8+pHWHIHVsGrlZXNw88TWBah29CZ19vH5qot8mBQqQjiF3za0KBugZR7T0zRLPp9Z9meSfTCHzFtbYtKHZc+vL48a/KdEqke12SOIa1G/5rM5083cEolvAnCzZpqh9glkiMvd5nfNKQF/Qjpx/HQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OUXW9XQf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="luk0N+K/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B49361F000FF;
-	Wed, 23 Sep 2026 13:57:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OUXW9XQf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 622691F000FF;
+	Wed, 23 Sep 2026 13:58:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790171869;
-	bh=BbFjKfa6cjDaUB70sEAzwfZM9AeSS7CkCNUtSMzzdwU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=luk0N+K/Afk3lqLrjNhkd/S4PkjxoqsPqCr/z7G6TxUR2UD7Gg+Te4ePqByxLMfGw
-	 EFtedxgrK1AfMo7bGU58LWGaGjCtJ/PJyPXLoc1F2KCbjMOOl/Mnw5VC53LLiTUMQ5
-	 +DRv/h+yQLDw/tz+YvkcpXH2X8Gg4xRde4N+29HGhB8Ks23sbzqyw4brvoH3jOopxI
-	 45uSOTylB9ih29xbhwb/SdHdsJldo0s1YOkY5LSzsnpZqJ3B3YrA39o/2pVHa1S+T7
-	 Rmt5NW5jTDMla3bwTtuI3R0yZ1BA0MWwp3nF8p7f0Y4LXmqefEPNgmJxns57az7n+Y
-	 zfJ5XzBof0JdA==
-Message-ID: <2aab7e02-037c-4216-9bf4-4a737ec48d57@kernel.org>
-Date: Wed, 23 Sep 2026 15:57:42 +0200
+	s=k20260515; t=1790171889;
+	bh=O6ZsJDpUnuE+w290ksk4w85uH7lQOcqsPBwwINm+eBQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OUXW9XQfGQm1AUXpnTpnHeuSSssCWtQ6zOWjd/zr5Nkc3o+QExZ0D8q5Pfr8NWe2f
+	 OuorPlfj2isTQ1/oEluvXIYM5gqPcskuGwKZw+g4G01RuANqSFhKe93YuSWKgQO0lx
+	 S/KKS7haf7ZnLZBsWEXe3TY1u/KUAKdWlchWFXOW+CII+lF0ogVQWv0+GBoWDicIa+
+	 2s6NQL0tnpBnug+tyGAW+MQcEhYK5AvNCAd/57Iv3NijhEfuqW4whCjJkho/RZCoL+
+	 kC7feUc9rJlVBsjIuwj3FTGpR4t4Y0F84jjvpH6iizyZTdjB7wjR9HyXcu7mZaYspV
+	 p/LwPzWUmZ0aQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/9] media: synopsys: hdmirx: add async subdevice
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sascha Hauer" <s.hauer@pengutronix.de>
+Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260923-hdmirx-media-v1-4-ea3d77d4a5f3@pengutronix.de>
+References: <20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de>
+ <20260923-hdmirx-media-v1-4-ea3d77d4a5f3@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 13:58:08 +0000
+Message-Id: <20260923135809.622691F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: gpio: gpio-davinci: Add the tda54
- support
-To: Aniket Limaye <a-limaye@ti.com>, Keerthy <j-keerthy@ti.com>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: vigneshr@ti.com, u-kumar1@ti.com, nm@ti.com, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260923-upstream-tda54-gpio-v1-0-d1a0a199c836@ti.com>
- <20260923-upstream-tda54-gpio-v1-1-d1a0a199c836@ti.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260923-upstream-tda54-gpio-v1-1-d1a0a199c836@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 23/09/2026 14:56, Aniket Limaye wrote:
-> New version of GPIO IP used in TDA54 SoCs adds support for level-triggered
-> interrupts via extended registers.
-> Add the device binding for ti,tda54-gpio.
-> 
-> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] media: missing graph_mutex lock in hdmirx_fwnode_bound() leading t=
+o list corruption
+--
 
+commit ac73c2eba89ee9517b8e00beeec227f11b4a4eae
+Author: Gerald Loacker <gerald.loacker@wolfvision.net>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+media: synopsys: hdmirx: add async subdevice support
+   =20
+Add V4L2 async notifier support to enable dynamic binding of connected
+subdevices in the video pipeline. The driver parses device-tree endpoints
+to discover and register video bridge subdevices.
 
-Best regards,
-Krzysztof
+> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drive=
+rs/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> index 11a9b16586a57..0c7cac25bf694 100644
+> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+
+[ ... ]
+
+> @@ -2649,6 +2653,48 @@ static int hdmirx_register_cec(struct snps_hdmirx_=
+dev *hdmirx_dev,
+>  	return 0;
+>  }
+> =20
+> +static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
+> +			       struct v4l2_subdev *subdev,
+> +			       struct v4l2_async_connection *asc)
+> +{
+> +	struct snps_hdmirx_dev *hdmirx_dev =3D
+> +		container_of(notifier, struct snps_hdmirx_dev, notifier);
+> +	int source_pad;
+> +	int ret;
+> +
+> +	source_pad =3D media_entity_get_fwnode_pad(&subdev->entity,
+> +						 asc->match.fwnode,
+> +						 MEDIA_PAD_FL_SOURCE);
+> +	if (source_pad < 0) {
+> +		dev_err(hdmirx_dev->dev, "%s has no source pad for %pfw: %d\n",
+> +			subdev->name, asc->match.fwnode, source_pad);
+> +		return source_pad;
+> +	}
+> +
+> +	ret =3D media_create_pad_link(&subdev->entity, source_pad,
+> +				    &hdmirx_dev->stream.vdev.entity, 0,
+> +				    MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE);
+
+[Severity: High]
+Is it safe to call media_create_pad_link() here without holding the
+mdev->graph_mutex?
+
+This function modifies shared media graph lists (such as mdev->links).
+
+Since the media device has already been registered in hdmirx_probe(),
+concurrent access from userspace is possible. A userspace process calling t=
+he
+MEDIA_IOC_G_TOPOLOGY ioctl could be traversing the topology lists while this
+call modifies them, potentially leading to list corruption.
+
+Should this call be wrapped in mutex_lock(&hdmirx_dev->mdev.graph_mutex)?
+
+> +	if (ret) {
+> +		dev_err(hdmirx_dev->dev, "Failed to create media link: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> @@ -2772,9 +2820,38 @@ static int hdmirx_probe(struct platform_device *pd=
+ev)
+>  		goto err_unreg_video_dev;
+>  	}
+> =20
+> +	ep_node =3D of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
+
+[Severity: High]
+Does registering the async notifier after calling media_device_register()
+expose a race condition?
+
+The media_device_register() call (which happens just before this block in
+hdmirx_probe()) exposes the topology traversal interface (MEDIA_IOC_G_TOPOL=
+OGY)
+to userspace prematurely.
+
+This opens a race window where asynchronous bindings handled by the notifier
+can conflict with userspace topology traversal.
+
+Would it be better to call media_device_register() after registering the as=
+ync
+notifier?
+
+> +	if (ep_node) {
+> +		v4l2_async_nf_init(&hdmirx_dev->notifier, &hdmirx_dev->v4l2_dev);
+> +		hdmirx_dev->notifier.ops =3D &hdmirx_async_ops;
+> +
+> +		asc =3D v4l2_async_nf_add_fwnode_remote(&hdmirx_dev->notifier,
+> +						      of_fwnode_handle(ep_node),
+> +						      struct v4l2_async_connection);
+> +		of_node_put(ep_node);
+> +
+> +		if (IS_ERR(asc)) {
+> +			ret =3D PTR_ERR(asc);
+> +			dev_err_probe(dev, ret, "Failed to add remote fwnode\n");
+> +			goto err_unreg_media;
+> +		}
+> +
+> +		ret =3D v4l2_async_nf_register(&hdmirx_dev->notifier);
+> +		if (ret) {
+> +			dev_err_probe(dev, ret, "Failed to register async notifier\n");
+> +			goto err_cleanup_notifier;
+> +		}
+> +	} else {
+> +		ret =3D v4l2_device_register_subdev_nodes(&hdmirx_dev->v4l2_dev);
+> +		if (ret) {
+> +			dev_err_probe(dev, ret, "Failed to register subdev nodes\n");
+> +			goto err_unreg_media;
+> +		}
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-hdmirx-med=
+ia-v1-0-ea3d77d4a5f3@pengutronix.de?part=3D4
