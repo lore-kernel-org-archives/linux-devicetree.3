@@ -1,165 +1,430 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11020142.outbound.protection.outlook.com [52.101.201.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6C356E067;
-	Wed, 23 Sep 2026 20:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.142
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790196667; cv=fail; b=KjxE35GqzAmOyLKObmVioyF99RSjJ7nCPhzhUXaF+dolfmXlY4VH8mFaivfCD9i8Lxv96zLbTHH/5Y+6Dc8GqfnedT+CVCVqqrPPJBfZBqgUQGdwnUFGlg8NGRJTZdZZNox4VFxt/NjOifve2CkjB0R0yieOOZWFcRhvU+0K2vo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790196667; c=relaxed/simple;
-	bh=irM/a+9wZBPefeUtGt2BTB6HzQuwD+vPCBzxOoU2YDs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=X4kFqBtgNnbS1Hfm3BKtCAU2wOhiv6VqsN0Fc/huyASpLMQ8ObQVc8wARGsaSlBZDy0LptyAFMCYAF1IvFicw+VhpIZ1aTcQNGLFtRoRTUGixSnGGc0jc+rkSdmHOhHKR3zgyGdoZQVgu2rhSpy6jvrrX31nzEKRQ6jQQozLL68=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=R0UyrwZ3; arc=fail smtp.client-ip=52.101.201.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF938579810
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 20:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790197108; cv=none; b=UBSluSoWjWd4636l5l4MroW3HIwzSew1lAIGVN4eU7TRLq1ROvYKNXSMeyja1A4ZPKHycL6UZM2lcJqwaBhvpYmk3qaEYDO5gOe0bkMZOPyp7n7BS1Kc3deDQ8TDmSZjgrkgQ55W6qfg5jGL8UkfhloKj/VZsDCnIlOCYmN/KmQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790197108; c=relaxed/simple;
+	bh=CnMF7v4cVD2NWW476ulng2IfM18YIgH5scwjktb+jms=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=QbMyW6J5EBopoft7Yxi8IJpVJq1FYmJa9Ya4wN354bk33vFGI/p2EWJgMXgSBbdsWtwb74qIxpNgjK/ejssfUgP+JzyUz1nTBw4IDlk4Jslzc1vtgrTc35TDZEbkWlhalHomsG6qyAWtDu+aNeVqerthGW6PmtX3e8HD0iJ3J98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NvOuet18; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="R0UyrwZ3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CL4Nepd+qLhBtqbr8PcKSeH8QQ7db+kQbM3xzN4wVZM+rPd1oKgXH3cC7MzFuNrFEWUeOqsLgCfeNolulPrjk3F8fNksfhtl24AEjJ/YQA7aDBR0kguGJvAUiEWEdqH4UM+si/TC+7BVF3nZo+Urs0xQseddcSYH640pluxUAOakyzI3M7g5JqyewFuUazhrVq0wgKXoHQ3NsgyuXpsHtEwvCr/2EXhXhjlJPFhyHELO0inTfzsh211QYQo7iwXqbbtliPCukhJYYEH/M0fijhHmedb+SWTy6AQi6Lz+eddoINJ8kr2Uz06/7HiusKl6lvdM2g+bc0OFcucGJ/qW9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RbYlQhT4Aq9TWP2c6LFyxCybJnqxPnaUrNzfPZdEuPc=;
- b=GW7JCHOLdLUnL7pBW+MNjZgsObZSGPuEYgMj0N6ptmoSQkz5TyNSDEPPbkr42cFW7vzTy8al7mc4NKTuDeFh9nGMXd1UfUfCRM5vE5eX9nyh1rrRkzMaMeA0yf3Fc3QSw6uReAaQbeoInc74Rjkv+R2b8reYRAemUYz2eLjZBb8qZJXt4SCq7oVkTnu6bDKSZR0XuV+KyVoW3lZ+mySPA3jRc8auusuBYdM5I/rwhoGzd8MV1k1y4vDiFyQ/3+IDZKXVJ61bakOj3plx8qu+yue1YVLawrAQC9eZ0vvgCxkFgN8PfNlTZK2ISWB3i8o2bISODL6qBrFjHx3J1oaIsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
- dkim=pass header.d=rambus.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RbYlQhT4Aq9TWP2c6LFyxCybJnqxPnaUrNzfPZdEuPc=;
- b=R0UyrwZ3DXDke70gm/cAcKAOu/5JoSXw/jKwQB1peleaf+ZeK5P2dy60LGMgoPR1p4aOHO+0qMbVGZJ9inRhqTwdgL73RHqy5ocG7/cZmWINCUgYiEuRsHXNlmhT/s6U4deybvuc8qYp7HzO4L12loac9fXhZBQWi8BAcan6NvID9vLhsAZ5026zEgR10AXqKdWqshm3iPMFA930COfZvbFA57hjGzB9d8yEAhvz4KbYI+ljNf+7A/YRGKC+SEdZm0RrWfv/EkKX6q3q/fSyZjEw2+F75bVekyga7N8TyICQkhF3Fiapgkj2+8QgeQLRbj4uDnS8gLgdPy7UeqjNTQ==
-Received: from LV8PR04MB9006.namprd04.prod.outlook.com (2603:10b6:408:186::11)
- by LV8PR04MB9241.namprd04.prod.outlook.com (2603:10b6:408:259::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 20:50:55 +0000
-Received: from LV8PR04MB9006.namprd04.prod.outlook.com
- ([fe80::3e2f:2514:159c:85b2]) by LV8PR04MB9006.namprd04.prod.outlook.com
- ([fe80::3e2f:2514:159c:85b2%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 20:50:55 +0000
-From: "Ousherovitch, Alex" <aousherovitch@rambus.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-CC: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Rob Herring
-	<robh@kernel.org>, "Krishnamoorthy, Saravanakrishnan"
-	<skrishnamoorthy@rambus.com>, Shuah Khan <shuah@kernel.org>, Alexandre Ghiti
-	<alex@ghiti.fr>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Shuah
- Khan <skhan@linuxfoundation.org>, "Nguyen, Thi" <thin@rambus.com>
-Subject: RE: [PATCH v5 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
-Thread-Topic: [PATCH v5 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
-Thread-Index: AQHdRvg30t1+45dAjEm+KmT5OENVbLbbsCeAgAD8JwA=
-Date: Wed, 23 Sep 2026 20:50:55 +0000
-Message-ID:
- <LV8PR04MB9006374FD8621EBF3C7E7F6CD7822@LV8PR04MB9006.namprd04.prod.outlook.com>
-References: <20260917225929.2494111-1-aousherovitch@rambus.com>
- <20260917225929.2494111-5-aousherovitch@rambus.com>
- <arNn_fjy4jamSitO@gondor.apana.org.au>
-In-Reply-To: <arNn_fjy4jamSitO@gondor.apana.org.au>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=rambus.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV8PR04MB9006:EE_|LV8PR04MB9241:EE_
-x-ms-office365-filtering-correlation-id: 3f8a87bf-f1d1-4ecd-2227-08df19b45d1f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|38070700021|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- hEJ2pw3lF5CpG9i9AXhEm8k6qFDlTehmxpCb7OUxnHjUyBwZmuyRywaZIOlt30BP8iAwXPNaxluzsPMra5qvW21p+Hp/NolPU00gF4QNuRWBTeweOCQ8UbikEWL92lWF3CfUh9w6kq2EefQZeiw6exjtRU7GlGchWo9UUCPoGTGx2LGNKp6hXEK80LlNSh2Xc0Jepa9L6jSKilRMZOLkjZIRXG1u2vxCVB4Q5gRyVKc5DNbnE9Kk2kVCZF5pNfOnJp6hERrXvwaHTV1X6xBSADDXyvLJrBR4KgdY6onkQliBKH+qCxONvGnCjKABlCHumKTQOrjp46XOCNaTKChtNIRw4RG0FDOUNNQXSMN3a5+qPvkWGUzGOOJNv4pOkSS+HBUD0+VVUqsEmZmBGb6Q3H0vRyixeoAPj6woL7f96DxLhlz25TLAlWXVQksM55nL9E60Gtm0g+R7yfM0r0Bu0pjolDPVK+8IUudZSvoni8CVxpsTVlAUuytRkmUR3qCmE5qo/kRUDrxiHkcyEsBt2L+uKmKh5P5AhCd7ht6luN+Ers7pyLOFv7oQFJ4poZVxYxW29Es7NVp8CIgyBf/MVueBazBhIu8+g+U8fS1QwbiXroQrYxo9m4FPABfbNTS+gufDLvPn1dxHyDiwsYyOkWEKhyL8m//cgIoqCjw2l1gGFvIUBRTNGRLXEsk9vpby6q2O26uIRjahdJ1sRSEEZznjAV3EYdNifvyzhVAVa5g=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR04MB9006.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(38070700021)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?JOkNtSddroB9sKuxWMQXu6MySCvAQ2aDINDQDIoNVt5DcDV16vfYYNHtAKhV?=
- =?us-ascii?Q?1yYCkHbF3sAvU/Po8kZA+dgkyjpwJLu4Dtun4mQpmTbUI7A3cgo1ogtRvtMd?=
- =?us-ascii?Q?qrp1H/jaftF4OBL9vCnfGz2luwmqCaOmnQE9i0lnUcK0x8ehF5C6Yvk5d4ni?=
- =?us-ascii?Q?8iYtaaEOQlvTFui4H1aYNUVYRnLalckiYVC4q6xFqypBLyUriCu8kmb0HasQ?=
- =?us-ascii?Q?2VOI+NSbfZJ9Q0J3NjmeV6D6UvkWTGxJ61cbWTrC8N12AXqcCAdc8Tj/UHFj?=
- =?us-ascii?Q?zcu338yNU+YoRI/g+itg7IIAh7Xw6MaVNeHsAeemjaVOLKBI3hEQlV3S+1F/?=
- =?us-ascii?Q?0DdrcgHynEsWT/U0Z5noUBTrl3MwJNLg/VkWWyXs6vQefiWH9G6Nmh3bw+SO?=
- =?us-ascii?Q?WbeUCoDtBDmVXcTOvIRJSs/gBma6c9znkIqsiXIns8LrYhVa8cuewbb2gLjX?=
- =?us-ascii?Q?LiF6INCP/nksKWY4NjaHSTWw+8NGtYQ7c71lbJU5wlhjsokECWIp6J3220Kj?=
- =?us-ascii?Q?pn96ab2Ut4epcpPeFQ1zdAxcq1WH4/xV+h2LZ+LN+uCmFen+2Pz73YjwB9Tg?=
- =?us-ascii?Q?izCLEc9/7NOVBPqiQ61MXtlTPPoiOqTHsrYA9dBuRvC9yQ6rFvkcpddaJbyi?=
- =?us-ascii?Q?MZWIgdwPwW0RC9zDQQY31IlS1qA/EbWvldMwJMrifTMPDVLuwvrLkFsSpWfc?=
- =?us-ascii?Q?UiHWBehiJm2HHEC16lm88LHAsLBp3i1ddrHRLUVzqJpDyvWYbVpjN51HbxZM?=
- =?us-ascii?Q?3Uyi7kmCTC/D5GKbKxbjDmQMeutVKk2cL39mO1bQPYGsolVMO+zweQHlIsVd?=
- =?us-ascii?Q?0neijWscnECtmm/g5Cu930URsBO/ogrbOTjlNWFVS1lxqh/3gOnVkYBhmo/g?=
- =?us-ascii?Q?Ca4jSdnYKUB+tXbLBg7VrgipZBA2KRUSDI/VNl8ReVq1qkrC0ZhTUYB7V+x/?=
- =?us-ascii?Q?PPTA48GiKA46dJhRNY94IfW2Zt7g4Oo1+oK78AncYuZak3Uw849AMjUJ9kr+?=
- =?us-ascii?Q?i1SY8lNqKKygPKfKW5uNalmvTBTSiMWBNP/koQAVjoLs6mv5iRdC09pcJfm4?=
- =?us-ascii?Q?h3TPIRRs7s5i3gjYOwG0kiQatYmarGi5erkLP1HW2ZbWSNzFm8O3u2ZePtgG?=
- =?us-ascii?Q?4kg5888CjxI0NL/r5XT7jHjx+8C31hFVoGMNrs8nXlpxjnRy1oufeqIs+5ll?=
- =?us-ascii?Q?PDl1mjK4uRcEQDa77P1g0tFw4dCW39WEpv9qBeiCpYxBlO+sByyY8HCHICDi?=
- =?us-ascii?Q?DAvZT2KFPjMSsqXoI0v0HQcPICFmMILL/Eas6Y8SAs1v7gtlYqDy8d4uJCLD?=
- =?us-ascii?Q?MfzUFo8B6vIwZ/V3YfnREx8V6jpUrtye7riZiFSAuzWNBbZjtZUsSXmYefdD?=
- =?us-ascii?Q?MnXIIRJvy1/+g+l3v86dbKcRHZ3YfelWD1nCGAeS8xNxxdNzq7pwwF7UXNqH?=
- =?us-ascii?Q?Gd8u2Xl0gCe5x0QkG6pKLAh3b3c0p6jM4OQWbw/T7EKfBCooVU4+0cbSfK4H?=
- =?us-ascii?Q?vsV405Ixw380fpzLL+vK7d/CxFRxoJ4SYvI1gFjF7+Vrxo1jPeC0c+xxQycU?=
- =?us-ascii?Q?huaWXCEbQEzqYD9gfCyDkMeBE3yGbWM+BCoC7+S2bI6P8gyF1N8aPuU9YT6y?=
- =?us-ascii?Q?0q6z757jzSroXd7swG0U9rNsN/4qAfSWhQAHzIwXNx1hdRYcIsyi+1LB3abw?=
- =?us-ascii?Q?2BCD+hPlCITPF3V18Ei6B3r2mA4/L3chD9Mzf3EtkL8cxg53MKDV5DyNBA1s?=
- =?us-ascii?Q?z3i9Z8fjQQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NvOuet18"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so15492135e9.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:58:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790197103; x=1790801903; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z4Mxoo0BjytpbcPdlZ9wg50FxPDTNNYaSFfcT2mT85c=;
+        b=NvOuet18ag6cuq2O65ZBbBn+J9q2Vihac91rIOl5eww0tiKs1X31bJH/enZC37IfjH
+         py7PIZWzNX8sXe27jWwcasWfW3qvz2dAYgqIh8xEimCXCRlRP3dQkB6Y+3GqNk4W3x1F
+         6+6rnw8AqVEfYGKLGLdf4PRLXn+Z5Rm4dQC5W79q9q9JAF1SdLhrHEIlcjOLcqAO/B0E
+         N5syi61UAc0HRm2zF9h5iPDP+vEVlmmMPFIgnuvEmWMPz8F5qG0TA30eTDv6Cid0Lafb
+         haoBH1+diXOmkjQvRv3DmhDSZYlQTrpUJ4W+4EgCfv8frTkvrmWt5+Y3zQHXzjQZYZv7
+         Rw5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790197103; x=1790801903;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z4Mxoo0BjytpbcPdlZ9wg50FxPDTNNYaSFfcT2mT85c=;
+        b=MRiQr/b8GBMoHSYYDU/zamuJkSFO/3GuX8K/VXt9wpday4U5ug7Hh6PcFL/1RwHhMi
+         EvvCylFdy7lhAyDJV3WJEWed10wtllESKRuyFQ7vgrNpykWLJEQQYPHhFqTF55vqCB91
+         YK/huBg8WGAk6ED2eppXP1X+HAzYvpcNpJuquxR32+0iUC7XXdYxB4vrefqduek2b8B1
+         QI6aCgMLXnZTzQ+W8cA+8WxvlRQPbzJXSHjQ397CjYSXhUmm4whnI9lqT+8GEcVnCkRG
+         2sccTsJqsDBtySjfWpX2YISwKuhcSPgsi/fY8va4rH8hon340Nmj25KjcRlBZk3iuzqL
+         dHOA==
+X-Forwarded-Encrypted: i=1; AKwUvBybSs1cSIY1mejEfwNd29x1n+Yz8EoM3+0LJitEzC03s5NezBzHE07XL38xfkMZJeViTsNJUXC09+U4@vger.kernel.org
+X-Gm-Message-State: AFuF++mxv6cDWe1IVQrs46rvLP3f3IeZSfLtA3SrMAvykWsqpVPaEO8W
+	YONfugSN/kMHWimwuUxHFRALjndhXkIc/WC5/PTdYLk7JGBTNh+IyKshnLjqyHiBsiY=
+X-Gm-Gg: AYBFou2Kgq4/JHrguNzWXsch293gWefXl0d/ThJqJYIukMSO8ObAEbwY8XMCCIpR2LL
+	HUqGP+LSZpw1dk9doObFAdSNnOo9hTd+ltzFL7QEbr8QJZLul1bMmNBvRCjErdxQKW1fiEJvGVs
+	5a7doBhfRT5ieE3Qd+l0D/LS6W2pUfNxOljg5iFZdAEemYcBYvZLIC0MbsNl3smD2dXwXhSJZNV
+	OUaufecm7qv2p0ZFb0dXhIDSB2FniBc0+2cODcyvHCd0553tx80zVRdQPvkQ/4vopMOprKgyzYd
+	yKIz/nc7rLDT39p0Y98jE0Qt5gUX+O7fQ3oBBeWP10imY+By4QuWg2zJ/ktZ2PeHlkyG1Csxx0d
+	+R6xAwOwxWq/64jmKSwzIK4Amq4GgGMN28B1wS11APi3m3+M0/sbbVYiZNGHXzDysgTsyvMtReW
+	Am1y4rB82SVCnSmdveImmdU6MmwvFfP0Q8JDUz9Ju3L4cyEnaxr6FDSjlWpAw4jz6GCyNxyhbRT
+	VKe0suW9qqRro8cokA=
+X-Received: by 2002:a05:600c:4689:b0:499:be2d:c290 with SMTP id 5b1f17b1804b1-49fe66b4001mr7015405e9.9.1790197103011;
+        Wed, 23 Sep 2026 13:58:23 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5ded2b7sm12132335e9.10.2026.09.23.13.58.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 13:58:22 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Alex Elder <elder@riscstar.com>, Brian Masney <bmasney@redhat.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and
+ reset driver
+In-Reply-To: <0785235b-de06-44d4-9068-ec706eeba848@riscstar.com>
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-4-elder@riscstar.com> <arG238GS8bMB6DkW@redhat.com>
+ <0785235b-de06-44d4-9068-ec706eeba848@riscstar.com>
+Date: Wed, 23 Sep 2026 22:58:21 +0200
+Message-ID: <1jcxu3adn6.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: rambus.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR04MB9006.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f8a87bf-f1d1-4ecd-2227-08df19b45d1f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 20:50:55.6655
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EBPMC5B0wd+HyIGhH4S694BMr424WdIYZvJqDfPtsDRugB/joEzQBxj4NzCXWBEBNUJRmeFqznZV/3nR8FrMxo6FRdI7xOqUydnVO4/IY4Q=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR04MB9241
+Content-Type: text/plain
 
-On Wed, Sep 23, 2026 at 03:47:41PM +1000, Herbert Xu wrote:
-> Why did you set the NO_FALLBACK flag? This is only meant to be used
-> by very specific cases such as s390.
+On mar. 22 sept. 2026 at 08:33, Alex Elder <elder@riscstar.com> wrote:
 
-Being async, these algs get NEED_FALLBACK forced by ahash_prepare_alg()
-unless NO_FALLBACK is set, so crypto_ahash_init_tfm() tries to allocate a
-same-name synchronous REQ_VIRT provider -- which doesn't work here:
+> On 9/21/26 5:59 PM, Brian Masney wrote:
+>> Hi Alex,
+>> 
+>> On Fri, Sep 18, 2026 at 11:52:32AM -0500, Alex Elder wrote:
+>>> Define a new platform driver that manages clock and reset signals
+>>> within the TC9564 SoC.  There are 21 clocks, which can only be
+>>> enabled and disabled, as well as 13 reset signals.
+>>>
+>>> Two registers manage the state of the clocks and two others manage
+>>> the state of the resets.  The registers are accessed via a regmap
+>>> supplied by a system controller, which coordinates access to a
+>>> region of memory that will be shared with another driver.
+>>>
+>>> Access to the memory region is provided via a BAR on a PCIe endpoint
+>>> function embedded in the TC9564 SoC.  For that reason, neither the
+>>> PCIe clock nor PCIe reset can be manipulated by this driver (they
+>>> are assumed always on and deasserted, respectively).
+>>>
+>>> Similarly, control is not available for the I2C clock and reset,
+>>> because the PCIe subsystem on the TC9564 relies on I2C
+>>>
+>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>>> ---
+>>>   MAINTAINERS              |   1 +
+>>>   drivers/clk/Kconfig      |  11 ++
+>>>   drivers/clk/Makefile     |   1 +
+>>>   drivers/clk/clk-tc9564.c | 366 +++++++++++++++++++++++++++++++++++++++
+>>>   4 files changed, 379 insertions(+)
+>>>   create mode 100644 drivers/clk/clk-tc9564.c
+>>>
+>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>> index 66d0e7e65adcb..39346a5cd9a7f 100644
+>>> --- a/MAINTAINERS
+>>> +++ b/MAINTAINERS
+>>> @@ -27675,6 +27675,7 @@ M:	Alex Elder <elder@kernel.org>
+>>>   M:	Daniel Thompson <danielt@kernel.org>
+>>>   S:	Maintained
+>>>   F:	Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+>>> +F:	drivers/clk/clk-tc9564.c
+>>>   F:	include/dt-bindings/clock/toshiba,tc9564.h
+>>>   
+>>>   TOSHIBA TC9564 PCI DRIVER
+>>> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+>>> index f9592fd9ec2bb..50efa10d48450 100644
+>>> --- a/drivers/clk/Kconfig
+>>> +++ b/drivers/clk/Kconfig
+>>> @@ -292,6 +292,17 @@ config COMMON_CLK_S2MPS11
+>>>   	  clock. These multi-function devices have two (S2MPS14) or three
+>>>   	  (S2MPS11, S5M8767) fixed-rate oscillators, clocked at 32KHz each.
+>>>   
+>>> +config COMMON_CLK_TC9564
+>>> +	tristate "Toshiba TC9564 clock support"
+>>> +	depends on TC9564_PCI
+>> 
+>> select RESET_CONTROLLER
+>
+> Thank you.  The reset and clock drivers were previously separate
+> and the reset only became available if RESET_CONTROLLER was enabled.
+> Combining them means I need this.  I will add it.
 
-- shake128/256, cshake, kmac and poly1305 have no matching provider
-  registered in this tree, so the allocation fails and the transform can't
-  be created at all. NO_FALLBACK is required to instantiate them.
+Why did you combine them ?
 
-- sha2, sha3 and sm3 do have a software provider, so the transform loads,
-  but the auto-fallback can't stand in for the hardware on the streaming
-  path: our exported state is the opaque HW save/restore checkpoint, not
-  the canonical state, so a multi-part export/import round-trip through the
-  fallback misinterprets it (and for SHA-2/SHA-3 the statesize exceeds
-  HASH_MAX_STATESIZE, so ahash_do_req_chain() returns -ENOSYS). A one-shot
-  digest could still use the software provider, but a fallback that only
-  covers one-shot and corrupts streaming isn't usable.
+it would be a lot better if the reset were handled in
+drivers/reset rather than in clock. There has already been some work to
+move reset from clock back to reset. This often involve auxiliary drivers.
 
-Same flag as s390, same underlying reason -- no generic transform can stand
-in for the hardware -- though the obstruction differs: protected keys
-there, opaque (and for SHA-2/SHA-3 oversized) HW state here.
+>
+> I also need to select MFD_SYSCON to get syscon_node_to_regmap()
+> (or perhaps something similar, depending on the answers to my
+> questions about the proper way to define the syscon).
+>> 
+>>> +	default m
+>> 
+>> default n
+>
+> This depends on TC9564_PCI, and if TC9564_PCI is enabled I would
+> like this to (automatically) be available (at least as a module).
+>
+> Why do you recommend "n"?
+>
+>>> +	help
+>>> +	  This enables support for the clock and reset controller embedded
+>>> +	  in the Toshiba TC9564 (and Qualcomm QPS615) SoC.  The state of
+>>> +	  clock and reset lines is controlled by MMIO to a region managed
+>>> +	  by a system controller; this ensures access to the region is
+>>> +	  coordinated between this and other drivers.
+>> 
+>> Rather than 'other drivers', outline specifically which other drivers.
+>
+> I was intentionally vague at this point because the one other driver
+> has not yet gone out for upstream review for this iteration of the
+> code.  But I do agree with you, so I'll change this to say:
+>
+>     ... between this and the XGMAC (stmmac) driver.
+>
+> Then it will be correct without modification once that driver goes
+> out for review.  Is that better, or do you suggest something else?
+>
+>>> +
+>>>   config CLK_TWL
+>>>   	tristate "Clock driver for the TWL PMIC family"
+>>>   	depends on TWL4030_CORE
+>>> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+>>> index b18af485d7f03..a98ea8ff92066 100644
+>>> --- a/drivers/clk/Makefile
+>>> +++ b/drivers/clk/Makefile
+>>> @@ -110,6 +110,7 @@ obj-$(CONFIG_COMMON_CLK_SI570)		+= clk-si570.o
+>>>   obj-$(CONFIG_COMMON_CLK_SP7021)		+= clk-sp7021.o
+>>>   obj-$(CONFIG_COMMON_CLK_STM32F)		+= clk-stm32f4.o
+>>>   obj-$(CONFIG_COMMON_CLK_STM32H7)	+= clk-stm32h7.o
+>>> +obj-$(CONFIG_COMMON_CLK_TC9564)		+= clk-tc9564.o
+>>>   obj-$(CONFIG_COMMON_CLK_TPS68470)      += clk-tps68470.o
+>>>   obj-$(CONFIG_CLK_TWL6040)		+= clk-twl6040.o
+>>>   obj-$(CONFIG_CLK_TWL)			+= clk-twl.o
+>>> diff --git a/drivers/clk/clk-tc9564.c b/drivers/clk/clk-tc9564.c
+>>> new file mode 100644
+>>> index 0000000000000..4f900bc8994a7
+>>> --- /dev/null
+>>> +++ b/drivers/clk/clk-tc9564.c
+>>> @@ -0,0 +1,366 @@
+>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>> +
+>>> +/*
+>>> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
+>>> + */
+>>> +
+>>> +#include <linux/bits.h>
+>>> +#include <linux/clk-provider.h>
+>>> +#include <linux/mfd/syscon.h>
+>>> +#include <linux/mod_devicetable.h>
+>> 
+>> Uwe already pointed out removing this.
+>
+> Yes, done.
+>
+>> 
+>>> +#include <linux/module.h>
+>>> +#include <linux/platform_device.h>
+>>> +#include <linux/regmap.h>
+>>> +#include <linux/reset-controller.h>
+>>> +
+>>> +#include <dt-bindings/clock/toshiba,tc9564.h>
+>>> +
+>>> +#define CLK_CTRL0_OFFSET	0x1004
+>>> +#define RST_CTRL0_OFFSET	0x1008
+>>> +#define CLK_CTRL1_OFFSET	0x100c
+>>> +#define RST_CTRL1_OFFSET	0x1010
+>>> +
+>>> +struct tc9564_clock_init {
+>>> +	const char *name;	/* NULL means unused entry */
+>>> +	u32 offset;
+>>> +	u32 mask;
+>>> +};
+>>> +
+>>> +struct tc9564_clock {
+>>> +	struct clk_hw hw;
+>>> +	u32 which;
+>>> +	u32 offset;		/* CLK_CTRL0_OFFSET or CLK_CTRL1_OFFSET */
+>>> +	u32 mask;		/* Zero means undefined clock */
+>>> +};
+>>> +
+>>> +struct tc9564_reset {
+>>> +	u32 offset;		/* RST_CTRL0_OFFSET or RST_CTRL1_OFFSET */
+>>> +	u32 mask;		/* Zero means undefined reset */
+>>> +};
+>>> +
+>>> +struct tc9564_clocks {
+>>> +	struct device *dev;
+>>> +	struct regmap *regmap;
+>>> +	struct reset_controller_dev rcdev;
+>>> +	size_t clock_count;
+>>> +	struct tc9564_clock clocks[] __counted_by(clock_count);
+>>> +};
+>>> +
+>>> +#define TC9564_CLOCK_INIT0(_name, _bit)	__TC9564_CLOCK_INIT(_name, 0, _bit)
+>>> +#define TC9564_CLOCK_INIT1(_name, _bit)	__TC9564_CLOCK_INIT(_name, 1, _bit)
+>>> +
+>>> +#define __TC9564_CLOCK_INIT(_name, _reg, _bit)		\
+>>> +	[CLOCK_##_name] = {				\
+>>> +		.name	= #_name,			\
+>>> +		.offset	= CLK_CTRL ## _reg ## _OFFSET,	\
+>>> +		.mask	= BIT(_bit),			\
+>>> +	}
+>>> +
+>>> +#define TC9564_RESET_INIT0(_name, _bit)	__TC9564_RESET_INIT(_name, 0, _bit)
+>>> +#define TC9564_RESET_INIT1(_name, _bit)	__TC9564_RESET_INIT(_name, 1, _bit)
+>>> +
+>>> +#define __TC9564_RESET_INIT(_name, _reg, _bit)		\
+>>> +	[RESET_##_name] = {				\
+>>> +		.offset	= RST_CTRL ## _reg ## _OFFSET,	\
+>>> +		.mask = BIT(_bit),			\
+>>> +	}
+>>> +
+>>> +static const struct tc9564_clock_init tc9564_clock_init[] = {
+>>> +	TC9564_CLOCK_INIT0(MCU, 0),
+>>> +	TC9564_CLOCK_INIT0(INTC, 4),
+>>> +	/* TC9564_CLOCK_INIT0(PCIE, 9), */
+>>> +	/* TC9564_CLOCK_INIT0(I2C, 12), */
+>> 
+>> A comment would be useful here to outline why these are commented out.
+>> Is the PCIE one comment out because of what's outlined in the commit
+>> message?
+>
+> Yes, that is why.  We are downstream of PCIe, and PCIe in this
+> case depends on I2C.  So we don't want to mess with these two
+> clocks or their reset counterparts.
+>
+> I only provide this for the benefit of documentation.  If someone
+> happens to see bit 9 set in this register, it means the PCIe clock
+> is enabled.
+>
+> Anyway, others have suggested simply removing these comments.
+> So I'll do what you suggest, but I'm interested to know whether
+> you would favor just deleting them instead.
+>> 
+>>> +	TC9564_CLOCK_INIT0(SRAM, 13),
+>>> +	TC9564_CLOCK_INIT0(UART, 16),
+>>> +	TC9564_CLOCK_INIT0(MSIGEN, 18),
+>>> +	TC9564_CLOCK_INIT0(PLL, 24),
+>>> +	TC9564_CLOCK_INIT0(SGMII, 25),
+>>> +	TC9564_CLOCK_INIT0(REFCLKO, 26),
+>
+> . . .
+>
+>>> +static const struct reset_control_ops tc9564_reset_control_ops = {
+>>> +	.assert		= tc9564_reset_assert,
+>>> +	.deassert	= tc9564_reset_deassert,
+>> 
+>> I'd rather not have the extra spaces because sometimes these get out of
+>> line with new members that need more space. Also tc9564_clk_ops above
+>> doesn't have the extra spaces.
+>
+> That's OK with me.  I normally align assignments like this for
+> readability, but it's obviously an arbitrary stylistic choice.
+> I'll just use one space, no alignment (just as the clk_ops do
+> above).  I'll do the same in the platform driver structure
+> assignments.
+>> 
+>>> +};
+>>> +
+>>> +static void tc9564_reset_assert_all(struct tc9564_clocks *clocks)
+>>> +{
+>>> +	for (u32 id = 0; id < TC9564_RESET_COUNT; id++)
+>>> +		if (tc9564_reset[id].mask)
+>>> +			tc9564_reset_manage(&clocks->rcdev, id, true);
+>>> +}
+>>> +
+>>> +static int tc9564_reset_init(struct tc9564_clocks *clocks)
+>>> +{
+>>> +	struct reset_controller_dev *rcdev = &clocks->rcdev;
+>>> +
+>>> +	rcdev->ops = &tc9564_reset_control_ops;
+>>> +	rcdev->owner = THIS_MODULE;
+>>> +	rcdev->dev = clocks->dev;
+>>> +	rcdev->of_node = dev_of_node(clocks->dev);
+>>> +	rcdev->nr_resets = TC9564_RESET_COUNT;
+>>> +
+>>> +	return devm_reset_controller_register(clocks->dev, rcdev);
+>>> +}
+>>> +
+>>> +static int tc9564_clk_probe(struct platform_device *pdev)
+>>> +{
+>>> +	struct device *dev = &pdev->dev;
+>>> +	struct tc9564_clocks *clocks;
+>>> +	int ret;
+>>> +
+>>> +	if (!dev_of_node(dev))
+>>> +		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
+>>> +
+>>> +	clocks = tc9564_clk_init(dev);
+>>> +	if (IS_ERR(clocks))
+>>> +		return dev_err_probe(dev, PTR_ERR(clocks),
+>>> +				     "failed to initialize clocks\n");
+>>> +
+>>> +	ret = tc9564_reset_init(clocks);
+>>> +	if (ret)
+>>> +		return dev_err_probe(dev, ret, "failed to initialize resets\n");
+>>> +
+>>> +	/* Force all resets to be initially asserted */
+>>> +	tc9564_reset_assert_all(clocks);
+>>> +
+>>> +	/* Force all clocks to be initially disabled */
+>>> +	tc9564_clock_disable_all(clocks);
+>>> +
+>>> +	platform_set_drvdata(pdev, clocks);
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +static void tc9564_clk_remove(struct platform_device *pdev)
+>>> +{
+>>> +	struct tc9564_clocks *clocks = platform_get_drvdata(pdev);
+>>> +
+>>> +	/* Leave all resets to be deasserted when done */
+>>> +	tc9564_reset_assert_all(clocks);
+>> 
+>> The comment says deasserted but the code calls assert_all.
+>
+> Oops.  Will fix.  Thank you very much for your review Brian.
+>
+> 					-Alex
+>
+>> 
+>> Brian
+>> 
+>> 
+>>> +
+>>> +	/* Leave all clocks disabled when done */
+>>> +	tc9564_clock_disable_all(clocks);
+>>> +}
+>>> +
+>>> +static const struct of_device_id tc9564_clk_ids[] = {
+>>> +	{ .compatible = "toshiba,tc9564-clock" },
+>>> +	{ },
+>>> +};
+>>> +MODULE_DEVICE_TABLE(of, tc9564_clk_ids);
+>>> +
+>>> +static struct platform_driver tc9564_clk_driver = {
+>>> +	.probe	= tc9564_clk_probe,
+>>> +	.remove	= tc9564_clk_remove,
+>>> +	.driver	= {
+>>> +		.name		= KBUILD_MODNAME,
+>>> +		.of_match_table = tc9564_clk_ids,
+>>> +		.probe_type	= PROBE_PREFER_ASYNCHRONOUS,
+>>> +	},
+>>> +};
+>>> +module_platform_driver(tc9564_clk_driver);
+>>> +
+>>> +MODULE_DESCRIPTION("Toshiba TC9564 Clock and Reset Driver");
+>>> +MODULE_LICENSE("GPL");
+>>> -- 
+>>> 2.53.0
+>>>
+>> 
+>
 
-Thanks,
-Alex
+-- 
+Jerome
