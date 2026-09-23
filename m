@@ -1,181 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B4151AEF4
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:17:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165847; cv=none; b=n/wscFk7WFMQMOWgYebZZalajfeakajYCfXMLte5sBL/NbNSLTMyIObbDU1yXpzHj2Ftgg5fVp1DBTxZoYKHMjQmc0z78l6YqbYZ76YCDRSYk+2ZJKl4Uv+Tkq6RAEn+Iq8uauPHE7mToAyVMPRer4Ww/VwTP8jOSTxHA6AKInY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165847; c=relaxed/simple;
-	bh=ee6oT0KxAilYZ3lmY1RmZg4+d4W3UEQ1OKF6ucFiTZo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oer4/taT8cpBX82or4emjYMa/MHgc6YhTyRgszOZfZ2v5KROPcs2QkWHKw6au+djeQuzmMtwzfXS2PquPFqG3g70VZHBGRXvG3rLhKElTowtyyhmQYHW41YQbDGWJFOPi8yRrbDWEMqfx6ugd8Odx5vcyFqvb6CPDZScQNcGmic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DeLcUH+G; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DeLcUH+G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09A811F000FF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53738517BB8;
 	Wed, 23 Sep 2026 12:17:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790165841;
-	bh=fldAq98WeN07WV5IH0AUXVojgXllPbaytsf0PdM4lmY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DeLcUH+GQxggV3ISob1Dwg8UkuSkbXP+rVQUwyOn5HhBEc5KVSK0Q+wdaO12wXh/x
-	 9b/w8KVOLDIi/Yrg+L01m2P6O6ox39s4ENpv4zsIw4uEml0Hl2Whcmr1A8Shb0NIwa
-	 fAjY49sVCKoFvwqnLfi/AztbgoAZfy6U/k+BeqW43cNWI5gVadqepMoVtJWoXbmPh3
-	 LDME0SvlSj0j+6G5qCJWPVDS0bDBYAFfAPkgfFZ6n1TTL/m8c3uiBoBxeZo1o8bxue
-	 TBlDCyzTMs8rchXNX2K1v+8by03S2pPGUV3whs9NW/eCcvinKsT94UdMwzWPJ9+P9x
-	 jwZdFCIzuT6dw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH ath-next 08/16] wifi: ath11k: Power up userPD
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "George Moussalem" <george.moussalem@outlook.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-8-86729521a75c@outlook.com>
-References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
- <20260923-ipq5018-qcn6122-mpd-v1-8-86729521a75c@outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 12:17:20 +0000
-Message-Id: <20260923121721.09A811F000FF@smtp.kernel.org>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790165849; cv=none; b=pxm3dpeUGbpOJP+y6yfEbNrwi4mWMr2Zu17xxLV29/O2ArvIViqLSLZqTiKh1Fw3x4BWyMz9MyBfMZJLnDGS8H4ph3ItSBVYklf8fUcma2/o2CBoniJioGhjZlKjnxb8Ij5JOvLD0NUR4nAskptBzSGXk0JVB7o3h6AXfqhkGAw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790165849; c=relaxed/simple;
+	bh=F53p8FKHEPS9OasKbcD3/FVtuvDQj0qYdE0oshV7agY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZiF8UXn0EKDi+aDzr36Dm/2kxlBHDgClewSTGtnbdxEoGXscGt+BABKA3Lq+4DPR89PWl/ZBjo94X/WINZ8ihuBpmWP0r+0jRBPQ+INwCqlXzyHBdAi/IDTGZUMdML7FRi00qpi2avLaK5FFBYIxbYI4h4G5lQwgTmM/jymHcMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=AXXSIdbx; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="AXXSIdbx"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 3EE095340957;
+	Wed, 23 Sep 2026 14:17:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790165829;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Cocbgk0yRPtfvE2Id/wgu61HEDljde+Nw92Y3PkSaOk=;
+	b=AXXSIdbx2Dy2w2E1vy9CXSWooMwvcrEhSU3jns/jv75U3JKOsmy0c7kfUWFtSwAeak+901
+	Xrc7hNOG2t53AQvKaqCbGE2MjoTF9GtAgLGM2sSdSJDyM5+h3nEHA0DxoFii9o81dwJ8lq
+	8mMRaC+HxVggYpJxaN/yIFWGCU98PUk=
+Message-ID: <ee8a106a-4700-4a5d-84f8-bb8ba4b084bd@ixit.cz>
+Date: Wed, 23 Sep 2026 14:17:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-oneplus-common: Configure MBHC
+ thresholds
+To: =?UTF-8?Q?C=C3=A9dric_Bellegarde?= <cedric.bellegarde@adishatz.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260922-mbhc-v1-1-bd123e7fb899@adishatz.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <20260922-mbhc-v1-1-bd123e7fb899@adishatz.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] ath11k: hardware power and SMEM state leak on error paths in ath11=
-k_ahb_boot_user_pd
-- [High] ath11k: missing reinit_completion() in ath11k_ahb_boot_user_pd
-- [High] ath11k: NULL pointer dereference in userPD IRQ handler due to late=
- completion init
---
+On 22/09/2026 21:48, Cédric Bellegarde wrote:
+> Configure the Multi-Button Headset Control (MBHC) thresholds for the
+> WCD9340 audio codec to match the vendor downstream calibration.
+> 
+> Signed-off-by: Cédric Bellegarde <cedric.bellegarde@adishatz.org>
+> ---
+>   arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+> index 439779f308e3..8a99c3f55bf6 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
 
-commit 6b777a3c2abf7cc48a88c29957b57c461963887f
-Author: George Moussalem <george.moussalem@outlook.com>
+Hello Cédric,
 
-wifi: ath11k: Power up userPD
-   =20
-Set the spawn bit to instruct Q6 to spawn the userPD thread.
-Wait for userPD to spawn which is indicated by spawn interrupt. The
-ready interrupt is triggered once the userPD is powered up completely.
+only enchilada has the 3.5 jack, I assume no use for fajita
+... but it doesn't matter much here as it just changes existing default.
 
-> diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless=
-/ath/ath11k/ahb.c
-> index 25f9a992a7d2f..2c41cf585d001 100644
-> --- a/drivers/net/wireless/ath/ath11k/ahb.c
-> +++ b/drivers/net/wireless/ath/ath11k/ahb.c
-> @@ -430,8 +431,63 @@ static void ath11k_ahb_stop(struct ath11k_base *ab)
->  	ath11k_ce_cleanup_pipes(ab);
->  }
-> =20
-> +static int ath11k_ahb_boot_user_pd(struct ath11k_base *ab)
-> +{
-> +	struct ath11k_ahb *ab_ahb =3D ath11k_ahb_priv(ab);
-> +	unsigned long time_left;
-> +	int ret;
-> +
-> +	if (ab->hw_rev =3D=3D ATH11K_HW_IPQ5018_HW10) {
-> +		ret =3D qcom_scm_pas_set_wifi_power_mode(MPD_WCNSS_PAS_ID, true);
-> +		if (ret) {
-> +			ath11k_err(ab, "failed to power up wifi: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	ret =3D qcom_smem_state_update_bits(ab_ahb->spawn_state, BIT(ab_ahb->sp=
-awn_bit),
-> +					  BIT(ab_ahb->spawn_bit));
-> +	if (ret) {
-> +		ath11k_err(ab, "Failed to update spawn state %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	time_left =3D wait_for_completion_timeout(&ab_ahb->userpd_spawned,
-> +						ATH11K_USERPD_SPAWN_TIMEOUT);
+Reviewed-by: David Heidelberg <david@ixit.cz>
 
-[Severity: High]
-Does this wait rely on a completion state that might carry over between dri=
-ver
-recoveries?
+David
 
-If a previous cycle timed out but the interrupt fired later, the completion=
-'s
-done count might be > 0. Should reinit_completion() be called before settin=
-g the
-SMEM state to prevent false positives?
+> @@ -1099,6 +1099,10 @@ &wcd9340 {
+>   	vdd-tx-supply = <&vreg_s4a_1p8>;
+>   	vdd-rx-supply = <&vreg_s4a_1p8>;
+>   	vdd-io-supply = <&vreg_s4a_1p8>;
+> +	qcom,mbhc-buttons-vthreshold-microvolt = <75000 150000 237000 500000
+> +						  500000 500000 500000 500000>;
+> +	qcom,mbhc-headset-vthreshold-microvolt = <1700000>;
+> +	qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
+>   };
+>   
+>   &wifi {
+> 
+> ---
+> base-commit: fe2ec83746e501645709761605c2464a44fd2929
+> change-id: 20260922-mbhc-342148b3fd5b
+> 
+> Best regards,
 
-> +	if (!time_left) {
-> +		ath11k_err(ab, "UserPD spawn wait timed out\n");
-> +		return -ETIMEDOUT;
-> +	}
-
-[Severity: High]
-If this times out, should the SMEM spawn bit and Wi-Fi power mode be revert=
-ed?
-
-Returning -ETIMEDOUT here without clearing ab_ahb->spawn_bit or calling
-qcom_scm_pas_set_wifi_power_mode(MPD_WCNSS_PAS_ID, false) leaves the device
-powered on and prevents subsequent recovery attempts from triggering the
-edge-based spawn interrupt.
-
-> +
-> +	time_left =3D wait_for_completion_timeout(&ab_ahb->userpd_ready,
-> +						ATH11K_USERPD_READY_TIMEOUT);
-> +	if (!time_left) {
-> +		ath11k_err(ab, "UserPD ready wait timed out\n");
-> +		return -ETIMEDOUT;
-> +	}
-
-[Severity: High]
-Similarly, if waiting for userpd_ready times out, should the SMEM spawn bit=
- and
-Wi-Fi power mode be cleaned up before returning -ETIMEDOUT?
-
-> +
-> +	qcom_smem_state_update_bits(ab_ahb->spawn_state, BIT(ab_ahb->spawn_bit)=
-, 0);
-> +
-> +	ath11k_dbg(ab, ATH11K_DBG_AHB, "UserPD%d is now UP\n", ab_ahb->userpd_i=
-d);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the following pre-exist=
-ing
-code risk a NULL pointer dereference?
-
-drivers/net/wireless/ath/ath11k/ahb.c:ath11k_ahb_config_userpd_irq() {
-	...
-	for (i =3D 0; i < ATH11K_USERPD_MAX_IRQ; i++) {
-		...
-		ret =3D devm_request_threaded_irq(&ab->pdev->dev, ab_ahb->userpd_irq_num[=
-i],
-						NULL, ath11k_userpd_irq_handler,
-						IRQF_TRIGGER_RISING | IRQF_ONESHOT,
-						upd_irq_name, ab);
-		...
-	}
-
-	init_completion(&ab_ahb->userpd_spawned);
-	init_completion(&ab_ahb->userpd_ready);
-	...
-}
-
-If the interrupt fires immediately after registration and before
-init_completion() is called, ath11k_userpd_irq_handler() would call complet=
-e()
-on an uninitialized completion. Since ath11k_ahb is zero-allocated, the
-completion's waitqueue list head is NULL, which will crash when complete() =
-calls
-list_empty().
-
-Should init_completion() be called before registering the IRQ handlers?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-ipq5018-qc=
-n6122-mpd-v1-0-86729521a75c@outlook.com?part=3D8
