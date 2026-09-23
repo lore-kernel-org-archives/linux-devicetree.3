@@ -1,375 +1,216 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83955383F9;
-	Wed, 23 Sep 2026 13:45:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790171138; cv=pass; b=Fa81cQ73PjTVjdMC0SZxbThJQUlE8veCz22199awWf4jKU3K44kxJXbZjlQ0/3Pf5pd1l4VmkPw5ZjjBIG4LlVcarb95WngvKr5TT1wk7BX8Mf/vfTYrXvGjvn58VdKdhlmSf+B9LCB9BDOwjf8b6eaDzkECwkhBs69y/0u9tvs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790171138; c=relaxed/simple;
-	bh=pRkiTAC2G8aBEOjf8f5ZCU7GlO+mB3s5SEVhscg/uEM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nHxeM1FFRmrjEeUqwLFV9uz3nl8XSs1M6/gnOqQsUK6hZWF1dA9FTqzNo4MoXirqGzSdwkPn4XciRf4RZSvykDNCmTMo3FyYfSWRDr/ErC4jtMFPyLFqPghtUybiaNX/5EV1Unf1WAHcKn8379WfGfp6Xk0WohBK9aqqjLzYajs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Rh6W0k6z; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708435349D2
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790171150; cv=none; b=s80ClOFoxZfc6vk+vC/j7r3mjpVE9wjp5y5Q/XM5Kh8tk/BFixaixCphY5r/YpwiUzryXA3cqqS+5BqCLnfO/ycaJdkJg6E3r3yVtCSkkQLpSpozVnagfBwXFptzbLzT69GF9xNIhMa1WMep105Zzdp7ETbJduSdze45qlFeEJI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790171150; c=relaxed/simple;
+	bh=hAUIAJP2KyIPOrXkm/QtyPmhhjrZyPRauTKH3tyreRE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BkMzRWsUr5TLJxAmM4kapmPLEf7WuNi/usuGmaSSe3HpVKlzlRoN35f1P59El/8K3NYmeF21nLDjJWE8+GiuR2B4BLtPJlSlasTrY2gule7gwgwiVYE3dV3vciDRjhyWpF+11LTjI7fPP1du7qByAbS/fd7WEkSoI9hFVYMgRfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NHhZfGyt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f+6D2VkL; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Rh6W0k6z"
-Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7EB6D201A8D;
-	Wed, 23 Sep 2026 15:45:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790171129;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6rr9w3URUQ0TGCGXkjnhXsYr1YK45zhyOjaHeo1XL4A=;
-	b=Rh6W0k6z5YYwWHyIJnFeR9zs3MVh6KtQEiZYhVnmp/Xwj00hLnVpwsdLQAorsvpV6iCznq
-	78nKdqXp7qdAbVVvwb6qy3PCz0nG8x2vgRk1YLOZXk0zxVk6F549LScD5hmj72LD1rEH2H
-	ZllXUhrxY2B7J+T8JivAaEBlsDmQQW2FUnniMeXT9Xp8X7AuXZkCStObt4BjcNbcZyjk3p
-	GNz54f2lSTHT9Q0tU1yqwmIuz+thHIABukz7e13X3v44NcMI18aUhtGI3lT6KNeoyWpe09
-	ImoDPVtfLPjJo0GxhtvckADRSnLeGZXg48YWYJrJmoINok16WQ5GEHJsUKuTHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790171129;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6rr9w3URUQ0TGCGXkjnhXsYr1YK45zhyOjaHeo1XL4A=;
-	b=XBWKIYCDBcIFU5WTfsSV4vI+1ezibVH+Zay7y9CHGdIDsoqxSFhtzyelJYT26k+MPDpzWS
-	cauD3o4SHeePe6+/RSJDdG/aSbKHiHghWikXvaHtKERYANl7lLl9uvcuSYhRN1RqOOAw1i
-	x/lwc/ngAJoHYkE6Y1AaJKkdLMWGGWX9VyZLKVGhim1YmdDkBG+/jq9RBB4ns0oV+0zH+l
-	25js9qIs8Zc0sjDJyae02Pjosx/Ew5KL6jtA8ANrWyRMuEoWycphQKPm7jfPZbZF3cY7DA
-	O6UImxSH882Oi48XlCAvZNcCTd88Kmh1S0BAB1sTalHtvPafqxCudig2uorh/w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790171129; a=rsa-sha256;
-	cv=none;
-	b=ZtJSQLT+HPXqekhCgKmK7dlsOIBzYFUeM6/KCgTslJAhRcxW4smuVuvZG1+IK9XovhJHJ6
-	iGnMRFlQXiqXbcLai5/oWjK5xcyoroL1qpNk1takoMGLauIKevpGbvzSWK/WlROSwhlP4r
-	NUE3CNOu8LLxsQsNTxSbibxs9pJRBxpd5jiKMEBNB3ihpZdtnASDvh/K68TcXql+K8yZPa
-	jv4bX7ZHdbu+mjF2M7CalrCOdVI2bGKe3VEDwFP/nl8Lm4Uiz1k4Ilmf4xhVlUziu9K273
-	PtYJCIY4Dlmlc8lkZfS0vRQaua4ftOJTxmRru/TJwD350qC3NZnD9y62MZ1ezA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Wed, 23 Sep 2026 15:44:48 +0200
-Subject: [PATCH 9/9] media: synopsys: hdmirx: get the 5V state from the
- upstream subdev
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NHhZfGyt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f+6D2VkL"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NDM6QA3842962
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:45:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bvAW3yceqnT6AttFLk4NW8DsgIwVtqPiNNE7x4zTQZg=; b=NHhZfGytzmWFyCsj
+	Zbq1+A+FQqTZC64KnzfYTjTVPG4qQ2PppdfaDev7x8JA0PLgl8xEusRGtaUk2Jnu
+	dktSsj6AkBdohfO4tO1sewfq6TnnSSJAfWsSJiulrAuLH1YzPMPiVH1eN1YzL+gr
+	rXl5tjJO3b9ESRI7PcAkNumaqBIipyJqWDIi7+ikcMskQZRd0A3wRk2DfxasF1it
+	2mcq9TNtRWWuNicMFsLObGoyuSiP7WGMx9NrG7MnL3ooMu+9W0VVVhVHfTo5swQf
+	RGt6T1OymuOg3EfZA02+riv6lxDfUWyRTWk+mzOgJ+2ZyLA7Gl/eBGkdBvnXp9gg
+	Mxdl+Q==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfkbg347-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:45:47 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7a57ef025a3so61522137.2
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:45:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790171147; x=1790775947; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bvAW3yceqnT6AttFLk4NW8DsgIwVtqPiNNE7x4zTQZg=;
+        b=f+6D2VkL/jknXjInW6WrpzfdBaBovpXfNFUQXbMlJWkhAi3tEEnadw+Uo6PZwLeEux
+         Ic7a76SpTnD/qQ+gkheRvYfEsuhy731zBL5baFjGzqrw/OhFN2i2CvEBtwZQKP7H0TFw
+         3H+xRsjXr1AAIOmTU7xG1JVuehZXfWIEmHG1R5rJOQM3ctVFurJT0NoY/8NPKYvVJCd6
+         S9EQHxakCvgZGiWVLZi3670LNRTS/1h0VloKPq4urOnC4ZfViSr2MhNLc9thR+G9n0S5
+         j8bMbMxoPDJkvPM0O2CFfOaPMezsXFKNo7/RNP8ZWzzvOB7yzwjrz4tk+tifU56peaB8
+         0Acw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790171147; x=1790775947;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bvAW3yceqnT6AttFLk4NW8DsgIwVtqPiNNE7x4zTQZg=;
+        b=ecMPp0gRWD+PvSMK8Rc+K8iNUCWnMow4ArOeXbAae2hNAKTWULM4JDdj4+1BfAKoiD
+         B/JbjfSX1KGojZtlbz3TV2plWVsN17bO62mnpcbpLOhYq8llje6YZ51EYvYkRkUXD0QC
+         w4jvoDA4f4ezCwsRlaIFLO0PziDl71t9hJtXhz8cTVjPIEUgPbiAXNfeaWjvBObEv9dU
+         t3BcKcyQfrQrvVIU5bykvWnHl0UJjKEh6phnBbY9HDrH3LA7lV4inAAFRgut6ky1LmPJ
+         xMCQfLpkAjEwZqPWKZMYka8DF8rXnPMslg9o0WSN9VRTVVkNTISWhhGEHNsPHQX0Q587
+         yqdg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2TR4QlyV8LhGGZ3pI5ErnRiNWoNyVrWCTt67T/VmX2R775PtT/c7poW+VNYK1a/SCsDPPvGozdVb8@vger.kernel.org
+X-Gm-Message-State: AFuF++njGh1RcI2pRd6kb21LVwrNVH8a3oeZjA2Jd1o9XBJJMaPfjD/7
+	fO73HzbrJnvqGV/FXBUvPM8oIW/+JJzxKeWNbEsup2mQGQJyG8s8fWCsdq6OJaZnSb/HcQAv4D+
+	jsyJRDDV3tWKF8KwwnQRrFBup8b3pPJBYPnZDoLsKAW/1lNOYeWqzKgF/C3XgEZ6m
+X-Gm-Gg: AYBFou1e+M93rVKdueY3Yxlpk+aLhgjpFqzPerr7Ie0fCbiUQ3lV4uNOF3WDY0dMfde
+	OXunXQBIGNrRkpEi9nQPDqQLYgsOnxl2P/71xf0dF+ebas6GPFFZP1IefTsi75cb9TRnCaPZrz7
+	5mUmyAR3CwPR86YeTcPqHqlARXP54wLUU/V/GKGXnHaQkE1ApP1wcUucYniypW9O6a0DjU7BHyl
+	zqq/19x1Eq/Pz3qzOhE+TDTP/u5p13qru1Ul/3lmdCVlyjy3u+4Y1sDQDpfASKmS+xOdMFCtQL2
+	dke08eszqbMsgd5/YC8xD/BkPb9AHPPOPj/aWrAYcWkvOf0qNwZScRuckHP1uDuko8eEY6nkxaV
+	q7rcwOPyE7jRhFU8s3XcM7A==
+X-Received: by 2002:a05:6102:5121:b0:7a7:326b:688d with SMTP id ada2fe7eead31-7ac1c454b57mr2548250137.2.1790171146472;
+        Wed, 23 Sep 2026 06:45:46 -0700 (PDT)
+X-Received: by 2002:a05:6102:5121:b0:7a7:326b:688d with SMTP id ada2fe7eead31-7ac1c454b57mr2548220137.2.1790171145961;
+        Wed, 23 Sep 2026 06:45:45 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab37478c9sm1722267a12.0.2026.09.23.06.45.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 06:45:44 -0700 (PDT)
+Message-ID: <32bceb7e-d06b-4537-9d34-91bfe27f4ff7@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 15:45:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-hdmirx-media-v1-9-ea3d77d4a5f3@pengutronix.de>
-References: <20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de>
-In-Reply-To: <20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Gerald Loacker <gerald.loacker@wolfvision.net>, 
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790171091; l=10805;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=WWCYpRiNYOounjsFxLI57fqzPdh5k5Xh1Z5Ea/U8Xck=;
- b=QXrlwe+E0uXhrCBjE+ikCsJ2wAyGoElfHb5xSAuzXpG25JPeeqj0JXmLhbUYF6RblIPCLxb6H
- SImkePSoz9+B5AEv63uvPhXT0WLgdpnlXtQy9K+BiZRggzRfQC0KC7B
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 06/16] usb: hub: Associate port@ fwnode with USB port
+ device
+To: wens@kernel.org
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Daniel Scally <djrscally@gmail.com>,
+        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Matthias Brugger
+ <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+        linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Alan Stern <stern@rowland.harvard.edu>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+References: <20260721065413.2306137-1-wenst@chromium.org>
+ <20260721065413.2306137-7-wenst@chromium.org>
+ <c6526ba0-be08-46c6-a501-1b161939657c@oss.qualcomm.com>
+ <CAGb2v66c8L20yNNmvj6TaQbS7LnqAyuv0tMQfj+0PSjMUcSByA@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CAGb2v66c8L20yNNmvj6TaQbS7LnqAyuv0tMQfj+0PSjMUcSByA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1NCBTYWx0ZWRfXy61b8ZdgHAxS
+ dVdFiSNXYmRMxfPCXgVWAIdXUK6wA6gYkfMZb4BZVcfT+86oE5Pwji1Qad+uvFefRlY41Mu+19m
+ 3us1V4OlVkRZkFX0nqcVZlyeU9l5NHQ=
+X-Proofpoint-GUID: uVtS0HidMXwevE-rSFB2UDiiF-gG63uo
+X-Authority-Analysis: v=2.4 cv=RYMFmFtv c=1 sm=1 tr=0 ts=6ab3d80b cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=M7ONEjnSaIfHBpTaVFwA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1NCBTYWx0ZWRfX7G7WgOQoDnVj
+ IrwEZdRlfana/lBr2mTrm6kzS3wCQIKpcnl351Ib0wZFwkMlYY9S0uYdNlEJQ61gpOZWvTvt3mP
+ lGliA3sFo9UhFEAEPo69LOW6bx/xRRr0aLRAmnWILcskbG3y27JHrTkZCEIC7247LrY+X65Er9F
+ LyfPlSdBBjmwe3AIaLVxjJfyWyVD8oVtLKupNGYAG0O3zvgc1wMjPkr7duZjbVQ0hbeWkdB4can
+ ph8Snp9MoqQpGMQIKpd5LibcBm1jOKuxbnvlv7Ewen8BzCkgHslurilG23CFjLJIszs021NOzF8
+ DDh99khnRkpNA35/sj6FSfxInSY51wylMBJWmmUKKBFOL/0ijR0sNljpNYp0h9qXd4ZF381abis
+ 4Xt9vSOka8q1mEppHA5B64nQIwLAWU9+VrLxLqNPdq9M7x1SapZzmq21h8Shqlcp5J96kfAxExt
+ gvs7niqFt5s1rinDRPg==
+X-Proofpoint-ORIG-GUID: uVtS0HidMXwevE-rSFB2UDiiF-gG63uo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230054
 
-From: Gerald Loacker <gerald.loacker@wolfvision.net>
+On 9/4/26 12:30 PM, Chen-Yu Tsai wrote:
+> (dug this out of my kernel.org email)
+> 
+> On Fri, Jul 31, 2026 at 10:44 PM Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> wrote:
+>>
+>> On 7/21/26 8:54 AM, Chen-Yu Tsai wrote:
+>>> When a USB hub port is connected to a connector in a firmware node
+>>> graph, the port itself has a node in the graph.
 
-On a board whose HDMI connector belongs to a device in front of this
-receiver, the connector's +5V line goes to that device and hpd-gpios is
-absent. tx_5v_power_present() then reads a NULL descriptor, which
-gpiod_get_value_cansleep() reports as zero, so the receiver never sees a
-source and hdmirx_plugin() never runs.
+[...]
 
-Have the device in front tell us. Once it is bound through our async
-notifier its sd->v4l2_dev is ours, so v4l2_subdev_notify() lands in the
-callback installed here, and V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT stands
-in for the 5V interrupt this board does not have. Remember what arrives
-in source_5v, which tx_5v_power_present() returns when there is no GPIO
-of our own, so everything else carries on unchanged and no pointer into
-the other device is kept.
+>> But something I faced when I was poking at USB4 was that dt-bindings
+>> currently assume every controller is effectively single-port and the
+>> of_graph ports under it represent HS/SS lanes, i.e. the entire
+>> "ports" subnode represents a single USB port
+> 
+> Which controller is this? AFAIK for xHCI hosts there currently is no
+> "ports" node specified in the common usb-hcd.yaml binding. I plan to
+> add this separately, as it can already be used for USB A connectors.
 
-A notification is an edge, so it says nothing about a source that was
-connected all along. Ask g_input_status() once at bind and take
-V4L2_IN_ST_NO_POWER as the answer. A subdev without that op is bound
-anyway: a receiver that sees no source beats one that refuses to probe.
+DWC3, the qcom flavor specifically (qcom,snps-dwc3)
 
-Without a det_irq there is nothing to disable_irq() across the cancel in
-hdmirx_disable_irq(), so a notification can arm the hotplug work right
-afterwards - including from hdmirx_suspend(), on its way to gating the
-clocks. Gate both workers on hotplug_on under work_lock instead. It
-starts clear, which also keeps them off the hardware during probe, where
-hdmirx_fwnode_bound() can arm the work well before the EDID is written.
+> The kernel maps every downstream port of the root hub to a separate
+> node. On the XHCI it is more complicated because it has two root hubs,
+> one for HS and one for SS. I'm not familiar with the hardware specifics
+> but they seem to map into one common namespace, so you probably get
+> ports 1~8 for HS and then 9~12 for SS. Note the number of ports is
+> different. This is just an example from my x86 workstation. And on
+> x86 each port is mapped to a different ACPI node.
+> 
+>> I think the solution here would be to do ports {} under the controller
+>> and have every one of them have 2 endpoints (for HS and SS
+>> respectively) - then, each DT-port would correspond to a USB port
+>> (sorta like in the hub case, minus the hubs are split for HS/SS so
+>> they have just a single endpoint under each port)
+> 
+> But the hardware descriptors actually give two ports, one for HS and one
+> for SS. And in the case of dwc3, I suspect that they always come with
+> one downstream HS port and (optionally) one downstream SS port. So the
+> binding is actually correct, except for the numbering.
 
-The flag is not enough on the way out. The worker still has to reach
-work_lock to read it, and hdmirx_fwnode_unbind() arms the work once more
-from inside v4l2_async_nf_unregister(), after hdmirx_disable_irq() has
-already cancelled it. hdmirx_dev is devm allocated, so by the time the
-worker runs it can be gone. Cancel the work again once the notifier is
-unregistered, in hdmirx_remove() and in the probe error path.
+Ohh yeah I overlooked the HS/SS port split.. I think you're right!
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 121 ++++++++++++++++++++-
- 1 file changed, 118 insertions(+), 3 deletions(-)
+> I'm looking into the dwc3 case. Changing the numbering might actually
+> not break anything. Linux seems to just need one *a* graph connection,
+> but doesn't care about the number. I looked through some other projects:
+> 
+> - FreeBSD doesn't use the OF graph for anything
+> - U-boot doesn't use the OF graph for USB
+> - OpenBSD doesn't support dwc3, only the XHCI in dwc3, and doesn't use the
+>   OF graph for USB
+> - coreboot doesn't use the OF graph for anything
+> - Zephyr doesn't support dwc3
+> - TF-A doesn't use the OF graph for anything
+> - EDK2 doesn't support dwc3 and doesn't support OF graph
+> - OP-TEE doesn't support dwc3 and doesn't support OF graph
+> 
+>> But that comes with a big breakage, as always..
+> 
+> As I mentioned, it probably isn't as large of a breakage.
 
-diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-index 23b4dd853be57..43d7857b4458b 100644
---- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-+++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-@@ -142,6 +142,7 @@ struct snps_hdmirx_dev {
- 	struct mutex phy_rw_lock; /* to protect phy r/w configuration */
- 	struct mutex stream_lock; /* to lock video stream capture */
- 	struct mutex work_lock; /* to lock the critical section of hotplug event */
-+	bool hotplug_on; /* under work_lock: the hardware is up, workers may run */
- 	struct reset_control_bulk_data resets[HDMIRX_NUM_RST];
- 	struct clk_bulk_data *clks;
- 	struct regmap *grf;
-@@ -160,6 +161,7 @@ struct snps_hdmirx_dev {
- 	bool hpd_trigger_level_high;
- 	bool tmds_clk_ratio;
- 	bool plugged;
-+	bool source_5v; /* 5V as last reported by the subdev in front of us */
- 	int num_clks;
- 	u32 edid_blocks_written;
- 	u32 cur_fmt_fourcc;
-@@ -237,6 +239,15 @@ static bool tx_5v_power_present(struct snps_hdmirx_dev *hdmirx_dev)
- 	int val, i, cnt = 0;
- 	bool ret;
- 
-+	/*
-+	 * Without a GPIO of our own the connector belongs to the subdev in
-+	 * front of us and there is no line here to sample, so sampling is
-+	 * reading back what that subdev last told us. Nothing to debounce:
-+	 * it did that on its side of the connector.
-+	 */
-+	if (!hdmirx_dev->detect_5v_gpio)
-+		return READ_ONCE(hdmirx_dev->source_5v);
-+
- 	for (i = 0; i < 10; i++) {
- 		usleep_range(1000, 1100);
- 		val = gpiod_get_value_cansleep(hdmirx_dev->detect_5v_gpio);
-@@ -2227,6 +2238,11 @@ static void hdmirx_delayed_work_hotplug(struct work_struct *work)
- 				  delayed_work_hotplug.work);
- 
- 	mutex_lock(&hdmirx_dev->work_lock);
-+	if (!hdmirx_dev->hotplug_on) {
-+		mutex_unlock(&hdmirx_dev->work_lock);
-+		return;
-+	}
-+
- 	plugin = tx_5v_power_present(hdmirx_dev);
- 	v4l2_ctrl_s_ctrl(hdmirx_dev->detect_tx_5v_ctrl, plugin);
- 	v4l2_dbg(1, debug, &hdmirx_dev->v4l2_dev, "%s: plugin:%d\n",
-@@ -2249,6 +2265,11 @@ static void hdmirx_delayed_work_res_change(struct work_struct *work)
- 				  delayed_work_res_change.work);
- 
- 	mutex_lock(&hdmirx_dev->work_lock);
-+	if (!hdmirx_dev->hotplug_on) {
-+		mutex_unlock(&hdmirx_dev->work_lock);
-+		return;
-+	}
-+
- 	plugin = tx_5v_power_present(hdmirx_dev);
- 	v4l2_dbg(1, debug, &hdmirx_dev->v4l2_dev, "%s: plugin:%d\n",
- 		 __func__, plugin);
-@@ -2272,17 +2293,39 @@ static void hdmirx_delayed_work_res_change(struct work_struct *work)
- 	mutex_unlock(&hdmirx_dev->work_lock);
- }
- 
--static irqreturn_t hdmirx_5v_det_irq_handler(int irq, void *dev_id)
-+/*
-+ * A 5V edge. Neither source of one says more than "look again": the
-+ * hotplug worker samples tx_5v_power_present() and acts on what it finds.
-+ */
-+static void hdmirx_5v_edge(struct snps_hdmirx_dev *hdmirx_dev)
- {
--	struct snps_hdmirx_dev *hdmirx_dev = dev_id;
--
- 	queue_delayed_work(system_dfl_wq,
- 			   &hdmirx_dev->delayed_work_hotplug,
- 			   msecs_to_jiffies(10));
-+}
-+
-+static irqreturn_t hdmirx_5v_det_irq_handler(int irq, void *dev_id)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev = dev_id;
-+
-+	hdmirx_5v_edge(hdmirx_dev);
- 
- 	return IRQ_HANDLED;
- }
- 
-+/*
-+ * The same edge from a subdev in front of us, on a board where the
-+ * connector is its and not ours. It has no line here to leave asserted for
-+ * the worker to sample, so remember what it saw on its side.
-+ */
-+static void hdmirx_5v_source_edge(struct snps_hdmirx_dev *hdmirx_dev,
-+				  bool present)
-+{
-+	WRITE_ONCE(hdmirx_dev->source_5v, present);
-+
-+	hdmirx_5v_edge(hdmirx_dev);
-+}
-+
- static const struct hdmirx_cec_ops hdmirx_cec_ops = {
- 	.write = hdmirx_writel,
- 	.read = hdmirx_readl,
-@@ -2525,6 +2568,17 @@ static void hdmirx_disable_irq(struct device *dev)
- {
- 	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
- 
-+	/*
-+	 * Disabling det_irq is what stops the work being armed again, but
-+	 * there is no det_irq when the 5V state comes from a subdev: it can
-+	 * notify us into hdmirx_5v_source_edge() right after the cancel
-+	 * below. Have the workers bail out instead. They take work_lock
-+	 * first thing, so anything queued from here on sees this.
-+	 */
-+	mutex_lock(&hdmirx_dev->work_lock);
-+	hdmirx_dev->hotplug_on = false;
-+	mutex_unlock(&hdmirx_dev->work_lock);
-+
- 	if (hdmirx_dev->det_irq > 0)
- 		disable_irq(hdmirx_dev->det_irq);
- 	disable_irq(hdmirx_dev->dma_irq);
-@@ -2538,6 +2592,15 @@ static void hdmirx_enable_irq(struct device *dev)
- {
- 	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
- 
-+	/*
-+	 * Also the first time the workers are let in: hdmirx_fwnode_bound()
-+	 * can arm the hotplug work from within hdmirx_probe(), well before
-+	 * the EDID is written and HDCP is registered.
-+	 */
-+	mutex_lock(&hdmirx_dev->work_lock);
-+	hdmirx_dev->hotplug_on = true;
-+	mutex_unlock(&hdmirx_dev->work_lock);
-+
- 	enable_irq(hdmirx_dev->hdmi_irq);
- 	enable_irq(hdmirx_dev->dma_irq);
- 	if (hdmirx_dev->det_irq > 0)
-@@ -2673,6 +2736,18 @@ static int hdmirx_register_cec(struct snps_hdmirx_dev *hdmirx_dev,
- 	return 0;
- }
- 
-+static void hdmirx_notify(struct v4l2_subdev *sd, unsigned int notification,
-+			  void *arg)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev =
-+		container_of(sd->v4l2_dev, struct snps_hdmirx_dev, v4l2_dev);
-+
-+	if (notification != V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT || !arg)
-+		return;
-+
-+	hdmirx_5v_source_edge(hdmirx_dev, !!*(unsigned int *)arg);
-+}
-+
- static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
- 			       struct v4l2_subdev *subdev,
- 			       struct v4l2_async_connection *asc)
-@@ -2680,6 +2755,7 @@ static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
- 	struct snps_hdmirx_dev *hdmirx_dev =
- 		container_of(notifier, struct snps_hdmirx_dev, notifier);
- 	int source_pad;
-+	u32 status;
- 	int ret;
- 
- 	source_pad = media_entity_get_fwnode_pad(&subdev->entity,
-@@ -2699,6 +2775,23 @@ static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
- 		return ret;
- 	}
- 
-+	if (hdmirx_dev->detect_5v_gpio)
-+		return 0;
-+
-+	/*
-+	 * Changes arrive through hdmirx_notify(). Ask once for the state a
-+	 * source connected before we bound is already in.
-+	 */
-+	ret = v4l2_subdev_call(subdev, video, g_input_status, &status);
-+	if (ret) {
-+		dev_err(hdmirx_dev->dev,
-+			"%s did not report the input status and there is no hpd-gpios, no source will be detected: %d\n",
-+			subdev->name, ret);
-+		return 0;
-+	}
-+
-+	hdmirx_5v_source_edge(hdmirx_dev, !(status & V4L2_IN_ST_NO_POWER));
-+
- 	return 0;
- }
- 
-@@ -2710,8 +2803,24 @@ static int hdmirx_fwnode_complete(struct v4l2_async_notifier *notifier)
- 	return v4l2_device_register_subdev_nodes(&hdmirx_dev->v4l2_dev);
- }
- 
-+static void hdmirx_fwnode_unbind(struct v4l2_async_notifier *notifier,
-+				 struct v4l2_subdev *subdev,
-+				 struct v4l2_async_connection *asc)
-+{
-+	struct snps_hdmirx_dev *hdmirx_dev =
-+		container_of(notifier, struct snps_hdmirx_dev, notifier);
-+
-+	/* With a GPIO of our own the connector is ours and stays put. */
-+	if (hdmirx_dev->detect_5v_gpio)
-+		return;
-+
-+	/* The source went with it. */
-+	hdmirx_5v_source_edge(hdmirx_dev, false);
-+}
-+
- static const struct v4l2_async_notifier_operations hdmirx_async_ops = {
- 	.bound = hdmirx_fwnode_bound,
-+	.unbind = hdmirx_fwnode_unbind,
- 	.complete = hdmirx_fwnode_complete,
- };
- 
-@@ -2806,6 +2915,7 @@ static int hdmirx_probe(struct platform_device *pdev)
- 		goto err_pm;
- 	}
- 	hdmirx_dev->v4l2_dev.ctrl_handler = hdl;
-+	hdmirx_dev->v4l2_dev.notify = hdmirx_notify;
- 
- 	ret = v4l2_device_register(dev, &hdmirx_dev->v4l2_dev);
- 	if (ret < 0) {
-@@ -2890,6 +3000,8 @@ static int hdmirx_probe(struct platform_device *pdev)
- 	v4l2_async_nf_unregister(&hdmirx_dev->notifier);
- err_cleanup_notifier:
- 	v4l2_async_nf_cleanup(&hdmirx_dev->notifier);
-+	/* Binding and unbinding both arm the hotplug work. */
-+	cancel_delayed_work_sync(&hdmirx_dev->delayed_work_hotplug);
- err_unreg_media:
- 	media_device_unregister(&hdmirx_dev->mdev);
- err_unreg_video_dev:
-@@ -2926,6 +3038,9 @@ static void hdmirx_remove(struct platform_device *pdev)
- 	v4l2_async_nf_unregister(&hdmirx_dev->notifier);
- 	v4l2_async_nf_cleanup(&hdmirx_dev->notifier);
- 
-+	/* The unbind above arms the hotplug work again. */
-+	cancel_delayed_work_sync(&hdmirx_dev->delayed_work_hotplug);
-+
- 	media_device_unregister(&hdmirx_dev->mdev);
- 
- 	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
+That's very welcome for a change! Thanks for checking all of them.
 
--- 
-2.47.3
-
+Konrad
