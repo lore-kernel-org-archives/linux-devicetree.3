@@ -1,150 +1,260 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CAA842E8E7;
-	Wed, 23 Sep 2026 18:52:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8AD370ACC;
+	Wed, 23 Sep 2026 18:52:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790189531; cv=none; b=cJFyWwqqtwG4NKPKGqfnqbX8Rhebvot3a8SUKeNQB0lrh/9eDYhe89R+Y/ocbc3I4mcrv1eya61O+WBBXa6ZCSzhov5s9O4pYG5EVRun5xFAbQDv/S0ngBuP3n8CWm1Fj+x4erp2HNrGMTOGxiCTqPr6EUpwlfFxzFgkEm0pR3c=
+	t=1790189566; cv=none; b=q5uL/oz7hlRzyoaymffAdE2HzQzmyiioS0H6qPylkUBOvOG9Ymsh9qfuUtielOEl33umKRzMAvtoaOS1vM6S72LDWFjafOps2kZuRQ2qAkqNnV9rCGm+jII22GLJ+CFQJJBND8pSmeFQYj8CEwBvERqZoiOQbGxYTl42jdfBC94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790189531; c=relaxed/simple;
-	bh=6Qo8uTLadgrZHdY65RdBwFUAHv4bDSt4+zmTomFjHCw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NRH6R8zYqKShgI2mnkVNJJjATbTq5P34TPcuA0z3hosSPkw6ZYPTASODcrhx1vxTq6da/bmqvZEXMFPz2itvboP1pCFZkbdGCp5NscJMGlR6N8iLLqy25ITCLDE7uxB0r6TOev5b6usGdAEu8uACZvRXnA+yQ+ZsXhDXn9KtqR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUUy5GFQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790189566; c=relaxed/simple;
+	bh=35ME+KHJOJ3T8ySbGO9/Y3YfVXa1Z21Xuo8ylMXkhZQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=cvY/c6XG5ITN+wA0CXIMHOrzYHbl1bkFdFa8gI8ecfdCh6rMJOTSraxp9t85V2ZekMJZwSIz2BwgNXU2Gj1PeGm0zTCKO24aO4k1UD6vRwD/rN5SxkbN8NLuYLqeWcsPruVmNICRqFUdKo9m5cV/yoZPWfM2umEPyVS044XpTxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jbuBunoJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUUy5GFQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA591F000FF;
-	Wed, 23 Sep 2026 18:52:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jbuBunoJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71B3E1F000FF;
+	Wed, 23 Sep 2026 18:52:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790189526;
-	bh=chmdkwQd0+nnuPqpAVU9Y+H0Mqwv1oJEeuWMgfLWtYw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cUUy5GFQGaQK9FX6iLMUAnKvOgyhCdujJXUtaD4/1NT7A3/tK5+2pkOWbtqUcNYEy
-	 nI3FsA95OBYuy3TodJF5tnJo8v+rKIjhRgu/Xjw7Zi41JGFWP+fhJ5+/CHwfTXIneF
-	 L5V7SfJ2Z/JuEsLgFZwmESPWGs7n4zXQdiyIAuilr23GgUIvroaxcSyRL9V3hCbDoF
-	 yn1JoH3NQGj1w979Yk95nrXg85a2WUKIB5ny60GaFpTvXEG5m5PhkptPS2YOl+sQ6z
-	 KXSkcep8orF/httvLhotttuqYmsBDUtlaaZNuWHhY47kL4PYeAwtecvRz/jtfw0wpW
-	 pib1PoMZoVBjA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpmsg"
- subnode support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shenwei Wang" <shenwei.wang@oss.nxp.com>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260923184255.299034-3-shenwei.wang@oss.nxp.com>
-References: <20260923184255.299034-1-shenwei.wang@oss.nxp.com>
- <20260923184255.299034-3-shenwei.wang@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 18:52:06 +0000
-Message-Id: <20260923185206.7CA591F000FF@smtp.kernel.org>
+	s=k20260515; t=1790189563;
+	bh=lOM8/aFV+DNUfDB5GGjCMMOwWBC4e3sAZlhqh2z2aWM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=jbuBunoJmVgwv+WcbdhUYrhuqtSXAfK18ezP6A+r7MRnBawfYesVrBbjVJ7UATTar
+	 mV6Pgll2l7t1XYLdOdCRAR6t124trAo10dPsiuv9YpX0Tw+GOesFNrHOR4M4tcu1SG
+	 7KFHBhbuz7/p3YeIGNuQ964hOAS66BVrE6bGiiMEvYhotzjy181aGPAVZ80hBZnZhr
+	 drLa5whp8WEtC7md9abZ4ZN1Hk8rv5TI9/1KjeUM1vqYMT0b9cYutheFWD2MDU1fJn
+	 blYz63Wq5oI/9ESwS8Lguxl490cVAjAj2alKOxgxL4YLtZ1O+iB9foB/bBOlnYprqH
+	 KAfK1Heb0NCJQ==
+Date: Wed, 23 Sep 2026 13:52:42 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Alex Elder <elder@riscstar.com>,
+	Daniel Thompson <daniel@riscstar.com>,
+	Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v5 2/5] gpio: tc9563: Add support for the embedded GPIO
+ controller
+Message-ID: <20260923185242.GA1909536@bhelgaas>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-pci-tc9563-aux-v5-2-c9b33f56c8d3@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: architecture and commit message mismatch
---
+On Wed, Sep 09, 2026 at 04:55:54PM +0200, Lorenzo Bianconi wrote:
+> From: Alex Elder <elder@riscstar.com>
+> 
+> Add a driver for the GPIO controller embedded in the Toshiba TC9563
+> PCIe switch (and the Qualcomm QPS615). The device implements 35
+> GPIOs using two register banks: three registers control the first 32
+> GPIOs (20 and 21 are reserved) and three more control GPIOs 32-36.
+> GPIOs 22-24, 27-28, 31, and 34 are input-only.
 
-commit a7843220c66c7f04da43c050fb047567ab9e7e53
-Author: Shenwei Wang <shenwei.wang@nxp.com>
+Patch [1/5] and a comment below mention 37 GPIOs, this mentions 35.
+Are they supposed to match?  Maybe 35 doesn't include the two reserved
+ones?
 
-dt-bindings: remoteproc: imx_rproc: Add "rpmsg" subnode support
-
-Remote processors may announce multiple GPIO controllers over an RPMSG
-channel. These GPIO controllers may require corresponding device tree
-nodes, especially when acting as providers, to supply phandles for their
-consumers.
-
->     Define an RPMSG node to work as a container for a group of RPMSG chan=
-nels
->     under the imx_rproc node. Each subnode within "rpmsg" represents an
->     individual RPMSG channel. The name of each subnode corresponds to the
->     channel name as defined by the remote processor.
->    =20
->     All remote devices associated with a given channel are defined as chi=
-ld
->     nodes under the corresponding channel node.
-
-[Severity: Medium]
-Does this description match the implemented schema?
-
-The commit message explicitly claims a 3-level device tree hierarchy where =
-the
-channel node name strictly matches the remote processor's channel name, and
-remote devices are defined as child nodes under the channel.
-
-However, the schema implements a 2-level hierarchy where the remote device =
-is a
-direct child of the rpmsg node, uses standard DT unit addresses instead of
-RPMSG channel names, and explicitly forbids child nodes.
-
-> diff --git a/Documentation/devicetree/bindings/gpio/gpio-rpmsg.yaml b/Doc=
-umentation/devicetree/bindings/gpio/gpio-rpmsg.yaml
+> The driver is registered as an auxiliary device driver. The TC9563
+> power controller creates the auxiliary device and provides a regmap
+> that gives access to the GPIO registers, so the gpio-regmap helpers
+> are used to implement the GPIO chip.
+> 
+> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Co-developed-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> ---
+>  drivers/gpio/Kconfig            | 11 +++++
+>  drivers/gpio/Makefile           |  1 +
+>  drivers/gpio/gpio-tc9563.c      | 99 +++++++++++++++++++++++++++++++++++++++++
+>  include/linux/soc/qcom/tc9563.h | 16 +++++++
+>  4 files changed, 127 insertions(+)
+> 
+> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+> index a48586bb8edb..2179eaffcc48 100644
+> --- a/drivers/gpio/Kconfig
+> +++ b/drivers/gpio/Kconfig
+> @@ -1830,6 +1830,17 @@ config GPIO_LTC4283
+>  
+>  endmenu
+>  
+> +config GPIO_TC9563
+> +	tristate "Toshiba TC9563 GPIO support"
+> +	default m if ARCH_QCOM
+> +	select AUXILIARY_BUS
+> +	select GPIO_REGMAP
+> +	help
+> +	  This enables support for the GPIO controller embedded in the Toshiba
+> +	  TC9563 (and Qualcomm QPS615).  This device connects to the host
+> +	  via PCIe port, which is the upstream port on an internal PCIe
+> +	  switch.
+> +
+>  menu "PCI GPIO expanders"
+>  	depends on PCI
+>  
+> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+> index dc9e6d643b5b..792faa2668c9 100644
+> --- a/drivers/gpio/Makefile
+> +++ b/drivers/gpio/Makefile
+> @@ -182,6 +182,7 @@ obj-$(CONFIG_GPIO_SYSCON)		+= gpio-syscon.o
+>  obj-$(CONFIG_GPIO_TANGIER)		+= gpio-tangier.o
+>  obj-$(CONFIG_GPIO_TB10X)		+= gpio-tb10x.o
+>  obj-$(CONFIG_GPIO_TC3589X)		+= gpio-tc3589x.o
+> +obj-$(CONFIG_GPIO_TC9563)		+= gpio-tc9563.o
+>  obj-$(CONFIG_GPIO_TEGRA186)		+= gpio-tegra186.o
+>  obj-$(CONFIG_GPIO_TEGRA)		+= gpio-tegra.o
+>  obj-$(CONFIG_GPIO_THUNDERX)		+= gpio-thunderx.o
+> diff --git a/drivers/gpio/gpio-tc9563.c b/drivers/gpio/gpio-tc9563.c
 > new file mode 100644
-> index 0000000000000..41eb2e1499429
+> index 000000000000..68c20c8cba79
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/gpio/gpio-rpmsg.yaml
-
-[ ... ]
-
-> +allOf:
-> +  - $ref: /schemas/gpio/gpio.yaml#
+> +++ b/drivers/gpio/gpio-tc9563.c
+> @@ -0,0 +1,99 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
+> + */
 > +
-> +unevaluatedProperties: false
-
-[Severity: Medium]
-Does this explicitly prevent the addition of remote devices as child nodes?
-
-The lack of child node definitions combined with unevaluatedProperties: fal=
-se
-breaks the design described in the commit message where remote devices are
-defined as child nodes.
-
-> diff --git a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.y=
-aml b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
-> index c18f71b648890..5c82255b92a50 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
-
-[ ... ]
-
-> @@ -88,6 +88,29 @@ properties:
->        This property is to specify the resource id of the remote processo=
-r in SoC
->        which supports SCFW
-> =20
-> +  rpmsg:
-> +    type: object
-> +    additionalProperties: false
-> +    description:
-> +      Represents the RPMSG bus between Linux and the remote system. Cont=
-ains
-> +      a group of RPMSG devices running on the bus.
-> +    properties:
-> +      '#address-cells':
-> +        const: 1
+> +/*
+> + * The Toshiba TC9563 implements a PCIe Gen 3 switch that connects an
+> + * upstream x4 port to two downstream PCIe x2 ports. It incorporates
+> + * an internal endpoint on a internal PCIe port that implements two
+> + * Synopsys XGMAC Ethernet interfaces.
+> + *
+> + * 37 GPIOs are also implemented by an embedded GPIO controller.  Three
+> + * registers control the first 32 GPIOs (other than 20 and 21, which are
+> + * reserved). Three other registers control GPIOs 32 through 36. GPIOs
+> + * 22-24, 27-28, 31, and 34 are treated as "input only".
+> + *
+> + */
 > +
-> +      '#size-cells':
-> +        const: 0
+> +#include <linux/auxiliary_bus.h>
+> +#include <linux/gpio/driver.h>
+> +#include <linux/gpio/regmap.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+> +#include <linux/soc/qcom/tc9563.h>
 > +
-> +    patternProperties:
-> +      "^gpio@[0-9a-f]+$":
-> +        type: object
-> +        $ref: /schemas/gpio/gpio-rpmsg.yaml#
-> +        unevaluatedProperties: false
-
-[Severity: Medium]
-Does this enforce GPIO controllers as direct children of the rpmsg node?
-
-By using standard DT unit addresses like gpio@0 directly under the rpmsg
-node, this contradicts the claimed 3-level hierarchy and literal
-channel-naming convention described in the commit message.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923184255.2990=
-34-1-shenwei.wang@oss.nxp.com?part=3D2
+> +/*
+> + * There are two sets of registers, each representing (up to) 32 GPIOs with a
+> + * stride of 4 bytes (IN1 is 4 bytes past IN0, EN1 is 4 bytes past EN0, etc.).
+> + */
+> +#define TC9563_GPIO_COUNT		37
+> +#define TC9563_GPIO_PER_REG		32
+> +#define TC9563_GPIO_REG_STRIDE		4
+> +
+> +static int tc9563_gpio_init_valid_mask(struct gpio_chip *gc,
+> +				       unsigned long *valid_mask,
+> +				       unsigned int ngpios)
+> +{
+> +	/* GPIOs 20 and 21 are reserved */
+> +	bitmap_fill(valid_mask, ngpios);
+> +	bitmap_clear(valid_mask, 20, 2);
+> +
+> +	return 0;
+> +}
+> +
+> +static int tc9563_gpio_probe(struct auxiliary_device *adev,
+> +			     const struct auxiliary_device_id *id)
+> +{
+> +	struct gpio_regmap_config config = {
+> +		.parent = &adev->dev,
+> +		.ngpio = TC9563_GPIO_COUNT,
+> +		.reg_stride = TC9563_GPIO_REG_STRIDE,
+> +		.ngpio_per_reg = TC9563_GPIO_PER_REG,
+> +		.reg_dat_base = GPIO_REGMAP_ADDR(TC9563_GPIO_IN0_OFFSET),
+> +		.reg_set_base = GPIO_REGMAP_ADDR(TC9563_GPIO_OUT0_OFFSET),
+> +		.reg_dir_in_base = GPIO_REGMAP_ADDR(TC9563_GPIO_EN0_OFFSET),
+> +		.init_valid_mask = tc9563_gpio_init_valid_mask,
+> +	};
+> +	DECLARE_BITMAP(fixed_dir_mask, TC9563_GPIO_COUNT);
+> +	DECLARE_BITMAP(fixed_dir_out, TC9563_GPIO_COUNT);
+> +
+> +	config.regmap = dev_get_platdata(&adev->dev);
+> +	if (!config.regmap)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * Only some of our GPIOs are fixed direction:
+> +	 * 22, 23, 24, 27, 28, 31, and 34 are input-only.
+> +	 */
+> +	bitmap_zero(fixed_dir_mask, TC9563_GPIO_COUNT);
+> +	bitmap_set(fixed_dir_mask, 22, 3);
+> +	bitmap_set(fixed_dir_mask, 27, 2);
+> +	set_bit(31, fixed_dir_mask);
+> +	set_bit(34, fixed_dir_mask);
+> +	config.fixed_direction_mask = fixed_dir_mask;
+> +
+> +	bitmap_zero(fixed_dir_out, TC9563_GPIO_COUNT);
+> +	config.fixed_direction_output = fixed_dir_out;
+> +
+> +	return PTR_ERR_OR_ZERO(devm_gpio_regmap_register(&adev->dev, &config));
+> +};
+> +
+> +static const struct auxiliary_device_id tc9563_gpio_ids[] = {
+> +	{ "pci_pwrctrl_tc9563." TC9563_GPIO_DEV_NAME },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(auxiliary, tc9563_gpio_ids);
+> +
+> +static struct auxiliary_driver tc9563_gpio_driver = {
+> +	.name		= TC9563_GPIO_DEV_NAME,
+> +	.probe		= tc9563_gpio_probe,
+> +	.id_table	= tc9563_gpio_ids,
+> +};
+> +module_auxiliary_driver(tc9563_gpio_driver);
+> +
+> +MODULE_AUTHOR("Alex Elder <elder@riscstar.com>");
+> +MODULE_AUTHOR("Daniel Thompson <daniel@riscstar.com>");
+> +MODULE_AUTHOR("Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>");
+> +MODULE_DESCRIPTION("Toshiba TC9563 GPIO Driver");
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/linux/soc/qcom/tc9563.h b/include/linux/soc/qcom/tc9563.h
+> new file mode 100644
+> index 000000000000..0dfd25747b9a
+> --- /dev/null
+> +++ b/include/linux/soc/qcom/tc9563.h
+> @@ -0,0 +1,16 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
+> + * Author: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> + */
+> +
+> +#ifndef __QCOM_TC9563_H
+> +#define __QCOM_TC9563_H
+> +
+> +#define TC9563_GPIO_DEV_NAME	"tc9563-gpio"
+> +
+> +#define TC9563_GPIO_IN0_OFFSET		0x801200
+> +#define TC9563_GPIO_EN0_OFFSET		0x801208
+> +#define TC9563_GPIO_OUT0_OFFSET		0x801210
+> +
+> +#endif /* __QCOM_TC9563_H */
+> 
+> -- 
+> 2.55.0
+> 
