@@ -1,123 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C50147C0E6;
-	Wed, 23 Sep 2026 10:11:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8209447F770;
+	Wed, 23 Sep 2026 10:14:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158312; cv=none; b=Y17N2txACi8XpB+FVTm4jjyItTDUAbd+q6nYh0oquunOy445AcoC21deIIRD5P37p8JqnHNLbOIH9ky88HvSXz5VIVnxkt3w1IP95YIh8J9NloNoHkvYmDBHXaNOXzDoskBJ8LNlsEvhtmYreovam2uPvv1hdFxf6g3yqrx4Ll0=
+	t=1790158475; cv=none; b=I2ViEwUFFDFUvAitnyGtZCsv/6caEtNp6V4GAdr7/AcJTCGo7Dz14r0bpJekQPsMNn1TrsuMN+3PtZjldQSkMJJ0mbIg/R65DraiEOd8wRW5Xv7UnnQVZCqTwd3voMauHwWuIOwR4zPRY85HwQGiCalayQr8sP4ofSW8RV/r1Aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158312; c=relaxed/simple;
-	bh=tHmBpHwXmyrUocCjeB90xHJBo5pUu7l+/ZjvyWUDw4M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mps+e1X7UINAYd+9YaM3iU1SdgwgAajl6Jfsg0Z+yCsAkA7FiWsKIfZ0uHXIX6EvRfHwqYfOVj4k81l5Xh+e5032MDhurkbdSsrVs36pdQ4W7cu1ZmfkGPuAg3fP2AR8CnE+134fARBg339PZTFp2th4cbZ9oeZSgRnf+uZkJws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VuKt3nUv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790158475; c=relaxed/simple;
+	bh=/+Y0zscRScVGHGgCFfeLdVCzp54cLykI6O4Q82zd0eg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nunFHWhyl8JxcdagW01fCd4j/QJfCvehB7868Kx5FrEKr98lSl8ejAXWIiBi1YqidGbGld9kZtocG9Ju5DVKkiV3ixrw4TOgg/QlzNtGqsGllYA9Ti0Q2YjDcCuVTZEu7hx0bW8GmmUmhbD0LGwcTnccpNCS/+H/6/oBmLFUZZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8tDa/wW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VuKt3nUv"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5AF7F1F00893;
-	Wed, 23 Sep 2026 10:11:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8tDa/wW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DCD41F000FF;
+	Wed, 23 Sep 2026 10:14:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790158301;
-	bh=Lzwi0Mawi31RemVumzSqchu9DrI7b9hCSXz46KflOoA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VuKt3nUvlo/v/IzT+Tj47tvuL6nA4HV3Q7NBHHdCS/G6dVIGJM0CxYOYjHPdAOtaS
-	 +i/+FuwrpRzaq2oBfaxfyeApTyHcdp5v87ynMCNYRiGhMf7uLOZP1YwenSYSNYQq+s
-	 8X5GmDzrvjIA/Aj0uAYCVm7Foyz8wV1RBm+OelSBSSO9n+IYA6NLrqoh1dH8vOj8OH
-	 nO07S6eJ90f4pDGHhtHOFuMqIUiMOFhJJ65YhsNkWCmQFwSx1cfvOWsuulqZA/lbGe
-	 0JS9c3Q2tTA9Idu3LlClILtxjjSKSeeOxmUGgnpXVvOOYmfE2ZEez2exncC2AbhmVj
-	 8g5oWxnfs5hoA==
-Date: Wed, 23 Sep 2026 12:11:39 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Richard GENOUD <richard.genoud@bootlin.com>
-Cc: James Hilliard <james.hilliard1@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Maxime Ripard <mripard@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Paul Kocialkowski <paulk@sys-base.io>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>, bigunclemax@gmail.com, 
-	linux-clk@vger.kernel.org
-Subject: Re: [PATCH v8 2/4] pwm: sun8i: Add H616 PWM support
-Message-ID: <arOif-bN6JgLeWd3@monoceros>
-References: <20260804-h616-pwm-v8-v8-0-db37ab8624ae@gmail.com>
- <20260804-h616-pwm-v8-v8-2-db37ab8624ae@gmail.com>
- <arFMta6PPwmzSk86@monoceros>
- <CADvTj4r1sFjPko7G5DwrPUw9x1tPzQspJhCUmHSMtrudn7SXEQ@mail.gmail.com>
- <33e760ca-2bb4-4f1d-a736-7e74a97e60c4@bootlin.com>
- <CADvTj4rBUNF6EaKXbsy5t1cS0iakpWVdpQ5sQF2qLS4YyHM2aQ@mail.gmail.com>
- <58145d8f-dd16-4cc2-b2ea-d475462241ab@bootlin.com>
+	s=k20260515; t=1790158462;
+	bh=3gdSF/O138dnRSPNJCUqjM6K/O1uaucAa5FbPqgbSok=;
+	h=From:Subject:Date:To:Cc;
+	b=I8tDa/wWsCw5jIoiFWwux98tiDjO2/ZDHHO11aflFvsZ32ygo8gekVfdulrgkI31j
+	 B1E7bfYoWfHmZZYag0ugylccGp6zDxqCC7Mzw7GJwm9Oju7F/gSFCfxmkEwUvoN5SO
+	 WyCm6lcd8oz6EN6TSi8MY1miWe06jxzP0OqMrsRBucP69r73+onfaZJ7Hn+gkPZd77
+	 tbhXRrR4yjvBP92IkNciqKVoqX2XK1jo4Hp2W3pT5wm+vpd9fYpE/iRimHTfr+Q0RV
+	 wF6guOWyjxy1p2hg0ttZDNv9oqWoaRy0HSKy+urRIstkO6MiWE07UAuBS7/oKQ0slt
+	 SVEPQzIGtHO0A==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH v3 0/3] Asus Zenbook A16/A14 (UX3607OA/UX3407NA) EC driver
+Date: Wed, 23 Sep 2026 12:14:12 +0200
+Message-Id: <20260923-topic-asus_ec-v3-0-2bf3bb9da879@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fd6ngstaj7r33ymy"
-Content-Disposition: inline
-In-Reply-To: <58145d8f-dd16-4cc2-b2ea-d475462241ab@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQ6CMBAF4KuYri3pD1Bw5T2MMaUdpUYodoBoC
+ He34MYY3UzykjffmwhCcIBkt5lIgNGh820McrshptbtBaizMRPBRM5KrmjvO2eoxgFPYCjLM5W
+ npSpAKRJ/ugBn91i9w/GdcaiuYPoFWRq1w96H5zo48qX3zx45ZVQqmfHcylRp2HvE5D7om/FNk
+ 8RDlolRfCBCfCMiIqyypZCWV0UmfyDzPL8AwSTz1ggBAAA=
+X-Change-ID: 20260917-topic-asus_ec-065764978e77
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790158456; l=2735;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=/+Y0zscRScVGHGgCFfeLdVCzp54cLykI6O4Q82zd0eg=;
+ b=ZLg98IBBdt7/M9E28I+7TraB7uHsQ/TH/dcDr91U4uMS0dM9U6yJZQHbGszYu3O9oLecSAcLp
+ QOAd6NeLOQiAn50QZbEkbcwmYH50RVC6t/kLqJzycvTtzehkU1575yK
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
+The Snapdragon X2 series-based Zenbooks come with a bespoke embedded
+controller firmware, bearing some resemblence to the reference Qualcomm
+implementation (qcom-hamoa-ec.c), albeit with too many changes made to
+consider them anywhere near "compatible".
 
---fd6ngstaj7r33ymy
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v8 2/4] pwm: sun8i: Add H616 PWM support
-MIME-Version: 1.0
+This series introduces a new driver to let the user retrieve current
+RPM of the two fans, the temperature readouts from 2 temperature
+sensors and get/let keyboard brightness levels. The driver also
+notifies the EC of system suspend entry/exit.
 
-On Wed, Sep 23, 2026 at 09:16:28AM +0200, Richard GENOUD wrote:
-> Le 22/09/2026 =E0 17:46, James Hilliard a =E9crit=A0:
-> > The resolution tradeoff is real, but the waveform API currently specifi=
-es
-> > the ordering: choose the largest period not exceeding the request, then
-> > the largest compatible duty length not exceeding the request, then the
-> > offset. That's the ordering implemented in v9.
->
-> The ordering stated by pwm_round_waveform_might_sleep() documentation is
-> period_length_ns, duty_length_ns and then duty_offset_ns, but what about
-> duty steps?
-> It's not stated in there because it's not a user input, but still, it's a
-> quite important value for a pulse width *modulator*.
+Two separate compatibles are maintained since the two laptops' ECs seem
+to be generally alike, however assuming full compatibility with the
+limited available information does not spark confidence.
 
-=46rom my POV as someone who cares about many PWM lowlevel drivers, it
-would be ideal if there would be a generic function that only relies on
-conforming and ideally simple lowlevel drivers and work out a good
-period that makes the required amount of duty steps available.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v3:
+- Cover Ilpo's feedback: includes, braces, dev_info->dev_dbg, line
+  wrapping, reuse the timeout logic
+- Pick up tags
+- Reabse on next-20260922 (NOP)
+- Link to v2: https://patch.msgid.link/20260922-topic-asus_ec-v2-0-0bd923d1b853@oss.qualcomm.com
 
-When I designed the requirements for the round-to-hw function I had in
-mind that it should be possible to find the next higher possible period
-for a given lower bound (and that works, only lacks implementation).
-Working out a period that has finegrained duty steps is harder but
-doable:
+Changes in v2:
+- Add rationale for separate compatibles
+- Drop `wakeup-source` from `required` in dt-bindings
+- Fix bindings example indentation
+- Rebase on next-20260921 (NOP)
+- Link to v1: https://patch.msgid.link/20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com
 
-But something like that should work:
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Hans de Goede <hansg@kernel.org>
+To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: Guenter Roeck <linux@roeck-us.net>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: platform-driver-x86@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
 
- - Pick a period P
- - P*, D*, _ =3D round_to_hw(period=3DP, duty_cycle=3DP-1, duty_offset=3D0)
- - Either take P* - D* as a measure for the finegrainedness, or continue
-   to research available steps using round_to_hw(period=3DP*,
-   duty_cycle=3DP*-1, duty_offset=3D0)
- - If there are too little steps pick a different P and retry.
+---
+Konrad Dybcio (3):
+      dt-bindings: embedded-controller: Add ASUS Zenbook A16 EC
+      platform: arm64: Add a driver for the EC found on ASUS Glymur machines
+      arm64: dts: qcom: glymur-zenbook-a16: Add Embedded Controller
 
-Best regards
-Uwe
+ .../asus,zenbook-a16-ux3607oa-ec.yaml              |  64 +++
+ .../dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts  |  15 +-
+ drivers/platform/arm64/Kconfig                     |  16 +
+ drivers/platform/arm64/Makefile                    |   1 +
+ drivers/platform/arm64/asus-glymur-ec.c            | 600 +++++++++++++++++++++
+ 5 files changed, 694 insertions(+), 2 deletions(-)
+---
+base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
+change-id: 20260917-topic-asus_ec-065764978e77
 
---fd6ngstaj7r33ymy
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqzpdkACgkQj4D7WH0S
-/k7BfQgAr7KMuPAtN/IKDLW/9x3RqwTMy0tlPrFOQzqERY7t/kxB0cw+TGg3fkiZ
-oInOoNbriO+IGxdXHfBaVdmzS3XSF/EnOW4xETeqEsIqjRLnB14+38m9iF8Spi7t
-/2lHC5ceG7fFfdLEI96+DUY179JZ83zzy5JgLWXXs6uQNrY+Lo7+ApQDip3IeV9m
-apd+gqxBpPvAoytV6ffgVSga/pffZArLfoKStB0PfeNKFi5S07gBSL1FzCjd82c9
-hLWzLR5dA3gtIGDOOVH1SOOrgcElqzIYbaHed30mEy4W62fifUEHexz0oe9VzbqV
-JR5xSciGikOWhpchtrzM0b8rIfy4bQ==
-=LEUc
------END PGP SIGNATURE-----
-
---fd6ngstaj7r33ymy--
