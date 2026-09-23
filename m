@@ -1,80 +1,82 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C136576EB9
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 20:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A986246D0B6
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 20:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790195002; cv=none; b=U3G35bFSPQej+5Ept+MHtSjbn3/t34yeyu8UENNnooSFVJ5588QkCsHb1SL778zenFOf2qSZwnkCN2M1KQewjWBsvBzPfLFnb5mO2EXsc0bHq6QuxgliVGqoDmZj4haEAGx+x0rYaxCeydlJ23lw/U462mYT6jfP7xs2I8BXhu4=
+	t=1790195002; cv=none; b=fuSLmHA1iKRmCdEEmnzrf973Otf9cMkqbbmCGdmQ+OeZM3zt2rQ4oSoMYdMu6OYCGv/2F0vD3oBMcXQLd4Cz+Jb6iyWqlQ6WA1hoSuDwIX2Qu3pshtyKeBOtQOvZONCtbuHahAA1z/PFcftKS/8Ir8USd3FQ/N1ZlccgXa8pDd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790195002; c=relaxed/simple;
-	bh=ctaMtyihF0ajmk4Gl6vHmDSDBA1iaCLst8FkJRBGR68=;
+	bh=HqfZG9G5ZIenBJJAaY9rfjLXNR0FjaP1nUhMOUSdumE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gPhGWsTUYXbvUFdpdkfhl0U1XT2hX/EzEnvavh30D/BuO+RgBHPJ7i4XbCu/ULetiMTuIP7kj38f0F9xJO47mnV/3edEARQcpUkOVo1v+bD1V8GC4aajkdMZ2acRpZ6eLUFdztxfJSCQ2RKPALbB7w2NMEUhPXR8X2IG4eYr194=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bS8ukALG; arc=none smtp.client-ip=74.125.228.171
+	 MIME-Version; b=qqCOfpOYnh5qkVs53giVNiyw1iFQ/Pd+PMwDs81dbnNVSHIiSIoKMI11GhtUU66usBVPzH+DvByOnm27XT4XobXIEY19gNlZma/2c5e1sOLHUSWsnQ9BBOUyOjsxE9cO1MtP3ZzUkii68uliRvHrGpVDls6eSvJGCdwdFAKrb58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H+7yDiyi; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bS8ukALG"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a4fbc5586so204317966b.2
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:23:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H+7yDiyi"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f5603a0so200422966b.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:23:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790194994; x=1790799794; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790194992; x=1790799792; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OBwIwOCuc7HMhoKI+9bOx8aeWrQw+h7eCYLVVq2oCws=;
-        b=bS8ukALG3SfDdyd1TBiRO4+2EfQ3bzN50RCGOgMS2U7GK+X5wEsBOc7dVs6efryK8W
-         7arvgI6tVTJUi/EaBJnrwkIXzFY+2L6bGuv9cFhTkoQYF71LCHyisoM1siJjNmw4QcmP
-         GqPMOZQnik4aVW6BrN7CTb8GcsUreAtLlL35CN1SfjbeHCeGeDIraIfS9PedV8R8Y0dU
-         cttXw20957n+oF3r3P4N4VyD1pmMH4Pqypk/rIoP0Pqu+WT2P+yWLcy9XUtCam+Yc0UE
-         mVc89w+GcjNIQh6iReajeFqyW41gL3syfD1CRoNi23p7FM7RqQfgne4wrsTMN72pP/Bt
-         pTBA==
+        bh=gSdVTPRqn06pkAsO84XJHQb2v3v0xthABnxiNhSpNuo=;
+        b=H+7yDiyimWvAj4n0Uv32CAQtUJ9aYA0/YgwNR964k+YIw4nhYUG2w0qDxu3/NBxElC
+         IrZeN6OeC0x7KihzqwPnH/7laZxSSrmc6IvM7yUvq6KZYe1c+2rHQaNyti+xDnjAnNk/
+         +IGemOM7RsJ45awkWLOEZiChQjXvRyHHw9TtnLR2OqM+oEPKD1vGwOkwnO7EU1sqiQDj
+         sjN6KIFFIy+Dcf2F5zY2Pz3zB1QcH5KrXSWRfFSMyF4+mMXgNdiWBjQj0wywTa3kRuoK
+         DtEdGQKoHMOvy3sOSJFI4V2yB2ZodEpjqL3sEgLDrTGAF5pEK1T3ySrzJqFxMDJh8Htp
+         GA7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790194994; x=1790799794;
+        d=1e100.net; s=20260707; t=1790194992; x=1790799792;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OBwIwOCuc7HMhoKI+9bOx8aeWrQw+h7eCYLVVq2oCws=;
-        b=a/iZTSC7luzXLEzzLlRfmjtE0zi6kzTDRYoVFKT/Q5jzCrExD3SUbt3ydxUUGnnHaZ
-         qvpI1QPcLQ2JmW32FJsBeDLqib6KAiPg4CQXfFTiHnG5b2avQw3wJXae4k0v48lpkYJe
-         k5vZs1deycndt/4t0OxI+wqdVeT/FpOvt+RUfRh+vDjTghl4wFXFkfKnJJKFiyM2syeC
-         sdVTrPeBH8bMd7xINz74dgOIAk9B+OCe6MZ2OmnlcAAUaF6SDL+zv96oPfPiWd2mCgnG
-         SI08cevD8cY3c07ZJBpUNTWWLTbWpoOQma8kRZFQEXZGQuFDAbMDAq1XK7dQ06AfAe81
-         jtKA==
-X-Forwarded-Encrypted: i=1; AKwUvBziuI4Qjw7V7SmMSVg9gSw+4RJsIRaf0F9o8wlHoaS+R0gUSL1vd4DI3O5v8BIQMre4zEmIV9b6bADz@vger.kernel.org
-X-Gm-Message-State: AFuF++mRTuJJQQfB1fZVO/XXrRxPj4CAGh/78yJjibBQuOlBQdk8k9nC
-	crsTMz7eVUB1GSEQJaLE7uhNkyfbdIiGC3mL/cn6iwXWr2fjewH5fp7b
-X-Gm-Gg: AYBFou0QJ/dt/4X2jwsKqvvmT1NBdpHcq4wNhyfhFoO9hzkd6fhTZQ+HJas296y5SrZ
-	n+hPH9/iEdv8QeuWdM4Vu8MhKGC+p9cLCa80bLuRM/uveia9BO+d4hjqfnM8UR9I5MppOmirp3a
-	lZri+98DC5RoPxpNvEYHuGGHrm5lXHIrmoMIwcWFcvj2zk936zyE7eqJu9p/Z8UDDaajxKCRBx+
-	eozHp5CPnwUj5Zimc6UsMBdjEPNgXIq8vS+RdlbwiK7D9TVKJGngtvqBnbmkJMhg8yxXLaKzdDf
-	qbHlmWeFiGsU4X9gME4ne9W1FptKZu8za9Zij2wB+/qRqxUruy8lMZoVthXoaArcaGYNuEsOdRi
-	XpemSjGownAOaZhMrY18qf6QWMCZyc8sm5vYusXzpJOc6581xvxWFcpjcCs4u1CLX6+xVhSavEr
-	psyhPGUblaCwusoyvY4XGIXZXU0jygtQPcplim7enn+gMJjUdUsWFSqFVWzjq/MurqRWBP4bCq5
-	1rbkjUlWoHJ6VfHDiLjzeuTYv6bgOMFw3cEZdE9vlI=
-X-Received: by 2002:a17:907:7b89:b0:c25:2688:8212 with SMTP id a640c23a62f3a-c2ac1f0c09cmr29718266b.0.1790194993528;
-        Wed, 23 Sep 2026 13:23:13 -0700 (PDT)
+        bh=gSdVTPRqn06pkAsO84XJHQb2v3v0xthABnxiNhSpNuo=;
+        b=yQ65a/02w/23BqSoYVK8ANLWJsihczY4Rke5eVrOeVaudbrCROv/zWp+pTThffbZo3
+         pnJC7ZLgo9tC5Btf9FUx4dRmG8ghU2JljcS9uYrta1JqCkKRfeoW46Ot8D17+vm6hx/L
+         MvQHntZcG99VeK+0QGhRB0J7d4rK/8XvmASD1rqrOW2yABDa3jDdaYEeOkig74oaV+mi
+         z2fnCXtOCaXP36kiO5ZlbeTwJYWOTjgnF9d1ikVQY3VRSX3paE2VAwloyDWskBFr8KST
+         uVcBw/XigiYHd8kjUfAqvSYwULA9OnXowZncPRtKf2DT0eokppSPJzZcBf6QdOJlBSnG
+         YfQA==
+X-Forwarded-Encrypted: i=1; AKwUvByazg0l3109pEnvm/Isr3lSVvmXcN5p916+256aeBZ2wXy/wfXGttSCG6tG/kNjrIXsRpiwt1f9GuhU@vger.kernel.org
+X-Gm-Message-State: AFuF++mmnbrapZv73ZAf2glgujSuCSO65YrBTUKf7ETxsEJvbJLlNlL4
+	vOFUWarK2h4YpMMq0sW2ZFAhR1JzZ9iGDUEza+r/GTwb1Huj/NUj9wHj
+X-Gm-Gg: AYBFou270cVT6ATLWjmJO8yUsTWA3I1O2VgeI/pSJ4dizoJ4h+WHHC3UpDFroyx9dYO
+	pSKzM9NyAIzswl45jD8Y0mOMhZk7BLrWV8s3/dzOfaQJj1BRg9wIxVestjSymJbdmi8g0XVjUdT
+	FOY+rWEl2p+22fDC80TBw4wOP2Me/XpRko2N57zObi1VaJrT4A3aK1G41FXwe6NCg3aAUfTK42/
+	tStX3kYgaP+LCLrsYBovh0ed6j7GTKqR3oV3RsfVqD9R1/QEd1ByTBMExAAcIeA3eOvbEh/w/S4
+	mbQaaRmg63GuT4DW4/iw3D2iccD4HQ0VoL1aaMYzaQPn8qTrDgy0JJLP0dHhRDqvALTlGDOs0Nj
+	Tf8skK3MDCXSWmNWKF7owvUz6n6cS65MFdxZlmaRcp95Ea5PEC7BkJ6ZRhRvIGyWb1cC/BwbxsZ
+	ihFfUKZEA3aUlSKufTT2NC+MlhMQ/zrk9B6roe4Sy7K49h/fnTjKR6uRtrtrtBme4ami8liF6UU
+	rBqVB7fk3hGTqjtUs4tI7Hzb1oNvwu5
+X-Received: by 2002:a17:907:e8f:b0:c29:63f2:99bb with SMTP id a640c23a62f3a-c2ac26820b5mr19501766b.47.1790194991761;
+        Wed, 23 Sep 2026 13:23:11 -0700 (PDT)
 Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c8a44sm177243566b.20.2026.09.23.13.23.12
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c8a44sm177243566b.20.2026.09.23.13.23.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:23:13 -0700 (PDT)
+        Wed, 23 Sep 2026 13:23:11 -0700 (PDT)
 From: Pablo Mazzini <pmazzini@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Maxime Ripard <mripard@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
 	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
+	Samuel Holland <samuel@sholland.org>,
+	Thomas Gleixner <tglx@kernel.org>
 Cc: Pablo Mazzini <pmazzini@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	linux-sunxi@lists.linux.dev
-Subject: [PATCH v1 10/11] dt-bindings: arm: sunxi: add PocketBook Verse
-Date: Wed, 23 Sep 2026 21:17:00 +0100
-Message-ID: <20260923201701.43391-10-pmazzini@gmail.com>
+Subject: [PATCH v1 09/11] dt-bindings: interrupt-controller: add Allwinner B288 NMI
+Date: Wed, 23 Sep 2026 21:16:59 +0100
+Message-ID: <20260923201701.43391-9-pmazzini@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260923201701.43391-1-pmazzini@gmail.com>
 References: <20260923201701.43391-1-pmazzini@gmail.com>
@@ -86,29 +88,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A 6" e-book reader built around the Allwinner B288.
+Same register layout as the sun9i-a80 NMI, like the V3s.
 
 Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../interrupt-controller/allwinner,sun7i-a20-sc-nmi.yaml         | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
-index f04db28c630a..f66c681d3788 100644
---- a/Documentation/devicetree/bindings/arm/sunxi.yaml
-+++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
-@@ -811,6 +811,11 @@ properties:
-           - const: pocketbook,614-plus
-           - const: allwinner,sun5i-a13
- 
-+      - description: PocketBook Verse (PB629)
-+        items:
-+          - const: pocketbook,verse
-+          - const: allwinner,sun8i-b288
-+
-       - description: Point of View Protab2-IPS9
-         items:
-           - const: pov,protab2-ips9
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/allwinner,sun7i-a20-sc-nmi.yaml b/Documentation/devicetree/bindings/interrupt-controller/allwinner,sun7i-a20-sc-nmi.yaml
+index bb9273ec2457..179e7842bf46 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/allwinner,sun7i-a20-sc-nmi.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/allwinner,sun7i-a20-sc-nmi.yaml
+@@ -29,6 +29,7 @@ properties:
+       - const: allwinner,sun55i-a523-nmi
+       - items:
+           - enum:
++              - allwinner,sun8i-b288-nmi
+               - allwinner,sun8i-v3s-nmi
+               - allwinner,sun50i-a100-nmi
+               - allwinner,sun50i-h616-nmi
 -- 
 2.53.0
 
