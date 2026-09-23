@@ -1,91 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC77E41DEEC;
-	Wed, 23 Sep 2026 17:49:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881204218AA;
+	Wed, 23 Sep 2026 17:52:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790185742; cv=none; b=tcbJtUw6BXcqUPNEySWC8CCcXz7x3vqa3pma6I/Aso6BcVCk+Vqzq7akH0GIADNxuSgG6QGDVTDRwbSyZD9RZBky1+ktgQc6e7/7wJpXZYUgi79dVP1ij3nJYP09EFWsDooFnv1ZtQ4GD9fI0JmpHXyIcq44KjronAF/iMj/2DM=
+	t=1790185938; cv=none; b=ngWFER4ycvLI4Kg8Mq3TPO1PHditGtRAlRkTUgPI+HYu+g2XWPSn/RWWnpTE0yQ8Z22XKVg4R10Ld6o/1lRWLsWjS9W2lQz7Vj/5MIdcePfvtRPVvfc3h4P+PXRUsObiT59VBmIuF8AFwt9FJRWQvmtLyQQCwf6RivsOdKUkz2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790185742; c=relaxed/simple;
-	bh=tSCbXhwl4VF0SWxnMnzR581dMjQ6o4o9AB8+Ikgrm6s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=iNHxmEoxKa6OjdreQ61o5Y3L+W6D1WLbsgeDJaaG+jxbEcGaUxLokQfQm+KjfH9r07etWfAShFs5Ri7SRIw8gCnSwrJ5RDR1V4HwnNiUGPZRI3vuZ+IeZx7EVU+Je+ci+Ggoz4VpBiO2AlNCpAxt8NYHS4aAwhaiWGEOxhPkXPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cRSSQCjc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790185938; c=relaxed/simple;
+	bh=vn9zfnZmuYGEzgvgkmXDWwto2jGWEOP4GnicdM4ZwuI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=A065gdF+JsKBilkMM7/VbliiNeIYelg3X528SgR5cJAufpcrnsFo81XGcLtL4SeCndodMFXVhaFmqwJtoy4MZBdK87nmCZAMFF4sEHG5hABJaYip/PySeGOpfZCmqjiL5l/9GmDgiStWW4Tg1qv4FiCzrnEtqrLOBVaYhspr+SM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hMwmcQbL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cRSSQCjc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 555711F000FF;
-	Wed, 23 Sep 2026 17:48:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hMwmcQbL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199B71F000FF;
+	Wed, 23 Sep 2026 17:52:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790185741;
-	bh=N7ztw2cuF8oGka3HMYMMtFKCti3Pqq2Z3BAuO0pODYY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=cRSSQCjc+jHHhG7/iDEePs9C+n7lEq7xF5/Twv+s0bU5Xg47OSbszUI46rlvm3U+i
-	 iu9TXJAElClDcT4fqCmx5/oTgr8e81DjRAU/124F2WAdgsw42cmyykaGiAkfEmn9V0
-	 z9Ee+0/Sw9Mw0U1GirAlgRIYhK8CET+t7yNEYCos1YqZcCw9EOdDvmjlpy6KoeL9gR
-	 PaTG1TeKYXOw5iegtJ1naUzryKAGTHysmdb+zleD/H8VC6Y02qkdPpfFFKQCVoHNJd
-	 7h/xGQHfjhoL2apTmJUm6W1QMEsUIvQmvG0+W/jL7Pn90MxC7wfYPGAOehW997ayyx
-	 C2TgLA+8gPXSQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Svyatoslav Ryhel <clamor95@gmail.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260922212140.1118832-1-robh@kernel.org>
-References: <20260922212140.1118832-1-robh@kernel.org>
-Subject: Re: [PATCH] regulator: dt-bindings: Add MAX20024 sd4
-Message-Id: <179016471553.322763.2206433472163704923.b4-ty@b4>
-Date: Wed, 23 Sep 2026 13:58:35 +0200
+	s=k20260515; t=1790185932;
+	bh=vn9zfnZmuYGEzgvgkmXDWwto2jGWEOP4GnicdM4ZwuI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hMwmcQbLa4jY1PyNic/PdGruFZpkfNoGuPo/cYrqyu4HIq9mEAMFM5S6jmhHty+3r
+	 ya4/P+XFQ+b52qcMz2TiJiem25z+IHIbLP1A0AvckWaUuyAkkMwzmMTTP8If56O2m1
+	 DXfzJOzbgQWhLpol+4uclFObcfB4rQ/aLf29B2gx3OdOApS1CxBsARBL4spSGWNJ9t
+	 8C1U7caWm8WzDOs17Tfqy2ROL2ScPjfWuhBe0/phM0hwVt9QK8pzETY2fXIPkcuPKM
+	 pXYz7ZQzzxfBjsoLh+0C/hld4nAWtU6G5YQCYR7diz80lGi+KzcleJ/FnWzvEORRK/
+	 dN45c2P8+CxNw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] mfd: dt-bindings: ab8500: Describe codec graph and
+ microphone wiring
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: lee@kernel.org, conor+dt@kernel.org, robh@kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <20260923-ux500-simple-sound-v3-1-56a771c3ea28@kernel.org>
+References: <20260923-ux500-simple-sound-v3-1-56a771c3ea28@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 17:52:11 +0000
+Message-Id: <20260923175212.199B71F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1111; i=broonie@kernel.org;
- h=from:subject:message-id; bh=tSCbXhwl4VF0SWxnMnzR581dMjQ6o4o9AB8+Ikgrm6s=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtBEHj8Im+hkqjYq9VAqsykmK5H8tanE4LZF8P
- 4WMGCNTLZ+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarQRBwAKCRAk1otyXVSH
- 0E0IB/9Rrv3BCGZC5vKDBi1XggAPk7CX2x6tW2gIksr2H4EyhPDjXB3gyLbUeRm0mnFmJeqVsW0
- 0eKAEnjNhF9neAOnOLCRjmtI3Ih71k5Q761y/Wt5s071DDF/XFhXvdV+gjsYhNyg2Kmpv0a6T8A
- lpu0IZ1lnWh3LELOoflSl2/yM53i3k5Lcg1D7SORcQ4t/D5MXFZTC9HuQN//OtKt2tKrXchXOFu
- YKZAkfdh9iSDHj1s9ujdVa5olV1R0DiNe9BKqlrpYBp1LmpheFwv5NntaRMPEbsGI6v8UCyNjbc
- YMEUmKk2TmhQ4z5QoksHl3xu37NkdJJ5hBDwb127ikdelpYu
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 22 Sep 2026 16:21:39 -0500, Rob Herring (Arm) wrote:
-> regulator: dt-bindings: Add MAX20024 sd4
+> The AB8500 and AB8505 codec block exposes two digital audio
+> interfaces. Define the codec as a one-cell sound DAI provider and allow
+> it to expose both interfaces as audio graph ports.
+>=20
+> The codec binding conversion also omitted the analog microphone type
+> and bias-routing properties supported by the driver and documented by
+> the old text binding. Restore them so boards can describe the codec
+> wiring without schema warnings.
+>=20
+> Assisted-by: LLM
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
 
-Applied to
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
-
-Thanks!
-
-[1/1] regulator: dt-bindings: Add MAX20024 sd4
-      https://git.kernel.org/broonie/regulator/c/3944065c67f5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-ux500-simp=
+le-sound-v3-1-56a771c3ea28@kernel.org?part=3D1
 
