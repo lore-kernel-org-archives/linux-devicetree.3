@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C83D513569;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519FE514742;
 	Wed, 23 Sep 2026 12:05:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165125; cv=none; b=B6jjJs/m46keiogupbI+bbLVbGY3jEGK9ZMVglYL+UrzyjxHt8NiXt1KauujllpsXVG49GCsU7X2Op3N/8Vp+Gd52mqreEsUh/d0an2xMFBIHueUPHc8L8fFi4bB7A85fWSPJzvbg9jD5rlJBccZKctT6M+YM3S7EngACNU29aw=
+	t=1790165125; cv=none; b=fi/EfE7j2SMxxjKUF78JB+Qt8+batHcgFDnjTRj4IETm3BJXkkxA5z+fW2dlKvGoHzzArXXt7eI9I6u0/xNbxp2wYgecYztNErihj2ITvdTkCEY9/krIan/iKRDwgINNhd6I4OStzZLbmo3038oJaK0z531RdQZdF9f+mNnA9Pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790165125; c=relaxed/simple;
-	bh=V8EpBw6k67scWE9ppUReXHMdRE5KShJwjQSCU4ziemI=;
+	bh=Z6/Qk3n4xeJSYUtJybmaG4oCwMF/08rA0O1ozW4Hj7w=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cT/CMGL2c1EQnIfVzorxYFFsGl2p1PkcH8VEs73MFaKuexXfhkM6J2WGHra8sl5omyBpGlZAO4FgvkxSq0znqsPkmkt6zVP7Gjt3623jXRckaxLeE4WFk1IYw1HMFchMmYQx1tq0y2P/nQxSdSkwIkl0fknTeOkiTRa314bGHlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LlR4E/nf; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=JfmoJJqduEmkpMv9aufTA1NjvGav4zf7hBec3N6/dc5WbidRaKBQ9klXiPw+dV/xU/qzFrHRUc4vYgsxRo8U36izBSyQAJiNifxVi0xAVgvQcLhUeB2Xe9jOTXKrSEBQL4XNWTKhKPrZRuecPkr15CuoeHfITLFTnlarlPq4Jxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X9EvgTBR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LlR4E/nf"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7F617C32782;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X9EvgTBR"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2AB34C2BD01;
 	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790165121;
-	bh=V8EpBw6k67scWE9ppUReXHMdRE5KShJwjQSCU4ziemI=;
+	bh=Z6/Qk3n4xeJSYUtJybmaG4oCwMF/08rA0O1ozW4Hj7w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=LlR4E/nfchZUCMdSpV8rOxOIZp5F1Y6zZ/Y1xIDBA18/T3SZiSoUKhA3ylfUCWGkQ
-	 bM4G0L0GUvkWMPkV655WydwWUBbwuJs1ysSR/RfPUy1UHzREqy3UiFIiniAKKFNeik
-	 9w4etVnod5thmRgyZaIHP4zWWKZN6xz6Waa//7AsLh5p14h7QkY3D4NkEZrZLkAIfC
-	 tG56pqhzzeJcKgWTCkNWEM9MftM2tzlelkUjvcgUpAp9o0M9KOeFIVNiO0FmcnH52D
-	 COQquHD+gzX0dK1MHmsTmWVCG8mM0Ki4Tj+/cOG7kKf96lQ9ohseEwV2zLCz2dRJu3
-	 RdosGFyM1MtmQ==
+	b=X9EvgTBRr32+EqMMWUEaAppxkOL/OtnL6jsEUbj/VyY8+Tc+0XbfS1saS0AMHEpdf
+	 GgHMW6tyGlT8uDXLhk0q9e0CvcVGubQ5esdAB0Q6NOITJRfylwVbN4/kHkqAlt7HzL
+	 8hmgY8WX58VxanfE3mbp3bwcjYBkZ92EA9wYJpn+MkW/jMDVYHZJm/gBCeF+K33DJP
+	 f4CfvPPOUuGyixOmIySk+VyFKshIVJCull+lE2oQ+XlOSkcOlKtTmKvM1S+BgLB2sg
+	 4VnYkXRiDb8kZTivrTT8dB6vwUUnREidgvf4GYItNuAHRRyu/Pd5IyU16zMJ6vDzfd
+	 lsMXh/cs68lPw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E3A1C982FA;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17DAEC9830B;
 	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Wed, 23 Sep 2026 16:05:18 +0400
-Subject: [PATCH ath-next 12/16] wifi: ath11k: add hal regs for QCN6122
+Date: Wed, 23 Sep 2026 16:05:13 +0400
+Subject: [PATCH ath-next 07/16] wifi: ath11k: Register userPD interrupts
+ and SMEM entries
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-12-86729521a75c@outlook.com>
+Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-7-86729521a75c@outlook.com>
 References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 To: Johannes Berg <johannes@sipsolutions.net>, 
@@ -55,11 +56,11 @@ Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=4921;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=10055;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=BNVxrxCvphr2PbaY3QLCfMXAa89mIJNLaIy4fyfiBB0=;
- b=CyIsVjJsILDCihgmPBFEa8x1E/e4/uO3WqMYyXCmeOHB6ipTjw7ii0YjhmtSz2AbRWThG2u00
- w1VU9u3YWSKAgo/WYatWR/amSb/0pTU3ELNMKnl0l0J45jY/ye8TWgw
+ bh=7rpr5lypcGKAhre+UQc1WGPdhHabdKnP7DtLs3iPrPY=;
+ b=WiChA4t5yACxD/OYP58ovQZ3RNhOIJsQOeGFLG4BJ7b/MvgrZrJ7/bfR4SDpFU2J03zT61yif
+ sz/Egm+NbJhAjaD4q43JjOHAGrtB3OLTjEiKDmetlNA1HPo+nGnfUWQ
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -69,128 +70,324 @@ Reply-To: george.moussalem@outlook.com
 
 From: George Moussalem <george.moussalem@outlook.com>
 
-Add HAL changes required to support QCN6122. While offsets for QCN6122
-are similar to those of WCN6750, QCN6122 does not support shadow regs
-and the PCIE PCS/Serdes tuning register offsets do not apply to QCN6122.
-So add its own HAL register offsets.
+Q6 and the ath11k driver communicate using SMEM and IRQs.
+
+Spawn interrupt is triggered once the userPD thread is spawned.
+Ready interrupts denote that the userPD is completely powered up and
+ready. Stop-ack is to acknowledge the ath11k driver that userPD has
+stopped.
+
+The root PD sets the spawn and stop bits in SMEM upon boot which the
+ath11k driver reads to derive the userPD ID.
+
+Set the spawn bit in SMEM to instruct Q6 to spawn a userPD which brings
+up the radio. Similarly, the stop bit is set when a userPD needs to be
+stopped.
+
+Keep track of the userPDs that have been spawned and stopped in the
+global rproc_info structure to determine when the rootPD can be stopped.
+
+Move boot and shutdown of the root PD to probe and remove functions
+respectively. This is to ensure that the root PD is booted before any
+userPDs are spawned. For non-MPD platforms, the this move has no
+functional impact.
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- drivers/net/wireless/ath/ath11k/core.c |  1 +
- drivers/net/wireless/ath/ath11k/hw.c   | 75 ++++++++++++++++++++++++++++++++++
- drivers/net/wireless/ath/ath11k/hw.h   |  1 +
- 3 files changed, 77 insertions(+)
+ drivers/net/wireless/ath/ath11k/ahb.c | 176 ++++++++++++++++++++++++++++++++--
+ drivers/net/wireless/ath/ath11k/ahb.h |  25 +++++
+ 2 files changed, 191 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
-index 0a38db1ee175..cf37975fa4cf 100644
---- a/drivers/net/wireless/ath/ath11k/core.c
-+++ b/drivers/net/wireless/ath/ath11k/core.c
-@@ -949,6 +949,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 		.bdf_addr = 0x4D200000,
- 		.hw_ops = &ipq5018_ops,
- 		.internal_sleep_clock = false,
-+		.regs = &qcn6122_regs,
- 		.qmi_service_ins_id = ATH11K_QMI_WLFW_SERVICE_INS_ID_V01_QCN6122,
- 		.host_ce_config = ath11k_host_ce_config_qcn9074,
- 		.ce_count = CE_CNT_5018,
-diff --git a/drivers/net/wireless/ath/ath11k/hw.c b/drivers/net/wireless/ath/ath11k/hw.c
-index 93f9a03c48dc..8442fbeb9c58 100644
---- a/drivers/net/wireless/ath/ath11k/hw.c
-+++ b/drivers/net/wireless/ath/ath11k/hw.c
-@@ -2836,6 +2836,81 @@ const struct ath11k_hw_hal_params ath11k_hw_hal_params_ipq5018 = {
- 	.num_tx_rings = ARRAY_SIZE(ath11k_hw_tcl2wbm_rbm_map_ipq5018),
- };
+diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
+index 9fe2e112dfb8..25f9a992a7d2 100644
+--- a/drivers/net/wireless/ath/ath11k/ahb.c
++++ b/drivers/net/wireless/ath/ath11k/ahb.c
+@@ -22,6 +22,13 @@
+ #include <linux/soc/qcom/smem.h>
+ #include <linux/soc/qcom/smem_state.h>
  
-+const struct ath11k_hw_regs qcn6122_regs = {
-+	/* SW2TCL(x) R0 ring configuration address */
-+	.hal_tcl1_ring_base_lsb = 0x00000694,
-+	.hal_tcl1_ring_base_msb = 0x00000698,
-+	.hal_tcl1_ring_id = 0x0000069c,
-+	.hal_tcl1_ring_misc = 0x000006a4,
-+	.hal_tcl1_ring_tp_addr_lsb = 0x000006b0,
-+	.hal_tcl1_ring_tp_addr_msb = 0x000006b4,
-+	.hal_tcl1_ring_consumer_int_setup_ix0 = 0x000006c4,
-+	.hal_tcl1_ring_consumer_int_setup_ix1 = 0x000006c8,
-+	.hal_tcl1_ring_msi1_base_lsb = 0x000006dc,
-+	.hal_tcl1_ring_msi1_base_msb = 0x000006e0,
-+	.hal_tcl1_ring_msi1_data = 0x000006e4,
-+	.hal_tcl2_ring_base_lsb = 0x000006ec,
-+	.hal_tcl_ring_base_lsb = 0x0000079c,
-+
-+	/* TCL STATUS ring address */
-+	.hal_tcl_status_ring_base_lsb = 0x000008a4,
-+
-+	/* REO2SW(x) R0 ring configuration address */
-+	.hal_reo1_ring_base_lsb = 0x000001ec,
-+	.hal_reo1_ring_base_msb = 0x000001f0,
-+	.hal_reo1_ring_id = 0x000001f4,
-+	.hal_reo1_ring_misc = 0x000001fc,
-+	.hal_reo1_ring_hp_addr_lsb = 0x00000200,
-+	.hal_reo1_ring_hp_addr_msb = 0x00000204,
-+	.hal_reo1_ring_producer_int_setup = 0x00000210,
-+	.hal_reo1_ring_msi1_base_lsb = 0x00000234,
-+	.hal_reo1_ring_msi1_base_msb = 0x00000238,
-+	.hal_reo1_ring_msi1_data = 0x0000023c,
-+	.hal_reo2_ring_base_lsb = 0x00000244,
-+	.hal_reo1_aging_thresh_ix_0 = 0x00000564,
-+	.hal_reo1_aging_thresh_ix_1 = 0x00000568,
-+	.hal_reo1_aging_thresh_ix_2 = 0x0000056c,
-+	.hal_reo1_aging_thresh_ix_3 = 0x00000570,
-+
-+	/* REO2SW(x) R2 ring pointers (head/tail) address */
-+	.hal_reo1_ring_hp = 0x00003028,
-+	.hal_reo1_ring_tp = 0x0000302c,
-+	.hal_reo2_ring_hp = 0x00003030,
-+
-+	/* REO2TCL R0 ring configuration address */
-+	.hal_reo_tcl_ring_base_lsb = 0x000003fc,
-+	.hal_reo_tcl_ring_hp = 0x00003058,
-+
-+	/* SW2REO ring address */
-+	.hal_sw2reo_ring_base_lsb = 0x0000013c,
-+	.hal_sw2reo_ring_hp = 0x00003018,
-+
-+	/* REO CMD ring address */
-+	.hal_reo_cmd_ring_base_lsb = 0x000000e4,
-+	.hal_reo_cmd_ring_hp = 0x00003010,
-+
-+	/* REO status address */
-+	.hal_reo_status_ring_base_lsb = 0x00000504,
-+	.hal_reo_status_hp = 0x00003070,
-+
-+	/* WCSS relative address */
-+	.hal_seq_wcss_umac_ce0_src_reg = 0x01b80000,
-+	.hal_seq_wcss_umac_ce0_dst_reg = 0x01b81000,
-+	.hal_seq_wcss_umac_ce1_src_reg = 0x01b82000,
-+	.hal_seq_wcss_umac_ce1_dst_reg = 0x01b83000,
-+
-+	/* WBM Idle address */
-+	.hal_wbm_idle_link_ring_base_lsb = 0x00000874,
-+	.hal_wbm_idle_link_ring_misc = 0x00000884,
-+
-+	/* SW2WBM release address */
-+	.hal_wbm_release_ring_base_lsb = 0x000001ec,
-+
-+	/* WBM2SW release address */
-+	.hal_wbm0_release_ring_base_lsb = 0x00000924,
-+	.hal_wbm1_release_ring_base_lsb = 0x0000097c,
++#define ATH11K_UPD_IRQ_WRD_LEN  18
++static const char *const ath11k_userpd_irq[ATH11K_USERPD_MAX_IRQ] = {
++	"spawn",
++	"ready",
++	"stop-ack",
 +};
 +
- const struct ath11k_hw_hal_params ath11k_hw_hal_params_ipq8074 = {
- 	.rx_buf_rbm = HAL_RX_BUF_RBM_SW3_BM,
- 	.tcl2wbm_rbm_map = ath11k_hw_tcl2wbm_rbm_map_ipq8074,
-diff --git a/drivers/net/wireless/ath/ath11k/hw.h b/drivers/net/wireless/ath/ath11k/hw.h
-index 5a1100ceb895..d9646a491808 100644
---- a/drivers/net/wireless/ath/ath11k/hw.h
-+++ b/drivers/net/wireless/ath/ath11k/hw.h
-@@ -433,6 +433,7 @@ extern const struct ath11k_hw_regs qcn9074_regs;
- extern const struct ath11k_hw_regs wcn6855_regs;
- extern const struct ath11k_hw_regs wcn6750_regs;
- extern const struct ath11k_hw_regs ipq5018_regs;
-+extern const struct ath11k_hw_regs qcn6122_regs;
+ static const struct of_device_id ath11k_ahb_of_match[] = {
+ 	/* TODO: Should we change the compatible string to something similar
+ 	 * to one that ath10k uses?
+@@ -46,6 +53,15 @@ MODULE_DEVICE_TABLE(of, ath11k_ahb_of_match);
+ #define ATH11K_IRQ_CE0_OFFSET 4
  
- static inline const char *ath11k_bd_ie_type_str(enum ath11k_bd_ie_type type)
+ /*
++ * Multi-UserPD Architecture:
++ *
++ * One Q6 RootPD (managed by separate rproc driver) supports multiple
++ * ath12k UserPDs. Each UserPD represents a WiFi radio instance.
++ *
++ * Lifecycle:
++ *  - RootPD boots when first UserPD probes
++ *  - All UserPDs share RootPD's SSR notifier
++ *
+  * Global Driver-level Locking:
+  *  - ath11k_rproc_info_lock: Protects rproc_info allocation/free
+  */
+@@ -831,6 +847,126 @@ static const struct ath11k_hif_ops ath11k_ahb_hif_ops_wcn6750 = {
+ 	.ce_irq_disable = ath11k_pci_disable_ce_irqs_except_wake_irq,
+ };
+ 
++static int ath11k_ahb_init_userpd(struct ath11k_base *ab, int userpd_id)
++{
++	struct ath11k_ahb *ab_ahb = ath11k_ahb_priv(ab);
++
++	lockdep_assert_held(&ath11k_rproc_info_lock);
++
++	switch (ab->hw_rev) {
++	case ATH11K_HW_IPQ5018_HW10:
++		if (userpd_id != ATH11K_AHB_USERPD_ID_1)
++			return -EINVAL;
++
++		ab_ahb->userpd_id = userpd_id;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	g_rproc_info->userpd[userpd_id - 1] = ab_ahb;
++	g_rproc_info->num_userpd++;
++
++	return 0;
++}
++
++static irqreturn_t ath11k_userpd_irq_handler(int irq, void *data)
++{
++	struct ath11k_base *ab = data;
++	struct ath11k_ahb *ab_ahb = ath11k_ahb_priv(ab);
++
++	if (irq == ab_ahb->userpd_irq_num[ATH11K_USERPD_SPAWN_IRQ]) {
++		complete(&ab_ahb->userpd_spawned);
++	} else if (irq == ab_ahb->userpd_irq_num[ATH11K_USERPD_READY_IRQ]) {
++		complete(&ab_ahb->userpd_ready);
++	} else if (irq == ab_ahb->userpd_irq_num[ATH11K_USERPD_STOP_ACK_IRQ])	{
++		complete(&ab_ahb->userpd_stopped);
++	} else {
++		ath11k_err(ab, "Invalid userpd interrupt\n");
++		return IRQ_NONE;
++	}
++
++	return IRQ_HANDLED;
++}
++
++static void ath11k_ahb_cleanup_userpd(struct ath11k_base *ab)
++{
++	struct ath11k_ahb *ab_ahb = ath11k_ahb_priv(ab);
++	struct ath11k_ahb_rproc_info *rproc_info = ab_ahb->rproc_info;
++
++	lockdep_assert_held(&ath11k_rproc_info_lock);
++
++	if (!rproc_info)
++		return;
++
++	if (rproc_info && ab_ahb->userpd_id > 0 &&
++	    ab_ahb->userpd_id < ATH11K_AHB_USERPD_ID_MAX) {
++		rproc_info->userpd[ab_ahb->userpd_id - 1] = NULL;
++		rproc_info->num_userpd--;
++		ab_ahb->rproc_info = NULL;
++	}
++}
++
++static int ath11k_ahb_config_userpd_irq(struct ath11k_base *ab)
++{
++	struct ath11k_ahb *ab_ahb = ath11k_ahb_priv(ab);
++	char *upd_irq_name;
++	int userpd_id;
++	int i, ret;
++
++	ab_ahb->spawn_state = devm_qcom_smem_state_get(&ab->pdev->dev, "spawn",
++						       &ab_ahb->spawn_bit);
++	if (IS_ERR(ab_ahb->spawn_state))
++		return dev_err_probe(&ab->pdev->dev, PTR_ERR(ab_ahb->spawn_state),
++				     "Failed to acquire spawn state\n");
++
++	ab_ahb->stop_state = devm_qcom_smem_state_get(&ab->pdev->dev, "stop",
++						      &ab_ahb->stop_bit);
++	if (IS_ERR(ab_ahb->stop_state))
++		return dev_err_probe(&ab->pdev->dev, PTR_ERR(ab_ahb->stop_state),
++				     "Failed to acquire stop state\n");
++
++	mutex_lock(&ath11k_rproc_info_lock);
++
++	userpd_id = ab_ahb->spawn_bit / 8;
++	ret = ath11k_ahb_init_userpd(ab, userpd_id);
++	if (ret) {
++		mutex_unlock(&ath11k_rproc_info_lock);
++		return ret;
++	}
++
++	mutex_unlock(&ath11k_rproc_info_lock);
++
++	for (i = 0; i < ATH11K_USERPD_MAX_IRQ; i++) {
++		ab_ahb->userpd_irq_num[i] = platform_get_irq_byname_optional(ab->pdev,
++									     ath11k_userpd_irq[i]);
++		if (ab_ahb->userpd_irq_num[i] < 0)
++			return ab_ahb->userpd_irq_num[i];
++
++		upd_irq_name = devm_kzalloc(&ab->pdev->dev, ATH11K_UPD_IRQ_WRD_LEN,
++					    GFP_KERNEL);
++		if (!upd_irq_name)
++			return -ENOMEM;
++
++		scnprintf(upd_irq_name, ATH11K_UPD_IRQ_WRD_LEN, "UserPD%u-%s",
++			  ab_ahb->userpd_id, ath11k_userpd_irq[i]);
++		ret = devm_request_threaded_irq(&ab->pdev->dev, ab_ahb->userpd_irq_num[i],
++						NULL, ath11k_userpd_irq_handler,
++						IRQF_TRIGGER_RISING | IRQF_ONESHOT,
++						upd_irq_name, ab);
++		if (ret)
++			return dev_err_probe(&ab->pdev->dev, ret,
++					     "Request %s irq failed: %d\n",
++					     ath11k_userpd_irq[i], ret);
++	}
++
++	init_completion(&ab_ahb->userpd_spawned);
++	init_completion(&ab_ahb->userpd_ready);
++	init_completion(&ab_ahb->userpd_stopped);
++
++	return 0;
++}
++
+ static int ath11k_ahb_root_pd_state_notifier(struct notifier_block *nb,
+ 					     const unsigned long event, void *data)
  {
+@@ -1032,7 +1168,7 @@ static int ath11k_ahb_configure_rproc(struct ath11k_base *ab)
+ 	if (ret < 0) {
+ 		ret = dev_err_probe(&ab->pdev->dev, ret,
+ 				    "failed to register rproc notifier\n");
+-		goto err_put_rproc;
++		goto err_cleanup_userpd;
+ 	}
+ 
+ 	if (ab->hw_params.m3_fw_support &&
+@@ -1057,13 +1193,28 @@ static int ath11k_ahb_configure_rproc(struct ath11k_base *ab)
+ 
+ 	mutex_unlock(&ath11k_rproc_info_lock);
+ 
++	/*
++	 * UserPD interrupts are specific to multi-PD configs/firmware only.
++	 * If interrupts aren't found, continue execution for non-MPD platforms.
++	 */
++	ret = ath11k_ahb_config_userpd_irq(ab);
++	if (ret && ret != -EINVAL && ret != -ENXIO)
++		return dev_err_probe(&ab->pdev->dev, ret,
++				     "failed to configure userpd interrupts\n");
++
+ 	return 0;
+ 
+ err_unreg_notifier:
+ 	ath11k_ahb_unregister_rproc_notifier();
+ 
+-err_put_rproc:
+-	rproc_put(g_rproc_info->tgt_rproc);
++err_cleanup_userpd:
++	ath11k_ahb_cleanup_userpd(ab);
++	if (g_rproc_info && !g_rproc_info->num_userpd) {
++		rproc_put(g_rproc_info->tgt_rproc);
++		kfree(g_rproc_info);
++		g_rproc_info = NULL;
++	}
++
+ 	mutex_unlock(&ath11k_rproc_info_lock);
+ 	return ret;
+ }
+@@ -1078,15 +1229,19 @@ static void ath11k_ahb_deconfigure_rproc(struct ath11k_base *ab)
+ 
+ 	mutex_lock(&ath11k_rproc_info_lock);
+ 
+-	ath11k_ahb_unregister_rproc_notifier();
++	ath11k_ahb_cleanup_userpd(ab);
+ 
+-	if (g_rproc_info->root_pd_booted &&
+-	    g_rproc_info->tgt_rproc->state == RPROC_RUNNING)
+-		rproc_shutdown(g_rproc_info->tgt_rproc);
++	if (!g_rproc_info->num_userpd) {
++		ath11k_ahb_unregister_rproc_notifier();
+ 
+-	rproc_put(g_rproc_info->tgt_rproc);
+-	kfree(g_rproc_info);
+-	g_rproc_info = NULL;
++		if (g_rproc_info->root_pd_booted &&
++		    g_rproc_info->tgt_rproc->state == RPROC_RUNNING)
++			rproc_shutdown(g_rproc_info->tgt_rproc);
++
++		rproc_put(g_rproc_info->tgt_rproc);
++		kfree(g_rproc_info);
++		g_rproc_info = NULL;
++	}
+ 
+ 	mutex_unlock(&ath11k_rproc_info_lock);
+ }
+@@ -1429,6 +1584,7 @@ static int ath11k_ahb_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, ab);
+ 	ab_ahb = ath11k_ahb_priv(ab);
+ 	ab_ahb->ab = ab;
++	ab_ahb->userpd_id = 0;
+ 
+ 	ret = ath11k_pcic_register_pci_ops(ab, pci_ops);
+ 	if (ret) {
+diff --git a/drivers/net/wireless/ath/ath11k/ahb.h b/drivers/net/wireless/ath/ath11k/ahb.h
+index 033d6223494b..12e0c4d27a0c 100644
+--- a/drivers/net/wireless/ath/ath11k/ahb.h
++++ b/drivers/net/wireless/ath/ath11k/ahb.h
+@@ -19,6 +19,11 @@
+ #define ATH11K_ROOTPD_READY_TIMEOUT		(5 * HZ)
+ #define ATH11K_RPROC_AFTER_POWERUP		QCOM_SSR_AFTER_POWERUP
+ 
++enum ath11k_ahb_userpd_id {
++	ATH11K_AHB_USERPD_ID_1 = 1,
++	ATH11K_AHB_USERPD_ID_MAX,
++};
++
+ enum ath11k_ahb_smp2p_msg_id {
+ 	ATH11K_AHB_POWER_SAVE_ENTER = 1,
+ 	ATH11K_AHB_POWER_SAVE_EXIT,
+@@ -34,10 +39,20 @@ struct ath11k_ahb_rproc_info {
+ 	void *root_pd_notifier;
+ 	bool root_pd_booted;
+ 
++	u8 num_userpd;
++	struct ath11k_ahb *userpd[ATH11K_AHB_USERPD_ID_MAX];
++
+ 	/* Bitmap of loaded M3 firmwares indexed by hardware revision */
+ 	u32 m3_loaded;
+ };
+ 
++enum ath11k_ahb_userpd_irq {
++	ATH11K_USERPD_SPAWN_IRQ,
++	ATH11K_USERPD_READY_IRQ,
++	ATH11K_USERPD_STOP_ACK_IRQ,
++	ATH11K_USERPD_MAX_IRQ,
++};
++
+ struct ath11k_ahb {
+ 	struct ath11k_base *ab;
+ 	struct {
+@@ -55,6 +70,16 @@ struct ath11k_ahb {
+ 		struct qcom_smem_state *smem_state;
+ 	} smp2p_info;
+ 	struct ath11k_ahb_rproc_info *rproc_info;
++
++	struct qcom_smem_state *spawn_state;
++	struct qcom_smem_state *stop_state;
++	struct completion userpd_spawned;
++	struct completion userpd_ready;
++	struct completion userpd_stopped;
++	u32 userpd_id;
++	u32 spawn_bit;
++	u32 stop_bit;
++	int userpd_irq_num[ATH11K_USERPD_MAX_IRQ];
+ };
+ 
+ static inline struct ath11k_ahb *ath11k_ahb_priv(struct ath11k_base *ab)
 
 -- 
 2.53.0
