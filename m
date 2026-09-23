@@ -1,169 +1,136 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f16.google.com (mail-pj2-f16.google.com [74.125.227.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430EA35DA6E;
-	Wed, 23 Sep 2026 01:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AC3363C6A
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 01:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790127680; cv=none; b=ekp99Dw852dXzEuyDX2rw6zSMoU82bKYA2pTIoW24Vz504rwp/fRLqi9AGWdjtZLY7iGmCHticzw1zYI8AG8bHPPUS/P7rdyApIungeLMp56GA+bPTxNvp7Ryh1YQRcEqW5hZXh9ZDPPhD+ncMwU4EccZX/DYDd73mp2bq3gE9Q=
+	t=1790128196; cv=none; b=RVJl+RTOeQEE5yIBDxyc8QPkJ03nJyUQxlRnISaNrLxpwK3wl4D4BMiKAS4CIGKaOckOi3ERAuzhz5APlGUy5Snzx++m3yHhcjpEX2isKQQbwyIRJmD3IRCS/rxAgEVDsViA118WV/TreTDRU7ueXEd9GnyaPbDo+6CiQX+KI50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790127680; c=relaxed/simple;
-	bh=ktISumbwT0u/xbi8uoGNLbukjIGr3O0cQy0xASU8uHU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CWrW2Fxr+mbNOg0yqh2O1hG6pQTMj439kQzJ+ihGxgQgoHaXBKmYIx9MfHJ3offuBzBqUyFOrAjecB1zSOdJt/9aqd7JEOBxqf+O4UH4hdEPrlhlkVPdVgPZGQvjWeltZo6TuTjrnhqFtYX9aM6Bx6QNbOCfe/Oy4jQqi10qb58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=FMx9Y3IO; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790128196; c=relaxed/simple;
+	bh=sctJ8pRpBUC39phZYvLZAiXxKt0bFvx0/SjCeTNKZ9k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U97yG1eUlJ8ZK1VB/Rp0/aFn+xQzLBPESqv9kBQ+oajVraFCw5Al7XhSI7AmjubuyzPte4NXGtgdbOG1y/rcZVZXBEKSKvGIn4UiqM9CHixBX2tiKZTHo7StmJgF434U7rehBZIJuJTkSCizpgEpfQrDtMmipOAdrXw8YUAQZOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EuPsjtzK; arc=none smtp.client-ip=74.125.227.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="FMx9Y3IO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790127558;
-	bh=9a1MU2/CDQgQTTa7WOxBZit45Y2o1Lnsh9hi2FH1r94=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=FMx9Y3IOhlE3RQuT55vdtSKS6UG3B0ps8KAGbU/0rog7M6DO34WvcSbFWA7iOu1Ex
-	 P/b2TsERGPSHM16ybZ4zQX2jUfpz4sv370pONi20qOvtT1ggFvjcKvX4TGfBqlg3MQ
-	 uFuWJWfs3k8j/5gkzSNb9cVEIrgAJf+NN9u4pl5k=
-X-QQ-mid: esmtpsz16t1790127556td68b5a6b
-X-QQ-Originating-IP: is8yxHjnwoMn4IwMqRzIakXosdwaURxV7jhMysF5Vas=
-Received: from [127.0.0.1] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 23 Sep 2026 09:39:13 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 18217622928680533914
-Message-ID: <CE261C82D3A29A3C+1dca40d8-c022-4120-a3a3-a812a34cffef@linux.spacemit.com>
-Date: Wed, 23 Sep 2026 09:39:13 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EuPsjtzK"
+Received: by mail-pj2-f16.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso173810a91.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 18:49:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790128195; x=1790732995; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YnnWTyMk5d70Hpz57ZOyyh2guKXo+Z5k9pvOlpmwiYo=;
+        b=EuPsjtzK8C/LHSlXvnte0TsxppJHCT5214tDI0d58TlMySlXnQuNGjctLUOmCM49rN
+         4ZeXkCdRjGbsdgAnhmea1OlwF9Pdt5g9CfJORRb1bxhG1E/9LKbTPMeoSzHl4hdgMrlM
+         tgssyTFfLXou0AM08QKU6yp2Q3wPlF3tP6h/H25Et+2b1sARTFjBu0Pd2s/soV7gqDL1
+         wTjFJuv8Z7kOP1vR0m/gdZgy0Uvuji8hgQICGAo4eY0CMtlYvSHtapMMg5hQBj1di6XI
+         /NJGv0GC/0K2Mbr02+xLqxlF/TUMBsde/TqIFxaAeE21h8nqKe8RYHIB6kkthD6V7oCQ
+         Wlsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790128195; x=1790732995;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YnnWTyMk5d70Hpz57ZOyyh2guKXo+Z5k9pvOlpmwiYo=;
+        b=sOVTQkrRcH6lWup8yVbFieFvAmzPk92PQ+GTh9t0BC+0tiaC9M8UUaJyfJj+u66IIh
+         ZVnmi84pDfMCDaQYDTWftfqiMILPE8GGQrpWigr0ZUla60PjApYc61corugqksRWffvd
+         27tmXRCw5ZLU746X314v4c+rVZ986Q+em9pDXO5M3YkuGzHn812UKV3Tx5BeZ4CNspWJ
+         Tph0f82hipCQcRqA9A4KSK6wUeWHHHENy1H3gHwvp0kd/6DNz3vHUGza25nBMG17t8vm
+         RpGRD3B2Xx3QysZf8hA0J/5WKM0EwOp/5nWIt4XM+0s0cJwZ08atONY5tSBFR4Fs2HSI
+         +iWw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/LpPlLDf1uEjoVTyrLYkEwFJPIfwfz+k/EC+LvKYAwJKcLT4SvUigGHn6hWFTdvx0anDKPSvx5DR0@vger.kernel.org
+X-Gm-Message-State: AFuF++nB89w6MgseOfJR7Gx/PwQNHErcdr1wirwC1MBVhn67ly74nm19
+	RrE1XYskjaXzMBXyjGbUeGvzL30rfWszIoxusbRZqpizor8TDhFI1eUa
+X-Gm-Gg: AYBFou3IeM+2JjIb0V9gU6HAKsoGi2P3HCSd3PTpZrT5IMf6noZ1Jwu6cq4+l4rSPSO
+	Cg4CE+iLczj/xdUTU8DWW0Kbr86qJvShlQakPPJhVLTrTAhdmw24s8/1C5hqW7Gtq9g8l2zC1bk
+	u32Bqwg9o8RaE+kbV7h/nQ0FhyhAeegW0MFcNUggcMASPt+m2xTjOeEDYWxlXjjjvCz8JlE20VU
+	siTdfUOaBDdfX1D0t3uhaGG/OGHv2CxGzfOA/hwYo7Iq4VyFUiwshDc2mEmQX6jWtW6DJglzoBE
+	/jDv1GKWCHXtCYs3QDyZ6DbwATKjjdwjx/Y9hkQ7WqqWMcQDy2h2pNd0UKmuasxnNO5f/9AvjHL
+	13CseRKmw+iqDT76YcFLNuScydxJZsa+ekuO0+NxQWY/hnlGJ6RWWSKCCAM+f5VJZXmRHv7Tasb
+	rLuv0931u/rU9StEQGwKH3kDk7+J0fggh6EiDr4FgdJXHzkr8GN54C94BMRS/yLvPF5COy
+X-Received: by 2002:a17:90b:4cc3:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3a07e61658fmr750266a91.38.1790128194871;
+        Tue, 22 Sep 2026 18:49:54 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07ddaf4f5sm1915180a91.4.2026.09.22.18.49.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 18:49:54 -0700 (PDT)
+Date: Wed, 23 Sep 2026 09:49:00 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
+	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Christian Bruel <christian.bruel@foss.st.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>, Alex Elder <elder@riscstar.com>, 
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Randolph Lin <randolph@andestech.com>, 
+	Siddharth Vadapalli <s-vadapalli@ti.com>, Vidya Sagar <vidyas@nvidia.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>, 
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>, 
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v5 2/6] PCI: spacemit-k1: Add multiple PHY handles support
+Message-ID: <arMvZNEUhAQYa--o@inochi.infowork>
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-3-inochiama@gmail.com>
+ <ap_jh_NAqHnIlZeu@ashevche-desk.local>
+ <aqEQnkrPSKB-3fam@inochi.infowork>
+ <aqFst9QH9YTFlY3X@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/14] gtrace: Add RISC-V Trace ramsink driver
-To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Paul Walmsley <pjw@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Ian Rogers <irogers@google.com>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>,
- Atish Patra <atish.patra@linux.dev>,
- Andrew Jones <andrew.jones@oss.qualcomm.com>,
- Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Anup Patel <anup.patel@oss.qualcomm.com>
-References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
- <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
-From: Zane Leung <liangzhen@linux.spacemit.com>
-In-Reply-To: <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NcfXIs+Ms1qHUenpEwWlnOdc/FbKT+TP1JZJJ4vfin9+3GPDagXABNGJ
-	aE7VTJ8FCmkpqhsCE5XmX/JaeOE/h4aDjfyOpNT+kUV67sSpLC8xmXCK5iP4CIqhWB3u1MN
-	fNhoj2cy6d+Kq0S2oluYmgypgd3KFWSVy7kxJ+PbGdy8XK+j5kJ55MzbcWRQPJBxmwOVbLV
-	gDpFf1xBFOLCB0QSzdWbJY/ZA9+0CyvZuDOjP/TIWUHeQe2knSimhr6VimUmDDEwF1TCNZH
-	CQ0viNtoFQoc4ZG/NgsDAGiJPlOI8s9phZ8m5BbJbopyE7xrTNICb2d95W8LHhP99B+uH+i
-	62sknYIodKNQAxJ1ksoQrQbM4hk9MElqtla4yIBiHZt5Ys3uWxAfpm0hpilB1PZk3jUJYxp
-	n/YehftIeNHPNR8AHglDISUJBMcT/4HdLZYpBA5rzcJ9w9G66DmT/BRwvRFMMxb6Ro9PKFV
-	ihAam1DfIV2MSK7/TCJswhud009ihR3jRADTb0DmeLKoWL8r8/c7Efne/My0RyqvNuieDO+
-	ZVxnxJMaI9TA9BymeQux2fHZ6JSS7m8e0xRMogWjVpTaBbkhmDn8Iy1siwHObdCTNotv6z3
-	gMvpaJidoi7ofddQqO213p8BgWndrul17rLE7nsWvX/+2fIZNkg7o9/OJ+g2gyW3krvnEuL
-	jiqEzDCXY1sg2T9e1vcxInE+A/p6qfTKNhr24sDd3GilfK5cKbbfCI4pd0dfo9nMrlvf5Zs
-	sn2OmTlUplpPOLj6CLL8bp4iKYt9FMlGrjeNlY1rSHTF0QnI6K59+e1nE2G3dLTvDz3Yuso
-	rvHVzeurjNAf0HzB+DEt4+yLzy2jZqvAdbjnOC16XQgfOFCpZKsRju13WdyiSqC2hidI5jE
-	aIPgQYxD9D9GvonHfN0oV+eKwZjC1bsoRolQOXSp639noCJGJCVZFypLhJBSm6ll+cfsA7M
-	JlQ8MNCLY+zy7V6AO6EGQwhh5jg6//eexHDXxHkRFuRh8i4f9p6Z9suRfbXWWpMNYDsD9uK
-	ZQbY1Vjw==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqFst9QH9YTFlY3X@ashevche-desk.local>
 
+On Wed, Sep 09, 2026 at 05:27:03PM +0300, Andy Shevchenko wrote:
+> On Wed, Sep 09, 2026 at 04:00:15PM +0800, Inochi Amaoto wrote:
+> > On Tue, Sep 08, 2026 at 01:29:27PM +0300, Andy Shevchenko wrote:
+> > > On Mon, Sep 07, 2026 at 07:26:01PM +0800, Inochi Amaoto wrote:
+> 
+> ...
+> 
+> 
+> > > > +	count = devm_of_phy_bulk_get_all(dev, node, &k1->phys);
+> > > > +	if (count < 0)
+> > > > +		return count;
+> > > > +	if (count == 0 || count > data->max_phy_count)
+> > > > +		return -EINVAL;
+> > > 
+> > > Elsewhere we distinguish count == 0 with -ENOENT.
+> > 
+> > Is there is an example? I think it is suitable for its internal check 
+> > to translate -ENOENT to count 0, because no phys property means no
+> > phy. For a get helper with optional semantics. I think it is fine
+> > to return 0.
+> 
+> This the brief list of what I roughly grepped with word "count" in the name.
+> 
+> gpiod_count()
+> of_hte_req_count()
+> i2c_acpi_resource_count()
+> ice_sriov_set_msix_vec_count()
+> reset_control_get_count()
+> 
 
-On 8/10/2026 11:22 PM, Mayuresh Chitale wrote:
-> +static int rvtrace_ramsink_setup_buf(struct gtrace_component *comp,
-> +				     struct rvtrace_ramsink_priv *priv)
-> +{
-> +	struct device *pdev = comp->pdata->dev;
-> +	u64 start_min, limit_max, end;
-> +	u32 low, high;
-> +	int ret;
-> +
-> +	/* Probe min and max values for start and limit registers */
-> +	gtrace_write32(comp->pdata, 0, RVTRACE_RAMSINK_STARTLOW_OFF);
-> +	gtrace_write32(comp->pdata, 0, RVTRACE_RAMSINK_STARTHIGH_OFF);
-> +	low = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_STARTLOW_OFF);
-> +	high = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_STARTHIGH_OFF);
-> +	start_min = (u64)(high) << 32 | low;
-> +
-> +	gtrace_write32(comp->pdata, 0xffffffff, RVTRACE_RAMSINK_LIMITLOW_OFF);
-> +	gtrace_write32(comp->pdata, 0xffffffff, RVTRACE_RAMSINK_LIMITHIGH_OFF);
-> +	low = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITLOW_OFF);
-> +	high = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITHIGH_OFF);
-> +	limit_max = (u64)(high) << 32 | low;
-> +
-> +	/* Set DMA mask based on the maximum allowed limit address */
-> +	ret = dma_set_mask_and_coherent(pdev, DMA_BIT_MASK(fls64(limit_max)));
-> +	if (ret)
-> +		return ret;
-> +
-> +	priv->va = dma_alloc_coherent(pdev, priv->size, &priv->start, GFP_KERNEL);
-> +	if (!priv->va)
-> +		return -ENOMEM;
-> +
-> +	priv->end = priv->start + priv->size;
-> +	priv->prev_wp = priv->start;
-> +	if (priv->end <= start_min || priv->start >= limit_max) {
-> +		dma_free_coherent(pdev, priv->size, priv->va, priv->start);
-> +		dev_err(&comp->dev, "DMA memory not addressable by device\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Setup ram sink start addresses */
-> +	if (priv->start < start_min) {
-> +		dev_warn(&comp->dev, "Ramsink start address updated from %pad to %pad\n",
-> +			 &priv->start, &start_min);
-> +		priv->va += start_min - priv->start;
-> +		priv->start = start_min;
-> +	}
-> +
-> +	gtrace_write32(comp->pdata, lower_32_bits(priv->start), RVTRACE_RAMSINK_STARTLOW_OFF);
-> +	gtrace_write32(comp->pdata, upper_32_bits(priv->start), RVTRACE_RAMSINK_STARTHIGH_OFF);
-> +	gtrace_write32(comp->pdata, lower_32_bits(priv->start), RVTRACE_RAMSINK_WPLOW_OFF);
-> +	gtrace_write32(comp->pdata, upper_32_bits(priv->start), RVTRACE_RAMSINK_WPHIGH_OFF);
-> +	/* Setup ram sink limit addresses */
-> +	if (priv->end > limit_max) {
-> +		dev_warn(&comp->dev, "Ramsink limit address updated from %pad to %pad\n",
-> +			 &priv->end, &limit_max);
-> +		priv->end = limit_max;
-> +		priv->size = priv->end - priv->start;
-> +	}
-> +
-> +	/* Limit address needs to be set to end - mem_access_width to avoid overflow */
-> +	end = priv->end - priv->mem_acc_width;
-> +	gtrace_write32(comp->pdata, lower_32_bits(end), RVTRACE_RAMSINK_LIMITLOW_OFF);
-> +	gtrace_write32(comp->pdata, upper_32_bits(end), RVTRACE_RAMSINK_LIMITHIGH_OFF);
-> +	low = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITLOW_OFF);
-> +	high = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITHIGH_OFF);
-> +	end = (u64)(high) << 32 | low;
+As the respond in the phy bulk data patchset, devm_of_phy_bulk_get_all()
+should follow the optional semantics. So I think return 0 is a good
+choice. Anyway, I have added the zero value check in the driver.
 
-
-Suggest introducing gtrace_read_pair/gtrace_write_pair/gtrace_relaxed_read_pair/gtrace_relaxed_write_pair API,
-
-They should be used frequently.
-
-> +	if (end != (priv->end - 4)) {
-> +		dev_warn(&comp->dev, "Ramsink limit address updated from %pad to %pad\n",
-> +			 &priv->end, &end);
-> +		priv->end = end;
-> +		priv->size = priv->end - priv->start;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
+Regards,
+Inochi
