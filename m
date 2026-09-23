@@ -1,106 +1,106 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A3D49DBA0
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:42:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.235
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790163752; cv=pass; b=ctZnhFgurCf0nCdviW0lRP08gaNOWH76Ruk/n12D8RQSI8IpTc43jq5TNM2O30GsftQv6z5RBfTFf+0DaGt6028iKWLdTPS3CIw5788zaMhjTD6stWzjD3iEEqh9IpSYlpJKewn+LBN5poHspizUZxnxl86FuKicedMCIa7WGis=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790163752; c=relaxed/simple;
-	bh=nM7tbZ862fD4OC0Mg3Y7YqIbQSRAS6s7yXDWKfA5Yyg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E87E368D77
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790163800; cv=none; b=UyouBfHPb2983VlLzglm9GGq8tqg0iIYJJaYvQWAOjgF/fWoyR1go1/OwJTE20QsdVrfwXO3daVd/UPSPavBC5BAM9dLGA5/qroIYGngcuLtW2ym4qPgQILjhLpEfoFpaGAgnF7l7xxOzn3QfN2mbiY6Jf8682XqEN2iWMC+QXk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790163800; c=relaxed/simple;
+	bh=toH4Nu8X0VoWmbcPFRUFtTal982WrI4JYNV+CT82Ubg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SedKmyKZ/oPOzdj/2kwLpfOCXX6TX17dRAkD317IBSHuFau0Zby1gZsrmViW7pi5eyBVuF34dfAhSd+0xv8o9RoSgvMiAW1ZYNlZGTlvUgt/JI813gpzNHwhKs2uICoJ4eOIKAHVWFpsW3UcAa+oDNk5XBczL4UHUTgyhd85Jn0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwh+qwR5; arc=pass smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	 To:Cc:Content-Type; b=S5AUfyMykiIzty67Fipk+o8603/SsgWszx6c8dahEEeXgp5FmMpHO/GxX4lHI0lKdMNkVohctVFPC9LLMP7MVHIYjxfXT+1gj6a9TU/7kdeC/iK5BIgUIf5IoEy27dfi1kggsAr2NCFvXI4bKGcg/Kpn7d8bOBQEFsiJzO+C7k0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwh+qwR5"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910cc46c4so87433085a.2
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:42:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790163738; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R51iLq5+aLF4JWxycjcXQrxNymzdErnMXIAk+aQDUeP64+2E4xBJnrRiXHlhCtHVnI
-         h9oCm0W2GnzCPZ6nwBY0dmkcNaFcLMdsPYzAdCOsXRc5eoGwEhEysUZ/t1kXxZbsDJDx
-         Lj2Tpue7DXyW0MtKO1w8tgZ7ITicTscjz0PHpS4Gks/8bvS2Qo6WbnQyxSBRVWJ85otx
-         1fdl1O8Rh7JIFc1XIUJ0uwNB71zVm+UVBPSAOzhp0F9ON6eak2Oxi31sbQX0PKjwefEI
-         BQ7prGevosgqKySqDw305/lWiv+GRvlxvZnWb7Qnlc04smAjKFDpmtIpghoID6A1Cs3X
-         lwfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=pWFPGMzX1L+HVqe105PucXhk0+tLBSplzJw7zI8y/mo=;
-        fh=Sd5U4/lSdJj3EoPSgKvCmG6QXH/EX7tnn6K9PBhGfc8=;
-        b=SwspiK5IfX+XsyuSN92fCYW4p9Rn+LQ90f96A+YPDVYfr9EbtwBNJDWQA0zNTLDnjj
-         vcNZ9WeKny2b05I4awUdO6EvjxCSr9gjo0hWxtXYybfwcw6rG4QqNRoEbO0vM5R/AHvW
-         +gwek26bEZD+N98jd+LkbAhFLGjgYvKry3nJJGr+QqY+uaQyimfBhbkTXOyJl9O9ZVkp
-         zlAdJTq8r5BRtM/8ebSnK0gDPO1fVSV1CLy9mnV8VF9l7Ol1Z5C3q1pyRI8ix7rA0i9c
-         E/L/BzsBpqpxD5iooC6IDlRLHj39mjjsE08Q+kIbTXKlmTLotnAiuUqN4Pn8p9hXpuqD
-         OI7g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790163738; x=1790768538; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pWFPGMzX1L+HVqe105PucXhk0+tLBSplzJw7zI8y/mo=;
-        b=rwh+qwR5lVhQK2gHkHLNxELmmrXonjiF5TtFRPBwIwmx4uja5M5FCsDm/TtVqy61r+
-         DxANn73DHJ1WBkPSfsQY5HRJsZH+rgawjVK9/cwAR6Zu7r90mZ/dWhMCl8BwLhBngAU8
-         U3o4ib0g6fKZTlrQ9WemX7YwpAtdKFthH1iGbtGDIMSoD0iVVZZOyB8HFIvWi6sZEsIU
-         tE8YeptdyQ+BflreDCoU45ESdCXG6OOAaV4VYruew25k58UEBEW+3R87YnX2fq50XNPz
-         7VlCuUDlqx1A0wmIF3s36mNGuElLBJGf6YbPspZRfNMbyJU/tDI/lN68pPZbFD2zJyve
-         0qcw==
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c8c8602so427539241.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:43:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790163738; x=1790768538;
+        d=1e100.net; s=20260707; t=1790163796; x=1790768596;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=pWFPGMzX1L+HVqe105PucXhk0+tLBSplzJw7zI8y/mo=;
-        b=IDlePRfxrZoWyk73NJmlIvfF8x+9LpG31J/9HHBjmzBlDUED/2LgWvs4jFViLYWwKp
-         zVgr+e95iVvHEJw4v5kvX07PByofttD54lJfHa+hzqVfpK+iIdyPPhkTsW1qByMNVB3P
-         dq+tnbd9HfYDa70V1bZvwYt8G6/TJ9kCOAWJY00Q/wi+GwdR3noHbOlrQuTtcouKZxrY
-         McUemIS8Q6dJG6Ty+1TJggRqMg9hNtS5MHAq8LsIR+lesVAXEwHE4HIe/Ur1WnfvMq/A
-         5+YZ+v7NKMsF+NsRHqZz+jbEJ74kOZFdmtYJYqDHUj8zTK4WAC6lpv4v0HdGOyzYztlY
-         hxSA==
-X-Forwarded-Encrypted: i=1; AKwUvBylUtv2jGD+79x0ColgN3oo+coVOJSpIhUWij1FIXr+xxLzmXoWqOfYM5tW05XXjjcIdD7qrkxEREdc@vger.kernel.org
-X-Gm-Message-State: AFuF++mG7W0+s8nQcgIykP7vjTYC91zzAIPjWxKSIEDmRKqqBRkKgK0p
-	5MeaKDmSYoujYQrVaIT3JWkMAilQjF5MN5+5Ps5aVY4bw51/gM/eTCgJhEdptGvpJ6q40bv0lXN
-	tGaQGNy4P+EH2dpXez9sj24hOsVZ/33E=
-X-Gm-Gg: AYBFou2OLxOagp7P8NLjPmix7PkJEUbS/nQ49agRz+HX976KihHHj8RJTnAzg6Jk11K
-	J+PKYlLGd0vHsBxjDOsgRcqDeExD0C8+1u4CUXtAIJnJwM9sWrTKr8aQnRRhgj/mM3zZQOIkl/5
-	LeDZ2uVZHRgmPpqDS2yaLabptiSzkbMMPMXOIwhf1xquy/uuNA6HHUwXSLj1FXq7NDTIAag+xxB
-	VAtPCSKDOsqtkEWLCOE7mlliJiW90JS10f4eyUglAki0rumE4w6kY5UVvKKIcj8YPwHwFEL1vJg
-	ks0Z7sO3JISdcqJFmO6I4RpKHcr80vti2KtPDSDgDphvUDR4IjKbsDr95Lns62022MoP
-X-Received: by 2002:a05:620a:2a04:b0:939:b94c:3e85 with SMTP id
- af79cd13be357-93c250f8407mr332746685a.24.1790163738125; Wed, 23 Sep 2026
- 04:42:18 -0700 (PDT)
+        bh=AQBDufdUkXkchzPiebMikSu5M3FlCOhF16/kg+goO2I=;
+        b=APex+8decIvORK/t2Ss6DwwHDbhD+GJhlvzVV4N6nnQf1z3uWokjVMAJYVrK3m1/1W
+         2Y2skAVG4Z5XwJOqAEj82bLJuEDSQ6jErQXFYE0yRgnmL7eBrrTokA2OOewHcFhtUr4a
+         2YqIUloxjsxmKO8LWFktVi/xqMEFZkePA/uDycpv7iTnOT+5w/lhn8GVJX6Fcmes8p6v
+         lblCAG/KHZr+pwfZ47rVhyNCOnm/pNfhirC51Ui1UUaSYAPQLzFHhTnPyqwJEwbPhoqH
+         HeFq0pOIPzLM1TTnekwMauazzlR8wW3DaolQzaAJyTAxBxhMfFOwz/y80KuHtJ3hpRjw
+         muLQ==
+X-Forwarded-Encrypted: i=1; AKwUvByZvUjH00LBVIx1Chsln/J8JXiGm5pER74u/8HwZMOmdKSnNarlKGR9tmRd6Z7NnaKqKIhK38d+7+T9@vger.kernel.org
+X-Gm-Message-State: AFuF++nlZgrmNGYtj8YNT9IXAVMeYJhAvOKPyxwYsPN0OCYFEwLgII4S
+	nnrQVsxNl6/QblL8Z8RiXo/Di4PLoTqjqn8OQC9Hgz7ZE4EeYJu5bCD4N0Hho6fSdWI=
+X-Gm-Gg: AYBFou2oTsi0bg9Q/KttAH/CL9lrcDrjAHVAmxh7tCmocp6/aVKgrkijlgAjlX4h80V
+	j/muXlI8iGBSXIRF5gjepIeJ43rp7sgvD5+8rQEShW2rWmYslA1iQW7C2olhdqw0M89ct0NnYNR
+	UZRFk7vQeq/6M2e5Ajqt/4mFjISnnCBTm62EDv465XAPSZ+JGATf/RQpn33+g+3dDBIXbNJ8ewm
+	P6bEb1aDRI7HvDqfMvSIq7RRahSLWfDY+Vgsc45wOeaMuiJs6DSCcTROVPgMTtv4JNhkzNGtxxc
+	ws8Zee28EOHmL03DXYhKcJs6c8h8Dofx5v4S5cFr9LQIF0Nndm3mzjgsg98du8rUdE3fTTSI4ne
+	/sAbbMi7cVDEtp50IwS7Jl4mPgR1SojFglhqOINpD1iOTobCCwN2riIRuabPX8e5RRgawStmTk7
+	wBuNFwyLcfrD7OoA8f4QjNma35HCHCyQ7ABgdHaHzSmPaYZYjjUV6BF4jkU8dMtyY2GlPS0XkSs
+	oDG8Ywk990yVWcn+OFSOoKzYMasuxVrNay5kg==
+X-Received: by 2002:a05:6102:510c:b0:7a1:f7d2:e817 with SMTP id ada2fe7eead31-7ac1be5779fmr2371317137.16.1790163795882;
+        Wed, 23 Sep 2026 04:43:15 -0700 (PDT)
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com. [74.125.226.235])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf566bdccsm3257167137.4.2026.09.23.04.43.14
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 04:43:15 -0700 (PDT)
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97e96a8ba8cso571496241.3
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:43:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwPDLKIvI0CRO55PP59MVfoyUUavn3PzYE1qWn41dBLVEnt00zA3DWFcrByPEmvepLPWuhrzcP30VUT@vger.kernel.org
+X-Received: by 2002:a05:6102:5813:b0:7a8:2a34:433a with SMTP id
+ ada2fe7eead31-7ac1b824983mr2135063137.9.1790163794193; Wed, 23 Sep 2026
+ 04:43:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923105208.198-1-anykey196@gmail.com> <20260923105920.CAC761F000FF@smtp.kernel.org>
-In-Reply-To: <20260923105920.CAC761F000FF@smtp.kernel.org>
-From: =?UTF-8?B?0JLQu9Cw0LQg0KHQktCd?= <anykey196@gmail.com>
-Date: Wed, 23 Sep 2026 16:42:06 +0500
-X-Gm-Features: AcwNN1WQplWtIF5el8zF5Tmhe4QX7yFqwnVJq9zazF13PvpPkafeV1wGHPP3_pA
-Message-ID: <CANHPwAR6+f0dtOrBdwD8C4_cO5HvnpNKNnhxLZY+Bm6h-dicrg@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: allwinner: h616: orangepi-zero2w: add 24-pin
- expansion buttons and IR
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev
+References: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com> <20260921134432.50338-6-ayman.chaudhry.kc@renesas.com>
+In-Reply-To: <20260921134432.50338-6-ayman.chaudhry.kc@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 13:43:02 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdW9V4jd6j-Lcma5Nr-sgqJjBbbdwcnO3s+YFmvUz5qQLg@mail.gmail.com>
+X-Gm-Features: AclHuK9nw9pQ2eMsnoclR1kgUt8L_8mX7NzQtyl53d74B8AUYdOVbDcik9Ofq-4
+Message-ID: <CAMuHMdW9V4jd6j-Lcma5Nr-sgqJjBbbdwcnO3s+YFmvUz5qQLg@mail.gmail.com>
+Subject: Re: [PATCH v2 5/9] dt-bindings: clock: Add r8a774a3 CPG Core Clock definitions
+To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, 
+	Chris Paterson <Chris.Paterson2@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Thanks for the review - you are right.  The two buttons and the IR receiver
-are on the optional 24-pin expansion board.  With the board detached the
-LRADC input and the IR receiver pin are undriven and float, which can lead to
-phantom key presses and interrupt storms.
+On Mon, 21 Sept 2026 at 15:45, Ayman Chaudhry
+<ayman.chaudhry.kc@renesas.com> wrote:
+> Add all the Renesas RZ/G2M v3.0 (a.k.a. R8A774A3) SoC Clock Pulse
+> Generator Core Clock Outputs, as listed in Table 11.3 ("List of Clocks
+> [RZ/G2M V1.3, RZ/G2M V3.0]") of the RZ/G2 Hardware User's Manual.
+>
+> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> v1->v2:
+> - Renamed file to include vendor prefix
+> - Added vendor prefix to include macros
+> - Added Reviewed-by tag
 
-v2 drops them from the base board .dts and provides them as a devicetree
-overlay (sun50i-h618-orangepi-zero2w-24pin.dtso) with a Makefile entry,
-following the existing sun8i-orangepi-zero-interface-board.dtso approach.
+Thanks, will queue in a branch shared by driver and DT source code.
 
-Tested on: OrangePi Zero 2W (Allwinner H618) with the 24-pin expansion board.
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
