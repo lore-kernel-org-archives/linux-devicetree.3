@@ -1,103 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E75B5437CE
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 14:45:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C611253B341
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 14:45:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174703; cv=none; b=kQAMe8YMLfq+LYlZfB0Ldl0rrWbqMFzueL/M+vSF6KAsP9bhiE+E5tLT+XnBQiYQTn34R5I/HzPkcqnevdkSMdt47zB0vtaaTqKltyPGhQLAg5TCSVuVKALd3NQkWqy6PsWUHytgh+qmjTW/IdY1Xp1sRomjYBX6OZlUTpv3FRI=
+	t=1790174749; cv=none; b=KwJrb2/DUYpDhMvf6dO5v/9gT2zcCSnMJPU7Ek5gmPftMGS5xn9ieda+DvSQWbjklY3xw1LSPvQ9dN9+uwsJ6xAe+yc2P1bTVduL6zfX9o9nysS4ojvZ0ZJnbdhShxJph/Bto4sh3e545nE7UXq1pk4So/5R2qLdlsATnPQGeuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174703; c=relaxed/simple;
-	bh=3TLe6kRKBSJnsibexn5+IiCkeA/haOJI1wirpsmGWwM=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JEw2LggG6CQzrH2zDsIXWmiaWU/Gkx1boDlfwwqaSELjfx2hB3PHCPEbANoZNRimdGfPayeNdxTZrfA2lv+Hitspf6IbK7vV7xrheh+7vDLGCxaJpHkFadIvGJ8e2FKHDXiXR1tv4hefFyp27qlT6ql7MbMblHMGDXA6OVMoIQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eYd5SS81; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790174749; c=relaxed/simple;
+	bh=9Zc4Dy9bPAED20Kc832/AHxIcxKGnyYXtCAUV6gbxVc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lzR2+rhJBmJNi1SCwOTMaBxn3bvUJauNATuWeQLTfMpROLhdZ+Y93xh6VakloS53+sOImTENrTHwjaDv57XK0nw+Psh/CHHhDudvW3jwwRvzGUvIHJDmP8bzIhUnF14lOaTL0JWZDuiveQuBUhY1IUlJWTE74VreAsxKqIRmIQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ls7QUqGV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eYd5SS81"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEEF91F00893
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 14:45:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ls7QUqGV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D0B1F00893;
+	Wed, 23 Sep 2026 14:45:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790174701;
-	bh=3TLe6kRKBSJnsibexn5+IiCkeA/haOJI1wirpsmGWwM=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=eYd5SS81BwAfsi5uGZ8lEJkSn2MFrsWYjE4GtlvlMCPvkG8ZY59zvuDE4rApvetff
-	 mvVzzfX+HBZKp0HX6Yu0qglro/iQpFWXxuwmG8C2b3fK5uP2jArNlZzUyHhzp9Fkpi
-	 /S9TtqeCcxqycerIaPobX726MY2RwigqP3l3uaqOGyiFTGSZeFoM76T8kLelRGKgnK
-	 mWDxKx/L10JXCKkXAjykYLxQvtG/Z8V8uNoSRchQX/KsiGH0HnaF9bsckWKreV7UTp
-	 skF5MgsSRpxDOYe2HanOe/Sl16oO5gRsmkRWNKyf0MZsdhiU/AzvE+cYRPbMdD2WYO
-	 H0fB4IwfTSu/w==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a6124046f0so9446121fa.3
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 07:45:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzmVrl++ATsb7Y8InrEd96sh4YaSIVrN/3izR3JER1kmCFvpw4QPpHfjSQTegJom4TFbiUMc22RgWAb@vger.kernel.org
-X-Gm-Message-State: AFuF++ml7zlnJj3pqCfOUyDC69o6QhG4h34zdnPcT1bNY0DrqFJ9yqPZ
-	Pcq5XAAzfOc2G3YjQy7xwhT8GgzblNmrAPbpvPrnw2nyf+6WzmtnWEsEohFyDwcI+BRvoLLVeTB
-	fzgXszGml0CPPpWKHEe3Xp5bJBSthDNeFpZ1MckT/sA==
-X-Received: by 2002:a2e:a596:0:b0:3a5:f6e2:47d2 with SMTP id
- 38308e7fff4ca-3a6306d0b08mr6707781fa.29.1790174700057; Wed, 23 Sep 2026
- 07:45:00 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Sep 2026 10:44:56 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Sep 2026 10:44:56 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <fratyclnf6t232dg5s2kvsysw3gbovkwnrzfhnlblsax3wb6qy@debn6qdpp7jh>
+	s=k20260515; t=1790174748;
+	bh=Cmc8C8kN0PaFVbymjclsOxShNRPivDtpIGl2UpTFBu0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ls7QUqGVWnHF7dE85zeiUK8rUAvda0xXGgtF66w5yw+MOLDLf8sIMkaFE+dZQR7K+
+	 TOUSWsMarNf8KWKe1lCxBUEJtp+ALM2cOD7L/KCY8kz3Ib/WljKxL0JA56h1HJXgFs
+	 +HPOAoA7VV/xi18m8j+efZRiyk+/1lvSsqdwcJggOSOdD4m/LEG2NQzj0HDZHTPKkI
+	 j1sKS32g8en9FXbgG1rHa9RVVSdMxZe5kuu6cI8GPPwyD+Fh/XSo5LM39sLwfAYhpZ
+	 soXtPmFAErpnLHe3QlFLPzPQyFDupSxiq10RgGJVrreg2PMueBRNb16KN9SEUKRT0a
+	 6C7BgpGHD+xtg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: thermal: amlogic: describe bus
+ clock for t7-thermal
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260923-fix-t7-thermal-clock-v2-1-bff7a09eb487@aliel.fr>
+References: <20260923-fix-t7-thermal-clock-v2-0-bff7a09eb487@aliel.fr>
+ <20260923-fix-t7-thermal-clock-v2-1-bff7a09eb487@aliel.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 14:45:47 +0000
+Message-Id: <20260923144548.32D0B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260909-pci-tc9563-aux-v5-0-c9b33f56c8d3@oss.qualcomm.com>
- <20260909-pci-tc9563-aux-v5-2-c9b33f56c8d3@oss.qualcomm.com> <fratyclnf6t232dg5s2kvsysw3gbovkwnrzfhnlblsax3wb6qy@debn6qdpp7jh>
-Date: Wed, 23 Sep 2026 10:44:56 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MdG7utcnAhJrUxmzXJSesxdE1YwuiLOzf1dj3sCa4J3_w@mail.gmail.com>
-X-Gm-Features: AclHuK-1NrbUD-b8prOdv3m_D16A91O6WyLEueGcB5ws0m81E_q6V2lDVkDKCTU
-Message-ID: <CAMRc=MdG7utcnAhJrUxmzXJSesxdE1YwuiLOzf1dj3sCa4J3_w@mail.gmail.com>
-Subject: Re: [PATCH v5 2/5] gpio: tc9563: Add support for the embedded GPIO controller
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>, 
-	Alex Elder <elder@riscstar.com>, Daniel Thompson <daniel@riscstar.com>, 
-	Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 22 Sep 2026 18:18:53 +0200, Manivannan Sadhasivam
-<mani@kernel.org> said:
-> On Wed, Sep 09, 2026 at 04:55:54PM +0200, Lorenzo Bianconi wrote:
->> From: Alex Elder <elder@riscstar.com>
->>
->> Add a driver for the GPIO controller embedded in the Toshiba TC9563
->> PCIe switch (and the Qualcomm QPS615). The device implements 35
->> GPIOs using two register banks: three registers control the first 32
->> GPIOs (20 and 21 are reserved) and three more control GPIOs 32-36.
->> GPIOs 22-24, 27-28, 31, and 34 are input-only.
->>
->> The driver is registered as an auxiliary device driver. The TC9563
->> power controller creates the auxiliary device and provides a regmap
->> that gives access to the GPIO registers, so the gpio-regmap helpers
->> are used to implement the GPIO chip.
->>
->> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
->> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->> Co-developed-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
->> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
->
-> Linus, Bart, what is the merge strategy for this patch? Since Bart has Acked
-> this patch, can I assume that this along with pwrctrl patches can be merged
-> through PCI tree?
->
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] dt-bindings: ABI break by prepending new clock instead of appending
+--
 
-Yes, I don't think the rist of conflict is that great here. Please take it.
+commit e4a0aa553cfc6f50abf6357d559b0af000ba1b3b
+Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Bart
+dt-bindings: thermal: amlogic: describe bus clock for t7-thermal
+
+This commit updates the amlogic thermal binding to describe a new bus clock
+required by the t7 thermal sensor to gate register access. It makes this
+second clock mandatory for the t7-thermal compatible while keeping a single
+clock for older Amlogic SoCs.
+
+> diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.ya=
+ml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+> --- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
+> @@ -32,7 +32,15 @@ properties:
+>      maxItems: 1
+> =20
+>    clocks:
+> -    maxItems: 1
+> +    minItems: 1
+> +    items:
+> +      - description: Bus clock, gates register access to the sensor.
+> +      - description: Functional clock of the temperature sensor, shared =
+between sensors.
+
+[Severity: High]
+Does prepending the "bus" clock at index 0 break backward compatibility for
+older deployed kernels?
+
+Older driver versions use devm_clk_get() which blindly fetches the clock at
+index 0:
+
+drivers/thermal/amlogic_thermal.c:amlogic_thermal_probe()
+    ...
+    pdata->clk =3D devm_clk_get(dev, NULL);
+    if (IS_ERR(pdata->clk))
+    ...
+
+If an older kernel is booted with this updated device tree, it will fetch t=
+he
+"bus" clock instead of the "core" functional clock, which could cause the
+thermal sensor to fail. Additionally, doesn't this misdocument the existing
+functional clock for older Amlogic SoCs as a "bus" clock?
+
+Even if the driver is later updated to use bulk clock APIs, the device tree
+ABI break for existing older kernels remains. Should the new "bus" clock be
+appended to the list instead, keeping "core" at index 0 and "bus" at index =
+1?
+
+> +
+> +  clock-names:
+> +    items:
+> +      - const: bus
+> +      - const: core
+
+[Severity: High]
+Since this naming array matches the clocks array above, would it also need =
+to
+be reversed to "- const: core" then "- const: bus" to ensure the functional
+clock remains at index 0?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-fix-t7-the=
+rmal-clock-v2-0-bff7a09eb487@aliel.fr?part=3D1
