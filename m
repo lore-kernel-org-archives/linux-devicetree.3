@@ -1,245 +1,355 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 513B732B111;
-	Wed, 23 Sep 2026 15:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43EF53A886
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 15:14:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176405; cv=none; b=Kup/fcb0IKcdEXNiHHrXG8EQebenUVFUKpt9wY3SDZEQ3jjESWkZdSNNBqxA1pD+bOKMJIZOhOshPhlVyrb6YjUKmKarudfBegoo0cT3m71y3oKScF0Prp6PRGrfXF8+r0VAfMnIDRERP+dog1mwmeXqrIpgNd/U+5InljzvC8c=
+	t=1790176501; cv=none; b=led9xZP21jiOfwO5DGDYyyWI7EXwGfU957lSZuwCPFSr3ydu59ZsqS6a4DfZSFyonXRah+7+v+TYCQ8Tskie25S3ZL+Kc009Zgb7oBXF1Rlioq5Urysune7oD5wqpNhQY9Yy+CJUgt6zIgokA5RlY8El1va4QXdtQwm9FLog8uA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176405; c=relaxed/simple;
-	bh=phoCjmKpgbmmjwB/TcyzDXeAvmM89UaYWapuOmD6GO4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kYeNImLrYqkyPwm/4q5qwSzJMIrD8UYp6Bfh9UEGGa7cZPVtwc6czJrM8FDPNpDaVoULui9MPzYI39qBAOlwhjD/8uWLQXaoB1hyrFpkWvuIRek0K2ur1zVcgTfbGwEE2TM+5235mNzfKvRiJQgnBNK7f6fPCsqLQbr6holg6Ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lT0HrR7d; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790176501; c=relaxed/simple;
+	bh=vnN+T2XbeWk5toset9VU4nTIVfbU8DZj0FMpypnlf4Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EifTLM192HL3hXFdutI/1iIepAXvd2C6Md0A9jcT1rYUGA0schSy4w72QW13TlZ+cNiuSfTNFTaBU0vp3Ha5Tl2VE0wW+bkGsk4HiUspjSatj0ub6MBjt/uwM7M63x/9lbD4eehBJLIHLjQM1tZLISGNxTx05Bvr6Jg9b1DQRbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XA6Z8BcT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dfFSAY1+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lT0HrR7d"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2367F1A32;
-	Wed, 23 Sep 2026 08:13:20 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E9DE43F86F;
-	Wed, 23 Sep 2026 08:13:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790176403; bh=phoCjmKpgbmmjwB/TcyzDXeAvmM89UaYWapuOmD6GO4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lT0HrR7dE1KrdfZA5B71p57+NqXyZadFCb7ajyLoJVdE7kZMh3rZ3Jd0t7uUp8jnW
-	 fLqDM7jtOQPyRFFDJI03lMKNhDcWBWt6MltdUDqXOiaZKTfjhdEkEyRFSF66Rbvbq/
-	 Yjv8PK7Ahg6Cgu2DicOgJTx/pdIes/7CME0K6SuM=
-Message-ID: <37174cd4-95c0-4350-aeb2-b1b6abaccbff@arm.com>
-Date: Wed, 23 Sep 2026 16:13:18 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XA6Z8BcT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dfFSAY1+"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NDKgOf322188
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 15:14:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=yi7zkx2L2x0jJucRLt+eu9
+	FDB7gUieAYrIxOpUP9teg=; b=XA6Z8BcTaN0A6k1aAMtxd/aKKzO7tbM0pwqiEC
+	AXHemIQF6kAS1tFES7qtTdtc+LEHLr45wdBN7BTspcMdYoJaTB4Ixc5mOisRQjvd
+	uXHsCAiP/Uj+OiVJhVShIWfgNjry7glMbw2qdPSRypXylyZVjRwf+FboNcobuJ34
+	R9oMIAtsx9gwKSH7qcoGQQONfdTHHrpDn3ToJEGJqG13wuuyOJ2iBAEND5AdHRHR
+	BS3rBu58u2lp/GtiVzRp0wc8RGpUBWiCllTq9zM8rJIHwV6xuPbtYdE84ffG5oBq
+	Wzjh6uh6cAk6NZTPQKd0A4bm3CpAPoo/hLgvfeqqVVejOMCg==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjsgh9y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 15:14:58 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-9806535f8ffso1924248241.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 08:14:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790176498; x=1790781298; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yi7zkx2L2x0jJucRLt+eu9FDB7gUieAYrIxOpUP9teg=;
+        b=dfFSAY1+ncixxVKyEBGy1+TkticpJgSWZvZMQ0rElxN3idqM1/o8mbp5u5e/kz/FoF
+         IaXaPMAL9cbnc7yt75Vr+xPUojusbvZkMxoA+U4bmH6UUtR5UWXFwu9cvGCgfRJDjFOh
+         hNpFoI5F5hVUQn4pz0hGCIQ7m+X6X+ro71wjBoCenBphP7JVuN2SSMvWgxvGKor8DMhD
+         iwv/itcUtlKdC902hIEdpFprjw7WrguJRr70go2uB3oxHNsNIQO+97z6VID1rwxJ662H
+         MhKMZ+Bk0UDvXePUKQBf92MBx2I26x9nib5YoKHTv6GrryXqqO8X1brii1vy+QI9Ds0s
+         5XqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790176498; x=1790781298;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yi7zkx2L2x0jJucRLt+eu9FDB7gUieAYrIxOpUP9teg=;
+        b=rePy2iTntlO9wZITpzmsgB4YDUe1/EiqUFrjfGPCLlUKM66fxQDZ6m8QJS+yYzz4W4
+         gMeLNpc4043fNcUAiXRLt5EmL9fFkhArshUXgi5uswdOm4ybKc4TmtJJbpJRAWOgleSO
+         nH3LN+6SBdoa3xl4Du+AXUZkMZ73kZxD0yoORPl/2b+TkLN3uYRhJ33K/Yigj+bzqgOp
+         aD4GPvNDhLMqUYRrS62j/+gdehl012A28aPvK5Wwr6gPEFm+xwYErJaxSf9ia5qerJRp
+         8xsTyP/JW/5FjIuojmvbLRsaD4iw/NzOL0TDH9U2ZoM4hSz+pIa6RCxdTXHy3QUbjIPx
+         N+XQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwM0YHEkTyt/c5aAKUesKXqMenMyqN6i7xVN/U5W6iSOIDEQAJOBUU/3ixYR4NXaEZN5cFxTvUVs7nZ@vger.kernel.org
+X-Gm-Message-State: AFuF++mGPueSV6Xo+dFOcAhCwBJkuWCbCWNy3jyatI14GRvMxDDwMpdI
+	0KfPC+ewAFZsX/ZrKTLtI4upN3Nx4Vv87JEt7WPFlRWKidlwYVc1GhpZuGTGn4Uu4RZvBmw5T1c
+	KowuYOMeZ0XmKgFxqajG4kG7LS3cDuhqJqOq//EsJGGFiyKOcRfTIbkkF9LOUEW0x
+X-Gm-Gg: AYBFou10DlYzvsscRfHSI+O/RX3tSmqBbLXDy/Cb6DCbU6oX3MkuOQ8xkLvd/g1midL
+	zuJWscY2TKgozmYDFKQqh5d/Tq6cQfoVLsZ8W139c5YeY0axFKzbZBLpP0AEZYIN0W9AmVnlcyG
+	c/KO7PD1u0FB3rUxp7xqaR+xdZa3JWnOfOCQevzuLFNwnxSpuYnOnfnwSMc6QXS868EcEJqCIlF
+	vZlr7FyDx1BpewjbSTAz22hNz7QWkUv4VpcwUZpVFwdC6LhTi6H3VQknNOyuj9L5o2Lt/04BvO8
+	49l6ipmbd1WzVSKtcgoNpXx8kqE3XPB+mv8JeLgno13NLqhldpLkGOxAuRJ2qI92Z/jBWJgNqWB
+	LcTpxfVPfHpCnL7Pd6ieRmRqHHlXO
+X-Received: by 2002:a05:6102:5808:b0:7a3:b2c2:2e70 with SMTP id ada2fe7eead31-7ac0ca15c29mr2614108137.11.1790176497306;
+        Wed, 23 Sep 2026 08:14:57 -0700 (PDT)
+X-Received: by 2002:a05:6102:5808:b0:7a3:b2c2:2e70 with SMTP id ada2fe7eead31-7ac0ca15c29mr2614047137.11.1790176496602;
+        Wed, 23 Sep 2026 08:14:56 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:34c6:dbd6:5b58:a3fe])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4054fsm55126325e9.3.2026.09.23.08.14.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 08:14:54 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH net-next v15 0/9] net: stmmac: qcom-ethqos: add support for
+ SCMI power domains
+Date: Wed, 23 Sep 2026 17:14:34 +0200
+Message-Id: <20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 00/12] remoteproc: add support for any virtio device
-To: Francesco Valla <francesco@valla.it>,
- Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Mark Brown
- <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, virtualization@lists.linux.dev,
- imx@lists.linux.dev, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANrss2oC/3XTwW7kIAwA0F+pcl5GtgEbeup/rPYACbSROkmbz
+ EZdVfPvSyLtJtKQCxIQXmxsvps5TX2am+en72ZKSz/341AmaH88Ne1bGF6T6ruy0BCQBQGjPtv
+ xqubgyNoPla6hVc4wkLahtUhNOfcxpdx/bejPZkg3NaSvW/Or7Lz1822c/mx/W3Db31yPUHEXV
+ KA0BfFtxsTsXt77IUzjZZxeN27R/wkEkhqhCyFWWKInDSE+EGYnsJrdYgqRhZkBnLQpPBD2SFS
+ jsIUA7HTSIWTtHhPhnSD0NYILYZxkBEeGMb2M83z5/B3ey6fXSxnWmy8AAyKdAY6D7kyk0Dn9C
+ GyRyL9IGDRwDZICdQUC1OBNlBPIHSDEGuQKZB2RxFJfQHcC+SNUjcgXqLXOa5OEc6YTCOEgka5
+ 2HKz94jVQJO0C8hmFO8VULRiu3YtRcvQ2Wsz+jKKdkvqNl4KCKr0TMbWZPOAZpQ8U1hNcHwSiz
+ 469T9mlM8rslAdXpdaHkVpCimIkSFeh7vf7X8YAZytjBAAA
+X-Change-ID: 20250704-qcom-sa8255p-emac-8460235ac512
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+        Chen-Yu Tsai <wens@kernel.org>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Kevin Hilman <khilman@baylibre.com>,
+        Jerome Brunet <jbrunet@baylibre.com>, Shawn Guo <shawnguo@kernel.org>,
+        Fabio Estevam <festevam@gmail.com>,
+        Jan Petrous <jan.petrous@oss.nxp.com>, s32@nxp.com,
+        Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+        Romain Gantois <romain.gantois@bootlin.com>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Magnus Damm <magnus.damm@gmail.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Christophe Roullier <christophe.roullier@foss.st.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, Radu Rendec <radu@rendec.net>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org,
+        Drew Fustini <dfustini@tenstorrent.com>, linux-sunxi@lists.linux.dev,
+        linux-amlogic@lists.infradead.org, linux-mips@vger.kernel.org,
+        imx@lists.linux.dev, linux-renesas-soc@vger.kernel.org,
+        linux-rockchip@lists.infradead.org, sophgo@lists.linux.dev,
+        linux-riscv@lists.infradead.org, brgl@kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+        Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8129;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=vnN+T2XbeWk5toset9VU4nTIVfbU8DZj0FMpypnlf4Y=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqs+zeOf2G7l8EXFcfVOAE+buElY5SFrPnn9wRC
+ Evx9qRwltOJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarPs3gAKCRAFnS7L/zaE
+ w2TzD/9IIAk691KeBGEP5+gjr367MR9d6SS6IzzDpKNK8TFMzVaIsurZAnAS83j1rB17e7CiFcl
+ OGz5i/BLZ9JcMNJRpHAJKKF23IdkFl1qxyzNgwXIAMAaXTcDvwTLUYgzzu2lGPbU1qUV3JmSLPu
+ sTW5wvKTofo88VRNvuGegni7FRQnxAPhyj88ddvgs/veq3y5ldWsEK+ROUS3XQb9Cez8Joet9wo
+ kVB0RtmP8l0+/fEF5XnM/iIWH07Cr2da2zwX/RUrUihkF26i3yUPrXRe20MGvetGg1vUVB/eT2p
+ nnVM5xK3pQzVpTkPjVvfiSDNCAszd1ZU5q0eljGgVNUZ543eLw9WMtCAgAGFlvp6zk4SsZEJWiS
+ LTA+UNgvxL1qDrBz0dLAiuZa0xP9TpTJCdey6ExoUEesZIIFHKr7L5ZKcusm5cNWJd1wsPe23d0
+ M8128gvf/+PrbRQVafyn0jud+BgsQ0v0MPJT45bvf9m5Axej41IMwqj3pxlgrnn3hkFZ1npZlaN
+ LzvmDPIvuOGArc453fn7+VDq6mEjGIZ91LXv/h5kf4LHcrOX0fItMbA8/HL0YXQIhIJ00iAQ2Rh
+ zPYBLvlmFdbLA+razK5mu7GGFHMpDREhm7NxTTMUGv3dWBujH0/3ZIrkPAMEqD7LlxN8JiCRcpl
+ 5dtzQeKEkgtW7PQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2MCBTYWx0ZWRfXwyXg8oC2icO+
+ cl5tnyWmEZp9aDwQ+tiY02jWNgFo+QqiK8FqyqHhVfPTMxHnElWnkdm/RsVEtnuoRcWTrzQuS8a
+ IgdtXlrlF8m1H6xx7WO4d05msDtDPu0vyazKckT8xVo2pfnY0I6lFoi6jGHkZf9VvMs7l9Vx1ZV
+ XUZjZXNo1/2L8UxbDwcwz6NebhLq78yfNAnKMfvFQgI/9UNBVjOwifLHOHhPjlCs+kKU65NduCG
+ iTJR7hsI9CCsZyEiYydsO6tzWacx/CPA3DSa5PCFOuYuJqCwaIxwsSj+rLsxu++5dRmBx6msUlu
+ 891qvffeCdyYgmN27RYqey6wnTfilCJaIypdoo05Jjopncu6C5CX2MMLUFHo350OJpwOdt2At4N
+ sLDWxR48nhCeERFamG3nj/Cu5XPGVEUAFyBf/Y25GqwrQnf7j5clQvOkHrAYjrBIomO8CiVdLb4
+ GOoyX24SpqRXZzn53Gg==
+X-Proofpoint-GUID: c5skinwp6Gz0VmRj3tC0TzW2PypBsMDG
+X-Proofpoint-ORIG-GUID: c5skinwp6Gz0VmRj3tC0TzW2PypBsMDG
+X-Authority-Analysis: v=2.4 cv=K4+3jCWI c=1 sm=1 tr=0 ts=6ab3ecf2 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=PHq6YzTAAAAA:8
+ a=LD4EYYuP07UOpJRtIbAA:9 a=johg_cs5QguPD8jS:21 a=QEXdDO2ut3YA:10
+ a=TOPH6uDL9cOC6tEoww4z:22 a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22
+ a=ZKzU8r6zoKMcqsNulkmm:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2MCBTYWx0ZWRfXxmV/pbUgqK7w
+ FmyzsJOIeS6xY68aP2IxUCpZsF/EW00oZ55JxkpzLcybzJDQGH7YTg0PvkFfCSr/s+//S0K+ku+
+ phMMyxJQle+SdyC5qDtJzBAuwnbHSVU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230060
 
-On 16/09/2026 10:10 pm, Francesco Valla wrote:
-> Hello,
-> 
-> this patch series introduces the possibility to support generic virtio
-> devices over the remotepoc transport, whereas today only rpmsg and
-> virtio-console are supported.
-> 
-> == Introduction ==
-> 
-> Support for devices other than rpmsg was originally planned [1] and is
-> declared inside the documentation [2], but is in practice not there for
-> the majority of (if not all) the platforms that provide remoteproc
-> capabilities due to memory allocation.
-> 
-> While vrings are pre-allocated in an area that is reachable by both the
-> local (i.e.; Linux) and remote processors, buffers produced by virtio
-> drivers aren't, since they typically get allocated through kmalloc.
-> The aforementioned rpmsg and virtio-console drivers instead use a trick
-> to overcome this limitation and allocate these buffers directly from
-> the remoteproc device's coherent memory area, somewhat breaking the
-> separation between the driver and the underlying transport.
+This iteration addresses several issues raised by Sashiko. Some are not
+addressed as they were false positives (nothing in the PHY driver ever
+calls phy_runtime_get() on the parent device) or I decided they make no
+sense - like the suggestion to remove the power-domain-names property
+because there's only one power domain.
 
-This sounds very much like needlessly reinventing restricted-dma-pool, 
-with even the same underlying motivation, more or less...
+--
 
-Thanks,
-Robin.
+Add support for the firmware-managed variant of the DesignWare MAC on
+the sa8255p platform. This series contains new DT bindings and driver
+changes required to support the MAC in the STMMAC driver.
 
-> 
-> == Well, nice, but why? ==
-> 
-> Main usecase is sharing/virtualization of devices in hypervisor-less
-> mixed-criticality contexts, where a subset of peripherals are controlled
-> by a "safety" real-time processor but still need to be used by the Linux
-> world. Several solutions have been / are being proposed [3] [4], but
-> none of them re-uses the existing, standardized virtio specifications.
-> 
-> == The proposal ==
-> 
-> The proposed approach is to introduce a bounce buffering mechanism that
-> is transparent to the drivers and can expose to remoteproc devices only
-> memory areas they can access. This is obtained by defining the .map
-> memeber of each registered vdev and use the map() and unmap() callback
-> to bounce data to and from the remote processor, just like the swiotlb
-> framework is doing in other contexts, using the device's coherent memory
-> area and the associated functions to allocate the bounce buffers.
-> 
-> During the map() callback the address of the incoming buffer is compared
-> against the coherent memory address base and size, to pass through
-> buffers already suitable for remoteproc usage (e.g.: the ones allocated
-> by the rpmsg framework).
-> 
-> == Status and open points ==
-> 
-> The series was tested against a custom Zephyr application [5] running on
-> the Cortex-M33 processor of an i.MX93 and exposing six different virtio
-> devices:
-> 
->    - rpmsg
->    - entropy (rng)
->    - gpio
->    - i2c
->    - spi
->    - can
-> 
-> On top of three of them (unsurprisingly: i2c, spi, and gpio) several
-> devices where declared inside Linux devicetree and successfully used
-> (well, technically I'm still experiencing difficulties with gpio
-> interrupts not firing on the M33, but that's not really related to the
-> series).
-> 
-> Several open points are still present, and needs to be either
-> investigated or discussed:
-> 
->    - for each bounce buffer an entire page is allocated from the coherent
->      memory pool; this is a waste for most of the allocations, which take
->      on average 32 to 64 bytes. An option can be to initialize a DMA pool
->      on one page and allocate small buffers from it?
-> 
->    - the support in its current form allocates more memory than before
->      (for bounce buffer tracking) also for existing usecases (i.e.,
->      mainly rpmsg).
-> 
->    - an additional issue still exist - and is not solved by this series -
->      for a subset of virtio devices: communication through the device's
->      config space. The remoteproc transport expects this config space to
->      be somewhat constant, and there is no provision to sync changes made
->      by the driver with the remote device. This prevents e.g.
->      virtio-input to work.
-> 
->    - device de-registration on remoteproc stop is causing oopses (under
->      investigation - might no be strictly tied to the series)
-> 
-> == Patches breakdown ==
-> 
-> Patches 1 and 2 are cleanups to the remoteproc-virtio driver and could
-> be applied independently of this series.
-> 
-> Patch 3 was submitted a couple of months ago [6] and paves the road for
-> the actual support of generic virtio devices, removing the fixed number
-> of 2 for the vrings associated to a vdev.
-> 
-> Patch 4 introduces two new APIs for coherent memory areas associated to
-> devices that are used later.
-> 
-> Patch 5 might somewhat be controversial, as it unconditionally defines
-> the VIRTIO_F_VERSION_1 feature for all vdevs. This is required to
-> support some virtio device types, and there is no other mean of
-> defining it, since the field reserved for features inside the resource
-> table is limited to 32 bits. Given that the 1.x virtio specifications
-> are ~10 years old this still seems reasonable.
-> 
-> Patch 6 is were the bounce buffering mechanism is introduced; another
-> feature (VIRTIO_F_ACCESS_PLATFORM) is there unconditionally defined to
-> force the virtio framework to use the new map APIs.
-> 
-> Patches 7 and 8 are new devicetree bindings, the first for spi-virtio
-> (modelled against the existing ones for gpio-virtio and i2c-virtio) and
-> the second for declaring virtio device inside a devicetree. This is not
-> required for some devices (e.g.: can, net, gpu), but for others is
-> necessary to declare child devices and link them.
-> 
-> Patch 9 is used to convince the remoteproc-virtio transport to parse the
-> bindings just defined; it is worth noting that the virtio framework
-> already has the support for devicetree declarations and this adds only
-> the glue between the existing support and remoteproc.
-> 
-> Patches 10 and 11 are i.MX-specific and enable the usage of the newly
-> introduced support on this family of platforms. The first one might
-> probably be sumbitted as-is independently of the series, as it aligns
-> the behavior of imx-rproc to the other platforms in relation to mailbox
-> usage.
-> 
-> Finally, patch 12 is the PoC that has been used to develop and test the
-> series and shall not be merged.
-> 
-> ======
-> 
-> Thank you in advance for any comment you may want to leave.
-> 
-> Regards,
-> Francesco
-> 
-> [1] https://lore.kernel.org/all/1330589497-4139-1-git-send-email-ohad@wizery.com/
-> [2] https://elixir.bootlin.com/linux/v7.2.5/source/Documentation/staging/remoteproc.rst#L26
-> [3] https://lore.kernel.org/linux-remoteproc/20260721204704.400781-1-shenwei.wang@oss.nxp.com/
-> [4] https://cfp.embedded-recipes.org/er2026/talk/PCYPJP/
-> [5] https://github.com/WallaceIT/zephyr/tree/multi_vdev
-> [6] https://lore.kernel.org/all/20260621-vring_flex-v1-1-c6c582fbe94b@valla.it/
-> 
-> Signed-off-by: Francesco Valla <francesco@valla.it>
-> ---
-> Francesco Valla (12):
->        remoteproc: virtio: cleanup rproc_add_virtio_dev error path
->        remoteproc: virtio: replace commas with semicolons
->        remoteproc: virtio: support dynamic number of vrings
->        dma-coherent: add base and size APIs
->        remoteproc: always report VIRTIO_F_VERSION_1 feature
->        remoteproc: virtio: add bounce buffering for data buffers
->        dt-bindings: spi: add bindings for spi-virtio
->        dt-bindings: remoteproc: add remoteproc-virtio
->        remoteproc: search for a fwnode during vdev registration
->        remoteproc: imx_rproc: always use non-blocking mailboxes
->        dt-bindings: remoteproc: imx-rproc: support virtio
->        PoC: arm64: dts: imx93-11x11-frdm: add multiple vdevs
-> 
->   .../bindings/remoteproc/fsl,imx-rproc.yaml         |   3 +-
->   .../bindings/remoteproc/remoteproc-virtio.yaml     |  89 +++++++++
->   .../devicetree/bindings/spi/spi-virtio.yaml        |  52 +++++
->   arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++-
->   drivers/remoteproc/imx_rproc.c                     |  49 +----
->   drivers/remoteproc/imx_rproc.h                     |   1 -
->   drivers/remoteproc/remoteproc_core.c               |  43 +++-
->   drivers/remoteproc/remoteproc_virtio.c             | 222 ++++++++++++++++++---
->   include/linux/dma-map-ops.h                        |  10 +
->   include/linux/remoteproc.h                         |  24 ++-
->   kernel/dma/coherent.c                              |  34 ++++
->   11 files changed, 562 insertions(+), 93 deletions(-)
-> ---
-> base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
-> change-id: 20260915-remoteproc_virtio_map-bcf32a5fab54
-> 
-> Best regards,
-> --
-> Francesco Valla <francesco@valla.it>
-> 
+It also reorganizes the ethqos code quite a bit to make the introduction
+of power domains into the driver a bit easier on the eye.
+
+The DTS changes will go in separately.
+
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Changes in v15:
+- Squash patches 6 and 7 to avoid a potential hang-on-resume regression
+  (Sashiko)
+- Fix the AUTONEG_DISABLE early return path in forced mode (Sashiko)
+- Fix Kconfig dependencies on generic power domains (Sashiko)
+- Set the performance level back to 0 on unbind in the PHY driver
+  (Sashiko)
+- Use devm_pm_runtime_enable() where applicable
+- Link to v14: https://patch.msgid.link/20260908-qcom-sa8255p-emac-v14-0-ec212b747a7d@oss.qualcomm.com
+
+Changes in v14:
+- let genpd's own runtime suspend/resume callbacks own the perf state entirely
+  by calling dev_pm_genpd_set_performance_state() in set_mode()
+  unconditionally in the sgmii PHY driver
+- drop usleep_range() from the PHY driver when setting the state as the level
+  setting is already synchronous
+- add missing power-domains limits for ma35d1/k3-dwmac
+- fix ordering of clearing the sgmii loopback
+- configure the wrapper clocks synchronously in scmi setup
+- Link to v13: https://patch.msgid.link/20260713-qcom-sa8255p-emac-v13-0-119f8699ef8e@oss.qualcomm.com
+
+Changes in v13:
+- Reapply OPP on speed change in the PHY driver
+- Use linux/device-id/of.h instead of mod_devicetable.h
+- Fix the "invalid PTP clock rate" warning on sa8255p
+- Add commits necessary to allow correct link speed change with SCMI
+- Link to v12: https://patch.msgid.link/20260706-qcom-sa8255p-emac-v12-0-e3ab1ecf2901@oss.qualcomm.com
+
+Changes in v12:
+- Drop the power-domain-names from the SGMII PHY DT bindings
+- Add missing Kconfig dependency on PM for the new SGMII PHY driver
+- Link to v11: https://patch.msgid.link/20260629-qcom-sa8255p-emac-v11-0-1b7fb95b51f9@oss.qualcomm.com
+
+Changes in v11:
+- Take a new approach: add a dedicated driver for the firmware-managed
+  SGMII PHY and simplify changes made to the MAC driver
+- Link to v10: https://patch.msgid.link/20260323-qcom-sa8255p-emac-v10-0-79302b238a16@oss.qualcomm.com
+
+Changes in v10:
+- Fix unit address in DT example
+- Link to v9: https://patch.msgid.link/20260316-qcom-sa8255p-emac-v9-0-c58934e76ff2@oss.qualcomm.com
+
+Changes in v9:
+- Rebase on top of current linux-next again
+- Link to v8: https://patch.msgid.link/20260311-qcom-sa8255p-emac-v8-0-58227bcf1018@oss.qualcomm.com
+
+Changes in v8:
+- Rebase on top of recent changes in linux-next which required an
+  extensive rework
+- Drop partial R-b tags
+- Link to v7: https://patch.msgid.link/20260306-qcom-sa8255p-emac-v7-0-d6a3013094b7@oss.qualcomm.com
+
+Changes in v7:
+- Restored the correct authorship after learning git uses .mailmap for
+  the --author switch
+- Rebased on top of changes from Russell
+- Fixed resource management issues in error paths
+- Link to v6: https://lore.kernel.org/r/20260112-qcom-sa8255p-emac-v6-0-86a3d4b2ad83@oss.qualcomm.com
+
+Changes in v6:
+- Fix $id value in the bindings
+- Drop patch 3/8 from the series
+- Update init/exit callback signatures
+- Link to v5: https://lore.kernel.org/r/20251107-qcom-sa8255p-emac-v5-0-01d3e3aaf388@linaro.org
+- Link to v6: https://lore.kernel.org/r/20251219-qcom-sa8255p-emac-v6-0-487f1082461e@oss.qualcomm.com
+
+Changes in v5:
+- Name the DT binding document after the new compatbile
+- Add missing space
+- Make the power-domains limits stricter
+- Link to v4: https://lore.kernel.org/r/20251104-qcom-sa8255p-emac-v4-0-f76660087cea@linaro.org
+
+Changes in v4:
+- Remove the phys property from the SCMI bindings
+- Mark the power-domain-names property as required
+- Set maxItems for power-domains to 1 for all existing bindings to
+  maintain the current requirements after modifying the value in the
+  top-level document
+- Link to v3: https://lore.kernel.org/r/20251027-qcom-sa8255p-emac-v3-0-75767b9230ab@linaro.org
+
+Changes in v3:
+- Drop 'power' and 'perf' prefixes from power domain names
+- Rebase on top of Russell's changes to dwmac
+- Rebase on top of even more changes from Russell that are not yet
+  in next (E1vB6ld-0000000BIPy-2Qi4@rmk-PC.armlinux.org.uk)
+- Link to v2: https://lore.kernel.org/all/20251008-qcom-sa8255p-emac-v2-0-92bc29309fce@linaro.org/
+
+Changes in v2:
+- Fix the power-domains property in DT bindings
+- Rework the DT bindings example
+- Drop the DTS patch, it will go upstream separately
+- Link to v1: https://lore.kernel.org/r/20250910-qcom-sa8255p-emac-v1-0-32a79cf1e668@linaro.org
+
+---
+Bartosz Golaszewski (9):
+      net: phy: aquantia: fix system interface type not updated in forced mode
+      dt-bindings: phy: document the serdes PHY on sa8255p
+      phy: qcom: add the SGMII SerDes PHY driver for SCMI systems
+      dt-bindings: net: qcom: document the ethqos device for SCMI-based systems
+      net: stmmac: qcom-ethqos: set serdes mode before powerup
+      net: stmmac: qcom-ethqos: update phy_mode to the resolved interface in mac_finish()
+      net: stmmac: qcom-ethqos: reuse the address of ethqos_emac_driver_data
+      net: stmmac: qcom-ethqos: factor out linux-level setup into a separate function
+      net: stmmac: qcom-ethqos: add support for sa8255p
+
+ .../bindings/net/allwinner,sun7i-a20-gmac.yaml     |   3 +
+ .../bindings/net/altr,socfpga-stmmac.yaml          |   3 +
+ .../bindings/net/amlogic,meson-dwmac.yaml          |   3 +
+ .../devicetree/bindings/net/eswin,eic7700-eth.yaml |   3 +
+ .../devicetree/bindings/net/intel,dwmac-plat.yaml  |   3 +
+ .../bindings/net/loongson,ls1b-gmac.yaml           |   3 +
+ .../bindings/net/loongson,ls1c-emac.yaml           |   3 +
+ .../bindings/net/nuvoton,ma35d1-dwmac.yaml         |   3 +
+ .../devicetree/bindings/net/nxp,dwmac-imx.yaml     |   3 +
+ .../devicetree/bindings/net/nxp,lpc1850-dwmac.yaml |   3 +
+ .../devicetree/bindings/net/nxp,s32-dwmac.yaml     |   3 +
+ .../devicetree/bindings/net/qcom,ethqos.yaml       |   3 +
+ .../bindings/net/qcom,sa8255p-ethqos.yaml          | 107 +++++++++
+ .../devicetree/bindings/net/renesas,rzn1-gmac.yaml |   3 +
+ .../bindings/net/renesas,rzv2h-gbeth.yaml          |   3 +
+ .../devicetree/bindings/net/rockchip-dwmac.yaml    |   3 +
+ .../devicetree/bindings/net/snps,dwmac.yaml        |   5 +-
+ .../bindings/net/sophgo,cv1800b-dwmac.yaml         |   3 +
+ .../bindings/net/sophgo,sg2044-dwmac.yaml          |   3 +
+ .../devicetree/bindings/net/spacemit,k3-dwmac.yaml |   3 +
+ .../bindings/net/starfive,jh7110-dwmac.yaml        |   3 +
+ .../devicetree/bindings/net/stm32-dwmac.yaml       |   3 +
+ .../devicetree/bindings/net/tesla,fsd-ethqos.yaml  |   3 +
+ .../devicetree/bindings/net/thead,th1520-gmac.yaml |   3 +
+ .../bindings/net/toshiba,visconti-dwmac.yaml       |   3 +
+ .../bindings/phy/qcom,sa8255p-dwmac-sgmii-phy.yaml |  50 ++++
+ MAINTAINERS                                        |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 263 ++++++++++++++++-----
+ drivers/net/phy/aquantia/aquantia_main.c           |   5 +-
+ drivers/phy/qualcomm/Kconfig                       |  10 +
+ drivers/phy/qualcomm/Makefile                      |   1 +
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c     | 117 +++++++++
+ 32 files changed, 570 insertions(+), 58 deletions(-)
+---
+base-commit: ab8dad6c8262729415164de729ba533466fc3649
+change-id: 20250704-qcom-sa8255p-emac-8460235ac512
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
