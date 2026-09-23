@@ -1,109 +1,140 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB04D5335AA
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 18:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B07E54EEC5
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:02:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790189994; cv=none; b=FCmdKUWpDPEFBV/hFrbriq1+McuG80RADDIhIYFK4sr6aZ4bpSAv0+e9yEtzd8q6WceaqyvTP+m+kg6EbyV1mOH3nUSKonlGIo8VZQvv4as+StLvUeoxQpi+hSrq7m//lyszILfAf2Xq64xvaLaqdGkRZii8M3FRdIshaW3VeNs=
+	t=1790190125; cv=none; b=fvtoAZlsEqXqsbpT8iPDNK2aOZ47ZcKXm3rNN4DvkO/scUWnKpuiMZljkbQXznf4I8XhUDFEW9XbeVPhSggbMvHB4S4w/YDF0NiMQYpCKChEk4u6WAfDyfVgYlmxALrHZ8efUegclI/Qks7Y3QqCk2G29j9nv6osvx6kosN40Ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790189994; c=relaxed/simple;
-	bh=xI96Dl/fhao6wWEyzLZsy9TSrK8H0E0M06bNe3IR5xw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UG3sZXDLdeBXvbOrUbQPs317OtKTMc1fb+n1bqg9QIdYUlsT+h231wj3EDIGi7q+MTTRPiliWSpHGiwBuXGAorb+xaQM00tfls5bcysO7yIn7rPzWHhIp9DyBmQWTQxBLqaq8YWCq+XBH4zYGkJoXFMnAX2rvbqx3YxQRhQzYBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=W2yGrN9v; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1790190125; c=relaxed/simple;
+	bh=XkvaTFe4x+mfRbfTx0Zf1oKb0JDLROe/ppI4fE4uiJs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jcbMSq1h4H/hR5ao12Dy6ppsO5p6J13fZzkqxMkrG5LywT7R2JrIAEpLqri8XzewSXUjpCXo6KBzRntOGoxHyo8SUzOyg9emTEGLiDCvpDyLl+pPA5zZiWWMI9a8KVOw48dTk5faOdwXbTc/uexUs/R7b8dpRdAqmk4oaZGscR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f2poulQv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="W2yGrN9v"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6e3so11755576d6.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:59:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790189992; x=1790794792; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1y+0wCr5i5MV3nD9ttzhvDEOrHuQJqJ4iBqK0B1ubkY=;
-        b=W2yGrN9v0WdJhn9Xrgi1vqJVcofTC8KakwZOY6LRG9Qs+2sRDfOO9pwCTpUM7+oE+l
-         xzs6k9jBB5XHbWig9stw8UifrLtcz1sHuDuH7wPE5OiQTSgNpHTklAt9RfcXhf1Q9dWF
-         mSUfktXeutfJ5feQNd6TlhYZveZ/zI0E5g5K9/gGvKerhmEXFAc7e9G8Omw947U/RWr9
-         EyObXCtKcQvFvS+MNgSTBjU9STFYh0c+hkxIofEUE4J1rivWDoTjxWv8s6bFb6dHGSI/
-         gVjicODBHR1B4EPaNUrBKK5dtJqOFM6rRkapI7jzqWwTOJjzk8VbdrskWrgwICs1LvIw
-         qutg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790189992; x=1790794792;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1y+0wCr5i5MV3nD9ttzhvDEOrHuQJqJ4iBqK0B1ubkY=;
-        b=tKKfHqxPneOxXkr6ezQUeqzJ4WWcfLC1FORWjmGB6hYKU8cRLPcG3sQSCHxRd1Czto
-         djk9iOTEGYDyH/8tjIPc7z/Om7C7WAQ/W38N8MDJCW5y5v3bwasgBLsN2HJnXq5dlUGp
-         WC9vpizuxwmD40is6i1CmQr1ZgvdEzdzCzP6aZiaTBwx5MnAdDblacETnqHR9d8jGQnx
-         6LtUIrUacxQqFcdyuneo2tOkHt6pfz+DIxl7qwlDzTQsY7pscxL9Gnsz3G3qpy1iDtK3
-         G5VSQe4yCqhIJXB7bHlo+p9XO3n8oZ3vpNhUJJp1YPts7YvH0lQ03nVmySc853qSlGNr
-         YMtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwCs8/P5E+/WD7wQlUUxi8zuYu8yYrtf2v5GYvW0cTCbtPq7c/Mtu/5xGFIAun37zfLg+msoBS5mGf3@vger.kernel.org
-X-Gm-Message-State: AFuF++meYD8D3uTTrOvNUqG04tTKUYbPuAU1TSEWwfrp2W10/FRxRLO2
-	Q8i0nufz8Ctf+zJg2PvL74eEfM6pq+cPc8oDi/KE6G11BR/L+fu79i0IVEP18TlR4Jk=
-X-Gm-Gg: AYBFou3xW/amyhXyXpK0Xse8Irj/bb/q2zBxfnOcGp5nCRBPxeNLGD9uUqCQEjIdBY1
-	ewt26u/HJDWmDoI1b4r15JxZZh3v2zcyI+2TYxRP4dum4eB+Hr4rpLJPmPA3DfQU4ZvWVVQ8jkF
-	WJVlIlo/qjiXIvQmu3UQ5+PmTrN9bCVx1DDSKs5PwnePSHaAheoVm4rfeSkLx8LdQNNSmQUXtUa
-	/XcphNGTmZnQSIyOWvaRL3+dlf04YY/+jB99o6Usk+i2TPl9M6fPzFMq1q6mvpeanMabxwMBxbK
-	qabY7v28J/GOvsYZi2Q9P5WLdB5INPXrCGJg5DKpmhMvwi4VjhP/f5T4ZWw4oLf2/yprF8AxpA/
-	qj4egKtDxaoc1RLWSaeZtmBNJOuLzOFZxx3ydD9HEfuQJ6q7cf1qOPYxdQ5bJZEvQACAHfJLFcU
-	VLFyIdkkulJooMqiuQRoWgGRv9hjNVM8FraZiBdkMCG1JHyomALxMJDGKCW+3KSmPPRi6xdMPJK
-	Mjv9LCXdg==
-X-Received: by 2002:a05:6214:4609:b0:910:3453:7d8f with SMTP id 6a1803df08f44-9141e8df748mr859276d6.36.1790189991722;
-        Wed, 23 Sep 2026 11:59:51 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9141e21995fsm1074486d6.10.2026.09.23.11.59.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 11:59:51 -0700 (PDT)
-Message-ID: <ea49aa8c-af1d-445d-b15b-25079cdcc72f@riscstar.com>
-Date: Wed, 23 Sep 2026 13:59:49 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f2poulQv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CADA1F00893;
+	Wed, 23 Sep 2026 19:02:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790190123;
+	bh=0whTYYAjgA7XXJ+n5TDOWKeFTP0s6IXdAVCHXFfzY+k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=f2poulQvrD+Kg3jp7LkckZp/oX7qBgyu3wbA0bvo8afyBfnYX8hXXYN8PG34qyNl6
+	 yqYkFaga0u0z9t3z2hT34WApu+XGKatGbqRrOjPdmGsqpRnyoB5eMm6/LMft78lXLx
+	 fU4obeKmkpvXEnS4zCgiQrXAYedkxV+v987ZvwXzkjsAuEhkuO8Bqtv3o3TRE5PjfU
+	 1a4Ee9IAws54edTgPMscpBG9V8MRSHnqEoeF8gAlpUpnCi4ICFP30ZwfdlMixJbJhu
+	 IW1tor39pIYuq+S6BrzTDFect+XxmCRgUlx4gKfeX7Ue5+r3GCqsBEFrS8ALeZU9mX
+	 BOcLulpkYZnBw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: pinctrl: convert nsp-gpio binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rosen Penev" <rosenp@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260923185305.26223-1-rosenp@gmail.com>
+References: <20260923185305.26223-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 19:02:03 +0000
+Message-Id: <20260923190203.8CADA1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/5] gpio: tc9563: Add support for the embedded GPIO
- controller
-To: Bjorn Helgaas <helgaas@kernel.org>,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>,
- Daniel Thompson <daniel@riscstar.com>,
- Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>,
- linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-References: <20260923185242.GA1909536@bhelgaas>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260923185242.GA1909536@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/23/26 1:52 PM, Bjorn Helgaas wrote:
-> Patch [1/5] and a comment below mention 37 GPIOs, this mentions 35.
-> Are they supposed to match?  Maybe 35 doesn't include the two reserved
-> ones?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: pinctrl: brcm,nsp-gpio drops gpio-hog and forces do=
+uble nesting
+--
 
-They are numbered 0..36, and two of them (20 and 21) are reserved.
+commit 25a9276749a1169691e6667beb90f7132674e886
+Author: Rosen Penev <rosenp@gmail.com>
 
-Of those, 10 (numbers 0-6, 12, 35, and 36) exposed outside the
-TC9564 chip itself.
+dt-bindings: pinctrl: convert nsp-gpio binding
 
-					-Alex
+The brcm,nsp-gpio-a compatible used by the NSP GPIO controller was
+only documented in the legacy text binding, so dtbs_check reported
+'failed to match any schema' for the gpio@20 node present in every
+bcm958625 and related board DTS.
+
+Convert Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
+to a YAML schema and drop the text binding. Keep the existing
+required and optional properties (reg, #gpio-cells, gpio-controller,
+ngpios, and the optional interrupt/gpio-ranges support), including
+the generic pinconf child nodes with pin bias and drive-strength.
+
+> diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml=
+ b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+
+[ ... ]
+
+> +patternProperties:
+> +  '-pins$':
+> +    type: object
+> +    additionalProperties:
+> +      description: Pin configuration child nodes.
+> +      allOf:
+> +        - $ref: pincfg-node.yaml#
+
+[Severity: Medium]
+Does this pattern property enforce a double-level nesting by treating
+-pins nodes as wrapper objects where the properties are the actual pin
+configuration nodes?
+
+This breaks documented single-level dts configurations from the previous
+text binding.
+
+[ ... ]
+
+> +        drive-strength:
+> +          enum: [ 2, 4, 6, 8, 10, 12, 14, 16 ]
+> +
+> +      required:
+> +        - pins
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Does using strict additionalProperties: false without referencing core sche=
+mas
+like gpio-hog or using unevaluatedProperties: false cause standard gpio-hog
+nodes and root pinctrl properties to be improperly rejected?
+
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    gpio@18000020 {
+> +        compatible =3D "brcm,nsp-gpio-a";
+> +        reg =3D <0x18000020 0x100>,
+> +              <0x1803f1c4 0x1c>;
+
+[ ... ]
+
+> +        interrupt-controller;
+> +        #interrupt-cells =3D <2>;
+> +        interrupts =3D <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +        led-pins {
+> +            led {
+> +                pins =3D "gpio-1";
+> +                bias-pull-up;
+> +            };
+> +        };
+> +    };
+
+[Severity: Medium]
+Does altering the example to drop the gpio-hog node and pinctrl-0
+properties, while artificially wrapping the led node, bypass schema validat=
+ion
+errors that would have otherwise caught the above issues?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923185305.2622=
+3-1-rosenp@gmail.com?part=3D1
