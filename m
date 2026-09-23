@@ -1,240 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310323B14BB
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FB3568552
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:21:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790191188; cv=none; b=g7yCKSYvgbk73DVakhoOS/bt8Lt6+nDoeXzfiKR0H/Ta+501fi/37ZD9nqqF89yR4cBfNdOWPre3ctE1wIpwoTeXT+pkA2l4MRt1wr9iyGmfq4JDZ8v/vsRxbCOXnKdL6zMR2jwDQO13f3qziVXvrDlrnUvCabjDXNJ22iWhlM8=
+	t=1790191311; cv=none; b=C0I1VaeO7Cbl27oRU3lqhS+hqh8WKMxg5HeiTU8dGEL7hW1JXu2s/PfDuMXRzF1ovldBjuB2yTnLEvoCTkm+bNECxIMvciJckjPQxcCi5NQRDBcmqB8zhYqeIDW3oyhWBkFRh8EIWpL/pqCQR3j4iChDUYAp2kaoeNnVBOMZ7oA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790191188; c=relaxed/simple;
-	bh=DjwwL8xrEYpKvw/MOc8zeX/i1NIveR47sKgUSIrb4ZA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XOrBOiNDvaiTA/UudEFAPXWUmYStwddzQHhSbx8kzCQ0ryZ2Syb2+JnkzMuTuiYxD+hwOThkTUt7t0Xn6LW1xQAkzJVjoSa/ph7KGb3Y9IArc05XeNYTBNnXPWnTvt/1ugXFSfgbnYpfc7nhkV9PWmq/5gKbA5ZsjaZLz+j+GsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gS6YLI4K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790191311; c=relaxed/simple;
+	bh=SxXdQ9x4xrXPna5Lh1tiLIazYVu3Dy/LlggDG/smh7c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=aLDMz1GS/eqFbpTeZhUuGUu6hbSYK/q4qbql7JsGiWaDwFiq24zVD+irkLNVhrrUxJYB2JCvp/CQ0N/W28l2Uo9fVfFpS5Li5D5E/+EJQj39DJbfpAMtpC51flFstst3bj1IskJFANgmDgVyM+w6KM2jX+dfLzL7WWpGbW/yeJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QSu4XVVv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OpYedIiy; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gS6YLI4K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 857761F000FF;
-	Wed, 23 Sep 2026 19:19:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790191186;
-	bh=6TINReRKgzHGfE+WJZiJvGKfTQEYLWnOT8uBrJFwH94=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gS6YLI4K2PBJrF5yHTJJ+Gi7Z5LVfJkD5RADEoxMH7BSMwz1DdUHhb8fnPOurQUVj
-	 22sekZ/S6JPq0vlKkEhcyys4kc4Bdf+XMLwKf5X/cbiIc3/b6B9V4GO7Lfz8mP13gQ
-	 FtikTO9bZeK6LskLISbuYByV7eOHnNVSaTnjQu5p7oxj062zJ4dHo5DOx0v7hxcd4i
-	 cP8DiyNeWnholdaZaEc0zOf2fowjAAmuVEnFH6lO7JaUvR7xBldBxfTPwMnl+oDIvh
-	 suFNuaMQJREsLfeAIEX7cLoX3QwO1XURJhzM47zkU+Sl5DksF06HZ1SP9Fn2bKoN/0
-	 8pqhQfH24HEPQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] iio: adc: add driver for the MAX34417 Four-Channel
- High Dynamic Range Power Accumulator
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260923-topic-sm8x50-iio-max34417-adc-v1-2-41d4ba1bfc41@linaro.org>
-References: <20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org>
- <20260923-topic-sm8x50-iio-max34417-adc-v1-2-41d4ba1bfc41@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 19:19:46 +0000
-Message-Id: <20260923191946.857761F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QSu4XVVv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OpYedIiy"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGTaon740286
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:21:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=x0wpg8eQ3E+q8HUKpU4pQ4
+	nMAtVqxGLo66qa1sOrIrU=; b=QSu4XVVv8pp2hbn/yjP2RMLOp0CUnOWtoS62yZ
+	7RJVjmubs3YeU5+Cb0UZCc9wKv5lNP+o3k0PMyI5CsCNlWDNTTy8WfUQNP4+8oKk
+	3CRPuUJxPEj1nZxzGLideiCiOAmb9/oWUrb1/AGyTKMLcq6ltO6h7Tg6AVxM3Fpa
+	zNzbHpeDZo0nozMPLw5BP7q7yPGW/PE6qARrMXAS7otaBDLTK55KemGGnyKuH20x
+	0oX1yF9cBjz52p2h+qeDFgS4YNBZCit6A2JJHS5e1GqYsp2c5IBnIoTXE8F0WN/p
+	QguaOjW9MnB4kcGHcR0pXD3y7y6jAN8/Ar08jKvLny5bDKzA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjshn3r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:21:43 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33310847fcaso2226519eec.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:21:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790191303; x=1790796103; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=x0wpg8eQ3E+q8HUKpU4pQ4nMAtVqxGLo66qa1sOrIrU=;
+        b=OpYedIiy4DlRDvi6GTIt2A708yZ924eBQyukTfudIvfQaRHrUU15pUKPbn+T+2uhmx
+         jwlgarbHdO52rwaj0fhSMn3JdXYz71s1Ec9+Ds/ZHkxATNn4L5K8ucoPdN7s0MN22EdL
+         1kFngNMu3HAgFOKFP7iOyfLKlAXYag0cI7yT3OnJv2BW0NkGaUeEaajotc+1XXiwinzK
+         /24eqhWClF7RRPY1ra3pRaKeVAwekxGEpzPkAqEUanoRN0Rlb0xFu+W+3/4EyOTRgm0N
+         3W6U9hypGCcDqtaaOQRf/HqsIi3D9WambGNqooEpYlQLlY7Mum+33gdUWTjp/0/KZdbE
+         QcDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790191303; x=1790796103;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=x0wpg8eQ3E+q8HUKpU4pQ4nMAtVqxGLo66qa1sOrIrU=;
+        b=VnyrEAml44slKiq55HIKQHUEJ4Q7bp6yTlOo0bCA8DOoa8zLSoEEPK1WCHIm3x9HvG
+         WPt5dXKZFj1a0xpMebNG8KP8PTqzuLAxEZoNaOosux+39rGDh0IfbO/iEJ+PjeIZ5D0m
+         arbowl76aHTpDBT1JZAlDWJlvWn1d+oJEyIxM7+sxQmisT4nYClZvBlfjQsUKsXeOk8M
+         iVjprFFtMDOfR3tgJibfz5Fr0uepMzAvYw6eQGpHsc6vSgHCWtrAJsZ4l3JZL3We+H1g
+         GV+4Qa4vmoVWXIxoPnyOGU4DoErd7FjXL3FSuwvEL2HmGYZ2qn+Q4VPdY0Yok3z7waA9
+         HAtg==
+X-Forwarded-Encrypted: i=1; AKwUvBxy6wPgXaxDvm0qp6TkAMiDKlEwi6aNwquhqUAqQzV4J9/HTVOyoDjtLRVrQ7hsx101oEYCmCrQpD9v@vger.kernel.org
+X-Gm-Message-State: AFuF++nj4tJdu1nGPazAn+fwHdnzlptCMYAk7Q2CCVVR1m98WAHc+Rer
+	V7z2cEz+jyMLJqtk5wvT5K32HRhHXRg5QS3sqIgeMuGVXmN9dJHOeAqqzjYmTuPulv69Px5bDWV
+	FTSAuqJS8JPDIe//kLudydsfmTo6WTnm4AbwIFBMfjppv9wY91L70aSsFfnHeRrH/
+X-Gm-Gg: AYBFou0zusamMRxx69GZaJe4gssXjcvlIbYOfqKoMuKwZMG40/5eFh2DUMPkp+fsbcn
+	bSgEssGKenGs5hjFzkyUmGeefo57uqVs+YpurRTEqAa6VLL7IT/EEDJWQ34sblY3RhqMyCL5Pul
+	rL5U4ZXg108tN9dWcdJeCBxsvuZZBaMDzJUCVAev8QA7ewcgt78QQSXxz9Z0pha2nKWiRRtA7UD
+	9Kk2ob0gMaaMCkCTB7RwL2OJZQ2sHSAUq5hBvRz49TxzbzizllsPNC5zi8okx3fGEDOnG3hgdLe
+	SM+xiV92VOM2tNx8xNbBtXIifKMDLhTUhtGfmMnEUZ14Mwvwl5fZZl8UwLHFs2KTBwdUw7SD5N1
+	ws9j8ND/HnWHEpM5U9eOLOIraInCl32YPCw==
+X-Received: by 2002:a05:693c:83da:20b0:33b:e9a7:d819 with SMTP id 5a478bee46e88-33fff15ba3amr137887eec.14.1790191302722;
+        Wed, 23 Sep 2026 12:21:42 -0700 (PDT)
+X-Received: by 2002:a05:693c:83da:20b0:33b:e9a7:d819 with SMTP id 5a478bee46e88-33fff15ba3amr137867eec.14.1790191302019;
+        Wed, 23 Sep 2026 12:21:42 -0700 (PDT)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e9684d643sm17609309eec.18.2026.09.23.12.21.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 12:21:41 -0700 (PDT)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] clk: qcom: Add Nord DPRX clock controller support
+Date: Thu, 24 Sep 2026 00:51:30 +0530
+Message-Id: <20260924-nords_dprx-v2-0-fa4364e087ef@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALomtGoC/03M3wrCIBTH8VcZ5zqHOsnqau8RI8w/TWi6PCWL4
+ btng6CbA58Dv+8KaJO3CKdmhWSzRx9DBd81oEcVbpZ4Uw2c8j090o6EmAxezJwWIqqNVFofBIM
+ 6mJN1ftli56F69PiM6b21M/t+fxn5n8mMUGKE5Mp1jrIr6yNi+3ipu47T1NYDQynlA01Ofo+rA
+ AAA
+X-Change-ID: 20260903-nords_dprx-4903d7acc841
+To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA3NyBTYWx0ZWRfX0AxoZysXCarF
+ ieeRRsrkf3YHewGJ6skgn0qmLXLrdpmVhAxhKFqCOmfIa/WfFmBpBiVAhUOYHeDgWpENqJQURmB
+ TdC6ApijcCJUnIOIp4bDWfqQl+jqSxhdpJoF0WhOafd1GJ9eK5SN1zvOOGb+IoohwxwFWmRaecC
+ IYTE5kqqmplE6hEFqojmPK4awXi+khK0rY9XJEy8oADS3Azkw8pNe0zK2weIZkQAnf6MZS5SILd
+ BoWB3DEV9HKNfQgb4vgKjx0Pwdup+F/TSaiWKQDSGf0504cR0D21oKkoF5+ww61WXhnrQ001rLv
+ Fpwhw01A/qbS1vkE6vXf+Wk4Dzahj7WqSo7LWu/lgg2W9BOZlK7l1mZ2IKWJd75g4WPt02eFWIF
+ wdzpCrDs4HYk3COmhCD1gKcJ9GwCK12azihV2SXWQ894+f5jLo2koF6dvpfLqoMnsTG349R9M1U
+ 5IAM2hW2bAmEepO/CKQ==
+X-Proofpoint-GUID: Q5bWelgE9k7BDgPXQW5fkACmpDNiXBpD
+X-Proofpoint-ORIG-GUID: Q5bWelgE9k7BDgPXQW5fkACmpDNiXBpD
+X-Authority-Analysis: v=2.4 cv=K4+3jCWI c=1 sm=1 tr=0 ts=6ab426c7 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=dhWb7Yg5Oiobcms0P14A:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA3NyBTYWx0ZWRfX7mzncpxGtIB4
+ mj+u5GDOjac44wi7Pg/+A7EVg086cieeyNY3/ryW+uR1gx6CtKZsgdzA3tsWUDstuWSqf+uXSVa
+ aVfVUBAA+iYdXHwZ7lsebRtPYvOhsXU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 suspectscore=0 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230077
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] iio: max34417: division by zero in max34417_read_power() when acc_=
-count is 0
-- [High] iio: max34417: division by zero in max34417_probe() if rsense is 0
-- [High] iio: max34417: build failure on 32-bit architectures due to GENMAS=
-K(55, 32)
-- [Medium] iio: max34417: fwnode handle leak on error paths in max34417_pro=
-be()
-- [Medium] iio: max34417: undeclared channels have uninitialized scale of 0
---
+Add support for the DisplayPort Receiver (DPRX) clock controllers found
+on Qualcomm Nord devices. There are two identical DPRX clock controller
+instances (DPRX0 and DPRX1), each providing clocks for the DPRX core,
+audio, AHB and video memory paths, along with their core PLLs.
 
-commit 281cd76d0d1a3f010bbf1f4241c438deb9b82192
-Author: Neil Armstrong <neil.armstrong@linaro.org>
+The DPRX PLLs are ZONDA_OLE instances whose PLL_ALPHA_VAL register has
+been widened to 28 bits to carry the fractional word at a finer
+resolution. The existing alpha-PLL core derives the ALPHA_VAL width
+solely from the register-map layout and can only express 16 or 40 bits,
+so the first patch adds an optional per-PLL alpha_width override that,
+when set, feeds the recalc_rate/round_rate scaling and the Zonda
+set_rate L-adjust MSB check. This is a prerequisite for the DPRX PLLs to
+lock to and report the correct rate.
 
-    iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range P=
-ower Accumulator
-   =20
-    The MAX34417 is a specialized current and voltage monitor used to
-    determine power consumption of portable systems. The driver support
-    getting the channels voltage and accumulated average power over an
-    I2C/SMBUS serial interface.
+The series is organised as follows:
 
-> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
-> new file mode 100644
-> index 0000000000000..004401de6ce7d
-> --- /dev/null
-> +++ b/drivers/iio/adc/max34417.c
+  - Patch 1 - alpha-PLL 28-bit ALPHA_VAL width.
+  - Patch 2 - documents the Nord DPRX clock controller device tree
+    bindings.
+  - Patch 3 - adds the two DPRX clock controller drivers.
 
-[ ... ]
+Changes in v2:
+- Address review comments: remove unused definitions and includes, rewrap the
+  alpha-width ternary, and clarify that DPRXCC provides clocks and resets.
+- Add RB-by tag [Abel]
+- Link to v1: https://lore.kernel.org/r/20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com
 
-> +static int max34417_read_power(struct max34417_data *max34417,
-> +				 const struct iio_chan_spec *chan, int *val, int *val2)
-> +{
-> +	uint32_t acc_count;
-> +	uint64_t power;
-> +	uint8_t buf[8];
-> +	int rc;
-> +
-> +	guard(mutex)(&max34417->lock);
-> +
-> +	rc =3D max34417_accumulator_update(max34417);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc =3D regmap_noinc_read(max34417->regmap, MAX34417_ACC_COUNT_REG,
-> +			       &buf, 4);
-> +	if (rc)
-> +		return rc;
-> +
-> +	acc_count =3D buf[3] | ((uint64_t)buf[2] << 8) | ((uint64_t)buf[1] << 1=
-6);
-> +
-> +	rc =3D regmap_noinc_read(max34417->regmap, chan->address, &buf, 8);
-> +	if (rc)
-> +		return rc;
-> +
-> +	power =3D buf[7];
-> +	power |=3D ((uint64_t)buf[6] << 8UL);
-> +	power |=3D ((uint64_t)buf[5] << 16UL);
-> +	power |=3D ((uint64_t)buf[4] << 24UL);
-> +	power |=3D ((uint64_t)buf[3] << 32UL);
-> +	power |=3D ((uint64_t)buf[2] << 40UL);
-> +	power |=3D ((uint64_t)buf[1] << 48UL);
-> +
-> +	power =3D div_u64(power, acc_count);
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+---
+Taniya Das (3):
+      clk: qcom: clk-alpha-pll: support a 28-bit ALPHA_VAL width
+      dt-bindings: clock: qcom: document the Nord DPRX Clock Controller
+      clk: qcom: dprxcc: Add Nord DPRX clock controller support
 
-[Severity: High]
-Is it possible for acc_count to be zero here? If the hardware returns 0 (for
-example, due to an incomplete conversion, I2C read glitch, or uninitialized
-state), wouldn't this div_u64() cause a division by zero panic?
+ .../bindings/clock/qcom,nord-dprxcc.yaml           |  68 ++++
+ drivers/clk/qcom/Kconfig                           |  11 +
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/clk-alpha-pll.c                   |   8 +-
+ drivers/clk/qcom/clk-alpha-pll.h                   |   3 +
+ drivers/clk/qcom/dprxcc0-nord.c                    | 434 +++++++++++++++++++++
+ drivers/clk/qcom/dprxcc1-nord.c                    | 433 ++++++++++++++++++++
+ include/dt-bindings/clock/qcom,nord-dprxcc.h       |  27 ++
+ 8 files changed, 981 insertions(+), 4 deletions(-)
+---
+base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
+change-id: 20260903-nords_dprx-4903d7acc841
 
-> +
-> +	*val =3D FIELD_GET(GENMASK(31, 0), power);
-> +	*val2 =3D FIELD_GET(GENMASK(55, 32), power);
+Best regards,
+-- 
+Taniya Das <taniya.das@oss.qualcomm.com>
 
-[Severity: High]
-Will this build correctly on 32-bit architectures?
-
-Since GENMASK() operates on unsigned long, which is 32 bits wide on those
-platforms, attempting to mask bits 55..32 might result in an out-of-bounds
-shift and trigger compiler errors or warnings like BUILD_BUG_ON_ZERO. Should
-GENMASK_ULL(55, 32) be used instead?
-
-> +
-> +	return IIO_VAL_INT_64;
-> +}
-> +
-> +static int max34417_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     int *val, int *val2, long mask)
-> +{
-> +	struct max34417_data *max34417 =3D iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (chan->type =3D=3D IIO_VOLTAGE)
-> +			return max34417_read_voltage(max34417, chan, val);
-> +		return -EINVAL;
-> +	case IIO_CHAN_INFO_AVERAGE_RAW:
-> +		if (chan->type =3D=3D IIO_POWER)
-> +			return max34417_read_power(max34417, chan, val, val2);
-> +		return -EINVAL;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (chan->type =3D=3D IIO_VOLTAGE) {
-> +			/* Scale to mA */
-> +			*val =3D MAX34417_VOLTAGE_CORRECTION_SCALE * MILLI;
-> +			*val2 =3D MAX34417_VOLTAGE_FULL_SCALE_BITS;
-> +
-> +			return IIO_VAL_FRACTIONAL_LOG2;
-> +		} else if (chan->type =3D=3D IIO_POWER) {
-> +			/* Scale to mW */
-> +			*val =3D max34417->input_correction[chan->channel] * MILLI;
-
-[Severity: Medium]
-Does this expose an uninitialized scale of 0 to userspace for omitted
-channels?
-
-Since all 4 channels are unconditionally exposed by max34417_channels, but
-input_correction is only populated for channels explicitly defined in the
-device tree during probe, userspace reading the scale for a missing channel
-might get a value of 0.
-
-> +			*val2 =3D MAX34417_PWR_AVG_FULL_SCALE_BITS;
-> +
-> +			return IIO_VAL_FRACTIONAL_LOG2;
-> +		}
-> +		return -EINVAL;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-[ ... ]
-
-> +static int max34417_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct max34417_data *max34417;
-> +	struct fwnode_handle *node;
-> +	struct iio_dev *indio_dev;
-> +	struct regmap *regmap;
-> +	int rc;
-
-[ ... ]
-
-> +	device_for_each_child_node(dev, node) {
-> +		unsigned int correction;
-> +		u32 rsense, index;
-> +
-> +		if (fwnode_property_read_u32(node, "reg", &index)) {
-> +			dev_err(dev, "missing reg property of %pfwP\n", node);
-> +			return -EINVAL;
-
-[Severity: Medium]
-Does this code leak the fwnode reference? Since device_for_each_child_node()
-takes a reference on the node during iteration, shouldn't fwnode_handle_put=
-()
-be called before returning early?
-
-> +		} else if (index >=3D MAX34417_CHANNEL_COUNT) {
-> +			dev_err(dev, "invalid reg %d of %pfwP\n", index, node);
-> +			return -EINVAL;
-
-[Severity: Medium]
-Could this early return also leak the fwnode reference?
-
-> +		}
-> +
-> +		fwnode_property_read_string(node, "label", &max34417->input_label[inde=
-x]);
-> +		if (fwnode_property_read_u32(node, "maxim,rsense-val-micro-ohms", &rse=
-nse))
-> +			rsense =3D MAX34417_DEFAULT_RSENSE;
-> +
-> +		/* (100 milliOhm / rsense) * MAX34417_PWR_CORRECTION_SCALE */
-> +		correction =3D (100 * MILLI * MAX34417_PWR_CORRECTION_SCALE) / rsense;
-
-[Severity: High]
-Can rsense be zero here?
-
-If the device tree explicitly sets "maxim,rsense-val-micro-ohms" to 0,
-fwnode_property_read_u32() will succeed and leave rsense as 0, which would
-cause a division by zero when calculating correction.
-
-> +
-> +		max34417->input_correction[index] =3D correction;
-> +	}
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-topic-sm8x=
-50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org?part=3D2
