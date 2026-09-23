@@ -1,141 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21C6572664
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F316486BB6
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790193011; cv=none; b=jTfTNCU5FzJUKp6oobwIPKKqBXKWhMKZJkvjccGdQEyD8g8j6rjuZlzMosUgMO5Mgb4bJjg8CFQl+4yNnOa3l3hfSBe1pmgmiKyxe9bU/0G6KVSJ8nSa3TbJ/vo/g+ezP2hZl/K9m65qLgXGTXJ9roOTBzQQvcSErRRTbQZLrH0=
+	t=1790193304; cv=none; b=AFcaAYPl2UvrbGkVVfkvbBXJCYAxV6tE2zatryuaeRWwHFORGrUhX/yWIsKOtzuiFlJD2QMVXWRgMg1Vwl/PUJuSk31TZ9A9NAaH8aPoowsrkRhX7y8SaZRr29bvu2xBO2j2agxGtGdrXRYAWkBZ35qZ2SW2fWAr0Mf3QrtKUI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790193011; c=relaxed/simple;
-	bh=NlEBeeNJfpEWYCm5gxlBdg9UciS99oitO1glvK7vvys=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VHWLfZqUqm3yMfgG7vzU8Dc7JJEg/ZTxz5Fh7nXWzJtKv9mjf+eIMM7pBSCRPaZLYC41VbmWItUCz/BEOYQBkO2nNYYzrrDSNpNSCN4w2XfKqKXZKneP6pj3Ozqsf5pcagOi8tilr2j04RHRPMfSFIh8vKWV0YKBuWe5xuRx+ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1G35Izt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790193304; c=relaxed/simple;
+	bh=dNSQS3kZz/gv8losSbApqlfF/nIQ15KTWrm00GSlLRU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oKEJaK0vKlxhEbQRKnrpJ6KNi7wvmT1Ka705YGUtE0C80kskHr7EE6XR5YiVC28O1u8m0TNC2S0zLV8V2GPs+3Ilou+enEaGVPqh3w+TFxKlcsO8dhseaZvRoyzRngTkTz3/Peuexe4jcqRYaHO9a4545WyMVYHQYcB/21O0BnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FVknQKLJ; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1G35Izt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A11D41F000FF;
-	Wed, 23 Sep 2026 19:50:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790193008;
-	bh=yby79EqsqUbDw44Cxdzh8bnZ21i96fV9e6ZYa+aAr5c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K1G35IztfDbRQsUvxFrlep93p8F1SuD8gHENcTf3m03IvRZ8qj3IIMECVf3QD4SuO
-	 hsWfKtpH6KiZkEmyWKQ0tZ7vFD355yK1XmBAKewoofVtjbplCwSN7N7KosmCAxae+k
-	 sYgdk4aN1UMEo4MFoCbRvrA3iWpYLFvSTG45GmcUpkJx73Xtd8+Ly20vKrnaURXqx+
-	 j7yK+CgXlL+CiXdWB9a59y8GANqeps/Nw3muBQ//k/YnOLQFWlmABp91W8bZvbWo20
-	 iI921SUpmvkF6bQ+TXKfYICK3TjtYxJBXFhp5s/H7p8P1ckS5zSlHr2JWt2rs1e1sl
-	 UY7dNQUPJ9ZoQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/3] media: i2c: Add Sony IMX681 sensor driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sergey Lebedev" <lsa.uz@pm.me>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260923193805.83998-3-lsa.uz@pm.me>
-References: <20260923193805.83998-1-lsa.uz@pm.me>
- <20260923193805.83998-3-lsa.uz@pm.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 19:50:07 +0000
-Message-Id: <20260923195007.A11D41F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FVknQKLJ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482e1b429f7so153622f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 12:55:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790193299; x=1790798099; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tLk6o6UAGSAyPrMGXPvZEKdQLnv1x/FQZrjKDEESrwE=;
+        b=FVknQKLJNFF+Np7F8gEMeZuO2AEp4XlL17oX/lAAEKCqxQjM4RxtzKLQzZFb5Ac1IO
+         PAxYxSZSqdeJ4swdOm1wMtJmIF24W2/yZ7ZfQf4sX/gpfKYRNSbtK3IY/HvJOHnzunDT
+         sGBuEEjx2PlPYpDWQF/0ePseEBD5LA/QokcOMKcIGyGYeXMN+j0zOyQlbyHTtfLShTlX
+         D9gEl+jFAlXLNlVoYDtZGWSVsCqXTOmENS11MXJUQR8UP6iHGLzNIXYQR1QEuclIye1/
+         JYQUJbn3O4zgw4lK+VRbEQD53ipBdaj0P63ISXV9sejdE56wSjH2g8qhqP71Ot9UfMS0
+         PHPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790193299; x=1790798099;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tLk6o6UAGSAyPrMGXPvZEKdQLnv1x/FQZrjKDEESrwE=;
+        b=zk/mXDIUic6TIw2237uKOQmjk0Dh4VPAKSFfOkA7o4DVcHtsf5xzNrj7002I+bxnZl
+         HcKpBypZYayKNtEvb+4oQSzQ2zpith6aFEDG+r7LyX159zuQfVpfj5oz0Nd27s9RlWgD
+         ICn5sdC4o6htEwffoGR7jBwRlkkgkcMx3oOWixaN3b+zuNEbEbyUUIAshiHKL/jLCwBY
+         cuwIo9dOBZ3+l74bwKt+rgpMYUP0Vzrevz1DmZrYnhDMXVMxmC7nYqATSk1wTwT+qQvH
+         IWII7kGLZKP/XRN8ZVDAzdmRMW7gVlzKtLwRUrwiVHqgS9AoYl0f7aXrvt+yhVUAR8lU
+         6RXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwxxyluDE01THipYBJhsgNRCeal4OW/1cn3yp6zZao08SRzzSi7RC1ljFH3xjIqzGSeXxij8jGNxfEs@vger.kernel.org
+X-Gm-Message-State: AFuF++nY/zzc8xxMxH97CkBsSRxuvCs34eQdahqJz4tMBoMzEIxpAL+c
+	GuxFswP7b9haE3HlGflCyv3AgJOGv+sVxtLKPawQJbzVAS3M27PpSGis
+X-Gm-Gg: AYBFou0HjE7ymQm50+Hg1DN9GL9G1tbyrtsRtFQLA+/K8czy4uWwrxN7p+aIEhErI7f
+	WG/Sc30kIoQ88fjAsJ4ELzG34sDcCXPZZAb4piX2Tb+GEk4v+C/U7Jg4D54yfgmMkh5Sz2q/ncS
+	paBW/7mHLZbt+wiFotDcYcAHYJa/H3t0tLaiJZh+vXs7Izjxgm4Ja/aDCDMXfuhHijv03e7ZAGr
+	VVrwelagM8Nyfi7VkpRG+4SeT5DtqsLA3hVuXFWZ9TS5tqvNQdxGKivtPO+4CDzoiS3lS1iLm0g
+	gpuW0nydLPLHLQLBdKJyqQIf7bygatiZZfDwAdBitnxKck7FravAJ5nBSPwsIL0A0P0rAVHwZXd
+	Zk1gsWnMjGg6q7zW3d6+VQrRg+pCNR4HD8opZ/6mZ2xlGD/RdANxgfzIu7D7oUeoiu8e15Xzn38
+	U4eEafBcXmNXVQoYIiDRDes6RZha81Os3pPYQFOA3HvoSb97nGWlT7QgCuLOKuFjVa78RGuH3Cn
+	ssUT6XR2ItPWijMoM2f5Jg7/b1CVxPIImJabODe73MFEcDIDr5Zv6MUczzqkb8JCTBxNOT32w==
+X-Received: by 2002:a05:6000:2083:b0:487:a9f:4fa2 with SMTP id ffacd0b85a97d-488716ef593mr320372f8f.1.1790193298626;
+        Wed, 23 Sep 2026 12:54:58 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8F4500007AAF7E1F4D006B.dsl.pool.telekom.hu. [2001:4c4e:1b8f:4500:7a:af7e:1f4d:6b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488688856f0sm8592627f8f.30.2026.09.23.12.54.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 12:54:58 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Jiaxing Hu <gahing@gahingwoo.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	=?UTF-8?q?H=C3=BCseyin=20BIYIK?= <boogiepop@gmx.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 00/11] accel/rocket: DVFS for the RK3588 NPU
+Date: Wed, 23 Sep 2026 21:54:23 +0200
+Message-ID: <20260923195423.10244-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <9cc5365470490b4b66364e60fb614ccda7e86c6f.camel@ndufresne.ca>
+References: <20260922080114.44662-1-royalnet026@gmail.com> <9cc5365470490b4b66364e60fb614ccda7e86c6f.camel@ndufresne.ca>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] media: i2c: imx681: missing clock rate validation
-- [Medium] media: i2c: imx681: flip controls silently ignored during stream=
-ing
---
+On Wed, Sep 23, 2026 at 03:29:49PM -0400, Nicolas Dufresne wrote:
+> In future series or update, can you use common formatting in the future, I find
+> your changelog hard to read. Do something like:
+>
+>   Since v1:
+>    - Changed patch X with action Z
+>    - Fix blabla
+>    - ...
+>
+> Its actually good to be more concise in your communication, "wall of text" are
+> difficult to cope with for maintainers.
 
-commit 9302e1005f9a8ea647ef15f49b763c01aec8d79f
-Author: Andre Gilerson <andre.gilerson@gmail.com>
+Thanks, noted. The v3 cover will carry a "Since v2:" list, one line
+per change, and will be shorter overall.
 
-media: i2c: Add Sony IMX681 sensor driver
-   =20
-Add a V4L2 sub-device driver for the Sony IMX681, a 10-bit Bayer sensor
-on a two-lane CSI-2 bus. It offers a single 3844x2640 mode at 30 fps and
-controls for exposure, analogue and digital gain, vertical blanking,
-both flips and the sensor's test patterns.
-
-> diff --git a/drivers/media/i2c/imx681.c b/drivers/media/i2c/imx681.c
-> new file mode 100644
-> index 0000000000000..3be96965c53ec
-> --- /dev/null
-> +++ b/drivers/media/i2c/imx681.c
-> @@ -0,0 +1,1003 @@
-
-[ ... ]
-
-> +static int imx681_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct imx681 *imx681 =3D container_of(ctrl->handler, struct imx681,
-> +					     ctrl_handler);
-
-[ ... ]
-
-> +	switch (ctrl->id) {
-
-[ ... ]
-
-> +	case V4L2_CID_HFLIP:
-> +	case V4L2_CID_VFLIP:
-> +		/* Read from imx681_start_streaming(); the layout changes. */
-> +		break;
-
-[Severity: Medium]
-Will this silently ignore flip control changes while the sensor is streamin=
-g?
-
-When userspace modifies V4L2_CID_HFLIP or V4L2_CID_VFLIP via VIDIOC_S_CTRL
-during streaming, returning 0 here without updating the hardware tells the
-V4L2 core the change succeeded. This can cause the V4L2 control state to
-diverge from the actual hardware state, breaking pipeline format validation
-because the reported Bayer format no longer matches the sensor's actual
-output.
-
-Should the driver call v4l2_ctrl_grab(..., true) when streaming starts to
-prevent these modifications?
-
-[ ... ]
-
-> +static int imx681_probe(struct i2c_client *client)
-> +{
-> +	struct imx681 *imx681;
-> +	int ret;
-> +
-> +	imx681 =3D devm_kzalloc(&client->dev, sizeof(*imx681), GFP_KERNEL);
-> +	if (!imx681)
-> +		return -ENOMEM;
-
-[ ... ]
-
-> +	/* Initialise CCI regmap for 16-bit register addresses */
-> +	imx681->cci =3D devm_cci_regmap_init_i2c(client, 16);
-> +	if (IS_ERR(imx681->cci))
-> +		return dev_err_probe(imx681->dev, PTR_ERR(imx681->cci),
-> +				     "failed to init CCI\n");
-> +
-> +	/* Get clock (optional - INT3472 provides it on Surface devices) */
-> +	imx681->xclk =3D devm_clk_get_optional(imx681->dev, NULL);
-
-[Severity: Medium]
-Does this clock need rate validation?
-
-The sensor's PLL and CSI-2 link timings appear to be configured assuming an
-exact 19.2 MHz input clock. If a different clock rate is provided (e.g.,
-24 MHz from a device tree or ACPI configuration), this probe will silently
-succeed, but the sensor might output garbage or fail to link.
-
-Should we check the rate using clk_get_rate() here?
-
-> +	if (IS_ERR(imx681->xclk))
-> +		return dev_err_probe(imx681->dev, PTR_ERR(imx681->xclk),
-> +				     "failed to get clock\n");
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923193805.8399=
-8-1-lsa.uz@pm.me?part=3D2
+Igor
