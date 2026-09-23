@@ -1,86 +1,173 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9C2549368;
-	Wed, 23 Sep 2026 18:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC65542EE8
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 18:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188832; cv=none; b=bjMHuAItz8nUBRG/NIWSTxIUyks15RNNLc/jf5XnLAngUEsiLg5a9NO4fLMGY8s2ScBgxG7FV+/3UFIQTyk+z8VHF/w6PeltaP+Rz67Rqaq+mRxAC/unyGNTI555VuCHrRTKJIPdXEdepmiV1cZfoVTvXY4ViLvFVh1pR/6JqPo=
+	t=1790188836; cv=none; b=EKo+Kgb0rbksr4K3ijPGyO9Ht1+CsstSYmqRMOLpBwWLJlvFh9SygMnI9Y2QxouMQnFEOtpV/TWBPsX3Jkhh5neblVp3fLFYJCN0lSWpbejUKGiVmerHS5WLgc96dkTf6MUxqWUuneoToOonAVybDDRxbJc1JLA78S0QR+5XqbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188832; c=relaxed/simple;
-	bh=wCYU6kCsjbsft4QljuAJcwuTKbKPA5+QrGeSnX7f+Pc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ogcmkJjfX8hcEsIV92AUKtKBcCTgVJV/ccSbiSdfApJmaP9CcDdl4j5t9Zz3FT1zQP4FSP3aT5oxYIKEyQ/x+TJ5NA96X7LiGglfPCfBwGY6pnotuJVFKlqNcp8yrKzQJC/PT1AWkqqMJssoyG28jafArUpQyES2RQxPgBNeGrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=yhjkIJHl; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790188836; c=relaxed/simple;
+	bh=LjI2SsSWKQZX7ULnYkf78v7gp2sgIgsQTM6Mv73WTwc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LOCXe77PQUm8K+dB1WeDm2wu14C0km+yvlC6I+ZK3xzdye127W/x8UIYyHyrqCTlWVw82eumoa2Q5Ibd/UxB576AzIr7wTbCUAPe7L1CJoFAJTklgfHlWM8vxkRv2slx/uQnjEMdE1Kt0qKFBSaNwOMMyzz2kKaw/nYqasphgMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KXbJh+/d; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="yhjkIJHl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=OrNV4RTSvEcp80MsSzY2H5C2CS5EoMlyA0T62CgMGog=; b=yhjkIJHlzT5HZm76/wauJUvG4J
-	zvNPInWrpiIamTIHq+/4DT1d/lXMf7A7/5b180690PBD8CnvhmtRRjrI+J2t3/Q6qsC+G/hjveV0P
-	saXb3BlBn6A9yKrlsmASrZaFqihFvzMGphAF2yhbbsTCnmchHhcABiH2b7aSpmkGf56o=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9Rt1-006rEE-GC; Wed, 23 Sep 2026 20:40:07 +0200
-Date: Wed, 23 Sep 2026 20:40:07 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KXbJh+/d"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso977291a12.2
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:40:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790188830; x=1790793630; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3gc3lVJFpeHvTVPTQlhw9bRs3DHSZ5NaiLqgYc9qgEg=;
+        b=KXbJh+/dP+H/DVta2SZjpyc6dT+zKM0g2loVnfAddOHhWjdLlHCqhNc++/Q/682VBz
+         iaNnQALzrBBhWhSUBLQ0LC6N1/489yvOCWRz4bVrbjYzrfjZDGIbZ92Q4oQctw9ncOZZ
+         V9HsxJ17HQ2BqKZ9AvrlI9MNz9s/FjX2lU5yEot4BZ41S++7joy2Ll6qWQRavgjhZ0bn
+         cBj4FALxgDPm4RCCdiucgK01PZ1/q8yB5qADIQT3KIm2Kop1cLJpUvyODk8f/m1ODn4+
+         3rryejjNb0oRd5QnhX2rhlaSHTRut8O1JdMuTyACKFyMSIliuESIYpxLl0FRuGQTu+Jf
+         dlqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790188830; x=1790793630;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3gc3lVJFpeHvTVPTQlhw9bRs3DHSZ5NaiLqgYc9qgEg=;
+        b=nnBT2sdH4Wnio0FYSjBUf/cFfft9yCXyLTP0ijox4Nhm9wALo6JeMoQTKuuF71N+J7
+         YePEOpdp3olrKs03eRf6Nbcg/r7RJU/M0O4ujeXcsPPZJd6icbO51jj89q05EcCeV3a7
+         th2UucSZG2FnBMkIKtIaQmcQtpdR6oscUb9cGy7US8l5eMy9GgRzpTwEndjp9Qe4rrks
+         i0ZXHRl7xNi8nMRehsVFr/tNxCRxKyeFCXqvR4kNmVxNnSP7P02irhF7D9kF4fx1wjvy
+         twz4/NshAbCgUSKjaZdZpp6/ONFm0JJL35c3EhnJsiIMWhWCXKsBoK9uRvnRCgB4bO+e
+         hIVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzqz/GYuMEgzA3UxhjQDGgH9ewqKgBmbnjJwOAz35/pX8+U9RfUFwaBbzxh0L3HyX1njDm/w59elZW6@vger.kernel.org
+X-Gm-Message-State: AFuF++kvSp+rFaEQ+d+FAFSAjcyLt7KlSJhDjhdHsUqikIY2Y9/a3Zkh
+	ADXYMTHDdibwv1b42sP73og7M2zd6sEgN+VtuNmQ5oqNiMFUgk54XsQv
+X-Gm-Gg: AYBFou29gIcb20SYD3SWYQDIf2kd4NqiqE8kK1vwqonKxRroD10mqMDJrc9XBeJLSB/
+	0pXWC7mhjOCQstnSpXphLbTeQjg/Gp7/wizpvWkLD3EVoGdPXmrA05UjhQARCSwTi0FEQlVtR1A
+	dYeFjXDIzsXgb4uvepT+Be3wU1h0t2AdadAo+/4dGBMBlaQBlhkODUKSE0F7NB61lrMN5hNVV+N
+	RBwoheV+4JCUFjd3qi3D0wsC5xNhMGMkQCNgrFFyYmMztDybjVvXc3X+tndxtOnjELccrcwcNTi
+	cUp9s/rSWlcEsVmPoxd9E4y4uFBzx0M3GD5X7rZz/tPfvJaXF6J2X/3O3ACcSCKt83x1KxTNQGo
+	8rw5w3zpYlbaSAOVNamazfpXin4HoCPTh+HpVd+HQodMj2JJwpSfwE/oxDEAS/jfDSTw9sYI4go
+	g6oqo+HMFX+qs1A7qGxhB7fWBOlOXei9+j4AuycvviXUV+o6eDs4ZmBeVacxdxW9uJ03/wZCzH1
+	coA4xqDf3byY+NuS2lsKtsGjlgMTA7ffekCO87pdrSa0YztkX9deF1++ylqT8WsexAodbAZMiM2
+	zuNCGU+G0/KmQJKS6ICQnFjs/lZFOFn/uvjhPP9foLCiv5KP
+X-Received: by 2002:a05:6a20:6f07:b0:3cc:8f53:26c0 with SMTP id adf61e73a8af0-3de0e73d922mr85921637.17.1790188830372;
+        Wed, 23 Sep 2026 11:40:30 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3b82aasm1644341a12.9.2026.09.23.11.40.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 11:40:29 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Jan Petrous <jan.petrous@oss.nxp.com>,
-	"Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Subject: Re: [PATCH RFC net-next 0/9] net: introduce Qualcomm XPCS support
- and add Nord Ethernet plumbing
-Message-ID: <67d74ba3-e1f4-46df-b14e-9ccf06a72043@lunn.ch>
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
- <5135e15d-b6ac-476c-9a7d-b7d64e4eed5c@bootlin.com>
- <arOtU15iv5CWPUEu@oss.qualcomm.com>
- <CALj3r0gAaQ_CoS5_9Mmf5HY+Fu5_e74fbb+r0LstafMhagHx6A@mail.gmail.com>
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] powerpc: dts: turris1x: use qca8337 internal PHYs
+Date: Wed, 23 Sep 2026 11:40:28 -0700
+Message-ID: <20260923184028.13830-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALj3r0gAaQ_CoS5_9Mmf5HY+Fu5_e74fbb+r0LstafMhagHx6A@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-> Would it make sense to take that route here? My pcs-xpcs-rk does the
-> MMD redirection through a custom MDIO bus; maybe the Qualcomm glue can
-> reuse that idea directly instead of extending pcs-xpcs-plat. Happy to
-> help with the generic parts if that's useful.
+The QCA8337 switch has a managed internal MDIO bus for its built-in
+PHYs.  Declare the five PHYs in an mdio subnode of the switch and
+link the LAN ports to them with phy-mode = "internal" and
+phy-handle, so each switch port is connected to the correct internal
+PHY instead of relying on the implicit legacy port-to-PHY mapping.
 
-I would be happy with a custom MDIO bus as well.
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/powerpc/boot/dts/turris1x.dts | 35 ++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-  Andrew
+diff --git a/arch/powerpc/boot/dts/turris1x.dts b/arch/powerpc/boot/dts/turris1x.dts
+index d0b7c62b8c6e..58c9e7b34e50 100644
+--- a/arch/powerpc/boot/dts/turris1x.dts
++++ b/arch/powerpc/boot/dts/turris1x.dts
+@@ -174,26 +174,36 @@ fixed-link {
+ 					port@1 {
+ 						reg = <1>;
+ 						label = "lan5";
++						phy-mode = "internal";
++						phy-handle = <&phy_port1>;
+ 					};
+ 
+ 					port@2 {
+ 						reg = <2>;
+ 						label = "lan4";
++						phy-mode = "internal";
++						phy-handle = <&phy_port2>;
+ 					};
+ 
+ 					port@3 {
+ 						reg = <3>;
+ 						label = "lan3";
++						phy-mode = "internal";
++						phy-handle = <&phy_port3>;
+ 					};
+ 
+ 					port@4 {
+ 						reg = <4>;
+ 						label = "lan2";
++						phy-mode = "internal";
++						phy-handle = <&phy_port4>;
+ 					};
+ 
+ 					port@5 {
+ 						reg = <5>;
+ 						label = "lan1";
++						phy-mode = "internal";
++						phy-handle = <&phy_port5>;
+ 					};
+ 
+ 					port@6 {
+@@ -208,6 +218,31 @@ fixed-link {
+ 						};
+ 					};
+ 				};
++
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					phy_port1: ethernet-phy@0 {
++						reg = <0>;
++					};
++
++					phy_port2: ethernet-phy@1 {
++						reg = <1>;
++					};
++
++					phy_port3: ethernet-phy@2 {
++						reg = <2>;
++					};
++
++					phy_port4: ethernet-phy@3 {
++						reg = <3>;
++					};
++
++					phy_port5: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
+ 			};
+ 		};
+ 
+-- 
+2.55.0
+
