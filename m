@@ -1,179 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f38.google.com (mail-qv2-f38.google.com [74.125.230.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989233382FC;
-	Wed, 23 Sep 2026 11:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790162674; cv=none; b=NTd4OHn6SHkZ931//TO3kRB79fPPKQqGtTKKE84JN8JgiHjuKBTEUMbRRaXaL5jA1dKB4CaPBvkRIZiBC5PhJaAOWdNlhumGoLIiM+9rJujtcthRwSMzSlPv7DthV9tvxm5qymo1rPgncuTdXO7ytIrqAxB8vS9DK3jRUgeEOKQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790162674; c=relaxed/simple;
-	bh=TEEwf0OK3ASPSQ/u04eQKbrq0RLcv3gmB/qHYc3605M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CPCeTbKeKY7aBhHG5ILKr1hNjqcSpfxRoT1cVT8VHI4+oR//yV/haeOg9dEJBOOGBgCwR6yLU2fNSarl6ZUkR8DMSKo20taEu9Pq8ol7eaJNGs3syGdLE/E2ypGzfyI1eW9uYgqo5KwBmIbqGRgG+zbTi30Fv35/5Wci3bsyNbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KyJ8rRaI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B747F39DBCC
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 11:24:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.166
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790162682; cv=pass; b=qR1tz2+srsFEjU30XfI5fJRwAEu5Ag0h6tH+IlLbmG2gdztFdLuksdyA83/CsyDPJ61teUQjFrfd4rB8qFLAoYusdrdHzqJmcwwDaYb9RskmgJ1u0tbJze0G4sChOFEuQyaRta0kTniz7U9fHh+g5X8rohPvGB1fQCeZhcqiG1s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790162682; c=relaxed/simple;
+	bh=9qFuwrpqqRSVeKCvpQNFoLGrmnYUlan6H12byrt7AHA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TmX4B2llnTEpubstTdCCvk/UX+tyAlOBYAB70phDa2YK9g0cxXg9yFjGmuRa8k3eWp/c8uVhF6BWXl+D+Z02G+B9UGJsa4pazJ/doyc4mVOqyLZzgwgNch/IjZKoZSNb9DtebT92yvNnd2dUHZAx6OlsOSICVjEzcamLzcx3lRs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bHojEQ3i; arc=pass smtp.client-ip=74.125.230.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KyJ8rRaI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925B71F00893;
-	Wed, 23 Sep 2026 11:24:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790162672;
-	bh=J9g2a92wrndbH9rSV6qvGEKxGUNXcugHf6a+Io4Iz8E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KyJ8rRaILNB9t8PP3PtkE1Rg/mUv+22FzJBP2/s2DM/QQgO9rcw6ZVTaI45/Rvx8S
-	 CShvtx94RNl7mBFLzM+u5VmLjpX5jf6R0kHeyJVc1XdE/18Zw3Y6uGz/VljEXmQ0z1
-	 hn3FNbdFyqvt/5iBQVRP7zeREDztcINP4MLpKvstPOZtWccYCY/+vG3m0NUh3bwwp1
-	 N68fSlPLtI4q1W/5+ixgndvUEPaDG3wP5+QJaJLmL2Y/7I7J/LgaySl6bJvQWoziSF
-	 Gis2eTOXqphk/GMbT6eZ0aqWgegMNId+NtFKvetgr0AHlmoU+acT1NE3iEcgrYl5ox
-	 2DTx3o9qgxeeg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 1/3] clk: meson: pll: Remove the dedicated n
- parameter
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jian Hu" <jian.hu@amlogic.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org
-In-Reply-To: <20260923-meson_refactor_n-v1-1-3a8ce27121a2@amlogic.com>
-References: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
- <20260923-meson_refactor_n-v1-1-3a8ce27121a2@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 11:24:31 +0000
-Message-Id: <20260923112431.925B71F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bHojEQ3i"
+Received: by mail-qv2-f38.google.com with SMTP id 6a1803df08f44-9107051ba26so5267106d6.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:24:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790162679; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fMzbYFM92l+aeJjnEY2NtJ3QVZIIbdu5DszIPaP7V3uj3YSjHum2TgfRLZSThynfur
+         ppcYj4vxJ+MkElZgaJd/1+yAf5AO/3RI1rmhzvamzmCX06onY9ld4dibhtHDRZ8H0r7c
+         BeHD2MCJW4G2y9+9caiXFtIGWcvVq7bBGI7Wo6pu+cGiRqKbGjznlMYbyjIOxj+0uw57
+         2/NYd9YE/3Vnogu95E2WKzvdXettI7oXI6jqfcALDmr+ZIhnuWbVAh8wqmHPTtOoYtuJ
+         1jv/DH5yi8wiGhlLzeQoe/jp5/zDZeEVuPcYkZeKNmc5ZBsfIBq+iBldNrnFW54/joSb
+         W+iA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=9qFuwrpqqRSVeKCvpQNFoLGrmnYUlan6H12byrt7AHA=;
+        fh=T2oq5z8+NLd5cO4cyAryIm2cTWAkg3oxWvRIf5Pd08g=;
+        b=QZj4ta7s/xXWb+4YT9/zI+SbiAOZ5XgdFu6HNkDnYxhqPUcCigmOViCaH7fBLIPARI
+         EAWKsQc2Uq977OG/asuQP1ebsQCbVaYbnvLoH7mda+UULXlE/dKjb0pPcrhLW0yaBDyW
+         Hx8N0RmwJqp1WzzP/P5E72RVkGNuA4vbOOMBFd9m0TlGhAqvrKnzsBl9d0Ou3Yw8QBaf
+         xb6sNcOUPDflIIfuauJ9+GWd2TQQXpQNMTyKAY4m/7O442dk+jis8be/i7nxIc1SmkQl
+         01GgX8emnTUJ4ePm3ME2TxD2j3ECQLvN/KuBEqGFb3SwVK59ngujDle2UZlCnWntTHHk
+         DPCA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790162679; x=1790767479; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9qFuwrpqqRSVeKCvpQNFoLGrmnYUlan6H12byrt7AHA=;
+        b=bHojEQ3if/5ybWyV09dEhN72ox0ELNuswMJeTdkdKMsF/oIaLfPbqMHubJi168kd28
+         pctjKiuCH2rVDGPiIfPf81AddYZedNF1nl+VD4ah3orE7eKg5qrzFtoMIQUX/SRwQKkh
+         601iENsNRfoflnnLMJiLb3Sc/pbWOIKxEFXUu/0qZ1f4Zx7Un3K+PPNGW2dpn9f8QvMF
+         ZRJLcDXYC6QtZXkVtZkGalxqE1AoR5I/rvQcVqX1wsam6G+P4cuTf26wtznLWhSqZ7wG
+         jM9LczwEI+xqpudjeAXFxP4jIcIa0U80B5mk5+ZgZlMpWEsdkoBhUSq/5TRNVEtLSG6y
+         UyHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790162679; x=1790767479;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9qFuwrpqqRSVeKCvpQNFoLGrmnYUlan6H12byrt7AHA=;
+        b=OuL15lFSf8HVbzMn/jJj0810fa0zH34GuMXcjgyzO9DoSsZ/xjDkt17IloaBaO3569
+         1tTBeLu0JzxQx/tbg8h+/CT7dAuNJqPLIv4H/STF1+jz4hqogO+/7qqoE15tKBEGkx9p
+         DBB+1w7BY4H9rAsGkODwRBRWFj0FFrpxx9AE1y3qjaW6dtYfHvFgq3iGlaq/srUAidX2
+         tpFDZ3BbIRrZ8tK2ec+X3gPcPA1xAVvr/37RpWqkJc9iJ4k+tbZpgp6nHs3CWrItMY6v
+         yX0wmenaiBP738E2QExYrdVrUGtjc/VKiSHL1kde5DShNScWX3SKVbccgrMbwch84ksJ
+         wgDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/UQiCf33DIHOOIWhMxVTGG2x4nAHPE64HtXbJWb2ueN0nGzoFlOrjaTNop4WEGR7ACdAqVoF3BTT6@vger.kernel.org
+X-Gm-Message-State: AFuF++k9QltXLzLufbPZb3/0maaQQfZZAgLGsEm/ze3nXWXZ4KqkDGni
+	yO7oOCVsCMgCcmffAlWJRKt4DDnMjsDPqQ8gwBppj8lUloKsq7vGSvQoYY5trg/gCk1ZaIG2iY+
+	GCblQ2IWUwXRw6gRrZNQxzMv4SJJlGXg=
+X-Gm-Gg: AYBFou2nclSamwkxq3i7T7B246AwDDJY1t9YlVZlk1aHs7PhIWT2d50K6w7/QRnSd3c
+	jFL1PVbC3dzfe8NJb2kBh9Bmb9uR91mC89p2GbXXS1dJiDhEbvTYSBatb+h2YTrfQUKthpwXsxo
+	wNFLtM7BTXcQFNrlyt/75K320zTkNC4QI1qx2PZdk/J4BfTzAzUjovkqXP2SMb2UY8Xe68W52Ng
+	9AKGu5ACyfLJRDAeWLv6hsyyNgGVHmg5o2D/XQyBfZ9Liz6aUuh4rzrzm4bFYawgC34LbVGdDJQ
+	kD7drFjS0NrKC1nPXdFC4v9AzmXOh1vzsIDLYL1g2vAo5HwIQ+b9IgKpug==
+X-Received: by 2002:a05:6214:2507:b0:914:44c:6346 with SMTP id
+ 6a1803df08f44-9140c3c38e7mr38390736d6.34.1790162679333; Wed, 23 Sep 2026
+ 04:24:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260923105208.198-1-anykey196@gmail.com> <20260923105920.CAC761F000FF@smtp.kernel.org>
+In-Reply-To: <20260923105920.CAC761F000FF@smtp.kernel.org>
+From: =?UTF-8?B?0JLQu9Cw0LQg0KHQktCd?= <anykey196@gmail.com>
+Date: Wed, 23 Sep 2026 16:24:27 +0500
+X-Gm-Features: AclHuK9sh5FBNarHLAEfVcm3oesc7H4_pIzHCxSA_Op301MlJ4p7eXIkEI6zvb8
+Message-ID: <CANHPwARnF75UhVpW2UisXW3QVyPiyMqEnu=MGFkQSVUh2F32GQ@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: allwinner: h616: orangepi-zero2w: add 24-pin
+ expansion buttons and IR
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] clk: meson: struct meson_clk_pll_data removal of 'n' breaks co=
-mpilation
-- [High] clk: meson: pll unconditionally requires range, breaking table-bas=
-ed PLLs
-- [High] clk: meson: external pre-divider violates PLL disable/reset sequen=
-cing
---
+Thanks for the review - you are right. The two buttons and the IR
+receiver are on the optional 24-pin expansion board. With the board
+detached the LRADC input and the IR receiver pin are undriven and
+float, which can lead to phantom key presses and interrupt storms.
 
-commit 9a0d9eb075576d244c161f62134109ad2353a8b7
-Author: Jian Hu <jian.hu@amlogic.com>
+v2 drops them from the base board .dts and provides them as a
+devicetree overlay (sun50i-h618-orangepi-zero2w-24pin.dtso) with a
+Makefile entry, following the existing
+sun8i-orangepi-zero-interface-board.dtso approach.
 
-clk: meson: pll: Remove the dedicated n parameter
-
-The Meson PLL framework models the PLL pre-divider (N) using a dedicated
-field in struct meson_clk_pll_data. Since the common clock framework already
-provides a generic divider implementation, this patch removes the dedicated
-n parameter from the framework and simplifies the PLL rate calculation.
-
-> --- a/drivers/clk/meson/clk-pll.c
-> +++ b/drivers/clk/meson/clk-pll.c
-[ ... ]
-> @@ -119,145 +107,48 @@ static unsigned int __pll_params_with_frac(unsigne=
-d long rate,
-[ ... ]
-> -static int meson_clk_get_pll_table_index(unsigned int index,
-> -					 unsigned int *m,
-> -					 unsigned int *n,
-> -					 struct meson_clk_pll_data *pll)
-> +static int meson_clk_get_pll_multiplier(unsigned long rate,
-> +					unsigned long parent_rate,
-> +					unsigned int *m,
-> +					struct meson_clk_pll_data *pll)
->  {
-> -	if (!pll->table[index].n)
-> +	if (!pll->range)
->  		return -EINVAL;
-
-[Severity: High]
-Does this unconditionally reject any PLL that lacks a .range definition?
-
-Many table-based PLLs in Meson SoC drivers (like axg_gp0_pll_dco) leave
-.range as NULL and rely strictly on .table. Without .range, rate calculatio=
-ns
-for these PLLs will deterministically fail at runtime.
-
-[ ... ]
-> @@ -420,7 +311,7 @@ static int meson_clk_pll_set_rate(struct clk_hw *hw, =
-unsigned long rate,
-[ ... ]
->  	enabled =3D meson_parm_read(clk->map, &pll->en);
->  	if (enabled)
->  		meson_clk_pll_disable(hw);
-> =20
-> -	meson_parm_write(clk->map, &pll->n, n);
-
-[Severity: High]
-Does stripping the write to the N pre-divider from this protected atomic
-section violate the hardware requirement to place the PLL in a disabled and
-reset state before its input frequency changes?
-
-By modelling the pre-divider as an external generic CCF clk_divider,
-its .set_rate will modify the hardware register immediately without
-notifying the running downstream PLL. Can this cause the active PLL to
-lose lock and produce an unstable clock, potentially locking up the system?
-
->  	meson_parm_write(clk->map, &pll->m, m);
-> =20
->  	if (MESON_PARM_APPLICABLE(&pll->frac)) {
-> --- a/drivers/clk/meson/clk-pll.h
-> +++ b/drivers/clk/meson/clk-pll.h
-> @@ -11,29 +11,17 @@
->  #include <linux/regmap.h>
->  #include "parm.h"
-> =20
-> -struct pll_params_table {
-> -	unsigned int	m;
-> -	unsigned int	n;
-> -};
-> -
-
-[Severity: High]
-Does removing pll_params_table also remove the framework's capability to
-enforce non-contiguous PLL multiplier rules?
-
->  struct pll_mult_range {
->  	unsigned int	min;
->  	unsigned int	max;
->  };
-[ ... ]
->  struct meson_clk_pll_data {
->  	struct parm en;
->  	struct parm m;
-> -	struct parm n;
-
-[Severity: Critical]
-Does removing the n and table fields from struct meson_clk_pll_data break
-the build for untouched SoC platform drivers?
-
-Drivers such as axg.c continue to initialize these fields in their static P=
-LL
-definitions (like axg_sys_pll_dco):
-
-static struct clk_regmap axg_sys_pll_dco =3D {
-	.data =3D &(struct meson_clk_pll_data){
-		...
-		.n =3D {
-			.reg_off =3D HHI_SYS_PLL_CNTL,
-			.shift   =3D 9,
-			.width   =3D 5,
-		},
-
-This will cause an immediate compiler error because the types have been
-removed. Will this breakage persist and break git bisect?
-
->  	struct parm frac;
->  	struct parm l;
->  	struct parm rst;
-[ ... ]
-> @@ -41,7 +29,6 @@ struct meson_clk_pll_data {
->  	struct parm l_detect;
->  	const struct reg_sequence *init_regs;
->  	unsigned int init_count;
-> -	const struct pll_params_table *table;
->  	const struct pll_mult_range *range;
->  	unsigned int frac_max;
->  	u8 flags;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-meson_refa=
-ctor_n-v1-0-3a8ce27121a2@amlogic.com?part=3D1
+Tested on: OrangePi Zero 2W (Allwinner H618) with the 24-pin expansion board.
