@@ -1,185 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62983921F1
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:30:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654B138F922
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:40:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790137818; cv=none; b=aIouq3YDB+MnodmViFv3YDh8oMJOlUmPRc5vYxPMlOL4QTv8iEhsh7ZY8OnudaDkzhkUmRryFJOGoroamGfgnUxb3/B5OZUDCyxJpaK/0VM7yu06rznNF7W9L9FBJc/wOW4dIv+Gj3DStR9KpQDbEDJziNsEQZnPefjVzxQRzwU=
+	t=1790138450; cv=none; b=qnJ+wv1Cf/m6VtAu5jeLsVdGksRSw8xud8PxruXdYJQFZqyiEwXNt8CozinUwszkX5GZUiX159py5TvLaSKR4FLjMvOX6Okkqre2heWmejXLwyYQDaBzNRcYPquOL9FKD++K0usQkx9bzb30TnBMOcN1yeKdPvgjQPefRda/6jw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790137818; c=relaxed/simple;
-	bh=sT9MmRS77VHaekO4zq2xzYlKFJEte2rmT2nq/mBW4Yc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OCcWX/1/18XAO+XiGG5NKpG+ajQtUb/BIMs0H0ijbbTe+MQWF6BJi8v7ltOhXUjI/QPzp+i7XPt0i+4jEb+pUXmfGWC45CGdkcgl0XZJnEvPfRf7rsMuiFS5LW7ntCeNQc24y+aJvGjMckHCpnd+gSEe2ZhUgOi9pvSYVYzZIqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3d0yNXb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790138450; c=relaxed/simple;
+	bh=VPyV7a3xkDcgrm9q8NZfLDEhH7ky+H3tTw4yjI/sfoc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l4p9JZC6ViUwZhXc3S6h/b0itePQEoo3xucyICqbq75KIRo0CHTnXlhp1ktVD6e23XGTG8tCucdUG3BX5Zjr9YWNwC4SbqcIQFLZsJgM2KeOBXqlyPOO7au3M7fp8GnaIJH2HgyEcCLjJgFUWlQfss8ZtQdD3+jg8MXO/NYj92A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Wg3MTmL/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZrfYdjc0; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3d0yNXb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8971F000FF;
-	Wed, 23 Sep 2026 04:30:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790137817;
-	bh=OXoqTAeU24K7SXCuI2nrIxxqtmSfpJW+kqYenpKb+QM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=I3d0yNXbfWx4yDxh0lnpx8NA2VVGgH9+PTLgi2uqcZjZfHiG3liIaW9Frzk1DgkEo
-	 AfoRlOSf9Ymi7ANexHZDCq3gbMhscbeDig9RCIgSS+0xE6JjRJF7acAE8uEeEQGm80
-	 ve446wlsFTBpsBqMC+ITOqp45ZNutCjAp64IS9QEAJ0YnwVxgkaLQzPtlgoIh267NR
-	 bPc9IY6+VpwFebFAlzzaW68hNQ37Nn1K7jVBGrBHheO3pjUUOID9bk4G+fJ4NTnv/4
-	 Upl+XBQOKKPaifC62PAqJIbNJtfjLLRJXpB/L7xezOarxkDQFvsV/6JzgwNbpdbK+c
-	 8KyT2YN5X1Kww==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] spi: ma35d1: Add Nuvoton MA35D1 SPI controller
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chi-Wen Weng" <cwweng.linux@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260923041926.425551-3-cwweng.linux@gmail.com>
-References: <20260923041926.425551-1-cwweng.linux@gmail.com>
- <20260923041926.425551-3-cwweng.linux@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 04:30:16 +0000
-Message-Id: <20260923043017.1D8971F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wg3MTmL/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZrfYdjc0"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3ijxG1425424
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:40:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	adnXMOlaGdiVvNccfQEuf1IxL8hL39dpJ1d6HYQXyVw=; b=Wg3MTmL/7eB7QUZx
+	P+tayauqoJw7YlEL3+MSt9QlCjFkHTTZBeQXmzR8GjdyJKTtUQSDUqC2GULp11Ar
+	G3yIs0J+B4Wg74DeK4sYU9HINcmIyivfiY6eOHBmycfqNrT1cbra+3UwnOg6VEFi
+	OAQ+kctCe4l3MAJJQvi9uaCnQOZm/NYonTzDKHqBYs58yAiEToBtclXcZxqg1FsV
+	va+zNgy/17EAUmb1bBi0Vkd7muk1q2MO2zBoemaMo4zRYcBZhLtmrPzcc5Ly4Hx/
+	v4eFRNrILUutyyWELrdBAsZvDF+tnA6O5ZSitFA7oiGForrEj1PeONO7LSX/Er3J
+	CuKurQ==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guy2c26cs-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 04:40:47 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139b62317d0so1398807c88.0
+        for <devicetree@vger.kernel.org>; Tue, 22 Sep 2026 21:40:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790138447; x=1790743247; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=adnXMOlaGdiVvNccfQEuf1IxL8hL39dpJ1d6HYQXyVw=;
+        b=ZrfYdjc0fCdHfsZSlmJmkkYNtZDB/LaTAS5wWRA41QQqjVbaW9qg0hsaZ6YES8/kAl
+         /iUFCWrALaS3XVrfMJYqUC2ilfR/hoDE9j1jRDun0sjPajWqDjcjckCN8EBh61IPzlgq
+         ubQfOzcxx/5FUPVwjezMdszMeHw8waWFukWh5/Oswo4D3GWVqV1A4810TH+Oz5MTSSV3
+         NYjM2MnHlIOtZHRqIFm7zER0Hp/mlZXow8NyCnEjB9nyuRhr8hjKbz78R1G2GiUkOQKM
+         pWXpiZrPSiEf73nRo4Ll5U+FkyVNsp3EZja+0zhI2pnEMkmCXSYSpjgrBhGfrsFKcrux
+         eeIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790138447; x=1790743247;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=adnXMOlaGdiVvNccfQEuf1IxL8hL39dpJ1d6HYQXyVw=;
+        b=Xtz/gpfQMSZWceQhvcKXBJ8FrYQZ8O37sxCYKTyPqCU7rkiwpc81taZ1t+U9QmOqkz
+         CQp6IvV0TdndzG118uWdbQ3v3aS/lKl2E6JC99sjuLLMX/JXjva6eQgH2rNkN7Yh62pq
+         dYhSW056dw1+v+ydPEbGCyEd+ZrdtkpJX4YGffQRgixQNgJrloxwDin8Nzk/CprvgxC1
+         YScdjElCc6RWVG3nJe6HstRBljFKItegwtbRcUMKATcomTAm3EV9fY+yxHNyosi0CsnP
+         TMWHkTMfzI7FQnQJNjxzGac1WEJRldfUsOimPCzYGWP6RsSbguB4seBUXs9wd74+z0V5
+         w8lg==
+X-Forwarded-Encrypted: i=1; AKwUvBwGIZrKbzD4mXI/CRHwxGU86eyI1NKrCqe5ArFoXZx2fPukrijcVmNpO0Krs93u3bFqos0d+ELeSrHh@vger.kernel.org
+X-Gm-Message-State: AFuF++lDj17kx5Ft+dHRqacIpYxdb4Z8LWlqTAYTtC5NmLYoq0BdxMpE
+	yiSXlikEuoAh9sKKhzu1V5Ub2v8UNcxPuzK+V6gw2RW1Y/SBHjRa99pIS781FBX/0RuMPTzKHLf
+	ET9K+3mHLK08FNVHSkojFXxYNkY61CLjuIgGKzQr7k09SwZa6F3K4hbbUBp6fYEkP
+X-Gm-Gg: AYBFou1Rbve47PRgx7sUkb7rq/AFr31QpUCX3n+NSP4SK9JZOiNJCzA32lQmrS69yOp
+	aHaHrKPAlXutaJCon8Mi806TEVilHji6slvva5YbPH+MVZcL0jOsgFFxIJ/dBRD5Mg9uPSPcPLR
+	Q/CFHmoxLYDEY1F2mUm1zqm069JDIYaerrJMjOGGsYwJeFPfH13NPJ4TOYa9Ge+tCZ9VMeOPat8
+	TKNMRpxHbLzMkprcZXKFYGn8iERyxFw+YdxD5s67zHW22sqiVy7n8SlbpQV/+W9gC2h6qt0qqkS
+	ccGceNeQS6PF90I4tVxxAtu9A/bGAx5jCQdL7zKnoBjukcKkfdHXeTi5OM3uKXpB6+nrZUcStlM
+	VgmXK6X8Y5mP1l5Wy8yovrcldq3mBvg==
+X-Received: by 2002:a05:7022:6984:b0:142:d676:146a with SMTP id a92af1059eb24-144f90a43camr2614033c88.9.1790138446855;
+        Tue, 22 Sep 2026 21:40:46 -0700 (PDT)
+X-Received: by 2002:a05:7022:6984:b0:142:d676:146a with SMTP id a92af1059eb24-144f90a43camr2613967c88.9.1790138445828;
+        Tue, 22 Sep 2026 21:40:45 -0700 (PDT)
+Received: from [192.168.1.132] ([172.88.17.160])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fe502sm2685952eec.2.2026.09.22.21.40.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 21:40:45 -0700 (PDT)
+Message-ID: <07e73495-ac4e-42a6-b5a3-5eb11021d7fb@oss.qualcomm.com>
+Date: Tue, 22 Sep 2026 21:40:39 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 8/8] arm64: dts: qcom: kodiak: Desribe EUD UTMI routing
+ and connector mapping
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Rob Herring <robh@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260912225301.3396556-1-elson.serrao@oss.qualcomm.com>
+ <20260912225301.3396556-9-elson.serrao@oss.qualcomm.com>
+ <8daa32e6-f140-44d1-a2d2-c475d8a5959c@oss.qualcomm.com>
+Content-Language: en-US
+From: Elson Serrao <elson.serrao@oss.qualcomm.com>
+In-Reply-To: <8daa32e6-f140-44d1-a2d2-c475d8a5959c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: c84Trsok44cprnReQzI5GqEfOGIw9A17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAxOCBTYWx0ZWRfXxAtM5RHMmJsP
+ y5tkrIDARqu7/z2HL3+ZcW7gFAXXSH6hXtx0tx3GmCQqgeGSe1hnDC4TMcP6GrdUJ/+WZXyhy5t
+ 8T5V0mhmxUpDnZLvqQnz7xPd76lOwjQ=
+X-Authority-Analysis: v=2.4 cv=Zsh4uN7G c=1 sm=1 tr=0 ts=6ab35850 cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=p3NwzfejtmCMKWTc25r7/Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=QD3PrJr-WEZcEFCR36sA:9 a=QEXdDO2ut3YA:10
+ a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-ORIG-GUID: c84Trsok44cprnReQzI5GqEfOGIw9A17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAxOCBTYWx0ZWRfX/m+na+I9z+na
+ sC3iVrYnt7i55mGdnHie91J5MPChTbo7xERpiEhDpj1l940nMZJydOMl5oBl3iplG9JzJwGkdTs
+ RAy2XPgC5UdEedlitznLzJLlp1z9jaDneDrzOg++r6XkLJ4Q2pHoBYtr7nnfKKk9Ab0P5uTNa33
+ ltgBUU2NIWt7hZ53WrPRbBW685DsopSfpXs6q8FKt27GBBhY+b2wFJL7JWLg++W1pzFCg1Jec2N
+ YwdnzCGeK5jorpnKtqCztEUrewEpXE60neHBCyv1zpczDoDWTj3uM05mrFbFHOwvUy9JM079Uw9
+ oc6mpXXFvbz7noUzPbPNOXrit4QXZLrbU2HgqiLNrHXElH6saPh1wAVsOthrE3AcpqDz4IOT9Lx
+ HlnHhQaxLnaki1/JjJ208Q8uBMwBXdrtk7HpjfgJdCFJqYVaioLubqVytEzaPvYKzEeY/eAEJ6K
+ 65GF/VKMYE2ldFUzBvQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230018
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] spi: ma35d1: arbitrary num-cs limit rejects valid GPIO chip sele=
-cts
-- [Medium] spi: ma35d1: missing PM suspend/resume hooks breaks hardware aft=
-er deep sleep
---
 
-commit 5e29b920c6ee893a0356b0c18698305417951afd
-Author: Chi-Wen Weng <cwweng@nuvoton.com>
 
-spi: ma35d1: Add Nuvoton MA35D1 SPI controller support
+On 9/21/2026 4:37 AM, Konrad Dybcio wrote:
+> On 9/13/26 12:53 AM, Elson Serrao wrote:
+>> The existing EUD description uses a legacy single-path representation
+>> that assumes uniform UTMI routing. This was sufficient for minimal
+>> configurations where the USB port operated only in device mode and role
+>> switching was not considered.
+>>
+>> Update the description to explicitly model the topology using eud path
+>> child node and add a role-switch declaration to reflect role-dependent
+>> UTMI routing. Also on this SoC, the EUD hardware intercepts only the
+>> primary UTMI path. So remove the USB endpoint mapping to the secondary
+>> controller and associate it with the primary controller.
+>>
+>> With the intermediate EUD node now in place, update the Kodiak board
+>> descriptions to map the USB connector endpoint to the EUD instead of
+>> directly to the USB controller, reflecting the intended hardware
+>> topology. Enable the EUD by default now that the complete topology is
+>> described.
+>>
+>> Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
+>> ---
+> 
+> [...]
+> 
+>> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+>> index f41ad446a39e..b1f1ff6b99e6 100644
+>> --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+>> +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+>> @@ -98,7 +98,7 @@ port@0 {
+>>  					reg = <0>;
+>>  
+>>  					pmic_glink_hs_in: endpoint {
+>> -						remote-endpoint = <&usb_1_dwc3_hs>;
+>> +						remote-endpoint = <&eud_con>;
+>>  					};
+>>  				};
+>>  
+>> @@ -1530,10 +1530,6 @@ &usb_1 {
+>>  	status = "okay";
+>>  };
+>>  
+>> -&usb_1_dwc3_hs {
+>> -	remote-endpoint = <&pmic_glink_hs_in>;
+>> -};
+>> -
+>>  &usb_1_hsphy {
+>>  	vdda-pll-supply = <&vreg_l10c>;
+>>  	vdda18-supply = <&vreg_l1c>;
+>> @@ -1573,3 +1569,7 @@ &wifi {
+>>  	qcom,calibration-variant = "Fairphone_5";
+>>  	status = "okay";
+>>  };
+>> +
+>> +&eud_con {
+>> +	remote-endpoint = <&pmic_glink_hs_in>;
+>> +};
+> 
+> Label references should be sorted alphabetically within a file,
+> there may be slight deviations because the tooling to enforce
+> that is still under development, but let's try to not add more
+> 
+Ack. I will update this in v9
 
-This commit adds support for the SPI controller found in the Nuvoton
-MA35D1 SoC, handling SPI host mode using PIO transfers and configuring
-clock dividers, chip selects, and basic transfer settings.
-
-> diff --git a/drivers/spi/spi-ma35d1.c b/drivers/spi/spi-ma35d1.c
-> new file mode 100644
-> index 0000000000000..14aebf5019203
-> --- /dev/null
-> +++ b/drivers/spi/spi-ma35d1.c
-
-[ ... ]
-
-> +static void nuvoton_spi_set_cs_level(struct nuvoton_spi *nspi,
-> +				     unsigned int cs, bool assert)
-> +{
-> +	u32 mask;
-> +
-> +	switch (cs) {
-> +	case 0:
-> +		mask =3D NUVOTON_SPI_SSCTL_SS0_MASK;
-> +		break;
-> +	case 1:
-> +		mask =3D NUVOTON_SPI_SSCTL_SS1_MASK;
-> +		break;
-> +	default:
-> +		dev_warn(nspi->dev, "invalid chip select %u\n", cs);
-> +		return;
-> +	}
-> +
-> +	nuvoton_spi_update_ssctl_bits(nspi, mask, assert ? mask : 0);
-> +}
-
-[ ... ]
-
-> +static int nuvoton_spi_hw_init(struct nuvoton_spi *nspi)
-> +{
-
-[ ... ]
-
-> +	nuvoton_spi_update_bits(nspi, NUVOTON_SPI_PDMACTL_OFFSET,
-> +				NUVOTON_SPI_PDMACTL_TXPDMAEN_MASK |
-> +				NUVOTON_SPI_PDMACTL_RXPDMAEN_MASK, 0);
-> +
-> +	fifo_mask =3D NUVOTON_SPI_FIFOCTL_SLVBERX_MASK |
-> +		    NUVOTON_SPI_FIFOCTL_TXUFIEN_MASK |
-> +		    NUVOTON_SPI_FIFOCTL_TXUFPOL_MASK |
-> +		    NUVOTON_SPI_FIFOCTL_RXOVIEN_MASK |
-> +		    NUVOTON_SPI_FIFOCTL_RXTOIEN_MASK |
-> +		    NUVOTON_SPI_FIFOCTL_TXTHIEN_MASK |
-> +		    NUVOTON_SPI_FIFOCTL_RXTHIEN_MASK;
-> +
-> +	nuvoton_spi_update_bits(nspi, NUVOTON_SPI_FIFOCTL_OFFSET, fifo_mask, 0);
-
-[Severity: Medium]
-Will these critical non-transfer-specific register initializations (like=20
-PDMA and FIFO control configurations) be lost if the hardware loses state
-during a deep sleep?
-
-[ ... ]
-
-> +static void nuvoton_spi_set_cs(struct spi_device *spi, bool level)
-> +{
-> +	struct nuvoton_spi *nspi =3D spi_controller_get_devdata(spi->controller=
-);
-> +
-> +	/*
-> +	 * The SPI core passes the physical CS level to ->set_cs(). This
-> +	 * initial driver only supports active-low native chip selects.
-> +	 */
-> +	nuvoton_spi_set_cs_level(nspi, spi_get_chipselect(spi, 0), !level);
-> +}
-
-[Severity: Medium]
-Will this unconditionally pass the CS index to nuvoton_spi_set_cs_level()
-without checking if it is a GPIO chip select?=20
-
-The SPI core calls this function to ensure native CS lines are inactive
-even when using GPIO chip selects. This could result in=20
-nuvoton_spi_set_cs_level() spamming the kernel log with "invalid chip=20
-select" warnings on every transfer targeting a GPIO CS with an index >=3D 2.
-
-[ ... ]
-
-> +static int nuvoton_spi_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D device_property_read_u32(dev, "num-cs", &num_cs);
-> +	if (ret && ret !=3D -EINVAL)
-> +		return dev_err_probe(dev, ret, "failed to read num-cs\n");
-> +
-> +	if (!num_cs || num_cs > NUVOTON_SPI_MAX_NATIVE_CS)
-> +		return dev_err_probe(dev, -EINVAL, "invalid num-cs %u\n",
-> +				     num_cs);
-
-[Severity: Medium]
-Does this check improperly reject valid device tree configurations? A user=
-=20
-might legitimately specify more than two total chip selects by utilizing=20
-GPIOs alongside the native ones.
-
-[ ... ]
-
-> +static struct platform_driver nuvoton_spi_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "ma35d1-spi",
-> +		.of_match_table =3D nuvoton_spi_of_match,
-> +	},
-> +	.probe =3D nuvoton_spi_probe,
-> +};
-> +module_platform_driver(nuvoton_spi_driver);
-
-[Severity: Medium]
-Does this platform driver lack a .pm assignment, causing it to completely=20
-miss system suspend and resume events?=20
-
-Without calling spi_controller_suspend() and spi_controller_resume(), the
-SPI core might not be notified to pause its queues, which could lead to=20
-hangs, timeouts, or data corruption on subsequent transfers when resuming=20
-from sleep.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923041926.4255=
-51-1-cwweng.linux@gmail.com?part=3D2
+Thanks
+Elson
