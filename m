@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD7C4CCDCC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6AC51354A;
 	Wed, 23 Sep 2026 12:05:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165125; cv=none; b=MdZjBR3sXAfyf41/IsLiUr37LNxDlMnkqhlm6WrOAJev4IgAd/49ui+/qwVdTYiMIWH0gyIvrzXpGIwqADa5E5wFKibgsUxhH3Jgsd/JSCTVA8HnHGfPYllGPxpzPYq5oArMlEbJ0zoN1cxCmrVOZkVAIjYnr0rzn8NjOXjThXc=
+	t=1790165125; cv=none; b=fhsJv9gHESh1CXVJAi66D1V5nv/XsWC008JTw0YLZc8JKOzq1ptALIqJ6iH6o1k10vvhnmi5QwG1c8y1lpHjpbq4hf0p2rKe82BIyyG68bDHGoL8Mpdna09tQFqIwZmxz9wvpa5OkzaMqS9kGpjnnvgKgxtXxqCfZknRSjnWtmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790165125; c=relaxed/simple;
-	bh=S687wPIWnngoSYYE8QrRewba5wXRcqwoRWDDHq0Jsz4=;
+	bh=xwjhHq+axtyNZtf3ucpzpJBoQOgD2kDsTykcF1+22VU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DMVfqjIkhiVuKkbbik2f5lf8MvyoqO/4daHxRjOM4K4MFWf2MD3wFuD4h5sYLs8JDeiyeJuxI8BIWCZIdBcdVWzTxnt/yFmQip4I1KldL1labd3un8mCTzkTUKLKGSIHpWqqvybXj1+ZPYsiW3hVK3zLg8Mt7F1SQV+lThsn+AQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jC/Rs/sy; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=uQ0hpIrS5VSbuYoB/tTcZWuH21+LKZ6vcJak7kjKkLIxUvZSOgRYlPE1HdGl5UvBcB2g6SdvUCEV9ZVcSd0y91NBHGp5lDRy5/H/+BuUTVuVJ4p3AaI3/v87uJYXOE82kd5Yn3TtJqiSysitNhZb1yO6uLaVLHhJiabGgkf0Bcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L0WJviDT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jC/Rs/sy"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9FCFAC4AF12;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L0WJviDT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 90815C2BD00;
 	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790165121;
-	bh=S687wPIWnngoSYYE8QrRewba5wXRcqwoRWDDHq0Jsz4=;
+	bh=xwjhHq+axtyNZtf3ucpzpJBoQOgD2kDsTykcF1+22VU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jC/Rs/syZ9Mup/u9Q2aD1FvJNysQTG7xEcz54APWE2Lzb9cIJlm49BORjXQrzfrob
-	 xU0KyCZ34unsJmwPnxDWXImWhpdu9dT77K5ljVw0te4LKNZIpeW8XBYEsUUTuMummu
-	 QXDxSmd21vKyXZEpS7GTPHdvCqzsVpaK5+W3h3JPy2FO2eNSs86qOm8aOEYha3BqmA
-	 eW9rvtf22Hx/aSLRduXclwR4eS4Wudv+49D9j7g0Mxlqjr87PgvzPoWi6QVtmGrURN
-	 0wnB2sD70WiD/TPEjYGwub90yP09sCFTl8jmsqp+t9E3YZFVtjEJUDdPQ00oIfMPAu
-	 47GkXr3F/jskQ==
+	b=L0WJviDT2c4j9z652S8+95ezSOvIjOT1EoHGwjEk8dIE+bjnQ9zPfEDFUrJCKt5ZB
+	 rVfj6B+wjHY4L+yXcT62sTpE0Cu5mtHmftvuEN154YK3x0S3oGn8WNSAdqkKxHtL4j
+	 GmZa/lnWsWL71ixP9N+JMVUeTMd5yetmmKd7DrVUsADGoBRVk7gcg48VYpxguD+iB5
+	 ivK6Es2UaFq90I+Vwj1VQ58+XybOKrPryo/+y8vmvu+hYwRawK7DaRcooHXvNyzlBn
+	 GHgFTO0dIeXSCTK8b6Kn1VFWZLPbY/sE/lL1EiWHLVf3zT8MYhXp76vTPel6Xs3e4O
+	 P/EaKufUYdBgg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CF39C9830D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DBBCC9830C;
 	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Wed, 23 Sep 2026 16:05:20 +0400
-Subject: [PATCH ath-next 14/16] wifi: ath11k: update hif and pci ops for
- QCN6122
+Date: Wed, 23 Sep 2026 16:05:19 +0400
+Subject: [PATCH ath-next 13/16] wifi: ath11k: add hw ring mask for QCN6122
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-14-86729521a75c@outlook.com>
+Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-13-86729521a75c@outlook.com>
 References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 To: Johannes Berg <johannes@sipsolutions.net>, 
@@ -56,11 +55,11 @@ Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=4286;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=2926;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=KAfYNiJSlBqkx5nRUcT0tjr+2gqae9Hk9UcR8v+Y2kU=;
- b=tWmSWuokIX04sHQ/skHZfIGfbroeqBvobVRWhObbpfO2LDTFZnARd1W4ShuaoSn+DuIEIo2Gg
- 0cmybhN6UJAA23f5a9T1hcSvLmUfA0+fR5KsqeXpXa93YAkgxWis5Ui
+ bh=ZS+ghizA2JnJORyhUeyzkT6PiFQkDEnAqkqpPDbBCt4=;
+ b=oc8KKCzLEqR8y0YejgVoqOfzgsPd1UyzJB67HNuqi3DnHAhkRQIBLSDVrtLi/DS0KcxMFmfNa
+ TamHpCY+jhXAcFEXohGRlgRkT3YCLTi/HayF26SEjdylq2gKXl9JolP
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -70,115 +69,87 @@ Reply-To: george.moussalem@outlook.com
 
 From: George Moussalem <george.moussalem@outlook.com>
 
-Add HIF and PCI ops for QCN6122. QCN6122 by default uses DP window 3.
-However, this is configurable, so let's introduce a function to do that and
-follow the existing register access code for (hybrid)AHB devices and use
-DP window 1.
+Add ring mask for QCN6122 and register them in hw params.
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- drivers/net/wireless/ath/ath11k/ahb.c | 34 ++++++++++++++++++++++++++++++++++
- drivers/net/wireless/ath/ath11k/hif.h |  9 +++++++++
- drivers/net/wireless/ath/ath11k/qmi.c |  2 ++
- 3 files changed, 45 insertions(+)
+ drivers/net/wireless/ath/ath11k/core.c |  1 +
+ drivers/net/wireless/ath/ath11k/hw.c   | 37 ++++++++++++++++++++++++++++++++++
+ drivers/net/wireless/ath/ath11k/hw.h   |  1 +
+ 3 files changed, 39 insertions(+)
 
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
-index 1b9115311bed..03936f574c8d 100644
---- a/drivers/net/wireless/ath/ath11k/ahb.c
-+++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -892,6 +892,18 @@ static int ath11k_ahb_hif_resume(struct ath11k_base *ab)
- 	return 0;
- }
- 
-+static void ath11k_ahb_config_static_window_qcn6122(struct ath11k_base *ab)
-+{
-+	u32 umac_window = FIELD_GET(ATH11K_PCI_WINDOW_VALUE_MASK, HAL_SEQ_WCSS_UMAC_OFFSET);
-+	u32 ce_window = FIELD_GET(ATH11K_PCI_WINDOW_VALUE_MASK, HAL_CE_WFSS_CE_REG_BASE);
-+	u32 window;
-+
-+	window = (umac_window) | (ce_window << 6);
-+
-+	iowrite32(ATH11K_PCI_WINDOW_ENABLE_BIT | window,
-+		  ab->mem + ATH11K_PCI_WINDOW_REG_ADDRESS);
-+}
-+
- static const struct ath11k_hif_ops ath11k_ahb_hif_ops_ipq8074 = {
- 	.start = ath11k_ahb_start,
- 	.stop = ath11k_ahb_stop,
-@@ -907,6 +919,24 @@ static const struct ath11k_hif_ops ath11k_ahb_hif_ops_ipq8074 = {
- 	.ce_irq_disable = ath11k_ahb_ce_irq_disable_sync,
+diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
+index cf37975fa4cf..8fa1171b6bdd 100644
+--- a/drivers/net/wireless/ath/ath11k/core.c
++++ b/drivers/net/wireless/ath/ath11k/core.c
+@@ -948,6 +948,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
+ 		.max_radios = MAX_RADIOS_5018,
+ 		.bdf_addr = 0x4D200000,
+ 		.hw_ops = &ipq5018_ops,
++		.ring_mask = &ath11k_hw_ring_mask_qcn6122,
+ 		.internal_sleep_clock = false,
+ 		.regs = &qcn6122_regs,
+ 		.qmi_service_ins_id = ATH11K_QMI_WLFW_SERVICE_INS_ID_V01_QCN6122,
+diff --git a/drivers/net/wireless/ath/ath11k/hw.c b/drivers/net/wireless/ath/ath11k/hw.c
+index 8442fbeb9c58..bb375efd50fe 100644
+--- a/drivers/net/wireless/ath/ath11k/hw.c
++++ b/drivers/net/wireless/ath/ath11k/hw.c
+@@ -2070,6 +2070,43 @@ const struct ath11k_hw_ring_mask ath11k_hw_ring_mask_wcn6750 = {
+ 	},
  };
  
-+static const struct ath11k_hif_ops ath11k_ahb_hif_ops_qcn6122 = {
-+	.start = ath11k_pcic_start,
-+	.stop = ath11k_pcic_stop,
-+	.read32 = ath11k_pcic_read32,
-+	.write32 = ath11k_pcic_write32,
-+	.read = NULL,
-+	.irq_enable = ath11k_pcic_ext_irq_enable,
-+	.irq_disable = ath11k_pcic_ext_irq_disable,
-+	.get_msi_address =  ath11k_pcic_get_msi_address,
-+	.get_user_msi_vector = ath11k_pcic_get_user_msi_assignment,
-+	.map_service_to_pipe = ath11k_pcic_map_service_to_pipe,
-+	.power_down = ath11k_ahb_power_down,
-+	.power_up = ath11k_ahb_power_up,
-+	.ce_irq_enable = ath11k_pci_enable_ce_irqs_except_wake_irq,
-+	.ce_irq_disable = ath11k_pci_disable_ce_irqs_except_wake_irq,
-+	.config_static_window = ath11k_ahb_config_static_window_qcn6122,
++const struct ath11k_hw_ring_mask ath11k_hw_ring_mask_qcn6122 = {
++	.tx  = {
++		ATH11K_TX_RING_MASK_0,
++		ATH11K_TX_RING_MASK_1,
++		ATH11K_TX_RING_MASK_2,
++	},
++	.rx_mon_status = {
++		0, 0, 0,
++		ATH11K_RX_MON_STATUS_RING_MASK_0,
++	},
++	.rx = {
++		0, 0, 0, 0,
++		ATH11K_RX_RING_MASK_0,
++		ATH11K_RX_RING_MASK_1,
++		ATH11K_RX_RING_MASK_2,
++		ATH11K_RX_RING_MASK_3,
++	},
++	.rx_err = {
++		0, 0, 0, 0, 0, 0, 0, 0,
++		ATH11K_RX_ERR_RING_MASK_0,
++	},
++	.rx_wbm_rel = {
++		0, 0, 0, 0, 0, 0, 0, 0, 0,
++		ATH11K_RX_WBM_REL_RING_MASK_0,
++	},
++	.reo_status = {
++		0, 0, 0,
++		ATH11K_REO_STATUS_RING_MASK_0,
++	},
++	.rxdma2host = {
++		ATH11K_RXDMA2HOST_RING_MASK_0,
++	},
++	.host2rxdma = {
++		ATH11K_HOST2RXDMA_RING_MASK_0,
++	},
 +};
 +
- static const struct ath11k_hif_ops ath11k_ahb_hif_ops_wcn6750 = {
- 	.start = ath11k_pcic_start,
- 	.stop = ath11k_pcic_stop,
-@@ -1638,6 +1668,10 @@ static int ath11k_ahb_probe(struct platform_device *pdev)
- 		hif_ops = &ath11k_ahb_hif_ops_wcn6750;
- 		pci_ops = &ath11k_ahb_pci_ops_wcn6750;
- 		break;
-+	case ATH11K_HW_QCN6122_HW10:
-+		hif_ops = &ath11k_ahb_hif_ops_qcn6122;
-+		pci_ops = &ath11k_ahb_pci_ops_wcn6750;
-+		break;
- 	default:
- 		dev_err(&pdev->dev, "unsupported device type %d\n", hw_rev);
- 		return -EOPNOTSUPP;
-diff --git a/drivers/net/wireless/ath/ath11k/hif.h b/drivers/net/wireless/ath/ath11k/hif.h
-index 017fed1b4bd1..2e1a4fedf139 100644
---- a/drivers/net/wireless/ath/ath11k/hif.h
-+++ b/drivers/net/wireless/ath/ath11k/hif.h
-@@ -32,6 +32,7 @@ struct ath11k_hif_ops {
- 	void (*ce_irq_disable)(struct ath11k_base *ab);
- 	void (*get_ce_msi_idx)(struct ath11k_base *ab, u32 ce_id, u32 *msi_idx);
- 	void (*coredump_download)(struct ath11k_base *ab);
-+	void (*config_static_window)(struct ath11k_base *ab);
- };
+ /* Target firmware's Copy Engine configuration for IPQ5018 */
+ const struct ce_pipe_config ath11k_target_ce_config_wlan_ipq5018[] = {
+ 	/* CE0: host->target HTC control and raw streams */
+diff --git a/drivers/net/wireless/ath/ath11k/hw.h b/drivers/net/wireless/ath/ath11k/hw.h
+index d9646a491808..2bcfdae9519b 100644
+--- a/drivers/net/wireless/ath/ath11k/hw.h
++++ b/drivers/net/wireless/ath/ath11k/hw.h
+@@ -296,6 +296,7 @@ extern const struct ath11k_hw_ring_mask ath11k_hw_ring_mask_ipq8074;
+ extern const struct ath11k_hw_ring_mask ath11k_hw_ring_mask_qca6390;
+ extern const struct ath11k_hw_ring_mask ath11k_hw_ring_mask_qcn9074;
+ extern const struct ath11k_hw_ring_mask ath11k_hw_ring_mask_wcn6750;
++extern const struct ath11k_hw_ring_mask ath11k_hw_ring_mask_qcn6122;
  
- static inline void ath11k_hif_ce_irq_enable(struct ath11k_base *ab)
-@@ -159,4 +160,12 @@ static inline void ath11k_hif_coredump_download(struct ath11k_base *ab)
- 		ab->hif.ops->coredump_download(ab);
- }
- 
-+static inline void ath11k_hif_config_static_window(struct ath11k_base *ab)
-+{
-+	if (!ab->hw_params.static_window_map || !ab->hif.ops->config_static_window)
-+		return;
-+
-+	ab->hif.ops->config_static_window(ab);
-+}
-+
- #endif /* _HIF_H_ */
-diff --git a/drivers/net/wireless/ath/ath11k/qmi.c b/drivers/net/wireless/ath/ath11k/qmi.c
-index 771ef9b5304f..7d77f5c8c609 100644
---- a/drivers/net/wireless/ath/ath11k/qmi.c
-+++ b/drivers/net/wireless/ath/ath11k/qmi.c
-@@ -2243,6 +2243,8 @@ static int ath11k_qmi_request_device_info(struct ath11k_base *ab)
- 	if (!ab->hw_params.ce_remap)
- 		ab->mem_ce = ab->mem;
- 
-+	ath11k_hif_config_static_window(ab);
-+
- 	return 0;
- out:
- 	return ret;
+ extern const struct ce_ie_addr ath11k_ce_ie_addr_ipq8074;
+ extern const struct ce_ie_addr ath11k_ce_ie_addr_ipq5018;
 
 -- 
 2.53.0
