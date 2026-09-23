@@ -1,147 +1,171 @@
-Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E35251CF76
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 13:42:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.40
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170955; cv=none; b=AFPCqe1e2OaPexts0WhrLYwApp7uDTBpFXozs3pTN4QRjqi9d6owEeb+SkQ1qo10aRXC9+WOaWuPkHIJpVSNlaZI/sw5cAxGxDCWPNwPO/73+TtA3f4ESwRKYeXEftbVnGRVJsviLE3g1ydKxF3ftL8V4XWcPFiB8UyguzwE+0k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170955; c=relaxed/simple;
-	bh=zQLNcKwt8lnNKrUhZWYc0UbpzKFARTsV6kXIZiSRVZ0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cqt5Ffq376b4LLaCeaMAGRFZ1iI3OTEAhz5OIgE7VG4z3rbeXOQ9YWetqITei7hjdqSZ8BxpfEskZCdWccg07wii3UPhfy8WSMXS9fNEYB1VPOQb36H/cDctac2c0UF7VNxr0/6M8fztfQttW2cJLg/qxFci6qU6Z5SbcfBsLXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f40.google.com with SMTP id 71dfb90a1353d-5c9b0bdf5b5so414758e0c.0
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:42:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790170953; x=1790775753;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cZcaHlSLoWG/YlsEmorJF69zsl7G8OYYQpV3ToGZCjU=;
-        b=g6IoBtqZjp9OcOk6s29JDgRUoCHKPbHx1Ll7+iODpsjsxVVoBlj24rAyO9d4HioFfK
-         LnwvUUG/UIImmbWh4Xh+fYJl0sqWEMbgZ6/MOFLhfkwjx1Apv2cgjmNTXh38Mt+XUXWj
-         E7m3gtKz/6QjV6SdbCEZJFhp6BmtMwrIqKOG7by1IzniA8fLT3SPykALT7S5KlMolVUB
-         BjaLYumJDDyDuPAQElo5DPOQg1ldat/sWjvF0wYoM/dzSAh6JgKuya3h8os12d9ssNyL
-         OCh9PBDuj+gtZogDBfpxq0nBEX6Vqzh/g2zEjVy9BN45vbwTB1eSOi3Qx+yaKCBCqsGO
-         h7DQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQYjeErSTOpwn0ptj3vXQotUQqF+ZyCoPILLQX+7HJ6im8TxCyZXZ94f6fZShCuLMasgNnt/USn2+f@vger.kernel.org
-X-Gm-Message-State: AFuF++lgBExq9DvPt3ddT0SusMe+D4AN8dWSjlBr9kj4BKmOLDue8OkC
-	haVcgcT7nl4+H56TiQxY08vOXJxm2nSMQO/EfwnZxMu2+BaIKvIqgN2WSyuylIIbpZ8=
-X-Gm-Gg: AYBFou209ebhVXekYJVzLxc409Q0rkUXWrQC4kZPgSIVQzlA8QrlWeOO+L1XPqMqOtF
-	+5PWaiSJ5WodlF8kVUq6IWvxH9yJTSsABtFmsGAIO9Vbv/KLVUjSBUl5k842ghl48nfw2yrY3um
-	CJz2SzvMoU9JccftoPZkXcUOf8vkPbh0xxWbyCG0i3plPEsWBLLN3t3cfTT1nj1N9WqLwf63u2h
-	WFO8+Aw5XdT2nwq4qtPNcULUX8wptzqEh/lw/zXPKwe8dFD2j09elZrJBFz3NNvLnYO/daLmsm5
-	8oyKIKLTsWvc9dIeuZ/oTEL6yrJq8Ix9MhvNO56gi2pDrC23czAtu6YrpHmHlXrfhx+gfhPZYPJ
-	o79XxkSoHc5pZ7JH9yfLatMKqb8kvjaO3uklrAACa8DgwQpDa87EB6x5PgNFWPS9ZiAuj4f484d
-	nVuKTNTe5mlCEA6TWz7/TKdjlLMcRjgaSbbUYwwulwZA2LKAG2nQl3GTjrqSxRjNNOG5fnnfUfK
-	jzp139G+lp4jXZ2QwZNAdI8MK0fAI/VWNapTQ==
-X-Received: by 2002:a05:6122:8f8f:b0:5c9:c60a:e9ac with SMTP id 71dfb90a1353d-5c9f168ad35mr2923319e0c.18.1790170952298;
-        Wed, 23 Sep 2026 06:42:32 -0700 (PDT)
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cac7115b29sm20111e0c.11.2026.09.23.06.42.30
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 06:42:31 -0700 (PDT)
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-982db8d3b79so302493241.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 06:42:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwqo9cEFV1GKbK3+kuK2hFk6L5h016ykL/XwAW/m6xvvxnNdxtxjHULmlGyBc7Id12WueEkDGfJbGZP@vger.kernel.org
-X-Received: by 2002:a05:6102:390e:b0:7a7:195a:1b26 with SMTP id
- ada2fe7eead31-7ac1de3a707mr2471914137.32.1790170950472; Wed, 23 Sep 2026
- 06:42:30 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF3439891F;
+	Wed, 23 Sep 2026 13:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790171101; cv=pass; b=dI7Qjri71yejjYX6xnHOwsJruZNS2Ww656NzcFRhKZI5dG+n8DWAWpmuvlIN8ez6ATMGfmjfx/ZhD0qpsaVZSkjysZLdtLcosG6BKHDz0AwaKCeVMqvOMBzjaAbSRyp1LnwdFfYBENBHDvulw7J8luxxbInoulRXZUAN3KTOTVE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790171101; c=relaxed/simple;
+	bh=/DM/ED6y4O2U6WiK4esE4YX5QVGn6Wr7jyvfJGqndyI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XhVtdfeOEj20ojdKoZSQDNkJv6UxQvTac+FeSFeoJVa8c3sqpnkToVRS5jz9FLECSqQsCnLlM4K20clxq9l/wjlVWSQs9IR5AXG01uWDW1XUzjMYaGOHCbcPZeF6nWvSPIM9dEPN8EQz3yCg+g9v6bH0AonqHX7/w3NiLd6EeDA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=RB+Tafy1; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="RB+Tafy1"
+Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 645D5201F09;
+	Wed, 23 Sep 2026 15:44:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790171091;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zjP5YpQfh5eBZHqwpO7i1HdYtCXcDxLbRCkwNgxPz6o=;
+	b=RB+Tafy1DSPruWBLQO8cLnlZ8lAV2c31V7jHE5MnIFrjWgnluJGPQw8sDrV9eNT3l8FTBV
+	jbCRGkbiZ6Fd8pIcLTXqOXkWsfEhM02b0ynHYfPBvNbHlAsSvmyyIDOk5AXOTvt4Gk4VUe
+	H8iOyOIXDJl9yvg9cZ7pUCxCK/FGsr4qIR54/jKerK62l3a4OoHp8QR19yh2q65eaT2QlS
+	F3jLJZbRzRSPY7CX3sVbSrlchu1AsmzmzGa0UbKsMb9ozmDkh1Ig30LfnQRuorc0r4PNw2
+	KFA5I1lNlxqB+IISozWLCJdJRJcSXjJGXwpGgmb4eRgBOW1+6fl9hXO99IxhkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790171091;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zjP5YpQfh5eBZHqwpO7i1HdYtCXcDxLbRCkwNgxPz6o=;
+	b=YwyZ14yOn7V1cjbJnOSKduGVmN/n4djBuLq3xvrcmLUKi1ycnEn1WCndUBGqnSFCC02HcA
+	lXgPqnhArNwU5fmysHtuwctWUEDGXYD3OfjX0nSoHbdi+uGnc/RhdkVGogKiBKtTff2sjd
+	GvDgJX7Nnkz46U9SmiuP5lTqBHmKBSYLdQTlA5Bt5p/+giEbKIujycrsn+DZwCv1OzgkW/
+	rTxoE82QW+F6dW71fpCDger7uXJdSC4XrqM/jhvOvQNY5EFyb9m2/rYSEQvZOmRlWs3TOX
+	WVHIHRw2giZgKGAWsP7nR1rgfPSy7XU+k2HAbIt+KwRzNI9QS0VjsLdQXrEWYw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790171091; a=rsa-sha256;
+	cv=none;
+	b=GvVjS35xpThnfUD/i1R2a1HuRDRzQ7uDj2lnsJQa0FUBbYOBxgVXXXln48vPKdKW6NZbPI
+	DVwxn3KRC33X6XeSXyPc2fyIKNW4wdvhGlP+iwgftt3b3XncIM02HB/oV8ZDlU9nwDoY8b
+	PsdiATRLj6vou5QrW/VyEM9TnLzp+4sNKngk565frm1rlbe4NcGw3Ni57Hl80oVYgy+ZGY
+	AKO9MPDa0ADyNjxwmn/HAzmE1S7wloTLYwN1XC+j9JvFW+iZV67uFaEKFhvan2nm1/qAFz
+	KfdUbjg6pe8nC1V/0e+bkh+1Pa0UrKxFI3gVRvv6Q7nXJCWNb08Pboufnp+5ag==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Subject: [PATCH 0/9] media: synopsys: hdmirx: support an HDMI bridge in
+ front of the receiver
+Date: Wed, 23 Sep 2026 15:44:39 +0200
+Message-Id: <20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-1-94c4674927e8@solid-run.com>
-In-Reply-To: <20260904-rzg2-sr-boards-v8-1-94c4674927e8@solid-run.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 15:42:17 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXtcxyD4Zh+HyM1D43zu8KND-18FiLhi9OXTHZPojRH=A@mail.gmail.com>
-X-Gm-Features: AclHuK-TckegHvHKUKBwHK2truVsVTBXY6gTl27m7I0mB2ihxriiWdVUDyPODHw
-Message-ID: <CAMuHMdXtcxyD4Zh+HyM1D43zu8KND-18FiLhi9OXTHZPojRH=A@mail.gmail.com>
-Subject: Re: [PATCH v8 01/11] dt-bindings: soc: renesas: Add various SolidRun
- RZ/G2 based boards
-To: Josua Mayer <josua@solid-run.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
-	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
-	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Conor Dooley <conor.dooley@microchip.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMfXs2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwMT3YyU3MyiCt3c1JTMRN20VPPUJEtToySjpFQloJaCotS0zAqwcdG
+ xtbUA5JT9U14AAAA=
+X-Change-ID: 20260904-hdmirx-media-fe7eb952b2be
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Gerald Loacker <gerald.loacker@wolfvision.net>, 
+ Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790171091; l=4342;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=/DM/ED6y4O2U6WiK4esE4YX5QVGn6Wr7jyvfJGqndyI=;
+ b=7PoAZ7ad0l98kP3rXIxbbxhzXQ5wgTYsVKCp8l/6XYQprjQEl0IP8RrPoxEQG28bj66wGHxg0
+ RiPvf/wU8bjBgW5YOpZRl17x1pIx/BSqYf2EkiSTHZ8Eem7YTJ2I4CW
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Hi Joshua,
+The Synopsys HDMI receiver driver assumes the HDMI connector belongs to
+it: the connector's +5V line arrives on hpd-gpios, and there is nothing
+between the source and the receiver. On the board this series comes from
+that is not the case. An HDMI bridge owns the connector, the receiver
+sits behind it, and the two are described by an OF graph endpoint.
 
-On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
-> Add bindings for various SolidRun boards and System on Module built
-> around Renesas RZ/G2 family of SoCs:
->
-> - RZ/G2L SoM [1]
-> - RZ/V2L SoM [2]
->   (shares PCB with G2L and has very similar programming model)
-> - RZ/G2LC SoM [3]
-> - RZ/G2UL SoM [4]
->   (shares PCB with G2LC but programming model differs largely)
-> - HummingBoard IIoT [5] (RZ/G2L, RZ/V2L, RZ/G2LC)
-> - HummingBoard Pro [6] (RZ/G2L, RZ/V2L)
-> - HummingBoard Base (Ripple) [7] (RZ/G2L, RZ/V2L, RZ/G2LC, RZ/G2UL)
->
-> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2l-som/
-> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/
-> [3] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2lc-som/
-> [4] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2ul-som/
-> [5] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
-> [6] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-sbc/
-> [7] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2lc-base/
->
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Josua Mayer <josua@solid-run.com>
+Three things follow from that, and the series is arranged in that order.
 
-Thanks for your patch!
+Patches 1-2 give the driver a media device and register the video device
+as an entity with a sink pad. On their own they add a graph with one node
+in it; they exist so that there is somewhere for the bridge to appear.
 
-> --- a/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
-> +++ b/Documentation/devicetree/bindings/soc/renesas/renesas.yaml
-> @@ -508,6 +508,14 @@ properties:
->                - renesas,r9a07g043u12 # RZ/G2UL Type-2
->            - const: renesas,r9a07g043
->
-> +      - description: SolidRun RZ/G2UL based boards
-> +        items:
-> +          - enum:
-> +              - solidrun,rzg2ul-hummingboard-ripple # SolidRun RZ/G2UL HummingBoard Ripple
+Patches 3-4 add the endpoint to the binding and bind the remote subdev
+through a v4l2 async notifier, linking its source pad to the receiver's
+sink pad. Without an endpoint in the device tree the driver keeps working
+exactly as before, so boards wired straight to the connector are
+unaffected.
 
-As RZ/G2UL is pin-compatible with RZ/G2LC, I guess you could have an
-RZ/G2UL-based HummingBoard IIoT, too?
+Patch 5 is fallout from the wait for signal lock, which was bounded by an
+iteration count whose duration came from the 5V debounce it called
+each time round. That debounce goes away on a board with no hpd-gpios
+later in the series, so the wait gets a real timeout first.
 
-> +          - const: solidrun,rzg2ul-sr-som
+Patches 6-9 are the 5V state itself. Such a board cannot provide
+hpd-gpios, so the property becomes optional and probe stops requiring an
+interrupt for it. Patch 8 adds V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT, and
+patch 9 has the receiver set v4l2_dev.notify and take the state from
+whatever is bound in front of it, with g_input_status() read once at bind
+for a source that was connected all along. Patch 9 also gates the two
+hotplug workers on a flag taken under work_lock, and cancels the hotplug
+work once more after the async notifier is unregistered: without a
+det_irq there is nothing to disable across the cancel already there, so
+a notification can arm the work again behind it.
 
-Is there any special meaning of the "sr" in the middle of this and all
-other SoM compatible values?
-If it just means "SolidRun", I think it can be dropped.  However,
-you already have that for various SoMs with non-Renesas SoCs.
+V4L2_CID_DV_RX_POWER_PRESENT is otherwise the only place this state is
+published - adv7604, adv7842, tc358743 and tda1997x all set that control
+from their cable detect interrupt and stop there - while a format change
+already gets an in-kernel notification through v4l2_subdev_notify_event().
+An earlier version of this series hooked the control with
+v4l2_ctrl_notify() instead. That reaches into another device's control
+handler, and the only thing it bought was working with those four
+drivers unmodified, which turns out to be worth nothing: they are HDMI
+sinks, so none of them could sit in front of an HDMI receiver anyway.
 
-> +          - const: renesas,r9a07g043u12 # RZ/G2UL Type-2
-> +          - const: renesas,r9a07g043
+Nothing in tree sends the new notification yet. The driver for the device
+on this board does, and the alternative was a mechanism that no in-tree
+driver could have used either.
 
-The rest LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+There is no in-tree device tree using the new port yet: the board is not
+upstream, and the device in front of the receiver, a Lontium LT86102UXE
+1:2 HDMI splitter, has no driver upstream either. I would rather send the
+infrastructure for review now than sit on it until the board lands.
 
-Gr{oetje,eeting}s,
+Tested on that board, and build tested for arm64 at each patch with W=1.
 
-                        Geert
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+Gerald Loacker (6):
+      media: synopsys: hdmirx: add media device infrastructure
+      media: synopsys: hdmirx: add media entity for video capture device
+      media: synopsys: hdmirx: add async subdevice support
+      media: synopsys: hdmirx: give the signal lock wait a real timeout
+      media: synopsys: hdmirx: skip the 5V detect interrupt without a GPIO
+      media: synopsys: hdmirx: get the 5V state from the upstream subdev
 
+Sascha Hauer (3):
+      dt-bindings: media: snps,dw-hdmi-rx: add the source port
+      dt-bindings: media: snps,dw-hdmi-rx: make hpd-gpios optional
+      media: v4l2-subdev: notify the bridge when the source power changes
+
+ .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml |  16 +-
+ drivers/media/platform/synopsys/hdmirx/Kconfig     |   1 +
+ .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 318 ++++++++++++++++++---
+ include/media/v4l2-subdev.h                        |   8 +
+ 4 files changed, 309 insertions(+), 34 deletions(-)
+---
+base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+change-id: 20260904-hdmirx-media-fe7eb952b2be
+
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Sascha Hauer <s.hauer@pengutronix.de>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
