@@ -1,111 +1,117 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B42A331EA8
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 09:44:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDFB414DF4;
+	Wed, 23 Sep 2026 09:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156651; cv=none; b=iubNn2d2GLZgJnyB47rzq0pBV+8PRZYAsIQyUX4I/4HGMNZPk+YeO3mkmvlBwSP5eu4qKY+YNV3GdCjOzl6VAdtaI4RWQ1rioVvDNlD+crR6J5tRwZvN0zfc2zspDibF0Vtd4HXUPEI7U23voe1vY2+MtKchK64ME9X0nwWb8uk=
+	t=1790156735; cv=none; b=YWwR5kDcnHofuuAz7uaJnJjT4Xhhtt0C/xR24L1j7ge2REsCxOIIgfwt8OSIlh0ZzL9Gd9ojMQ5ABWqKTWLoUx5xLTBfc5csC10jQnKvS8+KOGSw02SYH6ULnSJe7pdOQeSQ64qLma4WfMAmeOW89ZFlMa15YQ0vj2R2Si/6oSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156651; c=relaxed/simple;
-	bh=F4OSOZ6QNkL9RkPJ9OENWBp9oqWXQ7z1vT7cr50A03I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D4zk3hG4Nve1yjTg5IH/o0xLn/FsmQYr7iKbK5svL+o4ILfnQP1iQoMJsmFOKkV+7XIhnFkwh9EVHA93NrT/SyMvp4iQU1bdZLNuf+bfHFdSEVdh+pOgDAJTOrt+pEjozaFFMFvV6t87jQr9H7H6IrU6Qe8kW7tkru55wMARpB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GzY4E/jy; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790156735; c=relaxed/simple;
+	bh=Ube8kn2P3BCPhYrAYjq7xDwqyF9VEQh8pAgyIv1Rork=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AR4oJQKjTQO6h6LxwsiuYJ/1RboxKbmec3UyWT7hfV8q9EeIO+sXaQodW5xU3vdefJ0rOwuNHFFnRD0Hk9yBhJ9fWhJTucZkx/vxNWu9XhIV8tV70jEOqyDXaGjBrmmItBE2NQ291MwmS0+pe2K81AeoXvRp9KwgpZBfhPNMcYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okuFB37Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GzY4E/jy"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485843116d2so100205f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:44:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790156648; x=1790761448; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F4OSOZ6QNkL9RkPJ9OENWBp9oqWXQ7z1vT7cr50A03I=;
-        b=GzY4E/jyhJ8LtuyED97/Cg10LFXBsnmMT/tlnIxX1Y5ftL7B48YCSF5QNAJeSn903t
-         +alIPBy4zAtKQ4bVAdWxUvDXoPYW0DkmARbRofzY1r3PpVBuSbhAggSdWtPk3t4c6TZX
-         MJ2EbXkZmo8Xshurp1wtSTz1aXZJKJ2G3zQ8iPn+bxcd1/xClVdHGPWfMsYcJz0REEOk
-         3nVPFl+AD6oHskuF4c19m2T8uzvO1UiiUH8GOo/1d2YAB8bvhG4JK+gY1t29ND8aI/T4
-         wo0xr6QFSPfLwyE8GQn9Jd7S6WmtWs2gsoPIa7MNUyO9TxCPqS8FxwRt9Z9Hiz6DCZsx
-         onvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790156648; x=1790761448;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F4OSOZ6QNkL9RkPJ9OENWBp9oqWXQ7z1vT7cr50A03I=;
-        b=OhuXXpbA2iP96mOkqOWJq6lCnJs48V4Ya8c8xpaAltp5WIKzVO/Q4N/rr9YzsZnnEt
-         wHCbriEG1zbXXqRvIZQP9qM7l/FdBN/S9lI+Oewtx9aSP3DUDPi6XtQWbyvfuEgttrBk
-         qt/J4Ueah7DYdOujjt5IYqFsgbzW6HwJe1P4lkshyq6dGH/SJadVsshB/QJ1h5JVQTWa
-         G5fW69m1y6ZSP7dEmUkFcTYVSn1lIxUq4uZv36oVCLK2dbY6HTdXfK0MyDbotZ0g/ZYT
-         e+BCKYShcNoML0AhdT1dxkOGzrQuOikGDBL0CWu1cEL/Bh/gcy4xLwUBwz1/hhShmMVZ
-         44nA==
-X-Forwarded-Encrypted: i=1; AKwUvBw4OCXYuHrvuAruP16URUrTbCssEZ+Obkz5BoBHCxetzhyzpU94PYLQpWAF3ivn3dgnykXn0W/WTrZP@vger.kernel.org
-X-Gm-Message-State: AFuF++nKRZUPT7xTKEZzYkZpVCc1be2o6HFQjW/YQGy3nc4MLfl5wgw0
-	4MEwnDMNiGsh3/DU4wXvxjynMOQFSjJv+k0DBpZDWtWgKAdU6g/gO6MK
-X-Gm-Gg: AYBFou1JguHD6nimF4lRhY2uG/O0LmQZ68YoKCgRD6dAichA+HdQOEayVR5WaAxdb06
-	k8Ln8IMEVWtHLFDBF+AiUYlKAksMMlIAtyJgfJ13NYHC+BDZmJVK8zo+YLDB3pxAAQ7PLngmjuL
-	Ye5ohEEZcgtD2lCo/Xz62xV6yMGL7uBDDAJajoLisr0BxL/RLRp5g7q4m+EcGMh6a0p0LXeObup
-	ml1tn3ScWzIHIL1g0feydoeuzArDzwPiPNVuFOAKWBVDUdcarzPjGF2KsJytft99F3FQIzl5B2B
-	TcOpyQydHReBGzOxbiFP370qMBpzPBbCo5ubvqc6TiKfHj/L7zOPbafgbjBY6ZYLmlM8r9/WMJH
-	HRXiu+2zAJtN9aX6OVkqmOM8fTEiSQhL/9GB9OsFgBsnt9eh7U/yWcIt4Tn39iNjismT1QlkElF
-	fyurxsoKbHO1kOk+zuil3UtQdhNXPAUlPyvluUwNl4OzT+YRZXL4WO2MRukpt7uitHhd3HuXcj1
-	H/LKwpMjBsTfmb50+fJOSN9VgjTGD4eMP+Fqe8WAqGTn2YbzFVYBmAHaJSQgUHTjseKYh4wOG6Y
-	P8c=
-X-Received: by 2002:a05:6000:41c2:b0:487:240f:b0b6 with SMTP id ffacd0b85a97d-48866fec88emr3319246f8f.0.1790156648286;
-        Wed, 23 Sep 2026 02:44:08 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8F4500D949869966507951.dsl.pool.telekom.hu. [2001:4c4e:1b8f:4500:d949:8699:6650:7951])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48867b49661sm5535223f8f.0.2026.09.23.02.44.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 02:44:07 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Diederik de Haas <diederik@cknow-tech.com>,
-	Rob Herring <robh@kernel.org>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okuFB37Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B3DC1F000FF;
+	Wed, 23 Sep 2026 09:45:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790156733;
+	bh=YEEnur3s3rC0Mflr55H1yIyOHjYYmIlYX5pEaRs+FD4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=okuFB37ZHvRO94mQOXv9BeVw1Pg8xo1D93fFWqoOP1/tsnt7h52Dq+Xbj5lOMpVUG
+	 aTKJXOWzar3q7IEZtXL4B9ABUyyjM4ffTk8lpKXrod+mkpeVp+VJSuYQd4hCKreBS2
+	 +1N1EFmVMhTdzxnisZnip0xl2ZaYv8n0QI78IIZMUPW3dRWBlrV7TYeqxHSik8iIfL
+	 ISie0r/cl1hdEENOgdDxpeFD6W++gSllaDzH56JKHt5XZVlJLgxykO/M0qhdHlPiAt
+	 VACVOh7VXX6+XdWVZezdOk7iEYr/kELDTGbzV5LLaxx93rUx4vgY/ClhFc2//mPGJq
+	 RXYPNLdLerCnA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 87BE11AC5737; Wed, 23 Sep 2026 10:45:29 +0100 (BST)
+Date: Wed, 23 Sep 2026 11:45:29 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	Robert Foss <rfoss@kernel.org>,
-	Sidong Yang <sidong.yang@furiosa.ai>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Jiaxing Hu <gahing@gahingwoo.com>,
-	Nicolas Dufresne <nicolas@ndufresne.ca>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	=?UTF-8?q?H=C3=BCseyin=20BIYIK?= <boogiepop@gmx.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 06/11] dt-bindings: npu: rockchip: allow DVFS and thermal properties
-Date: Wed, 23 Sep 2026 11:43:53 +0200
-Message-ID: <20260923094353.20318-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <DLMKYI79QQRS.28Q4ESQ974BU@cknow-tech.com>
-References: <20260922080114.44662-1-royalnet026@gmail.com> <20260922080114.44662-7-royalnet026@gmail.com> <20260922160602.GA3529337-robh@kernel.org> <20260923085755.16219-1-royalnet026@gmail.com> <DLMKYI79QQRS.28Q4ESQ974BU@cknow-tech.com>
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH v7 07/10] ASoC: qcom: Add QAIF PCM operations
+Message-ID: <arOfufqav6zRT_Rd@sirena.co.uk>
+References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
+ <20260923-b4-qaif-shikra-audio-v7-7-d5b6f056568e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="a5mAK43x4cyqjWo4"
+Content-Disposition: inline
+In-Reply-To: <20260923-b4-qaif-shikra-audio-v7-7-d5b6f056568e@oss.qualcomm.com>
+X-Cookie: Too clever is dumb.
 
-On Wed, Sep 23, 2026 at 11:15:22AM +0200, Diederik de Haas wrote:
-> On Wed Sep 23, 2026 at 10:57 AM CEST, Igor Paunovic wrote:
-> > Will do in v3. By the same reasoning I will drop 'dtbs_check' from the
-> > two DTS patches, 07/11 and 11/11.
->
-> Doesn't the same apply to 'checkpatch' as well?
 
-Yes, it does, so it goes too. In v3 the trailer will only name sparse,
-on the patches where it was used, and the DT patches will carry a bare
-'Assisted-by: LLM'.
+--a5mAK43x4cyqjWo4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Igor
+On Wed, Sep 23, 2026 at 12:18:27PM +0530, Harendra Gautam wrote:
+> Add the PCM platform callbacks needed to use QAIF DAIs for playback
+> and capture.
+
+> +static int qaif_platform_pcmops_open(struct snd_soc_component *component,
+> +				     struct snd_pcm_substream *substream)
+> +{
+
+> +	dma_mem_info->alloc_size =3D qaif_platform_hardware.buffer_bytes_max;
+> +	dma_mem_info->vaddr =3D dma_alloc_coherent(component->dev,
+> +						 dma_mem_info->alloc_size,
+> +						 &dma_mem_info->dma_addr,
+> +						 GFP_KERNEL);
+
+
+snd_pcm_set_managed_buffer().
+
+> +static int qaif_platform_copy(struct snd_soc_component *component,
+> +			      struct snd_pcm_substream *substream,
+> +			      int channel, unsigned long pos,
+> +			      struct iov_iter *buf, unsigned long bytes)
+> +{
+> +	struct snd_pcm_runtime *rt =3D substream->runtime;
+> +	size_t buffer_bytes =3D snd_pcm_lib_buffer_bytes(substream);
+> +	size_t channel_bytes =3D buffer_bytes / rt->channels;
+> +	unsigned long offset;
+> +	void *dma_buf;
+> +	size_t copied;
+
+If the buffers are already memory mapped why do we need a copy()
+operation? =20
+
+--a5mAK43x4cyqjWo4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqzn7gACgkQJNaLcl1U
+h9CCrQf/dKYHsrN2nFZxcCWjZtrnWknBOss6IXlwY8bAVNMpIUoaBlduns0RLq1g
+MT/AupMLNasVO4K47cUZj5o1T4emjSqRHIW599Ls37nbiI9Y3JgqmfZysJkft89g
+vD+aPz/ZZfZOkRDG3kmcnOfNlof0Ye73/rUM8/KQsVLzetA45XMci/5o7e6pGt+J
+S/Qa5b0oojdIsboArDxekxejRkfeFx6lUS5axnlPPVxY8IkVIwsA/6NIU0Paebmd
+BLZh7YS67LvjcPvTi1MqyvVHeduGbvaBD2jcqgveldLqCkDr9m9ro0RAi8yNAvjg
+3tghhIriZ72F1Slqt89GsHfB9y1I1Q==
+=tfSA
+-----END PGP SIGNATURE-----
+
+--a5mAK43x4cyqjWo4--
