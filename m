@@ -1,233 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022104.outbound.protection.outlook.com [52.101.126.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99D21DFFB
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 02:57:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790132264; cv=none; b=qrKTZvev9WS9MC5OFyOWhs51Jd8IdS5pBnnBbH1LARvRbDMOQndCcJaSAJivtUp6beiBTVKoSN7+y8TLb0BxXlGtIcPLc/X780d/fdyHvO9G9GGm0rOumnAsfbXtyV8FQUM+1XCBpJcm9kmBQRLAwlT90YtrjqHOZs4gj6d8HpE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790132264; c=relaxed/simple;
-	bh=S/svtYV54ueWsudVNS8ZP2Xx/NDVGUMXQ4fekdsqPNk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=q5dWSwppCJzP4Za6O3ZwRQlkii7a63bZkCqURh6oM3GDtekTdKdULRxnbwRYDnixu21HjaovCwGE3dkSliXh3IqtKUuqkPV2HIiMizkgzIaWycbdEwjXKLVXVnSrxmUuZ3BXal4Ur0iBQjmEpswHescuJ642urDiXwcFo3FfT8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=awFxy++P; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="awFxy++P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D9A11F000FF;
-	Wed, 23 Sep 2026 02:57:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790132262;
-	bh=jFv8DvY18O8xitiz3OCMRhgE85AbzPmPzmfBmJ9mEKo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=awFxy++PlGxBY6Gq2XOw7x03A9XjiVCSk5C3nKlJ9OIh+r3GPsoOGUkkwZWu3CqUA
-	 10uWrwg6GuWvP2OupDOJQXCKZp9+RtS22eVYMFvcwGLjEgrXQV306q6C+cIYIlMTmc
-	 72P29icAi4cdZ8jmJ0la7DeeWuAhARVWB9TM1pRXtgsGA9shDbiJss575awYaVtyhC
-	 KxQ1wr3ZQy2wclP6tZWaZ1CxEN78ZW2ay2p982H1odKEXaOz3yyShWdl852D0DktHY
-	 5BpQHLTRqx/Fu0LPkRf3Ko7DIumj4h/wfKm/FtLj/5pXBrE6gUv8RcWnn3/s+JCYXv
-	 0UREQBEm2M4+g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 02/14] media: mediatek: vcodec: add driver to support
- vcp
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org
-In-Reply-To: <20260923024258.257846-3-kyrie.wu@mediatek.com>
-References: <20260923024258.257846-1-kyrie.wu@mediatek.com>
- <20260923024258.257846-3-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 02:57:41 +0000
-Message-Id: <20260923025742.1D9A11F000FF@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835F8372EF5;
+	Wed, 23 Sep 2026 02:58:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.104
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790132323; cv=fail; b=ItnIe+sPzfCma2nWZxbeYicEj6D2KXCeWNAdS1LRJpZyPOeeonkbX4eQgkLxCrpw70VgtF6oV7WcVW7F+YKVry1z1NFAlg66WolrYxDHM/FFOzTWwlfe3hftjDc2kDpcuElyv/BBu1YvAvinv45bJFs7hpiPQwC29OWmStypg+c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790132323; c=relaxed/simple;
+	bh=MkZQ04tP2NNFMCmVvm54ZQ/Ggyr92WEvjO4M3D7tpGc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Wg/4nlOsMCH7DvlGbtIox1VvMtPkPFgm/ezwdTRDsHfpOGTca/EJJa3+sQT/vZYuGYpHEd5w5XbxYWhVJIcAJ2mfpjKKgm+tiSFQC/lWNMtplxEeGw+8gsmFIAr4uECIOiYr5wk+Cu8ksp/hVvzn0EsCWL4pUT/+ezLVvbx/dOU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RmFvob1i6IwL8m0sZSw2Myd3akMvElHBslarqERKm5S6A6eGxOnKmWTHL7gA/T/ThMSpwlHpTSnceWkB4QJyaAiNmlJliBZ6iMeCI2H2N2mM+eiqbog0RJec0ecsy1HAG6IxeE9gvACjn1pu0FST6ZfUb3I7GBrS/OKkO8dWacw04zs6LObfS/aRZZ2t+4OU8wj4Enas8irT2Qndq11cZjghmxMHY/WQSmCpTBuvR20tdh2gz7gS0MOHwLb+1cyOVBIfkyjxVLZUcnVAHWftpZowoDGubvr5E0B7GfN61i4sJD89NqXnWaqLr3COkx6LbT7IbwrZp9rBX8Zsrzrw2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MkZQ04tP2NNFMCmVvm54ZQ/Ggyr92WEvjO4M3D7tpGc=;
+ b=lVwkLbHF/iH5XemVLsBMujHFSEbmu+2Bwbc+z2HCBXMhNO9l2RvzwEb5qo5ClPHbUYRXCnkfBURCwkE3hdWnf4/WM3VvFfBVV8m3i/rJyDl/6EFj6H5sHSYyGg/T4lsjEZWq0wEMC/GIcGzWJ0/BeHOItid/mo2bXrAYiYFtSQiBRo+O98HTnc3TSoFh6zOb6Sz54zWI6Y49wpuEnakwL0GFKRIMzUwCv69/F53D+QEUpeCTFcplrgGKvxXCs/UvSbHdyyMAflb+KMol9XTJXRMji9SerhwLtSQQ8r8F33f2vOuzcaGCOQbDI8KId3Hxk9OOeg0LhrM52fKVMn8oig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI1PR02CA0001.apcprd02.prod.outlook.com (2603:1096:4:1f7::15)
+ by TYZPR06MB6095.apcprd06.prod.outlook.com (2603:1096:400:342::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
+ 2026 02:58:37 +0000
+Received: from SG2PEPF000B66CF.apcprd03.prod.outlook.com
+ (2603:1096:4:1f7:cafe::af) by SI1PR02CA0001.outlook.office365.com
+ (2603:1096:4:1f7::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
+ 23 Sep 2026 02:58:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG2PEPF000B66CF.mail.protection.outlook.com (10.167.240.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 02:58:35 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 9FDEE43B1063;
+	Wed, 23 Sep 2026 10:58:34 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
+	peter.chen@kernel.org,
+	gregkh@linuxfoundation.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	pawell@cadence.com,
+	rogerq@kernel.org,
+	cix-kernel-upstream@cixtech.com
+Subject: Re: [PATCH v4 2/4] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+Date: Wed, 23 Sep 2026 10:58:34 +0800
+Message-ID: <20260923025834.842467-1-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260910025227.2490151-1-hongliang.yang@cixtech.com>
+References: <20260910025227.2490151-1-hongliang.yang@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CF:EE_|TYZPR06MB6095:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 7d798a6e-a1cb-46db-9f81-08df191e8f94
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|82310400026|36860700016|1800799024|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	O8bzqpUYzXUm8P45/MMHRfNfL+jm++G9kpiEAFlcJNodCnOZNUKoBlatxJ5SyqXWbuia8fUY9xWQ+XwtltZM6nvzJKfcQjXvuyzsyV7tMQUSQbo5GxSWrgB7mX6Qfmlj3SuoKBa4X/FIycr1CrUlaMvPVsS5E+h4ArWQezn+tapKNOU2qhjp9917QmYoTB4CwGSu9xGQaNrYpsJA9YUKR5HH/AFlQikHSSbsonrEXSFC+ilVzjmjjItpIdNvMfO4lTiF2ljsX7Da1vz8n3ztb1fH7a0/IPhnjgtY4UonlrDnd7I3GPT/u2TAYPcjYz9NZsRfbdPfaMoG6V74gfK23qmMhLxTHHewkJeQuxy9I/Zm5G1P1P+PEvLGTS/YozLuDNx6nO9xXcLGaqv6J3QjKh00vcV1T5K8JrkvX6K/2oWUJqIA/ER3bthTqS7jQAfMo/w5ZBBxX8FnhUNKgPLl0SWjua1HtXsOHrxwrAS6U+BMer2LVBIsBpbiO0sW2fHfyI3zHncrzLCMeUqOj8oplo9sKaJyr3TYdRq55w1cUXS5MMhpxK6JRjjLRnR27L960WGEFhJwPVPvOdzyBZbrb+7TdCmi6EIUr4PX0J8+Jn1E+i5qCgDnjCmVGKtHfJEnxUVVdyML9Mby0wv3SnvMNxUjdMcX/hqeJNWY+2xL3Errcb69aEkqWeHBcDTQt39H0V+f47Xf40+N1fFUgiY3bw==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	VAs8fR0sXQUFtnJjFQlq0UOwqUtVKe4s4GU364hbwC8psCM2xO0Vy4JmRJLKseZ0cyBFI9qKBd+ACznUDJoHRZuCLDV1sZHhCH1tmcwKE+Q9cWENVk0nqTdVS4w7HonoAkEBykEImdBjdJgsKpLrv3+/24aoiwPSBwwGlVLB7sIUYrZnwVNBUBgltiF4RLqBRJ13h3t7waeKxn67795Ll29xHWIXppxOgX71Jb3ybNDkCn5n70braUaR3UD9KCRT5AjLhPAFjKING9s5OBByrYu7BIh1H+o4A+fMLo+uIzS9T5/eBlvUDx5z+Y6Xf36sovX/8HB5rXV5RgXwv8wDxmNTCzGzmq0Lpi8jPkq3yl68GqtQpxz/66W+U43rkl9Bxs4a67M9Ld3hdWh7VP3eYBDc/w441GTSIDYfbwl0dsbDuQD8m6Xq7BmkEfENYUJe
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 02:58:35.6613
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d798a6e-a1cb-46db-9f81-08df191e8f94
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66CF.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6095
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] media: mediatek: vcodec: CPU lockup due to unhandled signal in wai=
-t_event_interruptible
-- [High] media: mediatek: vcodec: modprobe fork bomb DoS in vcp device poll=
-ing
-- [High] media: mediatek: vcodec: Use-After-Free and state desynchronizatio=
-n on IPI timeout
-- [High] media: mediatek: vcodec: rproc reference leak on vcp deregister fa=
-ilure
-- [Medium] media: mediatek: vcodec: build failure due to missing MTK_VCP_RP=
-ROC module dependency
-- [Medium] media: mediatek: vcodec: compilation error due to undeclared VCP=
-_SYNC_TIMEOUT_MS
---
+Hi Krzysztof,
 
-commit d524a6ee370f9efe82015b1c8256b28c7fb3bc55
-Author: Kyrie Wu <kyrie.wu@mediatek.com>
+Gentle ping on my question below about representing the shared RCSU
+region with a simple-bus container and translating ranges, versus
+absolute addresses in reg directly under the soc node. I would like
+to settle this before sending v5.
 
-media: mediatek: vcodec: add driver to support vcp
-   =20
-The processor is changed from scp to vcp in mt8196 platform.
-Adding new firmware interface to communicate kernel with vcp
-for the communication method is changed.
+Also noted your comments on the missing blank line before the
+Signed-off-by tag -- the v5 commits are created with git -s, so this
+won't recur.
 
-> diff --git a/drivers/media/platform/mediatek/vcodec/Kconfig b/drivers/med=
-ia/platform/mediatek/vcodec/Kconfig
-> index bc8292232530b..d23dad5c78ce3 100644
-> --- a/drivers/media/platform/mediatek/vcodec/Kconfig
-> +++ b/drivers/media/platform/mediatek/vcodec/Kconfig
-[ ... ]
-> @@ -21,6 +24,7 @@ config VIDEO_MEDIATEK_VCODEC
->  	select V4L2_MEM2MEM_DEV
->  	select VIDEO_MEDIATEK_VCODEC_VPU if VIDEO_MEDIATEK_VPU
->  	select VIDEO_MEDIATEK_VCODEC_SCP if MTK_SCP
-> +	select VIDEO_MEDIATEK_VCODEC_VCP if MTK_VCP_RPROC
-
-[Severity: Medium]
-Will this cause a link failure if VIDEO_MEDIATEK_VCODEC is built-in (=3Dy) =
-and
-MTK_VCP_RPROC is a module (=3Dm)? Because this select statement doesn't
-enforce a modular state dependency, mtk_vcodec_fw_vcp.c could be built-in
-while attempting to call exported symbols from the MTK_VCP_RPROC module.
-
-> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_=
-vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-> new file mode 100644
-> index 0000000000000..150d842c7d226
-> --- /dev/null
-> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-[ ... ]
-> @@ -0,0 +1,571 @@
-[ ... ]
-> +static int mtk_vcodec_vcp_msg_process_thread(void *arg)
-> +{
-[ ... ]
-> +	do {
-> +		ret =3D wait_event_interruptible(fw->vcp->msg_queue.wq,
-> +					       atomic_read(&fw->vcp->msg_queue.cnt) > 0 ||
-> +					       kthread_should_stop());
-> +		if (ret < 0) {
-> +			dev_err(&fw->pdev->dev, "wait msg queue ack timeout %d %d\n",
-> +				ret, atomic_read(&fw->vcp->msg_queue.cnt));
-> +			continue;
-
-[Severity: High]
-Could this lead to an infinite busy loop if a signal is delivered to the
-kthread? When wait_event_interruptible() returns -ERESTARTSYS due to a
-pending signal, the continue statement immediately restarts the loop. Since
-the signal is never cleared, it seems this will continuously spin and lock =
-up
-the CPU.
-
-> +		}
-[ ... ]
-> +		handler(msg, obj->len, fw->vcp->ipi_desc[obj->id].priv);
-> +		mtk_vcodec_vcp_ipi_unlock(fw->vcp, obj->id);
-> +
-> +		fw->vcp->msg_signaled[obj->id] =3D true;
-> +		wake_up(&fw->vcp->msg_wq[obj->id]);
-
-[Severity: High]
-Is it possible that this accesses freed memory if the original request timed
-out? In mtk_vcodec_vcp_msg_ipi_send(), if the wait for msg_wq times out,
-it returns an error to the caller, which might free the associated context.
-When the delayed ACK finally arrives, this handler could dereference the
-freed context or wake up a completely new request reusing the same ID.
-
-> +
-> +		mtk_vcodec_vcp_free_msg_node(fw, msg_node);
-> +	} while (!kthread_should_stop());
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static int mtk_vcodec_vcp_msg_ipi_send(struct mtk_vcodec_fw *fw, int id,=
- void *buf,
-> +				       unsigned int len, unsigned int wait)
-> +{
-[ ... ]
-> +	mutex_lock(&vcp->ipi_mutex);
-> +	feature_id =3D VDEC_FEATURE_ID;
-> +	mailbox_id =3D IPI_OUT_VDEC_1;
-> +
-> +	timeout_jiffies =3D jiffies + msecs_to_jiffies(VCP_SYNC_TIMEOUT_MS);
-
-[Severity: Medium]
-Will this cause a compilation error? VCP_SYNC_TIMEOUT_MS doesn't seem to be
-defined anywhere in this patch or the kernel tree.
-
-> +	while (!vcp_device->ops->vcp_is_ready(vcp_device, feature_id)) {
-[ ... ]
-> +wait_ack:
-> +	/* wait for VCP's ACK */
-> +	ret =3D wait_event_interruptible_timeout(*msg_wq, *msg_signaled,
-> +					       msecs_to_jiffies(IPI_TIMEOUT_MS));
-> +	if (!ret) {
-> +		vcp->ipi_id_ack[id] =3D VCODEC_IPI_MSG_STATUS_FAIL;
-> +		dev_err(&fw->pdev->dev, "wait ipi ack timeout! %d %d\n", ret, vcp->ipi=
-_id_ack[id]);
-
-[Severity: High]
-As mentioned above regarding mtk_vcodec_vcp_msg_process_thread(), when this
-timeout is reached, the hardware transaction appears to remain pending. Does
-this leave the firmware state desynchronized and risk memory corruption when
-the delayed ACK eventually arrives?
-
-> +	} else if (ret =3D=3D -ERESTARTSYS) {
-[ ... ]
-> +static int mtk_vcodec_vcp_get_vcp_device(struct mtk_vcodec_fw *fw)
-> +{
-> +	struct device *dev =3D &fw->pdev->dev;
-> +	int retry =3D 0, retry_cnt =3D 10000;
-> +	phandle vcp_phandle;
-> +
-> +	while (!try_then_request_module(mtk_vcodec_vcp_driver_loaded(fw), "mtk-=
-vcp")) {
-> +		if (++retry > retry_cnt) {
-> +			dev_err(dev, "failed to load mtk-vcp module");
-> +			return -EPROBE_DEFER;
-> +		}
-> +		usleep_range(1000, 2000);
-> +	}
-
-[Severity: High]
-Could this loop result in a modprobe fork bomb? try_then_request_module()
-invokes the userspace modprobe helper. If the module is genuinely missing or
-fails to load, this loops 10,000 times, potentially spawning 10,000 modprobe
-processes over 15 seconds, exhausting system resources.
-
-> +
-> +	if (of_property_read_u32(dev->of_node, "mediatek,vcp", &vcp_phandle)) {
-[ ... ]
-> +static void mtk_vcodec_vcp_release(struct mtk_vcodec_fw *fw)
-> +{
-[ ... ]
-> +	if (!fw->vcp->is_register_done) {
-> +		fw->vcp->is_init_done =3D false;
-> +		goto put_device;
-> +	}
-> +
-> +	ret =3D vcp_device->ops->deregister_feature(vcp_device, fw->vcp->featur=
-e_id);
-> +	if (ret < 0) {
-> +		dev_err(dev, "deregister feature_id(%d) fail(%d)\n", fw->vcp->feature_=
-id, ret);
-> +		return;
-
-[Severity: High]
-Does this early return cause a leak of the rproc reference count? Returning
-here bypasses the put_device label and skips mtk_vcodec_vcp_put_device(),
-which would prevent the module from ever being unloaded if deregistration
-fails.
-
-> +	}
-> +
-> +	fw->vcp->is_register_done =3D false;
-> +	fw->vcp->is_init_done =3D false;
-> +
-> +put_device:
-> +	mtk_vcodec_vcp_put_device(fw);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923024258.2578=
-46-1-kyrie.wu@mediatek.com?part=3D2
+Best regards,
+Hongliang Yang
