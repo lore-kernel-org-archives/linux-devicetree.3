@@ -1,129 +1,156 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B4B4457C2;
-	Wed, 23 Sep 2026 07:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1FD3AB460
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 07:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146949; cv=none; b=FpspCfQIX1I2Z2eV5sa6FrPaQRHQjRe2TZFnKW2j6FlGhnnyCG4MzMo4Bs4+iFZ6SWVjPa628bfKswoq8YN+7i3VrvV/N/VI4ng7IGH90TSg3Y6TvIXVZMF6+k/EDLdTmfwsyos3ORfTQD0F0UmTSXpLWUaf5OsZ50aNIKsXc70=
+	t=1790147028; cv=none; b=aIEitXYm5oxjh4eucGTz6SahtBT6JkwIPxUlQh3mwe0yiy7LF2dvaCr/SfZ9mHDalETSeQBvVTpSQQVpDpX8CrKTDRKSilO3RKIlaomLLP6DR6p8XMJ1mti+23Rzfol6tnrg1yeoHfwQRC0mIQA+uON/A1GBhocgXh1YwxD3fKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146949; c=relaxed/simple;
-	bh=vV1f8XOtnhd4PUrG7fI1WwmGeEfJB8B4vF5GJJspy7w=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 In-Reply-To:References; b=P9lVm1SxArrdAZhPOd7V0gkjzdOaAnmk/6VbhKNbuc6eYdP3TDqGpeXZH1M0LAWIaWxTeEHeIpFOwIdwDIhSzAaAq9rk2b97L/ncmFzbDVtAvCcsJLkhwg+qz3qKolKwrN42MtanXUQrf/p9moLOGi0Le0UkTwdulS3R8mQjT5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=GmpybhRJ; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790147028; c=relaxed/simple;
+	bh=o6elBkJ7O0qI58JWmB+4hzCjPEbsjFgNLBsA6EH+vus=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YYjDfD6j7RUN3wcneBTbelG1xwJxAxgQ0j3iihvDOIrlpQSOGTvZd2F1FkNlj++TuMrf+PPeXKyvtjTJGRmLldYMzDhgsBu9zoRYqMG0KwG6xlEX99IVpufYHep0duxcEzoTJhjP17lqfmM+nn0Xxds8U2ULGH1ZYApg3i4l1Jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RhbH/upz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="GmpybhRJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790146938;
-	bh=vV1f8XOtnhd4PUrG7fI1WwmGeEfJB8B4vF5GJJspy7w=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=GmpybhRJZLnP/9/jb4XSUy7O32pj4B3yhNJVR2LvRoowBjsTu3k33P33u55vgKoRh
-	 LJX4XuGWBOAmgBIx0erzZGXQmy3EVUAv5mIpLq6uxkGxDXv6vtqlPtrYfJL5e0lYin
-	 Jo6YalOWSWi6Gc05xP7y0DSpkUzg1s5pHC3UUcJg=
-X-QQ-mid: zesmtpsz7t1790146937t51512584
-X-QQ-Originating-IP: 6YGW9d+Woa+ee2SDpHWKexzNo7pMSO7+fqf4Wn3ed+Q=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 23 Sep 2026 15:02:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5313365158734513458
-EX-QQ-RecipientCnt: 14
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RhbH/upz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62DBD1F000FF;
+	Wed, 23 Sep 2026 07:03:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790147027;
+	bh=JrxQS+klrXb5L2Z5dCpX9qTUXvo1MGagAHIMrCfAKd0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RhbH/upzSqGpMOrVEp2pDlqX3c/aJtcrZyFGhcdocsbyl+rrjaFFimqBwdxk8vFS3
+	 bOF8IAaqZ5MXuM5RqGOuq/fHAvE5Dddk0vAl3Gpt6T5fm8fkv5Gm8H+21Q2z1julwX
+	 eyem7N+QpjI/NAXaOnwFtOmvYdnE2dLQx9DbzHFmEGfsfkLRCJwFltkpN9ztKFqitr
+	 jgBtgGVVoRKO+GFEGGw4LsYyLGyK98WZbcQjzzT4oQeDcGtdNuRcApVONTdUAgvHqF
+	 xWwFGT0RYu3cdilpOb9bPmPOM64rspIYODrHnSBUgMP3MgCivjvFYYnH6EP9C0VVmF
+	 ky0np/Z9+k4wA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 07/10] ASoC: qcom: Add QAIF PCM operations
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260923-b4-qaif-shikra-audio-v7-7-d5b6f056568e@oss.qualcomm.com>
+References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
+ <20260923-b4-qaif-shikra-audio-v7-7-d5b6f056568e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 07:03:46 +0000
+Message-Id: <20260923070347.62DBD1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=1d5c24782d6347cbf5fcdf0c6fbf3eaef92642292ff9818598bdb521dc6b;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 23 Sep 2026 15:02:12 +0800
-Message-Id: <DLMI4JHT5Q8L.2MHI30VCCP3W9@linux.spacemit.com>
-Cc: "Yixun Lan" <dlan@kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, "Conor Dooley" <conor+dt@kernel.org>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt"
- <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
- Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
- Enable SD card support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Sandie Cao" <sandie.cao@deepcomputing.io>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.2bcc8e57.b8bf.421b.9230.3eea00252952@feishu.cn>
-References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
- <20260922110450.3426070-1-sandie.cao@deepcomputing.io>
- <DLMC741RLFU5.3FF1DL7YEIFK9@linux.spacemit.com>
- <407ce3d77416bb2522b7906b0df3d5adf02c27ee.2bcc8e57.b8bf.421b.9230.3eea00252952@feishu.cn>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: ND42uzdxTIzrL4PfGQ4oQcvx3Y+HVF6X8HQKJwbt3MkIxps1XnwT5rsl
-	56GQU+B8Dk35l3RG1nkBK+O1vWo8sAPlY4Q7LlGZNGZXz/CinsSNSZzf2MitPEYMLlDrSz8
-	s+fqZnJaEq344dIF/uauaYMnoL9MO5W1knntX7EPy99Yy5U51lolLzWIMdbIaLBAqwSC312
-	F8EaKwWhHsMhelWq+gsiVx7Kz+pLmGdCv2qmjX8GAhb6JtvC5gxxiD3sWpv6cttcK8uN6ja
-	iSkZrcJYWGs1BVy2Vby9PfpvnzcsYbgAHd4L69fgDkGgeBNYsFgwZoxvtShYc2c3RGyDyZb
-	femJoxgfRMmlSHm3r3V34XLczetco+zgQNDgPpqqm3Sz3r7pU/8nuFGdT0AKHBDUe0q88h+
-	E09vfq5LvaFgEKCXN4dQBQ7YDVq9O/R+Zrq72RRro+GkNRILbBdG1hQuqkCWSUvIoR3ubW2
-	snNlYhLK8FW8kXw6hLAPBmur79xwSjl9lnl2Xtc4GHNBHvTVGougNBh3A4pH73VV6Q0dr3a
-	QvQRKoVhN+NryzSb0uqxYNpV0YAEygPuXmG2QGofKo6bYHU3UjKM81kW5yyXPLZ+YlBlvLe
-	v8FJpULUuKnnrT/MItps6sT8r4cpaYw53h1HWKHuHvKKoEexC/gSzDCu74yG0h5SaUqKl/F
-	hhtzwkd1uIMAugl7w7CyOgG0ykrS4I5EBC08XOQf1yG2UiRsJnA3+Ax0B+4PpRRxSx4xCpH
-	6d6QFXXLiWYAtiF7myI5PI0sntcBiXqKyrGWxWJn0Xoy5fZ5nX9QQpSqR2RbPcfDVCShtsI
-	8fhC190ecBCj6XXNDSmpDnORTnOe1D2b0Ykxa9cmnUkvXN6ySO0kTTHNpA/8r6Qr7ijsC2B
-	Ln8YJFaPhKiI81rl9MjZ/tXfB8APDWx2Wv/G+srRpGQb6RWDI83xFcwO6MHzXTSlsjQ25Dt
-	esBtY962pf/K0eVqNjV2aEcS0PEqn9JzVIcAUcHsIzF/8MQoyzm5Rp/8qLLzqbKyHND+p74
-	yQ6PK3D0+1DihELfQvTmc1g8gVyiLjkPCyJ2EEH47HFggUbTZ452ZgD7EYkLyITL+Vy0uyc
-	vDJqpZRH1pbSpZoM5w3qUE=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
 
---1d5c24782d6347cbf5fcdf0c6fbf3eaef92642292ff9818598bdb521dc6b
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] mm: double-free of ALSA DMA buffer on open() error path
+- [Low] style: misleading DMA control macro used for config register
+--
 
-On Wed, Sep 23, 2026 at 02:35:20PM +0800, Sandie Cao wrote:
-> FML13V05 SD card slot is inside the board, it doesn't need cd-gpio,
-> FML13V05 Keeps GPIO88 to low, Then SD card is always on for SD Card
-> driver.
+commit 7d59a73e593308e23460f4d9f07a89ab17b26f25
+Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 
-An internal slot does not necessarily mean the card is non-removable.
-I don't think its location alone justifies keeping card detect asserted:
-GPIO88 would report a card present even when the slot is empty.
+ASoC: qcom: Add QAIF PCM operations
 
-> We check the vmmc-supply is p3v3. We have the same SDK DTS config with
-> k3_com260[1] , so, this patch follows the SD card patch of k3_com260
-> dts[2].
->
-> If this is not correct, we will change it.
+Add the PCM platform callbacks needed to use QAIF DAIs for playback
+and capture. Allocates DMA buffers in open(), configures in hw_params()
+and prepares, and reports current DMA position.
 
-Could you confirm from the schematics that the SD power wiring matches
-CoM260 and that the card's VDD is actually connected to ALDO4? If so,
-this supply reference is fine. The same SDK configuration alone does
-not establish the wiring.
+> diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platfor=
+m.c
+> new file mode 100644
+> index 0000000000000..84ce3ad9a1f2d
+> --- /dev/null
+> +++ b/sound/soc/qcom/qaif-platform.c
 
-If the card instead uses a fixed, always-on supply with no software power
-control, vmmc-supply is optional for the MMC core; it should not point to
-an unrelated ALDO4 rail.
+[ ... ]
+
+> @@ -279,25 +279,25 @@ static int qaif_platform_pcmops_open(struct snd_soc=
+_component *component,
+> +	/*
+> +	 * The DMA buffer/period length registers are programmed in 64-bit
+> +	 * (8-byte) words, so constrain buffer and period sizes to that step
+> +	 * to keep the ALSA and hardware sizes identical.
+> +	 */
+> +	ret =3D snd_pcm_hw_constraint_step(runtime, 0,
+> +					 SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
+> +					 BIT(QAIF_DMA_BYTES_TO_WORDS_SHIFT));
+> +	if (ret >=3D 0)
+> +		ret =3D snd_pcm_hw_constraint_step(runtime, 0,
+> +						 SNDRV_PCM_HW_PARAM_PERIOD_BYTES,
+> +						 BIT(QAIF_DMA_BYTES_TO_WORDS_SHIFT));
+> +	if (ret >=3D 0)
+> +		ret =3D snd_pcm_hw_constraint_integer(runtime,
+> +						    SNDRV_PCM_HW_PARAM_PERIODS);
+> +	if (ret < 0) {
+> +		dev_err(soc_runtime->dev, "setting constraints failed: %d\n", ret);
+> +		if (qaif_is_cif_port(dai_id)) {
+> +			WRITE_ONCE(drvdata->cif_substream[stream_dma_idx], NULL);
+> +			drvdata->cif_dma_heap[stream_dma_idx] =3D NULL;
+> +		} else {
+> +			WRITE_ONCE(drvdata->aif_substream[stream_dma_idx], NULL);
+> +			drvdata->aif_dma_heap[stream_dma_idx] =3D NULL;
+> +		}
+> +		mutex_lock(&drvdata->stream_lock);
+> +		v->free_stream_dma_idx(drvdata, stream_dma_idx, dai_id);
+> +		mutex_unlock(&drvdata->stream_lock);
+> +		goto err_free_dma;
+> +	}
+> +	return 0;
+> +
+> +err_free_dma:
+> +	dma_free_coherent(component->dev, dma_mem_info->alloc_size,
+> +			  dma_mem_info->vaddr, dma_mem_info->dma_addr);
+
+[Severity: High]
+Does this error path leave a dangling pointer in substream->dma_buffer.area?
+
+In qaif_platform_pcmops_open(), if setting the hardware constraints fails
+(for example, if snd_pcm_hw_constraint_step() encounters an error), the code
+jumps to the err_free_dma label to free the DMA memory.
+
+However, earlier in the function, the substream's DMA buffer fields were
+already populated and its type was set to SNDRV_DMA_TYPE_DEV. Because this
+error path does not reset substream->dma_buffer.area to NULL, ALSA core's
+teardown path (snd_pcm_lib_preallocate_free_for_all()) will find the area
+pointer non-NULL and attempt to free it again using snd_dma_free_pages(),
+leading to a double-free.
+
+Could we reset the substream->dma_buffer area, bytes, and addr fields to
+zero or NULL before returning the error?
+
+> +err_free_mem_info:
+> +	kfree(dma_mem_info);
+> +err_free_data:
+> +	kfree(data);
+> +	return ret;
+> +}
+
+[ ... ]
+
+> @@ -377,9 +377,9 @@ static int qaif_platform_pcmops_hw_params(struct snd_=
+soc_component *component,
+> +	ret =3D regmap_update_bits(drvdata->audio_qaif_map,
+> +				 qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
+> +				 QAIF_DMACFG_BURST4_BIT | QAIF_DMACFG_SHRAM_WM_MASK,
+> +				 QAIF_DMACFG_BURST4_BIT | QAIF_DMACTL_WM_5);
+
+[Severity: Low]
+Is the use of QAIF_DMACTL_WM_5 intentional here?
+
+We're writing to the Configuration (CFG) register and applying the
+QAIF_DMACFG_SHRAM_WM_MASK mask, but the value macro QAIF_DMACTL_WM_5 has a
+Control (CTL) prefix. While this may evaluate to the correct value for the
+watermark, the mismatched prefix could be misleading.
+
+> +	if (ret)
+> +		dev_err(soc_runtime->dev, "error updating DMA CFG: %d\n", ret);
+> +	return ret;
+> +}
 
 --=20
-Troy Mitchell
-
---1d5c24782d6347cbf5fcdf0c6fbf3eaef92642292ff9818598bdb521dc6b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCarN5dA0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQv0SkBAJoTYlHEntw6qzTvJySy6HApBMRe5LlDuAd7JRLO
-XP9NAP0XoDVs3rpymXWxOxY0Su4MGjNUGi1VGG4nipsub909DA==
-=Ux3W
------END PGP SIGNATURE-----
-
---1d5c24782d6347cbf5fcdf0c6fbf3eaef92642292ff9818598bdb521dc6b--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-b4-qaif-sh=
+ikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com?part=3D7
