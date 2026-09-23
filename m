@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658D545D180;
-	Wed, 23 Sep 2026 08:27:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3234838838B;
+	Wed, 23 Sep 2026 08:29:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152071; cv=none; b=GXhY+Cfymj+eX7RpWEeLZLOwGa9DbDqZm7V45AIvdsiWyjUM/2gh3OeX0iWKeBaS9ipm3YHi9gFGz3oXTrROBgnEGHD4wi551gS3ayNFn3osEUvR17ao3F7pWO7zHk/MkyY7/6qfsbdwCp5eQJxcb5d+8NGVUNg5y/ryt9nzlU8=
+	t=1790152185; cv=none; b=co7hZxWGSQRB2tmGcJLNwe4yN5SPdxguT4CI0qVjDLNI7Nf33cZLFs6iOKPN0Iya1P3yCgE1Lg6nu3tPsE6ficPi/0+oeegFlttSzSIYEtYQMM171BnKYF2KwSUgfV8pA87FmkGq1EXIPyfOfoTKVDWY38G2Wq8OtS/5kR47SM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152071; c=relaxed/simple;
-	bh=szfCu6zK4kPDpXua7ssq6Dd4QCtSKlbnPPwDkBEq/Vo=;
+	s=arc-20240116; t=1790152185; c=relaxed/simple;
+	bh=wbXCWbU0fgABPMYK7v6FClur4UqAQBuPyZuN58zzA1I=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t7+AK6qEH68XGCmNUUvPFQ/3B4q0NpK27N0m5k5twuYS5abZ6HB2GPuawvrOVfNNPNxNnog7tBaeSJNkryENU4azRy163PexR90HGMbrnsqIcak6z8jZd2YNmPYohMxrRU0MhBq32MEy+o6qkP5iXgdGH0XzdBToG2HCCQtA5nc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AzjqXfKa; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=QUPyw8HYIAf01pTa//eGQQRsp4KMNDB07UVVpIgt6HyjR7P6sqUlmzUTyfMrIDjO5ShaueSCfeHRI2lGjn5WtmF8WOW4mVdo7zxUHIi5MeQZDlH975ZLMpB15HUk8uiPQnVE/Elo+W7llv7DrUhk8blkhCOl7RVac7eHFlPrMP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AHcawEQQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AzjqXfKa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A026E1F000FF;
-	Wed, 23 Sep 2026 08:27:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AHcawEQQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AFAA1F000FF;
+	Wed, 23 Sep 2026 08:29:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790152070;
-	bh=dnl8HA/kIuhbbcojNcajEGIzFrKVcFo/sUvgP8xwc2k=;
+	s=k20260515; t=1790152183;
+	bh=x8yZpBS8Ds8UdFLAdGZ025C9NuwFvuaCGnOgPYEguX4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AzjqXfKa0K1UPOG/arbH+l/boCtTmRtExLa4ROwYOsq8d/hmlghWm34+CtcNNtBiV
-	 99IUNilILJVldrdsmaeuYN4e4oZ3qgb5GDRkxEhblWF35r6t7OfBX9Wa/c7uLs2UpA
-	 PtC55ahQ5s6QZIjoABNqhliMA7dzWWLZoNzPh0dyG6Dj5nAKsFBJIFJaUzsU2pHBun
-	 5IgqFm2jWSjnfwOpcRMWO3T642ZHTrU56/2XuQxFs58tSmWMEAaGaF07WJY4YaLdfZ
-	 QFH/9LHDUUsKRF94wNJd7M4SRbv/UgLPHiKC8rjXBKlHXR+c8gHDB3Zb9pw8GNO+WH
-	 NUX/NAGJj9rZA==
-Message-ID: <b8059e25-9fec-4bc8-b373-4bd96fc50f23@kernel.org>
-Date: Wed, 23 Sep 2026 10:27:37 +0200
+	b=AHcawEQQgtkIk9jPDKhWizCzja/Z/Cj4qxOf3wJqZ8fnDlUeISvh5jgL5sKy/mm9L
+	 kjPOZzuWIo4OUPQBdTkJsMNxkWus/WlFaG3aotptDXG5vFktz+DGeaFXe6iua7JqI5
+	 1d0JdJFVJianEaZ2S3BNM+xJ2sSwEbX1d1BDNiGLmrWApoRllTH7hoFxPG3yCRcpZF
+	 kGYvw57zvXQVmcTDq5vfVVyiyuT1C5adIYgfwYWWb/IJGItbML2hYsHdZqbIxZONhh
+	 vtB82RKOGnjpmKgyoVxA8NXRQwlvsYwekPzhWPvG7iGgUsqSh92XqeuWj5QJUd4f8Z
+	 HhUhnQ3Nii6Mw==
+Message-ID: <51903a8e-52fc-4209-9103-ce466924d1e6@kernel.org>
+Date: Wed, 23 Sep 2026 10:29:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,21 +35,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: altr,socfpga-stmmac: Add
- altr,socfpga-stmmac-agilex5-tsn compatible
-To: muhammad.nazim.amirul.nazle.asmade@altera.com, netdev@vger.kernel.org
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+Subject: Re: [PATCH v18 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260923021823.46649-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260923021823.46649-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260917-x1e-csi2-phy-v18-0-6515b5255fa9@linaro.org>
+ <20260917-x1e-csi2-phy-v18-1-6515b5255fa9@linaro.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,32 +95,26 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260923021823.46649-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+In-Reply-To: <20260917-x1e-csi2-phy-v18-1-6515b5255fa9@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23/09/2026 04:18, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
-> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+On 17/09/2026 01:58, Bryan O'Donoghue wrote:
+> Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
+> supports both DPHY and CPHY operation. A special mode of DPHY operation -
+> called variously split-mode or combo-mode also allows for two sensors to be
+> connected to one PHY.
 > 
-> The Agilex5 SoCDK TSN Config2 gmac1 path includes an FPGA soft-IP
-> GMII-to-RGMII converter between the DWXGMAC and the PHY. The converter
-> provides the RGMII TX/RX delays and presents GMII toward the MAC, unlike
-> a plain altr,socfpga-stmmac-agilex5 port with no such converter.
+> The schema supports both the D-PHY and C-PHY bus types.
 > 
-> Add altr,socfpga-stmmac-agilex5-tsn for that integration in the same
-> compatible items entry as altr,socfpga-stmmac-agilex5 (shared
-> snps,dwxgmac-2.10). Do not use altr,socfpga-stmmac-agilex5 as a DT
-> fallback for the TSN port; the converter presents GMII to the MAC and
-> supplies the RGMII delays, unlike a plain Agilex5 GMAC port.
-> 
-> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > ---
-> Previously patch 3 of the v6 board series; split out for net-next.
-> Rebase only.
-> 
+>  .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 209 +++++++++++++++++++++
+>  1 file changed, 209 insertions(+)
 
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
