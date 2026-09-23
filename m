@@ -1,344 +1,286 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1564C4A4409;
-	Wed, 23 Sep 2026 11:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD03043CEFE;
+	Wed, 23 Sep 2026 11:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790163814; cv=none; b=btuFBRfdT9DhCQEeQ9aNgW9uOEix5bN4ymexv7hWynQTXGhzAD3TGZn2ple5btGqQx++tKV6kEePFUwgWDkAsjiL05y+uKoaxTEsxihlXrx1LoFmaPHWODLyvIAzPy8BObug7ZYj+Wl3+FyQ6Hdx+JJmOtitL4dBUUV2BANZxJQ=
+	t=1790164034; cv=none; b=HmrznCts3dQz4vjJ4zGT+UmVvqaNeulCrCAEpa6/VlF58kzb0jbn9u4FRrfw0WLCzHxxwpQWbBlbCcJkex70324LkL+SKuFvVAwcmvdjVFdOvEmruFgj2aWYGaWR9tB9bCN+hIc4GpX1T9jzjKCJrX06eWgaTUeNDTz0Y7Ve9E8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790163814; c=relaxed/simple;
-	bh=wEnTjfKyTPvNVMDxcgjhYCS3Dtxaw+l3dp23yrG1bpQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iaxdmxOHPbGyA5VgtEHVtp5kA/Z9ERMuXvWVC64De26ZDv+7p/sU210kKHNoRmxByCbTO3bDflkT+0/Z6t/wB9Bb2mq28aZ4Uht6uqCM/cti1ozYQCKtq4ei29HQLrYssHA12JGWOEXxQ2ID6RUdMA3VTv6NCd9dNf4XoYdFDYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vohz4EvY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790164034; c=relaxed/simple;
+	bh=307wYJKvpGdWUXMXqEwGjZsNBE4CLWfkYtC2x0RgiSI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RfqMPi0I+WEgWUKHIgeKur5WRiW4G3HTlN7H3X3SLECEXSy1XfhwmnV1KRTKTaIHLIaMVWbCPwZl9JUJt120YEg/QPnzz0yG5NylNTH+uKdIYqFEHd5jIrSi5nuXsmz2BrLCwXbY5nSEhzVt9x3hJzAqMF5yo/ZKEGbtR+TKAdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JtNXBjGx; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vohz4EvY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909761F000FF;
-	Wed, 23 Sep 2026 11:43:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790163806;
-	bh=S+mCzNvNXENmtXTTPMRaKFix6DYDfbmgyxoTkd3QOlY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vohz4EvYNKD19/f4jllm9DLR9prd89IYzfOFwoTjLrsH5Evsz1IOO7B27D822x0z9
-	 sj+UAS/zEU2Svr7xYjEjr91jMJ7KG85Ejy2eEr3VLJLQPQGGf8h20TxBMosCHJr0Vb
-	 ofzw/hyMl8xJpQ3WdsKUvOEp5NwYb2fwwLuaKcv9eLc7z7Uyz+B/TdIoXa9Uz1K0hr
-	 KjbOCVPyivlvMeOb6RrErpZFNBf5gpYiv7yFC0nHxkKHB+ckozsEcwFXzZnyO+8V2l
-	 Vjc9WYr3f+c/wqOxYOfFXCgGjEQglVDt9jReU+o40P0TTwTb9NB0V9MFcAj2KtVIBe
-	 cKCq6TkeMpNaw==
-Date: Wed, 23 Sep 2026 12:43:22 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Michal Simek <michal.simek@amd.com>,
-	Shubham Patil <shubhamsanjay.patil@amd.com>,
-	alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, git@amd.com
-Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
- capability properties
-Message-ID: <20260923-overturn-acts-5abc2e4fe6ed@spud>
-References: <aqLQaHndX4t1kKLG@SMW015318>
- <778da629-2f23-412b-885f-e87827ce2b5c@amd.com>
- <20260922-ethics-flap-9760347e869d@spud>
- <20260922-bullpen-reprise-f62e01922d88@spud>
- <20260922-immersion-salvage-00450539f1ce@spud>
- <arKr-oapsl5qzo_E@SMW015318>
- <20260922-purple-overnight-2cdd2ddd5270@spud>
- <arLKWE1tJrKnzGdp@SMW015318>
- <20260922-unadvised-stalling-5cbeff8f982a@spud>
- <arL_Zgi1r1IFpNIO@SMW015318>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JtNXBjGx"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C2459152B;
+	Wed, 23 Sep 2026 04:46:55 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D98CA3F86F;
+	Wed, 23 Sep 2026 04:46:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790164019; bh=307wYJKvpGdWUXMXqEwGjZsNBE4CLWfkYtC2x0RgiSI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JtNXBjGxRQrJ+/btvW6YqORoehhF5D02a2R3lQhhfMhPqQgosqLCWR1QmL4kvI4ZT
+	 GurVYlyLD0dZCooRSYU6BGXE3Prv9nqiXOu0EMzz3ifpJBb5UrexT/rLTfL2KET+PN
+	 ZSCxB7OADd7/vmz/D0zoZIw8ILfiWlc91p+Lyo3A=
+Message-ID: <1b87219a-dd52-4270-9127-ec68333ab814@arm.com>
+Date: Wed, 23 Sep 2026 13:46:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="opfa8OdvW/nf1pjo"
-Content-Disposition: inline
-In-Reply-To: <arL_Zgi1r1IFpNIO@SMW015318>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/8] firmware: smccc: Add support for Live Firmware
+ Activation (LFA)
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Salman Nabi
+ <salman.nabi@arm.com>, Vedashree Vidwans <vvidwans@nvidia.com>,
+ Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
+ Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
+ Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20260918141112.2115555-1-andre.przywara@arm.com>
+ <20260918141112.2115555-3-andre.przywara@arm.com>
+ <20260921-ubiquitous-brawny-hyena-ff6ee9@sudeepholla>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260921-ubiquitous-brawny-hyena-ff6ee9@sudeepholla>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---opfa8OdvW/nf1pjo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Sudeep,
 
-On Tue, Sep 22, 2026 at 05:21:26PM -0500, Frank Li wrote:
-> On Tue, Sep 22, 2026 at 10:29:31PM +0100, Conor Dooley wrote:
-> > On Tue, Sep 22, 2026 at 01:35:04PM -0500, Frank Li wrote:
-> > > On Tue, Sep 22, 2026 at 06:24:52PM +0100, Conor Dooley wrote:
-> > > > On Tue, Sep 22, 2026 at 11:25:30AM -0500, Frank Li wrote:
-> > > > > On Tue, Sep 22, 2026 at 10:39:23AM +0100, Conor Dooley wrote:
-> > > > > > On Tue, Sep 22, 2026 at 10:38:17AM +0100, Conor Dooley wrote:
-> > > > > > > On Tue, Sep 22, 2026 at 10:33:44AM +0100, Conor Dooley wrote:
-> > > > > > > > On Thu, Sep 17, 2026 at 01:23:19PM +0200, Michal Simek wrot=
-e:
-> > > > > > > > >
-> > > > > > > > >
-> > > > > > > > > On 9/10/26 17:44, Frank Li wrote:
-> > > > > > > > > > On Thu, Sep 10, 2026 at 12:36:45PM +0100, Conor Dooley =
-wrote:
-> > > > > > > > > > > On Wed, Sep 09, 2026 at 11:21:41AM -0500, Frank Li wr=
-ote:
-> > > > > > > > > > > > On Tue, Sep 08, 2026 at 06:54:31PM +0100, Conor Doo=
-ley wrote:
-> > > > > > > > > > > > > On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham=
- Patil wrote:
-> > > > > > > > > > > > > > In-Band Interrupt and Hot-Join are synthesis-ti=
-me options of the AXI I3C
-> > > > > > > > > > > > > > IP. Describe them with two boolean properties.
-> > > > > > > > > > > > > >
-> > > > > > > > > > > > > > A Hot-Join request is acknowledged by the IBI m=
-achinery, so a hot-join
-> > > > > > > > > > > > > > capable design is always IBI capable as well. B=
-oth events are reported
-> > > > > > > > > > > > > > through the controller interrupt, which is ther=
-efore required whenever
-> > > > > > > > > > > > > > the capability is present.
-> > > > > > > > > > > > > >
-> > > > > > > > > > > > > > Signed-off-by: Shubham Patil <shubhamsanjay.pat=
-il@amd.com>
-> > > > > > > > > > > > > > ---
-> > > > > > > > > > > > > > Changes in V3:
-> > > > > > > > > > > > > > - Move in-band-interrupt-capable and hot-join-c=
-apable into the common
-> > > > > > > > > > > > > >    i3c.yaml schema and drop the xlnx, prefix.
-> > > > > > > > > > > > > > - Keep dependencies in the AMD binding.
-> > > > > > > > > > > > > > - Update the commit description accordingly.
-> > > > > > > > > > > > > > - Conor Dooley acked v2 with the xlnx,-prefixed=
- properties in the AMD
-> > > > > > > > > > > > > >    binding [1].
-> > > > > > > > > > > > > >    That Acked-by is not carried here: the names=
- lost the vendor prefix
-> > > > > > > > > > > > > >    and the definitions moved to i3c.yaml after =
-Frank Li's comment.
-> > > > > > > > > > > > > >    [1]:https://lore.kernel.org/all/20260824-tig=
-htwad-impose-495476599087@spud/
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > I disagree with Frank. These properties make sens=
-e for Xilinx because it
-> > > > > > > > > > > > > is an FPGA IP and synthesis options impact this. =
-For other devices, this
-> > > > > > > > > > > > > should be determined from the compatible.
-> > > > > > > > > > > > > Please revert to how things were done in v2, espe=
-cially as no rationale
-> > > > > > > > > > > > > was provided for why these should be common.
-> > > > > > > > > > > >
-> > > > > > > > > > > > It is common problems, when IP intergrate by SOC, w=
-hich may defeature some
-> > > > > > > > > > > > part, It is not appeared now just because IBI and H=
-J have not enabled
-> > > > > > > > > > > > widely.
-> > > > > > > > > > > >
-> > > > > > > > > > > > IBI and HJ is optional features of I3C. Ideally it =
-should be indicated by
-> > > > > > > > > > > > some registers. But not all vendor implement provid=
-e this CAP registers.
-> > > > > > > > > > > >
-> > > > > > > > > > > > IBI and HJ depend on some slow clocks, which monito=
-r SDA line change.
-> > > > > > > > > > > > Some instances of IP may not have such slow clocks.=
- Some IP's IBI and HJ
-> > > > > > > > > > > > use seperate IRQ line, but these irq line may not c=
-onnect of difference
-> > > > > > > > > > > > instances.
-> > > > > > > > > > >
-> > > > > > > > > > > All of this should be able to be dealt with by approp=
-riate use of
-> > > > > > > > > > > specific compatibles.
-> > > > > > > > > >
-> > > > > > > > > > I understand compatible can cover most cases. Need vari=
-ance for property.
-> > > > > > > > > >
-> > > > > > > > > > >
-> > > > > > > > > > > > like previous SPI vendor customized property, we ta=
-kes efforts to convert
-> > > > > > > > > > > > to common one and also meet back compatiblity probl=
-em at convert. I don't
-> > > > > > > > > > > > want to do it again. This kind property is most lik=
-ely as below.
-> > > > > > > > > > >
-> > > > > > > > > > > What SPI controller specific properties are you talki=
-ng about here?
-> > > > > > > > > > > There are relatively few properties in spi-controller=
-=2Eyaml, and none of
-> > > > > > > > > > > them deal with these kinds of capabilities.
-> > > > > > > > > >
-> > > > > > > > > > num-cs vs fsl,espi-num-chipselects. Total number CS of =
-IP is fixed, but
-> > > > > > > > > > some instances have not route all CS to pad.
-> > > > > > > > > >
-> > > > > > > > > > >
-> > > > > > > > > > > >
-> > > > > > > > > > > > default: 	decide by comaptible string or hardware c=
-ap
-> > > > > > > > > > > > force-disabled: force disable for some reason, like=
-, miss connect irq line
-> > > > > > > > > > > > or missed some clock, or IP bugs, or board desgin's=
- some level shift chip
-> > > > > > > > > > > > broken IBI/HJ timing requirements.
-> > > > > > > > > > >
-> > > > > > > > > > > Of these, only the last would be a valid reason for h=
-aving a property
-> > > > > > > > > > > for it. Missing interrupts, clocks or IP bugs should =
-all be dealt with
-> > > > > > > > > > > using device specific compatibles.
-> > > > > > > > > > > If board wiring causes the breakage, the property may=
- be more
-> > > > > > > > > > > appropriate at the i3c device level rather than the c=
-ontroller given
-> > > > > > > > > > > that wiring to some devices on the bus may not have t=
-he problems?
-> > > > > > > > > >
-> > > > > > > > > > I3C.yaml is for both master controller and devices now.=
- I3C is bus, which
-> > > > > > > > > > connect many devices, if wiring issue, whole bus can't =
-support IBI. And
-> > > > > > > > > > if any broken devices happen at address arbitation, who=
-le bus can't support
-> > > > > > > > > > IBI.
-> > > > > > > > > >
-> > > > > > > > > > at beging, I suggest 3 state,
-> > > > > > > > > >
-> > > > > > > > > > [default, enable, disable], but now I think IBI_broken,=
- HJ_broken is more
-> > > > > > > > > > reasonable to disable it, default value should be set b=
-y compatible
-> > > > > > > > > > string or DCR of I3C regiser.
-> > > > > > > > > >
-> > > > > > > > > > And some I3C device may be failure to work with IBI eve=
-n DCR of I3C register
-> > > > > > > > > > show it support IBI.
-> > > > > > > > > >
-> > > > > > > > > > I don't want to appear two similar property between ven=
-dor and common, like
-> > > > > > > > > > num-cs vs fsl,espi-num-chipselects.
-> > > > > > > > > >
-> > > > > > > > > > such as IBI-broken can be used for controller and devic=
-es case.
-> > > > > > > > > >
-> > > > > > > > > > > That said, I think that problem should be dealt with =
-when it arises,
-> > > > > > > > > > > rather than starting a trend of adding capabilities p=
-roperties at the
-> > > > > > > > > > > controller level when I am not convinced that there's=
- going to be other
-> > > > > > > > > > > users in the same vein.
-> > > > > > > > > >
-> > > > > > > >
-> > > > > > > > > > Understand, I3C is realtive new protocal. 'IBI-broken' =
-is more easy
-> > > > > > > > > > understand,  logically equial to in-band-interrupt-capa=
-ble.
-> > > > > > > > > Conor: Any update on this one? I think this thread is stu=
-ck at this stage.
-> > > > > > > >
-> > > > > > > > I didn't think there was any need to reply. I took the firs=
-t sentence of
-> > > > > > > > this snippet to be acceptance of what I was saying.
-> > > > > > > >
-> > > > > > > > If yous desperately want to have a generic property, the ne=
-gative
-> > > > > > > > connotation of the "-broken" is probably better in that it'=
-d be more
-> > > > > > > > likely to make people set stuff by compatible rather than h=
-ave to use a
-> > > > > > > > property with that word in it.
-> > > > > > >
-> > > > > > > That said, technically this platform could be both
-> > > > > > > "amd,in-band-interrupt-capable" and "ibi-broken" at the same =
-time, since
-> > > > > > > one describes the way the IP has been compiled and the other =
-wiring. I'm
-> > > > > > > not entirely sure whether conflating the two is possible? Dep=
-ends on if
-> > > > > > > your IP's programming model changes if the option is enabled =
-even if it
-> > > > > > > cannot be used. Not beyond the realms of possibility.
-> > > > > > >
-> > > > > > > Also, ibi-broken doesn't work for your platform, since the de=
-fault
-> > > > > > > before this patch is no ibi and requiring a property for no i=
-bi would be
-> > > > > > > an ABI break.
-> > > > > >
-> > > > > > The perils of FPGA IP I suppose, and not being quite careful en=
-ough to
-> > > > > > document all of the relevant options from the start. Been guilt=
-y of that
-> > > > > > myself.
-> > > > > >
-> > > > >
-> > > > > Check impliment code
-> > > > >
-> > > > > +       /*
-> > > > > +        * The interrupt only carries IBI events, so it is only d=
-escribed for
-> > > > > +        * designs synthesized with that feature.
-> > > > > +        */
-> > > > > +       if (master->ibi_capable) {
-> > > > > +               xi3c_master_init_ibi_ops(master);
-> > > > > +
-> > > > > +               master->irq =3D platform_get_irq(pdev, 0);
-> > > > > +               if (master->irq < 0)
-> > > > > +                       return master->irq;
-> > > > > +
-> > > > > +               ret =3D devm_request_irq(master->dev, master->irq,
-> > > > > +                                      xi3c_master_irq_handler, I=
-RQF_NO_AUTOEN,
-> > > > > +                                      dev_name(master->dev), mas=
-ter);
-> > > > > +               if (ret)
-> > > > > +                       return dev_err_probe(master->dev, ret,
-> > > > > +                                            "Failed to request I=
-RQ\n");
-> > > > > +       }
-> > > > >
-> > > > > They can use master->irq is determinate if support IBI.
-> > > >
-> > > > That seems viable. Where does that leave them for hot join though?
-> > >
-> > > No reason to keep hj because the difference between HJ and IBI is the
-> > > address when address arbitration. If hardware support IBI, it should =
-support
-> > > HJ. HJ just use special address 0x2.
-> >
-> > For this IP, they appear to be controlled by different configuration ti=
-me
-> > parameters, so I don't think conflating the two is the right thing to do
-> > here:
-> > https://docs.amd.com/r/en-US/pg439-axi-i3c/Configuration-Tab
-> > Per this doc, and the original commit, hotjoin configuration is not
-> > permitted when ibi is not supported but can be enabled and disabled
-> > separately when it is.
->=20
-> I am not sure why provide such flexiblity, only difference is that compare
-> address 2 or other value.
+many thanks for having a look!
 
-It's not unusual for FPGA IPs to provide extreme flexibility so that the
-consumption of resources can be kept to a minimum, often to the point of
-excessiveness. E.g. for a ethernet MAC IP each individual statistic might
-have a configuration option.
+On 9/21/26 17:32, Sudeep Holla wrote:
+> On Fri, Sep 18, 2026 at 04:11:05PM +0200, Andre Przywara wrote:
+>> From: Salman Nabi <salman.nabi@arm.com>
+>>
+>> The Arm Live Firmware Activation (LFA) is a specification [1] to describe
+>> activating firmware components without a reboot. Those components
+>> (like TF-A's BL31, EDK-II, TF-RMM, secure paylods) would be updated the
+>> usual way: via fwupd, FF-A or other secure storage methods, or via some
+>> IMPDEF Out-Of-Bound method. The user can then activate this new firmware,
+>> at system runtime, without requiring a reboot.
+>> The specification covers the SMCCC interface to list and query available
+>> components and eventually trigger the activation.
+>>
+>> Add a new directory under /sys/firmware to present firmware components
+>> capable of live activation. Each of them is a directory under lfa/,
+>> and is identified via its GUID. The activation will be triggered by echoing
+>> "1" into the "activate" file:
+>> ==========================================
+>> /sys/firmware/lfa # ls -l . 6c*
+>> .:
+>> total 0
+>> drwxr-xr-x    2 0 0         0 Jan 19 11:33 47d4086d-4cfe-9846-9b95-2950cbbd5a00
+>> drwxr-xr-x    2 0 0         0 Jan 19 11:33 6c0762a6-12f2-4b56-92cb-ba8f633606d9
+>> drwxr-xr-x    2 0 0         0 Jan 19 11:33 d6d0eea7-fcea-d54b-9782-9934f234b6e4
+>>
+>> 6c0762a6-12f2-4b56-92cb-ba8f633606d9:
+>> total 0
+>> --w-------    1 0        0             4096 Jan 19 11:33 activate
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 activation_capable
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 activation_pending
+>> --w-------    1 0        0             4096 Jan 19 11:33 cancel
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 cpu_rendezvous
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 current_version
+>> -rw-r--r--    1 0        0             4096 Jan 19 11:33 force_cpu_rendezvous
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 may_reset_cpu
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 name
+>> -r--r--r--    1 0        0             4096 Jan 19 11:33 pending_version
+>> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 # grep . *
+>> grep: activate: Permission denied
+>> activation_capable:1
+>> activation_pending:1
+>> grep: cancel: Permission denied
+>> cpu_rendezvous:1
+>> current_version:0.0
+>> force_cpu_rendezvous:1
+>> may_reset_cpu:0
+>> name:TF-RMM
+>> pending_version:0.0
+>> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 # echo 1 > activate
+>> [ 2825.797871] Arm LFA: firmware activation succeeded.
+>> /sys/firmware/lfa/6c0762a6-12f2-4b56-92cb-ba8f633606d9 #
+>> ==========================================
+>>
+>> [1] https://developer.arm.com/documentation/den0147/latest/
+>>
+>> Signed-off-by: Salman Nabi <salman.nabi@arm.com>
+>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>> ---
+>>   drivers/firmware/smccc/Kconfig  |  10 +
+>>   drivers/firmware/smccc/Makefile |   1 +
+>>   drivers/firmware/smccc/lfa_fw.c | 766 ++++++++++++++++++++++++++++++++
+>>   drivers/firmware/smccc/smccc.c  |   5 +
+>>   include/linux/arm-smccc.h       |  15 +
+>>   5 files changed, 797 insertions(+)
+>>   create mode 100644 drivers/firmware/smccc/lfa_fw.c
+>>
+> 
+> [...]
+> 
+>> diff --git a/drivers/firmware/smccc/lfa_fw.c b/drivers/firmware/smccc/lfa_fw.c
+>> new file mode 100644
+>> index 0000000000000..7cf847e102d5a
+>> --- /dev/null
+>> +++ b/drivers/firmware/smccc/lfa_fw.c
+>> @@ -0,0 +1,766 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Copyright (C) 2025 Arm Limited
+> 
+> 2026 ?
 
->=20
-> This feature may be quite common for i3c, if other soft IP provider such
-> flexiblity, still common property is the better than vendor specific one.
+Does that really matter? The bulk of this was indeed written last year, 
+and I think what counts is a) the license and b) the first appearance of 
+the code, to fight prior art claims.
+I can surely make it 2025-2026, but I wasn't aware that the kernel was 
+typically involved in those updates...
 
-I'm not at all in favour of speculatively adding properties for
-configuration properties of FPGA IPs, particularly given the likelihood
-of abuse by others. Without multiple demonstrated users, things shouldn't
-be considered for being made common anyway.
+> 
+> [...]
+> 
+>> +
+>> +/* A list of known GUIDs, to be shown in the "name" sysfs file. */
+>> +static const struct fw_image_uuid {
+>> +	const char *name;
+>> +	const char *uuid;
+>> +} fw_images_uuids[] = {
+>> +	{
+>> +		.name = "TF-A BL31 runtime",
+>> +		.uuid = "47d4086d-4cfe-9846-9b95-2950cbbd5a00",
+>> +	},
+>> +	{
+>> +		.name = "BL33 non-secure payload",
+>> +		.uuid = "d6d0eea7-fcea-d54b-9782-9934f234b6e4",
+>> +	},
+>> +	{
+>> +		.name = "TF-RMM",
+> 
+> Names must go as mentioned earlier. And won't the GET_INVENTORY provide
+> you the list of UUIDs which IMO should eliminate the needs for such static
+> information in the driver, no ?
 
---opfa8OdvW/nf1pjo
-Content-Type: application/pgp-signature; name=signature.asc
+Yes, I removed that whole array. And yes, the UUIDs come from the 
+firmware, listing them here was just to tie the name to one firmware 
+component: that array here was just used to match the just discovered 
+UUID with an associated name.
 
------BEGIN PGP SIGNATURE-----
+>> +		.uuid = "6c0762a6-12f2-4b56-92cb-ba8f633606d9",
+>> +	},
+>> +};
+>> +
+> 
+> [...]
+> 
+>> +static unsigned long get_nr_lfa_components(void)
+>> +{
+>> +	struct arm_smccc_1_2_regs reg = { 0 };
+>> +
+>> +	reg.a0 = ARM_SMCCC_LFA_GET_INFO;
+>> +	reg.a1 = 0; /* lfa_info_selector = 0 */
+>> +
+> 
+> 
+> DEN0147, Section 2, also says that the caller must use LFA_FEATURES
+> to ensure that every function other than LFA_VERSION and LFA_FEATURES is
+> implemented before calling it. This driver defines the LFA_FEATURES
+> function ID, but never invokes it before using GET_INFO, GET_INVENTORY,
+> PRIME, ACTIVATE, and CANCEL.
+> 
+> Could probe query all five functions and reject the device if any function
+> required by the driver is absent?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarO7WgAKCRB4tDGHoIJi
-0jCSAQC/sx8j7nAUYKlES+P+BqWIDUtyiANxpY+1isAY8mBzGgEA372kv73/HKwZ
-W9xlEe8r5+rFvx5qNI/K6Avo5mXRVQQ=
-=R5+y
------END PGP SIGNATURE-----
+Yes, oddly enough the spec indeed says to verify all functions, I think 
+other SMCCC specs make the core functions mandatory.
+Added a check into probe().
 
---opfa8OdvW/nf1pjo--
+>> +static ssize_t pending_version_show(struct kobject *kobj,
+>> +				    struct kobj_attribute *attr, char *buf)
+>> +{
+>> +	struct fw_image *image = kobj_to_fw_image(kobj);
+>> +	struct arm_smccc_1_2_regs reg = { 0 };
+>> +
+>> +	/*
+>> +	 * Similar to activation pending, this value can change following an
+>> +	 * update, we need to retrieve fresh info instead of stale information.
+>> +	 */
+>> +	reg.a0 = ARM_SMCCC_LFA_GET_INVENTORY;
+>> +	reg.a1 = image->fw_seq_id;
+>> +	arm_smccc_1_2_invoke(&reg, &reg);
+>> +	if (reg.a0 == LFA_SUCCESS) {
+>> +		if (reg.a5 != 0 && image->activation_pending) {
+> 
+> Why are you not testing/checking the activation_pending bit in the fresh
+> reg.a3 value instead of the cached image flag?
+> 
+> Table 2.4.5 makes X5 valid according to the flags returned by the same
+> LFA_GET_INVENTORY call.
+> 
+> If a component becomes pending after enumeration,reading pending_version
+> before activation_pending will incorrectly return "N/A" despite the
+> fresh call reporting a valid X5.
+> 
+> So, I think this needs fixing ?
+
+Ah, yes, looks like it, thanks for catching this. The pending_version is 
+a recent addition to the spec, so I think this was just overlooked.
+
+>> +
+>> +static int lfa_smccc_probe(struct arm_smccc_device *sdev)
+>> +{
+>> +	struct arm_smccc_1_2_regs reg = { 0 };
+>> +	int err;
+>> +
+>> +	reg.a0 = ARM_SMCCC_LFA_GET_VERSION;
+>> +	arm_smccc_1_2_invoke(&reg, &reg);
+> 
+> Check if SMCCC >= v1.2 before using these functions.
+
+Yes, good point, done.
+
+>> +
+>> +MODULE_DESCRIPTION("ARM Live Firmware Activation (LFA)");
+>> +MODULE_LICENSE("GPL");
+>> diff --git a/drivers/firmware/smccc/smccc.c b/drivers/firmware/smccc/smccc.c
+>> index 5ea3478be9d3c..d7cd01e5c92b8 100644
+>> --- a/drivers/firmware/smccc/smccc.c
+>> +++ b/drivers/firmware/smccc/smccc.c
+>> @@ -94,6 +94,11 @@ static const struct smccc_device_info smccc_devices[] __initconst = {
+>>   		.requires_smc   = false,
+>>   		.device_name    = "arm-smccc-trng",
+>>   	},
+>> +	{
+>> +		.func_id        = ARM_SMCCC_LFA_GET_VERSION,
+>> +		.requires_smc   = false,
+>> +		.device_name    = "arm-smccc-lfa",
+>> +	},
+>>   };
+>>   
+> 
+> DEN0147, Section 2.1.2, says that the caller must determine that
+> the SMCCC version is at least 1.2 before calling LFA_VERSION.  The generic
+> SMCCC probing path only checks that a conduit exists before invoking this
+> function ID. That could break our SMCCC bus logic. Assuming the firmware
+> can cope up, it is always good to check the SMCCC version >=v1.2 in the
+> probe which is not done currently.
+
+So as said above, I am checking this in lfa_smccc_probe() now. If I get 
+you right, then that's the right place to do? Or are you suggesting we 
+should move that check into the SMCCC bus code? I think the version call 
+is compliant with the SMCCC v1.0 calling convention, so should be safe 
+to call in any case?
+
+Cheers,
+Andre
