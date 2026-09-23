@@ -1,87 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0811548641F
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:26:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D83848125B
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:26:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159209; cv=none; b=lEpzfNLLnD8hyWaXTgVE08ASYzJH046rYEqmyAnjfWECojATq4KPeuKwZ87d2faIXPEJkVKF4h2EKUAEMULmxaffIRJPdjvQUr/Z0yrhbx6QezLSQKebSNiq10pXbyvVv09fYPYR+0L2k06csD+NvrV9k/GpLBIE9caXyS0CmiM=
+	t=1790159216; cv=none; b=Bk0ytNlFNsol+iOAppaFEiewzCsdHdbfLvb+PblV7/uGUFo5vDHTiG6gTWLifRi7XoGa4+PGcfDQiR+LfK5uHmBOOCWjcLgAITZot07BvyjOm3Wxw7E8oQiPP0W/YoBTwVJjwz/FUt+ma5jI+VmO6Bblw57vCVbbsPpQlKpnXuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159209; c=relaxed/simple;
-	bh=enyT8E+9AK26apYvWRrZ3yOlEE4CZOhJwCOlmwsJANs=;
+	s=arc-20240116; t=1790159216; c=relaxed/simple;
+	bh=CHLjdgbBFmYAxDYgBcG23Bc5Mf99naNoUTb/q1yjs/w=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EdF8nkOkgaPBiUf1xUO66b9+zuOnqDGRycse5gT05nMaTNnu+jNUXxJIJlYjQ5Qrbr9rnRmhx3J6Y0GhiYXbsfCQxDQ8AGsIXNDRM8nI7rMu7txLhTsB604UVYkSsuTPNNKEWccq62bSjrt83n5O3bN1yxhQnOb0wVGk3yf5Gm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NZgtCUu1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g3n7ndAP; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=X+PjZduQzGsxft/H67XeWPv0Z5BjnsO1vh8aQy/8X9FAAEvOYGTfifpxKY2zENMBg9BBsL04M+n/eY2lAqGxEqdFLU9hvjBV8XrQ91ZQTcWO+dJzgfciSqilrk7HmuhckDr5jzRJtouxAjPBlyA5cj/enboqBZlTOQDevblfvYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OrPgyRPU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kG75mqfT; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NZgtCUu1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g3n7ndAP"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NA2rqC2951381
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:26:34 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OrPgyRPU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kG75mqfT"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NA3C8W2262110
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:26:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Wl+seacDctymxAQmXB69/Ucgp0LZ7i+ElrITf9m6VG0=; b=NZgtCUu1PCoyQKbz
-	mX3quHrDMUF3vtrKFl6d310tCNd4TZ8o73iFJEjIhySeYNaqNGK8u7mMB0rLBepd
-	/1QfPuPCU2uQ8ZLGOoH4QUhQVMESPPlLp3dY3Kl10mZnMzzsR5AX3THQsqq5Ks7w
-	107dqrziU6yvERsIP6qT+5C3sFGx7TGFy2/gYyIBBIE25icccrHUMXm68Zqp9Xkw
-	OXOSiArSq+zLdo7u6fQoktemYO9gy7LE1qxFYxusk1rwdbBKpZ+979i8Cjffi9N+
-	7MoAFP1MxyVLbeQJtVbzaVD8c4K1g93xpWbN3H5umj9e/2DWGyRfcHrs5nginM1U
-	oALdyQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv32qtbfs-1
+	KRU0cZzME1FoG/j+TvL17uJYow6/6D6BMcV1RVr7hUA=; b=OrPgyRPUXd19SZjq
+	yxenaCAK/rVMzwNyvviWmyFKvcG++SVPikn61GTUJGKa7KQvF0CukarT6ghNuTi2
+	VkaqiMGolVAvn2bb+IGmmlkeT9Gx8X80LfZmyc80n2bihnd3aWsOJ7yB5cbSUvCD
+	5gMoLwD1dyreuSrPdCNatkqnKL+yD6iJop4mfRGbaLXnjkyLQEZ16f1LVxRrm53O
+	vPvCpS6nEMB22Mx+y1tZ88teXaJyuUSEVmTV2+eZH2z43d4B2pmzAl7XCclEL1ef
+	IjeQBeBBv9oe/6M67Ck61X13d+10ZmBn4G6vvVdx0BBi0ehXNdfRBOxgKP1cSC9C
+	E2MFLg==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guy2c3ha6-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:26:34 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33f01b74124so232824eec.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 03:26:34 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:26:41 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1438fef603cso1264043c88.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 03:26:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790159194; x=1790763994; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790159201; x=1790764001; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Wl+seacDctymxAQmXB69/Ucgp0LZ7i+ElrITf9m6VG0=;
-        b=g3n7ndAPMT0IvkGprCXPdYIZ6C8gF2d5oI7slvFe1YH9TdxQ80HubET7Ev+p+2vD1N
-         9ncbgnkPW9ZCDVwuxzFbnJrIsz2XKfYN6Up7+1cVZWKXvGzew+JLwSnspLvrpWBxKuCL
-         +OP2+BUgqOyed4Mvdx3pnV1yR6CaqLmMyYr9kV8BBU7kwKX9WvqmxMcJ3dPvuvGIFxyI
-         sWKtMAI0fZPGSlRyl0xjjJqF1T9VPSE3ovWMBV6Yqz7G3GQavH/7SgEIKYPG4aDe3dms
-         CJ1HQPBzrKzhHcXs9rAF8lBr1+P3oKbvKoswyqfG0R4K8bPnZYVTrEcbtm2uczSRY6Os
-         EABQ==
+        bh=KRU0cZzME1FoG/j+TvL17uJYow6/6D6BMcV1RVr7hUA=;
+        b=kG75mqfT3eWg3+/1acsznH8vpfzufo0R/aHDDpg69dfOB4ox0JT6/alR5GZJSSlx71
+         NgCp7qJY8mahAnVkxbcMrTzpw3sgq+QN66tLO/Hj8jBcCNuj1XDOznfP6gtNMo7/JNYb
+         pC0E6R/7uHeq/QPzrDJWY7tne74hwDuh5rr6BKwvXSeNay5/UIAdNPDlDogjK5e3/LJ7
+         sQlIayiIlBCNAovGkQKFE5suNgn04yadGPGu6YRDzM/uBHckj8vW/VLm+zVeDlNqnN+3
+         40SYb5Ax/1FRycYP2ixLG0iGGdfnAbEAiH81muj0pcuvmMt1qqR0oMigHFvXRdtHKK13
+         qVmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790159194; x=1790763994;
+        d=1e100.net; s=20260707; t=1790159201; x=1790764001;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wl+seacDctymxAQmXB69/Ucgp0LZ7i+ElrITf9m6VG0=;
-        b=Mi368LlHTP8sCfXJip27imgAb2cRKhfSyAxGBOCjbGTS4bs9ABHu/Bif3CeQp8Qnge
-         fQvVYrm2HqspyFhmb+I4bgtbzM2swv0hD53nvVoW4JR4EaovxbcCKKid+ExfnyUBjkUV
-         BwlIAomWWw53hO1Hrk0fu1/R+ctCJ1/VIz4VwZzvLMJsUWUSSZ6Qk1AOf3jFlyGLjbas
-         x1WPVKIPs55Eag8+7SncuFdioKfltv/37I8Cy1gfpxiL567RZw3QsaxauPwitHnaahNt
-         Pgi2O3fkAld6yxAM52Zl6n6Jc3LEoKr0MNeyYeZZGPX+CGdO95ddgJ/f2o5NsYWYaWUN
-         zASw==
-X-Forwarded-Encrypted: i=1; AKwUvByfohpXi9rWCXLcnMkGBitscd1cSXo2XKAyEizQkUrQTsdeY7chE8npjtCuD2wd9dvhSwISBhS4uUnS@vger.kernel.org
-X-Gm-Message-State: AFuF++mGMEvNl5EYZ7FRwJ7EuX+NHiO8aXkQfo803cuMXn3W0AyIg3t3
-	ipmOs7hhe+LxC1+/e2H9chBU22/9cf3BNlWpYkE99RyRsWyMzqyojKbq6vwBGyZXA2Nn+7Usyi+
-	RqoHmUs5+llDO228S9za4A2RDTqtpCTFOT+vOdE8FFExmhdRpyLSMpZFVmHPEEneU
-X-Gm-Gg: AYBFou0Qs8OMbVD0HK54KPKqr7Lr3IMD68hy+oIvWJCNiUoyFmM1XRXhoMDWSXDQgoM
-	Lp1BDGSyP3qaFNBn8LjIGh2wFd5mWUh959VB/Lo25s2Z9Te+zozcBAWTq1+vCDGDKj21qV9uKYo
-	qtkMkOuY23YzYSiAaIo9EnTnIr7tTAunIpYfKPDU9A2eZma0oo8wWl/NanLPGPLSDnMYJQJKBXR
-	2jrqraQlE/467oSNehA6IBpeuEtt0Wja3ljX6/RAk+J685JGVY13BgxwvRuCRbWUwLOY/OuPbh2
-	DGjSnHIj8Z0D2SSzWjsJtfOYalE4wQKLYs/sP5dtPHTKXpOuQEz7BANHNTT6jEaLT2/YjTk4Wuh
-	lobBFLFy7FTuJVX3mC05egVqq3qxIFonwNg==
-X-Received: by 2002:a05:7022:f90b:b0:136:4bbe:9524 with SMTP id a92af1059eb24-144ef0be192mr2107174c88.10.1790159193646;
-        Wed, 23 Sep 2026 03:26:33 -0700 (PDT)
-X-Received: by 2002:a05:7022:f90b:b0:136:4bbe:9524 with SMTP id a92af1059eb24-144ef0be192mr2107158c88.10.1790159193036;
-        Wed, 23 Sep 2026 03:26:33 -0700 (PDT)
+        bh=KRU0cZzME1FoG/j+TvL17uJYow6/6D6BMcV1RVr7hUA=;
+        b=EOIX2yw3AaCRI/CjhQ6NkTr+nZuI/Qi49tyfN4nl5Zak3gIprV5QLDvwhZQggiEINI
+         XuI5o/RIuvIqUuuA2IxXeetk4s7HZfluDUr55ki9VnsTjPW/iDv5plMu9IhB9aJi1bOV
+         wENjdC8C7BolBAhPqTJPzQqLA3mknmTO+tibpe53k24r84NzYE1qDFixBOwBmKX3g5/T
+         de1IUlgg3Zhvq1pHlbjpozTRLhKmeVMY5nQlO5+Fx/KDG7D7A+aSGSj+qtdDvsVCoLuL
+         8w7r6WNjmJ2CYpMnf+qQUlo/0ZBO7Cdvy7tZjjx7JMhqswz2ucSeV8w8i9wGY6lUK5s6
+         9o4w==
+X-Forwarded-Encrypted: i=1; AKwUvByFgRTsMXnMEE9VYVzOFw4Y4QOpXL3awOuylLjCHPJRdsyBA6nwtLetnhbig5ofHXqZR58JPyoU3OUI@vger.kernel.org
+X-Gm-Message-State: AFuF++lCAVnUMvtcC7uHTEkDIMpDNmpy2LHV7jOi074uhF42iZ8XXIBN
+	s8ztk2lH8gpqbmvvjnInIeUbsP8oBxpTtIABZYsndRuUyCO9JxBS5uH/xsul+jx3R4hNTrp/WVO
+	s1F/WFebAy5tfAEhuCrpgNkevsdiwzJkH3EQA6rbpM0LuWx/QLSEMQnb5EozLLBxB
+X-Gm-Gg: AYBFou2B2BdpKT5btbP1EOdprLoGJukd3aBe9SomQxpYPdQO9ICEXZ9w5Cgab8uoYD4
+	VAsNavjHMdfeBX4JvPWUaQaw+yWaBN0iFqde2BrpJ81S8ZH6NZg8TOIRqxIR1cAZbCIJ78yuJXj
+	OevLdaZL5sBZ1UeQWbUypggx3eCqP+OWMjA9unFplv7FiXKybLHjmtplUxywxRKg2ggOyQn+bTJ
+	i2AjSV8YZ6Q7Bg8jlhWLvS4YvpCaDhn28T4wqICJ5uIVOxJEw7WIW66BFGtbI1SAW9RKE+Bh260
+	EPDOobEtCrsbhO73U5v9zt8Y/Yjl6HjW/l89Q83RDLIsqtVAzWDziJEwnnSQbQS4VmS+4Pmm/fM
+	bJAfvY2SLE5CLo6DxSKOLz+0=
+X-Received: by 2002:a05:7022:282:20b0:137:ea7d:a5fc with SMTP id a92af1059eb24-144f9179536mr2813772c88.22.1790159200916;
+        Wed, 23 Sep 2026 03:26:40 -0700 (PDT)
+X-Received: by 2002:a05:7022:282:20b0:137:ea7d:a5fc with SMTP id a92af1059eb24-144f9179536mr2813727c88.22.1790159200327;
+        Wed, 23 Sep 2026 03:26:40 -0700 (PDT)
 Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm8766646c88.13.2026.09.23.03.26.26
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm8766646c88.13.2026.09.23.03.26.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 03:26:32 -0700 (PDT)
+        Wed, 23 Sep 2026 03:26:39 -0700 (PDT)
 From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 15:55:43 +0530
-Subject: [PATCH 03/15] drm/msm/a6xx: Fix RPMH dependency votes
+Date: Wed, 23 Sep 2026 15:55:44 +0530
+Subject: [PATCH 04/15] drm/msm/a6xx: Factor out RPMh arc-vote helpers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-hawi-gpu-v1-3-0c3c79a1a470@oss.qualcomm.com>
+Message-Id: <20260923-hawi-gpu-v1-4-0c3c79a1a470@oss.qualcomm.com>
 References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
 In-Reply-To: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
@@ -109,79 +109,244 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
         Bjorn Andersson <andersson@kernel.org>
 Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
         dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790159163; l=1636;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790159163; l=6066;
  i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=enyT8E+9AK26apYvWRrZ3yOlEE4CZOhJwCOlmwsJANs=;
- b=TM3drMHi0LUTT3rpKITA1yUMYkFSZ9baLFTe9nVutJch5tXY+aeUWa9EiMkQbSti9C6ozXpii
- JgQbn6qY5AcCZp00eIAT5DK8UQqAO2P7qIFPk3aYEhIZ26EavKJmxuP
+ bh=CHLjdgbBFmYAxDYgBcG23Bc5Mf99naNoUTb/q1yjs/w=;
+ b=+Rp6S1IwhTCXU93ZAg8mgdTbPXp45wPbraxUZ/P1QOMC8I8WlimNA/tiubX2aEmtEVVidHQtk
+ H++MFfIe+ZWBNB5U6dNCkDINdR2pBBg6Z0oonZgj5HTa+BTdrZZvthV
 X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
  pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Authority-Analysis: v=2.4 cv=SJnXx+vH c=1 sm=1 tr=0 ts=6ab3a95a cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-GUID: U7a_inEFU50-PmmDtLU38HJ3P3DyrIvN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfXwarUlVFX+Ss9
+ ia4MUHZYMY7fXX1c7z/Cm+gCrD9U0U2KzdEIJ14ewkfXmnt9KAXcuLktYTC2VpQWp5BW08WDU/I
+ ftQhlu4YkENqRs40mKGYspcJ9kPyB0s=
+X-Authority-Analysis: v=2.4 cv=Zsh4uN7G c=1 sm=1 tr=0 ts=6ab3a961 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=eKBiAfeFZ4O-hnR0X2wA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: RiqAt_yVBpOs31DuFSBCqAj0ux_N_W3N
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX9XM05hNaALc9
- KkldJtGy1MWGEFCBq/l5V0XsEou7stY6dULQywod0UFeW9A5+ywIhYqpphoEfHBhqNDIwCBBYad
- 1R4Yt8zYq88BzaeiuvhjAcS7uU4u0UE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfXzKFy6KY5C1f2
- KfImeDfpqf//hn2LWXcoODzdCQHkI8+CA8OpSn8urpRW9zMIzgGEJeLAJrfOtfGytiuYuDPU2pL
- K+gRDZOdkGmr9G0tzDTvzAIc+aEgJOh1BjFQaV1TQQ3zWvfHrCRaJ+pL2xXwMCb85GL6/FZLoum
- Urp85VIyvDiWvb7nTlQEh8qOcS1Uh8xaLHl0czwBiiMmDw5+Dj3FZw+aEfFxsJMzpH+666/ppX7
- VCKyqAfG7Pengs6b/LNfq+Zl0+RhIODh6ihUp5n5itXdXoxP1VuURdSvj+o0EV6KBIf+uAyWfL5
- Wjo8Hr/ye+PuT3uBtG6yltUMg7JGIQ0vB8KHm1SXrWpxfZRhH3YaZ3gFJ4n+dBBDD16mEAjzKOj
- /j44cjsuwXA8j5d2ucVYOByV2TM/891PaeCgGTSUq43LlYUW2K2Pz86TVrtysd1ifkwIIgTwXfT
- VL7DZp4YRqAiCpJlIfw==
-X-Proofpoint-ORIG-GUID: RiqAt_yVBpOs31DuFSBCqAj0ux_N_W3N
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=5x2u8yzsEs7RXICRzdUA:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-ORIG-GUID: U7a_inEFU50-PmmDtLU38HJ3P3DyrIvN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfXyTE9kSFb/1oi
+ EpyvL98NAsmHo33N3vRtzxtQ2hBUBJzOcniMNqy4IwGqydiRV/s4A6zKWJpL28vaqJB6xGo6iz0
+ l88ykX2E9J8I6xFYIpzj8ZwwIPAcAMZ0JvlToIBhx9QffXCuAqliREij6urpzIfj1H/QpA0F19O
+ hMExhCx4soQrno4W/SoFSxRg5OkLMAbrcYrpgg7gpaDY4usByG/vMZYqGBAutbqNNynrFElxapu
+ wit3zcMBnOLLqtXIAiwM/Ui96ZbuF1T1HkXLWaVWCrKzfwVOE1xt6hcd9QFVei9F6I+TDmKTGMZ
+ MaDzE46q6tC429DhA1ZhPU3ctREkt8QDZkklbysg9yJMkvsV9NlMS2+wDZa6pFmTEdj6xHihWoL
+ bHbxaLSakaJTX+8eBRIAOAoUSe3iZSthfDNTluBVpJgtlODrQ6QLDMFwnQCdphP6tcsv6DUk4kJ
+ ft4HXtnjU0M6AsonKpQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
- clxscore=1015 bulkscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230041
 
-a6xx_gmu_rpmh_dep_votes_init() iterates the GPU frequency list
-(gmu->gpu_freqs) but was passed gmu->dev to resolve each frequency to an
-arc level. This results in generation of incorrect dependency votes
-table. To fix this, pass gpu->pdev->dev, which owns the GPU OPP table.
+The GMU RPMh vote construction repeats two patterns across
+a6xx_gmu_rpmh_arc_votes_init() and a6xx_gmu_rpmh_dep_votes_init():
+reading a cmd-db aux-data resource (with the same "halve the byte count
+and reject empty" handling), and scanning an arc level array for the
+first corner that satisfies a target level.
 
-Also, reorder the dependency vote init to improve clarity.
+Refactor out a6xx_gmu_rpmh_read_arc() and a6xx_gmu_rpmh_arc_index() to
+reduce code duplication and improve code readability.
 
-Fixes: 06cfbca0e1c6 ("drm/msm/a6xx: Share dependency vote table with GMU")
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Assisted-by: LLM
 Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 138 ++++++++++++++++------------------
+ 1 file changed, 63 insertions(+), 75 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index d072646093a1..161b360bf3eb 100644
+index 161b360bf3eb..0ed01ce1c5c5 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -1868,13 +1868,13 @@ static int a6xx_gmu_rpmh_votes_init(struct a6xx_gmu *gmu)
- 	ret = a6xx_gmu_rpmh_arc_votes_init(&gpu->pdev->dev, gmu->gx_arc_votes,
- 		gmu->gpu_freqs, gmu->nr_gpu_freqs, "gfx.lvl", sec_id);
+@@ -1711,74 +1711,85 @@ static unsigned int a6xx_gmu_get_arc_level(struct device *dev,
+ 	return val;
+ }
  
-+	ret |= a6xx_gmu_rpmh_dep_votes_init(&gpu->pdev->dev, gmu->dep_arc_votes,
-+		gmu->gpu_freqs, gmu->nr_gpu_freqs);
++static const u16 *a6xx_gmu_rpmh_read_arc(const char *id, size_t *count)
++{
++	const u16 *vals;
 +
- 	/* Build the CX votes */
- 	ret |= a6xx_gmu_rpmh_arc_votes_init(gmu->dev, gmu->cx_arc_votes,
- 		gmu->gmu_freqs, gmu->nr_gmu_freqs, "cx.lvl", "mx.lvl");
++	vals = cmd_db_read_aux_data(id, count);
++	if (IS_ERR(vals))
++		return vals;
++
++	*count >>= 1;
++	/* Exclude the trailing zero paddings if there are any */
++	while (*count && !vals[*count - 1])
++		(*count)--;
++
++	if (!*count)
++		return ERR_PTR(-EINVAL);
++
++	return vals;
++}
++
++/*
++ * Find the first index in an arc level array whose level is greater than or
++ * equal to the target. If no level is high enough, either clamp to the
++ * highest available level (@clamp) or fail, dumping the list.
++ */
++static int a6xx_gmu_rpmh_arc_index(struct device *dev, const u16 *arc,
++				   size_t arc_count, unsigned int level, bool clamp)
++{
++	int j;
++
++	for (j = 0; j < arc_count; j++) {
++		if (arc[j] >= level)
++			return j;
++	}
++
++	if (clamp)
++		return arc_count - 1;
++
++	DRM_DEV_ERROR(dev, "Level %u not found in the RPMh list\n", level);
++	DRM_DEV_ERROR(dev, "Available levels:\n");
++	for (j = 0; j < arc_count; j++)
++		DRM_DEV_ERROR(dev, "  %u\n", arc[j]);
++
++	return -EINVAL;
++}
++
+ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
+ 		unsigned long *freqs, int freqs_count,
+ 		const char *pri_id, const char *sec_id)
+ {
+-	int i, j;
++	int i;
+ 	const u16 *pri, *sec;
+ 	size_t pri_count, sec_count;
  
--	ret |= a6xx_gmu_rpmh_dep_votes_init(gmu->dev, gmu->dep_arc_votes,
--		gmu->gpu_freqs, gmu->nr_gpu_freqs);
+-	pri = cmd_db_read_aux_data(pri_id, &pri_count);
++	pri = a6xx_gmu_rpmh_read_arc(pri_id, &pri_count);
+ 	if (IS_ERR(pri))
+ 		return PTR_ERR(pri);
+-	/*
+-	 * The data comes back as an array of unsigned shorts so adjust the
+-	 * count accordingly
+-	 */
+-	pri_count >>= 1;
+-	if (!pri_count)
+-		return -EINVAL;
+ 
+-	sec = cmd_db_read_aux_data(sec_id, &sec_count);
++	sec = a6xx_gmu_rpmh_read_arc(sec_id, &sec_count);
+ 	if (IS_ERR(sec))
+ 		return PTR_ERR(sec);
+ 
+-	sec_count >>= 1;
+-	if (!sec_count)
+-		return -EINVAL;
 -
- 	/* Build the interconnect votes */
- 	if (info->bcms && gmu->nr_gpu_bws > 1)
- 		ret |= a6xx_gmu_rpmh_bw_votes_init(adreno_gpu, info, gmu);
+ 	/* Construct a vote for each frequency */
+ 	for (i = 0; i < freqs_count; i++) {
+-		u8 pindex = 0, sindex = 0;
+ 		unsigned int level = a6xx_gmu_get_arc_level(dev, freqs[i]);
++		int pindex, sindex;
+ 
+-		/* Get the primary index that matches the arc level */
+-		for (j = 0; j < pri_count; j++) {
+-			if (pri[j] >= level) {
+-				pindex = j;
+-				break;
+-			}
+-		}
+-
+-		if (j == pri_count) {
+-			DRM_DEV_ERROR(dev,
+-				      "Level %u not found in the RPMh list\n",
+-				      level);
+-			DRM_DEV_ERROR(dev, "Available levels:\n");
+-			for (j = 0; j < pri_count; j++)
+-				DRM_DEV_ERROR(dev, "  %u\n", pri[j]);
+-
+-			return -EINVAL;
+-		}
++		pindex = a6xx_gmu_rpmh_arc_index(dev, pri, pri_count, level, false);
++		if (pindex < 0)
++			return pindex;
+ 
+ 		/*
+-		 * Look for a level in in the secondary list that matches. If
+-		 * nothing fits, use the maximum non zero vote
+-		 *
+-		 * The secondary rail depends on the primary rail, so match it
+-		 * against the quantized primary voltage (which is >= the
+-		 * requested level), not the requested level itself.
++		 * Look for a matching level in the secondary list; if nothing
++		 * fits, clamp to the highest available vote. The secondary rail
++		 * depends on the primary rail, so match it against the selected
++		 * primary voltage (which is >= the requested level), not the
++		 * requested level itself.
+ 		 */
+-
+-		for (j = 0; j < sec_count; j++) {
+-			if (sec[j] >= pri[pindex]) {
+-				sindex = j;
+-				break;
+-			} else if (sec[j]) {
+-				sindex = j;
+-			}
+-		}
++		sindex = a6xx_gmu_rpmh_arc_index(dev, sec, sec_count,
++						 pri[pindex], true);
+ 
+ 		/* Construct the vote */
+ 		votes[i] = ((pri[pindex] & 0xffff) << 16) |
+@@ -1794,16 +1805,9 @@ static int a6xx_gmu_rpmh_dep_votes_init(struct device *dev, u32 *votes,
+ 	const u16 *mx;
+ 	size_t count;
+ 
+-	mx = cmd_db_read_aux_data("mx.lvl", &count);
++	mx = a6xx_gmu_rpmh_read_arc("mx.lvl", &count);
+ 	if (IS_ERR(mx))
+ 		return PTR_ERR(mx);
+-	/*
+-	 * The data comes back as an array of unsigned shorts so adjust the
+-	 * count accordingly
+-	 */
+-	count >>= 1;
+-	if (!count)
+-		return -EINVAL;
+ 
+ 	/* Fix the vote for zero frequency */
+ 	votes[0] = 0xffffffff;
+@@ -1811,26 +1815,10 @@ static int a6xx_gmu_rpmh_dep_votes_init(struct device *dev, u32 *votes,
+ 	/* Construct a vote for rest of the corners */
+ 	for (int i = 1; i < freqs_count; i++) {
+ 		unsigned int level = a6xx_gmu_get_arc_level(dev, freqs[i]);
+-		u8 j, index = 0;
++		int index = a6xx_gmu_rpmh_arc_index(dev, mx, count, level, false);
+ 
+-		/* Get the primary index that matches the arc level */
+-		for (j = 0; j < count; j++) {
+-			if (mx[j] >= level) {
+-				index = j;
+-				break;
+-			}
+-		}
+-
+-		if (j == count) {
+-			DRM_DEV_ERROR(dev,
+-				      "Mx Level %u not found in the RPMh list\n",
+-				      level);
+-			DRM_DEV_ERROR(dev, "Available levels:\n");
+-			for (j = 0; j < count; j++)
+-				DRM_DEV_ERROR(dev, "  %u\n", mx[j]);
+-
+-			return -EINVAL;
+-		}
++		if (index < 0)
++			return index;
+ 
+ 		/* Construct the vote */
+ 		votes[i] = (0x3fff << 14) | (index << 8) | (0xff);
 
 -- 
 2.55.0
