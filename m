@@ -1,74 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010333EDAB5
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 17:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184492; cv=none; b=nrYeg0Tg9LhhIdqdu186dwr99XmS8WpQH4CgD4xsZglo3rJ3DqTJfwp1Jj4rnjQvX765h7tZrQFNOKAu8s76k0rvdmHnyYDeV8qbQjQMj0REj1XTh9AhKboF81OcGfqKZ0eQupOWJ8UrY/GflJMwLR5wwFcoS1YTfWfcoOkqGt4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184492; c=relaxed/simple;
-	bh=Cc+kmMQpFSYKCu+YbHyMQJivl+pk5zH2psxS0LqXXyI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q+hui/UYr7SyNPC1GwwdvAlrH+fVpgItSde5E4HWwYYHt64n0/Xv/g08VbYL7BnRPCBgWHUKxuAYYEiMhB/m+JZu5RBNgVHW3kWVV21IL9lzyzP6zQyGANw8ZwG0jDvU5/f/ShFobMtRRv71MpVmBU/c3h3ps4Aq7GZ+vGxoenk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kjR1f9n7; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F1E4052A3;
+	Wed, 23 Sep 2026 17:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790184847; cv=pass; b=AYiqs2LsB9qKGsoxNPgF8biaAPNmP+Pb+3cOy3SE8Q+ohCEiNentQQOauJ5clflCkCuLRY+PsDcv15Lq5UkJFH2DmZIH9BGt/yZHsSKwWmIvhlcjAfLLFVC8F/b7usB0OVTNzLrjW27fAAIJBro3Ks5hlud6Dmg2yoZrxel7jiE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790184847; c=relaxed/simple;
+	bh=DNjgsnyGeTsYcFIs9nGcew1I27uSPBTg/Q/RbgW/T2Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oCqJ971qy6oTwQPnf+zgWTgUH5qbZP8oDo5gjWVAlcEBGzQzphNAsGT767jlyDeYqbnmJABaeBl5NvK01Lz3s/z1bSm1zn6Gj35MTyzuqt9dBMyLi6XRiZu+JRj3xcEu5l+PunfItNqFjuKhUWeUNmr+P9yxmrNy7ukHBbMye4A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=CwMkLaAh; arc=pass smtp.client-ip=165.173.180.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kjR1f9n7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 964E31F0089D
-	for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 17:28:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790184490;
-	bh=Cc+kmMQpFSYKCu+YbHyMQJivl+pk5zH2psxS0LqXXyI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kjR1f9n7Bnbpwah7NKquK/z3KO0YjB6mEhI7NuwSq8Ys+Ltz+qau7l2eKLB6WH8rW
-	 apnLloQsPeIV8MalvygclXsageLvIZ/FHCDScYdppYsGw2QIqewHfQBJmLMDCLUkf3
-	 8hjDhFSvjb4ykJO82FiyJVEop+jbZ4tLZhqFCCnk7SlOd4w1c6x8c714qd5D9ncwIm
-	 R5TPSnLW2n6NsbNdvLmxaDOWvU9g3VFMc7hyupHT8bdcyfXxy1+BXKe3H2eX9Fb/HO
-	 aeaVp8YLS21DnK1BCOkQ4sAm0XxI8iB2/pTl8sJHr/J4jDGHQv4VUiN0L1ak85uRfL
-	 q73G4DL3mn5hQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d76so1096938e87.3
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 10:28:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzKNLpiSOyLv/niLBzTsk5WMcZbM6KV5BHs+qPejjIXS4WMXybFHwY3bY2dIMOpeqVm52LEw78t2OLy@vger.kernel.org
-X-Gm-Message-State: AFuF++nrIA3kcG7tnZ0r6xh5uIs499BZNNjRmKPtPxC6+ffJvsom8apQ
-	eQcFrVbKtylknyypBBL3vJruCyWtv8sMxImBbXiYiXLPS+NMSTywo9c/lMGfv7kBamEqq2O6Ycm
-	xG5LRTV/dL9isP4DHryLE+HNQP3oz9B4=
-X-Received: by 2002:a05:6512:3d0d:b0:5b8:b419:c8ad with SMTP id
- 2adb3069b0e04-5b8d8979194mr1060604e87.17.1790184489272; Wed, 23 Sep 2026
- 10:28:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="CwMkLaAh"
+ARC-Seal: i=1; a=rsa-sha256; t=1790184810; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=TK+mhxWqSQlHReN6zjRE3fAskmD8Vi7nKZ6VQaq20716RDwvlnHRyT/pCITIXg86sKTc9EpnMO3o7KbM9Yd0lfGcRJYbCyQSNSPoEArWwCxdWxdE7q5liGQ4SfYmxSG38wqKXpAvHo/+dU6vMAAJXkO99Q0gxz85cxvYSEcop8I=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790184810; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nsanluhTpoeM0bPWCnlDUgLBI+hwIJEThPZvWCMVm0A=; 
+	b=TbKb47s2NDWK917dpDcHeOCsMXYSlAThLAhCqezjHOMy2c07XphGyOK6WieNc4d0pQtHhUC5wL/4BfhBtooYFUZOrBaFpQVauPgVQi6AoymH0g6kKyS+qdiLAgwoj4ubQfeS0T8BJqUmSQ4h5+d0b3e1DE5BEHC5apL0uHqCWx0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790184810;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=nsanluhTpoeM0bPWCnlDUgLBI+hwIJEThPZvWCMVm0A=;
+	b=CwMkLaAhi97xQnGSnnqt0hhYccOsCycdzbbdWV5zNxjV2MMcXVRGww4uzq+VHBf0
+	7vY8cSRgeGiGP6aoVqR2FRX3sMkFvtqXuAZ88Ar4QXB5P11DLskN4P5a69x9z/78t+X
+	NI4/ps41AY6+rOPIIxGy2zn+lzFg0s9ocgCVpD+M=
+Received: by smtp.zohomail.com with SMTPS id 1790184808288542.8755653328309;
+	Wed, 23 Sep 2026 10:33:28 -0700 (PDT)
+Date: Wed, 23 Sep 2026 17:33:18 +0000
+From: Yao Zi <me@ziyao.cc>
+To: "Sandie Cao" <sandie.cao@deepcomputing.io>,
+	"Yixun Lan" <dlan@kernel.org>,
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Paul Walmsley" <pjw@kernel.org>,
+	"Palmer Dabbelt" <palmer@dabbelt.com>,
+	"Albert Ou" <aou@eecs.berkeley.edu>
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, Yao Zi <me@ziyao.cc>
+Subject: Re: [PATCH 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add
+ USB controller and USB phy support
+Message-ID: <arQNUQ92Dx3TOKCR@pie>
+References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
+ <20260922110434.3426051-1-sandie.cao@deepcomputing.io>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918-ux500-simple-sound-v2-0-88d29416e3c3@kernel.org> <20260918-ux500-simple-sound-v2-6-88d29416e3c3@kernel.org>
-In-Reply-To: <20260918-ux500-simple-sound-v2-6-88d29416e3c3@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 23 Sep 2026 19:27:55 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=yLFiYcWsRF6eR4a8o=27wcmj4nxa8jirDaOfR3JBHkw@mail.gmail.com>
-X-Gm-Features: AclHuK_-UVmPGIePjUjF3dX8xYRAyOgnfC7Kt7jTimuuvtdsVniy9gpSsWuCuCg
-Message-ID: <CAD++jL=yLFiYcWsRF6eR4a8o=27wcmj4nxa8jirDaOfR3JBHkw@mail.gmail.com>
-Subject: Re: [PATCH v2 6/9] ARM: dts: ux500: Add sound DAI provider cells
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Lee Jones <lee@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
-	mfd@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922110434.3426051-1-sandie.cao@deepcomputing.io>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.183.46
+X-ZohoMailClient: External
 
-On Fri, Sep 18, 2026 at 12:51=E2=80=AFAM Linus Walleij <linusw@kernel.org> =
-wrote:
+On Tue, Sep 22, 2026 at 07:04:34PM +0800, Sandie Cao wrote:
+> Add USB device node (b, c, d) to DeepComputing FML13V05 board.
+> USB A works on otg mode, it isn't configured currently.
+> - 4 USB-C Ports
+>      - Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
+>      - Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (4K@60Hz)
+>      - Port 3 & 4: USB 3.2 Gen 1
+> 
+> Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
+> ---
+>  .../spacemit/k3-deepcomputing-fml13v05.dts    | 44 +++++++++++++
+>  arch/riscv/boot/dts/spacemit/k3.dtsi          | 66 +++++++++++++++++++
 
-> Describe each MSP as a single-DAI provider and the AB8500 codec as a
-> two-DAI provider. This lets audio graph endpoints resolve the MSP DAI
-> and select the codec playback or capture interface by port number.
->
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+I think the SoC and board-level changes should be split into separate
+patches.
 
-Assuming Lee will apply the ACKed binding patch so I applied this and
-the rest of the DTS patches to the ux500 DTS branch for v7.4.
+>  2 files changed, 110 insertions(+)
 
-Yours,
-Linus Walleij
+Best regards,
+Yao Zi
