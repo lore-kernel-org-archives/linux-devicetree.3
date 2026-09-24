@@ -1,189 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC2A42640A;
-	Thu, 24 Sep 2026 10:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5361F472090
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 11:00:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790247553; cv=none; b=lpvQ3QrsysekH4jkOY0Rqg32fhXX1MNmDH7tEh7abGNDV0lQ+XUs5/nXLlDB13ubGMrtR80WOV9M8XJsfGUi4IWJ9jZLuLSzlNmBysWnIQXpHdd2WD/Fk+THeyqOwcULX4gLQkfbR15SHyiT6Jz1yl9jAExr3Mk7p+eRos5Qztk=
+	t=1790247619; cv=none; b=oxoQhyyyq6Aqu7Tx1S8aSfu3GmxqrReHBAsRrw0JmCGQOMNdxUk7yclj1zdscUQi66v8MImmWA9Tqh/gKH246YzzUAjdUGc22YnHIhZ7jcW/g1WboIsJfsgzih10cfdvLsVf6HUPcOUXwwvUdPIeRAk3IUyr1P9mNqJJg2RnLuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790247553; c=relaxed/simple;
-	bh=uzm079J1Hlf4UO/zTSYNr5H1vLdGstH03V+hBqncpFQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ua8Ow11GCbrTu6aWHgTxstmqhloXkTcRDQdjpEH+kwXxtZA2IvK4AUVCMcbpJ5wttrzCNB2Syc5O+ngLCR0sjiINC1xZurotpzllWtQM2DCktHy1jZh9DnQpteA55eidRdu3E7Z2iQeeeX3ZiPzjupbd74mH3qCGaGy4djfwDcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DBTT30Dk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790247619; c=relaxed/simple;
+	bh=fVQcxdGJaOYOaw1aI6eXlbQyaIzwy2ui/CAggsuJw2o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qYQi96A/rNI0YlsifKr0UOHwR4UFbT04PWPZcTTJhzptPtyhV86phWAS1hABMDYVuSIBbsm9+Scg8ZJqlGyiD8XMda6UJhLT8Q9EK1BOZ5PIzNjCpl+cNydqhN7EcZyl8+aFcvlV96oWpCcijg3N+9O8Ox0VnYWnGJ7aCx+sQFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HHxAQHKY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HNqS/D9Q; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DBTT30Dk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6243F1F000FF;
-	Thu, 24 Sep 2026 10:59:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790247551;
-	bh=D5/vhkqdn05EZKdDTNjLphM0V4tU0Hengbn8xFQ8pxo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DBTT30DkBr3++nyuGqz4WdPnHRNpHOZYe/t8dSkdxLWykopuqMMvkqKPLdiWoIlGQ
-	 P+p21Uiarm0LmC6hiqtLU7tKkEcRUGJRTp5EBlNMSIZ0WyBEj6p1SNgDgmXUq2g59X
-	 GJBUZv6J88+3mEMjvnaknkZM3jAhDJbqrHrTpGshP1ON7aEXKU8rVonp4IOsCeBBXT
-	 oppOCQ+lzIM6YSzKDgXRu24LIctlSIlhLjTjX94nyb+WRos0aLxgxnvAPeMCFOUxmy
-	 NjkjrdKsn44SdPMH4mtkxmbhpLgARi0rq8Tz0QGUHYOPiqy1cdvhaR09BvnkTarkGZ
-	 n9aV/yYWDKQ3A==
-Message-ID: <bec2bee4-dd38-4846-91d7-006fe38fc9da@kernel.org>
-Date: Thu, 24 Sep 2026 12:58:59 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HHxAQHKY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HNqS/D9Q"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9PLZ02919212
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 11:00:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=in88g7r5SF3d0J0T8CY+cmqo
+	kzL7VJf39MG9fHoUBpU=; b=HHxAQHKYufYnBu9C+hmeM65ttXwIfwI7z53k9GpA
+	psh0nfdpDB2e+lX2PXjo8gDKtKo0whxTYxCj5bBQeArrs78/ZKSDtNyIlPYgpBrU
+	SxK4uIyL8q1ZqBKUWfhDprjLUqyA13urRKqsjw1PkbgJBA/O5B73tgktf0pjtey6
+	AVxRKTgPeaoOZkQHuBd/QU4NfV3MPH/qJKJuOlbdUJXNFCveYxBdD34BQlpeATZG
+	7JBDko1iw3u6qy4Ey4BGMXXKYmhG1l+QFE2FTrSZWPgZso/QFKMyBV8xHbV7OqWf
+	r5jUHJvGOBWMfhMwsLMBcek8s4V3aWfHbBKGx3EgHi9qLA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvstuj71c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 11:00:17 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ae8e7e546so343328585a.1
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 04:00:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790247617; x=1790852417; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=in88g7r5SF3d0J0T8CY+cmqokzL7VJf39MG9fHoUBpU=;
+        b=HNqS/D9QLKMavfa6L/UngDmx1vNulYoaz/2qa/7ebAMCymM2YaXHl0KWFTOMP4ia0w
+         CADaSGBW5AQXlzqsJCMYvkR43Xah7rNvEr72uyBa0DSwoCgj+Xxomb7APeCPJL/SmpXE
+         T7a7hkjyUdBgHVBsRLaouXDi66KbP4MoNpbWG3RctdANAYpIOpLAORrcrWDTa6HFDvPk
+         Zb5i9vNQ5rXagvZiWH6gBm8r3fFKBFmDMDPNCN9TJr64+FT5FgLIVrsZWYwB9u0j1/bJ
+         MeCIxTTgYi76xsTpKgMWSlJ0xJLM66WVOzxjpk7HAA9coJ7S3UWOlrsv3Q3EKSJ6GRHg
+         dJ1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790247617; x=1790852417;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=in88g7r5SF3d0J0T8CY+cmqokzL7VJf39MG9fHoUBpU=;
+        b=IS6c1qy/VTfyGdWcEghNvafPrh3LOmuQ0x77DhjGBFudlIPxhi/blVI9h5F4dF6zWI
+         cmTGmEG3q0ONG44F8H2vlBIatwqJq0yR3p1LGR3dymnZjJIYNc6T9azure86cZ5prSGT
+         m7KbRVDa6WwBvRDJ4mDDFuKgLi3/4A+yXjPzYeo5LUvzXWvs5PwPJluAnKeU23qhFwzj
+         oz11aV+tgQG1dmM+mGJjJJRQjaaFbmbBurTAYx+GLGqc45Q7iFA62yeIRsbGAhbzZceN
+         zjZooxupK1PLagJsL2C6WWWPMccAo6CqNA7/mgF8vWBQVzw1U1TfKvh73e0Cqp2as9tC
+         YPZg==
+X-Forwarded-Encrypted: i=1; AKwUvBwfdNB7lpK7nSEQMRjipw6P5JAZ2sVlHoYIR1UahrIyITLuGnnW0PGt/4VKLRJAyejtLyLE46WmXfdJ@vger.kernel.org
+X-Gm-Message-State: AFuF++mC0JYAT5LzFEPl926rdF4t7WKpHHmbN3esDGbHYYgYnPN4C3sO
+	rcX5Thz8NfceEk7Y/t0Kk+TNmfsOspaGaxeNTHCmxjNyyEfRenK6EOeZAye4AvNkO2+rDMeaUaF
+	auQlr6MFDUYyiKgLShJB/kjeuy9tP5t0lNG7ZaZG9QbiNmbjQk1BWKMB1v2DVjkIv
+X-Gm-Gg: AYBFou1J7E9HAFIfgqlROfSjjv85rqeqmbYpDSYX3jZDH4Za4ujzRupfXO5s9INGdO5
+	Qyy5HzaP3hMi9w49iv0nBfaJ5s2zNNEGAYcZxmZ4AFYGg7jtyj5sOP8ZUcRyC2BYw3VOE9Xz4qY
+	UEPeaq7fluxBBmeQvnRYbMgGNMuNX4B6tp7vCsbuhEIrIQzEPTkmMt+zeCMN5cPWAXqWznhTHyX
+	NvFebQsybeYqbAys/GuPYyJn6RgVILGZ5YJovwUNRnx1nn6zmHrYGYuqW60kmM/IrAvb4N4GMkv
+	23G3sNkFjz/Vi3bL5Dqyo2/BRUiJ5naHyeUQk6Tc+MWbyUf0zAiHJW8OOpr8FINO9IUuJQyZQR1
+	YkvHM6QSwHTjze+A=
+X-Received: by 2002:a05:620a:2911:b0:93b:e6d3:b33b with SMTP id af79cd13be357-93c36407185mr252051285a.59.1790247616380;
+        Thu, 24 Sep 2026 04:00:16 -0700 (PDT)
+X-Received: by 2002:a05:620a:2911:b0:93b:e6d3:b33b with SMTP id af79cd13be357-93c36407185mr252040685a.59.1790247615301;
+        Thu, 24 Sep 2026 04:00:15 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4cc01sm54580845e9.3.2026.09.24.04.00.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 04:00:13 -0700 (PDT)
+Date: Thu, 24 Sep 2026 14:00:11 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/5] arm64: dts: qcom: eliza-cqs-evk: Add storage
+ subtypes and rework generic parts
+Message-ID: <stanm22bnloxjv4kdukrzhl6tmofgiezz2q25rhaurfoh24lp3@ernh7jgxsiou>
+References: <20260915-dts-qcom-eliza-add-ufs-variant-v2-0-86d72a2a8f47@oss.qualcomm.com>
+ <4acd4d53-a444-4282-9bdd-1f2f2a487239@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/11] dt-bindings: clock: qcom: ipq5332-gcc: Describe
- clock inputs per compatible
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Varadarajan Narayanan <quic_varada@quicinc.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
- Sricharan Ramabadhran <quic_srichara@quicinc.com>,
- Kathiravan T <quic_kathirav@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
- <20260921-ipq_clk_changes-v1-5-d242e3d49648@oss.qualcomm.com>
- <62a5fabc-3a06-42fa-9c6b-6504650e712b@kernel.org>
- <7bcffc7c-5dda-4ead-a053-7eb4980e43a4@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <7bcffc7c-5dda-4ead-a053-7eb4980e43a4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4acd4d53-a444-4282-9bdd-1f2f2a487239@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0NSBTYWx0ZWRfX7bAuXsl+kXYg
+ zpNh6a4xw+gy2TCHxeBtvueszzMG2kganrO24HVqYndoafg0JW5SVAkn2KYFyHmMNtDnmvpVgIc
+ 0b9C9/gqEqC6md0sSj1iXGGel4DFU1o=
+X-Proofpoint-ORIG-GUID: fPoyboER1uM8SRp5IH8_gOzSloULmzJt
+X-Proofpoint-GUID: fPoyboER1uM8SRp5IH8_gOzSloULmzJt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0NSBTYWx0ZWRfX1IePVZkVzM6H
+ GLkoecPi4PDIJ08yDtkjHzveVChQOFQLSdb7Yb2/IA2g4jvwOHc294W5JeD19KmG4LavcrZsKdA
+ ZK3krTpAMVy+o4xiYmQJJhpB3i3ElB7AHrtZSEMRB0sevXlWBWObcg7Qt/+Qfq5bjZEqmaWRjGz
+ XD0hLaD4ojWMIaLh/EMi7Kh9UPJQ/rpYEXNfgJiKdluSBoIwnp1OxLOkXzvxbNgZrFA8P1vPfAA
+ nG3/RLpa82zBYxuLjyKAZ5SrtUU1sbvTw8PJaI1LPFYVq2LBSJDQjmSkKk3x02kusjlJYB9559u
+ gudaDG0q2Dnt+wBbDxWhiQCI41TikEZ4e1NzuLdCfinwTp8j0UMJ7ZQneP/dpl0Z+cRPXN18HXK
+ +PBMKpIN4tGpusVbWPLaMfjjwTzOzIoOkdkurxdrTmFo1Gw94RGch/UaSBrRCzht/UF4KLVKNni
+ l+GPyN1Nk/NBzZXN78Q==
+X-Authority-Analysis: v=2.4 cv=cKp1IVeN c=1 sm=1 tr=0 ts=6ab502c1 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=BWc8GxF-UijTqollepEA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240045
 
-On 24/09/2026 11:15, Kathiravan Thirumoorthy wrote:
+On 26-09-23 14:59:19, Konrad Dybcio wrote:
+> On 9/15/26 2:03 PM, Abel Vesa wrote:
+> > It turns out there is a UFS variant of the Eliza CQS SoM as well. So lets
+> > differentiate between them with -emmc and -ufs suffixes for DTBs and
+> > compatible strings.
+> > 
+> > Adding -emmc suffix for to the current Eliza CQS SoM and EVK devicetree
+> > files will not affect any current users as these boards have not reached
+> > public use yet.
+> > 
+> > Also, move the sound card support from the eliza-cqs-evk to the generic
+> > eliza-evk, which will allow it to be reused not only by the UFS variant,
+> > but also by the Eliza CQM EVK later on.
+> > 
+> > Changes in v2:
+> > - Actually replace (and remove) the eliza-cqs-evk.dtsi when the
+> >   eliza-cqs-evk-emmc.dtsi is added.
+> > - Collect Krzysztof's R-b tag.
+> > - Link to v1: https://patch.msgid.link/20260914-dts-qcom-eliza-add-ufs-variant-v1-0-78b3249eae61@oss.qualcomm.com
+> > 
+> > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > ---
+> > Abel Vesa (5):
+> >       dt-bindings: arm: qcom: Add more compatible for Eliza EVKs and SoMs
+> >       arm64: dts: qcom: eliza-cqs-evk: Move sound card support to Eliza EVK generic
+> >       arm64: dts: qcom: eliza: Rename existing EVK to suggest eMMC
+> >       arm64: dts: qcom: eliza: Add CQS SoM UFS variant
+> >       arm64: dts: qcom: eliza: Add CQS EVK UFS variant
 > 
-> On 9/23/2026 2:17 PM, Krzysztof Kozlowski wrote:
->> On 21/09/2026 08:19, Kathiravan Thirumoorthy wrote:
->>> The IPQ5332 and IPQ5424 GCC blocks use different clock input orderings.
->>> Document the clock inputs in compatible-specific schema constraints instead
->>> of using a common clock description.
->>>
->>> Also add the 375 MHz PPE clock generated by the CMN PLL to the IPQ5424
->>> clock input list.
->>>
->>> This keeps the binding aligned with the clock ordering used by the
->>> existing DTS and GCC driver implementations.
->>>
->>> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
->>> ---
->>>   .../bindings/clock/qcom,ipq5332-gcc.yaml           | 26 +++++++++++++---------
->>>   1 file changed, 16 insertions(+), 10 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml
->>> index 1230183fc0a9..fb39dffca988 100644
->>> --- a/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml
->>> +++ b/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml
->>> @@ -25,14 +25,7 @@ properties:
->>>   
->>>     clocks:
->>>       minItems: 5
->>> -    items:
->>> -      - description: Board XO clock source
->>> -      - description: Sleep clock source
->>> -      - description: PCIE 2lane PHY pipe clock source
->>> -      - description: PCIE 2lane x1 PHY pipe clock source (For second lane)
->>> -      - description: USB PCIE wrapper pipe clock source
->>> -      - description: PCIE 2-lane PHY2 pipe clock source
->>> -      - description: PCIE 2-lane PHY3 pipe clock source
->>
->> You are changing the order which is ABI break. Describe the actual
->> problem to justify such change. Are you saying this was broken since
->> beginning or what exactly is not working here? The driver was added by
->> Qualcomm in 2024, so how did it even work? It's not some 10 yo legacy
->> where we did some mistakes in binding while converting from TXT.
->>
->> Also, I do not get why the list cannot be shared.
+> I was hoping there would be a bit less duplication here..
 > 
-> When the bindings was posted, list is combined for both IPQ5332 and 
-> IPQ5424. But the driver wasn't updated and it was following the below 
-> order, so was DTS, which is not compatible the DT binding description.
-> 
-> enum {
->          DT_XO,
->          DT_SLEEP_CLK,
->          DT_PCIE30_PHY0_PIPE_CLK,
->          DT_PCIE30_PHY1_PIPE_CLK,
->          DT_PCIE30_PHY2_PIPE_CLK,
->          DT_PCIE30_PHY3_PIPE_CLK,
->          DT_USB_PCIE_WRAPPER_PIPE_CLK,
->          DT_CMN_PLL_NSS_375M_CLK,
-> };
-> 
-> So I'm splitting the description between IPQ5332 and IPQ5424 to matching 
-> with the DTS and the driver description.
 
-So we asked back in 2024 to have the common part of the list. I even did
-the effort to dig it:
-
-https://lore.kernel.org/all/ruti7hmkxkayzmqfbme6rw6j2vbhlx4ul4ptcckwamcpd4cyfx@owufhxwpvlcj/
-
-Authors implemented it partially, broken drivers. Now you basically
-revert what we asked, which is BTW logical option. It's logical and
-reasonable, but leaves bitter feeling.
-
-I have feeling there is no accountability and no responsibility of the
-IPQ at all.
-
-No, that's not going to work. You cannot come 1.5 year later and revert
-what reviewer asked you, even if issue was just by mistake in the first
-place. And you should not even try to do that.
-
-NAK
-
-Best regards,
-Krzysztof
+Do you this so that one includes the other and then override ?
