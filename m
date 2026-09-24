@@ -1,115 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CE23F1ADD;
-	Thu, 24 Sep 2026 16:25:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6F840F73A;
+	Thu, 24 Sep 2026 16:27:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790267102; cv=none; b=aiI3kc5ySKb/GFbMy8b/pjUjwe/Bdv0cfS8EJszAkN8SSOAFQ8R2lrhAIp5n/N70nDDSF/2YwecDZel1uQJEtpu18XSVbnXLyIy78abQMZM37NC1BItr09ngROc2T1sx7523BelkXXci5DXdV3oLim6tRFxJb+4bLyOR3iHwetA=
+	t=1790267273; cv=none; b=LZyxyZju4+LP0xJ1f862yogouw105VD4cKg8uafTnOQiwZoIx55PgYeMoufetTwkant93l+dd95VP4w1ob88nMYuaieyQ2AK7TAwl+qkzA9D01sOPIa/TjO8S3BIHthKj15U/JCfCHLPcTAMgjyi2jzw4Ss52yLdjme0oYB6uJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790267102; c=relaxed/simple;
-	bh=rnWKkLWVqul37ItmEcRUsIQdjq5RQQAKxdR8ULav2BM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MJBYEeK+QCDqyilR3dknsQjMMd9J2pWzTnUetuI12ujBJ8fN58paJ4EVFDHJkGl+soDOze+Zx4fRvL3gfUL8xA+53EClTFcnlJ6W8/IFbRYJ6a7lwYjegy4m1RpP98YToCS0qG6HapbYlKh4foyYV10Fmkc5G9YhSl1hpBYlB8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EN3cSyho; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790267273; c=relaxed/simple;
+	bh=qenKTVWyU01On6Yw6pYMBwlPmtPWnc/gnMEn7oSbyBs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b/ulUji8fiNfOAf8w3Al+DY6FjuspkC7t6qbeTE9gTX6RckpHiahd3SHWDBVbi+uzqNqe4YsY+FrAi6PXJMHTzSNujRbjKwWcmipJGyC2kGVfiQwDHVTsqDwba+lT3UETuS0gJ+iHKisEBpV836jLVYCxdeEv/1/YeTE2LLX8sU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYby8l6a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EN3cSyho"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92FC1F000FF;
-	Thu, 24 Sep 2026 16:25:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYby8l6a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2911F00893;
+	Thu, 24 Sep 2026 16:27:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790267101;
-	bh=GASL7Kwrv0LavJs98T3yfSLMzXEKGRm08E8L0fz64Ag=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EN3cSyho5qcCGBdTc+0iV3uJNhG+B/pLfFmIyq0xyI08ATX9NeOno891W6XfIddqe
-	 yfRTFMwrCabaXiG8jq71gxJbXy8HUh/T0KdDs9xILfvdNexc7BkscTHBVJXWZA7MrA
-	 /0ifiUep6O7DhJ/kdVxqkEeIPTx7jzt/0VdWb+t8T+DwBdj4vvv4YlIHclSOSi67ti
-	 AF67FV1OEuVXpSn5DXLVXMcRZfecfFXU9L+ncjfgn99uvoJPU3VwXrBSA84WTHRuts
-	 6XBUFPrHdAyCL//G0131Vhej5xXBnfQlK1mOaxiEfm+55OeJR2f1y1rARuKAx0FudV
-	 WBZjl42mnxeOA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: clock: qcom,sm8450-videocc: Fix clock
- inputs for Glymur
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260924161152.1162301-2-shengchao.guo@oss.qualcomm.com>
-References: <20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com>
- <20260924161152.1162301-2-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 16:25:00 +0000
-Message-Id: <20260924162500.C92FC1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790267271;
+	bh=qenKTVWyU01On6Yw6pYMBwlPmtPWnc/gnMEn7oSbyBs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IYby8l6aDvXWpdeZsYTt/jeo3Js47BSl7SbC7IGw4Kz8auUpYXHbRsRalnz/nxJQU
+	 aIHG6nldUH8Ktbtoc8f9mWp51AtzNcOUzzUSE+FbE9gW3pOB5X2z9cELJLEWKVZc9V
+	 aIhdf8QZLqOEpLZQGETEwGs3LKETSsEmg/AanLNfci9YU78y3/pxhzzDUOaMBXzJmB
+	 aPxlWf6FwuWcMT9juIwq9RPjJJ1jkAXj9TEfOICX/j16ke5xRuIzQbwL9pPPV4d7tj
+	 drFJ1h1d+MjcniAiCRxKxYV8lYf6k9DwFEjXGBHg8CAHVk4joie3g8Qq/ctTanmsqP
+	 wyQX/pQzLkhXg==
+Date: Thu, 24 Sep 2026 17:27:47 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Sander Speetjens <sander.speetjens@gmail.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonathan Bell <jonathan@raspberrypi.com>,
+	Stefan Wahren <wahrenst@gmx.net>, linux-rtc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v5 1/2] dt-bindings: rtc: Add property for Raspberry Pi 5
+ RTC
+Message-ID: <20260924-verse-attendee-c2e7a68e4f18@spud>
+References: <20260924132217.1281752-1-sander.speetjens@gmail.com>
+ <20260924132217.1281752-2-sander.speetjens@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="aPgkns3KRYWa2vD/"
+Content-Disposition: inline
+In-Reply-To: <20260924132217.1281752-2-sander.speetjens@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: hallucinated qcom,nord-videocc omitted from top-lev=
-el enum
---
+--aPgkns3KRYWa2vD/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-commit 0ca2f034154349c48cdd7a693b1d8282d6886964
-Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-dt-bindings: clock: qcom,sm8450-videocc: Fix clock inputs for Glymur
+--aPgkns3KRYWa2vD/
+Content-Type: application/pgp-signature; name=signature.asc
 
-The commit updates the clock inputs for the Glymur, Nord, and SM8750
-variants in the bindings from exactly two items to up to three items. This
-change allows device trees to supply the sleep clock input required by
-these drivers, resolving an issue where it would register as an orphan
-clock.
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.=
-yaml b/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
-> index 910c6d5672b86..dc01c37dcd0e3 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVPgwAKCRB4tDGHoIJi
+0oGJAQCRVhltLXItEeu6nDUP7z3EBw9Gm5wQxxOZpP0zbP8BUQEAo2HbGW7dzdql
++B8T9q4Wqx3eewFhfetPLRumDlBgOAc=
+=5Lam
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-> @@ -77,6 +76,27 @@ allOf:
->      then:
->        required:
->          - required-opps
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,glymur-videocc
-> +              - qcom,nord-videocc
-
-[Severity: Medium]
-Is qcom,nord-videocc missing from the top-level properties/compatible enum
-list? When a compatible string is introduced in the allOf/if conditional
-logic but omitted from the top-level enum list (under unevaluatedProperties:
-false), any device tree node using it will unconditionally fail validation.
-
-Additionally, the commit message mentions that videocc-glymur.c handles
-qcom,nord-videocc, but this identifier does not appear to exist anywhere in
-the kernel tree. Could this compatible string be an LLM hallucination?
-
-> +              - qcom,sm8750-videocc
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: Board XO source
-> +            - description: Board always-on XO source
-> +            - description: Sleep clock source
-> +    else:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: Board XO source
-> +            - description: Video AHB clock from GCC
-> =20
->  unevaluatedProperties: false
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924161152.1162=
-301-1-shengchao.guo@oss.qualcomm.com?part=3D1
+--aPgkns3KRYWa2vD/--
