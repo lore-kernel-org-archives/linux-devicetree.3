@@ -1,49 +1,101 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CBB3E1D0D;
-	Thu, 24 Sep 2026 19:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E980340F742
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 19:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277421; cv=none; b=H8r5vEuG9Jij8VjtZaFOIgswv1gE1O8swIhVHvaR7wpV84TVLvy8bfdHiY/gCiPw5CR5z7oRTmBEZZghyt6AWmimtYxgIxsnr/Sv9b0vaAMoXAe4nI03teFb7b31UWiplRNH9Qx3RHNoC3fQh1DZZIA2xfEgIX1AqwiWlp2BTag=
+	t=1790277788; cv=none; b=Lr7COUCh7vIdBBKPByo+btNu3T4+1tAEpsTl9aSNOobAhcb3OBA2wOo6IdsCsTxbkg8TBKH71/nWq457wy2ZRRCO2x296GracvD55yhwhXJvD9SGPH8mmD/vl6duLXPgX0Q811I2cEAsR0flC0QCZlcYugE7SQNbByLAVHtbwsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277421; c=relaxed/simple;
-	bh=ABk/a0ZJeo+bhveUhniq3EYtEEp0+QNiMk2ovo67Uw4=;
+	s=arc-20240116; t=1790277788; c=relaxed/simple;
+	bh=qrXIRZFdJBniWCU8VJvuUKRMxq4CJ7LwdmKsYq3i5G4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GrISAt9FKX+BoZKnG/cN10pbbvFnvePdXhXuyz/bo9OXK2GDh5X34xFKdPQdHtUDBsaTdu68j5qP+KtuGOhXR+RStIIjsMatMMIXJho0Cwq1zsxFJ2w19JOAJzx2XH57WQcUq+mNM66xOco8d457CC9iMTjNlNzw5MQj+ZceDhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=UQdZRQTq; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=o9OQwKdrwRVEl6MxOYkkjvmTAmgpiXqJzgN/lS6uqvVDMMeas54kcz7yH+Af7FLWVGfqDQDrnTNM1LKzKMkYxKoOztErVuoBNtBj5QyabwkDavLjY+cRB9WINYK7URiGPuQTNsuorRa+ZGymG1m8T+/pSUWdloDbLQgWXpoOzfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=G78L1xx3; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=N95dKTlT; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="UQdZRQTq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=5cDKLpM7uWxow/Xj3HdbMMFz9dBw5P3A067HqPQPt3A=; b=UQdZRQTqu2tk5ervOAxVI25VLp
-	DjGkHrC6dJTbVddSSSPRgiCJuIhxa5EwVv+RY0HulDPrZbIjbrmV8Gr4f0h22a+jurAiTimBvvS5r
-	9ywN0/Hasex/rjuDJmQRWeJWJDlqkF/NSRMX8NSF0aYrUxnngQUfVkDzmvVQAnjn2uFc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9ow3-0074GX-QU; Thu, 24 Sep 2026 21:16:47 +0200
-Date: Thu, 24 Sep 2026 21:16:47 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Conor Dooley <conor@kernel.org>
-Cc: Kyle Switch <kyle.switch@motor-comm.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
-	Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com, jie.han@motor-comm.com
-Subject: Re: [PATCH net-next v21 1/3] dt-bindings: net: Document Motorcomm
- YT8824 PHY package
-Message-ID: <c78999ec-82c5-4719-9358-5dbded43ccdf@lunn.ch>
-References: <20260924075048.4060414-1-kyle.switch@motor-comm.com>
- <20260924075048.4060414-2-kyle.switch@motor-comm.com>
- <20260924-vowed-roulette-abda42cec444@spud>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="G78L1xx3";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="N95dKTlT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790277784;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ut0W8EJcCupEWBHDQXwLOk3ZkvjvxuM4fNB2BlLxpCg=;
+	b=G78L1xx3rfydoQBG4QvE60ezaA/K8S0xYYM5RVz1AqbrEfXNTfLT8l13ANiljmdqI7R2O7
+	WdC0yIzXJ0fOIG1u9UXdFJZgRx2nuOxlnKT2Q/pfSatD1dTKMh+ObSmKZL/xR/GzwQmfk+
+	4QdDasC53/2bVvakDSwarLIT5P0nKpM=
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com
+ [74.125.224.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-345-UNohUBD8N2aOebLWxQkpqQ-1; Thu, 24 Sep 2026 15:23:02 -0400
+X-MC-Unique: UNohUBD8N2aOebLWxQkpqQ-1
+X-Mimecast-MFC-AGG-ID: UNohUBD8N2aOebLWxQkpqQ_1790277782
+Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-672adfec4d4so440503d50.0
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 12:23:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790277782; x=1790882582; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ut0W8EJcCupEWBHDQXwLOk3ZkvjvxuM4fNB2BlLxpCg=;
+        b=N95dKTlTwt4kKn+VRlK4TwqkQewnnzX0KN7QPYd2gw3V8cevdRK+p7NKmi3p/4/FZx
+         VSSPSoCJ8ZsLIgA5U690GDE0Gdd4okUdZIf7/BhJo336SPTyDjbqhzam8+qK8sA3Wz/l
+         2lDfGYsc7x62RmVSA24Xo/IXDCzYJ8OPLu+MIM+/YVD8n1h3ajv7d1pSzEsFviFIZgmi
+         W5bdu3raO8RNsryX5maPPmI4RuNhsdbyAEpMsVJLToedCTbkkU615az9TD5EUa7ngrbZ
+         4h4QPfCUFDTdUlnIrF1NMx5540z/K20wWW5mT3HWqo7jYHA5skzXdCV6AB1VOIaerNUW
+         Mw1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790277782; x=1790882582;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ut0W8EJcCupEWBHDQXwLOk3ZkvjvxuM4fNB2BlLxpCg=;
+        b=ez5Q3sKk9698V0imOQMCO+GCieCElPELty5V6Awagms0Bu+0P63AnW5MnTwwcSm1am
+         a2aeUypfmkVK+FVnRAWvKc+8MyDguvbrSZ34ZK4a6gYCJszNrBVgQC8LdEXOkNlJcuwa
+         oQBr3WSX+7rPZY6ZZwQnjTsRuXLTRHnpwkZhDZBwPRYHAKSKIlf9OZITr9sjWLyB0j1u
+         60tIkvKFb9ldPPXaMyIK+NLT185h6EpY9MFdnTxGeDllq/LtlNwGs7ioTzeFrOATyFHZ
+         nYh+xZIBMZVLy9jvoxfGwM3kg9FWHx0X5uoreC+xLxafBQZQteibuiCa9/6pr5TRSuJV
+         Batw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFKgbsFQ2RCQCRWs81DmBZOHm5KCh2xD9vxXLrNknDgAx7Wa1eMaMOthJtqiy4DMwmtHhy3JRd6sCp@vger.kernel.org
+X-Gm-Message-State: AFuF++mrql4c3ekDkR26ssrRDgn93tp5m5hyLD3eCLJE8ye4q9g75Bp8
+	JdDIZpRcROLoAQT1o/7XyXEQDzFVCkxhDcHgnptJTvh2jMKvFux8PERqb+OG3gutmckH/ZmDz4I
+	ypC/20Pyn2TvwQzxBjLqkVjeY9cd01YnBhu73pgJd1CPq5s+wdwfHiUM2JMEJ/Ns=
+X-Gm-Gg: AYBFou3HBIuzR6EkuAkzBv0uBDjQPkmXBVZD8MGh7ijLmteG+ZFGfuydLtFTmpmscpE
+	tL5bCCXvT0SPmC78ZdPlsZHa53+zyEtZGqbYs5L98izy8milIGTtwpBjuu7zgdzTXjeogCSIBss
+	gotG/EUNfiQ+8THzQRo5uxeDeBNdOSrBLOkCyDcW1PnTZHgqnmkSa3apuphzSQSeqOXtgjALgB9
+	6xsZvtG713JaVYThtnFl/4rv0gUghtybuNWTXwk/iEhOjupiAjcZU2B5pZjO7sG/REceyPlFN+k
+	RsmQ9820seVoPmm63MqzYf08ZHrX2a9ULFOLZp0gGBlBQP/u4ofnjE0brjurg39J/8FM+5Oa5g=
+	=
+X-Received: by 2002:a05:690e:bc2:b0:66f:c1bc:87db with SMTP id 956f58d0204a3-672ed2b90a5mr1641075d50.52.1790277781918;
+        Thu, 24 Sep 2026 12:23:01 -0700 (PDT)
+X-Received: by 2002:a05:690e:bc2:b0:66f:c1bc:87db with SMTP id 956f58d0204a3-672ed2b90a5mr1641049d50.52.1790277781356;
+        Thu, 24 Sep 2026 12:23:01 -0700 (PDT)
+Received: from redhat.com ([2600:382:8501:4f43:e566:7498:c7c8:a7ec])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740ef31df6sm26520d50.13.2026.09.24.12.22.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 12:23:00 -0700 (PDT)
+Date: Thu, 24 Sep 2026 15:22:57 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	lee@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+	abelvesa@kernel.org, kees@kernel.org, gustavoars@kernel.org,
+	p.zabel@pengutronix.de, daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	mfd@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and reset
+ driver
+Message-ID: <arV4kYRFHM0rW8Km@redhat.com>
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-4-elder@riscstar.com>
+ <arG238GS8bMB6DkW@redhat.com>
+ <0785235b-de06-44d4-9068-ec706eeba848@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,27 +104,133 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260924-vowed-roulette-abda42cec444@spud>
+In-Reply-To: <0785235b-de06-44d4-9068-ec706eeba848@riscstar.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-> > +$ref: ethernet-phy-package.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - motorcomm,yt8824-package
-> > +  phy-mode:
-> > +    $ref: /schemas/types.yaml#/definitions/string
-> > +    enum: [ internal, 10g-qxgmii ]
+Hi Alex,
+
+On Tue, Sep 22, 2026 at 08:33:37AM -0500, Alex Elder wrote:
+> On 9/21/26 5:59 PM, Brian Masney wrote:
+> > On Fri, Sep 18, 2026 at 11:52:32AM -0500, Alex Elder wrote:
+> > > Define a new platform driver that manages clock and reset signals
+> > > within the TC9564 SoC.  There are 21 clocks, which can only be
+> > > enabled and disabled, as well as 13 reset signals.
+> > > 
+> > > Two registers manage the state of the clocks and two others manage
+> > > the state of the resets.  The registers are accessed via a regmap
+> > > supplied by a system controller, which coordinates access to a
+> > > region of memory that will be shared with another driver.
+> > > 
+> > > Access to the memory region is provided via a BAR on a PCIe endpoint
+> > > function embedded in the TC9564 SoC.  For that reason, neither the
+> > > PCIe clock nor PCIe reset can be manipulated by this driver (they
+> > > are assumed always on and deasserted, respectively).
+> > > 
+> > > Similarly, control is not available for the I2C clock and reset,
+> > > because the PCIe subsystem on the TC9564 relies on I2C
+> > > 
+> > > Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> > > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> > > Signed-off-by: Alex Elder <elder@riscstar.com>
+> > > ---
+> > >   MAINTAINERS              |   1 +
+> > >   drivers/clk/Kconfig      |  11 ++
+> > >   drivers/clk/Makefile     |   1 +
+> > >   drivers/clk/clk-tc9564.c | 366 +++++++++++++++++++++++++++++++++++++++
+> > >   4 files changed, 379 insertions(+)
+> > >   create mode 100644 drivers/clk/clk-tc9564.c
+> > > 
+> > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > index 66d0e7e65adcb..39346a5cd9a7f 100644
+> > > --- a/MAINTAINERS
+> > > +++ b/MAINTAINERS
+> > > @@ -27675,6 +27675,7 @@ M:	Alex Elder <elder@kernel.org>
+> > >   M:	Daniel Thompson <danielt@kernel.org>
+> > >   S:	Maintained
+> > >   F:	Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+> > > +F:	drivers/clk/clk-tc9564.c
+> > >   F:	include/dt-bindings/clock/toshiba,tc9564.h
+> > >   TOSHIBA TC9564 PCI DRIVER
+> > > diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+> > > index f9592fd9ec2bb..50efa10d48450 100644
+> > > --- a/drivers/clk/Kconfig
+> > > +++ b/drivers/clk/Kconfig
+> > > @@ -292,6 +292,17 @@ config COMMON_CLK_S2MPS11
+> > >   	  clock. These multi-function devices have two (S2MPS14) or three
+> > >   	  (S2MPS11, S5M8767) fixed-rate oscillators, clocked at 32KHz each.
+> > > +config COMMON_CLK_TC9564
+> > > +	tristate "Toshiba TC9564 clock support"
+> > > +	depends on TC9564_PCI
+> > 
+> > select RESET_CONTROLLER
 > 
-> This should be after ref, but also have a vendor prefix.
-> Additionally, the qcom ethernet-phy-package user also has a mode
-> property. Net folks, should this be made common?
+> Thank you.  The reset and clock drivers were previously separate
+> and the reset only became available if RESET_CONTROLLER was enabled.
+> Combining them means I need this.  I will add it.
+> 
+> I also need to select MFD_SYSCON to get syscon_node_to_regmap()
+> (or perhaps something similar, depending on the answers to my
+> questions about the proper way to define the syscon).
+> > 
+> > > +	default m
+> > 
+> > default n
+> 
+> This depends on TC9564_PCI, and if TC9564_PCI is enabled I would
+> like this to (automatically) be available (at least as a module).
+> 
+> Why do you recommend "n"?
 
-phy-mode is definitely wrong, it has a different meaning, and reusing
-it is just going to cause confusion.
+There is no existing 'default m' or 'default y' in the toplevel clk Kconfig.
+How about this instead?
 
-qcom,package-mode does have the same meaning as what is trying to be
-expressed here. So yes, a common, vendor independent property would
-make sense. It maybe should be in ethernet-phy-package.
+    depends on TC9564_PCI || COMPILE_TEST
+    default TC9564_PCI
 
-	Andrew
+> > > +	help
+> > > +	  This enables support for the clock and reset controller embedded
+> > > +	  in the Toshiba TC9564 (and Qualcomm QPS615) SoC.  The state of
+> > > +	  clock and reset lines is controlled by MMIO to a region managed
+> > > +	  by a system controller; this ensures access to the region is
+> > > +	  coordinated between this and other drivers.
+> > 
+> > Rather than 'other drivers', outline specifically which other drivers.
+> 
+> I was intentionally vague at this point because the one other driver
+> has not yet gone out for upstream review for this iteration of the
+> code.  But I do agree with you, so I'll change this to say:
+> 
+>    ... between this and the XGMAC (stmmac) driver.
+> 
+> Then it will be correct without modification once that driver goes
+> out for review.  Is that better, or do you suggest something else?
+
+Yes that sounds good.
+
+> > > +static const struct tc9564_clock_init tc9564_clock_init[] = {
+> > > +	TC9564_CLOCK_INIT0(MCU, 0),
+> > > +	TC9564_CLOCK_INIT0(INTC, 4),
+> > > +	/* TC9564_CLOCK_INIT0(PCIE, 9), */
+> > > +	/* TC9564_CLOCK_INIT0(I2C, 12), */
+> > 
+> > A comment would be useful here to outline why these are commented out.
+> > Is the PCIE one comment out because of what's outlined in the commit
+> > message?
+> 
+> Yes, that is why.  We are downstream of PCIe, and PCIe in this
+> case depends on I2C.  So we don't want to mess with these two
+> clocks or their reset counterparts.
+> 
+> I only provide this for the benefit of documentation.  If someone
+> happens to see bit 9 set in this register, it means the PCIe clock
+> is enabled.
+> 
+> Anyway, others have suggested simply removing these comments.
+> So I'll do what you suggest, but I'm interested to know whether
+> you would favor just deleting them instead.
+
+I also think to delete these comments. Would it make sense to include
+the comment in just include/dt-bindings/clock/toshiba,tc9564.h ?
+
+Brian
+
