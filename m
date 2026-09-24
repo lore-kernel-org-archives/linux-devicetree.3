@@ -1,265 +1,320 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E67440A0A
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F80B440A0A
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240179; cv=none; b=qKdYf1WRT1U1+Pit5ZMGtXfouR4+wSHepkq4jGn/1FO9JymKMHMraAKgvii1V2JkWCKBCrSznlT6Bslmhli0aEaN0tCtSs4lm+VzEDIxPHeHQczGhyb2OU24GiyRMCoiH3WrOXJFodanjycoxxNAcL3wpK8/KkFv4F+UAnPOgHw=
+	t=1790240247; cv=none; b=lAmiTZQ1zkR0KlleoZpyAKp9+5mdFEUlm0O8is2WWs21xpu8NkIALQSNi8TYHv3VphEk0eIEjKMjqIZx0CCGDpYpLNt2KjqYpcKtgcBAkJDX+1bZJ1RkOq+VqcFSNVcKuZNYkzkx8fxhyLK3bP4bibSn88hdK/rxfV50puxq+jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240179; c=relaxed/simple;
-	bh=Nup17ENEmXpV9ZwGGRFtcICN35ExK3wjqeYVDJVYpJ0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h5ibq4GwpCMdzbYU8E5gaJI7tKUdU2kJ283P2xQ0AN/qRXrN0p/co+JUrhtiT8VWzISok7s6LtT3IgFrVgwbZmOQ2UfpmLjSlgbmdNtDSvYxGRW3gjxz4o6ptk3OD9Vwp7WypMTVwgATtbFuoRbs/GAzb4DPrgO1/Sb3alcirJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XTX7ktsl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e+Y6g8Kj; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790240247; c=relaxed/simple;
+	bh=vrFUvlPmYSN3VIwmMFNIxD2D2Otj9dlAIfJt0VAtfv8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jyk99XOFB4+NmNuiUKJmQfTI6JFnNfn885DNKi12t6f6eGgelMYkKMvMyvdhRSycidNFhEEUm9EC7tZ2gWOuG43azXL6rjEP0rzOf39NOi/CM9XztGp2qiV4W+Yz5wQLYSegHOpf46qcQknIauiOMmLkzCc5AHXcpNzoOzizM74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CwK47Vik; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XTX7ktsl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e+Y6g8Kj"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5eREE1148109
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:56:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Bxt3q8Jtf9Fw4kHeMbUugrOi
-	qJ2FR8QUG1VRmITBYC4=; b=XTX7ktslLowmfmnbQRFjDshYze/T8wCX9Z3ayS9n
-	RM8AmilfvLS5mKnFr9QdowjTr1baO3y2sZJhPlJ0G0V6twHbapqcTqvHWHgvroDl
-	gnRqAvTzQmzxrrkGxboPeRvV24jiEP/YMpcVOmDcgFwkxv7MgXPQ+8cNvXewdJSB
-	g3xHyUUSIcTf283P0a3njGUtZ3zeBgQcYyG0lWGAMoenEKKxlIloWA8lXNPdbliO
-	RFfvh3f2RfyRUp8NwUS15x3o0uhwvlAqjFnUxv0PLTh57TlFXXvZkRPQR55gw/oD
-	lwjJw5i6AQ76aZmnxLYHbhz2IB0kCCscPCEywrGdWDtjYQ==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvmrran0k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:56:14 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1383723dfddso3738381c88.0
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 01:56:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790240174; x=1790844974; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Bxt3q8Jtf9Fw4kHeMbUugrOiqJ2FR8QUG1VRmITBYC4=;
-        b=e+Y6g8KjlXDyC4VC3i84Vzxq4QUFlbSN5Xr2b3ZE3nTyWuS5gOkCfllzcv9ihGX9VH
-         Q0UPQxR6F8+pw1bHKGyxD4UDD9k2uzCDwgsbWt/y6MI8o4F/F6XDes36QGXG4kZ3+pti
-         kutcPP6e7terVWH/P8br2ziFKwqPRlt0Ys8OFUL9jdc0YH+dhTcZ28Ast3tUJUeGiS21
-         6F4jr+CblJKrpc4FanmHRzo/Ob9cPkwxlJpaiNyI7sI+uuYhifIYB0fJb4/IpzqFX0kP
-         5F74F7Ei8Y8Kf3CPihFtiTATYuUN4UJEH2wdGwJqnDIq1bImhbWmpvl14ShjVM/zw2Cp
-         mT6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240174; x=1790844974;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bxt3q8Jtf9Fw4kHeMbUugrOiqJ2FR8QUG1VRmITBYC4=;
-        b=chYKtJ5MQtcjrfi7JmvH/zM1HEWF/XggD6r6y6nRQiXTL7Zu+QDnS8l1bAGlo1ZywE
-         dS+ZWPYbDUjGvfW0kGH9DMn0C9jVv8sDuyLTd+fx7aCltT2ZuswhOhDJ7t6V0XJQIZNY
-         xNRL+qbkFCsoiLATfFLfObHMxslTYMKeHhpkVRqGRLDZYNjCFiMYGZ/7jHf1CN88Ggv2
-         5aPn8dWBXfwoT6Z1PM018XGg+axq8qRfqsyPL54MIw8dbpZPJI1k9Klxnxz0TQ4dDGkn
-         UGbnozMmLsaSU0S+gxMaYlZO7t2KQGB9uOp0/vyF31ITKK4keiFtF+yph9Cr4E0vDTO+
-         X0Eg==
-X-Forwarded-Encrypted: i=1; AKwUvBxO6lWw3kGZsjBxF1puQhqMAt5WtAUMJBmI4AjL+5w6CmSQZMcOWbcUHyeoxAITHJDljtQWco2wvTaH@vger.kernel.org
-X-Gm-Message-State: AFuF++m6RzKdHPGjicCwDD+iQdWWKgJJwJ8ix9NDr9Hf5hKYwvZklqnu
-	/8gOPspOhAqv15zjnrKAV/dG2pNA7LbfBWnC1qrkwtwqRLK0F57yMMbhSYmip+OyK1j9AVe9FS7
-	l21gq1lTlZgKOOxdiQv3fzQ0d1xydnQTZlrGRkuKjMeChnuT21EFfeyPGpf/YUdZf
-X-Gm-Gg: AYBFou1gNpFOg+xPoAr2jmgzQN+xoWj2WreHRywv3Jgscsxow9Of7awDa0GUlEsSndU
-	2+rBMjz0T3QGYaew2wjGpAqpHOcPxvIT4hz8YkoQMzlohME21Wot56IAckADgW8Z8DLR5GslZWx
-	tz4/HoYQJ6T40kpR/V+78COCZ7z9E+I6H+HLyXw5HMcNuO1azeKgZVeHFZL7tGwbpK0i9vgDiaV
-	/dKZmeWkgADkQrHUvXEj02VpyMm09KfVGmZsRknQqQz3dEsQIFWHGJV8wOGrO9Z1HCYZBpiqxpt
-	OBRSFoidZQ26PZcGSB2lzYjufGJ4+SFFaTzYiRIsW/9cQjXN5D/4ibIRLbp6BJSKTfpDJQ4af19
-	66s98U1YOo+viVBjwfNvPULPK99hxGit8P6ZcCyZ4zw==
-X-Received: by 2002:a05:701b:418e:20b0:143:298e:913b with SMTP id a92af1059eb24-145040d3ecamr1278189c88.45.1790240173744;
-        Thu, 24 Sep 2026 01:56:13 -0700 (PDT)
-X-Received: by 2002:a05:701b:418e:20b0:143:298e:913b with SMTP id a92af1059eb24-145040d3ecamr1278165c88.45.1790240173132;
-        Thu, 24 Sep 2026 01:56:13 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm19986937c88.13.2026.09.24.01.56.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 01:56:12 -0700 (PDT)
-Date: Thu, 24 Sep 2026 16:56:06 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: clock: qcom: document the Nord DPRX
- Clock Controller
-Message-ID: <arTlpnQCjyXk2clV@QCOM-aGQu4IUr3Y>
-References: <20260924-nords_dprx-v2-0-fa4364e087ef@oss.qualcomm.com>
- <20260924-nords_dprx-v2-2-fa4364e087ef@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CwK47Vik"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B6D1F000FF;
+	Thu, 24 Sep 2026 08:57:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790240242;
+	bh=d+lUKO/GPiQzIP+7rP9y+iiyzmlx1rNa1ItnGwxtTjM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CwK47VikGtgwMmSwIZ4dfHir+YGAJxV/ixgizFipluVaG/JNoZmLUjE7gmNRVXkaY
+	 7Pc4Up47KslJWIWRsOEHa7ybrqjxWVBFeTPr9thK9LJU7ELIbdtVvUwN6hYes8zf3u
+	 sLlh8CvTQxEnW985zmmKWaiGeOjTMtMokaXYw31TyvVxXH8alCzF3qWmurHykC6coP
+	 KTuPhz0JZ1146o1a1Bb7+u3wMSnDLgM/lLcLSCa5Ptv6d6zOqk7YQ+XEd1lmJY6eJ6
+	 SHbstq6xJ2kUHqDn1jidtt52ANPvJtoXdNDXzXcZoRHP0VfA4PgxzvVI89jPItc3ki
+	 7td3xgol0anLQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] i2c: amlogic: Add Amlogic A9 I2C controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
+Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260924-a9-i2c-v1-2-b8ad9b46f4a8@amlogic.com>
+References: <20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com>
+ <20260924-a9-i2c-v1-2-b8ad9b46f4a8@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 08:57:21 +0000
+Message-Id: <20260924085722.59B6D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924-nords_dprx-v2-2-fa4364e087ef@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzNyBTYWx0ZWRfXyUrARC/SD6lX
- J/OMn+LrAGkSR1zOIskwsJir1rmMru1NOY8v15uJnPnD2iZ+cT4R/mEJ+d9XlygqJG63Tq/YV7Q
- fjWjVdfR0u/V8u6Z8zOKRIPcYdDoJ1H59Cydd7f69pkVfS9tvQpjqgVPREaN+MpRO2LvbNrWkJz
- DAOQxALktJMxeMM9vZKNVs9mhaZlhv4l8qUezVTiMRK6Qc/LqfuSW7w9S3dwclnVExr+5zsoUKK
- m6PqAyUEIxzxYsLGJb6Tx71fM9hqr7gZyDxGymgY8Qd/ILjVLt/NBFvho/11ycUkFmoNBl/AQpI
- RfOFQOBOnyrbMVyNYPREZhZ0y/b5ZzWcR57iYMxm0VD3OexCS7SbuY4Amn/xBF9ByZC+LEYPsEt
- owU3Rmk50HZ58YacpmveB9PPGN4u1p7eFuq0i1I4TxBxZA93otf/9WTS9+0nxTA0JpAQoEdTkcQ
- 4jiLbBOcQLd7/gcnyng==
-X-Authority-Analysis: v=2.4 cv=TYwDJhQh c=1 sm=1 tr=0 ts=6ab4e5ae cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=cg-lLse-URA5QQXuI28A:9 a=CjuIK1q_8ugA:10
- a=vBUdepa8ALXHeOFLBtFW:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzNyBTYWx0ZWRfX8k6GDN9Rzhnl
- Ol0/HENi52zG3ID5RWZaQkWZEVoJzV79G0PYpaSafGrUQTh7wU4eJyWje5bQnlT/4wLYqtLvvx8
- lXqyBIb66GIftNi3KfkDA4/9WQ7jbzk=
-X-Proofpoint-GUID: 1HHWab5VLbdSnL2PgYRZlitg0BGh-6jx
-X-Proofpoint-ORIG-GUID: 1HHWab5VLbdSnL2PgYRZlitg0BGh-6jx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 phishscore=0 spamscore=0 lowpriorityscore=0
- bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240037
 
-On Thu, Sep 24, 2026 at 12:51:32AM +0530, Taniya Das wrote:
-> Add bindings documentation for the Nord DisplayPort Receiver (DPRX)
-> Clock Controller.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
->  .../bindings/clock/qcom,nord-dprxcc.yaml           | 68 ++++++++++++++++++++++
->  include/dt-bindings/clock/qcom,nord-dprxcc.h       | 27 +++++++++
->  2 files changed, 95 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yaml b/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yaml
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [High] i2c: amlogic: hardware registers accessed before clock is enabled
+- [High] i2c: amlogic: race condition drops completion interrupts
+- [High] i2c: amlogic: silent truncation of large transfers
+- [High] i2c: amlogic: broken Repeated START for subsequent transfers
+- [High] i2c: amlogic: data race on REG_CGF_IRQ_ENABLE
+- [High] i2c: amlogic: IRQ storm on transfer timeout
+- [High] i2c: amlogic: race in lockless state initialization
+- [Medium] i2c: amlogic: crash due to early clock disable in remove
+--
+
+commit 5e779e1911cc216efb8179fa9e2910973c79bb74
+Author: Junyi Zhao <junyi.zhao@amlogic.com>
+
+i2c: amlogic: Add Amlogic A9 I2C controller driver
+   =20
+Add support for the new I2C controller used by Amlogic A9 SoCs.
+
+> diff --git a/drivers/i2c/busses/i2c-amlogic-a9.c b/drivers/i2c/busses/i2c=
+-amlogic-a9.c
 > new file mode 100644
-> index 0000000000000000000000000000000000000000..e3553e0eecd5027155b4dca5c0596e3140641aa9
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yaml
-> @@ -0,0 +1,68 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/qcom,nord-dprxcc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm DPRX Clock & Reset Controller on Nord
-> +
-> +maintainers:
-> +  - Taniya Das <taniya.das@oss.qualcomm.com>
-> +
-> +description: |
+> +++ b/drivers/i2c/busses/i2c-amlogic-a9.c
 
-We agreed to drop " |", didn't we?
+[ ... ]
 
-> +  Qualcomm dprx clock control module provides the clocks, and resets
-> +  domains on Nord.
+> +static irqreturn_t aml_i2c_irq(int irqno, void *dev_id)
+> +{
+> +	struct aml_i2c *i2c =3D dev_id;
+> +	int ret;
+> +	u32 rd_len, i;
+> +	u32 rd_val;
+> +
+> +	spin_lock(&i2c->lock);
+> +	ret =3D controller_is_error(i2c);
+> +	if (ret) {
+> +		i2c->error =3D ret;
+> +		goto complete_irq_out;
+> +	}
+> +
+> +	switch (i2c->state) {
+> +	case STATE_READ:
 
-You fixed it partially by dropping "power" but keeping "domains".
+[ ... ]
 
-Shawn
+> +	case STATE_WRITE:
+
+[ ... ]
+
+> +	case STATE_IDLE:
+> +		dev_warn(i2c->dev, "i2c irq triggered abnormally!!!, irq_state:0x%x,ir=
+q_en:0x%x\n",
+> +			 readl(i2c->regs + REG_CGF_IRQ_STATE),
+> +			 readl(i2c->regs + REG_CGF_IRQ_ENABLE));
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	if (!controller_is_done(i2c)) {
+> +		goto irq_trans_out;
+> +	} else {
+
+[Severity: High]
+Could an unhandled interrupt cause an infinite IRQ storm and CPU lockup her=
+e?
+When a transfer times out, aml_i2c_xfer_msg() resets the state to STATE_IDLE
+but doesn't appear to disable the hardware threshold interrupts. If the
+delayed interrupt fires, this handler logs a warning and returns IRQ_HANDLED
+without clearing the interrupt source.
+
+[ ... ]
+
+> +static void aml_i2c_do_start(struct aml_i2c *i2c, struct i2c_msg *msg)
+> +{
+> +	unsigned int reg_val;
+> +	unsigned int trans_len;
+> +
+> +	trans_len =3D msg->len;
+> +	reg_val =3D (unsigned int)((msg->addr << 1) |
+> +				((msg->flags & I2C_M_RD) ? START_READ : 0) |
+> +				((trans_len & 0xfff) << 12) | START_START);
+
+[Severity: High]
+Does this silently truncate I2C message lengths greater than 4095 bytes?
+The length is masked with 0xfff without returning an error to the caller,
+which could result in silent data corruption for large transfers.
+
+> +	aml_i2c_set_mask(i2c, REG_CFG_START,
+> +			 START_START | START_SLAVE_ADDR | START_READ | START_LEN, reg_val);
+> +	clear_irq_status(i2c, IRQ_ALL_MASK);
+
+[Severity: High]
+Could clear_irq_status() inadvertently drop a valid completion interrupt?
+If the hardware responds extremely fast (for example, generating a NACK on
+the address byte) immediately after START_START is written, the completion
+interrupt might get cleared before the handler has a chance to run, causing
+the transfer to spuriously time out.
+
+> +	/* enable thresh mode */
+> +	if (trans_len > A9_I2C_FIFO_DEPTH) {
+> +		reg_val =3D (msg->flags & I2C_M_RD) ? A9_RX_THRESH_READ : A9_TX_THRESH=
+_WRITE;
+> +		aml_i2c_set_mask(i2c, REG_CGF_IRQ_ENABLE,
+> +				 A9_RX_THRESH_READ | A9_TX_THRESH_WRITE, reg_val);
+
+[Severity: High]
+Is it safe to perform a read-modify-write on REG_CGF_IRQ_ENABLE here without
+holding i2c->lock? If a hardware interrupt asserts immediately after the
+transfer starts, a concurrent aml_i2c_irq() running on another CPU might
+also modify REG_CGF_IRQ_ENABLE, causing a data race that loses updates.
+
+> +	}
+> +}
+> +
+> +static int aml_i2c_xfer_msg(struct aml_i2c *i2c, struct i2c_msg *msg, bo=
+ol last)
+> +{
+> +	unsigned long time_left, flags;
+> +	int ret =3D 0;
+> +
+> +	i2c->msg =3D msg;
+> +	i2c->pos =3D 0;
+> +	i2c->count =3D 0;
+> +	i2c->error =3D 0;
+> +
+> +	i2c->state =3D (msg->flags & I2C_M_RD) ? STATE_READ : STATE_WRITE;
+> +	aml_i2c_prepare_xfer(i2c, FIFO_FILL_FULL);
+> +	i2c->pos +=3D i2c->count;
+> +	reinit_completion(&i2c->done);
+
+[Severity: High]
+Are these transfer state variables reinitialized without holding i2c->lock?
+If a delayed interrupt from a previous timed-out transfer fires concurrentl=
+y,
+it might read this inconsistent state or falsely complete this new transfer,
+potentially causing memory corruption or an invalid state machine transitio=
+n.
 
 > +
-> +  See also:
-> +    include/dt-bindings/clock/qcom,nord-dprxcc.h
+> +	if (last)
+> +		aml_i2c_add_stop(i2c);
+
+[Severity: High]
+While this clears the BUS_NO_STOP bit for the final message in a transfer,
+is there missing logic to restore it to 1 for non-last messages in new
+transfers? Without setting it back, subsequent multi-message transfers might
+incorrectly emit a STOP between messages, causing devices requiring Repeated
+START to fail.
+
+> +	/* Start the transfer */
+> +	aml_i2c_do_start(i2c, msg);
 > +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,nord-dprxcc0
-> +      - qcom,nord-dprxcc1
+> +	time_left =3D msecs_to_jiffies(I2C_TIMEOUT_MS);
+> +	time_left =3D wait_for_completion_timeout(&i2c->done, time_left);
 > +
-> +  clocks:
-> +    items:
-> +      - description: XO clock source
-> +      - description: DPRX CFG AHB clock from NWGCC
-> +      - description: Sleep clock source
+> +	/*
+> +	 * Protect access to i2c struct and registers from interrupt
+> +	 * handlers triggered by a transfer terminated after the
+> +	 * timeout period
+> +	 */
+> +	spin_lock_irqsave(&i2c->lock, flags);
 > +
-> +  power-domains:
-> +    description:
-> +      MMCX power domain.
-> +    maxItems: 1
+> +	if (!time_left) {
+> +		i2c->state =3D STATE_IDLE;
+> +		clear_irq_status(i2c, IRQ_ALL_MASK);
+> +		reset_fifo_pos(i2c);
+> +		ret =3D -ETIMEDOUT;
+> +	}
+
+[Severity: High]
+When a transfer times out, is it necessary to also disable the hardware
+interrupts in REG_CGF_IRQ_ENABLE? As currently written, the hardware might
+still assert a delayed interrupt once this function returns.
+
+[ ... ]
+
+> +static int aml_i2c_probe(struct platform_device *pdev)
+> +{
+> +	struct device_node *np =3D pdev->dev.of_node;
+> +	struct aml_i2c *i2c;
+> +	struct i2c_timings timings;
+> +	int irq, ret;
+
+[ ... ]
+
+> +	i2c->clk =3D devm_clk_get(&pdev->dev, NULL);
+> +	if (IS_ERR(i2c->clk)) {
+> +		dev_err(&pdev->dev, "can't get device clock\n");
+> +		return PTR_ERR(i2c->clk);
+> +	}
 > +
-> +  required-opps:
-> +    description:
-> +      MMCX performance point.
-> +    maxItems: 1
+> +	i2c->clk_rate =3D clk_get_rate(i2c->clk);
+> +	if (i2c->clk_rate =3D=3D 0) {
+> +		dev_err(&pdev->dev, "failed to get clk rate\n");
+> +		return -EINVAL;
+> +	}
 > +
-> +required:
-> +  - compatible
-> +  - clocks
-> +  - power-domains
-> +  - required-opps
+> +	ret =3D aml_i2c_init(i2c);
+> +	if (ret < 0) {
+> +		dev_err(&pdev->dev, "fail init i2c\n");
+> +		return ret;
+> +	}
+
+[Severity: High]
+Does aml_i2c_init() attempt to write to hardware registers before the clock
+is enabled? clk_prepare_enable() appears to be called further down in this
+function. Accessing unclocked registers could trigger a synchronous external
+abort on ARM and crash the system.
+
 > +
-> +allOf:
-> +  - $ref: qcom,gcc.yaml#
+> +	irq =3D platform_get_irq(pdev, 0);
+> +	if (irq < 0) {
+> +		dev_err(&pdev->dev, "can't find IRQ\n");
+> +		return irq;
+> +	}
 > +
-> +unevaluatedProperties: false
+> +	ret =3D devm_request_irq(&pdev->dev, irq, aml_i2c_irq, 0, dev_name(&pde=
+v->dev), i2c);
+
+[Severity: Medium]
+Since the interrupt is requested using devres here, it will remain active
+until the devres cleanup runs after aml_i2c_remove() returns. Could this
+leave a vulnerable window during removal where a spurious interrupt might
+attempt to read hardware registers after the clock has been disabled?
+
+> +	if (ret < 0) {
+> +		dev_err(&pdev->dev, "can't request IRQ\n");
+> +		return ret;
+> +	}
 > +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,nord-nwgcc.h>
-> +    #include <dt-bindings/clock/qcom,rpmh.h>
-> +    #include <dt-bindings/power/qcom,rpmhpd.h>
-> +    clock-controller@a940000 {
-> +      compatible = "qcom,nord-dprxcc0";
-> +      reg = <0x0a940000 0xc000>;
-> +      clocks = <&rpmhcc RPMH_CXO_CLK>,
-> +               <&nwgcc NW_GCC_DPRX0_CFG_AHB_CLK>,
-> +               <&sleep_clk>;
-> +      power-domains = <&rpmhpd RPMHPD_MMCX>;
-> +      required-opps = <&rpmhpd_opp_low_svs>;
-> +      #clock-cells = <1>;
-> +      #reset-cells = <1>;
-> +    };
-> +...
-> diff --git a/include/dt-bindings/clock/qcom,nord-dprxcc.h b/include/dt-bindings/clock/qcom,nord-dprxcc.h
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..62c26b58ebef04f05ea1dc77664c03aaad65baa4
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/qcom,nord-dprxcc.h
-> @@ -0,0 +1,27 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
+> +	ret =3D clk_prepare_enable(i2c->clk);
+> +	if (ret < 0) {
+> +		dev_err(&pdev->dev, "can't prepare clock\n");
+> +		return ret;
+> +	}
 > +
-> +#ifndef _DT_BINDINGS_CLK_QCOM_DPRX_CC_NORD_H
-> +#define _DT_BINDINGS_CLK_QCOM_DPRX_CC_NORD_H
+> +	strscpy(i2c->adap.name, "Amlogic I2C adapter",
+> +		sizeof(i2c->adap.name));
+> +	i2c->adap.owner =3D THIS_MODULE;
+> +	i2c->adap.algo =3D &aml_i2c_algorithm;
+> +	i2c->adap.dev.parent =3D &pdev->dev;
+> +	i2c->adap.dev.of_node =3D np;
+> +	i2c->adap.algo_data =3D i2c;
 > +
-> +/* DPRX_CC clocks */
-> +#define DPRX_CC_AHB_CLK					0
-> +#define DPRX_CC_AUD_CLK					1
-> +#define DPRX_CC_AUDIO_CLK_SRC				2
-> +#define DPRX_CC_CORE_AHB_DIV_CLK_SRC			3
-> +#define DPRX_CC_CORE_AUD_DIV_CLK_SRC			4
-> +#define DPRX_CC_CORE_RCG0_CLK_SRC			5
-> +#define DPRX_CC_CORE_RCG2_CLK_SRC			6
-> +#define DPRX_CC_CORE_RCG3_CLK_SRC			7
-> +#define DPRX_CC_MDP_MEM_CLK				8
-> +#define DPRX_CC_MMCX_XO_CLK				9
-> +#define DPRX_CC_PLL0					10
-> +#define DPRX_CC_PLL1					11
-> +#define DPRX_CC_VID_MEM_CLK				12
+> +	ret =3D i2c_add_adapter(&i2c->adap);
+
+[Severity: High]
+Could the silent truncation of large transfers observed in aml_i2c_do_start=
+()
+be avoided by setting the quirks pointer on i2c->adap here? Populating the
+quirks would allow the I2C core to properly enforce the 4095-byte hardware
+limit and return an error to the caller natively.
+
+[ ... ]
+
+> +static void aml_i2c_remove(struct platform_device *pdev)
+> +{
+> +	struct aml_i2c *i2c =3D platform_get_drvdata(pdev);
 > +
-> +/* DPRX_CC resets */
-> +#define DPRX_CC_DPRX_BLK_BCR				0
-> +
-> +#endif
-> 
-> -- 
-> 2.34.1
-> 
+> +	i2c_del_adapter(&i2c->adap);
+> +	clk_disable_unprepare(i2c->clk);
+> +}
+
+[Severity: Medium]
+Is the clock being manually disabled here before the interrupt handler is
+cleaned up? As mentioned in aml_i2c_probe(), the devm-managed IRQ is still
+active at this point. A spurious interrupt arriving after this line could
+crash the system by accessing unclocked registers.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-a9-i2c-v1-=
+0-b8ad9b46f4a8@amlogic.com?part=3D2
