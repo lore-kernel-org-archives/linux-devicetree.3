@@ -1,185 +1,108 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9330849F128;
-	Thu, 24 Sep 2026 15:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244DF49E5C3;
+	Thu, 24 Sep 2026 15:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262538; cv=none; b=uz2GY7DY4ZKTsl6EVIsmbaUqpbLlMD1e0Lc5y8sl5grn+fit0k3E00dDlakilLMjjkgXSuwllrqM2PG7RjOwm7GH+kgTrAktrc4ltp0ud1a3iKFQ2mBCuVq0eZ/Z3D7sDIW36AKDAh1wUp5UnbQrv8o9+lcDxF39BkzaMvPlf4U=
+	t=1790262577; cv=none; b=tmZV2MmwEXat38Y7HlCet2I2DiLDp5TbXuxfxfzKLEfML5gNhiZ+3Vn9b7ux16btCqugbesnPzqqaPntUONvyZya8rkwJOpbS37KpdwAvuD7ksVCI6xPcfsyYskxhWOBzSq6GesWiqJDL4/xhGDYiHvPPPKzw/HdcwiazOouAJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262538; c=relaxed/simple;
-	bh=djYEApXChJkEHMpATwAz8wyMNg0creUuTFwqHmIt6Cs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LKV6QUvd0lnHWmEsDChLDYhDrnF45Lfn/E7wK9/sGwrhpFyGETtRWIu0gfcO610gpOoUFMJNFonosI5Kb/RiGw0B56OHs2Y7HhkJIxOFLQu3g0HcTN5FdW4Wd94KqASeGAdcWy6aDIFXLkoXY3R3my9sok24s8vDgoMB5YqZK0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=CH0BjwRh; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=4aycOujk; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790262577; c=relaxed/simple;
+	bh=2Fpo5MM6aK9/ta1wmkY99C6Svz2yUm0E6zMrs9rOfEQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DTE7pxlT9AI5MQBpEcz0yCe+wYHfzwQSefpqL0WwBoXCwTLsXaxD2UhH4rJVIxcu15fsNwcUZ2YKkTbx/Mswbu3hLuhnumv6/6Efm94NbD0v/YGw6w+9uTuFV+U5l/7s6s8HNCo6cAYhXchmyG3rQNwlKqKPZZFEpBnEojW5QbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZPD/UuR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="CH0BjwRh";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="4aycOujk"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790262506; bh=XyvfbBnxjhqOQp2nCe828kG
-	o+XqB5Q1kcLv5JAgzgqE=; b=CH0BjwRhGcrH2qA8i+3yg9uzy42dpgmv2MNN4LO8/E+mR7Hhhp
-	59YSz+SqM9ZCBIdvyzN+GZgUVC7AaEjeANJPWgqUg6COzqq6RXzyzpyzVL53CGliP8DLCV3aNgR
-	irSHE5D6JU8iIoidBfKFoLE+bGbCr/8fFTAvG3Ir53hK8nCKvOjQxoo7MWtQddSQ944R2OGvqyM
-	gBqPkPtxPpTZmrTNYG6htYG0NMmxbg2lUx1xX4tB6d9+KdPhtyxQNiI12AsuHOhSDlHYb9qyd5H
-	0qo0s1nBiJsnibDiwfAN7U9P64///j26sPIwz0yQFeXc6M8Wa2Zv2TGyCFdMbqPa5yg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790262506; bh=XyvfbBnxjhqOQp2nCe828kG
-	o+XqB5Q1kcLv5JAgzgqE=; b=4aycOujkgQAR5zKU8QWaDZ0KbSlZ6Kqynw5Y9bu3NjMGVacY6c
-	UECpKzRPxmQe1LHEJsbKHb4I5kdCpFRPykAw==;
-From: Nickolay Goppen <setotau@mainlining.org>
-Date: Thu, 24 Sep 2026 18:08:14 +0300
-Subject: [PATCH v5 1/3] dt-bindings: display: panel: Add Novatek NT51021
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZPD/UuR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4CE31F000FF;
+	Thu, 24 Sep 2026 15:09:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790262575;
+	bh=qnT3ixunLFIcsAjvm1MF5xUw1NS9BffymW3jO86ZhsI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mZPD/UuREFS9Ha4QKyVR/WhrKQl17lxU2vNpGjmiBcC/QBebBahskJ6YXoAbHuETH
+	 45v8rkj68gKng+0vvnLzvfhlRDs42rWrQG8b6m5n882GDMgBiKZOECy083YsWtbHFn
+	 zvXKdcnbIZ5aKx9u4JIOxJkjzDlcw6aA9SdW3PejO8gTmHmCqaJMYLSZZk3zUNPtTh
+	 RpJAS38ca+PuWeaMKlpVAXxDYHD+F7wLelwf0/DK8wutYQC7kMk/qmBjJoeRhzG4qY
+	 xs/XlffAcPCHWg+4h6W5JlUvsMoEo1ICmbRjm7CTBfK/b6e2Rupcou3rQA+qMm3DId
+	 cCp5H2I8I6yag==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 4/4] PCI: of: introduce of_pci_verify_node()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alex Elder" <elder@riscstar.com>
+Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260924150222.1179235-5-elder@riscstar.com>
+References: <20260924150222.1179235-1-elder@riscstar.com>
+ <20260924150222.1179235-5-elder@riscstar.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 15:09:34 +0000
+Message-Id: <20260924150934.B4CE31F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-qcom-novatek-nt51021-panels-v5-1-f5eaf5685c9c@mainlining.org>
-References: <20260924-qcom-novatek-nt51021-panels-v5-0-f5eaf5685c9c@mainlining.org>
-In-Reply-To: <20260924-qcom-novatek-nt51021-panels-v5-0-f5eaf5685c9c@mainlining.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Nickolay Goppen <setotau@mainlining.org>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>, 
- Alexey Minnekhanov <alexeymin@minlexx.ru>, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790262503; l=3617;
- i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
- bh=djYEApXChJkEHMpATwAz8wyMNg0creUuTFwqHmIt6Cs=;
- b=dlIA+UAtKj7pWjP//Qz1T4Nvj/TmTz9d1Bo6LCYObaD+q9bMBlp0rE9uK2VpTfwLDpno15O8N
- /xAK09L6YTzAkKrvvB3c8hhER/lt2sCqFdGOSGBqq/MGGIU56/ST3J7
-X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
- pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 
-Novatek NT51021 is a display driver IC that can drive DSI panel. It
-is also present in the BOE TV101WUM-NX0 video mode panel, which is a WUXGA
-panel with a resolution of 1200x1920 and 10.1 inches size. It is found in
-Xiaomi Mi Pad 4 Plus. Also it's present in the BOE-TV080WUM-NX2 video mode
-panel, which also has a resolution of 1200x1920, but 8 inches size. It is
-found in Xiaomi Mi Pad 4. And also it's present in the BOE-TV101WUM-NM0.
-It's found in Amazon Fire HD 10 (2017).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] pci: of: unintended error-level logging in of_pci_verify_node()
+--
 
-Add the bindings for display driver for the IC, with support added
-for this BOE TV101WUM-NX0 and TV080WUM-NX2 WUXGA video mode panels.
+commit 0e8b20efbbe63f895449027a5712b691b9eeaa56
+Author: Alex Elder <elder@riscstar.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Co-developed-by: Ryan Brue <ryanbrue.dev@gmail.com>
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
----
- .../bindings/display/panel/novatek,nt51021.yaml    | 87 ++++++++++++++++++++++
- 1 file changed, 87 insertions(+)
+PCI: of: introduce of_pci_verify_node()
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-new file mode 100644
-index 000000000000..7754a8cb1e5c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/novatek,nt51021.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Novatek NT51021 based DSI display Panels
-+
-+maintainers:
-+  - Nickolay Goppen <setotau@mainlining.org>
-+
-+description:
-+  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
-+  panels.
-+  Right now, support is added only for a BOE WUXGA LCD display panels with a
-+  resolution of 1200x1920. They are video mode DSI panels.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - boe,tv101wum-nm0
-+          - boe,tv101wum-nx0
-+          - boe,tv080wum-nx2
-+      - const: novatek,nt51021
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: phandle of gpio for reset line - This should be 8mA, gpio
-+      can be configured using mux, pinctrl, pinctrl-names (active low)
-+
-+  vdd-supply:
-+    description: phandle of the regulator that provides the supply voltage
-+      for digital circuits
-+
-+  avdd-supply:
-+    description: phandle of the regulator that provides the supply voltage
-+      for analog circuits
-+
-+  havdd-supply:
-+    description: phandle of the regulator that provides the supply voltage
-+      for analog circuits
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - avdd-supply
-+  - havdd-supply
-+  - reset-gpios
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "boe,tv101wum-nx0", "novatek,nt51021";
-+            reg = <0>;
-+            vdd-supply = <&lcd_pwr>;
-+            avdd-supply = <&lcd_pwr>;
-+            havdd-supply = <&lcd_pwr>;
-+
-+            backlight = <&i2c_backlight>;
-+            reset-gpios = <&tlmm 62 GPIO_ACTIVE_LOW>;
-+
-+            port {
-+                panel_in: endpoint {
-+                    remote-endpoint = <&dsi0_out>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
+This commit introduces of_pci_verify_node() to verify the device_type prope=
+rty
+for PCI devices. It adds a runtime check during device enumeration to warn =
+if a
+bridge lacks a "pci" or "pciex" device type or if an endpoint improperly
+includes one.
 
--- 
-2.55.0
+> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+> index a51dff91b196d..5a040ed836744 100644
+> --- a/drivers/pci/of.c
+> +++ b/drivers/pci/of.c
 
+[ ... ]
+
+> +void of_pci_verify_node(struct pci_dev *pdev)
+> +{
+> +	struct device_node *np =3D pci_device_to_OF_node(pdev);
+> +	bool device_is_bridge;
+> +	bool device_type_pci;
+> +
+> +	/* Nothing to check if there's no pre-existing devicetree node */
+> +	if (!np)
+> +		return;
+> +
+> +	device_is_bridge =3D pci_is_bridge(pdev);
+> +	device_type_pci =3D of_node_is_type(np, "pci") ||
+> +			  of_node_is_type(np, "pciex");
+> +
+> +	/* Bridges should have device type "pci"; endpoints should not */
+> +	if (device_is_bridge =3D=3D device_type_pci)
+> +		return;
+> +
+> +	dev_err(&pdev->dev, "PCI %s have \"pci\" device_type property\n",
+> +		device_is_bridge ? "bridge should" : "endpoint should not");
+
+[Severity: Medium]
+The commit message states that these warnings are "meant to help developers;
+users should never see them."
+
+However, dev_err() logs unconditionally at the error level in
+of_pci_verify_node(), making it prominently visible to end users and
+potentially failing automated test suites on boards with legacy devicetree
+nodes.
+
+Should dev_dbg() or dev_info() be used here instead to match the stated
+developer-only intent?
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924150222.1179=
+235-1-elder@riscstar.com?part=3D4
