@@ -1,244 +1,120 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BC6414A15
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 21:22:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93EFB4A3407;
+	Thu, 24 Sep 2026 21:25:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790284964; cv=none; b=lMxqzQ9+xBHV5J+pY22p35CAxmZzGukbXgr4bjDyxhcA6ahmSt0akpJVHk1xFSLaGFjc739w6pGCkvC8QbknV35uZO3A7Y1Pw2Du0RdSNnt/6JdfyMPzkdFVJHCxcwj+1db5keysTS5Lv+WMZoOmQ5r5IdXDXsa4h//JoutiELE=
+	t=1790285153; cv=none; b=MLhGH5+YxHWO37tc9eovH/UYPCPmhEfOXGsKsRCTj4eyLrD701V/+wVfydkzx/ue/H6Prb0IhfzbkH2GvZS85mLzkfKxFnAdQ7/rVzoAi97DwV+BYihLYbENf5qINWnv5JG2W6i9uCepKoN3JrbVIQA0zDb7piyrWdejR62mR9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790284964; c=relaxed/simple;
-	bh=a8UW03hFC4y6xIrI/jY9IpQN2DP0E4+UInOOitHWCq0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RpRlVge24azDf/HM/SKEG+noW6hP5K16L1SSAtxe25QjuXZ+IeuAcbh5znhZbM3vTg4glhbG49BOwKUc3wCKLP+VDewemdlgXxtqayGHYqyRMzDtVslVQdM214hkDvUm8MtxWLpHY9m023wkJLuUqvWRl953cj3D7yDRl0miBNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UKWg6FeI; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790285153; c=relaxed/simple;
+	bh=vDvLYTI6tnYf3H2oS1lnjDD6CnfX1bxlGEfbPqjB158=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ExMdA8WJpanK7uX7D4Y8Uju7Kxn0VZ6Q+Xkof23jw6xDmXKGa+Cjpfj/MJxKCGecsp+9i1f16uSgCxLPSmAMhk/+3gfnYQQ/CcqYIx3reM5jo8KvsCwu1uuPYVpzr3QMMjmtuHbyunuwns8oS5Dye/x/5OIvBMPAjtQlCFV5YeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CeD8V6X3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UKWg6FeI"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398c066106cso202205a91.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:22:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790284963; x=1790889763; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XNeX0VLmUYHcPXZxiAvv/hSZfqe9z0guoQ2EWN7NS/g=;
-        b=UKWg6FeIp+QcZbBOi9RV8Vsv0ybC+q/eQVqfLW9gXNewL1D4v7MyuCnzSRSIZMm4Ya
-         cOcl4aI7OKLygx0FoKHCqsfc8AZp+mP1zMRP23MWAWOh6646wDaGF6bzNAwJ7dftM8tw
-         SJeD16wrp2Pa7gqrWpzaYA2KHl8Xo9BQHwxpLsZGTYWMtAi5FJC+qzeeCdcLYhXrag14
-         AcNwbzyL1+2s+SxjA1wnoRDigjo96wy7nDsKINvwAUrxuzGs/t3b4o9PA9B5yO1J5kRo
-         LF/xltEpKvIeZbFdJimhiyCwZKvWnST7j45zFQHVEBscPwZeMetjV+kmxkay1OzYFILW
-         PUFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790284963; x=1790889763;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XNeX0VLmUYHcPXZxiAvv/hSZfqe9z0guoQ2EWN7NS/g=;
-        b=pQhCxbku7DLi1OLJpj5fFt2lRwjs4aX4ssJHav+Gpnq8CS/QrTZ3VX6ZVZl5HAgEKO
-         zndX/Rs/ZR+3S7S3OCW1HP1di/etNTPqPSXEltKUwBRcOH+AGUK1lQM/uNNmaopg1YoL
-         YdcudM8p/+LtBa8YcJNYuP7/1ZRdzRRN7ku7hCfk80jxJRHXT2PMxB1S/WwtaImhK+fp
-         owW57a+yHwM2wdLW5jII4mCnc6aVIp+N7e1io2E/VIGJwi1Gv6FLmWTtOhOW9bJxpw9I
-         77L8dpzGsrZ5y17U7khWgF5o6/QnAL3UiXNgdhi7oH5JtJRnUXvth6sSER6HjnwFaKve
-         KgHw==
-X-Gm-Message-State: AFuF++lSabpQlQIYNsNWB1jVgaCpcxYZUfDl2lHP5gYVskR6BgWHzH0v
-	oT4oI+YyawzZO8iz86PTPubd8/aQLJVE7dHht4xCB05w1nT2mWTu9vROEPsvww==
-X-Gm-Gg: AYBFou3QPyj2HNp3ojhKCUJGu7s62ieVJM1bRgtjcwJN6tOf8SLKBCzgGoeKl3wRN6t
-	ieE+Ot5+3CnxHuI5mqr3WIPInJK4NeJQt5pJz2mYuOgoHLZwfA5hqHa1HqNxkJi3ZvWT7l/5H2r
-	L8UQOdHUE6EaUOZj3bMe3eAkwSGmai9obvPVMnJTqCVifd5oYsEc8YP+ZqYcVC8WBCu08QZh6P3
-	nf8vOchUsrJK/7raEvXoprX9XzOj3ajc1vEsdV/5XThFvxPGfwnpDmz/+j9yyvhXMZDZNvkIlg6
-	NKQ11uXqArVejTuXVxquARBwAPf/+dWvDeAOtIK8NkxASobgt9GdUc3/1vI6U3VRq6yZJDZnadp
-	BTTiAUIoreLy3Mid7++bndAPQvCSKwkaRX7EBItnGHGaCniCvzC3Xax7ThKaEIwFY0jXyQ94mGn
-	EBLnkh89EoCKL43hqDmf6SrLWVA5x6wmIz+6OuFyE7f0W0/G/vSWhqQ7dh6oLV8QG7tFQmB+85f
-	mz2tPbNi/5X42OYFTa38ufjZnuER5ThncHXK3LNruEzq+BwoKSC3+f2PHL2TxycnM3oFUShaHDK
-	k0DFFxUJsKaeUKT7v1oFQqmfKoPfQspMRr3lDQT+jAnCFOGsfhXb/Yg/hG0=
-X-Received: by 2002:a17:90b:4e8f:b0:39e:6c68:1551 with SMTP id 98e67ed59e1d1-3a09896c4demr3131575a91.25.1790284962600;
-        Thu, 24 Sep 2026 14:22:42 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b99e5711sm461579a91.17.2026.09.24.14.22.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 14:22:42 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-mtd@lists.infradead.org (open list:MEMORY TECHNOLOGY DEVICES (MTD)),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv3] dt-bindings: mtd: convert IBM NDFC binding to YAML
-Date: Thu, 24 Sep 2026 14:22:40 -0700
-Message-ID: <20260924212240.81857-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CeD8V6X3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3E91F000FF;
+	Thu, 24 Sep 2026 21:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790285148;
+	bh=Bq+vpYLOEWURPyiEZ/CsTCJauh1Qbcp+tLVo7e431Oo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CeD8V6X3U0SPJAdRZDCPsuo374AWmMX5ifcGdK/VX0pcSB35Ag/YaaKg/hieSPoE1
+	 dK3zk/sVdgyeWzOxWtuSxbAPu6wPyRV6Y6fsHLM/uRnE6hsL9hGUvRR7DavUMVdaos
+	 JCIt67/dfhWOMQeWeZHkNQe8rr0w7EFi1migb773AmCKfc+CobUs9SFuO2NsP5l74S
+	 1YBB3Bo6pu8EelkQS10Rq3DSSF79TOGwBc4VDM4hc65dimMaNA9NK4nQ8oTLp+1b4d
+	 cJ0Jwe3KexxuEaQ3jj/fNHFaCRAkJsadNbU5WWHZtuM95NMzr9OcumtL+Uw/9mitte
+	 o/Z6jTG00f2wA==
+Date: Thu, 24 Sep 2026 16:25:46 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v2 13/15] dt-bindings: iio: adc: adi,ad4134: Add high
+ data throughput example
+Message-ID: <20260924212546.GA1805605-robh@kernel.org>
+References: <cover.1789494473.git.marcelo.schmitt@analog.com>
+ <958894021cf7bd3012567d1dfabd7f2008fe8d31.1789494473.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <958894021cf7bd3012567d1dfabd7f2008fe8d31.1789494473.git.marcelo.schmitt@analog.com>
 
-The NDFC NAND flash controller was only described in a legacy text file,
-so dtbs_check reported "failed to match any schema with compatible:
-['ibm,ndfc']" for the ndfc nodes of the bluestone, canyonlands, eiger,
-glacier, sequoia and warp device trees.
+On Tue, Sep 15, 2026 at 04:16:06PM -0300, Marcelo Schmitt wrote:
+> Add device tree example for AD4134 operation in 4-wire SPI mode with 4
+> lines to transfer data samples to the host controller.
+> 
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> ---
+> No changes since v1.
+> 
+>  .../bindings/iio/adc/adi,ad4134.yaml          | 42 +++++++++++++++++++
+>  1 file changed, 42 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> index ad67d1cdacec..133996917ee2 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> @@ -243,4 +243,46 @@ examples:
+>  
+>          };
+>      };
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    ad4134_sdo_dout0_mux: mux-controller {
+> +        compatible = "gpio-mux";
+> +        #mux-state-cells = <1>;
+> +        mux-gpios = <&gpio0 100 GPIO_ACTIVE_HIGH>;
+> +    };
 
-Convert the binding to the YAML format so those nodes match the generic
-nand-controller-legacy schema.  Describe the node's reg, ccr and
-bank-settings properties, along with its "nand" chip node which carries
-the legacy partition layout.
+Drop. We don't put providers in examples.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v3: fix wrong regex
- v2: fix reg value
- .../devicetree/bindings/mtd/ibm,ndfc.txt      | 39 --------
- .../devicetree/bindings/mtd/ibm,ndfc.yaml     | 88 +++++++++++++++++++
- 2 files changed, 88 insertions(+), 39 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
- create mode 100644 Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
-
-diff --git a/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt b/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
-deleted file mode 100644
-index 869f0b5f16e8..000000000000
---- a/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
-+++ /dev/null
-@@ -1,39 +0,0 @@
--AMCC NDFC (NanD Flash Controller)
--
--Required properties:
--- compatible : "ibm,ndfc".
--- reg : should specify chip select and size used for the chip (0x2000).
--
--Optional properties:
--- ccr : NDFC config and control register value (default 0).
--- bank-settings : NDFC bank configuration register value (default 0).
--
--Notes:
--- partition(s) - follows the OF MTD standard for partitions
--
--Example:
--
--ndfc@1,0 {
--	compatible = "ibm,ndfc";
--	reg = <0x00000001 0x00000000 0x00002000>;
--	ccr = <0x00001000>;
--	bank-settings = <0x80002222>;
--	#address-cells = <1>;
--	#size-cells = <1>;
--
--	nand {
--		#address-cells = <1>;
--		#size-cells = <1>;
--
--		partition@0 {
--			label = "kernel";
--			reg = <0x00000000 0x00200000>;
--		};
--		partition@200000 {
--			label = "root";
--			reg = <0x00200000 0x03E00000>;
--		};
--	};
--};
--
--
-diff --git a/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml b/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
-new file mode 100644
-index 000000000000..e614c5855b42
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
-@@ -0,0 +1,88 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mtd/ibm,ndfc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: IBM/AMCC NDFC (NAND Flash Controller)
-+
-+maintainers:
-+  - Miquel Raynal <miquel.raynal@bootlin.com>
-+  - Richard Weinberger <richard@nod.at>
-+
-+description: |
-+  The NDFC is the NAND flash controller integrated into the IBM/AMCC
-+  PowerPC 44x SoCs.
-+
-+allOf:
-+  - $ref: nand-controller-legacy.yaml#
-+
-+properties:
-+  compatible:
-+    const: ibm,ndfc
-+
-+  reg:
-+    description: Chip select and size used for the chip.
-+    maxItems: 1
-+
-+  ccr:
-+    description: NDFC config and control register value.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  bank-settings:
-+    description: NDFC bank configuration register value.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  nand:
-+    type: object
-+    description: NAND chip attached to the controller.
-+
-+    properties:
-+      "#address-cells":
-+        const: 1
-+      "#size-cells":
-+        const: 1
-+
-+    patternProperties:
-+      "^partition@[0-9a-f]+$":
-+        $ref: /schemas/mtd/partitions/partition.yaml#/$defs/partition-node
-+        deprecated: true
-+
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    ebc {
-+        #address-cells = <2>;
-+        #size-cells = <1>;
-+
-+        ndfc@1,0 {
-+            compatible = "ibm,ndfc";
-+            reg = <0x00000001 0x00000000 0x00002000>;
-+            ccr = <0x00001000>;
-+            bank-settings = <0x80002222>;
-+            #address-cells = <1>;
-+            #size-cells = <1>;
-+
-+            nand {
-+                #address-cells = <1>;
-+                #size-cells = <1>;
-+
-+                partition@0 {
-+                    label = "kernel";
-+                    reg = <0x00000000 0x00200000>;
-+                };
-+                partition@200000 {
-+                    label = "root";
-+                    reg = <0x00200000 0x03e00000>;
-+                };
-+            };
-+        };
-+    };
-+...
--- 
-2.55.0
-
+> +
+> +    spi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        adc@0 {
+> +            compatible = "adi,ad4134";
+> +            reg = <0>;
+> +
+> +            spi-max-frequency = <1000000>;
+> +            spi-rx-bus-width = <1>, <1>, <1>, <1>; /* 4 lanes of 1 bit each */
+> +
+> +            pwms = <&ad4134_odr_generator 1 1000000 0>;
+> +            reset-gpios = <&gpio0 86 GPIO_ACTIVE_LOW>;
+> +            odr-gpios = <&gpio0 87 GPIO_ACTIVE_HIGH>;
+> +            powerdown-gpios = <&gpio0 88 GPIO_ACTIVE_LOW>;
+> +
+> +            clocks = <&sys_clk>;
+> +            clock-names = "clkin";
+> +
+> +            avdd5-supply = <&avdd5>;
+> +            dvdd5-supply = <&dvdd5>;
+> +            iovdd-supply = <&iovdd>;
+> +            refin-supply = <&refin>;
+> +            avdd1v8-supply = <&avdd1v8>;
+> +            dvdd1v8-supply = <&dvdd1v8>;
+> +            clkvdd-supply = <&clkvdd>;
+> +
+> +            mux-states = <&ad4134_sdo_dout0_mux 0>, <&ad4134_sdo_dout0_mux 1>;
+> +            mux-state-names = "data_read", "reg_access";
+> +
+> +            adi,spi-mode = "4-wire";
+> +        };
+> +    };
+>  ...
+> -- 
+> 2.53.0
+> 
