@@ -1,196 +1,434 @@
-Received: from mail-dy2-f32.google.com (mail-dy2-f32.google.com [74.125.229.32])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339982D5408
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 05:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63DF3D5C23
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 05:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790227834; cv=pass; b=Ho22doJDHemIvzT8UsbzCjeyMozP7EVphn2/Uw93gchI5y7jxFeKBAHqmkIhvICERrgKwknvyntK6aW9N6uebfIOmi0mtjbbGyNrAMOp+xK21qDiXXQV/svo2H35STS/YpKLjsF940U1i0yP0tfHG3RAu/+JE6L2asha532xvzw=
+	t=1790228243; cv=pass; b=RnEslXEjp41oWZC+udKAt8ftk83Iz56WuK07a6wGwsD3lrn68cXWVVcyfNDES/WO47MleFzEs9BvHReXKVjDRnc6sFkduMLPENTGTPnd+GIk0w0+NsZIQHRLkOokYEDCysvESnwmGUy9xFGERKaRnrQKo9mcIZ3NQWncOMk7MOg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790227834; c=relaxed/simple;
-	bh=Y6lfdMzfxBrctx+JVGwRqRWinjsXPeJStQCGnizzDN0=;
+	s=arc-20240116; t=1790228243; c=relaxed/simple;
+	bh=gYYABWvrzWCrywRLbq27Xdlb4j078Tukxz87WLwIhkA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I/q5L5bve24uvQKadb578W7ge9OxZaWveWP46WRrbO3iy8UChEUgSLIxKjEyrlq6TjvrIMtc5o2eSz46P4grkgBSygVAtWEKDuKyKgoHBkjbuER1QrXLfo1zRAHITeOZ8inPeA+gjT1kH4b9RvmSeWjq2NimXcM6efeUhM8D0TQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=cqKZ32fz; arc=pass smtp.client-ip=74.125.229.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	 To:Cc:Content-Type; b=J/XXO7hhi/rUh3AbAJRx40crN7/IMYdUzogxCyZhB51COZkw1SfQw/5uwjUtJcIDYITvVdrdwF90ktVK6eYZPfxskHaLE8oTS1EhjYxvKZYaiEtIVwYS+hTyanAbuUr6r/rWnaI3hQIEPabD7AP0/t+wnbvEo0GGrfzit02WkUQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net; spf=pass smtp.mailfrom=tomeuvizoso.net; dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b=pDIxdPdn; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tomeuvizoso.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tomeuvizoso.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="cqKZ32fz"
-Received: by mail-dy2-f32.google.com with SMTP id 5a478bee46e88-33b9e805130so1268526eec.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 22:30:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790227832; cv=none;
+	dkim=pass (2048-bit key) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b="pDIxdPdn"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ca5aa7so152777185a.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 22:37:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790228236; cv=none;
         d=google.com; s=arc-20260327;
-        b=oLRtJ0Mhls/ReEzJEp6elj/RS51UVTNExcrk4Zm1hCAw6DYaETqkjZp4j5RBLkD+Ht
-         f+x6un00Dw3bWurkwVmQorR6Zn569QhgKFVeCTUGiBFAa8MHcoaYNDqULOYHPq9KkaKZ
-         Hxw5drklVXv2uSL9q1hr7aKTuvLfKNrXnalBecrjv9drI5oNDa2wu1M+FXGZunqxeNAT
-         hjSftNiMiDVlg+M0mchIPI7DJNtdhxMdOBNPWGpufJyhnNjBlCd2YZL+CWICTlrnskQU
-         8yFTXRZbGqC50k8mOmg/idE0YKr7Byce+YYPNIVp4dD8KghVeBrzaG/m6wiG8Saem4uv
-         y8Ig==
+        b=NCkD7U/BFIvkoJWib4IA6G+kWrcZwqZbzlZQ2rD68WJSmzteaVibe8Hioqepb67dEw
+         CO+el66gQ5+b+CS8aYTkeJjwgcTSs471oQEw4HFiLQoD3uIdJen8YaFOgz/q15INAQvg
+         rqYBFybvn5NMFy7qeQBU3kLYGfaDcOev8LW8hgkRJA6L+pjhD0paIQBGaBEKMgtsyWev
+         kr+rTdUsk3XuOxmAva70H6E6GweNbfXdD9lCOwBfzuJTxilzGBH4IHyPsS6mP3qsbI0U
+         4C2kpwuZKWTy79GsVItOtYVJzdNcjX/6EY1NCDxts9jHeeBR1e3j0ZSd3fK081PcZWNc
+         baDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=g/rW7+9DYBHHx7/UU3/p+sXhhnDN4m/dqMHLzOkRYuw=;
-        fh=JoFdvdMjv3FxYr3Qvjmvuw9KkMbe2IpU5SwqRA6pKiE=;
-        b=hFy9O5ueVewPjXNinl9kVmcbz/yp54IG8M3b1PjxoFBr7EUYTTMKcGiteTdvxpkkJE
-         N4gst+Q1/GkAFFtlTHo29H/MTejVFGwfbejMbvykReYhXGxdz660UbwaPA9Zu6ifGIQc
-         fbI0hjRimFw5Kx2TmhorE5kChPTu+VbpEd3S31pfgoZqD6/XJfYOjgCmvsqahlRAz0KG
-         IVCN6eY7ZoNa3HSAXvD/hJESNfT2eHGan+ebfcMxRhjM9wZIUXDpbmODQ5eHlSLYtMt0
-         Pf8zgrAnLfmY0ILf3kFZEdRA0OOfClvDTq05Hy3hqffpm09wouzCUx31/ZIa/ZA/WQqF
-         qDBA==;
+        bh=JbMG4zqiZ/OkaBccj6JyoRnc/aUdA2Ht5rV8ITRVvvY=;
+        fh=OY9pEr6FA2Fk8Ug6vYcXqhEaP5aWwCGYzceWHbcL0k4=;
+        b=V30OUpJomQWR5X5iU0ROh3Zixi1xVBvVbi6YJaYUb+nAsZoBZ0ouer8QMtwNTrvKrU
+         Ehz4wh9/Aw6dYr6U4dWv0HZLiyLfRzOvXfeq/SzVfGYzhUnKVAmmr4NSyW+8lVoqUmYo
+         HMRnVFd7Y5KCROTa8C6vCtARRZ6ALqvwqp9BRpivsZB9/yKLs3UvG2F7UK9tDjcipoGB
+         rEGaZcKMv1PYk5fIUX7G9asdU2JGib0bv1cjjyErT4lTR58PgcGv38krq+gxqxQrticC
+         sxTaKm2MToCSdJoAWxasfGS9Q0yR8JFl3k/5FWeiJXrG935jK554OJ0FfTQRWiMsQ7NR
+         hj2g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1790227832; x=1790832632; darn=vger.kernel.org;
+        d=tomeuvizoso-net.20251104.gappssmtp.com; s=20251104; t=1790228236; x=1790833036; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=g/rW7+9DYBHHx7/UU3/p+sXhhnDN4m/dqMHLzOkRYuw=;
-        b=cqKZ32fzb5+rZNhbvs7BqlbuV+ArnWdl9kU55DykaD4nll5Buwuz2CK1Kpaat0oT4o
-         wTF9q0wqkPThmEA3GMsQDdE+ad7P1tAnOssIn22LjC5AtTxG8uvRUi47ztDsDjZ56jqL
-         xEUi0M38EotP/ond7iJ4B6hM7WjsDrGK4nO1k=
+        bh=JbMG4zqiZ/OkaBccj6JyoRnc/aUdA2Ht5rV8ITRVvvY=;
+        b=pDIxdPdnXtU2b5B/YBisvN8sapESpvKCZnocHMRuWAHZQv5Kr2XhdXZXGZBSXzyYpY
+         vxPU5ehN3FFHQDqI7Ta1Iu7R6D3K77eHlnzaiz3BV/Om6PeJgBKWT3rJGFsFbQkHnnzs
+         sRuPOFa/njBWDYve+zCtnD3MAynoo2C4yS3lIXbBQR/5nqURxwZ/9W8/FWoRbizLuGiG
+         JCzOcsnhWGr3HtjANXaJxUNJXrxKf+HinOisjj49zfYYWOxOPWlWac5ey1xzYIRMEswQ
+         5wjgtdakb9lRe8QwaX0kfjrynvJHMdJGG+Yguo0IyFf9N4v/Jj4kDTjogzwKK5xV2tuz
+         /GBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790227832; x=1790832632;
+        d=1e100.net; s=20260707; t=1790228236; x=1790833036;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=g/rW7+9DYBHHx7/UU3/p+sXhhnDN4m/dqMHLzOkRYuw=;
-        b=RtkcAkyc6ylvwRlieFKbw8Zl1IVpyqWR/V0ZJLOfvX4afaHktTucBpLrYErm1SPeMD
-         UgF0QeaXJOMOcId4Frgp1Fm/xkAQMStJ1FTg7ifsTCiU67CSgHKAvF1dpsggquqUq4rQ
-         yCpTrWYeRtx6Q5xWMzhsR0jmidUznmsqz6FBwMqh6CgiXH2W75jh/ej8rKYy4C6F+e5L
-         3kgKr7ToLtlehorPE4hnA8v6ljj3LL6tDTOPQKBFiTQpr9CcRMwOTNu0s4n1fpFCVCWo
-         RMQNFDLraHI5hPEMUsxbzJDLE6tcrQoy8LWXeywYeT1/JtIbWsyBeQtAcvDSjGUg1Z3P
-         naAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxkq29XXwxQ2aIrB5lIVLRW3VJpFUYmDzqWu+T+h6O/UgoCKCRKOU34vhZWUcVRpo11EtKX9qn9b071@vger.kernel.org
-X-Gm-Message-State: AFuF++lCawz9QX4zBJFCcohcWe9GIRzaXyvlAICsHZT4reRNFKt+PEdA
-	FaDW+7mk+hpvtxAOfQ2wNZyj+4KKofAVlNBNXPOO4PvQurUYudKwZmW5K51hew95yk9g5anNy8T
-	dffPLntTkOAJFO2CFeoTzJQwTpAc2KexmlklOTzfUiMf0D1PR7na1fbVffg==
-X-Gm-Gg: AYBFou3lkISfrANtAItffE97rmogZVQKC+DYaFEDpdF10Lktj8OkOw2QMgLxpzcc9hf
-	eO1D7TBm335wTCJSQ9aSlg1EWB/WcbikVotqtk/xOyPkFUcThm2we8En2Gy/XhFxz5t91a0llcx
-	CVvcraZEicyu0udE7Y91Yk9hknLDAaa8xy1xu6ZOx3I4Swz4O4wuglsOnrKfJGOOCCeo0wTg2fU
-	l0pXog/PlklnIHgblO1ihfTV8mH/yD2y1g/22g2EoSd5xxd8DZFBR7TDmCpGU43+HFSnG59ax/Z
-	4TP1LIvdu7FU9GERCFcIWX01Yzne0Fr4SPFyF+dF0Z9aS4WR/bZd7a+7XwlkrKd5SVCKlcOHLRo
-	eCRJQ2ZF40g==
-X-Received: by 2002:a05:7300:8d14:b0:33b:e264:362a with SMTP id
- 5a478bee46e88-34004a89a19mr1123625eec.13.1790227832039; Wed, 23 Sep 2026
- 22:30:32 -0700 (PDT)
+        bh=JbMG4zqiZ/OkaBccj6JyoRnc/aUdA2Ht5rV8ITRVvvY=;
+        b=McfZyFthvIgQ2oxc4Pt9Oj7MxdAv3/GEULrtLmAj+qUeJJ7abg+XE6qByEH8gIALgD
+         0r/ItgtAenZW2Z5Q+8Hdawkk3yZn/hGA72wbWSpDUhSVCDwz9alYucRKpBgS73XdRRn6
+         pbLUWAkDNc68s8sZl0xE6kOrYvz+BqHNSI5hMlq58dQhIzqchcf7bwD3Eg7dgkxgb/mg
+         Ec6tUhS2xKK9S7vjU6jYGdeNuS8uPgmGAoWn6HmbSNKsOBppS21uKiyuuB179eMOaU8g
+         v/69goWVF6Q8X2GOCEd9u6BeB6LN1/ws6J0okLmlHX3oy1dw9k8DJKI7j2VIH5eC914S
+         fxaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBydAokoYxJwLJjvQlox4uE8Wd7SQHfOSX1+vnHVVlAOe0EDej3hnveoDVFQnVdWRm3IufBQpWG6EUe9@vger.kernel.org
+X-Gm-Message-State: AFuF++nv0Xkn9nv4gfRtbxogrIIMCiJw78pbqdxSRzjt/rSY1Z0nIU4S
+	67V743mEP7P3T+UcPR0M+5WDwVEuVxAyWoYtXon/ppkc1zX9M8n7F4/7B3w4eFRW1n36l8t63sB
+	KpeKEd8bFkyHaKogdW6oKK9azn3kYc/tLAj/kTq11Tg==
+X-Gm-Gg: AYBFou1oArq/eXx41mVicfGjm94j4XBJsTQFwe0g/Bj6vzTPuMCP4WC6iW0X3lXT1Lr
+	LmZQPyEvj/mt2EjfHNiF0y/T6GV3CRS0N0GlKypJYxxipGYGclAW67RDHKUNAYX/42+XYCHwqBu
+	QzfK7T1jVUbMAYsGgqdFAdvfgJhcMdxUbxGEO9KbT2FDQ7GfMrWcbsxoc21TL3u8uy/UqjH89rn
+	EyHT6RyieNH8YPdpvFyQt+avXdAuE4zVbYR5OYRk/aj1eC7yYmp2ATY9VWqNCsngfrmPJeMmwWx
+	F3TK0znzN0PIMYRDJylyQmczKSyvneueJiGDNM/WtEXw3BOB7XqmmkXGpHwVGx3GIw==
+X-Received: by 2002:a05:620a:454d:b0:939:7c8:78a9 with SMTP id
+ af79cd13be357-93c3624c437mr124018985a.3.1790228235521; Wed, 23 Sep 2026
+ 22:37:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260522101653.2565125-1-paulk@sys-base.io> <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
- <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com> <arQxC3DmDyVIGdqq@collins>
-In-Reply-To: <arQxC3DmDyVIGdqq@collins>
-From: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
-Date: Thu, 24 Sep 2026 07:30:20 +0200
-X-Gm-Features: AclHuK9fIcxWA7Sv69t_uK1zMqbihMAU90hONvsInRjWG6YY9lFMwau8XYvA7qg
-Message-ID: <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
-Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E support
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, devicetree <devicetree@vger.kernel.org>, 
-	"open list:FREESCALE IMX / MXC FEC DRIVER" <imx@lists.linux.dev>, 
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, LKML <linux-kernel@vger.kernel.org>, 
-	linux-media <linux-media@vger.kernel.org>, Rob Herring <robh@kernel.org>, 
+References: <20260922080114.44662-1-royalnet026@gmail.com> <9cc5365470490b4b66364e60fb614ccda7e86c6f.camel@ndufresne.ca>
+In-Reply-To: <9cc5365470490b4b66364e60fb614ccda7e86c6f.camel@ndufresne.ca>
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Date: Thu, 24 Sep 2026 07:37:04 +0200
+X-Gm-Features: AclHuK8Y0NEf5VN1Cbu5OA6iR9xp1rCRe0K2JWI2xywYRTGFTyVhElExJIQj77o
+Message-ID: <CAPsqS2SC1GvzALUdf2xsHZDpNjDO7BXrmzk19OYTF6YopQc8iw@mail.gmail.com>
+Subject: Re: [PATCH v2 00/11] accel/rocket: DVFS for the RK3588 NPU
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Igor Paunovic <royalnet026@gmail.com>, Oded Gabbay <ogabbay@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, 
-	Michael Tretter <m.tretter@pengutronix.de>
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>, 
+	Sidong Yang <sidong.yang@furiosa.ai>, Diederik de Haas <diederik@cknow-tech.com>, 
+	Sebastian Reichel <sebastian.reichel@collabora.com>, Jiaxing Hu <gahing@gahingwoo.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Guangshuo Li <lgs201920130244@gmail.com>, 
+	=?UTF-8?Q?H=C3=BCseyin_BIYIK?= <boogiepop@gmx.com>, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Paul
+On Wed, Sep 23, 2026 at 9:29=E2=80=AFPM Nicolas Dufresne <nicolas@ndufresne=
+.ca> wrote:
+>
+> Le mardi 22 septembre 2026 =C3=A0 10:01 +0200, Igor Paunovic a =C3=A9crit=
+ :
+> > The rocket driver runs the NPU at whatever rate the devicetree pinned
+> > it to: 200 MHz on the RK3588, out of the 1 GHz the hardware reaches.
+> > This series adds devfreq, the OPP table and the thermal plumbing that
+> > go with it.
+> >
+> > v1: https://lore.kernel.org/r/20260904130858.27803-1-royalnet026@gmail.=
+com
+> >
+> > As Tomeu asked [1], the slot-search fix now leads the series, with the
+> > two rocket fixes this builds on and, as patch 4, 2/2 of my July
+> > lifecycle series [2], without which v2 oopsed when one core was unbound=
+,
+> > bound and unbound again. KASAN found that v1 4/7 (now 8) kept a clk
+> > handle that unbinding freed; the notes under each --- list the rest.
+>
+> In future series or update, can you use common formatting in the future, =
+I find
+> your changelog hard to read. Do something like:
+>
+>   Since v1:
+>    - Changed patch X with action Z
+>    - Fix blabla
+>    - ...
+>
+> Its actually good to be more concise in your communication, "wall of text=
+" are
+> difficult to cope with for maintainers.
 
+I will go a bit further and recommend you to not let the LLM write any
+text at all that is to be consumed by humans. If you don't feel
+confident in your English, you can ask it to correct and improve your
+text. Or write it in your mother language and ask it to translate.
 
-On Wed, Sep 23, 2026 at 10:05=E2=80=AFPM Paul Kocialkowski <paulk@sys-base.=
-io> wrote:
+Otherwise, if I need to make sense of what the LLM wrote (and they
+will happily write a lot!), then I need to find big slots of time to
+go over this kind of submissions, which is difficult for me now.
+
+Regards,
+
+Tomeu
+
+> cheers,
+> Nicolas
 >
-> Hi Michael,
->
-> Le Wed 23 Sep 26, 14:10, Michael Nazzareno Trimarchi a =C3=A9crit :
-> > I tested on px30 and achieved working H.264 encoding with some small ch=
-anges
->
-> That is a bit surprising, the Rockchip PX30 should come with a Hantro H1
-> (using a modified register layout) while this driver is for the
-> Hantro VC8000E, which is a newer generation with very different registers=
+> >
+> > Hardware constraint
+> > -------------------
+> >
+> > The three cores share one clock and one supply. The clock comes from a
+> > PVTPLL inside the NPU power islands: for a PVTPLL rate the firmware
+> > programs NPU GRF registers inside the islands, for the 200 MHz boot rat=
+e
+> > it only switches CRU selectors to GPLL (clk_npu_set_rate() in
+> > plat/rockchip/rk3588/drivers/scmi/rk3588_clk.c, TF-A v2.12.0, which
+> > Nicolas pointed me to). An island powered up while the clock is above
+> > the boot rate never acknowledges the power-on, and the next register
+> > access into it takes an asynchronous SError. Returning to the boot rate
+> > is safe at any time; raising the clock is not, so while it is above the
+> > boot rate every core is held runtime resumed and no island can
+> > transition. Unbinding any core takes devfreq down until all are bound
+> > again.
+> >
+> > The firmware accepts only the nine rates of its rk3588_npu_pvtpll_table=
+,
+> > 300 to 1000 MHz in 100 MHz steps plus 200 MHz, and refuses any other.
+> > The refusal never reaches the caller: clk_change_rate() ignores what
+> > ->set_rate() returns, so clk_set_rate() reports success and the clock
+> > stays put. Hence patch 7 names exactly those nine.
+> >
+> > The table is on all three cores with opp-shared (Nicolas's review);
+> > the one devfreq device sits on rknn_core_0, the lowest devicetree index=
 .
->
-> Maybe you ended up using CPU-based decoding when testing?
-
-Using
->
-> All the best,
->
-> Paul
->
-> --
-> Paul Kocialkowski,
->
-> Independent contractor - sys-base - https://www.sys-base.io/
-> Free software developer - https://www.paulk.fr/
->
-> Expert in multimedia, graphics and embedded hardware support with Linux.
-
-I have added your patch to gstreamer
-
-v4l2codecs: add the stateless H.264 and VP8 encoder elements
-
-Backport of the encoder work from the branch v4l2codecs/h264enc of
-https://github.com/paulkocialkowski/gstreamer (commit f59de5779ef1, based
-on release 1.26.0) onto the gstreamer1.0-plugins-bad 1.28.5 this build
-uses.
-
-Generate the right element and encode stream:
-
-gst-launch-1.0 videotestsrc num-buffers=3D100 !
-video/x-raw,width=3D720,height=3D576 !  v4l2slh264enc ! h264parse !
-matroskamux ! filesink location=3D/tmp/t2.mkv
-
-And playback over Wayland.
-
-Solve some problem. I have implemented:
-
-const struct hantro_variant px30_vpu_variant =3D {
-        .enc_offset =3D 0x0,
-        .enc_fmts =3D rockchip_vpu_enc_fmts,
-        .num_enc_fmts =3D ARRAY_SIZE(rockchip_vpu_enc_fmts),
-        .dec_offset =3D 0x400,
-        .dec_fmts =3D rockchip_vdpu2_dec_fmts,
-        .num_dec_fmts =3D ARRAY_SIZE(rockchip_vdpu2_dec_fmts),
-        .codec =3D HANTRO_JPEG_ENCODER | HANTRO_H264_ENCODER |
-                 HANTRO_MPEG2_DECODER | HANTRO_VP8_DECODER |
-                 HANTRO_H264_DECODER,
-        .codec_ops =3D px30_vpu_codec_ops,
-        .irqs =3D rockchip_vpu2_irqs,
-        .num_irqs =3D ARRAY_SIZE(rockchip_vpu2_irqs),
-        .init =3D rk3036_vpu_hw_init,
-        .clk_names =3D rockchip_vpu_clk_names,
-        .num_clocks =3D ARRAY_SIZE(rockchip_vpu_clk_names)
-};
-
-I have advertised the:
-
-       {
-                .fourcc =3D V4L2_PIX_FMT_H264_SLICE,
-                .codec_mode =3D HANTRO_MODE_H264_ENC,
-                .max_depth =3D 2,
-                .header_size =3D H264_ENC_HEADER_SIZE,
-                .frmsize =3D {
-                        .min_width =3D FMT_MIN_WIDTH,
-                        .max_width =3D FMT_FHD_WIDTH,
-                        .step_width =3D MB_DIM,
-                        .min_height =3D FMT_MIN_HEIGHT,
-                        .max_height =3D FMT_FHD_HEIGHT,
-                        .step_height =3D MB_DIM,
-                },
-        },
-
-Create the rockchip_vpu_hw_h264_enc.c. I need to test this on rk3399
-
-I have a small change only in the common part. Hope that it's a bit clear.
-
-Michael
+> > Patch 9 explains the maximum over the cores and why runtime suspend
+> > does not call devfreq_suspend_device().
+> >
+> > Testing
+> > -------
+> >
+> > Orange Pi 5 Plus, 7.3.0-rc2 (drm-misc-next 3afbeb6b99dd) plus this
+> > series, in-tree rocket, BL31 v2.12.0-10-g70d814213: the edk2-rk3588 TF-=
+A
+> > branch with upstream d2d6928641ba, so that it reports the PVTPLL rate i=
+t
+> > measures. MobileNetV1 through Teflon, 3 x 20 s per arm, one thread
+> > pinned to one CPU, CPUs on the performance governor, a bit-exact oracle
+> > on every inference, polling_interval at the driver's 50 ms, core 0's
+> > interrupt on a CPU with its deep idle state disabled.
+> >
+> > cur_freq is only the driver's request and scmi_clk_npu on the GPLL path
+> > echoes the last accepted rate, so the CRU selector is the witness
+> > (CLKSEL_CON74 bit 0 =3D PVTPLL, CLKSEL_CON73 =3D GPLL divider), read on=
+ce a
+> > second:
+> >
+> >   200 MHz OPP, userspace     91.15 inf/s   CRU GPLL/6 =3D 198 MHz, 700 =
+mV
+> >   1000 MHz OPP, userspace   234.45 inf/s   CRU PVTPLL (BL31 1 GHz), 850=
+ mV
+> >   simple_ondemand           232.88 inf/s   OPPs 200-1000 MHz
+> >   200 MHz OPP again          90.87 inf/s   drift 0.997
+> >
+> > That is 2.57x pinned and 2.55x under the governor, 0.7 % below pinned;
+> > the oracle and the interrupts per inference were the same in all four
+> > arms.
+> >
+> > Three clients, each with its own oracle, all three cores computing
+> > together, output bit-exact and identical to a single-client control:
+> >
+> >   OPP                one client   three clients              total
+> >   900 MHz, 800 mV      234.42     199.33 + 198.95 + 199.19   597.47 inf=
+/s
+> >   1000 MHz, 850 mV     240.49     203.16 + 203.01 + 203.46   609.63 inf=
+/s
+> >
+> > After 25 s of load the governor is at the 200 MHz OPP from the first
+> > sample (0.24 s apart) through the 60 s idle window: CRU 198 MHz in all
+> > 60 one-second samples, rail 700 mV. The islands were power-cycled five
+> > times at 700 mV and powered down once more after a raise to 1000 MHz.
+> > All six bind orders give bit-exact output, with devfreq and cooling bac=
+k
+> > on rknn_core_0 after every rebind.
+> >
+> > Unbind and reload: 25 rounds of all three cores, 4 of a single core wit=
+h
+> > an inference while it was gone, 5 rmmod rounds, and 3 unbinds plus 1
+> > rmmod with the clock raised (CRU on the PVTPLL before each). Without
+> > patch 4 the single-core round oopses, as its commit message shows.
+> >
+> > On a KASAN, kmemleak and PROVE_LOCKING build of the same tree the unbin=
+d
+> > (no client submitting), reload, three-client and island tests gave no
+> > report and kmemleak nothing from this driver, and a lockdep run through
+> > the governor, cooling, three clients, and unbind and rmmod with the
+> > clock raised to the 1 GHz OPP left lockdep enabled.
+> >
+> > Build: the series was rebased onto drm-misc-next 8ef59ee79407 to send
+> > it; apart from one comment corrected in 9 (rocket_devfreq.o is
+> > byte-identical), the patches are the ones tested above. On that base,
+> > arm64, gcc 13.3: each patch that touches drivers/accel/rocket builds
+> > with W=3D1 and no warning, and sparse reports nothing in
+> > drivers/accel/rocket; 9, 10 and 11 also build with W=3D1 and no warning
+> > with CONFIG_DEVFREQ_THERMAL=3Dn. dt_binding_check at 6 and 11, and
+> > CHECK_DTBS on rk3588-orangepi-5-plus, rk3588s-orangepi-5 and
+> > rk3588-edgeble-neu6b-io at the base, 7 and 11, give no schema warning.
+> > A full Image, modules and dtbs build at 11 completes with no warning
+> > from drivers/accel/rocket. checkpatch --strict flags only the 75-column
+> > oops line in 4 and MAINTAINERS for the new files in 9, which
+> > F: drivers/accel/rocket/ covers.
+> >
+> > Two corrections to my reply of 9 September [3]: the supply could have
+> > come down to the 200 MHz voltage even had the clock change failed, sinc=
+e
+> > the refusal is not reported, so the CRU selector is the witness now; an=
+d
+> > the v1 governor arm was the governor running, not limits pinned by hand=
+.
+> >
+> > Not done
+> > --------
+> >
+> > - Unbinding a core while clients submit is still unsafe. Patch 3 notes
+> >   that an open file keeps an entity on the departed core's scheduler;
+> >   on the KASAN build (three clients running, then as root
+> >   "echo fdac0000.npu > /sys/bus/platform/drivers/rocket/unbind") that
+> >   is a use-after-free:
+> >
+> >     BUG: KASAN: slab-use-after-free in _raw_spin_lock+0xb4/0x118
+> >      drm_sched_rq_remove_entity+0x94/0x2b0 [gpu_sched]
+> >      drm_sched_entity_select_rq+0x1f4/0x698 [gpu_sched]
+> >      drm_sched_job_arm+0x50/0x258 [gpu_sched]
+> >      rocket_job_push+0x2f8/0x6b8 [rocket]
+> >      rocket_ioctl_submit+0x888/0xd28 [rocket]
+> >     Freed by: drm_sched_fini <- rocket_job_fini <- rocket_core_fini <-
+> >               rocket_remove
+> >
+> >   then a soft lockup: drm_sched_fini() frees the run queues while the
+> >   entity still points at one. drm-misc-next has the same path (read,
+> >   not run): rocket_job_open() builds the entity over every core, and
+> >   rocket_remove() ignores open files. The fixes I see are policy,
+> >   suppress_bind_attrs (undoing patch 4) or unplugging the DRM device
+> >   when any core goes. Tomeu, which would you prefer? I will write it.
+> > - Probe and remove are not serialised against open, and a file opened
+> >   while a core probes can see its scheduler uninitialised; both predate
+> >   this series.
+> > - Lifecycle 1/2 [2] (a devres leak that moves the accel minor up after
+> >   every full unbind and rebind, invisible to kmemleak) builds on
+> >   Guangshuo Li's "accel/rocket: clear rdev on device init failure" [4],
+> >   which is not in drm-misc-next. Sashiko's other pre-existing findings
+> >   on the standalone slot-search patch, which I agreed with [5], stand
+> >   unless patch 4 covers them.
+> > - Not exercised: a devicetree without the OPP table or without
+> >   assigned-clock-rates (code-read only), throttling at 85 degrees (not
+> >   reachable here), system suspend (s2idle does not resume on this board=
+,
+> >   for reasons outside the NPU), kexec from a raised clock, and any othe=
+r
+> >   board. No milliwatt figure, no energy model.
+> >
+> > Routing
+> > -------
+> >
+> > Patches 1-4 are fixes with Cc: stable and 9 builds on 1, 2 and 4, so th=
+e
+> > simplest route is all but the two dts patches through drm-misc-next. Th=
+e
+> > binding (6) must land before those (7 and 11, Heiko's tree), which I ca=
+n
+> > resend once the rest is in. 1-3 supersede their standalone postings
+> > (links under each ---); 5 is also 01/14 of Jiaxing Hu's RK3576 series,
+> > and whichever lands first, the other drops it. I have not rebased onto
+> > that series.
+> >
+> > Questions
+> > ---------
+> >
+> > Q1. DT maintainers: is opp-shared on all three cores the right
+> >     description of one clock and one supply? v2 leaves opp-suspend out;
+> >     Nicolas found it "not 100% fit" for 200 MHz but not unfit either,
+> >     and asked for your view [6].
+> > Q2. Maximum over the cores, or a summed busy count? And no OPP table
+> >     means no devfreq and no error, as in panfrost and lima: the policy
+> >     you want?
+> > Q3. assigned-clock-rates stays on all three nodes. Jiaxing reports that
+> >     on the RK3576 it hangs the board before the console when set on the
+> >     SCMI clock, and that the vendor driver never writes that rate from
+> >     DT [7]. I have not booted this board without it. Keep it, or drop i=
+t
+> >     in a patch on top?
+> >
+> > Nicolas also floated the component framework; I have not tried it.
+> >
+> > Credits
+> > -------
+> >
+> > Nicolas Dufresne: review, opp-shared, the TF-A pointer, and a proof of
+> > concept with the same rates and voltages. Tomeu Vizoso agreed to the
+> > full-range table [8]. Jiaxing Hu: the RK3576 multi-core corruption the
+> > three-client test answers, a test and a review. Sidong Yang: the report
+> > behind patch 3 and a test.
+> >
+> > Jonas Karlman pointed me at his GPU approach, a .config_clks() that
+> > checks pm_runtime_suspended() [9][10], and warned that "just reading
+> > clk_summary to read SCMI clock rate can issue SError or a freeze" [11].
+> > From the code, not a test: ->get_cur_freq() returns the last request,
+> > probe reads the boot rate with the domain on, and with the in-tree
+> > devicetree every set_rate that reaches the firmware, re-read included,
+> > runs with the cores held.
+> >
+> > H=C3=BCseyin BIYIK wrote TF-A commit d2d6928641ba, which makes BL31 rep=
+ort
+> > the PVTPLL rate it measures rather than the one asked for, and guessed
+> > early that the clock framework ignores what SCMI answers [12]; for a
+> > refused set_rate it does.
+> >
+> > The Assisted-by: LLM tags are Claude (Fable 5.1 and Opus 5; the v1
+> > cover named only Opus 5, though Fable 5.1 worked on v1 too). We wrote
+> > the code and these messages together, including the v3 changes to patch
+> > 4; it also found the silent refusal with me in the clock, OPP and TF-A
+> > code, wrote and adversarially reviewed the test scripts, and analysed
+> > the crash patch 4 fixes and the one under Not done. I threw out plenty
+> > of what it proposed. The board, every boot and measurement, the decisio=
+n
+> > to send this and the responsibility for it are mine.
+> >
+> > [1] https://lore.kernel.org/r/CAPsqS2QXQda2ftbEJb_-Qeva9ay4+4ysdpUtj8jA=
+vbyAsYiAJw@mail.gmail.com
+> > [2] https://lore.kernel.org/r/20260731064933.12548-1-royalnet026@gmail.=
+com
+> > [3] https://lore.kernel.org/r/20260909091825.10838-1-royalnet026@gmail.=
+com
+> > [4] https://lore.kernel.org/r/20260708062845.716487-1-lgs201920130244@g=
+mail.com
+> > [5] https://lore.kernel.org/r/20260904135938.8757-1-royalnet026@gmail.c=
+om
+> > [6] https://lore.kernel.org/r/9af28de2a07f7965300b898994481ccf194a30da.=
+camel@ndufresne.ca
+> > [7] https://lore.kernel.org/r/20260904110853.85150-1-gahing@gahingwoo.c=
+om
+> > [8] https://lore.kernel.org/r/CAPsqS2RRUyG1vz5Nm7990yd0hcKR5E-SWhbt0ish=
+aVYvCqQftw@mail.gmail.com
+> > [9] https://lore.kernel.org/r/ad1e526e-a4cf-4c34-88ff-1884ef2f3dfe@kwib=
+oo.se
+> > [10] https://github.com/Kwiboo/linux-rockchip/commits/next-20260619-rk3=
+5xx-scmi-gpu-clk/
+> > [11] https://lore.kernel.org/r/82c8b17e-7215-45ea-84d1-9991ba6fb541@kwi=
+boo.se
+> > [12] https://lore.kernel.org/r/20260903185147.49411-1-royalnet026@gmail=
+.com
+> >
+> > Igor Paunovic (11):
+> >   accel/rocket: search every core slot when a core is removed
+> >   accel/rocket: number the cores by devicetree position, not bind order
+> >   accel/rocket: search every core slot when looking up a scheduler
+> >   accel/rocket: keep core slots stable across unbind and rebind
+> >   accel/rocket: request the core clocks by name
+> >   dt-bindings: npu: rockchip: allow DVFS and thermal properties
+> >   arm64: dts: rockchip: rk3588: add an OPP table for the NPU
+> >   accel/rocket: restore the NPU clock boot rate before powering the
+> >     cores down
+> >   accel/rocket: add devfreq support
+> >   accel/rocket: register a devfreq cooling device
+> >   arm64: dts: rockchip: rk3588: add passive cooling to the NPU thermal
+> >     zone
+> >
+> >  .../npu/rockchip,rk3588-rknn-core.yaml        |  10 +
+> >  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi |  17 +-
+> >  arch/arm64/boot/dts/rockchip/rk3588-opp.dtsi  |  54 ++
+> >  drivers/accel/rocket/Kconfig                  |   2 +
+> >  drivers/accel/rocket/Makefile                 |   1 +
+> >  drivers/accel/rocket/rocket_core.c            |  14 +
+> >  drivers/accel/rocket/rocket_core.h            |  16 +
+> >  drivers/accel/rocket/rocket_devfreq.c         | 525 ++++++++++++++++++
+> >  drivers/accel/rocket/rocket_devfreq.h         |  67 +++
+> >  drivers/accel/rocket/rocket_device.c          |   2 +
+> >  drivers/accel/rocket/rocket_device.h          |  21 +
+> >  drivers/accel/rocket/rocket_drv.c             | 192 ++++++-
+> >  drivers/accel/rocket/rocket_job.c             |  47 +-
+> >  13 files changed, 945 insertions(+), 23 deletions(-)
+> >  create mode 100644 drivers/accel/rocket/rocket_devfreq.c
+> >  create mode 100644 drivers/accel/rocket/rocket_devfreq.h
+> >
+> >
+> > base-commit: 8ef59ee794076e2b58cff357b12de2ba5d441271
