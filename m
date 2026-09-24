@@ -1,161 +1,275 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A7348F003;
-	Thu, 24 Sep 2026 13:34:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37783483825
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:34:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256881; cv=none; b=qOw8PBZsTZqtGYDmNbAIqEdDU8WW/Q5I6MCqaWoBbsyUwmD5RWq7jxizbyQ9FFimkG3UAGbmOpQcTpLps3WmrW/wAEjHjiqFfUcHUmwGTfHSfmAnNEZpZZsKwLoVSVtojYm+w2g1raUlWnh/iMHSPLW/bMUJMK8zvWhrOXZyQms=
+	t=1790256901; cv=none; b=a5KBHcGc6BEA9qjCA9vSg+3sZACJ/be9m1VC1g4IYMkrRagf+2VLuvsiym7QAHdHCmpMRWIa7LKhw0qaTY97Qy20jCrHR2ck7yDMPJUgr9vwZE5ny4M+evA6afu1O7zlDgG5qHvT+oybaXYY4cRfTRSQcGesl39tIevk7AOYfao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256881; c=relaxed/simple;
-	bh=5F2In7tBxEIgs7mABXiHhSYfk63RbWqXxU1rPwimG/w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Zj5vmZnoQbIxFVg6CfFtxuUxxyL3r1VBm17H5L1sNYFx5QM0ITR7BEAyu9tBLyLhzWL00kxmI/ppZ1AqkJIwmmlq8augA75pfvAUI56NQgMG2gBcQ3SAUK4bJuTLqlz1HCK07yNlrenOBbF6bmBJ9tIU7FVFFcTppPrYqyelyXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFYTsuJI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790256901; c=relaxed/simple;
+	bh=ffbSbK4j9Zjfrw2PrH/jOjNOFVOpEbu4V5aVJMXprJg=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=j5HaTmPRkWiuHko9QUW/yQQSg4su/8W70JdvFU+Y0zvlZKRhGsKdPwweLvvLw7GJqOTUKhsAjSovG+NWehdXiG2r7I/MbMeBWy2WxaIdmT8et7BB2pxs3xEGybZevWhrGA2dvYs/vB52HXUGKGmbOHTZguum7VCm2bvLh3qdD4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=f7caBHsX; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFYTsuJI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99DFF1F000FF;
-	Thu, 24 Sep 2026 13:34:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790256867;
-	bh=vCVxOTCNFcQYUW13c+WPf80SiNmKoxL2dUmJNQmZznA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CFYTsuJITFYQypIBZp/VfpCAtOJn5O9gmpxox7R0Z+I5Z90/aCzXA1jXYVVoz+veU
-	 Qro0Mpfr+Z8lTRj+RLjlND3lEWckcvhYaoJlrecwWiyrJ308Asp+N95drS6/2BjP5V
-	 ClXWJeByY/8LnzS2j3A/3C+r2c7VjweADhdyVuUQz7o7CzgMs+P7JArmpQGBnSFjvc
-	 F7dMTVH6IsBlDBNOPIjw9WaA7Ey7ddWMZNfmLCtJoGCEc6zNsrpHyz95ZIYDY+I3kH
-	 z5O6i+inGHzwo28AkzaNpf3G7RBH/YqL9/RmgrzeJ0ZVtTnqbT6rUXspaUo9mbtEEG
-	 RInmXAcvGLM5g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] rtc: Add Raspberry Pi 5 RTC driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sander Speetjens" <sander.speetjens@gmail.com>
-Cc: robh@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260924132217.1281752-3-sander.speetjens@gmail.com>
-References: <20260924132217.1281752-1-sander.speetjens@gmail.com>
- <20260924132217.1281752-3-sander.speetjens@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 13:34:27 +0000
-Message-Id: <20260924133427.99DFF1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="f7caBHsX"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so14065475e9.0
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:34:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790256890; x=1790861690; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t6AkLGE1oPn+7n3tb70RelMorb35N4qf1Ykw3uaiHDk=;
+        b=f7caBHsXdNziJtjfOLO59VP+9TscQ2uHrDYVxwkh8RV93cjNeXpqXsk09POytzprVE
+         ha5S7xG3kaUtomoBReQAHO88vXgbCt/Pv3lsL1g0JjQvApbuk/L/1YhbnlDCDrs2kNH/
+         a6LkIqXGlQsAFTr4tICl8i8JhTtZFTj591HUxCeDQqWNZBUDSucuKfF+1KFC/Ee/mBtn
+         d77Zcf4l1Kw+ZyuuZsKCfoUcEtgTpTLLpn4BbSbqJFjv6gjImvVsYeFX0k3ngmxIri2/
+         JDcEt+Usj3Ytic0wgesgu0OJhV0BNbKub8xy9cwFmxnu9DoNLS1eDGVPesE8PDQkgQ72
+         ruww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790256890; x=1790861690;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t6AkLGE1oPn+7n3tb70RelMorb35N4qf1Ykw3uaiHDk=;
+        b=sNdRXu+ZkW5+rvj45rERBfjvxIQnPklEcMyVM2VdwzEvmfnWHbE9T9p83W70wtSCRk
+         HYrSrqUra2zqCcJ1gNppAyg6tTWahI7Q2nJtV/DX9i5vOU3m4ylQdpiEpZFwKNZILzLm
+         N2wjSo47mmIPiS5RCmRzTo+cgW2QxHTDNGuwX8KL33n3hGfE1D2YDXA/lzLBroI3C5E+
+         Kc82in/6Bx8LfVS1gfmnNTC2hxrp332HjkSjPJ+UVQ+Ioaq4rDcoUW1h/edrZLOwe376
+         78bwFkWVE/OBLNNmm06toKt3I3I3MnJRO9+D0dvZJzgelNwqlVl3s0s7tAg3wTk2K6VP
+         wWYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwdKb+O+AEypW+8JHt+iYukXzLYiwa4KH3qZ9FLdregWKYfvMdu8d4nvnjCuvB+bC7NS7sm2/li4Qxq@vger.kernel.org
+X-Gm-Message-State: AFuF++nCaj5MQQPmJnwW2z43r3XfVmAMlTNzJxnDDru/i4OzrxKu9x4C
+	QTdWBTv0fwafuw4JXmm9sA2UrW8mVNEf5qp/ChSvy6z/KjmnZUHS7BGt0/K4LarPusA=
+X-Gm-Gg: AYBFou2aRTum/TLLd2rmiA+RGM7XTCPoeau7iEQlJDAE2Qhr4nJ1bOdETdbkKKLi03+
+	YsL+I14DT+nyTnfucn3i9VFMBGjqDO58b6Iz7io7lrmuoUdE2YEgIbIwHnMFTVJcaEoNT3a1i39
+	VI8QSRijkzcVhxEqEkc+xpsPFlOphi1beoxM6w5hO6TOxx3ii6/9B2GX+XlpsqdDESmjw5Bvyb4
+	ZL9J8LixJ74Ud0DLqC9ZtvDhKZyRR/Bks1fgy9DiOCIZ2L6wTH/HgS+g3CJ+Tc6S62Fl2XTAM8H
+	tW4obfWusa/iIyHxloJcDAw/Dxi11wxf7/cQEUKHwYdZzNoxYN1T4NYgF98TYxCUkdW9g8DnIe5
+	IwHLs/ni6Bn4BlpJJzkYDXBFX5bLPusb9f00cFnuix/8EZyel2DssiVGciR5UoACKc2vmdmeZgi
+	cxKAS5yVtKaYoLK97Fjau4rqPMHn/Xf3X5i4ut/y2bVzG61jc7mV3rhVIRkSyZBdmF1tJH05KLK
+	gKxCleXHmj9fuKcUYTdPM6eZiItx+DexDnrbelxr4byeeYm0Vca+Q==
+X-Received: by 2002:a05:600c:a010:b0:49e:79c5:ee93 with SMTP id 5b1f17b1804b1-49fe66b422emr43419115e9.8.1790256890140;
+        Thu, 24 Sep 2026 06:34:50 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a? ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4054fsm112926555e9.3.2026.09.24.06.34.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 06:34:49 -0700 (PDT)
+Message-ID: <898ff24b-8462-48b0-87ed-ba76f2608dd0@linaro.org>
+Date: Thu, 24 Sep 2026 15:34:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 5/9] drm/panel: novatek-nt36672a: Combine two init
+ callbacks into one
+To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
+ Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ phone-devel@vger.kernel.org
+References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
+ <20260917-nt36672a-panels-v2-5-f8de8be5b86f@minlexx.ru>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260917-nt36672a-panels-v2-5-f8de8be5b86f@minlexx.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] rtc: raspberrypi: Missing endianness conversion in firmware commun=
-ication
-- [Medium] rtc: raspberrypi: Incorrect DT node for trickle voltage property
-- [Medium] rtc: raspberrypi: Missing MODULE_ALIAS prevents autoloading
---
-
-commit 2afa604e9b62ac37552a0a69c5399fed7850a086
-Author: Sander Speetjens <sander.speetjens@gmail.com>
-
-rtc: Add Raspberry Pi 5 RTC driver
-
-Upstreaming the downstream Raspberry Pi 5 RTC driver. This driver supports
-the custom DA9091, which is accessed through the firmware mailbox.
-
-> diff --git a/drivers/rtc/rtc-raspberrypi.c b/drivers/rtc/rtc-raspberrypi.c
-> new file mode 100644
-> index 0000000000000..494b949374064
-> --- /dev/null
-> +++ b/drivers/rtc/rtc-raspberrypi.c
-[ ... ]
-> +static int rpi_rtc_read_time(struct device *dev, struct rtc_time *tm)
-> +{
-> +	struct rpi_rtc_data *vrtc =3D dev_get_drvdata(dev);
-> +	u32 data[2] =3D { RTC_TIME };
-> +	int err;
+On 9/17/26 18:43, Alexey Minnekhanov wrote:
+> The split between .send_init_cmds_1 and _cmds_2 is completely artificial
+> and unnecessary. Two command sets are split in between by the sequence:
+>   - exit_sleep_mode
+>   - delay
+>   - set_display_on
+> 
+> But not every panel driver follows this "split" in their init sequence.
+> Some may have different delay timer, or put exit_sleep_mode/display_on
+> commands into other places in the sequence.
+> 
+> In order to make this driver more extensible, combine two init functions
+> into one by puting exit_sleep_mode/delay/display_on in the middle,
+> followed by commands from cmds_2. As part of this step, also move the
+> tianma-beryllium specific deinit sequence with its delays from
+> nt36672a_panel_unprepare() to tianma_fhd_video_send_deinit_cmds(), so
+> that each panel model can have its deinit sequence with its own delays.
+> 
+> No functional change - full init sequence with all the delays for the
+> tianma_fhd_video panel is kept the same in the end.
+> 
+> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> 
+> ---
+> v2: move tianma_fhd deinit commands into its own deinit function
+>      (set_display_off, msleep, enter_sleep_mode, msleep)
+> ---
+>   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 61 ++++++++++----------------
+>   1 file changed, 23 insertions(+), 38 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> index 73bec4f47ec60..a445c8067aa5f 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> @@ -51,8 +51,7 @@ struct nt36672a_panel_desc {
+>   	enum mipi_dsi_pixel_format format;
+>   	unsigned int lanes;
+>   
+> -	void (*send_init_cmds_1)(struct mipi_dsi_multi_context *dsi_ctx);
+> -	void (*send_init_cmds_2)(struct mipi_dsi_multi_context *dsi_ctx);
+> +	void (*send_init_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
+>   	void (*send_deinit_cmds)(struct mipi_dsi_multi_context *dsi_ctx);
+>   };
+>   
+> @@ -92,20 +91,6 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
+>   	if (pinfo->desc->send_deinit_cmds)
+>   		pinfo->desc->send_deinit_cmds(&dsi_ctx);
+>   
+> -	/* Reset error to continue with display off even if send_cmds failed */
+> -	dsi_ctx.accum_err = 0;
+> -	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> -	/* Reset error to continue power-down even if display off failed */
+> -	dsi_ctx.accum_err = 0;
+> -
+> -	/* 120ms delay required here as per DCS spec */
+> -	msleep(120);
+> -
+> -	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> -
+> -	/* 0x3C = 60ms delay */
+> -	msleep(60);
+> -
+>   	nt36672a_panel_power_off(panel);
+>   
+>   	return 0;
+> @@ -140,22 +125,9 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
+>   
+>   	dsi_ctx.accum_err = nt36672a_panel_power_on(pinfo);
+>   
+> -	/* send first part of init cmds */
+> -	if (pinfo->desc->send_init_cmds_1)
+> -		pinfo->desc->send_init_cmds_1(&dsi_ctx);
+> -
+> -	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> -
+> -	/* 0x46 = 70 ms delay */
+> -	mipi_dsi_msleep(&dsi_ctx, 70);
+> -
+> -	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> -
+> -	/* Send rest of the init cmds */
+> -	if (pinfo->desc->send_init_cmds_2)
+> -		pinfo->desc->send_init_cmds_2(&dsi_ctx);
+> -
+> -	mipi_dsi_msleep(&dsi_ctx, 120);
+> +	/* send init cmds */
+> +	if (pinfo->desc->send_init_cmds)
+> +		pinfo->desc->send_init_cmds(&dsi_ctx);
+>   
+>   	if (dsi_ctx.accum_err < 0)
+>   		gpiod_set_value(pinfo->reset_gpio, 0);
+> @@ -192,7 +164,7 @@ static const struct drm_panel_funcs panel_funcs = {
+>   	.get_modes = nt36672a_panel_get_modes,
+>   };
+>   
+> -static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi_ctx)
+> +static void tianma_fhd_video_send_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+>   {
+>   	u8 reg;
+>   
+> @@ -352,15 +324,19 @@ static void tianma_fhd_video_send_init_cmds_1(struct mipi_dsi_multi_context *dsi
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0xff);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
+> -}
+>   
+> -static void tianma_fhd_video_send_init_cmds_2(struct mipi_dsi_multi_context *dsi_ctx)
+> -{
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
+> +	/* 0x46 = 70 ms delay */
+> +	mipi_dsi_msleep(dsi_ctx, 70);
+> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
 > +
-> +	err =3D rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_GET_RTC_REG,
-> +				    &data, sizeof(data));
-> +	rtc_time64_to_tm(data[1], tm);
-
-[Severity: High]
-Will this driver run correctly on big-endian kernels?
-
-The raw payload returned by the firmware is treated as host-endian here. If
-the firmware expects and returns little-endian payloads (as is common for
-mailbox interfaces), should this code use le32_to_cpu() to prevent byte
-transposition issues?
-
-> +	return err;
-> +}
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc4, 0x54);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
 > +
-> +static int rpi_rtc_set_time(struct device *dev, struct rtc_time *tm)
-> +{
-> +	struct rpi_rtc_data *vrtc =3D dev_get_drvdata(dev);
-> +	u32 data[2] =3D { RTC_TIME, rtc_tm_to_time64(tm) };
-
-[Severity: High]
-Similar to rpi_rtc_read_time(), the timestamp and sub-command are placed
-into a host-endian u32 array without conversion.
-
-Should this value be converted to little-endian using cpu_to_le32() before
-sending it to the firmware?
-
+> +	mipi_dsi_msleep(dsi_ctx, 120);
+>   }
+>   
+>   static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+> @@ -369,6 +345,16 @@ static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xc3, 0x01);
+>   	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
 > +
-> +	return rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
-> +				     &data, sizeof(data));
-> +}
-[ ... ]
-> +static int rpi_rtc_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	vrtc->rtc->ops =3D &rpi_rtc_ops;
-> +
-> +	rpi_rtc_alarm_clear_pending(dev);
-> +
-> +	vrtc->bbat_vchg_millivolts =3D 0;
-> +	of_property_read_u32(dev->parent->of_node, "trickle-voltage-millivolt",
-> +			     &vrtc->bbat_vchg_millivolts);
+> +	/* Reset error to continue with display off even if send_cmds failed */
+> +	dsi_ctx->accum_err = 0;
+> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
+> +	/* Reset error to continue power-down even if display off failed */
+> +	dsi_ctx->accum_err = 0;
+> +	/* 120ms delay required here as per DCS spec */
+> +	msleep(120);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
+> +	msleep(60); /* 0x3C = 60ms delay */
+>   }
+>   
+>   static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
+> @@ -399,8 +385,7 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
+>   			| MIPI_DSI_MODE_VIDEO_BURST,
+>   	.format = MIPI_DSI_FMT_RGB888,
+>   	.lanes = 4,
+> -	.send_init_cmds_1 = tianma_fhd_video_send_init_cmds_1,
+> -	.send_init_cmds_2 = tianma_fhd_video_send_init_cmds_2,
+> +	.send_init_cmds = tianma_fhd_video_send_init_cmds,
+>   	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
+>   };
+>   
+> 
 
-[Severity: Medium]
-Does this read the property from the correct device tree node?
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-It appears this reads trickle-voltage-millivolt from the parent firmware
-node (dev->parent->of_node) instead of the child RTC node. If a correct
-device tree specifies this property on the RTC node to follow DT encapsulat=
-ion
-rules, will that configuration be ignored here?
-
-> +
-> +	rpi_rtc_set_limits(dev);
-> +	rpi_rtc_set_charge_voltage(dev);
-> +
-> +	return devm_rtc_register_device(vrtc->rtc);
-> +}
-> +
-> +static const struct of_device_id rpi_rtc_dt_match[] =3D {
-> +	{ .compatible =3D "raspberrypi,firmware-rtc" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, rpi_rtc_dt_match);
-> +
-> +static struct platform_driver rpi_rtc_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "raspberrypi-rtc",
-> +		.of_match_table =3D of_match_ptr(rpi_rtc_dt_match),
-> +	},
-> +	.probe =3D rpi_rtc_probe
-> +};
-
-[Severity: Medium]
-Will this module autoload correctly on systems using manual registration?
-
-The firmware driver registers a platform device named raspberrypi-rtc, which
-generates a platform:raspberrypi-rtc uevent. Without a matching MODULE_ALIAS
-declaration here, it seems udev might not be able to match the fallback
-device to the driver module.
-
-> +
-> +module_platform_driver(rpi_rtc_driver);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924132217.1281=
-752-1-sander.speetjens@gmail.com?part=3D2
+Thanks,
+Neil
