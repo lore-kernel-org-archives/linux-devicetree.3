@@ -1,218 +1,100 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5844D476CF4
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:10:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8067947F76C;
+	Thu, 24 Sep 2026 13:11:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255426; cv=none; b=Nr91bKpmGmZvZBNloQ6xJQiHQUsu7rKAbFX30CM43htAS8K8HAywibkcU3A452/6Hub+qzBk4Xx/mPAitSrfVD/1HaGieC0n1SnqDymG/TbnUM8dBmQ/j0uGPLrKVvV3j7IBiS79s0BGasRyqwujq5Lg8e0X6tZ4lIAjJIxpq7Q=
+	t=1790255461; cv=none; b=MAhydyWQc2s3L0UUH6hfCNN86HzG3jv9df/fNkt2eL+8glD23Ke0xVoxr3k/lIrHAXTx0lBInXFYK4+tTTrk+bOO6ZtmHOI+h7bjoset3CXtmzq5kWQU1FLgD/uk1ZWZbWjSxrVFJL5/WMeqKbmun2khCPYMJlQyMqLNOG8p9EE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255426; c=relaxed/simple;
-	bh=ssAl/+k4jPnOyZvFEczhhMivxC5cY0K7XEWGExEoAHg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=qd+XS+t3VHiGe7sw6exX1n5U2uzHoByXwY9BaYY+MLk28WVeNTUosdk8fY01q3AYuo8Sim0il79vsZ9o4jZ+aQA2tkmt9GRHFSPBb30wx17C4ZWABFmUf+EUeNEvA57KG6FQub5nrLGop73JdCThpa3fEY0H645DFfAzqKzWOkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Aq/rO3hi; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790255461; c=relaxed/simple;
+	bh=Kt1xF+vojZo0Os/m98Dh+tvp+b2jYMeFiteI81OEg2Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bNYwMd7Y9X6x4xdcGoN3t3hYD2/LYTWwHEMixrbCn+G6RBwV//BWe/lsrkoz6WK3ZxnYbWagGPxqY+KvOWoGjF/C/Qxu1MKd88T4ATP60NjtmZ5Revt7qU+4AytMqhaSPrNusxHRH+fad692DpdRNNJ1ZJvYbfFox3jIOC6GIBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nv+lXxbQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Aq/rO3hi"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso25841505e9.2
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:10:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790255420; x=1790860220; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yqY+VYU5NXGX1DIhJ+QOGA70yG14D0itgxaOKESe4N8=;
-        b=Aq/rO3himUhZMcg4MqOX1jEGXNxbUpiJ7yuzBUb/GVXrmKWE4Bjya+Ueus1f1PbuOd
-         5vFokEGxQ8EXGlfGjShckcOmBlyY4srFmpFFkol6wzsgDjNwj3QobDLjNp/QLhdQKoyd
-         eKxps9DiO/xkwf71d4F2IEZDs+ZoA2J9ZftcKYakhrgnNUoJPIWjZ/f2GkzkAGbjfjQO
-         RLbhDf47EFSiPkhSXTe5gizSWvlk8oaN0wxAGK+oCmFGxDUirX7itwNTZ11SW8PwzjyA
-         /fGFICuPtXfmHCpfMIMim0PWqKL039FjiDQtXwX5iLXWapHjq3FdTMTHCwvo71jjaKvF
-         BA9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790255420; x=1790860220;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yqY+VYU5NXGX1DIhJ+QOGA70yG14D0itgxaOKESe4N8=;
-        b=FpTu119yVeL7t/41YjdW6MGDntWvWODl6RIxuGW+N3Y3Tdf47ERRlVCTmK+ykroAOf
-         bxgjyzuP7Mm+85XhVA0TIo9kmlSIB+IDcQ5liljGXKw3PoRxwRQ0JRDNPsGI53mcVpx0
-         9G56fOubI/5f1neMu4g6o7FhXdeeyQzt6pt5gdGaOIu1GeJmVskVbcGGQbrtXvgzY3G8
-         NGfxsJbgB4Sny29FoOalx+unR9gWQJmOqKbXRDqVxdQsqTX55o5yr25pnmzJqse8d3gA
-         Q3cOkfpHItSqrCOCtwOY5wHX6yflj2pUDnYp/3BG5EWgsRtSpuK1mvo2HC4llB6Rhb2p
-         WFPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwOvEgNcox3J0+9iTJFqTHJi1dX1ZvdAb6Pd6ERh0kmUVYZf1pvidtiuUOjY5etixy9foQf1laP0+UL@vger.kernel.org
-X-Gm-Message-State: AFuF++mMkvjmlA+EZ7gOn3xU15AIckX+e2yncutP/3diL7VYS+wgKCx3
-	psdP6YvL8VbfdqFG8OIvJacpROMc+ArxepdleDZ1V7dW6sbzcX1uuPXaZAk10bcdX64=
-X-Gm-Gg: AYBFou3tg37TUIU3W5p+1ZPHTK7Nf52DZxnauh+4Yy1rLqMWm31RoNSNiw4TAzV8RY7
-	UGtO42+PxG1gq93PghalK6Pld7zIPxycIlavzYXfvrpB2EgL5w7DXk9AXpYMq+0dGKtX4h2HbjL
-	4DfgB+UN0b/JpFzBEbVSuuQg6YkEudQKMpLEhydOrr8JZxcnwaLHB1sO+RusCOAEmosmbA2NsBz
-	qx5YeWXOkVGeiH9RSwQeGaB1ZA1bpbgJFbHKllof7LiZStt3w50ajjs1+DPOCg0nZb0Bu/EVn5h
-	odKCyyZ4y+rEPpIFeOnb1702r6Ew2+rtOqSArpr5IdciBiBeDqHeCSosafj67A2vN0ty/8oBQVi
-	TzNCAh4x27M7ho2fONnAdprk7QoigDSnE6JXLlx+mUh3P6Vymo1BZ42tU1Wc76dkld4FMtW9Qix
-	7Zr31Nan+m85NAy/O7OKKiFESzXNHGxRlLkPLOehiEu6wGrWy/9VY8y9WDivq7WPrS0h2wpQw1Y
-	gOqn+0m9opQzSSXMA==
-X-Received: by 2002:a05:600c:8b8b:b0:49c:f512:2361 with SMTP id 5b1f17b1804b1-49fe66d470emr42998155e9.14.1790255420471;
-        Thu, 24 Sep 2026 06:10:20 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c77b8csm87532775e9.3.2026.09.24.06.10.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:10:18 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Hans de Goede
- <hansg@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- linux-sunxi@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v8 2/5] mfd: axp20x-i2c: Fix i2c instantiation
-In-Reply-To: <20260924082705.GO3864833@google.com>
-References: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
- <20260910-axp318-regulator-v8-2-e906a61a7f3d@baylibre.com>
- <20260924082705.GO3864833@google.com>
-Date: Thu, 24 Sep 2026 15:10:17 +0200
-Message-ID: <1jy0cq94na.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nv+lXxbQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3611F000FF;
+	Thu, 24 Sep 2026 13:10:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790255460;
+	bh=jFQEbtSBRfeEaDK9XYnVq9As9XqEtkmlEiq05JFXgAo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nv+lXxbQl3Scgr1NGQNVA963FgtOYnOPyB2iqTwy60qLIPuyqrHvpRk3wYmdHH9hC
+	 eW8mwT8PWOsMkx3FjzwOrMMLeEKd8pZf44K2sqbYQpBstMOYwGK1Aj0EEbqmEg5hnV
+	 8oQw+5a42Nro3qLWFOaEyQf9g5oo3OHUgJMjAGldJvni8mLrpbvjimyHh55c8ufNf8
+	 0N6exsvTPcPVPps9ShRyVOnnl/K4ZTpkGwX6nIaX1GhiSY66PecRZaXwYp1809rNBP
+	 V3Iss30udncvDN9yAYPKM8XDkKyGyBcJVaZNPHQ+KZ7IacoEKR6ywvmK0JlE+Wr1hU
+	 +6KYw1+xrs0wg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] media: dt-bindings: media: nxp, imx8mq-vpu:
+ Remove nxp,imx8mq-vpu
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Benjamin Gaignard" <benjamin.gaignard@collabora.com>
+Cc: robh@kernel.org, Frank.Li@kernel.org, media-ci@linuxtv.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260924130453.196299-3-benjamin.gaignard@collabora.com>
+References: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
+ <20260924130453.196299-3-benjamin.gaignard@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 13:10:59 +0000
+Message-Id: <20260924131059.AF3611F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
 
-On jeu. 24 sept. 2026 at 09:27, Lee Jones <lee@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: removing deprecated compatible string breaks ABI va=
+lidation
+--
 
-> On Thu, 10 Sep 2026, Jerome Brunet wrote:
->
->> Apparently this device never really supported i2c instantiation via
->> sysfs, because the driver does not even look at the i2c device data,
->> which are not set. It would only probe if the device matched through DT.
->> 
->> Fix that for correctness, even-though it is probably useless.
->> Add the missing AXP323 while at it.
->> 
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Closes: https://lore.kernel.org/r/20260717090209.2A09B1F000E9@smtp.kernel.org
->> Fixes: 41751b033aaa ("mfd: axp20x-i2c: Add i2c-ids to fix module auto-loading")
->> Acked-by: Chen-Yu Tsai <wens@kernel.org>
->> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
->> ---
->>  drivers/mfd/axp20x-i2c.c   | 24 +++++++++++++-----------
->>  drivers/mfd/axp20x-rsb.c   |  1 +
->>  drivers/mfd/axp20x.c       |  1 -
->>  include/linux/mfd/axp20x.h |  3 +--
->>  4 files changed, 15 insertions(+), 14 deletions(-)
->> 
->> diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
->> index 5c93136f977e..a76bec5604c4 100644
->> --- a/drivers/mfd/axp20x-i2c.c
->> +++ b/drivers/mfd/axp20x-i2c.c
->> @@ -35,6 +35,7 @@ static int axp20x_i2c_probe(struct i2c_client *i2c)
->>  	axp20x->irq = i2c->irq;
->>  	dev_set_drvdata(axp20x->dev, axp20x);
->>  
->> +	axp20x->variant = (kernel_ulong_t)i2c_get_match_data(i2c);
->
-> device_get_match_data() is bus agnostic and should still work from the
-> core driver.  What's the purpose of splitting it out and adding
-> additional call-sites?
+commit 3baa6281627fab6fa7ca3eb8e9793abf829e4442
+Author: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 
-Hi,
+media: dt-bindings: media: nxp, imx8mq-vpu: Remove nxp,imx8mq-vpu
 
-device_get_match_data() works when the data comes through that path,
-which is generally the case.
+This commit removes the deprecated nxp,imx8mq-vpu compatible string from the
+Device Tree binding after driver clean up.
 
-i2c_get_match_data() calls device_get_match_data() then fallback to the
-i2c_device_ids. It covers the instanciation from sysfs mainly, not
-something usual.
+> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml =
+b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> index 19528262810a5..69619d2c86fa0 100644
+> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> @@ -14,12 +14,10 @@ description:
+> =20
+>  properties:
+>    compatible:
+> -    oneOf:
+> -      - const: nxp,imx8mq-vpu
+> -        deprecated: true
 
-As explained in the description, this changes plugs a hole identified by
-sashiko that technically exists but I highly doubt anyone will
-instanciate the PMIC through that interface. Those things do not really
-come as breakout boards ... That being said, it is cheap to fix.
+[Severity: Medium]
+Does removing this compatible string break ABI validation for older hardware
+descriptions?
 
->
->>  	ret = axp20x_match_device(axp20x);
->>  	if (ret)
->>  		return ret;
->> @@ -76,17 +77,18 @@ MODULE_DEVICE_TABLE(of, axp20x_i2c_of_match);
->>  #endif
->>  
->>  static const struct i2c_device_id axp20x_i2c_id[] = {
->> -	{ "axp152" },
->> -	{ "axp192" },
->> -	{ "axp202" },
->> -	{ "axp209" },
->> -	{ "axp221" },
->> -	{ "axp223" },
->> -	{ "axp313a" },
->> -	{ "axp717" },
->> -	{ "axp803" },
->> -	{ "axp806" },
->> -	{ "axp15060" },
->> +	{ .name = "axp152",	.driver_data = AXP152_ID },
->> +	{ .name = "axp192",	.driver_data = AXP192_ID },
->> +	{ .name = "axp202",	.driver_data = AXP202_ID },
->> +	{ .name = "axp209",	.driver_data = AXP209_ID },
->> +	{ .name = "axp221",	.driver_data = AXP221_ID },
->> +	{ .name = "axp223",	.driver_data = AXP223_ID },
->> +	{ .name = "axp313a",	.driver_data = AXP313A_ID },
->> +	{ .name = "axp323",	.driver_data = AXP323_ID },
->> +	{ .name = "axp717",	.driver_data = AXP717_ID },
->> +	{ .name = "axp803",	.driver_data = AXP803_ID },
->> +	{ .name = "axp806",	.driver_data = AXP806_ID },
->> +	{ .name = "axp15060",	.driver_data = AXP15060_ID },
->>  	{ }
->>  };
->>  MODULE_DEVICE_TABLE(i2c, axp20x_i2c_id);
->> diff --git a/drivers/mfd/axp20x-rsb.c b/drivers/mfd/axp20x-rsb.c
->> index 059656f2a1bd..8fdc870c1fe4 100644
->> --- a/drivers/mfd/axp20x-rsb.c
->> +++ b/drivers/mfd/axp20x-rsb.c
->> @@ -35,6 +35,7 @@ static int axp20x_rsb_probe(struct sunxi_rsb_device *rdev)
->>  	axp20x->irq = rdev->irq;
->>  	dev_set_drvdata(&rdev->dev, axp20x);
->>  
->> +	axp20x->variant = (kernel_ulong_t)device_get_match_data(axp20x->dev);
->>  	ret = axp20x_match_device(axp20x);
->>  	if (ret)
->>  		return ret;
->> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
->> index 4d770e718716..de6946d4bb13 100644
->> --- a/drivers/mfd/axp20x.c
->> +++ b/drivers/mfd/axp20x.c
->> @@ -1267,7 +1267,6 @@ int axp20x_match_device(struct axp20x_dev *axp20x)
->>  	const struct mfd_cell *cells_no_irq = NULL;
->>  	int nr_cells_no_irq = 0;
->>  
->> -	axp20x->variant = (long)device_get_match_data(dev);
->>  	switch (axp20x->variant) {
->>  	case AXP152_ID:
->>  		axp20x->nr_cells = ARRAY_SIZE(axp152_cells);
->> diff --git a/include/linux/mfd/axp20x.h b/include/linux/mfd/axp20x.h
->> index b352661d99a1..1badb4868d17 100644
->> --- a/include/linux/mfd/axp20x.h
->> +++ b/include/linux/mfd/axp20x.h
->> @@ -997,8 +997,7 @@ static inline int axp20x_read_variable_width(struct regmap *regmap,
->>  /**
->>   * axp20x_match_device(): Setup axp20x variant related fields
->>   *
->> - * @axp20x: axp20x device to setup (.dev field must be set)
->> - * @dev: device associated with this axp20x device
->> + * @axp20x: axp20x device to setup (.dev and variant fields must be set)
->>   *
->>   * This lets the axp20x core configure the mfd cells and register maps
->>   * for later use.
->> 
->> -- 
->> 2.53.0
->> 
->
-> -- 
-> Lee Jones
+Device Tree bindings describe hardware and are generally considered a stabl=
+e,
+OS-independent ABI. While Linux driver support can be removed during cleanu=
+p,
+shouldn't the schema retain deprecated compatible strings indefinitely (with
+deprecated: true) to preserve backwards compatibility?
 
--- 
-Jerome
+Removing it entirely means existing or out-of-tree Device Tree source files
+and binaries that still use the nxp,imx8mq-vpu string will fail dtbs_check
+schema validation with an undocumented compatible error.
+
+> -      - const: nxp,imx8mq-vpu-g1
+> -      - const: nxp,imx8mq-vpu-g2
+> -      - const: nxp,imx8mm-vpu-g1
+> +    enum:
+> +      - nxp,imx8mq-vpu-g1
+> +      - nxp,imx8mq-vpu-g2
+> +      - nxp,imx8mm-vpu-g1
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924130453.1962=
+99-1-benjamin.gaignard@collabora.com?part=3D2
