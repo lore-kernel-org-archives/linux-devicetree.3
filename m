@@ -1,418 +1,122 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF46147B406
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:16:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8837479870;
+	Thu, 24 Sep 2026 13:18:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255770; cv=none; b=WDUw7IEUNimHyR55WdA/OB5/BethI7Kv5H8bppBotAX/beQFfiuxP5TaSzR75XCT19Gny9VlvOxLYvqX1dr7ihiLzVypOIhIBWnI50aPdTHFjaNW1El+c9/eA0aNEWBjHZa0TzCBbIpgwpPTt8QL3MgWDCbY1LFsRIZEO71t7SA=
+	t=1790255913; cv=none; b=sNyNqYN+/6p9vv91kwfB7BPPRzWFSzg4O981aGZXOGXRxFTF3sC/AA2yy9ED9atZPHCKM2EJcLGuazM1szLPlQQh4QvyOUAv+rs1rR2oUchyckzj/QnnjccAfHZnIn3Ugjxemwqeq94iIr342n2j+nsIRDkux38YW2uzo95x+bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255770; c=relaxed/simple;
-	bh=NTr2ZiUTx2be0Y/Oji9CPhCy3O/Mhb+xKx9UX+WA6OA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=VtFGzNARiZFLxePGGj0iqD1Kqatc+Z/TXQkQJX5cUwDaX8JeVZ26aflsg5ZEkkrcMLXKsvOyP3z0VshKz9AzqbbzIToJl/dt64sLt12m4N3kN15maH8nc4y94t0pvp59P+2Ug3mtbTljIRxKzdgZH0HJkgu8i0OXH8FH1sjv3V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cHY/2Sgg; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790255913; c=relaxed/simple;
+	bh=PB79bD5HvnR3CMgvnuRlCf02ziTnlkj2wccrorK5y58=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WJBUwtWndDJoS7O9XpSI4G3y/rLAHMJNLtO5UiWN+YX5FzFzSanIU7RNQFPiLUHgvJBHKccYHjVyAVgOSXqM+sNd2LaerrXj84C4MOy9B1BQktAE6grK0h8h1jd3vXqzIdgJ8VAgcWiNByCvsZt50YIDxau2u8TqUIwrqWD3Nnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lNa8J+sO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cHY/2Sgg"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so11426235e9.0
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:16:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790255767; x=1790860567; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+czt7/72SlNARTvCjeBzQxzz1TYQqgUflPUYzqR+nLc=;
-        b=cHY/2Sggyd41AHJvzxOgjPHgTBxJxA2RwT0UdZc3aYXs2DqwKrg2YeZKeJ7yK6LrBD
-         umIeF3ZUq8etiORvV98DYNIa6h6zC+slNVIkqQXarI8uNPj9Lg8PnJfpyMtEOi5qmEMx
-         zmol9qo761/HW9yNA3tfW0C5oNmzpt8z7IhR5GsRgFZnVpd5g1mRaTAdf/C2xzE4jrvH
-         0HSM3mSMV2fG23cyUORF1JIs+QP/UzAUzRkU6vKIhY1Kl2GZTV9Ef7hC4mlWbmuNBYAW
-         eeSMWpLbJHt9T9/n3ZIOrnxWC3B16SxLUOwm54N+ytEEaxJUw9CqpagvhqTbznOS0egb
-         zF8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790255767; x=1790860567;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+czt7/72SlNARTvCjeBzQxzz1TYQqgUflPUYzqR+nLc=;
-        b=WeN7UO7l6jBsJZtSkiAgaGQk8JaL2LVc3KYfV6njcQDjvmEMwqq3D1qJywDxruV53Q
-         6wEuRcmc+1/oKIUbPRlplUgPP/t1SytgGyQKaF3+hvVJpuM+SfNKT4z7S1BEdBDnzFYh
-         nntun2kI285f8dlE3ujQN0eNsZGTtrUciaaprfo9ns7HcF6PyF2SvHg65Pj41ysb/QXb
-         FA32lrQlyfoyM530x64P/dtwSR7lA36HHpa/VYlCFOM7EsrK7O8z7ZGkZQmBNdZzid35
-         k/LvBb9w5qWMPXArxV0G7MNeQOsuUfc5dx2LqocwXyfrLrjguEo7IMa7XAdifCsf4xZY
-         Ef6A==
-X-Forwarded-Encrypted: i=1; AKwUvByYqD+fybuHnE68wcFYIU5mR0/4cAvmEXWVZ3cjsA95CZcPPXnJ7s/WD6c9RtJTKQI7vgp0SQooWpiA@vger.kernel.org
-X-Gm-Message-State: AFuF++mF9EW7mDWZMmZmnY6JFFmBJtMf5FVLPhTZ+fUa+ivhLrzHS6sA
-	H/uc5uDWtrc8XnKB8bcb0CE3BT+qjfdQ7071cMhfZQWk3xsrlfCvckclfefLRY0Thmo=
-X-Gm-Gg: AYBFou2cEUmY7ch5lTCrZ71eMw1AITI6/6aAGsx4xR+tcGoE2KTeN/WJwFRxuA1RRzM
-	AYswHtW6XilS7O5Qi0mfAucBbikztHoFoKe2plZ1ipYLmFcwyvF/YQyqU+aO1UpbTioFe5xr4xv
-	UZA7A3/DPD3qElgM7knbHSbIU48OeQYopa4Dm9WrlrKf1gRy61KEC+Nxwuo9kY1NCnxQgEI4p7Z
-	eqvRVP+G0kJ2lj+fEAuxtRGWIeSsorphlusif52p6cIHTPnnbQ11Y5kbrx6YH2BK7pY+vLtSgWi
-	dE0bwmX8KkUNyYlHCjGsqJJwCQG0A0Q0+bzp1oD9hwD4H+nP+g6+fjVzOfCBTrcsvk2a4SiiulA
-	nsZ2R2cqqSkCB++BWouZfwF1n/VWcsoBUR0RlyJ7ayCd02mFI2xrx1iWBcxXrGiCrKpPjUlN7XV
-	Wg9UIHC01f1JsyHQoH88s3/56N1td56Mzc12wkoNMnqSRYthoCo0cIO3jFtf1LH3gQfuM6BZDc+
-	anrzCq046ClSyEfn1/UWsrGdRn08ubqyByTtLcM3e3h9GN4usfP2em8wxDSVhHZrQ==
-X-Received: by 2002:a05:600c:4689:b0:49f:bc8a:b103 with SMTP id 5b1f17b1804b1-49fe66841f8mr42447295e9.0.1790255766702;
-        Thu, 24 Sep 2026 06:16:06 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a? ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf9691e2sm140428665e9.1.2026.09.24.06.16.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 06:16:06 -0700 (PDT)
-Message-ID: <856dbc37-20cb-42f2-8bfd-675014f7dec8@linaro.org>
-Date: Thu, 24 Sep 2026 15:16:05 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lNa8J+sO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064F91F000FF;
+	Thu, 24 Sep 2026 13:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790255911;
+	bh=oroJjjG/R03G4qE8aZWJ5V7wgkrRtWqF8u7iXA6/02A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lNa8J+sOjMbHx/v8JwRiOqbjT73HSXWooStifF0VGXO1jEM05bqjenopNANzJtXMx
+	 HhKhAlCpte3UkS5OYrndjtRQeRC9cjbWab810gichRGWbXYurCPt6phis7lDhlOPZw
+	 ZcgHsuzfYXGi7n6r5LkWN1mDmVZmwpcWMjbnNwJTu2IAS6GKk7gwNMtXl23YeKhX/1
+	 H03b6IAyOyNtnkTn7+U3dSt7/fa/5C/U0d8wiG9gC414Gg3urKpoy7dUDP6o/0VLik
+	 TQpmc5Rxfk4azGC7TX1Qv9+vcLz1156EyxfugxQafjsrUhxY+Y2d0tce2lW1xQYGgo
+	 HVeY0gCtqa+CQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/3] media: verisilicon: Remove deprecated variant
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Benjamin Gaignard" <benjamin.gaignard@collabora.com>
+Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260924130453.196299-2-benjamin.gaignard@collabora.com>
+References: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
+ <20260924130453.196299-2-benjamin.gaignard@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 13:18:30 +0000
+Message-Id: <20260924131831.064F91F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 4/4] drm/panel: ilitek-ili9882t: Add support for Ilitek
- IL79600A-based panels
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
- dri-devel@lists.freedesktop.org
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260910181918.31551-1-marek.vasut+renesas@mailbox.org>
- <20260910181918.31551-4-marek.vasut+renesas@mailbox.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260910181918.31551-4-marek.vasut+renesas@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/10/26 20:18, Marek Vasut wrote:
-> The Ilitek IL79600A display controller is similar to the ILI9882T and can
-> be supported within the existing `panel-ilitek-ili9882t.c` driver.
-> 
-> This patch extends the ILI9882T driver to handle IL79600A-based panels,
-> such as the 10" Raspberry Pi Touch Display 2. The IL79600A uses a similar
-> command sequence and initialization flow, with minor differences in power
-> supply configuration and timing.
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Jessica Zhang <jesszhan0024@gmail.com>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: devicetree@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
-> V2: No change
-> V3: - Rename ILI79600A to IL79600A, there is really no ILI anymore, just IL
-> ---
->   drivers/gpu/drm/panel/panel-ilitek-ili9882t.c | 231 ++++++++++++++++++
->   1 file changed, 231 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-> index 862b1c81a609b..bea5ca70c775d 100644
-> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-> @@ -133,6 +133,207 @@ static const struct drm_dsc_config tianma_il79900a_dsc = {
->   	.flatness_min_qp = 3,
->   };
->   
-> +static int rpi_10inch_init(struct ili9882t *ili)
-> +{
-> +	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
-> +
-> +	mipi_dsi_usleep_range(&ctx, 5000, 5100);
-> +
-> +	il79900a_switch_page(&ctx, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x00, 0x42);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x01, 0x11);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x02, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x03, 0x00);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x04, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x05, 0x11);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x06, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x07, 0x00);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x08, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x09, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0a, 0x71);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0c, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0e, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0d, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0f, 0x00);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x30, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x31, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x32, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x33, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x34, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x35, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x36, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x37, 0x28);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x38, 0x29);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x39, 0x11);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3A, 0x13);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3B, 0x15);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3C, 0x17);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3D, 0x09);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3E, 0x0D);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3F, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x40, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x41, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x42, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x43, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x44, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x45, 0x02);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x48, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x49, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4A, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4B, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4C, 0x07);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4D, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4E, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4F, 0x28);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x50, 0x29);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x51, 0x10);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x52, 0x12);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x53, 0x14);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x54, 0x16);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x55, 0x08);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x56, 0x0C);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x57, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x58, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x59, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5A, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5B, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5C, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5D, 0x02);
-> +
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x2C, 0xB0);
-> +
-> +	il79900a_switch_page(&ctx, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x07, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x06, 0xD2);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x53, 0x1F);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5E, 0x40);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x84, 0x00);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x29, 0x3A);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x2A, 0x3B);
-> +
-> +	il79900a_switch_page(&ctx, 0x03);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x20, 0x01);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x21, 0x3C);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x22, 0xFA);
-> +
-> +	il79900a_switch_page(&ctx, 0x12);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x87, 0x2C);
-> +
-> +	il79900a_switch_page(&ctx, 0x05);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x61, 0x8F);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x6D, 0xBB);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5A, 0x7C);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x67, 0x7C);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x54, 0x92);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x55, 0x92);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x40, 0xD2);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x46, 0x70);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x30, 0x47);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x7A, 0x89);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA4, 0x0B);
-> +
-> +	il79900a_switch_page(&ctx, 0x06);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xC0, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xC1, 0x7);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCA, 0x58);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCB, 0x2);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCE, 0x58);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCF, 0x2);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x10, 0x0);
-> +
-> +	il79900a_switch_page(&ctx, 0x0b);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x76, 0x55);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x78, 0x68);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x77, 0x0D);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x79, 0x60);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x7A, 0x10);
-> +
-> +	il79900a_switch_page(&ctx, 0x08);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx,
-> +				     0xE0, 0x00, 0x1E, 0x3F,
-> +				     0x68, 0x7D, 0x72, 0x86,
-> +				     0x89, 0x92, 0x8E, 0xA5,
-> +				     0xA8, 0xAA, 0xBD, 0xB8,
-> +				     0xBE, 0xC5, 0xD6, 0xCD,
-> +				     0xC3, 0xDA, 0xEB, 0xED);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx,
-> +				     0xE1, 0x00, 0x1E, 0x3F,
-> +				     0x68, 0x7D, 0x72, 0x86,
-> +				     0x89, 0x92, 0x8E, 0xA5,
-> +				     0xA8, 0xAA, 0xBD, 0xB8,
-> +				     0xBE, 0xC5, 0xD6, 0xCD,
-> +				     0xC3, 0xDA, 0xEB, 0xED);
-> +
-> +	il79900a_switch_page(&ctx, 0x14);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x85, 0xCC);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x87, 0x91);
-> +
-> +	il79900a_switch_page(&ctx, 0x10);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x11, 0x3);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x12, 0x34);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x10, 0x1);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x13, 0x4);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x14, 0xBB);
-> +
-> +	il79900a_switch_page(&ctx, 0x0b);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x94, 0x88);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x95, 0x23);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x96, 0x0B);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x97, 0x0B);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x98, 0xC6);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x99, 0xC6);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA6, 0x47);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA7, 0x77);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA8, 0x5);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA9, 0x5);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xAA, 0xBA);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xAB, 0xBA);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xBD, 0x92);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0xBE, 0xE0);
-> +
-> +	il79900a_switch_page(&ctx, 0x0e);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x14, 0x3);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x12, 0x0);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x13, 0x4);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x11, 0x1);
-> +
-> +	il79900a_switch_page(&ctx, 0x02);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x80, 0x11);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x82, 0x11);
-> +	il79900a_switch_page(&ctx, 0x12);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x82, 0x2C);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x85, 0x2C);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x87, 0x2C);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x88, 0xEC);
-> +	il79900a_switch_page(&ctx, 0x10);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4, 0x1);
-> +	il79900a_switch_page(&ctx, 0x11);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0C, 0x80);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3C, 0x80);
-> +
-> +	il79900a_switch_page(&ctx, 0x06);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0E, 0x0);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0E, 0x3F);
-> +	mipi_dsi_dcs_write_seq_multi(&ctx, 0x10, 0x0);
-> +
-> +	il79900a_switch_page(&ctx, 0x00);
-> +	mipi_dsi_dcs_set_tear_on_multi(&ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&ctx);
-> +
-> +	mipi_dsi_msleep(&ctx, 120);
-> +
-> +	mipi_dsi_dcs_set_display_on_multi(&ctx);
-> +
-> +	mipi_dsi_msleep(&ctx, 20);
-> +
-> +	return ctx.accum_err;
-> +};
-> +
->   static int starry_ili9882t_init(struct ili9882t *ili)
->   {
->   	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
-> @@ -670,6 +871,19 @@ static int ili9882t_enable(struct drm_panel *panel)
->   	return 0;
->   }
->   
-> +static const struct drm_display_mode rpi_10inch_default_mode = {
-> +	.clock = 166666,
-> +	.hdisplay = 1200,
-> +	.hsync_start = 1200 + 28,
-> +	.hsync_end = 1200 + 28 + 10,
-> +	.htotal = 1200 + 28 + 10 + 30,
-> +	.vdisplay = 1920,
-> +	.vsync_start = 1920 + 238,
-> +	.vsync_end = 1920 + 238 + 4,
-> +	.vtotal = 1920 + 238 + 4 + 28,
-> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-> +};
-> +
->   static const struct drm_display_mode starry_ili9882t_default_mode = {
->   	.clock = 165280,
->   	.hdisplay = 1200,
-> @@ -696,6 +910,20 @@ static const struct drm_display_mode tianma_il79900a_default_mode = {
->   	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
->   };
->   
-> +static const struct panel_desc rpi_10inch_desc = {
-> +	.modes = &rpi_10inch_default_mode,
-> +	.bpc = 8,
-> +	.size = {
-> +		.width_mm = 135,
-> +		.height_mm = 216,
-> +	},
-> +	.lanes = 4,
-> +	.format = MIPI_DSI_FMT_RGB888,
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> +		      MIPI_DSI_MODE_LPM,
-> +	.init = rpi_10inch_init,
-> +};
-> +
->   static const struct panel_desc starry_ili9882t_desc = {
->   	.modes = &starry_ili9882t_default_mode,
->   	.bpc = 8,
-> @@ -847,6 +1075,9 @@ static int ili9882t_probe(struct mipi_dsi_device *dsi)
->   }
->   
->   static const struct of_device_id ili9882t_of_match[] = {
-> +	{ .compatible = "raspberrypi,dsi-10inch",
-> +	  .data = &rpi_10inch_desc
-> +	},
->   	{ .compatible = "starry,ili9882t",
->   	  .data = &starry_ili9882t_desc
->   	},
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] media: verisilicon: unused macro definitions left as dead code
+- [Low] media: verisilicon: dangling extern declaration of imx8mq_vpu_varia=
+nt
+--
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+commit 3830dbe5f9a866bc263edbf7ff8a80a0961e7da2
+Author: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 
-Thanks,
-Neil
+media: verisilicon: Remove deprecated variant
+
+"nxp,imx8mq-vpu" is tagged as deprecated since commit f3116f2e52e6
+merged since v5.17-rc1. This commit removes the variant to clean up
+the driver code.
+
+> diff --git a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c b/drivers/=
+media/platform/verisilicon/imx8m_vpu_hw.c
+> index fa4224de4b996..b091d807ae4e2 100644
+> --- a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
+> +++ b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
+> @@ -25,55 +25,6 @@
+>  #define CTRL_G1_PP_FUSE		0x0c
+>  #define CTRL_G2_DEC_FUSE	0x10
+> =20
+
+[Severity: Low]
+Since imx8m_soft_reset() and other functions are being removed, should the
+macros they used, such as CTRL_SOFT_RESET, RESET_G1, and RESET_G2 (defined
+earlier in this file), also be removed to fully clean up the dead code?
+
+> -static void imx8m_soft_reset(struct hantro_dev *vpu, u32 reset_bits)
+> -{
+
+[ ... ]
+
+> @@ -319,30 +235,9 @@ static const struct hantro_irq imx8mq_g2_irqs[] =3D {
+>  	{ "g2", hantro_g2_irq },
+>  };
+> =20
+> -static const char * const imx8mq_clk_names[] =3D { "g1", "g2", "bus" };
+> -static const char * const imx8mq_reg_names[] =3D { "g1", "g2", "ctrl" };
+>  static const char * const imx8mq_g1_clk_names[] =3D { "g1" };
+>  static const char * const imx8mq_g2_clk_names[] =3D { "g2" };
+> =20
+> -const struct hantro_variant imx8mq_vpu_variant =3D {
+> -	.dec_fmts =3D imx8m_vpu_dec_fmts,
+> -	.num_dec_fmts =3D ARRAY_SIZE(imx8m_vpu_dec_fmts),
+> -	.postproc_fmts =3D imx8m_vpu_postproc_fmts,
+> -	.num_postproc_fmts =3D ARRAY_SIZE(imx8m_vpu_postproc_fmts),
+> -	.postproc_ops =3D &hantro_g1_postproc_ops,
+> -	.codec =3D HANTRO_MPEG2_DECODER | HANTRO_VP8_DECODER |
+> -		 HANTRO_H264_DECODER,
+> -	.codec_ops =3D imx8mq_vpu_codec_ops,
+> -	.init =3D imx8mq_vpu_hw_init,
+> -	.runtime_resume =3D imx8mq_runtime_resume,
+> -	.irqs =3D imx8mq_irqs,
+> -	.num_irqs =3D ARRAY_SIZE(imx8mq_irqs),
+> -	.clk_names =3D imx8mq_clk_names,
+> -	.num_clocks =3D ARRAY_SIZE(imx8mq_clk_names),
+> -	.reg_names =3D imx8mq_reg_names,
+> -	.num_regs =3D ARRAY_SIZE(imx8mq_reg_names)
+> -};
+> -
+
+[Severity: Low]
+Does this removal leave a dangling extern declaration for imx8mq_vpu_variant
+in drivers/media/platform/verisilicon/hantro_hw.h?
+
+>  static const struct of_device_id imx8mq_vpu_shared_resources[] =3D {
+>  	{ .compatible =3D "nxp,imx8mq-vpu-g1", },
+>  	{ .compatible =3D "nxp,imx8mq-vpu-g2", },
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924130453.1962=
+99-1-benjamin.gaignard@collabora.com?part=3D1
