@@ -1,175 +1,238 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020086.outbound.protection.outlook.com [52.101.196.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097234B2057;
-	Thu, 24 Sep 2026 17:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790272281; cv=none; b=PKLlF+6LkdBNH8FtkthKTp1CuRL7W77xEw/Mlf7sRca1oJ8J+GHq1c+kpQwHrI0RCSACRqbx/Kim2hut+mW3e4WDWqQaK6ZOHxZZIbupu4tvZg/6yPQHA8wp0/BSQtNFLsVylIWj6JmK1W/gCyjgN/MWfXQIeRKthRmNRhioGgc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790272281; c=relaxed/simple;
-	bh=E5sOGZv4PsnQ9lebGLSxJFxuo51klyzvMHE8CDz7Q9Y=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=j2dZwIdI3M58T4gu37EJM7/wGMPYQpkPDZGVxVyAOfPIHi0mjEWekzhAW48MzXu3R7SplpZrsstcTDfOVIidoZsF0wJs/z7R7AjmSHOBMB+QKwUHQfZrstKFd0cqSU+XYUh0zuP2LlHW2LD37L20ctkev8q3a9buXC+eXq7Ypio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kE0AuB1U; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9323D9665;
+	Thu, 24 Sep 2026 18:05:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.86
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790273115; cv=fail; b=DKmy8dF+n5pNKd+Tw/NPyjsJEJTiENZyBzVrcDRBfLmjqV/4anrWDqWlj1/2ZeURnf/VHKDvuSNcZ6auvkazqVb+uWyjLt+WoUTPD9hOCI31wt3ChD1rSFqAi6N8LAQ/lVA844GP5M5rEPxyNsZdyXbQDXfcBLZMA7UNd96+p0U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790273115; c=relaxed/simple;
+	bh=400cXhMJ+fRqnuvkzBWkZaBF1fJb7FNJ4GarVwqyDlE=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=GrZ99JLdOff/l4WG0i6oOtf8zScKD/taHqtgC1kpr2O1tJB/7d1JPYWd0H2HTyrcRaBHYRIHj/TeRkM0rZptflH/tpGO2Qb7RGcABg8l8J5w/10ES7L+0U8XQ3DI1foo+jtA6Ag21Fjj3kGpM3GK1RPJJLrV2noHF9I5+C5Zoos=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=QkxNAoE1; arc=fail smtp.client-ip=52.101.196.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kE0AuB1U"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790272277;
-	bh=E5sOGZv4PsnQ9lebGLSxJFxuo51klyzvMHE8CDz7Q9Y=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=kE0AuB1UulmjZhIOgwAwnOV/ZisIZPnLZDoiyztMOMVPai48Y0BDuo/TRzky24oKV
-	 BlU9BEI4mZqG1Zlw1mVvQIYMrua6m3+ZB4SMpqjomLxLwKxRnKZD1aJegtjVBwx6+z
-	 CbIEHai48Yp7bNY3Wlw8r8I7ChBrePh90mWCOnUqe1hGHc0NEZpFj2u4M8Xuv35hKu
-	 nV4vHYIOyCRKaJw/bW5OtsrBhJZSmMtHVTM+IQYaLzYHuLYpQNSOD16EHKVWFW4+fe
-	 2Jm8pc6q3POOIqco4Mrd2T6Z8VABOLfb10GpZzShkUCYPUDWri0vL3v/ckrSFN85F8
-	 XqipsgWgav70A==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2567017E0082;
-	Thu, 24 Sep 2026 19:51:15 +0200 (CEST)
-Message-ID: <518ec010db104f6f0e7c85607a97af408da44eed.camel@collabora.com>
-Subject: Re: [PATCH v3 2/3] media: dt-bindings: media: nxp, imx8mq-vpu:
- Remove nxp,imx8mq-vpu
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Conor Dooley <conor@kernel.org>, Benjamin Gaignard
-	 <benjamin.gaignard@collabora.com>
-Cc: p.zabel@pengutronix.de, mchehab@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
- s.hauer@pengutronix.de, 	kernel@pengutronix.de, festevam@gmail.com,
- linux-media@vger.kernel.org, 	linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, 	imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- kernel@collabora.com
-Date: Thu, 24 Sep 2026 13:51:13 -0400
-In-Reply-To: <20260924-compare-useable-3e2863b66924@spud>
-References: <20260924130453.196299-1-benjamin.gaignard@collabora.com>
-	 <20260924130453.196299-3-benjamin.gaignard@collabora.com>
-	 <20260924-compare-useable-3e2863b66924@spud>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-ufgeUgCb5bgTB+Z5csz7"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="QkxNAoE1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZIm2YI1hRHJKAl1RiGBDva/UORrHH/zVQH+d6KhhKA8NhbdUbAXSisENugHMQHHtj8kCnG3nx/6EycNlucUSeID9ujwd78arX2Yrxgf+ub8CT64DCnsvZ0il1YQ6LK8S4esrzpXL53C+wwtImCg6+S1N6Ef7V6atpSOk36K8MiyJgCvj1IHdXzIRhWmFNrGyvOQiABOs91Wr9+E/h45ImnvY5ZfrRqfeQEv5NnHCCCNXdKkvEMc750BlpsAkC3cX7Q2zRUL/FNhoAWBdcWplmfQMCfr0a4+w3bCXxRrTID+wwBgj183g/F8RSm1Fzq4/A9z3zcCKcigWsCfZ3jZBRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bqq/+j9nVGRHup8T5xYrQ07PLz+2ymM9LIsTk91LSdo=;
+ b=ZOhfErQHNpcaMuAPYt8eriN8t5P3Y20cvaf0Rj3ZCTXhoDOeXeYiCpG3xnxT3gl4pYrxBZIZqPo0Zcn1VE7q+9TX42jeMbc6oULOYKQbfPI2y23G6kXYRAakqeZGeVt0RTnZ+jzpBlIL8X+mwrWSC4runBrgTQJppmcpSZD/nB1K46AChPGC0cQwmeGylxtNewPvyVykroGOM9nzFux2DACBE6pu2HzSjfx1RyhI3jZLvTyZ202s9iwLJp+LxcC5YBKwBh05BoPi9Jf0AiRz69HVbq1QK0WcwaU9Vkg3SLOuBzSDs3/kCmcPbyc63m+D/tVxY2/m2N/Cl4zTlmxY1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bqq/+j9nVGRHup8T5xYrQ07PLz+2ymM9LIsTk91LSdo=;
+ b=QkxNAoE17zJAwvRi4rh4WM1vkZ6vE+qO7wrqQR8AI86UOYSLSN6cVGIDqlTe5l07dnXy5ae31GGR2fzE8tMWj6kgPbiFZuLH+XtA3yIZGJBPeYm6AAYediLeM/WQ9+3KvqquVb0EviD75DzWJNRSwroP1EKmc9Z00besFRHckpo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWXP265MB3399.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:da::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 18:05:09 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 18:05:09 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 24 Sep 2026 19:05:08 +0100
+Message-Id: <DLNQUO0EQW7M.29SAT06RE6IOV@garyguo.net>
+Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ <linux-pwm@vger.kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Florian Fainelli" <florian.fainelli@broadcom.com>, "Broadcom internal
+ kernel review list" <bcm-kernel-feedback-list@broadcom.com>,
+ <devicetree@vger.kernel.org>, <linux-rpi-kernel@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ "Naushir Patuck" <naush@raspberrypi.com>, "Stanimir Varbanov"
+ <svarbanov@suse.de>, <mbrugger@suse.com>, "Sean Young" <sean@mess.org>,
+ "Julian Braha" <julianbraha@gmail.com>, "Christophe JAILLET"
+ <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH v9 2/3] pwm: rp1: Add RP1 PWM controller driver
+From: "Gary Guo" <gary@garyguo.net>
+To: "Andrea della Porta" <andrea.porta@suse.com>, "Gary Guo"
+ <gary@garyguo.net>
+X-Mailer: aerc 0.22.0
+References: <cover.1789724999.git.andrea.porta@suse.com>
+ <22f454003902173a7230d0aee5fbd7261fcc163e.1789724999.git.andrea.porta@suse.com> <DLM3VDAEVVEO.1STV7HI3M3YXK@garyguo.net> <arPLa_g4mAg1t2rq@apocalypse> <DLMQPQRYTSNW.2Z6C0408NMCYK@garyguo.net> <arP-P_a7OyhtMQyr@apocalypse>
+In-Reply-To: <arP-P_a7OyhtMQyr@apocalypse>
+X-ClientProxiedBy: LO4P123CA0553.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:33b::7) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB3399:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae6c6fd1-76cd-4dc1-2b46-08df1a665eb4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|10070799003|376014|7416014|1800799024|4143699003|56012099006|22082099003|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	YTv4QQw7Op6JEjBTQw2liaOHYhVcurKdGKfa/RJW1F7mFhcsh+Rj1lrqDYGi3eLsk8aojzL/Giu00UiTJuMdVLbsCR8hpMkbKW7zAq7FtWjzKhcNnFjW6y1LazBol0VKbu93Wpgr853clY2hc3071t8+W6b+xGKM0hcVcRSg0CzkvLGqByFfLOdjgRZ0dgGKJBGAFmo0EtIfMevKxZXoMzV6DHF6SQb4Z7RhFMjMCtGSsnOqLT0WrjtmzDhIK2sA8e9yZTuLOAKv1xjDkffjJ43cR37DJGIc6/al+Wawv6nQt2pF57E9PClOHW8Qwit3B7pZF43vcJvN4pEcCy73DIln2YcfDq2cuVxOi4nm4iDx8O8JqS8lvP4/P9geMRPRDTViLS2+OT8pZYjUDb4sBvOH5KDEI8MxaOVUAS/pyBNmW1JUofcKC87emmIxYfItIiqmzfbp+U0ns4hhoUO9esPGzOisoZoGYGblUvLcl06kQrOG+ykEzqfCNeDaUYwpqRaZil7AqfLIRXyHNEKRPINHUD0d6fQo6fEgMeWdjzqcvajmPMDuqs3rSzFLojpWcMBVBkXqkVHhini2FuHzn8Uj++R0snZQnDl9odORibIGJL9EBNk7ERCLjpVEC5mV/vVTCgCcY5AHH9ewdp6gbPsNxlwidmPsgrjDHVizSZg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(10070799003)(376014)(7416014)(1800799024)(4143699003)(56012099006)(22082099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dzhyVmlYWjRJd1g3eFYzVnNLazJBbFRGcEN5UDRHTDVSVXFrZlJLSkVsQVdr?=
+ =?utf-8?B?Wmhnd0x6QVhvZXVBTDhaK0lPRTFGLy80K0E2VnNIUXM4RXUvWlRlYXZlSDY0?=
+ =?utf-8?B?MlJmN0xIYko0OTBZZ1d4Z3c1dVNFSy9MSlM5eFZ1c1Q0Z1pPYnUxMDlKMVpZ?=
+ =?utf-8?B?NXJscHpncHBIc0lTVEFkMmx3aVMzVHlvRVc1Nmc4ZFFqalFRQk1tcnFZQm5H?=
+ =?utf-8?B?YmU3NllQREM3TWdPZzZLWEZSUTFUandzYndQN3ZERmZ4VjU1dGVFSFhGd1Bi?=
+ =?utf-8?B?TkkrYWxZZmRBSXBCN0sxTGlCYTJKbEdOQXg1OTgyVUJpZXEvdVIwMjZBZmtm?=
+ =?utf-8?B?eHY4LzMzVitIcmVvT2tUMjlwWkt3bE1LY2dsZldBRVM0WFZhWGRHcVk4VjVH?=
+ =?utf-8?B?eXdkcGluanAwVFVqdmYxVE5Ndk82NzlFK0IzaFQwWEx3NytlTzJ5dmhSM2E0?=
+ =?utf-8?B?YjJCSmx6RzFpc0ZWNXdhMEoxNWZaTFhPVTNiQnR2WHJGUTMvaFF0ZDc5aVRn?=
+ =?utf-8?B?UmZQL0V6UURmUkxQL2p4c2hDRUM3dHRhUVVybHZ6MGJIWnduRkIzNEJ6cFVT?=
+ =?utf-8?B?VkpOQnYxUHg1V0t0c2VwK09vc3RUYzZ5SVdZbzVmZTlKWm9zUzJSR0RtWTlx?=
+ =?utf-8?B?MWV0WHZvZkFvUHlFNG1va1ZPYmVUMFpISDFKdk5xanRHcld5THAyY2VnQWdj?=
+ =?utf-8?B?ZlZ0OGNCcVZRbmxhVG1WaGgyelpiWit6endWVlk0b0VZOTl4d0ZTci90SFN0?=
+ =?utf-8?B?d0lJb2gvOUtGRlZxRk9PS01IajVCSGRpNmhEeVNWNzZnNWJrS25lUjZ6T1dw?=
+ =?utf-8?B?NXZhbnBqMWNTbFZZQmgrZmVsckE2L0p2L29LY1R5RUxvSXJITzQxS1dPSmtU?=
+ =?utf-8?B?U1BodkFIbnMzTkp2dEhkdi9DSWpZMlM3VWJ1SjRaWnN5S055SytRTHlyYjdl?=
+ =?utf-8?B?bWk4bnNVUmlkWXVtTXVWUncxbndlZ0RPZXVEMStFL3ZxdjIrbmk5NGV4OUpw?=
+ =?utf-8?B?MHNsSHNzUVE0ZndadkZxSGRkNGVxQjhyYVUvOEk3VjJFTGpWYmRVZTV3TFB6?=
+ =?utf-8?B?eEZBcmdZcVNMWTdKQWlwUkhnQkhYWXRMbkovTXUwNEw3aVc3UzBwYlhMVnMv?=
+ =?utf-8?B?aUdqVzVLM1lQdTZjY2t2Y1NaTm1LeC9zK2l1VkxGaGFHQzVKMWlMQjVlZ2Vr?=
+ =?utf-8?B?SGowUE4yQmZJaFlIOFQ4cHZoVUdFZjh1TG5QRzZLbnJXOEtrS1JBc2trdFlh?=
+ =?utf-8?B?OWtST051RWIzeUtJbGs5a3dodVVnR0dVTWpDQVZEK2pxcUtWeXpySmNlci80?=
+ =?utf-8?B?WE9aMWJhbWcva0pWNUpYekJHbEgxSHFscHVUWEl0UERSSlhXbDBwYkV5NUxI?=
+ =?utf-8?B?QVV4cTFQSU52eUtzWmw5SGJRT2VqWms1UlFramxJL1pNSGhLSzVqbVlJSlhu?=
+ =?utf-8?B?b3VFSXNSaDc0SW9ic0MzcjhGY05nUi9uQ3VjNDZrV2FmSUdwTWNqQzJFanEx?=
+ =?utf-8?B?RnBPY2N3NkN2a2M2dVQ2bUg0azV5V0JyVG9wanJEZjNyVFhOZndUVERVWU9o?=
+ =?utf-8?B?UUVRNk84ZVB0d1A3QjRqU1BoWWtnM1V1UDl1d3UrblR4YWtjcTR1QklGR1dq?=
+ =?utf-8?B?cndib09pZjVEZyt5U0s3RHlYeVB0TUc0bWwzWU1Oa040Wm9IRlNQM0RCanJq?=
+ =?utf-8?B?ZWRybVpDdW9VaGVwTWdSS3RuSzFnbzNvVm9zTlNhR0ZRTXQ1UjVPSUY5V0xG?=
+ =?utf-8?B?cnBHWS81YktBK2tOUjlWTzJxVUZPb21IU0dmN05XbmxLN2JYZExVa3VDTGdO?=
+ =?utf-8?B?ZjdXZlhmUXFFTDd2UkROZ2QvYnkxalFYdk1uYUlTSitRSmFsMmg2clN3Sm0v?=
+ =?utf-8?B?azZIMC9KSnRzT3FtNUpSb2hEMTE5eXQrc3BKTmNSdkhSb05ZcHdTa0hKRzlP?=
+ =?utf-8?B?SFdvQVZ1WmtNODRqY0ZjRyszbGlmS3FuTG5ITXN4RlVucWdzZERTRk9XWHpR?=
+ =?utf-8?B?TjR5Q29hNkVBbys5REV2STMyU1VGWmZ0eC9GNkt3T0dldFhYTEg2Q1J6NllR?=
+ =?utf-8?B?OTVicHRxcU9WS2tMRWZFNDcvVkpVR2VGQzRVVWVaeE1uWEF6d0Y1Vm45bm5G?=
+ =?utf-8?B?cE9oVlVJMjM3MFhoYTVUMmVPSUcrTTJScXBiQ0JGVkZjRnpoZGVmTm00ejNN?=
+ =?utf-8?B?MDBmRXJhUGNndDBGTUNhRDdtKzZNSzRYVU54Tmk5emUrZzhYbTdvODRldGE0?=
+ =?utf-8?B?RHEzekpKdVZYZXZYbXgyS1BaN1ZDV0FvSUVyazVVcllJc1VGMnhMSGd0SlJW?=
+ =?utf-8?B?UHp6aUVFUC9kYW50UU5jRjZ0WU5NbEVVQmU5dmxSZHk2eWtPSkNHZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae6c6fd1-76cd-4dc1-2b46-08df1a665eb4
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 18:05:08.8839
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TVF+Lzi5T6LaKsErisjObxB1KWFMVmiOoUJlWPdIjLaRTkp/sEXEhZ3Le7ZtZQ7gnIrP+6FL5JE3TvCCTmKPLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB3399
 
+On Wed Sep 23, 2026 at 5:28 PM BST, Andrea della Porta wrote:
+> This driver implements only static PM ops so I think both pwm_get API or
+> device_link_add should deal automatically with races.
+> OTOH, what if the consumer obtains a reference to the PWM device via of_*=
+ API (or
+> other means)? Thhose calls does not create device link and we would still=
+ have unsync
+> critical paths.
 
---=-ufgeUgCb5bgTB+Z5csz7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+of_pwm_get also registers a device link. In general you shouldn't have to w=
+orry
+about synchronization when using supplier-consumer APIs, as synchronization=
+ has
+been taken care for you. Regulator APIs for example also handles device lin=
+ks.
 
-Hi Conor,
+If this isn't true.. Then I'll be a driver core design issue and not that o=
+f
+drivers :)
 
-Le jeudi 24 septembre 2026 =C3=A0 17:55 +0100, Conor Dooley a =C3=A9crit=C2=
-=A0:
-> On Thu, Sep 24, 2026 at 03:04:52PM +0200, Benjamin Gaignard wrote:
-> > nxp,imx8mq-vpu has been tagged has deprecated since a while.
-> > After driver clean up it is time to remove it.
->=20
-> No users in linux doesn't mean no users, but I am guessing that there's
-> genuinely no users elsewhere and anyone using out of tree devicetrees
-> should have updated due to the warning at runtime?
+I think sending this part with your fan driver would be a better idea, and =
+we
+shall see if Sashiko still complains :)
 
-I've checked the vendor DT before they moved to the mainline driver, and th=
-ey
-never used this binding (actually they never made bindings).=20
-Here's what the DT was:
+>
+>> >
+>> > True, and I don't have any issue in converting back to MMIO call and d=
+rop the conditional for
+>> > error checking, but please consider the following, since the driver ma=
+y be extended in the
+>> > future to support more features:
+>> >
+>> > - regmap gives you free debugfs view on the registers, which may be us=
+eful to test
+>> >   the new features.
+>>=20
+>> Do you have any register that we want to access that is not part of the =
+PWM
+>> facility, other than tachometer?
+>
+> Not at the moment, no. But I don't see how this impact the debugfs useful=
+ness.
+>
 
-		vpu: vpu@38300000 {
-			compatible =3D "nxp,imx8mq-hantro";
-			reg =3D <0x38300000 0x200000>;
-			reg-names =3D "regs_hantro";
-			interrupts =3D <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 8 IRQ_TYPE_LEVE=
-L_HIGH>;
-			interrupt-names =3D "irq_hantro_g1", "irq_hantro_g2";
-			clocks =3D <&clk IMX8MQ_CLK_VPU_G1_ROOT>, <&clk IMX8MQ_CLK_VPU_G2_ROOT>,=
- <&clk IMX8MQ_CLK_VPU_DEC_ROOT>;
-			clock-names =3D "clk_hantro_g1", "clk_hantro_g2", "clk_hantro_bus";
-			assigned-clocks =3D <&clk IMX8MQ_CLK_VPU_G1>, <&clk IMX8MQ_CLK_VPU_G2>, =
-<&clk IMX8MQ_CLK_VPU_BUS>;
-			assigned-clock-parents =3D <&clk IMX8MQ_VPU_PLL_OUT>, <&clk IMX8MQ_VPU_P=
-LL_OUT>, <&clk IMX8MQ_SYS1_PLL_800M>;
-			assigned-clock-rates =3D <600000000>, <600000000>, <800000000>;
-			power-domains =3D <&pgc_vpu>;
-			status =3D "disabled";
-		};
+I don't think having debugfs alone is a convincing reason to use regmap.. M=
+ost
+of the users who use this driver won't care.
 
-I've not aware of any other OS or booloader that offers media capabilities =
-using
-Linux mainline DT. The now deprecated nxp,imx8mq-vpu compatible had a short=
- live
-in the Linux tree if my memory is correct. Hope this is enough justificatio=
-n.
+>>=20
+>> > - regmap_write/read may still return an error in case the passed regis=
+ter is not in range.
+>> >   This will be trapped at runtime only, but could still be useful duri=
+ng development
+>>=20
+>> I think this is rather a anti-feature. Having additional error paths for=
+ some
+>> thing that never happens is not a good idea, especially that you basical=
+ly get 0
+>> coverage for these paths.
+>
+> Sure. Well this is true once the code is crystallized and tested, so it's=
+ somewhat
+> still useful (only) during future development. But I got the point, and I=
+ agree.
+>
+>>=20
+>> You already know the shape of the register region, so the bounds checkin=
+g
+>> provided by regmap would be better served by an ahead-of-time check:
+>>=20
+>>     #define RP1_PWM_REG_MAX (RP1_PWM_DUTY(RP1_PWM_NUM_PWMS) + 4)
+>>=20
+>>     struct resource *res;
+>>     base =3D devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+>>     if (IS_ERR(base))
+>>         return PTR_ERR(base);
+>>=20
+>>     if (resource_size(res) < RP1_PWM_REG_MAX) ...
+>
+> Fine for the probe method, but regmap_read/write also check for the range=
+, for free.
 
-regards,
-Nicolas
+Well, you have to handle the possibility of error, and the compiler needs t=
+o
+generate bound checks, so it's not free?
 
->=20
-> >=20
-> > Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-> > ---
-> >  .../devicetree/bindings/media/nxp,imx8mq-vpu.yaml      | 10 ++++------
-> >  1 file changed, 4 insertions(+), 6 deletions(-)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yam=
-l b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
-> > index 19528262810a..69619d2c86fa 100644
-> > --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
-> > +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
-> > @@ -14,12 +14,10 @@ description:
-> > =20
-> >  properties:
-> >    compatible:
-> > -    oneOf:
-> > -      - const: nxp,imx8mq-vpu
-> > -        deprecated: true
-> > -      - const: nxp,imx8mq-vpu-g1
-> > -      - const: nxp,imx8mq-vpu-g2
-> > -      - const: nxp,imx8mm-vpu-g1
-> > +    enum:
-> > +      - nxp,imx8mq-vpu-g1
-> > +      - nxp,imx8mq-vpu-g2
-> > +      - nxp,imx8mm-vpu-g1
-> > =20
-> >    reg:
-> >      maxItems: 1
-> > --=20
-> > 2.53.0
-> >=20
+A probe time check is good because once you checked that the register space=
+ is
+large enough, you never have to check again for accesses.
 
---=-ufgeUgCb5bgTB+Z5csz7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Using regmap_read/write to provide the check will give a false sense of "th=
+ings
+are working" when code runs past the probe, but if, say, the device tree is
+messed up. And it'll fail much later..
 
------BEGIN PGP SIGNATURE-----
+Best,
+Gary
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarVjEQAKCRDZQZRRKWBy
-9C4tAQD1qA+Ux1mXqgQgjzQg11/HgxYGtNNRdQM1ljOMoDXTQgD+IP4kVkw14aJT
-a6/hPh+9+Z/YwRaFTKestaGBrvZAkgI=
-=UaxT
------END PGP SIGNATURE-----
-
---=-ufgeUgCb5bgTB+Z5csz7--
