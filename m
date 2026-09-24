@@ -1,100 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1515846A610;
-	Thu, 24 Sep 2026 11:11:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CDC37F33F;
+	Thu, 24 Sep 2026 11:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790248289; cv=none; b=tX8+b4HghHplJqDXEbyyne12iUlO5l4wSMQua6Vh3O/u/ZihVkdRq7W6xV3PQ2yeaEbxoYYQF0AwRnj01/MEfofoRVlnA7Fx16XdF3VW3N0PBZSugxvd1w1mXWWaXottpankPa/ZXFmHHCXTg/ZWWrm4rcNVA8gNrnbUDKLdjBE=
+	t=1790248695; cv=none; b=RF6PLUYnGrZTVXcNwMoQh/RLjKwvYwKVSFJOQuTe/Fe8HrtO2Mb9XPJFrJ/CyF7i9DoJ7eianOQIyACrOjZ+2lstnfMAcyj1Y5QOOIuZjrXTjRmnWio9qPS45aMVK4cV7FqEGFEx0PZP2vh2R2wQ3fdEtrDRbr72Rp/n1gA1gAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790248289; c=relaxed/simple;
-	bh=J/mAnCCYPL26xRL4gZTeCCfBk3fjLT8Kzuf3AEcjklQ=;
+	s=arc-20240116; t=1790248695; c=relaxed/simple;
+	bh=u5lKH5nXGlnx35rQbsQq5GJQmFXBhRKS+DBAiA/cUy0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Pkxq7oze4swSTeBkNjRSfV2zotSPoKKH2V5paM/meIIoFg3zxJo33x6xbCdgnky9jhe26BE0TKpXdQyC5Pv0+nvpApX0qWOPXLOiVk8dIy3TpFK2lBD91vvyVWzSFqaHoP6H+yZM0CpqF/rbuJevzzRHihrx4yPLe5AFM9ZJsjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NJs+ecS2; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hU/tGZ+vJKnnvloGwrzip6EUyE0CyebmzS/29a+qSz/4mohG8tKZDVu4wlB3/4gZGI/sv2cdJu0KfKVUXqguOGku3QPTV+tUyTQlm3Iro1UThCKver2rdf25d7rUS02vWC+I/p+fiN6fGeRS91pIFVlF262Yuh8MH+wmIGxwtZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MvnSPne1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NJs+ecS2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511671F000FF;
-	Thu, 24 Sep 2026 11:11:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MvnSPne1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692FE1F000FF;
+	Thu, 24 Sep 2026 11:18:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790248286;
-	bh=AuzRyDdGhCHdoLWa6mx/LeIKpTLjN3sOfCSD4VbWP9c=;
+	s=k20260515; t=1790248693;
+	bh=0+e0XLFc8dwqGCXGWFE5Q/VS7LYzMFo3TXZwc8p3z5U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NJs+ecS2/xWaSH24LaMmBswT86yEeCTKjSP+vRJFmTch1+z9Lgle3amPj1QeQ0EAV
-	 /oqNuAQ1/NoDm0CMMCI+0oEeQDSG1+hSv1z1E8xMxVcecBcK2PH6YcQgij+jpoWi6O
-	 f36sggb7mwWpUHUu0ZU+kIF9mHWYuySLsQLOwbvmuytD2842SvxcnXpJdiOONonQvQ
-	 YuG6Y9Wv9WLVH7TvDiMh7FxzWAq4WIWxhseOe7MScZ9QRnl2AFO3B49AFVEQYzj9Vk
-	 IRSLrIXlR7cIhEWhlRoMRTSDHup1Au/2J8hJCvSjzsLERri4uOABtgTK5lFCTQKFj4
-	 5fN1zCRX9fc6g==
+	b=MvnSPne17EMIkp8vs6qK1j0XwGueRqCBuKmkN/kakqvj6+e+TYm3uXjJZLXtm94Gz
+	 iGbt6BE7Js1TdhFknsxGN9UJ0U+k91vrB7/nS5UicfUrrAvmhYyBqqajb8jeFw1j9E
+	 nok+4UcCNrfHKV8CsqXpzTy9Zr9yAwybNvaE8MnjZQZbckuxKDJZN838SMj+kQF5Vt
+	 mnzHPgyWf62tMVMa94vKpFm5pxZNBWf4jg2xAJ0vQlTD2aYyaDD/PNZ+vPzjGvmPXD
+	 lRbABtYZ217LWNCM8Yadbu6q5okhlWNobY9gwy/xHIzDjneDfW967almAKO86ylHoU
+	 X4ULHbTZhfdXQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 23/42] clk: qcom: gcc-sm8450: Tie the CX power domain
- to controller
+Subject: Re: [PATCH v2 2/3] media: dt-bindings: media: nxp, imx8mq-vpu:
+ Remove nxp,imx8mq-vpu
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260924-qcom-tie-cx-to-gcc-v5-23-38732033e5b5@oss.qualcomm.com>
-References: <20260924-qcom-tie-cx-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com>
- <20260924-qcom-tie-cx-to-gcc-v5-23-38732033e5b5@oss.qualcomm.com>
+To: "Benjamin Gaignard" <benjamin.gaignard@collabora.com>
+Cc: robh@kernel.org, media-ci@linuxtv.org, Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <20260924110825.166238-3-benjamin.gaignard@collabora.com>
+References: <20260924110825.166238-1-benjamin.gaignard@collabora.com>
+ <20260924110825.166238-3-benjamin.gaignard@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 11:11:25 +0000
-Message-Id: <20260924111126.511671F000FF@smtp.kernel.org>
+Date: Thu, 24 Sep 2026 11:18:12 +0000
+Message-Id: <20260924111813.692FE1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] clk: qcom: gcc-sm8450: manual register states lost on CX power down
+- [High] dt-bindings: removing deprecated nxp,imx8mq-vpu breaks DT ABI back=
+ward compatibility
+- [Medium] media: leftover warning for deprecated nxp,imx8mq-vpu prints wro=
+ng string
 --
 
-commit 99d5496af370ec324c5f350b6121718a0028abd7
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+commit 3bc65c4891afcd4ded470db943d49d0c8d78f2db
+Author: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 
-clk: qcom: gcc-sm8450: Tie the CX power domain to controller
+media: dt-bindings: media: nxp, imx8mq-vpu: Remove nxp,imx8mq-vpu
 
-This commit enables runtime PM for the GCC controller by setting use_rpm to
-true. This allows the CX power domain to be powered down once all consumers
-have released their clocks and GDSCs.
+nxp,imx8mq-vpu has been tagged has deprecated since a while.
+After driver clean up it is time to remove it.
 
-> diff --git a/drivers/clk/qcom/gcc-sm8450.c b/drivers/clk/qcom/gcc-sm8450.c
-> --- a/drivers/clk/qcom/gcc-sm8450.c
-> +++ b/drivers/clk/qcom/gcc-sm8450.c
-> @@ -3400,6 +3400,7 @@ static const struct qcom_cc_desc gcc_sm8450_desc =
-=3D {
->  	.num_resets =3D ARRAY_SIZE(gcc_sm8450_resets),
->  	.gdscs =3D gcc_sm8450_gdscs,
->  	.num_gdscs =3D ARRAY_SIZE(gcc_sm8450_gdscs),
-> +	.use_rpm =3D true,
+> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml =
+b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> index 19528262810a5..69619d2c86fa0 100644
+> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+> @@ -14,12 +14,10 @@ description:
+> =20
+>  properties:
+>    compatible:
+> -    oneOf:
+> -      - const: nxp,imx8mq-vpu
+> -        deprecated: true
 
 [Severity: High]
-Will this cause manually configured register states to be lost during the
-first runtime suspend?
+Does removing this deprecated string break backward compatibility for older
+DTBs? Devices booting with older Device Tree Binaries that only specify
+compatible =3D "nxp,imx8mq-vpu" will no longer bind to the driver or pass s=
+chema
+validation.
 
-Setting use_rpm to true allows the CX power domain to power down when all
-consumers release their resources, which resets the GCC hardware registers.
+> -      - const: nxp,imx8mq-vpu-g1
+> -      - const: nxp,imx8mq-vpu-g2
+> -      - const: nxp,imx8mm-vpu-g1
+> +    enum:
+> +      - nxp,imx8mq-vpu-g1
+> +      - nxp,imx8mq-vpu-g2
+> +      - nxp,imx8mm-vpu-g1
 
-However, gcc_sm8450_probe() manually configures multiple always-on clocks
-and UFS PHY settings directly via regmap operations, bypassing the Common
-Clock Framework:
+[Severity: Medium]
+Since the old string is being removed from the driver match table in this
+series, could the fallback warning in the hantro driver print the wrong str=
+ing
+or become dead code?
 
-drivers/clk/qcom/gcc-sm8450.c:gcc_sm8450_probe() {
-        ...
-        regmap_update_bits(regmap, gcc_ufs_phy_ice_core_clk.halt_reg, BIT(1=
-4), BIT(14));
-        ...
-        qcom_branch_set_clk_en(regmap, 0x36004); /* GCC_CAMERA_AHB_CLK */
-        qcom_branch_set_clk_en(regmap, 0x36020); /* GCC_CAMERA_XO_CLK */
-        ...
-}
+In drivers/media/platform/verisilicon/hantro_drv.c:hantro_probe():
 
-Since the driver does not configure regmap caching and provides no runtime
-resume callback, does this mean these configurations are permanently lost
-after the controller resumes? Could this lead to synchronous external aborts
-when the affected subsystems try to access their hardware after waking up?
+	if (of_device_is_compatible(pdev->dev.of_node, "nxp,imx8mq-vpu"))
+		dev_warn(&pdev->dev, "%s compatible is deprecated\n",
+			 match->compatible);
+
+If a device tree uses a fallback string (e.g., "nxp,imx8mq-vpu-g1",
+"nxp,imx8mq-vpu"), it will match "nxp,imx8mq-vpu-g1". The
+of_device_is_compatible() check for the old string succeeds, but
+match->compatible points to "nxp,imx8mq-vpu-g1". The driver then incorrectly
+warns that the new "nxp,imx8mq-vpu-g1" compatible is deprecated.
+
+If only the old string is present, the driver fails to probe, making the
+warning dead code.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-qcom-tie-c=
-x-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com?part=3D23
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924110825.1662=
+38-1-benjamin.gaignard@collabora.com?part=3D2
