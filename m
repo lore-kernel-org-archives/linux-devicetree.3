@@ -1,104 +1,101 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A577A481657
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:11:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5E647C105
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:12:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255514; cv=none; b=H+HsG6fA04fJRxDRqlXszPUj8HaqGw888WJ71KT9/SE3cpp95+NSV2zRQUGEOpwSdHa/dUU/H/rRG+I9m3/pz03H0fmff/9JLKuWsIIiLKZmJVtT9fE6LxxoiM+YRPqV5b6yWPZa+keb72F1HlBSRcdOIx0O9Vqk/RyHUjT1kQs=
+	t=1790255573; cv=none; b=IjVbUPBb0EyPWpXSUoYD0GG59RPXS3bm4JDocQ3cMJgmQs6YpRBiXEdSGGC5f0NDeK3zFVwVMps7gcJmIXps4wE/jdSx7J7vYmfErUggGN01rrrToM+lb76OKE7witMyb3udC6QvWCpElSwNdY7vEX8SEpC2EjQZuQJI8lzrJtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255514; c=relaxed/simple;
-	bh=1TSXneoOU1Yt/tUGyZxYUZ+hB0ehAvjQVuOKhXr/ZFM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=k/WsLFxchczheQBUx67Y7CAYQEZcV6NUrmpWuB2mmRVvS4OhqIoPOIOGzl3N4s+d0tygK7Xn02ts9uP2IcyqQQVqytwy1DPpubaqTfkwEhQEzV1is3uIPdQebi7CGTnsN6r/HMyXd1DkVh8TUnXdADO04w9PTl7nOyJLucvPrvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-786c3d55c99so573154137.0
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:11:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790255511; x=1790860311;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/FyztXa1+P8ok6tdKKVDIJtTBDV2aFviJNLJni/q+qo=;
-        b=1aTJCs5EnpHOxx4V7B10M/VRpENLCm4TK4trwnFTZJkBroDkvA/kfVRhiRmWr749bg
-         71OQvX3eyySbpbzpqUAcGD5wVMmprS4/uDiQ5hLwGcMdEXjktSWsyEWvg0V/nMsox8ay
-         Fug15ZuNguyz8BOc1kyfO5jM4FOVxaE55Sl3eGgThSV8wZwDX6y5L2+iE4Ox5As4/1BL
-         DoDwQ+IwtjfwE7n8wGoG5XGHWgeldGJPwLkgdS6wjE2g1GRfZ/L1X8iMqqe42hnKP4yu
-         vQYf9lSSkyIN96yAaYGx0vI3KDQa5UfSft/R6sBGJQxgTVl5uFBqEmdtR93GKDTj2IUy
-         8CYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlFVsagfDUCZnXJlGpBkBMYL5eQ5+X4o9q2ZGSVkqOpEUH7aq9kkEJ2mzyG/BsrcUHi33sQRc3OL3U@vger.kernel.org
-X-Gm-Message-State: AFuF++lTkMtMgQbQvEiyPxjYRNWTK3CEVYzTAR2N65Mw8L6wypmEONXg
-	KzGsaNHYIemRb7DTlHv9pJtQriEqrDMmclpC8jMY9vLfgdlaRHXIepK693ZAAvTM
-X-Gm-Gg: AYBFou370N9JP6haCp8hmc5D+EN7ympHG/1BWzMNk+vXrdCET0LY7Yunz8+ypyUcIO4
-	FcYHRLradzlwy0RkPkyZh/Cnzf9UfoMgunj9ynTAM6J5QQ4cS3XNMgmOp3ISMmMdbApsMIqaMKp
-	mq47sFffDT6PK+dA7bPYNp8Y7tnX/1m9bgqfuvjcwAo1hHrk8VSbkYl/luaK12PI8QxUZ2WBslz
-	6WhqqckCw470Y67tYuCTNb0D6CvNlAB+XprrcYlMosUU7o8bYSANVeOU6JFSmPVtYT4PHrEfY+u
-	VNRubW/JzDP6j1lp/kbH+3rlmtiNlLQnYIFpDXHFw/OmJDaA6ffllCEd8HZciiTPWHXqQaccxl7
-	ilOxMuIjovPxQw5vFuXF2rvuipdbhATvFSMMZsbDkIHM9lzYSVH+S6wEvYmIe9NqTTT4t9iyc1K
-	jqZCnsmomaavt+vPfw45LlexBc5JMSv1fTsoOZfq6IbcwSxX+Y47EI6+5AGaF2mSfUxUpB369kw
-	n3GnMN3UAMaqaDzJlfST6GJj5xydYgE0w80hEcA
-X-Received: by 2002:a05:6102:3f47:b0:798:24e8:23f4 with SMTP id ada2fe7eead31-7af1cfa46e2mr907440137.7.1790255511447;
-        Thu, 24 Sep 2026 06:11:51 -0700 (PDT)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com. [209.85.221.169])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7affeb271efsm508782137.11.2026.09.24.06.11.51
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 06:11:51 -0700 (PDT)
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5c675e64ffcso801850e0c.0
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:11:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzi02TgWUe9am2cVVFKJqtggFtJ9lJ3ymQY/ijENi6vEd/xOK8miyS7fiPMRYktQTIYNYx7OD78pJvd@vger.kernel.org
-X-Received: by 2002:a05:6102:a19a:10b0:78a:4dff:7b3e with SMTP id
- ada2fe7eead31-7af1d0a179emr770655137.15.1790255510966; Thu, 24 Sep 2026
- 06:11:50 -0700 (PDT)
+	s=arc-20240116; t=1790255573; c=relaxed/simple;
+	bh=kRdbizh6itEVzwsODGfexgPLE+lgsyR3uA96KLVdHOA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nLS595iFqV07puXoXDV8HG2BYuzYb+Y78G6o7+F96aMCSmWv6CUYZKIvNxh2CLgEiSgijWhARUG78rqv0O3PG0wyReyJldgnOYFT32ywPgXmWc4WxW/N4iOaP+3eOmTEnrDSShYsyI7O+Mi4CLeMVajRpjQKLrPY4F8c6oIIeKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ze6m0A+F; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ze6m0A+F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D59D1F000FF;
+	Thu, 24 Sep 2026 13:12:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790255571;
+	bh=WTX6cKXGVVLvBVCMvoOi7/KbV58V/EGfy4BAckOYJvU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ze6m0A+F0eoPO0OS9w5LP/sS6iEqMgL+bwPVPKO8dl45uQZbGg0ZreKdWViPD3avD
+	 A/FNexJ1RxzcHMw9ijY5bwPYPj77xqsw6cfXY6ibLUqR5Ln26JnSEKSF/amKnRsE7j
+	 N00ULilN8wiKpeN5YULO2rnFo49O8KNgVMrPa3PD/3CZUQVpNO4o1vHyrONeVucscA
+	 yTyPZOChpXuSnEy13x695HymmlgPcdDW3Tu22l2Ry3mgJKn9FetK3X+d1uieuYD1DV
+	 NrEWWRCpc8HTU7tdy26pHHkYC3jm0FSFx2Lk9x1ZjS6VYnx50fBahgoozrxcQinqJN
+	 lViMzbuKC0+DA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 3/5] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C
+ driver into two modules
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ariana Lazar" <ariana.lazar@microchip.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260924-mcp47feb02_refactor-v8-3-17dc2ce3485e@microchip.com>
+References: <20260924-mcp47feb02_refactor-v8-0-17dc2ce3485e@microchip.com>
+ <20260924-mcp47feb02_refactor-v8-3-17dc2ce3485e@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 13:12:50 +0000
+Message-Id: <20260924131251.4D59D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260924052741.130658-1-biju.das.jz@bp.renesas.com> <20260924052741.130658-2-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260924052741.130658-2-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 24 Sep 2026 15:11:40 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV4dgpQ9R7StQaz9C=iA9+obiioyU7jgOkkTM4Tz9XoyQ@mail.gmail.com>
-X-Gm-Features: AclHuK9Buv8gyRA5u_mR1kAGkw730VchazHFf46HOsFhnVFa58qOMppMCJ7zadw
-Message-ID: <CAMuHMdV4dgpQ9R7StQaz9C=iA9+obiioyU7jgOkkTM4Tz9XoyQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] dt-bindings: can: renesas,rcar-canfd: Document
- RZ/G3L SoC
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, 
-	Chris Paterson <Chris.Paterson2@renesas.com>, Biju Das <biju.das@bp.renesas.com>, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 24 Sept 2026 at 07:28, Biju Das <biju.das.jz@bp.renesas.com> wrote:
-> Document the RZ/G3L (R9A08G046) SoC support.
->
-> RZ/G3L has 11 interrupts and 3 CANFD channels compared to 8 interrupts
-> and 2 CANFD channels on RZ/G3S. RZ/G3L has 288 buffers in total
-> compared to 192 buffers in RZ/G3S.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> ---
-> v1->v2:
->  * Updated commit description
->  * Dropped RZ/G3S fallback as there are lot of differences.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] kconfig: silent loss of driver during oldconfig upgrade due to p=
+rompt removal
+--
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+commit 18f0a50c0487bf003f9efe902b8ee1569bb70adb
+Author: Ariana Lazar <ariana.lazar@microchip.com>
 
-Gr{oetje,eeting}s,
+iio: dac: mcp47feb02: refactor MCP47FEB02 I2C driver into two modules
 
-                        Geert
+This commit refactors the MCP47FEB02 I2C driver into a core module and an
+I2C-specific module to prepare for future SPI support.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+> index b6c8873c68c54..8121a71945f63 100644
+> --- a/drivers/iio/dac/Kconfig
+> +++ b/drivers/iio/dac/Kconfig
+> @@ -611,9 +611,13 @@ config MCP47A1
+>  	  will be called mcp47a1.
+> =20
+>  config MCP47FEB02
+> -	tristate "MCP47F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 DAC driver"
+> +	tristate
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[Severity: Medium]
+Will this cause a silent loss of the driver for existing users upgrading
+their kernel?
+
+Because the original user-visible Kconfig symbol CONFIG_MCP47FEB02 had its
+prompt removed here, the build system (e.g., when running make oldconfig)
+will see it has no prompt and reset it to 'n'.
+
+> +
+> +config MCP47FEB02_I2C
+> +	tristate "MCP47F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 I2C DAC drive=
+r"
+>  	depends on I2C
+>  	select REGMAP_I2C
+> +	select MCP47FEB02
+
+At the same time, the newly introduced CONFIG_MCP47FEB02_I2C defaults to 'n=
+'.
+This results in existing configurations losing the DAC driver entirely upon
+upgrade.
+
+Would it be better to keep the original CONFIG_MCP47FEB02 symbol as the
+user-visible driver to preserve backwards compatibility, and instead introd=
+uce
+a new hidden symbol like CONFIG_MCP47FEB02_CORE for the shared code?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-mcp47feb02=
+_refactor-v8-0-17dc2ce3485e@microchip.com?part=3D3
