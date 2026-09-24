@@ -1,64 +1,64 @@
 Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9943DDDDB
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:14:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA1D3E0C4A
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:14:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234099; cv=none; b=c2h+NbYjBy383m26siQvR5yoy3+leIRYs24W7bOotDhN04dVERtFsONLgymlGaQ2IIqC3wkf64tNMPjgCdtHm59V7Ru+x5O6Ic7wKKCD4taxJ4qFX7LfqG9mq5uC5doQk9/VgR0o6oyFxnDsCmie5Ae7va72mDOyQE2AxcHiwjw=
+	t=1790234105; cv=none; b=K73i/Rq9U1/tLv3G+jLqRyPP/zYggf3LYg2f1prmroHCIIWsjekVkpuXAzucSb8uxUvCgSX6B8MUPuWSO19adK/o/kQUz3Yfs9r8CqEpereuyo+fU+KjyhvLY913sLSVNyOa0FKzsVesKdnN/MP8fwFEZ5i+DFFEVYso/UeL1oY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234099; c=relaxed/simple;
-	bh=U1Z6kjsMVIbbbRSSBlT8V0uTPKeoPfC6ZhdfOLN5uW0=;
+	s=arc-20240116; t=1790234105; c=relaxed/simple;
+	bh=Vkzk4N4Z/QtsUL2k5QK2nQqx/bwXtDFKYCl50lmWtKY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JHRwmCrh5zgIVE0Yhh6fsmKMw5jbefg58tSnXuq/TvwltbBXj2rFDpFuJV3V8m9m9D1Qzsexi+wlTPcGDWtjgIuyrPwPsXNywCm7cE5cy/A7hQ64gv51M9TbDfMnu/gYodk11h3awK2QOmCPsFuVk20dBXTYnpCA6pFcB9hsQLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=bnOWYsid; arc=none smtp.client-ip=74.125.228.76
+	 MIME-Version; b=PVXN8vCRMNw8tzxnhCPIf4kOWUnj2f2gRwIpx+CHYMRUdp5H6BkD0MDzZT+LiyR8+9FqCSDjd9eaSplRSPlsU6wpIw3pV32e+ggYpGf9oDIUoMNmH0aFOIta6yJNXd6A7T4cFOOVx0jEklzfmUhLRozd7L8ELZKeH9MT0wf0srQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=tcEJFp5K; arc=none smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=wermuth.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="bnOWYsid"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a605c198fdso2806204a12.2
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 00:14:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="tcEJFp5K"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7daaso2351085a12.1
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 00:14:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790234092; x=1790838892; darn=vger.kernel.org;
+        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790234094; x=1790838894; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=W/q4IHYKCy6ATe5C6R4o2zyKGD60s2UPYSeHPBkDVEs=;
-        b=bnOWYsidpe7xcw9Oe4mvJ75tR8m7UZt09lWMnVpb3C2BFx4V6szCbUQG1cpL0cvDz8
-         VBAEMyNl9awcfhiNAC3ORD/oBwOGOjVhb+X7UsuSRtc64m/QvAXd88MKjPrfOrlus1uP
-         6I5hfloudEjOrEyo52yCNjosVUVk1FguWI48ifALKHQsaNkvp/P8BB+kHslLq5nSNgno
-         zKguWvBRCLZ/JYM+OUqdm710LG3YDfphlkZtLBcmcH0K5D2AuSOuqctPoHHJDq/JTmHf
-         Kr10+4Op2dllW4WatMFouVM1YWFzVU7g5mdrlaQ0B3MYrUNeMkMfG27767xQrKw6Qhwn
-         yJWg==
+        bh=7STxnZVUQmrLVyWonCr/WVFvn6ySKjnlDMhE0HDJ/pg=;
+        b=tcEJFp5KscFe2dnwwqD/+Dr1USwKa4BYFLx8P9Qo+bEnV+SaFiIYrzn6hmiotRciv+
+         XJ0aH1OSMVj1B1u532BIXDYV0K8L9ijPR5t7fqxTP7HRB0zteOVqbIKS7p4G6b9KD4OW
+         E5v6IMT2FGEzVpIS/OWGT8us1SyEBxgvIWKPAh90uHszvfsh8UQnuse3bJjoTl9Mso+q
+         NU6giRRU35+0LR/mYeFCw38JdH+mWQmCtYYtP/vuQfse7PZmeTBj2D9AvzGfdSPE3PgL
+         ugYmpsmQC15PW9C6+Pi6U+cW3sSbMn5RC6gKJ7w9u09B1uSYkGBJdOGNgS1x1XCNDsJc
+         XsSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790234092; x=1790838892;
+        d=1e100.net; s=20260707; t=1790234094; x=1790838894;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W/q4IHYKCy6ATe5C6R4o2zyKGD60s2UPYSeHPBkDVEs=;
-        b=JGsArNG2Ywy9k9Zv4A0SV4ql3oB0dZr98BQvCHLKqXLSLe1w/oAFEu3lL53ECB/V7H
-         xtFejG2BccZqm3971hQkFNhorZv5VbrO6w0T+SAGI/PsGQWkT/KDk6Zx+HzlRDgTpCzt
-         cn5TbzieXSBxONsA3M90zJjZqNVekpBoQUdmsoIKOAtASxU4U+CgU/CZ6JZ3pLXAvR2A
-         X89snB45B6gqaEFxQOp1oaPKEBdXW4ZBL2pCZD+3HJGnD2mCDm8sdC6UR0MgnExMwP5y
-         kY0dOh+kFOvlgn4/trpkvPqMzbnQiQ5mP1Nu6bvAUYtlBqmouYbQ2qG/KKQXxz8Uq14M
-         wUfA==
-X-Forwarded-Encrypted: i=1; AKwUvBwB3JRuyKDL/Iqz8c02n6dY/WPl2H3mkMImDHLh4vckiOuvyqgbU0Rhpk6r4I/Y2FlYw8UpbR7dA0bg@vger.kernel.org
-X-Gm-Message-State: AFuF++mZt9R9mYHHQC2IvqV/r/tUIQne4amQlw4WCpK4TXKITtnNpHpD
-	hG8ipwt44J2B2Z7PL3GS1sq9HPiI801QtKHdyOEfThPjuY1uAONrTR3R7gWUioXG7zQ=
-X-Gm-Gg: AYBFou1R3HZksPFk2d576Lo/Sas/Ly8AZ7lXs6STENG23vN9RMnWM+C6r0sNnld3v9X
-	0qHE0vz3Suy9abQO57MsHWPOfrmcMcHhHvlpUsMYUjnJtTueOzQtP49dlQyvTZGbHCjVuN5mOYp
-	LWlDm8BkDc4dwfwY/ojxcV7iqmCgk9khmoazkqnu2/z93dLNPdn03LTBvt1y0NjIX5Uwd33/LQY
-	W7PP0NIALreNxifZpbkdxmGl7ua/8yya5reudDj7lWuazV9QO7LWE0X8RvMemLxYEEnzi7OMnjH
-	SUMMm88+qGKY0RemMXMbvKkwOYSgu+h1DqbqNaAnQnyNpNpdmSWQXkYx29FeKFznT+Aligi7j+K
-	wTKC5UBSo7fxDUXWKyQWr02nsgWjtQ9gx4m8CQ15VSXsz6kwRAVFuW4qVWmLBmd9q7RdEz+MQu7
-	tSsYo9lScpUwQIleq9x+e10ogEZnubzM1r4x/zLAEwAukWlXy6AXn4iG6d2Bc55p7pFU7BRjmka
-	aUdNa+bw+7qLGFk1Gofq94qnB2jvLnNc3AXON4J21wjtdM=
-X-Received: by 2002:a05:6402:5385:b0:6aa:aaf2:f6a0 with SMTP id 4fb4d7f45d1cf-6aac8ecf65bmr1299955a12.1.1790234091341;
-        Thu, 24 Sep 2026 00:14:51 -0700 (PDT)
+        bh=7STxnZVUQmrLVyWonCr/WVFvn6ySKjnlDMhE0HDJ/pg=;
+        b=JRGg37v3STuLyYPl1ha++6F9aQ2HMBz0pXkbHl7HzsJR0aD5RPsoZldxNE1fwGG4yI
+         I7i4pLsNxl9M3QzN3rZvKItLJac3cL4cgSAbUTi3qviFunySWiX1KHmT8OT5xPeNLQ5q
+         CPDh3q7JaD2VvFbWKxPsBr8ghellhsJ8RxBv/C8URlnRsnViZZ63HkFVgpQQng63majM
+         47hopd5glxfjMAJebiRm7aR6jJmEyTBKyCGOuHKF/P1uCfL66T8M3dcaRXuwZzcg1rjo
+         BBkwEj6bE0s1nNsWQ8K6zDi08HqYYLasY5Qgun6ZkKTO/hL32YcwA6d1v0m8Jje+UYxb
+         bM6g==
+X-Forwarded-Encrypted: i=1; AKwUvByTQrLmgoyKX8/T5uTgyMSKOEfX5O4OvXtrp9jvHNpW1A8lHJs2g4D7TADrbqzBG6qpY1k350lQDmg5@vger.kernel.org
+X-Gm-Message-State: AFuF++lb8AXaY0izWDIiGTw5wjMHd+Ody+plJd/lkH0ZMkbryrYo/yq/
+	DRHghBPf3D/c1yBNPpv+DwZlEXKasYpu/2sQDcE0uvyLNfmjPHKjUf9XJ9+RQCN8tQI=
+X-Gm-Gg: AYBFou1K6zpABCjGlI9faYbTJAF1+Yj5CC4vawYRFvc1Y4sop8pIaDlsv5jYdxXiBPP
+	GG/D12a+blbWovqWTe95cuWxDg7VQgt3xVWg2P0cS+5SvlsesWsKDJcv3yOIStmfdNy7Z6McXlT
+	Mxopab3ya0pI4luJv8g7XGydtanlA47G64Vkx3jciePXQi8BjaLeVGDg4+U5lVAP9jOYUqecCsZ
+	qgs/b+3i1lidqG3gLS1YKP/gMLouaNKcUg/C1EmXJU/OsZjgzl/ScaAMaF+bQ+VyFz37U/FOSdv
+	O7y/unMcTdO6PEyRKmHF+CImNxnBzgOrfZxMm6rtGByNO+leErFbwTXBVIPOlB3//NewcqYO2IE
+	fCgSRh/47Pl8E3lPCXVwyrozlhkIRTf3yJ3XTKXffIMax4znA2eTJY/3zjJyi6oCTC/VOJfkF+d
+	6C7e53NHU3GZsjbjtFuaXL+tPcw7D028morKoIkb+0J7wEuX66e1+J16GgxoIZW7lHNwNQ22D3Y
+	yKuZTPII3tyxx9t+m7iEtZmCJ79RuzQNL/Ov7Cc+cnNmYHxJrYYxDC3Hw==
+X-Received: by 2002:a05:6402:44d0:b0:6aa:a040:cbd3 with SMTP id 4fb4d7f45d1cf-6aac8ed4399mr891513a12.3.1790234093718;
+        Thu, 24 Sep 2026 00:14:53 -0700 (PDT)
 Received: from janlin-02.home.wermuth.pl (109-206-198-27.host.skynet.net.pl. [109.206.198.27])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab38a9756sm3306589a12.25.2026.09.24.00.14.50
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab38a9756sm3306589a12.25.2026.09.24.00.14.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 00:14:50 -0700 (PDT)
+        Thu, 24 Sep 2026 00:14:52 -0700 (PDT)
 From: Adam Wermuth <adam@wermuth.pl>
 To: Heiko Stuebner <heiko@sntech.de>
 Cc: Rob Herring <robh@kernel.org>,
@@ -69,9 +69,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Adam Wermuth <adam@wermuth.pl>
-Subject: [PATCH 1/3] arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa ROCK 3B
-Date: Thu, 24 Sep 2026 09:14:43 +0200
-Message-ID: <20260924071445.441822-2-adam@wermuth.pl>
+Subject: [PATCH 2/3] arm64: dts: rockchip: Enable M.2 B-key WWAN slot on Radxa ROCK 3B
+Date: Thu, 24 Sep 2026 09:14:44 +0200
+Message-ID: <20260924071445.441822-3-adam@wermuth.pl>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260924071445.441822-1-adam@wermuth.pl>
 References: <20260924071445.441822-1-adam@wermuth.pl>
@@ -83,47 +83,88 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The USB 2.0 data lines of the M.2 B-key slot are routed to USB2_HOST3,
-which is served by usb_host1_ehci/ohci through the host port of
-usb2phy1. Enable the controllers and the PHY port so that modules in
-the B-key slot, such as LTE modems, can enumerate.
+The M.2 B-key slot on the ROCK 3B is controlled by three GPIOs:
+
+ - GPIO0_C6 (4G_PWREN_H) enables the 3.3V supply of the slot, which
+   is generated from vcc5v0_sys by a dedicated buck converter,
+ - GPIO0_D6 (4G_RESET) drives the RESET# signal of the slot,
+ - GPIO1_B0 (4G_DISABLE) drives W_DISABLE1#.
+
+Unless the supply is enabled and both active-low signals are
+deasserted, the module never enumerates on USB. Describe the supply
+as an always-on fixed regulator and hog RESET# and W_DISABLE1# in
+their inactive state.
+
+Tested with a SIMCom SIM7600G-H module.
 
 Signed-off-by: Adam Wermuth <adam@wermuth.pl>
 ---
- arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ .../boot/dts/rockchip/rk3568-rock-3b.dts      | 38 +++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-index 149a5306bb03..ad9a91c0d0d0 100644
+index ad9a91c0d0d0..908bb4425e81 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-@@ -758,6 +758,14 @@ &usb_host0_xhci {
+@@ -98,6 +98,20 @@ vcc3v3_sys2: regulator-3v3-vcc-sys2 {
+ 		vin-supply = <&vcc5v0_sys>;
+ 	};
+ 
++	vcc3v3_wwan: regulator-3v3-vcc-wwan {
++		compatible = "regulator-fixed";
++		enable-active-high;
++		gpios = <&gpio0 RK_PC6 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&wwan_pwren_h>;
++		regulator-name = "vcc3v3_wwan";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		vin-supply = <&vcc5v0_sys>;
++	};
++
+ 	vcc5v0_sys: regulator-5v0-vcc-sys {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc5v0_sys";
+@@ -220,6 +234,24 @@ &gmac1m1_rgmii_bus
  	status = "okay";
  };
  
-+&usb_host1_ehci {
-+	status = "okay";
++&gpio0 {
++	wwan-reset-hog {
++		gpio-hog;
++		gpios = <RK_PD6 GPIO_ACTIVE_LOW>;
++		output-low;
++		line-name = "wwan-reset";
++	};
 +};
 +
-+&usb_host1_ohci {
-+	status = "okay";
++&gpio1 {
++	wwan-disable-hog {
++		gpio-hog;
++		gpios = <RK_PB0 GPIO_ACTIVE_LOW>;
++		output-low;
++		line-name = "wwan-w-disable";
++	};
 +};
 +
- &usb_host1_xhci {
+ &gpu {
+ 	mali-supply = <&vdd_gpu>;
  	status = "okay";
- };
-@@ -780,6 +788,11 @@ &usb2phy1 {
- 	status = "okay";
+@@ -655,6 +687,12 @@ wifi_wake_host_h: wifi-wake-host-h {
+ 			rockchip,pins = <3 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 	};
++
++	wwan {
++		wwan_pwren_h: wwan-pwren-h {
++			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
  };
  
-+&usb2phy1_host {
-+	phy-supply = <&vcc5v0_usb_host>;
-+	status = "okay";
-+};
-+
- &usb2phy1_otg {
- 	phy-supply = <&vcc5v0_usb_host>;
- 	status = "okay";
+ &pmu_io_domains {
 -- 
 2.43.0
 
