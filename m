@@ -1,110 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3C84CB8BA;
-	Thu, 24 Sep 2026 20:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355BE48CD59;
+	Thu, 24 Sep 2026 20:53:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790282924; cv=none; b=SPffsu78seLPHuyMqfo/bIPeaortHoF1hoWmD+dFqkDfIkz/Rt3Qqr5+zcla7a5+jejti0/Otz01XQmO5NG3s+8V3rIjgXlSGJF5sblHdWGT/e2ELgzNndfOu/7dlK8tSWYJgMVy7/nP/IGQ9h5aoWCnR3bQc/WGui+j1M0db3M=
+	t=1790283199; cv=none; b=cb6tUudruxEi1FzLDkIlTV+9eHJShX5IVDCIYEGFrLwApHn/vKieEggBkbX5p+hQDcFRiaib3V5wbU9hPI9dN3jwb5X1odiOm21Ww2kntHmqnv32PAM5wmfunfW9sA9MLIrzkA2tyKygeHFpWWMj6+1RygFtp0KspxzrCutvcHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790282924; c=relaxed/simple;
-	bh=OwrUaxOBwrORiuE+26iX1lVpdDAXltYshOCLR10paNs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=quGpBo+UnKJfTANfTMXT8pmRDJ0y0HELS/3A1+tmuaz9qrw6haokZd6EtBZ9Ik+iRmF0WzqP1JMOK1OnMbFi5mpdYxg5ZAo7Q4WEVo1PD5Wch85saX9mZ1YOsu88oDoFT99H460lk46BTeC9bEVCjCUv7UJ/a1GLLnBIfQGdGh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jx6L0djV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790283199; c=relaxed/simple;
+	bh=q7f2yxHXOO+EhXNPemNFyuYM9CjLPx5BB5xiwbdY6OM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Au7IgME0DlOHF3retiYaMzFxhNovdxY/davQNF7CrtOHMEipp4GCwdPWrlCYq/c8BFYYD++PA0nTHJxFh7iG2c/q0SAoyQZvKBlCe9AmC99mtmeG2lFgFxohImHvU7LhQzJpYRcdga/ginn4hRhbaQ+23LLecH6g42snmxKzGsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ifSiNXyS; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jx6L0djV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9457B1F00893;
-	Thu, 24 Sep 2026 20:48:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790282922;
-	bh=j+heeD2eTEBi9j719YYqc1Dl+RIBzQuLQx+H6PkX+Mo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Jx6L0djVMgSKhPNL7JUJQw7we6lSruOAEg5i3sVd7UJBHS7dEXpv3g9qEkPdXZd8c
-	 ihbXnuSqssP7qGNm66CWZH9eTT8IfVAWk+HWDRd9xc/Aa0Mz3GXYD7suRHLwiURMsN
-	 OemynV28/fs6it/zmvVYSQNbLSH36K1I+sOj/LHvXz6xiCrzd4v2bG0/cz67NiKjJL
-	 MWR7TVLNrjLAHOaR+psgqxA/flbV3J+iwcO8lsq6ySXaHzK3gQOzM81NnDtm71vkAu
-	 bHAq47Gj2LxzukluyQOcSvdZ2ytwHC/o05koRWii4jt0PFLJhNWjsAIKLWLl1EUNvA
-	 oeTKECFUxPLwg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 2/5] net: stmmac: sun55i: Add per-compatible
- match data
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260923-allwinner-a733-gmac-support-v3-2-15735155a789@baylibre.com>
-References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
- <20260923-allwinner-a733-gmac-support-v3-2-15735155a789@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 20:48:42 +0000
-Message-Id: <20260924204842.9457B1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ifSiNXyS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790283198; x=1821819198;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=q7f2yxHXOO+EhXNPemNFyuYM9CjLPx5BB5xiwbdY6OM=;
+  b=ifSiNXySRWiCWymlaWHGll0pKh/uX48979N8MmgRdXiv0b9MKS8+2TtC
+   Rwcn0n0C6L9j00GrjwPypkMDedp5usujbmmW97l2r92tOJTMY5YCs72Um
+   aQixVIhQM3D1Ltv7eCje/XvFC0B8kPZFAsC8L9aH6epcqvvaSp99cOJeh
+   HiANmIpkqQCOoQqEPhVXaa4yfqe87Nd35eont8Eay09y/NMeJFfMwFG0P
+   mEFv7gp3HGzHCGvqIBhboxD7fzl4DAwZD3Et9X2kcaT2KkoeuPAyAs5y1
+   bupMylb73G/7YJlf37uOi8P3wpFEe2Z6hrkQbc8i5pra97DkJeOiCEE4d
+   Q==;
+X-CSE-ConnectionGUID: afeounszQgmxgChRCq07PQ==
+X-CSE-MsgGUID: AayKgZAqRkecjf+UYh9bMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89931406"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="89931406"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:53:18 -0700
+X-CSE-ConnectionGUID: EySsJcHbR/KjdDu1GwigVQ==
+X-CSE-MsgGUID: D0+HtdKLSYm1S8nJAIwBVQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="270620671"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.199])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 13:53:14 -0700
+Date: Thu, 24 Sep 2026 23:53:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Marek Vasut <marex@nabladev.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 05/14] iio: adc: stm32-adc: rework internal channels
+ data
+Message-ID: <arWNuD9apkeeT2Rd@ashevche-desk.local>
+References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
+ <20260923-adc-stm32mp25-v1-v2-5-46bc019537c6@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-adc-stm32mp25-v1-v2-5-46bc019537c6@foss.st.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] net: stmmac: sun55i: sun55i_gmac pointer is lost after probe
---
+On Wed, Sep 23, 2026 at 05:39:08PM +0200, Fabrice Gasnier wrote:
+> Diversity in internal channels data array lead to have zeroed data.
+> To facilitate addition of new internal channels, without touching
+> all array initializers, only focus on exiting channels on each
+> supported ADC variant (e.g. each SoC).
+> 
+> This also allows to get rid of static_assert() checks.
+> 
+> No functional change intended.
+> Cosmetic update: remove comma on STM32_ADC_INT_CH_NB as it should
+> always be the last element.
 
-commit 96a080b2a3499368db013319e188847cee61183d
-Author: Jerome Brunet <jbrunet@baylibre.com>
+Yes, but...
 
-net: stmmac: sun55i: Add per-compatible match data
+> -static const unsigned int stm32_adc_min_ts_h7[] = { 0, 0, 0, 4300, 9000 };
+> -static_assert(ARRAY_SIZE(stm32_adc_min_ts_h7) == STM32_ADC_INT_CH_NB);
+> +static const unsigned int stm32_adc_min_ts_h7[STM32_ADC_INT_CH_NB] = {
+> +	[STM32_ADC_INT_CH_VREFINT] = 4300,
+> +	[STM32_ADC_INT_CH_VBAT] = 9000
 
-The A733 GMAC210 glue registers are in a dedicated MMIO region of the
-controller rather than in a syscon. This commit adds per-compatible match
-data holding the glue resource init callback, the stmmac flags, and the
-glue register offset.
+...you should have it when it's not a terminator entry. Here is the case when
+it's not a terminator, neither in other similar cases below.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c b/drivers=
-/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-> index 862df173d963f..c4df532850074 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
+> +};
 
-[ ... ]
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> @@ -107,22 +128,34 @@ static int sun55i_gmac200_probe(struct platform_dev=
-ice *pdev)
->  	struct plat_stmmacenet_data *plat_dat;
->  	struct stmmac_resources stmmac_res;
->  	struct device *dev =3D &pdev->dev;
-> +	struct sun55i_gmac *gmac;
->  	struct clk *clk;
->  	int ret;
-> =20
-> +	gmac =3D devm_kzalloc(dev, sizeof(*gmac), GFP_KERNEL);
-> +	if (!gmac)
-> +		return -ENOMEM;
-> +
 
-[ ... ]
-
-> @@ -138,8 +171,15 @@ static int sun55i_gmac200_probe(struct platform_devi=
-ce *pdev)
->  	if (ret)
->  		return dev_err_probe(dev, ret, "Failed to get or enable PHY supply\n");
-> =20
->  	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
->  }
-
-[Severity: Low]
-Does this code intentionally discard the gmac pointer after probe?
-
-The sun55i_gmac structure is dynamically allocated via devm_kzalloc(), but
-it does not appear to be saved (for example, to plat_dat->bsp_priv) before
-sun55i_gmac200_probe() returns.
-
-If the structure is only intended for use during initialization, could it be
-allocated on the stack to prevent an unnecessary heap allocation that
-persists for the lifetime of the device? Alternatively, if it is meant to
-hold state (like the regmap) for future callbacks, does the pointer need to
-be saved here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-allwinner-=
-a733-gmac-support-v3-0-15735155a789@baylibre.com?part=3D2
