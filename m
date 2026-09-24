@@ -1,184 +1,133 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2513BED79
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:35:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90353A0EB8
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242513; cv=none; b=gyVjeiNFvizkyv9HM8x/bv2iC26n4e2pzPmAMUgH2pF40IO1LnIhkJ5ov2RaAj8AQ+GtgzxWXLmelSoob6gxkIFuSmhAcyBrQLUC7wlfHHVumYi2XT/ls0rWVGbiYGNGNzSqzdmIQuQ4R1DcqrS5T/w0Ccop2nUKgR6mp1Lfxd4=
+	t=1790242721; cv=none; b=AL72//7tmonrM95IRouacaYGgoz3rMmdfoWSs5x4buJ9K0LoY6d+7R8OSupWslPEUL/Ac4IowdZ5zaMZyYSlbpZiXS4WBjQCffp8yHjkkaf5bJ5sUcaf1/vF+HKVfT8382XaEW2NZ6+Ja8fWm0q1CmBicVeziiPcQbYO6HmD4yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242513; c=relaxed/simple;
-	bh=xlFr47uBNraq9Vfw+jhIc3orvyXDcJ8EdkBjzapnpks=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=fGnaChy+090rirVu3gLTfdYa4RnYi5tTdffYdptdOGzKRFeFjQ5gCEJUADaWQ/ZE7VpVmCQ8O6VTbegNLOjX5chcJW3k4tsljaJfFmaJRaQCVFuijWOZ22WvzDf97AdKCHmK/r3rLcO6foSDo1Xs3LYceQCyg+jqdZgVnpPIBFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QNLXS3Ym; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QNLXS3Ym"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso8243215e9.0
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 02:35:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790242508; x=1790847308; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ntOIbWg0v6Y7sjUG+xdx4uPbi3N8TfY72tgKuI0bUbw=;
-        b=QNLXS3YmCK1BfBF7nU6ZAi9jD+ARO67zOm1zraT43p3A2tSNmRmr3MxQYTTusl/9tQ
-         W/cVYWYLGOLnJ4vhIS810/TLgmUC7/L2MtcZUoP3DXhdTAF+EjVVu8nvb9+Gl0ejglHh
-         v3omTb2w2LbPW/R6nfy3hK3qAorfTVauqThaawmV2MlsY7D+VwumuwnHrrXDvxN8ortq
-         mcGaSxf7Pk0ebN/C62TaoQFsRUj/Ml+r7N4c21inQPuFM5TXPyO3b5CZA2IyJLBPvsjr
-         25fNcbO9AUjH9uR7pONolWo75YsJEcoh6ftZeGKZUkQRSGLiQMfhw3m3B5DJM/FvypUq
-         ZdJw==
+	s=arc-20240116; t=1790242721; c=relaxed/simple;
+	bh=gU+WI2i7LDEKT6RINnzIXgb5K5O4tS+U3cDvjUwa9t0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eFBBqeTyAQ2pA9Sn6jidZk7klsA9daHYS2PdWw3NlXL+goMEqPou49evP0Fhcupp2tmHk2FSEpcsnVWBb8zQFml9HnsOtDzb6OvepmKhYHNkr7UN/rKjF3I+ttQUfl7IdigmLPhg7HsCsV0wZW5C1SbaHrcY3JeSddkJSrTo6Vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e512ee6so684181e0c.1
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 02:38:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790242508; x=1790847308;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ntOIbWg0v6Y7sjUG+xdx4uPbi3N8TfY72tgKuI0bUbw=;
-        b=jsCHBlHg7LcfLfPE9Ccj23vU7w9o8+YD4hiwzx/XcpzetArmwGAuctu1MfwT6ETUpJ
-         oHpIAuc8hw9wnWf++JcT0W+hqXJAi1SK2rZiXPHubELBTx0/5sFAXIf0igcvMjYrS8V5
-         p7ZjHQk7s+gX9+8vm2/pUFf2P5tanEXKewymqttNmt8D5sXOGpDlksecGpod6JAZHFc+
-         rOGPz1VUZQ9yFoEmMzgM38e+wsSM0ANaM+IvqUZ1GTdFw5eahdSnLKQA8ApqXqLwqLoa
-         y4nI+ee5I3fKVDsNkasBB6H96mKsMJaC/s/Y0dDyIYbmGSRtmrq7UWRS5Ggjx0RjkMaU
-         ZEdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzdproyQIz7SBDASdZL45uq5RFFtbTuiXOojQV5H5OplKJhLl/OmC2iSUYJlN4wVtUpZDSx07C0e92T@vger.kernel.org
-X-Gm-Message-State: AFuF++nDIwU0piJ6wF1QXh/dlFQRRnmu4Q1BwJuDckORkFfX2GgjV67J
-	qfBNI6jN5LiXSJKRbv9VHS3j9l9gyma2aH6uuFjsrFZHSzibIlUAo3u7iXdKEe3vWrg=
-X-Gm-Gg: AYBFou3kKxGkm2yGUOYwneOmiNF5nXsDlMnSHcszaaCgAWy597f0YD+Gx6X7OQQ39K/
-	nMs5Vwhy6qyZgzRB5PiOCAtSycWP8XkuroMlFPJ+MJCfRSC4h8VryXTyLXW4iZA2a4uv7uC9OiA
-	z1ha6Kvrb+9394avioOAkjBARpd3pm78Ek2wS/dVArIQAfuqpLVW9kDF9kKULR/wXeZleN4PWfV
-	TFifN8rCS3sJkxOUuacGRYQL8dexL4s9AzVaSNg38wxGSGZPputDJ/IjRGvJt1TgMKwAlXlUmmL
-	ORhBClgN3COiDzQR9wzaoJ1qXNUH/dVTmABLXz06KMCqDKMsXPx/t6/1LgoZqaxER/Z2sZWnteW
-	yHPsM1s7YCl1J7bqsP7mB4rh19TYz8APaBQanrkDRQAn6knUNDkHNL6Iag1CaUDdVif50RA7fev
-	lOFwKqK3Le3St/k82DfJtCIvPZGGztAE1wIs4HXnzJvbVDMc5T7dD17r4w+MiW/1sYocQBiMfgq
-	9JmqFmfSlWClVAaWQ==
-X-Received: by 2002:a05:600c:4fcc:b0:49f:df99:ff1a with SMTP id 5b1f17b1804b1-49fe66f344dmr32157945e9.17.1790242507705;
-        Thu, 24 Sep 2026 02:35:07 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd2bacsm50613795e9.13.2026.09.24.02.35.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:35:07 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>, Neil
- Armstrong <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman
- <khilman@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Jian Hu <jian.hu@amlogic.com>
-Subject: Re: [PATCH RFC 0/3] clk: meson: Refactor PLL pre-divider as a
- divider clock
-In-Reply-To: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
-References: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
-Date: Thu, 24 Sep 2026 11:35:06 +0200
-Message-ID: <1j1paj9elx.fsf@starbuckisacylon.baylibre.com>
+        d=1e100.net; s=20260707; t=1790242718; x=1790847518;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kpeffu0mh4OhtQGcEkTfxWhGK7BSRsx5zqS/No2TWCY=;
+        b=yIDY34V5ErUZiM3L9O5I6lmuEkgUYBU+N9hDSslv+8exRgwHAKBTqPwCnVVdmk/OcW
+         QsISCvRVnf57xLyJG9Y4hF2n3qWHM3lauPwsvvI8JpNL4xUscjdHSUcV0hCbfaC4qUsb
+         NSrRtbWn6Oxqs98/uz3IZTDUm2VS3UqRVOebGXbI7V8taLxu2fw913ZDdeWAksF3pKRz
+         pAW9YZ6d9orpoxZHWoA1jfj0V4sZE1YVggT1hvZUjIv7A5nGY97oNRhIyF4hYgno+08t
+         sGL1kqUrxyyIZY3C+94lJr99Mgcs8WYmgOopaeVuRg/GhZ2+2241UmGHAKlxa62NGBaO
+         xruw==
+X-Forwarded-Encrypted: i=1; AKwUvBwskwK3ZMXY6ugyF3r2G4wla/8GozL0Tco/jcsX8ALi95ypV6WvEqtA7hmNW1OI/mjA1pXtqVZbztgw@vger.kernel.org
+X-Gm-Message-State: AFuF++kFUP2flSkc4CzGKEI0AAGOLr2XZ2r9oJXV7gIZx42B3HbO3qjL
+	+uygBdGYIErRwclwkaivpXVJJ6E/1eV/KXRtfqrFf7ZOmBoGrI8EdRef8HVLR7BesCE=
+X-Gm-Gg: AYBFou0CGB8/OFkEjQ8GJO2ocUV+5HM8tDMHceFI4cLqxzZk0Zv0W1i4zD6CeaVMnPo
+	wfX3C1tAyrJsd8ilrOqRs2wtUwM9TI00y16dET2gfsRJmzQNGV0QivhMILd64QRrxQSIG5kBPXl
+	DUqLCrnZxujb3B9HgENfXH3QGyH96R6Z4hTVSmdHlg6KWF812Tzk2taFraw2RdqSep6Acljoo9B
+	tmHScnLT+aUQkfH/JclC/z2ObTyxbhoxAmSclxVYOybyWWVcG6oMZbujbhL8auBcYbgThrWxlzz
+	0UHy7efecRFn7Jy6AKIeqFfQVh0woj+TuYmrHMvmrSMDhj5ElkCbOZyBzzO02CMXFxlpQixvH0h
+	zHrwnexjFUXefoO35xQkd62X9gPrioqjWR2T4foK46NcMiWLRpRnpIZLaCO7tizIscHMsXFZumb
+	eVLf1p6zhIcEXMS5wX06Liys2T74BiD5CdWAnFTV7j/GCY0tHtVQ2StOij93lAodcs+Pvnx77as
+	LG6j2goS4lVfYa9Asmn4bKnFd3/IrawVOAf
+X-Received: by 2002:a05:6102:2922:b0:7a1:f951:f2fe with SMTP id ada2fe7eead31-7af1e4e7dcemr827979137.17.1790242718573;
+        Thu, 24 Sep 2026 02:38:38 -0700 (PDT)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf5674f44sm6417069137.3.2026.09.24.02.38.37
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 02:38:38 -0700 (PDT)
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e512ee6so684174e0c.1
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 02:38:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwoBOTzVZiYucE8GVpH/3GIyoyls+MIqjQ2+fT6CZD8gJo4JKuw3sbT1dHeJ1zJGnyHI5Dpom5u7344@vger.kernel.org
+X-Received: by 2002:a05:6102:524a:b0:7a7:12c0:f061 with SMTP id
+ ada2fe7eead31-7af1cb979b6mr924094137.12.1790242717699; Thu, 24 Sep 2026
+ 02:38:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260921232551.3129244-1-robh@kernel.org> <CAMuHMdV7D4RZ6zA_0jBqnCz8gee2=9bbNAXETbbNQxANhJ5pZg@mail.gmail.com>
+ <CAD++jLmvZAen+p_Z-aVSqUnXMChAa7qbNvgv=mEQr9tFMiJFwQ@mail.gmail.com>
+In-Reply-To: <CAD++jLmvZAen+p_Z-aVSqUnXMChAa7qbNvgv=mEQr9tFMiJFwQ@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 24 Sep 2026 11:38:26 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWe0vGnyT9E1abK5cFTJgA8=U4mMsaMJAFJsXCAcJf9qw@mail.gmail.com>
+X-Gm-Features: AclHuK-4KFW8W7QHV9HlBHDtlVrNb0OLmBx3KedI1dCvkL0eI5l2kFSSP5LQI3w
+Message-ID: <CAMuHMdWe0vGnyT9E1abK5cFTJgA8=U4mMsaMJAFJsXCAcJf9qw@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: pinctrl: renesas: Allow power-source
+To: Linus Walleij <linusw@kernel.org>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+Cc: "Rob Herring (Arm)" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On mer. 23 sept. 2026 at 19:14, Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org> wrote:
+Hi Linus,
 
-> This series refactors the Meson PLL framework to remove the dedicated
-> PLL pre-divider (N) parameter from the PLL implementation and model it
-> as a separate divider clock.
+On Thu, 24 Sept 2026 at 09:25, Linus Walleij <linusw@kernel.org> wrote:
+> On Tue, Sep 22, 2026 at 3:19=E2=80=AFPM Geert Uytterhoeven <geert@linux-m=
+68k.org> wrote:
 >
-> Currently, the Meson PLL framework models the PLL pre-divider using a
-> dedicated n field in struct meson_clk_pll_data. This makes the
-> pre-divider part of the PLL-specific implementation, although the
-> Common Clock Framework already provides a generic divider clock.
+> > > +        power-source:
+> > > +          description: I/O voltage in millivolts.
+> > > +          enum: [ 1800, 3300 ]
+> (...)
+> > drivers/pinctrl/renesas/pinctrl-rzv2m.c does not implement support
+> > for PIN_CONFIG_POWER_SOURCE yet.  So I'd rather not advertise the
+> > power-source property in the DT bindings until the driver is fixed.
 >
-> This series separates the pre-divider from the PLL and makes the PLL
-> DCO take the pre-divider clock as its parent. This allows the
-> pre-divider to be modeled using the standard CCF divider implementation
-> and simplifies the PLL framework.
->
-> The series currently covers T7 as an RFC to get feedback on the
-> framework design before applying the same approach to other SoCs.
->
-> Series:
-> clk: meson: pll: Remove the dedicated n parameter
-> dt-bindings: clock: amlogic: Add T7 pre-divider clock IDs
-> clk: meson: t7: Model PLL pre-divider as a divider clock
->
-> The other Meson SoCs will be converted separately after the T7 PLL
-> framework refactoring has been reviewed and the overall approach is
-> agreed upon.
->
-> Any feedback on the proposed clock hierarchy and the separation of the
-> PLL pre-divider from the PLL itself would be appreciated.
+> The DT bindings are used by U-Boot and BSD too, what if
+> their drivers use it?
 
-So if I summarize this RFC, you have simply taken the divider out of the
-PLL, no futher addaptation. right ?
+As this property controls voltage, I am mostly worried that having
+a user without implementation may cause ill-effects (damage?) on the hardwa=
+re.
+With the property missing in the DT bindings, we at least get a
+warning with dtbs_check.
 
-I'm happy with it on the general principle and fine with the change as
-long as you test it on as much platform as you can, clearly flagging
-those you have just compiled tested.
+Fabrizio: do you have access to the hardware?
+Does it work? Perhaps the SDHI driver fails to probe due to the
+unhandled property?
 
-A change like this would likely need to land early in the cycle give as
-much time as possible for testing.
+> It's a bit confusing but we're essentially maintaining the bindings
+> for those other projects as well, and it's why, for a good reason,
+> DT maintainers originally wanted to split out the bindings to a
+> separate repo. (This didn't happen because nobody wants the
+> job of driving and maintaining that, binding maintainers have
+> enough trouble as it is.)
 
-However there a couple of thing I'm concerned about:
+Sure.
 
-* You've drop the table support: are you sure this is not needed anymore
-  ? don't you want to be able to restrict mutlipliers to specific values
-  sometimes ? If not, then OK.
+> I'd say just apply the patch.
 
-* the determine_rate() make no call to round the parent rate: Since the
-  parent will be the divier, how do you progate the rate change so N
-  moves and the best parent rate is found ? For sure this fractional
-  multiplier clock will need CLK_SET_RATE_PARENT to adjust the
-  pre-divider.
+I can't seem to find registers to implement the voltage switching,
+so perhaps it's purely controlled externally, and the property should
+not be described at all?
 
-* Goes with the point above, but I'm not seeing anything that favors
-  lower N for lower jitter, Or mention of a minimum input rate (which
-  could be a property) ?
-  Those are constraints I think I have understood from your explanation
-  here [1] but maybe you've got new information to share ?
+Gr{oetje,eeting}s,
 
-This is overall going in the right direction but determine_rate() and
-constraints need work.
+                        Geert
 
-Note: you are more likely to get test feedback if you add g12 (sm1) as an
-example. Those are still the most widely used amlogic platforms with
-mainline.
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
-[1]: https://lore.kernel.org/linux-clk/c9c4945f-cdfc-4382-b8ca-71b69d91deb4@amlogic.com/
-
->
-> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
-> ---
-> Jian Hu (3):
->       clk: meson: pll: Remove the dedicated n parameter
->       dt-bindings: clock: amlogic: Add T7 pre-divider clock IDs
->       clk: meson: t7: Model PLL pre-divider as a divider clock
->
->  drivers/clk/meson/clk-pll.c                     | 178 +++++------------------
->  drivers/clk/meson/clk-pll.h                     |  13 --
->  drivers/clk/meson/t7-pll.c                      | 183 ++++++++++++++++++------
->  include/dt-bindings/clock/amlogic,t7-pll-clkc.h |   6 +
->  4 files changed, 181 insertions(+), 199 deletions(-)
-> ---
-> base-commit: 43e1705ecab981c66baee89041e6f728c0436f19
-> change-id: 20260923-meson_refactor_n-e7f25904e536
->
-> Best regards,
-> -- 
-> Jian Hu <jian.hu@amlogic.com>
->
->
->
-> _______________________________________________
-> linux-amlogic mailing list
-> linux-amlogic@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-amlogic
-
--- 
-Jerome
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
