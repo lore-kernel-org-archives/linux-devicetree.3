@@ -1,80 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A3D29B781;
-	Thu, 24 Sep 2026 00:21:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BD930C168;
+	Thu, 24 Sep 2026 00:53:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790209276; cv=none; b=ET4Qt13tUP6MtrNjlW7ZtYX/4zLmNv3bTPsIPyn6BCyPU337bwDwxBEZhldT0Zhk7scFwm6yHmALecDuQ+T83saP3iILC8XtWyCq5AcmW4eHErWmdv2NcpyvKetlGZ1/B7wRHXL/1A18cLzokG8z66G04INIAPdgDzxg5V0dB2k=
+	t=1790211240; cv=none; b=ZQt1ryinwCkP+/WnvGrRDMMVig9uNkn7W98hnqvPgi6Ej1vbo1eHDCadV5mXDKOWTG9HtnV22Cb5vYf/eiX8ggPyqs2G3T9RDZKwEieFebzZGIAqV/Ksl2pFvcObzY20hEo6dZGXpyACCHYfT4v1Ybiu4eRm8DTLJKwv7EkZKow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790209276; c=relaxed/simple;
-	bh=QJRADHmzYT8I355KWt9VHUPooySLt0m95vJyoDFltL0=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=A7U38n42JoQK3YCJ5/P/gQ04S25jrYzBCKJjH/4eYDdtfVRCbxnaWkE7YdolcfB9RyKT0E993ZuKhONVfU6zgsPxOTtr0+WHxRweizwNzThN5FG9qpOi/tulJgTSSZm0nB8iQHaqFPuIyZOtqTG6W2woBaKjqbOTq0w0OexYLTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LGQi+8Bg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790211240; c=relaxed/simple;
+	bh=+WmaszR9xPpKYlRnwXGqjdqOTs+TYxyqc0eNQ6VSOH0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GFBs/On9/3ZajWDjJGU7GWHFwrL/pc724PpdNAxgrHBuV8d6TgE7OBvdhRJTQqKA4AgKA2snk73RoulIfUd96ITX3IFbzA2XsrrQ8vTTC8VqCIkU12XD9Smsta674GV4/6o07puiuWZEbdP60MhVYvNs/AdOpiq/x8CMqd9Ujmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WqyKNAmW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LGQi+8Bg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73DD11F00893;
-	Thu, 24 Sep 2026 00:21:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WqyKNAmW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98EF71F000FF;
+	Thu, 24 Sep 2026 00:53:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790209275;
-	bh=7+GXSmzE24/GkdKE1YlsrfnDsoea8s/hMpL6MHJito4=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=LGQi+8BgjJWtl79++rw0iM4gPp0atmCUo8BNje0vcnJ4COQz9MOXYOy4lArrLNxeN
-	 cm5taon8ZuzF1XJXQ4x6qP9enZgzntAIkMopRMJmLwkeap+pubh6dd1Y2AsncAQW4n
-	 R6jMFxGNbFmKPN2CI6QaeTOdxWf+N/2QKkM/NfZjm8/PQ5IysQFxlmc+OaASrtjtP5
-	 T/r8GKy/f0HG1XQhcRMrdfGdARoUtkRuLnYhfp7u79F4kGs4n/DkY1PZaiXcWBsvqx
-	 nHBtlozNAMUSRX3cxmE6VovWA4Ra2OYE+MmRwt33e7sMOo+6r64as1SHAAmpuXAm+I
-	 tFJoRB5B5XHzg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A4339E9607;
-	Thu, 24 Sep 2026 00:20:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790211237;
+	bh=+an7fff6Cw/44jZtuWrt5x/TcCGkMfP7lhIWOprcggg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WqyKNAmWFGSnKJ3ycqqpWH1kja9RLZ37sszjXI5sslxLY305DS8K/gGJyJuS0A6AC
+	 0Sf8AE4mraDWxxE7gGOBi7mLPZENzDa0vA4aKodZYMNovYpxMNe5FWTgcPtuE0V58N
+	 mzLWi0KTZLRQQwxRDerVyUiHVIL+Ce5D+y1p9wSsqTJgJPC/oNV1WpB0ZoSvrmqA4M
+	 nG+Qc8UK/e8JghqT2NTFqzAjK9SAEhZU64cETirM1XbW3T4fVSo0ejyc1iNcPO356c
+	 6IHvGxOOHBB1XrEle3MiNTtqrXj36peMqA1bypZ2Qn+u0xxVgDN7/CIfumP/ljGptY
+	 YWNPcWcDJWwXQ==
+Date: Wed, 23 Sep 2026 19:53:53 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] arm64: dts: qcom: sm8650: add support from Valve
+ Deckard headset
+Message-ID: <arR0ekQw5O_E_OSs@baldur>
+References: <20260923-topic-sm8650-deckard-initial-dt-v2-0-8361c4548efa@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3] dt-bindings: net: nvidia,tegra234-mgbe: Add missing
- properties
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179020920515.1246203.8562812404756160098.git-patchwork-notify@kernel.org>
-Date: Thu, 24 Sep 2026 00:20:05 +0000
-References: <20260921110422.220832-1-thierry.reding@kernel.org>
-In-Reply-To: <20260921110422.220832-1-thierry.reding@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, jonathanh@nvidia.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-topic-sm8650-deckard-initial-dt-v2-0-8361c4548efa@linaro.org>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon, 21 Sep 2026 13:04:22 +0200 you wrote:
-> From: Thierry Reding <treding@nvidia.com>
+On Wed, Sep 23, 2026 at 02:16:31PM +0200, Neil Armstrong wrote:
+> Document and add initial DeviceTree for the Valve "Steam Frame"
+> codename Deckard. The Steam Frame is a virtual reality headset
+> based on the Qualcomm Snapdragon 8 Gen 3 SoC (SM8650).
 > 
-> Being a DWMAC derivative, the Tegra234 MGBE supports AXI configuration
-> nodes named stmmac-axi-config and phandle references to them using the
-> snps,axi-config property.
+> Product Website: [1]
 > 
-> While at it, add the 10gbase-r PHY mode.
+> Dependencies: None
 > 
-> [...]
+> [1] https://store.steampowered.com/hardware/steamframe
+> 
 
-Here is the summary with links:
-  - [v3] dt-bindings: net: nvidia,tegra234-mgbe: Add missing properties
-    https://git.kernel.org/netdev/net-next/c/0a2de6c7cded
+Applied as is, please follow up with chassis-type addition later.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Regards,
+Bjorn
 
-
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+> Changes in v2:
+> - Added labels to smp2p to make removal of the nodes cleaner
+> - Reorganized properties (ranges after #*-cells, <prop>-names after <prop>)
+> - Use "0" instead of "0x0" in the reserved memory reg properties
+> - Use proper supply properties for vcnl4040
+> - Link to v1: https://patch.msgid.link/20260922-topic-sm8650-deckard-initial-dt-v1-0-c25e7759d04a@linaro.org
+> 
+> ---
+> Neil Armstrong (2):
+>       dt-bindings: arm: qcom: document the Valve Deckard headset
+>       arm64: dts: qcom: sm8650: Add initial Valve Deckard devicetree
+> 
+>  Documentation/devicetree/bindings/arm/qcom.yaml   |    1 +
+>  arch/arm64/boot/dts/qcom/Makefile                 |    1 +
+>  arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts | 1288 +++++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/sm8650.dtsi              |    6 +-
+>  4 files changed, 1293 insertions(+), 3 deletions(-)
+> ---
+> base-commit: 506632261e6aeb1aa05c3ebe4da0a9439153d746
+> change-id: 20260921-topic-sm8650-deckard-initial-dt-19a5616b109a
+> 
+> Best regards,
+> --  
+> Neil Armstrong <neil.armstrong@linaro.org>
+> 
