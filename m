@@ -1,102 +1,134 @@
-Received: from mail-ed2-f16.google.com (mail-ed2-f16.google.com [74.125.228.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A053A4520
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:48:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC1D403AE0;
+	Thu, 24 Sep 2026 06:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790232495; cv=none; b=B25wKrOEWZajXR9Cn1uvnfrMKC016O/KCY0hZlcPH9tvzD1/xDhC5ds9nbBWef/6/yB8Nw1ABTk50hBd1zFqeLzdcXwSck1OVWwpxc7i4QQ8x8LS2pS9mdmyx/crDqWLjxjNLndzLdeCL38yGCAKqp93oT0wXGmM/v3EDPCfzWc=
+	t=1790232652; cv=none; b=Sm7ypdDErfF8wxn1auNgydP1cxhlW+BjcRYc990svwqxihQeWg50yPd+aWa1ereoyUinga+NzjtsRFsCVyjVSJSoP8Rlgb81Z6Z3b9LuprWwxct5B44dF/wcZcxHd+UY9nBGlTLhnGPq5KFiHoVBH/O1IsT1fgNhyda8FKucUi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790232495; c=relaxed/simple;
-	bh=/BcelbpT7CGhnfElWZJzPti6+AmMa6ROEiybn3GdoFo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QhMy7reYsYF9p9hdO+oUjRnLSjQ0sS1VEw/WG2N5aec0mdesvItNUTf1iejkMLB0VPe+G1Fv6FKMjQSXHUeVPUrtbxQXpbxqYw1Iu06BhQU7oq/3WIycIMtyR7AzL5kAjIKzFwks+2X9lWtuPfOHdtDw/yi7K6/MX4xp6X7D0QU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=OGFK0UTL; arc=none smtp.client-ip=74.125.228.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1790232652; c=relaxed/simple;
+	bh=j9r8nxSCTkvsmoiSxE6YtZBoJ5am0XO19M3F5XYzwck=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FxjM5a69ARSShZ0WUjg/OFBbxzLHp7LTbC2s5m+rw07HY/BcNrzljHXTdTWam7Csw8gEC47MJr13MxeyxQ+vfk4OKCSjR3W6fbYKJcEwluFs482JL3ITXUfL2UJGMlO4tuBHJEY/+Pyu7qIPZ7MBw/SiYlRtACIg/smhKSFaHEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=Dfru81rG; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="OGFK0UTL"
-Received: by mail-ed2-f16.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso2962751a12.0
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 23:48:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1790232493; x=1790837293; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TQSx66yiUW6sVcxiGO0Odu8TWkytfdb3yKLMsf5vKh0=;
-        b=OGFK0UTLh74qe2B7umXcdJFXbzEwPrOq4uaGpPdWITgXiKEnm8D6X4uHY+ezy/K2u4
-         SZTEkYKElcn38ojzd6DI98J1x8Lc0y3Irv+thn8gTOa0tikTdfPdJzF6tfvlvnLzRSun
-         gXQa6vvveDWzX6Yg4mRZUBlOET+XouHOHfU80=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790232493; x=1790837293;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TQSx66yiUW6sVcxiGO0Odu8TWkytfdb3yKLMsf5vKh0=;
-        b=NvVGtvatkjiWyhy4NZEzjaMqd7wnmwh2sxqJ096pF2VtqBfzW3LIhrKiNEG2dy/7jv
-         al2xD1/nN4FZgtcu6sdqJdfhygVLIpxKRsUoZccEQffcsffxr5WqHTR8TuIGFKckxNVV
-         5iqPgoeUrdoFUTemtM71h/eAqNP/Q9Sjav7RRXiCpA21JXuqi2+DnnCfrVDwn1oc6Wyp
-         /nc9UBmzCaiELc/Sq81xzlYJPvF3HVn/VByIGsUSmcE20x7eilmFGMNBIemvXDHNCmbY
-         7dbL0Qe+XtQf1kkUZTFQt1hDOmV6fCEN/BlOMxH4xZXrFDyKmww/phJKSOexiUtb3tRs
-         2tFg==
-X-Forwarded-Encrypted: i=1; AKwUvBytXJTjYSiqdepMMGXBWC/1uE+aCrkqImC3unz54KDk5FwewOYE4q1tOtAD3V2IwYbHGJs6j+IcL2PO@vger.kernel.org
-X-Gm-Message-State: AFuF++m4RUU3gbY/ovuPRmixMABDiBp8ANsjAFOEF9bmff+pbGK32hyK
-	lemTCCkvpHVXMLhPE42/8KRK3gT5lZn044L7/zyrwBSbgC1rWRx4GPWCdSgc1knJIXA=
-X-Gm-Gg: AYBFou2B7lTk9aW74/lDGQPfIOHUZqSW6EmBVMVLuYLb1OuihjvUJYqnyzIVAysJprV
-	C7p7oR4YuMSY4DQbLJshU5FgL36L4jBRj7+uCuXBoSM+87xXDbEyC+5k6FqdNYV97x/53sujjh6
-	ub6btMv5JC/lY8g8SXy7Xo89BcfBa6e+xWz1EU3TfcpxaZZGwLhGvAa0cQwzcI+Vr+NzdgZITiA
-	w8DKXc1Kr3adgkvQxzJAK0xs595GuEQ1bF7INZH8RG2Dq5NLfjO2zZ5XT/87E3mnHc1rmcuRxKS
-	R/XnsXPLh35h+8X9NYNT4SFuA7I6BATIFZlJnfYfuVOmCtyTuZjAOUFGyL6nEB3LnI69zd9GXpv
-	xjEFkWOKibKg9drIU7ywNMPwfR+PRqMJEvSZsL9mLv00BGfHjGMvY222M8LUuqoecpupeIck3Yq
-	ui0Ktdvt+5u/w8Bbl8zrSoHKM3tYaBC9Zf1pg2MqvjjDKdsP/iUXd2IwaFPV/WauXAXMs65aHG6
-	0x/R4UCwWPth6SdUAE=
-X-Received: by 2002:a05:6402:23c7:b0:6a9:e7eb:f52f with SMTP id 4fb4d7f45d1cf-6aac90a9049mr971517a12.28.1790232492657;
-        Wed, 23 Sep 2026 23:48:12 -0700 (PDT)
-Received: from bender.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab386e5aasm3155851a12.9.2026.09.23.23.48.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 23:48:11 -0700 (PDT)
-Date: Thu, 24 Sep 2026 09:48:10 +0300
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dinguyen@kernel.org, arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com
-Subject: Re: [PATCH v6 3/3] arm: dts: altera: add Draeger M48 CPU Module
-Message-ID: <20260924064810.GD6325@bender.k.g>
-References: <20260917163157.1380860-1-petko.manolov@konsulko.com>
- <20260917163157.1380860-4-petko.manolov@konsulko.com>
- <20260918-strategic-hairy-kelpie-46e807@quoll>
- <20260920075924.GC7878@cabron.k.g>
- <042c39d5-0642-4bcd-b965-61fce77b52ae@kernel.org>
- <20260921090659.GD14552@cabron.k.g>
- <89e1e02a-1a41-4c40-aafc-172c44ddeafd@kernel.org>
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="Dfru81rG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Pvbg/dxk+AXCSTE+uheu6nRjPFHJfcJOZt8KrB0ENwM=; b=Dfru81rGkINwCO7B3gaN4M5uo3
+	YPXIChLRXufB1ejedu9Ey8Hs1FFFMo66uR7DMJjv7zcY9BCkvDa8+RVQhP8zBCJggH0+TiOp4cw9p
+	9f6ldBzPmo5bw+CrGYDWebflmzupkpjnNNqWSHmDxdeGxNhZ6FWkv7QVr5xqJFs7GKFid1Fb7w2uS
+	hnmAoFVaECVzrdN7R1duCNppMKN9RzfmSHY3bSdrtCyOIMZaDvbCXxb2vL4eCpudnxf3/5gGdSlf2
+	c0mTgjMj9eubZoM8CRMGJSiuR1MeV+i+Td4ok3seYRZwSSQwV1YQP4HFNS4Zx1Blga0vUaYS5iPB5
+	1UITnEGA==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:54176 helo=localhost.localdomain)
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1x9dI7-0000000AyGs-1v6y;
+	Thu, 24 Sep 2026 08:50:48 +0200
+From: Primoz Fiser <primoz.fiser@norik.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Support Opensource <support.opensource@diasemi.com>,
+	Lee Jones <lee@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev,
+	linux-watchdog@vger.kernel.org,
+	upstream@lists.phytec.de,
+	andrej.picej@norik.com
+Subject: [PATCH v2 0/4] da9062/da9061 watchdog timeout mode
+Date: Thu, 24 Sep 2026 08:50:40 +0200
+Message-Id: <20260924065044.368341-1-primoz.fiser@norik.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <89e1e02a-1a41-4c40-aafc-172c44ddeafd@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 26-09-21 16:16:45, Krzysztof Kozlowski wrote:
-> 
-> I gave you already precise expectation 10 days ago, which you ignored and
+This is a revival of a series originally posted by Andrej Picej in              
+December 2021 [1]. It lets the DA9061/2 PMIC watchdog be configured via         
+the "dlg,wdt-sd" DT property, to trigger a full SHUTDOWN instead of the         
+default POWERDOWN on watchdog timeout, and enables that on the PHYTEC           
+phyCORE-i.MX6 SOM.                                                              
+                                                                                
+From v5 of original series this resend drops patch 4/5 ("dt-bindings:           
+watchdog: da9062: add watchdog timeout mode") because it already landed         
+upstream as commit 382256b219fb, later converted from .txt to YAML by           
+bd888a4377ae. Thus dlg,da9062-watchdog.yaml already documents dlg,wdt-sd        
+property.                                                                       
+                                                                                
+Patches 1 and 2 (the mfd prerequisites making register CONFIG_I                 
+writable) needed a rebase: an unrelated commit has since added                  
+CONFIG_J, the register immediately adjacent to CONFIG_I, to the same            
+writeable-range tables. Rather than reapplying the original single-             
+register insert next to it, these merge CONFIG_I and CONFIG_J into one          
+range, matching the existing CONFIG_G-CONFIG_K style already used in            
+this file.                                                                      
+                                                                                
+Patch 3 (the watchdog driver support) still applies unmodified.                 
+                                                                                
+Patch 4 only needed its target path updated for the arch/arm/boot/dts           
+vendor sub-directory move (imx6qdl-phytec-phycore-som.dtsi is now under         
+nxp/imx/); its content is unchanged.
 
-"precise"? :)
+Changes in v2:
 
-> repeated "what shall I do". I expect explanation of the hardware in the commit
-> msg, especially the non-obvious things.
+Patch 1 and 2: 
+- capitalize subject description
+ 
+Patch 3:
+- implement Guenter's remarks (code refactor and update commit message)
 
-Is this:
+Patch 4:
+- capitalize subject description
 
-https://lore.kernel.org/lkml/20260921090735.3174292-3-petko.manolov@konsulko.com/
+Link to v1: https://lore.kernel.org/all/20260923111719.2032012-1-primoz.fiser@norik.com/                                         
+                                                                                
+[1] https://lore.kernel.org/all/20211206064732.280375-1-andrej.picej@norik.com/
 
-sufficient or you want even more details?
+Andrej Picej (3):
+  mfd: da9061: Make register CONFIG_I writable
+  watchdog: da9062: Add support for dlg,wdt-sd property
+  ARM: dts: imx6: phycore-som: Set watchdog timeout mode to shutdown
 
+Stefan Christ (1):
+  mfd: da9062: Make register CONFIG_I writable
 
-		Petko
+ .../nxp/imx/imx6qdl-phytec-phycore-som.dtsi    |  1 +
+ drivers/mfd/da9062-core.c                      |  4 ++--
+ drivers/watchdog/da9062_wdt.c                  | 18 ++++++++++++++++++
+ 3 files changed, 21 insertions(+), 2 deletions(-)
+
+-- 
+2.34.1
+
