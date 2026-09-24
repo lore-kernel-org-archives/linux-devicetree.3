@@ -1,547 +1,132 @@
-Received: from out13-174.antispamcloud.com (out13-174.antispamcloud.com [185.201.17.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB793911B5;
-	Thu, 24 Sep 2026 21:39:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.17.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0187242925
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 21:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790285985; cv=none; b=SwFRR1t+qP/gLV77/Rbe6gC3fm3xiNkL/H6XdqUrJe/QbYBiWrRWo/dtPDAy539SW1gfPCdLeSyx6uzYSWXetYyQrRERv1bCVuJV2i7uF6KXHf34hA9IzTvzLmhA4UnomjsEANiAPuK3SUAP8QSicpMqlYfatMRMrSN5JukBR64=
+	t=1790286426; cv=none; b=DXAO+lbHItX+khb5CPBa4qn9lsjoUOebzx1F+pzOPjzFvRUDFShkYJutJKkcub0p9F7tN9tXI6/tSpbY6ekXhA28rT48tgae8I922Vg+B88jNdeIHqkPLXfyq6mtjuoJtNCbWDTB3XVje8skd13GAcPCbGvS0AghUwYDS6yFOYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790285985; c=relaxed/simple;
-	bh=0P+lUXYOAgHwLKK7IMQBMw6DGl1StORwkeDAvWwmVYw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Jach1ClE4fng7ydfqt/6H1GaTzLScfWvft8WJK76kuriunTxBcf1gTh3VE1R+Y0PlCXH30QlVkaxpoOS8t6PCtvuRB1G1rDRpUgLPZOqUndZGX+BL5eAmCn0RgYEA8Hjx2W6P5fjt7KvITurShG265+rMROIx3r5Ty0X3KflMgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=TYCKRykx; arc=none smtp.client-ip=185.201.17.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
+	s=arc-20240116; t=1790286426; c=relaxed/simple;
+	bh=sJB8a2Uid+eUS/2yZz14rm+h24VJn2Vq54W8G0uPAe4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LRwXfbFuoy2E5lnxbX3bJY3bemy961yHJZGH0v9o+Vi8I+b/kvs+KInwyI7CfuYttCF9T+1Is5B8UhVcaWLCqe6R8zS7tX9AZTc21wwfL5MYxIYt/8g/Gt5stP1uNkGUN4KYkMrVMDo41agVFVHnSwqbakeX8Ayl1Q8Ayf0Drz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qh2UR+x5; arc=none smtp.client-ip=74.125.229.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="TYCKRykx"
-Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
-	by mx320.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <dan@reactivated.net>)
-	id 1x9qjV-004qbF-66; Thu, 24 Sep 2026 23:11:59 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=reactivated.net; s=default; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=FztxlCtMBiQSHlXmAZm8S/wcrRzv9qme8jxAKbMhe0M=; b=TYCKRykxip9M5skTIz6++kEf5s
-	UIdzANWxafaVaTurljUoXKrY+Kpp3FAQF/aPmJeaPO+wmE8sk8u3xcztYroUxCQabID0Zjsk8usAX
-	qNDW7OHZPl6uCivO6aqlQ3lcJFJVma/liUxG7MpoaKI/qzbJFOmP43drfIoZHUWGpsGRq2DZ40v8S
-	Yma+n2snPy6AHbYvsHVTzED9l5Kf4x7h6WRv3LEi8SATCyyjmORVfbVjqumyqoTVBkIBlL78oEC55
-	0PV292UqFi0ndRFny/kjD9aRh2szKhKHThPwaf1g98ip6ugtuWa3hSbtEhTvPw8Ld1HgXXJigUOgz
-	FxwMVdAA==;
-Received: from [188.251.249.2] (port=56840 helo=[192.168.1.123])
-	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <dan@reactivated.net>)
-	id 1x9qjR-00000006M7u-0sX0;
-	Thu, 24 Sep 2026 21:11:54 +0000
-From: Daniel Drake <dan@reactivated.net>
-Date: Thu, 24 Sep 2026 22:10:54 +0100
-Subject: [PATCH v6 4/6] iommu/generic_pt: Add Broadcom BCM2712 page table
- format
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qh2UR+x5"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144efd1ea76so197579c88.1
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:47:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790286424; x=1790891224; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vmbHwdbLykki4BBoXNNKdYpZGlaAV7d37IywwLOJY5w=;
+        b=Qh2UR+x5m/X4zSjGTGkjLEAzXh7blP+yv5NC8iaE59/fOuLmKYAj50+YCa5mWeghAW
+         Y9lQV3xNhbJk0iW5A6clsA7/ePLmPnepinKo8Z9vWJ+2vq7QRMPlmwsRYGIdqPxD4SQj
+         Fnn25jwqDCN/vn8I91wUeMYr6JMhxIRlnVPzQ0plLWjzg7Kp9dKSj4MHY9+4TYCfDeQg
+         o8Y7kD1/CP3+kaNPljiZflKCF1JBDGpHaIxFZgkDwVjg8dlOYq3IsLJ25XGPo+GHZUqf
+         SupBVE+aq1/+BJte3J65BDBcEA3lhwXvOd+nXevBvvajhla55/RruF3U/tOVv0X0jHuN
+         g6Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790286424; x=1790891224;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vmbHwdbLykki4BBoXNNKdYpZGlaAV7d37IywwLOJY5w=;
+        b=kXLvCESGhd1SNxGPrGEH/Yqx3SGNeEcEpFNmvS5Zjw83d05r0IqhWGBWO1hvpYFNw4
+         PO916Mo03ePkZKM+cBSvIfq9I9j0w1j1jwukZdTweExHz64y5B+/qgA01Pun0/i8XIHN
+         bFQIs7MJG4Mxphv+wPwUQrRhKQiGK0Ud0BDwYhMrSW8Y0g26idL4vS6cdY0ygbGMIYor
+         BlHHoH8+c4xYWW1WbizfTGPG4n+w34mv709wYNoVkNr6LI70Y/owCEyX3HpjUZyrwhGz
+         A99rzSqyVEvQLZaqTKQN1yWC+W9td8YMgWXzj9UgAIT+fo98/XZlSsU8/zIdtPT9UxVg
+         f3fA==
+X-Forwarded-Encrypted: i=1; AKwUvBxxPTk+qlQ73sI1+g7JxgNLebifMMT2MMkEl58+up/hV/py0g0R3M5DOmYwNlIVLpzpn+GVa9t6AWPK@vger.kernel.org
+X-Gm-Message-State: AFuF++nO16iJBRsvDTz4GKr2mGU5Sj/bkbrQUdHerHr8b/tu5VBWBOKx
+	u+OiRmZGcnxHKKdnYEhMMsWZRcBaU5ioDdQIJQ0oD8X12KIZAIrBGPA=
+X-Gm-Gg: AYBFou0UbFQIWcDQK+myysC4zPXyTojBbXS5JyooCyNqAv2tgtQIBv9SzE/aqEV3F7K
+	pH6gZ3ErryDyl2Imv5yunCaZiGwsmDPk33f/xwPdICvZcHAtFm5S4v4PGiU/0rEOKhuLV9bscNY
+	n3kl4wgfg8exkgQkFp9Y639PmXWHPXOZkMUpkJRA6bP3DzfRVxh58eYMxJN8ssqDxav19aogDvL
+	UjyfKC0K4XLbszPr0vfZ02wUZ+J3x+m76N9jfilGb4Dfhgh1L+lAfe1Sn4SGM2fBmM85AlTmcoN
+	m2fJk590XsU5aUEW+ViADys0mqVkmbslkUOtBWwnA67ZpWUS3yf0rbf9OofacTI6B8TWhWAyhGG
+	Ybl3YqNmQV126MOPQr2yN8/BM+Beh8Xfw6G9CH63gz4D57sE3nVN0s7zS+meqWpMrVVyqIWw+V8
+	H+v7KmGbuhR2R1MhHS+wSQpZPRR3MkVn4y3vwv9BWEyFBCYJLz/HIUAQWsteTp0/QGaq+SvQLZf
+	9kmJUbDcoIEGHfk1t0G1guGq9V9Vo3ff7GlAWu5uQr7C7Wdlg==
+X-Received: by 2002:a05:7022:3b0c:b0:143:761a:863e with SMTP id a92af1059eb24-145040d406amr4150298c88.44.1790286423822;
+        Thu, 24 Sep 2026 14:47:03 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145acc45f03sm1171577c88.7.2026.09.24.14.47.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 14:47:03 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: nico.antinori.7@gmail.com,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: christophe.jaillet@wanadoo.fr,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	jkoolstra@xs4all.nl,
+	linux-kernel-mentees@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	me@brighamcampbell.com,
+	skhan@linuxfoundation.org
+Subject: [PATCH] fixup: remove uninitialized variable bl
+Date: Thu, 24 Sep 2026 18:45:57 -0300
+Message-ID: <20260924214640.6149-1-nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <29b7f9786f08989c8f941ab85a76c62d1f5ee43b.1790200427.git.nico.antinori.7@gmail.com>
+References: <29b7f9786f08989c8f941ab85a76c62d1f5ee43b.1790200427.git.nico.antinori.7@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-bcm2712-iommu-submit-v6-4-7b3cace86973@reactivated.net>
-References: <20260924-bcm2712-iommu-submit-v6-0-7b3cace86973@reactivated.net>
-In-Reply-To: <20260924-bcm2712-iommu-submit-v6-0-7b3cace86973@reactivated.net>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Daniel Drake <dan@reactivated.net>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
- james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>
-X-Mailer: b4 0.14.3
-X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
-X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
-X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
-X-Spampanel-Username: 192.250.231.249
-Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
-X-Spampanel-Outgoing-Class: ham
-X-Spampanel-Outgoing-Evidence: SB/global_tokens (5.27145297191e-07)
-X-Recommended-Action: accept
-X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuVS9wi5bgjfy3GvsvF0sczG5HjBmumL8rvk
- E+kBFG4l/yu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
- M0i5ZAms0EHrvcCaVIPmxgC2TrriYvJUGKW4UnMdGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
- EetczWCfZW7a9uhvfuE0J/hsBuu+eB7itP8hgjDRserKv4bhb4rodgkl+wsfxZHakHKRaVZWBb39
- uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
- j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AyJ9N3+CB9
- 4aFbAhtG8w3Ly5ZVKmISsN3IhGLWYd0758WcWZORtrVlxIXk5jhWVNuX2TLvWiqA6BF3jwTykadj
- Eh4GKZ8tHsR5A+L9kzDG/K7jeiyzqcpyb6SLIRHv2KIjmIf7YZpqL+v4bQH3sWKlGBPtnYg5YizU
- E/EMRWxUHUQ0hYI+2t4HN3I9ouCIE9ZpmIIT4UMJhQzp+ktYysEoXYjyOpKyQ+6FJGgfvyfesL1T
- Yi2bf0F0JzgUQ/o6tR7CeAtyzyXh0NL4l5vWK73eqiIKw1M+yw2yzZUSfFbaoySugmxqcr8pFbGy
- g9Z1tlDRifW6JNJBY9PymNpC4Wmh+9PD5zE6IfxMIfQh9R3Td3D6I4o5YsP+Lyz6c5yHWp+lN7xB
- IcErjx6FK9ER9iaQgRs40cmSL9tPfD9p0Q30OpoIC5LN3kg+6pSfiZxgu6TiEuYXMjE4hTY0I3yy
- a8U2jinGDQ7KETlEGJUYMkyf+CuqgXx7tGuaZmhNrApMT0FouUljdE6zMT1Fx5vQ5mcmIHdXPd2m
- u86jxvGTfZNouT6f3He7jw4SoVhmTJ/3eP9ObDIxo+BEwlmvIb+xqTvIrBP+6w9smK/hg5o9u16q
- yIzlag+DgD9xY7Yj7fvC65xWAU3TJceJXG+jXar6FtDTl6SazWHDhW0k3iY0Nxd1+egvPpyylyRk
- sDtvh9EglVwlBP3PkVHlQGQFk2KBEkFw3+vw1RS8zKP8o2x05FSSJsC7k+LzVpQY05oubiJ9GrzY
- ++DuIQUs/5JJj4C/n4CILpFTKQlqbzX/LSb50zWeMLukQz+KohJ08RoXx3dChzUkHQvUrcrPtwd9
- PGmMW1L0B6JfN6DTVjUszJAalIcW0Bh5dbygTK7jtNAOpOLoYrBwYYKC6XIWdfPsJXrcrDW6vfdj
- zQ6YC7Heg3Xf7O1TOd7yUx++SDY6V9XDGiqeh8jJhxFbE1QSjfwMTndprmVkWxS1mi+nw+nJxqi8
- G/0EWIU9/oRhYJouyPE9hB5CV6Cq4Jaxl2P0veaP2Xo6PPtofHNHf6G/7NjKIViWFaEeldR/m2+i
- TN8ji+Mhbk3TTo2Lw6nIoDr0sXUZ7YZoZ/GZ+slJL25ATsZTVifNjYlkFmCz0w5vcdcHI3py3L8t
- PqWAmEN/CjKjK3VVq9SDkpBDU8/nN9BMID38D/++xf97O23y3deP8vNnmz84mDUvZqxnHNc/wp8s
- bbUui5b8WkACIg5AB/ilm4apSU2goW8TQ8+z0w5vcdcHI3py3L8tPqWAC7xZyfryQF81aCkSJYKS
- vg==
-X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
-X-Complaints-To: abuse@master.antispamcloud.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Implement generic_pt support for the 2-level page table format used by
-the BCM2712 IOMMUs.
+Remove the uninitialized variable bl and fix the IS_ERR check.
 
-Adapted from Raspberry Pi's downstream bcm2712-iommu driver (original
-author Nick Hollinghurst).
-
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Daniel Drake <dan@reactivated.net>
+Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
 ---
- drivers/iommu/generic_pt/.kunitconfig        |   1 +
- drivers/iommu/generic_pt/Kconfig             |  10 +
- drivers/iommu/generic_pt/fmt/Makefile        |   2 +
- drivers/iommu/generic_pt/fmt/bcm2712.h       | 288 +++++++++++++++++++++++++++
- drivers/iommu/generic_pt/fmt/defs_bcm2712.h  |  18 ++
- drivers/iommu/generic_pt/fmt/iommu_bcm2712.c |   6 +
- include/linux/generic_pt/common.h            |   6 +
- include/linux/generic_pt/iommu.h             |  12 ++
- 8 files changed, 343 insertions(+)
+Small follow-up patch that fixes usage of unintialized variable.
 
-diff --git a/drivers/iommu/generic_pt/.kunitconfig b/drivers/iommu/generic_pt/.kunitconfig
-index 0bb98fe581fe..a3da74328f12 100644
---- a/drivers/iommu/generic_pt/.kunitconfig
-+++ b/drivers/iommu/generic_pt/.kunitconfig
-@@ -7,6 +7,7 @@ CONFIG_IOMMU_PT_AMDV1=y
- CONFIG_IOMMU_PT_VTDSS=y
- CONFIG_IOMMU_PT_RISCV64=y
- CONFIG_IOMMU_PT_X86_64=y
-+CONFIG_IOMMU_PT_BCM2712=y
- CONFIG_IOMMU_PT_KUNIT_TEST=y
- 
- CONFIG_IOMMUFD=y
-diff --git a/drivers/iommu/generic_pt/Kconfig b/drivers/iommu/generic_pt/Kconfig
-index f4ed1add58b7..2a81dac960ac 100644
---- a/drivers/iommu/generic_pt/Kconfig
-+++ b/drivers/iommu/generic_pt/Kconfig
-@@ -72,6 +72,15 @@ config IOMMU_PT_X86_64
- 
- 	  Selected automatically by an IOMMU driver that uses this format.
- 
-+config IOMMU_PT_BCM2712
-+	tristate "IOMMU page table for Broadcom BCM2712"
-+	help
-+	  iommu_domain implementation for the Broadcom BCM2712 IOMMU found on
-+	  Raspberry Pi 5. It supports 4K page sizes over a 2-level page table
-+	  format.
-+
-+	  Selected automatically by an IOMMU driver that uses this format.
-+
- config IOMMU_PT_KUNIT_TEST
- 	tristate "IOMMU Page Table KUnit Test" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
-@@ -79,6 +88,7 @@ config IOMMU_PT_KUNIT_TEST
- 	depends on IOMMU_PT_RISCV64 || !IOMMU_PT_RISCV64
- 	depends on IOMMU_PT_X86_64 || !IOMMU_PT_X86_64
- 	depends on IOMMU_PT_VTDSS || !IOMMU_PT_VTDSS
-+	depends on IOMMU_PT_BCM2712 || !IOMMU_PT_BCM2712
- 	default KUNIT_ALL_TESTS
- 	help
- 	  Enable kunit tests for GENERIC_PT and IOMMU_PT that covers all the
-diff --git a/drivers/iommu/generic_pt/fmt/Makefile b/drivers/iommu/generic_pt/fmt/Makefile
-index ea024d582594..82ca3c36823d 100644
---- a/drivers/iommu/generic_pt/fmt/Makefile
-+++ b/drivers/iommu/generic_pt/fmt/Makefile
-@@ -9,6 +9,8 @@ iommu_pt_fmt-$(CONFIG_IOMMU_PT_RISCV64) += riscv64
- 
- iommu_pt_fmt-$(CONFIG_IOMMU_PT_X86_64) += x86_64
- 
-+iommu_pt_fmt-$(CONFIG_IOMMU_PT_BCM2712) += bcm2712
-+
- IOMMU_PT_KUNIT_TEST :=
- define create_format
- obj-$(2) += iommu_$(1).o
-diff --git a/drivers/iommu/generic_pt/fmt/bcm2712.h b/drivers/iommu/generic_pt/fmt/bcm2712.h
-new file mode 100644
-index 000000000000..2c5b034441c1
---- /dev/null
-+++ b/drivers/iommu/generic_pt/fmt/bcm2712.h
-@@ -0,0 +1,288 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2026 Daniel Drake
-+ *
-+ * BCM2712 IOMMU simple two level page table
-+ */
-+#ifndef __GENERIC_PT_FMT_BCM2712_H
-+#define __GENERIC_PT_FMT_BCM2712_H
-+
-+#include "defs_bcm2712.h"
-+#include "../pt_defs.h"
-+
-+#include <linux/bitfield.h>
-+#include <linux/container_of.h>
-+#include <linux/log2.h>
-+#include <linux/sizes.h>
-+
-+enum {
-+	/* Hardware provides a two-level page table */
-+	PT_MAX_TOP_LEVEL = 1,
-+
-+	/* Hardware page size is strictly 4kb */
-+	PT_GRANULE_LG2SZ = ilog2(SZ_4K),
-+	PT_TABLEMEM_LG2SZ = PT_GRANULE_LG2SZ,
-+
-+	/* Table entries and leaf entries are 32 bits */
-+	PT_ITEM_WORD_SIZE = sizeof(pt_bcm2712_entry_t),
-+
-+	/* Leaf entries encode a 25-bit PFN */
-+	PT_MAX_OUTPUT_ADDRESS_LG2 = 25 + PT_GRANULE_LG2SZ,
-+
-+	/*
-+	 * For simplicity, only manage mappings within an address space of
-+	 * exactly 4GB. This is because our Level 1 directory page will be 4kb
-+	 * in the smallest case, permitting 1024 entries pointing at Level 0
-+	 * pages, each permitting 4mb of mapped memory.
-+	 */
-+	PT_MAX_VA_ADDRESS_LG2 = ilog2(SZ_4G),
-+
-+	/* Level 1 base address is programmed as a 32-bit PFN */
-+	PT_TOP_PHYS_MASK = GENMASK_ULL(31 + PT_GRANULE_LG2SZ, PT_GRANULE_LG2SZ),
-+};
-+
-+/* PTE bits */
-+enum {
-+	BCM2712PT_VALID = BIT(28),
-+	BCM2712PT_WRITE = BIT(29),
-+	BCM2712PT_PAGESIZE = GENMASK(31, 30),
-+	BCM2712PT_PFN = GENMASK(24, 0),
-+};
-+
-+#define common_to_bcm2712pt(common_ptr) \
-+	container_of_const(common_ptr, struct pt_bcm2712, common)
-+#define to_bcm2712pt(pts) common_to_bcm2712pt((pts)->range->common)
-+
-+static inline pt_oaddr_t bcm2712pt_table_pa(const struct pt_state *pts)
-+{
-+	return oalog2_mul(FIELD_GET(BCM2712PT_PFN, pts->entry),
-+			  PT_GRANULE_LG2SZ);
-+}
-+#define pt_table_pa bcm2712pt_table_pa
-+#define pt_item_oa bcm2712pt_table_pa
-+
-+static inline bool bcm2712pt_can_have_leaf(const struct pt_state *pts)
-+{
-+	return true;
-+}
-+#define pt_can_have_leaf bcm2712pt_can_have_leaf
-+
-+/* 4MB pages are installed at level 1, everything else at level 0 */
-+static inline unsigned int bcm2712pt_pgsz_lg2_to_level(struct pt_common *common,
-+						       unsigned int pgsize_lg2)
-+{
-+	return pgsize_lg2 == ilog2(SZ_4M) ? 1 : 0;
-+}
-+#define pt_pgsz_lg2_to_level bcm2712pt_pgsz_lg2_to_level
-+
-+static inline pt_vaddr_t bcm2712pt_possible_sizes(const struct pt_state *pts)
-+{
-+	struct pt_bcm2712 *table = common_to_bcm2712pt(pts->range->common);
-+
-+	if (pts->level == 1)
-+		return SZ_4M;
-+
-+	return SZ_4K |
-+	       (table->bigpage_lg2 ? BIT_ULL(table->bigpage_lg2) : 0) |
-+	       (table->superpage_lg2 ? BIT_ULL(table->superpage_lg2) : 0);
-+}
-+#define pt_possible_sizes bcm2712pt_possible_sizes
-+
-+static inline unsigned int
-+bcm2712pt_entry_num_contig_lg2(const struct pt_state *pts)
-+{
-+	struct pt_bcm2712 *table = common_to_bcm2712pt(pts->range->common);
-+	u32 pgsz = FIELD_GET(BCM2712PT_PAGESIZE, pts->entry);
-+
-+	if (pts->level != 0 || !(pts->entry & BCM2712PT_VALID))
-+		return 0;
-+
-+	/*
-+	 * Superpage/bigpage contiguous mapping (really just hinting) is handled
-+	 * via PAGESIZE bits on each leaf entry.
-+	 */
-+	if (pgsz == 2 && table->superpage_lg2)
-+		return table->superpage_lg2 - PT_GRANULE_LG2SZ;
-+	else if (pgsz == 1 && table->bigpage_lg2)
-+		return table->bigpage_lg2 - PT_GRANULE_LG2SZ;
-+	return 0;
-+}
-+#define pt_entry_num_contig_lg2 bcm2712pt_entry_num_contig_lg2
-+
-+static inline unsigned int bcm2712pt_num_items_lg2(const struct pt_state *pts)
-+{
-+	return PT_TABLEMEM_LG2SZ - ilog2(PT_ITEM_WORD_SIZE);
-+}
-+#define pt_num_items_lg2 bcm2712pt_num_items_lg2
-+
-+static inline enum pt_entry_type bcm2712pt_load_entry_raw(struct pt_state *pts)
-+{
-+	const pt_bcm2712_entry_t *tablep =
-+		pt_cur_table(pts, pt_bcm2712_entry_t);
-+
-+	pts->entry = READ_ONCE(tablep[pts->index]);
-+	if (!(pts->entry & BCM2712PT_VALID))
-+		return PT_ENTRY_EMPTY;
-+
-+	if (pts->level == 1) {
-+		if (FIELD_GET(BCM2712PT_PAGESIZE, pts->entry) == 3)
-+			return PT_ENTRY_OA;
-+		return PT_ENTRY_TABLE;
-+	}
-+
-+	return PT_ENTRY_OA;
-+}
-+#define pt_load_entry_raw bcm2712pt_load_entry_raw
-+
-+static inline void
-+bcm2712pt_install_leaf_entry(struct pt_state *pts, pt_oaddr_t oa,
-+			     unsigned int oasz_lg2,
-+			     const struct pt_write_attrs *attrs)
-+{
-+	pt_bcm2712_entry_t *tablep = pt_cur_table(pts, pt_bcm2712_entry_t);
-+	pt_bcm2712_entry_t entry;
-+
-+	if (!pt_check_install_leaf_args(pts, oa, oasz_lg2))
-+		return;
-+
-+	entry = BCM2712PT_VALID | attrs->descriptor_bits |
-+		FIELD_PREP(BCM2712PT_PFN, oalog2_div(oa, PT_GRANULE_LG2SZ));
-+
-+	if (pts->level == 1) {
-+		/* Level 1 hugepage (4MB) */
-+		entry |= FIELD_PREP(BCM2712PT_PAGESIZE, 3);
-+		WRITE_ONCE(tablep[pts->index], entry);
-+		pts->entry = entry;
-+		return;
-+	}
-+
-+	if (oasz_lg2 == PT_GRANULE_LG2SZ) {
-+		WRITE_ONCE(tablep[pts->index], entry);
-+		pts->entry = entry;
-+	} else {
-+		struct pt_bcm2712 *table =
-+			common_to_bcm2712pt(pts->range->common);
-+		u32 *end;
-+
-+		tablep += pts->index;
-+		end = tablep + log2_to_int(oasz_lg2 - PT_GRANULE_LG2SZ);
-+
-+		/*
-+		 * Leaf entries can contain hints indicating bigpage/superpage
-+		 * contiguous mappings to permit TLB optimization
-+		 */
-+		if (oasz_lg2 == table->superpage_lg2)
-+			entry |= FIELD_PREP(BCM2712PT_PAGESIZE, 2);
-+		else if (oasz_lg2 == table->bigpage_lg2)
-+			entry |= FIELD_PREP(BCM2712PT_PAGESIZE, 1);
-+
-+		pts->entry = entry;
-+		for (; tablep != end; tablep++, entry++)
-+			WRITE_ONCE(*tablep, entry);
-+	}
-+}
-+#define pt_install_leaf_entry bcm2712pt_install_leaf_entry
-+
-+static inline bool bcm2712pt_install_table(struct pt_state *pts,
-+					   pt_oaddr_t table_pa,
-+					   const struct pt_write_attrs *attrs)
-+{
-+	pt_bcm2712_entry_t entry =
-+		BCM2712PT_VALID |
-+		FIELD_PREP(BCM2712PT_PFN,
-+			   oalog2_div(table_pa, PT_GRANULE_LG2SZ));
-+
-+	return pt_table_install32(pts, entry);
-+}
-+#define pt_install_table bcm2712pt_install_table
-+
-+static inline void bcm2712pt_attr_from_entry(const struct pt_state *pts,
-+					     struct pt_write_attrs *attrs)
-+{
-+	attrs->descriptor_bits = pts->entry & BCM2712PT_WRITE;
-+}
-+#define pt_attr_from_entry bcm2712pt_attr_from_entry
-+
-+static inline unsigned int bcm2712pt_max_sw_bit(struct pt_common *common)
-+{
-+	return 2;
-+}
-+#define pt_max_sw_bit bcm2712pt_max_sw_bit
-+
-+static inline u32 bcm2712pt_sw_bit(unsigned int bitnr)
-+{
-+	if (__builtin_constant_p(bitnr) && bitnr > 2)
-+		BUILD_BUG();
-+	if (PT_WARN_ON(bitnr > 2))
-+		return 0;
-+
-+	/* Bits 27, 26 and 25 are believed spare */
-+	return BIT(27 - bitnr);
-+}
-+#define pt_sw_bit bcm2712pt_sw_bit
-+
-+/* --- iommu */
-+#include <linux/generic_pt/iommu.h>
-+#include <linux/iommu.h>
-+
-+#define pt_iommu_table pt_iommu_bcm2712
-+
-+/* The common struct is in the per-format common struct */
-+static inline struct pt_common *common_from_iommu(struct pt_iommu *iommu_table)
-+{
-+	return &container_of(iommu_table, struct pt_iommu_table, iommu)
-+			->bcm2712pt.common;
-+}
-+
-+static inline struct pt_iommu *iommu_from_common(struct pt_common *common)
-+{
-+	return &container_of(common, struct pt_iommu_table, bcm2712pt.common)
-+			->iommu;
-+}
-+
-+static inline int bcm2712_pt_iommu_set_prot(struct pt_common *common,
-+					    struct pt_write_attrs *attrs,
-+					    unsigned int iommu_prot)
-+{
-+	attrs->descriptor_bits = 0;
-+	if (iommu_prot & IOMMU_WRITE)
-+		attrs->descriptor_bits |= BCM2712PT_WRITE;
-+	return 0;
-+}
-+#define pt_iommu_set_prot bcm2712_pt_iommu_set_prot
-+
-+static inline int bcm2712_pt_fmt_init(struct pt_iommu_table *fmt_table,
-+				      const struct pt_iommu_bcm2712_cfg *cfg)
-+{
-+	fmt_table->bcm2712pt.bigpage_lg2 = cfg->bigpage_lg2;
-+	fmt_table->bcm2712pt.superpage_lg2 = cfg->superpage_lg2;
-+
-+	pt_top_set_level(&fmt_table->bcm2712pt.common, PT_MAX_TOP_LEVEL);
-+	return 0;
-+}
-+#define pt_iommu_fmt_init bcm2712_pt_fmt_init
-+
-+static inline void
-+bcm2712pt_iommu_fmt_hw_info(struct pt_iommu_bcm2712 *table,
-+			    const struct pt_range *top_range,
-+			    struct pt_iommu_bcm2712_hw_info *info)
-+{
-+	info->pt_base = virt_to_phys(top_range->top_table);
-+	PT_WARN_ON(info->pt_base & ~PT_TOP_PHYS_MASK);
-+}
-+#define pt_iommu_fmt_hw_info bcm2712pt_iommu_fmt_hw_info
-+
-+#if defined(GENERIC_PT_KUNIT)
-+static const struct pt_iommu_bcm2712_cfg bcm2712_kunit_fmt_cfgs[] = {
-+	[0] = {
-+		.common.hw_max_vasz_lg2 = 32,
-+		.common.hw_max_oasz_lg2 = 37,
-+		.bigpage_lg2 = 16,
-+		.superpage_lg2 = 20,
-+	},
-+};
-+#define kunit_fmt_cfgs bcm2712_kunit_fmt_cfgs
-+enum { KUNIT_FMT_FEATURES = 0 };
-+#endif
-+
-+#endif
-diff --git a/drivers/iommu/generic_pt/fmt/defs_bcm2712.h b/drivers/iommu/generic_pt/fmt/defs_bcm2712.h
-new file mode 100644
-index 000000000000..f1d983be1716
---- /dev/null
-+++ b/drivers/iommu/generic_pt/fmt/defs_bcm2712.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __GENERIC_PT_FMT_DEFS_BCM2712_H
-+#define __GENERIC_PT_FMT_DEFS_BCM2712_H
-+
-+#include <linux/generic_pt/common.h>
-+#include <linux/types.h>
-+
-+typedef u32 pt_bcm2712_entry_t;
-+typedef u64 pt_vaddr_t;
-+typedef u64 pt_oaddr_t;
-+
-+struct bcm2712pt_write_attrs {
-+	pt_bcm2712_entry_t descriptor_bits;
-+	gfp_t gfp;
-+};
-+#define pt_write_attrs bcm2712pt_write_attrs
-+
-+#endif
-diff --git a/drivers/iommu/generic_pt/fmt/iommu_bcm2712.c b/drivers/iommu/generic_pt/fmt/iommu_bcm2712.c
-new file mode 100644
-index 000000000000..43fbc3cf3adc
---- /dev/null
-+++ b/drivers/iommu/generic_pt/fmt/iommu_bcm2712.c
-@@ -0,0 +1,6 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#define PT_FMT bcm2712
-+#define PT_SUPPORTED_FEATURES BIT(PT_FEAT_DMA_INCOHERENT)
-+
-+#include <linux/generic_pt/iommu.h>
-+#include "iommu_template.h"
-diff --git a/include/linux/generic_pt/common.h b/include/linux/generic_pt/common.h
-index 07ef1c8341a4..1b39b27f0cfa 100644
---- a/include/linux/generic_pt/common.h
-+++ b/include/linux/generic_pt/common.h
-@@ -213,4 +213,10 @@ enum {
- 	PT_FEAT_X86_64_AMD_ENCRYPT_TABLES = PT_FEAT_FMT_START,
- };
- 
-+struct pt_bcm2712 {
-+	struct pt_common common;
-+	u8 bigpage_lg2;
-+	u8 superpage_lg2;
-+};
-+
- #endif
-diff --git a/include/linux/generic_pt/iommu.h b/include/linux/generic_pt/iommu.h
-index dd0edd02a48a..13ebb72a67de 100644
---- a/include/linux/generic_pt/iommu.h
-+++ b/include/linux/generic_pt/iommu.h
-@@ -346,6 +346,18 @@ struct pt_iommu_x86_64_hw_info {
- 
- IOMMU_FORMAT(x86_64, x86_64_pt);
- 
-+struct pt_iommu_bcm2712_cfg {
-+	struct pt_iommu_cfg common;
-+	u8 bigpage_lg2;
-+	u8 superpage_lg2;
-+};
-+
-+struct pt_iommu_bcm2712_hw_info {
-+	phys_addr_t pt_base;
-+};
-+
-+IOMMU_FORMAT(bcm2712, bcm2712pt);
-+
- #undef IOMMU_PROTOTYPES
- #undef IOMMU_FORMAT
- #endif
+Apologies for this oversight!
 
--- 
-2.55.0
+ drivers/gpu/drm/tiny/ch1115-i2c.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/tiny/ch1115-i2c.c b/drivers/gpu/drm/tiny/ch1115-i2c.c
+index cb6198a8e55b..631dd25e7dcc 100644
+--- a/drivers/gpu/drm/tiny/ch1115-i2c.c
++++ b/drivers/gpu/drm/tiny/ch1115-i2c.c
+@@ -751,7 +751,6 @@ static int ch1115_probe(struct i2c_client *client)
+ {
+ 	struct ch1115_device *ch1115;
+ 	struct device *dev;
+-	struct backlight_device *bl;
+ 	int ret;
+
+ 	dev = &client->dev;
+@@ -802,8 +801,8 @@ static int ch1115_probe(struct i2c_client *client)
+
+ 	ch1115->bl_dev = devm_backlight_device_register(dev, dev_name(dev), dev, ch1115,
+ 							&ch1115_bl_ops, &bl_props);
+-	if (IS_ERR(bl))
+-		return dev_err_probe(dev, PTR_ERR(bl),
++	if (IS_ERR(ch1115->bl_dev))
++		return dev_err_probe(dev, PTR_ERR(ch1115->bl_dev),
+ 				     "Unable to register backlight device\n");
+
+ 	// DRM
+--
+2.47.3
 
