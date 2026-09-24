@@ -1,321 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80047485951;
-	Thu, 24 Sep 2026 13:24:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5DF486623
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256253; cv=none; b=c476ir9cvFGSupjvvxe1oHHp5HIGIhnAGuuOe/ixs/MPb6xz0tSnO8eflQvMDbzDlwc1unwYj5dSydOImi3drxBoWY2vcjAQM9H6LykrLL27VmhcX+rhtVrEOyzlcNfLTnhCdDKIL5y62WZxTwie190aS5ClOt7rSLoFlYyqzWM=
+	t=1790256294; cv=none; b=ogzV4OEyWVkT7z7RoC3ot7J2dDASS4zUHNGoq39RY6aEY714nq7TXm4b+Ow2PcSSSv8xh5tE0rv4MCG7zMGT6B2dXhGOc4TjAvioPT925Da3U5VtqpoQyi2ykrf6qCzPADI1knB7fl+K/ZrNJOMO099JNLzXaD6zpFKC6cwjQRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256253; c=relaxed/simple;
-	bh=oZSWGCJrS29pCfTPeI3C6HwaJyqxPJe5p0cr2w9mLh0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gSpH+XlHoJXPErELJgDrQ7SexClblw1ryPEuzz/58iAyAxu3hnpejLMD4sXEIncuIA7I4kM0nPv6c03rnT6qwM30loShgtj1YD9+yLlGKv+ZB3NyEngdEv6nAZ/k9e4OAqfNs7mWCCKKqhfnV8I2nWOPwEC9ooIGIBz5J+MMEis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jX6Yqm5B; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790256294; c=relaxed/simple;
+	bh=muoWNoHX3fssJg0zq0lI4V174aDyR3uc8zoA3RzoEdQ=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=cjQ69ZZCZhbmKUijkX29Cso7XPKSROwE2+hWzWMi2WK+7Eo/HmS5evMXA3tEPP20P+wHHpVDzj0Xin2/fpmWk6H+aWi70K4ItK/S6BCPcCOKZ9Uxqlyt7wnStLxvedoGF/Flwz1PcN+BN3jlW/okBYhM7o64PqwwmG0/n1l1q/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=V71OM+4k; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jX6Yqm5B"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B7D7EC32786;
-	Thu, 24 Sep 2026 13:24:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790256251;
-	bh=oZSWGCJrS29pCfTPeI3C6HwaJyqxPJe5p0cr2w9mLh0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jX6Yqm5B8wbaVHyllTSMGZYz5tTfxElukuq2NkyYmhi/pxa83KVFvDPPK7e/WpOB7
-	 JD5nDeFzS1/v/sd4JO6Ae+fwvjFLByu0+Gjh4jQ7wvlP17+9z0rwbG7EJVJQCKpMCF
-	 kBXSOGpAxt4kbWAi7sp+oRHjCKnCnftd9gE2zTdzGtbf2bEFIAEIXUVIGxX2AyWNaX
-	 bezAQ1KyUE6aQ86iEbgemwh+hBvCTBe67RrImuav9lcLQN3cqwI3LTNjIGP7ldhTQK
-	 RdVnViKMaZB8uVF42VKyLZVJRz8vIy+CE9nDQClbcWyaOCETmeYSOX/JZOr0dGTfEE
-	 zbctnCM6PQ0Aw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A44D7C9830E;
-	Thu, 24 Sep 2026 13:24:11 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 15:24:11 +0200
-Subject: [PATCH v4 6/8] arm64: dts: qcom: sdm845-google: Add basic audio
- support
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="V71OM+4k"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b91369d18so14314845e9.0
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:24:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790256287; x=1790861087; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LpEBMkeydz8CmhOZ6U5BSNu3mfpAMZA4ZhmbrftMEAM=;
+        b=V71OM+4ktZNnwKRr9HvfJNfn2rLNnrkSpVFE39yoraTRjGgPx5R09VChLUzyFJqinW
+         y4OUk2QkBpG7ViQ0O4n67kXLpdTuPRT/T73FVhvWB4/J31P8uWeGwezd6DzN651CJX+f
+         /OwAv6JsUV4BLToq3QW5FUzOhMjl0AJ4BlqYZ3zNLq2acj+r3vcQKHrvTOVLFtN0DAq0
+         1qs5opU3LzG8r8qeFGni26KGTCcBGOltf0Uag1Nc8whWP7HJ/9pd5pXnz2yLYOqdoCoe
+         LBh+z5lcEJ1N06Wa2OlNTZIGUecR83kkSmC94eE7OaZuKGjT+vvW8NY8L9DoEcXEhfpk
+         U+dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790256287; x=1790861087;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LpEBMkeydz8CmhOZ6U5BSNu3mfpAMZA4ZhmbrftMEAM=;
+        b=H3OQiFhFVwVV8NCXlBBwZfxXyTiTUVX6aL0G5UmUFYv61DZToZJDHol9/qGdOFmfFj
+         T39L0FUphZrYTDellRv/A0pTmkYmd3MO+zThLQWLVT2eMSxItCGQSyBu2xJG3kzhGy1/
+         2eMl/+SDTVbhIPxm4+aPdJNoehKdeeWbsRTIyvkUTC5JgWQwZNAAV0bGc9Sb/QbQEn8A
+         OkNB6ufvXGMHaB+e/yF5MzHZbKqI3wBbITPUG3d4DcR685x1ixvhLoW6fe882y5rWLd8
+         9xb/fClZjjXNF1Ql1AmqDC3iroNmHU4nLu50dZkoINvhZ+JM6Rl0kdIGkj+sDmJQ4QCY
+         wNJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBziOpilHWLS/KfxkF6+4z+R82ZgtPZ2FwVJcHsr1pzOqUrmJ59lZ8HYcf3KatT5n08czGzdQ7WDIEBC@vger.kernel.org
+X-Gm-Message-State: AFuF++lpvo1R/jASDc6x+lVdqclxSGs5Dgi5Fl35VP3sHTzGlsh2tdrj
+	Rl3Aq/oA4yVoB95mUW84Mzbgl7hxPqKAx8I5p667kZVZRM3py/w4f1wv61mnSaIqUOE=
+X-Gm-Gg: AYBFou0ilE+r3P4lzzew2W0L7UZNcc60qZARdPxbhHmYXuX59Ns2+jxLC9gcl2JMnOp
+	3rFMveYLwJzEzlZ0bSeqRXuKF9rmrQsUipLwa4VUW5xTNbYbsMHuapijuxe5nW7BXKt6H8zOJvc
+	kwGn/o0AlIy8/SDxiWR593JDxsXliLi/tC3ifcaD3eU7cf2YUxk0VB3qxujEp9tdpEgneZ8ZdKW
+	mLp9aIvzJcDtDZ7ZpX9zqHw5gKF95vGwJ/yGICF+/60MSJ50LMn7NJvUR9a/aos25O7F941NgCr
+	NszJ3iu+X9SryWxyJfkZWgwyoVyBBrSsyTQWk5WYPkzpOEI0Wgsdp9yjUu2ZcPCTsCnK1LhR28V
+	TczXjJC426XH3ufymWvma6p39l8unK2LNRQFS+E/MxMmUu+/co5WG/uzT3t9ZbiRaj6hU7vrzAR
+	VVC0QbqMRvCUAIN5PjJyWcrVb5JqG5md/TPVWUYUF/ooFzk89ci4J1bQLFcHkEqFYiSgkEPY6qw
+	72ZhTE/mjc+u8rrHjwBWDNxLE/lnH77XdY7OeXmSvN8DVzLkb8qII2HWQLyG5i6
+X-Received: by 2002:a05:600c:8b74:b0:49c:fc6e:a3d7 with SMTP id 5b1f17b1804b1-49fe66e87damr41701145e9.22.1790256287127;
+        Thu, 24 Sep 2026 06:24:47 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a? ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5b47da1sm72841405e9.0.2026.09.24.06.24.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 06:24:46 -0700 (PDT)
+Message-ID: <2f3d939e-8de6-45f2-92ff-4aeae4d9af54@linaro.org>
+Date: Thu, 24 Sep 2026 15:24:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 03/11] drm/panel: s6e3ha8: Really assert reset on the
+ failure
+To: david@ixit.cz, Dzmitry Sankouski <dsankouski@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ phone-devel@vger.kernel.org, stable@vger.kernel.org
+References: <20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz>
+ <20260920-crosshatch-panel-v1-3-de6e9512da96@ixit.cz>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260920-crosshatch-panel-v1-3-de6e9512da96@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-pixel3-audio-v4-6-85b5d133aa5e@ixit.cz>
-References: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
-In-Reply-To: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- David Rhodes <drhodes@opensource.cirrus.com>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5502; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=tCA2wrGmYAOXszuoJHsZBlVOzstBSAb0Uqddhj9U2gw=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtSR5jHTX8H0OwrpTHlqE4ZEZ1gWEh3L4GK+NZ
- 6MQ5nzdG1yJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUkeQAKCRBgAj/E00kg
- ctzqD/4vOhXRTi6MwwjUtgHsr36kVlLwHx/6TinCzhEHsF2bahmXN/+tRJC1uzEomanpZVOqeCL
- h9WNnxzVP6StP1clinp4IKwhVSGqUhkkxWHfnPh/dIomLaATSmrfVoMJAjyGtT+/HAPdcTMs/7d
- AGlZsUNduGnd7kPggXBuPHAaZb48hYI0FtExYX8r7rWj0T7t8fFbl0kHc9mIjPIybpNXYE8oxP0
- E29nVP1+SAYHD5APVedTRgw6FQ3HvCeFeVlO6p0w3pU/gx5REQB2Z4QUczfAziyDbAwGth4nBcS
- s8hfPtRaD3f4fuJr3KcANFVKrTIjjXJpiBsZc0fdXiyYYfw/7urfcjmz1IHyvJpM1uRZ2dPXJbg
- TG6eom8tBJHrlTR2p/5KW3ZWWzt8n9sBNlyreqpHvLiwmd4O78mL5x9HhRF5A68U8gEdXb+p+Tb
- 23horlyf+zobA9c30dFamqOfkuR5NX+tNuX/zPq4BLnCe2hhom4ysHjeQ1FvduqaSQEZI9GwHDz
- XGAerdk3UTIg6DqTius3leWA3ber1NLr+c31a1I4XJkhiD9j25RRS3gF808Vw4jyAPneBicnR6k
- JaVsTC7ku6l+O2MMeItaw9L4rMOdNkVyTz21ex3jVnI+xEl3ban8dXmzbUXoOTeFmDLF/VUyEvL
- 30GHmaRa5pnH+bA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
+On 9/20/26 13:05, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> Due to incorrect implementation 0 == asserted, thus when driver fails it
+> needs to assert reset.
+> 
+> Minimal fix for stable; the polarity convention is corrected properly
+> later in this series.
+> 
+> Fixes: 779679d3c1640 ("drm/panel: Add support for S6E3HA8 panel driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>   drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> index 078523df48860..835121b322f4a 100644
+> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> @@ -179,17 +179,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
+>   	ret = regulator_bulk_enable(ARRAY_SIZE(s6e3ha8_supplies), priv->supplies);
+>   	if (ret < 0)
+>   		return ret;
+>   	mipi_dsi_msleep(&ctx, 120);
+>   	s6e3ha8_amb577px01_wqhd_reset(priv);
+>   
+>   	ret = s6e3ha8_amb577px01_wqhd_on(priv);
+>   	if (ret < 0) {
+> -		gpiod_set_value_cansleep(priv->reset_gpio, 1);
+> +		gpiod_set_value_cansleep(priv->reset_gpio, 0);
+>   		goto err;
+>   	}
+>   
+>   	drm_dsc_pps_payload_pack(&pps, &priv->dsc);
+>   
+>   	samsung_dsi_test_key_on_lvl1(&ctx);
+>   	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
+>   	samsung_dsi_test_key_off_lvl1(&ctx);
+> 
 
-Introduce support for sound card and wire two CS35L36 audio codecs for
-top and bottom speakers.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Inspired by commit from Joel Selvaraj.
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 132 ++++++++++++++++++++-
- 1 file changed, 130 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index f1379857e2742..bc826d211e4a7 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -2,16 +2,18 @@
- 
- /dts-v1/;
- 
- #include <dt-bindings/arm/qcom,ids.h>
- #include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
-+#include <dt-bindings/sound/qcom,q6asm.h>
- 
- #include "sdm845.dtsi"
- #include "pm8998.dtsi"
- #include "pmi8998.dtsi"
- 
- /delete-node/ &mpss_region;
- /delete-node/ &venus_mem;
- /delete-node/ &cdsp_mem;
-@@ -406,19 +408,61 @@ nfc@28 {
- 		firmware-gpios = <&tlmm 79 GPIO_ACTIVE_HIGH>;
- 
- 		pinctrl-0 = <&nfc_default>;
- 		pinctrl-names = "default";
- 	};
- };
- 
- &i2c12 {
--	/* Bottom spkr (right) CS35L36 @ 40 */
-+	status = "okay";
-+
-+	cs35l36_bottom: audio-codec@40 {
-+		compatible = "cirrus,cs35l36";
-+		reg = <0x40>;
-+		reset-gpios = <&tlmm 112 GPIO_ACTIVE_HIGH>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "Right"; /* Bottom */
-+		VA-supply = <&vreg_s4a_1p8>;
-+		interrupts-extended = <&tlmm 115 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&cs35l36_bottom_default_state>;
-+		pinctrl-names = "default";
-+
-+		cirrus,boost-ind-nanohenry = <1000>;
-+		cirrus,boost-ctl-select = <1>;
-+		cirrus,boost-ctl-millivolt = <10000>;
-+		cirrus,boost-peak-milliamp = <3700>;
-+		cirrus,temp-warn-threshold = <1>;
-+		cirrus,multi-amp-mode;
-+		cirrus,irq-drive-select = <0>;
-+		cirrus,irq-gpio-select = <0>;
-+	};
-+
-+	cs35l36_top: audio-codec@41 {
-+		compatible = "cirrus,cs35l36";
-+		reg = <0x41>;
-+		reset-gpios = <&tlmm 75 GPIO_ACTIVE_HIGH>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "Left"; /* Top */
-+		VA-supply = <&vreg_s4a_1p8>;
-+		interrupts-extended = <&tlmm 40 IRQ_TYPE_LEVEL_LOW>;
- 
--	/* Top spkr (left) CS35L36 @ 41 */
-+		pinctrl-0 = <&cs35l36_top_default_state>;
-+		pinctrl-names = "default";
-+
-+		cirrus,boost-ind-nanohenry = <1000>;
-+		cirrus,boost-ctl-select = <0x01>;
-+		cirrus,boost-ctl-millivolt = <10000>;
-+		cirrus,boost-peak-milliamp = <3700>;
-+		cirrus,temp-warn-threshold = <1>;
-+		cirrus,multi-amp-mode;
-+		cirrus,irq-drive-select = <0>;
-+		cirrus,irq-gpio-select = <0>;
-+	};
- };
- 
- &ipa {
- 	firmware-name = "qcom/sdm845/Google/blueline/ipa_fws.mbn";
- 	memory-region = <&ipa_fw_mem>;
- 
- 	status = "okay";
- };
-@@ -451,16 +495,35 @@ &pm8998_resin {
- };
- 
- &pmi8998_charger {
- 	monitored-battery = <&battery>;
- 
- 	status = "okay";
- };
- 
-+&q6afedai {
-+	dai@72 {
-+		reg = <QUATERNARY_TDM_RX_0>;
-+
-+		qcom,tdm-sync-mode = <0>;
-+		qcom,tdm-sync-src = <1>;
-+		qcom,tdm-data-out = <0>;
-+		qcom,tdm-invert-sync = <0>;
-+		qcom,tdm-data-delay = <1>;
-+		qcom,tdm-data-align = <0>;
-+	};
-+};
-+
-+&q6asmdai {
-+	dai@0 {
-+		reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
-+	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
- 
- &qupv3_id_1 {
- 	status = "okay";
- };
- 
-@@ -469,16 +532,49 @@ &qup_uart9_rx {
- 	bias-pull-up;
- };
- 
- &qup_uart9_tx {
- 	drive-strength = <2>;
- 	bias-disable;
- };
- 
-+&sound {
-+	compatible = "qcom,sdm845-sndcard";
-+	model = "blueline";
-+	pinctrl-0 = <&quat_mi2s_active>, <&quat_mi2s_sd0_active>,
-+		    <&quat_mi2s_sd1_active>;
-+	pinctrl-names = "default";
-+
-+	/* mm[0-9]-dai-link nodes must be positioned first regardless of sorting */
-+	mm1-dai-link {
-+		link-name = "MultiMedia1";
-+
-+		cpu {
-+			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
-+		};
-+	};
-+
-+	cs35l36-dai-link {
-+		link-name = "Speaker Playback";
-+
-+		codec {
-+			sound-dai = <&cs35l36_bottom>, <&cs35l36_top>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6afedai QUATERNARY_TDM_RX_0>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6routing>;
-+		};
-+	};
-+};
-+
- &tlmm {
- 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
- 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
- 
- 	nfc_default: nfc-default-state {
- 		enable-pins {
- 			pins = "gpio25";
- 			function = "gpio";
-@@ -517,16 +613,48 @@ touchscreen_pins: ts-pins-gpio-state {
- 	};
- 
- 	touchscreen_i2c_pins: qup-i2c2-gpio-state {
- 		pins = "gpio27", "gpio28";
- 		function = "gpio";
- 		drive-strength = <2>;
- 		bias-disable;
- 	};
-+
-+	cs35l36_bottom_default_state: cs35l36-bottom-default-state {
-+		reset-pins {
-+			pins = "gpio112";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+
-+		irq-pins {
-+			pins = "gpio115";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	cs35l36_top_default_state: cs35l36-top-default-state {
-+		irq-pins {
-+			pins = "gpio40";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+
-+		reset-pins {
-+			pins = "gpio75";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
- };
- 
- &uart6 {
- 	pinctrl-0 = <&qup_uart6_4pin>;
- 
- 	status = "okay";
- 
- 	bluetooth {
-
--- 
-2.55.0
-
-
+Thanks,
+Neil
