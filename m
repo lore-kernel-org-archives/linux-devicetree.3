@@ -1,118 +1,83 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-57.ptr.blmpb.com (va-2-57.ptr.blmpb.com [209.127.231.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1F73FD946;
-	Thu, 24 Sep 2026 08:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24353E123F
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:11:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790237014; cv=none; b=Z47I0FYhMVmfjt4nr8IWS6p2nm0ojw+/VVYdNp1o9h+WGz5bYrgADnkhviL5FJahoO7giQYhvjhLayBPQch2Pjnd6t0zxQ9UVR7OlucE5R48C7L9VfbFek7JrWoh6nfokvO+AkYBfMbUwP4ZBgFWqhhbupV+DLPQzDyOrqfbv9Y=
+	t=1790237482; cv=none; b=vA0rBvKzYip9lq2w2/a/RLJu1VxScB3aebM56YwBlLHwtD2BztaSh9AuWMSiJzfZ/Wcz6hf0wCdpU4FtmAevtBQoBv41VJxSjOCINydiQ379RIi85s2c99WgoSEXg30Sz415B1pUzhhvjjF3TiaRhtmlYZ2XTm5NSZvYzIHnYa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790237014; c=relaxed/simple;
-	bh=0TEMwLgDZiirOQlHfdV9eI4QD39znHiJ1dBbJXOj0rg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=drep19rw0xU2ayO5bao2KnW7ZjnqqJTZpWhZRBhGFuf9DNHwoz04BEqjruw6usybKkayzU0tpkwOFIUEGcMeb8PTrUYY/KjWeUwEVpiZeqsQdmb20ThVqWg8kfF+KJRih6Ae8U3hzcT5B2NtW4uqdUSvRz1qgsI70+XIbqtpKLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nnmlteqO; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790237482; c=relaxed/simple;
+	bh=AoDdUurWe21FElda9XiGLhWIKP/LxkJBdQ3+g0QX3Og=;
+	h=Date:To:From:References:Content-Type:Message-Id:Cc:Subject:
+	 Mime-Version:In-Reply-To; b=KWKJGEpBLQZoTx6/rP5RPBBdFokVOhp3rIYBDsz/a5BC/wIdKsQcdft1f4T0vSmiOzHmeEI5z44h/B2zM79WOy4n2DO6FXy6CPacmF87J3QSbczMcEOS4KyJwInEME9iW5sKqs3fDXAoiyP/jlaATjVGnKTDJ5V9nRH1r0LnVqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com; spf=none smtp.mailfrom=bedmex.com; dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b=RdZ9ywC+; arc=none smtp.client-ip=209.127.231.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bedmex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bedmex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nnmlteqO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 5B1D14E41055;
-	Thu, 24 Sep 2026 08:03:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 201175FB45;
-	Thu, 24 Sep 2026 08:03:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F0B15103294B3;
-	Thu, 24 Sep 2026 10:03:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790237006; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=QOUtcT8Q4eTri6qdv3OSDlm4evmWQaxgCXIcuTn8yMA=;
-	b=nnmlteqO1wYSHSaN+gcwEtmzcjW62gS3diRemNWhNQ/Xn1ndq6P4TeTNgbY4o2CIuut3eg
-	/KZTomI0oNnSHY3aboBikRLDopRrIuWuGOchdhTP30Vu3H/22HoGvrXomEN6R+VwY0YpS2
-	TVgxn6IFuGZFp5W2nKAapvyHdhn9f68KDNeRNNIINaVSnvMa5oD2I0kxRBn4f37PtaHCWP
-	Ec+zXldDL77Wlee6bg0QA+KHp6loQLb5uBsssBvaUMidxQ5SdvWJF8hGGlYI/crojBKI1f
-	iNXZxA0fidr1Thpw7F5xxz6HqSL69Q+6bbFwAdxs5fCPnra9P7TtE0CRtOeR0g==
-Message-ID: <56a9c5f0-55af-4547-89cb-c966423ee12c@bootlin.com>
-Date: Thu, 24 Sep 2026 10:03:12 +0200
+	dkim=pass (2048-bit key) header.d=bedmex-com.20200927.dkim.feishu.cn header.i=@bedmex-com.20200927.dkim.feishu.cn header.b="RdZ9ywC+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=bedmex-com.20200927.dkim.feishu.cn; t=1790237473;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=AoDdUurWe21FElda9XiGLhWIKP/LxkJBdQ3+g0QX3Og=;
+ b=RdZ9ywC+PhPlNuIpwVpLx5kvDQtOKBw2jeZ8fb+qywVJc73rvRgxL8m/oLSP0HAbHkkcqq
+ Ob3FkCpsBjY9ZqN3V2F6z1n+pXURpT64YxCTJh3EgcNhtYl6VM/nr+QqsKzNnZIB4FVoGs
+ qj6/LQnVXM6G2gvrCN7sMcNSqE1thCVSf3qv4+Omif7XEWdSxPb8Pu1t0v8aff214fMD03
+ NdrAVzcOpG0EjFjZoLT0etcpB2PkUovIjtpn1riMwu5qNLZDg3yTm5h8LY5Q/zgpyZa7JR
+ dzP+mCWMa6/JMZCKOVo5SGw4b55pt+6pZgNCWSK76hrblLYy19E8AjCLRPCicg==
+Date: Thu, 24 Sep 2026 16:11:10 +0800
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
+From: =?utf-8?q?=E6=9D=A8=E5=BD=A6=E7=AB=8B?= <yanli.yang@bedmex.com>
+References: <cover.1790235697.git.yanli.yang@bedmex.com> <a9adff17461c1e66d645d2d0edb35a05a536e1a7.1790235697.git.yanli.yang@bedmex.com>
+	<270a77b9-30fe-4b5c-8971-33c1f64f3772@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Message-Id: <0c6903be00b92ecb18f2e74fdd9f8cb39e4db47b.1b45eb39.c5f7.44a3.8394.2b83fdd684c2@feishu.cn>
+Cc: <linux-bluetooth@vger.kernel.org>, <marcel@holtmann.org>, 
+	<devicetree@vger.kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>, 
+	<conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<zhirunliu@aicsemi.com>, <dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.com>, 
+	<liheng.wei@bedmex.com>
+Subject: Re: [PATCH bluetooth-next v5 1/3] dt-bindings: vendor-prefixes: Add AIC Semiconductor
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v16 00/12] net: pcs: Introduce support for fwnode
- PCS
-To: Jakub Kicinski <kuba@kernel.org>,
- "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev
-References: <20260916235200.20712-1-ansuelsmth@gmail.com>
- <20260921135933.7e8857ba@kernel.org>
- <CA+_ehUwy9RUKCCHDnqoED3AMVnErgGr9RCrCR4ceg5QONq1wOQ@mail.gmail.com>
- <20260922172514.7feb6e7c@kernel.org>
- <CA+_ehUyFKZzd0uP4akgZxaLLJTwcvGGKz5ppCYsB++fn92Dn9w@mail.gmail.com>
- <20260923201158.3552915a@kernel.org>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260923201158.3552915a@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+In-Reply-To: <270a77b9-30fe-4b5c-8971-33c1f64f3772@kernel.org>
+X-Lms-Return-Path: <lba+16ab4db1f+a468c7+vger.kernel.org+yanli.yang@bedmex.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
 
-On 9/24/26 05:11, Jakub Kicinski wrote:
-> On Wed, 23 Sep 2026 10:31:49 +0200 Christian Marangi (Ansuel) wrote:
->> Il giorno mer 23 set 2026 alle ore 02:25 Jakub Kicinski
->>> On Tue, 22 Sep 2026 12:12:56 +0200 Christian Marangi (Ansuel) wrote:  
->>>> The remark on the fwnode patch are invalid. The driver is expected
->>>> to return those error as probe defer is not supported.
->>>> (a notifier and late attach/detach is used to align to phylink logic)
->>>>
->>>> For the specific Airoha PCS driver it's really speculation from the AI
->>>> but HW doesn't work as described by AI.
->>>>
->>>> The only real comment that is valid is about the alternative way
->>>> to give supported interface with the .get_capabilites OP.
->>>>
->>>> This is currently not supported as there isn't any user and it will
->>>> be implemented as soon as there will be one. It's really to limit
->>>> the patch delta of this change and to progress further.
->>>>
->>>> Maybe FIXME might be suitable?  
->>>
->>> FWIW no preference here, I defer to the human reviewer.
->>> We can treat the AI review as a hint if human reviewer thinks the code
->>> is fine as is.  
->>
->> Soo should I send v17 to fix AI that failed review?
->> I think I didn't got this detail.
-> 
-> Sounded like Maxime was planning to take v16 for a spin.
+> From: "Krzysztof Kozlowski"<krzk@kernel.org>
+> Date:=C2=A0 Thu, Sep 24, 2026, 15:51
+> Subject:=C2=A0 Re: [PATCH bluetooth-next v5 1/3] dt-bindings: vendor-pref=
+ixes: Add AIC Semiconductor
+> To: "Yanli Yang"<yanli.yang@bedmex.com>, <linux-bluetooth@vger.kernel.org=
+>
+> Cc: <marcel@holtmann.org>, <devicetree@vger.kernel.org>, <robh@kernel.org=
+>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <linux-kernel@vger.kernel.o=
+rg>, <zhirunliu@aicsemi.com>, <dijiaxu@aicsemi.com>, <chunqiuliu@aicsemi.co=
+m>, <liheng.wei@bedmex.com>
+> On 24/09/2026 05:34, Yanli Yang wrote:
+> > Add the vendor prefix for AIC Semiconductor (Shanghai) Co., Ltd.,
+> > used by the AIC8800D80 Bluetooth bindings.
+> >=C2=A0
+> > Signed-off-by: Zhirun Liu <zhirunliu@aicsemi.com>
+> > Signed-off-by: Dijia Xu <dijiaxu@aicsemi.com>
+> > Signed-off-by: Chunqiu Liu <chunqiuliu@aicsemi.com>
+> > Signed-off-by: Liheng Wei <liheng.wei@bedmex.com>
+> > Signed-off-by: Yanli Yang <yanli.yang@bedmex.com>
+>=C2=A0
+> 5 people worked on this one liner?
+>=C2=A0
+> Best regards,
+> Krzysztof
+>=C2=A0
+Hi, Krzysztof
 
-I gave it a quick run this morning, it still works fine with the mvpp2 porting
-I made last time, as well as on dwmac-socfpga :)
-
-My tests doesn't cover the entirety of the patches though, I haven't stressed
-at all the fwnode path.
-
-But this is starting to look good to me, I think you can send V17 with the sashiko
-fixes :)
-
-Maxime
+Thanks for pointing this out.
+You are right, this is only a one-line fix. I will remove the extra Signed-=
+off-by lines from this commit and keep only the author and relevant contrib=
+utors for this specific change in next version.
