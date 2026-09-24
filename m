@@ -1,80 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70BF292B2E;
-	Thu, 24 Sep 2026 12:00:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A6947AF43;
+	Thu, 24 Sep 2026 12:01:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251256; cv=none; b=Aw6UgEksPJ8juL6i1qIFKwZ2rNGBY3tTlHCkVqNKwgIGNFxf2plzgjMPlc9Th77DyibBkfIb0wrW0DNoDnkNa/c2t/ny7GNYAZRYjQzo/lKO93aAhYvyfReLVNdaCgsZTMeaWxbGXCuny9oLwtONPNzXGSDYTM8BXK/NtgkiD+M=
+	t=1790251319; cv=none; b=mMGRzgPQyrqxlhGkWoq9BggmgpXhXx20kzvgPJQXWv/kctVeoWrz25bnZ/iPeesEnb90kDuFLBJfm3rEjFsrwjam+qCpMWH5WImSfnSZWfQe073FsxJLdwoBHXHZ0hY0HfaUA5pi32+bGqSn+ZbxWcHjs7Qq0Q/Ppx+JIAMVtPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251256; c=relaxed/simple;
-	bh=ocyIUkRejGonrqNNXLNErNChpud8SRd1V8ljDXGQre4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=h3g9z7hdNXz20S+VJbd4Bk0bZhdFbE+/Z1DTYXzDno2FI6v52QsexX3gajpOwYANHlYJvNbcqf5qWPgKmfyF0bbTVaKfbBwo1ePG3lQoM2avah9p6rLeXIHNL9tezhWo8QsqshX+ymoicgImGvTyT4qtRcGpDJttliaHXulhd6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JyIqMTG0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790251319; c=relaxed/simple;
+	bh=jBOrgiMFEpstulATdM5kh+vQxQ2R3XKn97EH6342f2Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kSkg6IpgY1evZAY231A5HYuDQeqlYTYKOnVqmL+PGu86j3CFjbt6uKTwynDgW2u265XJ39NHMEI23+IqGaOz34XpCtrXbVW0gtekj0n3u7C9WFaVmrcVXYISlbr7nkD/vfsC2uXK2nNbUfDRHez4byhAYtvKC1xdcROJ+p+h+o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UcC8tR+D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JyIqMTG0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA681F00893;
-	Thu, 24 Sep 2026 12:00:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UcC8tR+D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3CC71F000FF;
+	Thu, 24 Sep 2026 12:01:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790251254;
-	bh=L8yZ373mum5/nUoW2QrJhJt+T06mJJBXnoxDaavWLrc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=JyIqMTG0c+Qx44TSmFM6uBHznOQz60lST1bfV6ZbhDjC0llBs4dW7dl4EzULPK143
-	 lpVL63bcedXvMo9zswn6vGdN7agE+XZBTYbA9x/H+m+3fL5KVn1Ejjmy8HHr/Mafbl
-	 A4VwOjQmEqd373jC8MSPyjtDB5ZwbKz2pxjg/fzVt5Tt0/QH6Q8clOAGBWHSUXp+7u
-	 EPfH2+qjEOBDD2CocoZRsJsa3MTMOK27j+YRv9nTsh6AInq1ltdsae+oJsjqNqVAUf
-	 PF8I1mwmFIQ/mmNoqPFg5dd5V/0gdKKeTzYb8e4EW7er74tZ/0jySxjsvJcm3FADqR
-	 x5s+2UX+uCpmg==
-From: Lee Jones <lee@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Pavel Machek <pavel@kernel.org>, Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
-In-Reply-To: <20260721095654.429346-1-clamor95@gmail.com>
-References: <20260721095654.429346-1-clamor95@gmail.com>
-Subject: Re: (subset) [PATCH v7 0/6] mfd: cpcap: convert documentation to
- schema and add Mot board support
-Message-Id: <179025125217.476152.9697106280920245262.b4-ty@b4>
-Date: Thu, 24 Sep 2026 13:00:52 +0100
+	s=k20260515; t=1790251317;
+	bh=ugFVTFUZKd5DVbiFq8MFmNC7p3Vw3V7eXLUNAr7Xrzw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UcC8tR+Dnm8H+8AkV+jljM/p7Y7E18cp3wvRbeGfxEtru/jDq516lJFUhQAK2mWsr
+	 3J0oFeXSiP3tZl4SikYimTGqohXk4X/9VJ5PbtTBoeRh4Cpv1wk8UPflo3qFOk8czF
+	 ea91bH/UlQn5sh+CH6r5y+M7XN529diQVJqrjikLueU385jF3vb4sEZqFhmO3qSmkM
+	 9GCoRTwlh3UbVZz8chWUU/P4gNIGgRrNluRimNeAH7YDrvnlm7pbBykKSMK2qEAlyJ
+	 I6bPbCuZzveqV5INxddEBKTsw6Fwn8l1101mCN2XANaATnFPGBlEzUUmj/3xe66Neg
+	 /Y4bVcwkB4n8g==
+Date: Thu, 24 Sep 2026 14:01:53 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
+	Inochi Amaoto <inochiama@gmail.com>, Chen Wang <chen.wang@linux.dev>, 
+	Jisheng Zhang <jszhang@kernel.org>, linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, sophgo@lists.linux.dev, Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [PATCH v1 1/2] dt-bindings: mmc: snps,dwcmshc-sdhci: Add
+ starfive,jhb100-dwcmshc
+Message-ID: <20260924-truthful-uppish-porpoise-d3de6c@quoll>
+References: <20260919092950.178617-1-changhuang.liang@starfivetech.com>
+ <20260919092950.178617-2-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260919092950.178617-2-changhuang.liang@starfivetech.com>
 
-On Tue, 21 Jul 2026 12:56:47 +0300, Svyatoslav Ryhel wrote:
-> The initial goal was only to add support for the CPCAP used in the Mot
-> Tegra20 board; however, since the documentation was already partially
-> converted, I decided to complete the conversion to schema too.
+On Sat, Sep 19, 2026 at 02:29:49AM -0700, Changhuang Liang wrote:
+> Add compatible string "starfive,jhb100-dwcmshc" for the StarFive
+> JHB100 SoC.
 > 
-> The CPCAP regulator, leds, rtc, pwrbutton and core files were converted
-> from TXT to YAML while preserving the original structure. Mot board
-> compatibility was added to the regulator and core schema. Since these
-> were one-line patches, they were not separated into dedicated commits;
-> however, the commit message notes this for both cases.
+> The JHB100 controller uses three clocks (core, bus and cclk_tx) and a
+> single reset, so relax the common resets/reset-names minItems from 4
+> to 1 and add a dedicated conditional schema for the JHB100 compatible
+> that constrains the clocks, clock-names, resets, reset-names and the
+> required starfive,jhb100-per1-syscon property. The property describes
+> the phandle to the PER1 SYSCON and the offset of the register holding
+> the upper DMA address bits [35:32] of the eMMC DMA address, used to
+> extend the default 32-bit DMA capability to 36-bit.
 > 
-> [...]
+> Also rework the existing if/else blocks so that the JHB100 compatible
+> is excluded from the branch that requires the extra resets, while
+> keeping the same constraints for the other SoCs.
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  .../bindings/mmc/snps,dwcmshc-sdhci.yaml      | 74 ++++++++++++++++++-
+>  1 file changed, 70 insertions(+), 4 deletions(-)
+> 
 
-Applied, thanks!
+We are probably on the verge of readability of this binding, with
+multiple if:then:else and quite some combinations.
 
-[2/6] dt-bindings: input: cpcap-pwrbutton: convert to DT schema
-      commit: ae30468a4934028adaaf5525f6f7bcda26371607
-[3/6] dt-bindings: mfd: motorola-cpcap: convert to DT schema
-      commit: 6f58e93a2e2f199df32d963d01ad5e1ec0a96387
-[4/6] dt-bindings: mfd: motorola-cpcap: document Mapphone and Mot CPCAP
-      commit: e968cfb307587a6a3fe9d591fa92d4f5d57e19a5
-[5/6] mfd: motorola-cpcap: diverge configuration per-board
-      commit: 4436f6aba79e10e2b447b8a0f874c13964518747
-[6/6] mfd: motorola-cpcap: add support for Mot CPCAP composition
-      commit: 008fc93904285ec99e3d5dac5fa5d5aaab1e9ff6
+Code looks correct, though I think we should for the next variant split
+it per each device with some common binding.
 
---
-Lee Jones [李琼斯]
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
