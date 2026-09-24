@@ -1,175 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9068D361943
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1F73FD946;
+	Thu, 24 Sep 2026 08:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790236922; cv=none; b=GO11mqNbIV0tl7bwN//swFH7WiyC+hTKG1u8LPPvMYo75z8GxdagEYLghNTq3IRFXWqnVXFPAeg7kQ4z/bg+gvSJAWy/FDxzT3rM6KVpOh/en8i6qr9sNPyPQrcSm0W3qhcXWPUqsjlGxIL5n4/oNJeSyy2fwLR8YbbLQHj9ySg=
+	t=1790237014; cv=none; b=Z47I0FYhMVmfjt4nr8IWS6p2nm0ojw+/VVYdNp1o9h+WGz5bYrgADnkhviL5FJahoO7giQYhvjhLayBPQch2Pjnd6t0zxQ9UVR7OlucE5R48C7L9VfbFek7JrWoh6nfokvO+AkYBfMbUwP4ZBgFWqhhbupV+DLPQzDyOrqfbv9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790236922; c=relaxed/simple;
-	bh=o2N9AkVUCZyMoNAeP65SCokgX8tRnpuzYE0+igUvLTA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EpeKWTv8I4AlH5uQnsevWG24S3isHNF6j/uoIPyWP5dt3flute0Jp46oVJDlQMzPDB+wk4O8b5raGettqJZyYG3eD0tmLUwiRl2lFzaO+Tj3waJxSKSz0smPMmLp0z31iyqpQSSFZC4kHGblPcFmNdWej96BAn7Y7wbleM8yqGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nElzTAav; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790237014; c=relaxed/simple;
+	bh=0TEMwLgDZiirOQlHfdV9eI4QD39znHiJ1dBbJXOj0rg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=drep19rw0xU2ayO5bao2KnW7ZjnqqJTZpWhZRBhGFuf9DNHwoz04BEqjruw6usybKkayzU0tpkwOFIUEGcMeb8PTrUYY/KjWeUwEVpiZeqsQdmb20ThVqWg8kfF+KJRih6Ae8U3hzcT5B2NtW4uqdUSvRz1qgsI70+XIbqtpKLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nnmlteqO; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nElzTAav"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0161F000FF;
-	Thu, 24 Sep 2026 08:01:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790236917;
-	bh=WdfbuDrb4DSjS23VrblxYXb3wzWN2lwW48EEaZ0HEKU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nElzTAav1HUzjZL2KTfi5eJlLxSgAP/nf3LeB6HCCGH27oJ62K1xXuO/EGkPAnYzI
-	 EWvNAUPe6T3p5Me3/BXf9M19eCm4kiZvNHqqZk7QoF/s/16+CqzlXPVSn+izc1C4wS
-	 cHApQxJB8CBeFIFVJW/UsfO2zV628lfhzs9zA4l6yWguUjCpaukdNmObHGebNqC4R1
-	 4TCZXuW4G2nkJ5SA9m4VB5FIclz0AJhU1GtqjfCDdFACKkub6YBgFuRR5mwPJRQc9h
-	 DsGdfla3NaBZ90bsdOEQKbgbx5WJXQnT8wnf9EEeYNDyrzftPyoliddxLgtuJKa4Sf
-	 WJ72DXHFIfOXA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/6] media: dt-bindings: Add Amlogic V4L2 video
- decoder
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zhentao Guo" <zhentao.guo@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
-References: <20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com>
- <20260924-b4-s4-vdec-upstream-v10-3-1289303a58a4@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 08:01:56 +0000
-Message-Id: <20260924080156.9E0161F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nnmlteqO"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5B1D14E41055;
+	Thu, 24 Sep 2026 08:03:29 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 201175FB45;
+	Thu, 24 Sep 2026 08:03:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F0B15103294B3;
+	Thu, 24 Sep 2026 10:03:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790237006; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=QOUtcT8Q4eTri6qdv3OSDlm4evmWQaxgCXIcuTn8yMA=;
+	b=nnmlteqO1wYSHSaN+gcwEtmzcjW62gS3diRemNWhNQ/Xn1ndq6P4TeTNgbY4o2CIuut3eg
+	/KZTomI0oNnSHY3aboBikRLDopRrIuWuGOchdhTP30Vu3H/22HoGvrXomEN6R+VwY0YpS2
+	TVgxn6IFuGZFp5W2nKAapvyHdhn9f68KDNeRNNIINaVSnvMa5oD2I0kxRBn4f37PtaHCWP
+	Ec+zXldDL77Wlee6bg0QA+KHp6loQLb5uBsssBvaUMidxQ5SdvWJF8hGGlYI/crojBKI1f
+	iNXZxA0fidr1Thpw7F5xxz6HqSL69Q+6bbFwAdxs5fCPnra9P7TtE0CRtOeR0g==
+Message-ID: <56a9c5f0-55af-4547-89cb-c966423ee12c@bootlin.com>
+Date: Thu, 24 Sep 2026 10:03:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v16 00/12] net: pcs: Introduce support for fwnode
+ PCS
+To: Jakub Kicinski <kuba@kernel.org>,
+ "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ llvm@lists.linux.dev
+References: <20260916235200.20712-1-ansuelsmth@gmail.com>
+ <20260921135933.7e8857ba@kernel.org>
+ <CA+_ehUwy9RUKCCHDnqoED3AMVnErgGr9RCrCR4ceg5QONq1wOQ@mail.gmail.com>
+ <20260922172514.7feb6e7c@kernel.org>
+ <CA+_ehUyFKZzd0uP4akgZxaLLJTwcvGGKz5ppCYsB++fn92Dn9w@mail.gmail.com>
+ <20260923201158.3552915a@kernel.org>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260923201158.3552915a@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] dt-bindings: amlogic,s4-vdec: missing interrupt-names in required l=
-ist and example
-- [Low] dt-bindings: amlogic,s4-vdec: unbounded array properties missing ma=
-xItems
---
+Hi,
 
-commit ea1e1b5dce46c139b8fcb208da9bf35c4469463a
-Author: Zhentao Guo <zhentao.guo@amlogic.com>
+On 9/24/26 05:11, Jakub Kicinski wrote:
+> On Wed, 23 Sep 2026 10:31:49 +0200 Christian Marangi (Ansuel) wrote:
+>> Il giorno mer 23 set 2026 alle ore 02:25 Jakub Kicinski
+>>> On Tue, 22 Sep 2026 12:12:56 +0200 Christian Marangi (Ansuel) wrote:  
+>>>> The remark on the fwnode patch are invalid. The driver is expected
+>>>> to return those error as probe defer is not supported.
+>>>> (a notifier and late attach/detach is used to align to phylink logic)
+>>>>
+>>>> For the specific Airoha PCS driver it's really speculation from the AI
+>>>> but HW doesn't work as described by AI.
+>>>>
+>>>> The only real comment that is valid is about the alternative way
+>>>> to give supported interface with the .get_capabilites OP.
+>>>>
+>>>> This is currently not supported as there isn't any user and it will
+>>>> be implemented as soon as there will be one. It's really to limit
+>>>> the patch delta of this change and to progress further.
+>>>>
+>>>> Maybe FIXME might be suitable?  
+>>>
+>>> FWIW no preference here, I defer to the human reviewer.
+>>> We can treat the AI review as a hint if human reviewer thinks the code
+>>> is fine as is.  
+>>
+>> Soo should I send v17 to fix AI that failed review?
+>> I think I didn't got this detail.
+> 
+> Sounded like Maxime was planning to take v16 for a spin.
 
-media: dt-bindings: Add Amlogic V4L2 video decoder
-   =20
-Add bindings for Amlogic hardware decoder accelerator.
+I gave it a quick run this morning, it still works fine with the mvpp2 porting
+I made last time, as well as on dwmac-socfpga :)
 
-> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml=
- b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> new file mode 100644
-> index 0000000000000..751043c3d9ccf
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> @@ -0,0 +1,114 @@
-[ ... ]
-> +properties:
-> +  compatible:
-> +    const: amlogic,s4-vdec
-> +
-> +  reg:
-> +    minItems: 2
+My tests doesn't cover the entirety of the patches though, I haven't stressed
+at all the fwnode path.
 
-[Severity: Low]
-Should the reg property include a maxItems: 2 limit?
+But this is starting to look good to me, I think you can send V17 with the sashiko
+fixes :)
 
-Since the reg-names property strictly enforces exactly 2 entries via its
-items list, omitting maxItems: 2 allows the schema to incorrectly pass
-validation for device trees with 3 or more entries.
-
-> +
-> +  reg-names:
-> +    items:
-> +      - const: dos
-> +      - const: dmc
-> +
-> +  interrupts:
-> +    minItems: 2
-
-[Severity: Low]
-Is a maxItems: 2 limit missing for the interrupts property?
-
-Since the interrupt-names property strictly enforces exactly 2 entries,
-omitting maxItems: 2 allows device trees with 3 or more entries to pass sch=
-ema
-validation.
-
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: hvdec
-> +      - const: vdec
-> +
-[ ... ]
-> +  power-domains:
-> +    minItems: 2
-
-[Severity: Low]
-Should the power-domains property specify a maxItems: 2 limit?
-
-Since the power-domain-names property strictly enforces exactly 2 entries,
-omitting maxItems: 2 allows device trees with 3 or more entries to pass
-validation.
-
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: vdec
-> +      - const: hvdec
-[ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - power-domains
-> +  - power-domain-names
-> +  - resets
-> +  - amlogic,canvas
-> +  - amlogic,secure-monitor
-
-[Severity: Low]
-Should interrupt-names be included in this required list?
-
-The interrupt-names property is defined with exactly two items but is
-omitted here. Since all other -names properties (reg-names, clock-names,
-power-domain-names) are explicitly required, this omission allows incomplete
-device tree nodes to pass schema validation.
-
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/amlogic,s4-pll-clkc.h>
-> +    #include <dt-bindings/clock/amlogic,s4-peripherals-clkc.h>
-> +    #include <dt-bindings/power/meson-s4-power.h>
-> +    #include <dt-bindings/reset/amlogic,meson-s4-reset.h>
-> +    video-codec@fe320000 {
-> +      compatible =3D "amlogic,s4-vdec";
-> +      reg =3D <0xfe320000 0x10000>,
-> +            <0xfe036000 0x20>;
-> +      reg-names =3D "dos",
-> +                  "dmc";
-> +      interrupts =3D <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
-> +                   <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>;
-
-[Severity: Low]
-Should the device tree example include interrupt-names?
-
-The example fails to provide interrupt-names, which reflects the omission in
-the required list and results in an incomplete DT node.
-
-> +      clocks =3D <&clkc_periphs CLKID_DOS>,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-b4-s4-vdec=
--upstream-v10-0-1289303a58a4@amlogic.com?part=3D3
+Maxime
