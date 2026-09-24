@@ -1,90 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BBC473C64;
-	Thu, 24 Sep 2026 13:03:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A8A47FAEB
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:03:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255022; cv=none; b=MbggQ9fToxlp30QpTaEksudGguXXkdocOpXGUoaDBF2GZ4BIYreMZVssONTu37awUTJzVIjF5247Oe+jPcDsrjWl60UdbJk6TqC9uyqYXUaoVldA9eJpzbBc1teZnhfKHiSsv0G+m+2R/0Uw7aRPl7A9ea+mpo5LP4cKLZ6tp0k=
+	t=1790255035; cv=none; b=YIHzx5qbrzNE2txDXYN2AQ27Yzdcuxab6Bwpzl/EOMGs7qgR5c9BxbYkf+yg91S+b1481qnhIXXjHISH5S55Jsc4abGN35gTKaZBU9HHtP0/SSKeq2dsnRdiqtdlMil+WzJend+/1UORFDt2cCWgBaiKmXMlLp+fNmNOSQgZSys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255022; c=relaxed/simple;
-	bh=yaEI7bUkT2kPbqMJzYaqqlf866wGtg97g7OCrkKhcZY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gPkqtxtZswGGzAq4zlmktEY8vCanUTTg0xrBKxbzpJ3eYUZ9z51+Ou6cfv+kuPd+89JgWvEmI0CgooXozBQ1mS9fBlE9zg7ZS1VQzE147LvssM9de7opvSYuaAkwkOtT3H6ixrHm93eBFx1bmukIJT+6rsmPBxpz4zZIyFAg2dM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DsqS479B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790255035; c=relaxed/simple;
+	bh=KGPQ6MITfvlqY6Wdkayx3we3/YpxhcCnB4M7C9On/ko=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Lh3nAC9lkv8bARdQIhTOT4FOp0Nssms+Db+VQOQKSgGIJhz+haSFhkW+lYUw4n4OBRukR2aBLS4Jf5iGT3yE7zYkfL93mIDWYCDE27a8DIrofQmCUNVEcDdOEHxKgcXMNimdjtgzAj+kmSkKud5oS8K11uUn1R09NitnZhWDDFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n1IS+Mc9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DsqS479B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDD091F000FF;
-	Thu, 24 Sep 2026 13:03:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n1IS+Mc9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC3121F000FF;
+	Thu, 24 Sep 2026 13:03:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790255017;
-	bh=Am7+MiZmIsSuyEa1RB59QI6cb2yHg7tmLMNWzm1b5LE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DsqS479B+enA9wts2BNbRFQ12rEWCl9+jtRfsV+yCzfFDgJsChlmpYk5JNvlPgGlv
-	 aY/S4E7JP3SRNgQUp++BVUL2Nj/+Meeftem9WaJrB/8vJfeI4QxQKBG9/BacPURw3X
-	 T3ldTgOYmW7S1H6N9ylvQDnH+A9EcpWxwc7gQhMkRqo9fzEtGE69L7g2SqrcOGkw5D
-	 Tbfo1NUfeAnuzqKRRHEfZFd0G+LfTirdXMCgfu0L9FfppzxlFOtoE0XW1vuWmGKeEY
-	 kRb+WdlFh5RFXJp0ffjeQZKt18kN9v+kRDAEHZGLL4lb9kyoabCBadjKRLKhRNnIZr
-	 p0IoNYOoo52DA==
-Date: Thu, 24 Sep 2026 15:03:32 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com, 
-	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] iio: pressure: add Sensirion SDP31 driver
-Message-ID: <20260924-gleeful-macho-seahorse-e4bdc2@quoll>
-References: <20260920164724.32019-1-m.abubakar365.ref@yahoo.com>
- <20260920164724.32019-1-m.abubakar365@yahoo.com>
+	s=k20260515; t=1790255030;
+	bh=dliUa4ou0CGJKNOr+oiqf/N5tkiLGOzPf8VsTYhm+04=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=n1IS+Mc9dOl+NQc3ssVlVOQrKn6xAMiW7CTJEFBdFiApnGCEDdqQzDC2m4JzoX4WK
+	 UKUXqgUSJJTIyrildS3XVsUuzheuD898RkrIWYjm2Py21qj+aX1WYcYGRUV8en9qI9
+	 8jxhNBrRH7mlyXMNbhLc5cgS/4CvAaPjnUqtA1FS0u4fLgOzni5Dy5altIjQQ1HZkA
+	 bh+sq4d9iXrCEWYhoxATvHp3To7oBwklxxSeAm8+QfM7vzTRHPikYTV+RifpFNHRP6
+	 ObVinTPN3EjkIuws0YE8B/Ya8GafKSoSPv/D3XzgUN58igF1997ZRSmvxK8TBVRw3i
+	 wztZXdMjKBifg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/8] ASoC: cs35l36: Implement set_tdm_slot to program
+ RX and TX slots
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260924-pixel3-audio-v3-5-5d06460fc8a9@ixit.cz>
+References: <20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz>
+ <20260924-pixel3-audio-v3-5-5d06460fc8a9@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 13:03:49 +0000
+Message-Id: <20260924130349.DC3121F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260920164724.32019-1-m.abubakar365@yahoo.com>
 
-On Sun, Sep 20, 2026 at 09:47:22PM +0500, Muhammad Abu Bakar wrote:
-> This series adds support for the Sensirion SDP31 differential pressure
-> sensor, an I2C device that also reports temperature.
-> 
-> The SDP31 uses a completely different I2C command protocol from the
-> already supported SDP500 (command-triggered measurements with a per-word
-> CRC-8), so extending the sdp500 driver does not make sense. No compatible
-> parts from other vendors were found.
-> 
-> Patch 1 adds the device tree binding.
-> Patch 2 adds the IIO driver, which exposes differential pressure and
-> temperature channels and validates each measurement using the sensor's
-> CRC-8 checksum.
-> 
-> The driver was developed and tested on an SDP31 wired to the I2C bus of
-> a Raspberry Pi 4.
-> 
-> Changes since v1:
-> - Explain in this cover letter why a new driver is added instead of
->   extending the sdp500 driver.
-> - dt-bindings: make vdd-supply required, and enable the regulator in the
->   driver using devm_regulator_get_enable().
-> - Move the MAINTAINERS entry into the dt-bindings patch; the driver patch
->   only adds its own file.
-> - Populate the CRC-8 table with DO_ONCE() to avoid a race between
->   concurrent probes.
-> - Use devm_mutex_init() and take the lock inside sdp31_measure() using
->   guard(mutex).
-> - Build the command with __be16/cpu_to_be16() and parse the reply with
->   get_unaligned_be16().
-> - Use a named initializer in the i2c_device_id table.
-> - Minor cleanups: local struct device *dev, single-line dev_err_probe(),
->   and a comment on the mutex.
-> 
-> v1: https://lore.kernel.org/linux-iio/20260919223650.13396-1-m.abubakar365@yahoo.com/
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] ASoC: cs35l36: I2S bus contention from unmapped TDM channels
+- [High] ASoC: cs35l36: DAPM kcontrol corrupts TDM slot configuration
+- [Medium] ASoC: cs35l36: missing error propagation for invalid TDM mask
+- [Low] ASoC: cs35l36: inverted TDM mask perspective in comment
+--
 
-Link does not work.
+commit caaab40c1180fd182ef9f5dce19a698193666d09
+Author: David Heidelberg <david@ixit.cz>
 
-Best regards,
-Krzysztof
+ASoC: cs35l36: Implement set_tdm_slot to program RX and TX slots
 
+This commit introduces the set_tdm_slot callback for the CS35L36 codec to
+allow machine drivers to dynamically program ASP RX and TX slot assignments.
+The new configuration maps each bit set in the provided TDM masks to
+consecutive hardware channels, enforcing maximum channel limits.
+
+> diff --git a/sound/soc/codecs/cs35l36.c b/sound/soc/codecs/cs35l36.c
+> index 89645327945f1..4d35ca6291548 100644
+> --- a/sound/soc/codecs/cs35l36.c
+> +++ b/sound/soc/codecs/cs35l36.c
+> @@ -947,10 +947,54 @@ static const struct cs35l36_pll_config *cs35l36_get=
+_clk_config(
+>  	return NULL;
+>  }
+> =20
+> +static void cs35l36_mask_to_slots(struct cs35l36_private *cs35l36,
+> +				  unsigned long mask, unsigned int base_reg,
+> +				  unsigned int nchan)
+> +{
+> +	unsigned int chan =3D 0, shift;
+> +	int slot;
+> +
+> +	/* Two 6-bit slot fields per register, at bits 0 and 16 */
+> +	for_each_set_bit(slot, &mask, BITS_PER_TYPE(mask)) {
+> +		if (chan =3D=3D nchan) {
+> +			dev_warn(cs35l36->dev,
+> +				 "Too many slots in TDM mask: %lx\n", mask);
+> +			return;
+
+[Severity: Medium]
+Will this error state be lost since this function returns void?
+
+If a machine driver passes a mask with more bits set than supported channel=
+s,
+this warning prints, but cs35l36_set_tdm_slot() continues and unconditional=
+ly
+returns 0.
+
+Should this configuration failure be propagated back to the sound framework
+by returning a negative error code instead?
+
+> +		}
+> +
+> +		shift =3D (chan % 2) * CS35L36_ASP_TX2_SLOT_SHIFT;
+> +		regmap_update_bits(cs35l36->regmap, base_reg + (chan / 2) * 4,
+> +				   CS35L36_ASP_RX1_SLOT_MASK << shift,
+> +				   slot << shift);
+> +		chan++;
+> +	}
+
+[Severity: High]
+Does this leave remaining channels unmapped on their default slots if the
+provided mask specifies fewer slots than the total channels?
+
+In a multi-codec setup, the CPU DAI typically opens the stream with the tot=
+al
+number of channels on the bus. DAPM then powers on all asptx widgets up to
+that channel count.
+
+If we only map a subset of slots here, the remaining powered-on channels
+will retain their hardware default slots and actively transmit on them.
+
+Could this lead to hardware contention on the I2S bus and data corruption by
+colliding with properly mapped channels or other codecs?
+
+> +}
+> +
+> +static int cs35l36_set_tdm_slot(struct snd_soc_dai *dai,
+> +				unsigned int tx_mask, unsigned int rx_mask,
+> +				int slots, int slot_width)
+> +{
+> +	struct cs35l36_private *cs35l36 =3D
+> +			snd_soc_component_get_drvdata(dai->component);
+> +
+> +	/* Note: rx/tx is from point of view of the CPU end */
+
+[Severity: Low]
+Is this comment accurate? The implementation below maps rx_mask to the
+codec's rx register and tx_mask to the codec's tx register.
+
+If it were from the CPU's point of view, the CPU's rx mask would map to the
+codec's tx. The code correctly follows ASoC semantics (from the codec's
+perspective), which makes the comment appear inverted.
+
+> +	if (!slots || !rx_mask)
+> +		rx_mask =3D BIT(0);		/* ASPRX1 in slot 0 */
+> +
+> +	if (!slots || !tx_mask)
+> +		tx_mask =3D GENMASK(7, 0);	/* ASPTX1..8 in slots 0..7 */
+> +
+> +	cs35l36_mask_to_slots(cs35l36, rx_mask, CS35L36_ASP_RX1_SLOT, 1);
+
+[Severity: High]
+Could programming CS35L36_ASP_RX1_SLOT here conflict with the existing
+DAPM kcontrol?
+
+There appears to be a legacy DAPM kcontrol (cs35l36_chan_mux / chansel_enum)
+that operates on bit 0 of this exact same register to toggle between
+rx1 and rx2.
+
+If a machine driver sets the rx slot to a value like 2 (binary 000010) here,
+and userspace later restores the Input Mux kcontrol, could the framework
+forcefully toggle bit 0 and inadvertently change the slot configuration?
+
+> +	cs35l36_mask_to_slots(cs35l36, tx_mask, CS35L36_ASP_TX1_TX2_SLOT, 8);
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-pixel3-aud=
+io-v3-0-5d06460fc8a9@ixit.cz?part=3D5
