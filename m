@@ -1,125 +1,341 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D7548EC79
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD31481FAA
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:36:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256907; cv=none; b=F0/soyS2lIckQum1FTJvJwoXmFXJ3bbZZNZrdJw8x71EybwW/vNKxwaoMGfOsAxileRQ+sadqy0daq7F+pHc90E4qUAj3pVE/ejps6WFuXAuvnORDN3dVW+jWjQ6uVVIJKmw2lSRCmGUuXThDlX8y8Y6Vkg0M5aI5/ZiCK/kq0k=
+	t=1790256975; cv=none; b=i7ye66FbTvc7DxiYmGtOtqpWDrzNW3wFWSsiVLuSgmdxK31zkyWwnBODyS3Vu27q3r4bh0R7Jz8z4SIPy9ZxhhwtFlg4so8vrBaDa1iSlVMuKNIVgN0VbLGfJ8i/+sga8O5Zz6y3hAGKGNRFKH8OXQufK5F4zDMAOKlHnZi+gAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256907; c=relaxed/simple;
-	bh=W7P0npZnKAfQM2DThjw8IC37dpVdKH6glV2ziPoYVGc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UBbDxpubWKtH9I4wyF1JhgY+UjnpGnyAdPdIsXkYkUgv9V96Z9xpUS0e2Ir5z0vt04yTHvg0+HMgYeHZ5JWiI4mH5HtfRUw6fQbfPrcfhKhhZLb3xSDh5bkTQX75W+iiLgXIbe+Rx9gw0Iis4882uuhwHHIhMp2FKlkRCyCMwU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8gYsabW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790256975; c=relaxed/simple;
+	bh=JjQca4qE+VW6R8cQeCI3PAms0wwszdPg1j6ZSaYalAo=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=ibHPBA4DynqispvKeMUOZ733IzujrHDWXUdf1kYdIliVjoJVdhJAPB6vHY5wWG0uTLv3D3VhskP9zv5cxazUr5/TmpJlJnbK2UXRaX9SpFDYYgTCMrpT3S/K3I4EkghlTLpHUC+CtdZa4Dmy/ONmE71HhtYJcRJDjThyPk94Mak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wh7f4x67; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8gYsabW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06821F000FF;
-	Thu, 24 Sep 2026 13:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790256899;
-	bh=G24U519cijnVpy1qj8IDcFSLFvAyUleVzqF08eaEhGc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=U8gYsabWDAdI418Wm38oBAlhlmetSwEO0yR4uKjHplesM+9Bvr9P820J++7Xro7I2
-	 E2g2v4FNAlbfuJ3sBAP/PEBPxEabV1ENFq2I2lZ0u3XEZFtg0LA2+sIAHI7J5wRHk+
-	 CaDaW2SHPmW5ynBJHr//HRMXtc5fJKzMlO7nevfE4xUqwpmMMJjYPSEbY6VATTIjzF
-	 ZsPXCpulDaA8H2QangI4MaiPH3h7eL941tl+0rN5nE2Vq1KPOM1fFbWR6prXYQ4Ujb
-	 j7b4mTT4CsDn+N3z/3g1h7AK+b+mz/vHmpYum2fq3gZrw0e04Ot8wRU87Y7FmNr+b6
-	 AocEqwS+bHZfw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/8] ASoC: qcom: sdm845: Demystify TDM masks a bit
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260924-pixel3-audio-v4-1-85b5d133aa5e@ixit.cz>
-References: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
- <20260924-pixel3-audio-v4-1-85b5d133aa5e@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 13:34:58 +0000
-Message-Id: <20260924133458.E06821F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wh7f4x67"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so11812635e9.0
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:36:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790256961; x=1790861761; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U22T5ktXeO8XQfbmyXBSjvK2W4d1tae1YGReIurscXk=;
+        b=wh7f4x67clrkaxNpehGJ1MXHo/NRAtOehqeEMqEu2FUISybBa3iv8rQaoaKx/90xq7
+         6t9Edb31X1met+JXcCPwOVGSXJby1yXU73/bQt+L7FHQDGED9qbMq1cc8aEuTdGPU7qf
+         2OQP66BF+rMEVz0mCE/DKzPcafDIYeeBbNmc/GY9XyIShN8KPEPFrVVbzE+yD2PN4yIs
+         Pj53P8t5iCJ38IZiThbkwdiqvINfUff49jAzpTKpGJsS5ldL15REnB3hiFi+FBfDu4sX
+         zOlHDloJ2JzavkrudEiEeZVOtF4NVhVK3dqZ7jYLu9BIaA31z0vfu4juQFbSt0YcXTeg
+         vMLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790256961; x=1790861761;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U22T5ktXeO8XQfbmyXBSjvK2W4d1tae1YGReIurscXk=;
+        b=nfvMqR0sDQTGdBlLFJ518Juk3z6TJVttTi1rXoXQgQTruDd1MobWRHW+6IoPOOlFAK
+         LWTMOMeVCcHdUrzc3EygwiDXEDIT+6hueEOD5YGKncHVBNed7aEpEz3cHfn1ucA2ieE0
+         ksQU7OpdVs6R++Iw2zBHLN420nKAo+4v58PPZu+DylmSbiQgntsGZcxZpohT6uoLdYVH
+         +Cop2DDQqa4Qaw1tvkz/a+/xvJ7Lau2qpEGIevFp+BpMfo++E2moWLTrO9zK/IyXmLZ5
+         yNMyAFJummVH0IKu6Ekl+Hia+oddNbl7tuGnsCORiD9Hvs04HoilSAqaSvO0oSlOtsKX
+         zQXA==
+X-Forwarded-Encrypted: i=1; AKwUvBz1JLx14PvhC8PxjMDXGci/T02VkouTgStslgzQ56rr6V9iJ71Mifc0Hihy6+vhxjtposrCLET0n7du@vger.kernel.org
+X-Gm-Message-State: AFuF++l40I83NCILZppwxk/E88tQkcsR9gHnDuQON1xW8KBNmVXmW8pi
+	4up8S/lgEfoxTzcnGk6J+wfadEyCEe3My/PFPTDo562QOpTuKEwqyIASzqtiQt8C7zM=
+X-Gm-Gg: AYBFou13otr4w6lKjSru23gopC1+FDsPro203OI0B1WyCgLgnYqUVBk/cxqwnFQr5uq
+	8l22sffUMPuIOgdnGiz7nVPeiA0jgi/Xb376eArm/PT5lb+X1/GNSCmU9QUgC5oYptUUIMDYG6H
+	L+FmitCR3LxGXNNUg66OW96E1xxfqLYXOAHpnlhqdvKJaQu/hYvfb5qHxXdATJdlE7OGEbBHsjf
+	8zhQY2jgAtSqJS8dlAVE9anIr+OEv9vLqwVFDMe3wgOaC1wIJ5j53cLddIjKBAfeOu2tXgUQPrI
+	ofjR7rT2zNO5rTqvBCHe4qlgQelkwejUhv7xa5PETFgk12PwfeVoyj/9hIeOQDkTcm6fJ/byYN/
+	kp6bZ6E7VahnmJOg3qDOorkQfYxUbLbwroNfNH85z1mMGS7V66V/Ud/8LQz22rUC0ayMqkozMu7
+	3JoWNI61wn5XkYYoowijyEAgGzc74IJByNnOjrUMPQQ1F1bYNCpXu9wln4BHRYyMu3lvzpCnMTJ
+	C6Zw/F0OFR0qcGZTnmjzEfLLQqHvnZA8rR9cbDPr7XCyLTH7SaVVA==
+X-Received: by 2002:a05:600c:1385:b0:49f:ce78:3567 with SMTP id 5b1f17b1804b1-49fe66fa5c2mr40253725e9.24.1790256960649;
+        Thu, 24 Sep 2026 06:36:00 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a? ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877a2d5sm14384759f8f.27.2026.09.24.06.35.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 06:36:00 -0700 (PDT)
+Message-ID: <3c92a2ea-c588-4bc6-8d6a-8006f595e9cf@linaro.org>
+Date: Thu, 24 Sep 2026 15:35:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 6/9] drm/panel: novatek-nt36672a: Add 3 panels used in
+ Xiaomi phones
+To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
+ Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ phone-devel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>
+References: <20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru>
+ <20260917-nt36672a-panels-v2-6-f8de8be5b86f@minlexx.ru>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260917-nt36672a-panels-v2-6-f8de8be5b86f@minlexx.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] ASoC: qcom: Incorrect RX suffix for microphone TDM masks
---
+On 9/17/26 18:43, Alexey Minnekhanov wrote:
+> Add support for 3 panels used in 2 Xiaomi smartphones, all based on
+> Qualcomm SDM636/660 SoC:
+> 
+> * Shenchao panel used in Xiaomi Redmi Note 7 (xiaomi-lavender), the
+>    exact model string is unknown
+> * Tianma TL063FVMC43-02  for Xiaomi Redmi Note 6 Pro (xiaomi-tulip)
+> * Tianma TL063FVMCA01-00 for Xiaomi Redmi Note 7 (xiaomi-lavender)
+> 
+> They all are DSI video mode panels using Novatek NT36672A controller,
+> so they can share almost exactly the same init/off sequences with
+> minimal differences between variants. This allows to avoid a lot of
+> code duplication.
+> 
+> Co-developed-by: Richard Acayan <mailingradian@gmail.com>
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+> 
+> ---
+> v2: sort compatible strings alphabetically in of_device_id
+> ---
+>   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 166 +++++++++++++++++++++++++
+>   1 file changed, 166 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> index a445c8067aa5f..d356348d39608 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> @@ -357,6 +357,90 @@ static void tianma_fhd_video_send_deinit_cmds(struct mipi_dsi_multi_context *dsi
+>   	msleep(60); /* 0x3C = 60ms delay */
+>   }
+>   
+> +static void lavender_tulip_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+> +{
+> +	/*
+> +	 * This function supports 3 similar panels with minimal differences
+> +	 * in their init sequences. We assume base to be lavender-tianma
+> +	 * panel, and 2 variations (lavender-shenchao and tulip) are handled as
+> +	 * differences to base.
+> +	 */
+> +	const struct device_node *node = dev_of_node(&dsi_ctx->dsi->dev);
+> +	bool is_shenchao = of_device_is_compatible(node, "shenchao,fhdplus-video");
+> +	bool is_tulip = of_device_is_compatible(node, "tianma,tl063fvmc43-02");
+> +
+> +	dsi_ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x25);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x18, 0x96);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x04);
+> +
+> +	if (is_shenchao)
+> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x27);
+> +	else
+> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
+> +
+> +	if (is_shenchao)
+> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd9, 0x10);
+> +	else
+> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x78, 0x01);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0x13);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x31);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x13);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x31);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8e, 0xe4);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8f, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x80);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x26);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa9, 0x12);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xaa, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xae, 0x8a);
+> +
+> +	if (is_shenchao)
+> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1c, 0xfa);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
+> +
+> +	if (is_shenchao)
+> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x01);
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
+> +	mipi_dsi_msleep(dsi_ctx, 80);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x01);
+> +	mipi_dsi_dcs_set_tear_on_multi(dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
+> +
+> +	if (is_tulip) {
+> +		mipi_dsi_dcs_set_display_brightness_multi(dsi_ctx, 0x00ff);
+> +	} else {
+> +		/* lavender tianma + shenchao specific part */
+> +		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x68, 0x03, 0x04);
+> +		mipi_dsi_dcs_set_display_brightness_multi(dsi_ctx, 0x00b8);
+> +	}
+> +
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x2c);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x00);
+> +
+> +	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
+> +}
+> +
+> +static void lavender_tulip_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+> +{
+> +	dsi_ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
+> +	mipi_dsi_msleep(dsi_ctx, 20);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
+> +	mipi_dsi_msleep(dsi_ctx, 120);
+> +}
+> +
+>   static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
+>   	.clock		= 161331,
+>   
+> @@ -389,6 +473,85 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
+>   	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
+>   };
+>   
+> +/* common for both lavender-tianma and lavender-shenchao panels */
+> +static const struct drm_display_mode lavender_panel_default_mode = {
+> +	.clock		= (1080 + 90 + 2 + 120) * (2340 + 10 + 3 + 8) * 60 / 1000,
+> +
+> +	.hdisplay	= 1080,
+> +	.hsync_start	= 1080 + 90,
+> +	.hsync_end	= 1080 + 90 + 2,
+> +	.htotal		= 1080 + 90 + 2 + 120,
+> +
+> +	.vdisplay	= 2340,
+> +	.vsync_start	= 2340 + 10,
+> +	.vsync_end	= 2340 + 10 + 3,
+> +	.vtotal		= 2340 + 10 + 3 + 8,
+> +
+> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+> +};
+> +
+> +static const struct nt36672a_panel_desc shenchao_lavender_panel_desc = {
+> +	.display_mode = &lavender_panel_default_mode,
+> +
+> +	.width_mm = 67,
+> +	.height_mm = 145,
+> +
+> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> +			MIPI_DSI_CLOCK_NON_CONTINUOUS,
+> +	.format = MIPI_DSI_FMT_RGB888,
+> +	.lanes = 4,
+> +	.send_init_cmds = lavender_tulip_init_cmds,
+> +	.send_deinit_cmds = lavender_tulip_deinit_cmds,
+> +};
+> +
+> +static const struct nt36672a_panel_desc tianma_lavender_panel_desc = {
+> +	.display_mode = &lavender_panel_default_mode,
+> +
+> +	.width_mm = 67,
+> +	.height_mm = 145,
+> +
+> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> +			MIPI_DSI_CLOCK_NON_CONTINUOUS,
+> +	.format = MIPI_DSI_FMT_RGB888,
+> +	.lanes = 4,
+> +	.send_init_cmds = lavender_tulip_init_cmds,
+> +	.send_deinit_cmds = lavender_tulip_deinit_cmds,
+> +};
+> +
+> +static const struct drm_display_mode tianmaplus_e7t_tulip_mode = {
+> +	.clock		= (1080 + 100 + 28 + 120) * (2280 + 10 + 3 + 8) * 60 / 1000,
+> +
+> +	.hdisplay	= 1080,
+> +	.hsync_start	= 1080 + 100,
+> +	.hsync_end	= 1080 + 100 + 28,
+> +	.htotal		= 1080 + 100 + 28 + 120,
+> +
+> +	.vdisplay	= 2280,
+> +	.vsync_start	= 2280 + 10,
+> +	.vsync_end	= 2280 + 10 + 3,
+> +	.vtotal		= 2280 + 10 + 3 + 8,
+> +
+> +	.width_mm = 68,
+> +	.height_mm = 143,
+> +
+> +	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
+> +};
+> +
+> +static const struct nt36672a_panel_desc tianmaplus_e7t_tulip_panel_desc = {
+> +	.display_mode = &tianmaplus_e7t_tulip_mode,
+> +
+> +	.width_mm = 68,
+> +	.height_mm = 143,
+> +
+> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> +			MIPI_DSI_CLOCK_NON_CONTINUOUS,
+> +	.format = MIPI_DSI_FMT_RGB888,
+> +	.lanes = 4,
+> +	/* tulip panel uses almost the same init/deinit sequences as lavender */
+> +	.send_init_cmds = lavender_tulip_init_cmds,
+> +	.send_deinit_cmds = lavender_tulip_deinit_cmds,
+> +};
+> +
+>   static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
+>   {
+>   	struct device *dev = &pinfo->link->dev;
+> @@ -465,7 +628,10 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
+>   }
+>   
+>   static const struct of_device_id panel_nt36672a_match[] = {
+> +	{ .compatible = "shenchao,fhdplus-video", .data = &shenchao_lavender_panel_desc },
+>   	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
+> +	{ .compatible = "tianma,tl063fvmc43-02", .data = &tianmaplus_e7t_tulip_panel_desc },
+> +	{ .compatible = "tianma,tl063fvmca01-00", .data = &tianma_lavender_panel_desc },
+>   	{ },
+>   };
+>   MODULE_DEVICE_TABLE(of, panel_nt36672a_match);
+> 
 
-commit 58ae8e5a0a62726195e8056775500ca69d67f4a4
-Author: David Heidelberg <david@ixit.cz>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-ASoC: qcom: sdm845: Demystify TDM masks a bit
-
-This commit describes the bits used for each RX/TX TDM mask instead of
-using hardcoded hex values.
-
-> diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-> index 6843ab8ba017e..0ce8265ab1c1f 100644
-> --- a/sound/soc/qcom/sdm845.c
-> +++ b/sound/soc/qcom/sdm845.c
-> @@ -23,9 +23,14 @@
->  #define DEFAULT_MCLK_RATE		24576000
->  #define TDM_BCLK_RATE		6144000
->  #define MI2S_BCLK_RATE		1536000
-> -#define LEFT_SPK_TDM_TX_MASK    0x30
-> -#define RIGHT_SPK_TDM_TX_MASK   0xC0
-> -#define SPK_TDM_RX_MASK         0x03
-> +#define LEFT_SPK_TDM_RX_MASK	BIT(0)
-> +#define RIGHT_SPK_TDM_RX_MASK	BIT(1)
-> +#define SPK_TDM_RX_MASK		(LEFT_SPK_TDM_RX_MASK | RIGHT_SPK_TDM_RX_MASK)
-> +#define MIC1_TDM_RX_MASK	BIT(2)
-> +#define MIC2_TDM_RX_MASK	BIT(3)
-> +#define MIC_TDM_RX_MASK		(MIC1_TDM_RX_MASK | MIC2_TDM_RX_MASK)
-
-[Severity: Low]
-Are these microphone masks named correctly?
-
-Microphones are capture devices that transmit data on the bus to the CPU,
-meaning they utilize TX slots from the codec's perspective.=20
-
-While the bitwise values remain correct and do not introduce a functional
-regression, naming these slots with an RX suffix appears to contradict
-their semantic role. This is particularly noticeable since the stated goal
-of this patch is to clarify the masks by describing their RX/TX directions.
-
-> +#define LEFT_SPK_TDM_TX_MASK	(BIT(4) | BIT(5))
-> +#define RIGHT_SPK_TDM_TX_MASK	(BIT(6) | BIT(7))
->  #define NUM_TDM_SLOTS           8
->  #define SLIM_MAX_TX_PORTS 16
->  #define SLIM_MAX_RX_PORTS 13
-
-[ ... ]
-
-> @@ -128,8 +133,10 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_s=
-ubstream *substream,
->  			goto end;
->  		}
->  	} else {
-> -		ret =3D snd_soc_dai_set_tdm_slot(cpu_dai, 0xf, 0,
-> -				8, slot_width);
-> +		ret =3D snd_soc_dai_set_tdm_slot(cpu_dai,
-> +					       SPK_TDM_RX_MASK |
-> +					       MIC_TDM_RX_MASK, 0,
-> +					       NUM_TDM_SLOTS, slot_width);
-
-[Severity: Low]
-Does passing MIC_TDM_RX_MASK here create confusion in the capture path?
-
-This passes the RX-suffixed microphone masks into the tx_mask parameter of
-snd_soc_dai_set_tdm_slot() for the CPU capture DAI, since qdsp6 AFE expects
-tx_mask for capture.=20
-
-Could this be renamed to MIC_TDM_TX_MASK to properly reflect its transmit
-role and align with the parameter it is passed into?
-
->  		if (ret < 0) {
->  			dev_err(rtd->dev, "%s: failed to set tdm slot, err:%d\n",
->  					__func__, ret);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-pixel3-aud=
-io-v4-0-85b5d133aa5e@ixit.cz?part=3D1
+Thanks,
+Neil
