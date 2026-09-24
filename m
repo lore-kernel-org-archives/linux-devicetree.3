@@ -1,123 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07A03BBFD6;
-	Thu, 24 Sep 2026 09:34:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2513BED79
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:35:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242455; cv=none; b=QwECch4w6dtsWgxLKO8/iB9jt9nxCeqUXuxdHpd4Km1Q+KowHN+b8Vhr9u+YO+GiyLTuzKcON0aMKUrzhS/6wG/P8CrEq9DEEzlhIXWBssziYcS5XS1pUQb27fPmyM2jvUjQwfazx6yzBeSZ/VOadixyZABSSsuX9lsBLsy5KC8=
+	t=1790242513; cv=none; b=gyVjeiNFvizkyv9HM8x/bv2iC26n4e2pzPmAMUgH2pF40IO1LnIhkJ5ov2RaAj8AQ+GtgzxWXLmelSoob6gxkIFuSmhAcyBrQLUC7wlfHHVumYi2XT/ls0rWVGbiYGNGNzSqzdmIQuQ4R1DcqrS5T/w0Ccop2nUKgR6mp1Lfxd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242455; c=relaxed/simple;
-	bh=TehlIG6ZPlNRuXSdb87mmhMV8KgtvRMrZN2zDxXNd0k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PhmJaw1sEdtmwhN1D0T65llL2dRmg6SZ4zOxfuJ4NQgTZwcDbLvdXysyCmr1aaGFAoFCla5WWruwWIrEIFUlx6GrwEcptZSA8szHdaGlpr1F8rvcGJNbd0bTP3Uwv8dIzY6AjNlqCeHBK3hTlPKZ+3BQuSMr30Rqfcr+7u21kQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JruJWdG9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790242513; c=relaxed/simple;
+	bh=xlFr47uBNraq9Vfw+jhIc3orvyXDcJ8EdkBjzapnpks=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=fGnaChy+090rirVu3gLTfdYa4RnYi5tTdffYdptdOGzKRFeFjQ5gCEJUADaWQ/ZE7VpVmCQ8O6VTbegNLOjX5chcJW3k4tsljaJfFmaJRaQCVFuijWOZ22WvzDf97AdKCHmK/r3rLcO6foSDo1Xs3LYceQCyg+jqdZgVnpPIBFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QNLXS3Ym; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JruJWdG9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 430811F000FF;
-	Thu, 24 Sep 2026 09:34:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790242450;
-	bh=TehlIG6ZPlNRuXSdb87mmhMV8KgtvRMrZN2zDxXNd0k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JruJWdG9H5FoRe6bD+2ylli3JN4EoczoDAx8oeFDqK9iu5+0Z4D0hmml1MEfbkiDO
-	 dp61coXa2kOb8h1Cg4TDuTyuKzQdyGlK547lKUqyntigxIq/0AwvSE84L+vwhFDmOT
-	 POu5Xm45B/qrOaLr51AmyDjuyrvr4XKfjW1vZN4gqxAJrARrODVyQG69FL3+Bpnpfk
-	 eyJuXueNVRY2dr8JX5mhO1ucvYQA8D8odnKwBjfT+T5bhv9y8qXiFLU58sP9EfOlaw
-	 nRfiv2lZJijFzuqHiEnOSH481PLmRn8tF2aeT+h8tSEw+HIYB1eAeTF5BwphMS5xyy
-	 xAXK5SQDxK6Mw==
-Message-ID: <5f5f630c-fdda-4f17-a786-c145e8458e64@kernel.org>
-Date: Thu, 24 Sep 2026 10:34:04 +0100
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QNLXS3Ym"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccead2aecso8243215e9.0
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 02:35:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790242508; x=1790847308; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ntOIbWg0v6Y7sjUG+xdx4uPbi3N8TfY72tgKuI0bUbw=;
+        b=QNLXS3YmCK1BfBF7nU6ZAi9jD+ARO67zOm1zraT43p3A2tSNmRmr3MxQYTTusl/9tQ
+         W/cVYWYLGOLnJ4vhIS810/TLgmUC7/L2MtcZUoP3DXhdTAF+EjVVu8nvb9+Gl0ejglHh
+         v3omTb2w2LbPW/R6nfy3hK3qAorfTVauqThaawmV2MlsY7D+VwumuwnHrrXDvxN8ortq
+         mcGaSxf7Pk0ebN/C62TaoQFsRUj/Ml+r7N4c21inQPuFM5TXPyO3b5CZA2IyJLBPvsjr
+         25fNcbO9AUjH9uR7pONolWo75YsJEcoh6ftZeGKZUkQRSGLiQMfhw3m3B5DJM/FvypUq
+         ZdJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790242508; x=1790847308;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ntOIbWg0v6Y7sjUG+xdx4uPbi3N8TfY72tgKuI0bUbw=;
+        b=jsCHBlHg7LcfLfPE9Ccj23vU7w9o8+YD4hiwzx/XcpzetArmwGAuctu1MfwT6ETUpJ
+         oHpIAuc8hw9wnWf++JcT0W+hqXJAi1SK2rZiXPHubELBTx0/5sFAXIf0igcvMjYrS8V5
+         p7ZjHQk7s+gX9+8vm2/pUFf2P5tanEXKewymqttNmt8D5sXOGpDlksecGpod6JAZHFc+
+         rOGPz1VUZQ9yFoEmMzgM38e+wsSM0ANaM+IvqUZ1GTdFw5eahdSnLKQA8ApqXqLwqLoa
+         y4nI+ee5I3fKVDsNkasBB6H96mKsMJaC/s/Y0dDyIYbmGSRtmrq7UWRS5Ggjx0RjkMaU
+         ZEdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzdproyQIz7SBDASdZL45uq5RFFtbTuiXOojQV5H5OplKJhLl/OmC2iSUYJlN4wVtUpZDSx07C0e92T@vger.kernel.org
+X-Gm-Message-State: AFuF++nDIwU0piJ6wF1QXh/dlFQRRnmu4Q1BwJuDckORkFfX2GgjV67J
+	qfBNI6jN5LiXSJKRbv9VHS3j9l9gyma2aH6uuFjsrFZHSzibIlUAo3u7iXdKEe3vWrg=
+X-Gm-Gg: AYBFou3kKxGkm2yGUOYwneOmiNF5nXsDlMnSHcszaaCgAWy597f0YD+Gx6X7OQQ39K/
+	nMs5Vwhy6qyZgzRB5PiOCAtSycWP8XkuroMlFPJ+MJCfRSC4h8VryXTyLXW4iZA2a4uv7uC9OiA
+	z1ha6Kvrb+9394avioOAkjBARpd3pm78Ek2wS/dVArIQAfuqpLVW9kDF9kKULR/wXeZleN4PWfV
+	TFifN8rCS3sJkxOUuacGRYQL8dexL4s9AzVaSNg38wxGSGZPputDJ/IjRGvJt1TgMKwAlXlUmmL
+	ORhBClgN3COiDzQR9wzaoJ1qXNUH/dVTmABLXz06KMCqDKMsXPx/t6/1LgoZqaxER/Z2sZWnteW
+	yHPsM1s7YCl1J7bqsP7mB4rh19TYz8APaBQanrkDRQAn6knUNDkHNL6Iag1CaUDdVif50RA7fev
+	lOFwKqK3Le3St/k82DfJtCIvPZGGztAE1wIs4HXnzJvbVDMc5T7dD17r4w+MiW/1sYocQBiMfgq
+	9JmqFmfSlWClVAaWQ==
+X-Received: by 2002:a05:600c:4fcc:b0:49f:df99:ff1a with SMTP id 5b1f17b1804b1-49fe66f344dmr32157945e9.17.1790242507705;
+        Thu, 24 Sep 2026 02:35:07 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd2bacsm50613795e9.13.2026.09.24.02.35.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 02:35:07 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman
+ <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Jerome Brunet
+ <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Jian Hu <jian.hu@amlogic.com>
+Subject: Re: [PATCH RFC 0/3] clk: meson: Refactor PLL pre-divider as a
+ divider clock
+In-Reply-To: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
+References: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
+Date: Thu, 24 Sep 2026 11:35:06 +0200
+Message-ID: <1j1paj9elx.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 05/15] media: qcom: camss: Add Hawi compatible camss
- driver
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com>
- <-SfKe1h9v_GKikJ1GpSP9vCzngJ7rE-jLyFCc419KBCuxpKK_kH33Xd65VtCIyoH80D_SMZP306pJZ7aKnpxdw==@protonmail.internalid>
- <20260923-hawi-maili-camss-v1-5-cbbb42e534ef@oss.qualcomm.com>
- <df6d93bc-b0c1-489f-9ca2-7de4d355ceb6@kernel.org>
- <rkXNwmbYYQJ711yfleANGnSTlsnDoq2hEBDIvnAOVFf63HQhQ_RiSx1-oYPznE5Nr4AEDEd6df88KwqPceRN7g==@protonmail.internalid>
- <233a246c-1cb0-42d2-b752-aaa208e1ffe4@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <233a246c-1cb0-42d2-b752-aaa208e1ffe4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 24/09/2026 07:01, Nihal Kumar Gupta wrote:
->>> Signed-off-by: Hangxiang Ma<hangxiang.ma@oss.qualcomm.com>
->>> Signed-off-by: Nihal Kumar Gupta<nihal.gupta@oss.qualcomm.com>
->> Missing Co-Developed-by:
->>
-> Co-developed-by: is for authorship only (submitting-patches.rst). I didn't co-write this patch —
-> Signed-off-by: alone is correct here.
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+On mer. 23 sept. 2026 at 19:14, Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org> wrote:
 
-Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> This series refactors the Meson PLL framework to remove the dedicated
+> PLL pre-divider (N) parameter from the PLL implementation and model it
+> as a separate divider clock.
+>
+> Currently, the Meson PLL framework models the PLL pre-divider using a
+> dedicated n field in struct meson_clk_pll_data. This makes the
+> pre-divider part of the PLL-specific implementation, although the
+> Common Clock Framework already provides a generic divider clock.
+>
+> This series separates the pre-divider from the PLL and makes the PLL
+> DCO take the pre-divider clock as its parent. This allows the
+> pre-divider to be modeled using the standard CCF divider implementation
+> and simplifies the PLL framework.
+>
+> The series currently covers T7 as an RFC to get feedback on the
+> framework design before applying the same approach to other SoCs.
+>
+> Series:
+> clk: meson: pll: Remove the dedicated n parameter
+> dt-bindings: clock: amlogic: Add T7 pre-divider clock IDs
+> clk: meson: t7: Model PLL pre-divider as a divider clock
+>
+> The other Meson SoCs will be converted separately after the T7 PLL
+> framework refactoring has been reviewed and the overall approach is
+> agreed upon.
+>
+> Any feedback on the proposed clock hierarchy and the separation of the
+> PLL pre-divider from the PLL itself would be appreciated.
 
-Fine. I missed the From:
+So if I summarize this RFC, you have simply taken the divider out of the
+PLL, no futher addaptation. right ?
 
----
-bod
+I'm happy with it on the general principle and fine with the change as
+long as you test it on as much platform as you can, clearly flagging
+those you have just compiled tested.
+
+A change like this would likely need to land early in the cycle give as
+much time as possible for testing.
+
+However there a couple of thing I'm concerned about:
+
+* You've drop the table support: are you sure this is not needed anymore
+  ? don't you want to be able to restrict mutlipliers to specific values
+  sometimes ? If not, then OK.
+
+* the determine_rate() make no call to round the parent rate: Since the
+  parent will be the divier, how do you progate the rate change so N
+  moves and the best parent rate is found ? For sure this fractional
+  multiplier clock will need CLK_SET_RATE_PARENT to adjust the
+  pre-divider.
+
+* Goes with the point above, but I'm not seeing anything that favors
+  lower N for lower jitter, Or mention of a minimum input rate (which
+  could be a property) ?
+  Those are constraints I think I have understood from your explanation
+  here [1] but maybe you've got new information to share ?
+
+This is overall going in the right direction but determine_rate() and
+constraints need work.
+
+Note: you are more likely to get test feedback if you add g12 (sm1) as an
+example. Those are still the most widely used amlogic platforms with
+mainline.
+
+[1]: https://lore.kernel.org/linux-clk/c9c4945f-cdfc-4382-b8ca-71b69d91deb4@amlogic.com/
+
+>
+> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+> ---
+> Jian Hu (3):
+>       clk: meson: pll: Remove the dedicated n parameter
+>       dt-bindings: clock: amlogic: Add T7 pre-divider clock IDs
+>       clk: meson: t7: Model PLL pre-divider as a divider clock
+>
+>  drivers/clk/meson/clk-pll.c                     | 178 +++++------------------
+>  drivers/clk/meson/clk-pll.h                     |  13 --
+>  drivers/clk/meson/t7-pll.c                      | 183 ++++++++++++++++++------
+>  include/dt-bindings/clock/amlogic,t7-pll-clkc.h |   6 +
+>  4 files changed, 181 insertions(+), 199 deletions(-)
+> ---
+> base-commit: 43e1705ecab981c66baee89041e6f728c0436f19
+> change-id: 20260923-meson_refactor_n-e7f25904e536
+>
+> Best regards,
+> -- 
+> Jian Hu <jian.hu@amlogic.com>
+>
+>
+>
+> _______________________________________________
+> linux-amlogic mailing list
+> linux-amlogic@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-amlogic
+
+-- 
+Jerome
