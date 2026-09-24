@@ -1,68 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f31.google.com (mail-qv2-f31.google.com [74.125.230.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF9E47ACD6;
-	Thu, 24 Sep 2026 15:10:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14ECA49F134
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 15:11:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262627; cv=none; b=XokNVTaplLUdOzVfQW+q3JC+9sBjjxMB18BpaZw1uaRgbsQJBmrznKQPxDMBwCZGBPc9LCQSMS9vCGzK5an5ogGuLZ3xqdsQyOA9T3E5ei4/S4p5lDVNOa1ljg0NdCe+D56dOCqath+suFyWyx94c3k1V70bQZJAx514WJsb4Vs=
+	t=1790262712; cv=none; b=AKgUb4nazS5X6SbnsEl4/Hg+WdSDhsFU3Fphs1mnuqDzZKhZM0PMGab9onwAO1qqDt6vSuWYA7jbMsMaOIWPZr8v3+gCtb9eKowNu2Kb3ynnKnrJe9FVrFLuXeHw9RjoZMr0bAQGvelltTUhaWkDNt/hzPUM1Xg1BYQKJZ/wRX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262627; c=relaxed/simple;
-	bh=XnH/W2lxwYrAwPzJzjgtkiEcYjqDVzzLurQTDKunvqk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VW1jtwer/w5hYvKsaovEz1ruyUzPmhOj9WLSWWt5SkNEI5AqAAuBso23L6UOrOWI7IHOMxp9O/wZ/FwrB9l/aS80gfhuiAhGGwEzNWZa8VOCBJOsLN65z0Z7eMT6qF/eaL1MDZ6ssfbEJSP/tlWHIdnO0xbeqf55ZCCk09L7VMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/ZLIPHs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790262712; c=relaxed/simple;
+	bh=rLyOMd/NUGEseSBxyocA0bYOEejNiG1JtJseUmRTyhk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HjU1D/ht21tU8u539b55GuPwts1XIzYxG4FW7yObG2XpYQQrIcOP2VmNA/Bs5HCZTKDhrZzCVnYX92sYExsTA3TMKRT6Ns0+LKj1OT1QDH5jCNfeHGZZNGEPthSuv/+TWiBmogeh3PE2Gck6qMaaKeRCWCsvQxj8Wr4Phghr7/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=RGYpLLMq; arc=none smtp.client-ip=74.125.230.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/ZLIPHs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5CE1F00893;
-	Thu, 24 Sep 2026 15:10:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790262625;
-	bh=XnH/W2lxwYrAwPzJzjgtkiEcYjqDVzzLurQTDKunvqk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d/ZLIPHsJJ/VInVkMu/lxAD5eFHqjtTbc6SzmkLAfLeS+BseoJ6br/3Rc85p8qvar
-	 ru9LGtCeqF2hYDDKQSutcwPQ2y1wPBjTJ6HgEqWVOlzbVPxj6T8QHEeWebzE7FZPte
-	 K40fqEqnxXDr05xX60Vd3+NncN4kBYQaw4V4TcHqSNbEckFqeRqPwlwLW00JXB0Ufu
-	 Xu8VmORGGI7nmSuhC4XMvd9k0+c9GjsuJpPRUbeCc8/DVRf8Jvkyp2pIV1AOWBYWeN
-	 0duU7uk9UF7UyhskN1V/HhS0rP3xp2bBr0Utj7vUhpQlXs2Jm0HnlgXbZ8kWjJIvFM
-	 r1DNfoDTsyOEg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/4] PCI: of: avoid allocations in
- of_pci_prop_compatible()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Elder" <elder@riscstar.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260924150222.1179235-2-elder@riscstar.com>
-References: <20260924150222.1179235-1-elder@riscstar.com>
- <20260924150222.1179235-2-elder@riscstar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 15:10:25 +0000
-Message-Id: <20260924151025.9A5CE1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="RGYpLLMq"
+Received: by mail-qv2-f31.google.com with SMTP id 6a1803df08f44-91219376dd6so18825656d6.2
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:11:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790262709; x=1790867509; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=coMqpZSLbYua79ODlaLf8ibI9ASN8s+y7pCadqkcxT0=;
+        b=RGYpLLMq9WViukKYYcrS7yWs3gLGpBOBNXu9ZiQ9G9b/p9uvy/3DdHdWcgmKRRKNIh
+         pOVoSEOQ37Gp60VV/V7k7qSX6LoHzotEnxK9fHmZGQj3KlF+R/+Gz9QWy7JHdph3W4Kd
+         43W3kt8aMOlbivlNr/5ghF83Q0zhDXIcDhFk7c6fC1r1rzCgGdjnVgoY0UWzWt6K2P2E
+         6/GqfIdG3bEhdrSHWCKCFZbJXXZ8moGMjHOAJTbJzzyUGLw5l1zoyFCdjsEB2lpE59Ba
+         U7iVLgB9JR47ntSvwcjE3GtqkxX9bq59XkVMiC4Tm/IMMOD6LD/XpsLymqpel0qsw4k0
+         A6Tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790262709; x=1790867509;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=coMqpZSLbYua79ODlaLf8ibI9ASN8s+y7pCadqkcxT0=;
+        b=KSR5MRlBrYjovDbCUwu7ivuXfYYetZFKzRiAi2SUc7CLse2f64FO3EeChpjUuuJqcC
+         Wfhb4Umo/Wll3zhNItOIPcmlSR26TmhsJdZVgeF39Vhzd0TFL6KcVyh9bYYI56gwxGq3
+         5SBo5B1/aPYteMnHJOE8CHXPXSyLDANyHmHs4EYnnNWn/ULB9cPme3GlLIemY7plIxV5
+         VKAFaeLvIf4FpxLtrphA76YiuFRZKURmIIZZ+vuy9sZxytPWuKh2ndOvJaMyoXNo9omc
+         tYR4fOLtRjv/37Cln3sVRZjnD4Wcty+j/UEo16zw8eHa/zbqACCsLWC/LphDUP4WAyfD
+         ZGIQ==
+X-Gm-Message-State: AFuF++kX/6oO8gO1hqS0v6ZlBpUI6UCvAEkHE2JXUuZqkVGlZh2r5vR3
+	QEGE4ynrBx4I9chR6C7e0HpbjnJCLQexCXqqZBVAV7tN8UqhT6j0q0IPkU8t7nInInQ=
+X-Gm-Gg: AYBFou25htyVz8B/4vutJhrRCEVOBOAoDcW+JdjKCQUFTHtwn5FGeh20588p+VoBkRM
+	C2WDGmyXvR+wIWJksWxTNQj2bM9j/HJvus8HkqA2yRsH1xW4NEpw0zzexbYNF15tS18jICLsEQI
+	J3xbpBKvJz0o3UJgryNaxX9eRp2+QjH3Aoob3ZNF1Vbct1nES5CFiYzG3oHaFFj2QySIu9NiuBc
+	w/yxdz4MF78GKDiitOr0S9DrQQhjde0HQg1WFsZ0L6n1tlu7Hu00vGBUa1tni9QZRX94d33RbQW
+	EwQ3rS8QEGatSBYEoeH/QsqoCEZZtsAPeCYrOzL3mWqBJiU+fp/3B3WPzLHI0lZWQWBMb2R5mJ7
+	tr5D+MN49pRTJ5/O7SOtSg4aQtOfC0qsdtyH2ADobW/InzEhf1NGVXPD94Y9bDRvEv7lqFe0xaZ
+	BvEnFryTXqJ3bXzbUMlAP9nwPCVFS9JS26EToqcrh2Hop9bhXnUXTXjW09+x2W9AAo4neZmTTwY
+	8ddHyZakA==
+X-Received: by 2002:a05:6214:3d01:b0:912:599c:a278 with SMTP id 6a1803df08f44-91421ef6d3amr30758496d6.37.1790262708730;
+        Thu, 24 Sep 2026 08:11:48 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9141e27b698sm18523826d6.31.2026.09.24.08.11.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 08:11:48 -0700 (PDT)
+Message-ID: <5a150b72-e2f9-462c-aabd-103659e3bf62@riscstar.com>
+Date: Thu, 24 Sep 2026 10:11:47 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 4/4] PCI: of: introduce of_pci_verify_node()
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+ conor+dt@kernel.org, robh@kernel.org
+References: <20260924150222.1179235-1-elder@riscstar.com>
+ <20260924150222.1179235-5-elder@riscstar.com>
+ <20260924150934.B4CE31F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260924150934.B4CE31F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> Three compatible strings are formatted in of_pci_prop_compatible().
-> Their sizes are known in advance, and the largest is 16 bytes.
->=20
-> Rather than dynamically allocating the space for those strings, just
-> set aside a buffer on the stack large enough to hold all three.
->=20
-> This avoids a problem that Sashiko pointed out, where an allocation
-> failure would cause subsequent crash because strlen() is called
-> unconditionally in of_changeset_add_prop_string_array().
->=20
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/sashiko-reviews/a647bd56-7dc8-4fec-9d96-834=
-622054cdf@riscstar.com
-> Signed-off-by: Alex Elder <elder@riscstar.com>
+On 9/24/26 10:09 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] pci: of: unintended error-level logging in of_pci_verify_node()
+> --
+> 
+> commit 0e8b20efbbe63f895449027a5712b691b9eeaa56
+> Author: Alex Elder <elder@riscstar.com>
+> 
+> PCI: of: introduce of_pci_verify_node()
+> 
+> This commit introduces of_pci_verify_node() to verify the device_type property
+> for PCI devices. It adds a runtime check during device enumeration to warn if a
+> bridge lacks a "pci" or "pciex" device type or if an endpoint improperly
+> includes one.
+> 
+>> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+>> index a51dff91b196d..5a040ed836744 100644
+>> --- a/drivers/pci/of.c
+>> +++ b/drivers/pci/of.c
+> 
+> [ ... ]
+> 
+>> +void of_pci_verify_node(struct pci_dev *pdev)
+>> +{
+>> +	struct device_node *np = pci_device_to_OF_node(pdev);
+>> +	bool device_is_bridge;
+>> +	bool device_type_pci;
+>> +
+>> +	/* Nothing to check if there's no pre-existing devicetree node */
+>> +	if (!np)
+>> +		return;
+>> +
+>> +	device_is_bridge = pci_is_bridge(pdev);
+>> +	device_type_pci = of_node_is_type(np, "pci") ||
+>> +			  of_node_is_type(np, "pciex");
+>> +
+>> +	/* Bridges should have device type "pci"; endpoints should not */
+>> +	if (device_is_bridge == device_type_pci)
+>> +		return;
+>> +
+>> +	dev_err(&pdev->dev, "PCI %s have \"pci\" device_type property\n",
+>> +		device_is_bridge ? "bridge should" : "endpoint should not");
+> 
+> [Severity: Medium]
+> The commit message states that these warnings are "meant to help developers;
+> users should never see them."
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+I suppose I should have said "error messages" rather than "warnings"
+here.  I think dev_err() is appropriate, and unless a human objects
+to this, I do not plan to update the series to address this.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924150222.1179=
-235-1-elder@riscstar.com?part=3D1
+					-Alex
+
+
+> However, dev_err() logs unconditionally at the error level in
+> of_pci_verify_node(), making it prominently visible to end users and
+> potentially failing automated test suites on boards with legacy devicetree
+> nodes.
+> 
+> Should dev_dbg() or dev_info() be used here instead to match the stated
+> developer-only intent?
+> 
+>> +}
+> 
 
