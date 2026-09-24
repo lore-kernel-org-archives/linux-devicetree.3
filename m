@@ -1,140 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CB74052D9;
-	Thu, 24 Sep 2026 08:54:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DEA238C36
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:56:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240096; cv=none; b=hxqlJxSHLjEWOAEKN9zlxz0SdSuFXKDCJKKJEex7fNuQ3kt2Lscx9320lZWGd1czP3netQv/vNknSgW2B6BybgMi2185rELQ5LbxTfm2BCtW2cB8Onn+pFmZ0RmGEUza1jOGbGJmoskthC4hwj0Q5m4syPwRSv3vcgxYifrVyy8=
+	t=1790240166; cv=none; b=Bl+BOXUhXPBfCaCa+QapF0yB5hZW9JuVLRa781W59HhKfXJZlzXNgM4YzkweVxQ5txDnnxnGr2ELGKD34isDFCQnAS7piTZKPnEojMIzfMYsUiJw4iROrxsIpK5VrpV/nBCupR8R/yGEfcjVRzWBzCCt1TWBGR5ZBqKjQ0bME2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240096; c=relaxed/simple;
-	bh=wTakLQ//2ozlHA6m7gZJ0de66/8qfvwcBvnGwcVC3uk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pGfrxyC/qSq2icOjbSzR7YKSpFj0awaXSEdgNL4cQfobdNC0z1od7ua/BJQB4AAUBrXR+BW+l1M9xIKfZDytbOSqAd9w0n/bMRP9htj9QUYDGmMRn+7uaqE0is21KQWYrqtH5+IW0wIO0tsq+aLCYzaz1xH5t/uSudPZMRq5JAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V4jmXyQT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790240166; c=relaxed/simple;
+	bh=cqtnu7IaIGoRYZElCxIR5LPn7c5+fBNV9m+k2cDqIEo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Jit1NNyyMN4YMcDcXFZPZE1vzkRRJKv4e8PvK/khSZY8v+b9zHWBQH+WnVhfN/GcXMGVkWQJVd/GXO+z4N63zwvnS3cbYUIG1cZ+W8wEvOf6+u5Cs8OeY4dAnZzW6Ry8NewI08wRfmPoJk461vn1NBqrUkKw/FdK24UFGDAS6Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qwne6CN2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V4jmXyQT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3135B1F000FF;
-	Thu, 24 Sep 2026 08:54:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qwne6CN2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A651F0089C
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:56:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790240095;
-	bh=70H8SheMSlcbawkRcJQdsqUV1W6CBrJ/umkobmFKXYo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V4jmXyQTeI5fsEk5Jq2LEttK1IBv2Bb0vPr25bOacKJS2UVbNFu/CNtlpHScNIpAR
-	 j2TifoEnwf9BfPhYh4khos7TOzcKRHK1He/oa5HAJaXFAmwJB0KS0Gla2R9Y+WwTeB
-	 hlJnmn1rRrPPxKtjlJ4DK9CP1gDn8wjzTOV7Xy6EtNGbxVOgiPYiTrsgFROLJU/aTT
-	 DUUu+ivK3FAAyhITkQIMrOXoDL0C4O5CAbScKCf64CRl+dQn3F8TWO1mwiscjEnRfb
-	 sVnA504huvkjuLbOaclPjb9m1M0MckEEztH9hCcyl0R7zJzVR9I+Aomb+STTTj392k
-	 M5/ba/0HsgyPQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] arm64: dts: mediatek: add Genio 720-EVK board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-serial@vger.kernel.org
-In-Reply-To: <20260924-add-mediatek-genio-520-720-evk-v3-3-2ec5c80677d4@collabora.com>
-References: <20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com>
- <20260924-add-mediatek-genio-520-720-evk-v3-3-2ec5c80677d4@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 08:54:54 +0000
-Message-Id: <20260924085455.3135B1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790240164;
+	bh=cqtnu7IaIGoRYZElCxIR5LPn7c5+fBNV9m+k2cDqIEo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Qwne6CN2u5fG+L2GUTitcbeg3ah8UOMkGFKrOhQvITofXsS7eaat20syjZ2PZMgOD
+	 c0GS4MeaAmamYFxLSpwlXINRozq42rBSKL/zQoeypjyK28CN6oPXjrIwyseuM78b24
+	 fTkAK7wEr6jQ34/jvLLuKLFIyOtfmjLwHut5dE7rC62jmjh/A9zXKBAXSrad/GAeU0
+	 8dyxQiqmQNvFJ6G+dgJ1JjeUCJD31B6/FQ4bOW7XHj0HNWu1ApVTvnmdu+vmSTUZ93
+	 3SUVYe/oWAHVrwF47EnvvBa3CCNwUQwSTvM3GnlSvgkMwqBA4mpCrA0MdGReE6GJAU
+	 8mDiQVebw8P/Q==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f12so1473722e87.1
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 01:56:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxK1g+CAR0pV9OqGdwVB4Rio7gaoUg4L6t1IqGITCyxbg5iYtgs//wksA/TGDsaDVLZazrSIURMAOQe@vger.kernel.org
+X-Gm-Message-State: AFuF++kjFHG39Mg1cNTWxXttNCuY9YxN39gfJgF818LL+D0a0JIwgzKz
+	uAncQ3cNr8angSnxkAYe2JPY+QEsAwQqOFhK0K+oFDPghoVs5fmFnGT+8DtSrXXs7X6JEnSin88
+	gnUrCqhCakc7c6qf//QzEhWEPRbupKtydlRXEwA7KlQ==
+X-Received: by 2002:ac2:48a1:0:b0:5b8:bc5e:d102 with SMTP id
+ 2adb3069b0e04-5b8df09cffbmr482966e87.44.1790240163343; Thu, 24 Sep 2026
+ 01:56:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260921-nord-gpi-dts-v2-0-4f297c983b94@oss.qualcomm.com>
+ <20260921-nord-gpi-dts-v2-1-4f297c983b94@oss.qualcomm.com>
+ <16f1b504-c414-4072-98d3-49f60d552028@oss.qualcomm.com> <CAMRc=MfBGgJXhn_c6RY9qhe-JAYjcy8vZOeKgK=cSpOW1ap0zA@mail.gmail.com>
+ <79fc7d1b-98b2-455f-9a3d-d93602bb2bf8@oss.qualcomm.com> <09715ff3-df00-4ba7-8d9d-52b15e8b86df@oss.qualcomm.com>
+In-Reply-To: <09715ff3-df00-4ba7-8d9d-52b15e8b86df@oss.qualcomm.com>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Thu, 24 Sep 2026 10:55:51 +0200
+X-Gmail-Original-Message-ID: <CAMRc=MfqztXugCfGQ9_x8spNeWGH6C3dHLzdknH42Pt8WV8HNQ@mail.gmail.com>
+X-Gm-Features: AclHuK8MBQ4rBng-BJk6WQWaJXowIlUzQObMWJORuFQlrETQhiaHdUkdd8Fk85c
+Message-ID: <CAMRc=MfqztXugCfGQ9_x8spNeWGH6C3dHLzdknH42Pt8WV8HNQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: nord: add GPI DMA controller nodes
+To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dts: incorrect mmc1 cd-gpios active polarity
-- [Low] build: missing dt-binding header files
---
+On Thu, Sep 24, 2026 at 10:50=E2=80=AFAM Mukesh Savaliya
+<mukesh.savaliya@oss.qualcomm.com> wrote:
+> >>>
+> >>> we should be keeping GPI node default enabled similar to common QUPv3
+> >>> wrapper node.
+> >>> status =3D "ok" for all the nodes.
+> >>>
+> >>
+> >> The pattern across Qualcomm platforms seems to disable the GPI DMA nod=
+es at
+> >> SoC-level and only enable them at board-level.
+> >
+> > For no reason - the DMA engines may be reserved through TZ config,
+> > but for the past (high) N years that hasn't been the case
+> >
+>
+> There is a reason to reserve this from TZ. Some use cases require GPI to
+> be available during early boot, before Linux is up and running, which
+> necessitates keeping the GPI instance enabled.
+>
+> Also, GPII is allocated per SE, while the GPI instance itself is shared
+> across all SEs within a QUP. Given that a QUP typically contains eight
+> SEs, it is likely that at least one SE will require GPI operation.
+>
+> For that reason, my preference is to keep the GPI node enabled by
+> default. However, if there is a strong preference to make this
+> board-specific and enable it only where required, I can work with that
+> approach as well.
+>
+> I think it would be better to align on the expected default behavior
+> now, rather than revisiting it later once additional users start
+> depending on it.
 
-commit 333fee68bbe7dfc450967c253534e7bdd3fb61f2
-Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-arm64: dts: mediatek: add Genio 720-EVK board
+If I understood Konrad correctly, he too is in favor of enabling the
+GPI nodes. I was about to resend v3 with that changed.
 
-This commit adds support for the MediaTek MT8189 SoC and its variants.
-It also introduces the devicetree for the Genio 720-EVK board based on
-the MT8391 SoC variant.
-
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8189.dtsi b/arch/arm64/boot/d=
-ts/mediatek/mt8189.dtsi
-> new file mode 100644
-> index 0000000000000..b64882a931519
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/mediatek/mt8189.dtsi
-> @@ -0,0 +1,1009 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> +/*
-> + * Copyright (c) 2025 MediaTek Inc.
-> + *
-> + * Copyright (c) 2025 Collabora Ltd.
-> + * Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-> + */
-> +
-> +#include <dt-bindings/clock/mediatek,mt8189-clk.h>
-
-[Severity: Low]
-Does this include reference a missing dt-binding header file? This is
-currently absent from the tree, which will cause a preprocessor error during
-device tree compilation.
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8391-genio-common.dtsi b/arch=
-/arm64/boot/dts/mediatek/mt8391-genio-common.dtsi
-> new file mode 100644
-> index 0000000000000..00c9f3c078f5e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/mediatek/mt8391-genio-common.dtsi
-> @@ -0,0 +1,798 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> +/*
-> + * Copyright (c) 2025 Collabora Ltd.
-> + * Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-> + */
-> +
-> +#include "mt6365.dtsi"
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/input/input.h>
-> +#include <dt-bindings/interrupt-controller/irq.h>
-> +#include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/spmi/spmi.h>
-> +#include "mt8189-pinfunc.h"
-
-[Severity: Low]
-Does this reference a missing pin configuration header file? Similar to the
-clock header above, this file appears to be missing and will cause the
-compilation step to fail.
-
-[ ... ]
-
-> +&mmc1 {
-> +	bus-width =3D <4>;
-> +	cap-sd-highspeed;
-> +	cd-gpios =3D <&pio 2 GPIO_ACTIVE_HIGH>;
-
-[Severity: Medium]
-Is GPIO_ACTIVE_HIGH the intended polarity for this card detect pin?
-
-Further down in this file, the mmc1_default_pins block configures this
-physical pin with a pull-up resistor:
-
-	mmc1_default_pins: mmc1-default-pins {
-		...
-		pins-insert {
-			pinmux =3D <PINMUX_GPIO2__FUNC_GPIO2>;
-			bias-pull-up;
-		};
-	};
-
-This pull-up implies the empty slot state is HIGH, and card insertion shorts
-it to LOW. If the active state is declared as GPIO_ACTIVE_HIGH, will the mmc
-core incorrectly interpret an empty slot as having a card inserted, and an
-inserted card as being removed? Should this be GPIO_ACTIVE_LOW instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-add-mediat=
-ek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com?part=3D3
+Bart
