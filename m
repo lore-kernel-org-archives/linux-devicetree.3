@@ -1,87 +1,38 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2946367F58
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F1E37BE95;
+	Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258374; cv=none; b=fCGCJBuaUUsKzBITdtQQonQMLQfcr1LQbILMaJpPehaZPzoU1FM35ec+cBG2LNZi9xHDJrYjAkCdv1MBW0SBL/P1QmRAOWt5g8rQMD7Hp/Q7kc/p8N2oPpdSFuXU9q6do+XMi5j0zjwMOW+9mkQ3bhSpEEBo2gMyDV2qfvWlI6U=
+	t=1790258496; cv=none; b=Todf/hrFp0LqrS/L4HpTgFwusdM6bds9sXz2LH5It/m3WFhhZAuwDqF4Sqm4qIdIdmRmKwFeR3cTc+3ullqXhuIDIpjeMol27H+tql2vw2j26EOK/9qsD67y2KyFF7tQKBlVQrfjbgteqqUwvGZmXkgdbyk2OcgYdQl58iQZh1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258374; c=relaxed/simple;
-	bh=qshy+6nZ3RJGli/ZVqdBIAx8yp/sIRUh9OJadxCU2JM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=A1EDa5jBQBeR333MTcgRaCsvkkbR1ESt24nKAbycTT7VInVMwQ8BixZoAY4fnYcH3XKl9tMd0zzhcsHSWbO4L8tIGta6xUh4RV18HpS0PAWWuYF8NbvqiD/R2KylKOfdQCDzoOz1oCPYTAHNybejTnltm1aErenhKDz/6Z8peBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=m3bJHpc+; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790258496; c=relaxed/simple;
+	bh=6PmAGXZV+htq2Tef1xnLisdfXtwtLDKNBf1RrXQoeO4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=IBoHXbSEmIGUZEmmwGjUlcTGL3NH0cSgW2lOGHOarZ7jN/u2WFWgOn+7yC94JeJzowsYz+BRH0bC6W9vdk+J0s4DhGLOfepHxbVuyCF3YrANBS2DKvl0IRGYb0Guy1neus+21yeULF8M1sNLM5zaeUQwF7nTZ5HyiFiArhHtlE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BPLrtG2/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="m3bJHpc+"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so12171155e9.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:59:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790258371; x=1790863171; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IVb+5eFFzuO8SrTG5231sDQzK1ApgWpQTmIUYa2esqA=;
-        b=m3bJHpc+84eYP3/6EB4l5V74nL+MyrCr5xWZGBl+BkuXt+be9p1y40yx1K+QKEztke
-         Jj/rTMD9pnWS8jIGhbQQCqkuB35sHekdgTPDav/dNp0qhv1IblM4lwxGMl0d46ZWEIty
-         xN2rgfBhJHJS7EwCPjItC9hD4WvFwQT23lzxydLo/IRIVAfP/IsHPJZJJynQXNcW4+JC
-         wzmbQ/9VYvPfx46O+fgWfBTWQTK8BFFbiS55vZntPX9CGxFCv/93lZMEsbnfg6NT0oJU
-         +9/WbIQO2rRB/tBzpvTo+9CtuzutF0U4poBtvmBpMdaOqYSXyviwclpG4lB+lkfXS2aq
-         rsPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790258371; x=1790863171;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IVb+5eFFzuO8SrTG5231sDQzK1ApgWpQTmIUYa2esqA=;
-        b=n7kHewkNfh5mOghnuXtSOQhlSihbDl+A6a7XBUn1lu53G92rawT47NzQQiZgg28PO1
-         EJutT4SNKCsE7E22pADNXSi06YuIzRh41MXY/EZT3OxdjW8Q7BghYBMuTLnXIqRFPeOi
-         BZ7fGv8A6Lz1BtNyR1r5CL7+7Cilar24ogwJ89ZDzuf1XVGJPIwU3gj3T+dSI/UeJhDr
-         sJ5UMRq9FWInb+JiQirQmUeO62/FVTOPIrNfLd5MNcdQLv7QN6mZ6Jpqicgh0h7yOEwL
-         5CFB4RxiENQSrzQW8d8VbMJhronBaSDSq8eJWkuoQbH+G0AYRd/oAfUvvab7Cczmve/K
-         oZoA==
-X-Forwarded-Encrypted: i=1; AKwUvBz2cIxbjz3D7rhpPBIKy9k5vVL8dzQnVKZwfh8B4X47jlmelGOsNIoCyX5vuKEHu6aqJ9X77ZDC7CTB@vger.kernel.org
-X-Gm-Message-State: AFuF++kSwUlaipEFlWdCD0V4pZoHTW1fLaRnsbmv2e262j3RqvA8JyDr
-	v7331qNYjz3iY7Bz/MiEuOL2dXg9TxX5oX4vLJIuVWT7tjep60MB2dOdUsS6bDTlrxg=
-X-Gm-Gg: AYBFou2ASyZSVRPLmqQkjoYSWQNb8v2TKSdXW4xAeJwEGGZlGzUDUa0uEVrIDQIjays
-	Pa3ZItf9+brALgtvGbVti0O6zraPvS3Tq3FA94jPSLFwuC3cl61GSFHuMSc0oOsnw77REXSLEHp
-	nHOuheUYzWKErWgWKRPExgmJ4G6ctQvhBPUVkDTirlDVJpwfUNKJVFnO0gPap3uhetXD0EvZ+LY
-	ocdWAcJDJdrdNYevdSgt6cnMBkdzuk+MForr3/kWcuQfrVg5PZ5hA2o1TCwIdQ0XDDEiO114h0q
-	ZI+tPXOGYm38CSFt/PE//65fh4c7F4myje/FDoepriNgef6o9tePrkDI78b9vGRcKkfRT/PfKot
-	uedHYQeqHBBHUdGmg7p9k+SIIAsiRIcIAxtIkdYeaJboh62FF0uN79+BJE0JFBOGWUJHJcLJoeR
-	4mQxmMZOpoz4RCA+H2O3vDXdNWmLCM7ZU0dUhQ+7cyP3rZQlzo1365B9O+7UFPcjLJKYgPOW6L/
-	2T6az7WLVLWQ5VWr/Tm
-X-Received: by 2002:a05:600c:3b01:b0:49f:ce78:3570 with SMTP id 5b1f17b1804b1-49fe670bb82mr41434195e9.33.1790258370793;
-        Thu, 24 Sep 2026 06:59:30 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c500sm15799213f8f.19.2026.09.24.06.59.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 06:59:30 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Liu Ying <victor.liu@nxp.com>, 
- Sam Ravnborg <sam@ravnborg.org>, 
- Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260903-b4-lvds-panel-doc-v4-0-861738a0d5de@oss.qualcomm.com>
-References: <20260903-b4-lvds-panel-doc-v4-0-861738a0d5de@oss.qualcomm.com>
-Subject: Re: [PATCH v4 0/2] drm/panel: Add BOE DV215FHM-R01 LVDS panel
- support
-Message-Id: <179025836975.3234093.5704563992134575173.b4-ty@b4>
-Date: Thu, 24 Sep 2026 15:59:29 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BPLrtG2/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AD6E4C2BCF7;
+	Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790258495;
+	bh=6PmAGXZV+htq2Tef1xnLisdfXtwtLDKNBf1RrXQoeO4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=BPLrtG2/n056+Jb5PFyzXY9QteDff8B40LDBrAUkBfdXcffbQXtc8qyWtVeQbrQNx
+	 0k/6CE//vkK3psMxdCexWSYhU8iLOAT2CQCkdbljrdO9MPT7Q7u+Cqmdhq/Aw00OdU
+	 +C3s2TsqdDGs6v3O0mhD+LaWG94SAbB3QI4dzqOM8ySFmGAMP2n88VQxdvbGSnrzJk
+	 R2qWaP/tPngxtrMyLJsn6bTDm7cTRIWP59yJz3DS/MfEouwzNXv6IGbyI/EfRQUofl
+	 NdbuZUkwJcfMsN1eKVs8dlNS0HG1FFlgdSWx/ni9MvcrWgsKjPGX7bzm6Q3FXOHDMj
+	 I32/Iy3uZY5GQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86E65C9830E;
+	Thu, 24 Sep 2026 14:01:35 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Thu, 24 Sep 2026 16:01:29 +0200
+Subject: [PATCH v2 01/11] dt-bindings: display: panel: s6e3ha8: Adjust to
+ reflect the DDIC and panel used
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,21 +41,130 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+Message-Id: <20260924-crosshatch-panel-v2-1-08d5c7bf72fc@ixit.cz>
+References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+In-Reply-To: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+To: Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2789; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=SZkNpsxVS531OAFU8Nu8uN6r2eb+ReEDrV3Xfp7rlS0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS08/0Ibx+l0MD7D3DFphX2S4KX3arhT8rBXB
+ gZtcDJygcyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPAAKCRBgAj/E00kg
+ csSUD/42gW8JST620vtaKHrsRapj7FtT6Ohl4snD6nlFzcA9pBHWzZcgeewV4KvWP3K6rbq6QO+
+ Rqx2DO2lOSSSr6PTzoK7NcflkYPDy4ORZ88KDIJeHw3lVy+I14OhRP/t+mI0w1J0VzCG2YB2nh5
+ mcPZS7JzT0rwe0UjV3idwMt7wIrg1TDWulKxMxMPcj6fEeug8nPMyZbghSiWydC6rsVFZrMLPYr
+ zDVODBb6gejQNkgB1DP3YVQCnu8yP7GWbwRBEZ5w3sCOu/8w/43YwgX1rilR+KVYJwAgrX7WE6L
+ TI4/RVArxJGf3C9c4YeADqp1g4fS9l68QxFhKf+NrfKuAQLAKKW+hu85ui2etZtOH/9ZWAWjYb/
+ z4N9mDPqmwG9i82Nw8okAVNa9EC5qrS1XDHb3QP2TA3GRyyr0OtLEPd6yuC3dqeVmrCmO94s78D
+ cj2YDG6hFxp3JPQ+H/vEDdMPUBQ02tl0bBYx7IKm7ytlLo+ka9gXAnDyPQLZ4HPZUhi1uVJUZTS
+ CD34uWsCijPtk9phIUjbZPc86fvckdx22YteBwzAH+M7gi1h4fRQg84DrRrrO7G087cjOmUNHzX
+ iNoyN3XwcJswsKAJdnpfITpUoPCabR6AFx5XCKCls3eUT+5QDX194vPYKGYDO1bsJJM549TDOcy
+ 6ULOreJz2AFlvmg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Hi,
+From: David Heidelberg <david@ixit.cz>
 
-On Thu, 03 Sep 2026 09:04:16 +0530, Vishnu Saini wrote:
-> This series adds support for the BOE DV215FHM-R01 21.5" FHD
-> (1920x1080) dual-channel LVDS panel.
+S6E3HA8 is the DDIC, while the panel used on the Samsung Galaxy S9 is
+the Samsung AMB577PX01. Introduce a compatible reflecting that, adjust
+the example, and deprecate the DDIC-only samsung,s6e3ha8 compatible.
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+Update the polarity to better match newly introduced compatibles with
+fixed logic.
 
-[1/2] dt-bindings: display: simple: Add boe,dv215fhm-r01 compatible
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/fbbf93ab8bcb29ea741b99e7cd9bc2120c2a52b1
-[2/2] drm/panel: simple: Add BOE DV215FHM-R01 panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/92be213ad653a6b785bf465f0d259b4eba6d9207
+Assisted-by: LLM
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../bindings/display/panel/samsung,s6e3ha8.yaml         | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+index 00ce5a4e1c6be..ca250b1b91712 100644
+--- a/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
++++ b/Documentation/devicetree/bindings/display/panel/samsung,s6e3ha8.yaml
+@@ -1,28 +1,35 @@
+ # SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+ %YAML 1.2
+ ---
+ $id: http://devicetree.org/schemas/display/panel/samsung,s6e3ha8.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+ title: Samsung s6e3ha8 AMOLED DSI panel
+ 
+-description: The s6e3ha8 is a 1440x2960 DPI display panel from Samsung Mobile
+-  Displays (SMD).
++description: |
++  The s6e3ha8 is a display driver IC used in 1440x2960 AMOLED panels from
++  Samsung Mobile Displays (SMD).
++
++  Known panels:
++    - AMB577PX01, 5.77", Samsung Galaxy S9 (samsung,s6e3ha8-amb577px01)
+ 
+ maintainers:
+   - Dzmitry Sankouski <dsankouski@gmail.com>
+ 
+ allOf:
+   - $ref: panel-common.yaml#
+ 
+ properties:
+   compatible:
+-    const: samsung,s6e3ha8
++    oneOf:
++      - const: samsung,s6e3ha8-amb577px01
++      - const: samsung,s6e3ha8
++        deprecated: true
+ 
+   reg:
+     maxItems: 1
+ 
+   vdd3-supply:
+     description: VDD regulator
+ 
+   vci-supply:
+@@ -44,23 +51,23 @@ examples:
+   - |
+     #include <dt-bindings/gpio/gpio.h>
+ 
+     dsi {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+         panel@0 {
+-            compatible = "samsung,s6e3ha8";
++            compatible = "samsung,s6e3ha8-amb577px01";
+             reg = <0>;
+             vci-supply = <&s2dos05_ldo4>;
+             vddr-supply = <&s2dos05_buck1>;
+             vdd3-supply = <&s2dos05_ldo1>;
+             te-gpios = <&tlmm 10 GPIO_ACTIVE_HIGH>;
+-            reset-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
++            reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
+             pinctrl-0 = <&sde_dsi_active &sde_te_active_sleep>;
+             pinctrl-1 = <&sde_dsi_suspend &sde_te_active_sleep>;
+             pinctrl-names = "default", "sleep";
+ 
+             port {
+                 panel_in: endpoint {
+                     remote-endpoint = <&mdss_dsi0_out>;
+                 };
 
 -- 
-Neil
+2.55.0
+
 
