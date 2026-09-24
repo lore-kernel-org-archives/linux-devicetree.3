@@ -1,77 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA39E145B27;
-	Thu, 24 Sep 2026 00:01:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A3D29B781;
+	Thu, 24 Sep 2026 00:21:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790208078; cv=none; b=Jt5ruq1ObYwNW45StyZqTv27TojLwYmwkvMk5TU30RP7XxhQJ0BGMyOJ04RVFhaKPJIX9s4+xSyZ5qp1hDBIK3sbitccE6qOHRQSB/D1PPdQEfP9aIV4fOqbuwHWQr5PJ7mkryjoNdRJTkdpYDJmnLXYz+11haVfAdrCYkDJGxA=
+	t=1790209276; cv=none; b=ET4Qt13tUP6MtrNjlW7ZtYX/4zLmNv3bTPsIPyn6BCyPU337bwDwxBEZhldT0Zhk7scFwm6yHmALecDuQ+T83saP3iILC8XtWyCq5AcmW4eHErWmdv2NcpyvKetlGZ1/B7wRHXL/1A18cLzokG8z66G04INIAPdgDzxg5V0dB2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790208078; c=relaxed/simple;
-	bh=46Q7RZqQ3FX4oyHD3t0KSOnYGVK7SothAZIo0iznciE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YagqdgppfNdAVYqcrB6n4toujxWgUqzaURQw66zxchxBNJNqRkHd+/QKaSOYPemm3rvnf0D3u66E1gGHDreYrwi0luzCt7PvftrVHuuTxXnnaFlKAnj7jLB7oj+UxlRYvwz5lm5cNvnQJmq5ozPLr67hLfbyWoOGUMe/gMb7gmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTVja/l2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790209276; c=relaxed/simple;
+	bh=QJRADHmzYT8I355KWt9VHUPooySLt0m95vJyoDFltL0=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=A7U38n42JoQK3YCJ5/P/gQ04S25jrYzBCKJjH/4eYDdtfVRCbxnaWkE7YdolcfB9RyKT0E993ZuKhONVfU6zgsPxOTtr0+WHxRweizwNzThN5FG9qpOi/tulJgTSSZm0nB8iQHaqFPuIyZOtqTG6W2woBaKjqbOTq0w0OexYLTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LGQi+8Bg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTVja/l2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D6B1F00899;
-	Thu, 24 Sep 2026 00:01:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LGQi+8Bg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73DD11F00893;
+	Thu, 24 Sep 2026 00:21:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790208077;
-	bh=lBqdcT0EAj737HC1E0rWSRebtR3QCwsKsGpNadmOXP4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nTVja/l2O/jLr/aSJG9dl1WdWWL5qtzaTXoEueDzdxHy+gEiwaWA+1M0NH+FZVtDn
-	 bZzFPiterLdC9bKLtf6UZvuJoLOdx9rFyJ5zJ9cQMuxqSf1tTQgAirtyMESAL5dLmd
-	 wI62OK2Qd0LxVm2k0JD1m8l7005/k64nbis3z4BG1wHTgqIF9mmCISJeOW2y++8hO7
-	 0fvz9rolRUSlrr5y8/M9fjSt9/lPHpPZe/rvx/rS3RNKk5RJ6i/16EWptORsMjfWDH
-	 5YLd+xPWGi/BatfDEnQhmziSTU3oM1HnX0iGd3Sga1HzVpPtbStd3UwvUDHilDUnMC
-	 cQD1Ixf6RLs9g==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/2] remoteproc: Hawi CDSP support with per-PD proxy performance states
-Date: Wed, 23 Sep 2026 19:01:12 -0500
-Message-ID: <179020806086.529109.14942161183875416558.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914084312.3812408-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260914084312.3812408-1-mukesh.ojha@oss.qualcomm.com>
+	s=k20260515; t=1790209275;
+	bh=7+GXSmzE24/GkdKE1YlsrfnDsoea8s/hMpL6MHJito4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=LGQi+8BgjJWtl79++rw0iM4gPp0atmCUo8BNje0vcnJ4COQz9MOXYOy4lArrLNxeN
+	 cm5taon8ZuzF1XJXQ4x6qP9enZgzntAIkMopRMJmLwkeap+pubh6dd1Y2AsncAQW4n
+	 R6jMFxGNbFmKPN2CI6QaeTOdxWf+N/2QKkM/NfZjm8/PQ5IysQFxlmc+OaASrtjtP5
+	 T/r8GKy/f0HG1XQhcRMrdfGdARoUtkRuLnYhfp7u79F4kGs4n/DkY1PZaiXcWBsvqx
+	 nHBtlozNAMUSRX3cxmE6VovWA4Ra2OYE+MmRwt33e7sMOo+6r64as1SHAAmpuXAm+I
+	 tFJoRB5B5XHzg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A4339E9607;
+	Thu, 24 Sep 2026 00:20:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3] dt-bindings: net: nvidia,tegra234-mgbe: Add missing
+ properties
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179020920515.1246203.8562812404756160098.git-patchwork-notify@kernel.org>
+Date: Thu, 24 Sep 2026 00:20:05 +0000
+References: <20260921110422.220832-1-thierry.reding@kernel.org>
+In-Reply-To: <20260921110422.220832-1-thierry.reding@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, jonathanh@nvidia.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
+Hello:
 
-On Mon, 14 Sep 2026 14:13:10 +0530, Mukesh Ojha wrote:
-> qcom,hawi-cdsp-pas was initially grouped as a fallback to
-> qcom,sm8550-cdsp-pas on the assumption of hardware-level compatibility.
-> Bringup revealed that the NSP proxy power domain on Hawi requires a
-> specific RPMH performance level that the sm8550 driver data does not
-> provide, breaking the compatibility contract the fallback string implies.
-> Maili CDSP shares the same NSP power domain topology as Hawi and must
-> fall back to qcom,hawi-cdsp-pas rather than qcom,sm8550-cdsp-pas to
-> inherit the correct cx/mxc/nsp power-domain constraint.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon, 21 Sep 2026 13:04:22 +0200 you wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> Being a DWMAC derivative, the Tegra234 MGBE supports AXI configuration
+> nodes named stmmac-axi-config and phandle references to them using the
+> snps,axi-config property.
+> 
+> While at it, add the 10gbase-r PHY mode.
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [v3] dt-bindings: net: nvidia,tegra234-mgbe: Add missing properties
+    https://git.kernel.org/netdev/net-next/c/0a2de6c7cded
 
-[1/2] dt-bindings: remoteproc: qcom,sm8550-pas: make qcom,hawi-cdsp-pas standalone
-      commit: bdcb3b5116c36667f52dd80dd24b117cb8101ff5
-[2/2] remoteproc: qcom_q6v5_pas: add per-PD proxy performance states for Hawi CDSP
-      commit: 2eb7702db31d4b468bbb9380dddf1dd3443cac6b
-
-Best regards,
+You are awesome, thank you!
 -- 
-Bjorn Andersson <andersson@kernel.org>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
