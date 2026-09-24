@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E310D4746A6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E554A4749E9
 	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 10:40:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790246409; cv=none; b=Kc8Xzv8w57qUyJrjc8eI3G2jSdHChySUBGBFchnIKcPdpJvM4TV+m3vKm6zETW/UPSg/lFF+38wzusUMfdTvsCk4PspkcDLVndX0uW00Y3Ras6JzVfeDqq5EqBo/ZNg9cGe6JMvQgCLYyTBr9xk3T5uA8bvexjWwyxz1mI6aWMo=
+	t=1790246408; cv=none; b=N8y01x0Rp/qvc70oEOdLMim/JL3yjtcS46lgvcW64N21j3Rn/fxKN0+84nPVSeUWy38/pygWV7/NZI2kn54ToNrDWbkajzhTd5QFTQSeb9TWWAoxN9djKkQnfkMLinfuVEtCm4AiBG+pViVPhlS2WhKgisg0VZ/rAe9wyiLWWlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790246409; c=relaxed/simple;
-	bh=FP9a2A97f6vclR6/24f8NCM6Vfz+h0UsaLyHLIxJiuU=;
+	s=arc-20240116; t=1790246408; c=relaxed/simple;
+	bh=y4BCepEeTCV42NtlCS0SIBt47F5NeIAGZNdAyGLVVnY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VRFY59FyG08cJEXGy0aqqHUAU0p5NrSv1xKl/Km/R0htQyTwgEaHmxDK1BY/HnI3Yz5F1G6TtZoXsZPXjhVA2G0j2QFju2YorqYQRpf26ppqsV5VV5rKMLkgIQ3R5AjSv53d1sWfaTOcn1cOKY0D/RgQoxUEtlgGAQXHgzaj+F8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E392H6y3; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=fqQMsOQ3P320mPK1PKqCnCiPpt21JbbNdtR3PbZTKLKheQiInOpElzpbfboj0gR31F6Za+iewQoRi9WKRfZEhVnhay+7Cg+1ECbVctzPLXcfsSmX+ex1sjk1kEmmoFSXpEQVsWKy8eMJdAm4h8BI0n6DzifQ8S23L1zfkDeHnhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m86SwwSi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E392H6y3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A49F31F000FF;
-	Thu, 24 Sep 2026 10:40:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m86SwwSi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773F61F00899;
+	Thu, 24 Sep 2026 10:40:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790246404;
-	bh=tkHBYqiP3nkej/Cw5wro7Ix4uZGRyISL9CXje00uoZQ=;
+	bh=r+GaS3LlN+CjRL0Z9zaAV2LJkh9hwC0ueQotnZMtr2s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=E392H6y3gGqTu4px7GQKJEYwhoCKb4XjBrK1m8CufgAJl3r0E1/TdHBvjB3RhbSdH
-	 M9FqJ1QMP3HR6I8MwPZoV+OyER8TK0y8iUuSH+3ytP9Dd5u3OCYd4nLmYw3yqMelPb
-	 uhhZqRRTtsU0nMKWXuGYW/AI0RqgfOJr3+INJC4BHp8qVLRPHzK1BLI+Yh8UEcc2eY
-	 7Iimca7JchwXxzyc0DhWOJfx2MJ7YIsSyi13QLYYLPmn490Gn/ZnEg4XoHEQrRN+/x
-	 Xo2/aYGpMg9LHpLuj3/cVb1BmDd8lXUX1vR4Uhj5LduuJPxe6dh/lZAQBdfTXLPtJ+
-	 K5j5fzTn3gU6A==
+	b=m86SwwSif9oLzch0WVLclJCjRf9aLoBmI7i4n1639QqDwrA7slzDbBxIwbnRgGPJA
+	 Wg6tDGm7NXfH11egOUeAn4qjmSoYvwrLzqxtb3FFq5PYkFQ0x/0yJ5pV/nIlKu+1d7
+	 8+iNRa2jqEF9bDlQvrVlH4sNN1UiiPg+455JDLfPRIteheujOcofSQ749jRwK7DiiC
+	 OAV1nwVgBRWCa/VJJlNopGtOZDlg6FP4QeuiHfyaXWgKTCYek2o4Ka15v8oSgA9IC9
+	 kFznZRw/ictmdXQyHON8zJpAoNxX9n4TUwir1TWnq72i5Qx0aEWQ1DRNDxAAin66JQ
+	 7qtXaivnzkW6w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 4/8] net: dsa: Add tag handling for SoC-e
- switches
+Subject: Re: [PATCH net-next v3 5/8] net: mdio: Add SoC-e SWIP MDIO
+ controller driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vasilij Strassheim" <v.strassheim@linutronix.de>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-4-ddebafcb9ba7@linutronix.de>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
 References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
- <20260923-devel-vstrassheim-soce-dsa-ml-v3-4-ddebafcb9ba7@linutronix.de>
+ <20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 10:40:03 +0000
-Message-Id: <20260924104003.A49F31F000FF@smtp.kernel.org>
+Date: Thu, 24 Sep 2026 10:40:04 +0000
+Message-Id: <20260924104004.773F61F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,65 +47,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] net: dsa: tag_sdsa: unsupported VLAN tags left in hwaccel metadata
+- [High] mdio: null pointer dereference on devm_ioremap failure
 --
 
-commit c9312ab6752036eeab3076e94713c79223982016
+commit b20b4c686880ab360f1cde6275ae5af3a5306146
 Author: Vasilij Strassheim <v.strassheim@linutronix.de>
 
-net: dsa: Add tag handling for SoC-e switches
+net: mdio: Add SoC-e SWIP MDIO controller driver
+   =20
+This commit adds a driver for the MDIO controller integrated into SoC-e
+Ethernet switch IP cores. It supports Clause 22 and 45 transactions while
+managing shared transaction control registers.
 
-This commit adds a DSA tag driver for SoC-e switches, which use an 8-byte
-SDSA header carrying frame direction, port, and VLAN metadata. The header
-is inserted between the source MAC address and the original EtherType on
-transmit and receive.
-
-> diff --git a/net/dsa/tag_sdsa.c b/net/dsa/tag_sdsa.c
+> diff --git a/drivers/net/mdio/mdio-soce.c b/drivers/net/mdio/mdio-soce.c
 > new file mode 100644
-> index 0000000000000..8cc3fa357be42
+> index 0000000000000..59c0b3da483eb
 > --- /dev/null
-> +++ b/net/dsa/tag_sdsa.c
-
+> +++ b/drivers/net/mdio/mdio-soce.c
 [ ... ]
-
-> +static struct sk_buff *sdsa_xmit(struct sk_buff *skb, struct net_device =
-*dev)
+> +static void __iomem *soce_mdio_iomap(struct device *dev, int index)
 > +{
-> +	struct dsa_port *dp =3D dsa_user_to_port(dev);
-> +	struct sdsa_tag *tag;
-> +	u16 vlan_tci;
-
+> +	struct resource res;
+> +	int ret;
+> +
+> +	ret =3D of_address_to_resource(dev->of_node, index, &res);
+> +	if (ret)
+> +		return IOMEM_ERR_PTR(ret);
+> +
+> +	return devm_ioremap(dev, res.start, resource_size(&res));
+> +}
 [ ... ]
-
-> +	/* SDSA carries no TPID, so only encode 802.1Q C-tags. */
-> +	if (skb_vlan_tag_present(skb) &&
-> +	    skb->vlan_proto =3D=3D htons(ETH_P_8021Q)) {
-> +		vlan_tci =3D skb_vlan_tag_get(skb);
-> +		__vlan_hwaccel_clear_tag(skb);
-> +		tag->frame_type_port_hi |=3D SDSA_TAG_VLAN_BIT;
-> +		tag->vlan =3D cpu_to_be16(vlan_tci);
-> +	} else {
-> +		tag->vlan =3D 0;
-> +	}
+> +static int soce_mdio_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct soce_mdio *priv;
+> +	struct mii_bus *bus;
+> +
+> +	bus =3D devm_mdiobus_alloc_size(dev, sizeof(*priv));
+> +	if (!bus)
+> +		return -ENOMEM;
+> +
+> +	priv =3D bus->priv;
+> +	priv->data =3D soce_mdio_iomap(dev, SOCE_MDIO_DATA_IOMAP_IDX);
+> +	if (IS_ERR(priv->data))
+> +		return PTR_ERR(priv->data);
+> +
+> +	priv->ctrl =3D soce_mdio_iomap(dev, SOCE_MDIO_CTRL_IOMAP_IDX);
+> +	if (IS_ERR(priv->ctrl))
+> +		return PTR_ERR(priv->ctrl);
 
 [Severity: High]
-Does this else branch leave unsupported VLAN tags (like 802.1ad) in the=20
-skb's hardware accelerated metadata?
+If devm_ioremap() fails in soce_mdio_iomap(), it returns NULL. Because
+IS_ERR(NULL) evaluates to false, will this bypass the error check and allow
+the driver to proceed with priv->data and priv->ctrl set to NULL?
 
-If a user configures an unsupported VLAN protocol on a DSA user port, the=20
-skb will still have skb_vlan_tag_present(skb) set when reaching sdsa_xmit().
-Because this branch does not clear the tag via __vlan_hwaccel_clear_tag(skb=
-),
-the conduit driver's MAC hardware might subsequently insert the remaining=20
-VLAN tag at the MAC boundary.
-
-Could this insertion displace the 8-byte SDSA header just pushed, causing=20
-the switch hardware to receive unrecognized frames and drop them?
-
-> +
-> +	return skb;
-> +}
+If the driver proceeds with NULL pointers, will subsequent PHY accesses=20
+through soce_mdio_read() and soce_mdio_write() pass those NULL pointers to=
+=20
+readl() and writel(), leading to a kernel panic?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923-devel-vstr=
-assheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de?part=3D4
+assheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de?part=3D5
