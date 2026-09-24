@@ -1,53 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8FC233D51A;
-	Fri, 25 Sep 2026 10:15:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCA748E0DE;
+	Fri, 25 Sep 2026 10:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331353; cv=none; b=kJRzSXJkI9/VOEic2nOFzWarxguj3E9KLquCJofOR1l3uH8NjKAC1PerOPrXTrh8dvi2Y4u5U/pOcJpAchL02kF32WL4TO3r6Gu09/e4X/b10Z0Ecxblv9Wjga7MoBigbtSFUBWXVmoY8C/FOv1DEVqXa1aHAfPBq5TAKq6AtUQ=
+	t=1790331377; cv=none; b=nZI6ekPlvbDengMDLM6YQmcy4wATTLGk1xR37GTBb7ROyAAtKq0JANkNfiGts2IPgtHxDDFOG0dfTyBV7CcGMmW3+llypuuu55y2DinmF9Msi320MDJCJ/C9NI04P8aLC9Jar5gf0hU2TEaCRYh4/w7Ad60n8jPOCl4NsYg0ZzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331353; c=relaxed/simple;
-	bh=uVabgofQu88hjGhl75WJleVJ7FW/OHb+giCp23ISnV0=;
+	s=arc-20240116; t=1790331377; c=relaxed/simple;
+	bh=y/pkRgfVgqtwzu360IWPfkOBTH+11IHGTURl/Z+hIfo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=h+Edugv/3NkO0YnQ5jm+KCb+2lMlXAOZBaC4+drqPBGEYBNqBmNpwIIW474vdtPXIAHY5NY6RlYXa9qLGIevqUJXHVaf7V/+T7fj4IrcZsbfBMwPb9iCJbcQzmJfnPey/Nme3U2PE3H8zpYMPrh0TdWD3aJjHQeBbxZHV6YrX6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OsaZILf4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=todZaFGYQFQWkvbi6i/MBq6QLbSIMMVNzQyeji3rJUK0iv5UIcdwH3sRqNoI6uZGTt1YVTxBgFojbxgm1uOr4hCJc9jBOMncFihYYKSDYDflogihcj5BiWpGGo238Qb5Oolyb5cDom5JguQgVQd3SrIiwZCuwv4WdOqRE5SMCOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yp9XNDYk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OsaZILf4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BAB01F000FF;
-	Fri, 25 Sep 2026 10:15:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yp9XNDYk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12B7F1F000FF;
+	Fri, 25 Sep 2026 10:16:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790331352;
-	bh=SN0flw/8Kg1krmde75Kg/DMOynz3kCotUdHuK1V6Xr0=;
+	s=k20260515; t=1790331376;
+	bh=x30XPvX9oq5pFzlLxMBNs2CmcKu5R9h7xi4wepN5BgE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=OsaZILf4w4zlCQlCxj/Q8uDGHj7tj49qi6rT67nMvYGWRJRzwlG+g/gPYXzswuFAx
-	 IZCnrXNbTUKGSYEnDrvKmDvBY3gdRYac80GOCdU4v2C1FiNE+LYSnEEHIyT3PMrqLV
-	 UCFmj+4+epiqNEVD6ZXavX/78kCObZWpz0IS+qliHIT9buz+2VYzBhzJgnwnc460BO
-	 URHoDhRGC+QSD/8Swod0KO5Fw1f3mpNhmJA06StM83Nm59taxOxrV4ZDm02+uzOrtS
-	 cIzc36PX6R/PEC12IPPoj7AmAYLbo2WQLqcSG8OD3lBaeK7MlWOfQb5octRaoQ9D+F
-	 2QzoXKJ2JusDw==
+	b=Yp9XNDYkzMo2akdZaGKgo9VdxHiTbYUkikcYR/CVxUgOqs93WJRYJM8B1HtHY4LJy
+	 S9apQrQGKZdnhk0wOTgh0uLDvIiu00W6cr/N6gshuu2LItEs7GejiD8xfD5Pcw1kzN
+	 xvYwN+dU1W2FmGlyxPizBYakw4fiR1GBTGaG4Uq6NgAu0+aFgUbIsIK9YjlE7pGssh
+	 knPYebqiS+jX05vL0Q49CI9GfIC3xt5LCsfDnU9Pd2ippBOyY3XoOztlKT6TpR2y/h
+	 Z9qB9qp4CqZb5CBikJF+0oLaaqSBnGNWd64RE7UoFK8IT/PHqkmoYr9aESf3O1t9EX
+	 0FgXPQRZ2k4DQ==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
- Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, 
- Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
- Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
-References: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
-Subject: Re: (subset) [PATCH v3 0/6] Add audio support for QCS6490 Rubik Pi
- 3
-Message-Id: <179027686764.149798.12160632737276698266.b4-ty@b4>
-Date: Thu, 24 Sep 2026 20:07:47 +0100
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+In-Reply-To: <20260918-qaif_dai_id_support-v1-0-ed863c0e5e45@oss.qualcomm.com>
+References: <20260918-qaif_dai_id_support-v1-0-ed863c0e5e45@oss.qualcomm.com>
+Subject: Re: [PATCH 0/3] ASoC: qcom: Add QAIF AIF MI2S and TDM DAI support
+Message-Id: <179027514987.149798.7431502097778220726.b4-ty@b4>
+Date: Thu, 24 Sep 2026 19:39:09 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,26 +50,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1897; i=broonie@kernel.org;
- h=from:subject:message-id; bh=uVabgofQu88hjGhl75WJleVJ7FW/OHb+giCp23ISnV0=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtknRBkljFnM61yDSRnzRLtpjle6pslbsWPbI6
- QvEw48jHBCJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarZJ0QAKCRAk1otyXVSH
- 0OJVB/9bE0yEHFxdW2lfweF638DI6fa/UFgK0UXU/W9e7NJnDqbvKUpWCrHsY6wXOsdUu7P1dno
- VjWF/zQ1qKLIWkB+tNRq6oIJ0TXxrAEhakJiDjNou8uiW1OQvsBozmnajOjI97J5gkd5Tprvap1
- azrTfn2o5siwAVrlGDEkII6G64zCLYVn7AZteAVODpGkthzJz2TF0/11/wsnRM01NcOF3cvY1V8
- ESV7oNUpLglN+rRMjiATx3tOPZ8gzzKk2hKLHjh3/adXCTPBrWkZtvkcPGZ2QmiKBRz47CkF8sB
- ppvaQK2OcmKBG5Yx6BG1PSO/IJW4vh4jEz5nXttJTQt5Rlt8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1683; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=y/pkRgfVgqtwzu360IWPfkOBTH+11IHGTURl/Z+hIfo=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtknrjKnqQqh1MGdfB3eKth+VB2/gSvZmbLtEs
+ 2tAFqnTs8yJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarZJ6wAKCRAk1otyXVSH
+ 0NSdB/4kBbLmp3iWDFgQAs0p0PNUdWqoGbksGWw/SkFJBrH9CP9Q85gBNc0B173FSaW5zM360zW
+ g/lInIcZ77EjbJasODiS90LnPEc6ak5LrtuK6wZpnRQoT17ClWgccYI/tExcQxhsKOdZ/mKqvwo
+ xbH++xoV8MfJGP/646rxkENrsvosBj2xJMZpWwozlUatkfr2ZpHuyimvFw8+StwRXFfY5ksUSC7
+ uBuoHzjdUtCAEYsbCrUOa1Z8Jcal6kTtMQKX5j5CYL7XOp14Vsd/XIjneaF7qVLqli3MM+cKPoE
+ n7bLnlYzku7SJPX6kyICd+hGQuUE1fRHQg8xvTqwiEAEX5yD
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 04 Sep 2026 18:02:24 +0800, Hongyang Zhao wrote:
-> Add audio support for QCS6490 Rubik Pi 3
+On Fri, 18 Sep 2026 19:01:11 +0530, Mohammad Rafi Shaik wrote:
+> ASoC: qcom: Add QAIF AIF MI2S and TDM DAI support
 > 
-> Add audio support for the Thundercomm Rubik Pi 3, based on QCS6490.
+> Add support for Qualcomm Audio Interface (QAIF) AIF MI2S and TDM DAI
+> id's across the Qualcomm audio stack.
 > 
-> The board uses AudioReach/GPR on the ADSP. An ES8316 codec on primary
-> MI2S provides headset playback, capture and jack detection, while the
-> LT9611 bridge on quaternary MI2S provides HDMI playback.
+> The new DAI IDs are required for platforms such as Shikra, Hawi, and Nord,
+> where QAIF audio interfaces are used to connect external audio devices.
 > 
 > [...]
 
@@ -86,16 +79,12 @@ Applied to
 
 Thanks!
 
-[1/6] ASoC: dt-bindings: es8316: Document jack detect inversion
-      https://git.kernel.org/broonie/sound/c/55c9c04e847f
-[2/6] ASoC: dt-bindings: qcom,sm8250: Add RubikPi 3 sound card
-      https://git.kernel.org/broonie/sound/c/f6a447b32a39
-[3/6] ASoC: qcom: common: Add generic headset jack helpers
-      https://git.kernel.org/broonie/sound/c/7f8dd07370f8
-[4/6] ASoC: qcom: sc8280xp: Add per-DAI board configuration
-      https://git.kernel.org/broonie/sound/c/ea6e98472c65
-[5/6] ASoC: qcom: sc8280xp: Add RubikPi 3 sound card support
-      https://git.kernel.org/broonie/sound/c/c82a336b1864
+[1/3] ASoC: dt-bindings: qcom: add QAIF AIF MI2S and TDM dai ids
+      https://git.kernel.org/broonie/sound/c/7cb06353a203
+[2/3] ASoC: qcom: qdsp6: lpass-ports: add support for QAIF AIF MI2S and TDM dais
+      https://git.kernel.org/broonie/sound/c/897be15f03b1
+[3/3] ASoC: qcom: sc8280xp: Handle AIF MI2S and TDM interfaces
+      https://git.kernel.org/broonie/sound/c/654d53e6901f
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
