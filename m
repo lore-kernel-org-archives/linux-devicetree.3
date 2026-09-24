@@ -1,167 +1,303 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2170A400E0A
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:09:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24E442586E;
+	Thu, 24 Sep 2026 07:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790233780; cv=none; b=PgYW6/C1K5oTMIFatLD4kkZ5+C09oIfJi3AVm6enWOGY1FGkkM67FWNQXPnHIafchlra1zQZu6l+OH/gvL7vnMuaBcIQpd7ASTQm7PlY0Bedx1S9ytcxgSYZfjPMPUDpN5t1ziNPSR2svv/9TEHxbdge7QW16NljKU6kiPm2RUM=
+	t=1790233847; cv=none; b=T8iyhDiGDO4unaK8blZpa2YSIYywTL8aqvddOXs81IMAEQj9zPZJ79IoOk76X6QN5uRqvftjZUEwtkidnyQUuJVD+f0bwys1C4lm1qsVG2OxHBadocfr8r5E72WSwEA0XDoXIwh8VUwPZr7n0hV6I6f/7yelG/SV5lEkjKoVzZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790233780; c=relaxed/simple;
-	bh=9B2krtCY+MxnHsDNals5eAEcJxuwJx2cjjHmlvlv5Qg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P7DAEQq1OAiHd5UgwvLJ3mBfvdXh06tgW4PI9LX9byAbaiT4ap91hxElsIcUGq2OHnhBtdcaFhoOXybLzS/4xEogxtSG9EDGnjAEiVv+7kuFXTLSP1krDLsGrBPTs6Rv0coSWPVkoODHVG07E9v/XLGv0k0EFR9BRGVNo1fuxys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j4pbpWjc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Vx4S99RS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790233847; c=relaxed/simple;
+	bh=UyjFFOIrgFI8xVAwiUJ08110T6a6WRSRh6ivMlZFL5Q=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=ZmKA4h2Cy1vyt/uMlpHhH4Dl3F+bxibeBR1+QZdrDTFmvj3WTMYgZs5R7FFT0hJHEfRlsHzhWBlcn/Fi3+mfmoIDqGuZX+qHaZfMYz5rasVkqv+K9dc9NO98Db0tfnVmgwYs2RsY5vPPV2iJy0mvBdRyV9CP3/UNOYv0Y7Y8zRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ZiruNqzU; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j4pbpWjc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Vx4S99RS"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5eAop2277186
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:09:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=KQIhQXP7ObT82EVVw2F0DwRt
-	jw2CrGVeAmf9ccNKQ5w=; b=j4pbpWjcVTM7h0IdZjwqCkUwN9hul/WbjLUQyaG5
-	RrEoObGA4t2uWizjAInxcdTCVG7TIJr2gm+N/KSe2XqIqUVwfjFxbFcfVk1vRwAD
-	sdt0CnWAumwr1mmc2JeJsE8qmAOkOUKNusNp5e31LjgLlbwZyxvZNTeK2i8YnQmf
-	vOnoNW78CfdeH7fGk2pXd7GrzNvF9u5OVgb0/hFt4OR6eEQIkWZDKPeBye1grpUA
-	Z35HqeIMIPnWRl7RUzk2TohRa5rlDI8fPQ2uvo/oCXzYzT3m2hfWTaABsr4xKSTN
-	W4WYc86qT5hTT0zCV6khzVVGm0LfkKYO2CweSLLgtYhqTw==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjxuts4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:09:33 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-32b8c2b30c4so2814076eec.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 00:09:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790233773; x=1790838573; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KQIhQXP7ObT82EVVw2F0DwRtjw2CrGVeAmf9ccNKQ5w=;
-        b=Vx4S99RSHgJHr0uRAxOHXMp3DA9nkAFAPICfKVBrkkS2DSeNfwYprTyPeDxKEZeCNy
-         cWEttz8a+XRy8Eaw2s+CmS89bcw9cWl85t+MyGIsUMzAECRyQaoIeyk6SYVMewbClUUu
-         hXJYeX04mI9YuN5wlKCN0RfHhDUvk6VLA046zRqwkJ3ta4IFlrcDBCxlYgV2+gplUmux
-         WhvbiUZYo48sFQe21piVl6kqBpptitit+quIc5gZUseblMaPRqgwja+VIUo9wd+F08ru
-         If3mV8i36fZ52Q+D8P3odHvVSW+kjeBeYDvLZK2sJeofnJc5uPnGOSr17oxDgRyr7SGM
-         n8KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790233773; x=1790838573;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KQIhQXP7ObT82EVVw2F0DwRtjw2CrGVeAmf9ccNKQ5w=;
-        b=BVIF3wUx3FmLnvux0sCpmuewbv32Tzh5rH9JDvgsNVZPppxrgj5rTuO6l54SW1IqZZ
-         7GYGO4ZfDqOlRJU4B79vrWeamFfV9QFviMbcYvV2QMd0jCVMdqes4NDXhMf+pG4iVFWO
-         2NwhefYvtxo5O/Vt20JoV/qCl6PvJpB0sRvCTsPo2igGH5MAS3Sty7b6LYA+j9YHxEEK
-         yA+YJNdsfiZDMQ+ef1znXGkGRCKyRfcS2vX9X/mXnJvgHzW9c12dtNkfepTQ2J7W8tZY
-         4BL12aln9+fyjvGMmJwHobR3EYyhhIi9VfJf9MRlljbAfIdnT+3Ljf5my1n9M3J+K42q
-         6wrA==
-X-Forwarded-Encrypted: i=1; AKwUvBzFYH/st4lMw8f3VfX4HoK1Yzlpj/8J9trqWrn9qghLRQrWmwwLPZMkvV1GbvzndM782yccXLXVvcvl@vger.kernel.org
-X-Gm-Message-State: AFuF++mj8ZHQn7gykpAAeE8kVk0VOu05BhLPhYILA9VUTSAVuPpZqp7l
-	c1B5bVF5dJpVQwcjYXa/8hvhx0l0qQNxnROhmaW2TzDhetgP8xNvTMfbClRv3GumaYq1Rm7k66L
-	G2h5VTz6BXgheNUG2iDULJSiGPTF0NYFcwavGentscc/gBYCMRxvWiB1lm1QoySSU
-X-Gm-Gg: AYBFou1k/OvFXlv0k6Q/dWzQECUCkHzyCn8WTxOqpQZfJt4uAeno/qa8Gem+DO6Mpmi
-	gBWwLGgHIeA8O5qz6HvWKgtrL4xkdCd3NGmKMhNBo2YCNPfDpDkG1Yt9VWRojHc8raMbVmwQ5UD
-	8qpKKVUaQ/DyMNBG3q09q5nkJK0cV4LnWsMjmpqLYokcptCsgUoh8A0mOQDQrDDJ5bFUsISFEjP
-	DHXx673NRzduX0BP3qvUNH0wK/kgDU5l4E35dCXBOG4c25nJMXypABSdG0Eaokwbv0kSOpe0X18
-	sysaQU8yiqPED7M3fDxZNX2dVS0VAXRfPUkVXZDqkfBWxV5+RBOR/d/yQmjuo2Euu3pr0PLDdCn
-	nCTImC0RDfRuijq9WRvEp2q9Lco/5DIVI0F6HEX2JrQ==
-X-Received: by 2002:a05:7301:618c:20b0:332:8b9b:bdc4 with SMTP id 5a478bee46e88-340062720f6mr1228280eec.20.1790233772654;
-        Thu, 24 Sep 2026 00:09:32 -0700 (PDT)
-X-Received: by 2002:a05:7301:618c:20b0:332:8b9b:bdc4 with SMTP id 5a478bee46e88-340062720f6mr1228257eec.20.1790233772034;
-        Thu, 24 Sep 2026 00:09:32 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96952605sm11525410eec.22.2026.09.24.00.09.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 00:09:31 -0700 (PDT)
-Date: Thu, 24 Sep 2026 15:09:25 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] media: iris: Add support for nord platform
-Message-ID: <arTMpTiQVOdtG6G0@QCOM-aGQu4IUr3Y>
-References: <20260919-nord-iris-v1-0-94428761ec06@oss.qualcomm.com>
- <arPYfVPIWblIayxl@QCOM-aGQu4IUr3Y>
- <82ff93db-6478-883b-7afc-ee4db79d0353@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZiruNqzU"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E78EDC48;
+	Thu, 24 Sep 2026 09:08:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790233723;
+	bh=UyjFFOIrgFI8xVAwiUJ08110T6a6WRSRh6ivMlZFL5Q=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=ZiruNqzUAKqrNhYJlP9VSamq0SOPmZCHtnxQzd+tBuYIzD4w7/MElK2tjJAorE+fy
+	 CPz+FYTPWKWR5t3mYh0psH3rsI9iwls3eV7KQvOrQP2Ni7LWTvnz46Sl5wWhcK3IiE
+	 Rn17qhL62fvtzGgPG/bwGpu9UblJtP5/NWKjwq2I=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <82ff93db-6478-883b-7afc-ee4db79d0353@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: h1nEF3n6c2YHtSZ_aPPlKAdhfq7id7sw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAzMCBTYWx0ZWRfX73axZ941wo08
- brZ3SuRC3m7gZlrWJyQjb4mguR5uXDSeihh+lOUm57jkzp/ZPK24YY/Mb5Vhz1AYLHOlfkp6j8Y
- n8ehlkb8AFYrxVq4+9InJtnPpYLikQ/FruMgAzG8pvbORIn0ltovqT1gwTPnJW6iEzUI1WX/kPO
- 3c1wPOj3UVIhc1MYOkww4Jp0veWzH6S9NoTLljwKfnHUb73Oaa3hTKy/EjHmoXsuUfEAAvVVP7U
- OrDfZHILmt0CuIXgzBqsuaTcYo4T/JHYYLbR9+MefMeL6kuMFw+E4xZSlv970YqA1LK26urQ4MP
- 2dWxt+BjawHQTj1uRjmsnfEHFrmzv81APezgPEoGtuFtHhrBxJdDTxml7M5Z2zlJYu/5ahY+Omb
- ohVOXNm2Th/ikpwlVFsKgFg4VveALCyqqshLz9GbLWsRj4pL0xB6KnLqveagWizTH2E29vueS2E
- 8BggkWP9mucKM7h52bQ==
-X-Proofpoint-GUID: h1nEF3n6c2YHtSZ_aPPlKAdhfq7id7sw
-X-Authority-Analysis: v=2.4 cv=NLpAaE6g c=1 sm=1 tr=0 ts=6ab4ccad cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=jaWJLzSDDGsGEjwdg8sA:9 a=CjuIK1q_8ugA:10 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAzMCBTYWx0ZWRfX2Ch7TVNsogoW
- Q9oU71s6fLmX3muIfoM/PuXcyiiSetYrBLTyvFd7wqBRT3K5neOV1byhnNAI3HjgBPF9KiGhuGW
- bkvVvYtsd7tKb38i0B4mYu+LtP0y+II=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 suspectscore=0 priorityscore=1501
- impostorscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240030
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <arDZoulyKIzVj-73@francesco-nb>
+References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com> <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com> <aqLaLmz7n31P6igy@SMW015318> <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb> <aqLif2zrrsbYd5sM@SMW015318> <aqLk5UAv-j39Jxd3@francesco-nb> <20260918192447.GB1465432-robh@kernel.org> <178981707848.1761404.17065871878122418287@ping.linuxembedded.co.uk> <arDZoulyKIzVj-73@francesco-nb>
+Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Rob Herring <robh@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Frank Li <Frank.li@oss.nxp.com>, Ernest Van Hoecke <ernestvanhoecke@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>
+Date: Thu, 24 Sep 2026 08:10:27 +0100
+Message-ID: <179023382707.1723501.12070631258057963152@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-On Thu, Sep 24, 2026 at 11:52:52AM +0530, Vishnu Reddy wrote:
-> 
-> On 9/23/2026 7:17 PM, Shawn Guo wrote:
-> > On Sat, Sep 19, 2026 at 10:14:54AM +0530, Vishnu Reddy wrote:
-> >> The nord platform integrates the Qualcomm iris video codec hardware,
-> >> which is compatible with the glymur based iris implementation.
-> >>
-> >> This series reuses the glymur DT schema to accommodate nord iris
-> >> support and adds the required iris device tree node to the relevant
-> >> nord device tree.
-> > [...]
-> >
-> >> Vishnu Reddy (4):
-> >>       dt-bindings: media: qcom,nord-iris: Add nord video codec
-> > The binding should go through media subsystem. That said, this series
-> > should be named with "arm64: dts: qcom: ..." and only contain the 3 DTS
-> > patches.
-> 
-> Are you recommending splitting this into two separate series, one containing
-> the codec binding patch and another containing the three DTS patches?
-> 
-> I can certainly do that, but could you elaborate on the reason for preferring
-> that approach? I'm trying to understand whether this is due to the expected
-> routing through different trees/maintainers or if there is another consideration.
+Hi Francesco,
 
-The routing is one reason. The other one is that the split will make it
-easier for us to build Qualcomm Linux topic branches by pulling patch
-series from list using b4.
+Quoting Francesco Dolcini (2026-09-21 08:15:46)
+> Hello Kieran,
+>=20
+> On Sat, Sep 19, 2026 at 12:24:38PM +0100, Kieran Bingham wrote:
+> > Quoting Rob Herring (2026-09-18 20:24:47)
+> > > On Thu, Sep 10, 2026 at 07:12:05PM +0200, Francesco Dolcini wrote:
+> > > > On Thu, Sep 10, 2026 at 12:01:51PM -0500, Frank Li wrote:
+> > > > > On Thu, Sep 10, 2026 at 06:39:30PM +0200, Ernest Van Hoecke wrote:
+> > > > > > Hi Frank,
+> > > > > >
+> > > > > > Thanks for reviewing this so quickly.
+> > > > > >
+> > > > > > On Thu, Sep 10, 2026 at 11:26:22AM -0500, Frank Li wrote:
+> > > > > > > On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke w=
+rote:
+> > > > > > > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > > > >
+> > > > > > > > Toradex boards route the sideband signals of their 24-pin c=
+amera
+> > > > > > > > connectors to different GPIO controllers. Camera overlays w=
+hich name
+> > > > > > > > those controllers directly must therefore be duplicated for=
+ each host
+> > > > > > > > board.
+> > > > > > > >
+> > > > > > > > Describe reset, power-down, detection and power-control as
+> > > > > > > > connector-local GPIO functions. This lets an accessory over=
+lay remain
+> > > > > > > > independent of the host wiring. MIPI CSI-2, I2C, clocks and=
+ supplies
+> > > > > > > > remain described separately because the GPIO nexus does not=
+ abstract
+> > > > > > > > them.
 
-Shawn
+Will it be possible to extend this to add the mapping for MIPI data and
+clock lanes and regulator supplies?
+
+I.e. does this do anything that would push us down a hole that stops us
+mapping those signals?
+
+What do we need to do next to be able to map I2C/CSI/Regulators through
+a 'nexus' ?
+
+
+> > > > > > > >
+> > > > > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.=
+com>
+> > > > > > > > ---
+> > > > > > > >  .../connector/toradex,camera-connector.yaml        | 86 ++=
+++++++++++++++++++++
+> > > > > > > >  1 file changed, 86 insertions(+)
+> > > > > > > >
+> > > > > > > > diff --git a/Documentation/devicetree/bindings/connector/to=
+radex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/t=
+oradex,camera-connector.yaml
+> > > > > > > > new file mode 100644
+> > > > > > > > index 000000000000..06e6836e1aa6
+> > > > > > > > --- /dev/null
+> > > > > > > > +++ b/Documentation/devicetree/bindings/connector/toradex,c=
+amera-connector.yaml
+> > > > > > > > @@ -0,0 +1,86 @@
+> > > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > > > > +%YAML 1.2
+> > > > > > > > +---
+> > > > > > > > +$id: http://devicetree.org/schemas/connector/toradex,camer=
+a-connector.yaml#
+> > > > > > > > +$schema: http://devicetree.org/meta-schemas/base.yaml#
+> > > > > > > > +
+> > > > > > > > +title: Toradex camera connector GPIO nexus
+> > > > > > > > +
+> > > > > > > > +maintainers:
+> > > > > > > > +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > > > > +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
+> > > > > > > > +
+> > > > > > > > +description: |
+> > > > > > > > +  Toradex boards provide 24-pin camera connectors carrying=
+ MIPI CSI-2, I2C,
+> > > > > > > > +  clock, power, and sideband GPIO signals. This binding de=
+scribes the sideband
+> > > > > > > > +  signals as a GPIO nexus. The other connector resources r=
+emain described by
+> > > > > > > > +  the surrounding board device tree.
+> > > > > > > > +
+> > > > > > > > +  The nexus exposes connector-local GPIO function numbers =
+to camera overlays
+> > > > > > > > +  and maps the functions wired by a carrier board to their=
+ GPIO controllers.
+> > > > > > > > +  GPIO specifiers contain a function number followed by st=
+andard GPIO flags.
+> > > > > > > > +  A board may omit functions which it does not wire.
+> > > > > > > > +
+> > > > > > > > +  The function numbers are:
+> > > > > > > > +    - 0: Camera reset, connector pin 11
+> > > > > > > > +    - 1: Camera power-down, connector pin 22
+> > > > > > > > +    - 2: Camera identification, connector pin 23
+> > > > > > > > +    - 3: Camera power control, connector pin 24
+> > > > > > > > +
+> > > > > > > > +properties:
+> > > > > > > > +  compatible:
+> > > > > > > > +    const: toradex,camera-connector
+> > > > > > >
+> > > > > > > Name is too generally, suggest use board name, we got similar=
+ comments at
+> > > > > > >
+> > > > > > > https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.=
+liu@oss.nxp.com/
+> > > > > >
+> > > > > > I saw that and it made me reconsider this name.
+> > > > > >
+> > > > > > However, I believe that in our case it is specific enough. It i=
+s really
+> > > > > > the same on all our carrier boards, and Toradex specific. It's =
+also only
+> > > > > > for cameras, which is more defined than just "io". Curious to s=
+ee if
+> > > > > > others agree or if we should come up with a name for this.
+> > > > >=20
+> > > > > If some days later, you update hardware connector to 30pin from 2=
+4pins.
+> > > >=20
+> > > > That connector is there since years, not days.
+> > > >=20
+> > > > We have multiple cameras, designed to mate with it.
+> > > >=20
+> > > > If tomorrow we will define a new camera connector (that is absolute=
+ly
+> > > > possible), the new connector will get its name, maybe
+> > > > toradex,camera-connector-v2, or toradex,camera-connector-22pin or
+> > > > whatever that connector would be named, not just in the DT, but als=
+o as
+> > > > a product and on the actual HW.
+> > >=20
+> >=20
+> > Diving in because, cameras :D
+> >=20
+> >=20
+> > > I for one hate 'v2' naming.
+> > >=20
+> >=20
+> > Me too. I wouldn't ever call it v2, but a future
+> > toradex,camera-connector-24pin might be appropriate.
+> >=20
+> > Note that I specifically said 24 as an example because there is already
+> > a 22 pin Raspberry Pi connector.
+> >=20
+> > If Toradex were to produce boards with a 22 pin connector, I would
+> > anticipate it to be the same pinout as the Raspberry Pi connector.
+> >=20
+> > Raspberry Pi camera connectors have already somewhat become a defacto
+> > standard (albeit for both positives and negatives there).
+> >=20
+> > So I would imagine if a 22 pin layout were ever made it would be
+> > compatible with RPi 22. And if Toradex ever make a 22 pin connector
+> > which is not RPi compatible ... well I might scream into the void ;-)
+> > but then it would have a toradex prefix I guess!
+> >=20
+> >=20
+> > Equally we have other vendors who have 30 pin connectors (There are
+> > quite a few, so I have myself a research project to go find out how
+> > {in,}compatible they all are here ...)
+> >=20
+> > So, I would imagine if we're giong to name connectors we should set out
+> > an expectation to start with
+> >=20
+> >   toradex,camera-connector-30pin
+> >   raspberrypi,camera-connector-15pin
+> >   raspberrypi,camera-connector-22pin
+> >=20
+> > And if Toradex were to make a *different* 22 pin connector then it would
+> > be:
+> >=20
+> >   toradex,camera-connector-22pin,
+> >=20
+> > But if it's RPi layout, then it would be defined as such.
+> >=20
+> >=20
+> > All that to say - I think Toradex certainly warrant a specific
+> >=20
+> >   toradex,camera-connector
+> >=20
+> > But I think specifiying the pin count already could be useful (but not
+> > essential).
+>=20
+> As Toradex, this is how this connector is called, and there is no plan
+> to design a new one. If you want a full descriptive name you can call it
+> "Toradex MIPI CSI-2 Camera Connector".
+
+I don't think a full description is the issue here, as it's related
+to the compatible string which can't have spaces.
+
+In case it wasn't clear - I think toradex,camera-connector is adequate!
+
+It's just that I am 95% certain there will be a future update required
+when another connector appears, and if that happens I think it should be
+called something more specific than '-v2'. So the bike-shed becomes -
+how does that impact to the current name.
+
+I say this explicitly because I wouldn't call the 15 pin RPi connector
+'v1' and the 22 pin 'v2'.
+
+If a new connector is designed, then I expect it will serve new
+requirements.
+
+> I see no evidence that we are going to have a connector with a different
+> amount of pins anytime, if we would redesign the connector today it will
+
+I can imagine some connector updates might happen if(ahem, when?) MIPI
+C-PHY gains any popularity on industrial / SBCs / SoMs. Perhaps even
+sooner now that you have Qualcomm SoMs on the Aquila IQ-8275 SoMs.
+
+There's always a 'v2' somewhere ;-)
+
+
+> likely have the same pin count but 1v8 logic instead of 3v3, and your
+> proposal would not help.
+
+Ohhh camera connectors really are cursed aren't they :=3D)
+
+Voltage changes indeed might be an interesting adaption, though we don't
+specify them now anyway, and I think that's more of a property of the
+configuration rather than the 'routing' ? It will be interesting to see
+what happens there though.
+
+We only have 'purposes' to the pins at the moment I think?
+
+Its specifying the pin routing I'm concerned about at the moment, which
+is I guess why a 'pin count' is an easy refernce to that ?
+
+=20
+> A little bit more data on what we have today, the connector is a 24-pin
+> 0.5mm pitch FFC/FPC, it goes back to 2017 and it never changed after
+
+Ohhh sorry, I got it wrong, I misread the earlier discussion in this
+thread and thought Toradex was 30 pin ... I got the order the wrong way
+around!
+
+There are so many variations of CSI2 camera connector from different
+vendors, and I'm trying to look at the big picture of how we can
+identify and map them.
+
+Ultimately, pin pitch is irrelevant to the DT. I wonder if voltage is
+the same, as that will be dealt with by the hardware. We definitely need
+to model "These signals need to go to that controller".
+
+
+> that. It is currently implemented in Apalis, Verdin, Aquila, SMARC and
+> OSM Toradex Carrier boards.
+
+
+Absolutely, and that re-usable connector is a great thing, in an area
+with no standardisation, and why I really want to see overlays
+abstracted to be able to convey that usefully.
+
+--
+Kieran
