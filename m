@@ -1,172 +1,238 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012007.outbound.protection.outlook.com [52.101.66.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07CEA49F122
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 16:12:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266350; cv=none; b=as5WzICKWqx4JPhqcFQaUXSS3G2nMomZuh42ZopcHyl5NKvRqYbUf/OlyjS2ZGdzu7eyVkZ6DiH7KjemKVT8+a+aIFo0srN1TFpGGr1ftVTTleXJJULL548Kf6Ls47zf5bcegI4y5Pk+5QHgbneXBIn0zuEeIJkArDfImtb98aU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790266350; c=relaxed/simple;
-	bh=5zuG5UuS9qh0d8OU0nqDCnaVm1PSJ5zAsjRRiz8X1y0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QavW/xq+IuxqOTpWkBH3pOdA4M7G3Qzznd16Ek+i0uMSQNIaWRjGz824WYezsxMjFG9maNWV65dWhCsuVLEpwvzynjmrf2Mfa9oiNsrND02xB0faVVhVw/ye2K8GeaMVl3iMZAf02zlNjhnwon98kO+Il+1gc5g/9oQZOgxfKIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QOs8ohX7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Z1ItwsFk; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6364A093B;
+	Thu, 24 Sep 2026 16:14:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790266482; cv=fail; b=YfoFxR/vlkLlwOKAuFzbgY3BwzqGdcevAHRJqAoBY7ZEm/PyYtI2mMD4VVn2zKZ1gc9JDptcVJGG1rb4fnhvgcn+BP5U1EljFC7ku0DaUPbgi75yiKmoFPH3X2dxkh5hTa5flcIJwEYWOq785HXQQ0juGUe11ldNbRMRRe4jZU8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790266482; c=relaxed/simple;
+	bh=9YJcFGEkpZJJTQalp1H+2FiY8s47wLD+modA8IHKj9k=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=t5kttNdijaUWizrsefUC6vSVxTkkJBq94IQLJlY75Fs3n5dMl7EMrps6d34orSaaJobalUs/+GM7vrLIXi/nyjpsgdPGs70Magiv9jcB9mqcsq5PxfqUYvBfWRgRbLvLLeljfmpAJbysNlNW8urGo7W6t0+Kan2MjoKDph6lkLI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=K9ddfhop; arc=fail smtp.client-ip=52.101.66.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QOs8ohX7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z1ItwsFk"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OFfM0b1279159
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 16:12:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=netTNOSNf1m
-	B9nADQhFYC6zCCWZF+fa/FiwvU4W67EU=; b=QOs8ohX7LM9//DGcmwub4dRv3K7
-	3+N4VnmrV2hvdhLu7UrxXuij/QndINHyZifyVNzKTHXMYHbTC7jWpN8GfnbygLjv
-	qnW24PhK28JRv3D6L1ff2/KUtz1iU4k/Meg2IgI74MbhwXyuEns//YOsKG6Jkdro
-	yDAInmzMDlIf1ThnMkPpzocl91pE47ktOgsRpmJafUaJpZBbAM55XHlwUs2bJ9G3
-	TCCjhE+XgUbo0nT04l9s5WE0I1soQZACOR8K38lZHdTPJKnyRb0JK+eCj+yG1F3z
-	SBxLVM865A0zsgToiCa77D+CpVMzODbr1+C78te8PIUktJaLRAtCfNDPpSA==
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw1sc9jw5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 16:12:27 +0000 (GMT)
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-6711a336db0so84579d50.2
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:12:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790266346; x=1790871146; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=netTNOSNf1mB9nADQhFYC6zCCWZF+fa/FiwvU4W67EU=;
-        b=Z1ItwsFkkLHK+FQ7AQ3LvyBr6Z4kTVz5NCx5i5qljM12quzj0mKsaeYMeVTiG5Ibz8
-         6nhi6SIbYaaTNuYTBeAYUzyQ4DpoRp8xzjJfHzED9rjBh6x/0skZfC5dFvhEVhaTc2QG
-         sd7mRkEDvtUdGdOqffuLNXmPsFLm9UvdZSijJJ8lJQ7bGEd+0KIqtvbLhQLyMQagESL7
-         vnIWp1xiK/CK727VY6fG79piyaaGUp6kPvdNFPTKFRPum/dKlrIQ9GcQYgIBJe/uT58n
-         AH9hNnJKnHXGBfN+C7tHSFQIgrc2hwLV/o/wXK3rcxxNDd58wjDPU3wOM8knKaQT4wxb
-         17XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790266346; x=1790871146;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=netTNOSNf1mB9nADQhFYC6zCCWZF+fa/FiwvU4W67EU=;
-        b=FofjsoHxGWALtZRoA9S38Kc5lYUqOmvFZx2QGlK+lJChN/07eclFq0ikJlZmxnh4vT
-         XFuaC45uEwCpmqTmLZ/6QTkDM8ZPkunXaS8mnfjm3PXDIEUDzWotb1T/5ND/+JigvzVY
-         aoHaWCoWZfCCrN3MIeTlEWm3npHjZ9DU2FwyBgB7V1xTTSyebwxXp41sh5AFrhF6RmuY
-         Ded7WWwagTfcoDsAwhsxK2XqI6H924APT6NdyM5wyFz+K4WsNXdcZTezrB/HgFg7dOBb
-         rEXOdez/05kevYRt9uTY87uC83lV4rd/WD6De4X4nErsTp+GodtCkfKBe+2iH6ZLXLyJ
-         x7Lg==
-X-Forwarded-Encrypted: i=1; AKwUvByz4Wh1KfHs5sywSaa0nuBHgaIjeZQKgC3TiihXqOBZo0iquryizYPQ61zq739MSwC1xJsNLLXNy72g@vger.kernel.org
-X-Gm-Message-State: AFuF++lofYqlKp55CumE+9M+F7AEgRmino1vA1aSN9A+OTiWNUDD5WTs
-	SV4gTYUJMRDcq9j45zaelWKr2NooXguy6FULnHfqrVdt/FznGFPVbxg85rdvRTnLlU3W3xkRVqz
-	CRZwPVZDfTsIuaKL5v59Z7tCsfqHG+IQF55SH2A2Eva4H/021oBCqWVH76lwXu3Ya
-X-Gm-Gg: AYBFou2ZrXQUW+2BjqhTeIJqjn1LQjX/swpSMFG3jeu2FXmbPrHIV8AeH6Q8oqdzAYp
-	4XhY4AvEtEaGdvU+VBdNrViM1TnosFvxmxbM5t0PHLqQ4aL2Bdo2/ND1fUAsQOSvodao9XbkepM
-	sXWJY+I4O82iHo4+NF18JaRrq8MR8o2/f8IXGr/XDCeYB1x7U9fV0GgwP0Xum1NDKOWJHPc10g8
-	dZULz6oA5UW1S2XHupLLFarc+zFtup91cYhQeKoYt38gX5771eYjA+B0D5osJzw2ZBRygniGyPE
-	IdabuOUtiY6JzL32B68RFlR2ngYFyWcKh1GCwlKDE7LFh6NY4AFqZnDUSnEnQ0KXXwmAx9s6xlQ
-	ex7QtaCQj0TXEFXpE8OoHxVTDd86yYUZ9wU9F5Zv1fpj6O20d6vi5A7mqE84=
-X-Received: by 2002:a05:690e:144d:b0:672:b007:dad with SMTP id 956f58d0204a3-672ed38252dmr1795590d50.71.1790266346169;
-        Thu, 24 Sep 2026 09:12:26 -0700 (PDT)
-X-Received: by 2002:a05:690e:144d:b0:672:b007:dad with SMTP id 956f58d0204a3-672ed38252dmr1795554d50.71.1790266345547;
-        Thu, 24 Sep 2026 09:12:25 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91425cd8416sm9698296d6.17.2026.09.24.09.12.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 09:12:25 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <quic_jkona@quicinc.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH 3/3] arm64: dts: qcom: sm8750: Fix videocc clock inputs
-Date: Fri, 25 Sep 2026 00:11:52 +0800
-Message-ID: <20260924161152.1162301-4-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com>
-References: <20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="K9ddfhop"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CPFJNEK16sqHkbK5y/iZyguUabba/OI2O5T/26e44Fs7ATNe8EaFR1dnSkAoOPINWBXiV1K45PdLl3oYW/z7WgZz/EQ0UN0p+pVld4vHfvTmcU8aVzXb2s8ZS3rW/kwXQdi6xheTxpbNI6BO9xu5ZPtRj0rCaUTR9pLrIlMncC8dG8xdk8sN1SDnj59NyMMrJt36MwPkmRc7kSYB4HwfLgFY5pjLLRJrSSdMKVADrA27et3IYfK+udDPPoczWjhtW9cEpoYFtZATsTOXwX2yZ8xWrRHgHnhUwDJeFZI5U6RcSMqQNuosOId8W8u//wKNxaCTYVcOigRlsKXHHQ2o6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Td+Wzjjv/ZyMFIFnZhzVfT4DSSUCOFtgjF+A7K27Vw8=;
+ b=ufY17DvyndK+r9xtveN2fDgwj3mfMTFMXpHzASWk/Zb2J02SxODDCMQ8jlJO/3boMFvLoyAf/zx5xikNbBRJcZqbtbfqT2W4tYQxPAfwRmR/VuaNVG78YCuG5FX9Lyvio8PkingDVqrt+Lmb7+Xu/4X+atT7PEQ7blX0nyLwKfK0I3CxvN265hocQkPO0pgUNa1389yKOrtbcj3Dqo7I5zXojSg3ALHCeCcHqPsLFO88KqTwX8uEeOES4M0tPGIfTNcau6G9IXxxZykQSNjBqJ1jHByh11EUGLG5Wc9kLVQiZW0oSMEiGshy2ya4NXeRfNVl+dhMt3dgLch/O6PDfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Td+Wzjjv/ZyMFIFnZhzVfT4DSSUCOFtgjF+A7K27Vw8=;
+ b=K9ddfhopH/KQlO/Rih90ERYj/npiMyhr0auW9fcXxBHv/W3aeLtdRYXG+Si8L74N6ALlJFXmHmhH0eUF4Bq+vKk7tLMq56slNoUg0scmdmZjrmpVuf7YJp/RkxLFCa842KARfzGtW7AK3PIDVwontszmUJugxuZbBCjBR138aOuzf9Ugp/tBBDlRumOHxIFs04Y2TB5cOUmdHix/UaRfdgIJeVoA9f3alBYi6loVcx2i9slmzwYnR62oo9SkPxo3BI+uRDh5UodTH0RO0qtHVUl9/MhN6u9aoCuDE3xVx0MyuAROtw06MYAqvrsu2EIsf2FHJWkUIFh/Nex6pbTNIg==
+Received: from GV2PR04MB12271.eurprd04.prod.outlook.com (2603:10a6:150:32a::5)
+ by DB9PR04MB8267.eurprd04.prod.outlook.com (2603:10a6:10:24b::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 16:14:37 +0000
+Received: from GV2PR04MB12271.eurprd04.prod.outlook.com
+ ([fe80::3b38:4ed4:2164:c035]) by GV2PR04MB12271.eurprd04.prod.outlook.com
+ ([fe80::3b38:4ed4:2164:c035%5]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 16:14:37 +0000
+From: Pankaj Gupta <pankaj.gupta@nxp.com>
+To: Arnd Bergmann <arnd@arndb.de>, "Pankaj Gupta (OSS)"
+	<pankaj.gupta@oss.nxp.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+	<skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li
+	<frank.li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel
+ Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Randy
+ Dunlap <rdunlap@infradead.org>
+CC: "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: RE: [EXT] Re: [PATCH v51 5/7] firmware: imx: adds miscdev
+Thread-Topic: [EXT] Re: [PATCH v51 5/7] firmware: imx: adds miscdev
+Thread-Index: AQHdRFLl6qj9FWHmWUa7nq3I0AMEwrbRMnKAgAzENoA=
+Date: Thu, 24 Sep 2026 16:14:37 +0000
+Message-ID:
+ <GV2PR04MB122713E45837EDC3DE804EAB895812@GV2PR04MB12271.eurprd04.prod.outlook.com>
+References: <20260915-imx-se-if-v51-0-4a7dac612cb5@nxp.com>
+ <20260915-imx-se-if-v51-5-4a7dac612cb5@nxp.com>
+ <2034fb2f-f169-46a5-85e8-fa723ddb0360@app.fastmail.com>
+In-Reply-To: <2034fb2f-f169-46a5-85e8-fa723ddb0360@app.fastmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Enabled=True;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_SetDate=2026-09-24T16:14:23.0000000Z;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Name=NXP
+ Public;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_ContentBits=3;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Method=Privileged
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR04MB12271:EE_|DB9PR04MB8267:EE_
+x-ms-office365-filtering-correlation-id: 1e7e6902-3a48-45f2-58df-08df1a56ee24
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|376014|7416014|19092799006|23010399003|10067099003|56012099006|3023799007|6133799003|22082099003|18002099003|4143699003|11063799006|921020|38070700021;
+x-microsoft-antispam-message-info:
+ Ak4gTiZIALgrkg6PgWI1oP8UGV+4h6X0NpSiS2txzgdVXvgGbwXhwuhKYmHGspJYWFpQnV3lcSnq/h3LgMJdevOF4J5Z6t/yphp/yEGNZ5VR7V6sMpvmGSpMBGqY5wggV6Zz38+et7lhFrvpYNZ+/fHqMKLZSq2EDJmtmP0H0PNnWlaEAd84D1OXjye/vFd9ZVo59evmy3tYw5wKG0qCIXr6fwf9TfsJJMWMgOF5Jyz+k5UQASm7KUiI8ogStlB4O5Anc0rmfnMjZPKya2yRdxBiYfuyf6NvVrEJV/2yoqjMgVSKEp3WTeAJr5TnKhZ6ftNCQpUU1biwuw+fHDq1J2qM1rz6j47asmt3v8JQsdDP7BvxuLecUI58iwKZHmY/v9rE4vcqw6P0dDy2g7A0bVKPSfTYrw0uaxIGSjY31i8+B6cR7/cy31bBJa0/xc7kzutguSBO2B52l8Dk3pOyNvwu8sz9OVRfPHHR1KkQSgD06lot0ke1mLrYIpZgb6eymaWr1Sf+e1CEM5mvfjxdmLKz3yNo8IgZDMsoQFUcPsobjuQKLoZxVF4gYar3bjYhiJM4ljymbL8SXqlb4l6TExA7fHYaCYyj/9O6rJKAYGNlErtiN83BRQHtfO1jELeBov2HHta4BfYkulFtXRVnynFzPqAc34w1rVEOuVYTNUevsBbPoZ8+mybEmnQY2jA0bHp9DNxhh5liIh3eMWRf+bikmWqeZynUYDI4WuWu4QPxGeM0Q78gAhBAqzeiblTE
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12271.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(19092799006)(23010399003)(10067099003)(56012099006)(3023799007)(6133799003)(22082099003)(18002099003)(4143699003)(11063799006)(921020)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?2JOHJFQmJ5MVhka8lOJ/dGJlrGzBa0/A5jKeQIrXxsjT5AvStHYFBUfkUCV/?=
+ =?us-ascii?Q?cNgA8fWhMPVNpHiXgbqvxmokxpR28WcI+PBAcYgcHkYlH+eS+r8uSGiE88T8?=
+ =?us-ascii?Q?0ZwzdP8g4OA3w28ETctQk3W+YK/a+i0aP7pSM9GzH2dnwQt3amSeoek52OJP?=
+ =?us-ascii?Q?obZLTNtpxc3PbFwFUMS/SNIl+z0BtatRHNdJZHwKDnhUep3FccIV0ek9R60z?=
+ =?us-ascii?Q?bPoRf3/X4cUGY5eimB4klB4P0a5rf9qabJuhWiuJSa40jcPRkD9GXKzMWgwT?=
+ =?us-ascii?Q?d4inaH1ea57gmY59CnbtlNTilRDfeX7TnXcy5LvrjoZY7i9PEoDthKLP/38+?=
+ =?us-ascii?Q?Cvx6rxIYzDeNmR5Ac7oAq1bao5lf1NTDRb72pmwP3pXyjw57wtjfZT5T2ysz?=
+ =?us-ascii?Q?zOEG5C9bRTDiQUgtaTWksdrciApG2FYo+T5QiBkrKg3V5Dn83uAUYzYn4gK4?=
+ =?us-ascii?Q?Jh0aswjUV4db4gzmdgQ4bpFkBIAlq4Oj2qkBPXG0a7bRsXb7u9ny7aHYV6RH?=
+ =?us-ascii?Q?emNBg7SclYwFxpmpBp1aJJPgbvRTxF3y9yxcwFc/ad5rkoVWSi8hfoI7foCB?=
+ =?us-ascii?Q?3+cQfErhBGMVJJzCqmi3YajHzRQtYBFI0x25ndmpFEH7YTxIzwChLEr4VVDx?=
+ =?us-ascii?Q?Sz71rhtPasxkMN8Fa96mBlSTvc2PhZLqgt/3fksvuCXuBtGZfjFXhWCuFOY8?=
+ =?us-ascii?Q?XQlVofH6BVFB0kNgUfUIPnOtXf+lzuMbzqlWHhaLk/m4sAxihr5JAJiPn2ao?=
+ =?us-ascii?Q?Wdna+/y2EAYTD89WZRQd4wO3qF42d278kqOCvesf84RFJ2xEElAMRCPWf8en?=
+ =?us-ascii?Q?PHcbPdcsHT7zS6PU729Rtst5QRFY5bVRvyfosKDBx19Tn0zM8IwtgRh7pPYS?=
+ =?us-ascii?Q?zUiH6Iz9JLInV68k+1lec/lllyUhf0Sk4yw1cMAxFQ5/qFaGf/FPtGDYar9b?=
+ =?us-ascii?Q?LyFBweKXMoJF6ZFJwHsl7TtRg5IIVnLoxku7c3rvjN1LQD3/WW7FzTVvnBX2?=
+ =?us-ascii?Q?xRY1IA9GEjzXP+qy22B40OixvbosV4d4/LsrNX4yXF7SN2wNKHrOQogNUpa9?=
+ =?us-ascii?Q?JsizFqOG0mQq4XVEs80+iNxTsV1+KVsX8p/C6Jk0hKQXn8w/7W1/Qi3LY96k?=
+ =?us-ascii?Q?OjQ1eXJ9Nu5qJQ4AhKB0PavdY9bfMXg9rxpNYhfdvewUhcc6EMBeGJ+JSXo2?=
+ =?us-ascii?Q?oNmqI21ST+ol2aZsMdAdICTSRiJiGE7rElDiY1FgJENc245ar3FH9+PY5aLJ?=
+ =?us-ascii?Q?3fq9kVCypU5SCoDOddeFZj2F2M3pjRbaAP5nmcj34RWS3owBA3fSnZooiBBm?=
+ =?us-ascii?Q?0l1HQ1FZagBU3X02pNED58+1lyAUDdtm3E6P/JDe98e3VRZeP1wdwZ7mE0SZ?=
+ =?us-ascii?Q?eG0Y7lZ6pHb7Sa8Aa0KsCK4mZkxE3I+E2q59QPzU5XXSVqYv4Cre0Id69jO5?=
+ =?us-ascii?Q?QCM61pOs/dJSCO39sDtve/luMO/cIC/ZxomYPHoa8gj0ZR/+XMT0R6ka+K+A?=
+ =?us-ascii?Q?wQU0CnX8svMlnPVy3qK+jm+LXkbyzE1kubiAnObj/wI1v6zE1o9xSuF/ESfg?=
+ =?us-ascii?Q?vdZqysYyZQ08UTrU3i8z1t6ME1GJssMsJG2xcYhK9VZMON9Ww/gokCivsUrV?=
+ =?us-ascii?Q?fbpT4g3LPKMULiusD6TYEIK1Bed4tQxPrcNpQzIYstALGr1zfPr8CMuhWYjB?=
+ =?us-ascii?Q?1YAk8VPymgRMcEnWs9co6bwJQCX5lODLtFXoZVvOprIvp/Dy?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: WlsomiZSBF0cwIaWxMs2AZ1L-a9_MQ86
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA2NiBTYWx0ZWRfX2At0OhxAktRq
- AhE40JIsMxPOhyhqD5Y8C9NENG23QARcALJcCyL2JYdzAqOaDpZH7Ww2Kwog2g3WrGl7ooBw3+E
- OCsWeTGFobpagBLIhTjv/PRlAq93280QxLIRTr7FC2OfrwomankU53WzryVmCAVaWsAIpCZPdwe
- IqnSSPb3MfCZ2ZJEptwSH8mXOi+jD4tZSDmBKHV1C0nDmS57MxjZdmInqeGBRlpJ0YpxQHWVam6
- ILRVhvRPGGq8uViry3xxgY4Q+F3thLkK8a/5Qi8NTb2hNfgZDE6pwRZzEjwi3a23TFjTYQcyJic
- VRHcoHBGc4z00g+zxwaqqHzkUI1vy4JUqMxEewyQoSChXnCuERj7fEiW98v64fs/UwIxQ8216lJ
- xMJEVeU19KGzV734IEqBVv4+AxJpcTxYMxQ8k2FaZFHpowVx9n+0Y+DZxPCa6QS/AwgpkBXKPzd
- 2pdhqSE+3pXfhhuObHA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA2NiBTYWx0ZWRfX6cJbmui5o4A6
- UzQNtMXpH/ToB3yqqAB0yhgd0BiMw/yg7Jk2Sa3AY3UK5//Hl4dUGBVVXTVwoZOXVMTY/gAuDNm
- C3RisjqRgcvK9aszRUvh1bJ7Uta7yeY=
-X-Proofpoint-ORIG-GUID: WlsomiZSBF0cwIaWxMs2AZ1L-a9_MQ86
-X-Authority-Analysis: v=2.4 cv=GI+dgeNK c=1 sm=1 tr=0 ts=6ab54beb cx=c_pps
- a=VEzVgl358Dq0xwHDEbsOzA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=dhDJK-fFnsGTkC4caXsA:9 a=uujmmnXaIg8lM0-o0HFK:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- malwarescore=0 impostorscore=0 suspectscore=0 spamscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609240066
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12271.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e7e6902-3a48-45f2-58df-08df1a56ee24
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2026 16:14:37.4212
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HJuOA7BU5KgLVJCaPf0Hieo85OV1M67J234q88V3I7JFMSfiwqvbCtQHVVdhukgI0yqr6ApXYxYPNvztL1g3dA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8267
 
-The videocc node passes GCC_VIDEO_AHB_CLK as its second input and stops
-there. videocc-sm8750.c declares its DT inputs as DT_BI_TCXO,
-DT_BI_TCXO_AO and DT_SLEEP_CLK, so the second input is the always-on
-board XO rather than an AHB clock, and the sleep clock is missing
-entirely.
+> - Who has reviewed the user interface from outside of NXP?
+>   Since this is not a vendor-independent API, I think we have
+>   to be extra careful and make sure this does not duplicate
+>   anything that is already in the standard firmware interfaces.
+>
+> - Why is there a low-level passthrough to the firmware from
+>   userspace? This looks rather irregular, since it is the kernel's
+>   job to abstract the platform and provide vendor-independent
+>   interfaces. In particular the bit about shared memory and
+>   the generic send/receiv ioctl look like they should not
+>   be there, as those would allow side-channels from userspace.
 
-The missing third input leaves video_cc_sleep_clk_src unable to resolve
-its parent, so it registers as an orphan clock and cannot be rated.
-The AHB phandle in the always-on XO slot is not resolved by the driver
-today, but it implies a parent relationship the hardware does not have.
+Let me answer at the level I think you are asking rather than with
+driver internals.
 
-Pass bi_tcxo_ao_div2 and the board sleep clock instead.
+On review from outside NXP:
 
-Fixes: c0d11ff90475 ("arm64: dts: qcom: sm8750: Add Iris VPU v3.5")
-Assisted-by: LLM
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/sm8750.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+- Marco Felsch & Sascha (Pengutronix) reviewed the interface
+  across earlier revisions and I addressed their comments, although
+  it carries no external Reviewed-by.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-index 28cf22da854d..e092222fd8cf 100644
---- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-@@ -3117,7 +3117,8 @@ videocc: clock-controller@aaf0000 {
- 			compatible = "qcom,sm8750-videocc";
- 			reg = <0x0 0x0aaf0000 0x0 0x10000>;
- 			clocks = <&bi_tcxo_div2>,
--				 <&gcc GCC_VIDEO_AHB_CLK>;
-+				 <&bi_tcxo_ao_div2>,
-+				 <&sleep_clk>;
- 			power-domains = <&rpmhpd RPMHPD_MMCX>,
- 					<&rpmhpd RPMHPD_MXC>;
- 			required-opps = <&rpmhpd_opp_low_svs>,
--- 
-2.43.0
+- Rob Herring's Reviewed-by on 2/7 covers the devicetree binding and
+  Frieder Schrempf's Tested-by on 3/7 confirms the driver works on his
+  hardware, so neither is a review of the ioctl interface itself.
 
+On using standard kernel interfaces:
+
+- I am not proposing the miscdev as a replacement for existing kernel
+  interfaces. Where a standard abstraction already exists, I agree that
+  it should be used.
+
+- Fuse/OTP access is already exposed through a standard nvmem provider
+  (drivers/nvmem/imx-ocotp-ele.c).
+
+- Some ELE services, such as key sealing/unsealing and random number
+  generation, overlap with functionality already available through
+  existing kernel frameworks.
+
+- The remaining functionality is the secure-enclave management plane:
+  key-store provisioning and reprovision-enable, persistent key-store
+  migration, signed OEM container authentication, device attestation,
+  and lifecycle transitions. I am not aware of an existing generic
+  kernel subsystem that models those operations today.
+
+On what is NXP-specific:
+
+- The cryptographic services exposed through userspace are accessed via
+  the PSA APIs provided by imx-smw rather than applications directly
+  issuing ELE-specific commands.
+
+- What remains NXP-specific is the secure-enclave management layer:
+  provisioning, attestation, lifecycle management, OEM container
+  authentication and persistent key-store management. I would rather
+  not define a cross-vendor kernel ABI from a single implementation,
+  but if there is a plausible shared model across vendors I would be
+  happy to work towards that instead.
+
+On passing commands rather than abstracting each operation:
+
+- The ELE firmware ABI is large, versioned, and evolves independently
+  of the kernel. Defining a dedicated ioctl for every firmware command
+  would effectively freeze those command payloads into the kernel uAPI
+  and make firmware ABI evolution a kernel compatibility problem.
+
+- The ioctl is a transport interface rather than a raw firmware escape
+  hatch. Commands are validated and constrained by the driver before
+  they are forwarded to firmware.
+
+- The stable part is the transport API. The ioctl numbers and
+  structures do not change per SoC. Per-MU differences (interface
+  type, message tags, base FW version and messaging API version) are
+  described by driver data selected from the DT compatible.
+
+- Discovery ioctls allow userspace to determine the SoC and messaging
+  API version it is communicating with rather than assuming them. In
+  practice, supporting a new MU or SoC is a matter of adding driver
+  data and a DT compatible, not changing the uAPI.
+
+On the side-channel concern:
+
+- The kernel's role here is to enforce containment rather than to
+  reinterpret each enclave operation.
+
+- Commands are validated before being forwarded. Commands that are not
+  explicitly recognised and permitted by the driver are rejected.
+
+- Shared memory is allocated per file descriptor, so one context cannot
+  access another context's buffers.
+
+- Userspace never hands firmware an arbitrary pointer. The driver
+  allocates and manages the shared buffer and validates all embedded
+  addresses against the owning context before transmitting a command.
+
+- Consequently, userspace cannot direct firmware to arbitrary physical
+  memory, cannot access another client's buffers, and cannot submit
+  unvalidated commands. The interface is constrained and mediated by
+  the kernel rather than providing unrestricted firmware access from
+  userspace.
+
+Thanks,
+Pankaj
+
+NXP Public
