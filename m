@@ -1,148 +1,345 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7EE381E92;
-	Thu, 24 Sep 2026 04:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18753CF051;
+	Thu, 24 Sep 2026 04:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790223236; cv=none; b=MU/6jf0o6m3voNMmGHxhS67mfqrJC0pjdYFVNIDay2B5kVSv2BDU4GmT1y/NOpdEUemCe09RoIyc/tdDgddaGpu0KRr8/5HntDSydT3rprJT2ZuFhcdGVqY9D0/roQKIrHG7vQKflmg9Dqpa3gyjjKDVVgaW8jpTSV4AVHEmY+s=
+	t=1790225416; cv=none; b=bZEBObMppv97TDJHgd0HVV+9dGD2WgLdbPcq8krMw72tsS2CmNdRd4VJXjk0nkL/2+Uraj1qodjihJGMrHaluVMWIl1WCGGLV8DmLd13qZSPsOpv1NxMBr7JXxdBAqVEtXXL0y9WysC0J/3241N/PVAd0AxA383fPVV3GgKT614=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790223236; c=relaxed/simple;
-	bh=xFS2DQH8a+QkjPOVxW75pwg7w718ejXKHRThOGnb0zk=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=fxfzsxbVgmMxs4GJZLGqMOT2/gcz9e5zMnsC2M+Ub/oFueh42oGtE+KJcC0t4dhNvWGVQro0URMpuF91Kgeop99TZ0gHqtta2QXOUjar76hDemwtMuvcqPSP22v4heR3rMalijt5+t+OCeyQgJ+hegSbqEKZvcnYhgJv+NBYKbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=YDrJG1bm; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790225416; c=relaxed/simple;
+	bh=43RMoj05xiKDXP5fYVrwU1nq5jfeUdtdfmfVfIcj7jI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cPOVkRzQuF6CCvXrVXC6keVQT6nyKw7nwwabR14VMlJqFrwWmgFwPVxwr9tgjsu4Tmln2JwAz//FC82g1/0K+to0DQfekAvogmlJERIUhQTdQ+Q2sJE6sKJoVPq0BSIH7Yk4LBmS6UrIJ2FZWBW94YRqgO/0GS4AZze8egOZ2vY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=hve2mmx/; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="YDrJG1bm"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=81yO6Car8MHwRf3Bvrj4RVRvosAl9GnpSah8DBIW3BA=;
-	b=YDrJG1bmelTa/8xqp49tYwTc49N49nkEI5yfp4SaDFakdoz5bMBzAdDPO2Do05y1Nnq8q3RdY
-	XavZJxvPKSi1DUB9PfwUgZ2GmK2QsgwMA9E0TJ/0h9Bgb3mxJwCeWvejuw10x/E4RNQPN/JOCBx
-	pj+gIug/GaImyUF9rQ4f6FQ=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hr0Wj4CVgzmV98;
-	Thu, 24 Sep 2026 12:01:37 +0800 (CST)
-Received: from kwepemk200006.china.huawei.com (unknown [7.202.194.72])
-	by mail.maildlp.com (Postfix) with ESMTPS id A1B334055B;
-	Thu, 24 Sep 2026 12:13:42 +0800 (CST)
-Received: from [10.67.113.213] (10.67.113.213) by
- kwepemk200006.china.huawei.com (7.202.194.72) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 24 Sep 2026 12:13:42 +0800
-Message-ID: <6AB4A375.2050004@hisilicon.com>
-Date: Thu, 24 Sep 2026 12:13:41 +0800
-From: Wei Xu <xuwei5@hisilicon.com>
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="hve2mmx/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202608; t=1790225380;
+	bh=7f2oetGAe71uHNcIaMbAfa2BIEJq6zVwewOu+CJ7lEw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hve2mmx/tUtDE6CIHnu4ZtTIyNjLxLtJ2zsakbrWmLuj085BGsmkje2vi/0cfFVLb
+	 rtsHmK27Xz7u3X6zUn3bP/J7ry0bUr6dEyXHT4gU3wKNZFllkH/iNeAWlAoIvrrQmS
+	 bzBTWcroEnWj4CbAp/P26xe3j+bsjAs5W3PUV02PSFejTsi/T2e0v7zhFunGhcX0Dg
+	 7RuPnW7jBg3MZ5I2C2MX2W3g5hMoX0Kmpmz65oOnq5WyQvU0ra9dcdA3uIwiOmbqWh
+	 3RJ+yWARbtZLeQMGYo311WHj4ER+gKnp5Vi58v69TEDvlMSofHa3jRuo5JY/zwaKiQ
+	 6hPRMkhSA5NpQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hr1b811nqz4wCp; Thu, 24 Sep 2026 14:49:40 +1000 (AEST)
+Date: Thu, 24 Sep 2026 13:49:55 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
+Message-ID: <arSdrp6WtJfdiAne@gractus.seuss>
+References: <aqJ5OhJcv4k-ZAj8@gractus.seuss>
+ <20260911091653.37b22b0f@bootlin.com>
+ <aqS6HmkaVYbrePtN@gractus.seuss>
+ <20260914121937.5b7fa2bb@bootlin.com>
+ <aqonNkbVqW9tf6Bg@gractus.seuss>
+ <20260917090450.770c107a@bootlin.com>
+ <aqzA11pFzN_3_Nhf@gractus.seuss>
+ <20260918101617.46b3477e@bootlin.com>
+ <aq4N5zbuCVZ4e6-C@gractus.seuss>
+ <20260922084154.576a42d0@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Rob Herring <robh@kernel.org>, Conor Dooley <conor@kernel.org>
-CC: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] dt-bindings: soc: hisilicon: Add HIP05 CPLD
-References: <20260921232540.3128596-1-robh@kernel.org> <20260922-cheer-reference-c31fc6fb946d@spud> <20260923150409.GD27237-robh@kernel.org>
-In-Reply-To: <20260923150409.GD27237-robh@kernel.org>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200006.china.huawei.com (7.202.194.72)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/u7gAoVU7G3ZXZ2N"
+Content-Disposition: inline
+In-Reply-To: <20260922084154.576a42d0@bootlin.com>
 
-Hi Rob,
+--/u7gAoVU7G3ZXZ2N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 2026/9/23 23:04, Rob Herring wrote:
-> On Tue, Sep 22, 2026 at 07:06:02PM +0100, Conor Dooley wrote:
->> On Mon, Sep 21, 2026 at 06:25:39PM -0500, Rob Herring (Arm) wrote:
->>> Add schema for the hisilicon,hip05-cpld node on the HIP05 D02 board. The
->>> node only contains the compatible string and one register window on the
->>> local bus.
->>>
->>> Assisted-by: LLM
->>
->> Guidance to the LLM should probably include including the reason that
->> this is being added to the commit message.
-> 
-> Not sure what you are looking for... I told it to convert all the .txt 
-> bindings to schema. Then I told it fix all the errors. Then I fixed some 
-> things throughout the 900 commit branch upstreaming things bit by bit.  
-> Then it mostly sat for a year and I told a new model to review them and 
-> fix these common problems a, b and c. Then I said fix all the 
-> dtbs_checks warnings on arm64. Then I said there's still warnings, do it 
-> again. Repeated that ~10 times. Now I'm going thru to weed out all the 
-> wrong and sometimes unnecessary changes.
-> 
-> So LLM did all the easy parts and I did everything that requires any 
-> judgement. The hardest part is typically just figuring out the 
-> correct maintainers...
-> 
->>> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
->>> ---
->>>  .../soc/hisilicon/hisilicon,hip05-cpld.yaml   | 35 +++++++++++++++++++
->>>  1 file changed, 35 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
->>>
->>> diff --git a/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
->>> new file mode 100644
->>> index 000000000000..f9d48b871a4b
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
->>> @@ -0,0 +1,35 @@
->>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/soc/hisilicon/hisilicon,hip05-cpld.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: HiSilicon HIP05 CPLD registers
->>> +
->>> +maintainers:
->>> +  - Wei Xu <xuwei5@hisilicon.com>
->>> +
->>> +properties:
->>> +  compatible:
->>> +    const: hisilicon,hip05-cpld
->>> +
->>> +  reg:
->>> +    maxItems: 1
->>> +
->>> +required:
->>> +  - compatible
->>> +  - reg
->>> +
->>> +additionalProperties: false
->>> +
->>> +examples:
->>> +  - |
->>> +    local-bus {
->>> +        #address-cells = <2>;
->>> +        #size-cells = <1>;
->>> +
->>> +        cpld@100000000 {
->>> +            compatible = "hisilicon,hip05-cpld";
->>> +            reg = <1 0x0 0x100>;
->>
->> Also what's with this example? 1 0x0 0x100 should be 0x1 0x0 0x100?
-> 
-> Shrug. Sure. Honestly, I think the example can just be dropped.
-> 
-> I'm converting all the crap no one cares enough about to convert. That's 
-> pretty much all of the HiSilicon stuff. Mediatek needs some renewed 
-> public shaming too. I only care about getting arm64 down to no warnings.
+On Tue, Sep 22, 2026 at 08:41:54AM +0200, Herve Codina wrote:
+> On Sat, 19 Sep 2026 14:22:09 +1000
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> > On Fri, Sep 18, 2026 at 10:16:17AM +0200, Herve Codina wrote:
+> > > Hi David,
+> > >=20
+> > > On Fri, 18 Sep 2026 14:41:11 +1000
+> > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > >  =20
+> > > > On Thu, Sep 17, 2026 at 09:04:50AM +0200, Herve Codina wrote: =20
+> > > > > Hi David,
+> > > > >=20
+> > > > > On Wed, 16 Sep 2026 15:21:15 +1000
+> > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > > >    =20
+> > > > > > On Mon, Sep 14, 2026 at 12:19:37PM +0200, Herve Codina wrote:  =
+ =20
+> > > > > > > Hi David,
+> > > > > > >=20
+> > > > > > > On Sat, 12 Sep 2026 12:34:24 +1000
+> > > > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > > > > >=20
+> > > > > > > ...
+> > > > > > >      =20
+> > > > > > > > > Do you mean that we should avoid the DATA_LEN_ENCODING an=
+d always have the
+> > > > > > > > > 32-bit value right after the tag to give the size for all=
+ "skippable" tags?       =20
+> > > > > > > >=20
+> > > > > > > > Yes.
+> > > > > > > >      =20
+> > > > > > >=20
+> > > > > > > I did a test using a dts file available in kernel sources. I =
+used (arbitrary
+> > > > > > > choice) juno.dts [0].
+> > > > > > >=20
+> > > > > > > Without any new tags, the size of the compiled dtb is 27067 b=
+ytes.
+> > > > > > >=20
+> > > > > > > With new metadata tags identifying phandles in properties (FD=
+T_PROPDATA_PHANDLE),
+> > > > > > > the size of the dtb becomes 29027 bytes and so 29027 - 27067 =
+=3D 1960 bytes for
+> > > > > > > those FDT_PROPDATA_PHANDLE tags (+7.2%).
+> > > > > > >=20
+> > > > > > > The tags used are composed of:
+> > > > > > > 32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit for da=
+ta
+> > > > > > > 32-bit: offset in the property where a phandle is present.
+> > > > > > >=20
+> > > > > > > Removing the '1 x 32-bit' information from the tag value and =
+adding a 32-bit
+> > > > > > > 'length' in all cases will lead 3 x 32-bit values for a FDT_P=
+ROPDATA_PHANDLE
+> > > > > > > tag (tag + length + offset) instead of the 2 x 32-bit (tag + =
+offset).
+> > > > > > >=20
+> > > > > > > Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_PHAN=
+DLE will need
+> > > > > > > 1960 * 3 / 2 =3D 2640 bytes (+9.7%). This leads to around +2.=
+5% of the whole
+> > > > > > > dtb just to have the 32-bit for length. This +2.5% can be eas=
+ily avoided.
+> > > > > > >=20
+> > > > > > > Also, I will not be surprised to see more tags in the future =
+adding some more
+> > > > > > > metadata information and so increasing dtb sizes.
+> > > > > > >=20
+> > > > > > > Quite often you have mentioned memory constraints system wher=
+e libfdt should
+> > > > > > > be as small as possible. On those system, the dtb itself is e=
+mbedded in the
+> > > > > > > binary close to libfdt. The size of dtb should be taken into =
+account.     =20
+> > > > > >=20
+> > > > > > Yeah, those proportions are high enough that I think it's worth=
+ it.
+> > > > > >    =20
+> > > > > > > If the SAFE_SKIP bit is removed, I even plan to use this now =
+free bit in the
+> > > > > > > length encoding part:
+> > > > > > >   0b000: No data
+> > > > > > >   0b001: 1 fdt32
+> > > > > > >   0b010: 2 fdt32
+> > > > > > >   ...
+> > > > > > >   0b110: 6 fdt32
+> > > > > > >   0b111: On additional fdt32 to encode the length of data.
+> > > > > > >=20
+> > > > > > > IHMO, length encoding bits in tag value definition should be =
+kept and used
+> > > > > > > for all tags where the length is fixed and can be encoded usi=
+ng
+> > > > > > > these bits.     =20
+> > > > > >=20
+> > > > > > Well, I'm convinced we want some sort of compact encoding of the
+> > > > > > length, but I think we can do better than the current proposal.=
+  It
+> > > > > > seems implausible to me that we'll need 2^29 different metadata=
+ tags,
+> > > > > > so I think we can spend some more of the tag bits on the length=
+=2E  How about:
+> > > > > >=20
+> > > > > >    0x80000000		structured tag bit
+> > > > > >    0x7fff0000		tag type
+> > > > > >    0x0000ffff		tag length
+> > > > > >=20
+> > > > > > So we have up to 2^15 (32k) different structured tags each with=
+ a
+> > > > > > length of [0..65534] bytes (length=3D=3D65535 reserved for thos=
+e that need
+> > > > > > a full 32-bit length word).
+> > > > > >=20
+> > > > > > I believe that will avoid the extra length word for everything =
+you
+> > > > > > have currently drafted.
+> > > > > >    =20
+> > > > >=20
+> > > > > Yes, this will avoid the extra length field. The drawback is the =
+that the
+> > > > > tag value is no more a well fixed value. Each time we have to che=
+ck the tag
+> > > > > value we have to filter out the tag length.
+> > > > >=20
+> > > > > For instance:
+> > > > > - FDT_PROPDATA_PHANDLE
+> > > > >   fixed data size 4 bytes for offset
+> > > > >   tag value: 0x80010004
+> > > > >=20
+> > > > > - FDT_PROPDATA_PHANDLE_REF
+> > > > >   data: 4 bytes for offset + N bytes for a string
+> > > > >   tag value 0x8002ssss with ssss for the size
+> > > > >=20
+> > > > > This will lead to code like this:
+> > > > >   tag =3D fdt_next_tag();
+> > > > >   if (tag =3D=3D FDT_PROPDATA_PHANDLE)
+> > > > >     /* Do something */
+> > > > >     =20
+> > > > >   if (TAG_GET_ID(tag) =3D=3D FDT_PROPDATA_PHANDLE_REF)
+> > > > >     /* Do something */   =20
+> > > >=20
+> > > > True.  But.. a similar problem kind of exists with the original
+> > > > proposed encoding too: we *expect* a tag with fixed 4-byte contents=
+ to
+> > > > use the "1 cell" flags, but we need to consider the case of encoding
+> > > > it as VARLEN with a length field of 4.  We could choose to make that
+> > > > forbidden, but we'd still need to consider who's responsible for
+> > > > enforcing that.
+> > > >=20
+> > > > Similarly, if a variable length metadata tag happens to have length=
+ 4
+> > > > or 8 in a particular place, is it valid to encode it with the 1-cell
+> > > > or 2-cell flag? =20
+> > >=20
+> > > My position was: if we expect a tag with "1-cell" flag, using varlen
+> > > field encoding is considered as an other tag and so either an error
+> > > or a skippable unknown tag. =20
+> >=20
+> > So essentially tags of different (fixed) length live in different
+> > namespaces.  Ok, that makes good sense to me, but wasn't initially
+> > obvious to me.  So, I think we need to spell this out a bit better.
+> >=20
+> > > The same apply for varlen defined tag. Even if the data is, let's
+> > > say 8 bytes, the tag cannot be moved to a "2-cells" tag.
+> > >=20
+> > > The kind of data length encoding (1-cell, 2-cells, varlength) is done
+> > > when the tag is defined and cannot be changed.
+> > >=20
+> > > Who is responsible for enforcing that ?
+> > > I would say the documentation of the tag should clearly set the data
+> > > encoding used for the tag and the documentation of the "skippable"
+> > > format should say that data encoding is fixed for a given tag. It is
+> > > set when the tag is defined and any changes at runtime should be
+> > > considered as a different tag.
+> > >=20
+> > > Of course we can introduce dynamic length encoding to set the data le=
+ngth
+> > > encoding in the tag according to the exact data length found at runti=
+me.
+> > >  =20
+> > > > As a variant on my proposal, I'd also be fine with dividing the
+> > > > structed tags into several classes with bits indicating which is
+> > > > which.  Either:
+> > > >=20
+> > > >  * "short" vs "long": "short" always has the length within the tag
+> > > >    word (and so cannot exceed 64k, or however many bits we set asid=
+e)
+> > > >    whereas long always has a length word
+> > > >  * "fixed" vs "variable", fixed length tag types always have the sa=
+me
+> > > >    length, so the length can be considered part of the tag.  Variab=
+le
+> > > >    would have a length word. =20
+> > >=20
+> > > Well, only strings, or more generally arrays, need a varlen. For those
+> > > item, I would use the varlen word and so "long" in your definition.
+> > >=20
+> > > For all others where the sizeof(data) is well known when the tag is
+> > > defined, I would use "fixed" and "long" only if sizeof(data) cannot
+> > > be encoded by "fixed" (lengh > limit of dedicated bits). =20
+> >=20
+> > Right, now understanding your thoughts on the originally proposed
+> > encoding, the "fixed" versus "variable" distinction makes more sense I
+> > think.  I do see the advantage of never having a variable length
+> > encoded within the tag word.
+> >=20
+> > > Without any additional bits for any category, all of these fit with t=
+he
+> > > following length encoding:
+> > >   000...00: No data
+> > >   000...01: 1 x 32-bit
+> > >   111...10: N x 32-bit
+> > >   111...11: varlen word =20
+> >=20
+> > Right, so revising my suggestions in light of a better understanding
+> > of what you had in mind originally, it comes down to:
+> >=20
+> >  * I think adding more bits to the size field would be worthwhile to
+> >    allow a wider variety of future fixed length metadata tags.
+>=20
+> Right, I have planned to add one more bit compared to the original propos=
+al.
+> This leads to 3 bits and so 0 to 6 32-bit data words (0b111 means varlen =
+word).
+>=20
+> Do you think we should add one more bits?
 
-My bad for the warnings!
-Thanks for working on this schema cleanup!
+I don't think we particularly need them for the tag type, so yes, I
+think that would be worthwhile.
 
-Best Regards,
-Wei
+> >  * Originally I was thinking that having a length in bytes rather than
+> >    just a length in 32-bit words would be worth it.  But thinking
+> >    further, there's probably no benefit.  The length rounded up to
+> >    32-bit words is all we need for skipping over it when unknown.
+> >    Even if we want a fixed length tag with, say, 3 bytes of data, we
+> >    can pad that out to a 1-word tag with a reserved byte.
+>=20
+> The varlen word could be kept in bytes.
 
-> 
-> Rob
-> .
-> 
+The varlen word _must_ be kept in bytes.
+
+> > Ok, so more length bits and better documentation of the fixed
+> > vs. variable distinction are the only remaming suggestions.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--/u7gAoVU7G3ZXZ2N
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmq0ndwACgkQzQJF27ox
+2Gefig//SJSuaWh8Aq8xRZo1lKaEMMP5kF/Lnc7orn71+MdBW6GlzJyaAX9JewSh
+BEEbuYc/9nfWlxeE+4nY7ie1FPnVNKfbyE7AW2sCkUMcEKTNN2b8i8YVU/M1Foiz
+agWo1VXZ1vMJ4DAuPGowM4CHWcRIqZWRwmExdDjXsUEqR27oBCbTNkVnVVTCCWll
+Cvda+5qkS+PICOEUSFKJi5nYUmdgvR2ZtCURQy81rEW3fnNMOeij1byJFYGdojqp
+Q5Fb+4k5SCpPgcVR1/PuJjYDDOcsPzD0aweozOb+15v8+DkohycIlF1On4Fz83d3
+k/c+jk84SAiF1avSiB5p8oX/YhlqIyVMw1JOjejUMySu+h/bgec78I3Qz7qipafz
+6s6jJihdW0gnXZLmBHw7V885tIDTBUzgJXQ7zjVn9dB98K0mxdhh1bT89dpBRz+E
+fyWONuvsz7pKQA1j0s6xs9zTmQYT1k0sb4QSqIneaiMIHORuJZNqVLzX8s9P9BJR
+YX2/22l5Xnflwk+x0VdTNU25bqn/UY4OeGO0fe23cFi8rFt76FIccrtU5jedurja
+ZZ0Ae5yC4hTHRQrMMJwOMViqe5QtSlAU2d0QVg6CKw9qL9A0zscgPBrNwoSxZFUi
+W3RBqlpZdw2N1bv+h2iKgn44UsZ1tpROUkir79mSvEFszMHHsJE=
+=VzK1
+-----END PGP SIGNATURE-----
+
+--/u7gAoVU7G3ZXZ2N--
