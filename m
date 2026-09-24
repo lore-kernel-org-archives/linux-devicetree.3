@@ -1,140 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4063E49EC;
-	Thu, 24 Sep 2026 16:18:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CE23F1ADD;
+	Thu, 24 Sep 2026 16:25:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790266687; cv=none; b=sTHiQDk4z7S6FStt60Idtx8hbcMz/vJmGrjJsiDXZmgVCInkRH0jxuDX4pTmm2XAz6Iu38Vz5cl5E+MoBHJ/PSv6K7aDarM2w2m+bF6QLGBpr+xUDP1XY1eWlmyCvfNjyQ/JMkE19nQxdZa3W+Wo6ZiJEX6O93XYOYbJs9eeO1E=
+	t=1790267102; cv=none; b=aiI3kc5ySKb/GFbMy8b/pjUjwe/Bdv0cfS8EJszAkN8SSOAFQ8R2lrhAIp5n/N70nDDSF/2YwecDZel1uQJEtpu18XSVbnXLyIy78abQMZM37NC1BItr09ngROc2T1sx7523BelkXXci5DXdV3oLim6tRFxJb+4bLyOR3iHwetA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790266687; c=relaxed/simple;
-	bh=bmlnAqQYJFCf55OCow3V+frr5qdhr5NDBnj3U4GT0ic=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M/S5BDtf9YRizIef6onh9hktja08w4vCA/z85uEhzAID0vXhKsHVXXTnCq2OsnUa4h56zdXPkxqhKKQ97gpDhTDwRQFHbM4wT43E5knAA015ww+BvtkKxt1YyOo5A1qSXd1la4c1jNmhDvxFCRCTBTf7WCOUFmQfB37bSEmwiEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckiTblRy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790267102; c=relaxed/simple;
+	bh=rnWKkLWVqul37ItmEcRUsIQdjq5RQQAKxdR8ULav2BM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MJBYEeK+QCDqyilR3dknsQjMMd9J2pWzTnUetuI12ujBJ8fN58paJ4EVFDHJkGl+soDOze+Zx4fRvL3gfUL8xA+53EClTFcnlJ6W8/IFbRYJ6a7lwYjegy4m1RpP98YToCS0qG6HapbYlKh4foyYV10Fmkc5G9YhSl1hpBYlB8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EN3cSyho; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckiTblRy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D2881F000FF;
-	Thu, 24 Sep 2026 16:18:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EN3cSyho"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92FC1F000FF;
+	Thu, 24 Sep 2026 16:25:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790266686;
-	bh=+uTiVZCZ9cAIkbNM+KWVTUXb8yAN3FcF4VutsvVwP3g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ckiTblRy+cNeLL2dJbLQNUaMq/LaQRwIY8rk8PKnTRe6tbjtyhSwfxOwUcJT71Otl
-	 of6Mm+W+2j6sokBJjsmKg171aNcQppnKS8aRAldP8SxyI8J07DnkJ2TTEWOrsr8Mf2
-	 aJG0UN0qvixEj6EbVEZX7wpF0e6gKcBm3G7Ww7aT0zLLw66qTNIAZpv9c6lMt4qCmX
-	 L36/M9j+RhzvQpPLc2dbiV0co38l5e2ch/pBh4lJ3ZByrhUllylYltZSzMjEozRf2U
-	 2vtz4SH6e7cO7vi68s1GvzI+sRBEYhcaMNe6F67jt+/an6ywiozMo0X0QuXdvHGutq
-	 DrZa4OzoDE/4A==
-Date: Thu, 24 Sep 2026 17:18:02 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Minda Chen <minda.chen@starfivetech.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v1 1/3] dt-bindings: usb: dwc3: Add JHB100 device
- controller PHY adapter
-Message-ID: <20260924-taps-radiance-b52ebf9077e3@spud>
-References: <20260918071103.24482-1-minda.chen@starfivetech.com>
- <20260918071103.24482-2-minda.chen@starfivetech.com>
- <20260922-colonize-uncaring-c604b3529275@spud>
- <SHXPR01MB0863BEE05D53154B1F61BFE6E6812@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
+	s=k20260515; t=1790267101;
+	bh=GASL7Kwrv0LavJs98T3yfSLMzXEKGRm08E8L0fz64Ag=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EN3cSyho5qcCGBdTc+0iV3uJNhG+B/pLfFmIyq0xyI08ATX9NeOno891W6XfIddqe
+	 yfRTFMwrCabaXiG8jq71gxJbXy8HUh/T0KdDs9xILfvdNexc7BkscTHBVJXWZA7MrA
+	 /0ifiUep6O7DhJ/kdVxqkEeIPTx7jzt/0VdWb+t8T+DwBdj4vvv4YlIHclSOSi67ti
+	 AF67FV1OEuVXpSn5DXLVXMcRZfecfFXU9L+ncjfgn99uvoJPU3VwXrBSA84WTHRuts
+	 6XBUFPrHdAyCL//G0131Vhej5xXBnfQlK1mOaxiEfm+55OeJR2f1y1rARuKAx0FudV
+	 WBZjl42mnxeOA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: clock: qcom,sm8450-videocc: Fix clock
+ inputs for Glymur
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260924161152.1162301-2-shengchao.guo@oss.qualcomm.com>
+References: <20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com>
+ <20260924161152.1162301-2-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 16:25:00 +0000
+Message-Id: <20260924162500.C92FC1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="NEddNWE8FJr7jx7+"
-Content-Disposition: inline
-In-Reply-To: <SHXPR01MB0863BEE05D53154B1F61BFE6E6812@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
 
---NEddNWE8FJr7jx7+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: hallucinated qcom,nord-videocc omitted from top-lev=
+el enum
+--
 
-On Thu, Sep 24, 2026 at 04:03:37AM +0000, Minda Chen wrote:
-> >=20
-> > On Fri, Sep 18, 2026 at 03:11:01PM +0800, Minda Chen wrote:
-> > > Add dt-binding of JHB100 server host field USB device controller PHY
-> > > adapter register IO region and its regs-name.
-> >=20
-> > I don't understand the rationale here or the other binding patch.
-> > Why is it not always 2 regs? Either the device has 2 or it has 1, there=
- shouldn't
-> > be variability unless there's more than one instance and the dfferent i=
-nstances
-> > have different numbers?
-> >=20
-> > Cheers,
-> > Conor.
-> >=20
-> Thanks for reviewing. The virtual device controller do not contain PHY
+commit 0ca2f034154349c48cdd7a693b1d8282d6886964
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-I don't know what a "virtual device controller" is, or how it relates to
-usb3. I'm a binding reviewer, not usb, so you'll need to explain this
-more clearly.
+dt-bindings: clock: qcom,sm8450-videocc: Fix clock inputs for Glymur
 
-> but need to add PHY adapter setting(self-develop by StarFive). So have 2 =
-regs.=20
-> Previous is BMC USB module do not contain it. But if PHY adapter be moved
+The commit updates the clock inputs for the Glymur, Nord, and SM8750
+variants in the bindings from exactly two items to up to three items. This
+change allows device trees to supply the sleep clock input required by
+these drivers, resolving an issue where it would register as an orphan
+clock.
 
-Are you trying to say that the jhb100 has two different usb3 controllers
-on it, one of which has extra logic implemented by StarFive?
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.=
+yaml b/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
+> index 910c6d5672b86..dc01c37dcd0e3 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
 
-> to PHY related driver can remove this . But Thinh still no review the pat=
-ch3.
->=20
-> > >
-> > > Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
-> > > ---
-> > >  .../devicetree/bindings/usb/starfive,jhb100-dwc3.yaml | 11
-> > > ++++++++++-
-> > >  1 file changed, 10 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git
-> > > a/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
-> > > b/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
-> > > index fbabe99e9d5c..b2fd98c06ba0 100644
-> > > --- a/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
-> > > +++ b/Documentation/devicetree/bindings/usb/starfive,jhb100-dwc3.yaml
-> > > @@ -20,7 +20,16 @@ properties:
-> > >      const: starfive,jhb100-dwc3
-> > >
-> > >    reg:
-> > > -    maxItems: 1
-> > > +    minItems: 1
-> > > +    items:
-> > > +      - description: Core DWC3 region
-> > > +      - description: DWC3 device controller adapter region
-> > > +
-> > > +  reg-names:
-> > > +    minItems: 1
-> > > +    items:
-> > > +      - const: core
-> > > +      - const: adapter
-> > >
-> > >    interrupts:
-> > >      maxItems: 1
-> > > --
-> > > 2.17.1
-> > >
+[ ... ]
 
---NEddNWE8FJr7jx7+
-Content-Type: application/pgp-signature; name=signature.asc
+> @@ -77,6 +76,27 @@ allOf:
+>      then:
+>        required:
+>          - required-opps
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,glymur-videocc
+> +              - qcom,nord-videocc
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+Is qcom,nord-videocc missing from the top-level properties/compatible enum
+list? When a compatible string is introduced in the allOf/if conditional
+logic but omitted from the top-level enum list (under unevaluatedProperties:
+false), any device tree node using it will unconditionally fail validation.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVNOgAKCRB4tDGHoIJi
-0h5AAQCWEBnKJEW1opcLkFMrFa5xIWT4nGoJbS518dp4kbB4qAEAgHgelJ0cFynG
-TIdreDGMJb8htngviPBVMLPiY0b1dgw=
-=JPty
------END PGP SIGNATURE-----
+Additionally, the commit message mentions that videocc-glymur.c handles
+qcom,nord-videocc, but this identifier does not appear to exist anywhere in
+the kernel tree. Could this compatible string be an LLM hallucination?
 
---NEddNWE8FJr7jx7+--
+> +              - qcom,sm8750-videocc
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: Board XO source
+> +            - description: Board always-on XO source
+> +            - description: Sleep clock source
+> +    else:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: Board XO source
+> +            - description: Video AHB clock from GCC
+> =20
+>  unevaluatedProperties: false
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924161152.1162=
+301-1-shengchao.guo@oss.qualcomm.com?part=3D1
