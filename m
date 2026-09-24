@@ -1,75 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11F84A263D;
-	Thu, 24 Sep 2026 15:30:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C59249CF43;
+	Thu, 24 Sep 2026 15:34:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263806; cv=none; b=AwE7zFSOnB9jmkMStOUVLu3n3FnK/4yNZezjxetsIk5ZBdeoxDcU4GzsiUJriPI4Y5Kc1p/n8UilujJ0uOh1oY5Ibq3UaljrpC/AqoefsupuKmK7gvSjKe3/pQ9JAWGA/ca6mo7Vnr1xQ7xkLGqfL/sCh3QpTK7e6MDdwrJy4pg=
+	t=1790264079; cv=none; b=ZfV7sxnbxOFamCk0ljhon8z9QNvy9zGI4xQbuj06hmze3+pkM/rjn4lZI6n1rQb94xCN7TjsYAqVSY8ytzRtXDWe5QEYcvwDrmBZ6ULY0hxcOneIWPcGr7guCTO9KO1/B8bYgIrgwm1dtaxracfb8KLSLstnWHof2EseFSRvqsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263806; c=relaxed/simple;
-	bh=6Kd3H8OgG7G5CfVYho6YrPmqzUbKDh3yoZfacF7ygBM=;
+	s=arc-20240116; t=1790264079; c=relaxed/simple;
+	bh=lm2frTX4PmhGYZEhN3/Vdc73jPbQF8yV+Z3T+AHyZyc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iLL1HOSAuexLaI+SIlOZqLqLmTts6H8CsN5nD5Srh4bFT7d5K4LrSnHCUpo0lupxBBjdyUvAbjBee9DjUXjioAtDgBNPdCGKearD6P9dv/RwlWh1CwDi2c20t2cw2VSlnO3HNziXlFNGTSxPlZOjpu5rJZTkZrwcUIM+NHfafnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EW0B7Nc6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=aSR0v5h9bsvdvONxwYZF7yGet6xWlmjFyOgMFC80NtH4hGEKWSVQ64zIHfy6seu4l3i6UWVeMhew2RmCvrlk7x8ykJHSATFbNwdr74Oeg4qujy/2LJQti7FOqZZ//vJlH8TyP5xeTi1YflzLgiBS6trBTHNC0rPhS67+p3OStnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oxc1vMvw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EW0B7Nc6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A8C91F000FF;
-	Thu, 24 Sep 2026 15:30:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oxc1vMvw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705491F000FF;
+	Thu, 24 Sep 2026 15:34:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790263805;
-	bh=3xaD1IMfAyp/uIU4MITG18na4g3zXQJFSDgCzveCcZU=;
+	s=k20260515; t=1790264077;
+	bh=W/Ljat49QaUj4eL8f4hzZRQRMOMmyTOMPP2vNAZzWmQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EW0B7Nc6zPIXKvae2h9udoFtfnvLgEztZgFp0GIOtPQU6aa0CKVM4BU/HUwpZ0vKr
-	 1Ng2uL1PApIcsZ4dt5R5rJKBtQ+ejpuIHqzHFWmmVVwhmekO997ypwXY7o1b50WfWZ
-	 jNFyYcsC4YxISGl8X5n0lAnADzdfFjebSuXNuMX4ChHZy2l4ud2CDTfr6dJYsj4GSw
-	 /HSilVBl9WDa93bYPAWt+PWertSA1Ap0Lu9AOmmd31jcJF3mOw6bQ5CoDyBZirCmh8
-	 972QlyXRwXWLAAYyvARx/fHNTHXFpJ4VQs7bNe/4FU9mINsUnDG7ZOXj72PcCtGHg4
-	 yo2B1+UfXTs2Q==
-Date: Thu, 24 Sep 2026 10:30:01 -0500
+	b=oxc1vMvw+VtiJW7aIeXGqs+p23tQHLToK5Rh1ixS12xZIfTfwD7B/dIdeSrQvC5D9
+	 el7EjZPTbBVCg305SzIcrCzGNKOLDrSkKalBhcY52zbFsqapiBmZIfiXgHfEyjph0Z
+	 yY9xgZMVDw0prRfwFB/FvZsC3X/x8Rq4WT9boB1JTbDaXJjOh6udrFIgjtjz2m7K8r
+	 UF+4zZA2wi6/b8MQMRIz5engjCZZCs0hYY1VTiDVCRc90H7156PG5ayw2DZUhn/a8f
+	 HVWt34/7+pj8fdkFx0emyp0lThMtvey0AWWd5bF1fwCiMbSBv5s0JAoF6ffgD6ZHCP
+	 YrlTjg3mbYLWA==
+Date: Thu, 24 Sep 2026 10:34:35 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>,
-	Stephen Boyd <sboyd@kernel.org>, Lee Jones <lee@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	Hal Feng <hal.feng@starfivetech.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maud Spierings <maud_spierings@murena.io>,
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	dri-devel@lists.freedesktop.org, Jonas Karlman <jonas@kwiboo.se>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, mfd@lists.linux.dev,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Graham Markall <hello@big-grey.co.uk>, linux-clk@vger.kernel.org,
-	Paul Walmsley <pjw@kernel.org>, Robert Foss <rfoss@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Dominique Belhachemi <db@domibel.de>
-Subject: Re: [PATCH v4 06/20] dt-bindings: soc: starfive: Add
- starfive,jh7110-vout-subsystem
-Message-ID: <179026380151.180820.13279134510036926790.robh@kernel.org>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153224eucas1p1c19b20f6af600b1c3228a9a8f4bb4490@eucas1p1.samsung.com>
- <20260915-jh7110-clean-send-v4-6-f0e4fd6f2cc8@samsung.com>
+To: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>, linux-pm@vger.kernel.org,
+	Daniel Lezcano <daniel.lezcano@kernel.org>
+Subject: Re: [PATCH v2 3/4] dt-bindings: arm: airoha: Use one thermal sensor
+ cell for AN7583
+Message-ID: <179026407528.231290.11921306500711802178.robh@kernel.org>
+References: <20260915191131.25214-1-sochnev.v.74@gmail.com>
+ <20260915191131.25214-4-sochnev.v.74@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,24 +50,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915-jh7110-clean-send-v4-6-f0e4fd6f2cc8@samsung.com>
+In-Reply-To: <20260915191131.25214-4-sochnev.v.74@gmail.com>
 
 
-On Tue, 15 Sep 2026 17:32:14 +0200, Michal Wilczynski wrote:
-> The JH7110 groups its display hardware into a video output subsystem,
-> dom_vout_top, covering the DC8200, the HDMI transmitter, the video
-> output clock generator and the video output system controller.
+On Tue, 15 Sep 2026 20:11:30 +0100, Vitaliy Sochnev wrote:
+> AN7583 has three temperature sensors behind the chip SCU: bandgap, GbE
+> and CPU. With no cells a thermal zone can only refer to the bandgap
+> sensor.
 > 
-> They share one NoC port whose clock and reset gate access to every
-> register in the region, and the region sits in the PD_VOUT power
-> domain. Describe the subsystem as a bus node so those resources are
-> owned by the block that shares them, rather than by whichever consumer
-> happens to probe first.
+> Use one cell to select the sensor. The AN7583 compatible is new in
+> 7.3-rc1 and no device tree uses the property yet.
 > 
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
 > ---
->  .../starfive/starfive,jh7110-vout-subsystem.yaml   | 218 +++++++++++++++++++++
->  1 file changed, 218 insertions(+)
+>  .../devicetree/bindings/arm/airoha,en7581-chip-scu.yaml        | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
