@@ -1,63 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CF6361943;
-	Thu, 24 Sep 2026 08:44:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C0C23909C;
+	Thu, 24 Sep 2026 08:46:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790239466; cv=none; b=bM2OX57TDO1BOIXsfOy4RAUr34fJfhzU+GfwOcduZ02ETkLx5ODxw53wbBBsJHVQV6Dds8PX+Ij63WaI6P+A+jkFI+EPI3qgmYh4Z6KgqjW7TWouw+6GFt1usu5Or+LYHk+6J7NqqETNAm/kXSKMIO4DVfwtq9vzCWQWzYPZpRU=
+	t=1790239607; cv=none; b=DpkP9PmMb2LISRMYRrO/Gwltjv+HyGSyWFJJXHMWAsOfk/hO2i80PXGtsXIU+lxZ55j+llFPQMw7VTDKedrVFjBo7demyrXbZHNFaXgtKaeZPxLPsXMDbZivS3HwrPgWaSwHMT6Nu9hFdA6EnSj3DQE6HXrq/6TLBVHa9ji8Drk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790239466; c=relaxed/simple;
-	bh=/NQGBQbZv2sG0jSb/npgG5HgXpYxk6sauZaCqFLS0oU=;
+	s=arc-20240116; t=1790239607; c=relaxed/simple;
+	bh=KgklrhLhFHNpt/t1Qta3bLb3HUwDLAiVWyXKgUBQ4DM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X5ffaqdVziCLwmbhQw+4WG68hJutaS4+7v8vjbcn2FU9A0nzo7eGikPcKz/RZdDmutWFKdo9jGx/82TBaNdG1lUK3Eu67ukdc0CyHjAKmqZK8NEu21EjSmpih5HX0WDo5W6p8Zz2uyJDZlJNINhGfSaAEPkQdCtveXH6klpL6vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZhTxoHB; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HGr+SCrSRfW2JzMnxBvZje1icSj+/vszmEGZJaAhfi631bZqn9a5H1BvUwty9iemvAfKxy8onqVkEyCXqZgMaPnQ7WOeme4o2nEMXY3IvH4nVKVTpNWcIBT0QkZ/lHhyDHEnuP3USv3L2BJOlsNHnKbP3TV6IcJaBN6/vmbHYB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xl4AdrKY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZhTxoHB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACC7E1F000FF;
-	Thu, 24 Sep 2026 08:44:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xl4AdrKY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860421F000FF;
+	Thu, 24 Sep 2026 08:46:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790239464;
-	bh=/NQGBQbZv2sG0jSb/npgG5HgXpYxk6sauZaCqFLS0oU=;
+	s=k20260515; t=1790239605;
+	bh=KgklrhLhFHNpt/t1Qta3bLb3HUwDLAiVWyXKgUBQ4DM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bZhTxoHBX4DBkLkBw7ph7lbPpn6XY/LeFPj3qb/YORdxG0P5mf5A6yz48/UxAzxWG
-	 cWfFk8rVLdlOsFrPbgRRRnBhWIhX/0iMwEcNHOf3y4pAvcUUs8GDICkY01UlDA9D58
-	 5K9JV3I7FckZKXlarUGjywbWKx/H70mD8SRuhdAnWMG3ATSPl8/aHF33XToDk95red
-	 ouIp2OrsdFn8dR2gDFT00+ViDe2tSqbVpYVJJcCVckhEh7EBgZDJ4RWe+/22xDEp7D
-	 kEgzaR/Lz1wcIfN+03fS6V6+3u+5rsAGSaPAqvHnZyP09VA6utPrG+AwIpI9jE1/qW
-	 1l6cXgIZau6SQ==
+	b=Xl4AdrKYoBXgxRAfdrjnO9YmmESY4M6PVL1Fw44fXu2BTATmp2BlsJcr/BzobtQPL
+	 YPbwTV7MOAuuLrVGe4p7jjmDPuweC6c+782zF1cLWJ3Chq5866xrq267y99Vx2ND1k
+	 q3uepfvY3cEwsQwo3K0Zzg6QNEm/uJ0BeC66bO2Ioai3jknNde8eonV8UXkUHkQvcK
+	 blcK1TgSIfJobfOlg0BYHVHi1dlwYMlBU4FAMbra1zyO+xrJaYt/CJdGAnREj9lnVw
+	 v68nVyCs51UNJaQNapd6KyltJ/O9YXY02f2SNzRoW5XpNWJAiVAB1DXNfEahydLZUe
+	 70znDh5CBpysQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] dt-bindings: arm: mediatek: add Mediatek Genio
- 520/720-EVK boards
+Subject: Re: [PATCH v2 2/3] hwmon: (lm75) add MAX31875 documentation
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-serial@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260924-add-mediatek-genio-520-720-evk-v3-2-2ec5c80677d4@collabora.com>
-References: <20260924-add-mediatek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com>
- <20260924-add-mediatek-genio-520-720-evk-v3-2-2ec5c80677d4@collabora.com>
+To: "John Erasmus Mari Geronimo" <johnerasmusmari.geronimo@analog.com>
+Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260924084121.82-3-johnerasmusmari.geronimo@analog.com>
+References: <20260924084121.82-1-johnerasmusmari.geronimo@analog.com>
+ <20260924084121.82-3-johnerasmusmari.geronimo@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 08:44:24 +0000
-Message-Id: <20260924084424.ACC7E1F000FF@smtp.kernel.org>
+Date: Thu, 24 Sep 2026 08:46:45 +0000
+Message-Id: <20260924084645.860421F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> Add compatible strings for the Mediatek Genio 520-EVK (based on
-> MT8371 SoC) and Mediatek Genio 720-EVK (based on MT8391 SoC) boards.
-> MT8391 and MT8371 SoC are less powerful variants of MT8189 SoC,
-> with identical hardware register maps.
+> Document the Maxim MAX31875 I2C temperature sensor as a supported
+> chip in the lm75 driver documentation.
 >=20
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
-ora.com>
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analo=
+g.com>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-add-mediat=
-ek-genio-520-720-evk-v3-0-2ec5c80677d4@collabora.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924084121.82-1=
+-johnerasmusmari.geronimo@analog.com?part=3D2
 
