@@ -1,99 +1,113 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6F139934B
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790260951; cv=pass; b=Wrjc/d7seKksG81IfVcBzQvXBeqUl34XYaTTIAWRQcrcIgRPXeKnzxzb4V7ICtBDjBXtwc84D5BUOawiR46ouYp00Lvuar47w4ujYEbdl5hXYoExRHV0/RAyM0yc6gRd/zznfrQn2TT0N+9lepGs/rB6p+tUytXs2XUjJWf633s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790260951; c=relaxed/simple;
-	bh=9YOd5bZyODtN9cGxOXCDLK+zhRfQThyoLAp0qXa6H4c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tocr4iVpXILiEgYnRjt2WBHfIQlwjjlnKVSzsqCozBls2fIRgwiLBtVMkqVOe8yRGUniTohZzp2TeIriPTS9Dw7NRmOCarY+aJvMucTtF9P7hDukEOF1lgHlUx7J9mc19FdLgWyFrPkYcapgj/ZjDZepCkld86tQ6ojNbSVmYkU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iBR3+1BT; arc=pass smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13CD23CCFAF;
+	Thu, 24 Sep 2026 14:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790261039; cv=none; b=CN0nUGvqWWqLGPhvK5lG+0lkVNVRl1BXXxmZam8rXN1vp3ZAHTtfdMQ3wZyevuvQCeGh85HZBZzE5PAysOAt7CboQwQP3/9XOS+IINbfsEpPiEPVwVQbenv91rBb63Gwy9ZnA/8+3ckFHBM4WFNzhcH9cqgbyiCjqMjdMlaoUqE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790261039; c=relaxed/simple;
+	bh=I2zwu1o2eKBm3bb8m8xA1aktnk5mFIpImfzHEKDiekc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tPCGe+ZKensuEklNGiLZ0yViQ8baGdDButGEcV1AL2W0AqcdxrPC4FWwbgQWo0WJOIoLAyOt8csnm7d0Ysf8pa3nX8kDNOjemJ7tzlq2DDjSsXYjqBceDPAlPV21BMai0plg7yoLKxhMRylTy486eRQiU9i68d4dCZ+ORuYthlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xrmuoxwa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iBR3+1BT"
-Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d43ac8d1dso23313527b3.3
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:42:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790260949; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BbR9YWB8zLTKEJsd9MmRmBvC1riNQmgOxIT7iXeZJG6ePBGSIivFe+QnwpKuIM4PPr
-         wZlCtkXvabb3DbTtWFWL7a0Hsqt4ymAoA6XKTrpo08LUGBdn6M6sGgQxUj9GU2qTp/lR
-         EDAE58zjZ85DYt4KVDwXXv6oz04DnT5wLGxoZJg9ajoTEaSXMchTOxmWlB8RVr2P6t5Y
-         cWiqA/Gu0zF25PzK24ENobJoVNbKI4pacbaDTpD47FdkBG3UbyvzXFTHFtSfi9XC/ATx
-         SLstEwFZSfgEBYGbkMw3oZtgUPMH4MdPZj3mLquCyJNc/OgDuPKnxefSL38AkR71VvEd
-         uEig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=9YOd5bZyODtN9cGxOXCDLK+zhRfQThyoLAp0qXa6H4c=;
-        fh=WMvb3vw64DD6Qxmr9/uZaZAbG26XeiTQ3LOD31CZkMs=;
-        b=jl4MgytLc6Q7IOep/xNeOiC1wOnG0WYDaBNFNgLGeEqQ44oTzLSoGRKo0K2wpuQWNw
-         kYHw4aZ+rQW76gvZ1Zvf9kseYVIhLOuPxt+k/ckcNBd7uFBC12pM3asNkq89oo7LT6+t
-         1v8hGC1ERbvz0n864rvnQWrVWEozcE8z/Qu9VgaBwwDX371AvxlTz1bARXFC+eSlCrIt
-         s+Sew+Ls69vG9HI/6L2B6GB5uOdeBWsG5PrfagWFdF4OyXKnisMiYdht7iXJzdzi8xLs
-         wkVOHknWE2odZ/rGNhJZqXq2Dxnzn2yKZtp1sexyzqdYOsObvTxGFsbpxJ2hhKXI8iB7
-         9XHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790260949; x=1790865749; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9YOd5bZyODtN9cGxOXCDLK+zhRfQThyoLAp0qXa6H4c=;
-        b=iBR3+1BTK0VWFZ1W3QF2JD1jeUf3vCpZQ6rd+i7OE/JoPKkPBcNtyigSymDjSYGSt/
-         RNxXVSEJImBsSmQvMUtoUCnOX2eoKcljFxjPqB0ETI1BtQEG05bvixq2VtSk+7mHa5vu
-         krjg5n9V/xmyR7zFk6F9tdPsR83VfVZQEFnIPWc5p1vuEDrrzUfGo8vllW2btWoFpdwD
-         DT6cMU7ZYQ2iRKCQw6Tw+oVqQkq9jYxZyuWyetA+aIH/OPnGH5jQvGn/o3utWPPBooUy
-         Fa6BvQ3b9zS+WVqj/dblpiqit47X6sdEFQ+TT5q4GS2kUfj3kIZT8s/fZYJxZJKIGHil
-         Ghgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790260949; x=1790865749;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9YOd5bZyODtN9cGxOXCDLK+zhRfQThyoLAp0qXa6H4c=;
-        b=Lr+BVce3Iv26qbI2KaGCBUTYSiAg8eN67eCwSC/MsEmyDo7BiYXP6AVHT28FKqmO0d
-         jPMa+LeS8n790M1OMFUtG0V/5HZgxKK69/tZkTsRX5HMRslbcZQQyIscIcRx6l+/8fHx
-         D9lItHfGRbt/XBhTDOtMOxFw8JoL9LmvejcmErYw3o9CA+OdSQS0z+9Zhuq94I9efr0p
-         kS9vf50lZdnTsKZXJJIHpkEw7Z8vtWAfCNsrkEN0Vx8RFEfDvJ7JlQQiSLU5DH2jGWHU
-         f9KB57AJvSVrhEVeDAkqHjcwIota4iJ/0ZV6y/THNkQFYNuK6D1ajv5KoxCkPMVCRsb4
-         1E4A==
-X-Forwarded-Encrypted: i=1; AKwUvBzE7jhvpC8oQL/qZbP7nET6DSoykN+aPH7EjspyeA8o/cbYOcybUcx8LI05M+pzzcrbCPx6q+d87XfH@vger.kernel.org
-X-Gm-Message-State: AFuF++kIF5Hw037vd88y9dw9BiWKBSP0D9GxgD5z+7H9OYP5MB6UW+Bg
-	PiPZ9BhjLu4wc2hWT1qi1O9sBfCSE/jRxLx08oX7L8AxJhX/1twoVcZDAVqbrSCmGa/6BECfPXC
-	C2krSkFfg3M31+TKpvx9Ld0rQ+SP22Qg=
-X-Gm-Gg: AYBFou2VudZ36qedemVNcCOA27Z3z6OuYPMNXTGmUSU99B6O6B72shooZVUwdY+FzQr
-	sXBoeYiuL9ZVjsQyLSpT4dStNYy0uqAi+QxzfyLGGUUifLmmIM6ILvMVdcjHrAlmcf79R1Z+T4A
-	/TJ2Avajp1Iij65himGG0HFR+v1v7a1kz/QZdX5MJIsFp+2rN3J86zzB71uOgkN0846SierwRks
-	k3a8gbHgmYTwDfFrGqQFGtIyDR0lH3spBDeHboaw3i5WgGoZpwls1Sjq1RR/hbT/KGr3FjYPyVF
-	vp9a44udFEwhNlPOcKO7bf7/W/lq9Wj8hWk/HyCD7nn6MmTZc6Uz7ARjhg==
-X-Received: by 2002:a05:690e:4386:b0:672:a52c:db1f with SMTP id
- 956f58d0204a3-672ed48ebadmr1187815d50.103.1790260949554; Thu, 24 Sep 2026
- 07:42:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xrmuoxwa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264C91F000FF;
+	Thu, 24 Sep 2026 14:43:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790261037;
+	bh=Z1p21TsolUrg+uQYicc4tIwZwvOpamvsDeXozsny+5U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Xrmuoxwa4pF+EATlgfIiEuMWkUHMzKmFYhrIicd2EuZjxbVy6l92ge00Lu4JhxAPi
+	 9BETJOJrUGKF4mGzti+wT//1/cncnWQCXJZpxQWxnMFJph3ry3nZwVpdka4nZM3J1x
+	 O49L96wSqmpv0GhstNI/OoTLdG70jGDQzmOywDSCONSm/+LVfzc8AG+Czi/pExiWB0
+	 hB6cdrPKljW7pJNC52GXYFm82PzI/qAMUmmW7SN5K0/z/PmGhmCyMrDJN80SB+uyJ8
+	 pHLuIXDkxlwryBSvdDmaKCcor5Oo9ZKuZoGKr4fP/0w5BzAGhaRi9BUk2PkS7oDjrC
+	 hjibXRgltyh0g==
+Date: Thu, 24 Sep 2026 09:43:55 -0500
+From: Rob Herring <robh@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: markus.stockhausen@gmx.de, andrew@lunn.ch, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+	chris.packham@alliedtelesis.co.nz, krzk+dt@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v4 2/5] dt-bindings: net: realtek,rtl9301-mdio:
+ add clock-frequency
+Message-ID: <20260924144355.GA4167689-robh@kernel.org>
+References: <20260912130451.3757276-3-markus.stockhausen@gmx.de>
+ <178956571230.22033.2648098417803980646@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923112009.1062-1-anykey196@gmail.com> <20260923112009.1062-2-anykey196@gmail.com>
- <b01154aa-16be-4dbb-861f-d4a70da7ad83@arm.com>
-In-Reply-To: <b01154aa-16be-4dbb-861f-d4a70da7ad83@arm.com>
-From: =?UTF-8?B?0JLQu9Cw0LQg0KHQktCd?= <anykey196@gmail.com>
-Date: Thu, 24 Sep 2026 19:42:17 +0500
-X-Gm-Features: AclHuK_hCbEyvfcHbTXKt-ecvSOb-lEWKE5cl3FOBZCvjRjKdS35-bDLlzlza6k
-Message-ID: <CANHPwAT=tDAnTY6hor0WssxiYFh27doZeD=j42WHxX=3fUcHyQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] arm64: dts: allwinner: h616: orangepi-zero2w: add
- SDIO WiFi/BT (AW859A)
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <178956571230.22033.2648098417803980646@kernel.org>
 
-I'd better rework my patch and letter, do more testing and then resend it.
+On Wed, Sep 16, 2026 at 01:35:12PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 0 · Medium: 0 · Low: 2
+> 
+> - [Low] Concern (validated as a FALSE POSITIVE, retained only per the
+>   retention policy): 'the binding adds a per-bus clock-frequency…
+> - [Low] Redundant re-declaration of the common `clock-frequency` property
+>   in Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml.
+> 
+> --
+> 
+> dt-bindings: net: realtek,rtl9301-mdio: add clock-frequency
+> 
+> This documents the MDC frequencies supported by the Realtek Otto switch
+> MDIO controllers, adding per-family clock-frequency value sets and
+> describing the shared frequency selector on RTL839x.
+> 
+> > diff --git a/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml b/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
+> > index 7f5b4897487b2..c5f2289dc0eb2 100644
+> > --- a/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
+> > +++ b/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
+> > @@ -56,6 +56,9 @@ patternProperties:
+> >        reg:
+> >          maxItems: 1
+> >  
+> > +      clock-frequency:
+> > +        $ref: /schemas/types.yaml#/definitions/uint32
+> > +
+> 
+> [Severity: Low]
+> This isn't a bug, but is this declaration needed at all?  The mdio-bus
+> child subschema already does:
+> 
+>   '^mdio-bus@[0-3]$':
+>     $ref: mdio.yaml#
+> 
+> and Documentation/devicetree/bindings/net/mdio.yaml already declares the
+> property:
+> 
+>   clock-frequency:
+>     description:
+>       Desired MDIO bus clock frequency in Hz. Values greater than IEEE 802.3
+>       defined 2.5MHz should only be used when all devices on the bus support
+>       the given clock speed.
+> 
+> So the property is already permitted by the referenced schema, and its type
+> is known to dtschema without an explicit uint32 $ref.  Other in-tree
+> bindings rely on that, for example mscc,miim.yaml uses a bare
+> "clock-frequency: true" and microchip,pic64hpsc-mdio.yaml declares
+> clock-frequency with only a default.
+> 
+> The per-family enum blocks added below in the allOf if-then sections are
+> what actually restrict the accepted values, and those work independently of
+> this declaration.  Could this block be dropped so the common property is
+> only described in mdio.yaml?
+
+Sashiko is correct.
+
+Rob
