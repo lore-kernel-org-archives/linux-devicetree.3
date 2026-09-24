@@ -1,136 +1,154 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749D43E7145
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:54:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D988A3E3D92;
+	Thu, 24 Sep 2026 08:54:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240045; cv=none; b=M3YIL9qEJ+FFpst4/V8GdezsRlSPi9NOSgO5jYYPJ4jZXFiTLdtA4DEiMC1ABuywHoVC4Dnkul2yDfhOeykHtw5n2LAagPPFBBEekAndC+zagPQYCYED+OIC0rnBl+fEryj4GBVoioKuatJLVbVZ1eNC+sbrL3x7DwJNiIV6/xw=
+	t=1790240051; cv=none; b=UgUCgn30SsuL5fDg9bcWzN6/3eS8alxBAjBVcHe7qDCopeDM17d1NR6grZb6VS4TXI1RPPEdUT4JY37IzX+AeX/kRj3lwMYUdG/tuBOfv+s43aGkH+3fBEVUZq1OE1t4558wGNWiQn7w3XLcZEGmWT6c96CqmDa+ZEs4mmA74rE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240045; c=relaxed/simple;
-	bh=vXsA8onEphTPMBeepzop7491JLND9beylCZQUYRa/9s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=tyHFW22R0T2VdF+idnAch14Q1vGVF/z7AZPZWeMarjvqVydKOotkNEwwcY+LCe1/NGhWEHv/GjwJVmDgUOrDIYWLC9O4MH9iPiM31DdPXRwXAJhNkiTiwbnqSGDSoXeOLicS4K6I51b12EgzKx/Z9V5Im5eGAuuNrwDs2kGd3lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LqbjLpMK; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790240051; c=relaxed/simple;
+	bh=Cx1crZg02Bxn5Uwa0Ku/dIN3DwHrqo6qGUKSE4jIjt0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gW/qaOBOaYxAxPHN4xYyYHVummlnYEmW8HjEfGivQpt16RGqYHVYlHXDcCZNnzuaW26V9sEammhx7Qb220cpVztEXehuydSxEe6+N4+IXhWRP2TrITAcXwG+fvMn8wedngfuj4MK0X9tV01gCZx9ZCr9f5XWk9mcUjSMQ9N3D7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZErrGoMK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LqbjLpMK"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so12182715e9.0
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 01:54:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790240041; x=1790844841; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YLnZwUG2MBgLZpqGTzUMzHxGyh6dXv6V+NePiVAKHBk=;
-        b=LqbjLpMKvROjquwB9jxrXy2kExvY2imvTRcDnTuHsenhBVfltERJWno289v+iKmBJ0
-         yUqkWFM+EFSFkDhphVs6tMb1P9AWqlMdUS/5QOyQM9/h7C+yCLOJZ7lCjjbQe+RHTCMA
-         r/UI+7MgH45kl88MOtfb8JtOXg8eB4ONJMqxo32cayOKyu/UkHG87iGnwScfJVP691mX
-         vOloPmc5qF53eBOKxUSJjqEumbi5ZfQcrMUaOaypXmtXdPklzDOPfmBXXVEFkITPNP49
-         OK6K3F+y4PcdWOsVTPW7EuxflHrHUrB/SnW9+UwP9e4GDh13UiccwX5gI6sLw2MNo8km
-         zU+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240041; x=1790844841;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YLnZwUG2MBgLZpqGTzUMzHxGyh6dXv6V+NePiVAKHBk=;
-        b=MZ8qqaUz1mhBBesXWC4wLuFqTte78Fb4kmgdyIBHJn9suFe3qPnObhCCxaY/gsTbjw
-         hzCPl7fnOmQfRd9+gL/V6Ki9+8N8m6YCWixeAD1ZiP7cOAL97hasoaFCVdr9DQgOiveE
-         IBO8CEZCW7uqAdbVoSchMupXstBKzW9wo7I2UtYdNNHf1nQeXjgsK/8ZAEojVq67Aw0O
-         rbQTpLDRMQ/Gh5xNTbwCtpoKVFsMwZBtQ9ZiywSsWpOoxRWFbBnpbuda/t/1wk3mnOhI
-         n9046Thdc1MxqkTS23FurZ5NuzYykWUjMHuwCv7HCvCCMSWKqZ4fG1oKms2pj7kSb9h0
-         nWJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxeraO+caMlA8j1J+g9hz9nbK88JYn+FgrjH0gUTDdqXJlCJP8ODtYShmk3QdNYPYyR4Gv5VfBdacKX@vger.kernel.org
-X-Gm-Message-State: AFuF++lZDXc0v2C2wk0TyfYC8Fn5alRkghLCv1PIdT0n4rMjNb/01x7+
-	BoOQoU+8FipdZ1xJMbEMq4sZcFHSDzJI5kVIMJ6DGVQRC/Qdw7/o1oUtNGxzjRLs7iY=
-X-Gm-Gg: AYBFou1ghDW6/ZQFEzKwIj8978eW4G9ZKLhSxRqKevYtJH+iu9kwpSzxAKmH4tWA4UD
-	NO1D3WAZXRWKFy3CCBwTln/h5Fxa7EGcQTl7G37YHi80sgec8+e9Wy2oARiofOZImJ6XWqV5XJb
-	D7xB5NDD3c9ZQQ1xfDLe5uJ9MGMt3H3uOVMDuLlpVnnLxMFy1b876iuKBmFIcZ9Mt/422gJvd8/
-	HVe9IPqlghnLLqiln74DbyyKVVoWpMniyYqyv4c2UM/gowo3f3Y2Wm63e1Xho8dTkgbRO3C3ulF
-	4AU3JBEliZia3i1XztTEjiv8IIiPkVZ9ib93xtA9GQdILfHO/wM+tVD+sW3w8H2gBgBpTewKy9p
-	EZTvMWx2B54zWTsM6+hmnmI67boty1JClKuvAsfUrVJ5VSuHSYPet2GgIwc1hqgSdAXic1LX0Ap
-	9/NDSdsdTw4bP86l9Og2woLsMce5Mv3fZ5+KODw5bZUcDvGwvI4dHUkLgu//wJtMqnGugv9UKQq
-	YIXLYu94Z5s4CMjTA==
-X-Received: by 2002:a05:600c:8b22:b0:49e:6fd2:a45 with SMTP id 5b1f17b1804b1-49fe66d81fbmr28966805e9.16.1790240040664;
-        Thu, 24 Sep 2026 01:54:00 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4c8dsm64643045e9.3.2026.09.24.01.53.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 01:54:00 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Richard
- Cochran <richardcochran@gmail.com>, Maxime Ripard <mripard@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andre Przywara
- <andre.przywara@arm.com>
-Subject: Re: [PATCH net-next v3 3/5] net: stmmac: sun55i: Make the delay
- step configurable
-In-Reply-To: <26334006-a2af-49d3-8f26-18cd44118c6b@lunn.ch>
-References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
- <20260923-allwinner-a733-gmac-support-v3-3-15735155a789@baylibre.com>
- <26334006-a2af-49d3-8f26-18cd44118c6b@lunn.ch>
-Date: Thu, 24 Sep 2026 10:53:59 +0200
-Message-ID: <1j4iff9gig.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZErrGoMK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 141B71F00893;
+	Thu, 24 Sep 2026 08:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790240049;
+	bh=krr2x0udYkPFmKkFm24MumfKmR0EC0aV0NUPyy6RiiE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZErrGoMK4gjJtUpHXYQ8VjfztrLp/wmbwFH9Z16vABjVklbffIzGt5HVtriBCSalP
+	 InmEiywRqHIPYVtouVNl7rWQk6C6p57ZDspZ+hUp8JypSdVpjSEjWH5NfMzyocfEzZ
+	 bsRNZrhHZju7iVRKW7+6xo3PyN4KpJfDMUkxoS6N4jwiKCLDFhjEFcLp18PZPsNqRb
+	 cOG2t7bQbVu/liWrJWQrgtYff98lEzBtxj/aBYPH8x+AuM57gwff0QuyE5zq+WB490
+	 4VrHPkapYj0xvFI08kqtbfbS/HywkjxKoMrHuWXAbcQqOK9PmTWiOuPoTn909Zkw8/
+	 k3La74MKoFJxQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] hwmon: (lm75) add MAX31875 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "John Erasmus Mari Geronimo" <johnerasmusmari.geronimo@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20260924084121.82-4-johnerasmusmari.geronimo@analog.com>
+References: <20260924084121.82-1-johnerasmusmari.geronimo@analog.com>
+ <20260924084121.82-4-johnerasmusmari.geronimo@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 08:54:08 +0000
+Message-Id: <20260924085409.141B71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
 
-On jeu. 24 sept. 2026 at 04:30, Andrew Lunn <andrew@lunn.ch> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] hwmon: lm75: incorrect bitmasks due to 16-bit byte-swap for MAX318=
+75
+- [High] hwmon: lm75: missing resolution state and hardware update for MAX3=
+1875
+--
 
->> +	 * Correcting them would break the DT ABI of the published DTs.
->> +	 */
->> +	.txdly_step_ps = 100,
->> +	.rxdly_step_ps = 100,
->
-> Could you be a bit more specific about what published means?
+commit db9c8895125f3a1241021e25bc19bc84126cb9c6
+Author: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
 
-DTs like those ones:
-* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts?h=v7.3-rc4#n88
-* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts?h=v7.3-rc4#n87
-* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts?h=v7.3-rc4#n106
+hwmon: (lm75) add MAX31875 support
 
-On A523/T527, only gmac1 is supported by the driver addressed in this
-series. gmac0 is another (dwmac) driver.
+Add support for the Maxim MAX31875 I2C temperature sensor by extending
+the lm75 driver. The MAX31875 features a 16-bit configuration register,
+configurable resolution (8, 9, 10, or 12 bits), and selectable conversion
+rates (125ms, 250ms, 1s, 4s).
 
-If I take the 1st example
+> diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
+> index 104149a03bad0..886f83c8b0420 100644
+> --- a/drivers/hwmon/lm75.c
+> +++ b/drivers/hwmon/lm75.c
 
-&gmac1 {
-	phy-mode = "rgmii-id";
-	phy-handle = <&ext_rgmii1_phy>;
-	phy-supply = <&reg_cldo4>;
+[ ... ]
 
-	tx-internal-delay-ps = <300>;
-	rx-internal-delay-ps = <400>;
+> @@ -223,6 +224,15 @@ static const struct lm75_params device_params[] =3D {
+>  		.default_resolution =3D 16,
+>  		.default_sample_time =3D MSEC_PER_SEC / 20,
+>  	},
+> +	[max31875] =3D {
+> +		.config_reg_16bits =3D true,
+> +		.default_resolution =3D 10,
+> +		.resolutions =3D (u8 []) {8, 9, 10, 12 },
 
-	status = "okay";
-};
+[Severity: High]
+Does the custom switch block for max31875 in lm75_update_interval() bypass
+updating data->resolution, rendering this .resolutions mapping dead code?
 
-If the information we've got about the A523 delay steps are correct, the
-actual values would be:
-* tx: 540ps
-* rx: 2120ps
+Without updating data->resolution or the hardware resolution bits, the soft=
+ware
+would truncate or misinterpret temperature data (since it remains stuck at =
+10
+bits), and the hardware would be prevented from achieving higher sample rat=
+es.
 
-So I suppose in this case, the phy-mode is more likely to be rgmii-txid,
-isn't it ?
+> +		.default_sample_time =3D 4000,
+> +		.num_sample_times =3D 4,
+> +		.sample_times =3D (unsigned int []){ 125, 250, 1000, 4000 },
+> +		.alarm =3D true,
+> +	},
 
->
->       Andrew
+[ ... ]
 
--- 
-Jerome
+> @@ -421,6 +431,9 @@ static int lm75_read(struct device *dev, enum hwmon_s=
+ensor_types type,
+>  			case tmp112:
+>  				*val =3D !!(regval & BIT(13)) =3D=3D !!(regval & BIT(2));
+>  				break;
+> +			case max31875:
+> +				*val =3D (regval >> 7) & 0x1;
+
+[Severity: High]
+Does this correctly extract the alarm bit? The SMBus word read returns
+byte-swapped data (MSB in the lower byte, LSB in the upper byte).
+
+Because of the swap, hardware bit D7 (alarm) maps to val bit 15. Shifting
+regval by 7 incorrectly extracts D15 of the hardware register instead of D7,
+returning garbage state when reading temp1_alarm via sysfs.
+
+> +				break;
+>  			default:
+>  				return -EINVAL;
+>  			}
+
+[ ... ]
+
+> @@ -495,6 +508,13 @@ static int lm75_update_interval(struct device *dev, =
+long val)
+>  			return err;
+>  		data->sample_time =3D data->params->sample_times[index];
+>  		break;
+> +	case max31875:
+> +		err =3D regmap_update_bits(data->regmap, LM75_REG_CONF,
+> +					 0x0600, (3 - index) << 9);
+
+[Severity: High]
+Does the conversion rate mask 0x0600 apply directly to the byte-swapped reg=
+val?
+
+With the swapped value, hardware bits D10/D9 map to bits 2/1 (mask 0x0006).
+Using 0x0600 mistakenly clobbers the alarm polarity bit (D2) and fails to s=
+et
+the conversion rate.
+
+Also, as mentioned above, this block bypasses the default resolution update
+logic (data->resolution =3D data->params->resolutions[index]) and never upd=
+ates
+the hardware resolution bits, silently breaking the configured resolution
+mapping.
+
+> +		if (err < 0)
+> +			return err;
+> +		data->sample_time =3D data->params->sample_times[index];
+> +		break;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924084121.82-1=
+-johnerasmusmari.geronimo@analog.com?part=3D3
