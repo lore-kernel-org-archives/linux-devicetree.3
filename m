@@ -1,37 +1,38 @@
 Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8728542124D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D683C42252A
 	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 19:23:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790277793; cv=none; b=cAb8cIyYHs2JtpJxVet8lLjJbk83dGxgFqL0JYXBfIVNqiIdskE0MSevWqYLnknPKOlCcXEUExYyK6O6yFL4qu8I3xkCJusJzWlMSESeehimfDbT9XrViYGK5yZmzs9cGOx4C9TUifVMvnH173lri0b5v3HUZJI6P9/2oBgEAmk=
+	t=1790277794; cv=none; b=Tm/32ntLpmMQmjCqb7WMbArnMYqc/aY8RDwIjXVZl3pxkb3vdP/CZ4aYvhTTL+879pnrZ4Uhm5aaKuiys3x0GxEd9Z1Hglj0NzcKq2Bj0g5yMXYWb2s+rHmQ6eiNh50T8URXPi9Xj6LkBp3pacLMHIyeh2Kz1d52qOg+ZFbV2tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790277793; c=relaxed/simple;
-	bh=HDcwmQfop+W4ETH7CpXLuJvh/CpnjelFS0BKftZWwf8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XGSrZJU6aPi8tLa1O+ya4a28MIiD4VnG8XDGb+NUJACOggSN5WCpqOK3DAaDIMOOVUoVyrYv/GjFjgYnHuXpqZgdgEQhj4HczjoKel4JXbVf42IK/XQxuSxRMo1p/A0/QS7iRwiyIiaTz3GeOH/wSd8Dq4WXBOphnDuVji1TKUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=X9/jM1rs; arc=none smtp.client-ip=185.67.36.65
+	s=arc-20240116; t=1790277794; c=relaxed/simple;
+	bh=puiG2nQO2NiKtI2i3SCIox7+bFUJyLgqxlP56CaERkA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QwpnS5Wp/hj2hjGwC3SXeGk1YJRi2x4GSDeUgiQXeEnB3q55W7dJ91qD/R1AGyfbJJw8P/ucReuj6vTgvsIXOytQw9J4IT8KJ8WqPyfrnBbBI5O9E+csSez4aU1BGMNIJXhNGlaWNKds7lbtQJ6t+lK9d2OuX6mjREaXobxpK34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=AMRTLQD/; arc=none smtp.client-ip=185.67.36.65
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="X9/jM1rs"
+	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="AMRTLQD/"
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 67AC124002A
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 21:23:09 +0200 (CEST)
+	by mout01.posteo.de (Postfix) with ESMTPS id 44474240027
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 21:23:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1790277789;
-	bh=kRgZzjPDxUsOZkrpQ66HXkRaP0ywQYyfK2o+++cNpXM=;
+	s=1984.8680eb; t=1790277790;
+	bh=L/egdCFWIbRkzpbcmj+WbRyQ1f5zUTpRIZSZMmMFc10=;
 	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding:From;
-	b=X9/jM1rsvyLSU49znepuQ9lH1cdDU96YAD4yxC2Tc4gV1kLUAdXilFaUHhDdNagEX
-	 6PSxPkJOpoN5pFvQSvIa/gg8eQYQ5FpWzTEq9P3V/80Ttj4QRuS/8H836s2wwc2sD3
-	 rVqQP+wD8zSdA0MshQmdHOSGoPCrzan46ta8wTVRXRfm7MYhyfji514e8XdhR5usvf
-	 AKp62nAivGU2ggL8GV9bKky5E4AoFekh5nvAj47gFoPTNZEWCH2ZLrKoXWlt6nrCDT
-	 IZsl+WGlg6iVaBedds34DQ/1AnCPVf0U3KCG8w/LZx01o2tnXb2RbijjVFSI2cXbXu
-	 PLvHzAmFNC81Q==
+	b=AMRTLQD/HHa75B53Yg9ApKoUKCEdOzB9/b5EDO+qTvwkiWojhNlhlHbcUTjpsgPGB
+	 u3afWRkDmryXZG/BXyeJ6mfnhPczVk2wfy+u0SLHooJaGwTnPH5jl1eELWS+692I9g
+	 JU2e25HAoKvonF8FJEDTAxTWngDboU6mVos8cJfV/g0jvfPvLjFmGPq3Bf/LBtzDMJ
+	 ggMXTOvonsf29gkqTzJ10VHzP7xDTF5edPCGNSsfHnObeGvKCgUm+b2sHTbG8JI/3O
+	 yka9N/wpi+CXCqnCd3BS7I9owCHYEY0Hi1/y5HFqAh0JgeQN5yimE6/aLhLBi37L/9
+	 NwA6tY5ja6zDQ==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hrNyz1nWVz9rxD;
-	Thu, 24 Sep 2026 21:23:07 +0200 (CEST)
+	by submission (posteo.de) with ESMTPSA id 4hrNz108fYz9rxN;
+	Thu, 24 Sep 2026 21:23:08 +0200 (CEST)
 From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>
@@ -43,9 +44,11 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Mateusz Nowicki <mateusz.nowicki@posteo.net>
-Subject: [PATCH 0/2] arm64: dts: st: add digital temperature sensor on stm32mp25
-Date: Thu, 24 Sep 2026 19:23:08 +0000
-Message-ID: <20260924192259.20517-1-mateusz.nowicki@posteo.net>
+Subject: [PATCH 1/2] arm64: dts: st: add digital temperature sensor on stm32mp251
+Date: Thu, 24 Sep 2026 19:23:10 +0000
+Message-ID: <20260924192259.20517-2-mateusz.nowicki@posteo.net>
+In-Reply-To: <20260924192259.20517-1-mateusz.nowicki@posteo.net>
+References: <20260924192259.20517-1-mateusz.nowicki@posteo.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,33 +57,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series describes the digital temperature sensor (DTS) of the
-STM32MP25, a Moortec MR75203 PVT controller, and enables its hwmon
-driver in the arm64 defconfig. Thermal zones will follow in a separate
-series once this one is applied.
+The digital temperature sensor (DTS) of the STM32MP25 is a Moortec
+MR75203 PVT controller with two temperature sensors, handled by the
+mr75203 hwmon driver.
 
-Tested on the STM32MP257F-DK. Temperature sensor 1 follows the CPU
-load. Two voltage monitor channels, in0 and in2, read about 815 mV. The
-other 14 read 1 mV.
+The reference manual does not document the process detector and
+voltage monitor blocks that the controller reports and the driver maps.
+They were found at offsets 0x180 and 0x400 on the STM32MP257F-DK.
 
-Questions for ST:
-- The process detector and voltage monitor blocks are not in the
-  reference manual. Are they at offsets 0x180 and 0x400, as found on
-  the board? The downstream kernel places the process detector at
-  0x200, where no register responds on the DK.
-- Which supplies are connected to the voltage monitor channels? With
-  this information, moortec,vm-active-channels could be added.
+Use the temperature coefficients from the STM32MP25 datasheet, as the
+driver defaults read about 1 degree Celsius too high.
 
-Mateusz Nowicki (2):
-  arm64: dts: st: add digital temperature sensor on stm32mp251
-  arm64: defconfig: enable Moortec MR75203 PVT controller
-
+Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+---
  arch/arm64/boot/dts/st/stm32mp251.dtsi | 15 +++++++++++++++
- arch/arm64/configs/defconfig           |  1 +
- 2 files changed, 16 insertions(+)
+ 1 file changed, 15 insertions(+)
 
-
-base-commit: 2f92d900f262a16c8ae02daf53ae2910d07185f5
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index 44938c036e30..d57ae0c5574d 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -1800,6 +1800,21 @@ package-otp@1e8 {
+ 			};
+ 		};
+ 
++		dts: thermal-sensor@44070000 {
++			compatible = "moortec,mr75203";
++			reg = <0x44070000 0x80>,
++			      <0x44070080 0xc0>,
++			      <0x44070180 0x80>,
++			      <0x44070400 0x400>;
++			reg-names = "common", "ts", "pd", "vm";
++			clocks = <&rcc CK_KER_DTS>;
++			resets = <&rcc DTS_R>;
++			#thermal-sensor-cells = <1>;
++			moortec,ts-coeff-g = <58500>;
++			moortec,ts-coeff-h = <201200>;
++			moortec,ts-coeff-j = <0>;
++		};
++
+ 		hdp: pinctrl@44090000 {
+ 			compatible = "st,stm32mp251-hdp";
+ 			reg = <0x44090000 0x400>;
 -- 
 2.55.0
 
