@@ -1,177 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8BB49F133;
-	Thu, 24 Sep 2026 15:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B9C4A64C5
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 15:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790264999; cv=none; b=BKMewxBAoNcdRAkY69glZskfCYoLhkw8SQ4nFagVIfsrtWAFRlL5mykY6Bxxpk7ZW1bhK1QF2m86CIU8TucgOLpaWPKOosrzOOjeAyPxx6aDw6At5gCEzDRrGSIL5DOjTF+oxvKWHDFsTXxtMxl5iODYhVhOViM7HP6K/Mpa200=
+	t=1790265305; cv=none; b=F4krfiWaCutvd42nbA8iXWlTQIvhrXkEeLeziOkGtrNapDl49fhkbjB3Wo9tvtv+FRVRZtlzuSfArbBjYAKl3U3K3PCFRVb+edb86KCPvoso4Z5D1i7xHm+8CJFD1a77BqVLsAcqW9YUvOfFsTs/pqJR4R64vi8UlEYzrnjcg4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790264999; c=relaxed/simple;
-	bh=9+uqdxtcu6rBegFoKpvshXCzSay83nFMY5uyI1rBSAA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I9SFKaPpTceRvVPZgdBBngFTYzKDxVllgyYF2lmp5ym1GM4rNcmHBCoSKlvd5Ht46ck0OUoMSSRKkchLI0SnlfjypKy+B810BByJ8jQo5Ip7I4g8FniuWSOMhXeElWTRuob7qGJfKV09Y42frzqkztGYkxXpk+tJtrj1o/baqmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtXtATge; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790265305; c=relaxed/simple;
+	bh=U4AhA6BUfq+SolELH9yCaE3z5oAyAj54BShh4/smobw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TgiS3Fe/zCCNU9yVAs3HhPoqq0Snm9qPceiObLWttx9kqoshDnLgGYVtMTSqfn90BFbKpt8Q1QGSBSg7t1Hi3DThPMlEhnWsNPbn13xYGK4o24LzbN9Muxy/Lg/wner24QQ2JqCRGxsuUX1mKOkzJQ2Pm6MFtvP58WqxCmLLwvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=I6eOmBKf; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtXtATge"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD26B1F000FF;
-	Thu, 24 Sep 2026 15:49:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790264997;
-	bh=adX4Y7r/DWNGOUOGLuLi9FeUPsBpo9HjSjYThCKsYbI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QtXtATge/W7X1F2Ei72Hf74vg2JjbkFPhXOpPkdoRM8Am/OBoTB9RCP1v9YcJFvhx
-	 jvFhZ/DnQzwb9qCQpXxR1kpwO7u6skpqsEe1FfppoRjcEi3WLdY5fiCLjnCXd4HUHk
-	 Hi1aC5nUBKoVXs3b58jwbSw9fqQd6HEptgZ5yFj8hy6T2ZRQhjpYVgOo0pIOGymFVm
-	 ETlbFNVSEn1ymefhIaAzE+5GmtezyjM+bTtC0e0VNA7CYWwWvYsKMaHiVQwZbKmDS4
-	 yJcLCQDXO4elf66tJe77EoZs7q1Prz+vZjHeZEuOJmWRoyNpX85R3xJOcPbSAtZqKf
-	 YFEqH01/szJ8Q==
-Date: Thu, 24 Sep 2026 10:49:55 -0500
-From: Rob Herring <robh@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: cjd@cjdns.fr, netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	chester.a.unal@arinc9.com, daniel@makrotopia.org,
-	linux@armlinux.org.uk, arinc.unal@arinc9.com,
-	Landen.Chao@mediatek.com, dqfext@gmail.com, sean.wang@mediatek.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, naseefkm@gmail.com,
-	b.larsson@gmx.com
-Subject: Re: [PATCH v2 net-next 6/7] dt-bindings: net: dsa: mediatek,mt7530:
- add econet,en751221
-Message-ID: <20260924154955.GA337010-robh@kernel.org>
-References: <20260915174643.253660-7-cjd@cjdns.fr>
- <178967820050.22033.18093714968849770785@kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="I6eOmBKf"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so1339062f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:55:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790265302; x=1790870102; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Wtag/akuhNvJA+6vXIkSDjTSuJ4EXyen97JWOA2z3A4=;
+        b=I6eOmBKf+K7J5SOaiGbLwo0DaXRc8+u35/4CkUvxbRqHbPn1iw40w6CW/CQOlaIS0N
+         ZYvdCXpSFMrFOe4fGT8noG4FikOd88mfnE1w+7t6F8hqKbnrAY+iS0bHPk+qUfNxaihd
+         p5Cx+o/JAKDSPOfM2PLZD3S4bLSMrK2N3Q9vru1KNFNgJvE/8SyZ6m8GxUk0LYXKp8ze
+         c+UqFjs+GapgfovqgJj89KDG55Jh20UGZgU5SeriHx0tgY2J0RBiyiU8G4hjTWHuG2EY
+         8PH9nTGV54ProYI/wxiAxkkqTXVeqqJ6OW4SSQpwxiXnGKGpLyopbIFXucSqIu6krezR
+         dRBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790265302; x=1790870102;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Wtag/akuhNvJA+6vXIkSDjTSuJ4EXyen97JWOA2z3A4=;
+        b=ynuZkQ4PdpaGsvQXDxvTbb4Pe/m3zPfVNmOQcTFJ6nMU5NEDL0L6uOK9Y1ccz22XKg
+         +8ZlQbW2hVXMWqwNmXHqeh8S44LSrTPi5tmTRJZg+CIPa9LfQSP76TFhwra6mgCWxesB
+         a/6TlCAARoyKRikl1QPH6DzMWfSXrD9Y2z3A0754BHJqZL0DaHehC05hz0oG3ss/PF+U
+         2xNsYnUJx0M6WYCEMqk0nyTBZXDfHNhhzVibXNfsz9vtP6fLdFtmpK0MOWbZk6sL51Jx
+         DIbpI6Y+QExZaiGTH1LiZpOkLPqEJgnUBacKK/Ta/fElh0qPMFRTkjOdxr3c3FfnvGYZ
+         Zw9g==
+X-Forwarded-Encrypted: i=1; AKwUvBxJ+3z3onb/ndEZosS4utFapwcrgiqQGFcUh9SZE134jKOkXOpgx15WOuo3FGoFv666jn8W583yICop@vger.kernel.org
+X-Gm-Message-State: AFuF++k76BiehFt8EQB3N2W96v33qqkiO9CuWB6EHW2dPBpTh4Zv5Dsa
+	4nxTrHDz4nRj9H0VKLOabQbh7M7UqcUjdqpExKU3DUozG26pBNDNMmSwN0DoBcLm+h4=
+X-Gm-Gg: AYBFou0Fq8F4vDXyh7IgkowYmnNIePsEwK2aIIxZGAA4HW7J87M/zQrM0vqn1cr4yjc
+	JDzZPJH2QQtJgW01pZbdcXneHHS/FHzbNmZ7ce3LQEIv9vjm+uuw8e+A9qu50BYPbI47dgP9wwn
+	v4eDAaMMIV4vQ5YnQkOaeEpsBi4nZbi5oTW/sHGExZyWwl8TCwYv8K4JIPw7sITRs2vINKFZJAn
+	6WTkYmfZv6OP243Ts6p6Lo/Sg3HLjtUlhHonymiElg3YMVLDjNxvMtBL7nAVSWhipf8qYfkbKng
+	np3f74eKyb+SEx7d0R51PYNhbiu8D/H35px83/CBPnzWaaz+3eTUxRPjQ249qbbvTeOzzq9c3XA
+	mFOYpqg0WDxaCZurSNIv+pYWb+RsNypvg+zT/JhyriOXRuDxwK1R647ea5cnbnh8CuRCoiCj44h
+	jR83Nb/OjURt5ZBUeV+LzaknMRWKmtoeVrM4uaW3hwH6cygzqo8mDULE0WTPVxMBLOfYOXcC7Jt
+	K97gnhBWanQVk8t+bso
+X-Received: by 2002:a05:6000:41ef:b0:487:72f:fb41 with SMTP id ffacd0b85a97d-4887169fe48mr4664434f8f.39.1790265301644;
+        Thu, 24 Sep 2026 08:55:01 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349731sm4944f8f.12.2026.09.24.08.55.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 08:55:01 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Thu, 24 Sep 2026 17:54:59 +0200
+Subject: [PATCH] arm64: dts: qcom: sm8650-valve-deckard: add chassis-type
+ property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <178967820050.22033.18093714968849770785@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-topic-sm8650-deckard-chassis-type-v1-1-a58729799bb4@linaro.org>
+X-B4-Tracking: v=1; b=H4sIANJHtWoC/yXNQQ6CMBCF4auQWTtJqUCrVyEuSjvqaISmU42Gc
+ HcKLr/k5X8zCCUmgXM1Q6IPC09jQX2owN/deCPkUAxa6U6ddIN5iuxRXrZrFQbyT5cClqkIC+Z
+ fJDT6aO3QGkO1g9KJia783T/6y9/yHh7k8xaGZVkBhx6S3IUAAAA=
+X-Change-ID: 20260924-topic-sm8650-deckard-chassis-type-72388b577e1a
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1062;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=U4AhA6BUfq+SolELH9yCaE3z5oAyAj54BShh4/smobw=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqtUfUx+Xz5WQJ6kj7ORV41bi8ykRzO9zdrviD7nzE
+ dF6QWQWJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCarVH1AAKCRB33NvayMhJ0UtjD/
+ 4ptyU7LFqGjImapTtmhRn2HpLTVpCNIS85AfPPhUPqdFzl3DhyY/MXIt2jAN/ofE9zmVmFsSzg+Ikc
+ n/YCVezeMcORoW7MoGQDILUMUkhhb0tfMPC2jNi+P0V9ebhZWKOVvFYDZIz0OLCPGoGOT0sIfhlm+F
+ Gc51o2luLuGxyyoy1TUR3JvH6+LkvcfOQFxCTlyXxXsobvZ0HH2wafCuOtjc/4+c/8lf+m3noecUdo
+ 2N5Zd6U34Mv++hICeogtODqPbNOr21TTyQO98/XHAkj8FXgTnZ4gwaqcspC1ulwIfJbqvdMcJ4br8J
+ 0FIg1vfUvtj9Kj23VUnR/gs7DHfBo+xKLyDPzWTpvxGdHlAqoFx+gyVQE90y7Dbh+wOX3PxS2BWM12
+ uFvmDz3Wl9UPMrfe4Vj8BFNW8QGuxml5JuXi7onpAajy3LjlqhxV/j4tgAUlL+RBuPZPEuwKVuPUXy
+ HEpyj6HBuFkodWZnWi4V03FwJq6ez0tQyNY5EhMik1yzP968jS8ERioqzlWrsVPYpeMhCMQG1UWeEI
+ +EiJTMv6xzfaKE95KcL9gLav57GbTZYLiFBCiHdMe6D8PWD0b0wQgmD0k3M8sY3o+IyKGwk/MNO3bc
+ +udnMmcWWEdfgXR48+as/8zQBLCt9VbDzH6RWeyV/LRkNTJOeSUcQ7X7EiPg==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On Thu, Sep 17, 2026 at 08:50:00PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 7 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 1 · Medium: 4 · Low: 2
-> 
-> - [High] net: dsa: lockless child_bus access causes MDIO race condition
-> - [Medium] The new switch-device compatible `econet,en751221`
->   (mediatek,mt7530.yaml line 126) is the identical string already…
-> - [Medium] The new `econet,en751221` conditional (mediatek,mt7530.yaml
->   lines 369-377) applies only `$ref: "#/$defs/mt7530-passthrough-dsa-…
-> - [Medium] The series patch "net: dsa: mediatek: support MDIO switch
->   downstream of MMIO switch" moved `mt7530_setup_mdio_irq()` out of…
-> - [Medium] In passthrough mode `mt753x_cpu_port_enable()` (added by the
->   series patch "net: dsa: mediatek: add support for passthrough mode")…
-> - [Low] The paragraph added to the binding description
->   (mediatek,mt7530.yaml lines 32-36) states that "EcoNet EN751221 SoCs…
-> - [Low] Concern that neither `econet,en751221-switch` nor
->   `econet,en751221` has any consumer: at this commit…
-> 
-> --
-> 
-> dt-bindings: net: dsa: mediatek,mt7530: add econet,en751221
-> 
-> This adds two compatible strings to the MT7530 binding: econet,en751221-switch
-> for the memory mapped switch built into the EcoNet EN751221 SoC, and
-> econet,en751221 for the MT7530 multi-chip module that some EN751221 packages
-> attach to port 5 of the on-die switch via TRGMII. A new $defs block constrains
-> the DSA link port of the multi-chip module.
-> 
-> A few questions on the schema below, plus two observations about other
-> patches in the same series.
-> 
-> > diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> > index e29fb86934981..106c4087528d7 100644
-> > --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> > +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> > @@ -29,6 +29,12 @@ description: |
-> >    and the switch registers are directly mapped into SoC's memory map rather than
-> >    using MDIO. The DSA driver currently doesn't support MT7620 variants.
-> >  
-> > +  EcoNet EN751221 SoCs have a memory mapped MT7530 with 3x 10/100 PHYs and 1x
->                                                           ^^^^
-> 
-> [Severity: Low]
-> Should this be 4x 10/100 PHYs?  The commit message of this patch says
-> "ports 0..3 are 10/100 only, port 4 has a gigabit PHY", which is four fast
-> ethernet PHYs, and en751221_mac_port_get_caps() in the later driver patch of
-> this series agrees:
-> 
-> 	/* EN751221 ports 0..3 are connected to the integrated FE PHYs. */
-> 	case 0 ... 3:
-> 		__set_bit(PHY_INTERFACE_MODE_INTERNAL, config->supported_interfaces);
-> 		config->mac_capabilities |= MAC_10 | MAC_100;
-> 
-> Since there is no in-tree EN751221 switch DTS yet, this paragraph is the only
-> port reference a DT author has.
-> 
-> > +  gigabit PHY. Some EN751221 chips such as EN7513G and EN7526G have a multi-chip
-> > +  module implementation of the MT7530 as well as the on-die switch. In these
-> > +  packages, the multi-chip module is connected to port 5 of the on-die switch
-> > +  via a TRGMII link.
-> > +
-> >    There is only the standalone version of MT7531.
-> >  
-> >    Port 5 on MT7530 supports various configurations:
-> > @@ -111,6 +117,14 @@ properties:
-> >            Built-in switch of the EcoNet EN7528 SoC
-> >          const: econet,en7528-switch
-> >  
-> > +      - description:
-> > +          Built-in switch of EcoNet EN751221 SoC
-> > +        const: econet,en751221-switch
-> > +
-> > +      - description:
-> > +          Multi-chip module MT7530 in EN751221 SoC
-> > +        const: econet,en751221
-> 
-> [Severity: Medium]
-> Can this string collide with the existing SoC compatible?  econet,en751221 is
-> already documented as the EN751221 root node compatible in
-> Documentation/devicetree/bindings/mips/econet.yaml:
-> 
->   properties:
->     $nodename:
->       const: '/'
-> 
->     compatible:
->       oneOf:
->         - description: Boards with EcoNet EN751221 family SoC
->           items:
->             - enum:
->                 - smartfiber,xp8421-b
->             - const: econet,en751221
-> 
-> and arch/mips/boot/dts/econet/en751221.dtsi uses it on the root node:
-> 
->   / {
-> 	compatible = "econet,en751221";
-> 
-> dtschema derives the select clause of a binding from the strings enumerated
-> under properties:compatible, so after this patch mediatek,mt7530.yaml is also
-> selected for that root node.  The switch schema has required: [compatible,
-> reg], unevaluatedProperties: false, and via the new conditional below also
-> required: [mediatek,mcm] (which in turn pulls in resets and reset-names).  Does
-> make dtbs_check on arch/mips/boot/dts/econet/en751221_smartfiber_xp8421-b.dtb
-> now report the root node as an invalid MT7530 switch node?
-> 
-> The reverse direction looks affected too: a switch@... node carrying
-> compatible = "econet,en751221" is selected by mips/econet.yaml and fails its
-> $nodename: const: '/' and its two-entry board/SoC compatible list.
-> 
-> The analogous MT7621 case does not collide because the SoC root uses
-> mediatek,mt7621-soc.  Since the SoC compatible is already released, would a
-> distinct string for the switch, e.g. econet,en751221-mcm-switch, work here?
+Set the chassis-type property to "headset" following acceptance in
+the Device Tree specification [1] and dt-schema meta-schema [2].
 
-This needs to be addressed.
+[1] https://github.com/devicetree-org/devicetree-specification/pull/87
+[2] https://github.com/devicetree-org/dt-schema/pull/211
 
-Rob
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
+index d25a09e162dd..1671f884a65d 100644
+--- a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
++++ b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
+@@ -41,6 +41,7 @@
+ / {
+ 	model = "Valve Deckard";
+ 	compatible = "valve,deckard", "qcom,sm8650";
++	chassis-type = "headset";
+ 
+ 	aliases {
+ 		serial0 = &uart15;
+
+---
+base-commit: eaaaf4a2a53d04da85e4ed13e7c822d00aa2a54b
+change-id: 20260924-topic-sm8650-deckard-chassis-type-72388b577e1a
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
+
