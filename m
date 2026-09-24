@@ -1,207 +1,161 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1539D41687A
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 16:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9A83BE175
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 16:49:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268417; cv=none; b=PtBvui8c35xTpCqfE8aYIZIEuDWyBapWD/i6fAA9qlfSmAQj05D1PcpSQY6IQ1uTLDAJP8sP1lHYoQzPmGmIDpxp1O+Jj5w1yaOkUpoqnUHkIByZARbHnMVMVJEZV150Trqs9u1sx4waMTwXhnNLXxMPnAvvvLp9l/t6XOP2MJM=
+	t=1790268594; cv=none; b=RvOtqHzyMs+Yv6Mm7vEGR4TDOgjG09gzPRywSbi0Ip/lbO3ZCGhcwiVO3bSNFXHT5ywfGqCJ+QFKUw9WnaRQ5eIRBtCmR+5SDxcmwC5dbtM50wHsuhmd9OKAE8XNsKN5s6QUyT63zYLOmCftJRAqCnIuDpLqBAtLN73jBzWlrgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268417; c=relaxed/simple;
-	bh=9G3OJlObGx9Foxnt3wkRhqkCJY2ck3HdrIFqFbEZ+vY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bH1miSM6EgRBCRKIcrNgiBQqNxib8zDsTnuR2WbUNpdDx21oF7gqU806A9oo4v/DYVBtjUhLwEThjE1TSwIjuD44kTzSTSxJ+jo33IJULK/h8fY01sZenQc33RFU7LpNW9YaJ7Iz8OOtJGKE9fWhX3n/2NIOiMQvQuh2Hg3dV+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e0m+1y7N; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790268594; c=relaxed/simple;
+	bh=z3YNcERLXAsu+ydMTGinqWFcJa3xwgBMGi8bloE+LmU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V+Lajdam01bLGDmmthatj1Mqw1tRMKdgvcXQmdFaRnHmw43fk5m7Gls1khlrl77kubauZSEj6VXg2TJKOvUQBh9q8M6iNdosvHjsvbJjYuxfsnBzPyKSKYZMRrnVxoVtoRihpaOBZBgvqpvu3uhA/qS9M4B7TozlEKnM0vFzHhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za; spf=none smtp.mailfrom=ffroot.co.za; dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b=N9aVlybA; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ffroot.co.za
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ffroot.co.za
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e0m+1y7N"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4c9d14b8so8083705ad.0
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:46:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ffroot-co-za.20251104.gappssmtp.com header.i=@ffroot-co-za.20251104.gappssmtp.com header.b="N9aVlybA"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-488615e6cfcso477422f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:49:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790268413; x=1790873213; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7UxPkbr3pw7/EMgMfuUOgi5E5rPkq0lQ/KwSa5X8KYI=;
-        b=e0m+1y7NGoeoU9CgHc+ykxO9paJsMPasCxAmNzr+l7wcFGqvH0o02fkSxGG5NZizyE
-         /oMExbLc16gM4rdG6yZCuNd25AqbKtV1dG//knZrQE0EwR4KCN+/q7rn3J+4FlQmNVOg
-         OWqFgoE/4aJp6jykwbNGHt3yKVjV8BH0PAYMPvztJTIXsQXsW5Xk18ZZfqVA8CB+wCRg
-         bS/YdqkZsPCvjrF+8MxXJjQjWaut42t1PRHZgyInqDujvNKWoEFde7SikLZb66tsAV02
-         Ipv8kl93d55bCF0OUlZ+ZVl60sK4OvgEpLphjx9+YnTydPwyKV3Q/CQ8LK7+plhq8731
-         icKw==
+        d=ffroot-co-za.20251104.gappssmtp.com; s=20251104; t=1790268591; x=1790873391; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Hj0UVsfYiWhPlWaYB8MRXXhCW6m4U+4Gy8c6vjRO9Ts=;
+        b=N9aVlybAOXPw7p+1KaWt2oDh2d2IUmrFO6A9QoCnQZxjWyVfK/7Jve15Lj7GKdSecB
+         A7G+PgnVeHRpKnELKmQIpK38H/mhC91qgDXk3U/Q3TBO8hLg4SiyXR/roosuKyEtTh1C
+         dBjyFydyWEergu4+2eP54ZOpRdGyEfhNFpIr8hwNGBZJ3xLT2+rtlp8xRrGUV2yhzhxe
+         6xriFREemCQbGGRiWX6ckOuhx1rj/Psi6bJTDIjU7jn+/TnxyEfIKPi4vwZ83mDSqHol
+         gySphvTcyq6ajH4WE9qWIERhryxOh6Zr8xm6fB6jBmwTpjhcI0NAK43ZpyBiWuwmA6fF
+         ckxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790268413; x=1790873213;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7UxPkbr3pw7/EMgMfuUOgi5E5rPkq0lQ/KwSa5X8KYI=;
-        b=jeIIbhrBRSQitY7pBZVYdBRprOih+w2pCplBeHc/L5zfDdJtTQd47XJFSMCexrdX6I
-         Olz5iTQv9MEXyis0GzmAceXWjs68Sp+g4rR9Mtyt5Ba/9XLQw7cqJ7c/p/7LFFiDqBL5
-         qSQ5fUd5y/D2sJqKBy/I9R5RBMOVEL+Jm+8QXBj6obbJZ8ZtJe4JQ7aUiFqBMJHeK4ys
-         r5e3FfOdOr94mE/+m/J4wNA16WyAzf3SaxK4S849QB/k3ngMUUgQueyt8vCKKzORY30e
-         z2gXIy1IFgiK7KggMGFE7JHnCpZeaseY4Z0oeSX5JYqYBGEbfHH2EwISrjkMC9DeEEkY
-         W/TA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXhk9xavVzCwxedKBVK++BdwudPDuRKsDaGqbkCOqXBSOCSWzcndMvUZ7DztKxCS29Pou0rEMIeevi@vger.kernel.org
-X-Gm-Message-State: AFuF++nWkO25wiwWP20Dc/Tl3oUH/llDe1Vt2/yBpvV7btc6tKG31mgr
-	/ag4YizEbO/YO9wy5k3BxPlffHoj7HIDQ+RrZWfM+xmKqULPPPvBQWo+
-X-Gm-Gg: AYBFou2wnqghoh2PHr+1O34zxjnEJKHHyeAKKDAURr6MBHg3KvsXWnCT1Z3sJykAkw3
-	cXOYDpn8umt+ASRw5xWeWiC9zB4FjsR8ZkyGcsiJ7RY+6GypT7BDIEbLcydJ9jYZirpZ9fbxBVS
-	FQdOCnfpv32609cMRpJ4x5i2dYAxO7mqgRzoS5bHGTSakMTxP75KJoLYDtQzPYZROxvziOd1Nm/
-	yQxSjpZPGKdglV3mp9Sc8iypRAyKQ+neDzFSQM62lqRb+pvS/ctedjw4RGa5/eVTGtU8ZXDzut8
-	ZuuIJ3R8zco2mVXIqWsJRrqYiVgQUErU43J0/ouSSGgtaaHpPmeTRf2FzTGT6iFAlX9HB5SV8mk
-	rowiCLCP24mtyyfCur59VgNDMn2EwXMoWSpwqxVXdpQMY4rwTb3s5i8hGiE8kc0AE6epB4vZHGV
-	DgBZzNhwaeXE32AGl478+BAqodG0XltuAgayT997vNaSDFhVH9SoS+i254KgUbmPi4483R8AhoH
-	ZXgKXF6dl5E4sQmQgtAR+o=
-X-Received: by 2002:a17:903:46ce:b0:2dd:ad73:5b5a with SMTP id d9443c01a7336-2df7e26cfc2mr18250965ad.21.1790268413371;
-        Thu, 24 Sep 2026 09:46:53 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5dd166sm30573655ad.54.2026.09.24.09.46.52
+        d=1e100.net; s=20260707; t=1790268591; x=1790873391;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hj0UVsfYiWhPlWaYB8MRXXhCW6m4U+4Gy8c6vjRO9Ts=;
+        b=G1z6CJki3U1JjIB4dbOSsW19ZWQ3e6rWBbjVeCJqUhI5X8+ANlqgZmvWPV42+cj0BW
+         Hdi37wI6vZptm+Uj3Po4QtmxoqE3626b1n/or9qKPCJYCnuf1IS1JrwsBT52+m9Eg/5d
+         R5e0Umt5jztwCwiuX/8bVo8haNjKf/tRcaWIz06C9X0vjj3Syjpu7QrIqmzDUzRPXMdn
+         n1CNzKrpwhNpWWzuhCgjm5e3mR7rpQwE0h/XP/emdlzkMAfQo8FWHX0LkmkMjvK7S9Bb
+         wh5+QTfYjodm80+QhCL1gmmZSqn2phJCSO4qixEeOC1lWAqCdbtH6f32Vd+C+4fACZix
+         kztg==
+X-Gm-Message-State: AFuF++lCgBkahYxSNSlX2CZsqvtmjLuQm4RiExxAr7FOyWVTUi48oXAZ
+	S7yxWU1hYPemwhnT3ujX22jvscz8vcOGM8IOfYtltZWZGYNjzDnjQlGX3SqImZ9eHCw=
+X-Gm-Gg: AYBFou2iEja1t4lcqONC82Parr/d6k5gEqFkyvPmiDLBrlWM+hdNKr84Wfn0nz0sDPN
+	podnbv1Q4ku0PHbaIzeJo7DqXeJseHS5WJJsYgAINJ0fUl79KcPvQKXMmVKuVBqOu+ZREQ/HJEu
+	UzY/mCb7S4utrITXDWxkruLz4wAA8IIk+cMwFNvTkINwQwaAfkDgNW+Rkuqw9GmCJygd3ds8vak
+	K0z+Q7z3fsfJRHrlL8J9ojhGtmndcawGuOuVx0bwV3W9WLNu2oRhq1xxK+FgCseCdz8FkrpuRiM
+	dj/sqfb5ahw/SgPQzo0Fj29uvAWJj8xpmhqgCVdcb+albylftmDxGVMvMd53QMID+seg3TQyucn
+	eL1gduFlaelK58aOvhsWS/pgcVihW/DhjWH8inMDvE7SbP2gRdjKSLFSsdiyrTuBHqZMEK7YZH9
+	a3vJKwdnV63zgFIO4lNqSP5zuZzyahGTgoKaPp6Ky/2d9/HhQJXQYvapZ30zbAzEIpzQO16Aw9/
+	olKLOgFaBVSdL7ni6JGFqDWPkIP7Wq+5Ry8Au9BklesSHY=
+X-Received: by 2002:a7b:c314:0:b0:49f:bb49:9cca with SMTP id 5b1f17b1804b1-49fe66cf67amr42471505e9.5.1790268590783;
+        Thu, 24 Sep 2026 09:49:50 -0700 (PDT)
+Received: from dev-ag.figment.co.za ([192.145.132.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a3625ccsm327139f8f.22.2026.09.24.09.49.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 09:46:52 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 24 Sep 2026 09:46:51 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] hwmon: (lm75) add MAX31875 support
-Message-ID: <29aade07-55a9-4d32-92e1-c7f410982f29@roeck-us.net>
-References: <20260924084121.82-1-johnerasmusmari.geronimo@analog.com>
- <20260924084121.82-4-johnerasmusmari.geronimo@analog.com>
+        Thu, 24 Sep 2026 09:49:44 -0700 (PDT)
+From: Andrew Gaylard <ag@ffroot.co.za>
+To: linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	qinjian@cqplus1.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux@armlinux.org.uk,
+	Andrew Gaylard <ag@ffroot.co.za>
+Subject: [PATCH v5 0/6] arm: sunplus: add Tibbo LTPP3G2 board support
+Date: Thu, 24 Sep 2026 18:49:16 +0200
+Message-ID: <20260924164922.117236-1-ag@ffroot.co.za>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924084121.82-4-johnerasmusmari.geronimo@analog.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 04:41:21PM +0800, John Erasmus Mari Geronimo wrote:
-> Add support for the Maxim MAX31875 I2C temperature sensor by
-> extending the lm75 driver. The MAX31875 features a 16-bit
-> configuration register, configurable resolution (8, 9, 10, or
-> 12 bits), and selectable conversion rates (125ms, 250ms, 1s, 4s).
-> 
-> Suggested-by: Guenter Roeck <linux@roeck-us.net>
-> Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-> ---
->  drivers/hwmon/Kconfig |  2 +-
->  drivers/hwmon/lm75.c  | 25 +++++++++++++++++++++++++
->  2 files changed, 26 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-> index e4c4f2b09732d..c68b6c3c2f866 100644
-> --- a/drivers/hwmon/Kconfig
-> +++ b/drivers/hwmon/Kconfig
-> @@ -1525,7 +1525,7 @@ config SENSORS_LM75
->  	  If you say yes here you get support for one common type of
->  	  temperature sensor chip, with models including:
->  
-> -		- Analog Devices ADT75
-> +		- Analog Devices ADT75, MAX31875
->  		- Atmel (now Microchip) AT30TS74
->  		- Dallas Semiconductor DS75, DS1775 and DS7505
->  		- Global Mixed-mode Technology (GMT) G751
-> diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
-> index 104149a03bad0..886f83c8b0420 100644
-> --- a/drivers/hwmon/lm75.c
-> +++ b/drivers/hwmon/lm75.c
-> @@ -39,6 +39,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
->  	max6625,
->  	max6626,
->  	max31725,
-> +	max31875,
->  	mcp980x,
->  	p3t1750,
->  	p3t1755,
-> @@ -223,6 +224,15 @@ static const struct lm75_params device_params[] = {
->  		.default_resolution = 16,
->  		.default_sample_time = MSEC_PER_SEC / 20,
->  	},
-> +	[max31875] = {
-> +		.config_reg_16bits = true,
-> +		.default_resolution = 10,
-> +		.resolutions = (u8 []) {8, 9, 10, 12 },
+The Tibbo LTPP3G2 is a board based on the Sunplus SP7021 SoC:
+https://tibbo.com/store/tps/ltpp3g2.html
+It is the platform that underpins Tibbo's industrial IoT products.
 
-This isn't how resolutions vs. sample time is supposed to be handled.
-For most of the lm75 compatible chips, the sample time is associated
-with the resolution: Changing the sample time changes the resolution.
-This is not the case here: the chip has separate configuration register
-bits for sample time and resolution, and the resolution does not change
-automatically if the sample time changes.  The above associates
-8/9/10/12 bit resolution with the 125/250/1000/4000 sample times,
-which is wrong. Instead, .resolutions should not be set at all,
-reflecting the default 10 bit resolution.
+This series adds board support to linux-next:
 
-> +		.default_sample_time = 4000,
-> +		.num_sample_times = 4,
-> +		.sample_times = (unsigned int []){ 125, 250, 1000, 4000 },
-> +		.alarm = true,
-> +	},
->  	[tcn75] = {
->  		.default_resolution = 9,
->  		.default_sample_time = MSEC_PER_SEC / 18,
-> @@ -421,6 +431,9 @@ static int lm75_read(struct device *dev, enum hwmon_sensor_types type,
->  			case tmp112:
->  				*val = !!(regval & BIT(13)) == !!(regval & BIT(2));
->  				break;
-> +			case max31875:
-> +				*val = (regval >> 7) & 0x1;
+ - Patch 1: vendor prefix for Tibbo Technology.
+ - Patch 2: document tibbo,ltpp3g2 compatible string in the SP7021
+             board binding.
+ - Patch 3: add device tree nodes for SP7021 peripherals that have
+             drivers (PWM, watchdog, eMMC), plus a label on the
+             gpio-leds node so board DTS files can override it.
+             Also: move memory@0 to the DTSI (512MB is fixed in the
+             SP7021 package), and remove unused board-specific pinmux
+             nodes (emac_pins, sdcard_pins) from the DTSI.
+ - Patch 4: enable SMP via PSCI 0.2 (SMC) on the SP7021.
+ - Patch 5: add the board DTS for the LTPP3G2, covering eMMC, a bit-banged
+             I2C bus, PWM, watchdog, and two GPIO LEDs.
+ - Patch 6: update sp7021_defconfig to enable the drivers used by the
+             LTPP3G2 and correct a few defaults.
 
-Please use
-				*val = !!(regval & BIT(7));
-to match the rest of the code. 
+Tested on LTPP3G2 hardware on linux-next-20260916.
 
-Thanks,
-Guenter
+Changes in v5:
+ - fix a problem reported by sashiko-bot:
+   - update patch 3's commit message to explain the removal of emac_pins
+     and sdcard_pins (unused board-specific nodes not belonging in the
+     SoC DTSI) and the move of emmc_pins to the board DTS
 
-> +				break;
->  			default:
->  				return -EINVAL;
->  			}
-> @@ -495,6 +508,13 @@ static int lm75_update_interval(struct device *dev, long val)
->  			return err;
->  		data->sample_time = data->params->sample_times[index];
->  		break;
-> +	case max31875:
-> +		err = regmap_update_bits(data->regmap, LM75_REG_CONF,
-> +					 0x0600, (3 - index) << 9);
-> +		if (err < 0)
-> +			return err;
-> +		data->sample_time = data->params->sample_times[index];
-> +		break;
->  	case pct2075:
->  		err = regmap_write(data->regmap, PCT2075_REG_IDLE, index + 1);
->  		if (err)
-> @@ -848,6 +868,7 @@ static const struct i2c_device_id lm75_i2c_ids[] = {
->  	{ .name = "max6626", .driver_data = max6626 },
->  	{ .name = "max31725", .driver_data = max31725 },
->  	{ .name = "max31726", .driver_data = max31725 },
-> +	{ .name = "max31875", .driver_data = max31875 },
->  	{ .name = "mcp980x", .driver_data = mcp980x },
->  	{ .name = "p3t1750", .driver_data = p3t1750 },
->  	{ .name = "p3t1755", .driver_data = p3t1755 },
-> @@ -905,6 +926,10 @@ static const struct of_device_id lm75_of_match[] = {
->  		.compatible = "adi,adt75",
->  		.data = (void *)adt75
->  	},
-> +	{
-> +		.compatible = "adi,max31875",
-> +		.data = (void *)max31875
-> +	},
->  	{
->  		.compatible = "ams,as6200",
->  		.data = (void *)as6200
-> -- 
-> 2.34.1
-> 
-> 
+Changes in v4:
+ - fix problems reported by sashiko-bot
+   - fix PSCI method: use smc (confirmed by boot log: "SMC Calling Convention v1.0")
+   - move board-specific mmc0 properties (bus-width, non-removable, etc.)
+     from the SoC DTSI to the LTPP3G2 board DTS
+ - fix similar problems, i.e. nodes that don't belong in the DTSI
+   - move emmc_pins pinmux node from the SoC DTSI to the board DTS
+   - remove unused emac_pins and sdcard_pins from the SoC DTSI
+   - move memory@0 to the SoC DTSI (512MB is fixed in the SP7021 package)
+
+Changes in v3:
+ - fix problems noted by Krzysztof Kozlowski
+   - put the Tibbo vendor prefix in correct alphabetical order
+   - remove bootargs from chosen
+   - name DTS nodes correctly
+ - fix problems reported by sashiko-bot
+   - add tibbo,ltpp3g2 compatible string to sunplus,sp7021.yaml
+   - rename i2c_tps to i2c
+   - rename system-led to led-0
+   - rename sg-led to led-1
+   - add the missing pinmux node: pins_uart3
+   - fix pins_i2ctps: use SPPCTL_PCTL_L_OU1|ODR, not L_OUT|ONV|ODR
+   - fix pins_btuart: remove SPPCTL_PCTL_L_ONV from BT UART RTS
+ - don't disable CONFIG_SMP, instead enable CONFIG_ARM_PSCI
+   and add psci to sunplus-sp7021-achip.dtsi
+ - increase i2c-gpio,delay-us from 1 to 5
+
+Changes in v2:
+ - fix issues spotted by sashiko-bot.
+
+Andrew Gaylard (6):
+  dt-bindings: vendor-prefixes: Add Tibbo
+  dt-bindings: arm: sunplus: add Tibbo LTPP3G2 board compatible string
+  arm: dts: sunplus: add PWM, watchdog and MMC nodes to SP7021 DTSI
+  arm: sunplus: enable SMP via PSCI on SP7021
+  arm: dts: sunplus: add Tibbo LTPP3G2 board
+  configs: sp7021: fix defaults and enable existing device drivers
+
+ .../bindings/arm/sunplus,sp7021.yaml          |   2 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |   6 +
+ arch/arm/boot/dts/sunplus/Makefile            |   5 +-
+ .../dts/sunplus/sunplus-sp7021-achip.dtsi     |   9 +
+ .../dts/sunplus/sunplus-sp7021-demo-v3.dts    |   4 -
+ .../dts/sunplus/sunplus-sp7021-ltpp3g2.dts    | 193 ++++++++++++++++++
+ arch/arm/boot/dts/sunplus/sunplus-sp7021.dtsi |  74 +++----
+ arch/arm/configs/sp7021_defconfig             |  32 +++
+ 9 files changed, 278 insertions(+), 49 deletions(-)
+ create mode 100644 arch/arm/boot/dts/sunplus/sunplus-sp7021-ltpp3g2.dts
+
+-- 
+2.53.0
+
