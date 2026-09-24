@@ -1,81 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59AE47DF9B;
-	Thu, 24 Sep 2026 12:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D97247D44E
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 12:06:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790251576; cv=none; b=CJF6SR6elxQ9xhVdtlROwUsdJUbVzDE1OyBRDKZh8sU5UczPhOwfH07ADY7FDyJFA+xbt+DnhZE4fxB1iN9GtAcH56c5O7XiURk2WmckpyessQtD3A92v2g3k+Wm9c7kfC+U7+6NqRmKHiWjndQqPfdpbH1h25Kolndtf/d0AFY=
+	t=1790251592; cv=none; b=ofUpVequpSiwAzMBm40JmWS4vFc1Dm9Blc1j0/Aw00yqmNShGzR8pYti55v90/GwkrlKbe4nVO3mDfHIFRaxuk7k6xDHfLYtMIdf76T/wOElm6MG1BG6jOFIkd5baQDlCMLX39tbOHh9CVjnLK1uUPRxZjwMAtcB4ZKKDEShPlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790251576; c=relaxed/simple;
-	bh=HeUaHytR2Ny8G7lalHxUgGrqgTcsuuwdRy3p0d5VQIE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XB3xzXVC5i32j/6ALizR6xgZSDohiXfTcHa6ahNyCwtbHebg9ZQfHuFqGqMjs+T9pKay13KMy0vB/JefJVD2/+wz7qykrD8U8jrKAdXn/5qTPSqo1sxabmUEHX28GqnlYE/rN9iDqcd1WsxKjRw+j9aGQy8lKRk9rDMOECgaklU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCwRACh+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790251592; c=relaxed/simple;
+	bh=AMda9b2M0HE7bDg1/E+8Yg0zmUKaV5CLAKi97xEwv68=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sSp2/JbZtzLe8h20I2P4AF0Pn9tYtGiNk5KWO3NeNceJfNn55FrLQHw1jgxjsrTQrzOJ6xoHJ6oy4aneQkfrnEDqPU8DGJnltn9nBFAdVuo+iXQjYkX44ec06IfWAg4Td3CY/9yEAU7O9m1Fgoq4FikqU2cNr6SUeHs5kOp0+gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AN2eipIw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCwRACh+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78AB21F00893;
-	Thu, 24 Sep 2026 12:06:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AN2eipIw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F038C1F000FF
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 12:06:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790251574;
-	bh=ft+OTCES8ugvjkrYuU/qZLvMsblsf5K47aGXq7gU7cU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RCwRACh+iJhhqvlt9Qar7j4l8eYQ15/7ck+6CFCU+l01gPu0DvkTsZO4xtegvyA+H
-	 RGHM/E/UQeieIqmMplyK2wBpTmu2+Io2a7yw4mJNCFi9ZQXA0r67B6DEp9xNz4dqIC
-	 s0738sWCmQdf/0vyD6TKMJp0u8V4hbzE3hy/uG19MMSUhs+EErpH9hD4P5WSuj3BUp
-	 kpDwe2YXiXGTqH1g1yXWHb93SjMTyC6r424gjGTpTzuNjCpINfW1yyQLCf2DDCufYE
-	 tRYjvH5wbE/7LcUda7FZr1t6ffzxBcKy3MGgKVnSXH0I1lJccXM4wpbVb0FFSuTChp
-	 3BoCmqPwoEO0A==
-Date: Thu, 24 Sep 2026 14:06:10 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
-	Roman Vivchar <rva333@protonmail.com>, Luca Leonardo Scorcia <l.scorcia@gmail.com>, 
-	Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v3 1/3] dt-bindings: iio: adc: mediatek,mt6359-auxadc:
- add mt6397 PMIC AUXADC
-Message-ID: <20260924-brass-kraken-from-uranus-cbbe5f@quoll>
-References: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com>
- <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-1-c00edacbee64@gmail.com>
+	s=k20260515; t=1790251591;
+	bh=AMda9b2M0HE7bDg1/E+8Yg0zmUKaV5CLAKi97xEwv68=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=AN2eipIwmtVZ4M5Ny3OwliN67dMXjEm7YmJn4+ad6DexfVZp3CDJtiYnaoFksqodn
+	 mwZ1b4SVH63NPUXV2EYeIbJRRnrYEqDgJ1aM+hTpYkpLxQ5NV73qb7D1u2ByBnsLeP
+	 Zl/DJDHTqT6OiaH1vubVrlpERsPaD3Mgx1WPdPuV2fXw3E7nHMRQJbcEbRckmRj7yG
+	 gAfxCXLubigONN5I0PrBpD2HatKrJBxPWMsz/eb3BPSEVakQ0QFCs7J7hyRnjtVFT/
+	 4LqPzByO1QeWXrKGOuxdQ7j+UV3m6HYuvu8nlQbIgjj6b8xSrvdI9ggm13W8104LNs
+	 lIZXxp6e0q25g==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c7a1aeecso1696063e87.3
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 05:06:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzb7SwICVgCO99chHCFwqX/sK1x6Xp9lMSIaxbQALWvVGTdx0QpaDXhEJjbVIb/3nM6c4//EATSOt/s@vger.kernel.org
+X-Gm-Message-State: AFuF++n1/ySjJ7hkGCs6z/hlnlpCMRZ7zEoEKyE/U+NnQZ38d8Krm5rl
+	iGk8aJR6DG+QA+4i6q/LuvRlJDgsPCYztpAroBB0K65WFm/gWGiva3wPaP5R8lM9lJu0rNgO7NQ
+	SMlPuDEgmEQ9bpokojt8Xmf0ij5vsgUd/NPntbxcz+g==
+X-Received: by 2002:a05:6512:1192:b0:5b6:423:9fa7 with SMTP id
+ 2adb3069b0e04-5b8df1f3ec5mr826739e87.31.1790251589716; Thu, 24 Sep 2026
+ 05:06:29 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 24 Sep 2026 05:06:28 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 24 Sep 2026 05:06:28 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260921-axiado-ax3000-sgpio-controller-v4-0-79c444be7faf@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-1-c00edacbee64@gmail.com>
+References: <20260921-axiado-ax3000-sgpio-controller-v4-0-79c444be7faf@axiado.com>
+Date: Thu, 24 Sep 2026 05:06:28 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mdx6zH16Ej-7EDVw0cKix7+h2tOxSL8pc1PiXhptA_R-A@mail.gmail.com>
+X-Gm-Features: AclHuK_9ekJ2IaIbciUj6wKN51mS4Pn8kPTOGKYEK1UcTaHgO2MIe0OH-x_Yx30
+Message-ID: <CAMRc=Mdx6zH16Ej-7EDVw0cKix7+h2tOxSL8pc1PiXhptA_R-A@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] gpio: Add support for Axiado AX3005 SGPIO controller
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	openbmc@lists.ozlabs.org, Conor Dooley <conor.dooley@microchip.com>, 
+	Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Harshit Shah <hshah@axiado.com>, SriNavmani A <srinavmani@axiado.com>, 
+	Karthikeyan Mitran <kmitran@axiado.com>, Michael Walle <mwalle@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Sep 20, 2026 at 12:31:51AM -0500, Ryan Brue wrote:
-> The MediaTek mt6397 PMIC includes a 10-bit AUXADC used for battery voltage
-> and battery temperature measurements. It is not register compatible with
-> mt6359: a conversion is requested by writing a channel number to a select
-> field and pulsing an edge triggered start bit rather than by setting the
-> channel's bit in a request register, and the results live elsewhere.
-> It therefore gets its own compatible rather than a fallback.
-> 
-> Add the binding and the header naming the channels a consumer puts in
-> io-channels. The battery channel is named for the input it measures,
-> ISENSE, which is what mt6323-auxadc calls the same input.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
-> ---
->  .../devicetree/bindings/iio/adc/mediatek,mt6359-auxadc.yaml      | 1 +
->  MAINTAINERS                                                      | 6 ++++++
->  include/dt-bindings/iio/adc/mediatek,mt6397-auxadc.h             | 9 +++++++++
->  3 files changed, 16 insertions(+)
+On Mon, 21 Sep 2026 09:20:21 +0200, Petar Stepanovic
+<pstepanovic@axiado.com> said:
+> Each SGPIO position provides one input GPIO and one output GPIO with
+> fixed directions, along with interrupt support for input GPIOs.
+>
+> This series adds support for the SGPIO controller found on the Axiado
+> AX3005 SoC.
+>
+> The series includes:
+> - Devicetree binding documentation
+> - GPIO driver implementation
+>
+> The driver uses gpio-regmap for GPIO operations and provides
+> controller-specific interrupt handling.
+>
+> Tested on Axiado AX3005 platforms.
+>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The series looks good to me so if there are no objections I'll queue it for
+v7.4 in the next days.
 
-Best regards,
-Krzysztof
-
+Bart
