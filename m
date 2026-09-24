@@ -1,115 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77FC4756DC;
-	Thu, 24 Sep 2026 11:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028753A6EF0;
+	Thu, 24 Sep 2026 11:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790248096; cv=none; b=AreZiVdaxkG7do27K2cw3/57WiWeb0odvKhtVJNH4pfk2R1gNtoUH7mnnXxlgZShWpUQPNkh79WyeA+riRfrEIKnQyzyGkyrQEK30hvhrDy6p24DM+rGve955q8wBhJxl00htnuudThmgtBUI/USk1rmgofJ9LAGc93XxMtO5IY=
+	t=1790248114; cv=none; b=Sy+a/fr3msBI0oaq9blcistvSTdKJfDQm0Jh6KsEFBGdnmGVcFULKqu0z6cWj66ObVgsTGk9JCfQKcEe1T9ThAWSlJ0m05XsPp+4RpbmBf1NQRmFn65APAU1YmOf6x/JjpcYneD1e2fX5+VaE/OcEw9QBqNzBXNAuYJmlqSXwTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790248096; c=relaxed/simple;
-	bh=6ZVDAa9aGKdh/C7qL33mIDXqc9NTzFWWhEcit72GMdQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bZhKarkgh2qGzFlGE26XXBS4+mg3oL6Z/xZLdj4NgDTo5ACoTb1jdICGZEWT0qarZjkk75Axw9OjVg3114mhQe5OsjkP/0v34ebeQPUyKQEzBXpCtxmBm+LCMs2np4XeeM1ipzkGhUo6qnYmN3/RxvS6cfYW6HIVdlVr3q9mM8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VdAZmwFe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790248114; c=relaxed/simple;
+	bh=Mtojtg2W6FyqJ5AJ/ZxpFW1x6w9Yz/ywA++HVXDlACM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BAMwb+piO0v34iiObQ8UqOUU544tSmcE1NPOM+jKmba4BXwLrTYgyukEFCJeUPm6Kn4ei460hkxgNt6s4eLD3X7Tmw7VynDoxV4CpbXjqWF9S97zjkwcjOoBPb9BpDHtF2WUGdtG8VZt7wRnDnV4QkwEzkhb3WydcD1mADfRVB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ocQyk7Db; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VdAZmwFe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244D41F000FF;
-	Thu, 24 Sep 2026 11:08:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790248089;
-	bh=2RPX+vpniF5X6EKVsIwFwDM0XvI+kQJkaddjeH0w6As=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VdAZmwFe4IGQSLmJmTWz7pRzxvdkw0/R9ZVnC+zP1FQeS+NYiV2bRhWt3YhUT2yZ0
-	 FORewo8oLX8QOWvgPhNLy14kI7uVXclDD2RGjejk39grrKHXdDg4/y/W2op08rdC1g
-	 Xvw7HHPWgS9NbByPPrfiXH3mc7SOp421qOiJua/58CEMfeZcIRFCNpCJS+6QiOUZp8
-	 +IyWE1I+1W5DgeWHU+SJ2Hme7+qqZH9O3YQ4GBdgjEROeAL9QYA1bFs5MXpskqOq+t
-	 rEsjufiMhbUvnMd8vcbAFJdopagi8LajcF57NI/DojX/6tXNqabZ8t/Rxthv7vN2Xq
-	 xqb1Vmo2tGbWA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 27/42] clk: qcom: gcc-x1e80100: Tie the CX power
- domain to controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260924-qcom-tie-cx-to-gcc-v5-27-38732033e5b5@oss.qualcomm.com>
-References: <20260924-qcom-tie-cx-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com>
- <20260924-qcom-tie-cx-to-gcc-v5-27-38732033e5b5@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 11:08:08 +0000
-Message-Id: <20260924110809.244D41F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ocQyk7Db"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790248111;
+	bh=Mtojtg2W6FyqJ5AJ/ZxpFW1x6w9Yz/ywA++HVXDlACM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ocQyk7DbaikGw0zgzuelLathBbin++rYWY6niIWlI/zGqBFZ5Va3m/nazybK/Zeyj
+	 3LcFBGya6804bUX9znjrdxeWV1GQGIJNMSg19qyhc2JYGmV33VO77VV2OlG3kQfzzP
+	 G868lC2jBOQXWru9za1D6itTrwhvEzFLoc0A+OXtysoQYceIAxDsNyay8l71NrfBZY
+	 nFxExuMF+uA9u2IY4+Uel7k8/1k+xYhqtuvJbttE7qoHVUntug5IXaLWPvj4attWRi
+	 a8hIQlFa+RnpxBQsup1C1cBsQZLEnkE/+JtdX7RxvMTWrLcvUnU/XPOHH4pgyI1G9q
+	 I4Tp98py3QtbQ==
+Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: benjamin.gaignard)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id E278C17E00A9;
+	Thu, 24 Sep 2026 13:08:30 +0200 (CEST)
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+To: nicolas.dufresne@collabora.com,
+	benjamin.gaignard@collabora.com,
+	p.zabel@pengutronix.de,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com
+Cc: linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: [PATCH v2 0/3] Remove unused variant and code clean up
+Date: Thu, 24 Sep 2026 13:08:22 +0200
+Message-ID: <20260924110825.166238-1-benjamin.gaignard@collabora.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] clk: qcom: gcc-x1e80100: missing register restore after CX power d=
-own
---
+"nxp,imx8mq-vpu" variant has been tagged as deprecated since 4 years
+now. This series remove it and make some context's fields useless so
+remove them too.
 
-commit 4516f7fcbae3fe60975d4e2ac718022779543d8c
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+changes in v2:
+- have a separate patch for documentation
+- fix dt-bindings
+- rebased on v7.3-rc1
 
-    clk: qcom: gcc-x1e80100: Tie the CX power domain to controller
+Benjamin Gaignard (3):
+  media: verisilicon: Remove deprecated variant
+  media: dt-bindings: media: nxp, imx8mq-vpu: Remove nxp,imx8mq-vpu
+  media: verisilicon: Remove useless internal fields
 
-This commit enables runtime PM for the GCC controller by setting use_rpm to
-true. This allows the CX power domain to be powered down when all GCC clocks
-and GDSCs are released by their consumers.
+ .../bindings/media/nxp,imx8mq-vpu.yaml        | 10 ++--
+ drivers/media/platform/verisilicon/hantro.h   |  8 +--
+ .../media/platform/verisilicon/hantro_drv.c   | 21 ++-----
+ .../media/platform/verisilicon/imx8m_vpu_hw.c | 60 -------------------
+ 4 files changed, 11 insertions(+), 88 deletions(-)
 
-> diff --git a/drivers/clk/qcom/gcc-x1e80100.c b/drivers/clk/qcom/gcc-x1e80=
-100.c
-> index 9402fd7fddb8f..b979b74153774 100644
-> --- a/drivers/clk/qcom/gcc-x1e80100.c
-> +++ b/drivers/clk/qcom/gcc-x1e80100.c
-> @@ -7449,6 +7449,7 @@ static const struct qcom_cc_desc gcc_x1e80100_desc =
-=3D {
->  	.num_resets =3D ARRAY_SIZE(gcc_x1e80100_resets),
->  	.gdscs =3D gcc_x1e80100_gdscs,
->  	.num_gdscs =3D ARRAY_SIZE(gcc_x1e80100_gdscs),
-> +	.use_rpm =3D true,
+-- 
+2.53.0
 
-[Severity: High]
-Will the manual register configurations performed during gcc_x1e80100_probe=
-()
-be lost here when the CX domain collapses?
-
-During probe, several manual register writes are made that are not tied to
-any specific clock structure:
-
-gcc_x1e80100_probe() {
-    ...
-    qcom_branch_set_clk_en(regmap, 0x71004); /* GCC_GPU_CFG_AHB_CLK */
-    qcom_branch_set_clk_en(regmap, 0x7d01c); /* GCC_HLOS1_VOTE_AGGRE_NOC...=
- */
-   =20
-    /* Clear GDSC_SLEEP_ENA_VOTE to stop votes being auto-removed in sleep.=
- */
-    regmap_write(regmap, 0x52224, 0x0);
-   =20
-    /* FORCE_MEM_CORE_ON for ufs phy ice core and gcc ufs phy axi clocks  */
-    qcom_branch_set_force_mem_core(regmap, gcc_ufs_phy_ice_core_clk, true);
-    qcom_branch_set_force_mem_core(regmap, gcc_ufs_phy_axi_clk, true);
-    ...
-}
-
-When runtime PM is enabled, the CX power domain can power down during deep
-sleep when consumers release their clocks. Since the driver has no pm
-operations to manually restore these writes upon resuming, and
-gcc_x1e80100_regmap_config does not configure a regmap cache (such as
-REGCACHE_MAPLE) to auto-restore them, won't these registers revert to their
-hardware default states on wake?
-
-Could this cause dependent subsystems like the GPU and UFS to malfunction or
-crash after resuming from sleep?
-
->  };
-> =20
->  static const struct of_device_id gcc_x1e80100_match_table[] =3D {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-qcom-tie-c=
-x-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com?part=3D27
