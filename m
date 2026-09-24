@@ -1,101 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B7B370AC6
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:21:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D6223346BE;
+	Thu, 24 Sep 2026 07:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790234520; cv=none; b=Wde5sszsu5SLihtnkw2bEcQEagdR6uMAwNTARfpG5AyXHHEfXRv758uDPeQq/2C4OOZG90REUVyHruzq9phe+t7f2ie159elgJBx67r3MpY2/9KsDL3FueyVzZ6YZbWOaiHxxirN6flfFozYebLc5Vh6VLpLkoX/LesRcMe2C3g=
+	t=1790234665; cv=none; b=mw5+rR9oAh/pWSXY982PSQeOVyPH5jzdOaNsgKq4Rk/Zfi3IOBid+PxYAO1kOxuCTKvDeXlsRM8KHRYrycJYfGwnHoW0IpeBsbSINW1MIFFXb+u6VC5/FIS8asry8tLYjF4Cd1uftA/hyz3APChiHhnXkVEtdLbGToDQdZFGyNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790234520; c=relaxed/simple;
-	bh=7vaGEo6GyLu2pDQIQOiM/A68JL2okdc87HrR6FUaD58=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=n32gaFz/IUDSpfKHdT61yT2YMcvd59c7Zq3Kj44mea1INPBj6ZJnvXrOtdtIPw1B3ICvzSfzfI2IzOKTpMGADm3S2sWF7zFWdzyq8OnfGZzC2DTcrhGBtOHR/gMpC+gtwQFU7JzY41w3XmSrBxxM3+XA58i0RQt6xN+HpVtxCr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TiyqeQwq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790234665; c=relaxed/simple;
+	bh=1y3x23f34J6dSnPAWBv03m8McFVIedvOuJSGLlwRbQE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cAvqg8M2e0CORMD665FUckYExCoZLvWtlc1HOtAOuatYkGWEfHnYDFrj3oKAFG6wmBCMF/RtdtJfRgZQMAHbgQN9/sMrYK2pDBGr0nBfkoK2AJHsGRYUwX5QVL8VcOjxDNtZlmh2fV1ds8pMPtgdINubQP2yLozvOQtX3ZmHraI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=BpNLuSlu; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TiyqeQwq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3891F000FF;
-	Thu, 24 Sep 2026 07:21:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790234518;
-	bh=EGnrERugVJ2329F6Jcle2TkqVq1jTOlt4Mly3UBrjR0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TiyqeQwq/a5XHuFWqBPzNJPHNsPHecii9tfUY1LHWWevuc3aAT6bDCNkDwMniI3pW
-	 +/TNw1JF/yTgNJYFyIEMYZLQSrYfFUBeTFvyJVjOnj1n9j/KDooFktMLli7se1ppsB
-	 QT2xmzOW8zh3r5wLIZMYKgRK/0GPyoy6AEQMkYAVWnvGbbRtgcAhw6VDM1+A34D+A2
-	 sZFkzGIHyBElhNQK6xXb5gydHFcCn5GmqyEsQcMQvmikm23GchknYNRbAoImqIKlju
-	 lf7IeGxD0vo7rblxd3kp9nUiYkqibx3Gb+R88x2WQ8CbI5b54W7EHnEpquvxdIcy6Y
-	 mAdMzfxrweXNQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa
- ROCK 3B
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adam Wermuth" <adam@wermuth.pl>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260924071445.441822-2-adam@wermuth.pl>
-References: <20260924071445.441822-1-adam@wermuth.pl>
- <20260924071445.441822-2-adam@wermuth.pl>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 07:21:58 +0000
-Message-Id: <20260924072158.8E3891F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="BpNLuSlu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790234653;
+	bh=1y3x23f34J6dSnPAWBv03m8McFVIedvOuJSGLlwRbQE=;
+	h=From:Subject:Date:To:Cc:From;
+	b=BpNLuSlu/iJ5dfrdnB1uOkNGfRZDvhvd00IPSn54rSz/MNJo2+kWnx7XywiAiCyuX
+	 poEEoou0GyVE0SAkxsWxSS+uW0G8zugq6ZmBvqIAWsSXFxJQvz6CtGrQvdv1md3eTv
+	 VJJ8Uu5XRacd1LIrhhJqv8LiRcrVmMOC4xWJM1jZSHbTM79QkFQYxI1c4qJKSOTKcd
+	 HVEsbggL9m7p74SE9HGNDAgaZgshGh9brrTwGCV0ZM5gpP6iKWz6JVs9a3BmCpW9HC
+	 hFp8903hZmGgOv36sV1DtmkjkBXATb/qZXVvToAYk4TRsZdx+yq6Lq77KuFVHjhbBs
+	 s2Q2bvs1ZkRoQ==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1CA3217E0074;
+	Thu, 24 Sep 2026 09:24:13 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH net-next v2 0/7] net/stmmac: Add Mediatek MT8189 support
+Date: Thu, 24 Sep 2026 09:23:23 +0200
+Message-Id: <20260924-dwmac-mediatek-mt8189-v2-0-430bd74d5ef9@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOTW7CMBCFrxLNuoNiOyEOK+6BWEzsSbGK49Y2A
+ RTl7liBbZdP7+9bIHF0nOBQLRB5dsmFqQj5VYG50PTN6GzRIGu5r7taob17MujZOsr8gz5roXv
+ sLY2set30rYDS/Y08use2e4KJM078yHB+O5H/buUof+yBEqMJ3rt8qFqpLe+1koMUW/7iUg7xu
+ QHOYit8WLp/WGaBNYpuVE3LRIbU0YTrlYYQaVdu4Lyu6wsistfe+AAAAA==
+X-Change-ID: 20260703-dwmac-mediatek-mt8189-9dafe3984951
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Biao Huang <biao.huang@mediatek.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: kernel@collabora.com, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790234653; l=3138;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=1y3x23f34J6dSnPAWBv03m8McFVIedvOuJSGLlwRbQE=;
+ b=dc/cU9HL5r6uNwpt2Qd66PMiC15uiDrPEMbq1iDLDwS8j9vlOUPlMa+CSYxibMAx5kX0VBTwt
+ ltUELoSJ/qhCfOdGEzwstse+2zQkZc3X6TYNsThAes8GRMOmmKoVRGs
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dts: false 5V VBUS dependency for M.2 WWAN slot
---
+This series adds the Ethernet support for Mediatek MT8189 SoC and its
+variants (MT8371, MT8391). These SoC integrate a Gigabit Ethernet MAC
+with RGMII/RMII/MII interface, with a similar design than previous SoCs
+such MT8188 or MT8195.
 
-commit 87931f73c3a7da52681aaf73a831d1638bf48ff3
-Author: Adam Wermuth <adam@wermuth.pl>
+This series is based on net-next tree (sha1: 528de6832b21).
+It has been tested on Mediatek Genio 520-EVK (MT8371) and
+720-EVK(MT8391) boards, which both integrate an Airoha AN8801R Ethernet
+PHY, with hardware enablement series ([1]) and additional devicetrees
+patches for enabling their Ethernet interface.
+It has been also tested on Mediatek Genio 510-EVK (MT8370, variant of
+MT8188) and 1200-EVK (MT8395, variant of MT8195).
 
-arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa ROCK 3B
+[1]: https://lore.kernel.org/linux-mediatek/20260701-add-mediatek-genio-520-720-evk-v2-0-19d5da4ef984@collabora.com/
 
-This commit routes the USB 2.0 data lines of the M.2 B-key slot to USB2_HOS=
-T3
-by enabling the ehci/ohci controllers and the usb2phy1 host port, allowing
-LTE modems and other modules to enumerate.
+---
+Changes in v2:
+- Rebased on net-next (sha1: 528de6832b21)
+- Dropped "net: stmmac: mediatek: rename MT2712 and MT8195 variant
+  methods" and "net: stmmac: mediatek: add support for TX deallocation
+   adjustment feature" patches, present in v1 (M. Chevallier)
+- Patch 1:
+  - Removed rmii_internal clock from required clock list (A. Lunn)
+  - Added MT8189 stage delay divider values in "mediatek,rx-delay-ps" and
+    "mediatek,rx-delay-ps" property description (Sashiko)
+  - Updated commit description
+- Added patch 2 to simplify TX/RX delay handling in mt8195_set_delay
+- Added patch 3 to add RX/TX delay stage divider in platform data
+- Patch 4:
+  - Replace MT8195_PERI_ETH_CTRL_BASE by MT8195_PERI_ETH_CTRL_OFFSET to
+    harmonize the variable and definition naming (A. Lunn)
+  - Added Reviewed-By tag
+- Added patch 5 to add the TX Clock phase shift use in
+  RGMII and in 1G speed
+- Patch 6:
+  - Reworded flag and define names to explicit a bit more what the
+    feature does
+  - Updated commit description
+- Patch 7:
+  - Added the new definitions and needed fields in platform data
+  - Updated commit description to add the info about MT8189 RX/TX delay
+    stage divider and maximum values, and remove reference about 
+    stage fine feature 
+- Link to v1: https://lore.kernel.org/r/20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm64=
-/boot/dts/rockchip/rk3568-rock-3b.dts
-> index 149a5306bb032..ad9a91c0d0d0e 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+---
+Louis-Alexis Eyraud (7):
+      dt-bindings: net: mediatek-dwmac: add support for MT8189 SoC
+      net: stmmac: mediatek: simplify TX/RX delay handling in mt8195_set_delay
+      net: stmmac: mediatek: add RX/TX delay stage divider in platform data
+      net: stmmac: mediatek: add PERI_ETH_CTRLx register offset in platform data
+      net: stmmac: mediatek: use TX clock phase shift in RGMII mode with 1Gbps speed
+      net: stmmac: mediatek: add support for TX clock output enable feature
+      net: stmmac: mediatek: add support for MT8189 SoC
 
-[ ... ]
+ .../devicetree/bindings/net/mediatek-dwmac.yaml    |  87 ++++++---
+ .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 211 ++++++++++++++++-----
+ 2 files changed, 224 insertions(+), 74 deletions(-)
+---
+base-commit: 528de6832b2194ae0b1d62b0925e0ac6cad1087c
+change-id: 20260703-dwmac-mediatek-mt8189-9dafe3984951
 
-> @@ -780,6 +788,11 @@ &usb2phy1 {
->  	status =3D "okay";
->  };
-> =20
-> +&usb2phy1_host {
-> +	phy-supply =3D <&vcc5v0_usb_host>;
+Best regards,
+-- 
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-[Severity: Medium]
-Does this create a false 5V VBUS dependency for the M.2 WWAN slot?
-
-The M.2 specification dictates 3.3V power and no VBUS pin. By associating t=
-he
-5V external Type-A VBUS regulator (vcc5v0_usb_host) with the M.2 slot's PHY
-here, the PHY core will automatically enable this regulator when initialize=
-d.
-
-Will this force the 5V rail to remain active as long as the M.2 LTE modem's
-USB PHY is active, leading to unnecessary power consumption even when exter=
-nal
-ports are unused?
-
-> +	status =3D "okay";
-> +};
-> +
->  &usb2phy1_otg {
->  	phy-supply =3D <&vcc5v0_usb_host>;
->  	status =3D "okay";
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924071445.4418=
-22-1-adam@wermuth.pl?part=3D1
