@@ -1,143 +1,394 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FA54AD4CD
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 20:00:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790280043; cv=none; b=A7Bd85VxQ5vilEpa4uID53v2DATEGzBm8LcI9ShJrLeTElH5+mSfM1NSyacEDCt4vUR9oSYu8SPljCXx8gnEDL0RhKSA4R4aCJA5uT7KuaiKFfA0h8aqTBk+JN5lJQIMgDVVffge5LPoHfXcP/1iFicQUpJ8MSIdyDmWUhFLWKs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790280043; c=relaxed/simple;
-	bh=800XYnUFGFmLVgaPHONWcqohdi4VWbF2CAwETY0CmUw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tzh0ogBcaOXnKuvrAFrQUZ+jPghhRw3ZIz97OLntSBtGMvox/iupI8zDlGcNNw0f88DvQllbaaZT92HQQWYqbXnTTZUvMrwWedNIz0vI5O/Wpc+DRXltqcKHl0oi62PEDuz4eoWXwoK1RzD3DGf3+skdFtTDM2gQeQaMp94qXyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ow6egLXd; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75B24C9E13
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 20:12:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790280768; cv=pass; b=II/6QCQyPuZyS2tUq0adiDtdsNTkUoDfdMm/H2ZZjLmtqJbon7HWmfBz5gYssaP1EjVPCa/XV8EwbTMS4nmjKfL04iSS3XhqkZFT8OTzXC94iVGXHyGe0Ce2ChUKaMUvY1JPUZT2u96KbjiGWCHSei2J5jMEFSykqORMyyFNirU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790280768; c=relaxed/simple;
+	bh=+fmR/U1H6avzccBRXy1O++xjv67Ls5rrWcxfYYUejZ8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OIMWn6tDSW7/jEXKgVI/gmesldzvLXWZMowifW/7OeEGMhe0Uk73yfwYu+Z5McSoc/jf1T82B6nCZscIj6oqVnzaMKMnJ5jrx36X51hH0Hmsz2Qtuzr+C1FjSL1SNwDwgFvgiQAbtXBnn1O4cYsKF1HC7Qt8TwEdAhATjvGHr9c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kz3em7Lb; arc=pass smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ow6egLXd"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso1362585e9.0
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:00:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kz3em7Lb"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4c3304784so55092a12.3
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:12:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790280756; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JXTFHGf8Jh/BJ+Zc9YG1HCRW1bwxdyVXd9iUvtGN8zmSBcloe78v3A/TW+xCHffqqn
+         pbOX5fVNwPdu7f8LQuA1YlGL5Kl+HzKJy6l0t6L35CY9Zjsj4pYuNJLH8Z2J0UHztVok
+         tQsik6nONim3ROn2b6PoqeGfNhuKXCZud5323HRFM9P7lFmwhHMgV8J4rq9IPb0t/oWH
+         Kbsk2HadoxYrVcXsi1/nX4mnye4VlofL6x+1kimbLRAtMwBiy/SaXSiJQKjFA2fZ7vwF
+         3Z9s1rv2cS+qIfU+Jg1C5QtsaLhhaLH+M5S0CCyJuqnhMEU4//kLIoehpe6oxYAgKnpl
+         JPeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0l+jl3PEeluCBsGioL2G68K7W+3gmkNVOtgi3VkNGno=;
+        fh=GbtQ/s/6PLUjHRnpaqzbxbTrDq5ehggrSGj4DYDU6zI=;
+        b=f+r14dbzrGjuOvsyyzW5yHscCKinyQDFHTCMhNTSzx6e2XzLDc/dNeZGtvciQmOnWx
+         81g7XSMYJXuihyd1mYAiyaD7xQQ1Q0/hYhTeru1U72EzHHzudBz5eNpMv4ByAuqRHquL
+         1eBgWIZ99SAUZWd2Pndje5EFpe5af72jhhym0nVcNKi36EhrIG0duK7aHbTlpHWKXV7x
+         FxH9br15QY7hvO084PLzc+hsgBp5c+7XqrD87Z/qWy9cPAPmvotk1NW1/3YMZJ+FXLPf
+         YZWwSDj2cO06vQiHiaCzBp2Pzz6g15mpOaFDKCa1B7vpc7I4+U0S0oQqrClldWbIsXB4
+         A5GA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790280040; x=1790884840; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:reply-to:message-id:subject:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Waq+q+bs9tZHLy6mj9/0dS73pghCJzNJ2Bb0y33c6Wk=;
-        b=Ow6egLXdUfKSeLXNcN8inGMHH3j/Nv1eS8h+/efytKaVamRQ6LVbRzuFW7soKKy3Ob
-         mrqn0EFF9pmnf0epea4MS0EuJHFitUwlwgFN4VnkHG6VCEyW9h9BkfLdpPIcmNgXk+Ph
-         GRzHJN6GAgwoV397ugVtvyZuIm1sEX2dWCKER5AzJ7PZrOJ4fjz1ABPUG3k1HVbF3EGC
-         U78OOQc46HLOLbHoAU7+CGYKUNRxbegg83yCO3/K42ufzixIhwwb9yacysP0W8Gf8M8g
-         eajEAlBZN6RN3lvbKiAEgkkNii9A99u20tuIjfBtoVYMUPsSAi4in0VRvJK46Sm72eRK
-         LzKQ==
+        d=gmail.com; s=20251104; t=1790280756; x=1790885556; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0l+jl3PEeluCBsGioL2G68K7W+3gmkNVOtgi3VkNGno=;
+        b=kz3em7Lb5uSY8qWs5LMAw0tOhwh8FyZUygAFsiIEm5J1mQjNlzzLFtFM6vCV3EZYdb
+         ngAZGTzVWnLGlmNpbEqJmFQg3ryeV0h9iqcjMmu6wmlbsoy0ugHk0bhZYUvJNfy5va8c
+         7JXBCXV5pVEYMiLlTCHwOG/26v0DMCY7KcT5cf7op0nbKcTEuZuo/y3BsA17CTfC4nEN
+         W1QQVfVUyGCHOHF2veHkq8g1vBNhRuJPPphIGMFuYXb8zvldouql4/INfIXU6iIXOLRx
+         5KW2BosAGTBcUsv6yH5KjaZM/xjT/rxeo8qm5kQ+TcWOuupDUwzgs4BRMDvihjvdsGap
+         mPoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790280040; x=1790884840;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790280756; x=1790885556;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Waq+q+bs9tZHLy6mj9/0dS73pghCJzNJ2Bb0y33c6Wk=;
-        b=bX0mUeau2+hgHFgC8NC1h13yzr2uvLru9eNyWkHM9z/zJClsMnX2qmrVKK4uwFSpBU
-         wT5UaZpuEBdhJp3yFOrkZAUt7RZmav5myiWzntTqlfPT9bhSjvCZ8Fzxm0WmCLDKkQYZ
-         rIVgBgWlIqpCKUMXr9ahJJwx7rqSfcyOG/XWPvTX3shBtftehND/JfjruTUiEwR0hYIZ
-         WfJbwtqiAe42ZxJTjm0obKOnyCs1eZiMz53PqqAHeztl+nXWfEJcBpf4LrvDMeaNW4pl
-         ONvf2D6HlJimlj+iuJlYhR+kJm2aeGWtAxtDm6TKPqB6pHWFDT9Gtnsw0zA4+Fj/l+iM
-         VoPg==
-X-Forwarded-Encrypted: i=1; AKwUvBwspXBGdi32ayD3uHoVL9C8boSoZMdMMhkNNHhXXNl0tTHXKKxOwE7RLnf00Wp7ivBqVRjmx11c+VyU@vger.kernel.org
-X-Gm-Message-State: AFuF++mL1vPbxF5at0iesqS2+RKemEaGiM4YXVsjSHyjZtbkI/7wgPqE
-	N11MLnmcVvDpt5KX5qIC4zYAl9WuLhEguZP57EE8FR8XN5fY7jBDbzOp
-X-Gm-Gg: AYBFou3gDsjyqF5iq/alLOWWyL6RrwopOMBFX5ogwEcBLW7A4S9L+Gzj26lTRoSrkPo
-	/JsL3q2z1Mw85cBM1vsP9wgrIJK/8F8W8Zv7Cr4Zg1cFjovlGoIIFuQj0rPAyPPmd0VldFYjG12
-	vwPum1tW30xg7Gioj1xjHrLY+2kmfPDJMXuYC6yFEDKx7egbmqgZzcWCrfRfkNi/QYdTyO/o8a2
-	w+a6DsZJQfctcg3bXXlNwzMqNXc2U//Xe/MMM9q1++7CQTxnFxjmp3f4Hyz/LkzS4y2AY8bXVKp
-	1qmuPpics1J1pH7z4FW597oTz5Rt7H2U7R2ff/zKRjKgxoj/b9yP8iDeG4t9tYQ3+pqiBIO/W6X
-	U8B2LJ5c8Pl5sRRawog+dfYrzQV4ykk99kW5dFeJ1e1ZKhLmgj0pJgD2/Iv0RdPwepFWriTM/qk
-	m5eIDL5KWm33jXJeAr5yQQHLKJbgI/Iua/W4avo3BahZdzMmZV3/leog9TAnH4gEm7pJ/NT4fyV
-	nCVh3aHqlK/ZGvf//cO+21enCcyS6sYgik=
-X-Received: by 2002:a05:600c:6207:b0:49f:bd3c:bc20 with SMTP id 5b1f17b1804b1-49fe66ff476mr67110105e9.27.1790280039460;
-        Thu, 24 Sep 2026 13:00:39 -0700 (PDT)
-Received: from pevik (gw1.ms-free.net. [185.243.124.10])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff069ceebsm1872715e9.3.2026.09.24.13.00.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 13:00:38 -0700 (PDT)
-Date: Thu, 24 Sep 2026 22:00:35 +0200
-From: Petr Vorel <petr.vorel@gmail.com>
-To: david@ixit.cz
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 03/11] drm/panel: s6e3ha8: Really assert reset on the
- failure
-Message-ID: <20260924200035.GA194087@pevik>
-Reply-To: Petr Vorel <petr.vorel@gmail.com>
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
- <20260924-crosshatch-panel-v2-3-08d5c7bf72fc@ixit.cz>
+        bh=0l+jl3PEeluCBsGioL2G68K7W+3gmkNVOtgi3VkNGno=;
+        b=zxsCjtQDvjoZdFxoZiQhq86hhzJlj1w5c9kPjJwQEPHUqpCWDTgRgu6vI2BdgHH21G
+         JNSw220ZmAVbXiZH/3u0nW7Pv34p7pX3qZW6HfTLHpK1DvYhOKqCw6nIdzbNNgAlhlYv
+         yeNCayzNAe+PERLIs2nwt8K6dUAY94c/RScJA1if34z8FZPnAnlzK4T7/2rvTwYbcSQK
+         1sVZgXA3KFj+zrF+eC+19OsM9S5SH7+LksIIA1zJgWlise1DEGW2+fFFssUgg3aW3jKe
+         PpSfpQokW9nfY1iysTD5ua+hHkLKtrJItckrDCZs2j89cGAG/FgWmV28HKRiJCdds+xL
+         XT7w==
+X-Forwarded-Encrypted: i=1; AKwUvBylfJ95guiYl89ru/7epRYZG1GbZHQYbY3KjdwlF08okl2OBs7TfoNHiYVwP7QgCVvaSMO5/mPt/1qq@vger.kernel.org
+X-Gm-Message-State: AFuF++nDXHowdA+Tt1KZ0svv+4VS69360ULLasQ3678Xdnsk4ea6+FZp
+	mPxsC/lqPziS5xaLDifOENPJfFiD0+ItWTHDFAp3ST/g9bYAzR4f0qKiB8QeBfSrB4/lM4AlXTx
+	c96ORYAW06GRL3Nr+pGE7uSegVDmlzSo=
+X-Gm-Gg: AYBFou2vJiHY7ioK3hxvfT+Ao3yvyI+YwW7OEdI1cnOLf0q5tL2C87R89csxN2+vlML
+	Rjb19/0bCgBCzWi5w+c2tIftiONwQtU0bb81pESrK2P52S9NCEquDSaZ1yHCKdrtdrJPaH/2YlG
+	wb4L5Ei5n3PHJTJEpmxRRBFmi059AY5wj5nhsYN2HeIlG2Hoj0pWGM/AJQTNmV7aznTiDr7Ert9
+	/jjkD0SH1AnlK6NVbix9rta4jNGonqDqcciYMdHeoPPpzHjsicjoys3mFARUdCK85OwLer9oIWZ
+	d+SkmYToRtYVOPchCw5dBgQ48O4nogkdjuajwESivADxUHrNgdQbfUYRxTlihKZLbBlDNic=
+X-Received: by 2002:a17:902:e94e:b0:2df:7e40:6f6c with SMTP id
+ d9443c01a7336-2df7e407013mr31670965ad.46.1790280755626; Thu, 24 Sep 2026
+ 13:12:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924-crosshatch-panel-v2-3-08d5c7bf72fc@ixit.cz>
+References: <20260923201701.43391-1-pmazzini@gmail.com> <8871e921-f66c-475b-a489-560028eb2200@arm.com>
+In-Reply-To: <8871e921-f66c-475b-a489-560028eb2200@arm.com>
+From: Pablo Mazzini <pmazzini@gmail.com>
+Date: Thu, 24 Sep 2026 21:12:01 +0100
+X-Gm-Features: AclHuK_-mnDGIb_ID5ajTTS6OK8_9vcC7qVQlZUU6wB7EYPhgJdDLHDg8SJ6_uQ
+Message-ID: <CAAxh=jsb_SGxKEisYYcg-eSbzE2iOUwnvmGUww_rUdXW64E84g@mail.gmail.com>
+Subject: Re: [PATCH v1 01/11] dt-bindings: clock: add Allwinner B288 CCU
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Brian Masney <bmasney+clk@redhat.com>, Chen-Yu Tsai <wens@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Rob Herring <robh@kernel.org>, Samuel Holland <samuel@sholland.org>, Stephen Boyd <sboyd@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+Hi Andre,
 
-LGTM.
-Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+thanks for the review.
 
-Kind regards,
-Petr
+> please add a cover letter
 
-> Due to incorrect implementation 0 == asserted, thus when driver fails it
-> needs to assert reset.
+Done for v2.
 
-> Minimal fix for stable; the polarity convention is corrected properly
-> later in this series.
+> One problem in general is the lack of access to a manual [...]
 
-> Fixes: 779679d3c1640 ("drm/panel: Add support for S6E3HA8 panel driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+The descriptions come from the BSP's clk-sun8iw10.{c,h}, cross-checked
+against ccu-sun50i-a64.c - nine of the eleven PLLs are bit-identical -
+and exercised on the device up to userspace.
 
-> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> index 078523df48860..835121b322f4a 100644
-> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> @@ -179,17 +179,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
->  	ret = regulator_bulk_enable(ARRAY_SIZE(s6e3ha8_supplies), priv->supplies);
->  	if (ret < 0)
->  		return ret;
->  	mipi_dsi_msleep(&ctx, 120);
->  	s6e3ha8_amb577px01_wqhd_reset(priv);
+> I am afraid you cannot push off the responsibility to other people
 
->  	ret = s6e3ha8_amb577px01_wqhd_on(priv);
->  	if (ret < 0) {
-> -		gpiod_set_value_cansleep(priv->reset_gpio, 1);
-> +		gpiod_set_value_cansleep(priv->reset_gpio, 0);
->  		goto err;
->  	}
+Copy-paste mistake, sorry. Moot now: folding both bindings into the
+existing files removes those entries.
 
->  	drm_dsc_pps_payload_pack(&pps, &priv->dsc);
+> why do you need a separate binding?
 
->  	samsung_dsi_test_key_on_lvl1(&ctx);
->  	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
->  	samsung_dsi_test_key_off_lvl1(&ctx);
+You're right, it's a strict subset; v2 just adds the compatible to
+allwinner,sun4i-a10-ccu.yaml.
+
+Thanks,
+Pablo
+
+
+On Thu, Sep 24, 2026 at 10:03=E2=80=AFAM Andre Przywara <andre.przywara@arm=
+.com> wrote:
+>
+> Hi Pablo,
+>
+> many thanks for sending this series, on a first glance this looks pretty
+> good.
+> As a general comment: please add a cover letter (git format-patch ...
+> --cover-letter, then edit the generated file), and explain a bit about
+> the background of this work. This would be a good place to briefly
+> describe what the B288 is, how it's related to other SoCs, how you came
+> to all this information, the firmware story, and the existing
+> limitations of this port.
+>
+> One problem in general is the lack of access to a manual, I am not even
+> sure we ever upstreamed SoC support without one. Especially the clock
+> driver is quite tricky, we would love to compare the clock descriptions
+> against some documentation.
+>
+> On 9/23/26 22:16, Pablo Mazzini wrote:
+> > The B288 (sun8iw10p1) is a dual Cortex-A7 SoC used in e-book readers.
+> >
+> > Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> > ---
+> >   .../clock/allwinner,sun8i-b288-ccu.yaml       | 55 ++++++++++++
+> >   include/dt-bindings/clock/sun8i-b288-ccu.h    | 90 ++++++++++++++++++=
++
+> >   include/dt-bindings/reset/sun8i-b288-ccu.h    | 45 ++++++++++
+> >   3 files changed, 190 insertions(+)
+> >   create mode 100644 Documentation/devicetree/bindings/clock/allwinner,=
+sun8i-b288-ccu.yaml
+> >   create mode 100644 include/dt-bindings/clock/sun8i-b288-ccu.h
+> >   create mode 100644 include/dt-bindings/reset/sun8i-b288-ccu.h
+> >
+> > diff --git a/Documentation/devicetree/bindings/clock/allwinner,sun8i-b2=
+88-ccu.yaml b/Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-=
+ccu.yaml
+> > new file mode 100644
+> > index 000000000000..22b59d5b652c
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-ccu.=
+yaml
+> > @@ -0,0 +1,55 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/clock/allwinner,sun8i-b288-ccu.yaml=
+#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Allwinner B288 Clock Control Unit
+> > +
+> > +maintainers:
+> > +  - Chen-Yu Tsai <wens@csie.org>
+> > +  - Maxime Ripard <mripard@kernel.org>
+>
+> I am afraid you cannot push off the responsibility to other people,
+> especially I think Maxime wouldn't be really interested any more ;-)
+>
+> Actually, why do you need a separate binding? Wouldn't it be enough to
+> just add the compatible string to the existing
+> allwinner,sun4i-a10-ccu.yaml file? This one here looks like a subset of
+> this, and would blend in there easily.
+>
+> Cheers,
+> Andre
+>
+> > +
+> > +properties:
+> > +  "#clock-cells":
+> > +    const: 1
+> > +
+> > +  "#reset-cells":
+> > +    const: 1
+> > +
+> > +  compatible:
+> > +    const: allwinner,sun8i-b288-ccu
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    items:
+> > +      - description: High Frequency Oscillator
+> > +      - description: Low Frequency Oscillator
+> > +
+> > +  clock-names:
+> > +    items:
+> > +      - const: hosc
+> > +      - const: losc
+> > +
+> > +required:
+> > +  - "#clock-cells"
+> > +  - "#reset-cells"
+> > +  - compatible
+> > +  - reg
+> > +  - clocks
+> > +  - clock-names
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    ccu: clock-controller@1c20000 {
+> > +        compatible =3D "allwinner,sun8i-b288-ccu";
+> > +        reg =3D <0x01c20000 0x400>;
+> > +        clocks =3D <&osc24M>, <&osc32k>;
+> > +        clock-names =3D "hosc", "losc";
+> > +        #clock-cells =3D <1>;
+> > +        #reset-cells =3D <1>;
+> > +    };
+> > diff --git a/include/dt-bindings/clock/sun8i-b288-ccu.h b/include/dt-bi=
+ndings/clock/sun8i-b288-ccu.h
+> > new file mode 100644
+> > index 000000000000..3dc1704d001e
+> > --- /dev/null
+> > +++ b/include/dt-bindings/clock/sun8i-b288-ccu.h
+> > @@ -0,0 +1,90 @@
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
+> > +#ifndef _DT_BINDINGS_CLK_SUN8I_B288_H_
+> > +#define _DT_BINDINGS_CLK_SUN8I_B288_H_
+> > +
+> > +#define CLK_PLL_CPUX 0
+> > +#define CLK_PLL_AUDIO_BASE   1
+> > +#define CLK_PLL_VIDEO0       2
+> > +#define CLK_PLL_DDR0 3
+> > +#define CLK_PLL_PERIPH0      4
+> > +#define CLK_PLL_VIDEO1       5
+> > +#define CLK_PLL_24M  6
+> > +#define CLK_PLL_PERIPH1      7
+> > +#define CLK_PLL_DE   8
+> > +#define CLK_PLL_DDR1 9
+> > +
+> > +#define CLK_PLL_PERIPH0_2X   10
+> > +#define CLK_PLL_PERIPH1_2X   11
+> > +#define CLK_CPUX     12
+> > +#define CLK_AXI      13
+> > +#define CLK_CPUAPB   14
+> > +#define CLK_AHB1     15
+> > +#define CLK_APB1     16
+> > +#define CLK_APB2     17
+> > +
+> > +#define CLK_NAND     18
+> > +#define CLK_MMC0     19
+> > +#define CLK_MMC1     20
+> > +#define CLK_MMC2     21
+> > +#define CLK_MMC3     22
+> > +#define CLK_SPI0     23
+> > +#define CLK_SPI1     24
+> > +#define CLK_SPI2     25
+> > +#define CLK_DRAM     26
+> > +#define CLK_DE       27
+> > +#define CLK_EE       28
+> > +#define CLK_EDMA     29
+> > +#define CLK_TCON0    30
+> > +#define CLK_MBUS     31
+> > +
+> > +#define CLK_BUS_THS  32
+> > +#define CLK_BUS_NAND 33
+> > +#define CLK_BUS_SDMMC0_BUS   34
+> > +#define CLK_BUS_SDMMC1_BUS   35
+> > +#define CLK_BUS_SDMMC2_BUS   36
+> > +#define CLK_BUS_SDMMC3_BUS   37
+> > +#define CLK_BUS_SPI0 38
+> > +#define CLK_BUS_SPI1 39
+> > +#define CLK_BUS_SPI2 40
+> > +#define CLK_BUS_I2S0 41
+> > +#define CLK_BUS_I2S1 42
+> > +#define CLK_BUS_SPDIF        43
+> > +#define CLK_BUS_DSD  44
+> > +#define CLK_BUS_DMIC 45
+> > +#define CLK_BUS_USBOHCI0     46
+> > +#define CLK_BUS_USBEHCI0     47
+> > +#define CLK_BUS_USBOTG       48
+> > +#define CLK_BUS_DE   49
+> > +#define CLK_BUS_EE   50
+> > +#define CLK_BUS_TCON0        51
+> > +#define CLK_BUS_CSI_S        52
+> > +#define CLK_BUS_CSI_M        53
+> > +#define CLK_BUS_CSI_MISC     54
+> > +#define CLK_BUS_ADDA 55
+> > +#define CLK_BUS_SDRAM        56
+> > +#define CLK_BUS_PSRAM        57
+> > +#define CLK_BUS_DMA  58
+> > +#define CLK_BUS_UART0        59
+> > +#define CLK_BUS_UART1        60
+> > +#define CLK_BUS_UART2        61
+> > +#define CLK_BUS_UART3        62
+> > +#define CLK_BUS_UART4        63
+> > +#define CLK_BUS_UART5        64
+> > +#define CLK_BUS_TWI0 65
+> > +#define CLK_BUS_TWI1 66
+> > +#define CLK_BUS_TWI2 67
+> > +#define CLK_BUS_PIO  68
+> > +#define CLK_BUS_GPADC        69
+> > +#define CLK_BUS_KEYADC       70
+> > +
+> > +/*
+> > + * mmc0 and mmc1 are v4p1x controllers driven in the old timing mode, =
+which
+> > + * needs the sample and output phase clocks. mmc2 and mmc3 are newer b=
+locks
+> > + * that do their own delay calibration and have none.
+> > + */
+> > +#define CLK_MMC0_SAMPLE      71
+> > +#define CLK_MMC0_OUTPUT      72
+> > +#define CLK_MMC1_SAMPLE      73
+> > +#define CLK_MMC1_OUTPUT      74
+> > +
+> > +#endif
+> > diff --git a/include/dt-bindings/reset/sun8i-b288-ccu.h b/include/dt-bi=
+ndings/reset/sun8i-b288-ccu.h
+> > new file mode 100644
+> > index 000000000000..675145654548
+> > --- /dev/null
+> > +++ b/include/dt-bindings/reset/sun8i-b288-ccu.h
+> > @@ -0,0 +1,45 @@
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
+> > +#ifndef _DT_BINDINGS_RST_SUN8I_B288_H_
+> > +#define _DT_BINDINGS_RST_SUN8I_B288_H_
+> > +
+> > +#define RST_BUS_THS  0
+> > +#define RST_BUS_NAND 1
+> > +#define RST_BUS_MMC0 2
+> > +#define RST_BUS_MMC1 3
+> > +#define RST_BUS_MMC2 4
+> > +#define RST_BUS_MMC3 5
+> > +#define RST_BUS_SPI0 6
+> > +#define RST_BUS_SPI1 7
+> > +#define RST_BUS_SPI2 8
+> > +#define RST_BUS_I2S0 9
+> > +#define RST_BUS_I2S1 10
+> > +#define RST_BUS_SPDIF        11
+> > +#define RST_BUS_DSD  12
+> > +#define RST_BUS_DMIC 13
+> > +#define RST_USBPHY0  14
+> > +#define RST_BUS_OHCI0        15
+> > +#define RST_BUS_EHCI0        16
+> > +#define RST_BUS_OTG  17
+> > +#define RST_BUS_DE   18
+> > +#define RST_BUS_EE   19
+> > +#define RST_BUS_TCON0        20
+> > +#define RST_BUS_CSI  21
+> > +#define RST_BUS_ADDA 22
+> > +#define RST_BUS_WLAN 23
+> > +#define RST_MBUS     24
+> > +#define RST_BUS_DRAM 25
+> > +#define RST_BUS_PSRAM        26
+> > +#define RST_BUS_DMA  27
+> > +#define RST_BUS_UART0        28
+> > +#define RST_BUS_UART1        29
+> > +#define RST_BUS_UART2        30
+> > +#define RST_BUS_UART3        31
+> > +#define RST_BUS_UART4        32
+> > +#define RST_BUS_UART5        33
+> > +#define RST_BUS_I2C0 34
+> > +#define RST_BUS_I2C1 35
+> > +#define RST_BUS_I2C2 36
+> > +#define RST_BUS_GPADC        37
+> > +#define RST_BUS_KEYADC       38
+> > +
+> > +#endif
+>
