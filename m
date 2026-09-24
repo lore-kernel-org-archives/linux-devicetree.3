@@ -1,88 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0DF391517;
-	Thu, 24 Sep 2026 12:17:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F921476045
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 12:19:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790252262; cv=none; b=N+DOGu0c8aJeQ0BgUSc/6erFhLXRZEmDpMnbcYyV+Xi0fArgGn+PcRmPGm1shY81b7/zjcmXDs0+pUnMuQuv+7Y41aQ09w1lRvGahga8ZxPU8FNE0xPPzcQGOWShYfR/bhacVMJJWceNYoCINUaLkfgcB+mCVLqVRBKkzE/VjYI=
+	t=1790252395; cv=none; b=O2GdpjaJ3QQj3hTOTfg9M41rqMovJ76TzqwOHDiDrR6keyPJnxMGDEU1/pXe8D0bQEiCdy8hjMFYSEXPFA+F92h8NvCxl43sne7ufUnv/vQo9PnvqqwREhXJnIAgEnEahCoum/1BOUvYsfspSGfwFRlc9tlMFT1QghOqB193LB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790252262; c=relaxed/simple;
-	bh=cPST8MJ8TSeF9sY6hxKTYUf6ipTLK8bGEw9EmCQ4rxc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nMP4A0zqD7KSsl+cDNlDtrMCZRREHBfl4Y5Kh/8b6kDmfIJ0kq4RoPZMUoP2102zp6yoPmDoDRxP4odQLElRAg/tBfK/nIS/2n2j+N5DuXoo6FboyEBge5+hpTAWsvYZMpah6zTLhpHn4lh7Ki0BmppROxZcaV2ESu7P7MFvguE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMA8Cxqw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790252395; c=relaxed/simple;
+	bh=yL9zi1CMUHFMeWrA73JCN/N0J16NT3jeJ5gVzVOMynY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=d0TWxbb2C3JcNGtfED7zeOwFIUozCVJuRLuKv16dFML4I5EIYtT4mgn+Z2BIyGslIjpnA789fKkos7Uv1ExIj6/LcD81SrjAAu/4LAdeviNFqjhE/yRlRMyLJAj0OaHpkzo2VZZXX+OGZXJON3+Kg4xyMyqFAus9VZts/fjp/Ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZhHa+wu/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMA8Cxqw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88CE51F000FF;
-	Thu, 24 Sep 2026 12:17:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZhHa+wu/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69751F000FF;
+	Thu, 24 Sep 2026 12:19:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790252261;
-	bh=cPST8MJ8TSeF9sY6hxKTYUf6ipTLK8bGEw9EmCQ4rxc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fMA8CxqwudWuPG0E5ZdCROfZrhpZq/XSp9/Lt9Q1RaCjs5rQaJ7KDPucalqvCr1cV
-	 ECYVS2CL3hGU8ncfQZwdWRNcHxlAMY+Ep6JstbwXixQLa6+bT0t2DX+C7j4kxDRC4K
-	 OZVjaIxhCC2+i5ViQagcWtrA4cfs7diqgwcFyH22rFyhyZUWgD4lS5sMZ4q5H7jmZy
-	 E1atClSu+dtDj4hS3nqNQ8yET1UoQJxIqdr1iHUAWBdRVzva+PEYcARIWBWrdPK5yd
-	 Wf/j63ZYMCOyd6KuI3xxGX46bXUl9S5LJaqL1Fj4s1cXfbcJOpnY3efdP2K7joxlAR
-	 T4yS97EycaYNA==
-Date: Thu, 24 Sep 2026 13:17:36 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tim Kuo <Tim.Kuo@mediatek.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Steven Liu <Steven.Liu@mediatek.com>,
-	Sky Huang <Skylake.Huang@mediatek.com>
-Subject: Re: [PATCH 1/2] dt-bindings: spi: mediatek: add mediatek,spi-ipm-v59
- compatible
-Message-ID: <44a113b8-1ce0-4a17-bc07-b22f15665ef2@sirena.org.uk>
-References: <20260924031211.2199921-1-Tim.Kuo@mediatek.com>
+	s=k20260515; t=1790252393;
+	bh=AyobcjnjZiAZKzLaxouC2NAHedB22MWu3bRpgoPny+Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZhHa+wu/jOCFZhSm6hSPb9LVuc7r8g1aQd89f2tw1CkRzeiVsJLoYqZUZEx+0i5bm
+	 j4729NPGfLXJHgZd/+VmLCbE4Lv7Tvz3TFsTureNOsq3dvRjBqzA7aydUC2JF6e9xx
+	 0k+LGTt6AvQO/165cV7BCbWaCAyGAB2g8eOjigsHMmskBJ7D+KH3zB83qFA3iIH7/z
+	 6yYKo5OONWFku9a5u3MVieS5orYdds9VwcuGpoSdPxFpGGax869lBCP4d8S93uyG+F
+	 yAuKZNnzms6FI7Y4NN2PIv1GAZVsP768bZRNmTjaGSruyLzptoquCxbKkkOlJQ11AT
+	 EvI9n2KD/4c9w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: nord: wire up GPI DMA for QUP
+ I2C/SPI engines
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260924-nord-gpi-dts-v3-2-74a85134699f@oss.qualcomm.com>
+References: <20260924-nord-gpi-dts-v3-0-74a85134699f@oss.qualcomm.com>
+ <20260924-nord-gpi-dts-v3-2-74a85134699f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 12:19:53 +0000
+Message-Id: <20260924121953.A69751F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tI8QpB5ulHks/lh1"
-Content-Disposition: inline
-In-Reply-To: <20260924031211.2199921-1-Tim.Kuo@mediatek.com>
-X-Cookie: Oh, so there you are!
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dts: qcom: incorrect SPI DMA properties assigned to UART nodes
+--
 
---tI8QpB5ulHks/lh1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit a079d3bb22e267f160ba116fb91e4d6d5467e84e
+Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-On Thu, Sep 24, 2026 at 11:12:10AM +0800, Tim Kuo wrote:
-> The IPM v59 SPI IP differs from earlier IPM designs, most visibly in the
-> tick delay field of SPI_CMD_REG, so it needs its own fallback compatible
-> rather than reusing "mediatek,spi-ipm".
+arm64: dts: qcom: nord: wire up GPI DMA for QUP I2C/SPI engines
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+This commit adds DMA phandles to I2C and SPI QUPv3 serial engine nodes in
+the nord device tree.
 
---tI8QpB5ulHks/lh1
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
+m/nord.dtsi
+> index bc48238050ecc..0ce5db7479199 100644
+> --- a/arch/arm64/boot/dts/qcom/nord.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
+[ ... ]
+> @@ -1182,6 +1218,10 @@ uart0: serial@980000 {
+>  				reg =3D <0x0 0x00980000 0x0 0x4000>;
+>  				interrupts =3D <GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>;
+> =20
+> +				dmas =3D <&gpi_dma0 0 0 QCOM_GPI_SPI>,
+> +				       <&gpi_dma0 1 0 QCOM_GPI_SPI>;
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+Is this SPI DMA configuration mistakenly applied to the UART node instead
+of spi0?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1FN8ACgkQJNaLcl1U
-h9Dkxwf+JLiki44QczCJPdR7+T+U9+ImnKHa4QgCTBVGtu3Eyic2dwfep5sTkxd+
-slZAs0royqIPXTRPtZmJnSrT2THSkvnSJ2YKQ6Oe5i/JbHDDIYxBoA5jqrX0hqUJ
-wAID5faIFg1aNzFABtragm00EcLB+tD4j3J/uDQQfm+52mFNW89HCIaSAYT3SvZB
-0tJGgE9qxYFTscyEpluvYGy+T6zl1zwWxd4ejiLBslNDW9rkfMycAcP43DL18TzE
-Kp5PX+i+djEYoo/j/e+w/bA0yxdRmvflbCsAFPFFvgWfK5PUtBcm3mS6t7JTCbvf
-AmTWpvf0CKPjopPgQv+uvXJZHePGzQ==
-=Mwwx
------END PGP SIGNATURE-----
+The intended SPI node appears to be left without DMA support, which could
+cause it to fall back to PIO mode or fail to initialize if DMA is strictly
+required by a driver. Additionally, giving the UART node a DMA configuration
+using the SPI protocol identifier (QCOM_GPI_SPI) might cause initialization
+to fail or malfunction if a board enables uart0 and attempts to request the=
+se
+DMA channels.
 
---tI8QpB5ulHks/lh1--
+This same pattern appears to occur in the DMA additions for uart1, uart2,
+uart3, uart7, uart8, uart11, and uart12 later in this file.
+
+> +				dma-names =3D "tx", "rx";
+> +
+>  				status =3D "disabled";
+>  			};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-nord-gpi-d=
+ts-v3-0-74a85134699f@oss.qualcomm.com?part=3D2
