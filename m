@@ -1,149 +1,108 @@
-Received: from mail-qv2-f31.google.com (mail-qv2-f31.google.com [74.125.230.159])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14ECA49F134
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 15:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FFC49F128
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 15:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790262712; cv=none; b=AKgUb4nazS5X6SbnsEl4/Hg+WdSDhsFU3Fphs1mnuqDzZKhZM0PMGab9onwAO1qqDt6vSuWYA7jbMsMaOIWPZr8v3+gCtb9eKowNu2Kb3ynnKnrJe9FVrFLuXeHw9RjoZMr0bAQGvelltTUhaWkDNt/hzPUM1Xg1BYQKJZ/wRX0=
+	t=1790262746; cv=none; b=V4oAiOF9siTDXSyOIIrzOQkPdCrguHhwHaPkwysCp3PillcqVj3gFkYd2Y8shRZf39a/A6sHyq1oPeo6zfFMs3KmhGmQf+FEk6lmvEAj2mrKci6c76GO2JTEG/pT71QtH/skzXRUSd8bB9NlpeF1vULhCb+iNOkkSB1o1nKL5+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790262712; c=relaxed/simple;
-	bh=rLyOMd/NUGEseSBxyocA0bYOEejNiG1JtJseUmRTyhk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HjU1D/ht21tU8u539b55GuPwts1XIzYxG4FW7yObG2XpYQQrIcOP2VmNA/Bs5HCZTKDhrZzCVnYX92sYExsTA3TMKRT6Ns0+LKj1OT1QDH5jCNfeHGZZNGEPthSuv/+TWiBmogeh3PE2Gck6qMaaKeRCWCsvQxj8Wr4Phghr7/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=RGYpLLMq; arc=none smtp.client-ip=74.125.230.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1790262746; c=relaxed/simple;
+	bh=Vt+c/g5xxiGmzWWCamOWYCXzu3vd6GOa/3OwsjwojAs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EbUWHgTlIPTZv8vAVC/Epf57BMaW8pULUweYNlIczmvvMZ43ShdTXiyARfAMsh3OhYPimuOtn13GOwdCe345r8BVlzL2j976TpdqAcy9wTGsaJ3PjLJgC3gZsFjHhlZDTxM8LYtjD6D1gtO0BNa7MkKEiPP35NLKBCX+1QNmK40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cGULTHjJ; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="RGYpLLMq"
-Received: by mail-qv2-f31.google.com with SMTP id 6a1803df08f44-91219376dd6so18825656d6.2
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:11:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cGULTHjJ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so17030575e9.3
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:12:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790262709; x=1790867509; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=coMqpZSLbYua79ODlaLf8ibI9ASN8s+y7pCadqkcxT0=;
-        b=RGYpLLMq9WViukKYYcrS7yWs3gLGpBOBNXu9ZiQ9G9b/p9uvy/3DdHdWcgmKRRKNIh
-         pOVoSEOQ37Gp60VV/V7k7qSX6LoHzotEnxK9fHmZGQj3KlF+R/+Gz9QWy7JHdph3W4Kd
-         43W3kt8aMOlbivlNr/5ghF83Q0zhDXIcDhFk7c6fC1r1rzCgGdjnVgoY0UWzWt6K2P2E
-         6/GqfIdG3bEhdrSHWCKCFZbJXXZ8moGMjHOAJTbJzzyUGLw5l1zoyFCdjsEB2lpE59Ba
-         U7iVLgB9JR47ntSvwcjE3GtqkxX9bq59XkVMiC4Tm/IMMOD6LD/XpsLymqpel0qsw4k0
-         A6Tw==
+        d=gmail.com; s=20251104; t=1790262741; x=1790867541; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1GVltwZjugbFU6GZvacC8y2lCpU5V1LZLUebStEzuzI=;
+        b=cGULTHjJyKkXrWL3YnMZuoMYFBC1kS+qXKALn74YogQCL8gxlOseB9GoxhcbzntF+e
+         Ftdydv+hmxiXPLt5OxV6sCndCvqWVkhyDqFOplxe/2ibM9VIYCdix+hI2yEMmqZIGRba
+         FWqrF1CJcpzlzUh9F4JixaulwxvbjT7BI9LrmOK5njUie/zf4+1WtYmSmojmDnqWK3WQ
+         T/g8v7vPJ0YsqiCx95/ZlKEuPJYlGa7K4i7g/r7rpS7edaDkOopgOJMXjdLleX/5ZAPK
+         P7Xg2Mz6nb+gtJXq7EXfOIrl4xR+JIdpqcQF0fIwT8DULRz1QBuEuiL6G1rP4z7Dk+ab
+         t+jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790262709; x=1790867509;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=coMqpZSLbYua79ODlaLf8ibI9ASN8s+y7pCadqkcxT0=;
-        b=KSR5MRlBrYjovDbCUwu7ivuXfYYetZFKzRiAi2SUc7CLse2f64FO3EeChpjUuuJqcC
-         Wfhb4Umo/Wll3zhNItOIPcmlSR26TmhsJdZVgeF39Vhzd0TFL6KcVyh9bYYI56gwxGq3
-         5SBo5B1/aPYteMnHJOE8CHXPXSyLDANyHmHs4EYnnNWn/ULB9cPme3GlLIemY7plIxV5
-         VKAFaeLvIf4FpxLtrphA76YiuFRZKURmIIZZ+vuy9sZxytPWuKh2ndOvJaMyoXNo9omc
-         tYR4fOLtRjv/37Cln3sVRZjnD4Wcty+j/UEo16zw8eHa/zbqACCsLWC/LphDUP4WAyfD
-         ZGIQ==
-X-Gm-Message-State: AFuF++kX/6oO8gO1hqS0v6ZlBpUI6UCvAEkHE2JXUuZqkVGlZh2r5vR3
-	QEGE4ynrBx4I9chR6C7e0HpbjnJCLQexCXqqZBVAV7tN8UqhT6j0q0IPkU8t7nInInQ=
-X-Gm-Gg: AYBFou25htyVz8B/4vutJhrRCEVOBOAoDcW+JdjKCQUFTHtwn5FGeh20588p+VoBkRM
-	C2WDGmyXvR+wIWJksWxTNQj2bM9j/HJvus8HkqA2yRsH1xW4NEpw0zzexbYNF15tS18jICLsEQI
-	J3xbpBKvJz0o3UJgryNaxX9eRp2+QjH3Aoob3ZNF1Vbct1nES5CFiYzG3oHaFFj2QySIu9NiuBc
-	w/yxdz4MF78GKDiitOr0S9DrQQhjde0HQg1WFsZ0L6n1tlu7Hu00vGBUa1tni9QZRX94d33RbQW
-	EwQ3rS8QEGatSBYEoeH/QsqoCEZZtsAPeCYrOzL3mWqBJiU+fp/3B3WPzLHI0lZWQWBMb2R5mJ7
-	tr5D+MN49pRTJ5/O7SOtSg4aQtOfC0qsdtyH2ADobW/InzEhf1NGVXPD94Y9bDRvEv7lqFe0xaZ
-	BvEnFryTXqJ3bXzbUMlAP9nwPCVFS9JS26EToqcrh2Hop9bhXnUXTXjW09+x2W9AAo4neZmTTwY
-	8ddHyZakA==
-X-Received: by 2002:a05:6214:3d01:b0:912:599c:a278 with SMTP id 6a1803df08f44-91421ef6d3amr30758496d6.37.1790262708730;
-        Thu, 24 Sep 2026 08:11:48 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9141e27b698sm18523826d6.31.2026.09.24.08.11.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 08:11:48 -0700 (PDT)
-Message-ID: <5a150b72-e2f9-462c-aabd-103659e3bf62@riscstar.com>
-Date: Thu, 24 Sep 2026 10:11:47 -0500
+        d=1e100.net; s=20260707; t=1790262741; x=1790867541;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1GVltwZjugbFU6GZvacC8y2lCpU5V1LZLUebStEzuzI=;
+        b=k3IpAkcmrAjAVMMa3LnLQczg4x4zauQpo8NtpSUM42Ezrdgho+hBS4ux8wTuQ/QX5f
+         Be7LI9BMA9jAWUhclsk3OYqF/rCp1km7FDNKkihBubasAafHf0COBIMdmAg7lQQllGcS
+         75wUyWsVCZrjkutxrJ77k4AE9HxpetAkBBjNeIfXQHqVzgwNX654CjkCWVg6CGYe3IiE
+         MITbFD57L2jg9/DMfAl3JjclVneiuoz73xoEOzJVVPr2fwrrvl8Bs78xWLDsjzFHKqxx
+         bAA4XwCDCA3t2TV78XDCAkJyIxeuHCFVmENawufcoAgsul5WS9rFsnhOhzj8Ty4+gFMW
+         wQnw==
+X-Forwarded-Encrypted: i=1; AKwUvBx9WwIbQUf+7qwhBM1O4g+d7h5f5a+Y4NAkd6hnbJPLQhO6WtGnzqHHfbwwYAMg0SsRj9eN8y66Sxrd@vger.kernel.org
+X-Gm-Message-State: AFuF++meakmMO3Q8hJRGQTXbKZzEeXEWQS7qIMYp3SfpvyrOl5OX/cfT
+	ytgZrKOpWj2KYUwbipb0un8StezV6rzFtxzaDXsje4mrkoo1imRlW9wt
+X-Gm-Gg: AYBFou1WsaQGFO0Ej9MhDoiWK9jCSQIA94yqxQdoFVDIxrJjp630Z4LrioHx8jaXS6q
+	ROig4xyuQgEdHUTaxXqFsDLYj0mTYXy1xJ/RX6FSarZmAQnQlmkDnrcZx2NhBE5k2OXtqmPOUV2
+	fzwBVZwvLGFZ9tQcWFUWhLg3gXTwNjy8iyXQ+tOEdIZ7S7Rg2eUtxcMiNKhLthE2BNFoefVbqb4
+	cfg+Gt9pexA1o7qnK4K4GC4h0QYaVAAsQxRcLBWwbt8b7/PVn1+qZJkKdu2mU8t6Q5/6k5nyKul
+	gRA4gqyl50rebTFHQCHKehETPkf5z8JqsZ5uMcZsSu+ms5AR8bO4PpHHR+ybHjtPncnkyg5nwgO
+	iaJJeB0Y4dpAUoGtosOVLfxlPt+gDcFNgkrEnLfO/OfKNjdXxPGZigCbVVrBw1tjhMg0pluINBL
+	WNw6vKF8i6wSpr/ytvdANqH7VB+OP0QiwZZE0Y7GrjStBpFvDH/MFZ8Tr0ISK/EehaLdIhlSVgv
+	mesPZf313C9CN1uexBVgu11KzLd1zVMPOtFgZQdJpBD5mOC+VnsvtzcNEXfyh2FNZ85WPBDcCgS
+	fWsBabjHepOmeSawJCMAWGMtjJ7qN7hCyj/WLiI+Alsro4nCQVhzTSo5SUPrVz6KCIQXqF7OWuP
+	41u3hYVVILbUZOiqdihSeEMgWnjPUV7j4/jp/TcBnypCFvb4xmCy4X8q7BnIe1xh0rDfXSGE3YR
+	cZvnXk
+X-Received: by 2002:a05:600c:c48e:b0:49f:ce72:dfe7 with SMTP id 5b1f17b1804b1-49fe6710a41mr44375865e9.35.1790262741344;
+        Thu, 24 Sep 2026 08:12:21 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd3d5csm72255225e9.14.2026.09.24.08.12.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 08:12:21 -0700 (PDT)
+Date: Thu, 24 Sep 2026 17:12:20 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jonathan Cameron
+ <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: adc: add driver for the MAX34417 Four-Channel
+ High Dynamic Range Power Accumulator
+Message-ID: <20260924171220.00002cbc@gmail.com>
+In-Reply-To: <arUxl7QeiEzFlI7O@ashevche-desk.local>
+References: <20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org>
+	<20260923-topic-sm8x50-iio-max34417-adc-v1-2-41d4ba1bfc41@linaro.org>
+	<20260924095457.00006ed6@gmail.com>
+	<arUxl7QeiEzFlI7O@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/4] PCI: of: introduce of_pci_verify_node()
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
- conor+dt@kernel.org, robh@kernel.org
-References: <20260924150222.1179235-1-elder@riscstar.com>
- <20260924150222.1179235-5-elder@riscstar.com>
- <20260924150934.B4CE31F000FF@smtp.kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260924150934.B4CE31F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/24/26 10:09 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] pci: of: unintended error-level logging in of_pci_verify_node()
-> --
-> 
-> commit 0e8b20efbbe63f895449027a5712b691b9eeaa56
-> Author: Alex Elder <elder@riscstar.com>
-> 
-> PCI: of: introduce of_pci_verify_node()
-> 
-> This commit introduces of_pci_verify_node() to verify the device_type property
-> for PCI devices. It adds a runtime check during device enumeration to warn if a
-> bridge lacks a "pci" or "pciex" device type or if an endpoint improperly
-> includes one.
-> 
->> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
->> index a51dff91b196d..5a040ed836744 100644
->> --- a/drivers/pci/of.c
->> +++ b/drivers/pci/of.c
-> 
-> [ ... ]
-> 
->> +void of_pci_verify_node(struct pci_dev *pdev)
->> +{
->> +	struct device_node *np = pci_device_to_OF_node(pdev);
->> +	bool device_is_bridge;
->> +	bool device_type_pci;
->> +
->> +	/* Nothing to check if there's no pre-existing devicetree node */
->> +	if (!np)
->> +		return;
->> +
->> +	device_is_bridge = pci_is_bridge(pdev);
->> +	device_type_pci = of_node_is_type(np, "pci") ||
->> +			  of_node_is_type(np, "pciex");
->> +
->> +	/* Bridges should have device type "pci"; endpoints should not */
->> +	if (device_is_bridge == device_type_pci)
->> +		return;
->> +
->> +	dev_err(&pdev->dev, "PCI %s have \"pci\" device_type property\n",
->> +		device_is_bridge ? "bridge should" : "endpoint should not");
-> 
-> [Severity: Medium]
-> The commit message states that these warnings are "meant to help developers;
-> users should never see them."
+On Thu, 24 Sep 2026 17:20:07 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-I suppose I should have said "error messages" rather than "warnings"
-here.  I think dev_err() is appropriate, and unless a human objects
-to this, I do not plan to update the series to address this.
-
-					-Alex
-
-
-> However, dev_err() logs unconditionally at the error level in
-> of_pci_verify_node(), making it prominently visible to end users and
-> potentially failing automated test suites on boards with legacy devicetree
-> nodes.
+> On Thu, Sep 24, 2026 at 09:54:57AM +0200, Joshua Crofts wrote:
+> > On Wed, 23 Sep 2026 21:10:23 +0200
+> > Neil Armstrong <neil.armstrong@linaro.org> wrote:  
 > 
-> Should dev_dbg() or dev_info() be used here instead to match the stated
-> developer-only intent?
-> 
->> +}
-> 
+> Joshua, below also something to you to pay attention to on top of the good
+> parts you covered already.
 
+Thanks! Unfortunately a v2 already popped up on the list today...
+
+-- 
+Kind regards,
+Joshua Crofts
