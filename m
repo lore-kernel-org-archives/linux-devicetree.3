@@ -1,70 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpcmd03116.aruba.it (smtpcmd03116.aruba.it [62.149.158.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4E03E3176;
-	Thu, 24 Sep 2026 12:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F0646EF96
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 12:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.158.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790254632; cv=none; b=IA6wVkeqa1RtqX3KkzJu1pUWfFtN9shGOQ20CDN6W3h4zOcYpHrMCC6w4SB6KmsLF1jyTh1E4gPM7712HwBmTOn+RcEn1c80HoIuz6vW/noj45PdGbe46kCuDXfJ5vH65KpLzdMJw+xBUb0SO39tJLeR+WQ11gzrs395xSX/R0M=
+	t=1790254726; cv=none; b=qNg44Edi8fpcl9gywT5zFVg6LphedeWiRsO0xTigdq0opuwJ2UlcVWAA1AuHfgcS6zmDXHaAAsmVY91dq7VdjfUbIS2Sp8TMAPV4JS8PTOTjx4FMgeTeRbMSyWoYPNKcrmUmujnRWWMFD4pvD1C8TV/Je5vytsJotnuOjjxa2Ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790254632; c=relaxed/simple;
-	bh=YaM6Cv+7sTXQwGC1riqjikJ8mRUvTbb/943K3J9NrAY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gy9VnwtvFHUY9mG6LtGwL9LrnetOwz17D7AhztKblZidSO/32YDcx7850k5p2DHHKtbC31L6vORVdSE9oNWc1ZGSXZWzULh0HBBqEgk0gY56kOeIaumvYeLvkXaE0HEMRwpIWdTiwADXqtA3hjrF6jY76MmMAlY7IdrgwxEsw38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L7joRz8k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790254726; c=relaxed/simple;
+	bh=q6yHn5fGMRxnAHuvDfjQEiiZwIaHJYlo+J6EXXm+ww8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sllPLgdlO1nEG+RmlVsQ+anx3NERiPFy2DL/7KCHXyvcoavAEelYmlMCntFWX7xnAqQRVHqt2BPjdfo1xhI6gzGTfD7JlQ7GdRJUMpVdoKCzz/3QoYhljg1CAvly0QC/dlg9s1ZTPk/+YDfEbDM6/MbW1TUW0pAdlFPm7qD3IwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=lRYjJw+q; arc=none smtp.client-ip=62.149.158.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L7joRz8k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833721F000FF;
-	Thu, 24 Sep 2026 12:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790254630;
-	bh=ZUlQozRRVxIy7X3DmStVniHwMEag07GaVK8WjeTWxaY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L7joRz8keKhlVO2OyuUWnvkJSz9Jl0fpRMsvh6pWMjYrDWi+LfLyr6uIPjFyklQvk
-	 DgUF4f3/pVyA4wcME4cJuRKqI0Hy2vjGIoPhqH5nLVZ8SGTW4luIQl3BsZ4HXICzSU
-	 CV9UJfXLec0FnESyT5OdxY2dyK2PmHz42/lkz1K0h0cPVEckK2ArFeDdkHI0folmXZ
-	 lC38qX46t1aOBmpRHoBbie6tIeyoO5iEy9Um8uczsFzSgjQI0XTN0yAXPtw0FpavxL
-	 RgpFM/LlZNqMZY8tVgvV81CdUZslJAXUmDr4+fskf3cv6POsAG6XqxeNaHIFhdNjjI
-	 NWmnGci9DEwrw==
-Date: Thu, 24 Sep 2026 14:57:06 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Chuan Liu <chuan.liu@amlogic.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 02/12] dt-bindings: soc: amlogic: Add clk-measure
- compatible to support more SoCs
-Message-ID: <20260924-rugged-devious-fennec-f3742c@quoll>
-References: <20260920-more-socs-to-support-clk_measure-v2-0-224382a429e8@amlogic.com>
- <20260920-more-socs-to-support-clk_measure-v2-2-224382a429e8@amlogic.com>
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="lRYjJw+q"
+Received: from [192.168.0.186] ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id 9j22xBO2SdVTC9j22xSpaZ; Thu, 24 Sep 2026 14:58:35 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1790254715; bh=q6yHn5fGMRxnAHuvDfjQEiiZwIaHJYlo+J6EXXm+ww8=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=lRYjJw+qHAoR2XK02/cwXmXRHkj2rCzt6tT+pXbx49hzl2AYwrha1cGJV0qJ51/MB
+	 BAtejPk6OMlXNZrlWZL3vFMdsM4LCuhyk61ScWKUFVPyvPUAFPhUnEXW95BIQ+/qyg
+	 bd/VquN3BF66YorQkweEKDSXwfDsd6h+Y13FkQ1t7giurvBOm/f1AQ4DhvEyMgKDsC
+	 pE7q/uY6OOHj/Ctb4YH2Jny8OCK1O6Yede/Y5wFD+b9aGV6BiWJiCKHrE3kcDZEX/z
+	 LpcA0x8IaiO2Mg/97u8TwJ5jGM7GexdTuK+9nARoPYVdd+/4YZzk/VcgBkHvYWSGgV
+	 C4td0vTeIA+Iw==
+Message-ID: <4a62a294-ae53-455b-bc00-d16088684682@enneenne.com>
+Date: Thu, 24 Sep 2026 14:58:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260920-more-socs-to-support-clk_measure-v2-2-224382a429e8@amlogic.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/4] pps-gpio: restore pin mux on unbind and shutdown
+To: Eliav Farber <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260922103051.5257-1-farbere@amazon.com>
+ <20260923182243.41060-1-farbere@amazon.com>
+From: Rodolfo Giometti <giometti@enneenne.com>
+Content-Language: en-US
+In-Reply-To: <20260923182243.41060-1-farbere@amazon.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfFHwDZR6GXRs+CeWNl0DoxXNe2tAM0uFBY3B408AGpZAw6+fJilH+X2xwmoxaJWjTpZPRzP/SAl31/5a7KdR/vSWO6s41eXUSrNpIDHggJmA5BvwEmbv
+ v0NI4SgM2dDx8y7V1rer3tSeG0Zle30LV0APHtOCwRSazd0Z6C1xp1DEh2Si+rKGo8IhRzmdQa0pfj6jE++pdjnjoox41/TGpJyXS3gjcXuiWOS4MA5liySR
+ uAu5tQPuc8HiTnVfo7XuZ6ZcuonUMJ8kW0OZBQQJuigk0LFh9nzAYVJFbXUeBuSWg06oqD1JnovD3gqffWIW0/ww1TNfZNSwixAcyul2qOE82JeKk1vFSyuI
+ U+Wqoe7p8PtBQ4oGdzcJPzaJPOwrWc4NoGaDPA5e/BD1eovqX710UsY0GvB46ORvJRbN0Cr5B9TQMNMFpLsqEvpz07pYovnw6/ufE7rB/5QJqbTj3A3VzVHW
+ U9Aak7cVA2JF6p8EDXikIV3pr9nKpTYfWyfg2JJZ0OIAqUESb971mCzAUB1kmGergHf4bCOLSe2usvGJPb2q+m8/KgAatY5SulEIjg==
 
-On Sun, Sep 20, 2026 at 06:25:04PM +0800, Chuan Liu wrote:
-> Add clk-measure compatible for amlogic A5, A4, S7, S7D, S6 and A9 SoCs.
-> 
-> Although the clk-measure IP itself has little hardware difference across
-> SoCs, the clock inputs connected to the clk-measure block vary between
-> SoCs. Therefore, it is difficult to fall back to the configuration used
-> by previous SoCs.
-> 
-> Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
-> ---
->  .../bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml          | 6 ++++++
->  1 file changed, 6 insertions(+)
+On Wed, Sep 23, 2026 at 06:22:39PM +0000, Eliav Farber wrote:
+> Changes in v6:
+> - Patch 4: fold the pps_register_source() failure path into the same
+>   dev_err_probe() + goto err_release_pins style as the other two paths
+>   sharing that label, with a commit-message note that it is a logging
+>   change, not a fix (Rodolfo Giometti)
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+That is exactly what I had in mind, thanks.
 
-Best regards,
-Krzysztof
+I applied the series here on v7.3-rc4: it applies cleanly, checkpatch
+--strict is quiet on all four patches, and drivers/pps builds with W=1
+and CONFIG_DEBUG_OBJECTS_TIMERS=y.  I have acked the four patches
+individually.
 
+Andrew, could you please pick this up?  LinuxPPS has no tree of its
+own.
+
+One leftover from the v5 review, not a blocker: the new shutdown()
+runs on every board, including the ones that describe no "inactive"
+state, where the free_irq() and the echo teardown buy nothing, and the
+commit message of patch 4 still only speaks about the mux.  If the
+series needs a respin for some other reason, a line there would be
+worth having -- otherwise it is fine as it stands.
+
+Ciao,
+
+Rodolfo
