@@ -1,218 +1,129 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75748489878
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 15:25:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB89403E9C;
+	Thu, 24 Sep 2026 15:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790263544; cv=none; b=ig8VDqh8Ks5oc/JSX/0fjuwKd1zlBBd6X0DmYQ2dS9paEQ90MYeTxDRW3zrTuebvS/wOKrwGxDqRVEf+Dr9ud5tTirRn71o3bZSNA6vuEIZYT4/INzHxeXNQcfNe3eIppmeR1PzpJpUj9aD129eA848ixe0L2zJVNJseOQ90I9E=
+	t=1790263590; cv=none; b=iVJeVpTd19mzOg20fTYNffch13EffJgYT8NTfd5a+oenZxtsr2YFf5CxNXkfXZnvNOQDYDMaZYhj0en7TigjqXuxy0XD+7AP/RHcCnV1J+NRxBr703Yu5aUxUFrMYvNtLO+agZppWUOw3DFWKqefwYl4DKCy8IAKAIao4H+yhu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790263544; c=relaxed/simple;
-	bh=QUgI+N6cvHFqcWPrsjrCdXgxKDSlGHUCiUa89pcPZnY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Ac0iMmIen0LoKQ3+PbOz4sN3l4N9N2lI6P7KrPuIV2mM1GCo1gsDo0A4A1eX2Z07ympU/hu1oMWtItsoQLrTlJbg7inc/tvbOquAV75ZuCdqFrcQrWzz3ZCZJPd7ufhffyCfKnLiVAB5lXn2KjckHc9gd6t1pTBOa9zmqa/Zevw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QTlAPPVK; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790263590; c=relaxed/simple;
+	bh=sqa6heNwqq82HXn3ZvSdMB3JNnhMkau2Y8tXg0FJADs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e6YgXkZaAh+hjbDjhQZAydIMQG5FeanYYuYHcGbUcn5ZPp22n7KzZjqM7t9Syi/5ZE/x6QbVoBSEaWnK7BC9TOakgVsqGJb8ZmyqokYCFCTj7l+vT1rKDcljvTgj1iDozDcgtgDkTDYJgg14BaYJ2gY/JuQgpZ5Hc7Y3glfxE40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZmWeZ3ud; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QTlAPPVK"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so1587208f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:25:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790263541; x=1790868341; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8cnDBSikRAsgHAsxFd+ggbMusWUaRFenMiRKU617Ngc=;
-        b=QTlAPPVKuamrJFAqYuF7s0QtyFm+6Gx1zL0rghV/Zv2CDE8DqfGgGKYlkOkD/6Npvz
-         0hAa+Sx1QwC+pePgYLJziW6svRnkPDT5XTrdpxJRbV1K+VEuxuQiQopEEKZmqX2nNa4J
-         LJ3gOsp2YECmgFZkhBQ2dhJBNYqJf8C1RRMe4+oqEm82A1Loc460sHwHtUtB24arwAJP
-         G1heeM/wbqHpULR0pFmfZ7szD8Y1eGr0JJCaZgTp8TDb3vUBPMJ1FJlSnlSVitIheREo
-         GLLsqpovtSBVmofqRpWLocc3DFCFEVxZo3mQSbMIWBJm6qUEahkfE6bQ15gnP+5PCnev
-         8Vkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790263541; x=1790868341;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8cnDBSikRAsgHAsxFd+ggbMusWUaRFenMiRKU617Ngc=;
-        b=z3UI+xzQV450YHYt3ki/XneHmdnD7co3lnQNeavVFsFYdXyg++YDAXSBYW4f7Y6XcP
-         AJBvQTaxI++lJRaRUUcqxOGzbY7TRqoPfuLlk14NhhlmMX8HOfKF4Xmdm/5Quv+yg8ph
-         cOwpZj41QZOxXl/I4mXIQLnAfQBngISB0ShGKzlllI+WYhnmSSG11g3xI8Wo/Sy8xFTZ
-         uwWeVy8aEFejrods/NuaSGeHcmys7IC5R7PyVMuoWQMCPrRbCQYBDed7AIqnxUmHOyK7
-         BgtkgjJceBo9q5Ygp9G9ZhtiJyddAFVAeiHSzvsc78UjBpCzPDJw8GU+j/jM2rB66pLo
-         peWw==
-X-Forwarded-Encrypted: i=1; AKwUvBwxyhYyJFaNsSj+bQcEaLQ+CA+fl9WsRggmMny4Rjmvtm3dsLqL2uP2RLM7O8Mgjz3Z6F/j/H3HT/6k@vger.kernel.org
-X-Gm-Message-State: AFuF++kIEhpuE/6G6SLGMT0JNESyem4/cfOFi7QvHZU61PPi23jzOaCl
-	qL97O8VF6JHf8s/IpHO8TLMbUDLASJ16HJamGSIoI0kB0SY9JoBSi8HjUFixNJgUmBQ=
-X-Gm-Gg: AYBFou1C4IAiK+iL5PNuqBjjKQai4hoD/HZW7hRGgPGq2VoA0J+XMXvPTTP3JICfwrr
-	Qfw0/+W4QYMKTDnIc8l0cFQog6yTQafYrwSeKK5XIUUioPfS95T1xd78p9Y68fSiVEBPdAHRzYd
-	TDuQhAkGkFWNd8IlE4iAihDZ5Es+hONmaH1N7BD3cgNEz62F54WQi8oVQgRNBTWwnN8TX1b0Hl7
-	nID9KyVzv21s9we+i2tZ0DnHUrfu0znvcXOJeRiXBnqayZ/zU5hBBUxYnf8mGuyCL9gf4YG1ru6
-	Do1x6QaffD9z8ovS96uxeb1kwUH2SvG+6qbTDHrY5e96Ld8QqBrNVgkho4XRVMK9WtJdGSgeXt/
-	BWMxAGYZHl0eBT6spIMmt6gZuogzgBdjegHGVApymK311myw5eLc/kMbAfQZvMYy+sYtTh8gAzw
-	GwEDRsR2KKfXZXayb72UXYeBfNj6d2CsjvrLzmV0mk4FZpnRiVAlydglEQ/rIsm8++RLmoReUKP
-	ajdKqJBOIPqRJ6lJKzugw4qCGTyd5kxlKGeTuHq6gON70IGPruoogw=
-X-Received: by 2002:a05:6000:230b:b0:487:2566:4b06 with SMTP id ffacd0b85a97d-48871682d15mr5167489f8f.21.1790263540499;
-        Thu, 24 Sep 2026 08:25:40 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:b956:9fee:508c:ebd8? ([2a01:e0a:106d:1080:b956:9fee:508c:ebd8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868889409sm12781439f8f.35.2026.09.24.08.25.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 08:25:40 -0700 (PDT)
-Message-ID: <488640b6-9535-4209-a569-327683c0d9a3@linaro.org>
-Date: Thu, 24 Sep 2026 17:25:39 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZmWeZ3ud"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0631F000FF;
+	Thu, 24 Sep 2026 15:26:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790263588;
+	bh=BtNwmCpwlATZL6+yLaXsqKa6VUJAOpqf/gk0N1LtqfM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZmWeZ3udhfVDwkbdG7hmbVUamlOdwN1xRN6b1DIAHjkrRNINpNAEntqN2/gYcb6+c
+	 DNyY5UcnsTtJXa4wSzaKR+XVzMSK/YPdatgbzLblwj05a82siMPo+H9MBFRXq0Muam
+	 eMgLhELKWHIhSpr7ysCvDQi8XRfD3XKwJfozlir0/9nzPNNDpXYlC4pRB4nhZWrI6s
+	 h7dti4Co9Cr9IQI+b/4fsC+pahOTduY/nbbYLzEBYHvhGp3XEuUUKq8utqAbOGLLBy
+	 cR842xGOsLypHmxaSz5ICKPqqSruMiz9dMI7BjjRzP62l641nWHjsBIcXIXEb5Sxdj
+	 n4v2zzcv9buTA==
+Date: Thu, 24 Sep 2026 10:26:26 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Avri Altman <avri.altman@sandisk.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Peter Wang <peter.wang@mediatek.com>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	linux-arm-kernel@lists.infradead.org,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Stanley Jhu <chu.stanley@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, linux-phy@lists.infradead.org,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>, linux-scsi@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Mark Brown <broonie@kernel.org>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Chaotian Jing <chaotian.jing@mediatek.com>, kernel@collabora.com,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v12 02/24] dt-bindings: ufs: mediatek,ufs: Complete the
+ binding
+Message-ID: <179026358626.149119.4739305859668993061.robh@kernel.org>
+References: <20260914-mt8196-ufs-v12-0-9279d7ef814d@collabora.com>
+ <20260914-mt8196-ufs-v12-2-9279d7ef814d@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] iio: adc: add driver for the MAX34417 Four-Channel
- High Dynamic Range Power Accumulator
-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
- Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org>
- <20260923-topic-sm8x50-iio-max34417-adc-v1-2-41d4ba1bfc41@linaro.org>
- <20260924095457.00006ed6@gmail.com> <arUxl7QeiEzFlI7O@ashevche-desk.local>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <arUxl7QeiEzFlI7O@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914-mt8196-ufs-v12-2-9279d7ef814d@collabora.com>
 
-On 9/24/26 16:20, Andy Shevchenko wrote:
-> On Thu, Sep 24, 2026 at 09:54:57AM +0200, Joshua Crofts wrote:
->> On Wed, 23 Sep 2026 21:10:23 +0200
->> Neil Armstrong <neil.armstrong@linaro.org> wrote:
-> 
-> Joshua, below also something to you to pay attention to on top of the good
-> parts you covered already.
-> 
-> ...
-> 
->>> +/**
->>> + * struct max34417_data - max34417 specific data.
->>> + * @regmap:	device register map.
->>> + * @dev:	max34417 device.
->>> + * @lock:	lock for protecting access to device hardware registers, mostly
->>
->> Nit-picking, but... Device, MAX34417, Lock.
-> 
-> Generally speaking it should be consistent with whatever style is being chosen.
-> If we go with the first capitalized letter, then yes, otherwise below should go
-> to small first letter. In any case MAX part number should be capitalized (or
-> someone might think of it as struct max34417).
-> 
->>> + *		for reading common accumulator count and control register.
->>> + * @input_correction:	Correction based on the Rsense value from channel nodes.
->>> + * @input_label:	Channel label from channel nodes.
->>> + */
-> 
-> ...
-> 
->>> +static int max34417_read_voltage(struct max34417_data *max34417,
->>> +				 const struct iio_chan_spec *chan, int *val)
->>> +{
->>> +	uint16_t voltage;
->>> +	uint8_t buf[3];
-> 
-> uXX types, please. Everywhere.
-> 
->>> +	int rc;
->>> +
->>> +	guard(mutex)(&max34417->lock);
->>> +
->>> +	rc = max34417_accumulator_update(max34417);
->>> +	if (rc)
->>> +		return rc;
->>> +
->>> +	rc = regmap_noinc_read(max34417->regmap, chan->address, &buf, 3);
-> 
-> sizeof()
-> 
->>> +	if (rc)
->>> +		return rc;
->>> +
->>> +	voltage = buf[2] | ((uint64_t)buf[1] << 8);
->>> +	voltage >>= 2;
-> 
-> Not sure what is in the buf[0], but verbatim the above is get_unaligned_le16().
-> 
->>> +	*val = voltage;
->>> +
->>> +	return IIO_VAL_INT;
->>> +}
-> 
-> ...
-> 
->>> +	power = buf[7];
->>> +	power |= ((uint64_t)buf[6] << 8UL);
->>> +	power |= ((uint64_t)buf[5] << 16UL);
->>> +	power |= ((uint64_t)buf[4] << 24UL);
->>> +	power |= ((uint64_t)buf[3] << 32UL);
->>> +	power |= ((uint64_t)buf[2] << 40UL);
->>> +	power |= ((uint64_t)buf[1] << 48UL);
-> 
-> get_unaligned_be64() / be64_to_cpu().
 
-Will switch to get_unaligned_xx()
-
+On Mon, 14 Sep 2026 13:38:48 +0200, Louis-Alexis Eyraud wrote:
+> From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 > 
-> ...
+> As it stands, the mediatek,ufs.yaml binding is startlingly incomplete.
+> Its one example, which is the only real "user" of this binding in
+> mainline, uses the deprecated freq-table-hz property.
 > 
->>> +		fwnode_property_read_string(node, "label", &max34417->input_label[index]);
->>> +		if (fwnode_property_read_u32(node, "maxim,rsense-val-micro-ohms", &rsense))
->>> +			rsense = MAX34417_DEFAULT_RSENSE;
+> The resets, of which there are three optional ones, are completely
+> absent.
 > 
-> What if the property is there, but some issue has happened?
-> We have an idiomatic
+> The clock description for MT8195 is incomplete, as is the one for
+> MT8192. It's not known if the one clock binding for MT8183 is even
+> correct, but I do not have access to the necessary code and
+> documentation to find this out myself.
 > 
-> 	if (_property_present()) {
-> 		rc = _property_read();
-> 		if (rc)
-> 			return ...rc...;
-> 		...
-> 	} else {
-> 		...apply default...
-> 	}
+> The power supply situation is not much better; the binding describes one
+> required power supply, but it's the UFS card supply, not any of the
+> supplies feeding the controller silicon.
+> 
+> No second example is present in the binding, making verification
+> difficult.
+> 
+> Disallow freq-table-hz and move to operating-points-v2. It's fine to
+> break compatibility here, as the binding is currently unused and would
+> be impossible to correctly use in its current state.
+> 
+> Add the three resets and the corresponding reset-names property. These
+> resets appear to be optional, i.e. not required for the functioning of
+> the device.
+> 
+> Move the list of clock names out of the if condition, and expand it for
+> the confirmed clocks I could find by cross-referencing several clock
+> drivers. For MT8195, increase the minimum number of clocks to include
+> the rx_symbol ones, as they're internal to the SoC and should always
+> be present, and should therefore not be omitted.
+> 
+> MT8192 gets to have at least 3 clocks, as these were the ones I could
+> quickly confirm from a glance at various trees. I can't say this was an
+> exhaustive search though, but it's better than the current situation.
+> 
+> Properly document all supplies, with which pin name on the SoCs they
+> supply. Complete the example with them.
+> 
+> Also add a MT8195 example to the binding, using supply labels that I am
+> pretty sure would be the right ones for e.g. the Radxa NIO 12L.
+> 
+> Finally, remove the 'ufs_' prefix from all clock names containing it
+> and rename 'ufs' clock to 'main'.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> Reviewed-by: Chaotian Jing <chaotian.jing@mediatek.com>
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> ---
+>  .../devicetree/bindings/ufs/mediatek,ufs.yaml      | 115 +++++++++++++++++----
+>  1 file changed, 96 insertions(+), 19 deletions(-)
 > 
 
-Will switch to that
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Thanks,
-Neil
