@@ -1,125 +1,124 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f7.google.com (mail-ej2-f7.google.com [74.125.228.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA6A266B72;
-	Thu, 24 Sep 2026 05:16:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790226971; cv=none; b=XJHG4nl4bGPvSw2faGTY2aaiUIgipqcXl335+6yYwn4wESBbjamEaVgivV60C70PoRcreEHlyOGQuVoRB8NCn4azkoj7siHQb4hzeVcx10SdpAowk9+XNqnjWKVfCcpxjt43Fv2A01gfgIwkqv5BBzY/Emi2vatELNvkCr03Unw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790226971; c=relaxed/simple;
-	bh=ICdb5i9Y8TxqnSABRpsDpsLJCQwOj3uyC0HJJ88lcNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iTV+B+eO67p8zUGPorRhsYMsPlzkaF7ahBCJ4FCHzwSwASdFJ+/loDhfzwdWbp6/b92jAo9kJ4p987LYUtC64yD0eSBRayAC+jwlEcByTm9Hc/igg/WYJziT5U1CrsNJXAO3z1glTpZEDNlyqvRkXTUfr4Zyd67woLaqIm6RuV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oJcpG1w5; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2320138DC7F
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 05:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.135
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790227190; cv=pass; b=Tu0yDdJDsP6Y6/5Uva0sOMP4fd3GZwmSADCSIzq7hySpTQDKmAPlJlorAjWuhllDUv1x85+0QV+mIpXVnK/91g1GAnT7cOE/FBMYavDhJeO7Y4K32h5vKS386wXu0a18AQ5/8AOa2fV5N8fXpHlrg3cEaKEk+khHMDfDU6gSQ+M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790227190; c=relaxed/simple;
+	bh=aZi2NFi10YHBsp1z9jKGGzufOnJ7M9wxb7MCM4kAzcQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F8HTJB52iPJc/ZadCi6Qt7EwOg378mMkq2aALg46QJbbdFkF37ppy9u65oQRV7hi5GA2x7bvgPzWQNBnyUu9AAX7AwWPNvKbUN9qG0Yml+doN95OHF7S6SR7g2MZ0iO3WOtUWGLKWLAuinlZABGD6VJ+Sqfne7WorzXbsQVK4NA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VDWnx0cC; arc=pass smtp.client-ip=74.125.228.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oJcpG1w5"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O43LhW364882;
-	Thu, 24 Sep 2026 05:16:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iafcNu8yXs+bPIbNuDe2M/Cy42B+aT+ZoPL5h7CbL8o=; b=oJcpG1w5n9/Eucyh
-	NpXXH9cm2hvlpiCPTlx0maH1Fjc1Q/wKJfP32StlWZI6XsPkBboxOHLRFHne9xVo
-	2KeA1NigOrFIXdPPMfeoOTeiutUfwuYMKB3S3QApsB6JyOL/bDTD3y8QDOJu6zAu
-	GhldJOnszc72NUZRueeMMfWPurvUH71zRptfZKhcNhMTtacI1GaL3ERRZF4mVy2C
-	Jvt/nFGGfx9F+BpVj1nGCQ0x9cHVwuYlekUlyp6sO2eKuQMxKl5EuFcC6B8LI2Sr
-	zVzhngyp4u7d7/6gAvu6rWOZPtZptGd5nq4/O2Shd784pyduZAr7iGc0VuyrO2sE
-	JWnl7g==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvvgh86f3-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 05:16:07 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5G4d22068402;
-	Thu, 24 Sep 2026 05:16:04 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 68O5G43N2068381
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 24 Sep 2026 05:16:04 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id 5E70FB44; Thu, 24 Sep 2026 10:46:03 +0530 (+0530)
-Date: Thu, 24 Sep 2026 10:46:03 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: shikra-iqs-som: Correct PM8150 L10
- voltage range
-Message-ID: <20260924051603.xzrmwo26vtds66o4@hu-kotarake-hyd.qualcomm.com>
-References: <20260922-fix_l10_max-v1-1-d0c99f063bf4@oss.qualcomm.com>
- <3ae1124a-e070-4641-8a25-42cde4426f44@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VDWnx0cC"
+Received: by mail-ej2-f7.google.com with SMTP id a640c23a62f3a-c28e3998eb7so121680166b.1
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 22:19:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790227187; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C+u5h5GQkWeYbn/oe3wJR9YhYGGQ8gTvcsHnMqhtkAhvsudRsReWyJ5jdSVsPKBtxH
+         OcVc2BgZLzvilYVyPV4BYs1bCaai0OQyJjJFowzSMNcUDhLqT8KawM7rWravzyxIY2Ko
+         TgoaeKXgcRMfEiew93fTr3MHMf6s1TopX1f/mmK7SvKIM5Qvrz1F7YGceyfSWZw5AT31
+         XGofq7+RnAK3JXHDba/kOJJ+uQVYienZuYjYWRt6oFE/6KxB0Q9LX0QDkfTr8yK1Rd0Z
+         wt+E7EEKsR1C1ABTlZSUto8s6GQCI/6CU2+MM4wIQiPA7GusNJgQHWEtTCuCrHONPXlH
+         sL+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aZi2NFi10YHBsp1z9jKGGzufOnJ7M9wxb7MCM4kAzcQ=;
+        fh=ZuQ9BQWrxfLeS2332jaw3h8W6glC4WATPppvL6/xe5o=;
+        b=LtGE/9QsPGo0uWmra9+M5xaDWEYvhfNfyy4NpLAzGmXLqLwyXmBOsAfriENd7CAR1+
+         gjjYL+vDk4iRvhInVlXdhLU2jMOMePte3fueO/30XwaGL9AgG5adEyuJwEw+0FNHAz60
+         jVnS7I3srpJP8pDdk6Nwxuq02W2nr8ULQAUuJ4Bi/F976IjThxy5N4dqA5aUL0/8IIx4
+         oxTaQRQuxpv/KsBDKJvD0V4BtnZLQF2tY8ylkQRLLPF9SIeoAt7/Y1t11qM1mTQsUBOQ
+         nvShdsfa+IgJIeJU87DR+aFSO/t1Zx5U0joti5s6XKxvYkl1DWZWcKJX06em1TjcqNKh
+         XIrA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790227187; x=1790831987; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aZi2NFi10YHBsp1z9jKGGzufOnJ7M9wxb7MCM4kAzcQ=;
+        b=VDWnx0cCKlVIgp7p4xiA2+jgNNm6Gpq7iu/J61rUqTBo5UtsvKAGKH7KIgwAAfrOeE
+         FLf8wOnk6qNdkkqy50eGzs1LslLU4bcMOEecUbIkjvNCqorpbdZvpy9SS+fdfkEjg02w
+         7APLZdH4n71+nJE1atMIfmr1YYohTFbnlqrFrpJskxP934k2p9tuCJG1+4VizoOiMKOS
+         w+qf0u9hfgWsocfqrSjwQh1MfprZwWT2p7Nxyqxw0Y3c9a3ce7QO5eP7kV9Xce5LBFqu
+         tTa7hAOAt0/2kqf3eVCnU1PuYk54E8sxD0nsG3GZdgUHOZSS9bruP3+z+SgNqHlSuhZE
+         c5rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790227187; x=1790831987;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aZi2NFi10YHBsp1z9jKGGzufOnJ7M9wxb7MCM4kAzcQ=;
+        b=Go9Vd0uqg1lRb16YvXI1PScDPHn1LY6RP95KM4oTY4jUsZVu3+suzFlQE6Fr9KfY2N
+         IHHCebDVl31peUc5i/AHvBtXC94tnERzDAP5AwWekLPIpsZwWXs+4B47xqVWuiRNKrqE
+         t3ojfed97IzD9N3sqnp44yirX0F9axI4umLoApvpHLnp5ybeMald486bLPCVkC/clzlN
+         H8VgFYOKj1Vl3DbHFG8WXp18yF2lAn+AENauTZdQyOc+gZJTk2wxTJcwTgmcSAKGijGG
+         R7Q6LSYhk1xyQO5dAG9K9JPrTcX/7JPvujEBUep8CpdCJCBKNqYdEwELb6/9BlDufeGl
+         ybYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwuyA7RnNsPPhypAHse6u46Ba4ZNBuq7asPXSaXhIYrjsICS9CnyNwkgwLIdAF7KumqNwbf0LpQS0LP@vger.kernel.org
+X-Gm-Message-State: AFuF++mjIf2R5QlTMcys7a8btWZTnl4lQUhYyA9dMGZnSgcGnGhjsC9k
+	augkjFflfLXqozwfBJ8tRdRpLyLHgolN4MP/FNl06hU8XDQCMzg6T/ikFvOskZrh5Go0qddAYsY
+	UKYLIupWDz7jm+X68IGAPu+wKFaghd9M=
+X-Gm-Gg: AYBFou1jfWnIgdeuL8x7rVfQuLs1TlqbT/3HmrolsrGLpCZqZkGzok8NikRWiTPNzYK
+	pIMfoTJgiGUbog/DAxsd/zBNby37ax9dapt/ePruQ9IvkMdyI5iUUhIAPesA4FT7T0TAdJPqgqE
+	gTM7XQBPo06YzXNbKnP2BzMfc1OjWkGBQjXN/DIbp71iHoGJROttlXRXhMr/Qn/zjFINbMk+uOi
+	N4JbfwRkgC/+FX+tJQ4HjK1iGp/mXSLRF2d+5ytuoG+8rrwKSEX2gmzHGgNONvzNXGOwtKIrDmz
+	Gspf+MUzBZiu7EeHV+Ei7iNQ8ISBjpX5rf/f/geq40s93DnCmsqp0e4D8A==
+X-Received: by 2002:a17:907:d0e:b0:c26:19de:9ad2 with SMTP id
+ a640c23a62f3a-c2ac2350b4bmr97952466b.42.1790227187226; Wed, 23 Sep 2026
+ 22:19:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3ae1124a-e070-4641-8a25-42cde4426f44@oss.qualcomm.com>
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=KYhHIgYD c=1 sm=1 tr=0 ts=6ab4b218 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=T0APZzI2klfUa3LYWF0A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: et8rnWoZoWi7CxwwdJJV927Sqzq7Kp98
-X-Proofpoint-ORIG-GUID: et8rnWoZoWi7CxwwdJJV927Sqzq7Kp98
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAyMiBTYWx0ZWRfX5E9317/I4dzi
- kUjfxWoSUe8wh7WYfGen2nYu5i40c9+Bj/4eWau2sscuRbO321cKmjpuLcrnXDkH3DQuzXuhTpf
- DZSYY5xA3hJ8SkfqzT1msG9yP6LRQtI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAyMiBTYWx0ZWRfX/taQ4p/VIX7w
- 5/A0cikCDY2CU+Qpk4RSRIuZ5yZihPNbGagbvZxQMTd0WiQqSuW8xX//7TpEKAOVgnyUWe5V/so
- 5m4KVB45zUBD+mgFw9zKLSnDkUj7GtgwMAJp6ywFet6LfMCpyzytFQ8EGgXZgici8j3sQ+b6bVz
- AlpqtqVp+aexI1TWCBd3XmNyj6pAXNHWJCir/22XiN1pnMlczum3gxwEwpjRiqO8mT/l99XA8x/
- U7I3JjnNtQS+aTpE7d1EHUhLhZ6zuMSc7SEkTdn7kYenDLd45ggqNfl6SQ7cCAJAXOYSvGOeGpo
- 7zbCSNRyPXpwE4+ZAUz1yfd4ZdW7tNPnr+iYTmFloJi+Pgr851bagpkDV5eNPEIiahik3qwMsZX
- U0gyojbyOBPLOv9UeTwa9DXC0cTPh2yUjxqYphODjHSt8beCBrGe8Y9B+fJVeu2/rj8ST02dFM7
- 3s1uZmd9+dl0cwmR+YA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
- clxscore=1015 spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240022
+References: <20260922200336.2201212-1-coiaprant@gmail.com> <20260922200336.2201212-6-coiaprant@gmail.com>
+ <20260923200523.283221F00893@smtp.kernel.org>
+In-Reply-To: <20260923200523.283221F00893@smtp.kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Thu, 24 Sep 2026 13:19:35 +0800
+X-Gm-Features: AclHuK_aBAIYVt_FhqySgCnrHx4QX15E0Szwa3KdjFmkTLDcEfRg1C4TlGocFf8
+Message-ID: <CALj3r0ienmi95CNDDxqyiRsJAEe2w6vOzV2Gs=r6kpGvqab2rA@mail.gmail.com>
+Subject: Re: [PATCH net-next v10 05/11] arm64: dts: rockchip: rk3568: add XPCS
+ and fixed-clock nodes
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, olteanv@gmail.com, 
+	linux-phy@lists.infradead.org, neil.armstrong@linaro.org, vkoul@kernel.org, 
+	robh@kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 05:50:19PM +0200, Konrad Dybcio wrote:
-> On 9/22/26 2:39 PM, Rakesh Kota wrote:
-> > Update the PM8150 L10 regulator maximum voltage from 3.544 V to
-> > 3.3 V, matching the supported voltage range for the Shikra IQS SoM.
-> 
-> This is a good start, but please mention explicitly what
-> constitutes that range - is it e.g. because there are
-> peripherals on that rail that can only sustain 3v3?
+<sashiko-bot@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8824=E6=97=A5=E5=91=
+=A8=E5=9B=9B 04:05=E5=86=99=E9=81=93=EF=BC=9A
 >
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [Low] arm64: dts: missing required phys and phy-names in xpcs node
+> - [Low] arm64: dts: invalid status property in ethernet-pcs-mii subnodes
 
-On Shikra IQS, the L10 rail supplies the SD card’s VMMC. Its maximum
-voltage must be limited to 3.3 V because the derived VQMMC voltage on L2
-supports up to approximately 3.3 V. Allowing VMMC to reach 3.544 V can
-drive VQMMC beyond its supported range, potentially causing SD bus bit
-errors and resulting in the voltage negotiation failure:
+For the first point: dtbs_check skips required property validation for
+disabled nodes, as confirmed by Rob Herring here:
 
-l2: unsupportable voltage range: 3500000-3296000uV
+https://lore.kernel.org/all/CAL_JsqJnOa_9Poz86vOWBCQigvv-Ab4Tt1hrwTxSa5zNra=
+VxXQ@mail.gmail.com/
 
-Reducing L10’s maximum voltage to 3.3 V keeps both rails within their
-supported operating ranges.
+The xpcs node is disabled in the SoC dtsi, so phys and phy-names are
+not required there. No change needed.
 
-regards
-Rakesh Kota
+For the second point: status is a standard property that dt-validate
+allows on all nodes, regardless of additionalProperties. Listing it in
+properties are not required and not customary.
 
+No changes needed.
+
+Coia
