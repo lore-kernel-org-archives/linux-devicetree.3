@@ -1,234 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFEB4078D9
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 18:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790276275; cv=none; b=b61MSHXO42r5q6aVYTm8x3iiXdtX+mIHH88eza92MA6+XffjrrxsIpyjeLg4GprOsOo4hcyryDxQnrzMrGjxMuivnPwdi7JeYsfbJHeZdNZILcSrZ6xWOaEih66w27Feefj8n7N8cI2p3o9bs735jki8tPQZiDx/gfdFHoV6BIM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790276275; c=relaxed/simple;
-	bh=/lC45UwE8Q1gvphios4i6AnWaEFVAUB1nn9LoA39cVg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RGKeY0D6mwkANtl3DSrZqa43ZRHccJa/MPOV+g3/ap+tZ7tB8xbCEqifZU2ro+5wRU3g9gq4cRULSCXVrPxjXdSkjH3VA34ww6QJOo+IwpMeMGS4RHf+h7L+EWNrZ5ke+koAOjCOAUbGFCZelqgGhINCr0YsIhxlz6sDS3D93hE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYyyA2tr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855DF4A1DF4
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 19:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790276597; cv=pass; b=MOKAPVCo7UOcgoHZoHsJA7k5ZJQkJ1smUQ9YyHFijV6018JlnjwhQsQ90crYY8xM9eFIRPHImsT50o9tu4Om0HoJnfwUqffWS6WC8COPi3oDj1lYRoUHdrNnyFktAsBURYSXmzFpSi8J61ZVzV2bdWMOUfyQyQXNX1DbQbF79Yk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790276597; c=relaxed/simple;
+	bh=FyJSk2EQr9jIUBsLW3d+Qp2TNqU0yBEdip2Oe35nzRA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f9jhvCItDJHUntx88JqHFJF+JxupJv5DKH8ZFAxJtkvhJm+T20uON/XMJOBJ7n97XKun7iFCCviHnFfbX7OFRJ0eTrQ7a7yBUrRPIPncZC5xuTKvpVDGbR/mL3EjNtPC8P8jpXVhJCjaLlRaWczG1s55s43VP0T6ZNAgFzIHzqY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=eMnhG4ZU; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=wermuth.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYyyA2tr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5435E1F00893;
-	Thu, 24 Sep 2026 18:57:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790276266;
-	bh=kf1Bl6hSYulQjf88ty9qT+TUCFEG8oBZgDkgj5jKNU0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gYyyA2trnWIiL3AkvTD3CFHy9Bil8o2Zv8jxVPDz/r0MNrpvjAPqH+9aWwatCYay4
-	 ANt8eddUkshsWrdEjvFHJ8lJG4qiKvFqE1OFFI99Vcdf2+cp7GCI5v7r47Y9YONLaK
-	 KDrchrWX+qJZA7PPJD1kNExgnb0E2PsVUPXfKOMS+TKQK7A1iQBz/A4NWKlorLcpSH
-	 C4r004BcIEtJdX3e7k74KYLQlB9kYGTBxEhEa1+s0THAckIsUiC55OJf2uxfZ/wul3
-	 k8YIBgByYgAunLy5BtJ9R+jSpevcbv45tyaQZIxI1RVRrgJh/NkkXtHpXnh+ZwUFkG
-	 j64pEi2Q+1DCg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] arm: dts: nxp: imx: Add devicetree files for M48
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petko Manolov" <petko.manolov@konsulko.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260924183855.1393302-3-petko.manolov@konsulko.com>
-References: <20260924183855.1393302-1-petko.manolov@konsulko.com>
- <20260924183855.1393302-3-petko.manolov@konsulko.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 18:57:45 +0000
-Message-Id: <20260924185746.5435E1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="eMnhG4ZU"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff148dfdso752811fa.1
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 12:03:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790276592; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HIsFVC+frhc9SpTSAZ081243/GdzqDoRZ5mXNjJJvefFLOe2mc4HCd5Mj3rw1rHGfw
+         +H6aKDVA/VxOJ/Puk2crFG+0ibFgIFa0za5mh18rIO9NGSP+zl44vxJTMrZkOffNQbX7
+         esFmB6Z04mOiJKydXYlBjREmh+5GrTOIQtTz6WJSC2teSfjdX0mnlL5KTviwvvuSRVwd
+         K4lq4Vus6V+yg7S9FhTIiJLpWWHxAhGeCpev+xUPhK5eVbLA175LVde1zfqCOh3vchiA
+         jnQN+huUp0nJC76snDB+9m2/fJzH1GXayRhzjZEAWeHgJZK+5sS17RQtYAXIDsZSUwIK
+         zfig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EJ1c4rHsHJGZ/tEYJFAlykm9/fk5FPrkQdOE5F+Bc3A=;
+        fh=FN7WL0vodTNbQ2yO65Shbrhiu/spkXFTKt8fCxuO8oY=;
+        b=Gp35fIBnCP2nd3SGSTEjKpYxnKx3DBwSchQxVFqzluw36TamtUT3sDMoNmDnN9vdgK
+         xZL0Ven3jJLpL9N766IV5MH7x/7JESRjV7NlfK/6ajXGjpwSvVBHV2OS4nfxCIwTjoge
+         iDIdLCEkoLHPeLbTq7zOGH8f+7G7ymkuvxoyAJNQFF8ysDZrpcNVyK+EykLu0Gd2WtP9
+         cdmV51t6mFDvHj8EZEi4QEpemO/PUx3yoGZDC+SmE0YWAw2uCAg++OCiIOZnubWDKev+
+         CZg8Re7jHExh45YmjUvIU+Cbicn/xJeu5eq0EYFroX1HXQcq6A55L90AnnPGDV/WfyPb
+         ABkQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790276592; x=1790881392; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EJ1c4rHsHJGZ/tEYJFAlykm9/fk5FPrkQdOE5F+Bc3A=;
+        b=eMnhG4ZUQHGNTYLIKbnqZzGH4cdC77mLfcHTUQA4EJNrM1CDjG8CjxszKYNbgWIKEh
+         Vi1XPEgB670mxJthc5ZjqV8zmM/qm0dnQkLlnZR0omm9X3SK3kgH9ryLM8dift7v8qUE
+         XbnYDqNS58eKkVP41iF7iionX7XRNolHh8GilYrpTuEqYL1nrb4dxqfkgM41e+41cI8x
+         oI6Oq4SVS/IfJ9wZ9mBhuPnuQDLJIH7Kg6JrUsalQ8CMUUAc51+YOBYGC1J82XWQIC+E
+         G6ahkEmThDTPHToUXCAyaDUl3XOLs7EM/xwHOhcpakY1vjgYlaz+gM46/5zrgPG7jWLc
+         anIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790276592; x=1790881392;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EJ1c4rHsHJGZ/tEYJFAlykm9/fk5FPrkQdOE5F+Bc3A=;
+        b=Klb0NLQ5bQanYcQ8pxF9WVe7QrL4ggCZxqMQ9Cio1XVrlBC2X1LZR1QKA7NSAAyfB5
+         GGhih8NtU+Qo5CevrOiUnD5O0C4MOP3E+onVvz7vBks6dGlZFOTxb6FZAry/ZHYqkt+9
+         HujP0eCcL+t9yqsW2MQoVmGtHyMTiskZlo/cMcAG1udZokVt6Jj7qt2KZfgi6Pk+LXcN
+         JIR5XO24ZXCgAqvS6sUfrQUC1J5M/M2uh2MR7CubtLf2MgFCVNHeTcZWNsNaoNYHbiJr
+         eAy5zZOiTcTfwbfgdl8CJ5TAPjFhCORo1dGQ0EIU5AFC61CtrvyJWcMnb5OfsMbMKI3n
+         plPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwweXaqhz+/tfmnH/sGHyd/nXwAixhJmxssX7wG8qQOaMNH379AXNwNjnlPcGWshyAe0GSzu91kskmS@vger.kernel.org
+X-Gm-Message-State: AFuF++lHLtUYqIl0ONieoOX4Y1Z+4Rp3M5Dqc4vUl2x319/gDJATmKv8
+	VVGSD8sVfpdJQMS2fQRk2RBcSFF6AkrE1MAzpVB9aca+mEDvPsWaGk9ciDqJarsY14lKz8AHqUM
+	f26ZCe+p7Om4ic5gqlgu6BQe7YI82qQsY+gT4Iynk0A==
+X-Gm-Gg: AYBFou1/9JbJWcxUIJl0xP1oRXjDAJbZ6A1ONxYKvmdGE+j198RauxkrJtrGG3JOaT+
+	Qfy1Y7M5SQ76hViWgz2oa2gghdU0vLBSKOrYETzHbJ09B63IELSXSQQ/NNvKY0psh3ORiYd998b
+	+cDUX/P6oOxglFMDwtmHcB6fX3d7Dqy368wwZhZTtsJDkjdZB1wBcPliCeGbpzH1pCLKNA+DqQy
+	Cv6WKb2LSsPQ5ccsv4i073rprpas+6ulGg415uKNi15KoQ1zPiCyzSanyOYPHqyQiG8BXp/j0rR
+	fDI7tz2VcVsE7VFyXsYVldBGCgCVpNP2aFaQvpmadxPMlG4P1zYi0F0sCHVGCPhjyrs=
+X-Received: by 2002:a2e:bea8:0:b0:3a5:b507:dfb with SMTP id
+ 38308e7fff4ca-3a63c408eb4mr9542881fa.29.1790276591671; Thu, 24 Sep 2026
+ 12:03:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260924071445.441822-1-adam@wermuth.pl> <20260924071445.441822-2-adam@wermuth.pl>
+ <e03db2e9-085b-49ff-8d4a-bc112bc4ddd7@kwiboo.se>
+In-Reply-To: <e03db2e9-085b-49ff-8d4a-bc112bc4ddd7@kwiboo.se>
+From: Adam Wermuth <adam@wermuth.pl>
+Date: Thu, 24 Sep 2026 21:03:00 +0200
+X-Gm-Features: AclHuK9IKF3aAn5suDmSsCEFKxWsKS6ErHA9CID8WYyLrPR40kN4mqnvEj86JPs
+Message-ID: <CABkrwJ6uvjS8bez6j0MZbp2Y+O9RhyU09YOLrUzHaeUEVC=Qkg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa
+ ROCK 3B
+To: Jonas Karlman <jonas@kwiboo.se>
+Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] pinctrl: imx: out-of-bounds heap write during pinctrl mmio parsing
-- [High] drm/imx: imx-ldb probe failure due to missing fsl,data-width prope=
-rty
-- [Medium] dt: missing nvmem-cells for FEC MAC address provisioning
-- [Low] build: missing U-Boot dtsi include and Makefile target for imx6qp
-- [Low] dt: invalid syntax with duplicate properties under U-Boot macro
-- [Low] dt: dead display-timings node in dw-hdmi configuration
---
+Hi Jonas,
 
-commit 5077f8eda8c37343a057ce35121fe2403593e1fb
-Author: Petko Manolov <petko.manolov@konsulko.com>
+On Thu, 24 Sep 2026 6:12 PM, Jonas Karlman wrote:
+> This and next patch is likely best suited as an dt-overlay.
 
-arm: dts: nxp: imx: Add devicetree files for M48
+Thanks for the review. That makes sense, as the B-key slot is not
+always populated.
 
-M48 is a heterogeneous board made by Draeger that is based on two
-independent cpus, that are monitoring each other. This patch adds the
-DT for the two variants of M48 that are based on imx6q and imx6dl.
+For v2 I will move the host1 enablement and the WWAN power, RESET#
+and W_DISABLE1# handling into a new rk3568-rock-3b-wwan.dtso overlay,
+and keep only the fan patch in the base DT.
 
-> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/i=
-mx/Makefile
-> index 1a2539fa19b44..44b3932562358 100644
-> --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> @@ -220,6 +220,8 @@ dtb-$(CONFIG_SOC_IMX6Q) +=3D \
->  	imx6q-dmo-edmqmx6.dtb \
->  	imx6q-dms-ba16.dtb \
->  	imx6q-ds.dtb \
-> +	imx6q-draeger-m48.dtb \
-> +	imx6dl-draeger-m48.dtb \
+Adam
 
-[Severity: Low]
-Is the imx6qp-draeger-m48.dtb variant intentionally missing from this list?
 
-Because it is excluded from the build, it manifests as dead code and masks a
-compilation error where the imx6qp variant includes a nonexistent U-Boot
-dtsi.
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts b/arch/arm/=
-boot/dts/nxp/imx/imx6dl-draeger-m48.dts
-> new file mode 100644
-> index 0000000000000..45809770d16f3
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
-[ ... ]
-> +#define MX6QDL_PAD_CTL_GRP_DDR_TYPE_RGMII        0x768 0xfff 0x000 0x000=
-C0000 0x0
-> +#define MX6QDL_PAD_CTL_GRP_RGMII_TERM            0x788 0xfff 0x000 0x000=
-00200 0x0
-
-[Severity: High]
-Does this custom macro define an invalid mux_reg offset (0x768) that
-translates to an out-of-bounds pin ID?
-
-When the device tree assigns these out-of-bounds register offsets to the
-standard fsl,pins pinctrl group enetgrp, the driver calculates an array ind=
-ex
-by dividing mux_reg (0x768) by 4, yielding pin_id =3D 474.
-
-In drivers/pinctrl/freescale/pinctrl-imx.c:imx_pinctrl_parse_pin_mmio():
-
-    *pin_id =3D (mux_reg !=3D -1) ? mux_reg / 4 : conf_reg / 4;
-    pin_reg =3D &ipctl->pin_regs[*pin_id];
-    pin->pin =3D *pin_id;
-    pin_reg->mux_reg =3D mux_reg;
-
-The ipctl->pin_regs array is allocated with info->npins (which is 216 for
-i.MX6Q/DL). Writing to ipctl->pin_regs[474] writes strictly past the end of
-the heap allocation, leading to memory corruption during early boot.
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi b/arch/ar=
-m/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
-> new file mode 100644
-> index 0000000000000..bcfe7b2556cbd
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
-[ ... ]
-> +&fec {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_m48_enet>;
-> +	phy-mode =3D "rgmii-id";
-> +	phy-handle =3D <&ethphy>;
-> +	status =3D "okay";
-
-[Severity: Medium]
-Is this missing the standard nvmem-cells bindings for FEC MAC address
-provisioning?
-
-The Linux fec driver relies on nvmem-cells and nvmem-mac-interfaces to
-retrieve the programmed MAC address automatically. Since this relies on a
-downstream U-Boot alias (eeprom_mac =3D &eeprom_mac;) instead, the kernel w=
-ill
-fail to extract the MAC address from the EEPROM and will assign a random MAC
-address to the Ethernet interface.
-
-[ ... ]
-> +&hdmi {
-> +	status =3D "okay";
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_m48_hdmi>;
-> +
-> +	display-timings {
-> +		native-mode =3D <&hdmi0>;
-> +
-> +		hdmi0: hdmi {
-> +			clock-frequency =3D <65000000>;
-
-[Severity: Low]
-Are these display timings dead code?
-
-This display-timings node is embedded directly within the &hdmi controller
-node, which is unsupported and unparsed by the dw-hdmi driver. The i.MX6 HD=
-MI
-DRM driver retrieves timings via DDC I2C (EDID) or DRM panel bridge binding=
-s,
-so these provided HDMI resolutions and timings are completely ignored.
-
-[ ... ]
-> +&ldb {
-> +	status =3D "okay";
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_m48_lvds>;
-> +
-> +	lvds-channel@0 {
-> +		fsl,data-mapping =3D "spwg";
-> +		fsl,default-data-width =3D <24>;
-
-[Severity: High]
-Will the use of a made-up fsl,default-data-width property instead of
-fsl,data-width cause the imx-ldb probe to fail?
-
-During probe, of_get_bus_format() reads a default datawidth of 0, fails to
-find a matching 0-bit format for "spwg" in imx_ldb_bit_mappings, and returns
--ENOENT.
-
-In drivers/gpu/drm/imx/ipuv3/imx-ldb.c:imx_ldb_bind():
-
-    if (bus_format < 0) {
-        dev_err(dev, "could not determine data mapping: %d\n",
-            bus_format);
-        ret =3D bus_format;
-        goto free_child;
-    }
-
-Because -ENOENT evaluates to < 0 and is not explicitly handled as an option=
-al
--EINVAL fallback, the driver aborts with a "could not determine data mappin=
-g"
-error, causing the LVDS display output to completely fail.
-
-[ ... ]
-> +	config {
-> +		#ifdef LEGACY_BOOT
-> +		bootcmd =3D "startM48;errorMsg";
-> +			bootcmd =3D "startKernel;errorMsg";
-> +		#endif
-> +
-> +	};
-
-[Severity: Low]
-Does this duplicate bootcmd property declaration cause an invalid syntax
-error?
-
-If the Device Tree is preprocessed with -DLEGACY_BOOT, the Device Tree
-Compiler (DTC) will error out due to duplicate properties within the same
-block.
-
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts b/arch/arm/=
-boot/dts/nxp/imx/imx6qp-draeger-m48.dts
-> new file mode 100644
-> index 0000000000000..ab331596abd98
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
-[ ... ]
-> +#include "imx6qdl-draeger-m48.dtsi"
-> +#include "imx6qdl-draeger-m48-u-boot.dtsi"
-
-[Severity: Low]
-Does this reference a nonexistent file?
-
-This includes a downstream U-Boot artifact (imx6qdl-draeger-m48-u-boot.dtsi)
-which does not exist in the upstream tree. If built out-of-tree or enabled
-later, it will immediately trigger a fatal preprocessor error.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924183855.1393=
-302-1-petko.manolov@konsulko.com?part=3D2
+czw., 24 wrz 2026 o 18:12 Jonas Karlman <jonas@kwiboo.se> napisa=C5=82(a):
+>
+> Hi Adam,
+>
+> On 9/24/2026 9:14 AM, Adam Wermuth wrote:
+> > The USB 2.0 data lines of the M.2 B-key slot are routed to USB2_HOST3,
+> > which is served by usb_host1_ehci/ohci through the host port of
+> > usb2phy1. Enable the controllers and the PHY port so that modules in
+> > the B-key slot, such as LTE modems, can enumerate.
+>
+> This and next patch is likely best suited as an dt-overlay.
+>
+> Regards,
+> Jonas
+>
+> >
+> > Signed-off-by: Adam Wermuth <adam@wermuth.pl>
+> > ---
+> >  arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts | 13 +++++++++++++
+> >  1 file changed, 13 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts b/arch/arm=
+64/boot/dts/rockchip/rk3568-rock-3b.dts
+> > index 149a5306bb03..ad9a91c0d0d0 100644
+> > --- a/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+> > +++ b/arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts
+> > @@ -758,6 +758,14 @@ &usb_host0_xhci {
+> >       status =3D "okay";
+> >  };
+> >
+> > +&usb_host1_ehci {
+> > +     status =3D "okay";
+> > +};
+> > +
+> > +&usb_host1_ohci {
+> > +     status =3D "okay";
+> > +};
+> > +
+> >  &usb_host1_xhci {
+> >       status =3D "okay";
+> >  };
+> > @@ -780,6 +788,11 @@ &usb2phy1 {
+> >       status =3D "okay";
+> >  };
+> >
+> > +&usb2phy1_host {
+> > +     phy-supply =3D <&vcc5v0_usb_host>;
+> > +     status =3D "okay";
+> > +};
+> > +
+> >  &usb2phy1_otg {
+> >       phy-supply =3D <&vcc5v0_usb_host>;
+> >       status =3D "okay";
+>
