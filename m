@@ -1,160 +1,125 @@
-Received: from mail-ej2-f0.google.com (mail-ej2-f0.google.com [74.125.228.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E07368277
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 05:13:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.128
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790226792; cv=pass; b=q8M0cKtaq6hICEUTpPUnM22AmDwC9ziTQzx1fPUT5pl6ocUjDZ/1GzT/PsSm4nJBYx3L49wn/zPO2JzTO84AD3dVXEVa1Vq5YBPpW1bjbVm4RQxH1X5Uqaz2mry7ii2R77TlBcjtstORSRfT0IvSrzWII+S2I/rMn94xwaE/FlQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790226792; c=relaxed/simple;
-	bh=9SPc+L7BuklXAX0yw4Mp3qv1IcpydHf7I9c54H106T0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XBo/UqD3KRpWCMSvdKy4O441YZC06xbkBAM/K8V8MuS5USH8INV9/yK8787QK4oq11w8BhkmRRlDmyGVfz0F4LbV9fXM6VWyDIMLzgq9fIrNLC8PczIa1ZgyXP+6WFjVLLVnP37eN4N4ZNtDMVDt5Q5Od49b5cqCFp78q8wHP6k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OK6pt7aV; arc=pass smtp.client-ip=74.125.228.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA6A266B72;
+	Thu, 24 Sep 2026 05:16:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790226971; cv=none; b=XJHG4nl4bGPvSw2faGTY2aaiUIgipqcXl335+6yYwn4wESBbjamEaVgivV60C70PoRcreEHlyOGQuVoRB8NCn4azkoj7siHQb4hzeVcx10SdpAowk9+XNqnjWKVfCcpxjt43Fv2A01gfgIwkqv5BBzY/Emi2vatELNvkCr03Unw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790226971; c=relaxed/simple;
+	bh=ICdb5i9Y8TxqnSABRpsDpsLJCQwOj3uyC0HJJ88lcNY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iTV+B+eO67p8zUGPorRhsYMsPlzkaF7ahBCJ4FCHzwSwASdFJ+/loDhfzwdWbp6/b92jAo9kJ4p987LYUtC64yD0eSBRayAC+jwlEcByTm9Hc/igg/WYJziT5U1CrsNJXAO3z1glTpZEDNlyqvRkXTUfr4Zyd67woLaqIm6RuV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oJcpG1w5; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OK6pt7aV"
-Received: by mail-ej2-f0.google.com with SMTP id a640c23a62f3a-c293a9e09b9so79117966b.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 22:13:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790226789; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gNl8cwqFBut82Fm9H76H7utTnTLzicl1IyPZPCfAZWfaX7PSU2MRNVqxj5/0CsvVY7
-         qmv1EYjRnB/PZ8w5tW9JgkNWtXIQFCo0tePRoB/JYwhat85dxid6ocG4XebZcsba+QiU
-         V7xD945mnu6SR8vHDpDPUXp/o4G2f2FplbqBPXcrywCZNzydnRwb+GAq3j3AdNUDCr6r
-         74V/I+vc151B+ol3pvGbJyao4tjqONraIcjFE9QZMor22rNlL/bPGvSCF1qJRQqMCgkm
-         S7/x/AQp3tNHmdnGgP9jsR3NbrVHgmRj0wc92OG/0LGsx05XDO+6HaNmeGLW77qmIzgn
-         zCAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=F0MbMqtSvR+bKuyDMIBNdTC0TQ1xzz8SEFZhDO0+ELc=;
-        fh=M30LaduzMPOio4TRGhMVvys+KZCZVowNqWpCQQ6rc3I=;
-        b=VU90nqvx28ka08rowLTQ9ShWNM5pc8j8W1W8XEOH/UpBehjJ5smo8x5Q0vlO93zBCD
-         sTGkewk4ikTAxrhhL6QNPJ2rBi2rMOXZUJdOlApCnfCQG6dTvplsvM2UALtYvg1LYuwc
-         B4PAbRMrm+8EwyLIAsIv/4d0+1Kx8G5RnVmEwr5ixvaURuewSekrXD0enYg7juWBrBcn
-         7C2rJaYG3IQYAULtStUTsBeTvf3PCMllFqPzMVaesIRUmGtjT4ShmRWny0SdPheVweWv
-         PU4E0V1c4xBBF6nBBqpkGHmVpirS/WO1y/C9PEeZLPQJcV5WJ78a6VNocbs6PDxUogiO
-         XVTw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790226789; x=1790831589; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F0MbMqtSvR+bKuyDMIBNdTC0TQ1xzz8SEFZhDO0+ELc=;
-        b=OK6pt7aVK0xjEc12L3rBNbz8MONbNK+CnPwzCHc98+GSLBog6424xNdPz4MgcjRycL
-         yPf6U3zYOMSp2rpQOoKMXlSPRy55uZX7YELxjB3twhmcNJ4KjQpBqpMDDLlBf4pgLYl4
-         DZ1lOVI8YhkhFJKe2tRmXn45UIMdVbFoWAwBT/IrPkzBdFqm+RQrfOkTYupMarkGIfAE
-         dlJqcfdFE4jKNz0Jg8y9I7yuTGCu3KoXgNzlE45AZnWQjZ1PZpZnjLkbY+r85LuxSPpW
-         ZIYM27F7tmmX69D9hr+q0xiTnxpTXLauPgQwsg95MjIvQyOHXED5gYM/WLC43TNWppd3
-         HlYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790226789; x=1790831589;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F0MbMqtSvR+bKuyDMIBNdTC0TQ1xzz8SEFZhDO0+ELc=;
-        b=X8gaD7hy3Kp2PeqQrqFHlPMpxwL9/Vn7sKn682sacyQ5MZcgOTLpzUfWSgls5lso5z
-         pBnGTMBjgH8RMJq734jI8ap2sI9DkbWBZFg3V+mxRBrVGQbIqPYvsgNZRZOjY7BYfcrp
-         Z1BLGVI/arMEcykGJFvhBzBe/6j0RWDklaNmspwTJmfaNw+zpEQ5KWJMtjGHRzuK+Y20
-         +s3ecXxSbIKa9RT6tsYzoLNwr1kModQaX9vWeZQuZiYJAgs3GlO+Fj4l+tsmKsQe6WL8
-         eAO8olq4Ji+OWrFDrDMhgZqMfUaNpbYiwggXBGr/9R5cNlCMhfdawGh+f3cP/HsD6K/K
-         23rg==
-X-Forwarded-Encrypted: i=1; AKwUvBxRN2SJe38Gg+7fDuYBqa03ydI/HUT3sQ08NachoEhrMB5/PoOMOpVX+xKc65xDuHTD95Kpezx8k12j@vger.kernel.org
-X-Gm-Message-State: AFuF++mEGzJiSZPSlBon5V5G6NYVcJtqJwXTk+i3yVc2l6XR5nrn6LHZ
-	4R6ZkvRjZfzPqyW/QdZojqctIXtqp+p6Gtx4eSxSkYjhVN1mJTV76DBKn2maBRhVZsU8We/WR/P
-	t4CvjxoH1zUCRSauMEnhSr7SErBCVwhxZCaTmHgnCMg==
-X-Gm-Gg: AYBFou3rtISQRPpkPSg5LRFZFWTX0A2H6mJbLXX+ABq2iaKb7eCBGC/aehU0cFBHvJs
-	A7fqVWvnZvjasGbO10WRb2fBtv6AaoYoc1H/sx3lPW/TOAZJf5G3HRVSuc8zdx+J6FbSbswzAQC
-	TDVxt2eW865Qk8J7a6W1jEdvDSry7zf+nAfaqxo883cBoaf70ts6X0XUyBCV2BSKwTXLrCldS+a
-	M7nRsIfu2QFCsxgdddvuqyEfs7mnvrHj3pS1s2fH/V6sTbfx3T6yGclCwDLxxXK3kKb+8cvo6J8
-	8jGm9EkaGrCg7XmLmy9OqhoaDJYmjhHFMiG+AILWLanPbTDKNnV3B0SmFQ==
-X-Received: by 2002:a17:907:a2c8:b0:c29:3838:dd69 with SMTP id
- a640c23a62f3a-c2ac256657bmr83116266b.39.1790226788805; Wed, 23 Sep 2026
- 22:13:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oJcpG1w5"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O43LhW364882;
+	Thu, 24 Sep 2026 05:16:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iafcNu8yXs+bPIbNuDe2M/Cy42B+aT+ZoPL5h7CbL8o=; b=oJcpG1w5n9/Eucyh
+	NpXXH9cm2hvlpiCPTlx0maH1Fjc1Q/wKJfP32StlWZI6XsPkBboxOHLRFHne9xVo
+	2KeA1NigOrFIXdPPMfeoOTeiutUfwuYMKB3S3QApsB6JyOL/bDTD3y8QDOJu6zAu
+	GhldJOnszc72NUZRueeMMfWPurvUH71zRptfZKhcNhMTtacI1GaL3ERRZF4mVy2C
+	Jvt/nFGGfx9F+BpVj1nGCQ0x9cHVwuYlekUlyp6sO2eKuQMxKl5EuFcC6B8LI2Sr
+	zVzhngyp4u7d7/6gAvu6rWOZPtZptGd5nq4/O2Shd784pyduZAr7iGc0VuyrO2sE
+	JWnl7g==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvvgh86f3-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 05:16:07 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68O5G4d22068402;
+	Thu, 24 Sep 2026 05:16:04 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 68O5G43N2068381
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 24 Sep 2026 05:16:04 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
+	id 5E70FB44; Thu, 24 Sep 2026 10:46:03 +0530 (+0530)
+Date: Thu, 24 Sep 2026 10:46:03 +0530
+From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: shikra-iqs-som: Correct PM8150 L10
+ voltage range
+Message-ID: <20260924051603.xzrmwo26vtds66o4@hu-kotarake-hyd.qualcomm.com>
+References: <20260922-fix_l10_max-v1-1-d0c99f063bf4@oss.qualcomm.com>
+ <3ae1124a-e070-4641-8a25-42cde4426f44@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922200336.2201212-1-coiaprant@gmail.com> <20260922200336.2201212-8-coiaprant@gmail.com>
- <20260923200523.E766D1F00898@smtp.kernel.org>
-In-Reply-To: <20260923200523.E766D1F00898@smtp.kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Thu, 24 Sep 2026 13:12:57 +0800
-X-Gm-Features: AclHuK-lw6TEGWFDRwVyt75CcRiJm_UXyDL5fRY6bD8kdC3GnVL_Pk8dt0Fcf5w
-Message-ID: <CALj3r0jt0hFRGrhxiqWnD2XmKrj4vy1U1to-1XrhT_ZesJ19Wg@mail.gmail.com>
-Subject: Re: [PATCH net-next v10 07/11] net: pcs: xpcs: add Rockchip RK3568
- platform glue driver
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, 
-	olteanv@gmail.com, wsa+renesas@sang-engineering.com, vkoul@kernel.org, 
-	neil.armstrong@linaro.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3ae1124a-e070-4641-8a25-42cde4426f44@oss.qualcomm.com>
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=KYhHIgYD c=1 sm=1 tr=0 ts=6ab4b218 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=T0APZzI2klfUa3LYWF0A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: et8rnWoZoWi7CxwwdJJV927Sqzq7Kp98
+X-Proofpoint-ORIG-GUID: et8rnWoZoWi7CxwwdJJV927Sqzq7Kp98
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDAyMiBTYWx0ZWRfX5E9317/I4dzi
+ kUjfxWoSUe8wh7WYfGen2nYu5i40c9+Bj/4eWau2sscuRbO321cKmjpuLcrnXDkH3DQuzXuhTpf
+ DZSYY5xA3hJ8SkfqzT1msG9yP6LRQtI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDAyMiBTYWx0ZWRfX/taQ4p/VIX7w
+ 5/A0cikCDY2CU+Qpk4RSRIuZ5yZihPNbGagbvZxQMTd0WiQqSuW8xX//7TpEKAOVgnyUWe5V/so
+ 5m4KVB45zUBD+mgFw9zKLSnDkUj7GtgwMAJp6ywFet6LfMCpyzytFQ8EGgXZgici8j3sQ+b6bVz
+ AlpqtqVp+aexI1TWCBd3XmNyj6pAXNHWJCir/22XiN1pnMlczum3gxwEwpjRiqO8mT/l99XA8x/
+ U7I3JjnNtQS+aTpE7d1EHUhLhZ6zuMSc7SEkTdn7kYenDLd45ggqNfl6SQ7cCAJAXOYSvGOeGpo
+ 7zbCSNRyPXpwE4+ZAUz1yfd4ZdW7tNPnr+iYTmFloJi+Pgr851bagpkDV5eNPEIiahik3qwMsZX
+ U0gyojbyOBPLOv9UeTwa9DXC0cTPh2yUjxqYphODjHSt8beCBrGe8Y9B+fJVeu2/rj8ST02dFM7
+ 3s1uZmd9+dl0cwmR+YA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240022
 
-<sashiko-bot@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8824=E6=97=A5=E5=91=
-=A8=E5=9B=9B 04:05=E5=86=99=E9=81=93=EF=BC=9A
+On Tue, Sep 22, 2026 at 05:50:19PM +0200, Konrad Dybcio wrote:
+> On 9/22/26 2:39 PM, Rakesh Kota wrote:
+> > Update the PM8150 L10 regulator maximum voltage from 3.544 V to
+> > 3.3 V, matching the supported voltage range for the Shikra IQS SoM.
+> 
+> This is a good start, but please mention explicitly what
+> constitutes that range - is it e.g. because there are
+> peripherals on that rail that can only sustain 3v3?
 >
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] pm: unbalanced pm_runtime_enable on teardown
-> --
->
-> commit 43d28493f3eec64a96af219e5448ffe0efe56d58
-> Author: Coia Prant <coiaprant@gmail.com>
-> net: pcs: xpcs: add Rockchip RK3568 platform glue driver
->
-> This commit introduces a new platform glue driver for the Synopsys Design=
-Ware
-> XPCS on Rockchip RK3568 SoCs. It implements an MDIO bus that translates
-> requests to APB3 memory-mapped registers. It also adds necessary clock an=
-d
-> power domain management for the device.
->
-> Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TR=
-M%20Part1%20V1.1-20210301.pdf (Page 59, CRU_CLKSEL_CON29)
-> Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TR=
-M%20Part2%20V1.1-20210301.pdf (Page 2078)
->
-> > diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-r=
-k.c
-> > new file mode 100644
-> > index 0000000000000..35ee980a759e5
-> > --- /dev/null
-> > +++ b/drivers/net/pcs/pcs-xpcs-rk.c
-> [ ... ]
-> > +static void xpcs_rk_exit_clk(void *data)
-> > +{
-> > +     struct dw_xpcs_rk *pxpcs =3D data;
-> > +     struct device *dev =3D &pxpcs->pdev->dev;
-> > +
-> > +     pm_runtime_force_suspend(dev);
-> > +     clk_disable_unprepare(pxpcs->eee_clk);
-> > +}
->
-> [Severity: Medium]
-> Could this lead to an unbalanced pm_runtime_enable?
->
-> In xpcs_rk_init_clk(), pm_runtime_enable(dev) is called, and this functio=
-n
-> xpcs_rk_exit_clk() is registered as the devm teardown action. However,
-> pm_runtime_disable(dev) is not called here.
->
-> If the driver is unbound via sysfs or fails to probe later in the sequenc=
-e,
-> the teardown action runs but leaves PM runtime enabled. This can trigger
-> kernel warnings about an unbalanced pm_runtime_enable and break subsequen=
-t
-> device binding PM state.
 
-pm_runtime_force_suspend() calls pm_runtime_disable() unconditionally
-before invoking the runtime_suspend callback, so runtime PM is already
-disabled on the success path. The runtime_suspend callback in this
-driver always returns 0, so the error path that re-enables runtime PM
-is never taken. No change needed.
+On Shikra IQS, the L10 rail supplies the SD card’s VMMC. Its maximum
+voltage must be limited to 3.3 V because the derived VQMMC voltage on L2
+supports up to approximately 3.3 V. Allowing VMMC to reach 3.544 V can
+drive VQMMC beyond its supported range, potentially causing SD bus bit
+errors and resulting in the voltage negotiation failure:
+
+l2: unsupportable voltage range: 3500000-3296000uV
+
+Reducing L10’s maximum voltage to 3.3 V keeps both rails within their
+supported operating ranges.
+
+regards
+Rakesh Kota
+
