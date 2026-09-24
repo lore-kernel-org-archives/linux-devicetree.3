@@ -1,174 +1,145 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B3A483BF9
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2115485517;
+	Thu, 24 Sep 2026 13:24:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790256238; cv=none; b=p9Iw8kdepnnaue3XGKnlL8u//smjFsQ8p6dMxICzrxwmkOiZWX+O/GvvqusU3pFzOrF/9udMvpb0KdVh3IzkjAfqA69AlzgiCvpzqt/LqNhLFKTSypQCotugvR/DLcL0VlmSXNcObF+I9ik/oGsK7SVYG/HdeecOj37pV+jJj74=
+	t=1790256252; cv=none; b=TxAUB3/se3pk3H/R2Y5mmWZZcB4HtzHvKa6TzYA6tBAJIG85nl7OrhItaw0yOY+ZKUsrgyI4scgKlCgEaakgJ5B4bmAcwOjiXbQsgZSvSKzeh82SOB3rVzTDRdjXPTVF6zCSA/8qG9g4AV/Bpubei63o22Dmfxs2JjXlzOUYoss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790256238; c=relaxed/simple;
-	bh=0Lo8Fc4RrHTz2i0pVyyvUOWs9Q7J+HdB9eO5ehxCpZg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=gTvbhhsk2hTtKj4Nyp3E+7IIrteqbiSFUlYNm1+pWn98hlSo9NP9OsBHwiZL+pTsNFJ/4OBeEBhIZJ7MhFJZaeyx/cZzGK8J4ag7VYt93dll9iWIw/+7fwLrWfwhiouAiPPbDYA1gvXzYtMoMcFf9gpX9mNGv3hmjQ6xizTlF8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vBhZHHeP; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790256252; c=relaxed/simple;
+	bh=yiFJJpfxAOUSXtMXv/1T/r3LQB/vNcSfkYlLVDmONI8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bfw9DxPTAZHmk5CJhHzQzkFFRKOGIapyJCeymdm4OoELeE6Mh0LYkO9TdQwAJGrOhlND8eB7UTbdLk/5Va75TsTHrUyZqYbNF/WuD+S9vZ3ZCj4xC/QMxfhwLEfBvwfUlaxa1PZqAqyYE4IwuyNk3wAsRADkJEX75x/EAgUK/pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zy2sdb5J; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vBhZHHeP"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so11482555e9.0
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:23:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790256216; x=1790861016; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HLz2UJ7WZAfDvJwz6oWzjaHjslHfX+WvIHzGXDGM04s=;
-        b=vBhZHHePIkPFBxnf5dMtvmhbGagcOMZ/aE4kSvv90Zz/Wq9qedwjAJHYFgsh9MaNqR
-         LSWc+3FeuO3aVkVo8u86k4YraOmf4JExUiRo8lpyLKobq7CNaopQ0Z2x8v+8C8dHeArM
-         0HB3HYw62AHtAw8IDltaosLgjJ9DvXTh3N2npfUptvZYIWD9QgrVUdoXq8iXF8JQhLOt
-         UuH/qexoj+rjyWFHPGxVFpUjjdoNTUGyyDFtOjLTsgVjxBu1ol6EZSBV8uKv0C+2bXk6
-         6DwM/N0yeVZBR36hmrdd0pPsXipPDi8JpyEgbGxn37aYYdMIsXkexzczOo8XaSxs4QX5
-         4qfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790256216; x=1790861016;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HLz2UJ7WZAfDvJwz6oWzjaHjslHfX+WvIHzGXDGM04s=;
-        b=x8lruYR99aHCPeoptBKFEmhIGkeSUBsJ/rBnJSXdE4+iHXcK6FYNPKa6qM19RhXBNK
-         reItVCwFiBMO04YqPge23Xf50iugzAE0vtjthfTEmx3jHbcZ6tCVMrOgCFC5OFUxLIPW
-         7vmyS1T0JEx6AWRAhraU4xKZpzr11GSShPX6AY/z782oGfpREKesG2m/rfOmwBsgm32o
-         lpxepUDfY9dnP5BuUrp3IBpuzz+YmMrcySPDc/uIEKblBjyjQ3JK4J/TpZVb02JZ+Dau
-         CB5NdyIATdu1yjWiHaBn9LfSj3qEdczNAY1CEhz6LXtIZRS1wOw/mJUpVt0hlx51Dadm
-         xRIA==
-X-Forwarded-Encrypted: i=1; AKwUvBzoFr8jsx6cuPCGS5jKehMK/g2rSCdlpfayXQn3uFm9+fXUxOLlvZr+X6+yUktjPZpHVlQ1ISLI6DqS@vger.kernel.org
-X-Gm-Message-State: AFuF++ny/nzYmW8cBHqeFFSoLK+sicJZ1iYfMb+8SUSpMs0j8pqiLXGq
-	3Auz9gvTaJLss27qzBzctQsQNYfj1I03M4xD/lkS0uWTMsUVdaMzI80zORf3kajRjwE=
-X-Gm-Gg: AYBFou3ya6TaSfNh23EbaA3DUkwalOEAQZo/aRAw2JOLHwvrW74Ay6d55l8fA3yhWs/
-	xAQdRZBQnFBrHZPWDhNQgnB/TuigLYhky4W2aS8ONqnnlWTeLC65jfAhyF6u6jchnKbrdOgI0T7
-	VGG3ACXYjyFJkkLDNq9m89VirA4WmQ08roQq82zOcORDP6v8p+RBir/UFmv+X7LF38EZz5nQKgL
-	1xjyviFIL2HLjEg5EPGabNQqbVyoe7PyQHVJtn2ovkcJv6m0pWgfhbxZyT2k0PVJghUWGlU+3qw
-	JPgTcpK3OSqIwWBHlT9PRqZL38iTPhemtLIJufEZbxb3Wl4wLfy6Xx0FB3KfmqnMAYaP0s5joEK
-	vatgNoi/ggdJaNfzQE5Vut2mMTNuRymzMagvLoBV17QYkRdzD23E+N8ph6nN38TefPRNcInqqS4
-	hPC51Xle0tBYTb+hwI9TQltLxud8XNxNh/kOXsGBBQJaKXFSYsa9b5rtsdRcZ5O4LBVivJPTKPT
-	rRM6Htbth8KeTGeVPuzVwz8vnqSb2capkXnI58VhAVn+AOueomu19U=
-X-Received: by 2002:a05:600c:4689:b0:49f:bc8a:b103 with SMTP id 5b1f17b1804b1-49fe66841f8mr42901125e9.0.1790256216193;
-        Thu, 24 Sep 2026 06:23:36 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a? ([2a01:e0a:106d:1080:336e:a1a0:8f96:9f7a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488684863d9sm14891752f8f.12.2026.09.24.06.23.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 06:23:35 -0700 (PDT)
-Message-ID: <1d014f4d-1c05-45d8-b559-6ed03293db24@linaro.org>
-Date: Thu, 24 Sep 2026 15:23:34 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zy2sdb5J"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 65499C2BCB3;
+	Thu, 24 Sep 2026 13:24:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790256251;
+	bh=yiFJJpfxAOUSXtMXv/1T/r3LQB/vNcSfkYlLVDmONI8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=Zy2sdb5JVIpaeiXP4sBpeZTyPHh2RAI9PDwLDB1VLZtDm8a3N14+F6BqUZdorWg9y
+	 sw/ynqkpcjrod2n9cPZDShB0UFsx3x4T5pS0f4SsgFWxj8UCyRP1G3QET3kwVSiY3a
+	 sU7uhrANXipzBJ8wnK11fRLqNfDgJvlZADrfbh+wFlL5BJ+ymsnhi/ectrIpPRXzvt
+	 cgWsbalRfDif/lmLNehR0qrhWKNKn5vRFHWIwPF1Ehv2jWm9bnIKjXvVJqNCIuXWua
+	 nEORgxSefZNoiG+4ZWzo6kVa89rYxhJQ/ftKjaL5/3H7IDyyLZH9MbGfq8mGKdeHX9
+	 ugbizpDiW235g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40E62C9831D;
+	Thu, 24 Sep 2026 13:24:11 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v4 0/8] Speakers for Pixel 3 / 3 XL
+Date: Thu, 24 Sep 2026 15:24:05 +0200
+Message-Id: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: add: document the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
- <20260924-topic-sm8x50-iio-max34417-adc-v2-1-9a0609e72f5c@linaro.org>
- <20260924132022.D479F1F000FF@smtp.kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260924132022.D479F1F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12Oyw6CMBBFf8V0bU0fUKgr/8O4oHQqkxjAAg1K+
+ HeLLFCW907OuTORDjxCR86HiXgI2GFTx5AcD6SsivoOFG3MRDChmOKStjjCQ9JisNhQY40ziYa
+ cyYxEpPXg4n3RXW9r9vAcorXfygq7vvGv72TgS7vaM5b+2wOnjEqjlJMyT7XjFxyxP5VvsmiC2
+ FDNdo8FEdGsFAKs5qnQO1T+oCLZoTKiqWUqUcyVeaE3dJ7nDx1G0sAxAQAA
+X-Change-ID: 20260613-pixel3-audio-bdbfb49e8037
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ David Rhodes <drhodes@opensource.cirrus.com>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2569; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=yiFJJpfxAOUSXtMXv/1T/r3LQB/vNcSfkYlLVDmONI8=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtSR4W455qy2Owgl/D3Vwdcno3oKxnkcfY2als
+ JwxGx4LJu6JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUkeAAKCRBgAj/E00kg
+ clS8EACiBSbeXFCoOQapy9QtgKWyLfmfQTY9jRkEsHqYXP/7OZOCv0MBBJe+6Cm+JcPrPYAfcZL
+ 66EwCnfjIg+Mg1/tTgktBD6PyiC2SObX+P2Otv1uiMg+Tqu74UHN2XElYWycJbqmnNN3f13DLFH
+ 7uEAmVu17M0MuSKd1ipvkd9HdSEuZrC8IwSLAWb6sPSVkFK5oBobC/SPEdNEkl99nnHNGquw4uX
+ fmY13oABE80Yev+zfcsDy7cXsvYr5CBzYg7i3bHwJXP4URc47dyjNRWPcI+pecIc5dnTn3jtmrY
+ /zqPodcJr7ir8zdFS/aVllrq3y45MsKnH5lu/8H3c8td0ezFmxKC8sJhHDHFv7GJwPtQZWhhWm8
+ 15rwWrztxrClBZ2r/cGiMocj/27zApjZpi1O8xvz8XMXR5Gr8yA/MIo9r64TETrqsKl3sFXgz1v
+ nPa+m0frSJGWHv5DO4B3PPrrwPrL2xlinmdZPGfoRCgNOin4epNvNvEK4vEZyMovPMUzUuSVwMn
+ EEX7h7NQHzCth0Blzw9lJFsTdsWg5AI48avBNxzWJjNIRVMcUd0Qwa/XJc7LX0PwmADneM2OzJi
+ bYUd9ej9pq7Tw1FAAWFaKjy00DrJwoFm/Tztgz+1L2qLCrtjOU+aU/Uy6b7w/LowJH9PumJd6fG
+ H4H03W5DfgNSXPw==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On 9/24/26 15:20, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] dt-bindings: max34417: arbitrarily restrictive minimum on shunt resistor
-> --
-> 
-> commit 3650a83bfbfc37f2001988362d1f90e712127acc
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> dt-bindings: iio: add: document the MAX34417 Four-Channel High Dynamic Range Power Accumulator
-> 
-> Document the Maxim MAX34417 Four-Channel High Dynamic Range Power
-> Accumulator used to monitor power consumption of portable systems.
-> 
->> diff --git a/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml b/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml
->> new file mode 100644
->> index 0000000000000..058af61cc04e2
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml
-> 
-> [ ... ]
-> 
->> +patternProperties:
->> +  "^channel@[0-3]$":
->> +    $ref: adc.yaml
->> +    type: object
->> +    description:
->> +      Represents the internal channels of the sensor.
->> +
->> +    properties:
->> +      reg:
->> +        items:
->> +          - minimum: 0
->> +            maximum: 3
->> +
->> +      label: true
->> +
->> +      shunt-resistor-micro-ohms:
->> +        description:
->> +          Value in micro Ohms of the shunt resistor connected between the RS+ and RS- inputs.
->> +        minimum: 1000
-> 
-> [Severity: Medium]
-> Does this minimum set an artificially restrictive lower bound for the
-> shunt-resistor-micro-ohms property?
-> 
-> Valid hardware configurations could utilize sub-milliohm shunt resistors
-> (e.g., 250 or 500 micro-ohms), which would fail device tree validation and
-> prevent the driver from probing.
+This series address:
 
-The min/max values MAX34417 are taken from the datasheet page 18 Table 14 (Table 14. Correction Factors for Various Current-Sense Resistor Values).
+0. demistify the hex to BIT() macro and add left/right rx spk
+1. most likely wrongly set DSP_B in sdm845.c
+   my guess this is because TDM was never used in the mainline with
+   sdm845
+2. applying correct mask to left/right speaker for the TDM in sdm845.c,
+   so both speakers can work simultaneusly
+3. setting sysclk at startups, which some codecs need (such as cs35l36)
+4. setting proper tdm slot in the cs35l36 driver
+5. device-tree wiring for Pixel 3 / 3 XL
 
-Max 100 mOhm, min 1 mOhm,
+As per previous discussion not seding patch removing the "Input Mux"
+which now interferes with TDM callback. If wanted, I can send it as a
+follow-up.
 
-Neil
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v4:
+- Rebase on top of d4d1619ebd55 ("ASoC: codecs: cs35l*: use .auto_selectable_formats") (Mark)
+- Link to v3: https://patch.msgid.link/20260924-pixel3-audio-v3-0-5d06460fc8a9@ixit.cz
 
-> 
->> +        maximum: 100000
->> +        default: 1000
->> +
->> +    required:
->> +      - reg
-> 
+Changes in v3:
+- De-RFC, applied Reviewed-by tag.
+- Link to v2: https://patch.msgid.link/20260903-pixel3-audio-v2-0-7c22ed915291@ixit.cz
+
+Changes in v2:
+- Device-tree name sorting, with exception keeping mm1-dai-link in it's
+  place. (Konrad)
+- Make set_tdm_slot cleaner and less leveled. (Konrad)
+- Added TDM MIC defines in sdm845.c.
+  Should we in capture use speaker mask?
+- Renamed model from 'Google Pixel 3' to 'blueline', I would love to
+  hear feedback on this one.
+- Link to v1: https://lore.kernel.org/r/20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz
+
+---
+David Heidelberg (8):
+      ASoC: qcom: sdm845: Demystify TDM masks a bit
+      ASoC: qcom: sdm845: use DSP_A format for TDM codec DAIs
+      ASoC: qcom: sdm845: Use per-speaker RX masks for TDM slot assignment
+      ASoC: qcom: sdm845: Set codec dai and component sysclk during startup
+      ASoC: cs35l36: Implement set_tdm_slot to program RX and TX slots
+      arm64: dts: qcom: sdm845-google: Add basic audio support
+      slimbus: qcom-ngd-ctrl: Remove data channels on stream disable
+      arm64: dts: qcom: sdm845-google: Add WCD9340 codec and microphone capture
+
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 195 ++++++++++++++++++++-
+ drivers/slimbus/qcom-ngd-ctrl.c                    |  81 +++++++++
+ sound/soc/codecs/cs35l36.c                         |  44 +++++
+ sound/soc/qcom/sdm845.c                            |  49 ++++--
+ 4 files changed, 357 insertions(+), 12 deletions(-)
+---
+base-commit: 3d7783543c2646af69ad65825e810060494bea21
+change-id: 20260613-pixel3-audio-bdbfb49e8037
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
 
