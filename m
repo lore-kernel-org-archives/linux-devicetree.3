@@ -1,154 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C8333263F
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:50:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B442FD7D3
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790257845; cv=none; b=uiiJYbGsrCiBaQnkfqOMnjTPN3Ve4BEeRuosUbvdpzmuckb4EdW8ToZbB7XrudCrWEAP4g83R4AbNx6EOpr7sai/5PSTpw3zYNeZ+2iizyMHtmmmZrf2CY0mlTEwnnLXtdcvg5ixAFtTzhL8h790ZypXcizJk3GX4A7MJS9MiKc=
+	t=1790258372; cv=none; b=QJ6y0DYPHjXKmK5+7EzSAkkY/AxNwsXznVv2TW9qPbj6T3xz57Y0rBlryVvyK+gaVpI3lwIBrx54nJKvHUW0s0h/kcRlI12dGJ5/wIi1w7jELuZFpc70DU8XB15VJvxxFOk0XrnT8BdI+DjfWXYlx4nu6zZpBqWvq33zBehZFv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790257845; c=relaxed/simple;
-	bh=DhtXdFNCKlo5fy+qlHVpuEPor0EBoBvKd1iR6okbib0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DFt47uxO7mJmWZM0ddTUX7kdT3mCLoRRikX8rz+Dq+VIVgcHmwOe3E4HOOmBUiiwdmtMS0KJO6LlNI9b9kqsNAdAQw9NXlLWkFXonGxgHwd7c1dOtZ0rN5VBcG1x+0CAV1cOLqbDe6pyf5/2BV2HdOJW0QefetN/k39m8BYSOL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ou+/DeG7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790258372; c=relaxed/simple;
+	bh=2xDfb2Al+hXfazTjwcsYYYFYI7kZoADbOaOKtPhYA0M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=kNgdIiYtI7ZP0ho5U+QcL1L9b1RLfcKyaW5jJat8DXkwC1sGZj1632gf19LkJlX+jLa4uLZz8hASiMMA91NW/7vWSNkCEYaH2CjmAoo5oSE9bjVtvVMBWpxYF0Jol//phvkhCOuTjrheii0G6lNCScQlWHWpmh02JKYvNwq+XIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=O46g7lew; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ou+/DeG7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45F561F000FF;
-	Thu, 24 Sep 2026 13:50:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790257843;
-	bh=rP/M4pI7EGA83XYbtCik6o/KQJ/h669p7L5RGMPRl34=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ou+/DeG7ApQHz26SFUYbVSIIfbu4nUJh2/Qo/Jt7CajrfJU1HQauuGvYQE+07lzep
-	 FjAGy0SILbjrEHz9IVC0q4zszl3SEToTzh/Gmmbq2QgD+24YMEOoEkyrx67ALxA2rE
-	 SmfHCWuiBk6gt6enRZJhppWUh/0kxqxUfIisS1xLL4e0+8YZwFokn7xqzhZO0M1/iQ
-	 ricWc6zhnDzLjNQghSa8ojRPtGx/Rw2tIcls8LnDK2Gqk+AEg+hAtSDkuGiWA5JSqj
-	 qNPLxfmucD4pxrKYndhmsD2CDKlkiOzpQKZtEd6iyzBD/XrzliO+SX+yUL4I/aYi42
-	 a/tDowk736RsA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Louvel" <paul.louvel@bootlin.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
-In-Reply-To: <20260924-paul-v7-3-rc1-edac-v2-2-bc1406161ecc@bootlin.com>
-References: <20260924-paul-v7-3-rc1-edac-v2-0-bc1406161ecc@bootlin.com>
- <20260924-paul-v7-3-rc1-edac-v2-2-bc1406161ecc@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 13:50:42 +0000
-Message-Id: <20260924135043.45F561F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="O46g7lew"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so1480018f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:59:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790258369; x=1790863169; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bjiz5fcvqLF+AelQDc1eUMc5aT1mzQ/HKFsPWrKukUg=;
+        b=O46g7lew6DPUnKzEJXk7+IkCfHr9r5jCIiRs8g2qvDyJSKA/uO3JUgf1pXe6rpNZKf
+         +ABMhZgzFHC+mb3C2xZ9zzEwnzPU6hJQaKIz9m6swa0zLpskWUA/oDxsU/g5VkhPi70j
+         N5qrzuKecArBTIkACGwO6o071mBwYyKQXd7eTSnhglfPnfAbL1JAgVFeKXrRsEedffeo
+         y56QC5KAcMWDfquewtM2068wthiWvblgF+a8w2yIzWgi9l3rkiE6xPL0SRUFg+daQ9Pp
+         QDqqoUgzP3f7LYxS0dqnhl0iT1zI/PgLbaTZXkUoaute0ELBRbWGfZoC7OGEORdnDNDb
+         oggA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790258369; x=1790863169;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bjiz5fcvqLF+AelQDc1eUMc5aT1mzQ/HKFsPWrKukUg=;
+        b=QEOu+R8hIV1roV0Qm4z+32LfCqRTfcKuaJGCY1gTmoHPULGox5664Iyf1O/d7S10v9
+         qkHf8Cx3BcwzowjvBGoIpOHam531NNDr+HDdyZQWZbRoayatbjGrcri1HgtcmtMOHISA
+         Y7b87nOYgtQerlT15GA9RJd8+ximrIi7i98J6zKk85sMcUv73uhvKxlzqUvPZRDP6oMM
+         zxc+X/0wuVX6NZs/czhUpbpIqqe4oUdnGeOg5BKsx/L7Odh+xDxAXJTQMEJF8+M5Z1ee
+         X6fQ1hOAqHlUL7aPdkc6FdbGzieyLi/HAaeSUFxXhsD0h3WMZjk6TsOZN89F5ESvx9pn
+         X09Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzXnKi+01kvkiuAY1UazaEiymAIXsCc58Te+8+HzAIMevQldNJN/fedE1OYjMCkg+2thQ1eCpaLJ6zG@vger.kernel.org
+X-Gm-Message-State: AFuF++mkZxgm7spdFIvBQ3sg1B5lCNop3evlWrzpTFU0fscbI1T/130B
+	GMxNu8/Gq5u604Ia8cOU6kDfe3f3/1KbVXHsJmPK9+9O0dZHYiw/egsvZBrQ483dyuE=
+X-Gm-Gg: AYBFou1EMU7JHLFaRLaXPTY9Ifm2oqkveQLaMC76TRNLFqG12hJf2VC6V0ixM9uryLC
+	0bTSBii5RJo1JkY5YVWma0m8Hlys42jyd06LQ4NqIaMIIIJNjnpc+mJtU6YAElg4L7mwFt4v2wZ
+	6WuyUcO79vOn5SxnfsHbjx4lPb0LLDP+vF+MIMgvbcPkQOGkVcD9m1Z0DT64CK/FmW8JFRdYLGk
+	ZOmzwtT2D/3Ti+4bNxlOL11HeDg85Wbz/khDHcQVTCnF+9hse2MjHMl31nuymF+MKgL536xGyRJ
+	6F2M9FpaTTaZZDVso4LlfXMvBNfZ29hrsyD4gObdlkgBHWxGSQydmOg8RwQEJJNW54L64bPwNfp
+	/i173QFnSJtOs2q9V4vtSGKtxdkn8ZWzYnlo2mshXfH3/R7OV8TCUHdgzm+Kh/dM/Wa/kihBn8/
+	hsoCKpFl20MImvMov0CHRdXZ4ItqCrEogNXdMmzvRy8uqRRwwFmnmPjoqIP4IqpX/XZKL4ivcnu
+	YDAJSbmx5lWOVaL0zTb
+X-Received: by 2002:a05:6000:238a:b0:487:84:96d7 with SMTP id ffacd0b85a97d-48871974f03mr4191954f8f.53.1790258368630;
+        Thu, 24 Sep 2026 06:59:28 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c500sm15799213f8f.19.2026.09.24.06.59.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 06:59:28 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: dri-devel@lists.freedesktop.org, 
+ Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: Conor Dooley <conor.dooley@microchip.com>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+In-Reply-To: <20260910181918.31551-1-marek.vasut+renesas@mailbox.org>
+References: <20260910181918.31551-1-marek.vasut+renesas@mailbox.org>
+Subject: Re: [PATCH v3 1/4] dt-bindings: display: panel: Document 10"
+ Raspberry Pi Touch Display 2
+Message-Id: <179025836777.3234093.12909071047594857987.b4-ty@b4>
+Date: Thu, 24 Sep 2026 15:59:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] locking: uninitialized mutex priv->lock causes panic on sysfs write
-- [Medium] driver-core: premature sysfs registration creates probe failure =
-race
-- [Low] build: FIELD_MODIFY fails build with non-constant mask parameter
-- [Low] log: missing newline in edac_mc_chipset_printk format string
---
+Hi,
 
-commit a0e3a033fb0a852091db86b577bfa6524860f48e
-Author: Paul Louvel <paul.louvel@bootlin.com>
+On Thu, 10 Sep 2026 20:18:42 +0200, Marek Vasut wrote:
+> Document the 10" Raspberry Pi Touch Display 2 MIPI-DSI TFT LCD panel.
+> The panel is based on the Ilitek IL79600A controller.
 
-EDAC/cadence: Add Cadence DDR EDAC driver
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-This commit adds a new EDAC driver for the Cadence DDR memory controller
-found on the Renesas RZ/N1x SoC. It supports single bit error correction,
-double bit error detection, and software scrubbing.
+[1/4] dt-bindings: display: panel: Document 10" Raspberry Pi Touch Display 2
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/e40d71fa231fc510c87c92cfe40f60f18eaafa61
+[2/4] drm/panel: ilitek-ili9882t: Make enable GPIO optional
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/803d7e465616d2822deb10ec3bf8952e49ffd6ba
+[3/4] drm/panel: ilitek-ili9882t: Set prepare_prev_first
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/20f01db1545252cf81a39202920d0b032fb4501a
+[4/4] drm/panel: ilitek-ili9882t: Add support for Ilitek IL79600A-based panels
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/481b38467000602761215ba4a196e89f58248055
 
-> diff --git a/drivers/edac/cadence_edac.c b/drivers/edac/cadence_edac.c
-> new file mode 100644
-> index 0000000000000..7edac7795fa70
-> --- /dev/null
-> +++ b/drivers/edac/cadence_edac.c
-[ ... ]
-> +static void cdns_rmw(struct cdns_mc_priv *priv, u32 reg, u32 mask, u32 v=
-al)
-> +{
-> +	u32 regval;
-> +
-> +	mutex_lock(&priv->lock);
-> +	regval =3D readl(priv->io_base + reg);
-> +	FIELD_MODIFY(mask, &regval, val);
+-- 
+Neil
 
-[Severity: Low]
-Will this cause a build failure on some configurations? FIELD_MODIFY
-internally requires its mask parameter to be a compile-time constant,
-enforced via a build-time check. Since cdns_rmw() takes mask as a standard
-function parameter and isn't explicitly inlined, the compiler might not be
-able to resolve it as a constant.
-
-> +	writel(regval, priv->io_base + reg);
-> +	mutex_unlock(&priv->lock);
-> +}
-[ ... ]
-> +static int cdns_mc_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	mci->pdev =3D &pdev->dev;
-> +	priv =3D mci->pvt_info;
-
-[Severity: High]
-Is priv->lock missing a call to mutex_init()?=20
-
-The edac_mc_alloc() function allocates mci->pvt_info with kzalloc(), meaning
-the mutex is zero-initialized but never properly initialized. Calling
-mutex_lock() on this in cdns_rmw() can corrupt the wait list or trigger a
-kernel panic, which could be reached if userspace writes to the inject_ctrl
-sysfs attribute.
-
-> +
-> +	priv->io_base =3D devm_platform_ioremap_resource(pdev, 0);
-[ ... ]
-> +	ret =3D edac_mc_add_mc_with_groups(mci, cdns_edac_groups);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "failed to add mc\n");
-> +
-> +	ret =3D devm_add_action_or_reset(&pdev->dev, devm_cdns_edac_del, &pdev-=
->dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	writel(CDNS_DDR_ECC_INT_CTRL_MASK_ALL, priv->io_base + CDNS_DDR_ECC_INT=
-_CTRL);
-> +
-> +	irq =3D platform_get_irq(pdev, 0);
-
-[Severity: Medium]
-Could exposing the sysfs interface before claiming the IRQ create a race
-condition?
-
-Calling edac_mc_add_mc_with_groups() registers the controller and exposes
-sysfs attributes like inject_ctrl to userspace. If platform_get_irq() or the
-subsequent devm_request_irq() defers or fails, the probe unwinds and tears
-down the device. A concurrent userspace access during this window might
-interact with a partially initialized or destroyed state.
-
-> +	if (irq < 0)
-> +		return dev_err_probe(&pdev->dev, irq, "unable to get irq\n");
-[ ... ]
-> +	edac_mc_chipset_printk(mci, KERN_DEBUG, DRV_NAME, "ECC %s",
-> +			       (mci->edac_cap =3D=3D EDAC_FLAG_NONE) ? "disabled" : "enabled"=
-);
-
-[Severity: Low]
-Is this format string missing a trailing newline?=20
-
-The edac_mc_chipset_printk() macro translates directly to a printk() call
-and does not append a newline character automatically. Without it, subseque=
-nt
-logs might end up appended to the same line in dmesg.
-
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-paul-v7-3-=
-rc1-edac-v2-0-bc1406161ecc@bootlin.com?part=3D2
