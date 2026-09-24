@@ -1,133 +1,95 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90353A0EB8
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:38:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314CE3264D4;
+	Thu, 24 Sep 2026 09:39:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790242721; cv=none; b=AL72//7tmonrM95IRouacaYGgoz3rMmdfoWSs5x4buJ9K0LoY6d+7R8OSupWslPEUL/Ac4IowdZ5zaMZyYSlbpZiXS4WBjQCffp8yHjkkaf5bJ5sUcaf1/vF+HKVfT8382XaEW2NZ6+Ja8fWm0q1CmBicVeziiPcQbYO6HmD4yg=
+	t=1790242755; cv=none; b=k9c0XNNqwVAdq78a5we+BhwPHdRzwxdpXnA5v/LdCo64u+bsbkn0oz0UKAaIVG3ugRyG/1QlIBPsu1bHEbndMsha9yYpC/A7gJ3SJlFngKpbYwGC6b3iGjeyihIqjjJujoL97R2Ds0bODJAYcutIPvoKwlvfA2N7BfcF52MUPN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790242721; c=relaxed/simple;
-	bh=gU+WI2i7LDEKT6RINnzIXgb5K5O4tS+U3cDvjUwa9t0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eFBBqeTyAQ2pA9Sn6jidZk7klsA9daHYS2PdWw3NlXL+goMEqPou49evP0Fhcupp2tmHk2FSEpcsnVWBb8zQFml9HnsOtDzb6OvepmKhYHNkr7UN/rKjF3I+ttQUfl7IdigmLPhg7HsCsV0wZW5C1SbaHrcY3JeSddkJSrTo6Vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e512ee6so684181e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 02:38:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790242718; x=1790847518;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kpeffu0mh4OhtQGcEkTfxWhGK7BSRsx5zqS/No2TWCY=;
-        b=yIDY34V5ErUZiM3L9O5I6lmuEkgUYBU+N9hDSslv+8exRgwHAKBTqPwCnVVdmk/OcW
-         QsISCvRVnf57xLyJG9Y4hF2n3qWHM3lauPwsvvI8JpNL4xUscjdHSUcV0hCbfaC4qUsb
-         NSrRtbWn6Oxqs98/uz3IZTDUm2VS3UqRVOebGXbI7V8taLxu2fw913ZDdeWAksF3pKRz
-         pAW9YZ6d9orpoxZHWoA1jfj0V4sZE1YVggT1hvZUjIv7A5nGY97oNRhIyF4hYgno+08t
-         sGL1kqUrxyyIZY3C+94lJr99Mgcs8WYmgOopaeVuRg/GhZ2+2241UmGHAKlxa62NGBaO
-         xruw==
-X-Forwarded-Encrypted: i=1; AKwUvBwskwK3ZMXY6ugyF3r2G4wla/8GozL0Tco/jcsX8ALi95ypV6WvEqtA7hmNW1OI/mjA1pXtqVZbztgw@vger.kernel.org
-X-Gm-Message-State: AFuF++kFUP2flSkc4CzGKEI0AAGOLr2XZ2r9oJXV7gIZx42B3HbO3qjL
-	+uygBdGYIErRwclwkaivpXVJJ6E/1eV/KXRtfqrFf7ZOmBoGrI8EdRef8HVLR7BesCE=
-X-Gm-Gg: AYBFou0CGB8/OFkEjQ8GJO2ocUV+5HM8tDMHceFI4cLqxzZk0Zv0W1i4zD6CeaVMnPo
-	wfX3C1tAyrJsd8ilrOqRs2wtUwM9TI00y16dET2gfsRJmzQNGV0QivhMILd64QRrxQSIG5kBPXl
-	DUqLCrnZxujb3B9HgENfXH3QGyH96R6Z4hTVSmdHlg6KWF812Tzk2taFraw2RdqSep6Acljoo9B
-	tmHScnLT+aUQkfH/JclC/z2ObTyxbhoxAmSclxVYOybyWWVcG6oMZbujbhL8auBcYbgThrWxlzz
-	0UHy7efecRFn7Jy6AKIeqFfQVh0woj+TuYmrHMvmrSMDhj5ElkCbOZyBzzO02CMXFxlpQixvH0h
-	zHrwnexjFUXefoO35xQkd62X9gPrioqjWR2T4foK46NcMiWLRpRnpIZLaCO7tizIscHMsXFZumb
-	eVLf1p6zhIcEXMS5wX06Liys2T74BiD5CdWAnFTV7j/GCY0tHtVQ2StOij93lAodcs+Pvnx77as
-	LG6j2goS4lVfYa9Asmn4bKnFd3/IrawVOAf
-X-Received: by 2002:a05:6102:2922:b0:7a1:f951:f2fe with SMTP id ada2fe7eead31-7af1e4e7dcemr827979137.17.1790242718573;
-        Thu, 24 Sep 2026 02:38:38 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf5674f44sm6417069137.3.2026.09.24.02.38.37
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 02:38:38 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e512ee6so684174e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 02:38:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwoBOTzVZiYucE8GVpH/3GIyoyls+MIqjQ2+fT6CZD8gJo4JKuw3sbT1dHeJ1zJGnyHI5Dpom5u7344@vger.kernel.org
-X-Received: by 2002:a05:6102:524a:b0:7a7:12c0:f061 with SMTP id
- ada2fe7eead31-7af1cb979b6mr924094137.12.1790242717699; Thu, 24 Sep 2026
- 02:38:37 -0700 (PDT)
+	s=arc-20240116; t=1790242755; c=relaxed/simple;
+	bh=bT2W1UDZF4zdPaoV4uUSUjqsSdEIUuEZX91HiXXbM3U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ZcsUVYaokQxnswgenu81H+mB1n6JQJ8rwN5MNgR5xoHcIb3KjbL91hK5IzG4SvjG3JhjrDYQd50xomr59lyx0kOdogVFBrDWDkCKZTA95H/Ttl5u1oe1+0kzSgUe4fQMAC4YgOerUyEOCPwGgU8PYZ6jY2nWVH8VUNgsBujkS4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=heZJ5oIS; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="heZJ5oIS"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C3F57C2BCF5;
+	Thu, 24 Sep 2026 09:39:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790242754;
+	bh=bT2W1UDZF4zdPaoV4uUSUjqsSdEIUuEZX91HiXXbM3U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=heZJ5oISsm99AdOvdPiYsZstT5Yc3rpzFpCmQhUcmPum1jmT1hfNx95XxQVLy/ATD
+	 XzOmTBz0N5qNk3czuJ1PFUtMcxGGt1XMsdxg9i58LLtfS00nh74IjmaBdMb77aAzU9
+	 GEQO/PV+UbeGFZvM+r3KKSuIziPhXJsCA9cuyGdGMXaGKQ83mB1inDcDg189XFRaOD
+	 M2Gi6iHcxAzzUjJ6OPNiGcsl01NWYI9349Y/bSlbrVfoGbRsC/McSNv83u5o3oqlam
+	 HI9vThN3B2nXSFDcevgr1RzZktbRxqmhYkEQv9IttsXP6UpFahOWTEQapFTRstqZJZ
+	 h0Ku5zYDGTWZw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA380C98311;
+	Thu, 24 Sep 2026 09:39:14 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Thu, 24 Sep 2026 12:38:30 +0300
+Subject: [PATCH v3 1/3] dt-bindings: soc: mediatek: pwrap: add mt6572
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921232551.3129244-1-robh@kernel.org> <CAMuHMdV7D4RZ6zA_0jBqnCz8gee2=9bbNAXETbbNQxANhJ5pZg@mail.gmail.com>
- <CAD++jLmvZAen+p_Z-aVSqUnXMChAa7qbNvgv=mEQr9tFMiJFwQ@mail.gmail.com>
-In-Reply-To: <CAD++jLmvZAen+p_Z-aVSqUnXMChAa7qbNvgv=mEQr9tFMiJFwQ@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 24 Sep 2026 11:38:26 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWe0vGnyT9E1abK5cFTJgA8=U4mMsaMJAFJsXCAcJf9qw@mail.gmail.com>
-X-Gm-Features: AclHuK-4KFW8W7QHV9HlBHDtlVrNb0OLmBx3KedI1dCvkL0eI5l2kFSSP5LQI3w
-Message-ID: <CAMuHMdWe0vGnyT9E1abK5cFTJgA8=U4mMsaMJAFJsXCAcJf9qw@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: pinctrl: renesas: Allow power-source
-To: Linus Walleij <linusw@kernel.org>, Fabrizio Castro <fabrizio.castro.jz@renesas.com>
-Cc: "Rob Herring (Arm)" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-6572-pwrap-v3-1-64769b6446ac@protonmail.com>
+References: <20260924-6572-pwrap-v3-0-64769b6446ac@protonmail.com>
+In-Reply-To: <20260924-6572-pwrap-v3-0-64769b6446ac@protonmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Flora Fu <flora.fu@mediatek.com>, Alexandre Mergnat <amergnat@baylibre.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Roman Vivchar <rva333@protonmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790242752; l=991;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=uNVyUZDV8R4iF2b6R4zcLD0vBmolhtFBIa0lDNJRWD4=;
+ b=ftKlSyYqYUwhwaHAhRGBN11hEB23eQMqN7A1kzia/kjMRE6hb3OiWVgCC/d6sPjxSDM0ciaMo
+ NNpAy1U0jB6A2Yb5KlDkCS16tkgWUftcpAvI7Ai31nkUpFNR9Wp1flX
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-Hi Linus,
+From: Roman Vivchar <rva333@protonmail.com>
 
-On Thu, 24 Sept 2026 at 09:25, Linus Walleij <linusw@kernel.org> wrote:
-> On Tue, Sep 22, 2026 at 3:19=E2=80=AFPM Geert Uytterhoeven <geert@linux-m=
-68k.org> wrote:
->
-> > > +        power-source:
-> > > +          description: I/O voltage in millivolts.
-> > > +          enum: [ 1800, 3300 ]
-> (...)
-> > drivers/pinctrl/renesas/pinctrl-rzv2m.c does not implement support
-> > for PIN_CONFIG_POWER_SOURCE yet.  So I'd rather not advertise the
-> > power-source property in the DT bindings until the driver is fixed.
->
-> The DT bindings are used by U-Boot and BSD too, what if
-> their drivers use it?
+Add a compatible string for the mt6572 SoC.
 
-As this property controls voltage, I am mostly worried that having
-a user without implementation may cause ill-effects (damage?) on the hardwa=
-re.
-With the property missing in the DT bindings, we at least get a
-warning with dtbs_check.
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+ Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Fabrizio: do you have access to the hardware?
-Does it work? Perhaps the SDHI driver fails to probe due to the
-unhandled property?
+diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
+index e7c4a3984c60..a3cf11153fba 100644
+--- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
++++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,pwrap.yaml
+@@ -31,6 +31,7 @@ properties:
+       - items:
+           - enum:
+               - mediatek,mt2701-pwrap
++              - mediatek,mt6572-pwrap
+               - mediatek,mt6765-pwrap
+               - mediatek,mt6779-pwrap
+               - mediatek,mt6795-pwrap
 
-> It's a bit confusing but we're essentially maintaining the bindings
-> for those other projects as well, and it's why, for a good reason,
-> DT maintainers originally wanted to split out the bindings to a
-> separate repo. (This didn't happen because nobody wants the
-> job of driving and maintaining that, binding maintainers have
-> enough trouble as it is.)
+-- 
+2.55.0
 
-Sure.
 
-> I'd say just apply the patch.
-
-I can't seem to find registers to implement the voltage switching,
-so perhaps it's purely controlled externally, and the property should
-not be described at all?
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
