@@ -1,137 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701EC3515F1
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B0F37F72F;
+	Thu, 24 Sep 2026 14:13:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259141; cv=none; b=S3XSoi82b5Vt74lfkdyOFDKSuN0Y+b1Wn78BFlGO2n3wor2UX9g3hnPz++qnrTCHFm/VEWgfRlgbEHnVjkDi9SF0sOjo+x7yW/lwPTEV8O0+t3zG7IVW+Mr70DkE12SKFjgAWqX/7uIx5s2U6ZnJROee+jul1bzP64u7ROuKMDg=
+	t=1790259194; cv=none; b=LVRlpcPVAN23Vkqf0idAnUTwA3mdJ5wniS7uEvxZOZbl/Zitx4pKTtfNAzFWywxN6Uoxrtq4aRR/XPnmDSYuoTl5wUDQiFYtfJKcfWt06ovTqE75V2uT0qJr+m2lOqbdEK8SgjxuL8v/d5uB+TV7aCztTw/ouSKdYlW1JBkh+Wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259141; c=relaxed/simple;
-	bh=TO5YtWvMXVYIulw1O0nzfSWX35qDsw+VqT4FXLxmp8U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Zx81yx3Molf+Ky37NRCd/lLnmcJGAgJSR+WiOHBW+zz92gJ/yjgUYEH2wyerzyD3exMZNTrYf2JiZoTx4eYfCGoWKkKl/dKTs0xUxj0Ji/UG5kRhBg+fJ7+0TdFWMciA4bKb5heYSPNAzdxFLWBlPlDBdI3FvFftx3PvIvtcuG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mKcLY+lV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790259194; c=relaxed/simple;
+	bh=H7S9QBybBOV/orKznzXfZsxie+wZHaKwCvOd8EHwrR4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tIBD8eMSWVSvbw9RWOTusSUyaYKMWdMWXu3G2/AwGa3oBzYdw/Wqq6VsFKWS7vGNpSn+vjn375dy+HPVxyEDmk3x4nJwzAuT/vL76mMHQbMB04Evjh2okeEgwQKkzLCdsogOwTI7ulVbTykg/qDI32g+dl1cspgiaKq2us75U0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TpvRZZcA; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mKcLY+lV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D87A1F00893;
-	Thu, 24 Sep 2026 14:12:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790259139;
-	bh=0eseanD6N+BnVnRgpD8hYQ/vqwEYDeqLmeOpSXWUII4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mKcLY+lVZaE/CrZOKfP9MBSWBTKjyJ+iYnHZNVP/sCdqKSum+ajlP/QsWUD41SiRM
-	 AED+efXWExs4gQ/JN4ikMqZkrH7uGkKDegCEOgbRSoO+tIOCDwN3C2wndbzqBmS1Oq
-	 YfDNlVh7wCDgZdm05em69///TRiApmvnjMecmPvLLxjMu7TaSzReJblqHdovVu3mf/
-	 5037OTT8BhXlFWKXi/8BcN2mixWSq2idC7YyCmXNuAVkcJf7f+Zl9M6iCY19aCnww5
-	 fGt2N+9Fkgi85UhFjUdAuBDlRthy6KKcIXfgCCZd4jN9IoLTqLv4iTDZj2yye9Lvk+
-	 9+U3mg7us1Cvw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/11] drm/panel: s6e3ha8: add Samsung AMB630QY01
- (Google Pixel 3 XL) panel
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260924-crosshatch-panel-v2-8-08d5c7bf72fc@ixit.cz>
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
- <20260924-crosshatch-panel-v2-8-08d5c7bf72fc@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 14:12:19 +0000
-Message-Id: <20260924141219.7D87A1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TpvRZZcA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 371941A1002;
+	Thu, 24 Sep 2026 14:13:10 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F110460341;
+	Thu, 24 Sep 2026 14:13:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A9E99103294AA;
+	Thu, 24 Sep 2026 16:13:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790259188; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=cfSxVFfxQcjeZ+4V26PUzPWciO76dhK//kR7ut/JjGY=;
+	b=TpvRZZcAg0p8cCby9QOhCW7mZc9wUqYuovTju9j974G+Eck7NLcF90ObHDRai39w/sqwA/
+	bEVhG/KS+OA3CKIUM+Mq+pI0ZGAaFOU4x2vhF0ExhcmrjkidbTfwIgQeKt9pCNWDzsxCe5
+	ygr+gLy8ob7SkQMk6XyP7ESMVfhAtzYB8DIobB/Iy5Bqy0ML3uyevKL0MyVew0Jzdal1nw
+	Zduu7QYorvGV18UtPJj76YoK9FVKN7ckeQ3CAtm54YVCteI+8LBDOENwzT72bGEVQj05ru
+	eqvfxyLf5Q2uFBSSAkPXBQbc9ZmV7bMZPwbqXtlAOab+qTgXTRqv9Kq4CLslVg==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Subject: [PATCH v3 0/3] Add Renesas RZ/N1x EDAC driver
+Date: Thu, 24 Sep 2026 16:12:46 +0200
+Message-Id: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOQU7DMBBFr1J5jZHHk9gOK+6BWNiTMTUqceWkU
+ asqdyduN60oSCy/NO/NO4uRS+JRvGzOovCcxpSHdeDTRtDWDx8sU79uoZU2qgMj9/6wk7OVKAu
+ B5N6ThNjYLnYmUmvFCu4Lx3S8SN/er3s8hE+mqZrqxTaNUy6ny9cZ6t2fD2aQSvYKjXPaoQ7+N
+ eQ87dLwTPmr+q6wbn6FrQqMlhrw4O7g2jfr2wL7UKJXSWxbBwqhV5H/VVDhQNAoAwaY6GcB3hR
+ ofCjBVdI6BEcem+DxXrIsyzf5Zq2AzAEAAA==
+X-Change-ID: 20260916-paul-v7-3-rc1-edac-1f479f96fc57
+To: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ "Paul Louvel (Schneider Electric)" <paul.louvel@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790259185; l=2289;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=H7S9QBybBOV/orKznzXfZsxie+wZHaKwCvOd8EHwrR4=;
+ b=elkDcHIFRYVjxXQLFBf26dM2znn+8XYvZZjNjaCQwijy2oTaB7F0A5TSBQcAZtFSOtKl8CoQq
+ GGrFpi0ois+DEPBZ/ppcmF2lvZmdIHW+EMqNf/hS0RFnqP3+afeIaOj
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] drm/panel: s6e3ha8: unconditional DCS command in backlight update =
-causes DSI host wedge
---
+The Cadence memory controller found on Renesas RZ/N1x SoCs supports ECC
+with SECDED.
 
-commit cc2d04d32c8c8a9c163b61b933026b6a253b1aca
-Author: David Heidelberg <david@ixit.cz>
+The memory controller found on the r9a06g032 supports at most a single
+DIMM of DDR2/3, up to 2GB.
 
-drm/panel: s6e3ha8: add Samsung AMB630QY01 (Google Pixel 3 XL) panel
+Add the EDAC driver for this memory controller, and the relevant
+device-tree binding. Also add the EDAC node to the existing r9a06g032
+SoC base device-tree.
 
-The Google Pixel 3 XL (crosshatch) uses a Samsung AMB630QY01 6.3" 1440x2960
-flexible AMOLED panel, driven by the same S6E3HA8 DDIC as the Galaxy S9 pan=
-el
-this driver already supports. This commit adds the initialization sequences=
- and
-timings, along with a backlight device since brightness is controlled via
-standard DCS commands.
+Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
+---
+Changes in v3:
+- Patch 2:
 
-> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/=
-drm/panel/panel-samsung-s6e3ha8.c
-> index 2591b8c1a7753..e02f1d9f0dcd0 100644
-> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+    - Added trailing newline to end message.
 
-[ ... ]
+    - Forgot mutex_init() in probe...
 
-> @@ -271,6 +294,136 @@ static const struct s6e3ha8_desc s6e3ha8_amb577px01=
-_wqhd_desc =3D {
+    - Registering the MC at the end of the probe.
 
-[ ... ]
+- Link to v2: https://patch.msgid.link/20260924-paul-v7-3-rc1-edac-v2-0-bc1406161ecc@bootlin.com
 
-> +static int s6e3ha8_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +
-> +	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+Changes in v2:
+- Patch 2:
 
-[Severity: High]
-Could this transmission wedge the display pipeline? In
-drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c within
-s6e3ha8_bl_update_status(), this DSI transmission is executed unconditional=
-ly
-without verifying if the panel's regulators and DSI link are active (e.g.
-lacking a prepared state check).
+    - FIELD_MODIFY() is always called with a compile-time constant mask
+      in this driver. I see no problem here.
 
-Writing to the sysfs brightness attribute while the display is suspended or
-disabled causes the driver to send DCS commands over the DSI bus when the D=
-SI
-host clocks and PHY may be gated or panel regulators disabled.
+    - Use devm_clk_get_enabled() so the driver does not need to store
+      struct clk_bulk_data outside the stack space.
+      Clocks are not manipulated outside of probe.
 
-On many platforms (including the target Qualcomm sdm845), unclocked accesses
-or DSI timeouts can result in a system crash (NOC error) or permanently wed=
-ge
-the display pipeline.
+    - Introduced a mutex for rmw operations in inject_ctrl_store() sysfs
+      callback. Rename drv to priv in cdns_rmw().
 
-> +}
+    - Return IRQ_NONE if the stat int register is empty.
 
-[ ... ]
+    - I see no reason to follow Sashiko last remark on this patch.
+      Is an unhandled interrupt a big deal in this case ?
 
-> @@ -313,6 +466,13 @@ static int s6e3ha8_probe(struct mipi_dsi_device *dsi)
-> =20
->  	priv->panel.prepare_prev_first =3D true;
-> =20
-> +	if (priv->desc->has_backlight) {
-> +		priv->panel.backlight =3D s6e3ha8_create_backlight(dsi);
+- Link to v1: https://patch.msgid.link/20260924-paul-v7-3-rc1-edac-v1-0-70be37c41a18@bootlin.com
 
-[Severity: High]
-Does this code create a race condition for early or late backlight updates?
-In drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c, this exposes the backlight
-interface to userspace in s6e3ha8_probe(), creating the window for the race
-condition where sysfs writes can trigger before the panel is prepared or af=
-ter
-it is unprepared.
+---
+Paul Louvel (3):
+      dt-bindings: edac: cdns,ddr-edac: add Cadence DDR EDAC binding
+      EDAC/cadence: Add Cadence DDR EDAC driver
+      ARM: dts: renesas: r9a06g032: add EDAC node
 
-A user-space process or udev rule could write to the sysfs brightness
-attribute after the panel has been disabled via drm_panel_unprepare/disable.
-The sysfs interface is typically accessible to unprivileged users, making t=
-his
-easily reachable from user-space.
+ .../devicetree/bindings/edac/cdns,ddr-edac.yaml    |  62 ++++
+ MAINTAINERS                                        |   7 +
+ arch/arm/boot/dts/renesas/r9a06g032.dtsi           |  10 +
+ drivers/edac/Kconfig                               |  10 +
+ drivers/edac/Makefile                              |   1 +
+ drivers/edac/cadence_edac.c                        | 342 +++++++++++++++++++++
+ 6 files changed, 432 insertions(+)
+---
+base-commit: d9f39b2c0579f313d14954a9ec584511c543aab5
+change-id: 20260916-paul-v7-3-rc1-edac-1f479f96fc57
 
-> +		if (IS_ERR(priv->panel.backlight))
-> +			return dev_err_probe(dev, PTR_ERR(priv->panel.backlight),
-> +					     "Failed to create backlight\n");
-> +	}
+Best regards,
+--  
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-crosshatch=
--panel-v2-0-08d5c7bf72fc@ixit.cz?part=3D8
