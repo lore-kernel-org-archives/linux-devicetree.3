@@ -1,125 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784A63BED2D
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 23:53:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D2E224AF2
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 23:56:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790294001; cv=none; b=NQXjDhHx9UbxeCodvhk0bEyF1oZl6gfD2kGqiz47Yq6TtrYQ/J91hoBXOgdkJsDhhFeeV2tSjXt0N42st6954YNWAndv+M9LwK2MEjB0Lj29XUM/ZBJlwokg7b5cHxKagUyIxoF/IItdVgrKusyQ+rLTXtWDwTMFZ5QxLD7n9zA=
+	t=1790294163; cv=none; b=YMtCwwk74BHcTvWT72OJL5R5VjJzXn9VXxqGXjGj2AMSYgvcPwenpZW5GiDGjEx7tDGkMND10txqmP/K3EWu12CxYpj6T5fHNHkNqme8EqZaBtt24Hf7QxyOt/XKKifg0Aw7b3p0fUV5Uxei9WVwuCp8N7ZH/au9v8dOktoriZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790294001; c=relaxed/simple;
-	bh=t3C9hnNFE46c1zX0F0F+qaWzqGs5a/ON0kZnktWdDQI=;
+	s=arc-20240116; t=1790294163; c=relaxed/simple;
+	bh=svoXdYSZRzb8B4HiB13yG+TqW7/aSQBenatZJkPYZo8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Em/peCd5+N+cM8Dl+iyToO2a7tF+1rHyk0Qg7+R2B0jvRZOLKU4aZLACNvGqklvRDGqRghp3EMh0fHSUJEoBzF0ttLs79T4HKh4hB1IeyT7dEoWcrJtK8eLEYUYQNlT5iKAGx54xfm16gJ7ovzcgSxnqnDD3uHdal6Rs88lF55E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dZ/rANRx; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nUMp9dv4il1GCd7B3IQbfqlIRS18CTq0F2b4Y7Ax9D/t9R+ZSV7wGs8x0H9W9zE9drzOPo6kRsjueTAsZUaf3sX7e9VDYT/A8ewuCCGuUAKuW0YFs7el7WKfWnDhLAj8fncpLpwd1h/KfVbnl7oxQQWiONfmH6mWsaXw7ywLcD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YA37WcNv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZ/rANRx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B50161F000FF;
-	Thu, 24 Sep 2026 23:53:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YA37WcNv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A38D31F000FF;
+	Thu, 24 Sep 2026 23:56:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790294000;
-	bh=Jg769T8ZSwrrMe9n8KsCrrSEcNnX1KQWHeTIT8NohGM=;
+	s=k20260515; t=1790294162;
+	bh=T8TLWelrEAtBSFgkpQh6afXe70tUSgkdcOLoQGnuc6Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dZ/rANRx1U80Eni14wxXmPCXWXPYWiVN1fAxEck/LbV9/+tPNBkeLUR2s+Ng0BNjH
-	 17VtM4JHCUMnOxjMTGf1M13qrrSFtMKeiZnqk7LPqBwVP/+G+L14knbpHZSiqJYq7D
-	 Cwfa8J3oCwtXcXE7HDxQuQR0ZeBZCm2UB6nV8elfxxSX/YQEH5UIlr0wWI/i8SKAxR
-	 yeRfW2yqu+H7f08zryvCqGVlRx/0PvEqsXtRAOX+3AiVS2MS6Lq7P2OmGzAb9uXDaD
-	 AF4LznEec/D7O06y+ldLW+EMPpVJmg+9+vpEZpDPeAdeZhcq2Wn2oM88k5Go9W2v59
-	 NQRQN0Tx1LQtQ==
+	b=YA37WcNvYQBUKuRnXk5dmXSkHBXeeZd1gdYnkB216VdQl8vrKFADwJP4QA+qjyj1m
+	 wYejtouq0E+zRzYilhs/tKYcJ0qw6xEDfpqd3a/kFM2scL0mOijjVvMVg5v4hsSvEr
+	 fIcfL8lvksY7VFW/JQnx2Ax2mKMziuYGV5IAdNkZxWoessuygmZs8vdLqKo5S0Acz7
+	 wTFR4h+8j24nrREvpqePg17Xx7jFXV95k0EjF2LN1q8sP+uAlUxqyusOzJxqWDdZ62
+	 Va4JluUsbmK19G/jiIIe+n2QvjQ07VSoDR3LaiLujxQnQy2eJjYCLTLmUWQlb3yDd4
+	 aWMZoGtQaWPCg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCHv3 2/2] ARM: dts: broadcom: model USB VBUS power with
- regulator-fixed
+Subject: Re: [PATCH v2 2/3] i2c: designware: Support per-variant reg/bit
+ offsets and intr handling
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rosen Penev" <rosenp@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260924233831.127617-3-rosenp@gmail.com>
-References: <20260924233831.127617-1-rosenp@gmail.com>
- <20260924233831.127617-3-rosenp@gmail.com>
+To: "Aniket Limaye" <a-limaye@ti.com>
+Cc: intel-xe@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260925-tda54-upstream-i2c-v2-2-261785e58493@ti.com>
+References: <20260925-tda54-upstream-i2c-v2-0-261785e58493@ti.com>
+ <20260925-tda54-upstream-i2c-v2-2-261785e58493@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 23:53:19 +0000
-Message-Id: <20260924235319.B50161F000FF@smtp.kernel.org>
+Date: Thu, 24 Sep 2026 23:56:01 +0000
+Message-Id: <20260924235601.A38D31F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] usb: bcma: unclaimed vbus-supply regulator disables USB power afte=
-r 30s
-- [Medium] usb: bcma: silent power management failure due to missing vcc GP=
-IO
+- [High] i2c: designware: out-of-bounds MMIO access via debugfs on non-AMD =
+models
 --
 
-commit 5639b159d14f6b05d776251fb2e51af77ccdaf1b
-Author: Rosen Penev <rosenp@gmail.com>
-Subject: ARM: dts: broadcom: model USB VBUS power with regulator-fixed
+commit 4dc8f1b4bfdf49722d6f1e25100bf25c45d88afb
+Author: Aniket Limaye <a-limaye@ti.com>
+Subject: i2c: designware: Support per-variant reg/bit offsets and intr hand=
+ling
 
-This commit replaces the undocumented vcc-gpio property on usb2/usb3
-controller nodes with the standard vbus-supply and regulator-fixed model.=20
-Boards now declare a regulator bound to the chipcommon GPIO, preserving=20
-polarity and using regulator-boot-on to mirror the CFE state.
+This commit refactors the DesignWare I2C driver to support per-variant
+register offsets and interrupt handling. It converts DW_IC_* to a logical e=
+num,
+using a regmap to internally translate to physical offsets. It also moves t=
+he
+interrupt-acknowledgment pattern into a common helper driven by a per-varia=
+nt
+table.
 
-> diff --git a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts b=
-/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts
-> index f5c95c9a712ec..80414c72f9129 100644
-> --- a/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts
-> +++ b/arch/arm/boot/dts/broadcom/bcm4708-buffalo-wxr-1750dhp.dts
-> @@ -101,6 +101,16 @@ led-usb {
->  			trigger-sources =3D <&xhci_port1 &ehci_port1 &ohci_port1>;
->  		};
+Link: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-2-b0b9f77be1=
+8b@ti.com/
+
+> diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/bus=
+ses/i2c-designware-common.c
+> index a1eca6cd4b75e..eeeb1f1892054 100644
+> --- a/drivers/i2c/busses/i2c-designware-common.c
+> +++ b/drivers/i2c/busses/i2c-designware-common.c
+> @@ -72,11 +72,55 @@ static const char *const abort_sources[] =3D {
+[ ... ]
+>  static int dw_reg_read(void *context, unsigned int reg, unsigned int *va=
+l)
+>  {
+>  	struct dw_i2c_dev *dev =3D context;
+> =20
+> -	*val =3D readl(dev->base + reg);
+> +	*val =3D readl(dev->base + dev->regs[reg]);
+> =20
+>  	return 0;
+>  }
+[ ... ]
+> @@ -143,11 +189,11 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *de=
+v)
+>  	struct regmap_config map_cfg =3D {
+>  		.reg_bits =3D 32,
+>  		.val_bits =3D 32,
+> -		.reg_stride =3D 4,
+> +		.reg_stride =3D 1,
+>  		.disable_locking =3D true,
+>  		.reg_read =3D dw_reg_read,
+>  		.reg_write =3D dw_reg_write,
+> -		.max_register =3D DW_IC_COMP_TYPE,
+> +		.max_register =3D DW_IC_REG_MAX - 1,
 >  	};
-> +
-> +	usb_power: regulator-usb {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "usb-vcc";
-> +		regulator-min-microvolt =3D <5000000>;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		regulator-boot-on;
-> +		gpios =3D <&chipcommon 10 GPIO_ACTIVE_HIGH>;
+>  	u32 reg;
+>  	int ret;
+> @@ -163,12 +209,9 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *dev)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	reg =3D readl(dev->base + DW_IC_COMP_TYPE);
+> +	reg =3D readl(dev->base + dev->regs[DW_IC_COMP_TYPE]);
+>  	i2c_dw_release_lock(dev);
+> =20
+> -	if ((dev->flags & MODEL_MASK) =3D=3D MODEL_AMD_NAVI_GPU)
+> -		map_cfg.max_register =3D AMD_UCSI_INTR_REG;
+> -
 
 [Severity: High]
-Does this regulator definition need regulator-always-on?=20
+By unconditionally setting max_register to DW_IC_REG_MAX - 1, could this ex=
+pose
+the AMD-specific register (AMD_UCSI_INTR_REG, logical ID 40) via the regmap
+debugfs interface on all models?
 
-The bcma-hcd driver in drivers/usb/host/bcma-hcd.c:bcma_hcd_probe() attempts
-to fetch a raw "vcc" GPIO rather than claiming this vbus-supply regulator. =
-As
-a result, the new regulator remains unclaimed with a zero use count, and the
-regulator core will automatically disable USB power 30 seconds after boot w=
-hen
-it disables unclaimed non-always-on regulators.
+If a privileged user reads the regmap registers file in debugfs on a non-AMD
+platform, the iteration would reach logical register 40. This translates to
+physical offset 0x474 in dw_i2c_reg_offsets, which dw_reg_read() would atte=
+mpt
+to read via readl(dev->base + dev->regs[reg]).
 
-> +		enable-active-high;
-> +	};
->  };
-> =20
->  &srab {
-> @@ -130,7 +140,7 @@ port@4 {
->  };
-> =20
->  &usb3 {
-> -	vcc-gpio =3D <&chipcommon 10 GPIO_ACTIVE_HIGH>;
-> +	vbus-supply =3D <&usb_power>;
-
-[Severity: Medium]
-Will replacing the vcc-gpio property with vbus-supply break power management
-for this device?
-
-When bcma_hcd_probe() fails to fetch the vcc GPIO descriptor, the usb_dev
-gpio_desc remains NULL. Later power management calls, such as during suspend
-in bcma_hcd_suspend() which calls bcma_hci_platform_power_gpio(), will simp=
-ly
-return early upon seeing a NULL descriptor. This silently skips all hardware
-power control operations on state transitions.
-
->  };
-> =20
->  &usb3_phy {
-
-[ ... ]
+Could this lead to an out-of-bounds MMIO read and potentially cause a system
+crash (such as a bus fault or SError) or hardware hang, since the mapped MM=
+IO
+region on standard platforms might not extend to 0x474?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924233831.1276=
-17-3-rosenp@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-tda54-upst=
+ream-i2c-v2-0-261785e58493@ti.com?part=3D2
