@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A8304B0489;
-	Thu, 24 Sep 2026 17:07:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D3946D572;
+	Thu, 24 Sep 2026 17:13:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269666; cv=none; b=HlZromo+6xRKy7T5I2OB44+w8jmoJbTU6+mwV6HlqTz1eVfAOxFvHrOaJ0r7Twsk25r6CLfrthGJIn05gV/k0P8Lf5uW364gx+GGxUpEZATP597fUostlzuWJBXp7mrTsf0/6Ms9Fz5LzsYQcqr+xdOfUPSv8j72GLUsnlxqytU=
+	t=1790270037; cv=none; b=tJdHniqs6XX/m77UhISxEHLxFQAi8HTyeDtkPwYROGGgVGhdBSw24XEnw1eI0qOtBTkM2JJGHL5gryf2PU8Wzqtcz+Wl04/pR+GbSRw/owgpiM86YvJkuzEuK5ekROw7Vx/6eNZ2N3QU/V+HwjuZq5SCSNcb99X5NTFCG4nHpH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269666; c=relaxed/simple;
-	bh=644BvEwPB5tOoL1EHbN0cP//S6FbslV/jzIUe7lQuCQ=;
+	s=arc-20240116; t=1790270037; c=relaxed/simple;
+	bh=oMYMjcd8L2nmMwXDcuOfPOv2K3WHiTOkN34lT9IRcEo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j/8TK8uxVvSRDZ1mKACccwORXnE2Prhbs+zdPtab1DpPxsfs/b7BiU3Q67qhhBp60mKhKWtf+JqY/5RM12fY28J193UTiW8T2FKBZBYoFa7mOHg5XxS9IO2Y1A1M/U6jWefmTwxLgYGc74e73WU12izOtiAZRngOjw72aVWiaM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dyd4wWdW; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=r35Ubp+k1LgQ4REN0L9VKwkGzFZT4UHPgMnOGIqSFXZr8GEjF/PhB6Vw3UpDNt5ZhT3PFIJQkz4u0IMuW9zWHVBAQNx8iwU8DdLs66GToc0xY/rAGZFkxAbmagIx95X77mHYpmRnu5Hv7js+Q7VXjOzCaDHjTKcD9vZIqqwZ8o4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RInQysGL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dyd4wWdW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEFC11F000FF;
-	Thu, 24 Sep 2026 17:07:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RInQysGL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5432C1F000FF;
+	Thu, 24 Sep 2026 17:13:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790269665;
-	bh=cyMegrf82e7WKPoUzbh4gaX6JpbgZe+DZgjW9g4vKpk=;
+	s=k20260515; t=1790270036;
+	bh=tOSs9On0A5KQ+YOKLRSNJVPBQeF37KwtGaQYwZQafn0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Dyd4wWdW7MjntaSCG+6LZklQY6GmT39nQUvfIG6IPyRoXviwRmKe9awlvkY7km1g/
-	 0PbKMdaIjnf/fpiYm9N9YZ4mC5dUKC3GwedwX3JPNqIkeFJmbiGAysgfjd7Do/Si3R
-	 qOwilo9l3Y/m8sYd+kuGEqVJ4Dn1+2YHjvrmpi3nbz/HNvONVxlAvOTM5h13kFlj9B
-	 p6dZ25K7jnjB2/HUQ77gfVgv2muKBBKtDvVC3YTEuEdBDCW3H2x7c91Cy+mY6WZAlq
-	 SnicNU4o369IEovaRVOPGwN7KAl8DsfEbuYOK9+LCdqQxnmvwvppMo0xAKWSZV7JJ5
-	 DlgV4XztEjVHg==
-Date: Thu, 24 Sep 2026 18:07:39 +0100
+	b=RInQysGLo+rrbwCaG8KnxISxEBx62d93BwOh9Xizb/knd9KAmgxFGCy7S5mkhxQ7w
+	 1uQa8nAGrUv6fWaxzZ/jILsMWoNCmxgXxpuzTvpIzrMD8H+GcA4h4FoiQnJc08ADet
+	 U/UHlg+bPPdqyPlkdLGwEXn6CXhvLcj2mUcZ0JVjmDwTCHySp1Z56FM1+T/fyR5Pus
+	 BNb/AnWOlqo2sc3ecfszxtAsCxX2kz/gfZIs9mYH4+1+U80vBiaoO2QlqZdSiI4qCe
+	 aKpBSYgWo80eudzx5LLWWZQCTG9osxTZ47Za4Fz4wq0msPn+iDC4da/W+LhB1lPEQn
+	 HWkT5XfTJHYjg==
+Date: Thu, 24 Sep 2026 18:13:52 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, andrew@lunn.ch,
-	hkallweit1@gmail.com, linux@armlinux.org.uk,
-	Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com, jie.han@motor-comm.com
-Subject: Re: [PATCH net-next v21 1/3] dt-bindings: net: Document Motorcomm
- YT8824 PHY package
-Message-ID: <20260924-vowed-roulette-abda42cec444@spud>
-References: <20260924075048.4060414-1-kyle.switch@motor-comm.com>
- <20260924075048.4060414-2-kyle.switch@motor-comm.com>
+To: Eliav Farber <farbere@amazon.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Talel Shenhar <talel@amazon.com>,
+	Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/6] dt-bindings: interrupt-controller: amazon,al-fic:
+ add error/fatal groups
+Message-ID: <20260924-majority-amazingly-58df3d86190c@spud>
+References: <20260924062311.37308-1-farbere@amazon.com>
+ <20260924062311.37308-4-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,148 +46,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KEBf6CeFx3H+YGOi"
+	protocol="application/pgp-signature"; boundary="IcBKFFBHGmwn/TaJ"
 Content-Disposition: inline
-In-Reply-To: <20260924075048.4060414-2-kyle.switch@motor-comm.com>
+In-Reply-To: <20260924062311.37308-4-farbere@amazon.com>
 
---KEBf6CeFx3H+YGOi
+--IcBKFFBHGmwn/TaJ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 24, 2026 at 03:50:46PM +0800, Kyle Switch wrote:
-> Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
+On Thu, Sep 24, 2026 at 06:23:08AM +0000, Eliav Farber wrote:
+> FIC v2 and later expose two additional interrupt groups alongside the
+> legacy group - an error group and a fatal group - each described by its
+> own node and matched by a distinct compatible string. Turn the single
+> compatible into an enum covering all three:
+
+Without any explanation relating to hardware, I find this very hard to
+understand. Nodes and compatible strings are devicetree concepts, that
+portion of the commit message should explain hardware detail.
+
+What this sounds like from your commit message is that you have a new
+revision of this block, and instead of adding an al-fic-v2 compatible,
+you're using two new compatibles to describe the new features and using
+the old compatible to describe the common featureset. Without a dts, I
+cannot say for sure.
+
+pw-bot: changes-requested
+
 >=20
-> Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+>   amazon,al-fic         - legacy group
+>   amazon,al-fic-error   - error group
+>   amazon,al-fic-fatal   - fatal group
+>=20
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
 > ---
->  .../bindings/net/motorcomm,yt8824.yaml        | 69 +++++++++++++++++++
->  MAINTAINERS                                   |  2 +
->  2 files changed, 71 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt882=
-4.yaml
+>  .../bindings/interrupt-controller/amazon,al-fic.yaml         | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 >=20
-> diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml =
-b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-> new file mode 100644
-> index 000000000000..fd62b309e7ff
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-> @@ -0,0 +1,69 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/motorcomm,yt8824.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: MotorComm YT8824 Ethernet PHY
-> +
-> +maintainers:
-> +  - Kyle Switch <kyle.switch@motor-comm.com>
-> +
-> +description:
-> +  Motorcomm YT8824 Ethernet PHY is a PHY package of 4 PHYs.
-> +
-> +$ref: ethernet-phy-package.yaml#
-> +
-> +properties:
-> +  compatible:
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/amazo=
+n,al-fic.yaml b/Documentation/devicetree/bindings/interrupt-controller/amaz=
+on,al-fic.yaml
+> index 26bc05dee0bc..f43039901bd3 100644
+> --- a/Documentation/devicetree/bindings/interrupt-controller/amazon,al-fi=
+c.yaml
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/amazon,al-fi=
+c.yaml
+> @@ -11,7 +11,10 @@ maintainers:
+> =20
+>  properties:
+>    compatible:
+> -    const: amazon,al-fic
 > +    enum:
-> +      - motorcomm,yt8824-package
-> +  phy-mode:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    enum: [ internal, 10g-qxgmii ]
-
-This should be after ref, but also have a vendor prefix.
-Additionally, the qcom ethernet-phy-package user also has a mode
-property. Net folks, should this be made common?
-
-> +  reg:
-> +    description:
-> +      The absolute MDIO address of the YT8824 shared top extend
-> +      register block.
-> +      For internal mode, this is fixed at 9;
-> +      For external mode it is (base MDIO address of the four
-> +      member PHYs) + 4.
-> +      Note that this is NOT the base ID of the first member PHY.
-> +required:
-
-Please use blank lines between properties and other elements of the
-binding.
-
-
-> +  - compatible
-> +  - phy-mode
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    mdio {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        ethernet-phy-package@9 {
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +            compatible =3D "motorcomm,yt8824-package";
-> +            reg =3D <9>;
-> +
-> +            phy-mode =3D "internal";
-> +
-> +            ethernet-phy@4 {
-> +                reg =3D <4>;
-> +            };
-> +
-> +            ethernet-phy@5 {
-> +                reg =3D <5>;
-> +            };
-> +
-> +            ethernet-phy@6 {
-> +                reg =3D <6>;
-> +            };
-> +
-> +            ethernet-phy@7 {
-> +                reg =3D <7>;
-> +            };
-
-Unless the addresses and numbers of phys are entirely unconstrained, I
-think you should add some pattern properties for them.
-
-Thanks,
-Conor.
-
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index e3ce77c839b0..ed7af1bd9521 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -18409,8 +18409,10 @@ F:	drivers/net/ethernet/stmicro/stmmac/dwmac-mot=
-orcomm.c
+> +      - amazon,al-fic
+> +      - amazon,al-fic-error
+> +      - amazon,al-fic-fatal
 > =20
->  MOTORCOMM PHY DRIVER
->  M:	Frank <Frank.Sae@motor-comm.com>
-> +M:	Kyle Switch <kyle.switch@motor-comm.com>
->  L:	netdev@vger.kernel.org
->  S:	Maintained
-> +F:	Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
->  F:	Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml
->  F:	drivers/net/phy/motorcomm.c
-> =20
+>    reg:
+>      maxItems: 1
 > --=20
-> 2.25.1
+> 2.47.3
 >=20
 
---KEBf6CeFx3H+YGOi
+--IcBKFFBHGmwn/TaJ
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVY2wAKCRB4tDGHoIJi
-0kBtAP9gvzvMgaC7OCQYcF5YZ4f9JyQsltwQa+9COQutQHKzaQEA+BY2RPtGkYxJ
-4BDLPdsVwy4Rg6wCPlqHApzUwwK2Fgs=
-=winZ
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVaUAAKCRB4tDGHoIJi
+0q/gAQC+8yal4gE4Pc8Nvs7fInQmxthkQfQJ1xI1i+IuIAGgkgD/d8en0ZVIH3So
+7ZKFxz3THDrzsGAAO0bfYW4bWBuULgk=
+=/w8q
 -----END PGP SIGNATURE-----
 
---KEBf6CeFx3H+YGOi--
+--IcBKFFBHGmwn/TaJ--
