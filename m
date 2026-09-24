@@ -1,105 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5192E975E
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:16:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228ED3B95FF
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:20:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790241410; cv=none; b=n/roVRx2lb2IlWF4Qhq1h3V4PAERZG2d0I+LYpu22DwFsLKJxIwqqgeRoe7yD9Y2z2JUUkEwGm/p9ZjrSk7FxljgRlz1Agvz6kT4GHL1dVsK/TpnZX4aRCf1d+8cv4KlebprmpTXuwicx5AoI5X6CSAZrG/D+feP2W+WHkJ88I0=
+	t=1790241616; cv=none; b=AF/BsQZM/tR8jDDm1/7qYqLs+dHEiGJsQ+bL4Xg/GpAQi5DUVultr3ktcW8gaQubSoJdhPaMZfnGtoSKQzgqd2dtNALuNy62iqCO+Orfshjrof1GSirVeIQ14o+VPcbLmm7Zv6J595DimnBzmX/fCaBrUJQxGntozofzGuKpa3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790241410; c=relaxed/simple;
-	bh=3SvfY0uZk5zjkmzkBwkIy11DFww5gFnXlhqQTnlwgdw=;
+	s=arc-20240116; t=1790241616; c=relaxed/simple;
+	bh=gXmO1V4lldzIiWbnSg0cFUWxzxzrT67bGtIc+1KMz+U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FlIjgap0DCUHVaWjrK93r0InLLLmEaTPgu9BRs7z+Z++l4oy15qQR7gdnorhs6doWD8c68QGKzKJKkVnFvhbC45ydMNK61c5EdJp8Jhv6MWfYUskPhuVatOLOuR0Dp/ELhuoRSE8zRCGr0DjvuhTdXycGAgcCCrQo97i8E+Ln/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OfvBPQpR; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Zqto1qbyXRAiv9TZNb3/9zcDubF3ZZYH2T7mj91Da9yHe4cpWy9AzQvLLBYW0nfpm2FEernGe0aImjDNaRnLESDC5Pu2x7Q/vGkfHO8vB6pxtbBopoz+rIxY8d2H5/shWxn/iPjisiL+cj4ZYM6y/wpuZuSGGiKgPqofb03MjuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XOS7ddfd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OfvBPQpR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18F91F000FF;
-	Thu, 24 Sep 2026 09:16:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XOS7ddfd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9851F000FF;
+	Thu, 24 Sep 2026 09:20:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790241407;
-	bh=F2o5QZ393GwJwCz8dCZMlDAxyUvBzNTSDRTaEoaq7tI=;
+	s=k20260515; t=1790241614;
+	bh=KSOlNrUCW/HHGq9448xZQlZ++yjIq8AB/M8zrvV9roU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OfvBPQpRso6Y1dnDosLsrjE19IdU2TjhJDW0mqXR0wljQK+n6frV12sEvJpiyHTYH
-	 G4mWd4nbq9BxKw/j+EmOLENOTZJKPOSQrwdraFQ42oDmuNM8Gvm5uvTrnKzZcbw/Dh
-	 +q2eelXhUbayhF79kVLLvJE82jzrVTFhZkpcR8TmMFGCE4N5p021T1KeHUErEKbjoE
-	 tw7wKlDN4hhUl4+mtWta8uVcEScVOZTasoZ/8V/xdupppgcGFnE4Liw3vvJ1puUhDp
-	 fEbviFgBJfFZjl0SzFuicTqOarHMggRy6br9CzOqbFgAmdh0OL551MlAP9ZnoZa51z
-	 v5JLppAJQvy/A==
+	b=XOS7ddfdnb1X0N1LZLejLcIVCOuDcQ59HFSsbVTYZ/tJlLpqHOywnqhTtvYFfZNOh
+	 6ZJTPS2xPzxS6b4TJ2OTGjzrM1UYGhOOgmfnS+rDOsbHVLR7/f8mMcaX8q4AIfUVEX
+	 6QmYNEJfBxrZGifS4LuabXtxGgMfoXgSYL9ph2ZScwhxrPUeVcNqhxemgTTC1dzT5b
+	 XS65l5LrCFYuNmzgMRL1bbAzK8eRv1p8helXVJUR0ExLC2TG/BkewTMK1LY7+p4xn2
+	 mDtDTNJ3GbaMEGE/O7V4khdqM44odfnG4alVypHJffGQk6F7xHhdWcDzPmOtk+rsWt
+	 q4qPGZxveW/Eg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 5/7] ARM: tegra: lg-x3: Add flash LEDs controller
+Subject: Re: [PATCH v1 7/7] ARM: tegra: lg-x3: Add backlight LED controller
  node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260924090608.28734-6-clamor95@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260924090608.28734-8-clamor95@gmail.com>
 References: <20260924090608.28734-1-clamor95@gmail.com>
- <20260924090608.28734-6-clamor95@gmail.com>
+ <20260924090608.28734-8-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 09:16:47 +0000
-Message-Id: <20260924091647.A18F91F000FF@smtp.kernel.org>
+Date: Thu, 24 Sep 2026 09:20:14 +0000
+Message-Id: <20260924092014.7A9851F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] dts: hw misrepresentation of single flash LED as multiple nodes
+- [High] drm: display probe deferral due to missing lm3533 DT support
+- [Medium] mfd: lm3533: GPIO lookup failure due to mismatched property name
+- [Low] dt-bindings: missing schemas for new compatible strings
 --
 
-commit 1c030c2896d9a641e8c683129fc55fbf9766228a
+commit 6d421d459ccd001174a12d39a40edbf6cba8d6fc
 Author: Svyatoslav Ryhel <clamor95@gmail.com>
-ARM: tegra: lg-x3: Add flash LEDs controller node
 
-This commit adds a device tree node for the ti lm3559 controller used for
-flash leds on the tegra30 lg-x3 device. It configures the controller and
-sets up two separate child nodes to represent the flash.
+    ARM: tegra: lg-x3: Add backlight LED controller node
+   =20
+    Add node for TI LM3533 LED controller used in this device for panel
+    backlight.
 
+> diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts b/arch/arm/boot=
+/dts/nvidia/tegra30-lg-p880.dts
+> index f888987ce1340..3a5e66d869b1b 100644
+> --- a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
+> +++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
+> @@ -155,6 +155,8 @@ panel@1 {
+>  				vdd-supply =3D <&vcc_3v0_lcd>;
+>  				vddio-supply =3D <&iovcc_1v8_lcd>;
+> =20
+> +				backlight =3D <&backlight>;
+
+[Severity: High]
+Does this cause the display panel to permanently defer probing?
+
+When the lm3533 driver probes, it unconditionally calls dev_get_platdata()
+and returns -EINVAL if pdata is missing:
+
+drivers/mfd/lm3533-core.c:lm3533_device_init() {
+    ...
+	if (!pdata) {
+		dev_err(lm3533->dev, "no platform data\n");
+		return -EINVAL;
+	}
+    ...
+}
+
+Since the driver lacks Device Tree parsing logic entirely, the backlight
+fails to probe, which causes the panel to return -EPROBE_DEFER indefinitely.
+
+[ ... ]
 > diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi b/arch/arm/boot/=
 dts/nvidia/tegra30-lg-x3.dtsi
-> index 74583eb07aa84..14d4f992222c6 100644
+> index c7ad3819c21d9..781cf38e9f183 100644
 > --- a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
 > +++ b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-[ ... ]
-> @@ -1267,6 +1268,35 @@ m24c08: eeprom@50 {
-[ ... ]
-> +		led-controller@53 {
-> +			compatible =3D "ti,lm3559";
-> +			reg =3D <0x53>;
-[ ... ]
-> +			/* single flash led is on 2 lines */
-> +			lm3559_led0: led@0 {
-> +				reg =3D <0>;
+> @@ -1170,6 +1170,30 @@ rmi4-f11@11 {
+>  			};
+>  		};
+> =20
+> +		led-controller@36 {
+> +			compatible =3D "ti,lm3533";
+
+[Severity: Low]
+Are we missing Device Tree schemas for this new compatible string?
+
+Adding a new compatible string without updating or creating Device Tree
+bindings bypasses schema validation, leaving hardware variant capabilities
+undocumented. Additionally, the imagis,isa1200 compatible string lacks
+both a schema and kernel driver support.
+
+> +			reg =3D <0x36>;
 > +
-> +				flash-max-microamp =3D <393750>;
-> +				led-max-microamp =3D <140625>;
-> +			};
-> +
-> +			lm3559_led1: led@1 {
-> +				reg =3D <1>;
+> +			enable-gpios =3D <&gpio TEGRA_GPIO(N, 6) GPIO_ACTIVE_HIGH>;
 
 [Severity: Medium]
-Does this configuration incorrectly define a single physical led as two
-independent led devices?
+Will this GPIO lookup fail due to a mismatched property name?
 
-The comment indicates the single flash led is on two lines, but splitting it
-into two separate nodes exposes two distinct video4linux2 subdevices. Device
-trees generally describe hardware topology rather than driver limitations.
+The driver requests the GPIO with a NULL connection ID:
 
-Should this be modeled as a single node using a property like
-led-sources =3D <0 1>? Even if the current driver lacks support for the
-led-sources property, duplicating child nodes to work around driver
-limitations is considered a device tree anti-pattern.
+drivers/mfd/lm3533-core.c:lm3533_device_init() {
+    ...
+	lm3533->hwen =3D devm_gpiod_get(lm3533->dev, NULL, GPIOD_OUT_LOW);
+    ...
+}
 
-> +
-> +				flash-max-microamp =3D <393750>;
-> +				led-max-microamp =3D <140625>;
-> +			};
-> +		};
+This causes gpiolib to strictly search for the base names gpios or
+gpio, meaning it will receive -ENOENT instead of matching the provided
+enable-gpios property.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924090608.2873=
-4-1-clamor95@gmail.com?part=3D5
+4-1-clamor95@gmail.com?part=3D7
