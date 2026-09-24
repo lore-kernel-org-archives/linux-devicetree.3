@@ -1,374 +1,559 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2AB34A797
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76ECD1A2C0B
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:16:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790237759; cv=none; b=DukwJPbugRRbVlqnbq/VKQ4d7lGmOYOIOVBe8/eW4f3EhALLW8af/a1gMvDf7W5RogGb2ROpHCMbHGvnuY4ObQ5iePvu20twjgMgh0QYVvVL3rdRYjRTUcCqnQzp3VUsa2bAGWIn2zRxH4foqlPZPWS5CozmB5CFcbdRnl0jp9k=
+	t=1790237765; cv=none; b=T/6O3yn6ge8eIoIrvd6jxe20SRLuFKC59tZWTT53Fhy8c4Xkk5FGkuFnNpiofj7XMrRzBlRCXfyuF/rn1XbHnSyRVbCvxEIzfJN/Ti9IyuNgG9DY7968Qj6p6cI++bJsLKlLqeHCkcFMUNgdYuiWbkKOVqsWPMIWQ+a/5B52rQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790237759; c=relaxed/simple;
-	bh=qGjs1Huu8cCVdgoi5mJWDaLieqVwL25J/R+l06Wftdg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=jwxtD+rQQ3tNOSdPneuUJ42eusZ6VN5E79OchHe22wjtNUzbcNjkH+CkLIuT9q6nWdY9+C1W1tyrNipe2QImE9rtxcwRck8G8qdILh9raMoi1Hu/3AycbOUS8YDWl3IJcqxfteAvBT3aSVBoThly6O/ebQCf2LmmSWJGq5TdEYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=u5pvs1WS; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790237765; c=relaxed/simple;
+	bh=bDKTzJHNArvU+sL92K3J5S2RwsrOr1uq59zF+4PbqSs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=If4OVofMJYYqGJhCq31Yjq49Al0gwshVK/ygs6mW33H/c+yHpICrOyXVqOipqjDKAt+AwirQjXRXrMu/iMGqiSo61HZHAqKBfZnhag06TtRc3U7xWMqgwytT59H8EA/39ylZ5/tAfhYsgFgcBPUXv8VrI2v2f+RTg8uv7DkxZk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/aFGvfq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="u5pvs1WS"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so19883305e9.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 01:15:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790237754; x=1790842554; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yhGAUy7vdE34BxfY3VoQTAZqEaT6q6J+DpdP4yh+DNw=;
-        b=u5pvs1WScdkyjAUCqUUeJlPcZQdEiEnHa0zxizPf+AuypNkTeJ90rqJq0ctNKXOJXa
-         RAhy8wbZZ6lK5xrFjKmGjSUFmN3ouSa71DOCHUHmRNMTMk5Wom8gv4PRJATVeajnxlb3
-         opfepRmGd8ANdgt+yN+Sc2dE9BBv4st1976bRIWwGVhHiEK3wm+rsw7wwrtHdUw3shDc
-         DPw9XBVDgCbbdgt5rVOMW66C0g/TLGCEOHaXZswAwzaKaLyv/P9Y3CBpTJ8lmimpcNxV
-         cpvni4UAcQsXmLcW5enmfp94x8PBXcinrIOeW1L35bW5Wf1qoJ03syqihJjpE6f05KAU
-         9KBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790237754; x=1790842554;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yhGAUy7vdE34BxfY3VoQTAZqEaT6q6J+DpdP4yh+DNw=;
-        b=vgZH8y2TKUrVvw4b2E7OJ1ogE//UMwoRD4MINCeDG8ZiW56M/NmbBkG30DK/7E+EJH
-         NGEbPAvl0Uar8z60iQ62N5HeecNHIuB0l7dH14nE8VUdchC4KM9G2wNRuFAOKAuo70bV
-         iMCdz3E1yf2zA7H+kbkustmgULjPDzNzTrC6T0DLLy5opg4/qIYxHM9RBM3hbzCj7hVO
-         T4U7QRYkXX2OkbmY8nt2dDcWB1ke9mPx/hryLGru0WxZuOJLVGLASisWwV1uWlbLc0Vm
-         mM8ZdXou7RvMkwTNsjygza5nuJoPK/QhINQQZSg9ruxxKxYybNDnjlpdgN3spN6B6HOQ
-         OFNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxKvsFhZyx2FAqC6UdTykDbTYbiqdp/btj1OxCqS3MjqswEt16Qlb9dBFCflHNoKJ44u+YgHs1KNy4q@vger.kernel.org
-X-Gm-Message-State: AFuF++l8IxWn8veB8WXkCXj62IH50vJckhuIbX+cj4HX+GibL55ENH3e
-	UJ0PA8jL8jPP1KkBZ9mk+rBx2yOhw/WxtjDFRYNS1o3eVCKmgAqZstzPGnbtNX4Seg0=
-X-Gm-Gg: AYBFou26lATgBixDI+fcKaWXFHXv87PNp7ZsDsvfMI0v1IQO4j8gkF+FlJAO/gQRDfn
-	d+VTSvl0wzbIBHwt0D6GShObNYcmLR0Rpum4x7I1yDZ4Ts6Rl8wxCycUaUTbsHnXwdArvCvZFhV
-	f/6JHsexY6cWT/QciWi0IutlXmT+Wm06wVNyUVtrN9eQHtIai2xDWsSMueGWViKP9b6EDQOdRBm
-	qMH/UI8rDoK635NDI/qmRUsRO1cM1Qbe7zj3Bpa6uo4GiuOoqUdbW0KrJB7CPVnekoiWibSK690
-	yQly3eNmNfOHSX6+xTBdppTUfcZFOdlrD9jwjuWXTLjG07WypnPiveOZwNgyhTLwfN8gPYVxiwi
-	Z4GkhevLYK3ZsDNrmRIHt3QxRSgJc/LjdzdI3KVJEqAqTZuf3BQvogpb+uQOBS6D3yGNDntLQ9I
-	FFp7GLb54p3QJT3uAsVPPDu5HgUm0CItXrzrfKahrw8gagEfdzgYQyKWrAQL/k1ryBQOW4cY/Nx
-	oAYRrKp+hbLqun+in7wKQgoL0IC19nwkM8YuFgLyhqf2iePEt7+pA==
-X-Received: by 2002:a05:600c:1c0b:b0:49c:fc6e:8cb4 with SMTP id 5b1f17b1804b1-49fe66dfe1amr34111485e9.24.1790237754392;
-        Thu, 24 Sep 2026 01:15:54 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:5e86:d153:fdb4:61c0? ([2a01:e0a:106d:1080:5e86:d153:fdb4:61c0])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877a247sm13233295f8f.28.2026.09.24.01.15.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 01:15:53 -0700 (PDT)
-Message-ID: <e20cd749-4d2a-42bc-ae22-1ba9b3cbd5d4@linaro.org>
-Date: Thu, 24 Sep 2026 10:15:52 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/aFGvfq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559A31F000FF;
+	Thu, 24 Sep 2026 08:16:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790237762;
+	bh=GOxE0BXvtdjv6yfx25iDdB2Rz1L1dqVbBTy1rcGZPRQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=M/aFGvfqy7pgOMKCpVuB19dIQa2RdmWG+ha5MVpPOH7lqF/FHwNxAiIchg+Y5Liv/
+	 v6RwWOWl01eDOFh8+b9Uz+sGPc8nbDDqej4MRkOYIv3IOY3N1SibhiTKTrEv1hwYC+
+	 Sxvj+y9mOnohD+spa4ACK7qcwszSAn6YaIN4UgmXdnVhHmO8SSSGRABO6Q4aHc/C+6
+	 ubsos+aAccquC8Hm746Ec8y3MLP11TbUvouSfz4fZdG0wpU0cq4kyrUkLCEydAgoUM
+	 OafWbwCmvf8oO7zL5H1EdfBsM8PCAflVO77s28qXVbHP6T4IFcTadNe3CdV0L7y4u+
+	 PZyrQIp1JC17A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 4/6] decoder: Add V4L2 stateless H.264 decoder
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhentao Guo" <zhentao.guo@amlogic.com>
+Cc: robh@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, linux-amlogic@lists.infradead.org
+In-Reply-To: <20260924-b4-s4-vdec-upstream-v10-4-1289303a58a4@amlogic.com>
+References: <20260924-b4-s4-vdec-upstream-v10-0-1289303a58a4@amlogic.com>
+ <20260924-b4-s4-vdec-upstream-v10-4-1289303a58a4@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 08:16:01 +0000
+Message-Id: <20260924081602.559A31F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/2] phy: qcom-snps-femto-v2: Add support for SA8255P
-To: Mattijs Korpershoek <mkorpershoek@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sriram Dash <quic_sriramd@quicinc.com>
-References: <20260831-phy-qcom-snps-femto-v2-8255-v2-0-dc6197ffde1b@kernel.org>
- <20260831-phy-qcom-snps-femto-v2-8255-v2-2-dc6197ffde1b@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260831-phy-qcom-snps-femto-v2-8255-v2-2-dc6197ffde1b@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 8/31/26 11:31, Mattijs Korpershoek wrote:
-> From: Sriram Dash <quic_sriramd@quicinc.com>
-> 
-> The Qualcomm automotive SA8255p SoC relies on firmware to configure
-> platform resources, including clocks, interconnects and TLMM.
-> The driver requests resources operations over SCMI using power protocols.
-> 
-> The SCMI power protocol enables or disables resources like clocks,
-> interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
-> such as resume/suspend, to control power on/off.
-> 
-> Power domain "core" controls the GDSC, resets, and TLMM (GPIOs)
-> whereas power domain "transfer" controls clocks and interconnects.
-> 
-> In this variant, two disjoint sets of resources are modeled against
-> the power domain suppliers which can be turned on/off to achieve modeled
-> device states. Two modeled low power states d1 and d3 are supported.
-> 
-> transition: d0 <--> d3  :: both core and transfer suppliers
-> transition: d0 <--> d1  :: only transfer supplier
-> 
-> Signed-off-by: Sriram Dash <quic_sriramd@quicinc.com>
-> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
-> ---
->   drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c | 127 ++++++++++++++++++++++++--
->   1 file changed, 118 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-> index 980ad1fb1e2e..9fdf7ae681b6 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-> @@ -12,6 +12,7 @@
->   #include <linux/of.h>
->   #include <linux/phy/phy.h>
->   #include <linux/platform_device.h>
-> +#include <linux/pm_domain.h>
->   #include <linux/regmap.h>
->   #include <linux/regulator/consumer.h>
->   #include <linux/reset.h>
-> @@ -95,6 +96,7 @@ struct override_param_map {
->   	u8 table_size;
->   	u8 reg_offset;
->   	u8 param_mask;
-> +	bool fw_managed;
->   };
->   
->   struct phy_override_seq {
-> @@ -121,6 +123,7 @@ struct phy_override_seq {
->    * @phy_initialized: if PHY has been initialized correctly
->    * @mode: contains the current mode the PHY is in
->    * @update_seq_cfg: tuning parameters for phy init
-> + * @pd_list: list of power domains associated with the device
->    */
->   struct qcom_snps_hsphy {
->   	struct device *dev;
-> @@ -136,8 +139,81 @@ struct qcom_snps_hsphy {
->   	bool phy_initialized;
->   	enum phy_mode mode;
->   	struct phy_override_seq update_seq_cfg[NUM_HSPHY_TUNING_PARAMS];
-> +
-> +	struct dev_pm_domain_list *pd_list;
->   };
->   
-> +static void qcom_snps_domain_detach(void *data)
-> +{
-> +	struct qcom_snps_hsphy *hsphy = data;
-> +
-> +	dev_pm_domain_detach_list(hsphy->pd_list);
-> +}
-> +
-> +static int qcom_snps_domain_attach(struct qcom_snps_hsphy *hsphy)
-> +{
-> +	struct dev_pm_domain_attach_data pd_data = {
-> +		.pd_flags       = PD_FLAG_NO_DEV_LINK,
-> +		.pd_names       = (const char*[]) { "core", "transfer" },
-> +		.num_pd_names   = 2,
-> +	};
-> +	struct device *dev = hsphy->dev;
-> +	int ret;
-> +
-> +	ret = dev_pm_domain_attach_list(dev, &pd_data, &hsphy->pd_list);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "domain attach failed\n");
-> +
-> +	return 0;
-> +}
-> +
-> +/* d3_to_d0 transition by turning on all the suppliers */
-> +static int qcom_snps_d3_to_d0(struct qcom_snps_hsphy *hsphy)
-> +{
-> +	int ret;
-> +
-> +	if (!hsphy->pd_list)
-> +		return 0;
-> +
-> +	ret = pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[0]);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[1]);
-> +	if (ret)
-> +		pm_runtime_put_sync(hsphy->pd_list->pd_devs[0]);
-> +
-> +	return ret;
-> +}
-> +
-> +/* d0_to_d3 transition by turning off all the suppliers */
-> +static void qcom_snps_d0_to_d3(struct qcom_snps_hsphy *hsphy)
-> +{
-> +	if (!hsphy->pd_list)
-> +		return;
-> +
-> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[1]);
-> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[0]);
-> +}
-> +
-> +/* d1_to_d0 transition by turning on the 'transfer' supplier */
-> +static int qcom_snps_d1_to_d0(struct qcom_snps_hsphy *hsphy)
-> +{
-> +	if (!hsphy->pd_list)
-> +		return 0;
-> +
-> +	return pm_runtime_resume_and_get(hsphy->pd_list->pd_devs[1]);
-> +}
-> +
-> +/* d0_to_d1 transition by turning off the 'transfer' supplier */
-> +static void qcom_snps_d0_to_d1(struct qcom_snps_hsphy *hsphy)
-> +{
-> +	if (!hsphy->pd_list)
-> +		return;
-> +
-> +	pm_runtime_put_sync(hsphy->pd_list->pd_devs[1]);
-> +}
-> +
->   static int qcom_snps_hsphy_clk_init(struct qcom_snps_hsphy *hsphy)
->   {
->   	struct device *dev = hsphy->dev;
-> @@ -196,6 +272,8 @@ static int qcom_snps_hsphy_suspend(struct qcom_snps_hsphy *hsphy)
->   					   0, USB2_AUTO_RESUME);
->   	}
->   
-> +	qcom_snps_d0_to_d1(hsphy);
-> +
->   	return 0;
->   }
->   
-> @@ -203,7 +281,7 @@ static int qcom_snps_hsphy_resume(struct qcom_snps_hsphy *hsphy)
->   {
->   	dev_dbg(&hsphy->phy->dev, "Resume QCOM SNPS PHY, mode\n");
->   
-> -	return 0;
-> +	return qcom_snps_d1_to_d0(hsphy);
->   }
->   
->   static int __maybe_unused qcom_snps_hsphy_runtime_suspend(struct device *dev)
-> @@ -316,6 +394,10 @@ static const struct override_param ls_fs_output_impedance_sc7280[] = {
->   	{ 1310, 0 },
->   };
->   
-> +static const struct override_param_map sa8255p_snps_hs_phy = {
-> +	.fw_managed = true,
-> +};
-> +
->   static const struct override_param_map sc7280_snps_7nm_phy[] = {
->   	{
->   		"qcom,hs-disconnect-bp",
-> @@ -390,9 +472,15 @@ static int qcom_snps_hsphy_init(struct phy *phy)
->   
->   	dev_vdbg(&phy->dev, "%s(): Initializing SNPS HS phy\n", __func__);
->   
-> +	ret = qcom_snps_d3_to_d0(hsphy);
-> +	if (ret < 0) {
-> +		dev_err(hsphy->dev, "Failed to transition to d0 state\n");
-> +		return ret;
-> +	}
-> +
->   	ret = regulator_bulk_enable(ARRAY_SIZE(hsphy->vregs), hsphy->vregs);
->   	if (ret)
-> -		return ret;
-> +		goto transition_to_d3;
->   
->   	ret = clk_bulk_prepare_enable(hsphy->num_clks, hsphy->clks);
->   	if (ret) {
-> @@ -472,6 +560,8 @@ static int qcom_snps_hsphy_init(struct phy *phy)
->   	clk_bulk_disable_unprepare(hsphy->num_clks, hsphy->clks);
->   poweroff_phy:
->   	regulator_bulk_disable(ARRAY_SIZE(hsphy->vregs), hsphy->vregs);
-> +transition_to_d3:
-> +	qcom_snps_d0_to_d3(hsphy);
->   
->   	return ret;
->   }
-> @@ -485,6 +575,8 @@ static int qcom_snps_hsphy_exit(struct phy *phy)
->   	regulator_bulk_disable(ARRAY_SIZE(hsphy->vregs), hsphy->vregs);
->   	hsphy->phy_initialized = false;
->   
-> +	qcom_snps_d0_to_d3(hsphy);
-> +
->   	return 0;
->   }
->   
-> @@ -496,6 +588,10 @@ static const struct phy_ops qcom_snps_hsphy_gen_ops = {
->   };
->   
->   static const struct of_device_id qcom_snps_hsphy_of_match_table[] = {
-> +	{
-> +		.compatible	= "qcom,sa8255p-usb-hs-phy",
-> +		.data		= &sa8255p_snps_hs_phy,
-> +	},
->   	{ .compatible	= "qcom,sm8150-usb-hs-phy", },
->   	{ .compatible	= "qcom,usb-snps-hs-5nm-phy", },
->   	{
-> @@ -565,6 +661,7 @@ static int qcom_snps_hsphy_probe(struct platform_device *pdev)
->   {
->   	struct device *dev = &pdev->dev;
->   	struct qcom_snps_hsphy *hsphy;
-> +	const struct override_param_map *cfg;
->   	struct phy_provider *phy_provider;
->   	struct phy *generic_phy;
->   	int ret, i;
-> @@ -580,14 +677,26 @@ static int qcom_snps_hsphy_probe(struct platform_device *pdev)
->   	if (IS_ERR(hsphy->base))
->   		return PTR_ERR(hsphy->base);
->   
-> -	ret = qcom_snps_hsphy_clk_init(hsphy);
-> -	if (ret)
-> -		return dev_err_probe(dev, ret, "failed to initialize clocks\n");
-> +	cfg = of_device_get_match_data(dev);
-> +
-> +	if (cfg && cfg->fw_managed) {
-> +		ret = qcom_snps_domain_attach(hsphy);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = devm_add_action_or_reset(dev, qcom_snps_domain_detach, hsphy);
-> +		if (ret)
-> +			return ret;
-> +	} else {
-> +		ret = qcom_snps_hsphy_clk_init(hsphy);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "failed to initialize clocks\n");
->   
-> -	hsphy->phy_reset = devm_reset_control_get_exclusive(&pdev->dev, NULL);
-> -	if (IS_ERR(hsphy->phy_reset)) {
-> -		dev_err(dev, "failed to get phy core reset\n");
-> -		return PTR_ERR(hsphy->phy_reset);
-> +		hsphy->phy_reset = devm_reset_control_get_exclusive(&pdev->dev, NULL);
-> +		if (IS_ERR(hsphy->phy_reset)) {
-> +			dev_err(dev, "failed to get phy core reset\n");
-> +			return PTR_ERR(hsphy->phy_reset);
-> +		}
->   	}
->   
->   	num = ARRAY_SIZE(hsphy->vregs);
-> 
+Thank you for your contribution! Sashiko AI review found 20 potential issue=
+(s) to consider:
+- [Critical] media: amlogic: arbitrary physical memory read via unvalidated=
+ first_mb_in_slice
+- [Critical] media: amlogic: heap buffer overflow in reference list reorder=
+ing
+- [High] media: amlogic: soft lockup via atomic busy-wait in aml_stop_vdec_=
+hw()
+- [High] media: amlogic: WARN_ON due to double completion of V4L2 control r=
+equests
+- [High] media: amlogic: memory leak of h264 context and DMA buffers on STR=
+EAMON
+- [High] media: amlogic: shifting hardware RefPicList indices on invalid re=
+ference
+- [High] media: amlogic: incorrect base address for collocated buffers due =
+to 8x8 shift
+- [High] media: amlogic: VIFIFO write pointer programmed beyond ring buffer=
+ bounds
+- [High] media: amlogic: infinite poll timeout deadlocks the threaded IRQ h=
+andler
+- [High] media: amlogic: out-of-bounds DMA write due to undersized buffers =
+for interlaced
+- [High] media: amlogic: UAF when VIDIOC_STREAMOFF frees context concurrent=
+ly
+- [High] media: amlogic: OOB DMA write of collocated MVs during dynamic res=
+olution change
+- [High] media: amlogic: UAF of M2M device and devm resources when fd outli=
+ves remove
+- [High] media: amlogic: threaded IRQ accesses powered-off registers during=
+ remove
+- [High] media: amlogic: context cleanup unconditionally resets shared hard=
+ware
+- [High] media: amlogic: early device registration exposes unpowered hardwa=
+re to userspace
+- [High] media: amlogic: missing checks on clock and power domain enablement
+- [Medium] media: amlogic: allocation failure for large firmware using kzal=
+loc
+- [Medium] media: amlogic: signed integer overflow in collocated buffer bit=
+mask
+- [Low] media: amlogic: out-of-bounds read of reorder_cmd array due to off-=
+by-one check
+--
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+commit d745d294471b0d176edba67b04bee8a0c6b95c04
+Author: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Thanks,
-Neil
+decoder: Add V4L2 stateless H.264 decoder driver
+
+This commit adds initial support for the v4l2 stateless video decoder driver
+on the Amlogic S4 (S805X2) platform, supporting 8-bit H.264 progressive=20
+bitstream decoding.
+
+> diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec.c b/drivers/med=
+ia/platform/amlogic/vdec/aml_vdec.c
+> --- a/drivers/media/platform/amlogic/vdec/aml_vdec.c
+> +++ b/drivers/media/platform/amlogic/vdec/aml_vdec.c
+[ ... ]
+> @@ m2mops_vdec_device_run @@
+>  	if (src_req)
+>  		v4l2_ctrl_request_complete(src_req, &ctx->ctrl_handler);
+>  	if (ret < 0 || ctx->curr_frm_err_flag)
+>  		goto err_cancel_job;
+>  	v4l2_m2m_buf_done_and_job_finish(dev->m2m_dev_dec, ctx->m2m_ctx,
+>  					 VB2_BUF_STATE_DONE);
+[ ... ]
+> @@ vb2ops_vdec_buf_request_complete @@
+>  static void vb2ops_vdec_buf_request_complete(struct vb2_buffer *vb)
+>  {
+>  	struct aml_vdec_ctx *ctx =3D vb2_get_drv_priv(vb->vb2_queue);
+> =20
+>  	v4l2_ctrl_request_complete(vb->req_obj.req, &ctx->ctrl_handler);
+>  }
+
+[Severity: High]
+Will this sequence cause a double completion of v4l2 control requests?=20
+
+Since m2mops_vdec_device_run() manually calls v4l2_ctrl_request_complete()=
+=20
+for the source request and then marks the buffer done, the videobuf2 core=20
+automatically invokes vb2ops_vdec_buf_request_complete(). This secondary=20
+callback invokes v4l2_ctrl_request_complete() again on the same request,=20
+which triggers a warn_on() in the media request core.
+
+[ ... ]
+> @@ vb2ops_vdec_start_streaming @@
+>  	if (V4L2_TYPE_IS_OUTPUT(q->type)) {
+>  		struct vb2_v4l2_buffer *src_buf;
+> =20
+>  		if (aml_vdec_init_dec_inst(ctx) < 0) {
+>  			while ((src_buf =3D v4l2_m2m_src_buf_remove(ctx->m2m_ctx)))
+[ ... ]
+> @@ vb2ops_vdec_stop_streaming @@
+>  	if (!ctx->is_output_streamon && !ctx->is_cap_streamon)
+>  		aml_vdec_release_instance(ctx);
+
+[Severity: High]
+Could this leak the h264 context and dma buffers on stream toggle?
+
+Calling vidioc_streamon for the output queue triggers=20
+vb2ops_vdec_start_streaming(), which blindly allocates a new context via=20
+aml_h264_init(). If a user calls vidioc_streamoff on the output queue while=
+=20
+the capture queue remains active, vb2ops_vdec_stop_streaming() skips freein=
+g=20
+the context because both queues are not stopped. A subsequent streamon on=20
+the output queue will allocate a new context, irreversibly dropping the=20
+pointers to the old context and its dma allocations.
+
+> diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec_drv.c b/drivers=
+/media/platform/amlogic/vdec/aml_vdec_drv.c
+> --- a/drivers/media/platform/amlogic/vdec/aml_vdec_drv.c
+> +++ b/drivers/media/platform/amlogic/vdec/aml_vdec_drv.c
+[ ... ]
+> @@ fops_vcodec_release @@
+>  static int fops_vcodec_release(struct file *file)
+>  {
+>  	struct aml_vdec_ctx *ctx =3D fh_to_dec_ctx(file);
+> =20
+>  	v4l2_m2m_ctx_release(ctx->m2m_ctx);
+[ ... ]
+> @@ aml_vdec_drv_remove @@
+>  	vdec_disable(dev->dec_hw);
+>  	media_device_unregister(&dev->mdev);
+>  	v4l2_m2m_unregister_media_controller(dev->m2m_dev_dec);
+>  	video_unregister_device(dev->vfd);
+>  	media_device_cleanup(&dev->mdev);
+> =20
+>  	v4l2_m2m_release(dev->m2m_dev_dec);
+>  	dev->pvdec_data->destroy_hw_resource(dev);
+
+[Severity: High]
+Can this lead to a use-after-free if the file descriptor outlives the=20
+device removal?=20
+
+In aml_vdec_drv_remove(), v4l2_m2m_release() explicitly frees the m2m devic=
+e.
+Shortly after, the devm infrastructure frees the aml_vdec_dev structure.=20
+Because video_unregister_device() does not forcibly close open file=20
+descriptors, an open file descriptor closed later triggers=20
+fops_vcodec_release(), which accesses the manually freed m2m_dev and the=20
+devm-freed ctx->dev.
+
+[Severity: High]
+Does this expose unpowered hardware to userspace during registration and=20
+removal?
+
+In aml_vdec_drv_probe(), video_register_device() exposes the video node=20
+to userspace before vdec_enable() powers on the hardware domains. Userspace=
+=20
+could open the device and attempt to start jobs.=20
+
+Similarly, in aml_vdec_drv_remove(), vdec_disable() shuts down hardware=20
+clocks before video_unregister_device() and v4l2_m2m_release() safely=20
+cancel ongoing m2m jobs. Accessing unclocked or unpowered mmio registers=20
+often results in a synchronous external abort.
+
+[Severity: High]
+Could the threaded irq handler execute and access unpowered registers here?
+
+The hardware is shut down via vdec_disable() before the interrupt requested=
+=20
+via devm_request_threaded_irq() is disabled and synchronized. If an=20
+interrupt fires just before vdec_disable(), the threaded isr is scheduled.=
+=20
+The running h264_threaded_isr_func() will unconditionally read from DOS_BUS=
+=20
+registers like DPB_STATUS_REG, triggering a synchronous external abort.
+
+> diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec_hw.c b/drivers/=
+media/platform/amlogic/vdec/aml_vdec_hw.c
+> --- a/drivers/media/platform/amlogic/vdec/aml_vdec_hw.c
+> +++ b/drivers/media/platform/amlogic/vdec/aml_vdec_hw.c
+[ ... ]
+> @@ aml_stop_vdec_hw @@
+>  	ret =3D read_poll_timeout_atomic(read_dos_reg, reg_val,
+>  				       !(reg_val & 0x8000),
+>  				       10, 100000, true,
+>  				       hw, IMEM_DMA_CTRL);
+> =20
+>  	ret =3D read_poll_timeout_atomic(read_dos_reg, reg_val,
+>  				       !(reg_val & 0x8000),
+>  				       10, 100000, true,
+>  				       hw, LMEM_DMA_CTRL);
+> =20
+>  	ret =3D read_poll_timeout_atomic(read_dos_reg, reg_val,
+>  				       !(reg_val & 0xfff),
+>  				       10, 300000, true,
+>  				       hw, WRRSP_LMEM);
+
+[Severity: High]
+Does this stall the cpu for hundreds of milliseconds?
+
+The atomic variants of read_poll_timeout internally loop with udelay(),=20
+forcing the cpu to busy-wait continuously. Waiting up to 300ms atomically=20
+is highly likely to trigger rcu stalls and the soft lockup watchdog.=20
+Since the callers such as aml_h264_exit() execute in sleepable contexts,=20
+the non-atomic read_poll_timeout() should be used instead.
+
+[ ... ]
+> @@ pm_vdec_power_domain_power_on @@
+>  	if (gate_node) {
+>  		clk_prepare_enable(gate_node->clk);
+[ ... ]
+>  	if (dev) {
+>  		pm_runtime_get_sync(dev);
+
+[Severity: High]
+Are the return values for clock and power domain enablement intentionally=20
+ignored here?
+
+If these calls fail to enable the hardware resources, proceeding to access=
+=20
+mmio registers in dos_local_config() will result in a synchronous external=
+=20
+abort, crashing the system.
+
+> diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec_tee_fw.c b/driv=
+ers/media/platform/amlogic/vdec/aml_vdec_tee_fw.c
+> --- a/drivers/media/platform/amlogic/vdec/aml_vdec_tee_fw.c
+> +++ b/drivers/media/platform/amlogic/vdec/aml_vdec_tee_fw.c
+[ ... ]
+> @@ get_firmware @@
+>  	/* get rid of the first 32K bytes plaintext */
+>  	*size =3D fw->size - UCODE_HEADER_SIZE;
+>  	buf =3D kzalloc(*size, GFP_KERNEL);
+>  	if (!buf) {
+
+[Severity: Medium]
+Will this kzalloc() succeed for large video firmware blobs on a fragmented=
+=20
+system?=20
+
+Video firmware is typically large, and kzalloc() requires physically=20
+contiguous pages. Since this buffer is only used to stage data copying=20
+into tee shared memory in chunks, physical contiguity seems unnecessary.=20
+Using vmalloc() or kvzalloc() might be more reliable.
+
+> diff --git a/drivers/media/platform/amlogic/vdec/h264.c b/drivers/media/p=
+latform/amlogic/vdec/h264.c
+> --- a/drivers/media/platform/amlogic/vdec/h264.c
+> +++ b/drivers/media/platform/amlogic/vdec/h264.c
+[ ... ]
+> @@ h264_prepare_input @@
+>  	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_RP,
+>  		     round_down(src_dma, VDEC_FIFO_ALIGN));
+>  	dummy =3D payload_size + VLD_PADDING_SIZE;
+>  	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_WP,
+>  		     round_down((src_dma + dummy), VDEC_FIFO_ALIGN));
+
+[Severity: High]
+Can this ring buffer write pointer exceed the defined boundaries?
+
+The hardware bitstream ring buffer is configured with START_PTR at the star=
+t=20
+of the dma buffer and END_PTR strictly at the end of the payload.=20
+Programming WP past END_PTR causes the hardware to attempt an out-of-bounds=
+=20
+physical memory read. Also, because the read pointer mathematically wraps=20
+at END_PTR, it will never equal the out-of-bounds WP, causing the hardware=
+=20
+to believe the fifo is infinitely full and spin endlessly.
+
+[ ... ]
+> @@ config_sps_params @@
+>  	h264_ctx->frame_width =3D (sps->pic_width_in_mbs_minus1 + 1) << 4;
+>  	h264_ctx->frame_height =3D (sps->pic_height_in_map_units_minus1 + 1) <<=
+ 4;
+
+[Severity: High]
+Is there a risk of undersized buffer allocations for interlaced streams?
+
+The driver computes frame_height directly from pic_height_in_map_units_minu=
+s1=20
+without checking the frame_mbs_only_flag. For interlaced content, this=20
+specifies half the actual frame height. This results in alloc_colocate_cma(=
+)=20
+allocating a half-sized buffer, causing the hardware to perform an=20
+out-of-bounds dma write during decoding. Progressive-only drivers typically=
+=20
+reject streams missing the V4L2_H264_SPS_FLAG_FRAME_MBS_ONLY flag.
+
+[ ... ]
+> @@ reorder_short_term @@
+>  	memcpy(&ref_list_reordered[*ref_idx_lx], pic_lx, sizeof(struct h264_dec=
+ode_buf_spec));
+>  	dev_dbg(&ctx->dev->plat_dev->dev, "%s : RefPicListX[%d ] =3D pic %p pic=
+_num(%d)\n", __func__,
+>  		*ref_idx_lx, pic_lx, ref_list_reordered[*ref_idx_lx].dpb->pic_num);
+>  	*ref_idx_lx =3D *ref_idx_lx + 1;
+[ ... ]
+> @@ reorder_long_term @@
+>  	memcpy(&ref_list[*ref_idx_lx], pic_lt, sizeof(struct h264_decode_buf_sp=
+ec));
+>  	dev_dbg(&ctx->dev->plat_dev->dev, "%s : RefPicListX[%d ] =3D pic %p pic=
+_num(%d)\n", __func__,
+>  		*ref_idx_lx, pic_lt, ref_list[*ref_idx_lx].dpb->pic_num);
+>  	*ref_idx_lx =3D *ref_idx_lx + 1;
+[ ... ]
+> @@ reorder_pics @@
+>  	pic_num_lx_pred =3D curr_pic_num;
+>  	for (i =3D 0; i < REORDERING_COMMAND_MAX_SIZE && modification_of_pic_nu=
+ms_idc[i] !=3D 3; i++) {
+
+[Severity: Critical]
+Could this loop overflow the ref_list arrays?
+
+The ref_list arrays in aml_h264_ctx are statically sized to 17 elements.=20
+However, the loop processes up to REORDERING_COMMAND_MAX_SIZE (33)=20
+reordering commands. Because there is no bounds check ensuring=20
+*ref_idx_lx < 17 before the memcpy operations in reorder_short_term and=20
+reorder_long_term, a crafted bitstream with excessive reorder commands can=
+=20
+trigger a deterministic out-of-bounds write of h264_decode_buf_spec structs=
+=20
+into adjacent heap memory.
+
+[ ... ]
+> @@ alloc_colocate_cma @@
+>  	if (h264_ctx->collated_cma_vaddr)
+>  		return 0;
+> =20
+>  	hw =3D vdec_get_hw(ctx->dev);
+>  	if (!hw)
+>  		return -1;
+> =20
+>  	/* 96 :col buf size for each mb */
+>  	h264_ctx->one_col_buf_size =3D h264_ctx->mb_total * 96;
+
+[Severity: High]
+Does this logic correctly update the collocated buffer size during dynamic=
+=20
+resolution changes?
+
+When a stream dynamically increases in resolution, h264_ctx->mb_total=20
+increases. However, the early return in alloc_colocate_cma() prevents=20
+one_col_buf_size from updating. When the hardware later decodes a larger=20
+frame, it processes the new mb_total macroblocks but the pointer=20
+calculations rely on the old size, causing an out-of-bounds dma write=20
+outside the cma buffer bounds.
+
+[ ... ]
+> @@ allocate_colocate_buf @@
+>  	for (i =3D 0; i < h264_ctx->colocated_buf_num; i++) {
+>  		if (((h264_ctx->colocated_buf_map >> i) & 0x1) =3D=3D 0) {
+>  			h264_ctx->colocated_buf_map |=3D (1 << i);
+>  			break;
+>  		}
+>  	}
+[ ... ]
+> @@ release_colocate_buf @@
+>  		} else {
+>  			if (((h264_ctx->colocated_buf_map >> index) & 0x1) =3D=3D 0x1) {
+>  				h264_ctx->colocated_buf_map &=3D (~(1 << index));
+
+[Severity: Medium]
+Can shifting by 31 bits trigger signed integer overflow?
+
+The expression (1 << i) uses a signed 32-bit integer. If the 31st=20
+collocated buffer is accessed, it overflows into the sign bit, resulting=20
+in undefined behavior. Using 1U << i might be safer.
+
+[ ... ]
+> @@ get_modification_cmd @@
+>  			i++;
+> =20
+>  			if (i >=3D REORDERING_COMMAND_MAX_SIZE) {
+>  				curr_slice->ref_pic_list_reordering_flag[list] =3D 0;
+>  				break;
+>  			};
+>  			if (j > REORDER_CMD_MAX) {
+>  				curr_slice->ref_pic_list_reordering_flag[list] =3D 0;
+>  				break;
+>  			};
+>  		} while (val !=3D 3);
+
+[Severity: Low]
+Is the loop termination condition correct here?
+
+Checking if (j > REORDER_CMD_MAX) fails to break the loop when j reaches=20
+the array size (66). In the next iteration, the code reads exactly one=20
+element past the end of the reorder_cmd array.
+
+[ ... ]
+> @@ h264_config_decode_buf @@
+>  	for (i =3D 0; i < h264_ctx->list_size[0]; i++) {
+>  		if (!h264_ctx->ref_list0[i].valid)
+>  			continue;
+>  		canvas_pos =3D h264_ctx->ref_list0[i].canvas_pos;
+
+[Severity: High]
+Does skipping invalid reference entries corrupt the hardware's expected=20
+index array?
+
+If a reference frame is marked as invalid, using continue skips=20
+accumulating ref_cfg_once and prevents j from incrementing. This compacts=20
+the reference list, causing all subsequent valid references to shift into=20
+earlier slots. Shifting the entries breaks temporal prediction and results=
+=20
+in severe visual corruption.
+
+[ ... ]
+> @@ h264_config_decode_buf @@
+>  		colocate_wr_adr =3D (unsigned int)h264_ctx->collated_cma_addr +
+>  		    ((h264_ctx->one_col_buf_size *
+>  		      h264_ctx->curr_spec.col_buf_index) >> (use_mode_8x8_flag ? 2 : 0=
+));
+>  		if (colocate_adr_offset > h264_ctx->one_col_buf_size ||
+[ ... ]
+>  			colocate_rd_adr =3D (unsigned int)h264_ctx->collated_cma_addr +
+>  			    ((h264_ctx->one_col_buf_size *
+>  			      colocate_pic->col_buf_index) >> (use_mode_8x8_flag
+>  							       ? 2 : 0));
+
+[Severity: High]
+Is the 8x8 shift applied to the correct part of the offset?
+
+By shifting the entire base address computation instead of just the=20
+intra-buffer offset, the physical base addresses diverge. If a reference=20
+frame was written with 8x8 mode but read by a current frame without 8x8=20
+mode, the hardware will read from mismatched physical memory offsets,=20
+fetching garbage motion vectors.
+
+[ ... ]
+> @@ h264_config_decode_buf @@
+>  	read_poll_timeout(read_dos_reg, reg_val,
+>  			  !(reg_val & 0x800),
+>  			  10, 0, true, hw, H264_CO_MB_RW_CTL);
+
+[Severity: High]
+Will a timeout parameter of 0 create an infinite loop?
+
+Using read_poll_timeout with a timeout_us argument of 0 creates an infinite=
+=20
+loop. If the hardware bit fails to clear, the threaded irq handler will spi=
+n=20
+forever. Because it holds the driver's global hw->ctx_mutex, this will=20
+permanently deadlock the decoder.
+
+[ ... ]
+> @@ h264_config_decode_buf @@
+>  	colocate_adr_offset =3D COL_SIZE_FOR_ONE_MB;
+>  	if (use_mode_8x8_flag)
+>  		colocate_adr_offset >>=3D 2;
+>  	colocate_adr_offset *=3D curr_slice->first_mb_in_slice;
+[ ... ]
+>  		colocate_wr_adr =3D (unsigned int)h264_ctx->collated_cma_addr +
+>  		    ((h264_ctx->one_col_buf_size *
+>  		      h264_ctx->curr_spec.col_buf_index) >> (use_mode_8x8_flag ? 2 : 0=
+));
+>  		if (colocate_adr_offset > h264_ctx->one_col_buf_size ||
+[ ... ]
+>  			val  =3D ((colocate_rd_adr_offset + colocate_rd_adr) >> 3) |
+>  				(cur_colocate_ref_type << 29) |
+>  				(l10_structure << 30);
+>  			regmap_write(hw->map[DOS_BUS], H264_CO_MB_RD_ADDR, val);
+
+[Severity: Critical]
+Is it safe to use first_mb_in_slice without validation?
+
+This value is parsed directly from the untrusted h264 bitstream and=20
+multiplied to compute colocate_rd_adr_offset. While there is a bounds=20
+check for colocate_rd_adr + one_col_buf_size, there is no validation that=20
+colocate_rd_adr_offset itself remains within the buffer bounds before=20
+programming the hardware read address. A malicious bitstream supplying a=20
+massive first_mb_in_slice could cause arbitrary physical memory reads.
+
+[ ... ]
+> @@ aml_h264_exit @@
+>  	if (ctx->dos_clk_en)
+>  		aml_stop_vdec_hw(dec_hw);
+> =20
+>  	if (h264_ctx->collated_cma_vaddr) {
+[ ... ]
+>  	kfree(ctx->codec_priv);
+>  	ctx->codec_priv =3D NULL;
+>  }
+[ ... ]
+> @@ aml_h264_dec_run @@
+>  		aml_stop_vdec_hw(dec_hw);
+>  		synchronize_irq(dec_hw->dec_irq);
+>  		h264_release_decode_spec(dec_hw, ctx);
+>  	}
+> =20
+>  	h264_ctx->init_flag =3D 0;
+>  	aml_vdec_set_curr_ctx(dec_hw, NULL);
+
+[Severity: High]
+Could a concurrent vidioc_streamoff trigger a use-after-free?
+
+If userspace calls vidioc_streamoff, aml_h264_exit() frees ctx->codec_priv.=
+=20
+However, if aml_h264_dec_run() is actively sleeping on=20
+wait_event_interruptible_timeout() in the m2m worker thread, the forced=20
+hardware stop causes the wait to return. The worker thread will immediately=
+=20
+dereference the freed h264_ctx without any synchronization.
+
+[Severity: High]
+Does this teardown sequence unconditionally reset shared hardware?
+
+The aml_vdec_hw block is a global resource shared by all active v4l2 decode=
+r=20
+instances. During teardown, aml_h264_exit() unconditionally calls=20
+aml_stop_vdec_hw(dec_hw) which issues soft resets to the shared DOS_BUS=20
+registers. There is no check ensuring that the tearing-down context actuall=
+y=20
+owns the hardware. If another context is actively decoding, resetting the=20
+hardware underneath it will cause timeouts and state corruption.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-b4-s4-vdec=
+-upstream-v10-0-1289303a58a4@amlogic.com?part=3D4
