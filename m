@@ -1,218 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338F93F7877;
-	Thu, 24 Sep 2026 16:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1539D41687A
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 16:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790268208; cv=none; b=BVXZ+6uAP6y87v4iMoLJpbhMdyqau78ptafhuojCaK+OxrXUXdlT4uib3wbCAVcJanh2wOiwLGQRJ4veDUjqG4pJWZ+4UH2CA3cnhACPh2b3pt9KPkfUV5r+tkXoRIw9zeB6DbOzgX//6ZEz356LnqEjX/jrm+82C5c4llpLya4=
+	t=1790268417; cv=none; b=PtBvui8c35xTpCqfE8aYIZIEuDWyBapWD/i6fAA9qlfSmAQj05D1PcpSQY6IQ1uTLDAJP8sP1lHYoQzPmGmIDpxp1O+Jj5w1yaOkUpoqnUHkIByZARbHnMVMVJEZV150Trqs9u1sx4waMTwXhnNLXxMPnAvvvLp9l/t6XOP2MJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790268208; c=relaxed/simple;
-	bh=wdfoa2fFD1Ldu2rxTdXlcxcOl1ZtZVdRX+3itKuRkeI=;
+	s=arc-20240116; t=1790268417; c=relaxed/simple;
+	bh=9G3OJlObGx9Foxnt3wkRhqkCJY2ck3HdrIFqFbEZ+vY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R5T8vXxmHKDXjZj0k3YJWJC8iRIX/8jLHXXOWi1qFxj1xWfZePiq38XLnzVSVnH713ARKkbt6k7RezU3GyPGJ/aU/kk+5jywAaYk+n72yQARUYLZ9Q0pcIOFxENohZ4SJGyfYY3JMBjPYepnWGLzZnIDc52ZCDZSPm7PUkGhTZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fiY9qGl8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=bH1miSM6EgRBCRKIcrNgiBQqNxib8zDsTnuR2WbUNpdDx21oF7gqU806A9oo4v/DYVBtjUhLwEThjE1TSwIjuD44kTzSTSxJ+jo33IJULK/h8fY01sZenQc33RFU7LpNW9YaJ7Iz8OOtJGKE9fWhX3n/2NIOiMQvQuh2Hg3dV+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e0m+1y7N; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fiY9qGl8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D91FB1F000FF;
-	Thu, 24 Sep 2026 16:43:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790268207;
-	bh=eeOMAfZ7gGE2yjVP9uWGI7wCNSoOiQ6bsy6YThTfOk8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fiY9qGl8dQ1VqZKKOjzg1yEChk436T4Mvo5vuja/CbJ0f/MJ5MbERsE1DC2mqMVL7
-	 rE99QVxzvfJEzt0pPBNkEfMJQWONWzfHtD/+oGROsbUEjWEL1bAu0sqpLjKjIE0l7l
-	 cqJA7s2H1lGPaARXtW5ZFxbKYZ0mi5Q0+NygDaK926t74YMDsVdT/G4JgqPjiAu50V
-	 Ueft42wAh/M1ycBSo5lcVPkaVjqdF8V6vn5fmFpvYMogCM7Rmv3qw0XHWbKtWFuaKA
-	 evPyXfZLzOT17tMCb0aQR0R64jmZF7g6YnXfU5N+Zk0rgt/vO9RFwFyEZXq/KiXmkX
-	 kSBrKIcgidGSw==
-Date: Thu, 24 Sep 2026 17:43:22 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: add: document the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <20260924-circling-punk-e75ea71e60b0@spud>
-References: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
- <20260924-topic-sm8x50-iio-max34417-adc-v2-1-9a0609e72f5c@linaro.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e0m+1y7N"
+Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2df4c9d14b8so8083705ad.0
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:46:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790268413; x=1790873213; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7UxPkbr3pw7/EMgMfuUOgi5E5rPkq0lQ/KwSa5X8KYI=;
+        b=e0m+1y7NGoeoU9CgHc+ykxO9paJsMPasCxAmNzr+l7wcFGqvH0o02fkSxGG5NZizyE
+         /oMExbLc16gM4rdG6yZCuNd25AqbKtV1dG//knZrQE0EwR4KCN+/q7rn3J+4FlQmNVOg
+         OWqFgoE/4aJp6jykwbNGHt3yKVjV8BH0PAYMPvztJTIXsQXsW5Xk18ZZfqVA8CB+wCRg
+         bS/YdqkZsPCvjrF+8MxXJjQjWaut42t1PRHZgyInqDujvNKWoEFde7SikLZb66tsAV02
+         Ipv8kl93d55bCF0OUlZ+ZVl60sK4OvgEpLphjx9+YnTydPwyKV3Q/CQ8LK7+plhq8731
+         icKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790268413; x=1790873213;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7UxPkbr3pw7/EMgMfuUOgi5E5rPkq0lQ/KwSa5X8KYI=;
+        b=jeIIbhrBRSQitY7pBZVYdBRprOih+w2pCplBeHc/L5zfDdJtTQd47XJFSMCexrdX6I
+         Olz5iTQv9MEXyis0GzmAceXWjs68Sp+g4rR9Mtyt5Ba/9XLQw7cqJ7c/p/7LFFiDqBL5
+         qSQ5fUd5y/D2sJqKBy/I9R5RBMOVEL+Jm+8QXBj6obbJZ8ZtJe4JQ7aUiFqBMJHeK4ys
+         r5e3FfOdOr94mE/+m/J4wNA16WyAzf3SaxK4S849QB/k3ngMUUgQueyt8vCKKzORY30e
+         z2gXIy1IFgiK7KggMGFE7JHnCpZeaseY4Z0oeSX5JYqYBGEbfHH2EwISrjkMC9DeEEkY
+         W/TA==
+X-Forwarded-Encrypted: i=1; AKwUvBxXhk9xavVzCwxedKBVK++BdwudPDuRKsDaGqbkCOqXBSOCSWzcndMvUZ7DztKxCS29Pou0rEMIeevi@vger.kernel.org
+X-Gm-Message-State: AFuF++nWkO25wiwWP20Dc/Tl3oUH/llDe1Vt2/yBpvV7btc6tKG31mgr
+	/ag4YizEbO/YO9wy5k3BxPlffHoj7HIDQ+RrZWfM+xmKqULPPPvBQWo+
+X-Gm-Gg: AYBFou2wnqghoh2PHr+1O34zxjnEJKHHyeAKKDAURr6MBHg3KvsXWnCT1Z3sJykAkw3
+	cXOYDpn8umt+ASRw5xWeWiC9zB4FjsR8ZkyGcsiJ7RY+6GypT7BDIEbLcydJ9jYZirpZ9fbxBVS
+	FQdOCnfpv32609cMRpJ4x5i2dYAxO7mqgRzoS5bHGTSakMTxP75KJoLYDtQzPYZROxvziOd1Nm/
+	yQxSjpZPGKdglV3mp9Sc8iypRAyKQ+neDzFSQM62lqRb+pvS/ctedjw4RGa5/eVTGtU8ZXDzut8
+	ZuuIJ3R8zco2mVXIqWsJRrqYiVgQUErU43J0/ouSSGgtaaHpPmeTRf2FzTGT6iFAlX9HB5SV8mk
+	rowiCLCP24mtyyfCur59VgNDMn2EwXMoWSpwqxVXdpQMY4rwTb3s5i8hGiE8kc0AE6epB4vZHGV
+	DgBZzNhwaeXE32AGl478+BAqodG0XltuAgayT997vNaSDFhVH9SoS+i254KgUbmPi4483R8AhoH
+	ZXgKXF6dl5E4sQmQgtAR+o=
+X-Received: by 2002:a17:903:46ce:b0:2dd:ad73:5b5a with SMTP id d9443c01a7336-2df7e26cfc2mr18250965ad.21.1790268413371;
+        Thu, 24 Sep 2026 09:46:53 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5dd166sm30573655ad.54.2026.09.24.09.46.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 09:46:52 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 24 Sep 2026 09:46:51 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] hwmon: (lm75) add MAX31875 support
+Message-ID: <29aade07-55a9-4d32-92e1-c7f410982f29@roeck-us.net>
+References: <20260924084121.82-1-johnerasmusmari.geronimo@analog.com>
+ <20260924084121.82-4-johnerasmusmari.geronimo@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kJO3RZKdI1PbxmPX"
-Content-Disposition: inline
-In-Reply-To: <20260924-topic-sm8x50-iio-max34417-adc-v2-1-9a0609e72f5c@linaro.org>
-
---kJO3RZKdI1PbxmPX
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260924084121.82-4-johnerasmusmari.geronimo@analog.com>
 
-On Thu, Sep 24, 2026 at 03:14:15PM +0200, Neil Armstrong wrote:
-> Document the Maxim MAX34417 Four-Channel High Dynamic Range Power
-> Accumulator used to monitor power consumption of portable systems.
->=20
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+On Thu, Sep 24, 2026 at 04:41:21PM +0800, John Erasmus Mari Geronimo wrote:
+> Add support for the Maxim MAX31875 I2C temperature sensor by
+> extending the lm75 driver. The MAX31875 features a 16-bit
+> configuration register, configurable resolution (8, 9, 10, or
+> 12 bits), and selectable conversion rates (125ms, 250ms, 1s, 4s).
+> 
+> Suggested-by: Guenter Roeck <linux@roeck-us.net>
+> Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
 > ---
->  .../bindings/iio/adc/maxim,max34417.yaml           | 100 +++++++++++++++=
-++++++
->  1 file changed, 100 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yam=
-l b/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml
-> new file mode 100644
-> index 000000000000..058af61cc04e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/maxim,max34417.yaml
-> @@ -0,0 +1,100 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/maxim,max34417.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Maxim MAX34417 Four-Channel High Dynamic Range Power Accumulator
-> +
-> +maintainers:
-> +  - Neil Armstrong <neil.armstrong@linaro.org>
-> +
-> +description: |
-> +  The MAX34417 is a specialized current and voltage monitor used to dete=
-rmine
-> +  power consumption of portable systems. The device has a very wide dyna=
-mic
-> +  range (20,000:1) that allows for the accurate measurement of power in =
-such
-> +  systems. The device is configured and monitored with a standard I2C/SM=
-Bus
-> +  serial interface. The unidirectional current sensor offers precision
-> +  high-side operation with a low full-scale sense voltage.
-> +
-> +  Specifications about the device can be found at:
-> +  https://www.analog.com/media/en/technical-documentation/data-sheets/ma=
-x34417.pdf
-> +
-> +properties:
-> +  compatible:
-> +    const: maxim,max34417
+>  drivers/hwmon/Kconfig |  2 +-
+>  drivers/hwmon/lm75.c  | 25 +++++++++++++++++++++++++
+>  2 files changed, 26 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+> index e4c4f2b09732d..c68b6c3c2f866 100644
+> --- a/drivers/hwmon/Kconfig
+> +++ b/drivers/hwmon/Kconfig
+> @@ -1525,7 +1525,7 @@ config SENSORS_LM75
+>  	  If you say yes here you get support for one common type of
+>  	  temperature sensor chip, with models including:
+>  
+> -		- Analog Devices ADT75
+> +		- Analog Devices ADT75, MAX31875
+>  		- Atmel (now Microchip) AT30TS74
+>  		- Dallas Semiconductor DS75, DS1775 and DS7505
+>  		- Global Mixed-mode Technology (GMT) G751
+> diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
+> index 104149a03bad0..886f83c8b0420 100644
+> --- a/drivers/hwmon/lm75.c
+> +++ b/drivers/hwmon/lm75.c
+> @@ -39,6 +39,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
+>  	max6625,
+>  	max6626,
+>  	max31725,
+> +	max31875,
+>  	mcp980x,
+>  	p3t1750,
+>  	p3t1755,
+> @@ -223,6 +224,15 @@ static const struct lm75_params device_params[] = {
+>  		.default_resolution = 16,
+>  		.default_sample_time = MSEC_PER_SEC / 20,
+>  	},
+> +	[max31875] = {
+> +		.config_reg_16bits = true,
+> +		.default_resolution = 10,
+> +		.resolutions = (u8 []) {8, 9, 10, 12 },
 
-ADI wants people to use their prefix for newly added devices,
-particularly if their release is after the maxim purchase.
+This isn't how resolutions vs. sample time is supposed to be handled.
+For most of the lm75 compatible chips, the sample time is associated
+with the resolution: Changing the sample time changes the resolution.
+This is not the case here: the chip has separate configuration register
+bits for sample time and resolution, and the resolution does not change
+automatically if the sample time changes.  The above associates
+8/9/10/12 bit resolution with the 125/250/1000/4000 sample times,
+which is wrong. Instead, .resolutions should not be set at all,
+reflecting the default 10 bit resolution.
 
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +  reg:
-> +    maxItems: 1
+> +		.default_sample_time = 4000,
+> +		.num_sample_times = 4,
+> +		.sample_times = (unsigned int []){ 125, 250, 1000, 4000 },
+> +		.alarm = true,
+> +	},
+>  	[tcn75] = {
+>  		.default_resolution = 9,
+>  		.default_sample_time = MSEC_PER_SEC / 18,
+> @@ -421,6 +431,9 @@ static int lm75_read(struct device *dev, enum hwmon_sensor_types type,
+>  			case tmp112:
+>  				*val = !!(regval & BIT(13)) == !!(regval & BIT(2));
+>  				break;
+> +			case max31875:
+> +				*val = (regval >> 7) & 0x1;
 
-Atypical ordering, usually reg is before these cells props.
+Please use
+				*val = !!(regval & BIT(7));
+to match the rest of the code. 
 
-> +
-> +  vdd-supply: true
-> +  vio-supply: true
-> +
-> +patternProperties:
-> +  "^channel@[0-3]$":
-> +    $ref: adc.yaml
-> +    type: object
-> +    description:
-> +      Represents the internal channels of the sensor.
-> +
-> +    properties:
-> +      reg:
-> +        items:
-> +          - minimum: 0
-> +            maximum: 3
-> +
-> +      label: true
+Thanks,
+Guenter
 
-This doesn't do anything, when you have unevalatedProperties: false.
-If these are the only valid properties, use additionalProperties: false
-instead. Otherwise, you can just remove this line.
-
-> +
-> +      shunt-resistor-micro-ohms:
-> +        description:
-> +          Value in micro Ohms of the shunt resistor connected between th=
-e RS+ and RS- inputs.
-> +        minimum: 1000
-> +        maximum: 100000
-> +        default: 1000
-> +
-> +    required:
-> +      - reg
-> +
-> +    unevaluatedProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-
-Typically in IIO, supplies are made required unless the device can
-operate without them.
-
-Cheers,
-Conor.
-
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        sensor@10 {
-> +              compatible =3D "maxim,max34417";
-> +              reg =3D <0x10>;
-> +
-> +              #address-cells =3D <1>;
-> +              #size-cells =3D <0>;
-> +
-> +              channel@0 {
-> +                  reg =3D <0>;
-> +                  label =3D "ch0";
-> +                  shunt-resistor-micro-ohms =3D <5000>;
-> +              };
-> +
-> +              channel@1 {
-> +                  reg =3D <1>;
-> +                  label =3D "ch1";
-> +             };
-> +
-> +              channel@2 {
-> +                  reg =3D <2>;
-> +             };
-> +        };
-> +    };
->=20
-> --=20
+> +				break;
+>  			default:
+>  				return -EINVAL;
+>  			}
+> @@ -495,6 +508,13 @@ static int lm75_update_interval(struct device *dev, long val)
+>  			return err;
+>  		data->sample_time = data->params->sample_times[index];
+>  		break;
+> +	case max31875:
+> +		err = regmap_update_bits(data->regmap, LM75_REG_CONF,
+> +					 0x0600, (3 - index) << 9);
+> +		if (err < 0)
+> +			return err;
+> +		data->sample_time = data->params->sample_times[index];
+> +		break;
+>  	case pct2075:
+>  		err = regmap_write(data->regmap, PCT2075_REG_IDLE, index + 1);
+>  		if (err)
+> @@ -848,6 +868,7 @@ static const struct i2c_device_id lm75_i2c_ids[] = {
+>  	{ .name = "max6626", .driver_data = max6626 },
+>  	{ .name = "max31725", .driver_data = max31725 },
+>  	{ .name = "max31726", .driver_data = max31725 },
+> +	{ .name = "max31875", .driver_data = max31875 },
+>  	{ .name = "mcp980x", .driver_data = mcp980x },
+>  	{ .name = "p3t1750", .driver_data = p3t1750 },
+>  	{ .name = "p3t1755", .driver_data = p3t1755 },
+> @@ -905,6 +926,10 @@ static const struct of_device_id lm75_of_match[] = {
+>  		.compatible = "adi,adt75",
+>  		.data = (void *)adt75
+>  	},
+> +	{
+> +		.compatible = "adi,max31875",
+> +		.data = (void *)max31875
+> +	},
+>  	{
+>  		.compatible = "ams,as6200",
+>  		.data = (void *)as6200
+> -- 
 > 2.34.1
->=20
-
---kJO3RZKdI1PbxmPX
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVTKgAKCRB4tDGHoIJi
-0juJAQD+gZ7xrihX290uJSi/Goa9Sgv8OFftmneSvBsYIYzKmgEArTFrIH5WBmbD
-RBAy2vdynMSVd7ziB1yw6RtJhcSsrwo=
-=MH1t
------END PGP SIGNATURE-----
-
---kJO3RZKdI1PbxmPX--
+> 
+> 
