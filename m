@@ -1,49 +1,124 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B355E4746B3;
-	Thu, 24 Sep 2026 11:37:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790249859; cv=none; b=ByeFvbrxuWwpLQOdfDx7hf8ey/FwHqPECAlN+FM3DIPNQAbJAnIT3HiiHlAdMMwRecUEi/gjQNpW9sAz/EJLkjSv0Sc60GyOGMjuaWERDhyJJ1v16y485lM9X8p4EwBU/R8bLPJDLA5ylBv+cMaNjkvXgGFtlbgZmdZoUuSfShk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790249859; c=relaxed/simple;
-	bh=2EznhBAf4tapLikwBNVBshdXp25sQtmOgYlIBY42W08=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JGyJSD/3apn3wMDEEBO014hjU2ObgVTw9yCudReLz3JybvGtQCn+ngzXMvkv2srSVv+tW9JNjN6u6uu8QLKFXdX6jy05F/aXeUmCieDc+SVUYdJC/sqRp08oR5AGa+wUXuAE76Lg0KEfqJjxuappxTu/bTVfaXQBzBDs9KAq6OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af404a00e4ccc4fdbbd66590.dip0.t-ipconnect.de [IPv6:2003:f6:af40:4a00:e4cc:c4fd:bbd6:6590])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id D53671C7465;
-	Thu, 24 Sep 2026 13:37:32 +0200 (CEST)
-Date: Thu, 24 Sep 2026 13:37:31 +0200
-From: "Joerg Roedel (AMD)" <joro@8bytes.org>
-To: Janne Grunau <j@jannau.net>
-Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	iommu@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Hector Martin <marcan@marcan.st>
-Subject: Re: [PATCH v3 0/2] iommu: apple-dart: device specific DMA aperture
- support
-Message-ID: <arULHr3O14OerdLR@8bytes.org>
-References: <20260902-iommu-apple-dart-aperture-v3-0-252ce55b7001@jannau.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF4D3F54AA;
+	Thu, 24 Sep 2026 11:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790250555; cv=none; b=ZiAe73QN3hjD7tCYuSudubYClz02Pkau1DPJDjP+zO57UtWtY/62wT8wEFEVW5m0GElI1SzncLxTUHNBXWL16qITp5I0GmW2Qpz8X9svef4zit3E2Fk+VapURE3y9TDK5gMUIskZZQExi3cjKxaNFzIaZ8BK0vb8jRjby/HAUmI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790250555; c=relaxed/simple;
+	bh=REXe1L/G5Swg4gI0yvsyd4VJtJnL+0m2IG48ctLZGqU=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=R3zY2SW+9itGKAacuntTz2QiP2Isl6c+SqoDY0b5f4kOqJMYBYFOUhbu+2JhwnkThAIfRMzk9PeKcFBcDD0bn1lJ+IMnyDBAgKPSIroPSYk4SJ6ZB2FSm9LrkuZjnzBNB5NwgLhlBAp7Fzm6/ia00mTsYNZ6Iw1gPpudiWDRD4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g0MhdNKx; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g0MhdNKx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC1A1F000FF;
+	Thu, 24 Sep 2026 11:49:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790250554;
+	bh=rku4KQA7zizHse97lsB6C+F4NuVJGArqTXbgqqfInPc=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=g0MhdNKxQe8UYpGX4/RnEi6/0aLObAe5EkrCEiBvgjgHp6H+oAVv+Zaf7WgA+IDNv
+	 yEz5kwGRWPnfapxq8h6fqm3rsffc92kdVfAeJVrYI+j7Y3KAB8vZyutd4vSB9fscl7
+	 0ZDbc+g95lEJ8cId5H6t5LeMRYxMKmWAaztcM3htNcG9Y1Rz7h51kBirTc9gfRaiiq
+	 yLlDb1njHf4MYIPMcbU5a/XzKRAIO/G7FpT7D1v4i7RIMAJlrgJumHKOlDHOasSASE
+	 iI9S/t4hRFwQUElAO3DWbd8yjMZcgbBGOZX2PjY4fKJZWQip8VRTLpXKbVru0kOICI
+	 NZs4HwRqPqi0A==
+Date: Thu, 24 Sep 2026 06:49:12 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902-iommu-apple-dart-aperture-v3-0-252ce55b7001@jannau.net>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>, linux-fbdev@vger.kernel.org, 
+ Conor Dooley <conor+dt@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>, 
+ devicetree@vger.kernel.org
+To: Max Pedraza <maximpedraza@gmail.com>
+In-Reply-To: <20260923201035.51007-3-maximpedraza@gmail.com>
+References: <20260923201035.51007-1-maximpedraza@gmail.com>
+ <20260923201035.51007-3-maximpedraza@gmail.com>
+Message-Id: <179025038211.3068273.9854294306608483193.robh@kernel.org>
+Subject: Re: [PATCH v3 2/7] dt-bindings: display: add a device tree
+ supplied boot logo
 
-On Wed, Sep 02, 2026 at 09:18:53PM +0200, Janne Grunau wrote:
-> Janne Grunau (2):
->       dt-bindings: iommu: dart: Support specifying the DMA aperture
->       iommu: apple-dart: Support specifying the DMA aperture in the DT
 
-Missed that there is a v3, applied this instead.
+On Wed, 23 Sep 2026 22:10:30 +0200, Max Pedraza wrote:
+> Embedded products frequently need a product specific boot logo. Today that
+> means pointing CONFIG_LOGO_LINUX_CLUT224_FILE at a different image, which
+> bakes it into the kernel image: a change of branding, or a second product
+> sharing the same board support package, requires a separate kernel build,
+> and requalifying that kernel for what is a cosmetic change.
+> 
+> Add a binding for a "boot-logo-clut224" node, which carries the logo
+> in the same paletted format the built-in CLUT224 logos already use, plus a
+> few optional properties describing where on the screen it is drawn.
+> 
+> The node lives under /chosen because a logo is configuration handed over by
+> firmware rather than a description of the hardware. Open Firmware, which
+> the device tree descends from, carried a boot logo in the same spirit as
+> the oem-logo variable under /options, and simple-framebuffer nodes live
+> under /chosen today for the same reason.
+> 
+> The palette size is derived from the length of the "clut" property rather
+> than spelled out separately, and "data" holds plain palette indices; the
+> 32 entry offset the frame buffer layer reserves for the console is an
+> implementation detail and is applied by the kernel, not by the binding.
+> 
+> "logo-position" takes -1 on an axis to mean centre on that axis rather than
+> carrying a separate boolean for it. A boolean can only centre both axes or
+> neither, and next to explicit coordinates it would have to override them
+> silently when a device tree gave both.
+> 
+> A rotation turns the logo, not the screen. "logo-position" and
+> "logo-offset" are screen pixels whatever "logo-rotation" says, and a
+> quarter turn only changes how much room the logo takes up. Placing the
+> logo in a frame that turns with it would make the same pair of
+> coordinates mean different places on the same panel, decided by a
+> property that is meant to describe the image.
+> 
+> Every coordinate is bounded. The kernel clamps them anyway, since it cannot
+> trust a device tree, but a value that cannot possibly be meant is worth
+> catching in dtbs_check rather than on the panel.
+> 
+> Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
+> ---
+>  .../bindings/display/boot-logo-clut224.yaml   | 135 ++++++++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  2 files changed, 136 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
+> 
+
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/boot-logo-clut224.example.dtb: chosen: 'logo' does not match any of the regexes: '^framebuffer', '^pinctrl-[0-9]+$'
+	from schema $id: http://devicetree.org/schemas/chosen.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260923201035.51007-3-maximpedraza@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
