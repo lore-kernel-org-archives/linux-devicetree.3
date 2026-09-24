@@ -1,345 +1,392 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011021.outbound.protection.outlook.com [52.101.62.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18753CF051;
-	Thu, 24 Sep 2026 04:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790225416; cv=none; b=bZEBObMppv97TDJHgd0HVV+9dGD2WgLdbPcq8krMw72tsS2CmNdRd4VJXjk0nkL/2+Uraj1qodjihJGMrHaluVMWIl1WCGGLV8DmLd13qZSPsOpv1NxMBr7JXxdBAqVEtXXL0y9WysC0J/3241N/PVAd0AxA383fPVV3GgKT614=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790225416; c=relaxed/simple;
-	bh=43RMoj05xiKDXP5fYVrwU1nq5jfeUdtdfmfVfIcj7jI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cPOVkRzQuF6CCvXrVXC6keVQT6nyKw7nwwabR14VMlJqFrwWmgFwPVxwr9tgjsu4Tmln2JwAz//FC82g1/0K+to0DQfekAvogmlJERIUhQTdQ+Q2sJE6sKJoVPq0BSIH7Yk4LBmS6UrIJ2FZWBW94YRqgO/0GS4AZze8egOZ2vY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=hve2mmx/; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B6D313547;
+	Thu, 24 Sep 2026 04:56:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790225767; cv=fail; b=NcOQX45BI8HvmZ9LGELnZJzsMscN6ah9ptXsv7SgQnxH4Dj0cFJ5waX1A0SXxC6LYf7dHO6UkL47TWPtOie8ptVDV+XZrjhfPXK2qPUIRlTN/qqmCb3d1hLP5iKT936gQjy4/0tVgu6sWqTVrvplrjobJj2GfmhVexZBhbazpf8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790225767; c=relaxed/simple;
+	bh=sEPgRjzjLbHk72ckK25A3GbtKxBvr6ndvz4/c/HdBNk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=uxS8mnAKNpddSFRFhd8RboGtke+Fgt+U96uFGjxhzaDxyTFH9xTkAt1Nhk6BObjcss3rnsJpbPeXS2lyR5DjCf4cQovXWl5Vqn6C7T5eErFxomH1z2aJqCKX66HGPNIQuNIcLtSfcm4lN8gRz6u23dyi7yxgmWbu8VwrEvSGq3E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JXmlgxkX; arc=fail smtp.client-ip=52.101.62.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="hve2mmx/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1790225380;
-	bh=7f2oetGAe71uHNcIaMbAfa2BIEJq6zVwewOu+CJ7lEw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hve2mmx/tUtDE6CIHnu4ZtTIyNjLxLtJ2zsakbrWmLuj085BGsmkje2vi/0cfFVLb
-	 rtsHmK27Xz7u3X6zUn3bP/J7ry0bUr6dEyXHT4gU3wKNZFllkH/iNeAWlAoIvrrQmS
-	 bzBTWcroEnWj4CbAp/P26xe3j+bsjAs5W3PUV02PSFejTsi/T2e0v7zhFunGhcX0Dg
-	 7RuPnW7jBg3MZ5I2C2MX2W3g5hMoX0Kmpmz65oOnq5WyQvU0ra9dcdA3uIwiOmbqWh
-	 3RJ+yWARbtZLeQMGYo311WHj4ER+gKnp5Vi58v69TEDvlMSofHa3jRuo5JY/zwaKiQ
-	 6hPRMkhSA5NpQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hr1b811nqz4wCp; Thu, 24 Sep 2026 14:49:40 +1000 (AEST)
-Date: Thu, 24 Sep 2026 13:49:55 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <arSdrp6WtJfdiAne@gractus.seuss>
-References: <aqJ5OhJcv4k-ZAj8@gractus.seuss>
- <20260911091653.37b22b0f@bootlin.com>
- <aqS6HmkaVYbrePtN@gractus.seuss>
- <20260914121937.5b7fa2bb@bootlin.com>
- <aqonNkbVqW9tf6Bg@gractus.seuss>
- <20260917090450.770c107a@bootlin.com>
- <aqzA11pFzN_3_Nhf@gractus.seuss>
- <20260918101617.46b3477e@bootlin.com>
- <aq4N5zbuCVZ4e6-C@gractus.seuss>
- <20260922084154.576a42d0@bootlin.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JXmlgxkX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fcpEUF1y5cOjhqHuU6Z0RE499yM7SGena1ZIdXaXOCXjZsbnFFYTWpXm8ENJapOffzkfZ6yUd7yQSmhIBKTB+IPi9AAWH7V0Nn1Gtc99AbJujF1FwPIT/jsjkUByhczwJhibH/sBDQpvjbwQMk/jAIPJDQA+eF7jDO/d2XQ5bzyRBAQrUUvXhTOQ7cRPEEX0374I7/kRjbp50faIBahRDzKVIazzFouWRZrPGTa5JfXMf78SXkWt9Aar4X0FOhtxEJbmzcFvDJnp37LogBitj+zCfvF0Xpvuj8duTX/z5EXmopx3hwVH3H3azQsqpvb/E5yiK5hRHY9HIvk6Fl/dHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rue2HsbyA0mddJGD02t42c4ThRXvYzHIRZjTg9JPo6c=;
+ b=GazHqZCuzqeXJE0sYrj8UQGDyH9v/6tSFMWfqWLmo8H16kmaVaFXzleMeXvb6liOmVpshzv3fttceHfV0/qyj9YdFm5kkLevXRnyeFEhKcg1LVqODULhCCBdEycfmmb5+d6ocFNwJVUD5O/Za4aOXSpfvrKeM3H1AUoz0Ez0IByNfg68TGO0Eq1O+FKlehRqAgAaAogbC9jXRDlq7CgRiSXPQHnmd04LHarWVRQPNoBd5heJw9QJ2SaNpiYT/yd5voSjlaEpomsMMwWZqGqDSJmk4rvyKiYvUWrHoq5eow6Cw87NRd9lZiYu1JtBkzFebCTy5t6x018A7xn3AgzfRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rue2HsbyA0mddJGD02t42c4ThRXvYzHIRZjTg9JPo6c=;
+ b=JXmlgxkXiftFSLVvmF7t1HpNPybSyi+1O/skH/U8QbcJI/9fGwlVR8ll23i+ltAP22CUt1f6BzDV8vDjWwmqUUIOmSiyyqRhKLWfWbw3TDFu1GyPNbCZQ6zNtgL4DTMVddpsjlkfk/VMWd9tDvLzAmZLk1vvKdZRELPpFM343O8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB8408.namprd12.prod.outlook.com (2603:10b6:208:3db::13)
+ by SJ0PR12MB8613.namprd12.prod.outlook.com (2603:10b6:a03:44d::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Thu, 24 Sep
+ 2026 04:55:51 +0000
+Received: from IA1PR12MB8408.namprd12.prod.outlook.com
+ ([fe80::10cf:64f0:2de6:e466]) by IA1PR12MB8408.namprd12.prod.outlook.com
+ ([fe80::10cf:64f0:2de6:e466%7]) with mapi id 15.21.0451.014; Thu, 24 Sep 2026
+ 04:55:51 +0000
+Message-ID: <eff031f6-e212-43a8-98c0-5f52a4b9317b@amd.com>
+Date: Thu, 24 Sep 2026 10:25:44 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] i3c: master: dw: Clamp GETMRL/GETMWL to controller FIFO
+ limits
+To: Frank Li <Frank.li@oss.nxp.com>,
+ Shubham Patil <shubhamsanjay.patil@amd.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, linux-i3c@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ meaganlloyd@linux.microsoft.com, git@amd.com
+References: <20260908102724.3232660-1-shubhamsanjay.patil@amd.com>
+ <aqL4HaQ1gjeaJYUQ@lizhi-Precision-Tower-5810>
+Content-Language: en-US
+From: "Patil, Shubham Sanjay" <shubpati@amd.com>
+In-Reply-To: <aqL4HaQ1gjeaJYUQ@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0178.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1af::14) To IA1PR12MB8408.namprd12.prod.outlook.com
+ (2603:10b6:208:3db::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/u7gAoVU7G3ZXZ2N"
-Content-Disposition: inline
-In-Reply-To: <20260922084154.576a42d0@bootlin.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB8408:EE_|SJ0PR12MB8613:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9786d87e-6d0d-4894-aa37-08df19f81b1b
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|3023799007|11063799006|6133799003|10067099003|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	QtKGfMeRCqe4llMjCypr3DakUFGlzEMgBhfGccA3irvh8KLWqhCcLJNomq7QW4JF5s7MJcbTKYho6+EcplQQadmLZ41CTNpHtae0D3kvYgTl+ZsqTgmrb/0jsIP991lVGKnOS9dF47//WPIwKCTD/EtHWszLV53BfF2zOu5+jG2DQfSYRiAIKc66Ol3G8rwrKGwOznaNza1fDkzyMOjQhhui6J3PtNmNxQWfQS8kuFTaqGpP8LT0CtISjwtfbmg38zCVeNOiKiVs1j4EVR+orQHv9rMcUofBbsvycB0/JlVeR6FTYbW6LpM0NKRFMqAlbvtdfL/HlcwYd7r3SsQSght9jSBKM4/9zR45ZQnLEM33R1Gq+3tyV7MRVHpXzJr1Kh7CRyjWTMGTvtXAJ8uP3bue+hgVR/FO/U/VYyB054nUkWZb//fYC+R9Ej0AJfLf/C4jTVD0/iANhkXUAAJWVX10t/0EKq5i61+fVOOPRy2ReeCXOHX6BhPOsR2XN+mktqBiIAdjSbYiew76WqcIBUJKcMf/XP+ZFAgCZOG9ZCPHmsUbNVEV1/NBmSkutuY3sZBOXHqE2mKWeRcy1AOD88MqacGozPYWeVUhoryj9RRUFUd9M/pgHzxgwwa/JoSo6VieTmPB35/83IAFRdD7pJ/R4OoMVKUR1gG0nCTq3dg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB8408.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(3023799007)(11063799006)(6133799003)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZTFhaXg2NXhhTUp4OWp1WWxBcTNMdFFPeE8vOExkbGdzVWdoSDJETGJjS3Jn?=
+ =?utf-8?B?UW1QOGJxK2xUbXQ3eUorRDVWYUx6S0pwSTFFMnM1T20vOVJ4TmpDc0pyUGJo?=
+ =?utf-8?B?UTdENzNJanNibE10RlBoVEFoYWJST2Z5am5ISGkxUkZCeEFOZEZaQ2FvR1ZT?=
+ =?utf-8?B?RnFLa1VUU3NTMnBQcm9BWXRnNHhBNWZ6Wm0rQVgramF0VHMwdXVNR0lIaWRq?=
+ =?utf-8?B?eUEweGY1dXJEZFU0TWFZenVGcWVKUnB0QisxV3ZrdUV5RTZQZlFISVI4bFhl?=
+ =?utf-8?B?T0JWUkEzR3Flcmx1ejVlVE96WXk0cWIzRTZOSWtxbW16dzM1K28zcStLM2lH?=
+ =?utf-8?B?cG9nbzV3aHVtdncwOTNITGsyYTgxU1pzNS9Ob2huYVV1NnNpakFLQmx1NVox?=
+ =?utf-8?B?VFNma0hMQzFITUphZXAxZldlbC80ZmY0UHpBVzJWMzJDbUFDdEI2SmNRa0hW?=
+ =?utf-8?B?cXl4blVGaHVRTGtKWTl6VFQ1Y2FYNzdhTE5MYnEyR1NNemRRbEZXTXJNMlFE?=
+ =?utf-8?B?NlhjTmdCRGE5MlJ5K3lOQUxMa2NYUUJhZVNkV2V1U0xlWnJLQ2N1WkQ5emFJ?=
+ =?utf-8?B?MVBtd3pJdUkzZzZzL2hiUlBDZjQzL1l1SWtsL1pKN0o2QlBwcFpLZ1Bya2Rr?=
+ =?utf-8?B?ZWxjSS9aS2llaC81d1pzWEttZThEN3YvajNjMVpkakkzMTQ5b3JLWXQrblh4?=
+ =?utf-8?B?Y2wvbXRNZnlYRC9Kc3JMTFdHYkc5SzJxTDZvRTVhTVZNVzZHZU8veUgrRUJF?=
+ =?utf-8?B?SWpONi9lc2UzaEZueHlWQldyS1hDVzIzUTlPQU1LL2xQWkVGc0dXV0VkMHUx?=
+ =?utf-8?B?NUVxNmhXZVduMTdmSzErbytlS0hXRTYvNXVZR3pRNHBtT3lnZVNnSDF0QXMy?=
+ =?utf-8?B?K21DS3NYRXliRFA0dDlkVzZQTjhwZUVCRVo5QTVTWDI0K1VPcXBOVVB5aFNY?=
+ =?utf-8?B?ejgxdmx4QXl2aEZmbHh5YkJ5aE52bG1PREZ2WVcrbTRZc2l3T1ZtUnppREcx?=
+ =?utf-8?B?N3RlV0FrNWZVZ01pVkRXbDF6d21vL0VibHVLQ1ZtRlNTZFpNMDlYbDk2bTRX?=
+ =?utf-8?B?YVliL2VNUFBGY25uYXJzc2JxbW9ic0xTeVRRcmxXY0tXck1WRTl1VG80OUF3?=
+ =?utf-8?B?aFVkakQrSWl1bzBOR2hMdnpXeWZDS2o1MTBadEVSaWY3TmxVemlXeFFkQ2o3?=
+ =?utf-8?B?cnRrd2FCbGNXaUpXZmpteVA5Q2s3MFBCbU5HL3BWTW5IVDZvajB6ZXBJdTJ3?=
+ =?utf-8?B?bk1EdXc3TFJZcVpjTHhpR2VHdEJZZFp3eklaTDNOcmQzdGpvQXY0WHE4OS9l?=
+ =?utf-8?B?bTQyTzFSSndaU1o1OFU1dlFxL29aU3BzT3dLMlYyRE5IM2ZWVm1HRm8yWHZr?=
+ =?utf-8?B?Y290bVFyclBXa1NpYWxXTHpCSzdaWjRBNmJiRE9IeE8vcXdhbzNlUFF5Wk5D?=
+ =?utf-8?B?MHQwQmZ5WCtCZ2pYWVVISW1nYzVzUGdsMGZ1aDdFRFpHZVhCRlhVTmRjMXFw?=
+ =?utf-8?B?RVJSVFF2VjBhMjhXbjVWMDhrU2x6TENwSmpQWDloZXdlNUxwN3UwZFJOeVI2?=
+ =?utf-8?B?S0NCMVlPVCtZdUV2aXhXb2RhdllpMndCRWZQb0RVMldXTGdnSFoxeHR1Y1NR?=
+ =?utf-8?B?U3kxMnFaSVpKOVVqeGRqazF2cndmV3JYdHVudi9MRnNmdjU5MGZKK3pOaVNM?=
+ =?utf-8?B?NUl1SC9KY3pPUVR4NzlWWGdsOVc1NmI2a1NoRFBIZWdHSmhXZ3dyMFBWTzlx?=
+ =?utf-8?B?a05PY1Nhdnl5akR3ZGxrclA2M1dKNVQ1YWozWXRkQk1uMk9BMjYvb2lMbi83?=
+ =?utf-8?B?cWVRZXYwaXpwRVY5RllNNGRoci82dkVJWlZYSXB4b1o2bWk4R0J1cUNpNHU3?=
+ =?utf-8?B?K3JVZGdNQ0pvZGs5cGk4TWFXMStVNUE0YTcwY1kxSjQ5VWhzRXZiMTZ3QlV1?=
+ =?utf-8?B?VGJxaXowQzFRMHBlYjZYYVNPU0hJZUduMU04TGZZek5ZZUl4UXlaeWwzSEhE?=
+ =?utf-8?B?aGZtMkNaTnFNdXhUSWxtb0txVG9FWGFweTNBeGt1bnFVTi9yZlM3ZENWejFJ?=
+ =?utf-8?B?dHp0bVpQd0JMa2dXdWUweGhjeEtjcE4rUmNzcm1vd2pDa0k3cXZ4Z3dEd2Er?=
+ =?utf-8?B?YnFoTnp0S3FKMkpqVW5ZY2pKMC9EdHhvMjFSSytCOXFSWVBtVlc5Qi8yS0Qy?=
+ =?utf-8?B?dDB6bTZmdlp1aXRXTGplWmt6WE5SbXVmSXAxTFBnSHZjNFg5RWJ6TTVlZ2xZ?=
+ =?utf-8?B?SHJCUFFEcnZRZHVtMEdFTTJ0RDkzVlB4UFphRTdNR0NYS3p1S3VCQ1FyZmty?=
+ =?utf-8?B?T0kwN2lHUGpqNUZ1NXlqQkV2dmhMQndmZTdHZk9OSlVJb3VQZ2Z3dz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9786d87e-6d0d-4894-aa37-08df19f81b1b
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8408.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Sep 2026 04:55:51.1658
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: O5DdIpqswvLmNkqk8HWkdrDcQlPiI4C4QiU1omQ5T5yeTBgymqfZw5P02tS2p9hitpV9CxbfHTYzoNOfM/V/EA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8613
 
---/u7gAoVU7G3ZXZ2N
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 08:41:54AM +0200, Herve Codina wrote:
-> On Sat, 19 Sep 2026 14:22:09 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Fri, Sep 18, 2026 at 10:16:17AM +0200, Herve Codina wrote:
-> > > Hi David,
-> > >=20
-> > > On Fri, 18 Sep 2026 14:41:11 +1000
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >  =20
-> > > > On Thu, Sep 17, 2026 at 09:04:50AM +0200, Herve Codina wrote: =20
-> > > > > Hi David,
-> > > > >=20
-> > > > > On Wed, 16 Sep 2026 15:21:15 +1000
-> > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > > > >    =20
-> > > > > > On Mon, Sep 14, 2026 at 12:19:37PM +0200, Herve Codina wrote:  =
- =20
-> > > > > > > Hi David,
-> > > > > > >=20
-> > > > > > > On Sat, 12 Sep 2026 12:34:24 +1000
-> > > > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > > > > > >=20
-> > > > > > > ...
-> > > > > > >      =20
-> > > > > > > > > Do you mean that we should avoid the DATA_LEN_ENCODING an=
-d always have the
-> > > > > > > > > 32-bit value right after the tag to give the size for all=
- "skippable" tags?       =20
-> > > > > > > >=20
-> > > > > > > > Yes.
-> > > > > > > >      =20
-> > > > > > >=20
-> > > > > > > I did a test using a dts file available in kernel sources. I =
-used (arbitrary
-> > > > > > > choice) juno.dts [0].
-> > > > > > >=20
-> > > > > > > Without any new tags, the size of the compiled dtb is 27067 b=
-ytes.
-> > > > > > >=20
-> > > > > > > With new metadata tags identifying phandles in properties (FD=
-T_PROPDATA_PHANDLE),
-> > > > > > > the size of the dtb becomes 29027 bytes and so 29027 - 27067 =
-=3D 1960 bytes for
-> > > > > > > those FDT_PROPDATA_PHANDLE tags (+7.2%).
-> > > > > > >=20
-> > > > > > > The tags used are composed of:
-> > > > > > > 32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit for da=
-ta
-> > > > > > > 32-bit: offset in the property where a phandle is present.
-> > > > > > >=20
-> > > > > > > Removing the '1 x 32-bit' information from the tag value and =
-adding a 32-bit
-> > > > > > > 'length' in all cases will lead 3 x 32-bit values for a FDT_P=
-ROPDATA_PHANDLE
-> > > > > > > tag (tag + length + offset) instead of the 2 x 32-bit (tag + =
-offset).
-> > > > > > >=20
-> > > > > > > Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_PHAN=
-DLE will need
-> > > > > > > 1960 * 3 / 2 =3D 2640 bytes (+9.7%). This leads to around +2.=
-5% of the whole
-> > > > > > > dtb just to have the 32-bit for length. This +2.5% can be eas=
-ily avoided.
-> > > > > > >=20
-> > > > > > > Also, I will not be surprised to see more tags in the future =
-adding some more
-> > > > > > > metadata information and so increasing dtb sizes.
-> > > > > > >=20
-> > > > > > > Quite often you have mentioned memory constraints system wher=
-e libfdt should
-> > > > > > > be as small as possible. On those system, the dtb itself is e=
-mbedded in the
-> > > > > > > binary close to libfdt. The size of dtb should be taken into =
-account.     =20
-> > > > > >=20
-> > > > > > Yeah, those proportions are high enough that I think it's worth=
- it.
-> > > > > >    =20
-> > > > > > > If the SAFE_SKIP bit is removed, I even plan to use this now =
-free bit in the
-> > > > > > > length encoding part:
-> > > > > > >   0b000: No data
-> > > > > > >   0b001: 1 fdt32
-> > > > > > >   0b010: 2 fdt32
-> > > > > > >   ...
-> > > > > > >   0b110: 6 fdt32
-> > > > > > >   0b111: On additional fdt32 to encode the length of data.
-> > > > > > >=20
-> > > > > > > IHMO, length encoding bits in tag value definition should be =
-kept and used
-> > > > > > > for all tags where the length is fixed and can be encoded usi=
-ng
-> > > > > > > these bits.     =20
-> > > > > >=20
-> > > > > > Well, I'm convinced we want some sort of compact encoding of the
-> > > > > > length, but I think we can do better than the current proposal.=
-  It
-> > > > > > seems implausible to me that we'll need 2^29 different metadata=
- tags,
-> > > > > > so I think we can spend some more of the tag bits on the length=
-=2E  How about:
-> > > > > >=20
-> > > > > >    0x80000000		structured tag bit
-> > > > > >    0x7fff0000		tag type
-> > > > > >    0x0000ffff		tag length
-> > > > > >=20
-> > > > > > So we have up to 2^15 (32k) different structured tags each with=
- a
-> > > > > > length of [0..65534] bytes (length=3D=3D65535 reserved for thos=
-e that need
-> > > > > > a full 32-bit length word).
-> > > > > >=20
-> > > > > > I believe that will avoid the extra length word for everything =
-you
-> > > > > > have currently drafted.
-> > > > > >    =20
-> > > > >=20
-> > > > > Yes, this will avoid the extra length field. The drawback is the =
-that the
-> > > > > tag value is no more a well fixed value. Each time we have to che=
-ck the tag
-> > > > > value we have to filter out the tag length.
-> > > > >=20
-> > > > > For instance:
-> > > > > - FDT_PROPDATA_PHANDLE
-> > > > >   fixed data size 4 bytes for offset
-> > > > >   tag value: 0x80010004
-> > > > >=20
-> > > > > - FDT_PROPDATA_PHANDLE_REF
-> > > > >   data: 4 bytes for offset + N bytes for a string
-> > > > >   tag value 0x8002ssss with ssss for the size
-> > > > >=20
-> > > > > This will lead to code like this:
-> > > > >   tag =3D fdt_next_tag();
-> > > > >   if (tag =3D=3D FDT_PROPDATA_PHANDLE)
-> > > > >     /* Do something */
-> > > > >     =20
-> > > > >   if (TAG_GET_ID(tag) =3D=3D FDT_PROPDATA_PHANDLE_REF)
-> > > > >     /* Do something */   =20
-> > > >=20
-> > > > True.  But.. a similar problem kind of exists with the original
-> > > > proposed encoding too: we *expect* a tag with fixed 4-byte contents=
- to
-> > > > use the "1 cell" flags, but we need to consider the case of encoding
-> > > > it as VARLEN with a length field of 4.  We could choose to make that
-> > > > forbidden, but we'd still need to consider who's responsible for
-> > > > enforcing that.
-> > > >=20
-> > > > Similarly, if a variable length metadata tag happens to have length=
- 4
-> > > > or 8 in a particular place, is it valid to encode it with the 1-cell
-> > > > or 2-cell flag? =20
-> > >=20
-> > > My position was: if we expect a tag with "1-cell" flag, using varlen
-> > > field encoding is considered as an other tag and so either an error
-> > > or a skippable unknown tag. =20
-> >=20
-> > So essentially tags of different (fixed) length live in different
-> > namespaces.  Ok, that makes good sense to me, but wasn't initially
-> > obvious to me.  So, I think we need to spell this out a bit better.
-> >=20
-> > > The same apply for varlen defined tag. Even if the data is, let's
-> > > say 8 bytes, the tag cannot be moved to a "2-cells" tag.
-> > >=20
-> > > The kind of data length encoding (1-cell, 2-cells, varlength) is done
-> > > when the tag is defined and cannot be changed.
-> > >=20
-> > > Who is responsible for enforcing that ?
-> > > I would say the documentation of the tag should clearly set the data
-> > > encoding used for the tag and the documentation of the "skippable"
-> > > format should say that data encoding is fixed for a given tag. It is
-> > > set when the tag is defined and any changes at runtime should be
-> > > considered as a different tag.
-> > >=20
-> > > Of course we can introduce dynamic length encoding to set the data le=
-ngth
-> > > encoding in the tag according to the exact data length found at runti=
-me.
-> > >  =20
-> > > > As a variant on my proposal, I'd also be fine with dividing the
-> > > > structed tags into several classes with bits indicating which is
-> > > > which.  Either:
-> > > >=20
-> > > >  * "short" vs "long": "short" always has the length within the tag
-> > > >    word (and so cannot exceed 64k, or however many bits we set asid=
-e)
-> > > >    whereas long always has a length word
-> > > >  * "fixed" vs "variable", fixed length tag types always have the sa=
-me
-> > > >    length, so the length can be considered part of the tag.  Variab=
-le
-> > > >    would have a length word. =20
-> > >=20
-> > > Well, only strings, or more generally arrays, need a varlen. For those
-> > > item, I would use the varlen word and so "long" in your definition.
-> > >=20
-> > > For all others where the sizeof(data) is well known when the tag is
-> > > defined, I would use "fixed" and "long" only if sizeof(data) cannot
-> > > be encoded by "fixed" (lengh > limit of dedicated bits). =20
-> >=20
-> > Right, now understanding your thoughts on the originally proposed
-> > encoding, the "fixed" versus "variable" distinction makes more sense I
-> > think.  I do see the advantage of never having a variable length
-> > encoded within the tag word.
-> >=20
-> > > Without any additional bits for any category, all of these fit with t=
-he
-> > > following length encoding:
-> > >   000...00: No data
-> > >   000...01: 1 x 32-bit
-> > >   111...10: N x 32-bit
-> > >   111...11: varlen word =20
-> >=20
-> > Right, so revising my suggestions in light of a better understanding
-> > of what you had in mind originally, it comes down to:
-> >=20
-> >  * I think adding more bits to the size field would be worthwhile to
-> >    allow a wider variety of future fixed length metadata tags.
->=20
-> Right, I have planned to add one more bit compared to the original propos=
-al.
-> This leads to 3 bits and so 0 to 6 32-bit data words (0b111 means varlen =
-word).
->=20
-> Do you think we should add one more bits?
 
-I don't think we particularly need them for the tag type, so yes, I
-think that would be worthwhile.
+On 9/11/2026 12:04 AM, Frank Li wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+> 
+> 
+> On Tue, Sep 08, 2026 at 03:57:24PM +0530, Shubham Patil wrote:
+>> The DW master rejects private SDR transfers larger than
+>> caps.datafifodepth with -EOPNOTSUPP. Targets often report MRL/MWL
+>> values larger than that FIFO, so the core stores limits the controller
+>> cannot meet.
+>>
+>> After a successful GETMRL/GETMWL, issue Direct SETMRL/SETMWL to the
+>> same target with lengths capped to the data FIFO (in bytes), then
+>> rewrite the GET payload so the core keeps the same values. Only update
+>> the GET buffer once SET is acked, so a failed SET does not leave the
+>> core and the target disagreeing.
+> 
+> I think i3c device driver should know these information choose
+> min value dring each xfer. even though you set devcie's MRL/MXL, device
+> driver still issue a longer transfer.
+> 
+> Frank
 
-> >  * Originally I was thinking that having a length in bytes rather than
-> >    just a length in 32-bit words would be worth it.  But thinking
-> >    further, there's probably no benefit.  The length rounded up to
-> >    32-bit words is all we need for skipping over it when unknown.
-> >    Even if we want a fixed length tag with, say, 3 bytes of data, we
-> >    can pad that out to a 1-word tag with a reserved byte.
->=20
-> The varlen word could be kept in bytes.
+Understood - I will drop the SETMRL/SETMWL and stop rewriting the GET
+payload, and instead expose the controller limit so the min is taken
+per transfer. Two questions on how you want that done:
+1) Where should the min be taken?
+    a) In the core: the controller driver sets max_read_len /
+       max_write_len / max_ibi_len in struct i3c_master_controller, and
+       the core caps i3c_device_info to min(target, controller) after
+       GETMRL/GETMWL. Device drivers then use i3c_device_get_info()
+       as-is and cannot forget.
+    b) In each device driver: the core keeps reporting the raw target
+       values, and drivers do the min themselves.
+2) Either way, a driver that ignores these limits still gets
+    -EOPNOTSUPP from dw_i3c_master_i3c_xfers() when the transfer does
+    not fit the data FIFO. Should the driver keep returning that, or
+    would you consider splitting an oversized private SDR transfer into
+    FIFO-sized chunks in the controller driver? My understanding is
+    no - splitting changes what the target sees on the bus - but I
+    want to be sure before v2.
 
-The varlen word _must_ be kept in bytes.
+Thanks,
+Shubham>
+>>
+>> GETMRL is variable length: the optional third byte is max IBI payload
+>> and is only present if the target returned it. Clamp that IBI byte to
+>> the IBI queue depth from QUEUE_SIZE_CAPABILITY.IBI_BUF_SIZE (bits 19:16
+>> at 0xe8, encoded as 2^(n+1) dwords).
+>>
+>> Rename the unused EXTENDED_CAPABILITY macro at 0xe8 to the databook
+>> name QUEUE_SIZE_CAPABILITY.
+>>
+>> Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+>> ---
+>>   drivers/i3c/master/dw-i3c-master.c | 149 ++++++++++++++++++++++++++++-
+>>   drivers/i3c/master/dw-i3c-master.h |   1 +
+>>   2 files changed, 149 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
+>> index 4563d8761ba0..51defcb57761 100644
+>> --- a/drivers/i3c/master/dw-i3c-master.c
+>> +++ b/drivers/i3c/master/dw-i3c-master.c
+>> @@ -203,7 +203,13 @@
+>>   #define BUS_IDLE_TIMING                      0xd8
+>>   #define I3C_VER_ID                   0xe0
+>>   #define I3C_VER_TYPE                 0xe4
+>> -#define EXTENDED_CAPABILITY          0xe8
+>> +#define QUEUE_SIZE_CAPABILITY                0xe8
+>> +#define QUEUE_SIZE_CAPABILITY_IBI_BUF(x)     (((x) & GENMASK(19, 16)) >> 16)
+>> +/*
+>> + * IBI_BUF_SIZE is encoded as 2^(field + 1) dwords: the smallest buffer is
+>> + * 2 dwords and each increment of the field doubles the depth.
+>> + */
+>> +#define QUEUE_SIZE_IBI_BUF_MIN_DWORDS        2
+>>   #define SLAVE_CONFIG                 0xec
+>>
+>>   #define DYN_ADDR_LO_MASK GENMASK(4, 0)
+>> @@ -844,6 +850,130 @@ static int dw_i3c_ccc_get(struct dw_i3c_master *master, struct i3c_ccc_cmd *ccc)
+>>        return ret;
+>>   }
+>>
+>> +/*
+>> + * Cap the limits a target reported through GETMRL to what this controller can
+>> + * actually transfer, so the core never asks for a private read the data FIFO
+>> + * cannot hold. The optional IBI payload byte is capped to the IBI queue depth
+>> + * instead; since that byte is a u8, the IBI cap only ever applies to
+>> + * controllers whose IBI queue is smaller than 255 bytes.
+>> + *
+>> + * Direct SETMRL is optional, so a target may implement GETMRL and NACK the SET.
+>> + * Clamp the values handed back to the core either way: a failed SET only means
+>> + * the target keeps its own larger limit, which is harmless as long as the core
+>> + * stays within ours.
+>> + */
+>> +static int dw_i3c_master_clamp_mrl(struct dw_i3c_master *master,
+>> +                                struct i3c_ccc_cmd *ccc)
+>> +{
+>> +     u16 max_fifo_bytes = master->caps.datafifodepth * sizeof(u32);
+>> +     u32 max_ibi_bytes = master->caps.ibififodepth * sizeof(u32);
+>> +     u16 actual_len = ccc->dests[0].payload.actual_len;
+>> +     struct i3c_ccc_cmd_dest set_dest = { };
+>> +     struct i3c_ccc_cmd set_cmd = { };
+>> +     struct i3c_ccc_mrl set_mrl;
+>> +     struct i3c_ccc_mrl *mrl;
+>> +     bool clamp_ibi = false;
+>> +     bool clamp_read;
+>> +     u8 ibi_len = 0;
+>> +     u16 read_len;
+>> +     int ret;
+>> +
+>> +     /* Need at least the 2-byte max read length field to act on. */
+>> +     if (actual_len < 2)
+>> +             return 0;
+>> +
+>> +     mrl = ccc->dests[0].payload.data;
+>> +     read_len = be16_to_cpu(mrl->read_len);
+>> +     clamp_read = read_len > max_fifo_bytes;
+>> +
+>> +     /* Optional third byte is valid only if the target returned it. */
+>> +     if (actual_len > 2) {
+>> +             ibi_len = mrl->ibi_len;
+>> +             clamp_ibi = max_ibi_bytes && ibi_len > max_ibi_bytes;
+>> +     }
+>> +
+>> +     if (!clamp_read && !clamp_ibi)
+>> +             return 0;
+>> +
+>> +     set_mrl.read_len = cpu_to_be16(clamp_read ? max_fifo_bytes : read_len);
+>> +     if (actual_len > 2)
+>> +             set_mrl.ibi_len = clamp_ibi ? max_ibi_bytes : ibi_len;
+>> +
+>> +     set_dest.addr = ccc->dests[0].addr;
+>> +     set_dest.payload.data = &set_mrl;
+>> +     set_dest.payload.len = actual_len;
+>> +
+>> +     set_cmd.rnw = 0;
+>> +     set_cmd.id = I3C_CCC_SETMRL(false);
+>> +     set_cmd.ndests = 1;
+>> +     set_cmd.dests = &set_dest;
+>> +
+>> +     ret = dw_i3c_ccc_set(master, &set_cmd);
+>> +     if (ret)
+>> +             dev_dbg(&master->base.dev,
+>> +                     "SETMRL not accepted by target: %d\n", ret);
+>> +
+>> +     if (clamp_read) {
+>> +             mrl->read_len = cpu_to_be16(max_fifo_bytes);
+>> +             dev_dbg(&master->base.dev,
+>> +                     "clamped target MRL from %u to %u bytes (FIFO depth limit)\n",
+>> +                     read_len, max_fifo_bytes);
+>> +     }
+>> +     if (clamp_ibi) {
+>> +             mrl->ibi_len = max_ibi_bytes;
+>> +             dev_dbg(&master->base.dev,
+>> +                     "clamped target IBI len from %u to %u bytes (IBI buffer limit)\n",
+>> +                     ibi_len, max_ibi_bytes);
+>> +     }
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +/* Same contract as dw_i3c_master_clamp_mrl(), for the write direction. */
+>> +static int dw_i3c_master_clamp_mwl(struct dw_i3c_master *master,
+>> +                                struct i3c_ccc_cmd *ccc)
+>> +{
+>> +     u16 max_fifo_bytes = master->caps.datafifodepth * sizeof(u32);
+>> +     struct i3c_ccc_cmd_dest set_dest = { };
+>> +     struct i3c_ccc_cmd set_cmd = { };
+>> +     struct i3c_ccc_mwl set_mwl;
+>> +     struct i3c_ccc_mwl *mwl;
+>> +     u16 write_len;
+>> +     int ret;
+>> +
+>> +     if (ccc->dests[0].payload.actual_len < 2)
+>> +             return 0;
+>> +
+>> +     mwl = ccc->dests[0].payload.data;
+>> +     write_len = be16_to_cpu(mwl->len);
+>> +
+>> +     if (write_len <= max_fifo_bytes)
+>> +             return 0;
+>> +
+>> +     set_mwl.len = cpu_to_be16(max_fifo_bytes);
+>> +
+>> +     set_dest.addr = ccc->dests[0].addr;
+>> +     set_dest.payload.data = &set_mwl;
+>> +     set_dest.payload.len = sizeof(set_mwl);
+>> +
+>> +     set_cmd.rnw = 0;
+>> +     set_cmd.id = I3C_CCC_SETMWL(false);
+>> +     set_cmd.ndests = 1;
+>> +     set_cmd.dests = &set_dest;
+>> +
+>> +     ret = dw_i3c_ccc_set(master, &set_cmd);
+>> +     if (ret)
+>> +             dev_dbg(&master->base.dev,
+>> +                     "SETMWL not accepted by target: %d\n", ret);
+>> +
+>> +     mwl->len = cpu_to_be16(max_fifo_bytes);
+>> +     dev_dbg(&master->base.dev,
+>> +             "clamped target MWL from %u to %u bytes (FIFO depth limit)\n",
+>> +             write_len, max_fifo_bytes);
+>> +
+>> +     return 0;
+>> +}
+>> +
+>>   static int dw_i3c_master_send_ccc_cmd(struct i3c_master_controller *m,
+>>                                      struct i3c_ccc_cmd *ccc)
+>>   {
+>> @@ -866,6 +996,18 @@ static int dw_i3c_master_send_ccc_cmd(struct i3c_master_controller *m,
+>>        else
+>>                ret = dw_i3c_ccc_set(master, ccc);
+>>
+>> +     /*
+>> +      * Clamp GETMRL/GETMWL responses to the data FIFO depth, and the
+>> +      * optional GETMRL IBI byte to the IBI queue depth. The GET itself has
+>> +      * already succeeded, so its result is never overridden here.
+>> +      */
+>> +     if (!ret && ccc->rnw) {
+>> +             if (ccc->id == I3C_CCC_GETMRL)
+>> +                     dw_i3c_master_clamp_mrl(master, ccc);
+>> +             else if (ccc->id == I3C_CCC_GETMWL)
+>> +                     dw_i3c_master_clamp_mwl(master, ccc);
+>> +     }
+>> +
+>>        pm_runtime_put_autosuspend(master->dev);
+>>        return ret;
+>>   }
+>> @@ -1728,6 +1870,11 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
+>>        ret = readl(master->regs + DATA_BUFFER_STATUS_LEVEL);
+>>        master->caps.datafifodepth = DATA_BUFFER_STATUS_LEVEL_TX(ret);
+>>
+>> +     /* Read the IBI data buffer size advertised by the controller. */
+>> +     ret = readl(master->regs + QUEUE_SIZE_CAPABILITY);
+>> +     master->caps.ibififodepth = QUEUE_SIZE_IBI_BUF_MIN_DWORDS <<
+>> +                                 QUEUE_SIZE_CAPABILITY_IBI_BUF(ret);
+>> +
+>>        ret = readl(master->regs + DEVICE_ADDR_TABLE_POINTER);
+>>        master->datstartaddr = ret;
+>>        master->maxdevs = ret >> 16;
+>> diff --git a/drivers/i3c/master/dw-i3c-master.h b/drivers/i3c/master/dw-i3c-master.h
+>> index 17ad817d1f8e..54c3912374c8 100644
+>> --- a/drivers/i3c/master/dw-i3c-master.h
+>> +++ b/drivers/i3c/master/dw-i3c-master.h
+>> @@ -15,6 +15,7 @@
+>>   struct dw_i3c_master_caps {
+>>        u8 cmdfifodepth;
+>>        u8 datafifodepth;
+>> +     u32 ibififodepth;
+>>   };
+>>
+>>   struct dw_i3c_dat_entry {
+>> --
+>> 2.34.1
+>>
 
-> > Ok, so more length bits and better documentation of the fixed
-> > vs. variable distinction are the only remaming suggestions.
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---/u7gAoVU7G3ZXZ2N
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmq0ndwACgkQzQJF27ox
-2Gefig//SJSuaWh8Aq8xRZo1lKaEMMP5kF/Lnc7orn71+MdBW6GlzJyaAX9JewSh
-BEEbuYc/9nfWlxeE+4nY7ie1FPnVNKfbyE7AW2sCkUMcEKTNN2b8i8YVU/M1Foiz
-agWo1VXZ1vMJ4DAuPGowM4CHWcRIqZWRwmExdDjXsUEqR27oBCbTNkVnVVTCCWll
-Cvda+5qkS+PICOEUSFKJi5nYUmdgvR2ZtCURQy81rEW3fnNMOeij1byJFYGdojqp
-Q5Fb+4k5SCpPgcVR1/PuJjYDDOcsPzD0aweozOb+15v8+DkohycIlF1On4Fz83d3
-k/c+jk84SAiF1avSiB5p8oX/YhlqIyVMw1JOjejUMySu+h/bgec78I3Qz7qipafz
-6s6jJihdW0gnXZLmBHw7V885tIDTBUzgJXQ7zjVn9dB98K0mxdhh1bT89dpBRz+E
-fyWONuvsz7pKQA1j0s6xs9zTmQYT1k0sb4QSqIneaiMIHORuJZNqVLzX8s9P9BJR
-YX2/22l5Xnflwk+x0VdTNU25bqn/UY4OeGO0fe23cFi8rFt76FIccrtU5jedurja
-ZZ0Ae5yC4hTHRQrMMJwOMViqe5QtSlAU2d0QVg6CKw9qL9A0zscgPBrNwoSxZFUi
-W3RBqlpZdw2N1bv+h2iKgn44UsZ1tpROUkir79mSvEFszMHHsJE=
-=VzK1
------END PGP SIGNATURE-----
-
---/u7gAoVU7G3ZXZ2N--
