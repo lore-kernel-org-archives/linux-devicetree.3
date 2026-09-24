@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FB83C5523
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:46:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A183C3C06
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:47:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261219; cv=none; b=OAOvLDVocgFz9hQCzcKE4a6xa/jIGlgxkA7zyqb+djn5wgA+NSysJCK/n63SnsaZwygHbPHCVSgXrIpcgrs0Fejsx26t5IvVoPnA/QpCiUPcKQv23innmL1nAVONOT3+vs+x+OXtQzaTfuyOpUxgEGDYnRnULANn1NhVyoKbeKk=
+	t=1790261248; cv=none; b=bbxGmOltv/97smqtIwFkV/8ENhloF7gTP0PP5bgGKhF3Afm7bk4eJp2szQTWENHAzjWMlf5UMpcnczEunqm8wQHY5MMPemJd+ytPyRQbeFAV26GrSYu6QnxBA26RMQJw2NmwhVyRGpjUhmrMtHdRF897/eSpTymgwh+hB47bS7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261219; c=relaxed/simple;
-	bh=/GJ8GnOfRx0puU2ZCnCuvCEi8zSIK970ER6rdDhYSpQ=;
+	s=arc-20240116; t=1790261248; c=relaxed/simple;
+	bh=I81OH35bS0gLfQaCw54On7nrzePGh/9twZAPCzjnb0Q=;
 	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tgNibpXd+NSRj6uY1RgnZxrc0BCkl+e5HvGDM8p9S951qJd2mG5wXlPZStodzaccyNf0WurgCT6a0UB/VQJYkV/zsBESuGkFvbfTUTa/YwDG4bkmHpLCzUz6TPckgVIiFSqXnrTyrpnaeaPnQ/F8vL1zSvOYGMOZxdOzvIFcqJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AhJ8/GyZ; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=EMK/SAYXEAihn8iNPO+u7/tDK/bttYZTMBYtNaLOvJkQBD0SZxCJKhr2R3nLWmwDNip1hRjH+xqMWsjVoDHjXTmpGtFwXhchrHoN09FVhPagLYr1wHoR0IRiFCLGUYnHMqv4mbTfmPtosysov1tMMfhlTgi8TZXy8lP8xW3uNI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYQnT4DT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AhJ8/GyZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE51A1F0089C
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:46:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYQnT4DT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BB51F0089B
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:47:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790261217;
-	bh=/GJ8GnOfRx0puU2ZCnCuvCEi8zSIK970ER6rdDhYSpQ=;
+	s=k20260515; t=1790261246;
+	bh=I81OH35bS0gLfQaCw54On7nrzePGh/9twZAPCzjnb0Q=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=AhJ8/GyZED80rFlcMiQhdOPpsFu7XF+zMquWmMmlilezsDzEoPszQoRMg/8HLu3k1
-	 eOXi8YlSGPu5gchsD7pdo4SQFuM+k0l+oc5DvuL6lmhtdd2apPKiD5U1ZWW2B9rFQK
-	 L/YkxGUOuewmv4HZqmQoE/RU6MALIljAY7YXrOpbcSebitWjyhuRELpqPAMvIsQEdI
-	 BsEq9HMQYdarSDlzx43AgP/Pd/z6RmPRJpSbP/9krvRPeNI/pjAu6B+j6DDPR3L+Ne
-	 IeL14YxXH9lMBxPpAkf9Q4Fj+XZx2l1BZ21xSLDe9ACObeslznezsxkhESqLSeZdcz
-	 IhDA7fXwPApiQ==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c9954ccbso2028208e87.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:46:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxn5Fum60TkhLbKrtTaqj3no0145s9nB+dOS0/sd7i6hVGrmWvjnJD0nWPae1LtSxoDiktOSG1G3p8D@vger.kernel.org
-X-Gm-Message-State: AFuF++kVTscB3hOfu8KsbDE9NPpt7nRdRFLNVKLY5hFrx6sgLLNGkjek
-	N6aR9xpIbbzkpACjGwIgRVaBiTrGv4HhAoOjNsYnBQPnO0mLfNKeIMdb6r1CD3oBqEmSqavveKi
-	/fMl0tTCpginwE//2JO6+fJGoatf9Cptg3dBG0y631w==
-X-Received: by 2002:a05:6512:130b:b0:5b6:1a7c:fd86 with SMTP id
- 2adb3069b0e04-5b8df0dbc90mr1281593e87.44.1790261216402; Thu, 24 Sep 2026
- 07:46:56 -0700 (PDT)
+	b=aYQnT4DTEwcNfwZzEp4MApCxLdB2caVuZnkr2A0pbsniqrXuOwKKogSHSMfjIGbCm
+	 RQawvb1hFNprixA7osXvdzJd+FZAQVzQe7lrFGRz9Qh70x5Xewn/zjRfeuOZ10C/jU
+	 bTfFtuhfCvLggJgBX+hSNKmURJQLsCNtK+bLpkLf9Pi7zLGEQkzUNBRdRYV0P4Q1pS
+	 QFKf9yxiP/RaFb6RVeYZC36jVQNPGqURTk0hC7/lMbBuMN6JdsxpRKmwLbPeiDkJ/+
+	 EwHdT6NzgCbfqcFUydTdhz66DxtL6LnlSmEj2jSeCzT1uqoHeQRw/9TxHLmlWuOOyo
+	 JEXD0MMIwtIoA==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a47f740839so20054771fa.2
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:47:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxA189+fbK26OMQR2HYMe3M/qFCoBgv+TiGtYDdIWT8Kc5DK9MXI6dCvbkaUh95yKzLoJP0faoaOT5y@vger.kernel.org
+X-Gm-Message-State: AFuF++npoPMFccc+1d8Ts4qEhQlpXRk4aXcn0SXCzCYo5UQQu6BJ1phz
+	LQquwuErnvFV99DBLMcdsbW3QVCyXU0Opn9+3SsRR+Itkf2Qirxfoz0uwVmxT1tvZ45bF2261CE
+	IaNgfI/pohqChJFK7BQ6xB61120QGdk4aXqtI4S98WQ==
+X-Received: by 2002:a05:651c:31c6:b0:3a3:749e:31a7 with SMTP id
+ 38308e7fff4ca-3a63e16b7ccmr5452671fa.27.1790261245159; Thu, 24 Sep 2026
+ 07:47:25 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 24 Sep 2026 07:46:53 -0700
+ HTTPREST; Thu, 24 Sep 2026 07:47:23 -0700
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 24 Sep 2026 07:46:53 -0700
+ HTTPREST; Thu, 24 Sep 2026 07:47:23 -0700
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260923182243.41060-2-farbere@amazon.com>
+In-Reply-To: <20260923182243.41060-3-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,12 +48,13 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260922103051.5257-1-farbere@amazon.com> <20260923182243.41060-1-farbere@amazon.com>
- <20260923182243.41060-2-farbere@amazon.com>
-Date: Thu, 24 Sep 2026 07:46:53 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeYjKY2gjXorrSKvoT4JQxGnyUAyaEqG1N4+mMR5BkFhg@mail.gmail.com>
-X-Gm-Features: AclHuK8DlJ5hNJm6JMzivbmwyqHAxKbZhQr31gcttS4XGGEHTD93hUStry5s9Rg
-Message-ID: <CAMRc=MeYjKY2gjXorrSKvoT4JQxGnyUAyaEqG1N4+mMR5BkFhg@mail.gmail.com>
-Subject: Re: [PATCH v6 1/4] pps: clients: gpio: propagate probe error codes
+ <20260923182243.41060-3-farbere@amazon.com>
+Date: Thu, 24 Sep 2026 07:47:23 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mfx1bMzcXW_inG3F=YRBJxhOCPgPAYRF=gV=waxb-cX6w@mail.gmail.com>
+X-Gm-Features: AclHuK-qfkNKqtEkucULl-Wwu4x1GqZ5M9FyRIxKY0CzcvLn9b3cHvxWzFK8qdM
+Message-ID: <CAMRc=Mfx1bMzcXW_inG3F=YRBJxhOCPgPAYRF=gV=waxb-cX6w@mail.gmail.com>
+Subject: Re: [PATCH v6 2/4] pps: clients: gpio: only tear down the echo timer
+ when it exists
 To: Eliav Farber <farbere@amazon.com>
 Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
 	Fabio Estevam <festevam@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
@@ -63,18 +64,28 @@ Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 23 Sep 2026 20:22:40 +0200, Eliav Farber <farbere@amazon.com> said:
-> On the two probe error paths that map and request the interrupt, probe
-> overwrote the error from gpiod_to_irq() and request_threaded_irq() with a
-> hardcoded -EINVAL, hiding meaningful codes such as -EBUSY, -ENOMEM or
-> -EPROBE_DEFER from the caller. The request_threaded_irq() failure message
-> also logged the IRQ number but not the errno.
+On Wed, 23 Sep 2026 20:22:41 +0200, Eliav Farber <farbere@amazon.com> said:
+> remove() calls timer_delete_sync() on data->echo_timer unconditionally,
+> but the timer is only initialised by timer_setup() in probe() when the
+> board describes an "echo" GPIO. On a board without echo-gpios the timer is
+> never set up, so remove() operates on a timer_list that was never
+> initialised.
 >
-> Switch both paths to dev_err_probe() so the actual error code is returned
-> and logged symbolically, and so a repeated -EPROBE_DEFER during boot is
-> logged at debug level rather than spamming the console. This also matches
-> pps_gpio_setup() in the same file, which already uses dev_err_probe().
+> The guard used to be there: it was dropped by commit fde046a8c490 ("pps:
+> clients: gpio: Remove redundant condition in ->remove()") on the grounds
+> that "the timer along with GPIO API are NULL-aware". That is true for the
+> GPIO API - gpiod_set_value() is a no-op for a NULL descriptor - but not
+> for the timer: timer_delete_sync() on a timer that was never timer_setup()
+> initialised trips the debug_assert_init() check and emits a debugobjects
+> "not initialized" warning under CONFIG_DEBUG_OBJECTS_TIMERS.
 >
-> Fixes: 161520451dfa ("pps: new client driver using GPIO")
+> Restore the data->echo_pin guard around the echo teardown, mirroring the
+> condition under which the timer is set up in probe(). gpiod_set_value() is
+> kept under the same guard as it only makes sense together with the echo
+> timer.
+>
+> Fixes: fde046a8c490 ("pps: clients: gpio: Remove redundant condition in ->remove()")
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> ---
 
 Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
