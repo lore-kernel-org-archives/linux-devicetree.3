@@ -1,137 +1,187 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B08844C4E2
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 16:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75B04AA006
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 16:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790265961; cv=none; b=AecCCTMkBCQwPuTEp8YPXObImgvCGMQUaKcoI75+U7APalLjhb647sbqnKtWaXohHLwpH3PzE1meMb7+Tjz+OE5iX9mx3pbLMKB9su08gjb9dZNdEfmTVl+xsTsQpUygpZrk8c3IWQ8pPM/hJGtvvckhjEgTvJUfyHEc2MONP/8=
+	t=1790266099; cv=none; b=YEiaEGT7cwFkYjQTwzqk/O1Mj8NvLMYkv0nxj991PlwhAoJYMH4p4BYbErO7Tu/c9q8h9eFD2Kx64WPAt5g0G9TxvjHKlDt6f7RlP5PwaYAygOtvRePlnVHZFKFVY9+kec4Mf5Al4f0W8rjfMzejzOr5ClDNfVnS5umebqfoD80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790265961; c=relaxed/simple;
-	bh=3/FB35Hu5fJEEgD/yBfAAnwDqio0JQJdSJzCduCvMyY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QEJ8CgSHWzgnXr5pcQnAja9c5oUMPVdU3KdPd8vlwh4bzfQjy0TCLpTnGVyzn6cI7WCBz55Pz+kE8ogKZcZWuejXoPCcV1gQZkPYPHijveSoztASIiSnGmKscxST3y2AUELSeZhaL8NMjuEaaNC0O+a/2gY53aL784lLYzPFT8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=F+9B2JGw; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790266099; c=relaxed/simple;
+	bh=nBLKjfzzzMtBVR3xYD59m+tHfO9J79hXcem1X91zzCY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FLVgnXf6PQHMR/qh9V8j1q5u+B17thKHIaIDRDpUDhkIXwJaVtRxZAtssvoKYyZsgTV8rjnRf2r1mtyd26I8bbX5yNePMAuHkf4yxYOCTFA91kKyiBHhU20ai9LrnfgeQ3b9a2bE7dManpesJ67srMzXJy12H7V8lc/Hmd78Jkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bV8xxj7Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="F+9B2JGw"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48442ea8f59so522938f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:05:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790265956; x=1790870756; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wm09KZgtMDDuRCaDDlw1bVTO/lDdGx5khYMsZ7nf5Wc=;
-        b=F+9B2JGw6NeW/19APcj6gavrZNn1VZ8WDIOPmZ107A/NSGv55xs5d9EffFjqNcyRqj
-         LKewnSDlPYTGqEtgfsLCEYPvZL/azr/Gmi2BwWhCtsV69SrsE7cNHmSd7nYF6CvopuQz
-         kDRrfa5jWutn9qxI6KRumw/qx9ON9dPv+lR4Q6pGh4VrXnon2/ZkybdXgDCNe+Ihbl1+
-         FgV/oc0JqN94EvFnYgANH8i1cDu2d1ttpVIZ2xLw+eSS8kRuR4s2yw4CxnzjZM4OnT4N
-         6jG1V+K36/kytXt4yW2Npuf3LwwSUEMteMIPEEAgOzlRmTjJH7t4ImhZsO3X7lywjuUk
-         tnXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790265956; x=1790870756;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=wm09KZgtMDDuRCaDDlw1bVTO/lDdGx5khYMsZ7nf5Wc=;
-        b=e1WdWwRmFKpsIZaFo+K0cuM70dwwtSHKhTYDSFy3naA888dtmcZB2rao8QZR8KLwuq
-         MoONToo2WC6qrWLJ1cH6rjhM1G1gQjtPidWfVmQqkI1tTtO4xTQL0e+8lxaS5diM5rRN
-         qfK3fKdbkVhi7trvWlmW7aA0IH7feaYAyNDd/Od377fMTXkWnLoiNRWQpzCEkiG/hOOr
-         LZ8LwzvqPrRct+u3HYKdGqWNDaN6bUh7+3HRm1WHSUyz9Qk5NZx3EdLpf1jRbYeVkrWC
-         wu8tRlxDyibSXsu69GD0pjH2+SLGDAjyKE2Y/K0a6vtXEsVmEuvVWagnrOP1TtbgM5wI
-         /BIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwYh+RPABT915Xpi27TJaK5tbafCX1IUrwwfsrveTrVteltjolOGfCZVJ7Q74oYeIZX1XY0wdIc16FC@vger.kernel.org
-X-Gm-Message-State: AFuF++ktVXp/fIYihr6V4+crRO2a4EgRkpsG9FFpQsLNGkhbC9KppzEk
-	rgRYmPo7Gb9KtJsxX99XMHRmQKSj0dYurMXCSS+2oOkcFqdX9aQrjishcplv1mbuVuI=
-X-Gm-Gg: AYBFou1xV6VxTMl/6KSxz2SjudI42KYYgDfHjtZWesjCvurCFBltIg++yWn0Z+gzTgq
-	uEOezVNJPdIeSeQfEbL8pCsNZgR7+OSgSuv4jWjNbpjeJ1TgH/nDqIcXKZ6SvcdmRhUOsDGG8rY
-	j9JVEBWW6v8rin66GKEqa5P27Ty65wyTDUpeUGs8RyI9zaWQWBTSL8NgOzI+HFW2cNpJQPCfitf
-	ISWbegcWqums4NndwNvhg50yKEk4xLm25qh2LwepXJfd1McLNyZHdXD8Sme3ts6oYnTuyiEOrrq
-	lktOrKJZu4mNlN4Wm7ARPKjpSgXNIsZjX8kSBuaMge+ahJGelB2Wz8qvrRQJX/qqDopIl4k7t1N
-	a8+S5Q3Ylt6YJncMAgNvDyo1oSylLaJ+LnsRLdA7UD8ms+81wRM+0mT5nSR81eIn4donOEuP8Ok
-	RumDxzp8+K+VRrZzvUWGumUtFOTPN5Dv9MaV5rUVDw6C5TkYWMFZ/NTXgPNrcydOAvA8dzKTwPI
-	MGN+I9abXMdsQvWMA==
-X-Received: by 2002:a05:6000:2083:b0:487:342:eb28 with SMTP id ffacd0b85a97d-488716f2354mr5536245f8f.24.1790265956591;
-        Thu, 24 Sep 2026 09:05:56 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a314sm57278f8f.6.2026.09.24.09.05.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 09:05:55 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 24 Sep 2026 18:05:50 +0200
-Subject: [PATCH v2] dt-bindings: i2c: mv64xxx: Add Allwinner A733
- compatible string
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bV8xxj7Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8F31F0089E;
+	Thu, 24 Sep 2026 16:08:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790266097;
+	bh=2amtWoddep7pLojeoPlYnSOvF1cjX1L2EV1PPtxJAkM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bV8xxj7QLljb63+9SMJVZr5rMtdrlNkzybIwY8y2BSFTnj2H2ZwAVkN7O9tU5L4+Y
+	 Qqp/sDY4OyTSqPQpz5Ch9ZWB0pgvPJgyqzZEjTfU2yV9+4pQivEfV0ePZHumJ0W6NY
+	 3+S33ED5n1cHhog0A6laY3Hc9Jutw+M+6zaNOB18iVp8VE7fYenB1ZS9qyi5gOzVHb
+	 blvPM3wv+MVoPgbZQ/eupg4UJAilP31w6CtP5JXJHgLJlxWgVmZRSGPkrGixTVX2mL
+	 cn56JF2rMx5Zpd8Y73bv2zaYh64GrDw0JfWSo46rAGEdSPI3YnrTW10Yh5SUbBQ4ao
+	 CCJIgPfois6rw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/2] drm/bridge: add support for lontium lt9211c
+ bridge
+Reply-To: sashiko-reviews@lists.linux.dev
+To: vishnu.saini@oss.qualcomm.com
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
+References: <20260924-add-lt9211c-bridge-v9-0-d78b39677a61@oss.qualcomm.com>
+ <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 16:08:16 +0000
+Message-Id: <20260924160816.ED8F31F0089E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-allwinner-a733-i2c-compatible-v2-1-0f5f1e9af969@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNSw6CMBQAr2K69pl++BRX3sO4aMtDnoFCWkQN4
- e4WXbh0OclkZmERA2Fkx93CAs4UafAJ5H7HXGv8FYHqxExyWfBKcDBd9yDvMYAplQKSDtzQj2Y
- i2yFIrZWWQvMKHUuNMWBDz0//fPlyvNsbummLbkYThh6mNqD5fUpe/vnMAgTkRaEynmfS1vXJm
- ldHNuAhWWxd36SP4JTZAAAA
-X-Change-ID: 20260910-allwinner-a733-i2c-compatible-2883821809ec
-To: Chen-Yu Tsai <wens@kernel.org>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1582; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=3/FB35Hu5fJEEgD/yBfAAnwDqio0JQJdSJzCduCvMyY=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlbvZLEvbbuS573+cXazpNcRs3727Jq9WuvrUlsuc5vP
- GnLHkHzjlIWBjEuBlkxRZYa7mrxd5JaX2ZN17kNM4eVCWQIAxenAEwkmpnhD5ehIO+29na1ioXR
- 63k5HTw2v71i8Pl26+GTAhOfZcwrPghUwbUw1KmsP3f/qr7Hzytu9q6t1HhuVLBFL95OeZtoRQQ
- DAA==
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-The I2C controller IP used in the Allwinner A733 SoC is
-compatible with the ones used in the other recent Allwinner SoCs.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] drm/bridge: probe race causing NULL pointer dereference via early =
+devm_drm_bridge_add()
+- [High] drm/bridge: use-after-free of workqueue on unbind due to reversed =
+devres cleanup ordering
+- [Medium] drm/bridge: asynchronous atomic_enable breaks DRM synchronous br=
+idge chain initialization
+--
 
-Add the A733 specific compatible string to the list of existing names
-falling back to the allwinner,sun8i-v536-i2c string.
+commit 2cf60daaeefff033f413189c179402f2bd50e48c
+Author: Yi Zhang <zhanyi@qti.qualcomm.com>
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
-This was tested on the Raxda A7A while enabling the AXP318 PMIC on S-TWI0
+drm/bridge: add support for lontium lt9211c bridge
 
-Changes in v2:
-- Collect Conor's trailer.
-- Cc linux-sunxi (not matched by MAINTAINERS/b4 by default)
-- Link to v1: https://patch.msgid.link/20260707-allwinner-a733-i2c-compatible-v1-1-566340542bdd@baylibre.com
----
- Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml | 1 +
- 1 file changed, 1 insertion(+)
+This commit extends the lontium-lt9211 driver to support the LT9211C
+variant by detecting the new chip ID and implementing its specific
+initialization sequences. It defers the final bridge configuration to
+a work item scheduled from atomic_enable() to wait for an active DSI stream.
 
-diff --git a/Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml b/Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml
-index c4efcef59133..2a9e723a724f 100644
---- a/Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml
-+++ b/Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml
-@@ -34,6 +34,7 @@ properties:
-               - allwinner,sun50i-h616-i2c
-               - allwinner,sun50i-r329-i2c
-               - allwinner,sun55i-a523-i2c
-+              - allwinner,sun60i-a733-i2c
-           - const: allwinner,sun8i-v536-i2c
-           - const: allwinner,sun6i-a31-i2c
-       - const: marvell,mv64xxx-i2c
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9211.c b/drivers/gpu/drm/br=
+idge/lontium-lt9211.c
+> index 23682384daf46..e6c08a7fdc27c 100644
+> --- a/drivers/gpu/drm/bridge/lontium-lt9211.c
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9211.c
 
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260910-allwinner-a733-i2c-compatible-2883821809ec
+[ ... ]
 
-Best regards,
---  
-Jerome
+> @@ -523,6 +1271,21 @@ static void lt9211_atomic_enable(struct drm_bridge =
+*bridge,
+>  	if (ret)
+>  		return;
+> =20
+> +	if (ctx->chip_data->chip_type =3D=3D LT9211C) {
+> +		drm_mode_copy(&ctx->lt9211c_mode, mode);
+> +		ctx->lt9211c_bpp24 =3D lvds_format_24bpp;
+> +		ctx->lt9211c_jeida =3D lvds_format_jeida;
+> +		ctx->lt9211c_de_high =3D !!(bus_flags & DRM_BUS_FLAG_DE_HIGH);
+> +		ctx->lt9211c_crtc =3D crtc;
+> +
+> +		/*
+> +		 * Needs a live DSI stream to auto-detect RX resolution/format;
+> +		 * defer bridge configuration until vblank inside the work item.
+> +		 */
+> +		queue_work(ctx->wq, &ctx->lt9211_work);
+> +		return;
+> +	}
 
+[Severity: Medium]
+Does returning asynchronously here violate the DRM bridge API contract?
+
+By offloading the hardware initialization to a workqueue and returning
+immediately, the DRM core might proceed to enable downstream panels in the
+chain before the LVDS signal is actually active.
+
+Could this result in display initialization failures on platforms where
+downstream panels require a stable LVDS stream during their enable sequence?
+
+[ ... ]
+
+> @@ -748,45 +1516,53 @@ static int lt9211_probe(struct i2c_client *client)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	ctx->regmap =3D devm_regmap_init_i2c(client, &lt9211_regmap_config);
+> +	ctx->chip_data =3D i2c_get_match_data(client);
+> +	if (!ctx->chip_data)
+> +		return -ENODEV;
+> +
+> +	ctx->regmap =3D devm_regmap_init_i2c(client, ctx->chip_data->regmap_con=
+fig);
+>  	if (IS_ERR(ctx->regmap))
+>  		return PTR_ERR(ctx->regmap);
+> =20
+> -	dev_set_drvdata(dev, ctx);
+> -	i2c_set_clientdata(client, ctx);
+> -
+>  	ctx->bridge.of_node =3D dev->of_node;
+> -	drm_bridge_add(&ctx->bridge);
+> +	ret =3D devm_drm_bridge_add(dev, &ctx->bridge);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+Is there a risk of a NULL pointer dereference here if the bridge is exposed
+before its workqueue is initialized?
+
+Because devm_drm_bridge_add() globally exposes the bridge to the subsystem,=
+ a
+concurrent display controller probe could immediately discover it and initi=
+ate
+an atomic commit.
+
+If lt9211_atomic_enable() is reached before ctx->wq and ctx->lt9211_work are
+initialized further down in lt9211_probe(), it will call queue_work() with =
+an
+uninitialized NULL workqueue.
+
+>  	ret =3D lt9211_host_attach(ctx);
+>  	if (ret)
+> -		drm_bridge_remove(&ctx->bridge);
+> -
+> -	return ret;
+> -}
+> +		return ret;
+> =20
+> -static void lt9211_remove(struct i2c_client *client)
+> -{
+> -	struct lt9211 *ctx =3D i2c_get_clientdata(client);
+> +	if (ctx->chip_data->chip_type =3D=3D LT9211C) {
+> +		ctx->wq =3D create_workqueue("lt9211_work");
+> +		if (!ctx->wq)
+> +			return -ENOMEM;
+> +		/* Register after DSI attach so devres flushes work before freeing ctx=
+->dsi. */
+> +		ret =3D devm_add_action_or_reset(dev, lt9211_destroy_wq, ctx->wq);
+> +		if (ret)
+> +			return ret;
+> +		INIT_WORK(&ctx->lt9211_work, lt9211_work_func);
+> +	}
+
+[Severity: High]
+Could this devres ordering lead to a use-after-free during driver unbind?
+
+The devres infrastructure executes cleanup actions in reverse order of
+addition (LIFO). Since devm_drm_bridge_add() was called earlier in the probe
+sequence, the workqueue cleanup (lt9211_destroy_wq) will execute before the
+bridge is unregistered from the DRM subsystem.
+
+If the DRM core invokes lt9211_atomic_enable() or lt9211_atomic_disable()
+during this unbind window, the driver will dereference the freed ctx->wq
+pointer in queue_work() or cancel_work_sync().
+
+> -	drm_bridge_remove(&ctx->bridge);
+> +	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-add-lt9211=
+c-bridge-v9-0-d78b39677a61@oss.qualcomm.com?part=3D2
