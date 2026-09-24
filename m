@@ -1,106 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFF735B65D
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 18:46:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7072D8DC4;
+	Thu, 24 Sep 2026 18:56:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790275593; cv=none; b=GHxLEZSX84y7+flL1sFuclMAi3tT6EQhm7Vb066lkG5JHWrBcxVcJDhFXxK5chL0VPP50kuVzxhpKqkrfJmIhG6eapBOOgHkIGP5EufFmQb8CwaB0vLKXmz44KzIizKkRw1gdz2iYrEIB5tLjvY3i+B3lubEbRPY6f+D8b30tQU=
+	t=1790276164; cv=none; b=SI1P0MvetjTZD2GAB6vx8PrflfmfsCpd2J0zQGFTYqxNfHZ4CTLSsKFSI80taGEkrxwVGp7sYBd7G/IhbXExuY+IBSi9RJMf7eV9SqOnokHbniyL97N66VNYStBPTcCJroZ8QUm6vTd3eCDhd605pNQ8rZYDdq9xn/20YmOgEng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790275593; c=relaxed/simple;
-	bh=k+3EQhwdGAFzV54ftHxEv2uCnduHPLHry3XRxLoPyfc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aFYCn81pJq1KbOR/WUHPAMG0tz+7cztS79XPmTflBfDzOQo4Sc7cSpwcAFxQxBm3/vLNs7+H77Jz9iN9PlMRWAMg7yTtUkVfufFM/+ImnvroF481mNYjZ1ccRXML0/2j9KtgKUxh8WiRxlKM+KWdmmQRv2+4X3+9SXODJzLTCAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R0OZAaA3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790276164; c=relaxed/simple;
+	bh=+oTCqkxdL2RHiWv7EsR1AVOi3MdopJuGUmM2tSiGQ0c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sWR4vth6nDRFmNLYDwpS04v9h0TABXULFM6IcYyGGLg8+dXUEjIReOgwuz5hF/ASrpY3MDlvS5lEQ9lzIXofMU70Yy8lvAlrgFM+N5V13fkkcqZN0Zhfa/DrpnAqMyFz+NszDzSK7TA+yLLJ6gyLwRFVcVuNJ8VikXgqwzXQQBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iMFZnU+l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R0OZAaA3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B90821F00893;
-	Thu, 24 Sep 2026 18:46:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iMFZnU+l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B623F1F000FF;
+	Thu, 24 Sep 2026 18:56:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790275585;
-	bh=vzn+0dPzSurpfTL0JAEZok0NxT0u0SmgjCrKPWYfn6E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R0OZAaA3GM3W45bSmIBd69N6DiiHpD7x37CbJku17QwpwCc3p9xwkivR1sSRGOMWu
-	 3FqjYMZErv4efENUC89aQJBFYE8apeLP3lpvq/rMnGnHhwW7NpTKvuLhJBEMFSFW1V
-	 iG/jjMRtUlZXM0s5p3jZdAA+kuX7HYCqRbaqoMOAtFnq682Djtb5sqY3ADw4+3fFpl
-	 N2/pW99PS6aYQFlrg9x6YCo+g8Sd68wFCC31k75Rvd1FWHZUXCEX/lXb0YOHdDbe7V
-	 Ao2jToKAmkWh0IAmNldMi0YlOO3ieIRvi0IzIcpe9f+Ornto2tzAhYapTks2G7xAaw
-	 SQ6x2nOAusOjg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: fsl: add Draeger M48 dual-cpu
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petko Manolov" <petko.manolov@konsulko.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260924183855.1393302-2-petko.manolov@konsulko.com>
-References: <20260924183855.1393302-1-petko.manolov@konsulko.com>
- <20260924183855.1393302-2-petko.manolov@konsulko.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 18:46:24 +0000
-Message-Id: <20260924184624.B90821F00893@smtp.kernel.org>
+	s=k20260515; t=1790276163;
+	bh=dWsSriTFP/l1SThxOsNHAT5Wuz8a/YdKnSltBFmwQqk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iMFZnU+l7QFuhCk+LgUxioaavEExOWoLtZg8A7iqDMCkUeIwy9OMZB7KEw5kPVkVs
+	 wIp3OvawKyufdtjI7eBoMgXaArbykQJgnmHBgJUJCbH+52ztwBVc3fSFDc3PA3SeFH
+	 EmArRX5e4THFokYSIONgh6cN0/NyZCXfOjrunAY6h0TuGVwI5UlWWZooHhgftwG8r5
+	 XKif8T2srnA/0K/GZ6T35JG+saHeZs7UP7NV17OGvMXxaKAT8a+zaFekm1/bEZHsSh
+	 UU8C5BinIJkyA76Lzf90NhgrTBGC4ptxzejeWtzSMAh9cx9s3ZW1pqWx+nxCECR/sO
+	 n6/8wbo4aeL3Q==
+Date: Thu, 24 Sep 2026 19:55:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Fei Xie <fei.xie@horizon.auto>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Parshuram Thombare <pthombar@cadence.com>,
+	linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 2/4] spi: cadence-xspi: add ACMD support for SPI NAND
+Message-ID: <67f4e1a4-fc0e-4b2b-b41e-8dbb33227302@sirena.org.uk>
+References: <20260921093701.1341766-1-fei.xie@horizon.auto>
+ <20260921093701.1341766-3-fei.xie@horizon.auto>
+ <arFEjzkHGMbecWWV@sirena.co.uk>
+ <20260923061211.1608907-1-fei.xie@horizon.auto>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GGC4+w1wYRwqkSmg"
+Content-Disposition: inline
+In-Reply-To: <20260923061211.1608907-1-fei.xie@horizon.auto>
+X-Cookie: Oh, so there you are!
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: missing 'draeger' in vendor-prefixes.yaml
---
 
-commit 9008bdf7e34160e9c4b4b83e8d008ed19bb9882a
-Author: Petko Manolov <petko.manolov@konsulko.com>
+--GGC4+w1wYRwqkSmg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-dt-bindings: arm: fsl: add Draeger M48 dual-cpu board
+On Wed, Sep 23, 2026 at 02:12:11PM +0800, Fei Xie wrote:
 
-M48 is a heterogeneous board made by Draeger that is based on two
-independent cpus, that are monitoring each other. One of them is imx6,
-the other is Altera SoCFPGA Cyclone 5. The imx6 parts used in M48 are
-imx6q and imx6dl, hence the two bindings.
+> The difficulty is that the hardware ACMD sequencer needs the complete
+> multi-operation sequence to be described before it is started. For
+> example, the SPI NAND core currently submits PAGE READ, status polling
+> and READ CACHE as separate spi_mem_exec_op() calls. The STIG path can
+> execute those operations individually, while the ACMD hardware combines
+> them into one programmed sequence.
 
-> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentati=
-on/devicetree/bindings/arm/fsl.yaml
-> index 86876311ec59a..2abcae70f33b8 100644
-> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
-> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-> @@ -260,6 +260,7 @@ properties:
->                - boundary,imx6q-nitrogen6x
->                - compulab,cm-fx6           # CompuLab CM-FX6
->                - dmo,imx6q-edmqmx6         # Data Modul eDM-QMX6 Board
-> +              - draeger,imx6q-m48         # Draeger imx6q variant of M48
+> Would an SPI-mem operation-sequence interface be a reasonable direction
+> to explore? The NAND core could describe the ordered operations and
+> polling condition, and the controller could either execute the sequence
+> in hardware or fall back to the existing individual operations. This
+> would keep NAND-specific knowledge out of the controller driver.
 
-[Severity: Low]
-Is the draeger vendor prefix documented in vendor-prefixes.yaml?
+I think that makes sense, that mirrors some ideas people have had for
+optimising SPI mesages in general - submit the sequence to the driver to
+see if it can do it in one, falling back to just running individual
+operations if that doesn't work.  See spi_optimize_message().
 
-Adding this compatible string without documenting the vendor prefix causes
-schema validation tools like dt_binding_check and dtbs_check to emit
-warnings or errors.
+--GGC4+w1wYRwqkSmg
+Content-Type: application/pgp-signature; name="signature.asc"
 
->                - ds,imx6q-sbc              # Da Sheng COM-9XX Modules
->                - embest,imx6q-marsboard    # Embest MarS Board i.MX6Dual
->                - emtrion,emcon-mx6         # emCON-MX6D or emCON-MX6Q SoM
+-----BEGIN PGP SIGNATURE-----
 
-[ ... ]
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1cj0ACgkQJNaLcl1U
+h9CgUAf/UWAcE2/VgHsBHsrdWIvev7pY5jSrNTWfchc/Eeek0coOo6mIyxBMphDc
+t+q4GKwk3QWJNRuaXmzFkhmNWlEkcVxY1YNUluq5vIP5XtzyXHBoTs0W+ueCNLiG
+fEfY0Wlay87obn08uduCMJ/4v7RM6JyuRI8Si4qqeKXKwBiNcjZFsMLcuiDxkIkt
+5yAQJQRsvEf4v9UaptOdGqxyTWQP+H1z33hBflXX7jMFvc3uMWMp1ucl2lC10odO
+uHMInH0MXNz4mv8/nGiGOZzsVhOZ9abOhFBWhQF/MU5SX3MCuzaec6Db3Ms6/pRv
+k/Wzf8uRQPiTBVpWhBhFTPqnzwzN3Q==
+=b69J
+-----END PGP SIGNATURE-----
 
-> @@ -458,6 +459,7 @@ properties:
->                - boundary,imx6dl-nit6xlite     # Boundary Devices Nitroge=
-n6 Lite
->                - boundary,imx6dl-nitrogen6x    # Boundary Devices Nitroge=
-n6x
->                - bticino,imx6dl-mamoj      # BTicino i.MX6DL Mamoj
-> +              - draeger,imx6dl-m48        # Draeger imx6dl variant of M48
-
-[Severity: Low]
-Does this compatible string also require the draeger vendor prefix to be
-documented in vendor-prefixes.yaml to prevent schema validation failures?
-
->                - eckelmann,imx6dl-ci4x10
->                - emtrion,emcon-mx6         # emCON-MX6S or emCON-MX6DL SoM
->                - emtrion,emcon-mx6-avari   # emCON-MX6S or emCON-MX6DL So=
-M on Avari Base
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924183855.1393=
-302-1-petko.manolov@konsulko.com?part=3D1
+--GGC4+w1wYRwqkSmg--
