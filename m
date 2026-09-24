@@ -1,241 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from out16-31.antispamcloud.com (out16-31.antispamcloud.com [185.201.18.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B557D48CD63;
-	Thu, 24 Sep 2026 21:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA55735AC24;
+	Thu, 24 Sep 2026 21:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.18.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790283673; cv=none; b=dC65XeXdZFiYYCevzqIzhHb7Z0TsdSu9MSU3t/DTRoA1OXgsFUENi4d0iesA9c1OGAc0CX7cpns0dvNtWHnOGfNploSztZHC9czwcEfiQmSgGjvYW4W961bEGyV+MjHYdr8aDvTTbWLOoD6kL9dJmzjeLDWBbbW5YvpxLMyGc9I=
+	t=1790283756; cv=none; b=k2BgMrqobcqr7golYKP6iDQOASQHac4MslglSTYIu/16N4S3mje75RHvtpDkkr9jnB/uyOZ7w5mU2DoP0vLpfcG4Jnm/hmibtSAJpVowHOWsyfaiKrh/zeLQZMGh8Wim2STNg23iw8aFM3xvCG3S50oLyjROmuuK6IiidbK0E9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790283673; c=relaxed/simple;
-	bh=xM/HOyTXOTMzd4xSah3RzjepvrxWG6pv5hFkASgDHCk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U6GQdCibuZgnIRsOMFS+1iMiLbi9TIyu4912LTtWS5++rKQGntNn8YZmGqU/XSrlTK6rd+s9Lw7vTaUFMwVlJukEyz0cahEcXYbBGlqcKs2HhtYOYDgDIZXIJT8Kqpki5zCpORf8/9jHUMZpXjrL0EFrfG0PP5svL9ve7F6EQsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ku9LSOMI; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790283756; c=relaxed/simple;
+	bh=68YIcqXIEF/kPMUkzpQZ3sv7ReLsVwsj+i1v9U2ZKc8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C0Co73vzTK0gEIOgOPam7KBIcyo5SsQpllvitx9gKTjVSrFwDloMYtO6Jn5cYizeeRnc5er9YDqMtwKe4mwU75MNCOLOtr4eTU2q4hkZfd49Lu2IYa0KMdB7CxWRpzd7lb/0rphOsDQ3tdOKOPPaY5vdQuiu/LUheMXm2orndiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=zac2eTzd; arc=none smtp.client-ip=185.201.18.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ku9LSOMI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790283670; x=1821819670;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xM/HOyTXOTMzd4xSah3RzjepvrxWG6pv5hFkASgDHCk=;
-  b=Ku9LSOMIJ488cPxJ8W2V7DeyzOYQy0TN/8Z8EbMPxuIBh4fVdR4gcnYl
-   K9O25YW0OQjtwclfbYMMiO50glICqMAlWiPT4+KLlsBIVlOZLLXDO3iHP
-   zhchkMsWs9RAwvvrp9NgHLz5mlsOQYUCuX2oDLvXTr8DaNkB+B2Ihmgbm
-   ZLI+o0VZ+DuTs3dkbkYWm0gwG1iv1VyEELNEA1bShPCsqXQkZ3DqXz/dU
-   S89J9hjGfaNnl5xHOWqojk0i2rtAdL8ooEyIIccCq2UP/7Qy5+i/Z3hUQ
-   oIM/AzlhhtUOleGexE2llie9JvWroiErJZ06lMxjyFSYXOGSgkwxlxPdJ
-   w==;
-X-CSE-ConnectionGUID: RFtFVbs4SvSNxcjeMlkzIA==
-X-CSE-MsgGUID: iaHKTmj1SiOdvAh3S8p1RA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="108561059"
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="108561059"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 14:01:10 -0700
-X-CSE-ConnectionGUID: KaXIAxNuT+uIWKqO3zxKTQ==
-X-CSE-MsgGUID: 6+3k7mcATAS/hVk7vgb3Pg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
-   d="scan'208";a="272260995"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.199])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 14:01:06 -0700
-Date: Fri, 25 Sep 2026 00:01:03 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Marek Vasut <marex@nabladev.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Cheick Traore <cheick.traore-ext@st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH v2 07/14] iio: adc: stm32-adc: add support for stm32mp25
-Message-ID: <arWPjx-JKt1IZCZl@ashevche-desk.local>
-References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
- <20260923-adc-stm32mp25-v1-v2-7-46bc019537c6@foss.st.com>
+	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="zac2eTzd"
+Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
+	by mx321.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <dan@reactivated.net>)
+	id 1x9qa5-00ECoc-Dd; Thu, 24 Sep 2026 23:02:17 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=reactivated.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=fSLpZABWWT2QC12oVoBVzQDjxUCLfjlwQF4+Oy3kyjI=; b=zac2eTzdql0T
+	Vf5p6kKLl6WKpbDW5ahZ8XFqA4eAWqgegNhpx34OHYkcE/0/qjTwFWv6sZGT+wLrq4Q0mqcHfPrSF
+	uVbNxPkoRp9iAUchqyH95vsfOE5sLlyGldYcp2TtFem8zSSsBPv3xLfDMYztfpvQ0x3bdk0CEJxV9
+	0GIptReVBAdg9VsedBkdT30Aol1eJxzTKF7oHm4FECbrrV93yhGT1RaNbxAd5GxGDrAHiyHp6tv2K
+	zG6VaRjK8N2HRX85qbzykzzcpAvYA0cqAKyE/Ws0wrg5kzmjCbqSshHJmlGszBNwHAZtFku96WHme
+	ZWEt1eq9/gPqBZX5cLXFIQ==;
+Received: from [188.251.249.2] (port=60568 helo=[192.168.1.123])
+	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <dan@reactivated.net>)
+	id 1x9qZy-00000005v13-3u57;
+	Thu, 24 Sep 2026 21:02:07 +0000
+Message-ID: <19ebea19-c7a6-4135-8abb-1f139ce1f74f@reactivated.net>
+Date: Thu, 24 Sep 2026 22:02:01 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-adc-stm32mp25-v1-v2-7-46bc019537c6@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/5] Add support for Broadcom BCM2712 IOMMU driver
+ (Raspberry Pi 5)
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ nick.hollinghurst@raspberrypi.com, james.quinlan@broadcom.com,
+ Jason Gunthorpe <jgg@ziepe.ca>
+References: <20260825-bcm2712-iommu-submit-v3-0-7f143e7289b6@reactivated.net>
+ <arUJxhEDFYSIUp4e@8bytes.org>
+Content-Language: en-US
+From: Daniel Drake <dan@reactivated.net>
+In-Reply-To: <arUJxhEDFYSIUp4e@8bytes.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
+X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
+X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
+X-Spampanel-Username: 192.250.231.249
+Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
+X-Spampanel-Outgoing-Class: ham
+X-Spampanel-Outgoing-Evidence: Combined (0.01)
+X-Recommended-Action: accept
+X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuUI6VlrppaKMI350tzbitpsV7EYtdIDduUM
+ IbM3yETjliu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
+ M0i5ZAms0EHrvcCaVINB+PBQNEtUhkVluwFFCsX/GnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
+ EetczWCfZW7a9uhvfuE0J/hsBuu+eB7itP8hgjDRserKv4bhb7ubyJcscJCC/8jhyq4eIIJWBb39
+ uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKclZzoe+TZdeH39wA4E
+ grA4pE2PuLHIFQdBY9qb1rRWgyz0f29FZkQs6Ir87R/YNAu4LTp8S3dP3ahgJ5Qcw+TYW/Yi0hJk
+ 8x1QQxCxZuYYqu1Es/mNlaSZ677NPMmQgxXznb05WiC8jaGsg2zWAtSwOqsKFjyOw6ht9+0m+2HK
+ hyDZczNB19Zd16i8m1k/DGgEQyEoi1/j5tZiR031ah+gQPOIjlkSAfAYMUguLL/iJyO1DBoi69uN
+ i8SsHHKkwfIcMf/IXZptVL/AvAk4qADKpWAtS6hgL14V/ocDGzv3txBOv3jFjgsNoFxTfcJiJyEa
+ 2OI0tSy1D95E625Y16tBpucgO37djUJrXU/wgrKuQcWSKoKpHc12nUrWNUzw/3DGQdeBNIkLb6r4
+ 7afaw/CHM6llfItwtYhKi/k9/RA3UB2LIFGgh/QiXjPxB1Apcw3AHj9py9u4Cvw3T1rOV/d4D61d
+ j5p7BYnIfUPLdSLTlKS/neSdJxr5whbTg0m4/7LGifDpq5EYH46qR+vFm9wC7ren9RtRNyYim5e3
+ GD8LGQOAW9bE+k+gl+anV+4sNfMDJFSfqfmiZ+On+h6teTV37eoUTJObIfbUgxRJO5so89RJ9UeM
+ S3sx/LZgkEzT4R77BsVio7IvGyM4VI1B3eqGna9aZwZynFm29FaFzEVtpg4br2+mEmVJrJM4fd19
+ PqjIyvGxWL1rN3cWjPD5viEZJolz8ClgrSFC0qV2pwUtO92lcKbdXd1aPKEJfyZsBP+3ojxAc8lp
+ 0sobbdB+F7B3Y8TjGBGmQjnZT0wGxghmQiiyHai0+C+cV2SwXGGBGRJoh9VoIekQHpwUfpYnEThm
+ JIBq/vl4T589Eoyw88oKK0Ika8ptpD+DyUmjOrd9V8i0AjwQSM6AQD8AM65nbdW1/nvATdPRNfRC
+ ogKUBoiGk7+7TY+LxsYMBY14CoC2k4ZFj2kpuIv/9gSqTljzmaSLiwQzKw+6v3CaIMG6s7LqJEBr
+ r4RYD5fnTwa0tMnLz6SKQpgZ8zVbGmL5ozttECcg597p245AIcvvY28Ycjy4wfZVgO2+xlhjYQtN
+ TOKCWKLh6v5HXh8xAM0W3+ESyNN702F0dRgAVZw81E22mZaseAdYAUt3zF2gN7skM/50TVH1H/aA
+ warQpYDOYx/6JtUORHHV0k7mR0VPG9HQWV7dXfBjXbvxH2nMLfV+SMGovieHnQDrcLDN17YMjSrM
+ Y2oTcPJOcrZu7OKsSObGAqhi7iERbInMiTBIUBbQ/Dy6Ip5s2Cc9h6F0bzi9eJvFy172Pif4H4Ku
+ 78pBi/ZAqnPyI/BjXbvxH2nMLfV+SMGovie1ATPpp8i1sHWZQrJ+tLuI
+X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
+X-Complaints-To: abuse@master.antispamcloud.com
 
-On Wed, Sep 23, 2026 at 05:39:10PM +0200, Fabrice Gasnier wrote:
-> Add support for ADC on STM32MP25 SoC. It has 3 ADCs, split into two blocks:
-> - ADC1 & ADC2 are tightly coupled.
-> - ADC3 is managed independently.
+On 24/09/2026 12:30, Joerg Roedel (AMD) wrote:
+> On Tue, Aug 25, 2026 at 09:56:03PM +0100, Daniel Drake wrote:
+>> Daniel Drake (5):
+>>        iommu_pt: Fix test_pgsize_boundary() failure on narrow-OA formats
+>>        dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
+>>        iommu/generic_pt: Add Broadcom BCM2712 page table format
+>>        iommu: Add Broadcom BCM2712 IOMMU driver
+>>        arm64: dts: broadcom: bcm2712: Add GPU IOMMU and IOMMU cache nodes
 > 
-> Trigger list slightly changes between these blocks (ADC1 & ADC2). Other
-> differences are found on channels interconnects (similar between ADC2
-> and ADC3):
-> - ADC1 is connected to 18 external channels + 2 internal channels
-> - ADC2 is connected to 14 external channels + 6 internal channels
-> - ADC3 is connected to 14 external channels + 6 internal channels
-> 
-> Each ADC is a 12-bits successive approximation analog-to-digital converter,
-> with up to 20 multiplexed channels that can be configured as single ended
-> or differential. ADC resolution ranges from 6 to 12 bits.
-> 
-> It introduces diversity regarding IRQs, clocks, software calibration
-> procedure, internal voltage channels, sampling time (prescaler) and
-> trigger list. Most of the architecture, and the driver engine remains
-> similar. So, handle the differences w.r.t. other STM32 ADCs family with
-> a dedicated compatible and compatible data.
-
-...
-
->  		.compatible = "st,stm32mp13-adc-core",
->  		.data = (void *)&stm32mp13_adc_priv_cfg
->  	}, {
-> -	},
-> +		.compatible = "st,stm32mp25-adc-core",
-> +		.data = (void *)&stm32mp25_adc_priv_cfg
-> +	}, {
-> +	}
-
-Same issue and now it's a regression from maintenance perspective: you added an
-unnedeed churn that has to be handled from now on... TL;DR: do add trailing
-commas to the non-terminator entries and remove trailing commas in the
-terminator entries.
-
->  };
-
-...
-
-> +	STM32_EXT23,
-> +	STM32_EXT24,
-> +	STM32_EXT25,
-> +	STM32_EXT26,
-> +	STM32_EXT27,
-> +	STM32_EXT28
-
-Same issue and so on...
-
->  };
-
-...
-
-Are you doing patches with an assistance? LLMs might have a problem with the
-style issues.
-
-...
-
-> +retry:
-> +	/* Clears or set CALADDOS (also clear old calibration data if any) */
-> +	stm32_adc_writel(adc, STM32MP25_ADC_CALFACT,
-> +			 FIELD_PREP(STM32MP25_CALFACT_CALADDOS, *add_offset));
-> +
-> +	ret = stm32mp25_adc_calib_get_average_data(indio_dev, &average);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Add offset and retry single-ended calibration if the averaged data is zero */
-> +	if (!average && !*add_offset) {
-> +		*add_offset = true;
-> +		goto retry;
-> +	}
-
-Refactor to avoid a label. It's possible to achieve.
-
-> +	if (!average) {
-
-Why not positive conditional?
-
-> +		/* If average data is still zero with additional offset, just warn about it */
-> +		dev_warn(&indio_dev->dev, "Single-ended calibration average: 0\n");
-> +	} else {
-> +		u32 calfact = stm32_adc_readl(adc, STM32MP25_ADC_CALFACT);
-> +
-> +		calfact |= FIELD_PREP(STM32MP25_CALFACT_S_MASK, average);
-> +		stm32_adc_writel(adc, STM32MP25_ADC_CALFACT, calfact);
-> +	}
-
-...
-
-> +static int stm32mp25_adc_calib(struct iio_dev *indio_dev)
-
-> +	struct stm32_adc *adc = iio_priv(indio_dev);
-> +	bool add_offset = false;
-> +	bool diff_below_zero;
-> +	u32 average, calfact;
-> +	int ret;
-> +
-> +	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADCAL);
-> +	/* Use default resolution (e.g. 12 bits) */
-> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR, STM32MP25_RES_MASK);
-> +
-> +retry:
-> +	/* Single ended input calibration */
-> +	ret = stm32mp25_adc_calib_single_ended_offset(indio_dev, &add_offset);
-> +	if (ret)
-> +		goto out;
-> +
-> +	/* Differential input calibration (keep previous CALADDOS value) */
-> +	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADCALDIF);
-> +	ret = stm32mp25_adc_calib_get_average_data(indio_dev, &average);
-> +	if (ret)
-> +		goto out;
-> +
-> +	/* Averaged diff data is below 0x800 (half value in 12-bits mode) */
-> +	diff_below_zero = average < BIT(adc->cfg->adc_info->resolutions[0] - 1);
-> +
-> +	if (diff_below_zero && !add_offset) {
-> +		/* Retry the whole calibration with additional offset */
-> +		add_offset = true;
-> +		goto retry;
-> +	}
-
-Same comment, refactor to avoid label.
-
-> +	calfact = stm32_adc_readl(adc, STM32MP25_ADC_CALFACT);
-> +
-> +	if (diff_below_zero) {
-> +		/*
-> +		 * Averaged data is still below center value. It needs to be clamped to zero,
-> +		 * so don't use the result here, warn about it.
-> +		 */
-> +		dev_warn(&indio_dev->dev, "Differential calibration clamped(0): 0x%x\n", average);
-> +	} else {
-> +		calfact |= FIELD_PREP(STM32MP25_CALFACT_D_MASK, average);
-> +		stm32_adc_writel(adc, STM32MP25_ADC_CALFACT, calfact);
-> +	}
-> +
-> +	dev_dbg(&indio_dev->dev, "set calfact_s=0x%03lx, calfact_d=0x%03lx, calados=%ld\n",
-> +		FIELD_GET(STM32MP25_CALFACT_S_MASK, calfact),
-> +		FIELD_GET(STM32MP25_CALFACT_D_MASK, calfact),
-> +		FIELD_GET(STM32MP25_CALFACT_CALADDOS, calfact));
-> +out:
-
-In any case if you ever have a label in the code, name it as an answer to the Q:
-"What will be done if I goto *this* label?"
+> Applied, thanks.
 
 
-Here it is something like 'out_calibration_stop_and_reset'
-(I haven't checked the real code and datasheet, just used below short context).
+I'm assuming you didn't apply the v3 version of the series, since that's 
+an old submission and you also just acknowledged my plan to send a v6:
+https://lore.kernel.org/all/arT-U_Rp0ZFMyCD7@8bytes.org/
 
-> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CR, STM32H7_ADCAL);
-> +	stm32_adc_set_res(adc);
-> +
-> +	return ret;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+I'll go ahead with v6 submission now, but let me know if you prefer to 
+handle this another way.
+Daniel
 
