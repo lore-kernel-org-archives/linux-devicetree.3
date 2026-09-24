@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EB937F337;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8131837F324;
 	Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258496; cv=none; b=qtcmkTaQFXixfH3m8fEJvNYZJKBO9bcKB+xxHAwvtMZvCnl+yBWbOgpvdgNQa9K9NXd7f6FNeoAJWuiycKB/qL7SWVMLke4v+3Pl2qFeMnwySpxNbTD15hLP1szU5g7WqnHkozSxs/UqKV15XJGYV7Pmcy/z5zfPmxxGYTjV0nw=
+	t=1790258496; cv=none; b=HeWjylEt7vgDEQNOPzvQhmqW/kUmHp2r0ChuY1uG+kMyY6rYKdHBQOPnEGtKVcW1o3t4FwQ9f1Lb9n864d/IN0QJe2sGM7yGUMuM66hRRnQ0+9p7zyb9DiizLDugzhtRk8QFch4gYZceBYiByY12hTGcLCtvxy1OqtAuuY2QvCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790258496; c=relaxed/simple;
-	bh=VtMHnds7jZXNRknUpJEYmVpmQX6SoqmzQo6wLw7z8cw=;
+	bh=c6qBz0V0x2yWso8A14cK9YmOaGKe+ZbAsNET3aLorh4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZYyJ3fPShLnDReTooXFZCnyDdGFk5yuRQANYeK8pX/XWRck1pPFPG2qGviTpP2dCcxND+YpOWX7kqX9DUOrgJwcOa4cN4QlIhPjtC6R7yk18k/cvJdkdW0rMDc22wuie4m2rp3Rqsr+m9Ox6ufnKwzfcD3jAWXAk8RQle19CxmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOcGZbFc; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=i/2CGvHbQxJgXC0jYF5QpI9M6ntP2eM1zJdWKmUn3XTO5Uleta9AuelwMhe7EvjwOOF2xfkkR3J9gMCT2zuxqhRtKmDF/w9My6BBwxPSNz25pcz7Fc6sournzq7I4OfVC2e7jvh69TbmYFqL3+dxgaSr2bV4FIClQoZVRiBB4F0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGEkWhpO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOcGZbFc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 44CFBC2BCB3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGEkWhpO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 37946C4AF0C;
 	Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790258496;
-	bh=VtMHnds7jZXNRknUpJEYmVpmQX6SoqmzQo6wLw7z8cw=;
+	bh=c6qBz0V0x2yWso8A14cK9YmOaGKe+ZbAsNET3aLorh4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=EOcGZbFcgHj0/yTyzroq+04u0HHDVaTRO5S0gMaGz7PzS4U5/4Xqubf5yT2cJIUH5
-	 ooaevxS1RiJsBBFRjDVIlquTXNXm7Jqdha5C5g2ci7j+8hjWqmnCs5z+mn1GZ8a8U4
-	 5TV29/0kfP/1RmuWrCAc/sN+BU9wlt30wnnOGlRZWTqmyL+It4mD2JZesNDhBSOEeE
-	 I1x1SUYr9Z4SyPx4HGqNTZ8pns54+iN9KdWIQat5TnyIHUYEudoiQi88ag1mwNnSjw
-	 xmm0nteEibdBXCuofFTxbRPp2aNDLU1YTyqVaRCcm5qVX76cXv3OBKjh65exEeiOQf
-	 g6mk3i7yc99WQ==
+	b=KGEkWhpOSdr4uqsQ/CtRhUXtQaaTYvQyRxdhgM1IXdAnI2Y3Ctzhk/TgNYAio6Md8
+	 5w8fTTrW4HbFdaCSAHyq+Lb+AeNXWgMzAfr4JoX9HaWF2oubMlC9hue4hS5zrgZoNm
+	 iAwdkaU8mrcrqHpQvEB32yBlKWmAcWjuTWhNQ7CgMQ1HD9MZxY8qkpwXMweHvbUJuo
+	 hdIrjxGA788CjXrA716GH7ljp4F3zbqwk9m7KAfiC2RNqXPd9kuTxMAAKxuJ4iv+2E
+	 VmuGkdathFnOT3ShspvxIoF35f5t70Nr2bajc7ny6qL6lz8cgpn7bhiJHT8ACP0UOP
+	 qT7EMrT3IZG2w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3143AC98321;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 216C9C9831E;
 	Thu, 24 Sep 2026 14:01:36 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 24 Sep 2026 16:01:38 +0200
-Subject: [PATCH v2 10/11] arm64: dts: qcom: sdm845-google: Move panel pins
- into common
+Date: Thu, 24 Sep 2026 16:01:37 +0200
+Subject: [PATCH v2 09/11] arm64: dts: qcom: sdm845-samsung-starqltechn:
+ Update panel compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260924-crosshatch-panel-v2-10-08d5c7bf72fc@ixit.cz>
+Message-Id: <20260924-crosshatch-panel-v2-9-08d5c7bf72fc@ixit.cz>
 References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
 In-Reply-To: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
@@ -58,21 +58,21 @@ Cc: Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2126; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1462; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=tmWWZMnJdIiah2Ra+OBrkILlOUVZlqnIlNSnhIb5uBA=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS09f2wlNMXFy/rZ1CQYqSibfi/pXLBtMVeu6
- 1wnc12nzs2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPQAKCRBgAj/E00kg
- ct0AEACyeppnguTHriwBUu+k8lbdUGxD74whGrWZu8DAEYfw1G06WQYsn5KpfTWmNkAkLo/vewT
- mBgQJexOmb34ahjlHFOfgNlMs/ocRMHkzxEUCJaeWLYGnZr+ibyXj1+EyEupXSEmsrh1ygyXW6I
- MLtYVuoB3kjTlGOMagMPCFKjLI+AS8ZeCHpWg/hmNH/MTmUX0sx/Hh+5aXgX/mjl2WVLeXouaFR
- A8XhBYI/ySZZKVIH0r06QiVj7OVwhEdbe91JxOuqBeMDaNM4pgl1clv9ZIJIt7EYyMNzxQFZyd7
- FjSixpSOt2ol6xFTKCr0lUOj48Rb15v7st6H99cklzd0KOyFbSM+YOgjxH21H5/3ZTbK7kr3FlN
- DQOjvgV+9n5V68DvoyhdJDqtETDxXoN9DANks5UHEzRCeUeN/nXK1RXqxX3+PaC5WI45F6UeUmt
- fySCAFFdJUG4fp07YWdw3M3Wo0wT2zmfyjxIl1/eXmXkQ+PmGZEfVX3kvbN3PUEKCvDJYFyGccI
- 66jrb5pQsElKZEhjYaO7eLhXg/8SDSiiiTggCGt73Zb7mYbpH9GhOJZpxQ1mgxMWrPAdTcvGnKa
- jzqonpUah+XR9NSSiAFuavk9Nd2ELcQbb5QtuLMp8Ohg6Vh0rLY8SWVQpM676fIHCmasq+p04rs
- jzBkIthjorSBAlA==
+ bh=mO5/aAEZbBdx1nt31w9gZYWlTQTbXXTVDaFrlxUGvuo=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqtS09f21HWVr6wGidI7N2CXXhMb3+ZQJXPIX3X
+ LhH8LqTx2yJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarUtPQAKCRBgAj/E00kg
+ ctPJEACSk1nGor5Xs1UmrLupod4cREi2ILeZQPXlTeh2veAX8fCq6MPY79gstJiQzoGqiKYm9hZ
+ M3qdA6qiH6Xo/zYaL6o5L2Tx/cfpdPunQdsalsJUBLxCidWbfJaerD4o48NdC3sTP/JxeFcq1Ct
+ EUaRMxNa4aYsiBaAyNJ1qbalESLKxCi8myhGag53uEFk3KQrtPbY1XuGyZEKma3LcSVAAKWufIG
+ j07Nikkpqr0G6w4OA5HYiMBiNIYEBLB5c4kyskM7Qli/EwGTAkGYV8AM+g9+h1FOhq1DMnpouOr
+ 0sgNNkYDdLhSyk0bCUTT5irxQDcvr6xIuzzKidvEFdHL5IZ2Rk3BTr7Xn9dKGMEug3cAM+rLhzr
+ T6+DdLqBCCtruy5vUILF9IJr5ztjKlBUFnsdiEYzd+oP6Z6KXPJ0+JA++2iPUPx3hDYTTn+YWuA
+ SUIgxHdjKfJdR5ZoV8OMN2PMtHIUz/pRctstDpeszcWUglqTS8txx1XjptDxiSoKwgqGhYAx9xR
+ HfS14mk5d90WsuQ36BAuWFhcYNpEWNEwDwoGL+oWmVGkFEB8liEq5LqyhIOgmAdI4cGKwF0k5nY
+ b8z5kNTjQEAoAwHZzeO6n4v9c/jVIqnAmIFX58fSiQxL1lJTnrNdixSgRefw/PC5CEvPudbEiEr
+ Tqwo0Rmr8VxQYSQ==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -81,86 +81,48 @@ Reply-To: david@ixit.cz
 
 From: David Heidelberg <david@ixit.cz>
 
-Both devices share the pinctrl configuration.
+Original compatible describing only the DDIC used, but omit describing
+the panel used (Samsung AMB577PX01), which we have no way to detect.
 
+New compatible allows without breaking ABI fixing the inverted reset.
+
+Assisted-by: LLM
 Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 18 ------------------
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  | 16 ++++++++++++++++
- 2 files changed, 16 insertions(+), 18 deletions(-)
+ arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-index fa89be500fb85..a000c75494f1c 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-@@ -61,29 +61,11 @@ &mdss_dsi0_out {
- };
- 
- &mdss_dsi0_phy {
- 	vdds-supply = <&vdda_mipi_dsi0_pll>;
- 
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+index bd59f1dcd96dc..c156ed3733b4e 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
+@@ -262,23 +262,23 @@ &mdss {
  	status = "okay";
  };
  
--&tlmm {
--	panel_default: panel-default-state {
--		reset-pins {
--			pins = "gpio6";
--			function = "gpio";
--			drive-strength = <8>;
--			bias-disable;
--		};
--
--		te-pins {
--			pins = "gpio12";
--			function = "mdp_vsync";
--			drive-strength = <2>;
--			bias-pull-down;
--		};
--	};
--};
--
- &wifi {
- 	qcom,calibration-variant = "Google_blueline";
- };
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index f1379857e2742..d54cb47cdf95b 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -473,16 +473,32 @@ &qup_uart9_tx {
- 	drive-strength = <2>;
- 	bias-disable;
- };
+ &mdss_dsi0 {
+ 	vdda-supply = <&vreg_l26a_1p2>;
+ 	status = "okay";
  
- &tlmm {
- 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
- 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
+ 	panel@0 {
+-		compatible = "samsung,s6e3ha8";
++		compatible = "samsung,s6e3ha8-amb577px01";
+ 		reg = <0>;
+ 		vci-supply = <&s2dos05_ldo4>;
+ 		vddr-supply = <&s2dos05_buck>;
+ 		vdd3-supply = <&s2dos05_ldo1>;
+ 		te-gpios = <&tlmm 10 GPIO_ACTIVE_HIGH>;
+-		reset-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
+ 		pinctrl-0 = <&dsi_default &dsi_te>;
+ 		pinctrl-1 = <&dsi_suspend &dsi_te>;
+ 		pinctrl-names = "default", "suspend";
  
-+	panel_default: panel-default-state {
-+		reset-pins {
-+			pins = "gpio6";
-+			function = "gpio";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
-+
-+		te-pins {
-+			pins = "gpio12";
-+			function = "mdp_vsync";
-+			drive-strength = <2>;
-+			bias-pull-down;
-+		};
-+	};
-+
- 	nfc_default: nfc-default-state {
- 		enable-pins {
- 			pins = "gpio25";
- 			function = "gpio";
- 			drive-strength = <2>;
- 			bias-pull-down;
- 		};
- 
+ 		port {
+ 			panel_in: endpoint {
+ 				remote-endpoint = <&mdss_dsi0_out>;
+ 			};
 
 -- 
 2.55.0
