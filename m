@@ -1,110 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B914746EF90;
-	Thu, 24 Sep 2026 11:02:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3354734D3
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 11:04:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790247781; cv=none; b=lFujaVOUyJ2H/3tnK3dsIBKuPchG0/qGcf5RIWQ2TyIYVZxeZSCShm9YdTU0R6LBumJpTNQoDSwYj87tcBzqU+MsUXboK64Zthk3x3Hqxlq72rbraWYid2/yUtO65q9TUVEm/pIxUyRQi4b0tI+JZUpuLXl9zxWj4is5kGNmaEo=
+	t=1790247869; cv=none; b=gpIHe6SYjd5hvCOgCnkAb+3F2d2eu6jpGUBzh9iOvKU85q8JzNXE0s2m8x0B8U6R3g8iYK77vK9DujfQ8nC5DDoNsNJT3oLlGs0ceYMTEsur4s25FPiI/F2qu5wnOn6d9guozLPbmFnfTBmtP9K44hQdM9GIuUz61j64T1zp0Uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790247781; c=relaxed/simple;
-	bh=+YhCwhZ2VDMOrlNAWnu9PvrZZI7mR72CEM4k32wkeUg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=n6s9JC3SDRwQyb9V4Cq4Qu++YnhvwbIscfZ9DYXITDTm1u8Pw+brl0yl4zyncx0B6+Y4OdNwqtrzJBULY+e2SXf85WJX7K8w5U2ga3VUKRiusXW/nmUturYWs3tNfus7NnCNFyVJKQlgMFSeQdyuZl7TcMYhZW7Lc8ctoN+y/uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KlMx9pOZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790247869; c=relaxed/simple;
+	bh=xz5bwAgVE7qTepiKE8OlbrQBKG8VLxrreAE2auvrnIo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mIsoHVtXliRF+9cuH5+kUGNcxwRRMaPtGCrjRg/OlDnym/+aA/mszFoN3YdYb+n3zJfed8mJcDFrYyXKRRBXTF84Qkyj/7rTz1A1SeWeWn/dmPy7VwvMWXjuda6HRuMKYDRp5acDj9tvC4lkRyvRKBV6mjVXT4jmvgpEXKG/leI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PUjND3vB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KlMx9pOZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19BCA1F000FF;
-	Thu, 24 Sep 2026 11:02:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PUjND3vB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E0391F00893
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 11:04:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790247779;
-	bh=7nCrvKVCW2vbCRQhQ+g0OWTQmJsBMat5hkmwMhVjRCk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KlMx9pOZXOdE1MMLstooqRZf/ym43DyabtuQI68hBo6i431pIRIG6L3PPic356LeD
-	 VaOxe9Qrr5KHfoPf+O6XYQHKJcGhZqJ0oJ5pchK+ePyPx4SzmeFB9gRJm9t9ulYGAI
-	 7E73SOSw4dcjoZjasaymy/3cPIvOHZChnwDU5z8kYUVX2RH3cussnrSz+gW4RuKUOb
-	 pcIMA0JMsmrJixs5W+INNAeRXSMtwj3WwjAy5o0q2Pn2PnlJSDGuW/ocHfVJswribY
-	 B1DIet+NovcDVNl1llhYGJIvQCjBRHGsY1lI6JIHNNGKtopNCoW80GysVD9qyTPeyF
-	 Mxa9bWeMTIPdA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 34/42] arm64: dts: qcom: sm6350: Add GCC CX power
- domain
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abel Vesa" <abel.vesa@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260924-qcom-tie-cx-to-gcc-v5-34-38732033e5b5@oss.qualcomm.com>
-References: <20260924-qcom-tie-cx-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com>
- <20260924-qcom-tie-cx-to-gcc-v5-34-38732033e5b5@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 11:02:58 +0000
-Message-Id: <20260924110259.19BCA1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790247868;
+	bh=YJWFnpmGuKQdcj3EBBzF/7yahGxSn2KCUNK04VLhlaA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PUjND3vBWPVcIfkDOFl+K6Yeb496QrhI1+K6Cv+nbKgxYaKX4rnNtXEAxGglgAFBB
+	 x3yHBFmSev8uGzCe9sHwMmqbg+vKCY7qiPIb/L95ETQeSg2whzDMZ55M5LGLjyqsSB
+	 U5r+47M7qKr+jK0VlQN6weZgYhRA3DGKRrh+JqJ1W6Ta/ZUV85zQihvwM8q2tgiex+
+	 8MhdyhUnw1I0jonr7WWSOCDcZjWJ2427haQgudQ+GSUtzqN+I830mnf2KHxJvCkEti
+	 u56HGFoCWz7BgB/LGH8e+Eug1f9dyQpBO7BTlIdSbnISFBzMJ0fO5yyKfaqbt3Plpc
+	 FQSPO1I0oLqaA==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d47b5987so1693135e87.2
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 04:04:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw+W/GyCjyM7XEOihmF8Z88IwYNOuzZJdZUfLt0y9ui32wvIVvixcvFJr4fuS9Ed+ebO5vG9cWLGXnI@vger.kernel.org
+X-Gm-Message-State: AFuF++m+s3m3JEKf9SiIiIao0X0b7p7vUO+ARx/eTBncrzv2p7vOhSKK
+	cTTTDqJrhRiqlNq7wMLBhT26HvHXMrAFozbcCOAgPiE1rIaMJLgyGzLniClTw7KvCqvXCSfpkNP
+	p7TdfXXkTgXLqSGT+Jocp4lrNQ/6Mw/k=
+X-Received: by 2002:ac2:4574:0:b0:5b6:962:4ed2 with SMTP id
+ 2adb3069b0e04-5b8df04cf73mr536889e87.22.1790247866915; Thu, 24 Sep 2026
+ 04:04:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260918-ux500-simple-sound-v2-0-88d29416e3c3@kernel.org>
+ <20260918-ux500-simple-sound-v2-6-88d29416e3c3@kernel.org>
+ <CAD++jL=yLFiYcWsRF6eR4a8o=27wcmj4nxa8jirDaOfR3JBHkw@mail.gmail.com>
+ <20260924065449.GN3864833@google.com> <CAD++jLnbJnENbZuXyr6uoeHioCxek6ZZes_MyWk9MowBzuMqkQ@mail.gmail.com>
+ <20260924094420.GA3849155@google.com>
+In-Reply-To: <20260924094420.GA3849155@google.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 24 Sep 2026 13:04:14 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnSsiMTVVX2WRWS-ACyaX+mMe+sfjqkZWDBvF9SWCCFOg@mail.gmail.com>
+X-Gm-Features: AclHuK91sMP2G7yCemn-SFUSJa0zaXI4PhUu6TRM6YLsNwig0ItCJbNQOJQqUOI
+Message-ID: <CAD++jLnSsiMTVVX2WRWS-ACyaX+mMe+sfjqkZWDBvF9SWCCFOg@mail.gmail.com>
+Subject: Re: [PATCH v2 6/9] ARM: dts: ux500: Add sound DAI provider cells
+To: Lee Jones <lee@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, mfd@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] PM regression: GCC device pins CX power domain ON permanently
---
+On Thu, Sep 24, 2026 at 11:44=E2=80=AFAM Lee Jones <lee@kernel.org> wrote:
+> On Thu, 24 Sep 2026, Linus Walleij wrote:
+> > On Thu, Sep 24, 2026 at 8:54=E2=80=AFAM Lee Jones <lee@kernel.org> wrot=
+e:
 
-commit ee5fe8d5caad7b14e28c23c20f2b192fd4ae6ab2
-Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > > > Assuming Lee will apply the ACKed binding patch so I applied this a=
+nd
+> > > > the rest of the DTS patches to the ux500 DTS branch for v7.4.
+> > >
+> > > Right, but it's not Acked yet, is it?  Or did I miss something?
+> >
+> > It was ACKed under a different Subject: so I resent the patch
+> > for clarity, sorry for the mess.
+>
+> Are you going to tell me what that subject was?  =3D;-)
 
-arm64: dts: qcom: sm6350: Add GCC CX power domain
+Sorry!
+"[PATCH v3] mfd: dt-bindings: ab8500: Describe codec graph and
+microphone wiring"
+https://lore.kernel.org/mfd/20260923-ux500-simple-sound-v3-1-56a771c3ea28@k=
+ernel.org/
 
-This commit adds the RPMh CX power domain reference to the GCC node on
-SM6350. This allows votes from GCC GDSC consumers to propagate to the
-RPMh CX domain.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/q=
-com/sm6350.dtsi
-> index 15d38b7e803c5..ded5c3a45891b 100644
-> --- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-> @@ -794,6 +794,7 @@ gcc: clock-controller@100000 {
->  			#clock-cells =3D <1>;
->  			#reset-cells =3D <1>;
->  			#power-domain-cells =3D <1>;
-> +			power-domains =3D <&rpmhpd SM6350_CX>;
-
-[Severity: High]
-Does adding the PM domain to the DT node without the corresponding driver
-supporting runtime PM cause a power management regression here?
-
-The genpd framework attaches the GCC device and unconditionally powers ON t=
-he
-CX domain during probe via genpd_dev_pm_attach(). In order for genpd to
-subsequently power off the parent domain, all attached devices must be
-suspended, which is evaluated via pm_runtime_suspended().
-
-However, pm_runtime_suspended() requires runtime PM to be enabled. If
-pm_runtime_enable() has never been called, the device disable_depth is > 0,
-causing pm_runtime_suspended() to unconditionally return false.
-
-Looking at gcc_sm6350_desc in drivers/clk/qcom/gcc-sm6350.c, it does not set
-the use_rpm flag to true:
-
-static const struct qcom_cc_desc gcc_sm6350_desc =3D {
-	.config =3D &gcc_sm6350_regmap_config,
-	.clks =3D gcc_sm6350_clocks,
-	.num_clks =3D ARRAY_SIZE(gcc_sm6350_clocks),
-	.resets =3D gcc_sm6350_resets,
-	.num_resets =3D ARRAY_SIZE(gcc_sm6350_resets),
-	.gdscs =3D gcc_sm6350_gdscs,
-	.num_gdscs =3D ARRAY_SIZE(gcc_sm6350_gdscs),
-};
-
-Without use_rpm =3D true, devm_pm_runtime_enable() is never invoked for the
-device. Does this leave the GCC device permanently considered active and the
-CX domain irrevocably pinned ON?
-
->  			clock-names =3D "bi_tcxo",
->  				      "bi_tcxo_ao",
->  				      "sleep_clk";
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-qcom-tie-c=
-x-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com?part=3D34
+Yours,
+Linus Walleij
