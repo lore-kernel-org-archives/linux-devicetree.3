@@ -1,112 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226A43C3F70;
-	Thu, 24 Sep 2026 14:46:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FB83C5523
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:46:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790261186; cv=none; b=f7W7Wyo1HfOxbuoh6vvIoaCddDGJrTx+xZWn0naLEQgr0Fd+w46Uu3LqgRcW2Omh5c1/35Hy8HiEDnHlURQiV6DVzG9ADS1rQlslMoY2mihUCecrgR19fod4E/OEBjAB8YS0jc36dO3P6NaS8IJEIi04wv3vm0/c280fLmATcso=
+	t=1790261219; cv=none; b=OAOvLDVocgFz9hQCzcKE4a6xa/jIGlgxkA7zyqb+djn5wgA+NSysJCK/n63SnsaZwygHbPHCVSgXrIpcgrs0Fejsx26t5IvVoPnA/QpCiUPcKQv23innmL1nAVONOT3+vs+x+OXtQzaTfuyOpUxgEGDYnRnULANn1NhVyoKbeKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790261186; c=relaxed/simple;
-	bh=Rynx6fYwOQEX11x0Txpe6Q4EuFUTIqBUi6DHBzBnmwY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jaA2nNEDPVkrh/x3BOs6p2ieThsGucOK00cR2VKUgx4oXUIzpLD6127kSNxrrLXwVz1Y2LbnuV8w/iET4hvTmayNTQEFbOpw6l5KtZan1Q8f1fBnjqd7oc5/PuZvhsTDSDVg10b9Nj/4/3jQiDseRFmg9BvUgHs1tA3OeKdzGjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G5NS+WFb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790261219; c=relaxed/simple;
+	bh=/GJ8GnOfRx0puU2ZCnCuvCEi8zSIK970ER6rdDhYSpQ=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tgNibpXd+NSRj6uY1RgnZxrc0BCkl+e5HvGDM8p9S951qJd2mG5wXlPZStodzaccyNf0WurgCT6a0UB/VQJYkV/zsBESuGkFvbfTUTa/YwDG4bkmHpLCzUz6TPckgVIiFSqXnrTyrpnaeaPnQ/F8vL1zSvOYGMOZxdOzvIFcqJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AhJ8/GyZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5NS+WFb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C58C1F000FF;
-	Thu, 24 Sep 2026 14:46:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AhJ8/GyZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE51A1F0089C
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:46:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790261184;
-	bh=Oco91rZ8SLGi4ef9P3VbK8DXkHpHcqyYrILacBBh0A8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G5NS+WFbIem0a8FzuzrO5QnW8wEhjHhnSIdbOtUvBE9HkY1q7uw0l5dtDFzYcsssZ
-	 vt1jeGjjboHPAKFigfenCvH6YjLMi0cauc+PIYVS3wH3YeKKEesF32mLCwrsz/x+7D
-	 xXXNrWS2y27uU9+9UU7WYVc1a8TKgELVjRl5yO1q2Ja5SNVVLQVYa8O+lfX1kS/4F4
-	 lePhCwFKBk357xd65iA9HBT/xUoudTH55UVO6TacsGJr5/70VBxfTOUlocsz7ygPYa
-	 9jY4dxoEx2WInCGoOpU44BSPya8KPY85yhiSs2SjN5mmYrQHor056ldvC5n3wmKphv
-	 6nVRbiFQnHaPA==
-Date: Thu, 24 Sep 2026 09:46:22 -0500
-From: Rob Herring <robh@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: markus.stockhausen@gmx.de, andrew@lunn.ch, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-	chris.packham@alliedtelesis.co.nz, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v4 1/5] dt-bindings: net: realtek,rtl9301-mdio:
- restrict MDIO buses by family
-Message-ID: <20260924144622.GA4180569-robh@kernel.org>
-References: <20260912130451.3757276-2-markus.stockhausen@gmx.de>
- <178956571096.22033.1324157422276350284@kernel.org>
+	s=k20260515; t=1790261217;
+	bh=/GJ8GnOfRx0puU2ZCnCuvCEi8zSIK970ER6rdDhYSpQ=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=AhJ8/GyZED80rFlcMiQhdOPpsFu7XF+zMquWmMmlilezsDzEoPszQoRMg/8HLu3k1
+	 eOXi8YlSGPu5gchsD7pdo4SQFuM+k0l+oc5DvuL6lmhtdd2apPKiD5U1ZWW2B9rFQK
+	 L/YkxGUOuewmv4HZqmQoE/RU6MALIljAY7YXrOpbcSebitWjyhuRELpqPAMvIsQEdI
+	 BsEq9HMQYdarSDlzx43AgP/Pd/z6RmPRJpSbP/9krvRPeNI/pjAu6B+j6DDPR3L+Ne
+	 IeL14YxXH9lMBxPpAkf9Q4Fj+XZx2l1BZ21xSLDe9ACObeslznezsxkhESqLSeZdcz
+	 IhDA7fXwPApiQ==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c9954ccbso2028208e87.1
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:46:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxn5Fum60TkhLbKrtTaqj3no0145s9nB+dOS0/sd7i6hVGrmWvjnJD0nWPae1LtSxoDiktOSG1G3p8D@vger.kernel.org
+X-Gm-Message-State: AFuF++kVTscB3hOfu8KsbDE9NPpt7nRdRFLNVKLY5hFrx6sgLLNGkjek
+	N6aR9xpIbbzkpACjGwIgRVaBiTrGv4HhAoOjNsYnBQPnO0mLfNKeIMdb6r1CD3oBqEmSqavveKi
+	/fMl0tTCpginwE//2JO6+fJGoatf9Cptg3dBG0y631w==
+X-Received: by 2002:a05:6512:130b:b0:5b6:1a7c:fd86 with SMTP id
+ 2adb3069b0e04-5b8df0dbc90mr1281593e87.44.1790261216402; Thu, 24 Sep 2026
+ 07:46:56 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 24 Sep 2026 07:46:53 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 24 Sep 2026 07:46:53 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260923182243.41060-2-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <178956571096.22033.1324157422276350284@kernel.org>
+References: <20260922103051.5257-1-farbere@amazon.com> <20260923182243.41060-1-farbere@amazon.com>
+ <20260923182243.41060-2-farbere@amazon.com>
+Date: Thu, 24 Sep 2026 07:46:53 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MeYjKY2gjXorrSKvoT4JQxGnyUAyaEqG1N4+mMR5BkFhg@mail.gmail.com>
+X-Gm-Features: AclHuK8DlJ5hNJm6JMzivbmwyqHAxKbZhQr31gcttS4XGGEHTD93hUStry5s9Rg
+Message-ID: <CAMRc=MeYjKY2gjXorrSKvoT4JQxGnyUAyaEqG1N4+mMR5BkFhg@mail.gmail.com>
+Subject: Re: [PATCH v6 1/4] pps: clients: gpio: propagate probe error codes
+To: Eliav Farber <farbere@amazon.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Fabio Estevam <festevam@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Rodolfo Giometti <giometti@enneenne.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 16, 2026 at 01:35:10PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> - [Medium] Incomplete constraint: the new per-family `allOf`/`if-then`
->   blocks in…
-> 
-> --
-> 
-> dt-bindings: net: realtek,rtl9301-mdio: restrict MDIO buses by family
-> 
-> This adds two per-family conditional blocks to the Realtek Otto MDIO
-> controller binding so that mdio-bus child node names are limited to the
-> number of buses each family has: one for RTL838x, two for RTL839x and
-> four for RTL930x/RTL931x.
-> 
-> > diff --git a/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml b/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
-> > index 67e0b23a8470e..7f5b4897487b2 100644
-> > --- a/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
-> > +++ b/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
-> > @@ -67,6 +67,30 @@ patternProperties:
-> >  
-> >      unevaluatedProperties: false
-> >  
-> > +allOf:
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            enum:
-> > +              - realtek,rtl8380-mdio
-> > +              - realtek,rtl8381-mdio
-> > +              - realtek,rtl8382-mdio
-> > +    then:
-> > +      patternProperties:
-> > +        '^mdio-bus@[1-3]$': false
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            enum:
-> > +              - realtek,rtl8391-mdio
-> > +              - realtek,rtl8392-mdio
-> > +              - realtek,rtl8393-mdio
-> > +    then:
-> > +      patternProperties:
-> > +        '^mdio-bus@[2-3]$': false
-> 
-> [Severity: Medium]
-> These two conditionals only reject child node names, but the bus index the
-> driver consumes is the child's reg value.  Should the same conditionals also
-> bound reg?
+On Wed, 23 Sep 2026 20:22:40 +0200, Eliav Farber <farbere@amazon.com> said:
+> On the two probe error paths that map and request the interrupt, probe
+> overwrote the error from gpiod_to_irq() and request_threaded_irq() with a
+> hardcoded -EINVAL, hiding meaningful codes such as -EBUSY, -ENOMEM or
+> -EPROBE_DEFER from the caller. The request_threaded_irq() failure message
+> also logged the IRQ number but not the errno.
+>
+> Switch both paths to dev_err_probe() so the actual error code is returned
+> and logged symbolically, and so a repeated -EPROBE_DEFER during boot is
+> logged at debug level rather than spamming the console. This also matches
+> pps_gpio_setup() in the same file, which already uses dev_err_probe().
+>
+> Fixes: 161520451dfa ("pps: new client driver using GPIO")
 
-No. Ideally we would check reg vs. unit-addresses which would prevent 
-anything out of range and/or mismatched. However, there are gaps in that 
-checking currently.
-
-Rob
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
