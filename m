@@ -1,72 +1,263 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC5D226D05;
-	Thu, 24 Sep 2026 14:03:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790258640; cv=none; b=iUhZzbdBfgmT3FcWj92o3JMbb/dzUgfMay3bRU8VfvaXyIFhm6Y5g6rcELJbDbX4x7xW/IJfEQL8z75+jrVAJ9hsM55UVmoND+asRpAEJa+E15Zri9QBN3rYiLwAEgZDXCUlfFGfKVbTFKxMuKpbU8TiAO531gBcpbdyui0Wy5w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790258640; c=relaxed/simple;
-	bh=IucfPCO1brhXLrFgjkZ/q2A15kB1HQXFjQ2ysYFlW68=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=f8lBsCi0d8wr9xy9WpIzez5CPQ7oTEaD0wsXORUu09LqjH13yRZJUm7RFND9DesAeAyffURPuuo1nxGIZxCVgDO3o3JPrWiBajPK3YtqCai0i426QffjWwfszm45WvoRyyQBThFXq6PBc22Xra3JoO4BXuy4VlsE/R4weNJ1b0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgbKv9op; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82C937FF40
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:06:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790258811; cv=pass; b=qsNwQOJjFNkSwxZv7/0KsMaW6nGP4GyTut2nWwVKC+pR4yy6QSaFzqCUCL5xcgJYX0uNonOukEdDAhxsBhQbW1kzozNjvZQxCrVfgJTTM30O8zn6Y0/KQl/EdFyVOkW95n/s4g1Jx5btZML8heVd7l+lKeE7WecziMJqPy3xTDY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790258811; c=relaxed/simple;
+	bh=U48nhcTIb1O9uC38fXHDr78q+i4puswp1WXXMZmRwIo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eUNcFj6FXt8wLfdYKcEspicj3hXNkV/wIK1hbz2rbntgEfKFZ2Pyvd8t8hz43TRGcN8GXqdNKB4Q/CyvSy2L2wXW0NJGES4I1+yarLrOJV6EhcWBGBK2p9ZyeeXv2RY1r8gkDtObot2QXGeRlTic2+xBlaSd/JV9OSUdKeqant8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bQH6OqI1; arc=pass smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgbKv9op"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E5C11F000FF;
-	Thu, 24 Sep 2026 14:03:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790258639;
-	bh=JwxmNJOSYW4H7e1P03DTryLvPsv2ht5Z1NUaDpNeL28=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=cgbKv9opMrrafMt3WgV1B6D4HUAQ8yd8KAsvWnrH+hPzrQAwhFbLagyJ7HibfS3CB
-	 fCzZWIk58kSag3HcYQjdiywoZvfgTd0H3qGP6VDnwszZ/y8bJuqjeXQOHFiswm7VEQ
-	 KBRfl0FRL88Ux7CUSU6vEzAncY+l+4jUKLJCABLQgM7qJVPd9fb6ueLX3DUAgfV3gV
-	 OTpZJYMxBl1ObquhYhe12Pmfa45DM9FZARHirktTFKn3ikwjDAS5O3jv4nlefeN+M4
-	 a2QTDRQ/W4Nzg/XBNA0OkTBYKTWNywehoyOJ6YAKNx0Pmvt2+bWDPgkJUMrsVmHGGY
-	 sEHOTy5HnM+IQ==
-From: Lee Jones <lee@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Linus Walleij <linusw@kernel.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- mfd@lists.linux.dev
-In-Reply-To: <20260923-ux500-simple-sound-v3-1-56a771c3ea28@kernel.org>
-References: <20260923-ux500-simple-sound-v3-1-56a771c3ea28@kernel.org>
-Subject: Re: (subset) [PATCH v3] mfd: dt-bindings: ab8500: Describe codec
- graph and microphone wiring
-Message-Id: <179025863713.613643.13680822984387702213.b4-ty@b4>
-Date: Thu, 24 Sep 2026 15:03:57 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bQH6OqI1"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dfedbf80fso153480a91.3
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 07:06:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790258809; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N+ku9+QfCySXwq0gkEsFj4QXxHyrrwOrN5MbGe/VZBxBHEat/TDV8fuPXMPiY+CS6i
+         7PD1/72tKwJV+E1sjCX7Z+SlXgGztNjnIVq9AdHifWj5r6l6Ya7qcfHa9dV448XycHu2
+         1xJb1pnNFz3Mevjit3ob7yBzqOcVSaj7uWtCfRv3+XGWFwhY6AfIAAkJ+FnXJ6LnxLw4
+         G4krGe9EVKzkp/GWlzIt8sslOFKUfMEBpHHW6hPCpAZfQmV/JKYLG3l2qilBO2erxwLg
+         sa1ssDEHCIc+3eIR5J93ZWWJRbsgRw+hz4s02mJ4o1ZqeWScfAmBNqBT7jaAMU1nQ3Tq
+         fP/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JcTZ3ffRCO1EwcSB6GSlnipqVfq4JrFIZdul9BjBkvw=;
+        fh=OQ7EJWlATZyXbVL3cpS09zBjpGZG1ZDTMxa0PEJ1v2c=;
+        b=Pp4zVIvIkZNshYdDg3N1k4M9NRr5hElf3TS+iIEkSAQ5TNVCIgkkI4CXgyAOmwko9G
+         27S9mmZJy8hq44Z/6ilAT3IUSNZRgjSEMeqVmNn9rOF2MHA/d71uAGwzejpkJqYXHJmC
+         u9uS7jw7Z5DT5QViavcjHY+mfy05OmsTW6o/9lYrsWPkSqyokl8+h1e41WkwTPZM+WGF
+         r8zgFnrMC8gNYa3jM5F5UyUQk5WIV7LkpgEL4VrU4rdGb1Plrfj2gMUkEYsSNrsBiMI1
+         EAJUPw65H5R5FkbYbabbH6bd7Nd3/4jAeN8VMs2KNBhOucdRvqxEYeDqKVn6uyvvxM8c
+         Yerw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790258809; x=1790863609; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JcTZ3ffRCO1EwcSB6GSlnipqVfq4JrFIZdul9BjBkvw=;
+        b=bQH6OqI1uKKUqJodAQL4+Vo1bm3i/t+uSx0+Rx+0Yy61zEDmpRq+zehoNaDbsAsan0
+         LPL55fckjP6sPsKS/vgUMEmuLw0Rl5dZQ2udDOvniqbaacyU4xFTj4oTXe3tN4BwUGca
+         4/Jn7OMLFB49xiOXAUyfVrvBodvhQg3fb3KlXGuyO5Fdz5WIulGjW1HYN5UZL3BCESDT
+         ms7Efa95WMXSiBOFR3adawbCQ3sI9pb1jTxEjADz1CNcB0TtpOAKD/wdRl9UWcr/XySQ
+         f+lJ9HALMq05zN2fWZv0fPO9QV4pp5MXsQdAvb4+nRzzXxJ1rZC0/DVPlb+B7MvaPE0J
+         JqcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790258809; x=1790863609;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JcTZ3ffRCO1EwcSB6GSlnipqVfq4JrFIZdul9BjBkvw=;
+        b=cPZbtXTQJVpFYEmGTPfIb3KYbEmCNrYFuzzszDUVDi57GWF9lQ/dWY5KETjkvuv9gw
+         3DB9pC0n6mdUW9fQj2gQyZXMsdWqBzJvKJxWlbEnY3lYII6kHCU/SKpu2fSbYF9J6jRu
+         D/C1bFOO22xPY3OPJpVAJjYembdFJDjwDZf5byoEK3t9NSfxx3uPCGMvrq8Q38BkzL0s
+         tB5eqnp+UW68UnUynioCPHsPIRMMBG242lkrYHRQhCETZ0NSz6juTdpN/hgpS7L+GG5B
+         wT03EVsERLG87dmOl6W0tmI5N8iu31CeHs7sxZTrjUdxZ2ufZs5bQWi06it420HRCWYJ
+         TCCw==
+X-Forwarded-Encrypted: i=1; AKwUvBxvFi3d94H3l/I3YvBTnxF9O6oMcueXTcYP1JqGYsA+M9Gso1XndQTAIUarpZjPdlT0MKzpPF/QAPN0@vger.kernel.org
+X-Gm-Message-State: AFuF++m9r6BbdWj067W046bnzNns48bDE4r7qw4LuHVfzjY2B2GBfO1a
+	64zwSTdooHS4qSEJ2yjXTIIqp9WnvVegm6WTevUNhYG9dv/9KL1e6ug8qv1Fyla5Zi+WRBinksZ
+	WeFWmlg2kWmSdutlMZnoSeNQNCFSFfPI=
+X-Gm-Gg: AYBFou3Ps7BaiY+LCiJTszRvQ87bVR6xm/FWXmTKiZAVfryKiTwoJdWl6ErTj/O6QfJ
+	Ciw472+OGpEbzNjE9BWEc5Zin0MqK8tL0WzVz5fgwXurPdGjOchRyyukwba1KE/tDOcGrEi7Dfo
+	Kf9O8Qq77QbWDl7hqCD/lTC83tHIGLVQwOqts2jtLcI6VZyr23QijWnEjb8ntuTEDLCb547Hw8L
+	EVfR0ajDH6/ZJ2Z7wGyDUlW2u3tBQJoJueKwSIySEGAKaiH9+c1Sd6zM+CQkQOPMRux+1Jqhi4h
+	8+jg9VWUeYHHBSPCx+q6ApwTCblFwtbQGOb1RkUuZFDNoPOwD5nQXihXP7UwQv5fsiVkySocvmE
+	lyNBbBDXgs+Bv
+X-Received: by 2002:a17:90b:3c06:b0:39d:f130:ba54 with SMTP id
+ 98e67ed59e1d1-3a09837f56dmr4405287a91.0.1790258809042; Thu, 24 Sep 2026
+ 07:06:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
+ <CACu1E7GndBnSj75ZVqic9NxdSakZJL3ZJOuz7D+RbVWA4DUqTQ@mail.gmail.com> <692ff69a-330e-40db-bffc-a53987fa4bce@oss.qualcomm.com>
+In-Reply-To: <692ff69a-330e-40db-bffc-a53987fa4bce@oss.qualcomm.com>
+From: Connor Abbott <cwabbott0@gmail.com>
+Date: Thu, 24 Sep 2026 10:06:37 -0400
+X-Gm-Features: AclHuK_K3H4oMYks1o-_9RZ45Z4Udp7YxXFegQ_4Y9VAlkof6K_6cES08nQszX4
+Message-ID: <CACu1E7FuCVhu_0gKmVVeBL=e4=zghvXJT=mZVfg8UjUzRrv3Yw@mail.gmail.com>
+Subject: Re: [PATCH 00/15] drm/msm: Support for Hawi & Maili GPU
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Jordan Crouse <jordan@cosmicpenguin.net>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 23 Sep 2026 19:46:55 +0200, Linus Walleij wrote:
-> The AB8500 and AB8505 codec block exposes two digital audio
-> interfaces. Define the codec as a one-cell sound DAI provider and allow
-> it to expose both interfaces as audio graph ports.
-> 
-> The codec binding conversion also omitted the analog microphone type
-> and bias-routing properties supported by the driver and documented by
-> the old text binding. Restore them so boards can describe the codec
-> wiring without schema warnings.
-> 
-> [...]
+On Thu, Sep 24, 2026 at 9:41=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qualcom=
+m.com> wrote:
+>
+>
+>
+> On 9/24/2026 12:54 AM, Connor Abbott wrote:
+> > On Wed, Sep 23, 2026 at 6:26=E2=80=AFAM Akhil P Oommen <akhilpo@oss.qua=
+lcomm.com> wrote:
+> >>
+> >> Adreno 850 is the next generation of A8x GPU present in Hawi SoC. It s=
+hares
+> >> the ADRENO_8XX_GEN2 family and slice architecture with A840, but has m=
+any
+> >> architectural improvements. There is a new block Matrix core (MALU) wh=
+ich
+> >> helps to accelerate certain compute workloads. Also, there is a new Bx=
+ rail
+> >> that powes a part of the GPU IP. GMU is now powered by a dedicated GDS=
+C
+> >> powered by MxG rail.
+> >
+> > If there is a dedicated rail for GMU, then
+> > VK_KHR_calibrated_timestamps is likely broken, assuming that the GMU
+> > AO counter is on this rail. The AO offset logic in kgsl probably needs
+> > to be ported here. Has this been tested?
+>
+> Not sure how GMU core's power domain affect the AO timer. Could you pleas=
+e point
+> me to the AO offset related change in KGSL? I will check.
 
-Applied, thanks!
+Previously the GMU AO counter was part of CX, which is kept on by
+other things in the system, so it continues to tick even if the GPU is
+suspended. However kgsl does not rely on that, and recalibrates the
+GMU AO timer whenever booting the GMU [1], which we currently don't
+do. I don't know if the timer is still part of CX, but if not, then
+this part of kgsl could become load-bearing in a way it wasn't before.
+It seems possible that it isn't part of CX anymore, given your
+description that GMU and other things have been moved to new
+GPU-specific power domains.
 
-[1/1] mfd: dt-bindings: ab8500: Describe codec graph and microphone wiring
-      commit: 43be6abd6775820fdac3729962f7e7b841104fda
+Connor
 
---
-Lee Jones [李琼斯]
+[1] https://git.codelinaro.org/clo/la/platform/vendor/qcom/opensource/graph=
+ics-kernel/-/blob/gfx-kernel.lnx.16.0.r14-rel/adreno_gen8.c?ref_type=3Dhead=
+s#L917
 
+>
+> -Akhil.
+> >
+> > Connor
+> >
+> >>
+> >> Maili GPU (Adreno 845) is very similar to A850, except that it doesn't
+> >> have the MALU block.
+> >>
+> >> We will post the Mesa support and linux-firmware support soon. MALU su=
+pport
+> >> will be brought in separately along with its support in Mesa.
+> >>
+> >> As there is no display support available for Hawi/Maili, validated off=
+screen
+> >> testcases that render basic triangles, glmark2-offscreen etc.
+> >>
+> >> The driver/dt-binding patches are for Rob to pickup and the DT patches
+> >> are for Bjorn.
+> >>
+> >> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> >> ---
+> >> To: Rob Clark <robin.clark@oss.qualcomm.com>
+> >> To: Sean Paul <sean@poorly.run>
+> >> To: Konrad Dybcio <konradybcio@kernel.org>
+> >> To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> >> To: Dmitry Baryshkov <lumag@kernel.org>
+> >> To: Abhinav Kumar <abhinav.kumar@linux.dev>
+> >> To: Jessica Zhang <jesszhan0024@gmail.com>
+> >> To: Marijn Suijten <marijn.suijten@somainline.org>
+> >> To: David Airlie <airlied@gmail.com>
+> >> To: Simona Vetter <simona@ffwll.ch>
+> >> To: Jordan Crouse <jordan@cosmicpenguin.net>
+> >> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> >> To: Maxime Ripard <mripard@kernel.org>
+> >> To: Thomas Zimmermann <tzimmermann@suse.de>
+> >> To: Rob Herring <robh@kernel.org>
+> >> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> >> To: Conor Dooley <conor+dt@kernel.org>
+> >> To: Bjorn Andersson <andersson@kernel.org>
+> >> Cc: linux-arm-msm@vger.kernel.org
+> >> Cc: dri-devel@lists.freedesktop.org
+> >> Cc: freedreno@lists.freedesktop.org
+> >> Cc: linux-kernel@vger.kernel.org
+> >> Cc: devicetree@vger.kernel.org
+> >>
+> >> ---
+> >> Akhil P Oommen (11):
+> >>       drm/msm/a6xx: Honor perfmode_bw threshold on A8x
+> >>       drm/msm/a6xx: Fix secondary rail vote in ARC votes
+> >>       drm/msm/a6xx: Fix RPMH dependency votes
+> >>       drm/msm/a6xx: Factor out RPMh arc-vote helpers
+> >>       drm/msm/a6xx: Add BX rail support to GMU dependency votes
+> >>       drm/msm/a6xx: Clamp MX dependency vote
+> >>       drm/msm/a8xx: Add Adreno 850 support
+> >>       drm/msm/a6xx: Send THINMEM config to GMU for A850
+> >>       dt-bindings: display/msm: Document A850 GPU and GMU
+> >>       arm64: dts: qcom: hawi: Add GPU support
+> >>       arm64: dts: qcom: hawi-mtp: Enable GPU
+> >>
+> >> Bhaskar Reddy Valluru (4):
+> >>       drm/msm/a8xx: Add Adreno 845 support
+> >>       dt-bindings: display/msm: Document A845 GPU and GMU
+> >>       arm64: dts: qcom: maili: Add GPU support
+> >>       arm64: dts: qcom: maili-mtp: Enable GPU
+> >>
+> >>  .../devicetree/bindings/display/msm/gmu.yaml       |  90 ++++-
+> >>  .../devicetree/bindings/display/msm/gpu.yaml       |   4 +
+> >>  arch/arm64/boot/dts/qcom/hawi-mtp.dts              |   8 +
+> >>  arch/arm64/boot/dts/qcom/hawi.dtsi                 | 336 ++++++++++++=
+++++
+> >>  arch/arm64/boot/dts/qcom/maili-mtp.dts             |   8 +
+> >>  arch/arm64/boot/dts/qcom/maili.dtsi                | 309 ++++++++++++=
+++
+> >>  drivers/gpu/drm/msm/adreno/a6xx_catalog.c          | 446 ++++++++++++=
++++++++++
+> >>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c              | 231 +++++++----
+> >>  drivers/gpu/drm/msm/adreno/a6xx_gmu.h              |   1 +
+> >>  drivers/gpu/drm/msm/adreno/a6xx_gpu.h              |   2 +
+> >>  drivers/gpu/drm/msm/adreno/a6xx_hfi.c              |  25 ++
+> >>  drivers/gpu/drm/msm/adreno/a6xx_hfi.h              |   1 +
+> >>  drivers/gpu/drm/msm/adreno/a8xx_gpu.c              |  16 +-
+> >>  drivers/gpu/drm/msm/adreno/adreno_gpu.h            |  21 +
+> >>  drivers/gpu/drm/msm/registers/adreno/a6xx.xml      |   8 +
+> >>  15 files changed, 1407 insertions(+), 99 deletions(-)
+> >> ---
+> >> base-commit: 1e9b8055458b92f9ebab6f39d97ade5265a0b012
+> >> change-id: 20260811-hawi-gpu-05b4ecfc3c4c
+> >> prerequisite-message-id: 20260923-hawi-dt-post-v1-0-e41473b6298b@oss.q=
+ualcomm.com
+> >> prerequisite-patch-id: 239c169e15da44519b2dad09ecd92f0052757929
+> >> prerequisite-patch-id: 6c586be864944bb1eed773e8c211b898bb1289fe
+> >> prerequisite-patch-id: f3d8748ccdb6760563f3e07f701a18388a9408ed
+> >> prerequisite-patch-id: b1639353868bed10fd3cbfcd01cfb88b7e737ead
+> >> prerequisite-message-id: 20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qual=
+comm.com
+> >> prerequisite-patch-id: 36f12c16bf9cb0411d8be2f396407c724162189d
+> >> prerequisite-patch-id: 28ede1ab83d4b5b56423ebb09bae74b6599b3bac
+> >> prerequisite-patch-id: 6b3e28c55c07bfcdca8bfa9219fa0c6c763c6f6e
+> >> prerequisite-patch-id: a2007fdaaeaf2981860c54ae5514f5a6f06c6bb3
+> >> prerequisite-patch-id: af8aa3c630647336bdaeffa9c88de3650f1e49e4
+> >>
+> >> Best regards,
+> >> --
+> >> Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> >>
+>
