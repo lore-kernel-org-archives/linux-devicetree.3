@@ -1,159 +1,192 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E01450416
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 09:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7CD283CF1EF;
+	Thu, 24 Sep 2026 09:07:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790240812; cv=none; b=EVoxSnjA08jA8dBlXhRuhIrFO4CINV0vYvWENnDTM65YNt91KK49hlH6oE6c7S59O3jx05qC8Rj8IclozlmN/CMuT5/SRYXb4d2fq0Pkzyzr00R3NhtcA+hxDsgiQYyRDraPQX5GhCu36Eb9nOdnPlhS2iYtvYDuVGIbls6wthI=
+	t=1790240867; cv=none; b=hVjQ3Ktz3txLrSgUUyoIsElhNlkELkLlqWMosfgcQBpR8PEOslL4GCu0W20sLeaJnH+ztS7ZqIQ+8MIbCg4ultwWufMhUBpvLkwpJIxAdtrPv3RI3BL6eGkqT0ppvuLSAtC94mWoJxFLPLrFMUDUZv7a2vaoQAA7htnPozINCcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790240812; c=relaxed/simple;
-	bh=anNYkSzOL/ldKa7FYtAbK0md9biYRMvmXTAW6OSylmc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NtzXD8NP1rtC5r89rUX/RhYWr+4DE4ue1LwfGrNttU4aOnZkSkI69h6zjJQBntYVsjECc07qU5hkTmZJtp3gz7f7J2HnaLpY50HGMyRLZRXmW1/E5uxXXltSb36BN6ezrSJO/h9CNR8MiAsc8BTq4tOz6WNZ4r5owi4/kwcQpfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pe0Otnge; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790240867; c=relaxed/simple;
+	bh=KCpkwX3n9hDTqSNw48pPQoWBY0FYrWUGqdnZtj2ba/c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z5pS3YFHP9QsMH692gOPitoyB8gFK8796yCFy9hufZYwN8eYr4MEKk7j5lw251x55RzODzNOdAxbXgcNY5CGd5RGl5Sh8tEEIf3p/nRTsEhrew/RL2b1qgcKSqNA3wNkcJV1H8oEMXfggUPXZurn11aVG4rDtiuj9Y6xkIGhZWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Lg0Ij3N6; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pe0Otnge"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so13875625e9.3
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 02:06:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790240809; x=1790845609; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dcE3ANusGEqiHn+2EcPPA/pUBlIRQYFz5utyR/BkeE4=;
-        b=pe0Otngek76lSgQ0kxTQtqz/dDr526HPZ3RRXuCKr7IiLKQ/qGmTDB59LGsu60O90f
-         hIhx3G7hsPcFthKLcatb0AtbARFokdJTUAThL8DnE9o9Jg1sXcHH7diUBqGoHeqWDkSs
-         iSXQKDRrqy6EVVXpFsYjlhrE/gmM6VsX3xjBuj15EA6wtC4j0caLFUsbmMUnbwyJ+ln8
-         IPJGhCQvcNjTiEpjHyXf/cdBqKR/yTu4TM3yWxrmuTB/GbSkCC3iKdKjWhxopY2Huw5g
-         KFFQdg7/uWZ+t7FrLfZIHKmmlnFUiwl4YHob/Cw2TNmocARnyHMV+8OdCeWutfISWhUh
-         caKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790240809; x=1790845609;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dcE3ANusGEqiHn+2EcPPA/pUBlIRQYFz5utyR/BkeE4=;
-        b=cYoq1YKhcsWLo+ZaV2UkQ+tx/fr3NCoUtoLiKs07yL161dBCeK6MGWEEhof/rNxvRf
-         d/81mxjiSZQkN/EByFF0ZwnDbtEmv//mThl1Jx4v9CD3UbRcotswsqo8sSO1CRS+D/i0
-         JTLBSETSjs5wL9NxZSiFGX0RlVAgIPjpRjITi6jszQ4EpYu/mHmCl8JQQkkrggdYNyhz
-         MVvp0TZ+2UbI2uFIDzxw741B2nRn7WuT6svkpe4tg4Qfv+32y4nxl0y5wIbWgMwapFVM
-         9kdndZ1yAZI8q0JYgmn9YN952z4nYLY7NqWIrBkGMOtBhhrQPQpIkJSWG7s/SEcXTv+P
-         ZWMg==
-X-Gm-Message-State: AFuF++m3yN5r2g9nYa1j/yOPoz5CRsfJVRFPZqYpXCi01ulKfxx0IlmJ
-	EkRjYRC+b4Mh86fHiBDnju9Z3G/wt9ddKG8dXb0NpWbt5lgH1b0GFLsp
-X-Gm-Gg: AYBFou26enXd57hIabG60nLhHC78AtsF/70O89gsRWhtFHd3JnLb2xPcCY9M2X2ByFi
-	Dta2vmt8kbREYKZkeiF+dt9C9yHtK9SGV84tXW7z8dCqNOrNZCV3ZB085R+Qm4oP1qPwWqfXzqX
-	QXE+AnejVxbdoX6WwSWwNz1nbP+Vb7cvl3LiF+COEQiwYK1bH7hloiP3QgantaQpRv6G4qAEzpu
-	I0/F0GGdWXutq5oR2pvoGYrjY5d0BvhJyatNEIDdg2UKlCNwtLBBs4ZVi/z5QTMgdL3PJXe+VYA
-	qgESbWqgTNvAxGWkkNrKxg0h9mXl1WDCZCnOyp1wMi3bo6njBFeeN+tkNDumjpvAlIhIScdABRE
-	PZEhd4PykUPlWcEPJLek+w/V1YhWEyHhejImT1FuI0Ifnck5lwxPehliDnWoHba4KewHtmWDgkU
-	U3ihEKBuKqxjNeWWAOPGKdiRGISviQaZqbPMXCKR9j/a8X3ttVZ6j8jz7F3PamIA+H/EVlizceE
-	+xzOqaIciQQm0PrFiI=
-X-Received: by 2002:a05:600c:34d4:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49fe66d1279mr28347365e9.10.1790240806879;
-        Thu, 24 Sep 2026 02:06:46 -0700 (PDT)
-Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877c379sm12875561f8f.29.2026.09.24.02.06.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 02:06:46 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Ion Agorria <ion@agorria.com>
-Cc: devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 7/7] ARM: tegra: lg-x3: Add backlight LED controller node
-Date: Thu, 24 Sep 2026 12:06:08 +0300
-Message-ID: <20260924090608.28734-8-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260924090608.28734-1-clamor95@gmail.com>
-References: <20260924090608.28734-1-clamor95@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Lg0Ij3N6"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6686B1516;
+	Thu, 24 Sep 2026 02:07:40 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8609B3F86F;
+	Thu, 24 Sep 2026 02:07:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790240863; bh=KCpkwX3n9hDTqSNw48pPQoWBY0FYrWUGqdnZtj2ba/c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Lg0Ij3N6WVWS4N+OYN2hfyqo2WvEhy7KK3wQywFVE5UG/R8DywLrfxYuW45vNJY6d
+	 pmPerYPn3hSU4jzj0AFR4h3OaxXAhFO0GypCth150WgOVAF2J9ECiv7wyAsOmGv/19
+	 8+/thaVS4iiXGenDxi+2mBgVObYURDzgpxm1V9/0=
+Message-ID: <30c42b73-204d-4531-bd1a-1ee160a4b000@arm.com>
+Date: Thu, 24 Sep 2026 11:07:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 03/11] dt-bindings: pinctrl: add Allwinner B288 pin
+ controller
+To: Pablo Mazzini <pmazzini@gmail.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sunxi@lists.linux.dev
+References: <20260923201701.43391-1-pmazzini@gmail.com>
+ <20260923201701.43391-3-pmazzini@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260923201701.43391-3-pmazzini@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add node for TI LM3533 LED controller used in this device for panel
-backlight.
+Hi Pablo,
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts |  2 ++
- arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts |  2 ++
- arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi  | 24 ++++++++++++++++++++
- 3 files changed, 28 insertions(+)
+On 9/23/26 22:16, Pablo Mazzini wrote:
+> One controller at 0x01c20800 with four external interrupt banks.
+> 
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> ---
+>   .../pinctrl/allwinner,sun8i-b288-pinctrl.yaml | 108 ++++++++++++++++++
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
-index d76f9f465ddc6..4560d93ef438a 100644
---- a/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts
-@@ -179,6 +179,8 @@ panel@1 {
- 				vdd-supply = <&vcc_3v0_lcd>;
- 				vddio-supply = <&iovcc_1v8_lcd>;
- 
-+				backlight = <&backlight>;
-+
- 				port {
- 					panel_input: endpoint {
- 						remote-endpoint = <&bridge_output>;
-diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts b/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
-index 4ee84f4bd1878..2ace0201a9311 100644
---- a/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts
-@@ -185,6 +185,8 @@ panel@1 {
- 				vcc-supply = <&vcc_3v0_lcd>;
- 				iovcc-supply = <&iovcc_1v8_lcd>;
- 
-+				backlight = <&backlight>;
-+
- 				port {
- 					panel_input: endpoint {
- 						remote-endpoint = <&bridge_output>;
-diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-index bd82a3f7951a4..c86bc4b897675 100644
---- a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-+++ b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-@@ -1206,6 +1206,30 @@ rmi4-f11@11 {
- 			};
- 		};
- 
-+		led-controller@36 {
-+			compatible = "ti,lm3533";
-+			reg = <0x36>;
-+
-+			enable-gpios = <&gpio TEGRA_GPIO(N, 6) GPIO_ACTIVE_HIGH>;
-+			vin-supply = <&vdd_3v3_vbat>;
-+
-+			ti,boost-ovp-microvolt = <24000000>;
-+			ti,boost-freq-hz = <500000>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			backlight: backlight@0 {
-+				compatible = "ti,lm3533-backlight";
-+				reg = <0>;
-+
-+				led-max-microamp = <23400>;
-+				led-sources = <0 1>;
-+
-+				ti,linear-mapping-mode;
-+			};
-+		};
-+
- 		max14526: muic@44 {
- 			compatible = "maxim,max14526";
- 			reg = <0x44>;
--- 
-2.53.0
+Why is this a new file? Can't you just add the new compatible string to 
+the existing allwinner,sun4i-a10-pinctrl.yaml binding?
+
+Cheers,
+Andre
+
+P.S. Since we have seen this a lot lately: please wait with a new 
+version of your series for a few days, to allow other people to comment, 
+and to allow discussions to settle down. Not everyone can respond quickly.
+
+>   1 file changed, 108 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml
+> new file mode 100644
+> index 000000000000..806da97ab708
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun8i-b288-pinctrl.yaml
+> @@ -0,0 +1,108 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/allwinner,sun8i-b288-pinctrl.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Allwinner B288 Pin Controller
+> +
+> +maintainers:
+> +  - Chen-Yu Tsai <wens@csie.org>
+> +  - Jernej Skrabec <jernej.skrabec@gmail.com>
+> +
+> +properties:
+> +  compatible:
+> +    const: allwinner,sun8i-b288-pinctrl
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    description:
+> +      One interrupt per bank of external interrupt capable pins.
+> +    maxItems: 4
+> +
+> +  clocks:
+> +    items:
+> +      - description: Bus Clock
+> +      - description: High Frequency Oscillator
+> +      - description: Low Frequency Oscillator
+> +
+> +  clock-names:
+> +    items:
+> +      - const: apb
+> +      - const: hosc
+> +      - const: losc
+> +
+> +  gpio-controller: true
+> +  interrupt-controller: true
+> +  gpio-line-names: true
+> +
+> +  "#gpio-cells":
+> +    const: 3
+> +
+> +  "#interrupt-cells":
+> +    const: 3
+> +
+> +patternProperties:
+> +  "-pins$":
+> +    type: object
+> +    $ref: /schemas/pinctrl/pincfg-node.yaml#
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      pins: true
+> +      function: true
+> +      bias-pull-up: true
+> +      bias-pull-down: true
+> +      bias-disable: true
+> +      drive-strength:
+> +        enum: [10, 20, 30, 40]
+> +
+> +    required:
+> +      - pins
+> +      - function
+> +
+> +  "^vcc-p[bcdfg]-supply$":
+> +    description:
+> +      Power supplies for pin banks.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - gpio-controller
+> +  - "#gpio-cells"
+> +  - interrupt-controller
+> +  - "#interrupt-cells"
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/sun8i-b288-ccu.h>
+> +
+> +    pio: pinctrl@1c20800 {
+> +        compatible = "allwinner,sun8i-b288-pinctrl";
+> +        reg = <0x01c20800 0x400>;
+> +        interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&ccu CLK_BUS_PIO>, <&osc24M>, <&osc32k>;
+> +        clock-names = "apb", "hosc", "losc";
+> +        gpio-controller;
+> +        #gpio-cells = <3>;
+> +        interrupt-controller;
+> +        #interrupt-cells = <3>;
+> +
+> +        mmc0_pins: mmc0-pins {
+> +            pins = "PF0", "PF1", "PF2", "PF3", "PF4", "PF5";
+> +            function = "sdc0";
+> +            drive-strength = <30>;
+> +            bias-pull-up;
+> +        };
+> +    };
 
