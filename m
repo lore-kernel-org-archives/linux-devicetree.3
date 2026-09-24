@@ -1,173 +1,145 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7019433A9FE;
-	Thu, 24 Sep 2026 18:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8243D4156F0;
+	Thu, 24 Sep 2026 18:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790273367; cv=none; b=Pt3Zs6n16G9UrB9OuV+QM43kR0Ci7r27acTPiNLvvxftuALRzTE7LLbLP3Beb/gkPX9op8xiimQis6Y6k9Q+8CzQfXDLUe2Epr8RK5oavlqGqEbO0+9xnLQHNdETW1BqXz/K+21mmeyvi1rJiWKjrf/knZliUPbmlWwLC8vc0MU=
+	t=1790274134; cv=none; b=TItAoq5tDwIkQeAopUqbbt0tvZlzy2u4AfeamBizXHmAa+2p8tIxTATGD8kTaegB/5YCPWQSxEHKowM7ukK2ZKUmLvTVnfF3WSnZ1cNP918cjVxsrNB99zeJlC7wQYxGXa2bCQ/x2f1ATYJnR5MEGZVeixf74nzRXGEKdZihUk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790273367; c=relaxed/simple;
-	bh=DVbq6piq7V6+Q/cQjhHZNalbSD7sLko8WTH7pDEBt3I=;
+	s=arc-20240116; t=1790274134; c=relaxed/simple;
+	bh=q0eaopFOAWSDHlYn5l7W04BqZZoq89xUqr5KKrSkYNU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sIrndBh6AT4Fprth0JmQm85Ugf2d94aWoOn+yuzgJweFBwHmz2Dqvr98AW5LSYjTLurwLAm5YeXtOqVp796cDdnJFCx4EiD+E6ZmRZVEKGcBPQY0ibDLikm4KpElYhbGSyHulwHrfOTYxz6+GK4WjpsK2imrda1HCbL0m/Q8ewA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 06A4C3700EDB;
-	Thu, 24 Sep 2026 18:09:11 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id F0D92B64BC9; Thu, 24 Sep 2026 18:09:09 +0000 (UTC)
-X-Spam-Level: 
-Received: from collins (unknown [192.168.1.1])
-	by laika.paulk.fr (Postfix) with ESMTPSA id 6C623B64BC9;
-	Thu, 24 Sep 2026 18:09:08 +0000 (UTC)
-Date: Thu, 24 Sep 2026 20:09:06 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	devicetree <devicetree@vger.kernel.org>,
-	"open list:FREESCALE IMX / MXC FEC DRIVER" <imx@lists.linux.dev>,
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-media <linux-media@vger.kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	 Content-Type:Content-Disposition:In-Reply-To; b=LE4zM26JlNZOVCjN6KPhT8Hrku//NB8ABCSSNoq2JYaEdbojjjtdrU4nkSeDxk80px6lbuzVwu2Lq9IiW0MoDec2NJCW5YrW0QrEFtpZMjfw1dd2CEJhCBHk/EomjLjvn991gLRg9GKYO5hyBQVQaRWOidPPvd5rxukhqE/f/Fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mMr+Qlgg; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mMr+Qlgg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790274132; x=1821810132;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=q0eaopFOAWSDHlYn5l7W04BqZZoq89xUqr5KKrSkYNU=;
+  b=mMr+QlggIIIwPU46ryDcnyoGcNgQXviSUCsLRgSFOZkwUyCLbRVXpiBu
+   N/kT8aVHLUJFkuPTsC3607VoA/m1VWlrpsMSIUv/HPBKapu7rcEuxvg5z
+   TtDHdubn21VUv4jmdZCXHMzxQpHPRnxIO3dWMpwqRQVPemj8gglcDoIy1
+   ZFcx2jo8nKr2DocNrzEQiDnmlabac6yLSP1Mw9p8N461WiG9tWwY7HBht
+   vVJ834Ydffm1KwC+moUm6F2KX4rQYcMQa8wkKZGanfwTBtg3EuXI8Z9mr
+   /jIDqmkHySGGVs9MiSrKaPPcC01qFoQ1WlD1Ptjp+hawKs22PDsQr5hyR
+   w==;
+X-CSE-ConnectionGUID: rdFYylGeT5OTvd8ZTzFf0g==
+X-CSE-MsgGUID: q17vPr/PQguZAgwqQ0eOUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="90120638"
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="90120638"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 11:22:12 -0700
+X-CSE-ConnectionGUID: FqnfOOLOShCzeYC9VC7EYQ==
+X-CSE-MsgGUID: Efw1IqdETSOW4aZzrApbKA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,121,1787036400"; 
+   d="scan'208";a="302034433"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.199])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Sep 2026 11:22:07 -0700
+Date: Thu, 24 Sep 2026 21:22:05 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Marco Felsch <m.felsch@pengutronix.de>,
-	Michael Tretter <m.tretter@pengutronix.de>
-Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E
- support
-Message-ID: <arVnQmik-CveaAkY@collins>
-References: <20260522101653.2565125-1-paulk@sys-base.io>
- <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
- <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
- <arQxC3DmDyVIGdqq@collins>
- <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <arVqTWVw-eIZEcrR@ashevche-desk.local>
+References: <20260919235145.48273-1-marcus.yu.56@gmail.com>
+ <20260919235145.48273-3-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CZn6uW8WXhqK4f0/"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
+In-Reply-To: <20260919235145.48273-3-marcus.yu.56@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
---CZn6uW8WXhqK4f0/
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Sat, Sep 19, 2026 at 04:51:45PM -0700, Chang Yu wrote:
+> Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
+> 
+> The AS7343 is a 14-channel spectral sensor featuring 11 visible
+> channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
+> flicker detection channel.
+> 
+> The driver exposes 12 spectral channels (11 visible light and 1
+> near-infrared) via sysfs. Runtime PM is implemented to stop
+> measurements when the device is suspended or torn down. Power is
+> never cut (PON=1 always) to preserve register values.
+> 
+> Future patches will add configurable gain and integration time,
+> interrupt support, buffered reads, VIS channel, and flicker
+> detection.
 
-Hi Michael,
+...
 
-Le Thu 24 Sep 26, 07:30, Michael Nazzareno Trimarchi a =C3=A9crit :
-> I have added your patch to gstreamer
->=20
-> v4l2codecs: add the stateless H.264 and VP8 encoder elements
->=20
-> Backport of the encoder work from the branch v4l2codecs/h264enc of
-> https://github.com/paulkocialkowski/gstreamer (commit f59de5779ef1, based
-> on release 1.26.0) onto the gstreamer1.0-plugins-bad 1.28.5 this build
-> uses.
+> +#include <linux/build_bug.h>
 
-Yes this is the right gstreamer branch to use here.
+This is unusual to meet...
 
-> Generate the right element and encode stream:
->=20
-> gst-launch-1.0 videotestsrc num-buffers=3D100 !
-> video/x-raw,width=3D720,height=3D576 !  v4l2slh264enc ! h264parse !
-> matroskamux ! filesink location=3D/tmp/t2.mkv
->=20
-> And playback over Wayland.
->=20
-> Solve some problem. I have implemented:
->=20
-> const struct hantro_variant px30_vpu_variant =3D {
->         .enc_offset =3D 0x0,
->         .enc_fmts =3D rockchip_vpu_enc_fmts,
->         .num_enc_fmts =3D ARRAY_SIZE(rockchip_vpu_enc_fmts),
->         .dec_offset =3D 0x400,
->         .dec_fmts =3D rockchip_vdpu2_dec_fmts,
->         .num_dec_fmts =3D ARRAY_SIZE(rockchip_vdpu2_dec_fmts),
->         .codec =3D HANTRO_JPEG_ENCODER | HANTRO_H264_ENCODER |
->                  HANTRO_MPEG2_DECODER | HANTRO_VP8_DECODER |
->                  HANTRO_H264_DECODER,
->         .codec_ops =3D px30_vpu_codec_ops,
->         .irqs =3D rockchip_vpu2_irqs,
->         .num_irqs =3D ARRAY_SIZE(rockchip_vpu2_irqs),
->         .init =3D rk3036_vpu_hw_init,
->         .clk_names =3D rockchip_vpu_clk_names,
->         .num_clocks =3D ARRAY_SIZE(rockchip_vpu_clk_names)
-> };
->=20
-> I have advertised the:
->=20
->        {
->                 .fourcc =3D V4L2_PIX_FMT_H264_SLICE,
->                 .codec_mode =3D HANTRO_MODE_H264_ENC,
->                 .max_depth =3D 2,
->                 .header_size =3D H264_ENC_HEADER_SIZE,
->                 .frmsize =3D {
->                         .min_width =3D FMT_MIN_WIDTH,
->                         .max_width =3D FMT_FHD_WIDTH,
->                         .step_width =3D MB_DIM,
->                         .min_height =3D FMT_MIN_HEIGHT,
->                         .max_height =3D FMT_FHD_HEIGHT,
->                         .step_height =3D MB_DIM,
->                 },
->         },
->=20
-> Create the rockchip_vpu_hw_h264_enc.c. I need to test this on rk3399
+...
 
-Then I guess this is using register configuration from the earlier H.264
-encoding work that I've done at Bootlin, adapted for the new stateless
-encode helpers? That part is probably not quite trivial, which is why I
-was a bit surprised.
+> +static inline u8 as7343_atime_steps(unsigned int step)
+> +{
+> +	BUILD_BUG_ON(step < 1 || step > 256);
 
-> I have a small change only in the common part. Hope that it's a bit clear.
+How is this any useful? The step == 1 gives the result 0, the step 256,
+255 respectively. This covers the whole range of the returned variable
+(u8).
 
-Yes in comparison to the register configuration code, the platform
-changes are rather small indeed.
+> +	return step - 1;
+> +}
+> +
+> +static inline u16 as7343_astep_x2780ns(unsigned int n)
+> +{
+> +	BUILD_BUG_ON(n < 1 || n > 65535);
+> +	return n - 1;
+> +}
 
-All the best,
+Ditto.
 
-Paul
+...
 
---=20
-Paul Kocialkowski,
+TL;DR: I do not see anything meaningful from these BUILD_BUG_ON():s.
+It's not a problem if the result gives just wrapped-up value. Or is it?
 
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
+...
 
-Expert in multimedia, graphics and embedded hardware support with Linux.
+> +static int as7343_read_label(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan, char *label)
+> +{
+> +	int channel = chan->channel;
 
---CZn6uW8WXhqK4f0/
-Content-Type: application/pgp-signature; name=signature.asc
+Why signed?
+Also split assignment, it will make code more maintainable.
 
------BEGIN PGP SIGNATURE-----
+> +	if (channel < 0 || channel >= ARRAY_SIZE(as7343_channel_labels))
+> +		return -EINVAL;
+> +
+> +	return sysfs_emit(label, "%s\n", as7343_channel_labels[channel]);
+> +}
 
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmq1Z0IACgkQhP3B6o/u
-lQyEpQ/+IyLXFwk9YODr0WJI5I/wgdBuKj8S2gQmK7H45sYlvZfEDYQ+j4AV9wyl
-cOncZklhJzTNhVkAUthAjhHyJTl0PDAwk/Smf/zc6dd72xWf77NAK0QlvBRFDQqS
-kATP5MQfhKYXxnmPe5Aqbkb3xRSrxqjgnm8JbA7d/mh0R0ms8D07ekMxVHTSNJqe
-Kad2GX8HvnJDM+ETEQYFm4wr4PUVMW/LMEB9yE6sFjw4wdvFw0AQaJn9GIOenIJL
-S5OklJjNSg/FwO9qyLdYP+hoWn3DIxW3fHBotVZqlttgJSkCjG0SnCZbhKRhKyAu
-mmRjQhQ1m1LjvPxcNsIdgP4kUoSgP6239nLbapUvYnnbl1lNh0jDQYNuWBIKs1FU
-cn80fGsJxqYO3spl3pw1rCm5u+5mfAOz4rTquUfqVSWn44N5uSyjMMAHkddTUh1U
-JisiR3msNZLvStkbK0syAbQnhGXpyQC8grMremDf+jGXuYYySRv3vkPK7i/S+HfT
-zD3PCw3oriPh7b13A/d2CT1lW51sqkwKQacPEuKFqLm++hRJX4t65byE3OhhNpaI
-NXggjvgwk1c9EZ31GVuK/fyGoQvnWk0eUuRVCMs04gVpPX0G54tEG/DQtqyjjD4Q
-hCgzC339OPU4ma6H13w94ODFw4iNvUgBRZpffBAAOPyYpuzDujA=
-=YnXV
------END PGP SIGNATURE-----
+-- 
+With Best Regards,
+Andy Shevchenko
 
---CZn6uW8WXhqK4f0/--
+
