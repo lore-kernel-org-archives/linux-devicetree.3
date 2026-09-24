@@ -1,123 +1,143 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73374BE458;
-	Thu, 24 Sep 2026 19:44:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FA54AD4CD
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 20:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790279094; cv=none; b=Keag6DRGfhEcesJruka/mMwQvaNi8vh5wTr9yeu/rZerNifSdP0UhqcSTFRr+Ee7w0FwuT6bIyVKTVomS37aJ+lBUpnM7vupVdE7Quuy78bBEOEJhno2YZ7Fb5KPuYLDuqEi050+kzyVackkuZyEHW/FP4d9un4AM4EdXY4SRZI=
+	t=1790280043; cv=none; b=A7Bd85VxQ5vilEpa4uID53v2DATEGzBm8LcI9ShJrLeTElH5+mSfM1NSyacEDCt4vUR9oSYu8SPljCXx8gnEDL0RhKSA4R4aCJA5uT7KuaiKFfA0h8aqTBk+JN5lJQIMgDVVffge5LPoHfXcP/1iFicQUpJ8MSIdyDmWUhFLWKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790279094; c=relaxed/simple;
-	bh=odrTGFsDo9/VOm3I9CYUC31p3sv7iM21LI1z9mPgrow=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jLgZa4oowZS+GowYOodSVJcSpKeCSoiSLt8bDlmz6GBi6W09MKO2llApIUJABY3u5okUcf6UOhLgXbEUMHjgFW3TzchZfR/QIJozgXRu4z3tkBKcfAMGMtilHVRGtEvj1z8btPIQuiqfo4ekkM+CjftHKJNbsuBbU2PyKUJb+TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=aATvn3V3; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790280043; c=relaxed/simple;
+	bh=800XYnUFGFmLVgaPHONWcqohdi4VWbF2CAwETY0CmUw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tzh0ogBcaOXnKuvrAFrQUZ+jPghhRw3ZIz97OLntSBtGMvox/iupI8zDlGcNNw0f88DvQllbaaZT92HQQWYqbXnTTZUvMrwWedNIz0vI5O/Wpc+DRXltqcKHl0oi62PEDuz4eoWXwoK1RzD3DGf3+skdFtTDM2gQeQaMp94qXyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ow6egLXd; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="aATvn3V3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790279090;
-	bh=odrTGFsDo9/VOm3I9CYUC31p3sv7iM21LI1z9mPgrow=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=aATvn3V3gYX6FXQyrgZVlZUH0yNhVXxUANYpfa74kW5BOYGMlicj6Q0JZEvLqX/Zt
-	 ULBWHIMYfIVadIbf+5gt+yM8b0N6T4iAtOpNFMGmBLPhJ6r+spJgRFm369hUrCdE01
-	 TuqCpwm76CdolivLQgJKJMNW5KLihdJ2t5hVW7Eif6xRv0uuPZ8a0vecAeGeFilmsj
-	 syMqlLQCKdrrj8d5bdXQwfKYFIDdYvgJ9L1kfOCgUkg/bhtVqEaEquMJpFvORqbkNQ
-	 lJtfvxMWM6g/i0g23lul8GeT4i8J8YtvyJ36r665j6xhSn/m00l1JqmgEq7RIe6OPS
-	 9GY5Bv1Jnt8Sw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8B46017E01C5;
-	Thu, 24 Sep 2026 21:44:48 +0200 (CEST)
-Message-ID: <48271d518bb25f552309de12758e9a9995905f0c.camel@collabora.com>
-Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and
- VC8000E support
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>, Paul
- Kocialkowski <paulk@sys-base.io>
-Cc: devicetree <devicetree@vger.kernel.org>, "open list:FREESCALE IMX / MXC
- FEC DRIVER" <imx@lists.linux.dev>, linux-arm-kernel
- <linux-arm-kernel@lists.infradead.org>, LKML	
- <linux-kernel@vger.kernel.org>, linux-media <linux-media@vger.kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,  Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team	
- <kernel@pengutronix.de>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
- <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, Michael
- Tretter	 <m.tretter@pengutronix.de>
-Date: Thu, 24 Sep 2026 15:44:46 -0400
-In-Reply-To: <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
-References: <20260522101653.2565125-1-paulk@sys-base.io>
-	 <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
-	 <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
-	 <arQxC3DmDyVIGdqq@collins>
-	 <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
-	 <arVnQmik-CveaAkY@collins>
-	 <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-HPi1wb249tHXCTcm2PII"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ow6egLXd"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso1362585e9.0
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 13:00:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790280040; x=1790884840; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:reply-to:message-id:subject:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Waq+q+bs9tZHLy6mj9/0dS73pghCJzNJ2Bb0y33c6Wk=;
+        b=Ow6egLXdUfKSeLXNcN8inGMHH3j/Nv1eS8h+/efytKaVamRQ6LVbRzuFW7soKKy3Ob
+         mrqn0EFF9pmnf0epea4MS0EuJHFitUwlwgFN4VnkHG6VCEyW9h9BkfLdpPIcmNgXk+Ph
+         GRzHJN6GAgwoV397ugVtvyZuIm1sEX2dWCKER5AzJ7PZrOJ4fjz1ABPUG3k1HVbF3EGC
+         U78OOQc46HLOLbHoAU7+CGYKUNRxbegg83yCO3/K42ufzixIhwwb9yacysP0W8Gf8M8g
+         eajEAlBZN6RN3lvbKiAEgkkNii9A99u20tuIjfBtoVYMUPsSAi4in0VRvJK46Sm72eRK
+         LzKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790280040; x=1790884840;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Waq+q+bs9tZHLy6mj9/0dS73pghCJzNJ2Bb0y33c6Wk=;
+        b=bX0mUeau2+hgHFgC8NC1h13yzr2uvLru9eNyWkHM9z/zJClsMnX2qmrVKK4uwFSpBU
+         wT5UaZpuEBdhJp3yFOrkZAUt7RZmav5myiWzntTqlfPT9bhSjvCZ8Fzxm0WmCLDKkQYZ
+         rIVgBgWlIqpCKUMXr9ahJJwx7rqSfcyOG/XWPvTX3shBtftehND/JfjruTUiEwR0hYIZ
+         WfJbwtqiAe42ZxJTjm0obKOnyCs1eZiMz53PqqAHeztl+nXWfEJcBpf4LrvDMeaNW4pl
+         ONvf2D6HlJimlj+iuJlYhR+kJm2aeGWtAxtDm6TKPqB6pHWFDT9Gtnsw0zA4+Fj/l+iM
+         VoPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwspXBGdi32ayD3uHoVL9C8boSoZMdMMhkNNHhXXNl0tTHXKKxOwE7RLnf00Wp7ivBqVRjmx11c+VyU@vger.kernel.org
+X-Gm-Message-State: AFuF++mL1vPbxF5at0iesqS2+RKemEaGiM4YXVsjSHyjZtbkI/7wgPqE
+	N11MLnmcVvDpt5KX5qIC4zYAl9WuLhEguZP57EE8FR8XN5fY7jBDbzOp
+X-Gm-Gg: AYBFou3gDsjyqF5iq/alLOWWyL6RrwopOMBFX5ogwEcBLW7A4S9L+Gzj26lTRoSrkPo
+	/JsL3q2z1Mw85cBM1vsP9wgrIJK/8F8W8Zv7Cr4Zg1cFjovlGoIIFuQj0rPAyPPmd0VldFYjG12
+	vwPum1tW30xg7Gioj1xjHrLY+2kmfPDJMXuYC6yFEDKx7egbmqgZzcWCrfRfkNi/QYdTyO/o8a2
+	w+a6DsZJQfctcg3bXXlNwzMqNXc2U//Xe/MMM9q1++7CQTxnFxjmp3f4Hyz/LkzS4y2AY8bXVKp
+	1qmuPpics1J1pH7z4FW597oTz5Rt7H2U7R2ff/zKRjKgxoj/b9yP8iDeG4t9tYQ3+pqiBIO/W6X
+	U8B2LJ5c8Pl5sRRawog+dfYrzQV4ykk99kW5dFeJ1e1ZKhLmgj0pJgD2/Iv0RdPwepFWriTM/qk
+	m5eIDL5KWm33jXJeAr5yQQHLKJbgI/Iua/W4avo3BahZdzMmZV3/leog9TAnH4gEm7pJ/NT4fyV
+	nCVh3aHqlK/ZGvf//cO+21enCcyS6sYgik=
+X-Received: by 2002:a05:600c:6207:b0:49f:bd3c:bc20 with SMTP id 5b1f17b1804b1-49fe66ff476mr67110105e9.27.1790280039460;
+        Thu, 24 Sep 2026 13:00:39 -0700 (PDT)
+Received: from pevik (gw1.ms-free.net. [185.243.124.10])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff069ceebsm1872715e9.3.2026.09.24.13.00.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 13:00:38 -0700 (PDT)
+Date: Thu, 24 Sep 2026 22:00:35 +0200
+From: Petr Vorel <petr.vorel@gmail.com>
+To: david@ixit.cz
+Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 03/11] drm/panel: s6e3ha8: Really assert reset on the
+ failure
+Message-ID: <20260924200035.GA194087@pevik>
+Reply-To: Petr Vorel <petr.vorel@gmail.com>
+References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
+ <20260924-crosshatch-panel-v2-3-08d5c7bf72fc@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-crosshatch-panel-v2-3-08d5c7bf72fc@ixit.cz>
 
+Hi all,
 
---=-HPi1wb249tHXCTcm2PII
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+LGTM.
+Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
 
-Hi,
+Kind regards,
+Petr
 
-Le jeudi 24 septembre 2026 =C3=A0 21:38 +0200, Michael Nazzareno Trimarchi =
-a =C3=A9crit=C2=A0:
-> I would like to ask about the status of the entire proposal and uapi chan=
-ge.
+> Due to incorrect implementation 0 == asserted, thus when driver fails it
+> needs to assert reset.
 
-=46rom my perspective, the main part missing the the V4L2 m2m stateless encod=
-er
-spec. We made one for stateful decoder/encoder and stateless decoder, and t=
-hat
-made a huge different in interoperability.
+> Minimal fix for stable; the polarity convention is corrected properly
+> later in this series.
 
-A second implementation, not just a variant of the same brand would also be
-nice.
+> Fixes: 779679d3c1640 ("drm/panel: Add support for S6E3HA8 panel driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>  drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Nicolas
+> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> index 078523df48860..835121b322f4a 100644
+> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+> @@ -179,17 +179,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
+>  	ret = regulator_bulk_enable(ARRAY_SIZE(s6e3ha8_supplies), priv->supplies);
+>  	if (ret < 0)
+>  		return ret;
+>  	mipi_dsi_msleep(&ctx, 120);
+>  	s6e3ha8_amb577px01_wqhd_reset(priv);
 
---=-HPi1wb249tHXCTcm2PII
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+>  	ret = s6e3ha8_amb577px01_wqhd_on(priv);
+>  	if (ret < 0) {
+> -		gpiod_set_value_cansleep(priv->reset_gpio, 1);
+> +		gpiod_set_value_cansleep(priv->reset_gpio, 0);
+>  		goto err;
+>  	}
 
------BEGIN PGP SIGNATURE-----
+>  	drm_dsc_pps_payload_pack(&pps, &priv->dsc);
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarV9rgAKCRDZQZRRKWBy
-9AJKAQDAVOKci/P7Qr2Z5IgnO7OXHieb8eGjiKKZ534/8y/l7wEAh6xDOGHKCKdz
-yxN04vRWtC/cp79kBk1S7uuDCQofSwY=
-=1fmE
------END PGP SIGNATURE-----
-
---=-HPi1wb249tHXCTcm2PII--
+>  	samsung_dsi_test_key_on_lvl1(&ctx);
+>  	mipi_dsi_picture_parameter_set_multi(&ctx, &pps);
+>  	samsung_dsi_test_key_off_lvl1(&ctx);
