@@ -1,211 +1,106 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8C6437472
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 10:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6A4470EA0
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 10:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790245979; cv=none; b=mc4DFsaBi0VEO2/dr8bOt+gM4dckMvXBC3C5OF7WWVp29KoK2OuA2Mu1ZkW0YjuNO8mwuqaJ2T9uG0ZypMv0SRRPnai9xP9sv1SPsQnOrysMhTzGt+ziliOQujLQmQ071y0GRtB2LSAtopz6p0yl4wN0sKbE5VZP8xmPjuh1+/8=
+	t=1790246158; cv=none; b=nE8+mSeKySnn1Mp2ZeXX9gXzOazi93l4Gs+9FA6lkkErnGo8GFs0suqJYA6zi7jh9ItGGuDwPiRmjzmFDPzcjXvkTY9WKqGT/Xv7wdsPQX7BscGMasBKvWRmAWXYWztM5DRvL0T7QashABsBGf2rDVIoluW4zQbDDeapYEqXEW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790245979; c=relaxed/simple;
-	bh=7zwTmehAKssK3FDdkKixE6p0T3SMJhlXr4OxhLaCzT0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nD3/7Q4VAx1EZwa/CET1LI1jJIDIVbfHEe4wWVi4Wzya4OpIAJ+hr4exfa7vBFkR/ECmVwnxsjA+CGBNB7Lznm7XBGPYVCygZnB4F7/Ql98yaMo/G6i3YFNuZ7S8FiYTgrq5zJW2HcVR5NaRfPaY/UhxrTGSvSvfE7TyMYRl528=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VkxisI+Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VNzXJFl4; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790246158; c=relaxed/simple;
+	bh=y3hr/1M5sefzOYlAn2gAnH8fQX7G08+CgqebwysPpVk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DlPqXub1+TlFwxp0WtHJJVhSU3kKCvPQY+zbf+Cw3rIcVlrroRelW9N/wS54jBeH6VIqFhZekoNV2LKiayk2mWPoA6SXoQQah6aReWQSGw7aFNMQ5EU+++roEZ8WX6xO/6XkdLcWe7CwJpRqpuitjhCEba9QeM3d4VLakGt4oP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ffizzk+P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VkxisI+Y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VNzXJFl4"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68O9P4iE1064107
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 10:32:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	WXg6dqUWJExGXR8prNtrYiyQGTXd5oj5ngmptCv+11A=; b=VkxisI+YzShJEnnF
-	ow4m60Uh0zvZE6FuBB2KnVj8dhkhItWm8D/XxGnFt4cP5lf+AEC8TK9lvb+Dyl2g
-	+l52UE32hRvbXffzjrqK9Ey/zhHrhrKyKjdLLrz7XLRGmNhUpDnjFfNSf0uOkJOt
-	rpLfFyEnBWwL0zg7fGLm9ArHD5bQWxzrtHXiC8OXXXKVmTLFsYhyapnvGgY9tri9
-	fNcgiZGNfWNcPijpzVdfxa/nzNdvUclw+wlqXwn+C2hqTkpg6C3ieFTxtViEnbxA
-	L7VeO1WKgkF86wc8BguxbsqUux7jGMWOK6IbnRexRMjOkqbhshvPC7ghVRFWnXlR
-	sJHnfg==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvvgh9gu8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 10:32:57 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1438492fb40so2974916c88.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 03:32:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790245977; x=1790850777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WXg6dqUWJExGXR8prNtrYiyQGTXd5oj5ngmptCv+11A=;
-        b=VNzXJFl4SdX9cH80sEqorvFG38lRdwljEj9FPuvY/2diCpkSi6yD/inRwpDRxUAdRN
-         VEzWw1b588VtwKPgXOOd9vutJveN9VGCQ66tzeJtJ4gfNZwkqSq5x3ztuI9veksj9k3D
-         qQUyVu/ufBa94yOkyfV8DzRpB8vVvjYMhyMroeQ78zHm7Jod4Myku+D4FB8MeZfbjcia
-         DpbYXWfOc40P81XYjl0V3coxAfYSZcL0t3eYl8KZ7EFVyEQyEkBBSPxieglYiS0ZjLbQ
-         2Oq0e6FzNkHdyECtg2bTi3bwXMwlyBvg49/7yuXxGNV+tClAfZHm39hKtl9C1bjHlVpK
-         IBMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790245977; x=1790850777;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WXg6dqUWJExGXR8prNtrYiyQGTXd5oj5ngmptCv+11A=;
-        b=ckVH4HAis7vmtwr0S7RChygnDac5o1MTZDBWxUUOMz+znYl7srL6RrTxQh1qHfZUiU
-         BT5D2C3GR/hGSA8bpP9c4qn0AoysOM185UuIzQh8EcSQzl0EnpkuamASfPiQw/RbSciC
-         52rKm70fnWOq7wx1Cc+/ZBbD/SfZ2eqsFwv9rzBADGaGir2fGYVenE4F0lYQXYpt24si
-         OTj3BV3ykbNfNfXwGaABHjpfd/KSuOZb3GvwKaQKBVfuaKckbHelGuZDlNubq90jPRG6
-         PIWBVNjySXddQLcPQQ4gJwMgPODlDrOK/bVAn+LFXpV2ImkibbyuWR+nze8kbV/qx4x1
-         mluA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIasXcHOI+p5iRXohI9D3u6zwf9Tp5YSp//6ic0sMfbBDbligrtA+BwGmFufGQlr9vVe8I08uOwK2B@vger.kernel.org
-X-Gm-Message-State: AFuF++lBqE2b07TzSsx+nKZi8xGeaEn+DIQBM/ZOcAw351s1N0pQt38v
-	GvzuMnIO+VjWLVUr9tum0gsCi2Q8ij2/umXueDP4bWbKZaCiFB/CGiLw7z4PjFpBbPSmmfmMahg
-	+m/9VVd5udzw6rV9u0CtQeWiYYUiabiOF+F4euHlqfQr6G4ikdxJ16+2Q/mFHUR8N
-X-Gm-Gg: AYBFou22iqLjT772WrpWEZwEL7l304VQr+TpuamH2ReeLpnFYDLY2H11y/D1e4ZqLWu
-	aHPQAcVyn+P2iH8jHfVuoAfI9YgQdsb6ykhjOfEgh+nsZjLrYg/3lZ0BjRKy+LJcifmqITDFDV5
-	2CJpMK87gsZDh3rv+NZIU1LxHNfLfN/DJTVJxZWK/2md5jKpPsgxfv+E2ydT9ibBW0BMxn/j/qC
-	/oxVPo6Q8xUwWRKHm7mQ5l+rW/+z/oPwVBa6pxjwblBWQbfnQozLY96rKQ2HHwwcxAEPf9FNK4e
-	o2VqO00rimFP8XwR1gAY5G7dCXBC/T0d1Kh7KIEqGKgUCKkmmUFeGLzLRvM43dgzhCXqWlJtFLz
-	oDDAI5XJGINqejFVWjWrNjD+wedE=
-X-Received: by 2002:a05:7022:e80d:b0:143:2719:566d with SMTP id a92af1059eb24-145040d4075mr1965012c88.41.1790245977104;
-        Thu, 24 Sep 2026 03:32:57 -0700 (PDT)
-X-Received: by 2002:a05:7022:e80d:b0:143:2719:566d with SMTP id a92af1059eb24-145040d4075mr1964960c88.41.1790245976229;
-        Thu, 24 Sep 2026 03:32:56 -0700 (PDT)
-Received: from [10.218.18.193] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f9877462sm12068303c88.10.2026.09.24.03.32.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 03:32:55 -0700 (PDT)
-Message-ID: <3752b72e-82a7-4fc2-be1b-5a5954062bee@oss.qualcomm.com>
-Date: Thu, 24 Sep 2026 16:02:40 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ffizzk+P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86E801F000FF;
+	Thu, 24 Sep 2026 10:35:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790246156;
+	bh=LKLZqxHoa4np4eVq1b5DdpwkW6IA3T1WKmxwKfQh9Dk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ffizzk+POhJrf1mrTFe2clCf1KMezU5mMvms//eLori9ZuE8vB1cufgzE5xKGp2by
+	 BvBxiFj61GDPc66LC8406ouPZVN6b4S61FJorIO7cVrGCLv7lRfCNkXjOq8QGcg+A2
+	 rDzrgLq4SWc2QbCx6KlfQp9NvrGe5HJilT1ltykITJ6vJYJT+DYg/MKFJYBpxGwe2E
+	 /xhHX1MAnJeyU8nzlM1rbfxgjliOPsL7gk5wUbJwMuDvwjN1oA/KkyiEEdSYucPWdD
+	 sKDu+CWGmOd0CgEope4koS7uqiJogXpb0YsQ+7968Xhb+vG15kGP3CsMCZ3AD1UABV
+	 Pj43C1KdMVugA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 04/15] accel/rocket: let the core suspend after a
+ reset
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260924102135.92217-5-gahing@gahingwoo.com>
+References: <20260924102135.92217-1-gahing@gahingwoo.com>
+ <20260924102135.92217-5-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 10:35:56 +0000
+Message-Id: <20260924103556.86E801F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 06/10] ASoC: qcom: Switch lpass-cpu and qaif-cpu to
- snd_soc_of_xlate_dai_name()
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-        Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
- <20260923-b4-qaif-shikra-audio-v7-6-d5b6f056568e@oss.qualcomm.com>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <20260923-b4-qaif-shikra-audio-v7-6-d5b6f056568e@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=KYhHIgYD c=1 sm=1 tr=0 ts=6ab4fc59 cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=kcWvErFG8IZCALGPlGoA:9 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-GUID: RWyWO14RbprV68cexzuNJJy_gGRvNBwy
-X-Proofpoint-ORIG-GUID: RWyWO14RbprV68cexzuNJJy_gGRvNBwy
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA0MyBTYWx0ZWRfX0KH08borGSG5
- J8dnXvkmBiUeNqIFixbkLu4zf+oPTDLC6/Ama6CcMmEXL6YuZIR0bzgpVzudYxk6Z9v8MQL8Aza
- W/oZOAI5LDqBaOx8Y7ACdR+x5CEOY9k=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA0MyBTYWx0ZWRfXzAg+6ej3DB0V
- 77d3PXk7Mdxd84+RtGYlhR+JaPNgDAFgXFDSJIzn1hW/v9wfL0lfucW4n6MKH9F36pLBnZkbCfK
- 8/aixiOzHqIhbsxACGm8EiV+5zQVQIHvS4RKfaMcFE/f9e0OGTizhK1usSQGYaUqI5JCv2v4hqx
- ZDEBFXgtwikPXfKTquxLoPlvMZaVSf+bygXDtY/okTqHPHc4DmtSIDmsHxtm6T97HHqwOtvaEia
- RIO7gfORBuhhIVGU/G72Tecno64QS/TXKOs+jjExblFpJ4+TnHYUNv178x5zsYLJ9C0J53Ocu/n
- 09IYzR00KDyxTc64Nx4ggu95MgLEa4iwdQ+ioYKwHbsbk7cV0OhV30ie5uQz2q0v1LZ1SG0Pk9H
- c+t6U+HFhksQvEOTKhdQ6I6bAwXHrp1NZJOL1LzvgRT/0Qh50LEZ6WlezY0sCrlNe57d4gb0Hju
- JzcnsdFTKb0vfkbPhoA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-24_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
- clxscore=1015 spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240043
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] pm_runtime: asynchronous pm_runtime_put_autosuspend() during reset=
+ aborts hardware recovery
+--
 
+commit 95b09cd74a75566f037a5b7f059c69a7c6b7352e
+Author: Jiaxing Hu <gahing@gahingwoo.com>
+accel/rocket: let the core suspend after a reset
 
-On 9/23/2026 12:18 PM, Harendra Gautam wrote:
-> Use the new generic snd_soc_of_xlate_dai_name() helper in lpass-cpu.c
-> and qaif-cpu.c, and remove the local lpass implementation.
-> 
-> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-> ---
+This commit changes the PM counter decrement in rocket_reset() from
+pm_runtime_put_noidle() to pm_runtime_put_autosuspend() to allow the
+core to suspend.
 
-LGTM
+Link: https://lore.kernel.org/all/20260819073530.6087-1-royalnet026@gmail.c=
+om/
 
-Reviewed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -443,12 +443,12 @@ rocket_reset(struct rocket_core *core, struct drm_s=
+ched_job *bad)
+[ ... ]
+>  	scoped_guard(mutex, &core->job_lock) {
+>  		if (core->in_flight_job)
+> -			pm_runtime_put_noidle(core->dev);
+> +			pm_runtime_put_autosuspend(core->dev);
 
->   sound/soc/qcom/lpass-cpu.c | 23 +----------------------
->   sound/soc/qcom/qaif-cpu.c  |  1 +
->   2 files changed, 2 insertions(+), 22 deletions(-)
-> 
-> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-> index 242bc16da36d..61efa45376cd 100644
-> --- a/sound/soc/qcom/lpass-cpu.c
-> +++ b/sound/soc/qcom/lpass-cpu.c
-> @@ -458,30 +458,9 @@ const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops2 = {
->   };
->   EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_ops2);
->   
-> -static int asoc_qcom_of_xlate_dai_name(struct snd_soc_component *component,
-> -				   const struct of_phandle_args *args,
-> -				   const char **dai_name)
-> -{
-> -	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
-> -	const struct lpass_variant *variant = drvdata->variant;
-> -	int id = args->args[0];
-> -	int ret = -EINVAL;
-> -	int i;
-> -
-> -	for (i = 0; i  < variant->num_dai; i++) {
-> -		if (variant->dai_driver[i].id == id) {
-> -			*dai_name = variant->dai_driver[i].name;
-> -			ret = 0;
-> -			break;
-> -		}
-> -	}
-> -
-> -	return ret;
-> -}
-> -
->   static const struct snd_soc_component_driver lpass_cpu_comp_driver = {
->   	.name = "lpass-cpu",
-> -	.of_xlate_dai_name = asoc_qcom_of_xlate_dai_name,
-> +	.of_xlate_dai_name = snd_soc_of_xlate_dai_name,
->   	.legacy_dai_naming = 1,
->   };
->   
-> diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
-> index e1868dc95cf4..c096ef5133bb 100644
-> --- a/sound/soc/qcom/qaif-cpu.c
-> +++ b/sound/soc/qcom/qaif-cpu.c
-> @@ -594,6 +594,7 @@ EXPORT_SYMBOL_GPL(asoc_qcom_qaif_aif_cpu_dai_ops);
->   
->   static const struct snd_soc_component_driver qaif_cpu_comp_driver = {
->   	.name = "qaif-cpu",
-> +	.of_xlate_dai_name = snd_soc_of_xlate_dai_name,
->   };
->   
->   static const struct regmap_config audio_qaif_regmap_config = {
-> 
+[Severity: High]
+Does this asynchronous suspend abort the hardware recovery process?
 
+When a job times out and triggers rocket_reset(), this code now schedules
+an asynchronous suspend.
+
+However, at the end of rocket_reset(), drm_sched_start() is immediately
+invoked to restart the DRM scheduler. If there are pending jobs in the
+queue, the scheduler thread can immediately pull the next job and call
+pm_runtime_resume_and_get().
+
+This increments the PM usage count and cancels the pending autosuspend
+before the timer expires. Consequently, the device might never enter
+RPM_SUSPENDED, its power domain never cycles, and the required bus
+interface reset fails to trigger.
+
+This leaves the bus interface stuck, causing the IOMMU to stop answering
+and plunging the accelerator into an infinite timeout loop. This
+regression can occur when user space submits a batch of jobs and one
+induces a timeout, leading to a local denial of service.
+
+Would it be safer to use pm_runtime_put_sync() here?=20
+
+Using a synchronous put ensures the device is fully suspended before the
+next operation proceeds, which aligns with the requirement for hardware
+ordering constraints.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924102135.9221=
+7-1-gahing@gahingwoo.com?part=3D4
