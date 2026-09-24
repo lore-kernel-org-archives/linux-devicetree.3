@@ -1,454 +1,226 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1A53BB10E;
-	Thu, 24 Sep 2026 01:55:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B943D0910
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 02:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790214959; cv=none; b=SQ2Cyn21aGXfkVswMXY48Y2xA0UP3SrHfQO/5Vy7MTuc1LnBx97lamqkJFbAdfElRwR7iKw95tIQjzHlLhc+EJurULRS9CJn6hMJr21xqDwgZUCvD4R2NFxw9H4NN53EGV9pDS+y6UQ2kMWN0rC0LUwUxiMJZk/MUSprhoWaPKQ=
+	t=1790216096; cv=none; b=biBdODKIUoYyE2yREIxOgX/udfmLmoj2rWUAupI2CxShEAw9Z0jJUxhYGWJu5f9SALPi6Ov8Jvt6tIWaRtbis3mRa8ZipqTgOc3DVvrfosgVL/EcEZW1NS4dAqPLwa6JdYWgZbplg8FtPoakA8OE8swzvCZvddp6898gKwFkwuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790214959; c=relaxed/simple;
-	bh=lWp25Fg7EpR0C/XbEX4lsNNIrqxjI5MBoHFCLAF5AXY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AUQDyy7kofc8W8ssSst6/dwbB7/bORezzri42FhW4g0aghEExiftyDixOGKe9Y23clmgg0XKAlTwutX0Nr2O2gHFfRztRT5jH1LTqPzRpR9sV7fYHNmJ+t9o/xDx0/dFptB8V6EVSXsm7z/1ruU9tyRfVLuHWRo124hLYZU3LjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K8A+Z0qG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790216096; c=relaxed/simple;
+	bh=8IrYIX+nOfcakkM7/Z3PGPHAeSZ4D2Fr5eds+h+4gc0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HWCq7rfZgNudQ3Zn4LddUE1IA7rtUy2yJIzH/bjKwpN1MgI1UID4U0ptclFxNBeGVWw465/Xn1Gr3nrAhNXqgGjAxCi4NOmeJa+fOdEwd4Q3IqCfx5pA0HV9pWpeN77TN7MVoH4CIcE2NWgR39Vyc8qau1izmufekQfsOb2E2lQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nTscs6UJ; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K8A+Z0qG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D0B1F00899;
-	Thu, 24 Sep 2026 01:55:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790214957;
-	bh=NLlxKLEwdj6R94NFZREneEC67JN6yr719CbwOaK7yt8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=K8A+Z0qG9YYdyZqKxP/RhqmCLD4G9UgzRu7QdOs1zjuO74Q6rESk8UXMINpMV0Y6D
-	 AejGxGZKPH2e00SpeVgGYnwqTMm850ADewy1CzFAlkYuf3s5tWYtKmI+lpZ9jjxyuU
-	 v4/iJQRrKE1H5g5C8Vpi6gGekq4suy6aiS4bsmrbC1W4/ToS6uwW3IjLSU8f+VwKxc
-	 jenTUfA/v1JuWI53oQpqim/JuO12hHcsxYXYqX/5JI9hu86BbUUdhJWj5OyNSZKxzb
-	 06v5KBrm0hJx2gQE4JyFcsZzBbKzNOsJdbU/SefYs+hq5kJjD44Yi5OoJoCMvlEtAK
-	 hNXoCmDl+N21g==
-Subject: Re: [PATCH net-next v10 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
-From: netdev-bot+sashiko@kernel.org
-To: arthur@marmottus.net
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 24 Sep 2026 01:55:55 +0000
-Message-ID: <179021495594.2160803.16936851129108019714@kernel.org>
-In-Reply-To: <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
-References: <20260921-wiznet-link-gpio-v10-3-5874a7a147a2@marmottus.net>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nTscs6UJ"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b35611so761023b3a.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 19:14:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790216094; x=1790820894; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o9n1xLtwZfMoWvvLkdGoxwpegQEwUeD6t6y9z2tkYqM=;
+        b=nTscs6UJal3qo8jlZ2zTTe8WZasOzFHaV2rEwRy9pLIQqyE9KaHjz26JsSBJBunpoP
+         U5FLjgl33zofmViWIPxeOzDQ33n9kXaXBr94Jzfd6fD35cW0acBRkSmnCmieA4WUI6Xk
+         oEXZrqTTze5DOO1pom2qoBGyIMBoG3xBWPuoRh4FJNa3BKqi6J9r4boO0kv+oYwv879I
+         +4d0TbwyEQAuRXgRH1QmWzigRTYndIOfZe2ilH3pp356gACedvLEwxeKL1mvyYZg3CMQ
+         77o30uvFUhobzUMFtc7Vkg1ozZGJpDi2Dgcrhx7nVilbrost8F2S+yTJTlq3g25A8vpg
+         e7XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790216094; x=1790820894;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o9n1xLtwZfMoWvvLkdGoxwpegQEwUeD6t6y9z2tkYqM=;
+        b=Gy1DHzIq2nlQzlpoiNUroHn6oiTrcJnm6SheTrJaq52O35Zpo83hsrjNc3JHT0Yt0a
+         qHfVPjvibbG4UyJDeoJc2m56udol1SFBGfQWHeN8s4HR5zVJBda8NQfvVJfbAjK6Nusv
+         Au9fkXGIsuFv2zGewZjrKVZDvVROzFpRkAIRRNfMC0j1z5X1aV3px1BT2PWjPU7ROLFd
+         UD1gSvxjJ22xHzw4S/3Pf8n6hhPZGFBsFyPziwOTPsHHYqEqLX6dClft0+XOwwnp0tkX
+         XPIsO3emURXULpv/dpGF4hbz17aXrd0+QlVbr7/j/R+uIeeK1cjekpjPxka77z7ABzho
+         882A==
+X-Forwarded-Encrypted: i=1; AKwUvBz0uqfb+wd3hjurhM2PNo9YXN4KP5IJg9whfeL0H2ZxsRC2fGWk8ma7gNyOd++0rzFecPqASfN0KztK@vger.kernel.org
+X-Gm-Message-State: AFuF++k5+siSAWuZ3/7aPtYphYLKA4y4w6bDYD3vcFxtTOwYS0Dxa33q
+	fgRE7UMma8wmkJdD19UaMMu1O5KsrqNLwZormtuqC7ou6Juz4+Oe9pOS
+X-Gm-Gg: AYBFou0qkT87Wc3FbOi8VLYdjmBtSVQAHjoC+oCPEYAKjiWKBpagqQq6y+RQjydXC7V
+	hONQS88tZfZr6omKsNsChM/QHH/Jc9++ltd+OpMVNYW/zGeShNPxLLEEqexSNAQpcL8CsqqiTIS
+	WxxIfBNWKDhvCwxLChLttm+M2FKB7Ks1RUBbW6VW8jzSgD1X7vRZQ6o096YDis7uXadOU9Uyir4
+	ZpPUArvtOWgYkIzceJqRO45URo6pX9qCm8AqRNmwCk/GO7soRtDDGaK51jKWYYXWxzJuf0AfMLl
+	e6VzZq/VUXy2vpRZFfNDoM9xNYFf8B9X7Zqft9KBmxguYx4cO48h62kksO42UETmhkPKKxUE/4D
+	q4NmKsPeU3BKGGQAKqNSOE9ROc6/m7qJ8ogB/vnEJYQNWusDwo849uigZv34JcGPOsNPqiTjF1T
+	fFmhgs0E9bSLsutQE3UAu9UP7UZO2E/iw+Od5az8+hQEY1UdWG5s4n0bDQObaz17GxN7xYGHOG5
+	3yGw/j5VT7Zz18A35dV2FWgdBVDCWQRspiyXXGKvxzNOQ485l0=
+X-Received: by 2002:a05:6a00:9093:b0:874:706d:9631 with SMTP id d2e1a72fcca58-87e9acf16b5mr716577b3a.35.1790216093965;
+        Wed, 23 Sep 2026 19:14:53 -0700 (PDT)
+Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1afb8e37sm2069214b3a.5.2026.09.23.19.14.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 19:14:53 -0700 (PDT)
+Message-ID: <c2fc4b72-190f-40fa-aba9-c301db42598e@gmail.com>
+Date: Thu, 24 Sep 2026 10:14:51 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] spi: ma35d1: Add Nuvoton MA35D1 SPI controller
+ support
+To: Mark Brown <broonie@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+References: <20260923041926.425551-1-cwweng.linux@gmail.com>
+ <20260923041926.425551-3-cwweng.linux@gmail.com>
+ <arPFHNrYR_kWl8vs@sirena.co.uk>
+Content-Language: en-US
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+In-Reply-To: <arPFHNrYR_kWl8vs@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+Mark Brown 於 2026/9/23 下午 08:25 寫道:
+> On Wed, Sep 23, 2026 at 12:19:26PM +0800, Chi-Wen Weng wrote:
+>> From: Chi-Wen Weng <cwweng@nuvoton.com>
+>>
+>> Add support for the SPI controller found in the Nuvoton MA35D1 SoC.
+> 
+> This looks pretty good, almost all of the comments below are just
+> stylistic things due to duplicating work that the core already does but
+> there's one query about possibly excessively turning the controller on
+> and off.
+> 
+>> +struct nuvoton_spi {
+>> +	void __iomem *regs;
+>> +	struct clk *clk;
+>> +	struct device *dev;
+>> +
+>> +	/* Protects read-modify-write accesses to the SSCTL register. */
+>> +	spinlock_t ssctl_lock;
+> 
+> It's not clear what this is protecting, all the users look to be called
+> from the SPI core in a single threaded way.
+> 
+>> +static int nuvoton_spi_set_speed(struct nuvoton_spi *nspi,
+>> +				 struct spi_transfer *xfer, u32 speed_hz)
+>> +{
+>> +	unsigned long clk_rate;
+>> +	unsigned int divisor;
+>> +	u32 clkdiv;
+>> +	int ret;
+>> +
+>> +	clk_rate = clk_get_rate(nspi->clk);
+>> +	if (!clk_rate) {
+>> +		dev_err(nspi->dev, "failed to get clock rate\n");
+>> +		return -EINVAL;
+>> +	}
+> 
+> You probably don't need to do this on every transfer, the driver doesn't
+> change the rate and it's not the cheapest call.
+> 
+>> +static int nuvoton_spi_configure_transfer(struct nuvoton_spi *nspi,
+>> +					  struct spi_device *spi,
+>> +					  struct spi_transfer *xfer,
+>> +					  u8 bpw)
+>> +{
+>> +	u32 speed_hz = xfer->speed_hz ?: spi->max_speed_hz;
+> 
+> The core will ensure the transfer has a speed set.
+> 
+>> +static int nuvoton_spi_txrx(struct nuvoton_spi *nspi,
+>> +			    struct spi_transfer *xfer, u8 bpw)
+>> +{
+>> +	unsigned int bytes_per_word;
+>> +	unsigned int offset;
+>> +	u32 val;
+>> +	int ret;
+>> +
+>> +	bytes_per_word = spi_bpw_to_bytes(bpw);
+>> +	if (!bytes_per_word)
+>> +		return -EINVAL;
+>> +
+>> +	if (xfer->len % bytes_per_word)
+>> +		return -EINVAL;
+> 
+> The core ensures these too.
+> 
+>> +static int nuvoton_spi_transfer_one(struct spi_controller *ctlr,
+>> +				    struct spi_device *spi,
+>> +				    struct spi_transfer *xfer)
+>> +{
+>> +	struct nuvoton_spi *nspi = spi_controller_get_devdata(ctlr);
+>> +	u8 bpw = xfer->bits_per_word ?: spi->bits_per_word;
+>> +	int disable_ret;
+>> +	int ret;
+>> +
+>> +	if (!xfer->len)
+>> +		return 0;
+>> +
+>> +	if (!bpw)
+>> +		bpw = NUVOTON_SPI_DEFAULT_BPW;
+>> +
+>> +	if (bpw < 8 || bpw > 32)
+>> +		return -EINVAL;
+> 
+> Again the core is checking this stuff.
+> 
+>> +	ret = nuvoton_spi_enable(nspi);
+>> +	if (ret) {
+>> +		dev_err(nspi->dev, "failed to enable controller\n");
+>> +		goto out_disable;
+>> +	}
+> 
+> Do you need to enable and disable on every transfer, or could this be
+> done once per message?  If you need to disable to reconfigure it's a bit
+> more complicated, but otherwise it's overhead to bounce the controller
+> on and off.  Potentially it might glitch the data lines.
+> 
+>> +static int nuvoton_spi_probe(struct platform_device *pdev)
+>> +{
+> 
+>> +	ctlr->dev.of_node = dev->of_node;
+> 
+> The core does this for you.
+
+Hi Mark,
+
+Thanks for the detailed review.
+
+Regarding SPIEN, there are two hardware requirements/behaviors worth
+clarifying for the MA35D1 SPI controller:
+
+1. SPIEN must be cleared, and SPIENSTS must become 0, before modifying
+    CTL, CLKDIV, SSCTL, or FIFOCTL.
+
+2. Clearing SPIEN does not change or tristate the SPI CLK or MOSI output
+    levels. Their output levels are retained while SPIEN is cleared, so
+    disabling the controller does not introduce a signal glitch on those
+    lines.
+
+Therefore, disabling and re-enabling the controller is required when
+the transfer configuration needs to be changed. However, I agree that
+the current driver does this unconditionally for every transfer, which
+is more than necessary.
+
+I will rework this in v2 to avoid unnecessary SPIEN toggling and only
+disable the controller when required for reconfiguration, while still
+honoring the register programming requirements above.
+
+I will also address the other comments by relying on the SPI core for
+the transfer defaults and validation it already provides, caching the
+input clock rate instead of calling clk_get_rate() for every transfer,
+removing the unnecessary SSCTL locking, and dropping the explicit
+of_node assignment.
+
+Thanks,
+Chi-Wen
 
-Thank you for your contribution! Sashiko AI review found 8 potential
-issue(s) to consider.
 
-Critical: 0 · High: 2 · Medium: 5 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] w5100_suspend() does not quiesce the deferred hardware-access
-  paths before closing the controller: it disables the IRQs, cancels…
-- [High] w5100_stop() now waits synchronously for the receive worker
-  *before* stopping the hardware that produces receive traffic:…
-- [Medium] The patch silently repairs a live, user-visible regression
-  introduced by dacf281771a9 ("w5100: remove unused gpio link…
-- [Medium] Commit message claim is not implemented: the message states
-  "w5100_remove(), w5100_stop() and w5100_suspend() call…
-- [Medium] w5500_report_carrier_state() (w5100.c:369-386) silently
-  discards a failed PHYCFGR read: w5500_get_phycfgr_lnk() returns a…
-- [Medium] Lost link-state edge because the PHYCFGR sample is taken
-  before the edge-triggered link IRQ is (re-)enabled.
-- [Medium] w5100_suspend() calls cancel_work_sync(&priv->restart_work)
-  (line 1004) BEFORE netif_device_detach() (line 1006).
-- [Low] For a w5500 whose DT does not supply the optional second
-  (LINKLED) interrupt, the driver installs w5500_get_link() in…
-
---
-
-w5100: detect carrier state using link status bit and optional interrupt
-
-This adds carrier detection for the w5500 by reading the Link Status bit of
-PHYCFGR, exposes it through a new w5500-only .get_link callback, and adds an
-optional second interrupt (LINKLED) to update the carrier with
-netif_carrier_on|off().  It also reworks probe/remove ordering, IRQ
-enable/disable across open/stop/suspend/resume and work cancellation.
-
-> diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/wiznet/w5100.c
-> index 53d8dc642fbd6..203a2099aa7b8 100644
-> --- a/drivers/net/ethernet/wiznet/w5100.c
-> +++ b/drivers/net/ethernet/wiznet/w5100.c
-
-[ ... ]
-
-> @@ -345,6 +352,77 @@ static void w5500_memory_configure(struct w5100_priv *priv)
->  	}
->  }
->  
-> +static int w5500_get_phycfgr_lnk(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int ret = w5100_read(priv, W5500_PHYCFGR);
-> +
-> +	if (ret < 0) {
-> +		netif_err(priv, link, ndev,
-> +			  "failed to read link status: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return ret & PHYCFGR_LNK;
-> +}
-> +
-> +static void w5500_report_carrier_state(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int state;
-> +
-> +	mutex_lock(&priv->link_lock);
-> +
-> +	state = w5500_get_phycfgr_lnk(ndev);
-> +	if (state > 0) {
-> +		netif_info(priv, link, ndev, "link is up\n");
-> +		netif_carrier_on(ndev);
-> +	} else if (state == 0) {
-> +		netif_info(priv, link, ndev, "link is down\n");
-> +		netif_carrier_off(ndev);
-> +	}
-> +
-> +	mutex_unlock(&priv->link_lock);
-> +}
-
-[Severity: Medium]
-What happens to the carrier state when the PHYCFGR read fails here?
-
-w5500_get_phycfgr_lnk() returns a negative errno on SPI failure, but
-w5500_report_carrier_state() only acts on state > 0 and state == 0, and it
-returns void, so the error is neither acted on nor propagated.
-
-The carrier is forced off beforehand (netif_carrier_off() in w5100_probe()
-for the link_irq case, and in w5100_stop()/w5100_suspend()), and
-w5100_open() samples the state exactly once:
-
-	if (priv->link_irq > 0) {
-		w5500_report_carrier_state(ndev);
-		enable_irq(priv->link_irq);
-	}
-
-	return 0;
-
-Since w5100_open() still returns 0 and the link IRQ is edge triggered
-(IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING), no further event arrives while
-the link stays up.  Can a single failed read at open (or resume, or restart)
-therefore leave the netdev permanently without carrier, with dev_activate()
-refusing to leave noop_qdisc and dev_watchdog() skipping the device, until
-the cable is toggled or the interface is cycled?  Meanwhile w5500_get_link()
-re-reads the register and keeps reporting "Link detected: yes".
-
-> +
-> +static irqreturn_t w5500_detect_link_interrupt(int irq, void *ndev_instance)
-> +{
-> +	struct net_device *ndev = ndev_instance;
-> +
-> +	if (netif_running(ndev))
-> +		w5500_report_carrier_state(ndev);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static u32 w5500_get_link(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int state;
-> +	bool link;
-> +
-> +	mutex_lock(&priv->link_lock);
-> +
-> +	if (!netif_device_present(ndev)) {
-> +		link = netif_carrier_ok(ndev);
-> +		goto out;
-> +	}
-> +
-> +	state = w5500_get_phycfgr_lnk(ndev);
-> +
-> +	if (state < 0) {
-> +		link = netif_carrier_ok(ndev);
-> +		goto out;
-> +	}
-> +
-> +	link = state > 0;
-> +
-> +out:
-> +	mutex_unlock(&priv->link_lock);
-> +
-> +	return link;
-> +}
-
-[Severity: Low]
-This isn't a bug as such, since the commit message documents the intent, but
-for a w5500 board whose DT has no second (LINKLED) interrupt the two link
-uAPIs end up permanently disagreeing.
-
-w5100_probe() installs the new ops for every w5500:
-
-	ndev->ethtool_ops = ops->chip_id == W5500 ? &w5500_ethtool_ops :
-						    &w5100_ethtool_ops;
-
-so ethtool reports the real PHYCFGR bit, while every netif_carrier_on|off()
-call in this patch (including the netif_carrier_off() in probe) sits inside
-an if (priv->link_irq > 0) block.
-
-With the carrier bit never touched, netif_carrier_ok() stays true (nothing
-in net/core sets __LINK_STATE_NOCARRIER at registration).  Would it be
-better to only publish .get_link when the driver can also maintain the
-carrier, so that ip link and ETHTOOL_GLINK cannot report IFF_LOWER_UP and
-"Link detected: no" at the same time?
-
-[ ... ]
-
-> @@ -656,9 +744,16 @@ static int w5100_open(struct net_device *ndev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
->  	netif_info(priv, ifup, ndev, "enabling\n");
-> -	w5100_hw_start(priv);
->  	napi_enable(&priv->napi);
-> +	enable_irq(priv->irq);
-> +	w5100_hw_start(priv);
->  	netif_start_queue(ndev);
-> +
-> +	if (priv->link_irq > 0) {
-> +		w5500_report_carrier_state(ndev);
-> +		enable_irq(priv->link_irq);
-> +	}
-> +
->  	return 0;
->  }
-
-[Severity: Medium]
-Can a link transition be missed here because PHYCFGR is sampled before the
-edge triggered IRQ is enabled?
-
-The same read-then-enable order is used in w5100_restart() and
-w5100_resume().  The IRQ is requested with
-
-	IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT |
-	IRQF_NO_AUTOEN
-
-so at open the enable_irq() is the initial irq_startup(): the flow handler
-has never run, no IRQS_PENDING state exists in the irq_desc for the core to
-resend, and replay of an edge that happened while the line was masked
-depends on the irqchip latching it (GPIO controllers such as bcm2835 clear
-the per-line edge enable bits on mask, so nothing is recorded).
-
-A transition inside the window between the read and enable_irq() would then
-be seen by neither, leaving the carrier stale until the next physical
-change.  Would enabling the IRQ first and reading PHYCFGR afterwards be
-safe, given that w5500_report_carrier_state() is idempotent and serialized
-by priv->link_lock?  The v7 changelog entry ("Enable the link IRQ before
-reading the PHYCFGR bit") suggests this order was intentional at some point.
-
->  
-> @@ -667,13 +762,38 @@ static int w5100_stop(struct net_device *ndev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
->  	netif_info(priv, ifdown, ndev, "shutting down\n");
-> +
-> +	disable_irq(priv->irq);
-> +	if (priv->link_irq > 0)
-> +		disable_irq(priv->link_irq);
-> +
-> +	cancel_work_sync(&priv->restart_work);
-> +	cancel_work_sync(&priv->setrx_work);
-> +	flush_work(&priv->rx_work);
-> +	flush_work(&priv->tx_work);
-> +
->  	w5100_hw_close(priv);
-
-[Severity: High]
-Can flush_work(&priv->rx_work) block here indefinitely, since it now runs
-before w5100_hw_close() stops the producer of receive traffic?
-
-disable_irq() stops interrupt handling, but socket 0 is still open and the
-chip keeps filling its 16 KB RX buffer.  The worker drains without a budget
-or a shutdown check:
-
-drivers/net/ethernet/wiznet/w5100.c:w5100_rx_work() {
-	while ((skb = w5100_rx_skb(priv->ndev)))
-		netif_rx(skb);
-
-	w5100_enable_intr(priv);
-}
-
-and w5100_rx_skb() only returns NULL once the hardware buffer reads empty:
-
-	u16 rx_buf_len = w5100_read16(priv, W5100_S0_RX_RSR(priv));
-
-	if (rx_buf_len == 0)
-		return NULL;
-
-The SPI drain rate is well below the wire rate, so an adjacent sender
-flooding the link can keep RSR non-zero for as long as it likes.
-
-ndo_stop runs under RTNL, so would "ip link set dev down" (and
-unregister_netdev() from w5100_remove(), which now runs first) stall with
-RTNL held, blocking all other network configuration?  Closing the hardware
-before flushing rx_work, as the previous code did, would avoid this.
-
-> -	netif_carrier_off(ndev);
-> +
-> +	if (priv->link_irq > 0)  {
-> +		mutex_lock(&priv->link_lock);
-> +		netif_carrier_off(ndev);
-> +		mutex_unlock(&priv->link_lock);
-> +	}
-> +
-
-[Severity: Medium]
-Making this netif_carrier_off() conditional, together with the new carrier
-sampling in w5100_open()/w5100_resume(), looks like it also repairs an
-existing user visible breakage.  Should that be split out with a Fixes: tag?
-
-In the baseline tree, dacf281771a9 ("w5100: remove unused gpio link
-detection") removed w5100_get_link()/w5100_detect_link() and both
-netif_carrier_on() call sites, but kept the unconditional
-netif_carrier_off() in w5100_stop() and w5100_suspend().  git grep
-netif_carrier_on on the baseline returns no match in this driver.
-
-A freshly registered netdev has __LINK_STATE_NOCARRIER clear, so the first
-ifup works, but after the first ifdown (or suspend cycle) the bit is set and
-nothing ever clears it again, and dev_activate() takes the "Delay activation
-until next carrier-on event" path, so the interface cannot transmit until
-the module is reloaded.
-
-As written, the fix is buried in a feature patch that also rewrites probe
-ordering, IRQ enable/disable and work cancellation, which makes it hard to
-pick up for stable.
-
->  	netif_stop_queue(ndev);
->  	napi_disable(&priv->napi);
->  	return 0;
->  }
->  
-> +static const struct ethtool_ops w5500_ethtool_ops = {
-> +	.get_drvinfo		= w5100_get_drvinfo,
-> +	.get_msglevel		= w5100_get_msglevel,
-> +	.set_msglevel		= w5100_set_msglevel,
-> +	.get_link		= w5500_get_link,
-> +	.get_regs_len		= w5100_get_regs_len,
-> +	.get_regs		= w5100_get_regs,
-> +};
-> +
-
-[ ... ]
-
-> @@ -839,9 +997,20 @@ static int w5100_suspend(struct device *dev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
->  	if (netif_running(ndev)) {
-> -		netif_carrier_off(ndev);
-> +		disable_irq(priv->irq);
-> +		if (priv->link_irq > 0)
-> +			disable_irq(priv->link_irq);
-> +
-> +		cancel_work_sync(&priv->restart_work);
-> +
->  		netif_device_detach(ndev);
-
-[Severity: Medium]
-The commit message says:
-
-    w5100_remove(), w5100_stop() and w5100_suspend() call
-    cancel_work_sync()/flush_work() to make sure there is no pending
-    work
-
-but w5100_suspend() only drains restart_work.  w5100_stop() and
-w5100_remove() drain all four (restart_work, setrx_work, rx_work, tx_work).
-Could the changelog be adjusted, or the suspend path made to match?
-
-[Severity: High]
-Does leaving setrx_work, rx_work and tx_work pending here allow the chip to
-be re-armed after w5100_hw_close()?
-
-disable_irq()/synchronize_irq() waits for the threaded handler only, not for
-work already queued on priv->xfer_wq:
-
-w5100_interrupt()      -> queue_work(priv->xfer_wq, &priv->rx_work)
-w5100_start_tx()       -> queue_work(priv->xfer_wq, &priv->tx_work)
-w5100_set_rx_mode()    -> schedule_work(&priv->setrx_work)
-
-A pending w5100_rx_work() ends with w5100_enable_intr(), re-arming
-W5500_SIMR / W5100_IMR; w5100_setrx_work() calls w5100_hw_start(), which
-issues S0_CR_OPEN and enables interrupts again; w5100_tx_work() can program
-S0_TX_WR and issue S0_CR_SEND.
-
-Any of these can run concurrently with, or after, the w5100_hw_close() a few
-lines below, so the controller can stay open with socket interrupts armed
-for the whole suspend while the CPU IRQ is disabled, and the SPI transfers
-are issued after the device was marked absent.  All in-tree ops set
-may_sleep = true, so this is the live path.  Would replicating the
-w5100_stop() sequence here be appropriate?
-
-[Severity: Medium]
-Can restart_work be re-queued after this cancel_work_sync(), because the
-cancel happens before netif_device_detach()?
-
-In that window the device is still running, still present, and (for the
-link IRQ case) still carrier-ok, and the tx watchdog timer is not lowered on
-the suspend path.  On the dev_close() path, dev_deactivate_many() calls
-netdev_watchdog_down() before ndo_stop, which is what makes the same
-ordering safe in w5100_stop().
-
-dev_watchdog() only requires:
-
-net/sched/sch_generic.c:dev_watchdog() {
-		if (netif_device_present(dev) &&
-		    netif_running(dev) &&
-		    netif_carrier_ok(dev)) {
-	...
-}
-
-and w5100_tx_timeout() is now unconditional:
-
-	schedule_work(&priv->restart_work);
-
-The re-queued w5100_restart() would then pass its
-
-	if (!netif_running(ndev) || !netif_device_present(ndev))
-		return;
-
-test, since nothing serializes that check with netif_device_detach(), and
-proceed to w5100_hw_reset(), enable_irq(priv->irq), w5100_hw_start() and the
-PHYCFGR read, concurrently with the w5100_hw_close() below.  Would detaching
-first and cancelling afterwards close this?
-
->  
-> +		if (priv->link_irq > 0) {
-> +			mutex_lock(&priv->link_lock);
-> +			netif_carrier_off(ndev);
-> +			mutex_unlock(&priv->link_lock);
-> +		}
-> +
->  		w5100_hw_close(priv);
->  	}
->  	return 0;
-
-[Severity: Medium]
-Same observation as in w5100_stop(): this suspend path previously called
-netif_carrier_off() with no matching netif_carrier_on() anywhere in the
-driver, so a suspend/resume cycle left the interface stuck without carrier.
-The repair is welcome, but it is not called out in the changelog and there
-is no Fixes: tag referencing dacf281771a9.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921-wiznet-link-gpio-v10-0-5874a7a147a2%40marmottus.net
