@@ -1,141 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD8F4FC8CF
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 23:43:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DEA930DEA3
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 23:48:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790293399; cv=none; b=HFgxjlEzTVNLFI+AcwTFGoWsiEU42i10+nwpDTHbYhpI9HAo15TArbzIRgz1hrYR/V0E5NH+mRDwXW95FXPNcA6UlSFFY22kg8/fSdzq8rGIHE2WeOZYflFXQsJlCzg8a/SRUKJKsRNz1XYoFF7ZV9htZnHWJ9fSrRdLmEircDQ=
+	t=1790293703; cv=none; b=XZ5AWvcsWprwaGDoUsowkB+YvcPgqxkuwqmR7t58PrBAPctjkzE1NLp8/A2cCijwNDuEmD1Bh+JuXGBK7pPn7eRk/5nzmrrJoEE4k9VKQMzH+6sjpO2RJ6PcRDkd7du8l1/NVply8k+PquQx2a8fOLZZGA/zzRExAV3x5/b6w/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790293399; c=relaxed/simple;
-	bh=xxz8TyhW9xOWqkyBj4jvzszV2F3RENFiZrFzNJmLH5Q=;
+	s=arc-20240116; t=1790293703; c=relaxed/simple;
+	bh=AIUQ5KgxAf8t7iwFsItCQjvIpZjCnmZIGrCXIpImyo8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iFWl9k52sBd+re5/boAY3e7URITDWPbBxHBvJXiTPpJVyb3deL3bHkogHo8iLK5NiFVCKEaBH2jf1WfMiOOwIbP4T5gtF8pVeyKlFtClLBeJxoU7zIxGx710/qbx/q8mfpd2hWbKfCE/HohIfuZYg4N/O2yvLstSBBdUlZHGCaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gi9Wu02B; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=XNSFe0z/QpufOo54y9vtxN5Pa3cJR7dV4aWoNaslprucUq1+axiLV0U076QEhGXV7E1YHhNZ/j9S4XnMZ3fS6jdwUUM+gbuE44Wc5TKwpBgL/yyp0eJ5rxk58tovnQqifTMTRXDKpjoGgu5ec6yxpNlq25lT8xx3BrlFzFk8YBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZLemGU5/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gi9Wu02B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8EB1F000FF;
-	Thu, 24 Sep 2026 23:43:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZLemGU5/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DFD91F000FF;
+	Thu, 24 Sep 2026 23:48:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790293398;
-	bh=+lyToerZ5v8sjXQJAK8usUgCZ8zJY83TGuVkbTsUlWg=;
+	s=k20260515; t=1790293701;
+	bh=0hbfE+fAInDzGe5H0I5HgB/p5S4ljKsQKsZJLhqGt10=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Gi9Wu02BZkGx86rbfj1VjRY1akFkA1nPVb3RMjvO/pssDA0tPh3SS3i/XSD9GYDGw
-	 XAho0/j1QYq3TNBdGpQUNy3NLzRt3zwZXcrX4IC22Dn+1j5+5E9IBhKQxORmx+jCI6
-	 TueMjBc4Dve5k6LXjzSq9Xj6BfNYHg/r46lT8kChbvciGQ5CniQWWfVtJLlR0ApHJG
-	 bu8wnxN0ppjnNpMoANlvMnYVsYFVXKcMo7Aj9E4qRVRWYIFKvZzRxU87Psf3rYDSTS
-	 Toe7kmIt7FnEi4YEZJLVW6P5r9nJaa9DbMvPuiOqLRXNNrfobwEvMslS05t+Jwssp0
-	 SINsEAmTZhxlQ==
+	b=ZLemGU5/LvNWlXlZyeLanqaRaqPbAeYeNXp1WpZudhI/4bQ49xx/6WIDU2OFSEUiq
+	 glQbyKISgubLPLqqwgmzBBermlpp4+0Saa+1/iyU8m4+lunRGwHcnh/mJTV/B+ika4
+	 oZ/a1pA7mtJ5vnxL8b+KqXJ9RWmY0GModjL2V2bF6uOyx1Y52NfO3A+mjmz03phHCL
+	 HAYDDVl+tIgs7M7D6oqx+8jtONe7DUidQhdpbSvDEaqAOnqHqaa2IElMKyTVUwdpy3
+	 Y/O5ka599rciCA/pn1HB78c345vKjpFFjXxdTKX3aCS+OzUZHtjiRXifaWT/A62MHu
+	 Wyyu70aitmJQA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCHv2] dt-bindings: pinctrl: convert nsp-gpio binding
+Subject: Re: [PATCHv3 1/2] usb: bcma: add regulator support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Rosen Penev" <rosenp@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260924233541.126868-1-rosenp@gmail.com>
-References: <20260924233541.126868-1-rosenp@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260924233831.127617-2-rosenp@gmail.com>
+References: <20260924233831.127617-1-rosenp@gmail.com>
+ <20260924233831.127617-2-rosenp@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 23:43:17 +0000
-Message-Id: <20260924234317.DD8EB1F000FF@smtp.kernel.org>
+Date: Thu, 24 Sep 2026 23:48:21 +0000
+Message-Id: <20260924234821.9DFD91F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] dt-bindings: validation failure due to top-level additionalPropert=
-ies restricting scalar properties
-- [Medium] dt-bindings: missing constraint in nsp-gpio-pinconf bypasses typ=
-o validation
+- [Low] usb: bcma: redundant NULL check for regulator pointer
 --
 
-commit 7f4d084d5f13cdd135dd4287165b9406e5c21963
+commit 3c80ddac8dba5090761a99f4b7fdd330945bd836
 Author: Rosen Penev <rosenp@gmail.com>
 
-dt-bindings: pinctrl: convert nsp-gpio binding
+usb: bcma: add regulator support
 
-The brcm,nsp-gpio-a compatible used by the NSP GPIO controller was only
-documented in the legacy text binding, so dtbs_check reported "failed to
-match any schema" for the gpio@20 node present in the bcm958625 and
-related broadcom boards.
+This commit adds standard regulator interface support to the bcma-hcd
+driver, replacing the non-standard exclusive GPIO manipulation for VBUS
+power. It allows the regulator core to reference-count enable and disable
+requests so that shared GPIOs do not cause conflicts between USB2 and
+USB3 controllers.
 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml=
- b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
-> new file mode 100644
-> index 0000000000000..d7f9a1eb3b93d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
-
+> diff --git a/drivers/usb/host/bcma-hcd.c b/drivers/usb/host/bcma-hcd.c
+> index 519386255886c..cb253cae29aef 100644
+> --- a/drivers/usb/host/bcma-hcd.c
+> +++ b/drivers/usb/host/bcma-hcd.c
 [ ... ]
-
-> +$defs:
-> +  nsp-gpio-pinconf:
-> +    type: object
-> +    allOf:
-> +      - $ref: pincfg-node.yaml#
-> +      - $ref: pinmux-node.yaml#
-
-[Severity: Medium]
-Will this allow misspelled or unsupported properties inside pin configurati=
-on
-child nodes to pass validation?
-
-Because neither additionalProperties: false nor unevaluatedProperties: false
-is specified in this definition, the object schema relies on default JSON
-schema behavior, which permits arbitrary undefined properties. Properties l=
-ike
-bias-pullup (typo) or slew-rate (unsupported) will pass dtbs_check
-without warning.
-
-[ ... ]
-
-> +additionalProperties:
-> +  $ref: '#/$defs/nsp-gpio-pinconf'
-
-[Severity: High]
-Does this inappropriately apply pinconf constraints to all unmatched top-le=
-vel
-properties?
-
-In JSON Schema, this forces all properties not explicitly listed in the
-properties block to conform to $defs/nsp-gpio-pinconf. Since that reference
-enforces type: object and requires a pins property, scalar or array
-properties will unconditionally fail.
-
-Device trees utilizing this controller and standard generic properties (like
-pinctrl-names or implicit ones like phandle) will fail schema validation.
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> @@ -280,14 +282,23 @@ static int bcma_hcd_usb20_ns_init(struct bcma_hcd_d=
+evice *bcma_hcd)
+>  	return 0;
+>  }
+> =20
+> -static void bcma_hci_platform_power_gpio(struct bcma_device *dev, bool v=
+al)
+> +static int bcma_hci_platform_power(struct bcma_device *dev, bool on)
+>  {
+>  	struct bcma_hcd_device *usb_dev =3D bcma_get_drvdata(dev);
+> +	int err;
 > +
-> +    gpio@18000020 {
-> +        compatible =3D "brcm,nsp-gpio-a";
-> +        reg =3D <0x18000020 0x100>,
-> +              <0x1803f1c4 0x1c>;
-> +        #gpio-cells =3D <2>;
-> +        gpio-controller;
-> +        ngpios =3D <32>;
-> +        gpio-ranges =3D <&pinctrl 0 0 31>;
-> +        interrupt-controller;
-> +        #interrupt-cells =3D <2>;
-> +        interrupts =3D <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+> +	if (usb_dev->gpio_desc)
+> +		return gpiod_set_value(usb_dev->gpio_desc, on);
+> =20
+> -	if (!usb_dev->gpio_desc)
+> -		return;
+> +	if (!usb_dev->regulator)
+> +		return 0;
+
+[Severity: Low]
+Since devm_regulator_get() returns either an ERR_PTR or a valid pointer,
+and returns NULL only if CONFIG_REGULATOR is disabled, is this NULL check
+necessary? The regulator stubs safely accept NULL pointers and return 0,
+and the probe function already aborts if IS_ERR() is true.
+
 > +
-> +        /* Pin configuration node applied as a pinctrl state */
-> +        pinctrl-names =3D "default";
-> +        pinctrl-0 =3D <&led>;
+> +	if (on)
+> +		err =3D regulator_enable(usb_dev->regulator);
+> +	else
+> +		err =3D regulator_disable(usb_dev->regulator);
+> +
+> +	return err;
+>  }
+[ ... ]
+> @@ -395,12 +406,12 @@ static int bcma_hcd_usb30_init(struct bcma_hcd_devi=
+ce *bcma_hcd)
+>  static int bcma_hcd_probe(struct bcma_device *core)
+>  {
+[ ... ]
+>  	usb_dev->gpio_desc =3D devm_gpiod_get_optional(&core->dev, "vcc",
+>  						     GPIOD_OUT_HIGH);
+>  	if (IS_ERR(usb_dev->gpio_desc))
+>  		return dev_err_probe(&core->dev, PTR_ERR(usb_dev->gpio_desc),
+> -				     "error obtaining VCC GPIO");
+> +				     "error obtaining VBUS GPIO");
+> +
+> +	usb_dev->regulator =3D devm_regulator_get(dev, "vbus");
+> +	if (IS_ERR(usb_dev->regulator))
+> +		return dev_err_probe(dev, PTR_ERR(usb_dev->regulator), "error obtainin=
+g VBUS regulator");
 
-[Severity: High]
-Will these standard properties in the example fail validation?
+[Severity: Low]
+This is a pre-existing issue, but if probe fails here and returns directly,
+will the physical GPIO pin remain driven high indefinitely? The earlier call
+to devm_gpiod_get_optional() uses GPIOD_OUT_HIGH, and while devres will free
+the software descriptor, gpiod_put() intentionally does not revert the
+physical pin state.
 
-Because of the additionalProperties directive restricting scalar properties,
-pinctrl-names and pinctrl-0 will fail validation because they are not
-objects and lack a pins property.
+> +
+> +	err =3D regulator_enable(usb_dev->regulator);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "error enabling VBUS regulator");
+
+[Severity: Low]
+This is a pre-existing issue, but similar to the above, does this direct
+return skip reverting the GPIO state?
+
+> =20
+>  	switch (core->id.id) {
+>  	case BCMA_CORE_USB20_HOST:
+[ ... ]
+> @@ -427,13 +446,16 @@ static int bcma_hcd_probe(struct bcma_device *core)
+>  	if (err)
+> -		return err;
+> +		goto error;
+> =20
+>  	bcma_set_drvdata(core, usb_dev);
+>  	return 0;
+> +error:
+> +	regulator_disable(usb_dev->regulator);
+> +	return err;
+
+[Severity: Low]
+This is a pre-existing issue, but while this common error path correctly
+handles disabling the newly added regulator, does it also need to drive
+the pre-existing GPIO back low so the peripheral isn't left powered
+indefinitely on failure?
+
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924233541.1268=
-68-1-rosenp@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924233831.1276=
+17-2-rosenp@gmail.com?part=3D1
