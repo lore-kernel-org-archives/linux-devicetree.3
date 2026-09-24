@@ -1,46 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BCE223DC6;
-	Thu, 24 Sep 2026 17:01:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C65A3D953F;
+	Thu, 24 Sep 2026 17:03:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790269285; cv=none; b=egFAA+5SV9cC7BNepp57DwPmNVMo0qwoAZd6OnXj/rwnIPvJP6CXhKrQ+CHPLlIhozXF1dWaaBbKilSMA2MehyZpQvZqoglhBCG6PeQHr64OZOr4qAalkmaUEZCgYcFJEiDiVjuEtKNSJMHmc+IscObs7r7YPo9r5hcFso7Vuw4=
+	t=1790269406; cv=none; b=ZwpQPlfOnMEDGkIXw6h8M2EdbY7a56ywyi8H59x0aWvpnSWiYhseB/uS7hZyG5J9uKG/adN+/t8T+BLvNyh44s1sAAv4PPF7LpuxTuRPcqHmicZQl7iGo9hs65kC6yh8eZnaRw/6slAxp//HhTgFCknFwHkPKt66Yewfe4WJepI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790269285; c=relaxed/simple;
-	bh=HoiZ1dOgaiWoXjsmkLXohzLMB9R80yFujkHl4ErAofo=;
+	s=arc-20240116; t=1790269406; c=relaxed/simple;
+	bh=GRYhMLA42NBei7YREWiLPxZRkNEQ5hzK4zvgTmWJl+M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cPUj1UmTjAFWI7KGcljbJOg85zolVKy6kxgolGk9Rmx5LQUNGIVm+f/rh9S8LYTXtyHVKJonBy+07Lk3NWycOiop7JaN3Tnn6T7IRNTLIBmxj0zJBfBmBSDCvNMWWNCiGuOK4MWaAyqDcEotR5a+UoOA3GHMjGvZHU0JLhASEYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W+cHBIAz; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=awQkGoyApD7whpL0x/Id7JEC26JkRp9km3VOvtSfTjkgd+IHaBpwyhQvJzJXAh6MztqSMGLCj7O5MsOR/4BCbIP3tDwq/elBVXEYGoG8vqFXkC+JivK7xl/gRH5+Y0romn3U1oW7vgiqTEuR1WG+nllmJJYYpVinZlhzn+WstJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8sPSa+p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W+cHBIAz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3044D1F00893;
-	Thu, 24 Sep 2026 17:01:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8sPSa+p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA6A1F000FF;
+	Thu, 24 Sep 2026 17:03:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790269283;
-	bh=nQm2TSsOFmCL75Ew2X2Ml8+Y1hxvqV0VYttpBX+ucy0=;
+	s=k20260515; t=1790269405;
+	bh=WUIXMGlF00n/an+XIpdJzwcraIyNlcy2fVXrbp/3+vI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W+cHBIAz4in40QufQgPnl6guc10fk/nKNFwovmn27Hn+FaoIpEPFdc5yE3AwgTwN9
-	 8L00pVPfG69smeuGgutlyNuAk3wfOPA3BwzoH+EU/jrEASrrdmn6oD+BwGzBh4a1mn
-	 OYxgH1XzECdZ5VQ82B2/g/rUZpYQ8FDlSRjBuBUaY4HjIBIMS8XzF4Cwcw0//xclVE
-	 S2nhuYKt9zeI6zhzemyAQ63SI0PfJ/9YrrJGAkGnsD8RgYvZPE2Jpd+y0Zh4jqxSMc
-	 C85+HE/uXDHOjjNizh40QzNePtLV4AvsyOcvvE+is9T1gSFRBd0rZqFfeffSUwHWHX
-	 SAx7zSgXrZIhA==
-Date: Thu, 24 Sep 2026 18:01:19 +0100
-From: Conor Dooley <conor@kernel.org>
-To: xianwei.zhao@amlogic.com
-Cc: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Xianwei Zhao <xianwei.zhaol@amlogic.com>,
-	Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org,
-	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: i2c: add Amlogic A9 I2C controller
-Message-ID: <20260924-primarily-harmonica-fe3455834a4d@spud>
-References: <20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com>
- <20260924-a9-i2c-v1-1-b8ad9b46f4a8@amlogic.com>
+	b=C8sPSa+pp//4QY0n2InsviILwO2ANC2TmhgCzyKFTFL88X1OA1rd8piCZ75I9NYuf
+	 fEC4gZaibZp2Mu+2cnaTVOycqGqUN+E9Ir2xIWEGVyYNu6SlG/wx/nOI6//uR1xuM4
+	 SzEUnwUkjRl2qhzU1qZe9tmBaUl+HYwW3ds7tqxVGzCfdWyeX7dlIOsyUE70XAxjMu
+	 a1FMvSAzwEYZrtkuHzbC+3WNlKr6kjS85sdATWW8JqrBJCfxxFOzOz+bs56EPWukLg
+	 Caw4bVrWp2lhFZChfGOJzssdpZ7QUgtYQEDQOIS3Fyfy1xEhSduphAsxvK/HcrHISG
+	 ZL+oTMyBJa+Ig==
+Date: Thu, 24 Sep 2026 18:03:18 +0100
+From: Mark Brown <broonie@kernel.org>
+To: shengjiu.wang@oss.nxp.com
+Cc: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+	kernel@pengutronix.de, festevam@gmail.com, shawnguo@kernel.org,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com, perex@perex.cz,
+	tiwai@suse.com, linuxppc-dev@lists.ozlabs.org,
+	Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [RESEND PATCH v5 0/5] ASoC: fsl_asrc/fsl_easrc: expose
+ per-pair/context DAIs and fix DMA race
+Message-ID: <744ce325-9d2e-45c7-b7d6-15ec7558dc83@sirena.org.uk>
+References: <20260922033428.1690822-1-shengjiu.wang@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,123 +49,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bItvP1XPExBUqZoU"
+	protocol="application/pgp-signature"; boundary="thyvYpNwRTH7ReUZ"
 Content-Disposition: inline
-In-Reply-To: <20260924-a9-i2c-v1-1-b8ad9b46f4a8@amlogic.com>
+In-Reply-To: <20260922033428.1690822-1-shengjiu.wang@oss.nxp.com>
+X-Cookie: What's so funny?
 
---bItvP1XPExBUqZoU
+
+--thyvYpNwRTH7ReUZ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 24, 2026 at 08:39:34AM +0000, Xianwei Zhao via B4 Relay wrote:
-> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
->=20
-> Add a Device Tree binding for the I2C controller found on the
-> Amlogic A9 SoC.
->=20
-> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On Tue, Sep 22, 2026 at 11:34:23AM +0800, shengjiu.wang@oss.nxp.com wrote:
 
-Since this is not in the existing meson file, does that mean that
-there's a substantial change in the IP design, other than the addition
-of dma support?
+> Changes since v5:
+> - rebase to latest master of linux-next
 
-> ---
->  .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    | 61 ++++++++++++++++=
-++++++
->  1 file changed, 61 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml b/=
-Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
-> new file mode 100644
-> index 000000000000..681241a52680
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
-> @@ -0,0 +1,61 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i2c/amlogic,a9-i2c.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Amlogic A9 I2C Controller
-> +
-> +maintainers:
-> +  - Xianwei Zhao <xianwei.zhaol@amlogic.com>
-> +  - Junyi Zhao <junyi.zhaol@amlogic.com>
-> +
-> +allOf:
-> +  - $ref: /schemas/i2c/i2c-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: amlogic,a9-i2c
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  dmas:
-> +    items:
-> +      - description: DMA controller phandle and request line for RX
-> +      - description: DMA controller phandle and request line for TX
-> +
-> +  dma-names:
-> +    items:
-> +      - const: rx
-> +      - const: tx
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c@3a4400 {
-> +        compatible =3D "amlogic,a9-i2c";
-> +        reg =3D <0x3a4400 0x3c>;
-> +        interrupts =3D <1 164 1>;
-> +        clocks =3D <&clkc_periphs 11>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
+That's not a resend, a rebase is a new version.  This is all confusing
+b4 badly, it's not picking up any of the reviews as being attached to
+the v5 that already exist and doesn't even look at the new version since
+it sees that it already has v5.  Can you please send a v6 with all the
+reviews pulled in?
 
-> +        eeprom@52 {
-> +            compatible =3D "atmel,24c32";
-> +            reg =3D <0x52>;
-> +        };
-
-Remove this from your example please.
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> +    };
->=20
-> --=20
-> 2.52.0
->=20
->=20
-
---bItvP1XPExBUqZoU
-Content-Type: application/pgp-signature; name=signature.asc
+--thyvYpNwRTH7ReUZ
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarVXXwAKCRB4tDGHoIJi
-0jmbAQD1+PWjoCf58ZsShK3wOnr3jQBCWLxJWedfv/9RCZ8hLgEAvsMsA+s7U7IE
-/rNJ549B02Ub9QvF/P2SlcaHzmzGRgk=
-=qjV7
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq1V9UACgkQJNaLcl1U
+h9BVcwf7BCet5mcdSMq0zC0cNsA9teLN9+P2zlswGHdgRRU40PVwEFizlbbS7wZl
+DOt1x1P94upHDBxOIj1BQlE2NH0CCx1Ndmd+GoJ0iq+zvPD+6wWhehE1HJyf1odN
+tHP8B7rCqkWXpKyWwPhWuQ7K6CjRo524433hqpLMfwEwIi4cRw2AIDPEJZEDxe4G
+YVIw8Rs1M9mOcSeAW1AcEx6zW8ZRr9Fcsl1ZL4z5iOj7rBRVLjfy6AKbM+Xkekpf
+3JcHWVENhCGh1J2m2PHfK3X4eKOJzRY/QJozB9KyoB75lQHUiYpC9msiJ+F4IN2J
+2IKKSaDZ354mcPpf2uwWiGkUJN/bEw==
+=1Dsv
 -----END PGP SIGNATURE-----
 
---bItvP1XPExBUqZoU--
+--thyvYpNwRTH7ReUZ--
