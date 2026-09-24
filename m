@@ -1,127 +1,141 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EAE23BF9F
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 01:14:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90EC1C5D72;
+	Thu, 24 Sep 2026 01:18:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790212444; cv=none; b=Jx5jPoXjjyNlH5M0GOkzxWFJDOBPmMohfAyN43NyPIrD0oiPTKAzYvoq5ATxFpSfoFMPP3JDbpsGboYRJnY09g03p3JxbccDgTjr3VJb9e7TbZd5/qdhDFvq79XSXd4OdaiDn5gMMIHHmWBi2JZS/ngICA1JTevOAwxtQx/7jso=
+	t=1790212713; cv=none; b=MycJygTY/hOuo3VtFvXM8hvcgHvtNqHHaYGhNO/iiZ5jCEOSWkRVUoDpRNGsqvqR0jGB7hXjm8whskaCCF2ISatdsxchxmTfhanaO2x3+EQ6gNZddkuyQpbb+/hb9BiJSUHHXGv1a02pK8p0EwM3SWVE8zqxjStIkTiuV3YAm1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790212444; c=relaxed/simple;
-	bh=5k0iMuygLlFXQn9BbSXp9oE5JmPJd8WYIsrUNr6cbXs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hRgNSYrYIM6F1BPFE4dZ1/Xg/OwGpVBp26Zlr15shoTTfMVADviEa6t/Dwdj6AJDXhbTq/KkccI2qj93m+ohiLRic5oVQ9v8DkAiz4o3z5qgT3o+poaG16ypRt7yTXnzT3I3Jp9D5hhckMi9kGTncjiolDRu45MlxfQZ8aOBiCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dHt8JAeT; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790212713; c=relaxed/simple;
+	bh=wcjqT5zLGdrrSIrk7hVbs9nJEwefguc5ABHFpulyxt0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=uIRZwDLgalnshfn/97rlk1OrxNKAKF2feuCzKuHE7nCqRKdRo0klVRD8fDvqDQzvLdmlpHRHksD/baz4H4Zb8GgCkcw7PFe4h/DtZetlX3x3F860xLSO44hU2qrdN5sg2lJxvnnjEPELrOfsHtcgrrOjso8w4ryHZHMtSNdKLqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=dTa6tl+b; arc=none smtp.client-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dHt8JAeT"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93be6d3f424so34731885a.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 18:14:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790212441; x=1790817241; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R/tOsz7lRmLwRWBhmFynbfnzkjixOzoIc2AF6i3L4yA=;
-        b=dHt8JAeTPsRhBdE1bhXc+IW7qMbodJePmzAE8drY4kjnakNUrPIT37N4QFClNv75Gr
-         jLKRVhvYq7ysi73lTO8KJ9863XCf1uqjAA0415KS8Y1I06s9AxWP4RG60TsoKevGltXO
-         IB0ZFSqUR2yEJDgG2J8mmM/d02OHeNJIn3QDo7Nc/oiaUdDhFTWGfOg3YS0rVur2l80H
-         UTKA7IS60akegNWc8xANxsEc9ep1Z5BFnwjPgt9sfEd+MlxbaTpkCd2Cs4M2zrXB7BqH
-         /Q9k8Y6l7X8qh88EO7Si/UyVrnH8W5Tlxqz1Bm2n//qh/gtZqSkF5LMKZtgo8TvK8mt0
-         /g4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790212441; x=1790817241;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R/tOsz7lRmLwRWBhmFynbfnzkjixOzoIc2AF6i3L4yA=;
-        b=nsVtbisl8XAfz+g5RHxKSnUw2bwKjaZbXIdI9K6eC1rthpEHdwN5MHLfkgUq9cjJxu
-         /BD9zax8jCgT8Vd6QrDyO/D03z/w0KO/8V1wspOyfD6zCPjFTFL/949AIKMAK+QvKTks
-         vTV1nMi8rUOkAzFkbtzoWJdiGYys7Lhsxqesg+ITkgeaeVracbbPhagy0YdJFJ5PfrZ7
-         62WGiZZqFCwblrbxEtkUoglwJB1J6inSqinIXBFylc/fTKIcT0Y20Eibanx5sBM38CEp
-         CQlH88v2wA3UxwM+BgjmYOZoXEg3S+4tsaO74kzEEz2F3n9ZLdiv+66/1XrljnLYRlLJ
-         EopA==
-X-Forwarded-Encrypted: i=1; AKwUvBxo/W6y8A7eMJYaRve426U9cmnj+n8R2uLmIefiTRnh3Lf344AN+XaaHeZ3ELwXOxDvfd9cHinBH+cF@vger.kernel.org
-X-Gm-Message-State: AFuF++kTlBr/12fjDgszaDg4cMxHNGcy1DlXeGbzjt+3D7CBPQBsP4wm
-	3j6291lNw6zqmdck+accj+KbNR1PBwYyylxddxConC4pCQIUvwFXJPG7
-X-Gm-Gg: AYBFou1B4XfJsc5X8PhoHoKaOmFYfgSIrCpNMHdx7q83PQMsdT5XQT8ca/6cd1YFCvU
-	Wg2Q6nWeASOYsLA0ArqbkFxsnvgUxoMAikMZAv+CW+HT+YYP8JpCGXPO1MYo5Ev5/hqjM1uKioV
-	MeLM8wM+MPYlBD20WEfQ2v/Ggb5kPxcexKomTO/6qvTtT8YzCxHgZciQncwCud7ao7DnfOKQmqG
-	06cVEfdI9eNqmyjISz/h7kMr0E7GMQJOvIKFIIAHpqPQvvz+t4PkSNGIaEGMU18GNdPUTTFAOi1
-	hDGQLpOChLGUnw4RKxFY+ZcMvinevKeqZta89ufUMHJu/qCrLpL5tkj3LPt1MvfzS4xc2uNSyCZ
-	LnJJ2OqmQmjH6q237kXdQqSJN+obZOIAapQJKclZAj/XbTrrlUH71HGMifSdA3MR74C6KrSEnMs
-	Wpp+BoB9rJKyliUPU4o2BmAAPRqxObekJh/zHPDwfX6WsFKg0RBJ3Nb6cqg9wSjErWVdoQIJZxV
-	/bb7tJGuCXmMByzclV7zg==
-X-Received: by 2002:a05:620a:3187:b0:939:a1d0:b5b3 with SMTP id af79cd13be357-93c36670f5cmr55343585a.11.1790212441496;
-        Wed, 23 Sep 2026 18:14:01 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c24822e3asm349372485a.16.2026.09.23.18.14.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 18:14:01 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v2] of: Put coreboot node after compatibility check
-Date: Wed, 23 Sep 2026 21:13:50 -0400
-Message-ID: <20260924011358.734722-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="dTa6tl+b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1790212696;
+	bh=wcjqT5zLGdrrSIrk7hVbs9nJEwefguc5ABHFpulyxt0=;
+	h=Mime-Version:Date:Message-Id:From:To:Subject;
+	b=dTa6tl+bERQa7gYr0t/FyC7k8XFGDd427c7Xf4wifZXhQ2siakB1mql1CZtPT1u5n
+	 bBy0dzloNkuoHFUyaKgKXYLb2Zh+ECwChLZTszb5iGwj72LQNXUBuv72Rk5/GSCP02
+	 FEGcB4nVKwZLqy8oysDq7F4C95EFdYtn4xBd19nI=
+X-QQ-mid: esmtpgz11t1790212695t9b09bd1d
+X-QQ-Originating-IP: /sHGXt0TDi1uFlPSWcx4jxzF2o8dTubagV/rfHW7MDg=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 24 Sep 2026 09:18:13 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 1097969116973290679
+EX-QQ-RecipientCnt: 14
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=09e63298bdd63c1cd28b1e0ce1b67eb7db8835fe229092788c9f41ea3312;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Thu, 24 Sep 2026 09:18:10 +0800
+Message-Id: <DLN5FOFSNKV7.3NL9LZ0FYRPHV@linux.spacemit.com>
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Sandie Cao" <sandie.cao@deepcomputing.io>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>
+Cc: "Yixun Lan" <dlan@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt"
+ <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
+ Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
+ Enable SD card support
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
+ <20260922110450.3426070-1-sandie.cao@deepcomputing.io>
+ <DLMC741RLFU5.3FF1DL7YEIFK9@linux.spacemit.com>
+ <407ce3d77416bb2522b7906b0df3d5adf02c27ee.2bcc8e57.b8bf.421b.9230.3eea00252952@feishu.cn> <DLMI4JHT5Q8L.2MHI30VCCP3W9@linux.spacemit.com> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.64156e26.f1af.46d5.a18c.19bc541257f8@feishu.cn> <DLMKXCP8EDNL.JW6NFGCTMJVN@linux.spacemit.com> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.a37d568d.f88e.4fdb.8c5f.8da4b148415f@feishu.cn>
+In-Reply-To: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.a37d568d.f88e.4fdb.8c5f.8da4b148415f@feishu.cn>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: No4GWyI4cWt6YRNxkeKW0ijY2/NeevDc4TCk3HpmtEUtPFfOB3UfGhSR
+	MunG1EIlNKdUn9O1SX9oh2E35HgeGKOFMJlNuQASb0TynkSr0QbDRVcH60jBLwIVVK/m6yt
+	msu1icJ65e2glMlJ+QHM4WZiYBJo3KPmtnT/MYQBaj76pT+pCscvZxT73Kx7LUudl/kb1ot
+	UxT/F9tn29gjNCqQRfylJuCgqGgDG7evC4TRf1AYwF8TJMF+gAbfCnghKUBGKnPigEs5Efg
+	v9z1ZmazrjELPUqt64+LCoxtkezbEGL1bnzSbfQ/Trn+JU6rfYiUsc9Mw7kTwCgQSd3Xg1Q
+	/mK8mQGrEhaUrRIjUKlGQUUPJgw9sFOzUN/HkmJg6++XYwPFMJFpwbxiG5MR7ZJAsyp8bMf
+	Qdo9qag9qbekMF8HE5A6qD6Tcdf4z/CpCaQ+MioK2gJr9nAUAQY8Rio0Cvvhz+is8Fb//Ac
+	a5aU/+gCCfn0A5axe/CjXU04P833JNcVeMO51HnDVbfbrsHkaSs9BVKmZoUm6sX7NzFY3Zk
+	B83F8ZQiS6E99k2zzHvOxZFhrb+O7+Kf9vz+fzoQ25t0ZMY4xvrQyiXt7iI4tLyWxHLYlYR
+	BB4e80pTqJcfnns46dMZ85vGSn5iuVQSL+C/uGnbnMjX9YK0spnSAojW/8VDWjTs/C6aIyO
+	zmyIptgsiG1x0FdWCJjyOWML6QJzqiYdDOQzaVIQUXNTmiSerohuE4SZjps9B9rr+ynoso+
+	/Ojq/LPrMRKPNMzQHndLJrFC75wN45SwLMrxNRjGkgTkfl2IfAxUuclHrMg8myEWsROi+H/
+	S6wqLpY7+sVhlVNsbwQUGj0Hq4tq0ime0qy+Pz8RnU15GW8ZTbJMU0GZTWP7utIe8KLgByJ
+	KUIpg5GlXpMSn8zm9QmZHi9/hTr1KJ8J6RC31uhytlxnw/Py0/2WqQjJD7voaAo2kILx88h
+	ZBfKPuOFT4znEH2VtyMPocTD/IYftw4LsUUbZmMAsQIP8lmPMQ45gwnKBHNkMiX7cUS7BPg
+	zf/jO+fh+bL8gTBT02aFl+N+C0W06z2oDFtv/IDT8HDLCdKXz/z4uU15zNTCBAQNAUkdzG6
+	g==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-of_find_compatible_node() returns a referenced device node, but
-EXCLUDED_DEFAULT_CELLS_PLATFORMS used the result only as a boolean and
-discarded the reference. This leaked a reference each time the
-address-cells or size-cells warning condition was evaluated on a
-coreboot system.
+--09e63298bdd63c1cd28b1e0ce1b67eb7db8835fe229092788c9f41ea3312
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Use a helper that checks for the coreboot node with a scoped reference,
-so the reference is dropped once the check is done.
+On Wed Sep 23, 2026 at 5:51 PM +08, Sandie Cao wrote:
+> Hi, Troy:
+>
+>> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
+>> Date:=C2=A0 Wed, Sep 23, 2026, 17:14
+>> On Wed Sep 23, 2026 at 4:01 PM +08, Sandie Cao wrote:
+>> > Hi, Troy:
+>> >
+>> >> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
+>> >> Date:=C2=A0 Wed, Sep 23, 2026, 15:02
+>> >> On Wed, Sep 23, 2026 at 02:35:20PM +0800, Sandie Cao wrote:
+>> >> > FML13V05 SD card slot is inside the board, it doesn't need cd-gpio,
+>> >> > FML13V05 Keeps GPIO88 to low, Then SD card is always on for SD Card
+>> >> > driver.
+>> >>=C2=A0
+>> >> An internal slot does not necessarily mean the card is non-removable.
+>> >> I don't think its location alone justifies keeping card detect assert=
+ed:
+>> >> GPIO88 would report a card present even when the slot is empty.
+>> >
+>> > Yes. The FML13V05 hardware is designed for this. We can't change it.=
+=C2=A0
+>>=C2=A0
+>> I may not have been clear: an internal card slot does not necessarily
+>> mean the card is non-removable. If GPIO88 is connected to the
+>> card-detect switch, it still needs a pull-up. Is GPIO88 tied low on
+>> the board, or does it reflect the state of that switch?
+>
+> The FML13V05 SD card slot doesn't have cd-gpio. But the K3 SD card driver=
+ need it, so the GPIO88 is tied low on board.=C2=A0
 
-Fixes: 8600058ba28a7 ("of: Add coreboot firmware to excluded default cells list")
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-Changes in v2:
-- Use __free(device_node) in of_coreboot_present() (Krzysztof Kozlowski)
-- Switch to my oss.patchbox address
+Sounds like you should use non-removable or broken-cd instead of
+cd-gpios.
 
-v1: https://lore.kernel.org/all/20260802023821.494178-1-dbgh9129@gmail.com/
+Note: Please limit line lengths to 80=E2=80=93100 characters.
 
- drivers/of/base.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+--=20
+Troy Mitchell
 
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index d71ae0449360..f63a9486b130 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -96,9 +96,17 @@ static bool __of_node_is_type(const struct device_node *np, const char *type)
- 	return !strcmp(match, type);
- }
- 
-+static bool of_coreboot_present(void)
-+{
-+	struct device_node *np __free(device_node) =
-+		of_find_compatible_node(NULL, NULL, "coreboot");
-+
-+	return np;
-+}
-+
- #define EXCLUDED_DEFAULT_CELLS_PLATFORMS ( \
- 	IS_ENABLED(CONFIG_SPARC) || \
--	of_find_compatible_node(NULL, NULL, "coreboot") \
-+	of_coreboot_present() \
- )
- 
- int of_bus_n_addr_cells(struct device_node *np)
 
-base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
--- 
-2.43.0
+--09e63298bdd63c1cd28b1e0ce1b67eb7db8835fe229092788c9f41ea3312
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCarR6Ug0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQvlDoA/A6waB73+9c0ODRYFcFHDTW3c1NvzQiWzYM32t0A
+jGw9AQChT/NpSJCNvmUJTbcRlbZfurFIO90wLjsaHzuQy5IeCA==
+=iXb7
+-----END PGP SIGNATURE-----
+
+--09e63298bdd63c1cd28b1e0ce1b67eb7db8835fe229092788c9f41ea3312--
