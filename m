@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D6747CA71;
-	Thu, 24 Sep 2026 13:06:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3900F387590;
+	Thu, 24 Sep 2026 13:08:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790255188; cv=none; b=hMAgp3c8usBcybAiruT5/kBH0ygoa4XSMpQY5vElIw4FLLPTcvuRwd3F5LQBxOz6bAd61HVt8Lb24m3ma4vLP2j+gFu5EpyAwdqrB0puIP6le3zz5mQcnOf/kKwKFq7+Z8a3sM9JXZr0HoA+WJF76mREm/ssNMv+CTB/S7QJfUs=
+	t=1790255332; cv=none; b=i1SxhMPRfka5XIJ1e0sEC6Wz60GTOLnikcAT/JUMhtj6gdPjbJIDLPLM8JBfP9utaf6KMQikeeQ91Pj1lPiqpaEgLjqcSwoxWqmLuHrm3V+DqawwRJmhfJmQG5DUuRRqqH0b43gOTQfviUSCmeaA5Tlev61Pq6KbKPXFX6yEEeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790255188; c=relaxed/simple;
-	bh=3731u2RBUTuGm+q+HvMce6CqS+kRS4tgVsCv0aobxEM=;
+	s=arc-20240116; t=1790255332; c=relaxed/simple;
+	bh=VZI8N/6gYLzZLpoXfBFDH6LznFXLoUL16QxpdfMrlD8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M/2NWNZEeT2DPaRB+MtRTuEMqjM/oir3M1uhGyw8YjVpVtX/bfjSfqT94QSIH0Wk/Kk5CYilZHu/AqkZv9459AySFxiBhTF8Bb9KpPfYl/wgotS1nd8l8p8NbTDGeCt0e7KcL9X8GJLYNqNWF6S/8ukQkWXPignsT233wZhGZmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fh8FB7BZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=o+dYLAApED8IgvVB272ZesCSACHR2Oh3GSTWZKg47bjaAYLohGLHmutxea1DHonZQi2V21rhOBYUAb/2Hf/m0ifwlFxB0gGajVMYDWUgc/rWQstlTMU833+obx6kyBGhm4VpoEkBeJZt55YgOZjaeROMGVmXgOOYvNqyGxClRoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nvc/kL1C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fh8FB7BZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 606501F000FF;
-	Thu, 24 Sep 2026 13:06:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nvc/kL1C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7351F000FF;
+	Thu, 24 Sep 2026 13:08:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790255186;
-	bh=A4NEQfNdKec21BuqvBtzbEuEBUBylBkbc04lyRdOg4Q=;
+	s=k20260515; t=1790255330;
+	bh=JNe0+MEvtNypgipOUMWCXmfWLOPV9rh+tWFM3Th3Ytk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Fh8FB7BZK1Mwhp7vGuKSugjgp7p5dIuUylZ+b0u/OGWU6LlyzI42I7N9PKE6leqF8
-	 3IkeDc59JVH0CfzwePwABcGjclUC4Ic0jW/hqpYQ5lNsO1w66RFMWYV4RJh5qXoNgN
-	 BFQS29jS7uNJJmNLIiOffdiJRvNsYEHIvKpprYBS5JpVGNovsvr9Bp4jWn1d5IQnUI
-	 W6jgmWdF7ya10Ill0UXR9nuRXzP5F3zzA0y7agV31AxJzyvnQxlf7Rfpy/FqdbwAyZ
-	 a+G1+XNRo++XTG10d6Z12WsBdXLu0ZaR+X+rWgsp/+CTzjEMpEE48bGnovXBGMRDp6
-	 gHKbAHAmyuKsQ==
-Date: Thu, 24 Sep 2026 15:06:22 +0200
+	b=Nvc/kL1CW2y0ABPY+myLno+5JzQjxspwUjAueSpk90kyvYN58g/YGGbXFjh9Kw9L6
+	 DZQziEBkhgkvMLbzCVSDhhuqSvHGMhjYVbkgUnZrzb1HpgQxW0dgE0OQnOBH7lXV2C
+	 Fq6zacZvIkdCvQNVxE+vvFWQDrGxPElHMNRZ7G0wpQUlCNZNBwRVeVwXRvbPmWXDHX
+	 Zd7oBib2Qk3lRY55QatoCqQaVy8JkVpgXQIPAoiV02sEK69POoNPzZpmGmRFSJLc9p
+	 FQPo3C7+OTMWtWK9eTOUbXMxxw57T5qQsjnS6TQ9Lwnwi57UNvkIfj9qX+mg+F7CTu
+	 l6ZvWrwQap98g==
+Date: Thu, 24 Sep 2026 15:08:46 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Maxim Storetvedt <mstoretv@cern.ch>
 Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
@@ -34,10 +34,11 @@ Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
 	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	abel.vesa@linaro.org, abel.vesa@oss.qualcomm.com, johan@kernel.org, 
 	konradybcio@kernel.org, kirill@korins.ky
-Subject: Re: [PATCH v7 1/3] dt-bindings: arm: Add Samsung Galaxy Book4 Edge
-Message-ID: <20260924-tangerine-alpaca-of-defiance-044d83@quoll>
+Subject: Re: [PATCH v7 3/3] arm64: dts: qcom: Add hamoa Samsung Galaxy Book4
+ Edge devicetrees
+Message-ID: <20260924-curious-sociable-nightingale-66ffaf@quoll>
 References: <20260920184148.31541-1-mstoretv@cern.ch>
- <20260920184148.31541-2-mstoretv@cern.ch>
+ <20260920184148.31541-4-mstoretv@cern.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,34 +47,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260920184148.31541-2-mstoretv@cern.ch>
+In-Reply-To: <20260920184148.31541-4-mstoretv@cern.ch>
 
-On Sun, Sep 20, 2026 at 08:41:02PM +0200, Maxim Storetvedt wrote:
-> Add the Samsung Galaxy Book4 Edge compatibility bindings
+On Sun, Sep 20, 2026 at 08:41:04PM +0200, Maxim Storetvedt wrote:
+> Adds devicetrees for the 14-inch and 16-inch hamoa SKUs of the Samsung Galaxy Book4 Edge.
 > 
-> Signed-off-by: Maxim Storetvedt <mstoretv@cern.ch>
-> ---
+> These use a common dtsi derived from nodes that were able to work on Linux
+> from the initial Galaxy Book4 Edge DTS by Marcus:
+> 
+> Link: https://lore.kernel.org/all/p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms/
+> 
+> combined with the patch series the Honor Magicbook Art 14, which shares device similarities:
+> 
+> Link: https://lore.kernel.org/all/20260629154812.9066-1-mail@etehtsea.me/
+> 
+> as well as a few more adjustments on top of that again to get additional features working.
+> Special thanks to Jesse Ahn for helping expand on what would eventually become this dtsi.
+> 
+> Based-on-a-patch-by: Marcus Glocker <marcus@nazgul.ch>
+> Based-on-a-patch-by: Kirill A. Korinsky <kirill@korins.ky>
 
-<form letter>
-This is a friendly reminder during the review process.
+There are no such tags. Don't invent own.
 
-It looks like you received a tag and forgot to add it.
+Either they provided SoB for the code you used, or not. If they did,
+then you could take them. Otherwise not and read obligations on your
+side expressed in DCO.
 
-If you do not know the process, here is a short explanation:
-Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-versions of patchset, under or above your Signed-off-by tag, unless
-patch changed significantly (e.g. new properties added to the DT
-bindings). Tag is "received", when provided in a message replied to you
-on the mailing list. Tools like b4 can help here. However, there's no
-need to repost patches *only* to add the tags. The upstream maintainer
-will do that for tags received on the version they apply.
-
-Please read:
-https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
-
-If a tag was not added on purpose, please state in the patch changelog
-or cover letter why and what changed.
-</form letter>
+Also look at Co-developed tag, if that's applicable.
 
 Best regards,
 Krzysztof
