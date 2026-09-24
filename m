@@ -1,120 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93EFB4A3407;
-	Thu, 24 Sep 2026 21:25:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF2A4ADD80
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 21:30:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790285153; cv=none; b=MLhGH5+YxHWO37tc9eovH/UYPCPmhEfOXGsKsRCTj4eyLrD701V/+wVfydkzx/ue/H6Prb0IhfzbkH2GvZS85mLzkfKxFnAdQ7/rVzoAi97DwV+BYihLYbENf5qINWnv5JG2W6i9uCepKoN3JrbVIQA0zDb7piyrWdejR62mR9Q=
+	t=1790285458; cv=none; b=etGP+7Gl9xvTloJnU4M0z3iATHoRlQhuTwO8uTXsteBHRXcTgHMigJz0lW9W1k/hC6ComgYWYXwNooD3rZ/kSkgg3gC6yJm9oNy40/DQsrlAGX31GhAAkfEMGDNiSEBGJlxOrDjeq3ONy8x1ePrWbKBB/pvuA5fk1Wh/sFhHa8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790285153; c=relaxed/simple;
-	bh=vDvLYTI6tnYf3H2oS1lnjDD6CnfX1bxlGEfbPqjB158=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ExMdA8WJpanK7uX7D4Y8Uju7Kxn0VZ6Q+Xkof23jw6xDmXKGa+Cjpfj/MJxKCGecsp+9i1f16uSgCxLPSmAMhk/+3gfnYQQ/CcqYIx3reM5jo8KvsCwu1uuPYVpzr3QMMjmtuHbyunuwns8oS5Dye/x/5OIvBMPAjtQlCFV5YeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CeD8V6X3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790285458; c=relaxed/simple;
+	bh=qy5kpUqRj3bU7Jr7C9QLWnXXLfMCjeEUAuf1Ica4IaU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gEs7kKaOJdIPITLJY4aFHg8cgSnDESVnDRSUEa5JFXXgD7NKRGJKodN5nBkNOg+8iin5xLGj/L090YJ35EP+nVXRzRLO0zdnZiwWSip1JlYzaKRuXX7Olptm5vQPZXyNPtn5yHTati8uq7RiVmLhb2bCfGRvsNy1t9ewRKK8TrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMYOu8pL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CeD8V6X3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3E91F000FF;
-	Thu, 24 Sep 2026 21:25:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMYOu8pL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FA3F1F000FF;
+	Thu, 24 Sep 2026 21:30:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790285148;
-	bh=Bq+vpYLOEWURPyiEZ/CsTCJauh1Qbcp+tLVo7e431Oo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CeD8V6X3U0SPJAdRZDCPsuo374AWmMX5ifcGdK/VX0pcSB35Ag/YaaKg/hieSPoE1
-	 dK3zk/sVdgyeWzOxWtuSxbAPu6wPyRV6Y6fsHLM/uRnE6hsL9hGUvRR7DavUMVdaos
-	 JCIt67/dfhWOMQeWeZHkNQe8rr0w7EFi1migb773AmCKfc+CobUs9SFuO2NsP5l74S
-	 1YBB3Bo6pu8EelkQS10Rq3DSSF79TOGwBc4VDM4hc65dimMaNA9NK4nQ8oTLp+1b4d
-	 cJ0Jwe3KexxuEaQ3jj/fNHFaCRAkJsadNbU5WWHZtuM95NMzr9OcumtL+Uw/9mitte
-	 o/Z6jTG00f2wA==
-Date: Thu, 24 Sep 2026 16:25:46 -0500
-From: Rob Herring <robh@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
-	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v2 13/15] dt-bindings: iio: adc: adi,ad4134: Add high
- data throughput example
-Message-ID: <20260924212546.GA1805605-robh@kernel.org>
-References: <cover.1789494473.git.marcelo.schmitt@analog.com>
- <958894021cf7bd3012567d1dfabd7f2008fe8d31.1789494473.git.marcelo.schmitt@analog.com>
+	s=k20260515; t=1790285454;
+	bh=FtjJDuGMCGnEZygAFeGwAxfgOdCkS6ihEAquCZQERJY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IMYOu8pLLfI0VMS9+cBY5Uo/JXmkGzxxn6F8gqTCkldVlvSXSgsKGwSpSbRYsJ7nd
+	 xJHYGXcn1sZ9pdKh9ON7YQsn0WoVS/3YCs97paqNTj8sGacQD1+tfQG/iFJkHUDX7F
+	 fQWcA1RfBiiyJTzEwD1dyL+kUxBpTByiYNymoLVdBJgN4fjpxR/t7WB53lS+zlQ4Pr
+	 RaEY/NhtwBWwGR70nAUuDPH0Ipqpp7pBGgHWwP0ztDMpb13ym4aRwtSttQv13JsYpX
+	 qSZVv8R4JJuAy47pGcZ5FiaruFaoVJFmRYtgIkcwhcDa7YmBLzBtitIhGRhfttX0gg
+	 mSiPP4asnxq4A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCHv3] dt-bindings: mtd: convert IBM NDFC binding to YAML
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rosen Penev" <rosenp@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260924212240.81857-1-rosenp@gmail.com>
+References: <20260924212240.81857-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 24 Sep 2026 21:30:53 +0000
+Message-Id: <20260924213054.4FA3F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <958894021cf7bd3012567d1dfabd7f2008fe8d31.1789494473.git.marcelo.schmitt@analog.com>
 
-On Tue, Sep 15, 2026 at 04:16:06PM -0300, Marcelo Schmitt wrote:
-> Add device tree example for AD4134 operation in 4-wire SPI mode with 4
-> lines to transfer data samples to the host controller.
-> 
-> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> ---
-> No changes since v1.
-> 
->  .../bindings/iio/adc/adi,ad4134.yaml          | 42 +++++++++++++++++++
->  1 file changed, 42 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> index ad67d1cdacec..133996917ee2 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> @@ -243,4 +243,46 @@ examples:
->  
->          };
->      };
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    ad4134_sdo_dout0_mux: mux-controller {
-> +        compatible = "gpio-mux";
-> +        #mux-state-cells = <1>;
-> +        mux-gpios = <&gpio0 100 GPIO_ACTIVE_HIGH>;
-> +    };
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: mtd: ibm,ndfc schema rejects modern partitions
+--
 
-Drop. We don't put providers in examples.
+commit f1a26fcb68368a1ab8dd195e7a927c46335d8315
+Author: Rosen Penev <rosenp@gmail.com>
 
+dt-bindings: mtd: convert IBM NDFC binding to YAML
+
+The NDFC NAND flash controller was only described in a legacy text file,
+so dtbs_check reported "failed to match any schema". This commit converts
+the binding to the YAML format.
+
+> diff --git a/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml b/Docume=
+ntation/devicetree/bindings/mtd/ibm,ndfc.yaml
+> new file mode 100644
+> index 0000000000000..e614c5855b423
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
+[ ... ]
+> +  bank-settings:
+> +    description: NDFC bank configuration register value.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
 > +
-> +    spi {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
+> +  nand:
+> +    type: object
+> +    description: NAND chip attached to the controller.
 > +
-> +        adc@0 {
-> +            compatible = "adi,ad4134";
-> +            reg = <0>;
+> +    properties:
+> +      "#address-cells":
+> +        const: 1
+> +      "#size-cells":
+> +        const: 1
 > +
-> +            spi-max-frequency = <1000000>;
-> +            spi-rx-bus-width = <1>, <1>, <1>, <1>; /* 4 lanes of 1 bit each */
+> +    patternProperties:
+> +      "^partition@[0-9a-f]+$":
+> +        $ref: /schemas/mtd/partitions/partition.yaml#/$defs/partition-no=
+de
+> +        deprecated: true
 > +
-> +            pwms = <&ad4134_odr_generator 1 1000000 0>;
-> +            reset-gpios = <&gpio0 86 GPIO_ACTIVE_LOW>;
-> +            odr-gpios = <&gpio0 87 GPIO_ACTIVE_HIGH>;
-> +            powerdown-gpios = <&gpio0 88 GPIO_ACTIVE_LOW>;
-> +
-> +            clocks = <&sys_clk>;
-> +            clock-names = "clkin";
-> +
-> +            avdd5-supply = <&avdd5>;
-> +            dvdd5-supply = <&dvdd5>;
-> +            iovdd-supply = <&iovdd>;
-> +            refin-supply = <&refin>;
-> +            avdd1v8-supply = <&avdd1v8>;
-> +            dvdd1v8-supply = <&dvdd1v8>;
-> +            clkvdd-supply = <&clkvdd>;
-> +
-> +            mux-states = <&ad4134_sdo_dout0_mux 0>, <&ad4134_sdo_dout0_mux 1>;
-> +            mux-state-names = "data_read", "reg_access";
-> +
-> +            adi,spi-mode = "4-wire";
-> +        };
-> +    };
->  ...
-> -- 
-> 2.53.0
-> 
+> +    unevaluatedProperties: false
+
+[Severity: Medium]
+Does this strict definition of the nand child node prevent device trees from
+using modern partition layouts?
+
+Because unevaluatedProperties is set to false without a reference to
+/schemas/mtd/mtd.yaml# or /schemas/mtd/nand-chip.yaml#, the schema will
+reject modern generic MTD properties.
+
+For example, if a device tree author updates their DTS files by replacing
+deprecated direct partition@ nodes with the modern partitions subnode (using
+compatible =3D "fixed-partitions"), dt_binding_check will fail.
+
+Additionally, the node name nand (without a unit address) does not match the
+^nand@[a-f0-9]$ regex in the inherited nand-controller-legacy.yaml.
+
+Could this be updated to allow the correct modern alternatives?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924212240.8185=
+7-1-rosenp@gmail.com?part=3D1
