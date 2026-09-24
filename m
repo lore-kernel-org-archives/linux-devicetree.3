@@ -1,93 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A82313E21
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 14:25:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CF5379998;
+	Thu, 24 Sep 2026 14:28:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790259927; cv=none; b=JN/QXWf6w6qHH9dZ64q/jjtxFYnsyvc5ecCZVxtA1oLbH6N0Pn8txRzj/PMhu9ac1IpnEODtFMcE9chNYmqvI6MsUgS7JwB8leMpB6wD2U3+zlSH1iLc+mEEj1DxPnXBbiEYVb1LugfUBYLpHmxdRvrzvEAz+L3t0HTiUEobAtQ=
+	t=1790260116; cv=none; b=HuhshssmcjTAil56nNf1WENOz7GIvYFaB5l0ycv+lWeDOSfuh2/0V4oI6VsuE6NZC9uaXsOSVZwMmHfBuE2EJlHxNjwX1TNoVDu0dvQ/evf7i3CqedSOx+Uz1eGBFtzdrIeRMK7RMIp1L/uLh4ulOVOyKFpRe/6E+kK98fiuumY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790259927; c=relaxed/simple;
-	bh=dDUPlNPyInh1xihUbxARMouhkHhpJcY9vHzztHZbpls=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Fq17xQefzr7GIFLjcnhIGHf+mDs2hJSeA+bOKH3pmTKGfKCohjT4wWRa7Mgzw9JG28H2edVlX/m2GRA6+5MbVvHH0D9WweluJoMJLVzxY3d4+XguRpD8WjBnvjjN+xmXcnqvz7ui93WLSnNIJIYnzKtt29iexQal4wHOH+NWmxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MaTuu4CJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790260116; c=relaxed/simple;
+	bh=4aCUQy0hWo8IdaDKDTYMyFJ7kry/jltOSeuRCSB2Cb4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ilYRrGUtSnb3p7FscXGs022Kn6hsnIWJEMfN3hL7giDTvatdDdGNF/SarEERBsOQ9heZP9jVxk66E6k634MfuvLvure4zV5KCp7R1BaPrnUFY56e983mZtLNFz50c86w83rp8SCzBb8WDP54Jw6JHSfT1c8u8EXlQKaywl+Qx7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cAanq/HC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MaTuu4CJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC771F000FF;
-	Thu, 24 Sep 2026 14:25:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cAanq/HC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010121F00893;
+	Thu, 24 Sep 2026 14:28:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790259925;
-	bh=iZU/r+PQkRBztyXmLF2+vHsMG5IkZPWGFTqUbBDNKEM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MaTuu4CJ0RyEvarQgxxoQAu54+J2RJHrwDfdptLxHyJTGNnPrThrCHpOUNOEIeafw
-	 nWkPD08fHqAY2iTcn8rQhtkv7EXyO2trtehc4Uud8icbpPp70GUMNoXy/cF2i99bbQ
-	 DO1+5ga3TIJgsX0zr3Fm5q5vCpdV0+XOm+IfgxbVXnBl49zcOXH1W7JTKKAov4X83a
-	 ePajZOy0iMy9F4aIUpBB3iu5V+EL4WUuGed3d6QuadxIE/PbHAl6WZwgUcGdT7gMvO
-	 a/CqkSvFwKL4PpV3QaeCep+JiZ01v++0zipp2Sl60/KtzimGQwAUriZQ49JocgIldD
-	 fFg3Zs0CwwwfA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Paul Louvel" <paul.louvel@bootlin.com>
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260924-paul-v7-3-rc1-edac-v3-2-bd8054a5b180@bootlin.com>
-References: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
- <20260924-paul-v7-3-rc1-edac-v3-2-bd8054a5b180@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 14:25:24 +0000
-Message-Id: <20260924142525.6FC771F000FF@smtp.kernel.org>
+	s=k20260515; t=1790260110;
+	bh=IL6ClCwIjkZWXa+/sikAWRTuWWNCeUnK+ge6atvO8+M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=cAanq/HC3J8+Nv74HWHMMsnf0HUL2z8Yx0G3QNxBFsbIJXebsZOfmmG+sNEdqzh+G
+	 yhzVjJZbm4dPGZFF1NpUrCnE4NXRu5SAmuyHWYfH1Qw1SnIlH/sdao7pzGHPcjdtso
+	 hhh1ah6O8YA9dzpCrnTkeCCZ74NP14gr62drZeCVEybtrl0JLnx3O8ikowIk3TdeW2
+	 IQPmDqkmQ76fHJpzkKiiYzpN5sD7jS+f9jUf+7oMRUMtRlRXx1qH8l8d3hMowJ+Jf0
+	 vhKdEBC1+V7wAqzLHB7OhZy7p2zEWkPk7yi6zn8uSo3DhwifnZplpvIiJUK6JIDQSw
+	 c9g3Tm7I8atOA==
+From: Lee Jones <lee@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, 
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+ iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ linux-pm@vger.kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20260916-msm8952-initial-support-v2-9-798c2602dde1@mainlining.org>
+References: <20260916-msm8952-initial-support-v2-9-798c2602dde1@mainlining.org>
+Subject: Re: (subset) [PATCH v2 09/19] dt-bindings: mfd: qcom,tcsr: Add
+ compatible for MSM8952
+Message-Id: <179026010074.638531.9042726679993021271.b4-ty@b4>
+Date: Thu, 24 Sep 2026 15:28:20 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] build: build failure due to non-constant mask in FIELD_MODIFY()
+On Wed, 16 Sep 2026 17:22:14 +0300, Muzaffer Kadir wrote:
+> Document the qcom,tcsr-msm8952 compatible.
+
+Applied, thanks!
+
+[09/19] dt-bindings: mfd: qcom,tcsr: Add compatible for MSM8952
+        commit: 319633b06ff2bfc2a7a60d2cfcab2e681a343b27
+
 --
+Lee Jones [李琼斯]
 
-commit 15d5e31eb920d20f3a957994bd91676f00f4633a
-Author: Paul Louvel <paul.louvel@bootlin.com>
-
-EDAC/cadence: Add Cadence DDR EDAC driver
-   =20
-Add the Cadence EDAC driver found on the Renesas RZ/N1x SoC. The driver=20
-adds support for single bit error correction, double bit error detection,=20
-and software scrubbing.
-
-> diff --git a/drivers/edac/cadence_edac.c b/drivers/edac/cadence_edac.c
-> new file mode 100644
-> index 0000000000000..409cc792b534e
-> --- /dev/null
-> +++ b/drivers/edac/cadence_edac.c
-
-[ ... ]
-
-> +static void cdns_rmw(struct cdns_mc_priv *priv, u32 reg, u32 mask, u32 v=
-al)
-> +{
-> +	u32 regval;
-> +
-> +	mutex_lock(&priv->lock);
-> +	regval =3D readl(priv->io_base + reg);
-> +	FIELD_MODIFY(mask, &regval, val);
-
-[Severity: Low]
-Will this cause a build failure with certain compiler optimization levels?
-
-FIELD_MODIFY() relies on __BF_FIELD_CHECK(), which requires the passed mask
-to be a compile-time constant via a static assertion. Because cdns_rmw()
-takes the mask as a parameter and is not explicitly marked inline, if the
-compiler decides to outline this function, the mask loses its compile-time
-constant property and will trigger a guaranteed build failure.
-
-> +	writel(regval, priv->io_base + reg);
-> +	mutex_unlock(&priv->lock);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-paul-v7-3-=
-rc1-edac-v3-0-bd8054a5b180@bootlin.com?part=3D2
