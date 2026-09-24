@@ -1,157 +1,102 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-ed2-f16.google.com (mail-ed2-f16.google.com [74.125.228.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D9931AF1F
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A053A4520
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 06:48:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790232495; cv=none; b=hpptbi1J3+O4SpQlCbv84kTL3wUWQwKI11auDoqAXp6cW3gpHF4ny7oqEj5x5+ejLo1RugTOR1KRG62kVW/XKQ6RTDpT8wYCB8W7KV0HiGa/mZiw7VlMzQpHXIbbMORTGEHz6jzxM9V+yAbhqOnUutxBekpN/1IRqscIUlTEJ+4=
+	t=1790232495; cv=none; b=B25wKrOEWZajXR9Cn1uvnfrMKC016O/KCY0hZlcPH9tvzD1/xDhC5ds9nbBWef/6/yB8Nw1ABTk50hBd1zFqeLzdcXwSck1OVWwpxc7i4QQ8x8LS2pS9mdmyx/crDqWLjxjNLndzLdeCL38yGCAKqp93oT0wXGmM/v3EDPCfzWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790232495; c=relaxed/simple;
-	bh=fDvxDhzbYt3DMeQyxit2JKIBkeTLvVcghnDJIHoTikM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZOGfwsa05ZAbWRnKjRxrYukd/Di7FK/6Iu/bi0nOySKoxPkZvMLoO7V8Mmo6ds/tHeCSoWIL8yiPrPqxZ3IQrP1xGlp9wm+NLeG05/OI1nnpU1BIyfi56VZqDeVfwmJaQs4IWAROPwbl9jojeuWwZR+lzdX39sR2kMADaUYx4co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qB3UERn2; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=/BcelbpT7CGhnfElWZJzPti6+AmMa6ROEiybn3GdoFo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QhMy7reYsYF9p9hdO+oUjRnLSjQ0sS1VEw/WG2N5aec0mdesvItNUTf1iejkMLB0VPe+G1Fv6FKMjQSXHUeVPUrtbxQXpbxqYw1Iu06BhQU7oq/3WIycIMtyR7AzL5kAjIKzFwks+2X9lWtuPfOHdtDw/yi7K6/MX4xp6X7D0QU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=OGFK0UTL; arc=none smtp.client-ip=74.125.228.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qB3UERn2"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so10879815ad.1
-        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 23:48:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="OGFK0UTL"
+Received: by mail-ed2-f16.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso2962751a12.0
+        for <devicetree@vger.kernel.org>; Wed, 23 Sep 2026 23:48:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790232493; x=1790837293; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yM9Je+YRpF14AiZXmjVF0d/iThCOAo3W//vQVXt0asA=;
-        b=qB3UERn2uwag+SFeINTHk1APnvHGvvX0dvPc+lWaeyFQo5hcMmMiJ+l09WamLyzFHf
-         wAxpQ8+e8kpWWrXkYY5zf3n4gu74AqD+yuQ9wS3gSJjxu3cz5nRK9qMM3DjwnJJgH43a
-         W5NNxpHlqonRPDV6RijBSpw8eg1xlWGP5k8WLLpzbT6ru2mv6+Ww7MFBMs4/yJnDZTqv
-         WKM0Mf2fTbgKoB3cOpuqLKwLr8mX62a7m+jWsen3HSroB3S2NyLpSE8+i/ug2aVeYaUg
-         /qD9/o08gHc8HqUaAOm03AZNlIiTCVsHnGXTneWbo4DyASNeQv9f1caIKrSKESedD5ro
-         VshQ==
+        d=konsulko.com; s=google; t=1790232493; x=1790837293; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TQSx66yiUW6sVcxiGO0Odu8TWkytfdb3yKLMsf5vKh0=;
+        b=OGFK0UTLh74qe2B7umXcdJFXbzEwPrOq4uaGpPdWITgXiKEnm8D6X4uHY+ezy/K2u4
+         SZTEkYKElcn38ojzd6DI98J1x8Lc0y3Irv+thn8gTOa0tikTdfPdJzF6tfvlvnLzRSun
+         gXQa6vvveDWzX6Yg4mRZUBlOET+XouHOHfU80=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790232493; x=1790837293;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yM9Je+YRpF14AiZXmjVF0d/iThCOAo3W//vQVXt0asA=;
-        b=jXWrysh08xA8dDOeOKFDF/pLmzSwfiVXWHjPow8FXMTYfK+jRcJaFBjeO/lj5K6q5g
-         HBhczf01ZmVALsItCyyWq+fvtZyrU4PrGCYAP45+t4/wTOjoywQBTkaWv9U93sT+bP/m
-         5T72X9w/jKPw6h+6I9NSihKahiOBVGhv3H9twS42nsSzxFv2GzbEqT2T201Gd5K1/OIA
-         bVMwqcdWx3Qhgv/f86c8YeA3KOXGFDj5G46CJd9CqdI7gkUClwFOF97EWPNK7Gm/KGFV
-         yj2IUq6g9ItgOZ2cz/xIowK/N5xhDJb9SpIQInJIq2A+AOH0BbzUSBOvcOmFrgPeAF/+
-         +AqA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/aHJkke0a/NTd7vf7fq+RDqwnd2CUHSwRPS3M1sjXAQHjrRVg9Hcl3GmDUhq6mwsXxu0935rmOFce@vger.kernel.org
-X-Gm-Message-State: AFuF++koKUAE3aAvR0l9ABWA7bOAkA6I3Jcsq1GhRRUWelg08usbtonb
-	mnxidXvVasZ9fjyqMn6Qvb/O8mLB32bi9n5tx/oMKvZ1SBqIi0tz5dO1
-X-Gm-Gg: AYBFou1Sh2vof5pTN9C+7vcMEx+Mp7ttqyLFWC07goBpNJQTiMZShqHRi5EkddhGSGL
-	Ph+51QDDbX2PnB+6/jXoclaXgL8W1jU6wdC94FRokgC3qecm7tq31zrLTGwJsjEhbRZfOZriYPq
-	WnKxwJDEJ3ZUU9ucDPIlhhtYcWHfSQkIdSBEYxNvidy+TGgoJfyAzk9fC+y0HgBdNilodEH6fDC
-	GHzKrZornoGD0untASdBosICmZ5HBOwgXyqsa4uoV5hn4U10WTzSrAHoYHLVrWrwRvW2LCI33Aq
-	CFzJUjqDNujIQ0MDjO5Fu3uMK/QcrTBV808K3FSFa7f9mOFcqCglSv67dsyqpjEShgc1rDC1nLJ
-	Y50wVfMLWiZVoG5qbuP1qBwMy2ahqQATHeFUkfxF113svhhU26lRxN1/mvwzA1qxvhmvitp8+8B
-	FLWkBWYk9fQPiUMjhb7kkf4iBD8CvOQwd91wyVYaQH6eH9ESEHRwROFR/v3ndK8IzYwEvesLdBF
-	W6qSPVyHf9pCg01eGhB7PaxoS7GUzAWiBkVGZteX7Abbq8m4p2lQdNsnUeDcgqZEA==
-X-Received: by 2002:a17:903:2f4b:b0:2df:448a:e016 with SMTP id d9443c01a7336-2df7dc1e167mr13424515ad.34.1790232493096;
-        Wed, 23 Sep 2026 23:48:13 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5c7d82sm21463085ad.46.2026.09.23.23.48.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TQSx66yiUW6sVcxiGO0Odu8TWkytfdb3yKLMsf5vKh0=;
+        b=NvVGtvatkjiWyhy4NZEzjaMqd7wnmwh2sxqJ096pF2VtqBfzW3LIhrKiNEG2dy/7jv
+         al2xD1/nN4FZgtcu6sdqJdfhygVLIpxKRsUoZccEQffcsffxr5WqHTR8TuIGFKckxNVV
+         5iqPgoeUrdoFUTemtM71h/eAqNP/Q9Sjav7RRXiCpA21JXuqi2+DnnCfrVDwn1oc6Wyp
+         /nc9UBmzCaiELc/Sq81xzlYJPvF3HVn/VByIGsUSmcE20x7eilmFGMNBIemvXDHNCmbY
+         7dbL0Qe+XtQf1kkUZTFQt1hDOmV6fCEN/BlOMxH4xZXrFDyKmww/phJKSOexiUtb3tRs
+         2tFg==
+X-Forwarded-Encrypted: i=1; AKwUvBytXJTjYSiqdepMMGXBWC/1uE+aCrkqImC3unz54KDk5FwewOYE4q1tOtAD3V2IwYbHGJs6j+IcL2PO@vger.kernel.org
+X-Gm-Message-State: AFuF++m4RUU3gbY/ovuPRmixMABDiBp8ANsjAFOEF9bmff+pbGK32hyK
+	lemTCCkvpHVXMLhPE42/8KRK3gT5lZn044L7/zyrwBSbgC1rWRx4GPWCdSgc1knJIXA=
+X-Gm-Gg: AYBFou2B7lTk9aW74/lDGQPfIOHUZqSW6EmBVMVLuYLb1OuihjvUJYqnyzIVAysJprV
+	C7p7oR4YuMSY4DQbLJshU5FgL36L4jBRj7+uCuXBoSM+87xXDbEyC+5k6FqdNYV97x/53sujjh6
+	ub6btMv5JC/lY8g8SXy7Xo89BcfBa6e+xWz1EU3TfcpxaZZGwLhGvAa0cQwzcI+Vr+NzdgZITiA
+	w8DKXc1Kr3adgkvQxzJAK0xs595GuEQ1bF7INZH8RG2Dq5NLfjO2zZ5XT/87E3mnHc1rmcuRxKS
+	R/XnsXPLh35h+8X9NYNT4SFuA7I6BATIFZlJnfYfuVOmCtyTuZjAOUFGyL6nEB3LnI69zd9GXpv
+	xjEFkWOKibKg9drIU7ywNMPwfR+PRqMJEvSZsL9mLv00BGfHjGMvY222M8LUuqoecpupeIck3Yq
+	ui0Ktdvt+5u/w8Bbl8zrSoHKM3tYaBC9Zf1pg2MqvjjDKdsP/iUXd2IwaFPV/WauXAXMs65aHG6
+	0x/R4UCwWPth6SdUAE=
+X-Received: by 2002:a05:6402:23c7:b0:6a9:e7eb:f52f with SMTP id 4fb4d7f45d1cf-6aac90a9049mr971517a12.28.1790232492657;
         Wed, 23 Sep 2026 23:48:12 -0700 (PDT)
-Message-ID: <0e6fb86c-e995-4ef1-b08b-44a5e8be93f9@gmail.com>
-Date: Thu, 24 Sep 2026 14:48:08 +0800
+Received: from bender.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab386e5aasm3155851a12.9.2026.09.23.23.48.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 23:48:11 -0700 (PDT)
+Date: Thu, 24 Sep 2026 09:48:10 +0300
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	dinguyen@kernel.org, arnemaximilian.richter@draeger.com,
+	martynas.grybauskas@draeger.com
+Subject: Re: [PATCH v6 3/3] arm: dts: altera: add Draeger M48 CPU Module
+Message-ID: <20260924064810.GD6325@bender.k.g>
+References: <20260917163157.1380860-1-petko.manolov@konsulko.com>
+ <20260917163157.1380860-4-petko.manolov@konsulko.com>
+ <20260918-strategic-hairy-kelpie-46e807@quoll>
+ <20260920075924.GC7878@cabron.k.g>
+ <042c39d5-0642-4bcd-b965-61fce77b52ae@kernel.org>
+ <20260921090659.GD14552@cabron.k.g>
+ <89e1e02a-1a41-4c40-aafc-172c44ddeafd@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] arm64: dts: nuvoton: ma35d1: add USB controllers
- and dual-port PHY node
-To: Jacky Huang <ychuang570808@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Catalin Marinas <catalin.marinas@arm.com>, Jacky Huang
- <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
- Hui-Ping Chen <hpchen0nvt@gmail.com>, Joey Lu <yclu4@nuvoton.com>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260914031859.385224-1-a0987203069@gmail.com>
- <20260914031859.385224-3-a0987203069@gmail.com>
- <2d07e535-3029-41d0-9dcf-8772f7330434@gmail.com>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <2d07e535-3029-41d0-9dcf-8772f7330434@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <89e1e02a-1a41-4c40-aafc-172c44ddeafd@kernel.org>
+
+On 26-09-21 16:16:45, Krzysztof Kozlowski wrote:
+> 
+> I gave you already precise expectation 10 days ago, which you ignored and
+
+"precise"? :)
+
+> repeated "what shall I do". I expect explanation of the hardware in the commit
+> msg, especially the non-obvious things.
+
+Is this:
+
+https://lore.kernel.org/lkml/20260921090735.3174292-3-petko.manolov@konsulko.com/
+
+sufficient or you want even more details?
 
 
-Jacky Huang 於 2026/9/19 下午 01:49 寫道:
->> Add the USB subsystem nodes for the MA35D1 SoC and boards:
->>
->>    - usb_phy: standalone PHY node with #phy-cells = <1>, covering both
->>      the OTG port (PHY0, index 0) and the host-only port (PHY1, index 
->> 1).
->>      Uses nuvoton,sys phandle and HUSBH0_GATE clock per the binding.
->>
->>    - usb (DWC2 gadget, USB0): phys = <&usb_phy 0>, dr_mode = peripheral.
->>    - ehci0/ohci0 (USB0 host): phys = <&usb_phy 0>, companion pairing.
->>    - ehci1/ohci1 (USB1 host): phys = <&usb_phy 1>.
->>
->> Board files (ma35d1-som-256m.dts, ma35d1-iot-512m.dts) add pinctrl for
->> VBUSVLD, PWREN and OVC signals and enable all USB nodes.
->>
->> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->> ---
->>   .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 36 ++++++++++
->>   .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 36 ++++++++++
->>   arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 65 +++++++++++++++++++
->>   3 files changed, 137 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts 
->> b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
->> index 78534d613486..0a068abda6e0 100644
->> --- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
->> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
->> @@ -97,6 +97,16 @@ pinctrl_uart14: uart14-pins {
->>                          power-source = <1>;
->>                  };
->>          };
->> +
->> +       hsusb {
->> +               pinctrl_hsusb: hsusb-pins {
->> +                       nuvoton,pins = <5 15 1>, /* VBUSVLD */
->> +                                      <11 12 9>, /* PWREN */
->> +                                      <11 13 9>; /* OVC */
->> +                       bias-disable;
->> +                       power-source = <1>;
->> +               };
->> +       };
->>   };
->>
->
-> The outer pinctrl group node name does not match the MA35D1 pinctrl 
-> binding. dt-validate reports:
->
->   'hsusb' does not match any of the regexes: '-grp$',
->   '^gpio@[0-9a-f]+$', '^pinctrl-[0-9]+$'
->
-> Please rename it to "hsusb-grp" in both ma35d1-iot-512m.dts and 
-> ma35d1-som-256m.dts.
->
-> I tested this change locally. Both affected DTBs build and validate 
-> cleanly after the rename.
->
->
-> Best regards,
-> Jacky Huang
-Agreed, hsusb doesn't match the pinctrl node-name regex. I'll rename it 
-to hsusb-grp in both
-ma35d1-iot-512m.dts and ma35d1-som-256m.dts in the next revision.
-
-Thanks.
+		Petko
