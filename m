@@ -1,113 +1,135 @@
-Received: from mout-y-209.mailbox.org (mout-y-209.mailbox.org [91.198.250.237])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24A33D1AB9;
-	Thu, 24 Sep 2026 08:31:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.198.250.237
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA933F1ABF
+	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 08:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790238704; cv=none; b=OY/PA2zElso+OjVT5+r6NzCdcyR8mR7w1UiMH1bZicQx0LglbQyADYyhCyOY+pMWE4vztS0IlUqidcAvlu5vM2FimsTeI6OKilRdzCsADBCJrV4ELfXkHHfgBs3l21AtdzUzLNlAqMzsAvdBm6nRRApiKBrO6P7h4hnfCvJjzos=
+	t=1790238812; cv=none; b=qb77ZENzIveh2JDUYacft0e4nq5Dqzte0VJF0azd00Jg4xaELNxige5m/MVsmKgFedNaXKRUczsHofqiNPhm94kqtsgITDIpE4XL8mvdB9iq1aFSG7OzgHErHSBSwNlf83fmJUSmqXCL/V9wPfBAn329DFwzKBMFoF2MQ/dzcBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790238704; c=relaxed/simple;
-	bh=2q/WlDjU9Q7ZIjVz14cix63PZ+BOmqngGSQfJ+4PJBk=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=AHl7WsrrdPiZ8dbJKPw4zFlHHgDU+p/7FqjlSjpZN2Mq1nGqWqlyfTuAlbjZamUDjUq1/+Dr0eR633UFLXT5fHC7VnZ9BfCd4QNyHzqF0acegQBofOgjUs75QypTlGxxsH5UIDuI4ODDPTgWb3jaOhJWrqwvVvF7acSxiMWV3ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chimac.ro; spf=pass smtp.mailfrom=chimac.ro; dkim=pass (2048-bit key) header.d=chimac.ro header.i=@chimac.ro header.b=PVZlWJk+; arc=none smtp.client-ip=91.198.250.237
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chimac.ro
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chimac.ro
+	s=arc-20240116; t=1790238812; c=relaxed/simple;
+	bh=v280c1RxbyJ9BV/xpVpTa4hpsphXrn4DypoxkbjZ5SE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gdnnt0TMXoPMR8ZQ+yM1hkkyA7SRzUi07IYKOkR9w/wSlO5GH58O6LXVEUkpqGVr3+lgUnQ19ENi9KIzd61EKhwlTCkC9YZf8WfKlyXm/jeDaBd6KRKZkWe9Pz1i7C0oD0hzT8qwixU/AX4q5nerXfIhzhr/GzqY2gwMZatMc/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mf0vILEO; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chimac.ro header.i=@chimac.ro header.b="PVZlWJk+"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-y-209.mailbox.org (Postfix) with ESMTPS id 4hqhrM1vZrz7vBk;
-	Wed, 23 Sep 2026 18:14:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chimac.ro; s=MBO0001;
-	t=1790180099;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ja10dpay0PFbmloo3P4uBr52vlFLWwA7lf07LoI1zL0=;
-	b=PVZlWJk+fZggLM32PaMTY84s7k2CUe8rduhWyYm4jR5cZouzL/3StaNPCV0OKs54bcurVM
-	C2SFhh+SLxxLgOwl7DwBdv0YIm2KR++LJ74wyTiECVXUa2OTX6UK2Xr1FdJvQkt5N4MqAs
-	fyD3p00myaKOn5IJn+7ulSDlut8sjB4nXLaPWpfh84HYi3cD94oI3NosjEdLCXY6GYK8ek
-	Oyns30ekLT0b77TxTZ7dltJqAeoqR2meW84PZSOhtPwaVPw1V5GnuSwg4dcBiBoVP1bSb2
-	Eyg9zYSq4InC94I4g42LXyuUR3Fs77iR0X78dL211bL0GMHez9d1VEescm58tQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of alex@chimac.ro designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=alex@chimac.ro
-Date: Wed, 23 Sep 2026 19:14:55 +0300 (EEST)
-From: Alexandru Chimac <alex@chimac.ro>
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mf0vILEO"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4e4979c47so93013a12.2
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 01:33:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790238810; x=1790843610; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cSk5us1+Cj8LsuotFx3JDoY747soUfy3AbLSDbj7948=;
+        b=Mf0vILEOmMDE8bFVtRV1bu88oFnAnyGRXQkSHprr1qji+Kfsge9Fy6CPZLf45cA41x
+         8++GXIKY/eL5FLytDg3QbTgmYuYesBv0oDE8Xj8mbt/vhtdvqTgqTTU/mXeSrNIEhDsk
+         GrfI9LO6V/g4sE90JEGKdKxT39vqG36hNmbFg1/wtukXcZk62ZFSDQCtfkry8omzRMug
+         892SuGqzMSOonKqO7YqqgtidDmZB699bqFMQNudpKmP4D4jYxWn9Cc8uDlMTI/5B0Npf
+         hek6UMfVGQSRaq/nVggchN2yzBZv/HWYQrvxBjCFa+PTb6FEIbgTjme/YGaVgO/kH4d4
+         nA+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790238810; x=1790843610;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cSk5us1+Cj8LsuotFx3JDoY747soUfy3AbLSDbj7948=;
+        b=nG2EH70HngAieqQePlFZlMlenOgOR+b5syXVCXr1WXGev3MKPP4/ujdZvqAl9FhNUf
+         4fB7lk1qEnh6k+YvThVbZ88tQyCRTOaNjHphJv35Vcp5Zh6lKu4hGDtFL1Fdv/Ta6C19
+         VDy4Ama7v9atW9GG0+YMP+LLc7cFlW41Vl4u7Zfesn7dzd9d6jHmpbLi6YMG03qGFq1y
+         pSkKSbFtSOJbSTQQ52fL4H3LqRYjVNZrC3t3FW90HdlylDnY6NH0KsYTq0ThoFxrJv96
+         /TodlX+x5gLiF80oacxTZRWWqK03Gp/I6Ob5NBf9IlHTz1gmPdCTa3ac66LHNxUIoEEZ
+         QvsA==
+X-Forwarded-Encrypted: i=1; AKwUvByg74eSvA3fMR290SVLQt9RzrQ2iS3KT/NfgL0kdV/9Jc4z6fzHhVMNuuA6Ym4b1DRn3n3x/hjAO28S@vger.kernel.org
+X-Gm-Message-State: AFuF++lp48UZ2BCcMfpCeh7Ffv0aQka1G2N1/nL8nL3fT63aJnvLA68H
+	a1PaJXdzztu68yyozH9hjiSgh94mzN5fCao6WsnQgVwnVr8BHNrP7aBS
+X-Gm-Gg: AYBFou3SawqW+TTcJB14T2eBAdwR4Z6TD9x+FoMubm08mVOPB2+jp+/5LaKouUuKouS
+	P2/ZHkSWW4dzU2M8cqctCoGoByKtHsNdFWIfW6inb8rnWbQoLGHb7I38V1oK6H95kkGH6761Jx5
+	/Lia6oTYf2/vdnoHjRy3JppoRwlRyIwWJflK6MJ8cDCzj9IJvz2yDdO9XAK0o1VXObVGWoDAAwp
+	b2ax3e2DUgsu317C4wLEUvy44WaM+6gVC8Z6Fxz4Z20c8ks6pfRUQyKPhjYevawzdeSu6CraK1Y
+	YfYeriyKQvnyPxPgwceCwNarpLYBvrTB6mucNbBx7us88jGId4qmP4Il76S78Meq7EJzIb60Vq/
+	R/rJ9pPWIa71F34CXsKRfbBXAGfLJHjBH64x2iY8ftSmQRV4ChL8wRQ8rPMMswx/mxQCVI5pdxy
+	Y4a2rvrcvQbnhj/08yTE9sp+p/AJ/zPYRQx7xQyWnlL+SlH2PnE5eDs07svH6hlflOWr7NBrity
+	bBO/ebZb8ifinDD//k54X/6
+X-Received: by 2002:a17:903:19ec:b0:2dd:8b95:d8f6 with SMTP id d9443c01a7336-2df7da60bd3mr24906105ad.1.1790238810313;
+        Thu, 24 Sep 2026 01:33:30 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516d8asm22659015ad.9.2026.09.24.01.33.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 01:33:29 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: linux-arm-msm@vger.kernel.org
+Cc: Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Tomasz Figa <tomasz.figa@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Message-ID: <1343593353.60484.1790180095661@app.mailbox.org>
-In-Reply-To: <d679c0e9-febe-4069-9c2f-a2173a5218aa@kernel.org>
-References: <20260922-exynos9610-pinctrl-patch-v1-1-f6d816696591@chimac.ro>
- <d679c0e9-febe-4069-9c2f-a2173a5218aa@kernel.org>
-Subject: Re: [PATCH] dt-bindings: pinctrl: samsung: Require clocks for
- Exynos9610 pinctrl nodes
+Subject: [PATCH v2 0/3] Add support for Acer Swift SFA14-11
+Date: Thu, 24 Sep 2026 16:33:00 +0800
+Message-ID: <20260924083321.33129-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-Importance: Normal
-X-Rspamd-Queue-Id: 4hqhrM1vZrz7vBk
+Content-Transfer-Encoding: 8bit
 
-Hello!
-> On 09/23/2026 5:58 PM EEST Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
->  
-> On 22/09/2026 14:15, Alexandru Chimac wrote:
-> > All Exynos9610 pin controllers (except PINCTRL_TOP) have clocks assigned
-> > to them, so force the nodes to have clocks assigned to them.
-> > 
-> > Signed-off-by: Alexandru Chimac <alex@chimac.ro>
-> > ---
-> > Most Samsung Exynos9610 pin controllers (except TOP) have clocks
-> > designated for them, so allow the device tree node to include clock
-> 
-> I don't understand above. It's contradictory to commit msg which says
-> ALL. Here you say most.
-> 
+Add support for Acer Swift SFA14-11, a laptop based on the Qualcomm
+X1E78100 SoC.
 
-On Exynos9610, only TOP pinctrl doesn't have a clock (as far as I'm
-aware; haven't found a clock for it), while the rest of the pin controller
-blocks do.
+The following hardware has been tested and is working:
 
-> 
-> Why two commit msgs?
+- NVMe SSD
+- WiFi and Bluetooth (UART)
+- USB-A ports
+- USB-C port with DP alt mode
+- eDP display with PWM backlight
+- HDMI (via DP bridge)
+- I2C HID keyboard and touchpad
+- Audio: speakers, headphone jack, DP alt mode and HDMI
+- GPU and video decoding
+- Battery charging
 
-The first message is the commit message, and the second one is the b4
-cover message. I wasn't actually sure how b4 handles that.
+Note on the compatible string: There are two names:
+- Swift SFA14-11[1]
+- SFA14-11[2]
+from the support site of acer.com, but the UEFI firmware reports the
+Product Name as SFA14-11. The compatible string follows the firmware
+("acer,sfa14-11"), while the model string uses "Acer Swift SFA14-11"
+for readability.
 
-> 
-> > information for the driver.
-> 
-> that's ABI break without reason.
-> 
+[1] https://www.acer.com/au-en/support/product-support/Swift_SFA14-11
+[2] https://www.acer.com/au-en/support/product-support/SFA14-11
 
-AFAIK there are no (publicly available) users of this device, so this
-change shouldn't break any currently available device trees.
+Changes in v2:
+- Add power-supply for the backlight (vreg_edp_bl), matching the T14s
+  LCD variant
+- Fix swapped vdda-phy/vdda-pll supplies on the QMP PHYs, matching the
+  reference design (cf. commit 7c1d0ef2969e1 fixing the same issue on
+  Purwa boards)
 
-The best (most correct imo) implementation would be having the clock
-properties be optional, pin controllers for Exynos9610 don't need
-to be controlled by Linux for suspend/restore (change is more for
-information(?) correctness anyway), since the CMUs should have HWACG
-enabled anyway.
+Jianfeng Liu (3):
+  dt-bindings: arm: qcom: Add Acer Swift SFA14-11
+  arm64: dts: qcom: Add Acer Swift SFA14-11
+  firmware: qcom: scm: Allow QSEECOM on Acer Swift SFA14-11
 
-Regards,
-Alexandru Chimac <alex@chimac.ro
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ arch/arm64/boot/dts/qcom/Makefile             |    2 +
+ .../boot/dts/qcom/x1e78100-acer-sfa14-11.dts  | 1521 +++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c              |    1 +
+ 4 files changed, 1525 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1e78100-acer-sfa14-11.dts
+
+---
+base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
+branch: sfa14-11-next-20260921
+
+-- 
+2.47.3
+
