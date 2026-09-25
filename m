@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7086D4A262F;
-	Fri, 25 Sep 2026 17:15:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87D83B8959;
+	Fri, 25 Sep 2026 17:20:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790356549; cv=none; b=Avg14MqP+T6z6I1phrPCrAtVMxZDfPHcIfD6XopE+car+F1G2VaLcR5zcf2h2YWnTO8AwRQiRoNSLgFJgN0VubdhpPs3obDb+P3NvjoUC8KrDaDMTzpTXOaPvOrZt5vV1XxRS5yMKurcMoVckDSJbhmsDJBzz/DZP3MFzwGSDVk=
+	t=1790356837; cv=none; b=WuczmNCfUTilXAcAL2gHoH9d0CXxoUgE69oW3tIYP5tm48yC6U7E3OHz58EZ2ovWgr90Z3aGGo0hrk4QzX98w0HQApWYTp/+qaqiW3f4ssq125ksJhGaNPRZDMfL3q14V7Dnao8257Wsgqo9VpN4maya70EaZqcsNQKGsCMeRi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790356549; c=relaxed/simple;
-	bh=DMgd1xAHI93Ch7Hm492FDFDKqVrLtXpdOnlurPA70eM=;
+	s=arc-20240116; t=1790356837; c=relaxed/simple;
+	bh=xuH4rMHgiZCL3Cowf3bOoFm040m2tsbBRg8ZaVQhjiQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=noS4AD+MhXLgQHZ/gfGkh4C+nWZfl9TSEiNW/rzFhgsS3zEFHpE4DPClx68EpDiw5QXKDKhouvtKKJBIOk/S7vjXZyB9DB+wSO33MbYdQYoAU+LGIiQ0ounBYlehEno6z9TFp9WQ13o3/5EE37eocOhcGSeQl0DGeuRM6kHdLuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mqc5Y7d8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DI5dqQCEvtkPZAWDgaZz+aQbZM50OTDUnPKp7fkAfqq516hx34WAAu6ERGgGNJFgT1BdMV5q7ykWu0YCaBjWLXBHLxmawZvLnSFp5ScDXpL3+szFKg1VUSVf8wKQFlOmpHqaT2gwQ2UVypgLHXqOU/awGnuBLks3iH2/VIzvXeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b/6+HumM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mqc5Y7d8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB9841F00893;
-	Fri, 25 Sep 2026 17:15:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b/6+HumM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 781BC1F000FF;
+	Fri, 25 Sep 2026 17:20:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790356540;
-	bh=8wrQukkbLvvWOUtbkwn8ZxkTSNRmKfGQ5MVi7iQyHbo=;
+	s=k20260515; t=1790356828;
+	bh=9mtMs1F8URTL/dYKicvxLK2zBTs6tbZNKZ1u22zz9SQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mqc5Y7d8JpciDSrcjetG2MsERuGJmWf9V2sE8IQ5qoBatO3pnNgtR3u9vhEAWwLeJ
-	 nWyIO6pNuDAHm/Z7iKXO+93/G7c444ZH9LE4CM3vX+fVhuSTOUuizOstlCJZYAArbE
-	 6n8E0w7tP5cQbawz0Q8nhNVVr5FfOzyENFqUoEBs8M+2fALSmSj9BhdmIy2b9dYQzk
-	 kTFJ6qRZj/VMSFygB7WrvWmZ+cD+ElKSQZMiBmdIAm4nrgUAPmlrRa1eO0wyhMHFYf
-	 8NVOMiZDeCgpsQA8CNZvjAtMH3+nYOM8YSfjhdmCsdDOkbSBWph78Kop3rcFAVmnkO
-	 yxXngypmG1whQ==
-Date: Fri, 25 Sep 2026 18:15:35 +0100
+	b=b/6+HumMP7kPnpdXsDR8qrKrbab2uwIwHABKXxhkhixQh+tUW4n+nvdkC58doeNeg
+	 d19x4o0FJsX4zkZj/h7uCI87IPZEbsSzrQW1rjzd7lgyKB8jOz38fBXKzqR79VVLBj
+	 xcs8A9W3tucdTnozTX0wHlQanQ5UTffAPsflZ/TW3J3khdbkm05VZCT6rRmqAp+CDt
+	 GL2t5XH1YuCoq//pI1C4C2dXAxQyARbTrTlZNM0vQ+G1mOH+VT4PvBfuLygCzVtz2Z
+	 9XaiLsvV8fUbnPttAmLkBKTTvM3zPL48jVTaxomSCtQIWTAGWHwQpdxClJzlncTElr
+	 sDA8oCpaEirCw==
+Date: Fri, 25 Sep 2026 18:20:22 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Joshua Yeong <joshua.yeong@starfivetech.com>,
+To: Joshua Yeong <joshua.yeong@starfivetech.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
 	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
 	"rahul@summations.net" <rahul@summations.net>,
 	"anup@brainfault.org" <anup@brainfault.org>,
@@ -46,7 +46,7 @@ Cc: Joshua Yeong <joshua.yeong@starfivetech.com>,
 	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Subject: Re: [PATCH v2 1/3] dt-bindings: regulator: Add RPMI voltage service
  bindings
-Message-ID: <a5d0d4df-7e8e-4f12-b011-e41b66efd8a7@sirena.org.uk>
+Message-ID: <767ad0d8-5886-4c09-b41a-681059b211b4@sirena.org.uk>
 References: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
  <20260923070014.1340761-2-joshua.yeong@starfivetech.com>
  <9c0ae39b-d214-40f5-b010-cdea14ccc774@kernel.org>
@@ -54,7 +54,6 @@ References: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
  <SH0PR01MB08411AA7F403A71D2D7470A6F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
  <0db3ed29-8bb8-4dc3-a4cb-cc5b9bf2e893@kernel.org>
  <SH0PR01MB0841C933DE1E00C4012BDF53F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
- <ed0c4c67-6933-455a-937d-f5888d124538@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -62,50 +61,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DWHGYh3WZIaCg574"
+	protocol="application/pgp-signature"; boundary="6d2JNYG1b86DxwHU"
 Content-Disposition: inline
-In-Reply-To: <ed0c4c67-6933-455a-937d-f5888d124538@kernel.org>
+In-Reply-To: <SH0PR01MB0841C933DE1E00C4012BDF53F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
 X-Cookie: Love America -- or give it back.
 
 
---DWHGYh3WZIaCg574
+--6d2JNYG1b86DxwHU
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Sep 25, 2026 at 05:18:08PM +0200, Krzysztof Kozlowski wrote:
-> On 25/09/2026 09:14, Joshua Yeong wrote:
+On Fri, Sep 25, 2026 at 07:14:14AM +0000, Joshua Yeong wrote:
 
-> > While the above method works but I'm trying to get the entire simplify to the following.
+> rpmi-voltage: rpmi-voltage {
+> 	mboxes = <0x0c 0x1004 0x00>;
+> 	#voltage-domain-cells = <0x01>;
+> 	compatible = "riscv,rpmi-voltage";
+> };
 
-> > user-app-b {
-> > 	compatible = "...";
-> > 	voltage-domains = <&rpmi-voltage 0x01>;
+> The user does not need to map any other information under
+> /rpmi-voltage/regulators/volt1 , since the value are being decided by
+> the platform microcontroller.  The fields like 'names', '
+> regulator-max-microvolt' and ' regulator-min-microvolt' are being
+> discovered during runtime instead.
 
-> I see. Why power domains do not fit here?
+We still want constraints, partly just as a matter of policy since we
+don't touch the hardware without explicit configuration and partly so
+that we can have additional constraints outside the firmware represented
+(either due to it being hard to fix a misdescription in firmware or due
+to needing to accout for some additional restriction that comes from
+something like an incomplete DT).
 
-The spec seems to map very clearly onto voltage regulators, it describes
-voltages in mV:
+Please fix your mail client to word wrap within paragraphs at something
+substantially less than 80 columns.  Doing this makes your messages much
+easier to read and reply to.
 
-  https://github.com/riscv-non-isa/riscv-rpmi/blob/main/src/srvgrp-voltage.adoc
-
-I really don't see any problem describing this as regulators, it seems
-to fulfil exactly the same role as SCMI regulators, supporting things
-like SD slots where the OS genuinely needs to control voltages on a
-mostly system power controller system.
-
---DWHGYh3WZIaCg574
+--6d2JNYG1b86DxwHU
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2rDYACgkQJNaLcl1U
-h9CdSwgAgMFKO17AuqQP+TIfWFVvmgx8SAxLdZAciDJp7vUz0+KV+gs7mIAFG/bW
-TF5hZ6o+AxJDaoZJB0MNnKwD1icT7bYsDNgD8ofXBZvUnfAQxttR3SiVsb1Uhw7I
-BPsnwGkDGg0ma9wokkrd+M3ah3d5i0Doooq05z1mgEeiQOre89STDUd7zB0riO/8
-/fa+MTIH8U3+pA2o4MtzgxaEkklWCthmRxSoNknvv6rFPGk7vWm+CNfA5SZaAuXS
-k0bpugjYmOHrmrCTvbogP5pMPtmhqYkYAIGtpZBY1FEBjJKO5y97nHiByWEQHVpU
-WK4Eq5kaV8sgtElCA0/E0bn5rRGa2w==
-=kWHX
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2rVYACgkQJNaLcl1U
+h9BgrggAgDyhsfxohSdyqHdW4q/wtZW8puPnBGyIVH8LSsrSt/PaB7PW2iI/psK0
+uahbIBFuxTHZ3IYFCT/y8S/a2zALvfLf2oQArhst89RBMHzCA7yFao7Frh07JJ/t
+tbMuWK0RbvJCYuMiysEm1Pw6BYTgjRmfhgTOWLefbpZinhIjYDY3Q8G+YPmKKmId
+3JD9dmUPLe0MX2TVJRYaaidNS3upNftJhNd3dWVsqVHf6/u/ZoW7f4aRwvi9sFEB
+bxJGGCcYdriLS6Xb9ymfl6KABEfMUm8iuiSCZNHOGoP1M7ciSNz0CGbl3wYB2rzg
+7pAL74BFEDv2UHrE+MxlOIYYjrsoyw==
+=xPca
 -----END PGP SIGNATURE-----
 
---DWHGYh3WZIaCg574--
+--6d2JNYG1b86DxwHU--
