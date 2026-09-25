@@ -1,278 +1,234 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC593244687
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 20:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7309A4F4728
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 20:36:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790368548; cv=none; b=c0C2OVApJ9kvakuIVxBWIiDSIJubNM6Ai5GskNAtLDW8hSlz/fCYDtMAUZGsIK3JLyA8NuFgqYBh4acYIwb/P1Hk6HQCBgiwOAOsHSBgdXW6KoRFCynlzSeVGhiksFWatxML202ObUCTyqkUY77vm8mW7AbDSZWBvlpIJwatC4A=
+	t=1790368594; cv=none; b=Lw7TYjFYGxcIFSwCjAPHlfYiAdIsyVlgxNFGQPnVnwbmtNBDbeMynyUgtGCpUxX9onaWWBsp9sp9rIMIx7UcU0OmKgHVfjOXx1TgxrBhazG273cITV6CpT+Wk9dVu+tcu9/dVLYyEhws0gT9FQiaWXCYG2s6QMeIoIUgLIovkl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790368548; c=relaxed/simple;
-	bh=JSLtS992gzEGa7aY5efNv4vm87rHU61wMC1Pm4bVtYs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G0i0TmhT3Jph1Yq2YfMne8oB7n4Sb+I2VtzAc3IBj09BhKUDmlEOp1XneVkKfM0REGAZpEcvbaehqG22/pBI1K0eD/kgLHZKngGeSmy3hisCyZEsT/BxQ1kKCmWLdFnqY3MiAe4VNHEWPqncYv9x7KjqD9xdPkyzOCnIJDg5Wxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QGfDl3Bm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D5oYenQF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790368594; c=relaxed/simple;
+	bh=JA1MmlvysdwOS02CEm2fbSKD0SzlpVAbqKq6s8T/mfk=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=qal4fk5QSIEqRqMa8MV/fPcAqsCSqMABZ3ZeYhGzvF6cOhk3hQUCe1Q0UzfUXdiu7K/AbUP6z4enfE5CvExdJV2o9KBAaPCh9EZUgrbChiHP/b9GSaVZT9DtpKQeA/LxXkN2NoQJwB7YLFCI1Y5SA5SjXPFRDmPlyDP630VlGIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rUQoARdI; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QGfDl3Bm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D5oYenQF"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PIoAva1164045
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 20:35:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	A78khGmA9qUjc85WT541K4/S4eJFRAYnFuzWGW94HHc=; b=QGfDl3BmFP6eS54p
-	VdvF6CjQXuQ6nYZOAfMU6xfFfMPTZVSTYW1YJ5JgLqZH75KtmnCQOt9lOLVE/j3E
-	5gJdAqeA14u1Azw+7KSArq/UO2map/B1Z6nvXTgfWtQU9CxeAO+QzZQMqpQXkxGV
-	t5pEdnuyYyyX2hwRzFYBd+EqRMRp9asqnu0zk1J3tEfnnF7wF3H5oqo3CfSvqIT5
-	JNBHfbgqo3lXuc4fBCDOXrUoQZ2WvL0GU8Q/MXo46yUMrPtkJWkkLwpHkpLaPaO2
-	3swkjvvcY4j7PyG74TeVfLr58Zdj1se8tlhbtuaHTTyfSnzOiseT/7y+p6rtlvvb
-	ToxmFw==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwv57h13n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 20:35:46 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3282d5302ffso1662459eec.1
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:35:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rUQoARdI"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so1098641c88.0
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:36:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790368545; x=1790973345; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A78khGmA9qUjc85WT541K4/S4eJFRAYnFuzWGW94HHc=;
-        b=D5oYenQFQ8Eaw/+p4/K1QCgvUIe3kJusUWlPc2Q6XYpXLEIXTHPPgJ35dfexU8Ia5X
-         +q/X7K3+Ubpw7XyRRAWnHc263eJEa/9uGVjJSJYKyWgC82MhkDeG2tqXUgPgUzwiodmp
-         Tymqy4an0QayTArjiifw2UgrNwjm145XbQ/ZpcmFYBsvhcv6TMf16PPcHsodEQNw0dQm
-         aHALUVTs/JiZsfOCR5jvgPoxsarOyvmfeh4tpHJCjavBdvZQSSG1TKX3Xkadrw04wNuu
-         XbD6wQtP4ZUH+9GsVwQGU0QbD4QW1Sv+9PvDRfmCv2OhPxIQ6s0kdgwoQK2E/Dlqkaj3
-         s/Iw==
+        d=gmail.com; s=20251104; t=1790368585; x=1790973385; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=4RNJ5nQR9k5gmyuH0UoJLYl6j03ODsgZ0SnhdOWBbVs=;
+        b=rUQoARdIqa7zC5jv8hEpX+gubV1tNKAP/VULSdvg4ONtky2R9Bk6rSfbWJEPfamK4A
+         b1fzg38bIjCaXnVivkD0QGNNl4gijLyUIFIJZTIvg0Id8dZsDgyTC16/DzWoULc3O87P
+         JcaBhIjwsvcs0wIj01D7sC/OGWUupO5DYVcL8c6h/twInBtbabpygzLoaDHO9MWhALPL
+         pJ7Gyk1J6VcfzdVxWae2SrFiRpewXdTndy1GJ8I7J5Qbj0qJkqlKvI94DGjK8532d34I
+         ES1v1CzJoglwra7xBNsyijJ4skcl2qwaJSnmMSlOwGRWtsFUx1Futcv1p+UQRkhZ0fzZ
+         GGnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790368545; x=1790973345;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A78khGmA9qUjc85WT541K4/S4eJFRAYnFuzWGW94HHc=;
-        b=SKBJmN8LvUbTfOiekKMNgmjBVz3YomKa/ArJtOwQhV5G3wW++JITvpMRRBIe5aRiKw
-         8994F3nmNJBo3WkszAXA5X4uxxwAgrPKpGIlj2Ix1rHP1RwE9gqOKz4nafjc58Lh7vRu
-         8YmWgrI/KRtc1jXAXaYr7HVJrxmv1E+i7t3F7fLcvbgIXkb2GRyg6/6pXid1PpGIqUPP
-         aKY/7bvxqPwGeLcoJEolM5j1LNHtTc6/feC7+0xFjc7IjIITcD47oZNvfDz5yqgK+A6a
-         2LHRK3JSsDFL6kMM1dYWTAFSLIsw8cSx9N8jBHAO9mAMcK+W88VHGx5EVk0uXWQJScNi
-         pH9g==
-X-Forwarded-Encrypted: i=1; AKwUvBxmbYVPGWG3xb6uqTERZIbCrGmoPE9jqkhubHiHh2P5bO2/lzD9WoSuQWfOVpnKi8uxN+Dogldbvb46@vger.kernel.org
-X-Gm-Message-State: AFuF++l3lYDT8olj4BMd0Vdhs+8PLG5G4y9yM2D/8yJAC6pLxWSicEbm
-	MzzBUDtpsuYjr2Zcd7nBj0ZOWSaR0EUi4yWSQUnfoDjrkyaLv7IRW1/WMMHqZlTCKGxadQ+WHb2
-	OH837CjMp4fIBRFeqBchXQOVTDQnsoVNf8oqJFjY/4j6CwWz21k+4TApPquGV+Tcr
-X-Gm-Gg: AYBFou30SsKnJEgbZeH3c7Wc+c0ZndYjvrJJPch+bmM9C2zZYvVFI+OjDc8OpzJIqY3
-	Mq1k2IIOwX2cF7XhbGMiDHM9wYRumCuU7q0Mwzbcsq8YIJSqnWjkxO9hQ5OhVriL4EcAzWQ7kY2
-	eZND2mLcliQP36/VW98SytDt8Q3eKGrfLSpQN8mymlVSC0LouedlHBJCq4g/JNq6s+8y1bUKwF9
-	1AkrMwOBplQkU9P+irs4f6nPmlabpuNK9aeebxJmtZrDJN1ueCfxe5g8GmM2Y9Awdf5ScqT+1GS
-	iYOLhyctA85U16gsYQb4eolpG7+wq3TM+4XqCImCjb5cz2gkYogQn5s1AHHNPgeVqAc9/yAzLJr
-	FiS6LBH26XYmN/QS9/CEsCjlz
-X-Received: by 2002:a05:7301:7183:b0:33c:34b4:85d4 with SMTP id 5a478bee46e88-34270ab91a3mr949101eec.10.1790368545250;
-        Fri, 25 Sep 2026 13:35:45 -0700 (PDT)
-X-Received: by 2002:a05:7301:7183:b0:33c:34b4:85d4 with SMTP id 5a478bee46e88-34270ab91a3mr949065eec.10.1790368544367;
-        Fri, 25 Sep 2026 13:35:44 -0700 (PDT)
-Received: from [10.204.104.211] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-341451457d0sm8858485eec.21.2026.09.25.13.35.36
+        d=1e100.net; s=20260707; t=1790368585; x=1790973385;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4RNJ5nQR9k5gmyuH0UoJLYl6j03ODsgZ0SnhdOWBbVs=;
+        b=1fP4JbVwl6U3509dgN+O9FOyLgw2FDMiheqxHoHEibvYj1POzZnDPSFvJBu5eM+wY0
+         jGNuqpDy8G2oZwywDoCw4RHIYCsGHchrN197sC9OcEDsMpW+qiAqmgY2/rTR+d49nT89
+         K2EXzBvDIAv8CJWhcY/XUy8XZyoFu84Kvjh3yFBogoV1pVoSYXfqCtvp1UoD6ZzG1nlv
+         H4XVbR5MGLS9NSrucu1zylofTmdAo+d+TeQ6J3yQAld4/Zl4APHL/sd5wyTLcNda4Ubp
+         qqYXMf9V0C3O1nuEx1blUn2iQneibPofBO90+iN11fevBtW5UNsifVXvymLtVL6qn9kA
+         bRDw==
+X-Forwarded-Encrypted: i=1; AKwUvBxUosZUzhzdrNZmm+IsBIEu3uA5kOAS2IXZDgdFm4rUK86Ok9ls2GeJFI3p3BVerTJpKYBVi4lHbxl4@vger.kernel.org
+X-Gm-Message-State: AFuF++kBRb96pEaRwrkj0um4ESesls5Ohswo+t6pPh0pYQbCv8vYeYcf
+	Qj8yRJo9skujHE69gz/rDRJolGu3lRRQnSbWhaLzalU/ZCZ12h/SYbBb
+X-Gm-Gg: AYBFou3unwAYh7Yj367m/Pp4cjAzqqcnREHp4GESHL2vQfIX/Kdk2798bZ2QSTV+arF
+	G9rrR1ZKcOfmTbrETaeYr1n0ICuNjxxP/D28Qk6CUuiK8G08xcNfG5uhsCsaE9MzcgVjDaUkW8P
+	pf0/eXB7NjQICs7CbNzx6d/YEvvgLrG+WaAylIPusbIpuXv8I9A+gNRbD/NNYekTMhtzkOiA0Xh
+	AQL2aWiNvl6obkkAAbLMT3QFHS0SnR/dJcuA2y69DEfQYTZ+e5SNKS4VRdPQNaqHcoLob1lalt3
+	PM6hgiolKkLKHvrdL2K3dDN1LOWlXzkwNRZFUAlWk+JpdBO7lXz9XzyQnNmnlf1mp/76weFSW9Y
+	EeUqVvqCeOhU+6U0iV47XVr8vo9XtPW+mR8KEfx7EMO4bg8TWkdhKE4VBRLuzXE14uGk6i5L4jt
+	Ox874CqFERwzldXglG1hJ8YuXQXzXoil2xJqfUDRS8SdC3IFIEjwIL55zmGlUy/tFjG5QP75zX+
+	++0atCOsTUYevmhHfU4apEyanz5pRKxAnyLcOTsv+ubUptMhEfzSI5itOnrkyp1OlS2RQ==
+X-Received: by 2002:a05:701b:4346:b0:13e:aa58:89f8 with SMTP id a92af1059eb24-146ce86dbddmr949798c88.15.1790368585236;
+        Fri, 25 Sep 2026 13:36:25 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([2a00:79e1:2e00:6c01:e929:591c:a76d:ca9c])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145ad9e097fsm8107732c88.13.2026.09.25.13.36.24
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 13:35:43 -0700 (PDT)
-Message-ID: <680e632b-c919-4c25-8f25-a6bd9550ba6c@oss.qualcomm.com>
-Date: Sat, 26 Sep 2026 02:05:35 +0530
+        Fri, 25 Sep 2026 13:36:24 -0700 (PDT)
+Date: Fri, 25 Sep 2026 13:36:24 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: David Heidelberg <david@ixit.cz>
+CC: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v7_1/4=5D_Input=3A_stmfts_-_w?=
+ =?US-ASCII?Q?ait_for_controller_ready_after_reset?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <b684b88b-55a6-41a9-a4da-3bca33550164@ixit.cz>
+References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz> <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz> <arbJrK9zfoO1dGzy@google.com> <b684b88b-55a6-41a9-a4da-3bca33550164@ixit.cz>
+Message-ID: <B0EA1BC5-3B3E-4D31-9A37-974E38309C74@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/15] dt-bindings: display/msm: Document A850 GPU and GMU
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, Rob Clark <robin.clark@oss.qualcomm.com>,
-        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jordan Crouse <jordan@cosmicpenguin.net>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
- <20260923-hawi-gpu-v1-10-0c3c79a1a470@oss.qualcomm.com>
- <6c8aa567-6ad9-4aed-a7ec-5d2cb6979384@kernel.org>
-Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <6c8aa567-6ad9-4aed-a7ec-5d2cb6979384@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA4MiBTYWx0ZWRfX2l6Wi7aOr9Of
- NylKwveBO9QvW8I4mKWfbEsyAL/0rlWG163PZ1+SuQaIkpt+XdyRjO8eyvv2XOYdzw4cTXpJyGw
- cdi89vv3Qh90PGnFj4I46HCmimpYHxmQ4jXhVMFac9jOh39aFCUYff4FlBbN9Dm3EynGkVz0bM0
- rbERUEwH4sg3E7C2r99r8DsXYOhrX/QJyBLniQ0luDkBne81u54ESDFU5C35Hf3Hy599NftoOW6
- oHPcRThbvRzr1PW3q5pZdOj0odqjZe5OGPPk+ZAf5pWdPahMOT2fTGgOhJkL4jI2t8Ax+g4FmsN
- G64GrshfD+ZS2f6IDSyi6Iz4RWUG0Xuwa7VvnAuJFIPzV/IHzdTvHuD5bq1xyxJ2k2a+8HuKxpK
- JP2z9Uw2NikoIgfbL8O5iTVujDFCaRLmSn7A78rFgYlWaumb6vA+nCDIRPuPRkmFm8eu3r1BEBO
- zCMsNCePh4iDtWg4pvw==
-X-Proofpoint-GUID: -jUJ3jpDguddEqWdIWmHYp8ChuI9lvv_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA4MiBTYWx0ZWRfX19q/i+dvTf0z
- Ihmgv0rvWvcjNMpJLM7szGx63WQ1DV8RiLJxzEo9jnq4K+x7gJFZAyy+dxWkmjqklwla7c5/SMi
- XLOcUjpDQN/G2+nlKMLUbGYi44WJbJE=
-X-Authority-Analysis: v=2.4 cv=S4dMU4sP c=1 sm=1 tr=0 ts=6ab6db22 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=SG-BlJrJjKrpKyBIS-0A:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: -jUJ3jpDguddEqWdIWmHYp8ChuI9lvv_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250082
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+On September 25, 2026 1:20:56 PM PDT, David Heidelberg <david@ixit=2Ecz> wr=
+ote:
+>On 25/09/2026 21:27, Dmitry Torokhov wrote:
+>> Hi David,
+>>=20
+>> On Mon, Sep 07, 2026 at 12:50:19PM +0200, David Heidelberg via B4 Relay=
+ wrote:
+>>>   -static void stmfts_reset(struct stmfts_data *sdata)
+>>> +static int stmfts_reset(struct stmfts_data *sdata)
+>>>   {
+>>>   	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+>>>   	msleep(20);
+>>>   +	reinit_completion(&sdata->cmd_done);
+>>>   	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+>>> -	msleep(50);
+>>> +	enable_irq(sdata->client->irq);
+>>> +
+>>> +	if (!wait_for_completion_timeout(&sdata->cmd_done,
+>>> +					 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS)))
+>>> +		return -ETIMEDOUT;
+>>> +
+>>> +	return 0;
+>>>   }
+>>>     static int stmfts_configure(struct stmfts_data *sdata)
+>>>   {
+>>>   	int err;
+>>>     	err =3D stmfts_command(sdata, STMFTS_SYSTEM_RESET);
+>>>   	if (err)
+>>> @@ -593,42 +602,47 @@ static int stmfts_power_on(struct stmfts_data *s=
+data)
+>>>   		return err;
+>>>     	/*
+>>>   	 * The datasheet does not specify the power on time, but considerin=
+g
+>>>   	 * that the reset time is < 10ms, I sleep 20ms to be sure
+>>>   	 */
+>>>   	msleep(20);
+>>>   -	if (sdata->reset_gpio)
+>>> -		stmfts_reset(sdata);
+>>> +	if (sdata->reset_gpio) {
+>>> +		err =3D stmfts_reset(sdata);
+>>> +		if (err) {
+>>> +			dev_err(&sdata->client->dev,
+>>> +				"controller not ready after reset: %d\n", err);
+>>> +			goto err_disable_irq;
+>>> +		}
+>>> +	} else {
+>>> +		enable_irq(sdata->client->irq);
+>>> +		msleep(50);
+>>> +	}
+>>>     	err =3D stmfts_read_system_info(sdata);
+>>>   	if (err)
+>>> -		goto err_disable_regulators;
+>>> -
+>>> -	enable_irq(sdata->client->irq);
+>>> -
+>>> -	msleep(50);
+>>> +		goto err_disable_irq;
+>>=20
+>>=20
+>> I think the logic is becoming quite convoluted here, and factored out
+>> stmfts_reset() does not help=2E How about we make it look like this:
+>>=20
+>> static int stmfts_power_on(struct stmfts_data *sdata)
+>> {
+>> 	int err;
+>>=20
+>> 	if (sdata->reset_gpio) {
+>> 		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+>> 		/* a short delay before powering up */
+>> 		usleep_range(1000, 1500);
+>> 	}
+>>=20
+>> 	err =3D regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
+>> 				    sdata->supplies);
+>> 	if (err)
+>> 		return err;
+>>=20
+>> 	if (sdata->reset_gpio) {
+>> 		reinit_completion(&sdata->cmd_done);
+>>=20
+>> 		/*
+>> 		 * The datasheet does not specify the power on time, but
+>> 		 * considering that the reset time is < 10ms, sleep for 20ms
+>> 		 * to be sure before releasing reset line=2E
+>> 		 */
+>> 		msleep(20);
+>> 		gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+>>=20
+>> 		enable_irq(sdata->client->irq);
+>>=20
+>> 		if (!wait_for_completion_timeout(&sdata->cmd_done,
+>> 						 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS))) {
+>> 			dev_err(&sdata->client->dev, "controller not ready after reset");
+>> 			err =3D -ETIMEDOUT;
+>> 			goto err_disable_irq;
+>> 		}
+>> 	} else {
+>> 		/*
+>> 		 * We do not know the real controller state (was it powered
+>> 		 * off or reset)=2E Let's hope that this is enough time to
+>> 		 * initialize=2E
+>> 		 */
+>> 		msleep(70);
+>>=20
+>> 		enable_irq(sdata->client->irq);
+>> 	}
+>>=20
+>> 	err =3D sdata->ops->configure(sdata);
+>> 	if (err)
+>> 		goto err_disable_irq;
+>>=20
+>> 	/*
+>> 	 * At this point no one is using the touchscreen
+>> 	 * and I don't really care about the return value
+>> 	 */
+>> 	(void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+>>=20
+>> 	return 0;
+>>=20
+>> err_disable_irq:
+>> 	disable_irq(sdata->client->irq);
+>>=20
+>> 	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies), sdata->supplies);
+>> 	return err;
+>> }
+>
+>Thanks, it seems to be better (thou would be nicer if we didn't have two =
+branches, but=2E=2E=2E what we can do)=2E
+
+That's that enable_irq() in the middle=2E=2E=2E We could have more "ifs" b=
+ut that also looks ugly=2E=20
+
+>
+>I added you as Co-developed-by :)
+
+Thanks but I don't think the change was large enough to warrant it=2E
 
 
-
-On 9/23/2026 6:30 PM, Krzysztof Kozlowski wrote:
-> On 23/09/2026 12:25, Akhil P Oommen wrote:
->> Adreno A850 GPU found in Hawi SoC belongs to the A8x family and is
->> the successor to A840. Like A840, its clocks are described in the GMU
->> node and it has the following power related updates:
->>   1. GMU is now powered via a dedicated GDSC connected to MxG rail
->>   2. An additional power rail called Bx
-> 
-> I don't see the updated related to (2) above
-
-This rail is voted and managed by the GMU HW directly. I will update the commit
-text there to make it more clear.
-> 
->>
->> Describe this GPU/GMU along with the new compatible strings.
->>
->> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->> ---
->>  .../devicetree/bindings/display/msm/gmu.yaml       | 44 ++++++++++++++++++++++
->>  .../devicetree/bindings/display/msm/gpu.yaml       |  2 +
->>  2 files changed, 46 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
->> index 9e459f12ce3f..875fd1242528 100644
->> --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
->> +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
->> @@ -55,14 +55,18 @@ properties:
->>        - const: gmu
->>  
->>    power-domains:
->> +    minItems: 2
->>      items:
->>        - description: CX power domain
->>        - description: GX power domain
->> +      - description: GMU MX power domain
->>  
->>    power-domain-names:
->> +    minItems: 2
->>      items:
->>        - const: cx
->>        - const: gx
->> +      - const: gmu_mx
-> 
-> Your commit msg said mxg. Or mx, because this is GMU, so saying that
-> it's power domain is GMU is redundant.
-
-This is a GDSC that sits between GMU and the MxG rail. On a second
-thought, I think we can call it just 'mxg'.
-> 
->>  
->>    iommus:
->>      maxItems: 1
->> @@ -359,6 +363,46 @@ allOf:
->>              - const: memnoc
->>              - const: hub
->>  
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: qcom,adreno-gmu-850.1
->> +    then:
->> +      properties:
->> +        reg:
->> +          items:
->> +            - description: Core GMU registers
->> +        reg-names:
->> +          items:
->> +            - const: gmu
->> +        clocks:
->> +          items:
->> +            - description: GMU clock
->> +            - description: GPU CX clock
->> +            - description: GPU MEMNOC clock
->> +            - description: GPU AHB clock
->> +            - description: GPU MXG AHB clock
->> +            - description: GMU HUB clock
->> +        clock-names:
->> +          items:
->> +            - const: gmu
->> +            - const: cxo
->> +            - const: memnoc
->> +            - const: ahb
-> 
-> Keep existing order. ahb is first.
-
-Ack.
-
-> 
->> +            - const: mxg_ahb
->> +            - const: hub
->> +        power-domains:
-> 
-> Just minItems
-
-Ack
-
-> 
->> +          items:
->> +            - description: CX power domain
->> +            - description: GX power domain
->> +            - description: GMU MX power domain
->> +        power-domain-names:
-> 
-> minItems
-> 
-> But OTOH you need to restrict power domains for every other variant
-
-Okay. For every other entries here, will add the following:
-
-power-domains:
-  minItems: 2
-  maxItems: 2
-
-power-domain-names:
-  items:
-    - const: cx
-    - const: gx
-
--Akhil
-
->> +          items:
->> +            - const: cx
->> +            - const: gx
->> +            - const: gmu_mx
->> +
->>    - if:
-> Best regards,
-> Krzysztof
-
+--=20
+Dmitry
