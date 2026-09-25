@@ -1,305 +1,307 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AFF217F27;
-	Fri, 25 Sep 2026 17:54:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790358892; cv=fail; b=iQvqJdcLaZ1qFoaDhKB2mhaHPeROZkuBjbCNbMNjFEJR5bZLlUQAJn/g+jSxEbmAZYmu+g0bFTas3kwUad04J7DzTpKf6DqUqK7+9HA4DIZSjZipNN2M4RxiVO2TivFMsdntTWIa9VehQPxshq6GHdoKo0C8cbJgoADT6CtnqCE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790358892; c=relaxed/simple;
-	bh=E7fhZj1sXYKAe59uwX3Fo59OHjdLvQuj8gEIjvTu184=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
-	 In-Reply-To:Content-Type; b=ZSFqgZMHnZoMJOOn+P+O/atB9uVMCg1gohl9YYQ1oy6FLr4vpoGqPzFspBe13l3lXKo2utwRi/esbq+YI5CzH4TUq8PZNGdAj7nCrkAqXNWSPtJk5oK2OHLOfNPN4hvGzvLnNZ8mFNEUo3S3hhuYDydP73ubqmY07kqtXFOpo/M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=S/QMNYqM; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Ve2J3o+p; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BE4409285
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 18:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790359842; cv=none; b=O/g4RKm0ntZcb1IxHcCILhPRliMO4+FCpaHI/ON9oCTX2X//8Swm8Z49K0ooATTnZP2aGOlkmlLZV9PBW5657lsX7cMfvy96iGUCQCDtaheQ6f+L9fhAsJ24O3SGZLgpZsl00xS6Y4HKN501Qy7ceopurbE1XjhpfM6QVoRostw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790359842; c=relaxed/simple;
+	bh=yiPfRUOL+OZ9/QfnnwJ5h2P+82mwFzI3sPg4U6hlGHs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RQVB0gx5Fkzq05TnjLOPHtlOgAk3WSejDEoRJJHvCUb6s+B2TLUVIN8RvZEXRWgKGj6QfYdk3k0Yy42OPGzh6NSIoSapw/49r4i4a/5dN34JoVm6SHOsNN06RVH6nUU1/pv2/6mc3H4WjcQ7yrplofujW20Y/xnBYlEq+Cl71Xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=M6FNnlNy; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="S/QMNYqM";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Ve2J3o+p"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PG1bGG2478489;
-	Fri, 25 Sep 2026 12:53:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=3naU3PpXFfPjyHmwnMU2HOc7VX7Vp1eDGQD9U5QrY
-	Zw=; b=S/QMNYqMNqDcmT75L0VXSKVrsLfr/q6gyMCXiaT8HYayZD3KtLVqL4CgC
-	EfE4QEmZCZ2Cr7QiAaeWTEmY0g+Ys78+trD2sEqhoQqQpFeEW3Wjd8sY96wOsVt3
-	ALUlO2MiOaS/h3qFBARbzcKa//0w83b4Hz+KIkVMHbYUojaEwqyA+P7c77rtC8Dz
-	XlT2GdGcXH5MK3/w1SCbAxOMz64DiBArCiUspFMw90XJSbK8DIwhLslRgVwxS7sS
-	R2LfnNYYnaJGr1Yn7IO+24pQXZmG49LefUV3RDCAPJ3hhqgSX6y9Qfcc1hozlhyS
-	iNq1E69L20veEWcTaRhO4BpOibxWQ==
-Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013060.outbound.protection.outlook.com [40.93.201.60])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gwtcnsexb-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 12:53:44 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ysNZHxc81yKuT9XJbN7yzGQsRRrx41vcL0xir7S0xnDXTiWTPDVNc9a+g2L5+vHnhhnr5eVmJLNH7kez+w8ODhNx1syyS+WHtJtzocDri0fSsOCJYkvS6Yvqos+3os7ZgJfLcrux4dRuQr8YC1OtbaFdh7e2wOhohg9G7VnPpmmDeHlSxybqmoePCjZdU/hjMTV6VjXwSN/qWrBWGHozcwtrj53qhTF96NqZLzY0VAMSg3IUBaWqwAYRIFMHtG7xZMYNDKdKE8qzqUc4X5TCCHwE7z67S/i1ma8fMoZCkVdxASbrOlQY3hEGjcPAzR/iEw796sLoPmzyJNk0mokmxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3naU3PpXFfPjyHmwnMU2HOc7VX7Vp1eDGQD9U5QrYZw=;
- b=FaKeqIUkJTjkkg5CfZuIId4eP3y7CwzcMwAsAPbPwCYp1GpGvFX1N8sVPVV7pjN3gu8+jzpl/eB1vbcBAqixtezip+Ai/M1bnLQodSucOSSWOzDMdGs8Vd8/jN8kVnHzZWCbrQI0MmfEqjseE/Da+AV0qd1nzbUEPQRDCkNjeUpN6VqRrsRzWWUuQUViTSdJe/zbIHgrB4V7QXFpgS7mKy1I8/dR4S5Rt6kgJLIb7oG7OGgMakBvEF4XbsHlniLuxmGZoTRRxztYMv1/k49TAvsAuEvEm/4qitgor2lYa7uyc4ITFa/bpa8qa7xJE4NzjZLIcntdwxA9y9AGjDr4gA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3naU3PpXFfPjyHmwnMU2HOc7VX7Vp1eDGQD9U5QrYZw=;
- b=Ve2J3o+phTb16gLMiYVl6YwqZhdAQJCyh9WuKJuCmFnQ6IUuLNurOkSQaopgaggHjtsaVbeHwG0qjkyGRTcsDpxQ5//SwB/+hQ0uY1DqR+VAraD5+4B/qMG3YjVcwXrdf2PGOPAmCJdWwTGEElREHtbTEpHMAkPLJc1U+Vp7Lzk=
-Received: from PH5P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:34b::16)
- by BN0PR10MB5160.namprd10.prod.outlook.com (2603:10b6:408:115::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.9; Fri, 25 Sep
- 2026 17:53:41 +0000
-Received: from BY1PEPF000264B2.namprd02.prod.outlook.com
- (2603:10b6:510:34b:cafe::f) by PH5P222CA0005.outlook.office365.com
- (2603:10b6:510:34b::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.19 via Frontend Transport; Fri,
- 25 Sep 2026 17:53:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BY1PEPF000264B2.mail.protection.outlook.com (10.167.242.118) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 17:53:40 +0000
-Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 25 Sep
- 2026 12:53:32 -0500
-Received: from DLEE201.ent.ti.com (157.170.170.76) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 25 Sep
- 2026 12:53:32 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Fri, 25 Sep 2026 12:53:32 -0500
-Received: from [10.250.148.15] ([10.250.148.15])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68PHrPgK2296425;
-	Fri, 25 Sep 2026 12:53:26 -0500
-Message-ID: <48c598f8-f206-4d04-a031-8ace135b1b88@ti.com>
-Date: Fri, 25 Sep 2026 23:23:24 +0530
+	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="M6FNnlNy"
+Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93a2a8c29c4so119431385a.3
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 11:10:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790359838; x=1790964638; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yos8fjWl7KQaz4RsBjbMVq1d086QRYEcPbUkmGEv6p4=;
+        b=M6FNnlNynhyrLUtOfOa8OYgFCVoNnZY6ukZGi56t0okbTSbilBbFcfFM2uNh3CaVpm
+         42Ym7355Gj9o8pMjtCte7UiW0xbftWAcxovzPa9WsnNm3pCCNgUoAF9WXQ33j+4DmPvn
+         kezYzVmQ941RzwkmpBpDAB/txByCFpXsTZ8lcwhnKsvYxR/SaAhGykn/fOFC6iWSk9S5
+         RlrcnUxRpmZMHaBUbXsMUEPseqJhARSEm373k/UEK3jfkqQxwB2P5k98KIEuQBihLeAF
+         tFT6ySrqwB3U1jYK5sSpIdhSQ2zuFTDLkvd3lMavmbOnckhUxdYojby4m9oIS67/8qHy
+         uaOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790359838; x=1790964638;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Yos8fjWl7KQaz4RsBjbMVq1d086QRYEcPbUkmGEv6p4=;
+        b=n5KXmXKC5/63KJW1xmxgC1Yb2WNI38rM7Jv5e05gkG5SS1znVkcfAt3jl5M9llEciv
+         Hy4gjXz4EDZz6bZhfUSok1DK9pY6/VuY2LSX9oXu4F8x4IcyRIgRuruOUYjqCszf+yjA
+         CLMRhVKqPWv0mZybWl0rscctL+18gcIpMDhRqCRMu6bOapOO2v4ZQxDIiSNBmqtGxms5
+         tpafn/RQAd604uEYRphwoZFaEm9351GX0v2l0gWto/mwxALf1rATUn+Ytjq2q27TCobG
+         sroqll2Qh/sikt+vuNQo4zPpYO7AadWTklItJIO4JExgDVPlmM89JhRKiRpvIg75cvCe
+         DJHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwIeS/XYP4u+DxvmCMIND4R6qeQUOdHzpuF4G+CQfmfsofQMFThNfbB5XocAb9G7cZFof/FnoD7HkRH@vger.kernel.org
+X-Gm-Message-State: AFuF++l+DTOEg2CI2SMkIz4vJhVQfXIAw3Ya42uFO2aERFSuWrbGQ9Zg
+	OyQGb03Lci85mvoKZUjqWYzhe+2oWd9j7NIk2Ap3VzoYZ6khkZ6NopXI+8Q9FI7ybf0=
+X-Gm-Gg: AYBFou3+xL36T4udwWm/pDiIhaB/x3Jdx4NCXzWLjGOoRl/sbGsQpiFlFlxsUoPrxJt
+	fvf5d4IODoG/2Mm4ByFPgeXeUg4bOREu/6ggHYKJe1j/YL4sHmZ65dTG33yw9KZ315qhpsdsB87
+	ePwIOBOjo6RCMeYsrFOPxVZpO1zT1ByL2Tw81RUENgn7WGGmm++kTWgbeTB9HaIzIJhprxveWUj
+	U00SeiJ01jHmYGbEwn0hi9c2lhDCxqDbrsTlbp9T/xQOOxHbj+CfgcvWKu7ievfBUYx/ZUv4lkv
+	iRZGiMIMAI38Uz/mz8jhlMDvJeicUoz1/m/iIIJSvsl90R4Czrd8rnYem4JpNXJoHMKlO8wO/ts
+	SYED77z82GpVq8r1012/Y232zUgMgp2b5GbberoH+EYWKeU0+nhqLrMTL9IUFwYjeFpEyI+PGhe
+	AdIBw3Q5L5YK/NUSQxkxISXHszAWXzOnP0Rk9xY+AGLIPXmwQ=
+X-Received: by 2002:a05:620a:2683:b0:939:3100:750c with SMTP id af79cd13be357-93c43bbd482mr641540985a.22.1790359838322;
+        Fri, 25 Sep 2026 11:10:38 -0700 (PDT)
+Received: from armok ([2605:a601:a61d:7a00::2])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91430dda494sm22529336d6.23.2026.09.25.11.10.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 11:10:38 -0700 (PDT)
+From: Liviu Nicoara <lnicoara@thinkoid.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: x1e80100-dell-xps13-9345: add the front camera
+Date: Fri, 25 Sep 2026 14:10:24 -0400
+Message-ID: <20260925181024.20352-1-lnicoara@thinkoid.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v3 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
- e-ink panel
-From: "Thakkar, Devarsh" <devarsht@ti.com>
-To: LiangCheng Wang <zaq14760@gmail.com>,
-        Javier Martinez Canillas
-	<javierm@redhat.com>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard
-	<mripard@kernel.org>, David Airlie <airlied@gmail.com>,
-        Simona Vetter
-	<simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Wig Cheng
-	<onlywig@gmail.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Sam Ravnborg
-	<sam@ravnborg.org>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        Tomi Valkeinen
-	<tomi.valkeinen@ideasonboard.com>
-References: <20260529-bar-v3-0-5c2ac1c751ee@gmail.com>
- <20260529-bar-v3-2-5c2ac1c751ee@gmail.com>
- <2bfb73e6-dca3-4d93-af04-3c644929dd19@ti.com>
- <20260616083921.4066690-1-zaq14760@gmail.com>
- <423c3dca-9589-488d-8462-c3d51f05ee4a@ti.com>
- <20260617020926.114947-1-zaq14760@gmail.com>
- <8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com>
- <20260731035705.3198816-1-zaq14760@gmail.com>
- <20260916082924.956116-1-zaq14760@gmail.com>
- <0a13ccb8-8817-4223-a4a2-0de594ac8c71@suse.de>
- <20260916094453.1062125-1-zaq14760@gmail.com>
- <f4c6feab-b1ec-48df-81a5-888444b243a3@suse.de>
- <20260917025644.1262504-1-zaq14760@gmail.com>
- <CAFOAJEfnDrGTg40h=R0mfZasroPkrSsmbVmmMA91O9uOzu_gYQ@mail.gmail.com>
- <0259fb51-acb8-4b07-a6d5-2fe25fb0de9c@suse.de>
- <CAFOAJEe_7Cqo_=NWPGyYBTu3mD3CjPMC92ZZR6qHPjAhQws7pw@mail.gmail.com>
- <1f59a88c-b0b0-43d7-ba2f-4c50aae87ef4@ti.com>
- <20260918062518.1824876-1-zaq14760@gmail.com>
- <44927324-295e-4528-8a66-2cdd4a52b1be@ti.com>
-Content-Language: en-US
-In-Reply-To: <44927324-295e-4528-8a66-2cdd4a52b1be@ti.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B2:EE_|BN0PR10MB5160:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b9404b5-467e-4024-b820-08df1b2def06
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|7416014|376014|10067099003|56012099006|5023799004|6133799003|18002099003|22082099003|4143699003|13003099007|921020;
-X-Microsoft-Antispam-Message-Info:
-	yQ5wNH6q4u1F9Abuq85RZvTVgGdRbC9+GEuDcw8/w6uMaY/p5WE6sqqOm64NB7iFQMmXE/ok4Dsq/iMFyISI743fKtxyik9Kr5kBMfeGJpwwSGSOYq8M7OL6CsLlhoPdWTJ7YOy9MbDdLNIsGQ9g2G7GkAHIfAz9CgGDEVWCjI9DYLDgrOmSRC6qPTyTlBiiRUSjh2DMgKq+0vc42s8MNpZ83kMuwi2lLJvW+iVVOw4B8JqwgjeMR01gBDKuwVP5IhetbKXFHarU7Iqc/v2a/QPYeFdvZMH8JwC/epeS0lI/so5ZDqgbHrrhdjHiwsU3KQGh48izyzmTU6GaZi2YOKIlh4EsN6e38523jAJeE2Furbzpy0u0PCjZeDs7dTecVL5Bx1gOVAjWxVpPoQ0XJGbGAq3yPIQZcyaGZ7WJ/wMETe1AZWGxSz1lqaxfLSxgiOrlWiWa5v5/7pXVd7gSmXvAzYYNyeTwDBceoNK5Q1tKwVgl9GfFD4N6n5lNk2eDTP1HMqAL+KQ9l21zeslHXMZanOBqgLqLgijf0NoIBMchsnTnvGHVQvVZeuPQz/GY4jrf6PGjb6tFmehO1vxrofaimDMBApMfStuZAS0iU3d8/IvD6gHlBMSg5c40nElHbupxAGFQ5AlSrMnhC5CDfp5XPwhSw95pq6sBnLo0R0qdzXJ415x6mOYuPZHSBF4Z7CGNSAJqwIv9OCBqznTYag==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(7416014)(376014)(10067099003)(56012099006)(5023799004)(6133799003)(18002099003)(22082099003)(4143699003)(13003099007)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	fVW2kLzNleAvhBIVaX37PVOmNkplaoUu8FLwNuu2GzK+kdVNkFlbOTVz/vW0dHbAXq2ANtlwwypZ3lXIvSERUlLJKor4fJ5W9gw5HlQ+/Ax+corgFbqKEQV1nU3Kpx6y+ZH5yOK0u1+21xIReC3QJLXGSyI1vTIMeC55/BPTosSsurmf5cvMcY8JSdyD4ZvBkgp8athwOa42lmDjZ//AH1yFViwfK8/hflBCRb7Y7Oe6WsP1qG2e24kt2J6OXT1lZBciuhcLVn+z8/SZVSMTGRYAxQoF08MX2bQovJPGRdrQ5MmDjpNUkWC5jTsV/Hj9l7V9iGQpZs1vQT9r/oVq3EgSlq2JNuInawGfZka/SqfTdy00Ay2tWqAOP+RKGBj4b0vld17mJS8kEkVgQXFg83xOVwjQ+f9RPzeHSJsb34sZElDl46xlQ5KB79eLWBF7
-X-Exchange-RoutingPolicyChecked:
-	mOcI/vvFCVc41tieKhhyHFM7j7KZBgL88/3DAL4aGTCeHW4oL04TwT/twelOxI/Qt6ZSki/WmjC2zYZvGoOYbxMxzxNsiQrptgMEZudMkJGJFbMfPtlVu4eQRVjR1ebpcgDvu2Fte2wIjTE1VHLBVwgeXPjPU/ceWSCdAbw/rhbtipPomrBc7R7DMfQm5uaX6NfZIpVgxVd3q6g/aaF9Apw4QH8WDg+/VmqL0OuKZPaLuAkz+3zLB+xh3hiPAApu0r4QLfgiYog8TRPj0pcu3+PbS8r+3T4k6/xyOfXWZ3TV8GTVBDWHB/AsbpP6n1Ec7XMbSNiRUSM/hY654RcSYA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 17:53:40.6160
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b9404b5-467e-4024-b820-08df1b2def06
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B2.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR10MB5160
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA3MSBTYWx0ZWRfX69M06OIagWIj
- hagJ0veiIZal11An6B8GElxLD1Ggb2Cl1WzstI5CMuluyZ9jCeSYNF92lS+yQ/ass3kxXq/dqxc
- AdElt8J1qNS8eRuGaG+fuSpNPWh96uY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA3MSBTYWx0ZWRfX2oh3T1JrSYft
- 2s9dzJ26nWwNK68kqSoqiwp+rGSYVvfl/VLZaHs50uQE7SaEoDejYVfDFjQAbl5gnz8Upc9OwSr
- tYWyMzeyfAWB48cUKihF6bkOr3VYMsUmJdKr1iHx3FgVDwFL25qxk+Ncmf11YWCWNlG+oYIfjP3
- vy7FUts43V1Ton4CjCnrP0lI2mHcoRHXIGDmecxEhB+UW0HD+Eu8zEPURHO81zghmomS2AY+3U0
- HigwXBy8Q5j0Q8D/gPr14qjyyfNneCibGPoIY/gxLmx5b+BBDyE33tR20IxlFMCARWDk8JLWK4T
- lklLzrlegpL2BS6jk8EF4Dd0gf2yDDwUewpWCGHysO9mKOy69u/v7Q+DvY99YcjCeSqKTZBdynj
- 1jLVqvVDhZIEiOviLciHgimoHdb/jCxRBKXZKAbp8IiZAxXYzPUYa6WKLV5AOapkrLF/SPN9ocF
- jEpvi6FG3u4cy5WfcoQ==
-X-Proofpoint-ORIG-GUID: 31puk68u0praOcIE2Z-4zNeUxYtDmAQJ
-X-Authority-Analysis: v=2.4 cv=P6evFSAu c=1 sm=1 tr=0 ts=6ab6b528 cx=c_pps
- a=7wCTOXyfr6KSlQaUtw4X3A==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8
- a=sozttTNsAAAA:8 a=pGLkceISAAAA:8 a=NEAV23lmAAAA:8 a=PTNuhyjmd4sFyQkfufEA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: 31puk68u0praOcIE2Z-4zNeUxYtDmAQJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0 adultscore=0
- spamscore=0 suspectscore=0 clxscore=1015 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250071
 
-Hi LiangCheng, Thomas,
+Describe the OV02C10 front camera on CCI1 bus 1 at 0x36, fed by MCLK4
+at 19.2 MHz into CSIPHY4 over two D-PHY lanes at 400 MHz, the only
+link frequency the ov02c10 driver offers.
 
-On 9/18/2026 10:35 PM, Devarsh Thakkar wrote:
-> Hi LiangCheng,
-> 
-> On 18/09/26 11:55, LiangCheng Wang wrote:
->> Hi Devarsh,
->>
->> Good to hear from you, and thank you for picking the fixes up.
->>
->>> Kindly let me know if we are aligned on this.
->>
->> That all sounds good to me, and I am glad it is moving again.  I will test
->> v2 on the PIXPAPER 4.26m as soon as it is out and send a Tested-by.
->>
-> 
-> Thanks for all the help.
-> 
->> There is one thing worth settling before you post.  Back in July [1] you
->> wrote:
->>
->>    Certainly. I'll exclude the pixpaper-426m support patches from my V2
->>    submission so you can handle the review and validation on your end.
->>
->> That is still what I would prefer: the 4.26m is the only SSD16xx hardware
->> I have, and its binding is already acked, so I am in a good position to
->> validate the panel and to look after it afterwards.  Unless you would
->> rather it went differently, I will send the panel entry and its binding on
->> top of your v2 once it is out.
-> 
-> Yes I don't plan to send the pixpaper-426m patches from my branch as suggested
-> earlier, you can send it on top of my v2 series as discussed in the earlier
-> thread [0]. Also I am glad that those patches helped, thanks for validating.
-> 
->>
->> Please reshape the three fixes however v2 needs - they were written
->> against your staging branch and the driver has moved on since.  Two small
->> requests from my reply at the time [2]:
->>
-> 
-> I need to have a deeper look at those patches, I had also been modifying driver
-> as per pending review comments and fixed few issues around rotation too in my
-> internal dev branch, so would want to see if any of those changes fix similar
-> issues or not. I may need your help and reach out to you again for help with
-> validation on pix-paper once I ready the v2 code. Also we can discuss direclty
-> on #dri-devel (my user is devarsht) for faster alignment.
-> 
->>    Please keep them as separate commits if you can - git am preserves
->>    authorship; if you fold the first one in, a Co-developed-by with my
->>    Signed-off-by would be appreciated.
->>
-> 
-> Thanks for sharing those fixes, I need to have a deeper look on those patches as
-> we discussed, but in general :
-> 
-> If the patches are bug fixes then as per kernel patch guidelines I would have to
-> squash it to the patch introducing the bug to maintain bi-sectability and avoid
-> issues in an intermediate patch, in that case I would try to attribute your
-> contribution either in commit message or via co-developed tag as applicable.
-> 
-> If the patch is adding a separate feature on top of existing then I would keep
-> it as a separate patch as you suggested.
-> 
-> In any case please be assured that I intend to credit you for your contributions.
-> 
-> Also since the driver is not merged yet, for any comments or suggestions on the
-> core logic, please feel free to post it as review comments on my v2 and that way
-> it becomes easier.
-> 
-> Regards
-> Devarsh
-> 
->>    I maintain the existing PIXPAPER MAINTAINERS entry - would you mind
->>    adding me as R: on the SSD16xx one, so I stay on CC and can retest?
->>
-> 
-> 
->> [1] https://lore.kernel.org/all/8fcfab0f-6b98-478b-be4a-c5b810fb3524@ti.com/
->> [2] https://lore.kernel.org/all/20260731035705.3198816-1-zaq14760@gmail.com/
->>
+The wiring comes from the Windows driver store. CAMF_RES_QRD.bin
+switches a single rail, GPIO 91, before releasing reset on GPIO 237;
+GPIOs 235 and 236 are muxed to aon_cci there, the CCI1 bus 1 pins, not
+rail enables. No camera resource file votes a PMIC rail for the
+sensor, so avdd and dvdd are left out and fall to dummy regulators.
+The CSI PHY file votes LDO1_C at 1.2 V and LDO2_C at 0.88 V for the
+PHYs, which is vdda-1p2 and vdda-0p9 here, as on the Inspiron 14 Plus.
+MCLK drive strength is 2 mA, as CAMP_RES_QRD.bin programs GPIO 100,
+and tested streaming.
 
-Just a small update from my side,
-I have staged my patches at this branch [0] and validating, will be sending out
-the patches over the weekend.
+The module sits upside down in the lid: with both sensor flips on, the
+picture is upright and unmirrored, so rotation is 180.
 
-Liangcheng,
-I have included relevant patches from the series you shared [1] barring the last
-one. The last one, I did not include because it probably needs more digging as
-it does not work properly with the panel and my application. Further more it was
-on top of my runtime rotation patch and I think there were some pending comments
-from Thomas on runtime rotation in V1 which require a deeper look so I dropped
-runtime rotation patch altogether for V2 and will try get back to it later on.
+The white camera indicator on GPIO 110 becomes the sensor's privacy LED,
+so the V4L2 core lights it while the sensor streams and takes it away
+from sysfs; the comment waiting for a "camera on" trigger goes.
 
-Feel free to validate and let me know if any issues.
+Depends on the x1e80100 camera DT series (v7), and on the CAMSS PHY API
+patches (v20 5/6 and 6/6), which read the CAMSS endpoint's data-lanes
+as 1-based.
 
-[0] https://github.com/devarsht/linux-next/tree/epaper_drm_misc_next_staging
-[1]
-https://lore.kernel.org/all/20260731-ssd16xx-pixpaper-rpi5-v1-0-18ffc0dbf59a@gmail.com/
+Assisted-by: LLM
+Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
+---
+Depends on the x1e80100 camera DT series, v7:
+https://lore.kernel.org/all/20260917-x1e-camss-csi2-phy-dtsi-v7-0-1a63eb35838b@linaro.org/
 
-Regards
-Devarsh
+Built and checked (dtbs_check, W=1) on next-20260925 with that series
+applied. Run-tested on 7.2.6 with the same board hunks, the CSI2 PHY
+driver v18, the PHY API series v20 and patches 1-4 of the DT series:
+the sensor streams at 30 fps through libcamera's software ISP, and the
+privacy LED lights while it streams and goes out after.
 
->> Regards,
->> LiangCheng
-> 
+Bryan, happy for you to fold this into your next version of the DT
+series if that is easier.
+
+ .../dts/qcom/x1e80100-dell-xps13-9345.dts     | 120 +++++++++++++++++-
+ 1 file changed, 118 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+index ad62350ba670..73f06fdcd138 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+@@ -10,6 +10,8 @@
+ #include <dt-bindings/input/gpio-keys.h>
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/leds/common.h>
++#include <dt-bindings/media/video-interfaces.h>
++#include <dt-bindings/media/video-interface-devices.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ 
+ #include "hamoa.dtsi"
+@@ -46,14 +48,13 @@ leds {
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&cam_indicator_en>;
+ 
+-		led-camera-indicator {
++		privacy_led: led-camera-indicator {
+ 			label = "white:camera-indicator";
+ 			function = LED_FUNCTION_INDICATOR;
+ 			color = <LED_COLOR_ID_WHITE>;
+ 			gpios = <&tlmm 110 GPIO_ACTIVE_HIGH>;
+ 			linux,default-trigger = "none";
+ 			default-state = "off";
+-			/* Reuse as a panic indicator until we get a "camera on" trigger */
+ 			panic-indicator;
+ 		};
+ 	};
+@@ -151,6 +152,25 @@ linux,cma {
+ 		};
+ 	};
+ 
++	/*
++	 * The one rail Windows switches for the front camera
++	 * (CAMF_RES_QRD.bin: TLMM 91 high before reset release), the 1.8 V
++	 * LDO enable on the sibling thena boards.
++	 */
++	vreg_cam_1p8: regulator-cam-1p8 {
++		compatible = "regulator-fixed";
++
++		regulator-name = "VREG_CAM_1P8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++
++		gpio = <&tlmm 91 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&cam_ldo_en>;
++		pinctrl-names = "default";
++	};
++
+ 	vreg_edp_3p3: regulator-edp-3p3 {
+ 		compatible = "regulator-fixed";
+ 
+@@ -674,6 +694,78 @@ vreg_l3j_0p8: ldo3 {
+ 	};
+ };
+ 
++&camss {
++	status = "okay";
++};
++
++&camss_csiphy4_in_port {
++	camss_csiphy4_inep: endpoint {
++		data-lanes = <1 2>;
++		remote-endpoint = <&csiphy4_out_ep>;
++	};
++};
++
++&cci1 {
++	status = "okay";
++};
++
++&cci1_i2c1 {
++	camera@36 {
++		compatible = "ovti,ov02c10";
++		reg = <0x36>;
++
++		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
++		pinctrl-0 = <&cam_rgb_default>;
++		pinctrl-names = "default";
++
++		clocks = <&camcc CAM_CC_MCLK4_CLK>;
++		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
++		assigned-clock-rates = <19200000>;
++
++		orientation = <MEDIA_ORIENTATION_FRONT>;
++		/* upside down in the lid; both sensor flips give an upright, unmirrored image */
++		rotation = <180>;
++
++		leds = <&privacy_led>;
++		led-names = "privacy";
++
++		/*
++		 * Windows switches no rail for avdd or dvdd, only GPIO 91; they
++		 * are left to dummy regulators rather than invented.
++		 */
++		dovdd-supply = <&vreg_cam_1p8>;
++
++		port {
++			ov02c10_ep: endpoint {
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64 <400000000>;
++				remote-endpoint = <&csiphy4_in_ep>;
++			};
++		};
++	};
++};
++
++&csiphy4 {
++	vdda-0p9-supply = <&vreg_l2c_0p8>;
++	vdda-1p2-supply = <&vreg_l1c_1p2>;
++
++	status = "okay";
++};
++
++&csiphy4_in_port {
++	csiphy4_in_ep: endpoint {
++		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++		data-lanes = <1 2>;
++		remote-endpoint = <&ov02c10_ep>;
++	};
++};
++
++&csiphy4_out_port {
++	csiphy4_out_ep: endpoint {
++		remote-endpoint = <&camss_csiphy4_inep>;
++	};
++};
++
+ &gpu {
+ 	status = "okay";
+ };
+@@ -1102,6 +1194,30 @@ cam_indicator_en: cam-indicator-en-state {
+ 		bias-disable;
+ 	};
+ 
++	cam_ldo_en: cam-ldo-en-state {
++		pins = "gpio91";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cam_rgb_default: cam-rgb-default-state {
++		/* 2 mA streams; the sibling X1E boards use 16 */
++		mclk-pins {
++			pins = "gpio100";
++			function = "cam_aon";
++			drive-strength = <2>;
++			bias-disable;
++		};
++
++		reset-n-pins {
++			pins = "gpio237";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++	};
++
+ 	edp_bl_en: edp-bl-en-state {
+ 		pins = "gpio74";
+ 		function = "gpio";
+
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+prerequisite-patch-id: a7fbea14628b62a8de096dea420473b283010aba
+prerequisite-patch-id: 270d82b4c1760f1ec0a64a1b56c68ce26e6ae3b1
+prerequisite-patch-id: a12186bafac9b287c19fd719aeceb8ff1372dfbf
+prerequisite-patch-id: 4bc923fa59ee4c1ff68e64497f11e937c0ab3918
+prerequisite-patch-id: 4d000086386a3b344b1d6d345ab93d9b2b569615
+prerequisite-patch-id: 8cde6fd860c857dd7f3efce25970c88c783193b3
+prerequisite-patch-id: 1f22ff7fc93d0135e8759d45955bf998b037e11e
+prerequisite-patch-id: edb32e32f2b6be0b93f66d8da460c9f9de0c52e2
+prerequisite-patch-id: 09444936808e801a58c83356c9ae95415bacc83a
+prerequisite-patch-id: 348caa9cd0d1d70f181a47b40e2d75e8b25b5938
+prerequisite-patch-id: 1c4e4c457d8f95d8f5aaa2d93976c374b8282bf0
+prerequisite-patch-id: deedbed2643ca8a0f26bd87175d787d2f0c87417
+-- 
+2.55.0
 
