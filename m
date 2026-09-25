@@ -1,133 +1,199 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B3F383C6E;
-	Fri, 25 Sep 2026 02:03:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8515D346ACD;
+	Fri, 25 Sep 2026 02:04:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790301831; cv=none; b=n4XzvTU6wkev/s+e5GteeFXurTffToYcf72Uv3Sm9TWKyg9AB+t+mGzS8qWGvddB27OkT5qnhE46Sey44MD0geeQMw8H/5BgADYfsLMbm+Lqq1KfyRqXaa7qjqnw0FXaJ4jx5owOSJywPr5baxCJ5NQsZgJwwKr5w/eoieTSIi4=
+	t=1790301868; cv=none; b=WBASlSaoC2gIbuwutQlRUVH3/BiylOTMsOs9rLwz1CcXbe2gquBOZDbZ8b4jwTI8m4D/G4hj20sBv0DqQyxY/33riVcUnZXJHMW34wKppW+JXvKLdD3VP/q8nqrBpIltYCFi/esOD/BlhXSiB93rA6K+wDWWOhGvEGWrijl5JaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790301831; c=relaxed/simple;
-	bh=QhUB0YGju87pKNw/PXKi3i0Z9cIClDU+EkYl1/T8Cx0=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dPKBy7gpkKJSFvX5JRfh3NaYt13/cQ1tspViegRl+p5oPoBqxXFPkISgBRHQ4zB0VDZIU2KVBrONC1Iy4UcKQ85v+BbMi4Z36zofLPEzrMYoUNci/7qXzGYznnrEkGj1jOUkkKyw5xRHlYrjrojrmEGrGiM7QA2fmIWQpZ4Sm+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mgVAq8bP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790301868; c=relaxed/simple;
+	bh=1myobDPbsNnaPTnzEFMQg0wBxNrb5WoIHLoU5/hskqw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ih7tJYIF+aMe8O5jDwrS4gXo4wqLOYwqWdzlsc9BuUldanAs/UYgjYrN5TyCAYq8OJzmE8mnK9vVsZlpAWUNJR8AkkN5Hjry2r1WizmVr+blpYCzvAw6FU2guHf1SDaYRNVyIYUn5Y8BsrAu+fY+TtZK+nqhpXTvCkOljH0UeGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2NEdn/i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mgVAq8bP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8564D1F000FF;
-	Fri, 25 Sep 2026 02:03:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2NEdn/i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 023251F000FF;
+	Fri, 25 Sep 2026 02:04:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790301829;
-	bh=vHTRX6NVnIzYhl1q0206js2CPkE+VZBEqeQmH9KkdfM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mgVAq8bPAQzYHrRjTciQZUSfWuf81rC3O6ZV9dfxyi/1aqkrqiZzI6GadkzgRL1y3
-	 EfWbrkfsBKXOsq/2nZILOap+uN7fn76DwpkmTEuqSCmUJkVacefWLSdpt/Jan7Fcj9
-	 QbFw3jA3WubUH5Am32CSY+w3DzEomay3CxSPCB9gPxifSTDWpjwEo2k9gGZ61bBTLb
-	 s8ABaQVENxleT9nkB760gh2gDT7d7C+PuKbXGJPHwqEK/HwQdtgJPJCUxuU74Gj0+D
-	 62bc75KHESnNyO7I79Ub1iBruwCERlWDJuqU1RnhZAH2fge4mMhSsfHdGJUidZtPrF
-	 3OW84fTmqzrEg==
-Subject: Re: [PATCH net-next v10 10/11] arm64: dts: rockchip:
- rk3568-photonicat: enable SGMII LAN port
-From: netdev-bot+sashiko@kernel.org
-To: coiaprant@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, heiko@sntech.de, vkoul@kernel.org,
- maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- romain.gantois@bootlin.com, hkallweit1@gmail.com, neil.armstrong@linaro.org,
- linux@armlinux.org.uk, shawn.lin@rock-chips.com, david@ixit.cz,
- netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org
-Date: Fri, 25 Sep 2026 02:03:48 +0000
-Message-ID: <179030182812.2160803.15624484068208460829@kernel.org>
-In-Reply-To: <20260922200336.2201212-11-coiaprant@gmail.com>
-References: <20260922200336.2201212-11-coiaprant@gmail.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790301867;
+	bh=wW+BAwJ115lKHzkVtPbY39q6Ec1PWGoy4bXyW9Rh36w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=l2NEdn/itUJq0FGNeF5uTNNnMipfapi/n0/cIzcMO2/QL7kfGl5mr8CgVIwt4HYNO
+	 yYBp1rK+QC96FAOk8ikA72BuUpmQDK1m+/5D1h8JxNMoEXa64LJInizG6u+VRtWzVQ
+	 rZevZghLIcG7SdhnJGBEau8QBUiLJGxreBNJMC9m8r14HO7N6vIVr/St7LvcVOyl4W
+	 WF4I7eTSocT8Ar+A0ZhM9Q3SXS4yU4X4oR2LPaSvYNBYjSqdIc9h84XJjVV3/QYjwK
+	 RJB0pCKDcDVnXyjjfEaPAdc8WjyptHgmWEWLOzaxVfuikqRV/4fcumjvmp1lDXaD5s
+	 LhywfjFOkn7MQ==
+Date: Fri, 25 Sep 2026 03:04:23 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Lee
+ Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ mfd@lists.linux.dev, Roman Vivchar <rva333@protonmail.com>, Luca Leonardo
+ Scorcia <l.scorcia@gmail.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v3 2/3] iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC
+ driver
+Message-ID: <20260925030423.18d48456@jic23-hlaptop>
+In-Reply-To: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-2-c00edacbee64@gmail.com>
+References: <20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com>
+	<20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-2-c00edacbee64@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Sun, 20 Sep 2026 00:31:52 -0500
+Ryan Brue <ryanbrue.dev@gmail.com> wrote:
 
-Low priority / nit picks for your consideration:
+> The mt6397 AUXADC is a 10-bit ADC behind the SoC's PMIC wrapper. On boards
+> built around this PMIC it is the only way to read the battery: the SoC's
+> AUXADC is wired to board thermistors and the charger ICs these boards use
+> have no ADC of their own.
+> 
+> Add a driver exposing the battery voltage and battery temperature
+> channels. Only those two are described, so a channel ID in the device tree
+> indexes the driver's channel array rather than the PMIC's channel number,
+> as mt6323-auxadc does. The ready bit lives in a channel's raw result
+> register, but the value comes from the chip's factory-calibrated copy.
+> 
+> The battery voltage is measured through ISENSE, because a board with a
+> switching charger in the power path leaves BATSNS on the charger's system
+> rail instead of on the pack. The thermistor only reads correctly with the
+> PMIC's battery-detect bias and input buffer enabled, which take 20 ms to
+> settle. Both are switched back off afterwards.
+> 
+> Reads average sixteen conversions in software; the chip's sample
+> accumulator makes no measurable difference at any setting, so it is left
+> at one sample per conversion.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> 
+Hi Ryan,
 
-- [Low] The commit message of "arm64: dts: rockchip: rk3568-photonicat:
-  enable SGMII LAN port" describes the combphy2, xpcs/xpcs_mii0 and…
+A few things related to code flow and readability inline.
 
---
+> diff --git a/drivers/iio/adc/mt6397-auxadc.c b/drivers/iio/adc/mt6397-auxadc.c
+> new file mode 100644
+> index 000000000000..d860cd3a8922
+> --- /dev/null
+> +++ b/drivers/iio/adc/mt6397-auxadc.c
 
-arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
 
-This commit enables the SGMII LAN port on the Ariaboard Photonicat. It
-routes combphy2 to GMAC0, enables the xpcs node, configures gmac0 for
-SGMII and adds the YT8521SC PHY on mdio0. It also adds LED nodes to both
-the new SGMII PHY and the existing RGMII WAN PHY on mdio1.
+> +static int mt6397_auxadc_isense_enable(struct mt6397_auxadc *adc)
+> +{
+> +	struct regmap *map = adc->regmap;
+> +	int ret;
+> +
+> +	/*
+> +	 * Two of the five independent input enables, not a select field:
+> +	 * BATSNS is cleared first so that the two inputs are never enabled
+> +	 * onto the battery channel at the same time.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-> index 58c1052ba8ef3..fdaa4a2a4328b 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
+I'm not following this comment. Perhaps consider a rewrite?
 
-[ ... ]
+> +	 */
+> +	ret = regmap_clear_bits(map, MT6397_CHR_CON16, MT6397_CHR_CON16_ADCIN_VBAT_EN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(map, MT6397_CHR_CON16, MT6397_CHR_CON16_ADCIN_VSEN_EN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_set_bits(map, MT6397_AUXADC_CON14,
+> +			       MT6397_AUXADC_CON14_CH0_NORM_SEL |
+> +			       MT6397_AUXADC_CON14_CH0_LBAT_SEL);
+> +}
 
-> @@ -260,9 +262,18 @@ &cpu3 {
->  	cpu-supply = <&vdd_cpu>;
->  };
->  
-> -/* Motorcomm YT8521SC LAN port (require SGMII) */
-> +/* Motorcomm YT8521SC LAN port */
->  &gmac0 {
-> -	status = "disabled";
-> +	assigned-clocks = <&cru SCLK_GMAC0_RX_TX>;
-> +	assigned-clock-parents = <&clk_gmac0_xpcs_mii>;
-> +	managed = "in-band-status";
-> +	pcs-handle = <&xpcs_mii0>;
-> +	phy-handle = <&sgmii_phy>;
-> +	phy-mode = "sgmii";
-> +	phy-supply = <&vcc_3v3>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&gmac0_miim>;
-> +	status = "okay";
->  };
 
-[Severity: Low]
-This isn't a bug, but the commit message describes the combphy2,
-xpcs/xpcs_mii0 and mdio0 changes and not this &gmac0 rework. The gmac0
-rework is the main functional change in the patch. Could the message
-describe it too?
+> +static int mt6397_auxadc_read_channel(struct iio_dev *indio_dev,
+> +				      const struct iio_chan_spec *chan,
+> +				      int *val)
+> +{
+> +	struct mt6397_auxadc *adc = iio_priv(indio_dev);
+> +	bool isense = chan->channel == MT6397_AUXADC_ISENSE;
+> +	int ret, stop_err, release_err;
+> +
+> +	guard(mutex)(&adc->lock);
+Go back to conventional mutex_lock() / mutex_unlock() or wrap
+everything under the guard so you can avoid mixing goto and 
+guards() (see cleanup.h docs for some of the reason why).
 
-In this hunk, status = "disabled" becomes a full SGMII configuration
-that:
+One option would be to just move them up in to the switch statement
+from which this is called with scope carefully defined there.
+It's not ideal but having a wrapper for just taking a lock
+isn't pretty either and you need to do one or the other if you
+don't want to fallback to non guard() approaches.
 
-  - reparents SCLK_GMAC0_RX_TX to the 125 MHz clk_gmac0_xpcs_mii clock
-    through assigned-clock-parents
-  - sets managed = "in-band-status". The commit "net: stmmac: dwmac-rk:
-    add SGMII support for RK3568" says boards must use it because
-    out-of-band SGMII breaks RX at 10/100
-  - adds pcs-handle = <&xpcs_mii0>, phy-handle, phy-supply and the
-    gmac0_miim pinctrl
+> +
+> +	if (isense) {
+> +		ret = mt6397_auxadc_isense_enable(adc);
+> +		if (!ret)
+> +			fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
 
-The commit message also says:
+Keep to errors out of line 
+		if (ret)
+			goto err_stop;
 
-  "Also add LED configuration for the existing RGMII PHY on mdio1 for
-  consistency."
+		fsleep(MT6397_AUXADC_ISENSE_SETTLE_US);
 
-Those LED_FUNCTION_WAN nodes go on rgmii_phy, which drives the separate
-WAN port that already works. Could that go in its own patch? As it
-stands, reverting or bisecting the SGMII LAN enablement also drops the
-WAN LED change.
+> +	} else {
+> +		ret = mt6397_auxadc_battemp_bias_on(adc);
+> +		if (!ret)
+> +			fsleep(MT6397_AUXADC_BATTEMP_SETTLE_US);
+> +	}
+> +
+> +	if (!ret)
 
-[ ... ]
+With changes above you won't get here with ret not 0 so this can go.
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922200336.2201212-1-coiaprant%40gmail.com
+> +		ret = mt6397_auxadc_read_burst(adc, chan, val);
+> +
+> +	/*
+> +	 * The teardown is unconditional: once any part of the setup has been
+> +	 * written it has to run, even if the setup itself failed part-way.
+> +	 * Lowering START also leaves the converter unarmed between reads.
+> +	 * A caller has nothing to do with a teardown error, so it is logged
+> +	 * rather than returned.
+> +	 */
+> +	stop_err = regmap_clear_bits(adc->regmap, MT6397_AUXADC_CON1,
+> +				     MT6397_AUXADC_CON1_START);
+> +
+> +	if (isense)
+> +		release_err = mt6397_auxadc_isense_disable(adc);
+> +	else
+> +		release_err = mt6397_auxadc_battemp_bias_off(adc);
+> +
+> +	if (stop_err || release_err)
+> +		dev_err(&indio_dev->dev, "failed to release channel %d\n",
+> +			chan->channel);
+
+I would make a little helper for the stuff that has to run.
+So everything from the comment onwards. Then
+
+	return mt6397_read_channel_tear_down();
+
+err_stop:
+	mt6397_read_channel_tear_down();
+
+	return ret;
+(with locks if you don't move those up into a wrapper.
+
+> +
+> +	return ret;
+> +}
