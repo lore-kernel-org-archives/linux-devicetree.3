@@ -1,83 +1,129 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9A949F127
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF7A4A2051
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342112; cv=none; b=YiWPxeGrQJVB3tjB3jDfukQVMvIB7GLTlXSPNTnSIHgd9XVR9G93/HDFedtiQkBv4P7jfH5bnfpTbMP6/gFM77XIzhyFQiqXmSkmF+ybkydNQzhWsn+5Y6fQS34uiQHITTLkgj8Yuj5b1FyhCMFESNt/MJqLSovP/CelOfbT9BA=
+	t=1790342147; cv=none; b=qAzVFIvUKCStZr7m7EjSp/gbFXHye6lOuaFGPQcBALw0UDxLIuMkz8AXa5UHtvKSlMj+L1qvbS6rFu4u1aMr8qMnJ0tDhMBKuHf4IjW6JvWRjEuBBdbvr5H2jRpdG6TgdROSM6+CPuU4yi+cmWUHy9rND7HCM4VOcyR9cWTZUV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342112; c=relaxed/simple;
-	bh=MtaIm76iatyPfiF7F9FpPKBCAnF0DdkrKummdNqHOHo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=h7GX+6CANrLaL426EUIOmb0u1676d5VywUfsHAa3hBkoHWY8bAwCgeizX9M54nEuZ7xo7J7KzP/gPiPk4ADfQigcqYH5BkdS/SupKpJnfHJWq4kvRBQAs3YtXCstZT2ufe5pXiycAYR9Oxz20Si4+fkL5d2XMM+15GIzUZiB1GQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=h/61eCx4; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790342147; c=relaxed/simple;
+	bh=IWP0yysy+y9CebMkqYVJptEONcyqLAP7y6/myAOohqA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IvyBXF2SzBTit60oUqM51WnICqhyFzWOTl4SR3vmfhx1HzZN2bKBN5nNWBvFb9OgwGxfDP9sz3UOWzxrHPdyKKIQGmWyfFcF6t9MPB4s+9V/lgvijpJejMXea0E6GGcO6Kf5RzvdAOGMAmRLAJrNIWFu8x3kb8KfHqLJbqQ0DxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DnTsN+WW; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="h/61eCx4"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 96956C653EC;
-	Fri, 25 Sep 2026 13:15:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AA6C36073B;
-	Fri, 25 Sep 2026 13:14:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 64B041032946F;
-	Fri, 25 Sep 2026 15:14:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790342097; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=Q1rGLtMVsWM8f/arBMoiZNonTnmmCJHgLO5nSGP5jAk=;
-	b=h/61eCx4UX/gJ1xiV9AAL25CGCR8ATemeH4kDdhE2x6xdezgr2RdXkRcYlKZ0RnAp9l9JC
-	Wq6ZmCUEOe6Gq1M82lIpg82KsGV1iSGHMM41VdS8MfB6sgReHGDgn15b5ZXHU1tOSfTuA4
-	xNdRR6r2Y0wJ+4qxYEm6gCgIPjuZs8N8QTE+a/Yjgv+4r60wh0V9k3lBkILyzrfbNQcPbL
-	QIAwmSaOo8mpLrl8JZQqA/CsGse3H9pzlH/6SqlYWyYs3j0WaYO0yK0yfgR/bmjgHpl1Dz
-	84B9+Neq7zkTniVDCoyrreNvmpGIoVgkqL03xWcEPtRAOyCmquTW6FeS1fEkZQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,  Paul Louvel
- <paul.louvel@bootlin.com>,  Borislav Petkov <bp@alien8.de>,  Tony Luck
- <tony.luck@intel.com>,  Rob Herring <robh@kernel.org>,  Krzysztof
- Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,
-  Geert Uytterhoeven <geert+renesas@glider.be>,  Magnus Damm
- <magnus.damm@gmail.com>,  linux-kernel@vger.kernel.org,
-  linux-renesas-soc@vger.kernel.org,  linux-edac@vger.kernel.org,
-  devicetree@vger.kernel.org,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH v3 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence
- DDR EDAC binding
-In-Reply-To: <CAMuHMdUeCH9SbCr70syV0hVSqD1ccjVptMHoY-6aaEhW_ine_Q@mail.gmail.com>
-	(Geert Uytterhoeven's message of "Fri, 25 Sep 2026 14:57:56 +0200")
-References: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
-	<20260924-paul-v7-3-rc1-edac-v3-1-bd8054a5b180@bootlin.com>
-	<arZpZolRwdU8zh6O@shikoro> <8733uxlcl1.fsf@bootlin.com>
-	<CAMuHMdUeCH9SbCr70syV0hVSqD1ccjVptMHoY-6aaEhW_ine_Q@mail.gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 25 Sep 2026 15:14:53 +0200
-Message-ID: <87fqyxjwvm.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DnTsN+WW"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so478949f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:15:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790342138; x=1790946938; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vLYsvlss9yZfm3Rai6co/hO6k5fqoif67TyIhe9Xe90=;
+        b=DnTsN+WWwUBKNHapKFmkRVkw0oy1AmE1T2fxaZ6ZcP3bpOcUzN781c/9Exfr6dvgr6
+         f2iQB2cs3TVWFydhXtAWz7w9wrBxfJO32285TdKjazbK9k3n9H8jn8gOXL8KHckBzJn8
+         bijWHB74SfQccCXvuJafpnzNAvQ1OCuuFgI4LViUB8bERGRc1bKanJBStJFMGtHs/+uz
+         YaxJ7er4RTE88+fLbBq9atm8t/BsQ3Y5mw5QR7vT7WQmDK0ssEMiAlDQ8bL1iqNIAMBY
+         ULF4lXJwGhnWoNw1Y5GjQGWJhfuSFA0RLnTXzjEbKa9TCL4i0NG75nL6gFTv/2hJ47HL
+         mitQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790342138; x=1790946938;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vLYsvlss9yZfm3Rai6co/hO6k5fqoif67TyIhe9Xe90=;
+        b=H6APOqTima1Uu691QP62M9p50SBfBYP4Vyz/SoXgg1l7RJ77x9I/omKK3jK7ma9CTF
+         SxfxDlIrJZGbU+pzTQU8w6l0H4gl/VXWnOk7C2shftsY313u9C2UY4roNWD7EycBT5Vo
+         UAFcDMsRaoL3fh+RDFnJb4bYAMrJ8AeFpA8d3aGJ7oH1IjKrVqNRl87tLKDWFd7Ch+x8
+         XrU/OTA0hNa/dFqJlY7FU84QrVL2RImnKY2ZQPSpQ7gsJAeo336W3SkHOom1zeU9fGzv
+         W9oCxylyojAiJCU3mV4rCRenfZgi6a/6H99xUKGZKalmXIKVE5DBxtqYDzkTem8dcRdh
+         cQUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtGIh966bOetsos6S2cvzkSccSo3a24ca+UyGcp4HefWvu2nbbNwvaLnhHL098mRZIxf0o03K5KswQ@vger.kernel.org
+X-Gm-Message-State: AFuF++mPH3v5xC5upH8XHFmpHOqn3vQFXedFtUZCLIcZNbtdIhdubpJP
+	U4prUaMgFa8XkaofViUXGrgxgvMgkW4ttDhhpJrFDeyV9OQBl1OjHKiU
+X-Gm-Gg: AYBFou25cHzjTp6jJd7UhP9qVBwl9NPMkumOGS23oUWPGjeRkiNYBNEnhsgSF8n0yaJ
+	5Bem3LK7b4VXre8MFnYOTiJQH+IJ/YqWJolSquUaz3RZdhluCjdVcuZsBFkUXHyI/h/5CSLAvwc
+	m/q5Mg3taZ6ExLWjHXA1dayyWimM6XdR1FGWBn4tnV6Z3m/fbLlltmRvXYSq74NB41DpQXsWiZh
+	WHBN3KF7RaB6lBF6aSVyWejbikqgDHkL/K7R6pykvPgpOaOkbXCTAq9/sfnRQMk2vNhXYgVEX0K
+	Hsue3tXCd/GjjveRvL/SEVdDhiB2FT+4Nak4K1sdtFKtyWY7vT8cTyWdfUydAGgj53tZ7JP9p8d
+	r7yOdTDSgS0OQ3GcgkAvfg6qnVzE2mVRDv5p9L4yQ2pQo5GUlmrnWkz3xIyGcyLWN5+cFNM5+y8
+	KWwowvxiq/KANHbpNHjzuFCr9/k9u8NXVxXnKkrGRt/X1TwyC1ZFCK12OMJ65X+V1UKga+DgD7z
+	zIQ5UPlBDiq4g==
+X-Received: by 2002:a05:6000:430c:b0:487:1c89:f158 with SMTP id ffacd0b85a97d-48871671a05mr9519994f8f.14.1790342138218;
+        Fri, 25 Sep 2026 06:15:38 -0700 (PDT)
+Received: from [10.50.156.4] ([23.90.153.238])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a64ed6esm7832929f8f.29.2026.09.25.06.15.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 06:15:37 -0700 (PDT)
+Message-ID: <a5e76452-1fa1-4675-9a16-8683702ff4d0@gmail.com>
+Date: Fri, 25 Sep 2026 15:15:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
+To: Jerome Brunet <jbrunet@baylibre.com>,
+ Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
+ <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
+ <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
+ <e697d892-fbd2-432a-b71c-8547ead22ea0@gmail.com>
+ <1jtsnpcn8l.fsf@starbuckisacylon.baylibre.com>
+ <39fdddbf-0fdb-40e7-9cd5-c8f857ee8b9d@gmail.com>
+ <1j8q4p8rxl.fsf@starbuckisacylon.baylibre.com>
+Content-Language: en-US
+From: Vyacheslav Yurkov <uvv.mail@gmail.com>
+In-Reply-To: <1j8q4p8rxl.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
->> >> +    items:
->> >> +      - const: renesas,r9a06g032-ddr-edac # RZ/N1D
->> >> +      - const: renesas,rzn1-ddr-edac      # RZ/N1
->> >
->> > We don't need a family compatible. Only N1D has a DDR controller.
+On 25.09.2026 13:57, Jerome Brunet wrote:
+> On jeu. 17 sept. 2026 at 19:05, Vyacheslav Yurkov <uvv.mail@gmail.com> wrote:
+> 
+>> On 16.09.2026 15:57, Jerome Brunet wrote:
 >>
->> This is true, but from my experience with this platform, Geert used to
->> request both. I'm fine exposing only one of them, but I explicitly asked
->> Paul to put them both to mimic the existing bindings and keep some kind
->> of uniformity. I'm fine either ways, but before we go through that
->> iteration, Geert, would you mind confirming your preferences?
->
-> Well, if only RZ/N1D has the DDR controller, there is not much point in
-> adding a family-specific compatible value.  According to renesas.com,
-> RZ/N1x is obsolete, so no new family members will arrive.
+>>>>>> +/* We can't enable the clock, but the Common Clock Framework calls only
+>>>>>> + * enable() not is_enabled()
+>>>>>> + */
+>>>>>> +static int gpio_locked_clk_enable(struct clk_hw *hw)
+>>>>>> +{
+>>>>>> +	return gpio_locked_clk_is_enabled(hw);
+>>>>>> +}
+>>>
+>>> You need to explain your problem a bit more because this is not OK. Your
+>>> clock should really just provide .is_enabled() AFAICT
+>>
+>> When a peripheral driver uses devm_clk_get_enabled(), this is resolved
+>> to clk_prepare() and clk_enable(). Neither of them check for
+>> .is_enabled(). Is that a flaw in the CCF or expected behavior?
+>>
+> 
+> .enable() does return an error on failure. It is up to the provider to
+> return one or not. In your case, it will be probably be necessary to on
+> the gpio a little.
 
-Ack, thanks!
+I'm not sure I understand what you meant.
+> Note that if the GPIO can sleep, interacting with the gpio must happen
+> in prepare (think i2c gpio devices)
+
+In other words, I should only provide prepare/unprepare instead? Do you 
+think is_enabled can also be replaced by is_prepared in this case?
+
+Slava
