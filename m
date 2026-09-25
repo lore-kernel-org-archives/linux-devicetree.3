@@ -1,136 +1,172 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3EC442B3C
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:31:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790317905; cv=pass; b=WojfYXZhNj9HXdKOHldbvzewBycWegLXgbT/pOwJHC3FH9Zmks8eHrqba0ihlOH8Ot90IqNkRfloSIFMGwA0j2+DsjlsOcTbKf9DulvA5s8YyFUj3tTTsSNl0Pk/SIDjXKMGEbXql54CCD8+DKuWuxkZf1WGWjjtywA+eRpUh5E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790317905; c=relaxed/simple;
-	bh=hFhKrEvSZBpW410acqJJcTqqpIltVfjmIiS3oeslrDo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tQ7I8KZn2AfNd4R9gyPuzM8rs1JCCAaYunPAMYk2Wq4qHaSVX7cDWWKn6BZbsuuW6M+hisL8yh6QRgta8Im1isT/FfaAWzLvbU60jl/+BEZiVxuvMZStZqSm32rG2zQT12tV4LLe7ZaR3oBdSm7joK0OaAMXmFVpBZFSvEJ4BVI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O3UorOf1; arc=pass smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEB03D75D1;
+	Fri, 25 Sep 2026 06:34:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790318043; cv=none; b=IPvsDkZDfXV80CENjmAhiUygcGHhwQGwsgtYIjMi+JN5A7pBiAMLV+eeK7uPaTOcG3so+cURbrlsZLo1+B/cEUAr2OhOr1kp+gvWhFHYcfkC0yIhbwicFVbYyGV5FgLhy1KsCI4yvndDf2DlJG3A+FL3Dr0ce6gy/3TmYAOWqqM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790318043; c=relaxed/simple;
+	bh=vDpLsNZEuFtu9T7J6RcZqK9LzTP3Hx+gNVGiixjfySU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IKETeeQjDAZiLSg1iouvIAItSCBPDLwyGI8d/cXFPRYzy0RQtlIaevXnbVzD1RgN/QjU/axeUt582A9kJMT/l2y1rcZN9Ex+J0pprs1hfryrWWH1jgmWI2PcgQmw8K116TavKCSjZNr6bJ6UsE3jifHL/X4yalLCkZWEQoxv5Hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mXbWxPB9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O3UorOf1"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c11ef641aso597123eec.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 23:31:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790317899; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rYsWrRCzx11HUHhGGtYZacGJEiS13agfDmrl1xgqdUvhNdsePK39p10cpT6B1VP2zg
-         8wLV4F9uitjT6twKYNt2OdwPAAvlegmz/57lpfg/r6nR/qnyZcSxPeawTAQ3eehlP8Da
-         cjy/BIGXTT3KOVWhZDNx3f1VE8w/JDu/ygPjskROpNS0UkgTkQfOV7/w5Vu0UOfR4XVo
-         UbHBkRAd6gzkCODg5/cxqJvFztjlNBF/AqLTXd/fl/hshrZFl06SMiGbu980tlkeL4WV
-         V2KtCEouR/yetHWZ7HpXpMN57DK3MJlBBECPhpe+q/ohjFMYrpXuOE9L4n5b/aO5LWBv
-         Yjhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5w5yxx9oXlIPFCQHU1ihbBkwH62nsll6yBXPYXhhP5Q=;
-        fh=cBoVgUvby/6jOn3Mqg8SoQnPDoJHS5MwIPThgM+mFDE=;
-        b=shzcYgon5kO8rEA08Q7KdEbYHpLwFin26Hv1fbbbBwVEt+XSM1MpEzummg5xmOB8hr
-         F072ASjJH4L3kuC9ME6+0BBF35UlZ7d7vW74vLVaLCyPpVfnE2Lm0GH1zh6o6SFguFjx
-         eHeSg0Rz/IudpN5NY2iehvXrrMUE9PI/JgOFzjPsbnUUTdPYPOuksPjGS1T7Buk3vLdP
-         N6W8IECqbngLoTeRAgpCvM1H+jBFE5bSX/WSA+I7rRPWZqV+OFrvMUPSXCo3zQAhtPXa
-         8NoXSO0nSEZycodGO7R/mc6ifXea1huWBhzFhIKLsXxIgyiJsUF/Gr6B7mvMwgXchacH
-         G5qg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790317899; x=1790922699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5w5yxx9oXlIPFCQHU1ihbBkwH62nsll6yBXPYXhhP5Q=;
-        b=O3UorOf1qV5JIsqsIqmitfKsyx84ASkf1290p06d2IASL8ooh/gp9ytTZRi7eBojlB
-         hUdMfuRfNMsuSlTMU4ekxduvpje/WFQ6uXygRVEz6nF5dp1S+B5sQSfHeSQIMbMJ797R
-         +V3C+PGyufpBLMdmhuTO1NPm38ukbFqyog57snL/J2q7+v2Ye7UyFdfJPPnaSE0ENePa
-         8VydY8L/xNvtQ2GUZwieMlqtNgLy5N737t/xV8IvaBJ9AtVTDHAa9dBVL7iSX1cRemJZ
-         Em46WIeCMNi5L7ft9vaYvzkzp1/1eWWdYJ264lPkb/RsZdZL3DrEzD1HeL9rbmnLshJc
-         HSTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790317899; x=1790922699;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5w5yxx9oXlIPFCQHU1ihbBkwH62nsll6yBXPYXhhP5Q=;
-        b=A2AvyRPZKvWiEHXzgDsRxDpLWxPwQsIOyuDqWAvxlTMl/dt3TErKGNydKYBpFVer0l
-         m7eZoLgin7Pcdwd249UvKQyaaqum7QseVoMxeAjBA68+jacXNwTVwIuE6v/G8ro6MhPN
-         5welY/c89Qr6MSYH6KoJ3+vVrG1O8sAL2H1Ba1K1iJ2mH+X9a7zJ2nykGYiQBx6Hps68
-         n4HxmWSBjnTxD+CO7Zu3yywYhONmxdapclVJsAySxrQVb13Q7sCQM5Ykc803IBOYkWDT
-         xdSoXoTLVo6g7qwxgifCCq61B6RH1TFgXmpDOIp0QelNku2P+1XvhL9WFjzpfa87m2CE
-         b5eQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzz6wrZrepdCn8PIePGwQS1iafAEnXuu0t5uu+5LgHWq8q4qmM6S0lyseUc9LJAq5kAAcKDYE7yTttL@vger.kernel.org
-X-Gm-Message-State: AFuF++mFJfYcVvbhyX20wqAvh4IBu8v4fjuLoKModRVovelQiQO6DJfh
-	+T4iK2/qNW7ug2nmS5LHhqJNa9xUyxa6zVIXtwQ2T11h8KhfXrfQMgHoiQtWcGkghZkMxbVH457
-	Sdw+jDn8bzlQw9mCUWYBPbLdw+0NV+T8=
-X-Gm-Gg: AYBFou1SLrrx+etGeCzR3suuOlMsKNyxzcTAQiFnf1kUNbqu6Uo9y3EDB6Ju3DV1aD5
-	SIc0+rwBytmSqGL9+ygCnEH4pvr+T3v5Trw96bJWxTCUQM+uk07gn8+UzfK45wk7fgobWscvGCO
-	bUaDByUsg63SIfhOPnaXzUExlmGyF9qdsNjgWaw6CZtKwUS4ck0yzEL8Es54xq/mwx4gqmcue+o
-	DhST96bVEVYknYOeA7KQqgPPI2l7p/+PSzQh3Si/7vDoR/QG34EEkgecEHLqhMP6GSZGXHp9Ps6
-	BbUGMuZYTtUH6jmoIqoW5tykAnEBlAKiJYtgc+fwdqhCYpB0CCNDOmxa
-X-Received: by 2002:a05:7300:169b:b0:340:dca6:f34e with SMTP id
- 5a478bee46e88-340dca6f75fmr2420984eec.40.1790317899352; Thu, 24 Sep 2026
- 23:31:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mXbWxPB9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52DA61F000FF;
+	Fri, 25 Sep 2026 06:34:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790318042;
+	bh=k/DnikR47aHy9Hp7UL8oGAN/En52/9Yc3DlBvxibw5U=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mXbWxPB9uiBp2lMqybsV15K9tH3YsL+ItpZ15VnbfgsLWV7PZUPiAIjbJZTagNM5G
+	 D7xx/4xdlHSMWOKVGKZRUEuovffDdiEUeftnKW5794w8ygA/npvFYWk3IP+KtQoH1E
+	 2R09ma3xVV7BMttJlY4//VUa/r3IohjHN0qzpHuA46ECqyam/gSqPGP3dIzoMom7qR
+	 A0/4TfwgptKbDNHL38Poz2i6dBMZ8TthqSwKT1DOI3tGpwby0OEgnIWiiiLg3YCp3a
+	 0ikXeC1xmwIEWISQfFnCORSEKQE9RcnKJVAZi7D9y/T0klTrf9m5zYM3Kolb5KpiJg
+	 pSHFvf+j4Bkdw==
+Subject: Re: [PATCH net-next] dt-bindings: net: Document Marvell PHY
+ "marvell,reg-init"
+From: netdev-bot+sashiko@kernel.org
+To: robh@kernel.org
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ krzk+dt@kernel.org, conor+dt@kernel.org, f.fainelli@gmail.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 06:34:00 +0000
+Message-ID: <179031804081.2160803.4823115817421319418@kernel.org>
+In-Reply-To: <20260922183157.291091-2-robh@kernel.org>
+References: <20260922183157.291091-2-robh@kernel.org>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921065702.93196-1-Ashish.Yadav@infineon.com>
-In-Reply-To: <20260921065702.93196-1-Ashish.Yadav@infineon.com>
-From: ashish yadav <ashishyadav78@gmail.com>
-Date: Fri, 25 Sep 2026 12:01:28 +0530
-X-Gm-Features: AclHuK-KyM2-sTWnkjehqT7295KW9AXgH1dDi83R9qL68ibmWBqVLHdfx79TEc0
-Message-ID: <CAJKbuCZ1733m5UKXNwOV-3WBYNOFbgUA7QUfhAY51yskv6z-Aw@mail.gmail.com>
-Subject: Re: [PATCH 0/2] Add support for Infineon Digital Multi-phase
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ashish Yadav <ashish.yadav@infineon.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Guenter,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-I hope you are doing well.
-When you have a moment, could you please look into the patch to add
-support for the XDPE1A2G7C voltage regulator?
-I would highly appreciate your review, feedback, or any guidance on
-next steps when your schedule allows.
-Thank you very much for your time and continued support.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Best Regards,
-Ashish Yadav
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [Medium] The newly added `marvell,reg-init` schema in
+  Documentation/devicetree/bindings/net/ethernet-phy.yaml documents the…
+- [Low] The new `marvell,reg-init` definition types the property as
+  `uint32-matrix` and gives each of the four cells only a `description`,…
 
-On Mon, Sep 21, 2026 at 12:27=E2=80=AFPM ASHISH YADAV <ashishyadav78@gmail.=
-com> wrote:
+--
+
+dt-bindings: net: Document Marvell PHY "marvell,reg-init"
+
+This adds a schema definition for the marvell,reg-init property to the
+generic ethernet-phy.yaml binding, described as one or more
+<page register mask value> tuples and marked deprecated. The intent is to
+let dtbs_check validate the existing board descriptions that use it.
+
+> diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+> index c3ebb3af8b528..336f73f9c43fd 100644
+> --- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+> +++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+
+[ ... ]
+
+> @@ -269,6 +269,18 @@ properties:
+>        have to be placed on board. When omitted, the PHYs default will be left as
+>        is.
+>  
+> +  marvell,reg-init:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
+> +    deprecated: true
+> +    description:
+> +      Register initialization tuples for Marvell PHYs.
+> +    items:
+> +      items:
+> +        - description: register page
+> +        - description: register number
+
+[Severity: Low]
+Since the goal here is to let dtbs_check validate these board descriptions,
+should the cells carry range constraints?  The property is typed as
+uint32-matrix with no minimum/maximum, but marvell_of_reg_init() in
+drivers/net/phy/marvell.c narrows every cell to 16 bits:
+
+	u16 page = be32_to_cpup(paddr + i);
+	u16 reg = be32_to_cpup(paddr + i + 1);
+	u16 mask = be32_to_cpup(paddr + i + 2);
+	u16 val_bits = be32_to_cpup(paddr + i + 3);
+
+and the register number is a clause-22 MDIO address (0..31).  A tuple such
+as <3 0x10020 0 0x1017> passes the schema and then gets truncated by the
+driver into a write to a different register.  Would adding maximum: 0xffff
+for mask/value and a 0..31 maximum for the register number catch that?  All
+in-tree users already stay well inside those ranges (largest observed page
+0x12, register 0x19, mask 0xffff), so nothing existing would start failing.
+
+> +        - description: mask of bits to clear
+                          ^^^^^^^^^^^^^^^^^^^
+
+[Severity: Medium]
+Is the polarity of this description inverted with respect to the consumer?
+marvell_of_reg_init() in drivers/net/phy/marvell.c uses the mask as an
+AND/keep mask, not a clear mask:
+
+	val = 0;
+	if (mask) {
+		val = __phy_read(phydev, reg);
+		...
+		val &= mask;
+	}
+	val |= val_bits;
+
+	ret = __phy_write(phydev, reg, val);
+
+So bits set in the mask are the bits preserved from the live register value,
+and bits clear in the mask are the ones zeroed.  The driver's own comment
+above that function says the same thing:
+
+ * mask: if non-zero, ANDed with existing register value.
+
+The existing boards agree, for example in
+arch/mips/boot/dts/cavium-octeon/octeon_3xxx.dts:
+
+	<2 0x15 0xffcf 0>, /* Reg 2,21 Clear bits 4, 5 */
+
+where 0xffcf keeps everything except bits 4 and 5.  armada-385-turris-omnia.dts
+uses <3 16 0xfff0 0x0001> and cn9130-cf-base.dts uses <3 16 0xf000 0x0a61> in
+the same style.
+
+A board author following the new wording would write 0x30 to "clear bits 4
+and 5", which makes the driver preserve only those two bits and zero the
+other 14 bits of the Marvell page register (LED control, clock skew, MODE
+fields).  Would it be clearer to describe this cell as an AND/preserve mask
+and spell the update out as (old & mask) | value?
+
+The mask == 0 case also looks undocumented.  When mask is zero the driver
+skips the read entirely and writes value verbatim, which is what most
+in-tree users rely on, e.g. arch/arm64/boot/dts/marvell/armada-8040-clearfog-gt-8k.dts:
+
+	marvell,reg-init = <3 16 0 0x1017>;
+
+Under the "bits to clear" reading, a zero mask would mean "clear nothing",
+i.e. the register is preserved, which is the opposite of what happens.
+Could that special case be mentioned in the description too?
+
+> +        - description: value to apply
+> +
+>    leds:
+>      type: object
 >
-> From: Ashish Yadav <ashish.yadav@infineon.com>
->
-> Hi,
->
-> These patches extend the existing driver xdpe1a2g7b with support
-> of xdpe1a2g7c model.
->
-> With Best Regards,
->  Ashish Yadav
->
-> Ashish Yadav (2):
->   dt-bindings: trivial-devices: Add support for XDPE1A2G7C
->   hwmon:(pmbus/xdpe1a2g7b) Add support for xdpe1a2g7c controller
->
->  Documentation/devicetree/bindings/trivial-devices.yaml |  1 +
->  drivers/hwmon/pmbus/Kconfig                            |  4 ++--
->  drivers/hwmon/pmbus/xdpe1a2g7b.c                       | 10 ++++++----
->  3 files changed, 9 insertions(+), 6 deletions(-)
->
-> --
-> 2.39.5
->
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922183157.291091-2-robh%40kernel.org
