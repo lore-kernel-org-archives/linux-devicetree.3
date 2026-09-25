@@ -1,72 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FE3442B3C;
-	Fri, 25 Sep 2026 13:11:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9A949F127
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341862; cv=none; b=gWyK2NteZbxWOWCq9hDyv+/ChLUAxT2ck/oAGTQNwZPQ35yyiSNz33UuYnJ3feiitlx0zCFbHgJu3hqrFT+EhqWeg0H7JMDECZKFOXLFx9ZuOsY0TlRyAeYxNh48iGgXwQeIKav1GtB8sTq6UKlrdlfZkci1iPH0kQJJ904vzZM=
+	t=1790342112; cv=none; b=YiWPxeGrQJVB3tjB3jDfukQVMvIB7GLTlXSPNTnSIHgd9XVR9G93/HDFedtiQkBv4P7jfH5bnfpTbMP6/gFM77XIzhyFQiqXmSkmF+ybkydNQzhWsn+5Y6fQS34uiQHITTLkgj8Yuj5b1FyhCMFESNt/MJqLSovP/CelOfbT9BA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341862; c=relaxed/simple;
-	bh=509zKjJim0GG5jL8NdMoH4U8eOJwMUQ5iOysVNkLZgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fFdfWW3I+j6/lOCO1gI6l5Qv9qRLRvv7UfxZP3Az+DJspuCRNDZ09GQtE6/FHlilcs7DDfz4X5xNLIcNbGQcOKwZ+rENQTyVz8hQUDpO87lbqaIgRY9Jtwyzfppwua4Bf2pW26BcmSSPJihtnulFb0o3lbMEBgv/VeVjdnVCLZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGDWvzUz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790342112; c=relaxed/simple;
+	bh=MtaIm76iatyPfiF7F9FpPKBCAnF0DdkrKummdNqHOHo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=h7GX+6CANrLaL426EUIOmb0u1676d5VywUfsHAa3hBkoHWY8bAwCgeizX9M54nEuZ7xo7J7KzP/gPiPk4ADfQigcqYH5BkdS/SupKpJnfHJWq4kvRBQAs3YtXCstZT2ufe5pXiycAYR9Oxz20Si4+fkL5d2XMM+15GIzUZiB1GQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=h/61eCx4; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGDWvzUz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404361F000FF;
-	Fri, 25 Sep 2026 13:10:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790341861;
-	bh=BB+RBucDn7drafKRirY+tsjOIqaMLesM5kPeSmCd7Ds=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XGDWvzUz5K7sPSuNwzw/BAgvYQUFyLAagTEKLuLXafBAuYKXiXsSVDgsFU57wslfG
-	 6mHKbUEirDLfW+s/HU0+Ed92AOIsp/ezcuUvnwb5+UWWk0h3c2hG55RHLc+ZaAKUsx
-	 82kXvNsvImo3Jqqg4vq8elG+OTSJU/RzHX6/hRdFF9I7exrq48mzAmw59u8T5eE+Sv
-	 tDDiycX9zsJKK8AexpuXZ1/H9pVFHCyEz7NAlPGRb3qjxq8NOQmjjnzBMNjHx95Hvf
-	 Fk1q7+wKkRCcjWzYMElSrJxGDHYrqHup0A7oLF1l0nFwFFVu8HOhmPUQvxusgwLI4D
-	 zeVclsXl5v9BA==
-Date: Fri, 25 Sep 2026 15:10:56 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add
- qcs8300 16 GT/s PHY
-Message-ID: <20260925-nocturnal-voracious-lobster-3de6ea@quoll>
-References: <20260921-monaco_ep-v1-0-63c5282fb0db@oss.qualcomm.com>
- <20260921-monaco_ep-v1-1-63c5282fb0db@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="h/61eCx4"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 96956C653EC;
+	Fri, 25 Sep 2026 13:15:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AA6C36073B;
+	Fri, 25 Sep 2026 13:14:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 64B041032946F;
+	Fri, 25 Sep 2026 15:14:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790342097; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=Q1rGLtMVsWM8f/arBMoiZNonTnmmCJHgLO5nSGP5jAk=;
+	b=h/61eCx4UX/gJ1xiV9AAL25CGCR8ATemeH4kDdhE2x6xdezgr2RdXkRcYlKZ0RnAp9l9JC
+	Wq6ZmCUEOe6Gq1M82lIpg82KsGV1iSGHMM41VdS8MfB6sgReHGDgn15b5ZXHU1tOSfTuA4
+	xNdRR6r2Y0wJ+4qxYEm6gCgIPjuZs8N8QTE+a/Yjgv+4r60wh0V9k3lBkILyzrfbNQcPbL
+	QIAwmSaOo8mpLrl8JZQqA/CsGse3H9pzlH/6SqlYWyYs3j0WaYO0yK0yfgR/bmjgHpl1Dz
+	84B9+Neq7zkTniVDCoyrreNvmpGIoVgkqL03xWcEPtRAOyCmquTW6FeS1fEkZQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,  Paul Louvel
+ <paul.louvel@bootlin.com>,  Borislav Petkov <bp@alien8.de>,  Tony Luck
+ <tony.luck@intel.com>,  Rob Herring <robh@kernel.org>,  Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,
+  Geert Uytterhoeven <geert+renesas@glider.be>,  Magnus Damm
+ <magnus.damm@gmail.com>,  linux-kernel@vger.kernel.org,
+  linux-renesas-soc@vger.kernel.org,  linux-edac@vger.kernel.org,
+  devicetree@vger.kernel.org,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Herve Codina <herve.codina@bootlin.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence
+ DDR EDAC binding
+In-Reply-To: <CAMuHMdUeCH9SbCr70syV0hVSqD1ccjVptMHoY-6aaEhW_ine_Q@mail.gmail.com>
+	(Geert Uytterhoeven's message of "Fri, 25 Sep 2026 14:57:56 +0200")
+References: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
+	<20260924-paul-v7-3-rc1-edac-v3-1-bd8054a5b180@bootlin.com>
+	<arZpZolRwdU8zh6O@shikoro> <8733uxlcl1.fsf@bootlin.com>
+	<CAMuHMdUeCH9SbCr70syV0hVSqD1ccjVptMHoY-6aaEhW_ine_Q@mail.gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Fri, 25 Sep 2026 15:14:53 +0200
+Message-ID: <87fqyxjwvm.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260921-monaco_ep-v1-1-63c5282fb0db@oss.qualcomm.com>
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Sep 21, 2026 at 04:28:12PM +0530, Krishna Chaitanya Chundru wrote:
-> The QCS8300 16 GT/s x4 QMP PCIe PHY was previously described using only
-> the qcom,sa8775p-qmp-gen4x4-pcie-phy compatible, since no QCS8300-specific
-> compatible existed for this PHY. This was a mistake, as it left the PHY
-> undocumented as QCS8300 hardware and indistinguishable from SA8775P in
-> the binding.
-> 
-> Correct this by documenting a dedicated
-> "qcom,qcs8300-qmp-gen4x4-pcie-phy" compatible, with
-> "qcom,sa8775p-qmp-gen4x4-pcie-phy" listed as its fallback compatible.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> >> +    items:
+>> >> +      - const: renesas,r9a06g032-ddr-edac # RZ/N1D
+>> >> +      - const: renesas,rzn1-ddr-edac      # RZ/N1
+>> >
+>> > We don't need a family compatible. Only N1D has a DDR controller.
+>>
+>> This is true, but from my experience with this platform, Geert used to
+>> request both. I'm fine exposing only one of them, but I explicitly asked
+>> Paul to put them both to mimic the existing bindings and keep some kind
+>> of uniformity. I'm fine either ways, but before we go through that
+>> iteration, Geert, would you mind confirming your preferences?
+>
+> Well, if only RZ/N1D has the DDR controller, there is not much point in
+> adding a family-specific compatible value.  According to renesas.com,
+> RZ/N1x is obsolete, so no new family members will arrive.
 
-Best regards,
-Krzysztof
-
+Ack, thanks!
