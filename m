@@ -1,138 +1,99 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 874833A5433;
-	Fri, 25 Sep 2026 16:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A6D3803D3
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 16:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354919; cv=none; b=QtVq3Z64DFwEug6v5qMCzri751zzaUH94Btkx7GNASA8Vjgv4X1ehlgBsthCMPzDa8HRDv4L5o+Fch1XiV5LfTiVey9YxAjYnzMyXkwL4yO8DLglPov92KqS51Vu0CYZjgW5k9baTHoI7hdI3R54I8bFAIq97IpKhb7FT793hvM=
+	t=1790354967; cv=none; b=YpDPKoSCIHYh106VWAqinZ9Dgbuuy1pcFK5GmrHDJGykRPhUHEp+rvzOraXwp/5PMaiOOAQ18MezSnQMoTo9FwslGaVtuV1gtr5BsOyKvTaH5g3mzAV+gNuy1XJ3JKuQpZs3EAeMEgJo8B54oWu5wvv6diMi3fvoGzWfd0kDGvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354919; c=relaxed/simple;
-	bh=TzUGic9pMOny7EGR5g7usgpgx797/IJRE1u9ts1Wm0g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ltRmi8pRvcjWQjOg7XA5tJGe9xyzwCgWsMtEzqJfwQ9LZ4ikWMZYcO2T5AbQSgltevPJn53ml7xV8YZncWzMWSSjmQCFmubctYmn+MnrMnpp0h4lWI15lAMSlvLa387RNv2ymxYwaVy01W56qeFyCoFzDQJCJ+D+cwx0/L5uq2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ofYM+MpN; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790354967; c=relaxed/simple;
+	bh=P7Nra1/mZ00wO9rIsM4g0/165V9amk6hUGBOAODXVUM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I5+CbtHOtC9MlhhxfMbU9Je75Eg74LxUXiSRbqNGuGe5u0ErrC0Ua6Vl4lGCcYPKJ6vsHKQRYwtKaYASQrZ1L1nj2EEybE88lu5yPdXx88CbzeC88W8vXkr7XB4+2Rgty0VF3HIUJUwhCdEaaVJrh/o6FTdR74ZiAUYHLJP0N6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AuAEb+Ve; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ofYM+MpN"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 02AD4169C;
-	Fri, 25 Sep 2026 09:48:26 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 22A6D3F86F;
-	Fri, 25 Sep 2026 09:48:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790354909; bh=TzUGic9pMOny7EGR5g7usgpgx797/IJRE1u9ts1Wm0g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ofYM+MpN4pf0AQiHkEr6+VnR19TayQDECqyBJXDP5SqIguchrv1aGdXz4dXVLNmhb
-	 dfFleGp0EeFmpr1ed3q40j4OQLi8cop06TNfATdKAfliLLJDCFKwbpMmZn39nVKi1m
-	 Qn97RoWBgt5cO39iAOiYsEnFxJY7QXFKUVOFe83M=
-Message-ID: <1b55f680-2413-4db1-b928-ed5741696d07@arm.com>
-Date: Fri, 25 Sep 2026 17:48:25 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AuAEb+Ve"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04B0E1F000FF;
+	Fri, 25 Sep 2026 16:49:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790354949;
+	bh=GA1H+OxXP6KX0LKvAMZqOqInzKF4jduC38BdbsnlM5g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AuAEb+VeI1z6pWxU4HjqZZQok62LH0qyTrgBi47q35kShO6PMrPe6n4SPcaoC3A+n
+	 kCIhJP+hqwybi+AfGXPi1VmjgPSitXfGETMJ/zQCXX5MdDDfn/uOMlwSvhtjtyGLY2
+	 GMdxadOyEKuhAICt29844HAMMJVs23QqTVSTfYY19cfMVpea0xjHlESRIX+dRFxhE2
+	 bAUpzTdu0fd0ZEvJR5tVJzdQnE2Vp3NXCv4IeyHVmz3T8NrcpF0Q60vXLpe8Xe7EAE
+	 1GUkREEef3efjqGmZQLtHXe7qV4BEijS9atHbXDDJhhZ9+xmFqaAo53tRokYH0nHC1
+	 w5tv5hICCZ3LQ==
+Date: Fri, 25 Sep 2026 17:49:05 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Andrew Gaylard <ag@ffroot.co.za>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	qinjian@cqplus1.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux@armlinux.org.uk
+Subject: Re: [PATCH v5 1/6] dt-bindings: vendor-prefixes: Add Tibbo
+Message-ID: <20260925-entrap-demotion-e1506f8f426d@spud>
+References: <20260924164922.117236-1-ag@ffroot.co.za>
+ <20260924164922.117236-2-ag@ffroot.co.za>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 06/12] remoteproc: virtio: add bounce buffering for
- data buffers
-To: Mathieu Poirier <mathieu.poirier@linaro.org>,
- Francesco Valla <francesco@valla.it>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Mark Brown
- <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, virtualization@lists.linux.dev,
- imx@lists.linux.dev, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-6-dac8c5eb4aa9@valla.it>
- <arKlvZGqu2nt6Ci0@p14s> <arLXthhYbKkwZ9zY@bywater>
- <CANLsYkwNOukGX68=NVvwNP7iudP3EcKN6C2L2o9nVCTRxFVxFg@mail.gmail.com>
- <arP38OEaabFFu8lJ@bywater> <araOI_duKIAbphq6@p14s>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <araOI_duKIAbphq6@p14s>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UlYi1erejnPlZT3w"
+Content-Disposition: inline
+In-Reply-To: <20260924164922.117236-2-ag@ffroot.co.za>
 
-On 25/09/2026 4:07 pm, Mathieu Poirier wrote:
-> On Wed, Sep 23, 2026 at 06:05:35PM +0200, Francesco Valla wrote:
->> On Wed, Sep 23, 2026 at 08:44:41AM -0600, Mathieu Poirier wrote:
->>> On Tue, 22 Sept 2026 at 13:39, Francesco Valla <francesco@valla.it> wrote:
->>>>
->>>> On Tue, Sep 22, 2026 at 09:58:53AM -0600, Mathieu Poirier wrote:
->>>>> On Wed, Sep 16, 2026 at 11:10:51PM +0200, Francesco Valla wrote:
->>>>>> Depending on the driver originating them, data buffers used for virtio
->>>>>> communication can either:
->>>>>>
->>>>>>    - already be allocated from the coherent memory area that is
->>>>>>      accessible by the remote processor; this is the case of rpmsg
->>>>>>      and the rproc flavor of virtio-console;
->>>>>>    - be allocated from generic kmem, and thus not accessible directly by
->>>>>>      the remote processor.
->>>>>>
->>>>>> Exploiting the map operations, which are used by the virtio framework
->>>>>> when VIRTIO_F_ACCESS_PLATFORM is part of a vdev's feature flags, add
->>>>>> bounce buffering for the second case: when the map() callback is called
->>>>>> for a buffer, one or more pages of coherent memory are allocated and
->>>>>> data is copied to them, then they are exposed to the remote processor;
->>>>>> the data is  then bounced back on unmap().
->>>>>>
->>>>>> The first case is not impacted, since buffers already suitable for
->>>>>> remote transmission are passed through.
->>>>>>
->>>>>> With the bounce buffering in place, any kind of virtio device can be
->>>>>> supported through the remoteproc-virtio transport, at least from a
->>>>>> data exchange standpoint.
->>>>>
->>>>> Is this _necessary_ for the imx93 platform you are implementing feature for?
->>>>>
->>>>
->>>> If I don't want to fundamentally change how the remoteproc integration
->>>> works (i.e.: using buffers only from a pre-shared area), yes. While in
->>>> my test environment the Cortex-M33 serving as remoteproc is able to
->>>> access the whole RAM space, that is not always the case.
->>>
->>> The first sentence tells me it is mandatory while the second says it
->>> is not.  I understand the use case but don't want to bloat the
->>> subsystem with code that is trying to address a problem you currently
->>> don't have.
->>>
->>
->> Let me rephrase: while on i.MX93 the Cortex-M33 can theoretically access
->> the whole RAM space, that is not a good idea from a security point of
->> view and can be the source of a number of bugs. The target is to
->> statically define a static shared memory area (as I am doing on i.MX95)
->> and only use that.
-> 
-> As Robin pointed out, have you looked at using a restricted-dma-pool for that?
-> Note that I am not familiar with the concept but open to go that way if it can
-> work for us.
-> 
-> Robin, can you point us to a simple example we could look at?
-The only in-tree example is mt8192-asurada.dtsi, but even there the 
-fundamental principle seems exactly the same - the system interconnect 
-is locked down such that there's only a particular region of "shared" 
-memory that PCIe DMA can access, so the restricted pool is placed there, 
-and in that case can occupy the entire region since the wifi adapter 
-only really does streaming DMA - restricted pools have some limited 
-ability to act as a fallback for coherent allocations, which won't work 
-for everything, but does happen to be enough for that wifi driver.
+--UlYi1erejnPlZT3w
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Here it would be a case of reserving some of the shared region for a 
-restricted pool alongside the "vdevbuffer" coherent pool, adding it to 
-the memory-region list of the relevant device(s), and usually that would 
-then just work, since the setup is all done automatically by the core DT 
-code. However I know remoteproc does some funky stuff with child 
-devices, so it's quite possible there might need to be something more 
-done there. But still far, far less than reimplementing a whole other 
-bounce-buffering system.
+On Thu, Sep 24, 2026 at 06:49:17PM +0200, Andrew Gaylard wrote:
+> Add the vendor prefix for Tibbo Technology, the LTPP3G2 board manufacture=
+r.
+>=20
+> Signed-off-by: Andrew Gaylard <ag@ffroot.co.za>
 
-Thanks,
-Robin.
+Link: https://tibbo.com/
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index 4a5cf436eb14..8a984fea11c3 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1728,6 +1728,8 @@ patternProperties:
+>      description: Texas Instruments
+>    "^tianma,.*":
+>      description: Tianma Micro-electronics Co., Ltd.
+> +  "^tibbo,.*":
+> +    description: Tibbo Technology Inc.
+>    "^tlm,.*":
+>      description: Trusted Logic Mobility
+>    "^tmt,.*":
+> --=20
+> 2.53.0
+>=20
+
+--UlYi1erejnPlZT3w
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaramAQAKCRB4tDGHoIJi
+0lTTAQDGqGWo0Z147vFrs87W9XtSqSk4XY9MvDf5TcVrVGnp+QD+M2bvhTxKm+NA
+uilgroWUMyUYURQoxL3phRkltvzK/g8=
+=uLMg
+-----END PGP SIGNATURE-----
+
+--UlYi1erejnPlZT3w--
