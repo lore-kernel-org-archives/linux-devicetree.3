@@ -1,262 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CEA480DC8;
-	Fri, 25 Sep 2026 21:59:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84F247ECEB
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 22:06:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790373572; cv=none; b=f7rkBrV64Vr6JGEet9YDk/VVDwZpIVBYDJTSELcejxToX7BiTDtRlz2TrhWbNYN9XnaKGXMvK4zEAJjqjJLynvrk7argKvj3GzE/BYSUQDzgYoFT847feyzO5b8HRnAhT8XxgWlqHlmfYsGyUdlbiUidgRz5bLBjBTa8KBO1C40=
+	t=1790373971; cv=none; b=YTkENeONA2lEGhe6EYbz9lcJh4qCyUHxLCd5HikseR3M0wd45IQpu/DV7W52O7bD/VjwDrP3RpbI1FoBDyeAxzOvPjX2D1evUSASe3l0DAxXk5LC/8UBePwoRs6cjZKX+WQLyPo/waP7h+yjTF6P5ubSjXlVSEwmrRyP/8IfksM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790373572; c=relaxed/simple;
-	bh=kCBagfc6vZXcM3WO7daDE2vkfjzQw3XQqPUIf1Cks1A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ey9SQ0zYu/PVMFLZoTIdwHjFyvBSLJf3+2ZGtUMLtZJCaydfh7uO2T5L65Kqs2W0kW37JiXwsrPFHs3UACtOn786m9pGZpM/hqfxWKV8svysXzoXtKsK3tgdTNkG8CQQbp5uSU0G9g3eGItKaj1l4CwewOfHZjzJOtTTle8zRns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F1vb59v6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790373971; c=relaxed/simple;
+	bh=eUT08NXlal1aio0O0dE8v8ucqBjaWELZBPGpyOtKUBU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ed/a40jDaTUdYAwJV/Lb5ui1joUp/4YbsEkUmt8FSq0Wy4AnXH50iP3uEH/4JlNF+0+4X7wOWrjFmi4Xelb6MBkYQLTlpKMCOQhmRFM8hdo5kMHY3lJ3FryDZFQ6jLqYjMbN5wqcKXtmq4jg07fqUAONrn1qMjkhfC8v8gK+rtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bpnDVkLH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F1vb59v6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844BE1F000FF;
-	Fri, 25 Sep 2026 21:59:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bpnDVkLH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83D541F0089B
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 22:06:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790373571;
-	bh=jIthKFXcHdLdemQzLqVijaDxfZmaZkVpCwS06mScTsY=;
-	h=From:To:Cc:Subject:Date;
-	b=F1vb59v6yxaW6XGa1w550XUUM5beQWqNTyVc9pJA0LSQgkTIToUrwyPX8+kxqAQaH
-	 7sefTLjBwMS+ithgzAzxF0GrOcagExXu/pB34SFoOqBP/n3Gtbb9P8BtnB4XTEX6Mu
-	 H+jWMsVAzgHwXqfJHSx0Z+CD4DwJumpFSIKtspiqk6hw2bLtqRMSgueFh2n52wG4C3
-	 aWV3jGFaneO2c60kjna5NqszWhheZwpH0wWMuk50LdOMFxePWuDhOEVCF+OTfOeqF8
-	 S3CP6YtPvBN58g3edB1lhcNcD5x81XJCvi6x3TSPlkTAHciYoX8r1CsqROcBI70VKi
-	 2N+bAX1xkIhDw==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] dt-bindings: net: Convert hisilicon,hns-nic to DT schema
-Date: Fri, 25 Sep 2026 16:59:22 -0500
-Message-ID: <20260925215923.2950950-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1790373969;
+	bh=akTRCZfxAXfNBZ4KIMjBWZ0psXD2E8XGJgCbxx6huPQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bpnDVkLH6BOz1wKCo+BfK+BDWZG4qIUGh1duco4Mi+ieKVKilMXGrfIWpP+H5hYgn
+	 m1ZBm5RBiB5okwKg+8BtTKr3rVGJstMFDa76USW17R9sH2FTMfVwsLWlnV+wpzCGug
+	 gPsQplEVfpBjYmh5q5PUXU9KLx70SgWBlEEf3Iq4SfvZBlU/bOKrmu6XSqTzAPDhxY
+	 WBT3Q7ByU0yxSVLNOaArZrO61/ZgnRtdFEI1agf37jShUM/Ukltw1NvD7Q9523UsGB
+	 MEe78bqyD3rIWaRIl+b2j+QJHs8vAQ4R2W+6NxSc0SnAn3GF+j4tYGPsp8M7egnOXX
+	 i42xmdzi2JQ5A==
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaf688ebb0so1008130a12.0
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 15:06:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx2II237QR/WJrGvCA7/aTuBCA/t6JWmtvM2nWUw8w7qmRu1whUkD6CyP/YN+gKwVH5Sh4Ger1+iXxE@vger.kernel.org
+X-Gm-Message-State: AFuF++krgRtIVM6LQ60gaMnPlpnXHLhe+F/0V2O/oCmEFoyarnssozjq
+	ZHZhZGqcmwebrdpoWjKypu83u8UuFsXvWbU0lxCtqljuwWcYiUmT1Pa0dKb4wSxDkW5koP84kt7
+	Pq58MvkMXw8vdEoq8ua8bv1crfC8hmw==
+X-Received: by 2002:a05:6402:44db:b0:6a5:f4e6:eba5 with SMTP id
+ 4fb4d7f45d1cf-6aac8f40c2dmr4924503a12.2.1790373968114; Fri, 25 Sep 2026
+ 15:06:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260925203039.110653-1-marek.vasut+renesas@mailbox.org> <20260925203039.110653-2-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260925203039.110653-2-marek.vasut+renesas@mailbox.org>
+From: Rob Herring <robh@kernel.org>
+Date: Fri, 25 Sep 2026 17:05:56 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJ6NhVEDBZqwvr4TRFMK36v1K9n+_WysCRDQ5mkEpTV5Q@mail.gmail.com>
+X-Gm-Features: AclHuK9aAl_Ukdn4jihhsX1vhjj4xdO35vUAoCJf1jNcqM3HZNsoFnZOqj1ZOcY
+Message-ID: <CAL_JsqJ6NhVEDBZqwvr4TRFMK36v1K9n+_WysCRDQ5mkEpTV5Q@mail.gmail.com>
+Subject: Re: [PATCH 2/2] dt-bindings: PCI: rcar-gen4-pci-ep: Fix reset-names
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Convert the hisilicon,hns-nic binding to DT schema format. It's a
-straight forward conversion.
+On Fri, Sep 25, 2026 at 3:30=E2=80=AFPM Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+>
+> Drop maxItems: from reset-names, since the entry already contains items: =
+.
+> Fixes the following warning detected by DT checker:
+> "
+> Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml: properties:r=
+eset-names: {'minItems': 1, 'maxItems': 2, 'items': [{'const': 'pwr'}, {'co=
+nst': 'core'}]} should not be valid under {'required': ['maxItems']}
+>         hint: "maxItems" is not needed with an "items" list
+>         from schema $id: http://devicetree.org/meta-schemas/items.yaml
+> "
+>
+> Fixes: 173cc7417848 ("dt-bindings: PCI: rcar-gen4-pci-ep: Document Applic=
+ation/Local register reset")
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: "Krzysztof Wilczy=C5=84ski" <kwilczynski@kernel.org>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Magnus Damm <magnus.damm@gmail.com>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>  Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml | 1 -
+>  1 file changed, 1 deletion(-)
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/net/hisilicon,hns-nic.yaml       | 107 ++++++++++++++++++
- .../bindings/net/hisilicon-hns-nic.txt        |  76 -------------
- 2 files changed, 107 insertions(+), 76 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/hisilicon,hns-nic.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/hisilicon-hns-nic.txt
-
-diff --git a/Documentation/devicetree/bindings/net/hisilicon,hns-nic.yaml b/Documentation/devicetree/bindings/net/hisilicon,hns-nic.yaml
-new file mode 100644
-index 000000000000..1b14348e74d8
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/hisilicon,hns-nic.yaml
-@@ -0,0 +1,107 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/hisilicon,hns-nic.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Hisilicon Network Subsystem NIC controller
-+
-+maintainers:
-+  - Jian Shen <shenjian15@huawei.com>
-+  - Jijie Shao <shaojijie@huawei.com>
-+
-+allOf:
-+  - $ref: ethernet-controller.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - hisilicon,hns-nic-v1
-+      - hisilicon,hns-nic-v2
-+
-+  ae-handle:
-+    description:
-+      accelerator engine handle for hns, specifies a reference to the
-+      associating hardware driver node.
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  port-id:
-+    description: |
-+      is the index of port provided by DSAF (the accelerator). DSAF can connect to 8 PHYs.
-+      Port 0 to 1 are both used for administration purpose.
-+      They are called debug ports.
-+
-+      The remaining 6 PHYs are taken according to the mode of DSAF.
-+
-+      In NIC mode of DSAF, all 6 PHYs are taken as ethernet ports to the CPU.
-+      The port-id can be 2 to 7. Here is the diagram:
-+            +-----+---------------+
-+            |            CPU      |
-+            +-+-+-+---+-+-+-+-+-+-+
-+              | |     | | | | | |
-+             debug       service
-+             port         port
-+             (0,1)       (2-7)
-+
-+      In Switch mode of DSAF, all 6 PHYs are taken as physical ports connect to a LAN Switch,
-+      while the CPU side assume itself have one single NIC connect to this switch.
-+      In this case, the port-id will be 2 only.
-+            +-----+---------------+
-+            |            CPU      |
-+            +-+-+-+---+-+-+-+-+-+-+
-+              | |   service| port(2)
-+             debug   +------------+
-+             port    |   switch   |
-+             (0,1)   +-+-+-+-+-+-++
-+                       | | | | | |
-+                      external port
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 7
-+
-+  port-idx-in-ae:
-+    description: |
-+      is the index of port provided by AE.
-+      In NIC mode of DSAF, all 6 PHYs of service DSAF are taken as ethernet ports to the CPU.
-+      The port-idx-in-ae can be 0 to 5. Here is the diagram:
-+            +-----+---------------+
-+            |            CPU      |
-+            +-+-+-+---+-+-+-+-+-+-+
-+              |    |   | | | | | |
-+           debug debug   service
-+           port  port     port
-+           (0)   (0)     (0-5)
-+
-+      In Switch mode of DSAF, all 6 PHYs of service DSAF are taken as physical ports connected to
-+      a LAN Switch,
-+      while the CPU side assume itself have one single NIC connected to this switch.
-+      In this case, the port-idx-in-ae will be 0 only.
-+            +-----+-----+------+------+
-+            |                CPU      |
-+            +-+-+-+-+-+-+-+-+-+-+-+-+-+
-+              |    |     service| port(0)
-+            debug debug  +------------+
-+            port  port   |   switch   |
-+            (0)   (0)    +-+-+-+-+-+-++
-+                          | | | | | |
-+                         external port
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 5
-+
-+  dma-coherent: true
-+
-+required:
-+  - compatible
-+  - ae-handle
-+  - port-idx-in-ae
-+  - local-mac-address
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    ethernet {
-+        compatible = "hisilicon,hns-nic-v1";
-+        ae-handle = <&dsaf0>;
-+        port-idx-in-ae = <0>;
-+        local-mac-address = [a2 14 e4 4b 56 76];
-+    };
-diff --git a/Documentation/devicetree/bindings/net/hisilicon-hns-nic.txt b/Documentation/devicetree/bindings/net/hisilicon-hns-nic.txt
-deleted file mode 100644
-index f0421ee3c714..000000000000
---- a/Documentation/devicetree/bindings/net/hisilicon-hns-nic.txt
-+++ /dev/null
-@@ -1,76 +0,0 @@
--Hisilicon Network Subsystem NIC controller
--
--Required properties:
--- compatible: "hisilicon,hns-nic-v1" or "hisilicon,hns-nic-v2".
--  "hisilicon,hns-nic-v1" is for hip05.
--  "hisilicon,hns-nic-v2" is for Hi1610 and Hi1612.
--- ae-handle: accelerator engine handle for hns,
--  specifies a reference to the associating hardware driver node.
--  see Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
--- port-id: is the index of port provided by DSAF (the accelerator). DSAF can
--  connect to 8 PHYs. Port 0 to 1 are both used for administration purpose. They
--  are called debug ports.
--
--  The remaining 6 PHYs are taken according to the mode of DSAF.
--
--  In NIC mode of DSAF, all 6 PHYs are taken as ethernet ports to the CPU. The
--  port-id can be 2 to 7. Here is the diagram:
--            +-----+---------------+
--            |            CPU      |
--            +-+-+-+---+-+-+-+-+-+-+
--              | |     | | | | | |
--             debug       service
--             port         port
--             (0,1)       (2-7)
--
--  In Switch mode of DSAF, all 6 PHYs are taken as physical ports connect to a
--  LAN Switch while the CPU side assume itself have one single NIC connect to
--  this switch. In this case, the port-id will be 2 only.
--            +-----+---------------+
--            |            CPU      |
--            +-+-+-+---+-+-+-+-+-+-+
--              | |   service| port(2)
--             debug   +------------+
--             port    |   switch   |
--             (0,1)   +-+-+-+-+-+-++
--                       | | | | | |
--                      external port
--
--  This attribute is remained for compatible purpose. It is not recommended to
--  use it in new code.
--
--- port-idx-in-ae: is the index of port provided by AE.
--  In NIC mode of DSAF, all 6 PHYs of service DSAF are taken as ethernet ports
--  to the CPU. The port-idx-in-ae can be 0 to 5. Here is the diagram:
--            +-----+---------------+
--            |            CPU      |
--            +-+-+-+---+-+-+-+-+-+-+
--              |    |   | | | | | |
--           debug debug   service
--           port  port     port
--           (0)   (0)     (0-5)
--
--  In Switch mode of DSAF, all 6 PHYs of service DSAF are taken as physical
--  ports connected to a LAN Switch while the CPU side assume itself have one
--  single NIC connected to this switch. In this case, the port-idx-in-ae
--  will be 0 only.
--            +-----+-----+------+------+
--            |                CPU      |
--            +-+-+-+-+-+-+-+-+-+-+-+-+-+
--              |    |     service| port(0)
--            debug debug  +------------+
--            port  port   |   switch   |
--            (0)   (0)    +-+-+-+-+-+-++
--                          | | | | | |
--                         external port
--
--- local-mac-address: mac addr of the ethernet interface
--
--Example:
--
--	ethernet@0{
--		compatible = "hisilicon,hns-nic-v1";
--		ae-handle = <&dsaf0>;
--		port-idx-in-ae = <0>;
--		local-mac-address = [a2 14 e4 4b 56 76];
--	};
--- 
-2.53.0
-
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
