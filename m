@@ -1,99 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089354908A7;
-	Fri, 25 Sep 2026 14:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E135D4AB3A5
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 14:22:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790345923; cv=none; b=eRm939lBRKZtyMED/KXMA7ImN2BnE7VsN1v2WBUHsfWbvqdZgXOQEs+z1MaT/K63kRE5rKyVOR6hj6Z/3FP8iuzk6EgLOFimUQNCQDCNXqoi/gRJCKFBUBugbpUjg5AxO8eprdXKsO+4WqN4zl5Ry9mIICbPRlsWxTscRt52T10=
+	t=1790346148; cv=none; b=OxfLGIYawsC+H7a3hB44yiog3fY8xGy8RECb7QgrBlzioIJInM6+RaUXb+rEKlvZyPHCDLaftvCQAfMpUDtUp6xDh2dm3YdiJ+dt6zdbb+4i43Z+3zin5nw1zoXEPx+zfQ6JMDufMrJSFUZGNGW+dutS7xUiAX/UvCP5E2tvIoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790345923; c=relaxed/simple;
-	bh=O0UQlcpBePEhCtE60o4RB9ewz0ke7JOvuoOv6HWv36E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SqZPTI+zQ8ZUVT/0HPeY+UpJn0dxDmmNJMWWAnIqaKiGXnc40i7tG/7l0KYCj1QZsEXyvgF1mKotlUe4F0mhNgs9PMdtxC/bamWoHFTt0BemE3lhEPkuVz6G5O9RgQaQCPwCish1QgTJSssEc4l5wiV++GwxWAoLC987t2A5C+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eftRXca8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790346148; c=relaxed/simple;
+	bh=d5uDDZqpgCCF8ojhypKkg1mxed2A2EO+LI5JH4IuU90=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=LcXvWCqV1+2aNRhP1TcIg3eEycrnpKHPArk8515M9me9oFGLw2u1I0R3TMMD+UJitJ+VzMptN+vyHg3NxRvk8wcE8A6Jt1xmTZGwjmjQgbIlHeXpbcgUnbS4H1rzIZ45XKs3FRJFaGuVVTdFLo1JYiqkVLuXTYnC4OkxBU+xmXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HubwWeC7; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eftRXca8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7642B1F00899;
-	Fri, 25 Sep 2026 14:18:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790345921;
-	bh=lfwbK6aQOk9FHQe0F0mk3C3hQbetkzcccmn4T4ffiAA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eftRXca8xtBhE587iml/z29FSktAe7JYuF53Y224sbx+Rt8BUUYPtDLXRpFmCIXDx
-	 xiJIjaDaj34GBdm3rQSCSMZFfvZjSsPm9ZQ6efPQHGvQtqnfQfGmfQqvxNdlRC3SAE
-	 XDwvEqbCu2+wxv98uliQUd6g49Wqp9vpJ+nsix7Qihek/OZqOAIaZuUkBoRqbguU1q
-	 zgJ+0VaIILgnADgAG8rrnhVbtayQG7MbnMknzPHjpMBJ1opbJevYcK8aUDWxFPPD5z
-	 XVM6gpIxE84k1AqGu9OGk59r8iy9InuNxC2gHthmlc1JxqKBG6Qawohv8pjDqgkKPx
-	 BsF9i4rXq+YOw==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	cros-qcom-dts-watchers@chromium.org,
-	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	manaf.pallikunhi@oss.qualcomm.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Casey Connolly <casey.connolly@linaro.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v8 0/9] Add support for Qualcomm remoteproc subsystem cooling
-Date: Fri, 25 Sep 2026 09:18:31 -0500
-Message-ID: <179034590772.712210.9030677461364721298.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
-References: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HubwWeC7"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so526133f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 07:22:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790346140; x=1790950940; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rPNL1M3jOjQFzxSJPuEX1QG7QhoNHxjdxEWAOGyxkfw=;
+        b=HubwWeC7jF+9b/IB2A+RGD8cWmyBpNGrMhldVdU3rCcVRwHrMmlhaIoWm7/qu3v7PO
+         SAEAvknUCue7nQBGnx0jEDEudwP5d7PlM6hMSlxus/iGWfhTM00fQM6ElkgOqmNMElF9
+         v6DGW9mb445hjlGTfL+L3BbwCyYftEalOz91EagrSqLvItR3rBXWII/QJcNg7dbvVBVX
+         3AutFrKg+2BoviaGMvtasyTVRYhkdMlalWraaUrjcDq6z3kO8jYDeKF6bKIq/pjGeXft
+         26smmi2eSD3GGvLK47Sd2EWQpezFVyMugsz69Zi2iJd/72mIsM++eGW32bEpZMMVAnWj
+         oVvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790346140; x=1790950940;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rPNL1M3jOjQFzxSJPuEX1QG7QhoNHxjdxEWAOGyxkfw=;
+        b=e2xZAqIqTvO1V0M+RJO6JbLlepgwP6e+MEj6bRDFzS8V/Rl3J5U01xMChDonW+E7E/
+         VrTxxL2LCU+7cZemguJKp65o18Pjlh0UW7jIhI1UZoRQMT7eBhhbMuCm4ks1mbZtQPSP
+         qUysGzTo+7qKJMlkU2NCw1pn2OhiD3rV+Y1AR5WTF0ZK0UJq/yazXH2ppGgkUsCwHyez
+         3yd/z54/xQDmzqz4hgy8F+4H5iY3pQXh6N2i4rwDPYLTRkO8DwQVXArOLExwXPH71dPc
+         EfSfKwYwNPhd7XB8tz72EwbPm4M/mldhPLmNp2QMug6dr7wp7Vk3MoyQQpM7OHFe/ejo
+         U8qA==
+X-Forwarded-Encrypted: i=1; AKwUvBwSe05DCGj3b90Hdu/SJYsCStJqlTFTuMj1JqDwUKLh1TE1LdJcgZaJ9nNJc25qAIF72ATKFv/NLUlb@vger.kernel.org
+X-Gm-Message-State: AFuF++myox2vflyEViMknbhwRqQh4ZtOqtR4BqztbWbXEMiRxGYxzxtt
+	4KObT5rng09sbPZ7dnh9HVuV5u1qyLuUL+jAS6ieDdrYWIcwnKPc/wBossQfNaU79GE=
+X-Gm-Gg: AYBFou1oF4/DZIUBQVjZ5scwIdricoun74vNP6Np5n5M1oQ5a9NhlQMyBY7JVG32vVq
+	iA3irz6/JxFI8VDVn2Hys/FKwonOVRtDjK5rIznco/qyXXTzyRNqX3uwPfItWZZCna50Ud+rRQS
+	7+d5bdXA8EzpDMW2IljskoUDZNG3r3utOm+wGefEcFJGzSs/0HWbiRJ/ScrH4ZcSIbRJJshCZe5
+	PCeCWwZs/LZppAQGAi+mgYKUtkJ/iR+I1ujH4p7PU3sCYKVy5n3QwZkbmXF38VG8V4uGSW9/Z22
+	NZWL84DV7Rn2GRDsgiKrvTPI38bB1MKxSu11RnBZPQX9JhzTTsz/uPhOsyLjyw3PVwSwCBbFE1E
+	lNKN9UencLMOV9/idiisaor0swd2rOwPi++Rpz145b9yZRs6naxYwZ3r3JwFO6iPWA1QFWcP1Kf
+	g5U4132dYqbuUqhpk9UZDwazOKUUbnjw+Z5kqL8fCx0Y8Wp1W3KRnGFuKuir+eYIb1GZVCW5C3b
+	+ceSRwDiBqV4I5Y3Q==
+X-Received: by 2002:adf:e186:0:b0:488:80d0:873a with SMTP id ffacd0b85a97d-48880d089e8mr3037468f8f.5.1790346139942;
+        Fri, 25 Sep 2026 07:22:19 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b9aesm6834677f8f.5.2026.09.25.07.22.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 07:22:17 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Vyacheslav Yurkov <uvv.mail@gmail.com>, Vyacheslav Yurkov via B4 Relay
+ <devnull+V.Yurkov.EXT.bruker.com@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, Brian Masney
+ <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri
+ Sarha <jsarha@ti.com>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Subject: Re: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
+In-Reply-To: <a5e76452-1fa1-4675-9a16-8683702ff4d0@gmail.com>
+References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
+ <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
+ <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
+ <e697d892-fbd2-432a-b71c-8547ead22ea0@gmail.com>
+ <1jtsnpcn8l.fsf@starbuckisacylon.baylibre.com>
+ <39fdddbf-0fdb-40e7-9cd5-c8f857ee8b9d@gmail.com>
+ <1j8q4p8rxl.fsf@starbuckisacylon.baylibre.com>
+ <a5e76452-1fa1-4675-9a16-8683702ff4d0@gmail.com>
+Date: Fri, 25 Sep 2026 16:22:16 +0200
+Message-ID: <1jzex576nb.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+On ven. 25 sept. 2026 at 15:15, Vyacheslav Yurkov <uvv.mail@gmail.com> wrote:
 
-On Sun, 09 Aug 2026 17:58:56 +0530, Gaurav Kohli wrote:
-> This series introduces Qualcomm Messaging Interface based Thermal
-> Mitigation Device (QMI TMD) support to control thermal mitigation
-> on remote subsystems such as the Modem and CDSP.
-> 
-> The QMI TMD is an interface that instructs a remote subsystem to adjust
-> the performance level of the devices it manages, reducing power consumption
-> in response to critically low battery charge, overcurrent alerts, or
-> overheating conditions.
-> 
-> [...]
+> On 25.09.2026 13:57, Jerome Brunet wrote:
+>> On jeu. 17 sept. 2026 at 19:05, Vyacheslav Yurkov <uvv.mail@gmail.com> wrote:
+>> 
+>>> On 16.09.2026 15:57, Jerome Brunet wrote:
+>>>
+>>>>>>> +/* We can't enable the clock, but the Common Clock Framework calls only
+>>>>>>> + * enable() not is_enabled()
+>>>>>>> + */
+>>>>>>> +static int gpio_locked_clk_enable(struct clk_hw *hw)
+>>>>>>> +{
+>>>>>>> +	return gpio_locked_clk_is_enabled(hw);
+>>>>>>> +}
+>>>>
+>>>> You need to explain your problem a bit more because this is not OK. Your
+>>>> clock should really just provide .is_enabled() AFAICT
+>>>
+>>> When a peripheral driver uses devm_clk_get_enabled(), this is resolved
+>>> to clk_prepare() and clk_enable(). Neither of them check for
+>>> .is_enabled(). Is that a flaw in the CCF or expected behavior?
+>>>
+>> 
+>> .enable() does return an error on failure. It is up to the provider to
+>> return one or not. In your case, it will be probably be necessary to on
+>> the gpio a little.
 
-Applied, thanks!
+it will probably be necessary to poll on the gpio a little. (sorry)
 
-[1/9] dt-bindings: remoteproc: qcom,pas: add #cooling-cells property
-      commit: 1a61afc42cff8397cbc430666cf4ce9dec72e076
-[2/9] soc: qcom: Add QMI TMD support for remote thermal mitigation
-      commit: 2ff581c2185c3797fae2725537c7de1da3bc89fd
-[3/9] remoteproc: qcom: pas: add support for TMD thermal cooling devices
-      commit: 8eef721027127b7bd8ec06246bf1bbd975dc5f64
-[4/9] remoteproc: qcom_q6v5_pas: enable QMI TMD cooling support
-      commit: 586a2fadadb160295a93e5d5d32db1a2558a4d3f
+>
+> I'm not sure I understand what you meant.
 
-Best regards,
+>> Note that if the GPIO can sleep, interacting with the gpio must happen
+>> in prepare (think i2c gpio devices)
+>
+> In other words, I should only provide prepare/unprepare instead? Do you 
+> think is_enabled can also be replaced by is_prepared in this case?
+
+It depends on the GPIO API used. have a look at clk-gpio.c
+
+>
+> Slava
+
 -- 
-Bjorn Andersson <andersson@kernel.org>
+Jerome
