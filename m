@@ -1,69 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BD449D5A3;
-	Fri, 25 Sep 2026 13:28:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C22249E5D5
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:30:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342934; cv=none; b=Dd+lG+mroYBtNPYmzy+J8zOt4LmYzLnvyl6TzxyHWK7q4Gnfr2TXTcTjznXVN5ypvR5avde6zPvszKzej8bOG1VRX0D1+PX8m0bAapheARVYeLhu1XkLo9HYa9ArsfRdBx3p1u8T+pKEG9hu6LNKaRQarJ5n+xyfmVZjHa5ROKg=
+	t=1790343030; cv=none; b=QzdB01H8+wgabOJpOsuFW/EkmQp9uHSbdhBQdenlbqB7rggUv9hiIi8q7Z9jqNKDHMHnqcKt+NXPGb1/o/ORdX7HyuJseLKBQC0H0l9EDunFZKrdS+33iir9DbMpoKpLo+XYoHyAoCXYiNX8SsG29wcwXD7QZvVQFuVpG6YCgZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342934; c=relaxed/simple;
-	bh=F1xH5C7a95d/cOv6Yb7E2RCqCUtWMt+Q+AomaKwJTFQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iQlpJZe3NQ2Ftkl8gpZ32L4XzX7IvxNqCBte51QHrHZGMyO79Iz8zLC6uKZYRHnFgvsKC9nI4ukc+yt5wbMp3b8SDACE4YeXa9YCPMs7PaOFCI2gXdwJ++fe7vs28eHmDI/WY3OaY4i5TTKC51gvjmhwkvOgwbGmer0D2c7vAbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWRXF7ga; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790343030; c=relaxed/simple;
+	bh=/jFCjg6nDyLS94dvgK/EEMc/s+8n2QPDNYXmC3S7fXI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=X2Cydq1UUHThOd1IUUFa0/MXFuyG+CkxesVm/KqOOd6TS/C6qNYDwjiiFzaFgnyF0I1tWyP2ebJ299r5oYy6g9Lx2m9cxqOKywBk5bnfnBG5CvkoCnSp9/IX/imfX/fx00uD25rLr51IVUM3cheURfWdNUs5xOlyThZEcMdFekc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PAXG6agC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWRXF7ga"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEDBD1F000FF;
-	Fri, 25 Sep 2026 13:28:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PAXG6agC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 275AD1F0089E
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:30:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790342932;
-	bh=bSLrZfxBm+sJpcjDObl+vNI6lHL2udNZOnB/INObF+g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oWRXF7gasE8nIAyLPF3Ida/IZ7rkCihuOoRDQ68KUmTwAzMxYHLZsZJHgmrceq07D
-	 S/1ZYYYXBFSrLBBjb4cbUY+rDRaH0ijt4YG8weCG2fzQjl8zIl/8ePHvy7OY6cmb+l
-	 UFEGP1nvv8cgSAy23uWtcUwKuyzxawD3u7plp0LPQKVhpiB6vGU37DGX5NFBaE3Z/n
-	 t5LNgrv9ze1WqQndcrJyp3qUe4unVB/a1VAIVZzFY0joqO2RBjKezSQPlOrYD/8WZL
-	 6yQKE7XqyFgZfm+bFe1AZ6ZeZ0pW4ezprLJSwowstYLJqYR1bgkD46yObJkwBZIeaJ
-	 SKvbTSUqZDptg==
-Date: Fri, 25 Sep 2026 15:28:49 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Nagarjuna Kristam <nkristam@nvidia.com>, JC Kuo <jckuo@nvidia.com>, 
-	Mathias Nyman <mathias.nyman@intel.com>, Thierry Reding <thierry.reding@gmail.com>, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	Thierry Reding <treding@nvidia.com>, Wayne Chang <waynec@nvidia.com>
-Subject: Re: [PATCH 3/9] dt-bindings: usb: tegra-xudc: Add Tegra264 XUDC
- support
-Message-ID: <20260925-singing-angelic-frigatebird-f894be@quoll>
-References: <20260921-tegra-usb-v1-0-74a925a35d82@nvidia.com>
- <20260921-tegra-usb-v1-3-74a925a35d82@nvidia.com>
+	s=k20260515; t=1790343021;
+	bh=hjEFWSQNzvV2cy7ibgDjEb2o00pPnzmhtpFfAirbXj0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PAXG6agCyvCYWf/tSqGxDa9duEbYzyNcom1gf3z7PKaAHOcXVQq6dZEaWudWC45e+
+	 /Fzo3TCxWAG9M8kZkBiOP+qvUXL5lI/R0RPbdgPJARPiwsGmJkElUbDQRClRd6nMt9
+	 mxxZLuQMZNRX1LNmY++AmOx0uTtxjwvqjpi1MukMlfdSVo1MNleFQnbKcAkkrBh4c0
+	 UtuDkvv94FAnLSvD1TLPO94o6HOCP+H2WEjW262DRJTXOSLBTQ9isCPvlFrAZgc7Fz
+	 67dYwpSZUCDKrehPMVrvx4P7NtiMaud4UGH7UL7pluL3RqHEI/2FJ4DQDyWed96EyG
+	 zR3Lz9kUnd+xg==
+Received: by mail-oo2-f40.google.com with SMTP id 006d021491bc7-6b4bff33ceaso597505eaf.0
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:30:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxN984K3VN6XS4W2J5HXE5aWJ6yWz18zpwDAjCsLw9fR/8EIbQehYuMnwL49k1Q4ZS31ZPYcpLfPAIC@vger.kernel.org
+X-Gm-Message-State: AFuF++kbaobWo3kvlmp15WdJZ1UiEHxMSeR/7pnBjyDk0vG9N5g1JTFY
+	6h3mU14q2R1SvcLhYO7PkF1mDbbz7oqdx9oKmTro3Ip9b/dvR67EnPw6QT/4r4a9nsh4+1pW0b0
+	FNwRrpz7CKPYIKyvg7JJka/JbFxSOMAQ=
+X-Received: by 2002:a05:6820:818f:b0:6cd:3ffc:ad01 with SMTP id
+ 006d021491bc7-6d441c7de80mr5856938eaf.81.1790343019904; Fri, 25 Sep 2026
+ 06:30:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260921-tegra-usb-v1-3-74a925a35d82@nvidia.com>
+References: <20260914140821.1805449-1-arnd@kernel.org> <17a74e90-27d1-4954-86a8-491267f00cb8@gmail.com>
+In-Reply-To: <17a74e90-27d1-4954-86a8-491267f00cb8@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 25 Sep 2026 15:30:05 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=VJsnk-GzAvR4oR8oKJayQzq9Oes+ZW7K=iHGrQ1jh0w@mail.gmail.com>
+X-Gm-Features: AclHuK_tdwElKKmMYGPFlmZM1P8fO1IIRCqgIQbs7o9aMikBwWdJXpQ3EUUcqPA
+Message-ID: <CAD++jL=VJsnk-GzAvR4oR8oKJayQzq9Oes+ZW7K=iHGrQ1jh0w@mail.gmail.com>
+Subject: Re: [PATCH v2 00/14] ARM: deprecated platform removal
+To: Yoshifumi SHU <envzhu@gmail.com>
+Cc: arnd@kernel.org, Frank.Li@nxp.com, aaro.koskinen@iki.fi, 
+	alexander.sverdlin@siemens.com, alexandre.belloni@bootlin.com, 
+	alexandre.torgue@foss.st.com, andreas@kemnade.info, andrew@lunn.ch, 
+	arnd@arndb.de, claudiu.beznea@tuxon.dev, conor+dt@kernel.org, 
+	david@kernel.org, devicetree@vger.kernel.org, enelsonmoore@gmail.com, 
+	festevam@gmail.com, geert@linux-m68k.org, gregory.clement@bootlin.com, 
+	imx@lists.linux.dev, kernel@pengutronix.de, khilman@baylibre.com, 
+	kmehltretter@gmail.com, kristoffer.ericson@gmail.com, krzk@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux@armlinux.org.uk, 
+	liviu.dudau@arm.com, lpieralisi@kernel.org, mcoquelin.stm32@gmail.com, 
+	nicolas.ferre@microchip.com, npitre@baylibre.com, robert.jarzmik@free.fr, 
+	robh@kernel.org, rogerq@kernel.org, s.hauer@pengutronix.de, 
+	sebastian.hesselbarth@gmail.com, shawnguo@kernel.org, soc@lists.linux.dev, 
+	stefan@agner.ch, sudeep.holla@kernel.org, tony@atomide.com, vz@mleia.com, 
+	thehajime@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 21, 2026 at 01:19:03PM +0100, Jon Hunter wrote:
-> Add a compatible string for the Tegra264 XUDC device. The Tegra264 XUDC
-> is similar to that found on the Tegra234 device supporting 4 PHYs,
-> however, the register offsets for the Tegra264 device are different to
-> previous Tegra devices.
-> 
-> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
-> ---
->  Documentation/devicetree/bindings/usb/nvidia,tegra-xudc.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+On Mon, Sep 21, 2026 at 1:06=E2=80=AFPM Yoshifumi SHU <envzhu@gmail.com> wr=
+ote:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> I would like to request that the core Arm Cortex-M support be retained, s=
+pecifically for v8-M.
+(...)
+> I am willing to help maintain this support, including modernizing the rel=
+evant code. I can regularly test kernels on real Armv8-M hardware.
+> If an active maintainer is required to keep the support, I am willing to =
+take on that responsibility.
+> Please let me know how I can help keep the support.
 
-Best regards,
-Krzysztof
+All right, now we're talking! Could you test and review this patch:
+https://lore.kernel.org/linux-arm-kernel/20260910-arm-generic-irq-entry-v7-=
+1-v3-1-5fd90f6859e1@kernel.org/
 
+I do avoid touching the v7m path and it worked last time I tested
+it  (on an STM32) but I'd like to see your take on it, AFAICT generic
+entry is not really possible (easily) on v7m because of the
+pendable service call mechanism but maybe we can think of a
+really complicated solution? ;)
+
+Yours,
+Linus Walleij
