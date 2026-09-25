@@ -1,214 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E93379EE0;
-	Fri, 25 Sep 2026 16:04:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C8C4DD3C4
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 16:09:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352250; cv=none; b=m/iACO8bJBzdpONf2uDdwgM/MDVgqBkyHPHRiBvZ17526JBQHYPudrxwY+s1oENGMajKO81Rm7au8sy3Rqj8F1aNZ3/5b25MO56qh/2yTvPQIvsultJf86IJp1fOubbiKzlDCeqla3scC03A6ZnsWAKlqGfm77JCp+VOh76/+6Q=
+	t=1790352593; cv=none; b=NMbz6I7yLoHT/7jMNMboTe9NUPwrKJq6oOeIpQWSzj6PrNkmjj9qXrGA0MHciQITgkhmxKdf+1OiAz5+llEXoIfb+yem3K4ycu5v53KOXlq/YBu5uE+gawFQARKRy/zx9Zkt7IgC0fAKDtlxELvadynrgP41GK8BpxeJU1jJpQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790352250; c=relaxed/simple;
-	bh=9Jto7j3sikA/nkJV1mt/HQlvGPt/8wbWVWEffKK84bE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S87xBqOK+Y7dl3CzbFuB2bmVBrMOJsYVCXaoHJ7b+177A0VSJYh7xUuY7csJ85JIP8XgM9MbcwEd8GTL4GCSGN/JVjdKgBI3bTQ4Gg492JU8nat/6IwJdYgQ/1zh/htZ40nrJS+aBa7Me2G1QrNdEjSKdcD6a6oFCKLaXW6WGlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f9JURWmh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790352593; c=relaxed/simple;
+	bh=kyetx4MPAXUMQlZYSJyh2crAVzr8w+goFHHH58P4saM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aOJtD4GsasFjXXNaJbmICCuZXuxy7lwus60ymBw+TIDtzwv/itTKF0eXWZEMRXfY81iyv/1Evu5MdHkAsK/hGiElI+pXseL30LrYwEjNOuJgzmyKWMbgvDQ/NJcHAE+5ZlGu7zY7iHG9tSmTJKyZ8GPFrWuRopeMQ+H2klgvh/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JBHWb5ne; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f9JURWmh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D331F00893;
-	Fri, 25 Sep 2026 16:04:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JBHWb5ne"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936C01F000FF;
+	Fri, 25 Sep 2026 16:09:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790352247;
-	bh=PdUhTJyqYs6LsUong4GBO+vl8JOnxjMn7PR7ZJyWKro=;
-	h=From:To:Cc:Subject:Date;
-	b=f9JURWmhW0PrLSGgu7gAvuvSfzdpxeyMvWAf2U+oOx0juEAtQaMkB2+9+mnh2xuq7
-	 +nYlk3qRBh2wy4n0/4DDIJE0Tx1A+qK2jTMxX6JkFPTsc5a0rL7PP8ObgWg5nBqUmw
-	 fV0fIGeZKlK8RzKlDw9gOZuJUgIf+WQf/fXce2y+N8GAiO66jQhzp/K4JHSDzTxGED
-	 QkhPDVGl86EdFpYo9sZ4FTDIlJud4eRdpBXFA6cio+Iogawoku+N/y4tuQ547lUzod
-	 H1rBy/Ltf8tmnSn5WcOdfVE0PXgThsdQ8pLZBhBOrCBa+WZC1eKAhOxl9I0cd+qDa5
-	 FKY9N2v6+y1Yw==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wei Xu <xuwei5@hisilicon.com>
-Cc: dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: dma: Convert hisilicon,k3-dma-1.0 to DT schema
-Date: Fri, 25 Sep 2026 11:03:52 -0500
-Message-ID: <20260925160354.1722583-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1790352585;
+	bh=zKimJ05z6g5bR01B7KLQttRU7WOXXwUdDrB0JTa9RcM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JBHWb5ne+fHMdTDWQ2XEb1gTI2+BdnJjJ7K4UVQ0IyvEZcRAGBiB01i9SxR4ROmzk
+	 e2sPZs1xEnAv9YfxNF1cJYtKDPBWheYzVGycVgdQvVzUVX2e6c99NFUy1Wf9/tN45/
+	 0EAGfBBrd4ERUW23bcpBFG3qwm8jcxfYruxd5sC4jvtk45UIy+a8LU66MKXnUm4x5E
+	 Su2eezgrPFAM+QD9Edx9GsdxfMl8MnVOpiDJFe3tH52P23YgZ2CKmS7FfmmZ9W62OE
+	 oxizLKSGHKOz209J6i7OmhEehR/ASCwIdL5OLuMbQCxYi2y6mxjF0UdyBz248eXBzA
+	 UDTzgsuTvc/Kg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 6/6] pinctrl: mediatek: Add MT6735 pinctrl driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yassine Oudjana" <y.oudjana@protonmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260925-mt6735-pinctrl-v9-v9-6-bfb19d8bb87c@protonmail.com>
+References: <20260925-mt6735-pinctrl-v9-v9-0-bfb19d8bb87c@protonmail.com>
+ <20260925-mt6735-pinctrl-v9-v9-6-bfb19d8bb87c@protonmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 25 Sep 2026 16:09:45 +0000
+Message-Id: <20260925160945.936C01F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Convert the hisilicon,k3-dma-1.0 binding to DT schema format.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] pinctrl: mediatek: mt6735: missing pull_type element causes off-by=
+-one and OOB read
+- [High] pinctrl: mediatek: mt6735: missing PINCTRL_PIN_REG_MAX bounds crea=
+tes OOB read vulnerability
+- [Low] pinctrl: mediatek: mt6735: inconsistent pin function names using sq=
+uare brackets
+--
 
-Add dma-channel-mask, dma-no-cci, dma-type and interrupt-names
-properties which were not documented.
+commit 13f59080a920a07d8352caa06c8ae89603f98199
+Author: Yassine Oudjana <y.oudjana@protonmail.com>
 
-The "hisilicon,hisi-pcm-asp-dma-1.0" doesn't have clocks, so make it
-optional.
+pinctrl: mediatek: Add MT6735 pinctrl driver
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../bindings/dma/hisilicon,k3-dma-1.0.yaml    | 87 +++++++++++++++++++
- .../devicetree/bindings/dma/k3dma.txt         | 47 ----------
- 2 files changed, 87 insertions(+), 47 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
- delete mode 100644 Documentation/devicetree/bindings/dma/k3dma.txt
+Add a driver for the MediaTek MT6735 SoC pin controller. This driver
+also supports the pin controller on MT6735M, which lacks 6 physical
+pins (198-203) used for MSDC2 on MT6735.
 
-diff --git a/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml b/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
-new file mode 100644
-index 000000000000..7a7aab5f4c66
+diff --git a/drivers/pinctrl/mediatek/pinctrl-mt6735.c b/drivers/pinctrl/me=
+diatek/pinctrl-mt6735.c
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
-@@ -0,0 +1,87 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/dma/hisilicon,k3-dma-1.0.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Hisilicon K3 DMA controller
-+
-+maintainers:
-+  - Wei Xu <xuwei5@hisilicon.com>
-+
-+properties:
-+  compatible:
-+    items:
-+      - enum:
-+          - hisilicon,k3-dma-1.0
-+          - hisilicon,hisi-pcm-asp-dma-1.0
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  '#dma-cells':
-+    const: 1
-+
-+  dma-channels:
-+    description: Number of physical DMA channels supported.
-+    maximum: 32
-+
-+  dma-requests:
-+    description: Number of virtual DMA request lines supported.
-+    maximum: 32
-+
-+  dma-channel-mask:
-+    description: Bitmask of usable DMA channels.
-+
-+  dma-no-cci:
-+    type: boolean
-+    description: DMA is not coherent with the CCI.
-+
-+  dma-type:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: SoC-specific DMA type name.
-+    enum:
-+      - hi3660_dma
-+      - hi6220_dma
-+
-+  interrupt-names:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - '#dma-cells'
-+  - dma-channels
-+  - dma-requests
-+
-+allOf:
-+  - $ref: dma-controller.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: hisilicon,k3-dma-1.0
-+    then:
-+      required:
-+        - clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    dma@fcd02000 {
-+        compatible = "hisilicon,k3-dma-1.0";
-+        reg = <0xfcd02000 0x1000>;
-+        #dma-cells = <1>;
-+        dma-channels = <16>;
-+        dma-requests = <27>;
-+        interrupts = <0 12 4>;
-+        clocks = <&pclk>;
-+    };
-diff --git a/Documentation/devicetree/bindings/dma/k3dma.txt b/Documentation/devicetree/bindings/dma/k3dma.txt
-deleted file mode 100644
-index 10a2f15b08a3..000000000000
---- a/Documentation/devicetree/bindings/dma/k3dma.txt
-+++ /dev/null
-@@ -1,47 +0,0 @@
--* Hisilicon K3 DMA controller
--
--See dma.txt first
--
--Required properties:
--- compatible: Must be one of
---              "hisilicon,k3-dma-1.0"
---              "hisilicon,hisi-pcm-asp-dma-1.0"
--- reg: Should contain DMA registers location and length.
--- interrupts: Should contain one interrupt shared by all channel
--- #dma-cells: see dma.txt, should be 1, para number
--- dma-channels: physical channels supported
--- dma-requests: virtual channels supported, each virtual channel
--		have specific request line
--- clocks: clock required
--
--Example:
--
--Controller:
--		dma0: dma@fcd02000 {
--			compatible = "hisilicon,k3-dma-1.0";
--			reg = <0xfcd02000 0x1000>;
--			#dma-cells = <1>;
--			dma-channels = <16>;
--			dma-requests = <27>;
--			interrupts = <0 12 4>;
--			clocks = <&pclk>;
--		};
--
--Client:
--Use specific request line passing from dmax
--For example, i2c0 read channel request line is 18, while write channel use 19
--
--		i2c0: i2c@fcb08000 {
--			compatible = "snps,designware-i2c";
--			dmas =	<&dma0 18          /* read channel */
--				 &dma0 19>;        /* write channel */
--			dma-names = "rx", "tx";
--		};
--
--		i2c1: i2c@fcb09000 {
--			compatible = "snps,designware-i2c";
--			dmas =	<&dma0 20          /* read channel */
--				 &dma0 21>;        /* write channel */
--			dma-names = "rx", "tx";
--		};
--
--- 
-2.53.0
++++ b/drivers/pinctrl/mediatek/pinctrl-mt6735.c
+[ ... ]
+> static const struct mtk_pin_reg_calc mt6735_reg_cals[] =3D {
+> 	[PINCTRL_PIN_REG_DIR] =3D MTK_RANGE(mt6735_pin_dir_range),
+> 	[PINCTRL_PIN_REG_DI] =3D MTK_RANGE(mt6735_pin_di_range),
 
+[Severity: High]
+Does this array need to be explicitly sized with PINCTRL_PIN_REG_MAX?
+
+The core validation in mtk_hw_pin_field_get() verifies
+field < PINCTRL_PIN_REG_MAX and accesses hw->soc->reg_cal[field].range.
+Because this array stops implicitly at the highest initialized enum, reading
+an uninitialized or out-of-bounds field can read past the array and cause
+an out-of-bounds read vulnerability.
+
+[ ... ]
+> static const struct mtk_pin_reg_calc mt6735m_reg_cals[] =3D {
+> 	[PINCTRL_PIN_REG_DIR] =3D MTK_RANGE(mt6735m_pin_dir_range),
+> 	[PINCTRL_PIN_REG_DI] =3D MTK_RANGE(mt6735m_pin_di_range),
+
+[Severity: High]
+Does this array also need explicit sizing with PINCTRL_PIN_REG_MAX to avoid
+the same out-of-bounds read vulnerability as mt6735_reg_cals?
+
+[ ... ]
+> 	MTK_PULL_PULLSEL_TYPE,		/*  57 */
+> 	MTK_PULL_PULLSEL_TYPE,		/*  58 */
+> 	MTK_PULL_PULLSEL_TYPE,		/*  60 */
+> 	MTK_PULL_PULLSEL_TYPE,		/*  61 */
+
+[Severity: High]
+Is index 59 intentionally skipped here?
+
+The mt6735_pull_type array skips index 59, but the corresponding pin
+declaration array mtk_pins_mt6735 contains GPIO59. This shift by one causes
+the framework to apply the wrong pull configuration rules to all pins from =
+60
+upwards. Also, because the array is undersized by 1, reading the pull type
+for the final pin will result in an out-of-bounds read.
+
+[ ... ]
+> 	MTK_PULL_PULLSEL_TYPE,		/*  57 */
+> 	MTK_PULL_PULLSEL_TYPE,		/*  58 */
+> 	MTK_PULL_PULLSEL_TYPE,		/*  60 */
+> 	MTK_PULL_PULLSEL_TYPE,		/*  61 */
+
+[Severity: High]
+Does the MT6735M pull type array also skip index 59?
+
+This will cause the same off-by-one mapping shift and out-of-bounds read
+as seen in the MT6735 array.
+
+diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-mt6735.h b/drivers/pinctr=
+l/mediatek/pinctrl-mtk-mt6735.h
+--- /dev/null
++++ b/drivers/pinctrl/mediatek/pinctrl-mtk-mt6735.h
+[ ... ]
+> 	MTK_PIN(
+> 		4, "GPIO4",
+> 		MTK_EINT_FUNCTION(0, 4),
+> 		DRV_GRP2,
+> 		MTK_FUNCTION(0, "GPIO4"),
+> 		MTK_FUNCTION(1, "CLKM2"),
+> 		MTK_FUNCTION(2, "DPI_D8"),
+> 		MTK_FUNCTION(3, "SPI_MOB"),
+> 		MTK_FUNCTION(4, "TDD_TCK"),
+> 		MTK_FUNCTION(5, "CONN_MCU_TCK[0]"),
+> 		MTK_FUNCTION(6, "CONN_MCU_AICE_TCKC"),
+> 		MTK_FUNCTION(7, "C2K_DM_EINT0")
+> 	),
+[ ... ]
+> 	MTK_PIN(
+> 		71, "GPIO71",
+> 		MTK_EINT_FUNCTION(0, 71),
+> 		DRV_GRP0,
+> 		MTK_FUNCTION(0, "GPIO71"),
+> 		MTK_FUNCTION(1, "JTCK"),
+> 		MTK_FUNCTION(2, "CONN_MCU_TCK[1]"),
+> 		MTK_FUNCTION(3, "LTE_MD32_JTAG_TCK"),
+
+[Severity: Low]
+Are these square brackets intended in the pin function name?
+
+Square brackets can break identifier parsing conventions in scripts or tools
+parsing sysfs/debugfs. Also, the MT6735M variant uses an underscore for
+this pin instead:
+
+> 	MTK_PIN(
+> 		4, "GPIO4",
+> 		MTK_EINT_FUNCTION(0, 4),
+> 		DRV_GRP2,
+> 		MTK_FUNCTION(0, "GPIO4"),
+> 		MTK_FUNCTION(1, "CLKM2"),
+> 		MTK_FUNCTION(2, "DPI_D8"),
+> 		MTK_FUNCTION(3, "SPI_MOB"),
+> 		MTK_FUNCTION(4, "TDD_TCK"),
+> 		MTK_FUNCTION(5, "CONN_MCU_TCK_0"),
+
+Can we use standard underscore notation consistently across both variants?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-mt6735-pin=
+ctrl-v9-v9-0-bfb19d8bb87c@protonmail.com?part=3D6
