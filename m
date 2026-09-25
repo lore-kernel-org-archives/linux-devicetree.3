@@ -1,69 +1,62 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085AF3672A8;
-	Fri, 25 Sep 2026 23:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98DCB501F45;
+	Fri, 25 Sep 2026 23:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790379132; cv=none; b=XyR9WaZivmjTK/1JkfUF6kRM10wRb2VSP8UWRloBNqr3I6h2UxNJCZZT4+9QAiM+sawqIFWVAX+AxfB/iDnz1j1SJ/7jepv75aLkQaM+JZKo7zJZJmxhRCFSRs1gIgWOo+6vqaBLq55UYxkS5MqTxgCigBvIc+XHlXFUduMPNx0=
+	t=1790379929; cv=none; b=VXhyGhArYb98DU07FYQCqpgDIC5vGYhAykkaicJfQkrNjYaL7bttvCKH3LukIV3VlvhJlXoJBGT9RdNquPo0bz4IYZbE00MXJQizJQRHtbzIejgQJb6cJG88J1shQGb+ecjpWT3ou85k039foumyJZ5A20Vl6Kt2xrQ4pCNA9xY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790379132; c=relaxed/simple;
-	bh=aO9rVdUf6S7DpG35lHyxcThT3OLUrsjzpMEu5YQiIEk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZmFisZ711FQY1jW5TE/RBgZakXG4untQONXVbitFY3dvWCoib6650A4/2PKI5QqHn4q8QpQ8YzvzGfrGWjDIA0vi/KrByJfwBWgYziUPj7PP/fSIzj4UfgN11f9P/GKlyCDLV6F7WUVLL+tdNVY+88kKRdGjVCx3B6ADS4aVBWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MTkq5B+o; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790379929; c=relaxed/simple;
+	bh=rFON0srpWh8DbJ9gQZvj/AH5LWMJNfmnscE3UbpJLWY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rqbrA5iFLT1WZgQg+fmt1Yp165773ZgMPzmr8x3VMaE6Qli88CvmUuFXul4OvlxyUe1ozqlyoemLFHpk3b7xrzhozTUFE34K3bdnXRZS59y6N9oYwM5DEODE8ekoyALz4GxUnPPSvi7yAALtxBt0Ebck0P/Py8vaoIEUxnrNoEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ai2s4VRw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MTkq5B+o"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=l/NBHFaoiuJNGXiZ+cdtccDptKGDkX5wQYf8DMsB90g=; b=MTkq5B+oy7iwfCGgmhIs7ky7TW
-	j3g4NHhdmbh1tu5yySzLsywogvSIYLDW4jJEx1vm6nNq8JrFZZbcRXrQ16lfUwjFd/DtBDt5Hu6qt
-	J3n4TcVp+EKbTE7sY33XnXc8UtnxcqZ+KXUv+Hm+iZHUA9JQwuzuoSTJYr65XU/m0WdA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xAFOd-007KHM-73; Sat, 26 Sep 2026 01:32:03 +0200
-Date: Sat, 26 Sep 2026 01:32:03 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v3 7/8] net: dsa: soce: Add VLAN offload support
-Message-ID: <0b2a2e55-7a3f-44d8-9a91-f48547a5794d@lunn.ch>
-References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
- <20260923-devel-vstrassheim-soce-dsa-ml-v3-7-ddebafcb9ba7@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ai2s4VRw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FC6B1F000FF;
+	Fri, 25 Sep 2026 23:45:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790379925;
+	bh=rFON0srpWh8DbJ9gQZvj/AH5LWMJNfmnscE3UbpJLWY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Ai2s4VRwpPAc6VZxob/tDwjqjHFgM2GOTUY0teTMipJO6QIw0qz09t6m+3kDvHK6t
+	 vR0TL4U7WyytQO3ZEybFsBbAjKCCD/HiqzLDRwgUQKwUWE8OSrxGty+pE5RKcITpT9
+	 LLlW6csH/ha3el6rQjGOoDzrd0oNn/r1qJfVXzpSb3zVSLmfpGRmZdLIQrEDRL0Wr1
+	 36ZH2oBE98Glj2f81loXx6SDZDIhTWVXMYdxqdp9DLMRKLLiM+2TrtKyzheL1w95H+
+	 BBjqen09iSEUSUnZbzp0SwA4pQadzgZgcZJ/z4UQV+hIeop7ne++3nMqaMpfoxNfva
+	 Rxn+ktb/gpu8g==
+Date: Fri, 25 Sep 2026 16:45:24 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Niklas =?UTF-8?B?U8O2ZGVybHVuZA==?=
+ <niklas.soderlund+renesas@ragnatech.se>
+Cc: paul@pbarker.dev, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Magnus Damm
+ <magnus.damm@gmail.com>, Richard Cochran <richardcochran@gmail.com>, Andrew
+ Lunn <andrew+netdev@lunn.ch>, "DavidS. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Vadim
+ Fedorenko <vadim.fedorenko@linux.dev>, Sergey Shtylyov
+ <sergei.shtylyov@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v5 00/10] ravb: Add gPTP support for Gen4
+Message-ID: <20260925164524.3f3a5cd6@kernel.org>
+In-Reply-To: <20260921175037.4084310-1-niklas.soderlund+renesas@ragnatech.se>
+References: <20260921175037.4084310-1-niklas.soderlund+renesas@ragnatech.se>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-7-ddebafcb9ba7@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> The port and VID selectors are shared by all VLAN operations, so
-> serialize selector and data register sequences with a dedicated mutex.
-> Track member and untagged masks in software and restore the shadow state
-> if programming fails.
+On Mon, 21 Sep 2026 19:50:27 +0200 Niklas S=C3=B6derlund wrote:
+> This series is the second part cleaning up how PTP timer support is
+> implemented on R-Car Gen4. Currently there is partial support for it in
+> some of the Ethernet devices that can use it, but not all.
 
-Looking at other features of the switch, how many different mutex are
-going to be needed? Is it better to have a single mutex which protects
-everything?
-
-	Andrew
+Please respond to the AI feedback, even if it's just a short message
+replying to the thread as a whole saying that all of it is invalid.
