@@ -1,136 +1,143 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E135D4AB3A5
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 14:22:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2323E4AB3BA;
+	Fri, 25 Sep 2026 14:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790346148; cv=none; b=OxfLGIYawsC+H7a3hB44yiog3fY8xGy8RECb7QgrBlzioIJInM6+RaUXb+rEKlvZyPHCDLaftvCQAfMpUDtUp6xDh2dm3YdiJ+dt6zdbb+4i43Z+3zin5nw1zoXEPx+zfQ6JMDufMrJSFUZGNGW+dutS7xUiAX/UvCP5E2tvIoQ=
+	t=1790346649; cv=none; b=mks9kwVL8nmtDNRY/VKgwJGJkt45mYEhz/GkXBxOf/Qx4/17Zr3TAeqoMn1DpzBbHylDaPXi+Ko4O+1C5tmguQ4puROtmaIw0o3wJHZ9VdzJlkaOKiRGFuJVH8WTncTHEXyqPcCbz2HijnE3XdLonnlYp/fp4OtqjWB3ORceUJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790346148; c=relaxed/simple;
-	bh=d5uDDZqpgCCF8ojhypKkg1mxed2A2EO+LI5JH4IuU90=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LcXvWCqV1+2aNRhP1TcIg3eEycrnpKHPArk8515M9me9oFGLw2u1I0R3TMMD+UJitJ+VzMptN+vyHg3NxRvk8wcE8A6Jt1xmTZGwjmjQgbIlHeXpbcgUnbS4H1rzIZ45XKs3FRJFaGuVVTdFLo1JYiqkVLuXTYnC4OkxBU+xmXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=HubwWeC7; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790346649; c=relaxed/simple;
+	bh=6Wf6jHCTwL2K2cIr6roRfegbj1Hd6Da0VdPpPXfyWuM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GlpojiohAF7eiMs2xjbN5y0FL3pNgZ9o5P+gd3zL1s+d/z7TjEPtWf0LO7aqN/2HuXOctWUCocpYwJoGYgwDEePCDoZR0MFffo63NVLa3Rp5xpZH1KS10BiWBk8s+6mglfar+P45qlHE9NSGHm7Uoi48eezw/UMpp22iYbmfnAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=QW1ATyam; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="HubwWeC7"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so526133f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 07:22:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790346140; x=1790950940; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rPNL1M3jOjQFzxSJPuEX1QG7QhoNHxjdxEWAOGyxkfw=;
-        b=HubwWeC7jF+9b/IB2A+RGD8cWmyBpNGrMhldVdU3rCcVRwHrMmlhaIoWm7/qu3v7PO
-         SAEAvknUCue7nQBGnx0jEDEudwP5d7PlM6hMSlxus/iGWfhTM00fQM6ElkgOqmNMElF9
-         v6DGW9mb445hjlGTfL+L3BbwCyYftEalOz91EagrSqLvItR3rBXWII/QJcNg7dbvVBVX
-         3AutFrKg+2BoviaGMvtasyTVRYhkdMlalWraaUrjcDq6z3kO8jYDeKF6bKIq/pjGeXft
-         26smmi2eSD3GGvLK47Sd2EWQpezFVyMugsz69Zi2iJd/72mIsM++eGW32bEpZMMVAnWj
-         oVvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790346140; x=1790950940;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rPNL1M3jOjQFzxSJPuEX1QG7QhoNHxjdxEWAOGyxkfw=;
-        b=e2xZAqIqTvO1V0M+RJO6JbLlepgwP6e+MEj6bRDFzS8V/Rl3J5U01xMChDonW+E7E/
-         VrTxxL2LCU+7cZemguJKp65o18Pjlh0UW7jIhI1UZoRQMT7eBhhbMuCm4ks1mbZtQPSP
-         qUysGzTo+7qKJMlkU2NCw1pn2OhiD3rV+Y1AR5WTF0ZK0UJq/yazXH2ppGgkUsCwHyez
-         3yd/z54/xQDmzqz4hgy8F+4H5iY3pQXh6N2i4rwDPYLTRkO8DwQVXArOLExwXPH71dPc
-         EfSfKwYwNPhd7XB8tz72EwbPm4M/mldhPLmNp2QMug6dr7wp7Vk3MoyQQpM7OHFe/ejo
-         U8qA==
-X-Forwarded-Encrypted: i=1; AKwUvBwSe05DCGj3b90Hdu/SJYsCStJqlTFTuMj1JqDwUKLh1TE1LdJcgZaJ9nNJc25qAIF72ATKFv/NLUlb@vger.kernel.org
-X-Gm-Message-State: AFuF++myox2vflyEViMknbhwRqQh4ZtOqtR4BqztbWbXEMiRxGYxzxtt
-	4KObT5rng09sbPZ7dnh9HVuV5u1qyLuUL+jAS6ieDdrYWIcwnKPc/wBossQfNaU79GE=
-X-Gm-Gg: AYBFou1oF4/DZIUBQVjZ5scwIdricoun74vNP6Np5n5M1oQ5a9NhlQMyBY7JVG32vVq
-	iA3irz6/JxFI8VDVn2Hys/FKwonOVRtDjK5rIznco/qyXXTzyRNqX3uwPfItWZZCna50Ud+rRQS
-	7+d5bdXA8EzpDMW2IljskoUDZNG3r3utOm+wGefEcFJGzSs/0HWbiRJ/ScrH4ZcSIbRJJshCZe5
-	PCeCWwZs/LZppAQGAi+mgYKUtkJ/iR+I1ujH4p7PU3sCYKVy5n3QwZkbmXF38VG8V4uGSW9/Z22
-	NZWL84DV7Rn2GRDsgiKrvTPI38bB1MKxSu11RnBZPQX9JhzTTsz/uPhOsyLjyw3PVwSwCBbFE1E
-	lNKN9UencLMOV9/idiisaor0swd2rOwPi++Rpz145b9yZRs6naxYwZ3r3JwFO6iPWA1QFWcP1Kf
-	g5U4132dYqbuUqhpk9UZDwazOKUUbnjw+Z5kqL8fCx0Y8Wp1W3KRnGFuKuir+eYIb1GZVCW5C3b
-	+ceSRwDiBqV4I5Y3Q==
-X-Received: by 2002:adf:e186:0:b0:488:80d0:873a with SMTP id ffacd0b85a97d-48880d089e8mr3037468f8f.5.1790346139942;
-        Fri, 25 Sep 2026 07:22:19 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b9aesm6834677f8f.5.2026.09.25.07.22.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 07:22:17 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Vyacheslav Yurkov <uvv.mail@gmail.com>, Vyacheslav Yurkov via B4 Relay
- <devnull+V.Yurkov.EXT.bruker.com@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, Brian Masney
- <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri
- Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Subject: Re: [PATCH v5 2/2] clk: Add gpio-locked fixed clock driver
-In-Reply-To: <a5e76452-1fa1-4675-9a16-8683702ff4d0@gmail.com>
-References: <20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com>
- <20260915-feature-clock-guard-v5-2-42ab5dc3a6aa@bruker.com>
- <1j33vaesh7.fsf@starbuckisacylon.baylibre.com>
- <e697d892-fbd2-432a-b71c-8547ead22ea0@gmail.com>
- <1jtsnpcn8l.fsf@starbuckisacylon.baylibre.com>
- <39fdddbf-0fdb-40e7-9cd5-c8f857ee8b9d@gmail.com>
- <1j8q4p8rxl.fsf@starbuckisacylon.baylibre.com>
- <a5e76452-1fa1-4675-9a16-8683702ff4d0@gmail.com>
-Date: Fri, 25 Sep 2026 16:22:16 +0200
-Message-ID: <1jzex576nb.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="QW1ATyam"
+Received: from [IPV6:2001:1aef:17c:c89a:bc5a:ffa6:6d36:3fe4] (2001-1aef-17c-c89a-bc5a-ffa6-6d36-3fe4.ip6.tmcz.cz [IPv6:2001:1aef:17c:c89a:bc5a:ffa6:6d36:3fe4])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 5F0A95340216;
+	Fri, 25 Sep 2026 16:30:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790346638;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=1I7TVVSAL3yzjHMt4Xk4O9F3G9eiWVAIMs9JyVDBNaU=;
+	b=QW1ATyamLhSpEB1XayiWfW2qLEV2nWM5s430ovQ6kqmy23RtMN4h5DSf8vuri6Q/GA1njr
+	bCIKn7jTsPkEmWvSd+zZ1kAVjUTrtzAc+BRcqHQMwkasoGvufHrOzLQzKSGl+6UqH6u+Sw
+	nJ+7JThly1SGOywhEaqbY5+HhIiKAT8=
+Message-ID: <75e9fa56-7cf8-46ec-83ca-100170e83f2a@ixit.cz>
+Date: Fri, 25 Sep 2026 16:30:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 7/8] slimbus: qcom-ngd-ctrl: Remove data channels on
+ stream disable
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ David Rhodes <drhodes@opensource.cirrus.com>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
+ <20260924-pixel3-audio-v4-7-85b5d133aa5e@ixit.cz>
+ <781fc756-bde6-4d83-a09c-19d4fd70e588@kernel.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <781fc756-bde6-4d83-a09c-19d4fd70e588@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On ven. 25 sept. 2026 at 15:15, Vyacheslav Yurkov <uvv.mail@gmail.com> wrote:
+On 25/09/2026 10:09, Srinivas Kandagatla wrote:
+> On 9/24/26 2:24 PM, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> qcom_slim_ngd_xfer_msg() silently returns success for every core
+>> reconfiguration message, so the generic channel removal done by
+>> slim_stream_disable() never reaches the ADSP SLIMbus master. The
+>> master therefore keeps the channels of a closed stream. When the next
+>> stream defines the same channel numbers again, the WCD9340 capture
+>> completes without any error but records only zeros; removing the
+>> channels explicitly when the stream is disabled makes it work again.
+>>
+>> Implement the disable_stream controller op with the sequence the
+>> downstream NGD driver sends for channel removal, CHAN_CTRL(REMOVE)
+>> listing the stream's channels followed by RECONFIG_NOW. Like
+>> downstream, treat -EREMOTEIO from the removal as success: it means the
+>> controller is being restarted and the channels are gone anyway.
+>>
+>> Based on work done by Casey Tunturi.
+>>
+>> Assisted-by: Claude:claude-fable-5-1
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+> 
+> there is an identical patch on the list,
+> https://lore.kernel.org/linux-arm-msm/247e4ce7-1ba2-43b8-8a11-ec70f99a4fc1@linaro.org/T/#m3b50aa43a6493f8d3b607b1607b37bf14b199f69
+> 
+...and I see you just merged resent v3 today :)
 
-> On 25.09.2026 13:57, Jerome Brunet wrote:
->> On jeu. 17 sept. 2026 at 19:05, Vyacheslav Yurkov <uvv.mail@gmail.com> wrote:
->> 
->>> On 16.09.2026 15:57, Jerome Brunet wrote:
->>>
->>>>>>> +/* We can't enable the clock, but the Common Clock Framework calls only
->>>>>>> + * enable() not is_enabled()
->>>>>>> + */
->>>>>>> +static int gpio_locked_clk_enable(struct clk_hw *hw)
->>>>>>> +{
->>>>>>> +	return gpio_locked_clk_is_enabled(hw);
->>>>>>> +}
->>>>
->>>> You need to explain your problem a bit more because this is not OK. Your
->>>> clock should really just provide .is_enabled() AFAICT
->>>
->>> When a peripheral driver uses devm_clk_get_enabled(), this is resolved
->>> to clk_prepare() and clk_enable(). Neither of them check for
->>> .is_enabled(). Is that a flaw in the CCF or expected behavior?
->>>
->> 
->> .enable() does return an error on failure. It is up to the provider to
->> return one or not. In your case, it will be probably be necessary to on
->> the gpio a little.
+I'll drop this patch from the series then.
 
-it will probably be necessary to poll on the gpio a little. (sorry)
-
->
-> I'm not sure I understand what you meant.
-
->> Note that if the GPIO can sleep, interacting with the gpio must happen
->> in prepare (think i2c gpio devices)
->
-> In other words, I should only provide prepare/unprepare instead? Do you 
-> think is_enabled can also be replaced by is_prepared in this case?
-
-It depends on the GPIO API used. have a look at clk-gpio.c
-
->
-> Slava
-
--- 
-Jerome
+Thank you
+David
