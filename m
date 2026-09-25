@@ -1,97 +1,105 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30FA477981
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 10:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A11E2D060D;
+	Fri, 25 Sep 2026 10:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331027; cv=none; b=dxMjkVHNSHM2y4CcZF96xem/Sm0s9Pt+7HXYjh3XLq2n3XSykR1ueXeENbOaTL7wHBpNaRkvYIAN9kO8RhGeU1Zcyf47yfMUH+nhRtWoaSSDV/7g1rZuAv5fj+JAMLRU68hJr8A+E3OFoGBgw/gjRhN12cZeJcQGj3sKpqs/AfI=
+	t=1790331059; cv=none; b=ZYBOr+AwuVzSD4WVo3RwW+Z4AiXPH6BgCzHiPeH8PURnH4EkaLldUOa8SBubejofeOwBAqtVfANz5RylU454migCuri2vkoGtL3Y6nr/iECoIjUvzu3dLAtYeIwlisZOoVD5l7dp/OtNcKS47WfF3CuM7gcAIOFhNhjm2rb3x1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331027; c=relaxed/simple;
-	bh=RrTRHpycL8I7Hc4JCwx5WcZIVQ7SjSZeCq5n4o+MG/s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UoXgiKx0S6yjoRLQDsbVUDrOFlkgDdTSsFswh0Nm1nzH1BN6vTLLHQDbcsEWdUR5VB83hWPia3aV+R8R5z2TYCrfmcgAqzwwzDxeAD9ipOspXuEVjJySOrzYJRHbl5Q+uPeqDG47EtaGwXBTYFjKdcX5otGUpwF4o+w+pUPWubs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-791a9878aa9so206143137.0
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 03:10:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790331025; x=1790935825;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KL/MQSQ2ufa6wux9YuL+tzjixJQA111EVmHyVach6lM=;
-        b=xGZpRSIJ1B6j3twpIGgxZTN0QJu1HAnv4x7AGJK0afS9jo03fE6MZKXdcjf5eXviAR
-         3kSiH93XRbkQbwCPb7IPCo/eN7TodrJ7TT8A9+Bq8JhadTkyaBnN1ccEXjzn3CsRlDAp
-         dfwpVy/cuV+66TNrm5xu+U1dhpIfiuKYwpNAp1082m690FkpZiGPBJRSvw6qC7AwUkXf
-         gcXj5x4HRsr7PGZ9SaWGLSkXehSP75XrK/rSmio6ku471GR6RIqQcZ249T2cGZo9oR7V
-         LLWoV1FX/VpQn8bIYBZCigG50btOvFst9KaghT/krZTgDVXVj+fhOO4KCjoF2X/RCwVK
-         pAhA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKuJ9WH+7LMzDf4WXJOb5mGFqEFalkRxYzAASKL3F1lN3QdeN0rKu+nKGcrlz4w61Ra1LnhKBrnMBd@vger.kernel.org
-X-Gm-Message-State: AFuF++liPSNlpAGt5eEZ0LMAB3xq1kSf5XQLsckVMM517eG/+N6W38Tu
-	y6FoEtWa0kW3pslQqXWKCHpGSZAyr5vY7VXXOcTFWFx2qTFK1uk5BGyxjDWv0O9T
-X-Gm-Gg: AYBFou1Kc+UGBXJL4t0QMF7c0dcA03R55mDMkLEvOSRbtVw2cFCvknYe0wutacWrqJz
-	hHmHNcT4dSt6ULCOuRZ+a8dD56Q0lBSWhaMOcsNrvqnp8iDf8ZXzKGs769xqHnPbB/R7b4ITsK6
-	XTA8puzQzECeAcheKZZiIr6TcW+/y15jjcjpT04FgRmiq0lLMDYepwv9KX3Gb8IT0Uw4DxBDEAZ
-	154DHG5PRdW8FAgw8orYPAsUk2ZUYeZK6CIdbSHaW6nE8EJS0yriuLW7HBef2PnGvuxh1PNVked
-	kxbfAuJmC2LCXvDNvx+o1s3u+5XpYm1zCod/WlENpCkIGDyDjit8MfvwrXbw/YovmYSCwnQHsOk
-	eqtNom5EOLzUXD2RViuE4D6rdt7MbujDCuxYn0F3Oq45fzeJRrMUtbhEhZyjdQAbc6rf1v/djA4
-	slMEBniTMMSATDGYy5ALH8eL1ZQ9DL+mDhnHYb5Q+oa1dEvQOFAf8Y/w+pr7CBHy8BYSRmZfF3d
-	VuGN1HQdjPPk+u4Z9BS2hQ/fdXqhcc5EWbBtHXEcUm0CXc=
-X-Received: by 2002:a05:6102:4b17:b0:7a6:a24e:8140 with SMTP id ada2fe7eead31-7af1bd77fbcmr2117826137.14.1790331024654;
-        Fri, 25 Sep 2026 03:10:24 -0700 (PDT)
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com. [74.125.227.43])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9861b08f1casm1979036241.12.2026.09.25.03.10.23
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 03:10:24 -0700 (PDT)
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-78a6c77d255so224359137.2
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 03:10:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxH66EgSjVp0cN24Wp3ivj5V72aPHyHYRSxIY/XcYNK7r23Ld7VlCYjkMDg/GOnBw+kx6b9QWLsAtNJ@vger.kernel.org
-X-Received: by 2002:a05:6102:94f:b0:7b2:c201:10d8 with SMTP id
- ada2fe7eead31-7b2c2011359mr193571137.3.1790331023332; Fri, 25 Sep 2026
- 03:10:23 -0700 (PDT)
+	s=arc-20240116; t=1790331059; c=relaxed/simple;
+	bh=nGspYnnDwbxEw2uzhbTdVx6pk6eDe92BH9ntuHaRs/s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Eu3mob5gTyVuAJtUy7jqtfAjhtiPvl/4psjqK+japyQ3oGMl3gZIj4KvObB15b8SYz4Dy1FlyNQ9gsjwD989PBHj6ZtO9LH2SbvAC2y8goUfL9VJWOchG5ymqoCnhYiVqUkcH5Ll5kZoTbLrLo78G6iru6Im27Bab92TYW63pjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DQUDUcjY; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DQUDUcjY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790331059; x=1821867059;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nGspYnnDwbxEw2uzhbTdVx6pk6eDe92BH9ntuHaRs/s=;
+  b=DQUDUcjYJlrYi2M0bC8/LrG+DXZe06sKT9pz0nMrhBmDjRK3at/G2CvM
+   QqVmC+roUuNVhc+S681bwKZte9ghed6QC9iX7uNTFmC+DWKdCYEzEq5qq
+   QAAjsS5+Cq3k44IAl1NdA5e+GyGezUYni4jtMAn9eSQdX91eNYOVPE/YA
+   IOiTSM7KGwd2hM3XziHMYW/uf4/f3bSPiHNQafJE7oxwvGn/odaNI2mR0
+   zdEVi25x2qmP+8IZ/P5m3KdwIYLtJhuXcG2QdW8GcArLmhet4LceR9dO9
+   mnKUYlZa+C1eck8JOA8mHXDt82DUjoxGFkUCU3LMAc/3Ku44PFcIDq/VG
+   A==;
+X-CSE-ConnectionGUID: 9FeoPqabSZG94zN5quq73g==
+X-CSE-MsgGUID: 9HQm0bLPRuadqBYDTw1JDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="101288009"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="101288009"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:10:58 -0700
+X-CSE-ConnectionGUID: prgoZqEoTTSgWFpNLRmd4w==
+X-CSE-MsgGUID: nO3lvYNQTrWGkYi4OVRZxA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="282384381"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 03:10:52 -0700
+Date: Fri, 25 Sep 2026 13:10:50 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
+	u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+	Ritwick.Sharma@arm.com, intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
+Message-ID: <arZIqk6wgV_LF0rg@ashevche-desk.local>
+References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
+ <arZB2s3HOBgSRuE4@ashevche-desk.local>
+ <e0f113ea-92cc-4e82-85ae-f61814c230c7@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922-mali-c55-renesas-dts-v1-0-cd63cdb51033@kernel.org>
- <20260922-mali-c55-renesas-dts-v1-1-cd63cdb51033@kernel.org>
- <CAMuHMdVkhSNDn3BpBt-9K8FPKhmODYVF-PCKr+AH8B+o4GHuJA@mail.gmail.com>
- <CAD++jLk6015ShhR0XAB+NfKF1Gf9ZWA8Z_=9uU6zNZ+wHS97fg@mail.gmail.com> <b9db2577-77f1-466e-b6b8-1eb6501d079f@ideasonboard.com>
-In-Reply-To: <b9db2577-77f1-466e-b6b8-1eb6501d079f@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 25 Sep 2026 12:10:11 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVMt95DBV1DeLa5zVkMV4sYj8v_uA1TTJiZFi_QKvMkAA@mail.gmail.com>
-X-Gm-Features: AclHuK_GZIBSlb8NwsZCACC-o3m-qOuhGKB_o12zs05PvqCsSGvUGIOw-t14e2o
-Message-ID: <CAMuHMdVMt95DBV1DeLa5zVkMV4sYj8v_uA1TTJiZFi_QKvMkAA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
-To: Dan Scally <dan.scally@ideasonboard.com>
-Cc: Linus Walleij <linusw@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e0f113ea-92cc-4e82-85ae-f61814c230c7@ti.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Dan,
+On Fri, Sep 25, 2026 at 03:29:27PM +0530, Aniket Limaye wrote:
+> On 25/09/26 15:11, Andy Shevchenko wrote:
+> > On Fri, Sep 25, 2026 at 12:26:27PM +0530, Aniket Limaye wrote:
 
-On Fri, 25 Sept 2026 at 11:48, Dan Scally <dan.scally@ideasonboard.com> wrote:
-> Huh; not sure why I never followed up on this. I haven't touched the board in some time, so it must
-> have slipped my mind. I can pick it back up and address the comments, including adding the other
-> interrupts.
+...
 
-Same for "[PATCH] arm64: dts: renesas: r9a09g057h48-kakip: Enable eth0"?
-Thanks!
+> > Still doesn't look good. The current register layout may be left as is. What
+> > you need is translate it in the respective regmap callbacks in case we are
+> > enumerated on the different IP. Also possible to have a different regmap
+> > config for the different HW where you translate them only in one place.
+> 
+> Is it confusing to keep using existing offsets in regmap_read/write() call
+> sites for TDA54, and let the regmap silently handle the translation?
+> 
+> Given that we do *not* have any new registers in use on the tda54 version
+> that were not there in the original one, I guess it works... will send a v4
+> as per your suggestion.
 
-Gr{oetje,eeting}s,
-
-                        Geert
+Depends on the mapping. Your series also forgot to provide the differences
+Check this as an example: e539f435cb9c ("spi: dw: Add support for DesignWare DWC_ssi").
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+With Best Regards,
+Andy Shevchenko
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+
