@@ -1,130 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057123FF89B
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 12:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0691EBFE0
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 12:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790339178; cv=none; b=bE2MtC91wyfWK/Myx1Vew3qly47Qhm2fMV+0Y2BP91OhInqmmzdfYu8yLhHeD+VutdKn/oBJYhyKliUzbgFJgdWnPiyxZglFZEN66cDkqeNBoU1ejoTM6pK+js+gCs/BDvHzr2KTWgp71DkAV6Faru3MXzMqqPO7K/lDX0NlRY0=
+	t=1790339299; cv=none; b=bxVKo4UU/LkpyFmS+mHL/j3l3a4hOSUaUXifYLwSwfcz0dAWYrWj1AIkjK1h6iar5dvq/Vy5xldsAbrHvORh/ELcz9noQDfi+cdMbz0t8L8g/2WY0Al7a5yhxhVLz5RuHv7JpZkmx54HiA0ENUsxYmYYrVUF49SLmre6bzowqhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790339178; c=relaxed/simple;
-	bh=m8yxeNJjemhMJyl5AhN06xSKKvRjGFYgKUtC3e/ib/Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tNn/vzVRBHnQjHMa7awZxZhwXNQYXUwhryZtj7tR8luB943/jOKhz+FsUz1rzrC6p1uh5X5fSGVPr02OsEoGKpqJt3GCi8XbZwLxobtd3pmP4WAf8NJb/LYk63NC+HW+tSv9YVU0SiEJ/zKtndPJ3r2qJ6LhdAi+jJo5qcup67M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gs3AFqX+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790339299; c=relaxed/simple;
+	bh=Buqyin2BRLK9uHcTURSSN8vZvbm9YK/rlRX6JjPtwBw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=h7zyEUgh8KwuMCqi0ASeucI0bYOLi2oYzVN4jkHQjFJu50m10Sbo1IkzJESAY98MR1CIfuY5+4n00bHYNz9ZrliUE2i2CB9hSMosz5GNCdfIhV77rF5yfg9RJ3TgNlhUuweqEHVKFER+1uHeW9yzP8pdxdAexacnssywV6b5n+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=cZ+CLF6H; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gs3AFqX+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 567621F000FF;
-	Fri, 25 Sep 2026 12:26:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790339176;
-	bh=6gJehVCWL5fLn5aT9am7Voa5ru91oYpFcrJvLTTTkGk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gs3AFqX+HSq77shdj2Fxo3vsFgcRwPjWAePnc0UAgOL6cojxTchstLN3nxdPn26ZA
-	 8UBIuGRVyXdFxQ3i4b1dNAU/+E8Y1HQOIjWitYto/fc5CgpGt6Mgy0Qryj8+IXuGKA
-	 eiMeheeHhiV7SBIk63yR2xrUkmAhONsyMNhvwqQ6ioZymt+9EnslcLfP96W4kl4pO4
-	 0jSP2SE1ZDFB1GW2UR70I9bsOX8IqE4NRuRi67gNScKS/uZMnroLHyyWvKrETimJMx
-	 o9symKySatGALhZqX3uJkcSEm3a9JkLb7fd2CO1KRQv0piPuqK6sCttCjv2nMLiT3z
-	 sESqkKPrCp4fg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: add radxa camera 4k on rock 4d
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Amin Gattout" <amin.gattout@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260925-rock4d-cam4k-v1-1-c9519c794fb3@gmail.com>
-References: <20260925-rock4d-cam4k-v1-1-c9519c794fb3@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 12:26:15 +0000
-Message-Id: <20260925122616.567621F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="cZ+CLF6H"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48882c1f261so98846f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 05:28:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790339296; x=1790944096; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=deuk7VvN7Dp02rRBKFxmXcYurefRWx2cWJSZzNnIkL8=;
+        b=cZ+CLF6HWqxZws42n4qHEzDUtqdBN8Y+EjKr9/Udc5W816cKXaaRNnTFFpbkB4TaVu
+         GBpGw/wt4A6ILK0yJNP/AmiE1bdTB4j5c7WHk4ymtJsRH0Eewyzs8zsrNccuHWqzcsFD
+         ypQymBzvQaZgjCbS4xmdGFVvBlcvfMGhJEV07L0yvH5jyyEewWTL/xu0k5Iso9qAZqIa
+         yWA0KnejHG9LAyRFvNp2jihQUxuzzn3qoCYJItBb+iHI96DD7+diK8I8ga3dg+v9BtMM
+         W8ME/T0WZDaVygaDP+wiROLwdl7wtLkqKkGAj0zRHoQ8qV618l8AAVVa2QqoxL/E0HBD
+         Q9dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790339296; x=1790944096;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=deuk7VvN7Dp02rRBKFxmXcYurefRWx2cWJSZzNnIkL8=;
+        b=UwxBJwIdMz2Nk979s7Z2eWXzthCEhqPz/7e6fRgtujIkiK9EW7q0N6o5vJqsUE3C98
+         xHCSzgg2Z8H1LTqQeNPYwegPckGo9CJ7J9LtfAiYlpNhEhdu/CKH6V64KfdcR1dHmfD6
+         W0B3J6XnikMWmYGFHteIvIAaTLAhUOYSC05sPZKi0x37ba53nR9l7ctLahKulNMpfpqZ
+         6XFj+HXfcMOCA3ND25NHvxnLDQDZPJlkf7aCpxCURbVMirEhMAbMGS4LHjQ8O1DtuiXL
+         13N8y80tXyjUOoi/v+MfNYVtpDzjolTLfjNbc/Y+dLRuGiNcgxFF1uFLCbTM4FR8PLAy
+         BhiA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRxCT6XnnCs1Ig5cRs15+Q4b5/BFzidEKqtDkUe7AfBZIcn7s+Q8KL4F5RoCzcb95cCflpx6Vqziio@vger.kernel.org
+X-Gm-Message-State: AFuF++ksWlPBt3gVuFsJviM9OHiKIWuLoIUgpE119rUUYB5qlxpFcOif
+	/a4X4rQhGOHvX7VQbilq2Gxlgpsf85kF22XBCGzG7g0KDoQha4DaC42FpFy/8TBQryE=
+X-Gm-Gg: AYBFou3Zqj4jCRiYFfuahhiFTx+6DNPtPngHp4VdREwsSlEFw4nDHuJ5vksjy2gqDUZ
+	CfZtOPQhvleS+PyR2KYOypgkVtHojsiqDnbTIFASBXbRkDXynOHL88IwrqNTCvALUg84bzFLqc+
+	tExBWQCJnFqlV/oM/oqC8cFIyydL3m1pbNXPUqTZv2HWHjFHGSqNW1byCarbTfVQlelIga1I4IB
+	EPipFNvxBLUbhOGbt3mgIMIxzgPRu3vTEJKwl9+k1X/wdr8rPTQ9IigRckTu8g+QiQ6bKjs+DdZ
+	gSFSxtRE9iZgYPxhXR99VJaDwpnQcc2oshGdlrwBzE3Q5+fodjcteIPzfkdR2RARJzSS0SVauBd
+	w5LkDp5Psi55wQZw/bvZY3O5I4XP6He5zvZNtkQsJ/nENmi9GraTsChM9xPxxGFns8doM2+cmXt
+	51Hg7eNpirmqh68tZHlVUbR3u1v0xu1kWolToPxINkwnnxp8uBCFVKD/yEKiqrEOfjXSz5mAEuU
+	c6OO7jsek4Nrl1bfA==
+X-Received: by 2002:a05:600c:4e53:b0:49c:e37e:4389 with SMTP id 5b1f17b1804b1-49fe66c8288mr97213455e9.4.1790339295735;
+        Fri, 25 Sep 2026 05:28:15 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff2884552sm39306745e9.10.2026.09.25.05.28.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 05:28:13 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jian Hu <jian.hu@amlogic.com>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v3] dt-bindings: clock: Add Amlogic A9 SCMI clock controller
+Date: Fri, 25 Sep 2026 14:28:08 +0200
+Message-ID: <179033924420.2256964.9574069512756367245.b4-ty@b4>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917-a9_scmi-v3-1-5ad843766774@amlogic.com>
+References: <20260917-a9_scmi-v3-1-5ad843766774@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] rk3576: build failure due to missing base DT nodes in cam4k overlay
-- [Low] rk3576: naming inconsistency between cam4k overlay and combined DTB=
- target
+Applied to git@github.com:BayLibre/clk-meson.git (clk-meson-next), thanks!
+
+[1/1] dt-bindings: clock: Add Amlogic A9 SCMI clock controller
+      commit: f25652a1c0d0b0d2cf6615f1aa693f7f941aff6a
+
+Best regards,
 --
-
-commit 50b2333d6c79fd8c588df575daaa658568d99a74
-Author: Amin Gattout <amin.gattout@gmail.com>
-
-arm64: dts: rockchip: add radxa camera 4k on rock 4d
-
-Add a device tree overlay for the Radxa Camera 4K (featuring the Sony
-IMX415 image sensor) to be applied on the Radxa ROCK 4D camera
-connector. The camera connects to CSI HOST1 through the MIPI D-PHY0
-in full mode.
-
-> diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/=
-rockchip/Makefile
-> index e7936a21c1185..82b2afd420d53 100644
-> --- a/arch/arm64/boot/dts/rockchip/Makefile
-> +++ b/arch/arm64/boot/dts/rockchip/Makefile
-[ ... ]
-> @@ -311,6 +312,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3576-evb1-v10-pci=
-e1.dtb
->  rk3576-evb1-v10-pcie1-dtbs :=3D rk3576-evb1-v10.dtb \
->  	rk3576-evb1-v10-pcie1.dtbo
-> =20
-> +dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3576-rock-4d-radxa-4k-cam.dtb
-> +rk3576-rock-4d-radxa-4k-cam-dtbs :=3D rk3576-rock-4d.dtb \
-> +	rk3576-rock-4d-radxa-cam4k.dtbo
-
-[Severity: Low]
-Could this naming inconsistency cause confusion? The combined DTB target
-uses the suffix '4k-cam' while its constituent overlay file uses 'cam4k'.
-
-It deviates from the typical Kbuild naming convention where the combined
-target directly reflects its component names.
-
-> +
->  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588-edgeble-neu6a-wifi.dtb
->  rk3588-edgeble-neu6a-wifi-dtbs :=3D rk3588-edgeble-neu6a-io.dtb \
->  	rk3588-edgeble-neu6a-wifi.dtbo
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d-radxa-cam4k.dtso=
- b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d-radxa-cam4k.dtso
-> new file mode 100644
-> index 0000000000000..613a3e3515003
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d-radxa-cam4k.dtso
-[ ... ]
-> +&csi1 {
-> +	status =3D "okay";
-> +};
-> +
-> +&csi1_in {
-> +	csi1_input: endpoint {
-> +		bus-type =3D <MEDIA_BUS_TYPE_CSI2_DPHY>;
-> +		data-lanes =3D <1 2 3 4>;
-> +		link-frequencies =3D /bits/ 64 <445500000>;
-> +		remote-endpoint =3D <&imx415_output>;
-> +	};
-> +};
-> +
-> +&csi_dphy0 {
-> +	status =3D "okay";
-> +};
-> +
-> +&vicap {
-> +	status =3D "okay";
-> +};
-> +
-> +&vicap_mmu {
-> +	status =3D "okay";
-> +};
-
-[Severity: Low]
-Will this compile correctly during `make dtbs`?=20
-
-Since the rk3576 SoC camera subsystem has not been upstreamed yet, it seems
-fdtoverlay might fail to resolve these base node labels (&csi1, &csi1_in,
-&csi_dphy0, &vicap, &vicap_mmu) against the base rk3576-rock-4d.dtb.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-rock4d-cam=
-4k-v1-1-c9519c794fb3@gmail.com?part=3D1
+Jerome
