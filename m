@@ -1,83 +1,91 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E86A471CE7;
-	Fri, 25 Sep 2026 12:50:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA09449B11
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 12:53:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790340625; cv=none; b=sw3tJ752jRRUZvwnRqAZZ63ZhU4YRB8MehAP2Bl++VOi1rwxUINyh05Sx6ZeV6MlpgHI1b5fjWc0RGBPdjFKQg6KKfKOXRawzv5sSgOWgfqPdAdu6n5SKnaNyH2OMWHUn/f4DTQJF9eI1s8SRUPMlohbPi+vx4TqmRDjjWr0tlc=
+	t=1790340783; cv=none; b=YpTNuC99pYJ0WSyDzhQdVPQ/fnMjKgOcCqEhNbAn5oTrCi7ASVRHoL50Ng5+MnDO8hr4zlKEiErjqucqIxKMXy1cUHqoCWKAjwhOPVu2A+r7qWIvpMwEKUgXx8/0NUk6WhK9txBswpZZFMOlJna3w6BsIGtd8vcPI6zr6y9sIFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790340625; c=relaxed/simple;
-	bh=h2BwQz/H4wDyJnZZiwXPk+XlhoH4jxeNDuPofwUx+rY=;
+	s=arc-20240116; t=1790340783; c=relaxed/simple;
+	bh=WgJGCX4ymeeHFrmApE9HNQVvJ7rArjAJrzU+WC8WOEw=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=WOihghCg5lRK4qJcLokwhmnUARyzlaeCoJu7FDIZOb7xficsLDwQ6FYKIPx8pnyyDUma0a29iw349Q/2TK6yurnKvQoeCehYGOKq1K/vn2gUfwOx0SOLcpUHPAJ9vs8kgb1cm1qJ2BY/aZHTHmBoLvTAmHV+EbPsAAlz/Ff5CII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nAQLCHzz; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version:Content-Type; b=B50tAS3eP8RKl0cusIiwpVBMVbGv6P4YbEVFnRW/o/h62dPp6jgFoYBiqhnLi0l7hMK8xBqGt1ucg/Qf61hrT05wOmnpqweAq6fYTFfA7UzswauN4j1Tuh/sjwRUBYUMJzDqyiLvpex0LcdDNev5fPDlhmTkFn/1o3k3W5By5pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GDfH/Ud1; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nAQLCHzz"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GDfH/Ud1"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id CE5BE1A1022;
-	Fri, 25 Sep 2026 12:50:21 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id DFB231A1020;
+	Fri, 25 Sep 2026 12:52:59 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9E9586073B;
-	Fri, 25 Sep 2026 12:50:21 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0B0B6103283E4;
-	Fri, 25 Sep 2026 14:50:18 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id AE27D6073B;
+	Fri, 25 Sep 2026 12:52:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2A13710328856;
+	Fri, 25 Sep 2026 14:52:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790340621; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=/0XQb7dUF6Xw+wOJyOLnA3OnExUzqknuA+1w9fxzllI=;
-	b=nAQLCHzzLPVUd0xMh23JX3gIyRH8E+tYSiwp+XWhexJ18SUuS+kUKoEks6fGO1se/S8Chi
-	AXZiO1ZWrLR/Ee2MOhB3EU2BqK+RykLClQgVJ4RSyYFjSzRoiELXDiCWhlU68YZCFQxEap
-	4wJBrltkT2C4c/1JRaVSaIYEoi77qzi96OG8PX/YxWipQXzVvLGsYJpLMe5HSAgn1OHGLI
-	A1/wSaYHa529cpEyG32SLHAOaQhS2fTzjkplOmlzMVBq8jMzV4xqNIlwOsa5On8nf/VRkT
-	efE9XorQx9IbZDTyHKhzBDFKvEAvPt4EjTkMMaT60pNeFQb0vstcHX4nt7FZLw==
+	t=1790340779; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=PEEaU2vp1FHpkuf8xli/ZnKeWiTmwFfC1TUVaJBY9HY=;
+	b=GDfH/Ud1Jdemye+Nz3G0qqOyXt1K4GSPD+M2rsPamQjF7EUxyT7kGLZ6SClOc1BhjvylF5
+	hqI8vhcYK5G6K+EkOksEWw5QGTDccB/qYuVmV+q0R1dgBh59H5vQPL7f+2b/whpSK5FyTI
+	3eMwyDM+Cgb3GweaXEGYXGmRWmr0QKadOKpQdRevKMbaXpwf2r3nYpGIBN80OMI1WLFZmY
+	pV+5maGeK21VYaJPr/a/v/GL3Gtr9cmx5uhuHJWRPHqeCnls4jF5/oWzgLA83boWejZmOi
+	Y7HAdAZarYGnG5JSiWxqcuV22hMtWGvGMxihmhe6bkA9oHDBydbj2IxO7orMTQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Paul Louvel <paul.louvel@bootlin.com>,  Borislav Petkov <bp@alien8.de>,
-  Tony Luck <tony.luck@intel.com>,  Rob Herring <robh@kernel.org>,
-  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>,  Geert Uytterhoeven <geert+renesas@glider.be>,
-  Magnus Damm <magnus.damm@gmail.com>,  linux-kernel@vger.kernel.org,
-  linux-renesas-soc@vger.kernel.org,  linux-edac@vger.kernel.org,
-  devicetree@vger.kernel.org,  Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>,  Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH v3 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence
- DDR EDAC binding
-In-Reply-To: <arZpZolRwdU8zh6O@shikoro> (Wolfram Sang's message of "Fri, 25
-	Sep 2026 14:30:30 +0200")
-References: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
-	<20260924-paul-v7-3-rc1-edac-v3-1-bd8054a5b180@bootlin.com>
-	<arZpZolRwdU8zh6O@shikoro>
+To: Rob Herring <robh@kernel.org>
+Cc: Michal Simek <michal.simek@amd.com>,  Richard Weinberger
+ <richard@nod.at>,  Vignesh Raghavendra <vigneshr@ti.com>,  Krzysztof
+ Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: mtd: arasan: Add ZynqMP props
+In-Reply-To: <20260925122003.GD677989-robh@kernel.org> (Rob Herring's message
+	of "Fri, 25 Sep 2026 07:20:03 -0500")
+References: <20260922183138.290114-1-robh@kernel.org>
+	<877bk9n122.fsf@bootlin.com> <20260925122003.GD677989-robh@kernel.org>
 User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 25 Sep 2026 14:50:18 +0200
-Message-ID: <8733uxlcl1.fsf@bootlin.com>
+Date: Fri, 25 Sep 2026 14:52:56 +0200
+Message-ID: <87wls9jxw7.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Wolfram,
+On 25/09/2026 at 07:20:03 -05, Rob Herring <robh@kernel.org> wrote:
 
-> But one thing came to my attention just now which needs fixing:
+> On Fri, Sep 25, 2026 at 11:16:21AM +0200, Miquel Raynal wrote:
+>> Hi Rob,
+>> 
+>> > +  num-cs:
+>> > +    $ref: /schemas/types.yaml#/definitions/uint32
+>> > +    minimum: 1
+>> > +    maximum: 2
+>> 
+>> I am not sure I get what is the purpose of this property. It looks like
+>> a downstream property resurfacing. We expect one DT subnode per chip, so
+>> I don't see the need for num-cs, we just need to count the children
+>> nodes. For me, the correct fix is to drop num-cs from the upstream DT.
+>> The only real use for it would be if the hardware could be synthesized
+>> differently, with a single CS instead of 2, but I don't think it's the
+>> case here.
 >
->> +    items:
->> +      - const: renesas,r9a06g032-ddr-edac # RZ/N1D
->> +      - const: renesas,rzn1-ddr-edac      # RZ/N1
+> Indeed.
 >
-> We don't need a family compatible. Only N1D has a DDR controller.
+>> > +
+>> > +  power-domains:
+>> > +    maxItems: 1
+>> 
+>> This one, even though we don't actively use it in Linux, it may serve a
+>> real purpose.
+>
+> The driver core takes care of 'power-domains', so how is it not used?
 
-This is true, but from my experience with this platform, Geert used to
-request both. I'm fine exposing only one of them, but I explicitly asked
-Paul to put them both to mimic the existing bindings and keep some kind
-of uniformity. I'm fine either ways, but before we go through that
-iteration, Geert, would you mind confirming your preferences?
-
-Thanks!
-Miqu=C3=A8l
+Yes, it is probably useful. I am pretty sure I did not use that property
+when I tested the driver, but the controller was either already set up
+by the Bootloader or in a domain enabled by another device. In both
+cases, it is worth adding.
