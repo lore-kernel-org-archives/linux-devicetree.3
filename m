@@ -1,132 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CB73CC330;
-	Fri, 25 Sep 2026 18:16:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D7E313547
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 18:18:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360209; cv=none; b=GsIjcKn8tKlS1S3xXxiCmtt3PHKuIR1yMfxxDHfjYMQjc6dGLqNHGK3kCwEwam55mgDxxqsDqmOO3Kw2vY/DxMPeVQTG9h+grf4EwE/9rPeAokX71I5UU1SJ7ZM/QIGcp6HFxkN5dlvFy5kjgSL5iqA2EmUXliDrlqPLPONVioo=
+	t=1790360291; cv=none; b=MJN4LSlc83dgDAKY5VIjWOE3ywUS1yEuy7quqAz9cWlcEPlXYLv8Rowzzx7YL9n0SU7lfuymaSwB8uEGN+BAp9UmYtguYYgmASxs5/T20nPwUNdQFK++Pn/2yt0E6AAxGmzzy7u8bS7p0uxLDqsRkhMlvn/uwR9+EyOQXQyyE+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360209; c=relaxed/simple;
-	bh=e7YcTSG3JNePysFqDol3WEbcUqdGmOQ4IkGhWY86vEc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lr1gQcMMwXf1eBvLZUpeOmOjkP/oKG04+YnroGB2DXKBxEXnQwmVY/YdI3acsmdYeXW8dvFE9k41V9xH+Ysx2uaJcpLm9mbYQhzaOlUdanpHs9qCg6aNmHEyGoRP+9Re1Bg/xV5f4ClHgi2Jm9g093ndQW4aoSFNyFqqgmQLExM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHGh2WDq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790360291; c=relaxed/simple;
+	bh=ZVdQ8iJ9/viKjnfKVpRe/ltKNcfW5Li+z4474PRXTf4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jmFe964SgQqbFtfF5MPVQT44fPIrv/VT5Z0QnBiLhIeIgXu81T34QjAjA7gYyAtDaVhmvZ7Bwgs184pvWXaFb1h9he0+btsze0pBNA79urV5ozJ6d4/YAqjxlKRlDqwvzxWL82T/GdJVyzHVRKcfWoZ5EcNPKH2a788nWjHSSDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frR+wnvw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHGh2WDq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884521F000FF;
-	Fri, 25 Sep 2026 18:16:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frR+wnvw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A862D1F000FF;
+	Fri, 25 Sep 2026 18:18:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790360203;
-	bh=C10OfJrTYrQwW2kHvp4SQjJlJjZdUq9RgN2NQu4kbDU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nHGh2WDqjA05pVPtQb61qOpaXARQXuvnjw2U4K0vg7GZOk6Egj4XnxYBi9XranQ9z
-	 5t9zkIUq7EkPt2XNrNAo3twzZvovyQb5D6ZdQ7azyAIfssZFAT/SX6+FhqL7wDZc0n
-	 gIxH8o5UUIeuFBIF8BWIrMYqydhsTZyQPossDC7jkwA2vb5xRwJlVnsWwb/KdU4yKT
-	 QvMKACnDJMHYAmV+0drmdjSwKtAKMcRu5NE1yWmgynB2NRePPQ4okicudL0aMBJb8U
-	 YcNP28Y+J8/Mla8ZJLcl+rpiUYlqvHY4+K5J0T1yDXPC3qS5DvDSzPIlmC2DtWdDUS
-	 iN2cB0/7isbmA==
-Date: Fri, 25 Sep 2026 13:16:40 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Bharath Kumar <quic_bkumar@quicinc.com>, 
-	Chenna Kesava Raju <quic_chennak@quicinc.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mahima Bhattaram <mbhattar@qti.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v2] arm64: dts: qcom: glymur: Fix fastrpc compute-cb reg
- values for cdsp
-Message-ID: <ara6DbubyajRiJ51@zenbook>
-References: <20260923-glymur-dtfix-v2-1-a4b1928e0c72@oss.qualcomm.com>
+	s=k20260515; t=1790360289;
+	bh=faalfAFbloS6A83lPcMrxQvF8UhKQiaJ5spoURoKK+o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=frR+wnvwuuIaaoOwulVQeb8nX0jF+vMWV0QTR28OXRVvl2J2yqF1HymLv5ovHkdMk
+	 YrHSXuGeP/PdlyYxqLsJxLJNhpk7tSDTh3DwnJCbB0M80LxaHWoMd0xE213ZYC20Pv
+	 uBJe1JcI/RyhugcA1mm61++8xnlkuLBLCOCviilrW7xDEByxjzrusRHICB7wt3K7up
+	 a20OWEZ/hMtMgVuhFtIZLLQC6EuA20QSkDJ5Mvu41BKpbmhYKJgfPasS8kiC9TKG6i
+	 9HLv/b7r34S6wC6nhUQom52cs4PLm4QL1C1x31tqm4aJiZZmAp4El/yCuIg3Nai2Un
+	 2A+2fkEPkeL+g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: x1e80100-dell-xps13-9345: add the
+ front camera
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liviu Nicoara" <lnicoara@thinkoid.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260925181024.20352-1-lnicoara@thinkoid.org>
+References: <20260925181024.20352-1-lnicoara@thinkoid.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 25 Sep 2026 18:18:09 +0000
+Message-Id: <20260925181809.A862D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-glymur-dtfix-v2-1-a4b1928e0c72@oss.qualcomm.com>
 
-On Wed, Sep 23, 2026 at 09:29:39AM +0530, Ekansh Gupta wrote:
-> The reg value of a compute-cb node must match the SID (the lower
-> nibble of its IOMMU stream ID) it is associated with. In the cdsp
-> fastrpc node, compute-cb@10, compute-cb@11 and compute-cb@12 were
-> mistakenly given reg values of 10, 11 and 12 instead of 12, 13 and
-> 14, which don't match their SIDs and leads to SMMU translation errors.
-> Fix the reg values, and rename the nodes accordingly.
-> 
-> Fixes: cd1d174c75f7 ("arm64: dts: qcom: glymur: Add ADSP and CDSP for Glymur SoC")
-> Co-developed-by: Mahima Bhattaram <mbhattar@qti.qualcomm.com>
-> Signed-off-by: Mahima Bhattaram <mbhattar@qti.qualcomm.com>
-> Reviewed-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Change unit adress to hex.
-> - Link to v1: https://lore.kernel.org/r/20260922-glymur-dtfix-v1-1-159da6b0eed9@oss.qualcomm.com
-> ---
->  arch/arm64/boot/dts/qcom/glymur.dtsi | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> index de7c395d9c35..3219603372ce 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> @@ -8471,9 +8471,9 @@ compute-cb@8 {
->  
->  					/* note: compute-cb@9 is secure */
->  
-> -					compute-cb@10 {
-> +					compute-cb@c {
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dts: leftover panic-indicator property in privacy_led node
+--
 
-This looks better, but it's not allowed by the fastrpc binding. Please
-resubmit this together with adequate dt-binding updates; and please run
-dtbs_check when you're patching DeviceTree files.
+commit 36298c1fea529d8d4721b3106200dbc232c81349
+Author: Liviu Nicoara <lnicoara@thinkoid.org>
 
-Thanks,
-Bjorn
+arm64: dts: qcom: x1e80100-dell-xps13-9345: add the front camera
 
->  						compatible = "qcom,fastrpc-compute-cb";
-> -						reg = <10>;
-> +						reg = <12>;
->  
->  						iommus = <&apps_smmu 0x240c 0x440>,
->  							 <&apps_smmu 0x196c 0x0>,
-> @@ -8481,9 +8481,9 @@ compute-cb@10 {
->  						dma-coherent;
->  					};
->  
-> -					compute-cb@11 {
-> +					compute-cb@d {
->  						compatible = "qcom,fastrpc-compute-cb";
-> -						reg = <11>;
-> +						reg = <13>;
->  
->  						iommus = <&apps_smmu 0x240d 0x440>,
->  							 <&apps_smmu 0x196d 0x0>,
-> @@ -8491,9 +8491,9 @@ compute-cb@11 {
->  						dma-coherent;
->  					};
->  
-> -					compute-cb@12 {
-> +					compute-cb@e {
->  						compatible = "qcom,fastrpc-compute-cb";
-> -						reg = <12>;
-> +						reg = <14>;
->  
->  						iommus = <&apps_smmu 0x240e 0x440>,
->  							 <&apps_smmu 0x196e 0x0>,
-> 
-> ---
-> base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
-> change-id: 20260922-glymur-dtfix-6314526b4b02
-> 
-> Best regards,
-> -- 
-> Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> 
+This commit describes the OV02C10 front camera and its wiring for the Dell
+XPS 13 9345. It configures the CCI1 bus, CSIPHY4, and assigns the white
+camera indicator LED to serve as the sensor's privacy LED.
+
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch=
+/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+> index ad62350ba6701..73f06fdcd1381 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+[ ... ]
+> @@ -46,14 +48,13 @@ leds {
+>  		pinctrl-names =3D "default";
+>  		pinctrl-0 =3D <&cam_indicator_en>;
+> =20
+> -		led-camera-indicator {
+> +		privacy_led: led-camera-indicator {
+>  			label =3D "white:camera-indicator";
+>  			function =3D LED_FUNCTION_INDICATOR;
+>  			color =3D <LED_COLOR_ID_WHITE>;
+>  			gpios =3D <&tlmm 110 GPIO_ACTIVE_HIGH>;
+>  			linux,default-trigger =3D "none";
+>  			default-state =3D "off";
+> -			/* Reuse as a panic indicator until we get a "camera on" trigger */
+>  			panic-indicator;
+
+[Severity: Low]
+The commit message and the removed comment indicate this LED was only used =
+as
+a panic indicator temporarily until a "camera on" trigger was available.
+However, while the comment is removed, the panic-indicator property remains.
+Should this property also be removed from the privacy_led node?
+
+>  		};
+>  	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925181024.2035=
+2-1-lnicoara@thinkoid.org?part=3D1
