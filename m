@@ -1,98 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DEC4AF680;
-	Fri, 25 Sep 2026 14:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A3F4AF67B;
+	Fri, 25 Sep 2026 14:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790347478; cv=none; b=dfRThANRuaQzwKJXtg3I2NI3fxQ92EOTZdFRCGconv2gzfTgnkwKTnwITmWvh4jzTpyUpYNIphC4vyKYfe0vxSK/eQMaxekrzg0iLlYaRmcm0ujZ2XqXksbv5GFqpvJUoPO7XGrf5f1dtvEOgchn76l2SKOuG9t+d0vrNZdL/wo=
+	t=1790347506; cv=none; b=I/NG2YT44LaQid65/Qh22HooZ8qqNe3u6J8lY+4vuRqlUHF9oWKxgin2zDhecWrW06fJp5IKI31x2XIip99/TKSW7z9vwMwZkTTfieahqkwwgxV0AcRp0DDycyFBctD/hRYlEGOHCOUP8y7jimrl38JajPZ+AEq3cj/yTtkitnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790347478; c=relaxed/simple;
-	bh=Wjc+K4g1PDEQuBhpGdpLmy1RW4pTi1bQI0UMlQC3o38=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LQ5rj3nBIvBcq683S0yaZS+RlTU5qNr/tQKKq4gHthdZq+pM0T/i6mbTJEtXYQHC5ijCVNHJLhQ+IJ3wZwvS3Yov6ZwmZrBb4M5jnsSenFwB/hEuRQ188DIcAts5zg+oFnA0aB45lLztHCYWhSs0p04+SVWbMwMjEinqdbvl2oI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b25XS05S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790347506; c=relaxed/simple;
+	bh=lkgB2v4jBGJOOVsy1xE77xifWe3MhYmf77JlSgRKGmU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TfDVzkvrW5GeHyjMf1Ba4OCAEXXgTgUjgd1hHGtsB4+99sOgWm9l9CCnbCFGtY6JMundqkgceYAFt3nwWMOdyhLtQrDNAeCQ4ESVmtmnNnonSAD8zrtIz2jclVhkaaoYZ+NtJ6GXEijf+9Zg4OJ2j/5Dx6Ha1GP/KlhUd+7PGwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AYBtgiBq; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b25XS05S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CE0A1F00893;
-	Fri, 25 Sep 2026 14:44:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790347475;
-	bh=ITZDFVox5NLHXsnmK10W6wsN7s4IILuSRlfCt0zYpN4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b25XS05S3OB6eWWJs/qEIGE0ur+QK+mebfkuqKKgxQjBKRVdmn7lPJVLfXSBMzZWX
-	 +ijRghadWFlCg4T8sbwHIfu0U96F8SjDp2xtPM2gLbj804B47Cz4O6uCfMoNDL4GXF
-	 IJpsg5ljunxtt+yRZSgCs7RY1WgccIl1cgf7aEOhi73Rwgo7dib8Tn8l2o0yOwMk8t
-	 Jglk1bafKFY0W7sGXdES+CSRmCD8+OBgw8XYpXYWtDczNcaa5FlisuyxEv0zBeGRz7
-	 hftIicdb8SIidhEYHD8g3rmD08vK+WHKrJ4aEkpeCdPucRpy7VMhRcu5VRWgX+CXDE
-	 Sz6mOmCPsKXeA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 09/12] scsi: ufs: Add NXP S32N79 UFS host controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Larisa Grigore" <larisa.grigore@oss.nxp.com>
-Cc: imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, linux-scsi@vger.kernel.org
-In-Reply-To: <20260925143534.3298540-10-larisa.grigore@oss.nxp.com>
-References: <20260925143534.3298540-1-larisa.grigore@oss.nxp.com>
- <20260925143534.3298540-10-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 14:44:34 +0000
-Message-Id: <20260925144435.3CE0A1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AYBtgiBq"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A112B4E41075;
+	Fri, 25 Sep 2026 14:44:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6C19E6073B;
+	Fri, 25 Sep 2026 14:44:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5A12C102F08C8;
+	Fri, 25 Sep 2026 16:44:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790347492; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=CqhBrtc24xeYe5rtT3XAuCH/QzXbGSjDLxpVbh3Y7Ow=;
+	b=AYBtgiBq9Yk+NgcPBNMvFv3rq0t5CpY+KQYMtAFcoGdj0Qsz7PwHJvcgSeyu8eP/NnZDjC
+	wjKFDBqzICOnMn7XQJbqFCdhKnwI1wu2B2qgr7mtCGsENv/jux9LOG86I/0yWmjCjHaJ9X
+	JjOnhAoQWQjfvxXaeAK6G1QA8RomnIDraWdJLNaJ00mFVFXMcHF1vJVKVJRd47i1uku5t/
+	9y7HSvZLl29MWqqw9yEEJheJg/Ppsedefq3Q+LWSeEEQAZ77NKVSRiKPWw9yNZyY13K5dV
+	nci1AhNmJEPFoFflfSsvxWDWkUs+lkmFuPNFi9LD56AlVUMK09P455d4EkKU/A==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v3 0/6] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+Date: Fri, 25 Sep 2026 16:44:19 +0200
+Message-Id: <20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NQQ6CMBCF4auQrh3TaUMBV97DuChlkEagpMVGQ
+ 7i7hY1xY1z+L5lvFhbIWwrslC3MU7TBujGFPGTMdHq8EdgmNRNcKF6ihIl8cDBomTcIjynMnvQ
+ Apr+Dyo02rUFdqpql+8lTa5+7fbmm7myYnX/tryJu6z9qRECgoqScFBaC9Ll2bu7teDRuYJsbx
+ ceqBP6yBHAQvGobKXRZc/5trev6BpLERBEQAQAA
+X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Jacky Huang <ychuang570808@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] pm: incorrect conditional wrapper used for system sleep callbacks
---
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but at this stage it does not work with the current
+clock driver.
 
-commit d098a24e93df9f55eb797a42c24f7333f79c7078
-Author: Larisa Grigore <larisa.grigore@oss.nxp.com>
+The clock controller registers its muxes with .fw_name parent data,
+which requires every internal clock name to be declared in the DT. As
+the DT does not declare them, all parent lookups fail: muxes end up
+registered as root clocks and most peripherals read a zero rate.
 
-scsi: ufs: Add NXP S32N79 UFS host controller driver
-   =20
-Add support for the UFS host controller on the NXP S32N79 SoC, built on
-the Synopsys DesignWare (DWC) UFS architecture, using the UFSHCD DWC and
-UFSHCD platform glue. This controller requires S32N79-specific initializati=
-on
-prior to UIC_LINKSTARTUP.
+This conversion exposed an issue with the WDT/WWDT parents which were
+actually missing in the clock driver. I am not using these clocks myself
+but it is worth fixing.
 
-> diff --git a/drivers/ufs/host/ufs-nxp-s32n7.c b/drivers/ufs/host/ufs-nxp-=
-s32n7.c
-> new file mode 100644
-> index 0000000000000..f7a017a6d9ae6
-> --- /dev/null
-> +++ b/drivers/ufs/host/ufs-nxp-s32n7.c
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v3:
+- Drop the number of clocks from the binding, set it in the driver only
+- Split the binding/driver patches completely
+- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
 
-[ ... ]
+Changes in v2:
+- New patch 1/3: register the missing WDT/WWDT parent clocks
+- New patch 3/3: harden the code
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
 
-> +static const struct dev_pm_ops ufs_s32n7_pm_ops =3D {
-> +	SYSTEM_SLEEP_PM_OPS(ufshcd_system_suspend, ufshcd_system_resume)
-> +	RUNTIME_PM_OPS(ufshcd_runtime_suspend, ufshcd_runtime_resume, NULL)
-> +	.prepare	=3D pm_ptr(ufshcd_suspend_prepare),
-> +	.complete	=3D pm_ptr(ufshcd_resume_complete),
+---
+Miquel Raynal (6):
+      clk: nuvoton: ma35d1: Keep the clock count in the driver
+      dt-bindings: clock: ma35d1: Drop CLK_MAX_IDX define
+      dt-bindings: clock: ma35d1: Add missing WDT/WWDT parent clocks
+      clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks
+      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
 
-[Severity: Low]
-Is it correct to use pm_ptr() for the .prepare and .complete system sleep
-callbacks in ufs_s32n7_pm_ops?
+ drivers/clk/nuvoton/clk-ma35d1-divider.c       |   3 +
+ drivers/clk/nuvoton/clk-ma35d1-pll.c           |   3 +
+ drivers/clk/nuvoton/clk-ma35d1.c               | 642 ++++++++-----------------
+ include/dt-bindings/clock/nuvoton,ma35d1-clk.h |   3 +-
+ 4 files changed, 199 insertions(+), 452 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
 
-The pm_ptr() macro evaluates to NULL when CONFIG_PM is disabled, but .prepa=
-re
-and .complete are system sleep callbacks which should evaluate to NULL when
-CONFIG_PM_SLEEP is disabled. Wrapping them in pm_ptr() could cause dead code
-or build errors if the kernel is configured with CONFIG_PM=3Dy but
-CONFIG_PM_SLEEP=3Dn. Should pm_sleep_ptr() be used here instead?
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
 
-> +};
-> +
-> +static struct platform_driver ufs_s32n7_driver =3D {
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925143534.3298=
-540-1-larisa.grigore@oss.nxp.com?part=3D9
