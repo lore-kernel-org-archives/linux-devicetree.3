@@ -1,33 +1,33 @@
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F133E00B4;
-	Fri, 25 Sep 2026 23:11:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33754052D9;
+	Fri, 25 Sep 2026 23:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790377865; cv=none; b=nfGDW6RNo97IdJfJhInKuTz9s85eA/w2I//gAUBSvX01DWgvILC5rBbSIyDp3oulcEYZCIbKUlzIUPPauFDSLCT/kVcTQw1fD22PRkxk1VheUOkCq/GCkEZ5PozBvCXstFX5sZG6flYOQ/pjX5QnwpoUDzDGTgQHNR3RMHnvJdU=
+	t=1790378242; cv=none; b=koTk7RC/zDfXRZhAa1ZJYg8XNSe4jnL+y3LUzbN0xO3FQ7eGnYoaG+gWdagxvb8jD63bk752/3ZbFf9QrJnWnXWDQLcFJjbaIcSI4sYpGxXpCsBgreYGEarKGeKyhbfIAoWQlgIUOmVpy3N1C6lm7IHDxueSYMGWAfz+8XwBV1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790377865; c=relaxed/simple;
-	bh=WDuhiKoto+GckTuEBZVglaXPfxxrI3TMeVmIEz4ttGQ=;
+	s=arc-20240116; t=1790378242; c=relaxed/simple;
+	bh=+vKXCBtdk637c0n1Wkj8QfS5F31BiucdN9/XpNxmgmg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=niRGNSHGNf2qZb1KnsEEx8InGLPCy5kKx4TwRfW2Yw85Go9G+3/mb02IvyF8CbA9owb8rVWuNKvmLkob5Yn4K6e3x+5KH37rt5dPQJz5hKuqvewa2S2zRZTB4SHdQh1XS0y1lc/ocLM3VvkGrjtZ4UZnN2F3fu/IhTKsqirDKOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4JtgAefU; arc=none smtp.client-ip=156.67.10.101
+	 Content-Type:Content-Disposition:In-Reply-To; b=U07bNtG46clVw3EmmzTjyIb5nl6e+qqE1Mero5yY2mC2iV7dXG+5hv6Gz+C9pLbGprMYtSELiBDdp9ucF59j/sa5BhjcTjxdqyj98ILF6EtSWmKoWkieUPfqTaWS0rq7zRWkz7dRda/wh8jss1+W+0AMIcNL4DYgFRijVBYQAvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=LaQ1gqcX; arc=none smtp.client-ip=156.67.10.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4JtgAefU"
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="LaQ1gqcX"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
 	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
 	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=IGuHgtxJPba8b9kLu8sf/C1GQa9JsFH4QyigTFqdx9o=; b=4JtgAefU6c/DWinFRd1OJq8pLp
-	ds1uVQMYpNQshwUYpOvGh02ngxT5IxYmZwT1N8WeW7JoSMX+mi0pvEsbqotIdRkdlutD9ePOwWbMI
-	H1IAGUOcvi0Wh6Y7VyuDXNCvpswx5/jDbGYCPVyNrfz7MLU7aXSWpS/SsD1CEJFdJe2U=;
+	bh=9mGHywWFBuS1brYkfWRhdDtGg9HQW7eaDie7RYOA7Yo=; b=LaQ1gqcXVllIYPL90gvLN41r64
+	4CP0b4KPbejRnLB/W2H99ZyG9lrN8ebav14G4K2Ix3SzJiun2jU2kOaf/q+C6VhhRZ+mnPU/fEbu2
+	WPbdvzs1l2if/IifL486lRwxHcEZflTMjIjXyXHcu63j2DwoVzK+VM7zrb6R6Kjq5yck=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
 	(envelope-from <andrew@lunn.ch>)
-	id 1xAF4B-007KAX-Fh; Sat, 26 Sep 2026 01:10:55 +0200
-Date: Sat, 26 Sep 2026 01:10:55 +0200
+	id 1xAFAH-007KDl-30; Sat, 26 Sep 2026 01:17:13 +0200
+Date: Sat, 26 Sep 2026 01:17:13 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Vasilij Strassheim <v.strassheim@linutronix.de>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -43,11 +43,11 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
 	Martin Kaistra <martin.kaistra@linutronix.de>,
 	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v3 5/8] net: mdio: Add SoC-e SWIP MDIO
- controller driver
-Message-ID: <e4440c27-5551-482c-95ae-9b75481bcf7b@lunn.ch>
+Subject: Re: [PATCH net-next v3 6/8] net: dsa: soce: Add basic support for
+ SoC-e switch IP cores
+Message-ID: <6c75787b-f06c-4d85-8fc4-5bd7b2a30716@lunn.ch>
 References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
- <20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
+ <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,23 +56,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
+In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
 
-> diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
-> index 048586746026..079b46dea25f 100644
-> --- a/drivers/net/mdio/Makefile
-> +++ b/drivers/net/mdio/Makefile
-> @@ -23,6 +23,7 @@ obj-$(CONFIG_MDIO_OCTEON)		+= mdio-octeon.o
->  obj-$(CONFIG_MDIO_PIC64HPSC)		+= mdio-pic64hpsc.o
->  obj-$(CONFIG_MDIO_REALTEK_RTL9300)	+= mdio-realtek-rtl9300.o
->  obj-$(CONFIG_MDIO_REGMAP)		+= mdio-regmap.o
-> +obj-$(CONFIG_MDIO_SOCE)			+= mdio-soce.o
->  obj-$(CONFIG_MDIO_SUN4I)		+= mdio-sun4i.o
+> +static void soce_sw_read_core_version(struct soce_dsa_local *local,
+> +				      u8 *version, u8 *subversion,
+> +				      u16 *revision)
+> +{
+> +	u32 regval;
+> +
+> +	regval = readl(local->base_addr + SOCE_CORE_VERSION_OFFSET);
+> +	*version = (u8)(regval >> SOCE_CORE_VERSION_VERSION_SHIFT);
+> +	*subversion = (u8)(regval >> SOCE_CORE_VERSION_SUBVERSION_SHIFT);
+> +	*revision = (u16)regval;
 
-Maybe the indentation is wrong here?
+FIELD_GET() would make this more readable. 
 
-Otherwise:
+> +static int soce_sw_detect_features(struct soce_dsa_local *local,
+> +				   u32 *numports)
+> +{
+> +	void __iomem *base = local->base_addr;
+> +	u32 implemented_numports;
+> +	u32 licensed_numports;
+> +	u32 regval;
+> +
+> +	regval = readl(base + SOCE_LIC_FEATURES_OFFSET);
+> +	licensed_numports = FIELD_GET(SOCE_LIC_FEATURES_NUM_PORTS_MASK, regval);
+> +	if (!licensed_numports || licensed_numports > SOCE_MAX_NUM_PORTS)
+> +		return -EINVAL;
+> +
+> +	regval = readl(base + SOCE_IMPL_FEATURES0_OFFSET);
+> +	if (!(regval & SOCE_IMPL_FEATURES0_DSA))
+> +		return -ENODEV;
+> +
+> +	implemented_numports =
+> +		FIELD_GET(SOCE_IMPL_FEATURES0_NUM_PORTS_MASK, regval);
+> +	if (implemented_numports < SOCE_MIN_NUM_PORTS ||
+> +	    implemented_numports > licensed_numports)
+> +		return -EINVAL;
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Maybe add dev_err() here for all these error cases. It will help
+somebody debug why there switch fails to probe.
 
-    Andrew
+	 Andrew
