@@ -1,480 +1,460 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2098.outbound.protection.partner.outlook.cn [139.219.17.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B03175A8D;
-	Fri, 25 Sep 2026 08:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790325841; cv=fail; b=gzFJJVa/1nTum6G8mH8hHUH3o1uPgXBpCuwiihDyAZXesOeZlFd7mjMs6uvwgqyX9LZ4+ZTiBxYpAijfTwpVNnBHaT71V5bJ80QqYuz/o3DegxaZEgkiCWf8g/fVAWFlk3FtwBqHDiiFwWQU+INyNvzzlZHa7gpUEYC5E9i+urg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790325841; c=relaxed/simple;
-	bh=vTgTEYyuswQ0+s4SMCzC/U3zBZ/RynYzl9SzeqDEOfM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fy9J8b2WWQ/pRIm2rwebL8pf2fSaYHr8oGWZP8hWue0S2jYa3OkpNNCBK+rbp8QYgrxN6aqQGqyyeTVkOtc/0Gr6qYhJfKrwRCRRoRLiyhmngmjPOgwqw8BBspLGnVsGU0oeia4edvKCIOyppTbdOaM3o4HxQmt630jfKyx+qa0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GtTaNyW0LQDvVqrix7NBT1Pgf0wBCarjzsM36GXz51oqS0trmnP5TkytNyizl3fJ967gM6ubHeReF79tLpuqZIfHnXd/irUOBwdCwu5Fr8jCHSFnWUQSJsfPVFeHs3evL5GN4bcwE0UPiSaTHnm8hCfL1fK7HYa+72Ka7CIZ9/IE8wARFZfd6CcGxXmZumvTKvKC0M3w9bXujgEv90rZHMGlTbH3IqtK1K721Ky3QDPERiNwzyHlyrMe9YcvCYElgV/KXygsMzz/Yc3QLj+B+y4YXUUF+S8/YxW1A6YbgKfYvjSzVYJJF1QGlBz3z/bZ3OFwxsNO6Zu1jPfKE3aaMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B3WI0l2fLcsjral4dphS2l+e8pM0k0DZhUpFW6LxElk=;
- b=e5a+4XK4L4X6p9pC8KVxAVJw1k8RfrGG47nDpjIP678Dpt94+pygr4d/9PteZLTrf8ICiboDICjdw119IczNRlVSauSmFsPy2QaIY4uBXReO6LUWiAHU1P4cOR+fXKuvTcxosJ6NgFss/LYct8DAvQpOeUOp2aP9YE3ln9COCQovWIphnLoLpUj7+8PM/SIsbvzMEV63ssjeahIkldV+DQP3156iWUki3NDhly25Ho4tWTc877WaJYuG071kzmp0JtwnczZZPYmfl5wBdQs7wAwhCd2Aa3DE3syJ2BrU2AIzO2SvsVNBNT/ZqPbV0Y5GG4bp92elXnfKZkYudQyMSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1204.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 05:11:09 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0451.014; Fri, 25 Sep 2026 05:11:09 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
-	Oskar Senft <osk@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jani Nikula <jani.nikula@intel.com>,
-	Vitaly Lubart <lubvital@gmail.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Breno Leitao <leitao@debian.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	James Morse <james.morse@arm.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	Dave Penkler <dpenkler@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Mukesh Rathor <mrathor@linux.microsoft.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Alexandra Winter <wintera@linux.ibm.com>,
-	Julian Braha <julianbraha@gmail.com>,
-	Karthikeyan KS <karthiproffesional@gmail.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org
-Subject: [PATCH v3 4/4] uart-routing: Add UART Routing driver for StarFive JHB100 SoC
-Date: Thu, 24 Sep 2026 22:09:47 -0700
-Message-Id: <20260925050947.9900-5-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260925050947.9900-1-changhuang.liang@starfivetech.com>
-References: <20260925050947.9900-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SH0PR01CA0005.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:5::17) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF4136B915
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 08:46:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790326006; cv=none; b=O+Ucsd/9oQE2EEWJCYHVtKeiVzG3RNaz5zTYHo9zOcETHmR6R5mpS41xUwUJuTPkyoxK6HPkWh0UdLzZ1KQwCn4ZPnZv8osVG1MD7sB7xrAmROegeJSmstu+INIFBSRbyJnQPOCEe3/psmTsTEj0NuXoIGIbwHR0WIiDA0V0b4Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790326006; c=relaxed/simple;
+	bh=fsHAtjy8ZJ3iBBgzdKw/N55I4rdruDDrj4ZO0IR0gcM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=GqLvHyf8mSahSWMq1eR9g/rXaaghO8JFiEnac0EgDVaLzIlqWDmCPFr4vSCK/Ob2CoAIoClmbBc7JPal/CqrxKIFuROnLdN/7pJiu6p2x7FVNlBk8iVbowJEaMkROs+A/PfX6Svu55XntyvXMbHfgM55Rv4Du6YMyw/I4KsSvKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=R7EM4fB2; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="R7EM4fB2"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49febbce9afso4038375e9.3
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 01:46:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790325996; x=1790930796; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K3nhBTvLS7wgRfFCoQqzBky9Qcop4dSXD6DBM5ddgQE=;
+        b=R7EM4fB2gLS96bh75DZTOf8iW/KG5NHEsbz7xSXpZZ5HM1kAKP4AGJfqgr9mMApnl/
+         M6uVZNx72MBKHJh3YBRZeeiFTpbyJt6dvwWv58LTZRvcvXTJDIajDz6L3aRNxwdZsg7e
+         FNDIDbV7uWPuAH43aEF//Pa3P5xGnK8G/x8LJZbckww4zMpEH5tQqcXt1SnqqS6x1acu
+         G/Bz93L/t0XTaQOVFTX6PESPjxtp5MjNNVZl6bBGiXH5q1+aS9Gkzjwvx8ma1laNpMNv
+         +Pqwpf5ol2o5blMGe8eDlgA0Pzi1OfawXDDdFpPVaSL9i2fRvHKEII4EC/RtLB+PpXXg
+         6Sdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790325996; x=1790930796;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K3nhBTvLS7wgRfFCoQqzBky9Qcop4dSXD6DBM5ddgQE=;
+        b=jP4H+VEf3CqEm+Iw/kPocl7JefAHXS0W8hmpWC+CeMe28yRfEn7B6Tm/GgVjrFfmfd
+         +fOGdISmvDOiizci9zB89wb/ZmgJ/buOvz9/E6XlbVbFVWPPtXN6+oe659WN7j1BISZo
+         IIimXy3QWIrUoYhimGY8Ikklpvr81XcMtZu2dv3ueF4jm11atJqVEm68Mi3ZFaTNAHg+
+         QTEXHQKEyRrmGp+7kaXfIRxRn4pfcLY8Yp0+a2QZrkrg5OLz57O/6/zUQPf5qHcIp/p1
+         uVX3GRdxm+RTFo/oVGnbzKzNvSjw6/nND/vjbrYD0Uq16NPqABDlM5KNsahWCedVNCQN
+         QP9A==
+X-Forwarded-Encrypted: i=1; AKwUvBxaFJ1TWQGb71Qi3DZMGatK74r0x+l2OxWUQ8giMaFiW2XwxkfywVz1GdZG+HdiwmKgGUMZU0Ps9Niq@vger.kernel.org
+X-Gm-Message-State: AFuF++mZSIAg1j7LbbJq5RWSBZGn9aILogd2DQpgIrQnvJ3JDPWeYVea
+	lw1+yz1QRK4wcvWCd+LsxMIXn/Y2DLMrPCOii2CMae8Lu82hxwLN3LDPdRWLxpXYbUE=
+X-Gm-Gg: AYBFou10qRoDrnwNF6j4ttsiTajWy1/o+lpODvnC6T0D94QTC1HSc8+hZnRCRB4jh+p
+	7unSbicp43TyeZNpoCzZCvo0J0DVLoqcQanHhtgBUoURqBF3I5RAKLXi4PYHRpD2nFm3rjH6rYO
+	jDsE5aGnuxS7WzD3H7BDHCyc7yEBqnPKBrVizdLj7v2WTOtSgNFmi4Z8wFRoVZo7FQfAlkDs0G6
+	T+stqo3kfyHEvAp5yGSL9vEKR3WGNJJqMnnZgYT8JVV28CHN7xJSXYmXDtXiUKHcdFFzQC+Ll5R
+	Mcz2PHeRbVC4T+fk6bUId0k/YcJ7EE3ye8HNQBOA+Prd89kXvV+ITDUQzeBuS3NWG/YXm3oQCby
+	L9fuNmGRF5WQiRoK8smuBc+Gf3pHCi6+vXc6p76aFcI0+a1xhEaRwaGzUjX4ZnZKJGgXZLgMU1r
+	mw4my9TNod8ORHzldN6trk+gjClx3M6Hz/6opIYpicN3fCjAMzVnE5kTcnE0PY2jNp0BIrR26gE
+	O3q/6vmqhX2vaUjqJMFoTPgAhsf94fiSxpobvKhuzMCi0ibUEa/ng==
+X-Received: by 2002:a05:600c:4ec6:b0:49d:e0c:e55e with SMTP id 5b1f17b1804b1-49fe66f9ddcmr85359565e9.23.1790325994673;
+        Fri, 25 Sep 2026 01:46:34 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:3151:fc9b:d41c:770b? ([2a01:e0a:106d:1080:3151:fc9b:d41c:770b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef5fc189sm36506075e9.3.2026.09.25.01.46.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 25 Sep 2026 01:46:34 -0700 (PDT)
+Message-ID: <7abb65ec-e212-4af9-aedc-0a62ed44d1c1@linaro.org>
+Date: Fri, 25 Sep 2026 10:46:33 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1204:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65432f77-85ba-42f8-3a51-08df1ac36941
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|52116014|38350700014|10067099003|56012099006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	BYgS7ubmrCs2gKUL/Qob1cSCil1TZTyqX9YYvT2sef1LJbk9jGvZxLH3lZWIxrJ8n7Rm96JrC7qpGEbOqf+g1ZK1Z3H7GYSosMpSDqr18B182dR8PoCV140qMNITlKCN42j6YQwVz9/bu2WnzQbjlQUJQeO42Bw3Jw/PXvq8vhvzlCy6ZzlnBWIbfniAGrks65utZC051EfZNqJooAeQqji8YCDLjAJd21VUq0EHN0fk2vkKSlz8YNB17yWOLlX1LGKLep1TBU+Ld+fKXaOPqY71iW+5uHlNYvran0r4wymJHwYW2ug48i8bT7Kdm7jyG1fHZXDJ/Iv9YQBbjr/dpaSaNgQJ0QFlIBZrXmT7Sy5pK2LGXw0jPpTXkUUB8/b3Bye6YMIqobQYWDuTbQWnMGdXHttg7BnPsE6hEmeoQyS5g9wFloCr/LYiHCscRVUbBfWgea6rMMv3pH5PAusuj+hXH1015pnuxYhUtDbC68YS7wEQ4In/FCIYa4w7aHcwO3FM3Hy86uIA6RK5wuwWTHJLL8AxrXfGhikz2pDwjctfL+YFPyzcM0cb9296R2sD
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(52116014)(38350700014)(10067099003)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fuZqZBT26IXz+0Cxia/xnI64j6fS/k0zLn547fCJYsSnPfWQpHb/p9txQNrd?=
- =?us-ascii?Q?vcrC3kzDYBeKb12dwydmuk9SBKIGMKDIB37zivc5qqZCM1FoX0w/qkAvz1xw?=
- =?us-ascii?Q?QvcSlk+IrAmKx9rQafG7knrWxgiCowFkvOZUWXuneISb6LGYUTfta/ekjPLf?=
- =?us-ascii?Q?W+1kQiSQYE035NXfJirrayKWJ9lQhGuWiliRCiviqwn4VX6qwgUqzlD5Gxf5?=
- =?us-ascii?Q?DXvHMPYvon528vbGih4imwAHMjsJD4Hy5uQy5wurFWDwrCd5F2p/qw6M2qsx?=
- =?us-ascii?Q?hqI/9G1uGYOeLAzm3L9lLIsUi7hxEFWn/ZJJSew0ZFE6pHD9ierpFNSkeFes?=
- =?us-ascii?Q?2WmmXWd4gWcjUqvoJpsT+0DqWky06ciyE+OI4q6nvpbvJcQ03mP8xZRJtdUz?=
- =?us-ascii?Q?XTifgEiya6os8yg8EPtw55k22KNHqIfBzYxfzaGO1ZOpLMOZUKy0CMBUzSWW?=
- =?us-ascii?Q?6KrvXPzj2b5uKYmTH4CQ9JG4oY4xQU4j2delPCzcrsQ8tnmbltgGoWDVtlz3?=
- =?us-ascii?Q?xAn/m/pkNhFEok3M/JtUeOdXEMaOeIXJI/TjAhCXr/Bb0SmkQab8MPZgCSMV?=
- =?us-ascii?Q?9yIE9Qof5qKLcpX1ZmkVQ106P+80rUkr34ZVcPzAH5xL8irov85eh5qB0Zsj?=
- =?us-ascii?Q?0oox4B0riV2JgM9r1FUrrHSQfsNb8v8Yj3u9A0my5y9XnU22zjBLPkc73vDv?=
- =?us-ascii?Q?zuvyW/YZj1GKkiuvcp5Av3hew4ChvmVLQ5adUZaluVZnMYsZEFfpa7DztGm5?=
- =?us-ascii?Q?Ga/SLTRTTap43BzEn1yGy60sxBol6Qqq4jZt+lOAcI43DOcITwkEXLjvyvYG?=
- =?us-ascii?Q?EiSqiU9qnUVc3zHL4u51720kpeHRUMgTcQkj+B/BxquzaqCxO3oEPrptz58r?=
- =?us-ascii?Q?yXrsjk+hfYXiiOVH6jsxzRNnlHADeYOief0mD7qtu4ab1tq+YvnAxl63NexK?=
- =?us-ascii?Q?G+z3TRK6D65RF1NKj0LPPmu5SBkEMCQHFKj/07PLkmMDSNVhlh0VevilpOND?=
- =?us-ascii?Q?OFb78IpKZWxAVD7CSsWwECchB3PF5AH2yovvfKXKzbdpoP8zyQ4c8Y66PCS7?=
- =?us-ascii?Q?ItsSEc6fhIdXWy+oohiIgNWn1Iqtq4mbQ2vLLyTW44BnI8CdmIMyQ9xFHLRf?=
- =?us-ascii?Q?rfHZbJUKMnI/M0zbooOxNS7XDr//qZeRuKmUuEYlEuzqHs97YjMORhYIRbm4?=
- =?us-ascii?Q?G+C5+KPeAH5ePZQK5PCsEwAeW/l49wPXzerWCEI2q6hfQIrJXSyqThZNKarm?=
- =?us-ascii?Q?CwefF05JapPlXuvM9hb65AG4qhFXc6ARtlDGrsPXnPUSFVppY1EVl/TloP96?=
- =?us-ascii?Q?JnHJqAHzpRFeWHSW1TM0AxofC6MyD45PL5k9KV/9bgGaKsXgRR7VJeXPjRO7?=
- =?us-ascii?Q?PTox3zPguqsdV+xRDrGMaJqyH+omqMLG2S9B4n5vQlDZ+T58MbVrbjSjiDB4?=
- =?us-ascii?Q?iMLO7oGALQdhS/yt+521T5YvgKqP0cPYR7nuCwejlOw+ufPqC1e9YkLrWF8i?=
- =?us-ascii?Q?yz7IhZiN20XWUA61ADPFmX1YPHQxhPOHBnawW6rYDPrGlvVFOFJSKtN1a9Ji?=
- =?us-ascii?Q?tVDD7ixpqb11jwjdq776kze35sBtJQ/FzTHfKlCNDsFDDjlgI/AW+3xhrsnQ?=
- =?us-ascii?Q?tqL34+jCRP+2RtWg/6AKI0b8BG6eXFH4uWyd+aNIPWPp5aLbtBLLkneqbWOp?=
- =?us-ascii?Q?08bj/IL4HepBte4LM3EQD1b5pTVZpDK1IIuzSQdjz3qAcFiLerO/39aNdq1y?=
- =?us-ascii?Q?ldWts0+ZPZ+v7zWnNBxHP54lst5JDFV87Her0I6+HBdzwGVXrHyM?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65432f77-85ba-42f8-3a51-08df1ac36941
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 05:11:09.7951
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Layzh+DQ9jDpgY5EteJ34EvVWRgkjzukMjquF04Na77RXNK1qkidF/ubW/b3mvysVOJOIxzSozJnUU/hqVLFChbVtnxCnjA7Pe8HQKaFkBh8oAqE+KRCb0+ZnRAVxG44
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1204
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 2/2] iio: adc: add driver for the MAX34417 Four-Channel
+ High Dynamic Range Power Accumulator
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
+ <20260924-topic-sm8x50-iio-max34417-adc-v2-2-9a0609e72f5c@linaro.org>
+ <20260925042653.15608e9b@jic23-hlaptop>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260925042653.15608e9b@jic23-hlaptop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add driver support for JHB100 UART Routing control, allowing runtime
-configuration of RX muxes between UART controllers and I/O pins.
+Hi,
 
-A sysfs interface is provided for easy checking and updating of routing
-paths.
+On 9/25/26 05:26, Jonathan Cameron wrote:
+> On Thu, 24 Sep 2026 15:14:16 +0200
+> Neil Armstrong <neil.armstrong@linaro.org> wrote:
+> 
+>> The MAX34417 is a specialized current and voltage monitor used to
+>> determine power consumption of portable systems. The driver support
+>> getting the channels voltage and accumulated average power over an
+>> I2C/SMBUS serial interface.
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> 
+> A few comments inline.  For a new driver I'd wait a week before sending an
+> update. Whilst you've gotten quite a few reviews already it is good to make
+> sure any discussion has died down before moving on to the next version.
+> 
+> 
+> Thanks,
+> 
+> Jonathan
+> 
+>> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
+>> new file mode 100644
+>> index 000000000000..98d961c5ecee
+>> --- /dev/null
+>> +++ b/drivers/iio/adc/max34417.c
+>> @@ -0,0 +1,374 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * IIO driver for Maxim MAX34417 ADC, 4-Channels High Dynamic Range Power Accumulator
+>> + *
+>> + * Datasheet: https://www.analog.com/en/products/max34417.html
+>> + *
+>> + * TODO: Slow Mode, Continuous Accumulate Mode, Park Feature, Bulk Update, Perr_Verr Correction
+>> + */
+> 
+>> +#define MAX34417_CHANNEL(_index, _v_address, _power_address)	\
+>> +	{							\
+>> +		.type = IIO_VOLTAGE,				\
+>> +		.info_mask_separate	= BIT(IIO_CHAN_INFO_RAW) | \
+>> +					  BIT(IIO_CHAN_INFO_SCALE), \
+>> +		.channel = (_index),				\
+>> +		.address = (_v_address),			\
+>> +		.indexed = 1,					\
+>> +	},							\
+>> +	{							\
+>> +		.type = IIO_POWER,				\
+> 
+> As below. This smells like it might not be an actual power channel if it
+> is accumulated on a fixed frequency.  It'll be some sort of scaled IIO_ENERGY
+> channel.  If you want to present it as power (which may make sense) then
+> it may need a little maths.
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
- .../sysfs-driver-starfive-uart-routing        |  49 +++++
- MAINTAINERS                                   |   8 +
- drivers/uart-routing/Kconfig                  |  15 +-
- drivers/uart-routing/Makefile                 |   1 +
- drivers/uart-routing/starfive-uart-routing.c  | 192 ++++++++++++++++++
- 5 files changed, 264 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
- create mode 100644 drivers/uart-routing/starfive-uart-routing.c
+So as I understand the ENERGY would need to provide Joules. Which would
+be doable if we take in account the accumulator sample rate (1024sps) from the
+datasheet.
 
-diff --git a/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-new file mode 100644
-index 000000000000..76aeed729d4b
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-@@ -0,0 +1,49 @@
-+What:		/sys/bus/platform/drivers/starfive-uart-routing/*/uart*
-+Date:		August 2026
-+Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+Description:	Selects the RX source of the UARTx device.
-+
-+		When read, each file shows the list of available options with currently
-+		selected option marked by brackets "[]". The list of available options
-+		depends on the selected file.
-+
-+		E.g.::
-+
-+		  cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/uart1
-+		  io0 [io1] io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14 uart0 uart1
-+		  uart2 uart3 uart4 uart5 uart6 uart7 uart8 uart9 uart10 uart11 uart12 uart13 uart14
-+
-+		In this case, UART1 gets its input from IO1 (physical serial port 1).
-+
-+		To switch the RX source of UART1 to UART2, write the desired source to the file::
-+
-+		  echo uart2 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/uart1
-+
-+		This indicates that UART1 now receives its input from UART2.
-+
-+Users:		OpenBMC.  Proposed changes should be mailed to
-+		openbmc@lists.ozlabs.org
-+
-+What:		/sys/bus/platform/drivers/starfive-uart-routing/*/io*
-+Date:		August 2026
-+Contact:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+Description:	Selects the RX source of IOx serial port. The current selection
-+		will be marked by brackets "[]". The list of available options
-+		depends on the selected file.
-+
-+		E.g.::
-+
-+		  cat /sys/bus/platform/drivers/starfive-uart-routing/\*.uart-routing/io9
-+		  uart0 uart1 uart2 uart3 uart4 uart5 uart6 uart7 uart8 [uart9] uart10 uart11 uart12
-+		  uart13 uart14 io0 io1 io2 io3 io4 io5 io6 io7 io8 io9 io10 io11 io12 io13 io14
-+
-+		In this case, IO9 (physical serial port 9) gets its input from UART9.
-+
-+		To switch the RX source of IO9 to UART10, write the desired source to the file::
-+
-+		  echo uart10 > /sys/bus/platform/drivers/starfive-uart-routing/*.uart-routing/io9
-+
-+		This indicates that IO9 now receives its input from UART10.
-+
-+Users:		OpenBMC.  Proposed changes should be mailed to
-+		openbmc@lists.ozlabs.org
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8667b05b73f5..e8a91b66685e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26523,6 +26523,14 @@ M:	Changhuang Liang <changhuang.liang@starfivetech.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/soc/starfive/starfive,jhb100-syscon.yaml
- 
-+STARFIVE UART ROUTING DRIVER
-+M:	Changhuang Liang <changhuang.liang@starfivetech.com>
-+L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/ABI/testing/sysfs-driver-starfive-uart-routing
-+F:	Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
-+F:	drivers/uart-routing/starfive-uart-routing.c
-+
- STATIC BRANCH/CALL
- M:	Peter Zijlstra <peterz@infradead.org>
- M:	Josh Poimboeuf <jpoimboe@kernel.org>
-diff --git a/drivers/uart-routing/Kconfig b/drivers/uart-routing/Kconfig
-index 983e7fbd1bc4..be6f5d54721e 100644
---- a/drivers/uart-routing/Kconfig
-+++ b/drivers/uart-routing/Kconfig
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
- menu "UART routing drivers"
--	depends on ARCH_ASPEED || COMPILE_TEST
-+	depends on ARCH_ASPEED || ARCH_STARFIVE || COMPILE_TEST
- 
- config UART_ROUTING
- 	tristate
-@@ -29,4 +29,17 @@ config ASPEED_UART_ROUTING
- 	  If M is selected, the module will be called
- 	  aspeed-uart-routing.
- 
-+config STARFIVE_UART_ROUTING
-+	tristate "StarFive uart routing control"
-+	depends on ARCH_STARFIVE || COMPILE_TEST
-+	select UART_ROUTING
-+	select REGMAP_MMIO
-+	help
-+	  Provides a driver to control the UART routing paths, allowing
-+	  users to perform runtime configuration of the RX muxes among
-+	  the UART controllers and I/O pins.
-+
-+	  If M is selected, the module will be called
-+	  starfive-uart-routing.
-+
- endmenu
-diff --git a/drivers/uart-routing/Makefile b/drivers/uart-routing/Makefile
-index 226980c639a4..59d9b65c2273 100644
---- a/drivers/uart-routing/Makefile
-+++ b/drivers/uart-routing/Makefile
-@@ -2,3 +2,4 @@
- obj-$(CONFIG_UART_ROUTING)			+= uart-routing.o
- 
- obj-$(CONFIG_ASPEED_UART_ROUTING)		+= aspeed-uart-routing.o
-+obj-$(CONFIG_STARFIVE_UART_ROUTING)		+= starfive-uart-routing.o
-diff --git a/drivers/uart-routing/starfive-uart-routing.c b/drivers/uart-routing/starfive-uart-routing.c
-new file mode 100644
-index 000000000000..3bd83ca5a258
---- /dev/null
-+++ b/drivers/uart-routing/starfive-uart-routing.c
-@@ -0,0 +1,192 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * StarFive JHB100 UART Routing driver
-+ *
-+ * Copyright (C) 2026 StarFive Technology Co., Ltd
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
-+#include <linux/sysfs.h>
-+
-+#include "uart-routing.h"
-+
-+/* One selector register per channel, holding the IO and UART RX mux. */
-+#define JHB100_ROUTING_SEL(ch)		((ch) * 0x04)
-+#define JHB100_ROUTING_IO_SHIFT		0
-+#define JHB100_ROUTING_UART_SHIFT	8
-+#define JHB100_ROUTING_MASK		GENMASK(4, 0)
-+
-+#define JHB100_UART_PORTS		15	/* UART0-UART14 */
-+
-+#define JHB100_IO_TARGETS						\
-+	"io0",  "io1",  "io2",  "io3",  "io4",				\
-+	"io5",  "io6",  "io7",  "io8",  "io9",				\
-+	"io10", "io11", "io12", "io13", "io14"
-+
-+#define JHB100_UART_TARGETS						\
-+	"uart0",  "uart1",  "uart2",  "uart3",  "uart4",		\
-+	"uart5",  "uart6",  "uart7",  "uart8",  "uart9",		\
-+	"uart10", "uart11", "uart12", "uart13", "uart14"
-+
-+/*
-+ * The two mux fields of a channel index the same target list, but starting
-+ * from a different end of it: field value 0 selects IO0 for the RX mux of a
-+ * UART, and UART0 for the RX mux of an IO pin.
-+ */
-+static const char *const jhb100_uart_rx_options[] = {
-+	JHB100_IO_TARGETS,
-+	JHB100_UART_TARGETS,
-+	NULL,
-+};
-+
-+static const char *const jhb100_io_rx_options[] = {
-+	JHB100_UART_TARGETS,
-+	JHB100_IO_TARGETS,
-+	NULL,
-+};
-+
-+#define JHB100_UART_SELECTOR(_ch)					\
-+	UART_ROUTING_SELECTOR(jhb100_uart##_ch##_sel, uart##_ch,	\
-+			      JHB100_ROUTING_SEL(_ch),			\
-+			      JHB100_ROUTING_UART_SHIFT,		\
-+			      JHB100_ROUTING_MASK,			\
-+			      jhb100_uart_rx_options)
-+
-+#define JHB100_IO_SELECTOR(_ch)						\
-+	UART_ROUTING_SELECTOR(jhb100_io##_ch##_sel, io##_ch,		\
-+			      JHB100_ROUTING_SEL(_ch),			\
-+			      JHB100_ROUTING_IO_SHIFT,			\
-+			      JHB100_ROUTING_MASK,			\
-+			      jhb100_io_rx_options)
-+
-+/* RX source of UART0-UART14 */
-+JHB100_UART_SELECTOR(0);
-+JHB100_UART_SELECTOR(1);
-+JHB100_UART_SELECTOR(2);
-+JHB100_UART_SELECTOR(3);
-+JHB100_UART_SELECTOR(4);
-+JHB100_UART_SELECTOR(5);
-+JHB100_UART_SELECTOR(6);
-+JHB100_UART_SELECTOR(7);
-+JHB100_UART_SELECTOR(8);
-+JHB100_UART_SELECTOR(9);
-+JHB100_UART_SELECTOR(10);
-+JHB100_UART_SELECTOR(11);
-+JHB100_UART_SELECTOR(12);
-+JHB100_UART_SELECTOR(13);
-+JHB100_UART_SELECTOR(14);
-+
-+/* RX source of IO0-IO14 */
-+JHB100_IO_SELECTOR(0);
-+JHB100_IO_SELECTOR(1);
-+JHB100_IO_SELECTOR(2);
-+JHB100_IO_SELECTOR(3);
-+JHB100_IO_SELECTOR(4);
-+JHB100_IO_SELECTOR(5);
-+JHB100_IO_SELECTOR(6);
-+JHB100_IO_SELECTOR(7);
-+JHB100_IO_SELECTOR(8);
-+JHB100_IO_SELECTOR(9);
-+JHB100_IO_SELECTOR(10);
-+JHB100_IO_SELECTOR(11);
-+JHB100_IO_SELECTOR(12);
-+JHB100_IO_SELECTOR(13);
-+JHB100_IO_SELECTOR(14);
-+
-+static struct attribute *jhb100_uart_routing_attrs[] = {
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart0_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart1_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart2_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart3_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart4_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart5_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart6_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart7_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart8_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart9_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart10_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart11_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart12_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart13_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_uart14_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io0_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io1_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io2_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io3_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io4_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io5_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io6_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io7_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io8_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io9_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io10_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io11_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io12_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io13_sel),
-+	UART_ROUTING_SELECTOR_ATTR(jhb100_io14_sel),
-+	NULL,
-+};
-+
-+static const struct attribute_group jhb100_uart_routing_attr_group = {
-+	.attrs = jhb100_uart_routing_attrs,
-+};
-+
-+static const struct regmap_config jhb100_uart_routing_regmap_cfg = {
-+	.reg_bits	= 32,
-+	.reg_stride	= 4,
-+	.val_bits	= 32,
-+	.max_register	= JHB100_ROUTING_SEL(JHB100_UART_PORTS - 1),
-+};
-+
-+static int starfive_uart_routing_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct reset_control *rst;
-+	void __iomem *reg_base;
-+	struct regmap *regmap;
-+
-+	reg_base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(reg_base))
-+		return dev_err_probe(dev, PTR_ERR(reg_base),
-+				     "Unable to map IO resources\n");
-+
-+	rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
-+	if (IS_ERR(rst))
-+		return dev_err_probe(dev, PTR_ERR(rst),
-+				     "Unable to get and deassert reset control\n");
-+
-+	regmap = devm_regmap_init_mmio(dev, reg_base,
-+				       &jhb100_uart_routing_regmap_cfg);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap),
-+				     "Unable to init regmap\n");
-+
-+	return devm_uart_routing_register(dev, regmap,
-+					  &jhb100_uart_routing_attr_group);
-+}
-+
-+static const struct of_device_id starfive_uart_routing_match[] = {
-+	{ .compatible = "starfive,jhb100-uart-routing" },
-+	{ /* sentinel */ },
-+};
-+MODULE_DEVICE_TABLE(of, starfive_uart_routing_match);
-+
-+static struct platform_driver starfive_uart_routing_driver = {
-+	.probe = starfive_uart_routing_probe,
-+	.driver	= {
-+		.name = "starfive-uart-routing",
-+		.of_match_table = starfive_uart_routing_match,
-+	},
-+};
-+
-+module_platform_driver(starfive_uart_routing_driver);
-+
-+MODULE_AUTHOR("Changhuang Liang <changhuang.liang@starfivetech.com>");
-+MODULE_DESCRIPTION("StarFive JHB100 UART Routing driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
+But this implementation tries to provide an initial support following
+the MAX34417 datasheet which provides calculation for Average Power (page 18),
+this is why I sticked to POWER and IIO_CHAN_INFO_AVERAGE_RAW.
 
+But you're right, knowing the sample rate we could indeed calculate the energy.
+
+I can try to do the math, but with manual updates it may no be very accurate so
+the Continuous Accumulate Mode should be implemented to provide
+accurate Energy measurements over time and would be enabled via an
+IIO_CHAN_INFO_ENABLE.
+> 
+>> +		.info_mask_separate	= BIT(IIO_CHAN_INFO_AVERAGE_RAW) | \
+>> +					  BIT(IIO_CHAN_INFO_SCALE), \
+>> +		.channel = (_index),				\
+>> +		.address = (_power_address),			\
+>> +		.indexed = 1,					\
+>> +	}
+>> +
+>> +static const struct iio_chan_spec max34417_channels[] = {
+>> +	MAX34417_CHANNEL(0, MAX34417_V_CH1_REG, MAX34417_PWR_ACC_1_REG),
+>> +	MAX34417_CHANNEL(1, MAX34417_V_CH2_REG, MAX34417_PWR_ACC_2_REG),
+>> +	MAX34417_CHANNEL(2, MAX34417_V_CH3_REG, MAX34417_PWR_ACC_3_REG),
+>> +	MAX34417_CHANNEL(3, MAX34417_V_CH4_REG, MAX34417_PWR_ACC_4_REG),
+>> +};
+>> +
+>> +/* TODO Implement trigger to update accumulator once and get all channels at once */
+>> +
+>> +static int max34417_accumulator_update(struct max34417_data *max34417)
+>> +{
+>> +	int rc;
+>> +
+>> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+>> +	if (rc) {
+>> +		dev_err(max34417->dev, "Error (%d) writing update register\n", rc);
+>> +		return rc;
+>> +	}
+>> +
+>> +	/* Wait for accumulator update */
+>> +	fsleep(1000);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int max34417_read_voltage(struct max34417_data *max34417,
+>> +				 const struct iio_chan_spec *chan, int *val)
+>> +{
+>> +	uint16_t voltage;
+>> +	uint8_t buf[3];
+>> +	int rc;
+>> +
+>> +	guard(mutex)(&max34417->lock);
+>> +
+>> +	rc = max34417_accumulator_update(max34417);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	rc = regmap_noinc_read(max34417->regmap, chan->address, &buf, 3);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	voltage = buf[2] | ((uint64_t)buf[1] << 8);
+> 
+> get_unaligned_be16();
+> 
+>> +	voltage >>= 2;
+>> +
+>> +	*val = voltage;
+>> +
+>> +	return IIO_VAL_INT;
+>> +}
+>> +
+>> +static int max34417_read_power(struct max34417_data *max34417,
+>> +			       const struct iio_chan_spec *chan,
+>> +			       int *val, int *val2)
+>> +{
+>> +	uint32_t acc_count;
+>> +	uint64_t power;
+>> +	uint8_t buf[8];
+> Kernel types so u32, u64, u8
+> 
+>> +	int rc;
+>> +
+>> +	guard(mutex)(&max34417->lock);
+>> +
+>> +	rc = max34417_accumulator_update(max34417);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	rc = regmap_noinc_read(max34417->regmap, MAX34417_ACC_COUNT_REG,
+>> +			       &buf, 4);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	acc_count = buf[3] | ((uint64_t)buf[2] << 8) | ((uint64_t)buf[1] << 16);
+> 
+> get_unaligned_be24(buf);
+> 
+>> +	if (!acc_count)
+>> +		return -EIO;
+>> +
+>> +	rc = regmap_noinc_read(max34417->regmap, chan->address, &buf, 8);
+>> +	if (rc)
+>> +		return rc;
+>> +
+>> +	power = buf[7];
+>> +	power |= ((uint64_t)buf[6] << 8UL);
+>> +	power |= ((uint64_t)buf[5] << 16UL);
+>> +	power |= ((uint64_t)buf[4] << 24UL);
+>> +	power |= ((uint64_t)buf[3] << 32UL);
+>> +	power |= ((uint64_t)buf[2] << 40UL);
+>> +	power |= ((uint64_t)buf[1] << 48UL);
+> 
+> Hmm. i think this is the second 56 bit endian reader we've had
+> recently.  Time to add get_unaligned_be56()
+
+Indeed
+
+> 
+>> +
+>> +	power = div_u64(power, acc_count);
+>> +
+>> +	*val = FIELD_GET(GENMASK_ULL(31, 0), power);
+>> +	*val2 = FIELD_GET(GENMASK_ULL(55, 32), power);
+>> +
+>> +	return IIO_VAL_INT_64;
+>> +}
+>> +
+>> +static int max34417_read_raw(struct iio_dev *indio_dev,
+>> +			     struct iio_chan_spec const *chan,
+>> +			     int *val, int *val2, long mask)
+>> +{
+>> +	struct max34417_data *max34417 = iio_priv(indio_dev);
+>> +
+>> +	switch (mask) {
+>> +	case IIO_CHAN_INFO_RAW:
+>> +		if (chan->type == IIO_VOLTAGE)
+> To reduce indent I'd flip it
+> 		if (chan->type != IIO_VOLTAGE)
+> 			return -EINVAL;
+> 
+>> +			return max34417_read_voltage(max34417, chan, val);
+>> +
+>> +		return -EINVAL;
+>> +	case IIO_CHAN_INFO_AVERAGE_RAW:
+>> +		if (chan->type == IIO_POWER)
+>> +			return max34417_read_power(max34417, chan, val, val2);
+>> +
+>> +		return -EINVAL;
+>> +	case IIO_CHAN_INFO_SCALE:
+>> +		if (chan->type == IIO_VOLTAGE) {
+>> +			/* Scale to mA */
+> 
+> On a voltage channel?  That is unlikely to be correct.
+
+Indeed
+
+> 
+>> +			*val = MAX34417_VOLTAGE_CORRECTION_SCALE * MILLI;
+>> +			*val2 = MAX34417_VOLTAGE_FULL_SCALE_BITS;
+>> +
+>> +			return IIO_VAL_FRACTIONAL_LOG2;
+>> +		} else if (chan->type == IIO_POWER) {
+> 
+> Actually power or accumulated power (otherwise known as energy!)
+> 
+>> +			/* Scale to mW */
+>> +			*val = max34417->input_correction[chan->channel] * MILLI;
+>> +			*val2 = MAX34417_PWR_AVG_FULL_SCALE_BITS;
+>> +
+>> +			return IIO_VAL_FRACTIONAL_LOG2;
+>> +		}
+>> +
+>> +		return -EINVAL;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +}
+> 
+> 
+>> +
+>> +static unsigned int max34417_calc_input_correction(u32 rsense)
+>> +{
+>> +	/* (100 milliOhm / rsense) * MAX34417_PWR_CORRECTION_SCALE */
+>> +	return (100 * MILLI * MAX34417_PWR_CORRECTION_SCALE) / rsense;
+>> +}
+>> +
+>> +static int max34417_probe(struct i2c_client *client)
+>> +{
+>> +	struct device *dev = &client->dev;
+>> +	struct max34417_data *max34417;
+>> +	struct iio_dev *indio_dev;
+>> +	struct regmap *regmap;
+>> +	int rc, i;
+>> +
+>> +	regmap = devm_regmap_init_i2c(client, &max34417_regmap_config);
+>> +	if (IS_ERR(regmap))
+>> +		return dev_err_probe(dev, PTR_ERR(regmap), "regmap_init failed\n");
+>> +
+>> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
+>> +	if (!indio_dev)
+>> +		return -ENOMEM;
+>> +
+>> +	rc = devm_regulator_get_enable(dev, "vdd");
+>> +	if (rc)
+>> +		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
+>> +
+>> +	rc = devm_regulator_get_enable(dev, "vio");
+>> +	if (rc)
+>> +		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
+>> +
+>> +	max34417 = iio_priv(indio_dev);
+>> +	max34417->regmap = regmap;
+>> +	max34417->dev = dev;
+>> +	mutex_init(&max34417->lock);
+> For new code
+> 	ret = devm_mutex_init(...)
+> 	if (ret)
+> 		return ret;
+> 
+> Brings some debug logic in which might be a little bit useful to someone
+> and it's cheap to do.
+> 
+>> +
+>> +	/* Set default input correction for all channels */
+>> +	for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i)
+> 	for (unsigned int i = 0; .... i++)
+> 
+>> +		max34417->input_correction[i] =
+>> +			max34417_calc_input_correction(MAX34417_DEFAULT_RSENSE);
+>> +
+>> +	device_for_each_child_node_scoped(dev, node) {
+>> +		u32 rsense, index;
+>> +
+>> +		if (fwnode_property_read_u32(node, "reg", &index))
+>> +			return dev_err_probe(dev, -EINVAL, "missing reg property of %pfwP\n",
+>> +					     node);
+> 
+> returned, so no need to chase with an else.
+> 
+>> +		else if (index >= MAX34417_CHANNEL_COUNT)
+>> +			return dev_err_probe(dev, -EINVAL, "invalid reg %d of %pfwP\n",
+>> +					     index, node);
+>> +
+>> +		fwnode_property_read_string(node, "label", &max34417->input_label[index]);
+>> +
+>> +		rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms", &rsense);
+> For optional properties, we generally now check for them first then if the property is
+> there can make errors reasons to fail
+
+Will switch to that
+
+> 
+> 		if (fwnode_property_present()) {
+> 			rc = fwnode_property_read_u32();
+> 			if (rc)
+> 				return dev_err_probe();
+> 
+> etc
+> 
+>> +		if (!rc) {
+>> +			if (!rsense || rsense < 1000 || rsense > 100000)
+>> +				return dev_err_probe(dev, -EINVAL,
+>> +						     "invalid shunt value %d of %pfwP\n",
+>> +						     rsense, node);
+>> +
+>> +			max34417->input_correction[index] =
+>> +				max34417_calc_input_correction(rsense);
+>> +		}
+>> +	}
+>> +
+>> +	indio_dev->channels = max34417_channels;
+>> +	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
+>> +	indio_dev->name = "max34417";
+>> +	indio_dev->info = &max34417_info;
+>> +	indio_dev->modes = INDIO_DIRECT_MODE;
+>> +
+>> +	/* Set as default Manual Mode & Wide ADC */
+>> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, MAX34417_DEFAULT_CMM_WIDE);
+>> +	if (rc)
+>> +		return dev_err_probe(max34417->dev, rc, "Error writing control register\n");
+>> +
+>> +	return devm_iio_device_register(dev, indio_dev);
+>> +}
+> 
+
+Thanks,
+Neil
