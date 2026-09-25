@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6343B5839
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 05:51:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387761922FD
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 05:58:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790315494; cv=none; b=hr40r+sHg1b/CTNoHvlaD+YQutpfPcJnTyY+whkxkGKy/SKmh+CP0kqHttJQBfSRweFzuql6Pdn8BpfxVE5CtUw0dOIXe8inh5Jv8J6p9Ac/zIUGaKeCeCw4j4pkyTKnFAUIZfJ0/Y+nqLxcUizsjlJmheAY49Rg1e5Yl3pBQy4=
+	t=1790315920; cv=none; b=Fd5VD/ndkwG/jeN9dn/f2Cj3M5JW5YEak6JY5Bp4znJKjiYmxdRgszbC65goRtBBWUnde7v7IoHdOgzIfolDCKr3/PtdJF5O+5f9XHeF79F1duDwFlloSLO/K37WdA44W2irp33SnVWscwLlxIwg8pn9scp+WbGXKflLLo44QtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790315494; c=relaxed/simple;
-	bh=lIUHybqSJSBk+TiWzxhmJgUuj7pMHAWCC6lALOiGJ0Q=;
+	s=arc-20240116; t=1790315920; c=relaxed/simple;
+	bh=QkZthheQWFuyDksv3i/E5BcFnvZi/ALTIMvUYcEovUM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Mjwo7LGev4HDiczwXuYungroT74Fr9WBS0h5RPWroOLkLWyvfj4WubJhwQGD9/gZOY7oQqt8onNdsuu0+DDkJwFs4XY3msmKhbfhN6fhNMF/JB90K/gP9yO6IxO7zpI3NzCFpZtpXq+tYGtkUiKBhL1H0yDt6GzbkOXfHCgln80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oA8bdEu0; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=VE4nSjuX7RsSALVNkiqcBmBY9ESY4hrleNkShsn+rk1ytAjlzjfdtveqNjv6H0JUhPGZ4V1iPaGjNKoc6tf5U6aBr12VKZAnuemfirheuk9OhgihK3mBJDCdrXr2Jrurkq/N7AUfqAeKZvf6sksr9goFN2dRUqVHDhewi4HDyPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AcI6+tBS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oA8bdEu0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FD501F000FF;
-	Fri, 25 Sep 2026 05:51:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AcI6+tBS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEBB61F000FF;
+	Fri, 25 Sep 2026 05:58:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790315493;
-	bh=o6f1R33iMlCjn/EcSH+CvOdvqypALTh44XpAzIQfSEA=;
+	s=k20260515; t=1790315918;
+	bh=LonwPXDbLWkLdOKb6x946d2eu5T8Ut26QLEtIaIBYSE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oA8bdEu0TYHiAZXmseaC4WWnEAgu+VXeOXsAABkPPOH1Olle/sJwCk8k5YCxvkR53
-	 TLANJ2tuXsSwsB7K42dykEe0WJnrs/yG+k8BNejRFOL12dLoT/0qWyC+yX0S1Dwzbg
-	 uSGL9pcsjc+G9uCos6I3dSz52BN7Xqk+HyspzzrsKtdOdO3diDXYQzlHXPaZiyByIP
-	 ABsVrYKGY6EiFqNXKObHKwT+UvNkVoVmClwM7ZYOhkZd1PPwGx+GNvaS5zg6Kk6RXe
-	 5+SjQvxaEMlY29tb2oFitj/hSQVLZscEtYHnBoo4Z2v9izjWdSG1hUX65cfHsKP/yU
-	 5WcC4JZDVSCQg==
+	b=AcI6+tBSCYGU7UBEp/pTMvOkfGNspFIMlkwqbfojl+GMy1cwxgLFQpnGnMcVQXF/P
+	 gSem5BJD3H/I+pfQj/+PfLW5YMNlnTgsF82A/1nnwFpz1pIb2meZ48wtxtK9R0zJIh
+	 wBqjHPwMYT4Eoi20mHXxEdiNtXMJSTfKdSfdhL3qNnB/4gS4el0YNRoyyOEPQTV+1h
+	 MrHKaV2DfF7ajASCQk7P/hw6wzbssLCYm7PS8ZuuvY+BnOzheLjGzY6RJBZ+N5opGW
+	 Wgz+P0l38/xH6dGpf0D5z227SvdrTvRNSXuaiaaFmTVqlrwSTCwtB/S3eUW8u41rBR
+	 FvxJ2GFXQoMlw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: amlogic: add T7 peripheral nodes
+Subject: Re: [PATCH v4 2/3] dt-bindings: media: qcom,glymur-camss: Add
+ Glymur CAMSS
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: robh@kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260924-t7-node-new-v2-3-319d3c19b4b2@amlogic.com>
-References: <20260924-t7-node-new-v2-0-319d3c19b4b2@amlogic.com>
- <20260924-t7-node-new-v2-3-319d3c19b4b2@amlogic.com>
+To: "Nihal Kumar Gupta" <nihal.gupta@oss.qualcomm.com>
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org
+In-Reply-To: <20260925-glymur_camss-v4-2-d7c2983d6d7b@oss.qualcomm.com>
+References: <20260925-glymur_camss-v4-0-d7c2983d6d7b@oss.qualcomm.com>
+ <20260925-glymur_camss-v4-2-d7c2983d6d7b@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 05:51:32 +0000
-Message-Id: <20260925055133.0FD501F000FF@smtp.kernel.org>
+Date: Fri, 25 Sep 2026 05:58:37 +0000
+Message-Id: <20260925055837.EEBB61F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,69 +47,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dts: useless regulator properties without gpio
+- [Medium] dt-bindings: validation failure due to missing phy@ child nodes =
+and cell properties
 --
 
-commit 61a44d137e93474e04a70d0ea481b570b8e6131c
-Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
+commit 2c100de42ea1bb8c2267da0512e16ed0f56b5334
+Author: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 
-arm64: dts: amlogic: add T7 peripheral nodes
+dt-bindings: media: qcom,glymur-camss: Add Glymur CAMSS
 
-This patch adds device tree descriptions for the peripherals on the Amlogic
-T7 SoC and the T7 A311D2 AN400 board. It introduces support for the T7
-Ethernet controller, SPI controllers, I2C controllers, UARTs, pinctrl group=
-s,
-regulators, and reserved memory.
+This commit introduces the device tree binding for the Qualcomm Glymur Came=
+ra
+Subsystem (CAMSS). It specifies the required resources and ports. The commit
+message indicates that Glymur uses the new PHY API via standalone phy@ child
+nodes.
 
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts b/ar=
-ch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
-> index ca7536f772ff1..50df961fba75b 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-an400.dts
-> @@ -24,12 +24,159 @@ memory@0 {
-
+> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-camss.ya=
+ml b/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
+> new file mode 100644
+> index 0000000000000..a0b77edc21231
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
 [ ... ]
-
-> +	vddqlp_0v6: regulator-vddqlp-0v6 {
-> +		vin-supply =3D <&dc_in>;
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "VDDQLP_0V6";
-> +		regulator-min-microvolt =3D <600000>;
-> +		regulator-max-microvolt =3D <600000>;
-> +		startup-delay-us =3D <70000>;
-> +		enable-active-high;
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +	};
-
-[Severity: Low]
-Is it intentional to include enable-active-high and startup-delay-us
-properties for vddqlp_0v6 without defining a control gpio?
-
-Without a gpio defined, the regulator core has no mechanism to toggle the
-regulator, meaning enable-active-high has no effect. This appears to be a
-device tree schema violation, although it does not cause a failure since the
-regulator is marked regulator-always-on.
-
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - interrupt-names
+> +  - interconnects
+> +  - interconnect-names
+> +  - iommus
+> +  - power-domains
+> +  - power-domain-names
+> +  - ports
 > +
-> +	vdd_ddr: regulator-vdd-ddr {
-> +		vin-supply =3D <&dc_in>;
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "VDD_DDR";
-> +		regulator-min-microvolt =3D <800000>;
-> +		regulator-max-microvolt =3D <800000>;
-> +		startup-delay-us =3D <70000>;
-> +		enable-active-high;
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +	};
+> +additionalProperties: false
 
-[Severity: Low]
-Does vdd_ddr also need a control gpio?
-
-Like vddqlp_0v6 above, it specifies enable-active-high and startup-delay-us
-but lacks a gpio property.
+[Severity: Medium]
+The commit message mentions that Glymur uses the new PHY API via standalone
+phy@ child nodes. Since additionalProperties is set to false here, and there
+are no definitions for phy@ child nodes or their associated properties like
+#address-cells, #size-cells, or ranges, will this cause dt-validate to reje=
+ct
+device trees that implement these child nodes?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924-t7-node-ne=
-w-v2-0-319d3c19b4b2@amlogic.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-glymur_cam=
+ss-v4-0-d7c2983d6d7b@oss.qualcomm.com?part=3D2
