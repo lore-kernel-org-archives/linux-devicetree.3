@@ -1,103 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013062.outbound.protection.outlook.com [40.107.159.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605654E1C79;
-	Fri, 25 Sep 2026 16:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354320; cv=none; b=N734PlauZH6OfoWyo3hgnj37nFI4tOBEwoKjwcxOsV0f8loaaA4dFSjgH5384S1I8UDqax4LVM5qk+PpOWtiraoIqAzGRYVUxDzl1YJDJ5cqrZM+tMdlieRwgyJXg6b68CnBzT7Vp377/OSbigb4QKnxIlwJVqGS/daU4RjHSek=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354320; c=relaxed/simple;
-	bh=A4f+YsMNxXeMMTF0Pbspf8rDOD3A57LymApkJs7cEAs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gdwEjxDYYkNQTmgkyHM2WVMPqbCyYmK1rienj+zYikHU/axJ/5U5Vsrd3RGROfXCqMsv+YwkwHJRGEB7bE2KCO/eDHKzzmpyj5fuNF4Tnv6DL1Vtg6Z6Dsy8LxPIH411UMnoIi9j/q40CLNzDwocsUEcakG66nDjE+x93ncFKEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OFBmO2pT; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1634E1C70;
+	Fri, 25 Sep 2026 16:38:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790354331; cv=fail; b=eKbBJy/OcPm2VJebh+Z629wCQHJYTzQ6Oqe25diU4I3YhKkAB5pAZwLKS6fNhh1yGZG0rQVLzPAJlQlxUEDwc36exMflv5LN+4bf8wGDr3AzMIUY4olm7f6Fae838RCruem3Ze7yBTJz2JLWYDrjvhXIFY9P9AhFwqzDYFjn6Oc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790354331; c=relaxed/simple;
+	bh=bdd4uFJg4oKolZFbJO+Bh3nQjEhuCJGjH6dXMg70ugk=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=rK5RbttYKEFfdEJ/1dD6pUYA805fK2a9dSMGoEwKnq+TbAqerg0wyI7J8gpluLB1w/hzK/uxqFcph8Q7sgGnmxDvR6h4/0vlsJ7fMCgxV6ZXxrZUsIy9Xd8qXjGL/DO93eHvdXEsmODVbjwAvmKRi7MZpwot0WtMtet7Uzo8bNo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=hRa93mbv; arc=fail smtp.client-ip=40.107.159.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OFBmO2pT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FA11F000FF;
-	Fri, 25 Sep 2026 16:38:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790354311;
-	bh=+3ptMQHZioL0GyGzjw8mYJksnNJNd1gNgEW48A3+JCo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OFBmO2pTQ9pyN6XN3mtT8SxQxFQw6RGKcjpfM7vn0X57HYAyB0zuHFlfdmi1vbHYb
-	 Z0Sa98UKxpt43/kf1PbTnOFjo3YcS8L8dQgY5rJTBEqC9VP3OEoOAav1nwFFxMG9uB
-	 gZUYbU96vzgXnZOo4yFeWJr/M79ZB5BXkNqiT+2eunJvxPrvZaZVFhdzuCUQnjCVPM
-	 P+MEBsGeF4FvJBexauDSb1nPe+U4g9CgAY9P3bvh5/G/iKUMUe32m27wI2jdMPskj0
-	 RYIpoYCBitJsDfWPiLeOlaMBHsj2lMJmCuSVEkzrQSkJZsLCFcTVdr+vaUA6ad3T+W
-	 4HdXFwO32p2wQ==
-Date: Fri, 25 Sep 2026 17:38:26 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Fei Xie <fei.xie@horizon.auto>, Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Parshuram Thombare <pthombar@cadence.com>,
-	linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/4] spi: cadence-xspi: add ACMD support for SPI NAND
-Message-ID: <5600a2ce-0428-4f1c-af72-668a55ef6fce@sirena.org.uk>
-References: <20260921093701.1341766-1-fei.xie@horizon.auto>
- <20260921093701.1341766-3-fei.xie@horizon.auto>
- <arFEjzkHGMbecWWV@sirena.co.uk>
- <20260923061211.1608907-1-fei.xie@horizon.auto>
- <67f4e1a4-fc0e-4b2b-b41e-8dbb33227302@sirena.org.uk>
- <87pky1ll4g.fsf@bootlin.com>
- <arZHjbzUEFhydnHt@nsa>
- <87ecehljdy.fsf@bootlin.com>
- <85dc596e-4378-4d23-b48e-80053cb5166d@sirena.org.uk>
- <87qzihjxlo.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hRa93mbv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H8v78R6m1CWQuqD+fgNADscTDH6a4x8rw3r6Vpyw9gBfAj9HqdkeZfOQNkog2ba1gTHNPg9lsrA/AEYrZ+c+tlLREvtnjbuyGrOTiNmuTa0dPZCHY0t6KXzINzhf0MjnZDz6+Q2NhhSgvlhADhWQdV+W9f9CLOUIi9h8gN0AbW7QDy0QS3ivuXjcQW7dTHjqHG8jZ6TlXn9i+4+0fcbk7oq8nE2kkjte9z4ja+wJ9Lh5GurwKQGwaK6QuapngSGFm1Bd3Kh+qCkNnJP5qtCt5lVGsuknzSWFcvG1WC0lhEHrxawivy00aUAt+OdsIageEl5Fq3hSAkQEPdWJ6MTNwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bhkAP2LeKywPckto7jEE6mmpb9gohcBu4bdcvXsbfqU=;
+ b=XMyDQjUalgGSEVdU9inyetL2dJ320c1fcqk5gcEuURpsPG9/axit+Ebb7UgaZKx0BsiZP1pVbXkaBM8+S1f1XuFcgJA5cXUbkO7y183aVGdPHyEx0AJS/Nw5lJ+kH9L6d7yKqiprpqQcAD4sOZuoS5wijytasztXh6q80c7a1x0Bp+uVNW/9JAub30qjm/uX2C7A9xImntzZOLeCLBSHkkAftEKuv1j0qhTOlOEbO16vn9COeWwFpptepyRkK/raJbzl3l8HcNnK4K9/U3iOFcxlnylQozuk054Y6uW6cla5mRGa1Si/1Y9DsQptMMCGDWjuHMOuiTQvKZ94daDl9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bhkAP2LeKywPckto7jEE6mmpb9gohcBu4bdcvXsbfqU=;
+ b=hRa93mbvZ2blKSmP2LKhTMnmgcAzK/2KWEWJEGoa/V+zajS/Bxi3rYAHKw76azAwfj0AJCrR0lEPkdbvP4H1rxlGW1AmTSnadpQFhWNTlCST1slgwvFzPdWiaGUCd1vCaWR7K4r5ezcvpEiN9LkNKrnnB6pWD1mVHdHVqNixlc3lsaQceWAiRDA++gHYtctNX3oTzpe/t7IgoKm7bwZOSc9WPt3FU2QEt1TnDgdH5IC7hWg7p0Y/ZFDICQjhi08lybwrDGyNlI0664ihm69L3yaYsKgj476tGpCUSUiW/3eOyLW+Hchk7+PXYsSvpPlUgGjjIDMRjo74/+XXX0EKzw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AMDPR04MB075100.eurprd04.prod.outlook.com (2603:10a6:20b:749::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 16:38:24 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 16:38:24 +0000
+From: Frank.Li@oss.nxp.com
+Date: Fri, 25 Sep 2026 12:37:54 -0400
+Subject: [PATCH 5/8] arm64: dts: fsl-lx216x: remove #address-cells and
+ #size-cells from pinctrl node
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-cleanup_dtb_warning-v1-5-f999fafbca60@nxp.com>
+References: <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
+In-Reply-To: <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Guido_G=C3=BAnther?= <agx@sigxcpu.org>, 
+ Robert Chiras <robert.chiras@nxp.com>, Tim Harvey <tharvey@gateworks.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com, 
+ Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790354274; l=1135;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=lgX4DSVfNJF1xO6kh/Ie5H2c4YGjgIiMjFErMMX552A=;
+ b=c5RoZh8Us4RjpiPXRqEJk2ozt8xH5RA5zbDgZGWw0qzJnfCJA+bl/oO/C2McH9Xye751550oB
+ CmmzlGKhqWyCqKfbIYABwgF3b+9THval2+eexiafXUlTZhTGt5Tg1t9
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: CY5PR13CA0013.namprd13.prod.outlook.com (2603:10b6:930::11)
+ To GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="M4ifCx97cv0pZVcl"
-Content-Disposition: inline
-In-Reply-To: <87qzihjxlo.fsf@bootlin.com>
-X-Cookie: Love America -- or give it back.
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMDPR04MB075100:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ed2c8d2-de5f-4e53-3839-08df1b236b05
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|366016|1800799024|260925021311599003|260925021911599003|921020|10067099003|22082099003|56012099006|11063799006|18002099003|260925022911599003;
+X-Microsoft-Antispam-Message-Info:
+ Q/pRlAazRrbtTSezjuEIW7lRnYfxtCQ3NkqWXJCTaLN+Xsx0eATH08Y5oqhJISXyrhv/fO4Iyim0dFEBuXFjYlQZ0pVot20xiqcwDP+FCa1l205B6Ag/a76sYiDow6au7UloGyz8bFvOG8asfrQVPwgB8vDKmV2/yer8pXQJVWi7nMGt6l+WCOATt3JPtALirc4b6bLojDqgKW9iqNGUCfy95GcMgOBBfeREWMu859XzioezJiYj1qpnMjxUBAFGIvGaKA7oFeQTyZjEdyoGSl0z+mHd/tuSU/AUDENYg8+3JiykhdA2Zsh0bHT65lUgx3R8FkInddhFA4hh5EP0r7i2Zk3+m21NCX4Ccu7VGxSndJvOG3pToWPublLmGerAML6mcwQ2QmX88ZG28cdob9JYfnLT2lST2cbfl8VNkBrsf2BpHHZxm46zjoiLQGUxabee84LXDxfBDngnCLTV/G5Cpv+jXOGSU1UN4BecssrwXCb+KV1nIP1vkw+P6mTTaPNrWLragIOrKb/I1TgfIsWzi/lGEo4fMrdc6YOk3yvD5i9dgNTfSlMgvgs+LS0FpA/C2wlM4dnwrm6A+vAdcfgNkiHywDR6CtRuFAhTMSCBprS7n3YKR8ZPb0wGXH4+yZtzSvsZFzRGMCf8NSKb/rlQfNIaNDLrjw51CdrsHmi45s9xC0igDLD3h8YeK7P3yCINQMMaMilJbaTCYG3Qrw==
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(366016)(1800799024)(260925021311599003)(260925021911599003)(921020)(10067099003)(22082099003)(56012099006)(11063799006)(18002099003)(260925022911599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?TldUdlQ3TkhNdkFLVllDNjU3NUhWRXFQN3lHZGg4Yjh6SU9VaE02SUhIYVlk?=
+ =?utf-8?B?cnRTQ0t1SzB1dWI3akZkdXlCazZVOWFKUGc1RzRDc1dtQlEvcTkwR3R0U1pm?=
+ =?utf-8?B?Vkx3N2E1TmxOdm9LV1NYTTFCK0pJZUxyR2ZVOXZBU0dBb2ZvcXZtNmszanFO?=
+ =?utf-8?B?RjJJK1U2UVp5WG1SUmxiUzAxNlhOQkh4R2pkZXNRTDlmeEQyVmFGVE5HRFdT?=
+ =?utf-8?B?SFNoUWhVLzhBS2h3Z1djTURKc0d2V0JtQy8rbTBHQlc0MmlxYm9mOHd2ODU5?=
+ =?utf-8?B?amNCZWNrTlVIUU5ZVUwvcXJTTnJoek5vUXNWVXMwbjdKdnB6YVFvRFlpdTRi?=
+ =?utf-8?B?c0h0R2U0UXlVaHFyTWp0WmZGeXE5ckZXeTI2a0NjNWozSU8wY3NNcm9ON3Iv?=
+ =?utf-8?B?OFRkZCtaMWpkZ2lmN0phUlJuQXQ0eXBYNWZIZkRoMTFCQWY5eURZQTBLMi8y?=
+ =?utf-8?B?aFZTRlpQWGZ3Z3hJSkN6Mm1weVFGVUlKMk5mcms0T25PanJ3dXVBNGdHUTl4?=
+ =?utf-8?B?eTBiM2lhR2JiK2M4OUhveUJJRVdLYkxWUlp5bnRpWkZBcEdLU1hJR0h5OE1m?=
+ =?utf-8?B?RWZNTm5KZytUQ1RObDcyRXdKd3R6S1UzZjRxV3NITDIwOUhHWUpqNW1SZWpJ?=
+ =?utf-8?B?OFlRK3JYOEZhbGNZYlpiYTBLb3dDdG5JLzF3eU1TUUFLbUpVSUFlSVNTeTl2?=
+ =?utf-8?B?bXFsMk1lc1pkdGRqampJV1doVHFlb1FpOWIwSmdleDNOZnJXRHZMdXA2Vm1y?=
+ =?utf-8?B?Y1lrYnFvVGttWmFweDNyWGgzYUlIVytoUmdvLzRLUGx3RU9YdENUMkt4Yjdy?=
+ =?utf-8?B?dmM1eE9GdG1rSnNJdVhFVlNJVmt1VDR2aTJHdlBpclR0KzhZZEpFTVZYV1M3?=
+ =?utf-8?B?TENobTczaTdNN2V6TE9PWVh5WmJhWTQ4RmN0UUlMendoOU9OOEhSREpSWm1B?=
+ =?utf-8?B?WmZ4R1BUeVdieTBhVTNkVWl5c0RIRk9MRXQwbjRJQmdMeUtXQk9nY1R2MmFS?=
+ =?utf-8?B?ZWxCSFdXcUhwbmNuZ1JpOXc0Y1p6T2JJZ0xic3ZPYlAwYTgza1pDV3V2Y2V0?=
+ =?utf-8?B?R2lIZThQQUtVY1NHb3E2cVY5dmZSc0x4SnZnRnJHaDU4Sm9tNmN4NGRlVHRj?=
+ =?utf-8?B?Tm1JZnBXNDlvekc4NkFOaCttazFEMFFnQU12bU5pZjQwUG1OK3hHZGRZcXJB?=
+ =?utf-8?B?NjBqcis5TGYyaFNONzdqL3QvakhSNlBpUUdTNXhJZWl3akhuTHd0K001RGFi?=
+ =?utf-8?B?Zm8ycStMZE8zWkREL2E2TUluOWwzaUU2eXhoYVhkMG1rNnY3MERqMUZDZnpa?=
+ =?utf-8?B?bGU4OS9UZVdMUnNQSHVVaDdQeGlpRmVCeWpYSkdVSXJjN0pwa0FaZ0YxeVhR?=
+ =?utf-8?B?ZFlONkg0cUtoOTU5THhwWHBRa3Z5ZWU1ZEJUaEhSdFdkdWJweFFnYmtLdytI?=
+ =?utf-8?B?R1pGZm9uemNDdUcwMGI0OHF6bmdNRFBJUGxqQmRXTWtManpJNTVxWjZkNS9F?=
+ =?utf-8?B?VVVDTzJnSVRHV05aVnhYdmZEUFJmK2lkUXRVY3V3REluQmM4QVJvaUxDQ281?=
+ =?utf-8?B?Rmw1eDJjcDNoeUtzUGFWNTdhQmp5SFVsZW9Cd3Q3em5FYnYyT1NFZXBOK2x5?=
+ =?utf-8?B?S0twUXR6STFYbXFFWldnRzhzSE8zWW14WCt3TmNReDRRVnJWQit0MzV2YjIz?=
+ =?utf-8?B?OEdhdnJxNWFqTzY3Ti9HNExlenJtamxjM2xIMHhSbFVtZEh4Q29DQ2huaFMv?=
+ =?utf-8?B?QU1mRnhzbjJzOTdoWU1FTDkzbE5mdDRBSzBhSE02UExVN0lwdzVOQ1kvNElI?=
+ =?utf-8?B?aGFFVzhybWx0eU1DbGVBQk13ZUFsS3QxV3Bac053akNhVjVHWURoR1BkRHZL?=
+ =?utf-8?B?MFMxNWVCU0dyK29kcHFUdGlKckhXVkEzR1ZNN1JpbHlmaEd0VHlyS1Mxd3Jo?=
+ =?utf-8?B?M3BVRGFpVkp1R251a1huQkxXQVN5ZEdRRmdobkN1QWUyY1ZPa3VnU09oM3B5?=
+ =?utf-8?B?OStYcW5TLzY4RzNJQXlFQ1NJSXY1RUluOWppM1hVT3BWR1BuN0RQLzNpK2t0?=
+ =?utf-8?B?VFhXQTRMVW0rTnZ6WEtRZkdVS3BYaVk2R0ZzYTFJSmVLUXdIaHNzNy80Y1NT?=
+ =?utf-8?B?bUtmeVRIMitNL0pQNnMzNXZlaHBQYWJjWGFiNW5sNmt6WENVUm80QjRiRlh4?=
+ =?utf-8?B?bHByRHlOWU1ubVNoTFAzR3dMRHp0NEF5VFFBL1dxZVNZeGF5Z1RqcHAwTXBn?=
+ =?utf-8?B?MXRleFN4Rys1aWlibVV2Z25wbThwajZDZ040bmx1UTBoTEM3czJ0YXowQVl1?=
+ =?utf-8?B?eUhLVzZIWm9pYVRpZEhkWWh5Rk9iQjlvRDZrVGlYNm5xWDc2TmZoeE9uUHF0?=
+ =?utf-8?Q?xyBJm39sZ0Uu8Kg8lJlpio1ZSqXlMOj5v30QF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ed2c8d2-de5f-4e53-3839-08df1b236b05
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 16:38:24.4724
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FUTO7pi9sthe6Hq0sZCskQZWthocokwhmivVL/NdqStPGEmiukZEhPRr8KJdwSyRdjTFXVeudAp4bBnpD7zsV1+iUqEdEN+QJ7WcKAejN3B3Ll4odd2iHTN4HO7VkLX7
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB075100
 
+From: Frank Li <Frank.Li@nxp.com>
 
---M4ifCx97cv0pZVcl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The pinmux node has no address-based child nodes, so '#address-cells' and
+'#size-cells' are unnecessary. Remove them to fix the following W=1 warning:
 
-On Fri, Sep 25, 2026 at 02:59:15PM +0200, Miquel Raynal wrote:
-> On 25/09/2026 at 12:59:49 +01, Mark Brown <broonie@kernel.org> wrote:
+  arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi:1534.34-1704.5: Warning (avoid_unnecessary_addr_size): /soc/pinmux@70010012c: unnecessary #address-cells/#size-cells without "ranges", "dma-ranges" or child "reg" or "ranges" property
 
-> > It might potentially help a heavily loaded system if you can do fewer
-> > waits, the rest of the tasks running on the system will have more time
-> > if we're doing fewer waits for interrupts.  Not sure it'd be enough to
-> > write home about though.
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi | 2 --
+ 1 file changed, 2 deletions(-)
 
-> Definitely, but this is already possible, one may implement
-> ctlr->mem_ops->poll_status. This way the core can leverage the hardware
-> to perform the polling. It is not directly visible on benchmarks,
-> because it won't reduce much the wait time, but the system load will
-> decrease.
+diff --git a/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
+index bccf2d6730230..6d2667051674b 100644
+--- a/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
++++ b/arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi
+@@ -1534,8 +1534,6 @@ pcs18: ethernet-phy@0 {
+ 		pinmux_i2crv: pinmux@70010012c {
+ 			compatible = "pinctrl-single";
+ 			reg = <0x00000007 0x0010012c 0x0 0xc>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+ 			pinctrl-single,bit-per-mux;
+ 			pinctrl-single,register-width = <32>;
+ 			pinctrl-single,function-mask = <0x7>;
 
-You'd still get a benefit from taking just one interrupt per sequence
-rather than one per operation, that can help when the system is heavily
-loaded.
+-- 
+2.43.0
 
---M4ifCx97cv0pZVcl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2o4EACgkQJNaLcl1U
-h9CNHgf/cvBZ+GyYuwWHmdwSwoY03PKLi2c5ks2Bwn3dlZ+RRSJ3Prtp/wdxPYgZ
-3HFHtyKuIzWS1NGA6cKIEvBausOBN2Z5HQUIFXZ6Le3j54yIQqb+bVMB0H/AjGef
-LA/tDAokGoff0PhaGUQRlo05AokS2EOS13kMMdlC6DzrVHNgVGFV+k+kU7h42kt5
-xvxL8zHrZe1nVdtUkGvpvunV78AdVVyPcE6+/HzZnLeThoZcD0yVx6F/eqAQVbVr
-mPVqzKhPkDxMlRitiScWu2I3Ybg3NYABe9W5ElpK7GxE/FlURwlFmajiBdM1rnf0
-iE95xIyteW0awKr9ixhrLM78vnrNsg==
-=3DcM
------END PGP SIGNATURE-----
-
---M4ifCx97cv0pZVcl--
