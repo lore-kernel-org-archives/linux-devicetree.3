@@ -1,586 +1,187 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21DBD4A3D2D;
-	Fri, 25 Sep 2026 13:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343133; cv=fail; b=hk7BjOpXjPb5m83knJTGw3u2dzYHjzQJvvaxp/DtFL9t8T5RoWg9KtLDG5Zao4VZ5FL2Y4dcZy7ycsZWM3WqXnusqM6jTrIsyTRiTzQWBYa5N2oQ4teW9bplTedcBJkw8CuM8by4pQv46q+pdEBwRm/ayrsvPQQjNSWUiACP/ys=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343133; c=relaxed/simple;
-	bh=N0LJSmUK66OKl4bGWEFK6vf7+ZSuTWqYZACkhQ06D8Q=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZySt+EAilJkQT/MhZOUUoOQ9r4UWB/EdrqfjhDZd6VMh1zekEimfDLyeQqWvNXlnSoaadpJeFZ0xsMY/ap7SklrXWw5Pkh995jzoo1w8BRa8RqkjGILeyGaxeiIp3UNqOBPwThQ9jKyZ2ck4rabdApINkZFIrVCgrv319f+iGLI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Z1jTbfgS; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=i7+z051W; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7439C49EC71
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790343311; cv=none; b=L8LUNKoKSxXn/MtpvFpU7dL+3+86f9Ht9wgjqV13lb9bzDGAsjIFtKLQvoDeyPLD0ZZ8pbV8ll5atd0QEjR1lsGwWzVKenKcubm3Bm+l9pZnCxfJ96TOYwN1a1hbgvwXCRF31zIP0gfK4gSl4SANrmksRPIpbT8e348T7aCOP4M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790343311; c=relaxed/simple;
+	bh=IOkG2JYiGgUbv35FbpodpbDiMFbkHvb1Kn+5txFGbuI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WpZ7ErKwiiWWMsYBH+7l2erRNJnXPsdDb92Z5lKVDOaK5YHmerB5Zy0078euDQAGGKV/a9+0pu/fnsGv6QUYOKd2uGlHHA/LZ5jj/z0N1WBUU4Io+1G4WfGIcBiQ9OGOJQCKnHX/02KhZsvhv91cLZpUV0O78nTJucjfAbUXmU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cjsDA7bF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PtkAl3RE; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Z1jTbfgS";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="i7+z051W"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68P91rCY1888882;
-	Fri, 25 Sep 2026 08:31:43 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=n7IOFd3wNqsFtEIbfABeyhnhYl7cA9gRRgYuKI1Tn
-	PA=; b=Z1jTbfgS962PfEyNi4jyzPL/mGxXFKjR6ggonlx+xf6CN1ma+TrTrEawZ
-	nxvHTMC7Anyrm8YFmm7zrThpEFSKgmqbm6U+Y/oCz2CtKW6/9XJiXt2dsh3+XqtT
-	spB1H13Asu0Ww1YzlIBqnv46ZljAFXlpSr3Gn2TXcc5NfncrVWCrGPok7rc0fw74
-	jEyACX9OlJG3Yup5lJeI4qUjne7LHNrsSrFxgEAdm4Tem8iHRvlNpMNbkJy7wnRj
-	+LRYs+xASjhUQfoBVUkrXm4ToQiNU9xMTLAnPztdnDQP8BlcPTF3kuekbXKb/Jec
-	DXmEGkXgYGA0rMop3C0/CnJCS05Kw==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012009.outbound.protection.outlook.com [40.107.209.9])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4gwnyfs9c0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 25 Sep 2026 08:31:42 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Eq+WGANjFhxzjkZ2GnkDLRe3BSnSnvwYHVGVmHgqLebewVS2IXiEgLyyjx5H5yzUSQva4reCNP4h82aRBsxIesxshm6YL1AGZwguIgqB0I1gYc3yThA3qlQezX54cMd6jxN5ghdkg/608RlPMhOm8RzRSppFZ382UeNx4Q5mWzsjFOOyd0xMOhxUzdg7w4AuO8h1klxFR36Xa5KqFlDte2t0BsQWMyY/9PFMz8twpu9/DV+kKJWnwfYA6aiDa5OBzO1n25C2JNV3RDDZF8nJspZDrbXlZ+UXC6kBTlKznOhQNPWg3LnoeAj+lT+BZBci6J7olVtcZC+BoQe7PgFmqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n7IOFd3wNqsFtEIbfABeyhnhYl7cA9gRRgYuKI1TnPA=;
- b=SjCNlBRk3KuKNwQvvBRAHMkjMwfo1SnwDof9Thb9aMiaHOniumyHFe/vPduTxlYW11JJQ9JAkyeVhRaWJQ4N3kjWC3799WVf1/mQighFwDwMAoZQgdzQ2QNCRON9kOktlO6zSwb5YmRxTY5FallQr9aN0qzu9ZaKODPeYTwDdzhIz6Y+WE8n24jnkqBT0L5L4ji/GO8MbXp8f2B3PL15ckR1BX3cTaBrKV24ZAh9Do6J6XQ3wQ4xJftZ0LYa1N0Ue3GIj6JMtN+UeJacwrWiHbsjXbIDt3YyntzTJiPpxl69y7CL62bdTD1LcBxZyL2thZup0TZm9WN5gTn8HPaMNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=ideasonboard.com smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n7IOFd3wNqsFtEIbfABeyhnhYl7cA9gRRgYuKI1TnPA=;
- b=i7+z051WrLgxZDYk21LHNlkaFhVz91qUpVw+dcmcP79jZbPQ3yWYkfa9iWo6FeEErasuhetSsYvfjMeYt/jc4XkvFED1xuKB9Q9xwTV58vagG/noI8AWvhQSuo+6WDriUinwvaYttR5M7vFE0YpjKf/Z0rSnMSHK29f1hzwM1A8=
-Received: from CH0P223CA0016.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:116::34)
- by CH3PR10MB7259.namprd10.prod.outlook.com (2603:10b6:610:12a::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Fri, 25 Sep
- 2026 13:31:38 +0000
-Received: from CH1PEPF0000AD7A.namprd04.prod.outlook.com
- (2603:10b6:610:116:cafe::8b) by CH0P223CA0016.outlook.office365.com
- (2603:10b6:610:116::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
- 25 Sep 2026 13:31:38 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CH1PEPF0000AD7A.mail.protection.outlook.com (10.167.244.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 25 Sep 2026 13:31:36 +0000
-Received: from DFLE210.ent.ti.com (10.64.6.68) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 25 Sep
- 2026 08:30:47 -0500
-Received: from DFLE209.ent.ti.com (10.64.6.67) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 25 Sep
- 2026 08:30:47 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE209.ent.ti.com
- (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Fri, 25 Sep 2026 08:30:47 -0500
-Received: from ws.dhcp.ti.com (ws.dhcp.ti.com [10.24.52.125])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68PDU1nC2840014;
-	Fri, 25 Sep 2026 08:30:41 -0500
-From: Rishikesh Donadkar <r-donadkar@ti.com>
-To: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <tomi.valkeinen@ideasonboard.com>, <mchehab@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nm@ti.com>,
-        <vigneshr@ti.com>, <kristo@kernel.org>, <sakari.ailus@linux.intel.com>,
-        <mripard@kernel.org>, <jai.luthra@linux.dev>,
-        <jai.luthra@ideasonboard.com>, <devarsht@ti.com>,
-        <y-abhilashchandra@ti.com>, <mirela.rabulea@nxp.com>,
-        <laurent.pinchart@ideasonboard.com>
-Subject: [RFC PATCH 7/8] arm64: dts: ti: k3-am62a7: FPDLink overlays for LI OV2312
-Date: Fri, 25 Sep 2026 19:00:00 +0530
-Message-ID: <20260925133001.2780868-8-r-donadkar@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260925133001.2780868-1-r-donadkar@ti.com>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cjsDA7bF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PtkAl3RE"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P5JEQg3627530
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:35:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=0+9Tf85hFayM5DW0EiV7Zj89
+	MPJK1Rp1eAzmngjUXtQ=; b=cjsDA7bFqK3OHd+oGx6GAVOUEGYvD45zm2KvFsgG
+	0YJgRhVUrvSXbjwEwPpPXtpuzwLniqci+ZmetujF4r4xs7MiwmYeLf1NUel4IesJ
+	+FL7k+IUFqrO3t5IiHjVJPcD5pDGMWrEY1b9sY9q0GFbHTZh86GLxRc4KPZeAAxw
+	AAgIc1K4kxHxmRHRJBuOjNSf4+knAVZ41g+5deen6K/0nGWo6IAfIpkBQsQyLRxo
+	fUusKd20SxVunv1Yc772EBMAzBI9yYe7eybcvh3Tos4mm+f6cYYKrz3IEQUAdzRK
+	32UpZdvvKCIpprt7MvF44BXuj4JqrZYzLXjHEVy214Zxug==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwjq39hpj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:35:09 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939c30aa9a0so95030085a.0
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:35:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790343309; x=1790948109; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0+9Tf85hFayM5DW0EiV7Zj89MPJK1Rp1eAzmngjUXtQ=;
+        b=PtkAl3RETXLrH0d0PvJRcCwTiyiLass9X9KDTIuotIEB7mWVQPGBOnQfLnaatT7pey
+         ZOa0cwhuTCtzmndW6KUx0/1QQmSGQit6tD+cqkYVKkii9p3g5SGWq+a9nayVSaVq+wcC
+         S0xCUjO0489n/Zmkoo87mAEgT6220oK2+wnkbCx59Y3gUH2SC1uDNrrmJC7RJcNnV5nY
+         TQCUoUSNClpaRvLixXScB8aEmJFgbwoQlXB7ebSzcmgC9CA1BXRNTdVjvHLjZ66uqs0n
+         pHqV1Ojbc+i26pbhywn8Zxb5PJuEMXyUAzwOBqAE96+mK1FrbrM8YO7ujER9iw+hO3ju
+         qNjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790343309; x=1790948109;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0+9Tf85hFayM5DW0EiV7Zj89MPJK1Rp1eAzmngjUXtQ=;
+        b=vfwlnBljN2SsE4heTtl/Jts9L9VeQ2o35dlxm68WdGh2uckhRLorY1D4cbxRjvYwqX
+         OU/tdEqsO8aFh2j84LPaJO2uRLPVjxnXMnCT9IFlHZScHuo8bLHH1GkSUnut8JKOLTDF
+         Wwq77VlXqqqk8XEmfzP1ZbcvYX6obZl8v3bPqIgJQEMtRbD0U03pD1LRbHgE39dzpNnY
+         4UpP25n72eaqnWLEGoSWkR5h29a2tT/eq1Z+6M6KbBOMatOlWJ7kVvlKWZK1Q+u7DTov
+         g3KqBLvctcjfwLXnW5IuNrC1kIKYEu8QTk9IGH30o8cWWbkNfEwY2Nk3Saz99vTo+ZKR
+         FRnA==
+X-Forwarded-Encrypted: i=1; AKwUvBx+XbdoeMSguiCsH54iuC954QsYPzejAlRmB3qVcNioXR0wkg9O44Ku3bBrpC4yra/uw9BMkFXlJEd1@vger.kernel.org
+X-Gm-Message-State: AFuF++kYDTeFuDa7V8PNLLxZOMS75NECtqgr2hKRIKsKQI0Mr/H6ASOk
+	/3oDRGShiaLz7VaCrJFuvwOUPy9gQtkPgWCETj/5IupQ1gkkfnVvUaOsnWPO++hkoxr8G3itRdh
+	bsHwKaAjf/rhmrE2eqZAHjkmcl3rD+JvZhrmR9jKEO6nXWbp0IN+S3vUdcr2e19Mf
+X-Gm-Gg: AYBFou2RR4QcQbacLqlSPFsbr23thXF1SeooMaU4ixF3qJorvEniQX6OxBcsilYFSM6
+	q4MqMdjmIGFD5Um5x/OQD01fh/vvDjLA5Sr57giLB9ySXK5LnuEdW0Fxxigccs0POwqXoPA1cWK
+	ZcdUwzrmomfRETldKx7Wc1zfGdUITtYFFxkyijI51irNdEfc6XxDEucJS2a/w0a/FbcsFsGaKnJ
+	BuBLsbT7q1L8eGWj85J2vmk70i46r0SGdSZjPuAMAEDhww8GCKMepgtcV0TnoA2b3PAi7zD0si8
+	ihXQAIVjO3lsWP6JdRjv5Ahy/mnb2b3jmAvYLWEssEd6lWPWYbaI6fitukk5KsVi2JXXtZiecMy
+	1zCV0m1+ifEMVTA==
+X-Received: by 2002:a05:620a:371b:b0:937:7e90:ecc with SMTP id af79cd13be357-93c43bf241cmr483149585a.25.1790343308405;
+        Fri, 25 Sep 2026 06:35:08 -0700 (PDT)
+X-Received: by 2002:a05:620a:371b:b0:937:7e90:ecc with SMTP id af79cd13be357-93c43bf241cmr483141485a.25.1790343307700;
+        Fri, 25 Sep 2026 06:35:07 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a6450a3sm6569501f8f.25.2026.09.25.06.35.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 06:35:06 -0700 (PDT)
+Date: Fri, 25 Sep 2026 15:35:06 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+Subject: Re: [PATCH 1/3] dt-bindings: phy: qcom,sa8775p-dwmac-sgmii-phy: add
+ Nord compatible
+Message-ID: <arZ4ikxuE3p9CfRz@lore-desk>
+References: <20260923-nord_ethernet_serdes-v1-0-f8ac1c487882@oss.qualcomm.com>
+ <20260923-nord_ethernet_serdes-v1-1-f8ac1c487882@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7A:EE_|CH3PR10MB7259:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9b7d341-df4d-46dc-9758-08df1b0952ce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|7416014|376014|1800799024|10067099003|3023799007|18002099003|22082099003|56012099006|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	f/E/ACuwklG6OQPZZeWYphhXlNXj0R2UTWIX7g0iCHXIYkUUEWPPyFpXWR8y7//z7D4u411jNaaSXPcW8K4IZselrFDsa0s0m50eaMzl0vC1zolFhWXMvuL6zI9D6KDCbIlDgo2oOO8T+17tynH7VvAvciasHcMU/sNWh9I7jLblarBHvCeAx2uYEwYpjzbJko3kinWyZDIR4QnFuEntTT+26aUyhtTZTQGwhVRH4DhmsEl2rZmlpyvjbOLqTQz2kUQOIaZYSOCauY9icmpOmSp+EwPhjkgFGvjf9L4mxRnUrGgqAkdUncZV6vNR65k3DKHiAboXYsZhhpFxcIlrwz+FJN39Qb0rL3vrmD4dhtrQ6YT4e66t16IcuYxK2xYl5q7pBacNX93P2r75xkE7f5RtLcSt13CWCpAV9zLtHSxq1ZxV+2Mlbx0XHTcq3VMspeplXB+YXo5B9raW/HjVrW5CLIE14+8hoJWhBLdxUPT9GyXS84EOB+9BNYaGcMuDR0xfKNHGS1+V+Ae7Ly8yuWQcZE5mCYgbWZjq687Ha6fbzFpHAy/BMHS8hftIvM0mY4mKiJgB3tgWbT7koAIUi/ukPdwrtaIcBQCRxyDxZT5Ocp9Pd/zC7rzh7RzQc9lTqxyOzd4nivHFTYV0UZ+N5w==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(7416014)(376014)(1800799024)(10067099003)(3023799007)(18002099003)(22082099003)(56012099006)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	K0URlfQHVzpX+5TkBEZlophCjB24ejA2OI3APfi6JW4jFau4BU31JG2VmXNFNk6h12FIJCPDyHACjDdkBhY5K1+yZMWoTNbauxmVpZ4ejbxlfXCDIuLljMS0do6DhI5GPKZjOJ+7tKTymOIAre8qvQlQ5sbcXiCqACUzLC/m/mu8j3OVg3NOwejpCXxbrMvPxZ/2Tyjxq9hKU1m4YP/hAt/9TRziRD4MkbIFJ3QbhDvg1W+0kYTbbxMLGGxMcZMsJ9BeK4IoKZaU+dcFGWOGk2sbXf7ySVAzB6j2Y574Nj/ulJdr1bXuY5OlWGSOwK3lzUtVFR7iU8W4TynUHjz7xkPlmb0mWE4dCV3R01YY7KsdnjAXzpwXudo0GbLjKAIr7w0cIUIVZJy4+x4UcLKg+Zz72sGXBJGAdDy3tzvjG3QqKp/iWvi4gx6KDMFH23SB
-X-Exchange-RoutingPolicyChecked:
-	1SvaS1A0kwqLe9fZOHTMhuIo++gU62fESw/1BncRSlKsirDtVgqNRw5Szpx5ocCscsYVfAYVs7GD1OtCScS9+5PYSqrd+2TyWkxE7w/oa+LsWSkvGYxcLBn4lizekRiqV1dT7Jw5eMgOBh21Nb4FNSwOq0hW0KTbyD4UYg3r668QfZ9rsJzH0osCZG8wJJm8MIqjjAByeMPdGt0XCAKfPkh7rpyGQPGY/5LnBRlW/iV2GlV0kphxIiDWCwHUc4T6gwzOchQFzyW09bDLQ8flItWESEUfitR+dHuyMQuY2DcJulQb3pRJ2jxYK/b+Kq+0EmdGaGOaQ8f8o7xWSTLDfg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 13:31:36.6848
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9b7d341-df4d-46dc-9758-08df1b0952ce
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB7259
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1MyBTYWx0ZWRfXy7lXDiRUsujV
- nSNZfRle3PcO5Z/s8f5h9xqZdiysoq2ifG0MEq8bVuLH2HQ3c7jBShMsl/mh+Cr5hbUqOAyD9jt
- jCylMk9wrqluNJy8pgef7se4ddlHLKwl4xG1DS5hILPvwXsPtYTM3YA85kullQ5XhgYqH6Dpa3u
- zXV9KTnWwgaJ+U4JZSaKTVj7FiHvhq/6F7n4yozqwAuXf/aOgQNwGUAF8jqo4V6YJURc3/PQ6D0
- pUZYdwJn+caawbGy+NgV8x2od9JVUD5rMKDoJjAmuBnz39fRCYoE+svWp/vQn8QPAg9sOl8iYdl
- WZRM/vsOIrsbSGu63rBiwy2ViYQ3aolRgd1ao74PGWSeNymN3zllIjFeYbNJXSOQKsexx1EvOHU
- lK/L0bl+3k6RQfz1P4Jg6sfEVX4XZqEjocTMDsFP8r2cn5HBK3J76QyQRcWmOdjFaVj3xF2AN4P
- AkeqCcNkx78Dr4tfYRQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1MyBTYWx0ZWRfX5newoA0BjUI8
- fM3sgEvh05NMvLvd8LhZCFu8eJbqQ9I3J8XCHDWR+94Rf9H1e7XzBYMOfDU2gqMGqlixO4Iug0C
- ss1ZHCoyQhK2HlAX+lj5igClzD9d4Vs=
-X-Authority-Analysis: v=2.4 cv=aeL0Dhot c=1 sm=1 tr=0 ts=6ab677bf cx=c_pps
- a=NtQEcg4T3rGzBSLVY3gzHQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22
- a=BIeaPEhIAAAA:8 a=sozttTNsAAAA:8 a=SCyOuhRj4KJ622XhaHgA:9
- a=xdwx0GSDnVkbZ8IFV8PL:22
-X-Proofpoint-GUID: AnlvfcITFKgytFhERBN3imMAUnGP5dw_
-X-Proofpoint-ORIG-GUID: AnlvfcITFKgytFhERBN3imMAUnGP5dw_
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Wbcqu4ESfEJos+9j"
+Content-Disposition: inline
+In-Reply-To: <20260923-nord_ethernet_serdes-v1-1-f8ac1c487882@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA1NCBTYWx0ZWRfX1nR1juO0Qhpj
+ JaAtwmC6wZQ/vDv0CECOFJKUmCoq0VDkGp3pveGdI2ez7oCOs6ObG4MBX/bg3Mv9O595O6cVSKK
+ uvNo137JERd/95nyWU2yOYpxTMRBiK0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA1NCBTYWx0ZWRfXx/kbzdAJKPC3
+ SydQJ4HYjipHiD9mBFV0FNc5Cbc/Se/IjdaK3CJ+/xXEWvtkFO6Fo88+s6SiNsZqgqItVjAnueq
+ 1q7k1zA1WkmYKpPwXeR25NpnzCURaUHrXmkZgyp/FZB4zRriyqXggCcXUxztZu5MNhcMzLl5e+5
+ 9Aqt1JKBCoofOv7CDHAUqvsDN0PgJaQ+bUoBsZvh1018iDsEluNmxlglR9HZgdJWBfmQY2Vjwsu
+ La9mmk47flrXtwBqnl8fNKxmNPG0PxsLs0dKX2q/KS3lW/gUcnvT0DZu7z2BYbdlzIWUqMiRL74
+ jR9+dgZW36KEArLcD7A+T50+yOAlmwRfZCz3goyyWutz+fbcDm9AV1ZEqOPx1RpxI59n6EoObBm
+ lXZDxIOnEP/EKnNLMKZg1QUF9E33+4jW9lr5m9GIKmvmmoWUYbAMeg19zRXLX79QUtiL9xtqL0l
+ X6hnBKG2yniAkAOEIAQ==
+X-Authority-Analysis: v=2.4 cv=VuO2kO2n c=1 sm=1 tr=0 ts=6ab6788d cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=XuoYqDaM_I_laROpC8QA:9 a=CjuIK1q_8ugA:10 a=BlIz-W2qHe9yj-0B_l8A:9
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: guq2W5p5qDvUqgHR2YUV9LKOXTr13Ug_
+X-Proofpoint-ORIG-GUID: guq2W5p5qDvUqgHR2YUV9LKOXTr13Ug_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
- bulkscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250053
+ adultscore=0 impostorscore=0 spamscore=0 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609250054
 
-From: Jai Luthra <j-luthra@ti.com>
+--Wbcqu4ESfEJos+9j
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-OV2312 is a raw (4x4 RGB-IR bayer) sensor, the LI-OV2312-FPDLinkIII-110H
-module [1] packages it with an FPDLink-III serializer (DS90UB953) for
-use with sensor fusion setups using FPDLink-III deserializer boards.
+> Add the qcom,nord-dwmac-sgmii-phy compatible to the Qualcomm DWMAC
+> SGMII PHY binding.
+>=20
+> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 
-Link: https://www.leopardimaging.com/product/autonomous-camera/ti-fpdlinkiii-cameras/li-ov2312-fpdlinkiii/li-ov2312-fpdlinkiii-110h/ [1]
-Signed-off-by: Jai Luthra <j-luthra@ti.com>
-Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
----
- arch/arm64/boot/dts/ti/Makefile               |  6 ++
- .../boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso    | 89 +++++++++++++++++++
- .../boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso    | 89 +++++++++++++++++++
- .../boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso    | 89 +++++++++++++++++++
- .../boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso    | 89 +++++++++++++++++++
- 5 files changed, 362 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
+Acked-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 795978e962ee..8d608e244087 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -508,5 +508,11 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-j784s4-evm-usb0-type-a.dtb \
- 	k3-j784s4-evm-usxgmii-exp1-exp2.dtb
- 
-+# FPDLink Sensors
-+dtb-$(CONFIG_ARCH_K3) += k3-fpdlink-ov2312-0-0.dtbo \
-+			 k3-fpdlink-ov2312-0-1.dtbo \
-+			 k3-fpdlink-ov2312-0-2.dtbo \
-+			 k3-fpdlink-ov2312-0-3.dtbo
-+
- # Enable support for device-tree overlays
- DTC_FLAGS := -@
-diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
-new file mode 100644
-index 000000000000..0829f01a0f90
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-0.dtso
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * IMX390 FPD-Link 3 Camera Module
-+ * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&deserializer_0_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* FPDLink RX 0 */
-+	port@0 {
-+		reg = <0>;
-+
-+		ub960_fpd3_1_in: endpoint {
-+			remote-endpoint = <&ub953_1_out>;
-+		};
-+	};
-+};
-+
-+&deserializer_0_links {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	link@0 {
-+		reg = <0>;
-+		i2c-alias = <0x44>;
-+
-+		ti,rx-mode = <3>;
-+
-+		serializer: serializer {
-+			compatible = "ti,ds90ub953-q1";
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			#clock-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ub953_1_in: endpoint {
-+						data-lanes = <1 2>;
-+						/*clock-noncontinuous;*/
-+						remote-endpoint = <&sensor_1_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ub953_1_out: endpoint {
-+						remote-endpoint = <&ub960_fpd3_1_in>;
-+					};
-+				};
-+			};
-+
-+			i2c {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				sensor@60 {
-+					compatible = "ovti,ov2312";
-+					reg = <0x60>;
-+
-+					clocks = <&serializer>;
-+					clock-names = "xvclk";
-+					assigned-clocks = <&serializer>;
-+					assigned-clock-rates = <24000000>;
-+
-+					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-+
-+					port {
-+						sensor_1_out: endpoint {
-+							remote-endpoint = <&ub953_1_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
-new file mode 100644
-index 000000000000..06cba8c7397f
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-1.dtso
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * IMX390 FPD-Link 3 Camera Module
-+ * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&deserializer_0_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* FPDLink RX 1 */
-+	port@1 {
-+		reg = <1>;
-+
-+		ub960_fpd3_1_in: endpoint {
-+			remote-endpoint = <&ub953_1_out>;
-+		};
-+	};
-+};
-+
-+&deserializer_0_links {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	link@1 {
-+		reg = <1>;
-+		i2c-alias = <0x45>;
-+
-+		ti,rx-mode = <3>;
-+
-+		serializer: serializer {
-+			compatible = "ti,ds90ub953-q1";
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			#clock-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ub953_1_in: endpoint {
-+						data-lanes = <1 2>;
-+						/*clock-noncontinuous;*/
-+						remote-endpoint = <&sensor_1_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ub953_1_out: endpoint {
-+						remote-endpoint = <&ub960_fpd3_1_in>;
-+					};
-+				};
-+			};
-+
-+			i2c {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				sensor@60 {
-+					compatible = "ovti,ov2312";
-+					reg = <0x60>;
-+
-+					clocks = <&serializer>;
-+					clock-names = "xvclk";
-+					assigned-clocks = <&serializer>;
-+					assigned-clock-rates = <24000000>;
-+
-+					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-+
-+					port {
-+						sensor_1_out: endpoint {
-+							remote-endpoint = <&ub953_1_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
-new file mode 100644
-index 000000000000..7d377dbe5bbf
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-2.dtso
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * IMX390 FPD-Link 3 Camera Module
-+ * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&deserializer_0_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* FPDLink RX 2 */
-+	port@2 {
-+		reg = <2>;
-+
-+		ub960_fpd3_1_in: endpoint {
-+			remote-endpoint = <&ub953_1_out>;
-+		};
-+	};
-+};
-+
-+&deserializer_0_links {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	link@2 {
-+		reg = <2>;
-+		i2c-alias = <0x46>;
-+
-+		ti,rx-mode = <3>;
-+
-+		serializer: serializer {
-+			compatible = "ti,ds90ub953-q1";
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			#clock-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ub953_1_in: endpoint {
-+						data-lanes = <1 2>;
-+						/*clock-noncontinuous;*/
-+						remote-endpoint = <&sensor_1_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ub953_1_out: endpoint {
-+						remote-endpoint = <&ub960_fpd3_1_in>;
-+					};
-+				};
-+			};
-+
-+			i2c {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				sensor@60 {
-+					compatible = "ovti,ov2312";
-+					reg = <0x60>;
-+
-+					clocks = <&serializer>;
-+					clock-names = "xvclk";
-+					assigned-clocks = <&serializer>;
-+					assigned-clock-rates = <24000000>;
-+
-+					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-+
-+					port {
-+						sensor_1_out: endpoint {
-+							remote-endpoint = <&ub953_1_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
-new file mode 100644
-index 000000000000..f74bff5f12b0
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-fpdlink-ov2312-0-3.dtso
-@@ -0,0 +1,89 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * IMX390 FPD-Link 3 Camera Module
-+ * Copyright (c) 2023 Texas Instruments Incorporated - http://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&deserializer_0_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* FPDLink RX 3 */
-+	port@3 {
-+		reg = <3>;
-+
-+		ub960_fpd3_1_in: endpoint {
-+			remote-endpoint = <&ub953_1_out>;
-+		};
-+	};
-+};
-+
-+&deserializer_0_links {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	link@3 {
-+		reg = <3>;
-+		i2c-alias = <0x47>;
-+
-+		ti,rx-mode = <3>;
-+
-+		serializer: serializer {
-+			compatible = "ti,ds90ub953-q1";
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+
-+			#clock-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					ub953_1_in: endpoint {
-+						data-lanes = <1 2>;
-+						/*clock-noncontinuous;*/
-+						remote-endpoint = <&sensor_1_out>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					ub953_1_out: endpoint {
-+						remote-endpoint = <&ub960_fpd3_1_in>;
-+					};
-+				};
-+			};
-+
-+			i2c {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				sensor@60 {
-+					compatible = "ovti,ov2312";
-+					reg = <0x60>;
-+
-+					clocks = <&serializer>;
-+					clock-names = "xvclk";
-+					assigned-clocks = <&serializer>;
-+					assigned-clock-rates = <24000000>;
-+
-+					reset-gpios = <&serializer 2 GPIO_ACTIVE_HIGH>;
-+
-+					port {
-+						sensor_1_out: endpoint {
-+							remote-endpoint = <&ub953_1_in>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+	};
-+};
--- 
-2.34.1
+> ---
+>  Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.yaml =
+| 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgm=
+ii-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmi=
+i-phy.yaml
+> index e573abcb937df914ced25ec87add7955bbba7b87..f2df9983d9536654e838bae4e=
+1e23b832cdaea3c 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.=
+yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.=
+yaml
+> @@ -21,6 +21,7 @@ properties:
+>                - qcom,qcs8300-dwmac-sgmii-phy
+>            - const: qcom,sa8775p-dwmac-sgmii-phy
+>        - const: qcom,sa8775p-dwmac-sgmii-phy
+> +      - const: qcom,nord-dwmac-sgmii-phy
+> =20
+>    reg:
+>      items:
+>=20
+> --=20
+> 2.34.1
+>=20
 
+--Wbcqu4ESfEJos+9j
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCarZ4igAKCRA6cBh0uS2t
+rEj8AQCvog+D/EGZ1bBhQzHnuSy106/aNlu3Mkje9Z9B6bRv4gD8CYovhF1C/+kv
+cQcO0DZ9od/rY0vDBhjipvCfqcC+TAs=
+=pLpz
+-----END PGP SIGNATURE-----
+
+--Wbcqu4ESfEJos+9j--
