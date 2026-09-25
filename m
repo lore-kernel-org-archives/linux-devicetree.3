@@ -1,80 +1,68 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C27B4908A7
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 12:30:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22C43E5A03
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 12:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790339435; cv=none; b=fIKGlIItwMf7nr4DH6iJcrnQOnjIdu0yHIr0KDPb7JbOdjClrRznQa0y00eKtti9hS+Kd3DUBwwblsOB5QC8LaT2QA4/Gle2UFnIgL2S5cTlvRDhEH9y/3vnOArT2bIBAMtym+S0ydbhoNwbIC0PEi5tLgn6zwMExdSBoD56GyQ=
+	t=1790339457; cv=none; b=rCt34fhnNMqC/L2jlgeYEx7f2AioFIPN4BT2/Z0ujaCn44LZBzwi/x2kNd0lytHUoNgVqJr5HmICJqQopBKNJKmisbPKynLRDRKTVS+0zQ2aU/ta+VJWHrbt4DxaBKIOzn+UNuycVlfkAaCZPf+ch2gaNrziliBOCoSRjtNM2Ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790339435; c=relaxed/simple;
-	bh=LUoDULbeAmVFn8GVNo7EZKcLNyZ0ZR0Y9ydjWuh5Sm8=;
+	s=arc-20240116; t=1790339457; c=relaxed/simple;
+	bh=umDnx4wLlEXWbHBkxxptngPDNrEzTcPPTc0sZDSz+UY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gSaFqLTFCnHdwM+PRfsabre4czENFKt8ctiLxHWLCCqLjclnr+u0ixUj/VAwptVZabCAhSnOlycjDCPImNZbnmvOIjqxbGsD30iS9iWlScq3nzUpN0vFXdejXGHoTZkDPFPePvAfqPU9SKKqKmHGIIUn5gQvoovY2kXGBsfOWK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=jvD9WR10; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=nPHe5DbS0gqNv92nu8Bl2F0pA6BArm5cr7v6fHFiqbHWdIu5VtDnsSxDWIWsBu/8gBMk9uRoygvJHJkINes6nrAbjMHFoWUyia5eTQWt963Wfd+vt1kjy7n2SCP3PId/v+cP1W7ijfdTYbSJzWU+QZgm8YlgfbzfKLmuph69lq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eOugo/xs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="jvD9WR10"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=4rHU
-	MvsohuKMD7j/vbMX/ACnA/Knzn/24tCErnfx2D8=; b=jvD9WR10Do6hn8YQrGRl
-	UZ8GiWJvMx7vkNRIG5vilrAcKBpNK91TSOZw8d2oJ2wLr6EVuzokavDCakQLU1EX
-	XvtkdyjHe4exDdTfnaLsv6xIVZa7/eae6x70LaIk6V+vcJpdICNVIBke+FKVgqwI
-	UTSf40XWi2vcOtlsApPEMJWn4gVTNAQ4ZZQdA2WFVci3dn6U3YEIzz7eYjAnXlxY
-	CVOIIAe2pHwWdkxVweiaZ53/1RzEFRHizQCfEc0jwMu9GbWYgzx7OiovcAbAMoZ5
-	ADIy4NgJ825M6otG/D63jnaOsdijg6k0XAbQGK70VisFOf/XXHFTQSUr3ZjGYnWQ
-	lw==
-Received: (qmail 1557948 invoked from network); 25 Sep 2026 14:30:31 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Sep 2026 14:30:31 +0200
-X-UD-Smtp-Session: l3s3148p1@41/N4U1cPs8ujnvn
-Date: Fri, 25 Sep 2026 14:30:30 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>
-Subject: Re: [PATCH v3 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence DDR
- EDAC binding
-Message-ID: <arZpZolRwdU8zh6O@shikoro>
-References: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
- <20260924-paul-v7-3-rc1-edac-v3-1-bd8054a5b180@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eOugo/xs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 408321F000FF;
+	Fri, 25 Sep 2026 12:30:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790339456;
+	bh=f1wkjUAJ6a32H/DZDitGVNd21IhCL485bJ83WiTx4Nw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eOugo/xsQISJsvHT3Y8QYzdtdSKE2XO5BUK/EeruX2DxiSTHELjtUAzyby8WVJpL+
+	 cMG6VLOZe1Axw/ywbqTLiN8pV9wZol56K1GQQRKnjpJXc4YuwTRx5I4aHPPRA+SRAu
+	 57qyQzmmPaBQeoCi23hTnKwklXIykSLQ6W8EWHAcVfTdh5pC79i8V/WzjGvQbmuUwG
+	 LBVS02XF7LnVQcLJeL1qBsJFafJWSwIdzWEM51zy9iwcVH+3ZnWeGl6rrwryyLVxpv
+	 8yqgzFkESb6WrmOyaI1DhvI2afx1VhdIOb6Eg1MnTckp5yMMvXQv8d+LlEieXOkBSM
+	 4MBAbyreql0Xw==
+Date: Fri, 25 Sep 2026 14:30:52 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Leander Kieweg <kieweg.leander@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, u.kleine-koenig@baylibre.com
+Subject: Re: [PATCH v5 1/2] dt-bindings: display: Add GlandaGPU binding
+Message-ID: <20260925-fabulous-wren-of-action-89d266@quoll>
+References: <20260920193944.110983-1-kieweg.leander@gmail.com>
+ <20260920193944.110983-2-kieweg.leander@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260924-paul-v7-3-rc1-edac-v3-1-bd8054a5b180@bootlin.com>
+In-Reply-To: <20260920193944.110983-2-kieweg.leander@gmail.com>
 
-On Thu, Sep 24, 2026 at 04:12:47PM +0200, Paul Louvel wrote:
-> Add the Cadence EDAC DT binding.
+On Sun, Sep 20, 2026 at 09:39:43PM +0200, Leander Kieweg wrote:
+> Add Device Tree binding documentation for GlandaGPU, a custom
+> FPGA-based 2D display controller.
 > 
-> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
+> For hardware designs and RTL sources, see:
+> https://github.com/stiangglanda/GlandaGPU
+> 
+> Signed-off-by: Leander Kieweg <kieweg.leander@gmail.com>
+> ---
+>  .../bindings/display/kieweg,gpu.yaml          | 56 +++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+>  2 files changed, 58 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/kieweg,gpu.yaml
 
-So, my DT check runs have passed.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-But one thing came to my attention just now which needs fixing:
-
-> +    items:
-> +      - const: renesas,r9a06g032-ddr-edac # RZ/N1D
-> +      - const: renesas,rzn1-ddr-edac      # RZ/N1
-
-We don't need a family compatible. Only N1D has a DDR controller.
-
-This needs also updates in the example below and in patch 3. With this
-fixed:
-
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Best regards,
+Krzysztof
 
