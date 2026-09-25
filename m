@@ -1,189 +1,181 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f42.google.com (mail-wr2-f42.google.com [74.125.225.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB2E47F789
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 09:21:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790328085; cv=none; b=oJNW/fl8BRKlHObrTCHbuDzAiryFf+K4DvsPHWpJlaGh/JSDE9kO/0+yx854KEk927eCZQVOak5EvYN1p5xWP1VDWVPIzZpmY1byni/fhN67hQ9D0k2nsIhkqtbyUzzI5YMBUsIO7qAQxukfDpfqG/51zKLoiH+u4XyL6p6txSU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790328085; c=relaxed/simple;
-	bh=mvedpIxak0Fnzj/mZY4251qn7YJgCBi9zAfCHtRMKVM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SgCJ5nPc4/TXsPq+lp9awMJ/qh/tFqGUVIh1Sf3sTopMEyEy7XcPbs/ko+3G5xlSETt7/p2yypbNS4rqeZ0ILtV6oNgYWG2k0fvvg5q6EBHabJlHXWaiyEiRb6QDBN6dqLIk5asJUtk7z9MjLPwHg4loXoA/prS+gDzlUDWBzNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fRTYy2jv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kFTTUUqw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2F0481675
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 09:21:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.106
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790328090; cv=pass; b=evNVWXbu7SAGGlWsjByJyoA/oeRc3aj6uh1X70VZlxi55ajxGh4CBmWzpwtFT/+V69pMYvSwc7J+HLtEnFpxOnQ5n4P84bU6IJcQtVW0c93sr6iYHHNYFUNdeLotp71UMeWK1LrucoS9knmCQhsNfCFhwDCpFpt4XQm8E650HKY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790328090; c=relaxed/simple;
+	bh=NCueJ4dcU3NpqgGF7u84YtQGIxF+FQ97Y+VznPDBXYA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=STLEoptCwpvz28PQR4jhDdVKlmRBHSf8sLtAovtnWnZLC72oEQFXwuLGidQvJsSbijbzdec2GsfTuefxybGuVjLdLvvhnGQQnIr1fTr+rVUXR24ehOfAzgnqYwsOHNClf7BcoZD2K9scch/fuI70pej8IJswQFIPnPOEI0LIEdA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BFnL5Uni; arc=pass smtp.client-ip=74.125.225.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fRTYy2jv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kFTTUUqw"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YQVX2911318
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 09:21:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RBsfdl/T6Ue4W2/aqLwt1CKH7MzyP/xPKpBBNUg1PjI=; b=fRTYy2jvZM+gocIf
-	Anjg/IjTKq5zbwrdhfH419Jt9409fi3VgGXtPuFwOFCnhHnXB/O2OMFELzUd+LGU
-	qidQpL17GbphNSW2n46rTQBteVN+Fd0wWNmJU82LS06qVnGSC4L5nyMtdsYiy4sw
-	3hdh0/99kT4e4y2WluAK8vsczO9uDilKk1njvv9dkGBwlVJJUf8PSxf3+3G9hSCG
-	6UTveLjrwCTzrMVmTNBU5IPZW9P1X2pytvwd531JXQ5yZrX4WHxDzg/oTiCYUJzc
-	jvf0XzQU1Bpc59PbAptplKXqsKbU/OlGF7xlk5j97AWuBSsP2jl/c/SBJwOAv9bP
-	4GgaMA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwhm50wyg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 09:21:20 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-342217d8d53so444276eec.0
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 02:21:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BFnL5Uni"
+Received: by mail-wr2-f42.google.com with SMTP id ffacd0b85a97d-482f6351832so357732f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 02:21:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790328083; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fLO1cLMlD/yAVyf682IszDFLB0eZV4k/TKMSvJlli8JBszgWaEAZNjGNR4OZrsStPD
+         xY8rrPIcP99FqjFiLqEgtQeGlWWkZCVlOjvztcyJ0ZdFCBo0DgwA24zenjJYVEou0ojp
+         TQjB8zxVPRgnl97Qeo4uRrfBBd8lElKKekhh0XKlnWiul01Vl6cT4wj3/NMbejThzESS
+         kFodDYn2l7sjWU0jtgGEuZ0DxGELkFo63M79adfMxRAC2UczmenMkdGjhOxuLkiziQky
+         jVO2mWrbfzLLCmqxfpg/McXQ/PrVMl8zW1bWLLEIECvm54+14rvwhk7yOw0njicRVsCH
+         aiqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZlooN9kx6gRrXmg2e0W2xusZ6bAGGvgElZ4hCzz0Zhs=;
+        fh=X4d71o+Fi3wRcyh6DaHS2N1HO1uOF2hs72gxfEAdSuA=;
+        b=VQxcXU+BiDDknhZ34aLeVzMXe3QVr/Q53uJOmucGmYvvR1jEMUoIDtHapFaJAt03+G
+         mEbxyNrYhenW3yZCtFa2VDbZUnbjHErMaAFH08oYL8IsAXTupF/4OzUfujET2OxPvLc1
+         9VtAVJjuFx3CLv0otovrQHkjaWYW8GTT2+j34BLSMEZuu+vP6ytA+c9mJA65q8ALPO3O
+         YBVeBcUZDpp8eC4xbpY8B/76C32T3IB62ckppZSlSv8Wcmqd//2DcciExUOmwFS7Q+Bv
+         c+F1xgb80U7VRK6O7fzg/NHXnBY9S45X8pfLyAPH14GgYk0G32c+HARAmYL4vQlTq6sk
+         wovA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790328079; x=1790932879; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RBsfdl/T6Ue4W2/aqLwt1CKH7MzyP/xPKpBBNUg1PjI=;
-        b=kFTTUUqwjVEY8/XHE+HFNgEeFiMHaDPyLCWpD+4H+4ENCYdtEn8/U2v6HbpaInWW+0
-         pkIf4tgRvXUIhT407SBqnfuOnNdFpYjcXVPcY19DVlCJg6sQxB8q1yGN9zWp7XpGbqNg
-         bqgEUDm1ZA0iI+iGieC1CUiddSMMuVu+0ZUyCiJTRFuPxCiy753gTplcHT99PG35kdYy
-         BoVEllDeDRcwsc7kUFrafucNBYkk0+ht72SFjpBzjXL5sa8waOIaAkxeu2jO3Vonz2Yp
-         x7hGH6LTIfyPacrfh4A7NAzi/v16qNictXsqU40hGqqZZkQ8Ns/gvBctYPXcirLk1oz9
-         xtWw==
+        d=gmail.com; s=20251104; t=1790328083; x=1790932883; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZlooN9kx6gRrXmg2e0W2xusZ6bAGGvgElZ4hCzz0Zhs=;
+        b=BFnL5UniNGwXofIkCcNfbm68Zfk73lgHVuQq3Q1AZcFbNpcVVz5p0spJ2rmKrc9dt4
+         Cj3OO7PsFnuKItjfAzUjRANDGpn/OJZa8BhBX3e2l2Nbnucz9Su7KsrGOFk19654nCbA
+         DlvIKmpG20HysfCq0FUnbD+6HTwsQjWwjjKaUgX+NTGCFTQmEjYTMG+IJZLtaZbL1+Jz
+         T6D2sPTxFFXvKauUOjZhyK48/ouoGTNntwzl1WbulGHyoTyWdfQoTMlSdMoQcElVSWmz
+         8jZwqifkZiwEGu1Vpm5PvcC0tymaZNOjxMWENS+Ggu4UdSbkaX6tJUQ0Q0ty5JufvMsr
+         qTuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790328079; x=1790932879;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RBsfdl/T6Ue4W2/aqLwt1CKH7MzyP/xPKpBBNUg1PjI=;
-        b=0g8Ae2N9HP98v4cIgIsKWSjgI0hw3ImfpwejZ12okC5REGoUhiBx2wPB0NgD1IQQsg
-         EVsjou39Eu3iYeh5/Jio9gHHZayGIza2zi3gmKu6QRgxixHXvi0rO6VNcxA/Y5LfGsC3
-         kP/2b+NUCitNaSMOboSmyOY1PlOZG7KikVFOohbVssiciEfuVO9fNtZIJ6GCNKP1KrPk
-         9a8thiNRu5Djxe7DobkuALCHcopLfiOKDKdGjgFcsWWg5dcMNX90Agvt4fuG+l/g+K7K
-         79ErNHZjt53rwq8E51gOSIidFLTvpesuVdtz7/24eqLrBn8n4VTP/KkonAJJZ8DUdU/f
-         fMsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzThPu+TphdxM/u5SMBhNkHp4tAKD9OOOL0ZA1Vbfr09mVnfGqwZ8LeIYpgVTQ9Rc4Wk9y64k+qEKZM@vger.kernel.org
-X-Gm-Message-State: AFuF++nUYCYKEy+cy1b1XR0cSFLLPonZL5yTyDR75UG6So0pcGFEMcYm
-	9FCNyV036Xrj3/IrniK7/HGHjWCV4iB+WOILP0fTB8TJUxHjdzW7MO2C9cwKZ4SUZ5S2gTtf0tG
-	GVsxn9FXqhKb30eww5nQ4662VFUI0xSMHGawxPlfxEhH8pU3scADMRq4ad/JmvnZM
-X-Gm-Gg: AYBFou1q5rTLt16Ft/4l0+8+RTRlq+07561NHti8y+rSC+ZOoLKgjm7pfEKBP89a6tb
-	JQuekys3YGwuiSitrxTbvlk6v1pVE2Oapwqeph5S6jP/7WWNmYWCz6w2efapmvbvWrCurvbL+GY
-	aldWhk1rGiIvhEjlyAlMxX3IXuJKNzWaYPR4n+S1YSfYKIDu9cuUq+r9KdO1nI1g2WV7iwf/5wJ
-	kHC1/lKMWWC8YZfMJfziL3P9WXfn4QMxPY1I1Jn8MsU9FWKi/LopwcqlMwikWnyGD/WdOPXrdMB
-	6z3Gze111izwDFoTxVgSLT3vwfaaX2X1lddC9L9H5SZxhABOGxLb/HsTc9oGPWLRqSXzubTF0jn
-	3ncZ0kOwqP3yCjhyou7xnW3mlCjgR
-X-Received: by 2002:a05:7301:618c:10b0:341:ea04:4102 with SMTP id 5a478bee46e88-341ea0445b5mr810775eec.19.1790328079267;
-        Fri, 25 Sep 2026 02:21:19 -0700 (PDT)
-X-Received: by 2002:a05:7301:618c:10b0:341:ea04:4102 with SMTP id 5a478bee46e88-341ea0445b5mr810746eec.19.1790328078540;
-        Fri, 25 Sep 2026 02:21:18 -0700 (PDT)
-Received: from [192.168.1.25] ([122.183.173.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144757263sm4813814eec.12.2026.09.25.02.21.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 02:21:18 -0700 (PDT)
-Message-ID: <8ea976cd-b012-4ae6-a74b-b5c2dceaecbc@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 14:51:11 +0530
+        d=1e100.net; s=20260707; t=1790328083; x=1790932883;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZlooN9kx6gRrXmg2e0W2xusZ6bAGGvgElZ4hCzz0Zhs=;
+        b=SBCc39koNhylwlHEqsNUbANo5EZhgxEOvpkqRdnOBt/YQKWbAmglprnr8Df6lvGrOZ
+         hxkBndFRMV2YhHzToHgCNLHhuIuDhordzBwoUhZHmy76J0/GyGb+LOtEQD5gPD71GDom
+         JvhDP0hN4ktJCWl1h98PQaYrW33L8P2LUMgDWhlYE58Ojn8J3f1KVJ4vbuziriPxmuN7
+         /M5frqEeOQ6rekd/fieRzqkKh0PwUbc21XwBspymVvwwm8YgqR0QqnA/Ch5hrP2enLfF
+         ceS8KvTDT94y9bmQdwYkZ4PH84w6lceigbDep+xvnJ0yclQKZrAzWNa7wMgypeJ+fMb5
+         wAcA==
+X-Forwarded-Encrypted: i=1; AKwUvByGmM9F4Dg8LpuurvdgVQiFMd7miL5kIeC+bdC4ejGENwIhLa0juUP/8XVi6BvsymEcuh/TKJsXcV8H@vger.kernel.org
+X-Gm-Message-State: AFuF++m1AV7QRuMhYHVC/kesX2rJGdjJzxku4m6SJ99FR+veJCewLdIx
+	6MXFC0v0T5h2q53bsuck76qETTnK+QtmEJ4QDBswU2h1//anozV4yeDlHHitlBDOFvhP1v9FlLB
+	IzkZxzJyyBJI39kiHKpKpCEyqgLT1mT4=
+X-Gm-Gg: AYBFou0VkYOWNWj5T0Mso9IXrjmZSQe/FlCdMXySZ1yQOplg46yEKSaZXC9s8wdVfm9
+	AzNZBXk1bTIK8+hBeKBheRl+rVH0hoxkCOqznzAnY2LbwLL6fXFNDJcbOlphu9Xqki6Z1hJIESp
+	BNM8pxpyWXgd54jHrc5idWimFCL4yDHf77+5F2BrVCDPVKMeup12wG9D4U706hnH/+jRVkzb7pZ
+	VE/TwlcytT1o/noCnxkyCIl/CAlJI5IYA/kqC4sYkwMDgkJA+zlRoT1s5Kmug8ThcD+yqbaUbIX
+	+Mbfp7Br/RyQPza41DyWfc3Pw3VVBgeW00GY95B0ngYRiBWo78rJ6kaQ5WqahaOH1DhQUlc2r/D
+	pWLYN5YE4CloRkAVpPLNqLbUzshksw2aiBLE6NDzH51w4E2v1LviioQnkB23dMs6UAOb/opQV
+X-Received: by 2002:a05:6000:460f:b0:487:a46:a9cf with SMTP id
+ ffacd0b85a97d-4887174c0famr8766945f8f.29.1790328083300; Fri, 25 Sep 2026
+ 02:21:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/8] ASoC: qcom: lpass-va-macro: Add SoundWire
- microphone support
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ajay.nandam@oss.qualcomm.com
-References: <20260922-add_shikra_support-v1-0-6c6cb6444caf@oss.qualcomm.com>
- <20260922-add_shikra_support-v1-5-6c6cb6444caf@oss.qualcomm.com>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <20260922-add_shikra_support-v1-5-6c6cb6444caf@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: mZkRmIT6PCDmQw2TBx1zFB37ScGqtzza
-X-Authority-Analysis: v=2.4 cv=QYnzLcbv c=1 sm=1 tr=0 ts=6ab63d10 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=uk8ae9/F1LYL5lfeGCaUoA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=ohAgsov0r_a2WbmJIscA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAzNyBTYWx0ZWRfX8X4meQlxONBl
- UWAnoo28C1X1z03TDuSo18jjROgOCtd2bTaYWOda8jAnlUACVyua7WkXZYZz4ih8jMYw06Ap1Gy
- Ve87gzYSjFJFvxD12J3qgMFYdBNVQIDk1KpV/as+A2amzASSwbYrzt7YNBmWsVdkJ+BR5oX6VZf
- SFr5x6Sfnir/pZ0DZo0nkxVvE8udzJyPB6qXW3bBI1dv3d16UTPIXwsIh8mMjn+hIwPJtHD2JRf
- gdsi5g7gTPFO87Xmc/q5V+H/HulVnsZ5KZY5Udris7L8LBpZqqfNECF8hKFRx3UUXK5GG9a0oq2
- KLgXJ9PSsNLlrFi4UP9eaZqT4mzATtvv3Q/OwKV+fsaryAtRszwfDnd7EKEdeSVS0v3/8aibEcH
- W8fQ6ZwDsWf5nEWmXNZXlgDM7i9P++uVUkfpkGJenE1xom+kh3fgaElA7QLHS8ccdRV14GsN7om
- 6+M9GEMCiEYOMrCJeDg==
-X-Proofpoint-ORIG-GUID: mZkRmIT6PCDmQw2TBx1zFB37ScGqtzza
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAzNyBTYWx0ZWRfX1cTG8XBwje4B
- gpKnxwa5itdPwgEIVie7huu3UMRuwZHxYPpkdyDbTbwS1FeCXm2FWKiquVxUnMDsYwWOaZ8Rr2e
- Eyt2mJSofBHsSprfOWbSP3mo7iQa5dY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 bulkscore=0 priorityscore=1501 malwarescore=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250037
+References: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260923104054.3324830-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260923105237.7B87D1F00893@smtp.kernel.org> <CA+V-a8uD16uG8cc9m7NHVZXT5bU64TYfu+_1POuXeioRAy6Z+A@mail.gmail.com>
+ <4f5aadf0-8f23-4871-918f-430a0c99900d@roeck-us.net> <TY3PR01MB11346CC8B3C7374C293E0F3EB86802@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <2d32d7f1-f87b-45b3-9ccd-95e9773ca658@roeck-us.net> <TY3PR01MB113461EFFC2B9B39A53ED1D3386802@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <CA+V-a8t3HKQ6D8jb_y-XM64BHkWm3vRw6JiTydSp3rqVr9nhdg@mail.gmail.com> <CAMuHMdXZwnRtp=f0iOiDqoLVjBTGVYNbbLeP9E3qjTn3RUEkUg@mail.gmail.com>
+In-Reply-To: <CAMuHMdXZwnRtp=f0iOiDqoLVjBTGVYNbbLeP9E3qjTn3RUEkUg@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Fri, 25 Sep 2026 10:20:56 +0100
+X-Gm-Features: AclHuK--x_qeFFnhJWfBmO_fp3zwDw0cPGYw1M7_Cyl9HfxYZY4jYF_Kzh6z3Zs
+Message-ID: <CA+V-a8tzLEScwpJ1Va-vpEHdJeOjo4v6K8_xTH=aAGZoxFHHbA@mail.gmail.com>
+Subject: Re: [PATCH v6 6/8] watchdog: rzv2h: Add syscon support for WDTDCR
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, Guenter Roeck <linux@roeck-us.net>, 
+	"linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>, 
+	"sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	"wsa+renesas" <wsa+renesas@sang-engineering.com>, "robh@kernel.org" <robh@kernel.org>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Linux-Renesas <linux-renesas-soc@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Geert,
 
+On Fri, Sep 25, 2026 at 10:09=E2=80=AFAM Geert Uytterhoeven
+<geert@linux-m68k.org> wrote:
+>
+> Hi Prabhakar,
+>
+> On Fri, 25 Sept 2026 at 11:06, Lad, Prabhakar
+> <prabhakar.csengg@gmail.com> wrote:
+> > On Fri, Sep 25, 2026 at 6:11=E2=80=AFAM Biju Das <biju.das.jz@bp.renesa=
+s.com> wrote:
+> > > > From: Guenter Roeck <groeck7@gmail.com> On Behalf Of Guenter Roeck
+> > > > On Fri, Sep 25, 2026 at 04:13:24AM +0000, Biju Das wrote:
+> > > > > Just a question,
+> > > > > For automatic software upgrade, if the reboot using PSCI fails, w=
+hat
+> > > > > is the fallback for reboot, reset the board?
+> > > >
+> > > > That seems to be a bit theoretic. The reason for having the ability=
+ to register multiple restart handlers
+> > > > is not to have failure fallbacks, but to have fallbacks if preferre=
+d restart handlers are not available.
+> > > > If the PSCI restart handler is present, it is expected to work.
+> > > > That is why it has higher priority. The idea is to use the highest =
+priority restart handler, not to try
+> > > > one after another.
+> > > >
+> > > > Sure, the failure fallback works as well, but that doesn't mean tha=
+t fallbacks should be provided just to
+> > > > provide fallbacks.
+> > > >
+> > > > If you claim that the PSCI restart handler does not work on this sy=
+stem, provide evicence, and we can
+> > > > discuss this further.
+> > >
+> > > I agree normal cases there won't be any failures
+> > >
+> > > I never heard about PSCI restart fails. But have seen a case due to a=
+ bug in
+>
+> Oh yes, if PSCI is not really implemented ;-)
+>
+> > > serial driver that made the PSCI restart to fail as it hangs the syst=
+ems.
+> > >
+> > > So, if this is the case, a memory corruption can cause the same.
+> > >
+> > > Long back I worked on femto based product(single core), where we have=
+ normal restart
+> > > and a fallback watchdog restart. But it does not have PSCI system han=
+dlers.
+> > > On some cases, we have seen automatic upgrade failed because of failu=
+re in
+> > > normal restart.
+> > >
+> > If you think the PSCI might fail and not restart the machine the other
+> > alternative would be to export functions to configure WDTDCR using
+> > readl/writel.
+>
+> Well, if PSCI resets fails: that's exactly why you have a watchdog
+> (or two) in the system, right?
+>
+Agreed, To avoid taking the syscon lock from restart context, how
+about exporting helpers from the CPG/MSSR driver to start/stop the
+WDTDCR count using plain readl/writel? Each WDTDCR register belongs to
+a single watchdog instance, so no locking is needed.
 
-On 9/22/2026 3:12 PM, Mohammad Rafi Shaik wrote:
-> The VA decimators can currently capture audio only from DMIC inputs.
-> Add support for routing audio from SoundWire microphone (SMIC) inputs
-> as well.
-> 
-> Update the decimator source selection logic to switch between DMIC and
-> SMIC sources based on the active input path.
-> 
-> The ADC_DMIC_SEL bit of CDC_VA_TXn_TX_PATH_CFG0 is shared by the DMIC and
-> the SoundWire mic mux, so a mixer write to the mux that is not part of the
-> active path can leave it stale. Program it from the resolved mux state
-> when the decimator is enabled, so capture does not depend on the order in
-> which userspace restores the two controls.
-> 
-> Add a helper to detect whether a decimator is using a SoundWire microphone
-> input. Use this information to skip DMIC-specific HPF programming sequences
-> when the decimator is configured for an SMIC source.
-> 
-> This enables VA decimators to capture audio from either DMIC or SoundWire
-> microphone inputs.
-> 
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
+  /* include/linux/soc/renesas/renesas.h */
+  int rzt2h_cpg_wdtdcr_count_start(unsigned int wdt_index);
+  int rzt2h_cpg_wdtdcr_count_stop(unsigned int wdt_index);
 
-> +		if (!is_amic_enabled(comp, decimator))
-> +			snd_soc_component_update_bits(comp, hpf_gate_reg,
-> +						      CDC_VA_TX_HPF_ZERO_GATE_MASK,
-> +						      CDC_VA_TX_HPF_ZERO_GATE);
->   
->   		usleep_range(1000, 1010);
->   		hpf_cut_off_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
-> @@ -1046,7 +1079,6 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
->   				0x0);
->   		}
->  
-
-The commit message says the DMIC-specific HPF programming sequence is 
-skipped for SMIC paths. However, this only skips the initial ZERO_GATE 
-write; the cutoff programming and the later ZERO_GATE clear still run 
-unconditionally.
-
-Is only the ZERO_GATE assertion DMIC-specific, or should the whole HPF
-set/program/clear sequence be under the same `!is_amic_enabled() condition?
-
-Thanks
-Ajay Kumar Nandam
-
-> -
+Cheers,
+Prabhakar
