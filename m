@@ -1,368 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010028.outbound.protection.outlook.com [52.101.228.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017DB14A8B;
-	Fri, 25 Sep 2026 03:27:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790306825; cv=none; b=hN8AiA8mvMXb761BAXu4J9KQVTl5RD18Nv0Yt2/V0Oe1f0F5EWx9XTegnYZTO4G/cTh8A50v0eBIEvKQnAqnNMQ2sdT+zjfO0MNhueRdXSqILujThcgi4Whai1aXnetorafqdaaThAmZv4O96ok0XVRVz7KAzQJp+axKF+LAe8o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790306825; c=relaxed/simple;
-	bh=P9t97RDKLEnkJ1lCsiACK03Bg1WxQ/XDLM3PZPcveKc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=C+m6afgNWNW8Ne6imiTMqzpCG9q4rpuY9Atzf9/ebRlnErW5GPhhhybJwr6e+nvhKS8Qo8ErSWSSy7FbaQ8SX+BXsYDQ3z3HFY5C4Qcua9ORyauz+44VWuVdzgw7Z/+ngO7PUsaQAw5tlchCxK93KS021/wItml3iST+B7WoRUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6NE/FwI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9C73A1B5;
+	Fri, 25 Sep 2026 03:55:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790308525; cv=fail; b=bjB+Tryzs3H6B0gzFTZVfiX37hFZkgMIo13/cE68stazZMDG6myqIciBOFm8BdjviPwfusqol6Zbb5EOOdW6dCtOi1JPRvL9IbAvTVj6Xd8UHoaShwENsJPJ7z4qxGlGLiPlLhf93dy1rVekEyr4C1tDtArh3Pmrz4BBQpOBmhY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790308525; c=relaxed/simple;
+	bh=8AGjWqDBtJ/NKbV2L/1WfVJQpDKYStbdTwB2lCtIp3I=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=pIHvmwaohPj+rF6Z0kZY79ewdcmFr5SZgQT2zrZiyd0RwPC0t6MfJM2yIeqxmz+9yHgHuJfzd+DE0rtmAcys6y3cuEli8SqFLooJCvfWymeeECmqjztvDxIyiKrvWJXVnG5sGroHOdQMXkrxZlh7lB4ye/7NvyrHPmXQ/sxrCaM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=L5mE/pXs; arc=fail smtp.client-ip=52.101.228.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6NE/FwI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EF1E1F000FF;
-	Fri, 25 Sep 2026 03:27:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790306823;
-	bh=iJP8603el2jv5SU6ykeH/cSRwUgsLtwGRNh0RSceOUI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=a6NE/FwIHq+Ap4WVXXysp5UPKopj+Uyx9+bOj0DGDCvnaXh1PRtGDhlG49wunzfoP
-	 EW+maVS3rDVTmT1FfyF6aYzDBjtfgwimwiiFrUNEwm5B/GMFdv4OZPNzY3icA2UIPd
-	 BXUh2YOTKzdvQJP4WGhpV4cJ4GGB6vstKh0mO6RFSQ+Gfyg+KLmQaTluHXnLVgeNmB
-	 Td8wP4OF1AfP2T+xZgj3fg+g/Sj6k2bDUFuiR0kQGyVi+Vt4zx+kyS9wZGwasCb36m
-	 rMFOhFsfwB5HNPg5MSLn1EhnTVmEXx5ZYQZBsdOnFx5UiUHd7UykPWBv//FVr7BFAP
-	 I/Tj2kLOydwPQ==
-Date: Fri, 25 Sep 2026 04:26:53 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: add driver for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-Message-ID: <20260925042653.15608e9b@jic23-hlaptop>
-In-Reply-To: <20260924-topic-sm8x50-iio-max34417-adc-v2-2-9a0609e72f5c@linaro.org>
-References: <20260924-topic-sm8x50-iio-max34417-adc-v2-0-9a0609e72f5c@linaro.org>
-	<20260924-topic-sm8x50-iio-max34417-adc-v2-2-9a0609e72f5c@linaro.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="L5mE/pXs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GMlJmiYyobHkqfIpkQ0X3YGKXp3gVWA1O/qAJLHvHccWc790pbgeY/77ZpzFsOfHuDLo1t5he7IZAkgD0gWK8BI8WRPiUvk1x2Aw1FDN+ytSYX5K2G1191WQbArxrjyk8YcPmbHoDrxKnXwGg/UeXePepLB19V/xTGRXuHpC97ZtjUffuFDDDkw+275hDkqnAvvnZjY+zzteA8rjQvIdHZ1d71NtdjHDZCMzq3hxf2JwGRRYj6PGJLxvt/SaQXFDul6q+yvxTIEPLEajg01p0hxvitdUAJLMXNEThmVxnz9lRwpoLQO2/Wom3hChldCQbPYXa4SUQkyBpnZZtcyffA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NfoKQ6PQjZGToAO6agXYXdxtL6HkEQNbKPb742Zx2b0=;
+ b=jTngiP7IitCQ5bQ/GYcHTc2lhW4KCrggjDrgiYMdODt5S+gmPX47a+aVnHaJmthc+i3eEAVwzPjNEQ1656+jQ7GFSsj8zD1Nt2za9r2PokYBdg0vY9EQdZeUiS7rm7Hqch2McdbkpvIVzA2j2nKYWTbJdLuB4lOnuI3xUo1R8AXMd9hV6ILafaTGOqbjnEYJaAmCUnNcjDqMbGaeKEIoyi2UD5DJ8yXRETeDIZQAL6WVgi01Lui+5W7taZdRb2L/z7RUYG5wkW3jSBV1OGkBk/QPQIaBtuZ0cKFI4ikApRSHp2O/7iYusw87Ct8I0OZdNE2pd5eUAVZFhA8BfKWdnQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NfoKQ6PQjZGToAO6agXYXdxtL6HkEQNbKPb742Zx2b0=;
+ b=L5mE/pXs7XH/8ncqbv+3GEToxSv6QSNu+WCpLKwi+Ipz0m+x9XqQLo6TtuSdAVcC/hyxtTqNkBPmUsaCzonPb0lLLU1HyvQC93hnbtlJqzLiFLpRmOc3bPeLuJSiLo3rGi+yk+4c2VpGOrl6+0Ey7QOU+13Hc3APw/m/7tR5kxA=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OSCPR01MB12503.jpnprd01.prod.outlook.com (2603:1096:604:324::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 03:55:20 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 03:55:20 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Jonathan Cameron <jic23@kernel.org>
+CC: geert <geert@linux-m68k.org>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano
+	<daniel.lezcano@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	"magnus.damm" <magnus.damm@gmail.com>, David Lechner <dlechner@baylibre.com>,
+	=?iso-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
+	<andy@kernel.org>, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, Chris Paterson
+	<Chris.Paterson2@renesas.com>
+Subject: RE: [PATCH v3 6/8] iio: adc: rzg2l_adc: Rename num_channels to
+ max_channels
+Thread-Topic: [PATCH v3 6/8] iio: adc: rzg2l_adc: Rename num_channels to
+ max_channels
+Thread-Index: AQHdSkrL3beyFjHg4EWFvzMYrSXvXbbaqjCAgAEpnqCAAso5AIAAD1Ng
+Date: Fri, 25 Sep 2026 03:55:19 +0000
+Message-ID:
+ <TY3PR01MB113463E1457DFE9AF62C7FE3886802@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260922042707.116378-1-biju.das.jz@bp.renesas.com>
+	<20260922042707.116378-7-biju.das.jz@bp.renesas.com>
+	<CAMuHMdVbyktVBAwBh=LoARWHHmb_FrF+omeDvNdR76uxus3mPA@mail.gmail.com>
+	<TY3PR01MB113468E77437603F4D230FD8386822@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <20260925035522.08ab45c7@jic23-hlaptop>
+In-Reply-To: <20260925035522.08ab45c7@jic23-hlaptop>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OSCPR01MB12503:EE_
+x-ms-office365-filtering-correlation-id: 0daa0c0e-6e00-45b3-21e2-08df1ab8d16f
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|10067099003|11063799006|56012099006|4143699003|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ afF2+gHNkYxXZ2+qpXgnZFC3VfO1//+5ZLChWEmtKIOWMtUGdRX9XDq9DUq6SH6ofDj+Pth16mw2hWjOuYbFqE5q+3QU5FVZY4fAU2tOrUSEGt+KSf/cRnAi65eI6+kkaeHDt8vMxLnzYnnANxsLfJ81KmMklBsdmO3xvPNBJOYsOzdQXJ8AB6ED3Hp1T2rPf1Ky5keZOZBb3im4INrHMMAcITwj4lzkSn/La18PeVxktiYKmswBNvXQ6Why6pf9dgqjnrqA8G0qaK7jMP6bHzUBcrRxRAW69pEOpLuNKiFfK0un7KgfKoW1aGV6tGYS4j3FzNfA8dwhvjJBrRWQWR0xEQaNmbGO+imgtl0fH9zcXq4Fl9APUPt2V94efQvJ2AuNDPraGkAjTn4+8NjyF248PF7Utl2rczn9EILcGMzXEARrAy9kXnKNk1UQykVRms/ce4btAwdOh65r9wQ38HLUlCj9aQjJRIlUrjk/uyfsVmqIUkB+hc0/zV5sLDNk67HOulb/WB8PLVYre8JeCUjMlC5VjAURNs9t7f6Ed0mS0txlG2+A3lG79i/krCHIMkW8xqdaFwzmXByBSMIPyxZsFAm/qJmYcI6ph78opSFg/w6DOIvbCK78glZqtWdPBbH6YMwl1OUTuy8x4TV8shmM00++9PRbmIQRGBpnMeVDI5uyOjBhSBSVwn80hcL2
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(4143699003)(38070700021)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?hS07aS28eMmK+hG8VnKxeiqHQryhgwS5iFqYwhtkZOEopGDZQvzcHjxKW2?=
+ =?iso-8859-1?Q?yzNVrcoNPRnqWuUOKVJNgdRFqHfGOEiQg8q5cDs52m3C2omwpteYf31fJq?=
+ =?iso-8859-1?Q?C914ddN98KoRldoiKY9licsyuVzJwV2atEv9XH8MavPV5+zKHqeV6jw0mh?=
+ =?iso-8859-1?Q?AC2ssp5r4CMsdos0b5tUiPivCUpLT70v8LNtAtcMwRJhf9PsZPQE2HnShk?=
+ =?iso-8859-1?Q?5tetjIVHv+ux2x/fcnXniu9ekCu1qJYkWEpUJdMNicQythNOlzyiQ6ZpbU?=
+ =?iso-8859-1?Q?/14xQ2sWYH+x9Jn+JA3CsHPm5VGAcNM2SAKqM0YqdPGqhkCVW7dZGNQm0J?=
+ =?iso-8859-1?Q?pF7sYNsE8ED3JoSHEQ4QyqU98ULugduMxpahLiSeDTtOLEG2BsShpjNbUW?=
+ =?iso-8859-1?Q?UzhleJiMslYW4SyQzBgRmzQ8/ohDGWGqerv9IHjvhJp7+Ro4TzT3377i5f?=
+ =?iso-8859-1?Q?RTll534pE4JfAwB7fC4ES1AHj9MHWDQ4QvguA/G8rUUIU5Vgv5XrGP5nkO?=
+ =?iso-8859-1?Q?wm9I02mgxJCWHjtVu4jCif5yNtLcfg6Gm3vh7OkqnwUiDTz7In2270TSF0?=
+ =?iso-8859-1?Q?49frynjnA8LVg2ok398Q/JC20QQcT6ZeJQsi+6s1RAgIhAVSlAxOK3f/Yj?=
+ =?iso-8859-1?Q?3gx4ejyLWETWHcZIYZz2plHt6VRuZ0aVoXPv0tQd5weQxybiEKekY0N+p8?=
+ =?iso-8859-1?Q?KThYOkQiUtRb5vDiD1jORgGKK/bIN/dTAvf2uTkts6BSDJAn2jNCXWodgN?=
+ =?iso-8859-1?Q?d8oj8kMsHUQCSjZ/7DfCP9egQPeX+9mnX2GCoJ5wL/hdXfYwd8jFlC+qak?=
+ =?iso-8859-1?Q?mxzW9RbwqEbbgj3dlTC+lnnHo72PjopdVLNNjER4PgZ3X/YWxUQksV52/B?=
+ =?iso-8859-1?Q?pSPkkbxZ/W6Oo/BpVd/HihrH1Wjdl3fRvFxVZilsnsj2ChLcCAUX0Y9+3R?=
+ =?iso-8859-1?Q?ia5CkdP4oaRZecUfF3RSv1L97pOQPbRRbV/o11cVWhnMdJZA6q6QaeGaqe?=
+ =?iso-8859-1?Q?N3YdnPzs7bad9RYZ3JGN4WOai6VgOwyUV2r4WAPWRga+sZKeJZHSZjq4qT?=
+ =?iso-8859-1?Q?tGFxZPvfCjsuPI+TJtuqxCvrMnk8lFn+XkuH2UQSsFO7hsnz+WH1LSrHB4?=
+ =?iso-8859-1?Q?KvGwDucMtXjga+BJK3oO6ld6ZfZShStax+hj4y2/b2eLm3uUMxlWNCimJl?=
+ =?iso-8859-1?Q?PznUmMEIsSx9hDNTKsk2jjjXzba7BrQrk9EjOCfcphCq30gRww9v7I+4Hn?=
+ =?iso-8859-1?Q?JhmN50lg33A3WSVsWd0eGrA/VpPqMeGjNxrDjE+FXac4Uc+ENUafo31CHq?=
+ =?iso-8859-1?Q?6zIjGvAnjnykoaXuTPJs7v4hz9sVuzy5gY2KHFMIdpbRkMc6GWVxesn4h1?=
+ =?iso-8859-1?Q?hn0d4dv+sMRQG5NebsytoDZdpbyfMyuPenKweWyp5BimI2TlcSuJmXBSGH?=
+ =?iso-8859-1?Q?uWRctZLZPoUr4/IeOrc5nbgfz81Uqy0mBNhlN0FkLf1+dw0YTSq6dEcFRN?=
+ =?iso-8859-1?Q?LONvtZx4nkKieub71jqbmKuGWi0KfGv7KOgXSISAGKc8wVuzr2WrmepMys?=
+ =?iso-8859-1?Q?4Fd06IYUommapQdRBlC4avN/lMdvV1QsturAvRzmKSaY+Krs0FMbKIFtwi?=
+ =?iso-8859-1?Q?Y9VfJ8cgaoOUe7pYE3TLzi76sdchl6QG+iYjbc5mUjbnRsEAZpHzU20t88?=
+ =?iso-8859-1?Q?ky50qPz5rY5AfSHfpQYyx2LDLT2Zmt9qU94YwrI+6hgcA0GovP8yd5qxCK?=
+ =?iso-8859-1?Q?1LbZa7xo7pT2UYAY+0Sn/7qYKyBtHe8YHkMeFJBj8MwD1P9mCv2/G4VNxl?=
+ =?iso-8859-1?Q?wTWJ3j7WgQ=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0daa0c0e-6e00-45b3-21e2-08df1ab8d16f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2026 03:55:19.8954
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZuLfJbC3sbBHcLh8qHbdXc7oprX1kwnb2LdNKrzg5j33FlXhaECURX67RHiY0or6SEaPVI2YB2E3j+iiFGd9oPFVjrt0Ir2Smt7YTp1J/O8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB12503
 
-On Thu, 24 Sep 2026 15:14:16 +0200
-Neil Armstrong <neil.armstrong@linaro.org> wrote:
+Hi Jonathan Cameron,
 
-> The MAX34417 is a specialized current and voltage monitor used to
-> determine power consumption of portable systems. The driver support
-> getting the channels voltage and accumulated average power over an
-> I2C/SMBUS serial interface.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> -----Original Message-----
+> From: Jonathan Cameron <jic23@kernel.org>
+> Sent: 25 September 2026 03:55
+> Subject: Re: [PATCH v3 6/8] iio: adc: rzg2l_adc: Rename num_channels to m=
+ax_channels
+>=20
+> On Wed, 23 Sep 2026 08:21:29 +0000
+> Biju Das <biju.das.jz@bp.renesas.com> wrote:
+>=20
+> > Hi Geert,
+> >
+> > Thanks for the feedback.
+> FWIW other than fixing this up, the ADC parts of this series look good to=
+ me.  I'm assuming they can go
+> through IIO whilst the rest goes through whatever tree makes sense?
 
-A few comments inline.  For a new driver I'd wait a week before sending an
-update. Whilst you've gotten quite a few reviews already it is good to make
-sure any discussion has died down before moving on to the next version.
+I think so. Binding + driver patches can go via IIO.
+I will send v4 with fixing driver + Rob' Rb tag for binding[1].
 
+[1] https://lore.kernel.org/all/TY3PR01MB11346568D44110BCA1CDD146D86802@TY3=
+PR01MB11346.jpnprd01.prod.outlook.com/
 
-Thanks,
-
-Jonathan
-
-> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
-> new file mode 100644
-> index 000000000000..98d961c5ecee
-> --- /dev/null
-> +++ b/drivers/iio/adc/max34417.c
-> @@ -0,0 +1,374 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * IIO driver for Maxim MAX34417 ADC, 4-Channels High Dynamic Range Power Accumulator
-> + *
-> + * Datasheet: https://www.analog.com/en/products/max34417.html
-> + *
-> + * TODO: Slow Mode, Continuous Accumulate Mode, Park Feature, Bulk Update, Perr_Verr Correction
-> + */
-
-> +#define MAX34417_CHANNEL(_index, _v_address, _power_address)	\
-> +	{							\
-> +		.type = IIO_VOLTAGE,				\
-> +		.info_mask_separate	= BIT(IIO_CHAN_INFO_RAW) | \
-> +					  BIT(IIO_CHAN_INFO_SCALE), \
-> +		.channel = (_index),				\
-> +		.address = (_v_address),			\
-> +		.indexed = 1,					\
-> +	},							\
-> +	{							\
-> +		.type = IIO_POWER,				\
-
-As below. This smells like it might not be an actual power channel if it
-is accumulated on a fixed frequency.  It'll be some sort of scaled IIO_ENERGY
-channel.  If you want to present it as power (which may make sense) then
-it may need a little maths.
-
-> +		.info_mask_separate	= BIT(IIO_CHAN_INFO_AVERAGE_RAW) | \
-> +					  BIT(IIO_CHAN_INFO_SCALE), \
-> +		.channel = (_index),				\
-> +		.address = (_power_address),			\
-> +		.indexed = 1,					\
-> +	}
-> +
-> +static const struct iio_chan_spec max34417_channels[] = {
-> +	MAX34417_CHANNEL(0, MAX34417_V_CH1_REG, MAX34417_PWR_ACC_1_REG),
-> +	MAX34417_CHANNEL(1, MAX34417_V_CH2_REG, MAX34417_PWR_ACC_2_REG),
-> +	MAX34417_CHANNEL(2, MAX34417_V_CH3_REG, MAX34417_PWR_ACC_3_REG),
-> +	MAX34417_CHANNEL(3, MAX34417_V_CH4_REG, MAX34417_PWR_ACC_4_REG),
-> +};
-> +
-> +/* TODO Implement trigger to update accumulator once and get all channels at once */
-> +
-> +static int max34417_accumulator_update(struct max34417_data *max34417)
-> +{
-> +	int rc;
-> +
-> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
-> +	if (rc) {
-> +		dev_err(max34417->dev, "Error (%d) writing update register\n", rc);
-> +		return rc;
-> +	}
-> +
-> +	/* Wait for accumulator update */
-> +	fsleep(1000);
-> +
-> +	return 0;
-> +}
-> +
-> +static int max34417_read_voltage(struct max34417_data *max34417,
-> +				 const struct iio_chan_spec *chan, int *val)
-> +{
-> +	uint16_t voltage;
-> +	uint8_t buf[3];
-> +	int rc;
-> +
-> +	guard(mutex)(&max34417->lock);
-> +
-> +	rc = max34417_accumulator_update(max34417);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = regmap_noinc_read(max34417->regmap, chan->address, &buf, 3);
-> +	if (rc)
-> +		return rc;
-> +
-> +	voltage = buf[2] | ((uint64_t)buf[1] << 8);
-
-get_unaligned_be16();
-
-> +	voltage >>= 2;
-> +
-> +	*val = voltage;
-> +
-> +	return IIO_VAL_INT;
-> +}
-> +
-> +static int max34417_read_power(struct max34417_data *max34417,
-> +			       const struct iio_chan_spec *chan,
-> +			       int *val, int *val2)
-> +{
-> +	uint32_t acc_count;
-> +	uint64_t power;
-> +	uint8_t buf[8];
-Kernel types so u32, u64, u8
-
-> +	int rc;
-> +
-> +	guard(mutex)(&max34417->lock);
-> +
-> +	rc = max34417_accumulator_update(max34417);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = regmap_noinc_read(max34417->regmap, MAX34417_ACC_COUNT_REG,
-> +			       &buf, 4);
-> +	if (rc)
-> +		return rc;
-> +
-> +	acc_count = buf[3] | ((uint64_t)buf[2] << 8) | ((uint64_t)buf[1] << 16);
-
-get_unaligned_be24(buf);
-
-> +	if (!acc_count)
-> +		return -EIO;
-> +
-> +	rc = regmap_noinc_read(max34417->regmap, chan->address, &buf, 8);
-> +	if (rc)
-> +		return rc;
-> +
-> +	power = buf[7];
-> +	power |= ((uint64_t)buf[6] << 8UL);
-> +	power |= ((uint64_t)buf[5] << 16UL);
-> +	power |= ((uint64_t)buf[4] << 24UL);
-> +	power |= ((uint64_t)buf[3] << 32UL);
-> +	power |= ((uint64_t)buf[2] << 40UL);
-> +	power |= ((uint64_t)buf[1] << 48UL);
-
-Hmm. i think this is the second 56 bit endian reader we've had
-recently.  Time to add get_unaligned_be56()
-
-> +
-> +	power = div_u64(power, acc_count);
-> +
-> +	*val = FIELD_GET(GENMASK_ULL(31, 0), power);
-> +	*val2 = FIELD_GET(GENMASK_ULL(55, 32), power);
-> +
-> +	return IIO_VAL_INT_64;
-> +}
-> +
-> +static int max34417_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     int *val, int *val2, long mask)
-> +{
-> +	struct max34417_data *max34417 = iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (chan->type == IIO_VOLTAGE)
-To reduce indent I'd flip it
-		if (chan->type != IIO_VOLTAGE)
-			return -EINVAL;
-
-> +			return max34417_read_voltage(max34417, chan, val);
-> +
-> +		return -EINVAL;
-> +	case IIO_CHAN_INFO_AVERAGE_RAW:
-> +		if (chan->type == IIO_POWER)
-> +			return max34417_read_power(max34417, chan, val, val2);
-> +
-> +		return -EINVAL;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (chan->type == IIO_VOLTAGE) {
-> +			/* Scale to mA */
-
-On a voltage channel?  That is unlikely to be correct.
-
-> +			*val = MAX34417_VOLTAGE_CORRECTION_SCALE * MILLI;
-> +			*val2 = MAX34417_VOLTAGE_FULL_SCALE_BITS;
-> +
-> +			return IIO_VAL_FRACTIONAL_LOG2;
-> +		} else if (chan->type == IIO_POWER) {
-
-Actually power or accumulated power (otherwise known as energy!)
-
-> +			/* Scale to mW */
-> +			*val = max34417->input_correction[chan->channel] * MILLI;
-> +			*val2 = MAX34417_PWR_AVG_FULL_SCALE_BITS;
-> +
-> +			return IIO_VAL_FRACTIONAL_LOG2;
-> +		}
-> +
-> +		return -EINVAL;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-
-> +
-> +static unsigned int max34417_calc_input_correction(u32 rsense)
-> +{
-> +	/* (100 milliOhm / rsense) * MAX34417_PWR_CORRECTION_SCALE */
-> +	return (100 * MILLI * MAX34417_PWR_CORRECTION_SCALE) / rsense;
-> +}
-> +
-> +static int max34417_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct max34417_data *max34417;
-> +	struct iio_dev *indio_dev;
-> +	struct regmap *regmap;
-> +	int rc, i;
-> +
-> +	regmap = devm_regmap_init_i2c(client, &max34417_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap), "regmap_init failed\n");
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	rc = devm_regulator_get_enable(dev, "vdd");
-> +	if (rc)
-> +		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
-> +
-> +	rc = devm_regulator_get_enable(dev, "vio");
-> +	if (rc)
-> +		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
-> +
-> +	max34417 = iio_priv(indio_dev);
-> +	max34417->regmap = regmap;
-> +	max34417->dev = dev;
-> +	mutex_init(&max34417->lock);
-For new code
-	ret = devm_mutex_init(...)
-	if (ret)
-		return ret;
-
-Brings some debug logic in which might be a little bit useful to someone
-and it's cheap to do.
-
-> +
-> +	/* Set default input correction for all channels */
-> +	for (i = 0; i < MAX34417_CHANNEL_COUNT; ++i)
-	for (unsigned int i = 0; .... i++)
-
-> +		max34417->input_correction[i] =
-> +			max34417_calc_input_correction(MAX34417_DEFAULT_RSENSE);
-> +
-> +	device_for_each_child_node_scoped(dev, node) {
-> +		u32 rsense, index;
-> +
-> +		if (fwnode_property_read_u32(node, "reg", &index))
-> +			return dev_err_probe(dev, -EINVAL, "missing reg property of %pfwP\n",
-> +					     node);
-
-returned, so no need to chase with an else.
-
-> +		else if (index >= MAX34417_CHANNEL_COUNT)
-> +			return dev_err_probe(dev, -EINVAL, "invalid reg %d of %pfwP\n",
-> +					     index, node);
-> +
-> +		fwnode_property_read_string(node, "label", &max34417->input_label[index]);
-> +
-> +		rc = fwnode_property_read_u32(node, "shunt-resistor-micro-ohms", &rsense);
-For optional properties, we generally now check for them first then if the property is
-there can make errors reasons to fail
-
-		if (fwnode_property_present()) {
-			rc = fwnode_property_read_u32();
-			if (rc)
-				return dev_err_probe();
-
-etc
-
-> +		if (!rc) {
-> +			if (!rsense || rsense < 1000 || rsense > 100000)
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "invalid shunt value %d of %pfwP\n",
-> +						     rsense, node);
-> +
-> +			max34417->input_correction[index] =
-> +				max34417_calc_input_correction(rsense);
-> +		}
-> +	}
-> +
-> +	indio_dev->channels = max34417_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
-> +	indio_dev->name = "max34417";
-> +	indio_dev->info = &max34417_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	/* Set as default Manual Mode & Wide ADC */
-> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, MAX34417_DEFAULT_CMM_WIDE);
-> +	if (rc)
-> +		return dev_err_probe(max34417->dev, rc, "Error writing control register\n");
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
-
+Cheers,
+Biju
