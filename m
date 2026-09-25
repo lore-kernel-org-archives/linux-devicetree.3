@@ -1,358 +1,98 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E524DDB41
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 16:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0AC84E06D2;
+	Fri, 25 Sep 2026 16:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352688; cv=none; b=LQHv8I2cJQFT4yYJd+/nZ5wPqb2aB/tM/ZEkYfzrcv7aSah+4oZnyDZOwOMfUGwld/c/yZWx43V+L6rTYpuDRI2oR9QuLaky51/mgni8UgLyR3thLPDcDnqrCD/3mZEy+otZKD8aZG/G/RNzs3QzF5XBsYjYSGZjMhzfzlfalgU=
+	t=1790352689; cv=none; b=Of2j7jOoKCCRcfKo1DPalMf31iPfFBjbiJHcqgaD2BSw8mSLe7hR3IV1nG4MnBjo3pH1nc4zUeFrZjSr+dy1XckCclEEtFeLDsaK+KJA67EwKpps8megOPN7VnTT5MfFdMED+FWRXA7H33mc94qdl/Ze1OmURcWmXhru1PJU3W4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790352688; c=relaxed/simple;
-	bh=tKHIOiQsQeC33EW/Qjc6tjjp39R5cseNHhkAtWTOdw8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aGIoCgC0c8and8PodahAhJUPxvjIzVU/Cmb9IUZWbQ4h9VeoXWS0jlQRrvBzwPFt4pteKosbyViy+hukUTrMmAsNjWCaFMqKkKAo3jL4Q9mlOMunXGBbiZvdqOe+Xk4SKOr/ejUSaYYZm5+Erk22XIafiYw+wG3tWD5NnPkhvq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AbahM8m6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PEqqraGA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790352689; c=relaxed/simple;
+	bh=0Ep5/yJcQkQR/amNx9lZmRYzt6UcSlwacpPo8zAo+Ig=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ODGM4CIEEHE/NrnUHjIeJdBsq/Tcvq/p6LfGZ7vFjqdpFfnw+C5/VqPC0UeZFbICMKhwGcK86KI8fnGKoOGdYyOVkQwmqpM685gcxMLiu9E/N/CI188fXFuUBSeTSYxTQWKMS//2o9SNmmcsU2zDw8ZJuku59pkcIJ6Q/xHm0o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mpgTlH2w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AbahM8m6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PEqqraGA"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PG0jV51964829
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 16:11:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=JNsnnKSZQPB
-	dxnmNmbrm/4Q4uf6HnwcsLbnCUtI07yk=; b=AbahM8m6uUAUnzBDrfEk++bJIpP
-	xD2CCZcbpXo3+GKLDK0cIzYp3fYczo9opwPHXohVwqgX7SSJy5oseJNGOS3BXRoW
-	VjYtN3/Fydp5sW2ArHV3qlYW+0qVkwsAMY1+bjGHZWQYhR7oVZY2c3+nipv5y5oz
-	VqjkkhS+ChdLDSIQMd+M9E+MDNNekItXYOj97zuy2OQnGU8OOXRFcGBd6okDCU5n
-	NC/avlmI1d5DydTVRQKWiDoZM/mlr+tpaGsCTFZcDAL6+M6TL9AmJ0EJPUxWZCYn
-	XUQEIZNZ/aHSfwsWfT9tv8uikIshNucd/tBBLV9y+aEzh0HlffepFOJCDEg==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwjpvt49u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 16:11:25 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-98527cdac1eso128981241.0
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 09:11:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790352684; x=1790957484; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JNsnnKSZQPBdxnmNmbrm/4Q4uf6HnwcsLbnCUtI07yk=;
-        b=PEqqraGAe9mqb7crSOs9Tq068p4aCHYO+M73YqxYX9TraMUtF9l/xzGOii17mLcM+N
-         ZsGpY0GbtnK6GC0un7azePbepZcLHFYdl4TGM8OVQlXJx7cEjPgiYW3CQ88s5aiGSDVv
-         iRSCXzIjuVU6FLjsB/aOtIr7Fg5yhp0XEIH42kvpuUwc6hEFNfld4ISycb+f72+nx1gr
-         OBcgS40arrRE7uFkQSnMQsYPW1AaVwdSUKGuGm55qkFUYU3LAAPMtFjoE/1VG8ZDwt3w
-         4JSOukxgDez+Hxt4Trrn62jEtAHU8HzJzt2KaoHieidPhAsCTd3YYYcar3d2/9qvsYtz
-         eGeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790352684; x=1790957484;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JNsnnKSZQPBdxnmNmbrm/4Q4uf6HnwcsLbnCUtI07yk=;
-        b=IdIfnmcb+Q1+bDveTfLsMpWwxv/8/IvNf/LusCHvatWlo+VSsA12JMPu7PvepayUIz
-         5XjekTcv0lDHfvhArs5GX/ySRpFEoVZ6xBgcjEvdfHpe9NCQd4GsvmKdbhsJVo8gALEC
-         y6jE+VXPFXfcd6gLunL/ES6+2UMVdxCFM5DqAKQqrxYvI1EGIkijLFFYSy+kr5/Hyy57
-         zk+YOujtc6mAcqzfK06cqkZUFnJFDq6ID/U7ZGSInCvKOmc3gK1ZHfOAk1+q2QHyTRV9
-         6pR8E369Z1TtmqwuQTOsRDcFJ7VnhUjaiDn94CT7wfjz3LN07Kb9D9HimdvFwiiUUgCd
-         s83Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwEB6BFrpUxTBC8pezlKUigSQmX0EO9L7X8CImUZ04z8dU9dqebVBqBz2StEOu5dxx5bFbIl/LjkGRw@vger.kernel.org
-X-Gm-Message-State: AFuF++lhRAuVXL97gSDaq4SL9lb1IcvA8BVtvcKMQOf8xS9V0oCChNd1
-	rFNCSJ8vxcQ7eEr7ftnvYpyzHYHgKaJ03ZLwltrOf+jAa2S2Qgyj6gnNYMMiGrFswdLL8bLcdz9
-	QHD2I6EvSUmlm/aeBivGkqzCYDRBeqrRl90JyLvRfc98iKhmy5lNu5wvy7inXHJg0
-X-Gm-Gg: AYBFou3fww4FzvmzMhpTMg4wdXlAnIV6vglxeIiMbmeXxLch8OWrkPZoTnyvXyGT40S
-	bDeLsYHstgr9jgt7NuigXpoVSc7J9i8P62eQTKLRdUIHccPdOvH2TeZu8Xzw8IkWdwTHCME5mN5
-	6WKnrH4uxfrjUW9CIHdMKd/q8a4ohc/CzTw6VsQ5x0flhNdTSyLwDB6kjh4KGtE/CBaqKzE7gN+
-	y7VmVbhk5sRm9gW1P7OJXhi8wXWKdcQS7zJpT4tGRfU4/CsmOLBdoBp2ysEctDsgPRCUM4uaqmV
-	kOjpVJLcX9oseT89M2wsejWZkdQC+G5dltZA0ie8yzPhqCW5jQdMQtNywiTVprLa4lnE645FKVU
-	j66axMhtg/44C
-X-Received: by 2002:a05:6102:41a9:b0:7a6:b18e:6d5a with SMTP id ada2fe7eead31-7af1e4f6363mr2494690137.17.1790352684122;
-        Fri, 25 Sep 2026 09:11:24 -0700 (PDT)
-X-Received: by 2002:a05:6102:41a9:b0:7a6:b18e:6d5a with SMTP id ada2fe7eead31-7af1e4f6363mr2494667137.17.1790352683630;
-        Fri, 25 Sep 2026 09:11:23 -0700 (PDT)
-Received: from debian ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06b4d45sm73019505e9.7.2026.09.25.09.11.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 09:11:22 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Maciej Strozek <mstrozek@opensource.cirrus.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        patches@opensource.cirrus.com,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH v5 2/7] ASoC: SDCA: export PM helpers keyed on sdca_class_drv
-Date: Fri, 25 Sep 2026 17:10:43 +0100
-Message-ID: <20260925161049.758913-3-srinivas.kandagatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260925161049.758913-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260925161049.758913-1-srinivas.kandagatla@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mpgTlH2w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151221F00893;
+	Fri, 25 Sep 2026 16:11:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790352687;
+	bh=iIV0HYVUOvjoEsNB3F2jlX26Iny1jwqmfjKvpE6BGYU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mpgTlH2w2Cnf5SvtPlU9Hbg/VEsJdPMggnV7KSxJaF9C6hhWayB9CIH3wH9L1prD8
+	 a3gAuCDTZaJ42mbL/X+BNlWQQX9LQ3N5Bb5tF/8bjVTLMoNPCypXUSd5XMCT38Y0SR
+	 Mr2S3errYAFXVEO656JwEwFTlxjIO++kyxqEuJqMrDVuaZoIGFAbLpKBUGkHOheT26
+	 Z0lRgP7ykSqXMB82VbMJ4e8H+EBi++BH4dhomjp3E3SW5jRGfSp5L8lAMWL81CnQef
+	 atDG12R30YgYA6NXxKvTFhE1igN0IJzUqjTsAR46kEaGs9/cMGSJ8ozTyw+R/f3iju
+	 xRnNP+UBp5hBw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: dma: Convert hisilicon,k3-dma-1.0 to DT
+ schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: robh@kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260925160354.1722583-1-robh@kernel.org>
+References: <20260925160354.1722583-1-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 25 Sep 2026 16:11:26 +0000
+Message-Id: <20260925161127.151221F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: yhBsgyw6YuQdRdn9TGp_-63mfFlfAsiT
-X-Proofpoint-ORIG-GUID: yhBsgyw6YuQdRdn9TGp_-63mfFlfAsiT
-X-Authority-Analysis: v=2.4 cv=aLBlOr9m c=1 sm=1 tr=0 ts=6ab69d2d cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=3PQulrMEHypX3zRcvmEA:9 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2NCBTYWx0ZWRfX7SwFgjwUdJGy
- yIm9pvigTCrq/pFHkxcqgXkp4F4Q1TknRRay5PnNZ2nsC7VQPNKIu66ssVWzNoSGi3N8qRDMhTo
- VjvRngU212atHBIyKkhCkaKFKq/vNJQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2NCBTYWx0ZWRfX0lhCAmU8CpFl
- dzWOPcPROgngvUzBRYD5ylLN0UQ6heganFiyB5KMj+yXD4Ve7glrlnXjBB9sEOIJupjKFfPlPl4
- NlK0JzoCMknOd1VYPH/7cVx6Y4DbGwPqBNYtj9vVCPOuydW6ehHaGz4iujxXMlOuRQuJc8L+bJy
- Jih1KwtRO3r2CsKmJudxdWRzL/tu2TM0FqrJqZ1IkWzFvU5vL5QfIw/Od+rvKXKExy2nWY0OX9d
- AijuWauZILbx23ZiVKSLemBCVHt80J4Y0lYDOAyiVhqlhElc47YtaBdrmApBfJwfkNFHiykXx+N
- 8uWwjqu1ORFXYpRJ6K3ks4TYkIe+U3sTtX8nU/UnEB+VKW2yV9YtL5Wr4tbwy1u/0/7+pZ2NVwI
- ywbsMOWMHwdEj2XXB7DV9vA8U5sNd/s7Br0mndR8p5Ns8yNCefDmfvTsnq+RfWVpYKY7vGNubg4
- l2FKl7DrQdpb0JUOYPw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 malwarescore=0 priorityscore=1501
- clxscore=1015 phishscore=0 adultscore=0 impostorscore=0 spamscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609250064
 
-The class PM callbacks pull sdca_class_drv out of drvdata, so the
-built-in class_sdw_driver owns the drvdata slot. That works for the
-generic case but blocks codec drivers that want to embed
-sdca_class_drv in their own private struct -- they need drvdata for
-their codec priv.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: invalid node name in example failing dma-controller.ya=
+ml schema
+--
 
-Split the four callbacks into exported helpers that take a
-struct sdca_class_drv * directly:
+commit e8e749663f823d5245b7a4660ed5a57fe7046856
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-  sdca_class_system_suspend()
-  sdca_class_system_resume()
-  sdca_class_runtime_suspend()
-  sdca_class_runtime_resume()
+dt-bindings: dma: Convert hisilicon,k3-dma-1.0 to DT schema
 
-Codec drivers can now compose these into their own dev_pm_ops without
-going through drvdata.
+Convert the hisilicon,k3-dma-1.0 binding to DT schema format. Add undocumen=
+ted
+properties and make clocks optional for the hisilicon,hisi-pcm-asp-dma-1.0
+hardware.
 
-For the built-in class_sdw_driver, add small dev_pm_ops wrappers that
-fetch drv from drvdata and wire them into sdca_class_pm_ops. The ops
-struct itself stays private to this file; codec drivers build their
-own dev_pm_ops from the four exported helpers above.
+> diff --git a/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.y=
+aml b/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
+> new file mode 100644
+> index 0000000000000..7a7aab5f4c66c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
 
-No functional change: the built-in class_sdw_driver keeps the same PM
-semantics; only the internal plumbing shifts to operate on
-sdca_class_drv instead of struct device *dev.
+[ ... ]
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
----
- .../soc/sdca => include/sound}/sdca_class.h   | 14 ++++
- sound/soc/sdca/sdca_class.c                   | 81 ++++++++++++++-----
- sound/soc/sdca/sdca_class_function.c          |  2 +-
- 3 files changed, 78 insertions(+), 19 deletions(-)
- rename {sound/soc/sdca => include/sound}/sdca_class.h (58%)
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    dma@fcd02000 {
 
-diff --git a/sound/soc/sdca/sdca_class.h b/include/sound/sdca_class.h
-similarity index 58%
-rename from sound/soc/sdca/sdca_class.h
-rename to include/sound/sdca_class.h
-index 57f7f8d08f49..8a6a34a8dd4c 100644
---- a/sound/soc/sdca/sdca_class.h
-+++ b/include/sound/sdca_class.h
-@@ -32,4 +32,18 @@ struct sdca_class_drv {
- 	struct work_struct boot_work;
- };
- 
-+/*
-+ * PM helpers.  Codec drivers embed sdca_class_drv in their own priv,
-+ * own dev_set_drvdata(), and compose these into their own dev_pm_ops:
-+ *
-+ *	static int wcd_runtime_suspend(struct device *dev) {
-+ *		struct wcd_priv *priv = dev_get_drvdata(dev);
-+ *		return sdca_class_runtime_suspend(&priv->class);
-+ *	}
-+ */
-+int sdca_class_runtime_suspend(struct sdca_class_drv *drv);
-+int sdca_class_runtime_resume(struct sdca_class_drv *drv);
-+int sdca_class_system_suspend(struct sdca_class_drv *drv);
-+int sdca_class_system_resume(struct sdca_class_drv *drv);
-+
- #endif /* __SDCA_CLASS_H__ */
-diff --git a/sound/soc/sdca/sdca_class.c b/sound/soc/sdca/sdca_class.c
-index d7444f442c71..a092ebaa620a 100644
---- a/sound/soc/sdca/sdca_class.c
-+++ b/sound/soc/sdca/sdca_class.c
-@@ -20,7 +20,7 @@
- #include <sound/sdca_function.h>
- #include <sound/sdca_interrupts.h>
- #include <sound/sdca_regmap.h>
--#include "sdca_class.h"
-+#include <sound/sdca_class.h>
- 
- #define CLASS_SDW_ATTACH_TIMEOUT_MS	5000
- 
-@@ -194,30 +194,41 @@ static void class_sdw_remove(struct sdw_slave *sdw)
- 	cancel_work_sync(&drv->boot_work);
- }
- 
--static int class_suspend(struct device *dev)
-+/**
-+ * sdca_class_system_suspend - SDCA class system suspend helper
-+ * @drv: caller-owned sdca_class_drv.
-+ *
-+ * Codec drivers compose this into their own dev_pm_ops.  Disables the
-+ * SoundWire interrupt and forces runtime suspend of the underlying
-+ * class regmap.
-+ */
-+int sdca_class_system_suspend(struct sdca_class_drv *drv)
- {
--	struct sdca_class_drv *drv = dev_get_drvdata(dev);
- 	int ret;
- 
- 	disable_irq(drv->sdw->irq);
- 
--	ret = pm_runtime_force_suspend(dev);
-+	ret = pm_runtime_force_suspend(drv->dev);
- 	if (ret) {
--		dev_err(dev, "failed to force suspend: %d\n", ret);
-+		dev_err(drv->dev, "failed to force suspend: %d\n", ret);
- 		return ret;
- 	}
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS_GPL(sdca_class_system_suspend, "SND_SOC_SDCA_CLASS");
- 
--static int class_resume(struct device *dev)
-+/**
-+ * sdca_class_system_resume - SDCA class system resume helper
-+ * @drv: caller-owned sdca_class_drv.
-+ */
-+int sdca_class_system_resume(struct sdca_class_drv *drv)
- {
--	struct sdca_class_drv *drv = dev_get_drvdata(dev);
- 	int ret;
- 
--	ret = pm_runtime_force_resume(dev);
-+	ret = pm_runtime_force_resume(drv->dev);
- 	if (ret) {
--		dev_err(dev, "failed to force resume: %d\n", ret);
-+		dev_err(drv->dev, "failed to force resume: %d\n", ret);
- 		return ret;
- 	}
- 
-@@ -225,11 +236,14 @@ static int class_resume(struct device *dev)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS_GPL(sdca_class_system_resume, "SND_SOC_SDCA_CLASS");
- 
--static int class_runtime_suspend(struct device *dev)
-+/**
-+ * sdca_class_runtime_suspend - SDCA class runtime suspend helper
-+ * @drv: caller-owned sdca_class_drv.
-+ */
-+int sdca_class_runtime_suspend(struct sdca_class_drv *drv)
- {
--	struct sdca_class_drv *drv = dev_get_drvdata(dev);
--
- 	/*
- 	 * Whilst the driver doesn't power the chip down here, going into runtime
- 	 * suspend lets the SoundWire bus power down, which means the driver
-@@ -239,10 +253,14 @@ static int class_runtime_suspend(struct device *dev)
- 
- 	return 0;
- }
-+EXPORT_SYMBOL_NS_GPL(sdca_class_runtime_suspend, "SND_SOC_SDCA_CLASS");
- 
--static int class_runtime_resume(struct device *dev)
-+/**
-+ * sdca_class_runtime_resume - SDCA class runtime resume helper
-+ * @drv: caller-owned sdca_class_drv.
-+ */
-+int sdca_class_runtime_resume(struct sdca_class_drv *drv)
- {
--	struct sdca_class_drv *drv = dev_get_drvdata(dev);
- 	int ret;
- 
- 	ret = sdw_slave_wait_for_init(drv->sdw, CLASS_SDW_ATTACH_TIMEOUT_MS);
-@@ -265,10 +283,37 @@ static int class_runtime_resume(struct device *dev)
- 
- 	return ret;
- }
-+EXPORT_SYMBOL_NS_GPL(sdca_class_runtime_resume, "SND_SOC_SDCA_CLASS");
-+
-+/*
-+ * Convenience dev_pm_ops used by the built-in class_sdw_driver, which
-+ * stashes its sdca_class_drv in drvdata directly.  Codec drivers that
-+ * embed sdca_class_drv in their own priv compose their own dev_pm_ops
-+ * using the sdca_class_*_suspend/resume helpers above.
-+ */
-+static int class_pm_system_suspend(struct device *dev)
-+{
-+	return sdca_class_system_suspend(dev_get_drvdata(dev));
-+}
-+
-+static int class_pm_system_resume(struct device *dev)
-+{
-+	return sdca_class_system_resume(dev_get_drvdata(dev));
-+}
-+
-+static int class_pm_runtime_suspend(struct device *dev)
-+{
-+	return sdca_class_runtime_suspend(dev_get_drvdata(dev));
-+}
-+
-+static int class_pm_runtime_resume(struct device *dev)
-+{
-+	return sdca_class_runtime_resume(dev_get_drvdata(dev));
-+}
- 
--static const struct dev_pm_ops class_pm_ops = {
--	SYSTEM_SLEEP_PM_OPS(class_suspend, class_resume)
--	RUNTIME_PM_OPS(class_runtime_suspend, class_runtime_resume, NULL)
-+static const struct dev_pm_ops sdca_class_pm_ops = {
-+	SYSTEM_SLEEP_PM_OPS(class_pm_system_suspend, class_pm_system_resume)
-+	RUNTIME_PM_OPS(class_pm_runtime_suspend, class_pm_runtime_resume, NULL)
- };
- 
- static const struct sdw_device_id class_sdw_id[] = {
-@@ -282,7 +327,7 @@ MODULE_DEVICE_TABLE(sdw, class_sdw_id);
- static struct sdw_driver class_sdw_driver = {
- 	.driver = {
- 		.name		= "sdca_class",
--		.pm		= pm_ptr(&class_pm_ops),
-+		.pm		= pm_ptr(&sdca_class_pm_ops),
- 	},
- 
- 	.probe		= class_sdw_probe,
-diff --git a/sound/soc/sdca/sdca_class_function.c b/sound/soc/sdca/sdca_class_function.c
-index 1d7fd6603882..411e3d717bb6 100644
---- a/sound/soc/sdca/sdca_class_function.c
-+++ b/sound/soc/sdca/sdca_class_function.c
-@@ -26,7 +26,7 @@
- #include <sound/soc-component.h>
- #include <sound/soc-dai.h>
- #include <sound/soc.h>
--#include "sdca_class.h"
-+#include <sound/sdca_class.h>
- #include "sdca_function_device.h"
- 
- struct class_function_drv {
--- 
-2.53.0
+[Severity: Low]
+The dma-controller.yaml schema referenced in the allOf block enforces that
+the node name matches the regex pattern ^dma-controller(@.*)?$.
 
+Since this example node is named dma@fcd02000, will it fail validation duri=
+ng
+make dt_binding_check? Could this be updated to dma-controller@fcd02000 to
+satisfy the schema requirements?
+
+> +        compatible =3D "hisilicon,k3-dma-1.0";
+> +        reg =3D <0xfcd02000 0x1000>;
+> +        #dma-cells =3D <1>;
+> +        dma-channels =3D <16>;
+> +        dma-requests =3D <27>;
+> +        interrupts =3D <0 12 4>;
+> +        clocks =3D <&pclk>;
+> +    };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925160354.1722=
+583-1-robh@kernel.org?part=3D1
