@@ -1,77 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7906D4EBAFE;
-	Fri, 25 Sep 2026 16:44:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270364B0E28;
+	Fri, 25 Sep 2026 16:45:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790354662; cv=none; b=bN97Zb5tJn06bKtLsqI5Av3dpvVqhQyUy7SThX3/GVP5nTa8JY90Vlsz8MCWNIX0FCD7lLqnhd7gk49rrUM1to01axwvCtDCHhQGyaFFCjwkSWQUYd/YlXHcahp0oyQqCMTSCGtJiTG4IwU/5GU2mVIRVRXu91YWFWjR/WyKbFk=
+	t=1790354718; cv=none; b=NHp0lqD2lKVgIowG/MWTj0bJaHxvIn2PGYyMyUCY0/idYQURoETZEwdE2KQtLzIDonLodhy3HvusZABm7tyNNT7WFI6lXhNz2Q/ZnctCfVs86QqVpumrMZHosJcNHRvRyNpcbYpXSIEIXtDLyDxEYJTJmzUMq+pJRB2khzixrOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790354662; c=relaxed/simple;
-	bh=vd99hyWNus1dm3oNFqRTzpiSro/ntSK6czeXELiAWPE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DkP8lsQq/R6tKGWu+FM0RiubfAXWL0oq2CFKMcXWl1TUEUhZZSaJjjU/HKooiNcJjUEFbB1nMc9bXVvVWs24YsLkweC2nd8izjSRNR1SdAZ5kUudxN5IEhUshQxpHFque/DMyzVye8jnAjjxs1I0XCS6A9eGSLSN6CPJjwLuhfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dS4jWHfb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790354718; c=relaxed/simple;
+	bh=UfTqMoZaKl1g2H1qPqJgwV+BIhhP3ccyhCE+fxx6oqw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oQoaXCCbN+hqJ/uysm4v78p5Km70+iD3StM9OrIcejIyXFIffekzh/VMV/59A/EKBfyFx1Ft0a39JQciRnzYVhEfqUfp2onndj26Oiqw59uCVdQbywQi9tOp+kSdEu1APzTvge15UeFZB+9z8133808/LSvK0lF7a9UrcHDc05o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G+AzGy/3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dS4jWHfb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5F591F008A1;
-	Fri, 25 Sep 2026 16:44:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G+AzGy/3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6971F000FF;
+	Fri, 25 Sep 2026 16:44:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790354647;
-	bh=OtwTEtGy/sZ5uARp6+XkngBBWu7fVpXfGdOgzB4S3u0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dS4jWHfbirl+7BBk2uS/nChT9khObIgQhgVVe7UrtMEB7cZheYTXJgsR1e8HgDxSM
-	 MP7GnEJ2GxYZYIPA5EHpBAVVPn3lFYP/CSNIJ60L/He+GBi9ooBf/de3IDbEFeSLCS
-	 Wa5ZbYgSPpeQx1oq7iD9BEbhn9n4Na4agP+2COJmFUtoRVTpXV5BHpHVT/aa69Doul
-	 sLtaQ6tAj2fWQtBfnCJW+E2fP8orpLBxkqMZ+KlB5UjgkWIkfY/CSQ7+9XjHt2NJip
-	 WvhljE3EKLBxKeMvfVY/nZIvcB3z3je97b2f/woaxrMfrqkoREi91XFvK2eg/GDFpm
-	 auhUYzvx5lg4Q==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	s=k20260515; t=1790354701;
+	bh=UfTqMoZaKl1g2H1qPqJgwV+BIhhP3ccyhCE+fxx6oqw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G+AzGy/35yWcB/yRSQPg6CKCHS8fQQsVhDau7eZLgAam//ohXhp06x4Atq4uxdUWF
+	 9FhACAsB8aMRJnr4xWYyh9lY3ogjiz7fj9afyW5V14FIUtV9BUiZjtAx2c8KFqS/3Y
+	 9Gva8wwtjf5bcXoLBYUcxBuDbsNgP/5XRwdvXs3EIHzZsSAlEJsZQPfTrL/XdSxrIp
+	 sSj92Eoi3owe4+B42Lc+P57WtPZuykz4nFB1byhJDK1LFiJ0NuwWehCs4jhKxsijd+
+	 i1fi1OymdEt1qewzd3r/3onpCuHnRD3SFlHZZtxnajgcPxEd9SIHJBlcpvsDa1FdFa
+	 P7roDOrae40tQ==
+Date: Fri, 25 Sep 2026 17:44:57 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-	Imran Shaik <imran.shaik@oss.qualcomm.com>,
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/2] clk: qcom: Add EMAC CNOC APB clocks for Nord SoC
-Date: Fri, 25 Sep 2026 11:43:34 -0500
-Message-ID: <179035461224.1296652.13012448466686030720.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824-nords_emac_apb_clk-v1-0-290767386bf5@oss.qualcomm.com>
-References: <20260824-nords_emac_apb_clk-v1-0-290767386bf5@oss.qualcomm.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: media: renesas,r9a09g057-ivc:
+ Describe additional interrupts
+Message-ID: <20260925-asparagus-overlap-380bada986b4@spud>
+References: <20260925-mali-c55-renesas-dts-v2-0-69f728a474a2@kernel.org>
+ <20260925-mali-c55-renesas-dts-v2-1-69f728a474a2@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Epds5nlVIYwBx0ec"
+Content-Disposition: inline
+In-Reply-To: <20260925-mali-c55-renesas-dts-v2-1-69f728a474a2@kernel.org>
 
+--Epds5nlVIYwBx0ec
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, 24 Aug 2026 12:23:28 +0530, Taniya Das wrote:
-> Add support for the EMAC0 and EMAC1 config NoC (CNOC) APB clocks in the
-> SE_GCC clock controller on the Qualcomm Nord SoC. These branch clocks
-> gate the config NoC APB access path to the two EMAC (Ethernet MAC)
-> controllers and must be enabled for register access to the Ethernet
-> MACs.
-> 
-> 
-> [...]
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Applied, thanks!
+--Epds5nlVIYwBx0ec
+Content-Type: application/pgp-signature; name=signature.asc
 
-[2/2] clk: qcom: segcc-nord: Add EMAC CNOC APB clocks for Nord SoC
-      commit: 4abe035a0ff25081564ff3a5932c59200e9e2aa5
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaralCAAKCRB4tDGHoIJi
+0kmhAP9UtzLGipSknLNtJhdWdswGoctUdt+/1MEwu6KRq+oEogD/YbIeNPRWWTVP
+OegXHGc5oWJI1TgfTudw6K+NH45n6g8=
+=3vm+
+-----END PGP SIGNATURE-----
+
+--Epds5nlVIYwBx0ec--
