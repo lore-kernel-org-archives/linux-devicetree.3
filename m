@@ -1,100 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77214B8284;
-	Fri, 25 Sep 2026 14:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247FD49B454;
+	Fri, 25 Sep 2026 14:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790348119; cv=none; b=JODVEwlp8+2qvcxA5b215Y2x3IRhF7qHfzEdlq8g6WhKt15z812tcxSvjsEx2aGc1bpLy3FxsJZrDUvVIKiJJE0GuLnspsE7fM5+AhhDYYPU86TPTkE0j4uQ3UBcTC8IvKfVoupVRxyd9+M+WaSdd4N5+1JJcQ1l3eE9uvCs09g=
+	t=1790348191; cv=none; b=d796NH3I/v3OnEWPBw1DPxPKeeWIotUiN4/EU5f4NqcRCC2Jq7I6Q8ZuD+c53sUHnFrPSA+Pf1kaGnUuomt99LbdQJ/W6kdPA064AJwV22QLygE3dmDJe7PxdJkurc7KpZRGuCjrfc6UWjq1Z+oirqCL6wsPQa/Spn3uySh1T/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790348119; c=relaxed/simple;
-	bh=opYKHEotMRYFAlD4+KcOmyrLCKHFKVp0R5gI4jsOH6w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DRk/qclIXGXB1bTk1YsWfGaZssdltB/vxjvtQDofJOGCIPv2dBmgOxMBiqwbOhzjAI3TBa8W5oX4fMdvicmkKE27miACCPHVQwHE60lGC/aqHoIPZP/0xk8v5H8OtL/JBPWlVY+9/prIk68S6qaBD/Y/F3FDUakgEivDkO5AcuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eaPykenQ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eaPykenQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94EAF1F000FF;
-	Fri, 25 Sep 2026 14:55:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790348110;
-	bh=DGtCVwBHH9uGVSpKpNVSFCLtyHt/if/SX8EZqpJgR4c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eaPykenQV13zboL/8Dz1aUz5TWQN1E6BXmjrHlAQp93iWH+7KD9XhSmzicHqmAJpB
-	 UEVeNzYAdTlDiMIsAcUqs2pSTeuRkEfXxNBGwNXNwh/G85zJsGC60tryPTYbh7TTJl
-	 od0xjdvaYi7IJWdwayl/ybGqFrq98O+kfp/DdA1OT0kC63lZeythuWpDhyu5dJRfz7
-	 FpauC3bUyiO2djghzbi3b3AmNvB18UrGcjDjmsC6zFBO3Ju/rOikdXm78+EqSO1FQ3
-	 PcHyB/7HQVg8GNmdekqw/fQJciVPRZp8E4qVNTXgH2ZW3OkgbUMDKNRI3PyuZMepjF
-	 4e8a36PwR3cMA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/6] dt-bindings: clock: ma35d1: Add missing WDT/WWDT
- parent clocks
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260925-perso-ma35d1-upstream-clk-v3-3-ffbae7e020a8@bootlin.com>
-References: <20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com>
- <20260925-perso-ma35d1-upstream-clk-v3-3-ffbae7e020a8@bootlin.com>
-Content-Type: text/plain; charset=utf-8
+	s=arc-20240116; t=1790348191; c=relaxed/simple;
+	bh=OD8IaHb1Os1/I0eMQ/TTV6buZJRhJ/ZWgz0ZxoW6/Ig=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hGquMCn4dKgwQ9ry+TmA3FLKaQdJCMtFlU48DOFvxsrKxM3h4NcKukWYbDg2iK7/HQC2uFlebudmDGzlseEqagNqNwtddhwsPaIF6qr+ibXGwbHYqUjeEnt2Rh77uuCIAQIF0nb3DquEfzTH6u+voC/9wv4g+/nzEVV/SxTp9vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
+	by APP-05 (Coremail) with SMTP id zQCowAAXhD5+i7Zqv8FECQ--.59835S2;
+	Fri, 25 Sep 2026 22:56:00 +0800 (CST)
+Message-ID: <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
+ disable clearing FB_EN
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Fri, 25 Sep 2026 22:55:57 +0800
+In-Reply-To: <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+	 <20260918030125.315978-8-a0987203069@gmail.com>
+	 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+	 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
+	 <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
+	 <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 14:55:10 +0000
-Message-Id: <20260925145510.94EAF1F000FF@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-CM-TRANSID:zQCowAAXhD5+i7Zqv8FECQ--.59835S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFyfCFW8JFyDXFWkKw4fAFb_yoW8CFyxpa
+	97Ka90krs7Xr4Ik392kw48taySgrWrJ3yUJryrG34vk398tF1xJFyrKayfuFWxurs3Ww12
+	qF4qkr98CFWDuwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+	ZFpf9x07betCcUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] clk: nuvoton: ma35d1: missing MA35D1_CLK_COUNT increment causes la=
-tent OOB array write
---
+=E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=99=
+=E9=81=93=EF=BC=9A
+>=20
+> Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
+=81=93:
+> > Maybe it's better to just make it the 2nd patch in this patchset,
+> > just
+> > after the binding change.
+> >=20
+> > Waiting for something into drm-misc-fixes again will need another
+> > fixes
+> > pull and another RC back merge, which can consume weeks and miss
+> > the
+> > current merging window.
+> >=20
+> > In addition, it's possible that `drm/verisilicon: introduce per-
+> > variant
+> > hardware ops table` also gets backported for a more clean primary
+> > plane
+> > atomic_update disabling fix.
+> Understood. I'll fold the FB_EN fix in as patch 2, right after the
 
-commit fa4195c8a4eac6a0140746768ad2e5ab623b88e4
-Author: Miquel Raynal <miquel.raynal@bootlin.com>
+Should I just apply this revision of patch with this reorder?
 
-dt-bindings: clock: ma35d1: Add missing WDT/WWDT parent clocks
+Thanks,
+Icenowy
 
-This commit adds PCLK3_DIV4096 and PCLK4_DIV4096 to the dt-bindings header
-to describe the clock tree for WDT and WWDT muxes.
+> dt-bindings patch, targeting the current vs_primary_plane.c directly,
+> so the ops-table patch just carries the already-corrected code
+> forward
+> into vs_dc8200.c. Agreed that's faster than round-tripping.
+>=20
+> On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
+> still
+> has a real per-variant operation there (clearing FB_EN + commit),
+> while
+> DC8000 leaves it NULL and does nothing, so the suffix still reflects
+> an actual per-variant difference, not just structure introduced by
+> the
+> refactor.
+>=20
+> While testing the cursor plane, I found the same class of bug there:
+> the disable register write was being triggered from the plane's
+> atomic_update() invisible-branch using the old plane state to look up
+> the CRTC/output, which can be stale or NULL on a plane's very first
+> commit if it's already invisible then. I've fixed it locally by
+> having
+> atomic_update() derive the CRTC/output from the state it already
+> holds
+> before checking visibility, instead of falling through to the
+> old-state-based disable path. Just flagging it here for now -
+> vs_cursor_plane.c isn't touched by any of my patches.
+>=20
+> Thanks.
 
-> diff --git a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h b/include/dt-=
-bindings/clock/nuvoton,ma35d1-clk.h
-> index 2d6a44a7e55c4..764d837d6162a 100644
-> --- a/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-> +++ b/include/dt-bindings/clock/nuvoton,ma35d1-clk.h
-> @@ -248,5 +248,7 @@
->  #define ADC_GATE	233
->  #define EADC_DIV	234
->  #define EADC_GATE	235
-> +#define PCLK3_DIV4096	236
-> +#define PCLK4_DIV4096	237
-
-[Severity: High]
-Does this introduction of clock IDs 236 and 237 require a corresponding
-update to MA35D1_CLK_COUNT in the clock driver?
-
-In drivers/clk/nuvoton/clk-ma35d1.c, MA35D1_CLK_COUNT is currently hardcoded
-to 236:
-
-drivers/clk/nuvoton/clk-ma35d1.c:
-#define MA35D1_CLK_COUNT        236
-
-The driver's ma35d1_clocks_probe() function uses this count to allocate the
-hardware clock pointer array:
-
-drivers/clk/nuvoton/clk-ma35d1.c:ma35d1_clocks_probe()
-    ma35d1_hw_data =3D devm_kzalloc(dev,
-                                  struct_size(ma35d1_hw_data, hws, MA35D1_C=
-LK_COUNT),
-                                  GFP_KERNEL);
-
-If subsequent patches instantiate these new fixed factor clocks and write to
-hws[PCLK3_DIV4096] or hws[PCLK4_DIV4096], it appears it will write out of
-bounds into adjacent heap memory because the array only holds 236 elements
-(indices 0 to 235).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-perso-ma35=
-d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com?part=3D3
