@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79BA64D0A13
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 15:55:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C754B4D954E
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 15:56:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351726; cv=none; b=cgk4k/1MVP13fr8iyNALrw7o4w83znrBR1FlnayAhfrK/dJVBOUQI9gJLuNoRVjpyw7HamnyyQk+NhVr6NQKXwf5bly0v41OCGiGvKwLFXm+yZOux1rhJSkshCfHxMAW5lwYGSvBK5vOSl5jk9Pzq+M0jcEhAi41ebper0N+yAg=
+	t=1790351762; cv=none; b=Ef9t7zvlas62CSim2J6SCsxpfzQlXKpoDyPICtRXZOd4ahDvquKQOX+mzicl51H0oKa4NU1GzmbaXPE2Ze6R8w5Hp/YSQSmNTOX7MYgNf+Ut7bP3FIhFXISWCC0RfQNoOvrGlLW17eFIgWJWEumpijZqJ2LOD6lMhyp2x6/njLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351726; c=relaxed/simple;
-	bh=C+lHIC0qSjFba9XDWke4HRVs9X1ogIONOJO8IBwVgA8=;
+	s=arc-20240116; t=1790351762; c=relaxed/simple;
+	bh=4g86JqysM7vGx9qXSkjlVy9ktHXEo0nInKnsd//oO1k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AipGqHCcbWM1xy+x1ezuPCV0pQHaetUGzo31pMmFKcFd+i3a15ZuKgFrAha9n9+05rJvhLIBCtDCS8IFXMwQk6qj7hTw82y0xF44JtoWRCtdDzDcAFEOBlO+I7jhX+fvmiYcWDDP7Rh36nvtPVDdx4gHmntNT1zL9ouFCQf1ynQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFRj++pz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=JJYKnzxspiNB2DrAMqHvNcimcSIuKyOGrsuVjKqx4SVKKsgNzX7l27018Gde9JKGtv5IZ6OuEsFwxuOZr6krX5OFuVRTPB2k14eiLtNxLbnLOVxzS+3juSDJFg77vBwLxD63o7+RxW1/VA24w7FukrBKOkNiauia9osJ5nEdE9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+GplAxt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFRj++pz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2C981F00898;
-	Fri, 25 Sep 2026 15:55:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+GplAxt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AA941F00898;
+	Fri, 25 Sep 2026 15:55:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790351724;
-	bh=dTYNBstPVIa3W3+iK+hAaB2PaQswPtepy0RROd1JY8w=;
+	s=k20260515; t=1790351759;
+	bh=fS0Parb1ZN5AYlv6WoqfZA1DUaU4lKrSF1XPesJkfWw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NFRj++pzzrJpYQ17sM0aAoAZzQtqj8PX88HSIDfcN0nB/bmlFNUvdAgHM3IqiTDr/
-	 U5/z+Z6LWBPiMi9bDc4NjjfUFHW+lqZlX5MIyBRdE7KkOfNfEgcSyf9mEEGtsx5oOZ
-	 yH47avpOX8R6jdSk6r9yhjxDt4TL1iaAZBdpqSBqO8SZt7XSHDA/wavL9tPkUnod7i
-	 mXfadMDu/ZiSqjUjKDKK649gXQ+fkdzMlaNuxg56AiMOpmx4qNd0UHFG52R9EqOXIA
-	 hKIQykPn42abJiv/a2PA1PrZo3kC1+xzBM2XUu8fmRuBlW4FTQRvY7T5C0n7vD7Hcs
-	 dvP7z3ZYD/JvQ==
+	b=e+GplAxt55AV5KSIERCpjYang6XeYu01p34hxZ6JzPlqzpHRuGDK8XV2v7R920+Gn
+	 SpfR/2inPqgHSTvBmHg64Qgni/JXkar9r+d1Mzx4/fsgbbhhO03kAD8eW8BfZqtd4h
+	 7XIVpFtLFjm+NGIeM3gtilMHjdFTktkN6QfnOKrgJLySMAXJOAfEq2T7g5cq7AeN0l
+	 SfE4FRDfuP6ddLnCPJnAtQGDhFesqSTIRAs+rH9dre3FmaWbHebY1ZbQmed9QL8mlf
+	 U63tzM+oufAYi9y7iSEbBJ4s9WgM04kPllIdf66xss0ssLQHLpaj3713qdsrKJEWcw
+	 JNxLFzr5UzKOQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 3/6] dt-bindings: pinctrl: mediatek,mt6779-pinctrl:
- Add MT6795
+Subject: Re: [PATCH v9 4/6] dt-bindings: pinctrl: mediatek,mt6779-pinctrl:
+ Document MT6765 pin controller
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Yassine Oudjana" <y.oudjana@protonmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260925-mt6735-pinctrl-v9-v9-3-bfb19d8bb87c@protonmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260925-mt6735-pinctrl-v9-v9-4-bfb19d8bb87c@protonmail.com>
 References: <20260925-mt6735-pinctrl-v9-v9-0-bfb19d8bb87c@protonmail.com>
- <20260925-mt6735-pinctrl-v9-v9-3-bfb19d8bb87c@protonmail.com>
+ <20260925-mt6735-pinctrl-v9-v9-4-bfb19d8bb87c@protonmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 15:55:23 +0000
-Message-Id: <20260925155523.C2C981F00898@smtp.kernel.org>
+Date: Fri, 25 Sep 2026 15:55:59 +0000
+Message-Id: <20260925155559.9AA941F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,28 +47,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: pinctrl: mt6795 interrupts maxItems schema conflict
+- [Medium] pinctrl: mediatek: DT binding allows drive-strength 16 which dri=
+ver rejects
 --
 
-commit e88236860cd50ab5c2393f176ac891e2544b938c
+commit c86bb87060bc7c504b8fa22832cdfbbac4934ccd
 Author: Yassine Oudjana <y.oudjana@protonmail.com>
 
-dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Add MT6795
+dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Document MT6765 pin controll=
+er
 
-Combine MT6795 pin controller document into MT6779 one. In the
-process, amend the example with comments and additional pinctrl
-nodes from the MT6795 example, replace the current interrupts
-property description with the one from the MT6795 document since
-it makes more sense and define its items using conditionals
-as they now vary between variants. Also use conditionals to define
-valid values for the drive-strength property as well as items of
-the interrupts property for each variant since they are different
-on MT6795.
+The MT6765 pin controller has had a driver for a while, but DT bindings were
+never documented for it.
 
 > diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pi=
 nctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinc=
 trl.yaml
-> index 4dc9504e24ad5..4df6971030416 100644
+> index 4df6971030416..94117008ebf9f 100644
 > --- a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.y=
 aml
 > +++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.y=
@@ -76,61 +71,49 @@ aml
 
 [ ... ]
 
-> @@ -81,6 +83,45 @@ allOf:
->              - const: iocfg_lt
->              - const: iocfg_tl
->              - const: eint
-> +
+> @@ -61,6 +62,41 @@ required:
+> =20
+>  allOf:
+>    - $ref: pinctrl.yaml#
+> +  - if:
+> +      properties:
+
+[ ... ]
+
 > +      patternProperties:
 > +        '-pins$':
 > +          patternProperties:
 > +            '^pins':
 > +              properties:
 > +                drive-strength:
-> +                  enum: [2, 4, 8, 12, 16]
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: mediatek,mt6795-pinctrl
-> +    then:
-> +      properties:
-> +        reg:
-> +          minItems: 2
-> +          maxItems: 2
-> +
-> +        reg-names:
-> +          items:
-> +            - const: base
-> +            - const: eint
-> +
-> +        interrupts:
-> +          minItems: 1
-> +          items:
-> +            - description: EINT interrupt
-> +            - description: EINT event_b interrupt
+> +                  enum: [1, 2, 4, 16]
 
 [Severity: Medium]
-Does this conditional block create a schema validation conflict for MT6795
-device tree nodes?
+Does this binding allow a drive-strength that exceeds the hardware capacity?
 
-The top-level properties definition for interrupts enforces a global constr=
-aint:
+The MT6765 driver is configured to pass the device tree drive-strength
+value strictly as a raw register value:
 
-  interrupts:
-    maxItems: 1
-    description:
-      Specifies the summary IRQ.
+drivers/pinctrl/mediatek/pinctrl-mt6765.c:mt6765_data {
+    ...
+    .drive_set =3D mtk_pinconf_drive_set_raw,
+    ...
+}
 
-Since JSON schema constraints apply conjunctively, the conditional block he=
-re
-that attempts to define and allow 2 interrupt items will be inherently bloc=
-ked
-by the root maxItems constraint. Will this unconditionally fail validation =
-for
-MT6795 nodes that provide two interrupts?
+The core driver then safely rejects values exceeding the 3-bit register mask
+(which limits values to at most 7):
+
+drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c:mtk_hw_set_value() {
+    ...
+    if (value < 0 || value > pf.mask)
+        return -EINVAL;
+    ...
+}
+
+Since 16 is greater than the hardware register mask, would device trees
+using this value pass schema validation but fail to configure pins during
+driver probe?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-mt6735-pin=
-ctrl-v9-v9-0-bfb19d8bb87c@protonmail.com?part=3D3
+ctrl-v9-v9-0-bfb19d8bb87c@protonmail.com?part=3D4
