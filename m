@@ -1,129 +1,66 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AB73DA7C8;
-	Fri, 25 Sep 2026 20:30:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0493806CA;
+	Fri, 25 Sep 2026 20:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790368268; cv=none; b=B3LDjS1xisOsGDGmhvhpa7lrPdVUvFKzTZlZe8N/ejxZsHgu3Z7Y493dH2oWXB1Pw2+U4tdIoSH9BDPZclDEj1lu/1uge0aNeg4Ijxhlh8X5lkNNcj2TJbColnpc/kHf4bX3k5CVi6FF1DMQvvX9uNW9B2CaJ/SJBM51LgY1Pio=
+	t=1790368453; cv=none; b=ZWTNRZ/KUmj6MFwsaTEtW9qBfWDpD6NLqoCzQ99Z1jKmg1cvlUC0EjlOO1n0Ee09r8rXJZtEAM0QfhqX1RK5Pzeup3Tf8HlBe/W8P7M9+KsgqiHadXFilDClG5FR5K1lcxnlIv+8Tt6NKEuDgvWt6EcUNifoTCD8tt2WLn0GMP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790368268; c=relaxed/simple;
-	bh=4prjH3JSerSDfYDuINQFJhIuaAABekcPPtNcx1u/gm0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ojyuxrzj3a6T3WzqZsTBPZ4N/tYMW/ggAWyiHHS2XQgD6p40ozJOiG0oUnak9tDtlV3J63SY2SwB7JbuPe+nAbRYKgTPn788oaSOnI+QhJPZi0sLIO5kvFFo2uhn3mjIEay+K44g/4Gcf3Xu5rWDNfVDvlOlxTcCEvfDFUruJc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=xfF6xg+N; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=QwFRNKbq; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790368453; c=relaxed/simple;
+	bh=bnfaldVrCxoOcajNi/stgP3jq79zBFdofzyieDkwEMg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rtt8HsCaaIDPeTWjxeyd9q+VnY41xBeQgqueqCm4gjpiZ1Ap9g4i0fwAG+NVy0/5VgqNrjjEx/K4feyizzTjzbccGXRONG5sSc4QnIjCqSG8Z3A6/EYXBE0cMu0nqTAM31bwMzq4rHzvc7QO3Vu0gyZ2BcDp/SEgx5k9BbFCLFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cAdoT261; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xfF6xg+N";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="QwFRNKbq"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hs2Qk2CnTzKmHl;
-	Fri, 25 Sep 2026 22:30:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790368254;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f9tjU9mEZpQyYYbCsp2FIl5GryBCKfGpmvGA6r5giC4=;
-	b=xfF6xg+NMxALi42SSsmp1KqEMXn2tBKBiK9uCcaooHlta3DTm1a2mTJFRe14T/sy2TdUqS
-	tn0jJ09W+xrsn6iIL8W2E3dcrLH9pqIE7E/iaqr1aY203cOD04n5wr5nNnEnVSlKGWvFQT
-	j2klZfDuORZkexaYL/88LNdHYma30f9Y2GOXNWkKOf1oOPj6NhZwE7Ktdd/D7fuywSN57Q
-	gB3XcULGlAmFukC7kNZ1n9lKsn27hqKPzMBb0fEx9lFOhLXayi8yPeohizqQcEOoRRZPJ1
-	rUkytkA/5JLu+tULFOth7yECKlopBHB3yVhTMv6tT4m+QsLWkCa9tZVxP1CNbQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=QwFRNKbq;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790368252;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=f9tjU9mEZpQyYYbCsp2FIl5GryBCKfGpmvGA6r5giC4=;
-	b=QwFRNKbqZip7B7/RPpJLWT29m6gthv2XDU9X/Uq4UIjIrCpvQI40kpEHXVp6LTWvJR+Zsd
-	3z9YW8IMu1qkhLcVdUQZG9oNTYTBkqjsLgb67F8WY6euO1Fg+98xtpNFprdxy0n8W06sKN
-	4xOokx8DDmRthNQZDyQ7oWFQhnczZqkAN9pFXThG2ivRgYVk6/o0o3/Vh6ughFH0YkeHvW
-	nyzOFhXBnji5wnm1WIwRTawfwa9hXfP5GSH96lJ6ikwdY3LmWkvkCmwzOcIdy+zkQL1Lwf
-	19Rl5CLXhaObTwyyUbOKZFub+G0474X0V2qFqBeilwAI+9VOvcLxV3ik22ZIGA==
-To: linux-pci@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH 2/2] dt-bindings: PCI: rcar-gen4-pci-ep: Fix reset-names
-Date: Fri, 25 Sep 2026 22:29:52 +0200
-Message-ID: <20260925203039.110653-2-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260925203039.110653-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cAdoT261"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0B291F000FF;
+	Fri, 25 Sep 2026 20:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790368452;
+	bh=cPj7hr49EAFMsHEqbkGgWGmd8TEdvpgifk7UcVy0xWU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cAdoT261RlW1tETjUAav5od5E8LAar5pChYa/tcoeTS9I6RaoNm47Wyvj53F2syQ8
+	 WsdZ+t3fLsVluTkBYxJnIV3fiKUc0x94og95D0mU6124tilcUJ1RVbWe5zWGCYvrj4
+	 YR/qf9XEOcdSAy4kdSEYsQ3Ke2Aa1ovYywkiXkSkRCKPe7xKG25298nHsG0g4AjQiX
+	 i6oy6eTrWsYqA6l7JksA1lLLJzI2Z1qTKLKoUazmMfKX9CVt7qEEtP2t//oTfoFv9Q
+	 +oEdetaN0GP1RD0Z+wAhIY8FlbzMn70qfhCJ6E+P+1T0Pz7SJ3pBkpPIxwH824mzkE
+	 peLtBh9muySnw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] dt-bindings: PCI: rcar-gen4-pci-ep: Fix reset-names
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
+Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260925203039.110653-2-marek.vasut+renesas@mailbox.org>
 References: <20260925203039.110653-1-marek.vasut+renesas@mailbox.org>
+ <20260925203039.110653-2-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 25 Sep 2026 20:34:11 +0000
+Message-Id: <20260925203411.C0B291F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: ea34df963bbccee2e3d
-X-MBO-RS-META: zxyadjbobjx49zk8mqsezawebcy3jwm8
-X-Rspamd-Queue-Id: 4hs2Qk2CnTzKmHl
 
-Drop maxItems: from reset-names, since the entry already contains items: .
-Fixes the following warning detected by DT checker:
-"
-Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml: properties:reset-names: {'minItems': 1, 'maxItems': 2, 'items': [{'const': 'pwr'}, {'const': 'core'}]} should not be valid under {'required': ['maxItems']}
-        hint: "maxItems" is not needed with an "items" list
-        from schema $id: http://devicetree.org/meta-schemas/items.yaml
-"
+> Drop maxItems: from reset-names, since the entry already contains items: .
+> Fixes the following warning detected by DT checker:
+> "
+> Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml: properties:r=
+eset-names: {'minItems': 1, 'maxItems': 2, 'items': [{'const': 'pwr'}, {'co=
+nst': 'core'}]} should not be valid under {'required': ['maxItems']}
+>         hint: "maxItems" is not needed with an "items" list
+>         from schema $id: http://devicetree.org/meta-schemas/items.yaml
+> "
+>=20
+> Fixes: 173cc7417848 ("dt-bindings: PCI: rcar-gen4-pci-ep: Document Applic=
+ation/Local register reset")
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Fixes: 173cc7417848 ("dt-bindings: PCI: rcar-gen4-pci-ep: Document Application/Local register reset")
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-pci@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml | 1 -
- 1 file changed, 1 deletion(-)
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml
-index a983aa015cd1b..ce177f0eca753 100644
---- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml
-+++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-ep.yaml
-@@ -61,7 +61,6 @@ properties:
- 
-   reset-names:
-     minItems: 1
--    maxItems: 2
-     items:
-       - const: pwr
-       - const: core
--- 
-2.53.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925203039.1106=
+53-1-marek.vasut+renesas@mailbox.org?part=3D2
 
