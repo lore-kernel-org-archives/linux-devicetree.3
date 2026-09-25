@@ -1,106 +1,144 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EFC49E5F5;
-	Fri, 25 Sep 2026 19:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD1A4E8DFA;
+	Fri, 25 Sep 2026 19:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790365581; cv=none; b=cVd/REB/ZEuszboljxBCko+lTtyxFZNMCt/eTVOB/Za82mAELioPdXPwR/j/PnS+Cu9o0VdRK/xz1RrGEtqfjeRCTRrmrsls3t/daTPdYOHrQOZXsFWgYIvlAepvbLcWN5njKrgN8BbPgTLW9XgXin+P/3ssXpKfhOQprargAOA=
+	t=1790365707; cv=none; b=A2yFEKdU42NCbesSQCNKBZxn6XgyTh1VAB5GqeuL7d73AbknPP5zTjMcO+/5jICeV/dUSTuQsPjBS27362qCpQXD+RfCC/ofxgFEAp9QeJfexdaYIqz4aJV2IdTeLK2gyKqjHJKx0m21NXDGZc/G8M71G3eIqDGyAa/s5wan9eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790365581; c=relaxed/simple;
-	bh=r6RJGVlGLF0FrcKraNNx4zfz7xdz/7vSRP7H+PLbQF0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L7Jd+F6JeDnQDDBy8wrvR4LYFyD/em4OV1fF6zs0yWlu+NDcEDLRUb537SgMJT20C2J+xySjV1P3LQ9TYxM9WqAT3Dv/9TDsUYjMA8jTdDA5sN3hVYs4cN4qtjX8FWoDQh/wk3EPK4l3opdbDXwx6qYu+KevMl5vtEiKrB0FeAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=2pm9hX62; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790365707; c=relaxed/simple;
+	bh=C62xArAqKjFYTe9fBgBsPrEb+56dKqvULln787lmLic=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R9SfDbCPYNJ6T8xT4oc+/uaH/iI8oac9AmHvOAZhwihiNt+yfil2FO2u40PVmAo3NMANZ6k/yKiJxh3k1ptHs+Dlv7OFMMUjEWPXflmtFlvZv/F6kei0BWPuVc+xGJCfH5a31Tl1nsYo5v7o0OvSkJHaoafGyfN06B/cPVa4NXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=z1ixV01+; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="2pm9hX62"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ZUN5pHcyJvvH3OmnBbLrWeM+/zZkkxuwsFuxwTvxTUE=; b=2pm9hX620kdefDI1x8sSar48MA
-	grw9ppEZSLamxgXUaAViwpIWQ1FbE07rTAX8Fa92eu8FbRoKh1Y/May3YTNzdd6imgS4+h41Caiij
-	8/sybZyoqGrceia0Qqcn4eldN4Tb6sCVDJyu/+VhWrvnGwHmQoVhiY6vAmk1qleBadI0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xABrq-007I4E-Cr; Fri, 25 Sep 2026 21:45:58 +0200
-Date: Fri, 25 Sep 2026 21:45:58 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH net-next v3 0/5] net: stmmac: Add support for Allwinner
- A733 GMAC210
-Message-ID: <b41e7fe4-2ec8-428e-81ff-47e1c75003b1@lunn.ch>
-References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
- <9cc61625-47c9-4bdf-97f0-0528f661a399@lunn.ch>
- <1j7bkb9h5k.fsf@starbuckisacylon.baylibre.com>
- <5fae3b42-552a-458a-9710-927360e58c37@lunn.ch>
- <1jv77u8yak.fsf@starbuckisacylon.baylibre.com>
- <491f043e-6dc6-4936-a490-31a3362c5b6e@lunn.ch>
- <1jse2x91oh.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="z1ixV01+"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id A1FBB53401E9;
+	Fri, 25 Sep 2026 21:48:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790365702;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Jmxowlh8dx4cnk1PAZboFsGtd98nrGjzJK5X1uKxjhc=;
+	b=z1ixV01+hyamCp5xeWVL638GCR/f7wHS/bpW1dQ30RP07ohwuQCOz6fi3w3jlp0GTT1o/3
+	Q+Q6aILwO7dPr728wn/JpreOUKdMkCIMJJPOYfJF2sHN1RFvJH+SbPqtyqi9KS1IrQXXWg
+	JXWh2/21dV3FFkFlAxqpEuvWlphVxmE=
+Message-ID: <f8a5ce16-bc6b-4dbe-9262-cd5be0e33451@ixit.cz>
+Date: Fri, 25 Sep 2026 21:48:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1jse2x91oh.fsf@starbuckisacylon.baylibre.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/4] dt-bindings: input: touchscreen: st,stmfts:
+ Introduce STM FTS5
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
+ <20260907-stmfts5-v7-2-4a53381cd038@ixit.cz> <arbIsdvRzPCqPXfs@google.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <arbIsdvRzPCqPXfs@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> > You need to differentiate between small fine tuning delays, and the
-> > 2ns delay required by the RGMII standard. If the MAC is just doing
-> > fine tuning, you need to still pass PHY_INTERFACE_MODE_RGMII_ID so the
-> > PHY adds the 2ns delay. If the MAC is adding a big delay, you need to
-> > pass PHY_INTERFACE_MODE_RGMII to the PHY.
+On 25/09/2026 21:19, Dmitry Torokhov wrote:
+> Hi David,
 > 
-> The PHY is one concern but the series here does not really address this
-> topic. DTS and board specific concerns will come later.
+> On Mon, Sep 07, 2026 at 12:50:20PM +0200, David Heidelberg via B4 Relay wrote:
+>>           touchscreen@49 {
+>>               compatible = "st,stmfts";
+>>               reg = <0x49>;
+>> -            interrupt-parent = <&gpa1>;
+>> -            interrupts = <1 IRQ_TYPE_LEVEL_LOW>;
+>> -            touchscreen-size-x = <1599>;
+>> -            touchscreen-size-y = <2559>;
+>> +            interrupts-extended = <&gpa1 1 IRQ_TYPE_LEVEL_LOW>;
+>> +            touchscreen-size-x = <1600>;
+>> +            touchscreen-size-y = <2560>;
+> 
+> Krzysztof questioned this change. You need to explain why this is being
+> changed (and potentially split it into a separate patch as it does not
+> seem to be related to STMFT5 introduction).
 
-They are all interconnected. When phy-mode says 'rgmii-id', it is the
-MAC/PHY pair which needs to decide who adds the delay. If the phy-mode
-is 'na', how does the MAC know it needs to use RGMII, not MII, as you
-said.
+Oh, sorry about that, I thought I addressed it, but apparently not.
+I'll just split it.
 
-We need to keep the big picture in mind, otherwise you could go down a
-dead end, and a dead end which makes backwards compatibility really
-messy.
+David
 
-> It is really just the MAC. So, how does the MAC is supposed to
-> make the decision to amend the PHY mode ? is there a threshold you'd
-> like to recommend for this differentiation ? 
+> 
+>>               touch-key-connected;
+>>               avdd-supply = <&ldo30_reg>;
+>>               vdd-supply = <&ldo31_reg>;
+>>               ledvdd-supply = <&ldo33_reg>;
+>>           };
+>>       };
+>>
+> 
+> Thanks.
+> 
 
-This is the first time we have had this condition. So it has not
-really been thought about too much. Maybe 1ns. That is the middle of
-the 2ns required by RGMII.
-
-> I'll try to reach out, just in case. I have the schematics but without
-> the PHY doc, it does not help much.
-
-From that i assume you missed the other emails. Somebody from ARM give
-a link to the data sheet. It documents the strapping. Search for the
-patch adding the PHY driver, it is in that thread.
-
-	Andrew
