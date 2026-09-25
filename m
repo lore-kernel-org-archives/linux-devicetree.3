@@ -1,148 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7BB3AFD11
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:39:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DD64A3F00
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343598; cv=none; b=jqwRtch/iv6k30HnGAJ8hNQ0hKvqbweMTEtSPw1eUbcC0UO1USgd/csZBdx6JFQPhuhfw0BmHZGmffUc+Eizr5KiysR3dNHbKk0kvr4n1oaNglABHquzmwwrj7smUnjVxLX5+n1/OMrn+PzqpMkIKUJ68JE6R07HUyOz0cU9zhI=
+	t=1790343636; cv=none; b=GYl5HWxTj/9vmp2RQK8+sSDLaeVVXyCgecjBGVDNYMYojg44jye6KmfpQGe0VNvgkD2y42NkWJC/8524myHAaNjsZd1Rmo/VWpXdBLlmh0spiFmXBMEmeFgtCmkUMtj/adDRQjGT9zuLhZr5k+Y02lcbzY4mzC2r83zRg0tW+C0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343598; c=relaxed/simple;
-	bh=aAzmtevatwqQvAPgd8JKkBs7cDxyyEMBFDnvtiVYhHI=;
+	s=arc-20240116; t=1790343636; c=relaxed/simple;
+	bh=dznl1RSv53Lbp6kU4vQuBh6nTj+wt8G46c26d/h9cNY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QQLaW2zKpwqHJ8O1JAwOtLuPd59Ee8RJMc31kC4UqBwwP3ONrr80GB/Xm3GeG2F4h1ibWVUJ+E8eEk2zf0dHj6ueYFeY3L4Esyi1DVXfvQ0ssO9sHD8Pg8hl4ATJi1l9JHWkwAFVXuPuxPdmZbgoYJqzTAPw6U8GBrtd6j1Oi9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FceuSqEv; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=FZn7UT2J7I/B1MyihKUzE0pb6dgj+V2iwajiwlF97V4n9hR+b3IxclC0FmP5yyTohnr55Riw25+6Q1RrxZylqNCdWj9SfcbFiIpoBbKxelyjbNiSxS90+52GZ4SOZ38ol30yQCY0L+DzTsWYWWu4cjAniPYNRONj3DzTadeAjZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9H9KjXw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FceuSqEv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10E4F1F000FF;
-	Fri, 25 Sep 2026 13:39:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9H9KjXw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE121F00899;
+	Fri, 25 Sep 2026 13:40:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790343596;
-	bh=gnioTN28H+juCvuyz5rjvDRkMGIB5UNt4YSziAeFtg0=;
+	s=k20260515; t=1790343632;
+	bh=gCgrOW89LcV2GGM0GCcPl4VpBELe2jcyrfBKLU1Y97U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FceuSqEvA5Z5PdTbqhLDpwZ0zd+/B3GQHx88NsW4QRlSrQhprnQh/9sa87REu3FSx
-	 fWMV+qJ51DuPsQiUv3Uo/FCU/0JwzBqyiWAh6JzDy4/MBIqiRjR/nZfL/S9SyIVP6k
-	 KWZ7jckz9KAW77PrfLV9WNzbCBnzy9Sxz2h9Lw70IL8y3t0DWF2Xyu4dnrg+LTrf1e
-	 MReNLXxhz0HU5g8dOOsQNX3kjYMhWAP6TSyEKCwmAM2hRTleMCzQGf+xHp78A2F8pD
-	 D6f03Pyc+28I2YEAMkh6CQIqVhc7Z2+N96Q5SaKHxpZA0eEI98fOVQxURJi4E0J+XU
-	 szrLhOQpvU6pg==
+	b=Q9H9KjXwgon/CokzYUwgRrp8JlvmkvgsaAEXatIgvZ3kb+Z1hG6gFWM0+BwuKNVVQ
+	 ieym5mBb9U8Sis2ZliVpQieNn2/6kgdhKDKVsj+mUVeWxZnEz3g9qfQKtIQL5/miUv
+	 52aZDjwhqIsu+xJMpNkJS8cOHiTNVHqk6pq/cAAO6oyxdaoRCmrXfQza5viOG4X8z0
+	 +ZWcIOBk3iOFT6XCFCS5xrkS/Zus55um4ZSw4nZ5UTPnAWFEqVhMHx9aVBDS5CQcjZ
+	 FkmeVgmd/aSr1b5yv7DEOWyh6hjz0iGzBUy0K2PTDGcZfzz5visMIFKNJllLYeUjZr
+	 08fJihjGxXmwg==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 2/8] media: v4l: Add 10-bit RGBIr formats
+Subject: Re: [RFC PATCH 1/8] dt-bindings: media: Add bindings for Omnivision
+ OV2312
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Rishikesh Donadkar" <r-donadkar@ti.com>
-Cc: media-ci@linuxtv.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260925133001.2780868-3-r-donadkar@ti.com>
+Cc: media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260925133001.2780868-2-r-donadkar@ti.com>
 References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-3-r-donadkar@ti.com>
+ <20260925133001.2780868-2-r-donadkar@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 13:39:55 +0000
-Message-Id: <20260925133956.10E4F1F000FF@smtp.kernel.org>
+Date: Fri, 25 Sep 2026 13:40:32 +0000
+Message-Id: <20260925134032.4AE121F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Critical] media: UAPI value collision for 10-bit RGBIr formats
-- [High] media: missing v4l2_format_info entries for 10-bit RGBIr formats
+- [Medium] dt-bindings: media: ov2312: missing standard supplies and interf=
+ace properties
+- [Medium] dt-bindings: media: ov2312: missing endpoint constraints for dat=
+a-lanes
+- [Low] dt-bindings: media: ov2312: non-standard relative path used for sch=
+ema $ref
+- [Low] dt-bindings: media: ov2312: spelling error 'Omnvision' in descripti=
+on
 --
 
-commit 01de78103df3428257eae7c1c28cacb32713e810
+commit 77ac9a3376c50e8570040c636f5b50eb4a9953b6
 Author: Jai Luthra <jai.luthra@linux.dev>
 
-media: v4l: Add 10-bit RGBIr formats
+    dt-bindings: media: Add bindings for Omnivision OV2312
+   =20
+    Add DT bindings for Omnivision OV2312 camera sensor.
 
-This patch introduces new 10-bit RGBIr formats to support camera sensors
-that capture near-IR light along with the visible spectrum. The formats use
-an expanded 4x4 CFA pattern to capture both low-light and day-light scenes.
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov2312.yaml=
+ b/Documentation/devicetree/bindings/media/i2c/ovti,ov2312.yaml
+> new file mode 100644
+> index 0000000000000..76929fcc65506
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov2312.yaml
+> @@ -0,0 +1,79 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/ovti,ov2312.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: OmniVision OV2312 Camera Sensor
+> +
+> +maintainers:
+> +  - Jai Luthra <j-luthra@ti.com>
+> +
+> +description: |-
+> +  Omnvision OV2312 is a camera sensor with an active array size of 1600x=
+1300.
 
-> diff --git a/include/uapi/linux/media-bus-format.h b/include/uapi/linux/m=
-edia-bus-format.h
-> index 6005f033e62c0..c50042300a988 100644
-> --- a/include/uapi/linux/media-bus-format.h
-> +++ b/include/uapi/linux/media-bus-format.h
+[Severity: Low]
+This isn't a bug, but there's a typo in the manufacturer's name. Should this
+be "OmniVision" instead of "Omnvision"?
+
+> +  It supports capture of frames with a 4x4 RGB-IR bayer pattern. This pr=
+ovides
+> +  both human (RGB) and machine vision (IR) capabilities in low-light sce=
+narios.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ovti,ov2312
+
+[Severity: Medium]
+Does the properties block need to include a $ref to
+/schemas/media/video-interface-devices.yaml# and define standard physical
+power regulators (like avdd-supply, dvdd-supply, dovdd-supply) or mounting
+properties (rotation, orientation)?
+
+Because the schema strictly sets additionalProperties: false, accurate devi=
+ce
+trees that model these physical hardware features will fail dtbs_check
+validation.
+
 [ ... ]
-> @@ -161,6 +161,14 @@
->  #define MEDIA_BUS_FMT_SGBRG20_1X20		0x3022
->  #define MEDIA_BUS_FMT_SGRBG20_1X20		0x3023
->  #define MEDIA_BUS_FMT_SRGGB20_1X20		0x3024
-> +#define MEDIA_BUS_FMT_SRGGI10_1X10		0x3021
-> +#define MEDIA_BUS_FMT_SGRIG10_1X10		0x3022
-> +#define MEDIA_BUS_FMT_SBGGI10_1X10		0x3023
-> +#define MEDIA_BUS_FMT_SGBIG10_1X10		0x3024
 
-[Severity: Critical]
-Does this code assign values that directly collide with the 20-bit Bayer
-formats defined at 0x3021 through 0x3024?
+> +  port:
+> +    $ref: /schemas/graph.yaml#/properties/port
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      endpoint:
 
-These exact hex values are already used by the 20-bit Bayer formats
-(MEDIA_BUS_FMT_SBGGR20_1X20 through MEDIA_BUS_FMT_SRGGB20_1X20) defined jus=
-t a
-few lines prior. Any userspace program or kernel driver using these UAPI
-constants to negotiate formats will encounter unresolvable ambiguity.
+[Severity: Medium]
+Does this endpoint definition need explicit constraints for data-lanes and
+link-frequencies?
 
-Additionally, code attempting to switch on both families will fail to compi=
-le
-due to duplicate case values.
+Without constraints like maxItems: 2, the schema inherits the default from
+video-interfaces.yaml and incorrectly allows up to 8 lanes. Missing these
+constraints also means essential CSI-2 properties can be omitted entirely
+without failing schema validation.
 
-> +#define MEDIA_BUS_FMT_SGIRG10_1X10		0x3025
-> +#define MEDIA_BUS_FMT_SIGGR10_1X10		0x3026
-> +#define MEDIA_BUS_FMT_SGIBG10_1X10		0x3027
-> +#define MEDIA_BUS_FMT_SIGGB10_1X10		0x3028
-> =20
->  /* JPEG compressed formats - next is	0x4002 */
->  #define MEDIA_BUS_FMT_JPEG_1X8			0x4001
-[ ... ]
-> diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev=
-2.h
-> index 5373dba640fae..c56af0826f592 100644
-> --- a/include/uapi/linux/videodev2.h
-> +++ b/include/uapi/linux/videodev2.h
-> @@ -744,6 +744,15 @@ struct v4l2_pix_format {
->  #define V4L2_PIX_FMT_SGBRG16 v4l2_fourcc('G', 'B', '1', '6') /* 16  GBGB=
-.. RGRG.. */
->  #define V4L2_PIX_FMT_SGRBG16 v4l2_fourcc('G', 'R', '1', '6') /* 16  GRGR=
-.. BGBG.. */
->  #define V4L2_PIX_FMT_SRGGB16 v4l2_fourcc('R', 'G', '1', '6') /* 16  RGRG=
-.. GBGB.. */
-> +	/* 10bit raw bayer with IR (4x4) */
-> +#define V4L2_PIX_FMT_SRGGI10 v4l2_fourcc('R', 'G', 'I', '0') /* 10 RGBG.=
-. GIrGIr.. */
+> +        $ref: ../video-interfaces.yaml#
 
-[Severity: High]
-Are these new formats missing from the v4l2_format_info() array in
-drivers/media/v4l2-core/v4l2-common.c?
+[Severity: Low]
+Should this use an absolute path for the schema reference?
 
-When a standard V4L2 core helper such as v4l2_fill_pixfmt_aligned() or
-v4l2_fill_pixfmt_mp_aligned() is used with these new formats,
-v4l2_format_info() will return NULL, causing those helpers to immediately
-return -EINVAL.
+While the dt-schema tooling might resolve the relative path
+(../video-interfaces.yaml#) based on JSON schema rules, standard kernel
+devicetree practice mandates absolute paths (e.g.,
+/schemas/media/video-interfaces.yaml#) to ensure consistency for automated
+tree-wide tooling and grepping.
 
-Any driver that natively supports these formats and relies on standard V4L2
-helpers to calculate bytes-per-line and size constraints will fail to
-negotiate or capture.
-
-> +#define V4L2_PIX_FMT_SGRIG10 v4l2_fourcc('G', 'R', 'I', '0') /* 10 GRGB.=
-. IrGIrG.. */
-> +#define V4L2_PIX_FMT_SBGGI10 v4l2_fourcc('B', 'G', 'I', '0') /* 10 BGRG.=
-. GIrGIr.. */
-> +#define V4L2_PIX_FMT_SGBIG10 v4l2_fourcc('G', 'B', 'I', '0') /* 10 GBGR.=
-. IrGIrG.. */
-> +#define V4L2_PIX_FMT_SGIRG10 v4l2_fourcc('G', 'I', 'R', '0') /* 10 GIrGI=
-r.. RGBG.. */
-> +#define V4L2_PIX_FMT_SIGGR10 v4l2_fourcc('I', 'G', 'R', '0') /* 10 IrGIr=
-G.. GRGB.. */
-> +#define V4L2_PIX_FMT_SGIBG10 v4l2_fourcc('G', 'I', 'B', '0') /* 10 GIrGI=
-r.. BGRG.. */
-> +#define V4L2_PIX_FMT_SIGGB10 v4l2_fourcc('I', 'G', 'B', '0') /* 10 IrGIr=
-G.. GBGR.. */
-> =20
->  /* HSV formats */
->  #define V4L2_PIX_FMT_HSV24 v4l2_fourcc('H', 'S', 'V', '3')
+> +        unevaluatedProperties: false
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925133001.2780=
-868-1-r-donadkar@ti.com?part=3D2
+868-1-r-donadkar@ti.com?part=3D1
