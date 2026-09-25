@@ -1,111 +1,339 @@
-Received: from mail-08.mail-europe.com (mail-08.mail-europe.com [57.129.93.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59912480DCF;
-	Fri, 25 Sep 2026 21:55:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.129.93.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C9E54655;
+	Fri, 25 Sep 2026 21:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790373319; cv=none; b=tNDY9Qs77GnWeyPBtiW1DfncN1f9KwoAphFfnXq613k4Zg1pE7n6YyARsVkCxGrcvsNopbrLaTFj13POuPHGK+yfb5y7ebRY5IEDi/m7e8+EaFj3ZlLMMJB1COsWSMNCN7i5bVIfz1gj4P3DzmVcOunkv5AC3LUKFw3vGJcPqxY=
+	t=1790373549; cv=none; b=eWHH4R9RA0ewKHyljLFZ+Jx1wm+WzHwiEBP8pZHwyn3MVX79tIwWz/4FmIOOAFDNFxTc5RpF4NZHYnr5LAaEa7Fb6L37QCx19Aif7NuqPAH/Gw++kg1N7quhkdqNTMLMfekmz+TrLexBEEJszCT+m7YzJ+ZQ33aeECc1wexA60U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790373319; c=relaxed/simple;
-	bh=Z1Lz6VjC1nfLX9tXpB5qWzouczKMgmXaaDgJwAcCH/8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RCAgfy8KyHJWyHWdipDvXh3tOXyVf9xVFc2EL+mDuwo0j6mQf/056QDIsY+QhlFHFEXpawceM6psxgcSDQB+3hgGNgpiMjZP15vsZuD6+dKxt0zyDC6RJH7+EWC6j/Sm4+A7YxKt8cAE/Ydj7qF0SUUpfGWLG0IsGgAbnPAfRs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=J0e7aHpn; arc=none smtp.client-ip=57.129.93.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
+	s=arc-20240116; t=1790373549; c=relaxed/simple;
+	bh=O2PjDXtqiaTWYMzT996YbRkQjmlGFfte71y4gQ7jhi0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U+3VUN5WKin9ywn5uOYt41jVcl3Hs4KZd+xkZMcw3wOpxj2V3CwlzEJyoEGl2rTMg4ibw8jfsTD3YHpGFXDs1SbAoZ73K6xXPf1xmJIhceYjr5X4O5xKV8KqT0/F/uTO2/nwcEiihxDECCc8lqD2vBiKh64g2F4liCg7SAVWzOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gwZbf6kT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="J0e7aHpn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
-	s=protonmail3; t=1790373305; x=1790632505;
-	bh=Z1Lz6VjC1nfLX9tXpB5qWzouczKMgmXaaDgJwAcCH/8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=J0e7aHpnhMvTla5ZsVkYceEaavqRnFjq8OBYD+79M7qxGUF4bQlQpMbjx/xSsM7zb
-	 7kqvZ/lcQKt49IJ9XJwbAhcVtkGYVGgL5UtD+Y6t2K0XhQMrISzoPCe2CCZIv948Nh
-	 jkEisp2AJHYJc7GXiKZv24Ny/843aamMyOpmdL/ph4+IwfqP1tQ4AxUwvEaijUJXNX
-	 FzUKqfgJYJ0HkZwbDpHrugJ5CozFZ+0+pI+WgXlF16ZUqkD5mRmc6PrWyn/Oej+jhu
-	 3wIdcgAhqsvmMkfpJxcUqOfTaqAWVsdX8pZMqPhueMnKnG6aLw7iyDHDbjbQke+MtS
-	 C7+RWHQpo7zTQ==
-Date: Fri, 25 Sep 2026 21:55:02 +0000
-To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: Clover <alex@ironrobin.net>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
-Message-ID: <20260925215358.33417-4-alex@ironrobin.net>
-In-Reply-To: <20260925215358.33417-1-alex@ironrobin.net>
-References: <20260925215358.33417-1-alex@ironrobin.net>
-Feedback-ID: 54785507:user:proton
-X-Pm-Message-ID: acb58e6e5e5453966f081b866d275785b5b308a2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gwZbf6kT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6835D1F000FF;
+	Fri, 25 Sep 2026 21:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790373547;
+	bh=6Wc1UgfqhVnODzAM+xm4tpzG/z1zMVgbpnNsAsUH1kc=;
+	h=From:To:Cc:Subject:Date;
+	b=gwZbf6kTzZrLp71O/wRNQJlAzaYy9bWgd+weKz77/sgJKneDgti+LMY7rUF62rYIC
+	 4KQxbAQvG0r0CiY6kS/nkf3cKwHCzOOomIezTvdrO+7f5Hv1Ype3MegjnooRWFQYK6
+	 /nfQaQn44xoSYXIbr2DKRAqIzOp+vYdo6sQaI7fI68q/vqJi+p+MxhZWPf93XtaRlP
+	 pbCyhjqfLn2Fyb3HWaHWkXrBq75VuCglZvPhUWypjvSRf337wwE1z6ZKY2nqKPfesm
+	 qEvnzm7g0uk3PZKbxvcDpP/KMtTLdewJtSbZsZ8hpl9fxjV9rViRUKL5N6mwCaZ+PT
+	 uJ20bLoWuBqmQ==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>
+Cc: netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] dt-bindings: net: Convert HiSilicon hns-dsaf to DT schema
+Date: Fri, 25 Sep 2026 16:58:47 -0500
+Message-ID: <20260925215848.2949157-2-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Enable the embedded controller at address 0x28 on i2c8, with GPIO103 as
-its falling-edge event interrupt and wake source.
+Convert the HiSilicon hns-dsaf binding to DT schema format.
 
-Configure GPIO103 as an input without overriding its existing pull
-configuration. Describe GPIO176 as the separate active-high power-state
-output and configure it initially high with bias disabled.
+Drop 'phy-handle' at top level as there are no users. Add undocumented
+'media-type' property.
 
 Assisted-by: LLM
-Signed-off-by: Clover <alex@ironrobin.net>
-
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/a=
-rch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-index 218573a97785b04528854b03a99c837558a33c1e..e0eb415ef9b42efb28fc9d5a101=
-0162f057aa558 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-@@ -885,6 +885,21 @@ vreg_l7q: ldo7 {
- =09};
- };
-=20
-+&i2c8 {
-+=09clock-frequency =3D <400000>;
-+=09status =3D "okay";
+ .../bindings/net/hisilicon,hns-dsaf-v1.yaml   | 168 ++++++++++++++++++
+ .../bindings/net/hisilicon-hns-dsaf.txt       |  90 ----------
+ 2 files changed, 168 insertions(+), 90 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+ delete mode 100644 Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+
+diff --git a/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+new file mode 100644
+index 000000000000..4edc6cafcbed
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+@@ -0,0 +1,168 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2025 Hisilicon Ltd.
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/hisilicon,hns-dsaf-v1.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+=09embedded-controller@28 {
-+=09=09compatible =3D "lenovo,thinkpad-x13s-ec";
-+=09=09reg =3D <0x28>;
-+=09=09interrupts-extended =3D <&tlmm 103 IRQ_TYPE_EDGE_FALLING>;
-+=09=09power-state-gpios =3D <&tlmm 176 GPIO_ACTIVE_HIGH>;
-+=09=09pinctrl-0 =3D <&ec_int_n>, <&ec_power_state>;
-+=09=09pinctrl-names =3D "default";
-+=09=09wakeup-source;
-+=09};
-+};
++title: Hisilicon DSA Fabric device controller
 +
- &i2c21 {
- =09clock-frequency =3D <400000>;
-=20
-@@ -1540,6 +1555,21 @@ hastings_reg_en: hastings-reg-en-state {
- &tlmm {
- =09gpio-reserved-ranges =3D <70 2>, <74 6>, <125 2>, <128 2>, <154 4>;
-=20
-+=09ec_power_state: ec-power-state {
-+=09=09pins =3D "gpio176";
-+=09=09function =3D "gpio";
-+=09=09drive-strength =3D <2>;
-+=09=09bias-disable;
-+=09=09output-high;
-+=09};
++maintainers:
++  - Jian Shen <shenjian15@huawei.com>
++  - Jijie Shao <shaojijie@huawei.com>
 +
-+=09ec_int_n: ec-int-n-state {
-+=09=09pins =3D "gpio103";
-+=09=09function =3D "gpio";
-+=09=09input-enable;
-+=09=09/* Preserve firmware pull configuration; no bias override. */
-+=09};
++properties:
++  compatible:
++    items:
++      - enum:
++          - hisilicon,hns-dsaf-v1
++          - hisilicon,hns-dsaf-v2
 +
- =09bt_default: bt-default-state {
- =09=09hstp-bt-en-pins {
- =09=09=09pins =3D "gpio133";
++  reg:
++    minItems: 1
++    items:
++      - description:
++          external interface control register base and size (optional, only
++          used when subctrl-syscon does not exist)
++      - description:
++          SerDes base register and size (optional, only used when serdes-syscon
++          in port node does not exist)
++      - description:
++          PPE register base and size
++      - description:
++          DSA Fabric base register and size (not required for single-port mode)
++
++  reg-names:
++    minItems: 1
++    items:
++      - const: ppe-base
++      - const: dsaf-base
++
++  interrupts:
++    minItems: 1
++    maxItems: 409
++
++  dma-coherent: true
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++  mode:
++    description: DSA Fabric mode string
++    $ref: /schemas/types.yaml#/definitions/string
++    enum:
++      - 2port-64vf
++      - 6port-16rss
++      - 6port-16vf
++      - single-port
++
++  subctrl-syscon:
++    description: syscon handle for external interface control register
++    $ref: /schemas/types.yaml#/definitions/phandle
++
++  reset-field-offset:
++    description: offset of reset field in the control register
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  buf-size:
++    description: RX buffer size (bytes)
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++  desc-num:
++    description: number of descriptors in TX and RX queue
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++patternProperties:
++  "^port@[0-5]$":
++    description: DSA Fabric port node
++    $ref: ethernet-switch-port.yaml#
++    additionalProperties: false
++
++    properties:
++      reg:
++        maximum: 5
++
++      phy-handle: true
++
++      serdes-syscon:
++        description: syscon handle for SerDes register
++        $ref: /schemas/types.yaml#/definitions/phandle
++
++      cpld-syscon:
++        description: syscon handle plus register offset for CPLD register
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        items:
++          - items:
++              - description: CPLD phandle
++              - description: offset
++
++      port-rst-offset:
++        description: reset field offset for this port
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      port-mode-offset:
++        description: port mode field offset for this port
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      mc-mac-mask:
++        description: multicast MAC address mask
++        $ref: /schemas/types.yaml#/definitions/uint8-array
++        maxItems: 6
++
++      media-type:
++        $ref: /schemas/types.yaml#/definitions/string
++        enum:
++          - copper
++          - fiber
++
++    required:
++      - reg
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - mode
++
++additionalProperties: false
++
++examples:
++  - |
++    dsa@c7000000 {
++        compatible = "hisilicon,hns-dsaf-v1";
++        #address-cells = <1>;
++        #size-cells = <0>;
++        mode = "6port-16rss";
++        reg = <0x0 0xc5000000 0x0 0x890000
++               0x0 0xc7000000 0x0 0x60000>;
++        reg-names = "ppe-base", "dsaf-base";
++        subctrl-syscon = <&subctrl>;
++        reset-field-offset = <0>;
++        interrupts = <131 4>, <132 4>, <133 4>, <134 4>,
++                     <135 4>, <136 4>, <137 4>, <138 4>,
++                     <139 4>, <140 4>, <141 4>, <142 4>,
++                     <143 4>, <144 4>, <145 4>, <146 4>,
++                     <147 4>, <148 4>, <384 1>, <385 1>,
++                     <386 1>, <387 1>, <388 1>, <389 1>,
++                     <390 1>, <391 1>;
++        buf-size = <4096>;
++        desc-num = <1024>;
++        dma-coherent;
++
++        port@0 {
++            reg = <0>;
++            phy-handle = <&phy0>;
++            serdes-syscon = <&serdes>;
++            mc-mac-mask = [ff f0 00 00 00 00];
++        };
++
++        port@1 {
++            reg = <1>;
++            serdes-syscon = <&serdes>;
++            mc-mac-mask = [ff f0 00 00 00 00];
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt b/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+deleted file mode 100644
+index 8ee4b1cedae8..000000000000
+--- a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
++++ /dev/null
+@@ -1,90 +0,0 @@
+-Hisilicon DSA Fabric device controller
+-
+-Required properties:
+-- compatible: should be "hisilicon,hns-dsaf-v1" or "hisilicon,hns-dsaf-v2".
+-  "hisilicon,hns-dsaf-v1" is for hip05.
+-  "hisilicon,hns-dsaf-v2" is for Hi1610 and Hi1612.
+-- mode: dsa fabric mode string. only support one of dsaf modes like these:
+-		"2port-64vf",
+-		"6port-16rss",
+-		"6port-16vf",
+-		"single-port".
+-- interrupts: should contain the DSA Fabric and rcb interrupt.
+-- reg: specifies base physical address(es) and size of the device registers.
+-  The first region is external interface control register base and size(optional,
+-  only used when subctrl-syscon does not exist). It is recommended using
+-  subctrl-syscon rather than this address.
+-  The second region is SerDes base register and size(optional, only used when
+-  serdes-syscon in port node does not exist). It is recommended using
+-  serdes-syscon rather than this address.
+-  The third region is the PPE register base and size.
+-  The fourth region is dsa fabric base register and size. It is not required for
+-  single-port mode.
+-- reg-names: may be ppe-base and(or) dsaf-base. It is used to find the
+-  corresponding reg's index.
+-
+-- phy-handle: phy handle of physical port, 0 if not any phy device. It is optional
+-  attribute. If port node exists, phy-handle in each port node will be used.
+-  see ethernet.txt [1].
+-- subctrl-syscon: is syscon handle for external interface control register.
+-- reset-field-offset: is offset of reset field. Its value depends on the hardware
+-  user manual.
+-- buf-size: rx buffer size, should be 16-1024.
+-- desc-num: number of description in TX and RX queue, should be 512, 1024, 2048 or 4096.
+-
+-- port: subnodes of dsaf. A dsaf node may contain several port nodes(Depending
+-  on mode of dsaf). Port node contain some attributes listed below:
+-- reg: is physical port index in one dsaf.
+-- phy-handle: phy handle of physical port. It is not required if there isn't
+-  phy device. see ethernet.txt [1].
+-- serdes-syscon: is syscon handle for SerDes register.
+-- cpld-syscon: is syscon handle + register offset pair for cpld register. It is
+-  not required if there isn't cpld device.
+-- port-rst-offset: is offset of reset field for each port in dsaf. Its value
+-  depends on the hardware user manual.
+-- port-mode-offset: is offset of port mode field for each port in dsaf. Its
+-  value depends on the hardware user manual.
+-- mc-mac-mask: mask of multicast address, determines bit in multicast address
+-  to set:
+-  1 stands for this bit will be precisely matched, TCAM will check this bit of
+-    MAC address.
+-  0 stands for this bit will be fuzzy matched, TCAM won't care about this bit
+-    of MAC address.
+-
+-[1] Documentation/devicetree/bindings/net/phy.txt
+-
+-Example:
+-
+-dsaf0: dsa@c7000000 {
+-	compatible = "hisilicon,hns-dsaf-v1";
+-	mode = "6port-16rss";
+-	interrupt-parent = <&mbigen_dsa>;
+-	reg = <0x0 0xc5000000 0x0 0x890000
+-	       0x0 0xc7000000 0x0 0x60000>;
+-	reg-names = "ppe-base", "dsaf-base";
+-	subctrl-syscon = <&subctrl>;
+-	reset-field-offset = 0;
+-	interrupts = <131 4>,<132 4>, <133 4>,<134 4>,
+-		     <135 4>,<136 4>, <137 4>,<138 4>,
+-		     <139 4>,<140 4>, <141 4>,<142 4>,
+-		     <143 4>,<144 4>, <145 4>,<146 4>,
+-		     <147 4>,<148 4>, <384 1>,<385 1>,
+-		     <386 1>,<387 1>, <388 1>,<389 1>,
+-		     <390 1>,<391 1>,
+-	buf-size = <4096>;
+-	desc-num = <1024>;
+-	dma-coherent;
+-
+-	port@0 {
+-		reg = 0;
+-		phy-handle = <&phy0>;
+-		serdes-syscon = <&serdes>;
+-		mc-mac-mask = [ff f0 00 00 00 00];
+-	};
+-
+-	port@1 {
+-                reg = 1;
+-                serdes-syscon = <&serdes>;
+-		mc-mac-mask = [ff f0 00 00 00 00];
+-        };
+-};
+-- 
+2.53.0
 
