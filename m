@@ -1,151 +1,138 @@
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E2F45560B
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 07:43:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF9B3EAC84
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 07:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322202; cv=none; b=M1yDjSft71ivY+tgdjNYs3DgEXBplhHUyJOyqwG7pTruEzgKOe80GJQtaAQA/gWYrdMpHHITwyaeOuuSCfQPBXzUnrmu7EPazhe9V9FURytHS3UsnkOo+L3bFB0oNUM3jQCIxYnuIL5fc6mRE3lEdqva4apFl5bvBSssQX4tZ3Q=
+	t=1790322682; cv=none; b=lmehGsHhm1rVELmDiFj0uIAt5Dt09giLZMSZjLpbfTBgkOzQXt7qGH3E7evUHCfDt9x59LJFw0/A2jPpA3mGuU9sVkmjaL9a7yb0WTwpNgSZnGmkBLybzfvjmWHuAT7Go9WkBj8SyNOPn20EbCo/98PVcF8YFu7sRvoXJeoD+Q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322202; c=relaxed/simple;
-	bh=LdmthTFaZ6Cx7odqrAcqzO4dhbSuBO/RNeKUn9ozC/Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=unIv459agbkBUULJNEv7EstGKUwo1/6c9slMkhKMfbJbLfhGxWPT/Jgc2Ptofo/xaouSPRwfw7+OfYa6LF6nEwXT8puDd/s7/S1F68NbD0leYnOwDBWjkBCuoCszwq0H7/tTL4jT/5b5QEPephvxT15rsQhgbieMFLBGnY2/zQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-78fb1fb9508so1480174137.1
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 00:43:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790322193; x=1790926993;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OHrY14evUZl7TkXTojoWr/b2Uu7Pe/dQ0XVSo++s0Jk=;
-        b=AO7W68W1e6kJgZjZV0DFJYWI4sCDAhq7+3MaQLM/Kx8OmEsfHDL+lmS/MxyEK5c9Uc
-         QihINemfNWXk+UvuMqYes5hWObwF7BIWknDN7p/nQOpz/G8mh8bgDXJo19bRJDEgsPpE
-         cj0pxxzBoPoOnn+M2EAymOVwX4jz2UOcJd4NyWt17m+Ennj0KK1eQmvmWpLIiVTQrDrC
-         XD/m5mJSYDGPYzxWToO54iuLfIgbX818NKRYMAqXKN5CGBopFwWY/C5XO4SV28+lit3N
-         FT/kxN1wDFZz4Ztn9VdNZlCqY3MMFq2W7nInVNZNmkrkBPUbAfKTubDnnP7IMFth7E3Y
-         ndtw==
-X-Forwarded-Encrypted: i=1; AKwUvBzzze1j95zKwEReC/MyrTwrkwnD4+5CujRmIa/ISa7b3MrldFQJjinjB4KkEp1MPl+27NeGrPlboO0x@vger.kernel.org
-X-Gm-Message-State: AFuF++mIGosut3cy3eNXiegs7tEFMLzkIStFmylnLxKrpt1HfhbG6DJz
-	l8xH1fzgmzmsBps7ENxVDmZKM8lSq3vLhuNrbaaJhaFaCqQflpMEj5c/wzeugOLa
-X-Gm-Gg: AYBFou1ZwJGLT02bdcKw1cRlGHw+2VqDvl9L9ORvEKX6ETo2l//hw3RZ63ztiTp7k0W
-	C802fHkv5bPmJB8a87SnQVLL8fJ5rCycxbyeG0Ugb6MxDLnV3thosgnpXJCyqnUgQn1q4ilMKDl
-	yTg+R7hbamH+zEhlvZWyiVkJgJKp4mSe38+v8iN4XoV9QeUBNS9i5PYfv+Syb2GV4CDM2p4M+FJ
-	X74Fqt3VLi+Rg7Kj0FifuBxtiVMJq9fHRCaCNTvewDcSM5G35N45qH/Ccht2PajtEA7URsbQqFL
-	ue6ND6Z3y4BdAnDlpfm3+rP0l9BqyxI4k1rVuhH+3a0tHGUAXoNAw3QaIudawadFbbeYxv7P17c
-	4jVIf6fznnkxFiY5qo0U20gNJ4bgowmK0NeCDoqD06vsPoa7EQy8Z6wiRyJXVt4fWc7qyNBNIGx
-	S7Wx1Oy4DfepGF2RAxtfd8rrui99MnwrvWOdAr11E0W+WIwRtKluLIM33USltf2HwTZoDbOpfIk
-	r0HhyDeYgb1D4bn6qY16K89brYIRwdYJWgDfg==
-X-Received: by 2002:a05:6102:3246:20b0:797:c1fd:9d87 with SMTP id ada2fe7eead31-7af1c68ce3emr1738172137.2.1790322193204;
-        Fri, 25 Sep 2026 00:43:13 -0700 (PDT)
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com. [209.85.222.41])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9860de81511sm1709309241.2.2026.09.25.00.43.12
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 00:43:12 -0700 (PDT)
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-9809ce25a29so406173241.1
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 00:43:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByPLlg/9ZwZNYgLNeJXidH7l97HRLord59EA0/S48ZuTlEW5NTeJvHT93eNC2IPsiXzXP8cJg04f6tT@vger.kernel.org
-X-Received: by 2002:a05:6102:3246:20b0:797:c1fd:9d87 with SMTP id
- ada2fe7eead31-7af1c68ce3emr1738158137.2.1790322191996; Fri, 25 Sep 2026
- 00:43:11 -0700 (PDT)
+	s=arc-20240116; t=1790322682; c=relaxed/simple;
+	bh=OV886BjO04ewv4sqpW5mJh3Mfd04tHnzMTFT5P2ko1w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=h2YuXu48Z9Jonm1K97AuW/4YCEXNfyjhpa7bK2/x1+K9QIUGmADNWjT0V3neyiglcgQwf6GzWRQ0Wp8HTK+l5OZ6KCzJcG2ps/TDk2OrgabjXrjPWHv0N+lAPVikXEHAOl2+26B2mtrlJ5RXol276wYgEyNw0p2+DzcFlr9i1y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ixcqT+2y; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ixcqT+2y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6056C1F000FF;
+	Fri, 25 Sep 2026 07:51:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790322680;
+	bh=hHYzr6QdZqQPb3ga0Q/YxatfsTW8WsIYCWrx5ng2uLw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ixcqT+2yAmVNrY2pScmDREoXevgZOMV7xke3BFd5cLx0hZcZVoZdZ4C6w2w9MJ2u5
+	 vYIq6HMvAu2Y2MWHMPlOVtl8ksa9135/teHD6cAB1yD2myUlvA8J+xCpXcfeQgwpbW
+	 zgcGtdFlshYUMLoYnmwlOjI+TswiHDTjFEhnkNKQAf34prpdukfvBH3Pz6VHWyI4A3
+	 xFrMiJNX13b89AV40y+rCP2C1WeAOfKyhZv8VOJ2ucsQ60g+Cgy6XbqEQc/+3rLZ2g
+	 vvi+26FchICuSwgOvCyMIsTtJCTR057veBZWB7ofVGt6PYRP/YEk8R5vLwlgygLsQE
+	 bCrikeRhFS7wQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v21 2/3] net: phy: Add support for Template
+ Control register for PMA
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyle Switch" <kyle.switch@motor-comm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260924075048.4060414-3-kyle.switch@motor-comm.com>
+References: <20260924075048.4060414-1-kyle.switch@motor-comm.com>
+ <20260924075048.4060414-3-kyle.switch@motor-comm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 25 Sep 2026 07:51:19 +0000
+Message-Id: <20260925075120.6056C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260917111349.52250-1-wsa+renesas@sang-engineering.com> <20260917111349.52250-4-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260917111349.52250-4-wsa+renesas@sang-engineering.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 25 Sep 2026 09:43:00 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWy6ksspwvj8jRxf6_OATU5rS5p92KyG4+sEF+ag7S9NA@mail.gmail.com>
-X-Gm-Features: AclHuK85B8akfPcq7Wm9lfgYaHe65iE3-4i39ONPSyetOTvniQxGh_v7KkpSaOQ
-Message-ID: <CAMuHMdWy6ksspwvj8jRxf6_OATU5rS5p92KyG4+sEF+ag7S9NA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/4] dt-bindings: rtc: rzn1: add R-Car X5H support
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org, 
-	Lad Prabhakar <prabhakar.csengg@gmail.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Wolfram,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] UAPI: kernel-internal GENMASK breaks userspace build
+- [Low] phy-c45: genphy_c45_template_testmode() returns -EOPNOTSUPP for inv=
+alid argument
+--
 
-On Thu, 17 Sept 2026 at 13:14, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> The RTC on R-Car X5H is a bit special because interrupts are not wired.
-> Future R-Car Gen5 SoCs will have them wired again. So, create a
-> dedicated entry for X5H without interrupts.
->
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+commit 188b76c25d65c5d40038c12ea01f1d6261994387
+Author: Kyle Switch <kyle.switch@motor-comm.com>
 
-> --- a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
-> @@ -23,6 +23,8 @@ properties:
->            - const: renesas,r9a09g087-rtc  # RZ/N2H
->            - const: renesas,r9a09g077-rtc  # RZ/T2H
->
-> +      - const: renesas,r8a78000-rtc   # R-Car X5H
+net: phy: Add support for Template Control register for PMA
+   =20
+This commit adds support for the 10GBASE-T PMA Template Test Mode register
+field. This allows selecting test modes used for PHY validation.
+
+> diff --git a/drivers/net/phy/phy-c45.c b/drivers/net/phy/phy-c45.c
+> index 870920311f9a0..c5f5753f7194b 100644
+> --- a/drivers/net/phy/phy-c45.c
+> +++ b/drivers/net/phy/phy-c45.c
+
+[ ... ]
+
+> @@ -1408,6 +1408,29 @@ int genphy_c45_fast_retrain(struct phy_device *phy=
+dev, bool enable)
+>  }
+>  EXPORT_SYMBOL_GPL(genphy_c45_fast_retrain);
+> =20
+> +/**
+> + * genphy_c45_template_testmode - configure template testmode registers
+> + * @phydev: target phy_device struct
+> + * @test_mode: testmode includes Normal to Test mode 7
+> + *
+> + * Description: Set template testmode include Normal to Test mode 7
+> + *
+> + * Return: 0 on success, or a negative error code on failure (e.g. regis=
+ter
+> + * read/write error).
+> + */
+> +int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mod=
+e)
+> +{
+> +	u16 ctrl;
 > +
->    reg:
->      maxItems: 1
->
-> @@ -52,8 +54,6 @@ properties:
->  required:
->    - compatible
->    - reg
-> -  - interrupts
-> -  - interrupt-names
->    - clocks
->    - clock-names
->    - power-domains
-> @@ -66,6 +66,7 @@ allOf:
->          compatible:
->            contains:
->              enum:
-> +              - renesas,r8a78000-rtc
->                - renesas,r9a09g077-rtc
->                - renesas,r9a09g087-rtc
->      then:
-> @@ -75,6 +76,20 @@ allOf:
->          clock-names:
->            minItems: 2
->
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: renesas,r8a78000-rtc
-> +    then:
-> +      properties:
-> +        interrupts: false
-> +        interrupt-names: false
-> +    else:
-> +      required:
-> +        - interrupts
-> +        - interrupt-names
+> +	if (test_mode > MDIO_PMA_10GBT_TESTMODE_7)
+> +		return -EOPNOTSUPP;
+
+[Severity: Low]
+Does this return the correct error code?=20
+
+Returning -EOPNOTSUPP usually implies that the hardware lacks the capabilit=
+y.
+Would it be better to return -EINVAL here to indicate that the caller passed
+an out-of-bounds test_mode parameter?
+
 > +
+> +	ctrl =3D FIELD_PREP(MDIO_PMA_10GBT_TESTMODE_MASK, test_mode);
+> +	return phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_PMA_10GBT_TESTMODE,
+> +			      MDIO_PMA_10GBT_TESTMODE_MASK, ctrl);
+> +}
+> +EXPORT_SYMBOL_GPL(genphy_c45_template_testmode);
 
-Sorry for missing this before: the "resets" property is
-completely missing.
+> diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
+> index 06f4bc3c20c71..353ca13c64fca 100644
+> --- a/include/uapi/linux/mdio.h
+> +++ b/include/uapi/linux/mdio.h
 
->  unevaluatedProperties: false
->
->  examples:
+[ ... ]
 
-Gr{oetje,eeting}s,
+> @@ -320,6 +321,17 @@
+>  /* PMA 10GBASE-R Fast Retrain status and control register. */
+>  #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
+> =20
+> +/* PMA 10GBASE-T Template Test Mode Register*/
+> +#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mo=
+de */
 
-                        Geert
+[Severity: Medium]
+Can this cause compilation failures for userspace programs?
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+The GENMASK macro is kernel-internal and isn't exported to standard userspa=
+ce
+headers, which typically only expose __GENMASK. Including GENMASK in a UAPI
+header might break builds for any userspace applications that include
+linux/mdio.h and evaluate this macro.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> +#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
+> +#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924075048.4060=
+414-1-kyle.switch@motor-comm.com?part=3D2
