@@ -1,104 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0A92931DE;
-	Fri, 25 Sep 2026 17:31:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98BE3EA942
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 17:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790357492; cv=none; b=iqmfV0pGcRXlV7U0q0jOSgk8JL9WlreW+g6+yQ/dRBF0rMONJ+/d9NTh+IgLfxiT7omaOZZcZWff62etpxIdj5ZL4LN4cBKukEUWXt+lEcMvmY3l6fddMhqiuxBUABfdjsVR5Vl1lVmCt/cdUe1gvkaG8D0RVsXMJ33s9lzYwbs=
+	t=1790358528; cv=none; b=NgztSGi+gTEvXcWW8RVzhstCneF/8acU/k/hWa5p0ZQQY2Rc/78VvQHwoVplMCKps6kDzWyMev3zVjS27C/DMzW6jRnJIoOWRpmSk4RhKwyEh/PWtpFuTMiLuu8wujKEo3zLlSFBWLen48a+TpvnH22ljrzOfpkgUTu45d5SE+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790357492; c=relaxed/simple;
-	bh=8zaxvuM9ZW3isrk+vgo03BgKo6l6ox32HTb6wYiMJ7A=;
+	s=arc-20240116; t=1790358528; c=relaxed/simple;
+	bh=hxV+qvTdQ/L5+QDF7jTM+x6xriCKo8Oss1Iah+M8rgI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pQg92/Zo4MB8Cwj76uHiXAfb2WUNZX6hydIqkmiw5LHUC/ySqF2OcJtU0l8Ji+ShqR4hzJQflHdRVBTJDGKMihX1AdghegrqELq7II/GwU5TCiXhCA0R3S3dFsrBQ9ty2cJ4mJM21N0Tt9j5PHwAwG/Td4BsHMqS7YTM25/D+7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RDii75er; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kGGCa/ZsOi4URmt7HQTqvhldFdm9gqvSw9mlEtSXpLzovRNz6WT98vtMuVUQ8xOIMyFDF2L6aTgPKK/aJz2BCU9cbmV60yCjHzNO4pfvLQxP6QtCAgZFytT+1IB5jbf6HtFjuvxcP1GVxMKC2Q0go8eMvf01bnAzErDKfjresDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C9b6/SL8; arc=none smtp.client-ip=74.125.230.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RDii75er"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9BF11F00898;
-	Fri, 25 Sep 2026 17:31:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790357491;
-	bh=CU8/3FStPs21uHCF0vCBdtC0kkoA18hsneGo7M9DKuo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RDii75er0QkuQ23DAGmCWgjYPxAdpURlEQne5obx/yhOFyOQowRy2Qq5fYzDXWuCl
-	 W5cOnXGDlOnCY3ob+n4kWalWj4bkjMRnCx3n4Tb9Ws66CKjbT7uNChqeqe3W2m53n7
-	 rLaWQa/DtVXK/vB4dSA7F1R0mh8oHZraNd6y0Uv9xvdvdR0RNPXulaNniUQeZ3AnoJ
-	 9K9TfibOWqsgibXHXCbGSn1pInf0Wbt8tcY45pm6bdzCkXisNv8eEYq3Ukveq95UYJ
-	 T8IqhurIC7Pbwy6tGlYHx+wvfGjWIBut1Ml6l72yLdgx0SipGS1ixTrKOWIfD/s0bL
-	 bd/zOpDgwZLUg==
-Date: Fri, 25 Sep 2026 18:31:24 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C9b6/SL8"
+Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93c56f7c1c8so1390485a.3
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 10:48:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790358525; x=1790963325; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tqho0gYvfxFyUzakkOYHaCJ1K4YCibf7irTMVk2q1ig=;
+        b=C9b6/SL8Hxh8W2XbVAEGfL4p+IlWQ/QGVcyPWsOFRSDfRyiUzmQja9FLZPix2D/Ruj
+         6NwGX/Zu/SnuM+T+YN9sJ1fMWpDe7QMD1Yr85w3dllWqBCsQUTBrTChk/3D8NV3OrOJA
+         MsTFgtTWTch3gEdu0/cHBB0N9goWx/9Pbw5zuFfkDv7bvngxruwYH3rwJEMc+1zvbUIx
+         21H869tRHMBA/k/Rdh0MtpJAyuPAaQZmH3Qrv/zhLOoeGqURsBmvxcqEPnJAnLdWTfew
+         2ULWMrpQ7HhKwNI2K1xAjLXLWFCIqTY/AP0oxSimL+Q3boF8vDeekJ6et1wQIrk8rgMe
+         Ot0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790358525; x=1790963325;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tqho0gYvfxFyUzakkOYHaCJ1K4YCibf7irTMVk2q1ig=;
+        b=Ps2ub2CoXNOfHhSHEzCCJnMgkrzoTTKCC1VeSA3Xp93ShB51/+xDEEyqGw9wE+iMOQ
+         4pcu9EwgvpCaDtsynrYDKwv/a9donZ7DMDrrgZCB2uyHZKNnT4SNLWm4Vrtp9nfuHcOD
+         im4ZliXAZmCMwKru+BLIp2fPN0QSsoTQvocvSdFVl9jqcKXqTnkvf1EjKuVRUtPkWSXY
+         5MLZuO3ONVGzsXDXRBv4j2u4pO/sjhsdN2gPrAi1RHBoM5x6XC/P70A0uZQZaMsD7tiz
+         WIu4u2wv2pV4EHqISkSaXW6Z8kyU6w2C3QU8VJr0KN89Z4vSLUT3WkMGS9gmmzkhsjag
+         4OBw==
+X-Forwarded-Encrypted: i=1; AKwUvBzzkEsEGeLPkeTxnD7tcMXf58W5C9iFeQQQ7pmQIqBBUAv2A4nmaiAj2B/IQUB+qoMAn9AOjgxrIx3T@vger.kernel.org
+X-Gm-Message-State: AFuF++mDf8Vx+tXVFq264xd8MryX/qxtMPLFpussIdehNarVaxbvGCez
+	mhhSAwP1JSholaDR5dXSRgYAKp7Rezfr+aPqAbwTtd1T51b4MCsx346yaaJSUQ==
+X-Gm-Gg: AYBFou29pJIPiQev7bHf3klmQ2ydotglqQMHfunn8/lQnW/sgTklhrMhJucufccllvH
+	a2N6qgbt0xIHCeVasmAf4XhEyrx1f+KQoTTfHSaH9WV1APiwsZ4gj2ggUBpOA3Ti6ykggjZtr3d
+	QgTddkaYFkJZNtm/+FFAJqokhiwtuE38Qf1F0WahV/RUMk4F7B+yZLaK4fXybj6zC3qXD0OFHxu
+	KY6KJiLxELZHYpAVCRHbArQQZ4K6ohlXmTk5M349IItges2ADt4YDJYHc2Uq5i4smj7OUK0ymP4
+	Py4etTo/U7GjDwok+zCX0SqGsZW4OSBudj0fORI79SPR89SLMZxqmFjrxw7RaCVcoEnds3K62+v
+	9SCNm1e0ucchUydLdgp+zhHMxfdvhYe5+T0vzPv/7IMwi0Mh4OuM5x5MCfcuGOp/N/h2KR0tD/9
+	klLCUS+li6grD5ofjSPjlEhMHzQHlZpTxamUOABM2OBm0g/DQtEVWEX5NE/VIlixvh1IXP1FX+
+X-Received: by 2002:a05:620a:1b8b:b0:939:9bcf:8d35 with SMTP id af79cd13be357-93c43cd2ff3mr580302985a.35.1790358525493;
+        Fri, 25 Sep 2026 10:48:45 -0700 (PDT)
+Received: from localhost ([2605:8d80:6a24:95:3113:1259:156f:f039])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c4499c06csm232636485a.46.2026.09.25.10.48.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 10:48:44 -0700 (PDT)
+Date: Fri, 25 Sep 2026 13:48:35 -0400
+From: Richard Acayan <mailingradian@gmail.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Maciej Strozek <mstrozek@opensource.cirrus.com>,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	patches@opensource.cirrus.com
-Subject: Re: [PATCH v5 7/7] ASoC: codecs: add Qualcomm Tambora (WCD9378) SDCA
- codec
-Message-ID: <e3797f4f-2e46-46ff-99ff-6ba9324bb427@sirena.org.uk>
-References: <20260925161049.758913-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260925161049.758913-8-srinivas.kandagatla@oss.qualcomm.com>
+	Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH 11/11] arm64: dts: qcom: sdm670-google: configure analog
+ and digital codecs
+Message-ID: <araz8_AlFWLV3c3n@rdacayan>
+References: <20260922015801.32373-1-mailingradian@gmail.com>
+ <20260922015801.32373-12-mailingradian@gmail.com>
+ <f43ebaea-05c5-40a2-882b-3211e3590476@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SjxQyCN2LFaDkbso"
-Content-Disposition: inline
-In-Reply-To: <20260925161049.758913-8-srinivas.kandagatla@oss.qualcomm.com>
-X-Cookie: Love America -- or give it back.
-
-
---SjxQyCN2LFaDkbso
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <f43ebaea-05c5-40a2-882b-3211e3590476@oss.qualcomm.com>
 
-On Fri, Sep 25, 2026 at 05:10:48PM +0100, Srinivas Kandagatla wrote:
-> Add support for the Qualcomm Tambora (WCD9378) headset codec in SDCA
-> mode over SoundWire.  On ARM/DT platforms without ACPI/DisCo firmware
-> the SDCA topology and SoundWire port properties are supplied as static
-> data through the codec driver.
+On Tue, Sep 22, 2026 at 12:47:43PM +0200, Konrad Dybcio wrote:
+> On 9/22/26 3:58 AM, Richard Acayan wrote:
+> > The SDM660 digital and PM660L analog audio codecs control the headphone
+> > jack on the Pixel 3a. Configure them for sound playback.
+> > 
+> > Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> > ---
+> 
+> I think it's better to squash it with patch 10
 
-> +static struct sdca_control entity_fu6_controls[] = {
-> +	{ .sel = SDCA_CTL_FU_MUTE, .mode = SDCA_ACCESS_MODE_DUAL,
-> +	  .layers = SDCA_ACCESS_LAYER_USER, .cn_list = 0x6, .nbits = 1,
-> +	  .type = SDCA_CTL_DATATYPE_ONEBIT,
-> +	  .interrupt_position = SDCA_NO_INTERRUPT,
-> +	  .has_reset = true, .reset = 1,
-> +	  .label = SDCA_CTL_MUTE_NAME },
-> +	{ .sel = SDCA_CTL_FU_CHANNEL_VOLUME, .mode = SDCA_ACCESS_MODE_DUAL,
-> +	  .layers = SDCA_ACCESS_LAYER_USER, .cn_list = 0x6, .nbits = 16,
-> +	  .type = SDCA_CTL_DATATYPE_Q7P8DB,
-> +	  .range = { .cols = SDCA_VOLUME_LINEAR_NCOLS, .rows = 1,
-> +		     .data = range_fu6_vol_data },
-> +	  .interrupt_position = SDCA_NO_INTERRUPT,
-> +	  .label = SDCA_CTL_CHANNEL_VOLUME_NAME },
-> +};
+Maybe it would be better to combine with patch 8 (same /^.*:/ prefix),
+if this is just about number of patches. Patch 9 is about as related as
+patch 10.
 
-Why do only these have nbits and type?
+> [...]
+> 
+> 
+> > +		lpi-mi2s-rx-dai-link {
+> > +			link-name = "LPI MI2S Playback";
+> > +
+> > +			cpu {
+> > +				sound-dai = <&q6afedai LPI_MI2S_RX_0>;
+> > +			};
+> > +
+> > +			platform {
+> > +				sound-dai = <&q6routing>;
+> > +			};
+> > +
+> > +			codec {
+> > +				sound-dai = <&pm660l_codec 0>,
+> > +					    <&lpass_codec 0>;
+> > +			};
+> > +		};
+> 
+> nit: 'co'dec , 'cp'u < 'p'latform
 
---SjxQyCN2LFaDkbso
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2r+wACgkQJNaLcl1U
-h9BjZAf+P+FCE41A3coeuFx7xgFIBhNG8FB/yhOQN5xDBaS28U8MLNeywuRKbotu
-cZacw804ilmv5OyO2IO1nqTyTJr8w6w9d7O3dfBEtoC/ufi3dsqP9knQ2vyLK7vd
-v2TF9eDzzNsQx0J3Cx8rSMHxkeNG5q6R/fWJoZ4gNtT5js+g1Eb8e9txI8OC18Wc
-nfFkFiNjgcSE4CfLW7NU0ISA324oQmZOfbrNnzfy1mfp2aIPfEd7b4AyFQw1xr4+
-G06mc/Yzodm3VHdo2lTT9tHlTnFO0iP4084zWHzApIRCE0CZRqU/jQQEVjIXplF5
-BEeN/mJQL4NzNS2FhjLyQMOpSGzcsA==
-=6ptd
------END PGP SIGNATURE-----
-
---SjxQyCN2LFaDkbso--
+(will be done in v2)
