@@ -1,159 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DF13FFAA4;
-	Fri, 25 Sep 2026 18:20:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5C84D9F75;
+	Fri, 25 Sep 2026 18:23:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360454; cv=none; b=Wko5YrAISOlNTsbubL00TtWL0XyKIql7fLJhOCTrra7oDOhcDyU5mjZW3ZjQZEfrkFYJkKXW0tJoeYYreycNKDUPtLhQO+QYJaB1BhR1hb4ikcGE4/s3PrkseVvtKaUv4RMSYCD7XuqzDj8pe0xYdiEs/FzYfi03FP4GGGh3ou8=
+	t=1790360622; cv=none; b=K77/asWSjcdDOvGIux3xbl50xlMk+OyOftipp7UxtzdsQ8MUgpV1NLFUG2/utePIMTZxn61zg16k4rAcZNMvSweZ4WN4P4HgLBs+XVKpZ7lQsciaeJ5ISvFbUdeXzU3ihFbqvWFMQD6CBCH/OG6YiOl41HaV1u+K/k8IcFnxO0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360454; c=relaxed/simple;
-	bh=e59QF1/gJAzfBLahIlarB/qRJvoLqmihh+ZQ0pZr9c8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mBvikgiXaHiJ3srb/NGYXErbGhxODFJ5aYzkP5gN3aLKK65dlK1uQcEs8jcsonqWbNZmUDMeMSjvSxGP1P0SXM8I4bjc7ZBxTkiDbPW49E0TdlEqPGsq9Yc7wH77EuqH8U5utRWcCiT8Fq+5sb7YFbMeEwLcn/t0azFgftTp4zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P8FVwLxh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790360622; c=relaxed/simple;
+	bh=h1WnzZmi3pyewV9/vCrQ0MdXk6vxiZtPSBs0IU8k0EM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Ay1eK+gPp9jEaymdpY2qLuzxy+WocAzzVemeI/GkrG5j2lKLOhUIEeKZ/zxV8jN/iDamrAMUyffs5WxyBE1UBYPcEiJQ23KBWVpawz8MbrJdmaQkYuoks3ZlDiKJJ1Hve7aCRhSRlQ+eaJBivSt9QTCK1JUJzQVMzcuDLLRPD6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mA37eq20; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P8FVwLxh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7B51F000FF;
-	Fri, 25 Sep 2026 18:20:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mA37eq20"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34D471F000FF;
+	Fri, 25 Sep 2026 18:23:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790360452;
-	bh=XEVZQpWQ1S8SUFjagVACI8LuHkxv6HV9CkdMaoCHFak=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P8FVwLxhelz5DhaP9jRK/vtAAw1AbNE5cuh+MhpMM7Eq0pypGgR6WZV2ixPgcynoM
-	 YBtWVOWZVab0U73ghJ79Y558VJpkcPP5U2EogTneu4uRHfWSLV05YHnCcr270OT6Rb
-	 rN+iV30P625vWLODI6PsrDxSp1Jm3yH2Zi0PkitQuRu6LGbAVf59Zq6jDGJD4fJXEc
-	 YAJzc8g+5qkbjZOjo34WhknKsMKB4QZx1OrU/ALMPBe5sQJbzcZuBJ1kHhZO1DcPLN
-	 hHa23govUbNGT8+iTzTQ8w+OnSQbNHEBCe86/vpKrIpipjft0JWxuo4Xwv8uy6ke/p
-	 uU5/L8Ob2mVFw==
-Date: Fri, 25 Sep 2026 13:20:49 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: Fix USB interrupts in Glymur DT
-Message-ID: <ara7cNuOCghH2p9m@zenbook>
-References: <20260803-glymur-dt-usb-fixes-v1-1-0f5f52853102@oss.qualcomm.com>
+	s=k20260515; t=1790360621;
+	bh=YXD/bcemTBzmK3LtpaIyAjbwDuPz3nvXg3CfboN6GTQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=mA37eq20O1YEAWpJjBKxtTbXtkkBgoE50aP2A7xAjpu91C4KOyM1M1JBylcPUnKx5
+	 D+eVBUF8lbR2+gzSgKo0eDOoL04OpJo5IbV+25xBrnuV8rrWg0O1142R4l9JzfcWnc
+	 Tu2iQDPrnXMXjHHPma0v1l+74kudxCo2EIWgFLeAgyB96g08YMmKkVp3tPOG7Fix9t
+	 9DzrcjPPc6j7bBtBaj3ItZr2ki2w8NkjetA8MqvXntUtWFRB4HvIN6ZIpkdG8/jps8
+	 pYKeNO07vEf/ia9AU7HRHwnu4ot0ng1p45icNpd1vAEPNmkJp5cRgVqzHbVv0lJMpM
+	 5w8zisdxczKCQ==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ David Rhodes <drhodes@opensource.cirrus.com>, 
+ Conor Dooley <conor+dt@kernel.org>, David Heidelberg <david@ixit.cz>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+In-Reply-To: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
+References: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
+Subject: Re: (subset) [PATCH v4 0/8] Speakers for Pixel 3 / 3 XL
+Message-Id: <179033512686.204944.16990313455275309471.b4-ty@b4>
+Date: Fri, 25 Sep 2026 12:18:46 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260803-glymur-dt-usb-fixes-v1-1-0f5f52853102@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2152; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=h1WnzZmi3pyewV9/vCrQ0MdXk6vxiZtPSBs0IU8k0EM=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtrwmZJjTUy9mi4xOWCYdUDcLFZ0FI7ejsKp1d
+ XYSpKhfHomJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCara8JgAKCRAk1otyXVSH
+ 0EJXCACHAXZzQJLSmm2F8tvsa9eZCAbaljZmp6TzvJQYT84xmk5ldGmiVssXgmZF0bkU/SlWArG
+ TKl3kdVHID43faOm04jIZVT17+2Ii7iE71xRC/1KnmeFwhNcJLUObD9oj3Ot/2zcCQLeGM7T++c
+ Xql7S5zUnX+piEmUgnpqlav/Zlc//xuJd0pOiPluLkUpER4FCgRrpzHTI4XybLb1KckELoPY32+
+ u96ViCIbhTcqg1jo1MWm1dY6S0YMwmIDb7gaag9nAfgXUNf5bQM726v45xB4bvioi3LlG89PZSM
+ EgXbRZwkYq8rf3JdG9vZ2kKqDmE8QP20SCiuA+Xlzo1t3ff+
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, Aug 03, 2026 at 09:56:03AM +0530, Krishna Kurapati wrote:
-> In Glymur, DRD capable USB Nodes are missing the HS Phy IRQ. Also, fix the
-> pwr_event and hs_phy interrupt numbers in Multiport coontroller node.
+On Thu, 24 Sep 2026 15:24:05 +0200, David Heidelberg wrote:
+> Speakers for Pixel 3 / 3 XL
 > 
-> While at it, the dp and dm interrupt numbers have been swapped on HS only
-> usb controller. Fix them up.
+> This series address:
 > 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> ---
-> This series has only been compile tested.
+> 0. demistify the hex to BIT() macro and add left/right rx spk
+> 1. most likely wrongly set DSP_B in sdm845.c
+>    my guess this is because TDM was never used in the mainline with
+>    sdm845
+> 2. applying correct mask to left/right speaker for the TDM in sdm845.c,
+>    so both speakers can work simultaneusly
+> 3. setting sysclk at startups, which some codecs need (such as cs35l36)
+> 4. setting proper tdm slot in the cs35l36 driver
+> 5. device-tree wiring for Pixel 3 / 3 XL
 > 
-> Binding depedency:
-> https://lore.kernel.org/all/20260803-glymur-usb-binding-fixes-v1-1-9ce334777387@oss.qualcomm.com/
+> [...]
 
-Please resend when this binding has landed.
+Applied to
 
-Regards,
-Bjorn
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-> ---
->  arch/arm64/boot/dts/qcom/glymur.dtsi | 22 ++++++++++++++--------
->  1 file changed, 14 insertions(+), 8 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> index f04058d2e089..7a71297db481 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> @@ -4574,11 +4574,13 @@ usb_0: usb@a600000 {
->  
->  			interrupts-extended = <&intc GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 371 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 368 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 90 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 60 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 17 IRQ_TYPE_EDGE_BOTH>;
->  			interrupt-names = "dwc_usb3",
->  					  "pwr_event",
-> +					  "hs_phy_irq",
->  					  "dp_hs_phy_irq",
->  					  "dm_hs_phy_irq",
->  					  "ss_phy_irq";
-> @@ -4649,11 +4651,13 @@ usb_1: usb@a800000 {
->  
->  			interrupts-extended = <&intc GIC_SPI 875 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 369 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 878 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 88 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 87 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 76 IRQ_TYPE_EDGE_BOTH>;
->  			interrupt-names = "dwc_usb3",
->  					  "pwr_event",
-> +					  "hs_phy_irq",
->  					  "dp_hs_phy_irq",
->  					  "dm_hs_phy_irq",
->  					  "ss_phy_irq";
-> @@ -4725,11 +4729,13 @@ usb_2: usb@a000000 {
->  
->  			interrupts-extended = <&intc GIC_SPI 871 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 370 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 877 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 89 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 81 IRQ_TYPE_EDGE_BOTH>,
->  					      <&pdc 75 IRQ_TYPE_EDGE_BOTH>;
->  			interrupt-names = "dwc_usb3",
->  					  "pwr_event",
-> +					  "hs_phy_irq",
->  					  "dp_hs_phy_irq",
->  					  "dm_hs_phy_irq",
->  					  "ss_phy_irq";
-> @@ -4805,14 +4811,14 @@ usb_hs: usb@a200000 {
->  
->  			interrupts-extended = <&intc GIC_SPI 240 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&intc GIC_SPI 246 IRQ_TYPE_LEVEL_HIGH>,
-> -					      <&pdc 92 IRQ_TYPE_EDGE_BOTH>,
-> +					      <&intc GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 57 IRQ_TYPE_EDGE_BOTH>,
-> -					      <&intc GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH>;
-> +					      <&pdc 92 IRQ_TYPE_EDGE_BOTH>;
->  			interrupt-names = "dwc_usb3",
->  					  "pwr_event",
-> +					  "hs_phy_irq",
->  					  "dp_hs_phy_irq",
-> -					  "dm_hs_phy_irq",
-> -					  "hs_phy_irq";
-> +					  "dm_hs_phy_irq";
->  
->  			resets = <&gcc GCC_USB20_PRIM_BCR>;
->  
-> @@ -4870,10 +4876,10 @@ usb_mp: usb@a400000 {
->  				      "noc_aggr_south";
->  
->  			interrupts-extended = <&intc GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
-> -					      <&intc GIC_SPI 345 IRQ_TYPE_LEVEL_HIGH>,
-> -					      <&intc GIC_SPI 346 IRQ_TYPE_LEVEL_HIGH>,
-> -					      <&intc GIC_SPI 162 IRQ_TYPE_LEVEL_HIGH>,
-> -					      <&intc GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 313 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
-> +					      <&intc GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 12 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 11 IRQ_TYPE_LEVEL_HIGH>,
->  					      <&pdc 14 IRQ_TYPE_LEVEL_HIGH>,
-> 
-> ---
-> base-commit: 1e88112e60de707020f3def45af81f9a0180ee82
-> change-id: 20260803-glymur-dt-usb-fixes-62f314d3f3a9
-> 
-> Best regards,
-> --  
-> Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> 
+Thanks!
+
+[1/8] ASoC: qcom: sdm845: Demystify TDM masks a bit
+      https://git.kernel.org/broonie/sound/c/090991b292c6
+[2/8] ASoC: qcom: sdm845: use DSP_A format for TDM codec DAIs
+      https://git.kernel.org/broonie/sound/c/ed41c80271e6
+[3/8] ASoC: qcom: sdm845: Use per-speaker RX masks for TDM slot assignment
+      https://git.kernel.org/broonie/sound/c/84c3a8e05ce8
+[4/8] ASoC: qcom: sdm845: Set codec dai and component sysclk during startup
+      https://git.kernel.org/broonie/sound/c/5e9f324509a7
+[5/8] ASoC: cs35l36: Implement set_tdm_slot to program RX and TX slots
+      https://git.kernel.org/broonie/sound/c/f390794e6354
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
