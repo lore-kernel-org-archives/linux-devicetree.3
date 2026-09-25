@@ -1,94 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D7E313547
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 18:18:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DF13FFAA4;
+	Fri, 25 Sep 2026 18:20:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360291; cv=none; b=MJN4LSlc83dgDAKY5VIjWOE3ywUS1yEuy7quqAz9cWlcEPlXYLv8Rowzzx7YL9n0SU7lfuymaSwB8uEGN+BAp9UmYtguYYgmASxs5/T20nPwUNdQFK++Pn/2yt0E6AAxGmzzy7u8bS7p0uxLDqsRkhMlvn/uwR9+EyOQXQyyE+0=
+	t=1790360454; cv=none; b=Wko5YrAISOlNTsbubL00TtWL0XyKIql7fLJhOCTrra7oDOhcDyU5mjZW3ZjQZEfrkFYJkKXW0tJoeYYreycNKDUPtLhQO+QYJaB1BhR1hb4ikcGE4/s3PrkseVvtKaUv4RMSYCD7XuqzDj8pe0xYdiEs/FzYfi03FP4GGGh3ou8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360291; c=relaxed/simple;
-	bh=ZVdQ8iJ9/viKjnfKVpRe/ltKNcfW5Li+z4474PRXTf4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jmFe964SgQqbFtfF5MPVQT44fPIrv/VT5Z0QnBiLhIeIgXu81T34QjAjA7gYyAtDaVhmvZ7Bwgs184pvWXaFb1h9he0+btsze0pBNA79urV5ozJ6d4/YAqjxlKRlDqwvzxWL82T/GdJVyzHVRKcfWoZ5EcNPKH2a788nWjHSSDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frR+wnvw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790360454; c=relaxed/simple;
+	bh=e59QF1/gJAzfBLahIlarB/qRJvoLqmihh+ZQ0pZr9c8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mBvikgiXaHiJ3srb/NGYXErbGhxODFJ5aYzkP5gN3aLKK65dlK1uQcEs8jcsonqWbNZmUDMeMSjvSxGP1P0SXM8I4bjc7ZBxTkiDbPW49E0TdlEqPGsq9Yc7wH77EuqH8U5utRWcCiT8Fq+5sb7YFbMeEwLcn/t0azFgftTp4zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P8FVwLxh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frR+wnvw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A862D1F000FF;
-	Fri, 25 Sep 2026 18:18:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P8FVwLxh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE7B51F000FF;
+	Fri, 25 Sep 2026 18:20:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790360289;
-	bh=faalfAFbloS6A83lPcMrxQvF8UhKQiaJ5spoURoKK+o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=frR+wnvwuuIaaoOwulVQeb8nX0jF+vMWV0QTR28OXRVvl2J2yqF1HymLv5ovHkdMk
-	 YrHSXuGeP/PdlyYxqLsJxLJNhpk7tSDTh3DwnJCbB0M80LxaHWoMd0xE213ZYC20Pv
-	 uBJe1JcI/RyhugcA1mm61++8xnlkuLBLCOCviilrW7xDEByxjzrusRHICB7wt3K7up
-	 a20OWEZ/hMtMgVuhFtIZLLQC6EuA20QSkDJ5Mvu41BKpbmhYKJgfPasS8kiC9TKG6i
-	 9HLv/b7r34S6wC6nhUQom52cs4PLm4QL1C1x31tqm4aJiZZmAp4El/yCuIg3Nai2Un
-	 2A+2fkEPkeL+g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: x1e80100-dell-xps13-9345: add the
- front camera
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Liviu Nicoara" <lnicoara@thinkoid.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260925181024.20352-1-lnicoara@thinkoid.org>
-References: <20260925181024.20352-1-lnicoara@thinkoid.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 18:18:09 +0000
-Message-Id: <20260925181809.A862D1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790360452;
+	bh=XEVZQpWQ1S8SUFjagVACI8LuHkxv6HV9CkdMaoCHFak=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P8FVwLxhelz5DhaP9jRK/vtAAw1AbNE5cuh+MhpMM7Eq0pypGgR6WZV2ixPgcynoM
+	 YBtWVOWZVab0U73ghJ79Y558VJpkcPP5U2EogTneu4uRHfWSLV05YHnCcr270OT6Rb
+	 rN+iV30P625vWLODI6PsrDxSp1Jm3yH2Zi0PkitQuRu6LGbAVf59Zq6jDGJD4fJXEc
+	 YAJzc8g+5qkbjZOjo34WhknKsMKB4QZx1OrU/ALMPBe5sQJbzcZuBJ1kHhZO1DcPLN
+	 hHa23govUbNGT8+iTzTQ8w+OnSQbNHEBCe86/vpKrIpipjft0JWxuo4Xwv8uy6ke/p
+	 uU5/L8Ob2mVFw==
+Date: Fri, 25 Sep 2026 13:20:49 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: Fix USB interrupts in Glymur DT
+Message-ID: <ara7cNuOCghH2p9m@zenbook>
+References: <20260803-glymur-dt-usb-fixes-v1-1-0f5f52853102@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803-glymur-dt-usb-fixes-v1-1-0f5f52853102@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dts: leftover panic-indicator property in privacy_led node
---
+On Mon, Aug 03, 2026 at 09:56:03AM +0530, Krishna Kurapati wrote:
+> In Glymur, DRD capable USB Nodes are missing the HS Phy IRQ. Also, fix the
+> pwr_event and hs_phy interrupt numbers in Multiport coontroller node.
+> 
+> While at it, the dp and dm interrupt numbers have been swapped on HS only
+> usb controller. Fix them up.
+> 
+> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> ---
+> This series has only been compile tested.
+> 
+> Binding depedency:
+> https://lore.kernel.org/all/20260803-glymur-usb-binding-fixes-v1-1-9ce334777387@oss.qualcomm.com/
 
-commit 36298c1fea529d8d4721b3106200dbc232c81349
-Author: Liviu Nicoara <lnicoara@thinkoid.org>
+Please resend when this binding has landed.
 
-arm64: dts: qcom: x1e80100-dell-xps13-9345: add the front camera
+Regards,
+Bjorn
 
-This commit describes the OV02C10 front camera and its wiring for the Dell
-XPS 13 9345. It configures the CCI1 bus, CSIPHY4, and assigns the white
-camera indicator LED to serve as the sensor's privacy LED.
-
-> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch=
-/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-> index ad62350ba6701..73f06fdcd1381 100644
-> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-[ ... ]
-> @@ -46,14 +48,13 @@ leds {
->  		pinctrl-names =3D "default";
->  		pinctrl-0 =3D <&cam_indicator_en>;
-> =20
-> -		led-camera-indicator {
-> +		privacy_led: led-camera-indicator {
->  			label =3D "white:camera-indicator";
->  			function =3D LED_FUNCTION_INDICATOR;
->  			color =3D <LED_COLOR_ID_WHITE>;
->  			gpios =3D <&tlmm 110 GPIO_ACTIVE_HIGH>;
->  			linux,default-trigger =3D "none";
->  			default-state =3D "off";
-> -			/* Reuse as a panic indicator until we get a "camera on" trigger */
->  			panic-indicator;
-
-[Severity: Low]
-The commit message and the removed comment indicate this LED was only used =
-as
-a panic indicator temporarily until a "camera on" trigger was available.
-However, while the comment is removed, the panic-indicator property remains.
-Should this property also be removed from the privacy_led node?
-
->  		};
->  	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925181024.2035=
-2-1-lnicoara@thinkoid.org?part=3D1
+> ---
+>  arch/arm64/boot/dts/qcom/glymur.dtsi | 22 ++++++++++++++--------
+>  1 file changed, 14 insertions(+), 8 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> index f04058d2e089..7a71297db481 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+> @@ -4574,11 +4574,13 @@ usb_0: usb@a600000 {
+>  
+>  			interrupts-extended = <&intc GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&intc GIC_SPI 371 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 368 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&pdc 90 IRQ_TYPE_EDGE_BOTH>,
+>  					      <&pdc 60 IRQ_TYPE_EDGE_BOTH>,
+>  					      <&pdc 17 IRQ_TYPE_EDGE_BOTH>;
+>  			interrupt-names = "dwc_usb3",
+>  					  "pwr_event",
+> +					  "hs_phy_irq",
+>  					  "dp_hs_phy_irq",
+>  					  "dm_hs_phy_irq",
+>  					  "ss_phy_irq";
+> @@ -4649,11 +4651,13 @@ usb_1: usb@a800000 {
+>  
+>  			interrupts-extended = <&intc GIC_SPI 875 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&intc GIC_SPI 369 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 878 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&pdc 88 IRQ_TYPE_EDGE_BOTH>,
+>  					      <&pdc 87 IRQ_TYPE_EDGE_BOTH>,
+>  					      <&pdc 76 IRQ_TYPE_EDGE_BOTH>;
+>  			interrupt-names = "dwc_usb3",
+>  					  "pwr_event",
+> +					  "hs_phy_irq",
+>  					  "dp_hs_phy_irq",
+>  					  "dm_hs_phy_irq",
+>  					  "ss_phy_irq";
+> @@ -4725,11 +4729,13 @@ usb_2: usb@a000000 {
+>  
+>  			interrupts-extended = <&intc GIC_SPI 871 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&intc GIC_SPI 370 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 877 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&pdc 89 IRQ_TYPE_EDGE_BOTH>,
+>  					      <&pdc 81 IRQ_TYPE_EDGE_BOTH>,
+>  					      <&pdc 75 IRQ_TYPE_EDGE_BOTH>;
+>  			interrupt-names = "dwc_usb3",
+>  					  "pwr_event",
+> +					  "hs_phy_irq",
+>  					  "dp_hs_phy_irq",
+>  					  "dm_hs_phy_irq",
+>  					  "ss_phy_irq";
+> @@ -4805,14 +4811,14 @@ usb_hs: usb@a200000 {
+>  
+>  			interrupts-extended = <&intc GIC_SPI 240 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&intc GIC_SPI 246 IRQ_TYPE_LEVEL_HIGH>,
+> -					      <&pdc 92 IRQ_TYPE_EDGE_BOTH>,
+> +					      <&intc GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&pdc 57 IRQ_TYPE_EDGE_BOTH>,
+> -					      <&intc GIC_SPI 239 IRQ_TYPE_LEVEL_HIGH>;
+> +					      <&pdc 92 IRQ_TYPE_EDGE_BOTH>;
+>  			interrupt-names = "dwc_usb3",
+>  					  "pwr_event",
+> +					  "hs_phy_irq",
+>  					  "dp_hs_phy_irq",
+> -					  "dm_hs_phy_irq",
+> -					  "hs_phy_irq";
+> +					  "dm_hs_phy_irq";
+>  
+>  			resets = <&gcc GCC_USB20_PRIM_BCR>;
+>  
+> @@ -4870,10 +4876,10 @@ usb_mp: usb@a400000 {
+>  				      "noc_aggr_south";
+>  
+>  			interrupts-extended = <&intc GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
+> -					      <&intc GIC_SPI 345 IRQ_TYPE_LEVEL_HIGH>,
+> -					      <&intc GIC_SPI 346 IRQ_TYPE_LEVEL_HIGH>,
+> -					      <&intc GIC_SPI 162 IRQ_TYPE_LEVEL_HIGH>,
+> -					      <&intc GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 313 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 314 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&intc GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&pdc 12 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&pdc 11 IRQ_TYPE_LEVEL_HIGH>,
+>  					      <&pdc 14 IRQ_TYPE_LEVEL_HIGH>,
+> 
+> ---
+> base-commit: 1e88112e60de707020f3def45af81f9a0180ee82
+> change-id: 20260803-glymur-dt-usb-fixes-62f314d3f3a9
+> 
+> Best regards,
+> --  
+> Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> 
