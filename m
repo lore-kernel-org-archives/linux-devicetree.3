@@ -1,106 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39BF4F4D05;
-	Fri, 25 Sep 2026 20:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6340F3B71C6;
+	Fri, 25 Sep 2026 21:04:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790369522; cv=none; b=bQFjG/r2ZbLji6LchB2NqDf8/H44TlT5OZZe+vzzzjeXGxeo/8w7cklQ3kkT3Pdm6x9zWxPjaOOMEgARajBAAa+gAXmDtCEnzqXJKmrWKf+PUXnDYtTz/JKjBLbpHv8abOzl4LsYb5zNU4feMCm5MXZemCwJpJElZ+wyMh/f6as=
+	t=1790370270; cv=none; b=fWUuMyfF2iFCcvkw2SF8MVBZwRxJPoD8bqMxWg+F3KoySKthjbwTMlpvXadApMhSfYoBjwL2Xeh00PXd6upi5YVorLRwKS0dvBnj2qMDOJyMH4lp7s09BKWNBUEWkNYBJG5UVsfJwtCOCl+Ejc/KsPgzWb/MlniFRGkZ3ZC9XV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790369522; c=relaxed/simple;
-	bh=w/iv0DkQo325bjasld4KmgGhim3dhrrQY3OeLEq+wTs=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=crRs7D1JzAcc9OSS/QIGqwCnxhL5pc/a+nguRnAwMTTJABxbAmCct3iDx5mcUoZug+dD067pPGC0XMxrnu0N39dj66wpaR3vBdPJ6h4BQZ96Om8N5jQD9ERar4FHbbtozcmU7uZEtYr17bhZCZLu+w8vl2aRQUCoiVs7VZiYApI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AluOwxbs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790370270; c=relaxed/simple;
+	bh=8OZln4xl1G0DvkU/QUDhzZUlHdsJZ4OIkxVTE2N405g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=llu8s8mTWLeeqEPwyCBf6megKOmWu5Ty27DMhhIRpoZ5dzfz9Ruh+Y6MQNY0+Bz5xlZGbP6K8Q/05mqZTE77p17R73denrYDOzk5tVkotMhCcueykmun8VGYy7Z8R20dR/5PpRpgURQ4UnxiRoztOwlnPCQmJZPS6ptuRbCqA7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfSfEEKh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AluOwxbs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46AC1F000FF;
-	Fri, 25 Sep 2026 20:51:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfSfEEKh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B94C1F000FF;
+	Fri, 25 Sep 2026 21:04:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790369520;
-	bh=DJila2NZUf4hBGFEHSK3cgK+/3a6LksrLFMyD5kuw7Y=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=AluOwxbsstXMWqcNVtL91J6xXUZP8p+3abFvYYgYaU02TlGANAgOmRy/4llwkBgUg
-	 H2BKFnEHRRAwPHPwXAMeY1oWsbpvThPV4zLePwrfDhgEcFqahjLy07eVDcd+FaSPNR
-	 xem6Gw6JU/g4MlXmQVEgRv2egD7HU09w0Ov1xD1n39/f3Z8jVxbZT2cTSyt0d7fbu2
-	 l1caXRq2gI6ep3SyH6lHx/OwOcaRgOmvaQzOxV4o0cSDMNwJhcGM7dmg5xfqm/MXxk
-	 W+0tTDto8FdMK+BB/b5IblL+F72o2AlSypqJQqAkx20CZxgYrGJp7UakT7JCi1jw9e
-	 Nq2eVJIUl+aPw==
-Date: Fri, 25 Sep 2026 15:51:58 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
+	s=k20260515; t=1790370259;
+	bh=f/7V9ZWZkMokG7CJ9aBSYknLa+Ei+QcS2Lclf77fH7E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CfSfEEKhUZk9XSt5q+z3lsaqtaersmxd+9WaBNJCoZzvYFEmCewDa8ufauCzlsDSH
+	 iNhV+KSUPfBmtgobpItQthF4nvB1Qddw8OAV/Z9gelXDRP5NrpuUzm+78wAB5eFrd4
+	 grAV7C2hg8B3kRW4YZa2eWgLu3rwPUofkEvktGHPMP6aXoCWKcst2UrKTEIDo9jbm6
+	 YO50RNqD7IvfH9shdDMIcA8X2m5B7ZN7utJuwueDHt7FCI6bZDIvGNzRDQutd9YdRa
+	 rJsu3OUMvIc0Jj4iPH89Af9NgarTBh+rnoNt125SZAsDNRd1Y8xxsrzUpgy9B0Udaw
+	 jqRP2C2CMoofQ==
+From: Sven Peter <sven@kernel.org>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: PCI: rcar-gen4-pci-host: Fix reset-names
-Message-ID: <20260925205158.GA2087943@bhelgaas>
+	Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Hector Martin <marcan@marcan.st>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Yureka Lilian <yureka@cyberchaos.dev>
+Cc: Sven Peter <sven@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-watchdog@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v3 0/7] Initial Apple Silicon A18 Pro device trees and dt-bindings
+Date: Fri, 25 Sep 2026 23:04:00 +0200
+Message-ID: <179037002764.105455.15409082344174622046.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260924-apple-a18-pro-initial-devicetrees-v3-0-94f7ea52cc64@cyberchaos.dev>
+References: <20260924-apple-a18-pro-initial-devicetrees-v3-0-94f7ea52cc64@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260925203039.110653-1-marek.vasut+renesas@mailbox.org>
 
-On Fri, Sep 25, 2026 at 10:29:51PM +0200, Marek Vasut wrote:
-> Drop maxItems: from reset-names, since the entry already contains items: .
-> Fixes the following warning detected by DT checker:
-> "
-> Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml: properties:reset-names: {'minItems': 1, 'maxItems': 2, 'items': [{'const': 'pwr'}, {'const': 'core'}]} should not be valid under {'required': ['maxItems']}
->         hint: "maxItems" is not needed with an "items" list
->         from schema $id: http://devicetree.org/meta-schemas/items.yaml
-> "
+On Thu, 24 Sep 2026 16:17:04 +0200, Yureka Lilian wrote:
+> This series adds initial device trees and dt-bindings for the A18 Pro
+> (t8140) SoC and the MacBook Neo (the only Mac using this SoC).
+> It only covers a minimal amount of hardware, but is nontheless useful
+> for further development work. The hardware added here has remained
+> largely unchanged from the earlier generation Apple Silicon Macs.
 > 
-> Fixes: 50b1333e0c7b ("dt-bindings: PCI: rcar-gen4-pci-host: Document Application/Local register reset")
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Similar to the M4 devices, changes to the m1n1 bootloader are required
+> to boot Linux on the MacBook Neo.
+> Also, SMP boot depends on further patches to avoid WFI and WFIT
+> instructions [1][2].
+> 
+> [...]
 
-I squashed both of these into the relevant commits on
-pci/controller/dwc-rcar-gen4, thanks!
+Applied to git@github.com:AsahiLinux/linux.git (apple-soc/dt-7.4), thanks!
 
-> ---
-> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Magnus Damm <magnus.damm@gmail.com>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-pci@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->  Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> index 30e244fda56b7..362c43a1a15d0 100644
-> --- a/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> +++ b/Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml
-> @@ -52,7 +52,6 @@ properties:
->  
->    reset-names:
->      minItems: 1
-> -    maxItems: 2
->      items:
->        - const: pwr
->        - const: core
-> -- 
-> 2.53.0
-> 
+[1/7] dt-bindings: arm: cpus: Add Apple A18 Pro CPU core compatibles
+      https://github.com/AsahiLinux/linux/commit/9e70c02c5536
+[2/7] dt-bindings: arm: apple: apple,pmgr: Add t8140 compatible
+      https://github.com/AsahiLinux/linux/commit/4eb4d9efe290
+[3/7] dt-bindings: arm: power: apple,pmgr-pwrstate: Add t8140 compatible
+      https://github.com/AsahiLinux/linux/commit/16c4ea7772d1
+[4/7] dt-bindings: interrupt-controller: apple,aic2: Add t8140 compatible
+      https://github.com/AsahiLinux/linux/commit/c47142fd192f
+[6/7] dt-bindings: arm: apple: Add A18 Pro based devices
+      https://github.com/AsahiLinux/linux/commit/a1baa6329a3d
+[7/7] arm64: dts: apple: Add minimal MacBook Neo device tree
+      https://github.com/AsahiLinux/linux/commit/ccf16d328c35
+
+Best regards,
+-- 
+Sven Peter <sven@kernel.org>
+
