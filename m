@@ -1,188 +1,164 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010056.outbound.protection.outlook.com [52.101.228.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE63332EA2
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790316851; cv=none; b=jAODILcbbpLYXSxi3vfXkamnl65IZwRBz8iwJEbGR21AYqzMJpKro+Lg3RvUNQGUsGGYNM3WL9NrZPwsnBLvG5PXkNaM01Tyd787eZ1EU1WqFxt+T6hEiJGa7GdEeqmiBALoZ5H7BOhvMfiYLCtdpVxlQQVv1btBxh90AINSJPw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790316851; c=relaxed/simple;
-	bh=N0OOnxapM5BVqS0QhcEoUV0huDI5emgXQOtYs55ziCs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TloNF5jWAGuxVWTQeEWdyFOiR3hIkNKhVDUgcf5iExjwJ2BBxHS1qfyAoMrIvsxqCvexmMc81lG1/MTq2yFew6eMOn8e8TsSXYJFOeP+5qW6EB3YylQfe+xAEKEh9aW5tS0fDNlkqZ4yC4SK6Ep0qUS9DqddK2dk0tARmBOqts8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=itV/Xc2O; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YBoKYBBz; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39D03C10BE;
+	Fri, 25 Sep 2026 06:16:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790317000; cv=fail; b=cOkUeiM0rmNk6M+0Y5YcHpVDycHOtJuS4S3527p4tedXecCwZaXT+WqDk9SrF+hEocaUe2Gv/ICzG4A7AjqZB8x/mzlIDasrmbGhoUPfyl5Iezh+AIUS5c8N5taVNs+sznJZFW2j8F0japsuAGLSnSv7Bs46vwEXe44tlLsGwF4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790317000; c=relaxed/simple;
+	bh=C6brluDpPtAYv5aac1VKaSD0jUDUWCfqO8Hi9jp9APU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EnjA85y6bW2OQVXRHyEtYqOcdA/xW6IsQN/ymkJZCWTyg1RkXhTmv74WEH2wwJwZxUsK1SV7t2EsV8LcYH6xelLmgnMUdT8bxDhT/lgfvy30EPj6IXeC+DZIohMTvssjzZ/sNTp/OT8GxnWedqn1ucWihzPGlbPAqBzzGiu5o3k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=jmoWSP2D; arc=fail smtp.client-ip=52.101.228.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="itV/Xc2O";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YBoKYBBz"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4Yx9G208909
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:14:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MDH76ytCDa4JSm1/Kre1+UeN1hcmafzcONYDPIdKbpM=; b=itV/Xc2OUeqwGC9f
-	m4YdvsOk7656+khmB0PPENw8pBkqzdMIFCe5Hh1geC5apoe5p/m0q2vIw+lWzeDo
-	t8xU/Cm8fuJDmtwQFE6LKNNDUBN+LdEShD9ClhWJWZLbUW80T/KGZ0w++ucVRE7R
-	2HiB4Z38IHxRG6ERLoNnnH/mgaB//AUwwnSFm7s9tvzfomVUASscEK/M7Cmt+vYN
-	g95X+Wy91hVGrLLzA8qZt8N+ln7x3yPXvzDtFMWwOfkdiVlcpOFxyOHCsHDkmDVH
-	wyy/XBPSMg0VUp8JRODExgoZQlLz/DlOJ7k5pmTXBdOFKkyilZYMc8/fvFzfvVsW
-	wqxc3A==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw898t9px-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:14:09 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-313d1015161so1856747eec.1
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 23:14:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790316849; x=1790921649; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MDH76ytCDa4JSm1/Kre1+UeN1hcmafzcONYDPIdKbpM=;
-        b=YBoKYBBzp/oykq0+W9ge2RqX4Y3h7dmadYhbK4q7d879a0uHrR2wMi1qoUTxcoq2tb
-         rmU2Bj5JZ0OT/3h09ev3ttOjWjT6ZdDy3q8oIPR8Ych2+gZrtKBfcdrcPJ9tAKRgEdUc
-         Yn8nBGJMPp0+FKyMURw7ekjWmuPluM4jWaDYRzZk7DmGpzTgJY8YRQOZYKh3bMcL8vw5
-         yYOCs9CsdRpbI3fPC6hpGplEzr1VI6WJ3H4P7YOWpADIbsPfi/ZX7BuBzX5TiuqEmcfX
-         cnkYZk31IIkL3iyqt7H0oJvos5GnEXpi9Pr8ILJ5ejwl89fLZKZj+sQ+iJ7yQsRxyh0s
-         bhnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790316849; x=1790921649;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MDH76ytCDa4JSm1/Kre1+UeN1hcmafzcONYDPIdKbpM=;
-        b=r/5s+L5WIwObJPc9AEsN0W3yx+mWNknZn7K9iOx+1wSr9/3cWCEGIXyu94N0N0UQTZ
-         P+Qxg0fIxRrevgkYMIFUPbEtqodglYq8lbleCj6F1uGEuubgw+5DukHU+mfOIyMqfe+4
-         T8hyUqUDkHLB3favOPEMAD/bOaM/+xwnDDbZ5/POeS2RPNv+R8e6fy+0aoRrSA6qw2t4
-         Gu6GMLwqjmECytptbhOVZrA4IDGnYJqSdGflgQwrDN1VlRRNjdeiZVZliewaIaU5LAyD
-         eH4rNIgfojyqlADFYJcz/5hbSUaw0DQNSXA5LDzCi7r4TEFWpy8/BfYyfS6tndXJkbL0
-         Z2fw==
-X-Forwarded-Encrypted: i=1; AKwUvBxLkT2P1QWp3HlLSSQuM7CxM6Mz2VKnk2ncVwUKHPGroUdyRzF4uVVud8eFBdSP6lcUA+7EQFjfl5No@vger.kernel.org
-X-Gm-Message-State: AFuF++mXIkgIQupGoxkn5g0N2CC1sCymFuddqc6JRPI5qizHQrXl9if4
-	3RcZCvMIhuEMa7Zcm+Q8gL1YBcEILvMOuuSxqyNisLjLjc2Bz5rabv1asunh3TEMc6pY5hbwd05
-	oA72wDKRMc8DrYzWXwJIWRdNw+e5EzPfwiuLM/nmX7croqN8Fccya35ADS44PltgWwUpQ62Q+
-X-Gm-Gg: AYBFou31XExHTnpTncNREKem1PZPBz32KFTTjLfSqj83IouqwoGukR/b3T3H3H7iU6B
-	9lFe9vkueyqixE2MmNyW6czmc9wDrtWwtHEH/rJ68+e8iw3smCVreMAacfgGtxpTP/eX6Q6GPJE
-	XQ+D5XVlcYoBuocljyK/yynEqxluOxP/9t46erHuz9l1s2IrJ4ekAKyXqJRc4oAThAn/j0G/fuq
-	3yFrMnyk40ptn+e2D3cIs8nXVUXn5ctClQlLsuRlyJ0q/q3buLyXsSGGLXld1d/R74EGkDmzVE1
-	9iGW4MaWyi5+W4IcCIsUlv4bd2vbfvBQgO7wrwlelZv6MvqTKL3xo9Ow/vhQpJFkQhd8+fHII+p
-	hGcNQB99xIbJhRnPGEMsqtQtfGz7d
-X-Received: by 2002:a05:7300:a21e:b0:341:cbb8:3c0a with SMTP id 5a478bee46e88-341cbb83dd6mr573160eec.0.1790316848360;
-        Thu, 24 Sep 2026 23:14:08 -0700 (PDT)
-X-Received: by 2002:a05:7300:a21e:b0:341:cbb8:3c0a with SMTP id 5a478bee46e88-341cbb83dd6mr573123eec.0.1790316847633;
-        Thu, 24 Sep 2026 23:14:07 -0700 (PDT)
-Received: from hu-ysiddu-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34145c17074sm3381039eec.26.2026.09.24.23.14.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Sep 2026 23:14:07 -0700 (PDT)
-From: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 11:43:35 +0530
-Subject: [PATCH 2/2] arm64: dts: qcom: shikra: Add WCN clock to Bluetooth
- node
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="jmoWSP2D"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gaOBp566ybdsCuFOrmg8id0edDH14aqwZ3yECU57xGzkyGvlsv7nHz2UikUuSpQ/r7RHHqwbgaO6WlxFeeC4b6GQLJU6jkc7Wla504+uxGoP0N/cHllOQZzub2WOp6xw0W/5WhDF5BASlzlSXPDlVcDAzrWKq62a9aCIWXAjMK8ryWdP1m9FqXatFO/YSdwM5KE2vlQl1xOUs21y1ZYMDLsGgdBgNHLjP47EXgJAhfG2oyi07f/XmWR0ATqZ4woenpe2a0wLlxSA9B5eEn6rMXoG1InIRqap1uzaFuMA1Rg+HIdqbw0dP5PeAQSE4vsPdW1wQCLOc3RMB9mjiaIh8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=af9q/LpxJCGxcJs5TF4vNQetbSrHPR/5YD7TaFOMsFo=;
+ b=A4SZQA+7VDqAaXBfPaDYisJ0MLW6Pj2DoQSGungHYQrDoMmsy7skpfLCYk7AKn3lhFCz4t5C536/KtIndatjSFDA3PbNaoLZGmI6u0KFhSDYS+4mKYoGWHKFlO7rjYI/3dsyvtcATDHl6GA2C0JvBnxpQYy8JyklsE06eSsHbEeVi5FpXb/eNNHYhlfi+8/QRDJpy/0OOKfcPfW2TyLEaJPtXGbM8pjVcVOwrD95fKZ81j/XiuSDB/ps9R2kysPL6sGUW80/JC0g+hMHC9o1k+gOCVEKKdxQ4gMgH31FweqTm9yeiL9hsV1uTdoPy17J0Cex1ExrQMmPORrx6f1JGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=arm.com smtp.mailfrom=bp.renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=bp.renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=af9q/LpxJCGxcJs5TF4vNQetbSrHPR/5YD7TaFOMsFo=;
+ b=jmoWSP2DKcAwqhXJHPJpU/tQMdcz/rW4Feh7NtXytPUq97BpLkUqFI/rkuwzJwJwpaubyaLOtzjIiWDx3qdGC80ej91TxONEfDimMbZ0gDq70u8RJ+nNLHZBh00kHEi/3XuMFK97Uoqrfotv9B24kHu6kftGUMbJhF21Xcdrs34=
+Received: from OSTP286CA0109.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:225::19)
+ by TY3PR01MB11891.jpnprd01.prod.outlook.com (2603:1096:400:40a::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 06:16:31 +0000
+Received: from OS3PEPF0000003E.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:225:cafe::52) by OSTP286CA0109.outlook.office365.com
+ (2603:1096:604:225::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.18 via Frontend Transport; Fri,
+ 25 Sep 2026 06:16:31 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 8.62.32.50) smtp.mailfrom=bp.renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=bp.renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of bp.renesas.com
+ designates 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
+Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
+ OS3PEPF0000003E.mail.protection.outlook.com (10.167.240.7) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.8
+ via Frontend Transport; Fri, 25 Sep 2026 06:16:30 +0000
+Received: from biju-VirtualBox.adwin.renesas.com (unknown [10.226.92.177])
+	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id A4E693000257;
+	Fri, 25 Sep 2026 15:16:21 +0900 (JST)
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Chris Paterson <Chris.Paterson2@renesas.com>,
+	Biju Das <biju.das@bp.renesas.com>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v4 0/7] Add Renesas RZ/G3L TSU support
+Date: Fri, 25 Sep 2026 07:15:58 +0100
+Message-ID: <20260925061617.127349-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-bt-wcn-clk-enable-v1-2-30bee88c4de4@oss.qualcomm.com>
-References: <20260925-bt-wcn-clk-enable-v1-0-30bee88c4de4@oss.qualcomm.com>
-In-Reply-To: <20260925-bt-wcn-clk-enable-v1-0-30bee88c4de4@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>,
-        quic_mohamull@quicinc.com, quic_hbandi@quicinc.com
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790316831; l=1435;
- i=yepuri.siddu@oss.qualcomm.com; s=20260603; h=from:subject:message-id;
- bh=N0OOnxapM5BVqS0QhcEoUV0huDI5emgXQOtYs55ziCs=;
- b=qgv2xkw7Prwdx7QeTw1JEJI1qxL9krj+1XW2HC4Jd7ADQ9Y/REcXaFmuvm0/Dc/zeytlEAhHm
- HfYlXhF65tmAeK8hXzY8k/pI8F6gK+BD8rsr6QEb84yY4kB+7gNAUdd
-X-Developer-Key: i=yepuri.siddu@oss.qualcomm.com; a=ed25519;
- pk=ldEQwkUmctxwDtIVURg3xvXfzZavX8decqpk/pVLQZg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAyNCBTYWx0ZWRfX4W7BMS2D5rMm
- bcN2qVQUeKC2BtETONwNQ5PIr29DfqWllMM0AwzEIorttetY/s+21NfUGnmqnm8sugdVfF1z522
- Pn1GYtdtz2P2YAjItsfXXZfPsCzLWNsPMu+OXCalwwGcsLPyO5uN3A0Vs50j+PoslrEx8ruIH/B
- xf3LXE+Y60ImVuWRurb3xfZOrMl2qxanoGD0Ftr275+Y4eos0T91kx0VGkz6hcgUrjQJNJP6t6n
- 0zNoHIHv8gXEeJfgibxYubeUq+ZyE2lZtG+xTAGSnGqG6sYpQ5BdsVwN1hwjTvV1cyMDWkqjSip
- n0imKeZH1Z1wZ8/E4eEsd4rSDZVty/q6Z/hCW+rU5FaBi13deTwKmyGQjsz9ieWyuWsL9G2CThe
- opZFZLi5HfDwQa01bzLwb+np9P216cDy1TLk92QpFzBKoijHmFVEfEGnk7E+5qJGQA7qLq2r3jl
- W7GCC/jxfePWVkAxizg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAyNCBTYWx0ZWRfX+YnVQ/a5gsEh
- UhS5ZVb6m56wpa41f9+WxmQ0xyZrmJ0fqmCzZWFeBru/952EY9eAuyJ6NvGizoSdSrOI/reQBcf
- nQ4Tw8Z8BFCDpA926zl4Es0O567Olhg=
-X-Proofpoint-GUID: AjJ51QaC7euON1zAwgOaiUQHpU1i5mei
-X-Proofpoint-ORIG-GUID: AjJ51QaC7euON1zAwgOaiUQHpU1i5mei
-X-Authority-Analysis: v=2.4 cv=EJWTQFZC c=1 sm=1 tr=0 ts=6ab61131 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=GHRrtK_Kqm7Fu9zWAW4A:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 suspectscore=0 impostorscore=0 bulkscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609250024
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS3PEPF0000003E:EE_|TY3PR01MB11891:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 8389f657-0878-48f9-0fb4-08df1acc8a5e
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|82310400026|36860700016|376014|1800799024|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	I7o6MwEuirot3C/MaKOzPCiEk9ZXRufLNYiMLBuvxRFI1ekHUB5rWFiDIp8eZmz1jkOE0KQz3AINxCjo3dcTnr4PRnhDd8WVbbyDgVNCwrCBeOBFSTxQ6c+CzAlr458rVCkv5gZQbN0Ru4NZaT9f2fWBkBCUDjICFnm5bhNjZtFyezWqka4jYVH+IU6yBunwyFiS4HQk01everjbMV2ztDEWZ7zOJYPlkzGwCe6kZN6dyCAta6e6mkdOQgGL+PrjsoG0isbtD0AyvKUaZTl/O3iNiyshiDxaOA3cxP8uZoHiYw9Uj9/HI5aMXxtZBzu6bU6Glqv77nkBprbslqmtEao+51L16raAV01kbpOPklAtQoSeznUK4/ljYt83L9e2qOHF2IoNaxTyarhVe8+TKQP4BhZQTZ/XGh4cxmq5YDMZW3N6/TW5hwr7OsjfEQkTAcfvAD8Tzw0JovcqoHg+HGZXYxJ8QIQ+Yh9nFMId3GKCd7dYGZ/IKVDkju4QWAs3hT3qxuq0ULYXvcAdaOylTtNvbvecXffzmCUND0GdIKFhg5N9WMwqlXWCd9zICy9dnkJENSSZApLJtCNj0Ax4IVhvWvIk9CzsEPYxUQCK9+xhK2k9gpDnNqMNomvh+jmz77cUWuwIATkue5mp1kI0buLq2RoK5pBQ9+S2RiJ+yGi5N0HdmD5T33XgmP4/v7nY2jXExDnrJyya4RyMCkjocw==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1J3QEb9iaN+PLpiYhGARdJLZmJk8QCJYOofbOucIa1zrljqSX518Gl0hL+WsuUar/BfwKZ1x/J3J4552eQeTDorVW84ZCzAgxvhEZa0pN4ZxPQzdTGyHVOihBKG/fPyAztyt1lKL0z9pfWFuQXYxJieWZXkHrxgLkHA5zFKCbUGJr66u9ZckxRh91JXtGKyemU6HBC1ZjIQc5LxRWJ1xx0nh8Utsraxuy14SE3e3wvNRAJUAa9D/UR5itsJTGqS5isW7L8+OlV/yITmCiEqGf/uLU8OLh5Ehxc2QNMT361SqcOyOcBhyeJM37PEBlNKPMKZD4oeCFXAms5ZHGAZCqn4jFSx+yO+xuKZsMO1qD1cKpY5BuBiUQOMWaQJ4VLxUu1XK7jLV+4wzmgtiu+wnd6YijFUt0wZ/70yHvNAjGBUXXX83d64c6Rs1cStN+2xN
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 06:16:30.6339
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8389f657-0878-48f9-0fb4-08df1acc8a5e
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: OS3PEPF0000003E.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3PR01MB11891
 
-With RPMCC proxy vote removal, the Bluetooth node must explicitly
-declare its WCN clock dependency so the hci_qca driver can vote for
-it during BT power on/off via the pwrseq path.
+The Thermal sensor unit (a.k.a TSU) IP found on the RZ/G3L SoC is similar
+to the RZ/G3S, but it has different calibration constants. Moreover, the
+TSU is connected to A/D converter of TSU (a.k.a ADC1) on the RZ/G3L,
+whereas it is connected to ADC0 on the RZ/G3S.
 
-CQM SOM uses RPM_SMD_RF_CLK2 while IQS SOM uses RPM_SMD_RF_CLK1,
-reflecting the WCN clock assignments on each board variant.
+Compared to ADC0, there are no A/D conversion result registers(ADCR0 to
+ADCR7) on the RZ/G3L, and the INTEN bits in the A/D converter interrupt
+control register(a.k.a ADINT)  are also different.
 
-Signed-off-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi | 2 ++
- arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi | 2 ++
- 2 files changed, 4 insertions(+)
+This patch series aims to add support for TSU along with ADC1.
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-index 8ac42ff625a0..4e03e459c7c1 100644
---- a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-@@ -220,6 +220,8 @@ bluetooth {
- 		vddxo-supply = <&vreg_pmu_xo>;
- 		vddrf-supply = <&vreg_pmu_rf>;
- 		vddch0-supply = <&vreg_pmu_ch0>;
-+
-+		clocks = <&rpmcc RPM_SMD_RF_CLK2>;
- 	};
- };
- 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-index 4ff97945274d..227283ab74a8 100644
---- a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-@@ -242,6 +242,8 @@ bluetooth {
- 		vddxo-supply = <&vreg_pmu_xo>;
- 		vddrf-supply = <&vreg_pmu_rf>;
- 		vddch0-supply = <&vreg_pmu_ch0>;
-+
-+		clocks = <&rpmcc RPM_SMD_RF_CLK1>;
- 	};
- };
- 
+Merge strategy:
+  * patch #1-#3 thermal subsystem
+  * patch #4-#6 iio subsystem
+  * patch #7 SoC subsystem
+
+v3->v4:
+ * Dropped clk patch as it is accepted.
+ * Collected tag.
+ * Updated commit description for patch#5.
+ * Updated kernel doc comment for max_channels.
+v2->v3:
+ * Collected tags
+ * Dropped required property '#io-channel-cells' from bindings.
+ * Renamed num_channels to max_channels in struct rzg2l_adc_hw_params
+v1->v2:
+ * Merged TSU and ADC1 series together.
+ * Moved the clk patch.
+
+Biju Das (7):
+  dt-bindings: thermal: r9a08g045-tsu: Document RZ/G3L TSU
+  thermal/drivers/renesas/rzg3s: Convert calibration defaults to per-SoC
+    match data
+  thermal/drivers/renesas/rzg3s: Add RZ/G3L TSU support
+  dt-bindings: iio: adc: renesas,rzg2l-adc: Document RZ/G3L ADC for TSU
+  iio: adc: rzg2l_adc: Rename num_channels to max_channels
+  iio: adc: rzg2l_adc: Add RZ/G3L ADC support for TSU
+  arm64: dts: renesas: r9a08g046: Enable TSU
+
+ .../bindings/iio/adc/renesas,rzg2l-adc.yaml   | 17 ++++-
+ .../thermal/renesas,r9a08g045-tsu.yaml        |  4 +-
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 66 +++++++++++++++++++
+ drivers/iio/adc/rzg2l_adc.c                   | 29 +++++---
+ drivers/thermal/renesas/rzg3s_thermal.c       | 38 ++++++++---
+ 5 files changed, 133 insertions(+), 21 deletions(-)
 
 -- 
-2.34.1
+2.43.0
 
