@@ -1,97 +1,101 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0691EBFE0
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 12:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCBE44A409;
+	Fri, 25 Sep 2026 12:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790339299; cv=none; b=bxVKo4UU/LkpyFmS+mHL/j3l3a4hOSUaUXifYLwSwfcz0dAWYrWj1AIkjK1h6iar5dvq/Vy5xldsAbrHvORh/ELcz9noQDfi+cdMbz0t8L8g/2WY0Al7a5yhxhVLz5RuHv7JpZkmx54HiA0ENUsxYmYYrVUF49SLmre6bzowqhM=
+	t=1790339397; cv=none; b=QgN4UUqt7mWFYSKKHCwklhdKySmVzkPL+7bgVjbdElFjnT2Wdr98tm70X33L+YFa+j8gQCtZsBK082kJhqMVJcoW8rdDaz6jI4gKO0MW4KZBxDR+nKwK72qJPEpc0vNVAPrRpiheYbQHuVvIo5x4IpHenn1uO8W3r2d9ddOSOgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790339299; c=relaxed/simple;
-	bh=Buqyin2BRLK9uHcTURSSN8vZvbm9YK/rlRX6JjPtwBw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h7zyEUgh8KwuMCqi0ASeucI0bYOLi2oYzVN4jkHQjFJu50m10Sbo1IkzJESAY98MR1CIfuY5+4n00bHYNz9ZrliUE2i2CB9hSMosz5GNCdfIhV77rF5yfg9RJ3TgNlhUuweqEHVKFER+1uHeW9yzP8pdxdAexacnssywV6b5n+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=cZ+CLF6H; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790339397; c=relaxed/simple;
+	bh=IEqy2GUnpTRuHVuLN5GpVQl9Ov3c2xDjhNoGfhMuuT0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CRGd2sQ9Py6TMOm9Bi4rotB0VLM7LIqrrE6c7FMacZJXXrzL88uoC9VAEIy6DJMMwLWLnXrjjDOylskxh1rJUpJjjcvtByJoqYEFEYyMtONLq9W6THFuRkFP6o6MREBFT02Zs714wZPgeY0CTOFzVGGXVNEtdIB2ipCt/wSQijs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9hQwa5N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="cZ+CLF6H"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48882c1f261so98846f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 05:28:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790339296; x=1790944096; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=deuk7VvN7Dp02rRBKFxmXcYurefRWx2cWJSZzNnIkL8=;
-        b=cZ+CLF6HWqxZws42n4qHEzDUtqdBN8Y+EjKr9/Udc5W816cKXaaRNnTFFpbkB4TaVu
-         GBpGw/wt4A6ILK0yJNP/AmiE1bdTB4j5c7WHk4ymtJsRH0Eewyzs8zsrNccuHWqzcsFD
-         ypQymBzvQaZgjCbS4xmdGFVvBlcvfMGhJEV07L0yvH5jyyEewWTL/xu0k5Iso9qAZqIa
-         yWA0KnejHG9LAyRFvNp2jihQUxuzzn3qoCYJItBb+iHI96DD7+diK8I8ga3dg+v9BtMM
-         W8ME/T0WZDaVygaDP+wiROLwdl7wtLkqKkGAj0zRHoQ8qV618l8AAVVa2QqoxL/E0HBD
-         Q9dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790339296; x=1790944096;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=deuk7VvN7Dp02rRBKFxmXcYurefRWx2cWJSZzNnIkL8=;
-        b=UwxBJwIdMz2Nk979s7Z2eWXzthCEhqPz/7e6fRgtujIkiK9EW7q0N6o5vJqsUE3C98
-         xHCSzgg2Z8H1LTqQeNPYwegPckGo9CJ7J9LtfAiYlpNhEhdu/CKH6V64KfdcR1dHmfD6
-         W0B3J6XnikMWmYGFHteIvIAaTLAhUOYSC05sPZKi0x37ba53nR9l7ctLahKulNMpfpqZ
-         6XFj+HXfcMOCA3ND25NHvxnLDQDZPJlkf7aCpxCURbVMirEhMAbMGS4LHjQ8O1DtuiXL
-         13N8y80tXyjUOoi/v+MfNYVtpDzjolTLfjNbc/Y+dLRuGiNcgxFF1uFLCbTM4FR8PLAy
-         BhiA==
-X-Forwarded-Encrypted: i=1; AKwUvBxRxCT6XnnCs1Ig5cRs15+Q4b5/BFzidEKqtDkUe7AfBZIcn7s+Q8KL4F5RoCzcb95cCflpx6Vqziio@vger.kernel.org
-X-Gm-Message-State: AFuF++ksWlPBt3gVuFsJviM9OHiKIWuLoIUgpE119rUUYB5qlxpFcOif
-	/a4X4rQhGOHvX7VQbilq2Gxlgpsf85kF22XBCGzG7g0KDoQha4DaC42FpFy/8TBQryE=
-X-Gm-Gg: AYBFou3Zqj4jCRiYFfuahhiFTx+6DNPtPngHp4VdREwsSlEFw4nDHuJ5vksjy2gqDUZ
-	CfZtOPQhvleS+PyR2KYOypgkVtHojsiqDnbTIFASBXbRkDXynOHL88IwrqNTCvALUg84bzFLqc+
-	tExBWQCJnFqlV/oM/oqC8cFIyydL3m1pbNXPUqTZv2HWHjFHGSqNW1byCarbTfVQlelIga1I4IB
-	EPipFNvxBLUbhOGbt3mgIMIxzgPRu3vTEJKwl9+k1X/wdr8rPTQ9IigRckTu8g+QiQ6bKjs+DdZ
-	gSFSxtRE9iZgYPxhXR99VJaDwpnQcc2oshGdlrwBzE3Q5+fodjcteIPzfkdR2RARJzSS0SVauBd
-	w5LkDp5Psi55wQZw/bvZY3O5I4XP6He5zvZNtkQsJ/nENmi9GraTsChM9xPxxGFns8doM2+cmXt
-	51Hg7eNpirmqh68tZHlVUbR3u1v0xu1kWolToPxINkwnnxp8uBCFVKD/yEKiqrEOfjXSz5mAEuU
-	c6OO7jsek4Nrl1bfA==
-X-Received: by 2002:a05:600c:4e53:b0:49c:e37e:4389 with SMTP id 5b1f17b1804b1-49fe66c8288mr97213455e9.4.1790339295735;
-        Fri, 25 Sep 2026 05:28:15 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff2884552sm39306745e9.10.2026.09.25.05.28.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 05:28:13 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jian Hu <jian.hu@amlogic.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
-	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v3] dt-bindings: clock: Add Amlogic A9 SCMI clock controller
-Date: Fri, 25 Sep 2026 14:28:08 +0200
-Message-ID: <179033924420.2256964.9574069512756367245.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917-a9_scmi-v3-1-5ad843766774@amlogic.com>
-References: <20260917-a9_scmi-v3-1-5ad843766774@amlogic.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9hQwa5N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D691F000FF;
+	Fri, 25 Sep 2026 12:29:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790339395;
+	bh=zZMwuJi+uuOVEpnd6zSF27+CwSgdbF03Y7EP5Bx37VQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k9hQwa5N0f7/1SdDkUvFiNh3KdgCoYAJx8TtlLjJbd7yzw+8ZBEPTrtbFmOqFveLM
+	 /V3HxMcneML6BiVfgdrPAxM/QvHsw2tVM5oAiVeVsv0yN4NHyrc0XVMfXiq8+PkMSX
+	 MElNsNAHFvwvKXMfUsLjIUHCoiZy7Ch1IAUsMXUBMWyfmN03M1MbswlufDTbW/YYKC
+	 ZFqX6j9hITGBzUUPMnM4LfwgsdkxkvYPZJWuGTuxRldU0mgVZNs9cETBNQyzFk1Tam
+	 dIE013yxmVCsEkSSWGubYm9A/xirJYv8rCgw1+I0TJ+INOUpIZG7pu09ldTMdssg7f
+	 7zsNgAcNkQ55A==
+Date: Fri, 25 Sep 2026 07:29:54 -0500
+From: Rob Herring <robh@kernel.org>
+To: Joakim  Zhang =?utf-8?B?KOW8oOW8uuW6hik=?= <joakim.zhang@cixtech.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"perex@perex.cz" <perex@perex.cz>,
+	"tiwai@suse.com" <tiwai@suse.com>,
+	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	cix-kernel-upstream <cix-kernel-upstream@cixtech.com>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [PATCH 1/4] ASoC: dt-bindings: Add Cadence I2S-SC controller
+Message-ID: <20260925122954.GE677989-robh@kernel.org>
+References: <20260922112134.4167305-1-joakim.zhang@cixtech.com>
+ <20260922112134.4167305-2-joakim.zhang@cixtech.com>
+ <arKPdM4bYsAeAKtr@sirena.co.uk>
+ <OSNPR06MB86866A7DE38DC5AD8197BF6E82812@OSNPR06MB8686.apcprd06.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <OSNPR06MB86866A7DE38DC5AD8197BF6E82812@OSNPR06MB8686.apcprd06.prod.outlook.com>
 
-Applied to git@github.com:BayLibre/clk-meson.git (clk-meson-next), thanks!
+On Thu, Sep 24, 2026 at 07:33:12AM +0000, Joakim  Zhang (张强庆) wrote:
+> 
+> Hello,
+> 
+> > -----Original Message-----
+> > From: Mark Brown <broonie@kernel.org>
+> > Sent: Tuesday, September 22, 2026 10:24 PM
+> > To: Joakim Zhang (张强庆) <joakim.zhang@cixtech.com>
+> > Cc: lgirdwood@gmail.com; robh@kernel.org; krzk+dt@kernel.org;
+> > conor+dt@kernel.org; perex@perex.cz; tiwai@suse.com; p.zabel@pengutronix.de;
+> > cix-kernel-upstream <cix-kernel-upstream@cixtech.com>; linux-
+> > sound@vger.kernel.org; devicetree@vger.kernel.org; linux-kernel@vger.kernel.org;
+> > linux-arm-kernel@lists.infradead.org
+> > Subject: Re: [PATCH 1/4] ASoC: dt-bindings: Add Cadence I2S-SC controller
+> > 
+> > On Tue, Sep 22, 2026 at 07:21:31PM +0800, joakim.zhang@cixtech.com wrote:
+> > 
+> > > Add the DT binding for the Cadence I2S-SC controller integrated in the
+> > > CIX SKY1 audio subsystem. I2S-SC is a full-duplex stereo controller
+> > > supporting standard I2S, left/right-justified and DSP formats, plus
+> > > TDM operation with up to 16 slots.
+> > 
+> > > +properties:
+> > > +  compatible:
+> > > +    const: cix,sky1-i2s-sc
+> > 
+> > Should there be some general Cadence fallback for this if it's a Cadence IP?
+> 
+> Yes, cdns,sky1-i2s-sc should be better.
 
-[1/1] dt-bindings: clock: Add Amlogic A9 SCMI clock controller
-      commit: f25652a1c0d0b0d2cf6615f1aa693f7f941aff6a
+No. Cadence has nothing to do with sky1. It would be the above *plus* a 
+Cadence fallback compatible.
 
-Best regards,
---
-Jerome
+I'm on the fence whether a Cadence compatible is useful. For complex IP 
+(e.g. PCIe, USB, etc.), IP vendor fallbacks have proven to be not 
+useful. For simple IP blocks, they can be useful. It also depends if 
+there is a h/w manual which can be used so we can really define the 
+correct numbers of clocks, interrupts, etc. Perhaps I2S is simple 
+enough.
+
+Rob
