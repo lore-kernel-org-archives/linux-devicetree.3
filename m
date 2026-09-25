@@ -1,171 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C8C4DD3C4
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 16:09:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B154E06F1
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 16:10:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790352593; cv=none; b=NMbz6I7yLoHT/7jMNMboTe9NUPwrKJq6oOeIpQWSzj6PrNkmjj9qXrGA0MHciQITgkhmxKdf+1OiAz5+llEXoIfb+yem3K4ycu5v53KOXlq/YBu5uE+gawFQARKRy/zx9Zkt7IgC0fAKDtlxELvadynrgP41GK8BpxeJU1jJpQY=
+	t=1790352657; cv=none; b=CJjYnYmBd/OPx5BO6G0Qa1GsLri1iOlaDZP3s0ZXXibmLjTzieBPDWnQ7YHBNtmtJ3Choq5qGPpLM2JhPsbI7W3RpuoVwFjdLYcM+emMvQ60ZEQ+GtWPYcdnEi8BELYd60w6Un8WlB/jeBfmi1cuPRww9w8thYFfEayNdANAAR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790352593; c=relaxed/simple;
-	bh=kyetx4MPAXUMQlZYSJyh2crAVzr8w+goFHHH58P4saM=;
+	s=arc-20240116; t=1790352657; c=relaxed/simple;
+	bh=wvx7OtaEdMFHpSjNKPiot8U4iVC+m2fINnth+ZglDJ4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aOJtD4GsasFjXXNaJbmICCuZXuxy7lwus60ymBw+TIDtzwv/itTKF0eXWZEMRXfY81iyv/1Evu5MdHkAsK/hGiElI+pXseL30LrYwEjNOuJgzmyKWMbgvDQ/NJcHAE+5ZlGu7zY7iHG9tSmTJKyZ8GPFrWuRopeMQ+H2klgvh/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JBHWb5ne; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=FdEk9ZZ0nxsH2lBSoNmVyh4tdf8g7Pdlu+EcX8N5Ok3Q2DX1v+SEw3T0+AEkkWJOa9qyKB373y9rVxa0sLwTjLWIHYdmJFqn9pVD7ByTvqz8547opHTFvLRobhdCmT3SCUifA4hAYFsCbeux2HThiJrqPntYoH12B1t26LxtQ8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GiaP8Ug0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JBHWb5ne"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936C01F000FF;
-	Fri, 25 Sep 2026 16:09:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GiaP8Ug0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511721F000FF;
+	Fri, 25 Sep 2026 16:10:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790352585;
-	bh=zKimJ05z6g5bR01B7KLQttRU7WOXXwUdDrB0JTa9RcM=;
+	s=k20260515; t=1790352651;
+	bh=zJ2ombWrl2CkFHULoe/AUESLyPVt/o7MFPzqErz8IX4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JBHWb5ne+fHMdTDWQ2XEb1gTI2+BdnJjJ7K4UVQ0IyvEZcRAGBiB01i9SxR4ROmzk
-	 e2sPZs1xEnAv9YfxNF1cJYtKDPBWheYzVGycVgdQvVzUVX2e6c99NFUy1Wf9/tN45/
-	 0EAGfBBrd4ERUW23bcpBFG3qwm8jcxfYruxd5sC4jvtk45UIy+a8LU66MKXnUm4x5E
-	 Su2eezgrPFAM+QD9Edx9GsdxfMl8MnVOpiDJFe3tH52P23YgZ2CKmS7FfmmZ9W62OE
-	 oxizLKSGHKOz209J6i7OmhEehR/ASCwIdL5OLuMbQCxYi2y6mxjF0UdyBz248eXBzA
-	 UDTzgsuTvc/Kg==
+	b=GiaP8Ug0leOx/70HEedhiKprUwIOGH9nlD49fxvdxCCFF/B/RMdZ6SUg1nC/8WGOg
+	 jI8NslVPemdeVPiXIyPSnS8UkCCUHmKrzmPMLmZMQS+PNsmrKOF2/3B4eCUxGz6lh8
+	 eqedbPJ4gvuY6JuJdgO3YP2sir/Ze6LpI4CdiNQoTaXEDmGMdACWF03C7kCoByomw5
+	 Ag/Rv7rBgdODIJF6HUbCn0ITLuOzcFre271dpEBIffAf1VghzPqtZhJeJRFUBRt+q7
+	 Nm9GoPPLfrO7f7HCi5EkkhIyNZiYhgyTVNKEvpE5sEhLC/UEdFnmSZlLT07okRXCgU
+	 MPWAUyMyzgzoQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 6/6] pinctrl: mediatek: Add MT6735 pinctrl driver
+Subject: Re: [PATCH] dt-bindings: power: Convert mediatek,mt2701-scpsys to
+ DT schema
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yassine Oudjana" <y.oudjana@protonmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260925-mt6735-pinctrl-v9-v9-6-bfb19d8bb87c@protonmail.com>
-References: <20260925-mt6735-pinctrl-v9-v9-0-bfb19d8bb87c@protonmail.com>
- <20260925-mt6735-pinctrl-v9-v9-6-bfb19d8bb87c@protonmail.com>
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260925155927.1707560-1-robh@kernel.org>
+References: <20260925155927.1707560-1-robh@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 16:09:45 +0000
-Message-Id: <20260925160945.936C01F000FF@smtp.kernel.org>
+Date: Fri, 25 Sep 2026 16:10:50 +0000
+Message-Id: <20260925161051.511721F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] pinctrl: mediatek: mt6735: missing pull_type element causes off-by=
--one and OOB read
-- [High] pinctrl: mediatek: mt6735: missing PINCTRL_PIN_REG_MAX bounds crea=
-tes OOB read vulnerability
-- [Low] pinctrl: mediatek: mt6735: inconsistent pin function names using sq=
-uare brackets
+- [Medium] dt-bindings: missing if-then conditionals for clock constraints =
+per compatible
 --
 
-commit 13f59080a920a07d8352caa06c8ae89603f98199
-Author: Yassine Oudjana <y.oudjana@protonmail.com>
+commit 58363c1987ec9c749cc55c9a540860ff57ed2f23
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-pinctrl: mediatek: Add MT6735 pinctrl driver
+    dt-bindings: power: Convert mediatek,mt2701-scpsys to DT schema
+   =20
+    Convert the mediatek,mt2701-scpsys binding to DT schema. The mt6735 and
+    mt6765 don't exist anywhere. The mt8183 is covered by
+    mediatek,mt8195-scpsys.yaml schema. With those dropped, the clock-names
+    are trimmed to drop mm-*, isp-*, cam-*, and venc_lt. The venc_lt and
+    mfg_2d supplies are dropped as well.
 
-Add a driver for the MediaTek MT6735 SoC pin controller. This driver
-also supports the pin controller on MT6735M, which lacks 6 physical
-pins (198-203) used for MSDC2 on MT6735.
-
-diff --git a/drivers/pinctrl/mediatek/pinctrl-mt6735.c b/drivers/pinctrl/me=
-diatek/pinctrl-mt6735.c
---- /dev/null
-+++ b/drivers/pinctrl/mediatek/pinctrl-mt6735.c
-[ ... ]
-> static const struct mtk_pin_reg_calc mt6735_reg_cals[] =3D {
-> 	[PINCTRL_PIN_REG_DIR] =3D MTK_RANGE(mt6735_pin_dir_range),
-> 	[PINCTRL_PIN_REG_DI] =3D MTK_RANGE(mt6735_pin_di_range),
-
-[Severity: High]
-Does this array need to be explicitly sized with PINCTRL_PIN_REG_MAX?
-
-The core validation in mtk_hw_pin_field_get() verifies
-field < PINCTRL_PIN_REG_MAX and accesses hw->soc->reg_cal[field].range.
-Because this array stops implicitly at the highest initialized enum, reading
-an uninitialized or out-of-bounds field can read past the array and cause
-an out-of-bounds read vulnerability.
+> diff --git a/Documentation/devicetree/bindings/power/mediatek,mt2701-scps=
+ys.yaml b/Documentation/devicetree/bindings/power/mediatek,mt2701-scpsys.ya=
+ml
+> new file mode 100644
+> index 0000000000000..d991b8a008eba
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/power/mediatek,mt2701-scpsys.yaml
 
 [ ... ]
-> static const struct mtk_pin_reg_calc mt6735m_reg_cals[] =3D {
-> 	[PINCTRL_PIN_REG_DIR] =3D MTK_RANGE(mt6735m_pin_dir_range),
-> 	[PINCTRL_PIN_REG_DI] =3D MTK_RANGE(mt6735m_pin_di_range),
 
-[Severity: High]
-Does this array also need explicit sizing with PINCTRL_PIN_REG_MAX to avoid
-the same out-of-bounds read vulnerability as mt6735_reg_cals?
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 20
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    maxItems: 6
+> +    items:
+> +      enum:
+> +        - mm
+> +        - mfg
+> +        - ethif
+> +        - venc
+> +        - jpgdec
+> +        - audio
+> +        - vdec
+> +        - hif_sel
 
-[ ... ]
-> 	MTK_PULL_PULLSEL_TYPE,		/*  57 */
-> 	MTK_PULL_PULLSEL_TYPE,		/*  58 */
-> 	MTK_PULL_PULLSEL_TYPE,		/*  60 */
-> 	MTK_PULL_PULLSEL_TYPE,		/*  61 */
+[Severity: Medium]
+Does this generic definition omit the hardware-specific constraints from the
+original text binding?
 
-[Severity: High]
-Is index 59 intentionally skipped here?
+The original text binding required specific clock combinations based on the=
+ SoC
+(for example, MT2712 explicitly required "mm", "mfg", "venc", "jpgdec",
+"audio", and "vdec").
 
-The mt6735_pull_type array skips index 59, but the corresponding pin
-declaration array mtk_pins_mt6735 contains GPIO59. This shift by one causes
-the framework to apply the wrong pull configuration rules to all pins from =
-60
-upwards. Also, because the array is undersized by 1, reading the pull type
-for the final pin will result in an out-of-bounds read.
+This new schema generically allows any device tree to provide 1 to 6 clocks
+from the enum in any order, which would allow invalid configurations missing
+required clocks to silently pass `dt_binding_check` validation.
 
-[ ... ]
-> 	MTK_PULL_PULLSEL_TYPE,		/*  57 */
-> 	MTK_PULL_PULLSEL_TYPE,		/*  58 */
-> 	MTK_PULL_PULLSEL_TYPE,		/*  60 */
-> 	MTK_PULL_PULLSEL_TYPE,		/*  61 */
-
-[Severity: High]
-Does the MT6735M pull type array also skip index 59?
-
-This will cause the same off-by-one mapping shift and out-of-bounds read
-as seen in the MT6735 array.
-
-diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-mt6735.h b/drivers/pinctr=
-l/mediatek/pinctrl-mtk-mt6735.h
---- /dev/null
-+++ b/drivers/pinctrl/mediatek/pinctrl-mtk-mt6735.h
-[ ... ]
-> 	MTK_PIN(
-> 		4, "GPIO4",
-> 		MTK_EINT_FUNCTION(0, 4),
-> 		DRV_GRP2,
-> 		MTK_FUNCTION(0, "GPIO4"),
-> 		MTK_FUNCTION(1, "CLKM2"),
-> 		MTK_FUNCTION(2, "DPI_D8"),
-> 		MTK_FUNCTION(3, "SPI_MOB"),
-> 		MTK_FUNCTION(4, "TDD_TCK"),
-> 		MTK_FUNCTION(5, "CONN_MCU_TCK[0]"),
-> 		MTK_FUNCTION(6, "CONN_MCU_AICE_TCKC"),
-> 		MTK_FUNCTION(7, "C2K_DM_EINT0")
-> 	),
-[ ... ]
-> 	MTK_PIN(
-> 		71, "GPIO71",
-> 		MTK_EINT_FUNCTION(0, 71),
-> 		DRV_GRP0,
-> 		MTK_FUNCTION(0, "GPIO71"),
-> 		MTK_FUNCTION(1, "JTCK"),
-> 		MTK_FUNCTION(2, "CONN_MCU_TCK[1]"),
-> 		MTK_FUNCTION(3, "LTE_MD32_JTAG_TCK"),
-
-[Severity: Low]
-Are these square brackets intended in the pin function name?
-
-Square brackets can break identifier parsing conventions in scripts or tools
-parsing sysfs/debugfs. Also, the MT6735M variant uses an underscore for
-this pin instead:
-
-> 	MTK_PIN(
-> 		4, "GPIO4",
-> 		MTK_EINT_FUNCTION(0, 4),
-> 		DRV_GRP2,
-> 		MTK_FUNCTION(0, "GPIO4"),
-> 		MTK_FUNCTION(1, "CLKM2"),
-> 		MTK_FUNCTION(2, "DPI_D8"),
-> 		MTK_FUNCTION(3, "SPI_MOB"),
-> 		MTK_FUNCTION(4, "TDD_TCK"),
-> 		MTK_FUNCTION(5, "CONN_MCU_TCK_0"),
-
-Can we use standard underscore notation consistently across both variants?
+Should there be `allOf` and `if-then` conditional blocks to enforce the cor=
+rect
+clocks and clock-names constraints per compatible string?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-mt6735-pin=
-ctrl-v9-v9-0-bfb19d8bb87c@protonmail.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925155927.1707=
+560-1-robh@kernel.org?part=3D1
