@@ -1,142 +1,76 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F5F387373;
-	Fri, 25 Sep 2026 14:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6DD286D70;
+	Fri, 25 Sep 2026 14:47:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790347526; cv=none; b=ERuchhy6ifQIkoNw8X30+L3orUH27BWCsBMpKBWor3uhmJjHOEZOMHp3p7bxLmAHICHU7CU1j5IAXwWW0aiQxAHGFAa1pnc0FIDLP/zQf/suxtXDlA2cqmQsBIf8k9zk/hIin5OxnPiXQsozWhrPlv3rSx1zAQrJ1JBqVfimDdQ=
+	t=1790347632; cv=none; b=oRc7vljiKKMWq5nOjvcwScTD8qoU/SR0woSTxSEQcGdkNsJDhn0sXYt0rMOloqWdWIl44RyvhYq2uJ7p2YO68cCiQlh5WouT3IxtBqWnRMN4YxmFqec/JZjlSyhgbNINRw0wNtXCP8q9saPD+FbShT257IFm8Rfk8WwCfjskRQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790347526; c=relaxed/simple;
-	bh=ML8xGeJkMBFFuMCc01tEEnknU1OExtMrKqZGCEmNfaM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mbrHsPDMZ6YTqeCa1DWQIpq0wXBsJ3rxNsSqrFqp4SFrHMyCn++/bsRdDGO1kRHmiXrU+iCxWSa9MSH5gRuOZTXFM4n//R4wWnwTWbvfMt4GYkElFi0amxlsoxjF7pK81XNlHTwDGBXsAxwrW1792gaNVwcFOvQcHpuAxW3CRY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uO46dbdX; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790347632; c=relaxed/simple;
+	bh=azGpzJ5PUILYa1UXOUYBjWo4zzEHBKr3D79v6e3S2fk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zvk1qzn97qfe1ttoeT9dXTXYeP5WL9qasdYZsUuStQ3oC2BvAB5zwcGHKbcwwWXYjtnWjOIAIi7Nc3Zficm4TeFAGCejV8W/nAAJ3bAs/P43byrdbp4zAg4WWYBSUQven1M16u2g9/l7tSwLr9kI5jibTJxgYQW4BS5pv7vsGuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=PvTTHNCm; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uO46dbdX"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 2AB18C653F0;
-	Fri, 25 Sep 2026 14:46:10 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3805D6073B;
-	Fri, 25 Sep 2026 14:45:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 47AB4102F1E07;
-	Fri, 25 Sep 2026 16:45:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790347517; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=rLcTEY9bJK7D3aB6ON4jRKBYa5Go52EKWi4ZLVeVWAM=;
-	b=uO46dbdXDQzTWoXCmwNHDCYs5MGzz1k8Yi4clftYkyWitlHG979vJvanTTBAL3tTl/y4Aw
-	Xj4EYJEgfFFwz0ks0fKanM4frUfmlZwwGkm16jPFGUDHBncL72LFqn4SSpRevaNQFv0mCm
-	vA8v5C+wTswqi6jXsWWDS+4AU72qO8T5Vsn/QIamievB3+0rIOnjdKSA4dLuBxdOTKLaXK
-	A0qQM9d1qL8CLzgeZSJ4F5P7hkSNB0JUKoMej1dKJs5EGm9ranUTmOFKp5AGpwjT77mtz/
-	qj9/8gLfTHTKBPd6Uod2OloYazOZM2nNvNZSImwxabBreOeupeUVRPSyeOlZrA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 25 Sep 2026 16:44:25 +0200
-Subject: [PATCH v3 6/6] clk: nuvoton: ma35d1: Avoid possible error pointer
- dereferencing
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="PvTTHNCm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=yj3GWzo29vDD9qZOnAhND1V+vLL49qsGH99b3nUnf3Y=; b=PvTTHNCmKgndZB+d1zYhq89cTl
+	zn7b2v4+XZzI5ihpgj5hrngQPJK7eX/TbkJeO/qy4Fzh4WFfuMLzVYxPEBnO3uMgGBNPgd2ZB7uQL
+	Vd4mL6kqmtQnBMBv2Wc/cWLSZIchoSA5d6LEdwBhcZQJ6FNy0Rd+rYfU4GUecuE8p3FU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xA7CT-007ELb-C3; Fri, 25 Sep 2026 16:46:57 +0200
+Date: Fri, 25 Sep 2026 16:46:57 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2] dt-bindings: net: Document Marvell PHY
+ "marvell,reg-init"
+Message-ID: <18e0762b-ada7-49f6-b055-061a525caa18@lunn.ch>
+References: <20260925140410.1157036-2-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260925-perso-ma35d1-upstream-clk-v3-6-ffbae7e020a8@bootlin.com>
-References: <20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com>
-In-Reply-To: <20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925140410.1157036-2-robh@kernel.org>
 
-MA35D1 registration helpers store their parent_hw
-argument straight into the parent data, without checking it first. In
-case of registration failure an error pointer will be stored in the
-table, which is then forwarded to the clk core, which treats any
-non-NULL parent as valid handles.
+> +  marvell,reg-init:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
+> +    deprecated: true
+> +    description:
+> +      Register initialization tuples for Marvell PHYs.
+> +    items:
+> +      items:
+> +        - description: register page
+> +          maximum: 0xffff
+> +        - description: register number
+> +          maximum: 31
+> +        - description: mask of bits to preserve
+> +          maximum: 0xffff
+> +        - description: value to apply
+> +          maximum: 0xffff
 
-Bail out early when the parent is an error pointer, instead of building
-the parent data.
+This fits with my understanding of the hardware.
 
-This issue is mostly theoretical in practice, since reaching such an
-error would involve a very early -ENOMEM.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
- drivers/clk/nuvoton/clk-ma35d1-divider.c |  3 +++
- drivers/clk/nuvoton/clk-ma35d1-pll.c     |  3 +++
- drivers/clk/nuvoton/clk-ma35d1.c         | 13 +++++++++++--
- 3 files changed, 17 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-index e992e7c30341..57a7b4ed3b5e 100644
---- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-@@ -90,6 +90,9 @@ struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
- 	int ret;
- 	int i;
- 
-+	if (IS_ERR(parent_hw))
-+		return parent_hw;
-+
- 	div = devm_kzalloc(dev, sizeof(*div), GFP_KERNEL);
- 	if (!div)
- 		return ERR_PTR(-ENOMEM);
-diff --git a/drivers/clk/nuvoton/clk-ma35d1-pll.c b/drivers/clk/nuvoton/clk-ma35d1-pll.c
-index c7c0dc91a012..92424e9c669d 100644
---- a/drivers/clk/nuvoton/clk-ma35d1-pll.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1-pll.c
-@@ -336,6 +336,9 @@ struct clk_hw *ma35d1_reg_clk_pll(struct device *dev, u32 id, u8 u8mode, const c
- 	struct clk_hw *hw;
- 	int ret;
- 
-+	if (IS_ERR(parent_hw))
-+		return parent_hw;
-+
- 	pll = devm_kzalloc(dev, sizeof(*pll), GFP_KERNEL);
- 	if (!pll)
- 		return ERR_PTR(-ENOMEM);
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index 538ec87afeea..98608a26c5b3 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -130,10 +130,19 @@ static struct clk_hw *ma35d1_clk_mux(struct device *dev, const char *name,
- 				     const int *parent_idx, int num_parents)
- {
- 	const struct clk_hw *parent_hws[MA35D1_MUX_MAX_PARENTS] = {};
-+	struct clk_hw *parent;
- 	int i;
- 
--	for (i = 0; i < num_parents; i++)
--		parent_hws[i] = (parent_idx[i] >= 0) ? hws[parent_idx[i]] : NULL;
-+	for (i = 0; i < num_parents; i++) {
-+		if (parent_idx[i] < 0)
-+			continue;
-+
-+		parent = hws[parent_idx[i]];
-+		if (IS_ERR(parent))
-+			return parent;
-+
-+		parent_hws[i] = parent;
-+	}
- 
- 	return clk_hw_register_mux_hws(dev, name, parent_hws, num_parents,
- 				       CLK_SET_RATE_NO_REPARENT, reg, shift,
-
--- 
-2.55.0
-
+    Andrew
