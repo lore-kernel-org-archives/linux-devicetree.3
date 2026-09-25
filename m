@@ -1,64 +1,64 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F70A40DB3F
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 18:25:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBED4D8DA2
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 18:25:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360710; cv=none; b=oU0fP5ydpe7EaTxGKdP4xg0mFSi1ZgN8+DNZfdBbI2KZp/E82aAuOIskc1k/txYS9kPj/PSqmtagTMA6TA1i6Md+YlGPl7weGsg6X0l5xTCuNd1rEKVTleEqqcw8TZ07c9k4XsEsvyrqaAgBzx05vNvdyzT0rJZesWYVPeKmmsk=
+	t=1790360711; cv=none; b=IRAaqHGHlZAjHe6t4GZt5VpxqQYb9heYPI0yt0VhpTkEvIWUX5A7xpids5oISYzh3//3JLO4lqv8swf0t41QPuj8gbWf6ue8plqCTw5cRpgtomo4stVdFLSziG2m4v7jOIqHia5GvHhvbkZAYvnBrL8Cs8hN7F3vwIrmgTiR0mA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360710; c=relaxed/simple;
-	bh=EpZEGozAfBk+O1XG+RV9dpKjLIg/IMwVWIes5qlSrlc=;
+	s=arc-20240116; t=1790360711; c=relaxed/simple;
+	bh=pOEzLfSLCr+9oxyGNTSsgNcprEznMU5MGTfyskpEb9w=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IeJVP1BJGQsPOazVhGLKPyro7dxf1+w07rF6StHbabB2H/ykjtdMqQVCqaMtEHnKuVZRIjPRVHsnq0vdAw6d27pz5uLzFC8p/5Hk9cpG7dIuhvLXER4UNQhstT35d1XocuWI3fw1NDwlQ83ziamW0IBZBEgvAcp72fAmfLGEYlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=adhie2+d; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=kwVne26HVhI7YQHL3Hkt9rO5m6zHU9Kj9o537lWUhxf1zZQTczsYm5TyhRmyQYiggNwmI9tjcuOkYjIkfm3Nbm0m6zBwOnSlnZXOkDG+stediezgWnkGE7tahkXkiOlNOOTtJIvnnV6pufQ/R0fQKXJvMWcr7FMXeH2w7xaB96s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WqJEYciF; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="adhie2+d"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so9241745e9.2
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 11:25:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WqJEYciF"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so7385925e9.2
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 11:25:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790360702; x=1790965502; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790360699; x=1790965499; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=A5F+TTbhUwNuvyEFUsp5Vgi0t7//9pB2JmeOgiSr1S4=;
-        b=adhie2+dCS7tYKG2Ifh9D9oSmgJRRx2rQfUrIEmN+WJ0vwFitV8SiIYMOsnQRvYem8
-         V2RrOxEilemrS1Gea+sdMXID7+vlIc8lYtDeZsrb1RR1sl9qYWIGoOAgLjZrqKmX+ZTm
-         6NxFNHaIy2XOat1TbOnyCYs0M3E6pShubzTf+XO+fPq6Qgz7AA2k+rL3bY2GDe0CmRNE
-         thG0HDbawE0iDvcSuitS+QhbvXZwNE+PbWHqcvi99JCS5g/WZgYZIxjgy5hn7GuMndGD
-         er9SdxbE8Mvcq7zJ1oIHjEJhyl0TWf31iwqFJw2SVduv1h6zD0+RwttrYQe+XQhHl9ZB
-         7Cug==
+        bh=e+ciZeljp4XbV+7Ul/HTP2zfMzICzcEEGNyLNPo0cRI=;
+        b=WqJEYciFIE42bW++TuvV9qcIUwlFSCQPmTPUyPjrvNWbrl7wnkK9gPID0kmnQqRom/
+         zFgJYXkiM+OGhd7lGiJrWyr4QOvNBAk177LyBEfXIEmp9NDpjwJKM0RJIw+wDKMTcO5y
+         Pm9vmN6kfMU/96Vo9jBpezoD9+GXjm9QHN0j/TnRi0O4rAYSe+ED0ZZhCRyDD9DZ2wxY
+         enluWSDDeGYzdVy0zljT52bOdwgPKWaw2EhyGj9ATwYsspK7OF+R/tOpbNsbHx+2X6d8
+         ZNzeTJ3OUaAlfvzCiryUMNpFvVI7qI6IomRx6Zu3/9xG6ntwDMO5VYu9LNchfUe2KSOg
+         ZMtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790360702; x=1790965502;
+        d=1e100.net; s=20260707; t=1790360699; x=1790965499;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=A5F+TTbhUwNuvyEFUsp5Vgi0t7//9pB2JmeOgiSr1S4=;
-        b=yL9ffxcn3dWEn4clquorcrw446V+X3FTjuQO+0j7jz2G3aAh8h4DB5zgTLaqUKfJ+V
-         BTt/1LfabU4u4PHMKPcsDYHuPzgJ/bB7HOOjVAjAJN9rHhjaho8dlw/7gCbXBxVTNjPZ
-         xwfbLcOHjPcnDAdnQcyqjfukSlxVBRI1E680GpN+r1sOsGJ676CH4i1BcPxyTzP8+ljd
-         hoJzRUK5eoauEeulC7awg9ZNtA8V2XpXOaPwv4e/75kHaNNVvwrvTtLOYJDqbyOaXZ9W
-         FDcmyGzv0yiaw4T6DK0v/ChT3hlPtGVyn3JV4JUGxbyoHa7p3j/0s4GAYSa97N0yskM8
-         VvFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwq99X+WzKmDLnh/buuQZpvXyKOuO2maQZqGTspTj9O72NVLmoo7FzUKIZGV1+mfQ1wpQOLZWVyIeFb@vger.kernel.org
-X-Gm-Message-State: AFuF++kA7NePRzj0+yxIwyosHv7bUkpseB6M63h1+3t/VtZ2Mjvcp+Bs
-	UB779reX5p5K45I07Pgqv8sa2qSctjLvIWWkHiATdFiRsc05pZ//uTxM
-X-Gm-Gg: AYBFou2uSlbVs5sEgHoAUvVg0kLxlmRlTCRNUnEpZp0W5ADB0qBBT79hzjpQfrkalk7
-	oC/01nGAMv/XTTY0u0c4lCnBRgICT+80D5PiNgWXxflNkXL+pWwqQD1AWgg/0Ippsn/Khi0JHIy
-	pDdY3SVfkujOj/9Z5WZa+tL+FW9vpXhDmYj8EffEzmKZthfb46Gm4WiAMzXgbNZPMjlQSajk9VN
-	1LWv5jkONB0P0B1LqAA1XoIV5TmZ6Vy8+JXwcbe/Lq7tFGEcpS4iHA677vqx8Y5cPFhPC7xCPpa
-	B/3bQ8srofsy7s+fP5MRbwwsC/Dtc7zgg9XVh6iKEhxGxgrFIMhM/14dYfG8nlOt01gECwAyvQN
-	x1Fb/TwGEYMkZXg8pygfaoiikgcSkuMxnuZfqWqiQ8Otcms0a7Fap1OLQQLmsnKV/yinUmRGzGm
-	iLWl5Djk0Z/xAE0xfB7fjC4NDjj2vwJaGk4AVbkFslcTwTke88rQe2bDupEALpd1VfB+NZje9Nl
-	RoZ3DdRQe8rb7MMQYDDOxO07j8KbZv8cXJdiIaO96XcQwGjkca9RP9pXkJWmc9D
-X-Received: by 2002:a05:600c:8486:b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-49fe66b426bmr120668105e9.12.1790360701731;
-        Fri, 25 Sep 2026 11:25:01 -0700 (PDT)
+        bh=e+ciZeljp4XbV+7Ul/HTP2zfMzICzcEEGNyLNPo0cRI=;
+        b=IQyM5SDzqnzcBBWup3SDbnxoiynu8Ret8R2+U+g1kYcLE+HLwqBsIndr37Tx895BAt
+         MFaycyp0SPCGhkpBJlPsuD9ecvdFx5Qhjn5AcXZwvsXyouSYSFhmjtNewjquO7jYhnSb
+         CemapsEsUTypueqEG1f0r2oaM0hV+Z5eNNpwvTg3/nPGlMNp3SED+qXWjzWbLrfbDcx8
+         wXL8EcCocwy6Kb6KcZDMS/g2VJHtb2uGWfN3yRvHGh5oPnSA3eoytw3fYMzElr8uOg/6
+         0lyrPbMWoc0OwxuhaAoB52ZkUPrYg6k89SH7SI/y7cCXDPr3CaC4bv288kilZ54qsk9m
+         CJrw==
+X-Forwarded-Encrypted: i=1; AKwUvBxJ6vDL7vPCEXU1fX73e2CJGqbJ4eQ1zz/ga9JGfxd4zYO5RSi+q25O7BsFr4bKDIOXu2ef8K/aWenw@vger.kernel.org
+X-Gm-Message-State: AFuF++nk0Bzmdz1revjK0HB4m/wrb9DKZB52CUSdeQK1Mn8jvc446ers
+	4ttN2kL52uJJE365SYSk8yhRxjNCPRv0/RhdnuRjco5ylyxbj/AYfN40
+X-Gm-Gg: AYBFou1UZ37UOPU52bPW5clzLJUzw1Wcp9C27OH9VpnVWZlrLVjJ7xwV17Lzrjqfk21
+	TUi2x3TZFl0X3/FcBsw33KIe+a8/2IrLdbdtFkht14iuQWplI0tik3AJDRFdtzYY90ukiE6Qzcc
+	29aXIAe/G7YAbxZjLXx+tC03sL7Zd4vUkxykUL3bNKluqm7QXCv+5DFtDOKMTDpQsK21bjJkN9X
+	G0XHdqHrBBOVN2Jdo+wfZJJVvhPqIIL0vFg/YA/wnc0GFIcnUyPt25JKIKVjsSTsLcsVXnaqqzZ
+	eIcIUzq9jWjzEJcUSseCAEMETNMiqDhv72QQQQDWXo9WYgoSE907m7vuYSZOykrBbYj80LMc1aX
+	fegdkYnQhTuYT5IkNatKHAATt5iDvud62fotwznAeWIzZ7BJJdACyyPcKnXRhazoKQijEqPmgeQ
+	2IJB9zdqmvLdHO7uDiwXHcg4s6iY3ZwZ93pI2hgU1C+3Cev96qY3vrsgdya/s8H6jKLs+Gm8EIm
+	zWyrWckbpHAATh3mq2NgipI99UGuQ1tfuvA61p4hXyMUD0UVkXV2fnXi3EhWtKh74NmJt54A7I=
+X-Received: by 2002:a05:600c:3494:b0:49d:870:7a69 with SMTP id 5b1f17b1804b1-49fe66d0768mr111652235e9.12.1790360698492;
+        Fri, 25 Sep 2026 11:24:58 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-79-29-83-136.business.telecomitalia.it. [79.29.83.136])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fe5dfa6a7sm266231245e9.12.2026.09.25.11.24.58
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fe5dfa6a7sm266231245e9.12.2026.09.25.11.24.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:25:00 -0700 (PDT)
+        Fri, 25 Sep 2026 11:24:57 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Christian Marangi <ansuelsmth@gmail.com>,
 	Lee Jones <lee@kernel.org>,
@@ -84,9 +84,9 @@ To: Christian Marangi <ansuelsmth@gmail.com>,
 	mfd@lists.linux.dev,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v23 4/9] mfd: an8855: Add support for Airoha AN8855 Switch
-Date: Fri, 25 Sep 2026 20:24:26 +0200
-Message-ID: <20260925182435.21207-5-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v23 3/9] dt-bindings: mfd: Document support for Airoha AN8855 Switch SoC
+Date: Fri, 25 Sep 2026 20:24:25 +0200
+Message-ID: <20260925182435.21207-4-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260925182435.21207-1-ansuelsmth@gmail.com>
 References: <20260925182435.21207-1-ansuelsmth@gmail.com>
@@ -98,645 +98,201 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for Airoha AN8855 Switch that provide support for a DSA
-switch and a NVMEM provider.
+Document support for Airoha AN8855 Switch SoC. This SoC expose various
+peripherals like an Ethernet Switch, a NVMEM provider and Ethernet PHYs.
 
-Also make use of the mdio-regmap driver and register a regmap for each
-internal PHY of the switch.
-This is needed to handle the double usage of the PHYs as both PHY and
-Switch accessor.
+It does also support i2c and timers but those are not currently
+supported/used.
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- drivers/mfd/Kconfig         |  14 +
- drivers/mfd/Makefile        |   1 +
- drivers/mfd/airoha-an8855.c | 580 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 595 insertions(+)
- create mode 100644 drivers/mfd/airoha-an8855.c
+ .../bindings/mfd/airoha,an8855.yaml           | 176 ++++++++++++++++++
+ 1 file changed, 176 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
 
-diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index e4fd4572472f..afbdcec0fce8 100644
---- a/drivers/mfd/Kconfig
-+++ b/drivers/mfd/Kconfig
-@@ -54,6 +54,20 @@ config MFD_ALTERA_SYSMGR
- 	  using regmap_mmio accesses for ARM32 parts and SMC calls to
- 	  EL3 for ARM64 parts.
- 
-+config MFD_AIROHA_AN8855
-+	tristate "Airoha AN8855 Switch Core"
-+	select MFD_CORE
-+	select REGMAP
-+	select PHYLIB
-+	select MDIO_REGMAP
-+	depends on NETDEVICES && OF
-+	help
-+	  Support for the Airoha AN8855 Switch Core. This is an SoC
-+	  that provides various peripherals, to count, i2c, an Ethrnet
-+	  Switch, a CPU timer, GPIO, eFUSE.
-+
-+	  Currently it provides a DSA switch and a NVMEM provider.
-+
- config MFD_ACT8945A
- 	tristate "Active-semi ACT8945A"
- 	select MFD_CORE
-diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index 72d3944b0ad8..484127dba2ad 100644
---- a/drivers/mfd/Makefile
-+++ b/drivers/mfd/Makefile
-@@ -8,6 +8,7 @@ obj-$(CONFIG_MFD_88PM860X)	+= 88pm860x.o
- obj-$(CONFIG_MFD_88PM800)	+= 88pm800.o 88pm80x.o
- obj-$(CONFIG_MFD_88PM805)	+= 88pm805.o 88pm80x.o
- obj-$(CONFIG_MFD_88PM886_PMIC)	+= 88pm886.o
-+obj-$(CONFIG_MFD_AIROHA_AN8855)	+= airoha-an8855.o
- obj-$(CONFIG_MFD_ACT8945A)	+= act8945a.o
- obj-$(CONFIG_MFD_SM501)		+= sm501.o
- obj-$(CONFIG_ARCH_BCM2835)	+= bcm2835-pm.o
-diff --git a/drivers/mfd/airoha-an8855.c b/drivers/mfd/airoha-an8855.c
+diff --git a/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
 new file mode 100644
-index 000000000000..a2a36704a9fc
+index 000000000000..48127e956c96
 --- /dev/null
-+++ b/drivers/mfd/airoha-an8855.c
-@@ -0,0 +1,580 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Core driver for Airoha AN8855 Switch
-+ *
-+ * Copyright (C) 2024 Christian Marangi <ansuelsmth@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/fwnode_mdio.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/mfd/core.h>
-+#include <linux/mdio.h>
-+#include <linux/mdio/mdio-regmap.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/phy.h>
-+#include <linux/regmap.h>
-+
-+/* Register for HW trap status */
-+#define AN8855_HWTRAP			0x1000009c
-+
-+/*
-+ * Register of the Switch ID
-+ * (called Project ID in Documentation)
-+ */
-+#define AN8855_CREV			0x10005000
-+#define   AN8855_ID			0x8855 /* Switch ID */
-+
-+/* Register for GPHY Power Down
-+ * Used to Toggle the Gigabit PHY power and enable them.
-+ */
-+#define AN8855_RG_GPHY_AFE_PWD		0x1028c840
-+
-+/* MII Registers */
-+#define AN8855_PHY_SELECT_PAGE		0x1f
-+#define   AN8855_PHY_PAGE		GENMASK(2, 0)
-+#define   AN8855_PHY_PAGE_STANDARD	FIELD_PREP_CONST(AN8855_PHY_PAGE, 0x0)
-+#define   AN8855_PHY_PAGE_EXTENDED_1	FIELD_PREP_CONST(AN8855_PHY_PAGE, 0x1)
-+#define   AN8855_PHY_PAGE_EXTENDED_4	FIELD_PREP_CONST(AN8855_PHY_PAGE, 0x4)
-+
-+/* MII Registers Page 4 */
-+#define AN8855_PBUS_MODE		0x10
-+#define   AN8855_PBUS_MODE_ADDR_FIXED	0x0
-+#define   AN8855_PBUS_MODE_ADDR_INCR	BIT(15)
-+#define AN8855_PBUS_WR_ADDR_HIGH	0x11
-+#define AN8855_PBUS_WR_ADDR_LOW		0x12
-+#define AN8855_PBUS_WR_DATA_HIGH	0x13
-+#define AN8855_PBUS_WR_DATA_LOW		0x14
-+#define AN8855_PBUS_RD_ADDR_HIGH	0x15
-+#define AN8855_PBUS_RD_ADDR_LOW		0x16
-+#define AN8855_PBUS_RD_DATA_HIGH	0x17
-+#define AN8855_PBUS_RD_DATA_LOW		0x18
-+
-+#define AN8855_MAX_PHY_PORT		5
-+
-+struct an8855_core_priv {
-+	struct mii_bus *bus;
-+	struct mii_bus *phy_bus;
-+	unsigned int switch_addr;
-+	u16 current_page;
-+};
-+
-+struct an8855_phy_priv {
-+	u8 addr;
-+	struct an8855_core_priv *core;
-+};
-+
-+struct an8855_phy_bus {
-+	struct mii_bus *bus;
-+	struct fwnode_handle *node;
-+	u8 addr;
-+};
-+
-+static const struct mfd_cell an8855_cells[] = {
-+	MFD_CELL_OF("an8855-efuse", NULL, NULL, 0, 0,
-+		    "airoha,an8855-efuse"),
-+	MFD_CELL_OF("an8855-switch", NULL, NULL, 0, 0,
-+		    "airoha,an8855-switch"),
-+};
-+
-+static int an8855_mii_set_page(struct an8855_core_priv *priv, u8 addr,
-+			       u8 page) __must_hold(&priv->bus->mdio_lock)
-+{
-+	struct mii_bus *bus = priv->bus;
-+	int ret;
-+
-+	ret = __mdiobus_write(bus, addr, AN8855_PHY_SELECT_PAGE, page);
-+	if (ret) {
-+		dev_err_ratelimited(&bus->dev, "failed to set mii page\n");
-+		return ret;
-+	}
-+
-+	/* Cache current page if next MII read/write is for Switch page */
-+	priv->current_page = page;
-+	return 0;
-+}
-+
-+static int an8855_mii_read32(struct mii_bus *bus, u8 phy_id, u32 reg,
-+			     u32 *val) __must_hold(&bus->mdio_lock)
-+{
-+	int lo, hi, ret;
-+
-+	ret = __mdiobus_write(bus, phy_id, AN8855_PBUS_MODE,
-+			      AN8855_PBUS_MODE_ADDR_FIXED);
-+	if (ret)
-+		goto err;
-+
-+	ret = __mdiobus_write(bus, phy_id, AN8855_PBUS_RD_ADDR_HIGH,
-+			      upper_16_bits(reg));
-+	if (ret)
-+		goto err;
-+
-+	ret = __mdiobus_write(bus, phy_id, AN8855_PBUS_RD_ADDR_LOW,
-+			      lower_16_bits(reg));
-+	if (ret)
-+		goto err;
-+
-+	hi = __mdiobus_read(bus, phy_id, AN8855_PBUS_RD_DATA_HIGH);
-+	if (hi < 0) {
-+		ret = hi;
-+		goto err;
-+	}
-+
-+	lo = __mdiobus_read(bus, phy_id, AN8855_PBUS_RD_DATA_LOW);
-+	if (lo < 0) {
-+		ret = lo;
-+		goto err;
-+	}
-+
-+	*val = ((u32)hi << 16) | lo;
-+
-+	return 0;
-+err:
-+	dev_err_ratelimited(&bus->dev, "failed to read register\n");
-+	return ret;
-+}
-+
-+/*
-+ * Protect concurrent access to phy page if switch address also
-+ * expose a PHY.
-+ */
-+static void an8855_regmap_lock(struct an8855_core_priv *priv)
-+{
-+	if (priv->phy_bus)
-+		mutex_lock(&priv->phy_bus->mdio_lock);
-+	mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
-+}
-+
-+static void an8855_regmap_unlock(struct an8855_core_priv *priv)
-+{
-+	mutex_unlock(&priv->bus->mdio_lock);
-+	if (priv->phy_bus)
-+		mutex_unlock(&priv->phy_bus->mdio_lock);
-+}
-+
-+static int an8855_regmap_read(void *ctx, uint32_t reg, uint32_t *val)
-+{
-+	struct an8855_core_priv *priv = ctx;
-+	struct mii_bus *bus = priv->bus;
-+	u16 addr = priv->switch_addr;
-+	int ret;
-+
-+	an8855_regmap_lock(priv);
-+	ret = an8855_mii_set_page(priv, addr, AN8855_PHY_PAGE_EXTENDED_4);
-+	if (ret < 0)
-+		goto exit;
-+
-+	ret = an8855_mii_read32(bus, addr, reg, val);
-+
-+exit:
-+	an8855_regmap_unlock(priv);
-+
-+	return ret < 0 ? ret : 0;
-+}
-+
-+static int an8855_mii_write32(struct mii_bus *bus, u8 phy_id, u32 reg,
-+			      u32 val) __must_hold(&bus->mdio_lock)
-+{
-+	int ret;
-+
-+	ret = __mdiobus_write(bus, phy_id, AN8855_PBUS_MODE,
-+			      AN8855_PBUS_MODE_ADDR_FIXED);
-+	if (ret)
-+		goto err;
-+
-+	ret = __mdiobus_write(bus, phy_id, AN8855_PBUS_WR_ADDR_HIGH,
-+			      upper_16_bits(reg));
-+	if (ret)
-+		goto err;
-+	ret = __mdiobus_write(bus, phy_id, AN8855_PBUS_WR_ADDR_LOW,
-+			      lower_16_bits(reg));
-+	if (ret)
-+		goto err;
-+
-+	ret = __mdiobus_write(bus, phy_id, AN8855_PBUS_WR_DATA_HIGH,
-+			      upper_16_bits(val));
-+	if (ret)
-+		goto err;
-+
-+	ret = __mdiobus_write(bus, phy_id, AN8855_PBUS_WR_DATA_LOW,
-+			      lower_16_bits(val));
-+	if (ret)
-+		goto err;
-+
-+	return 0;
-+err:
-+	dev_err_ratelimited(&bus->dev,
-+			    "failed to write an8855 register\n");
-+	return ret;
-+}
-+
-+static int an8855_regmap_write(void *ctx, uint32_t reg, uint32_t val)
-+{
-+	struct an8855_core_priv *priv = ctx;
-+	struct mii_bus *bus = priv->bus;
-+	u16 addr = priv->switch_addr;
-+	int ret;
-+
-+	an8855_regmap_lock(priv);
-+	ret = an8855_mii_set_page(priv, addr, AN8855_PHY_PAGE_EXTENDED_4);
-+	if (ret)
-+		goto exit;
-+
-+	ret = an8855_mii_write32(bus, addr, reg, val);
-+
-+exit:
-+	an8855_regmap_unlock(priv);
-+
-+	return ret < 0 ? ret : 0;
-+}
-+
-+static int an8855_regmap_update_bits(void *ctx, uint32_t reg, uint32_t mask,
-+				     uint32_t write_val)
-+{
-+	struct an8855_core_priv *priv = ctx;
-+	struct mii_bus *bus = priv->bus;
-+	u16 addr = priv->switch_addr;
-+	u32 val;
-+	int ret;
-+
-+	an8855_regmap_lock(priv);
-+	ret = an8855_mii_set_page(priv, addr, AN8855_PHY_PAGE_EXTENDED_4);
-+	if (ret)
-+		goto exit;
-+
-+	ret = an8855_mii_read32(bus, addr, reg, &val);
-+	if (ret < 0)
-+		goto exit;
-+
-+	val &= ~mask;
-+	val |= write_val & mask;
-+	ret = an8855_mii_write32(bus, addr, reg, val);
-+
-+exit:
-+	an8855_regmap_unlock(priv);
-+
-+	return ret < 0 ? ret : 0;
-+}
-+
-+static const struct regmap_range an8855_readable_ranges[] = {
-+	regmap_reg_range(0x10000000, 0x10000fff), /* SCU */
-+	regmap_reg_range(0x10001000, 0x10001fff), /* RBUS */
-+	regmap_reg_range(0x10002000, 0x10002fff), /* MCU */
-+	regmap_reg_range(0x10005000, 0x10005fff), /* SYS SCU */
-+	regmap_reg_range(0x10007000, 0x10007fff), /* I2C Slave */
-+	regmap_reg_range(0x10008000, 0x10008fff), /* I2C Master */
-+	regmap_reg_range(0x10009000, 0x10009fff), /* PDMA */
-+	regmap_reg_range(0x1000a100, 0x1000a2ff), /* General Purpose Timer */
-+	regmap_reg_range(0x1000a200, 0x1000a2ff), /* GPU timer */
-+	regmap_reg_range(0x1000a300, 0x1000a3ff), /* GPIO */
-+	regmap_reg_range(0x1000a400, 0x1000a5ff), /* EFUSE */
-+	regmap_reg_range(0x1000c000, 0x1000cfff), /* GDMP CSR */
-+	regmap_reg_range(0x10010000, 0x1001ffff), /* GDMP SRAM */
-+	regmap_reg_range(0x10200000, 0x10203fff), /* Switch - ARL Global */
-+	regmap_reg_range(0x10204000, 0x10207fff), /* Switch - BMU */
-+	regmap_reg_range(0x10208000, 0x1020bfff), /* Switch - ARL Port */
-+	regmap_reg_range(0x1020c000, 0x1020cfff), /* Switch - SCH */
-+	regmap_reg_range(0x10210000, 0x10213fff), /* Switch - MAC */
-+	regmap_reg_range(0x10214000, 0x10217fff), /* Switch - MIB */
-+	regmap_reg_range(0x10218000, 0x1021bfff), /* Switch - Port Control */
-+	regmap_reg_range(0x1021c000, 0x1021ffff), /* Switch - TOP */
-+	regmap_reg_range(0x10220000, 0x1022ffff), /* SerDes */
-+	regmap_reg_range(0x10286000, 0x10286fff), /* RG Batcher */
-+	regmap_reg_range(0x1028c000, 0x1028ffff), /* ETHER_SYS */
-+	regmap_reg_range(0x30000000, 0x37ffffff), /* I2C EEPROM */
-+	regmap_reg_range(0x38000000, 0x3fffffff), /* BOOT_ROM */
-+	regmap_reg_range(0xa0000000, 0xbfffffff), /* GPHY */
-+};
-+
-+static const struct regmap_access_table an8855_readable_table = {
-+	.yes_ranges = an8855_readable_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(an8855_readable_ranges),
-+};
-+
-+static const struct regmap_config an8855_regmap_config = {
-+	.name = "switch",
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = 0xbfffffff,
-+	.reg_read = an8855_regmap_read,
-+	.reg_write = an8855_regmap_write,
-+	.reg_update_bits = an8855_regmap_update_bits,
-+	.disable_locking = true,
-+	.rd_table = &an8855_readable_table,
-+};
-+
-+static int an8855_regmap_phy_reset_page(struct an8855_core_priv *priv,
-+					int phy) __must_hold(&priv->bus->mdio_lock)
-+{
-+	/* Check PHY page only for addr shared with switch */
-+	if (phy != priv->switch_addr)
-+		return 0;
-+
-+	/* Don't restore page if it's not set to Switch page */
-+	if (priv->current_page != AN8855_PHY_PAGE_EXTENDED_4)
-+		return 0;
-+
-+	/*
-+	 * Restore page to 0, PHY might change page right after but that
-+	 * will be ignored as it won't be a switch page.
-+	 */
-+	return an8855_mii_set_page(priv, phy, AN8855_PHY_PAGE_STANDARD);
-+}
-+
-+static int an8855_regmap_phy_read(void *ctx, uint32_t reg, uint32_t *val)
-+{
-+	struct an8855_phy_priv *priv = ctx;
-+	struct an8855_core_priv *core_priv;
-+	u32 addr = priv->addr;
-+	struct mii_bus *bus;
-+	int ret;
-+
-+	core_priv = priv->core;
-+	bus = core_priv->bus;
-+
-+	mutex_lock_nested(&bus->mdio_lock, MDIO_MUTEX_NESTED);
-+	ret = an8855_regmap_phy_reset_page(core_priv, addr);
-+	if (ret)
-+		goto exit;
-+
-+	ret = __mdiobus_read(bus, addr, reg);
-+	if (ret >= 0)
-+		*val = ret;
-+
-+exit:
-+	mutex_unlock(&bus->mdio_lock);
-+
-+	return ret < 0 ? ret : 0;
-+}
-+
-+static int an8855_regmap_phy_write(void *ctx, uint32_t reg, uint32_t val)
-+{
-+	struct an8855_phy_priv *priv = ctx;
-+	struct an8855_core_priv *core_priv;
-+	u32 addr = priv->addr;
-+	struct mii_bus *bus;
-+	int ret;
-+
-+	core_priv = priv->core;
-+	bus = core_priv->bus;
-+
-+	mutex_lock_nested(&bus->mdio_lock, MDIO_MUTEX_NESTED);
-+	ret = an8855_regmap_phy_reset_page(core_priv, addr);
-+	if (ret)
-+		goto exit;
-+
-+	ret = __mdiobus_write(bus, addr, reg, val);
-+
-+exit:
-+	mutex_unlock(&bus->mdio_lock);
-+
-+	return ret;
-+}
-+
-+static const struct regmap_config an8855_phy_regmap_config = {
-+	.reg_bits = 16,
-+	.val_bits = 16,
-+	.reg_read = an8855_regmap_phy_read,
-+	.reg_write = an8855_regmap_phy_write,
-+	.disable_locking = true,
-+	.max_register = 0x1f,
-+};
-+
-+static int an8855_read_switch_id(struct device *dev, struct regmap *regmap)
-+{
-+	u32 id;
-+	int ret;
-+
-+	ret = regmap_read(regmap, AN8855_CREV, &id);
-+	if (ret)
-+		return ret;
-+
-+	if (id != AN8855_ID) {
-+		dev_err(dev, "Detected Switch ID %x but %x was expected\n",
-+			id, AN8855_ID);
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+}
-+
-+static int an8855_phy_bus_register(struct device *dev, struct an8855_core_priv *priv,
-+				   struct device_node *phy_np,
-+				   struct an8855_phy_bus *phy_bus_info)
-+{
-+	struct mdio_regmap_config mrc = { };
-+	struct an8855_phy_priv *phy_priv;
-+	struct regmap *regmap;
-+	u32 addr, phy_offset;
-+	struct mii_bus *bus;
-+	int ret;
-+
-+	ret = of_property_read_u32(phy_np, "reg", &addr);
-+	if (ret)
-+		return ret;
-+
-+	phy_offset = addr - priv->switch_addr;
-+	if (phy_offset >= AN8855_MAX_PHY_PORT)
-+		return -EINVAL;
-+
-+	phy_priv = devm_kzalloc(dev, sizeof(*phy_priv), GFP_KERNEL);
-+	if (!phy_priv)
-+		return -ENOMEM;
-+
-+	phy_priv->addr = addr;
-+	phy_priv->core = priv;
-+
-+	regmap = devm_regmap_init(dev, NULL, phy_priv, &an8855_phy_regmap_config);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap),
-+				     "phy%d regmap initialization failed\n",
-+				      addr);
-+
-+	mrc.regmap = regmap;
-+	mrc.parent = dev;
-+	mrc.valid_addr = addr;
-+	snprintf(mrc.name, MII_BUS_ID_SIZE, "an8855:%u-phy%u", priv->switch_addr,
-+		 phy_offset);
-+
-+	bus = devm_mdio_regmap_register(dev, &mrc);
-+	if (IS_ERR(bus))
-+		return PTR_ERR(bus);
-+
-+	if (addr == priv->switch_addr)
-+		priv->phy_bus = bus;
-+
-+	phy_bus_info->bus = bus;
-+	phy_bus_info->addr = addr;
-+	phy_bus_info->node = fwnode_handle_get(of_fwnode_handle(phy_np));
-+
-+	return 0;
-+}
-+
-+static int an8855_mdio_register(struct device *dev, struct an8855_core_priv *priv,
-+				struct an8855_phy_bus *phy_bus_infos)
-+{
-+	struct device_node *mdio_np;
-+	int ret = 0;
-+	int i = 0;
-+
-+	mdio_np = of_get_child_by_name(dev->of_node, "mdio");
-+	if (!mdio_np)
-+		return -ENODEV;
-+
-+	for_each_available_child_of_node_scoped(mdio_np, phy_np) {
-+		if (i >= AN8855_MAX_PHY_PORT) {
-+			ret = -EINVAL;
-+			goto exit;
-+		}
-+
-+		ret = an8855_phy_bus_register(dev, priv, phy_np,
-+					      &phy_bus_infos[i]);
-+		if (ret)
-+			goto exit;
-+
-+		i++;
-+	}
-+
-+	of_node_put(mdio_np);
-+exit:
-+	if (ret) {
-+		while (i--)
-+			fwnode_handle_put(phy_bus_infos[i].node);
-+
-+		return ret;
-+	}
-+
-+	return i;
-+}
-+
-+static int an8855_core_probe(struct mdio_device *mdiodev)
-+{
-+	struct an8855_phy_bus phy_bus_infos[AN8855_MAX_PHY_PORT] = { };
-+	struct device *dev = &mdiodev->dev;
-+	struct an8855_core_priv *priv;
-+	struct regmap *regmap;
-+	int num_phys;
-+	int i, ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->bus = mdiodev->bus;
-+	priv->switch_addr = mdiodev->addr;
-+	/* No DMA for mdiobus, mute warning for DMA mask not set */
-+	dev->dma_mask = &dev->coherent_dma_mask;
-+
-+	/* Register virtual MDIO for each PHY */
-+	num_phys = an8855_mdio_register(dev, priv, phy_bus_infos);
-+	if (num_phys < 0)
-+		return num_phys;
-+
-+	regmap = devm_regmap_init(dev, NULL, priv, &an8855_regmap_config);
-+	if (IS_ERR(regmap)) {
-+		ret = PTR_ERR(regmap);
-+		dev_err_probe(dev, ret, "regmap initialization failed\n");
-+		goto err_put_fwnodes;
-+	}
-+
-+	/* Reset PHY page for switch address */
-+	mutex_lock_nested(&priv->bus->mdio_lock, MDIO_MUTEX_NESTED);
-+	ret = an8855_mii_set_page(priv, priv->switch_addr,
-+				  AN8855_PHY_PAGE_STANDARD);
-+	mutex_unlock(&priv->bus->mdio_lock);
-+	if (ret)
-+		goto err_put_fwnodes;
-+
-+	ret = an8855_read_switch_id(dev, regmap);
-+	if (ret)
-+		goto err_put_fwnodes;
-+
-+	/* Release global PHY power down */
-+	ret = regmap_write(regmap, AN8855_RG_GPHY_AFE_PWD, 0x0);
-+	if (ret)
-+		goto err_put_fwnodes;
-+
-+	/* Register PHYs */
-+	for (i = 0; i < num_phys; i++) {
-+		ret = fwnode_mdiobus_register_phy(phy_bus_infos[i].bus,
-+						  phy_bus_infos[i].node,
-+						  phy_bus_infos[i].addr);
-+		fwnode_handle_put(phy_bus_infos[i].node);
-+		phy_bus_infos[i].node = NULL;
-+
-+		if (ret)
-+			goto err_put_fwnodes;
-+	}
-+
-+	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, an8855_cells,
-+				    ARRAY_SIZE(an8855_cells), NULL, 0,
-+				    NULL);
-+
-+err_put_fwnodes:
-+	for (i = 0; i < num_phys; i++)
-+		if (phy_bus_infos[i].node)
-+			fwnode_handle_put(phy_bus_infos[i].node);
-+
-+	return ret;
-+}
-+
-+static const struct of_device_id an8855_core_of_match[] = {
-+	{ .compatible = "airoha,an8855" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, an8855_core_of_match);
-+
-+static struct mdio_driver an8855_core_driver = {
-+	.probe = an8855_core_probe,
-+	.mdiodrv.driver = {
-+		.name = "an8855",
-+		.of_match_table = an8855_core_of_match,
-+	},
-+};
-+mdio_module_driver(an8855_core_driver);
-+
-+MODULE_AUTHOR("Christian Marangi <ansuelsmth@gmail.com>");
-+MODULE_DESCRIPTION("Driver for Airoha AN8855");
-+MODULE_LICENSE("GPL");
++++ b/Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
+@@ -0,0 +1,176 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/airoha,an8855.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha AN8855 Switch SoC
++
++maintainers:
++  - Christian Marangi <ansuelsmth@gmail.com>
++
++description: >
++  Airoha AN8855 Switch is a SoC that expose various peripherals like an
++  Ethernet Switch, a NVMEM provider and Ethernet PHYs.
++
++  It does also support i2c and timers but those are not currently
++  supported/used.
++
++properties:
++  compatible:
++    const: airoha,an8855
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    maxItems: 1
++
++  efuse:
++    type: object
++    $ref: /schemas/nvmem/airoha,an8855-efuse.yaml
++    description: EFUSE exposed by the Airoha AN8855 SoC
++
++  ethernet-switch:
++    type: object
++    $ref: /schemas/net/dsa/airoha,an8855-switch.yaml
++    description: Switch exposed by the Airoha AN8855 SoC
++
++  mdio:
++    type: object
++    $ref: /schemas/net/mdio.yaml#
++    description: MDIO exposed by the Airoha AN8855 SoC
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - mdio
++  - ethernet-switch
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        soc@1 {
++            compatible = "airoha,an8855";
++            reg = <1>;
++
++            reset-gpios = <&pio 39 GPIO_ACTIVE_HIGH>;
++
++            efuse {
++                compatible = "airoha,an8855-efuse";
++
++                #nvmem-cell-cells = <0>;
++
++                nvmem-layout {
++                    compatible = "fixed-layout";
++                    #address-cells = <1>;
++                    #size-cells = <1>;
++
++                    shift_sel_port0_tx_a: shift-sel-port0-tx-a@c {
++                       reg = <0xc 0x4>;
++                    };
++
++                    shift_sel_port0_tx_b: shift-sel-port0-tx-b@10 {
++                        reg = <0x10 0x4>;
++                    };
++
++                    shift_sel_port0_tx_c: shift-sel-port0-tx-c@14 {
++                        reg = <0x14 0x4>;
++                    };
++
++                    shift_sel_port0_tx_d: shift-sel-port0-tx-d@18 {
++                       reg = <0x18 0x4>;
++                    };
++
++                    shift_sel_port1_tx_a: shift-sel-port1-tx-a@1c {
++                        reg = <0x1c 0x4>;
++                    };
++
++                    shift_sel_port1_tx_b: shift-sel-port1-tx-b@20 {
++                        reg = <0x20 0x4>;
++                    };
++
++                    shift_sel_port1_tx_c: shift-sel-port1-tx-c@24 {
++                       reg = <0x24 0x4>;
++                    };
++
++                    shift_sel_port1_tx_d: shift-sel-port1-tx-d@28 {
++                        reg = <0x28 0x4>;
++                    };
++                };
++            };
++
++            ethernet-switch {
++                compatible = "airoha,an8855-switch";
++
++                ports {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++
++                    port@0 {
++                        reg = <0>;
++                        label = "lan1";
++                        phy-mode = "internal";
++                        phy-handle = <&internal_phy1>;
++                    };
++
++                    port@1 {
++                        reg = <1>;
++                        label = "lan2";
++                        phy-mode = "internal";
++                        phy-handle = <&internal_phy2>;
++                    };
++
++                    port@5 {
++                        reg = <5>;
++                        label = "cpu";
++                        ethernet = <&gmac0>;
++                        phy-mode = "2500base-x";
++
++                        fixed-link {
++                            speed = <2500>;
++                            full-duplex;
++                            pause;
++                        };
++                    };
++                };
++            };
++
++            mdio {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                internal_phy1: ethernet-phy@1 {
++                  compatible = "ethernet-phy-idc0ff.0410",
++                               "ethernet-phy-ieee802.3-c22";
++                  reg = <1>;
++
++                  nvmem-cells = <&shift_sel_port0_tx_a>,
++                      <&shift_sel_port0_tx_b>,
++                      <&shift_sel_port0_tx_c>,
++                      <&shift_sel_port0_tx_d>;
++                  nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
++                };
++
++                internal_phy2: ethernet-phy@2 {
++                  compatible = "ethernet-phy-idc0ff.0410",
++                               "ethernet-phy-ieee802.3-c22";
++                  reg = <2>;
++
++                  nvmem-cells = <&shift_sel_port1_tx_a>,
++                      <&shift_sel_port1_tx_b>,
++                      <&shift_sel_port1_tx_c>,
++                      <&shift_sel_port1_tx_d>;
++                  nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
++                };
++            };
++        };
++    };
 -- 
 2.55.0
 
