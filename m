@@ -1,149 +1,168 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24431.protonmail.ch (mail-24431.protonmail.ch [109.224.244.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5A94D6C28
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 15:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.98
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790350987; cv=pass; b=BzAZ1x765vaWOJahALmn2jqVM7rRErzLUilsrypKeIvkyMrFHmVagDXJdlbbd9//qP1mi135JYS5FLyyX0PSTaFvSH+JvLhwiTupme2K6YTnk82k1e3zjUQC2TAglesuYSzogyMJ6jvbzj0wOcmdd6DBWbeChyWqvme5gnavbAk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790350987; c=relaxed/simple;
-	bh=YdJbeVGqh9AgSmmj5nG5sf7cECD5ZVbeKNl4YktWcOI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fKcHk1ywp1B7K0LkSHv8VC34evvMToz84eKyg9Oc1XBKmsJCOEYpvLcbRPwAHHzO8kkjsMylzpgsG4pLK9I6Epf+ba5VaH+bOi1joQgVllTMf0CFSVcWJsSkI2Ipsbw0sERDzlieA3dj/NndD3SmLZP1Dm7ZJi0rpzuO+dAHJnc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=Ghur7AVG; arc=pass smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A211A4BD0EB;
+	Fri, 25 Sep 2026 15:46:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.31
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790351217; cv=none; b=N/AWzTaV4mpXxHPTOf3w2oM6h2HF1EuqidXIoNlFhQlx05KXFtwqh8Xtr/tzqg9Wm+gViJOlitlJb5lkQxmrEcsXX0hEYQ26wKX0CWJJ9WVB6lZMQVJ3ollvRR/7ELWFhT43BrhJ5N3+6HeYUMBqLZFEKzOrhAd+W/QtYEmAKro=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790351217; c=relaxed/simple;
+	bh=3k82jz7EW3OaAVx1EUKJzZ2eOhY+TmEyQjeVG3kPoZQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=AH9NcvNgVKN0Ul8HSdLjmi07DcdNRIr2UxSY+1lJ/nxhvmQCbeoPainAQaIISQFJFhRuAmU/RJNoeIP4MiRwsSnYxwne30J2XOS3+KiuZTaVYxOmJZ1WQskfLudsP5fwQnKGgs59RrFSRGBLw2E5EheSWM5x7SvfRUn5NY+UYRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=XLwyQx64; arc=none smtp.client-ip=109.224.244.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="Ghur7AVG"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aafe2a64efso251493a12.2
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 08:42:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790350967; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ccN0nEdq/pqJMYWFi9QOnBRo1fH+lIuSJHiFdxQ7A7MrJPZVuYi3dugH1UJGdRZTnf
-         PR59BGo9bQ3Mh8Zi1k8z5055t9uiqdn/lhGWUAfy2t+6oVBj2b0Wu/z6C7KNMfZnX6GQ
-         9IOTh/PP5td2kOTLEJ6shw5XAzkixbhS1TCOXJ76CCZsjlbt3IokmdHy9uvYutwegmZy
-         i2+5a23Szzaa8VMb+hnwjFVG4lvcnNR1yrscObPqO7mKWONpdkhJvqcWhd5Di1abodaK
-         X3nKYqhsAK+Rc269Guc3W/ewhJeGrq2US85QicJJSmSAXhqNHeFDRkEHGmtE04KAbbDR
-         v92w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YdJbeVGqh9AgSmmj5nG5sf7cECD5ZVbeKNl4YktWcOI=;
-        fh=P1jdCfl7Bha81rNP4HqLBnn1V8rrBI0Co7gxL5cX34k=;
-        b=Oapm9KnSPlm0zZWUCD58WEuDBpxvOVgD3hpu1x81z+cuvkogtLokutecFfIxYAasXJ
-         CjxSyRIptvIR2c5fPNw+yRh9sWebsKOlS8rcn+J5dr9l/kKsekeK+5CJ92YgPdjSrj8S
-         EtmUMmuL/J+7KzCuKZh3ARqtYrulTtRs1t2M1mQcOFESnqxUgUDoPC1ajzx4zsibwkD9
-         iDpHRF09mx+aO+Reib2z29Vymm89jBeq4g2WI8GWndD34xpyrDl5ztTlTudZ2MIV+Iev
-         Ch1e2UbrggDJO/xCr2lO8lR7530gd3utc0+ew97ArWI6ho3tmHHHtpLnlkcwYFuz6dBF
-         L6LQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1790350967; x=1790955767; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YdJbeVGqh9AgSmmj5nG5sf7cECD5ZVbeKNl4YktWcOI=;
-        b=Ghur7AVGaAGv7aj1VLmHVIHmdZRjM0EHqIdBNStVlKO3HzXNYvsPD+dOHhSnFwood5
-         rbGpiQS0KygzjJs6oXCI2MAOF217jSTgrb9k7LxrvFRM0d32hG91+Nao9j9XLG9Bzq8J
-         rLT/nQ/kAa/J2M3wVoIaAFdeb/UxZwXYhfAQRfQyH3DZ4vSG/suY2uHfjQ/cQvEt6eIR
-         qDgXzUN8rBdyn46kzu8UceLnEAF5KROE0h7Xp3e+oW379j37gXwu1Zp8FAvgXTeV+WwR
-         gqGAjVjrSs7gcNbD+iXNQLA8YoacfZDv6aCFhPo8qhF1k+QqM9NvvncaAACEKMDcf4JP
-         NfIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790350967; x=1790955767;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YdJbeVGqh9AgSmmj5nG5sf7cECD5ZVbeKNl4YktWcOI=;
-        b=IXXcfJ/A1y+Ss1F5qotEk3CBCPRBS+SpwbKOqynloAgq+0AkdjtSrvKHi9ofAjHxpi
-         0Delx1vakEQP9Y0l97WaZflsiQhN6u+zJgGMcUmYBgQYiEuCypVsvgw9dEBIY1Pw1PG9
-         kvz52/GDsfE6QgjDDv6eUMcgVN/RT8copXmPz8e7rAr28Xf9x/pGxlIPRPk4n+4uIr76
-         N8FyVSh8cTKmTk4hXJ8G69fIcRsF7ERagmcEgsIUOLWocyWV7WZ2G2l0czt1wfcf78ZE
-         Tlhn5wRDQcGiPFG3sHSx25GY5n/Dy5z94Nw1jgBxFrIy/17yQwJGj8kFmzQ/3WGLbDmv
-         5QKA==
-X-Forwarded-Encrypted: i=1; AKwUvBz9dJ91eR+CuPc49e6hb4+/dH0A2/Yj4MqfvoywF4LaE4MzhSe/XLXluf+ei+G74XvcVkFU3rsTUQSP@vger.kernel.org
-X-Gm-Message-State: AFuF++l1kwM4N+/MaglyAkBhGJRo+0ofbPqESudn/owxW7ZH22bQAsbQ
-	ocTPdpU+A2vrn+oYQjknVkZx1ltqSJO9ZeeDAfqAUqsLqhbkGBbevB2x5wDUH2INWGvVKW8Em6X
-	SO5YZ6/q+f59pZUKT6uKebRucalED9D4Cv0cMSYxfDQ==
-X-Gm-Gg: AYBFou05mXTq99Dy8m9dQyQ2hBYS6ATHnCI4qtPJtCU/AcLnuiUDc5Ihh5uceO4vFMe
-	6GyD6n/b/feHhNlFbETAn48hUKCKRdjKlxExBsc4OUI2txey/zcepK+ZHCrm1vejO7hG7mEWcDi
-	OZC4ggyzwThSr7Tppvs6f2Rmc7z5EpMw2ZaYdYCKOPdk1nqRBoKnGyvvbw9Cam/pyjW8MxzwPah
-	316a6rRoZVFZrCjlLVX/kwgPKkaHu+M/dotuNiNF/rnHhuugIimx0+DdplUUpx3boqK8Mq8olq+
-	ZlD5qx7vGwEtKQ1TJQZ4cQUr2VjA3S4pbF5OE0m2zRG5mkLG6maLPlP4
-X-Received: by 2002:a17:907:c308:b0:c28:ec7c:27ae with SMTP id
- a640c23a62f3a-c2ac5396f65mr492269466b.25.1790350967019; Fri, 25 Sep 2026
- 08:42:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="XLwyQx64"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1790351206; x=1790610406;
+	bh=na3aVGqjVNrIst8t4bZU+RdCofbxvyiF0JPAdioBs6Y=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=XLwyQx64z2iyxd1UeoZJECbemV+ta5QXWJiLBX6K23/igwuCfxITBLcaLKZE8Ks0t
+	 4aNWWIyfeSivXGoxKfgODCRWHANiS3J8LDqJjR/zdT3W+DYI4s2/MC/Tqs4BakdX4T
+	 EdHadd9YR4ud1WAflvlUOU8LJb0iauSmttydSsmNpZf2YoiMZufVxz6mcqTWKk3adn
+	 3X0/8uuR6USRz8faqpmZAvXDdAfUbfenQxZ12SP7hFfnWTIYjMqXNq6qb5XdXOEyQd
+	 ql0uRQxY6JtmlFCOgx7BW4H66EhQBBuIzzgTJryhLlwUGDbW6rwct2+Tn/UuF+iL/C
+	 aVCjzsfeEjffw==
+Date: Fri, 25 Sep 2026 15:46:40 +0000
+To: Sean Wang <sean.wang@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Andy Teng <andy.teng@mediatek.com>
+From: Yassine Oudjana <y.oudjana@protonmail.com>
+Cc: Yassine Oudjana <y.oudjana@protonmail.com>, linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v9 0/6] MediaTek pinctrl DT binding cleanup and MT6735 pinctrl support
+Message-ID: <20260925-mt6735-pinctrl-v9-v9-0-bfb19d8bb87c@protonmail.com>
+Feedback-ID: 6882736:user:proton
+X-Pm-Message-ID: 298bd0783ccbf19c0263703409127e6a6a5ea5df
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924071445.441822-1-adam@wermuth.pl> <20260924071445.441822-2-adam@wermuth.pl>
- <e03db2e9-085b-49ff-8d4a-bc112bc4ddd7@kwiboo.se> <CABkrwJ6uvjS8bez6j0MZbp2Y+O9RhyU09YOLrUzHaeUEVC=Qkg@mail.gmail.com>
- <arZ0nqBvHDzSbZOE@venus> <CABkrwJ5xdMcRJsjubSJcfMkTs5CzKdAvQK83Xar3gZPvO_wa0w@mail.gmail.com>
-In-Reply-To: <CABkrwJ5xdMcRJsjubSJcfMkTs5CzKdAvQK83Xar3gZPvO_wa0w@mail.gmail.com>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 25 Sep 2026 19:42:33 +0400
-X-Gm-Features: AclHuK-2aRN6dX_Oa2Kxhd9aYgpoKvv0HzTIcerNNDpaAcjfSDE1KhpeMcsyZ5E
-Message-ID: <CAKTNdwG8YB7j-TrfJUr3f=7OBYC1Qx55Yu7ax=_C2NOtgNVrvQ@mail.gmail.com>
-Subject: Re: [PATCH 1/3] arm64: dts: rockchip: Enable USB 2.0 host1 on Radxa
- ROCK 3B
-To: Adam Wermuth <adam@wermuth.pl>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 5:56=E2=80=AFPM Adam Wermuth <adam@wermuth.pl> wrot=
-e:
->
-> Hi,
->
-> On Thu, 25 Sep 2026 3:26 PM, Sebastian Reichel wrote:
-> > Why would this be better suited as an Overlay? Nothing describes the
-> > specific card plugged in as it is auto-discovered via USB. The
-> > overlays are mostly required for things that cannot easily be
-> > auto-detected. FWIW we don't have M.2 Key M as a DT overlay either.
->
-> The overlay was Jonas' suggestion, so I'll let him explain his
-> reasoning. My own understanding was that it would avoid powering the
-> slot (always-on supply plus RESET#/W_DISABLE1# hogs) on boards where
-> nothing is plugged in.
->
-> That said, I agree that the module itself is auto-discovered via USB,
-> and the Key M slot on this board is described in the base DT as well,
-> so I'm fine with keeping the B-key slot there, as in v1.
->
-> > Something to consider is, that for Key E and Key M there is a proper
-> > DT binding now: Documentation/devicetree/bindings/connector/pcie-m2-*.y=
-aml
-> >
-> > We probably want the same for Key B.
->
-> Thanks for the pointer. As far as I can see, a Key B binding would
-> also need driver support to handle the supply, RESET# and W_DISABLE1#,
-> so it is a larger piece of work. Would it be acceptable to describe
-> the slot in the base DT for now and move to a connector binding once
-> one exists for Key B?
+These patches are part of a larger effort to support the MT6735 SoC family =
+in
+mainline Linux. More patches (unsent or sent and pending review or revision=
+) can
+be found here[1].
 
-Key B binding would be somewhat more involved than key E or key M. The
-spec defines 16 distinct interface mux configurations selected by the
-four CONFIG_X pins, which neither key M nor key E have (PCIe vs. SATA,
-USB3 vs. SSIC, different audio configs, different I2C configs, etc.).
-So it's a bit more than the supply, RESET# and W_DISABLE1#.
+This series adds a driver for the pin controller found on the MediaTek MT67=
+35
+and MT6735M SoCs. The two differ in the last 6 physical pins, which are use=
+d
+for MSDC2 on MT6735 but don't exist on MT6735M (since MSDC2 doesn't exist o=
+n it
+to begin with). In preparation to document DT bindings for this pin control=
+ler,
+the existing documents for MT67xx SoCs are combined into one in order to
+eliminate duplicate property definitions and standardize pin configuration =
+node
+names. Necessary cleanup is done along the way.
 
-See for example [1] where just the PCIe vs. SATA selection is defined.
-A proper binding will be needed sooner or later, though.
+[1] https://gitlab.com/mt6735-mainline/linux/-/commits/mt6735-staging
 
-[1] https://github.com/flipperdevices/u-boot/blob/rk3576/board/flipper/flip=
-per-one/flipper-one-rk3576.c#L41-L172
+Changes since v8:
+ - Merge recently added slew-rate description in MT6795 bindings into MT677=
+9
+   bindings.
+ - Remove "capitalize pinmux description" which was not done from 2/6 commi=
+t
+   description.
+ - Add ARM64 || COMPILE_TEST as kconfig dependency for MT6735 driver.
+ - Set _x_addrs for GPIO_RDSEL of pin group 5 which spreads across 2 regist=
+ers.
+ - Add entries for virtual EINT pins to pull_type array.
+ - Set db_time in mtk_eint_hw struct. Debounce times match those of MT6765.
+ - Add pull_type array for MT6735M.
+Changes since v7:
+ - Wrap &mtk_paris_pinctrl_pm_ops with pm_sleep_ptr to fix build error repo=
+rted
+   by kernel test robot.
+Changes since v6:
+ - Mention changing MT6797 DT in 1st patch commit message.
+ - Squash MT6735 DT binding patches.
+ - Add debounce time to eint_hw struct. MT6735 supports the same debounce
+   times as MT6765 so reuse debounce_time_mt6765.
+Changes since v5:
+ - Revise and fix all register bits for all group register types (IES, SMT,
+   RDSEL, TDSEL, PUPD_R0_R1, PULLEN and PULLSEL).
+ - Add pull_type array.
+ - Use proper getters/setters for bias and drive.
+ - Add minItems for MT6795 interrupts.
+Changes since v4:
+ - Remove patches that were applied previously.
+ - Define interrupts items for each variant (bringing back maxItems: 1 to t=
+he top
+   level definition then adding maxItems: 2 under the MT6795 condition caus=
+es a
+   dt_binding_check error for some reason)
+ - Move example changes to the patch they belong to
+ - Don't unnecessarily move the allOf block.
+Changes since v3:
+ - Improve interrupts description to make clear what sysirq means.
+ - Set drive-strength constraints per variant.
+ - Set maxItems for reg in MT6795.
+ - Add blank lines between conditionals.
+ - Add ref for both pinmux-node.yaml and pincfg-node.yaml.
+ - Make pinctrl subnode-related changes in separate patch.
+ - Fix up some pinctrl subnode property descriptions.
+ - Add interrupts items descriptions to MT6765 and MT6735.Changes since v3:
+ - Improve interrupts description to make clear what sysirq means.
+ - Set drive-strength constraints per variant.
+ - Set maxItems for reg in MT6795.
+ - Add blank lines between conditionals.
+ - Add ref for both pinmux-node.yaml and pincfg-node.yaml.
+ - Make pinctrl subnode-related changes in separate patch.
+ - Fix up some pinctrl subnode property descriptions.
+ - Add interrupts items descriptions to MT6765 and MT6735.
+Changes since v2:
+ - Add interrupt descriptions.
+ - Change interrupts property item limits.
+ - Move pinmux examples from node description to example dts.
+ - Properly add myself as maintainer for MT6735 pinctrl driver and DT bindi=
+ngs
+   document.
+ - Remove tabs from a few defines in pinctrl-mt6735.c.
+Changes since v1:
+ - Combine other documents into existing mediatek,mt6779-pinctrl.yaml
+   instead of creating a new document with wild card in its name.
+ - Split first patch into smaller patches focused on specific changes.
+ - Remove syscon compatible from MT6779 DT to avoid a check error.
+ - Fix interrupt count for MT6795.
+
+Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
+---
+Yassine Oudjana (6):
+      dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Pull pinctrl node chan=
+ges from MT6795 document
+      dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Improve pinctrl subnod=
+e and property descriptions
+      dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Add MT6795
+      dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Document MT6765 pin co=
+ntroller
+      dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Add bindings for MT673=
+5 pin controller
+      pinctrl: mediatek: Add MT6735 pinctrl driver
+
+ .../bindings/pinctrl/mediatek,mt6779-pinctrl.yaml  |  196 +-
+ .../bindings/pinctrl/mediatek,mt6795-pinctrl.yaml  |  236 --
+ MAINTAINERS                                        |    9 +
+ drivers/pinctrl/mediatek/Kconfig                   |    7 +
+ drivers/pinctrl/mediatek/Makefile                  |    1 +
+ drivers/pinctrl/mediatek/pinctrl-mt6735.c          | 1118 ++++++
+ drivers/pinctrl/mediatek/pinctrl-mtk-mt6735.h      | 3993 ++++++++++++++++=
+++++
+ .../dt-bindings/pinctrl/mediatek,mt6735-pinfunc.h  | 1148 ++++++
+ 8 files changed, 6455 insertions(+), 253 deletions(-)
+---
+base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
+change-id: 20260924-mt6735-pinctrl-v9-30c26357d432
 
 Best regards,
-Alexey
+-- =20
+Yassine Oudjana <y.oudjana@protonmail.com>
+
+
