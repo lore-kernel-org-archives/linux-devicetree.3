@@ -1,37 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D7C47887F;
-	Fri, 25 Sep 2026 08:52:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234673F54C5;
+	Fri, 25 Sep 2026 08:52:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790326324; cv=none; b=B+8o0jDFmFSGvnvGofiXaxy3D0BTK44unwbiQTMHlNi7JJ/dqJLjLKnF9JxiHzPQT6Y9vP6WobLtHFEJyM/tCEO0RoS1xP5E2RSv5vOqy5spwnjqif0fH9b1w7yaMriV0n3vud0u7GNrZuN7Px9sykdI2bXNX+MU6ioLwxdhR+o=
+	t=1790326328; cv=none; b=kJGQO74pPJO0nuIahyN1B2h9BEz8w8mQE+akbANiTF3lPBdrhM/nImzWHcWsFNbxCyiT87XsOu4GQ/vOj9pCHbm9U1ag251CEANRHzHzDFXHdOvJWw7g/6MV7BzFX1veoYlzqGTafgZjQR/UwXOzw4DNKk1lfKL20Lrm4jz8m4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790326324; c=relaxed/simple;
-	bh=0ww6mYNLdL0BcAvD2/pYjaJdM/Z/4qussweK6HJ34hA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UAoSYEzrIjCxx2zakTTUMiKhxxq1GjLt3AxX3+T1no/VKxZE4eiDjsqKyk1ofceZO7A6hcBt+s4vfKCb9F2NlY+xBqkXzGXaT+zHeeZl5jfdW9kMw4LfeLzgD9T2uhGNW1z7Jcq9LiYpzxJicFfEAsnHpVp6ivv0qDTt++zUVik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pQqjLsGz; arc=none smtp.client-ip=148.251.105.195
+	s=arc-20240116; t=1790326328; c=relaxed/simple;
+	bh=mpOjposL1T3dyr5UH7B7ZFdWCYljyeFowhjta0L9BQ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Z2vvZFpwyM1sulIIRy+JUKs9rlr4c9tz97W6oYI1FYZjx4TbjhJAiGR+EeGnA6jonutfjL+gVoewRXdRi2FZRHgXRzNAv3huoxmWvs3b6XanqAqvSW1N+SZaA8LYN71t9uTzXpNWqrGpAMp4t7f/OnNZVb7A6yc/aBY10fk3c7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=foy6aqow; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pQqjLsGz"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="foy6aqow"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790326317;
-	bh=0ww6mYNLdL0BcAvD2/pYjaJdM/Z/4qussweK6HJ34hA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=pQqjLsGzUjLdS4pEd6D+E96QGLgNTZZ4wLp6Dpxz3I45a+0elNWCyLSP32UfUz6SS
-	 BJEi2ZqBnEo7dqgvCmBlgMkGd5G1eHKofPRL+GlGqaQl3eBEu28TTdB/o6rgKj/KiD
-	 I8yesRrXAE9PIL1bY+o0/JiK42fa/NU0u5vLElfoR7YQrqUSa6cv1vObegB3YRyg3s
-	 QrJhfnS/aDpT9Rd2WvEbuqqRGe96EvL0KRogGVR00AuSNd5H4OEOqTQkk/WUo4aUwM
-	 Jd4KQEDb/Qjt+nBab9gJMzNmTxXLVsrP8vFwwzKovxh6FkgaHHsHtTPRT8qpovFPyO
-	 73kHFMWlD/qYg==
+	s=mail; t=1790326319;
+	bh=mpOjposL1T3dyr5UH7B7ZFdWCYljyeFowhjta0L9BQ0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=foy6aqowyg0kIUYUoGWLRHioASstBH7w9pTGDmG8YCZamjc5Sdu7WbgAOGtlhVcGQ
+	 EJaIMD+CE637KhgfQ5yT6iT+fQHsuyXJ5YoCxr25ioPwub52+AEeZQ3Jhvf+dcOSL3
+	 XrNlc+1Dxh9Bs2Z4IHbiV5z2e8n2M3Od8md3bBQlpwvORzlrRADwR8GIkm1i5spzQZ
+	 cb8T3pAa9JbGV1SYZNzb92mprT6YWNHjyNFpC5mblIvuRO89vUysl0ib6c6xeL1fIE
+	 0F7E/Nfck8JTYBMfnWrzyj6GCdkp0rNPFyW5jjuYVQLDH/g75MUlk8TzZdUU6VN8C4
+	 Qe1R7uQPWhHqg==
 Received: from benjamin-XPS-13-9310 (unknown [100.64.1.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: benjamin.gaignard)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 621FE17E09D6;
-	Fri, 25 Sep 2026 10:51:57 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9DBEF17E0B0F;
+	Fri, 25 Sep 2026 10:51:58 +0200 (CEST)
 From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
 To: nicolas.dufresne@collabora.com,
 	benjamin.gaignard@collabora.com,
@@ -52,10 +53,12 @@ Cc: linux-media@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	kernel@collabora.com
-Subject: [PATCH v4 0/3] media: verisilicon: remove unused variant and code clean up
-Date: Fri, 25 Sep 2026 10:51:49 +0200
-Message-ID: <20260925085152.41852-1-benjamin.gaignard@collabora.com>
+Subject: [PATCH v4 2/3] media: dt-bindings: media: nxp, imx8mq-vpu: Remove nxp,imx8mq-vpu
+Date: Fri, 25 Sep 2026 10:51:51 +0200
+Message-ID: <20260925085152.41852-3-benjamin.gaignard@collabora.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260925085152.41852-1-benjamin.gaignard@collabora.com>
+References: <20260925085152.41852-1-benjamin.gaignard@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -64,34 +67,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-"nxp,imx8mq-vpu" variant has been tagged as deprecated since 4 years
-now. This series remove it and make some context's fields useless so
-remove them too.
+nxp,imx8mq-vpu has been tagged has deprecated since a while.
+After driver clean up it is time to remove it.
 
+Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+---
 changes in v4:
-- rework commits messages
 - add r-b tag
 
-changes in v3:
-- remove more dead code
+ .../devicetree/bindings/media/nxp,imx8mq-vpu.yaml      | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-changes in v2:
-- have a separate patch for documentation
-- fix dt-bindings
-- rebased on v7.3-rc1
-
-
-Benjamin Gaignard (3):
-  media: verisilicon: Remove deprecated variant
-  media: dt-bindings: media: nxp, imx8mq-vpu: Remove nxp,imx8mq-vpu
-  media: verisilicon: Remove useless internal fields
-
- .../bindings/media/nxp,imx8mq-vpu.yaml        |  10 +-
- drivers/media/platform/verisilicon/hantro.h   |   9 +-
- .../media/platform/verisilicon/hantro_drv.c   |  30 +----
- .../media/platform/verisilicon/imx8m_vpu_hw.c | 105 ------------------
- 4 files changed, 11 insertions(+), 143 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+index 19528262810a..69619d2c86fa 100644
+--- a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
++++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+@@ -14,12 +14,10 @@ description:
+ 
+ properties:
+   compatible:
+-    oneOf:
+-      - const: nxp,imx8mq-vpu
+-        deprecated: true
+-      - const: nxp,imx8mq-vpu-g1
+-      - const: nxp,imx8mq-vpu-g2
+-      - const: nxp,imx8mm-vpu-g1
++    enum:
++      - nxp,imx8mq-vpu-g1
++      - nxp,imx8mq-vpu-g2
++      - nxp,imx8mm-vpu-g1
+ 
+   reg:
+     maxItems: 1
 -- 
 2.53.0
 
