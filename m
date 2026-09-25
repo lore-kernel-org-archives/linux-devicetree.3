@@ -1,88 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4ADF26ED3D;
-	Fri, 25 Sep 2026 13:16:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7BC3EDE7C;
+	Fri, 25 Sep 2026 13:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790342185; cv=none; b=rYxyZDOS6dzHcuUd564DtIonNaxEw/htVjMP8od64LKw6SFICxZeAEkDeOqG79gPthAYBphmjgqyya+XiZJb3Cw3xBx8qDtPGUa0Ic+rK93tiXfZ21RyFuV7iCWkcygqhpCAAB7bCe7fbJk660kQZEytch68BBJnXN7P4HgJsjs=
+	t=1790342535; cv=none; b=TCE3fIHJNBLOiT7EqjRmrDIfBdl1w3SGAy/g+VwD7Rj7tXO3MWniBb7e7R1sCvaUGuWJRJUzhMn3tyMA78WuXgr0bSzIQ1R1kTU7O3v6+gLnk0EGqPKaQXEBBvcOTNSi52pWOL8QvLe/B1+ZHa4Pe4sEKjlQ62bG53nFl7uJ+SQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790342185; c=relaxed/simple;
-	bh=zAZ88Ys7QZCTvU3GIl4RCyctambXW1BT1UZrIqk5jOQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=trohEi8RGJfLKVmdPv3K+ldabpT/A/uAxBqiMW1i2D3yCHLBavok3F5Qc7W0koVvJg/hKzozaRzIBvChNeKPrAe5BGFndr21IpuTIvqMB0bDqP9pDhYMYwHn+041DHb3Ctj61E3cegJQJy6kMEc3WxHv7Q+F0RpUiSSbgfh6QSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bPo8/T1w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790342535; c=relaxed/simple;
+	bh=n/TKYly8xl3MXPb0OF34EJV7CyyTKW7ZFMwMfJtV9qE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mgWFfC/fNYkCgMf4vVnVO4wB2ftmjkK8QYAX066+DZIvDvwJLnie5yrVhGLWElMigiwlwe0J8Gq2/P0Cm7E6lYhNK1DC0v1DjPerJafbF+EsOyw/WOpQj/15y2uiyBmlhKdqeNMoggzZsQrcb+gZN+t1gpPTOagZz5N2zeh0ia0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cYdjzrjj; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bPo8/T1w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C601F00893;
-	Fri, 25 Sep 2026 13:16:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790342173;
-	bh=ZFewOo4+btBAk/SPPiDXihf8TjRThF1b6LAoGvmnSa8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bPo8/T1wjVNsUZ7GVFtAQVrq3rFuFCgfmjkdxiFUc4G1hI7azTA0LmEJBQbT8q1/Q
-	 Tj77zizFq4+xCAHSvFNelJRlc6ygL7WqH4SYEUNehJWYyUQqLZ1ufT2QLdi87w6XqW
-	 ezj2B0aMF+hZRQ1oH6IIk2xMcZwCgooDO5xqRG90EVvi//mfcj8Xv+x5bYbhoWjyvI
-	 aAZKo+4ZZSo3qrcq4CJ6/5OhDcOxZz0qjTd2iNMXgs5EVQvXOw/pwIBPhWcA1t0uAL
-	 FrekanlSuto0sAAUFl2hGYG1q/+t8NVEK+7eUl8fZxyfMBaAZ+a1Sy7RpxD6JcO7cr
-	 AqNLL+G1xyo4w==
-Date: Fri, 25 Sep 2026 15:16:09 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH 2/6] dt-bindings: PCI: qcom-ep: Add QCS8300 compatible
-Message-ID: <20260925-lavender-cicada-of-vitality-1784de@quoll>
-References: <20260921-monaco_ep-v1-0-63c5282fb0db@oss.qualcomm.com>
- <20260921-monaco_ep-v1-2-63c5282fb0db@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cYdjzrjj"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 18200C653F0;
+	Fri, 25 Sep 2026 13:22:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3A4B46073B;
+	Fri, 25 Sep 2026 13:22:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8D617103282AC;
+	Fri, 25 Sep 2026 15:21:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790342523; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=JUDK+4onXhp2iRvPxU/uQSUAagGAh7xN++WKnr01BRU=;
+	b=cYdjzrjjcvK5XlIByhhfwC1MpMqbU6K2XJ6C/V+eO6NRXuPMvJA7dEwdnG7y7Psf+mGYQQ
+	TdQmayFJMI1iNlDMvYjGpLbSShTtFUmOP0FhEBRkP4U8cX2oSb2UsurkpgKjG0oMlrPqn3
+	pYYSWMtmKK9OlA4cFasX6j1UwsayV1NeWuu1s4a8FLzlKVqUwDM86Iqu0qGGmBe6F9q3Ns
+	YmRQWUREWaUwfTQqe//iewa5cnyfLvLPw1hR/t6UTrHxjFFJtSguGpAHPC4T+O/LCkshvi
+	vytFOVwtP2wdZqUXwHtgzLKf2oR8xyy3ROg6t9Gjr0Mb9fLnyp2croS76UXyaQ==
+Date: Fri, 25 Sep 2026 15:21:57 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <20260925152157.511dc65c@bootlin.com>
+In-Reply-To: <arDMhoNNXcPi81sR@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-16-herve.codina@bootlin.com>
+	<arDMhoNNXcPi81sR@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260921-monaco_ep-v1-2-63c5282fb0db@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Sep 21, 2026 at 04:28:13PM +0530, Krishna Chaitanya Chundru wrote:
-> The QCS8300 PCIe Endpoint controller is compatible with the SA8775P
-> PCIe Endpoint controller and uses the same programming model. Document
-> the QCS8300 compatible string and its fallback to the SA8775P
-> compatible.
+Hi David,
+
+On Mon, 21 Sep 2026 16:20:02 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+> On Wed, Aug 26, 2026 at 10:31:46AM +0200, Herve Codina wrote:
+> > This v18 version will add support for
+> >   - Structured tags.
+> >     Those tags value definition will allow "old" libfdt, dtc and other
+> >     tools to skip unknown tags if encountered in future dtb version.
+> > 
+> >     libfdt, dtc and other tools implementing version v18 will be able to
+> >     skip unknown tags available in dtbd generated with later version of
+> >     dtc.
+> > 
+> >   - dt_flags header field.
+> >     For now this flag field is set to 0. It is a placeholder for future
+> >     dtb version and could be used to store some dtb related information
+> >     such as the kind of dtb. For instance, the future addons format will
+> >     use this field to clearly identify that the dtb is an addon dtb.
+> > 
+> >   - last_comp_version_w header field.
+> >     This field is similar to last_comp_version but for writing.
+> >     It contains the lowest version of the devicetree data structure with
+> >     which the version used can safely perform modifications (taking into
+> >     account following rules related to unknown tags).
+> >     If this lowest version is greater than the last known supported
+> >     version, modification are simply forbidden and lead to a
+> >     FDT_ERR_BADVERSION error.
+> > 
+> > For modification, when an unknown tag that can be skipped is involved
+> > and last_comp_version_w allows modifications, the following rules
+> > apply:  
 > 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/pci/qcom,pcie-ep.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+> "last_comp_version_w allows modifications" is a bit hard to
+> understand.  What exactly is the version number against which we're
+> comparing that value?
+
+We had one last_comp_version.
+
+Now we have two last_comp_version, one for reading and one for writing.
+We compare again the dtb version supported by our libfdt version.
+
+This comes from the discussion [1]
+
+[1] https://lore.kernel.org/all/CAL_JsqLRrbZje_gGZPBDni6StFa+6rdiECtk49on8VfkP7CDvw@mail.gmail.com/
+
 > 
-> diff --git a/Documentation/devicetree/bindings/pci/qcom,pcie-ep.yaml b/Documentation/devicetree/bindings/pci/qcom,pcie-ep.yaml
-> index bed9a40b186b..7f9a0bc958d1 100644
-> --- a/Documentation/devicetree/bindings/pci/qcom,pcie-ep.yaml
-> +++ b/Documentation/devicetree/bindings/pci/qcom,pcie-ep.yaml
-> @@ -13,10 +13,15 @@ properties:
->    compatible:
->      oneOf:
->        - enum:
-> +          - qcom,qcs8300-pcie-ep
+> >   - When a property is modified, tags related to this property are
+> >     removed and the dtb version is downgraded.  
+> 
+> We need a definition of what "related to" means somewhere.
 
-Drop, cannot be both compatible and incompatible.
+Yes a tag is said related to a property if it is available after its FDT_PROP and
+before the next FDT_PROP (other proterty) of FDT_BEGIN_NODE (subnode) for FDT_NODE_END
+(end of node).
 
->            - qcom,sa8775p-pcie-ep
->            - qcom,sar2130p-pcie-ep
->            - qcom,sdx55-pcie-ep
->            - qcom,sm8450-pcie-ep
-> +      - items:
-> +          - enum:
-> +              - qcom,qcs8300-pcie-ep
-> +          - const: qcom,sa8775p-pcie-ep
+This is defined by "structured tag"
+
+Devicetree Specification will be updated to have all of this documentation
+available.
+
+> 
+> >   - When a property is removed, tags related to this property are
+> >     obviously removed. The dtb version is kept unchanged.
+> > 
+> >   - When a property or a node is added, obviously no unknown tags are
+> >     added and the dtb version is kept unchanged.  
+> 
+> Again, this rule doesn't make sense to me at the same time as the
+> property modification rule.
+
+A current libfdt/dtc version cannot add tags which will be defined in the
+future.
+
+> 
+> >   - When a node is removed, tags related to this node are obviously
+> >     removed. The dtb version is kept unchanged.
+> > 
+> >   - Adding, removing or modifying a property is not considered as a node
+> >     modification and so, those operations have no impacts on unknown
+> >     tags related to the node. Those node related tags are kept
+> >     unchanged.
+> > 
+> >   - The only modification considered as a node modification is setting
+> >     its name. We consider that this operation has no impact on tags
+> >     related to the node. Here also, those node related tags and the dtb
+> >     version are kept unchanged.
+> > 
+> >   - Global (dtb related) unknown tags are kept unchanged regardless the
+> >     modification done.
+> > 
+> > In all cases, if unknown tags are not involved in a modification, the
+> > dtb version is not downgraded when the modification is made.
+> > 
+> > It is worth noting that with this v18 version, the dtb version is not
+> > downgraded for any modification but only when unknown tags are removed
+> > due to a property modification. In v17 or older version any modification
+> > led to a dtb version downgrade.  
+> 
+> I don't think removing that behaviour is safe.  Even if the rules
+> above make sense specifically for the metadata tags (which I'm not yet
+> convinced of), that's not sufficient.  If nothing else, future
+> versions could add extra header fields.  If we modify the tree, those
+> header fields could be stale, or even removed.
+
+last_comp_version_w will be used by the future version to prevent this
+kind of issue with old version.
 
 Best regards,
-Krzysztof
+Hervé
 
