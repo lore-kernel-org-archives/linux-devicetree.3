@@ -1,137 +1,268 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8498B4D9F98
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 15:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE444DA9C7;
+	Fri, 25 Sep 2026 15:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351865; cv=none; b=X5HG6j0H97ET/Z4eCgcY8N0Ujy7AycVyjXzTbVcXPVv4XMA8KjalKpcqAu/Cxw56DLHv62Q9NGtWuDPsUcPfb10RUbMj0NPdUakxxQUOLSsGKeMpUP8qI48q8OYc1sg2+tyaccCsW+ccIzOZsH9EnAfwNW7xQH9RcpyZfBCSdzE=
+	t=1790351987; cv=none; b=mrPNUID6cqu/KSB05Dwu7eyIF10/QoSn3HsMjnOXg1DXzNzAY0GbsMHpt0RpAcNnruAolb0THlnrpDFjax9qSmhRNZ7SnWvoAA4OujNJ/vHEL6dCg/XdAZ9FOmzuyZRyhOAhpnxIHAtVZJ25h8IkW8MteOK2+FSB16Df8E6kbUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351865; c=relaxed/simple;
-	bh=EDelbTNsLGwr16sy1/ve2CrvpZJX80YUMKX0NU3F20E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XMyI0zZdf5jq2xU4JJ+z13IkxoKPkE/d/r2fTApkLjRVRz7nu0VXe1NZV2T25MlAYlXgfBcZeqZ0YUKlHNErg4njZ+fKdzxFCGCAmcFInyIDiuAgJCXR/UfqZYS/CmbOZ9XcrCBbLUvLGCbCv9JHzqqh/9YgA0isHkoEjWTM0II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N4L2y4Tc; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790351987; c=relaxed/simple;
+	bh=msW0WZuodAtTdbah7A5kD9u2cs9XlCvo0nmRo88LJ2I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I1Cp1j96uBMoCvZrlep4ntc3ydwH0Gz+tGBb917VWenwor7mwiSFbJW5Gxc8s5QBWjxSLufK7qiKi4xboLgkHbUXk9fW4hYSDR4wp4iVsvCuWLB0FZ4AuYgNccbYkoBcAsH4Tg9PjFuhPVK1AGoJPxi5WIpe0CI3f0MICgqcBUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fAKdsbza; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N4L2y4Tc"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so603842f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 08:57:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790351861; x=1790956661; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JDj9ZLoDuXLeZ+ESPsWzwz0ze3YEaXzdQ65mT9PQEa0=;
-        b=N4L2y4Tc+Rv4L5beR6/DjOIpQjyNUB42kUhmYgxT7UjCasPYhBBZ9TTq4WyWvQeew3
-         /Cb+2TG8pD5H86aD5x9AlYeBTCtuZWEUO88A2qPBtTj0S5NDdHUEIaKt5Xj5oohJ4fQR
-         r1Fu7QypSFS5H+gdP24Qf81wLA4rDLce6AdenH9cp3ouEFFbgbmFoxdwE2zLjJHTdQD4
-         9wfgR8f9iIhbUU3LRESyu94+B9XTKhvp8u6UgGPLThtYWtHqsyAL85Ht2HxJsLUXupdZ
-         SURUz46RxmfAROl3PXcPRtE/4PFdmQwbqsCC2aiGj9x6C245yHcWzZFMIDddaDhMxb0b
-         h8zg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790351861; x=1790956661;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JDj9ZLoDuXLeZ+ESPsWzwz0ze3YEaXzdQ65mT9PQEa0=;
-        b=VrkPja+bYyVFV5++WC0CW1uIeFEysgyAY3U4ZSeA/TS5rX/NP7WJGdC0WANb36+q5m
-         J50Jti0OTL7n75nb2PL1mRwTb+oOEh9k6Y/qam2zlFhe8RtSmOtAvHtBZgmNNgxg/0pi
-         Uyfk7IoPBqNlPI0K9a2G6kjbq+fqMYD6uvqWaWKeWEaF1AGIi7n1doO5vCr/ZQfiu9qR
-         RLf8kUoera5V+4Iqy/pPilF3iBGBhtRHmFvCXqn7WOcpwIttuOB/irBcn6yvqIj3LTOU
-         L1ja90/AVq2H7nl9Oz6hXbYI3Hv289u1CNKLwmX8pEbmBoROkCNz0ira5iLUsL9WbHy1
-         cPgg==
-X-Forwarded-Encrypted: i=1; AKwUvBzxTTFJzX/qlzHBphXRBi9CzJrcK1/zf3PqQE4LoDOTfQ70bAASACV/NIs0WEKdSdUMA/CWP+7B6hWs@vger.kernel.org
-X-Gm-Message-State: AFuF++m2r5Fv0GLQeabGihuTBhKNmpLpqD2BOggNY6Af0L80km7KYzQ2
-	WA4BVIFBj0ZQ51kzwUR0Rh2rNuwERtVjKzUWKkarugATVUa92cFg+5J3+PqCEAmCsNp+NA==
-X-Gm-Gg: AYBFou30gSBcRAtdDWGQe40wr52qBNe0pSRLc3/F28HfMCMu5WUfUSYSdRLSEcB21U4
-	u4VvdmckmQ7Ix/Hmyywu/GE+34l+YH5ZQpeIOOwZoGNdvgWZjS93Iuba+RBsTIFBpXxysjRzuec
-	ST53h0knmxS3D30TDh4pJS1OHiD2ojh3iFA47k/QGfcBZTumpUv0gBqaMO+5tFwkIXIRI5FRLll
-	BwcHokmquMN36S6BN9RIL5Zg+ERK4tWAuu+afUnx5xLos0fsvz7ILn9788wqeByfBFl81YsYb/W
-	wDv1cT025zOFX7yux/2Dj7zHAE0d6DIj7DEFHRWuTfEMns2W1XvmzRiG8EiJQb3YP3yvYTgmVO5
-	VUZoZcAdBZOg6FYSuPE5A/rDCeYh/s+/ETEDc/EBsGcXHFSNA2jdf/n+eVGBdfjINme/iyOBJGZ
-	SL/SAW94plateWZtFggzaP7zXfqrAOh9uPDkfVvQZKjKlbzHZ1rnwjymOhzM3gMAcxbW0xGhd1e
-	sxDkyKPD9SO8kUPAmK0BMPIpX0ZCTiD+6JRZWiauiBaorvxcw1UXjEYiEkeM5jtxAktHqNB8aWl
-	UBNHWStSOe2jkSjZeEaUdFWCaQiS
-X-Received: by 2002:a05:6000:2509:b0:487:27f6:a4d7 with SMTP id ffacd0b85a97d-488716b0361mr12527019f8f.39.1790351861320;
-        Fri, 25 Sep 2026 08:57:41 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a3627a8sm8964225f8f.23.2026.09.25.08.57.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 08:57:40 -0700 (PDT)
-Date: Fri, 25 Sep 2026 17:57:38 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fAKdsbza"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 315751F000FF;
+	Fri, 25 Sep 2026 15:59:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790351985;
+	bh=zB+uphukWsYzwSOajdvh6cv5j11GNs+nqVXToUS/cgk=;
+	h=From:To:Cc:Subject:Date;
+	b=fAKdsbzasz2R8m6Io4IM5xBe8i/yrGwfeDJvrrALc+l8G3IU7VScfmJbFY8PYuAkI
+	 GhAuWSBF6tPwubQ682VNHIisRZpv0rZ+VpLMKrHv76sco60/wy7NZ2nlElBr7vs65f
+	 gQ3rA83hKL1AQ2JKguWwqVTN+Sa/oPI8wLKOwyC3sb8f1V2+S/e3V+uwrWm08evL0u
+	 amr5Jwk87wbs0UKw41hOsM32fXdzKJekwKw23gKg627wRP9J341xERiFBdR9sfxRyC
+	 VKCuBcG2DISTPSxGP0F/By4qemd/ybYj6TU5Pc6SjL4D7TwY1BLA8OgRdeWuulD8L8
+	 YtGPz/tu8d+2w==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Joseph Guo <qijian.guo@nxp.com>, Josua Mayer <josua@solid-run.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
-Subject: Re: [PATCH v1 04/11] ARM: dts: imx6ul: Add Variscite audio codec
- files
-Message-ID: <araZ8pJGmDVXMjvE@Lord-Beerus.station>
-References: <cover.1790344389.git.stefano.r@variscite.com>
- <ef56f98137eb9d1e0af3aa1b801186d829dba521.1790344389.git.stefano.r@variscite.com>
- <araMJFirhP86Dcb6@SMW015318>
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH] dt-bindings: power: Convert mediatek,mt2701-scpsys to DT schema
+Date: Fri, 25 Sep 2026 10:59:26 -0500
+Message-ID: <20260925155927.1707560-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <araMJFirhP86Dcb6@SMW015318>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 25, 2026 at 09:58:44AM -0500, Frank Li wrote:
-> On Fri, Sep 25, 2026 at 04:02:21PM +0200, Stefano Radaelli wrote:
-> > From: Stefano Radaelli <stefano.r@variscite.com>
-> >
-> > Add separate DTSI files for the WM8904 and WM8731 audio options on
-> > VAR-SOM-6UL and DART-6UL modules.
-> >
-> > Put each codec node, the SAI2 setup and its pinctrl in the selected
-> > audio DTSI. This makes the WM8904 option explicit instead of placing
-> > it in the shared module base.
-> >
-> > Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
-> > ---
-> >  .../imx/imx6ul-imx6ull-var-dart-wm8731.dtsi   | 71 +++++++++++++++
-> >  .../imx/imx6ul-imx6ull-var-dart-wm8904.dtsi   | 88 +++++++++++++++++++
-> >  .../imx/imx6ul-imx6ull-var-som-wm8731.dtsi    | 71 +++++++++++++++
-> >  .../imx/imx6ul-imx6ull-var-som-wm8904.dtsi    | 85 ++++++++++++++++++
-> 
-> what's difference between imx6ul-imx6ull-var-som-wm8904.dtsi and
-> imx6ul-imx6ull-var-dart-wm8904.dtsi?
-> 
-> Frank
-> 
-Hi Frank!
-Thank you for taking the time to review this huge patch.
+Convert the mediatek,mt2701-scpsys binding to DT schema. The mt6735 and
+mt6765 don't exist anywhere. The mt8183 is covered by
+mediatek,mt8195-scpsys.yaml schema. With those dropped, the clock-names
+are trimmed to drop mm-*, isp-*, cam-*, and venc_lt. The venc_lt and
+mfg_2d supplies are dropped as well.
 
-The difference is in simple-audio-card,routing:
-on DART-6UL, the microphone jack is routed to IN2L, IN2R and MICBIAS;
-those routes are absent on VAR-SOM-6UL.
+Assisted-by: LLM
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../power/mediatek,mt2701-scpsys.yaml         | 111 ++++++++++++++++++
+ .../bindings/soc/mediatek/scpsys.txt          |  79 -------------
+ 2 files changed, 111 insertions(+), 79 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/power/mediatek,mt2701-scpsys.yaml
+ delete mode 100644 Documentation/devicetree/bindings/soc/mediatek/scpsys.txt
 
-Best Regards,
-Stefano
+diff --git a/Documentation/devicetree/bindings/power/mediatek,mt2701-scpsys.yaml b/Documentation/devicetree/bindings/power/mediatek,mt2701-scpsys.yaml
+new file mode 100644
+index 000000000000..d991b8a008eb
+--- /dev/null
++++ b/Documentation/devicetree/bindings/power/mediatek,mt2701-scpsys.yaml
+@@ -0,0 +1,111 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/power/mediatek,mt2701-scpsys.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MediaTek SCPSYS
++
++maintainers:
++  - Matthias Brugger <matthias.bgg@gmail.com>
++  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++
++description: >
++  The System Control Processor System (SCPSYS) has several power management
++  related tasks in the system. The tasks include thermal measurement, dynamic
++  voltage frequency scaling (DVFS), interrupt filter and lowlevel sleep control.
++  The System Power Manager (SPM) inside the SCPSYS is for the MTCMOS power
++  domain control.
++
++  It provides the power domains defined in:
++    - include/dt-bindings/power/mt2701-power.h
++    - include/dt-bindings/power/mt2712-power.h
++    - include/dt-bindings/power/mt6797-power.h
++    - include/dt-bindings/power/mt7622-power.h
++    - include/dt-bindings/power/mt7623a-power.h
++
++properties:
++  compatible:
++    oneOf:
++      - enum:
++          - mediatek,mt7623a-scpsys
++          - mediatek,mt6797-scpsys
++      - items:
++          - enum:
++              - mediatek,mt2701-scpsys
++              - mediatek,mt2712-scpsys
++              - mediatek,mt7622-scpsys
++          - const: syscon
++      - items:
++          - const: mediatek,mt7623-scpsys
++          - const: mediatek,mt2701-scpsys
++          - const: syscon
++      - items:
++          - const: mediatek,mt7629-scpsys
++          - const: mediatek,mt7622-scpsys
++
++  '#power-domain-cells':
++    description: Always 1
++    const: 1
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 4
++
++  clocks:
++    minItems: 1
++    maxItems: 20
++
++  clock-names:
++    minItems: 1
++    maxItems: 6
++    items:
++      enum:
++        - mm
++        - mfg
++        - ethif
++        - venc
++        - jpgdec
++        - audio
++        - vdec
++        - hif_sel
++
++  vdec-supply: true
++  venc-supply: true
++  isp-supply: true
++  mm-supply: true
++  audio-supply: true
++  usb-supply: true
++  mfg_async-supply: true
++  mfg-supply: true
++
++  infracfg:
++    description: Infrastructure configuration controller phandle
++    $ref: /schemas/types.yaml#/definitions/phandle
++
++required:
++  - compatible
++  - '#power-domain-cells'
++  - reg
++  - infracfg
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/mt2701-clk.h>
++
++    power-controller@10006000 {
++        #power-domain-cells = <1>;
++        compatible = "mediatek,mt2701-scpsys", "syscon";
++        reg = <0x10006000 0x1000>;
++        infracfg = <&infracfg>;
++        clocks = <&topckgen CLK_TOP_MM_SEL>,
++                  <&topckgen CLK_TOP_MFG_SEL>,
++                  <&topckgen CLK_TOP_ETHIF_SEL>;
++        clock-names = "mm", "mfg", "ethif";
++    };
+diff --git a/Documentation/devicetree/bindings/soc/mediatek/scpsys.txt b/Documentation/devicetree/bindings/soc/mediatek/scpsys.txt
+deleted file mode 100644
+index 3530a6668b48..000000000000
+--- a/Documentation/devicetree/bindings/soc/mediatek/scpsys.txt
++++ /dev/null
+@@ -1,79 +0,0 @@
+-MediaTek SCPSYS
+-===============
+-
+-The System Control Processor System (SCPSYS) has several power management
+-related tasks in the system. The tasks include thermal measurement, dynamic
+-voltage frequency scaling (DVFS), interrupt filter and lowlevel sleep control.
+-The System Power Manager (SPM) inside the SCPSYS is for the MTCMOS power
+-domain control.
+-
+-The driver implements the Generic PM domain bindings described in
+-power/power-domain.yaml. It provides the power domains defined in
+-- include/dt-bindings/power/mt8173-power.h
+-- include/dt-bindings/power/mt6797-power.h
+-- include/dt-bindings/power/mt6765-power.h
+-- include/dt-bindings/power/mt2701-power.h
+-- include/dt-bindings/power/mt2712-power.h
+-- include/dt-bindings/power/mt7622-power.h
+-
+-Required properties:
+-- compatible: Should be one of:
+-	- "mediatek,mt2701-scpsys"
+-	- "mediatek,mt2712-scpsys"
+-	- "mediatek,mt6735-scpsys"
+-	- "mediatek,mt6765-scpsys"
+-	- "mediatek,mt6797-scpsys"
+-	- "mediatek,mt7622-scpsys"
+-	- "mediatek,mt7623-scpsys", "mediatek,mt2701-scpsys": For MT7623 SoC
+-	- "mediatek,mt7623a-scpsys": For MT7623A SoC
+-	- "mediatek,mt7629-scpsys", "mediatek,mt7622-scpsys": For MT7629 SoC
+-	- "mediatek,mt8173-scpsys"
+-- #power-domain-cells: Must be 1
+-- reg: Address range of the SCPSYS unit
+-- infracfg: must contain a phandle to the infracfg controller
+-- clock, clock-names: clocks according to the common clock binding.
+-                      These are clocks which hardware needs to be
+-                      enabled before enabling certain power domains.
+-	Required clocks for MT2701 or MT7623: "mm", "mfg", "ethif"
+-	Required clocks for MT2712: "mm", "mfg", "venc", "jpgdec", "audio", "vdec"
+-	Required clocks for MT6765: MUX: "mm", "mfg"
+-				    CG: "mm-0", "mm-1", "mm-2", "mm-3", "isp-0",
+-					"isp-1", "cam-0", "cam-1", "cam-2",
+-					"cam-3","cam-4"
+-	Required clocks for MT6797: "mm", "mfg", "vdec"
+-	Required clocks for MT7622 or MT7629: "hif_sel"
+-	Required clocks for MT7623A: "ethif"
+-	Required clocks for MT8173: "mm", "mfg", "venc", "venc_lt"
+-
+-Optional properties:
+-- vdec-supply: Power supply for the vdec power domain
+-- venc-supply: Power supply for the venc power domain
+-- isp-supply: Power supply for the isp power domain
+-- mm-supply: Power supply for the mm power domain
+-- venc_lt-supply: Power supply for the venc_lt power domain
+-- audio-supply: Power supply for the audio power domain
+-- usb-supply: Power supply for the usb power domain
+-- mfg_async-supply: Power supply for the mfg_async power domain
+-- mfg_2d-supply: Power supply for the mfg_2d power domain
+-- mfg-supply: Power supply for the mfg power domain
+-
+-Example:
+-
+-	scpsys: scpsys@10006000 {
+-		#power-domain-cells = <1>;
+-		compatible = "mediatek,mt8173-scpsys";
+-		reg = <0 0x10006000 0 0x1000>;
+-		infracfg = <&infracfg>;
+-		clocks = <&clk26m>,
+-			 <&topckgen CLK_TOP_MM_SEL>;
+-			 <&topckgen CLK_TOP_VENC_SEL>,
+-			 <&topckgen CLK_TOP_VENC_LT_SEL>;
+-		clock-names = "mfg", "mm", "venc", "venc_lt";
+-	};
+-
+-Example consumer:
+-
+-	afe: mt8173-afe-pcm@11220000 {
+-		compatible = "mediatek,mt8173-afe-pcm";
+-		power-domains = <&scpsys MT8173_POWER_DOMAIN_AUDIO>;
+-	};
+-- 
+2.53.0
+
