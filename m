@@ -1,213 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F55361970;
-	Fri, 25 Sep 2026 08:09:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502EE44B69C;
+	Fri, 25 Sep 2026 08:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790323749; cv=none; b=l9vgSJ32P6BoBYeLepRqgLcTPVlnGHm9a4+vP71yodK1rL5wf4SL3gkFGCVxKIz68VBrgJjuYW+DF/uSnILuLyoUy88e43tflH+3wvzJH4kWt/Yv6bMBf7DJwqNbhgLqDyEFT/Uu9qFHr0aAefXl/XmqSVdiB2jnbNvTb797sB8=
+	t=1790323926; cv=none; b=ZSgU7wP25FmGMse6DG0WruIT8ZDhmYirVCm2LOF2IcyWuekVTfNfd0g+v4/FuEVR5FC1dRgQNsz61133I3mUi/rJ9fyC4cZVeTaNqOb1wZWF3UxceiJSiD9lk6zVqTMDBk2gbVGerqg5sgqiPRfhuCIwj3zPhIkIoPiAXrp+mcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790323749; c=relaxed/simple;
-	bh=092kdswL89OZkclAFFx3dIusFmffoIwm3JYzgRQlOuc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G/2Mx+X7vxE2zNaRKXIV2m+3tcEHviNlxPSOrgZcrqJL6YPFhchZ/eutH2jLzXo5LzhFv8AQsk+ssclmg/qlpjinUAO9UrPTtNInmWAWZWQOZORqDGKzixCyhTxsa4A5mFetY2tQGCnFAFVobT3uruMeNYkkhqL+STKhNpp0UPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iqaAWzNF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790323926; c=relaxed/simple;
+	bh=IjeL6lQxC5wfgimI7fNsrGkvvTPhkEWoddXXRqMbvUQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P9O8zmYD5HVhJZ6rKwtln1KSxMwjp5zDeaCrbd7pWSKBKJ6XE55bXl/ZEinij+UYTEjvTQtMUo9hRYt/JzWmlvVRAzauPZ/c40GGVKzvwj9l/IZ0e0RxHNGvCwjw7VhjoI0voIHOg0cpjN7sWX3P30RhfAdok/YkL6vUeBuyIdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WZsMMWV+; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iqaAWzNF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EB501F000FF;
-	Fri, 25 Sep 2026 08:09:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790323747;
-	bh=ewQAU9rskd/QPx5441u1yZskQkKCIsuhbcv782zkYYQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iqaAWzNF42rfZ2perDnY+hxINAmoFnageL4TksZlGgD/IUmM8JA+d+4+TtYsafTNx
-	 CcHo3xi+6GVMfEaRIyrcPsfe3AlAYTHL0Dyy+s4B/C9nt6ZbBGiYeXcwC2arC7SHuY
-	 E/ijsBeQ0T6Y7mZcgMkmQ2q7lr2g5+X5S/nKik2ZQvlA7qHb2AQ3YJNY/vffmkHRlC
-	 Gmy6CsmGSY0+8n2fwuIIMZ+RjnMUyqx/Tk6NefhAilikrcNri9OOtVSbwmDIQNkGFz
-	 SfsqEOUHNrznUdUxT3UDqDL7y2ICPYhqI8qKy68/5c4C5ZbC/H736nttM7Jo3vLorK
-	 aGED8+5ttOumw==
-Message-ID: <781fc756-bde6-4d83-a09c-19d4fd70e588@kernel.org>
-Date: Fri, 25 Sep 2026 09:09:02 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WZsMMWV+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790323924; x=1821859924;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=IjeL6lQxC5wfgimI7fNsrGkvvTPhkEWoddXXRqMbvUQ=;
+  b=WZsMMWV++sV2/m9yfc1uYPHzRf4qWMEEWMQs7eYYzPnJs+a68/NHRcTN
+   F2djqPoVjc/Mu+D1wC9wM0pZiu9FbtNlAggDVuKqzvfeB7+xCp/KneoQE
+   HesknvW371n3DXFw5ccxo9O3EApUT6IaG4+7ZTzlclD4QtequI1HWI+jV
+   8wBK+/imYXyWCvFdnDiZm0f5p8hjlrW3ppofvr1PsBP7778CG6xexh5xi
+   lSg6vIQWbTEJwexp6lMSYURW7Kf75JrljFqy4q8oMiUTTDqKoecWeCggz
+   mga5qPacsWuZLsiwvrFLB4kQI5Hnn1FEf7Xq0j/f66NczVyKqrJULpftj
+   Q==;
+X-CSE-ConnectionGUID: KxYyP3GIS8aTtc+X0BM7ow==
+X-CSE-MsgGUID: 32Z//ApJSXiXJaFlIRsatw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="91211221"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="91211221"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 01:12:01 -0700
+X-CSE-ConnectionGUID: Hc5aw++YSMy/x7myuLeEKQ==
+X-CSE-MsgGUID: 0K945wrTQrmEvyGtHP6A2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="273363683"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 01:11:57 -0700
+Date: Fri, 25 Sep 2026 11:11:54 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Aniket Limaye <a-limaye@ti.com>, Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
+	u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+	Ritwick.Sharma@arm.com
+Subject: Re: [PATCH 2/3] i2c: designware: Introduce per-variant register
+ offset and bit-layout tables
+Message-ID: <arYsyiu4KG-m23hh@ashevche-desk.local>
+References: <20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com>
+ <20260919-tda54-upstream-i2c-v1-2-b0b9f77be18b@ti.com>
+ <20260921111148.GT106095@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 7/8] slimbus: qcom-ngd-ctrl: Remove data channels on
- stream disable
-To: david@ixit.cz, Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- David Rhodes <drhodes@opensource.cirrus.com>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260924-pixel3-audio-v4-0-85b5d133aa5e@ixit.cz>
- <20260924-pixel3-audio-v4-7-85b5d133aa5e@ixit.cz>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260924-pixel3-audio-v4-7-85b5d133aa5e@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921111148.GT106095@black.igk.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 9/24/26 2:24 PM, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> qcom_slim_ngd_xfer_msg() silently returns success for every core
-> reconfiguration message, so the generic channel removal done by
-> slim_stream_disable() never reaches the ADSP SLIMbus master. The
-> master therefore keeps the channels of a closed stream. When the next
-> stream defines the same channel numbers again, the WCD9340 capture
-> completes without any error but records only zeros; removing the
-> channels explicitly when the stream is disabled makes it work again.
-> 
-> Implement the disable_stream controller op with the sequence the
-> downstream NGD driver sends for channel removal, CHAN_CTRL(REMOVE)
-> listing the stream's channels followed by RECONFIG_NOW. Like
-> downstream, treat -EREMOTEIO from the removal as success: it means the
-> controller is being restarted and the channels are gone anyway.
-> 
-> Based on work done by Casey Tunturi.
-> 
-> Assisted-by: Claude:claude-fable-5-1
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
+On Mon, Sep 21, 2026 at 01:11:48PM +0200, Mika Westerberg wrote:
+> On Sat, Sep 19, 2026 at 02:36:07PM +0530, Aniket Limaye wrote:
+> > Every DW_IC_* register offset and CON-register bit position is currently
+> > baked in as a compile-time constant, which only works while there is a
+> > single register layout. Introduce a logical register-ID enum (enum
+> > dw_i2c_reg_idx) plus a per-variant offset table (dev->regs[]) and a
+> > per-variant CON-register bit-layout descriptor (dev->con_bits), selected
+> > at probe time via the new i2c_dw_select_variant().
+> > 
+> > Replace every direct DW_IC_* offset/bit-position reference with a lookup
+> > through dev->regs[]/dev->con_bits. Also fold the read-to-clear
+> > interrupt-acknowledgment pattern into a new i2c_dw_ack_intr() helper,
+> > driven by a per-variant dev->intr_clr[] table.
+> > 
+> > Only one variant exists at this point (DW_apb_i2c), so this is a
+> > mechanical, behavior-preserving change: the values in
+> > dw_i2c_reg_offsets[] and dw_i2c_con_bits match the DW_IC_* macros
+> > exactly. It lays the groundwork for adding a second register layout
+> > (DWC_i2c) without duplicating the whole driver.
 
-there is an identical patch on the list,
-https://lore.kernel.org/linux-arm-msm/247e4ce7-1ba2-43b8-8a11-ec70f99a4fc1@linaro.org/T/#m3b50aa43a6493f8d3b607b1607b37bf14b199f69
+...
 
---srini
-
-
->  drivers/slimbus/qcom-ngd-ctrl.c | 81 +++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 81 insertions(+)
+> > -		regmap_write(dev->map, DW_IC_TX_TL, dev->tx_fifo_depth / 2);
+> > -		regmap_write(dev->map, DW_IC_RX_TL, 0);
+> > -		regmap_write(dev->map, DW_IC_CON, dev->master_cfg);
+> > +		regmap_write(dev->map, dev->regs[DW_REG_IDX_TX_TL], dev->tx_fifo_depth / 2);
+> > +		regmap_write(dev->map, dev->regs[DW_REG_IDX_RX_TL], 0);
+> > +		regmap_write(dev->map, dev->regs[DW_REG_IDX_CON], dev->master_cfg);
 > 
-> diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-> index eb0ccb31e9074..0a4859466c82d 100644
-> --- a/drivers/slimbus/qcom-ngd-ctrl.c
-> +++ b/drivers/slimbus/qcom-ngd-ctrl.c
-> @@ -1081,16 +1081,96 @@ static int qcom_slim_ngd_enable_stream(struct slim_stream_runtime *rt)
->  		slim_free_txn_tid(ctrl, &txn);
->  		dev_err(&sdev->dev, "TX timed out:MC:0x%x,mt:0x%x", txn.mc,
->  				txn.mt);
->  	}
->  
->  	return ret;
->  }
->  
-> +/* CHAN_CTRL operation, bits [7:6] of the first payload byte */
-> +#define SLIM_USR_CHAN_CTRL_REMOVE	2
-> +
-> +static int qcom_slim_ngd_disable_stream(struct slim_stream_runtime *rt)
-> +{
-> +	struct slim_device *sdev = rt->dev;
-> +	struct slim_controller *ctrl = sdev->ctrl;
-> +	struct slim_val_inf msg =  {0};
-> +	u8 wbuf[SLIM_MSGQ_BUF_LEN];
-> +	u8 rbuf[SLIM_MSGQ_BUF_LEN];
-> +	struct slim_msg_txn txn = {0,};
-> +	int i, ret;
-> +
-> +	txn.mt = SLIM_MSG_MT_DEST_REFERRED_USER;
-> +	txn.dt = SLIM_MSG_DEST_LOGICALADDR;
-> +	txn.la = SLIM_LA_MGR;
-> +	txn.ec = 0;
-> +	txn.msg = &msg;
-> +	txn.msg->num_bytes = 0;
-> +	txn.msg->wbuf = wbuf;
-> +	txn.msg->rbuf = rbuf;
-> +
-> +	/*
-> +	 * The NGD drops the core reconfiguration messages that
-> +	 * slim_stream_disable() uses to remove channels, so ask the master
-> +	 * to remove them the way the downstream NGD driver does:
-> +	 * CHAN_CTRL(REMOVE) listing every channel, then RECONFIG_NOW.
-> +	 * Without this the master keeps the channels active and a later
-> +	 * DEF_ACT_CHAN with the same channel numbers is a no-op, so the
-> +	 * data path is never re-armed and a reopened stream moves no data.
-> +	 */
-> +	/* 5-bit client number, operation in bits [7:6] */
-> +	wbuf[txn.msg->num_bytes++] = (SLIM_USR_CHAN_CTRL_REMOVE << 6) |
-> +				     (sdev->laddr & 0x1f);
-> +
-> +	ret = slim_alloc_txn_tid(ctrl, &txn);
-> +	if (ret) {
-> +		dev_err(&sdev->dev, "Fail to allocate TID\n");
-> +		return ret;
-> +	}
-> +	wbuf[txn.msg->num_bytes++] = txn.tid;
-> +
-> +	for (i = 0; i < rt->num_ports; i++)
-> +		wbuf[txn.msg->num_bytes++] = rt->ports[i].ch.id;
-> +
-> +	txn.mc = SLIM_USR_MC_CHAN_CTRL;
-> +	txn.rl = txn.msg->num_bytes + 4;
-> +	ret = qcom_slim_ngd_xfer_msg_sync(ctrl, &txn);
-> +	if (ret) {
-> +		slim_free_txn_tid(ctrl, &txn);
-> +		/* Controller restarting, the channels are gone anyway */
-> +		if (ret == -EREMOTEIO)
-> +			return 0;
-> +		dev_err(&sdev->dev, "TX timed out:MC:0x%x,mt:0x%x", txn.mc,
-> +				txn.mt);
-> +		return ret;
-> +	}
-> +
-> +	txn.mc = SLIM_USR_MC_RECONFIG_NOW;
-> +	txn.msg->num_bytes = 2;
-> +	wbuf[1] = sdev->laddr;
-> +	txn.rl = txn.msg->num_bytes + 4;
-> +
-> +	ret = slim_alloc_txn_tid(ctrl, &txn);
-> +	if (ret) {
-> +		dev_err(ctrl->dev, "Fail to allocate TID\n");
-> +		return ret;
-> +	}
-> +
-> +	wbuf[0] = txn.tid;
-> +	ret = qcom_slim_ngd_xfer_msg_sync(ctrl, &txn);
-> +	if (ret) {
-> +		slim_free_txn_tid(ctrl, &txn);
-> +		dev_err(&sdev->dev, "TX timed out:MC:0x%x,mt:0x%x", txn.mc,
-> +				txn.mt);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->  static int qcom_slim_ngd_get_laddr(struct slim_controller *ctrl,
->  				   struct slim_eaddr *ea, u8 *laddr)
->  {
->  	struct slim_val_inf msg =  {0};
->  	u8 failed_ea[6] = {0, 0, 0, 0, 0, 0};
->  	struct slim_msg_txn txn;
->  	u8 wbuf[10] = {0};
->  	u8 rbuf[10] = {0};
-> @@ -1620,16 +1700,17 @@ static int qcom_slim_ngd_ctrl_probe(struct platform_device *pdev)
->  	ctrl->framer.rootfreq = SLIM_ROOT_FREQ >> 3;
->  	ctrl->framer.superfreq =
->  		ctrl->framer.rootfreq / SLIM_CL_PER_SUPERFRAME_DIV8;
->  
->  	ctrl->ctrl.a_framer = &ctrl->framer;
->  	ctrl->ctrl.clkgear = SLIM_MAX_CLK_GEAR;
->  	ctrl->ctrl.get_laddr = qcom_slim_ngd_get_laddr;
->  	ctrl->ctrl.enable_stream = qcom_slim_ngd_enable_stream;
-> +	ctrl->ctrl.disable_stream = qcom_slim_ngd_disable_stream;
->  	ctrl->ctrl.xfer_msg = qcom_slim_ngd_xfer_msg;
->  	ctrl->ctrl.wakeup = NULL;
->  	ctrl->state = QCOM_SLIM_NGD_CTRL_DOWN;
->  
->  	mutex_init(&ctrl->tx_lock);
->  	mutex_init(&ctrl->ssr_lock);
->  	spin_lock_init(&ctrl->tx_buf_lock);
->  	init_completion(&ctrl->reconf);
+> Instead of all this. Can't you do this inside the regmap so that here and
+> elsewhere in the driver we continue to do:
 > 
+> 	regmap_write(dev->map, DW_IC_RX_TL, 0);
+> 
+> but internally, depending on the hardware it then maps this into the
+> corresponding register offset.
+
+Exactly what I was going to say when I hit "reply".
+These series is definitely NAKed (in terms of the approach taken).
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
