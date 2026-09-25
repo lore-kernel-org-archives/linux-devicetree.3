@@ -1,180 +1,84 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96ADC3B52F4;
-	Fri, 25 Sep 2026 21:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245224FB9BF
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 21:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790370350; cv=none; b=GBskewaWfTjDecoHB2+GpAeBV0LqDKed/qF8/jrA5z4sGq5iDvnWLPhwdr2Tpp2j5Bf4+HsZSo8dZP1jriBtnCL9TRXZHcVR5L9tg2wow/c4mn+IXtABVlaKvF0KpcvWjz2RWBKKxGT86tqCbGzWXWL902Cjm3HSVIASVcRCqUc=
+	t=1790370970; cv=none; b=Wf64Q1QrB9RYSOdxCpmP2lpPC7bc8wCK47f7/lSL0shMo4geaeWqbKzigtiGiuy96vn9fREE894ZRhjPrpa5lcEMsSdmwcowk+HcpjVYm6gSZNoOFCZCBQyHx0XjngWW5hWewv+wfpCq12B/0vboEvaZkSI54gWL/+awoiM1XXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790370350; c=relaxed/simple;
-	bh=b2qb3/m17D3IRapINEcz5X+cf1puUkUajkGVTpn8xNc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=trQHJmJ8jpU2Emnr72NUws/mAkgBiG4s16pSt7xXdevwNa6detSJIymfQdpalyINb4+J83e4+k9OoyZ+ly1BUrdlKNjXK6OppOb0BBszKyIYKerM4nZRDJRUWW7IhtzpjtNbSpqeObYvvcQFxtMssp5ePDY2q/yqzRu+UHbvfY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=CVZtL4P0; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790370970; c=relaxed/simple;
+	bh=IiOuPbtnCcIY+LvqnlYO+tAjpv2SzZg8BQjeknfXbdc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oOtdO05jNJ+c3aJMxKf33sX8VzZRrGO1PvqEk4uVWkxSeZ49tS/VJsQvYMlKvYjYBLHAuZdGtPgOwgAk/UdWlN7FEJA7nf14f7+zUK5nfZFqfs1D3NjFojoIweebXw1luyZSVKFicHnfILyvOHKKEt3sTaTAnWwOTuTKSwhUx78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TdyNDN3G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="CVZtL4P0"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260925210544euoutp0243b789d72a0438105cf8c503582698ec~YrFfDN8xy1957819578euoutp02g;
-	Fri, 25 Sep 2026 21:05:44 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260925210544euoutp0243b789d72a0438105cf8c503582698ec~YrFfDN8xy1957819578euoutp02g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790370344;
-	bh=qk8Ge4T09jwT9y52eGQdabyjZGZHTm4rz1alzvhqzEo=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=CVZtL4P01wXy1+ugGq9YEKbXZtnS2m47LDVMgeukd6k9aRE2PKTyTewEyd+xd1xUz
-	 8XKsChiKzsHX6DVkdi2FeObuR4HvgrN2iAyS5sv8IPM1Qj2rOSydSod94INXrs4zeX
-	 5ElvIi0+nZqcmJqlTKr1DtZBGumK+I3xrSlCxzds=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260925210543eucas1p2a1839e7e4c6489c00394e4e8a41e38dd~YrFdyTFmE0692106921eucas1p2t;
-	Fri, 25 Sep 2026 21:05:43 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260925210541eusmtip20e82e1fc97240a09f0da0d95e25d9799~YrFcD3k-g2562925629eusmtip2U;
-	Fri, 25 Sep 2026 21:05:41 +0000 (GMT)
-Message-ID: <1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
-Date: Fri, 25 Sep 2026 23:05:41 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TdyNDN3G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42A21F00898
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 21:16:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790370968;
+	bh=o7vv2zCnn+8YFHVHlCAGyM9+OpN94jh7Pzu1l+wtiw0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TdyNDN3G70qnR90wz9poIu0G3/yuYQ2Og3m0yLnaVSDlUswTRq9W4a0vGyiZ1jRAk
+	 pWgltJ87NiUOJR3liXOk0uX9GXKhWY8ejJkk9VA6SZVZnb5lo+MMBdAPVgpCA0u77T
+	 1rUavcxAvXe7OonnMHM3PYzctZCNiXdI9RM7gtkcXZljk0YcBlno827Tt4k5V4uLjX
+	 hiccwL69s0XCS6sw1W5sYmidXGKw/+o8suurGtmQDa/5E1XrASKng99N9iQq5/V/P2
+	 nazgmd2Pohgq2fpwQnR6V384oMkPWXW1g6hgTyEJ2B9NZ3oGok1i9DqaDSlMRg8y3S
+	 bYA5p6+tn0p0Q==
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2c570a3030so30591466b.0
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 14:16:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzHpc2nhW3ruaSSNvZUUaCDfF8WNPtEP7DXbL5fY8nrVbuQDSPcklAAEp7IPlMJX22cWCgPBPsa/mKr@vger.kernel.org
+X-Gm-Message-State: AFuF++myE8ouu5vYN+89tTak7n2KbcDVLiDxTJAyrhNYd6FktIKSJddc
+	ka10a/6vt4GRPDgzw5qrtjx2zOQwxWYkzCy/WBE464D/xHfqZlD2LMZW8mbOd6xGc56raPm+p0Y
+	rN3tcuCraoduOHxwby+eH4IwwCE9Yeg==
+X-Received: by 2002:a17:907:a68b:b0:c29:6400:ef8e with SMTP id
+ a640c23a62f3a-c2ac262e026mr623148866b.42.1790370967328; Fri, 25 Sep 2026
+ 14:16:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <20260917-mutant-chamois-of-competence-46ca77@quoll>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260925210543eucas1p2a1839e7e4c6489c00394e4e8a41e38dd
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
-	<20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
-	<20260917-mutant-chamois-of-competence-46ca77@quoll>
+References: <20260923211312.3793073-1-Frank.Li@oss.nxp.com>
+In-Reply-To: <20260923211312.3793073-1-Frank.Li@oss.nxp.com>
+From: Rob Herring <robh@kernel.org>
+Date: Fri, 25 Sep 2026 16:15:55 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLKjc2KVbnj=Tyq2Vk_KRV-M3REv3TvwfA_D2R8CU91vg@mail.gmail.com>
+X-Gm-Features: AclHuK-zZXzRBN60UkCEC4cL7VJx068Csh0ck7YdxPUbq_OiVD3z-aiLcwOJiIg
+Message-ID: <CAL_JsqLKjc2KVbnj=Tyq2Vk_KRV-M3REv3TvwfA_D2R8CU91vg@mail.gmail.com>
+Subject: Re: [PATCH 1/1] arm64: dts: imx8mn-solidsense-n8-compact: drop
+ undocumented adi,led-polarity
+To: Frank.Li@oss.nxp.com
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
+	"open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <imx@lists.linux.dev>, 
+	"moderated list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <linux-arm-kernel@lists.infradead.org>, 
+	open list <linux-kernel@vger.kernel.org>, Josua Mayer <josua@solid-run.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Sep 23, 2026 at 4:13=E2=80=AFPM <Frank.Li@oss.nxp.com> wrote:
+>
+> From: Frank Li <Frank.Li@nxp.com>
+>
+> Drop undocument property adi,led-polarity and adi,link-st-polarity.
+> ethernet-phy@0 status is disabled and no in tree overlay file to enable i=
+t.
+>
+> Fixed below DTB_CHECK warnings:
+>   arch/arm64/boot/dts/freescale/imx8mn-solidsense-n8-compact.dtb: etherne=
+t-phy@0: adi,led-polarity: b'\x00\x00\x00\x01' is not of type 'object', 'in=
+teger', 'array', 'boolean', 'null'
+>
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> cc: Josua Mayer <josua@solid-run.com>
+> ---
+>  arch/arm64/boot/dts/freescale/imx8mn-solidsense-n8-compact.dts | 2 --
+>  1 file changed, 2 deletions(-)
 
-
-On 9/17/26 08:51, Krzysztof Kozlowski wrote:
-> On Tue, Sep 15, 2026 at 05:32:09PM +0200, Michal Wilczynski wrote:
->> Add the dt-binding for the StarFive JH7110 Innosilicon HDMI PHY.
->>
->> This device is a child of the starfive,jh7110-hdmi-subsystem node. It
->> functions as both a PHY provider for the controller and as a clock
->> provider for the variable pixel clock (hdmi_pclk), which it generates
->> from its refoclk.
->>
->> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
-> 
-> While I appreciate other people looking at this, I don't think review
-> here applies. It was a blanket tag, given to the entire series, with
-> exception that it is from newbie, thus I want to ask: was this binding
-> REALLY reviewed by Joshua?
-> 
-> Are the rest of the patches actually reviewed or just "looks good to
-> me"? I see no comments from Joshua on v3, v2 and v1, which is usual sign
-> of doing review.
-> 
-> 
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         | 49 ++++++++++++++++++++++
->>  1 file changed, 49 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml b/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..f838fcc238ec7db0a8e794234bdceec36cb6d9e7
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/phy/starfive,jh7110-inno-hdmi-phy.yaml
->> @@ -0,0 +1,49 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: https://protect2.fireeye.com/v1/url?k=1b336029-7ab87530-1b32eb66-74fe485cbfec-59631fa23f87244c&q=1&e=7e2eb06f-7b14-4bec-84e5-b60bb954d80a&u=http%3A%2F%2Fdevicetree.org%2Fschemas%2Fphy%2Fstarfive%2Cjh7110-inno-hdmi-phy.yaml%23
->> +$schema: https://protect2.fireeye.com/v1/url?k=46734e4d-27f85b54-4672c502-74fe485cbfec-9b6e35999c41723e&q=1&e=7e2eb06f-7b14-4bec-84e5-b60bb954d80a&u=http%3A%2F%2Fdevicetree.org%2Fmeta-schemas%2Fcore.yaml%23
->> +
->> +title: StarFive JH7110 Innosilicon INNO HDMI PHY
->> +
->> +maintainers:
->> +  - Michal Wilczynski <m.wilczynski@samsung.com>
->> +
->> +description:
->> +  The PHY portion of the StarFive JH7110 INNO HDMI IP.
->> +
->> +properties:
->> +  compatible:
->> +    const: starfive,jh7110-inno-hdmi-phy
->> +
->> +  clocks:
->> +    maxItems: 1
->> +    description: Reference oscillator.
-> 
-> This barely counts as a resource, so usual question: no resources here?
-> no MMIO? Even the user of this phy is the block itself.
-> 
-> This makes me wonder if this should be a device node in the first place
-> (instead folded into the parent).
-
-The PHY has no reg because the reg is shared with the controller and
-owned by the parent - patch 9 lets the bridge take its regmap from
-there.
-
-The user of the PHY is not only the block itself. It is the pixel clock
-provider for the whole display subsystem, voutcrg takes hdmitx0_pixelclk
-as the parent of its DC8200 pixel MUXes, and while HDMI output is active
-it is the only intended source for that clock. The parent has to be
-assigned explicitly so the general PLL does not end up driving the pixel
-clock, and so a DSI user does not reach the HDMI PHY clock generator.
-
-So it has to be its own node. The HDMI block has two independent
-functions with different clock inputs and one of them feeds back into
-the SoC clock tree. The PHY generates hdmitx0_pixelclk which voutcrg
-consumes the controller consumes pclk/mclk/bclk from voutcrg. Folded
-into one node that node is both a provider to and a consumer of
-voutcrg which is a cycle in the hardware description, not just in Linux.
-
-> 
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
-
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
