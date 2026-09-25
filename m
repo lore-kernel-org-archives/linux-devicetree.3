@@ -1,127 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1632E389115;
-	Fri, 25 Sep 2026 09:04:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790327047; cv=none; b=UAItjnOHE7eKAohfcQV9PK+TU3iQdFrMjkufSbe7ta/igar+KLRU/Un3h0bLq0mQ+RNtUNC/iosfZS5NUYx0RFtJQsL09MXBbzA+xFmEHwHWG+iq5DJZnvypn7rfGVniI5W+u/CYSB0qA8rJnRkW7hE/TfhrBBXZo/If4J4iZnQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790327047; c=relaxed/simple;
-	bh=0zoYrJvY61Jf4sfg5AoHKn2Mw1YI3FJ30mt7tHWio8M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jewZW2w8iKtQlcMhwIaVTfnOuNjyBiY97vyFt9TT4pVFWulslSTnfe8gMyyidhqFYARvAjA4+xEBy9nBGD1mC6xHGI7amvXI8gYknKDp3UejGZo8SCbDUSEYTRpybIln0/VoqMcIMstYyb5Zid12Nfxts4bKUmDwBFOxKU2FacQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kr0+M6yr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B89C47126F
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 09:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790327198; cv=pass; b=Xz2zLO34iOYXNHytvqiYKm7j745PkzU36KkUsab2UAzmucrFCO7MvXjFNthaCTZK+Y5GrWE39p/heK/LvijKHuw3CiOdx6tG99xP5dfWCApaOxUF5zcWzk9IE3L8w7sKRAzF7w2O+X1dxMOZZaWU/ZH1txdUQ+Dy8ylQJjqi14Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790327198; c=relaxed/simple;
+	bh=vNfrt1r00h69iVK9kwlxNnrlpJK7TpbbLBmXJ3dGSlU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T4y1FoPclkZF0zKxX/D/IRfdmtYXwxgkAjUDv+goh4kgDiYei8Kx8BLcCLVrF9C7oAwbN91HYPkht6QC+SihS98pcGxa6ihTTce8tXvlEpkLdjIlB6LZdO7ge7FgswbW075TEyZhZ4CvFk6I6FxTPQ9N4GHieMQryhueL/eM5qc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R8aGv9GC; arc=pass smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kr0+M6yr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B321F000FF;
-	Fri, 25 Sep 2026 09:04:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790327045;
-	bh=0qzXbekgnK32ewr4NmpJPLE8RuvAHXBx2FDBNogm5dU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kr0+M6yrhj+vIzi5uukgnCUk25afRc01zAXjZAZYgkYF2JHWpPsb2ER/hkqSsmu1S
-	 uX/rAChsXWJdIzO7neOtkEap5prbZbnJ4ejkaExcpoN3iBbpM4Brv7b/9sbzeJJil2
-	 06HZmladjS4mfrcABiM89TM+Mw7NNLRZR7Qbdb0a+iR8PRjyDNsnYwParlB0Pwzvlt
-	 /mFCUovu8d0ExuZYtlwPl6PTTMEN+ELbFOTBWdIcENQt8QiFF5SZXaIHMPsWT9bVkj
-	 Nj7Nkxy+PK5uBDBKxBMrqO8yWrBtSZLqvcxVUaMK2bSiNKQaYW6gVZ5v2j5LlRPTBf
-	 W5T5XGTJvtxnw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] media: verisilicon: Remove deprecated variant
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Benjamin Gaignard" <benjamin.gaignard@collabora.com>
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org
-In-Reply-To: <20260925085152.41852-2-benjamin.gaignard@collabora.com>
-References: <20260925085152.41852-1-benjamin.gaignard@collabora.com>
- <20260925085152.41852-2-benjamin.gaignard@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 09:04:04 +0000
-Message-Id: <20260925090405.59B321F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R8aGv9GC"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so271858f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 02:06:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790327194; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Qknhfj/aGUpYP+cwKEFhtvsVNEaZayC9VzK8g/48A+LX4iC1GQg5YoCmHJEYERbcW5
+         tHKa93WSRZTI3vJcXJygvPehoQj+Q+4BXWruwJyVdEZ04KcYryNYCxiXIB5s7IpUsgTZ
+         hDNizrNYbEWAmCImD1BZI5mKR2+3lDl6aqNP2QZ/QQvLUfzbrixn9HHXPEXsibpEC3vs
+         U+Sr/Sr2JhYTSCAMqR9ODzx6vFNVfZF5Q0rKWJclnAafNvJ9qXDEYLXc9qBXDZKcOZW4
+         b/QOde/P+3SW5qy1D+MQ+WsuV5Gc7HYk/SwF2zByB8DH/55k1p7+DC9TCv/TrpldQkXz
+         3oAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vNfrt1r00h69iVK9kwlxNnrlpJK7TpbbLBmXJ3dGSlU=;
+        fh=yZ0JGP5SsHUE9KkdIpWF1AfqZGcBe57DqtjGnkEzXxg=;
+        b=dj+aSvxhvNdyDWw0QAsv74I1j1pIQrGaRDxjbcFkS1u4BQB5ZRHp/uuSdLbnkVRou+
+         cDp+6u/FKceQ/+LNOpkozZKac17e742XUjcx8Z4Rsi9EHOxRdbkJt+FUwDPEnsK/XrxL
+         CdovhSu22cltvfQaDaC/rUEQBH5d44aoypL/PWAdVf50GvIK7OH0Zar1th3zhDAEuqvi
+         F0ZPiqVlbZZUVgmSBCEJ7ZxgSTFPJAjRwvRs0yija5L6TMwOx5957yK+EFBwmMqmgtOS
+         0lfeKOF3AjCybqzcKCmhFK6QoOYR4+7i+cB+lK5oabua9NA/CI4gbWwCkg3HfP/mvKAe
+         9lNA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790327194; x=1790931994; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vNfrt1r00h69iVK9kwlxNnrlpJK7TpbbLBmXJ3dGSlU=;
+        b=R8aGv9GCEXuCBoR5uWOBG6O0DMiO9/8OiajQluEPoHpwUx9vcMS24D5M9+sk/imAXX
+         8nPq32hQlxhmrLOWD48KB9/a3WlS6w6Yi9z9jVinJPUOkHhau8C+dpunY8exj9m4cjyL
+         s3UrGSPz5O3K9IKq6NVTGiLNMkidX0JwgVuZwHEBDLsxw1N/Xj9e14iURX7uzSz6s4sj
+         Nre5u7UlA5ITlaLCr7H57BJjGvkGVoGhjOfXmGMQAeho8DCSxIbg4TDo8sxr0TkhwOnd
+         BAFrlWRMOfuTfHIRR0az6h55Fus/wsnzNUpa2zoemv+tUNH30LOX6i3FDx5sz+92WBKb
+         LYnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790327194; x=1790931994;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vNfrt1r00h69iVK9kwlxNnrlpJK7TpbbLBmXJ3dGSlU=;
+        b=0J4M01Dc+zR9gceHvyPmkkscGZbgoxedsBFs0Lp2tmgN+VKxYQqE9pM44B+3707ALx
+         XQYtvVB4NjHt4ICHibXDEQbzvSTU0jMY42zT8YNoRSJxgUNmeunpKB9QGDPlpmpDoovT
+         ewVLeJgRBvjf4v7Gs9H0W3ecKLUDOh3+XnmdqQFyJPOcuSQ6J17gsTDfiRZK1SCSZh1m
+         sde7BVsHpZLqsNR1rbCJUPdpI3dAPEgCQL+t2iE11kqRmsyqF2Hj/ZEp2HcpRj4ubojd
+         0pm2nIWgoWW1wPnwp5ZmhMm1Hz75JUbxKF7WA2y3y0HqPiBgtjz2WFzh9j3NMyWD+2l4
+         CBTA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfE6dNPUwhOsdVHXq4i+nioWP+izk7v1fFZwaHEDmdC0UULv18q1sIg4JxwBDhxomKtxq9a5wQ8hvZ@vger.kernel.org
+X-Gm-Message-State: AFuF++l6cjSDF89528Rc8g2IJlyaf5dsgY1NYBcAuw1zOf4ms1R4uTmx
+	LzYOClv8rAYIFilk/BPPfdhFtHh3kBn/v/IgcHzOuBe8t11M9ORgVjcKtPFf7htBKaDDN3miKvy
+	gJqH8sElxtoG/uUdFgeAzDfumY1YD1y6lBaytYvs=
+X-Gm-Gg: AYBFou2jizQ8CNYGPM7GzNTI/9AWcl9o8qw4IiNtcA8n8vmiygNS23Bt6M5dmdN5SXq
+	vlW/IqtXeZhGiQhGtEu2UrAOscKazhYdeTKtX2SihOwPFPI7GG0y1POzu3uIAHFRbp7jVYK3OMF
+	nEBETigdLbxuguK83LJRhDLU0L7C+zdLyPsAHnBSJHoBu8vk/epiGpc0So17PbXUnumD2yZseyV
+	5Xkavvd3c73lE3xM0GbbvH5Np6r+lIcLBfDRKDbDPXPSZb9FOHCnzME0v6pqvUe+GOWu0rIz5Us
+	lDBwEVYcr524yJbcQiCKAlXrT09oiSOy5x0FgWO0HlVXYe+ksyBMKcLvhusnogixlMEgZCH35RQ
+	DwlRCoRmrUcIpd1BcsjWxTmccTY8ZxIzcEZG9//7xUsU1I1YbssbPXhNusfI4/EzlC2cVl7Y/
+X-Received: by 2002:a05:6000:40e1:b0:487:62d:37d9 with SMTP id
+ ffacd0b85a97d-488716a5e3amr8597568f8f.27.1790327194104; Fri, 25 Sep 2026
+ 02:06:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260923104054.3324830-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260923105237.7B87D1F00893@smtp.kernel.org> <CA+V-a8uD16uG8cc9m7NHVZXT5bU64TYfu+_1POuXeioRAy6Z+A@mail.gmail.com>
+ <4f5aadf0-8f23-4871-918f-430a0c99900d@roeck-us.net> <TY3PR01MB11346CC8B3C7374C293E0F3EB86802@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <2d32d7f1-f87b-45b3-9ccd-95e9773ca658@roeck-us.net> <TY3PR01MB113461EFFC2B9B39A53ED1D3386802@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB113461EFFC2B9B39A53ED1D3386802@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Fri, 25 Sep 2026 10:06:07 +0100
+X-Gm-Features: AclHuK_cnyrPiFUC-mGji0jHGuw7oeqC1g44QAFCgRUUpyFQSgbBoQ_H6jT1WEc
+Message-ID: <CA+V-a8t3HKQ6D8jb_y-XM64BHkWm3vRw6JiTydSp3rqVr9nhdg@mail.gmail.com>
+Subject: Re: [PATCH v6 6/8] watchdog: rzv2h: Add syscon support for WDTDCR
+To: Biju Das <biju.das.jz@bp.renesas.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Guenter Roeck <linux@roeck-us.net>
+Cc: "linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>, 
+	"sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	"wsa+renesas" <wsa+renesas@sang-engineering.com>, "robh@kernel.org" <robh@kernel.org>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Linux-Renesas <linux-renesas-soc@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] media: verisilicon: ABI breakage by removing deprecated DT binding
-- [Low] media: verisilicon: orphaned code and macros left after variant rem=
-oval
---
+Hi Biju,
 
-commit 16a43be32673e02fd74593fb19bc27c444f75881
-Author: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+On Fri, Sep 25, 2026 at 6:11=E2=80=AFAM Biju Das <biju.das.jz@bp.renesas.co=
+m> wrote:
+>
+> Hi Guenter,
+>
+> > -----Original Message-----
+> > From: Guenter Roeck <groeck7@gmail.com> On Behalf Of Guenter Roeck
+> > Sent: 25 September 2026 05:51
+> > Subject: Re: [PATCH v6 6/8] watchdog: rzv2h: Add syscon support for WDT=
+DCR
+> >
+> > On Fri, Sep 25, 2026 at 04:13:24AM +0000, Biju Das wrote:
+> > > Hi Geunter/Prabhakar,
+> > >
+> > ...
+> > > Just a question,
+> > > For automatic software upgrade, if the reboot using PSCI fails, what
+> > > is the fallback for reboot, reset the board?
+> >
+> > That seems to be a bit theoretic. The reason for having the ability to =
+register multiple restart handlers
+> > is not to have failure fallbacks, but to have fallbacks if preferred re=
+start handlers are not available.
+> > If the PSCI restart handler is present, it is expected to work.
+> > That is why it has higher priority. The idea is to use the highest prio=
+rity restart handler, not to try
+> > one after another.
+> >
+> > Sure, the failure fallback works as well, but that doesn't mean that fa=
+llbacks should be provided just to
+> > provide fallbacks.
+> >
+> > If you claim that the PSCI restart handler does not work on this system=
+, provide evicence, and we can
+> > discuss this further.
+>
+> I agree normal cases there won't be any failures
+>
+> I never heard about PSCI restart fails. But have seen a case due to a bug=
+ in
+> serial driver that made the PSCI restart to fail as it hangs the systems.
+>
+> So, if this is the case, a memory corruption can cause the same.
+>
+> Long back I worked on femto based product(single core), where we have nor=
+mal restart
+> and a fallback watchdog restart. But it does not have PSCI system handler=
+s.
+> On some cases, we have seen automatic upgrade failed because of failure i=
+n
+> normal restart.
+>
+If you think the PSCI might fail and not restart the machine the other
+alternative would be to export functions to configure WDTDCR using
+readl/writel.
 
-media: verisilicon: Remove deprecated variant
+Geert/Guenter - are you OK with the above approach.
 
-The "nxp,imx8mq-vpu" compatible string has been deprecated since commit
-f3116f2e52e6 split the G1 and G2 nodes. This patch removes the driver
-reference to this old binding to clean up the code.
-
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
-dia/platform/verisilicon/hantro_drv.c
-> index ad71c0402ef3b..12c804dcc6694 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -725,7 +725,6 @@ static const struct of_device_id of_hantro_match[] =
-=3D {
->  #endif
->  #ifdef CONFIG_VIDEO_HANTRO_IMX8M
->  	{ .compatible =3D "nxp,imx8mm-vpu-g1", .data =3D &imx8mm_vpu_g1_variant=
-, },
-> -	{ .compatible =3D "nxp,imx8mq-vpu", .data =3D &imx8mq_vpu_variant, },
-
-[Severity: High]
-Does removing this binding break backward compatibility with older Device T=
-ree
-Blobs (DTBs)? Device trees typically act as a stable ABI in Linux. Removing
-this entry prevents the driver from binding to older DTBs that have not spl=
-it
-the G1 and G2 nodes, resulting in a loss of hardware video acceleration on
-those systems. Even if deprecated, should the binding remain supported to e=
-nsure
-older firmware continues to boot successfully?
-
->  	{ .compatible =3D "nxp,imx8mq-vpu-g1", .data =3D &imx8mq_vpu_g1_variant=
- },
->  	{ .compatible =3D "nxp,imx8mq-vpu-g2", .data =3D &imx8mq_vpu_g2_variant=
- },
->  #endif
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c b/drivers/=
-media/platform/verisilicon/imx8m_vpu_hw.c
-> index fa4224de4b996..b091d807ae4e2 100644
-> --- a/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
-> +++ b/drivers/media/platform/verisilicon/imx8m_vpu_hw.c
-> @@ -25,55 +25,6 @@
->  #define CTRL_G1_PP_FUSE		0x0c
->  #define CTRL_G2_DEC_FUSE	0x10
-> =20
-> -static void imx8m_soft_reset(struct hantro_dev *vpu, u32 reset_bits)
-> -{
-
-[Severity: Low]
-With the removal of imx8mq_runtime_resume() and imx8m_soft_reset() in this
-patch, several hardware control macros are left completely unused.
-
-Could these unused macros also be removed from the top of the file?
-- CTRL_SOFT_RESET, RESET_G1, RESET_G2
-- CTRL_CLOCK_ENABLE, CLOCK_G1, CLOCK_G2
-- CTRL_G1_DEC_FUSE, CTRL_G1_PP_FUSE, CTRL_G2_DEC_FUSE
-
-Additionally, since imx8mq_vpu_variant was the only variant using
-the runtime_resume function pointer in struct hantro_variant, should
-runtime_resume be removed from the struct entirely in hantro.h?
-hantro_runtime_resume() in hantro_drv.c is now effectively a no-op for all
-platforms.
-
-Finally, could the dangling extern const struct hantro_variant
-imx8mq_vpu_variant declaration in hantro_hw.h be dropped too?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925085152.4185=
-2-1-benjamin.gaignard@collabora.com?part=3D1
+Cheers,
+Prabhakar
