@@ -1,53 +1,52 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D53E471CE4;
-	Fri, 25 Sep 2026 11:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C233E485943
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 12:02:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790337603; cv=none; b=GQbKRsMeRdoV0AUn1GveTtNfkSGwhlo2HZRyszhV9Ne67c92qlMKNyA7DnPIrWfJhAPJZbAguzZrtVU6xoNIdLsT0477WVg06kXoR/nzabz/qiFdIQLUCLSjWDI9YTGhbY6pLt98BKpkW/AhmhPfXZUkfJqfQtAdGEy0GuZWM28=
+	t=1790337741; cv=none; b=Jr4ULmIiRgOeYr+f4cozLnqWx+i3sSChn2sopw7YtX/wQGnFyNmIJjwTIgFAjQNF8snMeIqIxLvS3aleXjwIpv2Qht6yT62jE0c8/oND8++YVrqGxnfavSR9TrG5eBidhfuHgYE5MPsHwU82UrWSW31ZDb6wW1uPRIxuRMTVPU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790337603; c=relaxed/simple;
-	bh=wcFx+NSLHXnNYa8iMdvZaIg7OJRD4w5e5OPyy2AjYGI=;
+	s=arc-20240116; t=1790337741; c=relaxed/simple;
+	bh=6s4AyQ1Ij1qYu3Ck96/hoGRWyiAqmg0606vHs1UPLMI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F5PmvU/Yc+H12kpBWRJq8umkKxL1b2Rii/f7AubjNtQBcq1wSwzs3mG3d3WyCKru4ZTsx7Sz5g7Z1K4cNCFk0p3GMXiwH9PvS+dk1QhSSGeYLm9W9uNN525VdZaCVf5AVinV+NNB6GqkBdnJ2WPvM5S4jL0GRxud9Gf2ajqzURA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mSjRlykW; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=VvHt1UmIyAKUAMxC5NTNDk/lpuV2gRkvYKR0ZKDpxAGfwwqrWZxxg4/HsKHp3SrJyiR2tycRhIJjhIsDj13+2IXU9xfUoMnzNSIf+vHdNJS11xzdZfQm/MAin7hhFtKyjZ8Q1bXQMtWAabFtThAUyV0rSU3SMshNm28+x/DUJb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=ao8ZqAD5; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mSjRlykW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1112D1F000FF;
-	Fri, 25 Sep 2026 11:59:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790337594;
-	bh=yao8TTMKIXgdl3wojlTg6Y/FV7O0NF2CMfYlrTOp9Z4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mSjRlykWg86Pu/F5pZgdu+XMDVimFtOYOZIljKg1P5E3dX88R1AGcXUDCo9B3qOT1
-	 l2DYpCyMSOEYqTWEkc3I0iw1bb9xY4mhaGznERZiWWfD5M/O44bDcY/S3LB20qnSWk
-	 fMCTe4duP1S5JUTr/BjOO8hvPQOqi2ROhZapmoSNM6XYX2yOPQD/puh7tLADBJEybm
-	 QjAmA5I4pCZln8uFPMdeA1VFKcg06nE7xBFAj269LT81vuGwSLrZjmY4e8tNU3M6Z0
-	 5dgSzQozSQqr5WE3uKkW/TKS9efUKP+zrmEZ4JW3QnKbCmzIbsmD2TaaMwU0GNqbns
-	 YoWhtVKeUehzQ==
-Date: Fri, 25 Sep 2026 12:59:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Fei Xie <fei.xie@horizon.auto>, Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="ao8ZqAD5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=x7J2
+	sUq7OLioGyGTI7TW0yB0epl9dnR0j8Fnb95/CuA=; b=ao8ZqAD52zBIrkJEFTyy
+	sjlV7pIrFNOzwpIzqV6fpxwhg/DSHJQfQOAIpD+pUNjVFO4CWTZDiV5jJhGL+pFL
+	2N7cvMddscS8FD6JtGzmxbYIh390y6DQ+1cogJ2w4CMiP1foeMTkfyFh+1mudd9p
+	GVwl6VSUB4Oppg27Dy4oqVKOylLBrs67/kY8yPZLt1MOsEn3gDgeC194OYPH8I3X
+	mr3bf9tQLDuyQ8lzm4HnBWqU2+6XXX6JRoBmOB1FuIJ3coeWoJgOfRZiOaB1Sm1E
+	tE04efdFBBHpZcZOO19WGSAPpwmtKvhzoeviPkCctybkJSAOvy8rE405gyyTaf8B
+	oA==
+Received: (qmail 1549325 invoked from network); 25 Sep 2026 14:02:11 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 25 Sep 2026 14:02:11 +0200
+X-UD-Smtp-Session: l3s3148p1@FEl+fE1cUrkujnvn
+Date: Fri, 25 Sep 2026 14:02:11 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Parshuram Thombare <pthombar@cadence.com>,
-	linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/4] spi: cadence-xspi: add ACMD support for SPI NAND
-Message-ID: <85dc596e-4378-4d23-b48e-80053cb5166d@sirena.org.uk>
-References: <20260921093701.1341766-1-fei.xie@horizon.auto>
- <20260921093701.1341766-3-fei.xie@horizon.auto>
- <arFEjzkHGMbecWWV@sirena.co.uk>
- <20260923061211.1608907-1-fei.xie@horizon.auto>
- <67f4e1a4-fc0e-4b2b-b41e-8dbb33227302@sirena.org.uk>
- <87pky1ll4g.fsf@bootlin.com>
- <arZHjbzUEFhydnHt@nsa>
- <87ecehljdy.fsf@bootlin.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: Re: [PATCH v3 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
+Message-ID: <arZiv20Z4P7DQaD6@shikoro>
+References: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
+ <20260924-paul-v7-3-rc1-edac-v3-2-bd8054a5b180@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,42 +54,105 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jDLHmqGwvebW3fWJ"
+	protocol="application/pgp-signature"; boundary="UqtTpPdEAw8/aeof"
 Content-Disposition: inline
-In-Reply-To: <87ecehljdy.fsf@bootlin.com>
-X-Cookie: Love America -- or give it back.
+In-Reply-To: <20260924-paul-v7-3-rc1-edac-v3-2-bd8054a5b180@bootlin.com>
 
-
---jDLHmqGwvebW3fWJ
+--UqtTpPdEAw8/aeof
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 25, 2026 at 12:23:21PM +0200, Miquel Raynal wrote:
+Hi Paul,
 
-> > As for PROGRAM and ERASE commands I really did not saw any added
-> > value.
+thanks for your patches!
 
-> Yes, most of the time is spent in the wait_ready, which is not getting
-> faster with hardware automation.
+On Thu, Sep 24, 2026 at 04:12:48PM +0200, Paul Louvel wrote:
+> Add the Cadence EDAC driver found on Renesas RZ/N1x SoC.
+> The memory controller supports ECC, software scrubbing, and SECDED.
+>=20
+> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
 
-It might potentially help a heavily loaded system if you can do fewer
-waits, the rest of the tasks running on the system will have more time
-if we're doing fewer waits for interrupts.  Not sure it'd be enough to
-write home about though.
+Disclaimer: I don't know the technology nor the subsystem. So, only some
+high level comments.
 
---jDLHmqGwvebW3fWJ
-Content-Type: application/pgp-signature; name="signature.asc"
+> +
+> +static void cdns_rmw(struct cdns_mc_priv *priv, u32 reg, u32 mask, u32 v=
+al)
+> +{
+> +	u32 regval;
+> +
+> +	mutex_lock(&priv->lock);
+> +	regval =3D readl(priv->io_base + reg);
+> +	FIELD_MODIFY(mask, &regval, val);
+> +	writel(regval, priv->io_base + reg);
+> +	mutex_unlock(&priv->lock);
+
+Hmm, a spinlock is probably more suitable for such short operations? You
+could even save a lock here and use a generic mutex in
+inject_ctrl_store() for the whole operation. That would work for now. In
+terms of defensive programming, a spinlock could be argued, too, to make
+future additions more robust.
+
+> +static void cdns_mc_err_inject(struct mem_ctl_info *mci, u16 synd)
+> +{
+> +	struct cdns_mc_priv *priv =3D mci->pvt_info;
+> +
+> +	cdns_rmw(priv, CDNS_DDR_ECC_XOR, CDNS_DDR_ECC_XOR_CHECK_BITS, synd);
+> +	cdns_rmw(priv, CDNS_DDR_ECC_STAT, CDNS_DDR_ECC_STAT_FWC, 1);
+> +}
+
+Bike shedding: I think this is too short for a seperate function and it
+should be folded into its caller.
+
+> +
+> +static ssize_t inject_ctrl_store(struct device *dev, struct device_attri=
+bute *attr, const char *buf,
+> +				 size_t count)
+> +{
+> +	struct mem_ctl_info *mci =3D to_mci(dev);
+> +	u16 synd;
+> +
+> +	if (kstrtou16(buf, 16, &synd))
+> +		return -EINVAL;
+> +
+> +	cdns_mc_err_inject(mci, synd);
+> +
+> +	return count;
+> +}
+> +
+> +static DEVICE_ATTR_WO(inject_ctrl);
+> +
+> +static struct attribute *cdns_edac_attrs[] =3D { &dev_attr_inject_ctrl.a=
+ttr, NULL };
+> +
+> +ATTRIBUTE_GROUPS(cdns_edac);
+
+What about using debugfs instead via edac_debugfs_create_*?
+
+Happy hacking,
+
+   Wolfram
+
+
+--UqtTpPdEAw8/aeof
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq2YjQACgkQJNaLcl1U
-h9BG/Af/VlsMwBCFOEYj/oDnzW99d3z6TFME0rFxNTBnEzGCGCwQXc5d7DSDtg84
-XV7214iwuiQXIFuZpbAXAETQ2r0W24h1lISlLeKyqlkKmBQ14RGQJNpUVmv80zqs
-aWk7Q3qFkWWnJJrPFNiApBREsaTraPIXydnWkx5khAjUNn5U7kTWWPbB+ohcsLEQ
-TFlyHV9six7mwAZeUMqz606OltqhLBHxPF8sKp+6/PhhlubMYf9DYtwGUHbGYVRp
-ucYW2ySARCKDuRWanGABrLA1DRuTUd9OLzx71srTgHR5Z2TsSvGsu/7kNvcnAw0c
-YPXZKonOnwLBQTzkS+gGouRWZDyAPg==
-=ueYj
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmq2Yr8ACgkQFA3kzBSg
+KbZ5shAAr/8OKZ/7lO7nzP9qwC6dAGGl+BQF/+TKZysk7iVjLlc7am4Rsd2YGft6
+XDgWa1JRn6abhfZpAIEb0wN9E5t7ukOHt0EaR4uHbzIgxtHrbGrIQYBTnafNXrBh
+4YwhX9/rqRUmjn34C6JUqO9cmGcf/DHVNMr0K8+XhXmJPit4zieQ1xCZ6S5B9kcj
+jzKOu36PuJz1l/w48IX6dEraMMyCKesdBbbZsImfNUNQ5vOLvVRU4MZ7dKlIeVX8
+lJrAhBr7n+NRSdXy6BUenS6dHAXWC6Nq2nmY7AbeW0RgJ8QPjYBTOMVeE96yCib2
+gxba6Yj9H89dC5tycvQC0Go9VZD0HMXp9vuLq/BLEFLbrR93PtUEdYmatr0/eifT
+y7uOikDsgjQkbuY8Th/g2qnxptDp7ZDDIK3WsMzld6hF/6lcwh0vg0+DPXILFpK7
+yMdgSt0rvsAkhtY5ZyeeCh8e5ckuVvAbD/xPAhNNMCVuIDg7W7IZyW3XexuKBrrk
+cI9Io7wiqXJMPQcmjcv1O60iar5xaeHzdNyVeAwunFsDk46cCE1Xu8HSNXFIAsdz
+BGV8Zr72WWoiTo8PK2uiKalE9miG/2d7DhAkpQMxcEfn1/+5K5yuGTSO1nVxcgPq
+ANBXvyUhxBy1WbVO2MCdTed46+YgIQJjShm2p6wkvqscYz62oz8=
+=sQh2
 -----END PGP SIGNATURE-----
 
---jDLHmqGwvebW3fWJ--
+--UqtTpPdEAw8/aeof--
