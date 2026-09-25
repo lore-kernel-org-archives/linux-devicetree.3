@@ -1,163 +1,260 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0241D48EBCE
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 10:24:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790331870; cv=none; b=d3TTuq/M2SUdomDu4ryK8hZmGFISXzZ/hw3V3fhSyyIv9LcQkhnPbNTLvkohd3woqoTFxE8keXvAdeFQMf8uIbkw+c6GfuZfFaJO39clu0uMINybazF9fZMi1aw820x5UoLGKzc4MlyaZHEo/2XSJWwu2eQ2wmHUTVYmoBYOoJY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790331870; c=relaxed/simple;
-	bh=//ydaMvuDcE3HJ/Z4qDQc9OC9a2+tOHr0C1rrcwouhU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cb6fB/zzNf2+oHsK/imMD5lGIaxmnBlvzyouPSlbE+wGzOHMwNXxFwpnXNdQ/NpglicFAQ2n2REI2MkhqlkNrmDQKxDBpK4n7MJAmlegF5CenfFjPGGAutseU95hXe7usVpo/jwd4riLdwJRSXuriEPLdx0hWSHoOCKoCcWdGEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EV2Q77qU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=B1kbhEe6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1C948FF6A;
+	Fri, 25 Sep 2026 10:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.34.181.151
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790331888; cv=fail; b=ASQ5meIkdE3S+VAtx1Rlm3ax3JsRoe1WKaPNXjhY2+oA+UsGv2vJWbymEMvNpADJ6Gwn5uxfCkYhMwr5XuZ4rkBv4hb7XV7kbFxuXXtMdPRnpqLoQc0+2EWkBhRhCFygFpr+vU91mCq5X4KVbDsb7NIvU4/hxwpURwv3xssvfpQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790331888; c=relaxed/simple;
+	bh=J/i/Y0nPhDlPzhd9yL5G5bnReMdXqrY/McIkpbnHScY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gfWmcR2hNjI5LB91jJlLHE+tNdxWlfBHVxDZYT0d96YAVH1mZXpSR7qgCWQeOMqdcu7Ti/oWiWEGqoEOFbOYLLEsObfpxOOXqzmgERzaUxOSgOV4ck394dpFv9bt3IFCkDvquGzWVxeF3IMbEPqmu3L2eYEk8JrRN3intTWRMhw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=ttQZ3jih; arc=fail smtp.client-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EV2Q77qU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B1kbhEe6"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4Yc201193858
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 10:24:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GxkbBoFwPDC5kONFYqfHLm2ecZsOlzpQCPq3LAhmLTw=; b=EV2Q77qUK94/KmKi
-	NqGEuT/29qQItlpYMJVwpn01J0n0VFcAeDoA7TC50z7Y+kccdrnIAmdYgvEza8KQ
-	j4Y6GsDxxSGQsqkwKW8mliB4Y4xDsioOUvi0AOhKiDMB3QhzEQw9oSBd5yHaf6gd
-	P++Z7EiEXL6G9rLQZ/T67DPbcRDaSvjxiFuaV8B3AIpmbONfl5KDJJ1i6SfO3lpJ
-	rvFrH/5yWxeQOiTDcX16KCQFQaBtntIn5UcseuGzm0DxK9FMEEHHVAa6KshexUlK
-	gmEQXsL9TVTN8m//alk69bSKi46Njh0+la5dEEOKfudG7Wbc2UHCzrlvm444haF/
-	Eapfqw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw874k1h5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 10:24:28 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso1183866eec.0
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 03:24:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="ttQZ3jih"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790331868; x=1790936668; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GxkbBoFwPDC5kONFYqfHLm2ecZsOlzpQCPq3LAhmLTw=;
-        b=B1kbhEe60OnvQXYVIj8+ejiV3u7ItdBh2vrOnYeDYjQRQ+IbKtb2oavKeuYDs9EIh6
-         jBE//AM/J+t4hdJIJqceyTNdf12gKZ4AXTXI5kbgab55eCIzgyqZPuD474phwQyl9ZS8
-         ZeS4JgqqEYZEyyxPCgNfkWULJUdViYHYMgZd65nJkaTx7vLPeB69va7Ix+ARESfSo2Gz
-         PWaoBxMEgGG3ZzkigMia/ZkKY9Iq9lfC7P62oNrlq70kEjae7dC9qmm2LxRfQR8Iu9r2
-         LpkgIcuMUxeWEHVB3Yk+X8wBdMfyaBhPuofnPPwRgiP9KueDiImo6mf3lhusTBfiO45u
-         ysuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790331868; x=1790936668;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GxkbBoFwPDC5kONFYqfHLm2ecZsOlzpQCPq3LAhmLTw=;
-        b=bu8cF444xfmgCLwMumY19sOCJz6XEk4L9qtopLDg8OjAITQI9sD5PT3KedDVgaMkyO
-         iDkIKhRc1+o148abvVQSd7gWEDBmHBjWlFF1INaWFZfqiRvfeBf7eVZtT05Zft300lFc
-         iZ8ekCEq2l5n2vqVMRLYS1rbMYyHsTaI96SXsIZylVkyr8rLND7uD0lXHcbzVztxCcAY
-         ahJvJY4FttKjdlAZa4TtPTbrvPrmbUDf02QBJRhlgVtC+qfqKnQakykEsuNvZGWnIQUA
-         EfUM6ts1ixMwSAyg/Y8DaCibqgO4pZ+z57ioYxTUo1NCQYTs78XcTmkLnDTqJBIRLCj+
-         vejw==
-X-Forwarded-Encrypted: i=1; AKwUvBwkWP8jLXUxuYHFlfOTMrl85gGJDLOl26aKXYQ90XmCCa3s39biEyXvYIctnSUSHoEWGaj3PrYDxiso@vger.kernel.org
-X-Gm-Message-State: AFuF++nv2/Ulc4USgABaMkX6FdTaegaeOVVKT50XvVIHk3ec20JBHD6k
-	2A7SmRDniXA8zuYwxSlBA6UiR6fJupVdux6dBKHZ6WAHmKLYBpn9QVzESn2NvOLM/5D0rVB7pgW
-	DKFNuW+XqkmdcVf8LjRwIWUR5dzMLJgCIryySXMJOsG9GvXy4zZAng9IwNF/djBixet/2sfG5
-X-Gm-Gg: AYBFou2nMEmzxbojd9zkF3/9Dnv2ZgaJDHY8LcPP5eiI/sbt4q7iOjyo7OFN4cXPBXH
-	o0NAix39mdwQFuLveZcAJwfy82bRFQifkI196p7gDfJBnSv4gHkkqQOZt2/7jjcnUf50NGYwOd6
-	Hi0xNSdRNV1aU8lhtRAJF2aFNFmW75kF3Usqu5TKqwvtIvv3MJHa8b3ELe1B4on1vdK6rSExSN6
-	dP7VhMr6YETo39dpg8VFg0787sqDDqPiOJPJu69lC6pBV99h6GDtglODnpiEYATHAwmxFtuysCn
-	bUZi3MEFN4c5txpJJmjV7cdp5FkiOz42fb6m7N+PRmSJifoBdRZ2pyJoZJktqDIFFeqUSWd0ESX
-	oTY35cKGHGVKcWIXjbB+NPEqiQ5DhIA==
-X-Received: by 2002:a05:7022:e80d:b0:143:2719:566d with SMTP id a92af1059eb24-145040d4075mr5212171c88.41.1790331865628;
-        Fri, 25 Sep 2026 03:24:25 -0700 (PDT)
-X-Received: by 2002:a05:7022:e80d:b0:143:2719:566d with SMTP id a92af1059eb24-145040d4075mr5212136c88.41.1790331864761;
-        Fri, 25 Sep 2026 03:24:24 -0700 (PDT)
-Received: from [10.217.199.117] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145aa0cb7bcsm4598842c88.2.2026.09.25.03.24.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 25 Sep 2026 03:24:24 -0700 (PDT)
-Message-ID: <53c6b966-a6ff-4b91-a2b7-d7faee5a6605@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 15:54:19 +0530
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790331886; x=1821867886;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=5vrHKK2wXIq80+k1Q6gIa/NKdEv9mZ5B5ZkDUsD2RxA=;
+  b=ttQZ3jihNbmv+2CWWeyR1Q1C15EET6KBys/9FCxWj1kgsKsAi1CTapzM
+   mAPHZeql7dBZ4dAXZnM0BqGruatjHyUPqQijDXQcfVpp8oRKQz8XiqEB+
+   /Nc3WEjPSkVk7NPIihzXI5fzjfy2HFWSwMmnT97prMITpSE0R/eeHTzkO
+   3EwG3kPIKNw6yrZXSsLwgFzeFcFaGqS1uxpW4eyX5cdeBFd4Y+QpROISI
+   HZqK/8ya7L48R24uWpBf5/y2Acu1JCbHD7ENVH8KKgMAw5tHb96TwEvwY
+   paTx2yMmeTIIzNSG40+2KCeNJHpA0I3Cjfw9d/XEnTeql+7FQcLj/AyFs
+   w==;
+X-CSE-ConnectionGUID: Jk/E/QghTh6FAUPXuh4d0A==
+X-CSE-MsgGUID: 8hVTuLnwRN+KhdWu7pDxFQ==
+X-IronPort-AV: E=Sophos;i="6.27,122,1787011200"; 
+   d="scan'208";a="29615324"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 10:24:43 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:5004]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.31.110:2525] with esmtp (Farcaster)
+ id 96857ec7-60e9-4899-b681-4712c8755220; Fri, 25 Sep 2026 10:24:43 +0000 (UTC)
+X-Farcaster-Flow-ID: 96857ec7-60e9-4899-b681-4712c8755220
+Received: from EX19EXOUWC001.ant.amazon.com (10.250.64.135) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Fri, 25 Sep 2026 10:24:43 +0000
+Received: from BYAPR08CU003.outbound.protection.outlook.com (10.250.64.238) by
+ EX19EXOUWC001.ant.amazon.com (10.250.64.135) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49
+ via Frontend Transport; Fri, 25 Sep 2026 10:24:42 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cKG4bVs48/MSx+92Iy/uNrPjMrnHVEJ8muKZ8DiTHZcarcYc2ogDMGxL9dzO5XP+mIQd8ittTsdL/w09cAJzbWkLSUZKNbEhUvxQ5iz6h1nGkiG/RcDRPK0eB6++vtQSNPLe8oSBNys1+rK8qn9B8PsHcr2qgbDApTSaNvRdt0bgdZcq5Ccy3CMpOBH4BuxdNBWclaYj8RnOXY81axiXZ2mVtYBUyiGeN2xxpEWrf2Xh1IKA6m4IFGuLjUEEx3MRgDeRRUtvTybfOg3RP3NSlHE3UwO9sl9X6x6ja1dbce6PUnTPtwHLVT9PC9cDban/sbwFAR3E48o93t+ce2RCDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5vrHKK2wXIq80+k1Q6gIa/NKdEv9mZ5B5ZkDUsD2RxA=;
+ b=yjy20b2jgV1bYrKWFXyg8qOTnHgGPcNKerxL8E94zqSBwoCFof9sy75vodnlGQF1BUC2rlmpgUOWIK8PDzvLOcWVU5mrrfrm+yGKrvHN8SF2guFuVr3V77guL0FoMGJcopkUuX/SdM/SHz6oiXBgbV1/snepgfW+apUId4y4XOHAqlYShSpU1HYQYIZWZBpvAEVkNKGMda22pyoTSiquANxyKTjJUAoAx8q9fCbXah/aj65tK84t4oDtp6FMXewVtmZst73pNdyIduvF6H66GPkJz7SPkxIx5qpMRzrXWSOtGJJlTYgdnY8TVQwSCnMCj6qIlLeTAKgl2X4GzPGtJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amazon.com; dmarc=pass action=none header.from=amazon.com;
+ dkim=pass header.d=amazon.com; arc=none
+Received: from BY3PR18MB4722.namprd18.prod.outlook.com (2603:10b6:a03:3c9::19)
+ by DM3PPF0C31ADAB2.namprd18.prod.outlook.com (2603:10b6:f:fc00::688) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
+ 2026 10:24:40 +0000
+Received: from BY3PR18MB4722.namprd18.prod.outlook.com
+ ([fe80::e307:5f61:2694:b219]) by BY3PR18MB4722.namprd18.prod.outlook.com
+ ([fe80::e307:5f61:2694:b219%4]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
+ 10:24:39 +0000
+From: "Farber, Eliav" <farbere@amazon.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Thomas Gleixner <tglx@kernel.org>, "Shenhar, Talel" <talel@amazon.com>,
+	Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 3/6] dt-bindings: interrupt-controller: amazon, al-fic:
+ add error/fatal groups
+Thread-Topic: [PATCH 3/6] dt-bindings: interrupt-controller: amazon, al-fic:
+ add error/fatal groups
+Thread-Index: AQHdTNgRRepjaZTOqUC/TzSfSAzaZQ==
+Date: Fri, 25 Sep 2026 10:24:38 +0000
+Message-ID: <BY3PR18MB4722BD55C256787423DB5CE7C6802@BY3PR18MB4722.namprd18.prod.outlook.com>
+References: <20260924062311.37308-1-farbere@amazon.com>
+ <20260924062311.37308-4-farbere@amazon.com>
+ <20260924-majority-amazingly-58df3d86190c@spud>
+In-Reply-To: <20260924-majority-amazingly-58df3d86190c@spud>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amazon.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY3PR18MB4722:EE_|DM3PPF0C31ADAB2:EE_
+x-ms-office365-filtering-correlation-id: c470d547-d954-4e0a-93e3-08df1aef34cd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|10067099003|11063799006|5023799004|56012099006|4143699003|6133799003|3023799007|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: CMrTbq/lj2ldR7qH4/AnaSznMZHIJYosWxz3yMbOsccD3Sg1A3gDUBPPiCjt0zLqiKRel18w8eCg5d4pgrhspc+ir3sVktMTVpiSanTCNXGL2b1Lky4BaQxIUOowklIEvk1YTpH6tC456fbf9iNrIKF5VztZz6tacY51weugHskPhVXjyNSA0oemmLzQJmPAR+I29v0zxcjP73utf4Pz8HYZGMy8wxXDbMuHsUd5u4Gt7J4zDr9UzxCLn80Yjlw82bMSqUvXBKG+ISOqrq1pm7p8jWBIhIUiZA3Wb7woh3V5GPCXY6O55pk9h78mpR6UvP/EmXIqXnCoNd3v1xFU6PsW0jmDaql9TsKE1BUc6xzXUjXSESuXUBnm+JBLLz1rnRulgMO/qNeFz105TnMsyZ9AbqlwgMxqCiRTgCWGUP5MEWb31bYiq6dHsCCYJIkdoRttNcpdSfsHZmvivDKjflY0MvUdfZ47TO9FCOBj21J9C+bhtuF5Ym+4ScCvQVScsmerCXVeQvjeLL9qlv67Zeal2lBbDulrbWAm5x844dLm0tqxzKNrHlG37zLtVZYLfaTsB79ZsMT4aOWtCsimByAOQXImsVABYLZnSRjI5J1wNpP9hZ6DRmRvo/hOkhMUpWYdcNjZ71eOfBokXaxpP7VcW2QMsL/rwJuitJ9LKSugRV0YAcg4C1cugppCZPMkUJOJ2FoFnVlchpfZwB5UopraRJvGG6unMJTtvdarvCk=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR18MB4722.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(10067099003)(11063799006)(5023799004)(56012099006)(4143699003)(6133799003)(3023799007)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CpqyVY6aogm62rELGvGLHbo9MNis7Dk8pZ+92PJ+Sgn9vm/TGuaaMx6DkZl/?=
+ =?us-ascii?Q?IEZ0dy0hSNhcwYv/fUim0cwN62wffuug/BRxVWr29mWlzcSrB5yGH9yPujwx?=
+ =?us-ascii?Q?kjft5y4eICSL1bLffG+3BQD1aKWN6SlWHewkp/+zKRQf6Rm4BJSEK0PF9uKm?=
+ =?us-ascii?Q?yHbH5Dc5tu/t84Vso5wMcsZSZofZXUL3x6jGrAaTynb3LADWa9JABkYP029f?=
+ =?us-ascii?Q?6coYYNz8bOeWvrs6tNPdGo6zWlURKsG2z0sOxvOQAncHKTKTWvwnVC7O1Z44?=
+ =?us-ascii?Q?t0QwsJecB4lyDmxGZD0PG0u6G3fRqqt0luzZh3G+u8oAcdQ7S9EXpVKiifIi?=
+ =?us-ascii?Q?HsdmEFqTO37mnKGTGkhyWLEOO13H6D+UgYvRXolVwIZx+tj1IrG7yi06zycR?=
+ =?us-ascii?Q?FBRAzfIVF9OmMT3cuBzjhiKJyXtTKQIsJErX12NTQgVOeuK7Ja2HVDwVKqhC?=
+ =?us-ascii?Q?8vN3tW2XtB04XZfdqYctg3I4QJSA/EwuL1oS+8eBObDxn56XcfiTRDe0Blji?=
+ =?us-ascii?Q?jTQRLLcIRZwMEabHQTVAkT8Rg0AsdJ2Yp4D7cA0O+pe49TsI52qoBNv5pNaZ?=
+ =?us-ascii?Q?1LkTImalJ5HO+8fR9lhbq5m5VVH2SDu+3K8v457Tr1bGpMLZ+8nQVO/Sadp+?=
+ =?us-ascii?Q?HLwoBr1y6atIU/IImPcQW4pmvw283sjNdns16AAiLImBFqsv7zvPjD4hgqoN?=
+ =?us-ascii?Q?OjHER516nOUqwM/u0anqO+gykMr/V/3Dn4JgwfOmWNnGtE5nRZSHwq/q3dvX?=
+ =?us-ascii?Q?d5nXWdQF3r9wLTueiIItkQsRsIMb5D3w6+dRqGZtlKFHuT/aAFiymQYh+TQ5?=
+ =?us-ascii?Q?1gh40xh/75OXDDmVzUcH16BkdgsUwCRjO0trXJIcDBVoTBxnoZ6CKq/4lCy1?=
+ =?us-ascii?Q?6MoqiInmWumbufc1PQccghCKGGUgiE1tA1zDHBErPGTkbh+EBxtpVEAkCpQx?=
+ =?us-ascii?Q?tDbc4V88rC/l6X8jbZml/DNV5ZswZylrfqcGvla2jeEgovCgZBTwHDi19R+p?=
+ =?us-ascii?Q?JUodSavDPVkZu5pVtKjitig78gb60TwvX/Dwzf0LsSk93p9e82GZEcVdOP/0?=
+ =?us-ascii?Q?5vmMrvff0z6eSxESPhxlVpL+9RjiuCIWtAiduxPDvwdSwIHX8WHZ1G9KGxbp?=
+ =?us-ascii?Q?iPI+NybpSp6u/V1Gidl0BPT00HHvvKhfrLfDsDGhABvHYjeESl7jdjjI0eRE?=
+ =?us-ascii?Q?kuxx79uzsSvp/6OJ49XYdTM3Q/ZTGW9h2vWe0+81u9flTSX9BOUsHUy3upmb?=
+ =?us-ascii?Q?qY0+JPQFs9zDS+cQX55tx9p7Dx+5GWv2NKV+9pHuHXyqPjVRb3X3knuylq3S?=
+ =?us-ascii?Q?ZIgQqJEKFxzrh38Wtj0Dco1GNhpJzKplgYD9a2sCFRyh8wFrfr5I6gtSKoPz?=
+ =?us-ascii?Q?tgSitKGa9V/P5PzMfW1zY7aTSNjfjaeUQ8pdxHr/PJwnrDVDForvuFteeIRH?=
+ =?us-ascii?Q?4LjPeRmSJPnT0qQFb8hUtjMETbUZ7XqJv8lEAKQgF3kTLGTphiNRilWD4SpF?=
+ =?us-ascii?Q?m/emEa4UnfWpFqfUndUBn7He584jqmjKbWe7PknpF1ltO1+3vrLvrv9ioIF5?=
+ =?us-ascii?Q?PvdOiv1/Y/vN2X4B9MFK6SqYV/NdfhzeGtRhyXnT11tMQJjLcZUrmC+JCw0w?=
+ =?us-ascii?Q?3Caz0A8s5eskilb9q2MiqtBJE9GillxzwSkblXiHTAXsulD6VoRuRror6AEf?=
+ =?us-ascii?Q?IrBOZXouba8D13LActYjfVkR+eMjTI2+RBlOdcEs2qaJV6lf?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: shikra: Drop CPU critical trips
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260924-shikra_crit_trip-v1-1-730c48fa998e@oss.qualcomm.com>
- <xa4gmzdccrububsmervkbtwqpddsbikubvgsqksypqmx5oih2q@q2hz6tadbmu5>
-Content-Language: en-US
-From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-In-Reply-To: <xa4gmzdccrububsmervkbtwqpddsbikubvgsqksypqmx5oih2q@q2hz6tadbmu5>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 5UECI7boJq1n7CMpIM-yy4IXPvhWK84u
-X-Authority-Analysis: v=2.4 cv=MI71C8Zl c=1 sm=1 tr=0 ts=6ab64bdc cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=azjQQSWQslUy6IvBT_cA:9 a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA0MSBTYWx0ZWRfXyV6Utsup25nb
- crjsOHgo56O7Ndl15YjwpCZt6+lFMooMuhlntXQVez3BQTvbN9wbJYnigDzW23Vjt3ng7HK20Y9
- 2zDN1FxvEdn/1reCX5H6yzQltbdjwMK/yLx2tmrN65cSqS937wVSYiS93xgKPkV8f7FRfUuIO1G
- k1b+u8BLpYbvRfALEWjZlg78ycNSAw3+Sg4k5sjaXFUMpEEjjjTZaeotHeAPOnZn4Ynh43luVfU
- UkhdeKPfLrVoiEm4TPk7muwdNCP+F50bPMaydglgnCEXfWZzDDZ85xG/iWcudGdaqbNPZgLEqIv
- l4RgVqrGLKpswX3unf4lg/CpVkOIeF4dpRYNC4Cyv7VKto7IBfO0hEsZjpj5LWjna+Lvtb4OnI9
- ennOrz6i/0bsyrfwoMw/K7s0y1KkVpJd8M/Lov//TzwymRyP8CEdLcTKDajvX03gb7zoeyvwmuU
- 8bNWcLttB0K9E7adJ8w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA0MSBTYWx0ZWRfXz9B0m9nbiAvd
- mU8pG6fPl7Af3cZKqT9bZuptdQUbkcMEI2e5btqqmjrlM0q5ZJGAkyp3+O6butqWdpXFe9n7x5Z
- F+hhg8VQtlUkCouXrquGFuFdZKpTbHs=
-X-Proofpoint-GUID: 5UECI7boJq1n7CMpIM-yy4IXPvhWK84u
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 clxscore=1015 spamscore=0 priorityscore=1501
- impostorscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250041
+X-Exchange-RoutingPolicyChecked: vFchYi5nNR6yIxLScBJNoeAoCm0a3qBxluS+iY9WkZwn+XPPwWdZhh5EiCBmhPvL+Q/v86xkEuyCkbOJHgGduPanBc85CGLWP49l7mS/i76SxIX5jcMt0iL0A/NpUdyrkfs+XRNgjKs/1FGloPOe4seEB33hLa9j4QNtqSKD0cWYCkOMxII+yUxurVSzuUYjlGp2JbBP0eu2K7Y3KmrT6JGVd/gj6WtA+XEtAVcbROtNDP9/aWxlNDg9tYkE0RrIgWLREJUF9q2ShF9bm2kZ9VoALBIErskRoZLiF4a4SricdoWCKNhxUhifGciI3IiT4CB72rEJyXYvYslbDTuMOQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY3PR18MB4722.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c470d547-d954-4e0a-93e3-08df1aef34cd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2026 10:24:39.5019
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 08laiAIqHjtSQ1CZ0439p3AwYsVHXaRB8E021jJFY89Oeyx46tvh+L0ThVFk+oxSe5P8SaD+ox4FfGqwQyoBqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPF0C31ADAB2
+X-OriginatorOrg: amazon.com
 
+On Thu, Sep 24, 2026 at 06:13:52PM +0100, Conor Dooley wrote:
+> Without any explanation relating to hardware, I find this very hard to
+> understand. Nodes and compatible strings are devicetree concepts, that
+> portion of the commit message should explain hardware detail.
 
+Agreed, the message failed to describe the hardware. Here it is, and v2
+will carry it.
 
-On 9/25/2026 3:13 PM, Abel Vesa wrote:
-> On 26-09-24 19:52:32, Gaurav Kohli wrote:
->> Shikra firmware handles CPU thermal mitigation up to 117 C, while
->> Linux CPU critical trips trigger at 115 C. This can shut the system
->> down before firmware reaches the end of its mitigation range.
->>
->> Drop the critical trips from the CPU thermal zones and leave the hot
->> trips, non-CPU critical trips and GPUSS passive cooling map unchanged.
-> 
-> I thought that was the whole point of having the critical trips set to
-> 115 C, so that the kernel can gracefully shut down before firmware cuts
-> it off.
-> 
-> What happens if CPU gets to 117 C and the critical trips are removed?
-> How will firmware thermal mitigation handle it?
+The block that this driver calls a FIC is the generic Annapurna
+interrupt controller. It is built from groups of up to 32 triggers. The
+number of groups differs from one controller to another. Each group has
+its own 0x40 register block.
 
-Thanks Abel for review.
+Note the granularity, because it decides the shape of this binding: a
+node here describes ONE GROUP, not a whole controller. reg points at
+that group's 0x40 block, and the 32 hwirqs of the domain are that
+group's 32 triggers. A controller with several groups appears as several
+nodes, and controllers cascade when a tree needs more triggers than one
+controller has.
 
-For the CPU thermal zones on this SoC, hardware-side mitigation is 
-already available at 115 C and 117 C, and hardware shutdown is at 120 C. 
-Because of that, a Linux critical trip at 115 C is not very useful. It 
-overlaps with the hardware mitigation range and can trigger shutdown 
-before the firmware thermal sequence has completed.
+The group registers:
 
-So the CPU critical trips are removed and the firmware/hardware 
-mitigation is left to handle those thresholds as critical is not helping 
-here.
+  0x00  cause
+  0x10  mask           gates the INFO output
+  0x28  group control  revision in bits 29-28
+  0x2c  error mask     gates the ERROR output
+  0x34  fatal mask     gates the FATAL output
 
+A group has one cause register. The mask registers decide which output a
+set cause bit drives. The classic revision has neither the error nor the
+fatal mask, and neither output; the revision that added both reports 1 in
+the control register, and every group reports it in its own.
+
+The SoC carries INFO, ERROR and FATAL as three separate aggregation
+trees, and a unit is required to keep them separate: mapping one event
+to more than one severity is forbidden by the interrupt methodology, so
+a group belongs to exactly one tree. A group in the error tree has the
+controller's ERROR output wired towards its parent and its INFO output
+unused. The error tree terminates in one dedicated GIC SPI, the fatal
+tree in another. The two trees differ in trigger type as well, error
+being level high and fatal edge rising.
+
+> What this sounds like from your commit message is that you have a new
+> revision of this block, and instead of adding an al-fic-v2 compatible,
+> you're using two new compatibles to describe the new features and using
+> the old compatible to describe the common featureset.
+
+Not quite, on both halves.
+
+There is a new revision, and no string encodes it, because of the
+granularity above. The node describes a group, and the group reports the
+revision itself, in its own control register. An amazon,al-fic-v2 would
+put a controller-level version number into a node that describes one
+group of that controller, and would duplicate a register that same group
+already exposes. 4/6 reads the register instead. v3 reports 2 there, and
+differs from v2 only by an erratum in the two new mask registers, which
+is why 5/6 is four lines.
+
+The strings name which output of the controller is the one connected, and
+so which of the three mask registers the driver must program for this
+group. Nothing in the block reports that. Cause, control, revision and
+the 32-trigger domain are identical in all three cases, and the choice is
+fixed when the SoC is wired.
+
+> Without a dts, I cannot say for sure.
+
+Fair, and there is nothing in tree to look at. The driver and binding
+landed in 2019 without a devicetree. Here is the topology, which v2 will
+add to the binding as an example:
+
+    /* group A and group B of one controller in the error tree. The
+     * controller has a single ERROR output, so both groups reach the
+     * parent through the same line.
+     */
+    err_fic_a: interrupt-controller@fd8a8500 {
+        compatible =3D "amazon,al-fic-error";
+        reg =3D <0xfd8a8500 0x40>;
+        interrupt-controller;
+        #interrupt-cells =3D <2>;
+        interrupts =3D <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
+    };
+
+    err_fic_b: interrupt-controller@fd8a8540 {
+        compatible =3D "amazon,al-fic-error";
+        reg =3D <0xfd8a8540 0x40>;
+        interrupt-controller;
+        #interrupt-cells =3D <2>;
+        interrupts =3D <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
+    };
+
+    /* a peripheral's own error group, cascaded into bit 6 of group A */
+    interrupt-controller@fd8a8580 {
+        compatible =3D "amazon,al-fic-error";
+        reg =3D <0xfd8a8580 0x40>;
+        interrupt-controller;
+        #interrupt-cells =3D <2>;
+        interrupt-parent =3D <&err_fic_a>;
+        interrupts =3D <6 IRQ_TYPE_LEVEL_HIGH>;
+    };
+
+The first two nodes are what patch 2/6 is for. The groups of one
+controller share that controller's outputs, so a real devicetree has
+nodes on one parent line, and a chained handler can only be installed
+once per parent. Cascading adds more of the same, since an aggregating
+group collects many peripherals onto the line above it. I will say that
+in 2/6 instead of "on some platforms".
+
+Thanks,
+Eliav
