@@ -1,103 +1,79 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1AF4DD3C4
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 16:28:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72884D2EF8;
+	Fri, 25 Sep 2026 16:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790353717; cv=none; b=JVGZG8KWEwM1kDKy2gTxduKclNQRbvfdTUhDnBo6JwxXJrgPPYBLVXf6N643SPZk9C/C9TUDGuL5LyDtivs4oBfmbaEDyWTPV5EBEgJCkVHcbwC6ERG7mQMOmHFHpm0tic70K/QO5aUBx+ROSTwZhCLjESVDKtqEVt1YsJeW880=
+	t=1790353858; cv=none; b=eiGXTA7kum5xqp8mpitn6ZjjGOMDyAHAmZiiUm8Uivxfu/1Vp7OQy9ABY/QgR+QbWGkicnEpYFVkYvNgqV0fPm6P3mbXw9vlGT5v7ybATryzKs3Yr4tQBMFDn0zkbMNjKazipCvGtRVZoKc5HXI7WZyx9mOQS18R8P37c3xZbF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790353717; c=relaxed/simple;
-	bh=l+2wzoIOJ5TacTdwjQJG0rDHJINOx2GRB1xkArKzQmQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sCbyr8e8szUG6UFS4TGvvuskl3pwBOOBS3b07K6d0QYYfRY2bcSECkxz9y+zcu9GRmA2hnYxRd+q6zZSOlPkRvbOiGC/L8SaG+NtMGqmrTWlHsz2Qih5FJfRwDpNGcJWoAJln6pYQLRy82g5aa5jLWywDgjbVrRKHuXHU5WarBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NmglRRCt; arc=none smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790353858; c=relaxed/simple;
+	bh=rwI/7RKVpuopW64FwmHehrBWEq8obtox3C2g6q/otxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G4kLNIf4E3gt0g60+RaNJ8orrfoHUtNY12eZfPEk6ExtRTxOeue0teaTwUR51AHS3XPybh+U+afPKbqJQfUY0H80Z+5rLiTl1QzSbn8qgymAwNROBbD9RzfZF3gCRvm1FSxtkRoHRyCzclWkWWgM3BytekpliZW//U6ccq7PKjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXTuyUJQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NmglRRCt"
-Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a0b6200eb0so788821a91.2
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 09:28:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790353713; x=1790958513; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GwpFfXPotsrRNWGW8QfW7lFLTfBJDFVvrgvILRfxIY0=;
-        b=NmglRRCtysELuQ+WhQ0EK8Zcvj6wIkxsZ7XLPhTxeY/C5+gnw9eds089MTLvdhZSFu
-         iS1VSS37awT5pOsLretvGGyqAkcol8c1hsA3HufkGDLF3MXl+9PjXbNfl9t8859LOEgB
-         sh5SEZ2a6gn5YQewnKhx86J8PsIywk5Je6do4HVJ+XLdEE7JASGdq6uW7L4CxikW5mWZ
-         ufE40xJKc7ybYh7ka5gGXuo2WCqXkbxkEvjQ9NYLDkrYfAo/xOjRfKkzu23rPt+VgyR9
-         ixnuy0iQsZ8xwQi5KJUROV+hK32yg891V8swgVFkUPUb+TCng9a6feaMsJ2qAObtNHRn
-         JEKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790353713; x=1790958513;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GwpFfXPotsrRNWGW8QfW7lFLTfBJDFVvrgvILRfxIY0=;
-        b=h7QHg5gc5qLIFF+/IlsIYAWiMh5RBQ/aQatB+Yo3WRcZkTvJ77StysU8SU3zfwkfaK
-         kNSm0H72vibNAE/K+czcpZfChs4C9PkHA8fVexVv1zqYPUEz0MtB8dW4Wh2LwQoF6rST
-         Xiiy37K2K3h/4+6RzqKD/5SAkv9CCrl/QQTx3o+6W+AUyGMZrbl3QInUac+6qPi909Ob
-         LVfPy5x7qBFjMgJ2/3FRChNk2shntNeZc7Ltl4AZxi0WbMTbkO5pcQVOzavKL1yU74mq
-         IrUX6Izggj88s61edWIqujXvUhzDa5BtD95NodQhTY/m04X2VB2Wc/wHrLpAczJ8yUUA
-         K1nw==
-X-Forwarded-Encrypted: i=1; AKwUvBzoCs8tP5ThfJ7aJiTLV8AkksYFFw/t0X5X5bbW4/RdG8W/PQvMz6epQmYierIoz954t9/mD6wwaZvg@vger.kernel.org
-X-Gm-Message-State: AFuF++lEiD4la2UQslAeUGjbZzz62k1EzvMX1nYiIpMSG3qsX2RSgOVY
-	PMLcrap7EFZeYRE4lRX9loHIGUT3veNgOP6DAWkHAWadWJtpEIxJI7tr
-X-Gm-Gg: AYBFou3+kGbuNCj0YROCmrDVFK0/kAlOQVcIDHVDukOzZzVdBnzx/dTNb9ISMoWdd6Y
-	OMfhkvaHjE9vQp7VSRqfcqQ8XalidYgahI4gP43K1Oxkscu9oiu68tq2R3j28eIFspICCEGl84+
-	2Pgmpwyy2qpDP88o1CJHud0LM3uOQAEHEef0iFsDwSzgaEeDXFYgaTwFdn7uRoyCWXITCbSEd0L
-	+KOzs9worAgmG7SecjZNP5agnWiAijBMsF1tie7ThcLOKnpQFKSiC6W6xUDlLESSn57yZc1OO8f
-	e6hDdRUEbWlTwLYHj/ivs65D8CJ3b0boajcmm74punCi1J28zKRayxESUHCXSucS/uztfZKd7YL
-	WJcgR0oZAwSlppeTfEQ1nUB2n0GtU7CQ+wXE0PoyHPjUoOqzsk1V39sG4cmEwhY2IlnLGdc09BM
-	fyoA40yuOODQJ0jF7Lr0SDY1F4h1sYGPbD0oPqUM8JbrkytU1O1lQuGB84Azqg0XmvFYkgD/ci5
-	3Ex8OmiGrC13A==
-X-Received: by 2002:a17:90b:1350:b0:39e:6c6a:656d with SMTP id 98e67ed59e1d1-3a0bb630128mr2176047a91.48.1790353713455;
-        Fri, 25 Sep 2026 09:28:33 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c7435sm12169939a91.11.2026.09.25.09.28.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 09:28:32 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 25 Sep 2026 09:28:32 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Colin Huang <u8813345@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Grant Peltier <grant.peltier.jg@renesas.com>,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	colin.huang2@amd.com
-Subject: Re: [PATCH v3 2/2] hwmon: (pmbus/isl68137): Add Renesas RAA229639
- and RAA229640
-Message-ID: <2301d0ca-9cfa-40e9-8250-4438d30a0059@roeck-us.net>
-References: <20260921-add-raa229639-and-raa229640-v3-0-b104ee8a70b2@gmail.com>
- <20260921-add-raa229639-and-raa229640-v3-2-b104ee8a70b2@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXTuyUJQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D52E1F000FF;
+	Fri, 25 Sep 2026 16:30:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790353856;
+	bh=4fULh+l1B6/QfnWfkwgXEXAOf4zGK0ZET5rXOX80kJI=;
+	h=From:To:Cc:Subject:Date;
+	b=FXTuyUJQpVQSZUT4PtOeGhjkd+SQpo/wfKSALQ4bg98jx1P0j/9JVPxmJICkNmj4u
+	 v4ilk0Sp35vDZQRi0ZcmMKxeQ+s/u/UIf15BC8xEfMUF2ORO46OrpUCcbMaQN+cWPh
+	 2mtp3G4a8lomdAki3Qbu7wAhOjZSxrmk95e9Xjk3G85AUK8O5gWh7NEUmA7+z66+w4
+	 QtbXIU1fTfw1ysxGYjOjMrtJk0/MbmUfdtpTPHTGvgAqTimDfB/PXlP4xmR9RVPuNS
+	 Aw2WkRgV/kc2V3zskKvwL95nlN6kH1Nbd0RaOdq0caydlgd+nOde2vZguhu9q5RK6I
+	 3S5/pjLV3v79w==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-mtd@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: mtd: arasan: Add "power-domains" for ZynqMP
+Date: Fri, 25 Sep 2026 11:30:44 -0500
+Message-ID: <20260925163045.1920345-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921-add-raa229639-and-raa229640-v3-2-b104ee8a70b2@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 03:16:36PM +0800, Colin Huang wrote:
-> Add support for the Renesas RAA229639 and RAA229640 PMBus
-> voltage regulator devices.
-> 
-> Both devices are supported by the existing raa_dmpvr2_2rail_nontc
-> driver variant, so no functional changes are required beyond
-> adding the corresponding device IDs and OF match entries.
-> 
-> Signed-off-by: Colin Huang <u8813345@gmail.com>
+ZynqMP NAND controller nodes use "power-domains" property already, so add
+it to the schema. As ZynqMP is the only supported platform currently, no
+need for a conditional schema.
 
-Applied.
+Assisted-by: LLM
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+v2:
+ - Drop num-cs property
+---
+ .../devicetree/bindings/mtd/arasan,nand-controller.yaml        | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Thanks,
-Guenter
+diff --git a/Documentation/devicetree/bindings/mtd/arasan,nand-controller.yaml b/Documentation/devicetree/bindings/mtd/arasan,nand-controller.yaml
+index b90d3b48c2f2..7154245b00e3 100644
+--- a/Documentation/devicetree/bindings/mtd/arasan,nand-controller.yaml
++++ b/Documentation/devicetree/bindings/mtd/arasan,nand-controller.yaml
+@@ -35,6 +35,9 @@ properties:
+   interrupts:
+     maxItems: 1
+ 
++  power-domains:
++    maxItems: 1
++
+ required:
+   - compatible
+   - reg
+-- 
+2.53.0
+
