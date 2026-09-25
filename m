@@ -1,120 +1,143 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1A249A3AC;
-	Fri, 25 Sep 2026 11:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790336141; cv=none; b=AfAdtufOZB4PjiqcKflQ3oYO+ki28f2qjhWV40DtJqjUPATE907TrrM3tEl2R+0cdN00kIv9q736pha/WxZKnlHCdaJVD9fLPBZPQE1Mfjir12dGHiHpzfw72SBfGzRFTrYrgXl32iHQBmTnfskxzA5N05tXHm4f65kfOs8rlig=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790336141; c=relaxed/simple;
-	bh=dOTl64mPulpUd+JHeBSeQTJCazZF/ZdiNxdDKxwgN5E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TgmfGPLzwQd1oW7eknHiXQSVIzLPrfiIDadTK5CSNygmZyKCQWRCILCfQQ2Hkbu30QpY7oN0omNWn8HvyaZH+s22vdLPHMbksqIcXIfMAbf1yqpg35RKDYMfquDPmyMewh6G09wL4dRgK9WTiYAe5khroAeGM16Qjh6eOc5IxKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lnWEzX9X; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B67446D0BD;
+	Fri, 25 Sep 2026 11:45:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790336731; cv=pass; b=dxJmKCLWE8PKI6nk0HfxmmUsx32QVC2Bvk01r7UgtFzRFiQAqJFhCol12k17A1QumKlTvvGVdoBLEDVbAG1WkoGLpcH1JcchNf5CIcn1xw/a3+kyhGgKCZ8fFsWGxYlPBSYdRvDNmrFef1bXNrK6rXEsao2E2/xHhPDLhAdb5x0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790336731; c=relaxed/simple;
+	bh=dd9ZB+DgEvJG+UhAAEoJPAdb4Iq3fKUiQVJjo25/3KI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UoniJhxvjEpLtr+yUY5grpe2qWAPWs33MIEaqxOPvZQ8XGH5sukIUrIMNvPIDJ2l2Fx+P34L8nvq047RT5ERX0mWq3KwqFYKWshUmchAc/GHEqQzwNq2h7CnNEwO/9SLm7l2r6n7TJwjgy/w587e2AcRqaygtZxXLzVUDdyamjE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=NXKu3rZe; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lnWEzX9X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790336138; x=1821872138;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dOTl64mPulpUd+JHeBSeQTJCazZF/ZdiNxdDKxwgN5E=;
-  b=lnWEzX9XzAxSgKwgUNDxcMKFEn46Yw7OEt9vH7BVCdFWxSr9yvkHJtSr
-   IdvRFVWTCVO1LfseKHbJfu+OzfBQS+aMqTD1vWrGmY6qvEOXdkMsmHLiu
-   yr6FZOx6UaioqVPyMb+OMLUqzwzDotAC12+ul2eRLy8Id3/WZoBQncw1c
-   U6UtyGZBmlUySlIO7tndazZYZya7lmJqkmF6KL9JlKaHWJzu2KVRr1rRz
-   oda5N8e6xQ5tom4bAXIXwuabzTzK48IiUgJzQggiPXqfr89eBndjQdtyq
-   NPnxMMhIgFwxGiZTAzaaAYIIe1f2aRsdTL4f42+/rxGJyxBOOzywzwPFO
-   Q==;
-X-CSE-ConnectionGUID: 9r8NrOBsSSC7sNrq/Cyjiw==
-X-CSE-MsgGUID: 627pV65dRnWeESITOTgijw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="89888855"
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="89888855"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:35:37 -0700
-X-CSE-ConnectionGUID: UNaS+ljQSIORkXdli1SorQ==
-X-CSE-MsgGUID: V/rJlEeGSH6KW4HqwjYEwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
-   d="scan'208";a="273545182"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.84])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 04:35:35 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3281C121182;
-	Fri, 25 Sep 2026 14:35:36 +0300 (EEST)
-Date: Fri, 25 Sep 2026 14:35:36 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Hermes.Wu@ite.com.tw
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 20/21] media: i2c: it6625: use centrally managed active
- state
-Message-ID: <arZciEXX5vJtlRcs@kekkonen.localdomain>
-References: <20260918-upstream-it6625-follow-up-patch-v1-0-78d72d7886a5@ite.com.tw>
- <20260918-upstream-it6625-follow-up-patch-v1-20-78d72d7886a5@ite.com.tw>
- <aq0RaLPX5o0HU_yC@kekkonen.localdomain>
- <69a3df11b37f466fbdca8be37a6cc378@ite.com.tw>
- <aq1Yps6g7m7TQJvd@kekkonen.localdomain>
- <f2c5479e4d0d4d89a030698f34a277e3@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="NXKu3rZe"
+Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6CEB4201E6E;
+	Fri, 25 Sep 2026 13:45:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790336726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MC47sMHNRJ/nvzIcP+t6YwsT76ZT+zbTX932PFJH7lE=;
+	b=NXKu3rZeFQl0D15h/4KyhMZkLkSGragapw0iZpP42KgQK/NCotv3+6gf/0PvWOIRDM09Jz
+	7sJ3UGuho6SkOsm/W5aWwJXCBeGQe+HUP3q/GhhjfFOGRdurG0GPHi21fGp8B4XEnA08A6
+	zSl4OPCjVXkvr9mGw+HFKpn0a7IK0mTcJ+FdGjt2qAFn8x+fQwkP5NcuEidTXniNpuSq3w
+	Tz1lF5KLH/Y0Umy6E3LjjzecRZSkGQR4HCHCIVKVSf8YdCIRdXb1N4r2lRgdBkI5l7Qgcp
+	ip04c00wSg39Tbr8PoJgfXWv0dRTNHjYhIcOIQX2hil1+ajQojqzz8yd2Uqcrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790336726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MC47sMHNRJ/nvzIcP+t6YwsT76ZT+zbTX932PFJH7lE=;
+	b=M9d/CE2XJ+95H+MVM7qgy3ZdE0aZUVtA76sFHWxhhVdxaMVqc5/xzN4PgrW48dHsb7srgB
+	irWA7K777uTXQfq5Lq+FAm0rdm9zZCNQPanGrQyxxtSOD/QZEx0eLDAfH5mbOOq7WI5LVb
+	3aaFGU/Dyqe+4r3uslC76O+Fst151UU/Db6+Q3aMHpAyeSZQMkCPrMHeaOhA7Nku3HzliH
+	kwJjybPjbcNZazcOqBKritkuL0vyv0ph4vfoK4FbAE9K0VJCEdZFYbfrPi4AvLkDasDGRq
+	iUEj9lfiDT9NzwdRP64KX4NJG6r9GKaqRjmBPFEZJQPL5fOTu82NOAXu32P4mg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790336726; a=rsa-sha256;
+	cv=none;
+	b=N/I0pd1F1Hc90wgbNJXlwtXFGHIYHgOCdS3ISce0ZGZcj/y+xJBhsrpbs2M0Wn4uUSWHxp
+	kJXrPbxge2wnilTxDQ5Oo1DRIlcaxSgwbHILkyjj5tkT8eczgTGJ4eeLJ0MvmS5AQLAL+m
+	rZhxEm/qYGKaNJswsp3MR/CH/OiUfJ8tLGK07jogJifICuje7LZKlKqMzpsEIjacLpfr+t
+	k6bcK2YXZzsNMPWwDOau2wATxog6oVHM6tV/HZsKBDE+DiT6I3Hy3+RZMsaR1a6Rh3HQt+
+	hAcExV4k1jiSSoAEuKY8X6MLC5HuDot3K9NlyBxib8V8BNspK04NOVjbt/1wgA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Fri, 25 Sep 2026 13:45:27 +0200
+Subject: [PATCH v5 3/4] arm64: dts: rockchip: rk3588: Add JPEG decoder node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f2c5479e4d0d4d89a030698f34a277e3@ite.com.tw>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260925-rockchip-jpegdec-v5-3-30658833cb68@pengutronix.de>
+References: <20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de>
+In-Reply-To: <20260925-rockchip-jpegdec-v5-0-30658833cb68@pengutronix.de>
+To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790336726; l=2122;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=dd9ZB+DgEvJG+UhAAEoJPAdb4Iq3fKUiQVJjo25/3KI=;
+ b=H6CYZJo3AadXM8dV7CpzAcYKV3TvuUHYK8JfZrgNYlh5zBA49LIDiKArC5msK8hvacTus9Bhb
+ yg/nCK4/R0hD/hGr5lAI8fxyk6WdoNGzreZP6DhPXVBTnReLWg4nKpW
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Hi Hermes,
+Add device tree nodes for the Rockchip JPEG hardware decoder and its
+IOMMU on the RK3588.
 
-On Mon, Sep 21, 2026 at 02:24:29AM +0000, Hermes.Wu@ite.com.tw wrote:
-> Hi Sakari,
-> 
-> Thank you for the clarification.
-> 
-> > Is this AI-generated?
-> 
-> I used AI assistance to help understand this review comment and draft parts
-> of patches 20/21 because I was not certain about the expected locking model.
-> I reviewed the result before sending it, but my conclusion about the state
-> lock was incorrect. I should have asked for clarification instead of making
-> the claim about what most drivers do. Sorry about that.
-> 
-> > Please use the control handler's lock as the state lock, too. This is
-> > what most modern drivers do, too.
-> 
-> Do you mean that I should leave the control handler using its own internal
-> lock and assign that lock to the subdev state before calling
-> v4l2_subdev_init_finalize(), as follows?
-> 
-> 	sd->state_lock = sd->ctrl_handler->lock;
+The decoder is at 0xfdb90000 with its MMU at 0xfdb90480.  It takes the
+AXI and AHB clocks and resets, and sits in the VDPU power domain.  The
+AXI clock is pinned to 600 MHz, which is the rate the downstream BSP
+runs it at; it is a dedicated clock, not shared with another block.
 
-Correct.
+Both blocks are entirely on-SoC and have no board dependency, so they are
+enabled unconditionally like the other codec blocks in this file.
 
-> 
-> I am also still unsure about the separate it6625_lock. The chip's MCU
-> processes one register-driven command at a time, and operations such as
-> issuing a command followed by polling for completion must not be
-> interleaved. This lock also serializes CEC, IRQ/polling, EDID and debugfs
-> paths that do not run under the control/state lock.
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-I'm not asking for that, just that you'd use an existing lock instead of
-adding one more.
-
-> 
-> Should it6625_lock therefore remain as a separate MCU transaction lock, with
-> the control/state lock acquired first whenever both locks are needed?
-
-Sounds good to me.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e07869..cc53878502898 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1317,6 +1317,30 @@ rga: rga@fdb80000 {
+ 		power-domains = <&power RK3588_PD_VDPU>;
+ 	};
+ 
++	jpegd: video-codec@fdb90000 {
++		compatible = "rockchip,rk3588-jpegd";
++		reg = <0x0 0xfdb90000 0x0 0x400>;
++		interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
++		clock-names = "axi", "ahb";
++		assigned-clocks = <&cru ACLK_JPEG_DECODER>;
++		assigned-clock-rates = <600000000>;
++		resets = <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER>;
++		reset-names = "axi", "ahb";
++		iommus = <&jpegd_mmu>;
++		power-domains = <&power RK3588_PD_VDPU>;
++	};
++
++	jpegd_mmu: iommu@fdb90480 {
++		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
++		reg = <0x0 0xfdb90480 0x0 0x40>;
++		interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH 0>;
++		clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
++		clock-names = "aclk", "iface";
++		power-domains = <&power RK3588_PD_VDPU>;
++		#iommu-cells = <0>;
++	};
++
+ 	vepu121_0: video-codec@fdba0000 {
+ 		compatible = "rockchip,rk3588-vepu121";
+ 		reg = <0x0 0xfdba0000 0x0 0x800>;
 
 -- 
-Regards,
+2.47.3
 
-Sakari Ailus
