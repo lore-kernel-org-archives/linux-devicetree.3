@@ -1,274 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E98A2BEC45;
-	Fri, 25 Sep 2026 02:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EB22472AE
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 02:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790302435; cv=none; b=LJ9Tvn0nYanWstspysNsV9L+3L+0NafTLrC5jxl49f45k4QbiD9PS+xUjW3VjUg3h4u1UUt+PBj3bfU2miWjh1ERxzDnDnihOZlesvk6pSTjDhIJsLMEBGUXEnnGwLH4akEV0aceA3VYNEnPw8AIXr4cgJ4MVMmsQNqkrZ8ua7A=
+	t=1790302544; cv=none; b=RE++h/WiYNDu2jSK2805VGO2lnvUioSILxjD5b68xYCA2LaZU4caMBBJD+kxLVr4eh2IOqrOJjQEKjB86+jZbjA1YWhs7rmBRO30gs1ZgwG6DE4HEdPMrB9/+0sbJPeB4QrtJtaLTg9rkKHhODPIYxGoNiXwiUCgWmEyHoYG8kk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790302435; c=relaxed/simple;
-	bh=E3+VPMIMqNjn7TIvI6+dKg71VKeOQzRxkIJO625IroA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AyVmTIkHJbTLWbnch1ODm1RSmPRdPQrHvSxAJiAKNW5YbHZASe9rGIYel0AC8JLld6hBT9FyYTMD70maUp8wQwlSxdO4huIs+HgP2Ecl78bsVVZ0b6ftDAmXY84Za0WQ/+H2JEmUOEKfIDxoGIZ2qVEltjSY22I5YVNZLxL97uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AQhc3y9J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790302544; c=relaxed/simple;
+	bh=VgMW57RZXFMRplMPDkt4YtM8EkWBpLPXc4KI0WuDdx4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=r8KUxf85end+9pRIiKRa3sAZYpU7WPhwmmqivb012KJaGcFNdt34KImlaDzNYwe0WdyL/x124JH3TPaN2A4UoNdROra30SyZWOz+WTNeIZl1KIGk5c9tyiY7RoWvzjpGYhmfku6WAreAC/iafs/x7fvsCkUwcgn51bQL6gruR6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=cmErwvOF; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AQhc3y9J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4421F000FF;
-	Fri, 25 Sep 2026 02:13:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790302433;
-	bh=xp9K4f/nOxcHvzmhzqbSKxy9T4IWX+OGFn+rYa+qM7Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AQhc3y9JeIA+tx6QXgprbu9CzDTClK2MB1L0ZJm4ZvDoCGhPfOeSMPptvljMhlO4g
-	 apEELWAhUQwJzhUpvdXdmntXBjmAIXWu/ZiksDIENBgyRBzucXGTtiEhngaOR3L3SH
-	 Sfg0zLcoguqpU26RM3kq1l+lWKoAuCBqdiMhXSv4yh1e9KMd5em1Xt4hCJf8Gs+6RM
-	 gEjkL78x0kYwKdGI/mmS9v/YED+IXM8Yd9z+lm6AnSQMR8sZDxRv1DXjS5UcLTReyv
-	 qg2LovKgySRCMY7cAp4qr7oP4qkbJyMqnOJ2PbcrYt9BvT/NvJmygwnm5eg4E6+WVD
-	 w3Q8M3VZJeJmA==
-Date: Fri, 25 Sep 2026 03:13:50 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: pressure: add Sensirion SDP31 driver
-Message-ID: <20260925031350.249cc7af@jic23-hlaptop>
-In-Reply-To: <20260920164724.32019-3-m.abubakar365@yahoo.com>
-References: <20260920164724.32019-1-m.abubakar365@yahoo.com>
-	<20260920164724.32019-3-m.abubakar365@yahoo.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="cmErwvOF"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530e28a62abso6914921cf.1
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 19:15:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790302541; x=1790907341; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j+htwMlyXVmeIg6mLkEPL+JS0CurEY9XR8VLPuog5Nk=;
+        b=cmErwvOFMCdz2hi9aonzBXGjBGvC23thkU4XAWE/220wIUYvVx7RKHGbZveyj7/tQp
+         BlitcD90TZ8KEt/JMbxbidbXElWXdzZIyYgefPmVJ/AWxYIz/wrOZhuubTHTf36i0TmK
+         oGzvw9yiJB+tQ+nie5wGeGEXkbSidtHNzDo6pRp003ANKHjVz+zjKeGmlCFuyen7Jf14
+         Pp+nx5vcnHEh+USjChIXOtfRCy9DH2atMw2lkWgyBAe6gUZvrc5F5h05kInSwwn/NO03
+         86nz91XoeT94GY0agI+txMMnyU7ustudn7ZEgXhBkAumFCZjCnmuDO6/i9nHE/iW3kNG
+         Pq1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790302541; x=1790907341;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j+htwMlyXVmeIg6mLkEPL+JS0CurEY9XR8VLPuog5Nk=;
+        b=Yz6xzHYl/M/l69JmPEtxJDXvaMBCk/uVMI45+Xcq/ULlZjJKZh7LGCzmhG7SNJuZsq
+         k13CSPt4Jz2gNwMsVR2pgbwa0Nys2e5dwpgvuJQSZ0BZI5g5bvM0+d3nRlE3D449ok6V
+         gdsXizeSstu6e/qXfXavsmt+P2QO6bUGZr9ekRYBeeAJipEzzyaLscdhBnsPZDm+IGmu
+         yaJxAL1ovqJ9z+kRGLLPfKQVLhH1UA29mUR1FT//wBhb2JKdRmeKecgvWaELAeX3DuGx
+         sRzZTwclJ87ZNQ43V4rhr6j1N9ydDG0D9oVwedbrW9Mp50gqNLvhFIR5DB4rkxbvncbd
+         ps9g==
+X-Forwarded-Encrypted: i=1; AKwUvBz8MkhTXNq/wFWyjdFrtM9kXi8tioWc4Y2TMfmO9JqAURPMDzVic0Xt3t0Or848jwt1sPoAQBDsUvM6@vger.kernel.org
+X-Gm-Message-State: AFuF++mI9m1ZFhQna4/80IX6K4tTzKYzeURaCKWt9NMtbHc1D86cHL2i
+	KxDeff7/Pd7aluZLqNT+LPGTGxQnfW/dMBCLdsxaggz9cOZNzLEv1oJEEuXhXrItK5k=
+X-Gm-Gg: AYBFou3gfj+KeSHabEzyHA1KjZwUWsamdGa1h6fEsyH2f/PCkFKlAvO4b9IAfzuIOlI
+	Nt3tMHdc5PjJd25DQFb5oQCWssm0sbM7ZjUEdUtHNK9fFDEJXDgUn3S4MZoNaXaXICty8RDK+PX
+	Fh8fTsEkvq1hCMqjA3dMwhszq4g7I3g07zNXNeZFEO/k7Q6bWLSBE9hI9q566dFYqBR5kGBLaq+
+	tNOyBkDxPIpfr6ZUHjKrc4KBU5xMbhjyhykjN+Wp0adb0bPAcf8gl2aim6y4A4QkoOZODLgZIgV
+	cbgl793Bf0Nte4GvSUR/h8wr+wF06zDEroDUSVZflN0fcnpTHUfQrpbHDGAOMod3tdHmve35KCZ
+	aOVVC8+xj8UH41cEDrOPSdjdIaseTuCM2U8LvXA3SbaymRdeVxMOUrZ2uGoQMVpfFq8EUEUzA7W
+	SkCrkbdA19R06qn+w/bNCY6PtyUrVRe2ORsHddYglxmnT/hAZQN9ipTybh/ZmPFu6pn06DM/BCD
+	ZWR+8Bbkg==
+X-Received: by 2002:a05:622a:1aa5:b0:530:dc0c:abc5 with SMTP id d75a77b69052e-5330dd22227mr14610891cf.43.1790302540784;
+        Thu, 24 Sep 2026 19:15:40 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5330beed0easm6143641cf.11.2026.09.24.19.15.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Sep 2026 19:15:40 -0700 (PDT)
+Message-ID: <45f41257-45f7-4940-a8af-d12e3669bc7f@riscstar.com>
+Date: Thu, 24 Sep 2026 21:15:38 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] misc: tc9564: introduce base PCI driver
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org,
+ bhelgaas@google.com, andersson@kernel.org, konradybcio@kernel.org,
+ abelvesa@kernel.org, daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, devicetree@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andrea della Porta <andrea.porta@suse.com>,
+ Lizhi Hou <lizhi.hou@amd.com>
+References: <20260918173003.GA1166280@bhelgaas>
+ <e9bd7954-1cec-4ffb-a5b2-2389469b0c05@riscstar.com>
+ <20260924175603.2a20e2b1@bootlin.com>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260924175603.2a20e2b1@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, 20 Sep 2026 21:47:24 +0500
-Muhammad Abu Bakar <m.abubakar365@yahoo.com> wrote:
-
-> Add an IIO driver for the Sensirion SDP31 differential pressure sensor.
-> The device is accessed over I2C and reports differential pressure and
-> temperature. Each measurement is validated using the sensor's CRC-8
-> checksum.
+On 9/24/26 10:56 AM, Herve Codina wrote:
+> Hi Alex, Bjorn,
 > 
-> Tested on an SDP31 connected to a Raspberry Pi 4 I2C bus.
+> On Fri, 18 Sep 2026 12:49:53 -0500
+> Alex Elder <elder@riscstar.com> wrote:
 > 
-> Signed-off-by: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-Hi Muhammad,
+>> On 9/18/26 12:30 PM, Bjorn Helgaas wrote:
+>>> [+cc Andrea, Herve, Lizhi for of_pci_make_dev_node() quirks]
+>>>
+>>> On Fri, Sep 18, 2026 at 10:26:57AM -0500, Alex Elder wrote:
+>>>> The Toshiba TC9564 is small and highly-specialized SoC that implements
+>>>> a PCIe switch as well as an Ethernet AVB/TSN bridge.  In addition to
+>>>> these, the SoC implements other functions, including a reset and clock
+>>>> controller, an address translation unit, and a few other devices.  PCIe
+>>>> BARs provide access to registers that manage these IP blocks, and the
+>>>> SoC is modeled using a PCI endpoint bus in devicetree.  This allows the
+>>>> IP blocks to be bound to platform drivers that do MMIO via the PCI BARs.
+>>>>
+>>>> Create a new PCI driver under drivers/misc that binds with the embedded
+>>>> PCI endpoint functions within the TC9564 SoC.  Because these functions
+>>>> will use devicetree pci-ep-bus to provide access to other IP blocks
+>>>> within the TC9564 chip, the main purpose of this driver is to do basic
+>>>> PCI initialization, then call of_platform_default_populate() to scan for
+>>>> the any endpoint bus children, and probe all devices defined therein.
+>>>>
+>>>> Because we're using pci-ep-bus, we need to use the PCI quirks mechanism
+>>>> to have of_pci_make_dev_node() be called for each endpoint device in
+>>>> pci_bus_add_device() (via pci_fixup_device(pci_fixup_final, dev)).
+>>>>
+>>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>>>
+>>> Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# quirks.c
+>>>
+>>> Not an issue for this patch, but I'm not sure the quirk mechanism is
+>>> the best mechanism for doing this.  It's not working around a device
+>>> defect like most quirks do.
+>>
+>> I pretty much agree with you.  I think I mentioned this before
+>> (though it might have been in a private conversation) that it
+>> is an intentional act to call of_pci_make_dev_node() for an
+>> endpoint (and not just a bridge).  And that's different from
+>> a hardware quirk.  You only need to do it if there's a pci-ep-bus
+>> sub-node on the endpoint.  (I'd have to verify this on the other
+>> users of this approach to be 100% sure though.)
+> 
+> I agree, a quirk is not the best way to trig the of_pci_make_dev_node()
+> call. An allow-list seems better.
 
-You seem to have a bunch of comments in the code calling out changes
-from earlier versions.  Those may well be helpful whilst developing
-(or are they LLM generated?). Either way we don't want to merge them
-into the upstream kernel.
+We're talking about calling of_pci_make_dev_node() on
+non-bridge nodes in pci_bus_add_device().
 
-Otherwise a few minor comments inline
+A separate series I've been posting is updating that code path
+so it updates the ranges property even for (endpoint) nodes
+that have a non-null devicetree node pointer.  I use the same
+quirk to cause this to occur.  But now I realize the quirk
+might be intended to create a *new* node, so I may have to
+re-think it a bit.
+   https://lore.kernel.org/lkml/20260924222444.1351466-1-elder@riscstar.com/
 
-Thanks,
 
-Jonathan
+Are there any cases other than a PCI endpoint having a pci-ep-bus
+sub-node where of_pci_make_dev_node() needs to be called on an
+endpoint?
 
-> diff --git a/drivers/iio/pressure/sdp31.c b/drivers/iio/pressure/sdp31.c
-> new file mode 100644
-> index 000000000..e661a7af8
-> --- /dev/null
-> +++ b/drivers/iio/pressure/sdp31.c
-> @@ -0,0 +1,209 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +#include <linux/cleanup.h>
-> +#include <linux/crc8.h>
-> +#include <linux/delay.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/once.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/unaligned.h>
-> +
-> +#include <linux/iio/iio.h>
-> +
-> +#define SDP31_CMD_TRIG_DP    0x362F
-> +#define SDP31_MEAS_DELAY_MS  50
-> +#define SDP31_TEMP_SCALE     5
+Could we simply call of_pci_make_dev_node() unconditionally in
+pci_bus_add_device(), and have of_pci_make_dev_node() only
+proceed for endpoints that have such a child node?
 
-I'd rather see this one at last just inline in the place I'd
-look for the scale.  The define isn't adding anything that isn't
-better indicated by how it is used.
+(I haven't chased down all of the PCI quirks that call
+of_pci_make_dev_node() yet.  Do the XILINX examples use
+pci-ep-bus?)
 
-> +#define SDP31_CRC8_POLY      0x31
-> +#define SDP31_CRC8_INIT      0xff
+> Alex, on LAN966x, the pci-ep-bus is not present. The OF node must be
+> created (call to of_pci_make_dev_node()) and the lan966x_pci driver
+> will apply an overlay on this OF node created at run-time.
+Understood.  But the overlay does contain it.
 
-> +
-> +/* #2: build the command as a be16 and send it directly. */
-> +static int sdp31_send_cmd(struct i2c_client *client, u16 cmd)
-> +{
-> +	__be16 buf = cpu_to_be16(cmd);
-> +	int ret = i2c_master_send(client, (u8 *)&buf, sizeof(buf));
-Tiny thing but I'd split into
-	int ret;
+After applying the overlay, the driver parses the node
+(using of_platform_default_populate()).  And because of
+the PCI quirk, of_pci_make_dev_node() gets called for the
+PCI endpoint, right?
 
-	ret = i2c_masster_send();
-	if (ret < 0)
 
-as more important to have the code visibly coupled with the
-error check than the declaration of ret.
+So again, is calling of_pci_make_dev_node() on a PCI endpoint
+*only* related to the endpoint having a pci-ep-bus sub-node?
+When else does a PCI endpoint need a devicetree node?
 
-> +
-> +	if (ret < 0)
-> +		return ret;
-> +	return (ret == sizeof(buf)) ? 0 : -EIO;
-> +}
-> +
-> +static int sdp31_check_crc(const u8 *word)
-> +{
-> +	if (crc8(sdp31_crc8_table, word, 2, SDP31_CRC8_INIT) != word[2])
-> +		return -EIO;
-As below. I'd have a blank line here.
-
-> +	return 0;
-> +}
-> +
-> +/* #3: takes sdp31_data and holds the lock for the whole transaction. */
-> +static int sdp31_measure(struct sdp31_data *data, struct sdp31_reading *out)
-> +{
-> +	u8 rx[9];
-> +	int ret;
-> +
-> +	guard(mutex)(&data->lock);
-> +
-> +	ret = sdp31_send_cmd(data->client, SDP31_CMD_TRIG_DP);
-> +	if (ret)
-> +		return ret;
-> +
-> +	msleep(SDP31_MEAS_DELAY_MS);
-> +
-> +	ret = i2c_master_recv(data->client, rx, sizeof(rx));
-> +	if (ret < 0)
-> +		return ret;
-> +	if (ret != sizeof(rx))
-> +		return -EIO;
-> +
-> +	if (sdp31_check_crc(&rx[0]) ||
-> +	    sdp31_check_crc(&rx[3]) ||
-> +	    sdp31_check_crc(&rx[6]))
-> +		return -EIO;
-> +
-> +	/* #4: use the unaligned big-endian helper instead of manual shifts. */
-> +	out->pressure = (s16)get_unaligned_be16(&rx[0]);
-> +	out->temp = (s16)get_unaligned_be16(&rx[3]);
-> +	out->scale = get_unaligned_be16(&rx[6]);
-
-Trivial but it helps readability a little to have a blank line before simple
-return statements like this.
-
-> +	return 0;
-> +}
-> +
-> +static int sdp31_read_raw(struct iio_dev *indio_dev,
-> +			  struct iio_chan_spec const *chan,
-> +			  int *val, int *val2, long mask)
-> +{
-> +	struct sdp31_data *data = iio_priv(indio_dev);
-> +	struct sdp31_reading r;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		ret = sdp31_measure(data, &r);   /* locking now lives inside */
-> +		if (ret)
-> +			return ret;
-> +		switch (chan->type) {
-> +		case IIO_PRESSURE:
-> +			*val = r.pressure;
-> +			return IIO_VAL_INT;
-> +		case IIO_TEMP:
-> +			*val = r.temp;
-> +			return IIO_VAL_INT;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	case IIO_CHAN_INFO_SCALE:
-> +		switch (chan->type) {
-> +		case IIO_PRESSURE:
-> +			*val = 1;
-> +			*val2 = data->dp_scale * 1000;
-> +			return IIO_VAL_FRACTIONAL;
-> +		case IIO_TEMP:
-> +			*val = SDP31_TEMP_SCALE;
-
-As above. *val = 5; is better than a define that brings
-no value other than making anyone reading the code go look
-to see what value it has.
-
-> +			return IIO_VAL_INT;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-> +
-> +static int sdp31_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;   /* #5 */
-> +	struct iio_dev *indio_dev;
-> +	struct sdp31_data *data;
-> +	struct sdp31_reading r;
-> +	int ret;
-> +
-> +	/* #9: get and enable the sensor's supply (auto-disabled on remove). */
-> +	ret = devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable regulator\n");
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	data = iio_priv(indio_dev);
-> +	data->client = client;
-> +
-> +	ret = devm_mutex_init(dev, &data->lock);   /* #6 */
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* #7: populate the shared CRC table exactly once, race-free. */
-> +	DO_ONCE(crc8_populate_msb, sdp31_crc8_table, SDP31_CRC8_POLY);
-> +
-> +	/* Confirm the sensor is present and learn its scale factor. */
-> +	ret = sdp31_measure(data, &r);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to read from sensor\n");  /* #8 */
-
-As below, these need clearing out.
-
-> +	if (!r.scale)
-> +		return dev_err_probe(dev, -EINVAL, "invalid scale factor\n");
-> +	data->dp_scale = r.scale;
-> +
-> +	indio_dev->name = "sdp31";
-> +	indio_dev->info = &sdp31_info;
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->channels = sdp31_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(sdp31_channels);
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-> +
-> +static const struct i2c_device_id sdp31_id[] = {
-> +	{ .name = "sdp31" },   /* #10: named initializer */
-
-I'm guessing this is an LLM trying to be helpful and highlight changes?
-We don't want that record of changes in an upstream driver.
-
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, sdp31_id);
-
+					-Alex
+> The pci-ep-bus is described in the OF overlay [1].
+> 
+> [1] https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/misc/lan966x_pci.dtso#L50
+> 
+> Best regards,
+> Hervé
 
