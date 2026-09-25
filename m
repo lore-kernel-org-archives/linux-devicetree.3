@@ -1,50 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10E44A6CE9;
-	Fri, 25 Sep 2026 14:15:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089354908A7;
+	Fri, 25 Sep 2026 14:18:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790345723; cv=none; b=SCFWyUFqSMo7MzljOiQ1uT0W9ALxGH8lq4Eu4mAVpiRpFzopuuVpbIW+33rXP4lK2LO4MOq9sJWdEMKlVDyWEd+2X4OukHDzKlBIV+9fDoU/QNnU/txySxDZPhCffKBCbALoawt8EqhS5JsiMmNgrSZto2YDZhjvkKvRK7gvJhc=
+	t=1790345923; cv=none; b=eRm939lBRKZtyMED/KXMA7ImN2BnE7VsN1v2WBUHsfWbvqdZgXOQEs+z1MaT/K63kRE5rKyVOR6hj6Z/3FP8iuzk6EgLOFimUQNCQDCNXqoi/gRJCKFBUBugbpUjg5AxO8eprdXKsO+4WqN4zl5Ry9mIICbPRlsWxTscRt52T10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790345723; c=relaxed/simple;
-	bh=7eVfCgXKWGUyx+ULl/Wf5HVLa4aM913WECP564yeNNs=;
+	s=arc-20240116; t=1790345923; c=relaxed/simple;
+	bh=O0UQlcpBePEhCtE60o4RB9ewz0ke7JOvuoOv6HWv36E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tZkzbZNTATcmA/nk+BXvrjFUf0rl3liT7sstY1qixurr+vD6FJTHPMkF7rBswJVlCwYE2usyZL1SmjTvkGxoibiLSkmBb0meS78PaTXw7wS8qUw5OuVMye+ipg58xZjHkuCh+wlzGWY1hfZYtU5DibDcz0DeSg8bm6Xe9X+xJ2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L/Muj49M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=SqZPTI+zQ8ZUVT/0HPeY+UpJn0dxDmmNJMWWAnIqaKiGXnc40i7tG/7l0KYCj1QZsEXyvgF1mKotlUe4F0mhNgs9PMdtxC/bamWoHFTt0BemE3lhEPkuVz6G5O9RgQaQCPwCish1QgTJSssEc4l5wiV++GwxWAoLC987t2A5C+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eftRXca8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L/Muj49M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B7061F00893;
-	Fri, 25 Sep 2026 14:15:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eftRXca8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7642B1F00899;
+	Fri, 25 Sep 2026 14:18:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790345721;
-	bh=8K9jQFDfVTCl7JissWrgyjG1zWG3ZYUG30Be5h2TTx4=;
+	s=k20260515; t=1790345921;
+	bh=lfwbK6aQOk9FHQe0F0mk3C3hQbetkzcccmn4T4ffiAA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L/Muj49M2OnjIKtB1IF/sKaJzPuCdPs/Xvwdsps3JJ4EOMDVDwKhCmB41aNfLqHaq
-	 nvv2hSWopr9PmfqkET8qtZ0JbDgiZbjZpmcxJcTS7xYZ2H0AENhJuqKC1Ajiv2ps4L
-	 EXxNa5+nSNr9+zWuxNoAQax/hUXbkjMp47/KIivmwbDZ+jcJVRiKaNDMp2SdPJiSCP
-	 cMyNmx6mj1tHnRFDquayaKlV0n5hsVmxVbfv+69mZDl5ukEwT4bS1ypUCaEh01zGE1
-	 zrP+Y/6wIe9BwoA5ooK0wihb8Vy76vy1E85WoE3dfwXKtSLOrUHysmP2eWe1ZMWtf5
-	 PPOEpeJzhTu7g==
+	b=eftRXca8xtBhE587iml/z29FSktAe7JYuF53Y224sbx+Rt8BUUYPtDLXRpFmCIXDx
+	 xiJIjaDaj34GBdm3rQSCSMZFfvZjSsPm9ZQ6efPQHGvQtqnfQfGmfQqvxNdlRC3SAE
+	 XDwvEqbCu2+wxv98uliQUd6g49Wqp9vpJ+nsix7Qihek/OZqOAIaZuUkBoRqbguU1q
+	 zgJ+0VaIILgnADgAG8rrnhVbtayQG7MbnMknzPHjpMBJ1opbJevYcK8aUDWxFPPD5z
+	 XVM6gpIxE84k1AqGu9OGk59r8iy9InuNxC2gHthmlc1JxqKBG6Qawohv8pjDqgkKPx
+	 BsF9i4rXq+YOw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>,
+To: Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+	Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
 	Konrad Dybcio <konradybcio@kernel.org>,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	cros-qcom-dts-watchers@chromium.org,
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	manaf.pallikunhi@oss.qualcomm.com,
 	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Casey Connolly <casey.connolly@linaro.org>,
 	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v11 0/3] Add support to read the watchdog bootstatus from IMEM
-Date: Fri, 25 Sep 2026 09:15:05 -0500
-Message-ID: <179034566349.1095282.15482882343181064968.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260727-wdt_reset_reason-v11-0-eeedb22beefe@oss.qualcomm.com>
-References: <20260727-wdt_reset_reason-v11-0-eeedb22beefe@oss.qualcomm.com>
+	Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v8 0/9] Add support for Qualcomm remoteproc subsystem cooling
+Date: Fri, 25 Sep 2026 09:18:31 -0500
+Message-ID: <179034590772.712210.9030677461364721298.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
+References: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,25 +70,30 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
 
-
-On Mon, 27 Jul 2026 21:17:34 +0530, Kathiravan Thirumoorthy wrote:
-> In Qualcomm IPQ SoCs, if the system is rebooted due to the watchdog
-> timeout, there is no way to identify it. Current approach of checking
-> the EXPIRED_STATUS in WDT_STS is not working.
+On Sun, 09 Aug 2026 17:58:56 +0530, Gaurav Kohli wrote:
+> This series introduces Qualcomm Messaging Interface based Thermal
+> Mitigation Device (QMI TMD) support to control thermal mitigation
+> on remote subsystems such as the Modem and CDSP.
 > 
-> To achieve this, if the system is rebooted due to watchdog timeout, the
-> information is captured in the IMEM by the bootloader (along with other
-> reason codes as well).
+> The QMI TMD is an interface that instructs a remote subsystem to adjust
+> the performance level of the devices it manages, reducing power consumption
+> in response to critically low battery charge, overcurrent alerts, or
+> overheating conditions.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] dt-bindings: sram: describe the IPQ5424 IMEM as mmio-sram
-      commit: a97cccbf7a3025df41fa49d894c4e118594f046d
+[1/9] dt-bindings: remoteproc: qcom,pas: add #cooling-cells property
+      commit: 1a61afc42cff8397cbc430666cf4ce9dec72e076
+[2/9] soc: qcom: Add QMI TMD support for remote thermal mitigation
+      commit: 2ff581c2185c3797fae2725537c7de1da3bc89fd
+[3/9] remoteproc: qcom: pas: add support for TMD thermal cooling devices
+      commit: 8eef721027127b7bd8ec06246bf1bbd975dc5f64
+[4/9] remoteproc: qcom_q6v5_pas: enable QMI TMD cooling support
+      commit: 586a2fadadb160295a93e5d5d32db1a2558a4d3f
 
 Best regards,
 -- 
-Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Bjorn Andersson <andersson@kernel.org>
