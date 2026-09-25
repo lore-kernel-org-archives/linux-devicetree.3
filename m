@@ -1,135 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D2E224AF2
-	for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 23:56:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8446818E025
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 00:03:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790294163; cv=none; b=YMtCwwk74BHcTvWT72OJL5R5VjJzXn9VXxqGXjGj2AMSYgvcPwenpZW5GiDGjEx7tDGkMND10txqmP/K3EWu12CxYpj6T5fHNHkNqme8EqZaBtt24Hf7QxyOt/XKKifg0Aw7b3p0fUV5Uxei9WVwuCp8N7ZH/au9v8dOktoriZ0=
+	t=1790294630; cv=none; b=rXD1eo5yT18v0K6jkCsE8Img/moFVMtUo4Y0jOv02dS1m07tGy8hx9HvzStMbR39FnZ1WPT2w8LkMFxTRHH4O45kYQyNIjRi8f2j/V37lMsXoiWT6UqlHLFEbRAZzRAwNKPhYiJfLv0ak2n6FwxiTdcLFMvbaFPKuFKKJn5gbO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790294163; c=relaxed/simple;
-	bh=svoXdYSZRzb8B4HiB13yG+TqW7/aSQBenatZJkPYZo8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nUMp9dv4il1GCd7B3IQbfqlIRS18CTq0F2b4Y7Ax9D/t9R+ZSV7wGs8x0H9W9zE9drzOPo6kRsjueTAsZUaf3sX7e9VDYT/A8ewuCCGuUAKuW0YFs7el7WKfWnDhLAj8fncpLpwd1h/KfVbnl7oxQQWiONfmH6mWsaXw7ywLcD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YA37WcNv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790294630; c=relaxed/simple;
+	bh=smEO5ajkUjd/XE0Q0NvHBZW2RfBUnec6o1gpJNIoge0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IgDbePRyzTbr7rGQ4OFkxO9MXQFrYMYcmlVH0TsWvu5u25JgI+EzRALyYQm5Xe0uGNiEJiqVAKEkbjIAzE+KD5gwXp7VnxdjhcbTHiNz7hJcu6sWJLg5MNolWvyEvtIPvOfH6PZa/43Yd7k6/2/Yiol4JUbG1QV71l+9C+mX0JQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ntgaicXv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LDYXlgS5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YA37WcNv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A38D31F000FF;
-	Thu, 24 Sep 2026 23:56:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790294162;
-	bh=T8TLWelrEAtBSFgkpQh6afXe70tUSgkdcOLoQGnuc6Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YA37WcNvYQBUKuRnXk5dmXSkHBXeeZd1gdYnkB216VdQl8vrKFADwJP4QA+qjyj1m
-	 wYejtouq0E+zRzYilhs/tKYcJ0qw6xEDfpqd3a/kFM2scL0mOijjVvMVg5v4hsSvEr
-	 fIcfL8lvksY7VFW/JQnx2Ax2mKMziuYGV5IAdNkZxWoessuygmZs8vdLqKo5S0Acz7
-	 wTFR4h+8j24nrREvpqePg17Xx7jFXV95k0EjF2LN1q8sP+uAlUxqyusOzJxqWDdZ62
-	 Va4JluUsbmK19G/jiIIe+n2QvjQ07VSoDR3LaiLujxQnQy2eJjYCLTLmUWQlb3yDd4
-	 aWMZoGtQaWPCg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] i2c: designware: Support per-variant reg/bit
- offsets and intr handling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aniket Limaye" <a-limaye@ti.com>
-Cc: intel-xe@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260925-tda54-upstream-i2c-v2-2-261785e58493@ti.com>
-References: <20260925-tda54-upstream-i2c-v2-0-261785e58493@ti.com>
- <20260925-tda54-upstream-i2c-v2-2-261785e58493@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 24 Sep 2026 23:56:01 +0000
-Message-Id: <20260924235601.A38D31F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ntgaicXv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LDYXlgS5"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68OMOuHr3466278
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 00:03:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	H58DggwAYgasWPTqDpc+NXUeOTsA5g+ce6658T2WcyQ=; b=ntgaicXvjPhYL4n6
+	qMgOWfjyLEiYTmV3eiqMJUfyDMu1v/ap5+JMIDrvPcsqAMvACUmEk1fPQV7KLR0z
+	6liUr6WlTz+lrBgOGoRq7OmWO4BCuaqRysoTUJg2dP59gPytJcs3kx2/jh974v1F
+	kShGODI3Xy0JVUAem1WpNVVfJNqhC/R1DcDqOdJIaHJaeNaxQkhAeOqyRCHFSdb3
+	CXW/uraeyinRTqFdLFt6qPoRxzfKfJA7IKfMFI041x0J+s0/kfN1oZ6M70CU/Ls1
+	HOrYAQ46y7ZI+YjZkCRl2k7EjmwD1uVljR0X1uBIhBHoc2HABrnwogN9pkeedX88
+	qqXrEw==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw4652gvv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 00:03:45 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341b0999491so62906eec.0
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 17:03:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790294625; x=1790899425; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H58DggwAYgasWPTqDpc+NXUeOTsA5g+ce6658T2WcyQ=;
+        b=LDYXlgS5aSouB3r89rdT3msz/WrB8+EYY8bWF3Rs+g0x5nGlBYX/gMeQyk/3qQtGrp
+         Mangv/oHTWqcoFd5nu1SSuuaMLWHQPN+lbPSWvoHJbRO/l0YvRxTl68Jl1YmptGYbFMq
+         P94OhMtT7NZLWzHkcwuZQTZK9y16EplTnxoGXJc3RI/g2AtRNAr0rXazvpWV7q1+rbnE
+         5Tgy7tcp4ePUqrtMdFjpf80QSQhHnW9hRexGt5wdxDlB99U43DQyyrclxAUnDTjwwiKo
+         neU+lXDd76/MhRrwIvBH5f12k3PLcin3Da1f8hai7NAIQfbOYp/J9FO8LIBVrZwHeTuG
+         UFOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790294625; x=1790899425;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=H58DggwAYgasWPTqDpc+NXUeOTsA5g+ce6658T2WcyQ=;
+        b=H/zzlm53FYXqt8Yq08Hjxa9GMoXFGQF7O2lk3cmX2j0IIfU+Slf/jRvaWlx4KLUB0F
+         TfNRvoLddXgKjX8NT/F7fNjMliFTLh9zcJGIIS+2BdKvBEFv7ajycYaCfSrEIESEe0zb
+         o1HBE+bezBjf7nrrxuBJrmSfX/5QJtnTmwOkc6BUKboyxo1KovwVtyGFctMRwL02Glee
+         o1TtiSAEgQYTqdG8IoB28ybkDtlDFqYtq9OoENA1spkSGu7l955rwcxytYA8KYh2323h
+         Kw4JhCerJFApwlYM9OguuOuicowfl2UWYURwpU5Rzo7cq29h/9O1z2CMCWT1g5Lnq+tN
+         MG6w==
+X-Forwarded-Encrypted: i=1; AKwUvBy8ycoVLVGBEQwaFc7CaMSlAYt0WhgysJ1OgjyvF7skIw9sqKYDzRb+Lh0WDKaKmgjp6/tv81e0I7o7@vger.kernel.org
+X-Gm-Message-State: AFuF++lkBbHMemHCsyg7lTQ9mp3VY7XA3WwTyi/zCE+7Lj4AOXmh1Qm5
+	krQGM3RH8XlMRbzPa2zpmvJmuJ3qTVNBAaLzHCWtU6mqzauIcAO53lqj56ze9T1hqnhrlvrsvCT
+	gEdTvYH2kaCOEztImp5aC/0j8efqXrK8o+ncs04hjmYVvMxX0OjfFAwkyND6cuh+7
+X-Gm-Gg: AYBFou23CpHIYWQjfWIR5kI0jC5nHv7s5vri+OhrueewYP89RH0ShaFhkJDwo9Y4Q3m
+	eAsLE/0ZtikwhxsGBI6UTrTgDky0+yYbj9t/fcngwytv4Xa1Fx54my1bL0zYJ0/C2BTR87WTlHA
+	7G+b4wYjy47OIJ7hHgTfZSO17JPAerV57cdYKCza6K8B+yhf9sH4C4x9x+vXsJCBHyjXoieUMfd
+	yooBvZJhlPAkdN45sQpL+KCN9it1Gip7JtNYwdPeTDN9w7L+xbCi15I3gGz8JB/E/op0KjcMCTb
+	4UHQRJeJRHpcNN+msN8p43zW4tpPNm3VI2008yMp3En5gLJEnDBcu06kqk2Gc9eLkuDGMo/mAFT
+	JuFz4xkbTcoxwyc6XTphmlQ8+98+Nhjkj8aU+VdQTPw==
+X-Received: by 2002:a05:7300:1c94:b0:33b:fae9:fc37 with SMTP id 5a478bee46e88-340043a2f7fmr3392702eec.5.1790294624540;
+        Thu, 24 Sep 2026 17:03:44 -0700 (PDT)
+X-Received: by 2002:a05:7300:1c94:b0:33b:fae9:fc37 with SMTP id 5a478bee46e88-340043a2f7fmr3392683eec.5.1790294623875;
+        Thu, 24 Sep 2026 17:03:43 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3414407c548sm1779043eec.8.2026.09.24.17.03.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2026 17:03:43 -0700 (PDT)
+Date: Fri, 25 Sep 2026 08:03:39 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: clock: qcom,sm8450-videocc: Fix clock
+ inputs for Glymur
+Message-ID: <arW6W_2Azq0GLF9P@QCOM-aGQu4IUr3Y>
+References: <20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com>
+ <20260924161152.1162301-2-shengchao.guo@oss.qualcomm.com>
+ <20260924162500.C92FC1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260924162500.C92FC1F000FF@smtp.kernel.org>
+X-Authority-Analysis: v=2.4 cv=Wrq+otfv c=1 sm=1 tr=0 ts=6ab5ba61 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=zgFx8tfR_8MVfJF-GFEA:9
+ a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=bBxd6f-gb0O0v-kibOvt:22
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: tywuGJ8zx2DbivAW58UMlCKrh1UDNRa3
+X-Proofpoint-GUID: tywuGJ8zx2DbivAW58UMlCKrh1UDNRa3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI0MDA5NyBTYWx0ZWRfX2KdRQ6uOEH4C
+ 525pqf6FRfbvjj3dwmf8eBY5O+wUWs5wI76715B3+iVrtQoqv+o53gipKM3G2sXoTblKxfRyaDS
+ Mlz9mz1evxtsV+r2M145gVYFVfNuhbAQh+p3jBvn/van8IvT/splH8CJa7Dz02qp/gRCAqACNON
+ qxheVtSgDvA9HpCFncF2C3Br7MkktnssqZvza4ACg/w1Yij2GcaIwHjORK9hMfcFCK/ViOTAn+j
+ LXUMwwbyrNcOP/3UjRapMlo6a7G3cOJh7oeWUdQA240cF+bv3db4xEnFhxyShZff7QPbLeXLMVQ
+ ftEj+Bhuw8FAhQ14o3aU4ZaQW/3eN5nmDzbnNXmeo/3nMWyaSI/pQ8oVgByJaOcSYb5xiypC/OK
+ uiZTjmwyaUN7oy97kwPGJ18H6Ar7DluQykpy71Y4wwOFzjy9BkHUI30fFKqfdrO4Jl8yQSevG3M
+ 7Ot5isjd4lfXt14S0aA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI0MDA5NyBTYWx0ZWRfX2cJJdwrxaFLA
+ MX2zFL+/sStYTvBqM2hb4ONXHqmFsLBUqYCe+/9rbVwqh84nQdelXUSa8z2+lzxdKcBVMxqi3RJ
+ zgUKfbBbdI/DV5DUAmFZvZraLW8WBP0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-24_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609240097
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] i2c: designware: out-of-bounds MMIO access via debugfs on non-AMD =
-models
---
+On Thu, Sep 24, 2026 at 04:25:00PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] dt-bindings: hallucinated qcom,nord-videocc omitted from top-level enum
+> --
+> 
+> commit 0ca2f034154349c48cdd7a693b1d8282d6886964
+> Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> 
+> dt-bindings: clock: qcom,sm8450-videocc: Fix clock inputs for Glymur
+> 
+> The commit updates the clock inputs for the Glymur, Nord, and SM8750
+> variants in the bindings from exactly two items to up to three items. This
+> change allows device trees to supply the sleep clock input required by
+> these drivers, resolving an issue where it would register as an orphan
+> clock.
+> 
+> > diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
+> > index 910c6d5672b86..dc01c37dcd0e3 100644
+> > --- a/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
+> > +++ b/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
+> 
+> [ ... ]
+> 
+> > @@ -77,6 +76,27 @@ allOf:
+> >      then:
+> >        required:
+> >          - required-opps
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            enum:
+> > +              - qcom,glymur-videocc
+> > +              - qcom,nord-videocc
+> 
+> [Severity: Medium]
+> Is qcom,nord-videocc missing from the top-level properties/compatible enum
+> list? When a compatible string is introduced in the allOf/if conditional
+> logic but omitted from the top-level enum list (under unevaluatedProperties:
+> false), any device tree node using it will unconditionally fail validation.
+> 
+> Additionally, the commit message mentions that videocc-glymur.c handles
+> qcom,nord-videocc, but this identifier does not appear to exist anywhere in
+> the kernel tree. Could this compatible string be an LLM hallucination?
 
-commit 4dc8f1b4bfdf49722d6f1e25100bf25c45d88afb
-Author: Aniket Limaye <a-limaye@ti.com>
-Subject: i2c: designware: Support per-variant reg/bit offsets and intr hand=
-ling
+The series is based on linux-next, wehre qcom,nord-videocc has landed.
 
-This commit refactors the DesignWare I2C driver to support per-variant
-register offsets and interrupt handling. It converts DW_IC_* to a logical e=
-num,
-using a regmap to internally translate to physical offsets. It also moves t=
-he
-interrupt-acknowledgment pattern into a common helper driven by a per-varia=
-nt
-table.
+Shawn
 
-Link: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-2-b0b9f77be1=
-8b@ti.com/
-
-> diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/bus=
-ses/i2c-designware-common.c
-> index a1eca6cd4b75e..eeeb1f1892054 100644
-> --- a/drivers/i2c/busses/i2c-designware-common.c
-> +++ b/drivers/i2c/busses/i2c-designware-common.c
-> @@ -72,11 +72,55 @@ static const char *const abort_sources[] =3D {
-[ ... ]
->  static int dw_reg_read(void *context, unsigned int reg, unsigned int *va=
-l)
->  {
->  	struct dw_i2c_dev *dev =3D context;
-> =20
-> -	*val =3D readl(dev->base + reg);
-> +	*val =3D readl(dev->base + dev->regs[reg]);
-> =20
->  	return 0;
->  }
-[ ... ]
-> @@ -143,11 +189,11 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *de=
-v)
->  	struct regmap_config map_cfg =3D {
->  		.reg_bits =3D 32,
->  		.val_bits =3D 32,
-> -		.reg_stride =3D 4,
-> +		.reg_stride =3D 1,
->  		.disable_locking =3D true,
->  		.reg_read =3D dw_reg_read,
->  		.reg_write =3D dw_reg_write,
-> -		.max_register =3D DW_IC_COMP_TYPE,
-> +		.max_register =3D DW_IC_REG_MAX - 1,
->  	};
->  	u32 reg;
->  	int ret;
-> @@ -163,12 +209,9 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *dev)
->  	if (ret)
->  		return ret;
-> =20
-> -	reg =3D readl(dev->base + DW_IC_COMP_TYPE);
-> +	reg =3D readl(dev->base + dev->regs[DW_IC_COMP_TYPE]);
->  	i2c_dw_release_lock(dev);
-> =20
-> -	if ((dev->flags & MODEL_MASK) =3D=3D MODEL_AMD_NAVI_GPU)
-> -		map_cfg.max_register =3D AMD_UCSI_INTR_REG;
-> -
-
-[Severity: High]
-By unconditionally setting max_register to DW_IC_REG_MAX - 1, could this ex=
-pose
-the AMD-specific register (AMD_UCSI_INTR_REG, logical ID 40) via the regmap
-debugfs interface on all models?
-
-If a privileged user reads the regmap registers file in debugfs on a non-AMD
-platform, the iteration would reach logical register 40. This translates to
-physical offset 0x474 in dw_i2c_reg_offsets, which dw_reg_read() would atte=
-mpt
-to read via readl(dev->base + dev->regs[reg]).
-
-Could this lead to an out-of-bounds MMIO read and potentially cause a system
-crash (such as a bus fault or SError) or hardware hang, since the mapped MM=
-IO
-region on standard platforms might not extend to 0x474?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925-tda54-upst=
-ream-i2c-v2-0-261785e58493@ti.com?part=3D2
+> 
+> > +              - qcom,sm8750-videocc
+> > +    then:
+> > +      properties:
+> > +        clocks:
+> > +          items:
+> > +            - description: Board XO source
+> > +            - description: Board always-on XO source
+> > +            - description: Sleep clock source
+> > +    else:
+> > +      properties:
+> > +        clocks:
+> > +          items:
+> > +            - description: Board XO source
+> > +            - description: Video AHB clock from GCC
+> >  
+> >  unevaluatedProperties: false
+> >
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com?part=1
