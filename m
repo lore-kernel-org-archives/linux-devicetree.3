@@ -1,469 +1,335 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93130496D43
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 10:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F95C41DDF2;
+	Fri, 25 Sep 2026 10:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790332638; cv=none; b=RgiUFE7l92+yRVAs+G4TIc8kpyaaP8GErAvgQ3F28tKw8R3k+r7wIfV66qEBSFGw2wRU3+A9znmO4qwbO1uMBBv6v8hO6I8RZKAclvB3m+PWAj2mclHKO9Xuu+MzxYFkafmfcWZQNCZewb5/D5yyKP6uTdZLeEazR8WTzXUMIhE=
+	t=1790333334; cv=none; b=qnS+cM44/ktA0p7sgJQsW8qz/CWby3qTXy2DGgaPE7A3O165WRejGEwHvynFTC/Xw1YgJS0X467tnh5iJiwgQvuUaHbsY/oCaV9+7ofkApGZXKgI9/ulKt4qjeZazVwhCGBKKqi0boMxbqeoihN/A4l07kV9l7DeI9dYss79Blw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790332638; c=relaxed/simple;
-	bh=+nUN6rz6zzeX1HgQdsA2louWR2cCdGehoJ2jFGP13JQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZoNSGso1LHaCKt/2P5DMz3OqzPcO1USX6LMiJxfZD5Q1w9NI1JMU4Arq+M90tFql+Sq+u/WmBUXVbLiH9IVWJk8CtqRGWyxgQZ0jotXImknhwu+0Qy3d6WqnWQOXQBNp0rFId9GH+MzkgISvqkfydw7YRiDli6YltRwoQE46pk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P9lG1xZx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AtHutlD1; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790333334; c=relaxed/simple;
+	bh=aVIqsYEDzwPPEQ2lCTsRL+AAkmv2iHaXQCgyjyXNB78=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SLqN0fMYGwRPyPnQ1y9mxo5EJkC+zt6V0yEikfVxwbnuCbDMFu+Z/tV/GfmvcxpQt+wJaDBHbHhZ0ahRNhfAd+f6Tze03bOznPrJBzZNwRkf99kqWbzZ32bQJ1gfSF93vw8n4Ro9va5WjgG46nK3ynW8T67raFXJlurWMeMRC2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YJeinSQC; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P9lG1xZx";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AtHutlD1"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YXDe289475
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 10:37:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Dc2b3E2dU/PKCiTvrUVIT4Jv
-	Egyr5BpHbH25kJGzFm4=; b=P9lG1xZxSB3Ijc1XZQYp/LQOQ3W2Ia8/e0e95mf8
-	7q05Owzr7wbi94CZiKaOiieiMHEupmEL3RZXt4EVkRng2Ag868gpiusquMeXI+8f
-	XNV453o7Alrt+BsIDS9BrL64pQigfcNqP6OfbSS9QuvqGCeCjq4q2/kfqfJ7sCYz
-	lSYL798rceJnSWjIXIfE65x9nCXlKQ35AQo/uvMDGveaQg/Qj7STDYWFG3uHUMCu
-	fVN5OTC+fOOgNRWtsmJqKwuSbIHKyOm7VPY6z5MZAwJDCuDMqI27LOgpBKnDKBml
-	N7TBL7nh4ikEz2aZmAomlxTdlQ/+q32i7qT2WCS6ib2r1g==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw881u55h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 10:37:14 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a1de6d5c3so170274885a.3
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 03:37:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790332633; x=1790937433; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Dc2b3E2dU/PKCiTvrUVIT4JvEgyr5BpHbH25kJGzFm4=;
-        b=AtHutlD19V4/NCMiMLG0jR4PHezqQ0Oe8GD5Z7mKnnEmcYGmtVEZslsijNGyTNqz7r
-         8CLQ/b66/OlMNkTIjc7DwtIcWrjN+aRatGigvuDIL0Nv7ZguoEq8Fl2M4L2A5VksiS6J
-         NiQn17N+kPcBbFYJY7/iVzO4cFmHfs1jgh/7EKIfMG0LxmsbzIb89NJ0I4MiaiW+u0UJ
-         wBiv0+PXuaiL6HSKfdvUlzB/DhwekpblJn1+OQ2pFCuIAAXmHdSaiFn+DVroQSyFyB+M
-         d2+tEzyDEqgOv7vP105ZVyDwmJW5tdF/4Iuy2+VuMbj3gjcKSLb6ULyT3oTOW3T1+MF7
-         8YoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790332633; x=1790937433;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dc2b3E2dU/PKCiTvrUVIT4JvEgyr5BpHbH25kJGzFm4=;
-        b=FJotffxs/bdu/5YJCO24scLdLrj4/oQTATZkbW5YmEkmrWshhzY47V7Dce60E/URIg
-         99RGLfR0M16tsssaQaoJ6iX00uecUsIGO4kIUZpQEqfv3jHIVyVEAaqKSZF3UDvxoYxx
-         N1AdYki6aLoRUZ7ACu8pFWpRjjURCqKj9SismzAzejCWrfQHJce0kxRPHwgGPQGVjQFx
-         AMYnzt9+EQn39q3nBPttyWfsigSILTkuuspWnXdvuJj9fPofEPnEGPCY5xbDzC0jnZoT
-         +mrd40QvlCmO5ACuEAiqrEzibXngEqBRw1F/AaxdBq6NvI+BqpMXqFow0yDbqtgZLbMw
-         AK8A==
-X-Forwarded-Encrypted: i=1; AKwUvBx6RBCsc6lKrmcA0APwRS3H2y6emW4TZzPtxU+h9nPQ490GkIlNXZxgqlGVHDcw5TlDuREeU0vrn21r@vger.kernel.org
-X-Gm-Message-State: AFuF++lDTzgcWROt9g4pvhKnM1WDzhdiAcICaV6PnV/KvLno7uW3z2J5
-	bRQI9ofPYA2CTUI8/TmmYC92Pl/DpkNHr35V1kuGO/MwfYTNEZa5NdQ27MyuB5lkuXtrL4LqDt/
-	jlb3LyFYR2Oqw01k77G/0w1aSNW0iulpL2r+dHl7cD7l4rnlmx86ZNpWFmsafqUFX
-X-Gm-Gg: AYBFou2PUk2JrxbAxjh2bgvX8Go5wiUapH2TzVTmDd2ZIHe0+58H9tfVGkQiL7JcoNZ
-	cvAdBALng1B1Qnj/QFk9gH0b5C1EYy41+FqksE8G2RzmsSh95Qlb0PP7pgy8XWrAPP1VIMMfOx/
-	2aR6qEjPjaeDOzd44TAq0fbUOjF/pkvuXj7ZYFfQ4NqVH091wtCyX2Ut6iDVDDglQt62d/+7bfL
-	9ctlVoXXaK29kX1g981FdtfzzKgisJjR4gPU7LvI3vDIz1k3l7WMfnp43D5ENM2xAMScN2kgjmO
-	9BMuT2NTSV9jeNDVnkjQWlIDN++axBre/fMK+37Xs6vRpeTQDNjphUhQ2eJFDIW/LSlx4E2pHOv
-	uih6boL/+Sl4Y0g==
-X-Received: by 2002:a05:620a:6493:b0:936:77d7:55a4 with SMTP id af79cd13be357-93c43cfc87emr347681585a.19.1790332633365;
-        Fri, 25 Sep 2026 03:37:13 -0700 (PDT)
-X-Received: by 2002:a05:620a:6493:b0:936:77d7:55a4 with SMTP id af79cd13be357-93c43cfc87emr347677285a.19.1790332632792;
-        Fri, 25 Sep 2026 03:37:12 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a2acb4dsm6202787f8f.0.2026.09.25.03.37.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 03:37:11 -0700 (PDT)
-Date: Fri, 25 Sep 2026 12:37:10 +0200
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-        Jose Abreu <joabreu@synopsys.com>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-        Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Subject: Re: [PATCH RFC net-next 4/9] net: pcs: xpcs: add Qualcomm Nord
- platform support
-Message-ID: <arZO1niyhIEnAv5J@lore-desk>
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
- <20260923-qcom_xpcs_nord_emac-v1-4-4b1c682af70f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YJeinSQC"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id AEF981A1022;
+	Fri, 25 Sep 2026 10:48:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 808E16073B;
+	Fri, 25 Sep 2026 10:48:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 35080103295BB;
+	Fri, 25 Sep 2026 12:48:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790333318; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=UmUwaUSO2i4fducsoEGi64giRyEaAPB1eU/lhpOclA8=;
+	b=YJeinSQCCOzu7yJtl2bXo/Lf4n4b1pwbe8oQySOJlf+/3sTrMkSbc/sCg77vt9s0zsRvns
+	onzdDcQsminznylp5KISGqd/bLS2Nj1svcHORXwbUrqAiQd6CPzRte/4mlyF6G3WhlUm06
+	J/QrnmiVSuaAQjWbnBWK1AV4XpU0qrAL5ZeXrP334ZTYKHqMTe/wARHzyfRIbbcNdIekn1
+	nZzQ09KXfk2ehUaOmAGhpRHkT0YnY23kDBUDFPIB1Q4qqmfTkCdk9C1NCpY6b5FGW+G5hr
+	8LXcH3ORbkm/cU6BTKi8pfE39EI31o/c2tRd1WlCWFrJk2i/KNcRYaSjGoMOzQ==
+Date: Fri, 25 Sep 2026 12:48:31 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
+Message-ID: <20260925124831.75789c4d@bootlin.com>
+In-Reply-To: <arSdrp6WtJfdiAne@gractus.seuss>
+References: <aqJ5OhJcv4k-ZAj8@gractus.seuss>
+ <20260911091653.37b22b0f@bootlin.com>
+ <aqS6HmkaVYbrePtN@gractus.seuss>
+ <20260914121937.5b7fa2bb@bootlin.com>
+ <aqonNkbVqW9tf6Bg@gractus.seuss>
+ <20260917090450.770c107a@bootlin.com>
+ <aqzA11pFzN_3_Nhf@gractus.seuss>
+ <20260918101617.46b3477e@bootlin.com>
+ <aq4N5zbuCVZ4e6-C@gractus.seuss>
+ <20260922084154.576a42d0@bootlin.com>
+ <arSdrp6WtJfdiAne@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ySQnkYGEMas/aZSk"
-Content-Disposition: inline
-In-Reply-To: <20260923-qcom_xpcs_nord_emac-v1-4-4b1c682af70f@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=TptzFzXh c=1 sm=1 tr=0 ts=6ab64eda cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=TBIoFk-jyhqgT34sUlAA:9 a=CjuIK1q_8ugA:10 a=6T2aJRpNhVgXhit-X0gA:9
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA0MiBTYWx0ZWRfX80riwLx98xlJ
- X2Ex50K0RwezpfCjxqLP3roEUx3g9kKlGKN6/bPTm6edj8gwa1it5Lubz5tIBYxmlPaDpEevoSS
- sOv5fncqIBEmRkyklep0/+dlXbMVloEtcvazv2U2lbJMcUsP6rgNfVqP/yi0GrTt6mc/rMKl78U
- lHPI0ckhhBENtToo6Be770EriVMDuDPDdoCchNNzcoEWcO+LF3nmFgaA0Lc24RVP67FmEj8k/G3
- 4F0L2UlCuySh8fQFxodz/uxZcR1fgkz5sFmRPzOr5zrMqCFsibEzRcKslhlbJg1MIecYmIn9ExF
- rWTCMzSfLZQX3Xcgd6A3HaS2mTP3TLPhTtE9z7Ymk1bbKB9j9X8Kgn3AUg9X9zOtLv+SOblmaA5
- 2R23CU7u+0Y7dDoVfOETUJJcTxH7yiw/tJkVTV1cVjbRe+69WqRnY8NKKvWD691BO8J2Lcdt2Ij
- MwXJJDfdw66r3ZHtNMQ==
-X-Proofpoint-ORIG-GUID: UIvHhEmYYBqbrYWeElzYM3QQM-EVHaWI
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA0MiBTYWx0ZWRfX7785VzhTgVCm
- hvogpd0N6ypK9749QPpZZZhH7bRYttsfB1KLaD00sjxnm60lgIfKvNgSELXp7rCiOpAzgYXlokM
- IJjhABVOU1NYYqrvOlTc7BytraiZwZI=
-X-Proofpoint-GUID: UIvHhEmYYBqbrYWeElzYM3QQM-EVHaWI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250042
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
---ySQnkYGEMas/aZSk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi David,
 
-> Qualcomm Nord exposes the DesignWare XPCS register blocks through
-> separate direct-MMIO windows instead of the standard contiguous
-> MMD/register layout. Add accessors that translate MMD accesses to the
-> Nord windows:
->=20
->   MMD 3 (PCS), standard registers: SR_XS at 0x0000
->   MMD 3 (PCS), vendor registers:   VR_XS at 0x2000
->   MMD 1 (PMA/PMD):                  SR_PMA at 0x3000
->   MMD 31 (VEND2), standard regs:    SR_MII at 0x4000
->   MMD 31 (VEND2), vendor registers: VR_MII at 0x5000
->=20
-> Each register uses a 32-bit MMIO stride. The vendor bit is removed from
-> the register index before calculating a vendor-window offset.
->=20
-> Select these accessors using the Nord synthetic XPCS ID, allow its
-> smaller direct-MMIO resource, and add the Nord USXGMII Clause 37
-> compatibility.
->=20
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> ---
->  drivers/net/pcs/Makefile        |  3 +-
->  drivers/net/pcs/pcs-xpcs-plat.c | 17 +++++++-
->  drivers/net/pcs/pcs-xpcs-qcom.c | 86 +++++++++++++++++++++++++++++++++++=
-++++++
->  drivers/net/pcs/pcs-xpcs-qcom.h | 16 ++++++++
->  drivers/net/pcs/pcs-xpcs.c      | 13 +++++++
->  include/linux/pcs/pcs-xpcs.h    |  1 +
->  6 files changed, 134 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/net/pcs/Makefile b/drivers/net/pcs/Makefile
-> index 4f7920618b90051e839a74a7101aaaf055a77f74..3d7cf1a5cd0783078edcefc6d=
-fec626af469495d 100644
-> --- a/drivers/net/pcs/Makefile
-> +++ b/drivers/net/pcs/Makefile
-> @@ -2,7 +2,8 @@
->  # Makefile for Linux PCS drivers
-> =20
->  pcs_xpcs-$(CONFIG_PCS_XPCS)	:=3D pcs-xpcs.o pcs-xpcs-plat.o \
-> -				   pcs-xpcs-nxp.o pcs-xpcs-wx.o
-> +				   pcs-xpcs-nxp.o pcs-xpcs-qcom.o \
-> +				   pcs-xpcs-wx.o
-> =20
->  obj-$(CONFIG_PCS_XPCS)		+=3D pcs_xpcs.o
->  obj-$(CONFIG_PCS_LYNX)		+=3D pcs-lynx.o
-> diff --git a/drivers/net/pcs/pcs-xpcs-plat.c b/drivers/net/pcs/pcs-xpcs-p=
-lat.c
-> index e78a233fb198d940951064a71e8597c6c666bc9d..e013a5253a22651220e62352d=
-03faabc3a3c3658 100644
-> --- a/drivers/net/pcs/pcs-xpcs-plat.c
-> +++ b/drivers/net/pcs/pcs-xpcs-plat.c
-> @@ -20,6 +20,7 @@
->  #include <linux/sizes.h>
-> =20
->  #include "pcs-xpcs.h"
-> +#include "pcs-xpcs-qcom.h"
-> =20
->  /* Page select register for the indirect MMIO CSRs access */
->  #define DW_VR_CSR_VIEWPORT		0xff
-> @@ -239,8 +240,14 @@ static int xpcs_mmio_write_c45(struct mii_bus *bus, =
-int addr, int dev,
->  		return xpcs_mmio_write_reg_direct(pxpcs, dev, reg, val);
->  }
-> =20
-> +static const struct dw_xpcs_plat_ops xpcs_qcom_ops =3D {
-> +	.reg_read =3D xpcs_qcom_reg_read,
-> +	.reg_write =3D xpcs_qcom_reg_write,
-> +};
-> +
->  static struct dw_xpcs_plat *xpcs_plat_create_data(struct platform_device=
- *pdev)
->  {
-> +	const struct dw_xpcs_info *info;
->  	struct dw_xpcs_plat *pxpcs;
-> =20
->  	pxpcs =3D devm_kzalloc(&pdev->dev, sizeof(*pxpcs), GFP_KERNEL);
-> @@ -248,6 +255,12 @@ static struct dw_xpcs_plat *xpcs_plat_create_data(st=
-ruct platform_device *pdev)
->  		return ERR_PTR(-ENOMEM);
-> =20
->  	pxpcs->pdev =3D pdev;
-> +	info =3D device_get_match_data(&pdev->dev);
-> +	if (!info)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	if (info->pcs =3D=3D QCOM_NORD_XPCS_ID)
-> +		pxpcs->ops =3D &xpcs_qcom_ops;
-> =20
->  	dev_set_drvdata(&pdev->dev, pxpcs);
-> =20
-> @@ -285,7 +298,7 @@ static int xpcs_plat_init_res(struct dw_xpcs_plat *px=
-pcs)
->  	else
->  		spc_size =3D pxpcs->reg_width * SZ_2M;
-> =20
-> -	if (resource_size(res) < spc_size) {
-> +	if (!pxpcs->ops && resource_size(res) < spc_size) {
->  		dev_err(dev, "Invalid reg-space size\n");
->  		return -EINVAL;
->  	}
-> @@ -452,8 +465,10 @@ DW_XPCS_INFO_DECLARE(xpcs_pma_gen4_3g, DW_XPCS_ID_NA=
-TIVE, DW_XPCS_PMA_GEN4_3G_ID
->  DW_XPCS_INFO_DECLARE(xpcs_pma_gen4_6g, DW_XPCS_ID_NATIVE, DW_XPCS_PMA_GE=
-N4_6G_ID);
->  DW_XPCS_INFO_DECLARE(xpcs_pma_gen5_10g, DW_XPCS_ID_NATIVE, DW_XPCS_PMA_G=
-EN5_10G_ID);
->  DW_XPCS_INFO_DECLARE(xpcs_pma_gen5_12g, DW_XPCS_ID_NATIVE, DW_XPCS_PMA_G=
-EN5_12G_ID);
-> +DW_XPCS_INFO_DECLARE(xpcs_qcom_nord, QCOM_NORD_XPCS_ID, DW_XPCS_PMA_ID_N=
-ATIVE);
-> =20
->  static const struct of_device_id xpcs_of_ids[] =3D {
-> +	{ .compatible =3D "qcom,nord-dw-xpcs", .data =3D &xpcs_qcom_nord },
->  	{ .compatible =3D "snps,dw-xpcs", .data =3D &xpcs_generic },
->  	{ .compatible =3D "snps,dw-xpcs-gen1-3g", .data =3D &xpcs_pma_gen1_3g },
->  	{ .compatible =3D "snps,dw-xpcs-gen2-3g", .data =3D &xpcs_pma_gen2_3g },
-> diff --git a/drivers/net/pcs/pcs-xpcs-qcom.c b/drivers/net/pcs/pcs-xpcs-q=
-com.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..63c95c951454819b62eb3fd00=
-abcc6b529e2004b
-> --- /dev/null
-> +++ b/drivers/net/pcs/pcs-xpcs-qcom.c
-> @@ -0,0 +1,86 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Qualcomm DesignWare XPCS platform helpers
-> + *
-> + * Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserv=
-ed.
-> + */
-> +
-> +#include <linux/io.h>
-> +#include <linux/mdio.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
-> +
-> +#include "pcs-xpcs.h"
-> +#include "pcs-xpcs-qcom.h"
-> +
-> +/* Qualcomm Nord direct MMIO XPCS windows. */
-> +#define QCOM_XPCS_SR_XS_BASE		0x0000
-> +#define QCOM_XPCS_VR_XS_BASE		0x2000
-> +#define QCOM_XPCS_SR_PMA_BASE		0x3000
-> +#define QCOM_XPCS_SR_MII_BASE		0x4000
-> +#define QCOM_XPCS_VR_MII_BASE		0x5000
-> +
-> +static int xpcs_qcom_reg_offset(int dev, int reg)
-> +{
-> +	switch (dev) {
-> +	case MDIO_MMD_PCS:
-> +		if (reg & DW_VENDOR)
-> +			return QCOM_XPCS_VR_XS_BASE +
-> +			       ((reg & ~DW_VENDOR) << 2);
-> +
-> +		return QCOM_XPCS_SR_XS_BASE + (reg << 2);
-> +
-> +	case MDIO_MMD_PMAPMD:
-> +		return QCOM_XPCS_SR_PMA_BASE + (reg << 2);
-> +
-> +	case MDIO_MMD_VEND2:
-> +		if (reg >=3D DW_VENDOR)
-> +			return QCOM_XPCS_VR_MII_BASE +
-> +			       ((reg - DW_VENDOR) << 2);
-> +
-> +		return QCOM_XPCS_SR_MII_BASE + (reg << 2);
-> +
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +}
+On Thu, 24 Sep 2026 13:49:55 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-This seems to be the real difference with respect to the
-xpcs_mmio_read_reg_direct()/xpcs_mmio_write_reg_direct(), right?
-Maybe a different approach (simpler but probably less flexible is to make
-xpcs_mmio_addr_format() SoC dependent. What do you think?
+> On Tue, Sep 22, 2026 at 08:41:54AM +0200, Herve Codina wrote:
+> > On Sat, 19 Sep 2026 14:22:09 +1000
+> > David Gibson <david@gibson.dropbear.id.au> wrote:
+> >   
+> > > On Fri, Sep 18, 2026 at 10:16:17AM +0200, Herve Codina wrote:  
+> > > > Hi David,
+> > > > 
+> > > > On Fri, 18 Sep 2026 14:41:11 +1000
+> > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > >     
+> > > > > On Thu, Sep 17, 2026 at 09:04:50AM +0200, Herve Codina wrote:    
+> > > > > > Hi David,
+> > > > > > 
+> > > > > > On Wed, 16 Sep 2026 15:21:15 +1000
+> > > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > > > >       
+> > > > > > > On Mon, Sep 14, 2026 at 12:19:37PM +0200, Herve Codina wrote:      
+> > > > > > > > Hi David,
+> > > > > > > > 
+> > > > > > > > On Sat, 12 Sep 2026 12:34:24 +1000
+> > > > > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > > > > > > 
+> > > > > > > > ...
+> > > > > > > >         
+> > > > > > > > > > Do you mean that we should avoid the DATA_LEN_ENCODING and always have the
+> > > > > > > > > > 32-bit value right after the tag to give the size for all "skippable" tags?          
+> > > > > > > > > 
+> > > > > > > > > Yes.
+> > > > > > > > >         
+> > > > > > > > 
+> > > > > > > > I did a test using a dts file available in kernel sources. I used (arbitrary
+> > > > > > > > choice) juno.dts [0].
+> > > > > > > > 
+> > > > > > > > Without any new tags, the size of the compiled dtb is 27067 bytes.
+> > > > > > > > 
+> > > > > > > > With new metadata tags identifying phandles in properties (FDT_PROPDATA_PHANDLE),
+> > > > > > > > the size of the dtb becomes 29027 bytes and so 29027 - 27067 = 1960 bytes for
+> > > > > > > > those FDT_PROPDATA_PHANDLE tags (+7.2%).
+> > > > > > > > 
+> > > > > > > > The tags used are composed of:
+> > > > > > > > 32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit for data
+> > > > > > > > 32-bit: offset in the property where a phandle is present.
+> > > > > > > > 
+> > > > > > > > Removing the '1 x 32-bit' information from the tag value and adding a 32-bit
+> > > > > > > > 'length' in all cases will lead 3 x 32-bit values for a FDT_PROPDATA_PHANDLE
+> > > > > > > > tag (tag + length + offset) instead of the 2 x 32-bit (tag + offset).
+> > > > > > > > 
+> > > > > > > > Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_PHANDLE will need
+> > > > > > > > 1960 * 3 / 2 = 2640 bytes (+9.7%). This leads to around +2.5% of the whole
+> > > > > > > > dtb just to have the 32-bit for length. This +2.5% can be easily avoided.
+> > > > > > > > 
+> > > > > > > > Also, I will not be surprised to see more tags in the future adding some more
+> > > > > > > > metadata information and so increasing dtb sizes.
+> > > > > > > > 
+> > > > > > > > Quite often you have mentioned memory constraints system where libfdt should
+> > > > > > > > be as small as possible. On those system, the dtb itself is embedded in the
+> > > > > > > > binary close to libfdt. The size of dtb should be taken into account.        
+> > > > > > > 
+> > > > > > > Yeah, those proportions are high enough that I think it's worth it.
+> > > > > > >       
+> > > > > > > > If the SAFE_SKIP bit is removed, I even plan to use this now free bit in the
+> > > > > > > > length encoding part:
+> > > > > > > >   0b000: No data
+> > > > > > > >   0b001: 1 fdt32
+> > > > > > > >   0b010: 2 fdt32
+> > > > > > > >   ...
+> > > > > > > >   0b110: 6 fdt32
+> > > > > > > >   0b111: On additional fdt32 to encode the length of data.
+> > > > > > > > 
+> > > > > > > > IHMO, length encoding bits in tag value definition should be kept and used
+> > > > > > > > for all tags where the length is fixed and can be encoded using
+> > > > > > > > these bits.        
+> > > > > > > 
+> > > > > > > Well, I'm convinced we want some sort of compact encoding of the
+> > > > > > > length, but I think we can do better than the current proposal.  It
+> > > > > > > seems implausible to me that we'll need 2^29 different metadata tags,
+> > > > > > > so I think we can spend some more of the tag bits on the length.  How about:
+> > > > > > > 
+> > > > > > >    0x80000000		structured tag bit
+> > > > > > >    0x7fff0000		tag type
+> > > > > > >    0x0000ffff		tag length
+> > > > > > > 
+> > > > > > > So we have up to 2^15 (32k) different structured tags each with a
+> > > > > > > length of [0..65534] bytes (length==65535 reserved for those that need
+> > > > > > > a full 32-bit length word).
+> > > > > > > 
+> > > > > > > I believe that will avoid the extra length word for everything you
+> > > > > > > have currently drafted.
+> > > > > > >       
+> > > > > > 
+> > > > > > Yes, this will avoid the extra length field. The drawback is the that the
+> > > > > > tag value is no more a well fixed value. Each time we have to check the tag
+> > > > > > value we have to filter out the tag length.
+> > > > > > 
+> > > > > > For instance:
+> > > > > > - FDT_PROPDATA_PHANDLE
+> > > > > >   fixed data size 4 bytes for offset
+> > > > > >   tag value: 0x80010004
+> > > > > > 
+> > > > > > - FDT_PROPDATA_PHANDLE_REF
+> > > > > >   data: 4 bytes for offset + N bytes for a string
+> > > > > >   tag value 0x8002ssss with ssss for the size
+> > > > > > 
+> > > > > > This will lead to code like this:
+> > > > > >   tag = fdt_next_tag();
+> > > > > >   if (tag == FDT_PROPDATA_PHANDLE)
+> > > > > >     /* Do something */
+> > > > > >      
+> > > > > >   if (TAG_GET_ID(tag) == FDT_PROPDATA_PHANDLE_REF)
+> > > > > >     /* Do something */      
+> > > > > 
+> > > > > True.  But.. a similar problem kind of exists with the original
+> > > > > proposed encoding too: we *expect* a tag with fixed 4-byte contents to
+> > > > > use the "1 cell" flags, but we need to consider the case of encoding
+> > > > > it as VARLEN with a length field of 4.  We could choose to make that
+> > > > > forbidden, but we'd still need to consider who's responsible for
+> > > > > enforcing that.
+> > > > > 
+> > > > > Similarly, if a variable length metadata tag happens to have length 4
+> > > > > or 8 in a particular place, is it valid to encode it with the 1-cell
+> > > > > or 2-cell flag?    
+> > > > 
+> > > > My position was: if we expect a tag with "1-cell" flag, using varlen
+> > > > field encoding is considered as an other tag and so either an error
+> > > > or a skippable unknown tag.    
+> > > 
+> > > So essentially tags of different (fixed) length live in different
+> > > namespaces.  Ok, that makes good sense to me, but wasn't initially
+> > > obvious to me.  So, I think we need to spell this out a bit better.
+> > >   
+> > > > The same apply for varlen defined tag. Even if the data is, let's
+> > > > say 8 bytes, the tag cannot be moved to a "2-cells" tag.
+> > > > 
+> > > > The kind of data length encoding (1-cell, 2-cells, varlength) is done
+> > > > when the tag is defined and cannot be changed.
+> > > > 
+> > > > Who is responsible for enforcing that ?
+> > > > I would say the documentation of the tag should clearly set the data
+> > > > encoding used for the tag and the documentation of the "skippable"
+> > > > format should say that data encoding is fixed for a given tag. It is
+> > > > set when the tag is defined and any changes at runtime should be
+> > > > considered as a different tag.
+> > > > 
+> > > > Of course we can introduce dynamic length encoding to set the data length
+> > > > encoding in the tag according to the exact data length found at runtime.
+> > > >     
+> > > > > As a variant on my proposal, I'd also be fine with dividing the
+> > > > > structed tags into several classes with bits indicating which is
+> > > > > which.  Either:
+> > > > > 
+> > > > >  * "short" vs "long": "short" always has the length within the tag
+> > > > >    word (and so cannot exceed 64k, or however many bits we set aside)
+> > > > >    whereas long always has a length word
+> > > > >  * "fixed" vs "variable", fixed length tag types always have the same
+> > > > >    length, so the length can be considered part of the tag.  Variable
+> > > > >    would have a length word.    
+> > > > 
+> > > > Well, only strings, or more generally arrays, need a varlen. For those
+> > > > item, I would use the varlen word and so "long" in your definition.
+> > > > 
+> > > > For all others where the sizeof(data) is well known when the tag is
+> > > > defined, I would use "fixed" and "long" only if sizeof(data) cannot
+> > > > be encoded by "fixed" (lengh > limit of dedicated bits).    
+> > > 
+> > > Right, now understanding your thoughts on the originally proposed
+> > > encoding, the "fixed" versus "variable" distinction makes more sense I
+> > > think.  I do see the advantage of never having a variable length
+> > > encoded within the tag word.
+> > >   
+> > > > Without any additional bits for any category, all of these fit with the
+> > > > following length encoding:
+> > > >   000...00: No data
+> > > >   000...01: 1 x 32-bit
+> > > >   111...10: N x 32-bit
+> > > >   111...11: varlen word    
+> > > 
+> > > Right, so revising my suggestions in light of a better understanding
+> > > of what you had in mind originally, it comes down to:
+> > > 
+> > >  * I think adding more bits to the size field would be worthwhile to
+> > >    allow a wider variety of future fixed length metadata tags.  
+> > 
+> > Right, I have planned to add one more bit compared to the original proposal.
+> > This leads to 3 bits and so 0 to 6 32-bit data words (0b111 means varlen word).
+> > 
+> > Do you think we should add one more bits?  
+> 
+> I don't think we particularly need them for the tag type, so yes, I
+> think that would be worthwhile.
+> 
+> > >  * Originally I was thinking that having a length in bytes rather than
+> > >    just a length in 32-bit words would be worth it.  But thinking
+> > >    further, there's probably no benefit.  The length rounded up to
+> > >    32-bit words is all we need for skipping over it when unknown.
+> > >    Even if we want a fixed length tag with, say, 3 bytes of data, we
+> > >    can pad that out to a 1-word tag with a reserved byte.  
+> > 
+> > The varlen word could be kept in bytes.  
+> 
+> The varlen word _must_ be kept in bytes.
+> 
+> > > Ok, so more length bits and better documentation of the fixed
+> > > vs. variable distinction are the only remaming suggestions.  
+> 
 
-> +
-> +int xpcs_qcom_reg_read(struct platform_device *pdev, void __iomem *reg_b=
-ase,
-> +		       int dev, int reg)
-> +{
-> +	int offset, ret;
-> +
-> +	offset =3D xpcs_qcom_reg_offset(dev, reg);
-> +	if (offset < 0)
-> +		return offset;
-> +
-> +	ret =3D pm_runtime_resume_and_get(&pdev->dev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret =3D readl(reg_base + offset) & 0xffff;
-> +
-> +	pm_runtime_put(&pdev->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +int xpcs_qcom_reg_write(struct platform_device *pdev, void __iomem *reg_=
-base,
-> +			int dev, int reg, u16 val)
-> +{
-> +	int offset, ret;
-> +
-> +	offset =3D xpcs_qcom_reg_offset(dev, reg);
-> +	if (offset < 0)
-> +		return offset;
-> +
-> +	ret =3D pm_runtime_resume_and_get(&pdev->dev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	writel(val, reg_base + offset);
-> +
-> +	pm_runtime_put(&pdev->dev);
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/net/pcs/pcs-xpcs-qcom.h b/drivers/net/pcs/pcs-xpcs-q=
-com.h
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..a1084f6a10a96baa8ba0d192e=
-e64cdaed90da125
-> --- /dev/null
-> +++ b/drivers/net/pcs/pcs-xpcs-qcom.h
-> @@ -0,0 +1,16 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +
-> +#ifndef __PCS_XPCS_QCOM_H
-> +#define __PCS_XPCS_QCOM_H
-> +
-> +#include <linux/io.h>
-> +#include <linux/types.h>
-> +
-> +struct platform_device;
-> +
-> +int xpcs_qcom_reg_read(struct platform_device *pdev, void __iomem *reg_b=
-ase,
-> +		       int dev, int reg);
-> +int xpcs_qcom_reg_write(struct platform_device *pdev, void __iomem *reg_=
-base,
-> +			int dev, int reg, u16 val);
-> +
-> +#endif /* __PCS_XPCS_QCOM_H */
-> diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-> index 7f5c7a275630f2b064e4b9abdd6c3619e9346cec..1f556b4f7c44f06f24a2f7247=
-34d3a7d71424de3 100644
-> --- a/drivers/net/pcs/pcs-xpcs.c
-> +++ b/drivers/net/pcs/pcs-xpcs.c
-> @@ -1571,6 +1571,15 @@ static const struct dw_xpcs_compat nxp_sja1110_xpc=
-s_compat[] =3D {
->  	}
->  };
-> =20
-> +static const struct dw_xpcs_compat qcom_nord_xpcs_compat[] =3D {
-> +	{
-> +		.interface =3D PHY_INTERFACE_MODE_USXGMII,
-> +		.supported =3D xpcs_usxgmii_features,
-> +		.an_mode =3D DW_AN_C37_USXGMII,
-> +	}, {
-> +	}
-> +};
-> +
->  static const struct dw_xpcs_desc xpcs_desc_list[] =3D {
->  	{
->  		.id =3D DW_XPCS_ID,
-> @@ -1584,6 +1593,10 @@ static const struct dw_xpcs_desc xpcs_desc_list[] =
-=3D {
->  		.id =3D NXP_SJA1110_XPCS_ID,
->  		.mask =3D DW_XPCS_ID_MASK,
->  		.compat =3D nxp_sja1110_xpcs_compat,
-> +	}, {
-> +		.id =3D QCOM_NORD_XPCS_ID,
-> +		.mask =3D DW_XPCS_ID_MASK,
-> +		.compat =3D qcom_nord_xpcs_compat,
->  	},
+So the name "structured" tag will be replace my "skippable" tag. I don't
+want to use "metadata" because we don't know if future tags will be only
+metadata tags or something else that shouldn't be qualified by "metadata".
 
-I guess this part is supposed to be part of patch 2/9, right?
+Skippable tag format:
+  - bit 31: set to 1
+      Indentify a skippable tag.
+  - bits 30..24: Data length encoding
+      Encode the length of data attached to the tag.
+      0b0000000: No data
+      0b0000001: 1 32-bit word
+      0b0000010: 2 x 32-bits words
+      0b0000011: 3 x 32-bits words
+      ...
+      0b1111101: 125 x 32-bits words
+      0b1111110: 126 x 32-bits words
+      0b1111111: varlen encoding. The length of data is encode by an 32-bit
+                 word available right after the tag. This word gives the
+                 length of data in bytes.
 
-Regards,
-Lorenzo
+  - bits 23..0: Tag identifier
 
->  };
-> =20
-> diff --git a/include/linux/pcs/pcs-xpcs.h b/include/linux/pcs/pcs-xpcs.h
-> index 4ea995b70150e33e1e1a47cc7aa324c53742fbdc..0f69e14b2a4c8d17b59a570de=
-bd14a77ab040182 100644
-> --- a/include/linux/pcs/pcs-xpcs.h
-> +++ b/include/linux/pcs/pcs-xpcs.h
-> @@ -26,6 +26,7 @@ enum dw_xpcs_pcs_id {
->  	DW_XPCS_ID_NATIVE =3D 0,
->  	NXP_SJA1105_XPCS_ID =3D 0x00000010,
->  	NXP_SJA1110_XPCS_ID =3D 0x00000020,
-> +	QCOM_NORD_XPCS_ID =3D 0x00000030,
->  	DW_XPCS_ID =3D 0x7996ced0,
->  	DW_XPCS_ID_MASK =3D 0xffffffff,
->  };
->=20
-> --=20
-> 2.34.1
->=20
+The full tag value are used to identify a tag. Two skippable tags with the
+same tag identifier field but with different data lengh encoding should be
+considered as two different tags.
 
---ySQnkYGEMas/aZSk
-Content-Type: application/pgp-signature; name=signature.asc
+The exact tag value is completely known when the new tag is defined and its
+data length encoding must not be determine at runtime when the exact length
+of data is known.
 
------BEGIN PGP SIGNATURE-----
+Any tags where the length of the data is not known when the tag is defined
+(i.e. sizeof(data) cannot be determined when the tag is defined) must use the
+varlen encoding value (0b1111111). Tags with strings or arrays where the number
+of items in the array can vary should use the varlen encoding.
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCarZO1gAKCRA6cBh0uS2t
-rBWpAQCWF+cS4RIEIgUz5tLtSpKvBFgHeyoBfhSvBs9EIH2WlQEA35iDZn/bftHZ
-vU+Kq52oiCfQCvVfHwNGyP7zLB+vcgw=
-=5a1d
------END PGP SIGNATURE-----
+Also for tags where the length of data is greater than 126 x 32-bits words
+(maximum value without using varlen encoding), the varlen encoding must be used
+even if the length of data is known when the tag is defined.
 
---ySQnkYGEMas/aZSk--
+Tags reserved for tests purpose:
+  Any tags with the tag identifier set to 0xffffff are reserved for test
+  purpose. When a parser find this kind of tag, it must ignore the tag (skip
+  it). A generator must never use this kind of tags, except, of course, if
+  the generator is used to generate a dtb for test purpose.
+
+
+What is you opinion about this description?
+Do you agree on the description? If so I will implement it on next iteration.
+
+Best regards,
+Hervé
