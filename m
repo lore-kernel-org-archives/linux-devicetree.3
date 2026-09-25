@@ -1,138 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF9B3EAC84
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 07:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DC347207C
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 08:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790322682; cv=none; b=lmehGsHhm1rVELmDiFj0uIAt5Dt09giLZMSZjLpbfTBgkOzQXt7qGH3E7evUHCfDt9x59LJFw0/A2jPpA3mGuU9sVkmjaL9a7yb0WTwpNgSZnGmkBLybzfvjmWHuAT7Go9WkBj8SyNOPn20EbCo/98PVcF8YFu7sRvoXJeoD+Q8=
+	t=1790323387; cv=none; b=GMqOnowMdU65h9vyigWzo1mOC0ruc2HBTlXeVxbzbr/LzlvfBQRHxk2R7Fo03yfApsgRdGecZK/Epu/NFDU3P6Yu/73anzOVAL+0AP5/wiuSa9CPb0XV/AwuSqDD//qehzjBsgPRzBHjo1IkEDtdwPehVcfngYe4upz2/pmmxBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790322682; c=relaxed/simple;
-	bh=OV886BjO04ewv4sqpW5mJh3Mfd04tHnzMTFT5P2ko1w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=h2YuXu48Z9Jonm1K97AuW/4YCEXNfyjhpa7bK2/x1+K9QIUGmADNWjT0V3neyiglcgQwf6GzWRQ0Wp8HTK+l5OZ6KCzJcG2ps/TDk2OrgabjXrjPWHv0N+lAPVikXEHAOl2+26B2mtrlJ5RXol276wYgEyNw0p2+DzcFlr9i1y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ixcqT+2y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790323387; c=relaxed/simple;
+	bh=8IF6z+YkTpvsCKmT/hFF80C11KUezqy6SDi0dife2Cg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fCyHfAthBMGUmf/Sa5OzAOEqs0zK+gQM18fvko8WN4pHQpYMwfpW5+m6R5oemgBIAgNJcYjIMWSOWOZRIyFfsq/yRlYl+1ZqEjL97xa+oD+iGutMaYmMlNCUouv0KrKeubQK1QA6SctMRvqHc1tvbE+gsSs98pPZ33YFAOnUVSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl; spf=fail smtp.mailfrom=wermuth.pl; dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b=dWHRyY5v; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wermuth.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=wermuth.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ixcqT+2y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6056C1F000FF;
-	Fri, 25 Sep 2026 07:51:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790322680;
-	bh=hHYzr6QdZqQPb3ga0Q/YxatfsTW8WsIYCWrx5ng2uLw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ixcqT+2yAmVNrY2pScmDREoXevgZOMV7xke3BFd5cLx0hZcZVoZdZ4C6w2w9MJ2u5
-	 vYIq6HMvAu2Y2MWHMPlOVtl8ksa9135/teHD6cAB1yD2myUlvA8J+xCpXcfeQgwpbW
-	 zgcGtdFlshYUMLoYnmwlOjI+TswiHDTjFEhnkNKQAf34prpdukfvBH3Pz6VHWyI4A3
-	 xFrMiJNX13b89AV40y+rCP2C1WeAOfKyhZv8VOJ2ucsQ60g+Cgy6XbqEQc/+3rLZ2g
-	 vvi+26FchICuSwgOvCyMIsTtJCTR057veBZWB7ofVGt6PYRP/YEk8R5vLwlgygLsQE
-	 bCrikeRhFS7wQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v21 2/3] net: phy: Add support for Template
- Control register for PMA
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyle Switch" <kyle.switch@motor-comm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260924075048.4060414-3-kyle.switch@motor-comm.com>
-References: <20260924075048.4060414-1-kyle.switch@motor-comm.com>
- <20260924075048.4060414-3-kyle.switch@motor-comm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 07:51:19 +0000
-Message-Id: <20260925075120.6056C1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=wermuth-pl.20251104.gappssmtp.com header.i=@wermuth-pl.20251104.gappssmtp.com header.b="dWHRyY5v"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af22f8e38so15269866b.3
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 01:03:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=wermuth-pl.20251104.gappssmtp.com; s=20251104; t=1790323383; x=1790928183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KR0mL9J3pFxTuxFhHbavstVLXuIlIRgXe/fcgJ1tOjw=;
+        b=dWHRyY5vOkaqxoJIhW7NKdkPvG+ZbiksXYGqeZTFYBZcIEEtzs3KwuzoQMd6jpk7f3
+         g/YrLkhKs/6iweMmMTFfHmlE/XM1eo7XSvu1rLdqngnk0E63tArrsusHHNb4MunHwzqt
+         Zr/NAsbwflpryyWkFOz7dFWvwsweT0rMn9u86l9nfE0oGElmSgXE/iwTHBXmIWU4OzoY
+         r7F9uNNtl0Ip9NkefBVfBfUgk3dXlsH+6T8W5DBnjnJPfNApfcGpqWIL4C1SoEIxzBk7
+         tmMwPSBbpIjzb+/WZm0sV6t+qhQcXYBtvzZeugfSAcZVFjdxnWgNxZYVTaIVznAEIuZv
+         vhOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790323383; x=1790928183;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KR0mL9J3pFxTuxFhHbavstVLXuIlIRgXe/fcgJ1tOjw=;
+        b=zNwd6zbCu92siTL9e2Sc3CVM5VKDA9b+eH+q/7quNnVvDQpF0sYxLhFrUFP9huX9lq
+         onX8wDrXT3A8TiDuUuxlUNxPsVkyXGqyVPt6WBzPR2wEhAFGLAAiDI47J++CYZxuSOTB
+         NJb1r56PYEngytffSpdbxqe5CYVuQQbS6OY4k9QwPhQGmOoY05MMU8a7gy6yahIXgqCd
+         944cKci6ZXn0FRFW+gZ4Ez0dD2qZdXtPp7ZI+PCal/cRGwYMVfIjbKsZ6Qi0IeZqKwV8
+         SGI7KpAtL+bai26RGn9FY3Za2tJkHpWAVLQRkVnQzUy8rcgtdcnFudj5LdFb/SGVarLw
+         5i3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzgNx15PsVOXIrIqLmnOqlb3AVP/Z9QKK6W6A06bqftKYM5gbRg7K9Qa8EkfNBnOr9twgm62sGc0eu4@vger.kernel.org
+X-Gm-Message-State: AFuF++m9dH2v6tISZ9TfjK/54SeEYrZUjAKJe5NYYZfWGS11ESweYSuU
+	kKtsRycmjReWBuE1PFMg3GIZusJUDmKSp57+M8iBhxb7RYUkEK5HGHM/FFeXicRm3Z8=
+X-Gm-Gg: AYBFou1sElIOwBbadgaN6Xk7SAc6NRm5ViEWyKbHGMpebhcT9U6NquaOVhpp12SCAbC
+	DNxV9qmuPBAQVczJIIYjuwa1s4UVF1kf/vIav45LELz2iTtt1DxKZXJQOrKUdaEzsxbPnOXBlgi
+	UIeyhtlCIfQgrFNS0u9ZIUtzGNyT9jRpMsG0BRN8nzEh8yAVFlLwsXtOOLXcKuw6/7IyHSfhqbK
+	ad86TIsWdKSILTuvVmBKngh2ppTbHw66ZDsxcOmEeX63uzlvnjx3NbAMaEUX/nvExuTLcttnEhh
+	DYgZKOpK8YJEk21gUcca2yAH4p6q9zK27ld2InTQOpQ904lE4SBfJwKISKET+ii/FBXviedlKVs
+	Qpwfr3JDRAihjm/yXglZFBrH9gyu5BSMHM1mXZ85rfpdA4wxeqWCuOsIckjvFQBsGSbsz/pgXOu
+	scGe2BIw6wttYsIVKqecUKkOMgOdOhXxbFWB3KqnSKJ12HC4XCDa16J7QxV88s72qxax91GSOsy
+	yLq7AuzRP1sOMsvf1H1CMLJIZ55Pmv5ZHrt2hd62mdxGj1grrjZK5Sptg==
+X-Received: by 2002:a17:907:6c17:b0:c29:f5d5:5a9d with SMTP id a640c23a62f3a-c2ac246608emr448681066b.39.1790323383296;
+        Fri, 25 Sep 2026 01:03:03 -0700 (PDT)
+Received: from janlin-02.home.wermuth.pl (109-206-198-27.host.skynet.net.pl. [109.206.198.27])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2ae757b9c1sm76976966b.33.2026.09.25.01.03.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 01:03:02 -0700 (PDT)
+From: Adam Wermuth <adam@wermuth.pl>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Jonas Karlman <jonas@kwiboo.se>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Adam Wermuth <adam@wermuth.pl>
+Subject: [PATCH v2 0/2] arm64: dts: rockchip: Add PWM fan and WWAN overlay for Radxa ROCK 3B 
+Date: Fri, 25 Sep 2026 10:02:56 +0200
+Message-ID: <20260925080258.46489-1-adam@wermuth.pl>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] UAPI: kernel-internal GENMASK breaks userspace build
-- [Low] phy-c45: genphy_c45_template_testmode() returns -EOPNOTSUPP for inv=
-alid argument
---
+The Radxa ROCK 3B has a 2-pin fan header and an M.2 B-key slot
+intended for 4G/5G modules, neither of which is currently described
+in the mainline device tree.
 
-commit 188b76c25d65c5d40038c12ea01f1d6261994387
-Author: Kyle Switch <kyle.switch@motor-comm.com>
+Patch 1 adds the PWM fan and ties it to the CPU thermal zone. Patch 2
+adds a device tree overlay for the B-key slot, enabling the USB 2.0
+host controller serving the slot as well as its power, RESET# and
+W_DISABLE1# controls.
 
-net: phy: Add support for Template Control register for PMA
-   =20
-This commit adds support for the 10GBASE-T PMA Template Test Mode register
-field. This allows selecting test modes used for PHY validation.
+Pin assignments were checked against the ROCK 3B V1.51 schematic.
+Tested on a ROCK 3B with a SIMCom SIM7600G-H module and a 5V fan,
+running Linux 6.12 (OpenWrt) with the same changes applied.
 
-> diff --git a/drivers/net/phy/phy-c45.c b/drivers/net/phy/phy-c45.c
-> index 870920311f9a0..c5f5753f7194b 100644
-> --- a/drivers/net/phy/phy-c45.c
-> +++ b/drivers/net/phy/phy-c45.c
+Changes in v2:
+- Move the USB host1 enablement and the WWAN slot handling into a new
+  rk3568-rock-3b-wwan.dtso overlay, as the slot is not always
+  populated (Jonas)
+- Drop phy-supply from usb2phy1_host, as the M.2 slot has no VBUS
+- Put the fan patch first, as it no longer depends on the others
 
-[ ... ]
+v1: https://lore.kernel.org/linux-rockchip/20260924071445.441822-1-adam@wermuth.pl/
 
-> @@ -1408,6 +1408,29 @@ int genphy_c45_fast_retrain(struct phy_device *phy=
-dev, bool enable)
->  }
->  EXPORT_SYMBOL_GPL(genphy_c45_fast_retrain);
-> =20
-> +/**
-> + * genphy_c45_template_testmode - configure template testmode registers
-> + * @phydev: target phy_device struct
-> + * @test_mode: testmode includes Normal to Test mode 7
-> + *
-> + * Description: Set template testmode include Normal to Test mode 7
-> + *
-> + * Return: 0 on success, or a negative error code on failure (e.g. regis=
-ter
-> + * read/write error).
-> + */
-> +int genphy_c45_template_testmode(struct phy_device *phydev, u16 test_mod=
-e)
-> +{
-> +	u16 ctrl;
-> +
-> +	if (test_mode > MDIO_PMA_10GBT_TESTMODE_7)
-> +		return -EOPNOTSUPP;
+Adam Wermuth (2):
+  arm64: dts: rockchip: Add PWM fan to Radxa ROCK 3B
+  arm64: dts: rockchip: Add WWAN overlay for Radxa ROCK 3B
 
-[Severity: Low]
-Does this return the correct error code?=20
+ arch/arm64/boot/dts/rockchip/Makefile         |  5 ++
+ .../dts/rockchip/rk3568-rock-3b-wwan.dtso     | 65 +++++++++++++++++++
+ .../boot/dts/rockchip/rk3568-rock-3b.dts      | 51 +++++++++++++++
+ 3 files changed, 121 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3568-rock-3b-wwan.dtso
 
-Returning -EOPNOTSUPP usually implies that the hardware lacks the capabilit=
-y.
-Would it be better to return -EINVAL here to indicate that the caller passed
-an out-of-bounds test_mode parameter?
 
-> +
-> +	ctrl =3D FIELD_PREP(MDIO_PMA_10GBT_TESTMODE_MASK, test_mode);
-> +	return phy_modify_mmd(phydev, MDIO_MMD_PMAPMD, MDIO_PMA_10GBT_TESTMODE,
-> +			      MDIO_PMA_10GBT_TESTMODE_MASK, ctrl);
-> +}
-> +EXPORT_SYMBOL_GPL(genphy_c45_template_testmode);
+base-commit: 23d8f49fcae5d72b77744c7f349c12462c3bb748
+-- 
+2.43.0
 
-> diff --git a/include/uapi/linux/mdio.h b/include/uapi/linux/mdio.h
-> index 06f4bc3c20c71..353ca13c64fca 100644
-> --- a/include/uapi/linux/mdio.h
-> +++ b/include/uapi/linux/mdio.h
-
-[ ... ]
-
-> @@ -320,6 +321,17 @@
->  /* PMA 10GBASE-R Fast Retrain status and control register. */
->  #define MDIO_PMA_10GBR_FSRT_ENABLE	0x0001	/* Fast retrain enable */
-> =20
-> +/* PMA 10GBASE-T Template Test Mode Register*/
-> +#define MDIO_PMA_10GBT_TESTMODE_MASK GENMASK(15, 13) /* Template test mo=
-de */
-
-[Severity: Medium]
-Can this cause compilation failures for userspace programs?
-
-The GENMASK macro is kernel-internal and isn't exported to standard userspa=
-ce
-headers, which typically only expose __GENMASK. Including GENMASK in a UAPI
-header might break builds for any userspace applications that include
-linux/mdio.h and evaluate this macro.
-
-> +#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0 /* Template Normal */
-> +#define MDIO_PMA_10GBT_TESTMODE_1 0x1 /* Template TestMode1 */
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260924075048.4060=
-414-1-kyle.switch@motor-comm.com?part=3D2
