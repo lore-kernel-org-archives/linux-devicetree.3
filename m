@@ -1,148 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA28A25B091
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D274A3842
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 13:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790343670; cv=none; b=u5+Wj7vvWLAZrqAwEXS9aqHn71xjaxAPkT77CHRVRUDTXMu/TihWZ/FQSnJm/5ifk4kymJ1FxgiJcqk3nnAaaPKY8AV5NRwfTflQgxOo9hlexapR23Ysf/CGme5HWdfA98lHGMKq4VkkIFnx+FTItQ699pTOKT5pw2U2UNFIQ6A=
+	t=1790343698; cv=none; b=hH3cISdu7x9BB0xc7NlScxzTs4xLmbgBeWstw7xrIWuUj8Wkmlchn1SuwLdRKqwrRVNca52ij1/pUxjSdy3B9erw+lD2oIvHN+segZTglEp4fRO6oDKYc6Sr1fKphY2MI7/IF/AIZTCFGTt0TA8MXlYemoGg6DA6aTOP8MphXnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790343670; c=relaxed/simple;
-	bh=GTwktwHPSESziFgaPA08svM9/iLRhxrxpEOuaSAJFdI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HFpscxKLxt/xpvZrVsIAZUk11JV6gmuadn9Ngyg+n/VeN6J/8JimlQzb/D0ZIlM8hoqnv29y/gg9JVePCavTkvrYFmRW4k6G035zNGMBpd9b1nBTXAJJPWYpunk/SvN7iM2LeyIseSlO9/7g7ZOX927mfoi+FA9OGp49/Uv2hGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YB2txmg+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790343698; c=relaxed/simple;
+	bh=IRtWVZhPlxkGuhXNUXiZXi34XFGlsr0PVlco6/vlBjk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MNUcw4JWJJMr4memQRi4S1eRYakmwtM+yUv2kV6VsguGYErp0NZYyNDc2tq5lOIueOsqhUylIgyHi9UNl9+NolIZqRXjiU55md0LVggF7169xqhR7OSd29C8V+UPt98/NDPyeyIlB9Wl+DQojDyr1EnFJ7IAWEynDKxmC3oZA3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e4DqYaXf; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YB2txmg+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162571F00893;
-	Fri, 25 Sep 2026 13:41:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790343668;
-	bh=WpuLh6/y0kv8f22KJO/Z+XfSJcgLvG9qZ2X9OJSv5ZA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YB2txmg+ONRqUMqcTgGylk9aua9Zm5c1qNhfYnnYz83HUM1P/KQKdOtTdPSrP9rR/
-	 AtvbmhGd/uFtojaidnEe7QyWDqcJXwoN96p9W8D+sv9i6ee4TkRwkXVGSPBsgT/FSq
-	 Z5l/gkl/mSVuEMcFafo10+R6uRAhTwxIdCwDnxBVhi3N1yCtiUfJrfwsfrnmmJ9wDO
-	 3QyH8Mh7nkNrBs/umQeWiMRt31PropHJlItSb4Rtx/CBros1JuO3xtYsTxVOZsnZK3
-	 fqshiO74Lt4oGh3QAWzAz+1ecjmj0M3X/3YfMjylkGOhlyyShD8JOLRhwVSubQy7Ob
-	 5gkdSrTFSssfw==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 3/8] media: i2c: ds90ub960: Add 10-bit RGBIr formats
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rishikesh Donadkar" <r-donadkar@ti.com>
-Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260925133001.2780868-4-r-donadkar@ti.com>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-4-r-donadkar@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 25 Sep 2026 13:41:07 +0000
-Message-Id: <20260925134108.162571F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e4DqYaXf"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db18fe433fso3408035ad.2
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:41:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790343696; x=1790948496; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8EotXx3jLW9THDoTXZj7S6IwWVn80ZyJZJ8OuSrsBPc=;
+        b=e4DqYaXfTpfOpl1aWJs5Qaj58UxddJdY2lw0/CRVpzFdNJeCqdlo3ccPu96DryJpWK
+         7o8DVD45wiPEaz00zmdX+yLQUtU1Afn9TUVmrcX+YZQP4OHfxx+bEarWcscpaCrvV/MO
+         mS1XLIRi+JWgDNxMhiLYpw0ZPr0cGOa8LcXWKC7u91m6y7YOZVyMk1eTpQEMMnOwzfhl
+         3686tdy4qPg5nW8iY4/++lGDkH43t910mxw/SOs0jUIQlSTdl+wN1x31zIMMreU4exZE
+         kD6jO2o/Ncjqyuy7EjUHOTDSXbdXaoxf12VedXqyvoIfrA20an1sqiv0NiEBXp/qNsOg
+         iVKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790343696; x=1790948496;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8EotXx3jLW9THDoTXZj7S6IwWVn80ZyJZJ8OuSrsBPc=;
+        b=1vOSyeupIlFtxy2YYmB0T/s1CXc7/lBNB/IMs/yIIN7yotyoY/Cp0oBjUDIV2XcNz9
+         rv7lWjA/UPX5/JrtPwcxtmASRUWjmrNqIcpRcrmeMZnUPagtmbSJIAx9y7BTRVqULwZd
+         DWCo5v7eebPxagrSzHnzmuQ62pHIwLZiTd5uLTRu0JdcEl9DH5Dp0uRBOmtVvqJlsYNF
+         WdqOPUzrQQeIdjxsVjia89CmfmTy08VDS0HxpnCjNCJSKNNjCeSPKeNUrc9UUsmr/vBm
+         FCiBBAhfzlGKDCHBVP4JN5TJ/zH5lffi3l3l3g23fY8Tm1nXg33fDlTTVsxAT25fs153
+         0wOA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFHNlfSQ+muIimJELSEKGaLpgoL/GWtufRGQdf0PRCLFRJ2N+xBtAmZDarmvfL9xmhgt9XsxvSZSY6@vger.kernel.org
+X-Gm-Message-State: AFuF++l6BateVPSWIqli3fY9JJ6awmsr3PkWcB/+Qeb3Zkx16ibDc65L
+	8E5nealMRc8M9giyGnQGCZKdKRPi+HCFeHmHakbrzIxr0b/R/PqN18Fe
+X-Gm-Gg: AYBFou3BaikqG6t7+EXfYqohn37xbhiTmxzE6XeN3grWTP/rrwa8S3a6gBlNd9WkIyT
+	cCRp6MEEnl3zax/PygFew9SvskUsvfKUjkTG7BYScCSdVKw3VxhiHAZdayGbGHxLfZvxNIQWJZG
+	x6ZQ8G+fiykw9/TRFleEEsvVxvM+8iGZwy22Vdg2WNMwHVv2ls5x66SBYdDpQ5g8Z7QHlR+VnGw
+	DfI2TN64ini9QGAQTkj2HNikbCoPzMgsEDOHPDOnhkpqK5yH7efTMkM6V7e/FniR8+YGYkEvUso
+	uFXAJdNGciEc9IUBMO4ngJoCFuX7RyZW6EVVGmE9Y/ovLhtTDq47WxscJwWQe7PCjVy2U34u3aO
+	/nZyxMgyP2rizS4n1vgvDVmdksJbVEKZKGg5ZuuEJt59VTZkVae/Fm2CmYYwKGT1JfZV51dHwKL
+	4yvguJTC4ZqBx0mGb+NEV0AdcvWSg/w1XjL2jHSM/70GMt60JzVOY7Qg8FAhc+nS+6r5bCpvAS5
+	OUDj2c6f2hq
+X-Received: by 2002:a17:902:f54a:b0:2dd:c100:b2cc with SMTP id d9443c01a7336-2df7dd61e8amr45900365ad.55.1790343696491;
+        Fri, 25 Sep 2026 06:41:36 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91460aaasm10567165ad.73.2026.09.25.06.41.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 06:41:36 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 25 Sep 2026 06:41:34 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	"linux-watchdog@vger.kernel.org" <linux-watchdog@vger.kernel.org>,
+	"sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	wsa+renesas <wsa+renesas@sang-engineering.com>,
+	"robh@kernel.org" <robh@kernel.org>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Linux-Renesas <linux-renesas-soc@vger.kernel.org>
+Subject: Re: [PATCH v6 6/8] watchdog: rzv2h: Add syscon support for WDTDCR
+Message-ID: <17c04451-7e11-4d5f-a463-371466d41b0b@roeck-us.net>
+References: <20260923105237.7B87D1F00893@smtp.kernel.org>
+ <CA+V-a8uD16uG8cc9m7NHVZXT5bU64TYfu+_1POuXeioRAy6Z+A@mail.gmail.com>
+ <4f5aadf0-8f23-4871-918f-430a0c99900d@roeck-us.net>
+ <TY3PR01MB11346CC8B3C7374C293E0F3EB86802@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <2d32d7f1-f87b-45b3-9ccd-95e9773ca658@roeck-us.net>
+ <TY3PR01MB113461EFFC2B9B39A53ED1D3386802@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <CA+V-a8t3HKQ6D8jb_y-XM64BHkWm3vRw6JiTydSp3rqVr9nhdg@mail.gmail.com>
+ <CAMuHMdXZwnRtp=f0iOiDqoLVjBTGVYNbbLeP9E3qjTn3RUEkUg@mail.gmail.com>
+ <CA+V-a8tzLEScwpJ1Va-vpEHdJeOjo4v6K8_xTH=aAGZoxFHHbA@mail.gmail.com>
+ <CA+V-a8uoYZ80rpmJ4RhOA45FwouJKtFtLznjrXDyiFp6Wne=Kw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+V-a8uoYZ80rpmJ4RhOA45FwouJKtFtLznjrXDyiFp6Wne=Kw@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] media: v4l: UAPI macro collision for new RGBIr formats
-- [Low] media: i2c: ds90ub960: dead code due to duplicate format entries
---
+On Fri, Sep 25, 2026 at 01:24:32PM +0100, Lad, Prabhakar wrote:
+> The DT binding patch that adds the renesas,sysc property has now been
+> merged [0].
+> 
+> While keeping syscon support, I propose adding
+> rzt2h_cpg_wdtdcr_count_start(), which can be used safely in atomic
+> contexts. For non-atomic cases, we can continue using syscon.
+> 
+> What do you think?
 
-commit 4873d66b1c092adcf631de1fb4047b7f2d564358
-Author: Jai Luthra <jai.luthra@linux.dev>
+Whatever you folks think will work. Personally I think this is
+over-engineering. If there is memory corruption or some serial
+access failure (is that system really that fragile ?), you'll
+have much more severe problems to deal with than reset not working.
+I would not even try to "handle" that by mandating a second reset
+handler, but it is your code, after all, so I'll accept it as long
+as it works.
 
-media: i2c: ds90ub960: Add 10-bit RGBIr formats
-   =20
-This commit adds 10-bit RGBIr formats to the ds90ub960 media driver. It def=
-ines
-new 4x4 RGBIr bayer formats by appending them to the supported formats list.
-
-> diff --git a/drivers/media/i2c/ds90ub960.c b/drivers/media/i2c/ds90ub960.c
-> index 7d7ba6d349fc4..c86b18e0b4b33 100644
-> --- a/drivers/media/i2c/ds90ub960.c
-> +++ b/drivers/media/i2c/ds90ub960.c
-> @@ -664,6 +664,24 @@ static const struct ub960_format_info ub960_formats[=
-] =3D {
->  	{ .code =3D MEDIA_BUS_FMT_SGBRG12_1X12, .bpp =3D 12, .datatype =3D MIPI=
-_CSI2_DT_RAW12, },
->  	{ .code =3D MEDIA_BUS_FMT_SGRBG12_1X12, .bpp =3D 12, .datatype =3D MIPI=
-_CSI2_DT_RAW12, },
->  	{ .code =3D MEDIA_BUS_FMT_SRGGB12_1X12, .bpp =3D 12, .datatype =3D MIPI=
-_CSI2_DT_RAW12, },
-> +
-> +	{ .code	=3D MEDIA_BUS_FMT_SRGGB8_1X8, .bpp =3D 8, .datatype =3D MIPI_CS=
-I2_DT_RAW8, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SGRBG8_1X8, .bpp =3D 8, .datatype =3D MIPI_CS=
-I2_DT_RAW8, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SGBRG8_1X8, .bpp =3D 8, .datatype =3D MIPI_CS=
-I2_DT_RAW8, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SBGGR8_1X8, .bpp =3D 8, .datatype =3D MIPI_CS=
-I2_DT_RAW8, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SRGGB10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SGRBG10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SGBRG10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SBGGR10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-
-[Severity: Low]
-Are these format entries unreachable?
-
-Since these 8 standard Bayer 8-bit and 10-bit formats are already present
-earlier in the ub960_formats array, appending them here duplicates the exact
-same format codes.
-
-Because ub960_find_format() returns the first match it finds sequentially,
-these appended duplicates will never be reached, introducing dead code.
-
-> +
-> +	{ .code	=3D MEDIA_BUS_FMT_SRGGI10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SGRIG10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SBGGI10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SGBIG10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-
-[Severity: High]
-Do these new RGBIr format IDs collide with existing UAPI definitions?
-
-Looking at include/uapi/linux/media-bus-format.h, the newly added 10-bit RG=
-BIr
-media bus formats are assigned UAPI values 0x3021 through 0x3024:
-
-include/uapi/linux/media-bus-format.h:
-    #define MEDIA_BUS_FMT_SRGGI10_1X10      0x3021
-    #define MEDIA_BUS_FMT_SGRIG10_1X10      0x3022
-    #define MEDIA_BUS_FMT_SBGGI10_1X10      0x3023
-    #define MEDIA_BUS_FMT_SGBIG10_1X10      0x3024
-
-These exact hex values are already assigned to the 20-bit Bayer formats
-(MEDIA_BUS_FMT_SBGGR20_1X20 through MEDIA_BUS_FMT_SRGGB20_1X20) further up =
-in
-the file.
-
-This causes an unresolvable collision in the public userspace API, where the
-kernel and userspace will be unable to distinguish between the 10-bit RGBIr
-and 20-bit Bayer formats during format identification.
-
-> +	{ .code	=3D MEDIA_BUS_FMT_SGIRG10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SIGGR10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SGIBG10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
-> +	{ .code	=3D MEDIA_BUS_FMT_SIGGB10_1X10, .bpp =3D 10, .datatype =3D MIPI=
-_CSI2_DT_RAW10, },
->  };
-> =20
->  static const struct ub960_format_info *ub960_find_format(u32 code)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925133001.2780=
-868-1-r-donadkar@ti.com?part=3D3
+Guenter
