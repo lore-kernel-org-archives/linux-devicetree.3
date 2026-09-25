@@ -1,62 +1,42 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACDEE372B32
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 12:59:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9661A49E148;
+	Fri, 25 Sep 2026 13:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790341168; cv=none; b=j/H1Q7veYQLQcEtXqSWAqQE7k/UwE4EJtMtp7oqDGznJAfgdkfsaUd3LLT1W3nO4xKKSXzOWTkt4QRB4tfJjmB7PD8cPwoh/lCojSPJ4k3pee3yjlnEYkew//EafRNrzCToqh1AUJJsEXe4xBYF1metOaM7jby2oiVG8Q28CNOQ=
+	t=1790341233; cv=none; b=HehCZroO92Ud2ek8Ah875Aky/BOpypZYF8urHSUZvOGbaYYAqC3RzatLt9C/0mXnoH1eqw0xGPuuXEl2wQMuAdaLcI7ZAIDHj2snI1E2u7QwYGvka7pbhsFpm491XuN+kHWExfQwzpfV2a0gTJsGnU120q45Zso0xbatBKid6No=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790341168; c=relaxed/simple;
-	bh=jD7DCDWYh+jLuvotd+NDLBJYOKmNOc7gFTVePNWWUmU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Y/uS69KVs7388eH7ilFfIRFJoQWkpWJepaBrJ4GCWfgjYXRt1S7rS43H1kQ2uu0Zz3c0YRbrqFxN2RMy42g7mNFUont4yCpdPKdc0kjdnN6u7C+qR73Tg03x7zjksaPo5A7wjETxTfM8Ao1JXlL4v8krepUblg5/itDpy9D6sbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ikz5Agrn; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790341233; c=relaxed/simple;
+	bh=N8T2UjG/a83iwuSVvtrY4qQhZTowjTvaoQ29IZhvja4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P6f/PeCeiPM1L212sSwnPsA0BIqFiXM5zXUiv5aMsB07Oy4XCN3OTE3r4Ss9lfEhyfSraQaJYTVJzmfYOn31i4W3IlvPrr7CIuGAsgWEwwjkQCRkHkMke2hGvAUsR2VugmzjEvKatRXvgjTm7jcMNEdEH6qOogiGTcIG7dJoq98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HuUoOjj3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ikz5Agrn"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 250EC1A1020;
-	Fri, 25 Sep 2026 12:59:24 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id ECE5B6073B;
-	Fri, 25 Sep 2026 12:59:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7659810328315;
-	Fri, 25 Sep 2026 14:59:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790341163; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=cXDwAxiBTSKjZRTzIZgNXvVQ0JvFUHv4d7U2rZECKwM=;
-	b=ikz5AgrncugT3B89sXpN2kBZ/KcUkmFMoIJSFhTkHi3NRFYgw2m6zrlHDFpsfQTGyKVZyp
-	db9jsC7Ej2PcRRVfK6EU8et9fliotXha2zkRcQSZvEATr55GFlFEW6DBliru+M8OyNS48s
-	GO1rrdzaYKKDJI6lUia24hlSoCj6A+RyiiVMYj3Ho+njqOk0+/2raxg6VbV8gybwwHtzZH
-	Bw+extoXwLLZA7B8wEoJpdt3qsihEQyofN3sW9OFbSmQ8IjHk6SHDjHmQj+brM4KWRana2
-	zQ1D812zW5D11CsuOMtHQjjEsFhs++5ZRnUWkr9JqfRylPrNyYVIqvbA3Lt7WA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,  Fei Xie
- <fei.xie@horizon.auto>,  Richard
- Weinberger <richard@nod.at>,  Vignesh Raghavendra <vigneshr@ti.com>,  Rob
- Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>,  Parshuram Thombare
- <pthombar@cadence.com>,  linux-spi@vger.kernel.org,
-  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/4] spi: cadence-xspi: add ACMD support for SPI NAND
-In-Reply-To: <85dc596e-4378-4d23-b48e-80053cb5166d@sirena.org.uk> (Mark
-	Brown's message of "Fri, 25 Sep 2026 12:59:49 +0100")
-References: <20260921093701.1341766-1-fei.xie@horizon.auto>
-	<20260921093701.1341766-3-fei.xie@horizon.auto>
-	<arFEjzkHGMbecWWV@sirena.co.uk>
-	<20260923061211.1608907-1-fei.xie@horizon.auto>
-	<67f4e1a4-fc0e-4b2b-b41e-8dbb33227302@sirena.org.uk>
-	<87pky1ll4g.fsf@bootlin.com> <arZHjbzUEFhydnHt@nsa>
-	<87ecehljdy.fsf@bootlin.com>
-	<85dc596e-4378-4d23-b48e-80053cb5166d@sirena.org.uk>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 25 Sep 2026 14:59:15 +0200
-Message-ID: <87qzihjxlo.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HuUoOjj3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1661F00893;
+	Fri, 25 Sep 2026 13:00:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790341232;
+	bh=b86/P4zYiVgKXV2M7Ro3599WggJYNFJUbrhgeD/H32k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HuUoOjj3QAdbe9BDUUn9aJJNmdkLcz4taW4bJV45Za0PT+K+bTs9CrTb4Homy8CM7
+	 nF4Mk75YpRh5t+nRo+ZXkHJ8yNGJjKlEiaK59k0WaPCSgleCTb7DUBi1ttdVpumUxU
+	 NO+/ORvRkh0hQhpe3sn1fG7k/TKcyC4v2smh4erP+jZ6ZyoBjH/+BdAY7+dEPkl2O1
+	 6aNUyChprDKnwCv47ZcDUF8ztDz5497J/HA/Z7f0Oxul2GBRU9Xn1W9XEEROrVz4GR
+	 SSBwhNNBy6Gfbmv9Ophvo1Rr3SVT+mT21wCPcqetOLS8o1zdLAISv6+U5GIcRzEmfn
+	 g9rum3KMvIGsw==
+Date: Fri, 25 Sep 2026 15:00:28 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: ashish yadav <ashishyadav78@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ashish Yadav <ashish.yadav@infineon.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH 0/2] Add support for Infineon Digital Multi-phase
+Message-ID: <20260925-ruddy-gibbon-of-eternity-d2ebd2@quoll>
+References: <20260921065702.93196-1-Ashish.Yadav@infineon.com>
+ <CAJKbuCZ1733m5UKXNwOV-3WBYNOFbgUA7QUfhAY51yskv6z-Aw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -64,29 +44,25 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Disposition: inline
+In-Reply-To: <CAJKbuCZ1733m5UKXNwOV-3WBYNOFbgUA7QUfhAY51yskv6z-Aw@mail.gmail.com>
 
-On 25/09/2026 at 12:59:49 +01, Mark Brown <broonie@kernel.org> wrote:
+On Fri, Sep 25, 2026 at 12:01:28PM +0530, ashish yadav wrote:
+> Hi Guenter,
+> 
+> I hope you are doing well.
+> When you have a moment, could you please look into the patch to add
+> support for the XDPE1A2G7C voltage regulator?
+> I would highly appreciate your review, feedback, or any guidance on
+> next steps when your schedule allows.
+> Thank you very much for your time and continued support.
 
-> On Fri, Sep 25, 2026 at 12:23:21PM +0200, Miquel Raynal wrote:
->
->> > As for PROGRAM and ERASE commands I really did not saw any added
->> > value.
->
->> Yes, most of the time is spent in the wait_ready, which is not getting
->> faster with hardware automation.
->
-> It might potentially help a heavily loaded system if you can do fewer
-> waits, the rest of the tasks running on the system will have more time
-> if we're doing fewer waits for interrupts.  Not sure it'd be enough to
-> write home about though.
+Don't ping after four days. We do have some other tasks than
+reviewing your work. Not mentioning +200 more patches in queue. Why are
+you more important than these 200?
 
-Definitely, but this is already possible, one may implement
-ctlr->mem_ops->poll_status. This way the core can leverage the hardware
-to perform the polling. It is not directly visible on benchmarks,
-because it won't reduce much the wait time, but the system load will
-decrease.
+Ping after two weeks, better resend.
 
-Thanks,
-Miqu=C3=A8l
+Best regards,
+Krzysztof
+
