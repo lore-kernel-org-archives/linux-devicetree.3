@@ -1,124 +1,178 @@
-Received: from mail-4325.protonmail.ch (mail-4325.protonmail.ch [185.70.43.25])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7811E4C9DEA
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 15:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD5D371898
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 15:47:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790351260; cv=none; b=sKpQA67cLMgJPLNItlTbu6CUBLTk6sGVquN9V//LH3eia8goOKTqRDrVVF4rFIj4IRA7prPxp5w6mGkr0JGpIHCnue9A+Sg3lR5reLX0uXlxmPLWd/Y+ayl9LmNBQKbjexXCEfM3BseFSdqBoAFl1Kc8a87rtvps6HiXCv6d4xg=
+	t=1790351267; cv=none; b=oHw4m0Agbjd7OG/QuRTSIsrCZ20cG/P0tFXBOEQV9ogJUqcGRhzybijnGkgdSMSlpN42qnW25h9wNt5E/utb/oIfLRQe6K7UARCSMN5LI0AxpZVQ6IY2PZ7DqtXbRuJ0AISMgMkEiL143lW4uZ7ZzSbSadgOR1y6yd7zyRNKwYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790351260; c=relaxed/simple;
-	bh=iGB5A7kG2/XHLgLAh7HgAItjlBw/yOawGtKgimguyD8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=l+mS6H0ETAmGhGd9Fm4rcIMwHmynRAFysJ0DH1lCzWgHQYbRc1zniEdL8zeo54T+1IGB0PDFq/hBlBVksZOHO0IiWiv12yKAI/dAjGvGLt3QtI8B58V+UFgPTjELZjiqIDOsIi0B99KTTPm2VfvZBQWfVTrqaFGXbVVLsBxYFpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=iZ89KGIj; arc=none smtp.client-ip=185.70.43.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1790351267; c=relaxed/simple;
+	bh=n6ZpxRZU14E+7+A25NQhruw3U62Kw8+/vBlkDNEX5H4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gs8NWrjkLHgsHDtp9DLQHRZrMTN9L0kHEbJFTJ0LComkqvpA1FbXURu0U+2+OGgNNqZNrZd32dFpPwliNbB93bNqjBdZJluWnumWdlU2lLBxX1/7e0R8WLgwHGXSUvvuSup/Hvrths6I5f/b2UwDBEtOVu9LlMGYKPfEjH/CG7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Cqf6P1Mq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=APEir3nI; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="iZ89KGIj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1790351256; x=1790610456;
-	bh=o8Zh8ypkR+J0IaKNJxzzlPYCPVRTl41mdQZpe5rZ0RY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=iZ89KGIjCJWXaHpaBI0zozH+neowocRAwKmnu47Nn5SH8Vg3F3TjgmhtZz50dSZsv
-	 F98On0zzVUYVD4EN3/b5GWnNOWZAMveJPLclB3KwiFuATTUO2dvLQyRNUZmhsuf6h/
-	 w99boc8s1q31UdQYr7cZLO7+abSeyuVeFVo1vgl9ITtFBOM8WdGsGy5GPtQyyAIP2d
-	 kfQyWuyOELm0pBN3LAtrc5vhZ1z+3n6mY4jXKLMSCBCLgeMp+PxUrqmTiIPnEeHO+G
-	 ZpHgg4w8EcMxNSIg6c0HyxcbtHVsgV59gL+Lrh720VVzPDhsgE16Y5CV+EioC9/Aya
-	 MCOXJmx0LQEbA==
-Date: Fri, 25 Sep 2026 15:47:30 +0000
-To: Sean Wang <sean.wang@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Andy Teng <andy.teng@mediatek.com>
-From: Yassine Oudjana <y.oudjana@protonmail.com>
-Cc: Yassine Oudjana <y.oudjana@protonmail.com>, linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v9 4/6] dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Document MT6765 pin controller
-Message-ID: <20260925-mt6735-pinctrl-v9-v9-4-bfb19d8bb87c@protonmail.com>
-In-Reply-To: <20260925-mt6735-pinctrl-v9-v9-0-bfb19d8bb87c@protonmail.com>
-References: <20260925-mt6735-pinctrl-v9-v9-0-bfb19d8bb87c@protonmail.com>
-Feedback-ID: 6882736:user:proton
-X-Pm-Message-ID: 3185e857cc74507ae0ff4b9cdae055562fce3cca
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Cqf6P1Mq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="APEir3nI"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68PDQuSe600599
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 15:47:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=cpP2+xnejZW6ZVcS0rDuSfZA
+	riRIlFDBK4YQ4B+TXW0=; b=Cqf6P1MqnEpo5I+VTmXXNFOCJoRF7T2TQ34MnQMP
+	MDGD1WapnO59LHJ5xN7xESLKMSgCuMQ00HFd5FTEVyEoDIAB2iCpUceZ2dDObZUj
+	Htqe42d97X7EDTl9cvkVYDZMjJ87Ja1Xx4Ys81aO9v7wJc9WHbL6Gx0r6lOl1npw
+	DoLGOAtvat3Orv6Ks8Iz+yANLAR4v0IV54BgtNYAoDe+H+p6gFgB8CSKLxwXKT0Y
+	Um+/1Z0KvwM4ucC7+MfMcYUzTNM4WoYCBvt9P5ioPHsT01G3+VY0JWBpG6OR8iZH
+	2Fh8eE/9dEez99n3v9HCHKtRYqhFi4WKhTf8udxh3I46qw==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gwjpvt15b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 15:47:44 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-986e79a43b4so120029241.1
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 08:47:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790351264; x=1790956064; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cpP2+xnejZW6ZVcS0rDuSfZAriRIlFDBK4YQ4B+TXW0=;
+        b=APEir3nIEhCpaavwpLouCXiFvDjd+++sBgJuMMgGurbuWudMchm64jh6A8DH2NRhOP
+         a236dt3UHTDK0cO5tUXtZwpYdXdKFWAaQ4QhmoHnyfCY6AAxff2wEBquRptpmh2CL7bb
+         WQl7E5FRaAPYGFkNhXnBRfH/VSTmB2imyV0Et9LdyE+LHVk6FGQOMfV4ojhWH+wv/yca
+         tKaKiDPIL/lui3moBSpXPjQKfF4KJ6VYn0r0Bke8aN8PdbqyB6vGfRxzaUKSyGtSnoH7
+         2yFv/Tf71jxC8LYDipytVuGHF3zO9rmZPNmwsE/QhaTuNVSHcNM//xqXDMvbQGs1rU9C
+         APYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790351264; x=1790956064;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cpP2+xnejZW6ZVcS0rDuSfZAriRIlFDBK4YQ4B+TXW0=;
+        b=VQOLD3HM75I3E3RnkSDBApj/5H4BFnVgNlUvvnur2JuB8iES40gxufWMVV/9rcQAsV
+         4s9jvBcwo7ImlTMm08Vs6A+B/XXPuwPR1Lvn/pN89HjwHf8sltem+YU4OEw38swyvaei
+         XtSj1b7BquZ6DreYv9wi6A5eiDxN7LwmQo5r9jRwm1DT4np1STLktemfZA3surFmHHrZ
+         niKbVJWqqY2+m294LLEfX095NLALJok4OkcR8KoUNIlJVmJSaw5z1vqebv5AR24Azx2q
+         1vRvq7Sp/AdWW4+SSfB2zI98aNo5ebJY9H9GgUTAmtcM85MYR7YTYWRfmjxTzfwlrEM2
+         qfUg==
+X-Gm-Message-State: AFuF++mOUy80KsAlJhJn7MRxbWyElDSJF8xbl6jkSo7O/otseGLRJO/c
+	gj01Qquz8wwfXd/ssP2OJisDZiRkFHm9Lj2LwBQX/S8S0nkIp+xiDt5T3LMamSd89Bd2UQDn4uW
+	OeI0coK79gqxtBnwJyKC2/AZNR4G1CG2MXHoSnAVJM70xKDgjGSs3j3ppYJZdxKsA
+X-Gm-Gg: AYBFou2WxxN2HC24quO0YIlTutyC2MyI1J3blQ2XBnvJrsaSM9AzKF6BmzH7a518cHN
+	E1/W21Oxfw8jaUTYVmQobIN8QtczLq0+vuZmSikxa0mGdZbQmGP60K8d6ntBEvQ6+E82YVBedLV
+	nHsLINH7rdISyk3XRlFY91iMojR2X/STwkW3N3cASYctlyzeWf/Y8uv6wDLNkDPefOwJSzB2YT0
+	JAXtXyJtE4SyV3E4LARgd/oaFAQN8RyhESexs6clGM8SiH/GKZUfFl+BJ1nGHF1zlV22m8qM5uO
+	dwoqMHtRJ6IvE7yUmC32kjsXW97RzfOj2E76IMHAeiV6yy1WirciSUUQF+4vmNDbPMgyutuum08
+	mRjtZ4JxyqwB4khc=
+X-Received: by 2002:a05:6102:441e:b0:7a6:a24e:811f with SMTP id ada2fe7eead31-7af1c79966cmr3211548137.7.1790351263840;
+        Fri, 25 Sep 2026 08:47:43 -0700 (PDT)
+X-Received: by 2002:a05:6102:441e:b0:7a6:a24e:811f with SMTP id ada2fe7eead31-7af1c79966cmr3211528137.7.1790351263242;
+        Fri, 25 Sep 2026 08:47:43 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff2884552sm51233485e9.10.2026.09.25.08.47.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 08:47:42 -0700 (PDT)
+Date: Fri, 25 Sep 2026 18:47:41 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org,
+        robh@kernel.org
+Subject: Re: [PATCH v5 23/42] clk: qcom: gcc-sm8450: Tie the CX power domain
+ to controller
+Message-ID: <kfx6o4tcdkdxy65nl4qq2ecqahd2zsp6dqe36uhosm3glwkhyl@lex2azg4sybm>
+References: <20260924-qcom-tie-cx-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com>
+ <20260924-qcom-tie-cx-to-gcc-v5-23-38732033e5b5@oss.qualcomm.com>
+ <20260924111126.511671F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924111126.511671F000FF@smtp.kernel.org>
+X-Proofpoint-GUID: 2wWWCWH56wZvGDd2xkxMwXBvapmpLw1h
+X-Proofpoint-ORIG-GUID: 2wWWCWH56wZvGDd2xkxMwXBvapmpLw1h
+X-Authority-Analysis: v=2.4 cv=aLBlOr9m c=1 sm=1 tr=0 ts=6ab697a0 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=JOqecPiLsEwRwh-fJcMA:9 a=CjuIK1q_8ugA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDA2MiBTYWx0ZWRfX6GoBjihqGTtW
+ hcOA/TC/PihZxuuOGt92IqmAuxKdRXGWtlH0t0bJ1ZoZSEA7jQxOVrvGuyEUe/zmPFAm/lrbTf4
+ 5T83yIInolFxUG7E4LgBAbAdDaOerec=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDA2MiBTYWx0ZWRfXzl9mFR43vMia
+ X2LC9ib+3wSedC36GFEpb9HH0xYAR0zYZG8r97vKvHiDlWlEGun6+hls6gstBaHbZNLXmLMziV3
+ ZR2XcUTlJBHq4Ra4QdFhut60NACrKkBNKi+Obf/hExfVCXM3tGkWDIMbxsaNLZAA+y11pNPPh12
+ 2W5eloGjjemICdUrgQzrEU0ngDXV9w7uB1JPZK9yAV+eyJqsuc6d3hoBSJuNddLM6lgVtFUDoUO
+ Wb/wLbI/TtjYa2eQ1hOTEUdeex5s2894FhA3zHYr3iMkD2hHNg/B4R0bXOnkq7BB+plUUgeOaeL
+ 90/gEahu72YZJKcJqpKsU388gLPwOvDWxadtiGyKfPioQdqSkC4nQqnTqJqWIfmrAbagsZBww5S
+ OGwfkk2J7x+E2Zxb6F32xDfdd9nYA5iskX7vlHlNWD8Nvi6+2XbppHlUTxcD1XlDJj+uV3uXHlR
+ yj5IQARduZ/k67KQqEQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 priorityscore=1501
+ clxscore=1015 phishscore=0 adultscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609250062
 
-The MT6765 pin controller has had a driver for a while, but DT
-bindings were never documented for it.
+On 26-09-24 11:11:25, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] clk: qcom: gcc-sm8450: manual register states lost on CX power down
+> --
+> 
+> commit 99d5496af370ec324c5f350b6121718a0028abd7
+> Author: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> 
+> clk: qcom: gcc-sm8450: Tie the CX power domain to controller
+> 
+> This commit enables runtime PM for the GCC controller by setting use_rpm to
+> true. This allows the CX power domain to be powered down once all consumers
+> have released their clocks and GDSCs.
+> 
+> > diff --git a/drivers/clk/qcom/gcc-sm8450.c b/drivers/clk/qcom/gcc-sm8450.c
+> > --- a/drivers/clk/qcom/gcc-sm8450.c
+> > +++ b/drivers/clk/qcom/gcc-sm8450.c
+> > @@ -3400,6 +3400,7 @@ static const struct qcom_cc_desc gcc_sm8450_desc = {
+> >  	.num_resets = ARRAY_SIZE(gcc_sm8450_resets),
+> >  	.gdscs = gcc_sm8450_gdscs,
+> >  	.num_gdscs = ARRAY_SIZE(gcc_sm8450_gdscs),
+> > +	.use_rpm = true,
+> 
+> [Severity: High]
+> Will this cause manually configured register states to be lost during the
+> first runtime suspend?
+> 
+> Setting use_rpm to true allows the CX power domain to power down when all
+> consumers release their resources, which resets the GCC hardware registers.
+> 
+> However, gcc_sm8450_probe() manually configures multiple always-on clocks
+> and UFS PHY settings directly via regmap operations, bypassing the Common
+> Clock Framework:
+> 
+> drivers/clk/qcom/gcc-sm8450.c:gcc_sm8450_probe() {
+>         ...
+>         regmap_update_bits(regmap, gcc_ufs_phy_ice_core_clk.halt_reg, BIT(14), BIT(14));
+>         ...
+>         qcom_branch_set_clk_en(regmap, 0x36004); /* GCC_CAMERA_AHB_CLK */
+>         qcom_branch_set_clk_en(regmap, 0x36020); /* GCC_CAMERA_XO_CLK */
+>         ...
+> }
+> 
+> Since the driver does not configure regmap caching and provides no runtime
+> resume callback, does this mean these configurations are permanently lost
+> after the controller resumes? Could this lead to synchronous external aborts
+> when the affected subsystems try to access their hardware after waking up?
 
-Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabor=
-a.com>
----
- .../bindings/pinctrl/mediatek,mt6779-pinctrl.yaml  | 36 ++++++++++++++++++=
-++++
- 1 file changed, 36 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinc=
-trl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctr=
-l.yaml
-index 4df6971030416..94117008ebf9f 100644
---- a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yam=
-l
-+++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yam=
-l
-@@ -18,6 +18,7 @@ description:
- properties:
-   compatible:
-     enum:
-+      - mediatek,mt6765-pinctrl
-       - mediatek,mt6779-pinctrl
-       - mediatek,mt6795-pinctrl
-       - mediatek,mt6797-pinctrl
-@@ -61,6 +62,41 @@ required:
-=20
- allOf:
-   - $ref: pinctrl.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: mediatek,mt6765-pinctrl
-+    then:
-+      properties:
-+        reg:
-+          minItems: 9
-+          maxItems: 9
-+
-+        reg-names:
-+          items:
-+            - const: iocfg0
-+            - const: iocfg1
-+            - const: iocfg2
-+            - const: iocfg3
-+            - const: iocfg4
-+            - const: iocfg5
-+            - const: iocfg6
-+            - const: iocfg7
-+            - const: eint
-+
-+        interrupts:
-+          items:
-+            - description: EINT interrupt
-+
-+      patternProperties:
-+        '-pins$':
-+          patternProperties:
-+            '^pins':
-+              properties:
-+                drive-strength:
-+                  enum: [1, 2, 4, 16]
-+
-   - if:
-       properties:
-         compatible:
-
---=20
-2.55.0
-
-
+Nope. Dropping the vote on CX does not lead to configurations done on
+probe being lost on resume.
