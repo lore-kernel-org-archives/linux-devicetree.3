@@ -1,91 +1,190 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA09449B11
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 12:53:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A30426429;
+	Fri, 25 Sep 2026 12:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790340783; cv=none; b=YpTNuC99pYJ0WSyDzhQdVPQ/fnMjKgOcCqEhNbAn5oTrCi7ASVRHoL50Ng5+MnDO8hr4zlKEiErjqucqIxKMXy1cUHqoCWKAjwhOPVu2A+r7qWIvpMwEKUgXx8/0NUk6WhK9txBswpZZFMOlJna3w6BsIGtd8vcPI6zr6y9sIFU=
+	t=1790340841; cv=none; b=bB0Xa8RV979Jr8fd8bR1zReZR8csjy8CKG/jf4hygwuQshZ1dVa31MPvAZiDvopoRC7REZ1tznrdrtnxReRFAiT362gBIye55teyO24EvnOwCbQim8dR2n2RzcAbEbEdGcSihwpLK8tHxTxYrtLsBqRLtJaZ5N3CKUjtJSoi8qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790340783; c=relaxed/simple;
-	bh=WgJGCX4ymeeHFrmApE9HNQVvJ7rArjAJrzU+WC8WOEw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=B50tAS3eP8RKl0cusIiwpVBMVbGv6P4YbEVFnRW/o/h62dPp6jgFoYBiqhnLi0l7hMK8xBqGt1ucg/Qf61hrT05wOmnpqweAq6fYTFfA7UzswauN4j1Tuh/sjwRUBYUMJzDqyiLvpex0LcdDNev5fPDlhmTkFn/1o3k3W5By5pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GDfH/Ud1; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790340841; c=relaxed/simple;
+	bh=7QFQaHhQHwO4JjYiWqEtP4ey1qTU6R5eBhvbiXj4+cY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rYJ36uChpReu8WM9LYZzEpcrz4MwVQz0zNj/NPEcNEy1tXh/ts5OtmadMPODkkuhmWyQAbiyC5FnNfMW2wZA0yPmCDJEwcriue7zBUH6pTOm3faLDkq1NWZhSgePqaDMvUBXBfLvX6HWdXqdUa0y0ezQ+XKoflPGEDWzgbV1bgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AqEFl0nT; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GDfH/Ud1"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id DFB231A1020;
-	Fri, 25 Sep 2026 12:52:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AE27D6073B;
-	Fri, 25 Sep 2026 12:52:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2A13710328856;
-	Fri, 25 Sep 2026 14:52:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790340779; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=PEEaU2vp1FHpkuf8xli/ZnKeWiTmwFfC1TUVaJBY9HY=;
-	b=GDfH/Ud1Jdemye+Nz3G0qqOyXt1K4GSPD+M2rsPamQjF7EUxyT7kGLZ6SClOc1BhjvylF5
-	hqI8vhcYK5G6K+EkOksEWw5QGTDccB/qYuVmV+q0R1dgBh59H5vQPL7f+2b/whpSK5FyTI
-	3eMwyDM+Cgb3GweaXEGYXGmRWmr0QKadOKpQdRevKMbaXpwf2r3nYpGIBN80OMI1WLFZmY
-	pV+5maGeK21VYaJPr/a/v/GL3Gtr9cmx5uhuHJWRPHqeCnls4jF5/oWzgLA83boWejZmOi
-	Y7HAdAZarYGnG5JSiWxqcuV22hMtWGvGMxihmhe6bkA9oHDBydbj2IxO7orMTQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Michal Simek <michal.simek@amd.com>,  Richard Weinberger
- <richard@nod.at>,  Vignesh Raghavendra <vigneshr@ti.com>,  Krzysztof
- Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,
-  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: mtd: arasan: Add ZynqMP props
-In-Reply-To: <20260925122003.GD677989-robh@kernel.org> (Rob Herring's message
-	of "Fri, 25 Sep 2026 07:20:03 -0500")
-References: <20260922183138.290114-1-robh@kernel.org>
-	<877bk9n122.fsf@bootlin.com> <20260925122003.GD677989-robh@kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 25 Sep 2026 14:52:56 +0200
-Message-ID: <87wls9jxw7.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AqEFl0nT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790340840; x=1821876840;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=7QFQaHhQHwO4JjYiWqEtP4ey1qTU6R5eBhvbiXj4+cY=;
+  b=AqEFl0nTf32VjvPU6jGRFSlvBIgrQGvmVfLO1HCoIcV9kckNsxmvRs3X
+   gsBU4fYXWvd3tEH5Tl8pp3968xIedbbzTlp6YmW3Ch/eNMoNzgI36Pskk
+   kbsQUxqR2z72gK20NsvV76Fr8vuLw+wfYhRAyUnv+m/tOq45baOGmYymE
+   ck04wuPTY20nbSWFbIzyVwM9qUo1iEE559il91j2Krf8MjfS5E6nrRteD
+   eQfyNTm1xmIACdT4Yz6oQ+ww5XieAGDOwhnWPY5Lolqv/pT9MrmEML+8r
+   I4dayewAmpt95ArEbx4V5fdmnxPqb5nRm55xq6hf25rx1jgoB+OGtzDgr
+   g==;
+X-CSE-ConnectionGUID: bxmujoH/Qh+c5jGkSPHo2A==
+X-CSE-MsgGUID: nGEZis6PS0O/WXasbxs6Qw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11915"; a="102486238"
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="102486238"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 05:53:59 -0700
+X-CSE-ConnectionGUID: 4PIYZybqQxehFdbSfdSDZw==
+X-CSE-MsgGUID: bpl31Ej6T1GrkfDHe8iYYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,122,1787036400"; 
+   d="scan'208";a="274497205"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.27])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Sep 2026 05:53:54 -0700
+Date: Fri, 25 Sep 2026 15:53:51 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
+	u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+	Ritwick.Sharma@arm.com, intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
+Message-ID: <arZu33UFU2b7kVRR@ashevche-desk.local>
+References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
+ <arZB2s3HOBgSRuE4@ashevche-desk.local>
+ <e0f113ea-92cc-4e82-85ae-f61814c230c7@ti.com>
+ <arZIqk6wgV_LF0rg@ashevche-desk.local>
+ <386f23e4-d573-45f7-9e2f-fe47015a4761@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <386f23e4-d573-45f7-9e2f-fe47015a4761@ti.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 25/09/2026 at 07:20:03 -05, Rob Herring <robh@kernel.org> wrote:
+On Fri, Sep 25, 2026 at 04:46:39PM +0530, Aniket Limaye wrote:
+> On 25/09/26 15:40, Andy Shevchenko wrote:
+> > On Fri, Sep 25, 2026 at 03:29:27PM +0530, Aniket Limaye wrote:
+> > > On 25/09/26 15:11, Andy Shevchenko wrote:
+> > > > On Fri, Sep 25, 2026 at 12:26:27PM +0530, Aniket Limaye wrote:
 
-> On Fri, Sep 25, 2026 at 11:16:21AM +0200, Miquel Raynal wrote:
->> Hi Rob,
->> 
->> > +  num-cs:
->> > +    $ref: /schemas/types.yaml#/definitions/uint32
->> > +    minimum: 1
->> > +    maximum: 2
->> 
->> I am not sure I get what is the purpose of this property. It looks like
->> a downstream property resurfacing. We expect one DT subnode per chip, so
->> I don't see the need for num-cs, we just need to count the children
->> nodes. For me, the correct fix is to drop num-cs from the upstream DT.
->> The only real use for it would be if the hardware could be synthesized
->> differently, with a single CS instead of 2, but I don't think it's the
->> case here.
->
-> Indeed.
->
->> > +
->> > +  power-domains:
->> > +    maxItems: 1
->> 
->> This one, even though we don't actively use it in Linux, it may serve a
->> real purpose.
->
-> The driver core takes care of 'power-domains', so how is it not used?
+...
 
-Yes, it is probably useful. I am pretty sure I did not use that property
-when I tested the driver, but the controller was either already set up
-by the Bootloader or in a domain enabled by another device. In both
-cases, it is worth adding.
+> > > > Still doesn't look good. The current register layout may be left as is. What
+> > > > you need is translate it in the respective regmap callbacks in case we are
+> > > > enumerated on the different IP. Also possible to have a different regmap
+> > > > config for the different HW where you translate them only in one place.
+> > > Is it confusing to keep using existing offsets in regmap_read/write() call
+> > > sites for TDA54, and let the regmap silently handle the translation?
+> > > 
+> > > Given that we do *not* have any new registers in use on the tda54 version
+> > > that were not there in the original one, I guess it works... will send a v4
+> > > as per your suggestion.
+> > Depends on the mapping. Your series also forgot to provide the differences
+> > Check this as an example: e539f435cb9c ("spi: dw: Add support for DesignWare DWC_ssi").
+> > 
+> Ahh sorry about that, will remember to add a clean mapping in cover letter
+> of next version.
+> 
+> For now here are the structural differences:
+> 
+> 1.  Reg offsets  Existing        New TDA54
+> 
+>     [DW_IC_CON]                     0x00           0x2c
+>     [DW_IC_TAR]                     0x04            0x30
+>     [DW_IC_SAR]                     0x08            0x34
+>     [DW_IC_DATA_CMD]                0x10            0x80
+>     [DW_IC_SS_SCL_HCNT]             0x14            0x4c
+>     [DW_IC_SS_SCL_LCNT]             0x18            0x50
+>     [DW_IC_FS_SCL_HCNT]             0x1c            0x4c  /* same as SS */
+>     [DW_IC_FS_SCL_LCNT]             0x20            0x50  /* same as SS */
+>     [DW_IC_HS_SCL_HCNT]             0x24         0x54
+>     [DW_IC_HS_SCL_LCNT]             0x28            0x58
+>     [DW_IC_INTR_STAT]               0x2c            0xc0
+>     [DW_IC_INTR_MASK]               0x30            0xc4
+>     [DW_IC_RAW_INTR_STAT]           0x34            0xc8
+>     [DW_IC_RX_TL]                   0x38            0x84
+>     [DW_IC_TX_TL]                   0x3c            0x88
+>     [DW_IC_CLR_INTR]                0x40            0xcc
+>     [DW_IC_CLR_RX_UNDER]            0x44            NA
+>     [DW_IC_CLR_RX_OVER]             0x48            NA
+>     [DW_IC_CLR_TX_OVER]             0x4c            NA
+>     [DW_IC_CLR_RD_REQ]              0x50            NA
+>     [DW_IC_CLR_TX_ABRT]             0x54            NA
+>     [DW_IC_CLR_RX_DONE]             0x58            NA
+>     [DW_IC_CLR_ACTIVITY]            0x5c            NA
+>     [DW_IC_CLR_STOP_DET]            0x60            NA
+>     [DW_IC_CLR_START_DET]           0x64            NA
+>     [DW_IC_CLR_GEN_CALL]            0x68            NA
+>     [DW_IC_ENABLE]                  0x6c            0x04
+>     [DW_IC_STATUS]                  0x70            0xd8
+>     [DW_IC_TXFLR]                   0x74            0xdc
+>     [DW_IC_RXFLR]                   0x78            0xe0
+>     [DW_IC_SDA_HOLD]                0x7c            0x5c
+>     [DW_IC_TX_ABRT_SOURCE]          0x80            0xd4
+>     [DW_IC_ENABLE_STATUS]           0x9c            0xd0
+>     [DW_IC_CLR_RESTART_DET]         0xa8            NA
+>     [DW_IC_SMBUS_INTR_STAT]         0xc8            NA
+>     [DW_IC_SMBUS_INTR_MASK]         0xcc            NA
+>     [DW_IC_CLR_SMBUS_INTR]          0xd4            NA
+>     [DW_IC_COMP_PARAM_1]            0xf4            NA
+>     [DW_IC_COMP_VERSION]            0xf8            0x100
+>     [DW_IC_COMP_TYPE]               0xfc            0x104
+> 
+> 2. DW_IC_CON bitfields:
+> 
+>     DW_IC_CON_MASTER BIT(0)                  BIT(0)
+>     DW_IC_CON_SPEED_STD                 (1 << 1)       (1 << 4)
+>     DW_IC_CON_SPEED_FAST                (2 << 1)       (2 << 4)
+>     DW_IC_CON_SPEED_HIGH                (3 << 1)       (3 << 4)
+>     DW_IC_CON_SPEED_MASK                GENMASK(2, 1)  GENMASK(5, 4)
+>     DW_IC_CON_10BITADDR_SLAVE           BIT(3) BIT(8)
+>     DW_IC_CON_10BITADDR_MASTER          BIT(4) BIT(9)
+>     DW_IC_CON_RESTART_EN                BIT(5) NA
+>     DW_IC_CON_SLAVE_DISABLE             BIT(6) NA
+>     DW_IC_CON_STOP_DET_IFADDRESSED      BIT(7) BIT(10)
+>     DW_IC_CON_TX_EMPTY_CTRL             BIT(8) BIT(11)
+>     DW_IC_CON_RX_FIFO_FULL_HLD_CTRL     BIT(9) BIT(12)
+>     DW_IC_CON_BUS_CLEAR_CTRL            BIT(11)  BIT(14)
+
+Thanks for providing this mapping!
+
+> 3. To clear INTR,  Read DW_IC_CLR_* reg    Write bit to DW_IC_CLR_INTR
+> 
+> As you can see, it's an entirely different mapping, which is why I had 2
+> independent enum -> reg offset maps instead of offset -> offset translation.
+> Similarly, selecting a CON register bitfield layout too.
+> 
+> Let me know what you would prefer based on this...
+
+This clears a bit the whole picture and what I would like to say is that better
+to have the separate driver for it. On top of completely reworked RTL I believe
+you won't need tons of hacks and workarounds that are applied during all these
+years against the old IP.
+
+TL;DR: Make a new clean and simple driver, which is hack-less and done properly
+(using the all modern APIs and frameworks in the kernel).
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
