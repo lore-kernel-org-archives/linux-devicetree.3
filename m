@@ -1,188 +1,160 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013065.outbound.protection.outlook.com [40.107.159.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0973D4B405D;
-	Fri, 25 Sep 2026 14:37:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790347039; cv=fail; b=o/9g3opc2wMIhpm4H8DrthTdgZnhy6hP9rXffZnDjkRjYLNmEtFoaBqjTvBdSnyciknoZTAQzgnWMbZtwDbD7oRAQ26YBPYNBRvcO2m4Jl3lIu91rZDmOfnY+j3P5GZauta6dH0lN/+mart8B7nZE/VEmbr9Sk6uCEHrjLeWa6k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790347039; c=relaxed/simple;
-	bh=Gzlh2+HUuz6t4sQYdpgSTd87AHMOxQytTKDCMSPQmkA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ePG3uS+10EjktBOvwBL5OiMD7rKdRBGg3LXatyE/UgXQcopHGIzuFQnd++fsZ4ro7w1GTnZ0lzvovGC0t8dwn3HqDfeCL77bbK9l8YJ7IhVytxp6K3FFnGZMrs7WDzWnO/Kl7t7p4Z3wmSXvmXdjkLykCaNBk8riugJG/YTdcxc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=rRZJliGT; arc=fail smtp.client-ip=40.107.159.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8EC4B0CB2
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 14:43:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790347439; cv=none; b=g3KmDciIa5bxhKPZqT1GDfeCkxE2f0gU7UGA2VaFJ0qyY9WhpWcMAFYiOzm2yobuIixrecEQNpq3xBzmsci2DHiaRO7bK1+bhIsjcXYLiY4sujCmTQYmgKTiDe+cBG6aU4BvxnaqZ11yYrYj+zWVkvN14yQGeltPIKOy+/LXb4g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790347439; c=relaxed/simple;
+	bh=s2tP4LuXG6DitbJlb4NU+9ieo9q10zgjsECRa7Nn+zo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EfyRMtYGFfS+zaQ4B+DQotsULqFnKKlnyKboITJGh+bl9zE0jB9vd2VDYO3ye8mrlCl+70VZOnu30vco+PYexL+L5kIdc7h3uS1YROLKGfVlfodMeQLnvg7SKD9S81Bl16LzbwtMXGgXUc+i11VCPMQbTL7+xy/CMGePfNMzvnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=IApszyH0; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="rRZJliGT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HJ6q4OUwlGAFStybal9nXdzJDW5wdsxhyzg/veWdVglAVfKWlc2Cnf6Xk6ylqzSP1b9x/8wOHznFw1Cg3QZ+ZTEIhvhhYk5BQZk2ahUDqsDz6+Slc/mUpZEJlBTaUWt4TUa5ErvpPdiAP9HBrdR1eAJ9gwVeK+bDtmEI6iUY9FfcgpQieDtigcDxa44/0LVhXy45V8q6HXLuaRng+S56Rs/tSYl91WbNQvPva9++IVpkB9pJ4KbdQ3b82JMj/U/5gT/FdLQZUvv1EIdBnNsLsuVxqnX+Kz18x9RO4m9fOaqtOuujeuUn7pH/OWEeQG3zoyylRXCJ9+fzMQf2/sJ09A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ave/1sHBXSjhiWUhM8uokopPQrep44H0HHJpXF8zpR0=;
- b=g0zkm3gW2r6posDMvYauP5rDzwmUjSG5Q2FvXK3Gxk1tliq1Ii7Vnad5G1WSlxrOD1QzH7qqQ0YtSaj8wIpDWglfK464xVuEVHXSqdsB5TnaadReJwTFyv5aIc3EBTR84/BDEgb6eTphdAH2EvAzC7AzFuoaFnt0kUq9XmwNOc7cf7/GmiOy+z7BEviX9iG8ZoIussuWiI/OZoI3LlwJO2QDPhLa3xp7576o8YUe0yGLl7++Im3CBYs84CjPJk99EBBCWC8oH7Tkkb7aYR8303cswguJVauta3prJNMcNA8Vivi5tyVOIQw7HJRn0Nrvok7x9vXZvWVin/yU5AI81w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ave/1sHBXSjhiWUhM8uokopPQrep44H0HHJpXF8zpR0=;
- b=rRZJliGTJW1fznTw19pwEvHXDuwqZqzE67TAYm89Hrk3HdYTUEBUAn9P2zAuQFCTpUK2RIR8+S3wM9VIWSklo2WjJ7165iw0hI+ttLsslghgPHsyjQoMt7fhcPwYhJuiP/TYl+OtWVw68RwUBru1+HJ8J1jH23OzR/A8qPOZ0QXZ5Do0vgkU02PPRo7MXgK36YqkYVfL1BDswrFtYzmRzMYINzydckYJZO3mVJ/Bnht6Xt6DHTIiM7wvzsuBcpVoNmNE34/F9eeQ7D3S30/PW8gv06WFuiK9yiohnwaqRPqzKTkGHMfZWAXbomVzA6IWcsyE9T5lVd9BKuPwlTcdAg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10) by BR2PR04MB800621.eurprd04.prod.outlook.com
- (2603:10a6:2c8::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Fri, 25 Sep
- 2026 14:36:07 +0000
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0451.014; Fri, 25 Sep 2026
- 14:36:07 +0000
-From: Larisa Grigore <larisa.grigore@oss.nxp.com>
-To: Larisa Grigore <larisa.grigore@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Ajay Neeli <ajay.neeli@amd.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Pedro Sousa <pedrom.sousa@synopsys.com>,
-	Joao Pinto <Joao.Pinto@synopsys.com>,
-	Hannes Reinicke <hare@suse.de>
-Cc: linux-scsi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	clizzi@redhat.com,
-	aruizrui@redhat.com,
-	eballetb@redhat.com,
-	echanude@redhat.com
-Subject: [PATCH v6 12/12] MAINTAINERS: Add NXP S32N7 UFS host controller entry
-Date: Fri, 25 Sep 2026 16:35:34 +0200
-Message-ID: <20260925143534.3298540-13-larisa.grigore@oss.nxp.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260925143534.3298540-1-larisa.grigore@oss.nxp.com>
-References: <20260925143534.3298540-1-larisa.grigore@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR5P281CA0018.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f1::18) To GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="IApszyH0"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b91369d18so6876155e9.0
+        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 07:43:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790347430; x=1790952230; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DtEfZGf6pOZoZKp7BZybV8NV7US5hG1rb4KkghHs3uw=;
+        b=IApszyH0rgyC4GkO6MAkId0rbPwMzvK/8y6/2cqShaoWCeQ8QT7rYGJq60/UFcOojd
+         veasg+HsVcSBPzuke75fWJgfwHcws4zyhTx+TvNBRyZaPvgoy6nivXgU/YkQVCz64AUr
+         w9qNn6HuCUZp4yfrxzV+9whjxBKi55GZjtlRQ469lTsecEwpyMMRHVTcpWHCZUrL5SiK
+         8CUB7Xn5pz8ZX3rdzJLqn8BZWg2Q9FLHC9ice5UoHnFN+Ns3Nbt02ZenjS5ljdm9AEkm
+         I2BLVzXJ0YFg5sURuvZ4AUlcWhAAWLS6RnsGD/qHTtg6DHdxDFxmst+msC3pl9jzpyN8
+         sKMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790347430; x=1790952230;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DtEfZGf6pOZoZKp7BZybV8NV7US5hG1rb4KkghHs3uw=;
+        b=POt/mXR/HM+vXMLSKDZkg0Nc4ohmqcN7XORSMj3I8uY/GuUQxe3X7Jml6Cy0ESNAox
+         g+cK5Sc+i1M0Oy8DRJx/7f9cCzcVdA/T5K9UgtVT38vliKQB2+/Vtk2IxqkgFd2DXWUS
+         9/L+Sq1tyz93wErzArkWuZmGt4VafQL4QRVVCwR7XPVpi03DKV+GKKugNMf/aDvhCZAN
+         7tzwNxa93wzlNJGtFNlwiOip255RSrJEqUxikbwZAhs3hIVvTVv9HRZrW++sQ6VD+K0K
+         U1W420gtHv1hdGIWQuziCr3f+i+0VvrDEhhz/wgP+apwodGTff/pSF7KeLsbQFG5eCI/
+         Q3ig==
+X-Forwarded-Encrypted: i=1; AKwUvByWmH47xWZizEyOMwAiSWrQYiN2ZMLaoiN4xidybKCkBV8rkeGiY2P/IhIRdfOLku2OTGyGESj0pqA1@vger.kernel.org
+X-Gm-Message-State: AFuF++l8/FFcRwKTcRqlq6AeXF80TuqAQaG1BM3KYMpNFQOhpJeGGqxA
+	cs7lCr7N/v3s+nZvLvMZTs5AH4cW+2jRYMmbdOD3zvkJD1TbjBHF7Aj0HveWXDGZa4s=
+X-Gm-Gg: AYBFou0u3lVZI7WiJy89r72MhSdF1m3HhggODtGJ1QMvZU/M1tfW5lKntX3liACISiS
+	fRgLF6QZpdcDrV3ooYmZPPiuHCLnI5w4UmamB6nT4Z3b7dsQG8f41lzOBnZVL7+aG0v1LRQn6ix
+	tAqP9r/hROAlrKQhT7QlaRkKfRWtna8vteUd6KzGLQc1cDqKCR65qejHKYpJOKlpqy8vsMZN8uo
+	OCUlaXK3W/MsmBDE4YkCrrW/ApQZbQr3zshHBteqWIamnuc9PeiHK6zmwvW3d4ef9nM0733MA2P
+	P50YzcwcIhKgmGADEqazqNdxpgZejLtNGmL2vVqiGZQVI6eEFzZgO0WvJCyPlacBEczfcVFbzrV
+	0DTEmLjV4zJhfjFO6yxdo+2CkVuAbBkNQjjwtyl1QP7sFa/wl3SI1tP2DlfgkIEY/FpvzZl1gtj
+	Dk9W0Ye2HYrqAH477Gq5R5mouIXUYq6a+XXTSNSXMDpsCxiKbQ4N5oErpplujRgRqliG8i2unlk
+	UmObBjDVQqN5eAVEA==
+X-Received: by 2002:a05:600c:c8f:b0:49c:dc14:d681 with SMTP id 5b1f17b1804b1-49fe66bdf3bmr105928135e9.3.1790347430286;
+        Fri, 25 Sep 2026 07:43:50 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a35607bsm7104435f8f.16.2026.09.25.07.43.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 07:43:47 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Cody Kang <codykang.hk@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Vinod Koul
+ <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Haylen Chu
+ <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>, Stephen
+ Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+ <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>, Guodong Xu <docular.xu@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-clk@vger.kernel.org, Cody Kang <codykang.hk@gmail.com>
+Subject: Re: [PATCH v2 06/17] clk: spacemit: k3: parent eDP/DP pixel clock
+ to the PHY PLL
+In-Reply-To: <20260809-k3-display-v2-6-327d7910bf71@gmail.com>
+References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
+ <20260809-k3-display-v2-6-327d7910bf71@gmail.com>
+Date: Fri, 25 Sep 2026 16:43:46 +0200
+Message-ID: <1jwls975nh.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|BR2PR04MB800621:EE_
-X-MS-Office365-Filtering-Correlation-Id: 065295ea-8f48-4bc4-7019-08df1b1255e3
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|19092799006|10067099003|56012099006|11063799006|22082099003|18002099003|921020;
-X-Microsoft-Antispam-Message-Info:
- Mv3Uudf7Q5kXukMzv/cqXpHoXvWAz4UUVSye7rDQ2uR+xAu1NMBzU8ggTM4pmfunC+p8C/ERzJfR2uBcvf6VnpqJZ7w7iefL4lfhDITIKkmgRKs1uKMj1H5M1yNCMJEA/AO1dADmh62LqUdIdvC6L9iKeZS3umvVkGCgZ3ya6PX/0Z9TZr/mMtxae0H/ax1Hrm4aKYvqz+voCcAAW7wgFMMGn+eqx6XwyvEI04iatszqvQZPIV1lhDmAaGVnea6tkRJv0QZJZt4oRS21XQU/u7mcCfuAaZdUFVjWWPTd1Bl+3AwaJSTWRXC/qsiRHA3jdXx/rzfeayiuaxgydJO6GEMTKiR7yABe742xDbZnA1i0Dck09sCm/F2GXWcn3+IMcmj/y/B0RXgoDM0QeTzzxShmmh5wwkxzMaFB/+VNiqr+hZqDMsfrlrLYUvdQlcH/YHy9J9IvHBle9fbqKi28V9rL+5RDQgoI7hld4ZmlcUvdpbp4FITJevZCVne+82b9PwmhGzYl0dr6f1Pw3y0SQNKc17A+z7NuPkkiRGfAmaBK9r/2yHJT6gJg3O2MgpuPg/y3WLO9ak8FbC96BaGK72NQXYkHpheqndByI/t8Hato6aFbLoTR9WQ/RR1hHtiyxfkK45Li5W3+3HemINIiSbcaCz7tIT0rGVg2TxVY+01QaZSl7SGM4tgob0F13R5iPwI9AYbl0FsN3Z5HUt3eUQ==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(19092799006)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?SDN5Yktna1E1MURORUZ3cUJoWk84MzhnSWdXMEVRbHdvOTJ0QktJMEU1YVpJ?=
- =?utf-8?B?NzBsRktybjBabWhGa1BpQk5CRmtkZ1NKM3NxS2U3MnoydG8zTVBjdFRRM1lv?=
- =?utf-8?B?MHpPakFtZ3VLODNrZ05sUTN2VHZUZlBzOUl0ZWNDNmpJM09keG5mUU5rS2gy?=
- =?utf-8?B?UnRFL2RIYmhTYVVzMXhNZ1pjVU5UenYxOVFFbU5aRDJ3MnRmeXNTdzMvMEhk?=
- =?utf-8?B?ME0zWFpJbXFac1cyUWN6ekRCZkZKV3VhOVRjeW90RkdsVkhFMElMTXZFVkk4?=
- =?utf-8?B?d2FCMEhmdEJObW1xR3JxUUUxMU0vazV4VnJBTlhRYmlCS2ZOL09yS3pxc2I2?=
- =?utf-8?B?UU56YW1oZEdibCtON01GT1FraGR1Ty85MW9PUm42WDE2R05idW5sOFowU0dO?=
- =?utf-8?B?SlMrTjdEdHAyNTJkRG9EZ01HQ3E3eVJuMWlJL0kwdDJxMjhaVmhUTE5OSnJQ?=
- =?utf-8?B?RDVTNkFoaldDVWJnMytIb1c2bk5uNmhva3g4cWFTcmRPczQxVjdJeWZnQjRq?=
- =?utf-8?B?Ti9abjY2S1p0ZGhKSmRFNVNBZ3V4UzNocEZ1QnNrTHh0Y3NyejROeDJXV1ND?=
- =?utf-8?B?cm8xZDI0NWZWUE05MVErVWFLS0pjWEZyS3RhVi9vWUN2a2p2eFNGVFdLdTJj?=
- =?utf-8?B?ZzhtOTVjSGlZMGI5NmhRcWViQi9vcU04Tm9pZlhZVFJaYUJFd0pGUXg5WVNn?=
- =?utf-8?B?UGRzLzlPY05GMzZId2E0Mm95ZGQ5RitvbGxkZGJLYXFDR1k0Z3BHTDg5YmhG?=
- =?utf-8?B?S3E4V0I2ZUoxcFJtUTFNY0VZcGhBWm1TTlVKN25qU2t3Q3VHVkt3V1FFcVBM?=
- =?utf-8?B?c2tWQzJnUnVySUJEVVQ3MTcwUVFKeEVlTzl3WWdraE5DNGJVSGxIUUw4TTQw?=
- =?utf-8?B?L2JPcENSYmtqNWdkM0gzNWM4dGhxN3c5RWZsMXhhU0tCbU02aUg2QTJkdWU1?=
- =?utf-8?B?OEkvVG1KdWRPMGFGalRpQUc4ODdmUUtxWkZJd2laVXFaQStSVU45V2V4UlVv?=
- =?utf-8?B?dUQ1REY5UURsTXI3cy9FVVpHamlIektqTVhjNDZnb2tqTkdMa3lobG1wKzIv?=
- =?utf-8?B?K05zV0lRVVdPRzc5TFBnSDVMSnRaVU1wanU5V1JGbDNoRGpuSW9KcEJKVGpP?=
- =?utf-8?B?VjBIZjU1aWcwRWNBSjhxVlFRVXZMNCtZeVZJYzVzeDZ0cEFXa3plTi9FQW9I?=
- =?utf-8?B?V05ZOFpBR2FBSVhXY1F2TXRnY0hJMS9rVHg5TkJ3bFE1L3JTTFgycFRYRXN3?=
- =?utf-8?B?RHhaNU1MMWJaNENNbUtmN3g0TzdraVJxOWhhU045ZnFZeTh1Mk9Nc2ZuWWN5?=
- =?utf-8?B?djY3ZVNpSjQxOGJ0RG1QUGZCbmo4TmNpdE5KaTR3aFdvSGlLMWtGVmdNcTR5?=
- =?utf-8?B?T2YzZmJadFU3TUJhY0xqaXF0eWVWTkpzSGpSTkg3NWl0VnlFSG15WktSMmdn?=
- =?utf-8?B?ZTlkTmFLVWNCMUIzV256UjRMVnFtZjErNFRjajlwSXpKdVZoMGtwVFBvbDJu?=
- =?utf-8?B?Y3NLRGJLYVFsMXZPVkZrTWhESkZ5aEpPc0FnUWVkRzBWT0JwYkVwMmJoOWph?=
- =?utf-8?B?azZmU2I2cWQ2RzdUVGV4eGc2eUppNWlPWXNleGp5bFc4QkFpVnV5Rkp3N2ox?=
- =?utf-8?B?SElBV1VIUWl3K2N5QnZWZk1QRGt6TTZQaUZYTThXZThieHJOTWRQLzY2MlhJ?=
- =?utf-8?B?SDJsNE1NQVFxeTcyOUE1NlNGY3oxc2ZRNU9oNnZzMmxDdGRhM0YzdzRxLzdW?=
- =?utf-8?B?QXNsLzJMdmhwdVFXMzMyMUNiaW9JeTRDakZqY1FqM2w4c3E1WE1IbHk2Tk45?=
- =?utf-8?B?aGNwK3FsYlBIaDlUSjU0Vk9YWjB1QTl0YU13QkRNVkl6Q0o2OGEvYUtSREww?=
- =?utf-8?B?dWtYTytoczA5SVlySnlVRFA1KzBYVnpvSHphRmhQMXdJZUdhS2swbzUwQnZo?=
- =?utf-8?B?a0hMNXRNNktiL1I0bXhyNW1TVGx0S3dCUXRWVklTb3hSZGRWNGFURkt3aHd3?=
- =?utf-8?B?cUI3ZlZ3QkpMWFdMdUJDVnJjYU5KTGM3Ni8vQ3ZpOElwcjhsUjFabFlCZ002?=
- =?utf-8?B?ckExL09CRUlLZ1lweVBHOXVWdTEwZE41Z3M2Tjh0MFZkWFFacUpFWjRDVFJC?=
- =?utf-8?B?STNMT1FrM2M0MnBUTEx5SHloYktOL28rd1M5WjBUUWJIbHVIb3pVd2xUb3NU?=
- =?utf-8?B?QjdGUXpZaThLMSt2NEFQekZsNG9EbmdjUkppU2c1cDFvekVQRGJqb1lRV29o?=
- =?utf-8?B?VFFpcDlmSEd3NHhOVjliTnZUdmZMdElXb2dJVHJrOGk5RllxclRRbFlsWHFj?=
- =?utf-8?B?OERlVis2dzJmeTFhcmtaaHMwUlBOS3o3bGRubU5XUDhQYkUzVkp0QT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 065295ea-8f48-4bc4-7019-08df1b1255e3
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Sep 2026 14:36:07.5050
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FZ8l7TugcutVG3j8ZTDg05wm2TOEJpYFwbLaLSMdg0lFg5rvWgHWSJCuHaYiFLf5fi6OwCojydAwqBoz4X77Uw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR2PR04MB800621
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Add maintainer for S32N7 UFS host controller driver.
+On dim. 09 ao=C3=BBt 2026 at 21:14, Cody Kang <codykang.hk@gmail.com> wrote:
 
-Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
----
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+> The APMU eDP/DP pixel-clock muxes were parented to a placeholder, because
+> their real parents (the DP PHY PLLs) did not exist as clocks yet. They do
+> now, so point each mux at its PLL and let the pixel clock reach the
+> controller through the clock framework.
+>
+> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+>
+> ---
+> v2:
+> - no change
+> ---
+>  drivers/clk/spacemit/ccu-k3.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
+> index cb0c4277f72a8..afbbbd797826d 100644
+> --- a/drivers/clk/spacemit/ccu-k3.c
+> +++ b/drivers/clk/spacemit/ccu-k3.c
+> @@ -937,13 +937,13 @@ CCU_MUX_DIV_GATE_FC_DEFINE(ufs_aclk, ufs_aclk_paren=
+ts, APMU_UFS_CLK_RES_CTRL, 5,
+>=20=20
+>  static const struct clk_parent_data edp0_pclk_parents[] =3D {
+>  	CCU_PARENT_HW(lcd_pxclk),
+> -	CCU_PARENT_NAME(external_clk),
+> +	CCU_PARENT_NAME(edp0_pll_pxclk),
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b..6757d6af5dba 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28097,6 +28097,14 @@ L:	linux-scsi@vger.kernel.org
- S:	Maintained
- F:	drivers/ufs/host/ufs-renesas.c
- 
-+UNIVERSAL FLASH STORAGE HOST CONTROLLER DRIVER S32N7 HOOKS
-+M:	Larisa Grigore <larisa.grigore@oss.nxp.com>
-+R:	NXP S32 Linux Team <s32@nxp.com>
-+L:	linux-scsi@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/ufs/nxp,s32n79-ufshc.yaml
-+F:	drivers/ufs/host/ufs-nxp-s32n7.c
-+
- UNIWILL LAPTOP DRIVER
- M:	Armin Wolf <W_Armin@gmx.de>
- L:	platform-driver-x86@vger.kernel.org
--- 
-2.43.0
+hidden behind this macro is a .fw_name. Basically these are your DT
+input names. You can't change them at will like that because your
+bindings are supposed to be stable.
 
+You should not use placeholder name, ever. No need to make the
+name too specific either, from the beginning it should have been
+something like "pixel_pll" or whatever your doc refer it with.
+
+"external_clk" is not declared in your bindings AFAICT, so at least it
+should be fine to remove it.
+
+There need to be a dt-binding patch documenting the new name you need
+and then you can start using it in the driver.
+
+In the future, please try to document all the inputs of your controller
+in the bindings. Even if you do not use them yet, they exist.
+
+>  };
+>  CCU_MUX_GATE_DEFINE(edp0_pxclk, edp0_pclk_parents, APMU_LCD_EDP_CTRL, 2,=
+ 1, BIT(1), 0);
+>=20=20
+>  static const struct clk_parent_data edp1_pclk_parents[] =3D {
+>  	CCU_PARENT_HW(dsi4ln2_lcd_pxclk),
+> -	CCU_PARENT_NAME(external_clk),
+> +	CCU_PARENT_NAME(edp1_pll_pxclk),
+>  };
+>  CCU_MUX_GATE_DEFINE(edp1_pxclk, edp1_pclk_parents, APMU_LCD_EDP_CTRL, 18=
+, 1, BIT(17), 0);
+>=20=20
+>
+> --=20
+> 2.43.0
+>
+
+--=20
+Jerome
