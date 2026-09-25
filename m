@@ -1,127 +1,142 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98BE3EA942
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 17:48:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671A914A8B;
+	Fri, 25 Sep 2026 17:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790358528; cv=none; b=NgztSGi+gTEvXcWW8RVzhstCneF/8acU/k/hWa5p0ZQQY2Rc/78VvQHwoVplMCKps6kDzWyMev3zVjS27C/DMzW6jRnJIoOWRpmSk4RhKwyEh/PWtpFuTMiLuu8wujKEo3zLlSFBWLen48a+TpvnH22ljrzOfpkgUTu45d5SE+Y=
+	t=1790358774; cv=none; b=klqFJh7u6aL/HVJzalSrEpEXVEOyhm50xRJK7qVqz0wnxmWwUM7SFNZSmiLE00cPeaFea+ucX5aTjmiHgoqfnAz5tINjEUr6h+u+OUDRlDUgH7UMurFucqKmKBXjL72Ysa8dHm5i2hS5nru2psB8DHduqwmrRAHYlIBXcrhaWKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790358528; c=relaxed/simple;
-	bh=hxV+qvTdQ/L5+QDF7jTM+x6xriCKo8Oss1Iah+M8rgI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kGGCa/ZsOi4URmt7HQTqvhldFdm9gqvSw9mlEtSXpLzovRNz6WT98vtMuVUQ8xOIMyFDF2L6aTgPKK/aJz2BCU9cbmV60yCjHzNO4pfvLQxP6QtCAgZFytT+1IB5jbf6HtFjuvxcP1GVxMKC2Q0go8eMvf01bnAzErDKfjresDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C9b6/SL8; arc=none smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790358774; c=relaxed/simple;
+	bh=h2F6Wlrr7DWF4srFC6zkGugGEjHOBZnfF68/9H/Z5rY=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=neQAcEHkDqHMX9A/p7P8XHzbkYXI30wo6s3JoLEdQMx5u38G52jsha0ctIaqp+pdZyCd0pZHL6NQzmO9UKmaQlwPlv6ro8x/Rax4dah8e7rAH7h+1CIr0eq3Q5+gUqvWkiYjgfIew2VRhCITSaNgRj81kCbydF7XMr7qMGJMNts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=dybEE07j; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=6hkU80fp; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C9b6/SL8"
-Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93c56f7c1c8so1390485a.3
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 10:48:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790358525; x=1790963325; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tqho0gYvfxFyUzakkOYHaCJ1K4YCibf7irTMVk2q1ig=;
-        b=C9b6/SL8Hxh8W2XbVAEGfL4p+IlWQ/QGVcyPWsOFRSDfRyiUzmQja9FLZPix2D/Ruj
-         6NwGX/Zu/SnuM+T+YN9sJ1fMWpDe7QMD1Yr85w3dllWqBCsQUTBrTChk/3D8NV3OrOJA
-         MsTFgtTWTch3gEdu0/cHBB0N9goWx/9Pbw5zuFfkDv7bvngxruwYH3rwJEMc+1zvbUIx
-         21H869tRHMBA/k/Rdh0MtpJAyuPAaQZmH3Qrv/zhLOoeGqURsBmvxcqEPnJAnLdWTfew
-         2ULWMrpQ7HhKwNI2K1xAjLXLWFCIqTY/AP0oxSimL+Q3boF8vDeekJ6et1wQIrk8rgMe
-         Ot0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790358525; x=1790963325;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tqho0gYvfxFyUzakkOYHaCJ1K4YCibf7irTMVk2q1ig=;
-        b=Ps2ub2CoXNOfHhSHEzCCJnMgkrzoTTKCC1VeSA3Xp93ShB51/+xDEEyqGw9wE+iMOQ
-         4pcu9EwgvpCaDtsynrYDKwv/a9donZ7DMDrrgZCB2uyHZKNnT4SNLWm4Vrtp9nfuHcOD
-         im4ZliXAZmCMwKru+BLIp2fPN0QSsoTQvocvSdFVl9jqcKXqTnkvf1EjKuVRUtPkWSXY
-         5MLZuO3ONVGzsXDXRBv4j2u4pO/sjhsdN2gPrAi1RHBoM5x6XC/P70A0uZQZaMsD7tiz
-         WIu4u2wv2pV4EHqISkSaXW6Z8kyU6w2C3QU8VJr0KN89Z4vSLUT3WkMGS9gmmzkhsjag
-         4OBw==
-X-Forwarded-Encrypted: i=1; AKwUvBzzkEsEGeLPkeTxnD7tcMXf58W5C9iFeQQQ7pmQIqBBUAv2A4nmaiAj2B/IQUB+qoMAn9AOjgxrIx3T@vger.kernel.org
-X-Gm-Message-State: AFuF++mDf8Vx+tXVFq264xd8MryX/qxtMPLFpussIdehNarVaxbvGCez
-	mhhSAwP1JSholaDR5dXSRgYAKp7Rezfr+aPqAbwTtd1T51b4MCsx346yaaJSUQ==
-X-Gm-Gg: AYBFou29pJIPiQev7bHf3klmQ2ydotglqQMHfunn8/lQnW/sgTklhrMhJucufccllvH
-	a2N6qgbt0xIHCeVasmAf4XhEyrx1f+KQoTTfHSaH9WV1APiwsZ4gj2ggUBpOA3Ti6ykggjZtr3d
-	QgTddkaYFkJZNtm/+FFAJqokhiwtuE38Qf1F0WahV/RUMk4F7B+yZLaK4fXybj6zC3qXD0OFHxu
-	KY6KJiLxELZHYpAVCRHbArQQZ4K6ohlXmTk5M349IItges2ADt4YDJYHc2Uq5i4smj7OUK0ymP4
-	Py4etTo/U7GjDwok+zCX0SqGsZW4OSBudj0fORI79SPR89SLMZxqmFjrxw7RaCVcoEnds3K62+v
-	9SCNm1e0ucchUydLdgp+zhHMxfdvhYe5+T0vzPv/7IMwi0Mh4OuM5x5MCfcuGOp/N/h2KR0tD/9
-	klLCUS+li6grD5ofjSPjlEhMHzQHlZpTxamUOABM2OBm0g/DQtEVWEX5NE/VIlixvh1IXP1FX+
-X-Received: by 2002:a05:620a:1b8b:b0:939:9bcf:8d35 with SMTP id af79cd13be357-93c43cd2ff3mr580302985a.35.1790358525493;
-        Fri, 25 Sep 2026 10:48:45 -0700 (PDT)
-Received: from localhost ([2605:8d80:6a24:95:3113:1259:156f:f039])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c4499c06csm232636485a.46.2026.09.25.10.48.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 10:48:44 -0700 (PDT)
-Date: Fri, 25 Sep 2026 13:48:35 -0400
-From: Richard Acayan <mailingradian@gmail.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH 11/11] arm64: dts: qcom: sdm670-google: configure analog
- and digital codecs
-Message-ID: <araz8_AlFWLV3c3n@rdacayan>
-References: <20260922015801.32373-1-mailingradian@gmail.com>
- <20260922015801.32373-12-mailingradian@gmail.com>
- <f43ebaea-05c5-40a2-882b-3211e3590476@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="dybEE07j";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="6hkU80fp"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790358748; bh=nNXRZZyO5E6gJXFXSSEbRo7
+	RUD3G589ViTisRDLWX74=; b=dybEE07jOsSg2uVQbdrgvnpMJTnRpLxDanSAyANWMHaXeM16IC
+	g+Oov4sM3WMnWkgiJGGW8xu4nutrv3Tr/NqSZZvIVJ8s9+uiaRf/Typxm1P5yJhO8ZB88O64D+0
+	lpOMx0wfsRL/dNzTfD7yiUy+89mL5zAxuU9//TMhic3wpj8yvnmPjWXaTl3gJAlNnSYnYr9KDbC
+	NmJFr4eOi9atCKMb2gbjhSGewJ2gXNBKZseJlACHY1NqlMahuFSMUNWb4DNRVxR3qHaIJmrSwJ3
+	dpm8w2QjZAy4+1mrqgOGkOBJAMz65Oo/fgW/8jFyNuEMTzdv2S4kfo7lmIfDipvSa6g==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1790358748; bh=nNXRZZyO5E6gJXFXSSEbRo7
+	RUD3G589ViTisRDLWX74=; b=6hkU80fpF18eaotihI8czs8zqTmN9aBl918adzBeqol+4g+4I5
+	AX114HYqQ5r0FqT8+yWyI6FklC5LOVeiPUBg==;
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f43ebaea-05c5-40a2-882b-3211e3590476@oss.qualcomm.com>
+Date: Fri, 25 Sep 2026 19:52:27 +0200
+From: =?UTF-8?Q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
+ <barnabas.czeman@mainlining.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: kavakliyigitcan@gmail.com, Lee Jones <lee@kernel.org>, Daniel Thompson
+ <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, Pavel Machek
+ <pavel@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Helge Deller
+ <deller@gmx.de>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
+ <broonie@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dmitry Torokhov
+ <dmitry.torokhov@gmail.com>, Henrik Rydberg <rydberg@bitmath.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav
+ Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH RFC 10/10] arm64: dts: qcom: sm6125-xiaomi-ginkgo: enable
+ display, backlight and touchscreen
+In-Reply-To: <fe437142-eb1e-49d3-ad3f-704066bea53b@oss.qualcomm.com>
+References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
+ <20260911-ginkgo-submission-final-v1-10-0e68e63a18d4@gmail.com>
+ <fe437142-eb1e-49d3-ad3f-704066bea53b@oss.qualcomm.com>
+Message-ID: <37bb460f800995ee97b4867e09c04ebb@mainlining.org>
+X-Sender: barnabas.czeman@mainlining.org
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 12:47:43PM +0200, Konrad Dybcio wrote:
-> On 9/22/26 3:58 AM, Richard Acayan wrote:
-> > The SDM660 digital and PM660L analog audio codecs control the headphone
-> > jack on the Pixel 3a. Configure them for sound playback.
-> > 
-> > Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-> > ---
+On 2026-09-21 13:26, Konrad Dybcio wrote:
+> On 9/11/26 10:51 AM, YİĞİTCAN KAVAKLI via B4 Relay wrote:
+>> From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
+>> 
+>> Enable the display subsystem (MDSS/MDP/DSI0), Kinetic KTD3136 
+>> backlight,
+>> and Novatek NT36672A SPI touchscreen on the Xiaomi Redmi Note 8 
+>> (ginkgo).
+>> 
+>> Hardware nodes added:
+>> - Fixed LCDB regulators (lcdb_lab and lcdb_ibb at +/- 5.5V)
+>> - MDSS and DSI0 with Tianma 1080x2340 FHD+ video panel
+>> - I2C1 backlight node at 0x36 with PMI632 GPIO 6 hardware enable
+>> - SPI2 touchscreen node at CS0 with GPIO 88 interrupt and panel 
+>> follower
+>>   reference
+>> - Touchscreen active pinctrl definition on GPIO 88
+>> 
+>> Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
+>> ---
+>>  .../boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi | 100 
+>> +++++++++++++++++++++
+>>  1 file changed, 100 insertions(+)
+>> 
+>> diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi 
+>> b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+>> index 
+>> 59042a5937535c4acda064fa0f865f4f5a52d01b..f4b9e2092a814e56cdc23218025cb4166dec110a 
+>> 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+>> @@ -26,11 +26,30 @@ / {
+>>  	chassis-type = "handset";
+>> 
+>>  	qcom,msm-id = <QCOM_ID_SM6125 0x10000>;
+>> +	qcom,board-id = <34 0>, <34 1>, <34 2>, <34 3>, <34 4>, <0 0>;
 > 
-> I think it's better to squash it with patch 10
+> This should be a separate patch with the reasoning for the change
 
-Maybe it would be better to combine with patch 8 (same /^.*:/ prefix),
-if this is just about number of patches. Patch 9 is about as related as
-patch 10.
-
-> [...]
+board-id is not neccesary for this device to be able to boot so it can 
+be removed. I have already done that before so it should not be readded.
 > 
+>> 
+>>  	aliases {
+>>  		serial0 = &uart4;
+>>  	};
+>> 
+>> +	lcdb_lab: regulator-lcdb-lab {
+>> +		compatible = "regulator-fixed";
+>> +		regulator-name = "lcdb_lab";
+>> +		regulator-min-microvolt = <5500000>;
+>> +		regulator-max-microvolt = <5500000>;
+>> +		regulator-boot-on;
+>> +		regulator-always-on;
+>> +	};
+>> +
+>> +	lcdb_ibb: regulator-lcdb-ibb {
+>> +		compatible = "regulator-fixed";
+>> +		regulator-name = "lcdb_ibb";
+>> +		regulator-min-microvolt = <5500000>;
+>> +		regulator-max-microvolt = <5500000>;
+>> +		regulator-boot-on;
+>> +		regulator-always-on;
+>> +	};
 > 
-> > +		lpi-mi2s-rx-dai-link {
-> > +			link-name = "LPI MI2S Playback";
-> > +
-> > +			cpu {
-> > +				sound-dai = <&q6afedai LPI_MI2S_RX_0>;
-> > +			};
-> > +
-> > +			platform {
-> > +				sound-dai = <&q6routing>;
-> > +			};
-> > +
-> > +			codec {
-> > +				sound-dai = <&pm660l_codec 0>,
-> > +					    <&lpass_codec 0>;
-> > +			};
-> > +		};
+> LAB/IBB and LCDB are separate hardware blocks, only LCDB is
+> present on PMI632. It provides a pair of pos/neg bias
+> voltages. Looks like downstream has a driver for controlling
+> this block.
 > 
-> nit: 'co'dec , 'cp'u < 'p'latform
-
-(will be done in v2)
+> Konrad
