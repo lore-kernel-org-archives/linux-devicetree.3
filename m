@@ -1,236 +1,229 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C4B4457C6
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790318410; cv=none; b=l8tqTRHkuVVi3mMhrH6ABVYzyolyU6NILalQXu6kFoVp6mVH5wJHaG6wRC3ax0a6+ItMWI3TdDOGc+ooW4hg/ZXzQgbVdsRILhE+FXad5YtvKGVFOJJYINpo3JIhIkKcdbKh8heN/srtqx9eEGhg05jgIoEcEWzeb85pOdF0lpQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790318410; c=relaxed/simple;
-	bh=875AmwlOrIOKxRPII/aa61meBYbnNrXlPVbMLzD9nlE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hHSWQTIvOcD51JanHSxcENHxbi0aLv4vmrX2qiESpA37/g5/7p1QpvTsEsJ7UXnRSZ9fZQ9jGED1Uwp0a93at+ZU8HtPITOoNyABcQoQAF0yw1I6zZ4qxKBKrY0IFLgom88lesj95I+CUgOb86DDCSHIqBPMZuiCeOts6spfMlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GvbzoHHK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iCzrASwu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF38A41F5D9
+	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:41:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790318511; cv=pass; b=eEVQzih1AfzTY6PxpXAsUQaKIM3+DdVx7S3nX9Kgg7GWAr/HQ8e8aVtZqAuUMYP1qYAURZ4/BBi9ebIRAde74oJWKdrFbRDRx4Gj5BmLS8DDoW4XVhNPgMSNwrHqEPIPV0yMdMmYcg0BY/B4R0azhhdsfG/HY6zVAAYpNM56aOY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790318511; c=relaxed/simple;
+	bh=RkD0ncrXK0q4FdIjZkUOUclIn2t5h5U0/ZqoP0P9Mzw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oynEN/VBoxByQ7o71r6RKpekMpsqnqgU3b8YsxKjJrS0wZWWSInh0h4NrgH6qenfqWDy/FZXpsQ9rL7x5lrGqsmYq8giivO8BBybx77d8vYSLpPHCHL+egBHokNrcoI3tKEZMf7gICebyScEOW005el3h0RMwdHBSdtO5T2SOVI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k8OriHiS; arc=pass smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GvbzoHHK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iCzrASwu"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68P4YXh3289475
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:40:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aMZfP1A5b+AJQ/70u739VGpCqQdfMAhFIZR58V+1cbs=; b=GvbzoHHKAGUgXgBk
-	DXokfiwWYkF+vrTQAaZQLmEIgKYrnfdgZCrYoSwG0c7go2A47/JwaDobrvkgnmlU
-	2QLAo80e8W6su+gzRpjL/CEE2FkAJDqZ4RuSuvMx3gbPNDJLW43qSxcARpm3EM6N
-	u9S+G6fV1H9OZ5G249hi8hmsUX8g739FJG5zE1QJEWURIVR6tJFtmbvBihn++ptO
-	7L1JLaoF2KmhCmpLzGCKawmVa36tqn84c2GsxQ00tefJ0W9KPe7mlZwRaSNi/NO1
-	qCwQnzIP67jvO0IWHDXFH3peEv7HYO3zMbHzcZVXnOTRRxzowQ3/M6gFfRSVrYpC
-	fB2Bnw==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gw881tccb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 06:40:07 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1383723dfddso1059102c88.0
-        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 23:40:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k8OriHiS"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b76ff64d78so568224e87.1
+        for <devicetree@vger.kernel.org>; Thu, 24 Sep 2026 23:41:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790318508; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cBuXlTsDgVLYp8mUGJ/Ss90rvWP4RxD52tjrLdNaLoqkpGZ5rgrCDNrE51YCqX7LyF
+         LPGoK3unQF17s2bTs0HOqur0dZBcbbIXU/HFzT8P1NLX1pu+JYzkNhBzv+nJXKBQmyc4
+         vnvjEjV3iV+UdvWZZO4n1lxw0kmU9kXuy7v4zcCDIJ9Ma0Z8Yy3Cu5HT/avkvGKkrQDZ
+         QritW+cIjhBBeNGlOQno6VABZLjecj9CqGmOogy/NSUl3N4pCloe6AL2f8cpcwCXcJvB
+         AUaHuWWs64bsYHSiTBJD9n2QbSFTbs17xETq7JIq7wTQjAt4H5ESJDATfkC7niejQAPQ
+         d0Og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oCUKdWQbsHJgUOSvdlicS2cHjAoZu9s1v/XdrzjTDIU=;
+        fh=zxcmBLIOWQYNxz7rvt++aQmGdiUWHXNDvL9xAUAzJFM=;
+        b=hDSzwrSG5iGtdrkAsem4wPKhrHUkM5Td/FrGm1HfvV1GD5Wy98wQ4cNLTyqEtHy/LL
+         R5184Sym86hLXROKoMPEJ+/fhlOgw5Rm34sg9Ts3HvtMyvLBmmDdqjti5IpXS8pT10MI
+         +okEOxrKgYey1W4nOwPDUzUze4tIL3CEDWb22hF1mmIaKPU/qtkg8/wlKBg5ggVo9i/2
+         gkD5aOEW9y3V77qbfs0XDrX5OMTbxYo00ZO0IbSOr9OYkJTT0a/xTWpsx8l2nZBsUngd
+         haWFDMrHL3Y0MeNTeHK07b1v5bwTi3nfZ+Y7aMIfHZe6wFuCMEhAoQs06RFAgifRXl+h
+         n61Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790318406; x=1790923206; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aMZfP1A5b+AJQ/70u739VGpCqQdfMAhFIZR58V+1cbs=;
-        b=iCzrASwuaD5dekOBceMjiOMH20ZzsmNQUl3obE4/dCqaDflpJI9HoXyT2HkP9Q93BJ
-         FzGUYixf3JuCw27DdYLoN6U1E4kV+/Wh8L8Mh5epxuNLC4ebkhPA/PRKkv/R1yA08+t6
-         AMApTiKg3oQ1tIOB5umD2wfYbsW/EGZEu/490pnCTTSpD40dAjZv1HZy6zyfat6q0jZE
-         R8VT+AIFA6wbc/5R39rM95YD2/PCLhUanIQ3kQaKRyv/pe1kpqqFjdUWMmIIePMG5hB+
-         Ry7bkdgYZsix0kI0beFnBweugAH9Fn2nUGMkg+hFbBBtUeUKGadLAouhW/tY4uMR6cTs
-         ckag==
+        d=gmail.com; s=20251104; t=1790318508; x=1790923308; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oCUKdWQbsHJgUOSvdlicS2cHjAoZu9s1v/XdrzjTDIU=;
+        b=k8OriHiSUhYSimjZzzOgSQ7fiEthApf0hKVCTywB39HydjMmF7ElQ7E5hbLnK/D7X2
+         lsL+IyNTnAFrXfSBQBDEKiRXUlIOgrhcaKVz+yOoVuKumnZqlVZa+NyBzq8aFLPzaJMf
+         qwywzm58NdIhx26NEYDfvBloknkhd6IXUp8s+t8t84SGSA5n5/CnvHAQxeclKQtBkVTc
+         ISodHerrV/Vsr9t5pzFAGVWJwCmTBXm5vfgMt8QxX+iDDCWc3ZfyhEbr0tUOKBjKJXCN
+         SMjQLydGyjTJL6rON25JN7RW31yvpkk83v15UaIczLo42OXj9zQdgPc32hQowIGcNtX2
+         8SSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790318406; x=1790923206;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aMZfP1A5b+AJQ/70u739VGpCqQdfMAhFIZR58V+1cbs=;
-        b=HYarzf0vuCLtdmWGisbMAIaAlveAj7mpGRjD/ll5vJvc6Gy3WkswNUaWHk9Zxu587Z
-         8muETYVPmuRel/Sr1chZY7viqOrCXCQXlHKU4PDCyGGi6i3nzW5ImMsxrzAWO/fhsZX9
-         VvPykIQO2tnRWnPzou5quIDU9vJCQrQNHlVkA52Baq9kDm+rRpwDdYfypEJ+2Yg2dC4W
-         0HDzWhDQW3zTusFbDLWP9Kbg1J8hY+03wZix8RmyePs13XGs5+3iNzqXIejVcKe6cSlQ
-         ix1zVK1PKPNg9y+KIuJoBx8tuROzr6SPrwxpwgp9J7M/XrsTto7p5wB9ixjXWq5NNPF4
-         v9Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBymvOExdWD0g6+qS4X6lCGYCegWSeiB4PrRO8uMhyBEIS27wqpZ6rxbrcSk079n40UO8qomD4PqLEty@vger.kernel.org
-X-Gm-Message-State: AFuF++kl7SNBJ7mCuhGt0+lblYKU42Av0Lt2hs3mbcB3NfW5fRVbagKL
-	+qK0rLj+aByIw3UbWUdmnoMSULKuRUEwbbxuYcAmxQ4PSjJXpPLUGFq4KdXQDicPNOZ05UUIjSd
-	WxVUbUYYk1Rfwagp0Af3NlwScG+SmMNXawFO7lQbYLRONLACX43QCt0Sm2uPpYXb2
-X-Gm-Gg: AYBFou394sNJw9WXsdADvn71uoIn9EWUSkB3qCfKFOg++z4UFGFZ5bvKjrz+/YapjDR
-	1RRszs32bxb5Dsd+P2qLXgZu0Fuu8oRr8gq56YjYoDBv7UkTizrozkPaoSxyAZXS7/nHDbSD9rC
-	nUuY8TvViWQxcwCYhG7MEg1ror+ExpJkOGqG1iOGGTbRi5wkCS1kyAsuAwGGuG1NeKkpQqFnGQc
-	m7Rw/RjkY8odGQ3PZ08LHXkrf4dFJsxRq6tl4FJtSi2avBSM64a2JSTGicYz56v/g2yMWHh+ltx
-	xqLiOJ/6V6iWsJ4qHxHfdpdN/KEu/VYXj4+VPjJaq+hemBujQuM6S6YuHZVqW/kXjKe8YWshjq5
-	83H7XN1+j/6r/TcC4rP12CX2RTSN7S9ox4ekMVSydtEsk
-X-Received: by 2002:a05:701b:21c8:b0:143:5c2a:e488 with SMTP id a92af1059eb24-14503f6e17amr3456576c88.0.1790318405725;
-        Thu, 24 Sep 2026 23:40:05 -0700 (PDT)
-X-Received: by 2002:a05:701b:21c8:b0:143:5c2a:e488 with SMTP id a92af1059eb24-14503f6e17amr3456550c88.0.1790318404841;
-        Thu, 24 Sep 2026 23:40:04 -0700 (PDT)
-Received: from [10.151.37.217] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-145adcc5b00sm3614535c88.15.2026.09.24.23.39.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 24 Sep 2026 23:40:04 -0700 (PDT)
-Message-ID: <af43c724-89b9-456d-a5da-0d8ba46a9b8d@oss.qualcomm.com>
-Date: Fri, 25 Sep 2026 12:09:56 +0530
+        d=1e100.net; s=20260707; t=1790318508; x=1790923308;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oCUKdWQbsHJgUOSvdlicS2cHjAoZu9s1v/XdrzjTDIU=;
+        b=pA4Q3oevUK7LP6d+H9ZJZn/n9gGWsUrBed0PMluZwbnxaf3ZX3UIRvEnUtCoFNNgDK
+         rGD55K+4nNQlCvtFXCSHxkYzLGg+7BVuqSZjb6yRdorsvwenoKBhJk0PByJ786Cu+GaT
+         pa4DSyGp7h42rjLJkVEc+FYkcaIKKxs+WVo9B9iyFeENBVio0M3Cl/7aiyqxpdHiu4c1
+         fmvvD0seadvh0N667L9dhz1J/KRHRMmoxFrNI8TCkrp1bwqwMSwBIgpV3w5U+Bvyh9KK
+         s+NGDU/8EIDOCsycGMRwGPYDwZs2h56EW9/zO/6mJkhVlSTfE3IQOBjucB1eAlEUveo7
+         Ms6A==
+X-Forwarded-Encrypted: i=1; AKwUvByfyPmsY5n6nplXLtOyPGDx5UfSCqiRxQtG9dwia2R7Dqn+lNeumW8Qhtf3VSkka+emhy0fQEfvJ4gC@vger.kernel.org
+X-Gm-Message-State: AFuF++k8c2bscfVztVCz/QLbAUzdPEqL4HrfrdrPVugCLmI48UEZu1E/
+	t5J1izFL3VEWXxp4VTSZX6Quy2xuFDz7JihAOXwpLORzgO7ncJg2CB+hFvIRUE9MPvFYp/qP4vq
+	if2hRrj/VGztLbfbnNm1KSk0PzMKvOrQ=
+X-Gm-Gg: AYBFou2AFxg6an7GISMJ8/icpSSXb2Wgb+6z8wMJsfs9MB3WLvyOTGYpnXaYnklcZCD
+	BgRS1DKPUCiI2wGVX3Lu5mkxhIHBBGCpI7Baa4TuWEaDKsIouBbnSP2yBW7V7INVQOsfN1Z5SV2
+	bBqIiapDFOktwv1ucuAudzMpkrqygtra16BC37hISmGhulm3b8U2MWsR4cBKhXZkn/FOZGVxaPS
+	RTjCt7rfcCTKvNvUc5rG9K8KwHvfBeD5u0H6SuT+UoO0Fx8igTz7ojCveXu9qSGOaqG3TVL0eyX
+	kmon5lzIAQd4ReuOPgY6itu/pDisLAighbmnE68zoj0QYYTRUPLLL+LNg2KwVw2/tU8h4VffQ02
+	zdjT0TXNhuuKc0b6q/i+Ul9rtIvOdi+iBOYNnTxJ3OdU=
+X-Received: by 2002:a05:6512:b23:b0:5b6:1a7c:59e7 with SMTP id
+ 2adb3069b0e04-5b8e0fda144mr1478322e87.65.1790318507668; Thu, 24 Sep 2026
+ 23:41:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/11] dt-bindings: clock: qcom: ipq5332-gcc: Describe
- clock inputs per compatible
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org
-References: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
- <20260921-ipq_clk_changes-v1-5-d242e3d49648@oss.qualcomm.com>
- <62a5fabc-3a06-42fa-9c6b-6504650e712b@kernel.org>
- <7bcffc7c-5dda-4ead-a053-7eb4980e43a4@oss.qualcomm.com>
- <bec2bee4-dd38-4846-91d7-006fe38fc9da@kernel.org>
-Content-Language: en-US
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-In-Reply-To: <bec2bee4-dd38-4846-91d7-006fe38fc9da@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=TptzFzXh c=1 sm=1 tr=0 ts=6ab61747 cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=iYr-Yv8LbTbqzJeusKwA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI1MDAyNiBTYWx0ZWRfX/zQLpHgY6DUf
- 67zDDaGShGIX6nwpWiiQm50i9hIAn6Gp9bPwxhahERg/YfQYKTglVjJR8WR9ylFvbNM0ca5zxAk
- 9Rau7IIDmFO1GdFNyOCLMRZOPgiiAXUaUPj8vISPYGfnF43d/qh97iYF3tq6CbkEUhwrwxBNvwz
- m2NiazH6Lif7dpwFXWOMguWg8ypH4uavvOFVDYYniKtYPu+VQYliqiZWs0BtEji4eKn5vP45X9I
- t8/xFlZhsP8wnPx2IzDvzNZ7epGAZ0rMv1jqFd/kmnwu8Xt7BNQDdb1oI3/TdAmVnEU+ztzkM6E
- Be4vFuqhb21MaN29rZ2220AKBRjxjTBlRzn6fYNDvCc4iPeDJpdDHYjDYDEMgzRR0HHE071FbEz
- UWuLmXkhRvGrDa0qbxyQlqWK+BQGiv7UXflXwvX52Ypbup02tZ49hLfe2p0s+oM3GSH0ZHHneQp
- JuEJVHevOOPh4i1SXpQ==
-X-Proofpoint-ORIG-GUID: 13dgwMpXfxXmSjcAzhXVN3l2X9rRBCL8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI1MDAyNiBTYWx0ZWRfX6IwKgxTg3OrP
- sAqHVw6MUi88w+fWouZDholh+VGmhFy/KgCcJNrsB8BMDujjFM4SODl2SBW8TJDimpEnaf0gOzj
- ll/JdnH+gBz7J3PgEDf08IblQB5+2nw=
-X-Proofpoint-GUID: 13dgwMpXfxXmSjcAzhXVN3l2X9rRBCL8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-25_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609250026
+References: <20260727-ayn-qcs8550-v9-0-e3db456e10e5@gmail.com>
+In-Reply-To: <20260727-ayn-qcs8550-v9-0-e3db456e10e5@gmail.com>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Fri, 25 Sep 2026 01:41:36 -0500
+X-Gm-Features: AclHuK_MIE9jeQicmnij_O4juXzqsKzVql5g7gyWzlaf76vc-yY3NplBZb2k_9o
+Message-ID: <CALHNRZ8kFm98HAxoSya1uzV9TnPL8NAey3y5nUaaiqPiE+Fe4Q@mail.gmail.com>
+Subject: Re: [PATCH v9 0/6] arm64: dts: qcom: Support AYN QCS8550 Devices
+To: webgeek1234@gmail.com
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Teguh Sobirin <teguh@sobir.in>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 9/24/2026 4:28 PM, Krzysztof Kozlowski wrote:
-> On 24/09/2026 11:15, Kathiravan Thirumoorthy wrote:
->> On 9/23/2026 2:17 PM, Krzysztof Kozlowski wrote:
->>> On 21/09/2026 08:19, Kathiravan Thirumoorthy wrote:
->>>> The IPQ5332 and IPQ5424 GCC blocks use different clock input orderings.
->>>> Document the clock inputs in compatible-specific schema constraints instead
->>>> of using a common clock description.
->>>>
->>>> Also add the 375 MHz PPE clock generated by the CMN PLL to the IPQ5424
->>>> clock input list.
->>>>
->>>> This keeps the binding aligned with the clock ordering used by the
->>>> existing DTS and GCC driver implementations.
->>>>
->>>> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
->>>> ---
->>>>    .../bindings/clock/qcom,ipq5332-gcc.yaml           | 26 +++++++++++++---------
->>>>    1 file changed, 16 insertions(+), 10 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml
->>>> index 1230183fc0a9..fb39dffca988 100644
->>>> --- a/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml
->>>> +++ b/Documentation/devicetree/bindings/clock/qcom,ipq5332-gcc.yaml
->>>> @@ -25,14 +25,7 @@ properties:
->>>>    
->>>>      clocks:
->>>>        minItems: 5
->>>> -    items:
->>>> -      - description: Board XO clock source
->>>> -      - description: Sleep clock source
->>>> -      - description: PCIE 2lane PHY pipe clock source
->>>> -      - description: PCIE 2lane x1 PHY pipe clock source (For second lane)
->>>> -      - description: USB PCIE wrapper pipe clock source
->>>> -      - description: PCIE 2-lane PHY2 pipe clock source
->>>> -      - description: PCIE 2-lane PHY3 pipe clock source
->>> You are changing the order which is ABI break. Describe the actual
->>> problem to justify such change. Are you saying this was broken since
->>> beginning or what exactly is not working here? The driver was added by
->>> Qualcomm in 2024, so how did it even work? It's not some 10 yo legacy
->>> where we did some mistakes in binding while converting from TXT.
->>>
->>> Also, I do not get why the list cannot be shared.
->> When the bindings was posted, list is combined for both IPQ5332 and
->> IPQ5424. But the driver wasn't updated and it was following the below
->> order, so was DTS, which is not compatible the DT binding description.
->>
->> enum {
->>           DT_XO,
->>           DT_SLEEP_CLK,
->>           DT_PCIE30_PHY0_PIPE_CLK,
->>           DT_PCIE30_PHY1_PIPE_CLK,
->>           DT_PCIE30_PHY2_PIPE_CLK,
->>           DT_PCIE30_PHY3_PIPE_CLK,
->>           DT_USB_PCIE_WRAPPER_PIPE_CLK,
->>           DT_CMN_PLL_NSS_375M_CLK,
->> };
->>
->> So I'm splitting the description between IPQ5332 and IPQ5424 to matching
->> with the DTS and the driver description.
-> So we asked back in 2024 to have the common part of the list. I even did
-> the effort to dig it:
+On Mon, Jul 27, 2026 at 7:20=E2=80=AFPM Aaron Kling via B4 Relay
+<devnull+webgeek1234.gmail.com@kernel.org> wrote:
 >
-> https://lore.kernel.org/all/ruti7hmkxkayzmqfbme6rw6j2vbhlx4ul4ptcckwamcpd4cyfx@owufhxwpvlcj/
+> This specifically includes:
+> * Odin 2 Mini
+> * Odin 2 Portal
+> * Thor
 >
-> Authors implemented it partially, broken drivers. Now you basically
-> revert what we asked, which is BTW logical option. It's logical and
-> reasonable, but leaves bitter feeling.
+> The original Odin 2 dts is not currently included as it has not yet
+> been verified.
 >
-> I have feeling there is no accountability and no responsibility of the
-> IPQ at all.
+> The initial port was done by Teguh Sobirin for ROCKNIX and was made
+> available on the AYN github [0].
 >
-> No, that's not going to work. You cannot come 1.5 year later and revert
-> what reviewer asked you, even if issue was just by mistake in the first
-> place. And you should not even try to do that.
-
-I understand the concern, and I agree this should have been caught much
-earlier.
-
-I only discovered the mismatch while working on the IPQ5424 clock
-additions. My intent here is resolve the inconsistency that currently
-exists between the binding and implementation.
-
+> Support has been removed for things not yet supported by the upstream
+> kernel, these will be added later when the related drivers are submitted
+> and picked up. Such includes:
 >
-> NAK
-
-I'm happy to explore an alternative approach if updating the binding is
-not considered acceptable.
-
+> * The Odin 2 Mini panel, backlight, and touch
+> * All rgb leds
+> * The built-in uart gamepad
+>
+> [0] https://github.com/AYNTechnologies/linux/commits/sm8550/v6.17.5/
+>
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
+> Changes in v9:
+> - Add mi2s clock control in patch 2 as driver support for such was
+>   recently picked up
+> - Drop unnecessary address and size cells from patches 4 and 5
+> - Track renamed pcie port label from current linux-next
+> - Add panels to patches 4 and 5 as driver support has been picked up
+> - Add patch to document chipwealth vendor as used by patch 5
+> - Delete ipa node in patch 2 as it now depends on the mem node already
+>   being deleted
+> - Link to v8: https://lore.kernel.org/r/20260503-ayn-qcs8550-v8-0-d733f5e=
+57446@gmail.com
+>
+> Changes in v8:
+> - Properly order and format amplifier properties
+> - Set amplifiers name prefix to Amplifier L/R
+> - Link to v7: https://lore.kernel.org/r/20260430-ayn-qcs8550-v7-0-591a967=
+35fa3@gmail.com
+>
+> Changes in v7:
+> - Add back pinmuxes dropped last revision, but without output-low
+> - Link to v6: https://lore.kernel.org/r/20260430-ayn-qcs8550-v6-0-06a7e7b=
+54aaa@gmail.com
+>
+> Changes in v6:
+> - Fix comment style in patch 3
+> - Drop a pair of unnecessary pinmuxes in patch 3
+> - Lower usb sbu pins drive strength in patch 3
+> - Link to v5: https://lore.kernel.org/r/20260408-ayn-qcs8550-v5-0-c90abeb=
+7a152@gmail.com
+>
+> Changes in v5:
+> - Fix some style reviews in patch 6 which required matching labels in
+>   patch 3
+> - Drop hdmi support in patch 4, since it doesn't work
+> - Link to v4: https://lore.kernel.org/r/20260323-ayn-qcs8550-v4-0-33a8ac3=
+d53fa@gmail.com
+>
+> Changes in v4:
+> - Fold vendor description patch into the series
+> - Link to v3: https://lore.kernel.org/r/20260322-ayn-qcs8550-v3-0-4afa89c=
+20888@gmail.com
+>
+> Changes in v3:
+> - Drop unused backlight regulator in patch 3
+> - Move zap shader firmware to standalone reference
+> - Move i2c controller enables from common to devices
+> - Add ABL dtbo workarounds to patch 2 as per:
+>   https://lore.kernel.org/linux-arm-msm/dczz4uvcq4hc6p3zb6xnrsgmfeomwliag=
+whf36tewdz4z6mndp@afbxzhjziiwv/
+> - Fix multiple property alphabetical order issues in patch 2
+> - Use interrupts-extended for pwm-fan in patch 2
+> - Ensure blank line before status in patches 2-5
+> - Rename spk_amp_l/r to amplifier in patch 2
+> - Remove a few properties that are already in the soc dtsi in patch 2
+> - Order tlmm nodes by pin index in patch 2
+> - Drop qcom,dll-config from sdhc node in patch 2
+> - Drop dtbo support, convert common to dtsi, and include it directly in
+>   device specific dts'
+> - Link to v2: https://lore.kernel.org/r/20260311-ayn-qcs8550-v2-0-e66986e=
+0f0cb@gmail.com
+>
+> Changes in v2:
+> - Drop awinic bindings dep as a duplicated patch already exists
+> - Change Co-authored-by tags to Co-developed-by
+> - Drop alias to currently unused uart15 in patch 2
+> - Link to v1: https://lore.kernel.org/r/20260311-ayn-qcs8550-v1-0-fe8b2fa=
+ad1ea@gmail.com
+>
+> ---
+> Aaron Kling (2):
+>       dt-bindings: vendor-prefixes: Add Chip Wealth Technology
+>       dt-bindings: arm: qcom: Add AYN QCS8550 Devices
+>
+> Teguh Sobirin (4):
+>       arm64: dts: qcom: Add AYN QCS8550 Common
+>       arm64: dts: qcom: Add AYN Odin 2 Mini
+>       arm64: dts: qcom: Add AYN Odin 2 Portal
+>       arm64: dts: qcom: Add AYN Thor
+>
+>  Documentation/devicetree/bindings/arm/qcom.yaml    |    9 +
+>  .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
+>  arch/arm64/boot/dts/qcom/Makefile                  |    3 +
+>  .../arm64/boot/dts/qcom/qcs8550-ayntec-common.dtsi | 1819 ++++++++++++++=
+++++++
+>  .../boot/dts/qcom/qcs8550-ayntec-odin2mini.dts     |   44 +
+>  .../boot/dts/qcom/qcs8550-ayntec-odin2portal.dts   |   99 ++
+>  arch/arm64/boot/dts/qcom/qcs8550-ayntec-thor.dts   |  250 +++
+>  7 files changed, 2226 insertions(+)
+> ---
+> base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
+> change-id: 20260217-ayn-qcs8550-16c07b63de26
 >
 > Best regards,
-> Krzysztof
+> --
+> Aaron Kling <webgeek1234@gmail.com>
+
+Is there anything holding this series and the matching Retroid Pocket
+one? As far as I know, there's nothing more I need to do. Could these
+please get picked up?
+
+Aaron
