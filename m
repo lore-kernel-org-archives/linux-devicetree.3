@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF57C2F9DA1;
-	Sat, 26 Sep 2026 04:00:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED73B38B7D7;
+	Sat, 26 Sep 2026 04:01:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790395231; cv=none; b=KlJAb/EB+ZGjn9eStNdfeh82fLO2m/HP4RE9RV+6V/SoEggfPy/IyHmnVRXq6VWCmpiezaZikrJgQ+JFX7GjgXcJivZIpNL3p3nQTykkoyOvgzB5DiEhTGj6nyHioE9OzRjBMAm2B9AXri0/OthetU1fWT9xuO/ES0tjMjgQYcc=
+	t=1790395298; cv=none; b=G8WIe41DyItsVPCW+Yv8dPkwP+uFclhoq9aTcIpEwZaj9h0dl2LDqkM0seQn+HDjpmVBLb97kaodVgX7e904UNUQ5z2kFsxSjzWX7gsUiTdOKGCmbqj7Rhz6irBoWv5Enb6SgWKLmIoNlSVKa4CNFNf0KnziQQyXQd4QX8v3NOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790395231; c=relaxed/simple;
-	bh=rewsdjk+AJOh6hEmpuCCysWe3pkyLS290V6vWlnD7gs=;
+	s=arc-20240116; t=1790395298; c=relaxed/simple;
+	bh=eZNgZYtJiV/iT3wjnqPn6ibJrAH5tFfyDgdkBGrodYg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AMweKOxI+Yuq6B0sS81vg9Qw4Ge68DXq9W+vNR5IjpaeZODw3P5zwgMiTFvAIJXAsyi8ttebGGUQx3fmJYAXViQEyIwABXHELzPbYku+wmXEK9YOn9nJ2CbM70oqTRe1rDIKuDkadzEspaJoq+HtfP/XpiawjlRm1DGdfNrm2NY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bHyOVuAi; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JTaAFwbFU4CvsxShlnRO0r9S3wL4u8wWB/nRLfkLg2tizyEpXT1wRowOyYzQAditYSk+uxgKA3UfdmSBxHTEyWmv3IkDjV4ePC3Ru64v5d79IkRHUdfxkjHTmF5QGoTustpN/RqlxkG4iYkmriISU10u2kxd+HMPfVI8E0eV5Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F47S8sH7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bHyOVuAi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E2D1F000FF;
-	Sat, 26 Sep 2026 04:00:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F47S8sH7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F42C1F000FF;
+	Sat, 26 Sep 2026 04:01:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790395230;
-	bh=F4UBu+84T6JxlOLmyooaE0xl3mvL4E80lscJeguyt6k=;
+	s=k20260515; t=1790395295;
+	bh=ym8bShvMR0/XgGYUzNS+yMcBMiYlCn28ZC+AfCdVr0o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bHyOVuAicfEfvrD5EUPlf+cLfE0R3n65imqvZRIrKibD9xfPaWgQKyDPj8o9ohuMQ
-	 24JOK8xUwECa7WcNSUGcwSvEKFGDiOKLurxtI7OdzW4J2wsJ47QOFm7vK4MYOvIfsj
-	 Lu8En2Q7VGyNOEj15L3JAlPTlYVBWbDoapq1Unl939ES4M+mzsnwn4wF7LqO6Wn4gC
-	 p9zbwFfMf7DYDysh6WwF+fAz6CHIRvdswaTZZL09aYXnEES10FucKNhz/azJQ2O590
-	 A7qtBRWZQQDXTdvvKZd6Xml4UfxhC074q4UGR0MHetrgzGJlGI1XPj2j9300UinqZN
-	 sXibrWe5Gxs6w==
-Date: Sat, 26 Sep 2026 06:00:08 +0200
+	b=F47S8sH7mkF/YnJgEU4cNr1xfbihtqSoERgC6ZEC8e3qRLo9ytzfkp+TZKVkzQbs8
+	 p7gXRgSPajgC+2NJIRFLLL4ENaulWZR8HqVvNRMeW1kcIbN1smf/Bc4p3ma5+E3ro1
+	 NDrTD4pb5zQDdwLwljeeqza578DuNYzY3C4C6l7PDFlBTM0QujnFBd2XoU4yZgYl9i
+	 LyVpO3SYd0BjZMyb6hPCocAVHGh08GsXjZqLFr5QBo/5G1GQHftoQmBVLWlO1ybpjp
+	 8Zj6tLtuVKk0MdCMnGyxOR/XqPC4GEZQu5yxopY8mz4BIhDUqdDmfxve90DBY0nQ7f
+	 rjIq+Q0MIw+iA==
+Date: Sat, 26 Sep 2026 06:01:16 +0200
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: Sebastian Reichel <sebastian.reichel@collabora.com>
 Cc: Vinod Koul <vkoul@kernel.org>, 
@@ -38,12 +38,12 @@ Cc: Vinod Koul <vkoul@kernel.org>,
 	Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
 	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
 	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
-	devicetree@vger.kernel.org, William Wu <william.wu@rock-chips.com>
-Subject: Re: [PATCH v15 09/16] phy: rockchip: usbdp: Fix LFPS detect
- threshold control
-Message-ID: <wnpn67manvymzrkqcnfvemhu32ifycldjgb4gvx2fvpfvayayv@zdeb2caeykxj>
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v15 10/16] phy: rockchip: usbdp: Add missing mode_change
+ update
+Message-ID: <grlhnslyhggwmajaxrtkdlbbvjlylk5bckwmao2bo42xgebtth@k3rptwhxyuzp>
 References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
- <20260915-rockchip-usbdp-cleanup-v15-9-80e2c11d1ce8@collabora.com>
+ <20260915-rockchip-usbdp-cleanup-v15-10-80e2c11d1ce8@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,26 +53,16 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-9-80e2c11d1ce8@collabora.com>
+In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-10-80e2c11d1ce8@collabora.com>
 
-On Tue, Sep 15, 2026 at 03:49:56PM +0200, Sebastian Reichel wrote:
-> From: William Wu <william.wu@rock-chips.com>
+On Tue, Sep 15, 2026 at 03:49:57PM +0200, Sebastian Reichel wrote:
+> rk_udphy_set_typec_default_mapping() updates the available modes,
+> but does not set the mode_change as required. This results in
+> missing re-initialization and thus non-working DisplayPort.
 > 
-> According to the LFPS Tx Low Power/LFPS Rx Detect Threshold [1],
-> the device under test(DUT) must not respond if LFPS below the
-> minimum LFPS Rx Detect Threshold 100mV. Test fail on Rockchip
-> platforms, because the default LFPS detect threshold is set to
-> 65mV.
+> Fix this issue by introducing a new helper to update the available
+> modes.
 > 
-> The USBDP PHY LFPS detect threshold voltage could be set to
-> 30mV ~ 140mV, and since there could be 10-20% PVT variation,
-> we set LFPS detect threshold voltage to 110mV.
-> 
-> [1] https://compliance.usb.org/resources/LFPS_Rx_Tx_Low_Power_Compliance_Update_Rev5.pdf
-> 
-> Signed-off-by: William Wu <william.wu@rock-chips.com>
-> [Taken over from rockchip's kernel tree; the registers are not described
-> in the TRM]
 > Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 > Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
