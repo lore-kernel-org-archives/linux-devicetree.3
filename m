@@ -1,89 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA9838B14C;
-	Sat, 26 Sep 2026 04:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0070C26B742;
+	Sat, 26 Sep 2026 04:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790396944; cv=none; b=Nx2OO5y1XHZ61FK0zpvJKl2YJVj8/SW2Dgcuhfc39V42zVEBMUSCoP6mkDyN7uT16dAAUQZDasI9SnN+zECewfnGcVyv+0G9mcklKeQjegUlNGu4qvPTfHGXe+KPMRWG0lUFaG3HRNwFQHOLw3mw8INm9lXFCm+pGhNVbBDG8f0=
+	t=1790397261; cv=none; b=JSfg57eRi0TSETH/bUa0lJcHjnxx/2PIXJ8Di7tdC4T5Eb6RtvlI8DZr7Z5se7w/xWPZhmeDTtXdJOfeLADqG4qFSdiQUIYYSHFeWBts5e5r/hbXR3R0xtC2QWEtaS5NfXdG47CBPaE9SROo0y6m1Ex4q8CrBdcKEw4uC2WYlSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790396944; c=relaxed/simple;
-	bh=Z6ZT0vivWlsZQh8HPvLF2XG/EsfP/dtECkx3LFbT5gE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l/t+XqU+4cgLBpBdQuxxktRd991fWMFtuv3Ck4yrGJt/wxyGjFNBnUcVFIog2WhyowszCq67+5lMQD0cFcTrbL+srTZhvlbjNsx+0FQ3o4Xk99qrVsrPfKxWz7cBMWumchOJXbZsevsGTP6WJLobIqrerLrKQRg6/ZLV9HbjHfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TKhnyb6h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790397261; c=relaxed/simple;
+	bh=EeDEawESlDcdhv22Xgc+V2t6DxfBca/df8KEC9OnmmU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oKre/DWWTUqnq4MNh5yFCRo+QiWS8a5H0lQ4CL8e1+Bh88cNIfCYf0hssm1+UGNjLFZ+SMPeSURPE/KY1liPoPzhV4em9ifHstc1i8dm426hHq35DNFSf/JajCq3wlkaZ3ydikF07PMSWr98+RUk0//xEeivyp3rbictYoujL9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=MDCo314I; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TKhnyb6h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB011F000FF;
-	Sat, 26 Sep 2026 04:28:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790396942;
-	bh=boCS0SjFdnwWnbkE5+zTwiuOZv4ydq9+oFzVHWADI/0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TKhnyb6h2ZXJuRPB7K6KSjYmrAU0t8F8802JIMaGkYXTN1UnVX95iG270wGedFOFB
-	 OjD6OxumDMzEvCVgTvyZ26ktX2/yqIwilYPSa+gJdFsTRSNX5qefzMlMSCnDsx4Vrr
-	 +uAhHNZWotyyYVSqsUYxMAIwzgmT58tKMTOIckzCBnOXX67mC61AMhNGAz3EYFtuh8
-	 HUWHcMfdFv/MK7sxsB3NmrKeLBbrR2rhwGXD/dfjb6hQmTLr3z0gRdUleI6HYDsorL
-	 ypNAdQuwwpqGRNMTC8FgiHLUoqQtzyZXcq6IKLegWdzWoNET0/1BbYubCck+P3poZS
-	 YSpwL+UzM0iUg==
-Date: Sat, 26 Sep 2026 06:28:42 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Frank Wang <frank.wang@rock-chips.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Andy Yan <andy.yan@rock-chips.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Yubing Zhang <yubing.zhang@rock-chips.com>, 
-	Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v15 16/16] phy: rockchip: usbdp: Register DP aux bridge
-Message-ID: <ti26a3uyhfftlkhojhv56gxi3wzfeo7wj6a6rbm5eyqwgrxyxm@snn2psfln6d2>
-References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
- <20260915-rockchip-usbdp-cleanup-v15-16-80e2c11d1ce8@collabora.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="MDCo314I"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hsF8Q4Y13z8v2P;
+	Sat, 26 Sep 2026 06:34:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790397254;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0mNruMgEL3fGNghAL1UFG8QVNZq3M8EqHIjf+VgnEkc=;
+	b=MDCo314I6VjAPnUo9loq2iA501bua9c83vSGksXe6VM1dXYDJIN/9E0Kt2d2aRZJdkiirc
+	1GEVPUyWGuv7T+AWAgJaIJt4H53QSYhsDQTuwNruDwRL4iHw23bNx3zx3rhRxmycg7MAPB
+	kYJDrTs6/8AXZpRbW9F+GX7Rfcd30LqBhEi4POGZmNnpnCtsn+3zFgby04o03jbMbNoSso
+	AdOeSuceXsY89wRbp+qhBykBMTrbOtLAiP0GVSyYvw+xm97BXytyNlbXCr8yZ637GeHrZK
+	fY6hZEwIheRbxj4nETZQslIxoitB5yJA4HnvSxRrrkuOaeuDZIZkkLcTYAi9JA==
+Message-ID: <1ae0d036-82a2-452f-9ee8-f7120a7552ee@mailbox.org>
+Date: Sat, 26 Sep 2026 06:34:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-16-80e2c11d1ce8@collabora.com>
+Subject: Re: [PATCH 1/2] dt-bindings: PCI: rcar-gen4-pci-host: Fix reset-names
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
+ <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260925205158.GA2087943@bhelgaas>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260925205158.GA2087943@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: d0c00d7916057249204
+X-MBO-RS-META: r7hagkew7hpnuaxmaajngby9jaredqob
 
-On Tue, Sep 15, 2026 at 03:50:03PM +0200, Sebastian Reichel wrote:
-> Add support to use USB-C connectors with the DP altmode helper code on
-> devicetree based platforms. To get this working there must be a DRM
-> bridge chain from the DisplayPort controller to the USB-C connector.
-> E.g. on Rockchip RK3576:
+On 9/25/26 10:51 PM, Bjorn Helgaas wrote:
+> On Fri, Sep 25, 2026 at 10:29:51PM +0200, Marek Vasut wrote:
+>> Drop maxItems: from reset-names, since the entry already contains items: .
+>> Fixes the following warning detected by DT checker:
+>> "
+>> Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml: properties:reset-names: {'minItems': 1, 'maxItems': 2, 'items': [{'const': 'pwr'}, {'const': 'core'}]} should not be valid under {'required': ['maxItems']}
+>>          hint: "maxItems" is not needed with an "items" list
+>>          from schema $id: http://devicetree.org/meta-schemas/items.yaml
+>> "
+>>
+>> Fixes: 50b1333e0c7b ("dt-bindings: PCI: rcar-gen4-pci-host: Document Application/Local register reset")
+>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 > 
-> root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-> bridge[0]: dw_dp_bridge_funcs
->         refcount: 7
->         type: [10] DP
->         OF: /soc/dp@27e40000:rockchip,rk3576-dp
->         ops: [0x47] detect edid hpd
-> bridge[1]: drm_aux_bridge_funcs
->         refcount: 4
->         type: [0] Unknown
->         OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
->         ops: [0x0]
-> bridge[2]: drm_aux_hpd_bridge_funcs
->         refcount: 5
->         type: [10] DP
->         OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
->         ops: [0x4] hpd
-> 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+> I squashed both of these into the relevant commits on
+> pci/controller/dwc-rcar-gen4, thanks!
+Thank you too .
