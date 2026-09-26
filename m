@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5477D3BD635
-	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 13:29:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9E63E317F
+	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 13:29:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790429362; cv=none; b=Pt8m0U87xJz5F8Bt6DBEcKq6KyjjOcn5vk4L27QttIaXJ2uVOQExRQ0S2eQ3kLHbGVjwIa4BGvrEWJFtKpw5U/uLDWjIf2ucTteI/UodY70Y4nVrbajXFohynLvBDLbanEH9bqf+7npoXiUFW/c5PY+WDasZP2VOxSeyW9Vg8ZI=
+	t=1790429398; cv=none; b=nJsX8n0526ol41b21q+fzeHvMYBBo7VxSUpKL164xMOaJafbL1S9kFNwDbBOf9EW46jR6x6AUNQjMmC7PZeezr5b7Hx0QjIIKMScha0uFcZ9BB2tMRH2Wzr27dcI8YekZZGDmi8e1UaPS9pms7zuVwirp0b/zSV4MCZebSVUyS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790429362; c=relaxed/simple;
-	bh=jTBTENqLnAfn2XOZzWFUoZxTCKIAKjj31QqEG0QcGBc=;
+	s=arc-20240116; t=1790429398; c=relaxed/simple;
+	bh=fl4qgr0HMSHEFo4J2R/cX8DHfoDnpWPXyrWr3hHgkYQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pVrlNJmE8cLpqjAtnHyOcHvme3sW+8q73x0QnvRku8uPeUnsc61ls7wuAvXoKAJX+UFgYE4ug4fQBArA1pWWwG2mQ3L6k2JBkm0HVyRzm2AIUnqgpeT5QU1YqcEtMlUyZ9T09O33u4KeDj+FJlR3JxxCM66f3o2KsJFY2E0LSyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XgjF+wIv; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WKjULWqJqjzQwPSry7K4JTTHmkcXQR7AMvRl93lfmt3HRCwOKGX6b+6iMMywFvsgDbTNlDdQXASm242RGnfiDiYJHZLuIv6I08HHnpvf2NRemmUe/CW7xV2Ciwaehk1zBg9yNgvf1yBFprkCIrOy5DkSDpOtmDBM9aCxfnkN2jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDynyp7X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XgjF+wIv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624361F000FF;
-	Sat, 26 Sep 2026 13:29:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDynyp7X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110FC1F000FF;
+	Sat, 26 Sep 2026 13:29:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790429360;
-	bh=IC/VVJ1Bm5oTxEehklk7YbEM6GcMDPPToGH/v274ptY=;
+	s=k20260515; t=1790429397;
+	bh=CoVAW5TscD1gQBeF9LvfAYMRXz8aor83rOrvgKiWBuU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XgjF+wIv75/l6hHmnpWpoXL9OP2iyLqtBbCOQ9u7dP4b1Z8J4EGzCyLFcO66ZH4wK
-	 PHHrxv0XZK7dBrubqN/ACeSjFZKFGreDs499h8WLw/L7VjUpW5iFr0PZa9e3U78AdE
-	 RMZmZhIHiqp+obyla8jp0p8ZYAz0liL7hiwPCEpubJQxLEnPcp5SZQzeiEo3G0ljYs
-	 Yj/YZyDadbRo631pdNHDdhVgMqHaviEluzQ7PY8CrWSvA9fMNtFA6PNOSxt1B1hqcc
-	 qhvCbRPb/C5hC7fQ3WjKGAXdF3fJm05gd6frgWESJkf8L+vThiZeZA8GNyJQ7NlHxI
-	 m7CKRdxQwrXew==
+	b=BDynyp7XxP39c7RQ7FiTFZZjB4AaWmtj1Siu0yxGsb3gviuvBoPHcMf6CiF91vkz+
+	 Fu7nVBzrGXUsrdI5qyTz3Arz1Fj7k/8TJK0MZs1FYN2NCmqL401JJlcCj+V+wakT5D
+	 zQLaWe0ThhBsJvfTvsQBeKcwNBhjpr1/yFayY3kCNHmA/nrOQ2MIJMYs6eVT6Uxhls
+	 ai8ueKTCyBuUSZOg33ECUmy+oFsL33gwnyLEN2cPetgBKZZ7viHE4TYEX3ktqwnnjp
+	 +7UnfuAq1QX5UqQ1GPhKHKpcFUvA7Uj3c+h4//qF61R7Qw3BFe0wzn93po5wdrutOz
+	 KBCUfSxmtiSaw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/17] media: v4l2-ctrls: validate av1 tile info
+Subject: Re: [PATCH v2 13/17] arm64: dts: apple: t8122: add avd nodes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sofus Forstreuter" <sofus.c@icloud.com>
-Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260926-avd-v2-4-ecebe6a3648e@icloud.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260926-avd-v2-13-ecebe6a3648e@icloud.com>
 References: <20260926-avd-v2-0-ecebe6a3648e@icloud.com>
- <20260926-avd-v2-4-ecebe6a3648e@icloud.com>
+ <20260926-avd-v2-13-ecebe6a3648e@icloud.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 26 Sep 2026 13:29:19 +0000
-Message-Id: <20260926132920.624361F000FF@smtp.kernel.org>
+Date: Sat, 26 Sep 2026 13:29:56 +0000
+Message-Id: <20260926132957.110FC1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,58 +46,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] media: v4l2-ctrls: out-of-bounds context_update_tile_id due to inc=
-orrect validation
+- [Low] Missing DT binding documentation for apple,t8122-dart
 --
 
-commit e21c9b1dec9408bc9aafb56a531be7a72e6ad344
+commit c017f32bf6e48954134742ab315013310a3424f7
 Author: Sofus Forstreuter <sofus.c@icloud.com>
 
-media: v4l2-ctrls: validate av1 tile info
+arm64: dts: apple: t8122: add avd nodes
 
-Many drivers use tile_cols and/or tile_rows, so make sure they are
-valid.
+This commit adds the AVD (Apple Video Decoder) and its associated DART
+IOMMU nodes to the t8122 device tree.
 
-> diff --git a/drivers/media/v4l2-core/v4l2-ctrls-core.c b/drivers/media/v4=
-l2-core/v4l2-ctrls-core.c
-> index 9caca56478d1a..f1d5049810747 100644
-> --- a/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> +++ b/drivers/media/v4l2-core/v4l2-ctrls-core.c
-> @@ -800,10 +800,25 @@ static int validate_av1_film_grain(struct v4l2_ctrl=
-_av1_film_grain *fg)
->  	return 0;
->  }
+> diff --git a/arch/arm64/boot/dts/apple/t8122.dtsi b/arch/arm64/boot/dts/a=
+pple/t8122.dtsi
+> index 1ee61c5b3409f..25e47755e0951 100644
+> --- a/arch/arm64/boot/dts/apple/t8122.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t8122.dtsi
+> @@ -186,6 +186,38 @@ soc {
+>  		/* Required to get >32-bit DMA via DARTs */
+>  		dma-ranges =3D <0 0 0 0 0xffffffff 0xffffc000>;
 > =20
-> +static int validate_av1_tile_info(struct v4l2_av1_tile_info *ti)
-> +{
-> +	if (ti->tile_cols > V4L2_AV1_MAX_TILE_COLS ||
-> +	    ti->tile_rows > V4L2_AV1_MAX_TILE_ROWS)
-> +		return -EINVAL;
-> +
-> +	if (ti->context_update_tile_id > ti->tile_cols * ti->tile_rows)
+> +		avd_dart: iommu@289010000 {
+> +			compatible =3D "apple,t8122-dart", "apple,t8110-dart";
 
-[Severity: High]
-Does this boundary check allow an out-of-bounds tile ID?
+[Severity: Low]
+Is this compatible string missing from the DT bindings schema?
 
-Since context_update_tile_id is a 0-based index, the valid IDs for a frame
-with N total tiles (where N is ti->tile_cols * ti->tile_rows) should range
-strictly from 0 to N-1.
+Schema validation tools like dtbs_check will emit a warning because
+apple,t8122-dart is not defined. While this has no runtime effect since the
+kernel can safely match on the documented fallback string apple,t8110-dart,
+should this string be documented in the bindings?
 
-Because this check uses the strictly greater than operator (>), a value
-exactly equal to the total number of tiles will pass validation. Downstream
-stateless decoder drivers (such as the Rockchip VPU driver) calculate and
-program this tile ID directly into hardware registers. Instructing the
-hardware to use an invalid, out-of-bounds tile index for CDF updates can
-lead to out-of-bounds DMA memory writes or VPU hangs.
-
-Should this use greater than or equal to (>=3D) instead?
-
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926-avd-v2-0-e=
-cebe6a3648e@icloud.com?part=3D4
+cebe6a3648e@icloud.com?part=3D13
