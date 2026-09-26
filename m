@@ -1,82 +1,148 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0070C26B742;
-	Sat, 26 Sep 2026 04:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEFF30DECC;
+	Sat, 26 Sep 2026 04:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790397261; cv=none; b=JSfg57eRi0TSETH/bUa0lJcHjnxx/2PIXJ8Di7tdC4T5Eb6RtvlI8DZr7Z5se7w/xWPZhmeDTtXdJOfeLADqG4qFSdiQUIYYSHFeWBts5e5r/hbXR3R0xtC2QWEtaS5NfXdG47CBPaE9SROo0y6m1Ex4q8CrBdcKEw4uC2WYlSE=
+	t=1790398110; cv=none; b=HMWc8hFmOAD/TrkGzI+eGDs3fu0DngJOv+d78ifc1nR6fdbtBvxY39GvPXe918JhKh/Rp+totxCoJPxy1FtMAWHRmSk0TgOXV9XplzyzK0//iWHlrIna5jcra0UwobusmOFZ3VJFgVpQ8YsMS6zCjrk/gjcDU9X9nhj8JTJW+Uk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790397261; c=relaxed/simple;
-	bh=EeDEawESlDcdhv22Xgc+V2t6DxfBca/df8KEC9OnmmU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oKre/DWWTUqnq4MNh5yFCRo+QiWS8a5H0lQ4CL8e1+Bh88cNIfCYf0hssm1+UGNjLFZ+SMPeSURPE/KY1liPoPzhV4em9ifHstc1i8dm426hHq35DNFSf/JajCq3wlkaZ3ydikF07PMSWr98+RUk0//xEeivyp3rbictYoujL9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=MDCo314I; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="MDCo314I"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hsF8Q4Y13z8v2P;
-	Sat, 26 Sep 2026 06:34:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790397254;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0mNruMgEL3fGNghAL1UFG8QVNZq3M8EqHIjf+VgnEkc=;
-	b=MDCo314I6VjAPnUo9loq2iA501bua9c83vSGksXe6VM1dXYDJIN/9E0Kt2d2aRZJdkiirc
-	1GEVPUyWGuv7T+AWAgJaIJt4H53QSYhsDQTuwNruDwRL4iHw23bNx3zx3rhRxmycg7MAPB
-	kYJDrTs6/8AXZpRbW9F+GX7Rfcd30LqBhEi4POGZmNnpnCtsn+3zFgby04o03jbMbNoSso
-	AdOeSuceXsY89wRbp+qhBykBMTrbOtLAiP0GVSyYvw+xm97BXytyNlbXCr8yZ637GeHrZK
-	fY6hZEwIheRbxj4nETZQslIxoitB5yJA4HnvSxRrrkuOaeuDZIZkkLcTYAi9JA==
-Message-ID: <1ae0d036-82a2-452f-9ee8-f7120a7552ee@mailbox.org>
-Date: Sat, 26 Sep 2026 06:34:10 +0200
+	s=arc-20240116; t=1790398110; c=relaxed/simple;
+	bh=mBFmU/JfBeilGxJlg+wS32Pxwjct+vp+HXW1w4FjsC8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bJorZuXaZ6cXy/axaEG1vCD/dBfPBotnDPEHjP0IiOaqyD0bjGwZPD6n4eUDMW8ayo84dtJKLO1X1Y0i5mJITsJV9eVeVFjE0JbtTEpFzDmAY5kbpa15uc35PP+WHI1rH6aReiFptrMv35aKWee9COCFRu9YzYaCnp/gG0CoIkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
+	by APP-03 (Coremail) with SMTP id rQCowAAHE0GFTrdqYafICA--.2178S2;
+	Sat, 26 Sep 2026 12:48:07 +0800 (CST)
+Message-ID: <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
+Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
+ disable clearing FB_EN
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 26 Sep 2026 12:48:05 +0800
+In-Reply-To: <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
+References: <20260918030125.315978-1-a0987203069@gmail.com>
+		 <20260918030125.315978-8-a0987203069@gmail.com>
+		 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
+		 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
+		 <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
+		 <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
+	 <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/2] dt-bindings: PCI: rcar-gen4-pci-host: Fix reset-names
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260925205158.GA2087943@bhelgaas>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260925205158.GA2087943@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: d0c00d7916057249204
-X-MBO-RS-META: r7hagkew7hpnuaxmaajngby9jaredqob
+X-CM-TRANSID:rQCowAAHE0GFTrdqYafICA--.2178S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxuF1DCF17Ar48Ary5tFW3GFg_yoW5Ar17pF
+	ZrKa45KwsrJryIvwn2kw4kJa4YkrW8J34UJr95Gry0k398tFy8tFW8G3yfuFW8Xr4kWw12
+	qF4jyr95uFWkA37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU56yI5UUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 9/25/26 10:51 PM, Bjorn Helgaas wrote:
-> On Fri, Sep 25, 2026 at 10:29:51PM +0200, Marek Vasut wrote:
->> Drop maxItems: from reset-names, since the entry already contains items: .
->> Fixes the following warning detected by DT checker:
->> "
->> Documentation/devicetree/bindings/pci/rcar-gen4-pci-host.yaml: properties:reset-names: {'minItems': 1, 'maxItems': 2, 'items': [{'const': 'pwr'}, {'const': 'core'}]} should not be valid under {'required': ['maxItems']}
->>          hint: "maxItems" is not needed with an "items" list
->>          from schema $id: http://devicetree.org/meta-schemas/items.yaml
->> "
->>
->> Fixes: 50b1333e0c7b ("dt-bindings: PCI: rcar-gen4-pci-host: Document Application/Local register reset")
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> 
-> I squashed both of these into the relevant commits on
-> pci/controller/dwc-rcar-gen4, thanks!
-Thank you too .
+=E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 22:55 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> =E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=
+=99=E9=81=93=EF=BC=9A
+> >=20
+> > Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
+=81=93:
+> > > Maybe it's better to just make it the 2nd patch in this patchset,
+> > > just
+> > > after the binding change.
+> > >=20
+> > > Waiting for something into drm-misc-fixes again will need another
+> > > fixes
+> > > pull and another RC back merge, which can consume weeks and miss
+> > > the
+> > > current merging window.
+> > >=20
+> > > In addition, it's possible that `drm/verisilicon: introduce per-
+> > > variant
+> > > hardware ops table` also gets backported for a more clean primary
+> > > plane
+> > > atomic_update disabling fix.
+> > Understood. I'll fold the FB_EN fix in as patch 2, right after the
+>=20
+> Should I just apply this revision of patch with this reorder?
+
+Oh I think more fixes are coming.
+
+There's one more DC8200-specific problem (which might be problematic on
+DC8000 but I am not sure): The vs_dc8200_panel_disable_ex sequence must
+be executed before vs_dc8200_panel_enable_ex, because some timing
+parameters seem to be latched when the value going from 0 to 1, and
+when a stale state is programmed before the driver is loaded (e.g. a
+firmware driving the display) and the timing isn't the same with the
+timing of the first modeset, the modeset will fail.
+
+I'm thinking about sending a fix patchset first, which will pick the
+FB_EN fix here, implement a fix for the stale state problem and maybe
+implement fixes for the old state dereference problems for hidden
+planes in their atomic_update callback (although this fix will
+introduce a helper, which will then be moved and renamed in the DC8200
+ops patch).
+
+Thanks,
+Icenowy
+
+>=20
+> Thanks,
+> Icenowy
+>=20
+> > dt-bindings patch, targeting the current vs_primary_plane.c
+> > directly,
+> > so the ops-table patch just carries the already-corrected code
+> > forward
+> > into vs_dc8200.c. Agreed that's faster than round-tripping.
+> >=20
+> > On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
+> > still
+> > has a real per-variant operation there (clearing FB_EN + commit),
+> > while
+> > DC8000 leaves it NULL and does nothing, so the suffix still
+> > reflects
+> > an actual per-variant difference, not just structure introduced by
+> > the
+> > refactor.
+> >=20
+> > While testing the cursor plane, I found the same class of bug
+> > there:
+> > the disable register write was being triggered from the plane's
+> > atomic_update() invisible-branch using the old plane state to look
+> > up
+> > the CRTC/output, which can be stale or NULL on a plane's very first
+> > commit if it's already invisible then. I've fixed it locally by
+> > having
+> > atomic_update() derive the CRTC/output from the state it already
+> > holds
+> > before checking visibility, instead of falling through to the
+> > old-state-based disable path. Just flagging it here for now -
+> > vs_cursor_plane.c isn't touched by any of my patches.
+> >=20
+> > Thanks.
+
