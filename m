@@ -1,102 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B053769EA;
-	Sat, 26 Sep 2026 11:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5B03E172F
+	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 12:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790421739; cv=none; b=diDMEnHoVndx4ISGdydgeB00GTmd7s+oFC0SEJUn690MmAvplPxWAPnekwBhz+YfXctt2/zhJgYq7sQkL9OEiMY8pp2qEWjlAhdX/YLnf8qmcWiw78/ChgSmRAeFWBvJFSLaathtJtu3dWEsQc4b3Tmsb0PBDB4n6/IppqDjS18=
+	t=1790424395; cv=none; b=gn8aZsadI5La0shGcxipMR1CX+dQVCoT+xJba39vppEgqu+qKBYoHOOs5XCBGVRs/hIoJGG3fEO0zETmpcatukEBy+gUN9cP5timCmk5XTYZTmh/Cft07hVvWJeXqIIwFdbHQlwEtpHioKGc6pdbjU/QmaUTbR/uAK/9w/Y1EK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790421739; c=relaxed/simple;
-	bh=Cy2LyZAsiwV90qjXBEnY7MxiXgaSMghLh1lvfNTLkwo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=i8DvrGlWGH6HWarvAn12zj8k4KsjF/K4tcDsKBlg7VJFrBd3jvABHZN+CbxuN/+Strm8zve+KAt6dgJ+LyXtbrlQiysJYuuEDMdNwT+1PzhbllaSFKdKviAmAVKI13qUmM6YIBgSQenCcZozaFATLmSlMsvt+3XkC8RXB9ynjTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lpB2eeUx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790424395; c=relaxed/simple;
+	bh=CH4Prtq0c/7ze11i5Sq86XT/bKlln4TK5tWRhirwDq4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eFoSmH8/nhTnIRYzQClITMGBbx0zJOdiFXNwVAfyYqwpnTP5uAb2DQJrrOQctrUFrtvCZnbkaf148iW9NJaFtJksNbuK7PGJ76ISAv1fAekjnibjUTW9+Wyt/PtIAmpW9Sjqda2nTzly1YwRbMD3LqHhr+4FTfmzTJzKVtfnMQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=UfTg07ox; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lpB2eeUx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8EEE1F000FF;
-	Sat, 26 Sep 2026 11:22:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790421738;
-	bh=ux6o8J2QDm33dcrVlwxejAB4O/AeYXcbPZsvdQoYD7w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lpB2eeUxe8hk9IPRC46svY8A7lK0NK1Is/7qaukvJfBPnzHg+EIZCHbqgCWV9y3PL
-	 4G4BneknQtLOTsuL/uKw5SSnf/vC1WKziB+4nYHf9+C9kMj9eI0GYr33R0IMcMNjpv
-	 nBYc4IWk1xC8vLMZhE0d+qVA+UcoitdTJilEcJI/+QMKVUC1Hcg+NCy1249p+pTXwM
-	 5ZEcfLZV0DsRe2T/MTHjtCk0MAkZstRTizck6OBToQHLoUawYIG5Ua4w8p5C/ZkZ3q
-	 kUvwOQvRtg+AEqiHoQ9AEmJLXNxueRZXgjd9MFrV3Hu6EHLPJBcnLXh4WlsRQBkaUh
-	 MdACsJMpEOX/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: reset: mediatek: add MT7629 TOPRGU
- reset indices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chuanhong Guo" <gch981213@gmail.com>
-Cc: linux-watchdog@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260926-b4-mt7629-toprgu-v1-1-c124bf9ac273@gmail.com>
-References: <20260926-b4-mt7629-toprgu-v1-0-c124bf9ac273@gmail.com>
- <20260926-b4-mt7629-toprgu-v1-1-c124bf9ac273@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 26 Sep 2026 11:22:17 +0000
-Message-Id: <20260926112217.A8EEE1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="UfTg07ox"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb767cc7fso19037701cf.0
+        for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 05:06:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790424393; x=1791029193; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CH4Prtq0c/7ze11i5Sq86XT/bKlln4TK5tWRhirwDq4=;
+        b=UfTg07oxKs0svAvereKcUHzppvRcGBfglBZYIb/htceKdk/jDDHxHEU555xai4O8cN
+         4HWobDy10KJGPUw7lcEaScl372RPTQR17ecwZxl83eNCknvvqeImJE6EI8cFlGyBgBdS
+         F79PPOkOWbDWEjJDJnNYV+SVrFvB8GPemQar0vzO+O9zTDovsSOVxuIV6/JoOkGNTVl4
+         JaspCDGvAD1G+fxPaDMg/xyEK2ARPskF3qbt3xkOAWr8wyfieD0rW0qRCuaLl91c6GgQ
+         v1/s/pbxltOhebcxRiBUeVMXP7J5U9An/cdJKwnirQtCavxkwXEGH7j0YHrsAj+rSYDG
+         aOYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790424393; x=1791029193;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CH4Prtq0c/7ze11i5Sq86XT/bKlln4TK5tWRhirwDq4=;
+        b=1+p8/njkz1uIzicVL1iecg6wV/rVMvtYjFhBVX0YbSh3nYzUgCZgWUq0Lz0AUmqixd
+         BET7hVlzAW2BQxVYfK/vfp92i9U9hoaAzRDBY3PnBMin5inqyPkCyFznjg9cXDKyxiLJ
+         cHRJ5toYNNJDjXTLcn0IFlnUbME4h/tMJbbz8cRGOdHk3b7D9fQWWNyuimsEd/tvG5iU
+         xtkoyjbS8Df8reyz1AgyylY3Udu8MAI9uLbCFCcz78XFKk+j7WGmLNmuRym4mVFh9G8q
+         YQV7fRJ/2j8wjVudDM6lRL7N9/yjRQglNPNDQfcc6w5+JmOXoPLPoPsWVGORFQBsUe2+
+         i8hA==
+X-Forwarded-Encrypted: i=1; AKwUvBxfV8WPZaUoEFLhDTdWRw4YqSoMiZeiZwhyHomYtH3KvnP+16kDc8oCH5k5+qZwZuYU793EhQ1PjhBB@vger.kernel.org
+X-Gm-Message-State: AFuF++kk86RP9uvqfhrFm23uRNSL54Jgunq1mmuBiVSDOdfdclpEx10N
+	3oo617jHi35hsLM3dGLq5WFiGqo9URZ2gq6lKIGzz7jlAx9qbx/e4uQpOwuN5ojNUO4=
+X-Gm-Gg: AYBFou2Nl8AymI8ANjS2KOmih0tojC5gzGwF/YbeV1R+LgH6eeeDNk+1CxyaeNO9chV
+	4zfi3IRQ11Q7MIb/K/2NbueseY31KYymbPC+dChOONpv+t/Kw/0hFF1WZlI0i5ifai9F5sUojh4
+	7B59Prpu6Buf+ExdZxoNTMfmuvIHy9PpVO7mroHIB6pe21kTSDhL24vlL5BUiKWQ+yr17fN/cFH
+	sMbwjXzmrxS4+dquQJ8jBQK31+4oDfsxx9CUZCdE8APrx3sqvU3WM1sxycP/SWCPZSo7lJrULoX
+	8eGgayCljB2wZPbZZsJfE9QVUIlSb6LbQ3lNazZFTAIJpssR2vgtcFOREMVzm6Ou755pBPbQ1s5
+	IbxEGajOkR9ceQKpF9yLJLke+73dlEEMTlo5RL56cay/e+6762Pc4g4JZXHf6Az07cOmfJ6vx7R
+	lBCnmilnL/2ivlqKc3YShmYqdcdRMiQ2cL9Wdm62NaPSKBWZlMf6TelA6KvA==
+X-Received: by 2002:a05:622a:8cd:b0:530:d0c0:3ce1 with SMTP id d75a77b69052e-5330b5cabaemr99774151cf.21.1790424392756;
+        Sat, 26 Sep 2026 05:06:32 -0700 (PDT)
+Received: from armok ([2605:a601:a61d:7a00::2])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5332225a696sm16438811cf.14.2026.09.26.05.06.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 05:06:32 -0700 (PDT)
+From: Liviu Nicoara <lnicoara@thinkoid.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: x1e80100-dell-xps13-9345: add the front camera
+Date: Sat, 26 Sep 2026 08:06:26 -0400
+Message-ID: <20260926120626.26514-1-lnicoara@thinkoid.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <qmc4prmummwwwel4zukqh5fy6jy2f6qke3ygdnv6a7ygvsowkq@gtmznsipiyhb>
+References: <qmc4prmummwwwel4zukqh5fy6jy2f6qke3ygdnv6a7ygvsowkq@gtmznsipiyhb>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: watchdog: mediatek: missing #reset-cells constraint
---
+On Sat, 26 Sep 2026 13:17:34 +0300, Abel Vesa wrote:
+> On 26-09-25 14:10:24, Liviu Nicoara wrote:
+> > Depends on the x1e80100 camera DT series (v7), and on the CAMSS PHY API
+> > patches (v20 5/6 and 6/6), which read the CAMSS endpoint's data-lanes
+> > as 1-based.
+>
+> This shouldn't be part of the commit message. Drop it.
 
-commit 8696685eaee46e4451438ad7ac853addff28818b
-Author: Chuanhong Guo <gch981213@gmail.com>
+Will do in v2; it will stay below the --- line only.
 
-dt-bindings: reset: mediatek: add MT7629 TOPRGU reset indices
+> At some point, there was a patch from Laurentiu Tudor, but I cannot find
+> that patch on the mailing list, so I guess you sent it first.
 
-This commit defines all seven reset IDs documented in the MT7629 TOPRGU
-SWSYSRST register. It uses their register bit positions as the reset IDs.
+I have not seen it; the wiring here came from the Windows driver
+store, as in the message. I could not find it on the list either.
 
-> diff --git a/include/dt-bindings/reset/mt7629-resets.h b/include/dt-bindi=
-ngs/reset/mt7629-resets.h
-> index 6bb85734f68d8..828919eee2982 100644
-> --- a/include/dt-bindings/reset/mt7629-resets.h
-> +++ b/include/dt-bindings/reset/mt7629-resets.h
-> @@ -53,6 +53,15 @@
->  #define MT7629_PCIE0_USER_RST			30
->  #define MT7629_PCIE0_PIPE_RST			31
-> =20
-> +/* TOPRGU resets */
-> +#define MT7629_TOPRGU_INFRA_SW_RST		0
-> +#define MT7629_TOPRGU_ETHDMA_SW_RST		1
-> +#define MT7629_TOPRGU_DDRPHY_SW_RST		6
-> +#define MT7629_TOPRGU_INFRA_AO_SW_RST		8
-> +#define MT7629_TOPRGU_CONN_SW_RST		9
-> +#define MT7629_TOPRGU_APMIXED_SW_RST		10
-> +#define MT7629_TOPRGU_CONN_MCU_SW_RST		12
-
-[Severity: Low]
-Since this patch introduces reset provider capabilities for MT7629, does
-Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml also need
-to be updated in this commit to require #reset-cells for mediatek,mt7629-wd=
-t?
-
-Incomplete device tree nodes lacking the #reset-cells property for the MT76=
-29
-watchdog will silently pass schema validation, violating the subsystem rule
-that providers must enforce their required properties.
-
-I note this is corrected later in Patch 3 of the series so there is no
-runtime impact, but static validation via dt_binding_check will be incomple=
-te
-at this specific commit.
-
-> +
->  /* SSUSB Subsystem resets */
->  #define MT7629_SSUSB_PHY_PWR_RST		3
->  #define MT7629_SSUSB_MAC_PWR_RST		4
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926-b4-mt7629-=
-toprgu-v1-0-c124bf9ac273@gmail.com?part=3D1
+Thanks for the review,
+Liviu
