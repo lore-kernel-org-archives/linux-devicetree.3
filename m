@@ -1,148 +1,428 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEFF30DECC;
-	Sat, 26 Sep 2026 04:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CB73815E8;
+	Sat, 26 Sep 2026 05:00:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790398110; cv=none; b=HMWc8hFmOAD/TrkGzI+eGDs3fu0DngJOv+d78ifc1nR6fdbtBvxY39GvPXe918JhKh/Rp+totxCoJPxy1FtMAWHRmSk0TgOXV9XplzyzK0//iWHlrIna5jcra0UwobusmOFZ3VJFgVpQ8YsMS6zCjrk/gjcDU9X9nhj8JTJW+Uk=
+	t=1790398829; cv=none; b=KAf02pKLsDNzdVtOExTeW8DcjxcGd8wJcGGBJ4F7vWHStsP5NIXZvT4yjlPCI6aWdVI+S+gST+CbEsclQdftcqC8CjInXn4dOHhuQuJxc4YKK/txcg4UjLgho8sFXReSxKN35Vu/lwNHCQNZJ+Iur0DJenE71ErCKA4/sZ9/Mwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790398110; c=relaxed/simple;
-	bh=mBFmU/JfBeilGxJlg+wS32Pxwjct+vp+HXW1w4FjsC8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bJorZuXaZ6cXy/axaEG1vCD/dBfPBotnDPEHjP0IiOaqyD0bjGwZPD6n4eUDMW8ayo84dtJKLO1X1Y0i5mJITsJV9eVeVFjE0JbtTEpFzDmAY5kbpa15uc35PP+WHI1rH6aReiFptrMv35aKWee9COCFRu9YzYaCnp/gG0CoIkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
-	by APP-03 (Coremail) with SMTP id rQCowAAHE0GFTrdqYafICA--.2178S2;
-	Sat, 26 Sep 2026 12:48:07 +0800 (CST)
-Message-ID: <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
- disable clearing FB_EN
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 26 Sep 2026 12:48:05 +0800
-In-Reply-To: <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
-		 <20260918030125.315978-8-a0987203069@gmail.com>
-		 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
-		 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
-		 <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
-		 <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
-	 <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	s=arc-20240116; t=1790398829; c=relaxed/simple;
+	bh=/jtgJgRXhAkk/SlLAZWZd8hMSjAEXNOtPCsSKHFwKbs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XSNVuRYiMe2yu1cmtAzCd4d4jdFy53GtYjNpl6tGRY9yDy68NW31XlCBPyTdjrysz1qmmZNQt31c5xy79haVUQIqIkjEg3gbGqmd6Q5S8LygHstsQ3XyUcr/vuiNYYJRArCzGk+1i+DsXSwy8WRqxoRkMqNGkZnifUaK/v1VBjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=t3k5w99m; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="t3k5w99m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202608; t=1790398790;
+	bh=/P+6p234LtRAyYXgjZ+Y6deMvplpmyhu70fuAd+c/eE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=t3k5w99mV57hX40GWXKcqTm/rL/sAG1AO+8mYbtHXEyuyYbKeaDKMM5ygnJbTVjYj
+	 VNLseLWWinQ1ufmI/lNVx/BLjZAZTSZGuvJ9rO/lQVpjdM+vckWzDkKric0lz1JlhS
+	 SnpTuczH3te/dP94UVlBqmX71D0DjDFN8AbiP47XVyqZR9rb9LUYZBWcsPFvMNE5bG
+	 AGU1CuPB6vvITAkhjviuhJMEeam6PnWhMSqpRM8ngSYc/z3JDwcSiRgzB1wSTP+ii4
+	 xAHQHMaJAHzfQtvu2RzNxJyBwV2IpNbENmOmIKQ/A82kaWkERHqsGxUpqEZzJjGYk2
+	 anX6lg0m5aj1g==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hsFjy0hZ1z4wD3; Sat, 26 Sep 2026 14:59:50 +1000 (AEST)
+Date: Sat, 26 Sep 2026 11:49:48 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
+Message-ID: <arckqmMyr0vSlLQG@gractus.seuss>
+References: <aqS6HmkaVYbrePtN@gractus.seuss>
+ <20260914121937.5b7fa2bb@bootlin.com>
+ <aqonNkbVqW9tf6Bg@gractus.seuss>
+ <20260917090450.770c107a@bootlin.com>
+ <aqzA11pFzN_3_Nhf@gractus.seuss>
+ <20260918101617.46b3477e@bootlin.com>
+ <aq4N5zbuCVZ4e6-C@gractus.seuss>
+ <20260922084154.576a42d0@bootlin.com>
+ <arSdrp6WtJfdiAne@gractus.seuss>
+ <20260925124831.75789c4d@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowAAHE0GFTrdqYafICA--.2178S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuF1DCF17Ar48Ary5tFW3GFg_yoW5Ar17pF
-	ZrKa45KwsrJryIvwn2kw4kJa4YkrW8J34UJr95Gry0k398tFy8tFW8G3yfuFW8Xr4kWw12
-	qF4jyr95uFWkA37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
-	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
-	UI43ZEXa7IU56yI5UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ol/Z17HehxiQTHnw"
+Content-Disposition: inline
+In-Reply-To: <20260925124831.75789c4d@bootlin.com>
 
-=E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 22:55 +0800=EF=BC=8CIcenowy Zheng=E5=
-=86=99=E9=81=93=EF=BC=9A
-> =E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=86=
-=99=E9=81=93=EF=BC=9A
-> >=20
-> > Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=AB=E9=
-=81=93:
-> > > Maybe it's better to just make it the 2nd patch in this patchset,
-> > > just
-> > > after the binding change.
+--ol/Z17HehxiQTHnw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Sep 25, 2026 at 12:48:31PM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Thu, 24 Sep 2026 13:49:55 +1000
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> > On Tue, Sep 22, 2026 at 08:41:54AM +0200, Herve Codina wrote:
+> > > On Sat, 19 Sep 2026 14:22:09 +1000
+> > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > >  =20
+> > > > On Fri, Sep 18, 2026 at 10:16:17AM +0200, Herve Codina wrote: =20
+> > > > > Hi David,
+> > > > >=20
+> > > > > On Fri, 18 Sep 2026 14:41:11 +1000
+> > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > > >    =20
+> > > > > > On Thu, Sep 17, 2026 at 09:04:50AM +0200, Herve Codina wrote:  =
+ =20
+> > > > > > > Hi David,
+> > > > > > >=20
+> > > > > > > On Wed, 16 Sep 2026 15:21:15 +1000
+> > > > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > > > > >      =20
+> > > > > > > > On Mon, Sep 14, 2026 at 12:19:37PM +0200, Herve Codina wrot=
+e:     =20
+> > > > > > > > > Hi David,
+> > > > > > > > >=20
+> > > > > > > > > On Sat, 12 Sep 2026 12:34:24 +1000
+> > > > > > > > > David Gibson <david@gibson.dropbear.id.au> wrote:
+> > > > > > > > >=20
+> > > > > > > > > ...
+> > > > > > > > >        =20
+> > > > > > > > > > > Do you mean that we should avoid the DATA_LEN_ENCODIN=
+G and always have the
+> > > > > > > > > > > 32-bit value right after the tag to give the size for=
+ all "skippable" tags?         =20
+> > > > > > > > > >=20
+> > > > > > > > > > Yes.
+> > > > > > > > > >        =20
+> > > > > > > > >=20
+> > > > > > > > > I did a test using a dts file available in kernel sources=
+=2E I used (arbitrary
+> > > > > > > > > choice) juno.dts [0].
+> > > > > > > > >=20
+> > > > > > > > > Without any new tags, the size of the compiled dtb is 270=
+67 bytes.
+> > > > > > > > >=20
+> > > > > > > > > With new metadata tags identifying phandles in properties=
+ (FDT_PROPDATA_PHANDLE),
+> > > > > > > > > the size of the dtb becomes 29027 bytes and so 29027 - 27=
+067 =3D 1960 bytes for
+> > > > > > > > > those FDT_PROPDATA_PHANDLE tags (+7.2%).
+> > > > > > > > >=20
+> > > > > > > > > The tags used are composed of:
+> > > > > > > > > 32-bit: FDT_PROPDATA_PHANDLE value encoding 1 x 32-bit fo=
+r data
+> > > > > > > > > 32-bit: offset in the property where a phandle is present.
+> > > > > > > > >=20
+> > > > > > > > > Removing the '1 x 32-bit' information from the tag value =
+and adding a 32-bit
+> > > > > > > > > 'length' in all cases will lead 3 x 32-bit values for a F=
+DT_PROPDATA_PHANDLE
+> > > > > > > > > tag (tag + length + offset) instead of the 2 x 32-bit (ta=
+g + offset).
+> > > > > > > > >=20
+> > > > > > > > > Back to juno.dts instead of 1960 bytes, the FDT_PROPDATA_=
+PHANDLE will need
+> > > > > > > > > 1960 * 3 / 2 =3D 2640 bytes (+9.7%). This leads to around=
+ +2.5% of the whole
+> > > > > > > > > dtb just to have the 32-bit for length. This +2.5% can be=
+ easily avoided.
+> > > > > > > > >=20
+> > > > > > > > > Also, I will not be surprised to see more tags in the fut=
+ure adding some more
+> > > > > > > > > metadata information and so increasing dtb sizes.
+> > > > > > > > >=20
+> > > > > > > > > Quite often you have mentioned memory constraints system =
+where libfdt should
+> > > > > > > > > be as small as possible. On those system, the dtb itself =
+is embedded in the
+> > > > > > > > > binary close to libfdt. The size of dtb should be taken i=
+nto account.       =20
+> > > > > > > >=20
+> > > > > > > > Yeah, those proportions are high enough that I think it's w=
+orth it.
+> > > > > > > >      =20
+> > > > > > > > > If the SAFE_SKIP bit is removed, I even plan to use this =
+now free bit in the
+> > > > > > > > > length encoding part:
+> > > > > > > > >   0b000: No data
+> > > > > > > > >   0b001: 1 fdt32
+> > > > > > > > >   0b010: 2 fdt32
+> > > > > > > > >   ...
+> > > > > > > > >   0b110: 6 fdt32
+> > > > > > > > >   0b111: On additional fdt32 to encode the length of data.
+> > > > > > > > >=20
+> > > > > > > > > IHMO, length encoding bits in tag value definition should=
+ be kept and used
+> > > > > > > > > for all tags where the length is fixed and can be encoded=
+ using
+> > > > > > > > > these bits.       =20
+> > > > > > > >=20
+> > > > > > > > Well, I'm convinced we want some sort of compact encoding o=
+f the
+> > > > > > > > length, but I think we can do better than the current propo=
+sal.  It
+> > > > > > > > seems implausible to me that we'll need 2^29 different meta=
+data tags,
+> > > > > > > > so I think we can spend some more of the tag bits on the le=
+ngth.  How about:
+> > > > > > > >=20
+> > > > > > > >    0x80000000		structured tag bit
+> > > > > > > >    0x7fff0000		tag type
+> > > > > > > >    0x0000ffff		tag length
+> > > > > > > >=20
+> > > > > > > > So we have up to 2^15 (32k) different structured tags each =
+with a
+> > > > > > > > length of [0..65534] bytes (length=3D=3D65535 reserved for =
+those that need
+> > > > > > > > a full 32-bit length word).
+> > > > > > > >=20
+> > > > > > > > I believe that will avoid the extra length word for everyth=
+ing you
+> > > > > > > > have currently drafted.
+> > > > > > > >      =20
+> > > > > > >=20
+> > > > > > > Yes, this will avoid the extra length field. The drawback is =
+the that the
+> > > > > > > tag value is no more a well fixed value. Each time we have to=
+ check the tag
+> > > > > > > value we have to filter out the tag length.
+> > > > > > >=20
+> > > > > > > For instance:
+> > > > > > > - FDT_PROPDATA_PHANDLE
+> > > > > > >   fixed data size 4 bytes for offset
+> > > > > > >   tag value: 0x80010004
+> > > > > > >=20
+> > > > > > > - FDT_PROPDATA_PHANDLE_REF
+> > > > > > >   data: 4 bytes for offset + N bytes for a string
+> > > > > > >   tag value 0x8002ssss with ssss for the size
+> > > > > > >=20
+> > > > > > > This will lead to code like this:
+> > > > > > >   tag =3D fdt_next_tag();
+> > > > > > >   if (tag =3D=3D FDT_PROPDATA_PHANDLE)
+> > > > > > >     /* Do something */
+> > > > > > >     =20
+> > > > > > >   if (TAG_GET_ID(tag) =3D=3D FDT_PROPDATA_PHANDLE_REF)
+> > > > > > >     /* Do something */     =20
+> > > > > >=20
+> > > > > > True.  But.. a similar problem kind of exists with the original
+> > > > > > proposed encoding too: we *expect* a tag with fixed 4-byte cont=
+ents to
+> > > > > > use the "1 cell" flags, but we need to consider the case of enc=
+oding
+> > > > > > it as VARLEN with a length field of 4.  We could choose to make=
+ that
+> > > > > > forbidden, but we'd still need to consider who's responsible for
+> > > > > > enforcing that.
+> > > > > >=20
+> > > > > > Similarly, if a variable length metadata tag happens to have le=
+ngth 4
+> > > > > > or 8 in a particular place, is it valid to encode it with the 1=
+-cell
+> > > > > > or 2-cell flag?   =20
+> > > > >=20
+> > > > > My position was: if we expect a tag with "1-cell" flag, using var=
+len
+> > > > > field encoding is considered as an other tag and so either an err=
+or
+> > > > > or a skippable unknown tag.   =20
+> > > >=20
+> > > > So essentially tags of different (fixed) length live in different
+> > > > namespaces.  Ok, that makes good sense to me, but wasn't initially
+> > > > obvious to me.  So, I think we need to spell this out a bit better.
+> > > >  =20
+> > > > > The same apply for varlen defined tag. Even if the data is, let's
+> > > > > say 8 bytes, the tag cannot be moved to a "2-cells" tag.
+> > > > >=20
+> > > > > The kind of data length encoding (1-cell, 2-cells, varlength) is =
+done
+> > > > > when the tag is defined and cannot be changed.
+> > > > >=20
+> > > > > Who is responsible for enforcing that ?
+> > > > > I would say the documentation of the tag should clearly set the d=
+ata
+> > > > > encoding used for the tag and the documentation of the "skippable"
+> > > > > format should say that data encoding is fixed for a given tag. It=
+ is
+> > > > > set when the tag is defined and any changes at runtime should be
+> > > > > considered as a different tag.
+> > > > >=20
+> > > > > Of course we can introduce dynamic length encoding to set the dat=
+a length
+> > > > > encoding in the tag according to the exact data length found at r=
+untime.
+> > > > >    =20
+> > > > > > As a variant on my proposal, I'd also be fine with dividing the
+> > > > > > structed tags into several classes with bits indicating which is
+> > > > > > which.  Either:
+> > > > > >=20
+> > > > > >  * "short" vs "long": "short" always has the length within the =
+tag
+> > > > > >    word (and so cannot exceed 64k, or however many bits we set =
+aside)
+> > > > > >    whereas long always has a length word
+> > > > > >  * "fixed" vs "variable", fixed length tag types always have th=
+e same
+> > > > > >    length, so the length can be considered part of the tag.  Va=
+riable
+> > > > > >    would have a length word.   =20
+> > > > >=20
+> > > > > Well, only strings, or more generally arrays, need a varlen. For =
+those
+> > > > > item, I would use the varlen word and so "long" in your definitio=
+n.
+> > > > >=20
+> > > > > For all others where the sizeof(data) is well known when the tag =
+is
+> > > > > defined, I would use "fixed" and "long" only if sizeof(data) cann=
+ot
+> > > > > be encoded by "fixed" (lengh > limit of dedicated bits).   =20
+> > > >=20
+> > > > Right, now understanding your thoughts on the originally proposed
+> > > > encoding, the "fixed" versus "variable" distinction makes more sens=
+e I
+> > > > think.  I do see the advantage of never having a variable length
+> > > > encoded within the tag word.
+> > > >  =20
+> > > > > Without any additional bits for any category, all of these fit wi=
+th the
+> > > > > following length encoding:
+> > > > >   000...00: No data
+> > > > >   000...01: 1 x 32-bit
+> > > > >   111...10: N x 32-bit
+> > > > >   111...11: varlen word   =20
+> > > >=20
+> > > > Right, so revising my suggestions in light of a better understanding
+> > > > of what you had in mind originally, it comes down to:
+> > > >=20
+> > > >  * I think adding more bits to the size field would be worthwhile to
+> > > >    allow a wider variety of future fixed length metadata tags. =20
 > > >=20
-> > > Waiting for something into drm-misc-fixes again will need another
-> > > fixes
-> > > pull and another RC back merge, which can consume weeks and miss
-> > > the
-> > > current merging window.
+> > > Right, I have planned to add one more bit compared to the original pr=
+oposal.
+> > > This leads to 3 bits and so 0 to 6 32-bit data words (0b111 means var=
+len word).
 > > >=20
-> > > In addition, it's possible that `drm/verisilicon: introduce per-
-> > > variant
-> > > hardware ops table` also gets backported for a more clean primary
-> > > plane
-> > > atomic_update disabling fix.
-> > Understood. I'll fold the FB_EN fix in as patch 2, right after the
->=20
-> Should I just apply this revision of patch with this reorder?
-
-Oh I think more fixes are coming.
-
-There's one more DC8200-specific problem (which might be problematic on
-DC8000 but I am not sure): The vs_dc8200_panel_disable_ex sequence must
-be executed before vs_dc8200_panel_enable_ex, because some timing
-parameters seem to be latched when the value going from 0 to 1, and
-when a stale state is programmed before the driver is loaded (e.g. a
-firmware driving the display) and the timing isn't the same with the
-timing of the first modeset, the modeset will fail.
-
-I'm thinking about sending a fix patchset first, which will pick the
-FB_EN fix here, implement a fix for the stale state problem and maybe
-implement fixes for the old state dereference problems for hidden
-planes in their atomic_update callback (although this fix will
-introduce a helper, which will then be moved and renamed in the DC8200
-ops patch).
-
-Thanks,
-Icenowy
-
->=20
-> Thanks,
-> Icenowy
->=20
-> > dt-bindings patch, targeting the current vs_primary_plane.c
-> > directly,
-> > so the ops-table patch just carries the already-corrected code
-> > forward
-> > into vs_dc8200.c. Agreed that's faster than round-tripping.
+> > > Do you think we should add one more bits? =20
 > >=20
-> > On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
-> > still
-> > has a real per-variant operation there (clearing FB_EN + commit),
-> > while
-> > DC8000 leaves it NULL and does nothing, so the suffix still
-> > reflects
-> > an actual per-variant difference, not just structure introduced by
-> > the
-> > refactor.
+> > I don't think we particularly need them for the tag type, so yes, I
+> > think that would be worthwhile.
 > >=20
-> > While testing the cursor plane, I found the same class of bug
-> > there:
-> > the disable register write was being triggered from the plane's
-> > atomic_update() invisible-branch using the old plane state to look
-> > up
-> > the CRTC/output, which can be stale or NULL on a plane's very first
-> > commit if it's already invisible then. I've fixed it locally by
-> > having
-> > atomic_update() derive the CRTC/output from the state it already
-> > holds
-> > before checking visibility, instead of falling through to the
-> > old-state-based disable path. Just flagging it here for now -
-> > vs_cursor_plane.c isn't touched by any of my patches.
+> > > >  * Originally I was thinking that having a length in bytes rather t=
+han
+> > > >    just a length in 32-bit words would be worth it.  But thinking
+> > > >    further, there's probably no benefit.  The length rounded up to
+> > > >    32-bit words is all we need for skipping over it when unknown.
+> > > >    Even if we want a fixed length tag with, say, 3 bytes of data, we
+> > > >    can pad that out to a 1-word tag with a reserved byte. =20
+> > >=20
+> > > The varlen word could be kept in bytes. =20
 > >=20
-> > Thanks.
+> > The varlen word _must_ be kept in bytes.
+> >=20
+> > > > Ok, so more length bits and better documentation of the fixed
+> > > > vs. variable distinction are the only remaming suggestions. =20
+> >=20
+>=20
+> So the name "structured" tag will be replace my "skippable" tag. I don't
+> want to use "metadata" because we don't know if future tags will be only
+> metadata tags or something else that shouldn't be qualified by "metadata".
+>=20
+> Skippable tag format:
+>   - bit 31: set to 1
+>       Indentify a skippable tag.
+>   - bits 30..24: Data length encoding
+>       Encode the length of data attached to the tag.
+>       0b0000000: No data
+>       0b0000001: 1 32-bit word
+>       0b0000010: 2 x 32-bits words
+>       0b0000011: 3 x 32-bits words
+>       ...
+>       0b1111101: 125 x 32-bits words
+>       0b1111110: 126 x 32-bits words
+>       0b1111111: varlen encoding. The length of data is encode by an 32-b=
+it
+>                  word available right after the tag. This word gives the
+>                  length of data in bytes.
+>=20
+>   - bits 23..0: Tag identifier
+>=20
+> The full tag value are used to identify a tag. Two skippable tags with the
+> same tag identifier field but with different data lengh encoding should be
+> considered as two different tags.
+>=20
+> The exact tag value is completely known when the new tag is defined and i=
+ts
+> data length encoding must not be determine at runtime when the exact leng=
+th
+> of data is known.
+>=20
+> Any tags where the length of the data is not known when the tag is defined
+> (i.e. sizeof(data) cannot be determined when the tag is defined) must use=
+ the
+> varlen encoding value (0b1111111). Tags with strings or arrays where the =
+number
+> of items in the array can vary should use the varlen encoding.
+>=20
+> Also for tags where the length of data is greater than 126 x 32-bits words
+> (maximum value without using varlen encoding), the varlen encoding must b=
+e used
+> even if the length of data is known when the tag is defined.
+>=20
+> Tags reserved for tests purpose:
+>   Any tags with the tag identifier set to 0xffffff are reserved for test
+>   purpose. When a parser find this kind of tag, it must ignore the tag (s=
+kip
+>   it). A generator must never use this kind of tags, except, of course, if
+>   the generator is used to generate a dtb for test purpose.
+>=20
+>=20
+> What is you opinion about this description?
+> Do you agree on the description? If so I will implement it on next iterat=
+ion.
 
+Sounds good, thanks for the revisions.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--ol/Z17HehxiQTHnw
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmq3JKoACgkQzQJF27ox
+2GcWJQ/+KsRx+VoHwomzWiIJcKO7l7LncFZ8sOm7+PKf+m4q4EMkDmJBanKffaBW
+qNtU36i291GmPR93WneAyAylmUFrPYo4TbKuPTbp/4U2b7u+vJ1wpn2t+O1A2Llb
+H28u1y5TCcTyPjBwDdjt0iOVrJ30Teb7WgvvB9pEv/iH4BE1F4tS1M8MZoxLl57G
+HuWmCPRkBgJ6V923/P1zJez3yg6ff26XFTQ/PtdTtIUkCtxxsL8mnrKTalRgLCL6
+pfxaez0BAnbh7WW1/GbRbXOcn9UH97J9C4dTAmJqp6lmBcxyCChN/8IFFt+Z9jcn
+ryMGFnR/mtez3oB5QHvynN9FeIckJnkbLncukeHX4hW/sGsDDDKy5uEZS2xwnC6U
+lEcDbuLFqy32y+Mo1mnvqXHMUdUdVEb+hd8fEDFKG+3ymj6947LHYocphklFD49u
+RMg3lMDIq31DhF43L82GTqpi6WV+C5yNnqmcBOz0ZfL1fRdFdpsubgeOSsfjrOar
+K4MAkfcAIAdsYCH7b2agpbxeGN2C/SNg649nFL4rYldtgGHJ6wcflAcSzxsLk5Xw
+xQjhAL9ry+QCXquIqTjUKXPm22ngNBAoqhjxR9klPw3dn6ohhD7KGQI8YLbLQZKd
+MDgnDnLch+Gvk65NJ3EoUR2xSb0mpnILS9IPk10ZkAAQeWP872g=
+=klca
+-----END PGP SIGNATURE-----
+
+--ol/Z17HehxiQTHnw--
