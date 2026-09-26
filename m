@@ -1,113 +1,109 @@
-Received: from erebion.eu (erebion.eu [142.132.183.134])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A4B4534B7;
-	Sat, 26 Sep 2026 14:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=142.132.183.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CF027456
+	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 14:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790431296; cv=none; b=UquKLVEATDCRX3xNXSAHqDcD7Ty/JjgQieO9id9JO90g1zxHQ2+QDEtYPjtknSw92lEOA6zznZXi1TzLFGfR82cLV5n3/6w/YywUp1cT8eOGFnPfL6an5urXs00W/r1c/cGKUw7RS5KhYCc8fHvYambIEv/yp2CiDaOLh0OZWGA=
+	t=1790431898; cv=none; b=k56leVl/sk33YQs6m7vUBpDmRAwsMA6Pu2lhnGywx9GojC/KmvxdxCEljS5k2azZ0Xh/N1S+7Q8wkx0YF4eCqA24j2crTnK73eRBPVbAcg/e4OrnHmP0+LacURzvHnyTNU0nCAU+Vgk9rfVl8F5tIK2HTPTrP1eVdmbPjlDSf/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790431296; c=relaxed/simple;
-	bh=SAh/u9rqLjnMP9ySwBKTGM10EJ+3cf/9qk6pK5KDfE8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CVkwXue+pogLEqduO8sC3sr2tHRmCYN/y6Gdup7uQa1M380ohAu5x/aDtyq1UcbDu7Vhd22fSAGLGX610UZXnmYhrsOpLMy3O+BoMXnuXFXtjM9bq9APM13GYG5XzFs+5fyBWh9NMdLiU74G22idpOjI6PhCo7nv//LUyYF21BE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu; spf=pass smtp.mailfrom=erebion.eu; dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=D0vsH8hq; dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b=kZ1rCOTN; arc=none smtp.client-ip=142.132.183.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	s=arc-20240116; t=1790431898; c=relaxed/simple;
+	bh=q9b+FH1tX+CFKTerqTUoUhWtb98VM2VPpL/yyLjCVLo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nKUMiIhhXa7SxPydjOQPhdIPUUlceMgkCEGB56SJ0yYOkEW3GfakBlBNhadmIzDqZICcYN1bV/thKqxkhjcDYrNb2DxP/G/VaKmMGGJtCtv0b0JRjNlLlRt9UEsRFozhABmZFkdF0Ak4+DPZybI8etwVgIYnuMAopjjjidRIru8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaRyGWS4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="D0vsH8hq";
-	dkim=pass (2048-bit key) header.d=erebion.eu header.i=@erebion.eu header.b="kZ1rCOTN"
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1790431255; bh=FpsgjhkiEWhZHw10mbH5ePH
-	QdMnxCIKabE/Zrf5angU=; b=D0vsH8hqFizwiuM3AtF3qE6T2YWdukFuX47KRNX9uS4J/Wlj4g
-	P7ciAmNgUBM7RmF6ibH8kCgjRQ7UnJlR2sCg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1790431255; bh=FpsgjhkiEWhZHw10mbH5ePH
-	QdMnxCIKabE/Zrf5angU=; b=kZ1rCOTNCOWWq3TnOmrnV8oP26y1C9jxp68Y0oVcSHuJ6AdUFX
-	zHun5WF43QhoyoQEpLw5X71nRaUgR5NWxagWCeqhSrI0qIEPyTNKii1vJtUkWPsk3Mn28KzUf+k
-	yjy8Y/LxZi9lIyQqlf/mXjtSial6UWq3At/tvsV/W0u7RJRhllE33W0f6a5MdtbB+UuRBZOqaaJ
-	eFMG3MXKSqh7pt9fWxI33wIw5MEexS3HCFLIQLs9aqEAD075bWcCJEVo3AA0MU+aEFfkDhZa7rq
-	dKTP2oJ2L26ZfLomCg0SDPkKwI438hTEbXIRxzQX8EDMVvl0OKUS2k27/Pk8YNx1N0g==;
-From: erebion <erebion@erebion.eu>
-Date: Sat, 26 Sep 2026 16:00:51 +0200
-Subject: [PATCH v2 2/8] arm64: dts: qcom: sm6350-lena: Add qcom,rmtfs-mem
- node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaRyGWS4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47171F000FF;
+	Sat, 26 Sep 2026 14:11:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790431891;
+	bh=KUQkDfe1dlQHuc+TjtZoa9JN6JTUsbLT3hL59Pkv+W8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZaRyGWS4+aJ3lTxB3S5F6tBFaT0PD/6o0FWNF67z9Udhs334vR60x1rPdvxcQF7eV
+	 K++FY7T/ZP6unOdtw84sKprNswDEnY1aLVhRQR3uMMDv2m1kdL/VkpLwrWi1Dj6FHR
+	 BphH5CMUOj6DTTxAZGIpbBELAQZCY39oXkEW6S5ikk9xEErrlMODE+Y/ou2J/ojOxr
+	 ClUov2UVfVfGiFRle5RTtEbpExyghGk/SNlsHv22DLrv8wzeYeFHGFGjZCZdksN76i
+	 jVu353EuFnzYq6pX7O+ElKE83Q/U37gCXVOOR3lybLx3OEIX+sajhIaxUCesuMVP0T
+	 07FYHiXmDDWoQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/8] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+Reply-To: sashiko-reviews@lists.linux.dev
+To: erebion <erebion@erebion.eu>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260926-pdx213-upstream-3-v2-5-b4612e3eb536@erebion.eu>
+References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
+ <20260926-pdx213-upstream-3-v2-5-b4612e3eb536@erebion.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 26 Sep 2026 14:11:30 +0000
+Message-Id: <20260926141130.A47171F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-pdx213-upstream-3-v2-2-b4612e3eb536@erebion.eu>
-References: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
-In-Reply-To: <20260926-pdx213-upstream-3-v2-0-b4612e3eb536@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790431254; l=1334;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=SAh/u9rqLjnMP9ySwBKTGM10EJ+3cf/9qk6pK5KDfE8=;
- b=HhwUyvpaLxbAOvvKgi65/+HHIgzvDvGzqCuXYdSaVFAO4dZ0jsKwdVNyBRxSI9YpQBdUqIWex
- uo4TfMAupELCb6AMB4DR6dlNPPYq/bymKNeefMCanf8vDdKWziYHjU3
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-Adds the qcom,rmtfs-mem node required for the modem
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: missing swctrl-gpios schema definition causes dtbs_che=
+ck failure
+--
 
-Signed-off-by: erebion <erebion@erebion.eu>
----
- .../boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+commit 2895c104a8a87260afe61b3db500946505dbefb6
+Author: erebion <erebion@erebion.eu>
+Subject: arm64: dts: qcom: sm6350-lena: Enable Bluetooth
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 79aa2521aed40..0ef3e9e239786 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -4,6 +4,7 @@
-  */
- /dts-v1/;
- 
-+#include <dt-bindings/firmware/qcom,scm.h>
- #include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-@@ -54,6 +55,22 @@ touch_en_vreg: touch-en-regulator {
- 
- 		vin-supply = <&pm6350_l6>;
- 	};
-+
-+	reserved-memory {
-+		/*
-+		 * The rmtfs memory region in downstream is 'dynamically allocated'
-+		 * but given the same address every time. Hard code it as this address is
-+		 * where the modem firmware expects it to be.
-+		 */
-+		rmtfs@fe901000 {
-+			compatible = "qcom,rmtfs-mem";
-+			reg = <0x0 0xfe901000 0x0 0x280000>;
-+			no-map;
-+
-+			qcom,client-id = <1>;
-+			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
-+		};
-+	};
- };
- 
- &apps_rsc {
+Configure the required regulators for Bluetooth and enable it on the
+Xperia 10 III.
 
--- 
-2.53.0
+> diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
+b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index f3ed6445c7d35..9be0e7ceccb55 100644
+> --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 
+[ ... ]
 
+> @@ -424,6 +466,73 @@ ts_int_default: ts-int-default-state {
+
+[ ... ]
+
+> +&uart1 {
+> +	/delete-property/ interrupts;
+> +	interrupts-extended =3D <&intc GIC_SPI 602 IRQ_TYPE_LEVEL_HIGH>,
+> +			     <&tlmm 64 IRQ_TYPE_EDGE_FALLING>;
+> +
+> +	pinctrl-names =3D "default", "sleep";
+> +	pinctrl-1 =3D <&qup_uart1_sleep_cts>, <&qup_uart1_sleep_rts>, <&qup_uar=
+t1_sleep_tx>, <&qup_uart1_sleep_rx>;
+> +
+> +	status =3D "okay";
+> +
+> +	bluetooth {
+> +		compatible =3D "qcom,wcn3991-bt";
+> +		vddio-supply =3D <&pm6350_l11>;
+> +		vddxo-supply =3D <&pm6350_l7>;
+> +		vddrf-supply =3D <&pm6150l_l2>;
+> +		vddch0-supply =3D <&pm6150l_l10>;
+> +		swctrl-gpios =3D <&tlmm 69 GPIO_ACTIVE_HIGH>;
+
+[Severity: Low]
+Does this property need to be added to the dt-bindings?
+
+When running make dtbs_check, the swctrl-gpios property here fails validati=
+on
+because it isn't documented in the qcom,wcn3990-bt.yaml schema. Since the
+schema enforces unevaluatedProperties: false, the build generates a warning.
+
+The hci_qca driver parses this property correctly at runtime, so there
+isn't a functional issue, but should the binding schema be updated to avoid
+the validation warning?
+
+> +		firmware-name =3D "crnv32u.bin";
+> +	};
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926-pdx213-ups=
+tream-3-v2-0-b4612e3eb536@erebion.eu?part=3D5
