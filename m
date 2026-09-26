@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6132A3815D8
-	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 20:02:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FA31D5174
+	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 20:04:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790452978; cv=none; b=mQkgUzkv/z1z+rCMeSnrl5ngRn0ZQLC2uopTwlBbuS1iCpyaY+RVO+yciS6uaa/Z0kGF3xaknoaqPeQRIzZGIbIIEmBRWdhmx++904JDwoVKltQ0i2J4meolwZdhjjcJg5X74R2Po1DamPfQQZHt8VgTfMWZiMDwZrfp0dsa2kM=
+	t=1790453080; cv=none; b=t3qryHhB5sv0QL8yHIsKOeP8IERZUe9Gw+ZkwiCS0LZ8kF4sHdb8+ugdESbQIlgxqyI98AHux2gGqTxx2oHJjUyXBJsAFAdjQZPYznnBQIVV2ebl+/cYyjIdcpUXNmUtnSRBjPQ4CIsmwMFXsHH5mpGCtFDZwU7jhqvDriK55ik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790452978; c=relaxed/simple;
-	bh=qv9x8zaEWYTGC4WywS24GKR82kXju2g7QhVNbdb/hTU=;
+	s=arc-20240116; t=1790453080; c=relaxed/simple;
+	bh=JokWPHhO1/oYd1V2MsfyL1PLN12AhPq/yRkt838QGsQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dp757jmBrtMIy+wrtznTTFbE0YVGmcOTB8d7dUaJkTmWonfX0cvQLO7x8mYyCUI0WmaHR1QvZV8L0u589gIb7PI7p5UXYVK4i0YBagorZahqmUs1rZP1u3g0SqtSFHdU6J8sZzQbrzk6sxta54UTD5hCWpKmWcnMeucGKPo3a/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QmFeibXO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dFHRtW8jk0M+ACaNpNuatfwcGjKfp+PbGOdbA3VAKBfcysJCMPKr9utKXcbdrGTmVw1YqHL0J5JBXa0EJLCFOJltgtVPLQwBWqVC1/Bk821GuvcMvXvuWv3DYAm7Zfuizs3LkHZ1RtIZ4A5da5fEJGsrFf5BTcVbyb6tu+kGDds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=baOh6FY5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QmFeibXO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D8B1F000FF;
-	Sat, 26 Sep 2026 20:02:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="baOh6FY5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05A7C1F000FF;
+	Sat, 26 Sep 2026 20:04:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790452976;
-	bh=bcbNiofHdgufxL2xUhRI6FQ0uHvFSqZr9A9q1MbOl5o=;
+	s=k20260515; t=1790453078;
+	bh=12vi747poqZSjq5DWASSZfcbL5yvDmXHb91JT+TYETU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QmFeibXOfZ6v+bJWRuMc9RIAFXB7B8s/yxBLJlafQiwKhifqOW/1s+/2WI3Xnvydo
-	 gsF0mos8nzkycl9ckdKeMKNnQl0LjCb0GodKFWkLGnoxEyX9cJnxO3j7bmcK0PKPpg
-	 YFfoKraX+kxQiL/WlOcG6ky20UDa6zBDF2MB7mQPDfAQII29zLOEGkL2b3PuDtMksg
-	 20CWbxXU7K0oKi4Mgl+lbU3I5rGzBxZKHBFICNx4hvoPgvq5krMxarLO7gD01Q1GzU
-	 4+4b5+ZkUDQ3Hp8PoZRWMYiPJQ5qcTnuv7xdSGCN7QJn14oTiLjKwPofbIeM+QdQuT
-	 5ZcAjWHTgwBWw==
+	b=baOh6FY5O4aQjVHAcgrl1luxVTZWfpeZJaBWywdTLTKPIMDIzgTzFiPnlqtekTa/b
+	 hFIjtijD3dU3AUxqsB5Zan9K5W7vzn+n9kjNw0Wl8E8zew9VYLr8dyPV1mMJ7d1Fuo
+	 y/dVCleYe1ex3jC+ZK3YSjLIoOF3VRO6PiHyLJSHP1S5rYmiZGo4brrKpC5hsPBC1m
+	 tu64hogdZKOoq9QWvh0Yb0pcPEL6qEyJNESk5lt53hTEKHTI7gSytVcQ0GbLXRYE4d
+	 JdAQAGMFOgbK0VM6mTJ53NzIFPuKm8gsZlIz/QAgY+Guq892AJ33TC9O3Uvqwft9+z
+	 wV+AMEFJPEKqw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sc8280xp-x13s: Add embedded
- controller
+Subject: Re: [PATCH v2 2/3] platform: arm64: Add Lenovo ThinkPad X13s EC
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: Clover <alex@ironrobin.net>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260926195415.5995-4-alex@ironrobin.net>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260926195415.5995-3-alex@ironrobin.net>
 References: <20260926195415.5995-1-alex@ironrobin.net>
- <20260926195415.5995-4-alex@ironrobin.net>
+ <20260926195415.5995-3-alex@ironrobin.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 26 Sep 2026 20:02:56 +0000
-Message-Id: <20260926200256.A2D8B1F000FF@smtp.kernel.org>
+Date: Sat, 26 Sep 2026 20:04:37 +0000
+Message-Id: <20260926200438.05A7C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,51 +47,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: forbidden input-enable in TLMM pinctrl
+- [Low] i2c: missing I2C_FUNC_PROTOCOL_MANGLING check for I2C_M_STOP
 --
 
-commit 3b04b58deccd1a5510d626dacae4e53b304e7984
+commit a8937fc74e70704582392fdfcb89327bf751206f
 Author: Clover <alex@ironrobin.net>
+Subject: platform: arm64: Add Lenovo ThinkPad X13s EC driver
 
-arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
+This commit adds a standalone driver for the Lenovo ThinkPad X13s embedded
+controller. It handles keyboard-backlight control, hardware brightness
+change notifications, and system sleep power sequencing.
 
-This commit enables the embedded controller at address 0x28 on i2c8 with
-GPIO103 as its falling-edge event interrupt. It also configures the QUP8 bu=
-s,
-the GPIO103 input, and the GPIO176 active-high power-state output.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b=
-/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> index 218573a97785b..1b875809773da 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-
+> diff --git a/drivers/platform/arm64/lenovo-thinkpad-x13s.c b/drivers/plat=
+form/arm64/lenovo-thinkpad-x13s.c
+> new file mode 100644
+> index 0000000000000..708f909f78780
+> --- /dev/null
+> +++ b/drivers/platform/arm64/lenovo-thinkpad-x13s.c
 [ ... ]
-
-> @@ -1571,6 +1590,21 @@ sc-rgb-xshut-n-pins {
->  		};
->  	};
-> =20
-> +	ec_int_n: ec-int-n-state {
-> +		pins =3D "gpio103";
-> +		function =3D "gpio";
-> +		input-enable;
+> @@ -0,0 +1,408 @@
+[ ... ]
+> +static int x13s_read(struct x13s_ec *ec, u8 cmd, u8 reg, u8 *value)
+> +{
+> +	struct i2c_client *client =3D ec->client;
+> +	u8 buf[] =3D { cmd, reg, 0, 1 };
+> +	struct i2c_msg request =3D {
+> +		.addr =3D client->addr,
+> +		.flags =3D I2C_M_STOP,
 
 [Severity: Low]
-Does this property cause a dt-binding schema validation error?
+Is the I2C_M_STOP flag necessary here?
 
-The qcom,tlmm-common.yaml schema explicitly forbids the input-enable proper=
-ty
-in the TLMM pinctrl bindings. While PMIC pinctrls allow this property, the
-TLMM (Top Level Mode Multiplexer) pinctrl bindings prohibit it, and running
-make dtbs_check will fail with a DT binding validation error.
+Single-message transfers inherently end with a STOP condition. If the
+adapter requires this explicit flag, the driver needs to verify that the
+adapter supports protocol mangling.
 
-The driver consuming the GPIO establishes the input direction (e.g., via
-gpiod_direction_input()) rather than relying on the pinctrl configuration.
+[ ... ]
+> +static int x13s_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev =3D &client->dev;
+> +	struct x13s_ec *ec;
+> +	int ret;
+> +
+> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> +		return -EOPNOTSUPP;
 
-> +		/* Preserve firmware pull configuration; no bias override. */
-> +	};
+[Severity: Low]
+If the I2C_M_STOP flag is intentionally required in x13s_read(), should this
+functionality check also include I2C_FUNC_PROTOCOL_MANGLING?
+
+The I2C API contract dictates that I2C_M_STOP must only be used if the
+adapter advertises protocol mangling.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926195415.5995=
--1-alex@ironrobin.net?part=3D3
+-1-alex@ironrobin.net?part=3D2
