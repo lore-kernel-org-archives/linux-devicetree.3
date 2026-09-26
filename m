@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B968934DCCD
-	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 10:31:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D983FD121
+	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 10:33:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790418695; cv=none; b=lAQ93vTP6FLLfPtpZ3spBTunGW3RppELfU7yTWYe28nghn6AlS0obhzlPzNW+1zelTep/rI2sMKuCgLxAjrVZsB8QdPJ5tYj1MK+QaDd1jeLswQR/hcl+LPhtkIMghPjbasFqXBmqcrX85f4wH+URd0/czfEaYn9nKLK/t8w25A=
+	t=1790418807; cv=none; b=lZdWzmwKh67TXFJH/X5BYomcfm1Yl3TA+/eVNqOMUtLgWEhIw3SLemD2aNVAEpIhIIQ6D/+ywklbc8Vfg8TrWZIjQruo9f7tSmi4p4B3KFTDEPPHloM+6U5tpF9i7lL036RaacIFfF3h27WwCS+fID6Fm0LiBdLSryicVEW0NuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790418695; c=relaxed/simple;
-	bh=F8uYKES44PjwsaKN8rdJgygjIC+8697NShiRqCGjpJE=;
+	s=arc-20240116; t=1790418807; c=relaxed/simple;
+	bh=r4rGDNhZl1lZNbNcsKWplSA6cMU+PQHiX6EJ/uSwqZw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pzuxAkjdA7HeQjZJ98eEqzMGxaAN/OF5/zccb2U885nnv6HMXRdjP1n5aZy8vD9/yZhPTLtJrOgqPLmHCpp/9vfd75OuZebOgtHkuC8IxHL7J8J0oX02t5JBYPRiui3u9ZiWVHzgqJwZJT3pVrrKjTTZY938dfMVLjkhtAB5vDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J3oIPEG2; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bs4HdWjZMy/+U/M2cgAP+x5XWTTYEp9AGo9IcU8ucgmKfZdDuiMMeqWsDeBmg63SHrPhtOc9aQkuak8DNwr3Ce+boXR75WcodXUMffkV7wNZhIgqkph2fOjPKtO5KFrYOcemwp3Uxo0wi+jXcfmyYEBZevnpfdX+pT/SazoPm98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NofsKjwE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J3oIPEG2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A14E1F000FF;
-	Sat, 26 Sep 2026 10:31:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NofsKjwE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B09C51F000FF;
+	Sat, 26 Sep 2026 10:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790418682;
-	bh=LLef3BXvnTIHTJWFVKMlQ6gJmE84fRwYU3GoxcATQTs=;
+	s=k20260515; t=1790418799;
+	bh=a4Ygu7sOYV13Idki6jOKfdc/8IU5i0YITAD2Bhl7Bt0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J3oIPEG2NAuog3wqosi8YS1dOdZ4nROegEVJ6YXcal4nVnj3wMgnn+oFG0Obi1Yx+
-	 hmN4/cH54YpGc6GIWPkvlnXewVwgB9oKCbt6qFJ1OF4+hPX/SGhScxiAw8qUDLMshk
-	 WfVCDwRzfiyjbssGl+uGojDdXSYt7p6ORIY7LXFiBoywxd3679nWgMNuMq7ePGaGHG
-	 aCnhOBvW2vpJft1kFIx8dVWpglrvsn3uCMWHYaPYdbGyUuDzvtMiDu2/7WIhJjbcP4
-	 pzAzbNylQuTHWsO9k0tRsCrS7vvGUjMZf90hVP5C4d0wwX2vAZ6s/mPR+1LFI3C2NP
-	 ITq8BWFaQURIQ==
+	b=NofsKjwE2yPeM9OYx9U1ty1kJGPaCR4wg9rmepa81fPZo2N+gMYwNbxzj6CRAlKLI
+	 /6jhH92EjaVtBhgJSJ+IaN0i25MKhocINeZdt5n1ot7mya9HdhLtk9RfMmO+9FfGM2
+	 t+X9p9jiIoXC9PxSFoJPXerGKOdAIxFnEwTj2hYecnYRCE8YlXP0ADR84fnPdBDGuM
+	 2IVqGONu4x0mCj0sWsm1ZLa1IT2Dt4Pt2XjuGi7V2VngMc2z9KULfJ13tGTJ71x4F/
+	 FOioxcVfhWMrObrSSQSdfukbSy6FYEJTTz4+Zit7y0EQpx/sa3KkbjtoWwCQXZQfIH
+	 Zfy3WpMNkZ5lQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/8] arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP &
- MPSS
+Subject: Re: [PATCH 5/8] arm64: dts: qcom: sm6350-lena: Enable Bluetooth
 Reply-To: sashiko-reviews@lists.linux.dev
 To: erebion <erebion@erebion.eu>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260926-pdx213-upstream-3-v1-3-1609c18b5c1d@erebion.eu>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260926-pdx213-upstream-3-v1-5-1609c18b5c1d@erebion.eu>
 References: <20260926-pdx213-upstream-3-v1-0-1609c18b5c1d@erebion.eu>
- <20260926-pdx213-upstream-3-v1-3-1609c18b5c1d@erebion.eu>
+ <20260926-pdx213-upstream-3-v1-5-1609c18b5c1d@erebion.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 26 Sep 2026 10:31:22 +0000
-Message-Id: <20260926103122.8A14E1F000FF@smtp.kernel.org>
+Date: Sat, 26 Sep 2026 10:33:18 +0000
+Message-Id: <20260926103318.B09C51F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,50 +46,93 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] arm64: dts: qcom: sm6350: mpss reg size artificially truncated
+- [Medium] dts: silent pinctrl override failures on UART pins due to missin=
+g /delete-property/
 --
 
-commit 33df29a70738e5d1e7f7a275ffc6f578951ece81
+commit bed8cbd842a7138947e9a27eb01373050b147335
 Author: erebion <erebion@erebion.eu>
 
-arm64: dts: qcom: sm6350-lena: Enable ADSP, CDSP & MPSS
-
-This commit enables the ADSP, CDSP, and MPSS (Modem) nodes for the Xperia 10
-III. It configures the respective firmware names and updates the status of
-these nodes to okay.
+arm64: dts: qcom: sm6350-lena: Enable Bluetooth
+   =20
+Configure the required regulators for Bluetooth and enable it on the
+Xperia 10 III.
 
 > diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts =
 b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
+> index 146c7c5c45ea2..cb749cc121abf 100644
 > --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 > +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-
 [ ... ]
-
-> @@ -321,6 +333,13 @@ touchscreen@48 {
->  	};
+> @@ -392,6 +396,40 @@ &qupv3_id_1 {
+>  	status =3D "okay";
 >  };
 > =20
-> +&mpss {
-> +	firmware-name =3D "qcom/sm6350/sony/pdx213/modem.mbn";
-> +	reg =3D <0x0 0x04080000 0x0 0x100>;
+> +/* UART1: HS UART for Bluetooth */
+> +&qup_uart1_cts {
+> +	/*
+> +	 * Configure a bias-bus-hold on CTS to lower power
+> +	 * usage when Bluetooth is turned off. Bus hold will
+> +	 * maintain a low power state regardless of whether
+> +	 * the Bluetooth module drives the pin in either
+> +	 * direction or leaves the pin fully unpowered.
+> +	 */
+> +	bias-bus-hold;
+> +};
 
-[Severity: Low]
-Is this reg property artificially truncating the mpss node's MMIO region?
+[Severity: Medium]
+Since device tree overlays merge boolean properties rather than replacing t=
+hem,
+both the new and inherited properties will be present in the node.
 
-The reg size here is 0x100 (256 bytes), whereas the standard on-SoC mpss
-node usually has a size of 0x10000 (64KB). Since the device tree describes
-hardware that does not shrink across boards, could truncating this size
-cause an out-of-bounds access or page fault if a future or downstream driver
-attempts to ioremap and read beyond the first 256 bytes?
+The generic pinctrl parser evaluates properties in a fixed order, which cau=
+ses
+the inherited bias-disable to be evaluated after bias-bus-hold. Does this n=
+eed
+an explicit /delete-property/ bias-disable; to prevent the bus-hold from
+being silently ignored and causing power leakage?
 
 > +
-> +	status =3D "okay";
+> +&qup_uart1_rts {
+> +	/* We'll drive RTS, so no pull */
+> +	drive-strength =3D <2>;
+> +	bias-disable;
+> +};
+
+[Severity: Medium]
+Will this silently leave the pull-down enabled?
+
+Similar to the CTS pin above, if the base node has bias-pull-down, merging
+bias-disable doesn't remove it. The parser will evaluate the inherited
+bias-pull-down after bias-disable, causing the pull to remain active.=20
+Should this include /delete-property/ bias-pull-down; to ensure the bias
+is actually disabled?
+
+> +
+> +&qup_uart1_rx {
+> +	/*
+> +	 * Configure a pull-up on RX. This is needed to avoid
+> +	 * garbage data when the TX pin of the Bluetooth module is
+> +	 * in tri-state (module powered off or not driving the
+> +	 * signal yet).
+> +	 */
+> +	bias-pull-up;
 > +};
 > +
->  &pm6150l_flash {
->  	status =3D "okay";
->
+> +&qup_uart1_tx {
+> +	/* We'll drive TX, so no pull */
+> +	drive-strength =3D <2>;
+> +	bias-disable;
+> +};
+
+[Severity: Medium]
+Does this face the same property merging issue with the inherited pull-up?
+
+If the base node defines bias-pull-up, it will be evaluated after bias-disa=
+ble,
+silently overriding it. Should this include /delete-property/ bias-pull-up;
+to ensure the pin bias is disabled as intended?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926-pdx213-ups=
-tream-3-v1-0-1609c18b5c1d@erebion.eu?part=3D3
+tream-3-v1-0-1609c18b5c1d@erebion.eu?part=3D5
