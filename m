@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC5943F4A9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E23440A2F;
 	Sat, 26 Sep 2026 12:40:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790426434; cv=none; b=LfkAB7Snu2qgMWhDwPxTpuDNxeUunTNvH9uEohk65nap7J7QzCK/iO7HBN45mxaJ7pYwcWoeL/HrvD+BMVCEQlkxsCnmiomfVdkJ4c9hLK5NEtMH0TvGCTM49ffycU6xDZdCHwouMpGtoWuR31OuR4O1/wyRNzknaQXoowxnOf0=
+	t=1790426434; cv=none; b=EqdQGHq24SVU2nB8DE1O23GnH5FLyBtyS9tFbAfOAJg6hnpgTSmESficAuZ8FElLPxdt2nvAM73QkTJCX06fv5ycPzLa4wTuXXZiqdWV6I4isBx1Yw6QhpVQ5lP0w1ESqTzkx42I6zK6nm6/Ys+OWtxBvzVNTtGI8loMe9QpiCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790426434; c=relaxed/simple;
-	bh=IKIueHDGdKad1dbZuuleadx3ptYZIb6DginSe2S+pGw=;
+	bh=0nD/Q/yX8fnh78tBYlMsAu62vHdt7jMPZ12GjmO2VCA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BaYpv3ZwVYjWUxMXZQTEhrBJC4OrImQKjfLZWZHZXb9V9llLgLDFH4/JfBmP2pJwr7vGPCj2U2X3rqU/iLxgh3nh0jE8taB0ABnpbeiH84dhbMahZHq7LdB/TX95zq4uSZQ78Q5u2yJWMuqGYgDiginNoUqT8QBcG58z5MUkxAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5g+k5pZ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ipP7GSVKDrWDrKfJyGCHFJ1UqyKCwUHmPitwfDD8eLzvStp0Fomqz0/x8fxPqiLeayXUMmXm7YM5ZTHVIGqtmTK629XORq6y3jpKGAG8cAUmud5nS0slQCE6f0hp/YArLBM4aknbhTi6qO1d4NhghUcVNazorgYZJ1j8TN9WKug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRGFV9CS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5g+k5pZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A0936C2BCFB;
-	Sat, 26 Sep 2026 12:40:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRGFV9CS"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 08036C2BCB8;
+	Sat, 26 Sep 2026 12:40:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790426433;
-	bh=IKIueHDGdKad1dbZuuleadx3ptYZIb6DginSe2S+pGw=;
+	s=k20201202; t=1790426434;
+	bh=0nD/Q/yX8fnh78tBYlMsAu62vHdt7jMPZ12GjmO2VCA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Q5g+k5pZt0RL6PzhpUgUlzuqSTJ0oVd0QB5VWm4GVyLaaddzMjjKWJJICkSNUazUy
-	 taH9m5x7QuCOH0uvRDi08yB6r7zLi4xXA4WWEXEBy56TqznDJsAMLjGOjiKmGZtERq
-	 l7wzWGal49qqP5gQyrDxXWWKXQjsVVpF8CgdTk6uebxN5QfnPGgf5W590d16H6s2Ja
-	 No3/MK1+Sd9SC3vVSSg6ayAW07lziby52fXUhH0eflHCHtirgvRx8iZ9s0/3yMFkcE
-	 GUAHiG6Bs8H4C9yPRMT+VxzoQw8G+mvR3EsCcUbXhHIVsP2Y5HjBHWG6+l2qfHicJB
-	 CxSnbJqit8Bgw==
+	b=lRGFV9CSwn45ZWJpsvXgRGraFDKFoH8mojUP+IDRTrEqC+R0Siygo4nqAkKQrB6Eg
+	 Fb9QVy3wtxtVwUj59exR1chOe984tr2s0pR0RPpzEKns0QSwW42OhTmq02b5b+MPaF
+	 cN2N75MXW5Oir2CE035rO3JbZYgv6RzFpyJEaQ2B5JEtYcUzJE/QT7XWCE6exhj0Ch
+	 JO0Epef0Oebd19qrnDL+hvMMkOPobnpmjOlbkk/tTCV8cpTwi84ICV+aQvU+CJFiGd
+	 1nGy1bH47RLnVho0t5Q+vzGOPCVDgKWIojMohRhP0LyL0jr527xrpVKF6Cauj+gpwG
+	 iLb6eCp5GbD6g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B174C9833E;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E99C2C98338;
 	Sat, 26 Sep 2026 12:40:33 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sat, 26 Sep 2026 14:40:24 +0200
-Subject: [PATCH RFC 05/12] usb: typec: qcom: Make typec_port accept also
- different structure
+Date: Sat, 26 Sep 2026 14:40:29 +0200
+Subject: [PATCH RFC 10/12] arm64: dts: qcom: sdm845-google-common: Enable
+ USB Type-C port controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260926-typec-v1-5-31adc19f32c6@ixit.cz>
+Message-Id: <20260926-typec-v1-10-31adc19f32c6@ixit.cz>
 References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
 In-Reply-To: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
 To: Alexey Minnekhanov <alexeymin@minlexx.ru>, 
@@ -61,21 +61,21 @@ Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
  phone-devel@vger.kernel.org, mfd@lists.linux.dev, 
  David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1220; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4327; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=Rv/C1XQqReAptmVTI+ZJAAlK7aFi13337WHcMdGcM48=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqt70+EPEh7Pr+laDPW4tWdnCaH47gu2yL7r0Gt
- l2/AzxTDnCJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCare9PgAKCRBgAj/E00kg
- cr+8EACMj0EdXOb53DNNjlp+WWKFSp/7RfbfxhXER7ZgaAxztTLpMF8MUe49qSwIIE7evRvh3U2
- 3dtguNMZCawah/9kZLL89nEsaR0piJKrZLC1m6td+zSz0diVBwm22ixLjImzV1w1vkMJdicxH8A
- 8QzSC/SsegXq/dZZYXdBEv1N5wKE8WTUT59/4W+JDaYBu7eoB0oG+EcVhfNOrDF7kJxMfpUOZML
- oC8k3IuDvpdPuQ+zY1T+lcOsN8SlkU3HZjzjNY54VeoMz/DCZ0YUhIKnSeOspXgVPMsq82nvJAt
- hpOZosAoeYj4q0R9S9FTqycfx3ZNYdMnJBRaN6+tGK24U7p+8JD67ke/SPgQg3atm/Xnp8cFP70
- m1lKB8rdLu3OHSXEu8qUpi+xuvtFSCFJCWjC85N5cIWTC69oVWqPrb/hcEMkLuWlDYBGAQCIdly
- BtmDFEMkDbc8jcJbOtUnR5RUHWKC1Wv6ffjFCPbwn0Pr0XrL9JhS1U+11XnpgUs15KIpYW2YCqb
- LFMkID4eBa2HMb/cq25zJYFOaXYy12MnmuZcpO+dzIyIS6k9cvX5V80kiNJ7nHQMurJe9MYpgA9
- YWvMbtcY4i74m0sl7u7obrR6Cr1ib1JGhwgcoTcmsZGiQrz4SYGkm/lot/jrcr+3eJfBakNftN5
- MO9GKRI02vmmyFA==
+ bh=r5IQw5ef3NgqdpkqzvYRqDdpmBPKAHmtONrEfZAVnQU=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqt70+aIeCNkK1YRBq0hkMzBSfTWJFNLHe+EZpq
+ iLkAL06sCWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCare9PgAKCRBgAj/E00kg
+ crwKEACh2VG72WBEQaWlm3ElTE/xURhQ7dFGJfr9JYN8dzdcagAcTPi6+ZdQ6RdLT6pIT8r6f2Y
+ th1vxhNgAt0s66X4HUgPV2vI8/3gYoLLklygGI+yxZXgkvIgfkgYh7PSZ3M7jewWpOnafvEx9dz
+ UIoKcHJxfP06RykWB5BT0DJxmVULNpW4RRNBs/S9oOzDVYcLz9j2dy1qyya+Nqspw+Q6VAfKnyE
+ iytMEIZIMOLj0Gncl6twyZsxuRKTvDu8SfS4udsCuIy+scSO7taWVPShxTTWFHFbK1d0puhBUbK
+ rUSpYEvBtnFmjCU4+qv0gxhlDQdGJzhg8WN3XV8O1Hev9vdDb9OEJl4yLcoMjMGuR228b25DEIV
+ 8XZgxypymklkRWcv/Df3n8c7GIdsJnguRkfj9m84EA62tTx0iaSvD9z6o4266mC3Bsrg0+QDCJN
+ 23S6R8cAFj2jTrGmS5OhZ/4yVxv9JofnwKEv3rUfZwU1Z0JgX4vf2V1uCkfFF0yCruvprtWp/40
+ sdnOpcH65fi2QeZFhJbby4FGa1FS/FaOmDjTeg4x1xBIZNW2XhGFFINviYVaG2eXy9mYXU7l3G9
+ 6Qyxa9Y8ZH1IHhp2pSow3x4GRdogSRuqS3L34IufbQN+xgpmgq1lKh4BqozYEtsFzVUelsC67wQ
+ YfC2Q5zXt1UtcFw==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -84,39 +84,170 @@ Reply-To: david@ixit.cz
 
 From: David Heidelberg <david@ixit.cz>
 
-This is needed by followup commit introducing 1st gen of type-c support.
+Enable the PMI8998 Type-C port controller with a USB-C connector
+description for the Google Pixel 3 (blueline) and Pixel 3 XL
+(crosshatch), which share the same USB-C hardware via this common dtsi.
+
+The connector is configured as:
+  - Sink-only power role with a 5V/3A sink PDO
+  - Operating sink power 7.6W (matching downstream configuration)
+  - Dual-role data with USB role switching
+
+The VBUS output of the charger is not supported yet, so the port can't
+act as a power source. Describe it as sink-only until VBUS support lands,
+USB host mode is still reachable through a PD data role swap. Higher
+voltage PDOs are left out until the charger driver programs the allowed
+USBIN adapter voltage.
+
+DisplayPort Alt Mode is not advertised as Google disabled DP output in
+the Pixel 3 hardware design (downstream explicitly sets sde_dp to
+disabled and excludes it from the MDSS connector list).
+
+Wire the USB-C connector port graph:
+  - port@0: DWC3 HS endpoint for USB role switching
+  - port@1: QMP combo PHY for USB SS orientation switching
+
+Switch the DWC3 controller from peripheral-only to OTG mode with
+usb-role-switch to allow the TCPM framework to control USB host/device
+role based on CC pin detection.
 
 Assisted-by: LLM
-Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 59 +++++++++++++++++++++-
+ 1 file changed, 58 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h
-index 3c75820c91876..6f89d296ad151 100644
---- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h
-+++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.h
-@@ -6,17 +6,17 @@
- #ifndef __QCOM_PMIC_TYPEC_H__
- #define __QCOM_PMIC_TYPEC_H__
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index 9e952f9862f24..99f40a13b5d7f 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -2,16 +2,17 @@
  
- struct pmic_typec {
- 	struct device		*dev;
- 	struct tcpm_port	*tcpm_port;
- 	struct tcpc_dev		tcpc;
- 	struct pmic_typec_pdphy	*pmic_typec_pdphy;
--	struct pmic_typec_port	*pmic_typec_port;
-+	void			*pmic_typec_port;
+ /dts-v1/;
  
- 	int (*pdphy_start)(struct pmic_typec *tcpm,
- 			   struct tcpm_port *tcpm_port);
- 	void (*pdphy_stop)(struct pmic_typec *tcpm);
+ #include <dt-bindings/arm/qcom,ids.h>
+ #include <dt-bindings/dma/qcom-gpi.h>
+ #include <dt-bindings/input/linux-event-codes.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include <dt-bindings/usb/pd.h>
  
- 	int (*port_start)(struct pmic_typec *tcpm,
- 			  struct tcpm_port *tcpm_port);
- 	void (*port_stop)(struct pmic_typec *tcpm);
+ #include "sdm845.dtsi"
+ #include "pm8998.dtsi"
+ #include "pmi8998.dtsi"
+ 
+ /delete-node/ &mpss_region;
+ /delete-node/ &venus_mem;
+ /delete-node/ &cdsp_mem;
+@@ -449,16 +450,63 @@ &pm8998_resin {
+ };
+ 
+ &pmi8998_charger {
+ 	monitored-battery = <&battery>;
+ 
+ 	status = "okay";
+ };
+ 
++&pmi8998_typec {
++	status = "okay";
++
++	vdd-pdphy-supply = <&vreg_l24a_3p075>;
++
++	connector {
++		compatible = "usb-c-connector";
++
++		/*
++		 * Sink only for now, as the PMI8998 charger doesn't provide
++		 * the VBUS output yet. Switch to the dual power role with
++		 * source PDOs, try-power-role and vbus-supply once it is
++		 * supported.
++		 *
++		 * Higher voltage sink PDOs will be added once the charger
++		 * driver programs the allowed USBIN adapter voltage.
++		 */
++		power-role = "sink";
++		data-role = "dual";
++		self-powered;
++
++		sink-pdos = <PDO_FIXED(5000, 3000,
++				       PDO_FIXED_USB_COMM |
++				       PDO_FIXED_DATA_SWAP)>;
++		op-sink-microwatt = <7600000>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				pmi8998_hs_in: endpoint {
++					remote-endpoint = <&usb_1_dwc3_hs>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++				pmi8998_typec_mux_in: endpoint {
++					remote-endpoint = <&usb_1_qmpphy_out>;
++				};
++			};
++		};
++	};
++};
++
+ &qupv3_id_0 {
+ 	status = "okay";
+ };
+ 
+ &qupv3_id_1 {
+ 	status = "okay";
+ };
+ 
+@@ -549,17 +597,22 @@ &ufs_mem_phy {
+ 	status = "okay";
+ };
+ 
+ &usb_1 {
+ 	status = "okay";
+ };
+ 
+ &usb_1_dwc3 {
+-	dr_mode = "peripheral";
++	dr_mode = "otg";
++	usb-role-switch;
++};
++
++&usb_1_dwc3_hs {
++	remote-endpoint = <&pmi8998_hs_in>;
+ };
+ 
+ &usb_1_hsphy {
+ 	vdd-supply = <&vreg_l1a_0p875>;
+ 	vdda-pll-supply = <&vreg_l12a_1p8>;
+ 	vdda-phy-dpdm-supply = <&vreg_l24a_3p075>;
+ 
+ 	qcom,imp-res-offset-value = <8>;
+@@ -572,16 +625,20 @@ &usb_1_hsphy {
+ 
+ &usb_1_qmpphy {
+ 	vdda-phy-supply = <&vreg_l1a_0p875>;
+ 	vdda-pll-supply = <&vreg_l26a_1p2>;
+ 
+ 	status = "okay";
+ };
+ 
++&usb_1_qmpphy_out {
++	remote-endpoint = <&pmi8998_typec_mux_in>;
++};
++
+ &venus {
+ 	firmware-name = "qcom/sdm845/Google/blueline/venus.mbn";
+ 
+ 	status = "okay";
+ };
+ 
+ &wifi {
+ 	vdd-0.8-cx-mx-supply = <&vreg_l5a_0p8>;
 
 -- 
 2.55.0
