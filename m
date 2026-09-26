@@ -1,159 +1,314 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f32.google.com (mail-qv2-f32.google.com [74.125.230.160])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F3128033B;
-	Sat, 26 Sep 2026 12:13:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCCF3E410A
+	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 12:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790424799; cv=none; b=e6DiDdX7azltfNfehGWEkz3Ha/h70jEFYW5y2KA1bZuh3XOo2rKoArnqH5JnSyFBEMFGtT3t7/yBa/7e1UQbmmg67fdSIQgDBshQ+/TxOd/39lJTkmhungLmNKyTeKaKUL+UTJSDVsZgYewIZINEYTMx489NuSLjkySbJtw9TuE=
+	t=1790425242; cv=none; b=l3kbjpYTfs7ALYh9BPCrQSPnoDIGBZo4lqy2fLN/c0GBeGic2wflko4EToQgap318F+wbrgUtax0naIyChiuSLfmWfKkdvgr1Fcsdo39COtE6XakkLDXFLK3qxdCSMUrS+daj9t3/DVMJRd74QU3pnpbnwPnJ6e0G9qkfO3Q3zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790424799; c=relaxed/simple;
-	bh=BtVpA5GOENXZnZsxuXwBncCs3ISWn7QkCnNFP438S44=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NaiAODWZwKQK+nHOxZw7FWTLOrQvURzzvHkUgMH9tA/ojezfBwgG0MtOvF9n5Z4PC0lv75E6IxjAteKMUkOoJNh+sz7aotXDnnKRFkcSQwTBka4ILGGaBm2PGmfbDyPVJ2RLUw9lfdEcgOH+5/5RiiEW7L1EuA3AoNsvpSJiphg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqVt/WH/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790425242; c=relaxed/simple;
+	bh=IBYztrV0tY4V7QEYijOF7gx0QmCZePFsfBjD6WlXg/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qgp4PMTvFnHoZSZ7fsuZxCtK0tHPJYIuhQEJLUxE2Nby6Swsxq/jMoDU3L2RH6o14xMPaGn9/lowyYL5duhEwtI2rTWriIR4n/W2PdJjjCm9rkRZMe0MWM6Vy8OHr+6zJDRpidRZK2ljkd/8vPws7GDxuB8SNDcoYBaZZR9FTTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=YxLW2jZd; arc=none smtp.client-ip=74.125.230.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqVt/WH/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308001F000FF;
-	Sat, 26 Sep 2026 12:13:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790424797;
-	bh=1iBLZkIxA8ap1qqaUdvl37Rh8tiElL4QP7IPYChkI5I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dqVt/WH/30yxap89q3hdsyv/l61o3KLu/CiWmh2GBWsGOMCAyDd4oeItuV0KhN+p0
-	 8X1zpWVayYa47zet2Ur/sfY1kFJQbab8BoOoxfXHV/YQI1RJpJcGzgkU0qRjc535uU
-	 dggfLeW1RAGQ6iAvuoLIhb9T4V0FhhXIBy9i/I8pCdGeLVYzIySIXLMOZwMi3YRe/f
-	 zKl3WL7aj0w8pTnJ2Nyfs5DX0DqPx3wVLkn3TmGkc+E39Db2pmRZ/OB9D3wxZRvvWf
-	 SDM2RCWwifBB//vbUuDdgvoBbZaeCV/2vJDbDTyZiZ4mMxvo0MoVSBtV+WGkAlY0zm
-	 09Lh/Q+rpzwkA==
-Date: Sat, 26 Sep 2026 17:43:08 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Will Deacon <will@kernel.org>, brendan.jackman@linux.dev
-Cc: Vincent Donnefort <vdonnefort@google.com>, catalin.marinas@arm.com,
-	rppt@kernel.org, akpm@linux-foundation.org, sudeep.holla@kernel.org,
-	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
-	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
-	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
-Message-ID: <are21BjeS1O3RYE3@sumit-xelite>
-Mail-Followup-To: Will Deacon <will@kernel.org>, brendan.jackman@linux.dev,
-	Vincent Donnefort <vdonnefort@google.com>, catalin.marinas@arm.com,
-	rppt@kernel.org, akpm@linux-foundation.org, sudeep.holla@kernel.org,
-	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
-	ardb@kernel.org, thierry.reding@kernel.org, david@kernel.org,
-	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
-	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260921110050.3977591-1-vdonnefort@google.com>
- <arIYtjmSKCs14SqO@sumit-xelite>
- <arKW_91EeKA-w96m@willie-the-truck>
+	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="YxLW2jZd"
+Received: by mail-qv2-f32.google.com with SMTP id 6a1803df08f44-90ce6d5271dso9555836d6.1
+        for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 05:20:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790425239; x=1791030039; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pAsdC2YpnuT6zTnGshJ75DxjPfJCKBC7fNG6VgdNlYM=;
+        b=YxLW2jZd0QcRtq+NAEgkfqvU6gfloRx9Vb4pJiDSqeYsJYLQ9Wbtzi2TGqRnyjTUwc
+         W/uZxtx2/jKr46dGET8qLFjl75+Tpf1JSZNssnXXCde8/mMp6SeTBTYPYE431BLPDbpZ
+         tZHcBakSxvVhxnWCck2rdgSB3xdWct2jPkuTqaORPffWyuMnkb75n3EGXC52Mi+t3Cbj
+         fIuqoLwiEjO3VqV+k38dNCtSlPZi4/bXzp3Lf+UaIiOssBYrT/FKD3O6oaLGnZdqv/Zg
+         zVmlyH8snuky1XP+7qHWqXkONDDvhq/FBXyRMTURMVtsIWJ02cYsZrKDmhiiltCpu8j4
+         U5PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790425239; x=1791030039;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pAsdC2YpnuT6zTnGshJ75DxjPfJCKBC7fNG6VgdNlYM=;
+        b=ztW6EqP7TXCSgH9U8dHpKN9bVCONvP7+lELmh/0E47ZBh/eXhomDppC1hsEtBrsvz7
+         c02dJ8cIkkeVDdEiiT3+vrqNNwiAatneHu3iUnjcHegUzP5dJoV1uwGLNRhZ40XbLP6C
+         TDUn6oLysZ4j5D2O1gjqFouCVvZOPTL2ua8FE/e9/w5582yYbNM+gT3MRottf2nuqWeO
+         uTLhsj9ZyUEecmkKZeM6Ll1MRcAp3SXCcTQbCIEX/Rx3QB2bumqUC43SRTRh+LLE3mO+
+         Tz8lmJ5tz4+oqwuzbasX4HIV9n9YWd80312LRtkr+dts3NViESUhzrodalTB+C6SS+O9
+         QkFA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjt7MW8ddshJ1kHHIvMVk/LHqRQ+LZQL4UEz8/VO5NtWj6Y4BklrDQnG/UY6++bIs/nyLGr6G5zGQf@vger.kernel.org
+X-Gm-Message-State: AFq9FYLajoSPB9s0em1vK4FU9+IsuRWoIP64gjSkAhGbslq9yFquXxI6
+	BhkVx88ueEZI7MwH0Ut3ZxeXBmGjOkU1xL4zmXLw8j5e+QXIxFCnif7y1SKmiH3K+ss=
+X-Gm-Gg: AYBFou26z3m7cn5ZWTw4GG+0XYNHdBherJxkbYOVbxCSHStsGH7HvwFnlbYimv6e4CH
+	BP1eUYqntHEn9BBN4fx4S6kPssnvZN3XeWt+hHNg5wi4/MzhJWXKv9GmdxkOY5wKgfrjd86TxaK
+	xKSdB3vQqmfEbLaetKL7zGVwo561laWTsKe9GpJ2Q1r9GAV5hX1cusAariuDUVt6xyIikBLoUjQ
+	mDjrOZ6MTHKNrblFUFx2DOZnMIsNC2AnuyeENSQHO0BlVOieHfqET+5XclMSpAtF414mb0JTdmK
+	Y64fO857+oanz5B7e3xsRMvr3vBuqABHDIvdEQnKMQ8WMoLMeIZKb4260GKgOdPRNJghQenLrTD
+	meNm98+IQ22atJymUBAGcFNGjDXi6H3lNBC/9YIWAeciHPvVj8dwf+USrrYXOc3nknisVU5OAK8
+	bJXF4O+RzSrLk999n4DGUsHmgy8vASMp1TZLN9lwPOAhK8OfY=
+X-Received: by 2002:a05:6214:319b:b0:914:4fc3:e85d with SMTP id 6a1803df08f44-9144fc3f607mr11238846d6.4.1790425238783;
+        Sat, 26 Sep 2026 05:20:38 -0700 (PDT)
+Received: from armok ([2605:a601:a61d:7a00::2])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914309a27dcsm39308096d6.3.2026.09.26.05.20.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 05:20:38 -0700 (PDT)
+From: Liviu Nicoara <lnicoara@thinkoid.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: [PATCH v2] arm64: dts: qcom: x1e80100-dell-xps13-9345: add the front camera
+Date: Sat, 26 Sep 2026 08:20:32 -0400
+Message-ID: <20260926122032.4847-1-lnicoara@thinkoid.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <arKW_91EeKA-w96m@willie-the-truck>
+Content-Transfer-Encoding: 8bit
 
-Adding Brendan to this thread.
+Describe the OV02C10 front camera on CCI1 bus 1 at 0x36, fed by MCLK4
+at 19.2 MHz into CSIPHY4 over two D-PHY lanes at 400 MHz, the only
+link frequency the ov02c10 driver offers.
 
-Will,
+The wiring comes from the Windows driver store. CAMF_RES_QRD.bin
+switches a single rail, GPIO 91, before releasing reset on GPIO 237;
+GPIOs 235 and 236 are muxed to aon_cci there, the CCI1 bus 1 pins, not
+rail enables. No camera resource file votes a PMIC rail for the
+sensor, so avdd and dvdd are left out and fall to dummy regulators.
+The CSI PHY file votes LDO1_C at 1.2 V and LDO2_C at 0.88 V for the
+PHYs, which is vdda-1p2 and vdda-0p9 here, as on the Inspiron 14 Plus.
+MCLK drive strength is 2 mA, as CAMP_RES_QRD.bin programs GPIO 100,
+and tested streaming.
 
-Looks like you dropped me from your reply.
+The module sits upside down in the lid: with both sensor flips on, the
+picture is upright and unmirrored, so rotation is 180.
 
-On Tue, 22 Sep 2026 at 15:55:59 +0100, Will Deacon wrote:
->On Tue, Sep 22, 2026 at 11:27:10AM +0530, Sumit Garg wrote:
->> On Mon, 21 Sep 2026 at 12:00:42 +0100, Vincent Donnefort wrote:
->> > This series is a follow-up to the discussion that has started here [1].
->> >
->> > When memory is lent to the Secure world via FF-A, CPU speculative
->> > accesses from NS to the lent pages can still occur as long as it retains
->> > a cacheable mapping to it.
->> >
->> > Ideally, lent memory would be "no-map" but that would mean giving up
->> > MiBs of useful memory, so let's try to do better with the help of a CMA
->> > pool.
->> >
->> > On arm64, modifying the direct map at runtime is generally restricted
->> > because the linear map defaults to block mapping and splitting blocks at
->> > runtime may trigger fatal page fault, unless the CPU implements BBML3
->> > or the entire direct map was mapped at page granularity from boot.
->> > Forcing last-level mappings system-wide incurs a severe penalty we want
->> > to avoid. Instead, this series introduces targeted last-level mappings
->> > for designated memory regions, along with the "arm,ffa-lend-pool" CMA
->> > driver to manage unmapping and remapping on lend/reclaim transitions:
->> >
->> > 1. memblock:
->> >   - Introduce MEMBLOCK_PTEMAP to force PTE mappings only for a specific region.
->> >
->> > 2. set_memory infrastructure:
->> >   - Introduce can_set_direct_map_range() to check if a specific address
->> >     range is mapped with last-level entries and can be modified safely.
->> >   - Introduce __set_direct_map_*() variants that bypass redundant checks
->> >     when the caller has already validated the range.
->> >
->> > 3. "arm,ffa-lend-pool" driver
->> >   - Introduce the "arm,ffa-lend-pool" CMA reserved-memory driver, which
->> >     unmaps pages prior to lending (ffa_prepare_lend()) and restores them
->> >     when reclaimed (ffa_lend_reclaimed()).
->> >
->> > 4. Optee support
->> >   - Hook OP-TEE dynamic protected memory pools to "arm,ffa-lend-pool" for
->> >     both SMC (via DT memory-region phandle) and FF-A (via
->> >     ffa_lend_pool_attach()) transports.
->>
->>
->> Thanks for your proposal in trying to solve this hard problem of
->> unmapping pages from kernel linear map. I remember discussing this
->> problem last year at LPC too.
->>
->> Have you had a chance to look at a more generic MM proposal around this
->> issue here [1]?
->>
->> One of the major concern for me with your proposal is tying the
->> protected memory allocation to fixed sized platform specific pool size
->> based on DT. Then the cost of granular mappings/unmapping if the
->> platforms choose to enlarge these pools.
->>
->> As you maybe aware one of the major use-cases here for protected DMAbufs
->> is the secure media pipeline use-case which is memory intensive
->> workload. IMO, the solution proposed at [1] seems to address it although
->> people have flagged rough edges there but should be addressable.
->>
->> Can you try a port of [1] for arm64 since the author did all the work
->> with x86 as reference?
->>
->> [1] https://lore.kernel.org/all/20260726-page_alloc-unmapped-v3-0-6f5729aa9832@google.com/
->
->I spoke to Brendan at LPC (?) last year but this doesn't really work
->for arm64 because it relies on being able to unmap arbitrary parts of
->the linear map, which isn't generally possible unless you force pte-level
->mappings for everything, which is prohibitive for perf/power.
+The white camera indicator on GPIO 110 becomes the sensor's privacy LED,
+so the V4L2 core lights it while the sensor streams and takes it away
+from sysfs; the comment waiting for a "camera on" trigger goes, and
+panic-indicator stays, as on the X13s.
 
-As per the cover letter it's about allocating pages that are not present
-in the direct map. This essentially fits the protected DMABufs use-case
-where we don't want any kernel mapping to exist at any time. Bufers
-allocated from protected DMABufs are only meant to be accessed by the
-TEE implementation or HW accelerators like in the secure media pipeline.
+Assisted-by: LLM
+---
+v2:
+- Drop the dependency paragraph from the commit message (Abel).
+- Say in the message that panic-indicator stays, as on the X13s.
+No change to the DT.
 
->
->Vincent's series tackles that by using a pool so that only that part of
->memory requires the pte-level mappings in the linear map. That's the
->whole point of it, so I don't think it makes sense to drop it in favour
->of Brendan's approach (which doesn't work).
->
+v1: https://lore.kernel.org/all/20260925181024.20352-1-lnicoara@thinkoid.org/
 
-For protected DMABufs, we even don't require any pte-level mappings in
-linear map. The whole idea of mapping and unmapping is just a bottleneck
-for performance sensitive secure media pipeline use-cases. That's why if
-we can support __GFP_UNMAPPED with the memory allocator on arm64 would
-be the best fit for this use-case.
+Depends on the x1e80100 camera DT series, v7:
+https://lore.kernel.org/all/20260917-x1e-camss-csi2-phy-dtsi-v7-0-1a63eb35838b@linaro.org/
+and on the CAMSS PHY API series, v20 patches 5/6 and 6/6, which read the
+CAMSS endpoint's data-lanes as 1-based:
+https://lore.kernel.org/all/20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org/
 
-Now the question is why arm64 can't support __GFP_UNMAPPED similar to
-how Brendan is doing it for x86?
+Built and checked (dtbs_check, W=1) on next-20260925 with the DT series
+applied. Run-tested on 7.2.6 with the same board hunks, the CSI2 PHY
+driver v18, the PHY API series v20 and patches 1-4 of the DT series:
+the sensor streams at 30 fps through libcamera's software ISP, and the
+privacy LED lights while it streams and goes out after.
 
--Sumit
+Bryan, happy for you to fold this into your next version of the DT
+series if that is easier.
+
+ .../dts/qcom/x1e80100-dell-xps13-9345.dts     | 120 +++++++++++++++++-
+ 1 file changed, 118 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+index ad62350ba670..73f06fdcd138 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+@@ -10,6 +10,8 @@
+ #include <dt-bindings/input/gpio-keys.h>
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/leds/common.h>
++#include <dt-bindings/media/video-interfaces.h>
++#include <dt-bindings/media/video-interface-devices.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ 
+ #include "hamoa.dtsi"
+@@ -46,14 +48,13 @@ leds {
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&cam_indicator_en>;
+ 
+-		led-camera-indicator {
++		privacy_led: led-camera-indicator {
+ 			label = "white:camera-indicator";
+ 			function = LED_FUNCTION_INDICATOR;
+ 			color = <LED_COLOR_ID_WHITE>;
+ 			gpios = <&tlmm 110 GPIO_ACTIVE_HIGH>;
+ 			linux,default-trigger = "none";
+ 			default-state = "off";
+-			/* Reuse as a panic indicator until we get a "camera on" trigger */
+ 			panic-indicator;
+ 		};
+ 	};
+@@ -151,6 +152,25 @@ linux,cma {
+ 		};
+ 	};
+ 
++	/*
++	 * The one rail Windows switches for the front camera
++	 * (CAMF_RES_QRD.bin: TLMM 91 high before reset release), the 1.8 V
++	 * LDO enable on the sibling thena boards.
++	 */
++	vreg_cam_1p8: regulator-cam-1p8 {
++		compatible = "regulator-fixed";
++
++		regulator-name = "VREG_CAM_1P8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++
++		gpio = <&tlmm 91 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&cam_ldo_en>;
++		pinctrl-names = "default";
++	};
++
+ 	vreg_edp_3p3: regulator-edp-3p3 {
+ 		compatible = "regulator-fixed";
+ 
+@@ -674,6 +694,78 @@ vreg_l3j_0p8: ldo3 {
+ 	};
+ };
+ 
++&camss {
++	status = "okay";
++};
++
++&camss_csiphy4_in_port {
++	camss_csiphy4_inep: endpoint {
++		data-lanes = <1 2>;
++		remote-endpoint = <&csiphy4_out_ep>;
++	};
++};
++
++&cci1 {
++	status = "okay";
++};
++
++&cci1_i2c1 {
++	camera@36 {
++		compatible = "ovti,ov02c10";
++		reg = <0x36>;
++
++		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
++		pinctrl-0 = <&cam_rgb_default>;
++		pinctrl-names = "default";
++
++		clocks = <&camcc CAM_CC_MCLK4_CLK>;
++		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
++		assigned-clock-rates = <19200000>;
++
++		orientation = <MEDIA_ORIENTATION_FRONT>;
++		/* upside down in the lid; both sensor flips give an upright, unmirrored image */
++		rotation = <180>;
++
++		leds = <&privacy_led>;
++		led-names = "privacy";
++
++		/*
++		 * Windows switches no rail for avdd or dvdd, only GPIO 91; they
++		 * are left to dummy regulators rather than invented.
++		 */
++		dovdd-supply = <&vreg_cam_1p8>;
++
++		port {
++			ov02c10_ep: endpoint {
++				data-lanes = <1 2>;
++				link-frequencies = /bits/ 64 <400000000>;
++				remote-endpoint = <&csiphy4_in_ep>;
++			};
++		};
++	};
++};
++
++&csiphy4 {
++	vdda-0p9-supply = <&vreg_l2c_0p8>;
++	vdda-1p2-supply = <&vreg_l1c_1p2>;
++
++	status = "okay";
++};
++
++&csiphy4_in_port {
++	csiphy4_in_ep: endpoint {
++		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
++		data-lanes = <1 2>;
++		remote-endpoint = <&ov02c10_ep>;
++	};
++};
++
++&csiphy4_out_port {
++	csiphy4_out_ep: endpoint {
++		remote-endpoint = <&camss_csiphy4_inep>;
++	};
++};
++
+ &gpu {
+ 	status = "okay";
+ };
+@@ -1102,6 +1194,30 @@ cam_indicator_en: cam-indicator-en-state {
+ 		bias-disable;
+ 	};
+ 
++	cam_ldo_en: cam-ldo-en-state {
++		pins = "gpio91";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	cam_rgb_default: cam-rgb-default-state {
++		/* 2 mA streams; the sibling X1E boards use 16 */
++		mclk-pins {
++			pins = "gpio100";
++			function = "cam_aon";
++			drive-strength = <2>;
++			bias-disable;
++		};
++
++		reset-n-pins {
++			pins = "gpio237";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++	};
++
+ 	edp_bl_en: edp-bl-en-state {
+ 		pins = "gpio74";
+ 		function = "gpio";
+
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+prerequisite-patch-id: a7fbea14628b62a8de096dea420473b283010aba
+prerequisite-patch-id: 270d82b4c1760f1ec0a64a1b56c68ce26e6ae3b1
+prerequisite-patch-id: a12186bafac9b287c19fd719aeceb8ff1372dfbf
+prerequisite-patch-id: 4bc923fa59ee4c1ff68e64497f11e937c0ab3918
+prerequisite-patch-id: 4d000086386a3b344b1d6d345ab93d9b2b569615
+prerequisite-patch-id: 8cde6fd860c857dd7f3efce25970c88c783193b3
+prerequisite-patch-id: 1f22ff7fc93d0135e8759d45955bf998b037e11e
+prerequisite-patch-id: edb32e32f2b6be0b93f66d8da460c9f9de0c52e2
+prerequisite-patch-id: 09444936808e801a58c83356c9ae95415bacc83a
+prerequisite-patch-id: 348caa9cd0d1d70f181a47b40e2d75e8b25b5938
+prerequisite-patch-id: 1c4e4c457d8f95d8f5aaa2d93976c374b8282bf0
+prerequisite-patch-id: deedbed2643ca8a0f26bd87175d787d2f0c87417
+-- 
+2.55.0
+
