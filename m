@@ -1,98 +1,193 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44D93515F7;
-	Sat, 26 Sep 2026 17:03:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0EA1231842;
+	Sat, 26 Sep 2026 18:06:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790442229; cv=none; b=kYxaWGJF8zp4v/PVcMJu3hCpTtJuI5NBFisviep49KNMwtAeM+pIDCInS4HLXzuCQzs3ohung0QlAuGhDCBkBKAkTTrA+JbTd6JGaaCR7OkWJnpjRXo4yeghbgvW+YQLvbnGAqweBroKR6GfY721zNfOyvAmGIO4ns1GYXoBZDY=
+	t=1790445974; cv=none; b=kGk9Ohr3/l6F77pSNTS6i+4nHDo1gF2rYE9vOCptEpkkguK87YFNI4dqKxMcjObchAztjXa1qHjQju+wT3JameR+dipD5lMIKRJskiZ0IONWoCVJMyx0AJCYtCyCTXAU1KMFj6lhi5lzePfOWtQtbe1CPUjqcWjxYfW6LHjrePE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790442229; c=relaxed/simple;
-	bh=aoUcH8q6R4+eyNaifFoH2Aor4f8mjT4hXKCOfkY4BSc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qBON8gjI3puq2x5RWsXDsbW/t8iCgq4UWsFLFPUVfg5BhS1p+Q26l0Smy2jA6IH0IIriPIHwB/baE73jJwyW325aX7OT4oDuZDWgnRPZecpNdgxMuyVIlYwo5Z7U1KzBwJ3D7W5O1ra5Wjgx2MRmy9r/Arz6nW5VryYaxnfaMeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=a2EG3wDb; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790445974; c=relaxed/simple;
+	bh=H6MlZfmuqvEHiRpcKmmdEW8Vh9rNn2PQMtpFcbOse+s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nzxEAWMsu9z1v+Fp84EJhG64d1HZjG5HcMWnikCy3d1cZlBtE4wGd7L6i3W7RaOO00ewoOdNebbkj8e0w1NOPuPvGfe5UEc5V5UC0U6tH8r+JHMc2GSF8fA8CTVEY70Rqr4637ea3y0s3JrWZJNTlOD3CRYVartOjlS/symYQb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C3PKcs1G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="a2EG3wDb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790442219; x=1790701419;
-	bh=qRKBBHzxeQEyTEnSiATT4uABiyIjz34v74Z/J4pJSPU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=a2EG3wDbE9/OUkViBeHIr0LOf1PFP7Lc5MMFLPbfIl01u6pODfVyzB9Nd6LRjCB3K
-	 xcuoKq2U0bO/JGx8fOK1rSBE/PtyJiYplHAx+ljfRfj/57RP2Tv3bD4u8dsB8YXNwE
-	 r2sTKmeWzFOPEu6LoAv4hfqSg4QJ8+GIyty94AEq4jzda60UreOPQla8DALNeJsHn1
-	 FFDqrTJk3OS7cRpaVDTaxzY0VvKc6y5QfecgHodJkHxq4hpwDKj88NTXN7nVYFWRVI
-	 bkNydKl1FbO/pnGgUjlWLUQSRyGIVcIelvR+/vdviuuFQIILeCGlEvw6XwBQCyQPNW
-	 Ln9vCnwYB4TWg==
-Date: Sat, 26 Sep 2026 17:03:35 +0000
-To: German Pablo Lindo <germanpapulindez@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: Test for [PATCH v7 0/3] Add support for the Sony IMX681 camera sensor
-Message-ID: <20260926170327.60895-1-lsa.uz@pm.me>
-In-Reply-To: <20260926092828.11675-1-germanpapulindez@gmail.com>
-References: <20260923211816.89954-1-lsa.uz@pm.me> <20260926092828.11675-1-germanpapulindez@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 9196d4447cd0c8e3597aa7400bc62f11c2160366
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C3PKcs1G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACD071F000FF;
+	Sat, 26 Sep 2026 18:06:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790445972;
+	bh=wYYaiwkOPUjr+j4UaQRgxxzscg0L0EnuNJCXdqEfXQA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C3PKcs1G4z0FBX4/p60m8PgMsiYXohlNrKywBMGRldUPqllqJx0F14cckjHQvfkG8
+	 QCW+MZ5gc3DA1+BJteWB9rZx/KBR1o/BTKZkhAbaJwZ5LAf6aHKvt/XCSEF3WtqQQ6
+	 on5j+9CYViLcFfz0F+OTSvy8Lc1eXPnmkQyP64+tpawKHo0+KdG6dntzT8pU/XWgcp
+	 Fy25Fuz46gPGN+/NavM4wGEmi3M3Cqzf9AEEqk/S/1xp2OS5aW1m2YqZnyTUdYJshq
+	 xipS//mCqGJk+0DVEmnG/7MK9EqtWjtMf4rAZEJn8GVQX4R7xb6amKddJagXh/ISBY
+	 F7si8ncPH5aHQ==
+Date: Sat, 26 Sep 2026 19:06:07 +0100
+From: Conor Dooley <conor@kernel.org>
+To: linux-kernel-dev@aliel.fr
+Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: pwm: amlogic: Add core clock for T7
+Message-ID: <20260926-landless-prowess-df404db4d910@spud>
+References: <20260925-add-t7-sys-pwm-clk-v2-0-f23a22b71a5c@aliel.fr>
+ <20260925-add-t7-sys-pwm-clk-v2-1-f23a22b71a5c@aliel.fr>
+ <20260925-facial-follow-032de22361c1@spud>
+ <8e23838a-da5e-499c-a8be-3e2a7a0939e7@aliel.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LVLyBwFl5JS2r2Gm"
+Content-Disposition: inline
+In-Reply-To: <8e23838a-da5e-499c-a8be-3e2a7a0939e7@aliel.fr>
+
+--LVLyBwFl5JS2r2Gm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-German,
+On Sat, Sep 26, 2026 at 11:43:20AM +0200, linux-kernel-dev@aliel.fr wrote:
+> On 9/25/26 6:41 PM, Conor Dooley wrote:
+> > On Fri, Sep 25, 2026 at 05:13:28PM +0200, Ronald Claveau via B4 Relay w=
+rote:
+> >> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> >>
+> >> The T7, A1, C3, and S4 PWM controllers have a system clock in
+> >> addition to the two input clocks of channels A and B.
+> >>
+> >> The channel clocks are acquired by index in the pwm driver,
+> >> where the core clock is fetched by name, with optional get
+> >> which is silent when not provided.
+> >>
+> >> Require clock-names and minimum 3 items for T7, where the
+> >> PWM devices do not work without all 3 clocks.
+> >>
+> >> Add an example showing T7 usage with its fallback to
+> >> amlogic,meson-s4-pwm.
+> >>
+> >> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> >> ---
+> >>  .../devicetree/bindings/pwm/pwm-amlogic.yaml       | 33 +++++++++++++=
++++++++--
+> >>  1 file changed, 31 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/=
+Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+> >> index c337d85da40f1..59320f288552b 100644
+> >> --- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+> >> +++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+> >> @@ -62,7 +62,7 @@ properties:
+> >> =20
+> >>    clock-names:
+> >>      minItems: 1
+> >> -    maxItems: 2
+> >> +    maxItems: 3
+> >> =20
+> >>    power-domains:
+> >>      maxItems: 1
+> >> @@ -140,13 +140,34 @@ allOf:
+> >>      then:
+> >>        properties:
+> >>          clocks:
+> >> +          minItems: 2
+> >>            items:
+> >>              - description: input clock of PWM channel A
+> >>              - description: input clock of PWM channel B
+> >> -        clock-names: false
+> >> +            - description: gate clock for the PWM controller
+> >> +        clock-names:
+> >> +          minItems: 2
+> >> +          items:
+> >> +            - const: channel-a
+> >> +            - const: channel-b
+> >> +            - const: core
+> >>        required:
+> >>          - clocks
+> >> =20
+> >> +  - if:
+> >> +      properties:
+> >> +        compatible:
+> >> +          contains:
+> >> +            const: amlogic,t7-pwm
+> >=20
+> > Shouldn't this (based on your reply on the previous version) be s4?
+> >=20
+>=20
+> The change above is for S4 and SOCs which fallback to S4. It allows the
+> third clock but let the schema validation compatible with two clocks
+> existing DTS. Here for the T7, I add requirement for the exact 3 clocks.
+>=20
+> Do you recommend to require the 3 clocks for all S4 and S4 fallback, and
+> update the associated dtsi files ?
 
-Thank you - for building v7 on 7.3-rc4 with the two-line change, for
-putting it through qcam, Firefox and Snapshot on the CPU and the GPU,
-and for the Tested-by.
+Yes, I think so. Sounds to me like they only work because of the
+CLK_IGNORE_UNUSED set in their clock controller drivers, so the correct
+thing to do is make them all require the third clock.
 
-I rebuilt libcamera 0.7.2, your version, with its stock tuning, and
-checked your three points on it.
+Chers,
+Conor.
+>=20
+> >> +    then:
+> >> +      properties:
+> >> +        clocks:
+> >> +          minItems: 3
+> >> +        clock-names:
+> >> +          minItems: 3
+> >> +      required:
+> >> +        - clock-names
+> >> +
+> >>    - if:
+> >>        properties:
+> >>          compatible:
+> >> @@ -182,3 +203,11 @@ examples:
+> >>        clocks =3D <&pwm_src_a>, <&pwm_src_b>;
+> >>        #pwm-cells =3D <3>;
+> >>      };
+> >> +  - |
+> >> +    pwm@60000 {
+> >> +      compatible =3D "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
+> >> +      reg =3D <0x60000 0x24>;
+> >> +      clocks =3D <&channel_a>, <&channel_b>, <&core>;
+> >> +      clock-names =3D "channel-a", "channel-b", "core";
+> >> +      #pwm-cells =3D <3>;
+> >> +    };
+> >>
+> >> --=20
+> >> 2.49.0
+> >>
+> >>
+>=20
+>=20
+> --=20
+> Best regards,
+> Ronald
 
-1. The slow start is real, and it is two things. Since v6 the driver
-   starts at the minimum exposure, four lines, as Sakari asked in review,
-   and 0.7.2's AGC climbs from there in small steps: 0.7 ms after 6 s,
-   17 ms after 13.5 s, and on the GPU the picture stays grey for about
-   the first ten seconds. And libcamera has no helper for this sensor, so
-   it takes the gain code for the gain - a code of 17 is 1.02x on this
-   sensor, not 17x. I sent libcamera a helper on 31 August, which also
-   gives it the black level; it has not been reviewed yet:
-   https://patchwork.libcamera.org/patch/28155/
+--LVLyBwFl5JS2r2Gm
+Content-Type: application/pgp-signature; name=signature.asc
 
-2. The mirroring is the reverse of what you saw on v3 on the 10th, when
-   Snapshot was the odd one out, and it is the driver that changed. Up to
-   v5 it mirrored every frame in its register list; since v6 it delivers
-   the image as the lens forms it and leaves mirroring to HFLIP and
-   VFLIP. Whether a front camera's preview is shown mirrored is then up
-   to the application, and the three you tried decide differently.
+-----BEGIN PGP SIGNATURE-----
 
-3. The lines are there on 0.7.2, on both cameras, and only on the GPU
-   path: the front camera's GPU output carries blue and yellow stripes
-   about 25 pixels apart across the whole frame, the rear camera's blue
-   lines at fixed rows (311 and 791 of 1920x1080). The CPU path shows
-   none of it, on either camera, same scenes. The pattern is fixed in
-   the frame, so anything moving across it shows it. It is libcamera's
-   GPU debayer, not the drivers - its issue #351:
-   https://gitlab.freedesktop.org/camera/libcamera/-/issues/351
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCargJjwAKCRB4tDGHoIJi
+0hGlAPwPcQT485NFPVpsmaLttMgeXLihgXcxvovjhjL6RFevHAEAhbpFtA4RAfsa
+N/8aLtpv423553Psdr1Wrc70RFZcTwA=
+=Qo82
+-----END PGP SIGNATURE-----
 
-   The shader fix proposed in that issue removes both here. Measured on
-   0.7.2 with and without it, same scene: the stripes and the fixed rows
-   are gone and the GPU output is as clean as the CPU's; only the
-   frame's first rows stay off. It is a one-file patch against 0.7.2,
-   linked from the issue - if you can rebuild libcamera, it would be
-   good to know whether it clears the lines on your machine as well.
-
-   You saw them on the CPU as well. Snapshot, and Firefox through the
-   camera portal, run libcamera inside PipeWire, which does not see
-   LIBCAMERA_SOFTISP_MODE set in a shell - could that test have run on
-   the GPU? qcam started with the variable set is certain to be the CPU.
-
-Sergey
-
+--LVLyBwFl5JS2r2Gm--
