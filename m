@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7163890E4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5019939A7F6;
 	Sat, 26 Sep 2026 08:41:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790412094; cv=none; b=pR2J/CXsiJU1ATQKlQvzbR2wCcWiuRr7MIGVysGceu4WJBmEHsXJyF7b/TMKqlrqW79I5MHzlwqFYMjITwQVDRv2xsSlD72M2/Tn8FwFi2xQf2vlWlzbzw9yxGwCMoG0SxtNK4B3F8i3LIHedFbruXUxm18KvI5HsPpkIIo9AZs=
+	t=1790412094; cv=none; b=KugojvAK8SqNu79nvQlQP2c6y9NKlSGpMfsY3X+v4cX9k44qMHdjy8fONxe7LqrnEGBGDIh2Kn8A7pQvI+j+U4+0frDTdYqxN3Phw7uXlblgIsjCGH5BHI0HTuKRvzUF4t4enDgyrUgQjp0QXBcKqb6aIuMwZfYFbyS5mmX9ZdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790412094; c=relaxed/simple;
-	bh=LLm+ZqSNsynAo06tkRic+CA/iWyG5WOhtBzQj8B/x/A=;
+	bh=g+EB1wjoNEnqjJC3WrqySm0REtyLNj4JLPDu4gJwruw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=laGZOUd9gZQCpXssxuf53V3wlWVereHjkjRxG+W4pqJSH+WcDVYqkanLtHpXqIxeFzCPyKbWeWtfoZfZfgEkyu/OaGUXLzEMZiGsh/j8yQ5XsGPjdMbLFEgXZhecXApLzWPO6YIGP40M7DC3xX2eDQLZjiJ4oK05FcHS7QfjggM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=he1vvRNG; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=CtzespSxSTJ0ZvzvPyuFuRl9VdYwdquT752bb0blvmK3RV3QTYRDLcJ4O5l/f5jU75RCQOEgiYtSWk6WQr/QL2cNaPJCxMw/BMxCKG14ZVskf5G7aVWMoNERNSn7g65eYEmQ4DaQpbLBkr/i6Vkg0Ipsxar9Z5mU8BxGsvan/SQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o3WUf6qq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="he1vvRNG"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 06255C2BCF7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o3WUf6qq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0EE61C2BCFB;
 	Sat, 26 Sep 2026 08:41:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790412094;
-	bh=LLm+ZqSNsynAo06tkRic+CA/iWyG5WOhtBzQj8B/x/A=;
+	bh=g+EB1wjoNEnqjJC3WrqySm0REtyLNj4JLPDu4gJwruw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=he1vvRNGkn5DlMFl5GsnuJpNCapRTZ96799htAfwyX47hZkzkE8MfPcnV+MCdCpWn
-	 AQRxxmPMtThYy+Bhh2uNoaD+pqVx41XG1IJG9giUnRrODPBZtyLNvmiCeRdlUy3rdp
-	 0qMwj14/ILwGVvv16/1qxTQF5bNJ3LJvd4ZseK1sXBaBj9/mbmbElOs3FDKnTSkAKT
-	 pMBecNoyJv4tFxxUy/koW4dLKMSppNpvsty1DneV5UtUeTeQxr+o/rqwZag1MmuHyh
-	 Ebu2LB8l7qbow+FqJQvRn5s6cEeKmPNjEk+T82hj+UseAUUA/Z9kM9ySLeDYJgxNiO
-	 tbNZg8SnVDncQ==
+	b=o3WUf6qqt1231F7jLTR/ZAbjJzR9whaLIixfreDh9GojMEGAbU2tsxpJReUvxOzEy
+	 fA69UOcV/hEksoiYsliulvR6lp8UfYG+mS+/gqK5CIC4wRrMvIu3UzEdvHby8ZLZnP
+	 CcPuJMjgQzT97N0khX4y4tCnQ58nyQLtoNoMwcA8HJqoCwPUMM7YGw676SUXq/vKix
+	 UH/iO6hqhtKV31EBAVlYO+BbVY7ajQ6lNAGr/21MMi1mY2YcDVdic1T/X7ZGcbMHcQ
+	 ytI9KKS7w55DbWIjUv7Q39ekbjhN8hqv1oOjCE0654aaVpAdz6RBgbqMxsxz1nhvRm
+	 PURj+2YFVRsog==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9A08C98318;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E7DA7C98328;
 	Sat, 26 Sep 2026 08:41:33 +0000 (UTC)
 From: Sam Day via B4 Relay <devnull+me.samcday.com@kernel.org>
-Date: Sat, 26 Sep 2026 18:41:32 +1000
-Subject: [PATCH v5 1/3] arm64: dts: qcom: sdm670: add default uart pinctrl
- nodes
+Date: Sat, 26 Sep 2026 18:41:33 +1000
+Subject: [PATCH v5 2/3] arm64: dts: qcom: sdm670: add debug uart soc node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-1-db74ff64a7e7@samcday.com>
+Message-Id: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-2-db74ff64a7e7@samcday.com>
 References: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-0-db74ff64a7e7@samcday.com>
 In-Reply-To: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-0-db74ff64a7e7@samcday.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -55,11 +54,11 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
  Sam Day <me@samcday.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790412092; l=5952;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790412092; l=1396;
  i=me@samcday.com; s=20240502; h=from:subject:message-id;
- bh=hUNBmM8bvKT0yQH74K4n83NfYx+CXMZCZPR8Oii1LAM=;
- b=+XOS3tpF0pNO7nb/Hy8axf5ILTuwICauA8ye8Qh8t+2gOqac60evnXsR6OXvS8SlZ6lbLLVSd
- Dt4rUDomL9IAEIbKVOnkklj5xEAOXhlGgKC3oDEieCNNMsZHlHK5yVE
+ bh=9CQfuWOlFNnOp0D4+o8CnpcPvZdqy3Z04YUVtMuwdKs=;
+ b=YI68qATKfOBH+HfpdAGyr8KMA3c3iHD58TG9YQ7dUzyFtTZbWrST7TyAbnBtw0tGCaMpTXRu4
+ oF+eyJTGSw5AsQpPc1O3L+Sz/7heNBoJniybw0EjNXPSV6gV7x5wVRc
 X-Developer-Key: i=me@samcday.com; a=ed25519;
  pk=bzyS0akxWMqr9+AXzgBRIp28KKpEOs+GjYMc2yf+aeU=
 X-Endpoint-Received: by B4 Relay for me@samcday.com/20240502 with
@@ -69,285 +68,42 @@ Reply-To: me@samcday.com
 
 From: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
 
-This is a pre-requisite to enable UART in sargo and bonito. Values for
-the pins have been taken from sdm845, and cross-checking dowstream,
-where available.
+Values are taken from the other geni nodes
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
-[sam: drop the tx/rx subnode labels, add drive-strength/bias-disable]
-Assisted-by: LLM
 Signed-off-by: Sam Day <me@samcday.com>
 ---
- arch/arm64/boot/dts/qcom/sdm670.dtsi | 256 +++++++++++++++++++++++++++++++++++
- 1 file changed, 256 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm670.dtsi | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm670.dtsi b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-index 5c60ea36f04a1..09e9d5afa6f65 100644
+index 09e9d5afa6f65..966ad40ea61df 100644
 --- a/arch/arm64/boot/dts/qcom/sdm670.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm670.dtsi
-@@ -1343,6 +1343,262 @@ qup_i2c15_default: qup-i2c15-default-state {
- 				function = "qup15";
+@@ -1060,6 +1060,21 @@ i2c12: i2c@a90000 {
+ 				status = "disabled";
  			};
  
-+			qup_uart0_default: qup-uart0-default-state {
-+				tx-pins {
-+					pins = "gpio2";
-+					function = "qup0";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio3";
-+					function = "qup0";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
++			uart12: serial@a90000 {
++				compatible = "qcom,geni-debug-uart";
++				reg = <0 0x00a90000 0 0x4000>;
++				clock-names = "se";
++				clocks = <&gcc GCC_QUPV3_WRAP1_S4_CLK>;
++				pinctrl-names = "default";
++				pinctrl-0 = <&qup_uart12_default>;
++				interrupts = <GIC_SPI 357 IRQ_TYPE_LEVEL_HIGH>;
++				power-domains = <&rpmhpd SDM670_CX>;
++				interconnects = <&aggre2_noc MASTER_BLSP_2 0 &config_noc SLAVE_BLSP_2 0>,
++						<&gladiator_noc MASTER_AMPSS_M0 0 &config_noc SLAVE_BLSP_2 0>;
++				interconnect-names = "qup-core", "qup-config";
++				status = "disabled";
 +			};
 +
-+			qup_uart1_default: qup-uart1-default-state {
-+				tx-pins {
-+					pins = "gpio19";
-+					function = "qup1";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio20";
-+					function = "qup1";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart2_default: qup-uart2-default-state {
-+				tx-pins {
-+					pins = "gpio29";
-+					function = "qup2";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio30";
-+					function = "qup2";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart3_default: qup-uart3-default-state {
-+				tx-pins {
-+					pins = "gpio43";
-+					function = "qup3";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio44";
-+					function = "qup3";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart4_default: qup-uart4-default-state {
-+				tx-pins {
-+					pins = "gpio91";
-+					function = "qup4";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio92";
-+					function = "qup4";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart5_default: qup-uart5-default-state {
-+				tx-pins {
-+					pins = "gpio87";
-+					function = "qup5";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio88";
-+					function = "qup5";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart6_default: qup-uart6-default-state {
-+				tx-pins {
-+					pins = "gpio47";
-+					function = "qup6";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio48";
-+					function = "qup6";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart7_default: qup-uart7-default-state {
-+				tx-pins {
-+					pins = "gpio95";
-+					function = "qup7";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio96";
-+					function = "qup7";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart8_default: qup-uart8-default-state {
-+				tx-pins {
-+					pins = "gpio67";
-+					function = "qup8";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio68";
-+					function = "qup8";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart9_default: qup-uart9-default-state {
-+				tx-pins {
-+					pins = "gpio4";
-+					function = "qup9";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio5";
-+					function = "qup9";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart10_default: qup-uart10-default-state {
-+				tx-pins {
-+					pins = "gpio53";
-+					function = "qup10";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio54";
-+					function = "qup10";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart11_default: qup-uart11-default-state {
-+				tx-pins {
-+					pins = "gpio33";
-+					function = "qup11";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio34";
-+					function = "qup11";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart12_default: qup-uart12-default-state {
-+				tx-pins {
-+					pins = "gpio51";
-+					function = "qup12";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio52";
-+					function = "qup12";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart13_default: qup-uart13-default-state {
-+				tx-pins {
-+					pins = "gpio107";
-+					function = "qup13";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio108";
-+					function = "qup13";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart14_default: qup-uart14-default-state {
-+				tx-pins {
-+					pins = "gpio31";
-+					function = "qup14";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio32";
-+					function = "qup14";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			qup_uart15_default: qup-uart15-default-state {
-+				tx-pins {
-+					pins = "gpio83";
-+					function = "qup15";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				rx-pins {
-+					pins = "gpio84";
-+					function = "qup15";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
- 			sdc1_state_on: sdc1-on-state {
- 				clk-pins {
- 					pins = "sdc1_clk";
+ 			i2c13: i2c@a94000 {
+ 				compatible = "qcom,geni-i2c";
+ 				reg = <0 0x00a94000 0 0x4000>;
 
 -- 
 2.55.0
