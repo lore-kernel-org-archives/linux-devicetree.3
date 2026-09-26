@@ -1,112 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5057D3A2E00;
-	Sat, 26 Sep 2026 08:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9163E3A63F3
+	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 09:27:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790412094; cv=none; b=HZFmAOWfvPSKo2nM6MKTJar6pLw0Rkjv3YSFJWezW2FEYcwrPwR8ucr/tLlxMxNwH1tz+Gftfm/iFrv5BCMKef/EwEzV+iToGSOc3vpp0i56RazB2y+bo9Ro5kvBb+EIgyaIsgQqD0KJhal2movhYXnHNhDh/trxA32/LZLIGW0=
+	t=1790414860; cv=none; b=vFTP2ZCicQFebTTexnvqJthezH5OlynrmI7w/nBmA3vpboC4FVj2nlO1/qe9Fd9n8JM3sNDsUnAUA4Ky6S0cydfLvFAdzgzQ+iW8AVs4xN4mhxpeuI6wlBcfsmnMvoX7Q+i0SKjEYyhKLnlUFa5GBsRZIfqgZm10s2yqm6ZhhAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790412094; c=relaxed/simple;
-	bh=+U9/w5AoIy43URp6QkdXdBTkBCIkzB7HlS6qAzlR47M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DRZ/qFStXZE8afGaE7EEjIfgP9NQU8FmJPpQRxw5QThBv+HccGbP2ZwYlMHRMl/4fAqedNy8kgUXazTp7g9S4OQlmUzqQ5pVSYxVMzRzT5mRzsqd0ikPSfvCKwa7IK7NX9ymkNBMiPWrZjpcNz/jt69670Z8KRewnS6OyAQZW54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KxfUrhr9; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790414860; c=relaxed/simple;
+	bh=LPm95XpnLeXQybjSBPGU+TvJ2dM+a6JBCBNVIAJlkKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Kqm8GyY4xLPahy34AwZSxaCZl6JweWXmPNuKhDnV9QqDdvhyoBLrGQttVO24uwJJGctABIOmslZv9vOzjxoHjuFqs19QBoLYHNFFDksBImCp1YTM6yOAKyFlhGdtV017DNj8+tm4skM4cOFd4y5jAvGAqOms7ouUANpd2952rAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m6ikRdh6; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KxfUrhr9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 19BD1C2BCF4;
-	Sat, 26 Sep 2026 08:41:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790412094;
-	bh=+U9/w5AoIy43URp6QkdXdBTkBCIkzB7HlS6qAzlR47M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=KxfUrhr9aNYVnJ9Q6SCMgc7Ag6neQqQr/k4qWK3KwwTmvXHODv0gPwVjt0G1iBPMv
-	 cqhrLxLaOxpAtKZGVsJwDAxqmvsNWOi69Uy7OaIMOoMnxgLAQTysE7doQdkiuhM+iS
-	 qTnktZKBd0KWZNChsq0+Ucz2dwdqnF1d15Q/g+dAc78pGqNnsYBuHQ7DMzjv1Ae1Wz
-	 /ZbgajXhG3k6VZ1he7gzn0zzuS5wDTADU29lyqHtLIyE1ENxcSVsX+us561YNzD3bI
-	 tD8TfU5jLj8WYOzQ+i3aN+sHNuKObaIIJWgBnuvDnXegCBnopwuIx7xHLQJze+A0rz
-	 j4Zw7v5Vg7Xxw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02D3CC98338;
-	Sat, 26 Sep 2026 08:41:34 +0000 (UTC)
-From: Sam Day via B4 Relay <devnull+me.samcday.com@kernel.org>
-Date: Sat, 26 Sep 2026 18:41:34 +1000
-Subject: [PATCH v5 3/3] arm64: dts: qcom: sdm670-google-common: enable
- debug uart
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m6ikRdh6"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e83a388f8so11282985e9.1
+        for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 02:27:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790414857; x=1791019657; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WfhSiXHQRTZVo3RbQYIEvZbWb2gG5Hiz9roKfYWz+ac=;
+        b=m6ikRdh6FBJNJMOpoyGR6P8xdOm/kNjIv+x7ZxyMmdcDvhZJzGaJd30IfD44Gfp7lC
+         uclK2ihC7lovaT472q+FrL9BwqCUm8g7CDsiyrLbhb40Cotn6PE0wP8/dEsNo7A5KVdO
+         MjufvcwsPrs6mBxuzGloni2lujJNPhDxbTMSmt+Y0pdOfgcF8Yxm7CKnuGhZJjn2QGLR
+         TwvpRCsz4ZT0ayG9pBAqWcyAmv/S0TvXuuPpC3grIQjZbHVAeOlQC9YwtnwSooLjxwKX
+         59HiZUHIgNCElw9xCEFPQ3Km7M4/3atkIGM/acmZu0SLJ4Y5oQmxPk+dHrz92cGb8uR7
+         5IMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790414857; x=1791019657;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WfhSiXHQRTZVo3RbQYIEvZbWb2gG5Hiz9roKfYWz+ac=;
+        b=NLUbwgLfBrxdH4qWIpvzzGwbN/YUAcVWLwccK57zU8F3iV0/7ybzis5VexqMEKE2qv
+         Z/aETPJU6pmzj3FyE9MqIRohXi4eHaSDGRgfk7276lhTHK0vRIa8cx+KbXGdJnjTRWHJ
+         UjXa3IFwl+GoG40Xk+ioV9eG6thW4deAYar1lh4umB+aO6uOJLp9mxZt2ZAGqCN3hg0T
+         zVBXo7cW7blGaEKKl4qmV9j3YkBPrlbRhUQNjHRZ/qk6jhWTszFl86LbZ+jAlez3ylb6
+         jQSMgb0CuYz6LHUVgOImWTFLYC15O6PoXuN756E65lkKoCxzSbuiwpNd1YgWmqZCAEu0
+         vnyA==
+X-Forwarded-Encrypted: i=1; AKwUvByKFGS4ieh+4bv7unGki2zRyX9sAI+RjHtlM2HxOjYX3uzNxGUpQTOqjvS2/bCKZqYjXH4yfu6OukD7@vger.kernel.org
+X-Gm-Message-State: AFuF++moeqtoQJXOS7A/MTlSI2Z9WYL5zSP+jeo8X0Pu05RIQuc3ZEf3
+	4lw/eVBIzXB9WLpiDxryeIhuEAnG139dBjnKUNKAw22RI/JYzZSxgrM0
+X-Gm-Gg: AYBFou1qb+4xaOTs/gTU9RVQtPIhz9VeRgefLUZ1W+nCHF6tdB6/t3j1j+nLcOwrKs7
+	VE6wrUOo3MttwDDCMg7jZcHXZSLwDCo+95VcuJ5B/tvVB3XdFlyDliIzkQebIm8xP0svcDQbsGg
+	BX+9o1TtbF3kR2056Atw3k7w7XiPa01n6nBQaF3KifygLSZJQfhOj+KaILGT3ZNUWy7u7AidiES
+	NOVuwTGhl6fAOYIZzJdc+rlEYJZJ8y1n3Umcg84FUnYM1fQ1op1VhB529/CQIaYP6Wi9G3rMoOP
+	OfpUJsFwNmF0njd3AZ5hCjKzmxvXcnSgDzueHNda5EumXNLwPf+bX+/ypTq0gxG590mMG0q5xS1
+	YsPZSg1PyRhX3KHplEbO4SAW51KK/IgshkRKWy3GXB+WSSf6zXo/iF4+zQVgeZD56SEw32JGh5P
+	LiXL2vPrKJVev9zJsKGTU/tpOeIHnDE3xlXubySiVg4UQ0yHQvfHlcjYNLX80F0Bx4cJHZ2EFe3
+	V63yjVWpeJAzGx7TM12Dn/yxfaqD952eAFeEb/JrT9spPR3dZUg2Q==
+X-Received: by 2002:a05:600c:4e49:b0:49d:1cc7:5ec3 with SMTP id 5b1f17b1804b1-49fe66d456cmr137424985e9.9.1790414856635;
+        Sat, 26 Sep 2026 02:27:36 -0700 (PDT)
+Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ff06bdef2sm119604705e9.11.2026.09.26.02.27.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 02:27:36 -0700 (PDT)
+From: German Pablo Lindo <germanpapulindez@gmail.com>
+To: lsa.uz@pm.me
+Cc: andre.gilerson@gmail.com,
+	conor+dt@kernel.org,
+	dan.scally@ideasonboard.com,
+	devicetree@vger.kernel.org,
+	germanpapulindez@gmail.com,
+	hansg@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com,
+	sashiko-bot@kernel.org
+Subject: Test for [PATCH v7 0/3] Add support for the Sony IMX681 camera sensor
+Date: Sat, 26 Sep 2026 11:27:30 +0200
+Message-ID: <20260926092735.11605-1-germanpapulindez@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923211816.89954-1-lsa.uz@pm.me>
+References: <20260923211816.89954-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-3-db74ff64a7e7@samcday.com>
-References: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-0-db74ff64a7e7@samcday.com>
-In-Reply-To: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-0-db74ff64a7e7@samcday.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>, 
- =?utf-8?q?Pablo_Correa_G=C3=B3mez?= <pabloyoyoista@postmarketos.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Sam Day <me@samcday.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790412092; l=1026;
- i=me@samcday.com; s=20240502; h=from:subject:message-id;
- bh=4t9TyOvqm1xc8L6ZKobS6WwoS/3BC2akDdnkT3vrAH4=;
- b=a1Q+xMLta01WnB0B9K5UPih450rSeVSbYPH7iumYaFjpaxqi9ysbCqh0Ni3g867P7KW0LxBIg
- tlnfY6nB0ZmA14QlfotxzQyUM9yaf1BQAmMAeLJO8vUQtXwO0Q+jlZJ
-X-Developer-Key: i=me@samcday.com; a=ed25519;
- pk=bzyS0akxWMqr9+AXzgBRIp28KKpEOs+GjYMc2yf+aeU=
-X-Endpoint-Received: by B4 Relay for me@samcday.com/20240502 with
- auth_id=595
-X-Original-From: Sam Day <me@samcday.com>
-Reply-To: me@samcday.com
 
-From: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
+For this test im using every component and program used to its latest version available in the stable chanel (the only exception is the kernel, wich is 7.3-rc4): mesa 3:26.2.3-1 libcamera 0.7.2-4.1
 
-This has been tested on the Pixel 3a with USB Cereal board
+After applying the necesarry patch that deletes the line "const struct v4l2_subdev_client_info *ci,", the kernel compiled correctly whith the patch applyed
 
-Signed-off-by: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
-[sam: drop the board-level tx/rx pinconf and stale Depends link]
-Assisted-by: LLM
-Signed-off-by: Sam Day <me@samcday.com>
----
- arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index b4854801a5f5e..79d66fd2d6e41 100644
---- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -26,7 +26,9 @@
- /delete-node/ &gpu_mem;
+I made a thorough investigation of the camera and came accross the following problems that affect the camera using the CPU or GPU
+ 1) The first startup uf the camera is somewhat slow, it starts from a grey image and then slowly starts to recover the color of the room
+ 2) The camera is horizontally mirrored in qcam and Firefox but not in Gnome Snapshot ¿maybe the camera has a mecanism that Gnome Snapshot uses for the correct horientation?
+ 3) There seems to exist a bug in wich, if there is an object that moves fast in the capture zone (like for example, a hand or a person), blue and yellow lines appear in the area in wich the object moves. This problem does not only affect the front camera (IMX681), but also the rear camera (OV13858). This issue is present both in GPU and CPU mode, but the error seems more prominent if the object exits and reappears in the capture zone and while the camera is starting up in the first use, This error is also visible if the GPU is used and if you put an objet close to the camera (for example, a white sheet of paper) ¿Maybe is caused by the ligth the camera recieves?
  
- / {
--	aliases { };
-+	aliases {
-+		serial0 = &uart12;
-+	};
- 
- 	battery: battery {
- 		compatible = "simple-battery";
-@@ -693,6 +695,10 @@ ts-switch-pins {
- 	};
- };
- 
-+&uart12 {
-+	status = "okay";
-+};
-+
- &usb_1_hsphy {
- 	vdd-supply = <&vreg_l1b_0p925>;
- 	vdda-pll-supply = <&vreg_l10a_1p8>;
-
--- 
-2.55.0
-
-
+ The GPU debayer is still broken but i do not have the knowledge or time to identify the root cause, make a solution, create the report and send it to the corresponding place
