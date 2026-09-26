@@ -1,116 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic.asd.mail.yahoo.com (sonic-asso1-0020.asd.mail.yahoo.com [34.2.90.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF7A23E342
-	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 15:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D64D43B6CE
+	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 15:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.90.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790435216; cv=none; b=iNPtNny3sA7Yf8EpECmVDbh0HxFY1QK15MWk/1vhAu2fNKP8D1HpQEBYaldq3UhtpJvRH2YvxIpznvw+H2Z0GYqpF6AxV4JjwS3n2HC09VJc1eTpKQ1wvuqdiqpt6JWkn3OxcqDrEDMW2+AzzjIh2WHbYZlAT3nq0GNmUw+GfiU=
+	t=1790437313; cv=none; b=Nf4rBIDvDl7izXb2qa2K0tMRINpD1AdOu25S5Dnut8QvNCXgvp1oM/keIUUcRpORwQXVo/AlF0WI4muLmLyso1PNLufMSYzH1QkxEDdEibeImH/MVRl9g+J0N+fX3OWi6Mco91knbINzMRxEwD2MNkEvw+vwJyHe3h+5ZRkAq0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790435216; c=relaxed/simple;
-	bh=+fpkm6eyoVX6ZvIevCuOMov0HOT2iUQuoIb8bNrNTsM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DC7YZli+LohhZl7w/vCyGP4GGDOzAaipJek1SIe0d8MMRg2fUPFuk/l1vlDrrgY/2l1u96hs/aGwg2wcB+a8cv0Sxw7MzWJ1Wz99qzXFvGq0oFz+mTBo1+5QoAHGoTE6fcSV5o17e/FownbVZyzkwnMFs8M49FSpw9mvwm4uiUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bNbtMQDV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790437313; c=relaxed/simple;
+	bh=boRhzYo1vp8mJ62ZfBPoq8DB5FEW2n1uhxYfp1n55Rw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=QlxanQyZYfMKqCPhYpO42iE2MmoPA8foYxdv5CHudYj2E/25D90oI6Tx/aoQBfYF5cwXQjK79EcSJ1j9S0nB4xznpT+5w01mRYzF1LnXp/EMMDKGE/ElSE0X/fvATfDDrgbVDnHE3sZVDL3jbdG2BANZWUmwRfOrKtYSJFBwIEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=Ws+HnoK6; arc=none smtp.client-ip=34.2.90.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bNbtMQDV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28DAA1F000FF;
-	Sat, 26 Sep 2026 15:06:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790435214;
-	bh=Ie73CvqlHPGgRBFQELyPNYX408milOOp2jIUmStEJnc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bNbtMQDV4+cTnO0GIecKNONeRe39WeHXJ1rPY2yU0eRorWcFqlIlFSh5A21S4YZiQ
-	 RhmGxb2CNjgrjDYfBRV+UugCeOXaob8WFLB4X8dV3Y9MWIdx8oyx/p8UTatkQUZ2p8
-	 u01g4WUj8LarW5gkSvxdKRuiSkc9pSJS1OpAPdZN3fQRyLxZfnJfYsbsac7VA9r8b2
-	 CR9/hDMS/hn/BDIIRZv1a/JMmAvQuSioC980SSwvNuUPE94eJ/E9x+NqdOCcSZudje
-	 G7kwLlWPsiZUwj5rEaHCXfN+DD57/okXQzw4odheq7TUUn4bdKoutMgN5hSeGyWS/w
-	 7pRQ+tGipcIJg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] pinctrl: apple: Add t8140-pinctrl support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yureka Lilian" <yureka@cyberchaos.dev>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260926-apple-pinctrl-t8140-v2-2-620bd11cd2a1@cyberchaos.dev>
-References: <20260926-apple-pinctrl-t8140-v2-0-620bd11cd2a1@cyberchaos.dev>
- <20260926-apple-pinctrl-t8140-v2-2-620bd11cd2a1@cyberchaos.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 26 Sep 2026 15:06:53 +0000
-Message-Id: <20260926150654.28DAA1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="Ws+HnoK6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790437308; bh=9qSwSt3Jhiots8IF9hOBrO+8UHsghCYhhmgo8FDqbnQ=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=Ws+HnoK6dctAlBcpznW02e/1l65jh8WGafc8v8CdtM+D6AwgsQ2DAm0oVGWjWsj0MKzfzC+9MozzgOZIcoJ+2eA6TPsdjDkYOLgwsiUhQIqT2CCmiRn/hLMKyr01o+l7YFgVTfqCvjm7Vbsh9EVWyWccgjon/ADIln/Aj3tyVV/3l6AC3rzPjtbEtne/0yAZrF87Wew99bFzJEcQm84WJP7HkqdepMbeESArSbJ7cZ3CSlAZXMbqXaBryRfOxA0bzvQJj4/LdKp0oTqipyVzSFXPeXMF0T21NC6U+jjkNWwe4pjU75Gd3s60uQEetdDc9MHaOQ7bAyAuTU7WJNbfhQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790437308; bh=b/QLxM1ikxnFXij3bFwPMLzFixCbMlMgwZ/Tci6HkJI=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=q/Y7qH6r1VVW9ior3HPpOTdlJiygMgzohizuE21Pbk+y/U3Rs8c8KPPmrReURD/gRyoVKI1M7SLApqjx0fU1Cs25AtR8ftxcmqVIFuCOGdLhKoOS4Df3Jp/V14FtGgV7t1m2XgyHKyyYLDrw+muQowJ1CWAEYa5J4qtLVlef9cGeOBKjCkz5MMocbMoZg8GbeLdMZJgkFzkVxT1sb4IDd9ix1xB3bAStAv/PZDy5Kk511ROPDaXHtwHP5uwuHXX3Pz6YbrUTDROzlzPmQK3a/NUT5KnfY7Q159MNyqHa9BZVBjtrquFuJFK6/nQCgf7/77Txv9o1mxqacA4dYof3hw==
+X-YMail-OSG: BGHCT.YVM1lOcwRtVg2kfdPxfZn7rU5VgCIp4ym2Wp2cktdNKOujmrBn7L2gHDb
+ hfKkLLW1q.hJjLjHU_KkPg.4.YI_._TgZXivhR_Ox15nRGQf1fAjyx7eLLyz3GAo_yoGmIzCBQWC
+ HzgNNgVfoXU2ApIobrKbxTY2Vf3xFE2lTwSiGz1N8UI824WRRuIIR2oz0iRsjLdgDgopDCh4HvSb
+ vrR7zPK49LnIZ93qQjHGRMW7zeM7JrcnHskxb8llxYLX0l.CboXzXUQZl6Oiku5Pd1ZGxzCAot.s
+ Kgji2nNe.Wp3N56fqA.dzc1jyC6hUsIvClHGSdYCcNkTYTB_lYPxMiTVRxb1WdQv.i3eMc3AF.mT
+ .pUrgOLyMxO7_w2LVTdQjW_JNG2jCOfbeLFsB8KgFo3BHFtIIFNfX1cnrI9anXWnxaU3zyX2VAfw
+ VWUdlTxtr.tNiltCQxJXW2vTroPD7LbRlOhIVIJzhe0hwi5NyMhR9wyTOxjxPeaBpi68o7dBu_Wb
+ VIhmihtCnhmkz1R7q01rE9ga6UZ1kb8LSMLuVc8kxIvklUDIwf.2ckEzss9MfvkdDJT8Y05o2kQq
+ 25U8TkEo5GUd5qGO7finkLwY73wuLee62PjhmQQwXL4837BxZ8aqQgTS8Ee20S9F2.3zgX6A1_wM
+ CD9TCDwfihSPkMf3IsKgemHNqJOTqISW3c3Prv0Lt9tNf86Uq8MI8GjGHeE5c_XZ8HeeMFSkfr66
+ FMC6oQm2WVdrMlbeAf34iT2l37Lfhxny.LNVtwaWqfQkiFY0sM1fkeRpHbSZnoiEyERgY2IIlJ2I
+ QVxnlkXLQTihHQWq.rUMbkycGRVLKxz9S_800zD0PntI1d4zggGz3xtIIlURaFwkslo156eC5vW.
+ utT8Cau1dwxyth4cPtF6Yu8Whtg0Ti.tLYaQRFJIe9AuZlw5yKHMHIDxNpH.lbYa_Rd0IBm8gT6o
+ w4bd15NbdP9lZCJJTOp5JEDYzWqcnzNjYr6caf8n8ge2rzZr1q0qN3enHPnlup0NnErGlP7mi2CQ
+ yw8XLYERbwaaSy9CzgUoRsyTDP0dDf5PKNgAiMOvOnHlwBlhQEAtwz2xW0xpLyI54v5YauuV2QKp
+ zQVHJyhA.mNWxsqRdIOE5l0DAnyf5JdlCEwtXQrETeooPzpkD9CPurn7cBXKoves025gxdwLWJ8Z
+ HjCD6PhQuUTmorQ9tP3ZYn09IpJz.YRmcPFjNAG8RO1AXhUPz7nwEHV_AwSQuSbJ.Xce1BYGy1sq
+ qInWGR7KruoHBTaZFLYPSPkXRxEoTgOS0glqivczYg16a3ClQUSoZ3avDxV9NOJ0pIY5D1R0aEgB
+ _0ifefgTZa6jrQ8FNtgpMwQeenMigTnGDmNDsT.7.rKV2OGxbpeYQt.8gqZASqVR.DieHeQBGC_P
+ GHhEz2XVbPjGhFfhHAm1CYX4xtCZnj6vV3ulfFJc2vZmRHFAPFG24ODjBXqT3TPjz5uN0Y.3tgcY
+ K5ab0EX0SUb_mgwUnv_JKbGnIb6a7utxHqaEpnLERf.lP6ty1TPaD304kWAanjk.QRBPfLMD7N.e
+ Yz1rHcUPaSJO5JUJN2Xz1Njt43wGbu_homF8VU9xFx6617toToHDaZimMuCqj58c2CCsenN2Su.i
+ g94ikQ3AnGHgPlTGE_AuYhXvluSbDWMaaVFns4Pt_Vt__bczMeLKyYXmZKiafO_pAh2CYF5aq3vY
+ IM1dBcWmbhxrM21HYHRCSaEzvq5RvdQ5rdvstfinRct7cYKmMw3l9NAV1qW45xpe_0IDRUIjd2tu
+ A2tneTp6CQuljRsrja.MZCn46QPxqQtpX_lyBNJ0p5iYgTQt3C4rCbYZyvH9QQxZjuH4BAlpSEP3
+ Myp1ON77e1Sb46p.ffpr6Q47t93_MyWcLZ2niszRafSs1uP9fEnDRVmEguPxK4F7.2r.Ej4Qh_cG
+ gWuHljCR.ErWjz2vk84xxc2oFLVjGULl9._26uFX5P6V8DfTGEOtie5YZswgCu_g1hNmn.UJ9yus
+ RtiWdQCezoMq4N9yHagCpnkZE3Yt3CcPE4YutZZmhDrfh
+X-Sonic-MF: <m.abubakar365@yahoo.com>
+X-Sonic-ID: b341e838-f06f-4747-99c5-1f8e428b1fc5
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-asso1-prod-sonicconsumer-svc-102 with HTTP; Sat, 26 Sep 2026 15:41:48 +0000
+Received: from dip33.lsn.bf1.yahoo.com ([67.195.177.42])
+          by hello (SMTP) with SMTP ID 46afa743fbae7daefe6e6367ec9b72bd;
+          Sat, 26 Sep 2026 15:41:44 +0000 (UTC)
+From: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Subject: [PATCH v3 0/2] iio: pressure: add Sensirion SDP31 driver
+Date: Sat, 26 Sep 2026 20:41:16 +0500
+Message-ID: <20260926154118.5471-1-m.abubakar365@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+References: <20260926154118.5471-1-m.abubakar365.ref@yahoo.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] pinctrl: apple: NULL pointer deref in apple_gpio_set_reg() due to =
-lazy init
-- [High] pinctrl: apple: unhandled ERR_PTR from failed regmap init causes c=
-rash
---
+This series adds support for the Sensirion SDP31 differential pressure
+sensor, an I2C device that also reports temperature.
 
-commit e83219f35e40fdd986984c342182dca31136d937
-Author: Yureka Lilian <yureka@cyberchaos.dev>
+The SDP31 uses a completely different I2C command protocol from the
+already supported SDP500 (command-triggered measurements with a per-word
+CRC-8), so extending the sdp500 driver does not make sense. No compatible
+parts from other vendors were found.
 
-pinctrl: apple: Add t8140-pinctrl support
-   =20
-Ensure the regmap does not attempt to read REG_GPIOx of any of the pins
-marked with gpio-reserved-ranges. For this purpose, move the regmap_init
-just before the first regmap_read, at which point the valid_mask has
-been populated from the gpio-reserved-ranges device tree property.
+Patch 1 adds the device tree binding.
+Patch 2 adds the IIO driver, which exposes differential pressure and
+temperature channels and validates each measurement using the sensor's
+CRC-8 checksum.
 
-> diff --git a/drivers/pinctrl/pinctrl-apple-gpio.c b/drivers/pinctrl/pinct=
-rl-apple-gpio.c
-> index 6305b96aaa733..6b26a23d283c5 100644
-> --- a/drivers/pinctrl/pinctrl-apple-gpio.c
-> +++ b/drivers/pinctrl/pinctrl-apple-gpio.c
-[ ... ]
-> @@ -90,6 +98,13 @@ static u32 apple_gpio_get_reg(struct apple_gpio_pinctr=
-l *pctl,
->  	int ret;
->  	u32 val;
-> =20
-> +	if (!pctl->map)	{
-> +		pctl->map =3D devm_regmap_init_mmio(pctl->dev, pctl->base, &regmap_con=
-fig);
-> +		if (IS_ERR(pctl->map))
-> +			return dev_err_probe(pctl->dev, PTR_ERR(pctl->map),
-> +					"Failed to create regmap\n");
+The driver was developed and tested on an SDP31 wired to the I2C bus of
+a Raspberry Pi 4.
 
-[Severity: High]
-If devm_regmap_init_mmio() fails here, pctl->map is assigned an ERR_PTR but
-is never cleared.
+Changes since v2:
+- Remove leftover development annotation comments from the driver.
+- Drop the SDP31_TEMP_SCALE define and use the value inline.
+- In sdp31_send_cmd(), separate the declaration of ret from the call so
+  the call sits next to its error check.
+- Add blank lines before the trailing return statements.
+- Wait for the sensor's power-up time (datasheet t_PU) after enabling the
+  regulator, before the first I2C transaction.
 
-Will subsequent calls to apple_gpio_get_reg() bypass this lazy
-initialization check since pctl->map is no longer NULL, and dereference
-the unhandled ERR_PTR in the following regmap_read() call?
+Changes since v1:
+- dt-bindings: make vdd-supply required, and enable the regulator in the
+  driver using devm_regulator_get_enable().
+- Move the MAINTAINERS entry into the dt-bindings patch; the driver patch
+  only adds its own file.
+- Populate the CRC-8 table with DO_ONCE() to avoid a race between
+  concurrent probes.
+- Use devm_mutex_init() and take the lock inside sdp31_measure() using
+  guard(mutex).
+- Build the command with __be16/cpu_to_be16() and parse the reply with
+  get_unaligned_be16().
+- Use a named initializer in the i2c_device_id table.
 
-[Severity: High]
-Since pctl->map is now lazily initialized only in apple_gpio_get_reg(), what
-happens if apple_gpio_set_reg() is called first?
+v1: https://lore.kernel.org/linux-iio/20260919223650.13396-1-m.abubakar365@yahoo.com/
+v2: https://lore.kernel.org/linux-iio/20260920164533.31988-1-m.abubakar365@yahoo.com/
 
-If the device tree contains pinctrl hogs, or a consumer device requests a
-pinmux before the first GPIO read triggers this lazy initialization,
-apple_gpio_pinmux_set() can call apple_gpio_set_reg().
+Muhammad Abu Bakar (2):
+  dt-bindings: iio: pressure: add Sensirion SDP31
+  iio: pressure: add Sensirion SDP31 driver
 
-apple_gpio_set_reg() will then blindly pass the NULL pctl->map to
-regmap_update_bits():
+ .../iio/pressure/sensirion,sdp31.yaml         |  41 ++++
+ MAINTAINERS                                   |   6 +
+ drivers/iio/pressure/Kconfig                  |  11 +
+ drivers/iio/pressure/Makefile                 |   1 +
+ drivers/iio/pressure/sdp31.c                  | 213 ++++++++++++++++++
+ 5 files changed, 272 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
+ create mode 100644 drivers/iio/pressure/sdp31.c
 
-drivers/pinctrl/pinctrl-apple-gpio.c:apple_gpio_set_reg() {
-	regmap_update_bits(pctl->map, REG_GPIO(pin), mask, value);
-}
+-- 
+2.43.0
 
-Could this result in a NULL pointer dereference causing a kernel panic?
-
-> +	}
-> +
->  	ret =3D regmap_read(pctl->map, REG_GPIO(pin), &val);
->  	if (ret)
->  		return 0;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260926-apple-pinc=
-trl-t8140-v2-0-620bd11cd2a1@cyberchaos.dev?part=3D2
