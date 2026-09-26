@@ -1,149 +1,137 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318223A2E00
-	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 08:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F67A171BB;
+	Sat, 26 Sep 2026 08:41:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790412057; cv=none; b=FQUuUMcsV7n0ZMH1ci6aQZjPU9pV/8fM2Q6uQ1CpixoY29a/223kZ6gfezESRBOhoT4I0uAsltSSCzy1roQxPgCZWJkBP/z7DcViIKumhAcT49tzoYX5ODd5XXmQFq51jfvCyBgvjLtP6bGecC5B2twAGrrrv8JAEjg43P29Tns=
+	t=1790412094; cv=none; b=sWV4jj6PZb8cQkxM3xi9E9nBDmo70nQz4QilrEPrSbSWC9YOm0xx6SLyHJ4TKReOWE3KVUP5PpgvRZKxXjT6Lo/eVMgl7B0yWfhyuUWMqeIRhflkCJIPSoUHqGnu2dFpYM1kpimH5McysOb2tB0w3jtEci+ZIvzH6zH7uI8aAyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790412057; c=relaxed/simple;
-	bh=yfJjADf/hO1fRxYvy/AN/v3SrpzC/4Wi3xAd5XT6Vfw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EHyubQEg+wFfQ6odGvN41YcU1AcVFxGRyeRL9n3Q8LauE2VLl3UfuNAs+TpIEtw092yt0LxEIuwziYPITk4PQ3IYiLcm7OEncB3ZQKlVd0mCceoHeKIRlQNV2pEz7wfP/akn4oAqx8GIYdR1U4E0c9OcAPwt663GQesZEbq/Ypk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jHJN71Te; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790412094; c=relaxed/simple;
+	bh=kbNYB6AwQiVWj7uPymDdVKanxCUYoEDfo1zBkhPJMiE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cr0xulPXc3UEsFR8ikwGJQ1zLBuIh90RtrP+CtLAp0Ok0PqvIoepcMPB6li7NUO9h/7gIg5QQHvH/y/CSDyAZUi/uKww7RTCpmOoaDd3t1JEzc8SW/ysQkdAYb9i+VHYAG67JKIPv6NhP825GCuVNq5RMagD5n39sBNQKxxCtIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XyF7AgLj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jHJN71Te"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48879d4fd8aso873810f8f.2
-        for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 01:40:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790412053; x=1791016853; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GKB7jX/87a5ucU2dpPAfqks2hCkBhkpECERSJJpQMwI=;
-        b=jHJN71Ted+4EJSzEDgRQsxjJyBl7oD1seqQKsyBKjWZ1BrGy3/KjSSl6l2Y6JKDP1t
-         MY8Vz4Li6Un0hyuJL0MvAk+GV9kbZ/Q7d8+cub8laDSZBjJ3Y03OrPdgUYWmk46dQ7Eg
-         9ENr9dJZvKfD9hyuHWWQLEbrJnSCwxrnHsaPU5oBFZFRUlRlmaEJ4/l0/wVMg4e4iufW
-         97b7wjN1oke5vEWpYVxAPbtKFojIYaMWg4Vf1vQpJiL8FfSz7tZoJGxmVibC/XuSdepC
-         X5HNmijDWhJx2HKzYIbw+7G2cXXZXsM4nNXe1sHKeLNbd/97rawjbcAcPsAJgkqpKCTk
-         rMzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790412053; x=1791016853;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GKB7jX/87a5ucU2dpPAfqks2hCkBhkpECERSJJpQMwI=;
-        b=tqRtJHcwARpisgwadZNwqZOKi2BzxrJqcHebo2zAZT/MNuEXzs3yTfal9sTCgPMNv3
-         MQ5bsN1EzskGJNIyBt/GFfKu5+G9HFJB2i7st3x2j9fv6RAooKeoEm2OnfTkmrnOnzIB
-         BX5+bZelEdgxUWLCk1+jXeZ7WTJilBOlpw5bv1dxzsb5x75+i++sovGLLyA8SANOwoJv
-         Z2zlyrDPBdNmZOmT8uM/ZBe6g3SFSyBiBRZdNJcmUJ+HBXfbNiFUr1IwSfY8Lh0JdNzN
-         +TfeXyi807EVqFjeEQd1SxVdgkDT5MQdKhZ2FM3n/cMoucOd/qexDQSwoTWVno7GfCDf
-         FWLg==
-X-Forwarded-Encrypted: i=1; AKwUvBz6dRx9qp/QSUJFigDf2Dbyhn5Ka0dUwKOK/XMe6KwdcOcmVXPFx+sfod/QYNOcWhLvPiamxxO6qTNv@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4dCm95ZCVCmD/+GwlH7jQdyWrFfxBy1pGCoRLJ/N8PLohOAlv
-	GF39sVU+niK27MGNUdVn8fSY2T/Hcm0bL0g/4IBsnSiuE6Ud/Wv6h6oi
-X-Gm-Gg: AYBFou2cvHhDJ7XdMGzYvT9GSmkS6xVEgDXQBwh2wUoxsLDSkL87wCHa26J6KzdavjP
-	9HK2es4dF15okv8Bn0oAx8w0U6s03L449P5zd0TCsZxPGv0s28bl+/bppXDfAtPy4Yu+Lcqqbaq
-	AZm18KFHvs5jhrDmF0Tc5xqc+8F1iKFI6bnxUsx0f2hJJ8/jrClpGGf4pYd9pWuuQHAR1B41iLy
-	e7SteMZAGIpVw0QyhUdDa3Y/Y7LEYY5yCzIYGFYNDSeR9l0LjwUH/+iu6bI2YgYZHzR8IkPNbn1
-	1r3urvwusiZKmD/IInxu55C7tAXYdd4UBn/42TqVLr0KaWaGs1GRNNJRN1D/gWc5iAUZ9Az4f7z
-	yQ+zcc8MszQx7VMsx+Be6kR2KOG0Cbv720yPjkkzZb2a+kG/3w/XcNtogtzG13PG3suDxiZX5Uz
-	0ohzhnVtHnAIe+FWAr8Sek0cggBEDGeOnNlEilkw1Yl4H2pTa/XaoI7gR3UcIea1Ms0wRBhu/+h
-	nXqQQ3xQXTCr0tN3RRfWzeox/MP46w/iboveB2CeD3gxlz8fAHSXzwjSPeUJHdHAwgq26ZAEF7+
-	X4Qw/S+0sWI/J0pCmJW4AkNCVSXg
-X-Received: by 2002:a05:6000:40e1:b0:487:62d:37d9 with SMTP id ffacd0b85a97d-488716a5e3amr14226748f8f.27.1790412053273;
-        Sat, 26 Sep 2026 01:40:53 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a349a0esm18313534f8f.10.2026.09.26.01.40.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 01:40:52 -0700 (PDT)
-Date: Sat, 26 Sep 2026 10:40:50 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Joseph Guo <qijian.guo@nxp.com>, Josua Mayer <josua@solid-run.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
-Subject: Re: [PATCH v1 04/11] ARM: dts: imx6ul: Add Variscite audio codec
- files
-Message-ID: <areFEuHcyziU2xXx@Lord-Beerus.station>
-References: <cover.1790344389.git.stefano.r@variscite.com>
- <ef56f98137eb9d1e0af3aa1b801186d829dba521.1790344389.git.stefano.r@variscite.com>
- <araMJFirhP86Dcb6@SMW015318>
- <araZ8pJGmDVXMjvE@Lord-Beerus.station>
- <arakXE94ZONxduMU@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XyF7AgLj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DD75EC2BCB8;
+	Sat, 26 Sep 2026 08:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790412093;
+	bh=kbNYB6AwQiVWj7uPymDdVKanxCUYoEDfo1zBkhPJMiE=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=XyF7AgLjwiQ74YQfMpq8S+JwHoAdRHIbcfoP91Dbo0khvlddP7lCSd+Q8aTyM9W00
+	 0NZLQ+xLzXwASrlP1FmvYoziKEOCM1EWaSF66n3D+4WREMAh9Pfy9yq/LCCKHaLSup
+	 qLdptMGQAoGBVeCYfZSQ2mDxz19mzfueG/oFFWEvkHSv7AzVB1notGvMC4371q2iGR
+	 ouB8G5FkoYE95g6eJgPsp8Nu6wqjJg49Xokfb8iw3wpqwhP8uVbfJvCXREpRqXMrCz
+	 qLoFXJTPMxJSQOVR1L4go/kzlp9GnyXcDvWEEhDj/hM7nl/obFL26oCVFC1Z/biaeb
+	 pv3UPgL/5U3Rw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C9450C9832A;
+	Sat, 26 Sep 2026 08:41:33 +0000 (UTC)
+From: Sam Day via B4 Relay <devnull+me.samcday.com@kernel.org>
+Subject: [PATCH v5 0/3] Add support and enable the debug UART in the Pixel
+ 3a and Pixel 3a XL
+Date: Sat, 26 Sep 2026 18:41:31 +1000
+Message-Id: <20260926-pabloyoyoista-debug-uart-on-rdacayan-next-v5-0-db74ff64a7e7@samcday.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arakXE94ZONxduMU@SMW015318>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/53OzW6DMBAE4FdBPmcr478Cp75H1cPaXhK3Daa2Q
+ UER716RVsqlOZTjjEb65soypUCZddWVJZpDDnFgXaUPFXMnHI4EwbOuYoILw6VoYET7GZe4xJA
+ Lgic7HWHCVCAOkDw6XHCAgS4FTCueldSNo16xQ8XGRH243KzXt5+cJ/tOrmzA7yLR1xRyKPfZK
+ eQS03J7ONdbu+fMXAMHbtH2ulHovH0ZYy5nTB9UYn6K6cg2bBa7AQEctETrW2+bnuMDQN4Bw+v
+ /ABI4mN47b0wrjaIHgNoNKODgtNe1961xyP8A1nX9BpuTjkMzAgAA
+X-Change-ID: 20260328-pabloyoyoista-debug-uart-on-rdacayan-next-69274358cef4
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>, 
+ =?utf-8?q?Pablo_Correa_G=C3=B3mez?= <pabloyoyoista@postmarketos.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Sam Day <me@samcday.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790412092; l=2823;
+ i=me@samcday.com; s=20240502; h=from:subject:message-id;
+ bh=kbNYB6AwQiVWj7uPymDdVKanxCUYoEDfo1zBkhPJMiE=;
+ b=iCOLr0tjFHaWSubRSaoEj589H/CFuDCD/wqMSSWqEYsvnpeCT39UtpELc3Re2MhDFgVvdh3tI
+ NHLM8r9r+R/BrjrEIhCQMWwyvEexHzVmWtjM2iCFVjlWKb2U6f2izey
+X-Developer-Key: i=me@samcday.com; a=ed25519;
+ pk=bzyS0akxWMqr9+AXzgBRIp28KKpEOs+GjYMc2yf+aeU=
+X-Endpoint-Received: by B4 Relay for me@samcday.com/20240502 with
+ auth_id=595
+X-Original-From: Sam Day <me@samcday.com>
+Reply-To: me@samcday.com
 
-On Fri, Sep 25, 2026 at 11:42:04AM -0500, Frank Li wrote:
-> On Fri, Sep 25, 2026 at 05:57:38PM +0200, Stefano Radaelli wrote:
-> > On Fri, Sep 25, 2026 at 09:58:44AM -0500, Frank Li wrote:
-> > > On Fri, Sep 25, 2026 at 04:02:21PM +0200, Stefano Radaelli wrote:
-> > > > From: Stefano Radaelli <stefano.r@variscite.com>
-> > > >
-> > > > Add separate DTSI files for the WM8904 and WM8731 audio options on
-> > > > VAR-SOM-6UL and DART-6UL modules.
-> > > >
-> > > > Put each codec node, the SAI2 setup and its pinctrl in the selected
-> > > > audio DTSI. This makes the WM8904 option explicit instead of placing
-> > > > it in the shared module base.
-> > > >
-> > > > Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
-> > > > ---
-> > > >  .../imx/imx6ul-imx6ull-var-dart-wm8731.dtsi   | 71 +++++++++++++++
-> > > >  .../imx/imx6ul-imx6ull-var-dart-wm8904.dtsi   | 88 +++++++++++++++++++
-> > > >  .../imx/imx6ul-imx6ull-var-som-wm8731.dtsi    | 71 +++++++++++++++
-> > > >  .../imx/imx6ul-imx6ull-var-som-wm8904.dtsi    | 85 ++++++++++++++++++
-> > >
-> > > what's difference between imx6ul-imx6ull-var-som-wm8904.dtsi and
-> > > imx6ul-imx6ull-var-dart-wm8904.dtsi?
-> > >
-> > > Frank
-> > >
-> > Hi Frank!
-> > Thank you for taking the time to review this huge patch.
-> >
-> > The difference is in simple-audio-card,routing:
-> > on DART-6UL, the microphone jack is routed to IN2L, IN2R and MICBIAS;
-> > those routes are absent on VAR-SOM-6UL.
-> 
-> Is possible to share most part?
-> 
-> Frank
-> 
+In order to get logs through the SBU pins in Google Pixel devices, it is
+necessary to add support to the devicetree, and enable the corresponding
+UART. With this code and an USB-Cereal board, I was able to get full kernel
+logs through serial.
 
-Absolutely! I'll do that in V2.
-Thanks!
+The previous paragraph is Pablo's original cover letter. I (Sam) decided
+to pick this series up and send this v5, since v4 has been sitting on
+the list for a while now.
 
-Best Regards,
-Stefano
+I've been using the v4 series on my Pixel 3a for a few months now. It
+works fine, and the unnecessary RX pull-up didn't seem to cause any
+issues in practice.
+
+The v5 changes to patch 1 and 3 were authored and verified on device by
+an LLM, hence the Assisted-by tag on those two.
+
+The changes were validated with a USB-C breakout and a typical FT232R
+USB-TTL dongle wired up to the SBU+GND pins.
+
+The console was tested with and without the RX pull-up and no difference
+was observed. However, I did not test a floating RX with nothing
+connected. As Konrad pointed out in v4, the downstream sources do not
+specify a pull-up (see link), so it was removed.
+
+Link: https://android.googlesource.com/kernel/msm/+/ab4493f31457eea175568b18b8300d4d12aaeea8/arch/arm64/boot/dts/qcom/sdm670-pinctrl.dtsi#963
+Signed-off-by: Sam Day <me@samcday.com>
+---
+Changes in v5:
+- Picked up by Sam Day, retaining Pablo's authorship.
+- 1/3: Drop the unused qup_uartN_tx/qup_uartN_rx subnode labels
+- 1/3: Move default pin config to sdm670.dtsi
+- 3/3: Drop board-level TX/RX pinconf, RX pull-up, stale Depends
+  link, and v4 R-b tags.
+- Link to v4: https://lore.kernel.org/r/20260601-pabloyoyoista-debug-uart-on-rdacayan-next-v4-0-c5d51dd96ca0@postmarketos.org
+
+Changes in v4:
+- Picked Reviewed-by tags
+- Link to v3: https://patch.msgid.link/20260601-pabloyoyoista-debug-uart-on-rdacayan-next-v3-0-6fdcd669364e@postmarketos.org
+
+Changes in v3:
+- Drop dependency on already-picked patches
+- Link to v2: https://patch.msgid.link/20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v2-0-53abd9db8f0a@postmarketos.org
+
+Changes in v2:
+- Fix typo in (3/3) commit message
+- Link to v1: https://patch.msgid.link/20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v1-0-0babf584acdb@postmarketos.org
+
+---
+Pablo Correa Gómez (3):
+      arm64: dts: qcom: sdm670: add default uart pinctrl nodes
+      arm64: dts: qcom: sdm670: add debug uart soc node
+      arm64: dts: qcom: sdm670-google-common: enable debug uart
+
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi |   8 +-
+ arch/arm64/boot/dts/qcom/sdm670.dtsi               | 271 +++++++++++++++++++++
+ 2 files changed, 278 insertions(+), 1 deletion(-)
+---
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
+change-id: 20260328-pabloyoyoista-debug-uart-on-rdacayan-next-69274358cef4
+
+Best regards,
+-- 
+Sam Day <me@samcday.com>
+
+
