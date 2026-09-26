@@ -1,104 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5C73E0081;
-	Fri, 25 Sep 2026 23:51:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49796547065
+	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 00:12:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790380282; cv=none; b=WbztQ8oZWbGbeOp/6OA1YVm3m0DNCdgSaWimjFEU1q7cxQ6AWtXllMlWrpuI2mLHNklpvFvFrvwQEMg7YuC1gddnKZmN17Ux2PmeWqND2mEEuPObBHUxYqU3wrYwyzyGhChveSOP3cSsBY1RVFi1PzFIF3LEgfuPKTVYyWBqefY=
+	t=1790381547; cv=none; b=dzVtcA625620cQ6Ehr3SvMSJhR2wESRKpV3Pc8AJhWvKixXuxDgJ22713hOviMkViuwB8ja61/dUfkj7R8Ez59hD0hzZVW1sRi8cBrUW2OgTjfuHsE1rSrpvziQ28IalRKnSqO/jW15UGg6ZeNlOSd2WZScHY4rZ8R/gGJL59io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790380282; c=relaxed/simple;
-	bh=kxoXZIYkx0R+9+sMxrk8MUwzoHZeQVJiRJWNj7PjlGU=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=fsXhpYfzgiLi4+8mmmbH/KCcLRhgNDIUbgckiBFU4MzBh7cw9usdt8pDp1wSe08bN0YhRCTPoJziH7KdwiRPrNewvmwytdAIDFJbjyUQsyeEV0iefaudXw9pTqGB236zwuefFm2U3+FuPdu8uK0GSiOntuCDBmr/ZNpo506pb6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMiRA0lr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790381547; c=relaxed/simple;
+	bh=pDBFa+3vAU6bin9kGzwuYDKrpKmAQCIyubApfM24wUA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MsDuCh65QtAIyZSFObEKZVjmjoo3O8i4CX7Aot5koOqR2XUPlsMVH9OS1TyKYGdfZB7i+XkUUsFZ7lZc/Cs4xNnjhjt5L6H+B7ECfDV3VMVQGUXGTx7zCP2c8etKcymwoQN3jmmh09EJp8TAnsBjrfdQPA2dzj2FQPCwe9TS3Vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D1sKi6IK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMiRA0lr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120021F000FF;
-	Fri, 25 Sep 2026 23:51:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D1sKi6IK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94D4B1F000FF;
+	Sat, 26 Sep 2026 00:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790380281;
-	bh=sMJbYuN8fyiAF/FnkbIJ7XZRLLaQrOPqRWfMIHMkbWY=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=LMiRA0lrUgUBGiymOVS0g6xhAHkHC3urar97B8Aj8TekGkN/CHmY/xDEpHuQ8I26r
-	 RJ7Efe/oc38Rt+qwe0hyyVhsHUoKl/yaRT+Z8zSFvOjOvmUx1AibKg2RGGoFFtG3F6
-	 v6jgb9HxlF5tzLwhOtLwtATIoI+NUa4STNh99YZLcQ6vXzR8posfLdxoi3QZEsWgFg
-	 tnEGsk4DPWbtGA5oxB6illJ8bWRmXdIDPfv5IJI2tJF167XC6U0seEcrhtAstTBpDg
-	 ydjhPjOM7XaMcLC3b0nmnES8s5GM9RdHkzZ7GmnN9y8TwfQw4RHqmqKTEC32V7+IvI
-	 bs/SloEoZry3g==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D09303809A04;
-	Fri, 25 Sep 2026 23:50:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1790381545;
+	bh=MQ9PJfhD260QNO8riYnqyS3Lu7mrLr5mQ28ahBDvIZc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=D1sKi6IKX8xvrF2oGKyal4vsu2HPMojWaLiiLTiNOKS8ob3D1pfPxeFVlAhQsTxBp
+	 s6v4adZBfl0ArJ35esE4DopRihOEmxbduGd7fHYqSE5qvSeF41TwKBCHsV7EBY87Ft
+	 8VPVZevVrQG1Qsi3OfW10fx5HDaB4aM4j6UIwTQpiyXxXoU6Vyr5jlqcPkOOlW2Nko
+	 ztL8CXvFDUpras5snJ4HOK4k/+kxAofHTj6j8zvqHOEOP2dUEItfdc8Ez4l16m7JWy
+	 zYPUvBB7yXIrhCj25aR6LXs3FJdo9MG5SyVD+cTy8B1a9+OS51UlA0fCTDhPXcJp34
+	 212QhXWNep9uA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v4 1/2] dt-bindings: net: ethernet-phy: add
+ needs-host-firmware
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aleksei Sviridkin" <f@lex.la>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260925001209.2334139-2-f@lex.la>
+References: <20260925001209.2334139-1-f@lex.la>
+ <20260925001209.2334139-2-f@lex.la>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 26 Sep 2026 00:12:25 +0000
+Message-Id: <20260926001225.94D4B1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v5 00/10] ravb: Add gPTP support for Gen4
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179038020845.3210501.7347729491663204858.git-patchwork-notify@kernel.org>
-Date: Fri, 25 Sep 2026 23:50:08 +0000
-References: <20260921175037.4084310-1-niklas.soderlund+renesas@ragnatech.se>
-In-Reply-To: <20260921175037.4084310-1-niklas.soderlund+renesas@ragnatech.se>
-To: =?utf-8?q?Niklas_S=C3=B6derlund_=3Cniklas=2Esoderlund+renesas=40ragnatech=2E?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
-	=?utf-8?q?se=3E?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
-Cc: paul@pbarker.dev, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
- richardcochran@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- vadim.fedorenko@linux.dev, sergei.shtylyov@gmail.com,
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
 
-Hello:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: net: needs-host-firmware encodes OS policy in DT
+--
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+commit edf86867db27d83679811b06ea7e2a94b9b02fb8
+Author: Aleksei Sviridkin <f@lex.la>
 
-On Mon, 21 Sep 2026 19:50:27 +0200 you wrote:
-> Hello,
-> 
-> This series is the second part cleaning up how PTP timer support is
-> implemented on R-Car Gen4. Currently there is partial support for it in
-> some of the Ethernet devices that can use it, but not all.
-> 
-> On Gen2 and Gen3 each RAVB instance have it's own private PTP clock as
-> part of the RAVB register space. For this reason the PTP functionally
-> was implemented directly in the RAVB driver. For Gen4 however there is a
-> system-wide PTP clock shared by all RAVB instances, and on some Gen4
-> platforms with other Ethernet devices.
-> 
-> [...]
+dt-bindings: net: ethernet-phy: add needs-host-firmware
 
-Here is the summary with links:
-  - [net-next,v5,01/10] net: ethernet: ravb: Remove gPTP control from WoL setup and restore
-    https://git.kernel.org/netdev/net-next/c/e8bfdd91469c
-  - [net-next,v5,02/10] net: ethernet: ravb: Move programming of gPTP timer interval
-    https://git.kernel.org/netdev/net-next/c/d9519789d098
-  - [net-next,v5,03/10] net: ethernet: ravb: Simplify gPTP start and stop
-    https://git.kernel.org/netdev/net-next/c/b9c1216c0156
-  - [net-next,v5,04/10] net: ethernet: ravb: Remove redundant argument to ravb_ptp_init()
-    https://git.kernel.org/netdev/net-next/c/b784f9ed2e3b
-  - [net-next,v5,05/10] net: ethernet: ravb: Propagate error from ptp_clock_register()
-    https://git.kernel.org/netdev/net-next/c/121cc8a3acf8
-  - [net-next,v5,06/10] net: ethernet: ravb: Replace gPTP flags with callbacks
-    https://git.kernel.org/netdev/net-next/c/14bf0091dd0d
-  - [net-next,v5,07/10] net: ethernet: ravb: Add callback for gPTP probe
-    https://git.kernel.org/netdev/net-next/c/9a85f9dfbc3f
-  - [net-next,v5,08/10] net: ethernet: ravb: Add callback for gPTP clock index
-    https://git.kernel.org/netdev/net-next/c/931770c1995f
-  - [net-next,v5,09/10] dt-bindings: net: renesas,etheravb: Add optional gPTP phandle for Gen4
-    https://git.kernel.org/netdev/net-next/c/ef488a9da66d
-  - [net-next,v5,10/10] net: ethernet: ravb: Add gPTP support for Gen4
-    https://git.kernel.org/netdev/net-next/c/2b240cfc6de4
+This commit introduces a new needs-host-firmware property to the Ethernet P=
+HY
+bindings. It aims to delay MAC connections to PHYs that require host-loaded
+firmware until their specific driver is available. This addresses an issue
+where a generic driver binds early and fails to initialize a PHY needing
+firmware from the root filesystem.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+> diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Do=
+cumentation/devicetree/bindings/net/ethernet-phy.yaml
+> --- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+> +++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+[ ... ]
+> @@ -215,6 +215,12 @@ properties:
+>        used. The absence of this property indicates the muxers
+>        should be configured so that the external PHY is used.
+> =20
+> +  needs-host-firmware:
 
+[Severity: Medium]
+Does this property encode an OS-specific driver binding workaround into the
+device tree ABI?
 
+The commit message explicitly states the flag is needed because the PHY dri=
+ver
+"is a module not yet loaded when the MAC connects".
+
+Device tree should describe hardware, not software policy or OS module load=
+ing
+sequences.
+
+The hardware's need for firmware is intrinsically linked to its PHY ID, whi=
+ch
+is identical regardless of whether the driver is built-in or a module.
+
+Can this be handled internally by the core PHY library instead of relying o=
+n a
+custom DT flag to manage driver binding behavior? For example, by maintaini=
+ng
+a list of PHY IDs that require firmware to bypass the generic PHY driver
+fallback.
+
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description:
+> +      This PHY runs firmware that the host must load before it can be
+> +      driven, and is not usable until then.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925001209.2334=
+139-1-f@lex.la?part=3D1
