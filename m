@@ -1,146 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BF82BEC45
-	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 20:06:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E2B35839C;
+	Sat, 26 Sep 2026 21:21:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790453216; cv=none; b=SavV6aBnmOeeMsNYdyM0nd+IROQh+N9Mmvkw1UqfLSBhJaN+oCx/UsIdAVyZjke2ls2g0Z35KsyUs9twISlFWqgpoG03WECK94FYtMtlHvT3ByFmnRt2sDV2ofhf71NjDr73kmhhkg8KQ9wCY9QYIoGX/OUR4s9BUc7+Xod6+7E=
+	t=1790457689; cv=none; b=s/nIGoeF9g5I3p8ZzzItbnTOuFV2WghZKucXTeBow4zlSoHkF3SHIheYIEOgnq0v0lXnLKgwc3gj9jMKqEFPdtD5ifFKp7OHNX7NxcECdGzxOQWuPoxI8HBRIg4J4KUBCk8VVTsH3Z6RrRR1IWPDn5Xr9TK/tiuFF7Lp97JGiYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790453216; c=relaxed/simple;
-	bh=gdWdGfufsBDqwGqTFQLKl2TKlLHmI1VpEUbei0rpoqk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EXgP0A9ZR/CUcENZuNarwVWaxwNRnd4a/4ZmenjaRsc9LKYakfe0qIPeP4R33Rsdxa1EWBkie1Jb0vE1lB0V/1cR2dOOGOgF2OMgt+MydSh8+8sk38SKQFPXlWW1/KynD73imd2hDkSYyhw2OMIPEW+n2Xi9LEx4B4JRZ97pMAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c7Vs/VN0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790457689; c=relaxed/simple;
+	bh=WzgW/1r0ttSUIpIcdPEpit9PDEILiICkMQfeo421xGI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hXRzU0fRai7WktbbunbksRQQ/+BhJ7uxrXlGGVaqm5QgKQxMKMPjr0XA55O4Yt9Evbuc0nEEnPPSIHg76ODnGGdSMLnKS5UYKeA18yiHsWj7cGji82IZLpW5eRGWgBqlu+TNF+/QEPDGUm0ObQMn/br+iYWSKsr+Q8cfIIwW2BM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXMDLunG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c7Vs/VN0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547BF1F000FF;
-	Sat, 26 Sep 2026 20:06:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXMDLunG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2EB31F000FF;
+	Sat, 26 Sep 2026 21:21:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790453214;
-	bh=qcl6IlPdLbFs+zPrezRrcAjarr3BmEeXCJPKbgUP6pE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c7Vs/VN0X1AIsRmXJPPRBoLnhOc3V7qNdw2TK+S/KVezh44xAQ995gn+R4ue2gt0A
-	 Y0uDS2u5Gr6ONaYhIt4kuWIavuHvkF0tq49aDjKqg18m7em+zEGCQgI/BcRGxYFpTJ
-	 yLyOFbJVW335ZqSWxfdrI2ilAmRXA9r9iKGHETUd552D13TZCGiVatY4uhP/kih9Ny
-	 pTA3p/rhDcnUCAKxYBlfdMStFo+0N+EmGIGBBKqCLUKDtGOBA93AjZ65Y//salSmsQ
-	 3Q3UyE2dYyKomdxmuCtmCAJEcy0hlRDTEBEqXKZP26py0TqQnS1rD09yq2yVrIdjIg
-	 T7y3fQyVYMuHw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] spi: qcom-geni: Use GPIO to notify master of SPI
- target activity
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Praveen Talari" <praveen.talari@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260927-use_gpio_to_notify_master_of_spi_target_activity-v5-2-9b973623080f@oss.qualcomm.com>
-References: <20260927-use_gpio_to_notify_master_of_spi_target_activity-v5-0-9b973623080f@oss.qualcomm.com>
- <20260927-use_gpio_to_notify_master_of_spi_target_activity-v5-2-9b973623080f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 26 Sep 2026 20:06:53 +0000
-Message-Id: <20260926200654.547BF1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790457687;
+	bh=5W3yNoOtZtnOfw68VsFN1xiJeAXIfHZB0zCCY/1MVDQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JXMDLunGXAksKM021Y7G0vxqLl79Q/aukKhL624h/d0Qta0K/sSFLX9mD7sKaoFc7
+	 WJFXW+z8KCexB6qe2hCVsnDNZwxkAgpRG35Q+1dd8v18r+EXKA0r8mS9fdM64jZCne
+	 tHK4UMUlLeQvHIb45x+CnJ87Aga5Bg+aJbsQp6W3yi8awr8JfT/kzVhs5+BNPn9SFi
+	 8Ckhl5MkyaE1DoohsXQx6qMvJxEzMo8BIimBFcPkp9o778f2O+5CsPFA+pZk7WCisH
+	 X2tsqk6LSPpAiTmhjfszMAvtUfSyPj3zHvRKcE9YVRf8N4Ud3ju3wiAuL20giVx/c+
+	 P0BMEuw76sRjQ==
+Date: Sat, 26 Sep 2026 22:21:22 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Joshua Yeong <joshua.yeong@starfivetech.com>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	"rahul@summations.net" <rahul@summations.net>,
+	"anup@brainfault.org" <anup@brainfault.org>,
+	"lftan.linux@gmail.com" <lftan.linux@gmail.com>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"pjw@kernel.org" <pjw@kernel.org>,
+	"palmer@dabbelt.com" <palmer@dabbelt.com>,
+	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>,
+	"alex@ghiti.fr" <alex@ghiti.fr>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 1/3] dt-bindings: regulator: Add RPMI voltage service
+ bindings
+Message-ID: <20260926-peddling-share-5e5e8dffaa63@spud>
+References: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
+ <20260923070014.1340761-2-joshua.yeong@starfivetech.com>
+ <9c0ae39b-d214-40f5-b010-cdea14ccc774@kernel.org>
+ <c2c57bf0-e610-4353-93a4-84edfd08e767@sirena.org.uk>
+ <SH0PR01MB08411AA7F403A71D2D7470A6F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
+ <0db3ed29-8bb8-4dc3-a4cb-cc5b9bf2e893@kernel.org>
+ <SH0PR01MB0841C933DE1E00C4012BDF53F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
+ <ed0c4c67-6933-455a-937d-f5888d124538@kernel.org>
+ <a5d0d4df-7e8e-4f12-b011-e41b66efd8a7@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="noJw7wHyYsY2Yo5K"
+Content-Disposition: inline
+In-Reply-To: <a5d0d4df-7e8e-4f12-b011-e41b66efd8a7@sirena.org.uk>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] spi: qcom-geni: missing ready_gpio deassertion in GENI_SE_FIFO mode
-- [High] spi: qcom-geni: ready_gpio completely unhandled in GENI_GPI_DMA mo=
-de
---
+--noJw7wHyYsY2Yo5K
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit b777efb262a38b2b19686188b7453a1af9e45b0c
-Author: Praveen Talari <praveen.talari@oss.qualcomm.com>
+On Fri, Sep 25, 2026 at 06:15:35PM +0100, Mark Brown wrote:
+> On Fri, Sep 25, 2026 at 05:18:08PM +0200, Krzysztof Kozlowski wrote:
+> > On 25/09/2026 09:14, Joshua Yeong wrote:
+>=20
+> > > While the above method works but I'm trying to get the entire simplif=
+y to the following.
+>=20
+> > > user-app-b {
+> > > 	compatible =3D "...";
+> > > 	voltage-domains =3D <&rpmi-voltage 0x01>;
+>=20
+> > I see. Why power domains do not fit here?
+>=20
+> The spec seems to map very clearly onto voltage regulators, it describes
+> voltages in mV:
+>=20
+>   https://github.com/riscv-non-isa/riscv-rpmi/blob/main/src/srvgrp-voltag=
+e.adoc
+>=20
+> I really don't see any problem describing this as regulators, it seems
+> to fulfil exactly the same role as SCMI regulators, supporting things
+> like SD slots where the OS genuinely needs to control voltages on a
+> mostly system power controller system.
 
-spi: qcom-geni: Use GPIO to notify master of SPI target activity
+Unless I misunderstand your intent, me either. The binding permits
+having regulator subnodes too, so culling this "voltage-domain" business
+and going for the regulators alone shouldn't be much of a shift.
 
-This commit adds an optional ready GPIO to notify the SPI master of the
-target's active state when operating in SPI target mode. The GPIO is
-asserted when a transfer begins and deasserted upon completion, abort,
-or timeout.
 
-> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-> index bced6279a0624..91e75e213f929 100644
-> --- a/drivers/spi/spi-geni-qcom.c
-> +++ b/drivers/spi/spi-geni-qcom.c
 
-[ ... ]
+--noJw7wHyYsY2Yo5K
+Content-Type: application/pgp-signature; name=signature.asc
 
-> @@ -936,8 +941,12 @@ static int spi_geni_transfer_one(struct spi_controll=
-er *spi,
->  	if (mas->cur_xfer_mode =3D=3D GENI_SE_FIFO || mas->cur_xfer_mode =3D=3D=
- GENI_SE_DMA) {
->  		ret =3D setup_se_xfer(xfer, mas, slv->mode, spi);
->  		/* SPI framework expects +ve ret code to wait for transfer complete */
-> -		if (!ret)
-> +		if (!ret) {
-> +			if (spi->target)
-> +				gpiod_set_value(mas->ready_gpio, 1);
->  			ret =3D 1;
-> +		}
-> +
->  		return ret;
->  	}
->  	return setup_gsi_xfer(xfer, mas, slv, spi);
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-Should ready_gpio be asserted and deasserted for GENI_GPI_DMA mode as well?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarg3UgAKCRB4tDGHoIJi
+0hdiAP4qRPL8bULjFmSy+m3ZF2jcF4n1odXK4QIHasn8v4D4KAD8C+OFuee60ZJj
+k7fDaW1VQVmsHl3wZ1X62ngQ6Y9p+go=
+=E7zU
+-----END PGP SIGNATURE-----
 
-If the hardware configuration supports GPI DMA, spi_geni_init() can select
-GENI_GPI_DMA mode for the target. When spi_geni_transfer_one() delegates
-directly to setup_gsi_xfer() here, the ready_gpio assertion is skipped.
-
-Similarly, the DMA completion in spi_gsi_callback_result() does not seem to
-deassert the GPIO.
-
-Could this cause the SPI master to wait indefinitely for the ready signal on
-platforms with GPI DMA enabled, leading to bus stalls and total communicati=
-on
-failure?
-
-[ ... ]
-
-> @@ -1023,6 +1032,8 @@ static irqreturn_t geni_spi_isr(int irq, void *data)
->  		if (dma_rx_status & RX_RESET_DONE)
->  			complete(&mas->rx_reset_done);
->  		if (!mas->tx_rem_bytes && !mas->rx_rem_bytes && xfer) {
-> +			if (spi->target)
-> +				gpiod_set_value(mas->ready_gpio, 0);
->  			spi_finalize_current_transfer(spi);
->  			mas->cur_xfer =3D NULL;
->  		}
-
-[Severity: High]
-Does the GENI_SE_FIFO mode completion path in geni_spi_isr() also need to
-deassert ready_gpio?
-
-When a target SPI transfer falls back to GENI_SE_FIFO mode and the transfer
-completes, geni_spi_isr() processes M_CMD_DONE_EN, calls
-spi_finalize_current_transfer(), and clears mas->cur_xfer:
-
-drivers/spi/spi-geni-qcom.c:geni_spi_isr() {
-    ...
-    if (mas->cur_xfer_mode =3D=3D GENI_SE_FIFO) {
-        ...
-        if (m_irq & M_CMD_DONE_EN) {
-            if (mas->cur_xfer) {
-                spi_finalize_current_transfer(spi);
-                mas->cur_xfer =3D NULL;
-    ...
-}
-
-However, the GPIO doesn't appear to be deasserted in this path.
-
-If the ready_gpio remains permanently asserted after the first GENI_SE_FIFO
-transfer completes successfully, could this break the target-ready handshake
-protocol and cause the SPI master to incorrectly perceive the target as alw=
-ays
-ready?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927-use_gpio_t=
-o_notify_master_of_spi_target_activity-v5-0-9b973623080f@oss.qualcomm.com?p=
-art=3D2
+--noJw7wHyYsY2Yo5K--
