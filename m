@@ -1,117 +1,191 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E2B35839C;
-	Sat, 26 Sep 2026 21:21:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242EC22A4EE
+	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 21:59:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790457689; cv=none; b=s/nIGoeF9g5I3p8ZzzItbnTOuFV2WghZKucXTeBow4zlSoHkF3SHIheYIEOgnq0v0lXnLKgwc3gj9jMKqEFPdtD5ifFKp7OHNX7NxcECdGzxOQWuPoxI8HBRIg4J4KUBCk8VVTsH3Z6RrRR1IWPDn5Xr9TK/tiuFF7Lp97JGiYw=
+	t=1790459955; cv=none; b=Ad5y3LVJlZAxCi+wcbYf/cyNVsLkfGnuwrAfj2l5kqT+xydcCeYWue34qSGODppL9vknr6tP27jRrSg22JtJiRwyfSetlpsWvm0W+hrRna/D5XAVkasm5Dx66xHlssw+kB/+4NHyoD+L+DIJCTEZk/1n/9kDJwfWbDdK1xFWiEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790457689; c=relaxed/simple;
-	bh=WzgW/1r0ttSUIpIcdPEpit9PDEILiICkMQfeo421xGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hXRzU0fRai7WktbbunbksRQQ/+BhJ7uxrXlGGVaqm5QgKQxMKMPjr0XA55O4Yt9Evbuc0nEEnPPSIHg76ODnGGdSMLnKS5UYKeA18yiHsWj7cGji82IZLpW5eRGWgBqlu+TNF+/QEPDGUm0ObQMn/br+iYWSKsr+Q8cfIIwW2BM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXMDLunG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790459955; c=relaxed/simple;
+	bh=zNC9y+CbJK+cousSA48K9W0OJ9hTEeB80RouYIuJ0RE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Cj5l/1Ni8R+ETVOcdgdplPlf/+i7DnycMCt+a6/X2uxrq+SW47BsG0Ngkka7VDhBoT4AEEf4ubqQX1HBM/KkMBt2SaYuroDfjdd+pDSjv9mg/3GpXga3cIMit9J2kvLFzRrCXY/GPSMP9cCzmRedaQR+m58XoVVjQ8PjiCvSp28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HeWhCQxt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXMDLunG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2EB31F000FF;
-	Sat, 26 Sep 2026 21:21:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HeWhCQxt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8531F000FF;
+	Sat, 26 Sep 2026 21:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790457687;
-	bh=5W3yNoOtZtnOfw68VsFN1xiJeAXIfHZB0zCCY/1MVDQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JXMDLunGXAksKM021Y7G0vxqLl79Q/aukKhL624h/d0Qta0K/sSFLX9mD7sKaoFc7
-	 WJFXW+z8KCexB6qe2hCVsnDNZwxkAgpRG35Q+1dd8v18r+EXKA0r8mS9fdM64jZCne
-	 tHK4UMUlLeQvHIb45x+CnJ87Aga5Bg+aJbsQp6W3yi8awr8JfT/kzVhs5+BNPn9SFi
-	 8Ckhl5MkyaE1DoohsXQx6qMvJxEzMo8BIimBFcPkp9o778f2O+5CsPFA+pZk7WCisH
-	 X2tsqk6LSPpAiTmhjfszMAvtUfSyPj3zHvRKcE9YVRf8N4Ud3ju3wiAuL20giVx/c+
-	 P0BMEuw76sRjQ==
-Date: Sat, 26 Sep 2026 22:21:22 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Joshua Yeong <joshua.yeong@starfivetech.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
-	"rahul@summations.net" <rahul@summations.net>,
-	"anup@brainfault.org" <anup@brainfault.org>,
-	"lftan.linux@gmail.com" <lftan.linux@gmail.com>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"pjw@kernel.org" <pjw@kernel.org>,
-	"palmer@dabbelt.com" <palmer@dabbelt.com>,
-	"aou@eecs.berkeley.edu" <aou@eecs.berkeley.edu>,
-	"alex@ghiti.fr" <alex@ghiti.fr>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 1/3] dt-bindings: regulator: Add RPMI voltage service
- bindings
-Message-ID: <20260926-peddling-share-5e5e8dffaa63@spud>
-References: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
- <20260923070014.1340761-2-joshua.yeong@starfivetech.com>
- <9c0ae39b-d214-40f5-b010-cdea14ccc774@kernel.org>
- <c2c57bf0-e610-4353-93a4-84edfd08e767@sirena.org.uk>
- <SH0PR01MB08411AA7F403A71D2D7470A6F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
- <0db3ed29-8bb8-4dc3-a4cb-cc5b9bf2e893@kernel.org>
- <SH0PR01MB0841C933DE1E00C4012BDF53F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
- <ed0c4c67-6933-455a-937d-f5888d124538@kernel.org>
- <a5d0d4df-7e8e-4f12-b011-e41b66efd8a7@sirena.org.uk>
+	s=k20260515; t=1790459953;
+	bh=oO+wnKvoioyctiry8uICEsnMnlDl5ekL9SFnUc2PcVI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HeWhCQxtSFGn2u0FLeglU09+X+73J681sFn966tmdYwq6bRDD2aKuGydDp+qHZz3b
+	 aTci69VOH9zezZrf58ufbxJ2CmEVJSJz7ScZNcdQgn9uIhAVK/9493A7jtOnJafFWx
+	 p/x6IB9xwR2d2+e5XWXWVByFbQkkc8gelosNDPvLYaiKkeGX063UDPPrGNXq7xQ4jI
+	 maQoqGGw7r6LvqDT5+kPR2lLQ/YgN2bn4Bl+d1KymVQhOUikUcdml0kEUKLbAQhiXs
+	 uIzwyIIFDmVvpblDcO13YSlzDrdqOOxAk0G8Vwu6PYSJfUWbcXBOzqJIrQsWziJGoW
+	 +qM62xU9U3GwA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next] dt-bindings: net: Convert HiSilicon hns-dsaf
+ to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260925215848.2949157-2-robh@kernel.org>
+References: <20260925215848.2949157-2-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 26 Sep 2026 21:59:12 +0000
+Message-Id: <20260926215913.6A8531F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="noJw7wHyYsY2Yo5K"
-Content-Disposition: inline
-In-Reply-To: <a5d0d4df-7e8e-4f12-b011-e41b66efd8a7@sirena.org.uk>
 
---noJw7wHyYsY2Yo5K
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: net: hns-dsaf: mismatched reg and reg-names constra=
+ints
+- [Medium] dt-bindings: net: hns-dsaf: additionalProperties breaks port $ref
+- [Medium] dt-bindings: net: hns-dsaf: missing desc-num and mc-mac-mask con=
+straints
+- [Medium] dt-bindings: net: hns-dsaf: buf-size and desc-num missing from r=
+equired
+--
 
-On Fri, Sep 25, 2026 at 06:15:35PM +0100, Mark Brown wrote:
-> On Fri, Sep 25, 2026 at 05:18:08PM +0200, Krzysztof Kozlowski wrote:
-> > On 25/09/2026 09:14, Joshua Yeong wrote:
->=20
-> > > While the above method works but I'm trying to get the entire simplif=
-y to the following.
->=20
-> > > user-app-b {
-> > > 	compatible =3D "...";
-> > > 	voltage-domains =3D <&rpmi-voltage 0x01>;
->=20
-> > I see. Why power domains do not fit here?
->=20
-> The spec seems to map very clearly onto voltage regulators, it describes
-> voltages in mV:
->=20
->   https://github.com/riscv-non-isa/riscv-rpmi/blob/main/src/srvgrp-voltag=
-e.adoc
->=20
-> I really don't see any problem describing this as regulators, it seems
-> to fulfil exactly the same role as SCMI regulators, supporting things
-> like SD slots where the OS genuinely needs to control voltages on a
-> mostly system power controller system.
+commit d12acf31486c73a836f5b1585aaa908d8317c9a2
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-Unless I misunderstand your intent, me either. The binding permits
-having regulator subnodes too, so culling this "voltage-domain" business
-and going for the regulators alone shouldn't be much of a shift.
+dt-bindings: net: Convert HiSilicon hns-dsaf to DT schema
 
+This commit converts the HiSilicon hns-dsaf binding to DT schema format. It
+drops the unused phy-handle at the top level and adds the undocumented
+media-type property.
 
+> diff --git a/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.=
+yaml b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+> new file mode 100644
+> index 0000000000000..4edc6cafcbed3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+> @@ -0,0 +1,168 @@
 
---noJw7wHyYsY2Yo5K
-Content-Type: application/pgp-signature; name=signature.asc
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> +  reg:
+> +    minItems: 1
+> +    items:
+> +      - description:
+> +          external interface control register base and size (optional, o=
+nly
+> +          used when subctrl-syscon does not exist)
+> +      - description:
+> +          SerDes base register and size (optional, only used when serdes=
+-syscon
+> +          in port node does not exist)
+> +      - description:
+> +          PPE register base and size
+> +      - description:
+> +          DSA Fabric base register and size (not required for single-por=
+t mode)
+> +
+> +  reg-names:
+> +    minItems: 1
+> +    items:
+> +      - const: ppe-base
+> +      - const: dsaf-base
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarg3UgAKCRB4tDGHoIJi
-0hdiAP4qRPL8bULjFmSy+m3ZF2jcF4n1odXK4QIHasn8v4D4KAD8C+OFuee60ZJj
-k7fDaW1VQVmsHl3wZ1X62ngQ6Y9p+go=
-=E7zU
------END PGP SIGNATURE-----
+[Severity: Medium]
+Does this create a mismatch between reg and reg-names constraints?
 
---noJw7wHyYsY2Yo5K--
+The reg property is defined as a 4-item list with the first two items being
+optional, while reg-names only permits 2 items (ppe-base and dsaf-base).
+
+Due to positional schema matching, if a 2-region configuration is provided,=
+ it
+might erroneously match against the first two reg descriptions instead of
+PPE and DSA Fabric. Additionally, valid 4-region configurations will be
+rejected because reg-names restricts the list to 2 items.
+
+[ ... ]
+
+> +  buf-size:
+> +    description: RX buffer size (bytes)
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +
+> +  desc-num:
+> +    description: number of descriptors in TX and RX queue
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+
+[Severity: Medium]
+Did this conversion drop the enum constraint for desc-num?
+
+The original text binding enforced explicit enum values (512, 1024, 2048,
+4096) which appear to be missing here.
+
+[ ... ]
+
+> +patternProperties:
+> +  "^port@[0-5]$":
+> +    description: DSA Fabric port node
+> +    $ref: ethernet-switch-port.yaml#
+> +    additionalProperties: false
+
+[Severity: Medium]
+Will this additionalProperties validation break inheritance from the
+referenced ethernet-switch-port.yaml# schema?
+
+In dt-schema, combining a $ref with additionalProperties: false causes all
+properties defined in the referenced schema to be rejected unless explicitly
+redefined. Should this be unevaluatedProperties: false instead?
+
+> +
+> +    properties:
+> +      reg:
+> +        maximum: 5
+> +
+> +      phy-handle: true
+
+[Severity: Medium]
+Is phy-handle: true added here as a workaround for the inheritance issue
+mentioned above?
+
+Since phy-handle is defined in the referenced schema, it should be inherited
+automatically if unevaluatedProperties is used instead.
+
+[ ... ]
+
+> +      mc-mac-mask:
+> +        description: multicast MAC address mask
+> +        $ref: /schemas/types.yaml#/definitions/uint8-array
+> +        maxItems: 6
+
+[Severity: Medium]
+Can this allow arrays of invalid lengths?
+
+The original text binding expected a 6-byte size for the MAC mask.
+Without minItems: 6, shorter arrays (e.g., 1 byte) might pass schema
+validation.
+
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - mode
+
+[Severity: Medium]
+Should buf-size and desc-num be included in this required block?
+
+The hns_dsaf_main.c driver strictly requires both properties, failing probe
+with -EINVAL if either is missing from the device tree node. Omitting them
+here means incomplete device tree nodes will pass schema validation but
+silently fail at runtime.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260925215848.2949=
+157-2-robh@kernel.org?part=3D1
