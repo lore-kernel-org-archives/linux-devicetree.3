@@ -1,76 +1,55 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178D0288C2D
-	for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 01:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D57C2C8;
+	Sat, 26 Sep 2026 02:34:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790387287; cv=none; b=dYcyUBqp6o4crWvV/VxGU7pbVcp+q0IYAGJ5k17l0w41m2sJKjeqk4jeEghM0UYBc/1wK3QWcdHZB/u6AEARN//du97Q3LEf+DIR7R32D6v1+EgtpRkBCN2Dwcl4k3HzN3MxDESnOyVIOmUAycczGSKl+0M4k9/0ADbwWrEPHIA=
+	t=1790390082; cv=none; b=VElMDUiwsL4On4XcYggVEQmsu2eM0UP2G/K3UxFkT1L9CrFanmCLYitdrVBAiUajRpVeDQLP9gsOKSVCvIz+JY43Lo+Jwf6CEcO+ufst3KDbxK3umU327b/HV8HrnibneRK/Zgfe3NbU4frzBE9DUnAdZiMDN94fadQhK9+NZAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790387287; c=relaxed/simple;
-	bh=TTVyPZcnJYABDmdRCD3Hn0KPAE4CSLVocgepqNv6eGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rlgWKjBYmQ2uBKjDdJlq3r1vYtfLfNxv5lA9sv/KOIA27zgtjHGFn/jbA+jfdSYxnbF25qBOz9+tFhB0NmNWkUITp+1IcdMaS67cV5kENSCy9lrsujEO61vAHFvILf3naJ3gqS/kcuDusIGoDFlpch8Mlc3bvfjhu5SJjdMRop4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c0VUhBva; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790390082; c=relaxed/simple;
+	bh=WJVoY+GTZOA5UXQJpOzZY4CvB90ZR8SkRkD/aHa8jJM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IXB1H4HNy1Zd2H80Shb/9AK67CaGsti2WybLdcKo40dV8xNJDJ16V9h4L3C/+0F+/gQVxre2U/gj5fioIPGlKtg6fj3iLx0OTIfXex9TiI2xa41EHEItlI4y7RwUUc1uvJt5NqjQFf52sHcKSA91YCNcNOhLjuuW06KnKUCXUIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KLs0/9nd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c0VUhBva"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8692a8568e9so706881b3a.3
-        for <devicetree@vger.kernel.org>; Fri, 25 Sep 2026 18:48:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790387285; x=1790992085; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u8E325Hob5EvNUG1ihDxwdbdqqSNh/dhHuy8AA89ZKE=;
-        b=c0VUhBvaUXAjhjhhVMBK8VRLWEsAKgSrU59gpHDtGJXqZjWGhqDD9owhV1ujI28iXo
-         r8b2cI4sDcQQxvy96KuLgzd1mzVmAU87wRlHshvd2TRUAdI6CeUvAkek6nsq08Qwy4Q3
-         dtbbdJtk1H+WrLFKeC0/t5FSaLD8xX/naKpXtVtSqaH6d2rsZIoT8RVfflAVP0wxX+rd
-         w8/dU/LYGjvfy69aSXGs49YtgExaw756KQq7oLhZ56YNW4PRTQgWzHa9kJpX1Ksgf6W5
-         AbOq7l7tVlmSh4g94brqv2eLXQBKahBpgUPDMf2fVw25HBXYb6lgv/s/yU7XclB/S5Qb
-         xbBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790387285; x=1790992085;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u8E325Hob5EvNUG1ihDxwdbdqqSNh/dhHuy8AA89ZKE=;
-        b=B2uOvq6ykR6Ffnh0s3kGTv7ObvIKrLMKJWq+oikxT0xYa5dTVjKzXGMyV2bV8l1xrs
-         AuptoVzV9AecUxHxn+6VYAE6h2W2UUEt7UCdIg4lF9fi78c3dfQrSnfBKAZ2T+Lz/J87
-         gYckuNOhq8N+0xmLkecqAfMBQ12zSOiMJqGrhas6f5qSEFcaCv7eKkmOfpTGTcue95Of
-         q7acn2qz5via7ie2+TG8N9g5ZEYS4BPaJjMoQZQpX6Pu7UmokcBDMS2QRiHOkxAjOvoU
-         XUsjyr2qA7D7hr2JrQCBQp1dU16WWz4iyXg2xrFapz/VLwzy9a+JZmpGWHuCh8XLLZ6z
-         q6cg==
-X-Gm-Message-State: AFuF++kKtV8ZjhYA3zPgK1txjjm0ZT7xB8cuv7i/7nj7+Ef3duNgGdcm
-	UlEZ33J4QCzob7yNwPQRifBoxdOQz/BXwmYZf8U1u3/4UCk1lJSsTRDLPn/aCQ==
-X-Gm-Gg: AYBFou2rUZXAuW7BjdTTLt9xb2kFLNPx4tHb+xeYwL7fvlCB2xK0LqU90yrWXaF5Hhy
-	XXVPI3zK+7pz6Jc4dx/4v/zZ05J14igpqlb40oxvZk6QvkdBj+OVMbJ2ddtXzfcMfO9XCHYOdqI
-	bhusfsjyOdtuNTQEKA3QHGSbiYpmJeyAiZcz0SkFvVRs3qaW44pZJockwFuT8oUQI6X1dbsUM+K
-	xDk4I5mjN9mVQMj5oqrmWUZVi1j1CcZSbGgLOXbGme5q0hXEjdq03DlodkgqaOorQqTIWY+yeTz
-	FJf05vJbYiM/oGOJidurEngD/SygyPevBSHGcE8zspb9nYPBXj5PHJKmM5tftHraNyD8jyH1AZD
-	D414E+dxqFiDmneHzwmAZKxCfJZzD0mCmhCgPxna8rMA52mhs6o7mcDE0ZP7gAC2qU24zXsyq8b
-	oIucLowI3MDKEKsextVMo5cWaty88w0XwXaCuTxKXSKYl9Am/v9kfSkx+xo2UQtPS6gjEcvCY9v
-	VduRE2har6QA5SwxR302Ge/eZZLJvZZIP6K4f1HBStIe58GqAMWmh9ljJES8Pe+Cg5W0c5i6zeD
-	lyM0kVA8K9BsJPU5A8RnUuz8Dfwi19zvbiCjVynscyc7ZBH+
-X-Received: by 2002:a05:6a20:e211:b0:3dd:a006:ed90 with SMTP id adf61e73a8af0-3de0e8b30c3mr6910904637.38.1790387285324;
-        Fri, 25 Sep 2026 18:48:05 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87fea18ff85sm1836463b3a.19.2026.09.25.18.48.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 18:48:04 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-mtd@lists.infradead.org (open list:MEMORY TECHNOLOGY DEVICES (MTD)),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v4] dt-bindings: mtd: convert IBM NDFC binding to YAML
-Date: Fri, 25 Sep 2026 18:48:02 -0700
-Message-ID: <20260926014802.87255-1-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KLs0/9nd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B93E71F000FF;
+	Sat, 26 Sep 2026 02:34:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790390081;
+	bh=yCY15/sIwH6iQ+lRCwST3dAmRtzGiWvGa+jsp9OFjhw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KLs0/9ndc1UNqO1ZN7E2eAQ8UnMcseqBK/vN2ulZ8OU5EIZFy2mP4MwAo3iozbw6N
+	 eg5FeHmz4Vv5oRl0c5Xz7EJXOmlR4dHhmZDWR+aVme5WVPv68iEksFznCSz8NRHscg
+	 yB5AWDbl9VHVWNs7JJFT/1XjP/GPULEKWJ5IxAISE8F4T+RTBD8I8xPKR8tAXBG2qz
+	 5dBFNjJ8lfyhxvgmOZI9zLFpQ+qh7pA59ez0ix44lI+9YGBL9qoPJwKyOcDT13LccH
+	 JC+4hPfrZvJdE0gcvOUfy0cficl9Vrr4wQJi6cpmCrCXYkecelZX48y0CqVD0XS8i1
+	 lWrDKiOEbjmwg==
+From: Jakub Kicinski <kuba@kernel.org>
+To: arouhi@sitime.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	jiri@resnulli.us,
+	vadim.fedorenko@linux.dev,
+	arkadiusz.kubalewski@intel.com,
+	ivecera@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	cjubran@nvidia.com,
+	pabeni@redhat.com,
+	Oleg.Zadorozhnyi@devoxsoftware.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	dev@kael-k.io,
+	devicetree@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 02/14] dt-bindings: dpll: add SiTime SiT95316 clock generator
+Date: Fri, 25 Sep 2026 19:34:38 -0700
+Message-ID: <20260926023438.1567469-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921201108.42676-3-arouhi@sitime.com>
+References: <20260921201108.42676-3-arouhi@sitime.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,215 +58,257 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The NDFC NAND flash controller was only described in a legacy text file,
-so dtbs_check reported "failed to match any schema with compatible:
-['ibm,ndfc']" for the ndfc nodes of the bluestone, canyonlands, eiger,
-glacier, sequoia and warp device trees.
-
-Convert the binding to the YAML format so those nodes match the generic
-nand-controller-legacy schema.  Describe the node's reg, ccr and
-bank-settings properties, along with its "nand" chip node which carries
-the legacy partition layout.
-
-The "nand" chip node carries no unit address, so the "nand@[a-f0-9]"
-pattern of nand-controller-legacy.yaml never matches it and
-raw-nand-chip.yaml is never applied.  Describe it with mtd.yaml,
-nand-property.yaml and raw-nand-property.yaml instead, the way the
-controller level does, so that both the deprecated partition@ nodes and
-a modern "partitions" subnode are accepted.  The node name does not
-matter, the driver picks the first child of the controller node.
-
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 ---
- v4: allow modern partitions
- v3: fix wrong regex
- v2: fix reg value
- .../devicetree/bindings/mtd/ibm,ndfc.txt      |  39 ------
- .../devicetree/bindings/mtd/ibm,ndfc.yaml     | 128 ++++++++++++++++++
- 2 files changed, 128 insertions(+), 39 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
- create mode 100644 Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
+dt-bindings: dpll: add SiTime SiT95316 clock generator
 
-diff --git a/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt b/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
-deleted file mode 100644
-index 869f0b5f16e8..000000000000
---- a/Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
-+++ /dev/null
-@@ -1,39 +0,0 @@
--AMCC NDFC (NanD Flash Controller)
--
--Required properties:
--- compatible : "ibm,ndfc".
--- reg : should specify chip select and size used for the chip (0x2000).
--
--Optional properties:
--- ccr : NDFC config and control register value (default 0).
--- bank-settings : NDFC bank configuration register value (default 0).
--
--Notes:
--- partition(s) - follows the OF MTD standard for partitions
--
--Example:
--
--ndfc@1,0 {
--	compatible = "ibm,ndfc";
--	reg = <0x00000001 0x00000000 0x00002000>;
--	ccr = <0x00001000>;
--	bank-settings = <0x80002222>;
--	#address-cells = <1>;
--	#size-cells = <1>;
--
--	nand {
--		#address-cells = <1>;
--		#size-cells = <1>;
--
--		partition@0 {
--			label = "kernel";
--			reg = <0x00000000 0x00200000>;
--		};
--		partition@200000 {
--			label = "root";
--			reg = <0x00200000 0x03E00000>;
--		};
--	};
--};
--
--
-diff --git a/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml b/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
-new file mode 100644
-index 000000000000..d5c392001ad3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
-@@ -0,0 +1,128 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mtd/ibm,ndfc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: IBM/AMCC NDFC (NAND Flash Controller)
-+
-+maintainers:
-+  - Miquel Raynal <miquel.raynal@bootlin.com>
-+  - Richard Weinberger <richard@nod.at>
-+
-+description: |
-+  The NDFC is the NAND flash controller integrated into the IBM/AMCC
-+  PowerPC 44x SoCs.
-+
-+allOf:
-+  - $ref: nand-controller-legacy.yaml#
-+
-+properties:
-+  compatible:
-+    const: ibm,ndfc
-+
-+  reg:
-+    description: Chip select and size used for the chip.
-+    maxItems: 1
-+
-+  ccr:
-+    description: NDFC config and control register value.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  bank-settings:
-+    description: NDFC bank configuration register value.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+
-+  nand:
-+    type: object
-+    description: |
-+      NAND chip attached to the controller. The driver picks the first
-+      child of the controller node, so this node is not required to be
-+      named "nand@<cs>".
-+
-+    allOf:
-+      - $ref: mtd.yaml#
-+      - $ref: nand-property.yaml#
-+      - $ref: raw-nand-property.yaml#
-+
-+    properties:
-+      "#address-cells":
-+        const: 1
-+      "#size-cells":
-+        const: 1
-+
-+    patternProperties:
-+      "^partition@[0-9a-f]+$":
-+        $ref: /schemas/mtd/partitions/partition.yaml#/$defs/partition-node
-+        deprecated: true
-+
-+    unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    ebc {
-+        #address-cells = <2>;
-+        #size-cells = <1>;
-+
-+        ndfc@1,0 {
-+            compatible = "ibm,ndfc";
-+            reg = <0x00000001 0x00000000 0x00002000>;
-+            ccr = <0x00001000>;
-+            bank-settings = <0x80002222>;
-+            #address-cells = <1>;
-+            #size-cells = <1>;
-+
-+            nand {
-+                #address-cells = <1>;
-+                #size-cells = <1>;
-+
-+                partition@0 {
-+                    label = "kernel";
-+                    reg = <0x00000000 0x00200000>;
-+                };
-+                partition@200000 {
-+                    label = "root";
-+                    reg = <0x00200000 0x03e00000>;
-+                };
-+            };
-+        };
-+    };
-+  - |
-+    ebc {
-+        #address-cells = <2>;
-+        #size-cells = <1>;
-+
-+        ndfc@1,0 {
-+            compatible = "ibm,ndfc";
-+            reg = <0x00000001 0x00000000 0x00002000>;
-+            #address-cells = <1>;
-+            #size-cells = <1>;
-+
-+            nand {
-+                #address-cells = <1>;
-+                #size-cells = <1>;
-+
-+                partitions {
-+                    compatible = "fixed-partitions";
-+                    #address-cells = <1>;
-+                    #size-cells = <1>;
-+
-+                    partition@0 {
-+                        label = "kernel";
-+                        reg = <0x00000000 0x00200000>;
-+                    };
-+                    partition@200000 {
-+                        label = "root";
-+                        reg = <0x00200000 0x03e00000>;
-+                    };
-+                };
-+            };
-+        };
-+    };
-+...
+This adds a devicetree binding for the SiTime SiT95316/SiT95317 DPLL clock
+generators. These are I2C devices with four PLLs, up to eight inputs and
+up to twelve outputs. The binding builds on the common dpll-device schema,
+adds vendor properties for per-PLL VCO overrides and output-to-PLL routing,
+and adds a MAINTAINERS entry.
+
+> diff --git a/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml b/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
+> new file mode 100644
+> index 0000000000000..6f4c60ba1cb92
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
+> @@ -0,0 +1,183 @@
+
+[ ... ]
+
+> +  clock-frequency:
+> +    description:
+> +      XO rate in Hz feeding XIN/XO_CLK.  Alternative to the "clocks"
+> +      phandle for platforms where the firmware does not expose the
+> +      oscillator through the clock framework.
+> +
+
+[ ... ]
+
+> +  sitime,pll-fvco:
+> +    $ref: /schemas/types.yaml#/definitions/uint64-array
+> +    minItems: 4
+> +    maxItems: 4
+> +    description:
+> +      Per-PLL VCO frequency in Hz for PLLA, PLLB, PLLC, PLLD.  The
+> +      values exceed 32 bits, which requires an explicit uint64-array
+> +      type; the dtschema meta-schema does not permit a type $ref on a
+> +      "-hz" unit-suffix property (only opp-hz is defined as 64-bit),
+> +      hence no unit suffix.  Override where the standard
+> +      Fvco = Fref * DIVN derivation does not match the running VCO --
+> +      for example a PLL operating in INTSYNC mode.  A value of 0 keeps
+> +      the register-derived computation for that PLL.
+> +
+> +  sitime,output-pll-map:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 8
+> +    maxItems: 12
+> +    items:
+> +      enum: [0, 1, 2, 3, 255]
+> +    description:
+> +      Source PLL index (0=PLLA .. 3=PLLD) for each output 0..11.  The
+> +      value 255 (0xff) marks an output as unmapped and prevents the
+> +      driver from registering it as a DPLL pin.  Override for
+> +      configurations where the chip's per-PLL OUTPUT_ENABLE bitmaps do
+> +      not unambiguously describe output-to-PLL routing.
+
+[Severity: Medium]
+Do clock-frequency, sitime,pll-fvco and sitime,output-pll-map describe
+the hardware, or what the Linux driver and clock framework do today?
+
+Documentation/devicetree/bindings/writing-bindings.rst says:
+
+  DON'T refer to Linux or "device driver" in bindings. Bindings should be
+  based on what the hardware has, not what an OS and driver currently
+  support.
+
+In sitime,output-pll-map, the value 255 "prevents the driver from
+registering it as a DPLL pin". The property exists to override the chip's
+own OUTPUT_ENABLE routing bitmaps.
+
+In sitime,pll-fvco, a value of 0 "keeps the register-derived
+computation". The property overrides cases where the driver's
+Fvco = Fref * DIVN derivation is wrong.
+
+The reason given for clock-frequency is that the firmware does not expose
+the oscillator through the clock framework. A fixed-clock node can already
+describe the XO, so this adds a second, mutually exclusive ABI for the
+same thing.
+
+Both vendor properties copy state that the chip already holds in its
+programmed configuration, and they would become permanent DT ABI.
+
+Can a static sitime,pll-fvco value stay correct at runtime? Later in the
+series, "dpll: sit9531x: model the inter-PLL sync net as a pair of pins"
+lets userspace switch INTSYNC through netlink. The sync source pin
+state_set in drivers/dpll/sit9531x/dpll.c does:
+
+    sitdev->intsync_src = sitdpll->id;
+
+(or -1). sit9531x_get_fvco() in drivers/dpll/sit9531x/core.c returns the
+override whatever the INTSYNC state is:
+
+    if (pll_idx < SIT9531X_NUM_PLLS && sitdev->pll_fvco[pll_idx]) {
+        *fvco = sitdev->pll_fvco[pll_idx];
+        return 0;
+    }
+
+If the VCO rate really depends on INTSYNC, which is the reason this
+binding gives for the override, would the value be stale after a runtime
+switch? sit9531x_output_divo_calc() and the phase and TDC paths all divide
+by sit9531x_get_fvco(). A stale value would give wrong output frequencies,
+phase offsets and DIVO values. I couldn't confirm whether the VCO actually
+changes with INTSYNC on this hardware.
+
+The reasons given also don't match. This binding cites INTSYNC mode. The
+later commit "dpll: sit9531x: allow the device tree to override two board
+facts" cites "free-run with a divider the configuration never programmed".
+Which case is the override meant for?
+
+The commit message doesn't mention these vendor properties or the
+clock-frequency alternative. Could it explain why they are needed?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +oneOf:
+> +  - required:
+> +      - clocks
+> +      - clock-names
+> +  - required:
+> +      - clock-frequency
+
+[Severity: Low]
+Is a node that has both clocks and clock-frequency supposed to pass this
+oneOf?
+
+Take a node with clocks = <&xo>; and clock-frequency = <...>; but no
+clock-names. The first branch fails only because clock-names is missing,
+and the second branch passes, so oneOf is satisfied. Nothing else in the
+binding requires clock-names when clocks is present.
+
+For such a node, sit9531x_dev_probe() does:
+
+    xtal_clk = devm_clk_get_optional_enabled(sitdev->dev, "xtal");
+    ...
+        if (!device_property_read_u32(sitdev->dev, "clock-frequency",
+                                      &freq))
+
+The "xtal" lookup finds no clock-names match, so the optional getter
+returns NULL. clk_get_rate(NULL) is 0, and the driver falls back to
+clock-frequency. The clock referenced by clocks is never prepared or
+enabled.
+
+Would adding dependentRequired (clocks requires clock-names), or having
+each oneOf branch forbid the other property, fix this?
+
+> +
+> +allOf:
+> +  - $ref: /schemas/dpll/dpll-device.yaml#
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but the new binding inherits a
+limitation from the shared schema. In dpll-device.yaml, input-pins
+children match:
+
+    "^pin@[0-9a-f]+$":
+
+output-pins children match:
+
+    "^pin@[0-9]+$":
+
+output-pins also has unevaluatedProperties: false, so pin@a and pin@b are
+rejected.
+
+The SiT95316 has outputs 0..11, and the driver matches output-pins
+children by physical slot. On the SiT95317 the slots are:
+
+    static const u8 clkout_map_95317[] = {0, 3, 4, 5, 7, 8, 9, 11};
+
+so OUT11 is reg 11 on both parts.
+
+Can outputs 10 and 11 be described with the usual hex unit-address names?
+The only way to pass validation seems to be pin@10 with reg = <10>, which
+breaks the hex convention. microchip,zl30731.yaml (20 single-ended outputs)
+has the same gap. Should the output-pins pattern in dpll-device.yaml be
+changed to match the input-pins one?
+
+> +  # SiT95317 exposes 8 outputs, SiT95316 exposes 12.  Bound the
+> +  # output-pll-map length to the variant so a SiT95317 node cannot
+> +  # describe more outputs than the part has.
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: sitime,sit95317
+> +    then:
+> +      properties:
+> +        sitime,output-pll-map:
+> +          maxItems: 8
+> +  # SiT95316 has 12 outputs.  When the map is supplied it must describe
+> +  # all of them, otherwise the trailing outputs are left ambiguous.
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: sitime,sit95316
+> +    then:
+> +      properties:
+> +        sitime,output-pll-map:
+> +          minItems: 12
+
+[Severity: Medium]
+What do the reg values of input-pins and output-pins children mean on
+these parts, and which values are valid for each variant?
+
+These if/then blocks only limit sitime,output-pll-map. dpll-pin.yaml only
+has reg: maxItems: 1, so nothing here limits pin reg values.
+
+sit9531x_prop_pin_fwnode_get() in drivers/dpll/sit9531x/prop.c matches
+output-pins children by physical slot:
+
+    if (id < sitdev->info->num_outputs)
+        id = sitdev->info->clkout_map[id];
+
+On the SiT95317 this puts the eight outputs at reg 0, 3, 4, 5, 7, 8, 9 and
+11. sitime,output-pll-map uses the dense logical index 0..7 instead. The
+binding only says "SiT95317 drives 8 outputs" and "for each output
+0..11".
+
+Suppose a SiT95317 board, going by the binding text, numbers its output
+pins 0..7. Wouldn't reg 3 then apply to logical output 1, reg 4 to logical
+2, reg 5 to logical 3, and reg 7 to logical 4, with reg 1, 2 and 6
+ignored? Labels, connection types and supported-frequencies-hz would end
+up on the wrong outputs. Output reg 1, 2, 6 or 10, and input reg 8 or
+higher, also pass validation and are silently ignored.
+
+The binding doesn't describe the input lane layout either. In
+drivers/dpll/sit9531x/core.h:
+
+    static inline bool sit9531x_input_is_n(u8 index)
+    {
+        return index & 1;
+    }
+
+So reg 2k is CLKINkP and reg 2k+1 is CLKINkN. When the pair is
+differential, sit9531x_input_pin_is_registrable() doesn't register the N
+lane at all.
+
+In the example, input pin@0 (10 MHz, ext) and pin@1 (156.25 MHz, synce)
+are the two lanes of CLKIN0. That only works if the pair is set up as
+single-ended.
+
+Could the binding document the reg numbering and add reg limits for each
+variant? microchip,zl30731.yaml labels each example pin with its physical
+name (/* REF0P */), which could be a model to follow.
+
+> +
+> +unevaluatedProperties: false
+
+[ ... ]
 -- 
-2.55.0
-
+pw-bot: cr
