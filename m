@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C2D1E7660;
-	Sat, 26 Sep 2026 03:18:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF6E6302146;
+	Sat, 26 Sep 2026 03:28:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790392728; cv=none; b=cWgoGs3f88qw3IMv+wFf4c0IuK2QCkJiFjlxLSVHhh6B7fSmG4CMGjhlpqMoowm5RRfeu2B9YiCEz7O6ajnsvru6y6PEhaztPSsbhJZ8GVteTyjdHnrhVwVItC0N1WbMaCM8CfXFTSUd8kXtsDnNC4Bps4BVWQgzLayDd7jgK4s=
+	t=1790393316; cv=none; b=jRYkl7slW4JSALlK/L7s9dv91p/cubEf/mAYr2uapmmFnaCFiafVntqM3aZnvJQnUmn0lMKY7hLlXCZZJR7KO/x5Da2G4pb1mFmNdV9XlpxLO4clfv23voa6vZeDdtCoUGLDG5M8DcHfGyQqjBxtGYyh3Sq/JnxDibE8nXBNvD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790392728; c=relaxed/simple;
-	bh=ocgPHKZqsQUJdw6O+zlDwCgGVH62gAcmDu9EME62YhY=;
+	s=arc-20240116; t=1790393316; c=relaxed/simple;
+	bh=y+JiOpe+T+CJvp42Xk+8WPE52MBKptMeTH/7LVQRUwk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KUKV5MKntr0kG3HKpf11g9xr/BS9yfnG+JC47dlu8oylhmRCDey15ee8BkoqksS8oooywoogTt9fWIUAwx0KMp1MNR8xVnqOxS/6WSfXWFHoM7f9DLUJaDZ/hz4FE7T3mZP9aEB3VELqxzQz7Xpo4LuhU5tvGx9rlwMFj+0oCdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G/ZLnxNm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DJiL/GpPnYoOlA7d2YW0stb97mXmkdNE7CSiwePuJUuWcAYxPAisO4bsCnV52ln5eryvvXNQyquTTx7B5qYd01O3ZnN+p/oMz5l7Vw7Ny44FPSpY5xyH3SwaGeg6cSwA1mYD+5MRgEO3Ye9nNVnU5ELcBobbJ8xugza8wCw1YDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CDw4uRxs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G/ZLnxNm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBD061F000FF;
-	Sat, 26 Sep 2026 03:18:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CDw4uRxs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98F851F000FF;
+	Sat, 26 Sep 2026 03:28:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790392727;
-	bh=XqhtRYfHxTdA5AHEl7GWLWSSMjHoYIs2MLO3IJpi5zg=;
+	s=k20260515; t=1790393314;
+	bh=wiIuEcxJHxHcC9qQ4G2FrJQ6QHq9Q5CgIOwL5I1TyD8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G/ZLnxNmeGfBJ4493KlkmVG/cHmt47L9J+GZg+mUIHKpOsJR82n9FHniGutYgqhp/
-	 ISs3jmqGb3MRo2fGMCZsXf2AThJkvEvu6E3vs8DUH0AlBvHelzyabWMn4fidvnJepX
-	 TWbcsJ++Osv6pDo9m/Ii+BSZjV87/lRS1y4JccKKIrGa2RPYW/XkjzCT0d66eOPfQq
-	 jBUUBqa1pJDW1AGsx3+ZuSmaAkOx1nMn+fKwk8lODDgVGxVHKI9YKCLlYpF3mz+Gfj
-	 fmKLIPAJR89RQO7bLIO/anVxJEq+TAfBpqbVkhFQAcQ79mURimEPtJrjdThgpd+TND
-	 1c7DTRz0FM4Tg==
-Date: Sat, 26 Sep 2026 05:18:23 +0200
+	b=CDw4uRxsgwF6gEQnfAe/EPbjMXGNFyCujdlTCYvYSZo6bF6iJTsr3KTLRm4X5QLtu
+	 4YY/gwk1uBiSHECVcWJAdHbENyN7OLh+3/wamTzLJy9Clsfi35StQbrBM5zxtS/J59
+	 nyBaePuHyAJkhslRtnoSrF88aGZXZszpiMZGCntuerIAtGTRk1E3ntJfwv3oIRTVj3
+	 ad0ORYDu4S54XwnGKajN4nJXe0Mk2WGKONjTjeXvTRwq/ECEcE5WSxtZ9Nbc65ZHKl
+	 CQ14xNWBbZnI/DfOyTqw5tk9ojxOGrrc4y/YFW+Qr0aQtEzsj9sl2WjlL7JU7RFXXz
+	 9ysjv96UtnmjA==
+Date: Sat, 26 Sep 2026 05:28:18 +0200
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: Sebastian Reichel <sebastian.reichel@collabora.com>
 Cc: Vinod Koul <vkoul@kernel.org>, 
@@ -38,12 +38,12 @@ Cc: Vinod Koul <vkoul@kernel.org>,
 	Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
 	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
 	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, kernel@collabora.com, 
-	devicetree@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v15 02/16] phy: rockchip: usbdp: Update mode_change after
- error handling
-Message-ID: <lywinqwwm2k7yycctngj7krt4e27dhi2pzzfcb5n4otgcj55rm@mk52fdcfq6yc>
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v15 03/16] phy: rockchip: usbdp: Do not lose USB3 PHY
+ status
+Message-ID: <yriwlzd7fiolepmi2rkdgdis5bk634biomttmdwdxiqcdgv5g4@ps3efdu6q5pe>
 References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
- <20260915-rockchip-usbdp-cleanup-v15-2-80e2c11d1ce8@collabora.com>
+ <20260915-rockchip-usbdp-cleanup-v15-3-80e2c11d1ce8@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,21 +53,22 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-2-80e2c11d1ce8@collabora.com>
+In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-3-80e2c11d1ce8@collabora.com>
 
-On Tue, Sep 15, 2026 at 03:49:49PM +0200, Sebastian Reichel wrote:
-> If rk_udphy_init() or rk_udphy_setup() fails, the reinit will not be
-> tried again. Fix this by only updating the variable after all potential
-> errors have been handled.
+On Tue, Sep 15, 2026 at 03:49:50PM +0200, Sebastian Reichel wrote:
+> By default (i.e. without manually enabling runtime PM) DWC3 requests the
+> USB3 PHY once and keeps it enabled all the time. When DisplayPort is
+> being requested later on, a mode change is needed. This re-initializes
+> the PHY. During re-initialization the status variable has incorrectly
+> been cleared, which means the tracking information for USB3 is lost.
 > 
-> Note, that no errors have been seen on real hardware and failures would
-> most likely be fatal and require at least a full reboot as the function
-> already asserts the PHY reset lines. So this is more of a theoretical
-> issue.
+> This is not an immediate problem, since the DP side keeps the PHY
+> enabled. But once DP is toggled off, the whole PHY will be disabled.
+> This is a problem, because the USB side still needs it powered.
+> 
+> Fix things by not clearing the status flags.
 > 
 > Fixes: 2f70bbddeb45 ("phy: rockchip: add usbdp combo phy driver")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/linux-phy/20260612163835.8D5471F000E9@smtp.kernel.org/
 > Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
 > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
