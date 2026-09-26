@@ -1,211 +1,64 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218913B6C17;
-	Sat, 26 Sep 2026 14:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF5A3BE179;
+	Sat, 26 Sep 2026 14:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790433934; cv=none; b=NSg5BQ43doaiPHs3EVzPG5D7HgSuN2YJhqMl+wVlYArgESlI1Oi7aChiGSJNzeGdyD73Onhoj9tYgeRv0nCJSdJjqXPlsYHhJRYLjTs9PhXPaxO2jTqI6NnGpAsD5sxRtx+UcbO+jFnt5x8twCTYDyhGXTdpo9Mw1CU5katRy1s=
+	t=1790434069; cv=none; b=Loi9kYnZr9jXAcl/cWC+eX+e8xdhJwNkSxQ51wfXqQcZYB3Tujs+b2BnJBq0ZCkuWMrbIQDPi+xvG1yifhxPcBuOmUc8flINeKXZa12q7YwFhQ5DCJJ3Lm5k5LlqU6rnviDOMCaDjl1VAUI+4nqNBlaI70o0LLY/w/bH77Qpk5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790433934; c=relaxed/simple;
-	bh=dmZUngUCVOz2gkdF1xafc2BAzFipK5XtAgENKFzA6dI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=crtLhQdzHZBkm+Vcmla9asnxrRvwrerU53BTs7LFDbbWuUSh4m5Y2go7dcNJNHykDQUn0/iT262dRmecdXThuaZAKHCx/ZZTH9AzA9lWnm7QzBxvMRsfeG5tX5muI15Q/y8PTtFIFLay4aPjgMz040IUqVXnA/vMrp+nJaGqn44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=SmdpAoZs; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790434069; c=relaxed/simple;
+	bh=SoIzXhEvbmeAD+ywcurIKAt/n3H8uZhGifNEixSUVaw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uqcf5JO/cuHlCsYoL8EGZLpdLwhyeodS67OFv2VJbA+okisc01ObeSdY7KTghJ9Y0rW6ElGH6huooOOVOoo7ISv7KjuIqkoG6m8bVIM4ZkfMqqpkcs3Jcbotpa2+SdBig0TD1jzPUlirsuVQiuUrm8OSt3+cXoJk5GTL0NqituY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XWfrJrju; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="SmdpAoZs"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id C32E653401FA;
-	Sat, 26 Sep 2026 16:45:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790433930;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=5Apn2YF5XEj2vUVw6Yx8RwrmsIykiLewffaA3kcaTPY=;
-	b=SmdpAoZs79lrPkVy/0d+Ku1eDb2aVPLHg3M/IWW+9PinutKr4USvtM7HE9Xn4uWEAreLkU
-	GHgQKxpspvwHBLkZJ7BaUDTp1laR0/30vr0PUpFfmqm4Q3cuJFRgLrebS480GZ2cYg+8nP
-	dplAPgHy//yTykZw0X1o8RiWFUVLc8Y=
-Message-ID: <b6628737-6535-42ea-bf8e-93dcaddaeb5c@ixit.cz>
-Date: Sat, 26 Sep 2026 16:45:30 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XWfrJrju"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86E7C1F000FF;
+	Sat, 26 Sep 2026 14:47:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790434067;
+	bh=YlivOBdPljKSWxtj70JMDp/3hwUgvEIJgivJLHAjQZc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XWfrJrjuLQI3IPqEWMR+N6/6eFxlzs+LCCJVTOs3GhKN4zA/LJlkqkmsi4+BkT2YC
+	 Llq7XMsepZ02+FOyWeAKoHvXJ7NGPZ3b2J1iHGG4W+ZFvtFnclh4VYAbzbP5vvH125
+	 ula6zpGB74d0NHfdcRr85gLdIQevicggqvHyE2pR5GdFzgyaxrH7RP/Vjg4p0LKzet
+	 UnMiFfrITgh4PZzppReuok/+VL2URbQY8ZYcW0DJzh86iijQXVTMf8PBtuhCxXk7Gy
+	 Gi6D6Vmi4r+UMT+X6sIpckYXldueylbfMqzmVfMXQhtsvo5t2KrGf8MFej4tumaEF8
+	 Dc0fAY+ieHBVg==
+Date: Sat, 26 Sep 2026 16:47:35 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Christian Marangi <ansuelsmth@gmail.com>, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, vkoul@kernel.org, robh@kernel.org, olteanv@gmail.com, 
+	neil.armstrong@linaro.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH v11 3/3] phy: airoha: Add support for Airoha AN7581 USB
+ PHY
+Message-ID: <owibbez4nfq5gh4b2ensbhy7d5trmcwupe4rqox5ig3wy33ngp@6z4gbmqry2cy>
+References: <20260724184523.193661-1-ansuelsmth@gmail.com>
+ <20260724184523.193661-4-ansuelsmth@gmail.com>
+ <20260724190135.B22051F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 06/12] usb: typec: qcom: Add gen1 Type-C port support
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Alexey Minnekhanov <alexeymin@minlexx.ru>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Lee Jones <lee@kernel.org>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- phone-devel@vger.kernel.org, mfd@lists.linux.dev
-References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
- <20260926-typec-v1-6-31adc19f32c6@ixit.cz>
- <4f089c98-a479-45c9-9b11-0207c895367a@linaro.org>
- <f83b2992-9214-49b7-be3d-28ad435a73c9@ixit.cz>
- <8f6c3e69-f616-42b4-8e33-f05ac0812722@linaro.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <8f6c3e69-f616-42b4-8e33-f05ac0812722@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260724190135.B22051F000E9@smtp.kernel.org>
 
-On 26/09/2026 16:41, Bryan O'Donoghue wrote:
-> On 26/09/2026 15:32, David Heidelberg wrote:
->> On 26/09/2026 16:22, Bryan O'Donoghue wrote:
->>> On 26/09/2026 13:40, David Heidelberg via B4 Relay wrote:
->>>> From: David Heidelberg <david@ixit.cz>
->>>>
->>>> Add a port backend for the first generation of the Qualcomm PMIC Type-C
->>>> block, found on PM660 and PMI8998.
->>>>
->>>> On gen1 the Type-C CC logic is part of the charger's USBIN peripheral
->>>> (base 0x1300) instead of the standalone Type-C peripheral used by
->>>> PM8150B and later PMICs. All Type-C events (CC state change,
->>>> tCCDebounce done, VBUS change and error) are signalled through a single
->>>> aggregate "type-c-change" interrupt, the handler re-reads TYPEC_STATUS_4
->>>> to find out what changed. The PD PHY is register compatible with PM8150B
->>>> and is reused as is.
->>>>
->>>> Differences to the PM8150B backend:
->>>>   - get_cc() returns -EBUSY until the hardware reports tCCDebounce done,
->>>>     instead of using a software debounce.
->>>>   - As a source, only the default and 1.5A Rp can be advertised, 3.0A
->>>>     requests are advertised as 1.5A.
->>>>   - The PBS workaround of the downstream SMB2 driver (TM_IO_DTEST4_SEL)
->>>>     is applied on every power role change.
->>>>
->>>> VBUS sourcing is optional and only used when the connector provides
->>>> a vbus-supply, as the charger doesn't expose a VBUS regulator yet.
->>>>
->>>> Assisted-by: LLM
->>>> Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
->>>> Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
->>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>> ---
->>>>   drivers/usb/typec/tcpm/qcom/Makefile               |   1 +
->>>>   drivers/usb/typec/tcpm/qcom/qcom_pmic_typec.c      |   9 +
->>>>   .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.c    | 605 ++++++++++ ++++++ 
->>>> +++++
->>>>   .../typec/tcpm/qcom/qcom_pmic_typec_port_gen1.h    |  15 +
->>>>   4 files changed, 630 insertions(+)
->>>>
->>
->> [...]
->>
->>>> +/*
->>>> + * Failure of this workaround write is non-fatal and
->>>> + * we can continue with the role transition.
->>>> + */
->>>> +static void gen1_typec_pbs_wa(struct gen1_typec_port *port, bool sink)
->>>> +{
->>>> +    unsigned int val = sink ? 0 : PBS_CRUDE_SENSOR_ENABLE;
->>>> +    int ret;
->>>> +
->>>> +    ret = regmap_write(port->regmap, port->base +
->>>> +               MISC_BASE_OFFSET + TM_IO_DTEST4_SEL, val);
->>>> +    if (!ret)
->>>> +        return;
->>>
->>> Why would the write fail and why wouldn't that be a critical case if the 
->>> write did fail ?
->>
->> Heya Bryan,
->>
->> thanks a lot for reviewing the series. For the rest notes, I'll incorporate 
->> that and/or think about it later. Here to quickly answer to this note,
->>
->> this one quirk is definitely NOT REQUIRED. Originally, I was testing the 
->> driver without it on sdm845 devices, and everything worked without it just 
->> fine. I ASSUME in some situation or with some devices combination it may come 
->> handy, thus likely if it fails, not much usually happens (and clanker was 
->> suggesting to port this one from downstream, so I did).
->>
->> David
->>
->> [...]
-> 
-> I ran this code though an LLM and it is babbling about the "shape" of things to 
-> hand you LoL.
-> 
-> Anyway the pattern matching part flagged this:
-> 
-> "Write outside the node's reg. base + MISC_BASE_OFFSET + TM_IO_DTEST4_SEL is 
-> 0x16e9, the MISC peripheral. 03 declares reg = <USBIN>, <PDPHY> only."
-> 
-> Worth also verifying.
+On Fri, Jul 24, 2026 at 07:01:35PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+> - [High] Missing PHY Initialization for SerDes PHY (API Violation)
+> - [High] Incorrect Register Update using regmap_set_bits with a multi-bit mask
+> - [Medium] Semantic Mismatch: Hardcoding SerDes PHY to DEVICE mode ignores HOST controller capability
+> - [Low] Missing Header Files for Core Kernel APIs
 
-Yup, I explicitly split the addr into MISC_BASE_OFFSET, as it's pretty much 
-outside of this block range (same reason why I haven't sent the vbus patches for 
-qcom smbx charger).
+Please respond to these issues.
 
-Maybe Konrad with more insight can tell more about it. In the Type-C submission 
-I can pretty much confidently drop it (if it'll need separate driver) and still 
-assure users get expected functionality.
+- Mani
 
-David
-
-> 
-> ---
-> bod
-
+-- 
+மணிவண்ணன் சதாசிவம்
