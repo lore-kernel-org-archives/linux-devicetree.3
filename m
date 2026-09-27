@@ -1,166 +1,160 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3603F37F002
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 15:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A90829D288;
+	Sun, 27 Sep 2026 15:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790521790; cv=none; b=bygqSLuNY1CE65JIFJsQww0emV4CGtSn+a0nrEokD7NYNxFkr8qajaeiMDgIrl0UuW9iQTo1IlGrp1xO492iOaSjiW9zHMhnR+SgP3HIoBjSEb3jWTZX6R+nCxFegjbbvIaXwotUixkFXNvyNrLFFGJzg7jSog38phs1hRMsRlA=
+	t=1790521793; cv=none; b=XTZKTo9DGSlalWdICtxcaOnuZ6fuzZJTg++DufoC2l4IQMx4OxdC8WAudgbwRPprjpjRPgBhuLNeMe1zmXA1PrO1bZjcgyL8h29lGV3mjmB6AseNJfBYIsjPk0vh6nGfGQJI5iyqyCUL8JrwrpMHpeVj4F5ZADKeSQX0urgbgZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790521790; c=relaxed/simple;
-	bh=TtY1udbB9gRXhhoa8lgh2rPwZAXk1yyxXBkV0bDcmsg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=kmurtymjkGpImvC6PDF6tyBMT2t5Zue5H8wn96p63/of+n47r8BgTUJeQhi3bdWiTiTf9Og8BFGaIIhRMR+v0udDBdpPd790X+3CmFxJDHcOKG1Kwlup8IYG7M7EO0R1Ke2N6ky1assJE7OlhluzLecrM/TcSA5AL3xzbqjkSHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=fk/Z4QbI; arc=none smtp.client-ip=203.254.224.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790521793; c=relaxed/simple;
+	bh=cBCyhrfY516t+1GuQeVB0Teoz8Foc2RUfasrs/B/rJU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QtMhAmcF5zOs7+bG26jXX/fKUWmrxClkgVF7THIQg4dhR9VDwvi6hMB53qjOisatZOoHXHNZEBlgi6+dE5aZhJzSN1h6tbUPOmUGigh8EJAc0lLu5nBeLNtb5/HeaD4HtyQDxNtnFDo8OQcIQspIUBizm932yGdyfx3g26fGU4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jsnZScAX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="fk/Z4QbI"
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260927150946epoutp01f6f9d8c5285adcc18934fc4c0320a67c~ZNhPvM5NJ1098310983epoutp01i
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 15:09:46 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260927150946epoutp01f6f9d8c5285adcc18934fc4c0320a67c~ZNhPvM5NJ1098310983epoutp01i
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790521786;
-	bh=nDm4kQwri/+NG+rfAwqmk0AAalnRCMyPs6xBcvSRO3Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=fk/Z4QbIy2bY5AYjUxN8iEG0/TDhoO48+8W3UV5ZjhSlx9Jhl79uXmXqSu5juz+6l
-	 Rm13Rg8oryBExvTcAWfKpz8yS3poo8CROpb6yYxkb6QUqMl6ilZmOn6/uNpA2ijXc6
-	 p3/GGNK9iWjg2t66LXZyDITwjD84iNZ4IooAtPgQ=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260927150944epcas5p128db862a275cfc265e892e14263acc1b~ZNhOWY1AI1972919729epcas5p1g;
-	Sun, 27 Sep 2026 15:09:44 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.90]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4ht7CC6KQSz6B9m5; Sun, 27 Sep
-	2026 15:09:43 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c~ZNhNKU8Lj1972919729epcas5p1d;
-	Sun, 27 Sep 2026 15:09:43 +0000 (GMT)
-Received: from bose.samsungds.net (unknown [107.108.83.9]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260927150941epsmtip14d660914bb453957f22c1a66c2850d5e~ZNhLhckoP2148721487epsmtip1Q;
-	Sun, 27 Sep 2026 15:09:41 +0000 (GMT)
-From: Alim Akhtar <alim.akhtar@samsung.com>
-To: krzk@kernel.org, peter.griffin@linaro.org, robh@kernel.org,
-	conor+dt@kernel.org, linusw@kernel.org
-Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
-	linux@roeck-us.net, hajun.sung@samsung.com, wim@linux-watchdog.org, Alim
-	Akhtar <alim.akhtar@samsung.com>
-Subject: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add support for Exynos8855
- SoC
-Date: Sun, 27 Sep 2026 20:57:38 +0530
-Message-Id: <20260927152738.3673504-2-alim.akhtar@samsung.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260927152738.3673504-1-alim.akhtar@samsung.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jsnZScAX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1771F000FF;
+	Sun, 27 Sep 2026 15:09:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790521792;
+	bh=QOUciLH1fsxiSS39Sd2Y4bJyTz6PHL+5Mo5Y/Q/hr2U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jsnZScAX0Jzrt4S+Bo12pf2xPE8FxKa55klmhCqrc4DPmaR+BVabD+edO6GJ5CCtG
+	 lqP0xfhYeOh067EF+/4tb2GD2703QOpJqcIEhuUOMfxzYv6z5a/NnhbQXjiR52bpmM
+	 V11vm+J8XYOUTeUFsQC7CgNEaB0YPU9oVWFhZve51BKrwApR7qxBTLZq49cJ2h1ksK
+	 uTJhDgHNbo64WsG5RsTovS+hoUApZrc8/wJoLp7Zo8u94UhVmw3jxqZ2HXVdD7l2hD
+	 YVYaz/6vKkQ3q0la1hb0MEo8yyfvBKWUYXMzLh5r258F/AyvavH2JaXzJ7juiviXIX
+	 mlAHjkq5x6ZPw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/2] clk: Add gpio-locked clock driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vyacheslav Yurkov" <V.Yurkov.EXT@bruker.com>
+Cc: conor+dt@kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260927-feature-clock-guard-v8-2-630938e302a1@bruker.com>
+References: <20260927-feature-clock-guard-v8-0-630938e302a1@bruker.com>
+ <20260927-feature-clock-guard-v8-2-630938e302a1@bruker.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 27 Sep 2026 15:09:51 +0000
+Message-Id: <20260927150952.1D1771F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c
-References: <20260927152738.3673504-1-alim.akhtar@samsung.com>
-	<CGME20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c@epcas5p1.samsung.com>
 
-Watchdog IP on this SoC is similar to Exynos850/ExynosAutov{9/920}.
-This does not have CNT_EN_WDT bit in PMU and offset of RST_STAT is
-different then the previously support SoC.
-Reuse the offset as much as from already supported SoC
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] clk: gpio: negative error code from GPIO read evaluated as success
+- [Medium] clk: gpio: clk_prepare callback violates CCF abstraction by fail=
+ing to block
+- [Medium] clk: gpio: gpio-locked-clock ignores DT num_parents, forcing orp=
+han state
+--
 
-Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
----
+commit 8ac8202cfc07fde8ca8b25fa51d26b883f03b432
+Author: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-*Changes in V2:
-	- Fixed Sashiko review comments
-		- [Low] watchdog: confusing reuse of CLUSTER0 macro for CLUSTER1
-		- [Low] watchdog: space-based alignment for EXYNOS8855_RST_STAT_REG_OFFSET
+clk: Add gpio-locked clock driver
 
- drivers/watchdog/s3c2410_wdt.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+This commit adds a gpio-locked clock driver where the clock's valid status
+is determined by a GPIO signal. It allows consumers to wait on the clock
+lock before initializing dependent peripherals.
 
-diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wdt.c
-index 7053963fb0ac..007c05ed2c7b 100644
---- a/drivers/watchdog/s3c2410_wdt.c
-+++ b/drivers/watchdog/s3c2410_wdt.c
-@@ -58,6 +58,7 @@
- #define S3C2410_WATCHDOG_DEFAULT_TIME	(15)
- 
- #define EXYNOS5_RST_STAT_REG_OFFSET		0x0404
-+#define EXYNOS8855_RST_STAT_REG_OFFSET		0x10
- #define EXYNOS5_WDT_DISABLE_REG_OFFSET		0x0408
- #define EXYNOS5_WDT_MASK_RESET_REG_OFFSET	0x040c
- #define EXYNOS850_CLUSTER0_NONCPU_OUT		0x1220
-@@ -73,6 +74,7 @@
- 
- #define EXYNOS850_CLUSTER0_WDTRESET_BIT		24
- #define EXYNOS850_CLUSTER1_WDTRESET_BIT		23
-+#define EXYNOS8855_CLUSTER1_WDTRESET_BIT	25
- #define EXYNOSAUTOV9_CLUSTER0_WDTRESET_BIT	25
- #define EXYNOSAUTOV9_CLUSTER1_WDTRESET_BIT	24
- #define EXYNOSAUTOV920_CLUSTER0_WDTRESET_BIT	0
-@@ -281,6 +283,26 @@ static const struct s3c2410_wdt_variant drv_data_exynos850_cl1 = {
- 		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_CNT_EN,
- };
- 
-+static const struct s3c2410_wdt_variant drv_data_exynos8855_cl0 = {
-+	.mask_reset_reg = EXYNOS850_CLUSTER0_NONCPU_INT_EN,
-+	.mask_bit = 2,
-+	.mask_reset_inv = true,
-+	.rst_stat_reg = EXYNOS8855_RST_STAT_REG_OFFSET,
-+	.rst_stat_bit = EXYNOS850_CLUSTER0_WDTRESET_BIT,
-+	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET |
-+		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
-+};
-+
-+static const struct s3c2410_wdt_variant drv_data_exynos8855_cl1 = {
-+	.mask_reset_reg = EXYNOSAUTOV920_CLUSTER1_NONCPU_INT_EN,
-+	.mask_bit = 2,
-+	.mask_reset_inv = true,
-+	.rst_stat_reg = EXYNOS8855_RST_STAT_REG_OFFSET,
-+	.rst_stat_bit = EXYNOS8855_CLUSTER1_WDTRESET_BIT,
-+	.quirks = QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET |
-+		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
-+};
-+
- static const struct s3c2410_wdt_variant drv_data_exynos990_cl0 = {
- 	.mask_reset_reg = GS_CLUSTER0_NONCPU_INT_EN,
- 	.mask_bit = 2,
-@@ -400,6 +422,8 @@ static const struct of_device_id s3c2410_wdt_match[] = {
- 	  .data = &drv_data_exynos7 },
- 	{ .compatible = "samsung,exynos850-wdt",
- 	  .data = &drv_data_exynos850_cl0 },
-+	{ .compatible = "samsung,exynos8855-wdt",
-+	  .data = &drv_data_exynos8855_cl0 },
- 	{ .compatible = "samsung,exynos990-wdt",
- 	  .data = &drv_data_exynos990_cl0 },
- 	{ .compatible = "samsung,exynosautov9-wdt",
-@@ -723,6 +747,7 @@ s3c2410_get_wdt_drv_data(struct platform_device *pdev, struct s3c2410_wdt *wdt)
- 	/* Choose Exynos850/ExynosAutov9 driver data w.r.t. cluster index */
- 	if (variant == &drv_data_exynos850_cl0 ||
- 	    variant == &drv_data_exynosautov9_cl0 ||
-+	    variant == &drv_data_exynos8855_cl0 ||
- 	    variant == &drv_data_gs101_cl0 ||
- 	    variant == &drv_data_exynosautov920_cl0 ||
- 	    variant == &drv_data_exynos990_cl0) {
-@@ -740,6 +765,8 @@ s3c2410_get_wdt_drv_data(struct platform_device *pdev, struct s3c2410_wdt *wdt)
- 		case 1:
- 			if (variant == &drv_data_exynos850_cl0)
- 				variant = &drv_data_exynos850_cl1;
-+			else if (variant == &drv_data_exynos8855_cl0)
-+				variant = &drv_data_exynos8855_cl1;
- 			else if (variant == &drv_data_exynosautov9_cl0)
- 				variant = &drv_data_exynosautov9_cl1;
- 			else if (variant == &drv_data_gs101_cl0)
--- 
-2.34.1
+> diff --git a/drivers/clk/clk-gpio.c b/drivers/clk/clk-gpio.c
+> index 9099c57e27156..db68b8bc44c5a 100644
+> --- a/drivers/clk/clk-gpio.c
+> +++ b/drivers/clk/clk-gpio.c
+> @@ -138,6 +138,25 @@ static const struct clk_ops clk_gpio_mux_ops =3D {
 
+[ ... ]
+
+> +/* We can't prepare the clock, but the Common Clock Framework calls only
+> + * prepare() not is_prepared(), therefore we fallback on the actuall GPI=
+O value.
+> + * The function clk_sleeping_gpio_gate_is_prepared() returns the raw boo=
+lean
+> + * GPIO status (1 if locked, 0 if unlocked), but the prepare callback
+> + * clk_core_prepare() expects 0 for success and non-zero integer for fai=
+lure.
+> + */
+> +static int clk_gpio_locked_prepare(struct clk_hw *hw)
+> +{
+> +	if (clk_sleeping_gpio_gate_is_prepared(hw))
+> +		return 0;
+
+[Severity: High]
+Will this evaluate a negative error code as a success?
+
+The underlying function clk_sleeping_gpio_gate_is_prepared() calls
+gpiod_get_value_cansleep():
+
+static int clk_sleeping_gpio_gate_is_prepared(struct clk_hw *hw)
+{
+        struct clk_gpio *clk =3D to_clk_gpio(hw);
+        return gpiod_get_value_cansleep(clk->gpiod);
+}
+
+If gpiod_get_value_cansleep() returns a negative error code (such as -EIO)
+due to a hardware read failure, the if condition here will evaluate it as
+true.
+
+This would return 0 (success) to the Common Clock Framework, incorrectly
+masking the hardware error and falsely signaling that the PLL/clock lock
+was successfully acquired.
+
+> +
+> +	return -EBUSY;
+
+[Severity: Medium]
+Does returning -EBUSY here violate the Common Clock Framework abstraction?
+
+The clk_prepare callback is permitted to sleep and is generally expected
+to block until the hardware is ready. By returning an error immediately
+instead of blocking until the clock is locked, standard device drivers
+calling clk_prepare_enable() might permanently fail their probe sequence.
+
+Will this force consumers to implement non-standard polling logic to
+handle the -EBUSY return value?
+
+> +}
+> +
+> +static const struct clk_ops clk_gpio_locked_ops =3D {
+
+[ ... ]
+
+> @@ -192,6 +216,12 @@ static struct clk_hw *clk_hw_register_gpio_mux(struc=
+t device *dev,
+>  	return clk_register_gpio(dev, 2, gpiod, &clk_gpio_mux_ops);
+>  }
+> =20
+> +static struct clk_hw *clk_hw_register_gpio_locked(struct device *dev,
+> +						  struct gpio_desc *gpiod)
+> +{
+> +	return clk_register_gpio(dev, 1, gpiod, &clk_gpio_locked_ops);
+
+[Severity: Medium]
+Is it intentional to hardcode the number of parents to 1 here?
+
+In the gpio_clk_driver_probe() function, the true parent count is parsed
+from the device tree:
+
+num_parents =3D of_clk_get_parent_count(node);
+
+If the clock is configured in the device tree as an independent root clock
+(for example, an FPGA PLL with no parent clock, meaning num_parents is 0),
+hardcoding it to 1 here will cause CCF to attempt to resolve a parent at
+index 0.
+
+Could this cause clk_core_get() to fail internal lookups, leading the clock
+to silently fall back to an orphan state?
+
+> +}
+> +
+>  static int gpio_clk_driver_probe(struct platform_device *pdev)
+>  {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927-feature-cl=
+ock-guard-v8-0-630938e302a1@bruker.com?part=3D2
