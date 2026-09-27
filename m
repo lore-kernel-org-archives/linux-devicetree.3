@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF1F3909A8;
-	Sun, 27 Sep 2026 15:18:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D16037F8CA
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 15:22:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790522291; cv=none; b=dqO6zsuXSgE1fk7hizNmgRtd9OGxZHGeZJAX1QXjag3gDmlgtQLL74qqR22w3W5K8AdTEmnX/t7P+sF6GlN94poty9Mjx/P1Ws2FIFC6nhczillG4NPUy1m/B8hxGtq1fwva/btarBa99YgBF/bjuyidiVdzxDHvZ+j/BnoJ1iE=
+	t=1790522574; cv=none; b=BF5fDzrmMs1cp9QC4GSqkrCMXki4M9LL8KNEnLaVCysM5JnAMVmTlNRbQk2CVYPfR6ahgDp/wSnyxr0zq19F4jUa/cTCJ8R0wz95P8VFu6NGhThgGGVEiEdGMIIbD7dD+1+w2tVk5UpwQz8JLWJUef50s+cK45ETyGZ+n37n/gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790522291; c=relaxed/simple;
-	bh=N/pfH0xZsEfcG9/r4dQNycUrzlMbYpK9dCcAT87HA/s=;
+	s=arc-20240116; t=1790522574; c=relaxed/simple;
+	bh=8BVRHz/kDrtG2s22yn9zrTU2fPh53+VwAU+kxMq0ixE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NmI+zX5z8V+hfURt6g1fTQwPQwVIuR8mSlSalOOocMPa9ycQIReOoc+gWKI2WfwyNryP0Wvf3BEs55Oz/qazEfzmolzp07W4WD7YdE1jPXLkVUlCxMYGKEjw8tECkYBdusvQ8coD/TrN4wnOrGr1IQI+RKa81D+LFHwhdkSALvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f52K8ZLd; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=J9S/cckQaoKdKhnhlEWuIrZdaD+4EFgBemdimqkLN1nPlXoXNMmLZA/lKeqZnxjb+vBlvHMTXotk05NlqVxuVrggOCbMsPL5peztbLYfgN01UoH5hEfZk+rpSTaf7h0Av/WD7GeSMiiIMVQkMWOAjKCOGT/ICW8j9EtZ9FN4USY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEjFDtnv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f52K8ZLd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1997C1F000FF;
-	Sun, 27 Sep 2026 15:18:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEjFDtnv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5FD1F000FF;
+	Sun, 27 Sep 2026 15:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790522290;
-	bh=GC6W/3UhkOiYxyOeEuxjsTtwL/lI567R73swv/WeMss=;
+	s=k20260515; t=1790522573;
+	bh=QkTrPPVKaEMVDZ0RStxTYVPbk5I119AGJFAkYLyhzLQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=f52K8ZLdEUSdgbhsxYBa+EtXje9rrL970nYkXn2WQ3Tadss9/g/fFeyg9+RytJi2s
-	 pbeNO7N8/nuZkfU3r6HGs0YvcVCxS7y827fhg3SkZF6sJ6/+s3bElmKWaxuneAVjw/
-	 vGfF8Q8kbaO/Nbmifd2gVv4IKZ+2AEORSNbu5+OZQwY6W7tycRb+6CDpOUr93pIFDR
-	 ruemFAJ8kEZ7xSNx7lG1i7HHULJmbcHlBYMs3bnX99d1qLVBWmKYiI+Do7uUebiVm7
-	 HOEWUfeh6309oXDQAQi7FvMp9ISjAkpbHy4Jq9LZQx7/8V4tkmNmzWa5u33uPUMHlv
-	 yHqiAdG2KR1yg==
+	b=LEjFDtnvnKi5uxrRSRL8yCYd2o4uV3yb8vZ0Id63aMeL5HtJ0pcVuA1RHPtlpe2aB
+	 Tw2Boqs2BDAjmTVD1zJf7NrdXghuhnDDilS6BVsVvOBBm1yiZt0Tu5cPTKyGP+XM25
+	 vL0ZrT5YNorUZ5l2ujOUeAQEGvx3V0beVqsikkqdtnEl630UWJ9tcMoy4jO8IdBVXs
+	 AowCXPOuAQC1pucpj9kR28V32xZBMIqZ8eUvXrPmOIK3QtBS4iPh1j1Jq3KhcLm6fJ
+	 VUHSN0QmsQTraMNu3WceYL0L3vEVIgNbHGDQ/6lGU4s3kKvNFQy8s3bx1Iv57kOo4N
+	 a8leWzT3DEfag==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 03/11] dt-bindings: pinctrl: sun4i-a10: add Allwinner
- B288
+Subject: Re: [PATCH] arm64: dts: renesas: r8a78000: Add I2C nodes
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pablo Mazzini" <pmazzini@gmail.com>
-Cc: robh@kernel.org, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260927151016.186493-4-pmazzini@gmail.com>
-References: <20260927151016.186493-1-pmazzini@gmail.com>
- <20260927151016.186493-4-pmazzini@gmail.com>
+To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>
+Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260927151133.45845-3-wsa+renesas@sang-engineering.com>
+References: <20260927151133.45845-3-wsa+renesas@sang-engineering.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 15:18:09 +0000
-Message-Id: <20260927151810.1997C1F000FF@smtp.kernel.org>
+Date: Sun, 27 Sep 2026 15:22:52 +0000
+Message-Id: <20260927152252.AA5FD1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,65 +45,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: pinctrl: sunxi: missing b288 interrupts constraint =
-validation
+- [Low] dts: missing prerequisite includes and nodes for i2c controllers
 --
 
-commit 5d0ff1f67ca22e7e0aeb81a6bb9183820225e5b3
-Author: Pablo Mazzini <pmazzini@gmail.com>
+commit 3f7801bb0ea0ac6eb4aa58321a3d66e8c5413897
+Author: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-dt-bindings: pinctrl: sun4i-a10: add Allwinner B288
+arm64: dts: renesas: r8a78000: Add I2C nodes
 
-The B288 driver takes its mux values from the DT, so allwinner,pinmux
-becomes an allowed property here, required for this compatible only.
+Add device nodes for the I2C controllers of the Renesas R-Car X5H (R8A78000)
+SoC.
 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a1=
-0-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-=
-a10-pinctrl.yaml
-> index 45b7a0b6c626d..6fe3b64107349 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinct=
-rl.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinct=
-rl.yaml
-> @@ -39,6 +39,7 @@ properties:
->        - allwinner,sun8i-a33-pinctrl
->        - allwinner,sun8i-a83t-pinctrl
->        - allwinner,sun8i-a83t-r-pinctrl
-> +      - allwinner,sun8i-b288-pinctrl
+> diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/=
+dts/renesas/r8a78000.dtsi
+> index fb71974ef3905..a6a60d8930dec 100644
+> --- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+> @@ -877,6 +877,118 @@ gic: interrupt-controller@39000000 {
+>  			interrupts =3D <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
+>  		};
+> =20
+> +		i2c1: i2c@c06c0000 {
+> +			compatible =3D "renesas,i2c-r8a78000",
+> +				     "renesas,rcar-gen5-i2c";
+> +			reg =3D <0 0xc06c0000 0 0x40>;
+> +			interrupts =3D <GIC_SPI 956 IRQ_TYPE_LEVEL_HIGH>;
+> +			i2c-scl-internal-delay-ns =3D <110>;
+> +			clocks =3D <&cpg R8A78000_CPG_SGASYNCD8_PERW_BUS>;
+> +			power-domains =3D <&mdlc_perw R8A78000_MDLC_PD_APL 0x44>;
+> +			resets =3D <&mdlc_perw 0x44>;
 
-[Severity: Medium]
-Since this compatible is for hardware with exactly 4 interrupt banks, shoul=
-dn't
-it also be added to the later allOf constraints block in this file that
-enforces exact hardware limits for interrupts?
+[Severity: Low]
+Will this device tree compile cleanly on the current baseline?
 
-For example:
+It looks like the R8A78000_CPG_SGASYNCD8_PERW_BUS and R8A78000_MDLC_PD_APL
+macros, as well as the &cpg and &mdlc_perw phandles, are not yet defined in
+the current tree.
 
-  - if:
-      properties:
-        compatible:
-          enum:
-            - allwinner,sun6i-a31-pinctrl
-            - allwinner,sun6i-a31s-pinctrl
-            - allwinner,sun50i-h6-pinctrl
-            - allwinner,sun8i-b288-pinctrl
-    then:
-      properties:
-        interrupts:
-          minItems: 4
-          maxItems: 4
+Could this cause syntax errors and unresolved phandle references during the
+build?
 
-Without this, validation for this variant falls back to the broad global de=
-fault
-of 1 to 8 interrupts.
-
-Does this allow a device tree with an incorrect number of interrupts for the
-B288 to silently pass validation?
-
->        - allwinner,sun8i-h3-pinctrl
->        - allwinner,sun8i-h3-r-pinctrl
->        - allwinner,sun8i-r40-pinctrl
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927151016.1864=
-93-1-pmazzini@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927151133.4584=
+5-3-wsa+renesas@sang-engineering.com?part=3D1
