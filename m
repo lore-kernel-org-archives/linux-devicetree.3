@@ -1,111 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108343B83F9;
-	Sun, 27 Sep 2026 19:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70983E0C57;
+	Sun, 27 Sep 2026 19:31:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790536819; cv=none; b=Rh2cq0FrMSVi6qbIECu+Qzd2IgzH3mLQ32p3ycHK45hS4sYe8GbScSCgjoJbmj2zQ45r8poxTHGXnmTGKb9La+s4d6Zt3qaD6/qq7VQQTPP7yy/d7DB5jXfXv6QQ1u/gA0i9QdcH8ZBKE5y1etSF4YZNAsKlPT7N3i1X+NJQF54=
+	t=1790537462; cv=none; b=bF2wjwMORgr23128RvZcaGRm0xT45z90zH3lBQUU/NQafgtwt5K6RhutgrD5ufMuhz0ljgz0gK7t+BZO8xrEft2u/qonbz2WW3MjmM+MjOFakSl5197gH15+e6rUaq9gzCkew8Na4TgwlHrMHosQc6X/qcDbG9ojr9YXaL0IgQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790536819; c=relaxed/simple;
-	bh=Bi+G4xOm0CuAafK9NtXgYMH/kIkrDhJstHc8hRC/qdU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qd5tzdl++5MHjE48OP4GI0aCiAZpEuNyJYwESn6WQtpfrtcqrxGUuIqKnZwQftC6mOgwwu5wQwHjkSwKt0Exgmeix6BZzmvf9JbvUd0bshmbJrp938RW3sDUhFson9boprxx3ugL6Y13IlkYrV8qNMIP2wQ4FhMrjPdK081MpNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNLFf+dg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790537462; c=relaxed/simple;
+	bh=s5CklLZrT+S7vZWUtUja5Hz0PUvpWoEMCtZIBQJqi1s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nV969u/txf/YURSwUzOCamAVL3C4X9KtgCzRGBIQB9OaBfYGpyobtEapa7J+pviEJWcY+ke8QnzgaMkE069HYczaQCHL41qq6oUdPMYEa+hi1V0ZNSjiokGI+A3WdJULXZSN11fl+GSm8605j6aSwZA+Z2AEsH6OZSboyFGFz8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=rTnmOxbY; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNLFf+dg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1DC1F000FF;
-	Sun, 27 Sep 2026 19:20:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790536817;
-	bh=eqRtTpcMaqlYPCPA8/lOkTh+UCeNEAv+LhDVEoTL/UQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KNLFf+dgiw/Xm0dZqQibNAiqjVZAcj7qBQBlt7IM1WbYs8NCHOXEw9KpeatVEdJUJ
-	 VT+nU4AD/QfuAoSPXATq0jAfUzknRze8oyKf7cmlZB/V9A62cHRWMfBHM/mnOE8X3S
-	 w98mhSnpu3mcxtaqwlo8A8LDdj2XZ1Z/wdpF+MyTs7wdAEvC0exvd0j7hM81ysY4vg
-	 PNXueinVc2cl03UhSA72Jg8jkb2Qdics3Crd3x3zuxu/FaYuhFhOlT31TeCyZ2m2QH
-	 Yrg58ABF1x+lwvbcjyYDEjXxyGMc03rtvO8rqEt43WCgIJblqcUzcT8M637pUE13Ge
-	 NRrnehj1QpwMw==
-Date: Sun, 27 Sep 2026 19:06:15 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Daniel
- Lezcano <daniel.lezcano@kernel.org>, Geert Uytterhoeven
- <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, David
- Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Claudiu Beznea
- <claudiu.beznea.uj@bp.renesas.com>, linux-iio@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>,
- Biju Das <biju.das@bp.renesas.com>
-Subject: Re: [PATCH v3 6/8] iio: adc: rzg2l_adc: Rename num_channels to
- max_channels
-Message-ID: <20260927190615.30b3be49@jic23-hlaptop>
-In-Reply-To: <CAMuHMdVbyktVBAwBh=LoARWHHmb_FrF+omeDvNdR76uxus3mPA@mail.gmail.com>
-References: <20260922042707.116378-1-biju.das.jz@bp.renesas.com>
-	<20260922042707.116378-7-biju.das.jz@bp.renesas.com>
-	<CAMuHMdVbyktVBAwBh=LoARWHHmb_FrF+omeDvNdR76uxus3mPA@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="rTnmOxbY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=dUmekkaLB7pJaNtNJP1pyWK+1wzVpak1sZK828FP73c=; b=rT
+	nmOxbY0BMzVeWBuohg3lcYp97UC/9bz9gEbPdlOgaw2BFYXxII9TidLK5+jeyF7hwe5rtIVUPGrZm
+	LqOg8R9FnPdlOr3JAxJao5koYnO59ZVqXAPZvZyGh1UFjIIW0atknS1LmzO8840jrtUv89zCzzC9T
+	5zYmg3Fck89Pf5E=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAuaB-007Ydo-IB; Sun, 27 Sep 2026 21:30:43 +0200
+Date: Sun, 27 Sep 2026 21:30:43 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: =?utf-8?B?5YiYIOaYjOadsA==?= <liucj1228@outlook.com>
+Cc: Andre Przywara <andre.przywara@arm.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Luo Jie <jie.luo@oss.qualcomm.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 0/2] net: phy: Add Maxio MAE0621A support
+Message-ID: <ca958017-7a32-4a39-bf88-5a82c0869d58@lunn.ch>
+References: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
+ <2635661d-4be2-4abf-84aa-c3024941f787@arm.com>
+ <2ecfaee1-921b-4d2a-bac3-ce2467b24ea7@lunn.ch>
+ <MN0PR19MB609160C34AEEADC6C74F08E1AC8E2@MN0PR19MB6091.namprd19.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <MN0PR19MB609160C34AEEADC6C74F08E1AC8E2@MN0PR19MB6091.namprd19.prod.outlook.com>
 
-On Tue, 22 Sep 2026 16:33:51 +0200
-Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+On Sun, Sep 27, 2026 at 04:21:50PM +0000, 刘 昌杰 wrote:
+> Hi Andrew,
+> 
+> I checked the schematics and tested the broadcast control on an LCKFB Taishan Pi 3M (which has an MAE0621A-Q3C at PHY address 1, ID 0x7b744412).
 
-> Hi Biju,
-> 
-> Thanks for your patch!
-> 
-> On Tue, 22 Sept 2026 at 06:28, Biju Das <biju.das.jz@bp.renesas.com> wrote:
-> > Rename the num_channels member of struct rzg2l_adc_hw_params to
-> > max_channels, as it represents the maximum channel supported by  
-> 
-> ... maximum number of channels...
-> 
-> "the maximum channel" (aka singular "max_channel") would be equal to
-> the maximum number of channels minus one.
+Thanks for this testing.
 
-Ah. I just looked at v4 and realised I'd not been paying attention.
-The number isn't the maximum number of channels because it's a sparse
-set for the new part being added.  It is the oddity of maximum channel
-number and as such.  Ah well. I think at this stage this distinction
-doesn't really matter.
+> For the RGMII delays, pin 24 (RXD1/TXDLY) is pulled down (4.7k) and
+> pin 25 (RXD0/RXDLY) is pulled up (4.7k). So the hardware straps are
+> TXDLY=0 and RXDLY=1. Per Table 7-3 in the datasheet, this disables
+> the TX delay and enables a 2ns RX delay. This matches the DT using
+> `phy-mode="rgmii-rxid"` and the RK3576 GMAC `tx_delay=<0x24>`.
 
-Jonathan
+Unfortunately, this works, but is wrong.
 
-> 
-> > the ADC hardware rather than a count of channels currently in use.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>  
-> 
-> > --- a/drivers/iio/adc/rzg2l_adc.c
-> > +++ b/drivers/iio/adc/rzg2l_adc.c
-> > @@ -62,7 +62,7 @@
-> >   * @adsmp_mask: ADC sampling period mask (see ADM3 register)
-> >   * @adint_inten_mask: conversion end interrupt mask (see ADINT register)
-> >   * @default_adcmp: default ADC cmp (see ADM3 register)
-> > - * @num_channels: number of supported channels
-> > + * @max_channels: the maximum channel for the ADC  
-> 
-> "maximum number of channels", to avoid confusion.
-> 
-> >   * @adivc: specifies if ADVIC register is available
-> >   */
-> >  struct rzg2l_adc_hw_params {  
-> 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-> 
+https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
 
+phy-mode="rgmii-rxid" means the PCB is adding the delay, which is not
+true. The PHY is. What would normally happen is that the DT would
+contain rgmii-id, indicating the PCB has no delays.
+PHY_INTERFACE_MODE_RGMII_ID would be passed to the PHY driver, and it
+would then reconfigure the PHY to insert both RX and TX delays. The
+strapping is ignored.
+
+At the moment, we don't have the ability to override the strapping. We
+also cannot verify what the PHY is actually doing against what the MAC
+would like it to do. So we can get into situations where it is wrong.
+
+> For the broadcast test: initially, PHYCR1 (page 0xa43, reg 0x18) was
+> 0x2118 (bit 13 set). Reading the PHY ID from both addr 0 and 1
+> returned 0x7b744412. After clearing bit 13 on addr 1, addr 0 stopped
+> responding (returned 0xffff), while addr 1 kept working. I didn't
+> send any writes to addr 0.
+
+Cool. Having the PHY respond on two addresses is bad. Linux can think
+there are two PHYs. It can suspend and resume it twice etc. 
+
+	Andrew
