@@ -1,75 +1,101 @@
-Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch [79.135.106.109])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BC7175A92;
-	Sun, 27 Sep 2026 03:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAF3350298;
+	Sun, 27 Sep 2026 04:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790481241; cv=none; b=nPje3KFr8D1qfH/CN3iMbImPQOXbb0s1ZBcW1qZ6DS6nUH6kXuIjlr4CXvHmuJbJz9mqiK/hBf8unl5WNX/aDdRt/k5pToWYLFdoJm8vMt1LSi63esb13qqPiSovb65EqjVxKWnLgyLDp5hd8afXPR+4WgIU/pA7e/O2riLxNdw=
+	t=1790484178; cv=none; b=PBfNFVL4hHLLLBwDbS7jrLGjWyL/FN+4fdubIIPWHOlqzcFZ8O5t85aSF4vS0CRhhiqZhu4rVkAsdAajFKjynz17YUgVWePqr2N6vTaY2Ezlqo7Xl7nvqMDM7JQ9x2Ihua17yU3XdoaiVGcDpw2CuncLR5491hA+rvLZzcVjdFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790481241; c=relaxed/simple;
-	bh=72jOmKJsKtZbMfexR6DU2MSAN3lb/BvgsBkTbYP0Jow=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HKgmkkDOS2ot4fiir6l5AFwNN4Cy3kCWOdS5jVG1j07ZZU1QvueFytgVE3a27lMfexN4KLbaj1n6hR0gnge7nqo3wDkdZxZwuuRczPtpIj4hfDdYbQlRGLICDsTJkkpI0V8bU5FFpuweN245sYoHkhvYacCkNHXWJfEmPLbenzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=BUuAj1lg; arc=none smtp.client-ip=79.135.106.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790484178; c=relaxed/simple;
+	bh=ASiXaQu8+yanGWTTKywMV7+FoCiKv/sW41WRXNkKl0c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=N21wPF7tntlGE8zljp/7n261E+yZAe8KJO2nnAMRV6yfheIPv0ASdoJOJ3vFcdWqwLTt58uZPy1H+LnvfNF8OqMoXAxHkGB4iqvzUJFNNEBH9qkdcA/wSybHKp6vopk5+CuWuZWoyLeT//FgvSV0eLfoULJAPrwQXS7cpIzF1PY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZFipiwzn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="BUuAj1lg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790480887; x=1790740087;
-	bh=2n7v/f900ujYlkPeMFvncKXsx01rexWG+WoC8pk4+js=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=BUuAj1lgFGUnkpYeDBk0B5qaCypJk7m+iRRthctsXUPOhcEx20nFxompc4oPawyR0
-	 4I7PIiNFMHGpPKt/6cMwCRntk28dxo1zxdw9hTmfpjAa8TDaH0RwdKzyv1I3ciJj9P
-	 7wxRvOZ4Z8AxEGWwAi3/fZa+3Wq5I/Wp35f7BrXhYHAfIp/jyvhIfIRcTNban+zq8Z
-	 qYVd0ZI04ykGpbOsp6WqrUcYalse+aoXK04NUd5MgKrVdWJ63MDy3BpBBWLq0+w4pl
-	 XfZJieSOtkpeE9moC3vZc+3Yj04v5VHk/puYbey/OHGVyYP7Kafl9JxKsG5PYFkgeU
-	 HiR1JCNyFD9+w==
-Date: Sun, 27 Sep 2026 03:48:01 +0000
-To: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: David Heidelberg <david@ixit.cz>, Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Conor Dooley <conor.dooley@microchip.com>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev
-Subject: Re: [PATCH v5 6/6] arm64: dts: qcom: milos-fairphone-fp6: Add NFC
-Message-ID: <AA1gQ_nENEVHK1oebVbNS1EUMIkabrgIPTl649QGQZvq_1LAMw5msh-2bmJt1DbB6K09JX1xc_VN0retl7XFImBTbpm81ucumJM_nzVKfYI=@pm.me>
-In-Reply-To: <20260811220135.472380-7-jorijnvdgraaf@catcrafts.net>
-References: <20260811220135.472380-1-jorijnvdgraaf@catcrafts.net> <20260811220135.472380-7-jorijnvdgraaf@catcrafts.net>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: f3ec71461e33f107fcfa8c1f6b9d2d515788ab04
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZFipiwzn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2027CC2BCB3;
+	Sun, 27 Sep 2026 04:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790484178;
+	bh=ASiXaQu8+yanGWTTKywMV7+FoCiKv/sW41WRXNkKl0c=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ZFipiwzn7JqrhDz/7I3wrsc+BxAzBWdA9ac3khUR8yZ2NX3H4QaXQuORn7a/JFQK6
+	 Na2FxXhCSUp6nFCy0S0IzEdpSk2keHFE/lg9ebqJR1ldXunCmaC6/rzr4a8NbvekZK
+	 fB9WH6JID9VAA8jWsb5uMJUc2nrvin+2WPIxc+UugA9exYLrgaN+ntI+OqEC3mT7xG
+	 ibpVd61IQP95wKgw4fhq8WZSLfvuRDvqS1VY7cW0PWs6kyK9AKN/QaHeTjVy0D8BQ4
+	 0r6N8zHOAwSsfsSvDIlgB1sRJGb7/WnVk8Kg4etucFF24+2kDpTSUbiTlLwzlQc63B
+	 +Cm9ev098Pkuw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8B36C9832F;
+	Sun, 27 Sep 2026 04:42:57 +0000 (UTC)
+From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
+Date: Sun, 27 Sep 2026 08:42:56 +0400
+Subject: [PATCH] arm64: dts: qcom: ipq5018: add label to PCIe1 port node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-ipq5018-pcie1-label-v1-1-41f7d42f9a7b@outlook.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtQqayuEi1MxxqIMoUIwrsnL
+ d/i/xcSRaYEY/VCpJsTn0eBrCuwmzlWQnbFoITqxKA0crhaIXsMlknibhba0WnXiNYar3oPpQy
+ RPD//dZpz/gASTcSSZQAAAA==
+X-Change-ID: 20260927-ipq5018-pcie1-label-d7d405caf28f
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ George Moussalem <george.moussalem@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790484176; l=1071;
+ i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
+ bh=HNZl3Aso7KY3/rmD1u9y6FFgvwtYVcoDQZoiHKmM2AM=;
+ b=ikHgmUVE3MQ8T0uEHdvr3Kvn0mVtTALISk/rbJhf/noKsJdYIT+aTLveg+c7YpC0WCtwDBT3Y
+ Cw0+cUSG4rRCfBAzuhSK2CIXSPiLW/giSbVojs0RGj03x5CmcRoQlSI
+X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
+ pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
+X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
+ with auth_id=364
+X-Original-From: George Moussalem <george.moussalem@outlook.com>
+Reply-To: george.moussalem@outlook.com
 
-On Tuesday, August 11th, 2026 at 6:04 PM, Jorijn van der Graaf <jorijnvdgra=
-af@catcrafts.net> wrote:
+From: George Moussalem <george.moussalem@outlook.com>
 
-> +=09nfc@27 {
-> +=09=09compatible =3D "samsung,s3nrn4v";
-> +=09=09reg =3D <0x27>;
-> +
-> +=09=09interrupts-extended =3D <&tlmm 31 IRQ_TYPE_EDGE_RISING>;
-> +=09=09en-gpios =3D <&tlmm 56 GPIO_ACTIVE_HIGH>;
-> +=09=09wake-gpios =3D <&tlmm 7 GPIO_ACTIVE_HIGH>;
-> +=09=09clocks =3D <&rpmhcc RPMH_LN_BB_CLK2>;
-> +
-> +=09=09pvdd-supply =3D <&vreg_l20b>;
+Commit a95758e9718a ("arm64: dts: qcom: ipq5018: move PCIe phys and
+PERST# to port node") added a label to the PCIe0 port node but not to
+that of PCIe1. Boards that have a device connected over PCIe1 need to
+reference the port node in the board dts files, so add a label for it.
 
-Looking at schematic, think this should be L7B? L20B is used for SIMVDD1_EX=
-T.
+Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+---
+ arch/arm64/boot/dts/qcom/ipq5018.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +
-> +=09=09pinctrl-0 =3D <&nfc_default>;
-> +=09=09pinctrl-names =3D "default";
-> +=09};
->  };
->=20
+diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+index fe1ed240de59..2f3bcfa888a9 100644
+--- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+@@ -838,7 +838,7 @@ pcie1: pcie@80000000 {
+ 
+ 			status = "disabled";
+ 
+-			pcie@0 {
++			pcie1_port0: pcie@0 {
+ 				device_type = "pci";
+ 				reg = <0x0 0x0 0x0 0x0 0x0>;
+ 				bus-range = <0x01 0xff>;
 
-Thanks,
-Alex
+---
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+change-id: 20260927-ipq5018-pcie1-label-d7d405caf28f
+
+Best regards,
+-- 
+George Moussalem <george.moussalem@outlook.com>
+
+
