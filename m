@@ -1,107 +1,128 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8033B2FF8
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 17:04:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAFE37C926;
+	Sun, 27 Sep 2026 17:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790528647; cv=none; b=bd5NhbzROQx4Xh8EZIs3tewm6Gr7E1xidbY/XzfxVKgpoxaNclQv1wqKjosgl1pIN9I1i/Osw+u6KcqQH6LoWUXnP/eDEqxI1Sn+wqAPEpJ3kpQySjNAyGYKzU1s05X27CuXHv8Zecjk3bt9W5gzT4Y7whib+SLQix+mZ0ApQUM=
+	t=1790529082; cv=none; b=BxvS9skLBi7xeYCiSL0WhDJvvrbsjY0EGtqNfouJ4k8ITl/zoe/CHoRGQIyDuO8ZB2gEoEhUDw7YHoJ1r+nH9XHld5Fycc3IhdTnat1Vz5/fogIrVX1GkLE5twQiQSZJZCYTWa1vwcx7Ym13JF7FaEU3eabIITHeMx7z1yJtmJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790528647; c=relaxed/simple;
-	bh=YPaVvSzw+i2Y34hdJlJohU7NRT9A3+fbf9np6selyaU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LEmA7eplbJoDSTja3x//HNBnrWkDKc2uVfGHumy53wBS0dfF0BTUq/nz4bMjt2Notq4Fym0OiwtZnEKqvByyRRVLi9EPMKNT0RszhReIh+RfDxeD1jdLaAmx4kteooMidZrTdxpttm7teuegz2Um21S7h9zfjrohGOHiUm7ILhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QMAzyjFG; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790529082; c=relaxed/simple;
+	bh=Z+hfxocGGae1Sm1BeCS76gsysY0NtlZY5CQbiBlA/Ww=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UtYChvnYAwDr7TlofonPtrtNyKT4GSZh3VcUCV+CcNy4LXeYFVcuFHv2TG86hPyj2xmZIU0lQtz8w7vB9qDOd3TY06Er8mKfpIqwIRbtcsoR41lNUyvCcD2dvsD4X25GEKhoeKLCxX67MLxpRcRRlZTefXAjdFD9/AboXnM/pGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SgXFVKbT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QMAzyjFG"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f690df6so1524690f8f.1
-        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 10:04:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790528644; x=1791133444; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YPaVvSzw+i2Y34hdJlJohU7NRT9A3+fbf9np6selyaU=;
-        b=QMAzyjFGYmH6eBp9DRTy7oT/AGz0zCjmD0Fd7vN5Fj7kyVxUWqiADC+taJnhsnFxke
-         i4ZWqwWKbn/JMmmy3yk5EWbnYAJr+hgy71HpWxX2DzRQG76OU5Y5J222/53MyRUioq7p
-         S7BtI8WtnBtrL8VSRw0kjpB7RedIEwm/poA5fXgMXGEasPDnLoSFahdXOpNjH28bTfEK
-         z33KuvAg5PhLn4QGL00fWijwfbZ6xep4vmygQArOz2uRLy67VBgIE8szc4iEexVGx3zG
-         yxEo0v2QSiXkurY2Bgj5FXP3hAyK7yO/WLMEl2ZPcWFY7Yuzi61mjdsNRQKl7F9Mhcp0
-         6Zfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790528644; x=1791133444;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YPaVvSzw+i2Y34hdJlJohU7NRT9A3+fbf9np6selyaU=;
-        b=sEU/Lf+9mpiWGmO4Rc2eh5IEyvLNLPFqtY1Zcj2ogPZBAx8soLMJpf+NRbaF0efjY0
-         8ZHmzfXSrmkaAVL6wDln4psiNu/x48ZVquuactlt/+6UYFTVCDsvSUdy8y212DLPvrrz
-         U+KerVEs2jW6Fj9OdtYs41QkT3Em55TRUIVP64MLItZEZA+6XmvsCsazFl9GEZha4Oti
-         syRMwYofundQRHN/RRGK9F+2MLlr1o7a8Hp7JcRLjelJB6xkO3JXEqcAJUeHxMTLsZzG
-         SjSdU78ZryscvxzfTk7lI3C8z752ojzCEpYXeB9M3B8Osbs/fkbk8GvMrt7R4awOwleB
-         N7bQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/CqvLZb27nMhQVs3b/vdr3sHlKpTeM21lnGoDVAjCBe+RuBAg/HR4V0JrBjEELY/j2kqYxwIjoKDj@vger.kernel.org
-X-Gm-Message-State: AFuF++lo91SrU4icu5cVPoxbyOMCBhyHRjl1zxX2FwesCph/2EqS+ASG
-	aZTjG4PbzScACOBm4tLOlWrJ5QQjZ8HVVxxGHzM0+7axPbgRKYPiHNAL8WHXwvHJPRw=
-X-Gm-Gg: AYBFou06PpsfJQOF53SJ/Bzv58u3zNmU7EUJBo8gPaFuQgVHIu3l1qLJZmQstaaEkBN
-	Y7jDEdW7rTXNIDR9OSCgAOdeYUtKhcceZjWocFYAFa8VLQVhv4llWzN+EBod5W/0NuUl8ecBK3g
-	PucumuEtXQWkQg6EwtckjOWRhlP7gAJvgen5lr/zd2x+2GnqjXAWFiWdlrzr09CvY4OGp+XlHdX
-	DHJslur2OSa+XmbcENxhTIGFAeOyJJnr0xLWmMTR6Pv0dPtOnuUyja2UXy1Kl5F1IBFubQa+JjO
-	eJN5GicA5XnqACBB4QFUMWV/YZ2so0gRDtH2F+y8FXZ5Bkkw6WvifllDrEYRcnKElmpBRvGPNMI
-	06G8SSTlxRkbu7NN4pD0rPcY5uFLLFHeOv83cIghNb1HoYalMFdN6EYPErBRTv5hAv+yznfan0G
-	OGT16wYFN0DAPgIDWexWnTEPFV7EA+rua9YhRNgkArMpQUMBEkZrAK6BcijiFBKG96EkcZQWqyc
-	zKnRoaM7e5Oo9JBOA==
-X-Received: by 2002:a05:600c:3b05:b0:4a0:321:6ddd with SMTP id 5b1f17b1804b1-4a003217170mr23998885e9.34.1790528642770;
-        Sun, 27 Sep 2026 10:04:02 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a30b9aesm19992213f8f.5.2026.09.27.10.04.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 10:04:02 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, Jacky Huang
- <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
- Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
- <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Steam Lin
- <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, Krzysztof
- Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, Miquel Raynal
- <miquel.raynal@bootlin.com>, Jacky Huang <ychuang570808@gmail.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH v4 4/6] clk: nuvoton: ma35d1: Add missing WDT/WWDT
- parent clocks
-In-Reply-To: <20260925-perso-ma35d1-upstream-clk-v4-4-f3697553391f@bootlin.com>
-References: <20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com>
- <20260925-perso-ma35d1-upstream-clk-v4-4-f3697553391f@bootlin.com>
-Date: Sun, 27 Sep 2026 19:04:01 +0200
-Message-ID: <1jbj9iaany.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SgXFVKbT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5061F000FF;
+	Sun, 27 Sep 2026 17:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790529081;
+	bh=HMHjOtBobVS8CaY6HykD9+IH9k3hBKLUQhoPP98UUjc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SgXFVKbT0MkKLU1DXNTloBPjM1Rn2uPdSswUDRGsiYgi0LnSmrCFg9ED6wx1HscLh
+	 Q2529458T8Hjrf1+rMF0L8pRGRkXqsuP02adTJ5hL5ohUNtuI5cpqrilFyLAivLq/X
+	 qO7yklE7X0PDXUk/VGdkPq52Ek4ChkXfL8BbqA1X8cK8G9MM9Ns1kTb17XvL6yJz6+
+	 9mIB7ahgiA4nPuFjfkv7U4guj32ViC1kFscaTOX3hTFZ2+gVyuPFo+Vxs3nJbzXOf4
+	 yLj3cPmZNYmUqL4ivgyIGR86JyqXELaBb0DUNCYSHv8EUeAv/1X88b2SFLC/yN+5mF
+	 VNV8BeXnjzq+w==
+Message-ID: <4cc0ca7d-82ae-493d-ac15-478cdd8f0e08@kernel.org>
+Date: Sun, 27 Sep 2026 19:11:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: watchdog: Add Exynos8855 watchdog
+ compatible string
+To: Alim Akhtar <alim.akhtar@samsung.com>, peter.griffin@linaro.org,
+ robh@kernel.org, conor+dt@kernel.org, linusw@kernel.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux@roeck-us.net, hajun.sung@samsung.com, wim@linux-watchdog.org
+References: <CGME20260927150938epcas5p33b7d0495f8d9a8e84bf5f09c66e757fb@epcas5p3.samsung.com>
+ <20260927152738.3673504-1-alim.akhtar@samsung.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260927152738.3673504-1-alim.akhtar@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On ven. 25 sept. 2026 at 17:10, Miquel Raynal <miquel.raynal@bootlin.com> wrote:
+On 27/09/2026 17:27, Alim Akhtar wrote:
+> Add the 'samsung,exynos8855-wdt' compatible string to the Samsung
+> watchdog device tree binding documentation. The Exynos8855 watchdog
+> nodes use two clocks (bus clock and source clock), require
+> samsung,cluster-index and samsung,syscon-phandle properties, similar
+> to Exynos850 watchdog implementation.
+> 
+> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+> ---
+> * Changes in V2:
+>  - Fixed Sashiko review comment
+> 	- [Low] dt-bindings: watchdog: missing comma in samsung,syscon-phandle description 
+> 
+>  Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> index a32c47831577..3f8c3e56ea07 100644
+> --- a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> @@ -25,6 +25,7 @@ properties:
+>            - samsung,exynos5515-wdt
+>            - samsung,exynos7-wdt                   # for Exynos7
+>            - samsung,exynos850-wdt                 # for Exynos850
+> +          - samsung,exynos8855-wdt                # for Exynos8855
 
-> The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
-> possible parents, but the driver never registers the corresponding
-> clocks, so these parents could never be used.
->
-> Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
-> and pclk4 and expose them through the clock provider.
->
-> Reported-by: Jacky Huang <ychuang570808@gmail.com>
-> Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
-> Suggested-by: Jacky Huang <ychuang570808@gmail.com>
-> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+Just drop the comment like we did for 5515.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
