@@ -1,191 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12A44A21;
-	Sun, 27 Sep 2026 13:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45A53F1AD7;
+	Sun, 27 Sep 2026 13:39:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790516074; cv=none; b=PWwerFzp+CCX+uKzwsGXoMkiiPoMfP1W7NP3vE+wvCHvnpiYSbbARWCKOyCeVkTUHH4oreJEJYZlXcBcmPWr2GT9lUvL5He1b1nraZmhtlqqwvk7S0TsvciDxMA6Z1XW2EDdhqo26+R5yU2xfLDSjeIugPmCZ0TRfomqUjXr5IQ=
+	t=1790516351; cv=none; b=uT4L6qC+TV7hNscXksvJym1DBdhlWSX0o3sukyOYJWmn/GmAyOfh3Lym7GAiH6i3XIJ8CgeVbQqSpc/q//8IirGc0IKHJmhCiO1pa66p5JODnW1q4Bzq0ocFpIjkYV08kbxn2mrdkW39tkX3JnH9B645Bg6c7ACh/JZm/xtZCRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790516074; c=relaxed/simple;
-	bh=i4xUTiesBfALH3lLZpBCBOyemy/rpCEK8TZJ/FnJoRE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=V84Y1tkzVdZfckpIE3NK6S+aQxTk0jvV7/zhF0miD98AGSxpRAsGNOh3TUIEf3cnlAhrRvzDnWkJrZFqBHz4BBIAGROym1KZ5vRX6laEU8EKYg7FGZ3jGO5drncZHn8uwk8L1spa8WXl+NwmpAAilOaa63ZSHvP+KvecMEbUQ8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BD7rbElr; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790516351; c=relaxed/simple;
+	bh=oMJ1fkPGutiRVvHe4zIu+G8O40wHQrjefNKjUDOwHBg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=I6/rodaFhDVe0/dilM1m6rHp0D2860cnE93S951yIqg6MY9u+MLeuqMbBRvMvlZan7v+SSVE6VYczDIUrdfFGSzsDqbeXuZo1U4c3qY/jC5oyyoHYaRIStGxclGaD/dn9D5lo8Jkx8aveP2k+HsJlhiOtUOVo99G424ilSgX2AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FYmDilGJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BD7rbElr"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5E236C4AF13;
-	Sun, 27 Sep 2026 13:34:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790516074;
-	bh=i4xUTiesBfALH3lLZpBCBOyemy/rpCEK8TZJ/FnJoRE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=BD7rbElrjbfbyYymzqBoWZGOtfjBvAJNLtk5UJhRZ3mrQiHARscWhGsZ5qt9x3tGo
-	 welONwJVXWiaMJRtDau5pYrpqDqXnvxAZfwghx7zBPnGw7CIMQd8TGM8F7vQl4YcjG
-	 4jdS3R1XPsBKCJzv6rmQ91rhHo3DVOXB8Y9vK7Q5sCzvAI+Rozs+YtVrnh6k+3r/JH
-	 aJqxxtkmZ880NQoI2zNw3LdGIQxaAsbHInDbwLEgTtqHK0ACKCe3ljdfmoZjcVffxZ
-	 ARQdJz8vyYtxMibeqCXfu9SOMDXSXS+2vD3VuHOBibeRmnv0GpwabO4Qab0UZ7+v7m
-	 +NlaqnphFTb3g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FE76C9830E;
-	Sun, 27 Sep 2026 13:34:34 +0000 (UTC)
-From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
-Date: Sun, 27 Sep 2026 13:34:11 +0000
-Subject: [PATCH v6 2/2] clk: Add gpio-locked clock driver
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FYmDilGJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE52E1F000FF;
+	Sun, 27 Sep 2026 13:39:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790516349;
+	bh=QkwGNTsfExRzWNhwQoFHwKORlde5wqI3C2aUYTeC14I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FYmDilGJjx2fhnGwo942MeRvX8PBXSjkoTubEcvO1M6evJmUE1RQXQ8d8/Yy0JXRK
+	 AE3SDhkLLZvwpemb/hp7NYsHcVnAfWYFBGtIOsWafctfEwXo1DIffwFMJXYBgxNLfr
+	 OTWcCxjpPg5+7MTmIoN70Sx/RzrjlpfS83jLa8Zz3e4MhGaqEXWd/nVH1QLGbUdlbp
+	 i7/KbKfMVjd4juZS/rRVa1SO72u7XdFKfWOISbWovwlVsVR7rxBqrRSRCGvR/OG3Xr
+	 /5YT+RF1HPIBl7QxEFjm3bw/fo/nK7QPhte4fFm0h0PKlDDnyFrTCD7Cz09p5urW3H
+	 UCOZXY3DvxkSg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: clock: gpio-gate-clock: Add a new
+ compatible string
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vyacheslav Yurkov" <V.Yurkov.EXT@bruker.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20260927-feature-clock-guard-v6-1-007983b13ec2@bruker.com>
+References: <20260927-feature-clock-guard-v6-0-007983b13ec2@bruker.com>
+ <20260927-feature-clock-guard-v6-1-007983b13ec2@bruker.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 27 Sep 2026 13:39:08 +0000
+Message-Id: <20260927133908.BE52E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-feature-clock-guard-v6-2-007983b13ec2@bruker.com>
-References: <20260927-feature-clock-guard-v6-0-007983b13ec2@bruker.com>
-In-Reply-To: <20260927-feature-clock-guard-v6-0-007983b13ec2@bruker.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
-Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
- Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790516073; l=4221;
- i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
- bh=zcVM35pLLEJsaD3vvg5k9YlaPu6vWhe06tWgwilDuM8=;
- b=qDdoBLXfj4GNuRDhSXTYV6ngcTlpe36kP2Iu8Otodmdw8k076f1d2q4Gw/fua04ZNzFJelFwE
- XEZNwhT1mgkB837QnpHdLpJzwVne58Kq1rP1GmDyeUBkmXaVIZEMm4y
-X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
- pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
-X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
- auth_id=686
-X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Reply-To: V.Yurkov.EXT@bruker.com
 
-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: clock: gpio-gate-clock: compatible string mismatch bre=
+aks validation
+--
 
-A gpio-locked clock exposes a clock, which status is determined by a
-GPIO signal. The common use-case is a FPGA-assisted clocking design
-where peripheral clocks are generated by FPGA PLLs that are outside
-CPU control, with clock-valid/PLL-lock status exposed through GPIO signals.
-Consumers can use the output clock to wait until the input clock is locked
-and only then initialize dependent peripherals.
+commit 2b809675a6d656fd8b8fcf12572b9880f2905a0c
+Author: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
----
- drivers/clk/clk-gpio.c | 44 +++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 41 insertions(+), 3 deletions(-)
+dt-bindings: clock: gpio-gate-clock: Add a new compatible string
 
-diff --git a/drivers/clk/clk-gpio.c b/drivers/clk/clk-gpio.c
-index 9099c57e2715..a264ba21baf2 100644
---- a/drivers/clk/clk-gpio.c
-+++ b/drivers/clk/clk-gpio.c
-@@ -138,6 +138,19 @@ static const struct clk_ops clk_gpio_mux_ops = {
- 	.determine_rate = __clk_mux_determine_rate,
- };
- 
-+/* We can't prepare the clock, but the Common Clock Framework calls only
-+ * prepare() not is_prepared(), therefore we fallback on the actuall GPIO value.
-+ */
-+static int clk_gpio_locked_prepare(struct clk_hw *hw)
-+{
-+	return clk_sleeping_gpio_gate_is_prepared(hw);
-+}
-+
-+static const struct clk_ops clk_gpio_locked_ops = {
-+	.prepare =	clk_gpio_locked_prepare,
-+	.is_prepared =	clk_sleeping_gpio_gate_is_prepared,
-+};
-+
- static struct clk_hw *clk_register_gpio(struct device *dev, u8 num_parents,
- 					struct gpio_desc *gpiod,
- 					const struct clk_ops *clk_gpio_ops)
-@@ -146,6 +159,7 @@ static struct clk_hw *clk_register_gpio(struct device *dev, u8 num_parents,
- 	struct clk_hw *hw;
- 	struct clk_init_data init = {};
- 	int err;
-+	const char *clk_name;
- 	const struct clk_parent_data gpio_parent_data[] = {
- 		{ .index = 0 },
- 		{ .index = 1 },
-@@ -155,7 +169,11 @@ static struct clk_hw *clk_register_gpio(struct device *dev, u8 num_parents,
- 	if (!clk_gpio)
- 		return ERR_PTR(-ENOMEM);
- 
--	init.name = dev->of_node->name;
-+	err = device_property_read_string(dev, "clock-output-names", &clk_name);
-+	if (err)
-+		clk_name = fwnode_get_name(dev->fwnode);
-+
-+	init.name = clk_name;
- 	init.ops = clk_gpio_ops;
- 	init.parent_data = gpio_parent_data;
- 	init.num_parents = num_parents;
-@@ -192,6 +210,12 @@ static struct clk_hw *clk_hw_register_gpio_mux(struct device *dev,
- 	return clk_register_gpio(dev, 2, gpiod, &clk_gpio_mux_ops);
- }
- 
-+static struct clk_hw *clk_hw_register_gpio_locked(struct device *dev,
-+						  struct gpio_desc *gpiod)
-+{
-+	return clk_register_gpio(dev, 1, gpiod, &clk_gpio_locked_ops);
-+}
-+
- static int gpio_clk_driver_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -201,8 +225,11 @@ static int gpio_clk_driver_probe(struct platform_device *pdev)
- 	struct gpio_desc *gpiod;
- 	struct clk_hw *hw;
- 	bool is_mux;
-+	bool is_gpio_locked;
-+	enum gpiod_flags gpio_flags;
- 
- 	is_mux = of_device_is_compatible(node, "gpio-mux-clock");
-+	is_gpio_locked = of_device_is_compatible(node, "gpio-locked-clock");
- 
- 	num_parents = of_clk_get_parent_count(node);
- 	if (is_mux && num_parents != 2) {
-@@ -210,14 +237,24 @@ static int gpio_clk_driver_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
--	gpio_name = is_mux ? "select" : "enable";
--	gpiod = devm_gpiod_get(dev, gpio_name, GPIOD_OUT_LOW);
-+	if (is_mux)
-+		gpio_name = "select";
-+	else if (is_gpio_locked)
-+		gpio_name = "enabled";
-+	else
-+		gpio_name = "enable";
-+
-+	gpio_flags = is_gpio_locked ? GPIOD_IN : GPIOD_OUT_LOW;
-+
-+	gpiod = devm_gpiod_get(dev, gpio_name, gpio_flags);
- 	if (IS_ERR(gpiod))
- 		return dev_err_probe(dev, PTR_ERR(gpiod),
- 				     "Can't get '%s' named GPIO property\n", gpio_name);
- 
- 	if (is_mux)
- 		hw = clk_hw_register_gpio_mux(dev, gpiod);
-+	else if (is_gpio_locked)
-+		hw = clk_hw_register_gpio_locked(dev, gpiod);
- 	else
- 		hw = clk_hw_register_gpio_gate(dev, num_parents, gpiod);
- 	if (IS_ERR(hw))
-@@ -229,6 +266,7 @@ static int gpio_clk_driver_probe(struct platform_device *pdev)
- static const struct of_device_id gpio_clk_match_table[] = {
- 	{ .compatible = "gpio-mux-clock" },
- 	{ .compatible = "gpio-gate-clock" },
-+	{ .compatible = "gpio-locked-clock" },
- 	{ }
- };
- 
+Extend the binding to be used also for gpio-locked-fixed-clock.
+A GPIO-locked fixed clock provider exposes a fixed-rate clock whose
+availability depends on one or more GPIO lock-status signals.
 
--- 
-2.34.1
+> diff --git a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml=
+ b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+> index d09d0e3f0c6ec..f44fdb17b627b 100644
+> --- a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+> +++ b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+> @@ -11,7 +11,9 @@ maintainers:
+> =20
+>  properties:
+>    compatible:
+> -    const: gpio-gate-clock
+> +    enum:
+> +      - gpio-gate-clock
+> +      - gpio-locked-clock
 
+[Severity: Low]
+Does this missing "-fixed" suffix introduce a regression in validation? The
+commit message, conditional block, and example below all use
+"gpio-locked-fixed-clock", which will fail schema validation against this
+enum.
 
+[ ... ]
+
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: gpio-gate-clock
+> +    then:
+> +      required:
+> +        - enable-gpios
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: gpio-locked-fixed-clock
+
+[Severity: Low]
+Does this compatible string mismatch introduce a regression in schema check=
+s?
+If the hardware uses "gpio-locked-clock" from the enum above, this
+conditional won't match and will allow invalid nodes to pass validation
+silently by bypassing the required "enabled-gpios" check.
+
+> +    then:
+> +      required:
+> +        - enabled-gpios
+> =20
+>  additionalProperties: false
+
+[ ... ]
+
+> @@ -40,3 +61,10 @@ examples:
+>          #clock-cells =3D <0>;
+>          enable-gpios =3D <&gpio 1 GPIO_ACTIVE_HIGH>;
+>      };
+> +
+> +    clk_gpio_locked {
+> +        compatible =3D "gpio-locked-fixed-clock";
+
+[Severity: Low]
+Will this compatible string cause a regression during dt_binding_check? The
+example uses a string that does not match the allowed enum values defined
+above.
+
+> +        #clock-cells =3D <0>;
+> +        clocks =3D <&pll>;
+> +        enabled-gpios =3D <&gpio0 4 GPIO_ACTIVE_HIGH>;
+> +    };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927-feature-cl=
+ock-guard-v6-0-007983b13ec2@bruker.com?part=3D1
