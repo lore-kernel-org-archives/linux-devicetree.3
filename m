@@ -1,568 +1,139 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585613976A0
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 15:12:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3802E390224
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 15:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790521963; cv=none; b=nQeF1gf5R/iPPI31IKfmVG/XVsfjWk8mwkZzjTK52fhXc9OmPzorNHTeuxjn6281kPDiocHSY98qs+YoWGDCm2jkWyg8R7b9kPSsDUh6B/dKb9HA6+HAcIKYDDKHVbGvGSess01veu+0xROpgZlQ8RwtYas909gx501Ci1Edi88=
+	t=1790522064; cv=none; b=MNAQ44H99I9MuEU76KU3Hzg7U1mQ8uWamU2jG351giXSy8lQAqY3U3ms9A6uthQMl8K7io53s9H+9Dp+Mdrt64J+jLqknVrbVy5afxU0Q76HBE6HQg0AOT8lDBLRcEBbi4vZ1hA7slHqFbSHVmT3UjcLBITtTQoGAGR4OxSfoCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790521963; c=relaxed/simple;
-	bh=8EOWWwnuhjdj2NBdmDHi2y9qj8C4h6LlxK00gi7W808=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SV/502qD+VLMGRe641UcLFVof/WH3SqOQ86Ia6rqQydogqVzVkXas+IbJ7mRLRSGrlcF+EmnS7W+3racgXQw50f9Q1yBx+d0nG9MCl9eMzvbRWEzbmWU8iCIza/B1SOWOPpuf1J1lE7ZpDR7FvVGCvKx0LNIHIJ66zgFp9XIUsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nvM+ysyP; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790522064; c=relaxed/simple;
+	bh=hsCJIQkqYuxFzzbKYzyukNxXPC64YPMx0HDRYYGxtJA=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=H2h46Pf9AC/cLAF3rOo1hrb4Z1PQPDqEssaxAEDaMTmLMLWSDDWZI8QyoW6Nn3bgXS0JPeCt8JH9T68u/q5c2fhl+YgeYqwrHVOZMzsiSo4mGjMhMXCoqRSpNoh9E/vzA1X9/rAXS8PRw0b2uyWMOPzUPGClrVDK0zZzyyTDzxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=eMsUfNsi; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nvM+ysyP"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48884b926f0so1140583f8f.3
-        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 08:12:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790521958; x=1791126758; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kp1PQqGUGWpZxUys5pByJrwoE69ft+7LJPagJSESpNs=;
-        b=nvM+ysyP5fqUiN3Z6rZbGhv7YjUSPSfAVOW4r2ZwyD7AcQYsTev7dwO3LqyCHkcepG
-         bqF7uPdsRCuotshlhdfFyFWuicZf6cb50yVPFN277HCHkPZNcyz6PHZ5d+mEp5JrHNGw
-         haj0NINkOcGpFY3ORS6ZNDzGHJNu7In/oCRsRQvpGYxWfAeXBHpFQjZHCZu7+HorscBV
-         fFb4VmdYMiTYdP8anbAa8gzlz9t1474ZJWjxvncfTvYdDN7zN5p5rGb2cjqFHTKobQTp
-         bb4qWygCOXFbm55x6uqfXQn/EvWBZFlDCXbDYtiaq4BRYOshvbCg1GkDYHT/e3Nmj79j
-         n9Tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790521958; x=1791126758;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kp1PQqGUGWpZxUys5pByJrwoE69ft+7LJPagJSESpNs=;
-        b=UaL//SAsbIu6vHPFvoCPf/TkZPnbpI60WCVQE6bge5zY0/ytqlZZy3dDC//Z1HezBT
-         BGmCcp6O5izKdD1iFoBJKJ64oBqZ5gDHsmWU0rS/vVjb/2d5UXBHTjXiIJv7N2q8+5L0
-         z4dFr8jxkqDN/4EBT6tmuWLuqeoAmhewFK2c9QPvJ+cd2RQuI6yXx7MtPaRKH9Zyhlgp
-         Zu4l+jiLPdk9XKaUwZsAC3LLlp0SQv0zXoC3EiDIzYj/5j7OOQuioIbwZpWLGzGvS9FE
-         T5EdTi5qlfn85MYeiOyPdCExxvQWABK935D+Jkpe4FFtzNrwoaqrhfI8cpS4tQMgyh0F
-         6nUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyr/NpTHVnCv14sKss845NoMlwGjAFE0MVFVXD2BkWnI/Nemogm0tG0No8TRZUXh0iGoObUxKw/V2p@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeo6+DOoMBQxWr+PtzOVVBH8uUOdzXGjOIe8vqLVpTWnXWCECJ
-	0ehD/EaUpQw24PhuNlKDcXYrbdy59OQBz0etKuKkvPDnuWe9bOFeeshK
-X-Gm-Gg: AYBFou0qK8drf7DF93hVPPeUS2h5hYiKUh9WqJKvrjnPzEmiIgCp0v7pwAe4oIdu2//
-	4m9L3/Aw67Cu5/UArRwaUoDwreTtwDzQvglHa+J0mEVHxgFxWKQsUCFQRUKf34CXwyEc6Y+NKUQ
-	8CG1d7pFcEQGzTAAu44gCvYmCJCfbszI4+QeOkWAyT8yRe7qQR0rqAjPw1bU4FhlSM0ZfddLBgW
-	fEjCPALwVbzuuf++wUTmRzLBkTefpXgAHBSNJK8vnVR4NGGkbNBJ3bS1v0+/RiPSPwYbacvSfSB
-	6iHKWo23wIxRLZTGZV4iO0V/akCpAYm2drwQ9mNlhUMzHEowPQclF1dI7JqeijsopYEjIwjFSFV
-	GXthHyKo5x2JBwfnN023mU5Yh31oxpp0O8gVCtLwNKzU+iS13HU0+06W+XXaftsiKxC58Y8o/OO
-	HhqZyvOU0c9ZfDqsnHsSehpIVLNdfr21si6eQjPUcpmy0qJ6+/cHHfOLsVgEwy4S/vTEW4i7bYo
-	aMEgN8PH6cwgxFlF3pvSwRt0QkhB3A7OJjnGgc6aW4=
-X-Received: by 2002:a05:6000:2999:10b0:488:7dc6:4e9 with SMTP id ffacd0b85a97d-4887dc60767mr9344511f8f.10.1790521958532;
-        Sun, 27 Sep 2026 08:12:38 -0700 (PDT)
-Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a746c57sm19764208f8f.35.2026.09.27.08.12.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 08:12:37 -0700 (PDT)
-From: Pablo Mazzini <pmazzini@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Pablo Mazzini <pmazzini@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH v2 11/11] ARM: sunxi: add B288 and the PocketBook Verse board
-Date: Sun, 27 Sep 2026 16:10:16 +0100
-Message-ID: <20260927151016.186493-12-pmazzini@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260927151016.186493-1-pmazzini@gmail.com>
-References: <20260927151016.186493-1-pmazzini@gmail.com>
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="eMsUfNsi"
+Message-ID: <c93092bb-e3f7-462f-aa8f-a09dbb2946e9@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1790522058;
+	bh=hsCJIQkqYuxFzzbKYzyukNxXPC64YPMx0HDRYYGxtJA=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=eMsUfNsi9SLtEDWRzSc6H2xwtcuEkvZM0fjvkGTmN3kyBg48Jq1TeTFreNDZioqbx
+	 fUO3oePYrrKsJZlUfDnsoMK28FzwbUsl7R3BJG7f1/+N2nClkuk3RTFDpxqD7WDlPZ
+	 gqKY+99yDBieJS6MuqfPndZ28xeSCHaB1QJllZN0=
+Date: Sun, 27 Sep 2026 17:14:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Subject: Re: [PATCH v3 1/3] dt-bindings: pwm: amlogic: Add core clock for S4
+ like
+To: sashiko-reviews@lists.linux.dev
+Cc: neil.armstrong@linaro.org, conor+dt@kernel.org,
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+ robh@kernel.org
+References: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
+ <20260927-add-t7-sys-pwm-clk-v3-1-18d66abea4d1@aliel.fr>
+ <20260927143733.DA8151F000FF@smtp.kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260927143733.DA8151F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-arm,cpu-registers-not-fw-configured is required: Allwinner's boot0 sets
-neither CNTFRQ nor CNTVOFF, so the virtual timer storms. Same reason as
-commit 121b96cd9d7e ("ARM: sun6i: Enable ARM arch timers").
+On 9/27/26 4:37 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] dt-bindings: pwm-amlogic: missing minItems allows validation bypass
+> --
+> 
+> commit 359e122eac15df570817ba590b91f8958522a038
+> Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> dt-bindings: pwm: amlogic: Add core clock for S4 like
+>     
+> This commit adds a third system core clock to the Amlogic PWM controller 
+> bindings for S4 and related devices. It updates the conditionals for the 
+> S4 compatible string to require three clocks instead of two, and updates 
+> the examples to match.
+> 
+>> diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+>> index c337d85da40f1..e9cd5f1fdf264 100644
+>> --- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+>> +++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+> 
+> [ ... ]
+> 
+>> @@ -143,9 +143,15 @@ allOf:
+>>            items:
+>>              - description: input clock of PWM channel A
+>>              - description: input clock of PWM channel B
+>> -        clock-names: false
+>> +            - description: gate clock for the PWM controller
+> 
+> [Severity: Medium]
+> Will dt-schema successfully enforce the minimum 3 items requirement intended 
+> by the commit message?
+> 
+> Because the global `clocks` property definition has `minItems: 1` and JSON 
+> Schema's `items` keyword only validates elements that are actually present, a 
+> device tree node with `compatible = "amlogic,meson-s4-pwm"` and only 1 or 2 
+> clocks will silently pass validation.
+> 
+> Does this block need an explicit `minItems: 3`?
+> 
 
-The watchdog interrupt was measured on hardware via GICD_ISPENDR.
+If I remove one clock, the validation fails
 
-Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
----
- arch/arm/boot/dts/allwinner/Makefile          |   1 +
- .../allwinner/sun8i-b288-pocketbook-verse.dts | 122 +++++++
- arch/arm/boot/dts/allwinner/sun8i-b288.dtsi   | 304 ++++++++++++++++++
- arch/arm/mach-sunxi/sunxi.c                   |   1 +
- 4 files changed, 428 insertions(+)
- create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
- create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
+```
+  CHKDT   ./Documentation/devicetree/bindings
+  LINT    ./Documentation/devicetree/bindings
+  STYLE   ./Documentation/devicetree/bindings
+  DTEX    Documentation/devicetree/bindings/pwm/pwm-amlogic.example.dts
+  DTC [C]
+Documentation/devicetree/bindings/thermal/amlogic,thermal.example.dtb
+  DTC [C] Documentation/devicetree/bindings/pwm/pwm-amlogic.example.dtb
+/home/*redacted*/linux/Documentation/devicetree/bindings/pwm/pwm-amlogic.example.dtb:
+pwm@1000 (amlogic,meson-s4-pwm): clock-names: ['channel-a', 'channel-b']
+is too short
+	from schema $id: http://devicetree.org/schemas/pwm/pwm-amlogic.yaml
+/home/*redacted*/linux/Documentation/devicetree/bindings/pwm/pwm-amlogic.example.dtb:
+pwm@1000 (amlogic,meson-s4-pwm): clocks: [[4294967295], [4294967295]] is
+too short
+	from schema $id: http://devicetree.org/schemas/pwm/pwm-amlogic.yaml
+/home/*redacted*/linux/Documentation/devicetree/bindings/pwm/pwm-amlogic.example.dtb:
+pwm@60000 (amlogic,t7-pwm): clock-names: ['channel-a', 'channel-b'] is
+too short
+	from schema $id: http://devicetree.org/schemas/pwm/pwm-amlogic.yaml
+/home/*redacted*/linux/Documentation/devicetree/bindings/pwm/pwm-amlogic.example.dtb:
+pwm@60000 (amlogic,t7-pwm): clocks: [[4294967295], [4294967295]] is too
+short
+	from schema $id: http://devicetree.org/schemas/pwm/pwm-amlogic.yaml
+```
 
-diff --git a/arch/arm/boot/dts/allwinner/Makefile b/arch/arm/boot/dts/allwinner/Makefile
-index 75b2b6a2f7a6..2dfdc01e4825 100644
---- a/arch/arm/boot/dts/allwinner/Makefile
-+++ b/arch/arm/boot/dts/allwinner/Makefile
-@@ -227,6 +227,7 @@ dtb-$(CONFIG_MACH_SUN8I) += \
- 	sun8i-a83t-bananapi-m3.dtb \
- 	sun8i-a83t-cubietruck-plus.dtb \
- 	sun8i-a83t-tbs-a711.dtb \
-+	sun8i-b288-pocketbook-verse.dtb \
- 	sun8i-h2-plus-bananapi-m2-zero.dtb \
- 	sun8i-h2-plus-libretech-all-h3-cc.dtb \
- 	sun8i-h2-plus-orangepi-r1.dtb \
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
-new file mode 100644
-index 000000000000..91c89d5a097e
---- /dev/null
-+++ b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
-@@ -0,0 +1,122 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * PocketBook Verse (PB629), an Allwinner B288 based e-reader.
-+ */
-+
-+/dts-v1/;
-+#include "sun8i-b288.dtsi"
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "PocketBook Verse";
-+	compatible = "pocketbook,verse", "allwinner,sun8i-b288";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@40000000 {
-+		device_type = "memory";
-+		reg = <0x40000000 0x20000000>;
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&mmc0 {
-+	vmmc-supply = <&reg_dldo2>;
-+	bus-width = <4>;
-+	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
-+	status = "okay";
-+};
-+
-+&mmc3 {
-+	vmmc-supply = <&reg_dcdc1>;
-+	vqmmc-supply = <&reg_dldo1>;
-+	bus-width = <8>;
-+	non-removable;
-+	cap-mmc-hw-reset;
-+	status = "okay";
-+};
-+
-+&pio {
-+	vcc-pc-supply = <&reg_dldo1>;
-+	vcc-pd-supply = <&reg_dldo1>;
-+	/*
-+	 * PC and PD are named in the vendor rail list; PF is not. It is not
-+	 * on dldo2: with that rail off, a pull-up on PF6 still reads card
-+	 * detect correctly, so the bank has its own supply. dcdc1 is the
-+	 * only remaining candidate, carrying vcc-io and vcc-card. Derived
-+	 * from the rail naming plus that measurement, not from a schematic.
-+	 */
-+	vcc-pf-supply = <&reg_dcdc1>;
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+
-+	axp22x: pmic@34 {
-+		compatible = "x-powers,axp221";
-+		reg = <0x34>;
-+		interrupt-parent = <&nmi_intc>;
-+		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+};
-+
-+#include "axp22x.dtsi"
-+
-+&reg_dcdc1 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <3000000>;
-+	regulator-max-microvolt = <3000000>;
-+	regulator-name = "vcc-io";
-+};
-+
-+&reg_dcdc2 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1260000>;
-+	regulator-max-microvolt = <1260000>;
-+	regulator-name = "vdd-cpu";
-+};
-+
-+&reg_dcdc4 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1100000>;
-+	regulator-max-microvolt = <1100000>;
-+	regulator-name = "vdd-sys";
-+};
-+
-+&reg_dcdc5 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1350000>;
-+	regulator-max-microvolt = <1350000>;
-+	regulator-name = "vcc-dram";
-+};
-+
-+&reg_aldo3 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <3000000>;
-+	regulator-max-microvolt = <3000000>;
-+	regulator-name = "avcc";
-+};
-+
-+&reg_dldo1 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1800000>;
-+	regulator-max-microvolt = <1800000>;
-+	regulator-name = "vcc-pc";
-+};
-+
-+&reg_dldo2 {
-+	/* Powers the microSD slot (slot pin 4), switched per card scan. */
-+	regulator-min-microvolt = <3300000>;
-+	regulator-max-microvolt = <3300000>;
-+	regulator-name = "vcc-sdcv";
-+};
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
-new file mode 100644
-index 000000000000..f5feec87defc
---- /dev/null
-+++ b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
-@@ -0,0 +1,304 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Allwinner B288 (sun8iw10p1) SoC
-+ *
-+ * Addresses and interrupts come from the PocketBook Verse (PB629) vendor
-+ * device tree, cross-checked against the BSP clk-sun8iw10.c.
-+ */
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/clock/sun8i-b288-ccu.h>
-+#include <dt-bindings/reset/sun8i-b288-ccu.h>
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	interrupt-parent = <&gic>;
-+
-+	clocks {
-+		osc24M: osc24M-clk {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <24000000>;
-+			clock-output-names = "osc24M";
-+		};
-+
-+		osc32k: osc32k-clk {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <32768>;
-+			clock-output-names = "osc32k";
-+		};
-+	};
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			compatible = "arm,cortex-a7";
-+			device_type = "cpu";
-+			reg = <0>;
-+			clocks = <&ccu CLK_CPUX>;
-+			clock-names = "cpu";
-+		};
-+
-+		cpu1: cpu@1 {
-+			compatible = "arm,cortex-a7";
-+			device_type = "cpu";
-+			reg = <1>;
-+			clocks = <&ccu CLK_CPUX>;
-+			clock-names = "cpu";
-+		};
-+	};
-+
-+	timer {
-+		compatible = "arm,armv7-timer";
-+		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-+		clock-frequency = <24000000>;
-+		arm,cpu-registers-not-fw-configured;
-+	};
-+
-+	soc {
-+		compatible = "simple-bus";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		/*
-+		 * mmc0 is a v4p1x controller, so it runs in the old timing
-+		 * mode and needs the sample and output phase clocks. Do not
-+		 * give it the sun50i-a64-mmc fallback: that selects the new
-+		 * timing mode, which this block does not implement.
-+		 */
-+		nmi_intc: interrupt-controller@1c000d0 {
-+			compatible = "allwinner,sun8i-b288-nmi",
-+				     "allwinner,sun9i-a80-nmi";
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			reg = <0x01c000d0 0x0c>;
-+			interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		mmc0: mmc@1c0f000 {
-+			compatible = "allwinner,sun8i-b288-mmc",
-+				     "allwinner,sun7i-a20-mmc";
-+			reg = <0x01c0f000 0x1000>;
-+			clocks = <&ccu CLK_BUS_SDMMC0_BUS>,
-+				 <&ccu CLK_MMC0>,
-+				 <&ccu CLK_MMC0_OUTPUT>,
-+				 <&ccu CLK_MMC0_SAMPLE>;
-+			clock-names = "ahb", "mmc", "output", "sample";
-+			resets = <&ccu RST_BUS_MMC0>;
-+			reset-names = "ahb";
-+			interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&mmc0_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		/* SDXC v4.5. The soldered eMMC; shares the PC pads with mmc2. */
-+		mmc3: mmc@1c12000 {
-+			compatible = "allwinner,sun8i-b288-emmc",
-+				     "allwinner,sun50i-a64-emmc";
-+			reg = <0x01c12000 0x1000>;
-+			clocks = <&ccu CLK_BUS_SDMMC3_BUS>, <&ccu CLK_MMC3>;
-+			clock-names = "ahb", "mmc";
-+			resets = <&ccu RST_BUS_MMC3>;
-+			reset-names = "ahb";
-+			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&mmc3_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		/*
-+		 * mmc2 (0x01c11000) is an SDHCI-style controller, not SDXC, and
-+		 * has no upstream binding. It loses the PC pad arbitration to
-+		 * mmc3 and is unused here, so it is left undescribed rather than
-+		 * given a wrong compatible.
-+		 */
-+
-+		ccu: clock-controller@1c20000 {
-+			compatible = "allwinner,sun8i-b288-ccu";
-+			reg = <0x01c20000 0x400>;
-+			clocks = <&osc24M>, <&osc32k>;
-+			clock-names = "hosc", "losc";
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+		};
-+
-+		rtc: rtc@1c20400 {
-+			compatible = "allwinner,sun8i-b288-rtc";
-+			reg = <0x01c20400 0x400>;
-+			interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
-+			clock-output-names = "osc32k";
-+			clocks = <&osc32k>;
-+			#clock-cells = <1>;
-+		};
-+
-+		pio: pinctrl@1c20800 {
-+			compatible = "allwinner,sun8i-b288-pinctrl";
-+			reg = <0x01c20800 0x400>;
-+			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_PIO>, <&osc24M>, <&osc32k>;
-+			clock-names = "apb", "hosc", "losc";
-+			gpio-controller;
-+			#gpio-cells = <3>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+
-+			mmc0_pins: mmc0-pins {
-+				pins = "PF0", "PF1", "PF2",
-+				       "PF3", "PF4", "PF5";
-+				function = "sdc0";
-+				allwinner,pinmux = <2>;
-+				drive-strength = <30>;
-+				bias-pull-up;
-+			};
-+
-+			i2c0_pins: i2c0-pins {
-+				pins = "PB6", "PB7";
-+				function = "twi0";
-+				allwinner,pinmux = <2>;
-+			};
-+
-+			mmc3_pins: mmc3-pins {
-+				pins = "PC1", "PC4", "PC5", "PC6",
-+				       "PC7", "PC8", "PC9", "PC10",
-+				       "PC11", "PC12", "PC13", "PC14";
-+				function = "sdc3";
-+				allwinner,pinmux = <5>;
-+				drive-strength = <40>;
-+				bias-pull-up;
-+			};
-+
-+			uart0_pb_pins: uart0-pb-pins {
-+				pins = "PB4", "PB5";
-+				function = "uart0";
-+				allwinner,pinmux = <2>;
-+			};
-+		};
-+
-+		wdt: watchdog@1c20ca0 {
-+			compatible = "allwinner,sun6i-a31-wdt";
-+			reg = <0x01c20ca0 0x20>;
-+			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&osc24M>;
-+		};
-+
-+		uart0: serial@1c28000 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28000 0x400>;
-+			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART0>;
-+			resets = <&ccu RST_BUS_UART0>;
-+			status = "disabled";
-+		};
-+
-+		uart1: serial@1c28400 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28400 0x400>;
-+			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART1>;
-+			resets = <&ccu RST_BUS_UART1>;
-+			status = "disabled";
-+		};
-+
-+		uart2: serial@1c28800 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28800 0x400>;
-+			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART2>;
-+			resets = <&ccu RST_BUS_UART2>;
-+			status = "disabled";
-+		};
-+
-+		uart3: serial@1c28c00 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28c00 0x400>;
-+			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART3>;
-+			resets = <&ccu RST_BUS_UART3>;
-+			status = "disabled";
-+		};
-+
-+		uart4: serial@1c29000 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c29000 0x400>;
-+			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART4>;
-+			resets = <&ccu RST_BUS_UART4>;
-+			status = "disabled";
-+		};
-+
-+		i2c0: i2c@1c2ac00 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2ac00 0x400>;
-+			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI0>;
-+			resets = <&ccu RST_BUS_I2C0>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&i2c0_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c1: i2c@1c2b000 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2b000 0x400>;
-+			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI1>;
-+			resets = <&ccu RST_BUS_I2C1>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c2: i2c@1c2b400 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2b400 0x400>;
-+			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI2>;
-+			resets = <&ccu RST_BUS_I2C2>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		gic: interrupt-controller@1c81000 {
-+			compatible = "arm,gic-400";
-+			reg = <0x01c81000 0x1000>,
-+			      <0x01c82000 0x2000>,
-+			      <0x01c84000 0x2000>,
-+			      <0x01c86000 0x2000>;
-+			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+		};
-+	};
-+};
-diff --git a/arch/arm/mach-sunxi/sunxi.c b/arch/arm/mach-sunxi/sunxi.c
-index e1b7945aac99..c5b19d0e63f9 100644
---- a/arch/arm/mach-sunxi/sunxi.c
-+++ b/arch/arm/mach-sunxi/sunxi.c
-@@ -61,6 +61,7 @@ MACHINE_END
- static const char * const sun8i_board_dt_compat[] = {
- 	"allwinner,sun8i-a23",
- 	"allwinner,sun8i-a33",
-+	"allwinner,sun8i-b288",
- 	"allwinner,sun8i-h2-plus",
- 	"allwinner,sun8i-h3",
- 	"allwinner,sun8i-r40",
+>> +        clock-names:
+>> +          items:
+>> +            - const: channel-a
+>> +            - const: channel-b
+>> +            - const: core
+> 
+> [Severity: Medium]
+> Does this also require `minItems: 3`?
+> 
+> Supplying just "channel-a" and "channel-b" will still validate successfully 
+> without a `minItems` constraint here.
+> 
+>>        required:
+>>          - clocks
+>> +        - clock-names
+> 
+
+
 -- 
-2.53.0
-
+Best regards,
+Ronald
