@@ -1,102 +1,127 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70983E0C57;
-	Sun, 27 Sep 2026 19:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F9635A39D;
+	Sun, 27 Sep 2026 20:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790537462; cv=none; b=bF2wjwMORgr23128RvZcaGRm0xT45z90zH3lBQUU/NQafgtwt5K6RhutgrD5ufMuhz0ljgz0gK7t+BZO8xrEft2u/qonbz2WW3MjmM+MjOFakSl5197gH15+e6rUaq9gzCkew8Na4TgwlHrMHosQc6X/qcDbG9ojr9YXaL0IgQM=
+	t=1790539207; cv=none; b=iy26daYA2b70DDnXokLGqhxf8hVxHIUyyhzIU1KlBJmZFE6Zum3heF574OFaXw7/z9sjnvmGDuv66KAsd1Pah1zX/yb9H73zQbhYoyendTl6xfi17f9h3o+URUapu9wiqi+QLfCQUvDwSv8Iz5L6fCmff6VlWKw6xCqETgrHVcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790537462; c=relaxed/simple;
-	bh=s5CklLZrT+S7vZWUtUja5Hz0PUvpWoEMCtZIBQJqi1s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nV969u/txf/YURSwUzOCamAVL3C4X9KtgCzRGBIQB9OaBfYGpyobtEapa7J+pviEJWcY+ke8QnzgaMkE069HYczaQCHL41qq6oUdPMYEa+hi1V0ZNSjiokGI+A3WdJULXZSN11fl+GSm8605j6aSwZA+Z2AEsH6OZSboyFGFz8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=rTnmOxbY; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790539207; c=relaxed/simple;
+	bh=I5GmwhcR9dEV4MtTDUzhSc57TT6erNzKqlpqSHAuWLc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=POlZLTwHUHyDIevwa5nn4+Yk6C4Zsqhgzrmx1DCiFKYO9zqvvgN+BgnG4Cazr4XonKMgbgJWRJ6+r5Owfk1OS+aJbbgwArIGNwRmNcqsISuAHtVPxpN3HxKsmi3sTTbHw+eIul6TLpopSx3juj4LmwFwRS6BNvq0hgRYnQLg4GY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=OTBZXL7R; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="rTnmOxbY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=dUmekkaLB7pJaNtNJP1pyWK+1wzVpak1sZK828FP73c=; b=rT
-	nmOxbY0BMzVeWBuohg3lcYp97UC/9bz9gEbPdlOgaw2BFYXxII9TidLK5+jeyF7hwe5rtIVUPGrZm
-	LqOg8R9FnPdlOr3JAxJao5koYnO59ZVqXAPZvZyGh1UFjIIW0atknS1LmzO8840jrtUv89zCzzC9T
-	5zYmg3Fck89Pf5E=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xAuaB-007Ydo-IB; Sun, 27 Sep 2026 21:30:43 +0200
-Date: Sun, 27 Sep 2026 21:30:43 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?5YiYIOaYjOadsA==?= <liucj1228@outlook.com>
-Cc: Andre Przywara <andre.przywara@arm.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Luo Jie <jie.luo@oss.qualcomm.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 0/2] net: phy: Add Maxio MAE0621A support
-Message-ID: <ca958017-7a32-4a39-bf88-5a82c0869d58@lunn.ch>
-References: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
- <2635661d-4be2-4abf-84aa-c3024941f787@arm.com>
- <2ecfaee1-921b-4d2a-bac3-ce2467b24ea7@lunn.ch>
- <MN0PR19MB609160C34AEEADC6C74F08E1AC8E2@MN0PR19MB6091.namprd19.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="OTBZXL7R"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4htFf44GRbzMlrg;
+	Sun, 27 Sep 2026 21:59:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790539196;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S3GpgvsWKyshpzVFnG9ZkXrNBlSawI5/txD9KcqJ8SE=;
+	b=OTBZXL7RH1YysOqlopuUr0xIA2u7qMmsR/0tKJ+kMyAcD0f6d7sr0fC1Z6QRG0MHp7rYZO
+	twUpIDxcEmHqFl0Q81wRXsgBKiJ0eFjBbHyekHA/ab86c1y+Hc8K70FI8NsUPDJR/CIdL1
+	GBuOB5s+hbzVOXVU+CFP8kiwP4rGa8vnRTmSgdNtrajCq0aJdYSjBEMLtufZkzLjGWqZFw
+	+Pud2xcM59cXqdshafivTLeKyC+3ZzFMNoblLeNJprKyv9PorbPGP2vo19cnk8LUHR6eHw
+	tIJYjH9sQJbpdVweCLmj1AxLNz7+UDtVj4OkFrhBMR7dopc0AdE5qYRJCiyb6w==
+Message-ID: <badcd2d5-7d61-426a-86d6-000043a6aa93@mailbox.org>
+Date: Sun, 27 Sep 2026 21:59:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <MN0PR19MB609160C34AEEADC6C74F08E1AC8E2@MN0PR19MB6091.namprd19.prod.outlook.com>
+Subject: Re: [PATCH 02/11] PCI: rcar-gen4: Drop the APP-based link_up check
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260918032038.2216471-1-den@valinux.co.jp>
+ <20260918032038.2216471-3-den@valinux.co.jp>
+ <c2807afc-3e69-4744-8588-20f60839a603@mailbox.org>
+ <4peziifkgyfpglfl4jtyvcxqht2yo4r4bswmkweicpxdf45ejc@jxbqgurozlft>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <4peziifkgyfpglfl4jtyvcxqht2yo4r4bswmkweicpxdf45ejc@jxbqgurozlft>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: nypqomd6k5cuq5i8h1cykuee7hg4apcs
+X-MBO-RS-ID: 46d6c11dbd740c7fa7f
 
-On Sun, Sep 27, 2026 at 04:21:50PM +0000, 刘 昌杰 wrote:
-> Hi Andrew,
+On 9/23/26 4:56 PM, Koichiro Den wrote:
+
+Hello Den-san,
+
+>>> @@ -298,7 +285,6 @@ static int rcar_gen4_pcie_get_resources(struct rcar_gen4_pcie *rcar)
+>>>    static const struct dw_pcie_ops dw_pcie_ops = {
+>>>    	.start_link = rcar_gen4_pcie_start_link,
+>>>    	.stop_link = rcar_gen4_pcie_stop_link,
+>>> -	.link_up = rcar_gen4_pcie_link_up,
+>>>    };
+>>>    static struct rcar_gen4_pcie *rcar_gen4_pcie_alloc(struct platform_device *pdev)
+>>
+>> Can we include some form of the draft patch below, so the S4 Reference
+>> Manual rev.1.40 , page 1564 , Figure 104.5 Initial Setting of PCIEC ,
+>> bottommost diamond in the figure (smlh_link_up and rdlh_link_up = 1 test),
+>> would still be fulfilled, and the initialization code in the driver would
+>> not diverge from the initialization sequence listed in the reference manual
+>> ? What do you think ?
 > 
-> I checked the schematics and tested the broadcast control on an LCKFB Taishan Pi 3M (which has an MAE0621A-Q3C at PHY address 1, ID 0x7b744412).
+> If always relying on the PORT_DEBUG1 check instead of the SMLH/RDLH check does
+> not introduce any regressions, I'd personally prefer to keep patch 2 as-is
+> because it keeps the code simpler. We could just add a comment noting that this
+> link-up check diverges from Figure 104.5.
 
-Thanks for this testing.
+I think the SMLH/RDLH does behave slightly differently, because those 
+SMLH/RDLH bits are set and latched in, and they have to be explicitly 
+cleared. The DEBUG1 bits report the current state of the link, which 
+might (?) be susceptible to bouncing (link going out and down in a short 
+window, but ultimately being up) ? I am not entirely sure whether that 
+might pose a problem or not.
 
-> For the RGMII delays, pin 24 (RXD1/TXDLY) is pulled down (4.7k) and
-> pin 25 (RXD0/RXDLY) is pulled up (4.7k). So the hardware straps are
-> TXDLY=0 and RXDLY=1. Per Table 7-3 in the datasheet, this disables
-> the TX delay and enables a 2ns RX delay. This matches the DT using
-> `phy-mode="rgmii-rxid"` and the RK3576 GMAC `tx_delay=<0x24>`.
+> That said, I agree that in general we should follow the R-Car reference manual
+> where possible, and your draft makes sense for that purpose. If we go that way,
+> I have one question: would we need a polling loop with a timeout
+> (PCIE_LINK_WAIT_MAX_RETRIES * PCIE_LINK_WAIT_SLEEP_MS) in
+> rcar_gen4_pcie_start_link(), similar to dw_pcie_wait_for_link()?
 
-Unfortunately, this works, but is wrong.
+This is a good point, and I think we probably shouldn't do it this way, 
+because we can reuse the DWC core code for that purpose.
 
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
+How about extending the .link_up callback, and check both the SMLH/RDLH 
+bits there (to fulfill the datasheet compliance, dw_pcie_start_link() is 
+always followed by dw_pcie_wait_for_link() which calls the .link_up() 
+callback) and the DEBUG1 bits (to make sure we check the current state 
+of the link) ?
 
-phy-mode="rgmii-rxid" means the PCB is adding the delay, which is not
-true. The PHY is. What would normally happen is that the DT would
-contain rgmii-id, indicating the PCB has no delays.
-PHY_INTERFACE_MODE_RGMII_ID would be passed to the PHY driver, and it
-would then reconfigure the PHY to insert both RX and TX delays. The
-strapping is ignored.
+That should cover all our concerns (datasheet compliance, DEBUG1 current 
+state of link check, polling), shouldn't it ?
 
-At the moment, we don't have the ability to override the strapping. We
-also cannot verify what the PHY is actually doing against what the MAC
-would like it to do. So we can get into situations where it is wrong.
+> P.S. I'll rebase v2 onto the latest pci/controller/dwc-rcar-gen4.
 
-> For the broadcast test: initially, PHYCR1 (page 0xa43, reg 0x18) was
-> 0x2118 (bit 13 set). Reading the PHY ID from both addr 0 and 1
-> returned 0x7b744412. After clearing bit 13 on addr 1, addr 0 stopped
-> responding (returned 0xffff), while addr 1 kept working. I didn't
-> send any writes to addr 0.
+Thank you, and I apologize for the inconvenience.
 
-Cool. Having the PHY respond on two addresses is bad. Linux can think
-there are two PHYs. It can suspend and resume it twice etc. 
-
-	Andrew
+-- 
+Best regards,
+Marek Vasut
