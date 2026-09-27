@@ -1,100 +1,77 @@
-Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E285347BC4
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 15:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3343E3B27E2
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 15:58:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790523166; cv=none; b=EdvOeDH2bUWHAy2b6qNC4udfgYPKAEXG2OfOOrmvUltBjQAVnhgKnJ4OVRL/GNCBvZCxkDLgeZ2zSNh6cH12XQaTcdzKZ+TLSEjo1pV3zON5XbxdAgpg8pGH0tvfuKpP3vTGZ4cnOkvivL4a+7FRuJzosSU35IsdzxrXOKvsfCE=
+	t=1790524690; cv=none; b=nxWo1J2gL5/1/0cMDvHncgWbeMfDI7rO1GWIpXEnp0piJvRk8/CRppxnVtVEe4eGUPTgHWz05eL3gScx8GXPzJXB/68+5VtSTwzoAGaTpUEAL5St73LKyiD2UhIH1nzuKX+4IPkIW7QNLkT7CzXtvfB4vD4f1NnLIwsyeCYYOQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790523166; c=relaxed/simple;
-	bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dWop7DAdlbYuZDFtu//SGUv+9ItwNl2DJq8LA35MgzQibevUlu1E+U24CPIUE9Mqr78KJNQHRbgr4hES4c9nFWv/qibbIWAFTC9d144eaCafgEfzsONCmysCEbjyHEyVuzP/8L/JCIMZwqSrJBhY+1yMsh/PY05j47W2xMuUAS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=Bko8XzRm; arc=none smtp.client-ip=74.125.230.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	s=arc-20240116; t=1790524690; c=relaxed/simple;
+	bh=tiF4dNCYfSiePx22DoLQmh8H7VMxIsra+1NAFUac6/s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AYXsynm55U/RjelVNL4NuQsr53VRpv61DSgJcsNt2yRzcn1oWTUltOvcZeIq7cXsPI4n31f/3ce+O5/QBiTD7Gq3iBI7LZiEBQ42Q7oTOE2w6nxJDc8hgPFOjcBqfo6jZ4GnKvQV3DzdI2QFcTIO3UcLWWmohjuNKizqN32otNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CKLZiWOc; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="Bko8XzRm"
-Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-533245fd18dso9172011cf.0
-        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 08:32:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CKLZiWOc"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso16156015e9.2
+        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 08:58:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790523162; x=1791127962; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
-        b=Bko8XzRmxrxhB1yOjvyzWxL6fsflbVvF3cb+Jb0W1u854XoEEpOv1UgUywBedNTSG2
-         f+9AuKYYMyxONsYCe8nY5+U3FhhMpvrwJL5tUtRRXQFpVfI7sgXMLKuqftBxvV+e5NWP
-         tTQDTedpcQDJeJdgK+m6C38pvKZybvdzSrAKG/fn3r02D3ijRLNBDPH+rwhUrsQKR+jf
-         irZaO7g9CxOF2fynph5lJO7/0MR3r5822IqdiHkpId98lewlIZF5N0u4A7bGSX7Hbm2/
-         3+YJhCX01z1RxIPf8UDhMQ8Bo9J1+U0t/ZM0QAOvfNt0ZctALzDCZ52mLtvELG3J6Ek8
-         l0EA==
+        d=gmail.com; s=20251104; t=1790524687; x=1791129487; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6hVPxB3LDp7THumASK8lONkRvyk4UvlnbOgMgC/3vpg=;
+        b=CKLZiWOcIGTYFxrjiFrpaTsSHy2u2Pej1OYTjB7GYk6Ome7Gm4u5//Z9KRe4JlJvTF
+         xxBTUcUUwSEVS9ZG9H+NmWmPEL9YNuYtvJVdg3isu54LimWs7tR0rFhxjVnAndW/gpZF
+         g7mbrM4Ho1GYDBsEjaBYj5b8NPQEMRp34TWTKCARgbi+regBJFeBw9PCXxzB8Eit+jGt
+         CTBPYdg82bxDwA+FpVNFArng5OwQ/TWBhxEZdEtr9tpSNf3PrkZhe/wUtQv9+uI5IEoH
+         Fo4wS6WvUXNC/XsbsbzbNdYrCW+jm3Vsd8cLFnT9lpisOGbzTSwkjv40ip5eCUWyeGTk
+         ctsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790523162; x=1791127962;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
-        b=y08RlTNo/8+k6MNYzQeV5IpcS6WU0TD3UsRlhS75ueoDdAs/R5H4774dAfsLFY32hZ
-         Ymv8aHp8zUId1mSUymcvqqjBj7+ii6PhTCPqLgrrC4Y5ZGJHDdS6eG6c5q15FaTR1mcx
-         867ebLVE+hQ0EvszV9mD33rlrSoUbyUIL6E48AxKa6n74nLUMNxOQ1AKcjlHCHmXFo6n
-         1+pN57Mfxp4H7Rvnd3qZmmuWrgyv3a6DfvAGHGnAI5Ypaz0HcuzUAo3TmSNCqItqsb6N
-         /fpmUcYB4/+vP2oPa/wO42ox5w/QcOoWd1xAqMTWooLmyNovdSFEMFzgmvGalXO0wDBe
-         lYlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx1z1O4eAVgwLxyvBJLSanhX9RdkgzIchKzrZz3uqcjXMLI7Ki1JdDk5+AYCi4nARBbfUUPznvgJS/3@vger.kernel.org
-X-Gm-Message-State: AFuF++nifzsi1JncGUeZs01XWZ98GkVMRxtRfkW0mXXKO8O5t3Zy9Zi1
-	fak+mUwWwaem3bTKPR77oi5Ik9zk4/jn2WjpQIbTDH+wqsDW1Sg2NEukygeRW+38qVc=
-X-Gm-Gg: AYBFou3JqI4oGTjXlJQKVYX4N9LjdKftAuwZcSoyjoq+lDtvkpFmfmfvHKxRdJLmUz+
-	0TMELzd9vkXNDEHgU945lWpu/tS0bBgQbQhW/UxGlR8Vs9tdHYIusHZ06N2ZAiH9zn/ixAi6Y3V
-	SA97tFmCl+rXI1h60YwV4B5kc22wlt+fIPoI52qBcxbih1urDsLYP70+UAe/2LE/9PWYPs2q6xE
-	nsGYlXXu8hpIIcHpErlOUjgyidMGSVVWgtfUY85IcBFDt44IqBcWTK427qNWUKF+8d6W4XUHH6r
-	YnoSklVVsfCTa80uf+OESNuKCpQTceN5kUTWGTHi/xjeO0C3V07A/EYyPTSnBHvCd/OXSwJGBGe
-	birN0yA6e6dUi3+WGYMu2I9p49ytLCyTzmhTAB0Yle4k6QKPFG0AYbJDhZpEW49b+S8m82IfJUl
-	glu+xxbimg2y6AQRIYCfO+vdCw7O+U7mSsJiQ0qdnAoXQoDF8=
-X-Received: by 2002:a05:622a:4d9a:b0:533:33c6:e636 with SMTP id d75a77b69052e-53333c6feb6mr56127141cf.6.1790523162378;
-        Sun, 27 Sep 2026 08:32:42 -0700 (PDT)
-Received: from armok ([2605:a601:a61d:7a00::2])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322020e91sm43319281cf.1.2026.09.27.08.32.41
+        d=1e100.net; s=20260707; t=1790524687; x=1791129487;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6hVPxB3LDp7THumASK8lONkRvyk4UvlnbOgMgC/3vpg=;
+        b=AskyCZeu9QrNSR4nSmHwYHs1nq6WCRCETG9d/xW4nypUngWxkn5j5J/Ie5aj/nxKwb
+         fX3J8fsH9uWGy+qu5PMToHwfgqPis48wWmV0pEZ1Ay3HY0MZmpZc7F6BgDHwWMiqlVTc
+         p36NjpO0S5WBNvaTohrBsPJcbS2tMpghBVRXmSHaWDuWD6U562/oxnENEA9G/Iq7jeIe
+         yS6x1DgpRHJ6Em1WLJJp/XxeIAENYNfIRoPwAWUxL+yg2FD7f+pke7CYpJ4FtMXfNWq0
+         vB87x8H7vESuUPaDgRQ7fRHViqEnXsDYb9zTkjIN9dTii9E+2UvRRiaingq6zR4VKtDG
+         EGBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBytciOtLfujHSfbWYpBtPan/k76OHnoLOQaSrhRWkv2kitCYDnq5JoEi+alo5kD262Bho++U7GrQadp@vger.kernel.org
+X-Gm-Message-State: AFuF++nWCvf7Pk04qKcgqZcQD55U5OAHYpb3nMBsV40EHcm5BN4hH2Dz
+	x6oblY/v4AEHr0RdfEKwuIofElTo0Bg4jecieQTTWsndxY42motV19Nh
+X-Gm-Gg: AYBFou3jXwE2qdKgpioVHmP/C8r4HohWxUt8afYT0HM1Mp5TD3tCaiOsL8T+Pksnw1u
+	KrrJZoqTe32xTx6weAkJObDvRi68gzI0/UrxKAKXpRDcDnmOCQUKpURbS+wxt8BKYFkDDMZ4sv+
+	cboDiMc2jzUzH6cGaIBsmJj15TlP1YKcBDsiIb+kXTHUdXrhqgm1osFugs6Z63oikfE9dUodJ0g
+	iK1hecpfG1Jpnbhmlq+G/pU0hB4vY+X/HYQl2+t2iwNcrQ9E9TWQH+HiKjlP2Ue7CQuWAfEBQhP
+	Kx9k2pD4was57X7F/y4w6HrEIR1iQkSkLwJ+xhRB9klU2IQlIdayf3Shz+O7SG2V5xyG7KNY3iv
+	zztBjGHP3Brdde2U3LckN6TXixXB8fzmstLLu+NK+5pd66SlNsZREfEeqC9dhiB4Fjx/CdZiAJM
+	Ipfi0I/NliFKgHcAjhrK7k3RVTP6K7Iasnf7X9hnRutWi5EkqO8/XGMEZwuujclk8/Yq4+sEJTm
+	mRtfbBvdKD6UWgKIzbX+cfSXRYDyQ==
+X-Received: by 2002:a05:600c:a06:b0:49f:fd4c:cccd with SMTP id 5b1f17b1804b1-49ffd4ccdd5mr65841555e9.28.1790524687190;
+        Sun, 27 Sep 2026 08:58:07 -0700 (PDT)
+Received: from xeon ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0018dd5easm66708625e9.3.2026.09.27.08.58.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 08:32:42 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
+        Sun, 27 Sep 2026 08:58:06 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Felipe Balbi <balbi@ti.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	johannes.goede@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
+	Lee Jones <lee@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Oleg Keri <okerixx@gmail.com>
-Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API devices
-Date: Sun, 27 Sep 2026 11:32:36 -0400
-Message-ID: <20260927153236.2727-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
-References: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
+	mfd@lists.linux.dev
+Subject: [PATCH v1 0/3] mfd: max8907: Schema, pdata and poweroff
+Date: Sun, 27 Sep 2026 18:57:41 +0300
+Message-ID: <20260927155745.187758-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -103,21 +80,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, 27 Sep 2026 10:40:33 +0200, Hans de Goede wrote:
-> It would be great if you can post your DT bits for this upstream soon,
-> then we can add them to:
->
-> https://github.com/linux-msm/laptops-kernel/commits/qcom-laptops/
->
-> and more people can test.
+Convert existing txt documentation file to DF schema. Remove
+platform data use. Switch to device managed poweroff handler.
 
-They are posted; v3 is the current version, with Bryan's Reviewed-by:
+Schema includes reference to pending tegra-regulators-coupling
+conversion. https://lore.kernel.org/lkml/20260924-ti-tps6586x-v4-1-6c7a8fb8b646@gmail.com/
 
-https://lore.kernel.org/all/20260926122533.8200-1-lnicoara@thinkoid.org/
+Svyatoslav Ryhel (3):
+  regulator: dt-bindings: maxim,max8907: Convert to DT schema
+  mfd: max8907: Remove platform_data based probing
+  mfd: max8907: Convert to use device managed poweroff handler
 
-It also links the sensor to the privacy LED. It applies to
-qcom-laptops as of 3e45da63f61e, which already carries its
-dependencies (the x1e camera DT v7 and v20 5/6 and 6/6).
+ .../devicetree/bindings/regulator/max8907.txt |  69 -----
+ .../bindings/regulator/maxim,max8907.yaml     | 285 ++++++++++++++++++
+ drivers/mfd/max8907.c                         |  33 +-
+ drivers/regulator/max8907-regulator.c         |   8 +-
+ include/linux/mfd/max8907.h                   |   5 -
+ 5 files changed, 304 insertions(+), 96 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/regulator/max8907.txt
+ create mode 100644 Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
 
-Thanks,
-Liviu
+-- 
+2.53.0
+
