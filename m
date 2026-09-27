@@ -1,130 +1,163 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C7039E177
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 02:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EF381724;
+	Sun, 27 Sep 2026 03:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790477817; cv=none; b=dP/HDv8hPKTC6ciYD0b32C7Z/J4I72tCqRuNC2yS2eonOF3oTq0zKjfBU3iMD6Z28wW9RbMP6NF7XvKv6vd3kwFo9Tfa1/r2UrpCbZPrgJJM8T9Xflndc1vHZd0YIfN1/zQwFiR4qJ0KDde0Er43GB2mAQXVonObwYo5lre9Wtw=
+	t=1790479733; cv=none; b=IP07sI+VX2/AIYpBsfNdDMoOkCKNg1hoyqPZ73vMUp8tYysJyHDAh/ATtNPwjnGLTxVziuh2/iZvX/JB5tegCo/dYRbGRigSTkgX7USdEQG26om4OEmjVDnB5iagKC/Mo6lpyMz0bgMx2NSXgPPLPS7mEWQZB+2zwLLi/bKOF6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790477817; c=relaxed/simple;
-	bh=JLLY8202AFqPiR7IQZMFqT+Np/Pbs4qmrHh6nwqETJ0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Oy9zHUdl3blBJXyhhdu8v3CHDAnYaR6sn4LosSZfU0WTDl435edmnDtCZgQFf8nB1kRwaj0EVQtnZnpuz/HpZkzoa/qJUn1O7+MGcX9haGPBjAjqKRB6rhXxJrd2e47kxmh4feoW1Q9FFl47rksUqeTBsgYBZzXmWPWEhrmRM4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=yoKSfm/1; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
+	s=arc-20240116; t=1790479733; c=relaxed/simple;
+	bh=k2u1ChEr6LZw5PLvA+8vLtxFSyAHOUNUCwIyreGdjTA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HkmvdXt40ywLbB4GTwAUDxtpUXSjCbKPjarLq16ZrstRrccQBWhiiFQDoc7pzpjqTuqS2w07LoKKv0n1kw564Sh83QZB09+wsRugm8x7Pp4oTepVhsc6Eq090gUKPH8rz4cTnEkqjhSJROLo6GkyDfNGku0JX0T7WIqtjNUN3kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V6HXz66q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="yoKSfm/1"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6188so8740945ad.3
-        for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 19:56:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=embeddedlinux.blog; s=google; t=1790477815; x=1791082615; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zx161GO4leyejnwa92HDTsrJTQOft6nH8qorocIvjzU=;
-        b=yoKSfm/15VtXpMM9+BHs8gsYgRdp7fwEG7DGqYNixRewKAmjD+qpvwSmp0EN7Imgkd
-         oY3BYVDjMuvkHdv3wVGcCYa1eLytphX1iofvzCFLTe6/xXEBzItwgUbIYD6vwGiTKQvH
-         YsflVsgNZD4ccxI0buRouR+CCUQscg4+bkUJqfwSfemJY4SAQnSId+Ao8TKWQFz+TYx/
-         SPDvXZTvanTWMeaKDza11K4VFayIFhUtvnDrO4OQY6ik3vjL1Yqgwt6ccQgDidztCsL0
-         GYr7N9KVBlSh5/msOduPrHWiBT/w7z072H/4wkcAq6co32A0ghbZwKj14oxSbgajNfXO
-         nJqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790477815; x=1791082615;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Zx161GO4leyejnwa92HDTsrJTQOft6nH8qorocIvjzU=;
-        b=fknWjMYPdkPdwrNCD1ZSAsPN27ubwKwh47WHMJmz60+zRGJwF5j2FxiLDWiE77Szqp
-         edtbORI6PDupKj+3j4XoNqnmumN1MQ7/cVrn7wzA/2C4RExaN8c3soKy07qqn+1buzQh
-         cvzm5VVWXeEpV4gGpvEFKaPCDsgT8Fq2iT7BnMijPZrDb/VbUi1+aUFv7uZ0TJiZwz4B
-         T9XkO+hiH0jkfx4WMXOfu6Bd+TLMOPD7ofAQC5f3ZFaSU/PqeCs0cKqngELhjo5fcKyo
-         YKuA77YJubMZMrZd/nMUGT5RRWkWuDnB8y3zpaW1KdBRF+hPRFDBzHTkwhQ09bpPI3FY
-         f6yg==
-X-Forwarded-Encrypted: i=1; AKwUvBy81LpUiSfBtHc9EPGzfuHfFuaWudgVufKel6nd3jCRjytbLT17zJCxXNch4npmMy+VNE8d7D0XbAKZ@vger.kernel.org
-X-Gm-Message-State: AFq9FYIoxUf/dD+/tGUgoAnYOtyBr94PCLEOnKCyNJzuD5ul6hZYOBVy
-	AoKWu7PmHbO3asbS3sgxTZtOILKn6sW7HivF7BeEg8mJocMC85Rbt9HcWdxPjTDgmktW
-X-Gm-Gg: AYBFou0GwR0wQc33/mZeqaeQ0eblVRUNyV5fy2sKrgrEeujkNNKplj7p1xrVSsqonQt
-	ygVaxrZ7ISyRcIUxvGpQYwBo/MzX8p/VZvvt5RdUDSqqVyrkdNYcRBPlADVsYbxMj4ddCjXeq3j
-	1SMTMg3Q2qEp2M9WLNxUNv4p/+YrgzhcWIRfgkWH8Zexc7vOTCejzNIOumTv18322zYtc8qjQXy
-	eMW4wqZHzTbD3AsqYyi4rtFaGn1sunRhD2vxcJnB5ZFlasaC+hAgVok8S68ELFO4bJX6S7FmKcs
-	oCcyHhF2p/gyxaTmHh0FdLbgF+l8rEGkGZAL16cA91EB+tVJZVOkQWJtAlfA+PvEirIIdlcWAdg
-	psI/P66hKw84IrwQmqq6C7lHHc31ulIExi651uElxiyPcjg9xm7n8aWAS0MwFs6DWFDG7uy0P8m
-	URMQN/mjUt4QXMT5x3mM93PcqHkL7sYUvAIVXsM8BlC4/Ma73RPnnMTvUDelVgKiCzEx85w/W+p
-	KNX
-X-Received: by 2002:a17:903:984:b0:2dd:c100:4246 with SMTP id d9443c01a7336-2df7e13c585mr80615525ad.42.1790477814644;
-        Sat, 26 Sep 2026 19:56:54 -0700 (PDT)
-Received: from ltu.. ([171.245.4.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142bfd4sm25512285ad.52.2026.09.26.19.56.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 19:56:52 -0700 (PDT)
-From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-To: Wilken Gottwalt <wilken.gottwalt@posteo.net>,
-	Bjorn Andersson <andersson@kernel.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Bastian Germann <bage@debian.org>,
-	linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	tien.nguyenminh@embeddedlinux.blog
-Subject: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware spinlock
-Date: Sun, 27 Sep 2026 09:56:26 +0700
-Message-Id: <20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
-References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V6HXz66q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E44D1F000FF;
+	Sun, 27 Sep 2026 03:28:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790479732;
+	bh=6a0VT1f5TCixo51k9+lY1+LlgZn70eiYSlEvJbKsfbU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=V6HXz66qKIOMxyMLQqbHBfABI8ZMt3ztYEXexLFaEcHpKsfAO011oTmtM2YiDL6aK
+	 95W1VtJ+zSd0ooFRvlwTsi0CC2TbDkmimEbQHQ0n5RAyymDHztuTE4oQOlSPZ7mrwz
+	 28Ss9VqUwjIrsOR1rz+ne6ZUcxyYeEgRxuN5Box2kaL0ESMV4lgj2kCkoedrAK7jtc
+	 hVlr4jLAI6heNJOYLeA2FccBChv1H7AVtKF0OrIAJFTDotFqEBvdev59C4GjT2g3xI
+	 4fVwZzpIrcFDYQkatavpHrNX0Vew1pTblL2QgeB/Zii+5pcOHYvE2jUEl2au1PsaqC
+	 aBDSPGTwFkA+w==
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: altr,socfpga-stmmac: Add
+ altr,socfpga-stmmac-agilex5-tsn compatible
+From: netdev-bot+sashiko@kernel.org
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dinguyen@kernel.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sun, 27 Sep 2026 03:28:50 +0000
+Message-ID: <179047973070.2160803.3411978604945361082@kernel.org>
+In-Reply-To:
+ <20260923021823.46649-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+References:
+ <20260923021823.46649-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add the hardware spinlock of the D1 and T113. It goes in
-sunxi-d1-t113.dtsi rather than sunxi-d1s-t113.dtsi, as the D1s manual
-has no spinlock in its memory map.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
----
- arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-diff --git a/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi b/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
-index 3b077dc086..228cc5c074 100644
---- a/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
-+++ b/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
-@@ -11,5 +11,14 @@ dsp_wdt: watchdog@1700400 {
- 			clock-names = "hosc", "losc";
- 			status = "reserved";
- 		};
-+
-+		hwlock: hwlock@3005000 {
-+			compatible = "allwinner,sun20i-d1-hwspinlock",
-+				     "allwinner,sun6i-a31-hwspinlock";
-+			reg = <0x3005000 0x1000>;
-+			clocks = <&ccu CLK_BUS_SPINLOCK>;
-+			resets = <&ccu RST_BUS_SPINLOCK>;
-+			#hwlock-cells = <1>;
-+		};
- 	};
- };
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The binding patch makes the new compatible "altr,socfpga-
+  stmmac-agilex5-tsn" a peer of "altr,socfpga-stmmac-agilex5" in the…
+- [Low] At this commit, socfpga_dwmac_match in
+  drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c has no entry for…
+
+--
+
+dt-bindings: net: altr,socfpga-stmmac: Add altr,socfpga-stmmac-agilex5-tsn compatible
+
+This adds the altr,socfpga-stmmac-agilex5-tsn compatible for the Agilex5
+gmac1 port, which has an FPGA GMII-to-RGMII converter in front of the PHY.
+The new string goes in the same enum as altr,socfpga-stmmac-agilex5, with
+snps,dwxgmac-2.10 as the fallback. Plain agilex5 is intentionally not used
+as a fallback.
+
+> diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+> index d8f90d36d2469..ca768937d8905 100644
+> --- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+
+[ ... ]
+
+> @@ -42,7 +43,9 @@ properties:
+>            - const: snps,dwmac-3.74a
+>            - const: snps,dwmac
+>        - items:
+> -          - const: altr,socfpga-stmmac-agilex5
+> +          - enum:
+> +              - altr,socfpga-stmmac-agilex5
+> +              - altr,socfpga-stmmac-agilex5-tsn
+>            - const: snps,dwxgmac-2.10
+
+[Severity: Medium]
+Should the allOf conditional further down in this file also cover the new
+compatible? It still matches only the plain agilex5 string:
+
+  - if:
+      properties:
+        compatible:
+          contains:
+            const: altr,socfpga-stmmac-agilex5
+    then:
+      properties:
+        interrupts:
+          minItems: 17
+
+        interrupt-names:
+          minItems: 17
+
+        dma-coherent: true
+    else:
+      properties:
+        interrupts:
+          maxItems: 1
+
+        interrupt-names:
+          maxItems: 1
+
+        dma-coherent: false
+
+The TSN port deliberately does not list agilex5 as a fallback. A node with
+compatible = "altr,socfpga-stmmac-agilex5-tsn", "snps,dwxgmac-2.10] will
+therefore never match the if. It falls into the else branch, which holds
+the Cyclone5/Arria10/Stratix10 limits.
+
+The TSN board would override the gmac1: ethernet@10820000 node in
+arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi. That node has 17
+interrupts (macirq, tx-queue-0..7, rx-queue-0..7) and dma-coherent.
+
+If a board DTS switches gmac1 to the TSN compatible, wouldn't it fail
+dtbs_check even though it describes the hardware correctly?
+
+In the companion driver patch, socfpga_agilex5_tsn_gmac_setup_plat_dat()
+calls socfpga_agilex5_setup_plat_dat() and changes only mac_interface.
+That suggests the MAC-side constraints match plain agilex5. Would
+something like this work instead:
+
+          contains:
+            enum:
+              - altr,socfpga-stmmac-agilex5
+              - altr,socfpga-stmmac-agilex5-tsn
+
+[Severity: Low]
+At this commit, socfpga_dwmac_match in
+drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c has no entry for
+altr,socfpga-stmmac-agilex5-tsn.
+
+Would a node using the new compatible bind through the
+snps,dwxgmac-2.10 entry in dwmac_generic_match instead? That path would
+skip the SoCFPGA sysmgr, reset and platform data setup.
+
+The next patch in the series, "net: stmmac: dwmac-socfpga: Add support
+for Agilex5 TSN GMAC with FPGA converter", adds the match entry. No
+in-tree DTS uses the new compatible before that patch.
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260923021823.46649-1-muhammad.nazim.amirul.nazle.asmade%40altera.com
