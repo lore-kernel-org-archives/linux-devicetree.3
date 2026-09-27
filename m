@@ -1,94 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5453C0A1E
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 21:41:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F683C73E1;
+	Sun, 27 Sep 2026 21:48:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790545271; cv=none; b=gLuAyIyjT0twQAxyHAU6e/gVwOcRo+Zd+KZe5uVpO7dwqYXLgukQem9Jr6GIhi0tRbybxRfTf2KERdiS2aM1qSVzbUzQPxGFiy4x8Vjq5BjK1CEOEUpzLmScVj0H6QOTZWf+aLgdZ2sUgik5gbtjiSbbgeO9h26LT2a37Vo6kRQ=
+	t=1790545737; cv=none; b=skNYejcysYOEbdL8YC+DewQ7gGoSx0ktpuvloyIX++gT+mLad1PsVmCCPKfu/xx7CjzdmR1DrP8gcTtQhXk1XsjxGkb3Xnt9W6+L1rR5jgxUcqtl8thJBA3f7hXSjWr8WlEtoei82lHIMTTFN2tHBVVMjyB+sZ3YIGz8p2muLeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790545271; c=relaxed/simple;
-	bh=mAszazHTopX9pDCFZIk0M4yEKtlkKilYCoVz6n/nb1A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fuPBLmGt+W+FF9pHNvglJRW4Qk9xyRMX/RyzBavoLGPlmwfvSzUMtHQOU6qCzy6ixsuUvX3USw6oGuR14CXm9Kpwja9gY1N5XEupeFqT/kUStSB5+zz0jL8ZrS59+WWFIYPHTjDcU748yu0ypHgJor5vj7DaMI/EDMGwhPq2snU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TfyP0IAC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790545737; c=relaxed/simple;
+	bh=hgXl9jFT1aGKGx8bh635QnHT1vZdYsGxqcL8UGl5iRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hjS4pPTkvRjCavP8aWdd3+veLBW0YnvaJfXrjqVMQDI9l1VlnS7Te+liV8BhsmgtXu2Q29hKQmh7LZHtyzcREOde87tdHWGfn4ef8HWyWk753lGYzEmut0qVip+3qSEqpo392837e6YFT1j+LOlvkbcMzuXHbWJep0wI542d604=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Oef4GSQI; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TfyP0IAC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B2A1F000FF;
-	Sun, 27 Sep 2026 21:41:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790545270;
-	bh=lawUdhBEzDFUWw0DQtjfgvrdgr7dZzjarzYHTihFixg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TfyP0IACncbhbXN8E3uOTdAEjbw4xSQs2x15ALSIO3TfcnW0NupjTWxvNz55NSwxy
-	 uOJBMME/shvuDppmTxXhcXECGkYAAET5coVC+noBYse2eI55T+f54AMy4WatcCvRc4
-	 lFS1cC9FOBuw0VyBivq+fLxQSW2JlAjiiZMaJfvy+mdPFmOZRMqEokFDcR48AaNeSn
-	 rSfunPVZEWtrHQZORTQ7yzyM06Im6GrsppXqG0lx70N0KvKBsmiOIYvJ/fDwHNiIpO
-	 mw0R8VCyIfbiM5yot5Gw6LBdVv+T97hL4ZC5gbSnS2ADKIBkCaUNi2gflCMu3LFw58
-	 wM0rAznLZp2kw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] powerpc: dts: eiger: add placeholder reg to ndfc node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rosen Penev" <rosenp@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260927213540.132854-1-rosenp@gmail.com>
-References: <20260927213540.132854-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 21:41:09 +0000
-Message-Id: <20260927214110.34B2A1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Oef4GSQI"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=uRCO1hCvm+HcqUF0cIAAS7cPIp9rv+bSF/z0y9cWaHQ=; b=Oef4GSQIwPZhqB72EoCeNbmCAq
+	irFkql9KZPdDbyxsCkLuIvvPTBcEDaProqDUuRc/XEMrrz43SR/x9RNcawsFv2BRBxChM/DczMi4e
+	EmNeU5/fV2D+Jcox6GfO+YtEQV7awuKJOQKbUjo9CPeqGOjyKYGTnwRPtOm6g2+qRdFY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAwjU-007ZW8-Q9; Sun, 27 Sep 2026 23:48:28 +0200
+Date: Sun, 27 Sep 2026 23:48:28 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Simon Horman <horms@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v23 8/9] net: dsa: mt7530: generalize and move
+ common function to lib module
+Message-ID: <f4fb3c02-34ec-4ce4-8abe-d85e1d09cb5c@lunn.ch>
+References: <20260925182435.21207-1-ansuelsmth@gmail.com>
+ <20260925182435.21207-9-ansuelsmth@gmail.com>
+ <cd200dee-1bde-4cc2-a296-c93d704cb906@lunn.ch>
+ <6ab97c6e.f5ac67e6.37e70.11e5@mx.google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6ab97c6e.f5ac67e6.37e70.11e5@mx.google.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] powerpc: dts: reg mismatch in ndfc@1,0 and commit message halluc=
-ination
---
+On Sun, Sep 27, 2026 at 10:28:25PM +0200, Christian Marangi wrote:
+> On Sun, Sep 27, 2026 at 09:02:09PM +0200, Andrew Lunn wrote:
+> > On Fri, Sep 25, 2026 at 08:24:30PM +0200, Christian Marangi wrote:
+> > > In preparation of support of DSA Switch from Airoha, create a mt7530
+> > > library module and move there all the common function.
+> > > 
+> > > Function are generalized to use the reg_field regmap API but still apply
+> > > the same exact logic. Every function is renamed to mt7530_lib prefix to
+> > > better identify it.
+> > > 
+> > > Minimum modification are needed to the register header and common enum and
+> > > macro are moved to the mt7530 library header to permit reuse.
+> > > 
+> > > A library struct is introduced with everything required for the common
+> > > functions.
+> > > 
+> > > The generalization and the introduction of reg_field regmap API have the
+> > > side effect of permitting to clean the mirror functions that required
+> > > special handling for MT7530 and MT7531 based switch that had different
+> > > registers. This is done by declaring a common MT7530 reg_field and a
+> > > specific one in the Switch match table.
+> > > 
+> > > No behaviour change is expected by this change as it's just a code move and
+> > > reimplementation.
+> > > 
+> > > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > > ---
+> > >  drivers/net/dsa/Kconfig       |    4 +
+> > >  drivers/net/dsa/Makefile      |    1 +
+> > >  drivers/net/dsa/mt7530-lib.c  | 1128 +++++++++++++++++++++++++++
+> > >  drivers/net/dsa/mt7530-lib.h  |  391 ++++++++++
+> > >  drivers/net/dsa/mt7530-mdio.c |    4 +
+> > >  drivers/net/dsa/mt7530-mmio.c |    4 +
+> > >  drivers/net/dsa/mt7530.c      | 1368 ++++++++-------------------------
+> > >  drivers/net/dsa/mt7530.h      |  256 ++----
+> > 
+> > The number of mt* file keep going up. Is it time to move it into a
+> > subdirectory?
+> 
+> The problem as always is that mediatek directory will also contain airoha
+> stuff...
 
-commit afb12c63aa6cb278745948eaa45ee1e2d6983ea8
-Author: Rosen Penev <rosenp@gmail.com>
+That is only a Marketing problem, and Mainline generally ignores
+marketing. Companies get bought and sold all the time. We don't rename
+anything because of that.
 
-powerpc: dts: eiger: add placeholder reg to ndfc node
+> I would like to fix some trivial things pointed out by sashiko. Can I apply
+> those and keep the review tag? For this patch for example it's just the
+> typo for the multicast MIB.
+> 
+> For the other patch is also very trivial stuff. 
 
-This commit adds a zeroed reg placeholder to the ndfc node in eiger.dts to
-satisfy a new IBM NDFC binding requirement. It claims this matches an
-existing placeholder in the nor_flash node.
+Yes, not a problem. If you make major changes then drop it, but
+trivial stuff is fine.
 
->     Add a zeroed placeholder, as the nor_flash@0,0 node in the same file
->     already does.
-
-[Severity: Medium]
-Is this statement accurate? Looking at the nor_flash@0,0 node in
-arch/powerpc/boot/dts/eiger.dts, there is no zeroed reg placeholder present,
-only a comment indicating that the property is supplied by U-Boot:
-
-				nor_flash@0,0 {
-					compatible =3D "amd,s29gl512n", "cfi-flash";
-					bank-width =3D <2>;
-					/* reg property is supplied in by U-Boot */
-
-> diff --git a/arch/powerpc/boot/dts/eiger.dts b/arch/powerpc/boot/dts/eige=
-r.dts
-> index 7a1231d9d6f04..fe7b518dae45d 100644
-> --- a/arch/powerpc/boot/dts/eiger.dts
-> +++ b/arch/powerpc/boot/dts/eiger.dts
-> @@ -196,7 +196,7 @@ partition@3fa0000 {
-> =20
->  				ndfc@1,0 {
->  					compatible =3D "ibm,ndfc";
-> -					/* reg property is supplied by U-boot */
-> +					reg =3D <0x00000000 0x00000000 0x00000000>; /* Filled in by U-Boot =
-*/
-
-[Severity: Medium]
-Because the node's unit address is @1,0, does the first address cell in the
-reg property need to be 0x1 to match? Setting it to 0x0 introduces a
-unit_address_vs_reg dtc compiler warning.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927213540.1328=
-54-1-rosenp@gmail.com?part=3D1
+	Andrew
