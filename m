@@ -1,372 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B791D54FA;
-	Sun, 27 Sep 2026 00:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4AE937C930
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 02:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790469220; cv=none; b=t31m1LkMlGTKPPPnw1qw6dQCwd1OLVyajAwLXJ4lwaiIApDcT2NN6hj8hI19UXrI8tgSY/EhmJwl5FV+46pqevdkmPE+mhrbWO3WqdgRj/mGNDdgR+Cy2Te7Rc3wC3lmpnWCV/saJTd/+luq9ojVEzg/Da771TWrC1c9cFmfmbM=
+	t=1790477797; cv=none; b=Jqord4Kcq+2eLVScI6Ccex82MJOGt7unBvJHuPLKNDxqEhcHFbGVTGUGVXafcj5UawdUrk3lcz4icn3U20TA61wmRH3cxIZeC5uQIYAPoLj61KzTLw5M93RNAfv+S1Kcdw68x9VRlyrVTMTk9iaKYvKMUkd2z3J2jhge4ANH0uA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790469220; c=relaxed/simple;
-	bh=q327XeqqI8gQTR3uth+c3vZx5GDF2iWRYzc7FHKricg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=k200UtMGYWcDck1WT9WNzThCBpDWrz2SVqF9fGp156xVF+D2+sGeHmeVIhpFkAYXQSS5f44TyHGTK89Hcal0+8ieYoPPC9yQg/hWVk0VFDVUIPuYzchSFWNkfxIFm3eBYTM2UTPFDHxBh1OrUh3c8MJ8x7i3Gha2+zzm8GuyKq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=baC2EbqK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790477797; c=relaxed/simple;
+	bh=WWWs1AxLgRH1Afm9m8LBfiZ1mk0BAN8ZoTfuY3HGQk0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DAwAhQDlWAjbyRiv2nNl3VM/5NYEjBVmT8bhhthUaVaL16OqOXZZHY/N455SYPWhhJczCKqqpG4wEcFJ8tf7XRlD0u6Y3SrJzjAOap8NV2drfnTA1Gn9A23vbOTeLJ7rAaPOspqqMQe6rOdz9022aeJrLVGjZ6oEgSB2NUPGo20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=dfHfZSYN; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="baC2EbqK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0E21F000FF;
-	Sun, 27 Sep 2026 00:33:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790469219;
-	bh=bzJh2atWvK8VAlXleJPm8Es8rlqFmh+gHDftz+bJXlc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=baC2EbqKYE+JaEiuJMpxTNzGg7MpRoKt5QdQzpI1mKp7kMuauZ/CaYq5HZXSr8sPE
-	 UgzRtE0F2T0TyEEoEmtEc5kSgY3gs9iyxvgkNfLFj2U/uu8sxAtXKQYSykoZEVqg07
-	 uSr5rSQxH7nnT5Cm8W7KauiskyWBqzPXJlRmjlcE57/zeMzgCp12RJIGdMQi5xVyH8
-	 8/oc2FQpl4nL09Uia7AAlNl9EVjVoPwK5oQNGNK7Vd78nkCb4LCjsfZ2IUKgeBVN0V
-	 DZTjA/4oxpW3xiaONsz99TOqSkMBEkq2avDcnJGQDgwbxoO2P1txGipCo4Cf7XsFJs
-	 urSeQqtkNHWDQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/7] remoteproc: sunxi: add Allwinner XuanTie RISC-V
- remoteproc driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tim Michals" <tcmichals@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260927002021.797069-6-tcmichals@gmail.com>
-References: <20260922034711.190253-1-tcmichals@gmail.com>
- <20260927002021.797069-1-tcmichals@gmail.com>
- <20260927002021.797069-6-tcmichals@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 00:33:38 +0000
-Message-Id: <20260927003338.CB0E21F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="dfHfZSYN"
+Received: by mail-pj2-f11.google.com with SMTP id d9443c01a7336-2df834eb96fso12011525ad.0
+        for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 19:56:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=embeddedlinux.blog; s=google; t=1790477795; x=1791082595; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sq4JmY1w64EpSdodr1NUAFBWGL7Pv3Z9QQBcNpt6X+0=;
+        b=dfHfZSYNAOIptNBEP4GTnmjvxMQRV1dQ8r1d4r/0HSwZoYMEaArYnDEyeTpKadbgKF
+         OG998PmxlQpkjE3fnNTiE+MVw6jIdTOMnm2Bfpq1+joN59zfWLvaRI/gt7n7bSzb4w8Z
+         a7LTsEPFJpe/r66xzLyKY3uoBiK0YQDGK3g2XoLNEhn+1BgaAiOQdZlA7qFT8QlwJCI5
+         kRK0M86NUGLOtyyY/r/jJs+Xpw9ZnL7aiHI52ejlgXCxdmFxa9P8PA+Gbl/PtheQVa14
+         yaK0U1tsEc9RSKBOjePjP3JMxkBRJfAhCgckZFC0DZNhSUVrNTfsuTlYXSYkIjcr5ief
+         UYfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790477795; x=1791082595;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sq4JmY1w64EpSdodr1NUAFBWGL7Pv3Z9QQBcNpt6X+0=;
+        b=obWITKVjwU4IMW28a2vpsrzrLTFKk5n0bfWaXwhNV90SWQFUaWIlXUqtiGre8VPlMh
+         AoWE/Y1Uq33dPW5BaFsmxPsWsXj8Jg0qY4cR9yoIxjA5aniYw5d1Sb2oje8voamh50/v
+         nVu13v7T9ebPoESe9sc4hVBg86r2uO6hBu+u/xUo0P1JqR2IVN2EmW2a0pOs6//t2cd0
+         jyTWaB74yecCv6lDqhpLSsryrEo0Wv5lX1PFtFtBV7ADTVactLcSUrVh5sxaVFYSl2V3
+         d2LrcpPkgSSiBx015k2fPe3YNVqXGAF10XcE1fHQLngGDwyLGjdT4Kr6AAFm6LC8cnl7
+         Bn6g==
+X-Forwarded-Encrypted: i=1; AKwUvBwMEYw21tart5hwInIEyBFL1uQ5OaLY4BP60lRtDhNEsVGY+m+P+Bonh3zhsTnliNA1qmEx96meDNZJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8K6rCA8/7brbNx7XyN2oZVyr8aszh86YwMv5dHE8tHUxzySq5
+	G5ix2ygHUM1hcVdU5JbYPzj1SVArPYKhNquXjZoBMMltADC4TBgNPv5sjB4B33FWV/zq
+X-Gm-Gg: AYBFou2Gp0H5AbNWTzbLs6XuC/UYXTxc1PX2Jj0y/8FuRD7ow3I0e6skLYxyS8ieXAZ
+	Qjpkp9Etup55ycUSviEdyd4v9y/RCsmrhOnJKZqPtaAzBmRDoHs4/4s9NdLr0JOVvbj1V09gfFz
+	zQ1YTOPstFE5iZvwqnGkPqeFh0L6Kduapq+m3wYaw8wV1WdELKldaVbj1h6vP00wb3QxXSZlZzr
+	Ub2PozUJ/6SB5wXobpEe3f39kZzDyG6xFzbST0hpxnJMy9o8Hjz3MmUbfOiLKeMljjelXZR2X3W
+	xDFclNwmFK8Z6ZrQtTNJcDXcYILkEGW+Z0sVKzShZSkE7BMAcrJs+SN5BB1ghJDSbiAnUay9lhY
+	chvmlXz0JdSndXkPyEuBpHrVy4pE2LmbGpUro2x7HGfAz1wqXa+1BDjx0f1Opdb28YCtrSQjSZv
+	5+3vgwfDW6ldrF89Mh4i/mqR9LYIw9uAihIFT1KhoQToLa1jsgedyjmorOuumrD6qfow==
+X-Received: by 2002:a17:902:f650:b0:2df:8f81:e595 with SMTP id d9443c01a7336-2df9490a525mr51727995ad.6.1790477795247;
+        Sat, 26 Sep 2026 19:56:35 -0700 (PDT)
+Received: from ltu.. ([171.245.4.151])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142bfd4sm25512285ad.52.2026.09.26.19.56.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 26 Sep 2026 19:56:34 -0700 (PDT)
+From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+To: Wilken Gottwalt <wilken.gottwalt@posteo.net>,
+	Bjorn Andersson <andersson@kernel.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Bastian Germann <bage@debian.org>,
+	linux-remoteproc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	tien.nguyenminh@embeddedlinux.blog
+Subject: [PATCH 0/3] hwspinlock: sun6i: Allwinner D1 and T113 support
+Date: Sun, 27 Sep 2026 09:56:23 +0700
+Message-Id: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
-- [High] remoteproc: sunxi: unbalanced disable_irq via crash_irq_enabled ra=
-ce
-- [High] remoteproc: sunxi: race on kick_msg and immediate txdone corrupts =
-mailbox
-- [High] remoteproc: sunxi: double mapping of DT regions with conflicting a=
-ttributes
-- [High] remoteproc: sunxi: premature core execution due to broken reset fa=
-llback logic
-- [High] remoteproc: sunxi: UAF of virtqueues due to late mailbox interrupts
-- [High] remoteproc: sunxi: UAF of priv in probe error path due to workqueu=
-e teardown
-- [High] remoteproc: sunxi: UAF of rproc in remove due to crash_irq_enabled=
- data race
-- [Medium] remoteproc: sunxi: da_to_va translates unmatched ATT addresses a=
-s host PAs
-- [Medium] remoteproc: sunxi: missing teardown of crash IRQ on start failur=
-e leaks state
-- [Medium] remoteproc: sunxi: missing write flush of boot address causes ex=
-ecution race
---
+This adds the hardware spinlock of the D1 and T113.
 
-commit e007f2bf04fe297a7d71605516a9a9ee48e727ef
-Author: Tim Michals <tcmichals@gmail.com>
+The sun6i driver already handles this block, but it looks up its clock
+and reset by name, which the binding doesn't allow, so a node written
+to the binding never probes. Patch 1 fixes the driver, as suggested
+when this came up for the A64 [1]. Patch 3 needs it for the device to
+probe.
 
-remoteproc: sunxi: add Allwinner XuanTie RISC-V remoteproc driver
+Wilken asked then for testing with Crust running [2], as Crust owns
+part of this block on the SoCs it supports. That doesn't apply here:
+Crust doesn't run on the D1 or T113, no devicetree in mainline has this
+node for any other SoC, and patch 1 changes only how the clock and
+reset are found, not when the driver enables or asserts them.
 
-Add remoteproc driver for the auxiliary Alibaba T-Head XuanTie E907
-RISC-V co-processor found on Allwinner A523, A527, and T527 SoCs.
+I tested it on a MangoPi MQ-Dual (T113-S3), not only between the two
+Cortex-A7 cores but also against FreeRTOS on the HiFi4 DSP, the other
+side this block is there for:
+ - the driver finds 32 locks;
+ - for each lock, while Linux or the DSP held it, the other side was
+   refused, and got it once it was freed;
+ - both A7 cores and the DSP each added 1 to a shared counter a million
+   times under one lock, and the total was exact in every run. Without
+   the lock, over a third of the updates were lost.
+I have no D1 board to test on.
 
-> diff --git a/drivers/remoteproc/sunxi_rproc.c b/drivers/remoteproc/sunxi_=
-rproc.c
-> index 0000000000000..fbb0ee8a91105
-> --- /dev/null
-> +++ b/drivers/remoteproc/sunxi_rproc.c
-[ ... ]
-> +static irqreturn_t sunxi_rproc_crash_handler(int irq, void *data)
-> +{
-> +	struct sunxi_rproc *priv =3D data;
-> +	struct rproc *rproc =3D priv->rproc;
-> +
-> +	dev_err(priv->dev, "Hardware crash event received from %s core!\n",
-> +		priv->cfg ? priv->cfg->name : "remote");
-> +	if (priv->crash_irq_enabled) {
-> +		disable_irq_nosync(irq);
-> +		priv->crash_irq_enabled =3D false;
-> +	}
-> +	rproc_report_crash(rproc, RPROC_FATAL_ERROR);
-> +
-> +	return IRQ_HANDLED;
-> +}
+[1] https://lore.kernel.org/f720eaf9-01d0-0e57-f6bf-9aade00aafb8@linaro.org
+[2] https://lore.kernel.org/20230216095454.54f4d5ca@posteo.net
 
-[Severity: High]
-Could this lockless check of priv->crash_irq_enabled race with
-sunxi_rproc_stop() or sunxi_rproc_remove()?
+Nguyen Minh Tien (3):
+  hwspinlock: sun6i: Get the clock and the reset without names
+  dt-bindings: hwlock: sun6i: Add compatible for Allwinner D1
+  riscv: dts: allwinner: d1-t113: Add the hardware spinlock
 
-If a hardware crash occurs concurrently with the core being stopped or remo=
-ved,
-both threads can evaluate priv->crash_irq_enabled as true. Both paths will
-independently disable the IRQ, incrementing the disable depth to 2.
+ .../bindings/hwlock/allwinner,sun6i-a31-hwspinlock.yaml  | 7 ++++++-
+ arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi         | 9 +++++++++
+ drivers/hwspinlock/sun6i_hwspinlock.c                    | 4 ++--
+ 3 files changed, 17 insertions(+), 3 deletions(-)
 
-When the remote core is restarted via sunxi_rproc_start(), enable_irq() is
-only called once, which leaves the crash IRQ permanently masked at the
-hardware level.
 
-Also, could this race result in a Use-After-Free during removal?
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
+-- 
+2.34.1
 
-If the interrupt handler clears the flag before sunxi_rproc_remove() evalua=
-tes
-it, the remove path skips disable_irq(). It then continues to rproc_del() a=
-nd
-frees the rproc structure while the interrupt handler is concurrently execu=
-ting
-rproc_report_crash(rproc, RPROC_FATAL_ERROR).
-
-[ ... ]
-> +int sunxi_rproc_prepare(struct rproc *rproc)
-> +{
-> +	struct sunxi_rproc *priv =3D rproc->priv;
-> +	const struct sunxi_rproc_cfg *cfg =3D priv->cfg ? priv->cfg : &sun55i_r=
-iscv_cfg;
-> +	int ret;
-> +
-> +	/* 1. Deassert configuration & SRAM bus resets */
-> +	if (priv->rst_cfg) {
-> +		ret =3D reset_control_deassert(priv->rst_cfg);
-
-[Severity: High]
-Does this cause the core to start executing prematurely if rst_cfg acts as =
-the
-execution reset?
-
-In sunxi_rproc_prepare(), rst_cfg is unconditionally deasserted to allow
-register access. Later in sunxi_rproc_start(), if the optional rst_core is
-missing, the code falls back to deasserting rst_cfg again:
-
-int sunxi_rproc_start(struct rproc *rproc)
-{
-    ...
-    if (priv->rst_core) {
-        ret =3D reset_control_deassert(priv->rst_core);
-    ...
-    } else if (priv->rst_cfg) {
-        ret =3D reset_control_deassert(priv->rst_cfg);
-
-Because rst_cfg was already deasserted in prepare(), the remote core actual=
-ly
-starts executing before the firmware segments are fully loaded and before
-the boot address is programmed.
-
-[ ... ]
-> +int sunxi_rproc_start(struct rproc *rproc)
-> +{
-[ ... ]
-> +	/*
-> +	 * Program boot vector while the core execution reset is held.
-> +	 * The CFG block bus was un-gated during prepare() via rst_cfg.
-> +	 */
-> +	if (priv->cfg_va) {
-> +		writel((u32)rproc->bootaddr, priv->cfg_va + cfg->boot_reg_offset);
-> +		dev_dbg(priv->dev, "STA_ADD set to 0x%08x\n", (u32)rproc->bootaddr);
-> +	}
-> +
-> +	/* Release core execution reset so the core begins execution at bootadd=
-r */
-> +	if (priv->rst_core) {
-> +		ret =3D reset_control_deassert(priv->rst_core);
-> +		if (ret) {
-> +			dev_err(priv->dev, "failed to release core reset: %d\n", ret);
-> +			return ret;
-> +		}
-
-[Severity: Medium]
-Is a read-back of the CFG register necessary to explicitly flush the posted
-boot address write?
-
-Without flushing the writel() before deasserting the core reset, the SoC
-interconnect might deliver the reset deassertion before the boot address
-reaches the CFG block. This could cause the core to begin execution from a
-stale or zero address.
-
-[Severity: Medium]
-If reset_control_deassert() fails, does this error path leave the crash IRQ
-enabled for an offline core?
-
-Returning early bypasses the required IRQ cleanup, leaving the IRQ active
-and the system vulnerable to spurious interrupts during retry attempts.
-
-[ ... ]
-> +void sunxi_rproc_kick(struct rproc *rproc, int vqid)
-> +{
-> +	struct sunxi_rproc *priv =3D rproc->priv;
-> +	int ret;
-> +
-> +	if (!priv->tx_chan)
-> +		return;
-> +
-> +	/*
-> +	 * Use priv->kick_msg rather than a stack-local variable. The mailbox
-> +	 * controller runs with tx_block=3Dfalse, so mbox_send_message() may
-> +	 * queue the pointer and return before the hardware reads the message.
-> +	 * A stack-local vqid would be a use-after-return at that point.
-> +	 */
-> +	priv->kick_msg =3D (u32)vqid;
-> +	ret =3D mbox_send_message(priv->tx_chan, &priv->kick_msg);
-> +	if (ret < 0)
-> +		dev_err_ratelimited(priv->dev, "failed to send mailbox kick: %d\n", re=
-t);
-> +
-> +	mbox_client_txdone(priv->tx_chan, 0);
-> +}
-
-[Severity: High]
-Does this create a data race on priv->kick_msg during concurrent kicks?
-
-Different virtqueues on multiple CPUs can execute sunxi_rproc_kick()
-concurrently. Since they both assign to the single shared priv->kick_msg
-variable without a lock, a concurrent kick will overwrite it before the
-hardware processes the queue, causing dropped notifications.
-
-Also, does calling mbox_client_txdone() immediately after a non-blocking se=
-nd
-break the mailbox queue pacing?
-
-By falsely signaling TX completion, the framework will submit the next
-message immediately, potentially clobbering the controller's TX registers
-while the first message is still physically transmitting.
-
-[ ... ]
-> +void *sunxi_rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool=
- *is_iomem)
-> +{
-> +	struct sunxi_rproc *priv =3D rproc->priv;
-> +	u64 sys;
-[ ... ]
-> +	/*
-> +	 * 1. Translate core-local device addresses (DA) to system bus
-> +	 * addresses (Host PA) using the SoC address translation table (ATT).
-> +	 */
-> +	if (sunxi_rproc_da_to_sys(priv, da, len, &sys, is_iomem) =3D=3D 0) {
-> +		if (priv->r_sram_va && sys >=3D priv->r_sram_phys &&
-> +		    (sys + len) <=3D (priv->r_sram_phys + priv->r_sram_size))
-> +			return (__force void *)(priv->r_sram_va + (sys - priv->r_sram_phys));
-[ ... ]
-> +	}
-> +
-> +	/*
-> +	 * 2. Device Tree Memory Regions (Trace buffer, DRAM carveout, or
-> +	 * dynamically-assigned SRAM regions whose host PA is supplied via DT).
-> +	 */
-> +	if (priv->trace_va && da >=3D priv->trace_phys &&
-
-[Severity: Medium]
-Should there be an early return here if the ATT translation succeeds but fa=
-ils
-to match a valid mapped memory window?
-
-If sunxi_rproc_da_to_sys() returns 0 but the resulting sys address isn't fo=
-und
-in any mapped window, the code falls through to the Device Tree fallback
-checks.
-
-In the fallback block, it mistakenly compares the original device address (=
-da)
-against the host physical addresses (e.g. priv->trace_phys). If a da happens
-to overlap numerically with a host PA, it will improperly translate the
-address and return an invalid virtual pointer.
-
-[ ... ]
-> +static int sunxi_rproc_parse_memory_regions(struct rproc *rproc)
-> +{
-[ ... ]
-> +		if (name && (strstr(name, "trace") || of_node_name_eq(rmem_np, "trace"=
-))) {
-> +			priv->trace_phys =3D res.start;
-> +			priv->trace_size =3D resource_size(&res);
-> +			priv->trace_va =3D devm_memremap(dev, res.start, resource_size(&res),
-> +						       MEMREMAP_WB);
-[ ... ]
-> +		} else if (name && (strstr(name, "dram") || strstr(name, "vram"))) {
-> +			priv->dram_phys =3D res.start;
-> +			priv->dram_size =3D resource_size(&res);
-> +			priv->dram_va =3D devm_memremap(dev, res.start, resource_size(&res),
-> +						      MEMREMAP_WB);
-[ ... ]
-> +		}
-> +
-> +		/* Reuse existing SRAM mapping if region overlaps, else ioremap */
-> +		if (priv->r_sram1_va && res.start =3D=3D priv->r_sram1_phys)
-> +			va =3D (__force void *)priv->r_sram1_va;
-> +		else if (priv->r_sram_va && res.start =3D=3D priv->r_sram_phys)
-> +			va =3D (__force void *)priv->r_sram_va;
-> +		else
-> +			va =3D (__force void *)devm_ioremap_wc(dev, res.start, resource_size(=
-&res));
-
-[Severity: High]
-Does this establish conflicting memory mappings for the trace and dram regi=
-ons?
-
-After creating the initial mapping using devm_memremap() with Write-Back
-cacheability (MEMREMAP_WB), the loop lacks a continue statement or an else
-branch.
-
-Execution falls through to the fallback block where it maps the exact same
-physical memory again using devm_ioremap_wc() (Write-Combining). Mapping the
-same physical address space concurrently with mismatched caching attributes
-is undefined behavior on ARM64 and can cause silent cache corruption.
-
-[ ... ]
-> +static int sunxi_rproc_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +err_mbox_release:
-> +	cancel_work_sync(&priv->vq_work);
-> +	/*
-> +	 * mbox_request_channel_byname() can return ERR_PTR on failure.
-> +	 * Guard with IS_ERR() to avoid calling mbox_free_channel() with
-> +	 * an invalid pointer, which would panic on the first dereference.
-> +	 */
-> +	if (priv->rx_chan && !IS_ERR(priv->rx_chan))
-> +		mbox_free_channel(priv->rx_chan);
-
-[Severity: High]
-Does cancelling the workqueue before shutting down the mailbox channel
-introduce a Use-After-Free risk?
-
-Because mbox_free_channel() happens after cancel_work_sync(), the mailbox
-remains active. If an RX interrupt fires immediately after the cancellation,
-the callback can re-queue priv->vq_work.
-
-When the probe function returns an error, devres will free the priv
-structure. The workqueue would then execute the dangling work item and
-dereference the freed pointer.
-
-[ ... ]
-> +static void sunxi_rproc_remove(struct platform_device *pdev)
-> +{
-> +	struct rproc *rproc =3D platform_get_drvdata(pdev);
-> +	struct sunxi_rproc *priv =3D rproc->priv;
-[ ... ]
-> +	rproc_del(rproc);
-> +
-> +	if (priv->rx_chan) {
-> +		mbox_free_channel(priv->rx_chan);
-> +		priv->rx_chan =3D NULL;
-> +	}
-
-[Severity: High]
-Does calling rproc_del() before tearing down the mailbox expose a window for
-virtqueue Use-After-Free?
-
-rproc_del() stops the remote processor and destroys all virtio
-resources and virtqueues. However, the mailbox channel remains active.
-
-If a late interrupt is received, the mailbox IRQ callback will queue vq_wor=
-k,
-which unconditionally calls rproc_vq_interrupt(). Executing this against the
-already destroyed virtqueues will result in a crash.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927002021.7970=
-69-1-tcmichals@gmail.com?part=3D5
