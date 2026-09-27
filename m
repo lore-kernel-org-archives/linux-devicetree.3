@@ -1,63 +1,64 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0733533F8C1
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 02:56:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C7039E177
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 02:56:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790477809; cv=none; b=Fp/rqm4PazqAaRHfBTbiakFvZ5K1hUpaHVpsvZgTlGzadTFreKPyQwr4Oqaj2g53r5BSiPEnNLjEE3C5IhWkXJITnuv9+jnNN32JfSk4ek10wpgFHJoFO92cSGH8TGhgApaZ0FcwqJytRjS5LEEocz6/4TB8Cb2NUmUA9KgLIPg=
+	t=1790477817; cv=none; b=dP/HDv8hPKTC6ciYD0b32C7Z/J4I72tCqRuNC2yS2eonOF3oTq0zKjfBU3iMD6Z28wW9RbMP6NF7XvKv6vd3kwFo9Tfa1/r2UrpCbZPrgJJM8T9Xflndc1vHZd0YIfN1/zQwFiR4qJ0KDde0Er43GB2mAQXVonObwYo5lre9Wtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790477809; c=relaxed/simple;
-	bh=GNujY27sJq1QrMAiEnc4wu/PVjXA/qEQR0U1YSIve0E=;
+	s=arc-20240116; t=1790477817; c=relaxed/simple;
+	bh=JLLY8202AFqPiR7IQZMFqT+Np/Pbs4qmrHh6nwqETJ0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=BjFVaiuog0s2dKZkI8ybzXGRbPXtMr8Go2Fn1E8SppUmD2fKBUMcFEWnGijnJH6trDkcUR8PAoZ57D5NNif5+/jBuNXL9fsQYHFhU/RzeNwlmJvLnUZie9C2qwfbz1EKdc1CTCLMOwvPmRAEDFCqc6Jdm4ypE44xL7qxtPFbZo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=lkTPYaeU; arc=none smtp.client-ip=74.125.227.169
+	 MIME-Version; b=Oy9zHUdl3blBJXyhhdu8v3CHDAnYaR6sn4LosSZfU0WTDl435edmnDtCZgQFf8nB1kRwaj0EVQtnZnpuz/HpZkzoa/qJUn1O7+MGcX9haGPBjAjqKRB6rhXxJrd2e47kxmh4feoW1Q9FFl47rksUqeTBsgYBZzXmWPWEhrmRM4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=yoKSfm/1; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="lkTPYaeU"
-Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2df9754484aso8125225ad.0
-        for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 19:56:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="yoKSfm/1"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6188so8740945ad.3
+        for <devicetree@vger.kernel.org>; Sat, 26 Sep 2026 19:56:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=embeddedlinux.blog; s=google; t=1790477807; x=1791082607; darn=vger.kernel.org;
+        d=embeddedlinux.blog; s=google; t=1790477815; x=1791082615; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=W0OAcRU9c9mu0nqvpBUc1aIVBrp3XjCBrBUSr/EQyOo=;
-        b=lkTPYaeUuIKMPh2pq74BeIEAKmVudPfL5QWljFogQ1a2+9xZa0mAuboJJC4p3ubxiS
-         F9ynAwY9hNfgrJJuJBBGNhzxdqB/34mPL3hUbwxXZLxbyoEUr8gzIUxqgilr2HPBeeEw
-         v9EvSYh4+iZulyMMWKMy8pDinsHW7UHfp+BT4U0i9eeVk+BEYOHwU/k0xxmxqJYc6Z3H
-         DVn8RhcNM+FNk+YHheYgAnXQmdT4v4ZHKomMb2Tc6BaH/vW7MXj5U4IL17cZ8IyybUCu
-         +yJmK8SHds8kCd8B+SvP33GZwFZJAfS/gNIxGNqlLTls78mh/beunSiP1hATnl1CCHcD
-         wDjg==
+        bh=Zx161GO4leyejnwa92HDTsrJTQOft6nH8qorocIvjzU=;
+        b=yoKSfm/15VtXpMM9+BHs8gsYgRdp7fwEG7DGqYNixRewKAmjD+qpvwSmp0EN7Imgkd
+         oY3BYVDjMuvkHdv3wVGcCYa1eLytphX1iofvzCFLTe6/xXEBzItwgUbIYD6vwGiTKQvH
+         YsflVsgNZD4ccxI0buRouR+CCUQscg4+bkUJqfwSfemJY4SAQnSId+Ao8TKWQFz+TYx/
+         SPDvXZTvanTWMeaKDza11K4VFayIFhUtvnDrO4OQY6ik3vjL1Yqgwt6ccQgDidztCsL0
+         GYr7N9KVBlSh5/msOduPrHWiBT/w7z072H/4wkcAq6co32A0ghbZwKj14oxSbgajNfXO
+         nJqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790477807; x=1791082607;
+        d=1e100.net; s=20260707; t=1790477815; x=1791082615;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W0OAcRU9c9mu0nqvpBUc1aIVBrp3XjCBrBUSr/EQyOo=;
-        b=15Q801Fp8EkDuZTwn1j9cXfzl2yhodCy3qxT7pytqG3EpDDJTOrJxQZmU2KXgfri9R
-         W92APOLOODe/33PgVTz+LpjZ5ibLHPy/5198tdMgETP6R7szCjcuqC2IHETHinA+G1yE
-         NdURf0T8+MuvLmZay49ZOER6FcZKzolijgnEdwCe3QixJMo65HsUhggL/8s7VXAQU2Gc
-         QnSdg6BFQQV478JEpZJqBe2tZC2ep5uO4fiUhVTh6y+oB56tlbK0oeLyfYKAXha++akD
-         RDNlqTeow0bsqzAFhD05bok80CvL/psbA7/nG0A5ufK1qJ/SSn8ZBnMExXgDZEOcBBv1
-         ZAFA==
-X-Forwarded-Encrypted: i=1; AKwUvByRXcwJdm9J3aBuiJFrrA6/5HRC/W0HDZwzPXATAGA0jhl2d55LQybB6nGRjb0tcV+0S+q5/dR5nF6L@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOkp3+xvNGeVgm1ow7tVvQy4CqcwoJ6gLa4RqZYQClWaLbt6JX
-	t20vQZAhRvRL61QqYkvoHQ/6lvE8CcjBbG8uI2jts1d8F6tMb4nbgwSQs6aUAEhYd2h4
-X-Gm-Gg: AYBFou2y3KxcE26bPfae9/pZdpKHE0aKbFHYfeK0rmd6iDW6dbZpb6AK/popBejGFP0
-	Icflbe1VYpn36jWTbFWEEcD/rsi4HPI0voPTYYMe9e6A+Y6LDAsZW4g53uriM4SwZTbMLPpmGfi
-	stjhwnk+u6JfLziBC4Sgvdq0oHgN+7iiCZe+Qt46hHpK9Glyd6dkBP4vJ+EDeUze0cUW+tyHxOH
-	satxiVjmAlkAPsWNwNIoV+KhEGH/f+PkCThcbk1zStw9j1a3tddQE6u+aWiitn3TOvl2T4d9hWT
-	oFdW7RIgXgCpBoi+Njk+lvhH/0hpNSA9OGy9vt5exG/1ARxFUXpX+CguM77MBjJvV5Tsm/d9j7L
-	Z6dGdzpxv3my6Xj6Qi3uDpXna6dLoCY5FzqDs5icYL9S7EGNMU/Q++V+MRsxypQ+F6GK4Qxsz3x
-	Fhqihj6sNlXBhCU4W8GVqc2Zt46s5UPMIXfZ1tYt+gtmxwbGAKEZtpQc//uoAwRYCWEw==
-X-Received: by 2002:a17:903:228c:b0:2dd:ad73:c982 with SMTP id d9443c01a7336-2df7dc41d3cmr92788095ad.26.1790477807346;
-        Sat, 26 Sep 2026 19:56:47 -0700 (PDT)
+        bh=Zx161GO4leyejnwa92HDTsrJTQOft6nH8qorocIvjzU=;
+        b=fknWjMYPdkPdwrNCD1ZSAsPN27ubwKwh47WHMJmz60+zRGJwF5j2FxiLDWiE77Szqp
+         edtbORI6PDupKj+3j4XoNqnmumN1MQ7/cVrn7wzA/2C4RExaN8c3soKy07qqn+1buzQh
+         cvzm5VVWXeEpV4gGpvEFKaPCDsgT8Fq2iT7BnMijPZrDb/VbUi1+aUFv7uZ0TJiZwz4B
+         T9XkO+hiH0jkfx4WMXOfu6Bd+TLMOPD7ofAQC5f3ZFaSU/PqeCs0cKqngELhjo5fcKyo
+         YKuA77YJubMZMrZd/nMUGT5RRWkWuDnB8y3zpaW1KdBRF+hPRFDBzHTkwhQ09bpPI3FY
+         f6yg==
+X-Forwarded-Encrypted: i=1; AKwUvBy81LpUiSfBtHc9EPGzfuHfFuaWudgVufKel6nd3jCRjytbLT17zJCxXNch4npmMy+VNE8d7D0XbAKZ@vger.kernel.org
+X-Gm-Message-State: AFq9FYIoxUf/dD+/tGUgoAnYOtyBr94PCLEOnKCyNJzuD5ul6hZYOBVy
+	AoKWu7PmHbO3asbS3sgxTZtOILKn6sW7HivF7BeEg8mJocMC85Rbt9HcWdxPjTDgmktW
+X-Gm-Gg: AYBFou0GwR0wQc33/mZeqaeQ0eblVRUNyV5fy2sKrgrEeujkNNKplj7p1xrVSsqonQt
+	ygVaxrZ7ISyRcIUxvGpQYwBo/MzX8p/VZvvt5RdUDSqqVyrkdNYcRBPlADVsYbxMj4ddCjXeq3j
+	1SMTMg3Q2qEp2M9WLNxUNv4p/+YrgzhcWIRfgkWH8Zexc7vOTCejzNIOumTv18322zYtc8qjQXy
+	eMW4wqZHzTbD3AsqYyi4rtFaGn1sunRhD2vxcJnB5ZFlasaC+hAgVok8S68ELFO4bJX6S7FmKcs
+	oCcyHhF2p/gyxaTmHh0FdLbgF+l8rEGkGZAL16cA91EB+tVJZVOkQWJtAlfA+PvEirIIdlcWAdg
+	psI/P66hKw84IrwQmqq6C7lHHc31ulIExi651uElxiyPcjg9xm7n8aWAS0MwFs6DWFDG7uy0P8m
+	URMQN/mjUt4QXMT5x3mM93PcqHkL7sYUvAIVXsM8BlC4/Ma73RPnnMTvUDelVgKiCzEx85w/W+p
+	KNX
+X-Received: by 2002:a17:903:984:b0:2dd:c100:4246 with SMTP id d9443c01a7336-2df7e13c585mr80615525ad.42.1790477814644;
+        Sat, 26 Sep 2026 19:56:54 -0700 (PDT)
 Received: from ltu.. ([171.245.4.151])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142bfd4sm25512285ad.52.2026.09.26.19.56.42
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df9142bfd4sm25512285ad.52.2026.09.26.19.56.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Sep 2026 19:56:46 -0700 (PDT)
+        Sat, 26 Sep 2026 19:56:52 -0700 (PDT)
 From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
 To: Wilken Gottwalt <wilken.gottwalt@posteo.net>,
 	Bjorn Andersson <andersson@kernel.org>
@@ -82,9 +83,9 @@ Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
 	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	tien.nguyenminh@embeddedlinux.blog
-Subject: [PATCH 2/3] dt-bindings: hwlock: sun6i: Add compatible for Allwinner D1
-Date: Sun, 27 Sep 2026 09:56:25 +0700
-Message-Id: <20260927025626.69614-3-tien.nguyenminh@embeddedlinux.blog>
+Subject: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware spinlock
+Date: Sun, 27 Sep 2026 09:56:26 +0700
+Message-Id: <20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
 References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
@@ -96,33 +97,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The D1 and T113 have a hardware spinlock with the register layout the
-sun6i driver handles. Add a compatible for it, with the A31 one as
-fallback.
+Add the hardware spinlock of the D1 and T113. It goes in
+sunxi-d1-t113.dtsi rather than sunxi-d1s-t113.dtsi, as the D1s manual
+has no spinlock in its memory map.
 
 Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
 ---
- .../bindings/hwlock/allwinner,sun6i-a31-hwspinlock.yaml    | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/hwlock/allwinner,sun6i-a31-hwspinlock.yaml b/Documentation/devicetree/bindings/hwlock/allwinner,sun6i-a31-hwspinlock.yaml
-index 584cce3211..13f9a20ae1 100644
---- a/Documentation/devicetree/bindings/hwlock/allwinner,sun6i-a31-hwspinlock.yaml
-+++ b/Documentation/devicetree/bindings/hwlock/allwinner,sun6i-a31-hwspinlock.yaml
-@@ -15,7 +15,12 @@ description:
- 
- properties:
-   compatible:
--    const: allwinner,sun6i-a31-hwspinlock
-+    oneOf:
-+      - const: allwinner,sun6i-a31-hwspinlock
-+      - items:
-+          - enum:
-+              - allwinner,sun20i-d1-hwspinlock
-+          - const: allwinner,sun6i-a31-hwspinlock
- 
-   reg:
-     maxItems: 1
+diff --git a/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi b/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
+index 3b077dc086..228cc5c074 100644
+--- a/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
++++ b/arch/riscv/boot/dts/allwinner/sunxi-d1-t113.dtsi
+@@ -11,5 +11,14 @@ dsp_wdt: watchdog@1700400 {
+ 			clock-names = "hosc", "losc";
+ 			status = "reserved";
+ 		};
++
++		hwlock: hwlock@3005000 {
++			compatible = "allwinner,sun20i-d1-hwspinlock",
++				     "allwinner,sun6i-a31-hwspinlock";
++			reg = <0x3005000 0x1000>;
++			clocks = <&ccu CLK_BUS_SPINLOCK>;
++			resets = <&ccu RST_BUS_SPINLOCK>;
++			#hwlock-cells = <1>;
++		};
+ 	};
+ };
 -- 
 2.34.1
 
