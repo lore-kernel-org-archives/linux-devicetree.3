@@ -1,243 +1,171 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5083F106A
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 12:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17B5394788
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 12:54:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790513226; cv=none; b=daHfCNhoMuIOTDtsR9IGSVeZrCq1MqKCsbSWdaCktjFP8YtWqIo571EJQN0XEYwn2ig7Ptg30+x57Yvu/1/gpXzqZa9QM/+w7roE3SzSP09PCMgjqrKafCW/RB4bS6ibkYOoAMQdipGRBS0yO0aKejOnEJIH2lC/5ZLt9MrE31w=
+	t=1790513698; cv=none; b=PsePkqPVOuJY+Z7rYQ2LCxJN8Y0JOAVw074Mq+OPj1RduXPfZ6LYLUZkAKhtt2zlKY1//EZhBH5V61gGIUd5FhD6QcssMgtxDd/PxmfrN9nmXLS3q5+UG5Qn5TR9hJQBLh5Z8bkSr+mLfST8IYdkajaXRSsJ5O2SKlUsGLKIjlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790513226; c=relaxed/simple;
-	bh=3vs5W3ZxvueDzALjPaBFsCU/2OT1GAPHaHHdKaDzoqg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sVFIc8xalFIEUXUJygvv22SBjxC0A7wQjLc4Sb6QQwdoYfu0LCDQ/h7oiDJGiItP3EhKb0aCfJoNXzvDtG5xYHuWm7tYEXSWl+BkszyhA614mA7n2umO9ZEcear45NjhqxM5ypqs1QGWXTt/f1UVpDUVZcuDLxwc9OObiQELQNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g9ZOb+nM; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790513698; c=relaxed/simple;
+	bh=yw4tQhw7o52IrBboBr5F2oZneSRtweyAtyR/r51Lmho=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sDppGXR0UFNljBbaMDige70D0av1ZPYFINVwyr7H6Er/phzUsNjZkP2sFXGtN/gOdczuqZtrYSpabT/lPfsNW1U+FhprKFm4wOxa7ruHMzArux1K1yxGRp24i8fok7XDE0oZxFG9hkCI37X/f4xZXD/iYk8vvhUCwza63Fk0D7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IcaX/6MV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g9ZOb+nM"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso24248365e9.1
-        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 05:47:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790513219; x=1791118019; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6zB+0WWhii4wkDeFGGBMQh2kAmrjDEBPIyj5hNlO7dA=;
-        b=g9ZOb+nMKxzDAoPs9MLuPqO2NqSx1+6QUjkbvWuh1rdEji9UIoch7m6uqyWmUQ/4V9
-         QByrKEY7jBkwie3dBMMaCx5NZBWWKLKhTxmBaDlNuOujqQXH1sbg+FHH+RZNdx7nZgzo
-         WrucTPaXKNFr7crldFo8biaNDgDDnRzif4xfzQIPRkMrPOAMi+Lha9NKYLmhDhmK7uZa
-         DVf2yyiyrz8N0MUTPGkUFgdLQKPUcA19IuC2az49AXJYOxHPotTSwVDLTf0n1RnnXPLS
-         k/h4g2rDGQvCIBQZNBiNUhN0FyIDL2s88OJCxxlJeuAfHgBGJEaYe8nRtEptYu3/DnpL
-         57Tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790513219; x=1791118019;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6zB+0WWhii4wkDeFGGBMQh2kAmrjDEBPIyj5hNlO7dA=;
-        b=ycRB6MoH6ItYETc0Eb2F2pKxBmpcF44rFUGPwZE1A0hJe2b38OoqMB6MA+zfboxOLr
-         KY3EkurT//kGdQydDLJbTHmWvmi9p/hFsuyt4d/hNt8YnoO/DmIlUNUFoCsAMT4VdKFG
-         dH5oc3cSvEoxxrOxa/eJefxQbGlHE/ffIjdiAbZM61NXIOyouZ3i+QKLE+iuI5fCpGqK
-         Mi5M+Q9+23C6dTsfYwabO6NZFQ+7OWDueBPPXLUtPPVeGkG3EgnlHalRzwoFkmKVCjrC
-         9hj/k263gT3qLW6IVQtvb8tbgBVOs+TXuwe2gBXv/XqFSV+yD+D4sj9CMVyTaKY+dZGb
-         oaFg==
-X-Forwarded-Encrypted: i=1; AKwUvBwOROOI9gbQD2ionJtkDpYc/RHpyBpqyPA9mZBlHF2m0XBiFy86fRi9b1qQYPeZJFFt191tYMXQ4Kfe@vger.kernel.org
-X-Gm-Message-State: AFuF++lhIE61A+NnzEh3YiqF0VcjFqkF3u3B2eEvKQ/iv+Ea8U8QfVid
-	aW6tAwq7Ha6kfASNcwcTW7zgIVkekypK/PTynMpzPRL/MEsUePQP5Hwm
-X-Gm-Gg: AYBFou0gCx6+a2qVCKYkSODhGjeJZexPoVwsMBgOOV2wH8yjMmAxHPmy+Lkvf0f1Yzr
-	LmXAqekCEZyaKfwoTm/Kzi2TjIlMUDEdpKpjDkh5/GE6ZPGmHH+30ftnCm9OBgnO7gmcQ3b3Czw
-	AYr4DnzxSktXRet5bb5H8Re7jorohZPIz3meqgxmDZxQ6u0Uf1U1jRxFJHVE7Go/Rbsz4lVV+5m
-	2mfK6ud3pOs+Exi+w5p7+3SkIVjppYVcA5cEQPbkvOSAD4a+ywZXtrRRKm9whrvFQZlAGctZxHK
-	K6uYiJsH2+BOhSaeOBjEJVevqflyKIcyh3t52skuDZD8N2r+KGaxQa+Ut63DCW6HebajJeqFoEK
-	BLA7g+Q6+Aj5t3E8bt8MNZIhQ56DROGhICjdki52PCbzChGdMjU+MSLVhgaha6RmNvgOn9cij4M
-	InMYXNm6IFqcES/mK8WbMKIIiVG57Tghi+mNsJKoEpK7HaEN6otAEvIwYeNd5xr4ExxU/iQ8ZqX
-	AjuTcHhqpNN2MFGK7qhrzjBMZqa9VTuQyVc8B5NNYQEYijXoACu5xNLcZvFr6V6ArHQtME8ZMJT
-	M7HFt/4q4F/weEfYktBnFA==
-X-Received: by 2002:a05:600c:19d1:b0:49c:d818:8764 with SMTP id 5b1f17b1804b1-49fe7b62c5bmr188856695e9.11.1790513218838;
-        Sun, 27 Sep 2026 05:46:58 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef60da94sm148440605e9.4.2026.09.27.05.46.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 05:46:58 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Joseph Guo <qijian.guo@nxp.com>,
-	Josua Mayer <josua@solid-run.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Maud Spierings <maudspierings@gocontroll.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Stefan Eichenberger <eichest@gmail.com>,
-	netdev@vger.kernel.org
-Subject: [PATCH v3 12/12] ARM: dts: imx6ul: Enable Variscite i.MX6UL board DTBs
-Date: Sun, 27 Sep 2026 14:46:27 +0200
-Message-ID: <6278961388356f27f483b896288e7b0c0d240962.1790512621.git.stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790512621.git.stefano.r@variscite.com>
-References: <cover.1790512621.git.stefano.r@variscite.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IcaX/6MV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D5501F000FF;
+	Sun, 27 Sep 2026 12:54:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790513696;
+	bh=vsbjyUIfkF6TzNJIOoRevmmoaHSEY3X0YW+cBOI6Mf4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IcaX/6MV1T2oRbzvWTGvzdZpSr02hlnvQ+m0UPF46uGncHe/f00IRLoBvoP1rWEgf
+	 nL0BW+4ymLV5UHhwWLgm9ES9SM8wT+rYOxa5gCLNtUP1I0lJuWwtgC37MmUOF7kJlQ
+	 2mrT0+45Pf4wt9OpCgR3cc6hS+CIXnhiwkECB/sW0MzrU3X1+YEWdXdc1WFkP4O4MX
+	 3eTKxE29VHxj/1OObPzLPcgnDEx79WJibQFCLhVFXtNE4dqzDrjPELm7p4pJW0AT3J
+	 NzxJ0UFW0xHrmZUxZnmfeDqZR4VFgE/9qvvZ3oYYkeMjWVYJJj6uEfn9K/Lwxn/z51
+	 ED2URovkiih3Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: BG9OXA <bg9oxa@163.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <179051262683.4055.12205303753370851498@163.com>
+References: <179051260955.4055.15953866975694461812@163.com>
+ <179051262683.4055.12205303753370851498@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 27 Sep 2026 12:54:55 +0000
+Message-Id: <20260927125456.4D5501F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] dts: copy-paste error in RK806 DVS null pin configuration
+- [Medium] dts: es8388 node forces software match via incompatible schemas
+- [Low] dts: outdated architectural comment contradicts USB3/Type-C impleme=
+ntation
+--
 
-Add Makefile targets for the VAR-SOM-6UL and DART-6UL board variants
-based on i.MX6UL, i.MX6ULL and i.MX6ULZ.
+commit cc24bb0e57d3815603a751daab32d79cde59ecb8
+Author: BG9OXA <bg9oxa@163.com>
+Date:   Sun Sep 27 12:37:06 2026 +0000
 
-Keep the existing Concerto DTB targets enabled alongside the new
-carrier, storage, wireless and audio combinations.
+    arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
 
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
-v2->v3:
- - Sort the Variscite DTB targets within each SoC group.
+This commit adds a new device tree for the ALIENTEK QuarkPi-CA2 SBC, based =
+on
+the RK3588S SoC. It enables core functionalities like UART, eMMC, Ethernet,
+HDMI, USB host ports, and analog audio.
 
- arch/arm/boot/dts/nxp/imx/Makefile | 92 +++++++++++++++++++++++++++++-
- 1 file changed, 91 insertions(+), 1 deletion(-)
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/=
+arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> new file mode 100644
+> index 0000000000000..f598af7fe2749
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
 
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index c5caca92ea10..0194b22bad2b 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -375,8 +375,38 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
- 	imx6ul-tx6ul-0010.dtb \
- 	imx6ul-tx6ul-0011.dtb \
- 	imx6ul-tx6ul-mainboard.dtb \
-+	imx6ul-var-dart-emmc-sd-card-6ulcustomboard.dtb \
-+	imx6ul-var-dart-emmc-sd-card-wm8731-6ulcustomboard.dtb \
-+	imx6ul-var-dart-emmc-wifi-brcm-6ulcustomboard.dtb \
-+	imx6ul-var-dart-emmc-wifi-brcm-wm8731-6ulcustomboard.dtb \
-+	imx6ul-var-dart-emmc-wifi-iw61x-6ulcustomboard.dtb \
-+	imx6ul-var-dart-nand-sd-card-6ulcustomboard.dtb \
-+	imx6ul-var-dart-nand-sd-card-wm8731-6ulcustomboard.dtb \
-+	imx6ul-var-dart-nand-wifi-brcm-6ulcustomboard.dtb \
-+	imx6ul-var-dart-nand-wifi-brcm-wm8731-6ulcustomboard.dtb \
-+	imx6ul-var-dart-nand-wifi-iw61x-6ulcustomboard.dtb \
- 	imx6ul-var-som-concerto.dtb \
- 	imx6ul-var-som-concerto-full.dtb \
-+	imx6ul-var-som-emmc-sd-card-concerto-board.dtb \
-+	imx6ul-var-som-emmc-sd-card-symphony-board.dtb \
-+	imx6ul-var-som-emmc-sd-card-wm8731-concerto-board.dtb \
-+	imx6ul-var-som-emmc-sd-card-wm8731-symphony-board.dtb \
-+	imx6ul-var-som-emmc-wifi-brcm-concerto-board.dtb \
-+	imx6ul-var-som-emmc-wifi-brcm-symphony-board.dtb \
-+	imx6ul-var-som-emmc-wifi-brcm-wm8731-concerto-board.dtb \
-+	imx6ul-var-som-emmc-wifi-brcm-wm8731-symphony-board.dtb \
-+	imx6ul-var-som-emmc-wifi-iw61x-concerto-board.dtb \
-+	imx6ul-var-som-emmc-wifi-iw61x-symphony-board.dtb \
-+	imx6ul-var-som-nand-sd-card-concerto-board.dtb \
-+	imx6ul-var-som-nand-sd-card-symphony-board.dtb \
-+	imx6ul-var-som-nand-sd-card-wm8731-concerto-board.dtb \
-+	imx6ul-var-som-nand-sd-card-wm8731-symphony-board.dtb \
-+	imx6ul-var-som-nand-wifi-brcm-concerto-board.dtb \
-+	imx6ul-var-som-nand-wifi-brcm-symphony-board.dtb \
-+	imx6ul-var-som-nand-wifi-brcm-wm8731-concerto-board.dtb \
-+	imx6ul-var-som-nand-wifi-brcm-wm8731-symphony-board.dtb \
-+	imx6ul-var-som-nand-wifi-iw61x-concerto-board.dtb \
-+	imx6ul-var-som-nand-wifi-iw61x-symphony-board.dtb \
- 	imx6ull-14x14-evk.dtb \
- 	imx6ull-colibri-aster.dtb \
- 	imx6ull-colibri-emmc-aster.dtb \
-@@ -415,10 +445,70 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
- 	imx6ull-tqma6ull2-mba6ulx.dtb \
- 	imx6ull-tqma6ull2l-mba6ulx.dtb \
- 	imx6ull-uti260b.dtb \
-+	imx6ull-var-dart-emmc-sd-card-6ulcustomboard.dtb \
-+	imx6ull-var-dart-emmc-sd-card-wm8731-6ulcustomboard.dtb \
-+	imx6ull-var-dart-emmc-wifi-brcm-6ulcustomboard.dtb \
-+	imx6ull-var-dart-emmc-wifi-brcm-wm8731-6ulcustomboard.dtb \
-+	imx6ull-var-dart-emmc-wifi-iw61x-6ulcustomboard.dtb \
-+	imx6ull-var-dart-nand-sd-card-6ulcustomboard.dtb \
-+	imx6ull-var-dart-nand-sd-card-wm8731-6ulcustomboard.dtb \
-+	imx6ull-var-dart-nand-wifi-brcm-6ulcustomboard.dtb \
-+	imx6ull-var-dart-nand-wifi-brcm-wm8731-6ulcustomboard.dtb \
-+	imx6ull-var-dart-nand-wifi-iw61x-6ulcustomboard.dtb \
- 	imx6ull-var-som-concerto.dtb \
- 	imx6ull-var-som-concerto-full.dtb \
-+	imx6ull-var-som-emmc-sd-card-concerto-board.dtb \
-+	imx6ull-var-som-emmc-sd-card-symphony-board.dtb \
-+	imx6ull-var-som-emmc-sd-card-wm8731-concerto-board.dtb \
-+	imx6ull-var-som-emmc-sd-card-wm8731-symphony-board.dtb \
-+	imx6ull-var-som-emmc-wifi-brcm-concerto-board.dtb \
-+	imx6ull-var-som-emmc-wifi-brcm-symphony-board.dtb \
-+	imx6ull-var-som-emmc-wifi-brcm-wm8731-concerto-board.dtb \
-+	imx6ull-var-som-emmc-wifi-brcm-wm8731-symphony-board.dtb \
-+	imx6ull-var-som-emmc-wifi-iw61x-concerto-board.dtb \
-+	imx6ull-var-som-emmc-wifi-iw61x-symphony-board.dtb \
-+	imx6ull-var-som-nand-sd-card-concerto-board.dtb \
-+	imx6ull-var-som-nand-sd-card-symphony-board.dtb \
-+	imx6ull-var-som-nand-sd-card-wm8731-concerto-board.dtb \
-+	imx6ull-var-som-nand-sd-card-wm8731-symphony-board.dtb \
-+	imx6ull-var-som-nand-wifi-brcm-concerto-board.dtb \
-+	imx6ull-var-som-nand-wifi-brcm-symphony-board.dtb \
-+	imx6ull-var-som-nand-wifi-brcm-wm8731-concerto-board.dtb \
-+	imx6ull-var-som-nand-wifi-brcm-wm8731-symphony-board.dtb \
-+	imx6ull-var-som-nand-wifi-iw61x-concerto-board.dtb \
-+	imx6ull-var-som-nand-wifi-iw61x-symphony-board.dtb \
- 	imx6ulz-14x14-evk.dtb \
--	imx6ulz-bsh-smm-m2.dtb
-+	imx6ulz-bsh-smm-m2.dtb \
-+	imx6ulz-var-dart-emmc-sd-card-6ulcustomboard.dtb \
-+	imx6ulz-var-dart-emmc-sd-card-wm8731-6ulcustomboard.dtb \
-+	imx6ulz-var-dart-emmc-wifi-brcm-6ulcustomboard.dtb \
-+	imx6ulz-var-dart-emmc-wifi-brcm-wm8731-6ulcustomboard.dtb \
-+	imx6ulz-var-dart-emmc-wifi-iw61x-6ulcustomboard.dtb \
-+	imx6ulz-var-dart-nand-sd-card-6ulcustomboard.dtb \
-+	imx6ulz-var-dart-nand-sd-card-wm8731-6ulcustomboard.dtb \
-+	imx6ulz-var-dart-nand-wifi-brcm-6ulcustomboard.dtb \
-+	imx6ulz-var-dart-nand-wifi-brcm-wm8731-6ulcustomboard.dtb \
-+	imx6ulz-var-dart-nand-wifi-iw61x-6ulcustomboard.dtb \
-+	imx6ulz-var-som-emmc-sd-card-concerto-board.dtb \
-+	imx6ulz-var-som-emmc-sd-card-symphony-board.dtb \
-+	imx6ulz-var-som-emmc-sd-card-wm8731-concerto-board.dtb \
-+	imx6ulz-var-som-emmc-sd-card-wm8731-symphony-board.dtb \
-+	imx6ulz-var-som-emmc-wifi-brcm-concerto-board.dtb \
-+	imx6ulz-var-som-emmc-wifi-brcm-symphony-board.dtb \
-+	imx6ulz-var-som-emmc-wifi-brcm-wm8731-concerto-board.dtb \
-+	imx6ulz-var-som-emmc-wifi-brcm-wm8731-symphony-board.dtb \
-+	imx6ulz-var-som-emmc-wifi-iw61x-concerto-board.dtb \
-+	imx6ulz-var-som-emmc-wifi-iw61x-symphony-board.dtb \
-+	imx6ulz-var-som-nand-sd-card-concerto-board.dtb \
-+	imx6ulz-var-som-nand-sd-card-symphony-board.dtb \
-+	imx6ulz-var-som-nand-sd-card-wm8731-concerto-board.dtb \
-+	imx6ulz-var-som-nand-sd-card-wm8731-symphony-board.dtb \
-+	imx6ulz-var-som-nand-wifi-brcm-concerto-board.dtb \
-+	imx6ulz-var-som-nand-wifi-brcm-symphony-board.dtb \
-+	imx6ulz-var-som-nand-wifi-brcm-wm8731-concerto-board.dtb \
-+	imx6ulz-var-som-nand-wifi-brcm-wm8731-symphony-board.dtb \
-+	imx6ulz-var-som-nand-wifi-iw61x-concerto-board.dtb \
-+	imx6ulz-var-som-nand-wifi-iw61x-symphony-board.dtb
- 
- imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel-dtbs := \
- 	imx7d-colibri-emmc-aster.dtb \
--- 
-2.47.3
+[ ... ]
+
+> +		rk806_dvs1_null: dvs1-null-pins {
+> +			pins =3D "gpio_pwrctrl2";
+> +			function =3D "pin_fun0";
+> +		};
+> +
+> +		rk806_dvs2_null: dvs2-null-pins {
+> +			pins =3D "gpio_pwrctrl2";
+> +			function =3D "pin_fun0";
+> +		};
+
+[Severity: High]
+Does this cause a pinmux collision during initialization? The pins property
+for rk806_dvs1_null duplicates "gpio_pwrctrl2" instead of requesting
+"gpio_pwrctrl1". During boot, the pinctrl subsystem will likely throw a
+collision error when binding the PMIC pins, potentially leaving the system
+unbootable or causing dependent regulators to defer probe indefinitely.
+
+[ ... ]
+
+> +/*
+> + * USB3 =E2=80=94=E2=80=94 Type-C =E5=8F=A3=EF=BC=88=E8=B5=B0 usbdp_phy0=
+ + u2phy0=EF=BC=89
+> + *
+> + * =E4=B8=BB=E7=BA=BF=E6=B2=A1=E6=9C=89 HUSB311=EF=BC=88TCPC=EF=BC=89=E9=
+=A9=B1=E5=8A=A8=EF=BC=8CType-C =E7=9A=84=E6=8F=92=E5=85=A5=E6=96=B9=E5=90=
+=91/=E8=A7=92=E8=89=B2=E5=88=87=E6=8D=A2=EF=BC=88CC =E6=A3=80=E6=B5=8B=EF=
+=BC=89=E6=8B=BF=E4=B8=8D=E5=88=B0=EF=BC=8C
+> + * =E6=95=85=E6=8C=89 rock-5c =E7=9A=84=E5=86=99=E6=B3=95=E5=9B=BA=E5=AE=
+=9A=E6=88=90 host =E6=A8=A1=E5=BC=8F=EF=BC=8C=E4=B8=8D=E5=81=9A OTG/DP altm=
+ode=E3=80=82
+> + * VBUS =E7=94=B1 vbus5v0_typec =E6=8E=A7=E5=88=B6=EF=BC=88GPIO =3D gpio=
+1 PC5=EF=BC=8C=E5=8E=82=E5=95=86 dtb =E5=AE=9E=E6=B5=8B=E5=80=BC=EF=BC=89=
+=E3=80=82
+> + */
+> +&u2phy0 {
+
+[Severity: Low]
+Is this comment accurate for the current state of the device tree? It claims
+no TCPC driver is available and no DP altmode is configured, but this direc=
+tly
+contradicts the husb311@4e node and dp0 configuration implemented elsewhere
+in this file.
+
+[ ... ]
+
+> +	es8388: audio-codec@11 {
+> +		/* =E2=AD=90=E2=AD=90=E2=AD=90 2026-09-26 =E5=85=B3=E9=94=AE=E4=BF=AE=
+=E6=AD=A3=EF=BC=9A=E6=8A=8A everest,es8323 =E6=94=BE=E5=9C=A8**=E7=AC=AC=E4=
+=B8=80=E4=BD=8D**=E3=80=82
+> +		 *   =E5=8E=9F=E5=9B=A0=EF=BC=88=E8=AF=BB=E9=A9=B1=E5=8A=A8=E6=BA=90=
+=E7=A0=81 + =E6=9D=BF=E4=B8=8A=E6=A8=A1=E5=9D=97=E5=AE=9E=E8=AF=81=EF=BC=89=
+=EF=BC=9A
+> +		 *   - =E4=B8=BB=E7=BA=BF es8328.c =E6=98=AF**=E7=AE=80=E5=8C=96=E7=89=
+=88**=EF=BC=88888 =E8=A1=8C=EF=BC=89=EF=BC=8Ces8323.c =E6=98=AF**=E5=AE=8C=
+=E6=95=B4=E7=89=88**=EF=BC=88791 =E8=A1=8C=EF=BC=8C
+> +		 *     =E6=9C=89 set_dai_fmt / set_dai_sysclk / pcm_hw_params + coeff_=
+div =E7=B3=BB=E6=95=B0=E8=A1=A8=EF=BC=89=E3=80=82
+> +		 *   - compatible =E5=88=97=E8=A1=A8**=E6=8C=89=E9=A1=BA=E5=BA=8F=E5=
+=8C=B9=E9=85=8D**=EF=BC=9A'everest,es8388' =E6=8E=92=E5=89=8D=E9=9D=A2=E4=
+=BC=9A=E8=A2=AB es8328 =E6=8A=A2=E8=B5=B0=EF=BC=8C
+> +		 *     =E6=89=80=E4=BB=A5=E5=BF=85=E9=A1=BB=E6=8A=8A es8323 =E6=8F=90=
+=E5=88=B0=E7=AC=AC=E4=B8=80=E4=BD=8D=E6=89=8D=E8=83=BD=E8=AE=A9=E5=AE=8C=E6=
+=95=B4=E7=89=88=E9=A9=B1=E5=8A=A8=E7=BB=91=E5=AE=9A=E3=80=82
+
+[ ... ]
+
+> +		 */
+> +		compatible =3D "everest,es8323", "everest,es8388";
+> +		reg =3D <0x11>;
+
+[ ... ]
+
+> +		AVDD-supply =3D <&vcc_3v3_s0>;
+> +		DVDD-supply =3D <&vcc_1v8_s0>;
+> +		HPVDD-supply =3D <&vcc_3v3_s0>;
+> +		PVDD-supply =3D <&vcc_3v3_s0>;
+> +		#sound-dai-cells =3D <0>;
+> +	};
+
+[Severity: Medium]
+Will this cause device tree schema validation (dtbs_check) to fail? By plac=
+ing
+"everest,es8323" first to intentionally trick the kernel into loading a
+different software driver, the tooling will map this node to es8316.yaml. T=
+hat
+schema strictly rejects capitalized properties like AVDD-supply, resulting =
+in
+schema errors.
+
+Could we avoid overriding the exact hardware match string here, as device t=
+rees
+are meant to describe hardware rather than configure specific driver behavi=
+or?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179051262312.4055.1=
+1698105707712320261@163.com?part=3D2
