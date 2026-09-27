@@ -1,108 +1,142 @@
-Received: from outbound.ci.icloud.com (ci-2003f-snip4-11.eps.apple.com [57.103.91.191])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1572FD7B1
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 14:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.91.191
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B01A95E;
+	Sun, 27 Sep 2026 14:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790520969; cv=none; b=LjQjmL5ps0LWhGsH7NgxMZ+OkhpBTpB0mD42btMXuau88S6wCmPY0ZBb/RFY4pYTQVKkO4fIkOGoKGNBoVkOTK44paU4Y2Tmbs2pIPnLmbFo4zhd7NDsE0j3RdYHYfhLUJJIoBc+BPTmpYMGY4JtqmFUqMGx1YYhHOHQ7Fbp/QY=
+	t=1790521152; cv=none; b=PIepxuScabwKHD2BWOWq2+N2ndLGpysJfKyGQArBQHaPBLbjqcBc5yor86MSJisTIuE7I8ZmJZrC2R8BQnTwh51/acyZy1ESGPfxU68mYqstdyhe1tK1qdtTAEWb8NMhr7CcntzEKuOlva51KGbH4OB7Zsdb55DUN8rhh10pKI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790520969; c=relaxed/simple;
-	bh=ULOwOstfSqAAOt39IAdLaJCi8D8WjsQQRutFhB7SBTE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aFQKgu68a5klTjZ08wyMfC4LqrVobDxi8jRu9KfsdG68m6UeNztGWfDQQN4YGX8jPO88rzdyqkJymRn40uYyQIYEMWyBgcmJIBVLkbcUAkBroAbrdEd9g7ZGQs5SvaNDq/qKBqAXNVAxoU9DUB8/aR+QLmi0+nmO2hQFwxrtAPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=AVdOUrsm; arc=none smtp.client-ip=57.103.91.191
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	s=arc-20240116; t=1790521152; c=relaxed/simple;
+	bh=YmGxEJFzXbTFWzE7ulh7aHe3IiKiro4uJZWRmXMUOd0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=X1Huz6dPhZov7BHDjeguZTylxTPg2SKqHAnwPUXt2uFBxr7sUQq/nD++Vp0A6VHH9JFCiZQYDdlDTmm7nbDKQD/TpncMxacwGQrkg7Mmve8IsefJgL/j+/iGbOLm47i0adpfdDzjocOHRzThy6BoQGuf+5BbvyDUh3som1CyF1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8YsWMcz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="AVdOUrsm"
-Received: from outbound.ci.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-7 (Postfix) with ESMTPS id 31A3718001AD;
-	Sun, 27 Sep 2026 14:56:01 +0000 (UTC)
-X-ICL-RepId: 01a0e35d-a860-791f-91c2-79ad026e9876
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQhPAEMGXAVeC1YBXwFLVxQEDloDVA5cBBcbXwJCH1sVSzhaDlsERxQXG1wAFw1WTVAbXwJCDxwTVhUTH1RWA0gZEFYBWFZdBU0aXBhZDxwTUFZaDlsERxQXG1wAFxtGAgQjAl8ARQJeCVYBMBcPVk1QG18CQg8cE1YVEwBeDw9MC0gBWwdSAEcITAZYBFMcQgpLBlkPRgddTxFdDlIFRl5aFFwYQwJXAnkRUAFYHlZeWhdeUxcfSwBcRVoOWwRHFA==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1790520964; x=1793112964; bh=0sWFvs9jcAbnIPCvsVLUf2FvnlKcEx51RgjL4GFBuUs=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=AVdOUrsmCUVT9N5dFwppyEBCW4bQwk2ZQ4Ji7aTXAXs7fMasZbWyn/M1pnvJKKUZsSjDfuoO+H5eUo1TmkvUBmVYfzQiVIaRji3YarsIz97kPEnQ/8wh1JjioO8SOdNjDGmQSIgX1ANDGWOBTgS/v9QxZFDvWf1mUgl9uZsCsvqrwO5dYjWNcObuMm6zKDKvWc2iNkXy6Fxw6iyeV9LM34Yu6sJnIGqasl0Iht6d1JLeJhDUz71aQqn1ny0XhFaC4+lO/UDcwlno2d0mbjmX2cl0lRjDtZg3SAsDeOKmJLXFYJ6+FxC4kuF1+szUquPj29kYxzU0gMb0Qm1DLSRS6A==
-Received: from bigre.tail98293.ts.net (unknown [17.57.156.36])
-	by p00-icloudmta-asmtp-us-central-1k-60-percent-7 (Postfix) with ESMTPSA id CF2771800101;
-	Sun, 27 Sep 2026 14:55:59 +0000 (UTC)
-From: Vincent Cloutier <vincent.cloutier@icloud.com>
-To: sre@kernel.org
-Cc: linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	daniel.baluta@nxp.com,
-	shawnguo@kernel.org,
-	agx@sigxcpu.org,
-	angus@akkea.ca,
-	Vincent Cloutier <vincent@cloutier.co>
-Subject: [PATCH v1 4/4] arm64: dts: imx8mq-librem5: Set BQ25895 input voltage limit
-Date: Sun, 27 Sep 2026 10:55:38 -0400
-Message-ID: <20260927145538.233548-5-vincent.cloutier@icloud.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260927145538.233548-1-vincent.cloutier@icloud.com>
-References: <20260927145538.233548-1-vincent.cloutier@icloud.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8YsWMcz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A3F1AC2BCB3;
+	Sun, 27 Sep 2026 14:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790521151;
+	bh=YmGxEJFzXbTFWzE7ulh7aHe3IiKiro4uJZWRmXMUOd0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=E8YsWMczeUFp/Ps4S1C35qOItIhMEQTogovptCnGpBA6Sr4GeuzG0hJraEZvjTUGs
+	 Hl4kqdt6pLem2wdOmwG2krvftXJe6z+fz8fvQ3BPaK9cCw0LX0vZTfFxyr0qoEgErt
+	 eAbi4OYCzDM0oQLH0hH62l3v1bwXj1iGPDlWJKgIhVs56iPq0NpUtipglxkUTYwjO0
+	 B3/gwKWqhYpCCPmpV5rVeB2+ZTkMxI+nB0EXyGiU8o9MLpK8LUFrowhMesLHCIqw+z
+	 92sdN3tMYDSP2a/N19QFg3M4qrzqBSXUCD+fwv+9UAuqc69XieSP1aCfIOPwjte2sI
+	 8GjcQ1zmH0yFA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F570C98332;
+	Sun, 27 Sep 2026 14:59:11 +0000 (UTC)
+From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
+Subject: [PATCH v8 0/2] A proposal to add a gpio-locked clock driver.
+Date: Sun, 27 Sep 2026 14:59:06 +0000
+Message-Id: <20260927-feature-clock-guard-v8-0-630938e302a1@bruker.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI3MDA1OSBTYWx0ZWRfX6PGhkr9hh8BC
- MXaGaJppbOycdipEdYBv4XzULmXixLQyG5gZCwzx75IseyTUO1h8S/RF5CIXgp6qF3mh+akPNEg
- oR4xbMgkGTVqcZoDzO7yFqT2EY4yXgS4sZj1QVDjx2mb8YIXwV+P3xcDvscBP4v6GJ5WpmJDzAv
- AkDrWRZKRIb/lPax256TexayH1mrmvvtFGbwSN4+P+v5aVW+UPeh22Xne6UjJCTMx4jEg0adl5y
- JIRcd4cQGWM7N5eZ6GVwP2hJvGFDJpJn5HM3NviZvKqYPV4laTNaqywAgANmRfGCRPLEE8+N/+P
- JAM7fxUY/2rQ5s4c/f/q1uV25boL7XS8ofhWGJdRV5gNSseJ1fIcdcRm1eX6AA=
-X-Proofpoint-GUID: QTEQCjd7c7jR8u7ym1r8_K71LmCWqNq6
-X-Authority-Info-Out: v=2.4 cv=ZdAQ98VA c=1 sm=1 tr=0 ts=6ab92e82
- cx=c_apl:c_pps:t_out a=2G65uMN5HjSv0sBfM2Yj2w==:117
- a=2G65uMN5HjSv0sBfM2Yj2w==:17 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10
- a=5j__JWfIoqoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=-L4RI-O3Sy8stOntbg4A:9
-X-Proofpoint-ORIG-GUID: QTEQCjd7c7jR8u7ym1r8_K71LmCWqNq6
-X-JNJ: AAAAAAABrJvhxWKjcv/pct2SEpSWHTv+iUMuRRpS7G5d5dIYZCPF8+OWuYVaAWtSMFI2AZO3gEwXvSaAOEIPYaBsSPlLQAvtu0euzU2bvmYDRJwp/U1SbeuMHRcP5OKgXRJg2ra50xlG5qOxb8vyzPMIr67akLa72bb3hEXV07x+AEg8sn3Df5Qo3UqD7bVIvuWNxcFspecabJH7befI1sMKseIwq8Ucfu+CBqTfJszeUNPuJjjWolVG/N+lUvSPf4bCi2Atuztaoj46NkKnn2AOhVPAeH4FjvL8DfdenXw63KxONPHkPwq22fI8/gyWoya7rvH1tTA87Xw9Jjv2TlXOk1p5STHBOj8e6hN19AVgpegbj+Z6xSOWHrLP9L8HZc78LPDnak4JlTLDC9CHBElO5dPTxBu1Gc3dP4pncpeCL3sYj4u/X0C6IxZZvun9/ugEJhST8PwuwzbFC7GkUa0S5TlFVHpdJ1yLqobSDR5ra/UNKORAryOUDjfaXDIatxq+mu4K4TQBq+bythwxL3SYOlYrMQP511PU6z/Tey8HRiV6h/9R2HpY7SPbhilEYQVd7d0eMhkwFvNPmMYsrCfmvtVF7HBcmtkZkvGLfGyzsZ074ypLWZpZy2EBVGQwWGUfT6RMmcRd8MNN67sbK2F/t7yokihV5nR+Nrk70WiCjPQ+i3ivQVJ6DXzvmDsPV7adzhEXIy8QMwstPWab44m7h+x6w1uTLGEXo6RffdXhpacz1TuEwDXrWj1g6neb1wqGJ5BC9XntK7YGvvU9HNoxuJESibAzbxtPcGSuf9zdxvCBBuz9HkOK4dxz1ft8AceB5n88N2yHM/HkLG0qt2DeiyYt0p9qaM0Q6OiV9PxsYNhxXEU1SRaiA2ngF1ns91W3bMTIP+4sxeiahXQBu/6W5pMYctXg4RzbxOx7405z5jD/Kxm3YKoiN8n53SMxPqTrWoxbQG/uIw==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADovuWoC/43PTU7DMBAF4KtUXmNkj/9ZcQ/EYjx2WqvQIKeJQ
+ FXujtNNQIkQyzfSfG/mxoZcSx7Y0+HGap7KUPpLC/7hwOiEl2PmJbXMQIAVSnreZbyONXN66+n
+ MjyPWxDsQCKRMDNawtvlRc1c+7+rLa8unMlz7+nUvmeQy/dubJBfcSuUoauF1dM+xjudcH6l/Z
+ ws4wYoYKfYRWBACo41PRmmxQdSKtFv2EdUQIYlQIAqNZoPoFXFg9xHdkBzIR+UgOkkbxKxIkGY
+ fMQ3RgNEkUmgRN4j9gYDbR+zyjnDBqyhVJtgg7h+Ia4hPSQZjfQr4G5nn+Rskt7IkVQIAAA==
+X-Change-ID: 20260318-feature-clock-guard-f20a2c35b965
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Jyri Sarha <jsarha@ti.com>
+Cc: linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, Vyacheslav Yurkov <uvv.mail@gmail.com>, 
+ Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790521150; l=3080;
+ i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
+ bh=YmGxEJFzXbTFWzE7ulh7aHe3IiKiro4uJZWRmXMUOd0=;
+ b=8jdU/HvfBCRhKNpwUXhkVNz2Z1Nq5LWDI9YNTvgw1uO3VoBeFZGUgSDoEveJs6yWg8gx7UyDs
+ AL+9oQytxlyCn0qaJAbwor0IKt7aCDTTAUG0Tu+GSlovK2g4EbvyXaJ
+X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
+ pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
+X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
+ auth_id=686
+X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Reply-To: V.Yurkov.EXT@bruker.com
 
-From: Vincent Cloutier <vincent@cloutier.co>
+A gpio-locked clock represents an input clock, which state is determined
+by a GPIO signal. It's similar to a gated-fixed-clock, but GPIO direction
+is inverted. Consumers can use the output clock to wait until all input
+clocks are locked and only then initialize / access dependent peripherals.
 
-Purism's production Librem 5 kernels used a 3.9 V absolute VINDPM
-threshold for years, from the 2019 board support through the releases
-preceding the March 2026 charging update. Use this established board
-setting for the BQ25895 input voltage limit.
+The usage example for such a driver is when peripherals depend on PLLs in
+a FPGA, which can't be directly accessed by the CPU, but need a GPIO pin
+to check whether clock is actually usable. E.g. some of the IPs might not
+have a proper split between registers and IP core, which means that if an
+external clock and/or PLL lock is missing and one tries to access the 
+registers, the response never comes, thus the CPU stalls.
 
-Set input-voltage-limit-microvolt to 3900000 to select absolute VINDPM
-and program the 3.9 V threshold through the generic binding.
-
-Tested on Librem 5r4: REG0D remained 0x8d across an attached boot, unplug,
-and flipped replug.
-
-Assisted-by: OpenCode:gpt-5.6-sol
-Assisted-by: OpenCode:gpt-6-astra
-Signed-off-by: Vincent Cloutier <vincent@cloutier.co>
+Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
+Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 ---
- arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v8:
+- Fix return value of clk_gpio_locked_prepare()
+- Link to v7: https://lore.kernel.org/r/20260927-feature-clock-guard-v7-0-8dd19568d9a2@bruker.com
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-index 099195279e84..8badebfcdbb4 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-@@ -1195,6 +1195,7 @@ bq25895: charger@6a {
- 		pinctrl-0 = <&pinctrl_charger_in>;
- 		interrupt-parent = <&gpio3>;
- 		interrupts = <3 IRQ_TYPE_EDGE_FALLING>;
-+		input-voltage-limit-microvolt = <3900000>;
- 		ti,battery-regulation-voltage = <4208000>; /* uV */
- 		ti,termination-current = <128000>;  /* uA */
- 		ti,precharge-current = <128000>; /* uA */
+Changes in v7:
+- Fix compatibility strings and schema errors.
+- Update GPIO pin name
+- Link to v6: https://lore.kernel.org/r/20260927-feature-clock-guard-v6-0-007983b13ec2@bruker.com
+
+Changes in v6:
+- Debug messages dropped.
+- The new driver is now an extension of exising clk-gpio drivers.
+- The controller doesn't enable the parent clock, the consumer is
+  supposed to do that instead.
+- Link to v5: https://lore.kernel.org/r/20260915-feature-clock-guard-v5-0-42ab5dc3a6aa@bruker.com
+
+Changes in v5:
+- Use existing DT binding with an additional property instead of adding
+  a new one
+- The driver is simplified in a way that it represents the actual HW
+  desgin without additional unrelated constructs
+- Aggregation is removed, now it's one clock input, one clock output
+- Link to v4: https://lore.kernel.org/r/20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com
+
+Changes in v4:
+- Removed driver specifics from DT binding
+- Link to v3: https://lore.kernel.org/r/20260603-feature-clock-guard-v3-0-01cca0aa04a5@bruker.com
+
+Changes in v3:
+- Removed unnecessary dt bindings
+- Improved HW description and commit messages
+- Link to v2: https://lore.kernel.org/r/20260510-feature-clock-guard-v2-0-6c25458d5340@bruker.com
+
+Changes in v2:
+- Renamed to clk-gpio-locked to express intent.
+- Provide enable() / is_enabled() operations so the clock behaves as
+  expected
+- Fixed DTS errors / warnings
+- Link to v1: https://lore.kernel.org/r/20260318-feature-clock-guard-v1-0-6137cb4084b7@bruker.com
+
+---
+Vyacheslav Yurkov (2):
+      dt-bindings: clock: gpio-gate-clock: Add a new compatible string
+      clk: Add gpio-locked clock driver
+
+ .../devicetree/bindings/clock/gpio-gate-clock.yaml | 32 +++++++++++++-
+ drivers/clk/clk-gpio.c                             | 50 ++++++++++++++++++++--
+ 2 files changed, 77 insertions(+), 5 deletions(-)
+---
+base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
+change-id: 20260318-feature-clock-guard-f20a2c35b965
+
+Best regards,
 -- 
-2.55.0
+Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+
 
