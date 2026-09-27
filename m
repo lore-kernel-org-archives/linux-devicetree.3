@@ -1,77 +1,78 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362C530E0FE;
-	Sun, 27 Sep 2026 18:45:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12379421221;
+	Sun, 27 Sep 2026 18:48:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790534729; cv=none; b=Hz14+VdsnT7sfXXpF4fqZe+yM8vBodHxde78bP/roWaxzSafDCqaNjeX6aIiddLmhJMt3sDnsaeayFQP9bLBAnHIQI7TIzkc3It6RLt/eqsPw5a0fnkhYchT+1w2NsqQeOZxuJVwGa91FPvhbEkEs9hILbe9/3NLeNEMEnVA1ZA=
+	t=1790534934; cv=none; b=Ill9ELuFkJ2twoqkQPJEpmfKyP0v9nWyE46qwCCew06Zerb+EOK3pYZpcPhnEdiwq5XJKPGVeqwcrOIn2ylJzrjJQlSnGhX4TpjUWZ++JRpR+rKjjo9kvKH5Sozz2cLOMwQyRbeJuygQ5uZ5H+1zCwVAFkVX8CTfBeAjszUqY7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790534729; c=relaxed/simple;
-	bh=otKpkFo3fxS9EmndeJyODqHThBhg6teG+Gs9AeIaXS4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=af+iePLLzJlUQsShoe3YiyWDA/u+M+kGl2sbOeKQq0pCV9AM1qn6F4RbUOFA/gMhnxDojvuud/ZeVnLY4+2u52uB62EArHuqrTLQL0/AExvTzZ1xQ5jeKlyGH8tBVO6zyF7FwDWQus6MYFGaxrKsm1GeEuvZLmxEqgUn/Kr29JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=rCiSnUJ2; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790534934; c=relaxed/simple;
+	bh=wSJKKlH4f3dFd85YH8R1fHaQ0lnRdwCe30jznCU79xI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DvpoWRjAcu5M1fTwa6P8yRWWBtaF5mj7lf6ZCaQuhNvfaHaN5KT3XA78Igms1eE1o8KFzZ1nQnTBDK2uWtMhqcnNRxN1MpCOmUf6XIk3znfGAyO9pYjeGsRdGG6s0CEBSHrMQh5uf7wSoCDVHXbS4+zRNui7dZoqN2KfIlgPc+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R903sp2D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="rCiSnUJ2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=XOZCUtTkrG5ksbg7GHum6vxlU/QGb8FKtSPAAJz104M=; b=rCiSnUJ2wDqcA0siV9Oe9iiKYI
-	c4LnjWW9IHv9TSgwZHH3Ae9tkM50pS7OsMeJKUQY+vb2yGMBePj8zqdyOddBug+P4Ir7N+US+D0sP
-	D9AkkjIOu4Kg/c7FkJMVT9QMweed7vJhBBNc/RNgZgVO3jJycd5kSvheRasKBeMLBLYU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xAts2-007YMh-Kf; Sun, 27 Sep 2026 20:45:06 +0200
-Date: Sun, 27 Sep 2026 20:45:06 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"Chester A. Unal" <chester.a.unal@arinc9.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Simon Horman <horms@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v23 5/9] net: phy: Add Airoha AN8855 Internal
- Switch Gigabit PHY
-Message-ID: <544bfdda-abdb-4fb6-a4c1-201dd8899703@lunn.ch>
-References: <20260925182435.21207-1-ansuelsmth@gmail.com>
- <20260925182435.21207-6-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R903sp2D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E60B11F000FF;
+	Sun, 27 Sep 2026 18:48:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790534932;
+	bh=VBjGAd9X/zAnWgHj13H/8QzSsE5H8RY6xaFmtpBOQ14=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=R903sp2DwAooZXScU8nDNt2rZ6n5SKZwuomCde+rCXiNdSivYiQQSmUaBegEgKWM7
+	 V/J9929eKN3iZUeLwJK5H5i930pifBHDkv1hcjc8CeQyioyFrMZIPQ91skE5pP1ftD
+	 aJKAHo7rxqwuTMP3mmp2JCPlzvnHy4I5YfjIoT6eCsRVUJOVGShEC6AK1hNTML50aG
+	 RytM6ZdvdvAnM3uP3krBA0MpwMp5TZlBpAF5QCvcs1qNkoF4VJn2615yQIg5I651Yw
+	 kSn8oqipNfeI6Ru1WbzBfmMxq9qXgeFLXW73oboNRL+Q8V/6CbzPKu6H6IhADi92Qt
+	 hiSgrNTwZPArg==
+Date: Sun, 27 Sep 2026 19:48:46 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: "Rob Herring (Arm)" <robh@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Tsai <ktsai@capellamicro.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: iio: Add dedicated CM32181 schema
+Message-ID: <20260927194846.51b62d34@jic23-hlaptop>
+In-Reply-To: <20260924090617.00007d47@gmail.com>
+References: <20260923191616.2217203-1-robh@kernel.org>
+	<20260924090617.00007d47@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925182435.21207-6-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 25, 2026 at 08:24:27PM +0200, Christian Marangi wrote:
-> Add support for Airoha AN8855 Internal Switch Gigabit PHY.
+On Thu, 24 Sep 2026 09:06:17 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+
+> On Wed, 23 Sep 2026 14:16:15 -0500
+> "Rob Herring (Arm)" <robh@kernel.org> wrote:
 > 
-> This is a simple PHY driver to configure and calibrate the PHY for the
-> AN8855 Switch with the use of NVMEM cells.
+> > Add a dedicated Capella CM32181 ambient light sensor schema. The device
+> > has optional vdd-supply and interrupt properties, so it no longer fits
+> > in trivial-devices. Include both optional properties in the binding
+> > example.
+> > 
+> > Assisted-by: LLM
+> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> > ---
+> > v2:
+> >  - use additionalProperties instead of unevaluatedProperties
+> > ---  
 > 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> 
+Applied to the testing branch of iio.git.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Thanks,
 
-    Andrew
+Jonathan
+
