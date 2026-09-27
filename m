@@ -1,130 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6823C13FB;
-	Sun, 27 Sep 2026 14:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FF83E49F4;
+	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790518875; cv=none; b=Tvcu3Iq9Xytv5ZqOeYQCunZux43wKNzeJ1d2mkI9WeIq/FBoAMjDg+bs8I0kgeexYyJQ1Yu7FpmAswCRs3iTpG7r49uDUkSIEPIqzdbfLhLqvrX5nZspwTAvkiXat/jMPH9ydrg2Z7tBlwMxJCa56W4v77FDM4OiF5q/bSufxuY=
+	t=1790519353; cv=none; b=lpXejF8BDhzL67QIph+6ULtXkIMZA21ziLB0yu99FCg27zcPXED7ZzqUnqz7w3lU9wtRZw65XUa/bfAMcj7pFtv7IkkF5YrrVKdlNQZJyiVR/L+VRGCWa/c2RS3ABzihSg0qeLFLAhb1P9n3avUBIMG8XXealwXyylEqMI3pFYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790518875; c=relaxed/simple;
-	bh=0APwN6Q1z5h15ijhzOHkXXzaI/L5DvpEXcrPwPWB5B4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qGwSJey5zxY3fNr2ka5h65SO30pomNkgbp1DN46d/m8JNZNJCIFVDKD6JafArP7I3b1e2S6TtgntCaaHCfRf9D/UwGYUwTSSNqEySXuR1f5D5qlSeWmi5+EP921t/u9W1U7vJtEgSj3NOHY6mwheGMiAUNShnQGbuOkdSJ+ifkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lUsQxC88; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790519353; c=relaxed/simple;
+	bh=loY1pCAhdkrgIbxRkXzPM7ibYgJ5rizQ5x2h+dPCtoc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=J+P6kZGk5VrlDlj1C4vjjigdC75pH3do2nLqC9ych5724NRH9WpN03GEQClR4hWEvi1/0Fqn0CNHmePHXnov02+5cVXiWh2Po6nmswqkofooRXT+FEBiRyfB143OPaEHjN+Y0k/XSEpP+D2ZHAd6zMnIepuhUPlofEErXER55xQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+ESTPNU; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lUsQxC88"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6621F000FF;
-	Sun, 27 Sep 2026 14:21:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790518873;
-	bh=jP5wJQNytj2OPtfn50WtVj9qCV/nXtoTXewCQQDwFok=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lUsQxC88m5bYQEL8TiB87Zf2e+Sre+oF1Ih0S/0akC802CgvNyRcWA3L5SRF1FL44
-	 HQ2SPf5A7Mfq9KGutHH7piYBuVn2bKK9LW8ol5ai5C/TTZkyF6gDKx1u2VJEnw3XgS
-	 e7mY8PxoLtWtQc66yBzCqQwmTfqeY8+/nDxL7ors9D3X6vTUoUczapNXokDA2LSfc/
-	 /Bs7PRtS9RFQ77FzT2DoPsPn8jeaipqA2Hzp720qp0QZCaDbCJy/BUQvPKQlcJP6n6
-	 t/9M5QXeVUI9dlo/f1U+GOCYjIMLJRDt/UFj3GkZO3fHOAm42+URSrR2cMdAzIcgKq
-	 B0Glq4ej5uISg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] watchdog: s3c2410_wdt: Add support for Exynos8855
- SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alim Akhtar" <alim.akhtar@samsung.com>
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260927143100.3576195-2-alim.akhtar@samsung.com>
-References: <20260927143100.3576195-1-alim.akhtar@samsung.com>
- <CGME20260927141258epcas5p12769f53e7911b72fd26dcbec15950b9b@epcas5p1.samsung.com>
- <20260927143100.3576195-2-alim.akhtar@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 14:21:13 +0000
-Message-Id: <20260927142113.9C6621F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+ESTPNU"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A9FFEC2BCB3;
+	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790519352;
+	bh=loY1pCAhdkrgIbxRkXzPM7ibYgJ5rizQ5x2h+dPCtoc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=e+ESTPNUtIG1RPO5PkUKC14pL/VXDPErti1u5o0ZCk+whGnnQ82raRnlsTVhjvY6i
+	 mcRCFZA50h+B+/1sYCualbgq9A3EJI+UDTcr2rfgXMD9swiRC+v9s83HElSah6/N8R
+	 DjTi7YFULXjYNhwjyto5KOVYIagmw6mURbNganer+vYFyZJfdNuFCx0xjiFbR62nXM
+	 vNCBQ4+0uYEuUB4y6jrIcLh4rDl155BiD02Oz+Ucwover/rvWecNevmKDkF+ppICsj
+	 7Dfr+goPhkjpIf+rBI7G7yC5OPGNX6eZTqZitU5C+48Rhatv/UpZSD7O8WQunj0FuG
+	 Ssy4YVvQlnPhA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 93ABFC9830E;
+	Sun, 27 Sep 2026 14:29:12 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Sun, 27 Sep 2026 16:28:15 +0200
+Subject: [PATCH v3 1/3] dt-bindings: pwm: amlogic: Add core clock for S4
+ like
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260927-add-t7-sys-pwm-clk-v3-1-18d66abea4d1@aliel.fr>
+References: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
+In-Reply-To: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2223;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=ocfAHBxwQh4nneVCIVvdqenheD8RusX+bkEk3wRZMOY=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9ZODbVS60nc1qt+uhw9c+XHjH1HP8zOuP7u1qkp7q95/
+ B7EbP20u6OUhUGMi0FWTJGlf67liXeXj575ukc9BWYOKxPIEAYuTgGYSKo2I8OqrvAHN1oY5t9Y
+ 5C++5U9CUZF7w6wn2qdj/qzMnmX88KYhI8P6v1uVs3QOL2vumnNsYflKL7HNlgKzN8sJcoveZ1C
+ 9mMoCAA==
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] watchdog: confusing reuse of CLUSTER0 macro for CLUSTER1
-- [Low] watchdog: space-based alignment for EXYNOS8855_RST_STAT_REG_OFFSET
---
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-commit fec6f94918dfbe88ae7146d760500426231edbc3
-Author: Alim Akhtar <alim.akhtar@samsung.com>
+The T7, A1, C3, and S4 PWM controllers have a system clock in
+addition to the two input clocks of channels A and B.
 
-watchdog: s3c2410_wdt: Add support for Exynos8855 SoC
+The channel clocks are acquired by index in the pwm driver,
+where the core clock is fetched by name, with optional get
+which is silent when not provided.
 
-Watchdog IP on this SoC is similar to Exynos850/ExynosAutov{9/920}.
-This does not have CNT_EN_WDT bit in PMU and offset of RST_STAT is
-different then the previously support SoC.
-Reuse the offset as much as from already supported SoC
+Require clock-names and minimum 3 items for S4, and devices
+which fallback to S4, where the PWM devices do not work
+without all 3 clocks.
 
-> diff --git a/drivers/watchdog/s3c2410_wdt.c b/drivers/watchdog/s3c2410_wd=
-t.c
-> index 7053963fb0ac6..8ce4ca3e2aa81 100644
-> --- a/drivers/watchdog/s3c2410_wdt.c
-> +++ b/drivers/watchdog/s3c2410_wdt.c
-> @@ -58,6 +58,7 @@
->  #define S3C2410_WATCHDOG_DEFAULT_TIME	(15)
-> =20
->  #define EXYNOS5_RST_STAT_REG_OFFSET		0x0404
-> +#define EXYNOS8855_RST_STAT_REG_OFFSET          0x10
-                                          ^^^^^^^^^^
-[Severity: Low]
-Does this new macro intentionally use space-based alignment here?
+Add an example showing T7 usage with its fallback to
+amlogic,meson-s4-pwm.
 
-The surrounding macros seem to use tabs for alignment. Using spaces deviates
-from the standard tab-based formatting.
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ .../devicetree/bindings/pwm/pwm-amlogic.yaml        | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
->  #define EXYNOS5_WDT_DISABLE_REG_OFFSET		0x0408
->  #define EXYNOS5_WDT_MASK_RESET_REG_OFFSET	0x040c
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+index c337d85da40f1..e9cd5f1fdf264 100644
+--- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
++++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+@@ -62,7 +62,7 @@ properties:
+ 
+   clock-names:
+     minItems: 1
+-    maxItems: 2
++    maxItems: 3
+ 
+   power-domains:
+     maxItems: 1
+@@ -143,9 +143,15 @@ allOf:
+           items:
+             - description: input clock of PWM channel A
+             - description: input clock of PWM channel B
+-        clock-names: false
++            - description: gate clock for the PWM controller
++        clock-names:
++          items:
++            - const: channel-a
++            - const: channel-b
++            - const: core
+       required:
+         - clocks
++        - clock-names
+ 
+   - if:
+       properties:
+@@ -179,6 +185,15 @@ examples:
+     pwm@1000 {
+       compatible = "amlogic,meson-s4-pwm";
+       reg = <0x1000 0x10>;
+-      clocks = <&pwm_src_a>, <&pwm_src_b>;
++      clocks = <&pwm_src_a>, <&pwm_src_b>, <&pwm_src_core>;
++      clock-names = "channel-a", "channel-b", "core";
++      #pwm-cells = <3>;
++    };
++  - |
++    pwm@60000 {
++      compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
++      reg = <0x60000 0x24>;
++      clocks = <&channel_a>, <&channel_b>, <&core>;
++      clock-names = "channel-a", "channel-b", "core";
+       #pwm-cells = <3>;
+     };
 
-[ ... ]
+-- 
+2.49.0
 
-> @@ -281,6 +282,26 @@ static const struct s3c2410_wdt_variant drv_data_exy=
-nos850_cl1 =3D {
->  		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_PMU_CNT_EN,
->  };
-> =20
-> +static const struct s3c2410_wdt_variant drv_data_exynos8855_cl0 =3D {
-> +	.mask_reset_reg =3D EXYNOS850_CLUSTER0_NONCPU_INT_EN,
-> +	.mask_bit =3D 2,
-> +	.mask_reset_inv =3D true,
-> +	.rst_stat_reg =3D EXYNOS8855_RST_STAT_REG_OFFSET,
-> +	.rst_stat_bit =3D EXYNOS850_CLUSTER0_WDTRESET_BIT,
-> +	.quirks =3D QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET |
-> +		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
-> +};
-> +
-> +static const struct s3c2410_wdt_variant drv_data_exynos8855_cl1 =3D {
-> +	.mask_reset_reg =3D EXYNOSAUTOV920_CLUSTER1_NONCPU_INT_EN,
-> +	.mask_bit =3D 2,
-> +	.mask_reset_inv =3D true,
-> +	.rst_stat_reg =3D EXYNOS8855_RST_STAT_REG_OFFSET,
-> +	.rst_stat_bit =3D EXYNOSAUTOV9_CLUSTER0_WDTRESET_BIT,
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-[Severity: Low]
-Is it intentional to use a CLUSTER0 macro from an unrelated SoC to define t=
-he
-reset status bit for a cluster 1 configuration?
-
-Even if the underlying hardware bit value is correct and allows reuse, appl=
-ying
-a CLUSTER0 macro here is misleading and looks like a potential copy-paste t=
-ypo.
-Could this result in a functional logic error if the status bit for cluster=
- 1
-is actually supposed to be different?
-
-> +	.quirks =3D QUIRK_HAS_WTCLRINT_REG | QUIRK_HAS_PMU_MASK_RESET |
-> +		  QUIRK_HAS_PMU_RST_STAT | QUIRK_HAS_DBGACK_BIT,
-> +};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927143100.3576=
-195-1-alim.akhtar@samsung.com?part=3D2
