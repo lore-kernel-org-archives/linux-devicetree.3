@@ -1,303 +1,154 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4443BE643
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 20:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1B52F6188
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 20:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790540104; cv=none; b=Hb66KDU5H+vjLD4vX6bwu5hal+N/5eGbMCERoTgR5y6iIczyq7c89fKxgWWTIrW4axuy5wU5nDnTvE/W1V7C89rkgVuKXJ/KNNWJjoFLkoCJoVFYXQ60PZF/GW0tminP0Tyn/QcQcgSiXGgPDV0K+3IOtBcmuuvOxFsACzVDHdg=
+	t=1790540914; cv=none; b=pzZ1o5FE/K8hXmSj723LJ1zZVBwSDvMijRb0Mbk6CiocIWkV37FT/bDatMI0da2YAnwLg2BkN5vxEhV7klayn7Gkz0r+xge0aa+FbaSvV5gefLInvdnaJ9Y/myiRy+bEdaa1b6da5eDE24YhpRiuAiSIdt97L67N7l3f645ORXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790540104; c=relaxed/simple;
-	bh=nf0EyPFH35tSBIK5oZ5/jJ+smy+BLU/nT0Pmxgc+7L8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YaJ5v2GHUXRnUE57rgDBzaorxcI89mRdX6Vj0IB1VLq/mPKEv61A8wh+V4Z8eCmlmJGaHOvazaJYrtlVv5aPz+aEIc/6GFK6Z1nStAI83dGD4s4dG+E+wD+4S0BAr9j/u2EuIv2d8S/JEdRDN1AJSKXXdryey2UPd2NJnAbBzgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PWiirBX3; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1790540914; c=relaxed/simple;
+	bh=FSVVe/cPDU2HiWT6f26OgXG1GyfOSzOG3siiaAo3dOY=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pHU2DT9wlN0KHjKa76zrdRATCeCGQ5/gU0xP3yY0Pj8GHbH9OfO1uuzH5hNiotjvqzh99xwL0l9rJnPKDk69XK49oOnyhErfYw9mPxTc6qM4Y/Iwt96Doyk+vwH8XVHkzlS8KoLhZetVfjUloH90+mA6gdmfPQ4eBT0TiLT2kBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gKZqtEiQ; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PWiirBX3"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so17660325e9.1
-        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 13:15:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gKZqtEiQ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so4299035e9.0
+        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 13:28:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790540099; x=1791144899; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cTauSR6H/8NKinLJSb31gMD112liycecOTxKay+MW1Y=;
-        b=PWiirBX342u1ZovQjBXnxAxNygoidv4AR3BeYr/KQEeCwesTtovhBbL5oAGX06wueM
-         KB0b4qAWv3tXUrSISOzj8KhKRoSyQnVOKhVlJOqbsHyB8FA2boS33y8M9f6EZEuJHrEB
-         nfHvT2TvWi3x3ybCNaTiBPuV4Wu8tSFQ/L8wYdC5j4q/uaE1K0flkgg3xhtE+WqGqMuo
-         fzmUTIJPlmh48Mlq0hSJODtyuDKnKLx5i0WZxOtIHNWPOAKYqoA4Y2jNrtpvr2R6ouGi
-         vzqRS1p6Y4Y/ALhuwZNHfkl6DRY7fpZ89nus3tcOHh7UK8J8uraVmMavhkqHDPmSLc8L
-         jMHA==
+        d=gmail.com; s=20251104; t=1790540911; x=1791145711; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZpDxu+FSADcYkY7OEJ6DHltLDpB0SvAaV3ZviPXPtHQ=;
+        b=gKZqtEiQNt2Gf2yCYfkyFVHF73EFKbd8MQ1TV9Nv4FKk+yIawe94Ud6voNrFcbuXsN
+         4j7AceejpUTCeLf95nSQWnOFxY0x/pNNbL+g75Sv653PtHRkp3ZTBuPX3AvHIBYCSoug
+         tLFpwWKdvQSzy7L7rt8tEBXP4nVHTixSuszgnCaOn/DRNmdYhZsmnYUhqSr266GFik1M
+         ybWZ1lxhVnyPDCfeUneecCkX3EKLekTh8vsBperf+uXuH6gxZqAWIzg+dlsBe8ijTGL2
+         5xl+ssxAU9sQA3q6SGC5E+HkTZd4or+aYT1IfVrR4ZEiGkjWFglhIWMTYl8z7K2gTL8I
+         Y3WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790540099; x=1791144899;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790540911; x=1791145711;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cTauSR6H/8NKinLJSb31gMD112liycecOTxKay+MW1Y=;
-        b=KskSu8CP9qCHzchsCEuBiii9uz0kpza1OpMwwlCYS0lGXIMpd0Ih6qNgABV/zQGssq
-         gJceYrbPw9jYU+XFksHFJAem4ZgBbhtgpzmSCFuFDhA3/8klyG6iNBcKvYvuXvG0SpsS
-         m07vqn/jxvZWX+NIiGWHLRWxv5GJpL1lok3ox+COs8mX7+/1EJdLeuMUR9FzlpcP9wCS
-         giY4Lu0jw7DEy68eOVQ3qk2/tP5uSeYSzJLIICjjpNikiXqijnvzHbE50Hln2+U9lzU0
-         b177lNN2JyAqna+F7ExC7WHUMz3MzxEdsFxBN2u4MWGlH0+yHtrok7pshibEWObx/xxB
-         dpRA==
-X-Forwarded-Encrypted: i=1; AKwUvBxtsc+YiQ0Hpcppnw4PI0kXpOGQ/I7mOMu9bC4bUHvI0otMplU9qiRLYlX0AaSMD233dFOgYzd22X5l@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0G2Mb1UAQhvDLiVPCHY57PbxsWW+daAh5Crecf6xScmmbJOcF
-	14ZK2wIoT99ma1TfTFQqbLIU2C5FJC1vpfa/t1q14ky853cpwvu+kWbQ
-X-Gm-Gg: AYBFou0naWrumpTn6GQ8w7PXK97Z8lTj6ceZjnboLjCTgQoOW82MVBMQh02ZYMmM62P
-	r6ElDoU6tS9CtHkeo4q+RjAWz9YmuPApyFRwQLUk3W2lMwEZMqqUxGLqUTvWvRi67/GET8hqCRO
-	vrxJZAHgkHWkmNmM8ePWQXKtpIkeGuJg908SefMn1O12DMX5+GlESd2b8AhnXbIvaxCpQJFKIsB
-	vl7TMbn13SvfXOAoMqQGGhaDBhWXIgjwOXp5nHdWltLYEKlkBVZ209PeI3SKb3EMjcBgG9mcMc/
-	pDBcKP6bBzdqMtrFznQ6CMshbmqbXdZVp5IFPqI5g74ar9hjcJKZ7tIZZWhPGecfsF9zKZFrFY8
-	YMz3asZkIVXZYQkPSAk8lf9dQALLPKaH67dv41jL4QY2PZtXGH/O/MLUXWBQ7xF4FJA9LX1Mlop
-	k6RAXDIxXWlztbQNst6oQ0eaY5DGK7rocdFHvvqENUr9O2nzyduJPFhbJFWjAxxArKQyNF0KNml
-	BDbh/jC
-X-Received: by 2002:a05:6000:2893:b0:487:10a9:57cb with SMTP id ffacd0b85a97d-488719756c5mr18798018f8f.49.1790540099202;
-        Sun, 27 Sep 2026 13:14:59 -0700 (PDT)
-Received: from [192.168.0.2] ([197.250.96.148])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a570sm21781514f8f.13.2026.09.27.13.14.54
+        bh=ZpDxu+FSADcYkY7OEJ6DHltLDpB0SvAaV3ZviPXPtHQ=;
+        b=crLem3+cLgWiKE0lF9DdXN8o95GVdF+J6GeGHJQ1UbgwPedt/WO30iumMZpAMNgBKN
+         83/esdxs98v/DMUygvRfJT1Dx8BRDgF4K8U4NSOnfoEcL3BOa6/5M3t5wUEPlyODCVal
+         mX3O57R9wDdD9WSbWafxAt276cDwSSxHNQzHoEx5Q0rjjF129q2eGYU0b3NwvpjD+NY6
+         3LklkQdrITy1Ed5WvEhje8Mw1Engu0ATGDwL6vVJx/T7kxT1ij4lYxx3fOvYWJlZ3T4b
+         2kJZ8KSUSORO5oIb9ntie7b6o8taQI3gWAM+ODqsS5zGRFqERA9nn2oteQawKe7ItQJm
+         f2lg==
+X-Forwarded-Encrypted: i=1; AKwUvBzdU5JhOCvP1ENKVceiVONt4ehmc21Bey54BxCsDnpiCojBQDqLaP5bbL4bnk7Kg4Ig3no5qZM69jkG@vger.kernel.org
+X-Gm-Message-State: AFuF++nGk3JZea0n6oVL9R/Uc49QhMIbQGIznNlRwB5dC4VyZQD3cB6f
+	iY6oP67MxrlyehNy3cCIyBa9DLQmVcO6nDJfM9QVywmMAONIom9FKSDu
+X-Gm-Gg: AYBFou2Q+DivrT2l9bbZXwRSCZQ2PY77+tg38vmz2F5PeFNIXgEnHFWnGQeWHUKT/od
+	UWUUt5ow0zk1LwH9ynU24DR75NuDZT43t1H6oYTXO87Nsb1npZizceUbWJh7PTABSp731BQT0xC
+	x6ww8q9oJZamWHaQQQwSF8vR0086MSj2DMw/Jh5n7Oe3iK6YiCtSBOuFYn0N5sP+7RSv1ixSt9U
+	yf/iJHK0qAhSXJk4Cm/er6hXyztmwSpkbmEO1mDHVQu0oXI/qvhbgd9nUFcbFWx9c8WcJTNTYNM
+	4mdNULn5GO/p2IvPBmd/wNL6smfcTcqryTFF/33V6tFpoTJ38iWUMuPvTzUBA4mnkDVElsDNZ6f
+	Hbn5kOBR+mEhLptY0dW4DYQ/aX6nMbV3DzL1HMuEotJr17go6rxk8yPvnPZQV20rh0YRcMS/1YM
+	8crryHUifHkzNPODxZMocs26xEfavXc4Kl3gPL1drt8II5boBqJ/5jafaoWuFoS4QYQHHEMx1vD
+	1VJt8HZ7sLVVhT5SsQX1MEr6fUqt/4xT8e41w1ner044io=
+X-Received: by 2002:a05:600c:1f83:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49fe66c8087mr198495325e9.3.1790540911202;
+        Sun, 27 Sep 2026 13:28:31 -0700 (PDT)
+Received: from Ansuel-XPS. (host-82-57-191-234.retail.telecomitalia.it. [82.57.191.234])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00571744csm17037495e9.13.2026.09.27.13.28.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 13:14:58 -0700 (PDT)
-From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Date: Sun, 27 Sep 2026 23:13:41 +0300
-Subject: [PATCH v13 13/13] ARM: dts: zte: Declare zx297520v3 CRM device
- nodes
+        Sun, 27 Sep 2026 13:28:30 -0700 (PDT)
+Message-ID: <6ab97c6e.f5ac67e6.37e70.11e5@mx.google.com>
+X-Google-Original-Message-ID: <arl8aT34M7MBL89n@Ansuel-XPS.>
+Date: Sun, 27 Sep 2026 22:28:25 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Simon Horman <horms@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v23 8/9] net: dsa: mt7530: generalize and move
+ common function to lib module
+References: <20260925182435.21207-1-ansuelsmth@gmail.com>
+ <20260925182435.21207-9-ansuelsmth@gmail.com>
+ <cd200dee-1bde-4cc2-a296-c93d704cb906@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260927-zx29clk-v13-13-70d8f673386c@gmail.com>
-References: <20260927-zx29clk-v13-0-70d8f673386c@gmail.com>
-In-Reply-To: <20260927-zx29clk-v13-0-70d8f673386c@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-phy@lists.infradead.org, mfd@lists.linux.dev, 
- =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5992;
- i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=nf0EyPFH35tSBIK5oZ5/jJ+smy+BLU/nT0Pmxgc+7L8=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBquXj1qMOhF4nhM5GAH4C4zIE2KCnpV3p7yPYxy
- HsWLuBVq++JAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCarl49RsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiJNaRAAi92rO1TFDPk6AfkbezqImo7QQMmSE6G
- xzjgXmYfqzaDzA2JJ2MEt5ITYiH4sslWTHYOvxV8iBS0oaH8J4O5H6+xcPniz3W+snQvwwuz+Yt
- lJqDvK1FyY3Hw/TjoVzVYp+dI1DBj7J9iWFfcy62abwG2+FdE4877GYT88X4gM8LqUZ6goT9y4c
- SFMG3ERQS+PZeBNqDTU3xVZlm46MD6LGvThLvfsEOu6Lr/NKGn5Q4lufzGqnegL5evrbyBrVQWy
- Ggro6IegTW6hARhscDuM5zFxFCeX44v7fJwUFLf/MWk2Q7DVUbkhxtpyyqWWYnCuswA0jilu3XW
- Gh5vHFd1V9VnC7/l9vWCi56t7nnoQpKSfnYoR2q3EeJ1pn4+kO20uIWoy/q044FLzTrLsuM/Jc2
- +oLuGv/kJ0UWvzASZhsQkA9UFeDQ5JIRbKOj2/fFHtMjGAiHztjkrdV/n/UpThoNPHsEG38+Pg/
- SkknToYjaa9dUutBVehuE35RlMFKpxXyUHlvaCqLszJ+p3hC4kj3827Hs13LMFJa+QfqkLLcrjG
- 0NcahDzzscsP7c/wSY9/uiLJtg8PsXGjzck854E9fxdxsZvKWAVQQ4GWnQYzi5kVWqlj2ZX4w1c
- l/+S4y5w44rxz8Nd4u4tem251TqfpZuBDEvKzJOadl8pAcn1W8jk=
-X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
- fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cd200dee-1bde-4cc2-a296-c93d704cb906@lunn.ch>
 
-This patch adds DT nodes for the main clock and reset controllers on the
-zx297520v3 board. It replaces the temporary placeholder UART clocks with
-the proper clocks exported by topcrm and lspcrm.
+On Sun, Sep 27, 2026 at 09:02:09PM +0200, Andrew Lunn wrote:
+> On Fri, Sep 25, 2026 at 08:24:30PM +0200, Christian Marangi wrote:
+> > In preparation of support of DSA Switch from Airoha, create a mt7530
+> > library module and move there all the common function.
+> > 
+> > Function are generalized to use the reg_field regmap API but still apply
+> > the same exact logic. Every function is renamed to mt7530_lib prefix to
+> > better identify it.
+> > 
+> > Minimum modification are needed to the register header and common enum and
+> > macro are moved to the mt7530 library header to permit reuse.
+> > 
+> > A library struct is introduced with everything required for the common
+> > functions.
+> > 
+> > The generalization and the introduction of reg_field regmap API have the
+> > side effect of permitting to clean the mirror functions that required
+> > special handling for MT7530 and MT7531 based switch that had different
+> > registers. This is done by declaring a common MT7530 reg_field and a
+> > specific one in the Switch match table.
+> > 
+> > No behaviour change is expected by this change as it's just a code move and
+> > reimplementation.
+> > 
+> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > ---
+> >  drivers/net/dsa/Kconfig       |    4 +
+> >  drivers/net/dsa/Makefile      |    1 +
+> >  drivers/net/dsa/mt7530-lib.c  | 1128 +++++++++++++++++++++++++++
+> >  drivers/net/dsa/mt7530-lib.h  |  391 ++++++++++
+> >  drivers/net/dsa/mt7530-mdio.c |    4 +
+> >  drivers/net/dsa/mt7530-mmio.c |    4 +
+> >  drivers/net/dsa/mt7530.c      | 1368 ++++++++-------------------------
+> >  drivers/net/dsa/mt7530.h      |  256 ++----
+> 
+> The number of mt* file keep going up. Is it time to move it into a
+> subdirectory?
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
----
+The problem as always is that mediatek directory will also contain airoha
+stuff...
 
-Version 11: Improved the above the line commit description, removing
-references to "previous patches" that won't make sense when reading it
-in the kernel commit log.
+> 
+> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+>
 
-Version 10: Fix issues with dt-check-style --mode=strict in newly added
-code, but left issues in existing nodes alone.
+I would like to fix some trivial things pointed out by sashiko. Can I apply
+those and keep the review tag? For this patch for example it's just the
+typo for the multicast MIB.
 
-Version 9:
-Sort new nodes by mmio address
-rename syscon-reboot to "reboot"
-adjust to changes in bindings
-
-Version 7:
-Add phy nodes to topcrm
-Remove syscon from matrixclk again
-Adapt remove now-removed extra clk inputs from matrix
-Add reset to LSP
-osc26m -> clock-26m for the fixed rate clocks, likewise for 32k
-
-Version 6:
-Add syscon to matrixclk
-
-Version 5:
-Re-name from *clk to *crm
-Add the syscon-reboot node here because the binding requires it
-Re-add accidentally dropped uart2 IRQ
----
- arch/arm/boot/dts/zte/zx297520v3.dtsi | 101 ++++++++++++++++++++++++++++++----
- 1 file changed, 89 insertions(+), 12 deletions(-)
-
-diff --git a/arch/arm/boot/dts/zte/zx297520v3.dtsi b/arch/arm/boot/dts/zte/zx297520v3.dtsi
-index a16c30a164bb..ebac3cd137df 100644
---- a/arch/arm/boot/dts/zte/zx297520v3.dtsi
-+++ b/arch/arm/boot/dts/zte/zx297520v3.dtsi
-@@ -3,12 +3,26 @@
-  * Copyright (c) 2026 Stefan Dösinger <stefandoesinger@gmail.com>
-  */
- 
-+#include <dt-bindings/clock/zte,zx297520v3-clk.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/reset/zte,zx297520v3-reset.h>
- 
- / {
- 	#address-cells = <1>;
- 	#size-cells = <1>;
- 
-+	osc26m: clock-26m {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <26000000>;
-+	};
-+
-+	osc32k: clock-32k {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
-+
- 	cpus {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
-@@ -20,15 +34,6 @@ cpu@0 {
- 		};
- 	};
- 
--	/* Base bus clock and default for the UART. It will be replaced once a clock driver has
--	 * been added.
--	 */
--	uartclk: uartclk-26000000 {
--		#clock-cells = <0>;
--		compatible = "fixed-clock";
--		clock-frequency = <26000000>;
--	};
--
- 	timer {
- 		compatible = "arm,armv7-timer";
- 		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
-@@ -75,18 +80,87 @@ uart0: serial@131000 {
- 			arm,primecell-periphid = <0x0018c011>;
- 			reg = <0x00131000 0x1000>;
- 			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&uartclk>, <&uartclk>;
-+			clocks = <&topcrm ZX297520V3_UART0_WCLK>,
-+				 <&topcrm ZX297520V3_UART0_PCLK>;
- 			clock-names = "uartclk", "apb_pclk";
-+			resets = <&topcrm ZX297520V3_UART0_RESET>;
-+
- 			status = "disabled";
- 		};
- 
-+		topcrm: clock-controller@13b000 {
-+			compatible = "zte,zx297520v3-topcrm", "syscon";
-+			reg = <0x0013b000 0x400>;
-+			#clock-cells = <1>;
-+			clocks = <&osc26m>, <&osc32k>;
-+			clock-names = "osc26m", "osc32k";
-+			interrupts = <GIC_SPI 42 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 43 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 45 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 46 IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "usb-up", "usb-down",
-+					  "hsic-up", "hsic-down";
-+			#phy-cells = <1>;
-+			#reset-cells = <1>;
-+
-+			reboot {
-+				compatible = "syscon-reboot";
-+				mask = <0x1>;
-+				offset = <0x0>;
-+				value = <0x1>;
-+			};
-+		};
-+
-+		matrixcrm: clock-controller@1306000 {
-+			compatible = "zte,zx297520v3-matrixcrm";
-+			reg = <0x01306000 0x400>;
-+			#clock-cells = <1>;
-+			clocks = <&osc26m>, <&osc32k>,
-+				 <&topcrm ZX297520V3_AHB_PCLK>,
-+				 <&topcrm ZX297520V3_MPLL>,
-+				 <&topcrm ZX297520V3_MPLL_D5>,
-+				 <&topcrm ZX297520V3_DPLL>,
-+				 <&topcrm ZX297520V3_GPLL>,
-+				 <&topcrm ZX297520V3_GPLL_D2>,
-+				 <&topcrm ZX297520V3_GATED_OSC26M>;
-+			clock-names = "osc26m", "osc32k", "ahb", "mpll",
-+				      "mpll-d5", "dpll", "gpll", "gpll-d2",
-+				      "wclk-osc26m";
-+			#hwlock-cells = <1>;
-+			#reset-cells = <1>;
-+		};
-+
-+		lspcrm: clock-controller@1400000 {
-+			compatible = "zte,zx297520v3-lspcrm";
-+			reg = <0x01400000 0x100>;
-+			#clock-cells = <1>;
-+			clocks = <&matrixcrm ZX297520V3_LSP_MPLL_D5_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D4_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D6_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D8_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_MPLL_D12_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_OSC26M_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_OSC32K_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_PCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_TDM_WCLK>,
-+				 <&matrixcrm ZX297520V3_LSP_DPLL_D4_WCLK>;
-+			clock-names = "mpll-d5", "mpll-d4", "mpll-d6",
-+				      "mpll-d8", "mpll-d12", "osc26m", "osc32k",
-+				      "pclk", "tdm-wclk", "dpll-d4";
-+			#reset-cells = <1>;
-+			resets = <&matrixcrm ZX297520V3_LSP_RESET>;
-+		};
-+
- 		uart1: serial@1408000 {
- 			compatible = "arm,pl011", "arm,primecell";
- 			arm,primecell-periphid = <0x0018c011>;
- 			reg = <0x01408000 0x1000>;
- 			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&uartclk>, <&uartclk>;
-+			clocks = <&lspcrm ZX297520V3_UART1_WCLK>,
-+				 <&lspcrm ZX297520V3_UART1_PCLK>;
- 			clock-names = "uartclk", "apb_pclk";
-+			resets = <&lspcrm ZX297520V3_UART1_RESET>;
-+
- 			status = "disabled";
- 		};
- 
-@@ -95,8 +169,11 @@ uart2: serial@140d000 {
- 			arm,primecell-periphid = <0x0018c011>;
- 			reg = <0x0140d000 0x1000>;
- 			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
--			clocks = <&uartclk>, <&uartclk>;
-+			clocks = <&lspcrm ZX297520V3_UART2_WCLK>,
-+				 <&lspcrm ZX297520V3_UART2_PCLK>;
- 			clock-names = "uartclk", "apb_pclk";
-+			resets = <&lspcrm ZX297520V3_UART2_RESET>;
-+
- 			status = "disabled";
- 		};
- 	};
+For the other patch is also very trivial stuff. 
 
 -- 
-2.55.0
-
+	Ansuel
