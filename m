@@ -1,132 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4492D0620;
-	Sun, 27 Sep 2026 15:29:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E285347BC4
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 15:32:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790522957; cv=none; b=JOJrnY/10hunHBJniiIsi3i1Ocm2wuHrfxzYuDwJtOoQPxmrL2ep2SiCZ3YxQLAoElJEVAR3XQktLzALrUgSmzVv9ABhr6hBRmdb7mBQuSDQJ3gWZLSIVapEgtrcmBM66VRNiqyjtLCN4EktWc/Wbt4ZhIz1ISo73oD+/BnqKN4=
+	t=1790523166; cv=none; b=EdvOeDH2bUWHAy2b6qNC4udfgYPKAEXG2OfOOrmvUltBjQAVnhgKnJ4OVRL/GNCBvZCxkDLgeZ2zSNh6cH12XQaTcdzKZ+TLSEjo1pV3zON5XbxdAgpg8pGH0tvfuKpP3vTGZ4cnOkvivL4a+7FRuJzosSU35IsdzxrXOKvsfCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790522957; c=relaxed/simple;
-	bh=VLiPdDsLVT16n6ghmv5NUCt+5x30URL+9lzOl9R2Br4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QlCv8nE822T45aLFssdAWf1OCkNQg0c9kEkyVmPAQ+EsbJXpY4SuPtU8w5IpOFv9wpVafaYpUgyPifEfp9JbpdGLu3ABV/8hFzI53ZYvCU37Vg0OnJYtgF9KqjHKi739YCK/OLY4ExPueJI5YK8+JKwtoC6/qvV/ORXxKoZlEek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VUFiAp1S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790523166; c=relaxed/simple;
+	bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dWop7DAdlbYuZDFtu//SGUv+9ItwNl2DJq8LA35MgzQibevUlu1E+U24CPIUE9Mqr78KJNQHRbgr4hES4c9nFWv/qibbIWAFTC9d144eaCafgEfzsONCmysCEbjyHEyVuzP/8L/JCIMZwqSrJBhY+1yMsh/PY05j47W2xMuUAS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=Bko8XzRm; arc=none smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VUFiAp1S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320081F000FF;
-	Sun, 27 Sep 2026 15:29:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790522956;
-	bh=HJs8/Vh9L+mBCZ+S+KWLE/lR3SXeSdCjHyvRUCphIKc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VUFiAp1SDCt6vEhEu0NPAO+Wta+3YDhl7bvr1n9lHKHaZNXJYfcF7wxfI44jVMpsk
-	 g8L6+PhiEAkjBt74cFrRqECAk5jbFRBDm/iYl+57pIxgW39hTslrp1spLVmdR3dkYE
-	 8+o0eGx+lQkCTK0VzlEpwzur2oMl4d2I3c4Zuyp87rwfp53chQcjX5NWy3NUbQUZjS
-	 +IZWamx4BA608yQfxYC+ggY3fcIPG+a8S7zAUgbulY2PI2yCCurxq2vCPsi6TFHREw
-	 81wQjt1m+rzyFSRyTTlC8IcrldVrhwvWtRwjHeLxvoF3r3GnV8/PH2tJxF562LiW1k
-	 zsERfmL3X6Mbg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/11] ARM: sunxi: add B288 and the PocketBook Verse
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pablo Mazzini" <pmazzini@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260927151016.186493-12-pmazzini@gmail.com>
-References: <20260927151016.186493-1-pmazzini@gmail.com>
- <20260927151016.186493-12-pmazzini@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 15:29:15 +0000
-Message-Id: <20260927152916.320081F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="Bko8XzRm"
+Received: by mail-qk2-f41.google.com with SMTP id d75a77b69052e-533245fd18dso9172011cf.0
+        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 08:32:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1790523162; x=1791127962; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
+        b=Bko8XzRmxrxhB1yOjvyzWxL6fsflbVvF3cb+Jb0W1u854XoEEpOv1UgUywBedNTSG2
+         f+9AuKYYMyxONsYCe8nY5+U3FhhMpvrwJL5tUtRRXQFpVfI7sgXMLKuqftBxvV+e5NWP
+         tTQDTedpcQDJeJdgK+m6C38pvKZybvdzSrAKG/fn3r02D3ijRLNBDPH+rwhUrsQKR+jf
+         irZaO7g9CxOF2fynph5lJO7/0MR3r5822IqdiHkpId98lewlIZF5N0u4A7bGSX7Hbm2/
+         3+YJhCX01z1RxIPf8UDhMQ8Bo9J1+U0t/ZM0QAOvfNt0ZctALzDCZ52mLtvELG3J6Ek8
+         l0EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790523162; x=1791127962;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AUELxXX/4KdMVFHfZVh7d6Npt4NuE8mNYbP31G6l8cE=;
+        b=y08RlTNo/8+k6MNYzQeV5IpcS6WU0TD3UsRlhS75ueoDdAs/R5H4774dAfsLFY32hZ
+         Ymv8aHp8zUId1mSUymcvqqjBj7+ii6PhTCPqLgrrC4Y5ZGJHDdS6eG6c5q15FaTR1mcx
+         867ebLVE+hQ0EvszV9mD33rlrSoUbyUIL6E48AxKa6n74nLUMNxOQ1AKcjlHCHmXFo6n
+         1+pN57Mfxp4H7Rvnd3qZmmuWrgyv3a6DfvAGHGnAI5Ypaz0HcuzUAo3TmSNCqItqsb6N
+         /fpmUcYB4/+vP2oPa/wO42ox5w/QcOoWd1xAqMTWooLmyNovdSFEMFzgmvGalXO0wDBe
+         lYlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1z1O4eAVgwLxyvBJLSanhX9RdkgzIchKzrZz3uqcjXMLI7Ki1JdDk5+AYCi4nARBbfUUPznvgJS/3@vger.kernel.org
+X-Gm-Message-State: AFuF++nifzsi1JncGUeZs01XWZ98GkVMRxtRfkW0mXXKO8O5t3Zy9Zi1
+	fak+mUwWwaem3bTKPR77oi5Ik9zk4/jn2WjpQIbTDH+wqsDW1Sg2NEukygeRW+38qVc=
+X-Gm-Gg: AYBFou3JqI4oGTjXlJQKVYX4N9LjdKftAuwZcSoyjoq+lDtvkpFmfmfvHKxRdJLmUz+
+	0TMELzd9vkXNDEHgU945lWpu/tS0bBgQbQhW/UxGlR8Vs9tdHYIusHZ06N2ZAiH9zn/ixAi6Y3V
+	SA97tFmCl+rXI1h60YwV4B5kc22wlt+fIPoI52qBcxbih1urDsLYP70+UAe/2LE/9PWYPs2q6xE
+	nsGYlXXu8hpIIcHpErlOUjgyidMGSVVWgtfUY85IcBFDt44IqBcWTK427qNWUKF+8d6W4XUHH6r
+	YnoSklVVsfCTa80uf+OESNuKCpQTceN5kUTWGTHi/xjeO0C3V07A/EYyPTSnBHvCd/OXSwJGBGe
+	birN0yA6e6dUi3+WGYMu2I9p49ytLCyTzmhTAB0Yle4k6QKPFG0AYbJDhZpEW49b+S8m82IfJUl
+	glu+xxbimg2y6AQRIYCfO+vdCw7O+U7mSsJiQ0qdnAoXQoDF8=
+X-Received: by 2002:a05:622a:4d9a:b0:533:33c6:e636 with SMTP id d75a77b69052e-53333c6feb6mr56127141cf.6.1790523162378;
+        Sun, 27 Sep 2026 08:32:42 -0700 (PDT)
+Received: from armok ([2605:a601:a61d:7a00::2])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53322020e91sm43319281cf.1.2026.09.27.08.32.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 08:32:42 -0700 (PDT)
+From: Liviu Nicoara <lnicoara@thinkoid.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Todor Tomov <todor.too@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Felipe Balbi <balbi@ti.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	johannes.goede@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Oleg Keri <okerixx@gmail.com>
+Subject: Re: [PATCH v20 5/6] media: qcom: camss: Add support for PHY API devices
+Date: Sun, 27 Sep 2026 11:32:36 -0400
+Message-ID: <20260927153236.2727-1-lnicoara@thinkoid.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
+References: <105d1f73-5334-4ae1-8267-1927f8691a06@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] arm: missing SMP enable-method prevents secondary CPU boot
-- [Low] serial: missing pinctrl assignment for uart0
---
+On Sun, 27 Sep 2026 10:40:33 +0200, Hans de Goede wrote:
+> It would be great if you can post your DT bits for this upstream soon,
+> then we can add them to:
+>
+> https://github.com/linux-msm/laptops-kernel/commits/qcom-laptops/
+>
+> and more people can test.
 
-commit 5bd2057523d9c0e8b398682ab9b915f189883892
-Author: Pablo Mazzini <pmazzini@gmail.com>
+They are posted; v3 is the current version, with Bryan's Reviewed-by:
 
-ARM: sunxi: add B288 and the PocketBook Verse board
+https://lore.kernel.org/all/20260926122533.8200-1-lnicoara@thinkoid.org/
 
-This commit introduces device tree support for the Allwinner B288 SoC and
-the PocketBook Verse board. It configures the CPU, timers, and basic
-peripherals like MMC, I2C, and UART.
+It also links the sensor to the privacy LED. It applies to
+qcom-laptops as of 3e45da63f61e, which already carries its
+dependencies (the x1e camera DT v7 and v20 5/6 and 6/6).
 
-> diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts =
-b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
-> new file mode 100644
-> index 0000000000000..91c89d5a097e6
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
-
-[ ... ]
-
-> +&uart0 {
-> +	status =3D "okay";
-> +};
-
-[Severity: Low]
-Is the pin control configuration missing here? The uart0 node is enabled, b=
-ut
-it lacks the pinctrl-names and pinctrl-0 properties.=20
-
-There is a uart0_pb_pins group defined in sun8i-b288.dtsi, but it appears t=
-o be
-unreferenced. Without explicit pinctrl properties, the kernel might rely on=
- the
-bootloader's initial pin state, which could lead to a broken serial console
-after suspend/resume cycles.
-
-[ ... ]
-
-> diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi b/arch/arm/boot/=
-dts/allwinner/sun8i-b288.dtsi
-> new file mode 100644
-> index 0000000000000..f5feec87defcc
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
-
-[ ... ]
-
-> +	cpus {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		cpu0: cpu@0 {
-> +			compatible =3D "arm,cortex-a7";
-> +			device_type =3D "cpu";
-> +			reg =3D <0>;
-> +			clocks =3D <&ccu CLK_CPUX>;
-> +			clock-names =3D "cpu";
-> +		};
-> +
-> +		cpu1: cpu@1 {
-> +			compatible =3D "arm,cortex-a7";
-> +			device_type =3D "cpu";
-> +			reg =3D <1>;
-> +			clocks =3D <&ccu CLK_CPUX>;
-> +			clock-names =3D "cpu";
-> +		};
-> +	};
-
-[Severity: Medium]
-Does the cpus block or the cpu1 node need an enable-method property to
-properly bring up the secondary core?=20
-
-Because this board uses Allwinner's boot0 rather than PSCI, the kernel's
-smp_init() sequence may not have the necessary operations to wake this
-secondary core if a custom enable-method isn't defined, which would result =
-in
-the loss of SMP functionality.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927151016.1864=
-93-1-pmazzini@gmail.com?part=3D11
+Thanks,
+Liviu
