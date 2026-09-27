@@ -1,85 +1,82 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FEFF390209
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 15:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F9E38E5C5
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 15:11:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790521898; cv=none; b=JVeFkhbjaF0bGSGO2eOdnq4RRSIYqpUDmoAABrLS7puVRN1XeHfQLYSVjOxVIPtS9DNBNlWNM2PkitK2FUnQGvvSaoxZOyb0h5Fy2LAC47i5il9k7fE7rGl8AyS1gfCB76jb4C8EdyaBUQtEICjnleFCSgQnXVaN3LUYIUgd3OQ=
+	t=1790521921; cv=none; b=qwkvjXUF543Ajj/k/xaGkg5eyGb5GW5eOspb+VFKSFSLmeNSapYmGPzO1w8rqiiBl1qMUU5aNHTk1UPEpnbAdNUtJzoajOPAsWhtAWye22j4K6YXJoNUg5iornzh3c6lEOsU/vaKbPYK91dTyzUucb7X/MJE7UCI9lzc32QD1A4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790521898; c=relaxed/simple;
-	bh=MrFw8HsYf1WGSbJh/2gG3na1ccwgspJiiKfTITG0GkY=;
+	s=arc-20240116; t=1790521921; c=relaxed/simple;
+	bh=Ai/Pt6iwST/hPrf66UHaVA/fpcI2B9b/ey70FIEcV90=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BHdVLlcs6S55y5kSCY4iC0JhMqM5fvE4uv2ZkzhLCpKFP3yftqBXFKdfgB3g2xtSzKA3tqdgdOEGPvYmdb+zBE1ixiNTE3Se3dNJTigm+nmPeTXMMyAWsRkab+V7b8MmzbzOmOstEMghn5B4Fwaj6pshNi0L+B+P1AeIYcHuMsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M6SIPGch; arc=none smtp.client-ip=209.85.128.47
+	 MIME-Version; b=J2IFhobj6UU5o0LV+DnU7W+VAq7NNF8Tal3OrgwqQ2mWDuG+W1wux2YoWBpXU1LIDXIRJcfol4o5E+s6TvskuNnhUHlg6oQUPs1L0BhIvFZeUsJ9ji2H/jv1hSQv8zS16JEbwcZC8knlmn14MMgPINvW7yneNIze8vdmC5aCafw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LBXDhaxA; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M6SIPGch"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49e73611928so21071055e9.1
-        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 08:11:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LBXDhaxA"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ee4cfso1023795f8f.2
+        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 08:11:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790521892; x=1791126692; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790521918; x=1791126718; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6HXbMRgIpW1xfL0vVAELOv8qR2MQ01942FUYAID9kA8=;
-        b=M6SIPGchQxqsujZGi8+d1EtFG6B/ZEyNpHLDeC6dcck9fl0E5sBGVC3rVYnjpQ2rkl
-         LtDhbZrUEiAn8AUUQoiHxNcHmytx+jMTTGyOxjMW/NF3hJoUftKAl9kzEZ2s078XDiCk
-         UafmFhpFs6nsy8RT2OoxqwImCTfFPJkxMCXv2tUDoBrvZTsZ1h3ghmE7v5iX42uNs/zc
-         eAttQcKIH58ryNiitUT3qiRA/Zts9YrSqEmBDIQmpYhY279kz5mHtT5brKbL0lzg32hN
-         2INZYJWL0k6AirZ2w/N4VWkYx8yqSMcaE05K15C/XEkKvi/N9WAk0xNWpoXFsrsg/loB
-         fLRw==
+        bh=lKsiUf1zswQ5v01inYZcqNF5S6iWN3Iz43ERd6nymQA=;
+        b=LBXDhaxA/zY4Lt4EOvastsQwONNivTIQJvXQScEFwlsk8HtyM+MLZL1y3rl0UqbsNx
+         y9Xnq36gPGzTqD/W2249ztRGNGXWEFQZJLDbLfJmwQ6Ky2SWr10c2bvbDNV39v09OVZa
+         m7Wv1ybejZQQwOGDtK6Qu9Srcd/l1+5cjFXRc4jRMkpZNhQg+1MEdvJzbDeC7fdx3YOQ
+         VcIh8eOtUunvAjuY+WxwY5vz6Gw5gr4G5DF9upQD2dqt9HbKgQI6LRo1GtJv1Lj3/xJI
+         kNn5SkBROaBBsM4pzmXGhjFbExpIn4b8DjOAqaoyR7oU0E7KFK2BlheuLYf+nBxQr2YL
+         +evQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790521892; x=1791126692;
+        d=1e100.net; s=20260707; t=1790521918; x=1791126718;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6HXbMRgIpW1xfL0vVAELOv8qR2MQ01942FUYAID9kA8=;
-        b=q5DG00MY50e3mw5U2IkqWQL90TEt59SDl5mLj8tUrCavm+Wk2lL92I7901aL8+Ju3r
-         nzupokFnGOcq3NyIbcx8wyx9+6aC7EGWSwHxzy4Yh2EQewsP7UmVj52CD0E3BtiXalh+
-         dUZHUtLp705ZjdW8rhoVN+Ed5ByJRiq4EIkfIZ+npj0p79IY+EqL7uiprsv7eBbCSUG0
-         wJ0rEJBbdnMKI8f1VApCLduVLNhzg6X6+K7sfQ0Pld4RyBcAXGYmVkUNhfhHg/0hElxq
-         XOIpvPxGJHVSi200OkzdUZDAKiVF2qMd6LN0YSaqxcIt4DfA7y+SDlv8WcdLf/DIPmLt
-         3J7g==
-X-Forwarded-Encrypted: i=1; AKwUvBzv1Bl91CwFbIRMMjaCHn5vm46oyqSR6lGcc+K9POsyyFMVMDlwDI9TuYCT3EBs6xHpz0K8LRSb5mg8@vger.kernel.org
-X-Gm-Message-State: AFuF++lIXPuwEw2j6M7lTQN9mc5YZULveqIp2q2BeBGvMyNfUwGyQVjk
-	irkoM7yUbGoKE/QOSA/6Uz0Rs8L80a/NdeAUXYCszPcFaWFVc4rgG5gaML2dFOSFvo4=
-X-Gm-Gg: AYBFou3wB5hGUNr+5UFtdtfITNINy05J1/rik5bCotE4j6wzGhj/3xM/OtRht3C7eCb
-	lash/0qQzcCQ4PMZqCCM7BaECxg3IiRjjj4BO3RGPxH+f2jq5v5xrdmZw+DxYx3G0G/T4aDGHPt
-	nRpAElM7pltDK2LIk/HNjTOukBl7P9Mc8HBYTCGPKZa/7lg41/Cd5ZAViG6yOovIoEy3gdgEYBe
-	TTABWWaeLXgY9aArMpmHmna6Ob2DriVMoCnRj6/sBQcCm5YgpnZoFA2i7xzQad/RcZc76qFKVXL
-	UytcAstwiCW8+t++7IjD0GvKSWxRAT8W+4HzuB3Kk3vKn/x85I06T3/5IAjbqOysbR9bvoOQ479
-	pn5DrcxuyEi49kUea1Qk4VEpyAqgzZWgPq5V/pj+BzlH7chxPX1ZRemHQ7rnu8uAe2yjm7aaCr7
-	i01WGiesdgFfjIgcz5DeEe+flvqZz5ucQrXbK/yBVpNph3IAnsis0P9Eg3BqWsyYoSEF6xBVSTD
-	PQSAfgcENzE4XTVbk7BUPPylNjuTkF4
-X-Received: by 2002:a7b:c314:0:b0:49f:bb49:9cca with SMTP id 5b1f17b1804b1-49fe66cf67amr152831735e9.5.1790521892183;
-        Sun, 27 Sep 2026 08:11:32 -0700 (PDT)
+        bh=lKsiUf1zswQ5v01inYZcqNF5S6iWN3Iz43ERd6nymQA=;
+        b=XgixAy54HTkSk/smUmwG8alwgx1fg4DOXHzFDguoJrk/BCeqpTbxSjnP3ugoN25kje
+         vLuJdw/59nFXtXwG0vUIHTYmx7rhXw4F36fc6mzpvNyYGvz7RUmvM1vxTa6yGcuGNPiq
+         Glp3np/a+vGkhc6ASMfAJPHEvPpVG8w1/UcLtrdvepw+lV9eP0jw3punCsPBPYQTau/M
+         pv4RUEURG7mv1+vsdYq8t8R5YN0/JXc0yaCAITLWEzZez538HBh8/LcMyj0UkElusQ6P
+         ezDwGxSiVUevH0sugp/bEuuq29x1yWl/05QT1czsRnx1pf+YRhuF6j7QiVlruVppBB2G
+         TPwg==
+X-Forwarded-Encrypted: i=1; AKwUvByTGHnxyA4BG0Y4Bo1ktxGdOTp6eL3AS6IaoPqP2LUOZspExcpvW+A3URmMjmCrSAKs69MHs3dRXhsn@vger.kernel.org
+X-Gm-Message-State: AFq9FYJiWer1vyRgSMhqYp9H2615OcTGdcnMsMn3keN4O6XlX5YmkQsJ
+	/zNhWubGgQ1B/X0Cjr4qrZpZWuFuigb2fxMkeDEj4pqpEEi0iVV0CrTP
+X-Gm-Gg: AYBFou2D6LcIkCucxAj2cSemobhhZBcKaQpyMxHUmWRPnL5AE7k0LjNZKL+Kc2fJRNu
+	e5WaUHSDGjhleKuj1Ft/bfs8g8rv0+gMatYS51mkYVMiN1Hmujm4cpwPvqEtZA0fKpLqjlcPIKI
+	nnr9rO4FhPOwgXHXAvmkYfFhw0N73wMzpwuUDniB+xEd0GBw/0eQeH7NYWbCxnESOoLEq8IKOhI
+	6wTAvVxNLaeDOYF8Yr+7X5Fs87ruRJso8fq6jAXnBT3ZbdK4VRnv9d1tY01vucXx6u8GRQp3WhX
+	i9TyHwa9wAWxi8pbSnRH3IF3599VMEGILGZXmt/tnMOyjDVxncnnm1+O1isecdgAjfA6GKv3SKv
+	k9JAIRmebGpiwuw70ClORGlZI4wrTXrEyaHHUfX8FNq0yYL9F7o5c6RZVtT5YkwysfWRgVsR5lE
+	XsLk71JLwnQJAzOmNrqf4gQRvG70Q3tytW02emcoxGCm67mOvSD/FYVjG+opbo6sjo2J0qvNhG1
+	TMQWHOg+Ovaj6o3CBRw0gWIiGMYEzGa
+X-Received: by 2002:a05:6000:288e:b0:488:820b:7e24 with SMTP id ffacd0b85a97d-488820b7fedmr12875064f8f.28.1790521917582;
+        Sun, 27 Sep 2026 08:11:57 -0700 (PDT)
 Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a746c57sm19764208f8f.35.2026.09.27.08.11.31
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a746c57sm19764208f8f.35.2026.09.27.08.11.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 08:11:31 -0700 (PDT)
+        Sun, 27 Sep 2026 08:11:56 -0700 (PDT)
 From: Pablo Mazzini <pmazzini@gmail.com>
-To: Brian Masney <bmasney+clk@redhat.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
+To: Chen-Yu Tsai <wens@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
 	Maxime Ripard <mripard@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
 	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Stephen Boyd <sboyd@kernel.org>
+	Samuel Holland <samuel@sholland.org>
 Cc: Pablo Mazzini <pmazzini@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-sunxi@lists.linux.dev
-Subject: [PATCH v2 01/11] dt-bindings: clock: sun4i-a10-ccu: add Allwinner B288
-Date: Sun, 27 Sep 2026 16:10:06 +0100
-Message-ID: <20260927151016.186493-2-pmazzini@gmail.com>
+Subject: [PATCH v2 03/11] dt-bindings: pinctrl: sun4i-a10: add Allwinner B288
+Date: Sun, 27 Sep 2026 16:10:08 +0100
+Message-ID: <20260927151016.186493-4-pmazzini@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260927151016.186493-1-pmazzini@gmail.com>
 References: <20260927151016.186493-1-pmazzini@gmail.com>
@@ -91,176 +88,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The B288 (sun8iw10p1) is a dual Cortex-A7 SoC used in e-book readers.
-Its CCU needs only the two oscillator inputs, so it fits the existing
-schema without changes.
+The B288 driver takes its mux values from the DT, so allwinner,pinmux
+becomes an allowed property here, required for this compatible only.
 
 Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
 ---
- .../clock/allwinner,sun4i-a10-ccu.yaml        |  1 +
- include/dt-bindings/clock/sun8i-b288-ccu.h    | 88 +++++++++++++++++++
- include/dt-bindings/reset/sun8i-b288-ccu.h    | 45 ++++++++++
- 3 files changed, 134 insertions(+)
- create mode 100644 include/dt-bindings/clock/sun8i-b288-ccu.h
- create mode 100644 include/dt-bindings/reset/sun8i-b288-ccu.h
+ .../pinctrl/allwinner,sun4i-a10-pinctrl.yaml  | 23 +++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/allwinner,sun4i-a10-ccu.yaml b/Documentation/devicetree/bindings/clock/allwinner,sun4i-a10-ccu.yaml
-index 1690b9d99c3d..cc3f62d3554c 100644
---- a/Documentation/devicetree/bindings/clock/allwinner,sun4i-a10-ccu.yaml
-+++ b/Documentation/devicetree/bindings/clock/allwinner,sun4i-a10-ccu.yaml
-@@ -28,6 +28,7 @@ properties:
-       - allwinner,sun8i-a33-ccu
-       - allwinner,sun8i-a83t-ccu
-       - allwinner,sun8i-a83t-r-ccu
-+      - allwinner,sun8i-b288-ccu
-       - allwinner,sun8i-h3-ccu
-       - allwinner,sun8i-h3-r-ccu
-       - allwinner,sun8i-r40-ccu
-diff --git a/include/dt-bindings/clock/sun8i-b288-ccu.h b/include/dt-bindings/clock/sun8i-b288-ccu.h
-new file mode 100644
-index 000000000000..8983c6d2f362
---- /dev/null
-+++ b/include/dt-bindings/clock/sun8i-b288-ccu.h
-@@ -0,0 +1,88 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
-+#ifndef _DT_BINDINGS_CLK_SUN8I_B288_H_
-+#define _DT_BINDINGS_CLK_SUN8I_B288_H_
+diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml
+index 45b7a0b6c626..6fe3b6410734 100644
+--- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml
+@@ -39,6 +39,7 @@ properties:
+       - allwinner,sun8i-a33-pinctrl
+       - allwinner,sun8i-a83t-pinctrl
+       - allwinner,sun8i-a83t-r-pinctrl
++      - allwinner,sun8i-b288-pinctrl
+       - allwinner,sun8i-h3-pinctrl
+       - allwinner,sun8i-h3-r-pinctrl
+       - allwinner,sun8i-r40-pinctrl
+@@ -120,6 +121,15 @@ patternProperties:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         enum: [10, 20, 30, 40]
+ 
++      allwinner,pinmux:
++        $ref: /schemas/types.yaml#/definitions/uint32-array
++        description:
++          Pinmux selector value, for each pin. Only used by SoCs whose
++          driver takes the mux values from the DT instead of an in-driver
++          table. Almost every time this value is the same for all pins, so
++          any array shorter than the number of pins will repeat the last
++          value, to allow just specifying a single cell, for all cells.
 +
-+#define CLK_PLL_CPUX	0
-+#define CLK_PLL_AUDIO_BASE	1
-+#define CLK_PLL_VIDEO0	2
-+#define CLK_PLL_DDR0	3
-+#define CLK_PLL_PERIPH0	4
-+#define CLK_PLL_VIDEO1	5
-+#define CLK_PLL_24M	6
-+#define CLK_PLL_PERIPH1	7
-+#define CLK_PLL_DE	8
-+#define CLK_PLL_DDR1	9
+     required:
+       - pins
+       - function
+@@ -144,6 +154,19 @@ allOf:
+   # warnings.
+ 
+   - $ref: pinctrl.yaml#
 +
-+#define CLK_PLL_PERIPH0_2X	10
-+#define CLK_PLL_PERIPH1_2X	11
-+#define CLK_CPUX	12
-+#define CLK_AXI	13
-+#define CLK_CPUAPB	14
-+#define CLK_AHB1	15
-+#define CLK_APB1	16
-+#define CLK_APB2	17
++  # The B288 driver has no in-driver pin table, so the mux values have to
++  # come from the DT.
++  - if:
++      properties:
++        compatible:
++          const: allwinner,sun8i-b288-pinctrl
 +
-+#define CLK_NAND	18
-+#define CLK_MMC0	19
-+#define CLK_MMC1	20
-+#define CLK_MMC2	21
-+#define CLK_MMC3	22
-+#define CLK_SPI0	23
-+#define CLK_SPI1	24
-+#define CLK_SPI2	25
-+#define CLK_DRAM	26
-+#define CLK_DE	27
-+#define CLK_EE	28
-+#define CLK_EDMA	29
-+#define CLK_TCON0	30
-+#define CLK_MBUS	31
-+
-+#define CLK_BUS_THS	32
-+#define CLK_BUS_NAND	33
-+#define CLK_BUS_SDMMC0_BUS	34
-+#define CLK_BUS_SDMMC1_BUS	35
-+#define CLK_BUS_SDMMC2_BUS	36
-+#define CLK_BUS_SDMMC3_BUS	37
-+#define CLK_BUS_SPI0	38
-+#define CLK_BUS_SPI1	39
-+#define CLK_BUS_SPI2	40
-+#define CLK_BUS_I2S0	41
-+#define CLK_BUS_I2S1	42
-+#define CLK_BUS_SPDIF	43
-+#define CLK_BUS_DSD	44
-+#define CLK_BUS_DMIC	45
-+#define CLK_BUS_USBOHCI0	46
-+#define CLK_BUS_USBEHCI0	47
-+#define CLK_BUS_USBOTG	48
-+#define CLK_BUS_DE	49
-+#define CLK_BUS_EE	50
-+#define CLK_BUS_TCON0	51
-+#define CLK_BUS_CSI	52
-+#define CLK_BUS_ADDA	53
-+#define CLK_BUS_SDRAM	54
-+#define CLK_BUS_PSRAM	55
-+#define CLK_BUS_DMA	56
-+#define CLK_BUS_UART0	57
-+#define CLK_BUS_UART1	58
-+#define CLK_BUS_UART2	59
-+#define CLK_BUS_UART3	60
-+#define CLK_BUS_UART4	61
-+#define CLK_BUS_UART5	62
-+#define CLK_BUS_TWI0	63
-+#define CLK_BUS_TWI1	64
-+#define CLK_BUS_TWI2	65
-+#define CLK_BUS_PIO	66
-+#define CLK_BUS_GPADC	67
-+#define CLK_BUS_KEYADC	68
-+
-+/*
-+ * mmc0 and mmc1 are v4p1x controllers driven in the old timing mode, which
-+ * needs the sample and output phase clocks. mmc2 and mmc3 are newer blocks
-+ * that do their own delay calibration and have none.
-+ */
-+#define CLK_MMC0_SAMPLE	69
-+#define CLK_MMC0_OUTPUT	70
-+#define CLK_MMC1_SAMPLE	71
-+#define CLK_MMC1_OUTPUT	72
-+
-+#endif
-diff --git a/include/dt-bindings/reset/sun8i-b288-ccu.h b/include/dt-bindings/reset/sun8i-b288-ccu.h
-new file mode 100644
-index 000000000000..675145654548
---- /dev/null
-+++ b/include/dt-bindings/reset/sun8i-b288-ccu.h
-@@ -0,0 +1,45 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
-+#ifndef _DT_BINDINGS_RST_SUN8I_B288_H_
-+#define _DT_BINDINGS_RST_SUN8I_B288_H_
-+
-+#define RST_BUS_THS	0
-+#define RST_BUS_NAND	1
-+#define RST_BUS_MMC0	2
-+#define RST_BUS_MMC1	3
-+#define RST_BUS_MMC2	4
-+#define RST_BUS_MMC3	5
-+#define RST_BUS_SPI0	6
-+#define RST_BUS_SPI1	7
-+#define RST_BUS_SPI2	8
-+#define RST_BUS_I2S0	9
-+#define RST_BUS_I2S1	10
-+#define RST_BUS_SPDIF	11
-+#define RST_BUS_DSD	12
-+#define RST_BUS_DMIC	13
-+#define RST_USBPHY0	14
-+#define RST_BUS_OHCI0	15
-+#define RST_BUS_EHCI0	16
-+#define RST_BUS_OTG	17
-+#define RST_BUS_DE	18
-+#define RST_BUS_EE	19
-+#define RST_BUS_TCON0	20
-+#define RST_BUS_CSI	21
-+#define RST_BUS_ADDA	22
-+#define RST_BUS_WLAN	23
-+#define RST_MBUS	24
-+#define RST_BUS_DRAM	25
-+#define RST_BUS_PSRAM	26
-+#define RST_BUS_DMA	27
-+#define RST_BUS_UART0	28
-+#define RST_BUS_UART1	29
-+#define RST_BUS_UART2	30
-+#define RST_BUS_UART3	31
-+#define RST_BUS_UART4	32
-+#define RST_BUS_UART5	33
-+#define RST_BUS_I2C0	34
-+#define RST_BUS_I2C1	35
-+#define RST_BUS_I2C2	36
-+#define RST_BUS_GPADC	37
-+#define RST_BUS_KEYADC	38
-+
-+#endif
++    then:
++      patternProperties:
++        "^([rs]-)?(([a-z0-9]{3,}|[a-oq-z0-9][a-z0-9]*?)?-)+?(p[a-ilm][0-9]*?-)??pins?$":
++          required:
++            - allwinner,pinmux
+   - if:
+       not:
+         properties:
 -- 
 2.53.0
 
