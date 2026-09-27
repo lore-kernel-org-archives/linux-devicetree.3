@@ -1,1579 +1,517 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CDF37E5D2
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 12:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A6C3284693
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 12:46:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790512652; cv=none; b=PIRipsXYpWiQMBUj9HiWCOEgkB8eAd2HlzkdZpQAqyIJjFttr/9e5bCr3PJ2TyyrNVjPxMSUbfrieguMQnHh0FcSdTJoOnBBlrqn8hV9fAa4fm7UihCrF/ov+EG2HcfvbF/WarqO1bsIYEMAchUjQDcVkSAuVHiyuG0+5Urh4xE=
+	t=1790513196; cv=none; b=se20krRhfxbQx28kg6D6tv6S4CSmvdUQParV+sL5nsbB03Z7yw/jeLAb3HlTzNb7bKiaWRYaNMQVbMVEo1+hFy02Sui2dD99hVsEZ/QnpKbavRSHGydY8U6EIrx3W/nsPwF3p9ZoEbpr6sbzU2zUwI15oGw483dO7fCAPiobv7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790512652; c=relaxed/simple;
-	bh=ku7vU32vtQwMcMfe7w/zHqZzHuWhPtUGp0NjlYK68lQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References; b=IcwWKxPuyQ2xQSLYP976ofgkx8Tr0jcukAwlCP21f/ruZusgAhBhR6qo7IYDI83ysEP9kWHeHgIZDZIf65KKAvPHccfXoag4mFkVGYvXxfMO/Dty6YnT4nlGesNoHaOFjXhV/Ny0PAXwT3daCEMHZC1x4NmC6Q6ZieF1j5Mbf0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lnwkNP/B; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790513196; c=relaxed/simple;
+	bh=LO3X9P5VoFCrn5qumepVKGiIibRsnkgussXvtVAnj9c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AklzZT1wIgWy0tp9HxIdkRX3Cb8/S9z71RI+eCfdvK/aYLn4wQbTNNdjPm0+oaIxSP+RqHP1jW+FRY00xVLzkPY9kcRcWqWrZ6vJecoVCs1/61HaQJmJ+sAuq4s/WNBVQohJoxuymJBvFA+IXW5RvrRK6DYrN447xWt+U4KxPds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cvFE57pR; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lnwkNP/B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID; bh=MyFMPxHcCfzbvAX
-	tC3IhHe47BmAxA/ZsDsFM+tWQJns=; b=lnwkNP/Bq3/sIdw5GceaH1H2k0QBoWa
-	6THZEpE+y+OCkzlZVv35k5Z8Y5lpItfWqdeOXj7jUuG1qO7RzS30HsTIisJjdzdR
-	UlMg145onZ5UTFPPeZi4/3LYyFat6GkDcVF8b6KA/tV8DfjVrxvymUf/R1Q0eoNh
-	oNf50NP94o+I=
-From: BG9OXA <bg9oxa@163.com>
-To: linux-rockchip@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>
-Subject: [PATCH 2/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
-Date: Sun, 27 Sep 2026 20:37:06 +0800
-Message-ID: <179051262683.4055.12205303753370851498@163.com>
-In-Reply-To: <179051260955.4055.15953866975694461812@163.com>
-References: <179051260955.4055.15953866975694461812@163.com>
-X-CM-TRANSID:_____wD3H1PyDblq1U7DBA--.38061S2
-X-Coremail-Antispam: 1Uf129KBjvAXoWDJr1UuFWfGw43trW3WFW5Awb_yoWrtrWDZo
-	ZFvryF9a1rWF43Gr1kJFWUA3WxWrWkGanakF45Kr15Wr4rJasIyF4Yya1jgF13tr4rKF1D
-	Z3WfJFy3J347AF95n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU2wIDDUUUU
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+ROI9Wq5DfOIigAA34
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cvFE57pR"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso3469215e9.3
+        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 05:46:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790513192; x=1791117992; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DSF8eFLB5spy6Gx8cGJIQd018skoNd22YEInY5WXAS4=;
+        b=cvFE57pRj+OLxqLJMEUE/ItTJIily1/ay9wlYZqI8neehCGftsTPblTiOI21W5rfWJ
+         L6IGPTvGflu4wIEP19WXu4pzdXyEdDKzB/mYwoo0sW+0cM/nnkzSxqh8bB6nL6OJtafw
+         Bi403IqRRlWnYmdcXBzGyWPMDFc7iHow29rgr4hdxLbcoGl3AicRSs0dfyuE+dFbcHVp
+         vQmTqFu5CqYGmDEsvheJDkG8Uncn1i+WgbLsqTU8O7XhfkCB68TOS6gnSO5f5V07wE9M
+         tp48JTTRETXV5Mtk8Rt2TvksVkHqBLMdEOcOlHPLnQnp8XeN6F5/DDsExtuF8vP9GnBW
+         42WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790513192; x=1791117992;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DSF8eFLB5spy6Gx8cGJIQd018skoNd22YEInY5WXAS4=;
+        b=takAiJMx7SrghHvFVufnC3iRsgolhcoU6ToH133IWfO3jKqBO6HWGW88BHjG/fQrc2
+         vHCw7Ri4ucP61UhSWk1hyXWGGwnSrGPUrjeSgvAc4f+FpFKxICWO/IJVvliPtNmRpsRm
+         IBUJwcpkfFhA3nj7Vu9wQ9H4Sv5GiabBtZnNFXf8OujtKbW4MAdnlxUbPz/JfQagaUSN
+         MErh0m+x1pZwUpa83ARdMHlqRkBhbWH1p42tG4p4KXNyiteXai5nwbZyAeBodsNAJ8ro
+         fkPHGZ94/dM+CVT6kdmwuYa6iKy8VNpoYkHNdHKVnqjWQWOAnXTKG8v79bRcUrj/VZQo
+         VlWA==
+X-Forwarded-Encrypted: i=1; AKwUvByMO3MKTZnUbth8OFTFW+HvyE9Yxb8+j3EdBeTScfzQWQAq2WP36QYJCZ0qxP4Lkb9RNfVO6Y2a2CCJ@vger.kernel.org
+X-Gm-Message-State: AFuF++kaZIrw2u0gKVWJsES5bbEtCxjZB/V4V2BbhPuLbdXWgkw9mGZ8
+	17/5fs3Sixvx4qRHaH0JGA42CL7gsd30WJztKcK+nC03aaQLevUc3uHS
+X-Gm-Gg: AYBFou12T8zWwIKCPrOaMbNuCqOqR+mLEvBL6ZtEBmKjikysgKQQNhCgsBe8PNcFVR8
+	qlTTrMR5Rs6yKFkz1kVrk4rs5xBd6Zm2rlKPpJ6Lo777IGWJEgwcTEIHmb7rML/kARpPxpDf+AP
+	CKnhH/0JPrK6LKjIJss7xfpxlCCCXVCeS5xRPnv1b6aMWVevP0qrPkUO+DbiYDHtTp18UhosRkz
+	XlaCMdGCD0GLTr2QOtOLQssyipgS2f0p0yyJBgE+CWO2K8XiQJhlzzj6zSMem36qi+lUJa6A6TI
+	tfa6aXveadn9Lp5tfCFNDXL3qJAFXWdrYgM0XHjbD5GVB+9F9ynxSdfGUjkYjRqvqwGW7kQKxsD
+	WAPcPsKPDiE2zO1HSoSdgqJR4vP0el3jSKpHzrM4rBs0uLpjeg4onEjWpgJmYO9Ur+GPbHS4lYf
+	oB4hVAEpW8zgXu6vXKOgFR3pYOTW44T25F4jEd3L2mx/C/8a310xu4ae5N5sWezB6BpXwWXE1v2
+	Gm3FwiQkqFt/uwxrMrRwef5JTg5tk0H0Kp3DpcqM1rHM1zqU1o7kjBt8zSwPxVLnDBoC1prmai1
+	fwM3T/L7HgYV8RkwkRMdo6rQRlC9EQg7
+X-Received: by 2002:a05:600c:3b98:b0:49f:ce78:3564 with SMTP id 5b1f17b1804b1-49fe66f187cmr206339765e9.21.1790513191938;
+        Sun, 27 Sep 2026 05:46:31 -0700 (PDT)
+Received: from Lord-Beerus.station ([31.27.155.43])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fef60da94sm148440605e9.4.2026.09.27.05.46.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 05:46:31 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Joseph Guo <qijian.guo@nxp.com>,
+	Josua Mayer <josua@solid-run.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Stefan Eichenberger <eichest@gmail.com>,
+	netdev@vger.kernel.org
+Subject: [PATCH v3 00/12] ARM: dts: imx6ul: Add Variscite VAR-SOM-6UL and DART-6UL
+Date: Sun, 27 Sep 2026 14:46:15 +0200
+Message-ID: <cover.1790512621.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Add a device tree for the ALIENTEK QuarkPi-CA2, an RK3588S based single
-board computer.
+Add device trees for Variscite VAR-SOM-6UL and DART-6UL modules based on
+i.MX6UL, i.MX6ULL and i.MX6ULZ. VAR-SOM-6UL is supported on the
+Concerto-Board and Symphony-Board carriers, and DART-6UL on the
+VAR-6ULCustomBoard. The 90 new DTBs cover the supported combinations of
+storage, wireless and audio options.
 
-Tested on hardware: UART console, eMMC, microSD, gigabit Ethernet, HDMI
-video and audio, ES8388 analog audio, the USB 2.0 host ports and the
-USB 3.0 (Type-A) host port.
+The descriptions use shared module, option and carrier DTSI files with
+SoC-specific wrappers. In particular, the WM8904 and WM8731 codecs are
+selected explicitly instead of keeping a codec in the module base.
+The four existing Concerto DTBs are converted to this layout without
+changing their DTB names or compatible strings. This also replaces the
+non-working legacy LVDS panel description with the LCDIF configuration
+for the Variscite display. Wi-Fi and Bluetooth enable/reset sequencing
+on these modules is handled by userspace, so the legacy kernel-managed
+power-sequence and Bluetooth nodes are not carried forward.
 
-Signed-off-by: BG9OXA <bg9oxa@163.com>
----
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -236,6 +236,7 @@
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5b.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5-pro.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-cm5-base.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-quarkpi-ca2.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-radxa-cm5-io.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-roc-pc.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-rock-5a.dtb
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-new file mode 100644
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-@@ -0,0 +1,1508 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (c) 2021 Rockchip Electronics Co., Ltd.
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/pinctrl/rockchip.h>
-+#include <dt-bindings/soc/rockchip,vop2.h>
-+#include <dt-bindings/thermal/thermal.h>
-+#include "rk3588s.dtsi"
-+/ {
-+	model = "Alientek QuarkPI-CA2";
-+	compatible = "alientek,quarkpi-ca2", "rockchip,rk3588s";
-+
-+	/* Crash log retention (pstore/ramoops).  The shared rk3588-ramoops.dtsi
-+	 * used by the vendor BSP is not part of mainline, so the node is inlined
-+	 * here.  The reserved region layout follows the vendor BSP device tree.
-+	 */
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ramoops: ramoops@118000 {
-+			compatible = "ramoops";
-+			reg = <0 0x118000 0 0xd8000>;
-+			console-size = <0x80000>;
-+			ftrace-size = <0x00000>;
-+			pmsg-size = <0x30000>;
-+			record-size = <0x14000>;
-+		};
-+	};
-+
-+	aliases {
-+		mmc0 = &sdhci;
-+		mmc1 = &sdmmc;
-+		ethernet0 = &gmac1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial2:1500000n8";
-+	};
-+
-+	adc_keys: adc-keys {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 1>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-vol-up {
-+			label = "volume up";
-+			linux,code = <KEY_VOLUMEUP>;
-+			press-threshold-microvolt = <17000>;
-+		};
-+
-+		button-vol-down {
-+			label = "volume down";
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			press-threshold-microvolt = <417000>;
-+		};
-+	};
-+
-+	leds: leds {
-+		compatible = "gpio-leds";
-+
-+		work_led: led-0 {
-+			/* 主线已废弃 label（dtbs_check 报 Unevaluated properties），用 function 取代 */
-+			function = LED_FUNCTION_HEARTBEAT;
-+			gpios = <&gpio1 RK_PD7 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "heartbeat";
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&work_led_pin>;
-+		};
-+	};
-+
-+	fan: pwm-fan {
-+		compatible = "pwm-fan";
-+		#cooling-cells = <2>;
-+		pwms = <&pwm7 0 50000 0>;
-+		cooling-levels = <0 50 100 150 200 255>;
-+	};
-+
-+	vcc12v_dcin: vcc12v-dcin {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc12v_dcin";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <12000000>;
-+		regulator-max-microvolt = <12000000>;
-+	};
-+
-+	vcc5v0_sys: vcc5v0-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc12v_dcin>;
-+	};
-+
-+	vcc5v0_usb: vcc5v0-usb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_usb";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_1v1_nldo_s3: vcc-1v1-nldo-s3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_1v1_nldo_s3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_3v3_sd_s0: vcc-3v3-sd-s0-regulator {
-+		compatible = "regulator-fixed";
-+		gpios = <&gpio0 RK_PA0 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sd_s0_pwr>;
-+		regulator-name = "vcc_3v3_sd_s0";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_3v3_s3>;
-+	};
-+};
-+
-+&spi2 {
-+	status = "okay";
-+	assigned-clocks = <&cru CLK_SPI2>;
-+	assigned-clock-rates = <200000000>;
-+	num-cs = <1>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi2m2_cs0 &spi2m2_pins>;
-+
-+	pmic@0 {
-+		compatible = "rockchip,rk806";
-+		reg = <0x0>;
-+		interrupt-parent = <&gpio0>;
-+		interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pmic_pins>, <&rk806_dvs1_null>,
-+			    <&rk806_dvs2_null>, <&rk806_dvs3_null>;
-+		spi-max-frequency = <1000000>;
-+		system-power-controller;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		vcc1-supply = <&vcc5v0_sys>;
-+		vcc2-supply = <&vcc5v0_sys>;
-+		vcc3-supply = <&vcc5v0_sys>;
-+		vcc4-supply = <&vcc5v0_sys>;
-+		vcc5-supply = <&vcc5v0_sys>;
-+		vcc6-supply = <&vcc5v0_sys>;
-+		vcc7-supply = <&vcc5v0_sys>;
-+		vcc8-supply = <&vcc5v0_sys>;
-+		vcc9-supply = <&vcc5v0_sys>;
-+		vcc10-supply = <&vcc5v0_sys>;
-+		vcc11-supply = <&vcc_2v0_pldo_s3>;
-+		vcc12-supply = <&vcc5v0_sys>;
-+		vcc13-supply = <&vcc_1v1_nldo_s3>;
-+		vcc14-supply = <&vcc_1v1_nldo_s3>;
-+		vcca-supply = <&vcc5v0_sys>;
-+
-+		rk806_dvs1_null: dvs1-null-pins {
-+			pins = "gpio_pwrctrl2";
-+			function = "pin_fun0";
-+		};
-+
-+		rk806_dvs2_null: dvs2-null-pins {
-+			pins = "gpio_pwrctrl2";
-+			function = "pin_fun0";
-+		};
-+
-+		rk806_dvs3_null: dvs3-null-pins {
-+			pins = "gpio_pwrctrl3";
-+			function = "pin_fun0";
-+		};
-+
-+		regulators {
-+			vdd_gpu_s0: dcdc-reg1 {
-+				regulator-name = "vdd_gpu_s0";
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-ramp-delay = <12500>;
-+				regulator-enable-ramp-delay = <400>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_cpu_lit_s0: vdd_cpu_lit_mem_s0: dcdc-reg2 {
-+				regulator-name = "vdd_cpu_lit_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_log_s0: dcdc-reg3 {
-+				regulator-name = "vdd_log_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <675000>;
-+				regulator-max-microvolt = <750000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+					regulator-suspend-microvolt = <750000>;
-+				};
-+			};
-+
-+			vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
-+				regulator-name = "vdd_vdenc_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <550000>;
-+				regulator-max-microvolt = <950000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_ddr_s0: dcdc-reg5 {
-+				regulator-name = "vdd_ddr_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <675000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+					regulator-suspend-microvolt = <850000>;
-+				};
-+			};
-+
-+			vdd2_ddr_s3: dcdc-reg6 {
-+				regulator-name = "vdd2_ddr_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+				};
-+			};
-+
-+			vcc_2v0_pldo_s3: dcdc-reg7 {
-+				regulator-name = "vcc_2v0_pldo_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <2000000>;
-+				regulator-max-microvolt = <2000000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <2000000>;
-+				};
-+			};
-+
-+			vcc_3v3_s3: dcdc-reg8 {
-+				regulator-name = "vcc_3v3_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <3300000>;
-+				};
-+			};
-+
-+			vddq_ddr_s0: dcdc-reg9 {
-+				regulator-name = "vddq_ddr_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_1v8_s3: dcdc-reg10 {
-+				regulator-name = "vcc_1v8_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <1800000>;
-+				};
-+			};
-+
-+			avcc_1v8_s0: pldo-reg1 {
-+				regulator-name = "avcc_1v8_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_1v8_s0: pldo-reg2 {
-+				regulator-name = "vcc_1v8_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+					regulator-suspend-microvolt = <1800000>;
-+				};
-+			};
-+
-+			avdd_1v2_s0: pldo-reg3 {
-+				regulator-name = "avdd_1v2_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vcc_3v3_s0: pldo-reg4 {
-+				regulator-name = "vcc_3v3_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vccio_sd_s0: pldo-reg5 {
-+				regulator-name = "vccio_sd_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-ramp-delay = <12500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			pldo6_s3: pldo-reg6 {
-+				regulator-name = "pldo6_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <1800000>;
-+				};
-+			};
-+
-+			vdd_0v75_s3: nldo-reg1 {
-+				regulator-name = "vdd_0v75_s3";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <750000>;
-+				regulator-max-microvolt = <750000>;
-+
-+				regulator-state-mem {
-+					regulator-on-in-suspend;
-+					regulator-suspend-microvolt = <750000>;
-+				};
-+			};
-+
-+			vdd_ddr_pll_s0: nldo-reg2 {
-+				regulator-name = "vdd_ddr_pll_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <850000>;
-+				regulator-max-microvolt = <850000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+					regulator-suspend-microvolt = <850000>;
-+				};
-+			};
-+
-+			avdd_0v75_s0: nldo-reg3 {
-+				regulator-name = "avdd_0v75_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <837500>;
-+				regulator-max-microvolt = <837500>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_0v85_s0: nldo-reg4 {
-+				regulator-name = "vdd_0v85_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <850000>;
-+				regulator-max-microvolt = <850000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+
-+			vdd_0v75_s0: nldo-reg5 {
-+				regulator-name = "vdd_0v75_s0";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <750000>;
-+				regulator-max-microvolt = <750000>;
-+
-+				regulator-state-mem {
-+					regulator-off-in-suspend;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&i2c0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c0m2_xfer>;
-+	status = "okay";
-+
-+	vdd_cpu_big0_s0: regulator@42 {
-+		compatible = "rockchip,rk8602";
-+		reg = <0x42>;
-+		fcs,suspend-voltage-selector = <1>;
-+		regulator-name = "vdd_cpu_big0_s0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <1050000>;
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc5v0_sys>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+
-+	vdd_cpu_big1_s0: regulator@43 {
-+		compatible = "rockchip,rk8603", "rockchip,rk8602";
-+		reg = <0x43>;
-+		fcs,suspend-voltage-selector = <1>;
-+		regulator-name = "vdd_cpu_big1_s0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <1050000>;
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc5v0_sys>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2m0_xfer>;
-+	status = "okay";
-+
-+	vdd_npu_s0: vdd_npu_mem_s0: regulator@42 {
-+		compatible = "rockchip,rk8602";
-+		reg = <0x42>;
-+		fcs,suspend-voltage-selector = <1>;
-+		regulator-name = "vdd_npu_s0";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <550000>;
-+		regulator-max-microvolt = <950000>;
-+		regulator-ramp-delay = <2300>;
-+		vin-supply = <&vcc5v0_sys>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+		};
-+
-+		/*
-+		* Type-C PD 控制器 HUSB311 —— 2026-09-26 从厂商 6.1 官方 dtb 移植
-+		* （官方：i2c2@0x4e，status = "okay"）。
-+		*
-+		* ⚠️ compatible 必须写**两个**：主线 tcpci_rt1711h.c 的 of_match 里
-+		*    并没有 "hynetek,husb311"，实际靠 fallback 的 "richtek,rt1711h" 匹配。
-+		*    依据 Documentation/devicetree/bindings/usb/richtek,rt1711h.yaml
-+		*    （hynetek,husb311 后必须跟 richtek,rt1711h）；
-+		*    主线 rk3588-hlink-h88k-v31.dts 是同一款芯片的现成范例。
-+		*
-+		* 中断：官方 pinctrl usbc0-int = <0x01 0x04 0x00> ⇒ gpio1 PA4；
-+		*      官方 interrupts = <0x04 0x08> ⇒ pin 4 + IRQ_TYPE_LEVEL_LOW。
-+		* VBUS：vbus-supply = <&vbus5v0_typec>（gpio1 PD5 开关）。
-+		*
-+		* 数据通路（orientation switch / DP altmode mux）**已接**（2026-09-26）：
-+		* 见文件末尾 DP 段 —— usbdp_phy0 加了 orientation-switch / mode-switch
-+		* 与 SBU1/SBU2 直流开关脚（gpio4-6/7，厂商树值）；连接器侧加 port@2(SBU)。
-+		* 实测：DP 出图 1920x1080 正常，与 HDMI（走 vp0）互不影响。
-+		*/
-+		husb311: husb311@4e {
-+		status = "okay";
-+		compatible = "hynetek,husb311", "richtek,rt1711h";
-+		reg = <0x4e>;
-+		interrupt-parent = <&gpio1>;
-+		interrupts = <RK_PA4 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&usbc0_int>;
-+		vbus-supply = <&vbus5v0_typec>;
-+
-+		/* 官方 connector 的 PD 参数（原值照搬） */
-+		usb_con: connector {
-+			compatible = "usb-c-connector";
-+			label = "USB-C";
-+			power-role = "dual";
-+			data-role = "dual";
-+			try-power-role = "sink";
-+			source-pdos = <0x401912c>;
-+			sink-pdos = <0x4019064>;
-+			op-sink-microwatt = <1000000>;
-+
-+			/* ⭐ DP alt mode（2026-09-26 按用户要求试一次）：
-+			 *   连接器 SBU ←→ usbdp_phy0 的 dp_out，DP 链路才算接通。
-+			 *   只补 port@2（SBU），不动 HS/SS，避免影响已验证的 USB3 host。 */
-+			altmodes {
-+				displayport {
-+					svid = /bits/ 16 <0xff01>;
-+					vdo = <0xffffffff>;
-+				};
-+			};
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					usbc0_hs: endpoint {
-+						remote-endpoint = <&usb_host0_hs_ep>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					usbc0_ss: endpoint {
-+						remote-endpoint = <&usb_host0_ss_ep>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+					usbc0_sbu: endpoint {
-+						remote-endpoint = <&usbdp_phy0_dp_out>;
-+					};
-+				};
-+			};
-+		};
-+		};
-+		};
-+
-+		&cpu_l0 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_l1 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_l2 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_l3 {
-+	cpu-supply = <&vdd_cpu_lit_s0>;
-+	mem-supply = <&vdd_cpu_lit_mem_s0>;
-+};
-+
-+&cpu_b0 {
-+	cpu-supply = <&vdd_cpu_big0_s0>;
-+	mem-supply = <&vdd_cpu_big0_s0>;
-+};
-+
-+&cpu_b1 {
-+	cpu-supply = <&vdd_cpu_big0_s0>;
-+	mem-supply = <&vdd_cpu_big0_s0>;
-+};
-+
-+&cpu_b2 {
-+	cpu-supply = <&vdd_cpu_big1_s0>;
-+	mem-supply = <&vdd_cpu_big1_s0>;
-+};
-+
-+&cpu_b3 {
-+	cpu-supply = <&vdd_cpu_big1_s0>;
-+	mem-supply = <&vdd_cpu_big1_s0>;
-+};
-+
-+&gpu {
-+	mali-supply = <&vdd_gpu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_1 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_2 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_mem_s0>;
-+	status = "okay";
-+};
-+
-+&sdhci {
-+	bus-width = <8>;
-+	no-sdio;
-+	no-sd;
-+	non-removable;
-+	max-frequency = <200000000>;
-+	mmc-hs400-1_8v;
-+	mmc-hs400-enhanced-strobe;
-+	vmmc-supply = <&vcc_3v3_s3>;
-+	vqmmc-supply = <&vcc_1v8_s3>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	max-frequency = <150000000>;
-+	no-sdio;
-+	no-mmc;
-+	bus-width = <4>;
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	disable-wp;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc_3v3_sd_s0>;
-+	vqmmc-supply = <&vccio_sd_s0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdmmc_bus4 &sdmmc_clk &sdmmc_cmd &sdmmc_det>;
-+	status = "okay";
-+};
-+
-+&uart2 {
-+	pinctrl-0 = <&uart2m0_xfer>;
-+	status = "okay";
-+};
-+
-+&gmac1 {
-+	/* Use rgmii-rxid mode to disable rx delay inside Soc */
-+	phy-mode = "rgmii-rxid";
-+	clock_in_out = "input";
-+
-+	snps,reset-gpio = <&gpio0 RK_PD5 GPIO_ACTIVE_LOW>;
-+	snps,reset-active-low;
-+	/* Reset time is 20ms, 100ms for rtl8211f */
-+	snps,reset-delays-us = <0 20000 100000>;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac1_miim
-+		     &gmac1_tx_bus2
-+		     &gmac1_rx_bus2
-+		     &gmac1_rgmii_clk
-+		     &gmac1_rgmii_bus
-+		     &gmac1_clkinout>;
-+
-+	tx_delay = <0x2f>;
-+	rx_delay = <0x00>;
-+
-+	phy-handle = <&rgmii_phy1>;
-+	status = "okay";
-+};
-+
-+&mdio1 {
-+	rgmii_phy1: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x1>;
-+
-+		/*
-+		 * gmac1 工作在 clock_in_out = "input"：MAC 的 125M 时钟由 PHY 的
-+		 * CLKOUT 引脚提供（经 gmac1_clkinout 引脚路由）。主线 motorcomm 驱动
-+		 * 默认关闭时钟输出（clk-out-frequency-hz 默认 0），必须显式打开，
-+		 * 否则 MAC 拿不到时钟 —— 表现为 MDIO 正常、链路 Up、但一 open 就
-+		 * DMA/VLAN_TAG 超时并触发 TX watchdog。
-+		 */
-+		motorcomm,clk-out-frequency-hz = <125000000>;
-+		/* 链路未起时也保持 PLL/时钟输出，供 MAC 初始化使用 */
-+		motorcomm,keep-pll-enabled;
-+	};
-+};
-+
-+/* USB2.0 HOST0 (PHY2) */
-+&u2phy2 {
-+	status = "okay";
-+};
-+
-+&u2phy2_host {
-+	phy-supply = <&vcc5v0_usb>;
-+	status = "okay";
-+};
-+
-+&usb_host0_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host0_ohci {
-+	status = "okay";
-+};
-+
-+/* USB2.0 HOST1 (PHY3) */
-+&u2phy3 {
-+	status = "okay";
-+};
-+
-+&u2phy3_host {
-+	phy-supply = <&vcc5v0_usb>;
-+	status = "okay";
-+};
-+
-+&usb_host1_ehci {
-+	status = "okay";
-+};
-+
-+&usb_host1_ohci {
-+	status = "okay";
-+};
-+
-+&pwm7 {
-+	pinctrl-0 = <&pwm7m0_pins>;
-+	status = "okay";
-+};
-+
-+&saradc {
-+	status = "okay";
-+	vref-supply = <&vcc_1v8_s0>;
-+};
-+
-+&tsadc {
-+	status = "okay";
-+};
-+
-+&pinctrl {
-+	sdmmc {
-+		sd_s0_pwr: sd-s0-pwr {
-+			rockchip,pins = <0 RK_PA0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	pcie {
-+		pcie2x1l2_perstn: pcie2x1l2-perstn {
-+			/* 厂商 dtsi 只给 reset-gpios，未给 mux，这里显式补 GPIO 功能 */
-+			rockchip,pins = <3 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	usb-typec {
-+		typec5v_pwren: typec5v-pwren {
-+			/* 厂商原始值 <0x01 0x1d 0x00>：bank1 pin 0x1d=29 ⇒ PD5
-+			 * ⚠️ 早先误算成 PC5(21)，与 i2s0_lrck(PC5) 抢引脚，
-+			 *    导致 vbus5v0-typec 请求失败 → xhci 无法上电（VBUS 从未真正打开）
-+			 */
-+			rockchip,pins = <1 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
-+			};
-+
-+			usbc0_int: usbc0-int {
-+			/* 厂商原始值 <0x01 0x04 0x00>：bank1 pin 4 ⇒ PA4（HUSB311 中断脚） */
-+			rockchip,pins = <1 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>;
-+			};
-+			};
-+
-+			leds {
-+		work_led_pin: work-led-pin {
-+			rockchip,pins = <1 RK_PD7 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
-+	};
-+};
-+
-+/*
-+ * 风扇温控
-+ *
-+ * 厂商 BSP 用私有属性 rockchip,temp-trips 在驱动内调速（主线 pwm-fan 不认），
-+ * 这里改用主线标准做法：把风扇挂到 package 热区的 trips + cooling-maps。
-+ * 阈值沿用厂商 dtsi 的 50/55/60/65/70°C，档位对应 cooling-levels
-+ * <0 50 100 150 200 255>（duty 0/50/100/150/200/255）。
-+ *
-+ * ⚠️ SoC dtsi 里 polling-delay 默认 0（不轮询），板级必须显式打开，
-+ *    否则温度变化不触发调速 —— 表现为风扇恒定转速、cur_state 卡在 max。
-+ */
-+&package_thermal {
-+	polling-delay = <1000>;
-+
-+	trips {
-+		fan_trip0: fan-trip0 {
-+			temperature = <50000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip1: fan-trip1 {
-+			temperature = <55000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip2: fan-trip2 {
-+			temperature = <60000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip3: fan-trip3 {
-+			temperature = <65000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+
-+		fan_trip4: fan-trip4 {
-+			temperature = <70000>;
-+			hysteresis = <2000>;
-+			type = "active";
-+		};
-+	};
-+
-+	cooling-maps {
-+		map0 {
-+			trip = <&fan_trip0>;
-+			cooling-device = <&fan THERMAL_NO_LIMIT 1>;
-+		};
-+
-+		map1 {
-+			trip = <&fan_trip1>;
-+			cooling-device = <&fan 1 2>;
-+		};
-+
-+		map2 {
-+			trip = <&fan_trip2>;
-+			cooling-device = <&fan 2 3>;
-+		};
-+
-+		map3 {
-+			trip = <&fan_trip3>;
-+			cooling-device = <&fan 3 4>;
-+		};
-+
-+		map4 {
-+			trip = <&fan_trip4>;
-+			cooling-device = <&fan 4 THERMAL_NO_LIMIT>;
-+		};
-+	};
-+};
-+
-+/*
-+ * HDMI0 输出（VOP VP0 -> hdmi0 -> hdptxphy0）
-+ *
-+ * 引脚映射来自厂商 BSP dtb 反编译实测，全部 mux 5：
-+ *   CEC = gpio4 PC1    HPD = gpio1 PA5
-+ *   SCL = gpio4 PB7    SDA = gpio4 PC0
-+ * 与主线 stock 的 hdmim0_tx0_* 引脚组逐位一致，故直接引用，无需自定义组。
-+ *
-+ * 使能脚：厂商 dtsi 写 enable-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>；
-+ * 主线 dw-hdmi-qp 驱动只认 frl-enable-gpios，且仅做一次
-+ * gpiod_set_value(..., 0)（去断言）—— 配 GPIO_ACTIVE_LOW 时该脚物理电平为高，
-+ * 与厂商 ACTIVE_HIGH 的使能语义一致。mainline 中同脚位的 rk3588s 板
-+ * （indiedroid-nova、coolpi-4b）即此写法。
-+ */
-+&hdmi0 {
-+	frl-enable-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_LOW>;
-+	pinctrl-0 = <&hdmim0_tx0_cec &hdmim0_tx0_hpd
-+		     &hdmim0_tx0_scl &hdmim0_tx0_sda>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
-+&hdmi0_in {
-+	hdmi0_in_vp0: endpoint {
-+		remote-endpoint = <&vp0_out_hdmi0>;
-+	};
-+};
-+
-+&hdmi0_out {
-+	hdmi0_out_con: endpoint {
-+		remote-endpoint = <&hdmi0_con_in>;
-+	};
-+};
-+
-+&hdptxphy0 {
-+	status = "okay";
-+};
-+
-+&vop {
-+	status = "okay";
-+};
-+
-+&vop_mmu {
-+	status = "okay";
-+};
-+
-+&vp0 {
-+	vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
-+		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
-+		remote-endpoint = <&hdmi0_in_vp0>;
-+	};
-+};
-+
-+/*
-+ * HDMI0 音频
-+ *
-+ * 主线 rk3588-base.dtsi 已内置现成的 hdmi0_sound 卡（默认 disabled），
-+ * 只需打开它 + 打开 i2s5_8ch，不必自建 simple-audio-card。
-+ *
-+ * 对账依据（厂商 6.1 dtb vs 主线）：
-+ *   厂商 hdmi0-sound: cpu   = i2s@fddf0000   = 主线 i2s5_8ch   ✓
-+ *                    codec = hdmi@fde80000  = 主线 hdmi0       ✓
-+ *                    mclk-fs = 0x80 = 128   = 主线 128          ✓
-+ * 同 SoC(RK3588S) 参照做法一致：
-+ *   rk3588s-orangepi-5.dtsi:127/214、rk3588s-nanopi-r6.dtsi:258/346
-+ *   —— 均只是把这两个节点 status 改为 okay。
-+ */
-+&i2s5_8ch {
-+	status = "okay";
-+};
-+
-+&hdmi0_sound {
-+	status = "okay";
-+};
-+
-+/*
-+ * PCIe 2.0 x1 —— M.2 座（走 combphy0_ps）
-+ *
-+ * ⚠️ sata0 与 pcie2x1l2 复用 combphy0_ps，必须保持 sata0 禁用（厂商 dtsi 同样处理），
-+ *    否则两者抢同一个 PHY。
-+ * 复位脚 gpio3 RK_PB2（厂商 dtb 实测值）；板上 3.3V 常供，引 vcc_3v3_s3。
-+ */
-+&sata0 {
-+	status = "disabled";
-+};
-+
-+&combphy0_ps {
-+	status = "okay";
-+};
-+
-+&pcie2x1l2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pcie2x1l2_perstn>;
-+	reset-gpios = <&gpio3 RK_PB2 GPIO_ACTIVE_HIGH>;
-+	vpcie3v3-supply = <&vcc_3v3_s3>;
-+	status = "okay";
-+};
-+
-+/*
-+ * USB3 —— Type-C 口（走 usbdp_phy0 + u2phy0）
-+ *
-+ * 主线没有 HUSB311（TCPC）驱动，Type-C 的插入方向/角色切换（CC 检测）拿不到，
-+ * 故按 rock-5c 的写法固定成 host 模式，不做 OTG/DP altmode。
-+ * VBUS 由 vbus5v0_typec 控制（GPIO = gpio1 PC5，厂商 dtb 实测值）。
-+ */
-+&u2phy0 {
-+	status = "okay";
-+};
-+
-+&u2phy0_otg {
-+	phy-supply = <&vbus5v0_typec>;
-+	status = "okay";
-+};
-+
-+/*
-+ * USB3.0 Type-A host port (the blue, upper connector).
-+ * The SuperSpeed lanes are wired to usb_host2_xhci through combphy2_psu.
-+ * The vendor BSP enables both; without them the port's SS lanes have no
-+ * driver and the connector only ever links at 480M (USB2).
-+ * combphy2_psu is free here: this board uses pcie2x1l2 (combphy0_ps) for M.2.
-+ */
-+&combphy2_psu {
-+	status = "okay";
-+};
-+
-+&usb_host2_xhci {
-+	status = "okay";
-+};
-+
-+&usb_host0_xhci {
-+	dr_mode = "host";
-+	status = "okay";
-+
-+	/* USB-C 连接器的 HS/SS 端口图（绑定要求 port@0，且 SS 口应有 port@1） */
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			usb_host0_hs_ep: endpoint {
-+				remote-endpoint = <&usbc0_hs>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			usb_host0_ss_ep: endpoint {
-+				remote-endpoint = <&usbc0_ss>;
-+			};
-+		};
-+	};
-+};
-+
-+/ {
-+	hdmi0-con {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi0_con_in: endpoint {
-+				remote-endpoint = <&hdmi0_out_con>;
-+			};
-+		};
-+	};
-+
-+	/*
-+	 * Type-C 口 VBUS 5V —— 厂商 dtb 原文 gpio = <&gpio1 0x1d 0> ⇒ gpio1 PD5
-+	 * （enable-active-high；ACTIVE_HIGH 为等价表达）。
-+	 * ⚠️ 早先误写成 PC5，而 PC5 正是 i2s0_lrck（音频 LRCLK）——稳压器抢了音频引脚，
-+	 *    真正的 PD5 从未被驱动 ⇒ VBUS 实际从未打开（自供电设备仍可用，故长期未暴露）。
-+	 *    2026-09-26 对照官方 dtb 修正。
-+	 */
-+	vbus5v0_typec: vbus5v0-typec {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vbus5v0_typec";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpios = <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
-+		vin-supply = <&vcc5v0_sys>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&typec5v_pwren>;
-+	};
-+};
-+
-+/*
-+ * ===== ES8388 音频（2026-09-26 从厂商 BSP 移植）=====
-+ *
-+ * 引脚：厂商 BSP 的 i2s0 组与主线 rk3588-base-pinctrl 自带组 **1:1 吻合**
-+ *   mclk=PC2 m1   sclk=PC3 m1   lrck=PC5 m1   sdo0=PC7 m1   sdi0=PD4 m2
-+ * i2c1(fea90000)：厂商用 i2c1m4 = PD2/PD3 mux9
-+ * 耳机检测 PC4、功放使能 PC6（厂商 hp-det-gpio / hp-con-gpio，均为 mux0=GPIO）
-+ *
-+ * ⚠️ 厂商用私有 rockchip,multicodecs-card，主线无此驱动 ⇒ 改用标准 simple-audio-card
-+ * ⚠️ 厂商的 ADC 耳机检测 / play-pause 键主线不支持，省略
-+ * ⚠️ 驱动已内置：CONFIG_SND_SOC_ES8328_I2C=y（es8328 驱动绑定 everest,es8388）
-+ */
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1m4_xfer>;
-+	status = "okay";
-+
-+	es8388: audio-codec@11 {
-+		/* ⭐⭐⭐ 2026-09-26 关键修正：把 everest,es8323 放在**第一位**。
-+		 *   原因（读驱动源码 + 板上模块实证）：
-+		 *   - 主线 es8328.c 是**简化版**（888 行），es8323.c 是**完整版**（791 行，
-+		 *     有 set_dai_fmt / set_dai_sysclk / pcm_hw_params + coeff_div 系数表）。
-+		 *   - compatible 列表**按顺序匹配**：'everest,es8388' 排前面会被 es8328 抢走，
-+		 *     所以必须把 es8323 提到第一位才能让完整版驱动绑定。
-+		 *   - 板上已确认存在该模块：/lib/modules/6.18.53-ophub/kernel/sound/soc/codecs/
-+		 *     snd-soc-es8323.ko，模块别名 of:N*T*Ceverest,es8323 ✔
-+		 *   - 参照上游同 codec 的板子 rk3588-youyeetoo-yy3588.dts（PR #9534）也是单写 es8323。
-+		 *   - 官方 6.1 BSP dtb 的 compatible 同样是 "everest,es8388","everest,es8323"。
-+		 */
-+		compatible = "everest,es8323", "everest,es8388";
-+		reg = <0x11>;
-+		/* ⭐ 关键：给 codec 的时钟句柄必须用 _TO_IO 变体（到引脚的那一段），
-+		 *   用不带后缀的内部段会导致 i2s0_8ch_mclkout_to_io 保持 deviceless/未使能
-+		 *   ⇒ MCLK 到不了 codec 引脚 ⇒ 寄存器/DAPM/音量全对但完全无声。
-+		 *   对齐主线同 codec 板 rk3588-youyeetoo-yy3588.dts 的写法：
-+		 *   assigned-clocks 用内部段设频率，clocks 用 _TO_IO 段驱动引脚。
-+		 */
-+		clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-+		/* ⭐⭐⭐ 2026-09-26 关键修正：**必须有 clock-names**。
-+		 *   完整版驱动 es8323.c:618 用的是按名字取时钟：
-+		 *       es8323->mclk = devm_clk_get_optional(component->dev, "mclk");
-+		 *   没有 clock-names 时它拿到 NULL ⇒ 后面 hw_params 里
-+		 *       coeff = get_coeff(es8323->sysclk, rate)
-+		 *   查系数表拿不到正确的 MCLK/LRCK 分频 ⇒ codec 收到错误时钟 ⇒ 无声。
-+		 *   官方 6.1 BSP dtb 的 codec 节点同样带 clock-names = "mclk"，这是两侧一致的关键项。
-+		 */
-+		clock-names = "mclk";
-+		assigned-clocks = <&cru I2S0_8CH_MCLKOUT>;
-+		assigned-clock-rates = <12288000>;
-+		AVDD-supply = <&vcc_3v3_s0>;
-+		DVDD-supply = <&vcc_1v8_s0>;
-+		HPVDD-supply = <&vcc_3v3_s0>;
-+		PVDD-supply = <&vcc_3v3_s0>;
-+		#sound-dai-cells = <0>;
-+	};
-+
-+	/*
-+	 * ⭐ 摄像头（CAM3 口，D-PHY0 路径）
-+	 *
-+	 * 【为什么是 CAM3】主线 6.18 的 rk3588-base.dtsi 里，两个 CSI host 硬绑 D-PHY：
-+	 *     csi2@fdd30000  phys = <&csi_dphy0>
-+	 *     csi4@fdd50000  phys = <&csi_dphy1>
-+	 *   而两个 DC-PHY 只绑给了 DSI：
-+	 *     dsi0@fde20000  phys = <&mipidcphy0 PHY_TYPE_DPHY>
-+	 *     dsi1@fde30000  phys = <&mipidcphy1 PHY_TYPE_DPHY>
-+	 *   ⇒ 主线**没有** DC-PHY→CSI 通路（全树 0 先例，主线亦无任何 DC-PHY 接 sensor 的板子）
-+	 *   ⇒ 走 DC-PHY 的 CAM1/CAM2 口在 6.18 上不可用；本板三口里只有 CAM3 走 D-PHY0。
-+	 *
-+	 * 【接线】厂商 6.1 dtb 实测（GPIO 为线性编号：pin8=PB0）：
-+	 *   CAM3 = i2c1(fea90000)、reset = gpio1 PB4(ACTIVE_LOW)、power = gpio1 PB5(ACTIVE_HIGH)、
-+	 *          MCLK pinctrl = mipim0_camera3_clk、DPHY = csi2_dphy0
-+	 * 【主线写法对齐】官方同 sensor overlay：
-+	 *   rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso（IMX415 + csi_dphy0 + csi2 + vicap）
-+	 *   —— 该 overlay 的 MCLK 也正好是 CLK_MIPI_CAMARAOUT_M3，与本口一致。
-+	 */
-+	imx415: camera-sensor@1a {
-+		compatible = "sony,imx415";
-+		reg = <0x1a>;
-+		clocks = <&cru CLK_MIPI_CAMARAOUT_M3>;
-+		assigned-clocks = <&cru CLK_MIPI_CAMARAOUT_M3>;
-+		assigned-clock-rates = <37125000>;
-+		avdd-supply = <&cam_pwr>;
-+		dvdd-supply = <&cam_pwr>;
-+		ovdd-supply = <&cam_pwr>;
-+		reset-gpios = <&gpio1 RK_PB4 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&mipim0_camera3_clk>;
-+
-+		port {
-+			imx415_out: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <445500000>;
-+				remote-endpoint = <&csi2_input>;
-+			};
-+		};
-+	};
-+};
-+
-+&i2s0_8ch {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2s0_lrck &i2s0_mclk &i2s0_sclk &i2s0_sdi0 &i2s0_sdo0>;
-+	status = "okay";
-+};
-+
-+&pinctrl {
-+	headphone {
-+		hp_det: hp-det {
-+			rockchip,pins = <1 RK_PC4 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		hp_con: hp-con {
-+			rockchip,pins = <1 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+/ {
-+	analog_sound: analog-sound {
-+		compatible = "simple-audio-card";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hp_det &hp_con>;
-+		simple-audio-card,name = "QuarkPi-CA2 ES8388";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,bitclock-master = <&sound_cpu>;
-+		simple-audio-card,frame-master = <&sound_cpu>;
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,aux-devs = <&hp_amp>;
-+		/* 厂商 <0x13d 0x14 0x00>：flags=0 ⇒ ACTIVE_HIGH（板载检测电路为正逻辑）。
-+		 * ⚠️ 早先照抄 roc-pc 写成 ACTIVE_LOW ⇒ 插着耳机也被判定为"未插" ⇒
-+		 *    pin-switches 断开 ⇒ 完全无声。实测 gpio-20 读 hi，按 HIGH 有效即"已插"。
-+		 */
-+		simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
-+		/*
-+		 * ⚠️ 关键：卡片级控件必须先在这里声明，否则 routing 里的名字不存在
-+		 *    （roc-pc 写法：第一项是控件类型 Headphone/Microphone，第二项是控件名）
-+		 */
-+		simple-audio-card,pin-switches = "Headphones";
-+		simple-audio-card,widgets =
-+			"Headphone", "Headphones",
-+			"Microphone", "Headset Mic",
-+			"Microphone", "Main Mic";
-+		simple-audio-card,routing =
-+			/* ⭐ 厂商 BSP 路由里有【直连】两行："Headphone","LOUT1" / "Headphone","ROUT1"。
-+			 *   补上它们：即使功放/切换开关有问题，耳机口也能从 LOUT1/ROUT1 拿到信号。
-+			 */
-+			"Headphones", "LOUT1",
-+			"Headphones", "ROUT1",
-+			/* 厂商 "Headphone Power" 通道（DAPM 需其上电） */
-+			"Headphones", "Headphone Power OUTL",
-+			"Headphones", "Headphone Power OUTR",
-+			"Headphone Power INL", "LOUT1",
-+			"Headphone Power INR", "ROUT1",
-+			/* 兜底：LOUT2/ROUT2 一并接入（官方参考板 Speaker 走这对输出，
-+			 * 本板无喇叭，若耳机座实际接在 2 路则靠这两行救回） */
-+			"Headphone Power INL", "LOUT2",
-+			"Headphone Power INR", "ROUT2",
-+			"LINPUT1", "Headset Mic",
-+			"LINPUT2", "Main Mic",
-+			"RINPUT1", "Headset Mic",
-+			"RINPUT2", "Main Mic";
-+
-+		sound_cpu: simple-audio-card,cpu {
-+			sound-dai = <&i2s0_8ch>;
-+		};
-+
-+		sound_codec: simple-audio-card,codec {
-+			sound-dai = <&es8388>;
-+			system-clock-frequency = <12288000>;
-+		};
-+	};
-+
-+	/* 耳机功放使能（厂商 hp-con-gpio = gpio1 PC6） */
-+	hp_amp: audio-amplifier-hp {
-+		compatible = "simple-audio-amplifier";
-+		/* ⭐ 与厂商 BSP 的 "Headphone Power" 控件同名：功放必须串入 DAPM 路由才会被上电，
-+		 *   仅挂 aux-devs 不够（实测 aux-devs 下 amp 的 INL/OUTL 从未通电 ⇒ 插座无信号）。
-+		 */
-+		sound-name-prefix = "Headphone Power";
-+		/* ⭐ 官方文档：插耳机自动切到耳机、喇叭停止 ⇒ hp-con 是"耳机通路开关"。
-+		 *   厂商 dtb flags=0 在私有 multicodecs 驱动里语义可能相反（非标准 enable-gpios）。
-+		 *   若为 ACTIVE_HIGH 时功放/通路被关，就会出现"DAPM 全 On 却完全无声"。
-+		 */
-+		/* ⭐ 官方文档：插耳机自动切到耳机、喇叭停止 ⇒ hp-con 是"耳机/喇叭通路选择"开关。
-+		 *   ⚠️ 2026-09-26 实测修正：厂商 BSP 为 hp-con-gpio = <&gpio1 22 0>，flags=0 ⇒ **ACTIVE_HIGH**。
-+		 *   此前照抄 roc-pc 写成 ACTIVE_LOW 是错的：播放时 DAPM 判定"使能"会把引脚拉低，
-+		 *   按厂商定义"低=关闭" ⇒ 音频被切到功放/喇叭侧，耳机口完全无声
-+		 *   （实测 /sys/kernel/debug/gpio: 播放时 gpio-22 = out lo ACTIVE LOW）。
-+		 */
-+		enable-gpios = <&gpio1 RK_PC6 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+/*
-+ * 摄像头模块供电：gpio1 PB5 控制的固定稳压器（模块自带 LDO，故三路 supply 共用这一路 3.3V）
-+ *
-+ * ⚠️ 必须挂在根节点下，**不能**塞进 i2c 总线里 —— i2c 子节点都要求 reg 属性，
-+ *    否则 dtc 报 "missing or empty reg property"（实测踩过）。
-+ *    官方 overlay rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso 正是把 regulator 挂在 &{/} 下。
-+ */
-+&{/} {
-+	cam_pwr: regulator-cam-pwren {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_pwr";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&gpio1 RK_PB5 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		vin-supply = <&vcc_3v3_s3>;
-+	};
-+};
-+
-+/*
-+ * 摄像头链路：sensor → csi_dphy0(D-PHY0) → csi2(host) → vicap
-+ *
-+ * 这条链在主线 rk3588-base.dtsi 里节点/端口都是现成的，只需打开 + 补两条 endpoint：
-+ *   csi2 的 port@0 = csi2_in（sensor 侧输入），port@1 = csi2_out → vicap_mipi2_input
-+ * 结构完全对齐官方 overlay rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso。
-+ *
-+ * 内核侧已就位（本板 6.18.53-ophub 实测）：
-+ *   PHY_ROCKCHIP_INNO_CSIDPHY=y（内建，支持 rockchip,rk3588-csi-dphy）、
-+ *   VIDEO_ROCKCHIP_CIF=m、VIDEO_DW_MIPI_CSI2RX=m、VIDEO_IMX415=m
-+ */
-+&csi_dphy0 {
-+	status = "okay";
-+};
-+
-+&csi2 {
-+	status = "okay";
-+};
-+
-+&csi2_in {
-+	csi2_input: endpoint {
-+		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+		data-lanes = <1 2 3 4>;
-+		link-frequencies = /bits/ 64 <445500000>;
-+		remote-endpoint = <&imx415_out>;
-+	};
-+};
-+
-+&vicap {
-+	status = "okay";
-+};
-+
-+&vicap_mmu {
-+	status = "okay";
-+};
-+
-+/* ==========================================================================
-+ * 40pin 排针（J11，图纸角标 RPI40pin 兼容）的**复用功能脚** —— 2026-09-26
-+ *
-+ * 这些控制器在 rk3588-base.dtsi 里默认 disabled，本板此前从未启用 ⇒
-+ * 排针上这几根脚一直只能当 GPIO 用。图纸上网名自带 mux 后缀（_M1/_M2/_M3），
-+ * 直接选对应主线 mux 组即可。组名与引脚已逐条对 rk3588-base-pinctrl.dtsi 核准：
-+ *    I2C3_M1 : gpio3-15(SCL) / gpio3-16(SDA)          ⇒ 排针 pin5 / pin3
-+ *    I2C5_M2 : gpio4-6(SCL)  / gpio4-7(SDA)           ⇒ 排针 pin28/ pin27
-+ *    UART5_M1: gpio3-20(TX)  / gpio3-21(RX)           ⇒ 排针 pin8 / pin10
-+ *    SPI0_M3 : gpio3-27(CLK)/gpio3-25(MISO)/gpio3-26(MOSI)
-+ *              gpio3-28(CS0)/gpio3-29(CS1)            ⇒ 排针 pin23/21/19/24/26
-+ * ⚠️ 引用组名时务必确认文件是 rk3588-*-pinctrl.dtsi ——
-+ *    通配 grep 会命中 rk3528/rk3576 的同名组（踩过，引脚完全不同）。
-+ * ========================================================================== */
-+&i2c3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c3m1_xfer>;
-+	status = "okay";
-+};
-+
-+/* ⚠️ 这里原本有一条 &i2c5（i2c5m2_xfer 组 = gpio4-6/7），**已删除**（2026-09-26）：
-+ *   ① 厂商 6.1 树里 i2c@fead0000(i2c5) 是 status="disabled"，从未启用；
-+ *   ② 而 gpio4-6 / gpio4-7 在同一棵厂商树里是 usbdp_phy0 的
-+ *      sbu1-dc-gpios / sbu2-dc-gpios（SBU 直流开关控制脚，DP alt mode 用）⇒ 物理冲突；
-+ *   ③ 原理图 J11 引脚表里 pin27/pin28 网名是 SDA0/SCL0（I2C0），也不是 i2c5m2。
-+ *   ⇒ 教训：排针复用功能的引脚不要凭原理图标注推断，以实测为准。
-+ */
-+
-+&uart5 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart5m1_xfer>;
-+	status = "okay";
-+};
-+
-+&spi0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi0m3_pins>, <&spi0m3_cs0>, <&spi0m3_cs1>;
-+	num-cs = <2>;
-+	status = "okay";
-+
-+};
-+
-+/* ==========================================================================
-+ * RGA3 2D 加速 —— rk3588-base.dtsi:1265/1287 已有 rga@fdb60000 / rga@fdb70000
-+ * （compatible = "rockchip,rk3588-rga3"），内核 CONFIG_VIDEO_ROCKCHIP_RGA=m 已在，
-+ * 只差把 status 打开。此前 /dev/rga* 不存在 ⇒ 现在补上。
-+ * ========================================================================== */
-+&rga3_core0 {
-+	status = "okay";
-+};
-+
-+&rga3_core1 {
-+	status = "okay";
-+};
-+
-+/* ==========================================================================
-+ * IR 红外接收 —— 2026-09-26
-+ *
-+ * 硬件链路：板载红外收头输出 → 网络 PWM_IR → SoC **GPIO0_D4（= gpio0-28）**，
-+ *   厂商 BSP 把它当 PWM3_M0 用（主线的引脚组注释就叫 `pwm3_ir_m0`）。
-+ *
-+ * 为什么走 GPIO 路线：主线 drivers/media/rc/ 里 **只有 pwm-ir-tx（发射）**，
-+ *   没有 PWM 红外"接收"驱动，`rockchip,remotectl-pwm` 是 BSP 私有 ⇒
-+ *   直接用主线的 gpio-ir-recv：把该脚当普通 GPIO 输入，驱动采脉冲宽度，
-+ *   由 rc-core 软件解 NEC。
-+ *
-+ * 内核侧**已就绪，无需任何改动**（板上 6.18.53-ophub 实测）：
-+ *   CONFIG_IR_GPIO_CIR=m  —— 模块 /lib/modules/6.18.53-ophub/kernel/drivers/media/rc/gpio-ir-recv.ko 存在
-+ *   CONFIG_IR_NEC_DECODER=m、CONFIG_RC_CORE=y、CONFIG_RC_MAP=y 均在
-+ *   ⚠️ Kconfig 符号是 **IR_GPIO_CIR**。我最初按 IR_GPIO_C_RECV 去查 ⇒ 误判"未编"、
-+ *      还差点去编内核模块 —— 记牢这个符号名。
-+ * 驱动自带 of_device_id（compatible = "gpio-ir-receiver"）⇒ 有本节点即由 udev
-+ *   自动加载；必要时手工 `modprobe gpio-ir-recv`。
-+ * 遥控器键表用用户态加载：/etc/rc_keymaps + ir-keytable（厂商表：usercode 0xFF00，20 键），
-+ *   故这里不写 linux,rc-map-name。
-+ * ========================================================================== */
-+&pinctrl {
-+	/* ⚠️ 必须写成「function 节点 → group 节点」两级结构！
-+	 *   rockchip_pinctrl_parse_dt() 只对 pinctrl 的每个子节点调 parse_functions()，
-+	 *   再由它遍历该子节点的子节点当 group（见 pinctrl-rockchip.c:4440）。
-+	 *   直接把组"扁平"写在 &pinctrl 下面 ⇒ of_get_child_count()=0 ⇒ 组不注册，
-+	 *   设备请求时内核报 "unable to find group for node xxx"（2026-09-26 实测踩坑）。
-+	 *   本文件里 leds / usb-typec / sdmmc / headphone 等组的写法都是这个两级形式。 */
-+	ir {
-+		ir_receiver_pin: ir-receiver-pin {
-+			/* gpio0-28 = GPIO0_D4，功能选 GPIO(0)，上拉（收头输出多为开漏） */
-+			rockchip,pins = <0 RK_PD4 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+};
-+
-+/* ── MIPI DSI0 / DSI1（2 路）—— 2026-09-26 实测后**决定不启用** ──
-+ * 曾按「直接移植」把 &dsi0/&dsi1/&mipidcphy0/&mipidcphy1 全部设为 okay，重启后：
-+ *   ✅ 四个节点状态确实变 okay（rockchip,rk3588-mipi-dsi2 / mipi-dcphy）
-+ *   ❌ **HDMI 当场挂掉**：/sys/class/drm/ 里 HDMI 连接器数 1→0，声卡 2 张→1 张，
-+ *      dmesg: "platform hdmi0-sound: deferred probe pending: asoc-simple-card: parse error"
-+ *      ⇒ RK3588S 的 VOP2 视频端口(VP)被 DSI 占走，HDMI0 失去输出。
-+ * ⇒ 板上没屏时**不要开 DSI**（既验不了又弄坏已验证好的 HDMI）。等社区有人带屏时，
-+ *    再连同 panel/bridge 节点一起加，并接受 HDMI 让位或改 VP 分配。
-+ */
-+
-+&{/} {
-+	ir_receiver: ir-receiver {
-+		compatible = "gpio-ir-receiver";
-+		/* ⭐ 极性必须是 ACTIVE_LOW：红外收头空闲输出高、收到载波时拉低，
-+		 *   而 rc-core 要的是"有效电平 = 脉冲"。主线三个 gpio-ir-receiver
-+		 *   板级示例（rk3568-rock-3b / rk3328-roc-pc / rk3566-box-demo）
-+		 *   用的全是 GPIO_ACTIVE_LOW。 */
-+		gpios = <&gpio0 RK_PD4 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&ir_receiver_pin>;
-+	};
-+};
-+
-+/* ==========================================================================
-+ * DP 输出（Type-C0 的 DP alt mode）—— 2026-09-26 按用户要求试一次
-+ *
-+ * 依据（全部来自厂商 6.1 树 + 主线同 SoC 参照板，不是我猜的）：
-+ *   ① 厂商树 dp@fde50000 = status "okay"，phys = <&usbdp_phy0 的 dp-port>；
-+ *   ② 厂商树 usbdp_phy0：dp-port = okay、sbu1-dc-gpios = gpio4-6、sbu2-dc-gpios = gpio4-7；
-+ *   ③ DP 的视频端口用 **vp1**（厂商树 vp1_out_dp0 = /vop/ports/port@1/endpoint@0，
-+ *      且主线参照板 rk3588s-indiedroid-nova 同样是 vp1 → dp0）⇒ 与 HDMI0 用的 vp0 不冲突。
-+ *   ④ 主线内核配置齐备：ROCKCHIP_DW_DP=y / PHY_ROCKCHIP_USBDP=y / TYPEC=y / TYPEC_TCPCI=y。
-+ *
-+ * ⚠️ 若此段导致 HDMI/音频/USB 异常，直接还原 /root/qpi-dtb-backup/ 里的 dtb 即可。
-+ * ========================================================================== */
-+
-+&dp0 {
-+	status = "okay";
-+};
-+
-+&dp0_in {
-+	dp0_in_vp1: endpoint {
-+		remote-endpoint = <&vp1_out_dp0>;
-+	};
-+};
-+
-+&dp0_out {
-+	dp0_out_con: endpoint {
-+		remote-endpoint = <&usbdp_phy0_dp_in>;
-+	};
-+};
-+
-+&vp1 {
-+	vp1_out_dp0: endpoint@a {
-+		reg = <ROCKCHIP_VOP2_EP_DP0>;
-+		remote-endpoint = <&dp0_in_vp1>;
-+	};
-+};
-+
-+&usbdp_phy0 {
-+	orientation-switch;
-+	mode-switch;
-+	/* 厂商树实测值：SBU1/SBU2 直流开关控制脚 = GPIO4_A6 / GPIO4_A7 */
-+	sbu1-dc-gpios = <&gpio4 RK_PA6 GPIO_ACTIVE_HIGH>;
-+	sbu2-dc-gpios = <&gpio4 RK_PA7 GPIO_ACTIVE_HIGH>;
-+	rockchip,dp-lane-mux = <2 3>;
-+	status = "okay";
-+
-+	port {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		usbdp_phy0_dp_in: endpoint@2 {
-+			reg = <2>;
-+			remote-endpoint = <&dp0_out_con>;
-+		};
-+
-+		usbdp_phy0_dp_out: endpoint@3 {
-+			reg = <3>;
-+			remote-endpoint = <&usbc0_sbu>;
-+		};
-+	};
-+};
+The Micrel binding change in patch 3 is needed by the Ethernet PHY
+descriptions in this series. The existing boolean definition of
+micrel,rmii-reference-clock-select-25-mhz conflicts with the dt-schema
+unit check for properties ending in -mhz. The binding now accepts <1>
+for 25 MHz selection and limits the property to the applicable PHYs.
+Patch 2 changes the Micrel driver to test for property presence without
+warning about the numeric value. This preserves its runtime behavior.
+
+Patch 1 documents the board compatibles, patches 2-3 update the Micrel
+driver and binding, patches 4-7 add reusable DTSI files, patch 8 converts
+the existing Concerto boards, patches 9-11 add the new i.MX6UL,
+i.MX6ULL and i.MX6ULZ board DTS files, and patch 12 enables their DTBs
+in the Makefile.
+
+v2->v3:
+ - Add a Micrel driver fix before the binding change so the numeric
+   RMII clock select property does not cause a warning at PHY probe.
+ - Specify the 3.3 V ADC reference supply voltage on both modules.
+ - Share identical storage and wireless option DTSI files between the
+   VAR-SOM-6UL and DART-6UL, and drop unused address and size cells from
+   the IW61x SDIO host.
+ - Move the Symphony Type-C interrupt pinctrl to the SoC-appropriate
+   IOMUX controller, specify falling-edge interrupts for the Type-C
+   controller and touchscreens, and disable the actual backlight node
+   on the i.MX6ULZ Concerto-Board.
+ - Update board includes for the shared option files and sort the
+   Variscite DTB targets in the Makefile.
+
+v1->v2:
+ - Share the WM8904 codec description between VAR-SOM-6UL and DART-6UL,
+   keeping the DART-specific microphone routing in a small wrapper.
+ - Consolidate the identical WM8731 descriptions into one shared DTSI
+   and update the board includes.
+
+Stefano Radaelli (12):
+  dt-bindings: arm: fsl: Document Variscite i.MX6UL boards
+  net: phy: micrel: Check RMII clock select property presence
+  dt-bindings: net: micrel: Fix RMII clock select property type
+  ARM: dts: imx6ul: Add Variscite SoM and DART base files
+  ARM: dts: imx6ul: Add Variscite audio codec files
+  ARM: dts: imx6ul: Add Variscite storage and wireless files
+  ARM: dts: imx6ul: Add Variscite carrier board files
+  ARM: dts: imx6ul: Reuse Variscite DTSI files for Concerto
+  ARM: dts: imx6ul: Add Variscite i.MX6UL board variants
+  ARM: dts: imx6ull: Add Variscite i.MX6ULL board variants
+  ARM: dts: imx6ulz: Add Variscite i.MX6ULZ board variants
+  ARM: dts: imx6ul: Enable Variscite i.MX6UL board DTBs
+
+ .../devicetree/bindings/arm/fsl.yaml          | 148 +++++++-
+ .../devicetree/bindings/net/micrel.yaml       |  27 +-
+ arch/arm/boot/dts/nxp/imx/Makefile            |  92 ++++-
+ ...x6ull-var-dart-6ulcustomboard-sd-card.dtsi |  31 ++
+ ...mx6ul-imx6ull-var-dart-6ulcustomboard.dtsi | 321 ++++++++++++++++
+ .../imx/imx6ul-imx6ull-var-dart-wm8904.dtsi   |  17 +
+ .../dts/nxp/imx/imx6ul-imx6ull-var-dart.dtsi  | 207 +++++++++++
+ .../dts/nxp/imx/imx6ul-imx6ull-var-emmc.dtsi  |  32 ++
+ .../dts/nxp/imx/imx6ul-imx6ull-var-nand.dtsi  |  63 ++++
+ ...mx6ull-var-som-concerto-board-sd-card.dtsi |  42 +++
+ ...imx6ul-imx6ull-var-som-concerto-board.dtsi | 350 ++++++++++++++++++
+ ...imx6ul-imx6ull-var-som-symphony-board.dtsi | 311 ++++++++++++++++
+ ...ommon.dtsi => imx6ul-imx6ull-var-som.dtsi} | 222 +++++------
+ .../nxp/imx/imx6ul-imx6ull-var-wifi-brcm.dtsi |  42 +++
+ .../imx/imx6ul-imx6ull-var-wifi-iw61x.dtsi    |  43 +++
+ .../nxp/imx/imx6ul-imx6ull-var-wm8731.dtsi    |  71 ++++
+ .../nxp/imx/imx6ul-imx6ull-var-wm8904.dtsi    |  85 +++++
+ .../imx/imx6ul-var-dart-6ulcustomboard.dtsi   |  18 +
+ ...l-var-dart-emmc-sd-card-6ulcustomboard.dts |  20 +
+ ...art-emmc-sd-card-wm8731-6ulcustomboard.dts |  20 +
+ ...var-dart-emmc-wifi-brcm-6ulcustomboard.dts |  20 +
+ ...t-emmc-wifi-brcm-wm8731-6ulcustomboard.dts |  20 +
+ ...ar-dart-emmc-wifi-iw61x-6ulcustomboard.dts |  20 +
+ ...l-var-dart-nand-sd-card-6ulcustomboard.dts |  20 +
+ ...art-nand-sd-card-wm8731-6ulcustomboard.dts |  20 +
+ ...var-dart-nand-wifi-brcm-6ulcustomboard.dts |  20 +
+ ...t-nand-wifi-brcm-wm8731-6ulcustomboard.dts |  20 +
+ ...ar-dart-nand-wifi-iw61x-6ulcustomboard.dts |  20 +
+ .../arm/boot/dts/nxp/imx/imx6ul-var-dart.dtsi |  31 ++
+ .../dts/nxp/imx/imx6ul-var-som-audio.dtsi     |  30 --
+ .../imx/imx6ul-var-som-concerto-board.dtsi    |  38 ++
+ .../imx/imx6ul-var-som-concerto-common.dtsi   | 215 -----------
+ .../nxp/imx/imx6ul-var-som-concerto-full.dts  |  15 +-
+ .../dts/nxp/imx/imx6ul-var-som-concerto.dts   |  14 +-
+ ...ul-var-som-emmc-sd-card-concerto-board.dts |  20 +
+ ...ul-var-som-emmc-sd-card-symphony-board.dts |  20 +
+ ...som-emmc-sd-card-wm8731-concerto-board.dts |  20 +
+ ...som-emmc-sd-card-wm8731-symphony-board.dts |  20 +
+ ...-var-som-emmc-wifi-brcm-concerto-board.dts |  20 +
+ ...-var-som-emmc-wifi-brcm-symphony-board.dts |  20 +
+ ...m-emmc-wifi-brcm-wm8731-concerto-board.dts |  20 +
+ ...m-emmc-wifi-brcm-wm8731-symphony-board.dts |  20 +
+ ...var-som-emmc-wifi-iw61x-concerto-board.dts |  20 +
+ ...var-som-emmc-wifi-iw61x-symphony-board.dts |  20 +
+ .../dts/nxp/imx/imx6ul-var-som-enet1.dtsi     |  44 ---
+ .../dts/nxp/imx/imx6ul-var-som-enet2.dtsi     |  79 ----
+ .../nxp/imx/imx6ul-var-som-lvds-panel.dtsi    | 112 ------
+ ...ul-var-som-nand-sd-card-concerto-board.dts |  20 +
+ ...ul-var-som-nand-sd-card-symphony-board.dts |  20 +
+ ...som-nand-sd-card-wm8731-concerto-board.dts |  20 +
+ ...som-nand-sd-card-wm8731-symphony-board.dts |  20 +
+ ...-var-som-nand-wifi-brcm-concerto-board.dts |  20 +
+ ...-var-som-nand-wifi-brcm-symphony-board.dts |  20 +
+ ...m-nand-wifi-brcm-wm8731-concerto-board.dts |  20 +
+ ...m-nand-wifi-brcm-wm8731-symphony-board.dts |  20 +
+ ...var-som-nand-wifi-iw61x-concerto-board.dts |  20 +
+ ...var-som-nand-wifi-iw61x-symphony-board.dts |  20 +
+ .../boot/dts/nxp/imx/imx6ul-var-som-sd.dtsi   |  27 --
+ .../imx/imx6ul-var-som-symphony-board.dtsi    |  96 +++++
+ .../boot/dts/nxp/imx/imx6ul-var-som-wifi.dtsi |  75 ----
+ arch/arm/boot/dts/nxp/imx/imx6ul-var-som.dtsi |  31 +-
+ .../imx/imx6ull-var-dart-6ulcustomboard.dtsi  |  18 +
+ ...l-var-dart-emmc-sd-card-6ulcustomboard.dts |  20 +
+ ...art-emmc-sd-card-wm8731-6ulcustomboard.dts |  20 +
+ ...var-dart-emmc-wifi-brcm-6ulcustomboard.dts |  20 +
+ ...t-emmc-wifi-brcm-wm8731-6ulcustomboard.dts |  20 +
+ ...ar-dart-emmc-wifi-iw61x-6ulcustomboard.dts |  20 +
+ ...l-var-dart-nand-sd-card-6ulcustomboard.dts |  20 +
+ ...art-nand-sd-card-wm8731-6ulcustomboard.dts |  20 +
+ ...var-dart-nand-wifi-brcm-6ulcustomboard.dts |  20 +
+ ...t-nand-wifi-brcm-wm8731-6ulcustomboard.dts |  20 +
+ ...ar-dart-nand-wifi-iw61x-6ulcustomboard.dts |  20 +
+ .../boot/dts/nxp/imx/imx6ull-var-dart.dtsi    |  31 ++
+ .../imx/imx6ull-var-som-concerto-board.dtsi   |  38 ++
+ .../nxp/imx/imx6ull-var-som-concerto-full.dts |  15 +-
+ .../dts/nxp/imx/imx6ull-var-som-concerto.dts  |  14 +-
+ ...ll-var-som-emmc-sd-card-concerto-board.dts |  20 +
+ ...ll-var-som-emmc-sd-card-symphony-board.dts |  20 +
+ ...som-emmc-sd-card-wm8731-concerto-board.dts |  20 +
+ ...som-emmc-sd-card-wm8731-symphony-board.dts |  20 +
+ ...-var-som-emmc-wifi-brcm-concerto-board.dts |  20 +
+ ...-var-som-emmc-wifi-brcm-symphony-board.dts |  20 +
+ ...m-emmc-wifi-brcm-wm8731-concerto-board.dts |  20 +
+ ...m-emmc-wifi-brcm-wm8731-symphony-board.dts |  20 +
+ ...var-som-emmc-wifi-iw61x-concerto-board.dts |  20 +
+ ...var-som-emmc-wifi-iw61x-symphony-board.dts |  20 +
+ ...ll-var-som-nand-sd-card-concerto-board.dts |  20 +
+ ...ll-var-som-nand-sd-card-symphony-board.dts |  20 +
+ ...som-nand-sd-card-wm8731-concerto-board.dts |  20 +
+ ...som-nand-sd-card-wm8731-symphony-board.dts |  20 +
+ ...-var-som-nand-wifi-brcm-concerto-board.dts |  20 +
+ ...-var-som-nand-wifi-brcm-symphony-board.dts |  20 +
+ ...m-nand-wifi-brcm-wm8731-concerto-board.dts |  20 +
+ ...m-nand-wifi-brcm-wm8731-symphony-board.dts |  20 +
+ ...var-som-nand-wifi-iw61x-concerto-board.dts |  20 +
+ ...var-som-nand-wifi-iw61x-symphony-board.dts |  20 +
+ .../imx/imx6ull-var-som-symphony-board.dtsi   |  96 +++++
+ .../arm/boot/dts/nxp/imx/imx6ull-var-som.dtsi |  31 +-
+ .../imx/imx6ulz-var-dart-6ulcustomboard.dtsi  |  24 ++
+ ...z-var-dart-emmc-sd-card-6ulcustomboard.dts |  21 ++
+ ...art-emmc-sd-card-wm8731-6ulcustomboard.dts |  21 ++
+ ...var-dart-emmc-wifi-brcm-6ulcustomboard.dts |  21 ++
+ ...t-emmc-wifi-brcm-wm8731-6ulcustomboard.dts |  21 ++
+ ...ar-dart-emmc-wifi-iw61x-6ulcustomboard.dts |  21 ++
+ ...z-var-dart-nand-sd-card-6ulcustomboard.dts |  21 ++
+ ...art-nand-sd-card-wm8731-6ulcustomboard.dts |  21 ++
+ ...var-dart-nand-wifi-brcm-6ulcustomboard.dts |  21 ++
+ ...t-nand-wifi-brcm-wm8731-6ulcustomboard.dts |  21 ++
+ ...ar-dart-nand-wifi-iw61x-6ulcustomboard.dts |  21 ++
+ .../boot/dts/nxp/imx/imx6ulz-var-dart.dtsi    |  38 ++
+ .../imx/imx6ulz-var-som-concerto-board.dtsi   |  42 +++
+ ...lz-var-som-emmc-sd-card-concerto-board.dts |  21 ++
+ ...lz-var-som-emmc-sd-card-symphony-board.dts |  21 ++
+ ...som-emmc-sd-card-wm8731-concerto-board.dts |  21 ++
+ ...som-emmc-sd-card-wm8731-symphony-board.dts |  21 ++
+ ...-var-som-emmc-wifi-brcm-concerto-board.dts |  21 ++
+ ...-var-som-emmc-wifi-brcm-symphony-board.dts |  21 ++
+ ...m-emmc-wifi-brcm-wm8731-concerto-board.dts |  21 ++
+ ...m-emmc-wifi-brcm-wm8731-symphony-board.dts |  21 ++
+ ...var-som-emmc-wifi-iw61x-concerto-board.dts |  21 ++
+ ...var-som-emmc-wifi-iw61x-symphony-board.dts |  21 ++
+ ...lz-var-som-nand-sd-card-concerto-board.dts |  21 ++
+ ...lz-var-som-nand-sd-card-symphony-board.dts |  21 ++
+ ...som-nand-sd-card-wm8731-concerto-board.dts |  21 ++
+ ...som-nand-sd-card-wm8731-symphony-board.dts |  21 ++
+ ...-var-som-nand-wifi-brcm-concerto-board.dts |  21 ++
+ ...-var-som-nand-wifi-brcm-symphony-board.dts |  21 ++
+ ...m-nand-wifi-brcm-wm8731-concerto-board.dts |  21 ++
+ ...m-nand-wifi-brcm-wm8731-symphony-board.dts |  21 ++
+ ...var-som-nand-wifi-iw61x-concerto-board.dts |  21 ++
+ ...var-som-nand-wifi-iw61x-symphony-board.dts |  21 ++
+ .../imx/imx6ulz-var-som-symphony-board.dtsi   |  32 ++
+ .../arm/boot/dts/nxp/imx/imx6ulz-var-som.dtsi |  38 ++
+ drivers/net/phy/micrel.c                      |   2 +-
+ 134 files changed, 4411 insertions(+), 767 deletions(-)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-6ulcustomboard-sd-card.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-6ulcustomboard.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart-wm8904.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-emmc.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-nand.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-concerto-board-sd-card.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-concerto-board.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som-symphony-board.dtsi
+ rename arch/arm/boot/dts/nxp/imx/{imx6ul-var-som-common.dtsi => imx6ul-imx6ull-var-som.dtsi} (50%)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wifi-brcm.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wifi-iw61x.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wm8731.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wm8904.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-6ulcustomboard.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-emmc-sd-card-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-emmc-sd-card-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-emmc-wifi-brcm-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-emmc-wifi-brcm-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-emmc-wifi-iw61x-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-nand-sd-card-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-nand-sd-card-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-nand-wifi-brcm-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-nand-wifi-brcm-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart-nand-wifi-iw61x-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-dart.dtsi
+ delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-audio.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-concerto-board.dtsi
+ delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-concerto-common.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-emmc-sd-card-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-emmc-sd-card-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-emmc-sd-card-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-emmc-sd-card-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-emmc-wifi-brcm-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-emmc-wifi-brcm-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-emmc-wifi-brcm-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-emmc-wifi-brcm-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-emmc-wifi-iw61x-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-emmc-wifi-iw61x-symphony-board.dts
+ delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-enet1.dtsi
+ delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-enet2.dtsi
+ delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-lvds-panel.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-nand-sd-card-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-nand-sd-card-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-nand-sd-card-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-nand-sd-card-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-nand-wifi-brcm-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-nand-wifi-brcm-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-nand-wifi-brcm-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-nand-wifi-brcm-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-nand-wifi-iw61x-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-nand-wifi-iw61x-symphony-board.dts
+ delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-sd.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-symphony-board.dtsi
+ delete mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-var-som-wifi.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-6ulcustomboard.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-emmc-sd-card-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-emmc-sd-card-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-emmc-wifi-brcm-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-emmc-wifi-brcm-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-emmc-wifi-iw61x-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-nand-sd-card-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-nand-sd-card-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-nand-wifi-brcm-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-nand-wifi-brcm-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart-nand-wifi-iw61x-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-dart.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-concerto-board.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-emmc-sd-card-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-emmc-sd-card-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-emmc-sd-card-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-emmc-sd-card-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-emmc-wifi-brcm-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-emmc-wifi-brcm-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-emmc-wifi-brcm-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-emmc-wifi-brcm-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-emmc-wifi-iw61x-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-emmc-wifi-iw61x-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-nand-sd-card-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-nand-sd-card-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-nand-sd-card-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-nand-sd-card-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-nand-wifi-brcm-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-nand-wifi-brcm-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-nand-wifi-brcm-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-nand-wifi-brcm-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-nand-wifi-iw61x-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-nand-wifi-iw61x-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-var-som-symphony-board.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-6ulcustomboard.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-emmc-sd-card-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-emmc-sd-card-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-emmc-wifi-brcm-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-emmc-wifi-brcm-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-emmc-wifi-iw61x-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-nand-sd-card-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-nand-sd-card-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-nand-wifi-brcm-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-nand-wifi-brcm-wm8731-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart-nand-wifi-iw61x-6ulcustomboard.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-dart.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-concerto-board.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-emmc-sd-card-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-emmc-sd-card-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-emmc-sd-card-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-emmc-sd-card-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-emmc-wifi-brcm-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-emmc-wifi-brcm-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-emmc-wifi-brcm-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-emmc-wifi-brcm-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-emmc-wifi-iw61x-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-emmc-wifi-iw61x-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-nand-sd-card-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-nand-sd-card-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-nand-sd-card-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-nand-sd-card-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-nand-wifi-brcm-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-nand-wifi-brcm-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-nand-wifi-brcm-wm8731-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-nand-wifi-brcm-wm8731-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-nand-wifi-iw61x-concerto-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-nand-wifi-iw61x-symphony-board.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som-symphony-board.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ulz-var-som.dtsi
+
+
+base-commit: 40f1b207d21530e10f05b9eaf892b4358a1f1151
+prerequisite-patch-id: 62880c8f7160273c15e5f475f04804d086a9ad1c
+prerequisite-patch-id: 3781017f0aa27eb7d57197b467a9d9f81413cbc5
+prerequisite-patch-id: 962922a4574df33d18b523748560b1ca3ee585a9
+prerequisite-patch-id: 5bf320ed451409bce6cfc3048175851591a5f3dd
+prerequisite-patch-id: 3bea4f196ea1526f0cd1ad4337bf9611c87f0555
+prerequisite-patch-id: 1ad35198902e1c7ec2611292e9972eb7123a0f90
+prerequisite-patch-id: 5b23703c0c731b5f296aaee487e7b577eb61e636
+prerequisite-patch-id: 26687fecbd89ceb0dc62f9d9680649689a8c5066
+prerequisite-patch-id: 96a89f7a1f14d8fac73a524eba728ba594ed57c8
+prerequisite-patch-id: 68ac4290d5853a834aa80539b945f805f4b876e6
+prerequisite-patch-id: fde30f2299fa6524df7b8b36b662bc84bac587e9
+prerequisite-patch-id: 69642026b477d3cd8ccb4c52e4045450ccc34f46
+prerequisite-patch-id: 86729524d0971905b2d22294e2e1a6839de6d5bb
+prerequisite-patch-id: 30e7506837377b52e75815b2fc55145b4eec3ede
+prerequisite-patch-id: a81285c549c9fdf666075725a5ee38dba340e555
+prerequisite-patch-id: 07d9e9852c096ec14d0aee6c607b0434e0abf3ae
+prerequisite-patch-id: ef8429c8fec77bcba99b32ac47529597cb2ad9e4
+prerequisite-patch-id: ca2bc56305831fd058562952bd488d86cee7f400
+prerequisite-patch-id: 43731e74e6aaf848816bf574fdd9be0b01b4b94d
+prerequisite-patch-id: dc5229856996362403d6a767ecbbe65c42189219
+prerequisite-patch-id: dd6674b31278dd07dd4b455ac08bd0bd5474bc82
+prerequisite-patch-id: 4084e9a7ceeda61006b251558204b28dd1a3aa48
+prerequisite-patch-id: ccfe25543d430411ec3d900514a5b0a96a5b5cce
+prerequisite-patch-id: ef37b3260b07b0dc4f3f4f8dbf18475b91cfb2f1
+prerequisite-patch-id: ae2a9b239b640125e7b367137a4eb71aaf468c69
+prerequisite-patch-id: bb7c530f09e10d8519ecc72b2245450b432d76bf
+prerequisite-patch-id: 8a5077ba68c33a06e3afdec671457d8e635c2e21
+prerequisite-patch-id: 49ecd2b6a4a9f08ddb36f02f8fc067a4e93d3494
+prerequisite-patch-id: 1fa3df17af62f6daedf2b2eea4c9eee74560f412
+prerequisite-patch-id: 95d94068c9fa17f737f9d318e264bcd87cf19485
+prerequisite-patch-id: 0afadd49a2b8d8c66452d7669f88937a02cef6f9
+prerequisite-patch-id: 8be2b5d331f3172e5ec0f66415faa807ac246d8c
+prerequisite-patch-id: accdb7d4195ddb65e169b61e1eebf6b20e876365
+prerequisite-patch-id: 99ddad7ca8ba6845bdece45a476065569177111e
+prerequisite-patch-id: 885543ce35f74b8a275b8684280353a505ee54a9
+prerequisite-patch-id: fd0a58131f90dedc64de3c9a5359f1092adf9792
+prerequisite-patch-id: 5b13f0e98ba023c00e766ff7a7bf0dec973cd6fc
+prerequisite-patch-id: 5bca98720f574bccedb60842ac22baab17d3853b
+prerequisite-patch-id: aea30b0f8becd1d55f2708256e1ea0b4a39c5f32
+prerequisite-patch-id: 003af244d659e19eabbc18c831fdb4417ab0aa93
+prerequisite-patch-id: cd18912da6f686645dce19acc85f3166fa4d1754
+prerequisite-patch-id: 7f3d663b4c8e0bd9453db82a7f04f5b10512d2c4
+prerequisite-patch-id: 8173e35500aa727a566ccbb5c1315da48dec0ff2
+prerequisite-patch-id: 618bccee5b75da9c7f71b01349661aaa5a62d6b7
+prerequisite-patch-id: 2112ea77d9b97a2f535df903164846a3b5c1dccf
+prerequisite-patch-id: 4b31796fcd969191f8164763118f852ce9c601b6
+prerequisite-patch-id: c366d6181262c19f6cada97b73a93e233415a969
+prerequisite-patch-id: 033cf627399f3aa5a29eba3cc28d5fe256e42172
+prerequisite-patch-id: d6ca563a70c82c7e78d1d00a283da934a377d06b
+prerequisite-patch-id: 5bac5fbf12fc4586308c01207938182cbb96bb4e
+prerequisite-patch-id: 69c2859da980e897e77a4756fd47ba34aff82237
+prerequisite-patch-id: 07b739d9c50aa49ff684d7b890b0d7e653b712ac
+prerequisite-patch-id: 869b64db36883ae2a83fa0ca173719f947c7dee7
+prerequisite-patch-id: f45b5a6676093073a3f1a555f0f0b71d1e9df36d
+prerequisite-patch-id: cb5c76a5e3d6d17cd181870afa600b544e7de63e
+prerequisite-patch-id: 8dde1759cb4fee2fdd640ad1046bd4261385b974
+prerequisite-patch-id: dc08cdff0c43809bb0ae4abaea5193fc2fb4492e
+prerequisite-patch-id: 8b9097152068bd100c855dd40aa25537424fdb9b
+prerequisite-patch-id: 7a3fc276014dc2097ee88188172868dec827aca7
+prerequisite-patch-id: 470e45e6f2d773c0a4916ecb346ec053efb4fd47
+prerequisite-patch-id: 8004b6d39592fb0cda5e15ec1d15128e0938fefc
+prerequisite-patch-id: 04c000171598bf4f2b86a4aaa2c61101bef6a5a3
+prerequisite-patch-id: ee9ab371ff54b3ef7111bde1bee8a1bd0ff11c19
+prerequisite-patch-id: 802fae1b5f2f683392c781053cd3adc05529d6c6
+prerequisite-patch-id: 3682aeceba2fc75bdfc942904646f7bb08712359
+prerequisite-patch-id: e03b718882a611f7c280d48868a75c8e1ca1d708
+prerequisite-patch-id: 112c1343712e01ad835640897c3c93032a1dc359
+prerequisite-patch-id: 73b3ddfdb23233865ec9930c5512167f3124b97c
+prerequisite-patch-id: 510185d967cd33fd6c047ae28b840fc5dea3b71a
+prerequisite-patch-id: dbed47ecb907f6b7f7e284c5c1a3c325566eafd7
+prerequisite-patch-id: f99da6f44457672c2c9b2cc07ef2bf431223c4b9
+prerequisite-patch-id: a546073a5b47cc429a61a9aa4e03bef671bc26bf
+prerequisite-patch-id: fc920547c252d9cbe133409902d84f17f3eed5b5
+prerequisite-patch-id: c145bc21efe0c58c600d250e64d48f43239c5306
+prerequisite-patch-id: 46e5613f6463440d7e0a99d90daa170e93ea162b
+prerequisite-patch-id: abb2de3b31e12699e6d3b64b7780f86ce5f7fcb2
+prerequisite-patch-id: 9551acc715b965ac3e50aea1e8d4bde7bf084c9e
+prerequisite-patch-id: 864b87775c334dc222fd449827e02545cb1b710a
+prerequisite-patch-id: 4ab2bea80f7aab894db8c0ca177253863e619ac7
+prerequisite-patch-id: d1450cb5c986d888af38ce3f8eb375ae2b7b1edd
+prerequisite-patch-id: a3a32bd1f429764997bf80c85ba7fdc13650d70c
+prerequisite-patch-id: bfcb70843f1109dcc889b4628d9753fd4d6f4169
+prerequisite-patch-id: 8a6f763500955fb3fbb340c68c59304956f9fc95
 -- 
-2.43.0
-
+2.47.3
