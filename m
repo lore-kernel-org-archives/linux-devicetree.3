@@ -1,130 +1,224 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DB9434988
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 18:37:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4211743498D
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 18:38:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790534224; cv=none; b=UcEO2ang2wo/RRHL5SBefYYpyYeuJIZ34n2MaqD8i/HXbdBLzxZYvU1NYeM/ieRS4ipN4o93jX89+rUG1dg0546jxJRL3ltjWTY08AylWevkfcXogmDyT/hRMiXDW/elBACCXpog5Rh1q5ETuGo37CNytobeazHQgEhx60EKEso=
+	t=1790534294; cv=none; b=fYgT4Kj6CgWIdjAcKFvFiBZy8osx6gciSOt2XkHe00RtCiGIfJexB+aA8l/ibr5maZK69Lnt4chjLTIHzizcuzBV4sokCMRfrOtcKD5fdhZYtbkJWbR8/ZtWvtRAXAT2iJIQ2mbjqvlFmp5gB7gItyYS4Xgx+Dp2NboowowO0cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790534224; c=relaxed/simple;
-	bh=a72YbicMBu3nuST9M4p02CAc8G1XaJnDfi+N2yPKHuE=;
+	s=arc-20240116; t=1790534294; c=relaxed/simple;
+	bh=nar4/viYg8c0d38DEiuEEsQmJTJRiRnbxIPP1DE5M3w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eDMvpjUyg0da+3qZIBupBV8VqEz2sT6nv/GCvl59YtSLjoYhwAE8dDVKv55S6i9Z+OCT8wKxFv6NPOfD+/MEtThdIQ+T9S7qXNcUx9FUJYzvUAYAg1kg2x8oBUbPa4CMjOU2oVVLAeAE41De1r3fySYjwx/Po7GxHuliQg2Vdbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=davDUBk5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=FetwxaCD5PfY5dNxRVbIpzuU5T56buau+4MeQxuicJRdFHaPb6lDcmbLX3hM4SVpCRC6+rHKvM9d/WAZNPpWym682w0qAfSgbdQNbXDzekgTiPDa6Mk9V0hGlP0kz+0M4znQN+aF3D2zerfDeLlSbFBYRpgNIbMbVXyh8XmhbnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eh31OqiU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="davDUBk5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAB6F1F000FF;
-	Sun, 27 Sep 2026 18:37:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eh31OqiU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F3F1F000FF;
+	Sun, 27 Sep 2026 18:38:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790534222;
-	bh=AmAGmdz7yJBOCu3/ATC5ZoeOsQb5TYZWkUrdrNhIISo=;
+	s=k20260515; t=1790534292;
+	bh=igjpl5JS+Rp3B4PWdISYE/VXWyn9z7LI++PImaY1xyQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=davDUBk5an4VEUQWoFtjOZMNTZPjX3a2EEI6DR0oTVtH7AFyxu4/Lh5PNitIxtrkt
-	 YBZsHHjW4F1Oi7xAK6s6xillMuo/9QgaD/va3fIAh0LwlYrYd4WWre8+HotTuaOPjK
-	 +eg3c9iMw4E/Fnf322L46wPLSqsxgYuFg4WNz0YJnsCI2F9N2fmvvsDitW68p7mxni
-	 kswXKeYwmS6K7CfLWpmqMNDj7VfHJhtHvu6QWMDU+XrHOjEndRpDL7DVcYmqTzdjLA
-	 YHNzb/UINqc2lLEsgjrAlNWJRaL6/p56YQWjLHi3j5SfiMZJJVwIoXLhyWR7JW1Fn2
-	 iV/TlTiKmaQzg==
+	b=eh31OqiUx/7K4hQBGHz3QYR7ufXYuu16PzOtsWSCViyVOEju3AhMieqcQbZuHeWCC
+	 +st8sBj9xBlf2SNW5seLi59RYokRxH+pgUnuLH3SiQS8PLx+phhTshIWCDkB3i0ArT
+	 Xk0Gvjx1PR4+XiBfjNNpY5VCSPsMVPtpoRjNZI4IlXDGUrSlptKNnpNdIBJ0qC/dzV
+	 kH/TDnhVxnFRrGws5xtnQJP1v4UDQLRIyMjxY2fMe6XRhcfW2lbE4IhoFezqoUEjcW
+	 aKO+rJube86FSZN90IhqxlRrt2zvmSzLt+Zwa+5dZxYavzhAZVd/NHKuLwjnkbMf2r
+	 M4O+0E6q6lHfQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/14] dt-bindings: display: Add Solomon SSD16xx
- e-paper controller binding
+Subject: Re: [PATCH v2 05/14] drm/solomon: ssd16xx: Add
+ clear_on_init/close/disable session management
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Devarsh Thakkar" <devarsht@ti.com>
 Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260927182329.4193961-3-devarsht@ti.com>
+In-Reply-To: <20260927182329.4193961-6-devarsht@ti.com>
 References: <20260927182329.4193961-1-devarsht@ti.com>
- <20260927182329.4193961-3-devarsht@ti.com>
+ <20260927182329.4193961-6-devarsht@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 18:37:01 +0000
-Message-Id: <20260927183701.AAB6F1F000FF@smtp.kernel.org>
+Date: Sun, 27 Sep 2026 18:38:12 +0000
+Message-Id: <20260927183812.A2F3F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: redefined standard rotation property semantics (clo=
-ckwise vs CCW)
-- [Medium] dt-bindings: missing panel-common.yaml reference incorrectly rej=
-ects panel properties
-- [Medium] dt-bindings: missing spi-3wire property definition breaks valida=
-tion for 3-wire mode
+- [High] drm: sleeping in atomic context during CRTC enable/disable
+- [High] drm/solomon: unsynchronized clear in master_drop races with atomic=
+ commits
+- [High] drm/solomon: clear_display hardcodes RAM address counters to 0x00
+- [Medium] drm/solomon: clear_display writes 0xFF to RED RAM causing red sc=
+reen
+- [Medium] drm/solomon: display_cleared_on_deinit flag is not reset on enab=
+le
+- [Medium] drm/solomon: clear_on_init bypasses active CRTCs during master h=
+andover
 --
 
-commit 504b4d897333eddd3593a4ba35eae49d79d7d739
+commit 90ac1ffc13e17b560cc95b731a7e77c4602e7b77
 Author: Devarsh Thakkar <devarsht@ti.com>
-dt-bindings: display: Add Solomon SSD16xx e-paper controller binding
 
-This commit adds a device tree binding for the Solomon Systech SSD16xx e-Pa=
-per
-display controllers. It covers the 4-wire SPI interface and required GPIO p=
-ins
-while also noting optional 3-wire mode support.
+drm/solomon: ssd16xx: Add clear_on_init/close/disable session management
 
-Link: https://www.crystalfontz.com/controllers/SolomonSystech/SSD1683
-Link: https://files.seeedstudio.com/wiki/Other_Display/42-epaper/GDEY042T81=
-.pdf
-Link: https://www.crystalfontz.com/controllers/SolomonSystech/SSD1673
-Link: https://www.crystalfontz.com/controllers/SolomonSystech/SSD1680
-Link: https://www.crystalfontz.com/controllers/SolomonSystech/SSD1681
+E-paper displays are bistable: the last rendered image persists indefinitely
+across sessions and power cycles. This creates a session management choice
+with no LCD/OLED equivalent since unlike volatile displays, content
+visibility outlives the rendering process. Add session-lifetime display
+clearing with three configurable hooks: clear_on_init, clear_on_close, and
+clear_on_disable.
 
-> diff --git a/Documentation/devicetree/bindings/display/solomon,ssd16xx.ya=
-ml b/Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml
+> diff --git a/drivers/gpu/drm/solomon/ssd16xx.c b/drivers/gpu/drm/solomon/=
+ssd16xx.c
+> index d3af055c67398..c478309d08e9f 100644
+> --- a/drivers/gpu/drm/solomon/ssd16xx.c
+> +++ b/drivers/gpu/drm/solomon/ssd16xx.c
 [ ... ]
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> @@ -746,6 +766,111 @@ static int ssd16xx_hw_init(struct ssd16xx_device *d=
+evice)
+>  	return err;
+>  }
+> =20
+> +/*
+> + * Clear display by writing all-white to both BW and RED RAM.
+> + * The ctrl2 argument selects the waveform (full/partial/fast refresh).
+> + * Border waveform is set to init value before clearing, then restored
+> + * to the update value to preserve the border during subsequent updates.
+> + */
+> +static int ssd16xx_clear_display(struct ssd16xx_device *device, u8 ctrl2)
+> +{
+> +	const u8 *bw_tbl =3D device->controller_cfg->border_waveform_table;
+> +	int err =3D 0;
+> +	unsigned int data_size =3D (device->width * device->height) / 8;
+> +	u8 *white_buffer =3D device->tx_buf;
+> +
+> +	memset(white_buffer, 0xFF, data_size);
 
-[Severity: Medium]
-Is this missing a reference to /schemas/display/panel/panel-common.yaml#?
+[Severity: High]
+Can this unsynchronized memset cause a data race?=20
 
-Because this schema acts as a display panel node and sets
-unevaluatedProperties: false later in the file, omitting the panel-common
-reference strictly forbids standard panel properties like power-supply or
-port. This might prevent valid hardware board configurations from passing
-schema validation.
+When a DRM master drops, ssd16xx_drm_master_drop calls
+ssd16xx_clear_display_on_exit. If an atomic commit is concurrently executing
+in a background worker, both paths will mutate device->tx_buf without locks,
+which could interleave SPI commands and corrupt the controller state.
 
 > +
-> +properties:
-> +  compatible:
+> +	ssd16xx_send_cmd(device, SSD16XX_CMD_SET_RAM_X_ADDRESS_COUNTER, &err);
+> +	ssd16xx_send_x_param(device, 0x00, &err);
+> +
+> +	ssd16xx_send_cmd(device, SSD16XX_CMD_SET_RAM_Y_ADDRESS_COUNTER, &err);
+> +	ssd16xx_send_y_param(device, 0x00, &err);
+
+[Severity: High]
+Does hardcoding the RAM X and Y address counters to 0x00 break decrement-mo=
+de
+writes and omit window setup?=20
+
+In portrait orientation (decrement entry modes), starting at 0x00 might
+immediately underflow the counter and write out-of-bounds.=20
+
+Also, if the previous operation was a partial update, could the RAM window
+remain restricted, causing the clear operation to wrap around and fail to
+clear the full screen?
+
+> +
+> +	ssd16xx_send_cmd(device, SSD16XX_CMD_WRITE_RAM_BW, &err);
+> +	ssd16xx_send_data_bulk(device, white_buffer, data_size, &err);
+> +
+> +	ssd16xx_send_cmd(device, SSD1683_CMD_WRITE_RAM_RED, &err);
+> +	ssd16xx_send_data_bulk(device, white_buffer, data_size, &err);
 
 [Severity: Medium]
-Should spi-3wire: true be explicitly declared here in the properties sectio=
-n?
+Does this write 0xFF to the RED RAM unconditionally?=20
 
-The commit message notes that the controller supports 3-wire mode, but neit=
-her
-this schema nor the referenced spi-peripheral-props.yaml define spi-3wire.
-Because unevaluatedProperties is set to false, configuring a peripheral in
-3-wire mode with the standard spi-3wire property will erroneously fail sche=
-ma
-validation.
+On 3-color (BWR) panels where a 1 bit represents red ink, this would clear
+the screen to solid red instead of white. On 2-color panels, it sends an
+unsupported command (0x26), which could corrupt hardware state.
 
 [ ... ]
-> +  rotation:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 90, 180, 270]
-> +    description:
-> +      Display rotation in degrees clockwise.
+> @@ -1356,11 +1481,26 @@ static void ssd16xx_crtc_atomic_disable(struct dr=
+m_crtc *crtc,
+>  					struct drm_atomic_commit *state)
+>  {
+>  	struct ssd16xx_device *device =3D crtc_to_ssd16xx_device(crtc);
+> -	int idx;
+> +	int ret, idx;
+> =20
+>  	if (!drm_dev_enter(&device->drm, &idx))
+>  		return;
+> =20
+> +	if (device->clear_on_disable < 0 || device->display_cleared_on_deinit)
+> +		goto out;
+> +
+> +	drm_dbg(&device->drm, "clear_on_disable: running, mode=3D%d\n",
+> +		device->clear_on_disable);
+> +	ret =3D ssd16xx_clear_display(device,
+> +				    ssd16xx_refresh_mode_to_ctrl2(device,
+> +								  device->clear_on_disable));
+
+[Severity: High]
+Can this cause a sleep in atomic context?=20
+
+The CRTC atomic_disable callback executes in atomic context where sleeping =
+is
+forbidden, but it conditionally calls ssd16xx_clear_display, which relies on
+SPI transactions and polling with usleep_range in ssd16xx_wait_for_device.
+
+> +	if (ret) {
+> +		drm_err(&device->drm, "atomic_disable: clear failed: %d\n", ret);
+> +		goto out;
+> +	}
+> +
+> +	device->display_cleared_on_deinit =3D true;
 
 [Severity: Medium]
-Does defining rotation as clockwise conflict with standard device tree
-semantics?
+Is the display_cleared_on_deinit flag missing a reset on enable?=20
 
-The device tree standard for displays (panel-common.yaml) explicitly defines
-rotation as counter-clockwise. Defining it as clockwise here creates a
-semantic mismatch that could lead to inverted rotation at runtime if the DRM
-driver or generic kernel helpers parse it assuming the standard CCW semanti=
-cs.
+DPMS off sets the flag to true, but since atomic_enable does not reset it,
+subsequent DPMS toggles during a single session might silently skip the cle=
+ar
+operation.
 
-[ ... ]
+> +out:
+>  	drm_dev_exit(idx);
+>  }
+> =20
+> @@ -1383,6 +1523,11 @@ static void ssd16xx_crtc_atomic_enable(struct drm_=
+crtc *crtc,
+>  	}
+>  	device->initialized =3D true;
+> =20
+> +	/* Clear display on first app launch if configured */
+> +	ret =3D ssd16xx_clear_display_on_init(device);
+
+[Severity: High]
+Can this cause a sleep in atomic context?=20
+
+Similar to atomic_disable, the CRTC atomic_enable callback executes in atom=
+ic
+context where sleeping is forbidden, but calling ssd16xx_clear_display_on_i=
+nit
+leads to ssd16xx_clear_display which eventually polls with usleep_range.
+
+[Severity: Medium]
+Does this bypass active CRTCs during master handover?=20
+
+The clear_on_init hook is inside atomic_enable, which is only called on
+transitions from disabled to enabled. If a new DRM master takes over without
+triggering a full modeset (e.g. the CRTC remains active), the clean-slate
+clear might not fire.
+
+> +	if (ret)
+> +		drm_err(&device->drm, "crtc_atomic_enable: clear on init failed: %d\n"=
+, ret);
+> +
+>  	/*
+>  	 * If refresh_mode_init is set, arm init_refresh_pending so
+>  	 * plane_atomic_update uses the specified mode for the first frame
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927182329.4193=
-961-1-devarsht@ti.com?part=3D2
+961-1-devarsht@ti.com?part=3D5
