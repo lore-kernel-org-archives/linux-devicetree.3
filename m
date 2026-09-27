@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAFE37C926;
-	Sun, 27 Sep 2026 17:11:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F67341CB2E;
+	Sun, 27 Sep 2026 17:21:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790529082; cv=none; b=BxvS9skLBi7xeYCiSL0WhDJvvrbsjY0EGtqNfouJ4k8ITl/zoe/CHoRGQIyDuO8ZB2gEoEhUDw7YHoJ1r+nH9XHld5Fycc3IhdTnat1Vz5/fogIrVX1GkLE5twQiQSZJZCYTWa1vwcx7Ym13JF7FaEU3eabIITHeMx7z1yJtmJ0=
+	t=1790529673; cv=none; b=p+gXGd2xLdRqBMd1SHf3dfx5KRJek402L3lulDlPFZCF6+NP3vWyP/8oQC6J5M3VZBSPNKTnOcrRg8h38CxoGMUG5UVpG30ksUGNUhxX0P4DxWXue95JXRitF20reaIHWR8x7cN5/rKGiRQGZ3HqJvu9TrSN3RZMG9fehieAi54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790529082; c=relaxed/simple;
-	bh=Z+hfxocGGae1Sm1BeCS76gsysY0NtlZY5CQbiBlA/Ww=;
+	s=arc-20240116; t=1790529673; c=relaxed/simple;
+	bh=QnZY/A0Z/m7D6LYP8zYoDCU2wPHkBbrq9onZ540cNyI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UtYChvnYAwDr7TlofonPtrtNyKT4GSZh3VcUCV+CcNy4LXeYFVcuFHv2TG86hPyj2xmZIU0lQtz8w7vB9qDOd3TY06Er8mKfpIqwIRbtcsoR41lNUyvCcD2dvsD4X25GEKhoeKLCxX67MLxpRcRRlZTefXAjdFD9/AboXnM/pGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SgXFVKbT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=tJZWXxBhQZRKR1EGrpFp8oZvHm0i6eHymd/8Fu8jhPfF4MlJdd8pimKS6UKSlctmnhGgPnwiCtfq6rcERX3dqWbrfX/CF6hX/XutVZXIj2CNPVyNKqMjHsBK9WNHRLpumP8o2TzBiKCpRhaaihNC9FfIKi+flTP1iU/rCM2PPyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kv4Ciah3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SgXFVKbT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5061F000FF;
-	Sun, 27 Sep 2026 17:11:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kv4Ciah3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E4B91F000FF;
+	Sun, 27 Sep 2026 17:21:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790529081;
-	bh=HMHjOtBobVS8CaY6HykD9+IH9k3hBKLUQhoPP98UUjc=;
+	s=k20260515; t=1790529670;
+	bh=zXqUbjdOufaZZQextakeQb2Z5JBuQMYWladdr+ali/w=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SgXFVKbT0MkKLU1DXNTloBPjM1Rn2uPdSswUDRGsiYgi0LnSmrCFg9ED6wx1HscLh
-	 Q2529458T8Hjrf1+rMF0L8pRGRkXqsuP02adTJ5hL5ohUNtuI5cpqrilFyLAivLq/X
-	 qO7yklE7X0PDXUk/VGdkPq52Ek4ChkXfL8BbqA1X8cK8G9MM9Ns1kTb17XvL6yJz6+
-	 9mIB7ahgiA4nPuFjfkv7U4guj32ViC1kFscaTOX3hTFZ2+gVyuPFo+Vxs3nJbzXOf4
-	 yLj3cPmZNYmUqL4ivgyIGR86JyqXELaBb0DUNCYSHv8EUeAv/1X88b2SFLC/yN+5mF
-	 VNV8BeXnjzq+w==
-Message-ID: <4cc0ca7d-82ae-493d-ac15-478cdd8f0e08@kernel.org>
-Date: Sun, 27 Sep 2026 19:11:14 +0200
+	b=Kv4Ciah3L22Uss08I5HK1yZxgQdSkGpIFtTlQRs6hXzis0XJBvt9UxutHNVmrjRjX
+	 OL4ymEmiEYwJnR0feXI4zQkZPgvo5s6dC8KrYbZAa/hesbo7wCd9wGfjf++Rta6XJw
+	 Qr9XkMuXEOFYSLx6hGpoPyLaFu9uHgBTv/Qvycn1+LfWZWZELOXuQHWWTmqCkW3cpG
+	 AnZNFzx+i90+SmD9l8thursk3KI9r4s1sYc4H8fbB0fdDFKg0cHVuVR6kmdOoRlt0Q
+	 qd7zJL1MdZP3mS10Vv1+39BV9k/761GXrF/ygl36B0l9RPiLeJRQ19tw+COy1XQFSL
+	 t222swtk+cXNg==
+Message-ID: <fc7b99d8-f737-4dac-adfc-ccb9b12e30d7@kernel.org>
+Date: Sun, 27 Sep 2026 19:21:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: watchdog: Add Exynos8855 watchdog
- compatible string
-To: Alim Akhtar <alim.akhtar@samsung.com>, peter.griffin@linaro.org,
- robh@kernel.org, conor+dt@kernel.org, linusw@kernel.org
-Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux@roeck-us.net, hajun.sung@samsung.com, wim@linux-watchdog.org
-References: <CGME20260927150938epcas5p33b7d0495f8d9a8e84bf5f09c66e757fb@epcas5p3.samsung.com>
- <20260927152738.3673504-1-alim.akhtar@samsung.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: embedded-controller: Add Lenovo
+ ThinkPad X13s EC
+To: Clover <alex@ironrobin.net>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Steev Klimaszewski <threeway@gmail.com>,
+ platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260926195415.5995-1-alex@ironrobin.net>
+ <20260926195415.5995-2-alex@ironrobin.net>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,40 +93,29 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260927152738.3673504-1-alim.akhtar@samsung.com>
+In-Reply-To: <20260926195415.5995-2-alex@ironrobin.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/09/2026 17:27, Alim Akhtar wrote:
-> Add the 'samsung,exynos8855-wdt' compatible string to the Samsung
-> watchdog device tree binding documentation. The Exynos8855 watchdog
-> nodes use two clocks (bus clock and source clock), require
-> samsung,cluster-index and samsung,syscon-phandle properties, similar
-> to Exynos850 watchdog implementation.
+On 26/09/2026 21:54, Clover wrote:
+> Add a standalone binding for the embedded controller in the Lenovo
+> ThinkPad X13s. Although its I2C command transport resembles that of the
+> T14s EC, its keyboard-backlight, event and power-management interfaces
+> differ.
 > 
-> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
-> ---
-> * Changes in V2:
->  - Fixed Sashiko review comment
-> 	- [Low] dt-bindings: watchdog: missing comma in samsung,syscon-phandle description 
+> Describe the event interrupt and the separate host-controlled power-state
+> signal, which is high during normal operation and low in the low-power
+> state. Require this GPIO and allow wakeup-source to describe wake
+> capability.
 > 
->  Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+> Assisted-by: LLM
+> Signed-off-by: Clover <alex@ironrobin.net>
+
+Please use real and known identity. See submitting patches.
+
 > 
-> diff --git a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
-> index a32c47831577..3f8c3e56ea07 100644
-> --- a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
-> @@ -25,6 +25,7 @@ properties:
->            - samsung,exynos5515-wdt
->            - samsung,exynos7-wdt                   # for Exynos7
->            - samsung,exynos850-wdt                 # for Exynos850
-> +          - samsung,exynos8855-wdt                # for Exynos8855
 
 
-Just drop the comment like we did for 5515.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
