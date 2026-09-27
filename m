@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF21B39FCCA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF37C3E0081;
 	Sun, 27 Sep 2026 13:09:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790514567; cv=none; b=Jw7nNuwGzjIfxpRyAur17u8L07MjerPUxbDCHi/TjXuirBIZSxaLEC3FCbWzlE6/97C4PO31/+X0X3Barc5IENX3h7BBVs7MKBzDEYJfrN/61SQyFacUgv20jS+UqIE7lBS3IACK7zwjJ0eEghiNrh5NyoitK7O65B8iUU6IEmY=
+	t=1790514567; cv=none; b=nRG0o+XfmP0mvqHJ1nU4/iHNCa3/w/+5j5CI3nkOcyP6hBcVCdPaaKOwT3RACf1va7ZFhD1RTNY0+y7TDnzooHZHNnGXf6qkn2IV+H9xX8P4HYUbZiWaAU8jOkUanoCrC643B0h6m2G3/AbtSp6rZuNO+wzwKms+n8VopgRQfwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790514567; c=relaxed/simple;
-	bh=wrP5f8Z4+HrY7KIFgp5WycR+TSTJDE9xIQ5JyoQB5NQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tZCnCSIfozIqPdquJ6dkX9nsYe6cIKlPXB4ZcwO0S34BQe6NZhnWm5j5tRyA+r0oKqbjhItPe8YoojtmhYOwzTKJD2PNGNTYdVmKxCjfWBzbVlXugQaNGwaZyiak0feaTQ+4all8k8LywfC5yMBPSxlAqmjRWry7SyDqSlPgYJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qmKJYmx2; arc=none smtp.client-ip=10.30.226.201
+	bh=/satiGAup3MvwEQuGuW7WPwdFMZuAWo3ppOawHGJOmc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=X0DOGjSvO3qUSEVtmKEvepHCv3xlVte1sZ/BXDpUYo6/PCXnHNeHMqPtFUjkBPskIwvnml5tCwZkdWAi3CHmd3cdThABNNMYUSuUZSFj6BesZqYwWW1XsJuuNs+eBJxlXjbG5iTRtauyv6+J3QwEBRXJF5Skq4r/l2lsZfbeMHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcVBJgCm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qmKJYmx2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7FFD1C4AF17;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcVBJgCm"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4F800C2BCB3;
 	Sun, 27 Sep 2026 13:09:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790514567;
-	bh=wrP5f8Z4+HrY7KIFgp5WycR+TSTJDE9xIQ5JyoQB5NQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qmKJYmx2YpqQ2SAh1M9dlt+/jecLfKf/rct9NwRlONamqoBH/A9WXt0iH2l7IVmJg
-	 8iLGvotKpXGqDcLytEze3oDID1KTa5JQ/Xmy/1+sctQAHr+obIXXyQokHE4+kfCMkA
-	 pVdZMi1Lohej4VLreH1g+EMJTbPUWMWgxOL2+yDcwEWYTm2FmjCzuaebixlyfcOAQ7
-	 ftwD3rRwO6PRv7eNdn5DZwlbE8wJIhSL24IOD7W2uuzLpZ+FLVFRxTqBT8aHDfez5Z
-	 Mr8wRTPaSZifNkKqiSYH+lPRCqQmLJ4B+Hxh0tVtAkxM3/4VHQUEnlxvEn6dshzYqH
-	 MqC+sMLQANkYQ==
+	bh=/satiGAup3MvwEQuGuW7WPwdFMZuAWo3ppOawHGJOmc=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=YcVBJgCmpB00VIVdOWeRsC6ScOW7YNAGGpPxyjwazpTwqof1c1jfrELI38rgvNbHY
+	 2+LaLZHWyju/KrpL3vtYxr51fAohEJo0TVOwYdWhq0jhm1iQxmZnMYBnRCHT1193pS
+	 sM6W2AySvmWyGP7c1TC3cm7FjQZd+VcoHTCcIpiYgmDIn+YtdE/gZJkxRwz+o1FSxg
+	 ADPNgv3hYKzlOhzZMT+qN/o/FLoGMP+NR7WTT5ohYE57DJj0GzaKfYt2yArVCXyiCi
+	 tUVKWm0DE6MlpJaI45y+a2nz9PH1YqQkppjrYC2s3AkL6JBX5W2lVSXcOmhMqJjYHU
+	 2Id4cgBxnkJig==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 66532C9833E;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28002C9832F;
 	Sun, 27 Sep 2026 13:09:27 +0000 (UTC)
 From: Daniel Drake via B4 Relay <devnull+dan.reactivated.net@kernel.org>
-Date: Sun, 27 Sep 2026 14:09:02 +0100
-Subject: [PATCH v7 3/6] dt-bindings: display: brcm,bcm2835-hvs: Document
- iommus property
+Subject: [PATCH v7 0/6] Add support for Broadcom BCM2712 IOMMU driver
+ (Raspberry Pi 5)
+Date: Sun, 27 Sep 2026 14:08:59 +0100
+Message-Id: <20260927-bcm2712-iommu-submit-v7-0-dfa2b975cbc9@reactivated.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,9 +41,13 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-bcm2712-iommu-submit-v7-3-dfa2b975cbc9@reactivated.net>
-References: <20260927-bcm2712-iommu-submit-v7-0-dfa2b975cbc9@reactivated.net>
-In-Reply-To: <20260927-bcm2712-iommu-submit-v7-0-dfa2b975cbc9@reactivated.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XPO27DMAwG4KsEmqtWpt6deo+igx5MrMF2IDlGi
+ 8B3r5QlBmqjE/ED5EfyTgrmhIW8n+4k45JKmsYa9MuJhN6NF6Qp1kyAgWK6A+rDAK2maRhutNz
+ 8kGYKyKyxFpUMgtTRa8Zz+n6wn181e1eQ+uzG0DdsyumSxrfBlRlz6+9Tmaf887hi6drUPwuXj
+ jJqGHYsxIiA7iOjC3Na3IzxdcSZtLULbCjQBxRUioHQXgbGI5p9ij8pA/KA4pXS505w1GCsV/u
+ UeFKWHT0oKmWj90pqqU3o9im5pewBJSsFktsgwYOwuE+pDQXigFLtQc+DC2iU1fwvta7rL1DEg
+ rpVAgAA
+X-Change-ID: 20260712-bcm2712-iommu-submit-2e09899e65c4
 To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
  Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -55,23 +59,24 @@ Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
  linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
  james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=914; i=dan@reactivated.net;
- h=from:subject:message-id;
- bh=jvJtzPewMxeDZpE90O4lOLjfTo2HtXAHbTAGkD5tWH0=;
- b=owEBbQKS/ZANAwAKAcPmj7FTFEe7AcsmYgBquRWEkcJdsNIqcX6vaW1rQNFgVdhf6QsR8c3Sj
- KJCQ6/02dyJAjMEAAEKAB0WIQQ6Rf0sUP1iEhXfVfjD5o+xUxRHuwUCarkVhAAKCRDD5o+xUxRH
- u1/zD/9yzR0tMdVnQFUov9zJvP4J1F0UT7anXVClYkLytUL1oL/htyvpcPApxhQQ/Ai0sN51GQI
- JRpfyCItHz1PypKQGNfrvKWVg39fGGMMJpaYIfiERtaXHYD/rp2XiPPpjfp5N+QDS66UN16TjfL
- 9kzNW5Ap51sD3ysqJvYmf/z/1LfLgv2H7z39x5sZy25+l5MPWaGiJjUFEajiovxFQRqeAZZ5UIx
- SSu955o1VwTjbzYgU4oAD5NdvQ9UiyhLIBV8lRSzuezVznLtKhRYO7bQiUVr1oAjf9mfPcWE3t+
- rW8xXN0wrh3PyKG8WFvuO+x7Yg2eYOpr+4pQU+aBD+Q1Vc0wxVS2bOdPg6jEWCdxvYlbWsPQmgL
- 3JPjun3puwVAu5ytD/yF1uLgenJswWymM5q7ZjtievXk+W27ETu1AdZ1ZZt96apfuXy4V1juX38
- TN6oddMc28hBa1uw3IoYGqG4F4WaGAwLI23jWDsY8i2BFyjfSlpkB7GW7pVBznq/UP2rCKddAWG
- S3CfOUoIDIXRMBoHq+mVES/JqGC828Z74vsMvU8K+L5eRgQ2wp7XCpsKbxPPYtRak6ju70twY1u
- YENtf0k0qB/D4wt8C15XybD3Ocl0nZ+Tj4f5JEwnBde2CZ2nlZsu3bjwikcUtY+QX4rqinGKb7B
- qZE7pYYsvrVnKvA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6705;
+ i=dan@reactivated.net; h=from:subject:message-id;
+ bh=/satiGAup3MvwEQuGuW7WPwdFMZuAWo3ppOawHGJOmc=;
+ b=owEBbQKS/ZANAwAKAcPmj7FTFEe7AcsmYgBquRWEh9z9/iyDIBx+HAzEEJ1yd1M1AVJqAulys
+ 8n+HKLL8nCJAjMEAAEKAB0WIQQ6Rf0sUP1iEhXfVfjD5o+xUxRHuwUCarkVhAAKCRDD5o+xUxRH
+ uxXED/9ELkBTzi0FS9uWC69lXIKCenidL0fc9VO64NIrebRYQjhHU6U1hNx/m5aahMpBqoXUUQx
+ K1IktWVsMKNUgwTWG+9oMdHeyVwY6grkJ+Li4c+vZt7pHLNsd19LHUokbnVusgrUrkt1KtJ4Y/D
+ VbIdT/1PumNtPRu45CXtdeWfdYE+F6VC+eZCVeCjZ5wcLjOT+jehsvFZTYnQ8fOBEROWMqNWSZr
+ M0ccFvJ2TyLkX+o+265mKvZA7Prvejadskmi0Nqc5nZtX73SnhmjV8C+X6YA4xhbCT8ECSRqZ2F
+ DNxSbp4K4wz/3nEZHIv3YFJn91oYOIDnODZxAbLG4BZ2fISQDBok1cB9NtC95yTBpPRvetnp0IX
+ THvRjDZcAYJ5nTgvUyuGiYzIj2bUTqGJNcCzpaN5tIYfi6j+g/9lzUEDPOCz3ot6q92dVF0RcMO
+ NutN1lybkd0xwFVCXNgWkFPlc5JBM4OhMjkVRcZv4RNMmpmiXyhqbEub9u8LdKiq5yAecYCP8wy
+ rs69POXXWi/JWEvxjMS+BHPKc29/AJ+nBqe1kfS92exrt1Q36hssQEjmbjLVWGiQFKaZ90s4Y6X
+ HYMSZ6O1ASUWQfqvcdt3wOrm5avJ2PauXZt7SZWPNvwQad6XbDwy3A/X5QccybfHusUAUxERzhk
+ cHBUU66l59gChxg==
 X-Developer-Key: i=dan@reactivated.net; a=openpgp;
  fpr=3A45FD2C50FD621215DF55F8C3E68FB1531447BB
 X-Endpoint-Received: by B4 Relay for dan@reactivated.net/default with
@@ -79,34 +84,136 @@ X-Endpoint-Received: by B4 Relay for dan@reactivated.net/default with
 X-Original-From: Daniel Drake <dan@reactivated.net>
 Reply-To: dan@reactivated.net
 
-From: Daniel Drake <dan@reactivated.net>
+Hi,
 
-On BCM2712, the Hardware Video Scaler (HVS) is connected behind an IOMMU.
-Add the optional iommus property to allow describing this connection.
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Signed-off-by: Daniel Drake <dan@reactivated.net>
----
- Documentation/devicetree/bindings/display/brcm,bcm2835-hvs.yaml | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2835-hvs.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2835-hvs.yaml
-index 9aca38a58a16..8f8aae9f3788 100644
---- a/Documentation/devicetree/bindings/display/brcm,bcm2835-hvs.yaml
-+++ b/Documentation/devicetree/bindings/display/brcm,bcm2835-hvs.yaml
-@@ -35,6 +35,9 @@ properties:
-     minItems: 1
-     maxItems: 2
+This series adds a driver for the Broadcom BCM2712 IOMMU found on
+Raspberry Pi 5, and hooks up the display controller IOMMU for efficient
+management of graphics memory. This is adapted from the downstream driver
+from Raspberry Pi (original author Nick Hollinghurst), with main changes:
+ - In page mapping mode, operate the translation aperture from address 0,
+   with no bypass window. More like a IOMMU and less like a GART.
+ - Implement the page table management using generic_pt
+ - Support 4MB hugepage mapping in top level page table
+ - Implement brcm,iommu-cache as standards-compliant DT property
+ - Drop the dma-iova-offset hack, used to work around some issue seen with
+   dma-ranges. This will need to be investigated separately and solved
+   properly. (It's not needed for display controller iommu support included
+   here.)
+ - Misc simplifications/standardisations/cleanups
  
-+  iommus:
-+    maxItems: 1
-+
- required:
-   - compatible
-   - reg
+The IOMMU works strictly with 4KB pages. This means that unfortunately
+when the kernel is compiled with PAGE_SIZE=16KB (the Raspberry Pi 5
+kernel default), 12KB is wasted in each page that is allocated for page
+tables. I plan to address this in followup work.
 
+It has been tested on Raspberry Pi 5 using a 3D-accelerated graphical
+environment which causes plenty of IOMMU maps & unmaps.
+
+Thanks for the review comments and discussion. Further feedback and
+testing welcome!
+
+Changes in v7:
+- Add latest Reviewed-by / Acked-by 
+- Otherwise no changes, resending due to email delivery issue
+- Link to v6: https://lore.kernel.org/r/20260924-bcm2712-iommu-submit-v6-0-7b3cace86973@reactivated.net
+
+Changes in v6:
+- Add MAINTAINERS entry
+- Drop unnecessary vc4 iommus property (it only needs to sit on the
+  underlying hvs device)
+- Add dt-bindings doc for hvs iommus property
+- Link to v5: https://lore.kernel.org/r/20260909-bcm2712-iommu-submit-v5-0-2539c52b249e@reactivated.net
+
+Changes in v5:
+- Drop blocked_domain support as hardware always translates a minimum
+  256MB aperture when enabled
+- Restrict Kconfig dependency to ARCH_BCM2835, matching other RPi drivers
+- Improved error handling in device attach
+- Add missing iommu_put_pages_list() in iotlb sync
+- Minor readability improvements
+- Link to v4: https://lore.kernel.org/r/20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net
+
+Changes in v4:
+- Add Jim Quinlan and Florian Fainelli as bindings maintainers
+- Replace MMU register access macros with static inline functions
+- Clear illegal address register and flush caches on blocking domain attach
+- Add __must_hold annotations in TLB helpers
+- Use BIT() macro for MMUC_CONTROL definitions
+- Link to v3: https://lore.kernel.org/r/20260825-bcm2712-iommu-submit-v3-0-7f143e7289b6@reactivated.net
+
+Changes in v3:
+- Switch from a aperture and bypass window GART-like approach
+  to IOMMU-like 0-based translation
+- Add 3 SW bits which seem unused (per the chipset docs); drop patch
+  for NO_SW_BIT handling. This reduces the claimed address space, so I had
+  to tweak a iommu_pt test accordingly.
+- Disallow domain sharing across multiple hardware IOMMU instances
+- Clear and flush local MMU TLB during domain attach
+- Handle unattached domains safely during TLB sync
+- Set cache platform driver data late during probe to prevent race condition
+- Improved handling of cache flush timeouts
+- Use format string for device name in iommu_device_sysfs_add()
+- Use cleanup.h helpers for scope management
+- Expand DT binding descriptions for IOMMU and IOMMUC
+- Add iommus property to HVS display node in DT
+- Drop iommuc back-compat with current RPi DT
+- Link to v2: https://lore.kernel.org/r/20260727-bcm2712-iommu-submit-v2-0-0247b5c03de8@reactivated.net
+
+Changes in v2:
+- Use iommu_fwspec in xlate & probe_device
+- Add blocked_domain support
+- Simplify page size configuration between iommu driver and format
+- Introduce PT_FEAT_NO_SW_BIT flag to allow formats to explicitly opt-in to
+  a defensive flushing algorithm when no sw bit is available
+- Implement 4MB pages at Level 1; this is more efficient and means the
+  "allow full-table contiguous leaves in unit tests" commit has been
+  dropped because it is no longer needed.
+- Hardcode the aperture in an unused part of the address space, removing
+  it from DT (it's a software-specific decision, not an attribute of the
+  hardware), adding more explanatory comments
+- Use pt_full_va_prefix to have the PT format operate within the aperture
+  space, enabling use of IOMMU_PT_DOMAIN_OPS
+- Add more dt-bindings explanation to brcm,iommu-cache and drop docs
+  around the cache property used in RPi firmware (the driver still supports
+  this however, for fw compat reasons)
+- Correct iommu device address in bcm2712.dtsi
+- Link to v1: https://lore.kernel.org/r/20260712-bcm2712-iommu-submit-v1-0-80e10cdde2ea@reactivated.net
+
+---
+Daniel Drake (6):
+      iommu_pt: Fix test_pgsize_boundary() failure on narrow-OA formats
+      dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
+      dt-bindings: display: brcm,bcm2835-hvs: Document iommus property
+      iommu/generic_pt: Add Broadcom BCM2712 page table format
+      iommu: Add Broadcom BCM2712 IOMMU driver
+      arm64: dts: broadcom: bcm2712: Add GPU IOMMU and IOMMU cache nodes
+
+ .../bindings/display/brcm,bcm2835-hvs.yaml         |   3 +
+ .../bindings/iommu/brcm,bcm2712-iommu.yaml         |  54 ++
+ .../bindings/iommu/brcm,bcm2712-iommuc.yaml        |  40 ++
+ MAINTAINERS                                        |  12 +
+ arch/arm64/boot/dts/broadcom/bcm2712.dtsi          |  14 +
+ drivers/iommu/Kconfig                              |  15 +
+ drivers/iommu/Makefile                             |   1 +
+ drivers/iommu/bcm2712-iommu-cache.c                |  84 ++++
+ drivers/iommu/bcm2712-iommu-cache.h                |   9 +
+ drivers/iommu/bcm2712-iommu.c                      | 550 +++++++++++++++++++++
+ drivers/iommu/generic_pt/.kunitconfig              |   1 +
+ drivers/iommu/generic_pt/Kconfig                   |  10 +
+ drivers/iommu/generic_pt/fmt/Makefile              |   2 +
+ drivers/iommu/generic_pt/fmt/bcm2712.h             | 288 +++++++++++
+ drivers/iommu/generic_pt/fmt/defs_bcm2712.h        |  18 +
+ drivers/iommu/generic_pt/fmt/iommu_bcm2712.c       |   6 +
+ drivers/iommu/generic_pt/kunit_iommu_pt.h          |   2 +-
+ include/linux/generic_pt/common.h                  |   6 +
+ include/linux/generic_pt/iommu.h                   |  12 +
+ 19 files changed, 1126 insertions(+), 1 deletion(-)
+---
+base-commit: 28924df2a08f440c73991b83028032c901de2ae4
+change-id: 20260712-bcm2712-iommu-submit-2e09899e65c4
+
+Best regards,
 -- 
-2.55.0
+Daniel Drake <dan@reactivated.net>
 
 
