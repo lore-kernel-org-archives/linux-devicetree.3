@@ -1,77 +1,111 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5213B231829;
-	Sun, 27 Sep 2026 19:15:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108343B83F9;
+	Sun, 27 Sep 2026 19:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790536542; cv=none; b=Dq4mfcwUEOHUvvTfGWoCMPel3nwEQSWFE5ZBaCM5H3h2+SG44l45bm7wsqu5EnaChrLIbqW6yx5BqNolSFjuxcW78ZfImugX8OaQmh2lEwmB3f7pfGFeF/6pXKZoYeRizqMKT0/70SeeXPJVlBDmBOwepxvQDY4H29D3vZWMLO0=
+	t=1790536819; cv=none; b=Rh2cq0FrMSVi6qbIECu+Qzd2IgzH3mLQ32p3ycHK45hS4sYe8GbScSCgjoJbmj2zQ45r8poxTHGXnmTGKb9La+s4d6Zt3qaD6/qq7VQQTPP7yy/d7DB5jXfXv6QQ1u/gA0i9QdcH8ZBKE5y1etSF4YZNAsKlPT7N3i1X+NJQF54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790536542; c=relaxed/simple;
-	bh=I/Z4Dq5qP+62urdqFOFOTkrLhloFH1RT/ER5bPm6B2g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D/Sw/++2wyzbfxEsJ6Jv8k0Q/BtrQich+sqniJ/7bQwb4djfd+N+NsS70F8nqY8iR9WTCPyZPIzZELJrpxaIVxsaQd1A0qD6+Qk2YFTmJ0J6lEHKjwLr7qsOzJ3FK9AkwaL2fPvDyZdIkCfW2Qu61XlIU5ujj5fqDz1HH9Fa5U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=NRDOCaSx; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790536819; c=relaxed/simple;
+	bh=Bi+G4xOm0CuAafK9NtXgYMH/kIkrDhJstHc8hRC/qdU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qd5tzdl++5MHjE48OP4GI0aCiAZpEuNyJYwESn6WQtpfrtcqrxGUuIqKnZwQftC6mOgwwu5wQwHjkSwKt0Exgmeix6BZzmvf9JbvUd0bshmbJrp938RW3sDUhFson9boprxx3ugL6Y13IlkYrV8qNMIP2wQ4FhMrjPdK081MpNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNLFf+dg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="NRDOCaSx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=NqRBQ/l/KshauKybq+sCIFSt1P3/4rPlGdvjwaBtLAY=; b=NRDOCaSxs31myX620RHNR3NtbD
-	DlO/eHfwjSO2o1fszpdlSXh2acAKvIRswjuUu1MGGz9cmWY6uPQsWR+wpABZ3YVXMOEQ9M2QmS/U3
-	kNgqBqiQsXDHZ9xTK4RknHJ9VA3VJphoUQvDhss9bvsB8OG/gn+EKGhhxHZ3aPhfl/0Q=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xAuLM-007YXi-VD; Sun, 27 Sep 2026 21:15:24 +0200
-Date: Sun, 27 Sep 2026 21:15:24 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"Chester A. Unal" <chester.a.unal@arinc9.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Simon Horman <horms@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v23 9/9] net: dsa: Add Airoha AN8855 5-Port
- Gigabit DSA Switch driver
-Message-ID: <c56b0621-a4c7-4276-91a7-dafb5c6cd5a8@lunn.ch>
-References: <20260925182435.21207-1-ansuelsmth@gmail.com>
- <20260925182435.21207-10-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNLFf+dg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1DC1F000FF;
+	Sun, 27 Sep 2026 19:20:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790536817;
+	bh=eqRtTpcMaqlYPCPA8/lOkTh+UCeNEAv+LhDVEoTL/UQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=KNLFf+dgiw/Xm0dZqQibNAiqjVZAcj7qBQBlt7IM1WbYs8NCHOXEw9KpeatVEdJUJ
+	 VT+nU4AD/QfuAoSPXATq0jAfUzknRze8oyKf7cmlZB/V9A62cHRWMfBHM/mnOE8X3S
+	 w98mhSnpu3mcxtaqwlo8A8LDdj2XZ1Z/wdpF+MyTs7wdAEvC0exvd0j7hM81ysY4vg
+	 PNXueinVc2cl03UhSA72Jg8jkb2Qdics3Crd3x3zuxu/FaYuhFhOlT31TeCyZ2m2QH
+	 Yrg58ABF1x+lwvbcjyYDEjXxyGMc03rtvO8rqEt43WCgIJblqcUzcT8M637pUE13Ge
+	 NRrnehj1QpwMw==
+Date: Sun, 27 Sep 2026 19:06:15 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, Lad Prabhakar
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Daniel
+ Lezcano <daniel.lezcano@kernel.org>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Claudiu Beznea
+ <claudiu.beznea.uj@bp.renesas.com>, linux-iio@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>,
+ Biju Das <biju.das@bp.renesas.com>
+Subject: Re: [PATCH v3 6/8] iio: adc: rzg2l_adc: Rename num_channels to
+ max_channels
+Message-ID: <20260927190615.30b3be49@jic23-hlaptop>
+In-Reply-To: <CAMuHMdVbyktVBAwBh=LoARWHHmb_FrF+omeDvNdR76uxus3mPA@mail.gmail.com>
+References: <20260922042707.116378-1-biju.das.jz@bp.renesas.com>
+	<20260922042707.116378-7-biju.das.jz@bp.renesas.com>
+	<CAMuHMdVbyktVBAwBh=LoARWHHmb_FrF+omeDvNdR76uxus3mPA@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925182435.21207-10-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 25, 2026 at 08:24:31PM +0200, Christian Marangi wrote:
-> Add Airoha AN8855 5-Port Gigabit DSA switch. Switch can support
-> 10M, 100M, 1Gb, 2.5G and 5G Ethernet Speed but 5G is currently error out
-> as it's not currently supported as requires additional configuration for
-> the PCS.
+On Tue, 22 Sep 2026 16:33:51 +0200
+Geert Uytterhoeven <geert@linux-m68k.org> wrote:
+
+> Hi Biju,
 > 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> Thanks for your patch!
+> 
+> On Tue, 22 Sept 2026 at 06:28, Biju Das <biju.das.jz@bp.renesas.com> wrote:
+> > Rename the num_channels member of struct rzg2l_adc_hw_params to
+> > max_channels, as it represents the maximum channel supported by  
+> 
+> ... maximum number of channels...
+> 
+> "the maximum channel" (aka singular "max_channel") would be equal to
+> the maximum number of channels minus one.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Ah. I just looked at v4 and realised I'd not been paying attention.
+The number isn't the maximum number of channels because it's a sparse
+set for the new part being added.  It is the oddity of maximum channel
+number and as such.  Ah well. I think at this stage this distinction
+doesn't really matter.
 
-    Andrew
+Jonathan
+
+> 
+> > the ADC hardware rather than a count of channels currently in use.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>  
+> 
+> > --- a/drivers/iio/adc/rzg2l_adc.c
+> > +++ b/drivers/iio/adc/rzg2l_adc.c
+> > @@ -62,7 +62,7 @@
+> >   * @adsmp_mask: ADC sampling period mask (see ADM3 register)
+> >   * @adint_inten_mask: conversion end interrupt mask (see ADINT register)
+> >   * @default_adcmp: default ADC cmp (see ADM3 register)
+> > - * @num_channels: number of supported channels
+> > + * @max_channels: the maximum channel for the ADC  
+> 
+> "maximum number of channels", to avoid confusion.
+> 
+> >   * @adivc: specifies if ADVIC register is available
+> >   */
+> >  struct rzg2l_adc_hw_params {  
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
+
