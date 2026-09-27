@@ -1,145 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5CE134CF;
-	Sun, 27 Sep 2026 14:08:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0623F4DDC
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 14:13:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790518111; cv=none; b=MIGWhGNjw1DRdI9cs8+ecfvJMNlfbkWeKPudr84O6H7My/APe0HUNlPC4KDCA0+LxtW6BnfRAv9AljR0nMcvjWE28QuLouYcBYMKaGP5wJo1YP+Q34qgqCUUDfRkaoJlC871JvQYWQ2UFiZA7qilCiVh1FYArHV4n/EyoQG2D68=
+	t=1790518387; cv=none; b=Zi//9Gvg8F5wR1PRRjRZLkOCxl2IvabKbVuf0sGhUtxz5ibzFjPB7dulMJAUU/r5i88zz8x/qDdHh+u6tYDiimBZ/rPn6QxC5Aem2Hmsc4S4jOIVHe6caOM+XoewTZHfzlaJuUGx3ZURE0K6qMrOe6AfOmyHD5QIFNHaCY96BAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790518111; c=relaxed/simple;
-	bh=6ymPVr3qXTcgrrsJTv9M7cZsAJD2TxyHDR04t0l/FZI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QpK6qkGOMnonKMGFg4bO7Y+8hDcP0h/2/XZfIdQW4E5dNmRhZtJRSMV8HHD0GhACyQ2eTJO/DgT2rHiOYHyqM9cyiFeLuU588G1Rq9kC6J3/aSwIDz1MpbCocE6CG6gA9AREehbOFqOAlKa5rLohMs9Epw7mZfxFpBBzGoIS6wU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XeLaZl+7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790518387; c=relaxed/simple;
+	bh=n1oTma4CHJHlr07UFERPMOUAKaqITTbrYwG7n0Bg834=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 References; b=H4Z4G/nupDvsyWpc4qPn0+bBd8ToLK6n4gLrPy4SM1T6VtZ0DvlM2/W8/Yh/FHnERy7NYATD8bfgHIStcqKqKKi5a4svvI59Yx9MrKRW14Pv5pVnl8S+GzQ+TYmv4iqrhMh7sSwPvCFf7VKA6q7i0fXSAliUdx39RElNf/ZmZpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=c8dRyYEy; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XeLaZl+7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F378D1F000FF;
-	Sun, 27 Sep 2026 14:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790518110;
-	bh=PTAqnYQbHZ9fuSL8FRIS/fqnODsJvnGohmupF04Flw0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XeLaZl+77Jh0T6mUisDJzK+GAUaKz8fJVvJCLN8wRT1Y4hhD8FnUdP6ipGbGUJUzc
-	 Q9j9EsSgbFVvSu1MQGSzLMkPFwbHuu6gKEjh2vNNXBq37WCgNimgY3iJf7Tp9mjpJT
-	 0TQqnXlI3zspQ81uTRmnbiQ89gdP4KOmBuPD+uAp+LoMLgHXKTi2Vjf3gSSehPYLAM
-	 BPLB/EwQe2pzCl8FwMm51kL66wHwjXpWQxK867VqggHhwuO5iQMlui66KvWcsgpNfQ
-	 omI1RwKm5QN4rw33wi3KxmnSUzqsbveYj7kZkYvifSDrGTIBYT5sjIHBNEaUasEXAA
-	 aZNzbfUXviuTg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/2] dt-bindings: clock: gpio-gate-clock: Add a new
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="c8dRyYEy"
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260927141256epoutp04b893bfab2e0422c45eeb670749bfe473~ZMvoVBhQB1095910959epoutp04f
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 14:12:56 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260927141256epoutp04b893bfab2e0422c45eeb670749bfe473~ZMvoVBhQB1095910959epoutp04f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1790518376;
+	bh=PS6eCa2NZNuq64ET4dYTcNZjHyvP/yRqiPXWx2KBgcw=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=c8dRyYEyZ3Gz1uoMZxEELjLuvUHz/AnRJFAWALBPnPQidlDKYl06LT6mSYCMAXdWc
+	 BUF9zaVPdcd12ZTGFU/xwW1OwuMbhJzsYndaL9umcEAbCf7TikBc0lts6t1A4BcXOm
+	 D+2Ap0Jidl38SLKP95MHAYKLOCSjXvFIfu5krDRs=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20260927141255epcas5p1088d4a50e979e74a6b018b4bdf8c00d2~ZMvnHMNIk2230922309epcas5p1W;
+	Sun, 27 Sep 2026 14:12:55 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.88]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4ht5xf1xqgz6B9m7; Sun, 27 Sep
+	2026 14:12:54 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260927141253epcas5p371d497edc6756f13ce2215af4f380fb4~ZMvlfjE8w1569815698epcas5p3E;
+	Sun, 27 Sep 2026 14:12:53 +0000 (GMT)
+Received: from bose.samsungds.net (unknown [107.108.83.9]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260927141251epsmtip176f4593c5d43b70bc2326ba33f240016~ZMvj2IvIW2206322063epsmtip1K;
+	Sun, 27 Sep 2026 14:12:51 +0000 (GMT)
+From: Alim Akhtar <alim.akhtar@samsung.com>
+To: krzk@kernel.org, peter.griffin@linaro.org, robh@kernel.org,
+	conor+dt@kernel.org, linusw@kernel.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	linux@roeck-us.net, hajun.sung@samsung.com, wim@linux-watchdog.org, Alim
+	Akhtar <alim.akhtar@samsung.com>
+Subject: [PATCH 1/2] dt-bindings: watchdog: Add Exynos8855 watchdog
  compatible string
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vyacheslav Yurkov" <V.Yurkov.EXT@bruker.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260927-feature-clock-guard-v7-1-8dd19568d9a2@bruker.com>
-References: <20260927-feature-clock-guard-v7-0-8dd19568d9a2@bruker.com>
- <20260927-feature-clock-guard-v7-1-8dd19568d9a2@bruker.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 14:08:29 +0000
-Message-Id: <20260927140829.F378D1F000FF@smtp.kernel.org>
+Date: Sun, 27 Sep 2026 20:00:59 +0530
+Message-Id: <20260927143100.3576195-1-alim.akhtar@samsung.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260927141253epcas5p371d497edc6756f13ce2215af4f380fb4
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260927141253epcas5p371d497edc6756f13ce2215af4f380fb4
+References: <CGME20260927141253epcas5p371d497edc6756f13ce2215af4f380fb4@epcas5p3.samsung.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: commit message and compatible string mismatch
-- [Low] dt-bindings: incomplete conditional validation of mutually exclusiv=
-e properties
-- [Low] dt-bindings: non-generic node name in example
---
+Add the 'samsung,exynos8855-wdt' compatible string to watchdog DT
+binding documentation. The Exynos8855 watchdog nodes use two
+clocks (bus clock and source clock), require samsung,cluster-index
+and samsung,syscon-phandle properties, similar to Exynos850 watchdog.
 
-commit 91b1494a8737e6c880936e93a4ab375dedf59e96
-Author: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+---
+ Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-dt-bindings: clock: gpio-gate-clock: Add a new compatible string
+diff --git a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+index a32c47831577..517c0e1cd78b 100644
+--- a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+@@ -25,6 +25,7 @@ properties:
+           - samsung,exynos5515-wdt
+           - samsung,exynos7-wdt                   # for Exynos7
+           - samsung,exynos850-wdt                 # for Exynos850
++          - samsung,exynos8855-wdt                # for Exynos8855
+           - samsung,exynos990-wdt                 # for Exynos990
+           - samsung,exynosautov9-wdt              # for Exynosautov9
+           - samsung,exynosautov920-wdt            # for Exynosautov920
+@@ -52,13 +53,13 @@ properties:
+     enum: [0, 1, 2]
+     description:
+       Index of CPU cluster on which watchdog is running (in case of Exynos850,
+-      Exynos990 or Google gs101).
++      Exynos8855, Exynos990 or Google gs101).
+ 
+   samsung,syscon-phandle:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description:
+       Phandle to the PMU system controller node (in case of Exynos5250,
+-      Exynos5420, Exynos5515, Exynos7, Exynos850, Exynos990 and gs101).
++      Exynos5420, Exynos5515, Exynos7, Exynos850, Exynos8855 Exynos990 and gs101).
+ 
+ required:
+   - compatible
+@@ -76,6 +77,7 @@ allOf:
+             enum:
+               - google,gs101-wdt
+               - samsung,exynos850-wdt
++              - samsung,exynos8855-wdt
+               - samsung,exynosautov9-wdt
+               - samsung,exynosautov920-wdt
+     then:
 
-The patch extends the binding to support a new clock provider that exposes a
-fixed-rate clock whose availability depends on GPIO lock-status signals. It
-updates the yaml to include properties for this new type of clock.
+base-commit: 4c253ac4b29b8c6cc6fdef8f92d4facde62e63b9
+-- 
+2.34.1
 
->     dt-bindings: clock: gpio-gate-clock: Add a new compatible string
->    =20
->     Extend the binding to be used also for gpio-locked-fixed-clock.
->     A GPIO-locked fixed clock provider exposes a fixed-rate clock whose
-
-[Severity: Medium]
-This isn't a bug, but there is a mismatch between the commit message and the
-implementation. The commit message explicitly states it extends the binding
-for "gpio-locked-fixed-clock", but the added compatible string in the yaml
-is "gpio-locked-clock". Could the commit message or the compatible string be
-updated to match?
-
-> diff --git a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml=
- b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
-> index d09d0e3f0c6ec..1ad87c8b36b9f 100644
-> --- a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
-> +++ b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
-
-[ ... ]
-
->  required:
->    - compatible
->    - '#clock-cells'
-> -  - enable-gpios
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: gpio-gate-clock
-> +    then:
-> +      required:
-> +        - enable-gpios
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: gpio-locked-clock
-> +    then:
-> +      required:
-> +        - enabled-gpios
-
-[Severity: Low]
-Does this schema sufficiently restrict invalid property combinations?
-
-By defining "enabled-gpios" globally, "additionalProperties: false" no long=
-er
-rejects it for the original "gpio-gate-clock" compatible. Since the mutually
-exclusive properties are not explicitly forbidden in the conditional blocks=
-, a
-device tree containing compatible =3D "gpio-gate-clock" and an erroneously =
-added
-"enabled-gpios" property will silently pass schema validation.
-
-Should these blocks forbid the mutually exclusive properties (e.g., using
-enabled-gpios: false for gpio-gate-clock)?
-
->  additionalProperties: false
-> =20
-> @@ -40,3 +61,10 @@ examples:
->          #clock-cells =3D <0>;
->          enable-gpios =3D <&gpio 1 GPIO_ACTIVE_HIGH>;
->      };
-> +
-> +    clk_gpio_locked {
-> +        compatible =3D "gpio-locked-clock";
-> +        #clock-cells =3D <0>;
-> +        clocks =3D <&pll>;
-> +        enabled-gpios =3D <&gpio0 4 GPIO_ACTIVE_HIGH>;
-> +    };
-
-[Severity: Low]
-Does this example violate the standard Device Tree naming conventions?
-
-The node name "clk_gpio_locked" is non-generic and contains underscores.
-Should this use a generic node name describing the device function (like
-"clock" or "clock-xxx") to avoid introducing an anti-pattern that users may
-copy-paste and generate dtc warnings?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927-feature-cl=
-ock-guard-v7-0-8dd19568d9a2@bruker.com?part=3D1
