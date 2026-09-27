@@ -1,99 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808EE3B7776;
-	Sun, 27 Sep 2026 18:58:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5904B2C21E6;
+	Sun, 27 Sep 2026 19:02:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790535481; cv=none; b=tdAnBWY79gba6tx9wfZxq99atDLGUP41GmlPaeLvjkDGABpfa99jDPtNqGuX6G13wBtIlmBJHpW0UUAkZMu4xjxrMBHHEXPridps6NodMf3AJ/pE/edW8vuYYoGZepp3fO6jcoekpe9Nijt9Z+LfGblQoM7hQNBD1l7U3phEDGA=
+	t=1790535746; cv=none; b=uP11WtOLDZcGNdF4E5MQGH1l0k8EL9k554htHb6MeOvIxXq93P+hdvruWPrXZSMMm8zMlhYdcmjw+I9RpdNYkbn1p+ZQzB4Pb3/Y5VPHBWYtbaFUqE5Y7FyFf49l7RbUCX2cQj6EeTcrf/yTyzjVa0+DwHivn/idTqPrTeEKnEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790535481; c=relaxed/simple;
-	bh=4ZQnLYNZ+MDkwxQHtM0/LJpwMTeZ07hysuaoYVqSn2g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XtsORKOysg+g5K689db/t5gWnGT31fuIT28CHTpb4Anm2l5Dhc9cXlWs39n/ioe8K01L1BXT2BWupLcGT9terCgg86Ebti9y8+Cd+2si+m5th60nCy+QzFjwB0gK7j9LmriPiG23UWfsLGHPsVDFaU/iNdUwfmMd1n/Ue79WMs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CYSYylrn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790535746; c=relaxed/simple;
+	bh=bmZUXxIZqy0apceeyZkO/5n1tNNDoZ4axqt4nUT1I9I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gN/69XhpgYtIGwfTOmkwZlEb6wZ3wiFpl9RzyFs3CPF5s/+VgxTc9GvspIxGr4HymZ3DiM3o709Aw9TiDVu+m18D+Nz90ufeJ6rPtiqx56CNOBrrF5OYaUNeftDskgocMFQSoq1FOQ050ubPedSu3mDo96qRSH1gCEHAmsSNEFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=GXE3mkqR; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CYSYylrn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117261F000FF;
-	Sun, 27 Sep 2026 18:57:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790535480;
-	bh=sBCRchsp1sI03Um1rqvmQqGg1HFVn6OU3UOiqPFqQvc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=CYSYylrnQBbvqDP1Ohbo7pOzh7ldRMiIiuzY7lH7ltD3BZBygrRIPavnJZKMWTeAp
-	 HNgjmomDh54IocKkHvRtXClN/puPkQkltlkHSnWByL3IZM1HixHkA7+InOUE0mZ9AZ
-	 x8UeJtGevKQbV7baTntZjfzSMqHihJ8M222HGCBjVNlFsudJOAVa+GjfozDRo0Porl
-	 KAZINSynBWQa4SvgkrLun0Cg4K/vjOZjd9kHTVeCmV6qc+IMI6r5lWSdzDkYzxN9bp
-	 BQH6Wtj5nM218LfyKOhMmxQ7XBiFjIulJwPh7Jr994MWfcxdjmB4C5Ydl5rxQ9fjbq
-	 twlDpd+GJ1BRg==
-Date: Sun, 27 Sep 2026 19:57:53 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
- <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 02/14] iio: adc: stm32-adc: core: manage clock
- prescaler diversity
-Message-ID: <20260927195753.307af72f@jic23-hlaptop>
-In-Reply-To: <20260923-adc-stm32mp25-v1-v2-2-46bc019537c6@foss.st.com>
-References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
-	<20260923-adc-stm32mp25-v1-v2-2-46bc019537c6@foss.st.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="GXE3mkqR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=UQrtppGpAREwEBox3klCIQcjsYbUf0EeTuSwQEhRl+0=; b=GXE3mkqRY/t8zgm8M7PViX9qlw
+	2P5+5y4FfOjpjW3YAfRO/RNQR2B+mjHhHaLVo3V2PgXSwur4ZbiWg79L3t/UZde82dIYBCQgljmVE
+	MS+vGcDHhJ/arNtWKId8I4qV50ynJtihdgrIfdpN+Ohg7VE/tKgxabpA7UB6mN3tPwX8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xAu8X-007YUJ-0o; Sun, 27 Sep 2026 21:02:09 +0200
+Date: Sun, 27 Sep 2026 21:02:09 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Simon Horman <horms@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v23 8/9] net: dsa: mt7530: generalize and move
+ common function to lib module
+Message-ID: <cd200dee-1bde-4cc2-a296-c93d704cb906@lunn.ch>
+References: <20260925182435.21207-1-ansuelsmth@gmail.com>
+ <20260925182435.21207-9-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925182435.21207-9-ansuelsmth@gmail.com>
 
-On Wed, 23 Sep 2026 17:39:05 +0200
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
-
-> Make the clock prescaler selection configurable, to prepare stm32mp2
-> support.
-> Reuse existing stm32f4_adc_clk_sel(). Rename it so it's no longer
-> specific to stm32f4. Add configuration data to handle upcoming
-> differences on:
-> - registers and bits
-> - division ratio
-> No functional change intended.
+On Fri, Sep 25, 2026 at 08:24:30PM +0200, Christian Marangi wrote:
+> In preparation of support of DSA Switch from Airoha, create a mt7530
+> library module and move there all the common function.
 > 
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Hi Fabrice,
-
-One small suggestion to use field_prep() rather than having
-to carry the shift around.
->  
-> -	priv->common.rate = rate / stm32f4_pclk_div[i];
-> -	val = readl_relaxed(priv->common.base + STM32F4_ADC_CCR);
-> -	val &= ~STM32F4_ADC_ADCPRE_MASK;
-> -	val |= i << STM32F4_ADC_ADCPRE_SHIFT;
-> -	writel_relaxed(val, priv->common.base + STM32F4_ADC_CCR);
-> +	priv->common.rate = rate / priv->cfg->presc[i];
-> +	val = readl_relaxed(priv->common.base + priv->cfg->regs->ccr);
-> +	val &= ~priv->cfg->regs->presc_msk;
-> +	val |= i << priv->cfg->regs->presc_shift;
-
-I think this isn't a particularly hot path, so we can use
-field_prep()  (the lower case one doesn't mind non const masks)
-
-The we don't need to store the shift as well as the mask.
-
-Maybe it is worth thinking about adding a field_modify() similar
-to FIELD_MODIFY(). Perhaps that's not a thing to do in this patch set
-though.
-
-> +	writel_relaxed(val, priv->common.base + priv->cfg->regs->ccr);
->  
->  	dev_dbg(&pdev->dev, "Using analog clock source at %ld kHz\n",
->  		priv->common.rate / 1000);
-
+> Function are generalized to use the reg_field regmap API but still apply
+> the same exact logic. Every function is renamed to mt7530_lib prefix to
+> better identify it.
 > 
+> Minimum modification are needed to the register header and common enum and
+> macro are moved to the mt7530 library header to permit reuse.
+> 
+> A library struct is introduced with everything required for the common
+> functions.
+> 
+> The generalization and the introduction of reg_field regmap API have the
+> side effect of permitting to clean the mirror functions that required
+> special handling for MT7530 and MT7531 based switch that had different
+> registers. This is done by declaring a common MT7530 reg_field and a
+> specific one in the Switch match table.
+> 
+> No behaviour change is expected by this change as it's just a code move and
+> reimplementation.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  drivers/net/dsa/Kconfig       |    4 +
+>  drivers/net/dsa/Makefile      |    1 +
+>  drivers/net/dsa/mt7530-lib.c  | 1128 +++++++++++++++++++++++++++
+>  drivers/net/dsa/mt7530-lib.h  |  391 ++++++++++
+>  drivers/net/dsa/mt7530-mdio.c |    4 +
+>  drivers/net/dsa/mt7530-mmio.c |    4 +
+>  drivers/net/dsa/mt7530.c      | 1368 ++++++++-------------------------
+>  drivers/net/dsa/mt7530.h      |  256 ++----
 
+The number of mt* file keep going up. Is it time to move it into a
+subdirectory?
+
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+    Andrew
