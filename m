@@ -1,155 +1,108 @@
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384953E866B;
-	Sun, 27 Sep 2026 11:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.243.244.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0193E024F
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 11:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790509303; cv=none; b=LpMdhWd00KjWcAcBk6lT8sggSDqFEk5WkPpP4vtUhUoedz7r8JqlhqwP8JWmzTbVODFnsSBCTpD4Hvh5+sRyUEqFrKCBUSKaKmsWuALyNeiIbGkQdgvM3aWiYyONEogUVfVBc8iR9rgaWVR+StZyW9CT/4KgXedajjQm7zkD60w=
+	t=1790509483; cv=none; b=exgCm4cavg4y3LIyfFu0DTVVkH4hAtUJbFhdCT98DGjAIO7D6hLNUoyNOgIugF21Ob0bOfWAiWsAbLvOSqk9Jz4lusRwKOptwZAlkygszKIWM+qks4ZYyE4Hw3GfEG0o6NTjM7skatwrs8pUgyroyxiOhechL4aYOgQZrIN/3Lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790509303; c=relaxed/simple;
-	bh=QacduMJQZoP4ifs5fYWJikyOsuhP8hddT5yYcz6iGbg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ClF6CqeuhSKK3Nf1L1h9g5c85eEtGwDSW8I/rTw3KpjxE4PzmEhSmDw6RVZOOlNDCdKqvgV/NF1hTe/kIueF/FUiUAl9cQLnM9rW2xwISgswDfINxYIMgSSZtrS2Fo9GdDx7GjfIMG7lX99FzR4MgoZS2zYX9LYAY+e41I09exw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=rebJmHN5; arc=none smtp.client-ip=54.243.244.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790509483; c=relaxed/simple;
+	bh=hfsvOd/SdIwAhDO4f+o0wspmtu0+CDGRWfBBsuzDu0g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Z28o2SpNum8F1cWdnvjdTIoSmqtz6A3VS5gDbaVyBpJ2580SGGhVIsISsM+WIiptOXkvjz1kMxqZKKCjdOeJA2iMzdUICtJ9TQ8RVP69si79/9yOT3TyfT7kdMisPKGP7SDCdlZlSRA522DMrRXYMT/zUX7pxJuOsNDxz7ih0EY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KRIGEFuC; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="rebJmHN5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790509234;
-	bh=4Pto2CbMqgiSHY+cyI/cnRJeRvRyAB0n5HA+ns2H17E=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=rebJmHN5uQP4JJaB4cyYOCq/eDoSU5n6vlmzMOccD0c7o5g8YuQBFlUcTMdUhmsjH
-	 GwYtO/18+mUXW8d679eA6KqzjGI/rKyMQQFAX3OmA7y9KNmEBTNpsTotDRNgp3Vh6U
-	 uYhreHEYUYZ4rdVvC+2V14L54+Ln+ny9LJQoF5xA=
-X-QQ-mid: esmtpgz12t1790509228te9948562
-X-QQ-Originating-IP: r25/DGgcZLhsdAlFJldW8RJWICJZh9QRUXi5zwK8x0s=
-Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 27 Sep 2026 19:40:26 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17715700320622488950
-EX-QQ-RecipientCnt: 20
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Date: Sun, 27 Sep 2026 19:40:09 +0800
-Subject: [PATCH v3 7/8] riscv: dts: spacemit: enable USB2.0 controllers on
- OrangePi RV2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KRIGEFuC"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so11463425e9.3
+        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 04:44:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790509480; x=1791114280; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hfsvOd/SdIwAhDO4f+o0wspmtu0+CDGRWfBBsuzDu0g=;
+        b=KRIGEFuCIdDt2p20AT1YWXac1xRpbXbPUWPX96oKQIWrMYuuxslEEMXf7wg7F7TyEp
+         3+Cd0NrePlaw4TQjmr618f0p3aOqxKSqSJyd1sQX13/Fax9456EQdLS59mSe1O8dgaww
+         aAsdRpu9Q5M0szJsxD3ApE6sRQwXc2Sa6mHPGOqaeJwkBT0kA94wa7dIGHKcGaYXhn67
+         Tc5csos0QzINaeItrbWrnGXvb4Se/ZsCNNKF2f0ddOXzlPcNXAB0nY7HywW/GFaq5TJj
+         xpEhFOSijtoa2HC1FDinCYtfbrcAPOm+tTn+P8hIhhioXkIYEmSlWsJ5jUmd9KKXLzii
+         fd+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790509480; x=1791114280;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hfsvOd/SdIwAhDO4f+o0wspmtu0+CDGRWfBBsuzDu0g=;
+        b=irs7lee2lNRNnPXrZw1oOzhVjSONrzBx3JA6dDBiMd/FhB58NGccKsMEmtrzXZbzof
+         GpkB7/mp5RNXWWTOpn2kFS9GVTHDiDNqczodNvZkN7VJsyA/ytY71QoC5dXM3VopXfYw
+         GkAAXiPGulNlB7kroG2WDVOnPtbtUD0Rb8Rfa3VVunQQ+whPzURy5cdHazRb8hRKNWdJ
+         BmtIoyYdpKYk+Yp8PkouptAhKmhIHknL6K8GZi6uFkEY1Ym65BdvRMCaMV0cE+es64H5
+         LUIf3dTteBI2EUNHhbU4hT1Kyy3AQGC7L6c4+88eufCsZbWgSKG9CnzxirBA/8OTLHh3
+         RxsQ==
+X-Gm-Message-State: AFuF++lpEYjVwQqCLBL3TW60hRJvyLv4swyFU2Pg/VnwjjjVuAyloRmk
+	MBixhxZzeqvAIDMuR6XVL2W4r7eB+K3H0wFtilh0Tedt+oMvRSFjmzAt
+X-Gm-Gg: AYBFou1NFoWjOxWLN4Ay1c9cWF5NIfxdODPWI82Az3XXJkuHWDXdqvbyRKSNhvPQZ5p
+	Z0c/tsS0irWQUcQSjeWEbvzB6tvEpzqS6IRpQXA2bCzOmMfP2lyvYMpjTRxOrrhnyxE4lEVxhou
+	JdnFzFTlRHFeptvWLOc22m+KKApPaCFZ6GE0iW5FPgOMz9C2aKbe68jPBUEC2tPYMBerA/66Zoa
+	b2Z22IH+Ea4ePBuw9qAfdNC4jqJDaZyZ95r06QripM0g3vsn4PWYaKhnc6wYceDxop7/6hxUqVs
+	wqe3U2m+VtiIRYcAxYSlYCD9JvM3U+cQ+QuyZoGrjNEmN9kBYSkpKF6b0NFSPunOMNIIN44aj2l
+	2TLZe98Wx3NM9evdJAUiFJYt17vRz4/JutiQn15maRhWviCm1bnwIpvaDvhs81xsdLZYb5KD+nv
+	z7P7tndq9fHEObQr/Nu7BQEOgxFN+tNur7c4lLcMSCPF42xzeHb/ZHEYuid3WEnlWTVmk4A86Aw
+	IZN/S3CUw8m/MEf6X+rrXovLRPHw1je7Ib6+UTU0gK/R3985j6XtS5xcgam/DqQRvdmvMQukQh0
+	+JxB+77Nqn6ab+O4evtU6LFQ2DIOTUph6KM6Bqb6H/9KMwiMGkKlvogfftpUJNIl6nQDhsjrc8q
+	thQYnGLAAsqHNDNGVAQTIZcpXfCtYafM3d6ulooVZcr1V25ddRjUbkYHT9cuDhiWvnY8QDhvPCk
+	74tfSQ5a3d93uCd2af
+X-Received: by 2002:a05:600c:8518:b0:49f:d325:9912 with SMTP id 5b1f17b1804b1-49ff06bcd79mr118283635e9.10.1790509480319;
+        Sun, 27 Sep 2026 04:44:40 -0700 (PDT)
+Received: from jernej-laptop.localnet (77-38-7-79.dynamic.telemach.net. [77.38.7.79])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0018dcf59sm72964095e9.1.2026.09.27.04.44.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 04:44:39 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, Per Larsson <per@palvencia.se>
+Subject:
+ Re: [PATCH v2 1/2] arm64: dts: allwinner: a523: add EPHY 25MHz clock fanout
+ pins
+Date: Sun, 27 Sep 2026 13:44:38 +0200
+Message-ID: <IuUnKM8SQNWFRyzY1ves-g@gmail.com>
+In-Reply-To: <20260926232142.5244-2-andre.przywara@arm.com>
+References:
+ <20260926232142.5244-1-andre.przywara@arm.com>
+ <20260926232142.5244-2-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260927-b4-spacemit-k1-usb2-v3-7-ce7095896039@linux.spacemit.com>
-References: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
-In-Reply-To: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
- Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Junzhong Pan <panjunzhong@linux.spacemit.com>, 
- Ze Huang <huang.ze@linux.dev>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790509204; l=1524;
- i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
- bh=QacduMJQZoP4ifs5fYWJikyOsuhP8hddT5yYcz6iGbg=;
- b=vjmJummGTgJqMbkiLLzIwEHbZtZoKeHrFRjQUTy2+XzOmgNle7iGdbZqZWcckge73W6WIM8eO
- xS8NM2IhcODAorfXXSISZM5xNELT60xGOXXa27f2RLjHiIoBR7Oy45C
-X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
- pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: NR3PJyWXADsZH3TVTw4by9Q01diIFFQhdDTk1/TN7TvVsVmsxrcEVP8+
-	DsJTue6N49SgsNIVbb14QpmglHFJrKxs7h7jer3BMGTcr2E7aArroGrTkf+8UirVoOuK+jK
-	zOLAYb27Xll1Ie6JSvxQws/sqkPs6RELNxtRofOP+rQXKeGI3IwYLzzfnZoKVXCS2xpjVN9
-	ezSVfloVmMpp3J1DbP9GQG9Ga5tJn0TP/tyQYvEKlrQhaTUE9SFV3qbi/tOCLcZRoIXB/Zl
-	glybj1FpG8yjNCBVVfPq4nxx0NyDS4wWU49Gw3ne67fgDWIT0B4PND3ScPaRLK9CGwRZEFY
-	3DZL9boQmTjOL2Ks4Xkwj7iAeWZWw74CTJ2BpE1zhfGJ5WeupVZO1CCklOf6LkBKW8bJjLc
-	uVw71qyvT7pksipL3Ds/51xnlUBcf6cIT23YxMB+pPWmd6TBPCsSf07HCcabfR38nPbwolR
-	caR2ApgyIK0bDVsCq942Y292TQxjMR8APTaFWkztgTRn0OCQ2/JGdTe44jDuRwbTGpC5sdv
-	eCKqNXkGb0o2CmHeCoLp2xwXDcPp5ZXnfzODPxoATmSesZ7O3nwBQrZ2X9y6kGYHez/mPFu
-	MkssY4P8An2Ha5YKlN8mNL7UEreW6WQl9AHZGnuDzCyDiwg8GJivY+hXh042lgbtHk3//Ks
-	rDZo2tnU+yUaOYemMrmd/VJPdKhKd29jyizLgpmBP2GsVrhFviVw+jopIDL5OyRItqEP7J5
-	7JPvbvCrWo6AS8JYaZ9qtODTSgbOLa4bTsDdCpDe9RN8330BdOaXGN14LVdw+No36s+wRWT
-	5ede/eZDV2sb85R19IkakasmdzDmGeV36eaLsnjL+LOS0DQhltwsQiXZ8TY8Qu5jVvc0LNw
-	5kjYozVpQY04tHe+NQfl9Rnq9n6+lgJFkEWLA6nCoMjr+5rM/TokveoNk5z8iTm9oMvpK0x
-	EjX9JMQ7pbkQbZgdA5tiozooLDo2myiERlYD8Ir7AQjskb6C3k1OuTouKC57KlVU0tfpZQ+
-	dJBNdNB5N5lGGRDOOSzUOooX80L3hIZGio5GzNMG4SEmAYYhQ+pSPzCpxG0hJhRfxQQAzP0
-	+asLgmHUrHKAQc6kJyqRfQT/5NGw4TZYr0u7FrSofYt6Qwb1+QfRpFyHEaX+/5I4w0YZCa2
-	4gv+CgySOf9daSQPRsFkrQiuxHA1X5oTvZ1NtxiRLf746eM=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
 
-On OrangePi RV2, usb2_0 is connected to a Type-A connector at host
-mode, its vbus output is controlled by gpio 126. And the usb2_1 is
-connected to the USB2.0 connector pins onboard.
+Dne nedelja, 27. september 2026 ob 01:21:41 Srednjeevropski poletni =C4=8Da=
+s je Andre Przywara napisal(a):
+> The Allwinner A523 SoC family provides two clock fanout pins, which are
+> backed by gated clocks fixed to 25 MHz, divided down from the main
+> peripheral PLL. Those are meant to clock an Ethernet PHY, and allow to
+> save an external crystal oscillator typically employed for that purpose.
+>=20
+> Add the pin descriptions of the two pins for those clocks, one is within
+> the RGMII0 pins, the other within the RGMII1 pins, although the clock
+> fanout works completely independently from the two MACs.
+>=20
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 
-Tested-by: Ze Huang <huang.ze@linux.dev>
-Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
----
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 28 ++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-index b907a1396b21..32d1aafc88f7 100644
---- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
-@@ -64,6 +64,16 @@ vcc5v0_usb30: regulator-vcc5v0-usb30 {
- 		vin-supply = <&vcc_5v0>;
- 	};
- 
-+	vcc5v0_usb20: regulator-vcc5v0-usb20 {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpios = <&gpio K1_GPIO(126) GPIO_ACTIVE_HIGH>;
-+		regulator-name = "vcc5v0_usb20";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc_5v0>;
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -341,10 +351,28 @@ &uart0 {
- 	status = "okay";
- };
- 
-+&usbphy0 {
-+	status = "okay";
-+};
-+
-+&usbphy1 {
-+	status = "okay";
-+};
-+
- &usbphy2 {
- 	status = "okay";
- };
- 
-+&usb2_0 {
-+	vbus-supply = <&vcc5v0_usb20>;
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
-+&usb2_1 {
-+	status = "okay";
-+};
-+
- &usb_dwc3 {
- 	dr_mode = "host";
- 	#address-cells = <1>;
+Best regards,
+Jernej
 
--- 
-2.34.1
+
 
