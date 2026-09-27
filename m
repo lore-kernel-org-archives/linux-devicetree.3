@@ -1,108 +1,66 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F0193E024F
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 11:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D42D3B7B7B;
+	Sun, 27 Sep 2026 11:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790509483; cv=none; b=exgCm4cavg4y3LIyfFu0DTVVkH4hAtUJbFhdCT98DGjAIO7D6hLNUoyNOgIugF21Ob0bOfWAiWsAbLvOSqk9Jz4lusRwKOptwZAlkygszKIWM+qks4ZYyE4Hw3GfEG0o6NTjM7skatwrs8pUgyroyxiOhechL4aYOgQZrIN/3Lc=
+	t=1790509745; cv=none; b=HH49t0NPbBYllH3RwLxElEnVctpkDXkRjjcto8MVstcl36DqvpnkNUyzYN2SuAnWIYf6Q9x6BDZ0aP2Q7/Q5p8T93Y7gtbQ1mYKk3VARytNlxr6wjwqt0woP+jyUZ291hmXwb/NbIKGt1IkXipxZmxByDbATqILr6Bk7e51gQrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790509483; c=relaxed/simple;
-	bh=hfsvOd/SdIwAhDO4f+o0wspmtu0+CDGRWfBBsuzDu0g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Z28o2SpNum8F1cWdnvjdTIoSmqtz6A3VS5gDbaVyBpJ2580SGGhVIsISsM+WIiptOXkvjz1kMxqZKKCjdOeJA2iMzdUICtJ9TQ8RVP69si79/9yOT3TyfT7kdMisPKGP7SDCdlZlSRA522DMrRXYMT/zUX7pxJuOsNDxz7ih0EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KRIGEFuC; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790509745; c=relaxed/simple;
+	bh=J2EK++o8yyraYRZ4KDkkR9/F6zDQOclM5p83gBAJe1w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S0gASLhE3i79RIhX3D3nW2dtNnJVaHOpj9jCbS7CinDXpP3WtD0gjGg3omo0lnPAWCneqV/k8UVIe6EcnOofnnflYaP1LeUqCnEj5TUwriC41p9xvN0mdmqcNNqR8zXLvsTB5xvmAh1frHdOY6nrLNFj4b4K91PvJJUdrDvcBIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A2JoQCJQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KRIGEFuC"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so11463425e9.3
-        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 04:44:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790509480; x=1791114280; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hfsvOd/SdIwAhDO4f+o0wspmtu0+CDGRWfBBsuzDu0g=;
-        b=KRIGEFuCIdDt2p20AT1YWXac1xRpbXbPUWPX96oKQIWrMYuuxslEEMXf7wg7F7TyEp
-         3+Cd0NrePlaw4TQjmr618f0p3aOqxKSqSJyd1sQX13/Fax9456EQdLS59mSe1O8dgaww
-         aAsdRpu9Q5M0szJsxD3ApE6sRQwXc2Sa6mHPGOqaeJwkBT0kA94wa7dIGHKcGaYXhn67
-         Tc5csos0QzINaeItrbWrnGXvb4Se/ZsCNNKF2f0ddOXzlPcNXAB0nY7HywW/GFaq5TJj
-         xpEhFOSijtoa2HC1FDinCYtfbrcAPOm+tTn+P8hIhhioXkIYEmSlWsJ5jUmd9KKXLzii
-         fd+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790509480; x=1791114280;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hfsvOd/SdIwAhDO4f+o0wspmtu0+CDGRWfBBsuzDu0g=;
-        b=irs7lee2lNRNnPXrZw1oOzhVjSONrzBx3JA6dDBiMd/FhB58NGccKsMEmtrzXZbzof
-         GpkB7/mp5RNXWWTOpn2kFS9GVTHDiDNqczodNvZkN7VJsyA/ytY71QoC5dXM3VopXfYw
-         GkAAXiPGulNlB7kroG2WDVOnPtbtUD0Rb8Rfa3VVunQQ+whPzURy5cdHazRb8hRKNWdJ
-         BmtIoyYdpKYk+Yp8PkouptAhKmhIHknL6K8GZi6uFkEY1Ym65BdvRMCaMV0cE+es64H5
-         LUIf3dTteBI2EUNHhbU4hT1Kyy3AQGC7L6c4+88eufCsZbWgSKG9CnzxirBA/8OTLHh3
-         RxsQ==
-X-Gm-Message-State: AFuF++lpEYjVwQqCLBL3TW60hRJvyLv4swyFU2Pg/VnwjjjVuAyloRmk
-	MBixhxZzeqvAIDMuR6XVL2W4r7eB+K3H0wFtilh0Tedt+oMvRSFjmzAt
-X-Gm-Gg: AYBFou1NFoWjOxWLN4Ay1c9cWF5NIfxdODPWI82Az3XXJkuHWDXdqvbyRKSNhvPQZ5p
-	Z0c/tsS0irWQUcQSjeWEbvzB6tvEpzqS6IRpQXA2bCzOmMfP2lyvYMpjTRxOrrhnyxE4lEVxhou
-	JdnFzFTlRHFeptvWLOc22m+KKApPaCFZ6GE0iW5FPgOMz9C2aKbe68jPBUEC2tPYMBerA/66Zoa
-	b2Z22IH+Ea4ePBuw9qAfdNC4jqJDaZyZ95r06QripM0g3vsn4PWYaKhnc6wYceDxop7/6hxUqVs
-	wqe3U2m+VtiIRYcAxYSlYCD9JvM3U+cQ+QuyZoGrjNEmN9kBYSkpKF6b0NFSPunOMNIIN44aj2l
-	2TLZe98Wx3NM9evdJAUiFJYt17vRz4/JutiQn15maRhWviCm1bnwIpvaDvhs81xsdLZYb5KD+nv
-	z7P7tndq9fHEObQr/Nu7BQEOgxFN+tNur7c4lLcMSCPF42xzeHb/ZHEYuid3WEnlWTVmk4A86Aw
-	IZN/S3CUw8m/MEf6X+rrXovLRPHw1je7Ib6+UTU0gK/R3985j6XtS5xcgam/DqQRvdmvMQukQh0
-	+JxB+77Nqn6ab+O4evtU6LFQ2DIOTUph6KM6Bqb6H/9KMwiMGkKlvogfftpUJNIl6nQDhsjrc8q
-	thQYnGLAAsqHNDNGVAQTIZcpXfCtYafM3d6ulooVZcr1V25ddRjUbkYHT9cuDhiWvnY8QDhvPCk
-	74tfSQ5a3d93uCd2af
-X-Received: by 2002:a05:600c:8518:b0:49f:d325:9912 with SMTP id 5b1f17b1804b1-49ff06bcd79mr118283635e9.10.1790509480319;
-        Sun, 27 Sep 2026 04:44:40 -0700 (PDT)
-Received: from jernej-laptop.localnet (77-38-7-79.dynamic.telemach.net. [77.38.7.79])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0018dcf59sm72964095e9.1.2026.09.27.04.44.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 04:44:39 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, Per Larsson <per@palvencia.se>
-Subject:
- Re: [PATCH v2 1/2] arm64: dts: allwinner: a523: add EPHY 25MHz clock fanout
- pins
-Date: Sun, 27 Sep 2026 13:44:38 +0200
-Message-ID: <IuUnKM8SQNWFRyzY1ves-g@gmail.com>
-In-Reply-To: <20260926232142.5244-2-andre.przywara@arm.com>
-References:
- <20260926232142.5244-1-andre.przywara@arm.com>
- <20260926232142.5244-2-andre.przywara@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A2JoQCJQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22F281F000FF;
+	Sun, 27 Sep 2026 11:49:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790509743;
+	bh=83jjFbsFUosVtEhtwuG8dnoSIByiVw2r0FAPXIo7YlM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A2JoQCJQxYUVCG0hBhans7whsL7Ya5kdv5kY+efQtCLR1XYPAAHPwHKF6ij+Y+e0z
+	 2ndbTVhgVoPr5HBnL1v6QHtdTyv89FBUGzRBsQBPIb8uNA5gLGYDnEW6rb4UV2QTH0
+	 saxY2Flr4dU2uzejndPqHjrA1gZaiP0L+a7YZaHlxxAsXNh5AnYiFwuOtNEmu9KsLp
+	 4ghYJ5dO2ojNO6nq39sJvZ4crpTYZw0fz6/kkvDHjy9nM+uCQbcu2XyoZ0v4lwePkx
+	 ALS+FAnrK8a4D/qhrDKmu6ltV/TzysOJNwgnSrWyBvrKZ/tUA7OK9PipURkaU4EJ8U
+	 71SFrzELjOUFg==
+Date: Sun, 27 Sep 2026 13:49:00 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>, 
+	Gregory CLEMENT <gregory.clement@bootlin.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-i2c@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v2] dt-bindings: i2c: mv64xxx: Add Allwinner A733
+ compatible string
+Message-ID: <arkCnX2mqH_qZ1kP@zenone.zhora.eu>
+References: <20260924-allwinner-a733-i2c-compatible-v2-1-0f5f1e9af969@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-allwinner-a733-i2c-compatible-v2-1-0f5f1e9af969@baylibre.com>
 
-Dne nedelja, 27. september 2026 ob 01:21:41 Srednjeevropski poletni =C4=8Da=
-s je Andre Przywara napisal(a):
-> The Allwinner A523 SoC family provides two clock fanout pins, which are
-> backed by gated clocks fixed to 25 MHz, divided down from the main
-> peripheral PLL. Those are meant to clock an Ethernet PHY, and allow to
-> save an external crystal oscillator typically employed for that purpose.
->=20
-> Add the pin descriptions of the two pins for those clocks, one is within
-> the RGMII0 pins, the other within the RGMII1 pins, although the clock
-> fanout works completely independently from the two MACs.
->=20
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Hi Jerome,
 
-Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+On Thu, Sep 24, 2026 at 06:05:50PM +0200, Jerome Brunet wrote:
+> The I2C controller IP used in the Allwinner A733 SoC is
+> compatible with the ones used in the other recent Allwinner SoCs.
+> 
+> Add the A733 specific compatible string to the list of existing names
+> falling back to the allwinner,sun8i-v536-i2c string.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 
-Best regards,
-Jernej
+pushed to i2c/i2c.
 
-
-
+Thanks,
+Andi
