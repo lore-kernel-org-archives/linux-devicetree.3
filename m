@@ -1,144 +1,252 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2A539A7F2;
-	Sun, 27 Sep 2026 12:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC203E4C96;
+	Sun, 27 Sep 2026 12:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790510742; cv=none; b=QxNdoBWPzb+WvQ2plwjinC6DrAk4lFUo+xfnfjeMYQLkEXY6KpgeipzSbCYpSofmL/QmlKfL2x2/gGEUa0jG4kdauwysr4BCcyA+LOAoXr7y9aJr9okhtWhby+s1Zj3Um+K2V62XHy7zdUYVHUpEBNB76rtP2jhGqwyJIoATEQs=
+	t=1790510941; cv=none; b=JcXCrAm78jY5iYDz3Et8pmn2p5ARktTdWdmsr5KpC1JZKONDDCdLpO8fAsFRK+y/GPa/D5UU8aU3HfSMwZkNI6tNa1Lc9Vw2woDxArSij/eCaCZAyyeIJeMdLHJYjRYQRV9bPGeJ1KmVRAsFhY78426bMyvEB+fKCyiO91Inct8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790510742; c=relaxed/simple;
-	bh=AHoenpyp6OwVJ8IheVHLHeaV0N4IaRBKsv41zFzi8iY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=HJW9axixqxCtWqi4ut9p3xoUO9n0ZAGSiG0E4RIB16XAz13fzTWqnSDlGmXYyQ8mVpF/ve2grvclWsJeiAo99J5dnVtR3Slc38xCW0sHObzkugZUMscdYscFbzON2ffq8OzeCBqlTkZpYnyet9bCr1C4tNF3l8rkrbKOPxhPx9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=GfNjHoD7; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790510941; c=relaxed/simple;
+	bh=QJ6Dhtl0V6L4eRTyyaXtS4zXkX4QimR91/05gQXZWZc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kc8WNTIDAxWbVY8MB2xp+DhScLLWi9dQNRLiJinzth1vZrSsxAiC35MrYp5oXt+cksep4i2cRztmc8PpqhpYNqsRezsoahecOO2vwl1RK2ELPNyZQhIRdDdWWsrs/sBTjHm78fXCAjK5KyjYamcqdAllJIDwDsirTLVqOc1RHZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jPqsnKUv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="GfNjHoD7"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260927120537euoutp019c6217f2f172d5798b71ccad819cde66~ZLAeRpbfb0961109611euoutp01G;
-	Sun, 27 Sep 2026 12:05:37 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260927120537euoutp019c6217f2f172d5798b71ccad819cde66~ZLAeRpbfb0961109611euoutp01G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790510737;
-	bh=XG8+gWff0Kb6xp+rIzHqMb+FVejaqE783kZJda9sveQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=GfNjHoD7g834Dcl8ZapG6XaA2n8JLOknTzlw7hqfOTAo9LAYC2MsOnIIDyjT8ZLP2
-	 l5hKnOlzHW9ec1yco0+wCoH4olnd4//rBjjAIeXDtkaOcBZYd7z4B8k29ZiShT270L
-	 oFgdZaGafVbmpg9ZujF/q9SlESV9rt/e7uROppyI=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260927120537eucas1p2940a6c268f23ab72fb7eb581fe0bfee8~ZLAd4yZaM2953129531eucas1p2J;
-	Sun, 27 Sep 2026 12:05:37 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260927120535eusmtip28a1a6cb637e2a20e2b9abd75be01ad38~ZLAbod2Iw3245532455eusmtip2F;
-	Sun, 27 Sep 2026 12:05:34 +0000 (GMT)
-Message-ID: <4b1d51e9-1d83-4ad7-ac60-36de54e57bc2@samsung.com>
-Date: Sun, 27 Sep 2026 14:05:34 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jPqsnKUv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F32321F000FF;
+	Sun, 27 Sep 2026 12:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790510936;
+	bh=rcdgXK0+/7Z3a45Y7RvKNKnFXrswv/Vtt6X/xMOE8Mw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jPqsnKUvX6X7CHH8Y/NNNye+Xs8G4JdMvmlSM5tdvWOrEG6s6dQnvHPEL0kCYvIy6
+	 NWbqIbkPWehnuTcR5ZdBWlIdEbBnTcQOiO534/FewHSU1jQGK/CZl4nV04WYNdvP2G
+	 N7H545RQ8Hc0Hw5xrcRsElvfo3iKZjynTJ2mz4OKSjGfVFMAcw50gKY5Hjc653Qu/Y
+	 2RYtJlUwNWKVpopIvVwxo5K1VcKZwW9A8Vo/42E+WzF8oUAt454IRwhrKwyOTmRZ3E
+	 4kl7lQnMwZ9xWR+a7yZcxQxQrn+zSn3XROnvoZlpDVoiFHMEmR4aQm3p6pSBJJjdlS
+	 pNqNL8XOxq5vw==
+Date: Sun, 27 Sep 2026 14:08:52 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: xianwei.zhao@amlogic.com
+Cc: Junyi Zhao <junyi.zhao@amlogic.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Xianwei Zhao <xianwei.zhaol@amlogic.com>, Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org, 
+	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] i2c: amlogic: Add Amlogic A9 I2C controller driver
+Message-ID: <arkDNC8st4Nsqu1C@zenone.zhora.eu>
+References: <20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com>
+ <20260924-a9-i2c-v1-2-b8ad9b46f4a8@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 18/20] phy: starfive: Add jh7110-inno-hdmi-phy driver
-To: Dominique Belhachemi <domibel@debian.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <CAAvaLCzm1o=m6P88KNeHCG9BuTBu4AQmAec90kN3MMC6ZpALaQ@mail.gmail.com>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260927120537eucas1p2940a6c268f23ab72fb7eb581fe0bfee8
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153246eucas1p289987fd8757c89ff865c99b6465708a8
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153246eucas1p289987fd8757c89ff865c99b6465708a8
-References: <CGME20260915153246eucas1p289987fd8757c89ff865c99b6465708a8@eucas1p2.samsung.com>
-	<20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<20260915-jh7110-clean-send-v4-18-f0e4fd6f2cc8@samsung.com>
-	<CAAvaLCzm1o=m6P88KNeHCG9BuTBu4AQmAec90kN3MMC6ZpALaQ@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924-a9-i2c-v1-2-b8ad9b46f4a8@amlogic.com>
 
-Hi Dominique,
+Hi Xianwei,
 
-On 9/26/26 05:31, Dominique Belhachemi wrote:
-> On Tue, Sep 15, 2026 at 11:32 AM Michal Wilczynski
-> <m.wilczynski@samsung.com> wrote:
->>
->> +static int starfive_hdmi_phy_probe(struct platform_device *pdev)
->> +{
->> +       ret = clk_set_rate(inno->phyclk, 297000000);
->> +       if (ret) {
->> +               dev_err(dev, "Failed to set default rate: %d\n", ret);
->> +               goto err_del_clk_provider;
->> +       }
-> 
-> Hi Michal,
-> 
-> Can we drop these 5 lines?
-> When my 4K monitor comes up in mode (3840x2160@30, 297 MHz) the screen
-> stays blank.
-> 
-> When the first real modeset requests a mode whose pixel clock is also 297 MHz,
-> clk_set_rate(hdmi_pclk, 297000000) then sees cur == want and does nothing.
-> So the pre-PLL is never actually programmed.
-> 
-> Without these 5 lines inno->pixclock stays 0,
-> so the first modeset's clk_set_rate() always runs .set_rate() for real.
-> 
-> Together with my forgotten fix from May we can have working 4K@30 on the VF2.
-> https://lore.kernel.org/all/20260528184145.384114-1-domibel@debian.org/
+...
 
-Yeah, these lines are a problem in another way too. Marek Szyprowski
-reported that v4 hangs when everything is built as modules, which
-is what made me look at them.
+> +config I2C_AMLOGIC_A9
+> +	tristate "Amlogic new I2C controller"
+> +	depends on ARCH_MESON || COMPILE_TEST
+> +	depends on COMMON_CLK
+> +	help
+> +	  If you say yes to this option, support will be included for the
+> +	  I2C interface on the new Amlogic family of SoCs.
+> +
+> +
 
-The write lands in registers gated by the controller's system clock,
-inside PD_VOUT and the PHY holds neither - it cannot hold that clock
-without creating a probe cycle with voutcrg. His config is as follows:
-CONFIG_CLK_STARFIVE_JH7110_VOUT=y with the vout subsystem, hdmi
-subsystem, controller and phy all as modules so voutcrg is up long
-before the PHY arrives from userspace. If nothing is holding hdmi_tx_sys
-by then - clk_disable_unused() gates it at late_initcall_sync  and the
-write wedges the bus. I could not reproduce his exact failure, but could
-reproduce this with fw_devlink=off hopefully this is fixing his issue as
-well.
+Please, remove this extra line
 
-Anyway this code will be removed in v5.
+>  config I2C_MICROCHIP_CORE
+>  	tristate "Microchip FPGA I2C controller"
+>  	depends on ARCH_MICROCHIP_POLARFIRE || COMPILE_TEST
 
-> 
-> Best
-> -Dominique
-> 
+...
 
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+> +#include <linux/clk.h>
+> +#include <linux/completion.h>
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/io.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pinctrl/consumer.h>
+> +#include <linux/delay.h>
+
+Please sort the above in alphabetic order.
+
+> +/* Amlogic I2C register map */
+> +#define REG_CFG_RDY		0x00
+> +#define REG_CFG_I2C		0x04
+> +#define REG_CFG_START		0x08
+> +#define REG_CFG_BUS		0x0c
+> +#define REG_TX_RD_ADDR		0x10
+> +#define REG_TX_WR_ADDR		0x14
+> +#define REG_RX_RD_ADDR		0x18
+> +#define REG_RX_WR_ADDR		0x1c
+> +#define REG_CGF_TX		0x20
+> +#define REG_CGF_RX		0x24
+> +#define REG_CGF_IRQ_STATE	0x30
+> +#define REG_CGF_IRQ_ENABLE	0x34
+> +#define REG_SHAKE_BLK_CNT	0x38
+> +
+> +/* CFG RDY fields */
+> +#define RDY_TEE_ONLY		BIT(1)
+> +#define RDY_IF			BIT(0)
+> +
+> +/* CFG I2C fields */
+> +#define I2C_RX_THR		GENMASK(23, 16)
+> +#define I2C_TX_THR		GENMASK(15, 8)
+> +
+> +/* CFG BUS fields */
+> +#define BUS_NO_STOP		BIT(18)
+> +#define BUS_SPEED_MODE		BIT(17)
+> +#define BUS_SLAVE_MODE		BIT(16)
+> +#define BUS_FILTER_MASK		GENMASK(15, 12)
+> +/* SCL = clk/b_ratio	if b_ratio<=8, SCL = clk/8 */
+> +#define BUS_RATIO_MASK		GENMASK(11, 0)
+> +
+> +/* CFG START fields */
+> +#define START_START		BIT(31)
+> +#define START_LEN		GENMASK(23, 12)
+> +#define START_LEN_SHIFT		12
+> +#define START_SLAVE_ADDR	GENMASK(10, 1)
+> +#define START_READ		BIT(0)
+> +
+> +/* CFG TX_RX fields */
+> +#define TX_RX_EMPTY		BIT(9)
+> +#define TX_RX_FULL		BIT(8)
+> +#define TX_RX_DATA		GENMASK(7, 0)
+> +
+> +/*CGF IRQ fields */
+> +#define IRQ_ALL_MASK		0xffff
+> +#define A9_NCK_ERROR		BIT(0)
+> +#define A9_RX_EMPTY		BIT(1)
+> +#define A9_RX_FULL		BIT(2)
+> +#define A9_TX_EMPTY		BIT(3)
+> +#define A9_TX_FULL		BIT(4)
+> +#define A9_RX_THRESH_READ	BIT(5)
+> +#define A9_TX_THRESH_WRITE	BIT(6)
+> +#define A9_PHY_DONE		BIT(7)
+> +#define A9_TASK_DONE		BIT(8)
+> +#define A9_ALL_DONE		BIT(9)
+> +
+> +#define A9_TRANS_DONE		(A9_PHY_DONE | A9_NCK_ERROR)
+> +#define A9_TRANS_ERROR		(A9_NCK_ERROR)
+> +#define A9_ENABLE_IRQ_BIT	(A9_NCK_ERROR | A9_PHY_DONE)
+> +#define THRESH_MODE		(A9_RX_THRESH_READ | A9_TX_THRESH_WRITE)
+> +
+> +#define A9_I2C_FIFO_DEPTH	32
+> +#define A9_I2C_HALF_FIFO	(A9_I2C_FIFO_DEPTH >> 1)
+> +
+> +#define I2C_TIMEOUT_MS		500
+> +
+> +enum {
+> +	STATE_IDLE,
+> +	STATE_READ,
+> +	STATE_WRITE,
+> +};
+> +
+> +enum fifo_fill_mode {
+> +	FIFO_FILL_FULL,
+> +	FIFO_FILL_HALF,
+> +};
+
+For all the enums and defines above, please use the prefix of the
+driver name, A9, I guess.
+
+...
+
+> +static void aml_i2c_put_data(struct aml_i2c *i2c, char *buf, int len)
+> +{
+> +	int i;
+> +
+> +	/* this i2c module when trans 0 byte, must put at least 1.
+> +	 */
+
+Please use the kernel style commenting format, I think checkpatch
+would have had raised this.
+
+> +	if (!i2c->msg->len) {
+> +		writel(0x00, i2c->regs + REG_CGF_TX);
+> +		return;
+> +	}
+> +
+> +	for (i = 0; i < len; i++, buf++)
+> +		writel(*buf, i2c->regs + REG_CGF_TX);
+> +}
+> +
+> +static void aml_i2c_prepare_xfer(struct aml_i2c *i2c, enum fifo_fill_mode mode)
+> +{
+> +	bool write = !(i2c->msg->flags & I2C_M_RD);
+> +
+> +	if (write) {
+
+you can revert the logic here with if (!write) return; to save a
+level of indentation.
+
+> +		if (mode == FIFO_FILL_FULL)
+> +			i2c->count = min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
+> +		else
+> +			i2c->count = min(i2c->msg->len - i2c->pos, A9_I2C_HALF_FIFO);
+> +		aml_i2c_put_data(i2c, i2c->msg->buf + i2c->pos, i2c->count);
+> +	}
+> +}
+
+...
+
+> +static int aml_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
+> +{
+> +	struct aml_i2c *i2c = adap->algo_data;
+> +	int i, ret = 0;
+> +
+> +	for (i = 0; i < num; i++) {
+> +		ret = aml_i2c_xfer_msg(i2c, msgs + i, i == num - 1);
+> +		if (ret)
+> +			break;
+
+you can save some code here by doing
+
+	for (...) {
+		int ret;
+
+		ret = aml_i2c_xfer_msg(...);
+		if (ret)
+			return ret;
+	}
+
+	return i;
+
+> +	}
+> +
+> +	return ret ?: i;
+> +}
+
+...
+
+> +static int aml_i2c_probe(struct platform_device *pdev)
+> +{
+> +	struct device_node *np = pdev->dev.of_node;
+> +	struct aml_i2c *i2c;
+
+...
+
+> +	i2c->clk = devm_clk_get(&pdev->dev, NULL);
+> +	if (IS_ERR(i2c->clk)) {
+> +		dev_err(&pdev->dev, "can't get device clock\n");
+> +		return PTR_ERR(i2c->clk);
+> +	}
+
+Please use return dev_err_probe(...);
+
+Andi
+
+> +
