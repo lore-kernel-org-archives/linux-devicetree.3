@@ -1,169 +1,257 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2096.outbound.protection.partner.outlook.cn [139.219.146.96])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068103803F4;
-	Sun, 27 Sep 2026 07:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.96
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790493159; cv=fail; b=c4rBEI9GZpChlUUS+zALMZJGbLQfvO3hXTRokdxdcrxhuBMW91DRYZ8BKIN0k9HEHXFCQKnzy8qSX9xjh8Z3pkBoZp+D/a1TEYmDleu80FJgBi7bxCMZ8vzzbLnMkFfBxx98xQ+yj5vlHjYarbZgzPxYB9M/pQsHIjItM/vgcw4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790493159; c=relaxed/simple;
-	bh=8Kwrz/r8gKv5NAEM66+UcllKmbMfStDw+iWjv/nrJfA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ipE54p4pfnuihXZi6iJDzp1fugZaqk/uz7vN/feHfgJVmaxOfzVGRQs9MA7cIe26uK4FVwHVzfcf8Qab5S0FcJR8Kexls9tWs7bi5QpzeRfZpE0domxrhTc6k7VwlPo/77j2HTWX7l9+tWT5s0dQJKC2yO2DxC2WEmw6B8soSsk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L5jHzgK1FE+jTSD7pQuF48gLJk9vRWtf9HBN9ktu7WkAJ4iMRvjlV/3rNMyp1wOF8mw3rtmUS6XW8ENkaGi092JxX14UJu25ugWhdkYOs5diWinO3rSL32CtIlU+6m2ocQhFxEoIVVHw/F7vKAjHcNHtqbyvI6H+cPuuXCuVP2x8FSWhb5YLr09reAPHpWNUKqnS5Mi/LAJa6pdPSvKXonJYDvwdjt/Fbcq1odOVY2wUT1e776Z2qD+tcMUbkF7uMvhj7SskBph8CQFImqV6dT97UbVoWLpKsR74D6Uxk2SU0e05ICcswG72uXUSzYApN22vtduejjnMRFLXOfqPcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YnZJME+4G3RpGZv5levsyQYfLduGttwDMrhtuCRuoqg=;
- b=QJbkhMrmsYeeVrVCiny0zqBk4sybYnDM+F6HjpOTyhuGZjsg7SjB+rPGt32oF0k5tA0970MU3vPGVk5ApJO3dbuQckfxJlIxVOC2GGb7qQmG74CwNPYKnwaPWsKLF3NGKDyG2wopN0VE36fJhiicBAqd1QDSu90MymZUFZOXGL6WCUAlnOeH81m28sPu0neGc39BiCJjTL9ptIgqyYUr2WpQDgrGJoj876igZJsYojf+SDJ9f9HD0dH/DrTAOxjAw0TfJrY+GZUOOmutTetBC9oYa2XdWNT8omG0IzvSCjvW0zU/AdOsncBAlYdra4DXn7ccKHRTNH7IIL/DiqiaWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:20::14) by SH0PR01MB0554.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:9::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Sun, 27 Sep
- 2026 06:37:49 +0000
-Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
- ([fe80::435e:52b5:c524:459c]) by
- SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn ([fe80::435e:52b5:c524:459c%3])
- with mapi id 15.21.0451.014; Sun, 27 Sep 2026 06:37:49 +0000
-From: Joshua Yeong <joshua.yeong@starfivetech.com>
-To: Conor Dooley <conor@kernel.org>, Mark Brown <broonie@kernel.org>
-CC: Krzysztof Kozlowski <krzk@kernel.org>, "lgirdwood@gmail.com"
-	<lgirdwood@gmail.com>, "rahul@summations.net" <rahul@summations.net>,
-	"anup@brainfault.org" <anup@brainfault.org>, "lftan.linux@gmail.com"
-	<lftan.linux@gmail.com>, "robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "pjw@kernel.org" <pjw@kernel.org>,
-	"palmer@dabbelt.com" <palmer@dabbelt.com>, "aou@eecs.berkeley.edu"
-	<aou@eecs.berkeley.edu>, "alex@ghiti.fr" <alex@ghiti.fr>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2 1/3] dt-bindings: regulator: Add RPMI voltage service
- bindings
-Thread-Topic: [PATCH v2 1/3] dt-bindings: regulator: Add RPMI voltage service
- bindings
-Thread-Index:
- AQHdSylV/+AHvSJ/TkisWFCqzwhgHrbcn7gAgAGZTwCAAFYf0IAAQt4AgAAPfqCAAIpOAIAAINGAgAHXAQCAAJrocA==
-Date: Sun, 27 Sep 2026 06:37:49 +0000
-Message-ID:
- <SH0PR01MB0841C1D66873DD3EF1307D5BF98E2@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
-References: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
- <20260923070014.1340761-2-joshua.yeong@starfivetech.com>
- <9c0ae39b-d214-40f5-b010-cdea14ccc774@kernel.org>
- <c2c57bf0-e610-4353-93a4-84edfd08e767@sirena.org.uk>
- <SH0PR01MB08411AA7F403A71D2D7470A6F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
- <0db3ed29-8bb8-4dc3-a4cb-cc5b9bf2e893@kernel.org>
- <SH0PR01MB0841C933DE1E00C4012BDF53F9802@SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn>
- <ed0c4c67-6933-455a-937d-f5888d124538@kernel.org>
- <a5d0d4df-7e8e-4f12-b011-e41b66efd8a7@sirena.org.uk>
- <20260926-peddling-share-5e5e8dffaa63@spud>
-In-Reply-To: <20260926-peddling-share-5e5e8dffaa63@spud>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SH0PR01MB0841:EE_|SH0PR01MB0554:EE_
-x-ms-office365-filtering-correlation-id: 07211a47-6035-4576-3700-08df1c61d942
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|7416014|38070700021|10067099003|4143699003|56012099006|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- Vf6ikhjgrsFF5y3BFd26mf4fjy18ST6GjxYijzWMLeNNtjsguaDZGkNK34IJkvY2v+06ypOsNfCs3EGPmQQ3LdYPS9w2Mr22ncOs4Q+tXKCkU2n7hejYjjg7hOs7esLL5AZczGI81nqAnILqjIiT4/2IpUrCba/nyxoVfJjWwSnXl4hAQoQS94waWHqK8RIsaVO70Dxtb5rAhafxyTtJ5eGK8UsuPckjx9nWXhOM8dMkDrmRIrAmDMEHySlXBD9yoDNJgi5d8ccQ1ErIrAXcKzFkmz2ZghfU11PzeCEoakyOAjV5dsVFpCOhTWglOZCEWiGwtvK2ESdYT8urny/cMDszQfJ/OdGRiEW9gzBRTPTwdLPT64dConC0br2P+YB1UgusJ7niQvKQZ0FW9Oc2R0tiLtcuBccFbQ4TIdjqwW5dsvOieHxAMOAs3vnwFW0NZBIWhXMed/b4TC6sOkEEupk1W3sG4/ZAztItTlfbpoTIzmp7+w6XvsGBvIK7oxPTDfE4Ggm5wyB6ktqXt6I3HK+2KSOGgv6C9vZKNGBFEomRXRKwNyrRLx2ykuEEyRsz
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(7416014)(38070700021)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Iivs12ZMRizLcpjsxX0jI7Dgcqf8mWCRdrh506Jx04MKLHWeAHAwBvXLeUp8?=
- =?us-ascii?Q?wGrfPihnWhIZWDBp6f1V3rUPPCfs12ctpl7js+6GGNwH95D/gTso1DAp8OnZ?=
- =?us-ascii?Q?VbehP/ufsuWgIDhsQoF+F8vPnbR07g+XTYmhJ/GYvaiYLjJ4VfkBgqmHdV+O?=
- =?us-ascii?Q?s3Rf9SSTxRx9VsMrDqHmM+RFdoxV3XBSRcokzvbsnhpGHRse0L9zxrVhyVID?=
- =?us-ascii?Q?WcuCBPdcLMRJ41b/RCsjcSkoZW8bZegR0Py9oqUqJ+sFjYqHd/dq26L1BiFN?=
- =?us-ascii?Q?P8ntx3mhXeG/Yic4GtwjLRIxTo5mFjlU21TF/xfReQRCILcfkxE4xSEwyrjw?=
- =?us-ascii?Q?cE+qtiCyreZfOIqBUZ7G6HjR2hHjVWKai5MpudHni9Us3wTA0OAYAxuxKXYg?=
- =?us-ascii?Q?FgBLahFlKrTc1rPBCtW/4pqA8Zeu9mw0eICWm1s1ATc0z9rJzm8gtykxp5gp?=
- =?us-ascii?Q?GVHgK3KDCYUQd7uqsKSsCHbMa8qDohMVsd3ZMAzJg7q4H/jnxWN2zjPbmCQZ?=
- =?us-ascii?Q?lnsvBVXiACBUhKAFYU8OOShwTLa5AdzHexY5DcRRFVAhF7oVGGkTz1dgC0eu?=
- =?us-ascii?Q?saF6ln7uPSWhRNLJv18QW5iIk9HE8f6LekKTsY24OL4yYrFgowqyfPtVRlVz?=
- =?us-ascii?Q?+r+opLQG7eYWczV5NOkL5CthHodeCsQ+13SVdAv57UpkgLQ/ufMEJNp99qH2?=
- =?us-ascii?Q?4DC/RXnsNWLKJ6prYwyn2E1FDxngnr6nIUFFJFxmrJKRzv9PKRh9VkYIYyBw?=
- =?us-ascii?Q?5K4Oi6w9+SbwlCXukMM7GWgaBu74c/EVMTASqgcajV3hLN9VCnqYsG/cfWiI?=
- =?us-ascii?Q?Edqb6zgncdZ0fCoLerdwNMCIBEPuEJel6ouWqiUCuRLuIQnRzVh2s6Xr2KeU?=
- =?us-ascii?Q?osYCs7a5W270xJlix/OVkECWjV2cpX/mNwRN+fzAVlM4CgSgVc18RdPq3/Tg?=
- =?us-ascii?Q?yic0ZC81nuNk3R3fhBeAYVVCYUalADjFUhLzhZJB0c2Qlz42s9ZItabjrL+Q?=
- =?us-ascii?Q?ncqxfXGkYbFp80mOSILTcf+A4IpntXHtKjht7phLgfUvGKIK0sTGdXUmyjbX?=
- =?us-ascii?Q?l82xpmuIsytCLAjvqDSArk3KWl31xIdfEJnhSnVvXtWHMn3YLbQAJRY7j15M?=
- =?us-ascii?Q?gdiVErlaesOuzQCmcLuSk7UpGJ0IKK/x22J90sPArB0BYmSS/G6boPJjkIr4?=
- =?us-ascii?Q?usZZ1vW3lixGlc5DdSZ/1SrGeFxenhsL/VKoPI49VsPw0pu86Iadnl1Sc4o6?=
- =?us-ascii?Q?WvTNm7VGcnr3yQYl2DpGgbxe8arU/04h3W+5MxMnWw8kPrR4R7mMVy0JwJDS?=
- =?us-ascii?Q?Sc0uk2W8cWJcNHSMmLuIsl8BqLdzihFA7rsNBU2/RwHM6CVj6ef5m3wqFhdv?=
- =?us-ascii?Q?UkvisO5VKt0ajrERmXvDp/+W9nEb7CNLMfNryEq6H3aj/e0X8lKE0nJ5nhlQ?=
- =?us-ascii?Q?7cG7iiPTnBifGZVXFffrRnIHJNjI9hfexSZlkzBmcQnO+8gwQgmdkEUiOgtk?=
- =?us-ascii?Q?pK//H3VJnE+SNsm/+0SPLnOMDUn5KtYWau32BOcpjooKPlTjoxyCZpFeoprM?=
- =?us-ascii?Q?hRIPbUIUlT5HK0zt1BRFFve2rlPOZ33m00M1Ngs5NduBdrUYs+7/BkGOJUcV?=
- =?us-ascii?Q?uC92eFQUKNnbN1Qtq0G0ZuA+07FRXWcbJt+V61fxuqsWOQGl1PYuYhuKIDaG?=
- =?us-ascii?Q?/ySsi5fAgVevirh8Y0rW0tbBwLBjFNrTmcycBb7Bm2maYQJEyPpcyNp4Oq5H?=
- =?us-ascii?Q?r9VXoznoY+aw+g0BuhufnH1PgNs5FYw=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0EB3A1A22;
+	Sun, 27 Sep 2026 07:17:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790493456; cv=none; b=muXrUXWqzluXP9q/E5Igsl8pMBoYF5YlxXqwRMrEqFnMLJwbO8rWvuj0vQpr2E579cap3qp0tYAGFKnwztT5gNqURZRPnYQSk36snOwd+Tv71+0JYI9MkbeMAxe6LPax9UA5JjW9KYTMwBvHBIpLXFk+/SxknyKZPTU6yG0geZ8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790493456; c=relaxed/simple;
+	bh=kwj4/obNd055PJJjit34AhLA4gtxWDXXd6m8kVCpWqI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=dBz/LQsdu70IMjOpFiUiMSPfUjYiY+45GuDOcetLOtPbQx+eVAAkiay5KKTfKM7jT0YSyQqRroE/5TcGQNj4FxvLwBx00SZ58rTegiSfsCvugU0KVJGAnx1K5XvPSyghnidRNxZ4k/X1Z6ouT6vcL7TDbb3fN1wbvvosi30yPW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Sun, 27 Sep
+ 2026 15:16:21 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Sun, 27 Sep 2026 15:16:21 +0800
+From: Jacky Chou <jacky_chou@aspeedtech.com>
+Date: Sun, 27 Sep 2026 15:16:23 +0800
+Subject: [PATCH 4/5] net: ftgmac100: Add AST2700 upper DMA address support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07211a47-6035-4576-3700-08df1c61d942
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2026 06:37:49.2223
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QutWz/8CtG0qVQLXYbauzsemqqBt+wsPHAQaVXiBuD3C0C78vWjaNrhg9q5I8uNzRA5mb3wHuQWmWXn5d7x0IQu0YcUszRn+tDMWVeTT8Z4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SH0PR01MB0554
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260927-support_ast2700-v1-4-9f03f29d2c82@aspeedtech.com>
+References: <20260927-support_ast2700-v1-0-9f03f29d2c82@aspeedtech.com>
+In-Reply-To: <20260927-support_ast2700-v1-0-9f03f29d2c82@aspeedtech.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Po-Yu Chuang <ratbert@faraday-tech.com>
+CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790493380; l=8044;
+ i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
+ bh=kwj4/obNd055PJJjit34AhLA4gtxWDXXd6m8kVCpWqI=;
+ b=xQZE7u/Mo/P3nsPTmdxHl+CrJnH8wiZ6vpYtIwjZNlZNT9CP0mNrLLR4G197B6/Y9OemChoVF
+ jNazDCf/SK+Dcl7nMkpmXgK/3UkMZuAX8CMR0+3Uyhq2H0Xxypj8x2c
+X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
+ pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
 
-On Sat, Sep 26, 2026 at 10:21:22PM +0100, Conor Dooley <conor@kernel.org> w=
-rote:
-> On Fri, Sep 25, 2026 at 06:15:35PM +0100, Mark Brown wrote:
-> > On Fri, Sep 25, 2026 at 05:18:08PM +0200, Krzysztof Kozlowski wrote:
-> > > On 25/09/2026 09:14, Joshua Yeong wrote:
-> >=20
-> > > > While the above method works but I'm trying to get the entire simpl=
-ify to the following.
-> >=20
-> > > > user-app-b {
-> > > > 	compatible =3D "...";
-> > > > 	voltage-domains =3D <&rpmi-voltage 0x01>;
-> >=20
-> > > I see. Why power domains do not fit here?
-> >=20
-> > The spec seems to map very clearly onto voltage regulators, it=20
-> > describes voltages in mV:
-> >=20
-> >  =20
-> > https://github.com/riscv-non-isa/riscv-rpmi/blob/main/src/srvgrp-vol
-> > tage.adoc
-> >=20
-> > I really don't see any problem describing this as regulators, it=20
-> > seems to fulfil exactly the same role as SCMI regulators, supporting=20
-> > things like SD slots where the OS genuinely needs to control=20
-> > voltages on a mostly system power controller system.
->
-> Unless I misunderstand your intent, me either. The binding permits=20
-> having regulator subnodes too, so culling this "voltage-domain"=20
-> business and going for the regulators alone shouldn't be much of a shift.
+Program the high RX and TX descriptor ring base registers and carry the
+upper DMA address bits in RX and TX descriptors. Rebuild full buffer DMA
+addresses in a 64-bit type before unmapping them so bits 34:32 are not
+lost to 32-bit arithmetic.
 
-OK, I will just get the "voltage-domain" removed in V3.
+The descriptor format provides three upper buffer address bits, so
+request a 35-bit DMA mask instead of advertising an address range that
+the hardware cannot encode. Gate all extended address handling with a
+match-data quirk so older register layouts remain untouched and later
+compatible controllers can opt into the same capability.
+
+Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+---
+ drivers/net/ethernet/faraday/ftgmac100.c | 62 +++++++++++++++++++++++++++-----
+ drivers/net/ethernet/faraday/ftgmac100.h |  6 ++++
+ 2 files changed, 59 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index b835472da360..4becd28f805b 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -8,6 +8,7 @@
+ 
+ #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
+ 
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/reset.h>
+ #include <linux/dma-mapping.h>
+@@ -42,6 +43,7 @@ enum ftgmac100_mac_id {
+ };
+ 
+ #define FTGMAC100_QUIRK_RMII_ENABLE	BIT(0)
++#define FTGMAC100_QUIRK_DMA_35BIT	BIT(1)
+ 
+ struct ftgmac100_match_data {
+ 	enum ftgmac100_mac_id mac_id;
+@@ -303,10 +305,16 @@ static void ftgmac100_init_hw(struct ftgmac100 *priv)
+ 	iowrite32(reg, priv->base + FTGMAC100_OFFSET_ISR);
+ 
+ 	/* Setup RX ring buffer base */
+-	iowrite32(priv->rxdes_dma, priv->base + FTGMAC100_OFFSET_RXR_BADR);
++	iowrite32(lower_32_bits(priv->rxdes_dma), priv->base + FTGMAC100_OFFSET_RXR_BADR);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		iowrite32(upper_32_bits(priv->rxdes_dma),
++			  priv->base + FTGMAC100_OFFSET_RXR_BADDR_HIGH);
+ 
+ 	/* Setup TX ring buffer base */
+-	iowrite32(priv->txdes_dma, priv->base + FTGMAC100_OFFSET_NPTXR_BADR);
++	iowrite32(lower_32_bits(priv->txdes_dma), priv->base + FTGMAC100_OFFSET_NPTXR_BADR);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		iowrite32(upper_32_bits(priv->txdes_dma),
++			  priv->base + FTGMAC100_OFFSET_TXR_BADDR_HIGH);
+ 
+ 	/* Configure RX buffer size */
+ 	iowrite32(FTGMAC100_RBSR_SIZE(RX_BUF_SIZE),
+@@ -469,7 +477,10 @@ static int ftgmac100_alloc_rx_buf(struct ftgmac100 *priv, unsigned int entry,
+ 	priv->rx_skbs[entry] = skb;
+ 
+ 	/* Store DMA address into RX desc */
+-	rxdes->rxdes3 = cpu_to_le32(map);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		rxdes->rxdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_RXDES2_RXBUF_BADR_HI,
++						       upper_32_bits(map)));
++	rxdes->rxdes3 = cpu_to_le32(lower_32_bits(map));
+ 
+ 	/* Ensure the above is ordered vs clearing the OWN bit */
+ 	dma_wmb();
+@@ -596,6 +607,9 @@ static bool ftgmac100_rx_packet(struct ftgmac100 *priv, int *processed)
+ 
+ 	/* Tear down DMA mapping, do necessary cache management */
+ 	map = le32_to_cpu(rxdes->rxdes3);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		map |= (u64)FIELD_GET(FTGMAC100_RXDES2_RXBUF_BADR_HI,
++				     le32_to_cpu(rxdes->rxdes2)) << 32;
+ 
+ #if defined(CONFIG_ARM) && !defined(CONFIG_ARM_DMA_USE_IOMMU)
+ 	/* When we don't have an iommu, we can save cycles by not
+@@ -672,9 +686,14 @@ static void ftgmac100_free_tx_packet(struct ftgmac100 *priv,
+ 				     struct ftgmac100_txdes *txdes,
+ 				     u32 ctl_stat)
+ {
+-	dma_addr_t map = le32_to_cpu(txdes->txdes3);
++	dma_addr_t map;
+ 	size_t len;
+ 
++	map = le32_to_cpu(txdes->txdes3);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		map |= (u64)FIELD_GET(FTGMAC100_TXDES2_TXBUF_BADR_HI,
++				     le32_to_cpu(txdes->txdes2)) << 32;
++
+ 	if (ctl_stat & FTGMAC100_TXDES0_FTS) {
+ 		len = skb_headlen(skb);
+ 		dma_unmap_single(priv->dev, map, len, DMA_TO_DEVICE);
+@@ -828,7 +847,10 @@ static netdev_tx_t ftgmac100_hard_start_xmit(struct sk_buff *skb,
+ 	f_ctl_stat |= FTGMAC100_TXDES0_FTS;
+ 	if (nfrags == 0)
+ 		f_ctl_stat |= FTGMAC100_TXDES0_LTS;
+-	txdes->txdes3 = cpu_to_le32(map);
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++		txdes->txdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_TXDES2_TXBUF_BADR_HI,
++						       upper_32_bits(map)));
++	txdes->txdes3 = cpu_to_le32(lower_32_bits(map));
+ 	txdes->txdes1 = cpu_to_le32(csum_vlan);
+ 
+ 	/* Next descriptor */
+@@ -856,7 +878,10 @@ static netdev_tx_t ftgmac100_hard_start_xmit(struct sk_buff *skb,
+ 			ctl_stat |= FTGMAC100_TXDES0_LTS;
+ 		txdes->txdes0 = cpu_to_le32(ctl_stat);
+ 		txdes->txdes1 = 0;
+-		txdes->txdes3 = cpu_to_le32(map);
++		if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++			txdes->txdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_TXDES2_TXBUF_BADR_HI,
++							       upper_32_bits(map)));
++		txdes->txdes3 = cpu_to_le32(lower_32_bits(map));
+ 
+ 		/* Next one */
+ 		pointer = ftgmac100_next_tx_pointer(priv, pointer);
+@@ -931,7 +956,12 @@ static void ftgmac100_free_buffers(struct ftgmac100 *priv)
+ 	for (i = 0; i < priv->rx_q_entries; i++) {
+ 		struct ftgmac100_rxdes *rxdes = &priv->rxdes[i];
+ 		struct sk_buff *skb = priv->rx_skbs[i];
+-		dma_addr_t map = le32_to_cpu(rxdes->rxdes3);
++		dma_addr_t map;
++
++		map = le32_to_cpu(rxdes->rxdes3);
++		if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
++			map |= (u64)FIELD_GET(FTGMAC100_RXDES2_RXBUF_BADR_HI,
++					     le32_to_cpu(rxdes->rxdes2)) << 32;
+ 
+ 		if (!skb)
+ 			continue;
+@@ -1050,7 +1080,12 @@ static void ftgmac100_init_rings(struct ftgmac100 *priv)
+ 	for (i = 0; i < priv->rx_q_entries; i++) {
+ 		rxdes = &priv->rxdes[i];
+ 		rxdes->rxdes0 = 0;
+-		rxdes->rxdes3 = cpu_to_le32(priv->rx_scratch_dma);
++		if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT) {
++			u32 hi = upper_32_bits(priv->rx_scratch_dma);
++
++			rxdes->rxdes2 = cpu_to_le32(FIELD_PREP(FTGMAC100_RXDES2_RXBUF_BADR_HI, hi));
++		}
++		rxdes->rxdes3 = cpu_to_le32(lower_32_bits(priv->rx_scratch_dma));
+ 	}
+ 	/* Mark the end of the ring */
+ 	rxdes->rxdes0 |= cpu_to_le32(priv->rxdes0_edorr_mask);
+@@ -2094,6 +2129,14 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 		netdev->hw_features &= ~(NETIF_F_HW_CSUM | NETIF_F_RXCSUM);
+ 	netdev->features |= netdev->hw_features;
+ 
++	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT) {
++		err = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(35));
++		if (err) {
++			dev_err(&pdev->dev, "35-bit DMA enable failed\n");
++			goto err;
++		}
++	}
++
+ 	/* register network device */
+ 	err = register_netdev(netdev);
+ 	if (err) {
+@@ -2146,7 +2189,8 @@ static const struct ftgmac100_match_data ftgmac100_match_data_ast2600 = {
+ 
+ static const struct ftgmac100_match_data ftgmac100_match_data_ast2700 = {
+ 	.mac_id = FTGMAC100_AST2700,
+-	.quirks = FTGMAC100_QUIRK_RMII_ENABLE,
++	.quirks = FTGMAC100_QUIRK_RMII_ENABLE |
++		  FTGMAC100_QUIRK_DMA_35BIT,
+ };
+ 
+ static const struct ftgmac100_match_data ftgmac100_match_data_faraday = {
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ethernet/faraday/ftgmac100.h
+index 8c35c895b146..0c244b1c0a35 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.h
++++ b/drivers/net/ethernet/faraday/ftgmac100.h
+@@ -57,6 +57,9 @@
+ #define FTGMAC100_OFFSET_RX_RUNT	0xc0
+ #define FTGMAC100_OFFSET_RX_CRCER_FTL	0xc4
+ #define FTGMAC100_OFFSET_RX_COL_LOST	0xc8
++/* reserved 0xcc - 0x178 */
++#define FTGMAC100_OFFSET_TXR_BADDR_HIGH	0x17c
++#define FTGMAC100_OFFSET_RXR_BADDR_HIGH	0x18c
+ 
+ /*
+  * Interrupt status register & interrupt enable register
+@@ -226,6 +229,7 @@ struct ftgmac100_txdes {
+ #define FTGMAC100_TXDES1_TX2FIC		(1 << 30)
+ #define FTGMAC100_TXDES1_TXIC		(1 << 31)
+ 
++#define FTGMAC100_TXDES2_TXBUF_BADR_HI	GENMASK(18, 16)
+ /*
+  * Receive descriptor, aligned to 16 bytes
+  */
+@@ -272,4 +276,6 @@ struct ftgmac100_rxdes {
+ #define FTGMAC100_RXDES1_UDP_CHKSUM_ERR	(1 << 26)
+ #define FTGMAC100_RXDES1_IP_CHKSUM_ERR	(1 << 27)
+ 
++#define FTGMAC100_RXDES2_RXBUF_BADR_HI	GENMASK(18, 16)
++
+ #endif /* __FTGMAC100_H */
+
+-- 
+2.34.1
 
