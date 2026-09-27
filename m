@@ -1,145 +1,362 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26893009CB;
-	Sun, 27 Sep 2026 21:18:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FFC39E6DE
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 21:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790543905; cv=none; b=cfsAwfvSwKj+72L2PQcqZOZ0IuaBeYvjDM8T3t76slIO0h5uAmaz/rOYVgRvl7UQUKQH1HSxd/GdcPVjBN6ut6jh9mhJugHqrAwiRPZqpqty9c3AcJcANBh0cJx9hvANd3KK0b6YF0sJ+BE/WeYVGlH+yXby4emGUn5KSXJCbcQ=
+	t=1790544474; cv=none; b=UR3kcdahft/PJpllf/jlS6Yxe8JM6sHReYHwBfbI4BoIjA4ls/tKvk5a1n5x9fmwdEzM4FPf1J2UHbzb2Z8di/BzCjGgugAkH268X4zy6X9j8wqVvUYLJNvY/o7ZPKyy+PLyWWsOJVltTlp6BVbTOAfUcZa6p7aL1fjQTJVQ5uM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790543905; c=relaxed/simple;
-	bh=xCFj/xxiXd1WNuyxbAfLfrlA9x5UoRqcQp528m1GniM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dG+n6m1msE/gS7AUsHwUpUl9fQX9eORaCXtnCR6Pcd4IK4KvHS19lS/6/7cmHaN6J6TUAgpPvz4zw/574zTghD3+7WuntVscNRexeU8MPikZ4sQKk30gwknefnsU5vV+KX/XKXf+bAjPhEZggJ8L0m8F2hFZt+jEybOHzo1W+w4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=Si+XEBRs; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	s=arc-20240116; t=1790544474; c=relaxed/simple;
+	bh=VhY8NDHn4bXrBI+l05CQzD0IHafaAdXFqYbCV7HnThs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eByd0AA/ZEV9GWs7g9PvrBgNtvIRf6UHNhFAzNJHy1vsq0tOqJmlxOq6bMthYJrUdKQZ0dJbOv0IGptJozbWCvuegiPWgv6+b0JeYQYm4Q6zvdhaF3AYh+FP+iRpK9Rj/J27n+O6P/w6P8AT6BlxednKX71ILClkNytHLAewJxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BuVhqUd0; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="Si+XEBRs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=33MsHDwPKKkx+NSkez8Et2HM/X24ivhJAbyLs8SiZQw=; b=Si+XEBRscLmCml1/lRIrfwcH5M
-	MI5OhSA8PoN9qtCZVS0OgnoqsdinGm8UdpAQNxfzwsjI4EfN9YT0h+y17f0At4B/LNVR9LKnEBSA6
-	LcQeQHdxqns41n5OIv3N6Trf3N746CDPoRex/acXy7we9vM5BT4z6g8+PZzlVsnI+TXNT1JpgOtM2
-	dA7pJbAweyePTZAp3mffCHHkpcItFPZo+Lc76jVbO0giudX8S8Oc/0KKeuphZ56sv9zyyFZOXLHTo
-	3g8x9N22+VhD2ICCCFy20VaJMi4mO0Kdm4w8SYMvHuOpdPR6bbkB+fu2qAWuKd8X+cSn4InqCbxr6
-	GviGGnfg==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1xAwGC-0000000DQ9b-0cFC;
-	Sun, 27 Sep 2026 23:18:12 +0200
-Date: Sun, 27 Sep 2026 23:18:11 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>, Inochi Amaoto <inochiama@gmail.com>
-Cc: Aurelien Jarno <aurelien@aurel32.net>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-Subject: Re: [PATCH v3 1/5] riscv: dts: spacemit: k3: move USB3 phy to board
- level
-Message-ID: <armIExWjR43ar50t@aurel32.net>
-Mail-Followup-To: linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BuVhqUd0"
+Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2df90e859e8so7255365ad.0
+        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 14:27:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790544471; x=1791149271; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tDsfQvOhX1AEI5bK44RDh+3P9lruHos8bz0YTnuqwuw=;
+        b=BuVhqUd0eB4Z7couLlG+332/80ZcYWbT+DByrpxFi7v0C6HxEWRU6Ey/rjOoY1bkaF
+         B+ZTe8VjZTAFbkxCoMPxEib/2jGk7q8HppDvG6HdCRTX4WA1ltQIhyZ5W7fFSF8o4jsk
+         kv0d5VqDElubNbNc/+KVVfPObMi5ry2VYS1AkETNqffc2OCKWU/i7vDv7z8x+abINAYd
+         SRRcQLr1DWYqxkwBMK4ZIqA/5n6Pke2WqIfpb21OFOVxYziEr1hBNZF4FMC0mTh0HfFi
+         rCdbmQsMq+i2/7eoBbj8Am+gko1J6hYSDkBhUVAtCpHRsJHZLwO0iHyzyd2/VAutE4ze
+         lqhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790544471; x=1791149271;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tDsfQvOhX1AEI5bK44RDh+3P9lruHos8bz0YTnuqwuw=;
+        b=M2US0XNXXjmFHlbVdt77DgBCRh3vSpWHvzrjH6lpamFppkNKiYoeJgKq4a6yH3XOR2
+         lzcMo2xAulKXXLuN1CPFdnLG+LDN9vQJuaL9C6ANdxCzPsqPwYkkxPF6EP7s5w7y509K
+         sdC+T9bzzD1OJUszTwMhf7sAZRp0R0MC0uNG8xrlcmoAxgDvmlbJkjlSDTmqtL3TOQVT
+         fdt8/8T6VOIysrqlqcmGhj5woAe9yDPU8us3rpAZX72Z2bRFsSSfMaEn78Qh6MyQuYHW
+         72bugCwfMbI+uo32QcFF9IbO1X2ZQOHsXpjnJMkgfaMaz4v+fXX/91tLgJYxTTt5J80W
+         q8Mw==
+X-Gm-Message-State: AFq9FYKf7izaKt+Tb1DGTOeNz4Y7W/HcItzV7qlkRwNKlt7KIViv97Av
+	+sPxoL9+GFdCoiNVcDtL3zVVYxMd5D3bDHg6x/WrANInUxdQFuNZsccZlTu875vx
+X-Gm-Gg: AYBFou1bJ+7uHzzuERlyjlXYFtAjyfafdkeTdeqYgv48j00Ouj//h5UPPMZgyFutWoR
+	BmmajwL5pnDCat9hkJHkHnWzvzLgj/IsTR25HEByexQGhNCSpEwH61odcRV7cvkfO2q/4Oqhup4
+	3IoyYs67kBEVqn0VqbKbGb2C254qefhQIOUbKJiHAN7qt/vX4rKR0REGyv2Lg4uznp6/RTVgbKk
+	hPnjUSvupv+QRUA8WXwtd1u3GBhdCqvOTNwVVvxVJeZ7Bwrhixdbv5jVoyimkAqNAjMTx1zf1ws
+	w6XhxA7/6B8HpXtdLfHx0oBPbzBiUeKm4mZALDbZ0TTsjsjV8Y03n0Y8rRzxatsm+qXFNYJsozj
+	nisiPVSZPumTQwm7jQ/rvqmygSvzya4NOxTUrjXngKZOwlVUSystYWEPjlsTwKH/wqF4/ryaYRO
+	S04IABWTHuwMof0hZifQgqL6s2yW2lDt88AkBZTUjpom7CMQvP/LhTqCCGKG7RbsJ4FOpUAt23V
+	vI79DMW07q3irhs/HTXF9dSJUBSBei1rtRyoTZWdprymeHFvshAfBHHlclVRqBSidOBFZEVSI0z
+	Wd7Ddkf2v05PeYy89e7NgD++aJePMP3roNVFbIdhZIUfrwMswfdoSspjStA=
+X-Received: by 2002:a17:903:3d06:b0:2df:9928:7e82 with SMTP id d9443c01a7336-2df9928a2d0mr40222775ad.20.1790544471286;
+        Sun, 27 Sep 2026 14:27:51 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91461d43sm31233775ad.75.2026.09.27.14.27.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 14:27:49 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>, Inochi Amaoto <inochiama@gmail.com>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-References: <20260831044540.3304350-1-aurelien@aurel32.net>
- <20260831044540.3304350-2-aurelien@aurel32.net>
- <20260831045448.58B591F000E9@smtp.kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	linux-gpio@vger.kernel.org (open list:PIN CONTROL SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v3] dt-bindings: pinctrl: convert nsp-gpio binding
+Date: Sun, 27 Sep 2026 14:27:48 -0700
+Message-ID: <20260927212748.123558-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260831045448.58B591F000E9@smtp.kernel.org>
-User-Agent: Mutt/2.4.1 (2026-07-04)
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The brcm,nsp-gpio-a compatible used by the NSP GPIO controller was only
+documented in the legacy text binding, so dtbs_check reported "failed to
+match any schema" for the gpio@20 node present in the bcm958625 and
+related broadcom boards.
 
-On 2026-08-31 04:54, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Low] Removing 'phys' and 'phy-names' from the base k3.dtsi breaks DT s=
-chema validation (dtbs_check) for disabled nodes and improperly delegates f=
-ixed SoC routing to board files.
-> --
->=20
-> commit e9dc7ad92d5f4a805cf362fdd51c6ae160da1934
-> Author: Aurelien Jarno <aurelien@aurel32.net>
->=20
-> riscv: dts: spacemit: k3: move USB3 phy to board level
->=20
-> This commit moves the USB3 phy definitions from the SoC dtsi to the board
-> level dts files for the SpacemiT K3 SoC. It aims to prevent PHY mode
-> configuration errors when the combo PHY lines are used for PCIe rather th=
-an
-> USB3.
->=20
-> [ ... ]
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts=
-/spacemit/k3.dtsi
-> > index c3f2dce0969c0..6f8d55eae6f6b 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> > +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> > @@ -452,9 +452,6 @@ usb3d: usb@81a00000 {
-> >  				 <&syscon_apmu RESET_APMU_USB3_D_VCC>,
-> >  				 <&syscon_apmu RESET_APMU_USB3_D_PHY>;
-> >  			reset-names =3D "ahb", "vcc", "phy";
-> > -			phys =3D <&usb3d_u2phy>,
-> > -			       <&combophy 4 PHY_TYPE_USB3>;
-> > -			phy-names =3D "usb2-phy", "usb3-phy";
->=20
-> [Severity: Low]
-> Does removing phys and phy-names from the base k3.dtsi break DT schema
-> validation (dtbs_check) for disabled nodes?
+Convert Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt to
+a YAML schema and drop the text binding. Keep the existing required and
+optional properties (reg, #gpio-cells, gpio-controller, ngpios, and the
+optional interrupt/gpio-ranges support), including the generic pinconf
+child nodes with pin bias and drive-strength.
 
-No it doesn't. dtbs_check seems to ignore disabled nodes.
+Pin configuration nodes may be direct children of the controller or
+grouped under a "-pins" node; both forms are recognized, and each "-pins"
+node may group further pin configuration children. Child nodes named
+"-hog" are supported as GPIO hogs.
 
-> To satisfy the schema's minItems: 1 requirement while supporting board-le=
-vel
-> combo PHY configuration, should the dedicated internal SoC PHY (usb3d_u2p=
-hy)
-> have been retained in the base file?
->=20
-> The dtbs_check validation will fail for any board DT that includes k3.dtsi
-> but does not override the usb3d node to provide the phys and phy-names
-> properties (e.g., k3-com260-ifx.dts and k3-deepcomputing-fml13v05.dts).
+The generic pinconf and pinmux helper schemas end in
+"additionalProperties: true" and cannot close the node from an in-place
+applicator, so spell out the supported subset and set
+"additionalProperties: false" in the local pin configuration node schema.
+Without it misspelled or unsupported properties such as "bias-pullup" or
+"slew-rate" are silently accepted.
 
-I have just tried, in practice it doesn't. I'll send a new version=20
-mentioning that.
+Controller children are matched with "anyOf" against the pin
+configuration node schema and against "not: { type: object }". The
+latter keeps non-node properties such as #pinctrl-cells or clocks from
+being forced through the pin configuration schema, while still rejecting
+pin configuration child nodes that do not look like one. A plain
+"additionalProperties: false" cannot be used here because it would also
+reject the directly nested pin configuration nodes.
 
-> This happens because the schema spacemit,k1-dwc3.yaml unconditionally
-> requires these properties, and dt-schema evaluates all nodes, even disabl=
-ed
-> ones.
->=20
-> >  			phy_type =3D "utmi";
-> >  			snps,dis_enblslpm_quirk;
-> >  			snps,dis_u2_susphy_quirk;
->=20
-> --=20
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831044540.33=
-04350-1-aurelien@aurel32.net?part=3D1
->=20
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v3: add additionalProperties
+ v2: don't drop gpio-hog
+ .../bindings/pinctrl/brcm,nsp-gpio.txt        |  80 ----------
+ .../bindings/pinctrl/brcm,nsp-gpio.yaml       | 144 ++++++++++++++++++
+ 2 files changed, 144 insertions(+), 80 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
 
---=20
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
+diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
+deleted file mode 100644
+index 0844168a6dd4..000000000000
+--- a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
++++ /dev/null
+@@ -1,80 +0,0 @@
+-Broadcom Northstar plus (NSP) GPIO/PINCONF Controller
+-
+-Required properties:
+-- compatible:
+-    Must be "brcm,nsp-gpio-a"
+-
+-- reg:
+-    Should contain the register physical address and length for each of
+-    GPIO base, IO control registers
+-
+-- #gpio-cells:
+-    Must be two. The first cell is the GPIO pin number (within the
+-    controller's pin space) and the second cell is used for the following:
+-    bit[0]: polarity (0 for active high and 1 for active low)
+-
+-- gpio-controller:
+-    Specifies that the node is a GPIO controller
+-
+-- ngpios:
+-    Number of gpios supported (58x25 supports 32 and 58x23 supports 24)
+-
+-Optional properties:
+-- interrupts:
+-    Interrupt ID
+-
+-- interrupt-controller:
+-    Specifies that the node is an interrupt controller
+-
+-- gpio-ranges:
+-    Specifies the mapping between gpio controller and pin-controllers pins.
+-    This requires 4 fields in cells defined as -
+-    1. Phandle of pin-controller.
+-    2. GPIO base pin offset.
+-    3  Pin-control base pin offset.
+-    4. number of gpio pins which are linearly mapped from pin base.
+-
+-Supported generic PINCONF properties in child nodes:
+-- pins:
+-    The list of pins (within the controller's own pin space) that properties
+-    in the node apply to. Pin names are "gpio-<pin>"
+-
+-- bias-disable:
+-    Disable pin bias
+-
+-- bias-pull-up:
+-    Enable internal pull up resistor
+-
+-- bias-pull-down:
+-    Enable internal pull down resistor
+-
+-- drive-strength:
+-    Valid drive strength values include 2, 4, 6, 8, 10, 12, 14, 16 (mA)
+-
+-Example:
+-
+-	gpioa: gpio@18000020 {
+-		compatible = "brcm,nsp-gpio-a";
+-		reg = <0x18000020 0x100>,
+-		      <0x1803f1c4 0x1c>;
+-		#gpio-cells = <2>;
+-		gpio-controller;
+-		ngpios = <32>;
+-		gpio-ranges = <&pinctrl 0 0 31>;
+-		interrupt-controller;
+-		interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+-
+-		/* Hog a few default settings */
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&led>;
+-		led: led {
+-			pins = "gpio-1";
+-			bias-pull-up;
+-		};
+-
+-		pwr: pwr {
+-			gpio-hog;
+-			gpios = <3 1>;
+-			output-high;
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+new file mode 100644
+index 000000000000..e5144da1bf57
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+@@ -0,0 +1,144 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/brcm,nsp-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Broadcom Northstar Plus (NSP) GPIO/PINCONF Controller
++
++maintainers:
++  - Ray Jui <rjui@broadcom.com>
++  - Scott Branden <sbranden@broadcom.com>
++
++description: |
++  The chipCommonA GPIO block also provides generic pin configuration for the
++  pins it controls: bias, pull up/down and drive strength. Pin configuration
++  child nodes may be direct children of the controller, or grouped under a
++  '-pins' node. In both cases the pin configuration nodes are referenced by
++  the consuming device through the standard pinctrl-0/pinctrl-names
++  properties. Child nodes named '*-hog' are treated as GPIO hogs.
++
++properties:
++  compatible:
++    const: brcm,nsp-gpio-a
++
++  reg:
++    items:
++      - description: GPIO base registers
++      - description: IO control registers
++
++  "#gpio-cells":
++    const: 2
++    description: |
++      The first cell is the GPIO pin number (within the controller's pin
++      space) and the second cell is used for the following:
++      bit[0]: polarity (0 for active high and 1 for active low)
++
++  gpio-controller: true
++
++  ngpios:
++    description: Number of GPIOs supported (58x25 supports 32 and 58x23 supports 24)
++    maximum: 32
++
++  interrupts:
++    maxItems: 1
++
++  "#interrupt-cells":
++    const: 2
++
++  interrupt-controller: true
++
++  gpio-ranges: true
++
++required:
++  - compatible
++  - reg
++  - "#gpio-cells"
++  - gpio-controller
++  - ngpios
++
++$defs:
++  nsp-gpio-pinconf:
++    type: object
++    allOf:
++      - $ref: pincfg-node.yaml#
++      - $ref: pinmux-node.yaml#
++
++    properties:
++      pins:
++        $ref: /schemas/types.yaml#/definitions/string-array
++        items:
++          pattern: '^gpio-'
++
++      bias-disable: true
++      bias-pull-up: true
++      bias-pull-down: true
++
++      drive-strength:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [ 2, 4, 6, 8, 10, 12, 14, 16 ]
++
++    required:
++      - pins
++
++    additionalProperties: false
++
++patternProperties:
++  '-pins$':
++    oneOf:
++      - $ref: '#/$defs/nsp-gpio-pinconf'
++      - type: object
++        additionalProperties:
++          $ref: '#/$defs/nsp-gpio-pinconf'
++
++  '-hog(-[0-9]+)?$':
++    type: object
++    required:
++      - gpio-hog
++
++additionalProperties:
++  anyOf:
++    - $ref: '#/$defs/nsp-gpio-pinconf'
++    - not:
++        type: object
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    gpio@18000020 {
++        compatible = "brcm,nsp-gpio-a";
++        reg = <0x18000020 0x100>,
++              <0x1803f1c4 0x1c>;
++        #gpio-cells = <2>;
++        gpio-controller;
++        ngpios = <32>;
++        gpio-ranges = <&pinctrl 0 0 31>;
++        interrupt-controller;
++        #interrupt-cells = <2>;
++        interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
++
++        /* Pin configuration node applied as a pinctrl state */
++        pinctrl-names = "default";
++        pinctrl-0 = <&led>;
++
++        led: led {
++            pins = "gpio-1";
++            bias-pull-up;
++        };
++
++        /* Pin configuration nodes may also be grouped under a '-pins' node */
++        pwm-pins {
++            pwm {
++                pins = "gpio-0";
++                drive-strength = <16>;
++            };
++        };
++
++        /* GPIO hog */
++        pwr-hog {
++            gpio-hog;
++            gpios = <3 1>;
++            output-high;
++        };
++    };
+-- 
+2.55.0
+
