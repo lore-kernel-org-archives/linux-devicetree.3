@@ -1,51 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B683DD879;
-	Sun, 27 Sep 2026 18:06:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686BA3876A4;
+	Sun, 27 Sep 2026 18:08:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790532405; cv=none; b=Q9mz99Xu3/BxkLYA2vlNerJfHAo0jBLl62/FRjjkcIFoTRYEK83RsXQfv9xOLW8TExgQs7pSq99Ix1BO0Op783Ik2hoIwQz8DUzMWQEL8Ljs6q0DPl9g5GqsoIBdhF/mWknVAF0nIcpW3vUQtLxVQZnFI7GdBEjWC/fPqCPve3w=
+	t=1790532523; cv=none; b=riQ0T/nfuqTEFDXEjTyq8gviXs2SWpfo/qdG0sxF16Vfqo24RydXQk1v1pTWPvyyVywoYrHaenxK28q0E+4kRCddAb38oFcU6rNxRzXZVRl6kT3Z9i2zfvUlln5lHUnlgQJefKwnKKnqdq69CqjwcwHZmArHjO0SH9gXPxncY88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790532405; c=relaxed/simple;
-	bh=D77+YxAIXks1O7FygbC0na83/yYgCKW9ueZrfQEjkQg=;
+	s=arc-20240116; t=1790532523; c=relaxed/simple;
+	bh=u12NBst2yVkd6gao3EbV4yRWjnMNHdZ2d9doBslX6Bo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fTTxpASPXfzCss8eFLfBCbjj33HYy0e1c1+e5kFXZd5B+AwYFBrnomM4gPNlTG4LYxa5H8gLnxFIoDTdcj7tSCt9RVYlsjimMsfcV5p7G4h895PdELr/m3q9CcgWhTL1/KK7+A9jRSl1ZiNDGQn/fMe4U17aMgxSiKBCM/2y6/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SF0P6tTs; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=agw142WivmYFga904eAXJmuKChVN1YakGFvk9bq8RijE8Db+chUpyxWT9frIxhj5hTQ7cWidlRtRw/z3LKST98V44RaMh2JDsvPA4ptTYyX7L9t4Rc1JG4AIFH1qLSFVRek8OwYioM3I1U42bDLVjLbn6O5SL9YFs9qrPYVjc7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBCBzdg7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SF0P6tTs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 896241F000FF;
-	Sun, 27 Sep 2026 18:06:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBCBzdg7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23F901F000FF;
+	Sun, 27 Sep 2026 18:08:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790532403;
-	bh=6XEoCOiEHSF66Tl36XozdroZPLAJ+sF9zsLneNYmRCk=;
+	s=k20260515; t=1790532522;
+	bh=kWH7XWQMx9EHrUltVzhx9D+qXz/F74/efins/aZaPW8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SF0P6tTscRw/xse4NZsRmcE0+XRrIguAUwdAlc2M7cQYDKKuDz7fI7K1x16wUjYzv
-	 sbKVLwmEcN55ZBNFi1iI9LRbaE/0GWphRfSFq1D1Izs+ppcmPDlmkr79i50uNbvEZs
-	 lBGaZbyZ0ajSJMcbPgOqgHt0LE9jciMyqnZxjxRQbQjZQqMuC/tRPUIV51jSWjy10z
-	 TXu+PiScqIDCEzsqXSrH2EmX3+U6pwqp6KAlUgd9BepoKpd6hevIPG1+Yt080JaI22
-	 5C5BtKtXO5gsZ3lp8BwM7a6yKxZaFj/AlvZ3WH+3hLuUAfRE7vtkDuB8K7i4RMZ8MZ
-	 yjJCn647PNBVA==
-Date: Sun, 27 Sep 2026 20:06:39 +0200
+	b=CBCBzdg7pQL5JCyvRcD1zyOAoHgLgo5QPVnTjQe0PHhwTNCWIxNv1XvLTMUY+WLdR
+	 ihBkilqW61LcyeJymzj2nhlKkxZI2p59wM75kQJiGzCWRdaEEdXTHzFUeAUiB3OKMd
+	 VD7biXAxv7Fc1Sl2hjearQ1QC/bYekGP9QNnOTg2fEFpBygH7F777oykB3/jy0mapB
+	 YmaKveOd0UpvLkHF5v8tvnsVnV5dvDoTt+RBjWL/YXmqIoRiwGzJLmDnXqs0W1ZB8f
+	 nzMUtOiKyPBG4nu+9pWuMXac0qzZdBhRcz3v0Zt8fA97M0nt9u3WJ67agwvj7tycrI
+	 pclm9rT8vodBA==
+Date: Sun, 27 Sep 2026 20:08:37 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Richard Genoud <richard.genoud@bootlin.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	LABBE Corentin <clabbe.montjoie@gmail.com>, Rob Herring <robh@kernel.org>, 
+To: Richard Acayan <mailingradian@gmail.com>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
-	Alastair D'Silva <alastair@d-silva.org>, Maxime Ripard <mripard@kernel.org>, netdev@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v5 2/3] dt-bindings: net: allwinner: add H616
- EMAC1
-Message-ID: <20260927-amazing-loris-of-criticism-bfb38b@quoll>
-References: <20260921-submit-h616-emac1-v1-v5-0-ada661ed9e9b@gmail.com>
- <20260921-submit-h616-emac1-v1-v5-2-ada661ed9e9b@gmail.com>
+	Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH 01/11] dt-bindings: soc: qcom,smp2p: add sleepstate
+ support
+Message-ID: <20260927-supportive-succinct-meerkat-553b4f@quoll>
+References: <20260922015801.32373-1-mailingradian@gmail.com>
+ <20260922015801.32373-2-mailingradian@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,26 +48,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921-submit-h616-emac1-v1-v5-2-ada661ed9e9b@gmail.com>
+In-Reply-To: <20260922015801.32373-2-mailingradian@gmail.com>
 
-On Mon, Sep 21, 2026 at 06:45:25PM -0600, James Hilliard wrote:
-> The H616 secondary EMAC uses a separate system-control clock register
-> and supports only RMII at 10/100 Mbps. Add its distinct compatible
-> without an older fallback, since using the primary EMAC clock register
-> would not work.
+On Mon, Sep 21, 2026 at 09:57:51PM -0400, Richard Acayan wrote:
+> The sleepstate entry is used by Qualcomm sensor DSPs to control
+> suspend/resume operations. Even though there is no full support for
+> sleep states, initialization of the entry is still necessary for some
+> DSPs, notably the sensors-bearing ADSP on the Pixel 3a (SDM670 SoC).
+> Allow sleepstates to be declared in the device tree so they can be
+> initialized.
 > 
-> Constrain the PHY interface mode to RMII, matching the hardware.
-> 
-> Reviewed-by: Alastair D'Silva <alastair@d-silva.org>
-> Tested-by: Alastair D'Silva <alastair@d-silva.org>
+> Link: https://android.googlesource.com/kernel/msm/+/91edfe5385f2640a338e2ad230d0fc03c73b77f8/drivers/soc/qcom/smp2p_sleepstate.c
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/soc/qcom/qcom,smp2p.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tested-by is not applicable here, please drop. Don't blindly apply cover
-letter tags.
-
-With this corrected (and assuming Alastair actually did review the
-binding... otherwise just don't use blanket cover letter tags):
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
