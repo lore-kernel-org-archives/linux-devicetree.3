@@ -1,252 +1,247 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC203E4C96;
-	Sun, 27 Sep 2026 12:08:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C87F37F8BD;
+	Sun, 27 Sep 2026 12:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790510941; cv=none; b=JcXCrAm78jY5iYDz3Et8pmn2p5ARktTdWdmsr5KpC1JZKONDDCdLpO8fAsFRK+y/GPa/D5UU8aU3HfSMwZkNI6tNa1Lc9Vw2woDxArSij/eCaCZAyyeIJeMdLHJYjRYQRV9bPGeJ1KmVRAsFhY78426bMyvEB+fKCyiO91Inct8=
+	t=1790511870; cv=none; b=nApxiFBC04eFmRXaO5SpJTbpZ3LLIk/Fj2YWJfPgQnONzKUbcp3UhhUSAjFx385dEw03ZDnyJSUgFHhdcHQiBbXR5RFs0oXAsgAMGSQvMLMT/bO2OQKEjaHsW0v8FdDVAjwuVFdK9L1vFyQrAlMSXCxvVRukYxjvTmZ5NCGWvr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790510941; c=relaxed/simple;
-	bh=QJ6Dhtl0V6L4eRTyyaXtS4zXkX4QimR91/05gQXZWZc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kc8WNTIDAxWbVY8MB2xp+DhScLLWi9dQNRLiJinzth1vZrSsxAiC35MrYp5oXt+cksep4i2cRztmc8PpqhpYNqsRezsoahecOO2vwl1RK2ELPNyZQhIRdDdWWsrs/sBTjHm78fXCAjK5KyjYamcqdAllJIDwDsirTLVqOc1RHZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jPqsnKUv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790511870; c=relaxed/simple;
+	bh=Eabtyyo2YD6OXaWcJ1KYjvaPz90W4eHSXn+ysJfKcQs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=Z5Iki3JutLpAJfgraAIkg7BYDrFJ6DKGZiSzcI+dgayHLJVH7U3X63UJIJL+Vdl0GhFD3dpaF7jEjMU8MQl0ZfWw/SvPQPCrRJrI5cI2XebDBtzPBrOFj2A74rXjyss7qZiZMzSZBX1bCgECR8VGm38t9Xm34KIJVIuLfTENUQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=RsvsBSoD; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jPqsnKUv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F32321F000FF;
-	Sun, 27 Sep 2026 12:08:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790510936;
-	bh=rcdgXK0+/7Z3a45Y7RvKNKnFXrswv/Vtt6X/xMOE8Mw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jPqsnKUvX6X7CHH8Y/NNNye+Xs8G4JdMvmlSM5tdvWOrEG6s6dQnvHPEL0kCYvIy6
-	 NWbqIbkPWehnuTcR5ZdBWlIdEbBnTcQOiO534/FewHSU1jQGK/CZl4nV04WYNdvP2G
-	 N7H545RQ8Hc0Hw5xrcRsElvfo3iKZjynTJ2mz4OKSjGfVFMAcw50gKY5Hjc653Qu/Y
-	 2RYtJlUwNWKVpopIvVwxo5K1VcKZwW9A8Vo/42E+WzF8oUAt454IRwhrKwyOTmRZ3E
-	 4kl7lQnMwZ9xWR+a7yZcxQxQrn+zSn3XROnvoZlpDVoiFHMEmR4aQm3p6pSBJJjdlS
-	 pNqNL8XOxq5vw==
-Date: Sun, 27 Sep 2026 14:08:52 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: xianwei.zhao@amlogic.com
-Cc: Junyi Zhao <junyi.zhao@amlogic.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Xianwei Zhao <xianwei.zhaol@amlogic.com>, Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org, 
-	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] i2c: amlogic: Add Amlogic A9 I2C controller driver
-Message-ID: <arkDNC8st4Nsqu1C@zenone.zhora.eu>
-References: <20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com>
- <20260924-a9-i2c-v1-2-b8ad9b46f4a8@amlogic.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="RsvsBSoD"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260927122417euoutp02c11f1b951ae847b50bcd234c1cea70a3~ZLQxMbr_w0190201902euoutp02E;
+	Sun, 27 Sep 2026 12:24:17 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260927122417euoutp02c11f1b951ae847b50bcd234c1cea70a3~ZLQxMbr_w0190201902euoutp02E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1790511857;
+	bh=P49ZMU53FicxNQXQjDxDy7KxdjeVCJlhMGoMoRje+gw=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=RsvsBSoDQhTUVnfXDVSkrdrOYQ/Wsh1BtDWKN2OEHAmBv6/x/wUDE7dGn4v+y3IEz
+	 GVq1Qr7+km89frEDkm6XtTfcTKG+fawbhnA8f3Xzbe0L0H+SxxVsn3GOl+LN6Aiq1A
+	 6D6JssYUQkL1uITQAXH8aFS2M5L7bk1syryiiLFM=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260927122417eucas1p13bf27abd0a8e031bbc3a449d6390076b~ZLQwv5zRV1213312133eucas1p1O;
+	Sun, 27 Sep 2026 12:24:17 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260927122415eusmtip2cb25e97ede526048fb85b90aa2ad6fdb~ZLQu-_M9m0941609416eusmtip2-;
+	Sun, 27 Sep 2026 12:24:15 +0000 (GMT)
+Message-ID: <b8777bd3-960a-4d2a-88f7-f8c818407298@samsung.com>
+Date: Sun, 27 Sep 2026 14:24:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924-a9-i2c-v1-2-b8ad9b46f4a8@amlogic.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/20] drm: starfive: jh7110: Enable display
+ subsystem
+To: Joshua Peisach <jpeisach@ubuntu.com>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
+	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+	Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>,
+	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng
+	<zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	=?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <DLIJUQCKB76W.3RHK9KPO5JSOZ@ubuntu.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260927122417eucas1p13bf27abd0a8e031bbc3a449d6390076b
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61
+References: <CGME20260915153213eucas1p148f013af239a334fc78cdc249c0f8a61@eucas1p1.samsung.com>
+	<20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+	<DLGBPXP4F8E0.9X0QMZ9GFQVF@ubuntu.com>
+	<136d6789-2f0c-4a91-ab2d-de3a3f119d5d@samsung.com>
+	<DLIJUQCKB76W.3RHK9KPO5JSOZ@ubuntu.com>
 
-Hi Xianwei,
 
-...
 
-> +config I2C_AMLOGIC_A9
-> +	tristate "Amlogic new I2C controller"
-> +	depends on ARCH_MESON || COMPILE_TEST
-> +	depends on COMMON_CLK
-> +	help
-> +	  If you say yes to this option, support will be included for the
-> +	  I2C interface on the new Amlogic family of SoCs.
-> +
-> +
+On 9/18/26 17:32, Joshua Peisach wrote:
+> On Thu Sep 17, 2026 at 1:22 PM EDT, Michal Wilczynski wrote:
+>>
+>>
+>> On 9/16/26 02:45, Joshua Peisach wrote:
+>>> On Tue Sep 15, 2026 at 11:32 AM EDT, Michal Wilczynski wrote:
+>>>>
+>>>> Testing
+>>>> =======
+>>>>
+>>>> Tested on a VisionFive 2 v1.3B using modetest.
+>>>
+>>> I.. got nothing. I did have to manually modprobe the modules, but
+>>> unless I am doing something wrong.. I didn't get anything and modetest
+>>> just gave -2.
+>>
+>> Hmm have you also changed the DTB not just the kernel and the modules
+>> (you can also built in everything).
+>>
+> Yes (I didn't built-in everything, but I did make sure the DTB was
+> copied and flash-kernel was run)
+> 
+>> Also note modetest needs -M verisilicon.
+>>
+> 
+> "failed to open device 'versilicon' with busid '(null)': No such file
+> or directory"
+> 
+> 
+>> If that is not it, could you send "dmesg | grep -iE
+>> 'verisilicon|inno|hdmi|vout'" and "ls /sys/class/drm/"?
+>>
+> the dmesg output:
+> 
+> [    0.090950] /soc/display-subsystem@29400000/hdmi@29590000/controller: Fixed dependency cycle(s) with /soc/display-subsystem@29400000/display@29400000
+> [    0.091029] /soc/display-subsystem@29400000/display@29400000: Fixed dependency cycle(s) with /soc/display-subsystem@29400000/hdmi@29590000/controller
+> [    0.104227] /hdmi-connector: Fixed dependency cycle(s) with /soc/display-subsystem@29400000/hdmi@29590000/controller
+> [    0.104272] /soc/display-subsystem@29400000/hdmi@29590000/controller: Fixed dependency cycle(s) with /hdmi-connector
+> 
+> 
+> /sys/class/drm only contains the file "version"
 
-Please, remove this extra line
+Typo - it is "verisilicon" you are missing the i.
 
->  config I2C_MICROCHIP_CORE
->  	tristate "Microchip FPGA I2C controller"
->  	depends on ARCH_MICROCHIP_POLARFIRE || COMPILE_TEST
+But that is not the real problem: /sys/class/drm holding only "version"
+means no DRM device registered at all and your dmesg shows no probe
+output from any of the drivers, so they are not being loaded.
 
-...
+I would suspect something is missing from the .config.
 
-> +#include <linux/clk.h>
-> +#include <linux/completion.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pinctrl/consumer.h>
-> +#include <linux/delay.h>
+Those are relevant options for this series:
 
-Please sort the above in alphabetic order.
+CONFIG_DRM_VERISILICON_DC=y
+CONFIG_CLK_STARFIVE_JH7110_VOUT=y
+CONFIG_SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM=y
+CONFIG_SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM=y
+CONFIG_PHY_STARFIVE_JH7110_INNO_HDMI=y
+CONFIG_DRM_STARFIVE_JH7110_INNO_HDMI=y
 
-> +/* Amlogic I2C register map */
-> +#define REG_CFG_RDY		0x00
-> +#define REG_CFG_I2C		0x04
-> +#define REG_CFG_START		0x08
-> +#define REG_CFG_BUS		0x0c
-> +#define REG_TX_RD_ADDR		0x10
-> +#define REG_TX_WR_ADDR		0x14
-> +#define REG_RX_RD_ADDR		0x18
-> +#define REG_RX_WR_ADDR		0x1c
-> +#define REG_CGF_TX		0x20
-> +#define REG_CGF_RX		0x24
-> +#define REG_CGF_IRQ_STATE	0x30
-> +#define REG_CGF_IRQ_ENABLE	0x34
-> +#define REG_SHAKE_BLK_CNT	0x38
-> +
-> +/* CFG RDY fields */
-> +#define RDY_TEE_ONLY		BIT(1)
-> +#define RDY_IF			BIT(0)
-> +
-> +/* CFG I2C fields */
-> +#define I2C_RX_THR		GENMASK(23, 16)
-> +#define I2C_TX_THR		GENMASK(15, 8)
-> +
-> +/* CFG BUS fields */
-> +#define BUS_NO_STOP		BIT(18)
-> +#define BUS_SPEED_MODE		BIT(17)
-> +#define BUS_SLAVE_MODE		BIT(16)
-> +#define BUS_FILTER_MASK		GENMASK(15, 12)
-> +/* SCL = clk/b_ratio	if b_ratio<=8, SCL = clk/8 */
-> +#define BUS_RATIO_MASK		GENMASK(11, 0)
-> +
-> +/* CFG START fields */
-> +#define START_START		BIT(31)
-> +#define START_LEN		GENMASK(23, 12)
-> +#define START_LEN_SHIFT		12
-> +#define START_SLAVE_ADDR	GENMASK(10, 1)
-> +#define START_READ		BIT(0)
-> +
-> +/* CFG TX_RX fields */
-> +#define TX_RX_EMPTY		BIT(9)
-> +#define TX_RX_FULL		BIT(8)
-> +#define TX_RX_DATA		GENMASK(7, 0)
-> +
-> +/*CGF IRQ fields */
-> +#define IRQ_ALL_MASK		0xffff
-> +#define A9_NCK_ERROR		BIT(0)
-> +#define A9_RX_EMPTY		BIT(1)
-> +#define A9_RX_FULL		BIT(2)
-> +#define A9_TX_EMPTY		BIT(3)
-> +#define A9_TX_FULL		BIT(4)
-> +#define A9_RX_THRESH_READ	BIT(5)
-> +#define A9_TX_THRESH_WRITE	BIT(6)
-> +#define A9_PHY_DONE		BIT(7)
-> +#define A9_TASK_DONE		BIT(8)
-> +#define A9_ALL_DONE		BIT(9)
-> +
-> +#define A9_TRANS_DONE		(A9_PHY_DONE | A9_NCK_ERROR)
-> +#define A9_TRANS_ERROR		(A9_NCK_ERROR)
-> +#define A9_ENABLE_IRQ_BIT	(A9_NCK_ERROR | A9_PHY_DONE)
-> +#define THRESH_MODE		(A9_RX_THRESH_READ | A9_TX_THRESH_WRITE)
-> +
-> +#define A9_I2C_FIFO_DEPTH	32
-> +#define A9_I2C_HALF_FIFO	(A9_I2C_FIFO_DEPTH >> 1)
-> +
-> +#define I2C_TIMEOUT_MS		500
-> +
-> +enum {
-> +	STATE_IDLE,
-> +	STATE_READ,
-> +	STATE_WRITE,
-> +};
-> +
-> +enum fifo_fill_mode {
-> +	FIFO_FILL_FULL,
-> +	FIFO_FILL_HALF,
-> +};
+easiest to build them in.
 
-For all the enums and defines above, please use the prefix of the
-driver name, A9, I guess.
+Run "make olddefconfig" after editing .config - DRM_VERISILICON_DC
+selects DRM_BRIDGE_CONNECTOR, DRM_DISPLAY_HELPER and DRM_GEM_DMA_HELPER,
+and if those did not get pulled in the DC never registers. Also verify
+after building how .config actually looks like.
 
-...
+With those options and correct dtb the drivers should probe correctly
+and there would be a trace in dmesg.
 
-> +static void aml_i2c_put_data(struct aml_i2c *i2c, char *buf, int len)
-> +{
-> +	int i;
-> +
-> +	/* this i2c module when trans 0 byte, must put at least 1.
-> +	 */
 
-Please use the kernel style commenting format, I think checkpatch
-would have had raised this.
+> 
+> -Josh
+> 
+>>>
+>>>> ---
+>>>> Michal Wilczynski (20):
+>>>>       dt-bindings: phy: Add starfive,jh7110-inno-hdmi-phy
+>>>>       dt-bindings: display: bridge: Add starfive,jh7110-inno-hdmi-controller
+>>>>       dt-bindings: mfd: Add starfive,jh7110-hdmi-subsystem
+>>>>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-syscon
+>>>>       dt-bindings: display: verisilicon: Add starfive,jh7110-dc8200
+>>>>       dt-bindings: soc: starfive: Add starfive,jh7110-vout-subsystem
+>>>>       drm/bridge: inno-hdmi: Split probe out of bind
+>>>>       drm/bridge: inno-hdmi: Allow the register map to come from a parent
+>>>>       drm/bridge: inno-hdmi: Add .disable platform operation
+>>>>       drm/bridge: inno-hdmi: Add .mode_valid platform operation
+>>>>       drm/bridge: inno-hdmi: Make the PHY configuration table optional
+>>>>       soc: starfive: Add jh7110-hdmi-subsystem driver
+>>>>       soc: starfive: Add jh7110-vout-subsystem driver
+>>>>       clk: starfive: jh7110-vout: Allow pixel clock rate propagation
+>>>>       drm/bridge: starfive: Add JH7110 HDMI controller driver
+>>>>       phy: Add common Innosilicon HDMI PHY helpers
+>>>>       phy: rockchip: inno-hdmi: Use the common Innosilicon PHY helpers
+>>>>       phy: starfive: Add jh7110-inno-hdmi-phy driver
+>>>>       riscv: dts: starfive: jh7110: Update DT for display subsystem
+>>>>       MAINTAINERS: Add StarFive JH7110 display subsystem entry
+>>>>
+>>>>  .../starfive,jh7110-inno-hdmi-controller.yaml      | 121 +++++
+>>>>  .../bindings/display/verisilicon,dc.yaml           |   1 +
+>>>>  .../mfd/starfive,jh7110-hdmi-subsystem.yaml        |  95 ++++
+>>>>  .../phy/starfive,jh7110-inno-hdmi-phy.yaml         |  49 ++
+>>>>  .../soc/starfive/starfive,jh7110-syscon.yaml       |   1 +
+>>>>  .../starfive/starfive,jh7110-vout-subsystem.yaml   | 218 ++++++++
+>>>>  MAINTAINERS                                        |  13 +
+>>>>  arch/riscv/boot/dts/starfive/jh7110-common.dtsi    | 121 ++++-
+>>>>  arch/riscv/boot/dts/starfive/jh7110.dtsi           | 105 +++-
+>>>>  drivers/clk/starfive/clk-starfive-jh7110-vout.c    |   6 +-
+>>>>  drivers/gpu/drm/bridge/Kconfig                     |  11 +
+>>>>  drivers/gpu/drm/bridge/Makefile                    |   1 +
+>>>>  drivers/gpu/drm/bridge/inno-hdmi.c                 | 112 +++-
+>>>>  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c          | 297 +++++++++++
+>>>>  drivers/phy/Kconfig                                |   8 +
+>>>>  drivers/phy/Makefile                               |   1 +
+>>>>  drivers/phy/phy-inno-hdmi.c                        | 298 +++++++++++
+>>>>  drivers/phy/rockchip/Kconfig                       |   1 +
+>>>>  drivers/phy/rockchip/phy-rockchip-inno-hdmi.c      | 168 +-----
+>>>>  drivers/phy/starfive/Kconfig                       |  20 +
+>>>>  drivers/phy/starfive/Makefile                      |   1 +
+>>>>  drivers/phy/starfive/phy-jh7110-inno-hdmi.c        | 579 +++++++++++++++++++++
+>>>>  drivers/soc/Kconfig                                |   1 +
+>>>>  drivers/soc/Makefile                               |   1 +
+>>>>  drivers/soc/starfive/Kconfig                       |  43 ++
+>>>>  drivers/soc/starfive/Makefile                      |   3 +
+>>>>  drivers/soc/starfive/jh7110-hdmi-subsystem.c       |  73 +++
+>>>>  drivers/soc/starfive/jh7110-vout-subsystem.c       |  82 +++
+>>>>  include/drm/bridge/inno_hdmi.h                     |  10 +-
+>>>>  include/linux/phy/inno-hdmi-phy.h                  |  85 +++
+>>>>  30 files changed, 2337 insertions(+), 188 deletions(-)
+>>>> ---
+>>>> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+>>>> change-id: 20251031-jh7110-clean-send-7d2242118026
+>>>>
+>>>> Best regards,
+>>>
+>>> By the way, something weird happenined while I applied the patches
+>>> using git am. Somehow, some were out of order. The 10th patch
+>>> adding .mode_valid tried to be applied before .disable even though
+>>> in the series, the order is correctly set? git would obviously
+>>> fail because the .disable entry did not exist in the header, so I had
+>>> to manually put those in.
+>>>
+>>> I guess it's possible that something went wrong here? I personally
+>>> pulled the mailbox from the lore.kernel.org mbox.gz file.
+>>
+>> I would recommend using b4 shazam instead
+>>
+>>>
+>>
+>> Best regards,
+> 
+> 
 
-> +	if (!i2c->msg->len) {
-> +		writel(0x00, i2c->regs + REG_CGF_TX);
-> +		return;
-> +	}
-> +
-> +	for (i = 0; i < len; i++, buf++)
-> +		writel(*buf, i2c->regs + REG_CGF_TX);
-> +}
-> +
-> +static void aml_i2c_prepare_xfer(struct aml_i2c *i2c, enum fifo_fill_mode mode)
-> +{
-> +	bool write = !(i2c->msg->flags & I2C_M_RD);
-> +
-> +	if (write) {
-
-you can revert the logic here with if (!write) return; to save a
-level of indentation.
-
-> +		if (mode == FIFO_FILL_FULL)
-> +			i2c->count = min(i2c->msg->len - i2c->pos, A9_I2C_FIFO_DEPTH);
-> +		else
-> +			i2c->count = min(i2c->msg->len - i2c->pos, A9_I2C_HALF_FIFO);
-> +		aml_i2c_put_data(i2c, i2c->msg->buf + i2c->pos, i2c->count);
-> +	}
-> +}
-
-...
-
-> +static int aml_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
-> +{
-> +	struct aml_i2c *i2c = adap->algo_data;
-> +	int i, ret = 0;
-> +
-> +	for (i = 0; i < num; i++) {
-> +		ret = aml_i2c_xfer_msg(i2c, msgs + i, i == num - 1);
-> +		if (ret)
-> +			break;
-
-you can save some code here by doing
-
-	for (...) {
-		int ret;
-
-		ret = aml_i2c_xfer_msg(...);
-		if (ret)
-			return ret;
-	}
-
-	return i;
-
-> +	}
-> +
-> +	return ret ?: i;
-> +}
-
-...
-
-> +static int aml_i2c_probe(struct platform_device *pdev)
-> +{
-> +	struct device_node *np = pdev->dev.of_node;
-> +	struct aml_i2c *i2c;
-
-...
-
-> +	i2c->clk = devm_clk_get(&pdev->dev, NULL);
-> +	if (IS_ERR(i2c->clk)) {
-> +		dev_err(&pdev->dev, "can't get device clock\n");
-> +		return PTR_ERR(i2c->clk);
-> +	}
-
-Please use return dev_err_probe(...);
-
-Andi
-
-> +
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
