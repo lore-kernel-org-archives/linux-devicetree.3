@@ -1,111 +1,92 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8503BF684;
-	Sun, 27 Sep 2026 14:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC41A3F483C;
+	Sun, 27 Sep 2026 14:20:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790518759; cv=none; b=a3yUi+XsyYl5hAxqW+TVUzNGZKHZFP0MsAHS3ZrR0UqCCFsUR4PSuTut2FKXGNcrRRkx6XYzHLV1ML+n8nb87tJVX1bkt2mdfFQAH7cawTEDgoxVBIuY/uncMxmqkS1nkbIUP/Lz+UfQbEtZuC4iWJ1c7XTBNB8taYrgo/9WDSA=
+	t=1790518855; cv=none; b=S8h78CCbkwG0k4GY95dj2CPQohp7jbfo9lmiG9svAsFXNwVMJD2lNppPjcnwkV/BuPh0ihOsaBgz/KSnXZBhRwncU4dcC0CJnwCJZcRsqb/vrp2/lf/6gtuo1LEE7pP9L+1zrf+MPUSYJzCP8lI4vTI/CieTMzBxYXOx7jg/n4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790518759; c=relaxed/simple;
-	bh=XuV1pUSSKMp45rUiY7+W9cj7hDLqz3FCd/AFGxCjcKE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V3AsI6ZrtAkt+KgwdZcbMIpNRrvbm3/jHbG30NW8/gCFX7BV+jouqIT0C5rvYyzDNSBbzM1tSi91BPGvSCnExCGI/1jxpGQICWomM7cdqCFCJVZD22dfn9hzI0sRPyTOIblW2wRs3IcqTtcqCVfdPRJn/MhCVn4XmUsA65Cb3uY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tmX4gfNu; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790518855; c=relaxed/simple;
+	bh=6Dhi33etcFZ7DTImfsGr+MnwFSC0/uIHTuMEJUCiEDM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=D7MhkGAjDPgORUGCdJS8IzjxWmJ38FHF/kybVYmut8jlZq+obYDbgNmRjuynN5l3paZSuPZHMb69bVI3kz0kucIU5vZnqzMXuHgh9HbZU5kFikbbX3fBYw9LhHiMgw1OpV+LtJR72kpZAEmJC95A4bFfWXZeAfA/a4zAju4OIi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j0Y169Ux; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tmX4gfNu"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3CA75FBE;
-	Sun, 27 Sep 2026 16:17:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790518644;
-	bh=XuV1pUSSKMp45rUiY7+W9cj7hDLqz3FCd/AFGxCjcKE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tmX4gfNuT1kMtkv1BJjzUol4CGIpJX8+OyjH+SP2ichnX7Ziz3RLC7YjAbSCkKoi/
-	 w7U536Qw7zDaZwUjagSV0ECUl4S5c56QTZMxVKTwZ17IZ4ky7TsMUK1lBbpbMTsQy2
-	 sVn+m52iSpsMceuB5mLlunK1n/GBAoa2tqgB7SK4=
-Date: Sun, 27 Sep 2026 17:19:12 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Rishikesh Donadkar <r-donadkar@ti.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
-	vigneshr@ti.com, kristo@kernel.org, sakari.ailus@linux.intel.com,
-	mripard@kernel.org, jai.luthra@linux.dev,
-	jai.luthra@ideasonboard.com, devarsht@ti.com,
-	y-abhilashchandra@ti.com, mirela.rabulea@nxp.com
-Subject: Re: [RFC PATCH 4/8] media: cadence: csi2rx: Add RAW10 RGBIr formats
-Message-ID: <20260927141912.GA4406@killaraus.ideasonboard.com>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-5-r-donadkar@ti.com>
- <20260926145242.GD764757@killaraus.ideasonboard.com>
- <7e6eff37-832c-4a40-a4f5-4e3699bf3a5b@ti.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j0Y169Ux"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E02FD1F000FF;
+	Sun, 27 Sep 2026 14:20:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790518853;
+	bh=F6n0dhFkrCJFiAaU92IpNCnlxusgXMJox7E7Np/7y9c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=j0Y169UxpwXJ4u6+hLp6XrpDoIwABmFIpyvhuAEQ9HK7mD0odXzAM25mO9128vREG
+	 QZhUseUSiE7tCjMKV1n8mM6p+x9s1qA1r/ek4tzML+gbWbKQ1D5q72fljmyU4eZcmw
+	 Lu2zET2/emU5snc5tQoDiyBkeDV/LypXpgYkDEfuJIWJkOnzf24JgahiPfSG9V/WAO
+	 tfAlBtj5mFaUMMQnFabwF9bPY9A/eNBaM28NrC7jrcwvC+XVPDD3hEED7hSu1Qq/yO
+	 5JU2ndGklGiOK5+tiKj+SqXUdgLGe8sMasZQeQ98ZYhxvXtyFVjxPiFgS8J/w0DRHc
+	 iJdJlqQYAapLA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: watchdog: Add Exynos8855 watchdog
+ compatible string
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alim Akhtar" <alim.akhtar@samsung.com>
+Cc: linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260927143100.3576195-1-alim.akhtar@samsung.com>
+References: <CGME20260927141253epcas5p371d497edc6756f13ce2215af4f380fb4@epcas5p3.samsung.com>
+ <20260927143100.3576195-1-alim.akhtar@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 27 Sep 2026 14:20:52 +0000
+Message-Id: <20260927142052.E02FD1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7e6eff37-832c-4a40-a4f5-4e3699bf3a5b@ti.com>
 
-On Sun, Sep 27, 2026 at 10:50:30AM +0530, Rishikesh Donadkar wrote:
-> On 26/09/26 20:22, Laurent Pinchart wrote:
-> > On Fri, Sep 25, 2026 at 06:59:57PM +0530, Rishikesh Donadkar wrote:
-> >> From: Jai Luthra <j-luthra@ti.com>
-> >>
-> >> Add 10-bit RGBIr formats to the table to allow capturing them.
-> >>
-> >> Signed-off-by: Jai Luthra <j-luthra@ti.com>
-> >> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
-> >> ---
-> >>   drivers/media/platform/cadence/cdns-csi2rx.c | 8 ++++++++
-> >>   1 file changed, 8 insertions(+)
-> >>
-> >> diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
-> >> index de7cce76397a..8ed730452d3c 100644
-> >> --- a/drivers/media/platform/cadence/cdns-csi2rx.c
-> >> +++ b/drivers/media/platform/cadence/cdns-csi2rx.c
-> >> @@ -173,6 +173,14 @@ static const struct csi2rx_fmt formats[] = {
-> >>   	{ .code	= MEDIA_BUS_FMT_RGB565_1X16,  .bpp = 16, .max_pixels = 1, },
-> >>   	{ .code	= MEDIA_BUS_FMT_RGB888_1X24,  .bpp = 24, .max_pixels = 1, },
-> >>   	{ .code	= MEDIA_BUS_FMT_BGR888_1X24,  .bpp = 24, .max_pixels = 1, },
-> >> +	{ .code	= MEDIA_BUS_FMT_SRGGI10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGRIG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SBGGI10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGBIG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGIRG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SIGGR10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SGIBG10_1X10, .bpp = 10, .max_pixels = 2 },
-> >> +	{ .code	= MEDIA_BUS_FMT_SIGGB10_1X10, .bpp = 10, .max_pixels = 2 },
-> > 
-> > Raw formats will allow supporting all possible CFA patterns without
-> > having to extend each driver every time a new pattern is added.
-> 
-> Yes, makes sense !
-> 
-> I noticed that patches for RAW format support are present here
-> 
-> https://git.linuxtv.org/sailus/media_tree.git/log/?h=metadata
-> 
-> Is there a plan to merge these into media tree in the near future?
-> If they are still under review and need more time to get merged, I’ll 
-> plan to cherry-pick them and rebase my work on top of them.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: watchdog: missing comma in samsung,syscon-phandle desc=
+ription
+--
 
-Jai is working on the userspace implementation in libcamera to test out
-the API. Once that completes, we'll update the API is issues are found,
-and then merge it.
+commit 8354ecfd36bd009fe5b5d0f2ef81e3977d3ba5fd
+Author: Alim Akhtar <alim.akhtar@samsung.com>
 
-> >>   };
-> >>   
-> >>   static void csi2rx_configure_error_irq_mask(void __iomem *base,
+dt-bindings: watchdog: Add Exynos8855 watchdog compatible string
 
--- 
-Regards,
+This commit adds the samsung,exynos8855-wdt compatible string to the
+watchdog device tree binding documentation. It updates the property
+descriptions and constraint blocks to indicate that the Exynos8855 requires
+the cluster-index and syscon-phandle properties.
 
-Laurent Pinchart
+> diff --git a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml =
+b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> index a32c478315779..517c0e1cd78bf 100644
+> --- a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+[ ... ]
+> @@ -52,13 +53,13 @@ properties:
+>      enum: [0, 1, 2]
+>      description:
+>        Index of CPU cluster on which watchdog is running (in case of Exyn=
+os850,
+> -      Exynos990 or Google gs101).
+> +      Exynos8855, Exynos990 or Google gs101).
+> =20
+>    samsung,syscon-phandle:
+>      $ref: /schemas/types.yaml#/definitions/phandle
+>      description:
+>        Phandle to the PMU system controller node (in case of Exynos5250,
+> -      Exynos5420, Exynos5515, Exynos7, Exynos850, Exynos990 and gs101).
+> +      Exynos5420, Exynos5515, Exynos7, Exynos850, Exynos8855 Exynos990 a=
+nd gs101).
+
+[Severity: Low]
+This isn't a functional issue, but is there a missing comma between
+Exynos8855 and Exynos990 in this updated description string?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927143100.3576=
+195-1-alim.akhtar@samsung.com?part=3D1
