@@ -1,66 +1,104 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2013303A37
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 16:07:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE2931F98D;
+	Sun, 27 Sep 2026 16:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790525233; cv=none; b=H/4b1TxPNFGJXA8lO68rN1VLAP8AHWW87sHmeW6swpRLTOq6DVXRwd5wW4D0JB+vt1BsvgLBI1yFzIsN1CnjWHv1+b0SaIYpvLFxAt2vTRBsxiafZR1Iv28rZHz5hhqn59BeYlmH4/eqPG4FCfstXUYmP9lYpGLllJasRlZ0RJY=
+	t=1790525243; cv=none; b=k72F5GLnXryih0IFjWDQIQroXr2demgjDGVBTUssk5kzhTQ2zE590vET/5rIpLhDhsHYRuASMSARerrZwpzwA6dj5eb+GY3CZeqwVmwWQ0nxiEKSRmz6xuNBERvQZRQ2LOWibsriEWtpk05lk++OYUuWbzboNLocve+kcRisSEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790525233; c=relaxed/simple;
-	bh=mzt4pu9ZaJARhmHVs2voPXGRrfC/68WvT0Qu/oRVOgQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GxR2tLzfBIG5fheD04IaqyyJpXiDIy37kCISzJTogYjY4QGUsHUxud65hR0PqxEJR0NFHByEevcvj8tfBr56waneaNZiWMiMC5DNp2B5G0Msjou+FNNnAeF981ZU3Nn5OMDvj0dsQwQx4A9n/LlnW3+cvwbnWcMXO3qvcgfSRKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ygKYUhEr; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790525243; c=relaxed/simple;
+	bh=gNR2oNcBOZ4ZavM+PNMcKGSVaiA8/yL1uRsf4W2gTZA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=m28+al/H0DYKaBeTyeQLfGJUhWIhG/2MfB7NPx9VJh0uksXoDMESDR99JN89sYOFRBHeh/C79fJaSKe6bEnGdTNV560fuLzrEksxnR212yCmq6EUBRAkzOgGWbJW+9RnaKkJiSBYoHwdydP7Xnt9AC/yhMadcBxOQwBwY9eP9L4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xsl+yDyQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ygKYUhEr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=+oMeoZ4pGEsBia+lJYpRLMOIzaRZRIDGRSGowGGDiv0=; b=ygKYUhErkjokFDjmsL3hU3RSsU
-	SpM9nL/uVB5J5zwuyqTNQI3AHDGE41RqsI65O/FkM+cZAWxH5Ep7WAu4VtblAqpuI0anUL/Jk/pNl
-	61CuC6DFHZndKNr3B1Rp83apg17/rhmquKp6VMptUxdBN6QuMx+uafyfcNvuDtLmXWs4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xArP3-007XMX-3k; Sun, 27 Sep 2026 18:07:01 +0200
-Date: Sun, 27 Sep 2026 18:07:01 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: BG9OXA <bg9oxa@163.com>
-Cc: linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	Heiko Stuebner <heiko@sntech.de>
-Subject: Re: [PATCH 2/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
-Message-ID: <89731a27-4d5f-4a01-88b1-26c2e0d65ef9@lunn.ch>
-References: <179051260955.4055.15953866975694461812@163.com>
- <179051262683.4055.12205303753370851498@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xsl+yDyQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C34521F00893;
+	Sun, 27 Sep 2026 16:07:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790525242;
+	bh=N4TZ5aIz7xBlwXcsESJ+UFf6NWAYflwhsSeNWHtoSTk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Xsl+yDyQ3ISpiKiigBEbBhylznS9tAQeADrugm+DunUoHFV5jD17W15GBoz03Bsla
+	 gmvcwMWIrZ7F3LE3yJjCLP7rzNAAEvBA2IcOo/taceUBRr2QFuGs51LS24fZR3D3lI
+	 8QkR7SAQ5e5ZJP2qxx49B3Wf5IjnJXPnopPWRDCpZ64FmJGL+HHR1mJDkam+akXgAe
+	 0n/tGukVjq4Udi+bInWTuu3B3FvPpKa+rKMJFJ8EXyVWIB/uHTUzK1gsXm+cS+f6le
+	 pRag97ZTeunq5KQ7sgCrIrqm4FlKIeFz52zkwRzfJPB2Iqj/osd2jqQwBWjm6Lt4nF
+	 xT3fynvB6HN4w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 3/3] mfd: max8907: Convert to use device managed
+ poweroff handler
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, lee@kernel.org, mfd@lists.linux.dev
+In-Reply-To: <20260927155745.187758-4-clamor95@gmail.com>
+References: <20260927155745.187758-1-clamor95@gmail.com>
+ <20260927155745.187758-4-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 27 Sep 2026 16:07:21 +0000
+Message-Id: <20260927160721.C34521F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179051262683.4055.12205303753370851498@163.com>
 
-> +&gmac1 {
-> +	/* Use rgmii-rxid mode to disable rx delay inside Soc */
-> +	phy-mode = "rgmii-rxid";
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] mfd: max8907 sys-off handler returns raw error code halting noti=
+fier chain
+--
 
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
+commit 42fddb54f9db77c2dde889b0a3e0f261fd20ec9b
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-phy-mode describes the PCB. Does the PCB have an extra long clock line
-for RX?
+mfd: max8907: Convert to use device managed poweroff handler
 
-If the MAC has a delay which cannot be disabled, the MAC driver needs
-to handle this and mask the value passed to the PHY.
+This commit replaces the legacy global pm_power_off function pointer
+assignment with the devm_register_sys_off_handler() helper.
 
-Rockchip DTs are often messed up in this respect, but i've not seen
-any indication the MAC really does have delay which cannot be
-disabled. So this seems double wrong.
+> diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
+> index 363ac80c0593b..0cecb53b62078 100644
+> --- a/drivers/mfd/max8907.c
+> +++ b/drivers/mfd/max8907.c
+[ ... ]
+> @@ -173,19 +174,18 @@ static const struct regmap_irq_chip max8907_rtc_irq=
+_chip =3D {
+>  	.num_irqs =3D ARRAY_SIZE(max8907_rtc_irqs),
+>  };
+> =20
+> -static struct max8907 *max8907_pm_off;
+> -static void max8907_power_off(void)
+> +static int max8907_power_off(struct sys_off_data *data)
+>  {
+> -	regmap_update_bits(max8907_pm_off->regmap_gen, MAX8907_REG_RESET_CNFG,
+> -			MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
+> +	struct max8907 *max8907 =3D data->cb_data;
+> +
+> +	return regmap_update_bits(max8907->regmap_gen, MAX8907_REG_RESET_CNFG,
+> +				  MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
+>  }
 
-    Andrew
+[Severity: Medium]
+Does this inadvertently halt the sys-off notifier chain if the regmap opera=
+tion
+fails?
+
+If regmap_update_bits() in max8907_power_off() encounters an error, such as=
+ an
+I2C transaction failure, it returns a negative error code like -EIO. Because
+notifier chains evaluate return values using the NOTIFY_STOP_MASK (0x8000) =
+bit,
+a negative integer will have this bit set. This would immediately abort the
+sys-off notifier call chain instead of propagating a proper NOTIFY_* consta=
+nt.
+
+When this fails, it might prevent lower-priority fallback power-off methods,
+like ACPI, PSCI, or EFI shutdown, from being attempted, potentially hanging
+the system instead of safely powering off.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927155745.1877=
+58-1-clamor95@gmail.com?part=3D3
