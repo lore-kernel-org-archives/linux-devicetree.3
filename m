@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6D33B7B7B
-	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 14:04:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48FB3F4122;
+	Sun, 27 Sep 2026 14:07:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790517848; cv=none; b=TyHiuhnJsU23JFafT/pVQ+i+dt3KBU4G76Kn6ok/lkJrKHvTjJYwnzT8j6OneOjDNds1WsQ60ul4XE+B8DPAKvSw02n2v4q5VC/LLJ9Q7X3kwKL56kYeUG+qXKfgBNk4BI7T/sXaCMfGe5Zz7hdnrzRo6XTDjlSxQPqSnsatUK0=
+	t=1790518070; cv=none; b=oxnTvrYDerJ6uPUB1tZSGPjvj27o+RVXllIadVh5rVBOVK5tTqQYyol16+PZ9f5m6ill1HtjQCBEN1FsW9x4ogbD2o67xB6rTsJmxgFvGCIwnqslC4Lmxahx+345GlOgu9C2OlK0Wayrvpo1YrYGr8QrOtvPj/Cn+Y9T7SQVHc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790517848; c=relaxed/simple;
-	bh=W/lGGGdJTtSZ2FLPO+7g4xVK6aWn+QeP64wquj6HK24=;
+	s=arc-20240116; t=1790518070; c=relaxed/simple;
+	bh=V4hjIC04v/wO9QQfrPY7cDTcWImoE4uycGi8OkxJIGg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CE6eKHwtbdJwiVESKgaxvKmLgFtC8qbjd+LSaMP1ggqh2D2E+A5/79V44SDOph+RXfeRe5k3FaaM5k75lShsRIRWdq4jC8HZkKhRibfJ9/XbOuwEQ8HhnNknuVvI/2pbmjdOtDB27EH+7zbC/zzKNbJpBlF/kdPpB3WulEM/u74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RPD1aNB4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=mwMJ6L+oXNrBOr1vwa8FEgjstbi/Qfmm7uSiYzTtTLS++MvxGIL6H5fAeyOxY2cJbnhEwdpL9lo2qWpjPrB5xHRoEsmbT69jCeaO8VQLhdG66qzeZlIzFO+7sCiB8QNFodyTFydMrUNem7Anb2yglTTUJg18Z0qCfHzbD3fFt5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xta/uMRt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RPD1aNB4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C3381F000FF;
-	Sun, 27 Sep 2026 14:04:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xta/uMRt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6AB1F000FF;
+	Sun, 27 Sep 2026 14:07:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790517846;
-	bh=4BbJgMQ5RUgYdKStq7aQw7rGy6bDFesgjb5xUCS/X0k=;
+	s=k20260515; t=1790518069;
+	bh=+qBz5TtcVmSuhjrHGN4TXGhasroWKfwppifn+/vAC+Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RPD1aNB4/y+GHk3otetM+JXdtD6JoldeQ2IskNtK/mvMLYSqqv8msoNDCXV2ovsiC
-	 bSHEMe4tm1iVm4ENEAyZyhuj/T4QI4I1dj2PfyxxSHQzuQvwr1kIg/4iPsz1b0dZ73
-	 8Fs17tSFLsAWNnHiFUrEp3jO84rJZ8lj30na6ch2GJfNuh6IU/dU0YTT5FKKKkdGRa
-	 QMQAqMjp+N3Qk/mxw9RNGe718+83Plk81GRwchX7LKVtnmH5tIlnPYu3R29mf7j+c6
-	 mszi4ipAVOa5GCwTAddmPlC13cdce+MGApckMmH7TegCn5fjzuR6Nxff7dg+DTiqfE
-	 PIvaOhLWM+lIA==
+	b=Xta/uMRt531/hwfZvkhknGhyDUmbzMz4NaG1LeEjSF5X/fqh3MwHBAMeHYLyAqO9e
+	 PvOtp/IqWBfWAIen8okIb2irF8A5tsKEbBQgnqEjVaNZwwGKjfKl1Vt1iWXPX4d+5/
+	 cSU/bu9gRy+maArmBVJoF6s49scPoN/yIJSKBenWJD6u4ATFosDWH/TaIBs6W09iVH
+	 9twR/MWszPbAVWTyWaTnuthdzuSW2RDvTDS8VBWjhpju3+f+Nt61S4lZtYo0v08ej9
+	 esvJcU6gpVVyUPxqe6qpzTtfqmyh/pafdjwxHHsTA7Ys2v+tXz4PKamnQDJSYrk9FA
+	 AahHaV+U4/+JA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
+Subject: Re: [PATCH v7 2/2] clk: Add gpio-locked clock driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: BG9OXA <bg9oxa@163.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <179051709216.31632.15211548199122954003@163.com>
-References: <179051707448.31632.10412780322071844492@163.com>
- <179051709216.31632.15211548199122954003@163.com>
+To: "Vyacheslav Yurkov" <V.Yurkov.EXT@bruker.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20260927-feature-clock-guard-v7-2-8dd19568d9a2@bruker.com>
+References: <20260927-feature-clock-guard-v7-0-8dd19568d9a2@bruker.com>
+ <20260927-feature-clock-guard-v7-2-8dd19568d9a2@bruker.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 27 Sep 2026 14:04:05 +0000
-Message-Id: <20260927140406.5C3381F000FF@smtp.kernel.org>
+Date: Sun, 27 Sep 2026 14:07:48 +0000
+Message-Id: <20260927140749.1A6AB1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,109 +46,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] dt: missing enable-active-high property in vbus5v0_typec forces in=
-correct active-low polarity
-- [Medium] dt: encoding Linux driver preference into compatible string inst=
-ead of describing hardware
+- [High] clk: gpio-locked-clock prepare callback inverts CCF error logic
+- [Medium] clk: gpio-locked-clock ignores DT parent count and hardcodes 1
 --
 
-commit fc725bef630578d1f6fd74bd033f6824e7bb9013
-Author: BG9OXA <bg9oxa@163.com>
+commit e6f2116296103d738da7176d4979ce3c21f6786f
+Author: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
+clk: Add gpio-locked clock driver
 
-Add a device tree for the ALIENTEK QuarkPi-CA2, an RK3588S based
-single board computer.
+This commit adds a gpio-locked clock driver, exposing a clock whose status
+is determined by a GPIO signal. Consumers can use the output clock to wait
+until the input clock is locked before initializing dependent peripherals.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/=
-arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-> new file mode 100644
-> index 0000000000000..f6bfce3680bf2
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-
+> diff --git a/drivers/clk/clk-gpio.c b/drivers/clk/clk-gpio.c
+> index 9099c57e27156..a264ba21baf26 100644
+> --- a/drivers/clk/clk-gpio.c
+> +++ b/drivers/clk/clk-gpio.c
 [ ... ]
-
-> +	/*
-> +	 * Type-C port VBUS 5V -- the vendor dtb has gpio =3D <&gpio1 0x1d 0>,
-> +	 * i.e. gpio1 PD5 (enable-active-high; ACTIVE_HIGH is equivalent).
-> +	 * Note: PC5 is i2s0_lrck (the audio LRCLK), so driving the regulator
-> +	 *    from it takes the audio pin over and leaves the real PD5
-> +	 *    undriven, which means VBUS is never switched on (self-powered
-> +	 *    devices still work, so such a mistake is easy to miss).
-> +	 */
-> +	vbus5v0_typec: vbus5v0-typec {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "vbus5v0_typec";
-> +		regulator-min-microvolt =3D <5000000>;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		gpios =3D <&gpio1 RK_PD5 GPIO_ACTIVE_HIGH>;
+> @@ -138,6 +138,19 @@ static const struct clk_ops clk_gpio_mux_ops =3D {
+>  	.determine_rate =3D __clk_mux_determine_rate,
+>  };
+> =20
+> +/* We can't prepare the clock, but the Common Clock Framework calls only
+> + * prepare() not is_prepared(), therefore we fallback on the actuall GPI=
+O value.
+> + */
+> +static int clk_gpio_locked_prepare(struct clk_hw *hw)
+> +{
+> +	return clk_sleeping_gpio_gate_is_prepared(hw);
+> +}
 
 [Severity: High]
-Does this node need the enable-active-high property?
+Does this return value interact correctly with the Common Clock Framework?
 
-Because vbus5v0-typec is a regulator-fixed node, omitting enable-active-high
-causes the kernel's of_gpio_quirk_polarity() in drivers/gpio/gpiolib-of.c to
-ignore the GPIO_ACTIVE_HIGH flag.=20
+The function clk_sleeping_gpio_gate_is_prepared() returns the raw boolean
+GPIO status (1 if locked, 0 if unlocked), but the prepare callback typically
+expects 0 for success and a negative integer for failure.
 
-When the Type-C or USB host controller enables the regulator at runtime,
-gpiolib will force the pin to a logical active-low polarity, driving the pin
-to physical 0 (low) instead of high. This will prevent the Type-C VBUS power
-from turning on, preventing connected peripherals from receiving power.
-
-> +		vin-supply =3D <&vcc5v0_sys>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&typec5v_pwren>;
-> +	};
-> +};
-> +
-> +/*
-> + * =3D=3D=3D=3D=3D ES8388 audio (ported from the vendor BSP) =3D=3D=3D=
-=3D=3D
-> + *
+Because the framework interprets any non-zero value as an error, a locked
+clock returning 1 might cause clock preparation to fail when it should
+succeed. Conversely, an unlocked clock returning 0 might be treated as a
+success, causing downstream consumers to proceed while the PLL is still
+unlocked.
 
 [ ... ]
-
-> +&i2c1 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&i2c1m4_xfer>;
-> +	status =3D "okay";
-> +
-> +	es8388: audio-codec@11 {
-> +		/* everest,es8323 must be listed first.
-> +		 *   Reasons (driver source plus the module present on the board):
-> +		 *   - Mainline es8328.c is the simplified driver (888 lines),
-> +		 *     es8323.c is the complete one (791 lines, with set_dai_fmt /
-> +		 *     set_dai_sysclk / pcm_hw_params and the coeff_div table).
-> +		 *   - compatible lists are matched in order: with
-> +		 *     'everest,es8388' first, es8328 claims the device, so es8323
-> +		 *     has to come first for the complete driver to bind.
-> +		 *   - The driver is built as a module (module alias
-> +		 *     of:N*T*Ceverest,es8323), so it binds once the node exists.
-> +		 *   - The upstream board with the same codec,
-> +		 *     rk3588-youyeetoo-yy3588.dts, also lists only
-> +		 *     es8323.
-> +		 *   - The vendor 6.1 BSP dtb uses the same pair,
-> +		 *     "everest,es8388","everest,es8323".
-> +		 */
-> +		compatible =3D "everest,es8323", "everest,es8388";
+> @@ -192,6 +210,12 @@ static struct clk_hw *clk_hw_register_gpio_mux(struc=
+t device *dev,
+>  	return clk_register_gpio(dev, 2, gpiod, &clk_gpio_mux_ops);
+>  }
+> =20
+> +static struct clk_hw *clk_hw_register_gpio_locked(struct device *dev,
+> +						  struct gpio_desc *gpiod)
+> +{
+> +	return clk_register_gpio(dev, 1, gpiod, &clk_gpio_locked_ops);
+> +}
 
 [Severity: Medium]
-Is it appropriate to list everest,es8323 ahead of everest,es8388 for an ES8=
-388
-codec merely to trick Linux into binding the more fully-featured es8323 dri=
-ver?
+Is it intentional to hardcode 1 parent here instead of using the parsed
+num_parents from the device tree?
 
-This violates device tree architectural principles by describing a software
-preference rather than the actual hardware. Should the compatible string pu=
-rely
-describe the hardware, while any driver workarounds are handled in the kern=
-el?
+If the clock is defined in the device tree without a parent (acting as a
+root clock), passing 1 causes the framework to expect a parent at index 0.
+This could cause parent resolution to fail, leaving the clock permanently
+orphaned with a 0 Hz rate, which breaks downstream consumers relying on
+rate propagation.
 
-> +		reg =3D <0x11>;
-
-[ ... ]
+Could we pass the dynamically parsed num_parents from gpio_clk_driver_probe=
+()
+downward, or validate that it equals 1, similar to how the gpio-mux-clock
+explicitly validates its parent count?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179051708845.31632.=
-10915026963421643453@163.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927-feature-cl=
+ock-guard-v7-0-8dd19568d9a2@bruker.com?part=3D2
