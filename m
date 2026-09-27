@@ -1,141 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from vinatta.cz (vinatta.cz [37.205.8.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610C441BA7A;
-	Sun, 27 Sep 2026 17:24:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51E475809;
+	Sun, 27 Sep 2026 17:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.205.8.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790529899; cv=none; b=pbNkdlhEzC3qNOvzrQyuqxzYxp37LvVwpDwfLTACi6W/FKehnrjnbVLkCBgCTxgPXMqxKUUtbPmuI4Kc4Qcq9RMrzpf3MNAF1KQCOZa2DyupBBHD6GWwceaVmv9UJ7s2P/e7JMUBKKfIW+kIIgkvV7pO+Qw+Ls8uDwnTQgxtD3I=
+	t=1790530102; cv=none; b=BAEru8V5xMVtmoQDDFrnBs3h+bNLZM69iphJKVYWfwn7c1T7oRDncbshOKayMHRkjCJq2U4mGgng12zDM6f7CzWJ/lRQt9eipaKxn4tgIlLFX4gsLl+LM8/TmQq8gYqNcXPE0CoXlukEOwk+CyeBXjJj/cfKYA5ID+0/IBPe1zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790529899; c=relaxed/simple;
-	bh=OuN2ndxuCUThwOuzsE/xNgfIKnPGSkYUHA5pIz+BEiU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tAt+uTE1bQ7ONHNeu+ggRNnQQy4HxQXRpNVR+IzQoeLWWCKMvUx+b466fZpQKpb0Gq2e54qJoiBHVzHGNMdfeP+0notvnii+oIjEcaj7q/55Gk1ltZuezk83OPFTBIMsT1EatdUBf6DzGtCsqVIjaazPb0b8xBb/kzP38U4mNs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E62jj1dL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790530102; c=relaxed/simple;
+	bh=7wFClM8+pAQczxdhJUJqKMlAR1HmGxjlTK3IxTJCg2g=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:To:From:
+	 References:In-Reply-To; b=aTTw7RkJslg1SXZVN2787Vp/0xYWCqIhs08aFX7Q9Vs8IirM4/MgQqWCT1AR5Hjn5Uf0HJg45+4ZYQs2gDku99gy4K3l22oFBrbG1b4kkOJfZmXuaZ5DFACwZdAMR3a8PNBNO7etS8ywe/pUYkq3Tt5HdNE14EQk+mF2Gxy60jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz; spf=pass smtp.mailfrom=vinatta.cz; dkim=pass (2048-bit key) header.d=vinatta.cz header.i=@vinatta.cz header.b=o/oOCS/A; arc=none smtp.client-ip=37.205.8.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=matfyz.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinatta.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E62jj1dL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9313B1F000FF;
-	Sun, 27 Sep 2026 17:24:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790529897;
-	bh=oMs/Hq0Db/D1FWahvFRO/BSal8VTgymAtB6OnvGiC7g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=E62jj1dLOaM+q0+QaDU3jofUtuj3XKcdyn9KQ0lbxGXbN1ZIARbg1RGhIMFCJLuYM
-	 NVXFCbRp/vD/I31N65PHTdG0AIMhYFFMNCjs/IGlYiA9rOPixN+kK2+0+wU0JBQhv3
-	 y28n5j8sYxLmSnllLvOnMlxJoCaOFGrtwS8yYsi+EV0qRYJEhWuxxt8Mahb3xURe39
-	 TCrfN6+3Oh+mLb/JzQF534IeF1boNNK8b0Tg1BiQwKGWL9Ehs7j+6Np24xK15GbuyO
-	 qSsnsZwWna6O1tgHamaLfQu3SxsgyGiSfVE+80jYskOIPS0bGxgn2UyBeuRb0J6jZn
-	 fv9ugVvi48qwQ==
-Date: Sun, 27 Sep 2026 18:24:52 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: pressure: add Sensirion SDP31
-Message-ID: <20260927182452.5755fba7@jic23-hlaptop>
-In-Reply-To: <20260926154118.5471-2-m.abubakar365@yahoo.com>
-References: <20260926154118.5471-1-m.abubakar365@yahoo.com>
-	<20260926154118.5471-2-m.abubakar365@yahoo.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=vinatta.cz header.i=@vinatta.cz header.b="o/oOCS/A"
+DKIM-Signature: a=rsa-sha256; bh=7wFClM8+pAQczxdhJUJqKMlAR1HmGxjlTK3IxTJCg2g=;
+ c=relaxed/relaxed; d=vinatta.cz;
+ h=Subject:Subject:Sender:To:To:Cc:Cc:From:From:Date:Date:MIME-Version:MIME-Version:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Reply-To:In-Reply-To:In-Reply-To:Message-Id:Message-Id:References:References:Autocrypt:Openpgp;
+ i=@vinatta.cz; s=default; t=1790529144; v=1; x=1790961144;
+ b=o/oOCS/AFc0OjfWcZe5MxNwXS6fDKe/EMD55e5ERTrXjHgqe6OUKdYWia3HW/I7e0okeLwKn
+ ayhBroQ/58yk0do/jUapZ40tqgOdoU1OnLXZXNAVOiVYtGZ1w1KBxcoOiMhmt4XEbPV/O8J7BEF
+ 606PN+T8JycaxJ2BKdTJeD38bsTnT3pFAeRXkB6PbjRA7eUhQpyGhjOnk/t5ppT6E2Q6vYj+hAu
+ hopCkhFeh0InMztWieMVMG3RNKypEgxs497OW4zpHlwdTgk1Uegtn1TqZJl2fk0A+JGaRbSECKn
+ xB8Y6wPms7petV9XW6NabhiQLirznwv9VJOB8nmitke0g==
+Received: by vinatta.cz (envelope-sender <karel@vinatta.cz>) with ESMTPS id
+ 713fe9e7; Sun, 27 Sep 2026 19:12:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 27 Sep 2026 19:12:24 +0200
+Message-Id: <DLQ9LXDE2P29.248MPYCJMT0DL@matfyz.cz>
+Cc: "Francesco Dolcini" <francesco@dolcini.it>, "Johannes Berg"
+ <johannes@sipsolutions.net>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ =?utf-8?q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>, "Andrew Lunn"
+ <andrew@lunn.ch>, "Gregory Clement" <gregory.clement@bootlin.com>,
+ "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>, "Ulf Hansson"
+ <ulf.hansson@linaro.org>, "Frank Li" <Frank.Li@nxp.com>,
+ <linux-wireless@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-mmc@vger.kernel.org>, <~postmarketos/upstreaming@lists.sr.ht>,
+ <phone-devel@vger.kernel.org>, "Jeff Chen" <jeff.chen_1@nxp.com>, "Peng
+ Fan" <peng.fan@nxp.com>, <david@ixit.cz>, "Johannes Berg"
+ <johannes.berg@intel.com>
+Subject: Re: [DONOTAPPLY RFC PATCH v2 0/4] WiFi support for
+ samsung,coreprimevelte
+To: "Brian Norris" <briannorris@chromium.org>
+From: "Karel Balej" <balejk@matfyz.cz>
+References: <20251026182602.26464-1-balejk@matfyz.cz>
+ <DEJL1ATTQMVE.120JV9YW59I27@matfyz.cz>
+ <aSnWYS2g5slVFaSk@gaggiata.pivistrello.it>
+ <DI5L100Q1RKO.1A68EJIPWYSRC@matfyz.cz> <afI8y70U7wFT_07h@google.com>
+In-Reply-To: <afI8y70U7wFT_07h@google.com>
 
-On Sat, 26 Sep 2026 20:41:17 +0500
-Muhammad Abu Bakar <m.abubakar365@yahoo.com> wrote:
+Brian,
 
-> Add device tree bindings for the Sensirion SDP31 differential pressure
-> sensor, an I2C device that also reports temperature.
-> 
-> Signed-off-by: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-I think you have been missing some replies for some reason.
+Brian Norris, 2026-04-29T10:15:55-07:00:
+>> Brian, what are the options here now? Would it be possible to make an
+>> exception and accept the patches without the firmware being in
+>> linux-firmware? This is an old device with no mainstream audience so I
+>> expect everyone who will want to use it will be able to supply the
+>> firmware themselves
+[...]
+> I suppose I'll leave it up to Johannes on this part, and may be willing
+> to retract my NAK [1].
 
-See https://lore.kernel.org/all/20260920014032.2cc3c851@jic23-hlaptop/
-Also the reply Krzysztof sent to point out you hadn't addressed all
-the feedback on v1.
+I have not been able to get a response from Johannes for these last five
+months, despite pinging twice =E2=80=93 is there any chance you might be ab=
+le to
+help with that in any way, please?
 
-If you disagree with any suggestions then reply to that email.
-
-Reviewers tend to stop reviewing very quickly if they see that stuff
-they raised in previous versions hasn't been addressed yet.
-
-Jonathan
-
-
-> ---
->  .../iio/pressure/sensirion,sdp31.yaml         | 41 +++++++++++++++++++
->  MAINTAINERS                                   |  5 +++
->  2 files changed, 46 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml b/Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
-> new file mode 100644
-> index 000000000..a98e7c97e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
-> @@ -0,0 +1,41 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/pressure/sensirion,sdp31.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Sensirion SDP31 differential pressure sensor
-> +
-> +maintainers:
-> +  - Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-> +
-> +description: |
-> +  Differential pressure sensor from Sensirion with an I2C interface.
-> +
-> +properties:
-> +  compatible:
-> +    const: sensirion,sdp31
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +      pressure@21 {
-> +        compatible = "sensirion,sdp31";
-> +        reg = <0x21>;
-> +        vdd-supply = <&vdd_3v3>;
-> +      };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 214aeee76..e285147be 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -24855,6 +24855,11 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/chemical/sensirion,scd4x.yaml
->  F:	drivers/iio/chemical/scd4x.c
->  
-> +SENSIRION SDP31 DIFFERENTIAL PRESSURE SENSOR DRIVER
-> +M:	Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/pressure/sensirion,sdp31.yaml
-> +
->  SENSIRION SDP500 DIFFERENTIAL PRESSURE SENSOR DRIVER
->  M:	Petar Stoykov <petar.stoykov@prodrive-technologies.com>
->  S:	Maintained
-
+Kind regards,
+Karel
