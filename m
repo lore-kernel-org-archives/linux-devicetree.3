@@ -1,175 +1,113 @@
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728B021A42D;
-	Sun, 27 Sep 2026 14:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F203F25EF87
+	for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 14:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790519670; cv=none; b=eeA9mrmnVqtfAOzll5CrhDBrgRW29hKlYak7rUKYO2rM8YlXoYfzaaSP9cwxeGXYkY06bKCsXSkKT5l5fQ9DSTP7FjWWG5QEJgdOr6eVDv8SmG0eCwLVizVRxTjoHilFE1uf+O1CJ1BIoCYe997UzixYkn6AI/ar80EN9b0q41g=
+	t=1790519856; cv=none; b=qAhNRxeUpxyMzebRuCKmhT78afdGNrE+4pWW8mb2XwyCSI77y3nk/B66lG78gGXL3ELB0yPG8n2CJK0/wLQafbxOu+1Ajfu13tfQp3/zAQiKNR5gR2L4CrkHXa7/Zy4hlt90wh2h/BzgPqNldu9mQCllimwjh5zHvNFAyneH+bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790519670; c=relaxed/simple;
-	bh=ztJhP76JayIyO0vestWNJjdUJp+q5q9ZNKkeqnfojU0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=sa2fSokMmm+RYg9SFicWxXGhMzY6YlahZO2+gTwHWyfOJjHG1Il6a6Ob+GGHvfgkIhAt4WcQ/shkxsZTD7/M3i8IKE95Tiog0wij6yD4dKhPEIpDvNh48tYDxiNd7aTnfd8qOGoCXjEXmLYms7braL+jBEplv48w/I4CodXojgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=TRXtbZOB; arc=none smtp.client-ip=65.21.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
+	s=arc-20240116; t=1790519856; c=relaxed/simple;
+	bh=z8LOprlmKwKPrNbYdoELR7h57aziL42iTjc3pjmJRS4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PVHcA2VS3WqMS0zZf+RevjmWr4gUsD+l/x5pTy2zq/APDNgriE5v273B52AsftkDp7TSO56RtMBFKlF8ptg4EgupHs5CfsGm8tfImHKWdFknRiQIBq0loRsExsm59jbmZ9iDT6/fieEeNTE3+PhxcRjEjQMGwAVFKNAenrVkEVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cKFqGW/5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="TRXtbZOB"
-Message-ID: <80268113-e85f-410d-880d-84598d3b39ca@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
-	s=courrier-s1; t=1790519659;
-	bh=ztJhP76JayIyO0vestWNJjdUJp+q5q9ZNKkeqnfojU0=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=TRXtbZOBVpquhw7aODGwXsianL++tf49/r+mxiGRB52OrT7mzX3oCYHo3lGvJc0yE
-	 CACasfZmg9DjFEWdXlSk7o3LoQpM3oeILuMZwzyLCo368JV2ulEp8NFXwpmPG61WYQ
-	 n0mdxnWO8uJLB+//9dIdHpSfMjZVq8N1ISvz1FgE=
-Date: Sun, 27 Sep 2026 16:33:02 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cKFqGW/5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8151F000FF;
+	Sun, 27 Sep 2026 14:37:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790519854;
+	bh=JQA++aknkdABr92fqXrlam/PrSQpXROJMqNL5y/HHJo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cKFqGW/5ajBYNAhBPWc7MMuKZgEZVs1BokpbSlMW0PAq5EyEXVQSSNyIf6GI3152T
+	 NOzdVPAIOR9yb6Af0WqBaNrfOfXUQUTMMMOTAWOGvR1paph8X5gtBpLAdNrFec65BQ
+	 NVDZ+AsoibSVCstcejqYWbGabPCccAem5bGCvb04XVyo9N3UMIPyfhPHFei8TsTC5g
+	 G8KqzPgjIUfftIyhOeyWkJ6aKlF54bh2g4Bebi5g0KcR9mHg5MiQIdOFafIpFRVscj
+	 mIMZ5xv23ilJoweCfbSom93ziHioAoHPZaQFC8AnINoz3hXNKyKwfWjmzpXrwabG2/
+	 3IzKCr8MAA0OA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: pwm: amlogic: Add core clock for S4
+ like
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
+Cc: neil.armstrong@linaro.org, conor+dt@kernel.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260927-add-t7-sys-pwm-clk-v3-1-18d66abea4d1@aliel.fr>
+References: <20260927-add-t7-sys-pwm-clk-v3-0-18d66abea4d1@aliel.fr>
+ <20260927-add-t7-sys-pwm-clk-v3-1-18d66abea4d1@aliel.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 27 Sep 2026 14:37:33 +0000
+Message-Id: <20260927143733.DA8151F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-From: linux-kernel-dev@aliel.fr
-Subject: Re: [PATCH v2 1/3] dt-bindings: pwm: amlogic: Add core clock for T7
-To: Conor Dooley <conor@kernel.org>
-Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org
-References: <20260925-add-t7-sys-pwm-clk-v2-0-f23a22b71a5c@aliel.fr>
- <20260925-add-t7-sys-pwm-clk-v2-1-f23a22b71a5c@aliel.fr>
- <20260925-facial-follow-032de22361c1@spud>
- <8e23838a-da5e-499c-a8be-3e2a7a0939e7@aliel.fr>
- <20260926-landless-prowess-df404db4d910@spud>
-Content-Language: en-US
-In-Reply-To: <20260926-landless-prowess-df404db4d910@spud>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 9/26/26 8:06 PM, Conor Dooley wrote:
-> On Sat, Sep 26, 2026 at 11:43:20AM +0200, linux-kernel-dev@aliel.fr wrote:
->> On 9/25/26 6:41 PM, Conor Dooley wrote:
->>> On Fri, Sep 25, 2026 at 05:13:28PM +0200, Ronald Claveau via B4 Relay wrote:
->>>> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
->>>>
->>>> The T7, A1, C3, and S4 PWM controllers have a system clock in
->>>> addition to the two input clocks of channels A and B.
->>>>
->>>> The channel clocks are acquired by index in the pwm driver,
->>>> where the core clock is fetched by name, with optional get
->>>> which is silent when not provided.
->>>>
->>>> Require clock-names and minimum 3 items for T7, where the
->>>> PWM devices do not work without all 3 clocks.
->>>>
->>>> Add an example showing T7 usage with its fallback to
->>>> amlogic,meson-s4-pwm.
->>>>
->>>> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
->>>> ---
->>>>  .../devicetree/bindings/pwm/pwm-amlogic.yaml       | 33 ++++++++++++++++++++--
->>>>  1 file changed, 31 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->>>> index c337d85da40f1..59320f288552b 100644
->>>> --- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->>>> +++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
->>>> @@ -62,7 +62,7 @@ properties:
->>>>  
->>>>    clock-names:
->>>>      minItems: 1
->>>> -    maxItems: 2
->>>> +    maxItems: 3
->>>>  
->>>>    power-domains:
->>>>      maxItems: 1
->>>> @@ -140,13 +140,34 @@ allOf:
->>>>      then:
->>>>        properties:
->>>>          clocks:
->>>> +          minItems: 2
->>>>            items:
->>>>              - description: input clock of PWM channel A
->>>>              - description: input clock of PWM channel B
->>>> -        clock-names: false
->>>> +            - description: gate clock for the PWM controller
->>>> +        clock-names:
->>>> +          minItems: 2
->>>> +          items:
->>>> +            - const: channel-a
->>>> +            - const: channel-b
->>>> +            - const: core
->>>>        required:
->>>>          - clocks
->>>>  
->>>> +  - if:
->>>> +      properties:
->>>> +        compatible:
->>>> +          contains:
->>>> +            const: amlogic,t7-pwm
->>>
->>> Shouldn't this (based on your reply on the previous version) be s4?
->>>
->>
->> The change above is for S4 and SOCs which fallback to S4. It allows the
->> third clock but let the schema validation compatible with two clocks
->> existing DTS. Here for the T7, I add requirement for the exact 3 clocks.
->>
->> Do you recommend to require the 3 clocks for all S4 and S4 fallback, and
->> update the associated dtsi files ?
-> 
-> Yes, I think so. Sounds to me like they only work because of the
-> CLK_IGNORE_UNUSED set in their clock controller drivers, so the correct
-> thing to do is make them all require the third clock.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: pwm-amlogic: missing minItems allows validation byp=
+ass
+--
 
-Great, Thank you for your feedback, I sent a V3 matching this.
+commit 359e122eac15df570817ba590b91f8958522a038
+Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
->>
->>>> +    then:
->>>> +      properties:
->>>> +        clocks:
->>>> +          minItems: 3
->>>> +        clock-names:
->>>> +          minItems: 3
->>>> +      required:
->>>> +        - clock-names
->>>> +
->>>>    - if:
->>>>        properties:
->>>>          compatible:
->>>> @@ -182,3 +203,11 @@ examples:
->>>>        clocks = <&pwm_src_a>, <&pwm_src_b>;
->>>>        #pwm-cells = <3>;
->>>>      };
->>>> +  - |
->>>> +    pwm@60000 {
->>>> +      compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
->>>> +      reg = <0x60000 0x24>;
->>>> +      clocks = <&channel_a>, <&channel_b>, <&core>;
->>>> +      clock-names = "channel-a", "channel-b", "core";
->>>> +      #pwm-cells = <3>;
->>>> +    };
->>>>
->>>> -- 
->>>> 2.49.0
->>>>
->>>>
->>
->>
->> -- 
->> Best regards,
->> Ronald
+dt-bindings: pwm: amlogic: Add core clock for S4 like
+   =20
+This commit adds a third system core clock to the Amlogic PWM controller=20
+bindings for S4 and related devices. It updates the conditionals for the=20
+S4 compatible string to require three clocks instead of two, and updates=20
+the examples to match.
 
+> diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/Doc=
+umentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+> index c337d85da40f1..e9cd5f1fdf264 100644
+> --- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+> +++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
 
--- 
-Best regards,
-Ronald
+[ ... ]
+
+> @@ -143,9 +143,15 @@ allOf:
+>            items:
+>              - description: input clock of PWM channel A
+>              - description: input clock of PWM channel B
+> -        clock-names: false
+> +            - description: gate clock for the PWM controller
+
+[Severity: Medium]
+Will dt-schema successfully enforce the minimum 3 items requirement intende=
+d=20
+by the commit message?
+
+Because the global `clocks` property definition has `minItems: 1` and JSON=
+=20
+Schema's `items` keyword only validates elements that are actually present,=
+ a=20
+device tree node with `compatible =3D "amlogic,meson-s4-pwm"` and only 1 or=
+ 2=20
+clocks will silently pass validation.
+
+Does this block need an explicit `minItems: 3`?
+
+> +        clock-names:
+> +          items:
+> +            - const: channel-a
+> +            - const: channel-b
+> +            - const: core
+
+[Severity: Medium]
+Does this also require `minItems: 3`?
+
+Supplying just "channel-a" and "channel-b" will still validate successfully=
+=20
+without a `minItems` constraint here.
+
+>        required:
+>          - clocks
+> +        - clock-names
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927-add-t7-sys=
+-pwm-clk-v3-0-18d66abea4d1@aliel.fr?part=3D1
