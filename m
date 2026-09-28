@@ -1,124 +1,122 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from sonic.asd.mail.yahoo.com (sonic-asso1-0020.asd.mail.yahoo.com [34.2.90.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B064F55C3
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 20:43:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9435D394E8A
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 20:45:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.90.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790628221; cv=none; b=nwwjjD1V00Yey4o5x9SQfdzzaRXaoGOiLVwSR+L2b1ciLsNhMcmzdHK6ouEOEOhO8BLuLjF9DqU6nwjiPAQP/Hcex+QebKm+gihIXA/Qg2yBQglLPFWbqa61Tq5UIXm3ynR7Vy2h2hilhoLH55vM+JLv7ybGXMM+bt4+HoM2B74=
+	t=1790628325; cv=none; b=mOQARAwpKsCpIT4UCws2/g7nfszWMkuYojdj4E5RF2T90sEm/KD94tLRLO0FnQ9AwDxJdPLtGi6i+GeKJGkiJTcgGrRMfBe49Z4HHACABglXpqOMEvNm7o9RaqvyqL1Rklm6sXpNBdikGNGiKB4scK0xeJpl/fCj+ZCFHmCEnKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790628221; c=relaxed/simple;
-	bh=1/Ac+f59UPuPR6jfHVkRyH2qaLha3pr4D2cjE98bNKI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JQCq1MPwInVfhpRyzu+9s8r4v55SaX5s6AOZlK7bGsAi9dcbzjUSCyDtYM/2ganIejsta9TH1JCvcB/FxL5sMdXWUfeXC/fvvCEkxOhVSRV/2Gb4BJfODj75ZXsxROBmA1cHWDSkxysW7RCIr6s6Y5wH0QTiXlbitiMgLEqSFek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=nTRwgK1i; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790628325; c=relaxed/simple;
+	bh=VdS24L84h0fXSD3hXzf1l02B2vR+0zfJ0VOsd/ItHJg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O9wuUDoT+sQNzHaX6XrlzRa05zka3f7OutD8pyrpkf2IdRxcrDM3SUyX/KdD5BRqqW720LnGOecCe7/c5hFsgV16t0jzpLr7TtRBR3eSkIF/UnzY8nWUyKVADDdJD1P5udSEeVwLszaIf3xJJDXtRKY/uWe2aY/VLo6i4rHAu9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=RWnA4Iq2; arc=none smtp.client-ip=34.2.90.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="nTRwgK1i"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso18433695e9.3
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:43:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790628218; x=1791233018; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iorVWdLlkotZMnSUwkOUwyxeHbcaMqA89GUu9SWioCM=;
-        b=nTRwgK1iZGvYoBBX5jcAlW5FGsMFMKfe9D2dj0ue1zhh0gtng3VOLvZmCoT4zEIC1v
-         srgXVwFYE+CpCadqxsyAbS48ltJexA8yFKLIYjo1yZRbIMk7+DxnJwNFQM1qN/2HWYgy
-         hC54Jy9ORZGIohaaehxaI1JQHJcHJPXXf5+WYN3KRYevDVMkyUoBlSNeUzP61O/2ytHz
-         KBxHXYX29xdexsy9W11lFHvKom2B4jgpsmRNZZQUy+zl/2pUbI4hO5JYb8fqiaOYzzfA
-         RCuMAcdAaKDFcj9lTPjAXt7GfcrLinJ9P47M1K5zRpqwrnnlEqYjttaXJHXSMQxvQ2gc
-         rFhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790628218; x=1791233018;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iorVWdLlkotZMnSUwkOUwyxeHbcaMqA89GUu9SWioCM=;
-        b=rXcWHF1qypketoAQHUt/JvyPmHU5H1ZqaQvFC/isIPUyiHBnpfmwlCjdqwTPdSrE0j
-         uy0yZIsyIpMuvN3uZXMDVzmd+uHRFIYwrxSrkjH9p3NJIWSr7NJxF3WV4PRFwcxA7vAO
-         1W8vBcEv02lqzktDCvUN9ZopmqDD3Bh1PwjN1SnQG9ya3Cghig7ddXr/aO5I5PDDcF8m
-         p2XhvO9Aa72YFVVlSYms8W3Cxnhf4dUD0mPt4DLyQRTy20IFbMZAYRKuYm1vXId/KY1g
-         DfZAR3cJnYi02RZt8b/DChfOee/F0hDhkWOhb6ODDBk7l3ETAVola8cigojk2lCz3Np3
-         sqeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwMmLADi6BiPpnh13Q3iAu6OIQEoqvh0zgmQyqRFAYHHNOoVwrHQQLkWGXfLSwV4yboVa2RYtYEoC0J@vger.kernel.org
-X-Gm-Message-State: AFuF++kgiGIvfX4sHvAl6pJVyfytXVJqLL342QQLPfftodSFf/NzYiEa
-	l2Qz6AVOhTgaCTbpUV7RhPudtT04ftZ2YpZhxd+sgKWCfV+4iKDDqXEGuR0jfvtq4Gs=
-X-Gm-Gg: AYBFou3N6GdUr5RMxCp+nf2qjH1pPoDGLHbBSeodP2WTCwHU0mqaoWCndHF+TODAKwy
-	sP/PkWI7u2KCpKpgwArT3RSHQ9u1aVSGlItIHC7QEqUhl95NBDiVHnFlXCxFqptrTB03bDU46HH
-	SgHj6bNd+rE99E+4CFWMF+3/RRgJs9O/IEVAzrxrGA8tACKog1nETxAm/ApyYzrUjwH9SKUe1ys
-	YpkySLNy6KOx/tEDyfx9ylreRw7J3aR+8A078fmq/ldZMHgIxbQ+BlqzOWJSVedj8i6Qu10d/mK
-	Nebdohtn2UbYlgmQItRv715LtsJkjGDbznfkh+RY2FDZCGUe8jR3XawYzetyigXK64LSWfvHsj9
-	Gbep9cT9y1LOuTwcVhrlACkYLivL9m78pOim4etrgeJ1VwA93ekuI51I/54uTzDt/k0+91RSAnE
-	AfcAUoHtvctPtaTl9DM/4y6lDd6ffPKiWWB/wPwPnIndFNL2b8yD21sG4FIcjQ3hBDz40ZKQ==
-X-Received: by 2002:a05:600c:4e0d:b0:49f:ff7c:c96a with SMTP id 5b1f17b1804b1-49fff7ccb16mr127831615e9.4.1790628218211;
-        Mon, 28 Sep 2026 13:43:38 -0700 (PDT)
-Received: from [192.168.3.100] ([151.42.82.6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf2d973sm23971435e9.0.2026.09.28.13.43.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 13:43:37 -0700 (PDT)
-Message-ID: <8cead6cf-6981-4d11-b9f1-a752ae6b82c2@baylibre.com>
-Date: Mon, 28 Sep 2026 22:43:37 +0200
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="RWnA4Iq2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790628320; bh=L1Fenbcpti08rA81B7mGiCyi+J5H6zLTX6X9mLxrPXU=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=RWnA4Iq2voKm4nSiWLkWDZ4CT/Mg/8DOTr7/YFG3FaneDKUxagjZx+NoTIqcveodM/K+sgaH5ALfCPvUPX8S9YqrDZzbw9etU1s7gfkY7HTebNeVRtCVKgIja1ikVbmzFe5pjvwQ+ub5+6DgEog8eEvpZ82riYCcZ+OFkHhLKhpZndzfVfJf7BVVihoGygGUAHH4RkmHoEY1aogetb9CtamJpFa/geqJY7ThnArwcY0drpnMb2iFwY5NMEJHyoYo3HniuTTx/wcd/iMh9E8KgCTf3n0tOzzHm9ov+E6KCJhqK6sv/Z7LXZhX5IXbKSpRxAJ8z+0TWQbUs26OIPKCDA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1790628320; bh=s7AGyREpIS7qkSTC6qnAthPWlYjpTBzxWwVCN2hn9R6=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=eKde/wxr559Ym9qXVYz8UEpSZ+ScBNw4kjJuRD268SbcF4APpVWccUv/8tYTnVr052iZisP7isxIoC72xsIQ8XLTEwAOR/L9CuEfPp3DISU76X8rfvQirzcjZIUWK4XOFkKHl+CTElXUIlpGTHC2tiVBqF0UEs8XNuQun8Ghf5pO7UMBXMfSpCf4Krs+3cwziUP3OXHodVVsgluMqBjJjwDExZyJPI7HDdjojEbDKJ61Ri6kGxZ/oA8/bPBPYvrYESON55vROhDMWzZHAEK1MLTSWIPiySTh6IAhZGU2JEvV/S9xV5NW7HYv304Jgd0vFoOnFoMZtSKmvtqxHOnPGQ==
+X-YMail-OSG: 1.lZqBQVM1mqnfPyvOvb7WtfdGFwiedQTez.ZNVCCqjyKJSmmUXF9ApcDXOgO5y
+ AIKRBENJxF2cjZQ7NrkwAuMss81NvaqeFmXSg3NdTLqxOTeOv6tIgcDIBumyHHOHyIj2klgGa7Du
+ TyzbR2mZ1px5iI7VJ_I4d11ogefI_n0jUr6vPYpJuSVJQkcpeuAwbl5bEBjxfS6Rt8fQ8Mq7tYVE
+ 0FblVI0sMiefdRLT7UppHdKJ0BJF2qa61oDX17dM9d5Vgep6rFE04MIGI4Dzz202ZHhdIkWRLb3Y
+ vXGLZWamhkRLFxEJ9pQ6bv6v00hSoN8ky8e1x80R4F8xfW2l_hSNrFS6dl1ZubjquH3Rzrv4gZA9
+ 1s.eJtzBZ4.b3BmOlnL0R2LubhLNmaM5Cvt_jIw61brBTTvPIVFC2RqzqQUk3VxlUm3AKsMtXdTW
+ hpgHEObXH_rrnVP0UWmPdHZVikhD2Zc.6zb6CihzqLwqfjCOnZyyaJYL5rufEUhl5.7q5QxeJLHt
+ 0heS0_5rt_S0PicFc8dz7u.jox1wHZSzEtjgOqr8mxSgjfuBjawkd_Jtmo1d5CfvD7BmrzWin_ua
+ bPSbG1YX5qwBwPw9IDSRP8kg70EPYr._FNAoXhzxkYvrRMgS9eaF_Xd1juc0nZfIDobt7jWg.EMr
+ dZjzs7q8J2lF9n72VPCt_diax2LrtvyvJ4OXqsy4Q29N2tH.S6G1nr.AqUQHJVENdYrSo_DdQriB
+ 6vwd5YyD548ySLDggeyFPHUYsdSNvM_oWw9JBfddoaNXqV_Tt.1OhH04LLT17CvmF2gB7Rml4hzK
+ 036x0JNFiZeKMb.4VL0iatrs3apRlVH56DCLPVhmjnMl7k5Cabasgddg9ZKQscyZj4SSzl7_TRdo
+ 4wnnnG_lnH9O9MzxYY0SPQZArmiN40cPsOvCyPAyJIbwSdAl6Vc81VpKxEhd0wlwAXYQKQ1kHi3L
+ NyluyFGLfgFm9_mVY0iYcVywoJShRQWWB_qmydupt2W1BK3UnKAttTewpzqejAtd7HUhGQEBcIqw
+ 30L5Ea0ENWWhuJwXXVg.S6DaGLafoMWv3OOXvkky2t4slOatv905zrpfyiGoIrFW0lt2Atp4xdwd
+ bm2LyIRyj6irfoB1KSFFv5kMQ5nyaBkrmrmyxcsxbMIRbmGCmS7tSaigRkUjyQ5LKJljoPvF6Plq
+ 9O1HCftGwoj.RWKqkMcJqkAC63U9XNvYv4UeBqONIUWDMcDSek6IXPcDi0XYYpgGAMKHMRpI.PNC
+ QNLi5RRN.6c7ZOHmxxpGgyZqmHvJnpwXjBUiOUHg.38kMG27hh_0vRkKtzJ81MtYU5Z83_8Jt3AU
+ _CxOGTpsx1N7vw_f_lEpsOVFKgqSF7mhEtaI..Si4HOv17Ei5KkE5i3UedJy2OzWVKFNMybfOQF9
+ IrmnWxlNbANu4suuvinHJN7bGB.dqsM6qwiX2815zHCCeCdR_GXIj3HlYCc8cf4JBOJa4dVlPnX5
+ 3mtUOhpCgoekNmiMYaTrqbULEMQMzHI4.LrkTO6xbi5oMjZtrks_4XbGaZSwMhl5NKiFwwAtDKHO
+ .6tej7p6iYA5Hb1S3tfzjUUU9wC.DDDxPSFWIcETPGhKI9BfCW0TLg2c_2cwnMIjWt01bqXh1ypa
+ 4uY1U8hem2kFYVJd07AFut_B3bgjvAWi7pcZjIddir_TAm3AOSQc8_dWTewVzTzjRyuh7Msl9ePB
+ AaalBTv1Nw7pcOmRfdqUqPStXIozYy8qFRmTSpCHb_xbum6ogeG8qgXGbrJMDNmWLsYbQWzKtvt2
+ TqdZUu4iCuoylnu74vnUQprZFHXbHM.fEGO5T1Eo_EF.YFTnUFFtxbR4r6_.IgVsoMfGispRi_hq
+ RQg247.OJN5TdCf5SoIn2yiidzc3tXvoN9fRgoTGOypbAeG6.2z9eOx8rUaSvzWw8_aVSjovkQLN
+ k4j2mar0ckwTekOmE7rzLkUGBxIHWBMxqnjxW8jhG01TzIZ3halgx65BSULBmVzmI.lJhXNJJGp2
+ b_JLjUxrKjGvgcZ9w1E_ty27ePF48v6CjFUc.a95HvLk4zw--
+X-Sonic-MF: <m.abubakar365@yahoo.com>
+X-Sonic-ID: dba5a225-4dfe-448b-b3f3-6bf58f7c24fc
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-asso1-prod-sonicconsumer-svc-101 with HTTP; Mon, 28 Sep 2026 20:45:20 +0000
+Received: from dip109.lsn.bf1.yahoo.com ([67.195.177.118])
+          by hello (SMTP) with SMTP ID 04ae0d1948292bb83393907dff075e5d;
+          Mon, 28 Sep 2026 20:45:18 +0000 (UTC)
+From: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	m.abubakar365@yahoo.com
+Subject: Re: [PATCH 1/2] dt-bindings: iio: pressure: add Sensirion SDP31
+Date: Tue, 29 Sep 2026 01:45:10 +0500
+Message-ID: <20260928204510.2415-1-m.abubakar365@yahoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260920014032.2cc3c851@jic23-hlaptop>
+References: <20260920014032.2cc3c851@jic23-hlaptop>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] ASoC: dt-bindings: amlogic,gx-audin: add schema
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260922-audin-v3-0-a760312c076c@baylibre.com>
- <20260922-audin-v3-1-a760312c076c@baylibre.com>
- <20260928-native-hornet-of-luxury-81edcc@quoll>
-Content-Language: en-US
-From: Valerio Setti <vsetti@baylibre.com>
-In-Reply-To: <20260928-native-hornet-of-luxury-81edcc@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+On Sun, 20 Sep 2026 01:40:32 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
+Hi Jonathan,
 
-On 9/28/26 11:54 AM, Krzysztof Kozlowski wrote:
-> On Tue, Sep 22, 2026 at 06:00:46PM +0200, Valerio Setti wrote:
->> AUDIN provides I2S audio input support to the Meson GX platforms
->> (GXBB/GXL).
->>
->> Note: GXBB and GXL are not known to differ so the driver binds on the
->> 'amlogic,gx-audin' fallback.
-> 
-> What the driver does is usually less relevant. Here, completely
-> irrelevant. Explain the compatibility between hardware.
-> 
-> OTOH, you cannot have family compatibles (clearly documented and
-> explained on every beginners talk), so what is the GX?
-> 
-> And I already asked for this:
-> https://lore.kernel.org/all/20260913-inventive-millipede-of-certainty-dd58ce@quoll/
+Apologies - your v1 review replies were going to my spam folder and I
+only saw them now. I have fixed that. I agree with all of the feedback
+and will address it in v4.
 
-GX is not an SoC. It's just the common part ('meson-gx.dtsi') between 
-GXBB and GXL, which are the real SoCs.
+> > +  compatible:
+> > +    const: sensirion,sdp31
+>
+> It looks like there several similar parts that only differ in
+> range.  Would be nice to support them all out of the box.  Fine
+> to just test on one in a family like this.
 
-I think the confusion on my end arose from following the AIU design, 
-which I now suspect not being up to date with newest design guides.
-I will rework the series using 'amlogic,gxbb-audin' as the fallback 
-compatible and only extend it with 'amlogic,gxl-audin' for GXL.
-Please apologize for the mistake.
+The SDP31/SDP32/SDP33 differ only in measurement range, and the driver
+already reads the scale factor from the sensor at runtime, so I will add
+compatibles for all three (tested on the SDP31).
 
--- 
-Valerio
+> > +  vdd-supply: true
+>
+> Where is the irq?  Even if a driver doesn't yet support all the
+> features, the dt binding should describe them if at all possible.
 
+I will add an optional interrupts property in v4.
+
+> > +required:
+> > +  - compatible
+> > +  - reg
+>
+> Sashiko correctly points out that devices tend to need vdd-supply to
+> work.  Hence it should be in the required.
+
+Agreed - vdd-supply has been in the required list since v2.
+
+I will also address your v3 driver comments (shorter I2C reads for the
+normal measurement, and reading the scale factor separately) in v4.
+
+Thanks for your patience, and for flagging the missed replies.
+
+Muhammad Abu Bakar
