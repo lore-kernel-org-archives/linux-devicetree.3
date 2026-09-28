@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E8E4D795C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D2E3603EE;
 	Mon, 28 Sep 2026 14:01:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604075; cv=none; b=jH5GwOUGgjreuyU2FvC8zykjGEV7CbVmawrBZiYjqzLAouvkY99XIl9nGQFgAhojZ19Y191CZ1C9SdM+s3V5tTzD9G03THcEoB/h018Clf3MY5VT1Lz+NQy+juoxKlPE5VgJ1i4Pbc2gt1mdxEzZmY7f7t6gMQz+WU97iuyNMrw=
+	t=1790604075; cv=none; b=fIcZSEbuNPHGmyh12N75C/kLBsjfUkAgUSl+XXF7QzTz/VX73uV7jEGrILHHVa8X+YVWQ1/f+jnZiXjYqw3I6s9xbUwkEPuP7GVvu1Hzo1R1iGf+fs+keF/EnVE03DssJIuCfVvV1ct2b8balQPELCsFtwNAt9S4EcSpR09ftmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790604075; c=relaxed/simple;
-	bh=lbw7XDXlDheuvl3VXgTjy60ChRepI7UqLKQnA4+YE5Y=;
+	bh=46+Rp5O2lg0V+JRNwYc5a2//EZbW9Cy4/tzxUOaVB5M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rNyAQ1y0fyeYZkrBFPZXPXXvf3Nc3Aru43S+npxAUmY53cBnWZ/VXCvfRGVJ3UYTTBNVz52RLQTwlsgdHEhncjOvfss+GImwgeyvPYaDR08CIJS9xObLxTw8SYhFHYU5s0ilkamxOcWsd+XQttbche9JmqBfBTi9hZd4MTk16mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Td+XxIbv; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=jplLxJ623KDbpczHlAHaHbxXx8wBmLU/BQkek0/lf1eLYJiR452/6OEFl/Jgl21FW8mmTsEcDnfAbK5yYymt1cIo6sXxo6i360hxgZ19p5mJtIwvdBMr0p4ZP+epU3kG7qpyCE0ioNtwNkPl+UY1daTUP4VyV1CtV58sudfIwWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RrFZ8E0h; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Td+XxIbv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6C055C4AF12;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RrFZ8E0h"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 95123C4AF13;
 	Mon, 28 Sep 2026 14:01:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790604075;
-	bh=lbw7XDXlDheuvl3VXgTjy60ChRepI7UqLKQnA4+YE5Y=;
+	bh=46+Rp5O2lg0V+JRNwYc5a2//EZbW9Cy4/tzxUOaVB5M=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Td+XxIbvrCniXuiL4evnvrVYuugNDdo+qkWBXEHUSitcQtjDE7Vn6wgrSkXneT50d
-	 X3o2/4cFUapX2RO3Bs2XgLRA3BTiMRKqitu1rlnD90itE5wtd5b5ej+fh2Zu1cMyb+
-	 7zLSK/PTABzvOve+B3Vf+a4jqly09SxudedKA7Qez7dBMPxRQDZCp1wNJLk2B1WNAH
-	 KTpjywUSx/tY8VOpMYvmD1qr9iGI0FpQRiaEH8yt0vGRJ1H7zDAWnA+Cmio439ORCE
-	 Xc3Zj2wxvoYH5Xlvu++Y6SHq4UCdao0snVr+cbTz8fD/kdX1EFiKU2mLlv5B5YJPlp
-	 3ny97U9/HhwwA==
+	b=RrFZ8E0huVdnYvr7CtYwMxqKkehDUIaH2GjEykpSGbWEkU+2+f/yT61KkystL2TZY
+	 INwNksK+mpfXXKonRWVdHj9XUB83ae/4ybw3pVcxrdsao7ovrLW6Y/XnJ1JXKVTSJp
+	 HFoqJeCEcq+li80QpIVOVo/oFCKWeHI+TRwv3fXwnwLUJVBxvkWH5xfc1NuRmBI4MZ
+	 r3GcZ1Avjp6ONKylDhk5G/RNkKFiuzvcXKup7NtmZaW5yqYtpRLlSq3FDHBTuhVBMU
+	 t7dqYdTxCktJDpOqkDNXP24CdWMqDAatdzFtuPcQ9La2lRNrndWECQUawA1EousakI
+	 3awdhbJMBRUMA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48D01CA5FA2;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 66EC3C9833F;
 	Mon, 28 Sep 2026 14:01:15 +0000 (UTC)
 From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Mon, 28 Sep 2026 16:01:03 +0200
-Subject: [PATCH 1/3] crypto: caam/qi2 - algorithm priority be a parameter
+Date: Mon, 28 Sep 2026 16:01:05 +0200
+Subject: [PATCH 3/3] crypto: caam/qi2 - priority from the DTS
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-for-upstream-caam-qi2-priority-v1-1-e4a8e5f01dbc@free.fr>
+Message-Id: <20260928-for-upstream-caam-qi2-priority-v1-3-e4a8e5f01dbc@free.fr>
 References: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
 In-Reply-To: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
 To: =?utf-8?q?Horia_Geant=C4=83?= <horia.geanta@nxp.com>, 
@@ -53,11 +53,11 @@ To: =?utf-8?q?Horia_Geant=C4=83?= <horia.geanta@nxp.com>,
 Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790604073; l=2919;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790604073; l=1782;
  i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=FoDedHHY6DKLXx6MwRuYNgLGVMx6qX1+U5vA+e03fhk=;
- b=yzcvSTiMigoIq1oKq70QRFIIrgwFLOTSdfY/dVXJysopYds6mUgsm96EyWu1P6gkd0rEiRBpx
- b2/vlf0DyEXCRNSI/o+8YvU9kMrlm7/MZVj8x9SEN5qmkanO8sqTSe9
+ bh=iq3+PxFNmYgXB61bU9JaS64+yNKmnFhKP0HR8tcxDG8=;
+ b=J9qxMrWMVHlBWp4AOfdZ7RQ4U0ivmsSMx8YCLJF2ihntA1MShcyS4XdkdjDVUGWF6AEUk/7ML
+ NRgRksUz4gcBgjMmJho67RJ8cmqDL6KAF4ZUgz+Z6/1/XKpkag+vVxd
 X-Developer-Key: i=vjardin@free.fr; a=ed25519;
  pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
 X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
@@ -67,80 +67,65 @@ Reply-To: vjardin@free.fr
 
 From: Vincent Jardin <vjardin@free.fr>
 
-dpaa2_caam registers every skcipher, aead and ahash at a fixed priority
-of 2000.
+Read fsl,qi2-crypto-priority from the SEC node when dpaa2_caam probes,
+so the board's DTS sets the priority its algorithms register with.
 
-It is above the ARMv8 Crypto Extensions (200 to 300), so on any DPAA2 SoC,
-every in-kernel user of AES, SHA or GCM moves from the CPU to the SEC,
-whatever the request size.
-
-Whether the SEC should be the default or only be reached by driver name
-depends on the system, and there is no way to choose/tune it.
-
-Add a priority parameter
-  dpaa2_caam.priority=
-on the command line
+The dpaa2_caam.priority parameter has precedence when it is set.
+When they are not set, we keep the default behaviour.
 
 Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
- drivers/crypto/caam/caamalg_qi2.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ drivers/crypto/caam/caamalg_qi2.c | 23 +++++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/crypto/caam/caamalg_qi2.c b/drivers/crypto/caam/caamalg_qi2.c
-index 6b47bcc16a50..dbb84a6996a2 100644
+index dbb84a6996a2..7d6a5e4ee86e 100644
 --- a/drivers/crypto/caam/caamalg_qi2.c
 +++ b/drivers/crypto/caam/caamalg_qi2.c
-@@ -28,6 +28,13 @@
+@@ -19,6 +19,7 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/fsl/mc.h>
+ #include <linux/kernel.h>
++#include <linux/of.h>
+ #include <linux/string.h>
+ #include <linux/string_choices.h>
+ #include <soc/fsl/dpaa2-io.h>
+@@ -35,6 +36,25 @@ MODULE_PARM_DESC(priority,
  
- #define CAAM_CRA_PRIORITY	2000
+ static int cra_priority = CAAM_CRA_PRIORITY;
  
-+static unsigned int priority;
-+module_param(priority, uint, 0444);
-+MODULE_PARM_DESC(priority,
-+		 "Crypto API priority of the algorithms (0: default, 2000)");
++static int dpaa2_caam_cra_priority(void)
++{
++	struct device_node *np;
++	u32 prio;
++	int err;
 +
-+static int cra_priority = CAAM_CRA_PRIORITY;
++	if (priority)
++		return priority;
++
++	np = of_find_compatible_node(NULL, NULL, "fsl,sec-v4.0");
++	if (!np)
++		return CAAM_CRA_PRIORITY;
++
++	err = of_property_read_u32(np, "fsl,qi2-crypto-priority", &prio);
++	of_node_put(np);
++
++	return err ? CAAM_CRA_PRIORITY : prio;
++}
 +
  /* max key is sum of AES_MAX_KEY_SIZE, max split key size */
  #define CAAM_MAX_KEY_SIZE	(AES_MAX_KEY_SIZE + CTR_RFC3686_NONCE_SIZE + \
  				 SHA512_DIGEST_SIZE * 2)
-@@ -3014,7 +3021,7 @@ static void caam_skcipher_alg_init(struct caam_skcipher_alg *t_alg)
- 	struct skcipher_alg *alg = &t_alg->skcipher;
- 
- 	alg->base.cra_module = THIS_MODULE;
--	alg->base.cra_priority = CAAM_CRA_PRIORITY;
-+	alg->base.cra_priority = cra_priority;
- 	alg->base.cra_ctxsize = sizeof(struct caam_ctx) + crypto_dma_padding();
- 	alg->base.cra_flags |= (CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY |
- 			      CRYPTO_ALG_KERN_DRIVER_ONLY);
-@@ -3028,7 +3035,7 @@ static void caam_aead_alg_init(struct caam_aead_alg *t_alg)
- 	struct aead_alg *alg = &t_alg->aead;
- 
- 	alg->base.cra_module = THIS_MODULE;
--	alg->base.cra_priority = CAAM_CRA_PRIORITY;
-+	alg->base.cra_priority = cra_priority;
- 	alg->base.cra_ctxsize = sizeof(struct caam_ctx) + crypto_dma_padding();
- 	alg->base.cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY |
- 			      CRYPTO_ALG_KERN_DRIVER_ONLY;
-@@ -4659,7 +4666,7 @@ static struct caam_hash_alg *caam_hash_alloc(struct device *dev,
- 	alg->cra_init = caam_hash_cra_init;
- 	alg->cra_exit = caam_hash_cra_exit;
- 	alg->cra_ctxsize = sizeof(struct caam_hash_ctx) + crypto_dma_padding();
--	alg->cra_priority = CAAM_CRA_PRIORITY;
-+	alg->cra_priority = cra_priority;
- 	alg->cra_blocksize = template->blocksize;
- 	alg->cra_alignmask = 0;
- 	alg->cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY;
-@@ -5208,6 +5215,9 @@ static int dpaa2_caam_probe(struct fsl_mc_device *dpseci_dev)
+@@ -5215,8 +5235,7 @@ static int dpaa2_caam_probe(struct fsl_mc_device *dpseci_dev)
  
  	caam_imx = false;
  
-+	if (priority)
-+		cra_priority = priority;
-+
+-	if (priority)
+-		cra_priority = priority;
++	cra_priority = dpaa2_caam_cra_priority();
+ 
  	dev = &dpseci_dev->dev;
  
- 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
 
 -- 
 2.43.0
