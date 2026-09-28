@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBCB23B6BE3;
-	Mon, 28 Sep 2026 21:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613472DF137;
+	Mon, 28 Sep 2026 21:20:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790630030; cv=none; b=eiaKJ5kD7hXhC/8s3iGw+U55Us5cL+ZST7e7eXUg59YBDJ3R6YUeMLK/Scg2EwfwZzrR8wdMDLxlHbxhfWp+KsNCO4IpBYlucCasWbHjrxaWySBUbQebMVVUwBhCARDADf/XWruZF3V6NVI6glVTTMQF/e5+GnknHAMin3rSyRA=
+	t=1790630450; cv=none; b=XkVBohsOzeFfgI7dRfyrFNz80MNJWoFD5JQKMK+XH7pjv7YXEvVnt3UigBGt4SvX673t4gs6kfjsMGLVsyb+ZKsNK1lNspn985BfbWoeoNW+H60YQgZw3fpQBnEhNdGn/H+g6yrOkdbXQCNnUjyBfK5ofSdeN9+h1mTH+R6zydY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790630030; c=relaxed/simple;
-	bh=O1hQFvP/KpIcPacnQUE6Xa3tLyG5zjug2dkqqp7FAk8=;
+	s=arc-20240116; t=1790630450; c=relaxed/simple;
+	bh=veWhafbKoPSWrVkGlp0BYlM5f32uFIODe7KaHQktFKU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AgZL5D8yHQhCxjZbE67SZ4vvdW8IHtJz5VM7h2ptQ4Q0A7WP+JJz+NTFI5nbZn71po2KhpOJvNkQ/iKKYTwHa9U3PJXG3dUyZDX5eQTxLBPE0riXH01mdybama28x/TROO1ubQoCVjqWdq2ibwJ4umn875PuKG2t4JsJHJvXMy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwTTu9Rl; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=KaA9jDtJN5N0g6ZxWovs+Jm9slQ5FWTl5UkNcJpANWqUb8ED2FGe6ESZw8qVx2Wavb2kf633mMustojiiXb32CwIt1mLoPnclKbXO0uSZp6KeX5LJfJXK8KH671xlJ0BGx1c8AYbBsjcBc02NFQaLYY8vtAdLIllux0iGm/2VOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EvQKz6+I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwTTu9Rl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0C41F00893;
-	Mon, 28 Sep 2026 21:13:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EvQKz6+I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD361F000FF;
+	Mon, 28 Sep 2026 21:20:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790630029;
-	bh=iAYi9GazaJvPghQlM3MwqUSbqSacae9oKx8hTh5ZMmQ=;
+	s=k20260515; t=1790630448;
+	bh=eYxD/haNIzLuR083lmQnWX3jttkXDH68DSQA7yCkl6Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KwTTu9Rl9SfSFqMUIO7f0hkKqs0MITNheUZM1iPqw58FlMIRsuYcXU5H9hSmFqn+X
-	 mwat0jd2m26Oqqt9GAAN1gn01kvSYE27c2GpYMAIwzoGQSKTYN4Ss/PrAVAN2B9m8a
-	 U6DnkCqildIJ84ckoyCcxP/jPLDqWS5hPhyw50k10B9ZT+3ayLajlN1nSOIe/wkbY/
-	 LOKJalAn6zvGy0Lr1me4MCTqJksFT1mtguDtGmQYVVT9eXmbKkNUsTSY/fTgKiEgOH
-	 tnfbzC6Qu2BNoWhiyE0Y7/WdbX4y3MLRpqCMDf4+pQkenHpuIU9mV/MNncqpZS+Voy
-	 Vw+13UI00dpsw==
-Date: Mon, 28 Sep 2026 16:13:46 -0500
+	b=EvQKz6+IYGoqYv2yvmSxjPvf+Yop3XZLXxS2RFSHDUpE+ya8k4qlSNAkfsRP+C7zo
+	 IGEFkBOqGXkhB48Ikg2ufieYzVAPmmP85u4cZxn/6d+mI8mD+H8/e5uYMUYEvUMyM5
+	 qKY+hyWTjgYlciNPqSZeROLkHS8R/V94Ndo8pnGkaGsElJFqadXzbf1eE8t3V898BV
+	 jqzKZaaeBKaHHB1r32os6mij6bV+DhsuQWFnorBFHX5N/BIzb4XlvHlZXsOQORy2UG
+	 jfnL16dpkL+f3HSNI1woa1AWiy+tN9EpXXShKusmXtUIYxBup73TmIIkCuSmhtMnQ0
+	 4Z+oWPIC1z1GA==
+Date: Mon, 28 Sep 2026 16:20:47 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
-Cc: andersson@kernel.org, bmasney+clk@redhat.com, conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org, sboyd@kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, prasad.kumpatla@oss.qualcomm.com,
-	jbrunet+clk@baylibre.com, srinivas.kandagatla@oss.qualcomm.com,
-	krzk+dt@kernel.org, abelvesa@kernel.org
-Subject: Re: [PATCH v9 1/2] dt-bindings: clock: qcom: Add LPASS VA CSR
- HeartBeat pulse clock
-Message-ID: <179063002588.652413.6187183335984083646.robh@kernel.org>
-References: <20260928-master-v9-0-2277f09f9a09@oss.qualcomm.com>
- <20260928-master-v9-1-2277f09f9a09@oss.qualcomm.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Richard Weinberger <richard@nod.at>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4] dt-bindings: mtd: convert IBM NDFC binding to YAML
+Message-ID: <179063044641.731990.2506893904840369119.robh@kernel.org>
+References: <20260926014802.87255-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,24 +46,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928-master-v9-1-2277f09f9a09@oss.qualcomm.com>
+In-Reply-To: <20260926014802.87255-1-rosenp@gmail.com>
 
 
-On Mon, 28 Sep 2026 21:27:38 +0530, Sarath Ganapathiraju wrote:
-> Add a binding for the Qualcomm LPASS VA CSR rate generator node that
-> exposes the lpass_heartbeat_pulse clock on Hawi.
+On Fri, 25 Sep 2026 18:48:02 -0700, Rosen Penev wrote:
+> The NDFC NAND flash controller was only described in a legacy text file,
+> so dtbs_check reported "failed to match any schema with compatible:
+> ['ibm,ndfc']" for the ndfc nodes of the bluestone, canyonlands, eiger,
+> glacier, sequoia and warp device trees.
 > 
-> The HeartBeat Pulse, also known as RateGen Pulse, synchronizes the
-> start of DMAs and Codec Interfaces for the audio usecase and can serve
-> as a periodic wakeup source for the DSP.
+> Convert the binding to the YAML format so those nodes match the generic
+> nand-controller-legacy schema.  Describe the node's reg, ccr and
+> bank-settings properties, along with its "nand" chip node which carries
+> the legacy partition layout.
 > 
-> Require the LPASS LPR and audio vote clocks to access VA CSR register
-> space safely.
+> The "nand" chip node carries no unit address, so the "nand@[a-f0-9]"
+> pattern of nand-controller-legacy.yaml never matches it and
+> raw-nand-chip.yaml is never applied.  Describe it with mtd.yaml,
+> nand-property.yaml and raw-nand-property.yaml instead, the way the
+> controller level does, so that both the deprecated partition@ nodes and
+> a modern "partitions" subnode are accepted.  The node name does not
+> matter, the driver picks the first child of the controller node.
 > 
-> Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 > ---
->  .../bindings/clock/qcom,hawi-lpass-va-csr.yaml     | 62 ++++++++++++++++++++++
->  1 file changed, 62 insertions(+)
+>  v4: allow modern partitions
+>  v3: fix wrong regex
+>  v2: fix reg value
+>  .../devicetree/bindings/mtd/ibm,ndfc.txt      |  39 ------
+>  .../devicetree/bindings/mtd/ibm,ndfc.yaml     | 128 ++++++++++++++++++
+>  2 files changed, 128 insertions(+), 39 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/mtd/ibm,ndfc.txt
+>  create mode 100644 Documentation/devicetree/bindings/mtd/ibm,ndfc.yaml
 > 
 
 Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
