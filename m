@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B154D6C2A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DE54D7948;
 	Mon, 28 Sep 2026 14:01:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604075; cv=none; b=I/ZV4ukabhipXR5tR4L9OvPv/GV8Ib+m49tRUyTLdWiwi/zbVmBt9Z7Ghu429vxri6g4vUQpBOdyrxoVS2d6zkEK3ibHWKPHgQTai+8bW3CWI5lxfSX5xbBq3E2PUilBmIMOnGeWxzC0qZqa2+KNB/ED3fav3rN4aIr5hcvooRg=
+	t=1790604075; cv=none; b=LemhkWWJ6l7XVHnscXcXvD5cMPQ4BR1Qv8zfkuhDLnOhSKkEokJnocG8opwCv2T6GAttlXALjMU6Rf0jSA4akrsY/K0bA6ZHQ5yfAy4rvki4MhIxgmzwY06IeYCJj7LgOeF0u+/KFh6BD+dNSzQBdA0LJpPsIRes4Fv3Z6nR+E4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790604075; c=relaxed/simple;
-	bh=XYrNlKJfrj2ruygfi45wHsY8oQRCp3XANErbO8AegLA=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IpCCGl7Z0zcT0IIE3EjPtXbztQnpanqR3KRuh93uhJCiKU1Xurd/YjHuKuR/bav7JFfbS175GCItzutXCn0MUa6UAgZfBwX7DlzIijRKglMuq21cGCExaghWLYPFLaPWwvOBFe+Gp0QBoHBlRh21bbaNSeYAOVncIspH60F9Hqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h851FyLT; arc=none smtp.client-ip=10.30.226.201
+	bh=VQCqIbvpKHoGuXknDG939w5Zs3oTF6LC3BYTebnxqaw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=N2ECjk5fYXw5TM0p7kAZRUweZuTT4me6R/s+m3DZ17TrAGBvwTdMpStSCEr0qPud2AImFhviUXoW+ZQEnsk1sCzt2hKH7QQmDmrpxZGIDDFrr1hg8JJpLCd7JroT21iHvCZjQlczH7tKW5okKRxSllvMrHPJSZaeQ/+mcslq2wY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A6fDghgi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h851FyLT"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4F118C2BCB3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A6fDghgi"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 753F5C4AF0B;
 	Mon, 28 Sep 2026 14:01:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790604075;
-	bh=XYrNlKJfrj2ruygfi45wHsY8oQRCp3XANErbO8AegLA=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=h851FyLT/b4LdRtD8KIrWOtGBnJm+DA24eRW7am59L7Sf37RgUm+yEkURGgwrLRuW
-	 wME/uSBQxpV70jBHRDC6KI3O3+RtBpWt/lFLZNerXI9v1silXEJK/i8mwyXogJXqd1
-	 MaEJzvd6Kh8S9oM6quEUEFOuvsUoGQlTd1wkElzupl6fkCgnIjYBBzhuijV56dftfC
-	 oc3I2w2XzGsl4TBVHl14eOMZn6DJ6qtiWx9izX6Jo8y2/18Wed3KDRXnBI0oydeJoS
-	 zPSVd1lkVkA50Hk6eh/Un3dYrkXlaZbVSHjeZqYoYEohCmuLS0I8Fry6UHg8YL3VJW
-	 mXyf6/wgSTT0A==
+	bh=VQCqIbvpKHoGuXknDG939w5Zs3oTF6LC3BYTebnxqaw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=A6fDghgiEcT33Ew8Xt1yV8kCH+VmoHnBXX/Bc4kutVQVKAMoveCAuJlzzDwLZRTXP
+	 zs5sMwow2iMR28DUy3Y8Jx06YHny7BhBj2AS3QtDkmsGIgiaTciOBNsHZakm2hxBJ1
+	 AyLWAXBQu0zK2xq/b3lurNDydiuR0ZnRKSy2dt2sYD5cmBV4Vr08Gj65sn546ZdqcC
+	 C8Yj0cX24UHLBOnj+/Jxe3xeyztvBhddmr/wb4QXFFrvvnZmoFhLeYlu8HozwpHKdG
+	 /1Rx0eyhs8g4FXtzZRBzk308Bc34LU//kuDG8/RqOszboEWfvEDvta5QkLb3UDykGh
+	 +3crr/0wAYqWQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 39E1DCA5FA5;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57296CA5FA6;
 	Mon, 28 Sep 2026 14:01:15 +0000 (UTC)
 From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Subject: [PATCH 0/3] crypto: caam/qi2 - algorithm priority configurable
-Date: Mon, 28 Sep 2026 16:01:02 +0200
-Message-Id: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
+Date: Mon, 28 Sep 2026 16:01:04 +0200
+Subject: [PATCH 2/3] dt-bindings: crypto: fsl,sec-v4.0: add
+ fsl,qi2-crypto-priority
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,9 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAB5zumoC/x2Nyw5AMBAAf0X2bJOqpB6/Ig7FYg+0tggR/65xm
- WQuMw8EEqYAdfKA0MmB3RolSxPoZ7tOhDxEB620UZUucXSChw+7kF2wtxEba/TCTni/sTC5yrq
- SutwaiBEvNPL1D5r2fT8//3uZcAAAAA==
+Message-Id: <20260928-for-upstream-caam-qi2-priority-v1-2-e4a8e5f01dbc@free.fr>
+References: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
+In-Reply-To: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
 To: =?utf-8?q?Horia_Geant=C4=83?= <horia.geanta@nxp.com>, 
  Pankaj Gupta <pankaj.gupta@nxp.com>, 
  Sahil Malhotra <sahil.malhotra@nxp.com>, 
@@ -53,11 +54,11 @@ To: =?utf-8?q?Horia_Geant=C4=83?= <horia.geanta@nxp.com>,
 Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790604073; l=1011;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790604073; l=1266;
  i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=XYrNlKJfrj2ruygfi45wHsY8oQRCp3XANErbO8AegLA=;
- b=SdkmtfGZjjyyX3oa2lSJEBtFOAmanXuPOAaDp1mtzN1RuMUa+Y52jJu05K55rB8zeuLMLG36R
- eRyBKiGjGwnBrpEwXp7KE9npVKRbFJnvsBrIOWJ+3VOJmvS3LRsHF61
+ bh=14RLdogArJ3g8dT8zr0+nx/DICrh8YFGpKTsKBxlPRo=;
+ b=bqXI0S0xMmAYCpfL9E7bpJIfPD3dsRqR1is6HT9SASQArZPs2FLs90E4sdi0mQY/3J9mKbaI6
+ Ca54EWx4dGfCChneC+MS83wXOkm8L7QxXggVvftV3/5c/EbFQRV5lMQ
 X-Developer-Key: i=vjardin@free.fr; a=ed25519;
  pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
 X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
@@ -65,30 +66,41 @@ X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
 X-Original-From: Vincent Jardin <vjardin@free.fr>
 Reply-To: vjardin@free.fr
 
-dpaa2_caam registers its skcipher, aead and ahash algorithms at a fixed
-priority above the ARMv8 Crypto Extensions, so on DPAA2 SoCs
-every in-kernel consumers of AES, SHA or GCM use the SEC.
+From: Vincent Jardin <vjardin@free.fr>
 
-Patch 1 adds dpaa2_caam.priority module parameter
-Patch 2 doc fsl,qi2-crypto-priority property on the SEC node
-Patch 3 reads it at probe, the module parameter takes precedence
+Let a board set the crypto API priority of the algorithms the DPAA2
+front end (dpaa2_caam) registers.
+
+Benefits: Its DTS decides whether the SEC or the CPU is the default for
+in-kernel crypto.
 
 Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
-Vincent Jardin (3):
-      crypto: caam/qi2 - algorithm priority be a parameter
-      dt-bindings: crypto: fsl,sec-v4.0: add fsl,qi2-crypto-priority
-      crypto: caam/qi2 - priority from the DTS
+ Documentation/devicetree/bindings/crypto/fsl,sec-v4.0.yaml | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
- .../devicetree/bindings/crypto/fsl,sec-v4.0.yaml   |  9 ++++++
- drivers/crypto/caam/caamalg_qi2.c                  | 35 ++++++++++++++++++++--
- 2 files changed, 41 insertions(+), 3 deletions(-)
----
-base-commit: 67aefeccc4101a93627f36abbd049f191b54f903
-change-id: 20260928-for-upstream-caam-qi2-priority-76301b8eb3a6
+diff --git a/Documentation/devicetree/bindings/crypto/fsl,sec-v4.0.yaml b/Documentation/devicetree/bindings/crypto/fsl,sec-v4.0.yaml
+index dcc755d2709a..0231fe3853b0 100644
+--- a/Documentation/devicetree/bindings/crypto/fsl,sec-v4.0.yaml
++++ b/Documentation/devicetree/bindings/crypto/fsl,sec-v4.0.yaml
+@@ -86,6 +86,15 @@ properties:
+     description: Defines the 'ERA' of the SEC device.
+     $ref: /schemas/types.yaml#/definitions/uint32
+ 
++  fsl,qi2-crypto-priority:
++    description:
++      Crypto API priority of the algorithms the DPAA2 (QI2) front end
++      registers. Below the CPU's own implementations, the SEC is used only
++      when asked for by driver name. The dpaa2_caam.priority module
++      parameter overrides it.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    default: 2000
++
+ patternProperties:
+   '^jr@[0-9a-f]+$':
+     type: object
 
-Best regards,
 -- 
-Vincent Jardin <vjardin@free.fr>
+2.43.0
 
 
