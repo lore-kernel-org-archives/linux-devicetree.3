@@ -1,170 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD7B3D47D4
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:04:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FC03D3CF2
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:05:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600692; cv=none; b=Mf9THJacqBAa8qevEtDrKHeTNLfw11iJNqr+vOEMkayJqmKdiYZGo64IQhXSmS1/liwos4s52ZNB5QtX1xnrRa2pzE9gqMvz+CkQyM7OErllPnTmgtD4YYkpa9KFTeIapkTpgkiVMwoaWvO1FDDIeI9e5ndTQcmmQNKo9XtQfsU=
+	t=1790600705; cv=none; b=lVBr1LbLVpf6jlR48N76zneIcdJtX10sLAFPd31/mk6aRhti465T4iKYLSnbzEL24lcEP26EZhLwJoQYR44Lb+8D9VNW2eRRvWBAPYAW2jE2ZCWpItojBl5WFtpvo2RmLsE1yvAIEk7denSyQbMvmdIPOxa5CwIpKzkChHrUDi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600692; c=relaxed/simple;
-	bh=DZNYNVW0kTrOdZtdf/tZT9OtoDYky/1/EnKP90xlo9c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nsxL0Oe8UgDDTpIXXwRZ4l5FrrIpYP1NA9Y6yaw5YPC/9pntxYVs07X857UtBR0Xw5MUxu1aT7k/7c6Kf1bbWMptT+yMK9Ca/nCFdRJK3ED54yBXncltYbqhSqw4YzcD/xzo05EtVVlmtD7qZCNUvWf4DG9lOJEmjAr1cbJPmY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZY0VLvy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790600705; c=relaxed/simple;
+	bh=52j8945jlWgUfs7EXbllgzvVcw8lTaTuRBWLQUFKmCM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gc/ATgVX2gOYQn92lo3YDtyDscn4T1piKaWpb2NZRuYfR62ASgSvrNG8/5SixfDnNg98FHpxUqmnlw8s9ItGGxyuetIdEoDrdK3gPQzEbJvtxALs69yOVwx7zH2EEsg3S1WmNqFiaxEIbeg7yPjIFMMGAiq123KyOwvIacklbBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=avR42vum; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZY0VLvy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8911F000FF;
-	Mon, 28 Sep 2026 13:04:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="avR42vum"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF091F0089B
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:05:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790600690;
-	bh=QrFgaC2qMW5VOpL6TWvegIwNCUIixU9oZ4+TjwL/ZBA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OZY0VLvyaEPh3eG894tpDmgFREpANCGgNC2VeoaNh1y2eM7SlTVb1/LUHymgZBa1B
-	 NBAbDVF+rBh6B4sbeVX3bKYioGdJsJh3+J4B0Loi9g77CiE/oCDFkfekzUX8pgyoXx
-	 BDeUl2ud/jmw5CWe1R+/AwHobUPsW9r47yqHjkoURwvmgGSKjS9tydL4RATnxNyBK2
-	 Qin1oxvtyTxR4rP6ob1rzyJ/+vX5pLwFzif1NUOJ1WGU+WKyfkQBiM06ZOwYDXOz5z
-	 GexSy3rp85msi/+jGFMlWQfarsnGgw/aCwAjE++90OsIA6daIEpwfSJ5CZN1vLY+97
-	 QmSnu04V1on1w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 04/10] ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT
- parsing and platform init
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260928-b4-qaif-shikra-audio-v8-4-ac618057fe85@oss.qualcomm.com>
-References: <20260928-b4-qaif-shikra-audio-v8-0-ac618057fe85@oss.qualcomm.com>
- <20260928-b4-qaif-shikra-audio-v8-4-ac618057fe85@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 13:04:49 +0000
-Message-Id: <20260928130450.1D8911F000FF@smtp.kernel.org>
+	s=k20260515; t=1790600704;
+	bh=auF1PGZG5FeNj0rD11SzUL3le7hplnl5FCbwZHCGXog=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=avR42vummbxAYHr8lyLj8YiH5LjxJQD912LYbEWoe6zyGuvhlgWsSiOrRiLgPwwUY
+	 ikkHL/h23xI+2DyIj97vMtLCXkqayBHl+RmU0mE7zC7nH7UHcHQHtD86gS/hqSyCuW
+	 eGtHCpdL7wqrAtwiweZt6akw6LKRm+xYn6bmxUfw4ORjIZ2L0pKRhpNnEEXmdpVw3R
+	 1hAMFN5LoW/Fs8X54sqGhwYprmdMI8JSE8/0jES9Cs2ekxw1Ut77kIzC793+BKDXFp
+	 eCMKhakENvdXMOxVcymVsYJkylXosRJ/Pr+ZqYxMhilMuXIdf7L5icvUCtVaOoBcNM
+	 Yuh4E7fdGgMYg==
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2dc50c6eccso168099266b.0
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 06:05:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz72WQQCwc4p7Z5OcktyTZkcGST2a6kzKXh9erKHo6dPHQjn+zJB4Y1ha17mjUsZqHbaebBiYsUpyLN@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeOXyMO20/XMbyTlMy6jo+ByyQFisba+xJDrhVVBT3RQeKdUTy
+	4AFnvVZG55wcAv7u0qhA7a8c/8L5bw5T9NwKfyJ64S4vEytL9Q2tbWuy98jvk80YQKw90kdikjQ
+	kyXFhsjz88/6LcmnMdL2QeVE9lLaHyA==
+X-Received: by 2002:a17:907:9616:b0:c29:5d41:dfe8 with SMTP id
+ a640c23a62f3a-c2ac25d87efmr1120379466b.43.1790600702883; Mon, 28 Sep 2026
+ 06:05:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260924-ti-tps6586x-v4-0-6c7a8fb8b646@gmail.com> <20260924-ti-tps6586x-v4-1-6c7a8fb8b646@gmail.com>
+In-Reply-To: <20260924-ti-tps6586x-v4-1-6c7a8fb8b646@gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 28 Sep 2026 08:04:51 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLhhJYP9yP5i55dvBMUr_jqLr3CUvQrvdt__uYPJVNSHw@mail.gmail.com>
+X-Gm-Features: AclHuK9QEJ4uOQxPljBhZckKlXzAHfCFvrVCDh-aLNseE1t90L9tpQanxTIxWOs
+Message-ID: <CAL_JsqLhhJYP9yP5i55dvBMUr_jqLr3CUvQrvdt__uYPJVNSHw@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] regulator: dt-bindings: nvidia,tegra-regulators-coupling:
+ Convert to DT schema
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@avionic-design.de>, Lee Jones <lee@kernel.org>, 
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+	Svyatoslav Ryhel <clamor95@gmail.com>, Laxman Dewangan <ldewangan@nvidia.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+	daniel.baluta@gmail.com, simona.toaca@nxp.com, mfd@lists.linux.dev, 
+	Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] ASoC: qaif-cpu: concurrent MI2S hw_params clobbers shared frame co=
-nfig
-- [Medium] ASoC: qaif-cpu: stopping stream in loopback mode breaks concurre=
-nt stream
-- [Low] ASoC: qaif-cpu: integer underflow in max_register calculation bypas=
-ses bounds
---
+On Wed, Sep 23, 2026 at 5:04=E2=80=AFPM Bhargav Joshi <j.bhargav.u@gmail.co=
+m> wrote:
+>
+> Convert NVIDIA Tegra Regulators Coupling from legacy text to DT schema.
+> Set additionalProperties true as this is shared schema.
+>
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+>  .../regulator/nvidia,tegra-regulators-coupling.txt | 65 ----------------=
+---
+>  .../nvidia,tegra-regulators-coupling.yaml          | 74 ++++++++++++++++=
+++++++
+>  2 files changed, 74 insertions(+), 65 deletions(-)
 
-commit 96b925c5161486efa5953d5523b45fed9502f610
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+[...]
 
-ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT parsing and platform init
+> +examples:
+> +  - |
+> +    pmic {
+> +        regulators {
+> +            core_vdd_reg: core {
 
-This commit adds the QAIF CPU DAI driver to support Qualcomm audio
-interface paths for CDC DMA and serial AIF audio links. It implements
-CIF and AIF DAI operations, including channel mask programming, dynamic
-clock control, and format setup.
+Drop the example. It is incomplete and is not validated by anything.
 
-> diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif-cpu.c
+With that,
 
-[ ... ]
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-> +static int qaif_aif_cpu_daiops_hw_params(struct snd_pcm_substream *subst=
-ream,
-> +					 struct snd_pcm_hw_params *params,
-> +					 struct snd_soc_dai *dai)
-> +{
-
-[ ... ]
-
-> +	if (qaif_is_aif_mi2s_port(dai->driver->id) && !cfg->slot_width) {
-> +		slot_width =3D bitwidth;
-> +		if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
-> +			drvdata->aif_intf_cfg[idx].slot_en_tx_mask =3D
-> +						GENMASK(channels - 1, 0);
-> +		else
-> +			drvdata->aif_intf_cfg[idx].slot_en_rx_mask =3D
-> +						GENMASK(channels - 1, 0);
-> +		drvdata->aif_intf_cfg[idx].slot_num =3D QAIF_MI2S_SLOTS;
-> +	} else {
-
-[ ... ]
-
-> +	ret =3D regmap_update_bits(map, QAIF_AUD_INTF_FRAME_CFG_REG(idx),
-> +				 QAIF_AIF_BITS_PER_LANE_MASK,
-> +				 (slot_width * cfg->slot_num) - 1);
-
-[Severity: High]
-Does this dynamically derived slot_width risk clobbering the shared frame
-configuration register when concurrent playback and capture streams on the
-same MI2S port use different formats?
-
-Since ALSA exposes these as separate DAIs without enforcing
-symmetric_sample_bits, an active playback stream could be disrupted by a
-capture hw_params call that overwrites the physical frame size here.
-
-[ ... ]
-
-> +static int qaif_aif_cpu_daiops_trigger(struct snd_pcm_substream *substre=
-am,
-> +				       int cmd, struct snd_soc_dai *dai)
-> +{
-
-[ ... ]
-
-> +	cfg =3D &drvdata->aif_intf_cfg[idx];
-> +	if (cfg->loopback_en)
-> +		enable_bit =3D QAIF_AIF_CTL_ENABLE_BIT;
-> +	else if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
-> +		enable_bit =3D QAIF_AIF_CTL_ENABLE_TX_BIT;
-> +	else
-> +		enable_bit =3D QAIF_AIF_CTL_ENABLE_RX_BIT;
-> +
-> +	switch (cmd) {
-> +	case SNDRV_PCM_TRIGGER_START:
-
-[ ... ]
-
-> +	case SNDRV_PCM_TRIGGER_STOP:
-> +	case SNDRV_PCM_TRIGGER_SUSPEND:
-> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> +		ret =3D regmap_update_bits(drvdata->audio_qaif_map,
-> +					 QAIF_AUD_INTF_CTL_REG(idx), enable_bit, 0);
-
-[Severity: Medium]
-When stopping a stream in loopback mode, does unconditionally clearing this
-global enable bit prematurely disable the shared interface?
-
-Loopback requires both directions to run concurrently, so stopping one
-stream might cause hardware DMA stalls for the other active stream.
-
-[ ... ]
-
-> +int asoc_qcom_qaif_cpu_platform_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res)
-> +		return dev_err_probe(dev, -EINVAL, "Failed to get MMIO resource\n");
-> +
-> +	regmap_cfg.max_register =3D resource_size(res) - regmap_cfg.reg_stride;
-
-[Severity: Low]
-Can this calculation underflow if a malformed device tree provides a memory
-region smaller than regmap_cfg.reg_stride (4 bytes)?
-
-An underflow would wrap max_register to a massive 32-bit unsigned value,
-bypassing regmap's bounds checking protections.
-
-> +	drvdata->audio_qaif_map =3D devm_regmap_init_mmio(dev, drvdata->audio_q=
-aif,
-> +							&regmap_cfg);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-b4-qaif-sh=
-ikra-audio-v8-0-ac618057fe85@oss.qualcomm.com?part=3D4
+Rob
