@@ -1,135 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2109.outbound.protection.partner.outlook.cn [139.219.17.109])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F0946EC98
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 08:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583294; cv=none; b=PbUdQzehgde4NDDbqlotWuj02MbB2Eq7WJKkmWvrnZa/JHsMpnP38RdWTVrE5bIPog9rj5kb5diQ83vw04XNMw4n+TOvgekl1z+V4LiQUdhDrM3glurIzXFmNVQMrbXjaMjFzaHVxu2AEZN51gTqSPcytORvZP4xHQwPQpYimUA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583294; c=relaxed/simple;
-	bh=PanpZAlIisAxSNyyBizqqgcxrsZqzdMxJ0QoxbRbFQo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DFNmT+NTHQtdsPK2NAiF97sTJUcXOD0nnrAN0ewTS0pDCgtZzBlIfM6hwAtVf7tq+qcMt7CeUnT6CEEfxVR2j2HXpKat6PXrHbDlXFBg9/EeLZ2ocazcE2QKpuEAqSzxCKZodt/sAT2rBxgBhjxGXtF7wIU3jJ39WlND9CJjJxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XD79rTLn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XD79rTLn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1DC01F000FF;
-	Mon, 28 Sep 2026 08:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790583293;
-	bh=0p07U3/WDfnMkQLGTGilceTwXHDFjsDAB2US9bD8jZc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XD79rTLnh8DOaIeSifbgcZiVAOHFgwsU2E3CZ6/qpJWZUAivsHQY+3vvvsBAU9LDm
-	 PmZQ8eOXuprSZL6fmg+hbzBgcpBCwT67sYNcQb9RFFAbbB4bSN5rpOYsAgD79vSmSz
-	 fN0a3wxwdUP+tf4UOd+eflTkPx1eoJ0Mmho+QSn9YbuoCK/tbOxP0zvVEEeYkje0iA
-	 1DAuLaq6fCOY5kgBSKjrXm3eWKyvz01kJ5A9JRk8fy6VpXOjjzEL2GLKWwB8LJGGqo
-	 zeK156eCrpl5ppmNy17QOo3tFQECFBsj4fSu9H7ch8YmLqb7QL7lqM77/K2f9Jt8IX
-	 kW7LTzlSc0x9Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] media: i2c: Add Samsung S5KJN5 image sensor
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org
-In-Reply-To: <20260928-sk5jn5-v5-2-19aa0a0a68eb@oss.qualcomm.com>
-References: <20260928-sk5jn5-v5-0-19aa0a0a68eb@oss.qualcomm.com>
- <20260928-sk5jn5-v5-2-19aa0a0a68eb@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 08:14:52 +0000
-Message-Id: <20260928081452.F1DC01F000FF@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC4F46AA88;
+	Mon, 28 Sep 2026 08:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.109
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790583342; cv=fail; b=g12PCZrCdtWyQ2lpDN++5cvawbx2lpUvgBhkaCIfvvSJOdZMAzNphnYxUw+hy0SqKHnaJ9hOx1FgTUstBZfR/XMSFE6+4FyLsT+l1D8ZEkKDG6Ce4Cks+TWnGk8XsW/0odf+9gOFTN36wvKURjBaM2ixo2hcnhEmgY7JrIUqx4o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790583342; c=relaxed/simple;
+	bh=Q9T6D9Rab9h8Uurtt8s9Nrus3nMbKN2fndEcnCEdrbE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QyOfyStM4txDRtIJr12sd3Ob6e81QMraoO9wqGEtK/SJBe154ZRIcEetQw7IwBgWn/IsJ47kAb0lR2XB6cJyLsZha/zYM5zDWRjtO5vLK5tQjdjWD3BS/rzDrQfP3qz+0OFEmWMX2AC1sD7PfVYnSvba7Iyo/BT8qCSIkI/pdBQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HjIIWQrjcXXbNh73KejMQkxye2f1CliqV1RcbLWn8sUNWePxz5X4uP/7ORoIBPHrCMoUt8Rli4Sz8NRx0uzP2L9v12ZpzNH3cnGIOjlBZ5fjOSTrzhxW1Dt6wKEZyFbElAsJcIhtGWm53q+Wq8LhqtfOv5uEJrp4nMHMVO+HAOVbLYN/64T6yOVbElcXVVqhm2NCAxU0LnbkbW1JbiXLPHx8ZwA8aPW08vCBam2rDhtv9Ngqsg+PBxMuTYLd4axtjYhI0uMl358HXyc3huhMTdLkDY0AOb/X+ONSCronXHrMvICFqjs4zzSsHo8RGPW9whKhQgppAPYCJM+JTl+apA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rbSQynd2eVRtGbUq+7pHmhfyZe3wjneG+h20hqZ6PDw=;
+ b=Msz5xHt2OQjKTm2kqA2R2I0VUOMmdd1Z6h8gZ4biGOFtyEaxHWPnhtZB4yVTz/RArTHQtw2u19xLuCX8n5YKcb8cOD+tJVWRtTWoQFD/pGpOyOBpHPdc04s2FnfGImEYFV1SjJy+xP/UltnHsTQEw3ek39wZ9jCd2KaQY2Ro4iHoxxg8yWuDxmxOkySzrtCZ/abAT9/A5/fnI3jewJHCu29pznfRfU1zLQp2F0SwNEB7WBetZ64fI16BxkYFylZVLrEENF3lwjoqin2XmvowaWssNMN5KXkJ8Yelmoszij+Dlasf/DEYy1BKeUmtX9NQcpmC2R7sKr4dUEuRhj3P8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1233.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 08:00:39 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0451.022; Mon, 28 Sep 2026 08:00:39 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Iwona Winiarska <iwona.winiarska@intel.com>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v2 4/6] peci: cpu: Add Intel Granite Rapids support
+Date: Mon, 28 Sep 2026 00:59:54 -0700
+Message-Id: <20260928075956.62298-5-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260928075956.62298-1-changhuang.liang@starfivetech.com>
+References: <20260928075956.62298-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SH0PR01CA0022.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:5::34) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1233:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1467a54c-7721-4ad1-5d71-08df1d369628
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|52116014|7416014|366016|376014|38350700014|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	627PpG9DekNjW1FvWvXAJ07vJokR/yN2UfYKRabr9FT4+Hwvg2OsIh9omPfJ4J8vUQIAAGkpzOIBnmjvmcKTfidjqOO3LGWcx+l86SxHn160dbG/RVDv+2MXB94Qe417cTfKFBInRooOIo2T3ufNaEZShSJ63SKx6gGtUUCcpYdRbmuDmMHkTCtzdNKXRB4Q0bm+FAUHCMQ6Qy8Ijr/HeIEsUhxGZqD18Wv9Sb/H9S2u1Y81ifDUanre1/iYZk6/gHpwrC2+niIGPH27d1SmVfqSZtUx93dp1Uqwsa6bFDdpDL3bG6gUvelm85Qushc+BpBvL03faui6OFvU90D5axz2ouMhWOkwIJukilHHM74g8Oq/FHHL0EgmlFTibmIbnFves7gHsVi/w3gsmgWTVBP/Z6EGbRWncO6n5Io+DWalvoeLqTBwJ7X6l6zUcb7J4R1rWdx88jhzpdiQI3Ny+vFbDbsNqV1RWQF8nz27/WJinRFtqYhtIHoe/OeFAE06dmaK34zkPWXg+JhrXLiOsa3S7SiPgWKZjqD2cputWUznwwVRJcf8WQEZbOtjAPzU
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(52116014)(7416014)(366016)(376014)(38350700014)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?SnyYK/X1STq6qaJu51P69bOqERkFQD70OU729kBSd9V8U3z6E44GtAaFTmlc?=
+ =?us-ascii?Q?6AVR2Zpt70B3klRixknYBLLl4zue+QXOUbnf0WtCUvENFBEOqNF81yN+RloM?=
+ =?us-ascii?Q?3Zp5L5fa5fMd/ZeOOpviVY8wwbLxBkGg7RpWE+F+nXz1NQYM6aW758N/sKSi?=
+ =?us-ascii?Q?ofoquNZl1sSQa7/LFVCtfZzWbZjWS+kTf4UuIwLsV70Vwfd2BGHvQsL7RKLn?=
+ =?us-ascii?Q?5F5ok2p4PpN/n/Zi/6hcFbUp3Iyhc1KExdBNeH7XSd6h5adGdgkKowC/29fC?=
+ =?us-ascii?Q?/6HVZ4S+qqO/t8LSXqR6acYyPKYV/p1f+Ok6WVCA6sm/f0687/O3tI/rp+Hn?=
+ =?us-ascii?Q?P4jmBHE4IS4sDQbaNKu6Ij96kitXd1x8Hx48WlXueXLfOuc5ZC72xzafpvR4?=
+ =?us-ascii?Q?jrLvm6dT74QtWAPxLMwlYLDcTvwMB1Mq5GqNdrZ+dihSP5K0KUg1jPxSQl2O?=
+ =?us-ascii?Q?XjcfBuvUak5DbEJ7whbrhh74YjfzJsGf3wjhfQwJbxXGpCWowoAYlepXJzCJ?=
+ =?us-ascii?Q?ekWQc4ReyN4Cr9sd9Mq5h7XkfxUowF5BzPBc7hJ7FubmDVg0QnCiA49eEPfd?=
+ =?us-ascii?Q?rrHxf7skNghamX5efHBgcGdNvkz2z5Gn+RGdfe27Ok5cSemju44XzYr8fEv2?=
+ =?us-ascii?Q?I6n03lsv8saHndMu1TOwnik3uTb0Wst6oCMHIsjlzuoB+H/eq2wdYJNfADIx?=
+ =?us-ascii?Q?86iS28YDOpSP91kvkCj2jcDlq0sw4qOeor9RJ5HHcj7wMTePGK678N8SR6aO?=
+ =?us-ascii?Q?7iEFqfAbOCpfyWPgi+YtS/RsRgEqsYFNMKiGLmZ66uF7YC005ly6P1lzgNbd?=
+ =?us-ascii?Q?hgxaz/fgGC21MJycg4ok6ABAqTKm6nFM5tQzlrvUCfH3I+tIm7RaMbPDRndA?=
+ =?us-ascii?Q?nnpK5azaXwHkdrCxEaSBHowyb+NDGZZfVjuDUS5DtpjfxAYFWCeo8LCOuQm8?=
+ =?us-ascii?Q?UFxLwueqQy4+3FTgxrFS4Z9qnzCswIfxILeiz0ziTAdtdAgV8Ga/a3aThfAC?=
+ =?us-ascii?Q?PGs/60YJZIg6/D1HZwbRnycn9qKwQ2Q5F7IY6CUA4O0zS+PzPIGhhYlRQg8k?=
+ =?us-ascii?Q?SsH24EQ71GkJIqECoUXfywGfH3JYVWEOeNdDyeKVyhcfe3TvUYv2GmNoTuhe?=
+ =?us-ascii?Q?PKsnxHgQIVZSEo5hH+0xlJMRszEgdpwjX++JRRxtSccSWY891bzE+t5Ozhme?=
+ =?us-ascii?Q?F9cZBCbLtDN8eQIJj/JFA4Sg3IhuEIfMDhhDV5TyuMC/pYWvQ9xzTbwMUtnI?=
+ =?us-ascii?Q?8w3KLjUd5K/o0fsPuGXK9a2OXBGGM8Tj8hGIJjaQyVed80CpFENkRhxpQT6S?=
+ =?us-ascii?Q?zakodobIljFAV1CtBo/hzh/28zyVTnNaQg5HhoDD85yt9cItJCkeaQNOoPQS?=
+ =?us-ascii?Q?tLG8HyxvAXcrXL96UF0rPfuvTXmdM4n59gD7Dhc5OimTaUcKQGTwgYgBeKHy?=
+ =?us-ascii?Q?DPHZMLOC5rJnhLej9X6aIebfAipfMAx7IV9pKKAZCncJSjzXX7qEaViv1exm?=
+ =?us-ascii?Q?VVYJ0VP7Gd+RRqD7qSiQFfDl0djtFOIVWBRnDeGSt/fJfBn8MdkMpbYguQqz?=
+ =?us-ascii?Q?qiY2+OBgYQo5JyOkuonDoyZ4PFx8iapA2WdTFkOtuJAO71tHyTaMtd41T5N7?=
+ =?us-ascii?Q?Cfi3ZbIg2c6K5WbEr48uI1jHtWpav/rOZWH1wkEaQ8Tsm9COiuyeZHc9qNO7?=
+ =?us-ascii?Q?bZrM2wuw/HvZCi0qMqLAbNf4Mg9pVNfAQQzstFfhchwdXng2rc09aw9/ZHbS?=
+ =?us-ascii?Q?EgsSy2iTUYRC6hRHB4/HWZl1IPVW4Ay0X7xOQqlmmKzbZnHfQfR5?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1467a54c-7721-4ad1-5d71-08df1d369628
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:00:39.5781
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MWgLRy7D/YivxKDiC3LPiKyA4ha9oHyRhtEfVXCC+F41YlnQ9Z9tL2rUm1W8B/0IFgmbUwvDCazMhZFiO7fmT/CrJbW+7EquoSibB0lEc+131GlD0BI00xUfeL4W6xiF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1233
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] media: i2c: s5kjn5: incorrect hardware reset and clock sequencing
---
+Add support for detection of Intel Granite Rapids processor based on
+CPU model.
 
-commit a671bdcf1777ec3f49c4fcba2384ef8b1cb05ef7
-Author: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Granite Rapids processors with the model set to INTEL_GRANITERAPIDS_X.
+The data field for this entry is "gnr".
 
-media: i2c: Add Samsung S5KJN5 image sensor driver
+Tested on JHB100 BMC with Intel Granite Rapids processors.
 
-This commit adds a V4L2 sub-device driver for the Samsung S5KJN5 50 MP 10-b=
-it
-RAW MIPI CSI-2 image sensor. The driver supports standard controls and expo=
-ses
-a 4096x3072 streaming mode.
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ drivers/peci/cpu.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> diff --git a/drivers/media/i2c/s5kjn5.c b/drivers/media/i2c/s5kjn5.c
-> new file mode 100644
-> index 0000000000000..2b925a21f7274
-> --- /dev/null
-> +++ b/drivers/media/i2c/s5kjn5.c
-[ ... ]
-> +static int s5kjn5_power_on(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-> +	struct s5kjn5 *s5kjn5 =3D sd_to_s5kjn5(sd);
-> +	int ret;
-> +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(s5kjn5_supply_names),
-> +				    s5kjn5->supplies);
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	gpiod_set_value_cansleep(s5kjn5->reset_gpio, 0);
-> +	usleep_range(8000, 10000);
-> +
-> +	ret =3D clk_prepare_enable(s5kjn5->inclk);
+diff --git a/drivers/peci/cpu.c b/drivers/peci/cpu.c
+index c9fc06c9ff53..abf004637949 100644
+--- a/drivers/peci/cpu.c
++++ b/drivers/peci/cpu.c
+@@ -325,6 +325,10 @@ static const struct peci_device_id peci_cpu_device_ids[] = {
+ 		.x86_vfm  = INTEL_EMERALDRAPIDS_X,
+ 		.data  = "emr",
+ 	},
++	{ /* Granite Rapids */
++		.x86_vfm = INTEL_GRANITERAPIDS_X,
++		.data	= "gnr",
++	},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(peci, peci_cpu_device_ids);
+-- 
+2.25.1
 
-[Severity: Medium]
-Does this sequence correctly initialize the hardware? The s5kjn5_power_on()
-function de-asserts the hardware reset line before enabling the input clock.
-
-Standard MIPI CSI-2 image sensors typically require the input clock to be
-stable and running before the reset line is released, and to remain running
-until the sensor is put back into reset. Leaving the sensor out of reset
-without a driving clock can cause internal state machines to hang, fail
-initialization unpredictably, or draw excessive current.
-
-This might work accidentally on boards where the bootloader or platform lea=
-ves
-the clock running, but could fail otherwise.
-
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable clock: %d\n", ret);
-> +		gpiod_set_value_cansleep(s5kjn5->reset_gpio, 1);
-> +		regulator_bulk_disable(ARRAY_SIZE(s5kjn5_supply_names),
-> +				       s5kjn5->supplies);
-> +		return ret;
-> +	}
-> +
-> +	usleep_range(10000, 12000);
-> +
-> +	return 0;
-> +}
-> +
-> +static int s5kjn5_power_off(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-> +	struct s5kjn5 *s5kjn5 =3D sd_to_s5kjn5(sd);
-> +
-> +	clk_disable_unprepare(s5kjn5->inclk);
-> +	gpiod_set_value_cansleep(s5kjn5->reset_gpio, 1);
-
-[Severity: Medium]
-Similarly, s5kjn5_power_off() disables the clock before asserting the reset
-line. Should the reset line be asserted before the clock is disabled?
-
-> +	regulator_bulk_disable(ARRAY_SIZE(s5kjn5_supply_names),
-> +			       s5kjn5->supplies);
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-sk5jn5-v5-=
-0-19aa0a0a68eb@oss.qualcomm.com?part=3D2
