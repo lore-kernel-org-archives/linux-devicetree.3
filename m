@@ -1,121 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D85377A8A
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 06:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4DB35DA61;
+	Mon, 28 Sep 2026 06:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790578317; cv=none; b=hQfa9zKksyrFz+T5AxWoljain91PYOHhC6yDZQswgBTZmT275FvCnDAsHi+UFYPzxaPHzOLIEZNWixhNg+YFe+j2rqpHhqV/eZJhqL1v+4zoi3RTnc6KwSd9aCIbly9J7iXHJTpqblIhJ7SxJM/tJhAtF5W3NeBhds5RlvKcuhY=
+	t=1790578730; cv=none; b=g5roAQsWFJI43yMHBZn3hLF/lk4lOvQDcqECWgRpPADF8l6kIzqv4Y8fUIMy4a1xt3bbQs52Muv3O//nThTN6cZ0WYWzbAV5KE9nefZVKP7derr2R861K5yN0rljJvy+8Jxj3eZMmnaFFIP6b4rbGmyxmVWUBwak8DOZkK0cYwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790578317; c=relaxed/simple;
-	bh=n0OSZawk2+d0U5AuGmsVF8Xcm6RzoGlGmitHLuj3WhI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Qg9l62O8O2iRzp+XrpAh33t6sD5JOGOQdGZJsdWpQ0sz1uE0q3iwYM69ZDoiS+wC02xdOz5/MeukowHv2QlPwh6LoA46mBCmyIpoi9f3zzWAcQ1a9Qcoixk50ICx9zwZd61Ra48ivYzPKAFyo9/Wo20wSKEgXegfnHZxIlp9T8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OwChqTvg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790578730; c=relaxed/simple;
+	bh=SKNv0KIWks9eXS0CBfGLJAuvGThHXuD57HmBN1fRLoo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B4kt6esq2c1104ZqEOW112yJXC9qgGvTl/QhCjx4I6NekeUQY6i2QMEFMsxs0R2Rj+Tda7DtWsN/W8YWr81gie9Y+ijg4L2IP/lmFxAdhjEcFVzSZI37d7gUfX7+NUVz/TK9pW0IUknbkEIV9dTt4iORozUW2hbIJK3riQcBtJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=hj1xWJ4m; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OwChqTvg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 218CE1F000FF;
-	Mon, 28 Sep 2026 06:51:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790578316;
-	bh=/5ETh+K0dogou4oN6qeGNQPkhm9yVrY0+lV2MR8HO3k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OwChqTvgOOLq+/yRqhpIe1hxEbVeMOYXawcirr+tGeQXZyP7SIN5w1FonQpRYcwwa
-	 4itGqUboh3OK2HrGnsqi3WAlh47qHWPCavAfE/B9X7sJKbpfUOAol1qnvzoONlk86q
-	 aPpLJxs65o+RoRlzh3z/kdARVnNbfERZSTSqoaYK6A1OJSXzNdK3Txm5LyxlMTgcRe
-	 y+gznN1SKKCLENK2ZcKAlPHvcnqrTSsDOIPjvnQJsMsVD3sQYojKMCjZMIFwMXKRiF
-	 wtkZbe1tuvG25HWMbL9uQA2lsLP35Auas7isurjIyI4HIPSeU+uRREU0pZ+cjdNHOy
-	 56z9M4+rC59aA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: glymur: Add EC thermal zones
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260928-ec_thermistor_support-v1-3-d9c1bae4cd0d@oss.qualcomm.com>
-References: <20260928-ec_thermistor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com>
- <20260928-ec_thermistor_support-v1-3-d9c1bae4cd0d@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 06:51:55 +0000
-Message-Id: <20260928065156.218CE1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hj1xWJ4m"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6FE7E8FD;
+	Mon, 28 Sep 2026 08:56:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790578608;
+	bh=SKNv0KIWks9eXS0CBfGLJAuvGThHXuD57HmBN1fRLoo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hj1xWJ4mu2e5rvAlwdrxXot05PweQhrCapf6yZPUPce/J8GO/DMaHGoDP6yXpWcRr
+	 NQzarMYAR0ORUpSwL+JBf7re51ZBbwhbS3x4LoAxPCo6iTwTa2RJ4JWJx0rAIQ+0pZ
+	 dvC2UGqksgD4BhwpnqkKAxEJLhJzgOmaQ/NHlXd0=
+Date: Mon, 28 Sep 2026 09:58:37 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Chen-Yu Tsai <wens@kernel.org>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, Liu Ying <victor.liu@nxp.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Yannick Fertre <yannick.fertre@foss.st.com>,
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+	Philippe Cornu <philippe.cornu@foss.st.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Adrien Grassein <adrien.grassein@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, Simha BN <simhavcs@gmail.com>,
+	CK Hu <ck.hu@mediatek.com>, Jitao shi <jitao.shi@mediatek.com>,
+	Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Chris Morgan <macromorgan@hotmail.com>,
+	Martinez Canillas <javierm@redhat.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: (subset) [PATCH 1/2] dt-bindings: display: Use consistent
+ indentation in the example
+Message-ID: <20260928065837.GA22609@killaraus.ideasonboard.com>
+References: <20260913123331.100293-3-krzysztof.kozlowski@oss.qualcomm.com>
+ <179057359762.92994.13773102514654073802.b4-ty@b4>
+ <8499ed1a-df9e-4e5a-b609-3da8499a47b5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <8499ed1a-df9e-4e5a-b609-3da8499a47b5@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dts: qcom: thermal zone nodes violate thermal-zones schema
---
+On Mon, Sep 28, 2026 at 08:03:18AM +0200, Krzysztof Kozlowski wrote:
+> On 28/09/2026 07:33, Luca Ceresoli wrote:
+> > On Sun, 13 Sep 2026 14:33:32 +0200, Krzysztof Kozlowski wrote:
+> >> Correct indentation in the examples to consistent 2- or 4-spaces
+> >> indentation to fix dt-check-style warnings ("example 0
+> >> [indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+> >> re-indenting entire example just for that is too much churn.
+> > 
+> > Applied, thanks!
+> > 
+> > [1/2] dt-bindings: display: Use consistent indentation in the example
+> >       commit: 370c5d9004f8b754351981d59fc26851bf943e93
+> 
+> Thanks, but I expected no one will pick it up, so I asked Rob to take
+> it, thus it is already queued.
 
-commit 5002150e61d17adad9a02df5206f78ef229da8ab
-Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Please explain your merge plans in the cover letter next time.
 
-arm64: dts: qcom: glymur: Add EC thermal zones
+-- 
+Regards,
 
-This commit adds support for back cover, keyboard, and SoC thermal zones
-through temperature sensors hosted on the EC for Glymur and Mahua CRDs.
-
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/d=
-ts/qcom/glymur-crd.dtsi
-> index e27c697e31702..571c98124a406 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-[ ... ]
-> @@ -955,6 +957,47 @@ right_tweeter: speaker@0,1 {
->  	};
->  };
-> =20
-> +&thermal_zones {
-> +	ec-back-cover {
-
-[Severity: Low]
-Does this node name violate the thermal-zones.yaml schema? The schema
-requires thermal zone nodes to have a -thermal suffix (matching the regex
-^[a-zA-Z][a-zA-Z0-9\-]{1,10}-thermal$).
-
-Additionally, trivially appending -thermal to ec-back-cover yields a
-21-character string. The schema limits the prefix to 10 characters, and
-the kernel enforces a THERMAL_NAME_LENGTH limit of 20 bytes (including
-NUL). Should the prefix be shortened to comply with these limits?
-
-> +		polling-delay =3D <10000>;
-> +		thermal-sensors =3D <&ec 2>;
-> +
-> +		trips {
-[ ... ]
-> +			};
-> +		};
-> +	};
-> +
-> +	ec-keyboard {
-
-[Severity: Low]
-Does this node name also need the -thermal suffix to pass dtbs_check
-validation against the thermal-zones schema?
-
-> +		polling-delay =3D <10000>;
-> +		thermal-sensors =3D <&ec 1>;
-> +
-> +		trips {
-[ ... ]
-> +			};
-> +		};
-> +	};
-> +
-> +	ec-soc {
-
-[Severity: Low]
-Does this node name also need the -thermal suffix to pass dtbs_check
-validation?
-
-> +		polling-delay =3D <10000>;
-> +		thermal-sensors =3D <&ec 0>;
-> +
-> +		trips {
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-ec_thermis=
-tor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com?part=3D3
+Laurent Pinchart
