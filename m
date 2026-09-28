@@ -1,200 +1,354 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from flow-a2-smtp.messagingengine.com (flow-a2-smtp.messagingengine.com [103.168.172.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0702D4E9C12
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 17:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9744EDCAA;
+	Mon, 28 Sep 2026 17:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790616061; cv=none; b=Xb1w/8KrSGnhsvf1fYRp5MaomtS2PNjYRNxq8eKSvhYE6zHa13RpcVPldNo1qjtoBmy8evwrllqUn44wUlBPsZxp+j2ZbCaopnCM9FquJeu/y6Ruof6qmmBgBdlB37N46ylnuxKghJwdwodTu/Afdl4zesSsXAgpRSrflmyj/pY=
+	t=1790616073; cv=none; b=pJ86BkzZwDoXCHiYS6k3rHOzocVLWhBseF63hksyLFkWq+ErY6kHd//8/SiTba6vms8LZFX/k/SCDaLlprxjvCekeHukJWqVcW6PVy70g11lCeJkqeWS2FwnuH13hJ0t8iPMm6vOtpAaZ0kVFWB5Hxwff3DsgNkd4peks9dTrzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790616061; c=relaxed/simple;
-	bh=XQFUBGLVEd7XJVcqXhVSxs6Af8dTUFJdY6Ao2nWuu9o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y4Jb75N5cXIx5CA/vLN+st3GEp488SNznNKVONWG8Cwgs245t9b9YEQ/7/3YFm5C8JkPwFFHb4CAD4Wf8nPprN/QcpIvUQ//SrSGFmrasMmPYCYmjLYBeoEDKBnPu8yQJanjvfzfjXeuG1/BIn/2ErTuinSrnNhfO/BheVRYpr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ga2yJxTG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b7q/RIcj; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790616073; c=relaxed/simple;
+	bh=EBdwDCaxMUWE3sJQt17G0G74LBeqdgkWy1ejqKZsHQA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dgL5cy7qjQo3RQt7HBh9Bp81QoqlaVH+l5trut/qszm4j3Gv97mlKjGXpEw1YeM2ShrZk4NvxOvMvtE/oFrHxfQXUka6sHrFWQzlOdfmbsyPsjhoxmWUADctrUUmW8C1USMxmQAYCC4cdJiIhU7IRoI6OSA6B28fkI9We+BX+IM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=qABfvtLV; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ipmZ6q7X; arc=none smtp.client-ip=103.168.172.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ga2yJxTG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b7q/RIcj"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SEdsxC1895242
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 17:20:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	TZ9Ubm2a8J1TvagIpXEzDc0W3zb1KHVr2A7Ld1gh9Lg=; b=Ga2yJxTGIPwToVHv
-	BfmuO91hrbO5sWPxw4zC49K1kMY0PB4G6GnXKnyLjjqZ3YAheUQQNKsXV381Cm+9
-	loYAiVzreurkNU68lNTNbioO+uqzZPDvtZUzlceRY4FEoFBspB6/phOyBSFoqmBl
-	91FE8KSx5FmemdTrL7tEPLQJT4aJSGDtHo6hx3g97T3Hn3eFJ8RE/7htGLz8S+CV
-	MiDJlebbHxISvefK+421PE+VMyE3EO1tkxoqwoRPEwAYwz/DcPR07ocOkzXtiINx
-	InCh35dGTjvGBDsA/KuTzB2jqK2WYmd+3QvDAlj0p6VTyvq6uRenysib6f0zHctc
-	N9nXDA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyj2s2qet-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 17:20:56 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so3291628a91.2
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 10:20:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790616056; x=1791220856; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TZ9Ubm2a8J1TvagIpXEzDc0W3zb1KHVr2A7Ld1gh9Lg=;
-        b=b7q/RIcjjpJhuMIjTAlUsRH2k2f6RRHRVFX/u7RoF2PdVthaV3IKbk4hav22AdFPke
-         6yPkzH+G+gwa1OoFcTTKqhghn/Krde52eXvR3LC0sESrZ1cOKbc40dwYiBrSpCIQZZqr
-         hYdkUVXdbGW6poxUFT3eC+n0OaMW0We4osSHBqweM/qX5X2gM5cutNJqSnt490m57ndF
-         Qy8rrpU2m2cLBBuQpfDxUUw72uvW2FhuTIOMnk6W3l3fJu7yptzDuBW+7ZSSPFx2UFqT
-         TQP5lDn9QndsyDqfvY6MgctRyxApcrSIjJ5NiVwvQ+9L5M8diQMHSn0dUFuabseFb6mZ
-         pvTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790616056; x=1791220856;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TZ9Ubm2a8J1TvagIpXEzDc0W3zb1KHVr2A7Ld1gh9Lg=;
-        b=zrlQm+N9TvrALk+jk3WUo+d3YZ3I0Cr9DYgd46c7wOn3ANeW2KdHjFB0Wsa5uBBeNJ
-         nl8E1M5K4RKug1CP2BsGs0LlVtMEhJBl+QMeUWDFA5C7WITBlsCDYSOl6fpPYRr0CpmM
-         IXiOGnvzzolIanQNpwkCsAW7XapWoP31Ly4mlg+sgb7PJL/Th4acYL2ioW0WHtbIpOkx
-         J4o3D2ze1vc2v0/iZTOFCBfWReJa6XW+r23+InFkZtGm3tzyJ1jXPVixZnO0uKM4IgA8
-         UKE731VyDiIzByEW0SFmCs/oopUbqpAVMbP5fHWZ70PJIY/F+xZ2N4iXhYkaMGlTdT1p
-         DnMw==
-X-Forwarded-Encrypted: i=1; AKwUvBymncLNFof8te7sbdAc4RVZyTPZGvZ4+Op+Rjmzvc54/Wl7J9mU0sTGTJOnMJEB8vmx6YG4Y40OV6Vo@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3gU1LFWjlZukgO9mIArzpOcGTf+PXf3ANn7bX5L4e9jgdwosP
-	L6Jw1PAi/EwQWpqvfYGAJlODa+A5Ab/22n2nbiizH0GzVdzW2hoZjup307ildG81OFlNMHdCWb7
-	NsMqYaMFDVSFeWjNgf29h87cx9pIPqqHhZNN5B50lDTE3V/xGISbpwMSdHNcIWZFZ
-X-Gm-Gg: AYBFou3B0mmeqXyPVphUuFCzYJeUwFBdz6LPnbFwmxsvkal69soCpeJXUGrIelo51N9
-	+bpbPGV6dj466pOmtBEfGf+F7KZaY1ccLcK0p4Cpvgz/JSa00EY8eIHg++M2shupnQfv259miLR
-	2o8dBRYNRO346zo97k8Y6GU46sHnBc2qhLIwCieat6xrQpIGhPX19LcyPh8GfZWAXkqVZdRi4Nv
-	tvdw1NSBzcaeQJSvMuY6BJDc9SMA6dHC+VM0pHPMWQTN+xvqtOipzOImnVV5qOrQD0AKIuXqcgp
-	hBC/8jsPwLiZXJ5BVJEb2YJovK68Ia/YOJe2jMvAUOyBP9GECjHpbn/RMk4EmhKGHoiU7VfrC7N
-	RtMhRKj69F1tSeOhgNolUiijJhdeivGw5+5o=
-X-Received: by 2002:a17:90b:288c:b0:3a0:d651:3957 with SMTP id 98e67ed59e1d1-3a0d65147cemr6223586a91.35.1790616055585;
-        Mon, 28 Sep 2026 10:20:55 -0700 (PDT)
-X-Received: by 2002:a17:90b:288c:b0:3a0:d651:3957 with SMTP id 98e67ed59e1d1-3a0d65147cemr6223566a91.35.1790616055099;
-        Mon, 28 Sep 2026 10:20:55 -0700 (PDT)
-Received: from [192.168.29.31] ([49.43.235.15])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2bb1fc996sm6864525ad.62.2026.09.28.10.20.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 10:20:54 -0700 (PDT)
-Message-ID: <043a479c-7ce2-4dca-ab9a-4a3b11e43005@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 22:50:49 +0530
+	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="qABfvtLV";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ipmZ6q7X"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.phl.internal (Postfix) with ESMTP id B734D1380505;
+	Mon, 28 Sep 2026 13:21:07 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Mon, 28 Sep 2026 13:21:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790616067;
+	 x=1790623267; bh=DSkum+x883OTq00st7eT1eBmqnsmeRjmxXUWAqbPki4=; b=
+	qABfvtLVTAv8QwI+jBWU6wqRiPsnNYgQhwrHOTKtV+Vn/VkwlwKXnf0QxLiw+Gj7
+	DVnlLgauwWV3qecXMWYFr147+JPN/Y0/qJ7D1vvHBlk7PtddYnwoKl0051UlSEhd
+	m/EIsgrkR52yAjRROuaPP4GOVp0kA4vuSPfoEmAWJ4LD0TevsWCrgTSa08yVst4p
+	5Ft0KJnrBAExwCm3lafE5fiLekTrtAHMEn1+N7XlnFv4U4s5Wmj5aao6nWewHQR8
+	nXAdTvBFZr5nrTNhag0AoIYkzZZ14DW6NhJVrE0ZQ461iz5ZPHET7lhWRk7G0J+K
+	feFQFFXApIRlmuzzxz5x3g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790616067; x=
+	1790623267; bh=DSkum+x883OTq00st7eT1eBmqnsmeRjmxXUWAqbPki4=; b=i
+	pmZ6q7XKgqJQ1C06s/7NzbYxQlXX3Fl0zHeReIYK4wWqQfMeYbGzrkTgwwtIGvKt
+	TEKfHKMSZnD/pomXRk1KCIiUlOEjAmFpoartLDrwrseadgb38+xExzW5iNH7ENiw
+	hS+QyIZUY1Nt6ibFu928VXML3e7u2IndEuBAGCnn94fmNFqr169LzH+8aiapioV4
+	FWJtWEZQfbdHm39p8XuiDsaBYHc/bFljyFEIxTvUO7tOiZoQPCvocVEmLe4Y2uvj
+	glelolt5XX2gdWxuN8wV1+bHhDc8uctp7hsLZqwdTqeIUMlAtjImE3UyGoSIs8zx
+	0mGJk6e0D9TY7gnZf30bQ==
+X-ME-Sender: <xms:AqK6aiJdyvWbA3q5ZdT0g_VOL9ARQ3_xZEtQiFkinFA7XrkuVtRrEg>
+    <xme:AqK6atmRDwMh_jjx2wQzY4gknAii5LAXTeDVRNef1H8859q3c4_pN7I8lP7x_LZlD
+    NJ7oKH8nKMqk0321ikXSIEM5JOJdbpY7l98QcALj6Lg_MaYvdymkg>
+X-ME-Received: <xmr:AqK6au_riIrusCDiDYS7LlcLDAyMAzKRe9E4-p_ejZ3tPGQkzTjZLv2o381k19xa>
+X-ME-Proxy-Cause: dmFkZTFVchM+bTT1PKuZ7CN10fxXJIikNoVdUVFHA1eqyKMgAAVr8P6ONf1Qg916JwGLA/
+    UIAM5uyklkVrDRDmXBCinnisDlXug/Uvz0CnXEuy4xZlY+Q3iKI5V68dUZbqn8FCfsIN95
+    6KfV8L2bBYYMAysjIpjjTtDvr59SlVXR0rT3rsZ8OOWBdCzi2fs/qRsgGZhcNemn8sEAcR
+    7gOuIxy/+2FBe7o4KglohLGCDym2m4zsXZ2bZO1r7mHjauIXUwmWu2ruzm3DMO6W6IP24K
+    Wr2E/Zfjs4QhZp1KylseoV5Uqh0JkwjuRMQihg5e/hXKn9gV8Cjo7+1dG47k97NaaXBvtc
+    6TosNN9zLhtvcoQ3r7SWS1Frb2Qorac1G8xePLtKHSGJmGxR8MUFy+I94uu8hg8RIumbG8
+    SY0uTRLUL7ZXAHGIFzGJTRUWIX2hNbfVOEldVBvHg8V9/AF2MJIwhJ0f+kFlJnVpV4ycHp
+    mKM9/zNsIiMMIH7wuKU4HfRltaRNhlV0YkDylvsKrut+Wh+XvvoJFU4M5SCC/C2VqifXrO
+    OYHBvAhipyvrLi8l7az1rLG97YIm4jdRN+vuK6gHN5DJGuaUqTQKM+EHzM0pq6gs1lcqla
+    bqJpdS7RiPDgdLUNPkCZqwhc2Uvf2IlXv/5+KTDtuT1Wp+YQPP7SNpjrYBnA
+X-ME-Proxy: <xmx:AqK6agbe5qel0Zvetr1je2exn-rTW0Xq6Q3HISCHxyeI98zoCcy_ZA>
+    <xmx:AqK6ajeS2DkKjha4qtyiFz8pYaVBZoLsCK2WMI_lnTuJ8al5s87WFg>
+    <xmx:AqK6agFhpvYnTNdvu-UzjllEirRVmBdKqpZtG7UTJpuighG5Qeag5A>
+    <xmx:AqK6amPFEHR90eeZStkd-dIzsg-ZIVPXILeuDuO1FZccV0GOwpB2sQ>
+    <xmx:A6K6aqZzes1EOOPDG3S3_LbCYWNwv6cGFWazqN91PQemXmsFOH7EyBO9>
+Feedback-ID: i60a14417:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 28 Sep 2026 13:20:47 -0400 (EDT)
+From: =?utf-8?q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
+Date: Mon, 28 Sep 2026 19:17:57 +0200
+Subject: [PATCH v3 09/12] mm/rmap: Mark folios mapped into
+ crash_memaction-marked VMAs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v26 05/10] dt-bindings: arm: Document reboot mode magic
-To: sashiko-reviews@lists.linux.dev, Rob Herring <robh@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20260928-arm-psci-system_reset2-vendor-reboots-v26-0-b24e2348e8e1@oss.qualcomm.com>
- <20260928-arm-psci-system_reset2-vendor-reboots-v26-5-b24e2348e8e1@oss.qualcomm.com>
- <20260928062613.7BB651F000FF@smtp.kernel.org>
-Content-Language: en-US
-From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-In-Reply-To: <20260928062613.7BB651F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2OSBTYWx0ZWRfX8Lwah0xOErwO
- N9fVT19CeYVjBbWZ/vz364seR02oaEbJ4RClCA0So/GXrbIEXQBOuAMhqOcREDBYKYVgRpfvx5/
- Z22zulNKgCp2BVk6xZC4976XFWo82kA/m5l0K+G1yeSPsAyHgMJrbLCpHYxBAnhP5w0hMVfdhPQ
- aO53MpLizGJ33SeS5p6imtsG2j1ORg1f3DgnJymuIs+fy6pNhY2R7Z070BiWWuuhWU7H52NIcJR
- WTyyyJFWHUyIY1xUBiA0XFFlSMU0YQv6bqJOtXRPVxSkQLHXYNxQPGRUdvMqkWSF+Bdibq8yEFK
- we4EfFSJzrrhESCFWKokK/EugCvnCKiit+nyaBcgDyk4Qpj8QrReGwnjHLnAU0yULrRichzZdXc
- buTDXSrJX9LXH6cNo2ydkRWvW5987bkvhjHDLBmP1cD70X4mBOtDor3bbjj9wFbH5vFOmRFO+EQ
- itwXaSb0Rt42FcUtURg==
-X-Proofpoint-ORIG-GUID: YYnY51ooRK_ZjZW2W98xge3H2OQ_OVXc
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2OSBTYWx0ZWRfX5VcDj/zoLEoD
- iIztPUj3TJPDKSWzn/r+I5cv4X1prdU3OEKCA8FHuXftRvZdB78Rqls7C1157u7pf3kAoeewVq7
- 4ylRaRx8WONu92tsVoSweBWCSiIH3RQ=
-X-Proofpoint-GUID: YYnY51ooRK_ZjZW2W98xge3H2OQ_OVXc
-X-Authority-Analysis: v=2.4 cv=TptzFzXh c=1 sm=1 tr=0 ts=6abaa1f8 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=0iu8UVjuSkuIMUlAYuuJCw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_qQNA3pjuplG1EYRU9IA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
- bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280069
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260928-crash-memaction-upstream-20260921-v3-9-e511e9ee2329@jaseg.de>
+References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
+To: Jonathan Corbet <corbet@lwn.net>,
+  Shuah Khan <skhan@linuxfoundation.org>,
+  Randy Dunlap <rdunlap@infradead.org>, Rob Herring <robh@kernel.org>,
+  Saravana Kannan <saravanak@kernel.org>,
+  Andrew Morton <akpm@linux-foundation.org>,
+  Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+  Pasha Tatashin <pasha.tatashin@soleen.com>,
+  Pratyush Yadav <pratyush@kernel.org>,
+ Dave Young <ruirui.yang@linux.dev>,
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+  "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,  Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+  David Hildenbrand <david@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+  Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+  Brendan Jackman <brendan.jackman@linux.dev>,
+  Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+  Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,  Mark Rutland <mark.rutland@arm.com>,
+ Alasdair Kergon <agk@redhat.com>,  Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+  Benjamin Marzinski <bmarzins@redhat.com>,
+  Herbert Xu <herbert@gondor.apana.org.au>,
+  "David S. Miller" <davem@davemloft.net>,
+ Mimi Zohar <zohar@linux.ibm.com>,  David Howells <dhowells@redhat.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>,  Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>,  "Serge E. Hallyn" <serge@hallyn.com>,
+  James Bottomley <James.Bottomley@HansenPartnership.com>,
+  "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,  Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,  Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>,  Lance Yang <lance.yang@linux.dev>,
+  Baolin Wang <baolin.wang@linux.alibaba.com>,
+  Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+  Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+  Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+  Matthew Brost <matthew.brost@intel.com>,
+  Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
+  Ying Huang <ying.huang@linux.alibaba.com>,
+  Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+  Arnd Bergmann <arnd@arndb.de>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ kexec@lists.infradead.org, driver-core@lists.linux.dev, linux-mm@kvack.org, 
+ linux-arm-kernel@lists.infradead.org, dm-devel@lists.linux.dev, 
+ linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org, 
+ keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ =?utf-8?q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
+X-Mailer: b4 0.15.2
 
+Propagate crash_memaction marks set through madvise() to the
+crash_memaction registry. Register the folios of a VMA carrying
+VM_CRASH_MARK with the crash memaction registry as they are mapped, and
+update the registry when a folio moves.
 
+Marks are processed in rmap since the fault paths, CoW, swapin,
+migration and khugepaged collapse all converge here. The marks don't
+affect pinning, reclaim, compaction or hot-unplug. De-regsitering free'd
+marked pages is done in post_alloc_hook() and the hugetlb pool to
+account for stale data in free'd pages.
 
-On 9/28/2026 11:56 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Low] dt-bindings: ineffective unevaluatedProperties allows undocumented properties
-> - [Low] dt-bindings: missing maxItems constraint on mode-* arrays
-> --
-> 
-> commit b385b6956b70c623850aefcc8ceb50fda4b87cc0
-> Author: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> 
-> dt-bindings: arm: Document reboot mode magic
-> 
-> Add bindings to describe vendor-specific reboot modes. Values here
-> correspond to valid parameters to vendor-specific reset types in PSCI
-> SYSTEM_RESET2 call.
-> 
->> diff --git a/Documentation/devicetree/bindings/arm/psci.yaml b/Documentation/devicetree/bindings/arm/psci.yaml
->> index 0d04389c81faa..82ae25e7a3386 100644
->> --- a/Documentation/devicetree/bindings/arm/psci.yaml
->> +++ b/Documentation/devicetree/bindings/arm/psci.yaml
-> [ ... ]
->> @@ -98,6 +98,39 @@ properties:
->>         [1] Kernel documentation - ARM idle states bindings
->>           Documentation/devicetree/bindings/cpu/idle-states.yaml
->>   
->> +  reboot-mode:
->> +    type: object
->> +    $ref: /schemas/power/reset/reboot-mode.yaml#
->> +    unevaluatedProperties: false
-> 
-> [Severity: Low]
-> Does unevaluatedProperties here effectively restrict undocumented properties?
-> 
-> The referenced schema /schemas/power/reset/reboot-mode.yaml# has an open
-> additionalProperties: true. Under JSON Schema evaluation rules, this causes
-> all properties to be annotated as successfully evaluated.
-> 
-> Consequently, unevaluatedProperties: false in the referencing schema becomes
-> a no-op, allowing any arbitrary property to pass validation silently.
-> 
->> +    properties:
->> +      # "mode-normal" is just SYSTEM_RESET
->> +      mode-normal: false
->> +    patternProperties:
->> +      "^mode-.*$":
->> +        $ref: /schemas/types.yaml#/definitions/uint32-array
->> +        minItems: 2
-> 
-> [Severity: Low]
-> Should this also include a maxItems constraint?
-> 
-> Providing a list of schemas to items constrains the initial array elements
-> but does not intrinsically limit the array's maximum length.
-> 
-> Without maxItems: 3, a device tree defining 4 or more cells for a reboot
-> mode will silently pass schema validation, violating the binding's up to
-> three 32-bit cells requirement.
-> 
->> +        items:
->> +          - description: arg1 (vendor-specific SYSTEM_RESET2 reset_type)
->> +            minimum: 0x80000000
->> +          - description: arg2 (cookie_lo in 2-cell form, cookie_hi in 3-cell form)
->> +          - description: arg3 (cookie_lo in 3-cell form)
+The marking code is gated behind a static key that is only enabled when
+the crash_memaction registry is explicitly enabled by a cmdline
+argument, so there should be no performance impact unless the feature is
+actually used.
 
-I would wait for Rob's review on both comments.
+Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
+Assisted-by: Claude Opus 5 <noreply@anthropic.com>
+---
+ include/linux/crash_memaction.h | 15 +++++++++++++++
+ include/linux/rmap.h            |  5 ++++-
+ mm/huge_memory.c                |  2 ++
+ mm/hugetlb.c                    |  6 +++---
+ mm/migrate.c                    |  2 +-
+ mm/rmap.c                       |  8 ++++++++
+ mm/userfaultfd.c                |  1 +
+ 7 files changed, 34 insertions(+), 5 deletions(-)
 
-thanks,
-Shivendra
+diff --git a/include/linux/crash_memaction.h b/include/linux/crash_memaction.h
+index 5f3e114c60ad..2de60bc12dd9 100644
+--- a/include/linux/crash_memaction.h
++++ b/include/linux/crash_memaction.h
+@@ -4,6 +4,7 @@
+ 
+ #include <linux/init.h>
+ #include <linux/jump_label.h>
++#include <linux/mm.h>
+ #include <linux/types.h>
+ 
+ struct kimage;
+@@ -50,6 +51,18 @@ static inline void crash_memaction_unmark_pfns(unsigned long pfn,
+ 		__crash_memaction_unmark_pfns(pfn, nr_pages);
+ }
+ 
++static inline void crash_mark_pages(struct page *page, int nr_pages,
++		struct vm_area_struct *vma)
++{
++	if (!static_branch_unlikely(&crash_memaction_active))
++		return;
++
++	if (likely(!(vma->vm_flags & VM_CRASH_MARK)))
++		return;
++
++	__crash_memaction_mark_pfns(page_to_pfn(page), nr_pages);
++}
++
+ void crash_memaction_mark(void *addr, size_t size, int types);
+ void crash_memaction_unmark(void *addr, size_t size);
+ 
+@@ -62,6 +75,8 @@ void crash_memaction_unload(struct kimage *image);
+ static inline void crash_memaction_init(void) { }
+ static inline void crash_memaction_unmark_pfns(unsigned long pfn,
+ 		unsigned long nr_pages) { }
++static inline void crash_mark_pages(struct page *page, int nr_pages,
++		struct vm_area_struct *vma) { }
+ static inline void crash_memaction_mark(void *addr, size_t size, int types) { }
+ static inline void crash_memaction_unmark(void *addr, size_t size) { }
+ static inline int crash_memaction_types(void) { return 0; }
+diff --git a/include/linux/rmap.h b/include/linux/rmap.h
+index 74cca0e3c726..1eeb7762b4a3 100644
+--- a/include/linux/rmap.h
++++ b/include/linux/rmap.h
+@@ -9,6 +9,7 @@
+ #include <linux/slab.h>
+ #include <linux/mm.h>
+ #include <linux/rwsem.h>
++#include <linux/crash_memaction.h>
+ #include <linux/memcontrol.h>
+ #include <linux/highmem.h>
+ #include <linux/pagemap.h>
+@@ -472,13 +473,15 @@ static inline int hugetlb_try_share_anon_rmap(struct folio *folio)
+ 	return 0;
+ }
+ 
+-static inline void hugetlb_add_file_rmap(struct folio *folio)
++static inline void hugetlb_add_file_rmap(struct folio *folio,
++		struct vm_area_struct *vma)
+ {
+ 	VM_WARN_ON_FOLIO(!folio_test_hugetlb(folio), folio);
+ 	VM_WARN_ON_FOLIO(folio_test_anon(folio), folio);
+ 
+ 	atomic_inc(&folio->_entire_mapcount);
+ 	atomic_inc(&folio->_large_mapcount);
++	crash_mark_pages(&folio->page, folio_nr_pages(folio), vma);
+ }
+ 
+ static inline void hugetlb_remove_rmap(struct folio *folio)
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 3fb9504dff7a..adbda968d58e 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2966,6 +2966,8 @@ int move_pages_huge_pmd(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd, pm
+ 
+ 		folio_move_anon_rmap(src_folio, dst_vma);
+ 		src_folio->index = linear_anon_page_index(dst_vma, dst_addr);
++		/* No rmap add, and the two VMAs need not agree on the flag. */
++		crash_mark_pages(&src_folio->page, HPAGE_PMD_NR, dst_vma);
+ 
+ 		_dst_pmd = folio_mk_pmd(src_folio, dst_vma->vm_page_prot);
+ 		/* Follow mremap() behavior and treat the entry dirty after the move */
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 36f0c0d8f5f1..309be0b301ca 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5063,7 +5063,7 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 			 * sleep during the process.
+ 			 */
+ 			if (!folio_test_anon(pte_folio)) {
+-				hugetlb_add_file_rmap(pte_folio);
++				hugetlb_add_file_rmap(pte_folio, dst_vma);
+ 			} else if (hugetlb_try_dup_anon_rmap(pte_folio, src_vma)) {
+ 				pte_t src_pte_old = entry;
+ 				struct folio *new_folio;
+@@ -5982,7 +5982,7 @@ static vm_fault_t hugetlb_no_page(struct address_space *mapping,
+ 	if (new_anon_folio)
+ 		hugetlb_add_new_anon_rmap(folio, vma, vmf->address);
+ 	else
+-		hugetlb_add_file_rmap(folio);
++		hugetlb_add_file_rmap(folio, vma);
+ 	new_pte = make_huge_pte(vma, folio, vma->vm_flags & VM_SHARED);
+ 	/*
+ 	 * If this pte was previously wr-protected, keep it wr-protected even
+@@ -6502,7 +6502,7 @@ int hugetlb_mfill_atomic_pte(pte_t *dst_pte,
+ 		goto out_release_unlock;
+ 
+ 	if (folio_in_pagecache)
+-		hugetlb_add_file_rmap(folio);
++		hugetlb_add_file_rmap(folio, dst_vma);
+ 	else
+ 		hugetlb_add_new_anon_rmap(folio, dst_vma, dst_addr);
+ 
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 7bdcdb57652f..467b695e6dd6 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -434,7 +434,7 @@ static bool remove_migration_pte(struct folio *folio,
+ 				hugetlb_add_anon_rmap(folio, vma, pvmw.address,
+ 						      rmap_flags);
+ 			else
+-				hugetlb_add_file_rmap(folio);
++				hugetlb_add_file_rmap(folio, vma);
+ 			set_huge_pte_at(vma->vm_mm, pvmw.address, pvmw.pte, pte,
+ 					psize);
+ 		} else
+diff --git a/mm/rmap.c b/mm/rmap.c
+index fbd66a2823b7..21183478f606 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -1582,6 +1582,8 @@ static __always_inline void __folio_add_anon_rmap(struct folio *folio,
+ 	 */
+ 	if (folio_nr_pages(folio) == nr_pages)
+ 		mlock_vma_folio(folio, vma);
++
++	crash_mark_pages(page, nr_pages, vma);
+ }
+ 
+ /**
+@@ -1703,6 +1705,8 @@ void folio_add_new_anon_rmap(struct folio *folio, struct vm_area_struct *vma,
+ 
+ 	__folio_mod_stat(folio, nr, nr_pmdmapped);
+ 	mod_mthp_stat(folio_order(folio), MTHP_STAT_NR_ANON, 1);
++
++	crash_mark_pages(&folio->page, nr, vma);
+ }
+ 
+ static __always_inline void __folio_add_file_rmap(struct folio *folio,
+@@ -1721,6 +1725,8 @@ static __always_inline void __folio_add_file_rmap(struct folio *folio,
+ 	 */
+ 	if (folio_nr_pages(folio) == nr_pages)
+ 		mlock_vma_folio(folio, vma);
++
++	crash_mark_pages(page, nr_pages, vma);
+ }
+ 
+ /**
+@@ -3190,6 +3196,7 @@ void hugetlb_add_anon_rmap(struct folio *folio, struct vm_area_struct *vma,
+ 		SetPageAnonExclusive(&folio->page);
+ 	VM_WARN_ON_FOLIO(folio_entire_mapcount(folio) > 1 &&
+ 			 PageAnonExclusive(&folio->page), folio);
++	crash_mark_pages(&folio->page, folio_nr_pages(folio), vma);
+ }
+ 
+ void hugetlb_add_new_anon_rmap(struct folio *folio,
+@@ -3204,5 +3211,6 @@ void hugetlb_add_new_anon_rmap(struct folio *folio,
+ 	folio_clear_hugetlb_restore_reserve(folio);
+ 	__folio_set_anon(folio, vma, address, true);
+ 	SetPageAnonExclusive(&folio->page);
++	crash_mark_pages(&folio->page, folio_nr_pages(folio), vma);
+ }
+ #endif /* CONFIG_HUGETLB_PAGE */
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index b242fa8b22c8..bb0a35d59daa 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -1326,6 +1326,7 @@ static long move_present_ptes(struct mm_struct *mm,
+ 
+ 		folio_move_anon_rmap(src_folio, dst_vma);
+ 		src_folio->index = linear_anon_page_index(dst_vma, dst_addr);
++		crash_mark_pages(&src_folio->page, 1, dst_vma);
+ 
+ 		orig_dst_pte = folio_mk_pte(src_folio, dst_vma->vm_page_prot);
+ 		/* Set soft dirty bit so userspace can notice the pte was moved */
+
+-- 
+2.55.0
+
