@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357374BD36E
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 14:48:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9964D6C3F
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 14:49:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606910; cv=none; b=OKfJp2gxFJN5fX/tupp1m3+M0SBam3pJrqAjw7d4igYwWX+yrQgZZksHz3lAzOsVsGlf++TShgMRL+43KsxLJTlbO8GeKKM8yx1R5v5QKIgLOb8ks3HpGU27xflAKIYm1lMQ0mJICzNYLQOi0X/Fv2TnFrFhvqt46byJMVlb4OM=
+	t=1790606966; cv=none; b=Zv6ZulNEOb1dhDAvZ9ziKGq3COMHhRKAaz5jqwnq7WYYB8fLFP22fkfC4C3pGJc6rt0HbPBSaQT+mRlMvz+JSb0QK5mApam6BlahZnDYTXQiDOVIKAKqF423/Im5TURSORsQ/RWG1H/PGB33KDu6GpwXGDuielWgaSqgVv/eZQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606910; c=relaxed/simple;
-	bh=m1lTArCS+Vax+bYYuUXjny6lheWQ+7I/sk21AEQXBRw=;
+	s=arc-20240116; t=1790606966; c=relaxed/simple;
+	bh=59oKfqDJu4UTzymLfhhjkAKWAp1F0nJpwZ/QgV5jcRQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sCtegQ66WGsauBQ2VJ1/L6dyp/wQF2KASh2nkXNrxhh2SPtO8WG5DtfumlqUFlbuLcL6qh2/A/K6dhqzGcKvtq9NxUP1ACkUN0Crxdcw/rYKjoeH8vmED7e3pT+G5RpyhgGq3T73Schr2mL3Nj9Oj5Zwd0NfqfN6mjtrds+ZtSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+wxK0Qu; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=i3E10vsUWEJn7ogwBk2zXU7pMMvRShSU7OA5cVNBTtLRSsUXxo/MZmnOckaRhRLVTacNFU7RdbT5SiKE0w4Yzad6cSZJ8Ok2bYbq1AqPYwRKDBs6zQK0pf/0ZllIsLS8WF9tQiJ+QeE4PYXiaJI1qM8RvaiAUvGnhkMLaG0PiWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=caC9g4re; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+wxK0Qu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913141F000FF;
-	Mon, 28 Sep 2026 14:48:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="caC9g4re"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 888A61F000FF;
+	Mon, 28 Sep 2026 14:49:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790606908;
-	bh=oX1nIPclCE2hcqdrBR2c/JEHrzsUR2TofDKF8jU0eYM=;
+	s=k20260515; t=1790606964;
+	bh=322e4Ud5th78Xp+ttkVYbIPyHwxvPBmSAL8qEoITRIY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=S+wxK0Qu7/V9P+UCAVyUvaB1pQFHIVjCn7JeCQAKWwtuOhEAC4kKVUgh3IgfTgBLe
-	 jUVOMlEHLt0JRLviNUkdKOvB8p/L8QNwrm74d0tw4WtdfGD+DO9Mogu+wVL0CeK8RR
-	 ss3ccoIIrfhj5PCnDjTA93xspo2JNwvVs1App7HLWvRMu7pI7hhq/6NTS5cPa0QDNj
-	 uUI0SgqHU6R7u4h+2nbXvZk90rroT7TlBZcnp4S/ZJ5WJL/jJcgR1YMXdR//QG8wzk
-	 xquTbXUm+UP/sfDiq6zGaGNvkABI+xBiD/8uBP2X9p0F/RFqBtly/kD6+6JPGK+I9r
-	 HSXhM0WFk/ORQ==
+	b=caC9g4reUEp1A3AnsytNAPbW/YS8rrwaLeRJ3o4Sr8CyJackP/iBxK4Y06JrvBfPi
+	 Izegi4z1AhQrGXpUshE9Wjann7t0YBEX7KJaN1+9yC/PqvSpp6vF9Thj2D05UvFoV5
+	 PvqmS10DdIaoBLOH5v41AnUP+PJkbeEHzMZMPXCsIGpCD4RwHvWqiWuX/jjv8Cycbf
+	 M+JOFAxoHZhzA3hlhCqEqHlW/4BIlr4wXS7sOLsf0OnQ7WayEGo1Kw0MDfEH2bJPVt
+	 l1aiNBmsN3mLA/lLaRfToAUeHaaC2bpxnxEzkUdlO5+7r6nMH4X9Meh3c1yYbuq1Qz
+	 ug09cB153KRYA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/3] arm64: dts: broadcom: rpi-5: Add RP1 PWM node
+Subject: Re: [PATCH v9 07/11] arm64: dts: renesas: rzg2l(c)/rzv2l hb-iiot:
+ add dsi panel dt overlay
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrea della Porta" <andrea.porta@suse.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <ad9bc35d7c30f7925fed4c6621ed0f67c39c3f09.1790606188.git.andrea.porta@suse.com>
-References: <cover.1790606188.git.andrea.porta@suse.com>
- <ad9bc35d7c30f7925fed4c6621ed0f67c39c3f09.1790606188.git.andrea.porta@suse.com>
+To: "Josua Mayer" <josua@solid-run.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260928-rzg2-sr-boards-v9-7-5901e0fc9e44@solid-run.com>
+References: <20260928-rzg2-sr-boards-v9-0-5901e0fc9e44@solid-run.com>
+ <20260928-rzg2-sr-boards-v9-7-5901e0fc9e44@solid-run.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 14:48:28 +0000
-Message-Id: <20260928144828.913141F000FF@smtp.kernel.org>
+Date: Mon, 28 Sep 2026 14:49:24 +0000
+Message-Id: <20260928144924.888A61F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,70 +47,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] pwm: rp1: missing spinlock for shared RP1_PWM_GLB_CTRL register
+- [Low] dts: workaround for driver bug via incorrect GPIO polarity
 --
 
-commit 0c157fdfbde9f74961d4b31ce35f1c71872efa00
-Author: Stanimir Varbanov <svarbanov@suse.de>
+commit 6728207701dcae1710f79cd19dde291399712ed9
+Author: Josua Mayer <josua@solid-run.com>
 
-arm64: dts: broadcom: rpi-5: Add RP1 PWM node
+arm64: dts: renesas: rzg2l(c)/rzv2l hb-iiot: add dsi panel dt overlay
 
-The RP1 chipset used on the Raspberry Pi 5 features an integrated
-PWM controller to drive the cooling fan. Add the corresponding DT
-node for this PWM controller.
+This commit adds a device tree overlay for the Winstar WJ70N3TYJHMNG0 1024x=
+600
+DSI panel used on the SolidRun HummingBoard IIoT. The overlay is enabled in=
+ the
+build system for multiple RZ SoMs.
 
-> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm6=
-4/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> index 0fc57e72632ed..748be8f1ee9e2 100644
-> --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> diff --git a/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-panel-ds=
+i-WJ70N3TYJHMNG0.dtso b/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot=
+-panel-dsi-WJ70N3TYJHMNG0.dtso
+> new file mode 100644
+> index 0000000000000..f8584c473fafe
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-panel-dsi-WJ70N=
+3TYJHMNG0.dtso
 [ ... ]
-> @@ -94,6 +100,12 @@ &rp1_i2c6 {
->  	pinctrl-names =3D "default";
->  };
-> =20
-> +&rp1_pwm1 {
-> +	pinctrl-0 =3D <&fan_pwm_default_state>;
-> +	pinctrl-names =3D "default";
+> +&dsi {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
 > +	status =3D "okay";
-> +};
+> +
+> +	panel@0 {
+> +		/* This is a Winstar panel, but the ronbo panel uses same controls. */
+> +		compatible =3D "ronbo,rb070d30";
+> +		reg =3D <0>;
+> +		/* reset is active-low but driver inverts it internally */
+> +		reset-gpios =3D <&tca6408_u48 1 GPIO_ACTIVE_HIGH>;
 
-[Severity: High]
-Can concurrent PWM channel configuration cause lost updates when this node =
-is
-enabled?
+[Severity: Low]
+Does this overlay rely on a workaround for a driver bug by specifying an
+incorrect GPIO polarity?
 
-Looking at drivers/pwm/pwm-rp1.c, there is a read-modify-write race on the
-shared hardware register RP1_PWM_GLB_CTRL:
+The comment explicitly notes that the physical hardware reset is active-low,
+but it is described as active-high (GPIO_ACTIVE_HIGH) here in panel@0. Devi=
+ce
+trees should accurately describe the physical hardware rather than software
+configurations or driver bugs.
 
-drivers/pwm/pwm-rp1.c:rp1_pwm_write_waveform() {
-    ...
-	/* enable the channel */
-	ctrl |=3D RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm);
-	writel(ctrl,  rp1->base + RP1_PWM_GLB_CTRL);
-    ...
-}
-
-and also in:
-
-drivers/pwm/pwm-rp1.c:rp1_pwm_apply_config() {
-    ...
-	value =3D readl(rp1->base + RP1_PWM_GLB_CTRL);
-	value |=3D RP1_PWM_GLB_CTRL_SET_UPDATE;
-	writel(value, rp1->base + RP1_PWM_GLB_CTRL);
-    ...
-}
-
-If two threads call pwm_apply_state() on different PWM channels concurrentl=
-y,
-the PWM core locks at the channel level, not the chip level.
-
-One thread's enable/disable action could overwrite the other's, leading to
-channels unexpectedly disabling or failing to enable.
-
-Since this PWM drives the cooling fan, could a lost update disabling the fan
-lead to a thermal shutdown?
+If the underlying ronbo,rb070d30 driver is eventually fixed to handle
+standard gpiod semantics correctly, won't this hardcoded polarity break the
+overlay?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/ee0aa89faa14e0073f1=
-271693bae28678652998b.1790606188.git.andrea.porta@suse.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-rzg2-sr-bo=
+ards-v9-0-5901e0fc9e44@solid-run.com?part=3D7
