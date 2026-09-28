@@ -1,152 +1,209 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011016.outbound.protection.outlook.com [52.101.70.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3F62D0C7E;
-	Mon, 28 Sep 2026 12:57:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600227; cv=fail; b=NvooRyTvIYiHC4nJmBNBETm1nRqTiOAWTYUa0eaK+SA8uVru7rzB/Ddr8DOz8P6Li8ChzK6FO5QdmmIAmX4tCei7ghqxwbCDZgSXfBrC/oBWylO8YZxMSwuyGvptdEIueSdP4ekwRG22QmA6kG7/DELzzoBt7mRVc2PSZH3FAr4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600227; c=relaxed/simple;
-	bh=RiYr68MtgommusYicJnFe6pN5U+8Nu9PiApKXacKEG0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=LRk1ihZ1tGDFSGskArqdYEFP+c9536H2+wTMoj6PL5EG6oBPgvfSL/gV+KHsQVXjcPhEO/daNXmtPX8oZ4DXLiKST4fIMFE/MFmrr1zHAvkiIsFjOeXq5jm6VDstP+vBw/g2rhD2YzGnpwyhCBGhfNMP0i/b8B85LkcVmCOlvso=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=YxmTzAXI; arc=fail smtp.client-ip=52.101.70.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E253C7DF5;
+	Mon, 28 Sep 2026 12:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790600258; cv=none; b=eued1JHf6m0qCNyLICA3sX2tV5yBHoF/45BEIPMh8iO+0RrAFovWI4aBD5lhDzPZKAqBr93qjVYkZ4A48vp8yDMagsGB7jCYmjOfRNqBAximgwOJUctn3RTQgYMcuYnhoIt1YCFAI3Qiyay42JPtmT8rAVCDY5nz+xxRRFobt2w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790600258; c=relaxed/simple;
+	bh=yArXh0BoeMjlRjX+13KONdZhOafhvWT/9S2MFfcLBM8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FiQ7xZRPUWIGc72j5gmB1kaPVk+LK4qSIAZsXY7mqv5U2+ByfOseCc7F3Z2tHdhE3Ym90KbtFjfxAoSfCON6k9Dg5RdCgGMMi4Eee/h+SYxlBL0Dkyg5xoGqyas/TSDv1dzjGZ8PL1XKTA64lSVk/VENJ7tBhXnEiqy5N+Fsd1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RPclGIyE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="YxmTzAXI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SoSb5dyMJcUu8shdL0f3gL3p6GOKBBbadYqFGr5YB36scLV4pbVs6jilEzokqSCX8NONwdlSGv+HjOOshN3uCqEEKK26UyVD8SMvK7pmJuaVG8f694NrA4FmMObMtrSwe+em9GY2c2I89y6o7za6khJUuK6jvSuULMTHA33QkwmUuUVHew0zXAFRLz02H7Ezcd1vyW9EHN6GCZFd7wSAhEY50zI2mTBgHPFs3MD4FARZxBtp0lEt5H2xXVyNyc8NSHchvVelKdT+oynqIxdNeI5f2Go1VNsu+XFLHJcGUeardeZygq0tRZ2/eLkdzEBhFwFdqQ5qERiUURM/OmwyCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hQvew6fPcJMWBxcVSMD/CPpbE6DFAxAYiyYAZfGA5/k=;
- b=qEucJg1/ztN8SCQgNw8AnJRFGh5I9KPwYZv5loSg1EIKH0mnkqwQO57Q8AwBDe9/RCkJM0iT3IWcupxHNkhnw8igY9GuKS7tOgAZqdN1aIKdI1kSrvwh3qtNrFpKJeuhN3rnJhIj7IfwRi0kGpBRg8fczZXYUSt6A5cO2atx35Nz1Ojg9SgtKI4ZwXEpYKEy9ButUL/1b1HNDWJhhkLDApzl5GMWr0wt+IBTd5Nl2/62eHNd8rOumNiqGqyCYsSy6BqQ1ByR4LeG5xg4sMfD/wbPvWVKNUM2Tsf4WJSIeWp2fhst1ayqhey3KkrSpwAiWDhFrWc3H7p1LsFEHzj2ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=amarulasolutions.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hQvew6fPcJMWBxcVSMD/CPpbE6DFAxAYiyYAZfGA5/k=;
- b=YxmTzAXI+cJU08ltndX8eZz9hCInFuc0zGlQR1E9kBWOrBU1ThXYwszh/dhE9gNY8X9A/2haBSBJuMkgBlJ5KMsfaWkAwNJIVzZx3yS3Un134nxZMYEPeglr52dEj+z2OpUbJa0ntIGfXkgDKOzYo9k8Rnna4vEMxcgzS+MDIoe/hOtmTyPq5NhF79AhwXOAXeGnU3UpDu+LMo64d3xMPxz7/B2ves3wrH0YooKxibzRoArI/pVm+8kmmZ7ogYxoPIR1ZR+MDiyY1ma1OGLrd6UpHgphHt/C7FXziThKyGCcNjP4I5dgeaFiQptUR2aj3uYq/W09+g5/cth9zLQMBQ==
-Received: from DUZPR01CA0354.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b8::6) by DB8PR10MB3292.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:10:11b::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 12:57:01 +0000
-Received: from DB1PEPF000509F9.eurprd02.prod.outlook.com
- (2603:10a6:10:4b8:cafe::93) by DUZPR01CA0354.outlook.office365.com
- (2603:10a6:10:4b8::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 12:57:01 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DB1PEPF000509F9.mail.protection.outlook.com (10.167.242.155) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 12:57:01 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 28 Sep
- 2026 15:02:53 +0200
-Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 28 Sep
- 2026 14:56:59 +0200
-Message-ID: <131404a0-b46b-4b7d-b01b-032e86bc0e00@foss.st.com>
-Date: Mon, 28 Sep 2026 14:56:59 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RPclGIyE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9BB61F000FF;
+	Mon, 28 Sep 2026 12:57:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790600256;
+	bh=POAmT5VbWBcT8EVy+B34poLm4yNeDTHDxXbefO+EIHE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RPclGIyElmP9EhBnt/Wu2uMNy3r3enAiHKDI0qx3th+iTjfi8htRgmq9RMwMgw5a0
+	 2HsCA8TMsnMN8g8oJb3NEKyQ+ZzAmCk2lzv8WtKSpOwQ8jKg+/o8d8QkrkKlqeXabK
+	 oUNMLajFIuw4wMBTr6i8NqqnixVM6wd+S3MDCeYZHzBeC1HXACY7vSc92ZICMu11gx
+	 utLvEH7sI4+1wgR48imoZkZ90zLWvT5un3qHRBCBzTdfe2cJxFz7DubudxGAyhcO8R
+	 y89MiQTqLQxAlOY6NIlIYgcc6h91TTpLoreazmISPk3hfZpW3mxLYzDWFyMvWBrBV3
+	 Z+KsIdCr7koqg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 06/12] ARM: dts: imx6ul: Add Variscite storage and
+ wireless files
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org
+In-Reply-To: <335592bb96129d875cf77bd87cabb77f1f9476da.1790512621.git.stefano.r@variscite.com>
+References: <cover.1790512621.git.stefano.r@variscite.com>
+ <335592bb96129d875cf77bd87cabb77f1f9476da.1790512621.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Sep 2026 12:57:35 +0000
+Message-Id: <20260928125735.B9BB61F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] arm64: dts: st: add display overlays for Engicam
- MicroGEA-STM32MP257D-RMM
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>
-CC: <michael@amarulasolutions.com>, <domenico.acri@engicam.com>,
-	<linux-arm-kernel@lists.infradead.org>, Marek Vasut <marex@nabladev.com>,
-	<francesco.utel@engicam.com>, <linux-kernel@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>, <devicetree@vger.kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, <linux-amarula@amarulasolutions.com>
-References: <20260923155333.610134-1-dario.binacchi@amarulasolutions.com>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20260923155333.610134-1-dario.binacchi@amarulasolutions.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509F9:EE_|DB8PR10MB3292:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19acb953-aa90-49eb-0ebd-08df1d5ffd04
-X-LD-Processed: 75e027c9-20d5-47d5-b82f-77d7cd041e8f,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|1800799024|376014|82310400026|36860700016|23010399003|22082099003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
- BtfzPAEoYeUi0XAnnjG4C60JhzBRQwb+VwrTvWB2dsU4BeDA9GhT6jMDk43xfNVXAilvQB1v/7TsxFfcwk8T7YRwHytWy14JFQOE2sPC5tVDsOemhtf13nhI/SRyY5UvLGoXxh3pPjumvhHIjYHSUaDSzl3UQsZxIDYB9F3CyDQMfdBXk7O8BHLiXLQx/Wp8Cxek8OCBSGn801u8gkx5g8lV4bp86pqSgh87sp1mxeBoBGmYDc0dz/1SrKaXsGgM74k7vOKMzy5jBZYHoBrvsrpKIhxKCi8pH4af6bek8ZEvLCm7cx8OVFmc/FnFv4JW0a70ZA2Ii9d1xNBYfWjaAWAP9WnlDYVE6n525fdbo/qDE49p42wPbl7NndpKBhj1+Te2KoQIWX9OOZ52C4JgnMcNQc7MDxwCge0plFbKuoPhwIBRh9SYmiMJNf/LbQi5s+YNF/q0z4Ttlj5QdPn+8JBp3I0Fm9+W3qKO2ZuEcLKwMsgYbh7RhbMjbHuREBGWozYRMvfd/6c3I8S2ZbchNHJ9BcR8z9/KeahhIFTRSWhISeKSwhD+aQTutt3wNipKwSl5yV5k+gZp6F8xLJQC9PJz2N8wlyeTSItltzx5hH5UDX4geU33fSESc7vWlid2Ufxgut1N7dFpk7F3yM10RgCq2aYlGfpGcV5ViTojpr9sn7yPUpP9R6lsXbiEHf569Du3tf1LSZyZaO/4LS8DTA==
-X-Forefront-Antispam-Report:
- CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(82310400026)(36860700016)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- Ek4ue9teqfKemRptZ3UXVZK/JJwp1lrV301UqnfnE9Hza4v2Eufi5PUBcOY8Pi8OoCR4CWs0h81CpByCSKB4OZ+4cLzsw7adwl7SA3WU572NCq5/k04G9hQ5HWrohPSTBnnf2KoXfTyhgkMmDNrO8DFkSeABOqmqUj79nOoBDShpGSDic0fv00zUTpGYwMRp9ap4v7TJ9X2f+ydrmV1XB4lf0Kpfoa+JU23ufQiPrlrXnr0CkDMlvtqAmL8kwUHGGdpX/z8hvdr4TFKIE+9I5vBrQakkIL3M4G/4T1bVLfeFFemHRLv9SpzH25NkKiAbvl3HiqHGRn4xoAieG3JPKMkeZ6gWcYoJWruSgIdUms6HcjzGV7+jsLBypNUGNpaCSpI2vU/FrQwJj2E+L+0q8pXA0fDX0v6TD9gqRLxrAdxWJikf2HSffKcchAqe3B8q
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 12:57:01.2700
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19acb953-aa90-49eb-0ebd-08df1d5ffd04
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509F9.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3292
 
-Hi Dario
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] mmc: pwrseq: simultaneous toggle of power and reset violates hardw=
+are sequencing
+- [High] dts: brcm: missing power and reset GPIO configuration for Broadcom=
+ Wi-Fi
+- [High] dts: brcm: completely missing Bluetooth UART node
+- [Medium] mmc: missing non-removable property for soldered Broadcom Wi-Fi
+- [Low] mtd: nand: partitions defined directly under controller violate mod=
+ern bindings
+--
 
-On 9/23/26 17:53, Dario Binacchi wrote:
-> 
-> The board is produced in variants fitted with different displays. Move
-> the current RGB panel to a device tree overlay and add one for the LVDS
-> variant, so that the board dts describes only what is common and each
-> display gets its own overlay.
-> 
-> Changes in v2:
-> - Keep the full cs-gpios in the board dts, the overlay only adds the
->    panel node. Suggested by Sashiko.
-> 
-> Dario Binacchi (2):
->    arm64: dts: st: move Engicam MicroGEA-STM32MP257D-RMM display to an
->      overlay
->    arm64: dts: st: add Engicam MicroGEA-STM32MP257D-RMM LVDS display
->      overlay
-> 
->   arch/arm64/boot/dts/st/Makefile               | 12 ++++
->   ...gea-rmm-overlay-am-1280800w8tzqw-t00h.dtso | 67 ++++++++++++++++++
->   ...icrogea-rmm-overlay-rk050hr345-ct106a.dtso | 68 +++++++++++++++++++
->   .../st/stm32mp257d-engicam-microgea-rmm.dts   | 48 +------------
->   4 files changed, 149 insertions(+), 46 deletions(-)
->   create mode 100644 arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtso
->   create mode 100644 arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtso
-> 
-> ---
-> base-commit: 2f92d900f262a16c8ae02daf53ae2910d07185f5
-> branch: engicam-rmm-overlays
-> 
+commit a94c06d13e6360d597e48c190a6a4d8c2a016ddb
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-Applied on stm32-next.
+    ARM: dts: imx6ul: Add Variscite storage and wireless files
+   =20
+    Add shared DTSI files for eMMC, NAND, Broadcom Wi-Fi and NXP
+    IW61x options on VAR-SOM-6UL and DART-6UL. These options have the
+    same descriptions on both modules, so use one file for each.
 
-Regards
-Alex
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-nand.dtsi b/arc=
+h/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-nand.dtsi
+> new file mode 100644
+> index 0000000000000..1522b5d7e0924
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-nand.dtsi
+> @@ -0,0 +1,63 @@
+[ ... ]
+> +&gpmi {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&pinctrl_gpmi_nand_1>;
+> +	status =3D "okay";
+> +
+> +	partitions {
+> +		compatible =3D "fixed-partitions";
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+
+[Severity: Low]
+Should these partitions be placed under a NAND chip subnode (e.g., nand@0)
+representing the physical chip, rather than directly under the NAND
+controller (&gpmi)?
+
+Modern NAND bindings (nand-controller.yaml) require this, and defining them
+here might cause devicetree validation warnings and relies on deprecated
+legacy behavior.
+
+[ ... ]
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wifi-brcm.dtsi =
+b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wifi-brcm.dtsi
+> new file mode 100644
+> index 0000000000000..d7952233a1ee9
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wifi-brcm.dtsi
+> @@ -0,0 +1,42 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
+> + */
+> +
+> +/ {
+> +	reg_sd1_vmmc: regulator-sd1-vmmc {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "VSD_3V3";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +	};
+
+[Severity: High]
+Is the gpio property missing from this regulator?
+
+The Broadcom Wi-Fi module requires its power enable and reset GPIOs to be
+driven to function, but there is no gpio property here and the file
+completely lacks an mmc-pwrseq node to release the reset. Will the chip
+remain permanently powered off and in reset?
+
+> +};
+> +
+> +&tsc {
+> +	status =3D "disabled";
+> +};
+> +
+> +&usdhc1 {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz";
+> +	pinctrl-0 =3D <&pinctrl_usdhc1>, <&pinctrl_32k_clk>, <&pinctrl_wifi>;
+> +	pinctrl-1 =3D <&pinctrl_usdhc1_100mhz>, <&pinctrl_32k_clk>, <&pinctrl_w=
+ifi>;
+> +	pinctrl-2 =3D <&pinctrl_usdhc1_200mhz>, <&pinctrl_32k_clk>, <&pinctrl_w=
+ifi>;
+> +	keep-power-in-suspend;
+> +	vmmc-supply =3D <&reg_sd1_vmmc>;
+> +	status =3D "okay";
+
+[Severity: Medium]
+Is the non-removable property missing from this node?
+
+Without it, the MMC core incorrectly treats the hard-wired SDIO Wi-Fi chip
+as removable, which can cause inefficient polling or failed probing if no
+Card Detect (CD) GPIO is present. The companion var-wifi-iw61x.dtsi correct=
+ly
+sets this property.
+
+> +
+> +	brcmf: wifi@1 {
+> +		compatible =3D "brcm,bcm4329-fmac";
+> +		reg =3D <1>;
+> +	};
+> +};
+> +
+
+[Severity: High]
+Is an &uart2 node missing from this file?
+
+The Broadcom combo module requires a Bluetooth child node under its UART
+(e.g., compatible =3D "brcm,bcm43438-bt") to initialize the BT functionalit=
+y.
+Will the Bluetooth portion remain uninitialized and unusable without it?
+
+[ ... ]
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wifi-iw61x.dtsi=
+ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wifi-iw61x.dtsi
+> new file mode 100644
+> index 0000000000000..d2f116bc8d70f
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-wifi-iw61x.dtsi
+> @@ -0,0 +1,43 @@
+[ ... ]
+> +/ {
+> +	reg_sd1_vmmc: regulator-sd1-vmmc {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "VSD_3V3";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +	};
+> +
+> +	iw61x_pwrseq: mmc-pwrseq {
+> +		compatible =3D "mmc-pwrseq-simple";
+> +		post-power-on-delay-ms =3D <100>;
+> +		power-off-delay-us =3D <10000>;
+> +		reset-gpios =3D <&gpio5 6 GPIO_ACTIVE_LOW>, /* WIFI_RESET */
+> +			      <&gpio5 2 GPIO_ACTIVE_LOW>; /* WIFI_PWR_EN */
+
+[Severity: High]
+Does placing both the power enable (WIFI_PWR_EN) and reset (WIFI_RESET) pins
+in this reset-gpios array cause them to transition state at the exact same
+instant?
+
+The mmc_pwrseq_simple driver toggles all pins in this array simultaneously
+using gpiod_multi_set_value_cansleep() in drivers/mmc/core/pwrseq_simple.c,
+which violates the hardware requirement that power must be stable before the
+reset line is released. Could this lead to unreliable or failed Wi-Fi
+initialization?
+
+> +	};
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790512621.gi=
+t.stefano.r@variscite.com?part=3D6
