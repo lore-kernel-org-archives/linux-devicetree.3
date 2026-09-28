@@ -1,65 +1,47 @@
-Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CD94BD34A;
-	Mon, 28 Sep 2026 21:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.154.119.183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0B23C108D;
+	Mon, 28 Sep 2026 21:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629849; cv=none; b=PS78ApFZzfjng2SDQt6UJWoGV8AM0eIaaeIwC5u0JKndm3yuJBiCF2rZKoOkHml0eblBzqIx7FBt2lxp85mmyPilqAwtYAvJRlUQ7v4BRX9sJPROqLjTFhNld60/ZAjK9FOLZ0hjPZ7bR913RDHCoiDcmEqlQMSe7Fodo8MJ7tI=
+	t=1790629989; cv=none; b=TOK+rLYnBMfBYkZgsZklp6L69TCaunWDQv0BCblkniTLCSW7rLnOMye4Mvd63ZVRHxsaibxTMI8iRcqQslb+Og1npXosc/uTV+qEddqgO/AXBTi6kZKMIlmCgmOYq+eGnN8iZ0uNWG52sljM/1vk7YZtQT35lY4iuxhz/gVk4ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629849; c=relaxed/simple;
-	bh=hRfyDUVnITDnBzRxofvWNUUeQnper94JNdRjWNwzfS4=;
+	s=arc-20240116; t=1790629989; c=relaxed/simple;
+	bh=9mgfBsCklFR0b7W6MQF8zGu8JAsZPXBZzq9CsI8K8jk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OxVKPyLhFp4EOJ3JQViZAghfbo/DdSyHGGhTekxzDya4yicskggGxZHm4Tkj+VF8cjR0M5rBiIxC2dEiY6M/JsyMkqJCQ9+pACKHAl8s0QIQODDzkfgKz0NB9ZIzNNaHMk3c2CdRZlXtzHFHEByrDGsYuMQ93/IV/4CkXzqcj6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net; spf=pass smtp.mailfrom=aurel32.net; dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b=EWWljlk6; arc=none smtp.client-ip=195.154.119.183
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=ra9SKcZdkPgWUjRmJWQ9AVtUt3hTsvQ9NxLlcDVG/fYKcciAH/OzKT1a8/UriIvq0wHUgeLggrH1a6h8AQAhjVz6m2NHdkDYE9Sc4+j3h0oaTn2FRQ3nkyISEuudu9lPTBepTg6Rv5qCrvXJuDUxQbVpwx6Xu+CtNORybTcZBj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fnfu9rKa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aurel32.net header.i=@aurel32.net header.b="EWWljlk6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
-	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
-	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
-	bh=y4GOBYDPRlGhb6aBAB1LERdD58JntG//PZlojT1T0KM=; b=EWWljlk6qh/IxPjyxEZC0GGsyz
-	Sg+exB4Gxe7dar/3NBuWkB3VQEVkqcsWFFDYBI7ovgZ0D46lzNQJgDrwALffQ+H/8dr9fY8yR1olE
-	9xhA0MKRl1DfJsO4UpLh7G2C0knDIvg5QF0G/voGVvqJAUz5EErZw/bSD+PWIvVCrmlNniecS3Y5H
-	DHUJgh6ZjcGE0WkkwPrLK3vmszum1UripnyUAslUFGUFNdEXKK6yBhIMCY2BK1XXWoGDgSuBj5GTv
-	GA6ufkDkxnaE151FiNAWd7w/vVfjHa0yGq6IoMy3d7m/G9eVs8FI0blIE+fuFoaZNmtj5HN5jD000
-	5wFPCxww==;
-Received: from authenticated user
-	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <aurelien@aurel32.net>)
-	id 1xBIcW-0000000F959-2zh9;
-	Mon, 28 Sep 2026 23:10:44 +0200
-Date: Mon, 28 Sep 2026 23:10:44 +0200
-From: Aurelien Jarno <aurelien@aurel32.net>
-To: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fnfu9rKa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AB861F000FF;
+	Mon, 28 Sep 2026 21:13:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790629988;
+	bh=xaJu5fo1lJzivcw+q42yBIGQzy9Uf/GVkH6qsjtoSRg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fnfu9rKahUhMUSSrQOzMLd7FqvPYFG65Hi1uAIWYBqgTdZEJh2aT+vjywr0Mh7Id1
+	 rTQ+KZP4d2j9U4LPRn6qDSdJFPaGbcNLOqE5hOaiqP6pQwlopuSKU56KDXgHPV/ERV
+	 aqm6D+pXti9z/wMoLUI/b6pQbOKcFr3B6aVarm0E7fU3rM+VDSuo+1PC4357coAyR0
+	 McNWhQlDiES+aH5tVrivdqfNO8A5R7E0xnBpSma0qISTaYWD4IyDF5rnX1EGs8Ke2a
+	 hG6pqU7gwF517pxB58ruY3Vh1KJubqlvd+1iYHYJtyoEB815d/OoXLNPtEuuUwQ0ji
+	 G/noZGr6t8KYg==
+Date: Mon, 28 Sep 2026 16:13:06 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: Aurelien Jarno <aurelien@aurel32.net>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-Subject: Re: [PATCH v5 2/5] riscv: dts: spacemit: k3: add USB3 B and C
- controllers for Pico-ITX board
-Message-ID: <arrX1KoS-ghNhTve@aurel32.net>
-Mail-Followup-To: linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>
-References: <20260928205012.3689405-1-aurelien@aurel32.net>
- <20260928205012.3689405-3-aurelien@aurel32.net>
- <20260928210216.7DCB41F000FF@smtp.kernel.org>
+	linux-arm-msm@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Subject: Re: [PATCH v3 1/3] dt-bindings: arm: qcom: add Lenovo ThinkPad T14s
+ Gen 7 (Mahua)
+Message-ID: <179062998524.647678.5887982776018133738.robh@kernel.org>
+References: <20260928145122.1337186-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260928145122.1337186-2-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,84 +50,22 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260928210216.7DCB41F000FF@smtp.kernel.org>
-User-Agent: Mutt/2.4.1 (2026-07-04)
+In-Reply-To: <20260928145122.1337186-2-srinivas.kandagatla@oss.qualcomm.com>
 
-Hi,
 
-On 2026-09-28 21:02, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] dt-bindings: missing required phys properties in usb3b and usb3c nodes
-> --
+On Mon, 28 Sep 2026 15:51:20 +0100, Srinivas Kandagatla wrote:
+> Add lenovo,thinkpad-t14s-gen7 as a board compatible under qcom,mahua.
+> The T14s Gen 7 uses the Mahua SoC (a 12-core variant of Glymur with
+> cluster2 / cpu12-cpu17 fused off) rather than Glymur proper, matching
+> what the platform's ACPI MADT dump reports (12 enabled + 6 disabled
+> processors).
 > 
-> commit 89b216baa5d6be0e4a7be800d568bba679087495
-> Author: Aurelien Jarno <aurelien@aurel32.net>
+> Assisted-by: Claude:claude-opus-4-7
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-> riscv: dts: spacemit: k3: add USB3 B and C controllers for Pico-ITX board
-> 
-> This commit adds the USB3 controller nodes (B and C) to the SpacemiT K3 SoC
-> device tree. It also enables them and adds the corresponding USB2 PHY nodes
-> for the Pico-ITX board.
-> 
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> > index 1af47b7f1c8af..cf1c8b572c86b 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> > +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> 
-> [ ... ]
-> 
-> > @@ -441,6 +441,66 @@ soc: soc {
-> >  		dma-noncoherent;
-> >  		ranges;
-> >  
-> > +		usb3b: usb@81400000 {
-> > +			compatible = "spacemit,k3-dwc3";
-> > +			reg = <0x0 0x81400000 0x0 0x10000>;
-> > +			interrupts = <125 IRQ_TYPE_LEVEL_HIGH>;
-> 
-> [Severity: Low]
-> Does omitting the phys and phy-names properties here cause a devicetree
-> validation regression?
 
-No it doesn't, I checked that before the submitting the patch.
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-> The SoC devicetree fails dtbs_check validation against the binding schema
-> (spacemit,k1-dwc3.yaml), which unconditionally requires the phys and
-> phy-names properties.
-
-No, as explained in patch 1, dtbs_check only check enabled nodes, so this is fine.
-
-> Should this node define its hardwired connection to usb3b_u2phy via the
-> phys and phy-names properties here, instead of omitting these SoC-internal
-> hardwired connections from k3.dtsi and forcing downstream boards to
-> redundantly define the SoC hardware topology?
-> 
-> > +			interrupt-parent = <&saplic>;
-> > +			clocks = <&syscon_apmu CLK_APMU_USB3_PORTB_BUS>;
-
-No, this has already been discussed as part of the v3 review:
-https://lore.kernel.org/spacemit/aomWjQGk_p84pPD2@inochi.infowork/
-
-> [ ... ]
-> 
-> > +		usb3c: usb@81700000 {
-> > +			compatible = "spacemit,k3-dwc3";
-> > +			reg = <0x0 0x81700000 0x0 0x10000>;
-> > +			interrupts = <148 IRQ_TYPE_LEVEL_HIGH>;
-> 
-> [Severity: Low]
-> Similarly, does this node also need to define its hardwired connection to
-> usb3c_u2phy via the phys and phy-names properties to avoid the same schema
-> validation regression?
-> 
-> > +			interrupt-parent = <&saplic>;
-> > +			clocks = <&syscon_apmu CLK_APMU_USB3_PORTC_BUS>;
-
-Ditto.
-
-Regards
-Aurelien
-
--- 
-Aurelien Jarno                          GPG: 4096R/1DDD8C9B
-aurelien@aurel32.net                     http://aurel32.net
