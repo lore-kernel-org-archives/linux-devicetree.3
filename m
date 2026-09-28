@@ -1,213 +1,211 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2137.outbound.protection.partner.outlook.cn [139.219.17.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1E646F4AB;
-	Mon, 28 Sep 2026 08:16:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AFB40A926
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 08:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.97
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583403; cv=fail; b=N5aeNtUnjQy6UkGhpWlLGFCdB/wDXMdlaCPbNWG6SJ+5QJJ1L7lY7t4iYmD6wC8tjx9PkbeQJOVkRCTKfJ8LSpNddQ5kPoG5B4cFYKZm9xHxl1x/AdWRejjQS1hakztCoCFPolusgjozXqG02V1FRMaCBuRkbNfzEazc/FyUTs8=
+	t=1790583439; cv=pass; b=RLa3ancCtn4PX/59J1U0YKLXfk1XkkubiB0rxxwmuIk3wZ2aRuSu2114tKsKDuQKQmK7w9jq2zsWB0Ni3ZLDtWraxh9NKcMi0qsyAdDbcIcX2koVSCX32E+chAktRS6Pca6XfkniniTi9BIt1TAwSB73WL9X+sNapLHWiqfPXYk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583403; c=relaxed/simple;
-	bh=Ih73J9UzpTBZeBhbljCDj4c1I1D1xtGxRnP+2J/UTtM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dd8agKkzYp5yGkYJNaOcz5JAYviFCm1h9NvoS1ZvtG/JkCkgN1o/m/W57hD2pDglquOHFcclYDv1mfuzEO73eKlhPYi1Qo/G7G+lGxFyZidimc0MlrOsJrk/tMKrZZcEXM+X9ed8/4NLshV8hcuoh0vFKcDw+aACD9Nb5YQ6mKs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PGK9jrd0tTvFFDw8bjyx85lWD7Xn5DxrDqHfq22LnMV7gXrvGeaZKe+k1sc0B0dp+BKmQB31Te1JKWSSscPtDAhFrBzeFVEKQ9Z0d6Dek6Fz0EEUXTlCXwoU7gjn1IqJKqic1SHTp6+BDQypL0ymH4Rrom50KCrNvjslodl/rWp0dcv1y+GcDhwQhBk9A3raZm0TykOchu8GmtA3SD2g37nE0/dbUXfijLTyQLQ3G3gZ7kb3XmSc2cRrJ0mi3k1eUaLN7M1E7zEktlkku8lYpX90ZrF7WatM0/9dKrlCFMNdi/XfuwIyAxm9/7qYnAM5IJluHEszxRvI/SHTg8WCzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GsZlNFElQBkfATT25y909k7hh0N7JQGguSlekbFosTw=;
- b=HcGaLCY+2YPH5ixx+BrtRHueQA+KJpJIUT+2yPxlTEOZrmfK42XDux2AoI5OdutK6HmqzWmN7WFem8gZJHPRDbiVfKfCEMDucSqvIKw7BeNi17Ffmc05OHbRjkjnCUAhGAxolhZkMN8S+bjXYaaKDFj9jom5vrHS/RvQXO9pwEDs0K7+cSOupOZwZYk3MP+BYpvPO8uJ76RZC1G2JUEUByuLc9HZvlMm1BeZ3LTKB5R1pWJpUpEHNU1h3WO4KGrBu17EEUFYxMtVZFQXrdsCLuZmUzEZuc6SmE2K89wWyzfBdoyg6quzRZeRyW3CuDCoWV0acSqCreSRGD2Bv5xDHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1233.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:13::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 08:00:41 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0451.022; Mon, 28 Sep 2026 08:00:41 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Iwona Winiarska <iwona.winiarska@intel.com>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v2 6/6] hwmon: (peci/dimmtemp) Add support for Granite Rapids (GNR)
-Date: Mon, 28 Sep 2026 00:59:56 -0700
-Message-Id: <20260928075956.62298-7-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260928075956.62298-1-changhuang.liang@starfivetech.com>
-References: <20260928075956.62298-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SH0PR01CA0022.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:5::34) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	s=arc-20240116; t=1790583439; c=relaxed/simple;
+	bh=aYwJC4BScg6xo8RaWoJ6AsT9nwuM3VqyxukWf+p+5lw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=txiy9OQ16az2tnsMwjVpAwyeBaTwAbxzg5hbdN5v5UOuS3ChCT6kXhM7oe6bwziFTs16zRA5LOwpL/sL9bwTG0z4r/cygw0mmR+O5X3bHjmahZORcVzCtSOlIrhuGWpBFyF7fFgbmXIY867HkEl2YlTqMwpNgMqcbPjCsannVaQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ENaQt00N; arc=pass smtp.client-ip=74.125.228.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ENaQt00N"
+Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6abc27842b6so2007887a12.3
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 01:17:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790583435; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jMOSHl/k1Gv1M3i8N/DgjnaN1i02c0iBRAH0He2qtmfb/isMsFxnCjJ/yQ9SHpq5IF
+         xj3TET+dwZX0XrjrM8c4rnPPESlBRVeftG2b5vwAtvlM3nnAluDqLyufaFfdTOwzZttX
+         ntjNVseFqst+t/ZG2wRUKGJUQsKwF29GY/uLK4GslA90ZRe3YWCkZW0AJYuLa1WAseLS
+         +3Vd29RjP1TixTUS/E0GYV3jTMcCoCEufSgNF6XKwsSemwR5/nOTEggCCPK2pk3Tf43e
+         jXPzG16f4SP/ykzmFNWNUhsIWwpU+wU/GsylVtTXV1Ni+xv2n0ffmwa9NHvlD+/L3UQn
+         zzNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=x52vdN3RGFH8b7Z3g2Hq5cceezp96zx3/fKU5lU+Vhs=;
+        fh=2SHWNZeTZ5iJ/HrUnr9uC40GWI3VeHdXRRLKj9g5y4g=;
+        b=cJj9n76mjggvNZl7N0BxrvtjqmRQBQelzRrxfxOuvww9TdMqrXjpHfgZwsKvg1iDih
+         TIvFS6z6s2lTctzCGWW1O5ZiV21y3mV+mfckrWCUc9cQ63gb4f/nzY03a/qp8ysJhfAN
+         GEKfu3lA/T8RwLm+OJnM8cQAizZcPVwHPKsK5AETRyT6O6edkOuvXsqsIe2W45Cfq5d9
+         ObGH/THiI3xO8+CXIt9u8XQDKxHx8RKRxRpv3Gw+SCUM1nnzETtCoNw+MPd4vlRP4Zxo
+         wmtd0A1darB439j7afSMRBEQ8ojwjPBpGQ73sXOVcMc94YOD2nquQi6kPYUj9iAHfeg/
+         aE5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790583435; x=1791188235; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x52vdN3RGFH8b7Z3g2Hq5cceezp96zx3/fKU5lU+Vhs=;
+        b=ENaQt00NIoQUsVZvGPkqqNpXP27pDX6aTNu0QCWi0I1BU7j/Xr30D6NLo+A4hyUutI
+         oknIti4ILVzeEN95I4SSm5RYTBLlCllslerIvW7oKN3dAb8jGeKUkTbTbmKa7l0BOfJS
+         uXZ4gbVJNTndhQyl2zhXLry/oXT6DsOheRKF+zpTQQ01Nnck9iMhKOFUq6qZxPrQo/CM
+         XOtxR65WpnNeTGsJPvRduINwA9aSrd9C3bJ/TWfrWtNdgDiIMew+KjVQ2zW6RRNy42ZE
+         qp5DlQfzqimmBZdsixxl+R8kmHVMQgHJjpc+shh6ghvoNvg4kQjQVIa+FzcD7T5Dr4x5
+         3ePQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790583435; x=1791188235;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x52vdN3RGFH8b7Z3g2Hq5cceezp96zx3/fKU5lU+Vhs=;
+        b=A2k6RHnMlHpQo7JrN+1AAuTcB5l23GWc3/ZyNQI2yP2OXXqazTLEioF0w7dA42Q/5H
+         SKyhSbOjJ5bQV9Rx20i3fWzK5Mny4jOGKoYwIZWKo2yvQ1x8mLZXofLYT/HashHpbOGh
+         pJFxQudw2xF7rFL0NSdeuMt420nQBS3vE0WYPBX2WaDGPbUrU47OmdKpePm0AlYzU8on
+         f9jdkJQE1VUyuxapwhJnp/RBVdDNCYYaJXBTUxC+MBV4ZX4Ly4uUho3+KMsFKuzM2ZZD
+         aU8R5miSTNdQZWR7hwGOtmQxerkf9ld9kHeqMSkDHwDyHnyfydgllWiTF6RLw4oneOw7
+         rc3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzgEQkfWynMz5/qwfKmMdfd6OK9VUvxlF7AClrzlWV/YabOugtVKz/YAUUrNs/kViIvazaGPtnm/RTS@vger.kernel.org
+X-Gm-Message-State: AFuF++n7JfsWm4ke6/8TfciipjLdETfN3kLwizIZuHWIuP43cfglVFE0
+	ADo30DJPBfhLg2s7PVieaxVEWSY0fG/Ms+MZN5m47CHsJDdeG05ku3TvGjDZFj+mJXJITUlQBkR
+	HCQune/h158c3a6+UlE8i4O2vyZJzqXjt4YUJbbIsqw==
+X-Gm-Gg: AYBFou3zflP/b2ScQ1lw9yHXeF++yr4QYCRMUDT3W8H6m5bbFUR/1twK8ckQOG+PLc7
+	QiTlNpiiuPw3m90nEyht0UQf1MHgOiGBNWAwbQ/sEGxdwLR1zE7zFvHCi6XtSSNvpwS6d3N1WlL
+	PuTg0QJv9DsIfrDi62WB3Om6tIwzYBhSNWd6u3M9nqNVNFusbCKS2T395wCMSUl0GCeur54VZaz
+	ATfbZ2hl/4baC5ImOOLbuBw35KGKjgVbdc1q5hUk0kMIKBVzCWSRcdSIiW/otHWf8QAE+zWtyiK
+	S+pcdKMCC6JhUTu8yWWttdPXMY3Tr/AT/L6DjiodR1AeKXC3UZBsAY9/8g==
+X-Received: by 2002:a17:907:c491:b0:c26:1648:a06f with SMTP id
+ a640c23a62f3a-c2ac253fd57mr1046162166b.42.1790583434617; Mon, 28 Sep 2026
+ 01:17:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1233:EE_
-X-MS-Office365-Filtering-Correlation-Id: 60f2f98f-b1fc-40b7-28f3-08df1d36975b
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|52116014|7416014|366016|376014|38350700014|6133799003|10067099003|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	YziWayi4e8cb/ytuniIkPqU0Sy3+j23+w2msrAMTS3C2A1apRv7thSEOvY5WzQeBecKnzM433fJF8zQ4/ciyzuf+VDxtmROX2jRJdUD6zP0b6fE6s3B6KKuPrOoWIuQwl+l0cblESCqPn0s438Hqls7a/AaDMAzI2LIAfWFCyb4k1me/HvZ/bTK8Ap2Q2CfqvN282K/h2g30qtJDu1WuFvpIk3GQf3cgXB4RxxRnehG2/1oThWw/PDkcquu8Z8XjQRUwFgd29IT/XmvKEkQhxS7Nmo4hmhd/ETy8bJWabqnu/If0OTfnSDBql0cvLKQl238PxPtfz5Uo0FCI/NFLVlmKF/N3nQPbOfRIu0ZMsyn/rSKEwmAWAWAbID4Jag3YvkvAQT7gIozXchU8FPCtYT/lbH7Eg+ga1+Wm9JgPLvuwao/qVSRKwZpMjQJkOtcGHkCbeuy0hCmeDd/LcHI/kyv8KaDUFf81sxdZ/gcG3tLCPlgODsJQHDj2eVEoLZr/YTdgJSJi5Y8WG5r/eAPB93y0nNpJseYCqmdJdzA/cm9qKRHP2AqxPrKES4W6WVMj
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(52116014)(7416014)(366016)(376014)(38350700014)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?eVITFclPIUjX0WIetypB6qkznva9ByzJ9IDZnYHQm06QrG9WaMGsyEl+Mkod?=
- =?us-ascii?Q?uERrKtw73CbZ50rR7jDncx1GqQDQPkCjd/Z8qC6/hGEwbYbokUVIPzQCrU97?=
- =?us-ascii?Q?XqxlGhzpBgkjISeC1u0TsLryAyxVFSE+Kg7Eov1OHuVvwngnj3KHQuAk0oKD?=
- =?us-ascii?Q?mZlUcKasQNMlHxihNhLAGb+l1NVbz7dCM9GVL69PlzbswcNuQgaEPW5eOmFS?=
- =?us-ascii?Q?yUPvUv0/BT8FJ+HAnw+DmoLYiPr3TV29M336vxowvtEp+xeLPuIpCIwi9yqE?=
- =?us-ascii?Q?4+nojKlW5B2RE0X4KrXcC1OBf6rDmEWC/EZRhl/Ud/wRTBvm7YpdfrRHZncp?=
- =?us-ascii?Q?qazlBMt+ZKMDKJZh6ObiQNQDXj+Y0me7cHBE6B3Lr43DhnXCxDrtoJfFB/m2?=
- =?us-ascii?Q?50DbaqXyDj2trbUMFWptSRxuVZkKxa4aT484lhns8/l2Lp8qX69AIcbM86fJ?=
- =?us-ascii?Q?OJzvTM4b8qBIv0FOtbuerRJfy6d/yTL97FsBvnklK7OKJnGT+T552s2YlaFb?=
- =?us-ascii?Q?rBsGddXVxaigq0dvhpOFZcfHOB+ANWtbcmyn2by8YAcmBFqF0QMCZc91FIJQ?=
- =?us-ascii?Q?J4JcOZ2RscEaM1yO4bBZHhpiZ9ssSoAHTQ93znF8TgziTu62b9v9LtJperSN?=
- =?us-ascii?Q?IJA9lpZMGpk7QPlLZUl2PB694enbcuvuhLMeh+oXida8ghcuOOraCtU8vjwx?=
- =?us-ascii?Q?2iX5AWO6VE5jlYhiGwAdfArr4QCVE8V+GsCNeV7x+Yu1XlZbo91fOCAbSqP0?=
- =?us-ascii?Q?4Vx39+oJqjQL2HwtqcaSs0KU9VVyplJETljK0a1X58hcdh1oxinouSF4yJ5o?=
- =?us-ascii?Q?yaQ8ZTMh9OFFiwUY/eghf3A8dewA4ORUIkIWm4AtfRQThjypGZj7cikUCaaU?=
- =?us-ascii?Q?h1rKKxB8fdMDWTUZLJW8qZcMlQFe4qqNJ/7ljQ3CkFi+CNkhz/Cm96Eh6gyZ?=
- =?us-ascii?Q?N5plJXBSEsmKb0F37clvASGTmEIyJtx2Lf30m1o/SaitHlD8Lo8EpnJ58xyd?=
- =?us-ascii?Q?RTYFqHjGoRsLrnyDWMmXZEi6yQ9GS98OlU1xucr/iklKuK29ECvZROtRAWvf?=
- =?us-ascii?Q?jzNr/4o0KVY9GXHWkq8e2l2pVtbeBOfdXk0PBFrthSRKoE7WzCPNIdyRaCyB?=
- =?us-ascii?Q?W6S3CRDntJ3W2C2uwC/Q8G/kjFSkLNw+mmsHIBirWLLpdHVY/bgmbY0tYsog?=
- =?us-ascii?Q?PNKc4iVfmNNfNThIXLfxrZahZiUs/F88D//IH0CiW9nraoADiAm1IWMpRYUX?=
- =?us-ascii?Q?0UosJzqAal+1xxUDNKg0ydxbmNbyIu3so6TZEf2VnaDtpQTebhliauPhWpRh?=
- =?us-ascii?Q?J5VBYMlwsbVaKH27AfmQEhinvup2Mf88MttI7Qt8eu+49V+Q3rUZZTeZIzIl?=
- =?us-ascii?Q?nOL41cboiYyziwWliypDDtYfcl7J9FIknrkCRdiZbDnWYmUSu+toX9HOyEvI?=
- =?us-ascii?Q?rgggC85GQ3RnIuvW0rGXp3riYhfJm5VG303usXHgEq4FDnOcpjHgpZ6n3qjL?=
- =?us-ascii?Q?zoyslHf/rrdzxGapS04kNm1i3NHf0WMVkrEy0evfi9vebNTGnmRiP0+4AK5q?=
- =?us-ascii?Q?6nniQ5NAsIYZI/fb0dRANCYhaeFQgtA3fBPducwDszjUALmUkomYviTilb6L?=
- =?us-ascii?Q?8d9pKFvNfKIjTxIjlYazxOAhXf2ajIARQUBy+ljNmRANlekqpGhDvMjOwFdN?=
- =?us-ascii?Q?N3Il9DsrxG8Km7qAOwchKBbzZfm0uY61O3mIMHUcJZyoYtf057VMMa/ThXLb?=
- =?us-ascii?Q?sFR8bqanKJNxxNwA415hzN5SAxMq6gQw252AoKSjmrFs+q1N2+MN?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60f2f98f-b1fc-40b7-28f3-08df1d36975b
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 08:00:41.5458
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b+gQPEekY7jWNrXs5UpdippFU+xp+JCJBOOv93fR2h1uPR02xff4dQFnZTEBYsIBp+2mDCQFeHLN4n9AFIpGJeB8k5stO6v+yFMdI0oUY8ImPeJb5Pj3UTHgk2HEqOna
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1233
+References: <cover.1790561983.git.zhoubinbin@loongson.cn> <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
+ <0aaf7166-378c-47d7-98d4-1004fdaeae7b@oss.qualcomm.com>
+In-Reply-To: <0aaf7166-378c-47d7-98d4-1004fdaeae7b@oss.qualcomm.com>
+From: Binbin Zhou <zhoubb.aaron@gmail.com>
+Date: Mon, 28 Sep 2026 16:17:02 +0800
+X-Gm-Features: AclHuK9Vua98KWEJM57MhTJw4SsJBaEsxZP1W-rR6PIaRSRBPFPETsYhRw_q6Fo
+Message-ID: <CAMpQs4+uWMfFib7MhRcc7o-QMXkFrFCtdcGj04y56u44JL4iOg@mail.gmail.com>
+Subject: Re: [PATCH v6 1/7] thermal/drivers/loongson2: Correct thermal sensor
+ registration loop
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Yinbo Zhu <zhuyinbo@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, stable@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add support for Granite Rapids (GNR) platform in PECI DIMM temperature
-monitoring driver.
+Hi Daniel:
 
-The GNR platform has different DIMM topology from previous generations,
-with 12 channel ranks (CHAN_RANK_MAX_ON_GNR) and 2 DIMM indexes per
-channel. Define these new constants and update CHAN_RANK_MAX to use
-the GNR value since it represents the maximum across all supported
-platforms.
+Thanks for your review.
 
-Since the current peci core does not support domains, accessing GNR's
-DIMM_TEMP_MAX and DIMM_TEMP_CRIT via PECI commands will be rejected
-and return completion code 0x90 (invalid request). To handle this, the
-read_thresholds callback is not defined for GNR, and the visibility
-logic is updated to skip exposing the max and crit temperature
-attributes.
+On Mon, Sep 28, 2026 at 3:15=E2=80=AFPM Daniel Lezcano
+<daniel.lezcano@oss.qualcomm.com> wrote:
+>
+> On 9/28/26 06:44, Binbin Zhou wrote:
+> > The registration loop in loongson2_thermal_probe() incorrectly uses
+> > dev_err_probe() when the sensor is not present (-ENODEV). In that case,
+> > the driver should continue to the next sensor index rather than treatin=
+g
+> > it as a fatal error.
+> >
+> > Fix this by correctly handling -ENODEV and only returning on other
+> > errors. Also add a final check to ensure at least one thermal zone was
+> > registered.
+> >
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbin@=
+loongson.cn?part=3D2
+> > Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal managemen=
+t support")
+> > Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> > ---
+> >   drivers/thermal/loongson2_thermal.c | 8 +++++---
+> >   1 file changed, 5 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loon=
+gson2_thermal.c
+> > index 4d40fc706a53..99b7392fc68f 100644
+> > --- a/drivers/thermal/loongson2_thermal.c
+> > +++ b/drivers/thermal/loongson2_thermal.c
+> > @@ -160,16 +160,18 @@ static int loongson2_thermal_probe(struct platfor=
+m_device *pdev)
+> >
+> >       for (i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+> >               tzd =3D devm_thermal_of_zone_register(dev, i, data, therm=
+al_ops);
+> > -
+> >               if (!IS_ERR(tzd))
+> >                       break;
+> >
+> > -             if (PTR_ERR(tzd) !=3D -ENODEV)
+> > +             if (PTR_ERR(tzd) =3D=3D -ENODEV)
+> >                       continue;
+> >
+> > -             return dev_err_probe(dev, PTR_ERR(tzd), "failed to regist=
+er");
+> > +             return dev_err_probe(dev, PTR_ERR(tzd), "failed to regist=
+er sensor %d\n", i);
+>
+>
+> >       }
+> >
+> > +     if (IS_ERR(tzd))
+> > +             return dev_err_probe(dev, -ENODEV, "No thermal sensor reg=
+istered\n");
+> > +
+> >       ret =3D devm_request_threaded_irq(dev, irq, NULL, loongson2_therm=
+al_irq_thread,
+> >                                       IRQF_ONESHOT, "loongson2_thermal"=
+, tzd);
+> >       if (ret < 0)
+>
+>
+> The [no]error paths are confusing and prone to error, eg: 'if there is
+> no error then check if there is an error', 'when exiting the loop
+> without registering any sensor, then we assume tzd is -ENODEV'.
+>
+> Please make a less cumbersome and implicit checks here. For example
+> count the number of sensors and then do the check against.
 
-The minimum PECI revision required for GNR is 0x42.
+I thought about it, and you're right=E2=80=94I made the logic here too comp=
+licated.
+Let's use `sensor_count` as the counter. Is the following check logic clear=
+er?
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- drivers/hwmon/peci/dimmtemp.c | 33 +++++++++++++++++++++++++++++----
- 1 file changed, 29 insertions(+), 4 deletions(-)
+        u32 sensor_count =3D 0;
 
-diff --git a/drivers/hwmon/peci/dimmtemp.c b/drivers/hwmon/peci/dimmtemp.c
-index bd3e8715dfec..791a8e866081 100644
---- a/drivers/hwmon/peci/dimmtemp.c
-+++ b/drivers/hwmon/peci/dimmtemp.c
-@@ -34,8 +34,10 @@
- #define DIMM_IDX_MAX_ON_SPR	2
- #define CHAN_RANK_MAX_ON_EMR	8
- #define DIMM_IDX_MAX_ON_EMR	2
-+#define CHAN_RANK_MAX_ON_GNR	12
-+#define DIMM_IDX_MAX_ON_GNR	2
- 
--#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_HSX
-+#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_GNR
- #define DIMM_IDX_MAX		DIMM_IDX_MAX_ON_HSX
- #define DIMM_NUMS_MAX		(CHAN_RANK_MAX * DIMM_IDX_MAX)
- 
-@@ -198,10 +200,18 @@ static umode_t dimmtemp_is_visible(const void *data, enum hwmon_sensor_types typ
- {
- 	const struct peci_dimmtemp *priv = data;
- 
--	if (test_bit(channel, priv->dimm_mask))
--		return 0444;
-+	if (!test_bit(channel, priv->dimm_mask))
-+		return 0;
- 
--	return 0;
-+	/*
-+	 * Some platforms do not provide the DIMM temperature thresholds over
-+	 * PECI - do not expose the corresponding attributes there.
-+	 */
-+	if ((attr == hwmon_temp_max || attr == hwmon_temp_crit) &&
-+	    !priv->gen_info->read_thresholds)
-+		return 0;
-+
-+	return 0444;
- }
- 
- static const struct hwmon_ops peci_dimmtemp_ops = {
-@@ -626,6 +636,17 @@ static const struct dimm_info dimm_emr = {
- 	.read_thresholds = &read_thresholds_emr,
- };
- 
-+static const struct dimm_info dimm_gnr = {
-+	.chan_rank_max	= CHAN_RANK_MAX_ON_GNR,
-+	.dimm_idx_max	= DIMM_IDX_MAX_ON_GNR,
-+	.min_peci_revision = 0x42,
-+	/*
-+	 * Reading DIMM_TEMP_MAX/DIMM_TEMP_CRIT over PECI is answered with
-+	 * completion code 0x90 (invalid request) on Granite Rapids, so the
-+	 * threshold attributes are not exposed on this platform.
-+	 */
-+};
-+
- static const struct auxiliary_device_id peci_dimmtemp_ids[] = {
- 	{
- 		.name = "peci_cpu.dimmtemp.hsx",
-@@ -659,6 +680,10 @@ static const struct auxiliary_device_id peci_dimmtemp_ids[] = {
- 		.name = "peci_cpu.dimmtemp.emr",
- 		.driver_data = (kernel_ulong_t)&dimm_emr,
- 	},
-+	{
-+		.name = "peci_cpu.dimmtemp.gnr",
-+		.driver_data = (kernel_ulong_t)&dimm_gnr,
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(auxiliary, peci_dimmtemp_ids);
--- 
-2.25.1
+        for (unsigned int i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++=
+) {
+                tzd =3D devm_thermal_of_zone_register(dev, i, data,
+data->chip_data->thermal_ops);
+                if (IS_ERR(tzd)) {
+                        if (PTR_ERR(tzd) =3D=3D -ENODEV)
+                                continue;
 
+                        return dev_err_probe(dev, PTR_ERR(tzd),
+                                             "failed to register sensor %d"=
+, i);
+                }
+
+                sensor_count++;
+                break;
+        }
+
+        if (!sensor_count)
+                return dev_err_probe(dev, -ENODEV, "no thermal sensor
+registered");
+
+
+--=20
+Thanks.
+Binbin
