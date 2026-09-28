@@ -1,77 +1,80 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668324DA9C3
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 23:19:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F3049AA23
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 23:19:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790637570; cv=none; b=deSXYEv3LgQBHOEoFe1VE3mP/ZllCD7w85GfXqxgRIYJzRP7JI7R0q7wEsM/bmPOjLV+dHqZIJP71fTUSHDXb8Fl2MEJNcMknknTkKGh7u22quegYWz6jZXoWevqcIUEIxkfhib53VN8WUF0X3Vz81PgNHarj7YSKsKjuJjDstY=
+	t=1790637580; cv=none; b=pqa3L0kE+rXd71uZbZ1B5GB7PPtojBRto4yWUCwhGKiTK2rxXXCXRkInGK+SdEASsu3h5m52HYGKuzgc+tQn5q9Ds8VDAFNhbjp/R9Y5dvOgYZKSkLAIr/4cgv34rYWhvE+lBxc/qezZt/UND6rr2oqR6IRylGpxg/g6/RpALHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790637570; c=relaxed/simple;
-	bh=FCGF26dCddhrQg7vYYo0pTLzkYH3qozJaaCKhDXyBpQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LFJpFThZh6ip8bBuix2d7mwGoatZrpawL2G0miyTVhOycFOpPpzis7WBSnZY0/0mkD62D/krd59oq/4MePihQO6WuYbvrvGtmYybE5cQiG+rnw8M3cfYLW1q/XQb/I/QZA4VeeL+pnh4WbBqhOXCG8I4h/ZS7CCkztRdk04GXXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JXbhllKm; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Mr7n/T2C; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1790637580; c=relaxed/simple;
+	bh=8Hpl/jJQXgMDIx/9aRjnDimcwY9u+PRuHlp14LtJI1M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kIjs7cDqMPrsfYCL8+T+461Odf8VxbqVUdcsH6LBaX6yXd4L9sTvygcDIAgAfhqCbzd1hABQ7LvbyWt60zyAQKNYmkWWNIHmodl8k2IS/nqNh9i3QZCZANOJkOUiX327JX+/smJS/S0T803vjcBAUvqWF1hCIR8/7Tcq6gcKDi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TJ75/oCg; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=iibBBT+L; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JXbhllKm";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Mr7n/T2C"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TJ75/oCg";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="iibBBT+L"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790637568;
+	s=mimecast20190719; t=1790637576;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=1L37AvZaZESgc3kaNIXv7EdbpEkOBgUu914+Tx8mGHA=;
-	b=JXbhllKmSOXRbYIrkasseSEc9QxCPszgTkjnhhY6B6CmZuFhIX4heDAtZ9YwVqU6/vZRxo
-	CL3vue1thaM01YGz429MFlCM/z7zCHg9FMSA/oRgMiLjc4zzpHetpRL6wE5h0j7ZuOsxXA
-	bHjc+Gj8B4W0oQCfF7P29iVyhYNxtbY=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4bDunkmKzxTEgKxBi/DaPG7+roKleuHpKwgE8PS3EY8=;
+	b=TJ75/oCgSqYLgxRYrftq8+JpLzUyGtgVONwcXcZ0nkPoeaKD3szupeowiWa7rrdm3lNXPj
+	3n/LODSHyQIddVyIlNzTI3tkucVQeeBBUyvKcFJzyzAuMi4BOzofxSP5THkTugoD7yiZXC
+	S38VxvAn2xLc+gwMjAUi9w8gD16Q4I8=
 Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
  [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-436-mbqM-a8MMmqcD5-A421a_A-1; Mon, 28 Sep 2026 19:19:13 -0400
-X-MC-Unique: mbqM-a8MMmqcD5-A421a_A-1
-X-Mimecast-MFC-AGG-ID: mbqM-a8MMmqcD5-A421a_A_1790637553
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-88322409239so52402467b3.1
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 16:19:13 -0700 (PDT)
+ us-mta-589-OmeV4vhuOoyAAYFcX3Zfaw-1; Mon, 28 Sep 2026 19:19:35 -0400
+X-MC-Unique: OmeV4vhuOoyAAYFcX3Zfaw-1
+X-Mimecast-MFC-AGG-ID: OmeV4vhuOoyAAYFcX3Zfaw_1790637575
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8546e211940so50629427b3.0
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 16:19:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790637552; x=1791242352; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1L37AvZaZESgc3kaNIXv7EdbpEkOBgUu914+Tx8mGHA=;
-        b=Mr7n/T2CvTKN0+XEXZEWU3gom4OW7PgoGKMJ5TFrGDkHxSXhguaA04dVf5L5KU62X+
-         fcBuocLLuj6IGLTDU2FDIs+QiTzOJt3WEeGvJPtVQtlPhvlpktTDim6ANamvm1zgfYYv
-         ME9F6NG3CGy7YOm05nHSBUnaUMVvnPMWYIGIz6Es1tgWQqjwSpr8m1MMMibMNWLSGMpc
-         x+8MgyL4Q0wIA4lEY2iJ4TARn5WqJ/8lqWGBCuAPXSqRnwwxchGVaexeIERQn2IuGhpF
-         UO0qspiSA/I6P7Z+oL3s/mOtxi60R6rUplYvrLZcTBO1bBVf57yxWwlE5qJT8bUlz7VU
-         lb8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790637552; x=1791242352;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=redhat.com; s=google; t=1790637575; x=1791242375; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1L37AvZaZESgc3kaNIXv7EdbpEkOBgUu914+Tx8mGHA=;
-        b=Nnbck3wzmXqxNMbQcpSvNBUiabEa6m+gm9t8WnPwk1a604CVXNIgKjqRewLx4ykhqR
-         9tVtZ3TWmq7YG2DPAXKifQdWIyaG7btMrUsDxj3IHbn7kguAUO2bvsdc4ijbbj3YAYxZ
-         8NOftwDVEEyV0wFQwcApTWO/DgOl8MZyt5Yh0VVq+Euzm3rFC/EpgufQMxAcZbsiBqSr
-         /Qny7gUzLPAA24Bl5TiQ/qLYz0Rig4DAINsiyhZTwu/dFCAVo0Wj6g/f60p+28gDrbzx
-         WyJh0Qja+i5caE11ExdBPoaCVnIibqVOC2McoXSVl7DjuZAv2sZXP9Q3YUSGHYcxBPmg
-         dNzg==
-X-Gm-Message-State: AFq9FYLVpx2JSuDTynp5kvoalcDowYM/qxbWOdzEaz24Uz8kYzBpLLb3
-	vQCTlMF27Fn0NnKaCWzwoviySkt21HnYWKy37EZbb8q6yqBJY9wJOJ+gFlCZVf0iYHKM/lPQyQ5
-	X5t4NzhRQjs9PULhJoUK01Zy3+xZXIKa6ep51IC+lk6EcGPsVbnHNG8vdrxlxJSc=
-X-Gm-Gg: AYBFou09/BIjDlVpceeDRxdWiRE1j7DcbObEGdft4jbAjaDlIfl5WKozBHhF4dAPgm/
-	rBnTFGL5xBWhe6+rywXfi3JeqznmeDS/RD1E5+suMk0nAXnH5niH5xaMqeYPvsQoXE2XQcywuri
-	GG+QPlDz3gQl5soWz5w+9u9RF7xJbuufY88NMWhBZZwhhrBdaDr0ldZhIVGVcXodRmUJMXvx7LG
-	T9Ygo5gvH+iKOawEwpT5sw2siVXgYBX/CV/O3bktoDL214MaLl4bsMhh6MdpN4opqXPEr/VK0zZ
-	w1viq3p7laSVnPvxjvlet2yf2S59S8Fx/AAMRRPZDnUxM27EktkB7g==
-X-Received: by 2002:a05:690c:e3c9:b0:8a9:9a2e:e34f with SMTP id 00721157ae682-8a99a2eeef4mr35038767b3.13.1790637552668;
-        Mon, 28 Sep 2026 16:19:12 -0700 (PDT)
-X-Received: by 2002:a05:690c:e3c9:b0:8a9:9a2e:e34f with SMTP id 00721157ae682-8a99a2eeef4mr35038647b3.13.1790637552245;
-        Mon, 28 Sep 2026 16:19:12 -0700 (PDT)
+        bh=4bDunkmKzxTEgKxBi/DaPG7+roKleuHpKwgE8PS3EY8=;
+        b=iibBBT+Lun9q5MYme41HkYMZt4u9A/DAitSXRCMqDz2iIiWBYi9uU3a0yi9Ni8lRRk
+         tCxeOEEMnF7QldhgFwccToz02wvjYxv6dp0O2nLRI1/QgtLuzTWom3Tv2y3m8FT1xeCM
+         OM6vE4AFvmQlXHw8L8ElKVmGZMszVjP+AoTY8LFV076JgWUsaWlVy4cCpnHt6v63Ev7C
+         zdBJxDBYcRltbOfwgcmoI56LwSZR2d/C0qOCaBHcpu1TYF0ZcBX+hDKY98jtHzlENOZh
+         YQRSoQQ7DIeSqxAhuGT0fNz+vLZa0kAc3kfBNgbziqo5kz6FPwZk7oeXQfSiANVNpUbe
+         KBfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790637575; x=1791242375;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4bDunkmKzxTEgKxBi/DaPG7+roKleuHpKwgE8PS3EY8=;
+        b=U4aed+DU4Uk5ILf2SRyMZUWDrNJEgOieF8PsAAnRlBxsiwbDJNEYx8ClZlU3f8mmdq
+         Bg9vzsDDR1L1mU91AwfIrytCv42q3gyNZoZ5g8rhVJVT4vc76PG0DHXcd1noeyNvnWbb
+         FDFJnIut/hSw1iPj3d39UwbVabHLR4nvaeCf6wbNC5518JwCScOzac79B6w0HXYOp2ma
+         MGkELOOmWlKSo6k2Bp3FwXdkHH/SM1jHzKQrAglsgvvTBZ4tEmJe7tUN/asfjNu2yxWT
+         dY/xsPBjRLBto5nxKMysa3UhvFGdjah2EIq6O3SESmmexgSuCTJ10/uuJqluBt6v81w7
+         0KLw==
+X-Gm-Message-State: AFq9FYLDLpfcJiA2coeyUSy3+zdCEJpADoPqh3OtDcQpzXgqymQItSUJ
+	KO/Uk7zBPv5P4ox0CNsf5UWGw8b3a5joqbejMvcfg1u8LUsJ9r0xnuu5RfR73k4sH7UWAWhI1wo
+	SZsgashCX3H6s7r9OTIjw7tQ3gUTW39dXWZzUF8VRGam1AC2u3KIkqtolDaRhc9U=
+X-Gm-Gg: AYBFou0FPBrnQvEmmlVkYm2W9jRx2QHPBhD9xPpYFNDRD6hizIlLgCqfSCZxiO2am0T
+	uxIKFcm65n09qUCa0Se9WpyXMiCu1GuzLHpRuDgBsMaA4/GaFEMd4C/y/ghk4vwy8BQcazIANUc
+	gMtgeaqisooXXX0SeKAdHudfa2mpTUIeP/TAgm6/efYhjJqefctOkQbVDquFwaIMhGo1jDo0a57
+	B1VmrncY6/mf8hyIscf7b60vnhzy7whoqm4xlOvEhxFBNkn9O9IKyzVuks6Y/266dvVine0X7GM
+	zYkd9QdarFyebmElg/bzUeZAqA8uzkVej+cF3hAkQFOyuEal6Oi7PQ==
+X-Received: by 2002:a05:690c:3181:b0:8a8:889d:2ea with SMTP id 00721157ae682-8ab3b5249c4mr5722487b3.48.1790637575106;
+        Mon, 28 Sep 2026 16:19:35 -0700 (PDT)
+X-Received: by 2002:a05:690c:3181:b0:8a8:889d:2ea with SMTP id 00721157ae682-8ab3b5249c4mr5722437b3.48.1790637574673;
+        Mon, 28 Sep 2026 16:19:34 -0700 (PDT)
 Received: from rhdev ([2600:1700:f361:20bf::14c1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860f9cdb0sm51374117b3.24.2026.09.28.16.19.10
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860f9cdb0sm51374117b3.24.2026.09.28.16.19.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 16:19:10 -0700 (PDT)
+        Mon, 28 Sep 2026 16:19:34 -0700 (PDT)
 From: Jennifer Berringer <jberring@redhat.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -87,10 +90,12 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	James Morris <jmorris@namei.org>,
 	Jennifer Berringer <jberring@redhat.com>
-Subject: [PATCH 0/4] riscv: dts: spacemit: Enable USB and PCIe for K3 CoM260
-Date: Mon, 28 Sep 2026 19:18:03 -0400
-Message-ID: <20260928231807.1757995-1-jberring@redhat.com>
+Subject: [PATCH 1/4] riscv: dts: spacemit: k3-com260: keep dldo4 enabled
+Date: Mon, 28 Sep 2026 19:18:04 -0400
+Message-ID: <20260928231807.1757995-2-jberring@redhat.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260928231807.1757995-1-jberring@redhat.com>
+References: <20260928231807.1757995-1-jberring@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -99,37 +104,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patchset enables USB 2.0, USB 3.0, PCIe, and rfkill for the K3
-CoM260 Dev Kit board. This board has 4x USB 3.0 Type-A ports and three
-M.2 slots which may be used for two NVMe drives, Wi-Fi, and Bluetooth.
+From: James Morris <jmorris@namei.org>
 
-The USB Type-C DRD port is not enabled here because the necessary
-drivers have not yet been posted.
+dldo4 on the P1 PMIC is marked regulator-boot-on, but has no consumer
+described in the device tree. The regulator core can therefore disable
+the firmware-enabled rail during unused-regulator cleanup.
 
-This is based on spacemit/dt-for-next. The USB patch depends on [1] and
-the PCIe patch depends on [2], which in turn depends on [3] and [4].
+Enabling pcie4_rc on a K3 CoM260 Dev Kit without this change while the
+board's included RTL8852BE module is connected to the M.2 E-key slot
+results in CPU hard-lock, as seen in kernel log:
 
-[1] https://lore.kernel.org/spacemit/20260928205012.3689405-1-aurelien@aurel32.net/
-[2] https://lore.kernel.org/spacemit/20260727094726.890179-1-inochiama@gmail.com/
-[3] https://lore.kernel.org/linux-phy/20260923023304.78428-1-inochiama@gmail.com/
-[4] https://lore.kernel.org/spacemit/20260923015016.64069-1-inochiama@gmail.com/
+[   32.521536] dldo4: disabling
+[   48.125823] watchdog: CPU3: Watchdog detected hard LOCKUP on cpu 4
+[   64.125829] watchdog: BUG: soft lockup - CPU#1 stuck for 26s!
+[   64.125926] Hardware name: SpacemiT K3 CoM260 IFX (DT)
+[   64.125928] epc : smp_call_function_many_cond+0x158/0x740
+[   64.125938]  ra : smp_call_function_many_cond+0x11a/0x740
 
-James Morris (1):
-  riscv: dts: spacemit: k3-com260: keep dldo4 enabled
+GitHub Copilot assisted with diagnosis and build and test automation, and
+changelog drafting.
 
-Jennifer Berringer (3):
-  riscv: dts: spacemit: k3-com260-ifx: Add USB nodes
-  riscv: dts: spacemit: k3-com260-ifx: Add PCIe nodes
-  riscv: dts: spacemit: k3-com260-ifx: Add rfkill nodes
+Fixes: cfe5c91cb73c ("riscv: dts: spacemit: k3: Initial support for CoM260-IFX board")
+Assisted-by: GitHub-Copilot:gpt-sol-5.6
+Signed-off-by: James Morris <jmorris@namei.org> (Microsoft)
+Signed-off-by: Jennifer Berringer <jberring@redhat.com>
+---
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../riscv/boot/dts/spacemit/k3-com260-ifx.dts | 122 ++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi   |   1 +
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi  |  33 +++++
- 3 files changed, 156 insertions(+)
-
-
-base-commit: 4947ee60bf48caddf5caefc08dbbc84d09fbbc6b
-prerequisite-message-id: <20260727094726.890179-1-inochiama@gmail.com>
+diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+index 92dea86397798..054bfff7413a3 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+@@ -187,6 +187,7 @@ dldo3: dldo3 {
+ 			dldo4: dldo4 {
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <1800000>;
++				regulator-always-on;
+ 				regulator-boot-on;
+ 			};
+ 
 -- 
 2.55.0
 
