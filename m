@@ -1,97 +1,113 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from e234-60.smtp-out.ap-northeast-1.amazonses.com (e234-60.smtp-out.ap-northeast-1.amazonses.com [23.251.234.60])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB40949552D
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 10:08:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284E4497396;
+	Mon, 28 Sep 2026 10:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.60
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590110; cv=none; b=DVecHxZeLvtRB+EdViELwGw15X7C4/VsrxiM12Ila8+x2jb8PPLE68v64gy2h/DfyuoAQP1sMtcbU30EmsCnHOG6arUvpezpx9L577FBcxxmB2hhmvZ0GsDRgMMQBq8W7yFPSsJ26DHQxJ41TNedvUMdwwmZCvj5V263kCS09pU=
+	t=1790590119; cv=none; b=cgpoLnn/wWa+5Iqr5KQMTJ/KD/tWv9ho8hqBw7TWRxuaac+WbHLZPliBGwy0Zd8N1gylxuuA3oBEl9dl5YlPEoLcgtpNo9hTMtshpRg80HA0cQoroAcj0JdWHqDNu3p3eVmC22TEAvBTnIC9ZP/lZLZ8+lhcwA8En2edRNIpE2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590110; c=relaxed/simple;
-	bh=XhAixuhqSe/dsQG0NsclCcJxEyaEsGjyMcp/KpLvQIs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mgtcnFGphN8+X4zKBQ7mg/6Aa/3woQJJ6XyT9W7sKJvySzTsBWp0WCJmoMS6+7ekDWe+9WRZrgpxJBeou6KPAA37SPlUveUvn7xudn/32M139gzHiBRxh7nX7VIpRC1ti8WtAGnOdFEfUE2zaFUWF9YODOALAA2NHJ7SDxNocgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tHFTKaDY; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790590119; c=relaxed/simple;
+	bh=yMSif6ynx6nwdCbZHY+fd5kWOasUfWU6Tx1mGHdyWwI=;
+	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type; b=LQV6jwp92k4+cuW8Xm9VMI3G2sHadjIVWFdUrAs/DeSUww3rVTj4EQv+kjKMx3EwSKvkPaLK4QsDlIvym7a4gbxUvZb+ipttVffsYtV5fj0noy0OPahA/10uXYyoLcUy6OAPtUm17/qedDrWrFNhH0O6xB8qOeshRNGdm7Xsli4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=I8IgdS8+; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=HQ6p/NJR; arc=none smtp.client-ip=23.251.234.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tHFTKaDY"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c264788fd58so405994966b.1
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 03:08:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790590107; x=1791194907; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wTVCY6beQgFN5l4WsD2fqNqKkKl80zolb7oRNqVRMfQ=;
-        b=tHFTKaDYcRQQkzhjpAs68UQ1AOyyrNIaSXTFTDm+p6WCmvk+msi+zPE6bAD0aLiAyJ
-         ttuGTFUc2QMCdbJekz7zZ7j1m/XFPcLcixjH7UDXCA/v2iWb5+7tJc3yZCOnCzi1MXDA
-         +J+aiTpiosBQBpqHs/LYelsau90WY8XuXa3ywHWMgIDA4VC79T478Q79lJjcR7OMaaAE
-         EamD2IA9cnnhHtBA6qdMFCmvBNvrzJlb4Dz2DfQoWlxV76H73JWPbRyGbP+t0XlVtVTT
-         mQFqNwh7KaLaNZC9rr4KbxycUJIFQlMM6X9E/7F+zrtPJArNO7fiKbmMdxWJrUw4gRSC
-         kViw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790590107; x=1791194907;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wTVCY6beQgFN5l4WsD2fqNqKkKl80zolb7oRNqVRMfQ=;
-        b=xbGIC29dnS7YxinJTazIMoWYgxSVep0sgWDcNDV7HV+32pOK69+gIiC0bCXuQLFjyg
-         AMkX46T/DO4PaieDIOvYze5R7x9yaXDzP2RcMYDtD11z9uK8BX2Wb/Fve+t8BdketsLE
-         ePi0s+cL3YuOoTx3+/NffkCuhkKgJeqFNWXZBi0hZtsLBNGqO/Svzz2Kkyd5eqUHGxKh
-         9qEmsWawAhTwXMnTyOgVnVVU2N0mX0sarJOIZNNpI+WnTHxSJtlbLFV/DRreeFQ/v+7Z
-         tr4JLrMBkTl3UrmxgJAsOF8EawjOTay+O8OzpaskcPxZM7g2+6/DXJBOZ8WJGhCY5IHf
-         vm4w==
-X-Gm-Message-State: AFuF++leALPpr4SS3KUFPOsrH/DYD5eEK6wfuAufAyn76Wtv0d7nmV+w
-	pxqcNb1TorY+HTpxc0JwEthPlBrfwD85SPcpmBSS36+tisilWpaHItLh
-X-Gm-Gg: AYBFou1P6mb2vMevMgDD49lngjQc+v3005Ta5BCkervrDtRWrALXV0ZoQ7JevOJg58C
-	6fi5BG2mcABVYgZ+p/8Wn5vZ7EHKixd5FDXmDIbAIfh0wqMPtn2XF3coADjA6lnfnK6W883mEmS
-	zUKDDDKQLXBWt4m6j7D8Pl3wVifFMhUuXqKDOzPP8wH9YCEpEqp7uxI0lG72hYOJCo8sEqcioUt
-	UslKT2fg3pyU3ZEcesQQA9cnR1s46uMWBUFIWyxcGeWyxSGXhtI/NDZcYPCDwu6Df2AXU8KGulB
-	rUytO9TwSSCntaE6nPEFWoPtv9Q61xGNyxFwbewN9XIzIOggsXr1LSJu9bcN1G/HJpNpKDghfaV
-	O400MB9zpSOe3ty59SU7TzJuybMKL/MOeQAvxUNXMrV6VAqzY3IA5RgGQ/Sy5W2f7FXPKq/GzpW
-	0BzJAvOQpYuBoqILtMxZW669lEDVPisDXq6VJXF4135r6RkVSyv1UADJXflpnVClQ3nFrfVJ6WV
-	zj9apePV1AD+yOaaGGWPY2FOAq4Xrc9NXDCRO0klseNmBq18Q==
-X-Received: by 2002:a17:907:960f:b0:c2a:c76c:c743 with SMTP id a640c23a62f3a-c2ae9f6a1f1mr749798366b.35.1790590106798;
-        Mon, 28 Sep 2026 03:08:26 -0700 (PDT)
-Received: from rillian-arch.localnet ([2a00:23a8:8f4:6a01:5ffc:da36:c891:cd3c])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2bf3c6ba9dsm304459866b.13.2026.09.28.03.08.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 03:08:26 -0700 (PDT)
-From: Rillian Grant <rillian.grant@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, lee@kernel.org, linux-leds@vger.kernel.org,
- conor+dt@kernel.org, robh@kernel.org, Rillian Grant <rillian.grant@gmail.com>
-Subject:
- Re: [PATCH v2 3/4] leds: flash: lm3643: Describe the LED of ACPI boards
- without LED nodes
-Date: Mon, 28 Sep 2026 11:08:25 +0100
-Message-ID: <Spi1SCcTSB2Ab7fZGVbFXQ@gmail.com>
-In-Reply-To: <20260928095015.096591F000FF@smtp.kernel.org>
-References:
- <20260928094302.86966-1-rillian.grant@gmail.com>
- <20260928094302.86966-4-rillian.grant@gmail.com>
- <20260928095015.096591F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="I8IgdS8+";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="HQ6p/NJR"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=fqwqf.xyz; t=1790590116;
+	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=yMSif6ynx6nwdCbZHY+fd5kWOasUfWU6Tx1mGHdyWwI=;
+	b=I8IgdS8+wA2fQ+k0Oy2LH+foCXQKmKHNbJkqBMOblk727ycomb2VIXFVuH4Rn4V+
+	4qHdDFvR1ENxEbyEIcnoASM86dKxoBVBPIbYDty5sW7Ak62XkIsbQnKJjE4t0GEO6RD
+	EnxHGoQhXDqIatm6eAobiqz7BJpp6eXNtNTIt+h4=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1790590116;
+	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=yMSif6ynx6nwdCbZHY+fd5kWOasUfWU6Tx1mGHdyWwI=;
+	b=HQ6p/NJR4eW+L5zLl6mf+qsbfcDrQicaTYDNmW39mddiGyWgXrkvkkbV0QEvvn1s
+	tdu2Q7XChE7FG7TA5+GfRWf0rB1qUN+aNz6Vyjogg4Fmuh27OMf+KYUlr8/eRTFC8pm
+	H1nBYIaKgvkzSJd7A7RVDnL9FcFigmAEQ/QfoEBo=
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+In-Reply-To:
+ <CAEe3GZE9pVyV=PRxo_1V39dXCEHz_wx1fa5P3U=686b0fweOng@mail.gmail.com>
+From: fQwQf <fqwqf@fqwqf.xyz>
+To: jingyliang@chromium.org, daleyo@gmail.com
+Cc: jikos@kernel.org, bentiss@kernel.org, corbet@lwn.net, broonie@kernel.org, 
+	rostedt@goodmis.org, mhiramat@kernel.org, 
+	mathieu.desnoyers@efficios.com, dmitry.torokhov@gmail.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	linux-input@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	hbarnor@chromium.org, tfiga@chromium.org
+Subject: Re: [PATCH v4 00/11] Add spi-hid transport driver
+Message-ID: <010601a0e77ce26e-204b61a2-f41e-4d77-b585-228c5da788dc-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Sep 2026 10:08:36 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
+X-SES-Outgoing: 2026.09.28-23.251.234.60
 
-On Monday, 28 September 2026 10:50:14 BST sashiko-bot@kernel.org wrote:
-> The subsystem rules strictly mandate: "Only log errors or warnings." Since
-> this call to dev_info() executes automatically in lm3643_add_dmi_leds()
-> during hardware enumeration on matching laptops, it will add unnecessary
-> minor log noise during boot.
-> 
-> > +
-> > +	return devm_add_action_or_reset(dev, lm3643_remove_dmi_leds, dev);
-> > +}
+Hi Jingyuan, Dale,
 
-Agreed. I will replace with a dev_dbg() call in the next revision.
+Thank you both. Since my earlier message, I have moved =
+the SL7 integration onto Jingyuan's v4 series, replacing the standalone =
+downstream HID driver. Normal touchpad operation is working with the local =
+GENI QSPI stack and existing iptsd setup. This is testing of v4 plus my =
+local changes rather than unmodified v4.
 
+The QSPI transport uses spi-mem =
+operations, with 1-4-4 transfers and eight dummy clocks for the SL7 read =
+path. I also have changes around DMA buffer alignment, report bounds and =
+request handling. I plan to separate the generic fixes from the QSPI =
+transport changes and keep the GENI/GPI controller work in a separate =
+series, retaining the downstream provenance. I can rebase against v5 and =
+drop anything it already addresses.
 
+I also encountered a resume issue in =
+this SL7 integration: the HID reset-resume callback could run before the =
+asynchronous reset/descriptor exchange completed. Delaying that callback =
+addressed the ordering problem. The touchpad also lost its =
+userspace-selected heatmap mode after reset; restarting iptsd restored =
+multi-finger input. My current SL7 workaround recreates the HID device =
+after reset so userspace reconnects and initializes it again. Resume with =
+this workaround has been tested successfully here, but I would like to =
+discuss a cleaner recovery policy before proposing that part upstream.
+
+Jingyuan, do you have a preferred transport interface for adding spi-mem =
+support to the generic driver? I can prepare a focused diff for discussion =
+alongside your v5 work.
+
+Dale, thanks for the nix1e link. I have reviewed =
+the patches and module build definitions at b274dd7. The build definitions =
+apply v4 plus fullduplex.patch to SPI-HID and include separately built =
+GENI/GPI modules with the downstream QSPI patches. The HID read path =
+combines the command and receive buffers in one SPI transfer; my local =
+implementation instead expresses the command, address, dummy clocks and =
+data through spi-mem.
+
+The DT configuration in that revision targets =
+Romulus13/15, so I assume the additional Denali DT changes you mentioned =
+are local to your setup; please correct me if I have missed a published =
+branch. If those changes are available, a link or diff would help us =
+compare the wiring. I also noticed that nix1e's README reports a suspend =
+fix. On your SP11 setup, do touch and pen both remain fully functional =
+after resume without restarting iptsd (if you use it)? That would be useful=
+ context for the SL7 recovery issue above.
+
+Please keep me CCed, as I am =
+not subscribed to the lists.
+
+Best regards,
+Jizhou Tong
