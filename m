@@ -1,228 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f34.google.com (mail-dy2-f34.google.com [74.125.229.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94DE35C1A9;
-	Mon, 28 Sep 2026 21:04:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B00438026
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 21:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629490; cv=none; b=UZCMREN08JHbTbDAZWjflzlggshC1eMA4yW0invcqD6UvAQrcAEsX/RGg6aHLyJ/uMUG7dcp8muY7/Uo9tNBT/yNzNoHtV8vw3PJoXEyIktX1Z2nHHYPrJj3vmXv5NpUNKQE0VJqZdLfK8xPyG4bWAqrNDUu8w9mSJDJFb2oaiw=
+	t=1790629512; cv=none; b=C+dlbOK7/5NYx3a8Slu/yje9LnZfkRXMYyppz2FOCq2IxRpFscUHwnyd5QpFkSBzi2KMGnqq/y/hyQs8B+FoDx/XM93Fsrjp5EHm7N+YpefCKiLOUCl8rjASn0Mb7OMdGvl/3FULoPfwlx8U3CShb/2Nbhadp1lfX/yzGILwVm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629490; c=relaxed/simple;
-	bh=4WfkTemOrC8BBo5bBRSx0nAks/yfqsLlJHoK1NSB8Hs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LrFAfQ/9Da30Umxfm8Ul8f+N/+Pkk2KFFkJAH9JpDXOKWyQKYovdNrB6RtDAbIcXIWxpNEki0NoR+DMuiZ7ATeQyxhi/UA4bjz0VulchnSWjH3ZtnfWePKDp1mLH0nkx5yCfnBzfeSbny8adzFtcXy67VxNmb3ak5s1xLonVd34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JPnegzC+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790629512; c=relaxed/simple;
+	bh=bEKlKi/+IZFKOLDzrR1dsce/+n64lxtOKI6KSgMbKVU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=JJWXwjfJF5fZOHxgspIMmU+t8RwGkI+mz9oiccMdK4PysZRey78oAbz18Iq/i6cPg/nWzA4ePVNiIdVqoR9UuvU/h4//l93SpWRzcoD7973XJKEeSUvIINqWZzNl20visC+EoNiin6rQ+4CguCadshsHdvMhRplK2/GIXkiqcoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=QdhLavMT; arc=none smtp.client-ip=74.125.229.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JPnegzC+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471851F000FF;
-	Mon, 28 Sep 2026 21:04:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790629488;
-	bh=tRgOEtQUjPQPcuPzvM42ONw2yxNbpimwrxls9RJW2y0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JPnegzC+PCeW5pwSWYZAJYlgXPLsCtrhYe6U68ORArI8M+g/Xi0Ooj2Tjvg9vDIx+
-	 lTQXc4U8zmKIVgJm92cdZ6Fj/aNfjZhE2T56/gqo1vgmGaNnsFuelEYhvKRqKgM+iS
-	 AwS4VpR2+N6jKl7qgHiFyvi70Mswwj6M7l0cUSuMChJt/wZDG9MYn38PAY7E12yj3F
-	 blA8aDqaP7OANVgm5rE0tFien1cTcWlvNqm/kP1V5UuiDEMnfepxBHLPWCaQdfUyx9
-	 DNEk6/2G/cp11j9a/2Q/i2M/DjzQDpjCY4HpQBi5IFSki9DDxfzEndCFdZ5Or/F5VP
-	 A11SSv4ne6IOA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/3] arm64: dts: imx95: Add support for Data Modul
- i.MX95 eDM SBC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: "Marc Kleine-Budde" <mkl@pengutronix.de>, "Oliver Hartkopp" <socketcan@hartkopp.net>, Frank.Li@kernel.org, "Oleksij
- Rempel" <o.rempel@pengutronix.de>, linux-can@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, "Vincent
- Mailhol" <mailhol@kernel.org>
-In-Reply-To: <20260928204741.175754-3-marex@nabladev.com>
-References: <20260928204741.175754-1-marex@nabladev.com>
- <20260928204741.175754-3-marex@nabladev.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 21:04:47 +0000
-Message-Id: <20260928210448.471851F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="QdhLavMT"
+Received: by mail-dy2-f34.google.com with SMTP id 5a478bee46e88-33be7dfcfc1so4804875eec.1
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 14:05:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1790629510; x=1791234310; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SuOpjRo0nMbIZrrhGtIjOTHizEzVqe8lHpeMn+L+x88=;
+        b=QdhLavMTqGXU3Z5a8PzskU/taf9cO5W3uXmP6Tk85uhnxI2IO7/A/+G/xtzFSNY5b7
+         G+p09D9ClPRzih0/WhdPeYdJoh2EHJfwoiNI2Ubk+DI5dWMSzZiX1tvzpgu/75fhHQlM
+         CL3vOYXzE3gveM5qUj2pKSThWL/wThqtI4tebZjSbkGQHL/7l49DMvD/4qx55bWXFpHs
+         gQESL/pPuToUSTAxd4hGR5yvVc2DtQn/QtRJ8Rqiy28TwvB6vp/Xcm5twL6ViorZzJxB
+         wl1Xot2cGCmuEFDsAKXFbialIf4ExWNTQK9d4D/2WU3+jx+p3Ajrq/zJ2pBHYsenzfaa
+         FV7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790629510; x=1791234310;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SuOpjRo0nMbIZrrhGtIjOTHizEzVqe8lHpeMn+L+x88=;
+        b=YZ4COr9n5coYVnL72uioGrzIPJJV5PeqWRy2VAF91Ax9zjbIrdsLgnHkSGLlweg4pd
+         fN9cFOaykNYa/nyhOo5F3JNMsUFqCFZGA5vA/fSXpBVZOU9v81c3YWGCSwazd3mtzf3Y
+         eeapMqVBi06PktSkp2fayUJaOJZ05N7IP0VGnN4sVUNP7GgSfQU6kuXzBqwGMhIpMBsR
+         52SMRtPHJtFmg2zCy6UYo/ws/QJaxN+8EkOlSgHzr/fg9RkAw4O869rkLwa1Ld0Y7vkX
+         cMTPpZBvGa7OIHC966FnVFy0xSNgpXEhRiNgiXVMdkM6jljThiWLhx2klhgYwhlgTY7V
+         pSnw==
+X-Forwarded-Encrypted: i=1; AKwUvByyKUqdlic+4PEkuOGTZNfCNurM10v1IXAXMcC+HVk0UPguCOPZ+KGsX7Qe48VlDrnxvc4UhTPhlO0B@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeXyMaUkSeiX4gKtbkQlKb9wCmxbUkGsVgdcgxW7yi5bl8Nv1X
+	xuE5bDl0FW07su+JvZmNqmpQYZ8b5Iq8q5mFYmCafpeRvO61MH1fHWTrn4D3+fyfUIQ=
+X-Gm-Gg: AYBFou2TmToya7a5LWg6O+0F7JDfOgUUKm001GXnneeNqpF7T21ygU5ldUohxrAVnpS
+	7nfiXpHpQHLAsixyOdaYNGx6WuZsDC3099asHcMNLzhk3VXWbrOpU2uhIqRNsovON3PSinoSdyJ
+	YK51gFv8Uuu8KsvDUtJIGQw9NkEQ/qWdLf07fOWfy/bIR6UfgMi5i9cMzPXFmXRTpVTFLdTEpWw
+	NKj1H6Akl77luXnjG3k5u+vh3dKvR2wQyG4DyNceAOBwE/emyQTvQtHxJEgocBtUS/HUzBO4xru
+	GYMhhS6BDnIfJJo6BXhVEiqUvdSJ4U3BZ4MoFzr6ZPSFU0aKrf2HJxgpPN3yf0mEUPLpNRhY96L
+	j09FOTTZ2MOhyfSzHCgRTWlPyARsXnIVSOTmRXQh+/rBa9VhPwWNb3ZQGnfhBhN/WdYqQ9L+iDk
+	CaUYisFDk0D2h97aN9KLzX3yHFAZe/Uhc1bVqfWAEVjz4QEHCbDLQldwPIZmY2sROf2Bwz7SU=
+X-Received: by 2002:a05:693c:65d1:b0:34a:e7ba:863c with SMTP id 5a478bee46e88-34ae7ba888bmr853763eec.18.1790629509296;
+        Mon, 28 Sep 2026 14:05:09 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3433628f5basm22264934eec.18.2026.09.28.14.05.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 14:05:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 14:05:07 -0700
+Message-Id: <DLR96NR3FB79.2NSK3I6JR8RJO@nexthop.ai>
+Subject: Re: [PATCH] of/overlay: don't pass the changeset's own id to
+ of_overlay_remove()
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Rob Herring" <robh@kernel.org>, "Abdurrahman Hussain"
+ <abdurrahman@nexthop.ai>
+Cc: "Saravana Kannan" <saravanak@kernel.org>, "Frank Rowand"
+ <frowand.list@gmail.com>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Sashiko AI" <sashiko-bot@kernel.org>,
+ <stable@vger.kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20260917-b4-of-overlay-remove-all-fix-v1-1-920441cecae2@nexthop.ai> <20260928182658.GA185307-robh@kernel.org>
+In-Reply-To: <20260928182658.GA185307-robh@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] dt: imx95-data-modul: PCAL6524 expander interrupts cause IRQ storm=
- due to active-high polarity
-- [High] dt: imx95-data-modul: KSZ9131 Ethernet PHYs permanently held in re=
-set due to active-high polarity
-- [Medium] dt: imx95-data-modul: reg_panel_vcc defaults to active-low, brea=
-king panel power
-- [Medium] dt: imx95-data-modul: M.2 Key-E slot unpowered due to missing re=
-gulator for VDD_3V3_M2-E_EN
---
+On Mon Sep 28, 2026 at 11:26 AM PDT, Rob Herring wrote:
+> On Thu, Sep 17, 2026 at 07:28:16PM -0700, Abdurrahman Hussain wrote:
+>> of_overlay_remove_all() passes &ovcs->id to of_overlay_remove(), which
+>> zeroes *ovcs_id once the changeset is reverted, before calling
+>> free_overlay_changeset(). Through the aliased pointer that zeroes
+>> ovcs->id itself, so free_overlay_changeset()'s "ovcs->id > 0" guard
+>> is false and both idr_remove() and list_del() are skipped: the
+>> overlay_changeset is kfree()d while still linked in ovcs_list and
+>> registered in ovcs_idr.
+>>
+>> Every overlay removed through of_overlay_remove_all() thus leaves a
+>> dangling list node and idr entry behind. The next ovcs_list iteration
+>> or idr lookup walks freed memory, and the ids are never returned to
+>> the idr. Nothing in-tree calls of_overlay_remove_all() today, but it
+>> is the documented API for removing every overlay in one go
+>> (Documentation/devicetree/overlay-notes.rst), so any module user hits
+>> this deterministically.
+>>
+>> Pass a local copy of the id, like every other of_overlay_remove()
+>> caller does.
+>
+> If every caller passes a local and updating the value is not needed,
+> then we should just update the API to pass the value rather than a
+> reference.
+>
 
-commit 88cbe063476bce8eddcc6ed5fd22c93a72c1ced5
-Author: Marek Vasut <marex@nabladev.com>
+The value is used, just not by much. of_overlay_remove() zeroes
+*ovcs_id only once the changeset is really reverted, and unittest.c
+leans on that: overlay_18 injects a pre-remove notifier error and
+checks ovcs_id survives the -EXDEV, overlay_19 injects a post-remove
+error and checks ovcs_id got zeroed. The return code says the same
+thing, so by value I'd drop those two checks and keep the ret ones.
 
-arm64: dts: imx95: Add support for Data Modul i.MX95 eDM SBC
+The zeroing is also the double-remove guard, via "if (*ovcs_id =3D=3D 0)
+return 0;". lan966x_pci keeps the id in data->ovcs_id and
+of_overlay_fdt_apply_kunit() removes from a kunit exit action, so both
+would have to clear their own copy or start getting -ENODEV and a
+pr_err() on a second call. Easy enough, but it's a behaviour change,
+not just a signature change.
 
-Add support for Data Modul i.MX95 eDM SBC board. This is an evaluation board
-for various custom display units.
+> Additionally, if there are no callers we should perhaps just remove the
+> API.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts b=
-/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
-> new file mode 100644
-> index 0000000000000..0181262eb8a98
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx95-data-modul-edm-sbc.dts
+No in-tree callers, yes. It's the EXPORT_SYMBOL_GPL(), a paragraph in
+overlay-notes.rst and the same paragraph in the zh_CN translation.
 
-[ ... ]
+If it goes, the bug here is unreachable and the patch is pointless, so:
 
-> +	reg_panel_vcc: regulator-panel-vcc {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-> +		regulator-name =3D "PANEL_VCC";
-> +		gpios =3D <&i2c2_gpio_expander_20 17 0>;
-> +		/* Disabled by default, unless display board plugged in. */
-> +		status =3D "disabled";
-> +	};
+  1. just remove of_overlay_remove_all() and drop this patch, or
+  2. this one-liner first (only piece that can go to stable), then the
+     removal, then the by-value conversion.
 
-[Severity: Medium]
-Does this regulator invert the panel power logic?
+Which do you want? I'll send 1 unless you think the backport is worth
+having.
 
-Because this fixed regulator omits the enable-active-high boolean
-property, the gpiolib-of quirk implementation specifically ignores the phan=
-dle
-polarity flag (0 / GPIO_ACTIVE_HIGH) and forces the polarity to active-low.
-This results in inverted enable logic for the display panel when it should =
-be
-on or off.
-
-[ ... ]
-
-> +	i2c2_gpio_expander_20: gpio@20 {	/* U12 */
-> +		compatible =3D "nxp,pcal6524";
-> +		reg =3D <0x20>;
-> +		#gpio-cells =3D <2>;
-> +		gpio-controller;
-> +		#interrupt-cells =3D <2>;
-> +		interrupt-controller;
-> +		interrupts-extended =3D <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-
-[Severity: High]
-Does this interrupt configuration cause an immediate IRQ storm?
-
-The NXP PCAL6524 INT output is an open-drain, active-low signal, and
-the expanders share the same gpio5 11 line. By configuring the interrupt
-with IRQ_TYPE_LEVEL_HIGH, the GPIO interrupt controller continuously
-perceives the natural high idle state (maintained by a pull-up) as an
-active interrupt, rendering all the GPIO expanders inoperable.
-
-> +		vcc-supply =3D <&reg_3p3v>;
-> +		/*
-> +		 * reset-gpios cannot be used because the reset
-> +		 * line is shared by multiple PCAL6524 consumers.
-> +		 */
-> +		gpio-line-names =3D
-> +			/* Port 0 */
-> +			"UART8_RS232-485_MODE0", "UART8_RS232-485_MODE1",
-> +			"UART8_RS232-485_Term_TX", "UART8_RS232-485_Term_RX",
-> +			"UART8_RS232-485_EN", "VDD_3V3_M2-E_EN",
-
-[Severity: Medium]
-Will the M.2 Key-E slot remain unpowered?
-
-The board features a dedicated power enable pin for the Key-E slot
-("VDD_3V3_M2-E_EN" here on the PCAL6524 expander). However, unlike the Key-B
-and Key-M PCIe slots, there is no fixed regulator defined for this pin, and
-the usdhc3 node has no vmmc-supply. Since the expander powers up in input
-mode, the enable pin is never actively driven high, leaving the slot unpowe=
-red
-and any SDIO device failing to initialize.
-
-[ ... ]
-
-> +	i2c2_gpio_expander_21: gpio@21 {	/* U14 */
-> +		compatible =3D "nxp,pcal6524";
-> +		reg =3D <0x21>;
-> +		#gpio-cells =3D <2>;
-> +		gpio-controller;
-> +		#interrupt-cells =3D <2>;
-> +		interrupt-controller;
-> +		interrupts-extended =3D <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-
-[Severity: High]
-This is a second instance of the active-high interrupt polarity issue on the
-PCAL6524 INT pin, which will also contribute to an IRQ storm on gpio5 11.
-
-[ ... ]
-
-> +	i2c2_gpio_expander_22: gpio@22 {	/* U13 */
-> +		compatible =3D "nxp,pcal6524";
-> +		reg =3D <0x22>;
-> +		#gpio-cells =3D <2>;
-> +		gpio-controller;
-> +		#interrupt-cells =3D <2>;
-> +		interrupt-controller;
-> +		interrupts-extended =3D <&gpio5 11 IRQ_TYPE_LEVEL_HIGH>;
-
-[Severity: High]
-This is a third instance of the active-high interrupt polarity issue on the
-PCAL6524 INT pin, continuing to cause an IRQ storm on the shared line.
-
-[ ... ]
-
-> +	ethphy0: ethernet-phy@1 {	/* KSZ9131RNXI U20 */
-> +		compatible =3D "ethernet-phy-id0022.1640";
-> +		reg =3D <1>;
-> +		interrupts-extended =3D <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-assert-us =3D <1000>;
-> +		/* RESET_N signal rise time ~100ms */
-> +		reset-deassert-us =3D <120000>;
-> +		reset-gpios =3D <&i2c2_gpio_expander_22 4 GPIO_ACTIVE_HIGH>;
-> +	};
-
-[Severity: High]
-Are the KSZ9131 Ethernet PHYs permanently held in reset?
-
-The KSZ9131 PHY requires an active-low reset signal (RESET_N). By
-specifying GPIO_ACTIVE_HIGH here for reset-gpios, the PHY framework will
-drive the line high to assert reset, and low during normal operation, exact=
-ly
-opposite of what the hardware expects, permanently holding the PHY in reset.
-
-> +
-> +	ethphy1: ethernet-phy@2 {	/* KSZ9131RNXI U22 */
-> +		compatible =3D "ethernet-phy-id0022.1640";
-> +		reg =3D <2>;
-> +		interrupts-extended =3D <&gpio1 10 IRQ_TYPE_LEVEL_LOW>;
-> +		reset-assert-us =3D <1000>;
-> +		/* RESET_N signal rise time ~100ms */
-> +		reset-deassert-us =3D <120000>;
-> +		reset-gpios =3D <&i2c2_gpio_expander_22 5 GPIO_ACTIVE_HIGH>;
-> +	};
-
-[Severity: High]
-This is the second instance of the reset-gpios polarity issue on the ethern=
-et
-PHY, also holding it permanently in reset.
-
-[ ... ]
-
-> +&usdhc3 {	/* M.2 Key-E */
-> +	pinctrl-names =3D "default", "state_100mhz", "state_200mhz", "sleep";
-> +	pinctrl-0 =3D <&pinctrl_usdhc3>;
-> +	pinctrl-1 =3D <&pinctrl_usdhc3_100mhz>;
-> +	pinctrl-2 =3D <&pinctrl_usdhc3_200mhz>;
-> +	pinctrl-3 =3D <&pinctrl_usdhc3>;
-> +	bus-width =3D <4>;
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-As mentioned earlier regarding the missing regulator for VDD_3V3_M2-E_EN,
-usdhc3 misses a vmmc-supply to control the slot's power, leaving the
-M.2 Key-E slot unpowered.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928204741.1757=
-54-1-marex@nabladev.com?part=3D3
+Abdurrahman
