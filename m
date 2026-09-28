@@ -1,74 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E3A3B813D;
-	Mon, 28 Sep 2026 09:54:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34FE937F014;
+	Mon, 28 Sep 2026 09:54:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589264; cv=none; b=KlkF5DUXuUouFI2lHFNcz08X+z8p/EMm8XSLeA912sjFQfJ4353fKr3Hy2C3BGwtbcuhyQS71+qtIgTIvkdt4feGeu4LyanzT0DmnrltiEiwGbcAPZphESs6fZSx1Oj/GZrE00eeGIpSf634EEoqaezEgFTbmUDM5wHRe3pacLc=
+	t=1790589289; cv=none; b=JLtS6uwOGc9cClbl7pFUJ1AXeCPkayNngonglDzlOxD4fj+DbU5zGGXr3ch/fhM51391Ade3MGLwLkUMafWWjRQ/2QFLLPE0qcZsREYcuZVf+zBM1etBCATrNDC2sGeQGwfWC31BMSCJiNeks8zRCEkaPn0HWSz+xfa3HKst4YU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589264; c=relaxed/simple;
-	bh=uYatMVLSV03EmJgTXrxF+9stvEOX580Lwij0vR0KcbQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j4+2/rSmbmn11ok+Tw2RsSnyb5gR25bwvyCVtP2IBSseUv9xsmqDehcVb8xQcgKNRijhsuVVxulFj8I2MpIlWhA7Tgjjt84pInHJuHrxFUj7mlLW4OGO66Aag+egD9BlaEFWCeGI0925mQRu9n1G6hXI4HFfky4y6yqiYVfyqho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V6UgGT3C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790589289; c=relaxed/simple;
+	bh=BbTgacj27NppQ3DwQm1gobf05zoEuAlEPcEO626OIg0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DDesGWpn23Y1Tpu3USToLlUIV6E004hV5oQHSNJ2QhgkJb8U7B3NmzTi4gGexYT8WMBF/xb4CD72ZvYTinu8gytdYxWyAa88Paa2XKu4q88elGTb9x0cuiWYH+HZ4IjisCpdL6Uw8ORP37eFvcg5p4u9qy5NCFNDDN4g2WmJXYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RBA8VhOi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V6UgGT3C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79B5C1F000FF;
-	Mon, 28 Sep 2026 09:54:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RBA8VhOi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6B81F000FF;
+	Mon, 28 Sep 2026 09:54:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790589263;
-	bh=w2RS/xxMW4j685aSXnFhy/xzBc7bDP8enBoN/0ACKJA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V6UgGT3CwHGxbXbyaMm95Dd2M0CFYObVt+NXiWGsFTlgNyvSbWHgXO7aWe26u4Ysn
-	 HzwHZRNKIv6FJ3NBppiWG8pOmbimiifGTh+LiYoDYBOtE2MGNw61EspchSys3XtvT6
-	 2rrvzdUGVI9VyvUamONwZzizucrdTCDxSYrYXWMJt76W34hdZojhu+x4Ui/ZFRo2Kr
-	 1yA93pP+W62cMq66RTnV0RrLlqm8NhKGN3OZG2iR6elSwOTjaJx3D6bucCJJV2vyaC
-	 RIhpixdNKImcpWr1/0xSyplSB37d/LuhfpMrID1UxgkIRixgJpSml3YfpTXiIBBKYR
-	 Jka52ZRFXJ2ew==
-Date: Mon, 28 Sep 2026 11:54:19 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/7] ASoC: dt-bindings: amlogic,gx-audin: add schema
-Message-ID: <20260928-native-hornet-of-luxury-81edcc@quoll>
-References: <20260922-audin-v3-0-a760312c076c@baylibre.com>
- <20260922-audin-v3-1-a760312c076c@baylibre.com>
+	s=k20260515; t=1790589287;
+	bh=azRoduoUk0cZQuQPpkUeRaaX4yqeHj9RnKC2MnLx8rE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RBA8VhOiZ9LDSqGP6raeYkbkVB7cUYntZZncPLlj6onRN9w99hIIvRyx9hnSYfgXe
+	 IPbY99sK0AhqUme27VE/3kvKPlfHTTs2wfO2Nn7SaWH2Pc4MW0bG5QFhA4tq62Xosb
+	 EGcfD55BIIyOg7FD+vnlKPgbMiXpKdf81I0BQoUaITq8+uNeCiZjmuMiRx/yvnELCF
+	 hpJqUpZEH0oSbGfLlZ5ZFNrGSvf8vx5aajISVl2R+ez9R7LKgF64VVND+CUuK2iMbg
+	 Qo+iMCAG5G9UOv/LLLhEayUpwLU06GpXtOoh++uiz1R/Ff1eo6r+YXUbWgRDyYcpsD
+	 WP71qEILmthDw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/4] leds: flash: Add support for the TI LM3643 dual
+ LED flash driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rillian Grant" <rillian.grant@gmail.com>
+Cc: linux-leds@vger.kernel.org, lee@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260928094302.86966-3-rillian.grant@gmail.com>
+References: <20260928094302.86966-1-rillian.grant@gmail.com>
+ <20260928094302.86966-3-rillian.grant@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Sep 2026 09:54:47 +0000
+Message-Id: <20260928095447.6D6B81F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260922-audin-v3-1-a760312c076c@baylibre.com>
 
-On Tue, Sep 22, 2026 at 06:00:46PM +0200, Valerio Setti wrote:
-> AUDIN provides I2S audio input support to the Meson GX platforms
-> (GXBB/GXL).
-> 
-> Note: GXBB and GXL are not known to differ so the driver binds on the
-> 'amlogic,gx-audin' fallback.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] leds: TOCTOU race in max_brightness clamping after registration
+--
 
-What the driver does is usually less relevant. Here, completely
-irrelevant. Explain the compatibility between hardware.
+commit 0af4a3a129a9adf0eccf2c17265d6d72e8d4acac
+Author: Rillian Grant <rillian.grant@gmail.com>
 
-OTOH, you cannot have family compatibles (clearly documented and
-explained on every beginners talk), so what is the GX?
+leds: flash: Add support for the TI LM3643 dual LED flash driver
 
-And I already asked for this:
-https://lore.kernel.org/all/20260913-inventive-millipede-of-certainty-dd58ce@quoll/
+This commit adds support for the TI LM3643 dual LED flash driver. The chip
+features two high-side current sources sharing a synchronous boost converte=
+r,
+supporting programmable torch and flash modes with fault reporting.
 
-We have it extensively documented - in tree, in talks, in existing
-examples - how this is handled.
+> diff --git a/drivers/leds/flash/leds-lm3643.c b/drivers/leds/flash/leds-l=
+m3643.c
+> new file mode 100644
+> index 0000000000000..bbe9358c9caaf
+> --- /dev/null
+> +++ b/drivers/leds/flash/leds-lm3643.c
 
-Best regards,
-Krzysztof
+[ ... ]
 
+> +static int lm3643_register_led(struct device *dev, struct lm3643 *chip,
+> +			       struct fwnode_handle *fwnode)
+> +{
+
+[ ... ]
+
+> +	ret =3D devm_led_classdev_flash_register_ext(dev, flash_cdev, &init_dat=
+a);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (led_cdev->max_brightness > torch_max_brightness) {
+> +		dev_warn(dev, "max-brightness %u not supported (using %u)\n",
+> +			 led_cdev->max_brightness,
+> +			 torch_max_brightness);
+> +		led_cdev->max_brightness =3D torch_max_brightness;
+> +	}
+
+[Severity: Medium]
+Is there a TOCTOU race condition here? By clamping
+led_cdev->max_brightness after calling
+devm_led_classdev_flash_register_ext(), isn't there a window where the
+device is exposed to userspace with the unclamped value?
+
+Once registered, sysfs attributes are active and a KOBJ_ADD uevent is sent.
+Could a fast userspace process read the unclamped max_brightness and
+write an over-limit brightness value before the driver clamps it,
+potentially driving the LED beyond its configured led-max-microamp
+thermal limit?
+
+This could happen if a device tree provides a max-brightness property
+higher than the led-max-microamp limit. The LED core's
+led_classdev_register_ext() overwrites led_cdev->max_brightness with
+this value and creates the sysfs interfaces before this subsequent clamping
+step runs.
+
+> +
+> +	return lm3643_register_v4l2(dev, led, fwnode);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928094302.8696=
+6-1-rillian.grant@gmail.com?part=3D2
