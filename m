@@ -1,68 +1,67 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-qk2-f3.google.com (mail-qk2-f3.google.com [74.125.230.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A964FC338
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 20:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542664FB9CF
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 20:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790628911; cv=none; b=sE6WVJOWizfwTGXKnyluJeQLeQJqX6aPNhrOdhdIyecYBUnkXXzv/FrBbfE8a7mq8ASKs1T5knbgqACWs7Qk3AEOPdpQqqffRr9aQjv8rI3gHx+UreoSmtOC5r0VP4D/8TDpKp7zKJqygtuHkrEn9lIEAGqercfw3hwwwnPUHrY=
+	t=1790629049; cv=none; b=Jse9rrUkIj5AX4B7MLVQAJ3bn0W3xAi5WcF4pYxG8AI/K7+r9Gl/KymSalxY6bXs6I4glgXH98u25C8Fo2PcK4gpd5oYlYtbIUGWMr6Y5kVw33Tm2ONRM3Idi3DquU5ZsjKN+IMHz1R+A7mnk+zJK+F9VlaeaOrWdS8pk7SRjSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790628911; c=relaxed/simple;
-	bh=wR8JJ2pL5QeRqlJm3/ZAagrZ56dstDg3U9pOmu4dPTQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LcaBu5TjQcmQkCdHD+0pKVYd+AGXsekD3RzXN5RM3pclGNuqkSDSgGjo18fKgILNLjjJG5VJeaaEcjEMwejsxGxwJtFLHNIbMri8ZZMGuzWB3AsNSsvGy7Qg+veJ9pmgYRvk0i6rq6R94adSg10NYUOR5fY8PoGfTR47f29c9nE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yPNj8Ep5; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790629049; c=relaxed/simple;
+	bh=X7rWD2jzzHbsWFfZ3PsGJIz721WPwrvFp+KPtPDgD9g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UWLx6vs0F+CIYor6CraWNp44uQPqsbgYLpZhM7wslGSTYzaYYm5HpHHDVwoUSZmx4HiMeJ8hMHyC/7HbMJFybGzseSuvad+pJ0/NT5t1gFijZrp4za2dL+pQc3rCPGXQyFFxcZTXC36hjM9RUKTKDR4CHFI4HHwN+sav5yfEJ7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MIsUeUDb; arc=none smtp.client-ip=74.125.230.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yPNj8Ep5"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so33228435e9.0
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:55:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MIsUeUDb"
+Received: by mail-qk2-f3.google.com with SMTP id d75a77b69052e-5330918daeaso6928481cf.1
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:57:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790628906; x=1791233706; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I4XMMwg0nXpx6NtPrekOPsMuFobBMMqkvCqEzIOlP2s=;
-        b=yPNj8Ep5tFFOCx8rv6P8kPqc0jLtrlU3OBNKMOGJFL5vJyvAV2z8zTuQlggnjE6+dE
-         91SeNOss9P/f1lqeKlXGh+2ozsD99VHq0ivCxFzWXA9fl7ijCT69+UT0sFdSQ7ZkzZ93
-         N7lIzILVtRUvSYZ8uZcKlvQyiTAvfQlOXXYePUBmF6G+eliKp6HPqXH+C/VVTnTGxgDR
-         XVL9jBKB9ezaO/93W3+dsG31IOXLJTDXlI1Q0btfimQ3MYIVDcLONeFVOTE41ru7nqMl
-         rId+ynHEZb/nGgO0+vnNnJ4IENS10jVglxcg9S7rHab/M2vaxUPBagU1F0qWDtsLmHLd
-         oQMg==
+        d=gmail.com; s=20251104; t=1790629046; x=1791233846; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=W7dESHL0vifQnHIeAhXaCrb7JvaI9KDwDeR5hQlydKw=;
+        b=MIsUeUDbL7hyl2GTqvU9p0p7/s+gAdMCfmLswfNJXQRQcXQAB3Vp4Kxc30lub3dJXs
+         oXSmgKnuX2gHXzT85jJy2aHp8ZfcDs4PNoZQdG3Z/BQgVxQamAqpPJP32AHh7Oo6VZnN
+         Oj/6j/5uk+ofs7ZEvi2pSWrqQwZmllEXNq98Dh+eeLvZPD6DyTWUCxQzDuQxECVc4YQX
+         eRw5hhDOQdHR8NKsCzXrxD3pqk2POk1TOVOOSwJz71qxu0cxKwH9Om2AXXPbez4zzvSt
+         8R0tDdHu0Djrf3jABRmoCwlHYlEvM7VsJrNxulMLcYnoFBdRwB+CqtMc/PTeSkajdyTf
+         O4UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790628906; x=1791233706;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I4XMMwg0nXpx6NtPrekOPsMuFobBMMqkvCqEzIOlP2s=;
-        b=XEpCKroaX6BIKtqrv3BjdLNLLVoSx3yqonnidxa32ZLmaKuLmUznR4kfVJgZzjk9di
-         Jr/loiSOuOxyNuo9hZAw+r+zAiHR5kDS8guCfTKT2TrNlUzIa05hyiKdAVONz5qkhJHj
-         +dD2zURG1cQpnMsXJRUFYwrOJmfWjjtsO9CfSsGcMx4r8leQn/ltjlUIqqoyKA39TfZi
-         8a2bAb5wLlE8rQLIz8cPBO7pDVSQSym8uKJnP7vmOE40pWRmYD2IHyx6bvJ7EOuUDI5k
-         mQXgMZL4wC6UB2kIZPEWkoaUgj7Moct7RKaUWEeBdQa8CrHhR3Hg1cLQX7whjRYYLy1e
-         u/RQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzydjHtRzkFyyrCrz4XiGPQSQ+1p1kpkkxZe5jybu3ThGIMr9WRLn0unB6ENXbPQLEA5Ab92r4DT0rv@vger.kernel.org
-X-Gm-Message-State: AFuF++nh791Rt68IQ+PMHfgGKdLNktCv84PyBwAonPQ/gUF4wWzej6T+
-	5nI/SlikPSSdFaMUlJOE40q5znjkel8n8U6BrzG/o8p/hQ7Wgboy98f8PSW/wjgyKmU=
-X-Gm-Gg: AYBFou3RLmJpCpKODLWZ//khT6Uyd3jLH+O59KxJR3yEiOsknkMqXk92KQMZTKD/Jsg
-	C/fixCkmFeDfdvipU1WmFQx4wsdFLPnECh3Ya6khXcfCR8w3d1i0vsToCnKP8wv1lX0R/36vgrK
-	lnOmcbYswDBhvRTmDHyaLjFs9ojA3YW4PVm+7zo1bfwvUuXi79DgpUZEjcfxNEmnMzIVelHrZox
-	Ve42zabvLtkXq2hDSthnX68pvRRbHYJq/4zPp9Wg+7RG7qZUm3Ugu4shKTfvWc8Ce9OcnZZlSkQ
-	73JOcWb9anmIEzrULTuUhxIFBuJGsT64q+N6iCq1zaSIebx4I5153nAZ4KG/BfpTbsVnEZhLR17
-	lPyDt9d/wxvGWT2vJzjRKIRaCXnB0Me1h9QfHkQQ/Bs0GsBeR479+DMZ14kM/0DRs3i5tCk2ntB
-	3gN+KlH4wV3sk6C9CP/YHgJcReiVFWwiTUBxVbrQMyXc1O/dtSDLhUSOauQ12Wc77KG4YVq+upI
-	uzp7lVJJRhn9xg+Ub+nnTnt7vHj1nXwW65mn7gmJr6hfbFVBi/H7IPu1QBcqA==
-X-Received: by 2002:a05:600c:4f44:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4a0023f8d93mr97168395e9.2.1790628906389;
-        Mon, 28 Sep 2026 13:55:06 -0700 (PDT)
-Received: from [127.0.1.1] ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfec703sm18042045e9.6.2026.09.28.13.55.05
+        d=1e100.net; s=20260707; t=1790629046; x=1791233846;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=W7dESHL0vifQnHIeAhXaCrb7JvaI9KDwDeR5hQlydKw=;
+        b=ogRGS3xJaPbio0X86ZLlk8TmWLdqY2BJ51sl1kwL+JjinubLKmRbcuH2aGoHEVka2S
+         OuM9dYT4QkKsVA2EtlIATTep/6tzfZGOzaMTeo/YThO0SM/K2EEZDgL9bwgMjUXqUpHs
+         Oo9viAjtBuwyqzlFYxgOS6JDlfNsNWAD53VWxQyu6kxqnH2PGY79KfNg+PTeXICR7KaD
+         c2cRTGRckPaN5kOrWX5Q2OwyeJ83bO4Mf8PJmDIcL6xFSTNwvCpS6uPiaYuOzNRZDFQk
+         KvkLIIlmUexSyh3q+QxE4MqZhthjCx30dAgcpo0C3mDTsivDZVkxdp/m2/8yC8c736oE
+         5l3g==
+X-Forwarded-Encrypted: i=1; AKwUvBz6Rf1P5rPCdY/g7Zereut8OnFkpdwWc9qc1yUW5SlIITpzYHtf5ZthpvxWw4C36nUyKTKJtXorSwxK@vger.kernel.org
+X-Gm-Message-State: AFuF++mjxAn6s6F4gt085ZFjCOGmUIQWWXYbXc5L8LpQlnQYNyPzZc9E
+	lYKhxL9wiTrmj8+QZgksn8cc8dUFSz1v5kSP80ugU0k+v92rxZjw7YO1
+X-Gm-Gg: AYBFou082k44DNJ0Bq0xJYW0KCh/VrvEYTedn074ba2Kn5ruN7D4QwXTqfEOR5IwARd
+	esb+yyl5X2Nxjftnzy/Wb2GvNRlFmUGJqxQ5OqbjQaN54eNZWlNnvQvCJGRfZTbB9tMYfkTUkIM
+	HsxbAU1BFtNizvlaia63JbKMRS6BphSrDe6tk1tLDOT69HpJ0OlWZS7Ft94h9T/iFJpGSmmRabh
+	SavhD1t4UcBhwoOlbNW7/Y+F3xx0hZBh+JQqKBj1RsmtFZSw+Fl6xKH8VM8MmL1CCDHI7hT9je/
+	8LV3uvsg2jBQIbAH/YSkjZC7WZTiwOAwC4vuISr6iN2RxY2AD9JOH96V8exhi5ASKJdRPnLgxgH
+	0lQETuE0AlhJMh8oGJT9YSlpfOa76LndQwLIHI/hJ0tABJQ6rD4/dWPsrsnK/NP7kF6Nb/RJkeb
+	zd7W+kqEz2GlKlsSc6UF5Wm6Luw65rsQijj4v8Bv7SU6TbdqAMek6rgsQDYeMcQgBJMbeTrr2qV
+	xS8hrWef4IzJfnpZjvWEpkfDDnOJE/dkzlssjrRkud1+CgxD6d3XQWo+D4fU5/z
+X-Received: by 2002:a05:622a:491:b0:532:a2ba:c3d with SMTP id d75a77b69052e-5330b5572c9mr235921541cf.10.1790629046042;
+        Mon, 28 Sep 2026 13:57:26 -0700 (PDT)
+Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-533223c6d82sm71443421cf.21.2026.09.28.13.57.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 13:55:05 -0700 (PDT)
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Mon, 28 Sep 2026 21:55:03 +0100
-Subject: [PATCH v2 2/2] firmware: samsung: acpm: add Exynos850 support
+        Mon, 28 Sep 2026 13:57:25 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: [PATCH v4 0/3] iio: adc: add mt6397 PMIC AUXADC support
+Date: Mon, 28 Sep 2026 15:57:18 -0500
+Message-Id: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,77 +70,214 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-exynos850-acpm-firmware-support-v2-2-717acef9469a@linaro.org>
-References: <20260928-exynos850-acpm-firmware-support-v2-0-717acef9469a@linaro.org>
-In-Reply-To: <20260928-exynos850-acpm-firmware-support-v2-0-717acef9469a@linaro.org>
-To: Sam Protsenko <semen.protsenko@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NywrCMBCF4VeRrB2ZTppYXfke4iJNxhqwF5K2e
+ KHvbioIBTddnrP4/reIHDxHcdy8ReDRR982aeTbjbA301QM3qUtCEnjIcshlGFgiAO/YOhiH9j
+ Uvqmg7rU87MEMD+MsKM6ICiRlFYpEdYGv/vHNnC9p33zs2/D8Vsdsfn8BtS4wZoDgpHJkrHT6i
+ qeqNv6+s20t5sBIS3S/EqUZLaUqCjIaiz9ULlDClahMqEVkZ2zJrPMlOk3TBxPKj3SCAQAA
+X-Change-ID: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-samsung-soc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
- Alexey Klimov <alexey.klimov@linaro.org>
-X-Mailer: b4 0.14.3
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Lee Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, mfd@lists.linux.dev, 
+ Roman Vivchar <rva333@protonmail.com>, 
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790629044; l=9791;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=X7rWD2jzzHbsWFfZ3PsGJIz721WPwrvFp+KPtPDgD9g=;
+ b=LzhRpY3f7y28sCPo1w0Dus+9fZPfV+dyY5AItrh98GZKaCBTgm1Pv4YK8Cq15vaV472K18L7H
+ bGtxQrr4LU1DbeLBNEoIlL0TZSEf/H/z9I2MioA8eyebWad/veuCsvR
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-The Exynos850 SoC contains an APM co-processor. Communication
-with this hardware block is established using the ACPM protocol,
-which handles IPC messages for clocks, power, thermal management,
-and PMIC control.
+The MediaTek mt6397 PMIC has a 10-bit AUXADC that nothing in-tree can
+reach. On boards built around it that ADC is the only path to the battery:
+the SoC's AUXADC is wired to board thermistors, and the charger ICs these
+boards use have no ADC at all, so without it there is no pack voltage and
+no state of charge.
 
-Add the "samsung,exynos850-acpm-ipc" compatible string along with
-its associated match data. This includes the specific initialisation
-data base offset (which differs from the GS101 offset) and the
-"exynos850-acpm-clk" device name required to properly instantiate
-the clock provider.
+Patch 1 adds the compatible to the existing MediaTek PMIC AUXADC schema and
+the header naming the channels, patch 2 the driver, patch 3 the MFD cell
+that instantiates it. The cell comes last so that no commit in between
+registers a child no driver can claim.
 
-Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+The mt6397 is not given mediatek,mt6359-auxadc as a fallback because the
+two are not register compatible; patch 1 has the detail.
+
+Only the two channels a board needs for its pack are described, so patch 1
+ships a header naming them: a channel ID is an index into the driver's
+array and not the PMIC's channel number, as in mt6323-auxadc. The register
+sequences are the ones the vendor kernel's pmic_auxadc.c programs.
+
+One note on patch 3: it adds a cell to mt6397_devs[], which Luca Leonardo
+Scorcia's MT6392 series converts to the MFD_CELL_* macros in its patch
+4/9 [1]. Whichever of the two lands second needs a respin. Mine would
+become a single MFD_CELL_OF(), and I can do a respin if that patch arrives
+first.
+
+Tested on an Amazon Fire HD 10 (2017), an mt8173 with an mt6397. Both
+channels are exercised: the battery channel by a fuel gauge, which reads
+817 counts, 3830 mV with the pack at rest, and the thermistor channel by an
+ntc-thermistor consuming it. The error paths are driven by injecting a
+regmap failure into each helper in turn. The read returns the injected
+error, and every bit is cleared again. The teardown writes were also made
+to fail, one at a time. When one write fails, the others still run, and
+only the failed write's bits are left set. The next read clears them
+anyway. Run the same way, v3 stopped at the first failed write and left the
+later bits set.
+
+A new driver was created here, instead of modifying an existing driver such
+as mt6323-auxadc or mt6359-auxadc, for the following reasons:
+
+ - Both mt6323-auxadc and mt6359-auxadc select channels through a request
+   register (1 bit per channel), while mt6397 uses a 4-bit numeric field
+   CHSEL in CON1 (10:7), and then pulses a START bit (CON1 bit 0).
+
+ - For mt6323-auxadc, which is the closest I could find to the mt6397
+   (CON0..CON27), it has 13 more registers than the mt6397 (CON0..CON14).
+   It uses CON22 for its request register, and reads the result value
+   from the same register as the ready bit. We don't do that - the mt6397
+   has a factory-calibrated value for each channel at 0x16 higher than the
+   raw value. mt6323 also has a 1800 mV / 15 bit scale / resolution while
+   we have 1200 mV / 10 bits. We also have some per-channel preparation
+   that we have to do before the burst, that the mt6323 doesn't have to
+   do.
+
+ - For mt6359-auxadc, it has a more generic framework for describing the
+   AUXADC, but it assumes requests are channel-per-bit, and so we would
+   have to basically ignore req_idx, req_mask, rdy_idx, and rdy_mask.
+
+ - We also have our own software sampling, which the vendor does too
+   (Amazon Fire OS based on Linux 3.18). We'd have to have our own
+   sampling callback to do it.
+
+I have two things in the driver different from the vendor (Amazon
+Fire OS based on a 3.18 kernel). Verified with over 150 interleaved reads
+per setting:
+
+ - Leaving the ISENSE input enabled between reads, as the vendor does,
+   makes no difference to the value, so the driver switches it off again.
+   Both ADC input enables are clear when idle, unless a teardown write
+   itself fails: the rest of the teardown still runs, and the next read of
+   the channel clears whatever was left set.
+
+ - The chip's sample accumulator makes no difference at 4, 8, 16 or 31
+   samples and costs no measurable time, so it is left at one. Software
+   averaging helps, but only by about a quarter: in one interleaved run,
+   0.92 LSB standard deviation for one conversion against 0.67 for sixteen,
+   where independent samples would have given 0.23. Conversions in a burst
+   are correlated.
+
+The reading was checked against the charger, which regulates the pack to
+a programmed voltage in constant-voltage mode. Over twelve such voltages
+from 3904 to 4080 mV, and charge currents from 111 to 778 mA, the driver's
+reading is a mean of 0.9 mV from the regulated value, well inside
+the charger's regulation tolerance. That also settles reading the chip's
+trimmed result register rather than the raw one - the raw register is
+20.7 mV low at every one of the twelve points.
+
+[1] https://lore.kernel.org/all/20260902193351.185771-5-l.scorcia@gmail.com/
+
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- drivers/firmware/samsung/exynos-acpm.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Changes in v4:
+- Attempt every teardown write even if a previous one fails, so a failed
+  write doesn't leave the buffer, bias, or input powered. Reverses the v3
+  change. The teardown neither checks nor logs errors for failed writes,
+  similar to mt6358_stop_imp_conv(). The next read will rewrite those bits
+  anyway. (Angelo, sashiko-bot, Andy)
+- Move teardown into mt6397_auxadc_release(), keep error paths out of line
+  with goto, and use mutex_lock() / mutex_unlock() rather than guard().
+  (Jonathan)
+- Reword the comment above the BATSNS disable prior to ISENSE enable.
+  (Jonathan)
+- Collect tags.
+- Link to v3: https://patch.msgid.link/20260920-rbrue-suez-upstreaming-mt6397-auxadc-v3-0-c00edacbee64@gmail.com
 
-diff --git a/drivers/firmware/samsung/exynos-acpm.c b/drivers/firmware/samsung/exynos-acpm.c
-index 942a2e9f02f5..5a16665e941b 100644
---- a/drivers/firmware/samsung/exynos-acpm.c
-+++ b/drivers/firmware/samsung/exynos-acpm.c
-@@ -39,6 +39,7 @@
- #define ACPM_POLL_TIMEOUT_US		(100 * USEC_PER_MSEC)
- #define ACPM_TX_TIMEOUT_US		500000
- 
-+#define ACPM_EXYNOS850_INITDATA_BASE	0x7000
- #define ACPM_GS101_INITDATA_BASE	0xa000
- 
- /**
-@@ -876,6 +877,11 @@ struct acpm_handle *devm_acpm_get_by_phandle(struct device *dev)
- }
- EXPORT_SYMBOL_GPL(devm_acpm_get_by_phandle);
- 
-+static const struct acpm_match_data acpm_exynos850 = {
-+	.initdata_base = ACPM_EXYNOS850_INITDATA_BASE,
-+	.acpm_clk_dev_name = "exynos850-acpm-clk",
-+};
-+
- static const struct acpm_match_data acpm_gs101 = {
- 	.initdata_base = ACPM_GS101_INITDATA_BASE,
- 	.acpm_clk_dev_name = "gs101-acpm-clk",
-@@ -886,6 +892,10 @@ static const struct of_device_id acpm_match[] = {
- 		.compatible = "google,gs101-acpm-ipc",
- 		.data = &acpm_gs101,
- 	},
-+	{
-+		.compatible = "samsung,exynos850-acpm-ipc",
-+		.data = &acpm_exynos850,
-+	},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, acpm_match);
+Changes in v3:
+- Move the sample loop into its own function, so read_channel() is setup,
+  then a conditional burst, then an unconditional teardown, with no goto
+  mixed with guard(). (Andy, sashiko-bot)
+- battemp_bias_off() and isense_disable() now return on the first failed
+  write, as mt6323_auxadc_release() does, and twelve other teardowns in
+  drivers/iio that I could find. A failed write can leave the later bits
+  set; the teardown runs at the end of every read, so the next read of that
+  channel clears them. (Andy)
+- Drop the "if (!ret) ret = err;" accumulators with it. A teardown failure
+  now goes to dev_err() rather than being returned, since the caller cannot
+  act on it, and read_channel() takes the iio_dev so no struct device * is
+  stored. (Andy)
+- Split battemp_bias(adc, bool on) into battemp_bias_on() and
+  battemp_bias_off(), and drop the bool. (Andy)
+- Make the SCALE case an if-else. (Andy)
+- Move the "why a new driver" rationale below the --- marker in patch 2,
+  out of the commit message. (Andy)
+- Reduce the CHSEL regmap_update_bits() call from four lines to two. (Andy)
+- Drop the comment above guard(mutex). (Andy)
+- Say in a comment why lowering START needs no settling delay. The ready
+  bit survives the fall and is cleared by the rise before the next
+  transaction on the PMIC wrapper can observe it. I measured this, and the
+  details are in the reply on 2/3. (Andy)
+- Cc Luca Leonardo Scorcia with a trailer rather than in prose. (Andy)
+- Link to v2: https://patch.msgid.link/20260917-rbrue-suez-upstreaming-mt6397-auxadc-v2-0-db35882a6080@gmail.com
 
--- 
-2.51.0
+Changes in v2:
+- Add justification for this being a new driver rather than folded into
+  mt6323-auxadc.c or mt6359-auxadc.c, in the cover letter and patch 2.
+- Drop the "ret = ret ?: ..." chains, and let teardown fall through on
+  errors, allowing the chance for all bits to be properly torn down. The
+  errors are now held rather than discarded. (Andy and sashiko-bot)
+- Run teardown even when per-channel setup fails part-way through, so we
+  don't leave bits enabled that would have been cleared. (sashiko-bot)
+- Set ISENSE settle time to (1 * USEC_PER_MSEC). (Andy)
+- Write the two channel descriptors out instead of using a macro. Also
+  gets rid of the padded column. (Andy, Jonathan)
+- Move the MAINTAINERS entry for the dt-bindings header into patch 1, as
+  the mt6323 series does.
+- Declare the sample loop counter in the loop, instead of with sum, and
+  split the declaration of sample and ret. (Andy)
+- Keep the two CHR_CON16 ADCIN bits as BIT()s rather than turning them
+  into values of a GENMASK field. Fix OR operator on the bits, treat them
+  as mutually exclusive. (Jonathan)
+- The rest of Jonathan's v1 review: two-space indent separating a register's
+  fields from the register, a blank line before the settle times, a lock
+  comment that says why the lock is held, the two CON1 START writes on one
+  line each, the single-call init helper inlined into probe, and { } for the
+  of_device_id sentinel.
+- Add the additional three CHR_CON16 ADCIN defines that make up the 5
+  single-bit enables. These are currently unused.
+- Link to v1: https://patch.msgid.link/20260915-rbrue-suez-upstreaming-mt6397-auxadc-v1-0-d35d2ac3d6f0@gmail.com
+
+---
+Ryan Brue (3):
+      dt-bindings: iio: adc: mediatek,mt6359-auxadc: add mt6397 PMIC AUXADC
+      iio: adc: mt6397-auxadc: add mt6397 PMIC AUXADC driver
+      mfd: mt6397-core: Add mt6397 AUXADC support
+
+ .../bindings/iio/adc/mediatek,mt6359-auxadc.yaml   |   1 +
+ MAINTAINERS                                        |   7 +
+ drivers/iio/adc/Kconfig                            |  11 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/mt6397-auxadc.c                    | 377 +++++++++++++++++++++
+ drivers/mfd/mt6397-core.c                          |   3 +
+ .../dt-bindings/iio/adc/mediatek,mt6397-auxadc.h   |   9 +
+ 7 files changed, 409 insertions(+)
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260914-rbrue-suez-upstreaming-mt6397-auxadc-5e1228025c50
+
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
 
