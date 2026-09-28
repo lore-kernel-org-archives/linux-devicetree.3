@@ -1,113 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1F947CA87
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 21:02:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6E4478E38;
+	Mon, 28 Sep 2026 21:03:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790629342; cv=none; b=F4Z3OPenKHYZFaS+kP7WyhMgLG+cFbhH0OPeiW8XNH2gzxlsb2xrrfKKyUDsI6X62VDHBnU2SVHQk54SgBYXvnBB9tLgG4Ycb6h/6zovz+9qflGlu5XGQ0btrW8q3pLSzb9ytaWuygrk7N3Ojwfqp5/w4rbumoHcGISOdj++sho=
+	t=1790629399; cv=none; b=CYPM8PK7CRMo1pqsS3ubP9yVdYNDb4RV/jd3WzrCPbg4tgh7Vxux479uSK6sTlsvw9zqMutouCh+ZumAggxBEYJ9+s/qYg9kkgk9SQu8FqOqDJk7pB0BSAX4Dt8v603YFyLQbmUNxIkXYH/ttdIE/dkyWkOBTdX6ZDmePik+knE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790629342; c=relaxed/simple;
-	bh=Zw+zAcs16oKZvk6JoSl2rJ93PVu3KoL9hyLA52LCXLk=;
+	s=arc-20240116; t=1790629399; c=relaxed/simple;
+	bh=CVXnRc1ZJ2b+jGAY8mVE24bhODMDuhW4ZO18+2UE5Ck=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TqTpLSJjfKs4dyqYWLL5q+8MkcvmPYWX6dXHESNVUYEXHOtJ1VwJmz2zd/pbecILNB3AO4rKWlRJPpn9TK7t9n+q82XLssbS8Fj+Zlotec0fOxkTt35jj0/bHNt2AlI/BCA26r0Rv18MCuy7EFodH/zdxM5+NgCajiolT4ZxZd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VxdnNfEq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=FkO71PK+5TJ2kX/LAjAI2VbpEd+hf2JZWmaUHm+ei6BNJ5oSMAUPHqCZCJYmSjh0RDiTG2ril+diEknjiwmvrkZCSSKaavRX/1xlto4g1qlICqnpTHAO3BC5R2OWlxAyk2Uzpl0jkZdrQSAYIx2/0sIGMEyMC+9IX7bo3F9sCA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n5zWYLyx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VxdnNfEq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCB41F000FF;
-	Mon, 28 Sep 2026 21:02:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n5zWYLyx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605BD1F000FF;
+	Mon, 28 Sep 2026 21:03:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790629336;
-	bh=95K45wJ6O1sdAaoiUDupZDvBEQ3/aG8rFXioxJppjfg=;
+	s=k20260515; t=1790629397;
+	bh=CVXnRc1ZJ2b+jGAY8mVE24bhODMDuhW4ZO18+2UE5Ck=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VxdnNfEqZ6cWG0HeuY1WYd8ldBmXTCDIpAXVhEzPfAFyPM62HbBe11/ucqTUmIRuM
-	 FuoQNeaGLJH42Ptn/YZkZQJhrxqfPZdSBwTyYTP2MCIhMxbBU7c1G5AZkyCI/MshIc
-	 Tk42oTwqZPM/g8CN6HSy9oCbor/FI0+w0kT7V5qLf4FBMu9kdt89wuckH9tPGcydVE
-	 Gr6pRkXxLIuZPqjh0wS/CvNWV6ERXvhKMCKFh7SAz0uMAbu/avFVd3bVPXf/hxxYQt
-	 AxFJoBVM+JLFeFDQZW/aE+iZ/WvhhwBE2PGDefxMlCJcnMOnX9g/Bv1SF/MmIuShdQ
-	 G4QKu8LbG3TKg==
+	b=n5zWYLyxAjLemAFGcO0lmk0dBDSZbcoDu/xjCoEvE9sYho+wQvSpzf1qybavMe8o9
+	 cGV/1fHO1D/GodY+TWfqd1aRL+RvzrZdmcRO+KKMhiHgTk2WY5m4CkoqVJh11UwPun
+	 vr3vrC31ds7ab19f/+t8m841hGzEniDLWwQq7i/jAQfYN3QIvcouFqmJfVaF9cpidI
+	 Rw8GTmESCn/GJjcYTNLiJHhwhN4+lFOEh8+o80qmmzNhtw2fGrXTfh3cUfpElFvRqj
+	 qsD23pPl/W133ZXIbDj8/gc5ovXdUopMZHXpXYO4d4UMmQ3QFK4C4+dFt0rXmtJQyw
+	 Iwq4xq7m2M2Zg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/5] riscv: dts: spacemit: k3: add USB3 B and C
- controllers for Pico-ITX board
+Subject: Re: [PATCH v4 1/3] dt-bindings: iio: adc: mediatek,mt6359-auxadc:
+ add mt6397 PMIC AUXADC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aurelien Jarno" <aurelien@aurel32.net>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260928205012.3689405-3-aurelien@aurel32.net>
-References: <20260928205012.3689405-1-aurelien@aurel32.net>
- <20260928205012.3689405-3-aurelien@aurel32.net>
+To: "Ryan Brue" <ryanbrue.dev@gmail.com>
+Cc: mfd@lists.linux.dev, lee@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-1-23533a0d30e3@gmail.com>
+References: <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com>
+ <20260928-rbrue-suez-upstreaming-mt6397-auxadc-v4-1-23533a0d30e3@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 21:02:16 +0000
-Message-Id: <20260928210216.7DCB41F000FF@smtp.kernel.org>
+Date: Mon, 28 Sep 2026 21:03:16 +0000
+Message-Id: <20260928210317.605BD1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: missing required phys properties in usb3b and usb3c no=
-des
---
+> The MediaTek mt6397 PMIC includes a 10-bit AUXADC used for battery voltage
+> and battery temperature measurements. It is not register compatible with
+> mt6359: a conversion is requested by writing a channel number to a select
+> field and pulsing an edge triggered start bit rather than by setting the
+> channel's bit in a request register, and the results live elsewhere.
+> It therefore gets its own compatible rather than a fallback.
+>=20
+> Add the binding and the header naming the channels a consumer puts in
+> io-channels. The battery channel is named for the input it measures,
+> ISENSE, which is what mt6323-auxadc calls the same input.
+>=20
+> Assisted-by: LLM
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
+ora.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 
-commit 89b216baa5d6be0e4a7be800d568bba679087495
-Author: Aurelien Jarno <aurelien@aurel32.net>
-
-riscv: dts: spacemit: k3: add USB3 B and C controllers for Pico-ITX board
-
-This commit adds the USB3 controller nodes (B and C) to the SpacemiT K3 SoC
-device tree. It also enables them and adds the corresponding USB2 PHY nodes
-for the Pico-ITX board.
-
-> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
-pacemit/k3.dtsi
-> index 1af47b7f1c8af..cf1c8b572c86b 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-
-[ ... ]
-
-> @@ -441,6 +441,66 @@ soc: soc {
->  		dma-noncoherent;
->  		ranges;
-> =20
-> +		usb3b: usb@81400000 {
-> +			compatible =3D "spacemit,k3-dwc3";
-> +			reg =3D <0x0 0x81400000 0x0 0x10000>;
-> +			interrupts =3D <125 IRQ_TYPE_LEVEL_HIGH>;
-
-[Severity: Low]
-Does omitting the phys and phy-names properties here cause a devicetree
-validation regression?
-
-The SoC devicetree fails dtbs_check validation against the binding schema
-(spacemit,k1-dwc3.yaml), which unconditionally requires the phys and
-phy-names properties.
-
-Should this node define its hardwired connection to usb3b_u2phy via the
-phys and phy-names properties here, instead of omitting these SoC-internal
-hardwired connections from k3.dtsi and forcing downstream boards to
-redundantly define the SoC hardware topology?
-
-> +			interrupt-parent =3D <&saplic>;
-> +			clocks =3D <&syscon_apmu CLK_APMU_USB3_PORTB_BUS>;
-
-[ ... ]
-
-> +		usb3c: usb@81700000 {
-> +			compatible =3D "spacemit,k3-dwc3";
-> +			reg =3D <0x0 0x81700000 0x0 0x10000>;
-> +			interrupts =3D <148 IRQ_TYPE_LEVEL_HIGH>;
-
-[Severity: Low]
-Similarly, does this node also need to define its hardwired connection to
-usb3c_u2phy via the phys and phy-names properties to avoid the same schema
-validation regression?
-
-> +			interrupt-parent =3D <&saplic>;
-> +			clocks =3D <&syscon_apmu CLK_APMU_USB3_PORTC_BUS>;
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928205012.3689=
-405-1-aurelien@aurel32.net?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-rbrue-suez=
+-upstreaming-mt6397-auxadc-v4-0-23533a0d30e3@gmail.com?part=3D1
+
