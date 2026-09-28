@@ -1,108 +1,196 @@
-Received: from mail-lr2-f25.google.com (mail-lr2-f25.google.com [74.125.230.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA2C3AB28C
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 07:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.89
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790579049; cv=pass; b=Sk9k7WDU4u3O5WOBmH3GkGWgMyD1vQTdWTvh6w6z59JrRGsoy3maP2lh16xE1tFfZsTyMqeasusXxjpsOlDehxt98Gz35pu96QhmtlmX89RUT/h/et+ObowykFtTIdTJN4LeYmY4WGiuG4L6vOTASocuIWC1qTrG/CP7YNcQbug=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790579049; c=relaxed/simple;
-	bh=QcQk7d4pb6MSovoeWWdDkkdL6cfWPIu5znyjI13+lN4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VOmak3661TU7LP2z2OszBnecJcrJKPIPQs75z1+q51W5fIm703of3qF2qwqeH40QB3uLJlALnaQt3Ni799cT/rkaaoUI7vpL9homKPo/9z5F0DpIsMi1bI9QcUok/DhjoawVs4d0rwskoKtnPDdxj3zQzHk3t3o295de9yNa23k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p6waf6Sw; arc=pass smtp.client-ip=74.125.230.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4733443307
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 07:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790579739; cv=none; b=G0n6vDAAJu9GP0p99T5BX/SPaUqiN/ZPbKkGoJhPloJRawUYrBeWbC/lBFEFopb6Rtyjg7EHZAhtrrvcGjpUb4pHeZQUTZwsCJ8+mVPX+J9kOUm1KuCb+wWmLBRwDujpN57MLbO8r9LHCuZnzmmmwv7Tw9dOXHbQfN/S/Rp2Alo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790579739; c=relaxed/simple;
+	bh=+daBNykDtoitVmw2pH2Lp/o+iYWPKsBbA/YVlTEUkHg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a9JICdTl/LND/emO5nWZjC9S7ECEaxcdgfwv9j3hCxJFte3mogbldiHm21MU5WQaiQ0pElLKCVI9a+0UxkA4cYReOqPNW4LsiAmJCF45OiriJnzMla8ejtIrIqwY/bCndLI/dkeCd3x6F+idjo7fWbvc8cvcdpEEOk495Te9FKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CZb/diIQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MGgJf1aP; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p6waf6Sw"
-Received: by mail-lr2-f25.google.com with SMTP id 38308e7fff4ca-3a65aa0342fso12251001fa.0
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 00:04:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790579045; cv=none;
-        d=google.com; s=arc-20260327;
-        b=p5BNWMC6zoOj8w2J48GdB0+irYs07/6CrQ4dtQKyeULRge7oz5hYWWCB0fXdm++0yD
-         dX3qSRTGXTZhSP4XYPtRvExKPIH8jfCwr+aGD6PKuCtQJ2mJ95jQrTwZ+PQSHm9rS1Co
-         FfQCN81SEGQb2JmLaFH1aWN4H3N3z2rPvvx92mNo4wwIHi7cM4mQjo4DW6PJWXwgrB9l
-         vCdpmS2ePYM8PyqZxgSSlLUz9z55o9Qt86QM57dizby6+UQnJYWscDtgJjjS7DidVm1s
-         ua4do17phB7TEFp0RAc8n4cIgvLU15mP4qahC/GiBEa2R7/HWjetXxqWm+oDb2Ikn3lY
-         RM8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=QcQk7d4pb6MSovoeWWdDkkdL6cfWPIu5znyjI13+lN4=;
-        fh=iIqrxrmM25ESIn96IXCXpwiDwxi9Zz+gaFoJsk71WrM=;
-        b=jcHOS0xTbg6Mrk90DdFRgiu6AXoMfSSnlH4M1oKtdKt40NRjKALDpJBHyWBmtjsTtR
-         yfflLuhNfH41XuURVAZ2ixPrtwyVWqiBiFUDg10xYjXtQyXiHGeVNpkqxzQ6Pkq8Je+f
-         qNuLpdY+dqjH31INuvae1/msMekptPok9/2Z+nPwwkR5RslZ9+ZAZpd5tZ0mJ5JDjNiZ
-         +SbJvwbYHwIbg5p7wnSFOhpCUnVdys9xs1aAACuH6HeaLKF3aFIjuRoFxFYng/q+gLzb
-         KZ8mJWEZ4OhoqHZ0lAWkLk5cSHdo+ViVJzvqflDtBQCg3Y9zHWcuxGzUoHKvFGW0UEqF
-         S1xQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CZb/diIQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MGgJf1aP"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S5Y6L51667500
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 07:15:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6QjPhn8BZa4tijFZnj8o1Lt6anEukICGQ77tzi/vVnM=; b=CZb/diIQd8dVEQ0c
+	bHTrCvVycM3/TrAPigQx1a+c2JQbQdfSEOGxNckMgs4LXqXwy3Ts0Rwm5/G4m+X7
+	l/cCgtwRHdXZDLXCPchgCt1nPzcV5tOmpfLnqt4fJAzrYHHFa0mjEiJD5dD9qNjS
+	V7g4oHxKO7qGN8rkdiTyu9lBkeUbK8aYSlT2dYQQOFl1D6MkO2OFRmK1jC79NbEK
+	hOoe0o+x/995EVPch4TUnhwuc1p7dREs8qT+nwOvlXMEz4MyoZ1OQJkM/b0R8cLq
+	MMIJgOgZ14z5ZNJO8gUAx9+ut7a5PDWh4/RvpWhzJuvUXUEB2yZDIHPe5fm4n/yx
+	k4TAow==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyj6t0aw0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 07:15:34 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a0b66ecd9so428624985a.2
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 00:15:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790579045; x=1791183845; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790579734; x=1791184534; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QcQk7d4pb6MSovoeWWdDkkdL6cfWPIu5znyjI13+lN4=;
-        b=p6waf6SwAt4Z0Ly/cQd+jaClvPmkiLdXuaGMwZfkAPHopwCsSOcy8sJAjogk/FXi8L
-         te+yjtYgfR8a61g0xzOVLxyO8d9jzzPNmTaGTCJj3iddDQJH20eChb8o0kjHB70jT9Qd
-         Ngnl9qZujH/gMHpsbx17dn+fWa0A36O/ctgw63K/7LOhsA3/FIsHXWUMhXLC6uiML1Fq
-         RX5LWByy7UL7a7iFLY0XkgUTU4YDx1AiU41NGOVUI773lqmM1cUdNnrP/ecuLyCWl/1d
-         OobmonXcwl8ffGK7Q+vLctRxZGAC9GPLHM4wztE3wYNAyR12JYED9liQyamGxEn4ohp7
-         V0ug==
+        bh=6QjPhn8BZa4tijFZnj8o1Lt6anEukICGQ77tzi/vVnM=;
+        b=MGgJf1aPHXMo2NSg8ANo/WOfu+rXPW9VxoWnYie60BLOoVuu/J9YfBXFk77Qc8jK+9
+         5ZjcDCQxNWPlkj2Je3ZuAbvAmxc9RrgQSB47MWkkjAWLkqNVhQapYzcb9szlgp9qsCW7
+         n3Tdw/nIZUSXVNOdXZ/4UQmSIk0LoKJy5oQK26VmplR5uKi023/F0n6+ni3vrnvQQBny
+         GXCDsF7Ac4onvVUGbqVGp3IOiw5eHm30vPNWlkD3rGj7l/xL0X0NTZjamKzqwh4DaCvT
+         QPiWYqNWX6ZSeb80s/VeT1eS1MugI8sTXR5CF1p5K/YOTsYF9iGJqCcdseDbbR9TiiB4
+         8M+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790579045; x=1791183845;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QcQk7d4pb6MSovoeWWdDkkdL6cfWPIu5znyjI13+lN4=;
-        b=dhSkk/F0hF6l+RfblQBkvZNhMVI/Iblr8Sn8jHTjNWTaspBssU3WbFgP5YTd6zWCod
-         VoqSdtM6meqhJ5uflquc5yfJDqrb5p2bx54pC7Q0P3ihCshKlIG3YryWSHoJCuyrOcPQ
-         l7GnC0oRPrsDflRVl2J9ybocDeWnul7rHyB31EEpLBVXuP5wsezcjI/7XV/g68Tgx9bg
-         9NtuoslhzkgjhoQ85wSjiYwDQvD71oY4G36BXGwQAMIgSvnX8XLPsjv6UoJlWYGed1AT
-         rTXObQA1D3Y3gNjGW5i7zDt/5fzgNPuGvUl/SCTu1OQRD1nGTidwFOajQRw1LJbPdzto
-         JZOA==
-X-Forwarded-Encrypted: i=1; AKwUvByd7ETXJXgwIRD7vWpUkYWpK01h3Oykezp0Xz+M2tHTrfRuVP2LcbBdCS4+U1kK3WJ+51bmlaN4BRzl@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhjfp2iqIPpt3KH4g+aLMJI9aD20uLM8lopBFZCRMmQiBvgkOD
-	2tbWhvV9nXUHOeJ5CjsavnUfwYKex3axJiYkhgK5FsoxAcrkA3jXXl+219CU1q8Wer+uOUBvKI0
-	xrmwHZbv4UnVlsvxr98ljXff3UI+rPK0=
-X-Gm-Gg: AYBFou3S+j70as8BTsJSsvPtSOdNsDIhGLf9xwQJF6xG917m6txPNPBxYS3a6NuJNdF
-	8wHtEibOlolg7ARf/LdaLZ8bhn41HTho3VIkqHvOhkS8IEoJu1BgezV/S1z2IQtdW7v7aETdRjA
-	QCQKMSuNL0ADpYpyA3bxJjhokHyg0ecUryx3bNSqfVk0oCFPtCpf2coomUPis2Krp6ZTCaX9SaP
-	KddMuj/i08KID0cOdPk6veybXcdr4E+Mfv2QSpvohfJ+TvOqNDVSQnjEyvoP/g9eb+AyLeoYSMV
-	5p/OhSbga8yAbxWKDkfGcVaWunrkkF/9Z/Gh1VcQtxNVSMtNYbtkfYFs+AgRPWspYQ1OrEz4iaz
-	Ba4m/k4IHC+yNcLJGnVEqEoBpNWHk/skB0eWmMB1o5P8y28xPc900WMqShnpVMpbWyjns4Cm0ru
-	M=
-X-Received: by 2002:a05:651c:1543:b0:3a3:7682:499a with SMTP id
- 38308e7fff4ca-3a63c0e17d4mr34085851fa.15.1790579045263; Mon, 28 Sep 2026
- 00:04:05 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790579734; x=1791184534;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6QjPhn8BZa4tijFZnj8o1Lt6anEukICGQ77tzi/vVnM=;
+        b=qX8tLtpTsNp2Sv6G0aGQoQ3Nprb/O/IdejR0WftQvA9nhehK7m3qI/w40+tfIjtY01
+         mUKwpDmZY4T1yw/DA+6Xer22racKuyFxVXa905qMiW2rvOwGqQy2mdAipZy6ELWx6g7K
+         qohioBpxJvXECHIBBFv6J188T7ebT1mFCK37fouqxnO8Zx1GjljjPDjdwnkhomLVYdJm
+         Jq16sCAUroQk4wBeJLqjCaEMmR+qT/4p+5gLOoZ819tyQnRILoEyQcq4eG6LSYMLFLDG
+         a2NCM0SMS0woFfVdPpPtmjBl3C6CwaZFWZZMry2BgX143OaNrbq5t9IXZULlLjlyYAka
+         x60g==
+X-Forwarded-Encrypted: i=1; AKwUvByBaGl0UF8SdQcD16ZDnJI5u/4gb44fwJprjUots1YI/bMqxTT1I5uO/Vy1KLOD1ACjutwFYPzik7ib@vger.kernel.org
+X-Gm-Message-State: AFuF++lwU52oIn3djlXcmscjjRn+8IeFKBUtXEM2WkKpm3ApIctc6EHV
+	h74hoxARxso3ino7oC89vhnTqo53aOWaDIdqcLPsWqofb5ODEOa3WkuVgTHXz1qudfDxAwIosEl
+	/ePywktN+q9R7uR9YHK0zJePd4hps+PHdflMjvMS8gEY15Wj4pVeKVDaxfQqAdCB3
+X-Gm-Gg: AYBFou0eS2w+5Sdpyvjle8tBLnnysZZIC82F6/G+JhTG+sfanBtOfLMVVjOetMq3Yr5
+	mnE8wswLmH8oc5J0m4u+kMdhJ1mDl6CiU335P0uNBcnXrTTpZg9IEozJJTcl+HzVfpKmVlEfX56
+	Ic7IhCrcCCv1asACp88uoX/pVBQV+nf2q9s+7rUEEK/L3Kj4oavfNN35bOe9TlvyCkuFSVf8hNY
+	HSz95REv6+1gGX7S2dh6cXtL33xLLERfYK/r2H1a7OwDkpn1VX19gra3PN32OSZJxcQOzVCe0oz
+	ewCus12P9fxe8HgD64SKANFQdkR66XNH/GFasCNlshmZb6i/ROmADombS9YvvJTjjtIz2SqsWIl
+	juaLHIcaQzj8B2ZGp52o7yQOjEm9EFvDvlGzUtIixO9ppDUp5lx6legAR70thtQ==
+X-Received: by 2002:a05:620a:2602:b0:93b:cb6d:6d73 with SMTP id af79cd13be357-93c43d7d037mr1862786085a.32.1790579733604;
+        Mon, 28 Sep 2026 00:15:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:2602:b0:93b:cb6d:6d73 with SMTP id af79cd13be357-93c43d7d037mr1862781385a.32.1790579732950;
+        Mon, 28 Sep 2026 00:15:32 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a84205esm24908932f8f.37.2026.09.28.00.15.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 00:15:32 -0700 (PDT)
+Message-ID: <0aaf7166-378c-47d7-98d4-1004fdaeae7b@oss.qualcomm.com>
+Date: Mon, 28 Sep 2026 09:15:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920193944.110983-1-kieweg.leander@gmail.com>
- <20260920193944.110983-2-kieweg.leander@gmail.com> <20260925-fabulous-wren-of-action-89d266@quoll>
-In-Reply-To: <20260925-fabulous-wren-of-action-89d266@quoll>
-From: Leander Kieweg <kieweg.leander@gmail.com>
-Date: Mon, 28 Sep 2026 09:03:53 +0200
-X-Gm-Features: AclHuK8i6Zs-z628GgSRbUV6-Mg1x9Wm9seahXd_0HLR7cUtIg92sLhwtNyE8EA
-Message-ID: <CAMwcS0hFC5U0T7WBURXd0tGLQE7yE+RdB14_-rFP2Y0fxv33ug@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] dt-bindings: display: Add GlandaGPU binding
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, u.kleine-koenig@baylibre.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/7] thermal/drivers/loongson2: Correct thermal sensor
+ registration loop
+To: Binbin Zhou <zhoubinbin@loongson.cn>,
+        Binbin Zhou
+ <zhoubb.aaron@gmail.com>,
+        Huacai Chen <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>,
+        "Rafael J . Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>, Xuerui Wang <kernel@xen0n.name>,
+        loongarch@lists.linux.dev, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, stable@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>
+References: <cover.1790561983.git.zhoubinbin@loongson.cn>
+ <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyOCBTYWx0ZWRfX7XKzV54UUWFF
+ dE8nZ6PZQkp+uhHgGDmHWv4o+efeA+U2tQ4LmVZL0oYPbXwForAslvOSNj+SmIfXL1Fdaap+/Uf
+ /lKANhbalGggpkOE9NdSQJM6VsSZ/9/6w0nv/cYyxAkcL2bnMU1YQsdC7QgeHvRfWRfWZ2r4VQS
+ 1FmPWlsVIXx6W2/gXjBg9NeQwyUdouNPSrQqyZ5myt/ZO9sp2Z8l2luv/n6qJRsulsc/7rNt4hW
+ Fuk8VWiwiyJcY2SDj9CyxqswC1Z1zurXJeu+dLFderNn93uwvtHdX/gSAIQ2szjwCdZEnuixWQh
+ +VHLlEWz/JvnXudK7drrF32SJwbKFO42MYN3R+sklos1R7A0CBxkEalMEkSJctrg8+ODE580cuT
+ zP8fEHotpfvjhO2eAc0WKSZS+6DK7j6zrc41zNctdQfDApwn7Wlmd4g4tRIP7GlxxXrKpnsVwvx
+ h7h5tWPPtNtDKQJPx+A==
+X-Proofpoint-ORIG-GUID: qf-wwczIRkHJ3pGAsV252maCSBWVGGcU
+X-Authority-Analysis: v=2.4 cv=dZkVTnXe c=1 sm=1 tr=0 ts=6aba1416 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=c92rfblmAAAA:8
+ a=VwQbUJbxAAAA:8 a=-hI6YwKNgXx_00ZoiBYA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: qf-wwczIRkHJ3pGAsV252maCSBWVGGcU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyOCBTYWx0ZWRfX0bQNS5T3F1CY
+ eONZD7RysKTId4KZSy5Kr2pcJIn9bffteAu4oULzBB2eOfuMpFVa9a/5mzhoA9BQ9BODj7XIl5r
+ lWtTQNIYV1W4ujSc1ydsK7H2v/UYRAc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280028
 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On 9/28/26 06:44, Binbin Zhou wrote:
+> The registration loop in loongson2_thermal_probe() incorrectly uses
+> dev_err_probe() when the sensor is not present (-ENODEV). In that case,
+> the driver should continue to the next sensor index rather than treating
+> it as a fatal error.
+> 
+> Fix this by correctly handling -ENODEV and only returning on other
+> errors. Also add a final check to ensure at least one thermal zone was
+> registered.
+> 
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbin@loongson.cn?part=2
+> Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal management support")
+> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> ---
+>   drivers/thermal/loongson2_thermal.c | 8 +++++---
+>   1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
+> index 4d40fc706a53..99b7392fc68f 100644
+> --- a/drivers/thermal/loongson2_thermal.c
+> +++ b/drivers/thermal/loongson2_thermal.c
+> @@ -160,16 +160,18 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
+>   
+>   	for (i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+>   		tzd = devm_thermal_of_zone_register(dev, i, data, thermal_ops);
+> -
+>   		if (!IS_ERR(tzd))
+>   			break;
+>   
+> -		if (PTR_ERR(tzd) != -ENODEV)
+> +		if (PTR_ERR(tzd) == -ENODEV)
+>   			continue;
+>   
+> -		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register");
+> +		return dev_err_probe(dev, PTR_ERR(tzd), "failed to register sensor %d\n", i);
 
-Hi Krzysztof,
 
-Thanks!
+>   	}
+>   
+> +	if (IS_ERR(tzd))
+> +		return dev_err_probe(dev, -ENODEV, "No thermal sensor registered\n");
+> +
+>   	ret = devm_request_threaded_irq(dev, irq, NULL, loongson2_thermal_irq_thread,
+>   					IRQF_ONESHOT, "loongson2_thermal", tzd);
+>   	if (ret < 0)
 
-Best regards,
-Leander
+
+The [no]error paths are confusing and prone to error, eg: 'if there is 
+no error then check if there is an error', 'when exiting the loop 
+without registering any sensor, then we assume tzd is -ENODEV'.
+
+Please make a less cumbersome and implicit checks here. For example 
+count the number of sensors and then do the check against.
