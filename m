@@ -1,166 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48694ED1AC;
-	Mon, 28 Sep 2026 16:35:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650CD4EDCDC;
+	Mon, 28 Sep 2026 16:36:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613351; cv=none; b=gybK1K5KgbX4vAj3do+H2WvFxk85NoVOE3IG+6SUJDnovjl1FONjcTU2VEQ2ze2CIKUSMyb1Vstngcs1a1l908nylWwZmNn6Qhqu3y3CXoyUbOrKvhd5ntEdOIDdXip5Q2Qanna7CAZk+T2Rc3wTY7O/UZDlOoJ/7dHbpm9y8z0=
+	t=1790613363; cv=none; b=sp2uh1qzDIhKZRJm4qAinnaDc13727jK4u12xjVzOY9gpEpCSz23AakkA9j7OeZ2DbIn7J1DCvqRWJcYvCcTmc8BEP0cL79/nKlaASt9JoOkRGYzd9EQ8da1KpS5d4MDNhATm4L2yvMxgoWmMioqGM19dl0jA5diZWZMVFhfRa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613351; c=relaxed/simple;
-	bh=/Mqri5mTDlDrV1GwOlEqnhiCrD1oRaogsEIr4KAyKR0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YrbR+bODptLrhu7fsl0g/0MsMLzPexzCrxzYeuGtGq+uPE/xwHBlNhNzVTRvoGufVXiUNmCjhKx+eSDOOr7DrpjxgKz7dyg90GweT3IJmSz+kMthPk0n0sxqhWpUCdfWKiU5LWyb3XBvpCqEEwVNjWiyJVHqoozDBv+PvWr4nCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nirbHt65; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790613363; c=relaxed/simple;
+	bh=3ymhdO7c53RowO1f4ym0vbL1qjiyHuE93wGnpX1fE8E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MWQrC+MxSpvZa3n942VekllTtvjd5cLT0182xVPgkonjNww0AlSQftdav+Kgj+YqiPRBd0NsHpPRlORmj/UVRFA8IXAvP/Pp/+TmANeMBtbOqMUR6MkKEEG+St4OJce9MTpVTCjzW1Ja9Drs7VmCVKVj1YrrIpWNG7uqWDTxEu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a/KkB1wK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nirbHt65"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53281F000FF;
-	Mon, 28 Sep 2026 16:35:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a/KkB1wK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F16581F000FF;
+	Mon, 28 Sep 2026 16:35:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790613350;
-	bh=w/sVognZBorzeMIsjNGcSKPpCvaHEm1JDK4PKd4R7Qc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nirbHt65n2yYu0oyRo7D16HRtKHd6xck+JbTm40dBlsZI4rUqumBgvQlRBIZuJIyM
-	 3kJyQAZpERCQptOxksU8b9THDIcmXwa4Mms68shK6d/dJBouWaW6R5hlE+jC+o0761
-	 x105WgzzkSvwlXvBYjQhm9lLD80JJ9zFLKjlJaWE4kxnqvdEQrYp7Xq4CJgmvlqPt2
-	 mwby4y2sSSSZVKvzhFuIC9bNFgoLcMpSjVmzyOlXCbanXFj+OvoGp1ffDIkycyDqAF
-	 5y0lSZsOgk9LvDlUb0WS/uz20ymFvUPoA7N5du7FOErf5XUyDTJR2FBP2x058hksV7
-	 aRhY40fMJXCfQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf
- generic panel binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: bpf@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 16:35:49 +0000
-Message-Id: <20260928163549.E53281F000FF@smtp.kernel.org>
+	s=k20260515; t=1790613362;
+	bh=3ymhdO7c53RowO1f4ym0vbL1qjiyHuE93wGnpX1fE8E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a/KkB1wKMJ5sEnkqyWNIIH8f129Td3p1BA2TzfgxYV8nUkX8Nu/5/CB2paTCIOIHM
+	 xdsM+L06V8n8L9rLX8y5V3hS/HLfjppFr/yL4/PP8+CFzgy1Wy8J7nDEGl51fWDa8j
+	 YakQMmBibg5+Mkw5ktdPU2T7sq7Ocbkvw3WkVEH+LJDhyLMPWJ2jCl8AR4robdI1KC
+	 MVGdzsgiA4CoposnoaCXcR5MBcgVLn5Jbbpro5Lo51OnHnosEWYejXn1n0iLYcPsRk
+	 kKWck8Ixxk576BLbWxxKIokiI2A6wsTN2l0cAMwfQAV93x2VDWy5v80rqpSEvIqQRs
+	 zV4LahirkJLPQ==
+Date: Mon, 28 Sep 2026 17:35:58 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: ad4080: add AD4886 support
+Message-ID: <20260928-zookeeper-boss-7bc39c0e5186@spud>
+References: <20260928104806.9330-1-antoniu.miclaus@analog.com>
+ <20260928104806.9330-2-antoniu.miclaus@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dhzbCwTw3k3+ZpNd"
+Content-Disposition: inline
+In-Reply-To: <20260928104806.9330-2-antoniu.miclaus@analog.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] drm/panel: userspace BPF requirement breaks early boot panic displ=
-ay
-- [Low] dt-bindings: display: non-standard dsi-lanes instead of endpoint da=
-ta-lanes
-- [Low] dt-bindings: display: missing gpio.h include causes DTC syntax error
-- [Low] dt-bindings: display: examples fail validation against legacy schem=
-as
---
+--dhzbCwTw3k3+ZpNd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-commit e9b8b6539dfc465519559ca54cf48b580b394bd1
-Author: Maxime Ripard <mripard@kernel.org>
-Subject: dt-bindings: display: Add panel-mipi-dsi-bpf generic panel binding
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-This commit introduces a generic MIPI-DSI panel binding where power sequenc=
-ing
-and DSI init commands are handled by BPF programs loaded from userspace. It
-defines standard regulator supplies and DSI parameters while using a fallba=
-ck
-compatible string to match the generic driver.
+--dhzbCwTw3k3+ZpNd
+Content-Type: application/pgp-signature; name=signature.asc
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-d=
-si-bpf.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-ds=
-i-bpf.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.=
-yaml
-> @@ -0,0 +1,184 @@
-[ ... ]
-> +title: Generic MIPI-DSI panel with BPF init sequences
-> +
-> +maintainers:
-> +  - Maxime Ripard <mripard@kernel.org>
-> +
-> +description: |
-> +  A generic MIPI-DSI panel driver where the panel-specific power sequenc=
-ing
-> +  and DSI init commands are provided by BPF programs.
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-Does this architectural requirement to rely on userspace-loaded BPF programs
-result in the loss of early boot display capabilities? If the system crashes
-during early boot, before userspace can mount the rootfs and load the BPF
-objects, it appears the kernel would be unable to autonomously initialize t=
-he
-display to render the framebuffer console, splash screens, or kernel panic
-messages.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarqXbQAKCRB4tDGHoIJi
+0qybAQDkmtF0FPuwEHWu8YBgPdFMRCIgTG6Dp6/4PbB7Ht8peQD9E/6prMd8UtWt
+yqbqx5WiVAUfUMkpNj1T84d8q4eY2gU=
+=YxIl
+-----END PGP SIGNATURE-----
 
-[ ... ]
-> +  elvss-supply:
-> +    description: OLED EL negative supply
-> +
-> +  dsi-lanes:
-> +    description: Number of DSI data lanes
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [1, 2, 3, 4]
-> +    default: 4
-
-[Severity: Low]
-Could this lead to fragmentation of device tree standards? Standard devicet=
-ree
-practice for DSI and CSI typically describes lane configurations using the
-data-lanes property within the port or endpoint graph node, rather than
-introducing a custom property like dsi-lanes at the root level.
-
-[ ... ]
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    dsi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        panel@0 {
-> +            compatible =3D "elida,kd35t133", "panel-mipi-dsi-bpf";
-
-[Severity: Low]
-Will this trigger schema validation errors during make dt_binding_check? The
-dt-schema tool automatically evaluates examples against existing legacy
-schemas, such as the one for elida,kd35t133. Because legacy schemas typical=
-ly
-expect exactly one const compatible string and enforce additionalProperties:
-false, they might reject the dual-compatible array and the generic
-BPF-specific properties used in this example.
-
-[ ... ]
-> +  - |
-> +    /* OLED panel using avdd/avee and elvdd/elvss supplies */
-> +
-> +    dsi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        panel@0 {
-> +            compatible =3D "boe,bf060y8m-aj0", "panel-mipi-dsi-bpf";
-
-[Severity: Low]
-Similar to the previous example, will dt-schema reject this dual-compatible
-array and the generic properties when evaluated against the existing
-boe,bf060y8m-aj0 schema?
-
-[ ... ]
-> +            vcc-supply =3D <&vreg_l14a>;
-> +            iovcc-supply =3D <&vreg_l12a>;
-> +            elvdd-supply =3D <&vreg_oled_pos>;
-> +            elvss-supply =3D <&vreg_oled_neg>;
-> +            reset-gpios =3D <&tlmm 6 GPIO_ACTIVE_LOW>;
-
-[Severity: Low]
-Will the dt-extract-example tool cause a DTC syntax error here? This second
-example block seems to be missing the include for dt-bindings/gpio/gpio.h
-which is required for the GPIO_ACTIVE_LOW macro.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-drm-mipi-d=
-si-panel-ebpf-v1-0-5244926aace4@kernel.org?part=3D1
+--dhzbCwTw3k3+ZpNd--
