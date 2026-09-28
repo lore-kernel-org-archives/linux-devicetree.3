@@ -1,156 +1,107 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D72034B43F
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 01:50:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A630B3D73;
+	Mon, 28 Sep 2026 01:56:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790560235; cv=none; b=D1lMxwdp0+4QjRGTQGMQkbw6Va2POgk4LY0ETEFNOuKBTGFkjDgHWM8LQDIdH5Po1YHCRuKvcerZIs+TGXmJ2/G0ldzl2XBT6QRZNY8uUm2wBTXKP1psnI9/LWS2SKixKwhLeGnyWC2b8VoWtV4LthrdlAr6KNCjFUuv4twvjqs=
+	t=1790560582; cv=none; b=mvopIjtg/ABNYuf5dmZk4Iw1lwaCPekSm0kyn7/s4I8fT6R+/t220gDqC3/HviiNHaBof6Rjowe0LXppiMGWKh9PNKub9O0kh2weWP5qvj/TkJS5UjIUbVl2FMkbuH+ZBi+nQ6yfjlZnnhuzeKbCI9YvNUGXMyUyxXQijDORcoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790560235; c=relaxed/simple;
-	bh=oZZwyOyrJxErmQQ62VuMBhn5L3HeIbVfJIzCO+15uY0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Uwt61dbColM4FeemHDdzRFMnxsqlYB3UQW1FO37QWWGHogE8ctjJoVDGvtUuMG+JkSCwP4T53yhsb46H+w/MXogg5pRnf0Fk7xKXwn0NHUUes8hsEFmQjzH+YyOyYrUATuiPPDP0SPEBVOPnkaT/SxBcS5niHXcIE7QVmHKk+4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=bvu49JN2; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790560582; c=relaxed/simple;
+	bh=1opog5b4nL/1TMqDnfOk+LIeXsm62gAgFpFnjIvA+nI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BVoU51U8uvYWC7Wbwm4l/6gOQO0cz75G6ATZtQJ/rpDsC0WQWavWzByGaGVowr6Tfmbxb+4otuPZ8fba7eG8+esCztW/56nyhfUmCGkzWtxFHmnrcDwrpNYLphNFbwksFwH5qXhMEmeXOOH04g2WwhGb3N+mqlYQvome5wqAPgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b08eEc5/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="bvu49JN2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790560209;
-	bh=vs9OjGFUvLR2IcXfvHPjZEICzzQ8tCo3ejxMCSfdXoc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=bvu49JN2VyNc2wgYYfhsOrtbV2s0FF2TU5SbF/Z8k3u0X7G3iAJJAwuT3wFB2wY4P
-	 v2rjnUhUsAw41NAkUqu1v+dJN7X7B5zt9xZUdGjxIRcpx3JvIp+7ys4+9x7BZv1P9b
-	 NQMt7GvrDmO7u5XmReldizw/fkyu1KNTi5zDxzr8=
-X-QQ-mid: esmtpsz20t1790560204tddc7f036
-X-QQ-Originating-IP: 4dDotzUvSNuH6Gr4842sD3Njqis3g6lY9SfMnLQVM5Y=
-Received: from [192.168.1.100] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 28 Sep 2026 09:50:02 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8208871862891749513
-Message-ID: <3D524FD981B0F437+563fb2cf-7ac7-4f13-825c-e2d375c5f3e1@linux.spacemit.com>
-Date: Mon, 28 Sep 2026 09:50:02 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b08eEc5/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DC561F000FF;
+	Mon, 28 Sep 2026 01:56:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790560581;
+	bh=s7veClUan6GojRS671GF1v6fbPbyqagKvEo/cBScepY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=b08eEc5/ICvihqIekPvSIQkPPt5qgiHQvYUFQGIX0FUm1ehV1TcTfHinYiKZ9hXyJ
+	 DDI/M1apztYg5UOFivlGD/GCtFQYSeJeTzP0J2aymWuKZcTrAVBPzCbHd37xJhbtIG
+	 TiujBnCSHMosaXc3IDA8o8xZqaSgzbZo1c05HfKAfHBDQyGPT+LVW/P8PcV0zRTaG4
+	 XtFz3agWWHXeQu/ScvNZk1IQPgtxMgFpND2YNTy8lrrgnhRSlSZKPZfmSrehvi7Ogi
+	 w5sO6uVu6zGGcFh4hMjBmPqrh0C8nKpPIWkX59OVTK4g7DvRWvb+uCMDFI+dy3ej+2
+	 TXj0N/bxhKxHQ==
+Date: Sun, 27 Sep 2026 20:56:17 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	Yu Zhang <yu.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] arm64: dts: qcom: nord: Add PCIe and WLAN support
+Message-ID: <arnJDVmtFk3JoT87@zenbook>
+References: <20260915015632.283642-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/8] riscv: dts: spacemit: enable USB2.0 controllers on
- BananaPi F3
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-References: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
- <20260927-b4-spacemit-k1-usb2-v3-6-ce7095896039@linux.spacemit.com>
- <20260927114933.ABD2B1F000FF@smtp.kernel.org>
-Content-Language: en-US
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-In-Reply-To: <20260927114933.ABD2B1F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: Mdc3TkmnJyI/83LEBo2Rq5WIYUn1Wd06xO4LAf3F+iTcJGzbe9Bogh36
-	qO2NSI/ENqZu3dFSQdWpTik2+kcV7WdtgQAXA4v6PLEWpT8glHP2OcavVA5PpLh1ySsQyaS
-	4dwCeNw3Amwxf7ZASYm2oI90EDy9o2TBi0Ht4x0yzvAwMcR2QfzYozsD9RMUisUgtT7Djl+
-	oem7Cbzj9hgl6EKZyjrfQPwGOznmzR/8USHdHUGTuGiaxiH8UZi+e9E5Wdrz8TLqvSqkfrM
-	oH7OAlBtS00i+5VS5gGDKcrMwB44LM5KOm+bQqo/YcCIUf5uJBpYLWnLmbMTc3BfeO9YSiC
-	Yi5Of0187Yks+yVoNjNgjwp15ialXtvY78lnBPBCA5Xw+Qq2SouTSQbVlshOcTovoeKOrYg
-	Cjb6Qqn2jmNLn4HjpKt15ZeQyukWQl9fRqI3YjFqGSc6Wha5djLcBikBAehzS3fWHjZanVT
-	duBxkUkAyYerhUK8sMYxZFW6U4Avra6l3XITCloOPkWo+eeHEKIBDgeIkZt8fkxbDG+g1c6
-	8buT4fiwy1/CifI4eVzPVF761Hs2MozCBfmXelWpFFBiUwugHXWkeyEQPhIR2S+s7NQAvo7
-	eGLp1IenSEPAYjKLWfjUjkiumwNNaJefgltUvzUXkmWkYDrJZnnhrKq6biM6LSZQN9B1oKk
-	gBjMArIzdKtkQvAUEnn2IxmV1KgbBFd1w1C9N4ZQZ4atm6HvynIigA3VllQ7SoX1hMNR2RQ
-	OgX5GGfZ6tJ9hTYuPrewjsBr8Whse12L3/dXqtmdHReLyWzc5ScCE123ZYvpyko5xTyoYYx
-	m9QnhQ2Y+I0209pkcnAmlxoK/u5yqXeTTiGqXzH0s6cIRF8A7Tfcc4r0dj1mlUryiv/t26E
-	WmRa09+H0QcE7WUqeJALmeZTMGPu4ussFprAaNBxpBUGiyygA6rdEUw+A2xt7YbqTr+D/6W
-	njVzG1JeqnjDiq9aiVl8cELmEKm8PoCMveKpnHLKZ1xzGRf50p8xbuy6LzKM80ojno//VhV
-	k4XTges3pz63r+39os6JePZMVTzPnrhc3zTC4y5iFHDIHemP/78oOpPTijIkY=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915015632.283642-1-shengchao.guo@oss.qualcomm.com>
 
-On 9/27/2026 7:49 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Low] usb: missing usb-role-switch property for standard sysfs ABI
-> - [Low] dts: board file nodes not sorted alphabetically
-> --
+On Tue, Sep 15, 2026 at 09:56:27AM +0800, Shawn Guo wrote:
+> This series enables PCIe on the Qualcomm Nord SoC and brings up the WLAN
+> modules on the two reference boards.
 > 
-> commit 44aeea968dbe19365572cdf8df737d1b44de83c9
-> Author: Junzhong Pan <panjunzhong@linux.spacemit.com>
+> Nord has four PCIe controllers fed by a single quadfurcated Gen5 QMP
+> multi-PHY.  The link topology (x16, x8+x8, x8+x4+x4 or x8+x4+x2+x2) is
+> selected by firmware through a TCSR register that the PHY driver reads at
+> probe time, so the DT only describes the PHY ports and hands the driver
+> the TCSR handle.  Patch 1 adds the PHY, the four controllers and the PCIe
+> SMMU; patches 2 and 3 enable them on the IQ10 Robotics Reference Design
+> and the Ride Embedded board respectively, along with the per-port PERST#
+> and WAKE# lines.
 > 
-> riscv: dts: spacemit: enable USB2.0 controllers on BananaPi F3
+> Patches 4 and 5 add the WCN7850 WLAN module sitting on PCIe2 on both
+> boards.  The two boards power the module differently: the Ride Embedded
+> connectivity adapter card derives the core rails from the module DBUs
+> gated by PWR_CORE and PWR_CTRL1, whereas the RRD generates them with
+> discrete on-board bucks behind a single core power enable.  Both are
+> described as they are wired.
 > 
-> This commit enables the usb2_0 and usb2_1 nodes on the BananaPi F3 board.
-> It intends to allow role switching via sysfs for the Type-C port and 
-> support cellular modules on the Mini PCIe slot.
+> This depends on the Nord Gen5x16 multi-PHY driver support [1], without
+> which the PHY does not probe.
 > 
->> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
->> index 58035d886bf67..ce36250e2debd 100644
->> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
->> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
-> 
-> [ ... ]
-> 
->> @@ -383,10 +383,26 @@ &uart0 {
->>  	status = "okay";
->>  };
->>  
->> +&usbphy0 {
->> +	status = "okay";
->> +};
->> +
->> +&usbphy1 {
->> +	status = "okay";
->> +};
->> +
->>  &usbphy2 {
->>  	status = "okay";
->>  };
->>  
->> +&usb2_0 {
-> 
-> [Severity: Low]
-> Are the device tree board file nodes sorted alphabetically here?
-> 
-> Device tree board files mandate that node references be sorted alphabetically
-> by label to prevent merge conflicts. Based on ASCII sorting, 2 (0x32) comes
-> before p (0x70), so &usb2_0 and &usb2_1 should precede the &usbphy* nodes.
-> 
+> Dependencies:
+> - PCIe and PHY: https://lore.kernel.org/all/20260909-nord-v3-0-b0a82721c547@oss.qualcomm.com/
 
-I think it's fine the keep current order, same as dtsi.
+This doesn't look like it will be merged, please retest and resubmit
+once the dependencies has been accepted.
 
-> [Severity: Low]
-> Does this node omit the usb-role-switch property required to expose the
-> standard sysfs ABI?
-> 
-> The commit message notes that the user can switch the role in sysfs.
-> However, by omitting the usb-role-switch property, the driver defaults
-> to exposing its legacy, non-standard driver-specific sysfs attribute
-> (/sys/devices/platform/.../role) rather than registering with the
-> standard USB role switch framework (/sys/class/usb_role/).
-> 
-> Would it be better to include the usb-role-switch property so that
-> modern userspace tools can use the expected standard UAPI?
-> 
+Thanks,
+Bjorn
 
-Not now, the current standard role switch framework support in
-chipidea driver is not completely implemented. An extra patch series is
-needed to fix that, but that's another topic, after that, we then could
-add the attributes. Currently the sysfs attribute works fine.
-
->> +	status = "okay";
->> +};
->> +
->> +&usb2_1 {
->> +	status = "okay";
->> +};
->> +
->>  &usb_dwc3 {
->>  	dr_mode = "host";
->>  	#address-cells = <1>;
+> - DTS prerequisite: https://lore.kernel.org/all/20260904081619.593602-1-shengchao.guo@oss.qualcomm.com/
 > 
-
+> Changes for v2:
+> - Add missing leading zero for pcie_smmu reg property
+> - Link to v1: https://lore.kernel.org/all/20260914071944.164217-1-shengchao.guo@oss.qualcomm.com/
+> 
+> Krishna Chaitanya Chundru (3):
+>   arm64: dts: qcom: nord: Add PCIe PHY and controller nodes
+>   arm64: dts: qcom: nord-rrd: Enable PCIe controllers and PHY
+>   arm64: dts: qcom: nord-ride-embedded: Enable PCIe controllers and PHY
+> 
+> Shawn Guo (1):
+>   arm64: dts: qcom: nord-rrd: Add WCN7850 WLAN support
+> 
+> Yu Zhang(Yuriy) (1):
+>   arm64: dts: qcom: nord-ride-embedded: Add WCN7850 WLAN support
+> 
+>  arch/arm64/boot/dts/qcom/nord-embedded.dtsi   | 926 +++++++++++++++++-
+>  .../boot/dts/qcom/nord-ride-embedded.dts      | 151 +++
+>  arch/arm64/boot/dts/qcom/nord-rrd.dts         | 158 +++
+>  arch/arm64/boot/dts/qcom/nord.dtsi            | 297 ++++++
+>  4 files changed, 1528 insertions(+), 4 deletions(-)
+> 
+> -- 
+> 2.43.0
+> 
