@@ -1,35 +1,33 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C064D954F;
-	Mon, 28 Sep 2026 14:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C584D5963;
+	Mon, 28 Sep 2026 14:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604741; cv=none; b=GD/CDlNckJQa/SImjd9sRCOFy0SS0fUKTnylNHral5F84X+RBLihgkRbkfkPFcccHSwKbZuMm5Tl2fMNPnFdE+Ig+uKOmgZ1qqFVILm/c8sajz+iYuvG5ljOOfl1ahouZrKo75+AnhyaVwI7H8JBbo5Bd0sEnLyIy+jW4V3fyb4=
+	t=1790605087; cv=none; b=KSewCJF1+Ehq0c7una3BF7oU2J+q7NSmIZ2+81tYX134dEoiuj3MMRaR89wmNYU4B5DfRz0A/ND9rhEZIRIkH7ivXG8Js92jEIK7C60e8ZT8f1AI3m8mtRZoDW5lyBHzd7ctPbFMiZFZANgATJsdloIrkW04BUDf6xRI+wAPn0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790604741; c=relaxed/simple;
-	bh=rEYYJFbIuLsi0VKUK8LBbQUGCNwkgJPeDuTsVEKrsdg=;
+	s=arc-20240116; t=1790605087; c=relaxed/simple;
+	bh=oC4dcK6ekFud3utm3TycKV8J6r6uQ2BvDv1hV4yYsls=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sbF7c7Vkqlp7b8cPHLFKMsEw5VxmBiBgPvqup3YNFPZrQEoyeqJ31o1mQY5VF7V80mFpEfzUb5xT34iqBjiE0KZHcb4YYeYPcmZ1vJhhVpdO8+gM7qIIwcvAa3A+KlcXfUiv7j6FhhRmXXPsjCdnDLy/oGJUXDOQNq2v0SVxuE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=FqGKF+g9; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 In-Reply-To:Content-Type; b=OJ7UI53Gq2Jj9aHV6sru9Yj0tBbrZvqGlOLOlVGkejrolk7PJxkXTb4cwGqQ+AaUPj56BTDsR7pGGx2PJcQcjMxPLT5jqhVMu+S8uuab0i0De9xzLKscVqPV5IlEgrmY3DO7b1G5ztsPMkVHImQ2604Zb1/J3+e/umGwd4kB7nY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmMlw1QX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="FqGKF+g9"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 63680102F78;
-	Mon, 28 Sep 2026 16:12:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1790604733;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Iue+XSYCya8VUiQZMGubQW6H+Q0XS2fIhg9CPANr+eQ=;
-	b=FqGKF+g92fX11yKaZtVMc6+lKzjTYtzrtTzLOJm0Pt9KUYdT4qvhtwAIGkDy/EG8BzjVMq
-	gF/m7/9mYFZZX1YjbA8gQS0vsRputkWh/BvCtkegfFo5T/zUqiECwQx9QrnVB158/wfaix
-	uZR2yPMIdNJNJlbWWOwbpJ4Jf8kc7hT5d1ilsNASmTkyS9jMuzQQhppedM6MELgD4e9ocP
-	36Cd7aCMArvXGanpZ3GRq0mtCzHinFLMvHsbujAVPubhVUe6WsuRNuF7MX0SAH7HJO8Y3l
-	qxxsnOD7gHlcVL8ElsKDAV+m983W6RI1KJMR/Z39ILE1+gNfst0cBWK5ofsyGw==
-Message-ID: <b2ad62b4-1858-462c-b249-8c6e87126847@nabladev.com>
-Date: Mon, 28 Sep 2026 16:12:10 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmMlw1QX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B600A1F000FF;
+	Mon, 28 Sep 2026 14:18:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790605085;
+	bh=tQ920rvZgVEbAl7BGN+QLyu5bwYVgSL0f0bLg3HVZdw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lmMlw1QX+1fLQEQzkuPRUq+ccHr2gos7PO6ruhxvX1/fqKkK1yCzeiim8oOqYhuVl
+	 mzyEzeoe9T/7MsA98wkUhKN7oanCpq4Fddh8Ydy443BuD505FrxVqOm9QJFWtQMAZw
+	 XGKT7zzCJxjJVAZykEu0vCZg6QQKL98grpkybEGlZh5EFuINlT++7aW4PzxTyumJt3
+	 x1ZNsMFDqtKIZOsI/lixVlkXYdtzrEcMnuN6KMc/ul+VEkZmh2e45GdSp80A27t8Hp
+	 yxX4ho1glDo/tDYQegI+KCkga8ZgIfdbMGCoTHNFn9ZmcWQKorbxtppJcyFQyFro2u
+	 ZSyH4dImDyeng==
+Message-ID: <ff085338-6310-42ac-8023-bdf6d48ad103@kernel.org>
+Date: Mon, 28 Sep 2026 09:18:03 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,58 +35,108 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/10] arm64: dts: st: Add pinmux nodes for DH electronics
- STM32MP23xx/STM32MP25xx DHCOS SoM and Breakout Board
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, kernel@dh-electronics.com,
- linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com
-References: <20260711210131.236025-1-marex@nabladev.com>
- <20260711210131.236025-9-marex@nabladev.com>
- <502b58ee-2421-41d2-bdfa-a870ba8e325c@foss.st.com>
+Subject: Re: [PATCH v7 3/3] arm: dts: altera: add Draeger M48 CPU Module
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <502b58ee-2421-41d2-bdfa-a870ba8e325c@foss.st.com>
+To: Petko Manolov <petko.manolov@konsulko.com>, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, arnemaximilian.richter@draeger.com,
+ martynas.grybauskas@draeger.com
+References: <20260921090735.3174292-1-petko.manolov@konsulko.com>
+ <20260921090735.3174292-4-petko.manolov@konsulko.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <20260921090735.3174292-4-petko.manolov@konsulko.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 
-On 9/28/26 11:02 AM, Alexandre TORGUE wrote:
 
-Hello Alexandre,
 
->> diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/ 
->> arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
->> index 456ece7f8ebc3..1aadbc6b47da9 100644
->> --- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
->> +++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
->> @@ -182,6 +182,30 @@ pins5 {
->>           };
->>       };
->> +    /omit-if-no-ref/
->> +    eth2_mdio_pins_a: eth2-mdio-0 {
->> +        pins1 {
->> +            pinmux = <STM32_PINMUX('G', 4, AF11)>; /* ETH_MDC */
->> +            bias-disable;
->> +            drive-push-pull;
->> +            slew-rate = <3>;
->> +        };
->> +        pins2 {
->> +            pinmux = <STM32_PINMUX('C', 5, AF10)>; /* ETH_MDIO */
->> +            bias-disable;
->> +            drive-push-pull;
->> +            slew-rate = <0>;
->> +        };
->> +    };
->> +
->> +    /omit-if-no-ref/
->> +    eth2_mdio_sleep_pins_a: eth2-mdio-sleep-0 {
->> +        pins {
->> +            pinmux = <STM32_PINMUX('C', 6, ANALOG)>, /* ETH_MDC */
+On 9/21/26 04:07, Petko Manolov wrote:
+> M48 is a heterogeneous board made by Draeger that is based on two
+> independent cpus, that are monitoring each other.  One of them is
+> imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
+> independently off qspi.
 > 
-> I assume it is G4 for MDC ? If yes I fix it when I apply.
-It is PG4 , thank you.
+> This one adds the DT for the Altera SoCFPGA part of M48.
+> 
+> Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+> ---
+>   arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
+>   .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 123 ++++++++++++++++++
+>   2 files changed, 124 insertions(+)
+>   create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> 
+> diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
+> index 8df0976da01c..cdcea11abdfa 100644
+> --- a/arch/arm/boot/dts/intel/socfpga/Makefile
+> +++ b/arch/arm/boot/dts/intel/socfpga/Makefile
+> @@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
+>   	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
+>   	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
+>   	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
+> +	socfpga_cyclone5_draeger_m48.dtb \
+>   	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
+>   	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
+>   	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
+> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> new file mode 100644
+> index 000000000000..dae809c02adb
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> @@ -0,0 +1,123 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
+> + */
+> +#include "socfpga_cyclone5.dtsi"
+> +
+> +/ {
+> +	model = "Draeger M48 Cyclone V SoC";
+> +	compatible = "draeger,m48", "altr,socfpga-cyclone5", "altr,socfpga";
+> +
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	memory@0 {
+> +		name = "memory";
+> +		device_type = "memory";
+> +		reg = <0x0 0x40000000>;
+> +	};
+> +
+> +	aliases {
+> +		/* this allow the ethaddr uboot environmnet variable contents
+> +		 * to be added to the gmac0 device tree blob.
+> +		 */
+> +		ethernet0 = &gmac0;
+> +	};
+> +
+> +	soc {
+> +		gpio3: gpio@ff202000 {
+> +			#address-cells = <1>;
+> +			#size-cells = <0>;
+> +			compatible = "snps,dw-apb-gpio";
+> +			reg = <0xff202000 0x20>;
+> +
+> +			portd: gpio-controller@0 {
+> +				compatible = "snps,dw-apb-gpio-port";
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				snps,nr-gpios = <2>;
+> +				reg = <0>;
+> +			};
+> +		};
+> +
+> +		gpio4: gpio@ff202020 {
+
+Any chance you can point me the where you got this information for gpio3 
+and gpio4?
+
+According to all my documentations, the Cyclone5 SoCFPGA has 3 GPIO 
+ports, and those are already mapped in the DTSI. The address space that 
+you have specified here is for FPGA bridge. Which leads me to believe 
+that this GPIO is in the FPGA.
+
+Thanks,
+Dinh
+
+
