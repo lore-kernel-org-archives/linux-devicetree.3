@@ -1,117 +1,236 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582B22EEE9E;
-	Mon, 28 Sep 2026 22:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9426B478842;
+	Mon, 28 Sep 2026 22:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790634285; cv=none; b=Dr/iaOXaVKHPYkhJyqB772PlkUMrmsBGglk3Cdj6agZOdtPC94EH7O0mAZWaQhL2EulbtqwX7CEQSKTfhOSOyN3F0uDgojWNZVbpoe9YsImcT8V8rL0LrhwR5csQ8l3EvakEa2cemLDQH6Mg57aGjUHRuAg91wjtN44WT3v5SNc=
+	t=1790634324; cv=none; b=EbOvvMJVM9XFnsqHW3nrMrQ05octYkHsnkqXTYV5KlPCTyuCqKFreGQ6R/FjqWmpPYeeW+L6a2XlcDYgRBPcQkrWVCszjxeBJp+LNF5CMyw1isQ/ce0GIs/onmzhrUh9dlYx+wcPMRRGku8XBPk10kCb8ybjCMP/Fo4aa7hT/yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790634285; c=relaxed/simple;
-	bh=CQ1sHx0JdzzR5DVXNUibmZyTLdxwADEgfkQSPEiTcW0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=DSVr9U9LZCTqflYl0DOw/r3iMRHKE/jaCGmy32KNimtC7uB2XD01EU6cfy2+k24cWDyfo6pnSpLyzZ+I1T6V/+ii18kae1l5zN/xukhPfQ4rk6RDyx66X6zD0UdSRXXmpfZ+daUNBL6Eq80TyJtipYr5C/xlUXKj9RKKLNZm5kk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/m4TO+b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790634324; c=relaxed/simple;
+	bh=HpAtu+Uu1G28gcAvxis3+zp2rYzH8YHQG1YoXSH96cU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZpbE37ZiYhFrVgTMbRQ1b68zQX/639TEckMXwVr6DDQemwr/7HpNYaLdo7TD1wTOt++JR/AKKyYjMikqVSd959eoouLzDfxvt1KuxKDp1huMr7DMfbjjYf0VZtLoQibcbRo9yIrG4VP3e06pJXpilASBc0M4HG+B2OMqFcJ98PQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uaOO6IPP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/m4TO+b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16091F000FF;
-	Mon, 28 Sep 2026 22:24:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790634283;
-	bh=QXHVC5yMZceL5J1JsKV4vQfSwG3c2NxZWnu6Pfi0xFw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=F/m4TO+b8y+Bwyx9DgGsfW0txIaTWEuEM6ClnjSJfebYcblSdTTjbzP1Fcioz33Pd
-	 z3mvkX5AA3HiF+s2GgpeYaqXzJNxX2cIb9F2uS6yG//b3i7eeqkqU+fusQmhy7ni6i
-	 zmSxlnBxTofWY65Q/tGeTVyQhIL9s/EEtOJ/6+9vtVPgEcN4QjaxRS0OBAxwGBuDsM
-	 vl4NblMQBj/oOcOrChd2PZJMbltqau8oJvI50Kx+BEqLH8uOINJAuCsGRWERYM8WMW
-	 kHViKsa++YJSl9B8dh2Q39BC/C2THqEfjkKB/ofLWXMqMUqQtxKe9SP4IWb349mMBh
-	 QjlNROFCx2nEg==
-Date: Mon, 28 Sep 2026 17:24:42 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: linux-pci@vger.kernel.org,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v5 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H
- PCIe4
-Message-ID: <20260928222442.GA2266778@bhelgaas>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uaOO6IPP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 334B1C2BCB3;
+	Mon, 28 Sep 2026 22:25:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790634324;
+	bh=HpAtu+Uu1G28gcAvxis3+zp2rYzH8YHQG1YoXSH96cU=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=uaOO6IPPhUpZ9vbR4MrQeSyvmV5NBaLht2CwP2CehTDuCmYq722PWEhJygTVqYnDf
+	 DM+0/fHrhMqxR599lcOBpcRPHiLCMOp3FSeISsWuN3fAH5T9tSrzxs26fn+ydTE43q
+	 MVGyz6w5sUf89oZdyuPlqOftNy7rZme4mEKguU2GQHv9Jz7acolqo4ZzK0dfo+JTVs
+	 O+SlvBf8rC9UEpnVPqtDwkzGW7/WAqOtwLKzvDJV925N39PLarX9uW2yOy24Adv4uT
+	 0ehqfC41Sww5Qpnf6sr0cGf/RcNozPu/1BjN18cd036Pi2uRWgn5RdG6x/sm5zX6uk
+	 Qo1f0yTR/GO7w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0CB91CA5FA5;
+	Mon, 28 Sep 2026 22:25:24 +0000 (UTC)
+From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
+Subject: [PATCH net-next v8 00/11] Support for onsemi's S2500 10Base-T1S
+ MAC-PHY
+Date: Mon, 28 Sep 2026 15:25:07 -0700
+Message-Id: <20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3bb47958-09e2-4726-85e3-8e5d3873840e@mailbox.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAETpumoC/3XOQW7DIBAF0KtErEsFGBjIqveossB4XFPJxgJiJ
+ Yp89xC3UlNFXo5m/vtzIxlTwEyOhxtJuIQc4lQH83YgfnDTF9LQ1ZkIJjTTjNMsFGN0dJ7Ow5X
+ m8zzHVKjsG4dWsL6FhtTsnLAPl839JBMWOuGlkNPPJp/bb/TlwT5uh5BLTNfthUVuid82tdO2S
+ Mpoh7XN88brznzEKeMY3n0ct5JFPTFc7jGqMsYakC2IHoR6YfQTI+weoyvDjUewdd0Af2HgjwF
+ m9hiojATjDYBz3Nl/zLqud+IRRgusAQAA
+To: Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Piergiorgio Beruto <pier.beruto@onsemi.com>, 
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: Selva Rajagopal <Selvamani.Rajagopal@onsemi.com>, 
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Jerry Ray <jerry.ray@microchip.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790634319; l=7343;
+ i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
+ bh=HpAtu+Uu1G28gcAvxis3+zp2rYzH8YHQG1YoXSH96cU=;
+ b=B1+61qDvpUTsBDBUxt5BtliF10m6v4djcVlWqcj7Fnd/LfG6uJcxQzvImldVZ4VXh0COnvX6Q
+ jFgghCIUuT9DCGjOFF3EqybwICn1NffpmjGnCrj5LgvU3sWqIKQM/WN
+X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
+ pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
+X-Endpoint-Received: by B4 Relay for
+ Selvamani.Rajagopal@onsemi.com/20260531 with auth_id=803
+X-Original-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Reply-To: Selvamani.Rajagopal@onsemi.com
 
-On Mon, Sep 28, 2026 at 11:32:37PM +0200, Marek Vasut wrote:
-> On 9/28/26 11:01 PM, Bjorn Helgaas wrote:
-> > On Mon, Sep 21, 2026 at 10:27:48PM +0200, Marek Vasut wrote:
-> > > Add support for R8A78000 (R-Car X5H) PCIe4.
-> > > 
-> > > This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
-> > > of R-Car X5H PCIe4 are almost all the same.
-> > > 
-> > > The controller initialization sequence is slightly different and is
-> > > factored out into controller specific callbacks, in a manner similar
-> > > to previous R-Car Gen4 handling.
-> > > 
-> > > The controller does have a PHY attached to it, but the PHY is operated
-> > > by a separate PHY driver, the PHY driver instance binding is handled
-> > > in rcar_gen4_pcie_get_resources() and controlled in the aforementioned
-> > > controller specific callbacks.
-> > > 
-> > > The controller driver is deliberately using "renesas,rcar-gen5-pcie4"
-> > > DT compatible string to discern R-Car X5H PCIe4 controller supported
-> > > by this driver, from R-Car X5H PCIe6 controller which will most likely
-> > > use a separate driver.
-> > 
-> > The gen5/pcie4 usage is confusing.
-> > 
-> > I often push back on things like "PCIe Gen4" because it's ambiguous
-> > (does it mean "compliant with base spec r4.0" or "supports 16 GT/s" or
-> > something else), but it's so widely used to mean transfer rate that
-> > it's hard to resist, and the best I can hope for is clarification.
-> > 
-> > But in "renesas,rcar-gen5-pcie4", I don't know what the 5 and the 4
-> > mean.  Maybe "gen5" refers to some internal R-Car thing, and "pcie4"
-> > is something like "PCIe Gen4, i.e., 16 GT/s"?
-> 
-> Gen5 refers to R-Car Gen5 (5th R-Car SoC generation).
-> 
-> PCIe4 refers to the PCIe Gen4 core in the R-Car Gen5 SoC. There is also PCIe
-> Gen6 core in the same SoC, but that will require a different driver and
-> different compatible string.
-> 
-> Since none of this shipped in any kernel version yet, would you prefer some
-> sort of rename ? I can send patches.
+This patch series brings support for onsemi's S2500 that iss
+IEEE 802.3cg compliant Ethernet transceiver with an integrated
+Media Access Controller (MAC-PHY)
 
-Huh.  TIL that pcie-rcar-gen4.c refers to the 4th generation R-Car
-SoCs (and, I guess the point of this series is to add support for 5th
-generation SoCs), not to PCIe Gen4 link speeds.  I see that
-"renesas,rcar-genX" is all over the place in 'compatible' strings, so
-I guess we should follow that precedent.
+Driver implementation is compatible and works with OA TC6
+framework that is already present. S2500 driver supports
+hardware timestamping. Along with this driver, OA TC6
+frame work is also changed to add hardware timestamping
+support.
 
-If the "renesas,rcar-gen5" SoC includes both PCIe Gen4 and PCIe Gen6
-cores, I suppose everybody refers to them as pcie-gen4 and pcie-gen6,
-so the "renesas,rcar-gen5-pcie4" you used is probably the obvious
-choice.
+Driver has support for running selftest and loopback tests.
+Through ethtool, it can provide traffic stats, rmon stats,
+and timestamping related traffic stats.
 
-But maybe we can make commit logs less confusing by saying things
-like:
+As S2500 has an internal PHY, changes have been added
+to onsemi's PHY driver to support this device.
 
-  - R-Car Gen4 SoCs S4/V4H/V4M
-  - R-Car Gen5 SoC X5H
-  - the R-Car Gen5 SoC PCIe Gen4 core
-  - the R-Car R8A78000 X5H PCIe Gen4 core, which supports a x8 link at
-    16 GT/s
+To: Andrew Lunn <andrew@lunn.ch>
+To: Piergiorgio Beruto <pier.beruto@onsemi.com>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+To: David S. Miller <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+To: Selva Rajagopal <selvamani.rajagopal@onsemi.com>
+To: Richard Cochran <richardcochran@gmail.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Simon Horman <horms@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: Jerry Ray <jerry.ray@microchip.com>
+Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+
+Changes in v8:
+- Modified to use newer MMD based read/write APIs
+- clean up by removing unused definitions/initializations
+- Better handling of timestamp capture events by using
+  bit fields so that we don't lose any event
+- timestamp skb queue is protected with spinlock
+- added reset-gpio in YAML file as support is recently added
+- removed ioctl from OA TC6 framework as it is not needed.
+
+Changes in v7:
+- Fixed compiler warning due to prototype mismatch
+- Moved the order of patches to ensure dt-bindings comes first
+  before it is being used
+- Added missing review tag
+- Added missing MODULE_DEVICE_TABLE
+- OA_TC6 framework enables 64 bit timestamping mode by default.
+
+- Compiler related warnings fixed.
+- Link to v6: https://lore.kernel.org/r/20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com
+
+Changes in v6:
+- Changes to ensure onsemi code stay within 80 columns.
+- Fixed the error of "not described in comments section"
+  in comments section.
+
+- Fixed compiler warnings.
+- Link to v5: https://patch.msgid.link/20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com
+
+Changes in v5:
+ - kernel doc related changes in oa_tc.c, onsemi driver files and
+  oa tc6 rst file
+- Link to v4: https://lore.kernel.org/r/20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com
+
+Changes in v4:
+ - Added return value comment for genphy_read/write_phy_mmd functions
+ - Added genphy_loopback_fixed_speed helper function to be used in
+   set_loopback callbacks
+ - Updated networking documentation for OA TC6 framework to elaborate
+   on what is expected in the ptp_clock_info structure for registration.
+ - added spi-max-frequency in YAML file based on alert from sashiko-bot
+ - Removed model/version from the onsemi driver's private structure as
+   they were useful as "information-only" data.
+ - Replaced the non-standard selftest with Linux's standard selftest
+   and made it as a separate patch
+ - Changed bit manipulation, shift operations to use macros so that
+   it is clean and readable.
+ - added new read_register and write_register apis with _mms postfix
+   so that MMS (memory map selector) can be given as a parameter.
+ - Fixed the wrong condition check with NETIF_F_RXFCS to subtract
+   FCS size from the length of the frame.
+ - Link to v3: https://lore.kernel.org/r/CY8PR02MB92499C9080614FA3CEB8CD0483162@CY8PR02MB9249.namprd02.prod.outlook.com
+
+Changes in v3:
+ - Moved OA TC6 framework to its own directory.
+ - Split changes to smaller patches based on feedback.
+ - Added PHY loopback support as a separate patch.
+ - New, read and write register APIs with extra parameter MMS
+ - Link to v2: https://lore.kernel.org/r/CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com
+
+Changes in v2:
+ - API to add vendor specific MMS to mdio device map.
+ - Link to v1: https://lore.kernel.org/r/CY8PR02MB9249D083B637477C254F9B0583322@CY8PR02MB9249.namprd02.prod.outlook.com
+
+---
+Selvamani Rajagopal (11):
+      dt-bindings: net: add onsemi's S2500
+      Documentation: networking: Add timestamp related APIs to OA TC6 framework
+      net: ethernet: oa_tc6: Move oa_tc6.c to its own directory
+      net: ethernet: oa_tc6: Move constant definitions to header file
+      net: ethernet: oa_tc6: Support for hardware timestamp
+      net: ethernet: oa_tc6: Support for vendor specific MMS
+      net: phy: ncn26000: Support for onsemi's S2500 internal phy
+      net: phy: ncn26000: Enable enhanced noise immunity
+      net: phy: ncn26000: Support for loopback
+      onsemi: s2500: Add driver support for S2500 MAC-PHY
+      onsemi: s2500: Added selftest support to onsemi's S2500 driver
+
+ .../devicetree/bindings/net/onnn,s2500.yaml        |  72 +++
+ Documentation/networking/oa-tc6-framework.rst      |  59 +++
+ MAINTAINERS                                        |  13 +-
+ drivers/net/ethernet/Kconfig                       |  13 +-
+ drivers/net/ethernet/Makefile                      |   3 +-
+ drivers/net/ethernet/adi/Kconfig                   |   1 +
+ drivers/net/ethernet/microchip/lan865x/Kconfig     |   1 +
+ drivers/net/ethernet/oa_tc6/Kconfig                |  17 +
+ drivers/net/ethernet/oa_tc6/Makefile               |   7 +
+ drivers/net/ethernet/{ => oa_tc6}/oa_tc6.c         | 433 ++++++++++++-----
+ drivers/net/ethernet/oa_tc6/oa_tc6_ptp.c           |  65 +++
+ drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h       | 161 +++++++
+ drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c        | 224 +++++++++
+ drivers/net/ethernet/onsemi/Kconfig                |  22 +
+ drivers/net/ethernet/onsemi/Makefile               |   7 +
+ drivers/net/ethernet/onsemi/s2500/Kconfig          |  21 +
+ drivers/net/ethernet/onsemi/s2500/Makefile         |   7 +
+ drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c  | 375 +++++++++++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_hw_def.h   | 160 +++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_main.c     | 523 +++++++++++++++++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_ptp.c      | 174 +++++++
+ drivers/net/phy/dp83867.c                          |  11 +-
+ drivers/net/phy/ncn26000.c                         |  63 ++-
+ drivers/net/phy/phy_device.c                       |  20 +
+ include/linux/oa_tc6.h                             |  25 +
+ include/linux/phy.h                                |   2 +
+ 26 files changed, 2331 insertions(+), 148 deletions(-)
+---
+base-commit: 014d795c73837ea2339a4ea8e8f82c6e959b845d
+change-id: 20260601-s2500-mac-phy-support-4f3ae920fb73
+
+Best regards,
+-- 
+Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+
+
