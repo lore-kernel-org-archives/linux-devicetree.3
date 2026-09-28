@@ -1,261 +1,76 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A909469833;
-	Mon, 28 Sep 2026 09:46:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBE449159C;
+	Mon, 28 Sep 2026 09:47:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588765; cv=none; b=PHedlk1nMyJESpdJGdMry9NIonlv1LMG6m7VNKOIXAYOmx/A/En/AUopeXminph0aQqTt0p7VSEp0zTm9I2H6mbqMfTDM54kIgEeavHRz6G90v2G7Ea0R1bQ1X+5bS8qAj9+KMLZcs/sVMvQFLpYBI7zVwwF/zVixpJykXibg2c=
+	t=1790588833; cv=none; b=Dd4w8MaTfFCJnDlaw9NY8hhkbiv4HODEgjdfWcm96VYdndfCKelPGPYa0qfVZ0XQIumRqNveNQiu5p6k9gIUcwczuHCv8Bc1/+Vuj2taUPvDK4Qw8n3aQaUbZ6MIT+4qHyDoNI13km4LSBPuFpzR1BR3NA44FpLXcwZa+WIY6rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588765; c=relaxed/simple;
-	bh=IhfH79Klt2YSCeTuXJ/1fueNd8NvdrDPI+fAIaurgdA=;
+	s=arc-20240116; t=1790588833; c=relaxed/simple;
+	bh=mAZlA2tafhOljyq/iP2+iZ6K6iZpBw3rq6QaFjrSbiI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pejx2vlxNDRvta+cm44VsO2Na3ziDJ2xyPSQ00voZVScQJjTHGPOfQ952DcfLQ2iJt8+ajXno9k4JufmIoLMXKOXkZwH9p0YqRIfgMwl9oiHy2XGqrdyuZkzqQ0p3Ia8lYgHXZkJxbAhUsv+H3NmQ0fsDe11QItTEG8ZoZRbpno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=LRjkTP/0; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	 MIME-Version; b=RgHqJHRHa/zjdi5gu2Dzu5x0TKW/cZz/nfygnU4meJ2pip5HlJawkq197FBuRoWbilLCWeid7SJVL8ce5hHCBNcEKxQMu5m6saNJtmFitP71plQky+QJurm3rqxTOGxtc9DMqVrAoW255MaTNU6NThx8tJ5FEynxz9PEK2lC1HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=j7t3mA1D; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="LRjkTP/0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=4CuU+g3OS0jSsPnDL28a19vrBRSayq8z8NOABY2I9L0=; b=LRjkTP/07ZPNpeKypa4US1wvsw
-	OtyA1Aw8+Z6Rg+8XIxA4YkjoMtTXEi5Ob68KcJgImG2kaPWDOlZlwmIjq3cfuSNoUa25OLFa2712v
-	2DGk39CO7BJlWYrEdG/EbA+HpOJ5AhZYFtwJXsmtMtKzvJcEO6hS22X0/gnTaAib6dPdCO3kdLIak
-	RxvNM0ch90QAbVZlYhgVbwInb12fS3r+cTDjt+fBvsDhcKRX3BYoccNkDNSrcBKpN4ZR2JqoWAwVD
-	apeMddSF6FckTfjJl81A/bbAZflcGJTGXgA0WkclixC1qgDVGDmD/QOk5EGS4PO8xCRWWWFEcZPoD
-	VwVHK/eA==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB7vo-000KOD-39;
-	Mon, 28 Sep 2026 11:45:57 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB7vo-000Jep-22;
-	Mon, 28 Sep 2026 11:45:56 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Guido =?ISO-8859-1?Q?G=FAnther?= <agx@sigxcpu.org>,
- Robert Chiras <robert.chiras@nxp.com>, Tim Harvey <tharvey@gateworks.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Frank.Li@oss.nxp.com
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com,
- Frank Li <Frank.Li@nxp.com>
-Subject:
- Re: [PATCH 6/8] arm64: dts: imx: remove unnecessary #address-cells and
- #size-cells
-Date: Mon, 28 Sep 2026 11:45:54 +0200
-Message-ID: <2280028.irdbgypaU6@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260925-cleanup_dtb_warning-v1-6-f999fafbca60@nxp.com>
-References:
- <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
- <20260925-cleanup_dtb_warning-v1-6-f999fafbca60@nxp.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="j7t3mA1D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=nN
+	YAy905/eGCkrb6hwdLmwg2oEZ8qaop0g8gQHQ/JLo=; b=j7t3mA1DXWngluHkCV
+	xbI/Re8xnNmNJwgNkC7EZhuV5CONnWXDfv0yLiw6GWkVIWXi4xyNlpgpohCVSgvT
+	Oe3T7A/62Lx6kJL1ADW4b/prWIkwfmxJd8ybi7Zq5iMpcy1J6MSyv2/XRUNJr7Wm
+	GgPlSmMvU6jin6tM6AMEfb6eQ=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3X0WIN7pqt_x4BQ--.13130S3;
+	Mon, 28 Sep 2026 17:46:49 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Tony Lindgren <tony@atomide.com>
+Cc: Quchaosheng <quchaosheng000406@163.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	linux-omap@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] ARM: dts: ti/omap: drop unit-address from tpd12s015 endpoints
+Date: Mon, 28 Sep 2026 17:46:47 +0800
+Message-ID: <20260928094647.2021321-2-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260916123210.107841-2-quchaosheng000406@163.com>
+References: <20260916123210.107841-1-quchaosheng000406@163.com> <20260916123210.107841-2-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28137/Mon Sep 28 08:24:12 2026)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3X0WIN7pqt_x4BQ--.13130S3
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKF1DJF48WFWrWr4kGw48JFb_yoWfArXEga
+	s5uF4kJw43Xr4xKrnrKr9ruFZxArWDCFWUCFyUWr1Ik34FqFsrJF1ktrs8Xr1Iqa43Kr4D
+	ur9Yqw1kAa47ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUjvzuJUUUUU==
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4wk5rmq6N4lEqgAA39
 
-Am Freitag, 25. September 2026, 18:37:55 CEST schrieb Frank.Li@oss.nxp.com:
-> From: Frank Li <Frank.Li@nxp.com>
->=20
-> Remove unnecessary #address-cells and #size-cells to fix the dtb W=3D1 wa=
-rning:
->   Warning (avoid_unnecessary_addr_size): /soc@0/bus@30800000/i2c@30a20000=
-/gsc@20: unnecessary #address-cells/#size-cells without "ranges", "dma-rang=
-es" or child "reg" or "ranges" property
->=20
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+A gentle ping on 2/2, which nobody has picked up yet.  The binding half
+(1/2, dt-bindings: display: ti,tpd12s015) got Rob Herring's Reviewed-by on
+09-24; this half is the two-file dts change that drops the unit-address
+from the tpd12s015 endpoint nodes on am5729-beagleboneai and am57xx-idk,
+and it has been sitting unassigned since 09-16.
 
-Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMLX2160A
+Two questions, whichever is easier for you to answer:
 
-> ---
->  arch/arm64/boot/dts/freescale/fsl-ls1088a-ten64.dts       | 4 ----
->  arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi | 4 ----
->  arch/arm64/boot/dts/freescale/imx8mm-venice-gw7901.dts    | 2 --
->  arch/arm64/boot/dts/freescale/imx8mm-venice-gw7902.dts    | 2 --
->  arch/arm64/boot/dts/freescale/imx8mm-venice-gw7903.dts    | 2 --
->  arch/arm64/boot/dts/freescale/imx8mm-venice-gw7904.dts    | 2 --
->  arch/arm64/boot/dts/freescale/imx8mn-venice-gw7902.dts    | 2 --
->  arch/arm64/boot/dts/freescale/imx8mq-nitrogen.dts         | 2 --
->  arch/arm64/boot/dts/freescale/imx91-11x11-frdm-s.dts      | 2 --
->  9 files changed, 22 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-ls1088a-ten64.dts b/arch/a=
-rm64/boot/dts/freescale/fsl-ls1088a-ten64.dts
-> index f51508952d51c..b762ad555ad9e 100644
-> --- a/arch/arm64/boot/dts/freescale/fsl-ls1088a-ten64.dts
-> +++ b/arch/arm64/boot/dts/freescale/fsl-ls1088a-ten64.dts
-> @@ -312,8 +312,6 @@ &qspi {
-> =20
->  	en25s64: flash@0 {
->  		compatible =3D "jedec,spi-nor";
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <1>;
->  		reg =3D <0>;
->  		spi-max-frequency =3D <20000000>;
->  		spi-rx-bus-width =3D <4>;
-> @@ -363,8 +361,6 @@ partition@600000 {
-> =20
->  	nand: flash@1 {
->  		compatible =3D "spi-nand";
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <1>;
->  		reg =3D <1>;
->  		spi-max-frequency =3D <20000000>;
->  		spi-rx-bus-width =3D <4>;
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi b/=
-arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi
-> index cc6b6427ec8a6..aac0ae0ad40c7 100644
-> --- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi
-> @@ -41,8 +41,6 @@ &fspi {
->  	flash0: flash@0 {
->  		compatible =3D "jedec,spi-nor";
->  		reg =3D <0>;
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <1>;
->  		spi-max-frequency =3D <10000000>;
->  		spi-rx-bus-width =3D <1>;
->  		spi-tx-bus-width =3D <1>;
-> @@ -57,8 +55,6 @@ partitions {
->  	flash1: flash@1 {
->  		compatible =3D "jedec,spi-nor";
->  		reg =3D <1>;
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <1>;
->  		spi-max-frequency =3D <10000000>;
->  		spi-rx-bus-width =3D <1>;
->  		spi-tx-bus-width =3D <1>;
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7901.dts b/arc=
-h/arm64/boot/dts/freescale/imx8mm-venice-gw7901.dts
-> index 272c2b223d167..1bb42116fc0b8 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7901.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7901.dts
-> @@ -366,8 +366,6 @@ gsc: gsc@20 {
->  		interrupts =3D <16 IRQ_TYPE_EDGE_FALLING>;
->  		interrupt-controller;
->  		#interrupt-cells =3D <1>;
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <0>;
-> =20
->  		adc {
->  			compatible =3D "gw,gsc-adc";
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7902.dts b/arc=
-h/arm64/boot/dts/freescale/imx8mm-venice-gw7902.dts
-> index 468c7e993c52b..f53718221ad5b 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7902.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7902.dts
-> @@ -317,8 +317,6 @@ gsc: gsc@20 {
->  		interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
->  		interrupt-controller;
->  		#interrupt-cells =3D <1>;
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <0>;
-> =20
->  		adc {
->  			compatible =3D "gw,gsc-adc";
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7903.dts b/arc=
-h/arm64/boot/dts/freescale/imx8mm-venice-gw7903.dts
-> index 636daa3d6ca20..3eafff879e8d5 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7903.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7903.dts
-> @@ -282,8 +282,6 @@ gsc: gsc@20 {
->  		interrupts =3D <26 IRQ_TYPE_EDGE_FALLING>;
->  		interrupt-controller;
->  		#interrupt-cells =3D <1>;
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <0>;
-> =20
->  		adc {
->  			compatible =3D "gw,gsc-adc";
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7904.dts b/arc=
-h/arm64/boot/dts/freescale/imx8mm-venice-gw7904.dts
-> index 99572961d9e16..fcbb40597b12c 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7904.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-venice-gw7904.dts
-> @@ -335,8 +335,6 @@ gsc: gsc@20 {
->  		interrupts =3D <26 IRQ_TYPE_EDGE_FALLING>;
->  		interrupt-controller;
->  		#interrupt-cells =3D <1>;
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <0>;
-> =20
->  		adc {
->  			compatible =3D "gw,gsc-adc";
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-venice-gw7902.dts b/arc=
-h/arm64/boot/dts/freescale/imx8mn-venice-gw7902.dts
-> index 5aa0e2cd155ec..ecc12645d7691 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mn-venice-gw7902.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mn-venice-gw7902.dts
-> @@ -315,8 +315,6 @@ gsc: gsc@20 {
->  		interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
->  		interrupt-controller;
->  		#interrupt-cells =3D <1>;
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <0>;
-> =20
->  		adc {
->  			compatible =3D "gw,gsc-adc";
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mq-nitrogen.dts b/arch/arm=
-64/boot/dts/freescale/imx8mq-nitrogen.dts
-> index b91509bfc9c00..1043bf074f8e4 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mq-nitrogen.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mq-nitrogen.dts
-> @@ -287,8 +287,6 @@ &lcdif {
->  };
-> =20
->  &mipi_dsi {
-> -	#address-cells =3D <1>;
-> -	#size-cells =3D <0>;
->  	status =3D "okay";
-> =20
->  	ports {
-> diff --git a/arch/arm64/boot/dts/freescale/imx91-11x11-frdm-s.dts b/arch/=
-arm64/boot/dts/freescale/imx91-11x11-frdm-s.dts
-> index c6019d76b9981..f3b647267c300 100644
-> --- a/arch/arm64/boot/dts/freescale/imx91-11x11-frdm-s.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx91-11x11-frdm-s.dts
-> @@ -202,8 +202,6 @@ &flexspi1 {
->  	flash@0 {
->  		compatible =3D "spi-nand";
->  		reg =3D <0>;
-> -		#address-cells =3D <1>;
-> -		#size-cells =3D <1>;
->  		spi-max-frequency =3D <104000000>;
->  		spi-rx-bus-width =3D <4>;
->  		spi-tx-bus-width =3D <4>;
->=20
->=20
+  - Should this come through your omap tree, or does it belong with the
+    binding, through Tomi and dri-devel?  The two only make sense
+    together, since the endpoint nodes carry a unit-address with no
+    matching reg property and the new schema rejects that, so they should
+    not land separately.
+  - If the form is wrong for your tree, tell me what to change and I will
+    resend.  If you would rather not carry it, say so and I will drop it.
 
+No urgency on my side - I just do not want it to sit unowned.
 
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
-
+Thanks,
+Quchaosheng
 
