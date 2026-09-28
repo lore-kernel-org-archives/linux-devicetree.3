@@ -1,160 +1,227 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8C04EE840;
-	Mon, 28 Sep 2026 16:33:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD1A4EE874;
+	Mon, 28 Sep 2026 16:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790613182; cv=none; b=s7xyEJ+jYd2i07ao0U+ersSVvT8041E3CgFUOCdZaqmSNP705qVklM4mGcJJIR+yiN0mjFJmTt9MMyUeZG9qfD0jrnBUWfNoiHySAKymJeabtnZTSbUhOFYqn2LC1xmzaha1xptVPCVxGr6nplX8TzXwXien03yNBGNSZG6PAF4=
+	t=1790613188; cv=none; b=D+Zsc4aawj/c7h3N4N6I/uUJfNIzm7x7MRTwD5mZbyFOfCLg4hJSbYw3UxzzApEcl67U3AWMIkv/VhiWT+71Hi8YbsPDa3VdwgGGrjL7/0vi5v0+cTu0+x2b2YKfQrYMV1iVrUcMtXllc+ITiyqm4oZaMejXNigtfap0fHH3FLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790613182; c=relaxed/simple;
-	bh=RDk/TG3UbFTvWMhgnFpSTzAWA43WJKEfIEAT21ELWKY=;
+	s=arc-20240116; t=1790613188; c=relaxed/simple;
+	bh=YN5oZf+nb1Abl2tW2AjgzdUMyCIGKfT451kkYbr32aw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y4RsHVFjb//58+ioGDTDgC0TqhVJON0T11IF9VG/X8ZgrkYCvUEdCYN6u8n9twbhmjhiDam1C4rX/p/oYP3igNlhq8YUYl3RF8dOQsXz+BYzuDjyFt/SObn4GWJYxx5zsfNzXLv6RaEFehYvcDYOsKNXYe65nnIgjYhAByQSXrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lghgg9wi; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=KFXXPw2oWrlDqsC777YZVit7nBI/KKVsGHYfPqOfIltffLZqOO7hc5/Z47AHYW2/pIz8sB7Cvnb9VK2jQZf+Z/8Avh2E+uVqnI0lWWxUifbHUOb5mK/S4ZQHu51U2ra4tuRylkRniuz46lwvkItb1wvEnY8istJhXM2hGc0jH/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SCyZajAx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lghgg9wi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF8B71F00893;
-	Mon, 28 Sep 2026 16:33:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SCyZajAx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB9531F000FF;
+	Mon, 28 Sep 2026 16:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790613181;
-	bh=mMbGe7JCcoDMf9APuGlI4UqfkJhA2AXIvNUya5gTFB8=;
+	s=k20260515; t=1790613187;
+	bh=2st5WPmMY1KRVxiNWWjebzO9dQdnaOGdWBjeDh3UJ/E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lghgg9wiqti3eWcWqEvwetzC26Qym4mHDk/ha6JaAhfgbfC8fuIi3MmmItNG8ROwB
-	 IzlPdR/Ch+YcvSSAXfRlW1+OQrYTC/+5g+aReidGVf8TYXMJ+zF9ncwcCMCe4ZPBFC
-	 x56HCwln00ZXLS4ZvmnIJhGGDVD07x1zlMkBhDAQHowLqQidLJKG1wO4EY18+n72qm
-	 nJ8wHswYIoBPToc5r2bLAs+YR7jeFMAqllb3jEfO1aXoYCtpJCAiUxf/kHj7k4frRg
-	 JuHTTcPOWytlRJp9mxytN8YkkO8mGUd3Dl/voGtWeTSG2VTJ17k7by46wTCOMKLw4q
-	 7rfRRvrKOlqzg==
+	b=SCyZajAxT78YMyDxCQYTpzJ+O31Hi+Z0YQUGjLbN8jNvNrdh830zN7s9AfiHp/yXi
+	 f8QPRHjuGt71x6G8xzafUo+r7SNhSSODkicr1fi+kEj0XJ1ohskFb9zX8m3+tXeYt4
+	 5LjdwHo3ZSRH10/oi+7unzLqT3FIH1OVHRgd51TVhNrp0ESOcqkizL0aDVsJMcjEnb
+	 s0qAZgvaXJl0wHCpb5JnOli8hMrrrCuDR2SscyAW7J8AIr8EISWNly4Zq6R4qGlhk5
+	 4VMvzoZuhHSpjqhsaVVe9c8NIOiX13oFLS4MbXG6wHRp24n5Cnw9oW1SMn8FKiE/R7
+	 uRfeglD2MWKOw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/6] drm/panel: dsi-bpf: Add Raspberry Pi 5-inch panel
- BPF program
+Subject: Re: [PATCH 1/2] dt-bindings: mfd: as3722: Convert to json-schema
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Maxime Ripard" <mripard@kernel.org>
-Cc: robh@kernel.org, bpf@vger.kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-5-5244926aace4@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-5-5244926aace4@kernel.org>
+To: "Thierry Reding" <thierry.reding@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, lee@kernel.org
+In-Reply-To: <20260928-as3722-bindings-v1-1-35f423a9f2b2@nvidia.com>
+References: <20260928-as3722-bindings-v1-0-35f423a9f2b2@nvidia.com>
+ <20260928-as3722-bindings-v1-1-35f423a9f2b2@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 16:33:00 +0000
-Message-Id: <20260928163300.DF8B71F00893@smtp.kernel.org>
+Date: Mon, 28 Sep 2026 16:33:06 +0000
+Message-Id: <20260928163306.BB9531F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] drm/panel: resource leak and unbalanced regulator disable on err=
-or path
-- [Medium] drm/panel: DCS write errors are ignored during initialization se=
-quence
-- [Medium] drm/panel: commit message and file content mismatch (5-inch vs 7=
--inch panel)
+- [Medium] dt-bindings: mfd: missing const constraint for gpio-cells
+- [Medium] dt-bindings: mfd: additionalProperties false breaks validation
+- [Medium] dt-bindings: mfd: missing core regulator schema reference in sub=
+-nodes
+- [Medium] dt-bindings: mfd: missing additionalProperties in container nodes
+- [Low] dt-bindings: mfd: missing required GPIO provider properties
 --
 
-commit 6f19328aa9181fa01e0009c188e0a4fe6e32ccb1
-Author: Maxime Ripard <mripard@kernel.org>
+commit 3390b1809db67797a4f31079a198e4285905107a
+Author: Thierry Reding <treding@nvidia.com>
+Date:   Mon Sep 28 16:24:40 2026 +0000
 
-drm/panel: dsi-bpf: Add Raspberry Pi 5-inch panel BPF program
+    dt-bindings: mfd: as3722: Convert to json-schema
    =20
-This commit translates the initialization sequence for the Raspberry Pi
-5-inch MIPI-DSI panel into a BPF program.
+    Convert the AMS AS3722 PMIC bindings from the free-form text format to
+    json-schema.
 
-> drm/panel: dsi-bpf: Add Raspberry Pi 5-inch panel BPF program
->=20
-> Translate the raspberrypi,dsi-5inch initialization sequence from
-> drivers/gpu/drm/panel/panel-ilitek-ili9881c.c into a BPF program.
-
-[Severity: Medium]
-Is there a mismatch between the commit message and the contents of this
-patch? The commit message states it adds the "5-inch panel" and translates
-the "raspberrypi,dsi-5inch" initialization sequence. However, the patch
-actually adds a file named Raspberrypi__dsi-7inch.bpf.c containing the
-7-inch initialization sequence, and uses the "raspberrypi,dsi-7inch"
-compatible string.
-
-> diff --git a/drivers/gpu/drm/panel/bpf/progs/Raspberrypi__dsi-7inch.bpf.c=
- b/drivers/gpu/drm/panel/bpf/progs/Raspberrypi__dsi-7inch.bpf.c
+> diff --git a/Documentation/devicetree/bindings/mfd/ams,as3722.yaml b/Docu=
+mentation/devicetree/bindings/mfd/ams,as3722.yaml
 > new file mode 100644
-> index 0000000000000..2055828de2f40
+> index 0000000000000..6a64445003966
 > --- /dev/null
-> +++ b/drivers/gpu/drm/panel/bpf/progs/Raspberrypi__dsi-7inch.bpf.c
-> @@ -0,0 +1,271 @@
-[ ... ]
-> +#define PAGE(p) do {						\
-> +	const __u8 _d[] =3D { 0x98, 0x81, (p) };			\
-> +	panel_bpf_mipi_dsi_dcs_write(pctx, 0xff, _d, sizeof(_d));\
-> +} while (0)
-> +
-> +#define CMD(c, d) panel_bpf_mipi_dsi_dcs_write_byte(pctx, (c), (d))
-
-[Severity: Medium]
-Do these macros ignore DCS write errors during the initialization sequence?
-By discarding the return value of panel_bpf_mipi_dsi_dcs_write() and
-panel_bpf_mipi_dsi_dcs_write_byte(), a failure (such as a DSI bus timeout)
-will not abort the program. It will blindly continue sending over 150
-commands to a potentially broken panel, sequentially timing out on each
-command, which causes a massive initialization delay and falsely reports
-a successful panel initialization.
-
-> +SEC(PANEL_BPF_MIPI_DSI_PREPARE)
-> +int BPF_PROG(panel_prepare, struct panel_bpf_mipi_dsi_ctx *pctx)
-> +{
-> +	int ret;
-> +
-> +	ret =3D panel_bpf_mipi_dsi_regulator_enable_and_wait(pctx, PANEL_BPF_MI=
-PI_DSI_SUPPLY_IOVCC, 5);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D panel_bpf_mipi_dsi_regulator_enable_and_wait(pctx, PANEL_BPF_MI=
-PI_DSI_SUPPLY_VCC, 5);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-Does this error path leak the previously enabled IOVCC regulator?
-If panel_bpf_mipi_dsi_regulator_enable_and_wait() for VCC fails here, or if
-subsequent operations like exit_sleep_mode() fail, panel_prepare() returns
-an error without disabling the already-enabled IOVCC regulator or reverting
-the GPIO state.
+> +++ b/Documentation/devicetree/bindings/mfd/ams,as3722.yaml
+> @@ -0,0 +1,276 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
 
 [ ... ]
-> +SEC(PANEL_BPF_MIPI_DSI_UNPREPARE)
-> +int BPF_PROG(panel_unprepare, struct panel_bpf_mipi_dsi_ctx *pctx)
-> +{
-> +	panel_bpf_mipi_dsi_set_display_off(pctx);
-> +	panel_bpf_mipi_dsi_enter_sleep_mode(pctx);
-> +
-> +	panel_bpf_mipi_dsi_regulator_disable(pctx, PANEL_BPF_MIPI_DSI_SUPPLY_VC=
-C);
-> +	panel_bpf_mipi_dsi_regulator_disable(pctx, PANEL_BPF_MIPI_DSI_SUPPLY_IO=
-VCC);
+
+> +  # from gpio.yaml
+> +  gpio-controller: true
+> +  "#gpio-cells": true
 
 [Severity: Medium]
-Does this unconditionally disable regulators, even on error paths?
-When the DRM core tears down the pipeline following an error in
-panel_prepare(), it unconditionally calls panel_unprepare(). Attempting
-to disable a regulator that failed to enable (e.g., VCC) will trigger
-a kernel warning for an unbalanced disable.
+Does this schema allow invalid configurations for "#gpio-cells" (e.g., <1>
+or <3>) to silently pass validation instead of enforcing the hardware's
+actual requirements? The DT bindings subsystem guidelines mandate that
+each cell-count property must have a const constraint matching the hardware.
 
-> +	panel_bpf_mipi_dsi_gpio_enable(pctx, PANEL_BPF_MIPI_DSI_GPIO_RESET);
 > +
-> +	return 0;
-> +}
-> +
-> +PANEL_BPF_MIPI_DSI_OPS(raspberrypi_dsi_7inch) =3D {
-> +	.panel_id		=3D "/soc/dsi@7e700000/panel@0",
-> +	.compatible		=3D "raspberrypi,dsi-7inch",
+> +  # optional properties
+> +  ams,enable-internal-int-pullup:
+
+[ ... ]
+
+> +  pinmux:
+> +    type: object
+> +    description: |
+> +      Device has 8 GPIO pins which can be configured as GPIO as well as =
+the
+> +      special IO functions.
 
 [Severity: Medium]
-Does this code explicitly configure the 7-inch panel? As mentioned in the
-commit message comment, this directly contradicts the claim of adding the
-5-inch panel.
+Does this pinmux object definition omit additionalProperties: false? If
+omitted, invalid or misspelled child nodes under pinmux might be silently
+accepted instead of being flagged as errors since additionalProperties
+defaults to true.
+
+> +
+> +      Please refer to pinctrl-bindings.txt in this directory for details=
+ of
+> +      the common pinctrl bindings used by client devices, including the
+
+[ ... ]
+
+> +        required:
+> +          - pins
+> +
+> +  regulators:
+> +    type: object
+> +    description: Device has multiple DCDC and LDOs. The node "regulators=
+" is
+> +      required if regulator functionality is needed.
+
+[Severity: Medium]
+Like the pinmux node above, does this regulators object also need
+additionalProperties: false to ensure invalid regulator nodes (e.g., sd7
+or ldo8) do not silently pass validation?
+
+> +
+> +    properties:
+> +      vsup-sd2-supply:
+
+[ ... ]
+
+> +      vin-ldo11-supply:
+> +        description: input supply for LDO11
+> +
+> +    patternProperties:
+> +      "^(sd[0-6]|ldo[0-7]|ldo9|ldo10|ldo11)$":
+> +        type: object
+> +        description: These sub-nodes must be named after one of the regu=
+lators
+> +          found on the AS3277. Each sub-node should contain the constrai=
+nts and
+> +          initialization information for that regulator.
+
+[Severity: Medium]
+Do these regulator sub-nodes need to link to the core regulator schema
+using a reference to /schemas/regulator/regulator.yaml#? Without this
+reference, standard regulator properties like regulator-min-microvolt
+are unvalidated and typos will be silently accepted by the schema checker.
+
+> +
+> +        properties:
+> +          ams,ext-control:
+
+[ ... ]
+
+> +          ams,enable-tracking:
+> +            $ref: /schemas/types.yaml#/definitions/flag
+> +            description: Enable tracking with SD1, only supported by LDO=
+3.
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Will this strict filter fail to account for properties brought in by refs or
+standard core schemas like gpio.yaml? Using additionalProperties: false
+only evaluates properties explicitly listed in the local properties block,
+which will falsely reject valid standard properties. Should this be
+unevaluatedProperties: false instead?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupt-controller
+> +  - "#interrupt-cells"
+
+[Severity: Low]
+Does this required list omit the mandatory provider properties for a
+hardware device acting as a GPIO controller? The subsystem guidelines
+explicitly state that hardware provider capabilities must be included in
+the required list (e.g., gpio-controller, #gpio-cells), otherwise
+incomplete device tree nodes can pass schema validation.
+
+> +
+> +allOf:
+> +  - $ref: /schemas/gpio/gpio.yaml
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/mfd/as3722.h>
+> +
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        pmic@48 {
+> +            compatible =3D "ams,as3722";
+> +            reg =3D <0x48>;
+> +
+> +            ams,system-power-controller;
+> +
+> +            interrupt-parent =3D <&intc>;
+> +            interrupt-controller;
+> +            #interrupt-cells =3D <2>;
+> +
+> +            gpio-controller;
+> +            #gpio-cells =3D <2>;
+> +
+> +            pinctrl-names =3D "default";
+> +            pinctrl-0 =3D <&as3722_default>;
+
+[Severity: Medium]
+Will the inclusion of pinctrl-names and pinctrl-0 in this example trigger
+validation failures, since they are missing from the schema's local
+properties list and additionalProperties is set to false?
+
+> +
+> +            as3722_default: pinmux {
+> +                gpio0 {
+> +                    pins =3D "gpio0";
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-drm-mipi-d=
-si-panel-ebpf-v1-0-5244926aace4@kernel.org?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-as3722-bin=
+dings-v1-0-35f423a9f2b2@nvidia.com?part=3D1
