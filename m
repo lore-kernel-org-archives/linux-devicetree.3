@@ -1,166 +1,299 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBDF495AE1
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 09:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790589322; cv=none; b=L2x0qW6oVkCGvMoj1R7ByUkte8gxrIbINX3x3iyPh8wLB03MIo9HMg//h0YagH3IghFdTwedRNPkcO79t6+9+chR6n6+kaRy2kY/gFldga2n7EdKz1u9vuINMaVUjB3mOJnHSUfFYK7yXqFJLnINf3UCiAtjhugs2awSkBkKyMw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790589322; c=relaxed/simple;
-	bh=wMTPtytnOc8jIsxHXNi1ap0yoWR96B9OCFiIwwooZsA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WoilGfnwcLWV+GO+or412qTnBy1QsrpdTozEXIMlNIc7AT4ncYr+LotZB3OZ/q2D0Tt8gxfC8Ldw9ZFVLLjC3N6TW4Utl3IH+nx+ngzPsgxE1dYVVHO/sIqzHsouYfKqyt4T9DtWjqGvQW2Arkm5EQv10ln5zDVg+3kF/dQjgn4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HKYrUY40; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LNve5NR0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6920747CC9E;
+	Mon, 28 Sep 2026 09:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790589389; cv=pass; b=GMN/JUb4a1maJtYxvJnxc85a6bQVpUT/fdNS6A9Co1jGAxQqKvxhnhfxaxv64TsXjkHd+lc54d1VGp1pX6sLfvVXyOtN1XUaUZ8gUSK64SRj/L2EbXkGZTDg0/mPPn/ijnuVtoO9VuFX6mOW5HSmeJWqCB5s3nBrJEUdmQs4nno=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790589389; c=relaxed/simple;
+	bh=jlY/G8SBXi3MacKSinkAbyqBt0gkHz9gB/Hix+r3HXk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oke1rectkrWM3svbLa3B08MfejbGu8oap8CDbe3nsv+dmyMvYHdlXmhpozvBFaACwz/Xg9aMp756WbvRsKx28+vmSytddoqGUCBz1R4g4eVLYFnpE3ut1SPTq/VsgKvIyF0iJS386PNHtf/DPG+obfBq1ZoVBHHe6U2mQ6CDtgo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=GWCN68O8; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HKYrUY40";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LNve5NR0"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S9M6jo1445807
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 09:55:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aYI8sgMtrhfO8iph6BOZNIZiWsPlwalT1cphHI1u+ZI=; b=HKYrUY40AFmTtqqX
-	FqKVfb8C9dmvT9wsDKolwyZBhZc+aGxlI7QCFERkqk3sQSYXHJHHKeTSt3qQTDNE
-	OEO3KkzR1BdOdHW2xq8QZxb/gG3Ud7oDT7RQSReB4zFDLaHRPDm+TE6rDJRedukz
-	Yc/Djuiym1TVcvlFEV32fJnbnzRmuEciP1qLbKLxv/rcn7aCYHCB8UVyV5Rk9WZB
-	o5qH+JZ6tU41jMkZHm7vz+45PGRSmXa4uy2lhAafLOfGjYxkQGSHtaliqUhamPjX
-	Jwyrp4oAmuCsmhEija0sxeFGYlRdNqv/QV1s4zWKDojNYuic3a96DawtvvT1+s8H
-	OewdEg==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gynfkr4yf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 09:55:20 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2db5a30bd4eso6358165ad.2
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 02:55:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790589319; x=1791194119; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aYI8sgMtrhfO8iph6BOZNIZiWsPlwalT1cphHI1u+ZI=;
-        b=LNve5NR0BrevMQb3tHH9i7MVt31PXJXdgTwZG2WsgaX+akZAJQmqzpsLnFIZDUmY0b
-         GUD+roYCEXVdlZ4BsYxDRMtHqUdPx6yw2g82HlzUDVnc5/RhZp/I6TIiW+IKix69lB49
-         5OeBzLPlk9CfALP+N/RsnwHYDYZ+muybOHDy0rGzn63QVBoiY7fR+VkJdIWuOP5X14xl
-         TZCNbCuvPOVrAwqM71k1kNFyHqZkleiC1S4HqHk5ihj2VZafcchc19BjwM2T+O4faR1q
-         y+s2OW7UllcPehv0oHVKFB3K1dZTVuz6qMPh1j/Ftiuxu9Q71tM+TbITtzjgf8v+uwUl
-         Kjbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790589319; x=1791194119;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aYI8sgMtrhfO8iph6BOZNIZiWsPlwalT1cphHI1u+ZI=;
-        b=dLdVUDpyiLQxPKSb5dOlfRVFG2h4AWUNtC73g6W4GKwotOu/u7Nz/N5GQ/QhyKNLfD
-         iQXvQgmiNJBZ0tti/uw/+HSgg2BBBe29TJsgMuarFovRS9adqDN7SPKF3Zr3HaoM0HqN
-         dkdyVEdL/MGDnbZacg++en+LJ9SaSlu5tU0vUaPA73umsDY4ucrrbLcky0B7NTpe8zaG
-         pggLwfUKtigB7Yq30CehZzL7XU/XQQYryoBgl3k7c1MQAurti8UNhFm4pW3AkC3pcqYL
-         AwXYzLysVNcqZnJqMEpjCbBVGH30e9boMRVcz/WR5ds5BxYqXbhaZF7x3q0AeA8cLJn8
-         wXtg==
-X-Forwarded-Encrypted: i=1; AKwUvBxq7NSQLIHCX3Et1G+DD/rMTJ0k0jTsOvTw7F3Wl5b67znwzguI4fvlc6xikYWNEuM1cCL/jcMK5Usp@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSQAvOBnm/PPouQ1+wGJaF1gnatQyNGH8KFDb+Eo7ucge8EVpT
-	qhxw3s7uzDNGafUKV0fuTW0/lNF9x/u2Zf+IcY0TzgfPC9I+3p4Uh5MMn2RbiM6Fv5dQ1nT/c6K
-	hjizxwRjw67kG/zdVOYTTo3bsi1LUohCvLHiS+PHvG0ZpeA0+d0mWJZ7qOLfjTyjI
-X-Gm-Gg: AYBFou0xotIG6IxwKyumiApAGU6dj0FLqCkjRFlUA6eGf45f807KHve+Mg9Pdbg26cf
-	r0By/6t1al4mbnfSOdUB5sT5WVgTyjRn1WcS7D6/9eucQQJMfNPZoC/Vn2TadZMScfOstIAHkjK
-	FCIiar3K+DlLcRCVc66HFLl4509l3/8kdJWD8RdHAAK2GFWSJWM/jHGEulfunD8p0W5PUjdzsN7
-	wIEyiYEzHDAKOPJQ8qRnhUQNqY/aF2LtGICKRVuy9zFSyhQwPCD+Ay01IcVDhAQpUBXI9K5553Z
-	jYoPCPQvtZhW/1za0C7fn7vM/CUfY6ENQa1ZVlF0GgEQK07ugzzVAoOwQjIQnNCbr3c9D4Gnl3Y
-	k+RLEZhLL3jOZAltrzjXiehar
-X-Received: by 2002:a17:902:e74e:b0:2dd:b52d:e838 with SMTP id d9443c01a7336-2df8e3a959bmr120106005ad.0.1790589319234;
-        Mon, 28 Sep 2026 02:55:19 -0700 (PDT)
-X-Received: by 2002:a17:902:e74e:b0:2dd:b52d:e838 with SMTP id d9443c01a7336-2df8e3a959bmr120105815ad.0.1790589318682;
-        Mon, 28 Sep 2026 02:55:18 -0700 (PDT)
-Received: from [10.239.132.150] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df90c03890sm39086075ad.0.2026.09.28.02.55.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 02:55:18 -0700 (PDT)
-Message-ID: <28e20553-8c1b-4b2f-9839-1fbae1fda59e@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 17:55:12 +0800
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="GWCN68O8"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0112F2001F2;
+	Mon, 28 Sep 2026 11:56:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790589384;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6LuymVPYOeFAgj5ouYzllJ1mO8H9HkFW/AWhP83jbnI=;
+	b=GWCN68O8Zb6p/9/DXqR3kOKZWFjSnABczRl9jhLdMrKz7uAWw4+4bnRmVrRds3d4eT+0Wo
+	CPkrBdO0S30RcX7/grHcCchBUKq9AcxSjUr2bZp79PdGJFned7UAIDwI8bpbMyimmSB5PK
+	4PqSjlqpe3ssoUHCn5UjJRCLEfuF+ymk5gJ2a2eTXSIa6Pl244+6vQtDQhJPpBTfTkCE0b
+	emQC6b5GWQOnY2I7hMUXPNvj8aqzBAiLlm2dWW2ogIA95GfBugpYr+1Pm1vZhWqMTW3GMU
+	KeUGJKRb9k0qxShEUJeBIXDPQRTOhDsonVMkKYjPWRgVNjjNF+GEktu2QDkY6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790589384;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6LuymVPYOeFAgj5ouYzllJ1mO8H9HkFW/AWhP83jbnI=;
+	b=cwifMkiBvbVBYCKb0nVPnTur6/uQz+5veMWsqrcuqAcqVyQj1hKonxiz+TtMRHrT/j36MF
+	O098vXUDHj2lYgO+4XRwniAngMhFIpGkvE2BUGAih5ZNhf3+e0vK6wAr2cNcZFg1WAWFrS
+	8hgLZWkYVaDhbR5sRo9qV7uszD4AI80zJkDck7a11cSxT5Z5i3S4M8QHecEYwtobU2glW6
+	j54u88detZPjXcKau9N9aC5hz/16+mr/N5yYULKzfE1H6ySN2proHCr3zEF2IvxJKgZEyZ
+	x80vDGbTdKt4eCFyJczDOgGPuCeeqX09c7DyyFj06X/2IHrwYfpvIK/EfBRBEg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790589384; a=rsa-sha256;
+	cv=none;
+	b=dEkMY0j2VqybOpRFC0MZQnXvjh6ZmIVQ/dP5vmSLXT+wxkazFCpa/UKHmoQVnt/s1zt/r5
+	VngR+zBn1TZaEVGeeikmwWpRDvEN5xwNO9mcSuIYfBpwUcUUT/VeX4sf10gLQ3JSwR7rHf
+	CpXyyrT9FtKcz2+ruFQnExliEhzOZfTaOFJkKaJ7RkuMA/9udYJZZSi8rEuLsxPn6S2XBV
+	Gz4ZmpRpttpVMLCsU9Wa3LCXaTLRxwnSP2HojO9fU6dxmguiBmgh03VeyLfJ4R0l690um4
+	+AxOn85Gum2wKAq5PV4mZm+WONHPbe94JvPfMuLEsMCZ22KHfftzPDC0ZXwZYw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1xB85v-003Cfy-2m;
+	Mon, 28 Sep 2026 11:56:23 +0200
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Marek Vasut <marex@denx.de>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yi Zhang <zhanyi@qti.qualcomm.com>,
+	Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
+	Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
+	venkata.valluru@oss.qualcomm.com,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Subject: [PATCH] drm/bridge: lt9211: drop delayed work
+Date: Mon, 28 Sep 2026 11:56:22 +0200
+Message-ID: <20260928095622.38130-1-p.zabel@pengutronix.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
+References: <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: spmi: glymur-spmi-pmic-arb: Add
- compatible for Qualcomm Maili SoC
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Yijie Yang <yijie.yang@oss.qualcomm.com>
-References: <20260831-maili-spmi-binding-v2-1-37a25ef3921c@oss.qualcomm.com>
- <31a59040-bb20-4cb9-9dad-a62b90a16c6f@oss.qualcomm.com>
- <27997939-f39a-43aa-a287-44c9f70b8a51@oss.qualcomm.com>
-From: "Aiqun(Maria) Yu" <aiqun.yu@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <27997939-f39a-43aa-a287-44c9f70b8a51@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzOSBTYWx0ZWRfX20aV0T40qagE
- rY7a2NpuSED5ciK2nMUMEI5v56CVh4UXw3bz+bViWAJedNnvviyQbdulBDXwa4Uag65SpOXnAHz
- 06LVQmDQ6ma3pSTKnXcbzIiTSbUeYgvCeRNh3TKEf8PfDi5VyT3u1sqsoZLFdot47Z9S4+3VNVk
- jk/qEJZsg+43skRZkx6Qrg6/hxnq+cS8Anotnh43dzdk7ox6zg0tYONU5NfJP/Wd8Qcd3q1XkMz
- zuXFs50mtQ8F0j1IfhLNoBwpQLeVuqu4ej0d+45MS6nF4C5uP7CvdknLmOnmvZt9Zs5PMdCphA7
- a/+ZhBKeq0amPpVzxZ7OUm25bfxCM7D2Jxfz4aCF0GVoDbQuX2knDUbG6WN/V2AJm+NaSK0dvQf
- D4vywyRBqcg+Z5D95enoTKR+K+raFl3dZWN8SsRwOhzL/n/CX+7s8c6s9O3PXu5uo7EpRSLVo+x
- EsLtZDZeQwJBitn5nig==
-X-Authority-Analysis: v=2.4 cv=e6aT2qp/ c=1 sm=1 tr=0 ts=6aba3988 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=TxdeD5nNe1Y8hkKaguEA:9 a=QEXdDO2ut3YA:10
- a=zgiPjhLxNE0A:10 a=zZCYzV9kfG8A:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: 4UrhyYEFifxUXgoH6GvAN_a-g8OqGNeQ
-X-Proofpoint-ORIG-GUID: 4UrhyYEFifxUXgoH6GvAN_a-g8OqGNeQ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzOSBTYWx0ZWRfX7rv9VH2AsoNI
- +SlOY8TiOqqbZmsNfOsgXZOQyeACg/Jp1W+3JNLn/6J/7JFFwE5RPjkaVhEHKTpx97xDyDnTQEN
- EYAJ8iv0v3Wit4lUmc4361eWbOQZdmY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 suspectscore=0 bulkscore=0
- clxscore=1015 impostorscore=0 malwarescore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280039
+Content-Transfer-Encoding: 8bit
 
-On 9/28/2026 4:23 PM, Krzysztof Kozlowski wrote:
-> On 28/09/2026 09:19, Jingyi Wang wrote:
->> Tested-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-> 
-> NAK
-> 
-> You cannot test it. Otherwise explain me how did you execute this code.
+Replace the asynchronous work item with synchronous initialization in
+lt9211_atomic_enable. This should fix 3 issues flagged by sashiko [1].
 
-Jingyi is posting the Maili device tree from [1] and get dtb checking
-using this binding. And with a newer linux-next tag like 0916.
+The next bridge or panel in the chain may depend on the LVDS signal
+being active after atomic_enable, so arbitrarily deferring bridge
+initialization is not an option.
 
-pls have more details of what kind of verification that you needed for
-the Tested-by and remove the NAK.
-[1]
-https://lore.kernel.org/all/20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qualcomm.com/
+If deferring initialization into an asynchronous work item fixes DSI
+stream detection, there might be a bug in the upstream display
+controller or MIPI DSI host controller bridge drivers, as the DSI
+signal should already be streaming when lt9211_atomic_enable is called.
 
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
+[1] https://lore.kernel.org/all/20260924160816.ED8F31F0089E@smtp.kernel.org/
 
+Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+---
+ drivers/gpu/drm/bridge/lontium-lt9211.c | 121 ++++++++----------------
+ 1 file changed, 38 insertions(+), 83 deletions(-)
 
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9211.c b/drivers/gpu/drm/bridge/lontium-lt9211.c
+index 9226d967b271..244979fb9ae6 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9211.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9211.c
+@@ -20,7 +20,6 @@
+ #include <linux/of_graph.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+-#include <linux/workqueue.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_bridge.h>
+@@ -72,14 +71,6 @@ struct lt9211 {
+ 	bool				lvds_dual_link;
+ 	bool				lvds_dual_link_even_odd_swap;
+ 	const struct lt9211_chip_data	*chip_data;
+-	/* LT9211C specific fields */
+-	struct workqueue_struct		*wq;
+-	struct work_struct		lt9211_work;
+-	struct drm_crtc			*lt9211c_crtc;
+-	struct drm_display_mode	lt9211c_mode;
+-	bool				lt9211c_bpp24;
+-	bool				lt9211c_jeida;
+-	bool				lt9211c_de_high;
+ };
+ 
+ static const struct regmap_range lt9211_rw_ranges[] = {
+@@ -1157,51 +1148,6 @@ static int lt9211c_configure_tx(struct lt9211 *ctx, bool jeida, bool bpp24,
+ 	return 0;
+ }
+ 
+-static void lt9211_work_func(struct work_struct *work)
+-{
+-	struct lt9211 *ctx = container_of(work, struct lt9211, lt9211_work);
+-	const struct drm_display_mode *mode = &ctx->lt9211c_mode;
+-	int ret;
+-
+-	/* wait for vblank irq to correctly configure bridge and autodetect stream */
+-	ret = drm_crtc_wait_one_vblank(ctx->lt9211c_crtc);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: wait for vblank failed: %d\n", ret);
+-		return;
+-	}
+-
+-	ret = lt9211c_configure_rx(ctx);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: configure_rx failed: %d\n", ret);
+-		return;
+-	}
+-
+-	ret = lt9211c_autodetect_rx(ctx, mode);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: autodetect_rx failed: %d\n", ret);
+-		return;
+-	}
+-
+-	ret = lt9211c_configure_timing(ctx, mode);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: configure_timing failed: %d\n", ret);
+-		return;
+-	}
+-
+-	ret = lt9211c_configure_plls(ctx, mode);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: configure_plls failed: %d\n", ret);
+-		return;
+-	}
+-
+-	ret = lt9211c_configure_tx(ctx, ctx->lt9211c_jeida, ctx->lt9211c_bpp24,
+-				   ctx->lt9211c_de_high, mode);
+-	if (ret) {
+-		dev_err(ctx->dev, "LT9211C: configure_tx failed: %d\n", ret);
+-		return;
+-	}
+-}
+-
+ static void lt9211_atomic_enable(struct drm_bridge *bridge,
+ 				 struct drm_atomic_state *state)
+ {
+@@ -1272,17 +1218,45 @@ static void lt9211_atomic_enable(struct drm_bridge *bridge,
+ 		return;
+ 
+ 	if (ctx->chip_data->chip_type == LT9211C) {
+-		drm_mode_copy(&ctx->lt9211c_mode, mode);
+-		ctx->lt9211c_bpp24 = lvds_format_24bpp;
+-		ctx->lt9211c_jeida = lvds_format_jeida;
+-		ctx->lt9211c_de_high = !!(bus_flags & DRM_BUS_FLAG_DE_HIGH);
+-		ctx->lt9211c_crtc = crtc;
++		/* wait for vblank irq to correctly configure bridge and autodetect stream */
++		ret = drm_crtc_wait_one_vblank(crtc);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: wait for vblank failed: %d\n", ret);
++			return;
++		}
+ 
+-		/*
+-		 * Needs a live DSI stream to auto-detect RX resolution/format;
+-		 * defer bridge configuration until vblank inside the work item.
+-		 */
+-		queue_work(ctx->wq, &ctx->lt9211_work);
++		ret = lt9211c_configure_rx(ctx);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: configure_rx failed: %d\n", ret);
++			return;
++		}
++
++		ret = lt9211c_autodetect_rx(ctx, mode);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: autodetect_rx failed: %d\n", ret);
++			return;
++		}
++
++		ret = lt9211c_configure_timing(ctx, mode);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: configure_timing failed: %d\n", ret);
++			return;
++		}
++
++		ret = lt9211c_configure_plls(ctx, mode);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: configure_plls failed: %d\n", ret);
++			return;
++		}
++
++		ret = lt9211c_configure_tx(ctx, lvds_format_jeida, lvds_format_24bpp,
++					   bus_flags & DRM_BUS_FLAG_DE_HIGH, mode);
++		if (ret) {
++			dev_err(ctx->dev, "LT9211C: configure_tx failed: %d\n", ret);
++			return;
++		}
++
++		dev_dbg(ctx->dev, "LT9211C enabled.\n");
+ 		return;
+ 	}
+ 
+@@ -1320,9 +1294,6 @@ static void lt9211_atomic_disable(struct drm_bridge *bridge,
+ 	struct lt9211 *ctx = bridge_to_lt9211(bridge);
+ 	int ret;
+ 
+-	if (ctx->chip_data->chip_type == LT9211C)
+-		cancel_work_sync(&ctx->lt9211_work);
+-
+ 	/*
+ 	 * Put the chip in reset, pull nRST line low,
+ 	 * and assure lengthy 10ms reset low timing.
+@@ -1483,11 +1454,6 @@ static int lt9211_host_attach(struct lt9211 *ctx)
+ 	return 0;
+ }
+ 
+-static void lt9211_destroy_wq(void *data)
+-{
+-	destroy_workqueue(data);
+-}
+-
+ static int lt9211_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+@@ -1532,17 +1498,6 @@ static int lt9211_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
+-	if (ctx->chip_data->chip_type == LT9211C) {
+-		ctx->wq = create_workqueue("lt9211_work");
+-		if (!ctx->wq)
+-			return -ENOMEM;
+-		/* Register after DSI attach so devres flushes work before freeing ctx->dsi. */
+-		ret = devm_add_action_or_reset(dev, lt9211_destroy_wq, ctx->wq);
+-		if (ret)
+-			return ret;
+-		INIT_WORK(&ctx->lt9211_work, lt9211_work_func);
+-	}
+-
+ 	return 0;
+ }
+ 
 -- 
-Thx and BRs,
-Aiqun(Maria) Yu
+2.47.3
+
