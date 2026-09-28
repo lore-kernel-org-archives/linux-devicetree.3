@@ -1,107 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f39.google.com (mail-vs2-f39.google.com [74.125.227.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A630B3D73;
-	Mon, 28 Sep 2026 01:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0952D2381
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 02:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790560582; cv=none; b=mvopIjtg/ABNYuf5dmZk4Iw1lwaCPekSm0kyn7/s4I8fT6R+/t220gDqC3/HviiNHaBof6Rjowe0LXppiMGWKh9PNKub9O0kh2weWP5qvj/TkJS5UjIUbVl2FMkbuH+ZBi+nQ6yfjlZnnhuzeKbCI9YvNUGXMyUyxXQijDORcoY=
+	t=1790561224; cv=none; b=HcDQUBzFG3DdYfFG0ViH/Es+aD75mwYEkjt6OtjNNivvuf4q869xAmz1pIVxwfJaXlo+56hvrMm0kvS+hs34GNYqJffkuo9mhF5a+DZRNQybNG6bQaQVTVMD01t69M8XTkoE01glP2raoTt20am40dtmO5bt2vBXxqEiA5P7iEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790560582; c=relaxed/simple;
-	bh=1opog5b4nL/1TMqDnfOk+LIeXsm62gAgFpFnjIvA+nI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BVoU51U8uvYWC7Wbwm4l/6gOQO0cz75G6ATZtQJ/rpDsC0WQWavWzByGaGVowr6Tfmbxb+4otuPZ8fba7eG8+esCztW/56nyhfUmCGkzWtxFHmnrcDwrpNYLphNFbwksFwH5qXhMEmeXOOH04g2WwhGb3N+mqlYQvome5wqAPgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b08eEc5/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790561224; c=relaxed/simple;
+	bh=XUsXFTxheSAFdTW8aK0D0SPzfyf0t3peqPWWVm/0jkA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GROi/KaSIfIJbwSkfcd7A2mjIi1lVfYuvztnIwr9LID6PfeUWn0H+Xo89bu2cAyH0zeffjfiOo23VpqM2W5TCzhbBTM+QOWg1YNtsLoYRbYaTybhxoi6IjWYiaOrvJx5jTTesm9SPxfVLffy31EPAPzbluBPjhaMJ0uIMQSPGbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UVSxc0p4; arc=none smtp.client-ip=74.125.227.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b08eEc5/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DC561F000FF;
-	Mon, 28 Sep 2026 01:56:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790560581;
-	bh=s7veClUan6GojRS671GF1v6fbPbyqagKvEo/cBScepY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b08eEc5/ICvihqIekPvSIQkPPt5qgiHQvYUFQGIX0FUm1ehV1TcTfHinYiKZ9hXyJ
-	 DDI/M1apztYg5UOFivlGD/GCtFQYSeJeTzP0J2aymWuKZcTrAVBPzCbHd37xJhbtIG
-	 TiujBnCSHMosaXc3IDA8o8xZqaSgzbZo1c05HfKAfHBDQyGPT+LVW/P8PcV0zRTaG4
-	 XtFz3agWWHXeQu/ScvNZk1IQPgtxMgFpND2YNTy8lrrgnhRSlSZKPZfmSrehvi7Ogi
-	 w5sO6uVu6zGGcFh4hMjBmPqrh0C8nKpPIWkX59OVTK4g7DvRWvb+uCMDFI+dy3ej+2
-	 TXj0N/bxhKxHQ==
-Date: Sun, 27 Sep 2026 20:56:17 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Yu Zhang <yu.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UVSxc0p4"
+Received: by mail-vs2-f39.google.com with SMTP id 71dfb90a1353d-5cd13e9ec34so911600e0c.3
+        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 19:07:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790561222; x=1791166022; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8qMGexpSEkGHJZ/D2Lbg3IHJlRXuYl7WSvOPqKWER44=;
+        b=UVSxc0p4Ozwx2tujQg10gc5rrih0jjWnkx5eywzXnqRagza94MKAH2byryMb7NErYa
+         3HFKExzw9SD9YQphP+A3fvATrlTsryMh0Bad7agZxfz/7b5nf2CMignQ6sDK1U/RMHAl
+         Ml4Wv66J5ePwpWjYt3Hk/FR9q4/Rs/QiUEYJDGBYi77RJUAyii8BEtJrzANkVaqAvj9E
+         HiB/4ZwT7tMEdq+kq0oLgQkw1djk9wXZ9H0iR9kdWOVn+t0yTU/QTJlJ2E8oaGMEnbQJ
+         NnzuYuPUGIba/FySnXTE7rpCfoYSWqwdyoA74iYwcq6STPOGy+bWG7m4QDLZAtMHREAQ
+         jj/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790561222; x=1791166022;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8qMGexpSEkGHJZ/D2Lbg3IHJlRXuYl7WSvOPqKWER44=;
+        b=HQJtzqeBzWc8yDeYuQFb/tetn+UuhpkIqCw8NqyDVKs4k1ZrvhnslH+WYYzLJJPf/d
+         YuvU4abMRgkXdMc8uB+XZeIQjCy8N+qUdOeFt6E/D34XCKRcSxykNeLbzVrviA2TBRBi
+         V5jLFBRzY1iJJLdmIj9DKvTBoS8UJJfdSKtv733USA020uIOw8iqCV12L3Yoreny4D22
+         llmrSBex7eigXM7cxVZXLWlxMQRZ3s0SHMojGFSdeZUDO/uEM6/9QvhSL9kiQCxttPjN
+         fTtvH/R4uZlQSYveQU0QjJw7pfh5RfmeHJ/4TjsrW8xKM/ZGmI5TvLTrq/mWnsWvzn82
+         J6sw==
+X-Forwarded-Encrypted: i=1; AKwUvBz0qhom7F0MUUQljTXoycuRwwdR+/HUd5lfvxz0gyCOmSGgP9mXYVhTBTq8T50xBu9viPcUogeJ6EX9@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPHPOY99YKDl72F4tX7M7SrdztC/xhWcR0fefbpKoAMwcVPjRF
+	bAvQdHzk5z8YPFba/WXi1OlLeKCxox4aHC6ud3eWJFNu1YFWFYWSeVmv
+X-Gm-Gg: AYBFou2d4DR+e/+KxWaYm8+Z+yAkrJHnFBf6M0IeiQz+C849q/oLVNG9DDGu7q8tg2L
+	RwoO0mQ40edTEzxv7ETVd8+wPJGKIx1sqVs6RvpF+BpKIFdyrTLs/IPKVWDPT4ERhFI6OtU4cKs
+	c3BsLgsmtv/52xGe3QoetDOjFY55AOXXBjCGtBBbIMGiRFn5vEmMbREAk/4o+viQXsbZRAL4ADE
+	vkhNzNc9mAbgpqxtiyBaBGkjK5xDVbrtIUEwuA288hgZ80t06bQszZvqMZyuRDfR14D/DHD0x2S
+	FZ8i8BzvyjbEdm/L1d951Ly0r+UNg4ma/L03HPJurmSyeQT+JXgLxds8iWpar7Mah0yVYCb4qxh
+	J/Od2eCP6h5+aVI3QCz+dlOkoT9X3C0JNRx2BFhnYbLvFQ52rVzlISVBK9liINtLbU+vrHEREuA
+	cOu9GylneW9YrzHlM7/FFBZrxMIJX5du8Zt1R+173KLbQ5oX2rIRQSBGa6ul8xw71XdQAh4WJVd
+	irQJGswAp/TliBmmo5PuZp/K83dC2yTbavns0gLoImKOsT0soD77VDpHUnY9RLB1VRMFMM5Bkoa
+	EmfuSts4CoH7Q/b6mcE3GV8=
+X-Received: by 2002:a05:6122:1d47:b0:5cf:1982:abc0 with SMTP id 71dfb90a1353d-5cf1982ad6amr837911e0c.11.1790561221818;
+        Sun, 27 Sep 2026 19:07:01 -0700 (PDT)
+Received: from fedora.tail004876.ts.net (modemcable164.224-80-70.mc.videotron.ca. [70.80.224.164])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde6b43916sm7597363e0c.18.2026.09.27.19.07.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 27 Sep 2026 19:07:01 -0700 (PDT)
+Sender: Arthur Girard <arthgira@gmail.com>
+From: arthgirard <mailarthurgirard@gmail.com>
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] arm64: dts: qcom: nord: Add PCIe and WLAN support
-Message-ID: <arnJDVmtFk3JoT87@zenbook>
-References: <20260915015632.283642-1-shengchao.guo@oss.qualcomm.com>
+Subject: Re: [PATCH v7 3/3] media: i2c: og0ve1b: Add support for OmniVision OG0VA1B
+Date: Sun, 27 Sep 2026 22:03:55 -0400
+Message-ID: <20260928020355.86012-1-mailarthurgirard@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260915-og0va1b-v7-3-3a4b6d7360ec@oss.qualcomm.com>
+References: <20260915-og0va1b-v7-0-3a4b6d7360ec@oss.qualcomm.com> <20260915-og0va1b-v7-3-3a4b6d7360ec@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915015632.283642-1-shengchao.guo@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 09:56:27AM +0800, Shawn Guo wrote:
-> This series enables PCIe on the Qualcomm Nord SoC and brings up the WLAN
-> modules on the two reference boards.
-> 
-> Nord has four PCIe controllers fed by a single quadfurcated Gen5 QMP
-> multi-PHY.  The link topology (x16, x8+x8, x8+x4+x4 or x8+x4+x2+x2) is
-> selected by firmware through a TCSR register that the PHY driver reads at
-> probe time, so the DT only describes the PHY ports and hands the driver
-> the TCSR handle.  Patch 1 adds the PHY, the four controllers and the PCIe
-> SMMU; patches 2 and 3 enable them on the IQ10 Robotics Reference Design
-> and the Ride Embedded board respectively, along with the per-port PERST#
-> and WAKE# lines.
-> 
-> Patches 4 and 5 add the WCN7850 WLAN module sitting on PCIe2 on both
-> boards.  The two boards power the module differently: the Ride Embedded
-> connectivity adapter card derives the core rails from the module DBUs
-> gated by PWR_CORE and PWR_CTRL1, whereas the RRD generates them with
-> discrete on-board bucks behind a single core power enable.  Both are
-> described as they are wired.
-> 
-> This depends on the Nord Gen5x16 multi-PHY driver support [1], without
-> which the PHY does not probe.
-> 
-> Dependencies:
-> - PCIe and PHY: https://lore.kernel.org/all/20260909-nord-v3-0-b0a82721c547@oss.qualcomm.com/
+From: Arthur Girard <mailarthurgirard@gmail.com>
 
-This doesn't look like it will be merged, please retest and resubmit
-once the dependencies has been accepted.
+Hi Wenmeng,
+
+On Tue, Sep 15, 2026 at 02:54:14PM +0800, Wenmeng Liu wrote:
+> Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
+
+The OG0VA1B is also the IR sensor on some x86 laptops with Intel IPU6.
+I tried this series on an HP Spectre x360 14-eu0xxx (Meteor Lake),
+where the sensor is ACPI device OVTI00AB: 1 lane, 19.2 MHz clock, same
+as your og0va1b_data. On top of v7 applied to 7.2.7 it needed three
+small things to work:
+
+1. An ACPI match for OVTI00AB pointing at og0va1b_data.
+
+2. An ipu-bridge entry, IPU_SENSOR_CONFIG("OVTI00AB", 1, 480000000),
+   so the IPU6 creates the graph endpoint.
+
+3. -EPROBE_DEFER instead of -EINVAL in og0ve1b_check_hwcfg() when
+   fwnode_graph_get_next_endpoint() returns NULL. The driver can probe
+   before ipu-bridge has created the endpoint, and on one boot out of a
+   handful it lost that race and failed for good.
+
+With those, the 640x480 Y10 mode streams fine through the IPU6 ISYS and
+the images look right. I've been using it for face authentication.
+
+None of this is needed for your DT use case, so I don't want to hold the
+series up. I can send the three as follow-up patches once it's merged,
+unless you'd rather fold the ACPI match and the deferral into v8.
 
 Thanks,
-Bjorn
-
-> - DTS prerequisite: https://lore.kernel.org/all/20260904081619.593602-1-shengchao.guo@oss.qualcomm.com/
-> 
-> Changes for v2:
-> - Add missing leading zero for pcie_smmu reg property
-> - Link to v1: https://lore.kernel.org/all/20260914071944.164217-1-shengchao.guo@oss.qualcomm.com/
-> 
-> Krishna Chaitanya Chundru (3):
->   arm64: dts: qcom: nord: Add PCIe PHY and controller nodes
->   arm64: dts: qcom: nord-rrd: Enable PCIe controllers and PHY
->   arm64: dts: qcom: nord-ride-embedded: Enable PCIe controllers and PHY
-> 
-> Shawn Guo (1):
->   arm64: dts: qcom: nord-rrd: Add WCN7850 WLAN support
-> 
-> Yu Zhang(Yuriy) (1):
->   arm64: dts: qcom: nord-ride-embedded: Add WCN7850 WLAN support
-> 
->  arch/arm64/boot/dts/qcom/nord-embedded.dtsi   | 926 +++++++++++++++++-
->  .../boot/dts/qcom/nord-ride-embedded.dts      | 151 +++
->  arch/arm64/boot/dts/qcom/nord-rrd.dts         | 158 +++
->  arch/arm64/boot/dts/qcom/nord.dtsi            | 297 ++++++
->  4 files changed, 1528 insertions(+), 4 deletions(-)
-> 
-> -- 
-> 2.43.0
-> 
+Arthur
