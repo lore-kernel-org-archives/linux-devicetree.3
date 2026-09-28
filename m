@@ -1,102 +1,90 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E39B43DEA2
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:09:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39BFC4195A1;
+	Mon, 28 Sep 2026 13:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600997; cv=none; b=riOZjskXwpYTdMJaatmUOqBwaNnOBJMgn7yaPGl1OpmWN4VxbiMEIXsMTC1humI5kG99z3DvumBo8XEHPrB2r1+mPSsT9URZEbXbZv9ak7nFKcf8vJQlILUv+OsBSR1F/o06kl9yPDx+uC5f1XaqPfvqFETzdbdGNEMtIA390R0=
+	t=1790601131; cv=none; b=i9WGt3t44QGPJ5hE5FuQtcoPyqbVw/FyBA+Yb6UrTYtXzqJ3cJZbfvlpy+BLdq7UE88S3vy3BirOJonwuYZMElxpj21C2NmSDOU+eLEG06obMOeR7lYy4WrubZ8AsBXYig9v4VCfpdHVsfE7RWUFic6Ta/EOM3PePO7i0FZCacc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600997; c=relaxed/simple;
-	bh=MNgEkF9rzvNLwkhHa+USMkamAutraVbddo1NEhjIddg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qm7+WqwuenU5HWyFAHcKLI3DjyiySp0ix9q72HMEoyL2fzZuwz8S658wj/y2qV8vV0KuYx7ihUZHVY+/CtnldcXqe4fSFJJIGN3qvnaHNBeIIf/mwjGA/kjSWt3FmyI8s1xt5FL1CDSgaanaBsXMoUH/6S2jwoETHHV/W+1aiEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c3b639adbcso2848324b6e.1
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 06:09:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790600995; x=1791205795;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2wjW2JTwOVXb3h1ozyQBNpHWe/T9o537b+crN9rr4kg=;
-        b=PAhq4DV+mB0Su57D6uJ23GQ80FTwnaadGABVL+i5aH/EvD7OwMBea0JVXwLpb60Cnq
-         ikJjgf8daNMTwsZOtyWc+81iqEwEcCIx8ej+ni3H7n0Dn81kq7/yHS4uU6vKrZGMS4QI
-         paZa8picLgzxFUzXh01q1Qe1elmC+ZvmUkjA5Yr1LhaimqPM8hcs7ISY5yRSYatoiXPS
-         O1LUN4H4tX3pSy6gDoFpjkEztguB+garAdINJ7c1RF3d5iaHWQVUVQTCbTPPPZDPItFf
-         ZXsRnT99tVCuS6HaHGFnewZwDkSiUUDsK2eEURF8VM9fTw4csXSpOQR99KVqsDR11Pue
-         Oxxw==
-X-Forwarded-Encrypted: i=1; AKwUvBzDTPmX79ftsseKZUil0FKl48ue8/FKZ8v+nfDSjZgCI+BwqS8zYwu3UHQ+lBDLYZ0hK3sPyD1i9T0D@vger.kernel.org
-X-Gm-Message-State: AFuF++lto61cxbmVgriS/3zuszMGqyuK0xiDZz5cfOcNrKkiFDcsjbZw
-	9SKBlas4WvvNLXQc7zvz+QwJM03Ata3cl+FPyYtF9+nfU6j+V92Dnhae6ruvdhV+
-X-Gm-Gg: AYBFou2vhhD/ECFzdnTzxqw32LFUNsQ9QtVxDlNAaQU2XYzb81DfKGmjDqa1aGQlkdt
-	fPeAbEgSfYIcIDlpn5r50nwancOxodOQqQ3PLXfVDnun+ysPa39J1iJcHVg+QfY2WwTuSqg1tUA
-	HBIZG1HoWF+VfbmKwt0QdQ8dOLnbUdFBt+WGVewWV18cOZZ8v2N3gZv2EpblO6TTj3Cu5NSDM61
-	bKeSTgawTVAUONpSw60c1rZwYK+1S3Ji1FcRA7R9Dr7gOE+VfrOb10DAD00Swz7W25d1u+h0Yxx
-	l6eCY8cZCWenM3Jw8xSud8SQUDZu3PY1HpIoJIK0FA7nbL/Sq1P3s92gz9xJUCi9m18TQpgAxaJ
-	hChrpLZxsQTA3CwUvzesYH3co5qW93Cbcrlcsi6ZB9o2JSj7ny3hHAh/Om3jyeO6dkITj9yBQjg
-	Yt2yhSuT67+GMqiNLUAU/cHDtso3kC6S+i7RJrWZPuewqB7mpCzYIMgejNqvbe0bROcyYGwgIgz
-	GRUgaOSy1BtC2ybL/gFDKn85EeSOHPdMmJofQ==
-X-Received: by 2002:a05:6102:2910:b0:7b3:54c7:7ce4 with SMTP id ada2fe7eead31-7b354d6cbb7mr2049452137.35.1790600546215;
-        Mon, 28 Sep 2026 06:02:26 -0700 (PDT)
-Received: from mail-ua2-f30.google.com (mail-ua2-f30.google.com. [74.125.226.222])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9889b1d413asm6709414241.10.2026.09.28.06.02.23
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 06:02:24 -0700 (PDT)
-Received: by mail-ua2-f30.google.com with SMTP id a1e0cc1a2514c-97e7c7b4ed1so1791260241.1
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 06:02:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByB/QLz0JQjBXgUjAp/F0nuACWOaaXQIKUBOiMe6Rxu3vu0megp/3A3Q+UDdxtFbIe9VHd8sEUjLoN3@vger.kernel.org
-X-Received: by 2002:a05:6102:3c8e:b0:7a7:c789:888 with SMTP id
- ada2fe7eead31-7af1c799ab1mr4246322137.5.1790600543175; Mon, 28 Sep 2026
- 06:02:23 -0700 (PDT)
+	s=arc-20240116; t=1790601131; c=relaxed/simple;
+	bh=LvKznVPaxr7Qn6GS8cQmli/wvuUZXsOoJbTtuEC/ZYg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HCqyVL7fO9pVMjcVuelLa3wQo13CeGt84Z0ACiS6eIYSHd9e1F4Fvm1/5tV4nw5KyW+H2eup5n5OkGBZQAo8JYcyG5juLd/lcAcQxr1wvOIIaDEbUHy+NnNT9+cfQ6NMB3uJDa0zU5Js0LqDjaSrkj+CqNwM4R6HTqJnnEl1qsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+4dQkcq; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+4dQkcq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623771F000FF;
+	Mon, 28 Sep 2026 13:12:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790601129;
+	bh=TDGLKvGEvXSVKZZb1PczPZS+/UB+0XMqQgxJOcgkmkM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E+4dQkcq+qNatMvKQ3LXKXWIjfOkyAnuFdlxR4dPjrMQGNOHdXpIDTrO68x6RcSd7
+	 V6fCYJBoHBblV1gYQxjPYG44oHkYNXSak1lpBkSobiVoG1X/dmVhE4m8e9T2RxEKwI
+	 GwwrhPnwfxvt73AHOM+WXEabMMdvVS0EQPO2EU33dohev2Fi/QrLOzVwvEduAIvFtx
+	 fey9SXlRPRjCOCh7n5V589PRARQ2ovQ9ET0xmBt1gCIHqNG9l29pBIOC/5ZApQT/j6
+	 XAzTwfpacdjCdrJ3ej22aJOq9DN3K3cjwziyk744WfWi7jskYOOO4t3smyQOR7hVYi
+	 9u5HiYcmdMdVA==
+Date: Mon, 28 Sep 2026 08:12:08 -0500
+From: Rob Herring <robh@kernel.org>
+To: Alexander Koch <mail@alexanderkoch.net>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Khanh Le <khanh.le.xr@renesas.com>, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] SoC: dt-bindings: asahi-kasei,ak4619: Add PDN GPIO
+ support
+Message-ID: <20260928131208.GA3834499-robh@kernel.org>
+References: <20260928114019.1441752-1-mail@alexanderkoch.net>
+ <20260928114019.1441752-3-mail@alexanderkoch.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903205153.283553-1-marek.vasut+renesas@mailbox.org> <20260903205153.283553-6-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260903205153.283553-6-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 28 Sep 2026 15:02:11 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUFm--o+J_dCEkQEJOYPCPhemwfujNm+j0veMPYn-g53Q@mail.gmail.com>
-X-Gm-Features: AclHuK9PxP9o2Iptr30yrzx9bl3oQSb-6qLfwXQyJV5JcRh9RYQN0Hhi1zaXUYw
-Message-ID: <CAMuHMdUFm--o+J_dCEkQEJOYPCPhemwfujNm+j0veMPYn-g53Q@mail.gmail.com>
-Subject: Re: [PATCH 6/6] arm64: dts: renesas: r8a779h0: Add PCIe
- Application/Local register reset
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Koichiro Den <den@valinux.co.jp>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928114019.1441752-3-mail@alexanderkoch.net>
 
-On Thu, 3 Sept 2026 at 22:52, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> Renesas R-Car V4M documentation R19UH0217EJ0110 Rev.1.10 , Jun. 30, 2026
-> attachment R-CarV4M_UM_009_SRCRn_FSRCHKRAn_FSRCHKRBn_r1p10.xlsx row 411
-> describes PCIEC ch0 Application/Local register reset. Add the reset into
-> both RC and EP DT nodes of PCIe controller.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On Mon, Sep 28, 2026 at 01:40:19PM +0200, Alexander Koch wrote:
+> Add documentation for optional property that enables operation of the
+> 'PDN' pin during initialization:
+> 
+>     codec@10 {
+>         compatible = "asahi-kasei,ak4619";
+>         reg = <0x10>;
+>         pdn-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;  // <--
+>         #sound-dai-cells = <0>;
+>     };
+> 
+> Signed-off-by: Alexander Koch <mail@alexanderkoch.net>
+> ---
+>  .../devicetree/bindings/sound/asahi-kasei,ak4619.yaml     | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
+> index d412531ef9a2..3c7754351e8a 100644
+> --- a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
+> +++ b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
+> @@ -34,6 +34,12 @@ properties:
+>      $ref: audio-graph-port.yaml#
+>      unevaluatedProperties: false
+>  
+> +  pdn-gpios:
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+powerdown-gpios is a standard name for this function.
 
-Gr{oetje,eeting}s,
+> +    maxItems: 1
+> +    description:
+> +      GPIO controlling the AK4619 PDN input pin. Used during driver
+> +      probing to power up the codec.
 
-                        Geert
+When a driver does something is not relevant. Would be useful to state 
+the active (meaning powered down state based on the naming) state.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Rob
