@@ -1,126 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DD049D596;
-	Mon, 28 Sep 2026 11:02:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC44471D1B;
+	Mon, 28 Sep 2026 11:03:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593334; cv=none; b=Bcd6sFaEYOujQhVbQ8eDugZq3obgTxjqEf2YraKdUPnnJHF2LlShVXaYRlgfR9dJQinI5iQZcWTBIVryLI1LNLlOTcTN3bcxaObhudVjqwcx6mzcd29VWhh/Fy/RXymCyv5oq+cmSFNRoFBqdfoVjko9L189MEab9m/oONXMtFw=
+	t=1790593404; cv=none; b=T/oHQUqgyyab1ffQozSHgppmwM7erJe5ldSxHpeMl4NSfaUV9nC2Bhjl/DjD9StDS5gK1Mlm0h2ZyDxYxfmEOess0M0vhf4EMSxzzlcqGueIQaRQIVvJsDGETxLd4QUrmHcHn2AgpDst06rIUDlEvf4JJqSUZkjfMd8Hqf9ArPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593334; c=relaxed/simple;
-	bh=NGisOX6xzRlIMDWd73gZ/6yVhZXRtE9zwAVYv+XhHbo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ORNs3saReDcRQbY7Ds4Zeu+GiCprpLn+av/O/ywiRJlFGubNZb/2al2kkheXb32eu2SI5e6YGRx//ppWkcbv6WNcIchHHpxjlemgHJNpU/LNAHqNjOz51k5a/vNRr6uWoIhscvkoB3TcnViFFkWgcMKTqWGVE+kKG658S2b5+a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlrsSpvO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790593404; c=relaxed/simple;
+	bh=NktPcNV0POf9Mbw4a0iog9k3nJIBEDwow3KDiOcY3IE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HNNPgO5SpSUC2z6hVSI0FRo59XPBXKEUHfqkS8NmeVAB/g7V6blhYm21CYR+w4ywWLaeudTa5MfQDz9RvGdJUZN0Q+uUJJgH83mTQLGn6ObUrehAYCTRYVZnqH0Ip9KMYdhxw2NVZEkk2iDMc0FsdtTKud6q51j6CTenbdDm0Fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SG55Bru0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlrsSpvO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F250D1F000FF;
-	Mon, 28 Sep 2026 11:02:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SG55Bru0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16D721F000FF;
+	Mon, 28 Sep 2026 11:03:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790593332;
-	bh=bAjb4nAXPR9/i3eiS24x+8vRetpGX2MA10w/UyvWNyA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QlrsSpvOI4SMJ6JD2IAaBKWwcUNmIuETBE+3QZ3occy7QhrVeBgXKG/n6V+oM4102
-	 FNAOHP5q6IxYSKpFioZEM/ivKwA13o8vlf4eeCYKm8sYejjvfj12YYH+94GD+pOB4X
-	 aWi9own6vBuIKF159LGkwN76xrneol8U0o65wYnNY9ZgwyT1wdnVWiUrQivyFuprVQ
-	 iIAWVhipUhzm9Pb+gTxv0GY+5Au3nxHJ+bfJcVyDga22r5DsFxHAf0hu7v+1kjSfkj
-	 H51Zgsx/4vdWffNPd+sQVQZLJyQUaSYN+/twnZ0MriOtoOjfHHvfdZY194HVA8JcEq
-	 dVFP7m7oVAm6g==
-Message-ID: <ee480f01-fd84-4eda-85fb-9d5cad5f3d86@kernel.org>
-Date: Mon, 28 Sep 2026 13:02:04 +0200
+	s=k20260515; t=1790593402;
+	bh=GRWHJvrV87zg7wTj96AOWlFOZBTwq5ScjGQwkE9kXh8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SG55Bru0an6HMsHCstSC1nYa8joHK0Q+fQpmoyTiAAChgQfIPQcwNa7hJ9c76ElZj
+	 FgCSwH1n3QX9ODLvsg6/ddVH610KpnIKCCKouoFnzvI6opPVFzP37WYQ0EQX0Utohx
+	 ATxj9lj/b0ABODdvh1GZw8OPnDV0kqw/pHaTF6MuyH0C0Uxnb4/kBtpngl3OyZ2Py8
+	 YANozyrl7MmYGlJMWF13NnJoW/HYppQQ33kS/k7cMFQ0YRxxsdkLpBj7tUNZxUkPJd
+	 FSqvcvJv4SftFwwGy1ip6sGS1RrZL6gkiSb+IS89vy77bsijRlMXSpgJSl9TMY8qvF
+	 561BxhnzNAF9A==
+Date: Mon, 28 Sep 2026 12:03:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Amit Kucheria <amit.kucheria@linaro.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+	James Schulman <james.schulman@cirrus.com>, asahi@lists.linux.dev,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.de>,
+	linux-mediatek@lists.infradead.org,
+	Hector Martin <marcan@marcan.st>,
+	Sasha Finkelstein <k@chaosmail.tech>
+Subject: Re: [PATCH 16/28] ASoC: apple: Add macaudio machine driver
+Message-ID: <0ae94fbe-cd41-4d49-b073-e65ab8eff724@sirena.org.uk>
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+ <20260920-macaudio-v1-16-741cc20a74e5@gmail.com>
+ <arJMrsl45g2_bLPB@sirena.co.uk>
+ <6dv6M3LAS9mol5fvC8Ie-w@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: phy: qcom,sa8775p-dwmac-sgmii-phy: add
- Nord compatible
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
- Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-References: <20260923-nord_ethernet_serdes-v1-0-f8ac1c487882@oss.qualcomm.com>
- <20260923-nord_ethernet_serdes-v1-1-f8ac1c487882@oss.qualcomm.com>
- <20260928-gregarious-deft-boar-e776ae@quoll>
- <arpH+9ytWKFntjiz@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <arpH+9ytWKFntjiz@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="o62xNzOzXCWulXud"
+Content-Disposition: inline
+In-Reply-To: <6dv6M3LAS9mol5fvC8Ie-w@gmail.com>
+X-Cookie: All is fear in love and war.
 
-On 28/09/2026 12:56, Mohd Ayaan Anwar wrote:
-> On Mon, Sep 28, 2026 at 12:16:45PM +0200, Krzysztof Kozlowski wrote:
->> On Wed, Sep 23, 2026 at 05:34:17AM +0530, Mohd Ayaan Anwar wrote:
->>> Add the qcom,nord-dwmac-sgmii-phy compatible to the Qualcomm DWMAC
->>> SGMII PHY binding.
->>
->> Why random order? Why not enum with existing part?
-> 
-> You are right. I will group the stanalone compatibles into a single enum
-> and sort them alphabetically in v2.
-> 
->> Why not even compatible with existing device?
-> 
-> Nord uses the QMP v7 SerDes register layout, whereas sa8775p uses the
-> v5 layout. The offsets differ, so Nord cannot use
-> qcom,sa8775p-dwmac-sgmii-phy as a fallback compatible.
 
-This is useful to be mentioned in the commit msg. Commit msg does not
-have to be long. It also does not have to repeat the obvious parts.
-Usually it is enough "Add foo bar, not compatible with existing baz baz
-because of different register offsets".
+--o62xNzOzXCWulXud
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Best regards,
-Krzysztof
+On Sat, Sep 26, 2026 at 11:06:02AM +1000, James Calligeros wrote:
+> On Tuesday, 22 September 2026 7:38:54=E2=80=AFpm Australian Eastern Stand=
+ard Time Mark Brown wrote:
+
+> > > +	list_for_each_entry(kctl, &ma->card.snd_card->controls, list) {
+> > > +		if (!snd_soc_control_matches(kctl, volume_control_names[ma->cfg->a=
+mp]))
+> > > +			continue;
+
+> > This is used from the volume limit timeout work which doesn't hold the
+> > controls_rwsem, userspace can add or remove user controls which would
+> > change the list so the work needs to lock the controls list.
+
+> Would it be sufficient to scoped_guard the controls_rwsem wherever we
+> use this pattern?
+
+I think so, but I didn't properly check.
+
+> > > +static int macaudio_dpcm_hw_params(struct snd_pcm_substream *substre=
+am,
+> > > +				   struct snd_pcm_hw_params *params)
+> > > +{
+> > > +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_substream_to_rtd(substr=
+eam);
+> > > +	struct macaudio_snd_data *ma =3D snd_soc_card_get_drvdata(rtd->card=
+);
+> > > +	struct macaudio_link_props *props =3D &ma->link_props[rtd->dai_link=
+->id];
+> > > +	struct snd_soc_dai *cpu_dai =3D snd_soc_rtd_to_cpu(rtd, 0);
+> > > +	struct snd_interval *rate =3D hw_param_interval(params,
+> > > +						      SNDRV_PCM_HW_PARAM_RATE);
+> > > +	int bclk_ratio =3D macaudio_get_runtime_bclk_ratio(substream);
+> > > +	int i;
+> > > +
+> > > +	if (props->is_sense) {
+> > > +		rate->min =3D rate->max =3D cpu_dai->symmetric_rate;
+> > > +		return 0;
+> > > +	}
+
+> > It feels like this DAI ought to have separate ops...  Also, for the
+> > sense link will we definitely already have a rate set up?
+
+> AIUI, the cpu rate should always be set up by the time we hit
+> this path as it is only taken when setting up the VISENSE FE (after the
+> playback stuff is already set up).
+
+Is that something we actually enforce or is that just a thing a sensible
+userspace should do?  I can see something racing.
+
+--o62xNzOzXCWulXud
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq6SXAACgkQJNaLcl1U
+h9DIuAf+MhyW6NwNfZ3Bqa+m4pMvFpTPdEbJLiFpeSW5EqKWKUoQ0S0CJTszd3Bq
+zw8RLCiIUkMfvzpeQ6lgIYkpLAiHkB3jWyyD4wN+ienHL9xysW8MIjWGcGChA6r1
+SroQD2iFq4g3Ek51Y7AqqFxZ7Y/SU0YhHI0Op2PXvtXed8j+IQCJo6ICEtkKz3Xz
+o7dBOqx9xzCYzHpJLN35Q8D3V8TytTyTaVH6N4VWzj+LUo9OrrEOiDk3J/inWj39
+PX0uD3e1ZY5boTMxOWYdAuKWUJ3GrbMN+RpPivdMSNLqB6ITPUafOfUIxq+DYJSc
+5iIYKe247exzaqTaiKGmFS5J5o2eTA==
+=oNVi
+-----END PGP SIGNATURE-----
+
+--o62xNzOzXCWulXud--
