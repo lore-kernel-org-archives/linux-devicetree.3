@@ -1,47 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DE9347BC6;
-	Mon, 28 Sep 2026 10:53:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8416136A009;
+	Mon, 28 Sep 2026 10:54:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790592800; cv=none; b=uPjKIUHwKmBBGIiwjolli4UM+oB92m1qt9D3fxjm4QebnHYgIFHmIqbe54GrUJVtkxeat53wxYuS5ncicIqNch3fKzhjBL4aIKysbP7cOXHXa97+5M1fUXrhiJpaCNJ6/fkjpzdy6s5JZTwc+AsTqxzXYqEqGSoAc//o02DqxqA=
+	t=1790592888; cv=none; b=Z+JygSvBKm0uQnxRwxNiU9R5LLY+H1YuETh9M+56mabwosLDgIlr7RIulfJz19i2i38ogsS60VeWbLb+1Ks7Xs/kZ50omka4XTvFfloyUDZclnc5opUj40bi8I78tnL4nNieQ6IZ+pZ+DrPNfTT1tmJ+dzmat4vcnSUOmZMGHj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790592800; c=relaxed/simple;
-	bh=lRnGRmTIK4eCxRJqWaqBj5lTEM2b3uoBnMuiP1tCOP4=;
+	s=arc-20240116; t=1790592888; c=relaxed/simple;
+	bh=ZYMdKFvyz+DZ/JYSokQybixXJqPYmWrl3XHTSgAV8m0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s28XVUqei6RX6AhtfPLOJywFqBCa/qMJKi0aoFMa3tpENjdbqKIyogPcqNqIfq+K2TCsEluA94FAR+AgtrXTR4URtAzxUweu74hA8+KLk3o3EcdlF1w4JvnA0+5DUyUBk/OtZwS6ANjMH9pL7fJ+88zuGAjAYh0vm1FuDVlsufA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=famf3kER; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=jFi0Ympb0MBRz5KrURJBf0lzZP065ETrWlAenjLkSYfArOv4jKKMeHBNQ3+s9gUXaKWSKzWgbcQd6FY9V1wCJYv6vCBH4yuffC1uSDvPaA9X4+OBl0Oeh/KLnalnh1HN03zPaicdP4sY3yK2lvEPZbsLNeolRGA7/OKqAl/rQaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SxCVS+Cj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="famf3kER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A93B1F000FF;
-	Mon, 28 Sep 2026 10:53:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SxCVS+Cj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2281F000FF;
+	Mon, 28 Sep 2026 10:54:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790592798;
-	bh=6D098QPVSwWqNBpArd/Me/az4SDZX0zwpAQXNcTfI+s=;
+	s=k20260515; t=1790592887;
+	bh=ZAk6ig5RLZAUAqcboNXsyjMddluuJwtpXS3c+6S3p8g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=famf3kER+GkxLgEogwc7UzWg6j4FmsvuKVnURgfMYXi+JENjk4lphACWxOq771lKk
-	 G1uyaoKtQeJlk8OGnpfFgyG8Iv4MdUgogcEKRMbb9eJOAkBrsxTzfTywFBgPgWL2bn
-	 I7z/DT6S7KtkixVwQQ7zJYpL1YNGnpNKriefMHgnnN11JK+ZjMA+dR6hfl5FEQulDB
-	 fGzq7fEgOm/RfvOp8rfkWQzMtv+MFn5E7ePFwESsCKzDeCvtKnaHw0TlKUCmWpbItD
-	 3duiEV1W/1cqvRRq1GBD9A04aIixYjb06cO4dwuRAi/xsLitE4AyWZbbdqFzo1Q2Mv
-	 L4+Qx6v01G7ww==
-Date: Mon, 28 Sep 2026 12:53:15 +0200
+	b=SxCVS+CjcyinQ0dQAmH/v7SKMAxFwqsky4vwkUD99gstV4sujX2B8rpOn89V3MmIn
+	 2h0vMdL/tRkWX78WMDqZuUY8dOBgEaurJPSFddV4ZBTPSubTL0f32yyn1UrsC6Gwnz
+	 9magB0KLojV3ThRpVE1SPViG5RAAZ3JbFCZa79zd8lByV1iPI4aqW1ntHHfKxCG2T/
+	 nMitGupwKr2pFkWeMiW4rOloFRfUB56n17U5ugYbyghbBlygNCfM7HlCqvVWKXhKj8
+	 7rOvi2+QWMOlnFxnT1V12Xy3ukXRMp62ZzAQvRpgAjeyZUAZ6ySwcFgoKOeTTqoMmj
+	 1fHFSsV65d7Rw==
+Date: Mon, 28 Sep 2026 12:54:43 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
-	Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Imran Shaik <imran.shaik@oss.qualcomm.com>, 
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: clock: qcom: document the Nord DPRX
- Clock Controller
-Message-ID: <20260928-vanilla-rottweiler-of-might-94ea7b@quoll>
-References: <20260924-nords_dprx-v2-0-fa4364e087ef@oss.qualcomm.com>
- <20260924-nords_dprx-v2-2-fa4364e087ef@oss.qualcomm.com>
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v1 10/11] dt-bindings: arm: sunxi: add PocketBook Verse
+Message-ID: <20260928-nocturnal-robust-bird-a42797@quoll>
+References: <20260923201701.43391-1-pmazzini@gmail.com>
+ <20260923201701.43391-10-pmazzini@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,29 +46,17 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260924-nords_dprx-v2-2-fa4364e087ef@oss.qualcomm.com>
+In-Reply-To: <20260923201701.43391-10-pmazzini@gmail.com>
 
-On Thu, Sep 24, 2026 at 12:51:32AM +0530, Taniya Das wrote:
-> +
-> +  clocks:
-> +    items:
-> +      - description: XO clock source
-> +      - description: DPRX CFG AHB clock from NWGCC
-> +      - description: Sleep clock source
-> +
-> +  power-domains:
-> +    description:
-> +      MMCX power domain.
-> +    maxItems: 1
+On Wed, Sep 23, 2026 at 09:17:00PM +0100, Pablo Mazzini wrote:
+> A 6" e-book reader built around the Allwinner B288.
+> 
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 
-Preferred is the simpler:
-
-  items:
-    - description: MMCX power domain
-
-but no need to resend just for that.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
