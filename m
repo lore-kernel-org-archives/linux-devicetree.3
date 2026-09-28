@@ -1,25 +1,38 @@
-Received: from out28-3.mail.aliyun.com (out28-3.mail.aliyun.com [115.124.28.3])
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906EA2DFA3A;
-	Mon, 28 Sep 2026 01:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D72034B43F
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 01:50:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790559965; cv=none; b=D1zCnn/IfofePCXDQa3NoOWBly4jhrXftb8CK8V4BSL2n69uCL7R231MzE3rFup0GpXjzpkQZqXvRxLHJOetIKFjMAG/urs1QGVLSFhRw+bFFMZIPLqN1IFGvctoeOySUCXfW30sDmMNhTEMI14U3ItDAS9d0rRwGX7xPAC9ghY=
+	t=1790560235; cv=none; b=D1lMxwdp0+4QjRGTQGMQkbw6Va2POgk4LY0ETEFNOuKBTGFkjDgHWM8LQDIdH5Po1YHCRuKvcerZIs+TGXmJ2/G0ldzl2XBT6QRZNY8uUm2wBTXKP1psnI9/LWS2SKixKwhLeGnyWC2b8VoWtV4LthrdlAr6KNCjFUuv4twvjqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790559965; c=relaxed/simple;
-	bh=NS1dt2/hQB+uY5t432nIVrcwt7/uQEymHMdpZRi1cms=;
+	s=arc-20240116; t=1790560235; c=relaxed/simple;
+	bh=oZZwyOyrJxErmQQ62VuMBhn5L3HeIbVfJIzCO+15uY0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lrq5Gq+O7SBHFb9FpFI9q+MVjjkqe5SBIwRgUvxlmCCUqeNw7zOqRwHYK8z5kuq8SzZ/xv4B0qXqCTxdy1EAqQQ3ZLsueWK1C7NbD/XlrdFvDAvlhBMUqjhXZv/vd3vwSAVgAIiF3U8pt/ESVCa9RY6A9pmzsVhZAI9o4yEym1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07992189|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0158915-0.00141759-0.982691;FP=16926155355596582004|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037021217;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=20;RT=20;SR=0;TI=SMTPD_---.jPa7AAg_1790559952;
-Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jPa7AAg_1790559952 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 28 Sep 2026 09:45:53 +0800
-Message-ID: <415c6c1c-f59e-41c7-9045-22f20408a7f2@motor-comm.com>
-Date: Mon, 28 Sep 2026 09:45:51 +0800
+	 In-Reply-To:Content-Type; b=Uwt61dbColM4FeemHDdzRFMnxsqlYB3UQW1FO37QWWGHogE8ctjJoVDGvtUuMG+JkSCwP4T53yhsb46H+w/MXogg5pRnf0Fk7xKXwn0NHUUes8hsEFmQjzH+YyOyYrUATuiPPDP0SPEBVOPnkaT/SxBcS5niHXcIE7QVmHKk+4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=bvu49JN2; arc=none smtp.client-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="bvu49JN2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1790560209;
+	bh=vs9OjGFUvLR2IcXfvHPjZEICzzQ8tCo3ejxMCSfdXoc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=bvu49JN2VyNc2wgYYfhsOrtbV2s0FF2TU5SbF/Z8k3u0X7G3iAJJAwuT3wFB2wY4P
+	 v2rjnUhUsAw41NAkUqu1v+dJN7X7B5zt9xZUdGjxIRcpx3JvIp+7ys4+9x7BZv1P9b
+	 NQMt7GvrDmO7u5XmReldizw/fkyu1KNTi5zDxzr8=
+X-QQ-mid: esmtpsz20t1790560204tddc7f036
+X-QQ-Originating-IP: 4dDotzUvSNuH6Gr4842sD3Njqis3g6lY9SfMnLQVM5Y=
+Received: from [192.168.1.100] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 28 Sep 2026 09:50:02 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8208871862891749513
+Message-ID: <3D524FD981B0F437+563fb2cf-7ac7-4f13-825c-e2d375c5f3e1@linux.spacemit.com>
+Date: Mon, 28 Sep 2026 09:50:02 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -27,50 +40,117 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v21 1/3] dt-bindings: net: Document Motorcomm
- YT8824 PHY package
-To: Andrew Lunn <andrew@lunn.ch>, Conor Dooley <conor@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
- Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com, jie.han@motor-comm.com
-References: <20260924075048.4060414-1-kyle.switch@motor-comm.com>
- <20260924075048.4060414-2-kyle.switch@motor-comm.com>
- <20260924-vowed-roulette-abda42cec444@spud>
- <c78999ec-82c5-4719-9358-5dbded43ccdf@lunn.ch>
+Subject: Re: [PATCH v3 6/8] riscv: dts: spacemit: enable USB2.0 controllers on
+ BananaPi F3
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+References: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
+ <20260927-b4-spacemit-k1-usb2-v3-6-ce7095896039@linux.spacemit.com>
+ <20260927114933.ABD2B1F000FF@smtp.kernel.org>
 Content-Language: en-US
-From: Kyle Switch <kyle.switch@motor-comm.com>
-In-Reply-To: <c78999ec-82c5-4719-9358-5dbded43ccdf@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+In-Reply-To: <20260927114933.ABD2B1F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: Mdc3TkmnJyI/83LEBo2Rq5WIYUn1Wd06xO4LAf3F+iTcJGzbe9Bogh36
+	qO2NSI/ENqZu3dFSQdWpTik2+kcV7WdtgQAXA4v6PLEWpT8glHP2OcavVA5PpLh1ySsQyaS
+	4dwCeNw3Amwxf7ZASYm2oI90EDy9o2TBi0Ht4x0yzvAwMcR2QfzYozsD9RMUisUgtT7Djl+
+	oem7Cbzj9hgl6EKZyjrfQPwGOznmzR/8USHdHUGTuGiaxiH8UZi+e9E5Wdrz8TLqvSqkfrM
+	oH7OAlBtS00i+5VS5gGDKcrMwB44LM5KOm+bQqo/YcCIUf5uJBpYLWnLmbMTc3BfeO9YSiC
+	Yi5Of0187Yks+yVoNjNgjwp15ialXtvY78lnBPBCA5Xw+Qq2SouTSQbVlshOcTovoeKOrYg
+	Cjb6Qqn2jmNLn4HjpKt15ZeQyukWQl9fRqI3YjFqGSc6Wha5djLcBikBAehzS3fWHjZanVT
+	duBxkUkAyYerhUK8sMYxZFW6U4Avra6l3XITCloOPkWo+eeHEKIBDgeIkZt8fkxbDG+g1c6
+	8buT4fiwy1/CifI4eVzPVF761Hs2MozCBfmXelWpFFBiUwugHXWkeyEQPhIR2S+s7NQAvo7
+	eGLp1IenSEPAYjKLWfjUjkiumwNNaJefgltUvzUXkmWkYDrJZnnhrKq6biM6LSZQN9B1oKk
+	gBjMArIzdKtkQvAUEnn2IxmV1KgbBFd1w1C9N4ZQZ4atm6HvynIigA3VllQ7SoX1hMNR2RQ
+	OgX5GGfZ6tJ9hTYuPrewjsBr8Whse12L3/dXqtmdHReLyWzc5ScCE123ZYvpyko5xTyoYYx
+	m9QnhQ2Y+I0209pkcnAmlxoK/u5yqXeTTiGqXzH0s6cIRF8A7Tfcc4r0dj1mlUryiv/t26E
+	WmRa09+H0QcE7WUqeJALmeZTMGPu4ussFprAaNBxpBUGiyygA6rdEUw+A2xt7YbqTr+D/6W
+	njVzG1JeqnjDiq9aiVl8cELmEKm8PoCMveKpnHLKZ1xzGRf50p8xbuy6LzKM80ojno//VhV
+	k4XTges3pz63r+39os6JePZMVTzPnrhc3zTC4y5iFHDIHemP/78oOpPTijIkY=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
+On 9/27/2026 7:49 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Low] usb: missing usb-role-switch property for standard sysfs ABI
+> - [Low] dts: board file nodes not sorted alphabetically
+> --
+> 
+> commit 44aeea968dbe19365572cdf8df737d1b44de83c9
+> Author: Junzhong Pan <panjunzhong@linux.spacemit.com>
+> 
+> riscv: dts: spacemit: enable USB2.0 controllers on BananaPi F3
+> 
+> This commit enables the usb2_0 and usb2_1 nodes on the BananaPi F3 board.
+> It intends to allow role switching via sysfs for the Type-C port and 
+> support cellular modules on the Mini PCIe slot.
+> 
+>> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+>> index 58035d886bf67..ce36250e2debd 100644
+>> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+>> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+> 
+> [ ... ]
+> 
+>> @@ -383,10 +383,26 @@ &uart0 {
+>>  	status = "okay";
+>>  };
+>>  
+>> +&usbphy0 {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usbphy1 {
+>> +	status = "okay";
+>> +};
+>> +
+>>  &usbphy2 {
+>>  	status = "okay";
+>>  };
+>>  
+>> +&usb2_0 {
+> 
+> [Severity: Low]
+> Are the device tree board file nodes sorted alphabetically here?
+> 
+> Device tree board files mandate that node references be sorted alphabetically
+> by label to prevent merge conflicts. Based on ASCII sorting, 2 (0x32) comes
+> before p (0x70), so &usb2_0 and &usb2_1 should precede the &usbphy* nodes.
+> 
 
-On 9/25/26 03:16, Andrew Lunn wrote:
->>> +$ref: ethernet-phy-package.yaml#
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - motorcomm,yt8824-package
->>> +  phy-mode:
->>> +    $ref: /schemas/types.yaml#/definitions/string
->>> +    enum: [ internal, 10g-qxgmii ]
->> This should be after ref, but also have a vendor prefix.
->> Additionally, the qcom ethernet-phy-package user also has a mode
->> property. Net folks, should this be made common?
-> phy-mode is definitely wrong, it has a different meaning, and reusing
-> it is just going to cause confusion.
->
-> qcom,package-mode does have the same meaning as what is trying to be
-> expressed here. So yes, a common, vendor independent property would
-> make sense. It maybe should be in ethernet-phy-package.
+I think it's fine the keep current order, same as dtsi.
 
-Ans: okay, In the next version, I will revert the previous
+> [Severity: Low]
+> Does this node omit the usb-role-switch property required to expose the
+> standard sysfs ABI?
+> 
+> The commit message notes that the user can switch the role in sysfs.
+> However, by omitting the usb-role-switch property, the driver defaults
+> to exposing its legacy, non-standard driver-specific sysfs attribute
+> (/sys/devices/platform/.../role) rather than registering with the
+> standard USB role switch framework (/sys/class/usb_role/).
+> 
+> Would it be better to include the usb-role-switch property so that
+> modern userspace tools can use the expected standard UAPI?
+> 
 
-         implementation and follow the qcom,package-related approach.
+Not now, the current standard role switch framework support in
+chipidea driver is not completely implemented. An extra patch series is
+needed to fix that, but that's another topic, after that, we then could
+add the attributes. Currently the sysfs attribute works fine.
 
->
-> 	Andrew
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb2_1 {
+>> +	status = "okay";
+>> +};
+>> +
+>>  &usb_dwc3 {
+>>  	dr_mode = "host";
+>>  	#address-cells = <1>;
+> 
+
