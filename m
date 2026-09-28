@@ -1,218 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96C73C7DF5;
-	Mon, 28 Sep 2026 12:57:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6ED3D6CDE;
+	Mon, 28 Sep 2026 12:58:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600262; cv=none; b=MARSccpeOWOos5G8JUR4DHz+7R1NWoIqEVPD9EVUuzPXKDRM0kJdb1pXH8y6Ie3wifOthiV8kcIy9z++z4eblmitpn4SSrFvckXzHOHnqLClGd7mMpQpr4KyhN851A3BNCnPH/OD+0kt6xka7I1CA8kQvi920liL4/L5NK9OJnA=
+	t=1790600292; cv=none; b=sT/o9qw6j7adDPpDVKeuzuNYUotXUwVROAxRQOLkLflNb2Dpsd6VMpnGyxWetIYMVnCZ5A4Rb33VfV/9s/mE5fENlHvPnxVwmtX+bWZjc2g0EvJynVyaD/qjGUXbW+uvrBwQEV4JgMiM8Y3a3L+ZbQPgZROhxI2s19+K6IharHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600262; c=relaxed/simple;
-	bh=s8BpYZHfV+Jl6Mzj13qjpN6/lBxhXRWSOLjhiMDlm0Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BIuXFMb+uWq/On29FunyAkwQlU8n1CPWTxASHJl1mBWVhqMvCxInmat2EeSrQIi4JZE+qcoHnWiC9MOOlUvFd9zhnBf8hhRJNFVRdtPLCn0Ma7CQU9vTxMI5IthPcYLHySpUNUSCnCB3q998lLyagPhk5LESOqlzVHd2GWtF16o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FjCYm8v/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790600292; c=relaxed/simple;
+	bh=722o4IHwmNd65+XBhYRpX9s0+i5OvSi5xLrY4R5GEtI=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=tkbS++du7ag+oWFg/DPs1ns+Wtk/3aoMZ5C20dxFKn0MXqQLGRt/SjwRZyfC+N3Axfg6pzVn+X/jp9G47FM9Lg6Duda/F4MnfZ6tsf7PVUydS+1CymxTpFudjS8WCKc9Fs48yVs5d9ODewwDobuGCqS427cD1DpfXYeykpJs9C0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZVWhwvl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FjCYm8v/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818391F00893;
-	Mon, 28 Sep 2026 12:57:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZVWhwvl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7A11F000FF;
+	Mon, 28 Sep 2026 12:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790600260;
-	bh=MZQQkNX9ewrTt0VZpuxELaQgzkW90GGoiBgsZijt5SE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FjCYm8v/6DIkY6PBUJfIh2GVEZ4zO7isPPFQYHz5N3x7TXafV3bYErg8ZlJSIIs+n
-	 iuWVxczVmyVnQ7+HZtoQMtwCzk/VO7fvhN66oHj1oBgSVp9w73/h0KPbitt2dr3zjs
-	 AlnCt5oIGZ3qw+L2kcZu1ie/Kd5F63pXWvMMD+ww4ZuT2gi1t6enT1UwiGHUWG/JZJ
-	 0zEYbdZSIQMDq/Jlr0+5sU2mzJ2wKUXtyPL1OqePxk1aEQ/Ks+c8V9Yx+XImEpkZXN
-	 1fGyRycsVGZHJDER17rrJj0g3dDSfwIvXExcnRhrfOwfUZpGmok5jhhUBVCTepRZ4x
-	 ifyFuABIGiO4A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 04/12] ARM: dts: imx6ul: Add Variscite SoM and DART
- base files
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <113cc7361186943effcbcfe88913c6f528a54db6.1790512621.git.stefano.r@variscite.com>
-References: <cover.1790512621.git.stefano.r@variscite.com>
- <113cc7361186943effcbcfe88913c6f528a54db6.1790512621.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 12:57:40 +0000
-Message-Id: <20260928125740.818391F00893@smtp.kernel.org>
+	s=k20260515; t=1790600290;
+	bh=B1VO9gTWXFj+zWXT8NiCvuBVy6vF6WZGrfa8TOULsfo=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=nZVWhwvlVR4lGCOL/74j9V3S/RTzvtgJ2va3IxkdMui3Q/zhXRh1Llve1fFRhAO+z
+	 HuFWgg7LxkPzGC8y7sLaFbZGzYFPBSK7tkWsbmCy/au4GlPxiOHtqxaXR6hBWU4Tbm
+	 XLnLHgaEl57i/iXv1qOVamzeya8vHDObVjXhd8qcWyTnIl7fDOHIeTp9CBiQQUgxO3
+	 B9doT/i7rEbRGr5FZtLy7ed2Pz7UvtujNI0l+EwQ/9gu038uFCqgqNFoQt/0cMq5BV
+	 NRrSEU/V1XWYUH+G+2Vpk7tEJuSE5hba/+pcdwrx989ysc9XKLCgz21C7hQnmyKIje
+	 xg0PODWtf1wLA==
+Date: Mon, 28 Sep 2026 07:58:08 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, mfd@lists.linux.dev, 
+ Lee Jones <lee@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Mark Brown <broonie@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+In-Reply-To: <20260927155745.187758-2-clamor95@gmail.com>
+References: <20260927155745.187758-1-clamor95@gmail.com>
+ <20260927155745.187758-2-clamor95@gmail.com>
+Message-Id: <179060023175.3803944.16357771664157803576.robh@kernel.org>
+Subject: Re: [PATCH v1 1/3] regulator: dt-bindings: maxim,max8907: Convert
+ to DT schema
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] dts: silent removal of usdhc2 node drops eMMC/NAND storage suppo=
-rt
-- [Low] build: missing base includes break dtb compilation
-- [Low] build: undefined and duplicate labels break dtb compilation
---
 
-commit 48ae04371b34d465ad552c0745c3a4c8f91da9cf
-Author: Stefano Radaelli <stefano.r@variscite.com>
-ARM: dts: imx6ul: Add Variscite SoM and DART base files
+On Sun, 27 Sep 2026 18:57:42 +0300, Svyatoslav Ryhel wrote:
+> Convert Maxim MAX8907 regulator binding from text to DT schema. Reference
+> to nvidia,tegra-regulators-coupling in child regulator nodes.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../devicetree/bindings/regulator/max8907.txt |  69 -----
+>  .../bindings/regulator/maxim,max8907.yaml     | 285 ++++++++++++++++++
+>  2 files changed, 285 insertions(+), 69 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/regulator/max8907.txt
+>  create mode 100644 Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
+> 
 
-This patch adds shared DTSI files for VAR-SOM-6UL and DART-6UL modules and
-SoC-specific wrappers for i.MX6UL, i.MX6ULL, and i.MX6ULZ. It drops and
-replaces older shared DTSI files and restructures common components.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som.dtsi b/arch/a=
-rm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som.dtsi
-new file mode 100644
-index 0000000000000..cd93f618e907b
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-som.dtsi
-@@ -0,0 +1,203 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
-+ */
-+
-+/ {
-+	memory@80000000 {
-+		device_type =3D "memory";
-+		reg =3D <0x80000000 0x20000000>;
-+	};
-+
-+	/* ref_clk for micrel ethernet phy */
-+	rmii_ref_clk: clock-rmii-ref {
-+		compatible =3D "fixed-clock";
-+		#clock-cells =3D <0>;
-+		clock-frequency =3D <25000000>;
-+		clock-output-names =3D "rmii-ref";
-+	};
+yamllint warnings/errors:
 
-[Severity: Low]
-Does adding the rmii_ref_clk label here conflict with the existing
-rmii_ref_clk label in legacy downstream enet2.dtsi files?
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml: Unresolvable reference: /schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:mbatt: False schema does not allow {'regulator-name': ['v_powerrail'], 'regulator-always-on': True, 'phandle': 2}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:sd1: False schema does not allow {'regulator-name': ['vcc_1v2_ddrio'], 'regulator-min-microvolt': [[1200000]], 'regulator-max-microvolt': [[1200000]], 'regulator-always-on': True, 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:sd2: False schema does not allow {'regulator-name': ['vdd_core'], 'regulator-min-microvolt': [[950000]], 'regulator-max-microvolt': [[1300000]], 'regulator-always-on': True, 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:sd3: False schema does not allow {'regulator-name': ['vcc_1v8_io'], 'regulator-min-microvolt': [[1800000]], 'regulator-max-microvolt': [[1800000]], 'regulator-always-on': True, 'regulator-boot-on': True, 'phandle': 3}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo1: False schema does not allow {'regulator-name': ['vcc_3v3_ddr'], 'regulator-min-microvolt': [[3300000]], 'regulator-max-microvolt': [[3300000]], 'regulator-always-on': True, 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo2: False schema does not allow {'regulator-name': ['vcc_1v1_pll'], 'regulator-min-microvolt': [[1100000]], 'regulator-max-microvolt': [[1100000]], 'regulator-always-on': True, 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo3: False schema does not allow {'regulator-name': ['vcc_1v8_lcd'], 'regulator-min-microvolt': [[1800000]], 'regulator-max-microvolt': [[1800000]], 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo4: False schema does not allow {'regulator-name': ['avdd_3v3_usb'], 'regulator-min-microvolt': [[3300000]], 'regulator-max-microvolt': [[3300000]], 'regulator-always-on': True, 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo5: False schema does not allow {'regulator-name': ['vcc_2v8_emmc'], 'regulator-min-microvolt': [[2800000]], 'regulator-max-microvolt': [[2800000]], 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo6: False schema does not allow {'regulator-name': ['vcc_hdmi_pll'], 'regulator-min-microvolt': [[1800000]], 'regulator-max-microvolt': [[1800000]]}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo7: False schema does not allow {'regulator-name': ['vcc_3v0_sensor'], 'regulator-min-microvolt': [[3000000]], 'regulator-max-microvolt': [[3000000]], 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo8: False schema does not allow {'regulator-name': ['vcc_1v8_sensor'], 'regulator-min-microvolt': [[1800000]], 'regulator-max-microvolt': [[1800000]], 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo9: False schema does not allow {'regulator-name': ['vcc_3v3_fuse'], 'regulator-min-microvolt': [[3300000]], 'regulator-max-microvolt': [[3300000]]}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo10: False schema does not allow {'regulator-name': ['vcc_3v1_touch'], 'regulator-min-microvolt': [[3100000]], 'regulator-max-microvolt': [[3100000]], 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo11: False schema does not allow {'regulator-name': ['vdd_3v3_hdmi'], 'regulator-min-microvolt': [[3300000]], 'regulator-max-microvolt': [[3300000]]}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo12: False schema does not allow {'regulator-name': ['vcc_2v8_sdio'], 'regulator-min-microvolt': [[2800000]], 'regulator-max-microvolt': [[2800000]], 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo13: False schema does not allow {'regulator-name': ['vcc_3v0_motor'], 'regulator-min-microvolt': [[3000000]], 'regulator-max-microvolt': [[3000000]]}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo14: False schema does not allow {'regulator-name': ['vcc_2v8_lcd'], 'regulator-min-microvolt': [[2800000]], 'regulator-max-microvolt': [[2800000]], 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo15: False schema does not allow {'regulator-name': ['vcc_3v3_temp'], 'regulator-min-microvolt': [[3300000]], 'regulator-max-microvolt': [[3300000]], 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo17: False schema does not allow {'regulator-name': ['vcc_1v2_mipi'], 'regulator-min-microvolt': [[1200000]], 'regulator-max-microvolt': [[1200000]]}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo18: False schema does not allow {'regulator-name': ['vcc_1v8_vi'], 'regulator-min-microvolt': [[1800000]], 'regulator-max-microvolt': [[1800000]]}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:ldo19: False schema does not allow {'regulator-name': ['vcc_1v8_touch'], 'regulator-min-microvolt': [[1800000]], 'regulator-max-microvolt': [[1800000]], 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:out5v: False schema does not allow {'regulator-name': ['usb0_vbus_reg'], 'regulator-min-microvolt': [[5000000]], 'regulator-max-microvolt': [[5000000]]}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:bbat: False schema does not allow {'regulator-name': ['vcc_bbat']}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:sdby: False schema does not allow {'regulator-name': ['vcc_rtc'], 'regulator-min-microvolt': [[950000]], 'regulator-max-microvolt': [[1300000]], 'regulator-always-on': True, 'regulator-boot-on': True}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
+Documentation/devicetree/bindings/regulator/maxim,max8907.example.dtb: pmic@3c (maxim,max8907): regulators:vrtc: False schema does not allow {'regulator-name': ['vrtc']}
+	from schema $id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml
 
-Since those legacy files are still included by dependent boards, redefining
-this label leads to duplicate label errors during compilation. Although this
-build regression is fixed later in the series by replacing the legacy
-components in Patch 6 and Patch 8, it breaks git bisect at this step.
+doc reference errors (make refcheckdocs):
 
-[ ... ]
+See https://patchwork.kernel.org/project/devicetree/patch/20260927155745.187758-2-clamor95@gmail.com
 
-+	reg_gpio_dvfs: regulator-gpio-dvfs {
-+		compatible =3D "regulator-gpio";
-+		regulator-name =3D "gpio_dvfs";
-+		regulator-min-microvolt =3D <1300000>;
-+		regulator-max-microvolt =3D <1400000>;
-+		regulator-type =3D "voltage";
-+		gpios =3D <&gpio4 13 GPIO_ACTIVE_HIGH>;
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-[Severity: Low]
-Will this fail to compile because GPIO_ACTIVE_HIGH is undefined?
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-The previous includes provided standard bindings like
-<dt-bindings/gpio/gpio.h>, but the new file chain omits them. Consequently,
-downstream board .dts files like imx6ul-var-som-concerto.dts fail to
-compile due to undefined macros and missing node references.=20
+pip3 install dtschema --upgrade
 
-This build regression is fixed later in the series by Patch 8, but it
-currently breaks git bisect.
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-[ ... ]
-
-+	pinctrl_usdhc1_200mhz: usdhc1-200mhz-grp {
-+		fsl,pins =3D <
-+			MX6UL_PAD_SD1_CMD__USDHC1_CMD		0x170f9
-+			MX6UL_PAD_SD1_CLK__USDHC1_CLK		0x100f9
-+			MX6UL_PAD_SD1_DATA0__USDHC1_DATA0	0x170f9
-+			MX6UL_PAD_SD1_DATA1__USDHC1_DATA1	0x170f9
-+			MX6UL_PAD_SD1_DATA2__USDHC1_DATA2	0x170f9
-+			MX6UL_PAD_SD1_DATA3__USDHC1_DATA3	0x170f9
-+		>;
-+	};
-+};
-
-[Severity: Medium]
-Does the removal of the usdhc2 node here drop eMMC/NAND storage support?
-
-The patch removes the inclusion of imx6ul-var-som-common.dtsi, which
-previously supplied the usdhc2 node for storage. By omitting it in this
-replacement file, dependent boards lose their primary storage capability.
-
-Although this regression is resolved later in the series by Patch 6
-via imx6ul-imx6ull-var-emmc.dtsi, could the storage node be preserved here
-temporarily to prevent breaking git bisect?
-
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-var-som.dtsi b/arch/arm/boot/=
-dts/nxp/imx/imx6ul-var-som.dtsi
-index feea24c0e0683..8e3c2d72811f0 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ul-var-som.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ul-var-som.dtsi
-@@ -2,37 +2,30 @@
- /*
-  * Support for Variscite VAR-SOM-6UL Module
-  *
-- * Copyright 2019 Variscite Ltd.
-+ * Link: https://variscite.com/system-on-module-som/i-mx-6/i-mx-6ul/var-so=
-m-6ul/
-+ *
-  * Copyright 2025 Bootlin
-+ * Copyright (C) 2026 Variscite Ltd. - https://www.variscite.com
-  */
-=20
--/dts-v1/;
--
--#include "imx6ul.dtsi"
--#include "imx6ul-var-som-common.dtsi"
-+#include "imx6ul-imx6ull-var-som.dtsi"
-
-[Severity: Low]
-Does the deletion of the SoC includes here cause undefined node labels in t=
-he
-remainder of the build?
-
-This drops standard bindings and base SoC node labels. Downstream board fil=
-es
-fail to compile due to missing node references and macros. This build
-regression breaks git bisect, though it is fully fixed later in the series
-by Patch 8.
-
-[ ... ]
-
- &iomuxc {
--	pinctrl_brcm_bt: brcm-bt-grp {
--		fsl,pins =3D <
--			MX6UL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x1b0b0	/* BT_REG_ON (BT_EN) */
--		>;
--	};
--
--	pinctrl_brcm_wifi: brcm-wifi-grp {
-+	pinctrl_enet1_gpio: enet1-gpio-grp {
- 		fsl,pins =3D <
--			MX6UL_PAD_SNVS_TAMPER2__GPIO5_IO02	0x1b0b0	/* WL_PWR (WIFI_PWR 5G) */
--			MX6UL_PAD_SNVS_TAMPER6__GPIO5_IO06	0x1b0b0	/* WL_REG_ON (WIFI_EN) */
-+			MX6UL_PAD_SNVS_TAMPER0__GPIO5_IO00	0x1b0b0
- 		>;
- 	};
-=20
--	pinctrl_enet1_gpio: enet1-gpiogrp {
-+	pinctrl_wifi: wifi-grp {
- 		fsl,pins =3D <
--			MX6UL_PAD_SNVS_TAMPER0__GPIO5_IO00	0x1b0b0 /* fec1 reset */
-+			MX6UL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x1b0b0
-+			MX6UL_PAD_SNVS_TAMPER6__GPIO5_IO06	0x03029
- 		>;
- 	};
- };
-
-[Severity: Low]
-Does renaming pinctrl_brcm_wifi to pinctrl_wifi break downstream
-dependencies?
-
-Downstream legacy included files like imx6ul-var-som-wifi.dtsi still
-reference the old labels. This leads to unresolved phandle errors during
-compilation and breaks git bisect, though it is fixed later in the series by
-Patch 6 and Patch 8.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790512621.gi=
-t.stefano.r@variscite.com?part=3D4
