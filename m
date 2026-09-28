@@ -1,105 +1,83 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFBA385509;
-	Mon, 28 Sep 2026 18:34:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD4B39184A;
+	Mon, 28 Sep 2026 18:41:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620480; cv=none; b=Bz/ohKAcK1YNym7jrP7Mq+5TUHBZnWkGzCksB3Poaco8N1o6rL76e8XwF7eFtxrTQ890q+e41ZgUYlUXQff23CCfeCVRNfQdgv+cYXZp/4GBZF00eK4zice0r3/Kk/rA70IUemqdcvOaelGnVFglOzXnVXEsmnqpVQF/wauzCp8=
+	t=1790620872; cv=none; b=QiyGJDHixB3X/CaL44tczT+b0/3ZJ+BR9ft0+JIizPIj92d2TGc/wcrj6A2dOifmGrNmyddzLM2w9TpXtHxfi/EBzpFppX93LlvMmZTzWseFwbTxrVTNwCh47gsNbK5ZJa+TKCP6FT9ISkAkXeo5iDfn5N+LTwrjMc6Uz+mVPxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620480; c=relaxed/simple;
-	bh=uRbWWZXJ5Cb78hU5UI8J1lzSs9GBXmFt2iDOl/xTXo0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=tPw742Hkdxnvg+4VnQaHpjKI5U4AhbFQNr1yQWMv5pet2hEYfQVNPNMtCpUhl0vrHT9LRYrfeqYVtl7lpUujmbjI9Prusf7gPuZ8tksCDNOBpxe52cljbf86bD36SZ8Ak6hbCjHq4FCH2lKJ+b98eHCaLrN7NZdaW17ZK1GHTaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ooCPWuWA; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790620872; c=relaxed/simple;
+	bh=khi2ITJeN2KoWx5lecul1hskKkXusaFeFWDoDUKqGVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lzD80C2AOXcSZV0VM8gbjDqjrsoG+RviaUZJ2J9085bcgpWZQXziFI/vZ2gH/weSeE2mTiefT/9UFMDU4Z4E2gG+OD3nrgRpiRprCAwRDKBAXKio8M/gljvB5ohd/jWoSYrgYw5n63gu/jz0+Fv92O4KdwrYvzug6649c1VzuQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRS7y6U9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ooCPWuWA"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260928183430euoutp02d8c2ceefbbbee78d8631d795eb470987~Zj9SaDp1F1266812668euoutp02d;
-	Mon, 28 Sep 2026 18:34:30 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260928183430euoutp02d8c2ceefbbbee78d8631d795eb470987~Zj9SaDp1F1266812668euoutp02d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790620470;
-	bh=4Zph+siZBeGkLK5OkBadCTawnz0zQ5RVLKRomkp3JFM=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=ooCPWuWAFvYF4ZM2kjMd6Sk5u8LAPjsE03rJcvHzAe/OskadksFIcixYe9TFn3SG5
-	 x2Lag0CNxSduPsZVTUcvY8qADKxrETrS0mODDs5RLBK7W0fG+vhAH96c+oaZU+BhSr
-	 uY8fE2y2hrrSNfQ4261WxiEAHHMqI6kqWuuKrmhg=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260928183429eucas1p291d65fe935c65b88fc63e99837bf87f8~Zj9RjhP5N2664926649eucas1p2Q;
-	Mon, 28 Sep 2026 18:34:29 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20260928183427eusmtip29fd870671ef52906c604dca1dab6db1e~Zj9Pk2-JD0396803968eusmtip22;
-	Mon, 28 Sep 2026 18:34:27 +0000 (GMT)
-Message-ID: <d4fb48de-829d-4285-9ca6-ab418a6f4987@samsung.com>
-Date: Mon, 28 Sep 2026 20:34:26 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRS7y6U9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74D151F000FF;
+	Mon, 28 Sep 2026 18:41:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790620871;
+	bh=SAh1NwP43VKbxUqk0z6TTc+aDWRF/R+GD4qM+zj8kZU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GRS7y6U9xGlUvl/h0asTO1C4WeVyQGCX3rBvCOxXiMSRLjc1FbTC843Ad3jnvXA1A
+	 dmL7qvYoJaQtoVFVS1QeJK/AElcmKMbGK+hVj7e2A53tIjFQoNXCJgu9KIZu5s4duA
+	 65sr1ac/k1WQZEALU8dElPPrOBxflxQVV9uiiTu+3RVZztNB3xlBGvySFerK1opJz1
+	 ENUSr+TpzAyLEyu7wijo6tu8U08J6nuj6wR/B1Zlf1qnIYN5EqOo9ISxxcizaPYQ4D
+	 fjgWYQdoK4L338RbcUwBpbFlkKQHpUtNoYziUJ1if0aQuTUSdEfQldjz58pIQxwe8k
+	 PrqTwWF0e2C9w==
+Date: Mon, 28 Sep 2026 13:41:07 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	Jakub Szczudlo <jakubszczudlo40@gmail.com>,
+	David Lechner <dlechner@baylibre.com>, linux-doc@vger.kernel.org,
+	Salih Erim <salih.erim@amd.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	linux-kernel@vger.kernel.org, Radu Sabau <radu.sabau@analog.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jonathan Cameron <jic23@kernel.org>, linux@analog.com,
+	devicetree@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>
+Subject: Re: [PATCH v2 3/6] dt-bindings: iio: adc: adi,ade9000: add
+ adi,ade9430 compatible
+Message-ID: <179062086738.249779.5213209601368987485.robh@kernel.org>
+References: <20260918073537.1572-1-antoniu.miclaus@analog.com>
+ <20260918073537.1572-4-antoniu.miclaus@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/20] dt-bindings: mfd: Add
- starfive,jh7110-hdmi-subsystem
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
-	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
-	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
-	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
-	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
-	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
-	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
-	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
-	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
-	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
-	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <20260917-colossal-phenomenal-rattlesnake-7aca88@quoll>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260928183429eucas1p291d65fe935c65b88fc63e99837bf87f8
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153218eucas1p278c4870936afe1aaa52438660418f8c8
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153218eucas1p278c4870936afe1aaa52438660418f8c8
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<CGME20260915153218eucas1p278c4870936afe1aaa52438660418f8c8@eucas1p2.samsung.com>
-	<20260915-jh7110-clean-send-v4-3-f0e4fd6f2cc8@samsung.com>
-	<20260917-colossal-phenomenal-rattlesnake-7aca88@quoll>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918073537.1572-4-antoniu.miclaus@analog.com>
 
 
-
-On 9/17/26 08:54, Krzysztof Kozlowski wrote:
-> On Tue, Sep 15, 2026 at 05:32:11PM +0200, Michal Wilczynski wrote:
->> Add the dt-binding for the StarFive JH7110 HDMI subsystem.
+On Fri, 18 Sep 2026 10:35:32 +0300, Antoniu Miclaus wrote:
+> The ADE9430 is a polyphase energy metering device from the same family as
+> the ADE9000. It is register-compatible with the ADE9000 but does not
+> provide the on-chip dip/swell detection, and it has no on-chip digital
+> integrator (it relies on an external analog integrator for Rogowski coil
+> current sensors).
 > 
-> Your cover letter, in the first paragraph, should explain the
-> merging/dependencies constraints - this depends on previous patches and
-> cannot be taken alone.
+> Add the new compatible. No spi-max-frequency constraint is needed as the
+> ADE9430 supports the same 20 MHz maximum SPI clock as the ADE9000.
+> 
+> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+> ---
+> Changes in v2:
+> - no changes.
+> 
+>  .../bindings/iio/adc/adi,ade9000.yaml         | 22 +++++++++++--------
+>  1 file changed, 13 insertions(+), 9 deletions(-)
+> 
 
-OK I will update this in the v5
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
