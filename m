@@ -1,180 +1,185 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012043.outbound.protection.outlook.com [52.101.66.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E35B48C412;
-	Mon, 28 Sep 2026 11:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594124; cv=fail; b=GAhgE9E58ib7XA6YNmeQ3x3tLretnqEyItQeqsQ7WPCEmAupYwj15pZtlntJAIFuQKD4h02mYOwY7LqzgLw/SvJ898GND7c0sHyCkqf9Ta5/RM7za+3bdgbAhzDflJGu2McXbIfNUnSM3Jo3CjcYa+bJuCEfxdZzAsSj4iEuUZA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594124; c=relaxed/simple;
-	bh=f7wdisUsySlRDF1mY9DrYusN8QNXoZfYJ165/I5g1fg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=fBUL+uZA0dif3Yi1mvmdNLpY+B6vlvB4hRIojq6j2aKAK8dMIVyscZUKzAW5KWpwhxlsNUi5FFaxKHwpKiUoOZCOYFxe7qYrbbvxWQyBKReZAkw0CDnGAZsvEyY6xdd6pAPdesSivzKPSyfjTZiscGUMF66lT6PGbF9jnjZdVyc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=hHucVxnR; arc=fail smtp.client-ip=52.101.66.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35A54A0EFF
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 11:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790594357; cv=none; b=XKQ7EEQLo0V5aV4oYjWSi4t759C3mAsRQr08bST3gYA1b34cEcwVtNP7oQB7FXw5ipG8XEM95NsPT7vDjdKjA0HK8ge4EuBVjUot4ZFr7p55TRPtaW7QZoE5oFqN/lrhKUc76DF7BWYDB+IRAMKeUdWkI2ivhL750E5mnLL61Z0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790594357; c=relaxed/simple;
+	bh=kO3ynIq/wB6ie8eo0zrTf/NB7cypH/DrpREYSikioVs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hNT0u8AgsVyrbECD0CCqmnUyV3DhxdqDMCA8pD4ufkLwEYoeyA+S0cVV1vABjwbDYyjk1RqHWRC02iRWVhMyafdNuzo75Bz3uYjrBh1SBTEGju8oDjJXpAHbiW9914X/MbYkoM/IeKPDSlSt9Mdgm6BocpThKP5He4Xpx/e3l9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QkPMsord; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hHucVxnR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QXm8ItfI4jmQ3YyV1spt+CCCv8GyYrs6tzIqdLHtmNRkArPEmANzegR62QbY2CPCy1V+vCPdMwRxYW0tfW3N1CJFYjig5SZ/mjRv92K/opWdoYNPJOMFilR2oTqch71ZhdavwzQ+WzwIQBm//mRk6iL0TKpuqPuvxQwRlJJl3+9uXez/FVhCso3TrvQYTpUFCx/g6lPT9LRopa+ofjX5oWmRfRnOyeFuMZDU/mTDIjD6kZIoxqkjw3oNfbYXm+wl/moTjyGK3aFUDBWN0Yj5MPW87i3M0stpQDBov8TXFjIomCt/VTeEc8FRF8RkUsl62M+uMj7qMyZVHYdo/e26hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Uz+Owp+xl4vLrZxLFJdjLJ83/fAOXEhsHgoHFguUapk=;
- b=efg6rEIJPRUkTZOzjj0zgj5LY2HiD9qi8TfA5dYQCXqd4UPnhJhC1SL4YOX8fRboT6NnLZSQkSDfiyTTChGK60tMNEgS1cqsnEfGDQt9l1FZUxyWIuZuk5NEvskiDQ8NaUJixybGkQj9YcvumdKK+dsGLkn0UAj5VHnb9uHdWKPgJb9gbAYqqbOw5S+qQLXfNMWS0CDYeV92YQwVQxzi25askVU0IcdSRqrdGe97Doq2fq9D68g9TLWEMap3qvFxLoWRPCY5S4868YLc9SWnedgfsx2bXhYZExV0nYiGZF0CPF5P2g01Dpyn25BbjqmdJjKAdfyG7zR5E3v/rHwOHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uz+Owp+xl4vLrZxLFJdjLJ83/fAOXEhsHgoHFguUapk=;
- b=hHucVxnRNZliekWw52GPpVuNGX9PIZgYUMfzW6ShGDGWnieeYmiRY+uAlY/dvHBJYd/r2ahqckSkF/8XpbszwkM7+Y4EHbDnBZ9/gpfam0CCLRu/Dr+nbX3Bokbj8TDaAHQv3D8v4vYENd2d3A6EsR34uBvyUGBxBEM8nSvHsONStaUXaGPGpsxyJ+jADXYSRRW1JuJPqBlV4x5V2MxRgxMPnDCzOy4jQRvtA8U8TVr6grxl3S4DHyYcdJjklKMBZcD+feucNSiNWOCzkKnkutHEOPhjfEfs1t03QhFaabg/dbBsBktk3vjw6NXc/X8EqgoQIEV2NrGNXX2kzpEeUg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
- by PAXPR04MB9593.eurprd04.prod.outlook.com (2603:10a6:102:24f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Mon, 28 Sep
- 2026 11:15:11 +0000
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 11:15:11 +0000
-Message-ID: <516826a0-67fe-4d42-af2d-7a283d945e2b@oss.nxp.com>
-Date: Mon, 28 Sep 2026 14:18:40 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] arm64: dts: imx952: rename soc to soc@0
-To: Frank.Li@oss.nxp.com, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Guido_G=C3=BAnther?=
- <agx@sigxcpu.org>, Robert Chiras <robert.chiras@nxp.com>,
- Tim Harvey <tharvey@gateworks.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com,
- Frank Li <Frank.Li@nxp.com>
-References: <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
- <20260925-cleanup_dtb_warning-v1-8-f999fafbca60@nxp.com>
-Content-Language: en-US
-From: Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20260925-cleanup_dtb_warning-v1-8-f999fafbca60@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4PR10CA0030.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d8::11) To GVXPR04MB12316.eurprd04.prod.outlook.com
- (2603:10a6:150:2c6::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QkPMsord"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48884b021dbso1025473f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 04:19:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790594353; x=1791199153; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wc84nfWgNf4LDDPo4HpZtovz6WNxAg7/CHpGE5J6vyA=;
+        b=QkPMsord9VJSackfuNx9kszICrztNypybkDjzQfhCx3uLQAzzisZ63FC1ij24rMPuz
+         PQQWTCmlABDhdeSgaGhEISAGUtv9toayM0hbPsZSR5PEr436Kri5E5CY3PfZQMmDMn8c
+         eHlxu9Dje2wpoYJ6TBT94q5XxUgK2NV6AhnJjb7vdBJbw3VncRjsOH7teYlHT1OIq4dd
+         isH0Ce1hkpppqzI+DbgyrirnHMYTJ7kFfc/daHa5yvf21uKv02Y9l0/Ex6fAle3sMpA6
+         W2jARPsqk7JMN3MV5g7PhkMexO3Ndnl+a0ZOkD6II/X3GChKi9PkptEcEs62Rkigtv3n
+         EkNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790594353; x=1791199153;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wc84nfWgNf4LDDPo4HpZtovz6WNxAg7/CHpGE5J6vyA=;
+        b=tckooVpMvvPUFXLukmPPXtOgGvL9pcajBNLEJWOHepmhCLuB/l9BiGnHVhavEz5xn+
+         w+yC5PaOQ2Dk/kNGJj+jgI6X1XPVpfK5OrrsczI1bOY1QOvsjrQv4Di4QF6UaBcOSuaf
+         Hwu7VtCGUO3nhLZ/YoqdagP/suPOH4Sbh4AXSZwucIqYPAlQZdgySzSpZT8rOnJ3khxy
+         sC2ef2Es2c7Fl0p7E1qugNNwPr0RK3i21qdEYVZcuZVWIuc6qmNNrg7mGG2vEMlCB1DG
+         iumd5h1HhwZX/xWHrNEnhRKxG5tO1nyYc7dU1cRQWNP3S3zcMCs9SXDrTKGy2ZD7u3EZ
+         MjTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwa7A3V/+qC9JmkFeNLbjMm67rA2R8/h9WkjWHE6TUgYj41i75ewZUYPzYld+tbt411cGau8V3hjUp1@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7toXgH/4vYJsegGnnrCSLcwNDcxy9OEu0GvgvNH5R38fOXtP+
+	dHa7seCZKj4EYtZrHDWyvKtIXLiP23/NiN9rlE7SZ103sgiEH6ESS047
+X-Gm-Gg: AYBFou2TL8NUUGQLwVHokqLoEWnyDV576zpIjLuFcqXzn1NdWmbY/fXVf5BHVl4lXIy
+	PjT0KOK7pTrI9RJZURDjD20BSBowILryMgFyV+jiSlIUxb0KuZ/8zsvxDiEt1nILqo9sj9dDby1
+	dssuqNOdx73hxAObxskvxg6m7UfP6pG2J+XYynAiMWXe83rb6a0QfsDhXR8fz0OT/rmNrZgtgPW
+	ql92p5feFTPMhhrxOseCbTTYtFF9i4S+Q0QEghjpj9Tdl5OkzgWB0InopkjtirWI3wgBYXp7vlT
+	1EagcHyS9LahGfsG+YvxYMvPKP0HcpaHSz0wt29ISSc/dsSRnxcZygiZT2BN6GjrNi4K2+8RlSl
+	qbD+Tu4iChsVcT3xLuQC7ggAxfRad+c5+6lzCR89szQ7CWaD6N7kAW1JQexGc6mApfzo+eKH24F
+	3Cy04qKFM4EWN5dZtgfmk0+//Vjs4KvWL5pDi0b4WWAVRpqu29OPg1R0exbC6qYgRaIZllr/uVq
+	jXS+y7pMVhH2E/JBamgugxgKwZZH9+pnaDTG52HSoe1Vt3qy7gV9YYOxPjUl/5XRIGLXXxy0Fwg
+	LTcOxIyIBQvHb51B9p49tsz0vYKgRHHRlZRClaXnBOuBWpuM1Ok=
+X-Received: by 2002:a05:6000:4108:b0:488:7787:469d with SMTP id ffacd0b85a97d-4887787490dmr17106824f8f.25.1790594352582;
+        Mon, 28 Sep 2026 04:19:12 -0700 (PDT)
+Received: from localhost.localdomain (37-188-186-98.red.o2.cz. [37.188.186.98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a34a638sm26164969f8f.9.2026.09.28.04.19.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 28 Sep 2026 04:19:11 -0700 (PDT)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rong Zhang <i@rong.moe>,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] leds: Add support for CZ.NIC Turris 1.x LEDs
+Date: Mon, 28 Sep 2026 13:19:05 +0200
+Message-ID: <20260928111907.72592-1-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|PAXPR04MB9593:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25bed790-53fa-4867-6afb-08df1d51c2f7
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|19092799006|23010399003|376014|7416014|1800799024|260925022911599003|921020|260925021311599003|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003|260925021911599003;
-X-Microsoft-Antispam-Message-Info:
- i1iWOu5uk7BYRnolV6D7JqxbQb+LJNbPfnLPae67ZEMrZDXUERtaxnM8tnhknSuiusqxUpE9p6dgoiqKEbEIVJv37kFm7rI5CufG8YdaJekUJH/EfIh8438jU4Vmd1JxyjCuOQ2+ie5NwnvO0Y7+0c7dsfl5G27VNhq7NZLH2ped/gXzucf+xc0/sd0M7qt3HGVzZgZstUer3fuEt9OE/H50l5m/tOliA8Wv/w0U9pRuEFIyIoodvlEPaUPWaJgZNM53MFzzbNyVobv2fRqQDMCc+QGe/S9ZzHJ/h2FyD61dNR7sIATzmFSqv6Eq1VtnNKMDgj5GzJv1tY/xNCZk/mojLmCgtZaxhCyNWqq5/4TGo/iDcTMsOIpN77lXrHRTFyfnyHotCQGHlx0tpGczii1EYtE9hOmmu3B8IFqfKTAN9d+itnkx2jzNkbT621yBmCKvZErExpf1nKnJ0WIq7n1/An/4dkU3px9PbdTzmaFSXUXQIdsKM7w9rZM542MAHnz5svh/9t6u2J4oU+VVj6vxWb8jRbExlL7GXx7cg65pA2+R3epO2PraMpAX85qJvATk+AHL8xrLav569xZSFjospRoOb9GikjwUILzwf7L5SFSgmS/zMb5+df4QiOcIYCxrUzCPU96HC21b0g0ylE08haO/p0crJCSCSsW9ANe7chtCJgDhXpm4trL/rtsKmhYN0MjgBcsJR0iwefqSsA==
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12316.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(376014)(7416014)(1800799024)(260925022911599003)(921020)(260925021311599003)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003)(260925021911599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?YUFoemlQVit3alBlcUtPUTFHdFFLbEpGOFh6V0RWMUgzbnZkUkIrVm1QRmJv?=
- =?utf-8?B?MVY2ZmtnNnJNZHVLaFRqeThXdlBmTll3OHorY2ZGVXN6bE92aU1XOEcya1V2?=
- =?utf-8?B?L0FYVjNGZlBuU2hRZEdhQVg2Mmh4NjRFSGVqbURYYnIyUjRsbzdiNVU2bFdp?=
- =?utf-8?B?R0k2akJUSHFSOVR4cTgwRjJuYkc2QXMzaitISEdJVEUyb0hudCtUWnVWS0VE?=
- =?utf-8?B?QVc2cktFMTlZVjlsMVF1YnQzOEY3ckU1SGlvdjZrZHc4QUdMSHRCb0REcGlB?=
- =?utf-8?B?Z1R1WVh3SEE1OW80Ri81ZFQ5SVR5V2NjSDJvZGxwTXF4bkg5Q3NIVlVtVWZa?=
- =?utf-8?B?SFRvSmJuMUFzckxOYzUxR3F0VVNYRVlQNklvYWJxQ0ZaYnhuQWlZMUg2Zlo3?=
- =?utf-8?B?a3RXaFQweXhJd2RpMTR5ZS9vTTVHZVRFbS9tQzFpcFZkNVVZeTRsNHZadDdL?=
- =?utf-8?B?azNDZ21BV3BzYlE0eUVSSTRBSmFVVFVDbDh1M2NscGRTeWdxSjhnTFZKOGJL?=
- =?utf-8?B?MWkrUEZ3R3o3SzdUSXFOREdlWEVjV25BWWJjWVFEWXQvcjFwUlJ0QnNEQ25B?=
- =?utf-8?B?a0VpNzJPWHhhTzZJVHRuKytvZ0w0cmx0M0RwaEFTN1VORmxCaHhyQnVJU2pk?=
- =?utf-8?B?L3YvMFJ3OExlckJUSjU1V0F0cmJLS3EwMExjOVU1NHBuZUFROUMvckJ5b255?=
- =?utf-8?B?TGErTWxjYnR0SzRKUkhsMDNuVkM5eHl3ZDd0WG91ODgwMzR1MkFyYitnZGJn?=
- =?utf-8?B?MzUzbkREWVJZSURuR3RTQzRWUVVDRzVNUHdpMEpUZGxTd1ZiMzJLSGFwWEEz?=
- =?utf-8?B?WEVJMEtmWkRWRElQTWhkQVk1MVdrVXNmTnhoZXZTaFprRUQ1YWx3WVk4NG8y?=
- =?utf-8?B?dW04Y3VUbmJkaVN2b2Jwc0M3anhCSUlmeFV0VTEvNDhpcUNtMnQ3SmE1T0c3?=
- =?utf-8?B?WUZnSnIrcGhKMTRaSGthVWU5WmZwNkNIcUdSbTFUc2RJeGV5L24ybHB5S00w?=
- =?utf-8?B?YnBpQXlsWHU0YVVXUCt1WmtLMCtlOVNUdG56dkQ0T1VNY2pMSWcyZ0Vaeis4?=
- =?utf-8?B?WEJ0S2NYSTJhTUZGVTl6RUh3V3MvREg2cW9YRy9sT2JLd2s4Y0VKUUN6TnNH?=
- =?utf-8?B?V2hDY3hFczMwZUhFNGhsWTZWNXRibjlMSVZKSFdzL0N0WkVjK2tuTHNPc2JG?=
- =?utf-8?B?RS94RHFwczI5NlROdW45dDIwRFhYVHVMRFBSeW81NWYzV3NTbVhza1dLbXlR?=
- =?utf-8?B?ekVnSWJOUk9SMU0rVzhYQWhEZlk0QlRXNVFVUGIyWnNHdFJ6UmFGWG92R1JH?=
- =?utf-8?B?c21HQnFscHM5alo4aUJ4UkFpdjJWY0FTSjZ5UEUrSW1neWE4MHpOWlBtL3B2?=
- =?utf-8?B?R2FnM2QrdFZlWTRiVmJFNEVRU0s5NGJnYkRIRXFjS3RmaS93TzNoNmhERTlY?=
- =?utf-8?B?UlFnZnpJbThobVZvMytBby9LdFlVZzR6eWRrT01sRnBEZGlJSjY1MmZvNWlD?=
- =?utf-8?B?V3Y2RTNqdXFQdmtXOTArbncxbUFxT1EzSE5oQkZEQys1bWp4NC90RmE4WVlY?=
- =?utf-8?B?L2gvZ3Nwcm1NQVpscExaaVhlYXJnbDE1YUNtNmZ5eEtJOEtXeWdpSTM3OFA1?=
- =?utf-8?B?blhMZW9kQ3BUWEQrVVRlZXFSSGZ5bmZhL1ZRSEsyNlROeUlVNW0vVVBLZjRL?=
- =?utf-8?B?STF3eWNuTDF5eTVCdU5VREpYWWpBK2hIUDZJL1pFZkVTaHFXSmVCLzduWHlC?=
- =?utf-8?B?ejcrS0dJc0I4eHpISThTb3UvNm8reDdmZlNyZnRGUXFBbU9VYUkxV2ZQUkxQ?=
- =?utf-8?B?Sk9mSmwrdEk5NEdaMlJhZXRoV3dBRkF1Nng5QW9IR0V6dGpEbG0rTmFaWndy?=
- =?utf-8?B?NFVLaEdha3BxdmdUdWVRV0VMZUdYU0FUeCt1RWlFVU5YSnJ5QUJPYmJFUTJN?=
- =?utf-8?B?QmpPVDdVUjBXdGIxRnR1VDNLaW9sK3J1WHgyV2VnZFRRVStkWWYzT1B1UU1s?=
- =?utf-8?B?dmZUanY5dVI4alZOdWxvd0hsaTgxdWw3NVVtVTFiT0FCN25wWnprMXp1NVd1?=
- =?utf-8?B?Z2h0dFhmaGdFcXlneUtocU43NVR0N1JZaXZkWHlvdTBWUkVheUlydkNVMzhs?=
- =?utf-8?B?NWNCU00xS21RU0V1OHRhUjRkaEZqT04yN3E2RUt4SEJ3L05Qb09xUkNibGZ6?=
- =?utf-8?B?T0xLNisvREFkelJTUkUxWDZEWmNIRXVVaWsvNmZpYmdZSWRDZnFvdXNON3Ri?=
- =?utf-8?B?WGtmZ09hcHBLcDhjNjdJTmkrQVZYUkhyUS9iODJqV0lOMkhyTUkvS04rNEJK?=
- =?utf-8?B?NDJYUzIwbzJZSGZqbjdDcGw3ZU1odERkVEJMbUM0VFVUVTlsWFNKdz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25bed790-53fa-4867-6afb-08df1d51c2f7
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 11:15:11.2643
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7/L9W1s4aFUXeay5DE/NQnImTEEmCAjr7ENFfrA9NIfRGEoucq2Z1H7MWgvNJdoyRdcCqLjUynRKRMUKI8OIUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9593
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 9/25/26 19:37, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Rename soc to soc@0 to fix warning (W=1)
->   arch/arm64/boot/dts/freescale/imx952.dtsi:348.6-1539.4: Warning (unit_address_vs_reg): /soc: node has a reg or ranges property, but no unit name
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+The CZ.NIC Turris 1.x routers have eight RGB LEDs on the front panel,
+driven by the CZ.NIC CPLD firmware. arch/powerpc/boot/dts/turris1x.dts
+already describes the LED controller, but there is no driver for it, so
+Linux cannot control these LEDs.
+
+Pali posted v1 and v2 in July 2022 [1][2] and a RESEND in December 2022
+[3]. The RESEND did not address the review of v2, and Krzysztof NAKed
+the binding [4] and objected to the driver [5] for that reason. Lee
+asked Pavel whether he was happy with the user-space interface [6] and
+later reviewed the driver [7]. Pali answered part of that review [8],
+but no new version followed.
+
+I am picking the series up. Most of the driver was reworked for v3;
+authorship stays with Pali as the original author. The changelog of
+each patch lists the changes and, for the review points that did not
+lead to a change, the reason.
+
+On the user-space interface: the global brightness follows the Turris
+Omnia driver, which already has /sys/class/leds/<led>/device/brightness
+[9]. The Turris 1.x uses the same attribute, documented in the same ABI
+entry. Marek asked in the v1 review for the index of the selected level
+[10], which is brightness_level, and Lee asked for one value per file
+instead of the eight values in one brightness_values file [7], which
+are now brightness_levels/<N>.
+
+Marek, patch 2/2 extends the brightness entry in
+Documentation/ABI/testing/sysfs-class-led-driver-turris-omnia and adds
+that file to the new MAINTAINERS entry. Could you ack that part?
+
+The series is based on leds/for-leds-next (05b4738b0078). The driver
+implements hw_offloaded() for its private trigger and sets
+hw_control_trigger, as the hardware control changes there require, so
+it does not build on mainline yet.
+
+Testing on a Turris 1.1:
+- With OpenWrt's 6.18.44 kernel, the driver as it was before that
+  adaptation, built as a module: colour and brightness, the brightness
+  level attributes including invalid writes, the timer trigger, the
+  turris1x-cpld hardware trigger, unbind and bind, and rmmod while
+  triggers ran and a level file was held open, also watched at the
+  panel. After a reboot, the CPLD registers read at the U-Boot prompt
+  still had the WiFi LED's disable bit that the shutdown handler sets,
+  and after sysrq-b, which skips the shutdown, the bit was clear. With
+  linux,default-trigger set in the device tree, the driver took those
+  LEDs over from the CPLD, and the turris1x-cpld trigger gave them back.
+- With a kernel built from leds/for-leds-next and this series, the
+  driver built in: the LEDs except the WiFi LED start under the
+  turris1x-cpld trigger, which trigger_may_offload_to_hw reports as
+  offloaded and under which reading brightness returns ENODATA. Writing
+  a brightness drops the trigger, writing multi_intensity keeps it, the
+  timer trigger works, and unbind and bind give the LEDs back to the
+  CPLD. The WiFi LED has no trigger_may_offload_to_hw. The panel showed
+  the same.
+The lines were rewrapped at 100 columns after these runs, which changes
+no object code (objdump -dr). Neither kernel had lock debugging.
+
+dt_binding_check with dtschema 2026.9 is clean and rejects a bogus
+property added to the example, dtbs_check reports no warning for the LED
+controller in turris1x.dtb, and tools/docs/get_abi.py reports no new
+warning. checkpatch --strict reports only the MAINTAINERS question on
+1/2, answered in its changelog, and a macro argument reuse check on 2/2,
+where the argument is always a literal. Built with W=1 and sparse on
+leds/for-leds-next (05b4738b0078) for powerpc, as a module and built in
+(vmlinux links), and with COMPILE_TEST for x86_64 and arm64 as a module.
+
+[1] https://lore.kernel.org/r/20220705000448.14337-1-pali@kernel.org/
+[2] https://lore.kernel.org/r/20220705155929.25565-1-pali@kernel.org/
+[3] https://lore.kernel.org/r/20221226123630.6515-1-pali@kernel.org/
+[4] https://lore.kernel.org/r/8b829332-5cd7-2910-88db-513716e0919a@kernel.org/
+[5] https://lore.kernel.org/r/d8172c80-a3a0-07f6-97ea-9130c49fab18@kernel.org/
+[6] https://lore.kernel.org/r/Y9Ozg2O41a2iijMc@google.com/
+[7] https://lore.kernel.org/r/Y/iDVlodp9sBkX9D@google.com/
+[8] https://lore.kernel.org/r/20230309203526.5hcfa2w47vqzmny6@pali/
+[9] https://lore.kernel.org/r/20230202234653.ukwpjntws3roacty@pali/
+[10] https://lore.kernel.org/r/20220705143001.7371a256@thinkpad/
+
+Pali Rohár (2):
+  dt-bindings: leds: Add CZ.NIC Turris 1.x LED controller
+  leds: Add support for Turris 1.x LEDs
+
+ .../sysfs-class-led-driver-turris-omnia       |  13 +-
+ .../testing/sysfs-class-led-driver-turris1x   |  23 +
+ .../bindings/leds/cznic,turris1x-leds.yaml    | 132 ++++
+ MAINTAINERS                                   |  10 +
+ drivers/leds/Kconfig                          |  13 +
+ drivers/leds/Makefile                         |   1 +
+ drivers/leds/leds-turris-1x.c                 | 609 ++++++++++++++++++
+ 7 files changed, 798 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-class-led-driver-turris1x
+ create mode 100644 Documentation/devicetree/bindings/leds/cznic,turris1x-leds.yaml
+ create mode 100644 drivers/leds/leds-turris-1x.c
 
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-
-
-> ---
->  arch/arm64/boot/dts/freescale/imx952.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/freescale/imx952.dtsi b/arch/arm64/boot/dts/freescale/imx952.dtsi
-> index 1154b66dadb2d..3c51e61d1fc36 100644
-> --- a/arch/arm64/boot/dts/freescale/imx952.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx952.dtsi
-> @@ -345,7 +345,7 @@ opp-1000000000 {
->  		};
->  	};
->  
-> -	soc {
-> +	soc@0 {
->  		compatible = "simple-bus";
->  		#address-cells = <2>;
->  		#size-cells = <2>;
-> 
+base-commit: 05b4738b0078f7d6f154f68068a11c8a0635e9df
+-- 
+2.54.0 (Apple Git-157)
 
