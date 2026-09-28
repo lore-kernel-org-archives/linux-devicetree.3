@@ -1,231 +1,195 @@
-Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41814CDDE5
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 19:10:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=88.99.38.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9AD3BE172
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 19:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790622602; cv=none; b=DipVxpuuR6IjpyyxE0SyQRl9xeQZl5UJSVocSRC33stkhDqCOsxTyFJhcuceW6/NWLmbO5Vw9l2MVPeOrMXynwdjfI/Nyw3OUq4/jb2yI4eHccAyZUhyCG7cMFUX68bZ7wRDyZhUIy/mSkTDCeuWWyWRf7PYM5FVOtXyDdzLKgA=
+	t=1790622986; cv=none; b=AKihkt/vAh9NdUE3rwVipU+GhnBXRI6VNZa4WUmvHb5JjBtDFyC5hs/LmsUZdqhoEstRqcSlul3m/xOeR3ya+j1JAeq/D/PEJmtZ1OCsl8JIFfEz8nHI4u/HU2g1VmI+nzf1oFSTMAF8LjerVxahjBKgk3otGR/egttsmFv0USE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790622602; c=relaxed/simple;
-	bh=M27MaZh7uNSea4tklBHFnjOfJ/fhL04L1G35m+sSTdg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=st+XCkyfydORPRT5duUswn+Rd07r1nA2sMfrIs9SxaXdxVvYQs/s1ZUT+q/tnYFqAbROVqyqtLqoTmsQs4fhEs9CkdBXDZD7RgYadD7eJexpfnphqdwhFiqfMpZnoqCSSWNSq9iE1Y3o9eAtg6MuWVgPrQ7p3E+z2zEW+aGibDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=JT30UC1S; arc=none smtp.client-ip=88.99.38.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	s=arc-20240116; t=1790622986; c=relaxed/simple;
+	bh=8o86JjkAcKW1SQ3YiOijQtpyWtLRAZA8fJZvP/xH5d4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=c0u7GASH0H8MsJVeUoH8m0n0slSoPQYmjVK/Rje8Mm3NiGpfin9nEuXDWIJb8+Ybd0uxwzydjClJZkz9ak5I+AaoloL7sbzjTf+LWp2XUfWqiBbe0ZN58e1H69KBrf3PS7dXwpcwFZI76RGTF3g1TbHCeKL856JKEgCYe8ZDaSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=B9BHqKQC; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="JT30UC1S"
-Received: from relay12 (localhost [127.0.0.1])
-	by relay12.grserver.gr (Proxmox) with ESMTP id 1E98CBD488
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 22:09:53 +0300 (EEST)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay12.grserver.gr (Proxmox) with ESMTPS id 45CBCBC2E6
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 22:09:52 +0300 (EEST)
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id A804B20064F
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 22:09:51 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1790622591;
-	bh=M27MaZh7uNSea4tklBHFnjOfJ/fhL04L1G35m+sSTdg=;
-	h=Received:From:Subject:To;
-	b=JT30UC1SfG80LMxuH9YaLToqGNCSVFV7J8PcorEcGFIpfsweVeK11tVrc/uUlr6S3
-	 FbSlC3J5Bl12eHxcbTZRLerwY1dy/5ly4s3TogT9cAZVSR0Ap4CQUPEkMjDdjP2FoO
-	 CexjGYeYgJlKbp3UHgf7RBtEeH/FxGg730/PDtjJ00GbMAjAzULOeUDOUR13/Nf+jT
-	 pHMVmAKC3k9qg/+76LOMOcn/wYnd2eTUbVg3JoxK6neqcdJJ+TXtZFfVQalEFrpAE5
-	 EaVpMQZyM80+VP0/ebqOfCm95BxPsAo7xby8xs36R26jGPbV7eLLGQuly+5jylZAXZ
-	 5dCLjlEru6TYA==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 74.125.228.39) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pz2-f39.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pz2-f39.google.com with SMTP id
- d2e1a72fcca58-8807e5b8fa9so1985940b3a.0
-        for <devicetree@vger.kernel.org>;
- Mon, 28 Sep 2026 12:09:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBwtLyD0GIg2+ncmwDKwmqKh+d279ypa1BPSNc3ZawDqMopSBVS2JDhKyqNT+nvlTafRd8PkdnsTasEe@vger.kernel.org
-X-Gm-Message-State: AFuF++nNV6U/gb+xldTACY7ztXlRoRPrn/yDpavhjokY03DlHhvB7Zls
-	mpCXRKkcWWIWOhu2FUT5oYrNfNpqbNpT4v0tzYXLgHnVeN2mAg7L7Wn4KNWdmmzzE+K+FWzhW10
-	0+2dHc/XvckvOk4NiWc/dVdFCKLmQb2w=
-X-Received: by 2002:a05:6a00:950f:b0:881:622e:b404 with SMTP id
- d2e1a72fcca58-881622ec9e2mr5922881b3a.13.1790622590231; Mon, 28 Sep 2026
- 12:09:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="B9BHqKQC"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e529da9so1077517e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 12:16:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790622983; x=1791227783; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BQ/QxsaYA9sPy0Rq4QivZtNIQwREX4bWNN8dGL2Ve94=;
+        b=B9BHqKQCrK+/68hjpsxzjJT5KEvxJaYYONWFx6NyCc/PPVa2kvPiQMF6U5aN/4Pg8a
+         fE7Ye8FOegGhWNtqJcFambSZWTBNRC6C6XxFsBtRCQMYdubTvqPunlKo852nbFe1YPiC
+         M1IixVw+GYlBk2MzqaIqs6eEQjl2sylYxNrDsw7Gifnp5jL6U1GN6r6sa4n7ShP7WyWB
+         DigsUxLsv3kDvFmNg2llwGfYghJ/mxIj7/npYooHJ85yFq/qjgWg0r8y5b062EX3rcZE
+         w9CkUuzAJG4kyBIWtC0vxQkacKfksPY3YupibfS0XVXDov4hCdWhkPRf29LhA9u2OTgv
+         MP8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790622983; x=1791227783;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BQ/QxsaYA9sPy0Rq4QivZtNIQwREX4bWNN8dGL2Ve94=;
+        b=JCNwu9PkDTwwVsGGCmlJLCvLBtHVW/VzIJslAZYWJkuzLUPRtNkJHuAKBo3FqQnmJn
+         lC7tZ9MC8oP5yanybUNFwrXqZ3P8mZqhajDmi7So+rv394yAy6vzN+7Y/ouXSk+gW+Lw
+         5GghfjTh76vYcU3DrH0hVZnahWPSann79vsQ2bAmaDOqOXYuQsv5yPqf2DPj5e2GgBVK
+         Wom6I7S1+Srtn5+6+DJr9dmdtaZ5a/PG+9bZdGKE49Zh0IuocnrHs6AMuMNL76QuiCaA
+         5IEvrj36oVDuKjvlkgU4aB8KPqighw60zT1vY2Of1XKtC/Md9DOXZnfnoWn5f/VTyLX4
+         JlWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzlAwSV39SY2xgmOOIMythIks7ElZxz33FzjxXJv+2jjXaw0Ysq+bbHGNzKMeGxLhrOh4+RWYPS1JSs@vger.kernel.org
+X-Gm-Message-State: AFq9FYIR15fCwoWaYInE+Bz/8pYpEg/1Btcyxyr/9dOXs2+xZqxAwsfz
+	+vdh3cUf7ZpYnvdtT8Jd7LVv0tuR8OMomPoZ41NUxFxQO/8U90vWH3/5YFPWZiAFXxk=
+X-Gm-Gg: AYBFou2AfHQ2k+6sYbQmT1Y3E+PVqJqYT4+soG3Ax7tilF1bWtzYuxrLh6OPw1VUzJB
+	A8sY6SQoQmmVKcEdutx6cccjMXQlFpSuXVh3OXAMfgyQIvDtj6C2XMQuevAuP9sQYP0vYxLs58G
+	G8RXvJyCpAXES/9QnwE1tH6QWPNKIMIi4+oxyPBU63HNqRmX/J9zvIuqsRMPth5EzH/333aQUQx
+	1kdlz1ylzDRtfNGc6rW76VZInnTUS6Jfl6+MeEHk1NNiH++/MRECLoM/T9t228mZ4GuereFjkf5
+	wB13VmjNrBVPu6NxNeJYUXms8/2Z4kKkx9I6c+LLgB+Co4qsl3aEUC/Ht5PKyD3M1z96vzEEtO+
+	HbJ5enr1S4WWThSJejYAWbownk54kSr758ugeEzop9cvaGRAdPJ8mNrpa1dF/cd9BQxo0DkRBB9
+	uFAX8kL/8f+V+W4rg3416dao65JK5BOSCnzRd17xaFn4WtCA12Vv59+ldP5ZNaFOQDNzYDQzvEI
+	ry8Al+JUPaYvgJAFFN46WZW8Eq2ArjyivZkFOD/9zGMip7LX+CBwJrhXPXiT7dnpCXbBdNPJN0n
+	kcJrSKE=
+X-Received: by 2002:a05:6122:1313:b0:5c9:a60b:e5d5 with SMTP id 71dfb90a1353d-5cb0b67e6bbmr5760667e0c.15.1790622982793;
+        Mon, 28 Sep 2026 12:16:22 -0700 (PDT)
+Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde4f969b9sm10052205e0c.3.2026.09.28.12.16.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 28 Sep 2026 12:16:22 -0700 (PDT)
+Message-ID: <8fa0c826-9d4a-487c-b7db-5412118364d5@linaro.org>
+Date: Mon, 28 Sep 2026 21:16:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920184148.31541-1-mstoretv@cern.ch>
- <20260920184148.31541-4-mstoretv@cern.ch>
- <CAGwozwGzw1CE03kbWJaV7iC=1o0QXg9PpreTunenm-vHPe515A@mail.gmail.com>
- <6f2e0c22-0be6-4daa-8ab3-28d92f41197b@cern.ch>
-In-Reply-To: <6f2e0c22-0be6-4daa-8ab3-28d92f41197b@cern.ch>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Mon, 28 Sep 2026 21:09:38 +0200
-X-Gmail-Original-Message-ID: 
- <CAGwozwGwccsppaCUETVJzNN8uGd8Pzujf9pz08SyHUQFKEOxCQ@mail.gmail.com>
-X-Gm-Features: AclHuK_v9w0YXSZSx0g8Va5cCsEeDXtVXybBPr1g8CUrksUyT2o_myVNfPGRM4s
-Message-ID: 
- <CAGwozwGwccsppaCUETVJzNN8uGd8Pzujf9pz08SyHUQFKEOxCQ@mail.gmail.com>
-Subject: Re: [PATCH v7 3/3] arm64: dts: qcom: Add hamoa Samsung Galaxy Book4
- Edge devicetrees
-To: Maxim Storetvedt <mstoretv@cern.ch>
-Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, marcus@nazgul.ch, marijn.suijten@somainline.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, abel.vesa@linaro.org,
-	abel.vesa@oss.qualcomm.com, johan@kernel.org, konradybcio@kernel.org,
-	kirill@korins.ky
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179062259190.388337.7728834551611369446@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+To: Maxime Ripard <mripard@kernel.org>, Jessica Zhang
+ <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Benjamin Tissoires <bentiss@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 28 Sept 2026 at 20:41, Maxim Storetvedt <mstoretv@cern.ch> wrote:
->
->
-> On 9/28/26 18:44, Antheas Kapenekakis wrote:
-> > On Sun, 20 Sept 2026 at 20:41, Maxim Storetvedt <mstoretv@cern.ch> wrote:
-> >>
-> >> Adds devicetrees for the 14-inch and 16-inch hamoa SKUs of the Samsung Galaxy Book4 Edge.
-> >>
-> >> These use a common dtsi derived from nodes that were able to work on Linux
-> >> from the initial Galaxy Book4 Edge DTS by Marcus:
-> >>
-> >> Link: https://lore.kernel.org/all/p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms/
-> >>
-> >> combined with the patch series the Honor Magicbook Art 14, which shares device similarities:
-> >>
-> >> Link: https://lore.kernel.org/all/20260629154812.9066-1-mail@etehtsea.me/
-> >
-> > Links go in the bottom, Based-on-a-patch is not a thing, you may add a
-> > Coby as noted in a parallel thread.
-> >
-> >> as well as a few more adjustments on top of that again to get additional features working.
-> >> Special thanks to Jesse Ahn for helping expand on what would eventually become this dtsi.
-> >
-> > Hi Maxim,
-> > I tested this series on a kernel with various other backports on two
-> > european (norwegian market) galaxy book4 edges.
-> >
-> > Specifically, the 14in NP940XMA and the 15.6in (not 16) NP750XQB.
-> > Specifically, the later is an X1Plus variant that came out a year
-> > later with cheaper components. It does not work properly on either on
-> > them. I was hoping that at least the 14in model would work as is but
-> > no.
-> >
-> > My test devices have proprietary Samsung battery controllers
-> > (ENE-KB9058) and type C controllers (Samsung EmuEC). Also the speaker
-> > amplifiers are different. So the battery reporting, audio, and USB C
-> > ports do not work at all using your DTs. The TPM does not bind either
-> > but you do not claim that it does. At least they got me to boot and
-> > for that I am grateful.
-> >
-> > Other stuff also does not work, but I am just listing the main ones.
-> >
-> > I suggest you change the -14/-16 suffixes on both models with
-> > something more specific.
-> >
-> > The prior patches in the series look fine to my eyes. I did not A/B
-> > test them, just pulled them in.
-> >
-> > Best,
-> > Antheas
-> >
->
-> Hi Antheas,
->
-> Thanks for giving it a test! I think we both have the (almost) same
-> device, and your experience on the 14" NP940XMA (NO) probably mirrors
-> that of my NP940XMA (IT).
->
-> USB-C should already work for this SKU with the patch DT, but not USB-C
-> hotplug (yet). For now, everything is just left as already set up by the
-> firmware, so peripherals plugged in after boot will not be detected.
-> Everything inserted before boot, and hotplug on USB hubs, should still
-> be fine. Could you give it a try on your device?
+On 9/28/26 18:22, Maxime Ripard wrote:
+> Most MIPI-DSI panel drivers follow an identical pattern: acquire
+> regulators and GPIOs, perform a reset pulse with specific timing,
+> send a vendor-supplied sequence of DSI commands, then enable the
+> display. The only truly panel-specific part is the init sequence
+> and power-on/off timing.
+> 
+> The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
+> with a single generic driver whose panel-specific behavior is
+> provided by BPF programs loaded from userspace at runtime,
+> following the HID-BPF model. This enables new panel support
+> without kernel patches.
+> 
+> Panel DT nodes use a two-entry compatible with the panel-specific
+> string first and "panel-mipi-dsi-bpf" as fallback. The generic
+> driver matches on the fallback, while the first compatible is used
+> to identify which BPF program to load.
+> 
+> Six normalized optional regulator supplies cover ~95% of existing
+> MIPI-DSI panels: vcc (IC core), iovcc (I/O interface), avdd/avee
+> (positive/negative analog), and elvdd/elvss (OLED EL driver).
+> 
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>   .../bindings/display/panel/panel-mipi-dsi-bpf.yaml | 184 +++++++++++++++++++++
+>   1 file changed, 184 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml
+> new file mode 100644
+> index 000000000000..9a20a21cf70e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml
+> @@ -0,0 +1,184 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/panel-mipi-dsi-bpf.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Generic MIPI-DSI panel with BPF init sequences
+> +
+> +maintainers:
+> +  - Maxime Ripard <mripard@kernel.org>
+> +
+> +description: |
+> +  A generic MIPI-DSI panel driver where the panel-specific power sequencing
+> +  and DSI init commands are provided by BPF programs.
+> +
+> +  Panel DT nodes use a fallback compatible so the generic driver matches on
+> +  "panel-mipi-dsi-bpf" while the first compatible identifies the specific
+> +  panel for BPF program matching.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - description: Panel-specific compatible string
+> +      - const: panel-mipi-dsi-bpf
 
-Yes, that mirrors my experience. But without a TypeC driver you don't
-get renegotiation. So no USB3, no fast charging, no hotplugging, and
-no DP alt mode. I wrote one but it's still buggy and a bit too
-complicated.
+I don't see how this can be a valid hardware description, bfp is a software
+implementation and has nothing to do in the bindings.
 
-> Battery state monitoring should also be with the same caveats on both
-> these devices, going via a separate protocol over I2C instead of
-> following the other X1Es. There is a separate battery driver for this,
-> and also other useful patches (like the webcam and kb backlight)
-> downstream. For now at least, only the features listed in the cover are
-> included here, but our repo linked there has pointers to the other
-> relevant patches needed for now.
-
-I did not find a battery driver so likewise I wrote mine. I think the
-battery driver is more upstreamable than the TypeC driver. That will
-take a lot of work.
-
-But it also means you have a spurious hunk on your dt then. The hunk
-that registers the dead battery and supposedly controls the TypeC
-connectors from qualcomm can be removed as it is not present on your
-device. It can then be replaced with one that registers the proper
-driver later.
-
-> On that topic, you will also find links to devicetrees for the X1P42100
-> Book4 Edge there (via Ciscobugger). This might not be the same X1P SKU,
-> but could also be worth a try.
-
-I had a quick look at your repo. In my initial attempt, I tried to
-reference your upstream (not you) but quickly gave up due to the large
-number of commits and dtbs.
-
-I only see a polling commit in your tree after it diverges, I do not
-see a battery driver?
-
-I think the only realistic way forward for me is to wait for upstream
-to catch up and only add support for my reference devices (the 14 and
-15.6) so I can flesh out my userspace until qualcomm starts to deliver
-results on mainline kernels.
-
-I attach my current tree below [1], note it is very unclean and I am
-currently doing fix commits. Once I get to a place where I am happy
-with base functionality, I will squash everything send it as a series.
-If you tell me that your device works with the drivers I wrote (note
-the LLM assistance), we can synergize. I do not expect the typec
-driver to get upstreamed unless someone more familiar with the type c
-internals gets involved, as a lot of the changes go over my head. But
-I think it is realistic for me to upstream the battery driver, unless
-you have a simpler alternative.
-
-the drivers relevant to you are ene-kb9058 and samsung-emuec. If they
-work with your laptop and are universal for these devices great. Note
-that they are both interrupt based so the battery reporting changes
-instantly. You can also take my dt for the 14 in for a spin or just
-deploy my tree as a test.
-
-I am contemplating whether an initial series using DTs, then a
-follow-up switching to ACPI is simpler for everyone involved. But as I
-see the huge amount of dts, I start to get concerned. So I might send
-my initial series that enables the device to boot using ACPI instead.
-As you know, Windows uses ACPI to boot the device and a lot of the dt
-i derived was from the ACPI tables I dumped in Windows. The DT was
-important for me to get an initial bring up for the device. I can now
-sync kernels to it in ~2 minutes so I can rapidly iterate.
-
-To that end, can anyone tell me why are we not attempting to use ACPI
-to boot these devices and relying on DTs on the ARM side? I know that
-traditionally for phones DTs are used but these are UEFI devices and
-contain proper BIOS data for autodiscovery. What is the current
-blocker? Switching to ACPI should let us drop all laptop specific DTs
-by adding parsers to their currently DT only drivers. Am I wrong?
-
-Antheas
-
-[1] https://github.com/anatase-org/patchwork/commits/7.2.7-an12
-
-> Cheers,
-> -Max
-
+Neil
