@@ -1,153 +1,162 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F4D4EDCD0
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 16:46:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3A24F052B;
+	Mon, 28 Sep 2026 16:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790614002; cv=none; b=LEPNPHpmLprvg12nLdCKq1tGbJzHncCM7fGpRtmNG07bDKbtXYHoBedjlLJUzuNkNhi9AXcsRGoB8PtFNTLHb3SntXMZ6THsmfjIwcOm72bM+5ClsJFqt0I1lIWWUNlwGJZIDDcxNW4fg2n3/t3PmYm51a+DRmiMEOgj7xUVmlY=
+	t=1790614144; cv=none; b=pOkPim3ZnuV87s2MZg0M8a2Hbw8UK4TTb591wBkrjo8pQABnI6Q8nzbMtffqP+YPbDJLb9F/WN7Ru0R0Tu7meHWZxcg2/NIvWlzosCgwWcBJUetVj9AaA/s6r0pdwvHjCMU9xD+cYuSqj8jI3xXp2TV0U8MiJBAgplAgauUcdJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790614002; c=relaxed/simple;
-	bh=wUgGtA7dLjx1lOGU2OV5DEmUzecs4ta1J+YCw2zPXZs=;
+	s=arc-20240116; t=1790614144; c=relaxed/simple;
+	bh=p6Z2HiR7wy1TjKUzDRhsOJ75b9wzxmwqrB147Z3fti0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fCFXByoZBHJRKZqyIk0GtOIzB3KiOg8HTCmDUoMUhetutowpv2N8iHERmQvbGS4DjdU/bMA91akYE5bZlWrbw5ccOM8cPTCQS8cphbKwpx/MBVn+XqeQbDTOF3Z/nd0fKcm2yDUR403Ri2m8ofWjGsM8Gx6fET0CpCtgqrngSio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JyIv0RSA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Qc9GIs9D; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bEaqDI2/wccvzHa4LXeHGX9Yr1PpmDiijx5GsLLWdzzE8KydVS/jIQL7r6YThlsnKwA7JDbjfDGxNeoXRQqDWNCVp+5V6KX4Ox81zSCcTbwnqfye5RsKD45j2mS6mba4RFmbmTfQihL7gfUNBRbdrDO1W6vlLjIpwwYzlwX6+ac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JAKD5Ifo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JyIv0RSA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Qc9GIs9D"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68SEe3E02298484
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 16:46:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Y1uRUm4Mo5eB3KKuXU2hZKYR
-	+aEDg87giYh07OUbqjo=; b=JyIv0RSAPLr6JQptCu9MOX7mPKUUSPI8mN96f/tg
-	9sVCgrtVux9OCIUV/f2bpcJ6U87A4u+fDbb8DZNLgvMDgO5XEL2wIHsc3fLGLuar
-	sOaBdiwDR2U7BYa61O/1VdrQp9qnxE0z4h1eILm+5TS7hUADMTiNMGviqv1Qepl7
-	qHw5d4Du4OuowVJLsbvmcbial2hNGfDJvnmeYK4QsOB7fZ4XSQA7DpsWXwFQvdde
-	NgGLAjnryUjOvYDcEcD+Lhh6vaHbN8KxreRTAGdy3bCc2fsSyVnQEdLD7wd+5Jya
-	FOW1xkFa3oLP0F0IRiToCdUVlr0NH4O1dbW79KLE+jmKjg==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gynb6htp4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 16:46:39 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7b206156cc6so2753268137.1
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 09:46:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790613999; x=1791218799; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Y1uRUm4Mo5eB3KKuXU2hZKYR+aEDg87giYh07OUbqjo=;
-        b=Qc9GIs9DEz0XU93Oz7FQEbWgUAbvLfZ+RlJ/E3UQqZFhhhdTXXyOJ/zAeKFjKasuHW
-         0jhdLw+cdy0cZeT5pHsyLJumAGSSWs1O04IGBgAuBRr4TgrLvT6kdQpAVFbY24/rVRB0
-         qRrio0VnsHIdCB+Bg4fOAWf0Nx4uVMiUczt49Yvox7b8aTsZwTQUEM0SACdMSAvgPalH
-         TH3h+j1vEyRqzpDlR3vZfX3EHUeckvhlT9t2wjE3J4MECMTxbiq1Uptu4zNtnTfZb2e7
-         SGuBKkMtXwiYDrt923jdxrXGwT/tBeoDwn8beHxVOkd8sO4f5BuF27X69CRTDnKAElgW
-         PhdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790613999; x=1791218799;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y1uRUm4Mo5eB3KKuXU2hZKYR+aEDg87giYh07OUbqjo=;
-        b=GbWUIvwd9ni867OxrcXF57Ibg2wlLGCVrSbB69IIW8CUQL+Yi+iEUnIBR94kXTgLuy
-         AiA3+8M66PWHJDFT3Bh8D131K/4vNBlHrkOys6l7cfpRzhJmLPQa8nrXNGDsVPB2/p+O
-         Oh06PUIUGomIEu04mfFG55vFys4jOhzBRzo0H6WY4DtRLkysLvJaaY4/sUQ0jcyILiAY
-         3cefjIJ3n13+1r5xx/7PnICwXfdw4JPDeqBhXVMz7ussqhnKSRdq/giUm6dujw3bc7EN
-         mzLT0IFZNizoRbzqA/6Iq0iab5wC48e5m3eNV6WGNlLpS2r79yMrOWeda6UToFBTnfl1
-         6mGQ==
-X-Forwarded-Encrypted: i=1; AKwUvByVZcLTZXe0u1EGotsOLGyud++klIzJI4jFizLOAHo5QdZUDXdc85c+g9wvZjqka6qlCdW1oQH1phWB@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIwo6DDAKieQcY5q/WdSegbAgnPJhrJn1toENI5M5BffK1HOqk
-	HbOFYjSbhvFC2dPhSUbKPv/JAXuBHR4L9yoMqppJJ40yDJ71E1+YX/KDk4glfYTOziXJXbIPOPJ
-	a4j2Dfk2r4iQpFHgbPxByYw7TpPQ9hyQzI1RKFR8mIcNwg4Xv4dKegjFoHVuO8CqL
-X-Gm-Gg: AYBFou3i09uuOeV3fNN3ihJA4BylubRtjuCJgHFoP53X1c4oF076/gvLthc+PkQk07g
-	Y5C3Ka+r7Dsik6N9sZmgFv5SS4fomAld9fOS9n7IQHPZkSp7xtzGU4tc0wOCIajdOtEqEU+tgQv
-	5J4l7knDG31lhXf6mDpoOesa32tnMwK9I2sz6l7Yr/eedRIODR/v2Orlwk0VUkB04XE0fjhmagM
-	o916CQWdUOmuxgW+SCQ9oqzL8neKp1i8cCm9K5bj6yQGmUinkZk+iGwnn3QgxxKU2Hg/jELDWDc
-	HogHHQjK6nmoMeH3+pLmElMLKs/VNKdz0CKfy4dFG3KGgma8PE48yfR+Fgv+UAL9Hb3/Bw0sWLB
-	Y15fPvDQ+Nmr7nA8=
-X-Received: by 2002:a05:6102:2c0d:b0:7b4:2acd:fb9a with SMTP id ada2fe7eead31-7b42ace0b41mr1518934137.25.1790613998535;
-        Mon, 28 Sep 2026 09:46:38 -0700 (PDT)
-X-Received: by 2002:a05:6102:2c0d:b0:7b4:2acd:fb9a with SMTP id ada2fe7eead31-7b42ace0b41mr1518400137.25.1790613968218;
-        Mon, 28 Sep 2026 09:46:08 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00d0ea071sm4017915e9.9.2026.09.28.09.46.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 09:46:07 -0700 (PDT)
-Date: Mon, 28 Sep 2026 19:46:05 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Dale Whinham <daleyo@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: x1-denali: Enable IRIS video codec
-Message-ID: <s6fxuj3ipfz6nl2hm2pdcpgaj5fxx2rpurxtdfy7fo2srwqe2i@smx3fy6ukxzx>
-References: <20260925-sp11-iris-v1-1-967f1a3a6b6e@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JAKD5Ifo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9311F000FF;
+	Mon, 28 Sep 2026 16:49:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790614143;
+	bh=mUWct8aizjZm3FpdazTy05+paU2XtXuaVqE657SoQPQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JAKD5Ifo+jsV4cHgODTZ42PB6SQvPN6UZaZFjvPM9pxqyidjxwFQY1MzGBoQJC0Gg
+	 60gu8qqhP1Fh/AepHjj0X3yMaCqhBNEk8m831xRnjjhj6HFGOtb8R9O2S9ssyRgvGC
+	 0uPk0dfQapjZtX7pMogZoGfI8csxOpdDxXo9Qo9wAA2UJrEJNCS8lDKo8qkuNqYS0f
+	 QUhqned/V5UkjOVMMCfp9wXjq6Z7vRXe3rdSp1gfMct8kKCUcGwdoQm5BN07tz4ozc
+	 a5S9qC7LzJ/9LO/PmIHCD1H7+cbjRkIg4Ck2FCvg+mryclbnlQ1gOhsD5ODI+XOcjn
+	 75nD3GC6JRqzg==
+Date: Mon, 28 Sep 2026 17:48:58 +0100
+From: Conor Dooley <conor@kernel.org>
+To: V.Yurkov.EXT@bruker.com
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Jyri Sarha <jsarha@ti.com>, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	Vyacheslav Yurkov <uvv.mail@gmail.com>
+Subject: Re: [PATCH v7 1/2] dt-bindings: clock: gpio-gate-clock: Add a new
+ compatible string
+Message-ID: <20260928-disarm-unshackle-6cfc9c31f40a@spud>
+References: <20260927-feature-clock-guard-v7-0-8dd19568d9a2@bruker.com>
+ <20260927-feature-clock-guard-v7-1-8dd19568d9a2@bruker.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="L1+02ogUpUOAI+8n"
+Content-Disposition: inline
+In-Reply-To: <20260927-feature-clock-guard-v7-1-8dd19568d9a2@bruker.com>
+
+--L1+02ogUpUOAI+8n
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260925-sp11-iris-v1-1-967f1a3a6b6e@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA2NiBTYWx0ZWRfXxJgskh/rnk0E
- ViQWozWkUS/2IpSOhDeXl+kZr0k+GvgspyuRqBgb/VN605vwPR1gQtKl76CbUzySitYcm+Ipoh0
- gL6wmPmzwceGwu9v4wmq/6UmzCGHAZDY3kMVwqYgHyAempgeb076vEBDn7Irb1VZwvzUuPx1XS0
- Kc0O1b3p+ru0pNjjW0UWVv1BcqLJ3QWZ4nNjO7Vbr7T3DpeTjX1+cnh9xPhajRGqovS4bkRBFqE
- QsKHZiszAWyLrFNQqIvT/exCc7xciM58rxa3n4JjB6xiL32Z7GuTfIDA6WvNsZydOPbI06sMk95
- YgRV5ur4INzl1C/KO3tv83ezUqOCzQ6jykGTkcXnMbfw372finNoauReHwZwUqpua/5qx+DFza6
- xG95TSA8hGA1FHYhN3bYur7MITpptP7Yiq5PrZPbBoGCeZDImeRoDmv5o/RX9f04JdVBTlV43u+
- J9512UPFkJOrV4XY5Fg==
-X-Authority-Analysis: v=2.4 cv=K+e3jCWI c=1 sm=1 tr=0 ts=6aba99ef cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=gHjZUIugi9cSBFQiOBsA:9 a=CjuIK1q_8ugA:10
- a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA2NiBTYWx0ZWRfX+ntq8T+YYFID
- SkZst5xzFKeQQud0gDSkC0v361GHX9ILRCTQq/xZ8FbL8DZIjPLKg1NrXj5xcHQSXv6Pofd2YgD
- orfX9nsGlT13h7h7jKWfEuYjVYO3hXg=
-X-Proofpoint-ORIG-GUID: 37p2ZIdFkJDHyhl4hwOWn3Y0l-np24iJ
-X-Proofpoint-GUID: 37p2ZIdFkJDHyhl4hwOWn3Y0l-np24iJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0
- lowpriorityscore=0 phishscore=0 priorityscore=1501 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609280066
+Content-Transfer-Encoding: quoted-printable
 
-On 26-09-25 21:51:03, Dale Whinham wrote:
-> Enable the video codec and point it at the Denali firmware.
-> 
-> With the firmware in place video0 and video1 appear:
-> 
-> $ v4l2-ctl -d /dev/video0 --info --list-formats-out
->       Driver name      : iris_driver
->       Card type        : Iris Decoder
->       Bus info         : plat:aa00000.video-codec:dec
->       [0]: 'H264' (H.264, compressed, dyn-resolution)
->       [1]: 'HEVC' (HEVC, compressed, dyn-resolution)
->       [2]: 'VP90' (VP9, compressed, dyn-resolution)
->       [3]: 'AV01' (AV1 OBU Stream, compressed, dyn-resolution)
-> 
-> $ v4l2-ctl -d /dev/video1 --info --list-formats
->       Driver name      : iris_driver
->       Card type        : Iris Encoder
->       Bus info         : plat:aa00000.video-codec:enc
->       [0]: 'H264' (H.264, compressed, enc-cap-frame-interval)
->       [1]: 'HEVC' (HEVC, compressed, enc-cap-frame-interval)
-> 
-> Signed-off-by: Dale Whinham <daleyo@gmail.com>
+On Sun, Sep 27, 2026 at 02:00:00PM +0000, Vyacheslav Yurkov via B4 Relay wr=
+ote:
+> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+>=20
+> Extend the binding to be used also for gpio-locked-fixed-clock.
+> A GPIO-locked fixed clock provider exposes a fixed-rate clock whose
+> availability depends on one or more GPIO lock-status signals.
+>=20
+> Some hardware designs provide fixed-frequency clocks generated outside
+> software control, such as by FPGA-resident PLLs. While the clock rate is
+> fixed, a separate GPIO signal indicates whether the clock source is
+> locked and producing a valid output.
+>=20
+> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+> ---
+>  .../devicetree/bindings/clock/gpio-gate-clock.yaml | 32 ++++++++++++++++=
+++++--
+>  1 file changed, 30 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml=
+ b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+> index d09d0e3f0c6e..1ad87c8b36b9 100644
+> --- a/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+> +++ b/Documentation/devicetree/bindings/clock/gpio-gate-clock.yaml
+> @@ -11,7 +11,9 @@ maintainers:
+> =20
+>  properties:
+>    compatible:
+> -    const: gpio-gate-clock
+> +    enum:
+> +      - gpio-gate-clock
+> +      - gpio-locked-clock
+> =20
+>    clocks:
+>      maxItems: 1
+> @@ -23,10 +25,29 @@ properties:
+>      description: GPIO reference for enabling and disabling the clock.
+>      maxItems: 1
+> =20
+> +  enabled-gpios:
+> +    description: GPIO that indicates whether the clock is enabled or dis=
+abled.
+> +    maxItems: 1
+> +
+>  required:
+>    - compatible
+>    - '#clock-cells'
+> -  - enable-gpios
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: gpio-gate-clock
+> +    then:
+> +      required:
+> +        - enable-gpios
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: gpio-locked-clock
+> +    then:
+> +      required:
+> +        - enabled-gpios
+> =20
+>  additionalProperties: false
+> =20
+> @@ -40,3 +61,10 @@ examples:
+>          #clock-cells =3D <0>;
+>          enable-gpios =3D <&gpio 1 GPIO_ACTIVE_HIGH>;
+>      };
+> +
+> +    clk_gpio_locked {
+> +        compatible =3D "gpio-locked-clock";
+> +        #clock-cells =3D <0>;
+> +        clocks =3D <&pll>;
+> +        enabled-gpios =3D <&gpio0 4 GPIO_ACTIVE_HIGH>;
+> +    };
+>=20
+> --=20
+> 2.34.1
+>=20
+>=20
+
+--L1+02ogUpUOAI+8n
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarqaegAKCRB4tDGHoIJi
+0qkgAPwLbnGmHMqfHyLBulYb5hGC1OUAB4zwxyfSelk4McM9egEA2ZKdn80e2nzx
+ozh36yl5udmVC+2QUEb6cHqGivbo5wU=
+=+wSo
+-----END PGP SIGNATURE-----
+
+--L1+02ogUpUOAI+8n--
