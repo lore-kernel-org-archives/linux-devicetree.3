@@ -1,200 +1,239 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11020098.outbound.protection.outlook.com [52.101.229.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9EE92DA749;
-	Mon, 28 Sep 2026 03:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030F033A9C4;
+	Mon, 28 Sep 2026 03:50:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.98
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790567100; cv=fail; b=A4+OpOd69Cqa05xAAMsa/rJXhCKwRvxZ88DfwqK9jjVmduCewHQLkq3a0WUAtBNoURHVkGiiyA+Z9VKeuhVYhpeMKyKre1SSw5aFPMeG0Y8xZaSMpx4wWEeP9vn1QCyzEAiFdrflWVHXRwocY2mGyj1GW1KXCsERwf8bRkzdDOw=
+	t=1790567457; cv=fail; b=Keldj1DtPYg695A3W/3VCzDr4sfcYP2efIku9vyWHXItWtG46fI2NWgJZ0tidDSDPyYV2i5703pYq7mKgHCk4zpKZZ6LiUtasX6MHRPPqmykcvGC3BvxsNMNVUvJgqVwqA2Yy9Dp0WGeo/RZA4teuGd+RUnqbiwEbAnLwD75n5M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790567100; c=relaxed/simple;
-	bh=pwCJgc9/93KCYtWQgAbs0YVH29KsgLEGrBDoDQ64PKs=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=JBW/dIDxaFHFHOyq36SVO6YkMTbt0LXVsAKXvoJV80Pb1HRdRb76OD2v9Wtz1mB1w8F8BaylKHUIXA3t4VWti0thsQ3ZuCuS+cQCJKHJl1smmIFbjOcyHWmTJ1/7JJtWKmve/9aEvjbpdv6sDQVdz/7mllh6i+zGo6u6CqH7axo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Vtur7KqP; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=xEij7+FQ; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1790567457; c=relaxed/simple;
+	bh=uTYt9Lv7Oh/GgzqXu3Hap6J/m2pPNAK5ZdLROAqXEIM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=J4lgx1GAkvIJzsM95Z8D0lIwY8+4LqLtGoNlwBXDeGKx+52KdTSEtnUP2KSSh3nEQqq6wXPBEO27DH3eqok0OHLixddqBgR9Gbmn8wBtmr6ChBZLP5aGejAIGabRdjuTO90qOog6dnsscclkNOSDl77OSfk14kGs5kjsS5ByCfE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=I8ta24se; arc=fail smtp.client-ip=52.101.229.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Vtur7KqP";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="xEij7+FQ"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68RNuHYM2775738;
-	Sun, 27 Sep 2026 22:42:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=LQf+6tTm0xmSE
-	eedUWgy4jPWdWm7X5aq8dSyLlNcrf4=; b=Vtur7KqPoQNVjcSys0vA3U0D74mfE
-	n8b3/qtSVCEVMZX/NORt77ACgz634ohc9DjXALskRvPsVRCN8eYjjMTccgY4HT2B
-	t/ecJ1XeaE2jMjFVyB3s3E7Zrm86376amAFYSkxl1/jzJzERSAELMIAmdTcFDvQi
-	N/U2kknSnB+Cnfp69TB43GWWnP90mCKPq0nsbwfqNQU0opv2QVOFOn64uV+yps+m
-	6V87gE8NJ0vAblvMlI4tA+PpEo62lpZYz1XEAjoFRubxBm7vCQ3va/53n6J1DATV
-	Fk1byc8fkjZgydYqTWoC7cwFKyhaMKO7C3HXbhKK6uQ0pfJ/WPh0PJ5sQ==
-Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012010.outbound.protection.outlook.com [40.93.195.10])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4gxy2nkbu5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 27 Sep 2026 22:42:28 -0500 (CDT)
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="I8ta24se"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y3PjDZoNew//bYOwEaHrz/zu6Ysh4k1ECvxYIhov8Y7wZVGMpM3vFkfygnc9ezb9vdmxJNY6VILjSnKoLaK8RZpc3n1unBYkNuqQXwfzK0+hJAnA81rz1dTfM5ig/SchWHxzFO+G+csM6hcTxWd0z2JtYNpWoovh+u3IjfB/Vsg7AoGSswT/6hTkKXNPZkiciLQ7LuV0qEHfWzFxLGJ935KC5SZbn6F6bKJf0btTBJUTvEeRIoWcQ83aRDFOzwf1k+nvktIWT6/qu3TFXhTtYzcLOWies162FwQBPSmVehGqsy/uZtnWPDiHN9eHrHiC7qGbQJbINb5zrncZDOV32A==
+ b=XJt3Sp+XO/AV/QESeqzELyHp2WEupIgMlKev5Hkwlqad56rZAf8dDz2AFmtrM/BNnhPfu2Xa/WN3Oq3KpK/qY0Z4+I51v2k26j+iGSlrbDVSNx09uYqAPsEjsa1soHJy7KQ4HVe6uqOqj+o1xY6BCVLai8SdG9D7EQ9hQN4kT3S10NeBxYJBtQZEnNvbJt7V3rxtTDxrUf0kQ2tFwCE3o9iryjgLck40doruJ7G7NTCWWQz747keyH5tANfvG/s1ddQylIFR+xJSs7FQ4sBVJfeOqR4Ec/8MCs46alrsKdW3G868jOy5rKnFInzUMR0IGHEQY98O79OeQBiKXuyUhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LQf+6tTm0xmSEeedUWgy4jPWdWm7X5aq8dSyLlNcrf4=;
- b=flDmV1WKpj8lB+sjv0UwJJda44ARxfsjBQ302BGoVCAvm6ewNxCq9p4HXGOmG/ZlvUhdXLIl8kudNtOF9tm2V/NlWTD9NgD69FPP4t7xWkaIiu3u+BQFy7EF56EpJ5Cl5FHckYNPXT8XWgm1GP8ngGcAT6MEufiMl15WAexEQj7p+JrUUAs1xh0lsGJEKKbRgrOsEo7nTzTJUy5ilFOWlhjclQ0uxoxHg6/ke1pypIfD327SWGdmrggO3lHVFy4xRIqawJYZNCFkUZqREG9n5Y4B2MUhR2ZXAkU9xTKf0hn84hQT+yQgN7MGiZ/KbDe8uI4hFFO7T4P9Bt2ZTq8L6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ bh=sdEdz+k9fbv0rlaIlU7B6/CXfATpYT63BoQJp95MNz0=;
+ b=QdQ7H1SsdFJfd5MGA37zs4g3ThPnm43IwNQMYaFFXDdfpvTHNcDRLlKip2j7f7HMNrz9oUBOPFcGV/CextBEBVgW1WMyzvHDB4DjopPrCJlNcM+gCFr2XB95BkDCexPLa3tF7ZhIx3RY/PAOxDfvCGQON/eQU6Zyrxuxq6GRNJphaUpcmGQBtP725UoJuqbhd4Wa64fHgyCjKPCQmgdJcLVmADFSxqN3SnUgF7NAHvStZVVdGgXY3txQi/DS0TYoCfVjQtw3aehZhNjoXsITnrgWyX7hQwBvr+9NsLOKMSWAu1V1FRBGgPQSja55mGsR+QA3G3qrUAq6K0wAgip6Zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LQf+6tTm0xmSEeedUWgy4jPWdWm7X5aq8dSyLlNcrf4=;
- b=xEij7+FQpXhM3Lx04OYlRPy053YxX43Ik3kgehhMfKMhT9ysDDGgWClfjnDSp4Qdd/iv11VSrSVXkv7ISVopI/ntL3+ho9SGxCO0P8zFq/zJkSYc6T1PnR0wwvrcuNQO1eYy37IxvpuUiP8fvrTy/3I2YUpVv2pIHuLjQbwQk/Y=
-Received: from CH5PR03CA0005.namprd03.prod.outlook.com (2603:10b6:610:1f1::24)
- by DS4PPF66324196D.namprd10.prod.outlook.com (2603:10b6:f:fc00::d22) with
+ bh=sdEdz+k9fbv0rlaIlU7B6/CXfATpYT63BoQJp95MNz0=;
+ b=I8ta24sexQfxfyfxb/AUon7gQfA4Kf8DBjsMt4ZJvjYUBoIJB1V9wrZhd645dyrJOiD5Zrtsw+HXfC1U9NcHYg56e4wL8/0zEfI2N44F1BxX4i2sl6SLrlJtWMZPvH66jiHb5VcFU9dpcljsjeUZihD6klqjepMdXftHKK09eQ0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by TYCP286MB2750.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:246::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.7; Mon, 28 Sep
- 2026 03:42:24 +0000
-Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
- (2603:10b6:610:1f1:cafe::c) by CH5PR03CA0005.outlook.office365.com
- (2603:10b6:610:1f1::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.23 via Frontend Transport; Mon,
- 28 Sep 2026 03:42:24 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 03:42:23 +0000
-Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 27 Sep
- 2026 22:41:21 -0500
-Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE212.ent.ti.com
- (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 27 Sep
- 2026 22:41:21 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Sun, 27 Sep 2026 22:41:21 -0500
-Received: from uda0498651.dhcp.ti.com (uda0498651.dhcp.ti.com [10.24.51.254])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68S3fHEw3232462;
-	Sun, 27 Sep 2026 22:41:18 -0500
-From: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <s-adivi@ti.com>
-CC: <hnagalla@ti.com>, <jm@ti.com>
-Subject: [PATCH 1/2] arm64: dts: ti: k3-am62l-main: Add ADC nodes
-Date: Mon, 28 Sep 2026 09:11:07 +0530
-Message-ID: <20260928034115.1084840-1-s-adivi@ti.com>
-X-Mailer: git-send-email 2.54.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 03:50:51 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 03:50:51 +0000
+Date: Mon, 28 Sep 2026 12:50:50 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Jingoo Han <jingoohan1@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 06/11] PCI: rcar-gen4: Add Root Port reset support
+Message-ID: <lic2nmokugkeu3r6zgjux5a4p2o3545vs2kaijfth3f7rqipz2@ppokxnd7t3ai>
+References: <20260918032038.2216471-1-den@valinux.co.jp>
+ <20260918032038.2216471-7-den@valinux.co.jp>
+ <4e7d7c8b-3daa-4ab3-9de1-51468975c28d@mailbox.org>
+ <rdeabz72swub66aykpwmzqotzcr7pncdqnla6tduki2ex5y3yu@vxb6h7w2uueo>
+ <502bbcc9-956b-497f-822d-c7f70340d1d0@mailbox.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <502bbcc9-956b-497f-822d-c7f70340d1d0@mailbox.org>
+X-ClientProxiedBy: TY6P301CA0025.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3bf::7) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|DS4PPF66324196D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8157bc29-0f22-4e67-325a-08df1d1281ae
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYCP286MB2750:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad7e403b-6099-4140-5680-08df1d13b064
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|56012099006|10067099003|18002099003|921020;
+	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|10070799003|4143699003|6133799003|10067099003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	aDI/6f+oZ3OKS50IHG7JQn8jLiWQOOpYlWGP3d1bua2nPc5x0zmJtwWA8XyIVX9UNfwv2QGzznJe5znMY3wK44K+S5pHZzdV+vZQ6XjnCgP7tR5feHQUtLw9LXLcpsNYtGtFaICm7/1bzv4kUF0qEFstcuB/EpJ9U5GpJu0cKopifXNnXrIziTKFoWfwvGD6rLcEFsJGbX9Bvvf2YfFS4EiJe4vDjvlRVygdME4W37XCC+tPaSdVsOHNnN+aJ5q4GV50dKlkIjus8zK5PbbFV5VhOftaqDYIl4QeNRceqNYZe7hRPnBiEXvMV0mptzOwXDJZolWUXH3VOtBWrJgtk7yZ25dwR6LQlTKDuJfj+cJasGCirKUhLlRjfZLLZOrlA76VPpqIxWkgXRw5cSrup3a3GYNNOZpJrCVGFRiZrUVag/BdLgUxkqu5xFJECfJq3fQfd31lJQlLuD+XBV2QdHmd9fdMuWzra+hyztLZHdR6UV1Ty38jHc5CcKj+iZlTdnDCVWafH6rkRdVn3ozB3K40Fka6JeoZCYenwdEIHKvYG5N9qnCjZuB1RUsdiBgi9M/rcFHDvKykiZb6D0qI6dZtXOXTNhATRn/rivnDiuJFRUM12Rpl/qrud+H20NZYtAUlUVFHsXLq15HmH4TbOWosYBOdNbY8EiDW14Tt3LN1DmT7kD+UsPZgW/YqjiyDLZ1Fctkr8thmbkQbpUPfXIaDEnjdOiUFKoTQLIgsQhW6ARz3hv60sd/V/2LFS9W6
+	QDdPgUdZY5geEPMlWrAYsWNGtA03DbyQYYxpt++huLhsjKiynp0I593gjL4B2q58k8PQwIhtn63HZsOCOw72XPhrrt5MNQh2Os//LoG6LO6j/U50OLXWK00bWjB69dVxeWQOQsHC/wkEflyTCriB4uguiDTcCpHvWRMXY5HVBrfINSrGUROPHOUTFtX+AIkOC/RVHANIkvlbAT9R4YNEqGYrcJTscw9zOVTh6F5C8dYsuDNQ666FfDEPzIzG1lIS2FnzZMQteoBtdAEtG8Zn5SN+s8ANhXiEkD1oc2HNZFbHkWO9FgihV34NxmA0p3kKxNAxmJqehnxImumnHr3LplqnzjpUe73s+faFmpHKFanfq+En5UOifXEnuO1XiSL3wkkIRO/lWRlVlz1l6dm662dQdI+9D5SGmrcMLKaEi4mDymEYPw3N4GKXni/HFQygpwfjVtQneQ2jOZjvHVRRViqzsNgHd4zq7t9thyFl3ePAF5alcrrQwABL+SFSyWWoizzM1yWyb5aq2C94DNuO4MVv/LovMolUsZ0cU2XTbEgDkxHk4xF4If2X5FmWOlhgLUP03CBni3p7NV6znr6WsPpz1rrn9r93QZk69Kqm7p+ydyvtuAHxDAY6r1hnE4hrDfXu5cl3zjUT+7LYBYmpt+rSnyUhm85j6a437+PUTOk=
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(56012099006)(10067099003)(18002099003)(921020);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(10070799003)(4143699003)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	x/k8GDkgqQWUvKi0s4I6vCqUtq9mi1sEgBoIXDEQWugi8ehJEvWNai7UfrX71q0VNrMS8sShZd/JV7q2uK2YeRAWOGOOmieqxqheS6QGsEAaIrc29xQd27flqj+xp98YdaYBLNShetKE1HVVm9fv5MUGjyVz4Ta+IGYiaHCRo6bjeVK0oc+ebso/T+SD1jqacxvSD1UxczQ+91tTTSs1WYVBS6QlDzQ7FQiquNcuiEnzmcD+DGdm9jfBsQGCWI5GhTZfO7RcbnebgNzKHAdXZjQcc0nXhK2KCKaRntWWr9aZl3aR7MuuuR3qzmXrQywazmfJFVrlWBsdr11p3dkEt0NqiYE8a+9dViwxneOTv4fJeecikBLiwcoaQu4akNiRoXW2YA9aK2Ign9vxBagNqtFjGjJlP9cIkKDvnWJ38QZzYc27hGEhoBedc8dNLNB9
-X-Exchange-RoutingPolicyChecked:
-	jM/pQWaIzjCdqBRsXLk6oI2f8SlrtQm1vbd1cZCDUumutqQ+FaDJcbMJrtrsRABdm/eAnR26DjleBjWm49S8HMzJbh3SchlC9vVfAm+XyPlHxMEz6WEZfGB0UXXOBrR9IASkIcSXe9P9LPLNo5rvr6H9THE1OurKNcsvQKybc9FEIBTve6P0kATh0ZvFIUsm0YDArfOCnhdrOVpfeeObUVGM/V4TrvfpTZGk57+nVhUKi0KDqEVX7ci3JiOCDAMGLRFE8n/0OC7pPQaA1Cn+V8z7wwcqEcHjxedBJkhn3kXz+rHLBxhzQ2a4sVbvtKRV2W/0Vj7b9/LDy4/nP/0wRQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 03:42:23.1184
+	=?us-ascii?Q?HeYQO96qbRvLgk92+jimzqll8o+WuUedh0lwCrjWFpyN70v4Izt1Hi5kZslg?=
+ =?us-ascii?Q?hsv9J+Acb0nJBaGwIybkZOFv8s3f5u9E1JKt5Eam0ZbCP3Wk/+M8k8LNvXGW?=
+ =?us-ascii?Q?fzcA7uh5FGOqAW7in8qUzFKY0/u8V09sdlSinPf4ulS/X2VgU3pDQX4GsnKZ?=
+ =?us-ascii?Q?khDf6XW0qCRCnjflnlNMnPcW43XnoCMXHY9tkrGOCcPh/jZ+PG+1A7SVkKcC?=
+ =?us-ascii?Q?6zA5jZezKL8jsy4x4ovnFn3B1rBH+tpPmnqk24Bh01lyldDvufP2q070qL8v?=
+ =?us-ascii?Q?CQZCA2HQQShyTfeh2A19S6bL363XcwQel9krvxtEfwLEPzIj30uBAaG552KM?=
+ =?us-ascii?Q?5VrBzm6579H0zBRufTjuP4hR0abbC0SoLZWjje7zT6da9f5UTsSqpPMt3kU2?=
+ =?us-ascii?Q?GZnwM10zOgixjcOZt0a8XSbpTt/0NjXm0wuZ1gHLRtldnoJTwvnsvQGlXQ78?=
+ =?us-ascii?Q?qVzaRf77HV9Bmix3If9bvBleWCW/dsdYXMDuedxGZsbt6JIQ8JtD3qp01jRt?=
+ =?us-ascii?Q?sCenu18zcIPEst+qSK/KcB1Ap3Ieq6zJR8ayHnwtJ4pNwYIwBu0onT+zAHEk?=
+ =?us-ascii?Q?kCXb3XedmpkSFDBJ/dhCZZPUVn6HGdCYndGybaiuGDJ9fSpOpTwxOpBunA1v?=
+ =?us-ascii?Q?OTVaM5v/tDFgIlHV58AQrmIrFBmjuSL3IHlajMtLhVybgYHhbxuS6IfENOth?=
+ =?us-ascii?Q?DmtGba4OJLuznZyMZ5U4UgAR+Rf3Y3WoW09+oV0ZHkM2HN9EtfyjyOzSZQZO?=
+ =?us-ascii?Q?yH4QCKUwCYvgzSC3FXgQSokj0WJWkIIrULa9oaQkjVrwCvFfLUnxSznJmqd0?=
+ =?us-ascii?Q?ZWclbOih82MLnnVU1l6P7jaYnLMQI4L+5VW8hc6Cio7y/m205LPW2SFOjR1l?=
+ =?us-ascii?Q?GAqqT7M8IrH78W+hNSSdkHVVFkwTcQlookAN4izpZuFI0OhMtFHKRhnD2aoI?=
+ =?us-ascii?Q?85a+0QVka5QvKIuCm1uL5z73lagbQoiHW3JsVqxUUrtXMCnAJoLbcjk/oMWm?=
+ =?us-ascii?Q?xLGsnR1Q/PgwTC0+7Ds3tVFXCGc74WeTZEGAjRt7j5+jIotfG+qs95si9VmW?=
+ =?us-ascii?Q?YUFxa2r541yMOk5t5Tp7e0c2NLpFY/CNaDSeEZ0HJmS0XHmT5lpZSVHVdRQW?=
+ =?us-ascii?Q?qp7mAO1pjl2BpcQIp+rIJJANb6YKzvAUD9b8NsOLNTn15n4x4TzdHjjiGHC7?=
+ =?us-ascii?Q?bzus7jpNrHZ7EIqYXhbyDtltT7Ynbssh70CHVe37sGc5lMjfMud3AUB7s3Ke?=
+ =?us-ascii?Q?se/lbzzAIEKqcD+abxbQzM+U4RHSkpyfs2cabDStCHoxUZJilfZkme/u9n5Y?=
+ =?us-ascii?Q?QPii/JKMYrD8rgtvY2Fw1/ilOKt8vOkq3zlzqBz8+N5cU5SULQCl2yQ1Mjul?=
+ =?us-ascii?Q?w+nTWcIEsqVgUYJ8T0UiRenkMnDNvn6fNsDmh5iPQRfm407bKKrnmutU5eGM?=
+ =?us-ascii?Q?mmHHrxj90cBUJkhlVzb50SjLFcHqeiGWWTyBwH4skWifwny2KCWKP7CqWTdi?=
+ =?us-ascii?Q?coXAOKbrjYFqSUjeoQkSwH8+ebDENLcbKKEoT52FmnbWDzjObb4V3TXUW3mn?=
+ =?us-ascii?Q?rX5Y7moj9fn2LlIf/T/e6v8EILgLQ2IlmHasK+ejpUh4DdK5l73qZPp7n6Nn?=
+ =?us-ascii?Q?sM74AgFSHnWyk7L3A7XDBZ5/OeQhS7ap4Mh/G/0Xj1JlTx4JcbcAa+8UN0Yn?=
+ =?us-ascii?Q?jJKPPXLelZ+3Nm6FiohyWEHzN0+FbxMel51l125wPqakmOwMFJqVwekI2CT1?=
+ =?us-ascii?Q?J3xwqlJ1g8x25+E5/2Ia++8pOAR7U7RMbM76SYiWgkVny0VOObV6?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad7e403b-6099-4140-5680-08df1d13b064
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 03:50:51.2700
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8157bc29-0f22-4e67-325a-08df1d1281ae
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF0000000C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPF66324196D
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAxNCBTYWx0ZWRfX85RWvHn5uX2a
- /0ikleKML+tH5D5yyoqulQc0Bj0ICshh+Y3d6DbprOZgjU1UhQxRQnbUZt1Vk/D0ib12PtozigA
- 12Ovg3/HDStNcibAmiVkIEocrZjQ1R4=
-X-Proofpoint-ORIG-GUID: bFiz-sJc0Hq1VqNu6Srga-LX5xNX_Urs
-X-Authority-Analysis: v=2.4 cv=RLgmjIi+ c=1 sm=1 tr=0 ts=6ab9e224 cx=c_pps
- a=78/F3YNzMekUCeQDO2i9lQ==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22
- a=sozttTNsAAAA:8 a=1W2rOTGOtkH3mYmU3pEA:9
-X-Proofpoint-GUID: bFiz-sJc0Hq1VqNu6Srga-LX5xNX_Urs
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAxNCBTYWx0ZWRfX8+LS/vu5t6JK
- oyTl6lIAQ9D8R8jdNe5eZBD/CgTKCGG53RB7w2peQMXv0yjLMReqGuRQrxPGLzjkMmpUGkpcU9X
- ZXO+8yrp08B+o0q0gg15EN00bQ+vgrTLZwXz7RjxulN/+mJY5DwUllAYvlRZP/XQzCfMWRtK849
- xdQzhIqle7zJMl9KnjthfnDVWxZbhGPcRBBVqbgABn3iFvbHfc3JnRuKtiqzAUCeXOALGBzYQrb
- 7n+3R4OhofyXF3eE54PX92bQaZYe62uwVN0HJ5NCEkCf9WzWnFyTdvz8h86nD+OYyWsyEgmjCI3
- oGoGTqHQYxjGNKFEPaQ5E0hoAB7+mYK9kT28UP/ej2HNN1L8EuqvYuImUpjhdPONpr2iZgrnmhN
- zuC0iIUKDGuJlODpuTEo1wbvdZ6vvzNTVj3fJvMoDn1wqguC1M8Ki61HrE0rzHFymm7Cffem4um
- Kg5LQCdDhhLAtKiP4bA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
- adultscore=0 suspectscore=0 clxscore=1015 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280014
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Zm4/859iNzc9jxhLVtGuoEeLw1bIXc1bMb1OdrDzkIfyl2WAPypgp3kw8v6dWyOyDgBYTDr7sajgfgN1NzjeOw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCP286MB2750
 
-From: Judith Mendez <jm@ti.com>
+On Mon, Sep 28, 2026 at 12:25:00AM +0200, Marek Vasut wrote:
+> On 9/23/26 6:12 PM, Koichiro Den wrote:
+> 
+> Hello Den-san,
+> 
+> > > > @@ -90,12 +91,22 @@ struct rcar_gen4_pcie_drvdata {
+> > > >    	enum dw_pcie_device_mode mode;
+> > > >    };
+> > > > +enum rcar_gen4_pcie_state {
+> > > > +	/* The controller is being reset and reinitialized */
+> > > > +	RCAR_PCIE_RESETTING,
+> > > > +};
+> > > > +
+> > > >    struct rcar_gen4_pcie {
+> > > >    	struct dw_pcie dw;
+> > > >    	void __iomem *base;
+> > > >    	void __iomem *phy_base;
+> > > >    	struct platform_device *pdev;
+> > > >    	const struct rcar_gen4_pcie_drvdata *drvdata;
+> > > > +	unsigned long state;
+> > > 
+> > > Can we simply use boolean flags here in struct rcar_gen4_pcie, instead of
+> > > the enum rcar_gen4_pcie_state ?
+> > 
+> > Sure! let me rework this for v2.
+> 
+> Thank you.
+> 
+> > > > +	/* Protects APP interrupt enable registers and their software state. */
+> > > > +	raw_spinlock_t app_lock;
+> > > > +	/* Serializes Root Port hardware reinitialization. */
+> > > > +	struct mutex reset_lock;
+> > > >    };
+> > > >    #define to_rcar_gen4_pcie(_dw)	container_of(_dw, struct rcar_gen4_pcie, dw)
+> > > > @@ -344,6 +355,33 @@ static int rcar_gen4_pcie_host_msi_addr(struct dw_pcie_rp *pp, u32 *msi_addr)
+> > > >    	return 0;
+> > > >    }
+> > > > +/* Whether the APP interrupt sources may currently be enabled. */
+> > > > +static bool rcar_gen4_pcie_irqs_blocked(struct rcar_gen4_pcie *rcar)
+> > > > +{
+> > > > +	return !!rcar->state;
+> > > > +}
+> > > > +
+> > > > +static void rcar_gen4_pcie_app_irq_sync_locked(struct rcar_gen4_pcie *rcar)
+> > > > +{
+> > > > +	bool armed = !rcar_gen4_pcie_irqs_blocked(rcar);
+> > > > +	u32 val;
+> > > > +
+> > > > +	lockdep_assert_held(&rcar->app_lock);
+> > > > +
+> > > > +	val = readl(rcar->base + PCIEINTSTS0EN);
+> > > > +	val &= ~MSI_CTRL_INT;
+> > > > +	if (armed && pci_msi_enabled())
+> > > > +		val |= MSI_CTRL_INT;
+> > > 
+> > > Should this function cache the state of pci_msi_enabled() in struct
+> > > rcar_gen4_pcie , so that in case rcar_gen4_pcie_irqs_blocked() reports MSIs
+> > > as blocked at this point ...
+> > > 
+> > > > +	writel(val, rcar->base + PCIEINTSTS0EN);
+> > > > +}
+> > > > +
+> > > > +static void rcar_gen4_pcie_app_irq_sync(struct rcar_gen4_pcie *rcar)
+> > > > +{
+> > > > +	guard(raw_spinlock_irqsave)(&rcar->app_lock);
+> > > > +
+> > > > +	rcar_gen4_pcie_app_irq_sync_locked(rcar);
+> > > 
+> > > ... this function can enable MSIs once it is called and MSIs are no longer
+> > > blocked ?
+> > 
+> > Even leaving aside rcar_gen4_pcie_resume_irqs(), which this patch introduces,
+> > rcar_gen4_pcie_app_irq_sync() re-evaluates the blocked state and
+> > pci_msi_enabled() on each call, so I would expect it to enable MSIs once
+> > unblocked, provided pci_msi_enabled() is true.
+> > 
+> > Am I missing a case where a cached value would be needed?
+> > 
+> > For example, even if there were a race with quirk_disable_all_msi(), I'm not
+> > sure caching the value would help.
+> 
+> I think there might be a possible issue, please consider this:
+> 
+> - The code enters rcar_gen4_pcie_reset_root_port() with MSI disabled
+>   (register PCIEINTSTS0EN bit MSI_CTRL_INT is unset)
+> - rcar_gen4_pcie_quiesce_irqs() is called, updates rcar->state
+> - rcar_gen4_pcie_resume_irqs() is called on exit from
+>   rcar_gen4_pcie_reset_root_port(), updates rcar->state again,
+>   and calls rcar_gen4_pcie_app_irq_sync_locked()
+> - At this point, I think MSI might be enabled instead of disabled ?
+>   (register PCIEINTSTS0EN bit MSI_CTRL_INT is SET)
+> 
+> Is that correct ?
 
-AM62L has an ADC in main domain, add ADC node in the respective
-voltage domain file.
+I understand, but I'm still unsure when MSI_CTRL_INT should remain clear after
+a successful reset, with pci_msi_enabled() still true. And if there is such a
+case, wouldn't we need to preserve the intended enable state of MSI_CTRL_INT,
+rather than cache pci_msi_enabled()?
 
-Signed-off-by: Judith Mendez <jm@ti.com>
-Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
----
- arch/arm64/boot/dts/ti/k3-am62l-main.dtsi | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+Best regards,
+Koichiro
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-index 80615ca1e01a2..70157981aba5d 100644
---- a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-@@ -544,6 +544,24 @@ elm0: ecc@25010000 {
- 		status = "disabled";
- 	};
- 
-+	tscadc0: tscadc@28001000 {
-+		compatible = "ti,am654-tscadc", "ti,am3359-tscadc";
-+		reg = <0x00 0x28001000 0x00 0x1000>;
-+		interrupts = <GIC_SPI 253 IRQ_TYPE_LEVEL_HIGH>;
-+		power-domains = <&scmi_pds 0>;
-+		clocks = <&scmi_clk 4>;
-+		assigned-clocks = <&scmi_clk 4>;
-+		assigned-clock-parents = <&scmi_clk 2>;
-+		assigned-clock-rates = <60000000>;
-+		clock-names = "fck";
-+		status = "disabled";
-+
-+		adc {
-+			#io-channel-cells = <1>;
-+			compatible = "ti,am654-adc", "ti,am3359-adc";
-+		};
-+	};
-+
- 	gpmc0: memory-controller@3b000000 {
- 		compatible = "ti,am64-gpmc";
- 		power-domains = <&scmi_pds 37>;
--- 
-2.54.0
-
+> 
+> Please correct me if I am wrong.
+> 
+> -- 
+> Best regards,
+> Marek Vasut
