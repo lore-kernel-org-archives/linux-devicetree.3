@@ -1,116 +1,151 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C098D4BF943
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:31:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9954D178D;
+	Mon, 28 Sep 2026 13:48:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790602291; cv=none; b=FooMMN/F2DDP9LWL0wCoqMaI9qY43TgPvq6bEQ1RPjWKsGQCgfdC9zBj2KIQxOWuuQ42souQJXbR2eHS9320E02Q27zmqxyUpSL+PbGlX1cqDH7DpJfSaAbBFByUJB07OUa3quZJW4Qm0+KTmgI+Dh7OapF9au595GKlAhuaiiQ=
+	t=1790603337; cv=none; b=Tq1yp0XGZwK1eaCRzcN6PWjfbwzyzaXuuR/n62Dm6wl1RPJv2t7cb2srw5GMb2dKl14qyyrsG4ovzke1ZbigVju2xS99d8x1y4faDqZxXZXbKPm9c4yyo1JaE9quHxSb54b4Bgob+gQzg3b6QurIca+xB2bLnuYiW/GEsNlOBvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790602291; c=relaxed/simple;
-	bh=omPaPP2rMeTxzLF6VkbMvPUpuzWEp9z2/ZZ+I7CxoUU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f7EPl1SefcJjHhyMhQPd3g3OZdi7Yd7ZDEoQuhOMiGc4wCJ9O756nXg/kfoad6/2UnAVbmNdFEfKBIH6g40ouzJIQT65Kf8kVv9vL1qoqmV0qRbEBMxLsAChktQNHuSWqwrnaRTAAe6waJQoOKBPPtRUnEZS3ePDUMBXhGmFFu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T9DbfZGv; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790603337; c=relaxed/simple;
+	bh=My8qhm/R/I48nMduRq6Y3Wb0wDF0efpQI6u7GWjSksQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f87MKfJQL18zUnaHU3U+WJNf8vjGLwSjKqJ5ZlTohR6bF8Wc5iEaphu+/E2quxodjyf2ADteO3ondk8JGD2dXzZTkAAO4jBIh7n7UwnQ09q8qHql5UY5Sf1LdBFhURF6P/jEGNR60lwn5EyUaI8epgouyTxdVzEhVvvbjQ1htks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FMmPCd9o; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T9DbfZGv"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48884b926f0so1854622f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 06:31:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790602288; x=1791207088; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0Hlk6LB+jMpn63Ohia0apz9+abNxcQqx8sIdV/gr2JI=;
-        b=T9DbfZGv0z5Q9882MqxV0pGP29Bi87o0n8/uIR6L/DMAOF4iFrykmPi7IVpQx+wqe3
-         3QMp4hhEowXPkLAh3LZEGQg4jXWzSS2CBYPZ1/ruxPxGzCX0XD2hiVmBisHKzUGDGkBw
-         isHqx5bshhhTRr5R5IbdoXBSiJG4Cl2d6vOtxUG53AL/WeQvn2BrxYy+AoKh1wWJURek
-         GqF/ztw4ZBlBetdv/p1P9g2cNtE9qqVZSGMTuJyrYzpxQDdMRqAl33D1aGGbfU6WgPWo
-         qP7p0djCJMFAmEWYxLtTQxFN+qzv8rML54tT6nr4VbuS9EuXAJvIq7YS+h2kLXkOHnMX
-         b+NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790602288; x=1791207088;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0Hlk6LB+jMpn63Ohia0apz9+abNxcQqx8sIdV/gr2JI=;
-        b=rIuw+Oz+RA+ISYe2fPMPIhfhb/6CrloS20tN2vbc1WIdJWWVXMItAoZoIWMMR+KWD1
-         rQX/cH0AK5QgasRQHbPLa4vDLngUG0Nkz7/GKvnXJ1WXI7FeWXi+BSgyrWx8tx0Us0xk
-         Odggjnb1l4uSS2YBmQ2gVOXpZlKWnOuCsyFi0YM2iKC4ADDFY/fpKn5Tl75yY3/Qieih
-         /lSqOsAJnHTbqXjZmi3/KwD4TKfadR8gYwYtZg4skxKR0ghm5thfy8U6hDYgMO8tNhNc
-         dy7sRjlR3E7UKQiEhrvxmF+0tARhexG8qsDSa5QfcQJ8GPHVFSadohG1t5qZJFIvjkWP
-         KREA==
-X-Forwarded-Encrypted: i=1; AKwUvBxO6j5y1MoV55Oc1ZlcBRAao1XlYMQi059LhH1D0YORoCpAa92lXUXoMr1pmnFD2c35gKbKeiRKd9IQ@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGrwe1S4w6kWQJWvrJhAnWAaMF7xFxDuIZ9VgXi84Tz0YwJ2Wp
-	JKnQSpoz7nnyw3KOfB6JnxRY2qqv5V+o6f/HTYrfIQkgB2crGRLSqK1q
-X-Gm-Gg: AYBFou3AHqHjI8+EHzMeiUfIWTElEc0YGxT7/r0psE+o2Bl1uH0YfHVpGZ8Juz213HY
-	knJGXGvW6n2h3XUlpZlIc5ucmd2dcwGiJsEiYQNMGtJL9Ych9EU+5Ce+CPfTHzOMBBQwNYOdCiI
-	FZTPqOxUFzAm1olx0qHENFt3WryJB+L80gqH8Rr0z/PfXQvOUK33KTg3uNijZQDv5mO366sAFMg
-	bQtqVxbi8THYQzlz2bDmCjY/JPxZY6FVrgZI/s/lA2zjkaVvI8hqDsttCUdmlK2mxdNQ8t2BSDC
-	jPmnfhirLxVh+4V09xzWzxh/l/XRrYSju1l5Z/C0pjlmQpS75JJHG4snrE1TGRUvWAbPXmz0pfm
-	NhBv9Jckz+kG+HkjFqQPhK9wESDibteqnrDWOMXeUJJiP+D0IpkT9wsMVQZl9OT9wKRTa8Muwod
-	Nc6pey1yxRsP9W8rx0OzPvk6UDvPE/VHhGJIQH12VCaflMfW8Pz8tYbn+7rLNlVnt1Pe5oTsdK3
-	RlVIIXVK1KT1t5NJMjDWLuKLo8rSzB+OACxtnSKtuEewsZpF5En04dtPIC6mQz8VaAKBrr2tKQH
-	hcAPCzgieRPZszi5oukgDQg7QdkwD/JaBEdQNgosB8A=
-X-Received: by 2002:a05:6000:2510:b0:487:c99:9020 with SMTP id ffacd0b85a97d-48871714226mr24139494f8f.2.1790602287523;
-        Mon, 28 Sep 2026 06:31:27 -0700 (PDT)
-Received: from cypher.local ([212.187.182.165])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4887a648895sm27746276f8f.28.2026.09.28.06.31.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 06:31:25 -0700 (PDT)
-From: Peter Robinson <pbrobinson@gmail.com>
-To: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FMmPCd9o"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790603335; x=1822139335;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=My8qhm/R/I48nMduRq6Y3Wb0wDF0efpQI6u7GWjSksQ=;
+  b=FMmPCd9owmfBc+s7HMPf6h3BQAcM13jiwySDOFjclgxchrmKvkpTDSVf
+   0aqRaIQQggekf4mVADyrFREvJ4aKc3VBS7O65Zh9kil0yunSiPXEvZcT/
+   30yfSj7agYA+1LhD2Y2G/d9gu0bvOyrWqFStv29yTMV/kseiElSLwgoxz
+   PGqE0Y0eEr/cHvV4DwZKLGBrbiU384o8BL/TjYV4n3Xjj+LIxYk0IAB11
+   n8O6bNT1+zDiD7VJRASVIMacWcU/wrcaC0b+kXXXOEQr5NWAqe49BtWzs
+   D5BFaZN48O2MLSimV3YyT/dyVcgw6C4fBJkJhur90zdHY4nrB96FphPUM
+   A==;
+X-CSE-ConnectionGUID: Zr2KtBIFQ2ax+3JDsBcwHA==
+X-CSE-MsgGUID: XYLupU8bTWGX2CJG0kffbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="101470488"
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="101470488"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 06:48:54 -0700
+X-CSE-ConnectionGUID: OVMnR9oLSDmhCKU2ZPh1Vw==
+X-CSE-MsgGUID: g55aoMfMT/qL24203sLozw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
+   d="scan'208";a="278870188"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa005.jf.intel.com with ESMTP; 28 Sep 2026 06:48:50 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 9827699; Mon, 28 Sep 2026 15:48:49 +0200 (CEST)
+Date: Mon, 28 Sep 2026 15:48:49 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: david@ixit.cz
+Cc: Alexey Minnekhanov <alexeymin@minlexx.ru>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Dragan Simic <dsimic@manjaro.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org
-Cc: Peter Robinson <pbrobinson@gmail.com>
-Subject: [PATCH] arm64: dts: rockchip: Add missing audio codec supplies to Pinebook Pro
-Date: Mon, 28 Sep 2026 14:31:15 +0100
-Message-ID: <20260928133122.45765-1-pbrobinson@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Lee Jones <lee@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	phone-devel@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH RFC 01/12] usb: typec: tcpm: qcom: Release the connector
+ fwnode reference
+Message-ID: <arpwQaOfCXHrp4m3@black.igk.intel.com>
+References: <20260926-typec-v1-0-31adc19f32c6@ixit.cz>
+ <20260926-typec-v1-1-31adc19f32c6@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260926-typec-v1-1-31adc19f32c6@ixit.cz>
 
-The DT binding for the es8316 got 4 power supplies added in commit
-e9966d450b46 ("ASoC: dt-bindings: es8316: Add regulator supplies")
+Hi David,
 
-Page 16 of the schematic for the Pinebook Pro describes these
-supplies so update the dts.
+On Sat, Sep 26, 2026 at 02:40:20PM +0200, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> device_get_named_child_node() returns the connector node with its
+> reference count incremented, but the port probe never drops it. The node
+> is only needed for the VBUS regulator lookup, so release it right after.
+> 
+> Assisted-by: LLM
+> Fixes: 506927b6bf29 ("usb: typec: tcpm: qcom: prefer VBUS supply from the connector node")
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 
-Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
----
+I think this should be send separately. Cc stable?
 
-I noticed this was missing when Diederik sent the equivilent patch
-for the RockPro64 devices:
-https://lore.kernel.org/linux-arm-kernel/20260922133643.2730265-1-diederik@cknow-tech.com/T/#u
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
- arch/arm64/boot/dts/rockchip/rk3399-pinebook-pro.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+Thanks,
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinebook-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinebook-pro.dts
-index f21fcdc1b49a5..f728e6f64c2ea 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-pinebook-pro.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-pinebook-pro.dts
-@@ -656,6 +656,10 @@ es8316: audio-codec@11 {
- 		reg = <0x11>;
- 		clocks = <&cru SCLK_I2S_8CH_OUT>;
- 		clock-names = "mclk";
-+		avdd-supply = <&vcca3v0_codec>;
-+		cpvdd-supply = <&vcca1v8_codec>;
-+		dvdd-supply = <&vcca1v8_codec>;
-+		pvdd-supply = <&vcc_3v0>;
- 		#sound-dai-cells = <0>;
- 	};
- };
+> ---
+>  drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+> index bf985efe1cd6b..f8308d66b9d67 100644
+> --- a/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+> +++ b/drivers/usb/typec/tcpm/qcom/qcom_pmic_typec_port.c
+> @@ -5,16 +5,17 @@
+>  
+>  #include <linux/delay.h>
+>  #include <linux/err.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/property.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/slab.h>
+>  #include <linux/string_choices.h>
+>  #include <linux/usb/tcpm.h>
+>  #include <linux/usb/typec_mux.h>
+>  #include <linux/workqueue.h>
+>  
+> @@ -723,16 +724,17 @@ int qcom_pmic_typec_port_probe(struct platform_device *pdev,
+>  
+>  	connector = device_get_named_child_node(dev, "connector");
+>  	if (!connector)
+>  		return -EINVAL;
+>  
+>  	pmic_typec_port->vdd_vbus = devm_of_regulator_get_optional(dev,
+>  								   to_of_node(connector),
+>  								   "vbus");
+> +	fwnode_handle_put(connector);
+>  	if (pmic_typec_port->vdd_vbus == ERR_PTR(-ENODEV))
+>  		pmic_typec_port->vdd_vbus = devm_regulator_get(dev, "vdd-vbus");
+>  	if (IS_ERR(pmic_typec_port->vdd_vbus))
+>  		return PTR_ERR(pmic_typec_port->vdd_vbus);
+>  
+>  	pmic_typec_port->dev = dev;
+>  	pmic_typec_port->base = base;
+>  	pmic_typec_port->regmap = regmap;
+> 
+> -- 
+> 2.55.0
+> 
+
 -- 
-2.55.0
-
+heikki
