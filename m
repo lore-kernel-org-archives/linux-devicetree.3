@@ -1,145 +1,135 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AA543FD3F;
-	Mon, 28 Sep 2026 08:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790583182; cv=pass; b=lccEVVNRDFhi3SAEQSnO4r0W5ab1dwXV/wIlz/AV02Bk/SuKeZHHXr4s73sZs7pvoKPv99B/D+L1qj/qQ9MiBMgCATjq7PY5UiNCq4QCZkCYJbX9wVapUOadH58NBmh+J1iw2Y6sRdJRe2sGLOP4z9Q2vHN+z9C7T9dqaoCT+7c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790583182; c=relaxed/simple;
-	bh=bOKRBP31qsazQzx5vzWjPlNFB/k297+F6F9MoUx6M0o=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=G2CHedAUJXfPHpQ3X0d4UzOuHhNYcwGm3fvlHzDU8Z0cBN5NDufiIsGHPY2BxqGglUjpBroQ6/aEPNTFOoHj8zLItKl5KoZTwEG+Bmg2cbR5KX50lY6S9DlKzgjIJtp4l5FT9/ahiFiHtkZpKjczNJhUmpShg01bmGFRoAoqb98=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=XviXRgAX; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F0946EC98
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 08:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790583294; cv=none; b=PbUdQzehgde4NDDbqlotWuj02MbB2Eq7WJKkmWvrnZa/JHsMpnP38RdWTVrE5bIPog9rj5kb5diQ83vw04XNMw4n+TOvgekl1z+V4LiQUdhDrM3glurIzXFmNVQMrbXjaMjFzaHVxu2AEZN51gTqSPcytORvZP4xHQwPQpYimUA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790583294; c=relaxed/simple;
+	bh=PanpZAlIisAxSNyyBizqqgcxrsZqzdMxJ0QoxbRbFQo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DFNmT+NTHQtdsPK2NAiF97sTJUcXOD0nnrAN0ewTS0pDCgtZzBlIfM6hwAtVf7tq+qcMt7CeUnT6CEEfxVR2j2HXpKat6PXrHbDlXFBg9/EeLZ2ocazcE2QKpuEAqSzxCKZodt/sAT2rBxgBhjxGXtF7wIU3jJ39WlND9CJjJxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XD79rTLn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="XviXRgAX"
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E10DD2018B6;
-	Mon, 28 Sep 2026 10:12:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790583176;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1EnO2TDwxSS3PzHlA/S4kFWqaJE8d5xyWfASI+Sa6Jk=;
-	b=XviXRgAXIpsVWYq1RfR98Nt1lQwEBstF+qB9QRTaGIfRwvzGQm6/4o2fNmeEznNXvLxkJF
-	O5fxSSRvRgd2rrpY92ytsVpoqGnyFVlgw6Cut5oUSuaoy2g1YAr1b63Xc3CkSeVnpwecaK
-	xLJvVKD5OktWVbnZbQrkzaPFEk2Zv93/QnwuuoMkFeueSLogc2SLyJSfJN72AErkziGLkQ
-	70lz/1ozFiryvwICm09+OqHGYeZEkWN1/y/0fScTq+jJjMxp+1RvgaiLu/WyYI1A8+B2DL
-	08nAMy/VOo87fVZM5Rel+nJOYJi6Gchg8HIYwuj2cvNjzvwsQY3M9EKmqf2/lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790583176;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1EnO2TDwxSS3PzHlA/S4kFWqaJE8d5xyWfASI+Sa6Jk=;
-	b=J9A6Hbr7cm+ioZH4FrzUyBDckT3JRqmrk4Hzf1qMVnDa2RtRFQDGo7IJoepbONB8DlxxHe
-	B3Nla6vtpw12yJTqSyKBJTADz77w4qroYIBWtN9omILxX7k3Ls2HUssaCOghcyNcScd1Ey
-	802yKYoBOBuC75qy3kuQLcLLPHcWqkw1fnqCvpsA3JQConE0ymOcyrzLb3i1cUEUNhnu9x
-	1d+ZRjFZbBrtqK0HXlZ2BxnLbbbdE/5BOkocT5/JtWptMMmZTwYoJUnl802QZkMJxpomq4
-	al+nQa3x5KxIuhaj1WTQZS9jH857uB0SRPs05dC+J7WQ4tqDTVpUmmvhafYhEQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790583176; a=rsa-sha256;
-	cv=none;
-	b=H1b23b4oiLyJOR6i/1CwxsxzG3SiNhiMt8EoJrIGvnDPDAdSIwUs/JOIkCdPmb/vhfyW+a
-	uncsnHI2nE9sqPoHtC2UXOpPDqIubmPs4LEgpUTSe8yvU+8BwRoMQvdHd4RexOp5L8wvHn
-	qG84wd+g9yChw42l+Ose/sNvlP7HBwE9QSPpt45pxL2cuQeMEV10EIQ/pIzS36CJKha0at
-	w0jglaqttll/MiIInMlyWmqXBIwdITh1Fqdl3E58iiT/nknADrgHcvmXdBdIC4Kg/NPLnK
-	2RJn0Y/9maIomrqboYJJANUlw1QDb5MMIV/n4BlnXU1UKCkSh0URlzAHBUHdNQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <838cc8f7099bfc5ee1cac9d3aca7a87aa7dfd17d.camel@pengutronix.de>
-Subject: Re: [PATCH v2 2/6] peci: controller: Add StarFive JHB100 PECI driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>, Rob Herring	
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
- <conor+dt@kernel.org>, Iwona Winiarska <iwona.winiarska@intel.com>, Guenter
- Roeck <linux@roeck-us.net>
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
-Date: Mon, 28 Sep 2026 10:12:56 +0200
-In-Reply-To: <20260928075956.62298-3-changhuang.liang@starfivetech.com>
-References: <20260928075956.62298-1-changhuang.liang@starfivetech.com>
-	 <20260928075956.62298-3-changhuang.liang@starfivetech.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XD79rTLn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1DC01F000FF;
+	Mon, 28 Sep 2026 08:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790583293;
+	bh=0p07U3/WDfnMkQLGTGilceTwXHDFjsDAB2US9bD8jZc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XD79rTLnh8DOaIeSifbgcZiVAOHFgwsU2E3CZ6/qpJWZUAivsHQY+3vvvsBAU9LDm
+	 PmZQ8eOXuprSZL6fmg+hbzBgcpBCwT67sYNcQb9RFFAbbB4bSN5rpOYsAgD79vSmSz
+	 fN0a3wxwdUP+tf4UOd+eflTkPx1eoJ0Mmho+QSn9YbuoCK/tbOxP0zvVEEeYkje0iA
+	 1DAuLaq6fCOY5kgBSKjrXm3eWKyvz01kJ5A9JRk8fy6VpXOjjzEL2GLKWwB8LJGGqo
+	 zeK156eCrpl5ppmNy17QOo3tFQECFBsj4fSu9H7ch8YmLqb7QL7lqM77/K2f9Jt8IX
+	 kW7LTzlSc0x9Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] media: i2c: Add Samsung S5KJN5 image sensor
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org
+In-Reply-To: <20260928-sk5jn5-v5-2-19aa0a0a68eb@oss.qualcomm.com>
+References: <20260928-sk5jn5-v5-0-19aa0a0a68eb@oss.qualcomm.com>
+ <20260928-sk5jn5-v5-2-19aa0a0a68eb@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Date: Mon, 28 Sep 2026 08:14:52 +0000
+Message-Id: <20260928081452.F1DC01F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Mo, 2026-09-28 at 00:59 -0700, Changhuang Liang wrote:
-> Add PECI controller driver for StarFive JHB100 SoC. The driver supports
-> PECI protocol communication for CPU thermal management.
->=20
-> For this controller, the special clock and reset operation sequence is:
->   probe: clk_prepare_enable() then reset_control_deassert()
->   remove: clk_disable_unprepare() then reset_control_assert()
->=20
-> Co-developed-by: Mason Huo <mason.huo@starfivetech.com>
-> Signed-off-by: Mason Huo <mason.huo@starfivetech.com>
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  MAINTAINERS                             |   8 +
->  drivers/peci/controller/Kconfig         |  17 ++
->  drivers/peci/controller/Makefile        |   1 +
->  drivers/peci/controller/peci-starfive.c | 376 ++++++++++++++++++++++++
->  4 files changed, 402 insertions(+)
->  create mode 100644 drivers/peci/controller/peci-starfive.c
->=20
-[...]
-> diff --git a/drivers/peci/controller/peci-starfive.c b/drivers/peci/contr=
-oller/peci-starfive.c
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] media: i2c: s5kjn5: incorrect hardware reset and clock sequencing
+--
+
+commit a671bdcf1777ec3f49c4fcba2384ef8b1cb05ef7
+Author: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+
+media: i2c: Add Samsung S5KJN5 image sensor driver
+
+This commit adds a V4L2 sub-device driver for the Samsung S5KJN5 50 MP 10-b=
+it
+RAW MIPI CSI-2 image sensor. The driver supports standard controls and expo=
+ses
+a 4096x3072 streaming mode.
+
+> diff --git a/drivers/media/i2c/s5kjn5.c b/drivers/media/i2c/s5kjn5.c
 > new file mode 100644
-> index 000000000000..6004cb27a774
+> index 0000000000000..2b925a21f7274
 > --- /dev/null
-> +++ b/drivers/peci/controller/peci-starfive.c
-> @@ -0,0 +1,376 @@
-[...]
-> +static int starfive_peci_init_clk_rst(struct starfive_peci *priv)
+> +++ b/drivers/media/i2c/s5kjn5.c
+[ ... ]
+> +static int s5kjn5_power_on(struct device *dev)
 > +{
+> +	struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
+> +	struct s5kjn5 *s5kjn5 =3D sd_to_s5kjn5(sd);
 > +	int ret;
 > +
-> +	priv->clk =3D devm_clk_get(priv->dev, NULL);
-> +	if (IS_ERR(priv->clk))
-> +		return dev_err_probe(priv->dev, PTR_ERR(priv->clk),
-> +				     "Failed to get peci clock\n");
-> +
-> +	priv->rst =3D devm_reset_control_get(priv->dev, NULL);
-
-Please use devm_reset_control_get_exclusive() directly.
-
-> +	if (IS_ERR(priv->rst))
-> +		return dev_err_probe(priv->dev, PTR_ERR(priv->rst),
-> +				     "Failed to get reset control\n");
-> +
-> +	ret =3D clk_prepare_enable(priv->clk);
-> +	if (ret)
-> +		return dev_err_probe(priv->dev, ret,
-> +				     "Failed to enable peci clock\n");
-> +
-> +	ret =3D reset_control_deassert(priv->rst);
+> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(s5kjn5_supply_names),
+> +				    s5kjn5->supplies);
 > +	if (ret) {
-> +		clk_disable_unprepare(priv->clk);
-> +		return dev_err_probe(priv->dev, ret,
-> +				     "Failed to deassert reset control\n");
+> +		dev_err(dev, "failed to enable regulators: %d\n", ret);
+> +		return ret;
 > +	}
 > +
-> +	return devm_add_action_or_reset(priv->dev, starfive_peci_clk_reset_rele=
-ase,
-> +					priv);
+> +	gpiod_set_value_cansleep(s5kjn5->reset_gpio, 0);
+> +	usleep_range(8000, 10000);
+> +
+> +	ret =3D clk_prepare_enable(s5kjn5->inclk);
 
-This could be simplified with devm_clk_get_enabled() and
-devm_reset_control_get_exclusive_deasserted().
+[Severity: Medium]
+Does this sequence correctly initialize the hardware? The s5kjn5_power_on()
+function de-asserts the hardware reset line before enabling the input clock.
 
-regards
-Philipp
+Standard MIPI CSI-2 image sensors typically require the input clock to be
+stable and running before the reset line is released, and to remain running
+until the sensor is put back into reset. Leaving the sensor out of reset
+without a driving clock can cause internal state machines to hang, fail
+initialization unpredictably, or draw excessive current.
+
+This might work accidentally on boards where the bootloader or platform lea=
+ves
+the clock running, but could fail otherwise.
+
+> +	if (ret) {
+> +		dev_err(dev, "failed to enable clock: %d\n", ret);
+> +		gpiod_set_value_cansleep(s5kjn5->reset_gpio, 1);
+> +		regulator_bulk_disable(ARRAY_SIZE(s5kjn5_supply_names),
+> +				       s5kjn5->supplies);
+> +		return ret;
+> +	}
+> +
+> +	usleep_range(10000, 12000);
+> +
+> +	return 0;
+> +}
+> +
+> +static int s5kjn5_power_off(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
+> +	struct s5kjn5 *s5kjn5 =3D sd_to_s5kjn5(sd);
+> +
+> +	clk_disable_unprepare(s5kjn5->inclk);
+> +	gpiod_set_value_cansleep(s5kjn5->reset_gpio, 1);
+
+[Severity: Medium]
+Similarly, s5kjn5_power_off() disables the clock before asserting the reset
+line. Should the reset line be asserted before the clock is disabled?
+
+> +	regulator_bulk_disable(ARRAY_SIZE(s5kjn5_supply_names),
+> +			       s5kjn5->supplies);
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-sk5jn5-v5-=
+0-19aa0a0a68eb@oss.qualcomm.com?part=3D2
