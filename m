@@ -1,69 +1,69 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-ua2-f42.google.com (mail-ua2-f42.google.com [74.125.226.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9AD3BE172
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 19:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670BB355814
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 19:20:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790622986; cv=none; b=AKihkt/vAh9NdUE3rwVipU+GhnBXRI6VNZa4WUmvHb5JjBtDFyC5hs/LmsUZdqhoEstRqcSlul3m/xOeR3ya+j1JAeq/D/PEJmtZ1OCsl8JIFfEz8nHI4u/HU2g1VmI+nzf1oFSTMAF8LjerVxahjBKgk3otGR/egttsmFv0USE=
+	t=1790623218; cv=none; b=FlhmWlTrzPWqkMF/PC+tc4XN2xRtgTt3JInOqcr2bcKtC6WzeSjBWrmlRiv68C1BLHuxf+hfNp07CtYc2CG01ij5EozI7w3j/k5f0Dwx/aBc3ZivosSImVpsYRKU9y0pBmtvxThAPnwQ61hT71BniZMwpDiPKSace8nMMXJ0F1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790622986; c=relaxed/simple;
-	bh=8o86JjkAcKW1SQ3YiOijQtpyWtLRAZA8fJZvP/xH5d4=;
+	s=arc-20240116; t=1790623218; c=relaxed/simple;
+	bh=+IdK2muCFRO0CVjwWieNJcwFsMXfEeJbRjc+FinzqwI=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=c0u7GASH0H8MsJVeUoH8m0n0slSoPQYmjVK/Rje8Mm3NiGpfin9nEuXDWIJb8+Ybd0uxwzydjClJZkz9ak5I+AaoloL7sbzjTf+LWp2XUfWqiBbe0ZN58e1H69KBrf3PS7dXwpcwFZI76RGTF3g1TbHCeKL856JKEgCYe8ZDaSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=B9BHqKQC; arc=none smtp.client-ip=74.125.227.12
+	 In-Reply-To:Content-Type; b=SpK4/XHz20sqWYEkbz8GiQ8cneVhwGCNSJze2PcUTj4RhBt/axXpSuk65nrzXvc3Nmm+gmHw/2qd6EwB4g/5ZxyF5ny0p+nWjPp0oMxFB2Ar/yYWXNSk7wrBXUhof48dNHjK64JA4gJDovyiog4LAxWCvcW67k23MAJp3/8YHmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=q0PsxeLF; arc=none smtp.client-ip=74.125.226.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="B9BHqKQC"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e529da9so1077517e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 12:16:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="q0PsxeLF"
+Received: by mail-ua2-f42.google.com with SMTP id a1e0cc1a2514c-986e0b83340so2156262241.2
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 12:20:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790622983; x=1791227783; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790623215; x=1791228015; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BQ/QxsaYA9sPy0Rq4QivZtNIQwREX4bWNN8dGL2Ve94=;
-        b=B9BHqKQCrK+/68hjpsxzjJT5KEvxJaYYONWFx6NyCc/PPVa2kvPiQMF6U5aN/4Pg8a
-         fE7Ye8FOegGhWNtqJcFambSZWTBNRC6C6XxFsBtRCQMYdubTvqPunlKo852nbFe1YPiC
-         M1IixVw+GYlBk2MzqaIqs6eEQjl2sylYxNrDsw7Gifnp5jL6U1GN6r6sa4n7ShP7WyWB
-         DigsUxLsv3kDvFmNg2llwGfYghJ/mxIj7/npYooHJ85yFq/qjgWg0r8y5b062EX3rcZE
-         w9CkUuzAJG4kyBIWtC0vxQkacKfksPY3YupibfS0XVXDov4hCdWhkPRf29LhA9u2OTgv
-         MP8Q==
+        bh=3EOtyWnpj6H2JKh2l6IAWizW9Kgj+njv8aMgbCxIvr4=;
+        b=q0PsxeLFzwdunkwC4eSX0d+C8Pa5wgTuqRwjkZJezaOmGXMuXtaKdThAgnE3yaIi6l
+         kH3CT/GUozRF4oxBmTQvBqJXDHlomOXBQKIOqCUI5MxQspH8kTQc5zSEX2JS4S19cWzO
+         b2oDrOTkLmhtYN25GiuzVEBbpbrUWB7tFi2xSHB85InaYm27YQMEaWb8fqaTIBa6fzBT
+         NJNd3nvqKIWQtV1o8x7/2b26PncmtElk0rtaNgyUz/nqsrqGRwppCGWmBQtsZB9m2atP
+         SW1bmzaP8mxnWhCoWX/Motn3jhiQrTFgpIktM4ClBAYtgp4Y3UYtPs/D+5SU4ZGJ4HHq
+         mgHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790622983; x=1791227783;
+        d=1e100.net; s=20260707; t=1790623215; x=1791228015;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BQ/QxsaYA9sPy0Rq4QivZtNIQwREX4bWNN8dGL2Ve94=;
-        b=JCNwu9PkDTwwVsGGCmlJLCvLBtHVW/VzIJslAZYWJkuzLUPRtNkJHuAKBo3FqQnmJn
-         lC7tZ9MC8oP5yanybUNFwrXqZ3P8mZqhajDmi7So+rv394yAy6vzN+7Y/ouXSk+gW+Lw
-         5GghfjTh76vYcU3DrH0hVZnahWPSann79vsQ2bAmaDOqOXYuQsv5yPqf2DPj5e2GgBVK
-         Wom6I7S1+Srtn5+6+DJr9dmdtaZ5a/PG+9bZdGKE49Zh0IuocnrHs6AMuMNL76QuiCaA
-         5IEvrj36oVDuKjvlkgU4aB8KPqighw60zT1vY2Of1XKtC/Md9DOXZnfnoWn5f/VTyLX4
-         JlWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzlAwSV39SY2xgmOOIMythIks7ElZxz33FzjxXJv+2jjXaw0Ysq+bbHGNzKMeGxLhrOh4+RWYPS1JSs@vger.kernel.org
-X-Gm-Message-State: AFq9FYIR15fCwoWaYInE+Bz/8pYpEg/1Btcyxyr/9dOXs2+xZqxAwsfz
-	+vdh3cUf7ZpYnvdtT8Jd7LVv0tuR8OMomPoZ41NUxFxQO/8U90vWH3/5YFPWZiAFXxk=
-X-Gm-Gg: AYBFou2AfHQ2k+6sYbQmT1Y3E+PVqJqYT4+soG3Ax7tilF1bWtzYuxrLh6OPw1VUzJB
-	A8sY6SQoQmmVKcEdutx6cccjMXQlFpSuXVh3OXAMfgyQIvDtj6C2XMQuevAuP9sQYP0vYxLs58G
-	G8RXvJyCpAXES/9QnwE1tH6QWPNKIMIi4+oxyPBU63HNqRmX/J9zvIuqsRMPth5EzH/333aQUQx
-	1kdlz1ylzDRtfNGc6rW76VZInnTUS6Jfl6+MeEHk1NNiH++/MRECLoM/T9t228mZ4GuereFjkf5
-	wB13VmjNrBVPu6NxNeJYUXms8/2Z4kKkx9I6c+LLgB+Co4qsl3aEUC/Ht5PKyD3M1z96vzEEtO+
-	HbJ5enr1S4WWThSJejYAWbownk54kSr758ugeEzop9cvaGRAdPJ8mNrpa1dF/cd9BQxo0DkRBB9
-	uFAX8kL/8f+V+W4rg3416dao65JK5BOSCnzRd17xaFn4WtCA12Vv59+ldP5ZNaFOQDNzYDQzvEI
-	ry8Al+JUPaYvgJAFFN46WZW8Eq2ArjyivZkFOD/9zGMip7LX+CBwJrhXPXiT7dnpCXbBdNPJN0n
-	kcJrSKE=
-X-Received: by 2002:a05:6122:1313:b0:5c9:a60b:e5d5 with SMTP id 71dfb90a1353d-5cb0b67e6bbmr5760667e0c.15.1790622982793;
-        Mon, 28 Sep 2026 12:16:22 -0700 (PDT)
+        bh=3EOtyWnpj6H2JKh2l6IAWizW9Kgj+njv8aMgbCxIvr4=;
+        b=nyNcKFe4wXWKbmh6gnblxs6f2qDCSOTU8cTzRxbBd3f0cbCtIYe0wGMODeqow3nTit
+         vza8WnREbI/3rpYVLn62DKSiE35GiR9UITCCjm/rTJJAhrVlOJGf/d2Nr4sNvpzemWv9
+         1GNvKx0ViIvAYCSqp4MvWcjUvdvTuFXfIzpf4gg6iUIFy4QriFMTHjaI/p3lkBoKhDQt
+         rQ+PLrk6jIKjlOtae6yyKbskamzk9kXTcRzYH+XM79K2V3eQkIhlWLP0kn1YJcvEFUIX
+         WaDPl1Sy/pcfCl3GZh42y6ZkziBgB1IprbAyBS18o+RV0n4X1cX7//uJy5P38lRoOS8S
+         p96A==
+X-Forwarded-Encrypted: i=1; AKwUvByRYkL4tw2OfQB6W5RH85TglUG06rKzb6VjO1Z+P2NQdBE6ETzEXCnrRQMSP0923q+OmGxvHDShOtYI@vger.kernel.org
+X-Gm-Message-State: AFq9FYKr+T6pjbo8IPa1DOxfQZJ7QL0gclUh8ksBw6p4iRkhl/GdyjDR
+	MN6wfhnQzP2borLYe9b9vsYdKUjC5FTd6+lYZ1o8BvrLqW5odCLm22d/DxUEincSp/I=
+X-Gm-Gg: AYBFou0G6CXm0M4N1CHTEpbtN7ixZJY7Je8quw+h6EM3hwYh/AF0Oxow3WsM2p9XzaX
+	lgRFU/jwiNGcC/Ba61EOC8xtBSdl/x+zrjtI9XM2Nqt9QOPRMAfhksRn5ixiqEDY35EM4k6Q39G
+	mfSW/1R/TTCSAOuAfd9o/J2Jc9a34EfGjAe5SFmqCAWh8Rlz85i0Wwxsg2TFiMh9nH0mCOWyuKd
+	ArfCqropIZpdxpCFQwZtf77W2Vsaf2kzr3CGUcCLlVI03oy7j9D3xRIh0JvAuvtKteTHAsO36HH
+	UUG8wpmpWCH/3N3IW6Gwvi+GszOrHOBuHXHoSfIf4WeLDfIBZBGLPN7qt0cPN2wufb14nHHmKVe
+	Wx+kZJT7KlozMi+LASiGi3kY23A7iu1GMMGngIDECMPlLrBHEyRUlAqBP00C7naQxmGilFo7ABf
+	lHi8yL9fo5uYRSRsvZ95JBdeNpdlCBaX2bkXFT3/c80jBq3lGtNb7uHKn3v4pcI34u2GguRmMTj
+	BAA1W+q9QkarVuTaiSPUcF83yw8rwAiyo3W+eX/hpj7IXnPJ03vrpYgEhau4qpy1a5UHCdLEU9P
+	rHkTPhD4yFWoLXCDJQ==
+X-Received: by 2002:a05:6102:3f8b:b0:7a6:bc69:5a32 with SMTP id ada2fe7eead31-7af1e6f3640mr5363208137.23.1790623214949;
+        Mon, 28 Sep 2026 12:20:14 -0700 (PDT)
 Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde4f969b9sm10052205e0c.3.2026.09.28.12.16.20
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9889afc5c7csm8124301241.2.2026.09.28.12.20.13
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 12:16:22 -0700 (PDT)
-Message-ID: <8fa0c826-9d4a-487c-b7db-5412118364d5@linaro.org>
-Date: Mon, 28 Sep 2026 21:16:20 +0200
+        Mon, 28 Sep 2026 12:20:14 -0700 (PDT)
+Message-ID: <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
+Date: Mon, 28 Sep 2026 21:20:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,9 +73,9 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-To: Maxime Ripard <mripard@kernel.org>, Jessica Zhang
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Benjamin Tissoires <bentiss@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>, Jessica Zhang
  <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -85,8 +85,9 @@ To: Maxime Ripard <mripard@kernel.org>, Jessica Zhang
  Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
  <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
  Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
@@ -94,10 +95,9 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
  Javier Martinez Canillas <javierm@redhat.com>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Benjamin Tissoires <bentiss@kernel.org>
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <arqhwHiVf00j94J7@beelink>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -124,72 +124,100 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+In-Reply-To: <arqhwHiVf00j94J7@beelink>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/28/26 18:22, Maxime Ripard wrote:
-> Most MIPI-DSI panel drivers follow an identical pattern: acquire
-> regulators and GPIOs, perform a reset pulse with specific timing,
-> send a vendor-supplied sequence of DSI commands, then enable the
-> display. The only truly panel-specific part is the init sequence
-> and power-on/off timing.
+On 9/28/26 19:24, Benjamin Tissoires wrote:
+> On Sep 28 2026, Neil Armstrong wrote:
+>> Hi,
+>>
+>> On 9/28/26 18:22, Maxime Ripard wrote:
+>>> Hi,
+>>>
+>>> Panels in general, and MIPI-DSI panels in particular, are pretty
+>>> difficult to support and require pretty much a panel driver for each
+>>> panel produced. Most of them are pretty simple, and require an opaque
+>>> initialization sequence that is usually poorly documented.
+>>>
+>>> This creates a tension between OEMs and distros because OEMs will
+>>> typically get a new panel to react to a sourcing issue during
+>>> production, and thus need some swift turnaround between getting their
+>>> new panel and it being operational in the OS. Distributions on the other
+>>> hand can take years to ship a kernel with that new panel driver.
+>>>
+>>> To solve this, I followed the example of HID-BPF and wrote a panel
+>>> driver that will rely on BPF programs to perform the panel
+>>> initialization. That way, we can ship the programs separately from the
+>>> kernel, and with a different lifecycle. If this driver is accepted, the
+>>> plan is to have a userspace component started by udev to identify and
+>>> load the right BPF program for the panels found on the device.
+>>
+>> This is kind of late for serious applications except if we manage to
+>> solve the bootloader to Linux display engine transition.
+>>
+>>>
+>>> This driver is fully functional and works with both 5" and 7" Touch
+>>> Display 2 panels for the RaspberryPi. However, it breaks away from the
+>>> typical panel driver in multiple ways:
+>>>
+>>> - BPF programs can only be loaded by userspace. This leaves us with two
+>>>     choices:
+>>>
+>>>     * We prevent the driver from loading until the script itself is
+>>>       loaded. This has the side effect of preventing any other output to
+>>>       be used until the initramfs is ran at the earliest, and possibly
+>>>       ever if the loader isn't installed for example.
+>>
+>> This adds a dependency on user-space behavior and if somehow the
+>> initramfs doesn't load for a reason we won't have a way to display
+>> an error.
+>>
+>>>
+>>>     * Or we probe the driver all the time, but only report it as connected
+>>>       once a program has been registered. This is somewhat unconventional,
+>>>       but allows the other outputs to be functional, *and* allows the user
+>>>       to force the output if their panel doesn't require any
+>>>       initialization or during debugging. I chose this solution.
+>>
+>> Both options are not really great...
+>>
+>>>
+>>> - It's not a panel driver, but a bridge one, which is also pretty
+>>>     unconventional. This is required because panel drivers don't have
+>>>     access to a detect callback that is required for the above, but I also
+>>>     think that the recent work from Luca blurs the line from panels and
+>>>     bridges and we'll end up going that road anyway.
+>>
+>> On this point, DDIC _are_ bridges, but in the current panel API we blur the line between
+>> the panel and the DDIC. So being a bridge is fine, but in a general way we lack
+>> a proper way to describe the display/panel/monitor independently of the DDIC.
+>>
+>> At first glance it's a nice driver, but moving the timings into a blob moves something
+>> into possible proprietary binaries with possible closed licence and distribution
+>> restriction so it's a downgrade for the same of bringing up a panel faster.
 > 
-> The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
-> with a single generic driver whose panel-specific behavior is
-> provided by BPF programs loaded from userspace at runtime,
-> following the HID-BPF model. This enables new panel support
-> without kernel patches.
-> 
-> Panel DT nodes use a two-entry compatible with the panel-specific
-> string first and "panel-mipi-dsi-bpf" as fallback. The generic
-> driver matches on the fallback, while the first compatible is used
-> to identify which BPF program to load.
-> 
-> Six normalized optional regulator supplies cover ~95% of existing
-> MIPI-DSI panels: vcc (IC core), iovcc (I/O interface), avdd/avee
-> (positive/negative analog), and elvdd/elvss (OLED EL driver).
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->   .../bindings/display/panel/panel-mipi-dsi-bpf.yaml | 184 +++++++++++++++++++++
->   1 file changed, 184 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml
-> new file mode 100644
-> index 000000000000..9a20a21cf70e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dsi-bpf.yaml
-> @@ -0,0 +1,184 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/panel-mipi-dsi-bpf.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Generic MIPI-DSI panel with BPF init sequences
-> +
-> +maintainers:
-> +  - Maxime Ripard <mripard@kernel.org>
-> +
-> +description: |
-> +  A generic MIPI-DSI panel driver where the panel-specific power sequencing
-> +  and DSI init commands are provided by BPF programs.
-> +
-> +  Panel DT nodes use a fallback compatible so the generic driver matches on
-> +  "panel-mipi-dsi-bpf" while the first compatible identifies the specific
-> +  panel for BPF program matching.
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - description: Panel-specific compatible string
-> +      - const: panel-mipi-dsi-bpf
+> Quick answer on this, because I had the very same questions regarding
+> HID-BPF:
+> - in BPF, you can require (and by default it does) that only GPL
+> 	compatible BPF programs are loaded, closing the argument of "closed
+> 	licence and distribution restriction"
+> - also, a BPF program can be disassembled much easier than a binary
+> 	blob, and I remember Alexei showing me an example where you get almost
+> 	the source code from the BPF object in just one pass.
 
-I don't see how this can be a valid hardware description, bfp is a software
-implementation and has nothing to do in the bindings.
+Right, it "solve" one of my question, but doesn't really solve the issue
+of vendors providing "GPL" bpf programs with source available "somewhere".
+
+Another big issue is the API, I don't want to keep the current API as-is,
+we plan to support more advanced panel features and use try to use the
+atomic states to support rate switching for example, and I'm not confident
+it's a good idea since there's no "simple" and "forever valid" API
+to initialize panels...
 
 Neil
+
+> 
+> Cheers,
+> Benjamin
+
