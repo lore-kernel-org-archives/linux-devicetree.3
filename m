@@ -1,130 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8443C4D8D9D
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 14:05:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C492F4D7D47
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 14:07:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604309; cv=none; b=RIR10duoKQqnJuKw8VjQBMa8PLwJNEnFNpXmfNnBQnYdQ1SZ8qXskxjoeR4n46reQ3qfbYkgSNJ7fsrE7FxJBp/1RP2QjZ7weANQPuZLyJJrMx+Q+ya8OxPOlo/csHzK4Zd1VsK/14a3dpMPlKI7SqloVgG0Fk9+kVUfccrRw9k=
+	t=1790604438; cv=none; b=ZrGdLW60skBO5GnYFJC3Iv/CPilkM+qGRWacNpqTcdjdTM75b9RDiuuUtV0ZZpY/+1FKcmvN0ua5QBBhEskvog4LR1OiYqZb3QFJSFrc/CoQyH8AP77h3iqUfW4RJ5tPzxO6edBMy+d1nY5gXBZQjWeqwTPASs4q3IkPsU38Gek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790604309; c=relaxed/simple;
-	bh=TxJb4QCw7IS/BYlI3gxdtk81WHmfoQFC8oVo3EWSEH8=;
+	s=arc-20240116; t=1790604438; c=relaxed/simple;
+	bh=cVKwIHRXRhovTR24d6r8s0yIX68yurKTvnYo/+feLPc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qFnLelMrNyooXp+tUVlj14IO66vAchsu9odSto6F/oPY4H50jxUhB1Fe5Kg77ONx2YQl4d6+pw4kgof9xWpf+ikeAQ53PzGkHD0u0kyqGH8GqJaiTxB0WFIhCb237P6VtkXjDM4X2xhFtCaBsQKWJTco3UU4vHDxexuBtWfcvaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X9n4cGAT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=D+QDsSAD+AWb/z+mNuvBxkNbb9M8IXiLILyI8iUY3176hQ1L+HmyyUhkUD+anGHpGxAIB/e4YVtZRpX3tix167jaXD+VhBbJeUWkUQ8aSC+Tlx3I+wUtCpFGx0SZYdSf3+dmcfy9nMZsEyY/QWfZIr2iQMmZYorXYRAhmidPVyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jnBHvOwT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X9n4cGAT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C8C71F000FF;
-	Mon, 28 Sep 2026 14:05:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jnBHvOwT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365B81F000FF;
+	Mon, 28 Sep 2026 14:07:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790604300;
-	bh=0SBb+TOveaOuUCCVtJhMHlJe9hoHQV1wcwb9KSVxYoA=;
+	s=k20260515; t=1790604437;
+	bh=Dtwvpp8Jk9IcxJRQw0OkaG04fzQjQSewlBNreZrr8h4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=X9n4cGATB3Vfdfdbkv3p01rznmXlTd3bX+JhY+wI2uaVm1+5dJwI4dLHZOi1TdFsm
-	 7xN9/ExXlazt842GtdfyQ3Svev14LW6ZKH9wZymxgwtmeGU2+2Qip1HohaJlUUjX83
-	 lpLgjRtcR3tX6fyJyldwjarSFdXfl4wPRieBOsSDDYKEITiaIjWZh6+tCdFag79ooU
-	 1wmxHTiK/rMubCN3tgJ8ewgG2hZWzz1l7tsb84xmb7dm6007QNP5qt4pGQO+4SrXPe
-	 rDl3KnoxXXLBFtUzut8t09PMRRdXljYwJB10VdeaDnPrhTFIAe98G7eXyoZLakNiDh
-	 P9y+z1/dPchVw==
+	b=jnBHvOwT0vE4y+uWavcOBjABdKQTeMDB11Qmli4oWvtVDkS5NXk4eddMyX5R45H5B
+	 XdJSXkppmWn1CzlfFAUZpOV15KdgENndp0BKX9uE63w7lRmUWmmUCWYJkdha8qW3hr
+	 K5W19kENtvW6dVhHEg9jt3JuogVt3QvpPPmloKFcaga8VEQyC2FNSr5l34bQiT9zyt
+	 8jrftp2W5N4hHbmT0Km0XQFkvBbPMtMWI2sowEB/rPGA9z23GuAXzMRuAKTs2/7BMX
+	 4e+8wOFGQhxB9Vv9vSLzxgHTH2SJnCPvNG+zx8PVRSKUpqugeFI8nlOw4x+0EclvcS
+	 zrnyifQ8OVcfA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/3] pwm: rp1: Add RP1 PWM controller driver
+Subject: Re: [PATCH 2/3] dt-bindings: crypto: fsl,sec-v4.0: add
+ fsl,qi2-crypto-priority
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrea della Porta" <andrea.porta@suse.com>
+To: "Vincent Jardin" <vjardin@free.fr>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <74cceb2b8bde69132960887364a443c4e6fecfaa.1790603500.git.andrea.porta@suse.com>
-References: <cover.1790603500.git.andrea.porta@suse.com>
- <74cceb2b8bde69132960887364a443c4e6fecfaa.1790603500.git.andrea.porta@suse.com>
+In-Reply-To: <20260928-for-upstream-caam-qi2-priority-v1-2-e4a8e5f01dbc@free.fr>
+References: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
+ <20260928-for-upstream-caam-qi2-priority-v1-2-e4a8e5f01dbc@free.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 14:04:59 +0000
-Message-Id: <20260928140500.8C8C71F000FF@smtp.kernel.org>
+Date: Mon, 28 Sep 2026 14:07:16 +0000
+Message-Id: <20260928140717.365B81F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] pwm: rp1: uninitialized variable base used in probe error check
-- [Medium] pwm: rp1: missing hardware duty cycle cap in normal polarity
+- [Medium] dt-bindings: crypto: OS-specific software policy encoded in devi=
+ce tree
 --
 
-commit e4b281ff49d6f4c4ce04ab56fa923f8ea44e3ba3
-Author: Naushir Patuck <naush@raspberrypi.com>
+commit 16c27ce3ed51863cb681908accfda1674f3516d1
+Author: Vincent Jardin <vjardin@free.fr>
 
-pwm: rp1: Add RP1 PWM controller driver
-   =20
-The Raspberry Pi RP1 southbridge features an embedded PWM
-controller with 4 output channels, alongside an RPM interface
-to read the fan speed on the Raspberry Pi 5.
-   =20
-Add the supporting driver.
+dt-bindings: crypto: fsl,sec-v4.0: add fsl,qi2-crypto-priority
 
-> diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
-> new file mode 100644
-> index 0000000000000..60b02d7c85ee8
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-rp1.c
-[ ... ]
-> @@ -184,15 +184,15 @@ static int rp1_pwm_round_waveform_fromhw(struct pwm=
-_chip *chip,
->  					 struct pwm_device *pwm,
->  					 const void *_wfhw,
->  					 struct pwm_waveform *wf)
->  {
-[ ... ]
-> +	if (!wfhw->inverted_polarity) {
-> +		wf->duty_length_ns =3D DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_P=
-ER_SEC,
-> +						      (u32)clk_rate);
-> +	} else {
-> +		if (wfhw->duty_ticks > (u64)wfhw->period_ticks + 1) {
-> +			/* 100% duty cycle case */
-> +			ticks =3D 0;
-> +		} else {
-> +			ticks =3D (u64)wfhw->period_ticks + 1 - wfhw->duty_ticks;
-> +		}
+This commit adds a new property, fsl,qi2-crypto-priority, to the
+fsl,sec-v4.0 device tree binding. The property is intended to allow boards
+to specify the default in-kernel crypto API priority for the SEC device
+relative to CPU implementations.
+
+> diff --git a/Documentation/devicetree/bindings/crypto/fsl,sec-v4.0.yaml b=
+/Documentation/devicetree/bindings/crypto/fsl,sec-v4.0.yaml
+> --- a/Documentation/devicetree/bindings/crypto/fsl,sec-v4.0.yaml
+> +++ b/Documentation/devicetree/bindings/crypto/fsl,sec-v4.0.yaml
+> @@ -86,6 +86,15 @@ properties:
+>      description: Defines the 'ERA' of the SEC device.
+>      $ref: /schemas/types.yaml#/definitions/uint32
+> =20
+> +  fsl,qi2-crypto-priority:
+> +    description:
+> +      Crypto API priority of the algorithms the DPAA2 (QI2) front end
+> +      registers. Below the CPU's own implementations, the SEC is used on=
+ly
+> +      when asked for by driver name. The dpaa2_caam.priority module
+> +      parameter overrides it.
 
 [Severity: Medium]
-Could wfhw->duty_ticks exceed wfhw->period_ticks (e.g., if pre-configured by
-a bootloader for a 100% duty cycle)?
+Does this property encode an OS-specific software policy directly into the=
+=20
+device tree?
 
-If so, since rp1_pwm_round_waveform_fromhw() doesn't cap wfhw->duty_ticks
-for normal polarity, could this result in duty_length_ns > period_length_ns,
-violating the PWM API contract and creating an invalid initial waveform sta=
-te?
+The device tree is intended to describe hardware topology rather than Linux=
+=20
+internal software routing policies like Crypto API priority or module=20
+parameters. Because device tree properties become long-term ABI, exposing=20
+Linux-specific module parameter equivalents via DT pollutes the OS-agnostic=
+=20
+design.
 
-[ ... ]
-> @@ -295,12 +295,12 @@ static int rp1_pwm_probe(struct platform_device *pd=
-ev)
->  {
->  	struct device *dev =3D &pdev->dev;
->  	unsigned long clk_rate;
->  	struct pwm_chip *chip;
->  	void __iomem	*base;
->  	struct rp1_pwm *rp1;
->  	int ret;
-> =20
->  	chip =3D devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
->  	if (IS_ERR(chip))
->  		return PTR_ERR(chip);
-> =20
->  	rp1 =3D pwmchip_get_drvdata(chip);
-> =20
->  	rp1->base =3D devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(base))
->  		return PTR_ERR(base);
-
-[Severity: High]
-Does this code check the uninitialized local variable base instead of
-rp1->base?=20
-
-If devm_platform_ioremap_resource() fails, could this check allow the probe
-to proceed with an error pointer in rp1->base, potentially leading to a ker=
-nel
-panic when dereferenced later?
+Would it be better to handle this fallback algorithm ordering exclusively=20
+within the driver or module configuration?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790603500.gi=
-t.andrea.porta@suse.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-for-upstre=
+am-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr?part=3D2
