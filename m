@@ -1,76 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211722C15A5
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:15:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EBE49CF22
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:17:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790601326; cv=none; b=N7D44+RjlmsI4O6Xt5fFKXQspciP/LLkgldM3lLMb+2jlwnV4m7018wOLlLnXnx5ICEZI8X6MdsW3IF3Ml2anv1iBXShnpms+2uKuHka+whQkBwY3ywmniDxS58huxyYVzDmaKV78+tJP1Wg0ujLi3PendVnZimVvA0HUqVjX6Q=
+	t=1790601425; cv=none; b=hPu4HzhBiP6gNOiLfJbaOQq/+5mgxw6KkPSypJdN3opw1UQ60MxOPeJEfQWqTEUL6c37UwQIhniLpLRlhO611snN9Gqe/JFgNXfLhF/WYQNureoAbuleMpaAqLnHbkUXUh19yTZZC+egmIE1bI8OYe91SvRjjpc+N7gh2Wd2Q8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790601326; c=relaxed/simple;
-	bh=67pfgw1RUjPhy++gF5wYhOfFilOFp0yV2un6UjmCyfg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WgsWl3s2fFitt+tS4uU504weOKw/e1fK14lekjcVck9yyUra59Bh5neWGa/F14VKI18VHyuUk/RJEhb5nKP8x7BoLZnIk38Zku7OO71GUDiwQlhdDSOOKjTxC2M1DiTp6YeWHPPi9tlchTGjHavydJDQ1Bbz0XM3sFmgE6VpPpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EKYpojUt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790601425; c=relaxed/simple;
+	bh=P13BWhKuCnTIa1AF2ho1B5igIbq4ZBTUya+Qk7H9VXQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L3/4RIsaQeq3UW/eakj0nbSp1re8A/oR5hbEOLEQ0LjGjhD1yMaExqE6GOmAdFaHEU4A9r08StZ9TfKFP9i6G+NA6OIE/+2V+lD4gxtMSn3PJnMSQd5/+RNQouOfTqFiCvbBkXjENaKJd2v50G3jh3Fci4dpuA4AQPdLzupk5Vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OI5CR+2m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EKYpojUt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD1901F0089B
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:15:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OI5CR+2m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 685C31F000FF;
+	Mon, 28 Sep 2026 13:17:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790601324;
-	bh=m5JXdVXHFH+9vAnED0PElQH0JF3TnHdGUEaHPQQDO9c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EKYpojUt++NDw3l/XLWx5s/ffuUNzeTcxkDjsB+MEPxktq0diDOKGIzXep7Vfytey
-	 ngQ1wP1+i3SZD7V0eqXr48pVbXENy52iRqSpkLzKY52Nj0wBPsOYU/3pda2M00Ajly
-	 x5F1KYScERv0NL44KfOJ5dn1dgDIuESTsvjMpEhgCfRND+mjXoWTlGijKqdjEw5mlX
-	 UvJT1rinCdCeA0iDiwnvY6ixnBYXoVZnwsP7mBcay/LJ6CV8HjBwiBVMhSGi8HN7zd
-	 kTSWLaOFs29/Uv+SdlZxeyNxdj0cfslv3f2HQFHchsQeyBHnyJqveHi9CGZKWkTlIY
-	 7pZLa1HtcJbTw==
-Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2dc50c6eccso170120866b.0
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 06:15:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBydqNVHoD8JD/rs4liPtBcv5U/Cjmwi9FLJFWetGIy5a4I9Kh1Ua+uk9lJLCYqwBX2plFqtbAnIk2vL@vger.kernel.org
-X-Gm-Message-State: AFuF++nmQwNkgCoNiyAoaKryaKFWz8Lv6uyCn3F+Ijcxq4JdIJJnrx+E
-	k8fC4MfFftdUZ/1qbOvT21WOCQtJ/rWw3DPRYsGZ20MPAnJWZoZE0qqxRNe+am92xxTpy2pqOYk
-	rnb5VchIT206/Ji1BDv0rMh1HxloPKA==
-X-Received: by 2002:a17:907:e107:b0:c2d:d702:364f with SMTP id
- a640c23a62f3a-c2dd7027971mr178948166b.3.1790601323321; Mon, 28 Sep 2026
- 06:15:23 -0700 (PDT)
+	s=k20260515; t=1790601424;
+	bh=FSxc54jncYfYWdC33L6funQ4SZkqHESMbz6mSZqHJvQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OI5CR+2mSG2xRuY4trWxN0y1B4w+qGlCh2z3jb/NF/jlPrlAU8NLtXRYCqyOBigO5
+	 B/C0o+ifZazuI6rATYOAIZUFfzVeez7ecOWkCZqmk9GrLXdFGWNPk8NjA+jj0QhFFq
+	 Fwr4duscWPENHQ2tfO4JlvxUEwylFaA2tv2wTkSYNwFEC/pZ4avM4WlgqBUiD/6AZN
+	 sFxmj50EPbQjWUN8Yc+nMS04kgMP2BCt+l5rXLVDtErQzVqTvnwBvVxrrPOyC2EYHn
+	 i3IXaHBj9wyGYCLUkaH1oXUR06sw/GINoXTWQV2M6sTKfigBZd7zcvTqFeA9Ck1KMb
+	 TjK6f7MLFUNzQ==
+Date: Mon, 28 Sep 2026 08:17:01 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>, devicetree@vger.kernel.org,
+	Maxime Ripard <mripard@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	dri-devel@lists.freedesktop.org,
+	Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH 1/2] dt-bindings: display: faraday,tve200: Use a
+ level-high interrupt
+Message-ID: <179060141842.3905299.18293784781944970746.robh@kernel.org>
+References: <20260921-gemini-tve200-fix-v1-0-8be03ac2a8f7@kernel.org>
+ <20260921-gemini-tve200-fix-v1-1-8be03ac2a8f7@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928105951.2187076-1-matthias.goergens@gmail.com>
-In-Reply-To: <20260928105951.2187076-1-matthias.goergens@gmail.com>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 28 Sep 2026 08:15:11 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+k8GsoSgmSmVRMdOEj1fJMUZDvE02o7MsZhO9uWE0OcQ@mail.gmail.com>
-X-Gm-Features: AclHuK97fQsqohUbAuSArkF3phLTBWgdSNNEFKv5ru8KaCj1LRv-Q4VZdBT0QxA
-Message-ID: <CAL_Jsq+k8GsoSgmSmVRMdOEj1fJMUZDvE02o7MsZhO9uWE0OcQ@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: name the robh/linux for-next branch
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-gemini-tve200-fix-v1-1-8be03ac2a8f7@kernel.org>
 
-On Mon, Sep 28, 2026 at 5:59=E2=80=AFAM Matthias Goergens
-<matthias.goergens@gmail.com> wrote:
->
-> The T: entries for OPEN FIRMWARE AND FLATTENED DEVICE TREE and OPEN
-> FIRMWARE AND FLATTENED DEVICE TREE BINDINGS name robh/linux without a
-> branch.  The repository's HEAD points to branch master, which mainline
-> already contains.  linux-next merges the for-next branch of this
-> repository (Next/Trees).  Name that branch in both entries.
->
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+
+On Mon, 21 Sep 2026 11:15:54 +0200, Linus Walleij wrote:
+> The TVE200 vertical interrupt can remain pending after acknowledgment.
+> Using rising-edge triggering can leave it unserviced when no new edge
+> is generated, causing vblank and page-flip timeouts on the D-Link DIR-685.
+> 
+> Use level-high triggering in the binding example so a pending interrupt
+> is delivered again without requiring a new edge.
+> 
+> Fixes: 8b17e80d9e46 ("drm/tve200: Add DT bindings")
+> Assisted-by: LLM
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
 > ---
-> This is part of a cleanup of all T: entries whose repository HEAD is
-> not where development happens: one patch per repository, sent in small
-> batches.  The plan is at [1], and why it goes out in batches at [2].
+>  Documentation/devicetree/bindings/display/faraday,tve200.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
 
-Is doing this preferred over changing what HEAD points to? Happy to do eith=
-er.
+Applied, thanks!
 
-Rob
