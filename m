@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AA7413787
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 14:48:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357374BD36E
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 14:48:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790606889; cv=none; b=DgeOIyNyH/2rn91l9QwBrwtwv8ScqvfANTsUHCo/FLr+ltE9m8mwokZX7UwR2efqYjcoPqG9VP4cC+Ix3HY6HfWp6mfxcMPCuFRebab6AvdxR8kcMAFy0meT/VrRXdL7c6yeql7KC2/g2bUQVAh0O6fgPiUGObFJA2nzXBPAEYk=
+	t=1790606910; cv=none; b=OKfJp2gxFJN5fX/tupp1m3+M0SBam3pJrqAjw7d4igYwWX+yrQgZZksHz3lAzOsVsGlf++TShgMRL+43KsxLJTlbO8GeKKM8yx1R5v5QKIgLOb8ks3HpGU27xflAKIYm1lMQ0mJICzNYLQOi0X/Fv2TnFrFhvqt46byJMVlb4OM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790606889; c=relaxed/simple;
-	bh=aUhpMQgSf7DIKDCNTzlyTi2ghkDy3aQnWb4lFGFouf8=;
+	s=arc-20240116; t=1790606910; c=relaxed/simple;
+	bh=m1lTArCS+Vax+bYYuUXjny6lheWQ+7I/sk21AEQXBRw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IJb5DsNZ02XLMcbIRqgksPiilXJ9eSIgBfX98PnZ3mHHwnC0Y6UPEgjs0kIeUwNyi1IjH7hqHiegriUCAul/T7SBEYTSqqvtsK7B39IWlFaHPtVPrdfC1McG8bObmalszBFhfi2Qhw85dfcB1Eh9R1gBagQGZYhLg/gKFPSM4qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZ/evEyp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sCtegQ66WGsauBQ2VJ1/L6dyp/wQF2KASh2nkXNrxhh2SPtO8WG5DtfumlqUFlbuLcL6qh2/A/K6dhqzGcKvtq9NxUP1ACkUN0Crxdcw/rYKjoeH8vmED7e3pT+G5RpyhgGq3T73Schr2mL3Nj9Oj5Zwd0NfqfN6mjtrds+ZtSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+wxK0Qu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZ/evEyp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4E921F000FF;
-	Mon, 28 Sep 2026 14:48:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+wxK0Qu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913141F000FF;
+	Mon, 28 Sep 2026 14:48:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790606888;
-	bh=RHW+gLRI7YclUOb4PnaCswXIPWucHFQ9PPY5uG+eJdM=;
+	s=k20260515; t=1790606908;
+	bh=oX1nIPclCE2hcqdrBR2c/JEHrzsUR2TofDKF8jU0eYM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bZ/evEypykFQijZbPFuGiwyFQbrd1hvYOKhkfCTVSUJmo4bIixGZmMARhzGuuAkam
-	 u2XsTiNQwp7JA7bV/oSYV0tkV3nJq05kd0Z6kav3Xgi62Q3aYOtoPFDcta81FIpLrG
-	 cRKNV7hweYGa9168E1iOHrw9A2XJ01BYqRedX2jhSuDZk2Ag3YNf+jRaga6RQ7fuFd
-	 HkCQugSskhNaVd9pEeHNVdzoPkGjrMdua+4jRCi/xZ86J4govz0GqNxbTQdLluk2C9
-	 a5wbl3NevoOF0xfdP6dSgAzNWLfrcy81DGyhZVeU1dCYitKi6JNz2O3IUth23J7wRq
-	 wWVGoOV3NQtzw==
+	b=S+wxK0Qu7/V9P+UCAVyUvaB1pQFHIVjCn7JeCQAKWwtuOhEAC4kKVUgh3IgfTgBLe
+	 jUVOMlEHLt0JRLviNUkdKOvB8p/L8QNwrm74d0tw4WtdfGD+DO9Mogu+wVL0CeK8RR
+	 ss3ccoIIrfhj5PCnDjTA93xspo2JNwvVs1App7HLWvRMu7pI7hhq/6NTS5cPa0QDNj
+	 uUI0SgqHU6R7u4h+2nbXvZk90rroT7TlBZcnp4S/ZJ5WJL/jJcgR1YMXdR//QG8wzk
+	 xquTbXUm+UP/sfDiq6zGaGNvkABI+xBiD/8uBP2X9p0F/RFqBtly/kD6+6JPGK+I9r
+	 HSXhM0WFk/ORQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/3] pwm: rp1: Add RP1 PWM controller driver
+Subject: Re: [PATCH v10 3/3] arm64: dts: broadcom: rpi-5: Add RP1 PWM node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Andrea della Porta" <andrea.porta@suse.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <b26a359bb0b8f8637955cf3428d0db5137d932e1.1790606188.git.andrea.porta@suse.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <ad9bc35d7c30f7925fed4c6621ed0f67c39c3f09.1790606188.git.andrea.porta@suse.com>
 References: <cover.1790606188.git.andrea.porta@suse.com>
- <b26a359bb0b8f8637955cf3428d0db5137d932e1.1790606188.git.andrea.porta@suse.com>
+ <ad9bc35d7c30f7925fed4c6621ed0f67c39c3f09.1790606188.git.andrea.porta@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 14:48:07 +0000
-Message-Id: <20260928144807.C4E921F000FF@smtp.kernel.org>
+Date: Mon, 28 Sep 2026 14:48:28 +0000
+Message-Id: <20260928144828.913141F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,78 +46,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] pwm: rp1: channel control register state loss across suspend
+- [High] pwm: rp1: missing spinlock for shared RP1_PWM_GLB_CTRL register
 --
 
-commit b77b6f077f5aa3ca8ba16d313a2e9952c97e47f7
-Author: Naushir Patuck <naush@raspberrypi.com>
+commit 0c157fdfbde9f74961d4b31ce35f1c71872efa00
+Author: Stanimir Varbanov <svarbanov@suse.de>
 
-pwm: rp1: Add RP1 PWM controller driver
-   =20
-The Raspberry Pi RP1 southbridge features an embedded PWM controller with 4
-output channels. This patch adds the supporting driver.
+arm64: dts: broadcom: rpi-5: Add RP1 PWM node
 
-> diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
-> new file mode 100644
-> index 0000000000000..a993b86a5bf85
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-rp1.c
+The RP1 chipset used on the Raspberry Pi 5 features an integrated
+PWM controller to drive the cooling fan. Add the corresponding DT
+node for this PWM controller.
 
+> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm6=
+4/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> index 0fc57e72632ed..748be8f1ee9e2 100644
+> --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
 [ ... ]
+> @@ -94,6 +100,12 @@ &rp1_i2c6 {
+>  	pinctrl-names =3D "default";
+>  };
+> =20
+> +&rp1_pwm1 {
+> +	pinctrl-0 =3D <&fan_pwm_default_state>;
+> +	pinctrl-names =3D "default";
+> +	status =3D "okay";
+> +};
 
-> +static int rp1_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	u32 value, polarity;
-> +
-> +	/* init channel to reset defaults, preserving the polarity bit */
-> +	value =3D readl(rp1->base + RP1_PWM_CHAN_CTRL(pwm->hwpwm));
-> +	polarity =3D FIELD_GET(RP1_PWM_CHAN_CTRL_POLARITY, value);
-> +	value =3D u32_replace_bits(RP1_PWM_CHAN_CTRL_DEFAULT, polarity, RP1_PWM=
-_CHAN_CTRL_POLARITY);
-> +	writel(value, rp1->base + RP1_PWM_CHAN_CTRL(pwm->hwpwm));
+[Severity: High]
+Can concurrent PWM channel configuration cause lost updates when this node =
+is
+enabled?
 
-[Severity: Medium]
-Will this channel control mode configuration be lost if the hardware loses =
-power
-or is reset during system suspend?=20
+Looking at drivers/pwm/pwm-rp1.c, there is a read-modify-write race on the
+shared hardware register RP1_PWM_GLB_CTRL:
 
-The required MODE_TE_MS and FIFO_POP_MASK settings are initialized here, but
-they do not appear to be restored anywhere on resume.
+drivers/pwm/pwm-rp1.c:rp1_pwm_write_waveform() {
+    ...
+	/* enable the channel */
+	ctrl |=3D RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm);
+	writel(ctrl,  rp1->base + RP1_PWM_GLB_CTRL);
+    ...
+}
 
-> +
-> +	return 0;
-> +}
+and also in:
 
-[ ... ]
+drivers/pwm/pwm-rp1.c:rp1_pwm_apply_config() {
+    ...
+	value =3D readl(rp1->base + RP1_PWM_GLB_CTRL);
+	value |=3D RP1_PWM_GLB_CTRL_SET_UPDATE;
+	writel(value, rp1->base + RP1_PWM_GLB_CTRL);
+    ...
+}
 
-> +static int rp1_pwm_write_waveform(struct pwm_chip *chip,
-> +				  struct pwm_device *pwm,
-> +				  const void *_wfhw)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	const struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> +	u32 value, ctrl;
-> +
-> +	/* set polarity */
-> +	value =3D readl(rp1->base + RP1_PWM_CHAN_CTRL(pwm->hwpwm));
-> +	if (!wfhw->inverted_polarity)
-> +		value &=3D ~RP1_PWM_CHAN_CTRL_POLARITY;
-> +	else
-> +		value |=3D RP1_PWM_CHAN_CTRL_POLARITY;
-> +	writel(value, rp1->base + RP1_PWM_CHAN_CTRL(pwm->hwpwm));
+If two threads call pwm_apply_state() on different PWM channels concurrentl=
+y,
+the PWM core locks at the channel level, not the chip level.
 
-[Severity: Medium]
-If the channel control register loses its state across suspend, could this
-read-modify-write operation preserve the corrupted state?
+One thread's enable/disable action could overwrite the other's, leading to
+channels unexpectedly disabling or failing to enable.
 
-If a PWM consumer calls pwm_apply_state() upon resume, it would invoke
-rp1_pwm_write_waveform() and read the potentially zeroed state, modify only=
- the
-polarity bit, and write the corrupted state back. This would cause the PWM
-channel to fail to output correctly since the proper mode settings are miss=
-ing.
+Since this PWM drives the cooling fan, could a lost update disabling the fan
+lead to a thermal shutdown?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/ee0aa89faa14e0073f1=
-271693bae28678652998b.1790606188.git.andrea.porta@suse.com?part=3D2
+271693bae28678652998b.1790606188.git.andrea.porta@suse.com?part=3D3
