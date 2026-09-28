@@ -1,108 +1,130 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393854BB28D;
-	Mon, 28 Sep 2026 14:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8443C4D8D9D
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 14:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790604128; cv=none; b=kj0I8/eQNrSqPrDUev8uJUcIqdnAd6KJfMUAmgQPrdEiN95B23C+/lyCnGZVD2xJ/ADlCFZ+LA5vUWnB4BpoXBipnbmLnBlfLohBy6VHh6IothHo/djj1e85MzUCDBFneyQHgcNkQ0RFlubiVf/kpD8xt6j4iv/rJLk/HHP2Iys=
+	t=1790604309; cv=none; b=RIR10duoKQqnJuKw8VjQBMa8PLwJNEnFNpXmfNnBQnYdQ1SZ8qXskxjoeR4n46reQ3qfbYkgSNJ7fsrE7FxJBp/1RP2QjZ7weANQPuZLyJJrMx+Q+ya8OxPOlo/csHzK4Zd1VsK/14a3dpMPlKI7SqloVgG0Fk9+kVUfccrRw9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790604128; c=relaxed/simple;
-	bh=8338N/MLUsSVLfr50ikls34dEQtzKihPaRcPDbLoRsw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Im2vWsRL0Y2f2PgX/XXcXV2L8bkCwJ5+7tsFnw+++NFy1fTqjDHFd6vRlHrRxs5tZqxMYtTsyISUY5F0Zq0AAdgM9hXoFUgc/lxR+Jd4/fH49FRiLi/2ivI/OijN2OuXWkVZ+lBkj8tOCgje9RFMZ+5tPfP/CkTCS2ouwMwQnmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net; spf=pass smtp.mailfrom=alexanderkoch.net; dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b=YQO7w6Iw; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alexanderkoch.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alexanderkoch.net
+	s=arc-20240116; t=1790604309; c=relaxed/simple;
+	bh=TxJb4QCw7IS/BYlI3gxdtk81WHmfoQFC8oVo3EWSEH8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qFnLelMrNyooXp+tUVlj14IO66vAchsu9odSto6F/oPY4H50jxUhB1Fe5Kg77ONx2YQl4d6+pw4kgof9xWpf+ikeAQ53PzGkHD0u0kyqGH8GqJaiTxB0WFIhCb237P6VtkXjDM4X2xhFtCaBsQKWJTco3UU4vHDxexuBtWfcvaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X9n4cGAT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alexanderkoch.net header.i=@alexanderkoch.net header.b="YQO7w6Iw"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4htjfc38vkzMlrS;
-	Mon, 28 Sep 2026 16:02:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alexanderkoch.net;
-	s=MBO0001; t=1790604120;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4cEe7dLmKEHxBNr/9u9hCoZ8kn9K4vqRyeK15aUsoes=;
-	b=YQO7w6IwJEptPdadGHC46a7i/TJDT0KUwwPMbIo2g9uPrkk27W1xxH2H2SugWEBscQB/5Q
-	nT+obrCHrkrgT9NSV7X0Y4eRF3Z7BTrYZSQ0AWj9omXzWuqSb5iLKgTxelzQ8F4bZVy56K
-	F+OCLCK/YBWbaQ1cN952OZUy0gWQWWLAFz9eg9v0mpCCAVXrBJso6LYfA8nZjBsVSGFIfP
-	CQEnB/q8VvJB1Zt0W848QKgekcM5lbLF1PRIRo0NkW6mVvurqCZK/xIl3dUJwkwb1VbGnY
-	SymmZRgD5B+zxWj8eGjTlsFsOskQXUV02zGcFJjc9jaIOOSymvYr4+WnkRFkbA==
-Message-ID: <31cc7f2d-4a8d-4584-8866-6961b7d7af31@alexanderkoch.net>
-Date: Mon, 28 Sep 2026 16:01:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X9n4cGAT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C8C71F000FF;
+	Mon, 28 Sep 2026 14:05:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790604300;
+	bh=0SBb+TOveaOuUCCVtJhMHlJe9hoHQV1wcwb9KSVxYoA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=X9n4cGATB3Vfdfdbkv3p01rznmXlTd3bX+JhY+wI2uaVm1+5dJwI4dLHZOi1TdFsm
+	 7xN9/ExXlazt842GtdfyQ3Svev14LW6ZKH9wZymxgwtmeGU2+2Qip1HohaJlUUjX83
+	 lpLgjRtcR3tX6fyJyldwjarSFdXfl4wPRieBOsSDDYKEITiaIjWZh6+tCdFag79ooU
+	 1wmxHTiK/rMubCN3tgJ8ewgG2hZWzz1l7tsb84xmb7dm6007QNP5qt4pGQO+4SrXPe
+	 rDl3KnoxXXLBFtUzut8t09PMRRdXljYwJB10VdeaDnPrhTFIAe98G7eXyoZLakNiDh
+	 P9y+z1/dPchVw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 2/3] pwm: rp1: Add RP1 PWM controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrea della Porta" <andrea.porta@suse.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <74cceb2b8bde69132960887364a443c4e6fecfaa.1790603500.git.andrea.porta@suse.com>
+References: <cover.1790603500.git.andrea.porta@suse.com>
+ <74cceb2b8bde69132960887364a443c4e6fecfaa.1790603500.git.andrea.porta@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Sep 2026 14:04:59 +0000
+Message-Id: <20260928140500.8C8C71F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] SoC: dt-bindings: asahi-kasei,ak4619: Add PDN GPIO
- support
-To: Rob Herring <robh@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Khanh Le <khanh.le.xr@renesas.com>, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928114019.1441752-1-mail@alexanderkoch.net>
- <20260928114019.1441752-3-mail@alexanderkoch.net>
- <20260928131208.GA3834499-robh@kernel.org>
-Content-Language: en-US
-From: Alexander Koch <mail@alexanderkoch.net>
-In-Reply-To: <20260928131208.GA3834499-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
->> Add documentation for optional property that enables operation of the
->> 'PDN' pin during initialization:
->>
->>      codec@10 {
->>          compatible = "asahi-kasei,ak4619";
->>          reg = <0x10>;
->>          pdn-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>;  // <--
->>          #sound-dai-cells = <0>;
->>      };
->>
->> Signed-off-by: Alexander Koch <mail@alexanderkoch.net>
->> ---
->>   .../devicetree/bindings/sound/asahi-kasei,ak4619.yaml     | 8 ++++++++
->>   1 file changed, 8 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
->> index d412531ef9a2..3c7754351e8a 100644
->> --- a/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
->> +++ b/Documentation/devicetree/bindings/sound/asahi-kasei,ak4619.yaml
->> @@ -34,6 +34,12 @@ properties:
->>       $ref: audio-graph-port.yaml#
->>       unevaluatedProperties: false
->>   
->> +  pdn-gpios:
-> powerdown-gpios is a standard name for this function.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] pwm: rp1: uninitialized variable base used in probe error check
+- [Medium] pwm: rp1: missing hardware duty cycle cap in normal polarity
+--
 
-Thanks for the hint, this might actually inverse the logical polarity of 
-the GPIO that I had in mind. I will look at other examples and consider 
-them when submitting v2.
+commit e4b281ff49d6f4c4ce04ab56fa923f8ea44e3ba3
+Author: Naushir Patuck <naush@raspberrypi.com>
 
->> +    maxItems: 1
->> +    description:
->> +      GPIO controlling the AK4619 PDN input pin. Used during driver
->> +      probing to power up the codec.
-> When a driver does something is not relevant. Would be useful to state
-> the active (meaning powered down state based on the naming) state.
+pwm: rp1: Add RP1 PWM controller driver
+   =20
+The Raspberry Pi RP1 southbridge features an embedded PWM
+controller with 4 output channels, alongside an RPM interface
+to read the fan speed on the Raspberry Pi 5.
+   =20
+Add the supporting driver.
 
-Understood, I will make that more clear in v2.
+> diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
+> new file mode 100644
+> index 0000000000000..60b02d7c85ee8
+> --- /dev/null
+> +++ b/drivers/pwm/pwm-rp1.c
+[ ... ]
+> @@ -184,15 +184,15 @@ static int rp1_pwm_round_waveform_fromhw(struct pwm=
+_chip *chip,
+>  					 struct pwm_device *pwm,
+>  					 const void *_wfhw,
+>  					 struct pwm_waveform *wf)
+>  {
+[ ... ]
+> +	if (!wfhw->inverted_polarity) {
+> +		wf->duty_length_ns =3D DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_P=
+ER_SEC,
+> +						      (u32)clk_rate);
+> +	} else {
+> +		if (wfhw->duty_ticks > (u64)wfhw->period_ticks + 1) {
+> +			/* 100% duty cycle case */
+> +			ticks =3D 0;
+> +		} else {
+> +			ticks =3D (u64)wfhw->period_ticks + 1 - wfhw->duty_ticks;
+> +		}
 
+[Severity: Medium]
+Could wfhw->duty_ticks exceed wfhw->period_ticks (e.g., if pre-configured by
+a bootloader for a 100% duty cycle)?
 
-Best regards,
+If so, since rp1_pwm_round_waveform_fromhw() doesn't cap wfhw->duty_ticks
+for normal polarity, could this result in duty_length_ns > period_length_ns,
+violating the PWM API contract and creating an invalid initial waveform sta=
+te?
 
-Alex
+[ ... ]
+> @@ -295,12 +295,12 @@ static int rp1_pwm_probe(struct platform_device *pd=
+ev)
+>  {
+>  	struct device *dev =3D &pdev->dev;
+>  	unsigned long clk_rate;
+>  	struct pwm_chip *chip;
+>  	void __iomem	*base;
+>  	struct rp1_pwm *rp1;
+>  	int ret;
+> =20
+>  	chip =3D devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
+>  	if (IS_ERR(chip))
+>  		return PTR_ERR(chip);
+> =20
+>  	rp1 =3D pwmchip_get_drvdata(chip);
+> =20
+>  	rp1->base =3D devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(base))
+>  		return PTR_ERR(base);
 
+[Severity: High]
+Does this code check the uninitialized local variable base instead of
+rp1->base?=20
+
+If devm_platform_ioremap_resource() fails, could this check allow the probe
+to proceed with an error pointer in rp1->base, potentially leading to a ker=
+nel
+panic when dereferenced later?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790603500.gi=
+t.andrea.porta@suse.com?part=3D2
