@@ -1,167 +1,67 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360284A8FF1;
-	Mon, 28 Sep 2026 11:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C7048F035;
+	Mon, 28 Sep 2026 11:23:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790594526; cv=none; b=FAeRt1rM9GqdKYFxea601J10dXU2hCmrwfcHHurqT9THTqLDZfBn+CZklFfi5PI5o0jbHH8U9wvCtArihkgMjkpFzSduJnfbM45URhCwiuleaxh6vZ3Xkhd74gYihmFNWbTWD6tt/8NUbDdRD87dfCAFHngGdRO6AGxXRksuPEQ=
+	t=1790594623; cv=none; b=LsZMkPhygZtNLxEEA/GSlnpwXaL/2ZuAabJZNdZ0wxoOA9OnUDpI1H2mMn2YT03Q8GJW1P35+5tHfvwtqHyz7rgkfBjc4qvrXO5xCMXOG8MX0tjpAEf0rXpJeEkY6LSZY9Z+J4Ne8eZRNq9y5xv3IBqZ4wYTAB+KxkBzSe5ee9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790594526; c=relaxed/simple;
-	bh=b6WX1LpMYtQYcZDgz8q1+fzkJWvOO1o/cr3VmDwwdmY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EGgNqF1Dd9Fng/FMz5fx1wehvL+cS4CR4hZZ67O9A7cjJmujmxYtm6cv2Q0o5jSJ5s1OA9venCh3tCyn0tMhDv9IXBQnh2BmmYeiDSu4jhYwb70nJ9244JfJV4JkulB/WGM1/CHid9XbEDI1xRX/llz11pWzSC6z2+yIXV1QP/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=q9dVdBUL; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1790594623; c=relaxed/simple;
+	bh=i7qegoM/NmMM6qkc45znAlaWtJjruB3B5a8COp9sBog=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rEkQhRrKsskicwh9sVy/JGej//U9bICLbaJtrK/ife32q41AHuJSjE/LqitBL4kpCHRbGZ1TLC2IHeJNZpphCYZrO0vUIYKDGOtHP9EzWWdkCulXbK30Rg/prPKeLKCn79u5QTOzz37UfnjNB7/m1jwE6mUCmHs51yZ86AxxBmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZK+Okoks; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="q9dVdBUL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=pKdYDG9ZIYreeX+6zz4OdEIf0QBdQg4dPUWI4TSogo4=; b=q9dVdBULcJU9xTntkOEVgyhvRk
-	WP8wTStXxIMuUwZGJArqEN9cc0S0sVoTReRZ9rz7DP3RRv2sLTQh5ShvL+hhjKIpqy/bLUZI3iWUB
-	dsjakAc56PPR6/TTKZFgmk9WLhKDC04PxXyYLd6Me5i1ByEM8twoi7Vs2+69kaLjaJaJN0V5RiGFI
-	HqGH4JCscY6x9LxN4DJVyP64pe4sx31r4WYMeYMbxURwjUA2NNG8kKnATRDHf0oeqvPtr5iiAuHDn
-	DxSuj01n0Txa4KY+Vj3iRh+KaT1tlKDTsfCTeDtQjiN70YkycdG2QwiWJdjbiQVkzEgJPAP+AF40S
-	iAR3EcGw==;
-Received: from sslproxy04.your-server.de ([78.46.152.42])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB9Qk-000GDI-13;
-	Mon, 28 Sep 2026 13:21:58 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB9Qj-0006Dd-14;
-	Mon, 28 Sep 2026 13:21:57 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
-	linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] arm64: dts: imx95-tqma9596sa: Add thermal zones
-Date: Mon, 28 Sep 2026 13:21:42 +0200
-Message-ID: <20260928112143.294091-2-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260928112143.294091-1-alexander.stein@ew.tq-group.com>
-References: <20260928112143.294091-1-alexander.stein@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZK+Okoks"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B4471F00893;
+	Mon, 28 Sep 2026 11:23:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790594622;
+	bh=i7qegoM/NmMM6qkc45znAlaWtJjruB3B5a8COp9sBog=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZK+OkoksnrQbYmpgJHNzWuhZqiuIZp3TG1G9YdLBRSo1Zxrtxgy/oignJFnxAab2H
+	 XHy2R7rZdWi8UA1fFP+raP6lZqxshtbffXXPmrkkuOJC4Qz7GhYjzSRReNT9FEvFDl
+	 kDTRP/U7uE3CWq2ikNEf9JuetDez1ZlZaNl5AS8foY9eLmycYneR4Ino0G7FMs5EhZ
+	 Kxy1FWU9zeA10rEdG96JPH8ndHwDYwGVOJzJjhrfpaXtGAAkETccGoqWOf1HKjBiTt
+	 PNSmEYnybCiQD0RhOnztxqUzcFmiJv2kLc6rCOH0q8BQIXXc37+gUvIBiBBPA8vHRK
+	 vlng9r6+Edc5Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: leds: Add CZ.NIC Turris 1.x LED
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Josef Schlehofer" <pepe.schlehofer@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, lee@kernel.org, linux-leds@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260928111907.72592-2-pepe.schlehofer@gmail.com>
+References: <20260928111907.72592-1-pepe.schlehofer@gmail.com>
+ <20260928111907.72592-2-pepe.schlehofer@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 28 Sep 2026 11:23:41 +0000
+Message-Id: <20260928112342.2B4471F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28137/Mon Sep 28 08:24:12 2026)
 
-These PMIC sensors are provided by the SCMI firmware and are independent
-from the mainboard.
+> From: Pali Roh=C3=A1r <pali@kernel.org>
+>=20
+> Add a binding for the LED controller on the front panel of the CZ.NIC
+> Turris 1.x routers. The LEDs are controlled by the firmware of the
+> CZ.NIC CPLD, which is memory mapped on the local bus.
+>=20
+> The turris1x.dts device tree, which is part of the mainline kernel since
+> v6.0, already references this compatible string.
+>=20
+> Signed-off-by: Pali Roh=C3=A1r <pali@kernel.org>
+> Cc: Marek Beh=C3=BAn <kabel@kernel.org>
+> Co-developed-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
- .../boot/dts/freescale/imx95-tqma9596sa.dtsi  | 75 +++++++++++++++++++
- 1 file changed, 75 insertions(+)
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-tqma9596sa.dtsi b/arch/arm64/boot/dts/freescale/imx95-tqma9596sa.dtsi
-index 456129f4a6825..6ed810733ff2d 100644
---- a/arch/arm64/boot/dts/freescale/imx95-tqma9596sa.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95-tqma9596sa.dtsi
-@@ -458,6 +458,81 @@ &scmi_bbm {
- 	linux,code = <KEY_POWER>;
- };
- 
-+&thermal_zones {
-+	pf09-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 2>;
-+
-+		trips {
-+			pf09_alert: trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			pf09_crit: trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+
-+	pf53arm-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 4>;
-+
-+		cooling-maps {
-+			map0 {
-+				trip = <&pf5301_alert>;
-+				cooling-device =
-+					<&A55_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+					<&A55_5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+			};
-+		};
-+
-+		trips {
-+			pf5301_alert: trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			pf5301_crit: trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+
-+	pf53soc-thermal {
-+		polling-delay = <2000>;
-+		polling-delay-passive = <250>;
-+		thermal-sensors = <&scmi_sensor 3>;
-+
-+		trips {
-+			pf5302_alert: trip0 {
-+				hysteresis = <2000>;
-+				temperature = <140000>;
-+				type = "passive";
-+			};
-+
-+			pf5302_crit: trip1 {
-+				hysteresis = <2000>;
-+				temperature = <155000>;
-+				type = "critical";
-+			};
-+		};
-+	};
-+};
-+
- &tpm3 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_tpm3>;
--- 
-2.55.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928111907.7259=
+2-1-pepe.schlehofer@gmail.com?part=3D1
 
