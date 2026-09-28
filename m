@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8440D4973BC;
-	Mon, 28 Sep 2026 10:09:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41674963C1;
+	Mon, 28 Sep 2026 10:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590159; cv=none; b=fkEYz4QTctM4ypLB9GqNS9OjWw86hgN0H8q1VqMEdHR+oHvbiRQN7xPs8vbz0wzyvIPvwbC5numjqKXIkVq8yFxjDBT0WmIdW68TM/pDSw5JJ8MdVVShSpJFLul60sey6MW44TP5JkpGsx2OUUP89VyXz9PQF3oFw/LcIfnQsX8=
+	t=1790590321; cv=none; b=k77+5tDwhziGCHqpvwFe/+PGLp/6rU3zD/QQyVt6o4OW1gBbdYx6fT1GLaUI206j7A8t9E8d44OXvaVopMJ8qAyH/6HaOo/h57597SnibBpPIGfYRxI/cO8gRi/Uyl1Qg9+EuwsyrIiss16eYj87FO1txEzjCLsda9IaHXzA29g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590159; c=relaxed/simple;
-	bh=QOlB+Ve1lrI+PADT4WdWPnC1Y6f+DhkHn8AuMkfc9eY=;
+	s=arc-20240116; t=1790590321; c=relaxed/simple;
+	bh=h8XPs+oMhFOZbXkthKtxJzo8SxVaRvixwpiJi5DvyOw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=of6S1eMG60JyP1qmEzRzd/EpQJGG859JsNRx3mjGn5X5qBLc+KQM2Uj1rXGAKo2FB+3opZ8jFMJTHRu3KRu/Ot2TKazcUNFiALWdzp164vbqiataMRkxT34CFP8QdzHCRTFaF+2Dq94gSLf/eags6cC4l1o6Zh06UyiVj6KKSLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LspRJsls; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=j5EuNTtt50WjYxYx5KQ/tEN5Q1KD5jy8HxLpUBgpC98n0Fn9PSruBrSdggYj88m9idHAp/c6lP07Sphg+ISTGPN35EiQX5i7MmD0my80WwxCgLie2lzZ32RaALE3XObLQ7H7a2fwWUqUBU47CUs5QHfBmA5tLwE+qqlorUdtd3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XB9ARJXq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LspRJsls"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9B51F00893;
-	Mon, 28 Sep 2026 10:09:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XB9ARJXq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9211F00893;
+	Mon, 28 Sep 2026 10:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790590157;
-	bh=0EIf1+bsuNHuJBjWhrdwCmhvHwe0cyWOx7FyP/jog+s=;
+	s=k20260515; t=1790590320;
+	bh=xKKYYbi6Wt3RVUnYaw2KHtHKnm8mMYQucrYPSRYDn/0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LspRJslsOUOdXdTZrBDB15ym4YYHKG47E9hn8YNvI7yUnTkZAIcHHFI4/FOsdO2R8
-	 66aJAmyB4BoVpt8BYwaxcBq9jnLnK8O+VXZ5eK80QMGDVS+os/eOHP/Y4vIphDyFKS
-	 jLH1xe/+XeuCGw2eWT+MJDZw1xTRUd9OBMIP3qHz7GBz0VkG6tKA+9Xx8pPYFAM0OE
-	 TxchTHpR478F+dR3eA2rUkUarRa9m+DzSRRtSofm8O4G7r1iYx9anw/e/mb70SOwOQ
-	 0BJODh50rQVnPl6SOrw5dzjSo7lkXVVXWdlzYQg45ZPbkdnKP0VZ+zDdXWA+LX/dG2
-	 MUC0wRv5KRgfw==
-Date: Mon, 28 Sep 2026 12:09:12 +0200
+	b=XB9ARJXqe2mM0ec8F9bYdzQUjvGLewfXtQILKYxpw3MpwxDdVcTLtZ9W+wzIiHX7f
+	 ms/KsBr0B766ktynZlyk6eL0rn1pnMxE/AM9H6Tk5rQ/2vgjgghB+V3VGh8jS5rwgU
+	 5y2LckLSb/6Zu2DnkYEpd/c+3D4GjcYgFw0KaCFGuuddCUbdJhFAYB0sKkS3Yn1pqb
+	 ccgZV2r6AKts91dcv165w1hIjddy88krRagP3aPFPlxNbX/WQi8JUqBY/bbs3PdrKW
+	 21PEntQDGVNJkoZhGdadzK3yKXG1C6oxkGM9ThgHyHJJKZB4PCBBUspfwMXePgwjGJ
+	 hsV18mTa2Y2jg==
+Date: Mon, 28 Sep 2026 12:11:56 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: lee@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org, sboyd@kernel.org, 
-	dmitry.baryshkov@oss.qualcomm.com, alexey.klimov@linaro.org, r.mereu@arduino.cc, srini@kernel.org, 
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com, 
+	tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com, 
 	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/5] dt-bindings: mfd: qcom,spmi-pmic: add compatibles
- for pm4124-codec
-Message-ID: <20260928-ancient-boar-of-persistence-629a9e@quoll>
-References: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
- <566b4bc1822bc86a5844cbe1b2fe91d05b5ee9e4.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SM8950
+Message-ID: <20260928-laughing-malachite-spoonbill-5c1bc8@quoll>
+References: <20260922-maili-socinfo-v1-0-a82bd7d4ca77@oss.qualcomm.com>
+ <20260922-maili-socinfo-v1-1-a82bd7d4ca77@oss.qualcomm.com>
+ <839c556c-a322-4e1d-b68c-84d404f435ad@kernel.org>
+ <8157618a-7b8b-4c2e-871b-5bd3f5ec17c3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,47 +49,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <566b4bc1822bc86a5844cbe1b2fe91d05b5ee9e4.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <8157618a-7b8b-4c2e-871b-5bd3f5ec17c3@oss.qualcomm.com>
 
-On Tue, Sep 22, 2026 at 11:11:24PM +0100, Srinivas Kandagatla wrote:
-> From: Alexey Klimov <alexey.klimov@linaro.org>
+On Thu, Sep 24, 2026 at 09:28:20AM +0200, Konrad Dybcio wrote:
+> On 9/23/26 9:06 AM, Krzysztof Kozlowski wrote:
+> > On 23/09/2026 01:06, Jingyi Wang wrote:
+> >> Add the ID for the Qualcomm SM8950 SoC which represents the Maili
+> >> platform.
+> >>
+> >> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> >> ---
+> >>  include/dt-bindings/arm/qcom,ids.h | 1 +
+> > 
+> > 
+> > Standard question: where is DTS? Why is this sent separately from the
+> > rest of the patches targeting the same subsystem? Please organize entire
+> > work targeting maintainers in relevant patchsets.
 > 
-> Qualcomm Agatti SoC has PM4125 PMIC, which includes audio codec.
-> Audio codec has TX and RX soundwire slave devices to connect to on-chip
-> soundwire master.
+> I see no reason for the grumpiness here, this is perfectly okay in
+> my books
 > 
-> Add missing qcom,pm4125-codec compatible to pattern of audio-codec node
-> properties in mfd qcom,spmi-pmic schema to complete the audio codec support.
-> 
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
-> [Srini: reworked the patch]
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/mfd/qcom,spmi-pmic.yaml        | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
-> index f6534e9e9912..d750da31ae3f 100644
-> --- a/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml
-> @@ -148,7 +148,15 @@ patternProperties:
->  
->    "^audio-codec@[0-9a-f]+$":
->      type: object
-> -    $ref: /schemas/sound/qcom,pm8916-wcd-analog-codec.yaml#
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-This had three compatibles:
+Still, having it separate from initial DTS for the SoC brings no
+benefits. I am not grumpy, having this groupped makes things easier to
+review.
 
-> +    properties:
-> +      compatible:
-> +        contains:
-> +          enum:
-> +            - qcom,pm4125-codec
-> +            - qcom,pm8916-wcd-analog-codec
-
-This has only one from that list (+a new one).
-
-This must have rationale in commit msg.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
