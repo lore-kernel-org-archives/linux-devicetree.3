@@ -1,188 +1,129 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C753B4E36ED;
-	Mon, 28 Sep 2026 17:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790617622; cv=fail; b=AszVZZd5pY+v8x2qPMfbWkMywfe/ZXBUGM9NcpFbpXAGWdETu6x9nzMbcw3xU8/QT/Qp1QY+cz82qXMb0Ng0NFh5+t4w1KM85jyALWtMginu+O+aYynpDm8gjks4ClPXcyj4t39l0kle5ScrIjw6w2xXYv9YiZT/sWmPUOqz+XM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790617622; c=relaxed/simple;
-	bh=iyhd4RvwGt7d2iLrBP6I6iAs1cLm7BGsdMi8Pbn1G1I=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
-	 In-Reply-To:Content-Type; b=eB9fS7bAVhCSJKhTc1jv1TlriUeRfKbnvmIs1zTs4vYjBd3pLu1uPMosSdkineOxxjUn/c5ujzENqyVkIksXF7Yvpz1bZhaXQkeE1L6rq12L2fvWP5YVsukqQOu4Hisl4uZGLOIFkQDMuw1zU+d9JCz4fwaVKpKeiJN/anWAtDU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=hNI9YhDy; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=Cfsm0IDG; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285113546FE;
+	Mon, 28 Sep 2026 17:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790617810; cv=none; b=u324aXF56Pc4Lj0xk0suXS7kMne5VW7KZSdHC2/FQLoyBLuLQ+3uGQt9W9vft0VuqUblLj9SFBlq9ylkHP77Hxjr+0mZmDq4QXCTPRQmUxi+h06aWCJ3NdnnF2ECOTH+i+8JkNbM3gxXi/MNND1zd+572awL6bW6axKJPpbegZs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790617810; c=relaxed/simple;
+	bh=u/E59QhchBsakfNPPqr6eKRHZdqiWw1FvCI9GEDCeFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fc/h7WXBiNx614J+45tghZv8S5GiPorXd9GsGPymd9yACZxK/j1mdZp1Ry9zxRd3ifd8EvnV0ViA8yusYieeZhyNXB4gx1x3cFvhjzVIKKWU6WBnev6q03JzoXENBbkr80Ms12XY4RNmbB7L+fXBNk5tpIc7mgLZjvUYAwK3kAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KjJm0noY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="hNI9YhDy";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="Cfsm0IDG"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68SFK1ZP2811903;
-	Mon, 28 Sep 2026 12:46:56 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=tOG1+pDk/GCoO6SDBBgBPNKn28Mg4npdpqvN3G1p/
-	Qw=; b=hNI9YhDyaV/BNJZVPZ9/k/+vf3wJoyjSAXA+bkuBJEBVnfeXXu1FvvQ2f
-	9pjYgYLc2lmS0A3V2ZYF6nlqQYUNIun/zMeyIiZaX+V9uylXyKTdssqAwEGE2E38
-	UuKq1WfdIyk7aE6yfiucUK0hN1zKrhaoW2iCQoogEwi24F8ea0ow4bpvochaRpuq
-	M15YPFCncR9Quh/vZHPcVI+cQ64FuUb8SkwLYlOj7f8qs5dHo6XZ5q5IbEdUhNNv
-	u2yyorA00yFS49ST7OZIH+Nok4RvAs9sVfpwRJk2ft9QxkdmM1vA2qGnMLD1D3DD
-	VoyvNDr09NQ5rRzJPvKTyThEfuQRg==
-Received: from sj2pr03cu001.outbound.protection.outlook.com (mail-westusazon11012011.outbound.protection.outlook.com [52.101.43.11])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gy00nfchs-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 28 Sep 2026 12:46:56 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SBitfGG7qPNclJMOwLdsPierzG2heh/g0lHI2m6UE66LJ/+hInt+aD90+h8rzWWsduqeT83/NWQp1YwSKp5ukhmwZfxiiucxZNmCaTPJupQXYSIyUUKbSI/alRln7hIaNwfm2jTjvAtyjpg/pBF7UY8IZ+eFToWAF0ZbpmYhsvPOx4tHT3EGfVhLGPinDh1BH4/3WgbGnUec4ZeNh4ry+tnipWvjxW39xA9e9V4MZfoCvO5fmcIu3dheS3wAbLLYLqsmNLHpA6lEQR6Zcl8uFLbOEaCunRsBTbOvIsl8fN1OIK0RrZk8jV1I7DaZExOGOqmR/P3Gu5uD6h7VH7VlKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tOG1+pDk/GCoO6SDBBgBPNKn28Mg4npdpqvN3G1p/Qw=;
- b=b2sFMd6wxJDDfXWNI5lMw4qErZZtKA5G0wtusHaZLFiCr9v+G3uNJ/Jek8EV85KRby4f9/N2BX8xAY3yWtS8NzP+jKU7k0kh0rN5q/sO/i8z+YY8q9GJPtwPpuCKVcwko5jr3poIPjWVQA7p2XrpevCv3sXFi+9T2AA/t/oBbowEyajJ2ik2GgK7cu3HvjBr3MsJyQqv/htf5GYOys9t1bkbCTpz8FknexIKMIYSkg2q/Gq0sTuM9xoPS7pagV3uFTXxE/Bxe6Caln1yj7UC1wxVMemeyU8QAsr7ZQ0qv5GlPrHUFpmgn6V3Msb9CdYsAJeDkARCPEu4GaNdnuu+yQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tOG1+pDk/GCoO6SDBBgBPNKn28Mg4npdpqvN3G1p/Qw=;
- b=Cfsm0IDGtQ0ire6lOLJDixMUwl8IFP37IrC1wazKGJg5pdSeLy7+0WzHbhul1ICcwBNO589TiKMPyVOpPXzN4vgO3ZYK7zt+McDxJkGrf4jNW+EXwSlooXHjpNrHY8Hg0RDjvhQtjpRQvn8RkxEeu6FPLcBwhdd3z+WtMcpDZ6E=
-Received: from MW4P220CA0025.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::30)
- by LV0PR10MB997589.namprd10.prod.outlook.com (2603:10b6:408:340::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.14; Mon, 28 Sep
- 2026 17:46:53 +0000
-Received: from MWH0EPF000C6194.namprd02.prod.outlook.com
- (2603:10b6:303:115:cafe::a3) by MW4P220CA0025.outlook.office365.com
- (2603:10b6:303:115::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 17:46:52 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- MWH0EPF000C6194.mail.protection.outlook.com (10.167.249.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 28 Sep 2026 17:46:52 +0000
-Received: from DLEE214.ent.ti.com (157.170.170.117) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
- 2026 12:46:20 -0500
-Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE214.ent.ti.com
- (157.170.170.117) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 28 Sep
- 2026 12:46:20 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 28 Sep 2026 12:46:20 -0500
-Received: from [128.247.81.105] (hpz2.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68SHkJve3607452;
-	Mon, 28 Sep 2026 12:46:19 -0500
-Message-ID: <decd3316-5c84-4f6c-a3ba-47501634c5c8@ti.com>
-Date: Mon, 28 Sep 2026 12:46:19 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KjJm0noY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F290B1F000FF;
+	Mon, 28 Sep 2026 17:49:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790617809;
+	bh=dJBj7jrhd8l/3+1i/MYD1Oe07SV8AbeGkY/QzpcIlXk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KjJm0noY+sn5WykpEMYX/0cqYF5OZAonPsiiMo8gsrJp3dbtWXzQ+MUuPiGJZJA0x
+	 6jLqI4XrjH/ECSiSdsjKSDEcOX8VHNjxTUmFetbOQTlOnUn092Xi9vWRpAgkcyI7cV
+	 VEdR4+s8FUt72QAhYPACB1DPHc7Kdjz2uCMGh47V7dCsVAU9tDI9stHRuVWg4VowUL
+	 wsubuRL7tSu1HVvPbp8bYrkCi5Pwl78yS8X19cLVqL1XZl7poDdf3RukkTBc6rpsfh
+	 AjjBKhJEyZefMZQzGawiz22PfrG9g5f1MlSZXvtXI+fxD2E2qzuSdugjHmvJG38tDb
+	 U9iSc28s9bD3A==
+Date: Mon, 28 Sep 2026 18:49:51 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Jan Sebastian =?utf-8?B?R8O2dHRl?= <linux@jaseg.de>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Baoquan He <baoquan.he@linux.dev>, 
+	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Alasdair Kergon <agk@redhat.com>, 
+	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
+	Benjamin Marzinski <bmarzins@redhat.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Mimi Zohar <zohar@linux.ibm.com>, 
+	David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Matthew Brost <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Peter Xu <peterx@redhat.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, kexec@lists.infradead.org, driver-core@lists.linux.dev, 
+	linux-mm@kvack.org, linux-arm-kernel@lists.infradead.org, dm-devel@lists.linux.dev, 
+	linux-crypto@vger.kernel.org, linux-integrity@vger.kernel.org, keyrings@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org
+Subject: Re: [PATCH v3 00/12] CRASH_MEMACTION: describe pages to a kdump
+ kernel (was: CRASH_WIPE_SECRETS)
+Message-ID: <arqli0H0v5qPG22z@gremlin>
+References: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: ti: k3-am64: Set MMC1_CLK pin as OUTPUT
-From: Judith Mendez <jm@ti.com>
-To: Sai Sree Kartheek Adivi <s-adivi@ti.com>, <nm@ti.com>, <vigneshr@ti.com>,
-        <kristo@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <hnagalla@ti.com>
-References: <20260928033027.1077689-1-s-adivi@ti.com>
- <20260928033027.1077689-3-s-adivi@ti.com>
- <850e724e-539c-47a9-a284-2cc8d362fca7@ti.com>
-Content-Language: en-US
-In-Reply-To: <850e724e-539c-47a9-a284-2cc8d362fca7@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6194:EE_|LV0PR10MB997589:EE_
-X-MS-Office365-Filtering-Correlation-Id: 740e7489-86b9-427e-f1e0-08df1d887b24
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|1800799024|376014|921020|4143699003|10067099003|56012099006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	dY0271ZK3dvNm9leycM7WQO5CDa9HiRrndMY4ISh0YreyI9siGjqc+tVgxHndipd5/dJdILvCDrJq7MOfsvImtcgrPwvHhZyyo5hJ5ocbvhhzqMbIYd6ZkIBQM6q1TR2MQgT4PER6jgSfED1SP+ljMkHJ5VcQ0+4ht/ibdqvOYeRQAht4YJf688JPrVbBJYX8p1KRCQjN2XLoFCXI4GLQytJzit14o5Ax+j+oWiDBkccLleQJ4R3EJGS8n7RkrCJbSizj1BJuZ9dHOqnJAwZ6yQ4bsDahHTLtZ9PdlM0FllyfxBy/ZxYokLwMFmtTVOTnmmXcJhCGeaksTq1x85s/2uZRsIyMs0BnNLtqBBitEIXz9myW070L9DQ3iXls1ipaLGT5CSpwOIPLD4fPVMwMoQhO8tsPybhkw1y0w6vpUq9PIYre0Ykgp2NzilHWffyFkCyPMBMx8eXmHBsNq01RLAAPMNML702pQITf01TO5wOkg+DPu0SPNgQ+EqFWOoKxG5FMBxbxiZmMYOiGTsf1ufy9jFKAXGNOxvdguoqbdmTDqFooMJPYUSNWemx5UdDzEvrG9CJw7snpoSITBtFgTe6pDiMs3vCLwCzC+ogDhFPpLJY75NWLA8dD+z2TZiyttYS3xiru1aUNJm/0wPI9IqrYJux0L2esxoePtBgyGapEwS2j79refEf6vnrSM1ztYK78uzZyl1SB6eBe+ThIs+Z3i+9sQg+VhzpDwGG5QjISnjcSKaL3USKvSaF19FP
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(1800799024)(376014)(921020)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ZnbIZgivOgvMGt8tpRMd9v0Ho9N7PCwhrFbagzq503WDwOFgULZy+4Dh8LeK5BBZUAb/iNXTqb8373iQ5sW0J1meDhJaiNjZX5JLF9wl1VPte8IoOVZOz43i9tXC5k2ZhCFKD+k8dUDFGG358kVPLPoSBMK8Lptv2s2vPPnCaRRiAGaxbXKlO6YmK20jSmVHnjViUJlOZixIdvz1QlbJqxivsQvA0refk6Vs4LDZoi4Nack0+EMhLF05K4V7iDkznU/Qy97Lmg/aDHQ1J7LdfYkPTQ/x0pMqOpvqTnULESBXjez7uO4SE15QkVq7Xxu/gqMPws0iQ63Pc+r9sC2rHxou9jTb2MALlIG3luXvJ5RHl8XWTAsM1fqysBzwCgYE/MW9DV0PoznvepwSNQNEmURlCfLt8kltLsGEoIc5yJ73MGajrDfUdQH16/9QB8Az
-X-Exchange-RoutingPolicyChecked:
-	HJMHQPsw/8qyP2AhUvhaHyCIZYqBWQs4HObz4ftqg7qY0VWoICKf96WOQLyZaiMdV4BJJX6BOQLMjh6HV3NsFu0AUxqey3wQ+M9HPlEqhVkq7GmDetS57cCZobHLWD+6mcLiJVWIZyWpQAHpAy8AjTTVoV5i1jK++tBctRvF+72FJvhO3P9JEj3F6m4qbQxGU6NqvLKozXYjykhQQkBdsoch2PWlWun3w/7TjZjEZtQek8z25Zo0LiCMkeiouiX4Nk2Tm0ocwEgft3JZtHTGI7yZ/1Dmw4utfjlFiquelCV9XapWPIxaKjPLafex4aULa6Nf0xWaTqPEuI85ShaqKQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 17:46:52.7404
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 740e7489-86b9-427e-f1e0-08df1d887b24
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6194.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR10MB997589
-X-Proofpoint-GUID: 2WNhRAbIobpYE1LEE6Ur7C1WHi2kwzPd
-X-Authority-Analysis: v=2.4 cv=fKysTpae c=1 sm=1 tr=0 ts=6abaa810 cx=c_pps
- a=/yS4kdDgObtqNMJizKN72Q==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8
- a=ixwaKgakihH2otXhoW4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: 2WNhRAbIobpYE1LEE6Ur7C1WHi2kwzPd
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDA3MCBTYWx0ZWRfXwsZdFeSVvyqW
- LcRtEWtVmtYDHdV6jG4UTcifu0jTMFG+wbU3LXj92R+0717dXh6eABVzGA8WxVmD4T8Swrh8Ld2
- +iYWgye/LBjVl9exg08dscn8cR5PKoM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDA3MCBTYWx0ZWRfXy1bXQ99zuMUu
- zylYrsqAZsTeUvVWSiziE631Bvc6Z1255hxf6YbiaIhDKku2QcIlRFizCxoA5S1xykGu+eiE1Ex
- OzEfQyR5qgth6DRPOoCt/xAfNqh8BHZFiSerXehjxJqTwKzimfNraQXZOHF7Pbir1W9joditHY6
- 39OSTTQvjS1eWnMhs/ERg9k88NGpjn0ZexfoVA9ZM6BV8zgQVwPXT2CtvE1SZ+RYBMQ9N7C7Mrd
- qfYTUepQXEKoP8MMkVMsGcKqbcutQczOJGabZKkBy3kMhmBPZsy/dFq7LVwwek3mg918QGXtD9k
- fOzkg4H+i9Iwgd3uTmf5nTGoiz54HE2X8L96k0P7iLqzBL+/yLHPSiHte8+4RMUbSbM2ja6LDOV
- E1lfN3VXk9QE/V449XSaneD1NgKjY7/LMsaKxQ/Wk2FO8VhMfs50rO6I/bUiSV5UJCg4ZK9tPRq
- bvkgSbLyoPwX/wVK8iQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-28_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501
- malwarescore=0 impostorscore=0 adultscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280070
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260928-crash-memaction-upstream-20260921-v3-0-e511e9ee2329@jaseg.de>
 
-Sai,
+On Mon, Sep 28, 2026 at 07:17:48PM +0200, Jan Sebastian Götte wrote:
+> I'm using linux on an embedded target in a Hardware Security Module-like
+> application. One requirement is that I want the system to be able to
+> quickly erase its memory when it detects physical tampering. I'm
+> approaching that by using kdump to load into a small payload that
+> instead of dumping RAM, erases RAM frmo start to end. However, writing
+> all of RAM, especially on an embedded target, is rather slow. For this
+> reason, I propose a new crash_memaction mechanism that lets the old
+> kernel indicate marked memory areas to the kdump kernel at page
+> granularity.
 
-On 9/28/26 12:00 PM, Judith Mendez wrote:
-> Hi Sai,
-> 
-> On 9/27/26 10:30 PM, Sai Sree Kartheek Adivi wrote:
->> From: Judith Mendez <jm@ti.com>
->>
->> MMC clock pins must be configured as OUTPUT-only per TRM specification 
->> [0]
->> with receiver disabled (RXACTIVE bit = 0). Change MMC1_CLK from PIN_INPUT
->> to PIN_OUTPUT in AM64 device trees to match documentation.
-> 
-> There was an issue showing up in automated testing that I was not sure
-> if it was attributed to this patch series. So I was waiting to see the
-> error again to debug. Not 100% confident this should go upstream yet.
+Sorry this all seems really invasive for what seems to be a very specific
+use case.
 
-On top to this, this change also needs to be added for all AM64 based
-boards. But as said before, I think we need to wait a bit before
-sending this patch (:
+In general, with big changes like this, you should send the series as an
+RFC.
 
-~ Judith
+Please send any future revisions of this as an RFC.
+
+The bar for a new VMA flag, a new madvise() flag, etc. is really quite
+high, and I've already noticed what looks like quite buggy code glancing
+through.
+
+And again, I really don't think your case sounds all that compelling for
+general users, given how invasive the changes are, so I strongly suggest
+you rethink your approach.
+
+In any case, as a newcomer to mm, we really ask that people start with
+smaller changes and build up gradually, a change like this really should
+only be done by somebody with an established reputation in the kernel.
+
+In general re: AI-generated code see
+https://docs.kernel.org/process/generated-content.html
+
+	If tools permit you to generate a contribution automatically, expect
+	additional scrutiny in proportion to how much of it was generated.
+
+	As with the output of any tooling, the result may be incorrect or
+	inappropriate. You are expected to understand and to be able to defend
+	everything you submit. If you are unable to do so, then do not submit the
+	resulting changes.
+
+	If you do so anyway, maintainers are entitled to reject your series without
+	detailed review.
+
+Thanks!
+
+--
+Cheers, Lorenzo
