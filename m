@@ -1,158 +1,178 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694A727B343
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 12:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790598635; cv=pass; b=H5zTymj8M6mOLMOqhBZ8vRI6/KeaJ6jrRfej5lnc+gPDUyoJMKY/407giUJ9WaRaW8GxA3JFoP/p5fe8kj9W7N+8SF+XtVaN7lPhCuye9xFAQo+wtZGeMd8dMwWmUtb9prJWdDoWlCA+I+uFEnct4oPOb9knhEVkcgmpps27QWE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790598635; c=relaxed/simple;
-	bh=huKQAayLatyglgFbqKm96EgnqJce6Ukx2wu42Xr6OGY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=etUopK4lpkW7aHO6+1yxwbyyB3D1xF3QfYiZoFPaMlz4ghdxLE6W6HPi4lpe93OIi8lt7nldmhAXoUIF/iCwScorL/uItsuk27lpQTsEHL4Q+b0bvN6zyROi/VqsrNVHklJn2arh7JcDK+dEeEB7Bit8y0M88YVxDMHf2G0tlFc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=qZhw9SfX; arc=pass smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059E625B088;
+	Mon, 28 Sep 2026 12:36:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790598984; cv=none; b=eah0mRGUy23D/v8SBtW5M24VskLWJgCxsGWNZbosWvntbtYO+B+sJqCoEkFhbKMxEgiIAWjiAWM35p1FdHBczX+lxmr2HCtPhTo/PxcCKrwU3ARW9Xk50tENw5WcPRITaIHiVKt80LclZWqb8YifuLod5ki7Z/JxbKOPVL6jmwg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790598984; c=relaxed/simple;
+	bh=bwr6qMQFP+oa9Hv4juzQw10PhllAYFlDqmw8MFtXDHg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=j2hdxRb2sGmygA0Cs2m7gXdMCiY0dEwaSms7UtCxKq/SpfmwGEveOR9JWloYxckpBAhLPbriRvZfddlYg4ruun+6wj7gplpc/bjqja13qUXLvObjrEnGwTrzAfG42FBFNhsAnOs8hHcZwWk471KCNDIzmSox/c85iPbU3QKXKJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=XA0e57lU; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="qZhw9SfX"
-Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2df964b6893so12832075ad.2
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 05:30:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790598634; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Skf+Du9BxrpBttAymCQYOjKITVogNzgLlBXwleB0lBeSnkPU10g/tFaEh1JQ0fZNK1
-         ph52GPRWjZxBdLPT9i4EY327OK5a+s0kCPlA62dHzxuXqD7XkvVSwNjTV2aEWjSyGoUX
-         6FVkClnRiMHhTi3njR91VR5XQo4710waJNR9CLgLpdbXrDsd3W+rgZrNsT9UBWe+zXcz
-         py0LTM2BD4Bmbt8VFyQH2yJWCVToGBqgTAviYibNvKmqV2zRodZO/s+LcEs9o9hvLHDj
-         Ca3FdzZwJE93TPT6EEJQ/MXCFkLPTuU6GYAKbSAyRqtCCFJgJJqh5cVmRQipR+3cOL5q
-         8j8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XTyKOTKAooo2ab7rKhntAizVnn77+wfpctlc2hgSt4A=;
-        fh=lR5vXXeU+QcoQJRyXwraYRRbI6JgVEymToUxCJdA/t8=;
-        b=LsSiaUmMNcvq24yiUhO+jk2v3Qhx4Ziz4qjbtOfH0f4+LTcWZUReTmXhosTSat0RR9
-         FKCxPqUUsh5qewstTutT7hbZ830KnVQxvNGacegaWTaIQlSUaIwi1vmKgWwEj0MsIteV
-         PWN4VfA6jW1YVVtEr/sl37tHbiFz3bPZWM5aXaxa+byJOn17rjnKo+6c/4i/a9MN+9Vt
-         YKShW1pREH2schOY+fTRHqkJMCv1pi0eDESf+VGg1z3WQcJbwmOpHif+wiaEdDV9LGjB
-         nsaT7184fR4NHtWdPAA76BWPNgLIfqJaZvsOJ+4Iw8gUSdTgGSoNz14KG+fYPL80Zrrb
-         WS4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1790598634; x=1791203434; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XTyKOTKAooo2ab7rKhntAizVnn77+wfpctlc2hgSt4A=;
-        b=qZhw9SfXzomlQg37NZRw1Gf46SkuvQpa1N6CnCdxoIZFJp2k0xVBzXcqYZZThhROeH
-         SfRmjmxGCBGAmWrK0LNQPrTvqOquGpkS7TpdvIZQC2Jr2atdg4duBMcf6150KRFfQiVh
-         oZdFJnDL85s5C3W5/iEFSEaC22TJDPQtDQ2ZkzvBYtUQfKAjwS1DofdgR2qgqGNOfgs7
-         2OyVBIOIZ0dp6moCcgIWp5GAZbHF2MpOFofvVZg78+myDy5r2PCMokAnjmVe+NjznNhZ
-         U//VZZkqcqzP+Kf0IcBShcvIsrixiAl4sRZZNaEaIaGoIshANK2HXq5NIJVroLgcsbCE
-         8RNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790598634; x=1791203434;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XTyKOTKAooo2ab7rKhntAizVnn77+wfpctlc2hgSt4A=;
-        b=rUi9kLwa8jqpAkvnxzaCmo3nvRjMIDpkrd5kJtnFYueV05VVEAnO/1HZyu8e8wNaSf
-         gnQxWFkspGhp8Cefnc2ES+JBF6W9TgCksvCU++eOlQblYiwKATzIberNdidoqYIs8KHI
-         UT8umPhzwUzmXNkrYI5ePzp1QxP8jbLUlrS4jiq0yEnifi7AzQvgApq/lGPmbKr2UyE2
-         D0EyR9gJnpBFKCuTfJoK+qXjTRqv5gUisoFeEp0IrrxliRlIl/c+eWHBIu5KWorrKl1o
-         kuvPIjKZg1k5YTB+9wcNxDZWMF0R3Cbl8T7QxbHWe4RXo67nlPzbJyfc4rjZ77oxBojd
-         xQFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwJUY2ogbv0RcNYBALWjtBmQCkzqHiFlEyprY0e7HucEbMEFrt1lk9svwVvQV9y1K9PSKZTa7DUGJwL@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrOCYt3UjsflFXsHjSpg5IBNVgAeBMTzbgZe6Fag5lUKhTJMXI
-	xDT2iADPa/jgeF0xR4tiR6ObBDBdY4KhWejXW63NwNnbWoLXUNJr6d/sEm7k+q1vJu4o38C3qh2
-	zsQgziqw0D5F+YDcS5mdKUJUuCdsTo/GzbBzo9VhKlg==
-X-Gm-Gg: AYBFou0hLyhnehgvyE9kabdToWgO9orPOBmCzYbOUL5wTb8XUulL4gR2hglWu3NtgN8
-	yAeQ7dihAHxrldq1AJ0boLiaSrBt3lpcSi+ZEoowrC1OAtOpLzL+Ky+FEAmfol5Br/r64mBuEF1
-	V7HUCzQWB3k1+hbndFGCQez5QzfpgOqUlFQ1+m1RpLooTe+TmxEbpBwWE59z8RUPWW7Raz7Pk+P
-	YYu+dMLTaC3oax9p0OH5q9ROx+FdbyUJGqnkPFuKSDuQdvzTgaa3nZzMsFaraMaMsN93gN2x8bx
-	aRJ23hhextEJkVXOW0VTBPhMMDA1UrcWFU9u5hAR7N0at0WJjNHd7lMGu9EV+IHNxBvhxdtVcLa
-	r01Uvh931yKHGyQsYlNt1xD1iKQXa9yB3494=
-X-Received: by 2002:a17:902:f54a:b0:2df:736b:d7df with SMTP id
- d9443c01a7336-2df7dc59ed3mr102946795ad.42.1790598633625; Mon, 28 Sep 2026
- 05:30:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="XA0e57lU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:
+	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Vkm7SHhLjq1OSn5E4JsUgyYWZpx99XHrbc4OM7+gChQ=; b=XA0e57lU+7IZ0t80d/jog2GGck
+	UCdT2zZoj2UlgGvAjOpDy2nPyxJTG1jp/39ZPxthYiTVbkpwzJ0dxfuqdo1xtCVu2LykdTV0QgOCm
+	1K1c3lSqzlE8r7Yv7l5LzNNA59ud123b91EKJl2I4sW1/SCsIjxQJwceLKeGrt/0ERKbnsWmwsuQ2
+	m79/QJNpsiuhA+o1p7faQmfwO9ftAkWRcV8uSWcglRQZ4TmdS9iR0am3sqTFRJFxPjXC3RlLFVYET
+	hCwMFwiXS4BtEQZ3BD/Y53kNHxA79tO3Uw6vphCmIPn5cHevs1EGikM9NYu51dRa/rP/L9uBeRIkm
+	jwuh5zZg==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:35218 helo=localhost.localdomain)
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1xBAad-0000000Fp0t-1YMW;
+	Mon, 28 Sep 2026 14:36:14 +0200
+From: Primoz Fiser <primoz.fiser@norik.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	upstream@lists.phytec.de
+Subject: [PATCH] ARM: dts: imx6dl-phytec-mira: Add phyBOARD-Mira-i.MX6DL with eMMC
+Date: Mon, 28 Sep 2026 14:36:12 +0200
+Message-Id: <20260928123612.2250601-1-primoz.fiser@norik.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907132617.1198548-1-robert.marko@sartura.hr>
- <20260907132617.1198548-6-robert.marko@sartura.hr> <tl5ep4ze2e5ctv7c47jsjedvcpnibdspo5az7a73i5p7iwbivk@vbtd4rhtvroa>
-In-Reply-To: <tl5ep4ze2e5ctv7c47jsjedvcpnibdspo5az7a73i5p7iwbivk@vbtd4rhtvroa>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Mon, 28 Sep 2026 14:30:22 +0200
-X-Gm-Features: AclHuK_ApYIEoqpVKRFrihxpibz6Yiy03tz8KYmapFitKvFghmCeqBLThyFR5Fc
-Message-ID: <CA+HBbNFRufMuhuSiPnJSgSMrGMN6DeskS3kLLogwHk97oHzx1w@mail.gmail.com>
-Subject: Re: [PATCH v2 5/6] arm64: dts: microchip: ev23x71a: enable QSPI
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
-	claudiu.beznea@tuxon.dev, adrian.hunter@intel.com, 
-	aubin.constans@microchip.com, ehristev@kernel.org, linux-mmc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Mon, Sep 28, 2026 at 10:09=E2=80=AFAM Claudiu Beznea
-<claudiu.beznea@kernel.org> wrote:
->
-> On Mon, Sep 07, 2026 at 03:25:33PM +0200, Robert Marko wrote:
-> > Enable the QSPI controller and describe the onboard SPI NOR flash.
-> >
-> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
->
-> Missing '---'
->
-> >
-> >  .../arm64/boot/dts/microchip/lan9696-ev23x71a.dts | 15 +++++++++++++++
-> >  1 file changed, 15 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts b/arch/=
-arm64/boot/dts/microchip/lan9696-ev23x71a.dts
-> > index 4012ea7d07bb..985ca31e74e7 100644
-> > --- a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
-> > +++ b/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
-> > @@ -463,6 +463,21 @@ phy27: phy@27 {
-> >       };
-> >  };
-> >
-> > +&qspi0 {
-> > +     status =3D "okay";
-> > +
-> > +     flash@0 {
-> > +             compatible =3D "jedec,spi-nor";
-> > +             reg =3D <0>;
-> > +             spi-max-frequency =3D <100000000>;
-> > +             #address-cells =3D <1>;
-> > +             #size-cells =3D <1>;
->
-> As sashiko pointed out, #address-cells, #size-cells, should not be
-> necessary here. I dropped them and applied to microchip-dt64.
+Add device-tree for PHYTEC phyBOARD-Mira-i.MX6 DL board with eMMC. The
+variant with NAND storage is already present in-tree. Now let's add the
+eMMC variant for which the compatible string "imx6dl-pbac06-emmc"
+already exists too but was not used until now.
 
-Thanks,
-Will drop it from future v3 then.
+Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
+---
+ arch/arm/boot/dts/nxp/imx/Makefile            |  1 +
+ .../nxp/imx/imx6dl-phytec-mira-rdk-emmc.dts   | 75 +++++++++++++++++++
+ 2 files changed, 76 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-emmc.dts
 
-Regards,
-Robert
->
-> Thank you,
-> Claudiu
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index c5caca92ea10..4361708f70e3 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -136,6 +136,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+ 	imx6dl-mba6b.dtb \
+ 	imx6dl-nit6xlite.dtb \
+ 	imx6dl-nitrogen6x.dtb \
++	imx6dl-phytec-mira-rdk-emmc.dtb \
+ 	imx6dl-phytec-mira-rdk-nand.dtb \
+ 	imx6dl-phytec-pbab01.dtb \
+ 	imx6dl-pico-dwarf.dtb \
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-emmc.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-emmc.dts
+new file mode 100644
+index 000000000000..aa3239660bca
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-emmc.dts
+@@ -0,0 +1,75 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2018 PHYTEC Messtechnik GmbH
++ * Author: Christian Hemp <c.hemp@phytec.de>
++ */
++
++/dts-v1/;
++#include "imx6dl.dtsi"
++#include "imx6dl-phytec-phycore-som.dtsi"
++#include "imx6qdl-phytec-mira.dtsi"
++#include "imx6qdl-phytec-mira-peb-eval-01.dtsi"
++#include "imx6qdl-phytec-mira-peb-av-02.dtsi"
++#include "imx6qdl-phytec-mira-peb-wlbt-05.dtsi"
++
++/ {
++	model = "PHYTEC phyBOARD-Mira DualLite/Solo Carrier-Board with eMMC";
++	compatible = "phytec,imx6dl-pbac06-emmc", "phytec,imx6dl-pbac06",
++		     "phytec,imx6qdl-pcm058", "fsl,imx6dl";
++
++	chosen {
++		stdout-path = &uart2;
++	};
++};
++
++&can1 {
++	status = "okay";
++};
++
++&fec {
++	status = "okay";
++};
++
++&hdmi {
++	status = "okay";
++};
++
++&i2c1 {
++	status = "okay";
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c_rtc {
++	status = "okay";
++};
++
++&m25p80 {
++	status = "okay";
++};
++
++&pcie {
++	status = "okay";
++};
++
++&uart3 {
++	status = "okay";
++};
++
++&usbh1 {
++	status = "okay";
++};
++
++&usbotg {
++	status = "okay";
++};
++
++&usdhc1 {
++	status = "okay";
++};
++
++&usdhc4 {
++	status = "okay";
++};
+-- 
+2.34.1
 
-
-
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
