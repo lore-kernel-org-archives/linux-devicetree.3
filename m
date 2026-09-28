@@ -1,137 +1,215 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010033.outbound.protection.outlook.com [40.93.198.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857283ACF1B;
-	Mon, 28 Sep 2026 07:24:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580270; cv=none; b=q6WC2Yh3aI5R/TlAZ+gdoRO1olEG4snhijFghe+/ael1RhQOg+J6mkdIPJpZIN0B3dmJFkDbXIkrF1WW1qPry1f/VeJ+zPWu2vx55Ikehv674Ran1UQeST1h8uDLCDQViYK9piauZmXFdV9lOV+C8agOqB5e/Q8Oq7V0EPX4CpI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580270; c=relaxed/simple;
-	bh=13MWWB5FsD5BeUz9Yuiyr+vkYeGQ5edQpwcBr7Ki72o=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ov+VD/gU1YxoLgMp92pYKln2dAdCMNygPfCHTKQys7qRQ9J6anz0jg3uvwalR5Q89RIhV3wzxA/jwJ3xC6rRBtm0eYYcw3Zg7Vv8vyr4o2BlxFcWMpWM3o3GBAXjJDZToeASJFVy3LZTFlpkzNtPqA8spq5lL7rl1E2QMQiFxwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=F6P0xBVp; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2F845D5E2
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 07:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790580511; cv=fail; b=I9wBvLmiZWsSU5Qz9Z/r8UJnttVozu2KlDQxbZievIdYnk7/+21cyOqUZia+DaU12qmPSbL1tOu70VuIewUWJnOrn5z8Iq59t9ASKX0T6I3mL/o68My8hw8nvLD1z0ebSo3fdkIUtajHSMOLQQOjAYK31fKX6xWPgVqDSAC5DWg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790580511; c=relaxed/simple;
+	bh=9AqxvgkqWQsL0ApEPKKJ5mSfLTznPJ2MoaE/DF0VJcs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=uccPImSlvmHQ3Gsouh0IbEMb+fsUS7hUgxDRS8utgOkSqd9dInvynoDgLPKfUsf0p7S8Halut1GczdZT5qmKPq+LSIMmA5mhOTwmF8rifnKdJIzEzLuMoT6GGArRNotMpTywC5wAC/Fes4l/y4wV7A8Z/HXlyTKH0kYrJKTB0ro=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HwIDVFdX; arc=fail smtp.client-ip=40.93.198.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="F6P0xBVp"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68S7NbCX2222568, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
-	s=dkim; t=1790580217;
-	bh=13MWWB5FsD5BeUz9Yuiyr+vkYeGQ5edQpwcBr7Ki72o=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=F6P0xBVpvgvV7sXbZq2k6ckh6h9D3+7tdyWRrKaCFXpja1P+lrSsSsQ+o/3UL/vC3
-	 Xdty/qYweWM4wCI6M03UB0s7UWxWXgNVXcQrYqUKwo2KLGLI9JzjI+lwGk+T8JVJHq
-	 WAnKyv98SbpxYx2g89Wcbc85gucJukb1YKxOCaC2GZtJxS1jL1Uc8GDKvemlgb/6l/
-	 5HoubuyjnGkNm157KJOYlmUwzT+u13DxlGdSZwO0ajCyBvSFClgFyUOKP2zGQL+buD
-	 Zk9mkvIzuPXETu8T/ZeafjUdMOFtrwm8T68jMBaLCcMiEOyL4/iCpE8Q6u8/EpPkbW
-	 HmBXInudc2hpQ==
-Received: from RS-EX-MBS1.realsil.com.cn ([172.29.17.101])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68S7NbCX2222568
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 28 Sep 2026 15:23:37 +0800
-Received: from RS-EX-MBS3.realsil.com.cn (172.29.17.103) by
- RS-EX-MBS1.realsil.com.cn (172.29.17.101) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 28 Sep 2026 15:23:37 +0800
-Received: from RS-EX-MBS3.realsil.com.cn ([172.29.17.103]) by
- RS-EX-MBS3.realsil.com.cn ([172.29.17.103]) with mapi id 15.02.2562.049; Mon,
- 28 Sep 2026 15:23:37 +0800
-From: Javen <javen_xu@realsil.com.cn>
-To: Simon Polack <spolack+git@mailbox.org>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "hkallweit1@gmail.com" <hkallweit1@gmail.com>,
-	"linux@armlinux.org.uk" <linux@armlinux.org.uk>, "davem@davemloft.net"
-	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>
-CC: "f.fainelli@gmail.com" <f.fainelli@gmail.com>, "chad@monroe.io"
-	<chad@monroe.io>, "vladimir.oltean@nxp.com" <vladimir.oltean@nxp.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH net-next 3/3] net: phy: realtek: add LED support for
- RTL8261C/D
-Thread-Topic: [PATCH net-next 3/3] net: phy: realtek: add LED support for
- RTL8261C/D
-Thread-Index: AQHdSeUW/73ivrCDRk+7H/EUOZsxNbbjnznA
-Date: Mon, 28 Sep 2026 07:23:37 +0000
-Message-ID: <ee6ee488e3884540a82cfab11fb36ba3@realsil.com.cn>
-References: <20260921161817.565185-1-spolack+git@mailbox.org>
- <20260921161817.565185-4-spolack+git@mailbox.org>
-In-Reply-To: <20260921161817.565185-4-spolack+git@mailbox.org>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HwIDVFdX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qq6tq9Q6VLq2sZx786H9ARowLSsb32Z7IMRY6hNcwVzQMMyUu5jEiyq4fGW3FnMY0b15Pf+azjB6gnvuUnrWu7mRkR7pVosNzMiWcIflHoyknmjqRn8/Ktie+aqo1spWobQT/GsRvY5eeSAlPV8p7erWM7uDyG4TEC5gzFe1rKbm3JMiF83uO+I+i04aq8w7rgKsoHnoqlfhP3uZC4URon5gxQOogjsul2Vs0E+BboIZmgE1B3GmZVQ29Y7ZZeCfJOOMQOZOU/7eJ+DgYvd3ODC6urDqFhtt7weyWCYEotPiiHdTt2xEj7nJBgZknraToq6VVHZSLcjGP5QGIkTKsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=90jPwypk7gyS3T9EFdid0paPTU3pn0wVyfgiyliWvVw=;
+ b=cMUda/VWcdHrFqAqL67VGJRnRtBW/vllXCn3Q5bvObVB2nFT7LrggWdBNLlc37hKRuqN3p1Xxm/RObnMdArUTkJiwxPDNbIVmA86GQUNmsIT8TJAYpq4NlzopyaU7++pk1FGQDrc8azE09MBSFT3+I8VxAw9iAP/2Z0NLsPHSPgRc9c0H/VZnK6ZZ5C1GKGMH/ie/EMPKlQInEzbBroWbtaD9xxz/iES1fZrYVyqo0FJKP+zlWgF7G2oXIKDaPQWLXg0mxo1JQMh8nSRPAHjBFR2gOkX9BpgEI/k75Ji8j1W7q0FMYoB2DB+ggCqLEwurw1EaQ+FsOrShrKYmhU7Ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=90jPwypk7gyS3T9EFdid0paPTU3pn0wVyfgiyliWvVw=;
+ b=HwIDVFdXNAz89UJIuJLl4srKCBdOV//aspd6TkwHUs9rXxDvE0npr1BrUyLxw1omwgfbgjTBfpl+3KxgtWTVVpre3yupyvDtp6cPOZLSu9J+NMsxTuWbC2Eph/8yMuK7mnCON11Qaji71Q3GMOiejfT8SrqJPKkWa1SnKddcErA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS7PR12MB9475.namprd12.prod.outlook.com (2603:10b6:8:251::6) by
+ CH3PR12MB297944.namprd12.prod.outlook.com (2603:10b6:610:367::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 28 Sep
+ 2026 07:28:24 +0000
+Received: from DS7PR12MB9475.namprd12.prod.outlook.com
+ ([fe80::4371:c924:8800:2587]) by DS7PR12MB9475.namprd12.prod.outlook.com
+ ([fe80::4371:c924:8800:2587%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 07:28:24 +0000
+Message-ID: <354e8c9c-3e59-4707-b77a-828d9c7b68b4@amd.com>
+Date: Mon, 28 Sep 2026 12:58:18 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] irqchip: Add Xilinx Versal NET SMMU CSR interrupt
+ controller driver
+To: sashiko-reviews@lists.linux.dev, Tushar Nimkar <tushar.nimkar@amd.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20260923-smmu-changes-v2-v3-0-87bd09ba9605@amd.com>
+ <20260923-smmu-changes-v2-v3-2-87bd09ba9605@amd.com>
+ <20260923072607.0E9731F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Tushar Nimkar <tunimkar@amd.com>
+In-Reply-To: <20260923072607.0E9731F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0020.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:179::8) To DS7PR12MB9475.namprd12.prod.outlook.com
+ (2603:10b6:8:251::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB9475:EE_|CH3PR12MB297944:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a72f359-ed9f-4caa-1996-08df1d32146a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|11063799006|56012099006|4143699003|6133799003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	hqBrd1mY5BvkLX5tLrzUg3iWHY0lep81Dn1K605kbxUqQZOBYkGrDpdIz5Z7EAcMApVUdQZS/3Da4EHNBnEg+NtPpMUzj1LURM5+phkOZBlsu/jRgZeXJQ2QDuCvsdHr3AlQO6sOGTFcfcNyPDi1sVLWNGqhpcf0OdMxacJvixSQ0gywYPG0G/A4eNDdmzcpgRdihCMeyGzhYn+kvO4klkIGJxDTykWUF2F6ZVMtdUA5c2aIRyx2fuFAFwMzVjpVP9PWrDNZY6uVCZqGQh4Gh1o13IIKxgy5oClVlWRCK3Grj1ku1mp9itWb/PF+58Gea5W2gscYSEiE0MDtFu89gNlOkPQ9VzyQQPe6KAVy+L3RbxwVaG243lkdgRJiYwpCj4sMaeOFqfCf5IH1tIh0r0RqzZNIpAXw2UDe0XvVQanxZ9I+utY0uiwmbzznjsyZdc2O61EX40oQCkjNYawsOCQUdwX8UCRTsahORDMYRd9btmru3t8qR9L1EZfl25luhDuw9XLfekLKWa8zR0VzXeCXuxKH9npddtfhr+/j2BDLLV7ArfwFno+hrb+7WjSSWNZOwPtQAzzzkcdb07qENfQrh0lcuXEDo+RzUUSbDVo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9475.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(11063799006)(56012099006)(4143699003)(6133799003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a3Z4a0x6VWRLb2h0WStYNUdrUExKZHFhejR5OUtqMjFyMzlTREFJTTdaUGNO?=
+ =?utf-8?B?M09nUUQvOWphZW5SREhZWmNBbEtHNXpTbzBUcWFXQjZ3WTZBekE5SDZac2pP?=
+ =?utf-8?B?OWJYMjRZdHFUUlY3bGR5eVhTRHRzWmVJK0J6NGVDbWtyVERJVm94OEJyQWFS?=
+ =?utf-8?B?UDAxK2FxQkU4U0V5bk9iNnAvRzZwQnlKcG02N29HUkJHaXMxcVI5Vk9HKzBi?=
+ =?utf-8?B?dEZPUVNKQ2cxM1poM3pHYkZ6QWx4dmJoWWpNdXVnT1orc1NJc0luLzAxcjkx?=
+ =?utf-8?B?bUxsWDNvSUROMUlLcHFsQnhZZ1dFWXRhMmJYeVExM3VEVUtxVGpYVmVoSm9q?=
+ =?utf-8?B?VEZsYVpoNmVZZU5yaUVEL0RTc25BOTA1N3ZydG16aURSQ3hwRUpXS281MHgv?=
+ =?utf-8?B?SDVvUVlWS2ozWVhVWlR1WGJJVlBjN01GVDdHTmdjY0dXdGdpMllydmcvbE4w?=
+ =?utf-8?B?c0NLdWNpa0RkZWtheWZvN2VEd3pBcWNOeUxNN3d0UzhiM1ViODlSdW1aUjNB?=
+ =?utf-8?B?Mm84a2x2blVzaFg1NkZNUmNvWlFESXNjYUUwbEdsakVtRmUrc3k2ZWYvanNF?=
+ =?utf-8?B?RTJNbWZXVnNQcTA4dk1uVnRKV1RWZGRtQnlZVGNURUVvRkYyNk5tTE9sUEQ1?=
+ =?utf-8?B?RW85SVBHMStoQ2ZtU3RuVzYwOEo0QXByZ2lvK0JnbEo3WnlUNzh0VUkrRUlQ?=
+ =?utf-8?B?L1BQTEJ1cVJEMGpmNlQzeFZsa2ZZOEFjQTFZZks2WGdzdStmREJDTWhFTEFh?=
+ =?utf-8?B?VDdDK0p3WjBrUzNOTFhmTE5XaWpTWnpzNXdncFU1d0xxWDJ4ejNRZ3dvSlla?=
+ =?utf-8?B?WEVrd2NGczUwcjJ3bWNJVWNaVTdzdWhwT2d0ZGI3MFBEYkd6U0xmTEMzeGg4?=
+ =?utf-8?B?aUJ3MFdKTFd0ZnVyUmw5aVFFb3hOcUpMRVdHWEhIRXJuRWorUTQ0MldpMllG?=
+ =?utf-8?B?Y3BqRWZWWEEydFR0M00zRENkOENSSlBvMkY3Sk0zK3FFc3ZXakpYNEdaZ240?=
+ =?utf-8?B?bGRYcFBHQjAvVmhSRkpDL2FlMTRmQkVxblZMZ0VHODI5UmdjRFhxWnFxbzBs?=
+ =?utf-8?B?RmU3REgxei9PUkljbTNpT29aN2MyRkVIWU9lU09mNzFwMnI4ZUthYUltWVpi?=
+ =?utf-8?B?cm5JN0FnZTZJaDdveFBuVGYwZE02YktJemFreE50aVVNSVJKT01qbUF6dU1H?=
+ =?utf-8?B?NXhNbzZGMHhPQVJqck9SZDVzeENsQVFTanU2bXM4dWxzNzkwVENGRjRIOFh3?=
+ =?utf-8?B?RXc4ZHgyZUZhYW9UQ2x3T2tGVS9zTGIzZ2t1bHc0dmExbjJnREhHTTVuU0FZ?=
+ =?utf-8?B?YkdNUzhGUW5Vc0NJRjFpSndnakdNL3Z4b08wU08zQUIzdnpRbGExTDJDc09m?=
+ =?utf-8?B?V0pSTXRKYVlZSmNNZHdzZ05XMjNrSk9PYXh5UERVU0VNa1JwVGFZcHp0VFd1?=
+ =?utf-8?B?Nmh1K0s5Nmk2TG82aDhJVUlVYVgrOWpvWTloOTRNQklVRmQrcnBkQVlRTmJT?=
+ =?utf-8?B?eW0xcUhMMGtzZ01vcCsrcWhTVDk4alMwNHBaQkpMOGFFcTBMQURUMEpKMFdk?=
+ =?utf-8?B?empoeU5pMkwvVTQ3Y1RXNHR1NDh3WTVxMWdHMHVodjhkRzNCZjhOOTE5Y3Vs?=
+ =?utf-8?B?MDIrV3F6MVR5U0hxU09ZKzNOV0lZYU93cmt2YVBPdERnSGFSS25DMzVNQ1lC?=
+ =?utf-8?B?RG04b1VReXBMeVNBL2xRWW1qWC8rbVZjK1UwaU4rZDBzK3BsZDI4OE1ZL1JD?=
+ =?utf-8?B?MnFMUTd2dk45WmRvemNCRDZ6Rm5UZmZPK21adGxkZGJmKzVIL3JJZUxwVmtz?=
+ =?utf-8?B?bW1IRjNQOElsMjFjVEhxOTYzWExCcUJKWDEzMDBwL04zRkdaK3pwLzl6UHo2?=
+ =?utf-8?B?OVFBWXFUMGZvbmU3KzA1VFNRNEVBUWpNcDErWnRMS1pWTVlkSWxERzdIaWlk?=
+ =?utf-8?B?ZzFVL2ZjalpGd28vR2JwNExreXlWT0tnY0ZhazBLWXFlb0dOVzRCL1I2dkpj?=
+ =?utf-8?B?bXNtMk9YYS9kQnBuS1Z5MlFrdHlyVkgzYjlqcEVTZGxHa2ZyVjN6b3FjWXBB?=
+ =?utf-8?B?bHFoTGhHUWp2bjl2TS9MdmEzV1h1M2c5K2d4azQ2Mzc3ZUxMVUc5Z0RDU3FG?=
+ =?utf-8?B?akw1d3RCeURzU2dGS2Z3YXM1bG9tNmR0VGt6ZkFYcUVTTDNUQ1hteUNWaHZK?=
+ =?utf-8?B?bnVGa3pqZjQ2bFFSOXdON1VkLy9uejlMWThhZ1g5bFJUcEgvc0pET2YxNS9a?=
+ =?utf-8?B?c0tMcDVHc0ZoWWZXUnBweHRmVE9GMS9tVHZhWHMzQWpnc1VJN3FxMmp0ZEt0?=
+ =?utf-8?Q?rP/7Mz7eoUuh9F+ZpX?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a72f359-ed9f-4caa-1996-08df1d32146a
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9475.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 07:28:24.1390
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kq8vJTmQi0SHXfXZCd8WRGw4RjEgHW8p1S20hTnRVth/DW3Ml8ioiPARQW563Lgyy85r9RTe9hUWRHw42w+PuA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB297944
 
-PlRoZSBSVEw4MjYxQy9EIHVzZSB0aGUgc2FtZSBMRUQgcmVnaXN0ZXIgYmxvY2sgYXMgdGhlIFJU
-TDgyMjFCOiBvbmUgY29udHJvbA0KPnJlZ2lzdGVyIHBlciBMRUQgYXQgVkVORDIgMHhkMDMyICsg
-MiAqIGluZGV4IHNlbGVjdGluZyB0aGUgbGluayBzcGVlZHMgdGhhdCBsaWdodA0KPml0LCBhY3Rp
-dml0eSBibGluayBiaXRzIGluIExDUjYgYW5kIHBlci1MRUQgcG9sYXJpdHkgYW5kIGVuYWJsZSBi
-aXRzIGluIExDUjcuDQo+Q29tcGFyZWQgdG8gdGhlIFJUTDgyMjFCIHRoZXJlIGFyZSBmb3VyIExF
-RHMgaW5zdGVhZCBvZiB0aHJlZSwgYW5kIHR3byBtb3JlDQo+c3BlZWQgYml0cyBmb3IgNUcgYW5k
-IDEwRy4NCj4NCj5SZXVzZSB0aGUgZXhpc3RpbmcgUlRMODIyWF9WTkQyXyogZGVmaW5pdGlvbnMg
-YW5kIGFkZCB0aGUgdHdvIHNwZWVkIGJpdHMNCj5hbmQgdGhlIGVuYWJsZSBiaXQuIFRoZSBjYWxs
-YmFja3MgZm9sbG93IHJ0bDgyMnhiX2xlZF8qKCkgY2xvc2VseSwgd2l0aCB0d28NCj5hZGRpdGlv
-bnM6DQo+DQo+IC0gbGVkX3BvbGFyaXR5X3NldCgpIGhvbm91cnMgYWN0aXZlLWxvdyBMRURzLiBU
-aGUgcG9sYXJpdHkgYml0IGluIExDUjcNCj4gICBkb3VibGVzIGFzIHRoZSBtYW51YWwgb24vb2Zm
-IGxldmVsIGluIGxlZF9icmlnaHRuZXNzX3NldCgpLCBzbyB0aGUNCj4gICBjb25maWd1cmVkIHBv
-bGFyaXR5IGlzIGNhY2hlZCBpbiB0aGUgcHJpdmF0ZSBkYXRhIGFuZCByZXN0b3JlZCBieQ0KPiAg
-IGxlZF9od19jb250cm9sX3NldCgpLg0KPg0KPiAtIGxlZF9od19jb250cm9sX3NldCgpIGFuZCBs
-ZWRfYnJpZ2h0bmVzc19zZXQoKSBzZXQgdGhlIG91dHB1dCBlbmFibGUNCj4gICBiaXQsIHdoaWNo
-IGZpcm13YXJlIG5vcm1hbGx5IGxlYXZlcyBzZXQgYWxyZWFkeS4NCj4NCj5UaGUgY2FsbGJhY2tz
-IGR1cGxpY2F0ZSBtb3N0IG9mIHJ0bDgyMnhiX2xlZF8qKCksIGRpZmZlcmluZyBvbmx5IGluIHRo
-ZSBMRUQNCj5jb3VudCwgdGhlIHNwZWVkIG1hc2sgYW5kIHRoZSBMQ1I3IGhhbmRsaW5nLiBNYWtp
-bmcgdGhlIFJUTDgyMjFCIGNvZGUNCj50YWJsZS1kcml2ZW4gYW5kIHNoYXJpbmcgaXQgd291bGQg
-YmUgdGhlIHJpZ2h0IGVuZCBzdGF0ZSwgYnV0IHRoYXQgdG91Y2hlcyBhDQo+d29ya2luZyBkcml2
-ZXIgYW5kIHdhbnRzIHRlc3Rpbmcgb24gYW4gUlRMODIyMUIsIHNvIGl0IGlzIGxlZnQgZm9yIGEg
-Zm9sbG93LXVwDQo+c2VyaWVzLg0KPg0KPlRoZSBjYWxsYmFja3MgYXJlIHdpcmVkIHRvIHRoZSBS
-VEw4MjYxQ19DRyBhbmQgUlRMODI2MUNFX0NHIGVudHJpZXMsIHdoaWNoDQo+YmV0d2VlbiB0aGVt
-IGNvdmVyIHRoZSBwYXJ0cyB0aGlzIHdhcyB0ZXN0ZWQgb24uIFJUTDgyNjFEX1ZNIGlzIGxlZnQg
-b3V0IGZvcg0KPmxhY2sgb2YgaGFyZHdhcmUuDQo+DQo+VGVzdGVkIG9uIGEgR2VtdGVrIFcxNzAw
-SyAoQWlyb2hhIEFONzU4MSkgd2l0aCBhbiBSVEw4MjYxQ0U6IGluZGV4IDINCj5kcml2ZXMgYSB5
-ZWxsb3cgYW5kIGluZGV4IDMgYSBncmVlbiBMRUQgb24gZWFjaCAxMEcgcG9ydC4gVW5kZXIgaGFy
-ZHdhcmUNCj5jb250cm9sIHRoZSBsaW5rIHNwZWVkIGJpdHMsIHRoZSBhY3Rpdml0eSBibGluayBh
-bmQgdGhlIGNvbWJpbmVkDQo+VFJJR0dFUl9ORVRERVZfTElOSyBhbGwgdGFrZSBlZmZlY3QgYW5k
-IG9mZmxvYWRpbmcgaXMgY29uZmlybWVkIHRocm91Z2ggdGhlDQo+bmV0ZGV2IHRyaWdnZXIuIFRo
-ZSBwb2xhcml0eSBiaXQgd2FzIHZlcmlmaWVkIHRvIGJlIGFjdGl2ZS1oaWdoIHdoZW4gY2xlYXIg
-b24gdGhhdA0KPmJvYXJkLiBBbHNvIHRlc3RlZCBvbiBBTjc1ODEgYW5kIE1UNzk4OEEgYm9hcmRz
-IHdpdGggYW4gUlRMODI2MUMgYW5kDQo+UlRMODI2MUQuDQo+DQo+U2lnbmVkLW9mZi1ieTogQ2hh
-ZCBNb25yb2UgPGNoYWRAbW9ucm9lLmlvPg0KPkNvLWRldmVsb3BlZC1ieTogU2ltb24gUG9sYWNr
-IDxzcG9sYWNrK2dpdEBtYWlsYm94Lm9yZz4NCj5TaWduZWQtb2ZmLWJ5OiBTaW1vbiBQb2xhY2sg
-PHNwb2xhY2srZ2l0QG1haWxib3gub3JnPg0KPkFzc2lzdGVkLWJ5OiBMTE0NCj4tLS0NCj4gZHJp
-dmVycy9uZXQvcGh5L3JlYWx0ZWsvcmVhbHRla19tYWluLmMgfCAyMjgNCj4rKysrKysrKysrKysr
-KysrKysrKysrKysrDQo+IDEgZmlsZSBjaGFuZ2VkLCAyMjggaW5zZXJ0aW9ucygrKQ0KPg0KPmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL25ldC9waHkvcmVhbHRlay9yZWFsdGVrX21haW4uYw0KPmIvZHJp
-dmVycy9uZXQvcGh5L3JlYWx0ZWsvcmVhbHRla19tYWluLmMNCj5pbmRleCAwNGQzOTdmMGEyZDgu
-LmIxZjAyMGFhNzc2MCAxMDA2NDQNCj4tLS0gYS9kcml2ZXJzL25ldC9waHkvcmVhbHRlay9yZWFs
-dGVrX21haW4uYw0KPisrKyBiL2RyaXZlcnMvbmV0L3BoeS9yZWFsdGVrL3JlYWx0ZWtfbWFpbi5j
-DQo+QEAgLTE4MywxMiArMTgzLDE1IEBADQo+ICNkZWZpbmUgUlRMODIyWF9WTkQyX0xDUl9MSU5L
-XzEwMCAgICAgICAgICAgICAgQklUKDEpDQo+ICNkZWZpbmUgUlRMODIyWF9WTkQyX0xDUl9MSU5L
-XzEwMDAgICAgICAgICAgICAgQklUKDIpDQo+ICNkZWZpbmUgUlRMODIyWF9WTkQyX0xDUl9MSU5L
-XzI1MDAgICAgICAgICAgICAgQklUKDUpDQo+KyNkZWZpbmUgUlRMODIyWF9WTkQyX0xDUl9MSU5L
-XzUwMDAgICAgICAgICAgICAgQklUKDYpDQo+KyNkZWZpbmUgUlRMODIyWF9WTkQyX0xDUl9MSU5L
-XzEwMDAwICAgICAgICAgICAgQklUKDQpDQo+DQo+ICNkZWZpbmUgUlRMODIyWF9WTkQyX0xDUjYg
-ICAgICAgICAgICAgICAgICAgICAgMHhkMDQwDQo+ICNkZWZpbmUgUlRMODIyWF9WTkQyX0xFRF9B
-Q1QoeCkgICAgICAgICAgICAgICAgICAgICAgICBCSVQoeCkNCj4NCj4gI2RlZmluZSBSVEw4MjJY
-X1ZORDJfTENSNyAgICAgICAgICAgICAgICAgICAgICAweGQwNDQNCj4gI2RlZmluZSBSVEw4MjJY
-X1ZORDJfTEVEX1BPTEFSKHgpICAgICAgICAgICAgICBCSVQoeCkNCj4rI2RlZmluZSBSVEw4MjJY
-X1ZORDJfTEVEX0VOKHgpICAgICAgICAgICAgICAgICBCSVQoKHgpICsgNCkNCj4NCj4gI2RlZmlu
-ZSBSVEw4MjI0X01JSV9SVENUICAgICAgICAgICAgICAgICAgICAgICAweDExDQo+ICNkZWZpbmUg
-UlRMODIyNF9NSUlfUlRDVF9FTkFCTEUgICAgICAgICAgICAgICAgICAgICAgICBCSVQoMCkNCj5A
-QCAtMzA1LDYgKzMwOCw3IEBADQo+ICNkZWZpbmUgRldfU1VCX01BR0lDXzgyNjFEICAgICAgICAg
-ICAgIDB4MzIzNjMxNDQNCj4gI2RlZmluZSBSVEw4MjYxWF9QT0xMX1RJTUVPVVRfTVMgICAgICAg
-MTAwDQo+ICNkZWZpbmUgUlRMODI2MVhfTUFYX01NRF9ERVYgICAgICAgICAgIDMxDQo+KyNkZWZp
-bmUgUlRMODI2MVhfTEVEX0NPVU5UICAgICAgICAgICAgIDQNCg0KSGksDQoNCldlIGtpbmRseSBz
-dWdnZXN0IGRyb3BwaW5nIHRoaXMgcGF0Y2ggZm9yIHRoZSBzYW1lIHJlYXNvbiBhcyBpbiBQYXRj
-aCAyLzMuDQoNCkxFRCBjb25maWcgaXMgcmVsYXRlZCB0byBIVyBjb25maWcgYW5kIHdpbGwgYmUg
-Y29uZmlndXJlZCB2aWEgZmlybXdhcmUuDQoNCkJScywNCkphdmVuDQo=
+Thanks for the review,
+
+On 9/23/2026 12:56 PM, sashiko-bot@kernel.org wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+>
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] irqchip: spurious interrupts due to handle_level_irq with latched status
+> --
+will fix in v4
+>
+> commit 2d37d393fff3fd3914b9e3ef7cecbd4d6f1c364c
+> Author: Anirudha Sarangi <anirudha.sarangi@amd.com>
+>
+> irqchip: Add Xilinx Versal NET SMMU CSR interrupt controller driver
+>
+> The Xilinx Versal NET SoC implements a Control and Status Register (CSR) block
+> in front of the ARM SMMUv3 to manage EVENTQ, PRIQ and GLOBAL interrupts. This
+> commit adds an irqchip driver for the CSR block that registers as an interrupt
+> controller and chains to the upstream SMMUv3 driver.
+>
+>> diff --git a/drivers/irqchip/irq-xilinx-smmu-csr.c b/drivers/irqchip/irq-xilinx-smmu-csr.c
+>> new file mode 100644
+>> index 0000000000000..b29aafd01dbeb
+>> --- /dev/null
+>> +++ b/drivers/irqchip/irq-xilinx-smmu-csr.c
+> [ ... ]
+>
+>> +static struct irq_chip xilinx_smmu_csr_chip = {
+>> +     .name           = "xlnx-smmu-csr",
+>> +     .irq_mask       = xilinx_smmu_csr_irq_mask,
+>> +     .irq_unmask     = xilinx_smmu_csr_irq_unmask,
+>> +     .irq_ack        = xilinx_smmu_csr_irq_ack,
+>> +};
+> [ ... ]
+>
+>> +static int xilinx_smmu_csr_domain_map(struct irq_domain *d, unsigned int virq,
+>> +                                   irq_hw_number_t hwirq)
+>> +{
+>> +     struct xilinx_smmu_csr *csr = d->host_data;
+>> +
+>> +     if (!xilinx_smmu_csr_hwirq_mask(hwirq))
+>> +             return -EINVAL;
+>> +
+>> +     irq_set_chip_and_handler(virq, &xilinx_smmu_csr_chip, handle_level_irq);
+> [Severity: High]
+> Will using handle_level_irq() cause spurious interrupts due to the latched
+> status in the SMMU_CSR_ISR register?
+>
+> Since handle_level_irq() acknowledges the interrupt by calling the .irq_ack
+> callback (which clears the W1C SMMU_CSR_ISR register) before invoking the
+> SMMUv3 device handler, the CSR block clears its status while the underlying
+> SMMU line is still asserted.
+>
+> Because the source isn't deasserted yet, the CSR block will immediately
+> re-latch the status. When handle_level_irq() unmasks the interrupt after the
+> SMMUv3 handler finishes, this re-latched status will trigger a second
+> interrupt. The SMMUv3 driver will find no actual events and return IRQ_NONE,
+> eventually causing the kernel's spurious interrupt detector to disable the GIC
+> line.
+>
+> Should this driver use handle_fasteoi_irq() and implement the .irq_eoi
+> callback instead, so the CSR status is only cleared after the underlying
+> SMMUv3 driver has successfully deasserted the source?
+Good catch, agreed !
+SMMU_CSR_ISR is sticky W1C, so clearing it in .irq_ack before the SMMUv3 
+handler
+drains the source lets the CSR re-latch, producing a spurious IRQ_NONE 
+that trips
+the spurious detector.
+
+Fixed in v4: switched to handle_fasteoi_irq() with the W1C clear moved to
+.irq_eoi, plus IRQCHIP_EOI_THREADED so the clear is deferred until the
+threaded EVENTQ/PRIQ handler has actually drained the queue.
+
+Thanks,
+Tushar
+>> +     irq_set_chip_data(virq, csr);
+>> +     irq_set_status_flags(virq, IRQ_LEVEL);
+>> +
+>> +     return 0;
+>> +}
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260923-smmu-changes-v2-v3-0-87bd09ba9605@amd.com?part=2
