@@ -1,95 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683DE466B09;
-	Mon, 28 Sep 2026 11:00:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DD049D596;
+	Mon, 28 Sep 2026 11:02:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790593251; cv=none; b=QURyilcJET0pgm5I/xlM4Zm8oOgTVCqWvD1QBdydr30EOlfJb9I3mNeNHxNZU+Yylz4dXkdgx+IooDINZpyyprtwx3FyVo23GlBucyDgei0skxvCQYa3SlR6znE721fMVkEwqB0M50sXyph7Oh5H8RM1rIKnXmKTOmHsF7uENFY=
+	t=1790593334; cv=none; b=Bcd6sFaEYOujQhVbQ8eDugZq3obgTxjqEf2YraKdUPnnJHF2LlShVXaYRlgfR9dJQinI5iQZcWTBIVryLI1LNLlOTcTN3bcxaObhudVjqwcx6mzcd29VWhh/Fy/RXymCyv5oq+cmSFNRoFBqdfoVjko9L189MEab9m/oONXMtFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790593251; c=relaxed/simple;
-	bh=Y3q3FbhJilAr1zN2GHb8QP7X/FWneClMaIrQ9ZwEh98=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r35OPVrl4MunNSNEtFTVona90TC3BeYouA11JhNwCzpvwOicyFjNg3FBuAAgBw7xfIo93bc2MSm6s8ZuRLkaggUL/+VMCNbi8QDghmeAyDdfED68Ll/VhwQFOaM04zLRR+tpmy0i6EOFx6xodet6QiZkDTU7l92erfXMG/oRRmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uj5LeiOo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790593334; c=relaxed/simple;
+	bh=NGisOX6xzRlIMDWd73gZ/6yVhZXRtE9zwAVYv+XhHbo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ORNs3saReDcRQbY7Ds4Zeu+GiCprpLn+av/O/ywiRJlFGubNZb/2al2kkheXb32eu2SI5e6YGRx//ppWkcbv6WNcIchHHpxjlemgHJNpU/LNAHqNjOz51k5a/vNRr6uWoIhscvkoB3TcnViFFkWgcMKTqWGVE+kKG658S2b5+a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlrsSpvO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uj5LeiOo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9D541F000FF;
-	Mon, 28 Sep 2026 11:00:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlrsSpvO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F250D1F000FF;
+	Mon, 28 Sep 2026 11:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790593250;
-	bh=olWul0pqqWd1gtiw/b9RrWf+HDuYnQatlH9Jins6Th8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uj5LeiOoohEmKi+TT8JK/cukKFAjytwXc0AgTG8gKI2JpBvoBvctK5mwFmdJXiinW
-	 Pz0uElHSxhrOxuohcceiDNMHyFH0b/vNKHSrnyWrkuPbVwYIiJ0yD4tfg8FCSLcIoG
-	 yPQNAiRIZL9o3QoSbOWR4r+NJU+Lhd69p8S2DjdCzcFAsB/PDAREgoo6wS4L+G4wJF
-	 Sd1F2NGfN+VeFwcFw2Eq2sqAcsMSpAybyh/U1Y3HmqI9o7JpHJeaKE4rD6w3wVY5SM
-	 Qg/rbpeRYHFSwLpp8c1PPMtLfJ6SJ9//XjK9rpRG538Xei0OeDyydgpCzGSwHGUb0a
-	 q3DD0cjWe2ZJw==
-Date: Mon, 28 Sep 2026 13:00:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Add IPQ9650
- compatible
-Message-ID: <20260928-gentle-lemming-of-ampleness-4b4c77@quoll>
-References: <20260924-ctrl-v2-1-fbedbe760375@oss.qualcomm.com>
+	s=k20260515; t=1790593332;
+	bh=bAjb4nAXPR9/i3eiS24x+8vRetpGX2MA10w/UyvWNyA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QlrsSpvOI4SMJ6JD2IAaBKWwcUNmIuETBE+3QZ3occy7QhrVeBgXKG/n6V+oM4102
+	 FNAOHP5q6IxYSKpFioZEM/ivKwA13o8vlf4eeCYKm8sYejjvfj12YYH+94GD+pOB4X
+	 aWi9own6vBuIKF159LGkwN76xrneol8U0o65wYnNY9ZgwyT1wdnVWiUrQivyFuprVQ
+	 iIAWVhipUhzm9Pb+gTxv0GY+5Au3nxHJ+bfJcVyDga22r5DsFxHAf0hu7v+1kjSfkj
+	 H51Zgsx/4vdWffNPd+sQVQZLJyQUaSYN+/twnZ0MriOtoOjfHHvfdZY194HVA8JcEq
+	 dVFP7m7oVAm6g==
+Message-ID: <ee480f01-fd84-4eda-85fb-9d5cad5f3d86@kernel.org>
+Date: Mon, 28 Sep 2026 13:02:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260924-ctrl-v2-1-fbedbe760375@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: phy: qcom,sa8775p-dwmac-sgmii-phy: add
+ Nord compatible
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+References: <20260923-nord_ethernet_serdes-v1-0-f8ac1c487882@oss.qualcomm.com>
+ <20260923-nord_ethernet_serdes-v1-1-f8ac1c487882@oss.qualcomm.com>
+ <20260928-gregarious-deft-boar-e776ae@quoll>
+ <arpH+9ytWKFntjiz@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <arpH+9ytWKFntjiz@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 24, 2026 at 01:19:05PM +0530, Varadarajan Narayanan wrote:
-> Add the qcom,ipq9650-dwc3 compatible for the two DWC3 USB controllers found
-> on IPQ9650, using qcom,snps-dwc3 as the fallback compatible.
+On 28/09/2026 12:56, Mohd Ayaan Anwar wrote:
+> On Mon, Sep 28, 2026 at 12:16:45PM +0200, Krzysztof Kozlowski wrote:
+>> On Wed, Sep 23, 2026 at 05:34:17AM +0530, Mohd Ayaan Anwar wrote:
+>>> Add the qcom,nord-dwmac-sgmii-phy compatible to the Qualcomm DWMAC
+>>> SGMII PHY binding.
+>>
+>> Why random order? Why not enum with existing part?
 > 
-> One controller is connected to a High-Speed PHY, while the other is
-> connected to both High-Speed and SuperSpeed PHYs.
+> You are right. I will group the stanalone compatibles into a single enum
+> and sort them alphabetically in v2.
 > 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-> ---
-> Add bindings and dwc3-qcom glue driver changes for adding support to the
-> two USB controllers present in IPQ9650.
-> ---
-> Changes in v2:
-> - Rebase to top of tree
-> - Drop 'usb: dwc3: qcom: Allow the glue layer to pass ref_clk to the core'.
->   This will be taken care of the by https://lore.kernel.org/linux-arm-msm/20260906-ipq-flatten-usb-v3-2-13e4e0f63123@outlook.com/
-> - Add ipq9650 to existing clock constraints instead of new constraints
-> - Link to v1: https://lore.kernel.org/r/20260825-ctrl-v1-0-609e2291814d@oss.qualcomm.com
-> ---
->  Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+>> Why not even compatible with existing device?
 > 
-> diff --git a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-> index 9f91c8711e02..a8fbf72c6375 100644
-> --- a/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-> +++ b/Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml
-> @@ -36,6 +36,7 @@ properties:
->            - qcom,ipq8064-dwc3
->            - qcom,ipq8074-dwc3
->            - qcom,ipq9574-dwc3
-> +          - qcom,ipq9650-dwc3
->            - qcom,kaanapali-dwc3
->            - qcom,maili-dwc3
->            - qcom,milos-dwc3
-> @@ -210,6 +211,7 @@ allOf:
->                - qcom,ipq5210-dwc3
->                - qcom,ipq5424-dwc3
->                - qcom,ipq9574-dwc3
-> +              - qcom,ipq9650-dwc3
+> Nord uses the QMP v7 SerDes register layout, whereas sa8775p uses the
+> v5 layout. The offsets differ, so Nord cannot use
+> qcom,sa8775p-dwmac-sgmii-phy as a fallback compatible.
 
-You had 6 clocks before, now only 5. Not explained in the changelog.
+This is useful to be mentioned in the commit msg. Commit msg does not
+have to be long. It also does not have to repeat the obvious parts.
+Usually it is enough "Add foo bar, not compatible with existing baz baz
+because of different register offsets".
 
 Best regards,
 Krzysztof
-
