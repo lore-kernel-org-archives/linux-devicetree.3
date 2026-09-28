@@ -1,218 +1,277 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011038.outbound.protection.outlook.com [52.101.70.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8609435C69B
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 06:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790575882; cv=none; b=pEkhpGRoLEmIznCLtdc63+Jzikm5it/rdQtXb6HPihLU9Wk2UWXSljBhHe3Ds0P6ezzSqo+7Wr3GRNYke8BJsZFtWZfm4z+v30NFSeG7LHbbPIxEzUgGRFM7MhSM7kOyvLlPOZOTLTPNbPFj0nD5H4r2vnViKKIEqS3lhxIFAF8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790575882; c=relaxed/simple;
-	bh=4fTpCSkuJ6PFbWarr8sThQ/LuS8y6G1v4667LcR6KHQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CnVr/Nzqwvh1BpZFY3VKVAYAG7lCOc2Vdh+qG/pVQlzCwhJJ8wVw76FgwnmKz+31Xbc+LNtOj/50qYukNNXzSiwHT/irvLcPZgzawRJRU0ruKu2m1Il54PF7NoGd4FtwgPhbWvv5hJkUybVSUs8xJdGFZtAKbpm97Z0i8ENkjgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EOZ9ZjuI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MQMsVnNX; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E9F3A169F;
+	Mon, 28 Sep 2026 06:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790575987; cv=fail; b=gGYly+9lzXLiGeC8Po/kLhgHhHz0wGBDzUzagjoF3dmpebRgNcJ/Z5/c0HPbafZTzZ8VQnepOuaNYE29w4tR7sSIrIipt9MSes/ygFVjsdfYSR4uq6jGJvv9YSoMAPBXgmzHYZA09FcJwPOHR8p6hHGmZdguOhVHT3bzNZamRe8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790575987; c=relaxed/simple;
+	bh=kRaxh+lBhHRDmdqyCt1zuVRI/i/sc/3RY9Aq7tFEU4Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=fO5LZaYHZ9WZ2BxfyHANuGhp1fRTOQ1OWp7iZo/Z3lfsUbokC+VTRcmDtV/p3ZODU5gdl2tO8mRh3cCFOzS9MvPmepVAXb//Bed9w7ZLJ4ESBW7bKCE9Y8FTtUL5oV+7ztCucZR326cdG0aMnRlX9k9EpmlrpVgiTYdL3kXPI+M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=kQUVANgc; arc=fail smtp.client-ip=52.101.70.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EOZ9ZjuI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MQMsVnNX"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68RHiPmc2496062
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 06:11:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Y8QpsQNU1m4GxJroPAMjexZ1MBknKFRA0AkELRZtXV0=; b=EOZ9ZjuIE0dduKpo
-	B6a2rcfZiNXle3ufVs7znH6/cZ6JJDFXCZP9DkslJe/QkLc+ymFVpZP+s4xD/ZbN
-	h33Nt5onGkNeBDusGwEU1GVQw2mNpcow1gLibzZ3YeL+O+9zhV4CyZxUdsk1Me/T
-	1RPhMa6CeK77aQoheDLOTGloArl/61SZHFTihiBbAdRQQySW/QhcvPUDJVNmK0ge
-	uld8V+OzApogWvsR8NgT5ueCX5oyt/R/lncIq10YlIO5ByzuE2HfMDcyBmlRUPC7
-	w4avWK2ZUl1REN+0KGSHOqdfHM6KziTUxsCvrolM+sZS+5005rpQeOZYe1PhyYA7
-	cJWrFg==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gx6e84pe5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 06:11:19 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d959904658so27359185ad.2
-        for <devicetree@vger.kernel.org>; Sun, 27 Sep 2026 23:11:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790575878; x=1791180678; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y8QpsQNU1m4GxJroPAMjexZ1MBknKFRA0AkELRZtXV0=;
-        b=MQMsVnNX/SYtsdbzwWB3gZaThfYLGu8Xm42Dbs2GR8R1N8TYIksqiBe/XL30qRyXuX
-         I6zj0+82moB4puexI5X27pU/Wmr+ZE51wozzj8q4OsvDQOdDuGiYx2uINcXwD3j09pVz
-         1EsGCl07L2oAvs/2fHcEoJTeSzk6Aoc1WCdtMRx/UmMC9Rd6WcqKOwX17NcKhX7MFGbY
-         RA6QH9gu3nNoofDQpZ6BH1gs1G1qsenHYsykDxPH1ao1sEWLi4yAFDbxitX7sqvqQ2eT
-         iInk3Gcqgj2R2H4MwXst3/Fi/8OcjLzGCex44Gr4MEVN4QNcDbkAguAYAibcAYxcfjMW
-         4y0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790575878; x=1791180678;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y8QpsQNU1m4GxJroPAMjexZ1MBknKFRA0AkELRZtXV0=;
-        b=Am69THGh4d+0LKxUsSuRoGW7YWAgQ8M2J4SfmNuIP0XLe46rVtFpNgm7qM52xawL3F
-         xvGQJDURZDscPvk9wyqk0ZxFzbEQGFAlRG261Wid9N9xsrAYKL03GSzu8KM2qlvRnQQj
-         y5OWYN4rhrtJ0ryodvveMX0U9mX/RfAHPgbn58Oii5ImUvgYoYpSoRAZFctD9i5nPFfo
-         DoMsW7u3Xbew1Ks75FAFLdvtNXZQiIe2DGJNGZ36g/ONjBFovLkFT2F7sPNCccTqr4Hy
-         K6xRBk4lEgmRiC7x+6x1rCziz8JV4DefBVqfjYVZ+Qf8L1+xTt8UuSLAIEOUjrZ9TvhD
-         Iokg==
-X-Forwarded-Encrypted: i=1; AKwUvBwRGyFwVG41LKrshOlTracqhMdFv+C+7z91uaecmbCSOhVng1Vm/FW4xuUKA+Ppp08qx0nDp//1/rvq@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+I1pon6EA8PDCqWfEHWDwZJoqH7otVj4tEFVX/wIgmvgsVzQM
-	KZZkQvlXr1hqjUpscsZEOuwvpbTqFU9DJBoebTakSNstvibstTPDNtVWEml9p6BuRdaL9Bv6ciS
-	utG4hcdN3pN8sqeSyq0/zGGx8/P28zROOuLi69Jru0f1tTPQW1Fzu/Pt7iuqLt67H
-X-Gm-Gg: AYBFou1AGNKbgfJRJtjRR1jRo9d9uPOVR8yHG8K4tIYc9JEFyW9raKRlvCdk+DFPH5a
-	GqvzMoRwR76vrk9hXs+KEh5e7xq9irDr1QeAbWc25EA+HBAFxks67h3nkyh5TxAQbdHa9Ez8XaK
-	zH3xfzErKjYTl/z201bvDweOd0K8fBJuLkrQScvjVCJwf7PT0F/FaoryfNGsYT8i4WGSIiOKS+A
-	cLGDLOinprrWGlXD5GG0G+/0/B13H+eI6oceFWeAFBD8cEwa1zvq4IHumJnQ1jchOoZUpvnKv7i
-	pHODmMHDlht+V0qNjqopNwIP70fN4Rc/X+RT7YIQ4ovK+AoFi3NNPmLgVtwr2vftpnOKSgO6JtF
-	t8mF3fqGPKsezYwFPcH1YKyhwqcNYqiABzPS0
-X-Received: by 2002:a17:90a:e184:b0:3a0:dec0:c0cd with SMTP id 98e67ed59e1d1-3a0dec0d419mr3306176a91.28.1790575878517;
-        Sun, 27 Sep 2026 23:11:18 -0700 (PDT)
-X-Received: by 2002:a17:90a:e184:b0:3a0:dec0:c0cd with SMTP id 98e67ed59e1d1-3a0dec0d419mr3306155a91.28.1790575878091;
-        Sun, 27 Sep 2026 23:11:18 -0700 (PDT)
-Received: from hu-spratap-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0b8efb156sm20040846a91.1.2026.09.27.23.11.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 27 Sep 2026 23:11:17 -0700 (PDT)
-From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Date: Mon, 28 Sep 2026 11:39:22 +0530
-Subject: [PATCH v26 10/10] arm64: dts: qcom: Add psci reboot-modes for
- talos boards
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="kQUVANgc"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ePixIGUtMCNtOYFFG21IdSjiBFphN6dkFohVb2ZzCG8IgXF9gIvISgQ7Drx8gkU196Fw/9ll3b2LbVraHlyaxYineSp6MCjHx0QbnMkgXJ+0dXwS0wgwpxtoW/z13nBiNMir/n99/ZHtN73ZK+CHrUAlXZ+j7h1D571rmwzj2QxQqfKsz+9UDJaTlPiVgzn5IjWGpUlNHV008q9Ag94otj92+R7h5d1mHTyqTnQMbmgrLxcvSsmSMhximEyjmEEOtCw08dSPh3LjPVCHDCa2W+xPfHl8Pm3YkjWaUNTRg09S5Mn2QNBqS1GXp/mC3+9cXyZfTyppm+TNbtvGNYaFGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ivnkQ8DXZVNOhb9mLyKj3H89pK6FiS2QI5ttq20Vbpc=;
+ b=C6Cwh31Z2O0P7PNn2nXRp8VC+ucMGcyMbwvzFLLFPhQlKz2Trz61lKQ1dopLHUwx2y4k3iT740bnB7HXNq3VmFztHeVQgFMhoLZyS/uHS+RvRmmoD6Sw/vtIte8gK5Xrmu6Sjz91ZcMBPwW6RAmRFWuUF64sgTAiks3Bp+x7krCo8Tcmd275WWqBXWwMw8BhHjC+2eI8vSgtbce6l/boQJ/KUMh0xixZeA2qu/frSdE1872YMv7HFx9061FakT5mkdt3RPJas/nFhSC8cp+ZfJb3fTbcJwz6w8xIy5gVBwEN5hk6Al5gG3AtKOafCjPabLN2jNiawMhhgv5RyqDttw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ivnkQ8DXZVNOhb9mLyKj3H89pK6FiS2QI5ttq20Vbpc=;
+ b=kQUVANgcS5ttfcohj2OBSNm2QLGNMsV2SbodUVNQIKfgYt96JXCWO3vTP4QdzNxuyx+6CKPpp1mG2NdZK6xM81/FapckpyEuyGdHfdnQGEJdLWw22H01pBlp04ZYgJjCjhrXgnUJpPqlHy0CEwM4Cy7NhWJnSvETWvmRetRrirrKNnr/m0Odjbw6d+8XF/PMi9oc3FnfVV9O7WeWS65xaVdMP+jwf7BfunYmmYe6mMAnZGEMaJ9LhHTR4kLNcIAHz0U4TXrcKBxeIrcmCaEDBkVjwQMWJLZ/N7ZFM/xNFoGk5+Ph5ONnkstDv/uIoX2tyeJesZ9XwqQhGCreWjAk6g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB9351.eurprd04.prod.outlook.com (2603:10a6:102:2b6::17)
+ by PA1PR04MB10721.eurprd04.prod.outlook.com (2603:10a6:102:489::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
+ 2026 06:13:02 +0000
+Received: from PAXPR04MB9351.eurprd04.prod.outlook.com
+ ([fe80::1058:a430:52c1:5aa]) by PAXPR04MB9351.eurprd04.prod.outlook.com
+ ([fe80::1058:a430:52c1:5aa%6]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
+ 06:13:02 +0000
+From: shengjiu.wang@oss.nxp.com
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	shawnguo@kernel.org,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	nicoleotsuka@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linuxppc-dev@lists.ozlabs.org
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>,
+	Chancel Liu <chancel.liu@gmail.com>
+Subject: [PATCH v6 4/5] ASoC: fsl_asrc: expose individual DAIs per conversion path
+Date: Mon, 28 Sep 2026 14:17:27 +0800
+Message-Id: <20260928061727.1844167-1-shengjiu.wang@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA0PR01CA0086.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ae::11) To PAXPR04MB9351.eurprd04.prod.outlook.com
+ (2603:10a6:102:2b6::17)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-arm-psci-system_reset2-vendor-reboots-v26-10-b24e2348e8e1@oss.qualcomm.com>
-References: <20260928-arm-psci-system_reset2-vendor-reboots-v26-0-b24e2348e8e1@oss.qualcomm.com>
-In-Reply-To: <20260928-arm-psci-system_reset2-vendor-reboots-v26-0-b24e2348e8e1@oss.qualcomm.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
-        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        John Stultz <john.stultz@linaro.org>,
-        Moritz Fischer <moritz.fischer@ettus.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Christian Loehle <christian.loehle@arm.com>,
-        Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>, Andy Yan <andyshrk@163.com>,
-        Ulf Hansson <ulfh@kernel.org>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Andre Draszik <andre.draszik@linaro.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Song Xue <quic_songxue@quicinc.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790575761; l=1558;
- i=shivendra.pratap@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=4fTpCSkuJ6PFbWarr8sThQ/LuS8y6G1v4667LcR6KHQ=;
- b=AMvkpSWzxwQY0CuENEaT8ITCw/S6jnAL+oA3VU3+sR8bNDE0XnmTyr0/xXJtY9qk0oE8mfl7T
- unyxriQsCX6DQU4c60nqAj+Rn637XuMoZInvm/6h76J6yvlr0MHSgoE
-X-Developer-Key: i=shivendra.pratap@oss.qualcomm.com; a=ed25519;
- pk=ssWsJFX3OM9pkdoe4+guOfGPaulHOFt0GVnVlB6on+s=
-X-Proofpoint-GUID: w9mdtHuo2ahRpRK9qO5YFldz9PMmlB8d
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAyNCBTYWx0ZWRfX4NNj4gtyyE7e
- 9UU73EJ8y+/FOFYSBjcqVDhf1YABK6INn5yzAeH1JKOKgHb8l2os3b/mX4Fct8dIOB3+7WDLX7F
- t0V4ApkOERy8o9/rNYBXhlmFxPHoZCPX/LICHCNeRULxFFbTIXll71haVpjTWN2TzC4A+2zqcfS
- 7sVeSO1A/d1G4QXJgGl/npcn7zLo9j6sKMgf9vq5n8vjhkTR3hIvVyBZj0vffdIW7stvYrjFmdV
- Ln9Lv92rqfNt7j5wt/f1ya9n0sI3fSoMPO7UEi9r5Kxaqot7jHlg9rZgbFlMcmiNnX1qPOhaN5A
- X+QfupJI/uINtozCa9ab8SD3gRR2aqWhgyT5l8KYxBL4OfqixbEVwWLnoULgq+nBfNgkYueXh40
- /rF0umRmJgGNuUxAMkkBpOw80xtCpRcpAB160PXBwEnHdjwR430EFWUx7+nzuTyCNNn50XMmmi9
- MLlllx3U+g4RSbWy9Rg==
-X-Proofpoint-ORIG-GUID: w9mdtHuo2ahRpRK9qO5YFldz9PMmlB8d
-X-Authority-Analysis: v=2.4 cv=aIFlOr9m c=1 sm=1 tr=0 ts=6aba0507 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=bjH5yOvFM8yfI_BY5k4A:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAyNCBTYWx0ZWRfX5jTaEf9UmSgj
- DlkMhsH70HUTyX0wAXp9YNYm2V8hvQ5Q3Jz8B0cN0CaGJxH0RbRsJDM0T4pPXlvrUjlGf9nGgfX
- ttSMrRUFK6yrtWYYxBtKLmedahF1FMA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 suspectscore=0 adultscore=0 priorityscore=1501
- clxscore=1015 malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280024
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB9351:EE_|PA1PR04MB10721:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51e8f1ee-baa6-4a92-c340-08df1d278d69
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|19092799006|366016|23010399003|921020|6133799003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	d7puhtk8it0fQAz66JecD1czdhDg+g97Ai6P89WA8bCEQE7ZpcciEV+SBKyCde83Iim6M1X8rbk1i3n+JdnyYM5ZDpIH0ZhVJ8jeJF9rpB+Z50n8nHuoheVBPkNYsDSd770aPPrWu1mohUlShq0w1VxdOFDG1pC3Blcl3lTLuU4UzdVjF3gYSJHVmtlq2Sb/4LPevESTX/C4/ZQjWY7GQdFUzJFgvinXy1WzpP2DvAWwCunhbj50AUcW00NqRDpGJLDKOt97PQPdNsRMkIm/5dAWrDiFpvbtdPJTEA1W5dfOqpWCCdDSBkKRuSxONzr0twBETHw0JLqTpdPP4puoKD2KH2q1fj8E0p1hKF6zLqaYkwDWgEjhylxO2hrC/g40il4V5FHy3FmdtTD5Bk1yqUZWR6KDden8JVM3kp5W0ureDOt3m+JUs7xZ+mCwt8QJFubpvl/zLXGGjeC4i9wgLXJOaK/xrdMdS5voOCT1ESzhxQIBDc7D8rJ3clHWCGlknFqFojmNUOywt/6N2gQ8o25W5t0Lengtj67V9JQALtcN/wyFD2qYEaXWbwIA2vMd2xEJE3Uqe+Ljik+NamgP+AI6pP2suUdfK6ARwzbVBASX6b81SqxGeDSDd+t+2ZILPN0f4io3ubcQBzwTJFEcY8dEcEGCSo2F0x0RUMH7MBWHIDbmhgaUR3UsketcMQOwuEDQn9J2xDQz/6/MqX5WbA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9351.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(19092799006)(366016)(23010399003)(921020)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?vUbJq25ec2r/dJfMpLsnlo9sQJRViJiqJyXBSrzvpc6p6ZVBf6cJN7UmYBcA?=
+ =?us-ascii?Q?1PQ5Vgg1Ld4lsFdVwZBzvaRpmyaaRSSyEqK7+JTf4u8x/xJZcJObji7AXL/x?=
+ =?us-ascii?Q?xiB8le8/DM/M7CHfgiWeVQtQAQqPTFD6o6ILuv+IC/9gOgTxLu15jDGbHezy?=
+ =?us-ascii?Q?rc6cmP7i6EA1GZ1IIDjiTtrfu12AHbtRtPIoDD6vfSTYhPAifmiwQ8OOmUPx?=
+ =?us-ascii?Q?K+RWDJCiOb9nnMIOmucHtGUYQ3tRUypRsHJTrR9pm+ryvruxXDNpePStGsGm?=
+ =?us-ascii?Q?OuKahv06qvgig1U3ejLpd8VZ36vHWzPSNrL63rkrBwliQyidYHEeF4WLDurE?=
+ =?us-ascii?Q?JxEWZVIhtJghVngXXk6UOzcy3W28HbYVdxQMi2gS3kStFyDRYfgcVa1sXpEo?=
+ =?us-ascii?Q?B1TAaYViy23hHq99KkL90ruZzzv+LGNNHb6LMJeF1gEW+rcBJjgNCoKHOjG3?=
+ =?us-ascii?Q?Ati/GJ1gFLsk0SutkFPlQQWYYgsslawnoEtqNztBOAGW9aWPTyebFOIP3zB+?=
+ =?us-ascii?Q?1SyY+dousM1IGZx9wlrVSJnTDccI5xMbdev227eASEJnT4cRWM8wq8PNWKQh?=
+ =?us-ascii?Q?q0zzCxS7te7NScpzKZQXfDaBDid6l0zgIxbmHw/EtoJbjDTDvFy+fWu2fc10?=
+ =?us-ascii?Q?8XAMxyTByK3inXmF4JJRR7ur1lJAw3usC2oq5lwEPvwvSKqaaOq4SCCo+cNu?=
+ =?us-ascii?Q?83JgSf8/3PCU5ljQtiMonxp4oSmGxWI39J5jTqpxDwlcEBy4HCetgjEkkM+E?=
+ =?us-ascii?Q?ui5c4X3/fagiFT0fWggpvyUUreZp92LRcnpaYoIzLd02guiN96UOZ8f7Xkld?=
+ =?us-ascii?Q?3vNyUHCTp6p7eUzwmpapWwUIvbKTxOqaVzMw8LakwOhTBDu9vhDxAvG9ctFj?=
+ =?us-ascii?Q?LDYa9D8CXDEuNUSz2WX6Dj1XlDGPD9qZ/8P6tR41s2pSWK6tr+9ftP8L+FKm?=
+ =?us-ascii?Q?SXvRnI2jAE6QcjKn4yhfj6var0llAOJPnONrknGzLCECoRt79aQdIbznomcn?=
+ =?us-ascii?Q?3PY3N29wnBSjBJtaw82yaIggFlef7HD6kyN5NjWpCFhn6oBgXxWZr8jwFiJ9?=
+ =?us-ascii?Q?r6IW6A6XnWU11FhKGsF4fknBcvh1VQnu2Vuh+SQIq7MsKreLk05b8Z3Gx/j9?=
+ =?us-ascii?Q?TmcCBDCyeBzQ3gJcar4ekqDv46rZA9hOLq0XBiSVycmNw5bM/gbtX2+QlrGE?=
+ =?us-ascii?Q?Fz+rFYUwoQML8WvpIf22dEqRMknWIFJD0V8XL5PkdWFVon/owVqCsOryZYQb?=
+ =?us-ascii?Q?SKC57Y0wc0WFeayH6edBbEujEOFLxziUUGBD3XsVt74QHW5QDmD1liARZJrX?=
+ =?us-ascii?Q?IHTznWzxgGz35f6q1ur/mmUFi6jr2pshbWDfv6s8EXy6ibrfh/o5Ul6B9Yx9?=
+ =?us-ascii?Q?Mwq/3Kjx1FvU8YO7hThiL3wxdGfIZZp6YjUNyGb7iSSvGCbKNYW344AQvLxw?=
+ =?us-ascii?Q?RsAR5r7AzaT0k1nFM91d3pkzsLSJJ5yvZDevx3v9ALh6daUR/QO1bZcyN5RC?=
+ =?us-ascii?Q?qF7wLxY3M1RJuicNbrWm0CG22vIh7SWYQ6odl5xp0l6k6s+/QlphpTc02ZlA?=
+ =?us-ascii?Q?nVffpYoORxGcP16byb7uqp634VmdjCpxKk7hD6A9GoTSZZWGwU39dd06CnDA?=
+ =?us-ascii?Q?qN4FgsC5oIUryV/PmeTJtgUDUJGWREbxKNXR4qYBl3gLfl51BHMyi2Fm3dmW?=
+ =?us-ascii?Q?ClFvTNfiv8NTya6UbWbc2r3IwP34/b0UV81pZUE1nONSoM5kwPzomzFiK2dk?=
+ =?us-ascii?Q?w72D0Q1zrgu5lx08QOUUCwx2/YeFx1Q6Z4lWE9KhOmmMziPRP58t?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51e8f1ee-baa6-4a92-c340-08df1d278d69
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9351.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 06:13:02.4987
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wz3uZE7DwP6pCzuLQPjtjU8+G01OskghZPt0OmcUAcaVBcql2OlpBWKmScKOu37Z7fSsj/iBxWMT10ClqWPdkLD+F3fKjF4iFQ5FOVi/4z2GbotmWo0Xo6m7s6eS/We2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10721
 
-Add PSCI SYSTEM_RESET2 reboot-modes for qcs615-ride, for use by the
-psci-reboot-mode driver.
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-The following modes are defined:
-- bootloader: reboot into fastboot mode for fastboot flashing.
-- edl: reboot into emergency download mode for image loading via the
-  Firehose protocol.
+The i.MX ASRC hardware supports three independent conversion pairs
+(A, B, C). The driver previously registered a single DAI with generic
+stream names "ASRC-Playback" and "ASRC-Capture", which prevents
+multiple independent conversion paths from being used simultaneously.
 
-  Support for these modes is firmware dependent.
+Replace the single fsl_asrc_dai instance with an array of three DAI
+drivers to allow up to three independent conversion paths to be active
+at the same time:
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Song Xue <quic_songxue@quicinc.com>
-Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+  asrc-0 -- ASRC-Playback / ASRC-Capture (backward compatible)
+  asrc-1 -- ASRC1-Playback / ASRC1-Capture
+  asrc-2 -- ASRC2-Playback / ASRC2-Capture
+
+asrc-0 retains the original generic stream names to preserve backward
+compatibility with existing machine drivers and board configurations.
+Each DAI retains the same channel, rate and format capabilities as the
+original. Update the devm_snd_soc_register_component() call to register
+all three DAIs.
+
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Reviewed-by: Chancel Liu <chancel.liu@gmail.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
- arch/arm64/boot/dts/qcom/qcs615-ride.dts | 7 +++++++
- arch/arm64/boot/dts/qcom/talos.dtsi      | 2 +-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ sound/soc/fsl/fsl_asrc.c | 89 +++++++++++++++++++++++++++++++---------
+ 1 file changed, 69 insertions(+), 20 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-index 047b4efb04b9..48d3519f50ff 100644
---- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-@@ -498,6 +498,13 @@ &pon_resin {
- 	status = "okay";
+diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+index 9be903dc75e4..faf348dd582d 100644
+--- a/sound/soc/fsl/fsl_asrc.c
++++ b/sound/soc/fsl/fsl_asrc.c
+@@ -792,27 +792,76 @@ static const struct snd_soc_dai_ops fsl_asrc_dai_ops = {
+ 				 SNDRV_PCM_FMTBIT_S16_LE | \
+ 				 SNDRV_PCM_FMTBIT_S24_3LE)
+ 
+-static struct snd_soc_dai_driver fsl_asrc_dai = {
+-	.playback = {
+-		.stream_name = "ASRC-Playback",
+-		.channels_min = 1,
+-		.channels_max = 10,
+-		.rate_min = 5512,
+-		.rate_max = 192000,
+-		.rates = SNDRV_PCM_RATE_KNOT,
+-		.formats = FSL_ASRC_FORMATS |
+-			   SNDRV_PCM_FMTBIT_S8,
++static struct snd_soc_dai_driver fsl_asrc_dai[] = {
++	{
++		.name = "asrc-0",
++		.playback = {
++			.stream_name = "ASRC-Playback",
++			.channels_min = 1,
++			.channels_max = 10,
++			.rate_min = 5512,
++			.rate_max = 192000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_ASRC_FORMATS |
++				   SNDRV_PCM_FMTBIT_S8,
++		},
++		.capture = {
++			.stream_name = "ASRC-Capture",
++			.channels_min = 1,
++			.channels_max = 10,
++			.rate_min = 5512,
++			.rate_max = 192000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_ASRC_FORMATS,
++		},
++		.ops = &fsl_asrc_dai_ops,
++	},
++	{
++		.name = "asrc-1",
++		.playback = {
++			.stream_name = "ASRC1-Playback",
++			.channels_min = 1,
++			.channels_max = 10,
++			.rate_min = 5512,
++			.rate_max = 192000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_ASRC_FORMATS |
++				   SNDRV_PCM_FMTBIT_S8,
++		},
++		.capture = {
++			.stream_name = "ASRC1-Capture",
++			.channels_min = 1,
++			.channels_max = 10,
++			.rate_min = 5512,
++			.rate_max = 192000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_ASRC_FORMATS,
++		},
++		.ops = &fsl_asrc_dai_ops,
+ 	},
+-	.capture = {
+-		.stream_name = "ASRC-Capture",
+-		.channels_min = 1,
+-		.channels_max = 10,
+-		.rate_min = 5512,
+-		.rate_max = 192000,
+-		.rates = SNDRV_PCM_RATE_KNOT,
+-		.formats = FSL_ASRC_FORMATS,
++	{
++		.name = "asrc-2",
++		.playback = {
++			.stream_name = "ASRC2-Playback",
++			.channels_min = 1,
++			.channels_max = 10,
++			.rate_min = 5512,
++			.rate_max = 192000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_ASRC_FORMATS |
++				   SNDRV_PCM_FMTBIT_S8,
++		},
++		.capture = {
++			.stream_name = "ASRC2-Capture",
++			.channels_min = 1,
++			.channels_max = 10,
++			.rate_min = 5512,
++			.rate_max = 192000,
++			.rates = SNDRV_PCM_RATE_KNOT,
++			.formats = FSL_ASRC_FORMATS,
++		},
++		.ops = &fsl_asrc_dai_ops,
+ 	},
+-	.ops = &fsl_asrc_dai_ops,
  };
  
-+&psci {
-+	reboot-mode {
-+		mode-bootloader = <0x80010001 0x2>;
-+		mode-edl = <0x80000000 0x1>;
-+	};
-+};
-+
- &qspi {
- 	status = "okay";
+ static bool fsl_asrc_readable_reg(struct device *dev, unsigned int reg)
+@@ -1393,7 +1442,7 @@ static int fsl_asrc_probe(struct platform_device *pdev)
+ 		goto err_pm_get_sync;
  
-diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
-index 531cf41b94dc..a2197dec430a 100644
---- a/arch/arm64/boot/dts/qcom/talos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-@@ -581,7 +581,7 @@ pmu-a76 {
- 		interrupts = <GIC_PPI 5 IRQ_TYPE_LEVEL_HIGH &ppi_cluster1>;
- 	};
- 
--	psci {
-+	psci: psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
- 
-
+ 	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_asrc_component,
+-					      &fsl_asrc_dai, 1);
++					      fsl_asrc_dai, ARRAY_SIZE(fsl_asrc_dai));
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to register ASoC DAI\n");
+ 		goto err_pm_get_sync;
 -- 
 2.34.1
 
