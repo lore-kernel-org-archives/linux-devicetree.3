@@ -1,78 +1,120 @@
-Received: from relay.smtp-ext.broadcom.com (lpdvsmtp10.broadcom.com [192.19.144.205])
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393B538D3F9;
-	Mon, 28 Sep 2026 18:28:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C7C39060B;
+	Mon, 28 Sep 2026 18:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790620090; cv=none; b=W0ILJAxDoAQBLOP/vSY5Cnz4kWaQdHQKFFJ42OS+SWS2S35Z96hGgloP9Q3DF0LhOchJ7qO5OFVb/XEetGFumHKXm4NmtLkEcH9N7RHvFnvKDP7dtY9na18evP6/687pz1lhnpI/yrMethdtlWGSZRaROvVfVR5JxwBOdGzUQC0=
+	t=1790620200; cv=none; b=cx9a0/e/OtqDOYzXlx9tKxWiOj5h8+PdQz3djGhVj7oOMnhyr/mXWR918NaQcqxUOfdhyK2WUN5nPeReIY1wPKTK4oMNUnHOktYtu0AyIRvp9JBx1K+k35sCBVoNxkP9gOo6zk3fcA6XnnwQN8RqZPFJZu5xdk3bl2p/IcMqfkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790620090; c=relaxed/simple;
-	bh=UVPMZhvqMrthXlyLMMQxYdzI0vXhxPmHZ965qly+dGU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i2EyUda9EGXVZIJTDUPZyem32aMld/iaoawXgnq+rJYuYrpOonn1xUlFCN4+hywBrlEz+bG5txqiuPowYsXvan3cp5Lu1Gs/w9/jQMZkcS/ZgeTZMtg98kR5NYuq0RCOn9l2BMxt2qIdy2wowZHeRxoj+W7IPb0T+FeD+jeR8tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Fn748EIJ; arc=none smtp.client-ip=192.19.144.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1790620200; c=relaxed/simple;
+	bh=X71mzH2uZG4Zz90V/svIDvBuqeL/+Ow6zYk3jJO0vE0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AK+4b9SsTcoqkq/Gq+gGUmwEJooJsQ+GP+RZOHFK+7bVkamAryoUc7u+DeyKHYs8mwQX2RpjKOgrbiIFpZv9a8BmM6hUDOMw+2NPubPj3SH3mVCIvVMAbWDXJJaQEsTfmX48+EADpr0rDIn00TRnVrkJbUwjuoFspgJNzOWDueE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jS2k2Qal; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Fn748EIJ"
-Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id F2EDCC0000F8;
-	Mon, 28 Sep 2026 11:28:07 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com F2EDCC0000F8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1790620088;
-	bh=UVPMZhvqMrthXlyLMMQxYdzI0vXhxPmHZ965qly+dGU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Fn748EIJiEDh2Xy/473H5+Q+w4en7SVO4XkIF1OIDtnfyxqklAhVjjvc2HWkL4eQP
-	 Yx8bJTV6RuU1eG+SlvhDKSrvM9Jl6tuQp7drUEyIJ10moNchhJxvu9Z546O9e5c4aC
-	 kwvEf3zHvgrgEM0gALM27U4vGe2KGR4ss3BB2wO8=
-Received: from fainelli-desktop.igp.broadcom.net (fainelli-desktop.dhcp.broadcom.net [10.67.48.245])
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jS2k2Qal"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 95C99ACC;
-	Mon, 28 Sep 2026 11:28:07 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-To: bcm-kernel-feedback-list@broadcom.com,
-	Rosen Penev <rosenp@gmail.com>,
-	devicetree@vger.kernel.org
-Cc: Florian Fainelli <f.fainelli@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	"moderated list:BROADCOM IPROC ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] ARM: dts: broadcom: rename pl330 DMA nodes to dma-controller
-Date: Mon, 28 Sep 2026 11:28:07 -0700
-Message-ID: <20260928182807.1269041-1-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921015634.1044454-1-rosenp@gmail.com>
-References: <20260921015634.1044454-1-rosenp@gmail.com>
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4htqbj3f3ZzKp1J;
+	Mon, 28 Sep 2026 20:29:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790620193;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J4UOx5QX7kX+W5/Ie5nHMORdMpDg/AS6sI2RXKzrPs0=;
+	b=jS2k2QalraFTd0mPbabNjUw57uYZ91D6GRz16oV/j0WCmDpfNkvzn9bOGr1yZiIYm68SQH
+	vgB5Sk/EluiS7f+aY9mTPyQWE0Iz2A0+1BBfS7tLBZZV8IwPl4PzGBetgUQRru1tWBw7j/
+	fp02IAlREJhUMuIQALPKIZP5PdC+Q003lqwu+OsUDOhUoa6YswejAPJWCthXi0nFghimcI
+	QM+Shr9IEbmcYFvkn6p0vt+/EgtIELAYQMvXieD9GfJTvv0++ySREemVaMzkrQtQUe5HU8
+	vDlM0gR6QgNjebGvJKVpi9BseMl67c+xrNatzRtyZXbdwwzSeIGzG2xYr523IA==
+Message-ID: <4b82b8e9-6cf5-4f88-af10-dcbce0181d5f@mailbox.org>
+Date: Mon, 28 Sep 2026 17:07:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/11] PCI: rcar-gen4: Drop the APP-based link_up check
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260918032038.2216471-1-den@valinux.co.jp>
+ <20260918032038.2216471-3-den@valinux.co.jp>
+ <c2807afc-3e69-4744-8588-20f60839a603@mailbox.org>
+ <4peziifkgyfpglfl4jtyvcxqht2yo4r4bswmkweicpxdf45ejc@jxbqgurozlft>
+ <badcd2d5-7d61-426a-86d6-000043a6aa93@mailbox.org>
+ <4fgnblug6mknuy4zq2lqeuni3dmu2f6c4mpb2qfvvyt5bpnovm@b6gundxnhr7d>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <4fgnblug6mknuy4zq2lqeuni3dmu2f6c4mpb2qfvvyt5bpnovm@b6gundxnhr7d>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: pfr94jinfo8zdyppkwf9s6rq1kxnbpz8
+X-MBO-RS-ID: dd2d6aa1575c6556ca9
 
-From: Florian Fainelli <f.fainelli@gmail.com>
+On 9/28/26 6:20 AM, Koichiro Den wrote:
 
-On Sun, 20 Sep 2026 18:56:34 -0700, Rosen Penev <rosenp@gmail.com> wrote:
-> Each PL330 device node in the Cygnus, HR2, and Northstar Plus dtsi files
-> was named dma or dma@<addr>, which does not follow the generic
-> recommended node name for DMA controllers (dma-controller).
+Hello Den-san,
+
+[...]
+
+>>> That said, I agree that in general we should follow the R-Car reference manual
+>>> where possible, and your draft makes sense for that purpose. If we go that way,
+>>> I have one question: would we need a polling loop with a timeout
+>>> (PCIE_LINK_WAIT_MAX_RETRIES * PCIE_LINK_WAIT_SLEEP_MS) in
+>>> rcar_gen4_pcie_start_link(), similar to dw_pcie_wait_for_link()?
+>>
+>> This is a good point, and I think we probably shouldn't do it this way,
+>> because we can reuse the DWC core code for that purpose.
+>>
+>> How about extending the .link_up callback, and check both the SMLH/RDLH bits
+>> there (to fulfill the datasheet compliance, dw_pcie_start_link() is always
+>> followed by dw_pcie_wait_for_link() which calls the .link_up() callback) and
+>> the DEBUG1 bits (to make sure we check the current state of the link) ?
+>>
+>> That should cover all our concerns (datasheet compliance, DEBUG1 current
+>> state of link check, polling), shouldn't it ?
 > 
-> Rename them accordingly. The phandle labels (dma0/dma) are preserved,
-> so existing references via &dma keep working.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
+> If you mean AND-ing the SMLH/RDLH check with the DEBUG1 check, that sounds
+> reasonable. We could clear the APP latches in .start_link(), before enabling
+> LTSSM, and leave them latched across .link_up() calls.
 
-Applied to https://github.com/Broadcom/stblinux/commits/devicetree/next, thanks!
---
-Florian
+Yes, that.
+
+> Thanks for the suggestion!
+> 
+>>
+>>> P.S. I'll rebase v2 onto the latest pci/controller/dwc-rcar-gen4.
+>>
+>> Thank you, and I apologize for the inconvenience.
+> 
+> No worries at all. I just hadn't caught up with your X5H series.
+> I've now rebased v2 onto next-20260925, since the series also needs
+> b43aa6a6ebe8 ("arm64: dts: renesas: r8a779f0: Add GICv3 ITS and update PCIe nodes"),
+> as noted in the cover letter.
+
+Understood.
+
+-- 
+Best regards,
+Marek Vasut
