@@ -1,64 +1,64 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wr2-f40.google.com (mail-wr2-f40.google.com [74.125.225.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C1647ACEE
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 19:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160A24F96DB
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 19:46:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790624771; cv=none; b=UnuP7Eu1JWyKpilWs640tRFXfH4B3u5qNeFf/T5W+xccrpxUuP3sNkOpr4HkJmm+hQw69KO8TIjZ+IIUs84bRLSMvWB3tJ9E6pQuAHQHWP72/FWKp0vS3QywtvbXacUblTf0JfXn4bAOox6wblQtsR5NMOzrpiTnJ3/ayxD+WFw=
+	t=1790624773; cv=none; b=bItnLriA/VymNZIAZQF6iLGLwThtlnPLaxdy9/Q745k1/EuDla729nJt2uUIKUaaX2KAM+YMoSa5YE3HZm+0Mf9ViO5C0+rDXGROdjGIuxIfeNHgHiCl5qjP2FzdvSGpf/PqHDN18wNZ0Lj3S0/a8r37EVfS5nEQAeCajZt7CRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790624771; c=relaxed/simple;
-	bh=NU4X2VJGcjl2rlOCjM4L+p3D3tqMARtIFAjlFc9hBWY=;
+	s=arc-20240116; t=1790624773; c=relaxed/simple;
+	bh=U8IAY3UtlpNIRXvSA2LyZf04Cj27BjWMLF6IcBxyyPQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PaD+2cCzKBJy+Y1wGkBVq1ZTkrzdOeIhVmQWZ8cWAos12whcaa1rv6T3lRf9vfiMsGREAxT0audXQnsL85IoQLIIsdWgSMby97yiVPYgpVWv1N20OZjM1amLAt5oC1NNhQEe5aAXRLW0mB+2cTosu5+E1q1iKLw9gpfSfOuhc5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RcHX69n7; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version; b=bdut59TjFNcrfhQQ4tEN2HrrhuM2pGB9x5xB38gyqB+I54lvO+CpYyKefjDO9K8lCFJasOPnnY77+98axQyVTWrNX928jzfSR3z57aMRKtPXtSOGcepmrmbJ16zaRT7dxbHEQzN8C4OFPkgn2VzDa32UfWzd9TEC7oYx8g0DfK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RJu3Rhz3; arc=none smtp.client-ip=74.125.225.104
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RcHX69n7"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso2749868f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 12:46:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RJu3Rhz3"
+Received: by mail-wr2-f40.google.com with SMTP id ffacd0b85a97d-488780459e2so3353849f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 12:46:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790624768; x=1791229568; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790624770; x=1791229570; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rbIAcFETs7Fo7Fiw9hweWROaB2K6gpG5L37UCuTLIIU=;
-        b=RcHX69n733uV9vC1Ky+L+Rql0JjOeAqvo+AYnaGHnOY0ZTcHnGj25T7HjlEGPj5jpl
-         RN/o7Uz0+iy3wXjlBmD4r3JiDiyvrUOXcXpoCjTQF1A1MHP/JOFnuBTRhpqR0eWGDpG/
-         h3oV6g/lZrI5wpHsLk8mQ9PtvJU5S90Pu1SpYxF4o3It863Gn4QyZ7sm4FKXFwDLfTQ3
-         WsmijOdlnEV6zNs29byfGwjSDp6QXFB7F5P3uZqY+vN+LDe/YX4uW3ap82f8r7p90Ale
-         S04QaCwH1ZVNTW1yBrIkJhqpl70M5Vp1v0E7RMOLDaIYa7rqW2p1FT6XQdlk8iOohJa9
-         ttDw==
+        bh=qqRtnc/P+rZ8ziC43+o+bBxfq5eQjgc6WRa/25o2wJM=;
+        b=RJu3Rhz3wrQgXMkTnk7ZMtIBMdC8IjytY39vr+9tpj9HdQ5QbzFouqw1QtA2QZKfJC
+         5/DU2SyY5ZA08eBT/YTCuwzMdwYeI98feMnDhUOQ/QVAZXnBVgU/kpOqZNmA01lTIqUU
+         B63X/BnYLWJjfZQzA6ljW7E7cBt4KF8f5EHl2CB/2yyYLjSEG7cn5j3zYKvx3g5RLZg2
+         kTzqOYycv4lTYTuAWKCNViG+9o9CtCyLk/E1sVzt8woHQQ4YH1lNRw7Z29UksmJTEhSd
+         xfE6oNSvZC7H/uMC6t+pkq7GFtPHCSnmgTDOMZ6kX4zka28zJgs+HZQ7uypZxuPKqXL3
+         xr5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790624768; x=1791229568;
+        d=1e100.net; s=20260707; t=1790624770; x=1791229570;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rbIAcFETs7Fo7Fiw9hweWROaB2K6gpG5L37UCuTLIIU=;
-        b=FqwvhNMl8MwzCmE9qZ4GjRzPHsyoW3IG7wnQs6H/AombwNfwQKT6sN8vrnoa+CJBYv
-         n/uaoH9RugGW2iNuq/zoXeThsYWu+E8Wo8purzhpXOr/01hZDkhxfVeDV6mOQf3hwksf
-         8CbSFttqfGcg+UizDHI09eJMPJ2IYaLhRldvZ7QnRkgQlXZ7jvQVzB3VNwX6YxNjWPjs
-         Uf5cUDaXru/36AHbqfeETtmyopneyEBPwKw2McCwRpE9g8Wr36IALD6RjJjSrYxTqmpT
-         OSin0JzkdDZr9j3uyGry627H9maTjbUA4bJMzD1qxp5rXoPokSgyCg1y8judi4jkT/Ss
-         n3Xg==
-X-Forwarded-Encrypted: i=1; AKwUvBySAQNV0iRGUakQty/t+lM92fQ3hNynPNQnFfkLlqep+M+ofIsUFzr2c5nDDycnDLLdoYocUUdR63jZ@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgmP11crT3sHEwxtJqadpMmHg3Vqspy6KKbMImeTn9oDwvaXYm
-	YIkQwHgcaa1Yy4UQtv6/Izq6G3qmIf8ofJGj/HNUF9H+Oa8v7FDaZ99e
-X-Gm-Gg: AYBFou1adt8DQqlBtTxHXcoreKsK+mbUZdFK6z3J4n9mFplRa7ewwJFJSmh4EmPy0W8
-	lSXkUg1tYRIfkBe5eTbHeGS4qIkh/z7h9PJW8mXvPF9ki6P3LSvDSkYmtZxIaAJrH+W5f6qE1tm
-	OkPdPpR4odhLdtq/DyV4n828sfrUavTURcN/xW48V3qxUHrlQ7MxtmMOkVQNxCOsOw+Bu4wvsal
-	XwKoOMCzi2odfrTKyG9/xG8BO37o8G6BoMia9iCJWnZGLD5SRQXTxRYKyfjMA/zdjgy2C1YjI2A
-	VMmYt+xNhxMr3+8kg+Zn2n2eLnShe0imzA4SqrSfAACLXx9J9hAQnJi+0dPf5F3MNFkleI/i1Nr
-	wGZPcT4a5LWQGsakxc0O9Ih5yF0BaBMd6q0uVXhEslMvlZAAqeOGsrnEbfNRb6+a9rRF9wyWEIo
-	Ke2uothnTxKeO9AnESz9CmZHbwC2UT++hD5EUdv/eRUQAoSYKv8OqPibmNPVhRmWBvT0wRS5oPE
-	+/+pZfNtBYeg4NG3hrvF8HTRGhnxNvk9T0QhK163lVRAQ0WbkirajhFYM41swRW
-X-Received: by 2002:a05:6000:40d9:b0:487:342:d148 with SMTP id ffacd0b85a97d-48872ac7199mr23494967f8f.38.1790624767700;
-        Mon, 28 Sep 2026 12:46:07 -0700 (PDT)
+        bh=qqRtnc/P+rZ8ziC43+o+bBxfq5eQjgc6WRa/25o2wJM=;
+        b=qjTNIL4QZ/CcJqSQFJk6UKvIhsH9BjT3W+fARajOwwZfL57HPQLgMMMMMhF0Ykm7ME
+         DcWUo6BsS5H5BHEYKUtTP9c2Swbl5x+pjEIIoPDylHQ40WobqMmhM1xNrMyRntizCMiX
+         RvqABmJ816DPYHgEstb0KT4S9Cvh+9oTPe4oXmptlA9/f0PKeThNNr/vANj8XQEvztdA
+         GfOZoIr5GY/V2pLfBYBMXLHXWQMRtAyRPQoux9p4/e+J5OMb/CrOqkOOiQMS8EaJZppb
+         wLS97eNT/+AD96IWgVUQyaetp0SlDBMIWstk/cA5n3m0j7CYuL69Us2ohmVfcaMmZs3G
+         53vA==
+X-Forwarded-Encrypted: i=1; AKwUvBxQKVtGXNENZLQjrbqkIw0maR2zfDCTw0x8Vf4sRt4Q0SbrQG3p/VlADIqnH2opLK3GcfHwoy89xRUF@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCMR6jVcWn1yuUci6yqvqnx0isrrwfGVnjCBUHv97fJwtO+b/N
+	ZqIgLrFMx5Q79Xjglprs/e0b2CJP5kRI5CYcfzP8ta5+Gc0x9ec4S96L
+X-Gm-Gg: AYBFou3AERjMH6SbGe58Qvefb0wcrNOulgNDJQuJUlJtm5bCrpm9cwXqTVaGYQJxOGz
+	K07dlLVcKCbZQKqRbguqEdibm74VAvJUi5KhkVW8PakL0qsAXoWCVsX9dghE2J7HvWgSReXzT4R
+	eB30VfDsNJ0xAoTT/tdjLeTmubKlOSjFxGz8FZaxP+48X6CYnvWts+DOPNpKPVKHODS3/+Cjxis
+	P4iwaQnQeU7JQjQalvy5HiX41jSnCO8e54AlntiR/l9WAWpQNw+yyy2/ANweV2OcntxpfKerN7A
+	9T2tZc0f0so5ikNa3tK+UmjW+/X8shYyAmwPuC6oUukVEYJoAuMfGSG4CgRUUCO8Gqp5nnP738+
+	0uEdDmkC1P6VwX7nG1F2YtIlk8m2SdmzXeYzYu8NqD+dTYM4j11Yyi8IUCmz8RcW/tvkLN3+wvg
+	GSLWXLTTGEMRxVCWysbTi00Ffm9VMVmOCbblzYpI3+coMZgFjLQNExjL6gQ8433HTG0hqJEg8mz
+	pCZww7YIT0dTKS0ZkYjFcNqD9h+1IIMzaehzjbaTYXnaF41MrPz08PC6KZx2nn1
+X-Received: by 2002:a05:6000:3110:b0:485:ac35:5c5d with SMTP id ffacd0b85a97d-48871725321mr27594766f8f.15.1790624770026;
+        Mon, 28 Sep 2026 12:46:10 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-82-57-191-234.retail.telecomitalia.it. [82.57.191.234])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48af071532dsm1527706f8f.20.2026.09.28.12.46.05
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48af071532dsm1527706f8f.20.2026.09.28.12.46.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 12:46:07 -0700 (PDT)
+        Mon, 28 Sep 2026 12:46:09 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Christian Marangi <ansuelsmth@gmail.com>,
 	Lee Jones <lee@kernel.org>,
@@ -86,9 +86,9 @@ To: Christian Marangi <ansuelsmth@gmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Andrew Lunn <andrew@lunn.ch>
-Subject: [PATCH net-next v24 06/10] net: dsa: tag_mtk: add Airoha variant usage of this TAG
-Date: Mon, 28 Sep 2026 21:45:05 +0200
-Message-ID: <20260928194511.41878-7-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v24 07/10] MAINTAINERS: add myself as maintainer for Airoha AN8855 Switch
+Date: Mon, 28 Sep 2026 21:45:06 +0200
+Message-ID: <20260928194511.41878-8-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260928194511.41878-1-ansuelsmth@gmail.com>
 References: <20260928194511.41878-1-ansuelsmth@gmail.com>
@@ -100,158 +100,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add variant of the MTK TAG for Airoha Switch and comments about difference
-between Airoha AN8855 and Mediatek tag bitmap.
-
-Airoha AN8855 doesn't support controlling SA learning and Leaky VLAN
-from tag. Although these bits are not used (and even not defined for
-Leaky VLAN), it's worth to add comments for these difference to prevent
-any kind of regression in the future if ever these bits will be used.
-
-Rework the makefile, config and tag driver to better report to
-external tool (like libpcap) the usage of this variant with a dedicated
-"Airoha" name.
+Add myself as maintainer for AN8855 DSA driver and all the related
+subdriver (mfd, mdio, phy, nvmem)
 
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- include/net/dsa.h |  2 ++
- net/dsa/Kconfig   | 11 +++++++++++
- net/dsa/Makefile  |  2 +-
- net/dsa/tag_mtk.c | 36 +++++++++++++++++++++++++++++++++---
- 4 files changed, 47 insertions(+), 4 deletions(-)
+ MAINTAINERS | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/include/net/dsa.h b/include/net/dsa.h
-index 5d12191b6f6f..9824c63ad50b 100644
---- a/include/net/dsa.h
-+++ b/include/net/dsa.h
-@@ -62,6 +62,7 @@ struct tc_action;
- #define DSA_TAG_PROTO_KSZ8463_VALUE		34
- #define DSA_TAG_PROTO_MT7628_VALUE		35
- #define DSA_TAG_PROTO_KS8995_VALUE		36
-+#define DSA_TAG_PROTO_AIROHA_VALUE		37
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6de1ff058db6..59e6385b2c50 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -759,6 +759,22 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/net/airoha,en7581-eth.yaml
+ F:	drivers/net/ethernet/airoha/
  
- enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
-@@ -76,6 +77,7 @@ enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_KSZ9893		= DSA_TAG_PROTO_KSZ9893_VALUE,
- 	DSA_TAG_PROTO_LAN9303		= DSA_TAG_PROTO_LAN9303_VALUE,
- 	DSA_TAG_PROTO_MTK		= DSA_TAG_PROTO_MTK_VALUE,
-+	DSA_TAG_PROTO_AIROHA		= DSA_TAG_PROTO_AIROHA_VALUE,
- 	DSA_TAG_PROTO_QCA		= DSA_TAG_PROTO_QCA_VALUE,
- 	DSA_TAG_PROTO_TRAILER		= DSA_TAG_PROTO_TRAILER_VALUE,
- 	DSA_TAG_PROTO_8021Q		= DSA_TAG_PROTO_8021Q_VALUE,
-diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
-index 4f44bf3ede23..28a249f04a43 100644
---- a/net/dsa/Kconfig
-+++ b/net/dsa/Kconfig
-@@ -24,6 +24,13 @@ config NET_DSA_TAG_NONE
- 	  Say Y or M if you want to enable support for switches which don't tag
- 	  frames over the CPU port.
- 
-+config NET_DSA_TAG_AIROHA
-+	tristate "Tag driver for Airoha switches"
-+	select NET_DSA_TAG_MTK_COMMON
-+	help
-+	  Say Y or M if you want to enable support for tagging frames for
-+	  Airoha switches.
++AIROHA AN8855 DSA DRIVER
++M:	Christian Marangi <ansuelsmth@gmail.com>
++L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
++L:	linux-mediatek@lists.infradead.org (moderated for non-subscribers)
++L:	netdev@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/mfd/airoha,an8855.yaml
++F:	Documentation/devicetree/bindings/net/airoha,an8855-phy.yaml
++F:	Documentation/devicetree/bindings/net/dsa/airoha,an8855-switch.yaml
++F:	Documentation/devicetree/bindings/nvmem/airoha,an8855-efuse.yaml
++F:	drivers/mfd/airoha-an8855.c
++F:	drivers/net/dsa/mediatek/an8855.c
++F:	drivers/net/dsa/mediatek/an8855.h
++F:	drivers/net/phy/air_an8855.c
++F:	drivers/nvmem/an8855-efuse.c
 +
- config NET_DSA_TAG_AR9331
- 	tristate "Tag driver for Atheros AR9331 SoC with built-in switch"
- 	help
-@@ -104,8 +111,12 @@ config NET_DSA_TAG_MT7628
- 	  Say Y or M if you want to enable support for tagging frames for the
- 	  switch embedded in the MT7628 SoC.
- 
-+config NET_DSA_TAG_MTK_COMMON
-+	tristate
-+
- config NET_DSA_TAG_MTK
- 	tristate "Tag driver for Mediatek switches"
-+	select NET_DSA_TAG_MTK_COMMON
- 	help
- 	  Say Y or M if you want to enable support for tagging frames for
- 	  Mediatek switches.
-diff --git a/net/dsa/Makefile b/net/dsa/Makefile
-index 1f9cc30e9988..7ccaa528a989 100644
---- a/net/dsa/Makefile
-+++ b/net/dsa/Makefile
-@@ -29,7 +29,7 @@ obj-$(CONFIG_NET_DSA_TAG_KS8995) += tag_ks8995.o
- obj-$(CONFIG_NET_DSA_TAG_KSZ) += tag_ksz.o
- obj-$(CONFIG_NET_DSA_TAG_LAN9303) += tag_lan9303.o
- obj-$(CONFIG_NET_DSA_TAG_MT7628) += tag_mt7628.o
--obj-$(CONFIG_NET_DSA_TAG_MTK) += tag_mtk.o
-+obj-$(CONFIG_NET_DSA_TAG_MTK_COMMON) += tag_mtk.o
- obj-$(CONFIG_NET_DSA_TAG_MXL_862XX) += tag_mxl862xx.o
- obj-$(CONFIG_NET_DSA_TAG_MXL_GSW1XX) += tag_mxl-gsw1xx.o
- obj-$(CONFIG_NET_DSA_TAG_NETC) += tag_netc.o
-diff --git a/net/dsa/tag_mtk.c b/net/dsa/tag_mtk.c
-index c7dc7731675e..f8087d768da6 100644
---- a/net/dsa/tag_mtk.c
-+++ b/net/dsa/tag_mtk.c
-@@ -11,6 +11,7 @@
- #include "tag.h"
- 
- #define MTK_NAME		"mtk"
-+#define AIROHA_NAME		"airoha"
- 
- #define MTK_HDR_LEN		4
- #define MTK_HDR_XMIT_UNTAGGED		0
-@@ -18,6 +19,9 @@
- #define MTK_HDR_XMIT_TAGGED_TPID_88A8	2
- #define MTK_HDR_RECV_SOURCE_PORT_MASK	GENMASK(2, 0)
- #define MTK_HDR_XMIT_DP_BIT_MASK	GENMASK(5, 0)
-+/* AN8855 doesn't support SA_DIS and Leaky VLAN
-+ * control in tag as these bits doesn't exist.
-+ */
- #define MTK_HDR_XMIT_SA_DIS		BIT(6)
- 
- static struct sk_buff *mtk_tag_xmit(struct sk_buff *skb,
-@@ -99,6 +103,7 @@ static struct sk_buff *mtk_tag_rcv(struct sk_buff *skb, struct net_device *dev)
- 	return skb;
- }
- 
-+#if IS_ENABLED(CONFIG_NET_DSA_TAG_MTK)
- static const struct dsa_device_ops mtk_netdev_ops = {
- 	.name		= MTK_NAME,
- 	.proto		= DSA_TAG_PROTO_MTK,
-@@ -107,8 +112,33 @@ static const struct dsa_device_ops mtk_netdev_ops = {
- 	.needed_headroom = MTK_HDR_LEN,
- };
- 
--MODULE_DESCRIPTION("DSA tag driver for Mediatek switches");
--MODULE_LICENSE("GPL");
-+DSA_TAG_DRIVER(mtk_netdev_ops);
- MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_MTK, MTK_NAME);
-+#endif
- 
--module_dsa_tag_driver(mtk_netdev_ops);
-+#if IS_ENABLED(CONFIG_NET_DSA_TAG_AIROHA)
-+static const struct dsa_device_ops airoha_netdev_ops = {
-+	.name		= AIROHA_NAME,
-+	.proto		= DSA_TAG_PROTO_AIROHA,
-+	.xmit		= mtk_tag_xmit,
-+	.rcv		= mtk_tag_rcv,
-+	.needed_headroom = MTK_HDR_LEN,
-+};
-+
-+DSA_TAG_DRIVER(airoha_netdev_ops);
-+MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_AIROHA, AIROHA_NAME);
-+#endif
-+
-+static struct dsa_tag_driver *dsa_tag_driver_array[] =	{
-+#if IS_ENABLED(CONFIG_NET_DSA_TAG_MTK)
-+	&DSA_TAG_DRIVER_NAME(mtk_netdev_ops),
-+#endif
-+#if IS_ENABLED(CONFIG_NET_DSA_TAG_AIROHA)
-+	&DSA_TAG_DRIVER_NAME(airoha_netdev_ops),
-+#endif
-+};
-+
-+module_dsa_tag_drivers(dsa_tag_driver_array);
-+
-+MODULE_DESCRIPTION("DSA tag driver for Mediatek switches");
-+MODULE_LICENSE("GPL");
+ AIROHA PCIE PHY DRIVER
+ M:	Lorenzo Bianconi <lorenzo@kernel.org>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
 -- 
 2.55.0
 
