@@ -1,414 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE2E4718F9;
-	Mon, 28 Sep 2026 07:53:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F68F3264CE
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 07:55:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790582025; cv=none; b=hhzH9o9hXL8v42k1tD4ioYUvmuWz+rSZxK5kvx89ao8JQbZoTwtJRB75h/KuQqABhySxDG33ai9dZ2LiExET8v2VU0Gd01Z7SGPl1HW8zhuUkISk9pRL4qtjnPsJ8hR1yeIbn4oP9Iz6Mbq+SCzu9kOXVddAMDWTrW3m9HT7Z84=
+	t=1790582148; cv=none; b=nvu4cszCv8uyT3RMrTaD9T5904W3jLPo/lvZy+9A0OKykb76KWr1ecbU2dzu6opwEs0HBqegrOGj340/bnhIYfOpxYqA3jrw5/VFIq3cCubsoNESho8K2AAtpODP042wY2bPi09VKyb5gYOEiD6libscwF1bOZtjGT7chpDpGBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790582025; c=relaxed/simple;
-	bh=714D5NaxsDSmEVNdl9+AGqX51zV5NknFaIxyV35GZVM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KSKnLD+nNSTAYB39r2ScgK51scS4CxWzH0mJ8j/G5Z/oNMDYEuUk+4HivSIyfxiJcT2W019w3/CA5+5CpoUw5pmQTyTxicpVkl6RNJaMtwL68RlGz/9QBzo9talZP1mYTMqGsouquPTawbYibMu/J99qg3YDkVvSsPgwPLVtp3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iS6bqdzK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790582148; c=relaxed/simple;
+	bh=sToha8CJCLC5ewHFl2CwtyLlEuDbDp20jbqUYkChLGo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Sr7gKxEnJu+k23Ub5urRJliQiVg8WcYuVzfjyaYry6GA1ZZD1UmJQWNJXRyDBusjTOdbJwhKAhDsxoZycplvlFoe0W8/9KoHGxga6c9enwZ2H/afaYvK8MYHNQwJFt1uoj3kdIW6CuJjs/HhJP2dWZN2B3l3x8G+4A080inFvCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eoyZyIGP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b0K6Q11e; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iS6bqdzK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D74BD1F000FF;
-	Mon, 28 Sep 2026 07:53:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790582023;
-	bh=DnS2H1WmQISUhYEre3k+AQu7LE/QH4s836Z2M97LRhU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=iS6bqdzKc18eUmGFldoCdcVEQkGRiitV2LOMqRGp+YnBCtidHSkMZQs2qNDQ5IOFv
-	 gF1OojhONXQEyGGTg0Pj4r/5SCz49VOL7HnPYbxM1M870LoNIaX3e92qMjAvjt+sEE
-	 MH4+/A6O2csqEouPRX/JCwbKvNm+NtKYklyWbUqSYoDJUF3YWvwzk0OnxBEQ/iBlH+
-	 aZJ5+CZGy258ZVtnZ5THX7JKMXFsQTvz5xpGUTBShfTFAQWhpjLkE4CMDKiCBJYHCi
-	 OcWsdBzcyVPbSWj7hsXoM2hYwLrYD8KmgTXZRzGXoj3jIvkssgXmpP2DFbZcNd2jvu
-	 ekBPO82lrhtoA==
-Subject: Re: [PATCH net-next v21 3/3] net: phy: Add driver for Motorcomm Quad
- 2.5GbE phy
-From: netdev-bot+sashiko@kernel.org
-To: kyle.switch@motor-comm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com, jie.han@motor-comm.com
-Date: Mon, 28 Sep 2026 07:53:41 +0000
-Message-ID: <179058202138.3145.10009749428787435555@kernel.org>
-In-Reply-To: <20260924075048.4060414-4-kyle.switch@motor-comm.com>
-References: <20260924075048.4060414-4-kyle.switch@motor-comm.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eoyZyIGP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b0K6Q11e"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68S6EW5D4026541
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 07:55:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Vng1mBez+uUndShx0kNptw
+	vy53oyfpNkp7ZVS/Ep9DE=; b=eoyZyIGP4JEM9TCNrwXoEn8sck0RB5D2pec9W7
+	HqA32YKE0XQSnGZUrS4XdwJVbthlH/JQXbW8W0HW62b6Btgzu3qtS48qUz94n5Dz
+	OqlJ1qO+o/2RX9+7n8wVBiOrJy5Tdy7ZRfSNSHxFw2s+fTVGK6Q589AmGRLCt0SS
+	T4uXCLG6RLES/dJD6bduAUxT/h+MxNQX3gDWr82LBjX9ORX+CN0D6tOQ2kw1jjz+
+	fyWmElhIlNSqQTREpNdJIp8SUylwHVENQa9S9lEI0/FKNwwYd1QkRw/zrEMGd5xy
+	50ubXXX0PUefkjN9klqlTZ+MA1FzthWdf1yy6cY+PdxF0ptA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyjt10b2x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 07:55:45 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-939f3426a7cso654008185a.0
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 00:55:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790582145; x=1791186945; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Vng1mBez+uUndShx0kNptwvy53oyfpNkp7ZVS/Ep9DE=;
+        b=b0K6Q11e3Idgi26PyxeqCADjPV3kEzT7hLMewmHjeSszOkPiODgNencqcRjJWq8pIF
+         DEbTKl04PreYnwBRA6l5ove7Xq/To9ibfGMy3fuwC0PtwO+NByYllYKUq2aJqTIYLmvO
+         ssLptH7+t2bZc+E9bmKQisJojlLOz36m5wv4rGwAedYsSw+/W2nYzw+5YU+jq8HucHRp
+         sPtXHVvfJ2tOToFA3xs2Pi2KCUDU3tOdDhdtnHAl3b8T1V+SkjGMPsz7iKXMhBe3mdE/
+         V52M2UfCcVLY3m2XaeK+XQWWltt1lqEMd2yIJGoSgijUTQ1qR09r78Cm11iJfPsv1XAo
+         eHbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790582145; x=1791186945;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Vng1mBez+uUndShx0kNptwvy53oyfpNkp7ZVS/Ep9DE=;
+        b=dDpKSB7OucQQmL07TUW80mBFVAyLKKpuWXgXZvYgaTdvTTbRkSez9rWzlmvFR3Uxzo
+         87pJJIDw2YH7Do7BeQghSNGzhG73emkTNxf+Q7TDRiULnthDHlepfy53Z3KwJPUFYudZ
+         w3gr7/pmb7ruVeuLcD6OBEh6E+UCpi4gG30DwP/bljxF0RDzfzjOn1384IABmrvqjNIG
+         InmEAO75YHU0w928Tkzx+v93dxDAHL93EusEjpq37YLpzAynLbvcUJUdn9En3c9OYH/5
+         7tuoreg4v8WIu8rWyFYYtywINp1K2FxRvLqK0VO9vXq+TEsc9WByJIVRV2nFbXdPVYER
+         y4/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwg2PRKEktF7NfkVZoe/ROt59P1PAWSsk8MME46FBtNFTMwGgdRTQDbyUF9HRIuP9F/UgQfRZh3IU6c@vger.kernel.org
+X-Gm-Message-State: AFuF++mxq10F1q7Cr2YwE6J9ucZIQwqfTJ+/aYmGF8Q6A5RjbKWiCHSr
+	rk2TWkvDWt3bF5KbnI3zjPt6xYVJMqi3i6WZsuOjIlFCzqWb1sRMnq/mf0pNJEecSTFMtLDJgWJ
+	GJxRjU9I4He9rLLHzejx+FjWoeIhlG6cwRg9azHLb5djx2o01LuEVeL8Vll9xa9OjgecO46TevC
+	M=
+X-Gm-Gg: AYBFou3lcV30yxeogcVgqrqJ2GbcJRczLJheTOd8ozh9EHT2+q6Ke1h585VeRBNQ31k
+	yfKKSWkY/VyjcRdsVQzyd4qeRe8JadY0EG9cAfVrwpwBUbq2VkQJg/gQ2TIc0SxRtWWNyyEnJ8u
+	/ZaF5oUsNBKF8cBkrz39FGcCxcr5eIRG/KL22npbtfEttaFRnqnS5QltsH2Ouu87f2dmsEU6nMc
+	lGUpG53tG1IzUFzxNrhUysHWxWX/DvfpV6IjeH74FCA7HMwvLFkpzEq0YiHmkatj/1j9MhvVjwn
+	ffS+1FzpoJBAk1jWCL3J7Lh3LpQByYrF3FSPj1co3tmqYojAmXGiXhNMfBHgg87e2CNujyUR0sf
+	2gy5jlfFcOE0hk3TNn/OC+24BRLzA/OJziUPZGWSjl6sb1ZiZAZqhNl7iM83M+LXWUzE=
+X-Received: by 2002:a05:620a:8088:b0:939:36f3:fea8 with SMTP id af79cd13be357-93c43bf95a8mr1861252285a.25.1790582145187;
+        Mon, 28 Sep 2026 00:55:45 -0700 (PDT)
+X-Received: by 2002:a05:620a:8088:b0:939:36f3:fea8 with SMTP id af79cd13be357-93c43bf95a8mr1861249785a.25.1790582144694;
+        Mon, 28 Sep 2026 00:55:44 -0700 (PDT)
+Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c815a47a6sm87940585a.47.2026.09.28.00.55.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 00:55:44 -0700 (PDT)
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Subject: [PATCH v5 0/2] media: i2c: Add Samsung S5KJN5 image sensor
+Date: Mon, 28 Sep 2026 15:55:15 +0800
+Message-Id: <20260928-sk5jn5-v5-0-19aa0a0a68eb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 4 · Low: 3
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] yt8824_read_status_paged() clears the forced speed and duplex
-  whenever the link is down, even when autoneg is disabled: `if…
-- [Medium] yt8824_probe() takes the package once-bit with
-  phy_package_probe_once() (test_and_set_bit, never cleared) before the…
-- [Medium] yt8824_sds_isolate_and_softreset_paged() and
-  yt8824_extern_config_sds_init_paged() hold the bus-wide…
-- [Medium] yt8824_read_status_paged() calls genphy_c45_read_lpa() only
-  when `autoneg == AUTONEG_ENABLE && autoneg_complete`.
-- [Low] yt8824_config_aneg() has a 'forced 2.5G' condition,
-  `(phydev->autoneg == AUTONEG_ENABLE || phydev->speed == SPEED_2500) &&…
-- [Low] The commit message is one sentence and leaves out behaviour a
-  maintainer needs to judge this ~1.5k-line addition.
-- [Low] yt8824_power_on() and yt8824_power_down() say UTP power-state
-  changes 'need WA like softreset' and wrap the BMCR_PDOWN toggle in…
-
---
-
-net: phy: Add driver for Motorcomm Quad 2.5GbE phy
-
-This adds support for the Motorcomm YT8824 quad-port 2.5G PHY to the
-motorcomm driver. It uses the phy_package helpers to reach the shared top
-extended register space. It picks the internal or 10G-QXGMII init sequence
-based on a phy-mode property in the package node.
-
-> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-> index 90a4f86f2758..c89ffb00e55e 100644
-> --- a/drivers/net/phy/motorcomm.c
-> +++ b/drivers/net/phy/motorcomm.c
-
-[ ... ]
-
-> @@ -614,23 +710,1053 @@ static int ytphy_set_wol(struct phy_device *phydev, struct ethtool_wolinfo *wol)
-
-[ ... ]
-
-> +static int yt8824_sds_isolate_and_softreset_paged(struct phy_device *phydev)
-> +{
-> +	int old_page = YT8824_RSSR_UTP_SPACE;
-> +	int val = 0;
-> +	int ret = -1;
-> +
-> +	old_page = phy_select_page(phydev, YT8824_RSSR_SERDES_SPACE);
-> +	if (old_page < 0)
-> +		goto err_restore_page;
-> +
-> +	/* sds softreset and disable isolate */
-> +	ret = __phy_modify(phydev, MII_BMCR, BMCR_RESET | BMCR_ISOLATE,
-> +			   BMCR_RESET & ~BMCR_ISOLATE);
-> +	if (ret < 0)
-> +		goto err_restore_page;
-> +
-> +	/* poll while still holding the lock */
-> +	ret = read_poll_timeout(__phy_read, val,
-> +				(val < 0) || !(val & BMCR_RESET), 50000, 600000,
-> +				true, phydev, MII_BMCR);
-
-[Severity: Medium]
-Does this hold the bus-wide mdio_lock across a sleeping poll that can last
-up to 600ms?
-
-phy_select_page() takes phydev->mdio.bus->mdio_lock, and the lock is only
-released in phy_restore_page(). Because sleep_before_read is true,
-read_poll_timeout() sleeps before the first read. It then keeps polling
-with 50ms sleeps for up to 600ms.
-
-In 10G-QXGMII mode this runs on every soft_reset, config_init, suspend and
-resume. It runs again from yt8824_restore_working_status() on error paths.
-
-yt8824_extern_config_sds_init_paged() does the same thing. It first issues
-about 50 extended register writes, all inside the same phy_select_page()
-window:
-
-	/* poll while still holding the lock; __phy_read takes no lock */
-	ret = read_poll_timeout(__phy_read, val,
-				(val < 0) || !(val & BMCR_RESET), 50000, 600000,
-				true, phydev, MII_BMCR);
-
-While the lock is held, the other three YT8824 ports and any other PHY or
-switch on the same MDIO bus are blocked.
-
-Is there a way to avoid holding mdio_lock while waiting for the SerDes
-reset to finish?
-
-> +	if (val < 0)
-> +		ret = val;
-> +
-> +err_restore_page:
-> +	/* restore page, release the lock */
-> +	return phy_restore_page(phydev, old_page, ret);
-> +}
-
-[ ... ]
-
-> +static int yt8824_soft_reset(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-> +	int ret;
-> +
-> +	mutex_lock(&priv->shared_lock);
-> +	if (priv->interface_mode == PHY_INTERFACE_MODE_INTERNAL) {
-> +		/* test mode 1 */
-> +		ret = yt8824_utp_set_template_test_mode
-> +			(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-
-[Severity: Low]
-This isn't a bug, but could the commit message explain the sequencing
-here? The commit message is a single sentence:
-
-  Add support for Motorcomm YT8824 quad-port 2.5G PHY to the existing
-  motorcomm driver, using the phy_package helpers for the shared top
-  extended register space.
-
-Several things aren't mentioned.
-
-soft_reset, config_init, suspend and resume all put the PMA into 10GBASE-T
-template test mode 1 around the operation and then switch back to normal.
-The only rationale in the code is "NOTE: need WA like softreset" above
-yt8824_power_on() and yt8824_power_down().
-
-The earlier commit "net: phy: Add support for Template Control register
-for PMA" describes test modes as being used for PHY validation, not as a
-reset workaround.
-
-There are two init flavours, internal and 10g-qxgmii. A phy-mode property
-in the package node selects between them.
-
-The PHY only binds inside an ethernet-phy-package DT node that has reg and
-phy-mode. Otherwise probe fails.
-
-phy_init_hw() calls .soft_reset (yt8824_soft_reset()) and then
-.config_init. yt8824_config_init() ends with another call:
-
-	mutex_unlock(&priv->shared_lock);
-	ret = yt8824_soft_reset(phydev);
-
-So the full reset sequence runs twice per phy_init_hw(). Is that intended?
-
-[ ... ]
-
-> +static int yt8824_extern_config_utp_init_paged(struct phy_device *phydev)
-> +{
-> +	int ret = 0;
-> +	int val = 0;
-> +	int r;
-> +
-> +	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-> +	if (ret < 0)
-> +		return ret;
-> +	/* power down */
-> +	ret = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, BMCR_PDOWN);
-> +	if (ret < 0)
-> +		goto err_restore;
-
-[Severity: Low]
-Should the BMCR_PDOWN toggles here use the same sequence as
-yt8824_power_on() and yt8824_power_down()?
-
-Those functions say BMCR_PDOWN changes "need WA like softreset". They wrap
-the change in template test mode 1 and, in external mode, SerDes
-isolation.
-
-Here the init code differs in three ways:
-
-- BMCR_PDOWN is set in normal test mode, without SerDes isolation.
-- The later BMCR_RESET runs in test mode 1, but without isolation.
-- The err_restore paths clear BMCR_PDOWN with a plain phy_modify().
-
-yt8824_internal_config_init_paged() also sets BMCR_PDOWN outside test
-mode 1.
-
-On the success path, yt8824_config_init() ends with yt8824_soft_reset(),
-which runs the full workaround, so this may not matter in practice.
-
-[ ... ]
-
-> @@ -3104,6 +4230,444 @@ static int yt8821_resume(struct phy_device *phydev)
-
-[ ... ]
-
-> +static int yt8824_read_status_paged(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +	int val;
-> +
-> +	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = genphy_read_status(phydev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete) {
-> +		ret = genphy_c45_read_lpa(phydev);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-
-[Severity: Medium]
-Can this leave a stale 2500baseT_Full bit in phydev->lp_advertising?
-
-After a link with a 2.5G-capable partner, lp_advertising has
-2500baseT_Full set. When the link drops or negotiation restarts,
-autoneg_complete is cleared. genphy_read_lpa() then clears only the
-Clause 22 bits:
-
-drivers/net/phy/phy_device.c:genphy_read_lpa() {
-    ...
-		if (!phydev->autoneg_complete) {
-			mii_stat1000_mod_linkmode_lpa_t(phydev->lp_advertising,
-							0);
-			mii_lpa_mod_linkmode_lpa_t(phydev->lp_advertising, 0);
-			return 0;
-		}
-    ...
-}
-
-genphy_c45_read_lpa() is skipped here, so nothing clears the 10GBT status
-bits. Until negotiation completes again, ethtool keeps reporting that the
-link partner supports 2.5G.
-
-The same pattern exists in yt8821_read_status().
-
-> +
-> +	if (!phydev->link) {
-> +		phydev->speed = SPEED_UNKNOWN;
-> +		phydev->duplex = DUPLEX_UNKNOWN;
-> +		if (phydev->autoneg == AUTONEG_ENABLE)
-> +			phy_resolve_aneg_pause(phydev);
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-Does this overwrite a forced speed and duplex when autoneg is disabled?
-
-With autoneg off, phydev->speed and phydev->duplex hold the user's forced
-settings. genphy_read_status()->genphy_read_status_fixed() has just read
-them back from BMCR.
-
-Suppose the user forces 100/full and then unplugs the cable. This branch
-sets speed and duplex to SPEED_UNKNOWN and DUPLEX_UNKNOWN. On the next
-phy_start(), the state machine goes through _phy_start_aneg():
-
-	if (AUTONEG_DISABLE == phydev->autoneg)
-		phy_sanitize_settings(phydev);
-
-phy_caps_lookup() finds no match for SPEED_UNKNOWN and returns the lowest
-supported mode. yt8824_config_aneg()->__genphy_config_aneg()->
-genphy_setup_forced() then programs 10Mb/s instead of 100/full.
-
-phy_state_machine() only clears speed and duplex in PHY_HALTED when
-phydev->autoneg == AUTONEG_ENABLE. Should this branch do the same?
-
-[ ... ]
-
-> +static int yt8824_config_aneg(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-> +	int phy_ctrl = 0;
-> +	int ret;
-> +
-> +	mutex_lock(&priv->shared_lock);
-> +	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-> +	if (ret < 0)
-> +		goto err;
-> +
-> +	/*
-> +	 * Only advertise 2.5G when autoneg is enabled, or when 2.5G is
-> +	 * explicitly forced.  When a different speed is forced, clear
-> +	 * ADV2_5G so a 2.5G-capable link partner cannot negotiate 2.5G.
-> +	 * __genphy_config_aneg() only rewrites the
-> +	 * clause 22 registers on the forced-speed path, so it will not
-> +	 * clear this bit.
-> +	 */
-> +	if ((phydev->autoneg == AUTONEG_ENABLE ||
-> +	     phydev->speed == SPEED_2500) &&
-> +	    linkmode_test_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT,
-> +			      phydev->advertising))
-> +		phy_ctrl = MDIO_AN_10GBT_CTRL_ADV2_5G;
-
-[Severity: Low]
-Can phydev->speed == SPEED_2500 ever be true here with autoneg disabled?
-
-phy_ethtool_ksettings_set() rejects AUTONEG_DISABLE with any speed other
-than 10, 100 or 1000:
-
-	if (autoneg == AUTONEG_DISABLE &&
-	    ((speed != SPEED_1000 &&
-	      speed != SPEED_100 &&
-	      speed != SPEED_10) ||
-
-With autoneg enabled, the first operand already decides the result. So
-the SPEED_2500 check looks like dead code, and the comment describes a
-forced 2.5G case that the core never produces.
-
-Could the condition and the comment be simplified?
-
-[ ... ]
-
-> +static int yt8824_probe(struct phy_device *phydev)
-> +{
-> +	struct device *dev = &phydev->mdio.dev;
-> +	struct yt8824_shared_priv *shared_priv;
-> +	int ret;
-> +
-> +	ret = devm_of_phy_package_join(dev, phydev, sizeof(*shared_priv));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Ensure other PHY probes wait for shared mutex initialization. */
-> +	phy_package_lock(phydev);
-> +	if (phy_package_probe_once(phydev)) {
-> +		ret = yt8824_phy_package_probe_once(phydev);
-> +		if (ret) {
-> +			phy_package_unlock(phydev);
-> +			return ret;
-> +		}
-> +	}
-> +	phy_package_unlock(phydev);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-What happens to the other PHYs in the package when
-yt8824_phy_package_probe_once() fails?
-
-phy_package_probe_once() does a test_and_set_bit() on the shared flags,
-and the bit is never cleared. So the once-bit is used up before the
-phy-mode validation runs.
-
-If phy-mode is missing, of_get_phy_mode() leaves priv->interface_mode as
-PHY_INTERFACE_MODE_NA. If phy-mode is unsupported, the rejected mode stays
-in priv.
-
-A sibling PHY may already have joined the package, for example with async
-probing. It waits on phy_package_lock() and then sees
-phy_package_probe_once() return false. It skips validation and returns 0.
-
-That PHY then binds with an NA or rejected interface_mode. Every YT8824
-op treats anything other than PHY_INTERFACE_MODE_INTERNAL as the external
-SerDes case. So config_init, soft_reset, suspend and resume run the
-SerDes sequences on a package that the driver itself rejected.
-
-Could the validation result be recorded in the shared priv, or phy-mode
-be validated on every probe, so all PHYs in the package fail the same
-way?
-
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGMdumoC/3XOyw7CIBAF0F9pWIvh1QKu/A/jgsdU8dFqUaIx/
+ XexSa0LuyG5ZM6deaEIXYCIVsULdZBCDG2TQ7kokNubZgc4+JwRI6wiklY4HstDU2ILgjPrtDZ
+ aoTx86aAOj6Fos815H+Kt7Z5Db6Kf37FCjhWJYoK9qSjxsvZCi3Ub4/J6NyfXns/L/KBPU2I/m
+ omvZlkrST232jAQckbzSSvyPT/xrInlxlEwvlZmRotJazrtFllzVYESrrbM8j+67/s3q/M0010
+ BAAA=
+X-Change-ID: 20260716-sk5jn5-be432bc99a98
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        vladimir.zapolskiy@linaro.org
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790582140; l=3854;
+ i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
+ bh=sToha8CJCLC5ewHFl2CwtyLlEuDbDp20jbqUYkChLGo=;
+ b=tIhh8Arz5NEe+WofJZp2D2JhCYLjGcAqojNcWu5J3BY4jGAjILVOVQC1GmCrd5BArREpq1OFy
+ kIIsulGeZqtClPARPEG44oQXwMgPS9aClLaPk9vTJqotVIULCpPTqo2
+X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
+ pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI4MDAzMSBTYWx0ZWRfX6clFswwcMS5m
+ eqPZM61qpC6TVfTA1BE03KQ/HqlTSTpAnYrv3GarXLL8m+MODMQu9T2RcMchJJsB93oNf8NaIDI
+ t1QtIQhpB0c0i+1XvtKmBprvoLpRqfP0sUzQbQmSQuqLgvDUbr39kbikm71i4qht7/YzYIPFDSE
+ KgNSaa8+cTxT14zEUwtZQVGr96bD0ueUwnSofbFtwfearavIre5CWTFScZr6PUtCVVD7wVtzSLa
+ OGsiZ4yqZ8mD/ScuAXXhZItyWN8vY6GZTm6KMItGx3kmRbHpZmvmZITx2CcyE4RHXEW3RMWyEkj
+ YmW6gg/Sw+ZCEL1djzIWiRIZrsUEFpBumoTk6qx9xrHrv+5+MWKol+Ke2GnBSlDRu6ROLM5Drm0
+ oKl0z06bQ6UaWoL2tPUEcb3QK4ZcT94cpCBOAHMWyrRaMKkPleyTuHyVFij6xp5GnT2wtNCv99e
+ Nhu5zLwaflwy6i8BAzQ==
+X-Authority-Analysis: v=2.4 cv=V8foQuni c=1 sm=1 tr=0 ts=6aba1d81 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=y_Jm3pi-UkWrk6VzsO0A:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: 0hfydGPJuMb8mw2P-6W7RmaCYOLYxHhu
+X-Proofpoint-GUID: 0hfydGPJuMb8mw2P-6W7RmaCYOLYxHhu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI4MDAzMSBTYWx0ZWRfXx1t7+t6iiZQd
+ QMVd1zko46WABMYXbRAkGqAY/gYZKlfmHGqioGd8d4gQ2qs8mGc4dq1aP6Vz2A+jWKpPm4GuBfS
+ k060i+fm5O3POwjOHAC8OKGFXMytt2E=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-26_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 lowpriorityscore=0 phishscore=0 impostorscore=0
+ malwarescore=0 bulkscore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609280031
+
+This series adds support for the Samsung S5KJN5, a 50 MP 10-bit RAW MIPI
+CSI-2 image sensor.
+
+This is implemented as a separate driver rather than extending the existing
+s5kjn1 driver. Although both sensors belong to the same family, they are
+different parts with different register maps and power supplies.
+Combining support for both devices in a single driver would result in very
+little shared code while introducing separate initialization and control
+paths, so keeping them as independent drivers is cleaner.
+
+Power Supplies:
+| Power Rail | S5KJN5 | S5KJN1 |
+|------------|--------|--------|
+| VDDD       | 1.0 V  | 1.0 V  |
+| VDDA       | 2.2 V  | 2.8 V  |
+| VDDIO      | 1.8 V  | 1.8 V  |
+| VDDIO1p2   | 1.2 V  | -      |
+| VDDM       | 1.0 V  | -      |
+
+Tested on the Qualcomm Hawi qrd board.
+
+---
+Changes in v5:
+- Fix build against linux-next: s5kjn5_set_fmt() and s5kjn5_get_selection()
+  now take the const struct v4l2_subdev_client_info *ci parameter. -- Nihal
+- Rebased on next-20260925
+- Link to v4: https://lore.kernel.org/r/20260914-sk5jn5-v4-0-386e84cfb2b3@oss.qualcomm.com
+
+Changes in v4:
+- Removed AGAIN/DGAIN _DEFAULT and _STEP macros, inlined min/step=1.
+- Removed S5KJN5_NUM_SUPPLIES, use ARRAY_SIZE(s5kjn5_supply_names).
+- Reordered struct s5kjn5_init_op to save padding.
+- power_on(): removed goto, single error path handled inline.
+- s_ctrl(): checked __v4l2_ctrl_modify_range() return; removed the two
+obvious comments.
+- init_controls(): moved v4l2_fwnode_device_parse() before the handler
+init; return hdlr->error directly.
+- Removed the redundant single-subdev .link_validate media entity op.
+- dev_info() -> dev_dbg() for the detection message.
+- Added blank lines before the probe() error labels.
+- Added get_selection (CROP / CROP_DEFAULT / CROP_BOUNDS / NATIVE_SIZE)
+reporting the full 8192x6144 pixel array, per the libcamera sensor
+driver requirements.
+- Link to v3: https://lore.kernel.org/r/20260806-sk5jn5-v3-0-0b3ac1eadf8a@oss.qualcomm.com
+
+Changes in v3:
+- Add vddm-supply to the regulator list.
+- Drop GBRG from Kconfig, file header and MODULE_DESCRIPTION. -- Vladimir
+- Compute pixel_rate at runtime from the link frequency instead of
+  storing it in the mode. -- Vladimir
+- Split the init sequence into two tables around the 5 ms delay and
+  drop the .delay_us field/handling. -- Vladimir
+- Remove unused v4l2_ctrl pointers and the unused <media/v4l2-device.h>.
+  -- Vladimir
+- Move all control flag setting to the end of s5kjn5_init_controls(). -- Vladimir
+- Fix s_ctrl() to apply controls when CONFIG_PM is disabled
+  (pm_runtime_get_if_active() returns -EINVAL).
+- Use S5KJN5_CHIP_ID in the init sequence; reword the clock-rate error;
+  minor style fixes (reverse x-mas tree, ret init).
+- Link to v2: https://lore.kernel.org/r/20260724-sk5jn5-v2-0-871d3b9a2e47@oss.qualcomm.com
+
+Changes in v2:
+- dt-bindings: drop the "T:" MAINTAINERS entry -- Krzysztof
+- Rename vdda2 -> vddio1p2; fix supply descriptions (vddio = 1.8 V VDD18,
+  vddio1p2 = 1.2 V VDDIO12) -- Wenmeng
+- Link to v1: https://lore.kernel.org/r/20260717-sk5jn5-v1-0-da610d7fd494@oss.qualcomm.com
+
+---
+Wenmeng Liu (2):
+      dt-bindings: media: i2c: Add Samsung S5KJN5 image sensor
+      media: i2c: Add Samsung S5KJN5 image sensor driver
+
+ .../bindings/media/i2c/samsung,s5kjn5.yaml         |  117 +
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   11 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/s5kjn5.c                         | 2863 ++++++++++++++++++++
+ 5 files changed, 2999 insertions(+)
+---
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+change-id: 20260716-sk5jn5-be432bc99a98
+
+Best regards,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260924075048.4060414-1-kyle.switch%40motor-comm.com
+Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+
