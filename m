@@ -1,145 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC013D649C
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 21:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC205012B2;
+	Mon, 28 Sep 2026 21:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790631002; cv=none; b=b7DxODd7p5sTd0fr3a9TU+odNnezwSKedcHqvXwHDGpTsOl6nTkNji4kbccvtSc/OxjOFZHEoVYiSrjC2aXxhrLJPGxcBrtT9UPn2TmHP6it1tFdorYhPnPBn/6kjAgKZ4ulxD6orZAqzx9QPctsSr8OhSgPHUlCcE2FPxjM1G8=
+	t=1790631170; cv=none; b=VjxsHQQfygZeyVJVpEBS2rIoCPsjtA8hX8WSBakE0yMS3Rrp6fkgxusHEiBQ0PbQgV2Kl8oUpreccSvkW5fbXsXp/CViMN002uq8jr77iAKONgGPfrkpsHi5HC5mlJwTrm9DKoT6DKDEnk7X4m0r/OV+VVY3FEhBEdosuHqJJMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790631002; c=relaxed/simple;
-	bh=qUtGw4OCMdtvzmAJNn+SzRWEEkJcrPXlFaXCRNQgp30=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UNPVfTIrLx7ZMYj0QFrUyXhUwdZR9V2kiiJRZlRcfm706oDbZxXT/g7buVtuPQSsURJf+9A9TZaw194joUeKVrmSriBjhWFjut7vJIZVdurNHcVueAHmSmMj0E8PV24Vj3jrdDmRhpqx3fs1ty2+a49fyPzvNBEPMl0VdUvtTds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PjSvcsYn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790631170; c=relaxed/simple;
+	bh=epNoroeavcGYBU0gF0l4Ccj9MVBTx/Y5ypuGkTvRQp4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=es5Vu3FR909wG2iPnaUXNGCR32WVJ8rCtWN+GH/Le4IWHyhPgjuEGht5DBjlPMjIC0tdcRqUNSAsUJN97lTwpGQkMctWhfyx2cbj39bdFlJ/yjmCrqo2+Syww4RputEr/XYv5rMeq5IB32CQECRTQYzD2E7HtECkMQOZcxIeNGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jkF+kUhs; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PjSvcsYn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D6931F000FF;
-	Mon, 28 Sep 2026 21:30:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790631001;
-	bh=bylSQFjbaa4DxQi8own4TbjCKlRsaJe+AmeAB7QdcH4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PjSvcsYnSfd7TZIsTiWXX55FGM2Oh5Gv/xowqavoFg9q7pdcUIq+VpFpW6o0k7KHw
-	 i1Eh985B3PpCH7eRquHVq9o3M98nZphGS38uPmgzTPhZkFLyPQzK7Tu3IpSCKUp/Rd
-	 ySjVSG+q+G65xxd+cTXI9kHgDyVysi2T+LyKi9W7aaDwu2ob0Na+406rDjxVF0YJYB
-	 tGIOTzitWIdrBT8HxjAw5Ngh+Gadgv0+cAxtH4uWZgU++GrtfSxBULcYn+fvU478N7
-	 mzjY8O6K2Oe30r/9VSuw8fRGGFqOg5tIsRXSJPMjmhVKRnJ/gGfkqR3jGhkQntV1K+
-	 FLr56OKFErUOg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 2/2] net: pse-pd: Add LTC4266 PSE controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyle Swenson" <kyle.swenson@est.tech>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260927212929.593366-3-kyle.swenson@est.tech>
-References: <20260927212929.593366-1-kyle.swenson@est.tech>
- <20260927212929.593366-3-kyle.swenson@est.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 21:30:00 +0000
-Message-Id: <20260928213001.0D6931F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jkF+kUhs"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4htvfd18H1z8vVc;
+	Mon, 28 Sep 2026 23:32:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790631161;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rXP4kntCRSr0u9GLCjjrcHN16qzZLRh3uXI4VNGJVtc=;
+	b=jkF+kUhsNBuDQ8l1B8GovLmQ2G6gJbB/kajiYp380+se5g6+slhn1RnbbaEK0kalnCNQl/
+	+Tc8KmRNwZSYanK95gQA+PimSycl4X7zo3uEJ0DiCkxhmvxen8VqngSzgmkykjEWXDPvWg
+	cBw0IWxlw73q9aDl1wTk5D5Hfx68voqpQ1hF7EPnOHXjmrNdX3BKJjmRm/bMzvnrF1f5J8
+	vx3ftHeM43gST5ayX/k/pdmxVh1/ahl1SI+vtOMbmDOFSXGGIWRyk6tHonljMyjerFx0S5
+	8YZz4VRzjUKop0+pg2SK8UZc6HroFLBQmITGvK0uzpvLfXPcgVDr+wiP76RXfA==
+Message-ID: <3bb47958-09e2-4726-85e3-8e5d3873840e@mailbox.org>
+Date: Mon, 28 Sep 2026 23:32:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H
+ PCIe4
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260928210155.GA2260978@bhelgaas>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260928210155.GA2260978@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: w9fowsmy3hfd6ozkkg67j5hakjag8bcx
+X-MBO-RS-ID: 2656e4effd21e824bcb
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] pse: incorrect devres registration order causes IRQ use-after-free
-- [High] pse: swallowing -EPROBE_DEFER causes incorrect I_CUT limit calcula=
-tion
---
+On 9/28/26 11:01 PM, Bjorn Helgaas wrote:
+> On Mon, Sep 21, 2026 at 10:27:48PM +0200, Marek Vasut wrote:
+>> Add support for R8A78000 (R-Car X5H) PCIe4.
+>>
+>> This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
+>> of R-Car X5H PCIe4 are almost all the same.
+>>
+>> The controller initialization sequence is slightly different and is
+>> factored out into controller specific callbacks, in a manner similar
+>> to previous R-Car Gen4 handling.
+>>
+>> The controller does have a PHY attached to it, but the PHY is operated
+>> by a separate PHY driver, the PHY driver instance binding is handled
+>> in rcar_gen4_pcie_get_resources() and controlled in the aforementioned
+>> controller specific callbacks.
+>>
+>> The controller driver is deliberately using "renesas,rcar-gen5-pcie4"
+>> DT compatible string to discern R-Car X5H PCIe4 controller supported
+>> by this driver, from R-Car X5H PCIe6 controller which will most likely
+>> use a separate driver.
+> 
+> The gen5/pcie4 usage is confusing.
+> 
+> I often push back on things like "PCIe Gen4" because it's ambiguous
+> (does it mean "compliant with base spec r4.0" or "supports 16 GT/s" or
+> something else), but it's so widely used to mean transfer rate that
+> it's hard to resist, and the best I can hope for is clarification.
+> 
+> But in "renesas,rcar-gen5-pcie4", I don't know what the 5 and the 4
+> mean.  Maybe "gen5" refers to some internal R-Car thing, and "pcie4"
+> is something like "PCIe Gen4, i.e., 16 GT/s"?
 
-commit 1aad2f6b5a72ee34250a04fe6ad2b8aea94fa801
-Author: Kyle Swenson <kyle.swenson@est.tech>
+Gen5 refers to R-Car Gen5 (5th R-Car SoC generation).
 
-net: pse-pd: Add LTC4266 PSE controller driver
+PCIe4 refers to the PCIe Gen4 core in the R-Car Gen5 SoC. There is also 
+PCIe Gen6 core in the same SoC, but that will require a different driver 
+and different compatible string.
 
-Add a new driver for the Linear Technology LTC4266 I2C Power Sourcing
-Equipment controller and integrate with the PSE controller core. The
-LTC4266 supports Type 1 and Type 2 Powered Devices.
+Since none of this shipped in any kernel version yet, would you prefer 
+some sort of rename ? I can send patches.
 
-> diff --git a/drivers/net/pse-pd/ltc4266.c b/drivers/net/pse-pd/ltc4266.c
-> index 0000000000000..37dea467811a4
-> --- /dev/null
-> +++ b/drivers/net/pse-pd/ltc4266.c
-[ ... ]
-> +static int ltc4266_pi_nominal_uv(struct ltc4266 *ltc4266, struct device_=
-node *np)
-> +{
-> +	struct regulator *vpwr;
-> +	int uv;
-> +
-> +	vpwr =3D of_regulator_get_optional(ltc4266->dev, np, "vpwr");
-> +	if (IS_ERR(vpwr)) {
-> +		/* -ENODEV means the PI describes no vpwr-supply at all, which
-> +		 * is the case the fallback exists for. -EPROBE_DEFER means the
-> +		 * rail _is_ described but has not registered yet, so the
-> +		 * fallback is wrong for it. Asking for a probe retry is not an
-> +		 * option from here: we run from setup_pi_matrix(), and
-> +		 * pse_controller_register() unwinds neither its notification
-> +		 * fifo nor its pse_pi array when that fails, so every retry
-> +		 * would leak. Warn instead so the assumed voltage is visible.
-> +		 */
-> +		if (PTR_ERR(vpwr) =3D=3D -EPROBE_DEFER)
-> +			dev_warn(ltc4266->dev,
-> +				 "%pOF: vpwr-supply is not registered yet, assuming %d uV\n",
-> +				 np, LTC4266_VPORT_NOMINAL_UV);
-> +
-> +		return LTC4266_VPORT_NOMINAL_UV;
-
-[Severity: High]
-Does swallowing -EPROBE_DEFER here cause an incorrect I_CUT limit calculati=
-on?
-
-If the vpwr-supply regulator is not yet registered when the LTC4266 driver
-probes, of_regulator_get_optional() returns -EPROBE_DEFER. By suppressing
-this error and falling back to a hardcoded 50V nominal voltage, the port
-might operate with an incorrect, permanently-cached power limit. This could
-result in delivering more power than administratively allowed, potentially
-damaging equipment or violating PoE budgets.
-
-[ ... ]
-> +static int ltc4266_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	ret =3D devm_pse_controller_register(ltc4266->dev, &ltc4266->pcdev);
-> +	if (ret)
-> +		return dev_err_probe(&client->dev, ret,
-> +				     "Failed to register PSE controller\n");
-> +
-> +	/* Enable the interrupt pin, and only report detect events on
-> +	 * change (detchg) so idle ports continuously re-running
-> +	 * detection in semi-auto mode don't flood the host with a
-> +	 * detect event every cycle.
-> +	 */
-> +	ret =3D regmap_update_bits(ltc4266->regmap, LTC4266_REG_MCONF,
-> +				 LTC4266_MCONF_INTERRUPT_ENABLE | LTC4266_MCONF_DETCHG,
-> +				 LTC4266_MCONF_INTERRUPT_ENABLE | LTC4266_MCONF_DETCHG);
-> +	if (ret)
-> +		return dev_err_probe(&client->dev, ret,
-> +				     "Failed to configure interrupts\n");
-> +
-> +	ret =3D devm_pse_irq_helper(&ltc4266->pcdev, client->irq,
-> +				  0, &irq_desc);
-
-[Severity: High]
-Will this devres registration order cause an IRQ use-after-free during unbi=
-nd?
-
-Because devm_pse_controller_register() is called before devm_pse_irq_helper=
-()
-in ltc4266_probe(), the devres LIFO ordering will free the IRQ first during
-module removal or probe failure teardown.
-
-After the IRQ is freed, the devres teardown will unregister the controller,
-which unconditionally calls disable_irq(pcdev->irq) inside of
-pse_controller_unregister(). If the IRQ was reassigned to another device in
-the meantime, this could disable that device's interrupt and cause a denial
-of service.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260927212929.5933=
-66-1-kyle.swenson@est.tech?part=3D2
+-- 
+Best regards,
+Marek Vasut
