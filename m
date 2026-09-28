@@ -1,224 +1,275 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020138.outbound.protection.outlook.com [52.101.69.138])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100714E4C47
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 15:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.138
-ARC-Seal:i=4; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790611143; cv=fail; b=Y8bpfTTDXBN3u82PBA0tgyxzyO00QwXwxKHlSYvn0GHohNv4xDwN8t9ByetxTsfTrDEzUwwtxxrE4SWzUCC0AbQpv08IuAnPn58ygyjFTfHjTRKn0iKnMTjc6DQuLkPSoGpYJyzpuP9oGuE4Bt31ojfyODgj6Jv4cod2bQ0rV60=
-ARC-Message-Signature:i=4; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790611143; c=relaxed/simple;
-	bh=eeA+D5gygTS81dpxY32I5CkJI6wP8EdduCzbsMqTdQY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=GCP2o31Sl9/j0eXFBcyEFecP7zv3c7Ys0/EXVwH3N99LxoBCa4IHi6O8cH0/Mq4baMw6G/9gAzhNUDSk44UndCagONeHFBJh9QE4FCfeB+6N35oDcRGddMUC83wTbYlZ3rkpRwEVY1tg6IFMt4c1iaBHKBoSJQEOLZA14LgN7FE=
-ARC-Authentication-Results:i=4; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=wHnumxwS; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=wHnumxwS; arc=fail smtp.client-ip=52.101.69.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3D14973AA;
+	Mon, 28 Sep 2026 16:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790611351; cv=none; b=cUm6sTFU0RnDEXFUY6W2qFzw70iLhnfn4habXSBQF6bNH85faTWwMVczk6LU7DRtiKQnPnzYe1YYsKrAB6OG1z+k7x/aVv4mK14dwvEMbZIRH4T7o6DAPQ+vSfToKfmlzJaXU1nRo7dJda4c45/YK252Or/ZNFe3DWGOPdovFjE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790611351; c=relaxed/simple;
+	bh=kB2Grr9IfR5u5AI9gvycM4xtP0qy6KezVqhWqRj5hZM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=QVYXe6zbwusvOcjpk0bLf0dEYm72A/QQd1autrdhg/97NW+J480tUHO6dSWBZuDif2MBThlnh+n4dW69Pyb9fpb0oX1cniAplu9d5SjMxi0DjQVplH/F66yPU2EMxh7uDlgHFNBS1Ma+cnzGUY85Yeh3bNSbj5MRuKhz3PlWL00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=k1kmipKc; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="wHnumxwS";
-	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="wHnumxwS"
-ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=QBxNVVyqe4MZ1Fe4tOfsphVo1z+ZdtwKK3nTjADZ5PDEn2Udv8YFthWpvR3hmx0unQZAA9Wc0BR1jVibFLzGpRFlQcWk8SB2td78mSqGpD82YxZdNijZO5ord3TMzJC4CS6FW8U+G8qgb1knPMXtnDdCvrcneDnmXX5m2FqB1gEGdR3TOHqrCIMARV6opF8CyPRwXTIEl6VfuvJXozWqMZheKwxLHhi6/BUEIilmDXGL6sAizcHU5RqYTKDt3VkqN91p+Y4AU+uXL8anSR0cYozQ88PxVFCbWWKJTyMBn0PKirgkrIs73ZBMrmqwlEya4jad5HSgS0cueCt9/hRjlQ==
-ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eeA+D5gygTS81dpxY32I5CkJI6wP8EdduCzbsMqTdQY=;
- b=VHolNPuXuNvG/WrUHKFfVp0UdO/F3cAAz2dufDTl5RGFOncKHefle13SxrNvLxKEVKvC87lvaAji2O26wSFQ/wsofE3NInNxMpLhQ+wfYMITjO55w4p+V9IV4uMgfciB6vPE5v0stebG66D32QicGxqffLXcCLRUjZZCFOZchLclx7r0lDQyBKZFUV8OIm9VDinDL2+q5DpzVnn1olgknXt1SrnpD4BuDZ1e1M6IJQe3X/VRe0vNX33pvOxHPogk7eh5Oo4iWXHSTmPq/FQZCbTqhDPrL0/Y/2PUSC5XxE5Q9fVA8tfWaggeBCDTBO+0z5u4Fe8aRQvM9MEqlGk/Aw==
-ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=fail (sender ip is
- 52.17.62.50) smtp.rcpttodomain=kernel.org smtp.mailfrom=solid-run.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=solid-run.com; dkim=pass (signature was verified)
- header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,2,header.d=solid-run.com]
- dmarc=[1,1,header.from=solid-run.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eeA+D5gygTS81dpxY32I5CkJI6wP8EdduCzbsMqTdQY=;
- b=wHnumxwSJYK7qCJ9rECgTic53ZKNSkNjVmHvw/Knne8r5Zs4YqWAU6dhr4ctmd1lLlxatcA1wOrV/cWAy3v6WJEPzhePKGQPc8WrYq5If6YOrOV+ZPIPKJmC+u5YhXJU64WpbmhrJ+OCSpVSvLJBGyNwW896+9iMmFmMH9XQFlk+3SblLuBzBYnX0gmWS6VKyIky17hCFjAz3o3aBTdddCt7vbiar0TXL/HpUw/WYtvlzjGJVZ735eZIXPTJAhSXRgWTK9XAeFRIB8dcG5a2CRDK11Cq3RpQI7EInI4NxWzg22NCqm5WNoXzSfHmwHER98Y6uyZT18ZHIotkIcNsFQ==
-Received: from AS4PR10CA0006.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5dc::6)
- by AS8PR04MB7991.eurprd04.prod.outlook.com (2603:10a6:20b:289::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 15:58:56 +0000
-Received: from CPH1EPF0000051D.eurprd04.prod.outlook.com
- (2603:10a6:20b:5dc:cafe::83) by AS4PR10CA0006.outlook.office365.com
- (2603:10a6:20b:5dc::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.24 via Frontend Transport; Mon,
- 28 Sep 2026 15:58:56 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 52.17.62.50) smtp.mailfrom=solid-run.com; dkim=pass (signature was
- verified) header.d=solid-run.com;dmarc=pass action=none
- header.from=solid-run.com;
-Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
- designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
-Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
- CPH1EPF0000051D.mail.protection.outlook.com (10.167.241.232) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Mon, 28 Sep 2026 15:58:55 +0000
-Received: from emails-323255-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-6-124.eu-west-1.compute.internal [10.20.6.124])
-	by mta-outgoing-dlp-814-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id A66127E922;
-	Mon, 28 Sep 2026 15:58:55 +0000 (UTC)
-ARC-Seal: i=2; cv=pass; a=rsa-sha256; d=checkpointcloudsec.com;
- s=arcselector01; t=1790611135;
- b=mA2GhU120u5rrkgTV2CBUl1ySmI0VxY2y5MOHyz2dOor4SCP3JDeHSqf07rzmRoohkL0/
- A+Z0ty0tvjvtziJ8ZRJqNpVO2C3KLQWTCk9Ghm0Qey+mepi9JjoXpkYDfBlkVW4LzmoyAp7
- yHff+tm/uNh792hLCvCqcF3P9RoziGA=
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed;
- d=checkpointcloudsec.com; s=arcselector01; t=1790611135; h=from : to :
- subject : date : message-id : content-type : mime-version;
- bh=eeA+D5gygTS81dpxY32I5CkJI6wP8EdduCzbsMqTdQY=;
- b=XVMHa3IVd2uKSgWqSZ/7IleflEf3/8O1O+E0bhdfRQZPcWRS0pjbcDFXP6Z81zfXF3xrO
- rnlToOXN8o8LtR4+OTNyR2bErWleOd9iBJiSRoFxqPyBohGHlMvRuqswxhYkmPc/jlTUkKJ
- PBAldhRSxyaSFaOI/e5d4XqKOjLI9i4=
-ARC-Authentication-Results: i=2; mx.checkpointcloudsec.com;
- arc=pass;
- dkim=pass header.d=solid-run.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eeA+D5gygTS81dpxY32I5CkJI6wP8EdduCzbsMqTdQY=;
- b=wHnumxwSJYK7qCJ9rECgTic53ZKNSkNjVmHvw/Knne8r5Zs4YqWAU6dhr4ctmd1lLlxatcA1wOrV/cWAy3v6WJEPzhePKGQPc8WrYq5If6YOrOV+ZPIPKJmC+u5YhXJU64WpbmhrJ+OCSpVSvLJBGyNwW896+9iMmFmMH9XQFlk+3SblLuBzBYnX0gmWS6VKyIky17hCFjAz3o3aBTdddCt7vbiar0TXL/HpUw/WYtvlzjGJVZ735eZIXPTJAhSXRgWTK9XAeFRIB8dcG5a2CRDK11Cq3RpQI7EInI4NxWzg22NCqm5WNoXzSfHmwHER98Y6uyZT18ZHIotkIcNsFQ==
-Received: from MMZPR04MB400504.eurprd04.prod.outlook.com (2603:10a6:190:28::8)
- by AS8PR04MB8054.eurprd04.prod.outlook.com (2603:10a6:20b:2a8::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 28 Sep
- 2026 15:58:46 +0000
-Received: from MMZPR04MB400504.eurprd04.prod.outlook.com
- ([fe80::2f52:2d22:c7b3:4292]) by MMZPR04MB400504.eurprd04.prod.outlook.com
- ([fe80::2f52:2d22:c7b3:4292%5]) with mapi id 15.21.0451.022; Mon, 28 Sep 2026
- 15:58:45 +0000
-From: Josua Mayer <josua@solid-run.com>
-To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
-CC: "wsa+renesas@sang-engineering.com" <wsa+renesas@sang-engineering.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "robh@kernel.org"
-	<robh@kernel.org>
-Subject: Re: [PATCH v9 08/11] arm64: dts: renesas: add support for solidrun
- hb-ripple with rzg2l som
-Thread-Topic: [PATCH v9 08/11] arm64: dts: renesas: add support for solidrun
- hb-ripple with rzg2l som
-Thread-Index: AQHdT1c5zjX6e9DUV0StdEu6eeP1PbbkEv0AgAASz4A=
-Date: Mon, 28 Sep 2026 15:58:45 +0000
-Message-ID: <dd07019d-1edb-4049-a72c-136381a662c2@solid-run.com>
-References: <20260928-rzg2-sr-boards-v9-0-5901e0fc9e44@solid-run.com>
- <20260928-rzg2-sr-boards-v9-8-5901e0fc9e44@solid-run.com>
- <20260928145126.EE65E1F000FF@smtp.kernel.org>
-In-Reply-To: <20260928145126.EE65E1F000FF@smtp.kernel.org>
-Accept-Language: de-DE, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=solid-run.com;
-x-ms-traffictypediagnostic:
-	MMZPR04MB400504:EE_|AS8PR04MB8054:EE_|CPH1EPF0000051D:EE_|AS8PR04MB7991:EE_
-X-MS-Office365-Filtering-Correlation-Id: 877a860b-6a5e-4e78-a5d1-08df1d7966b1
-x-cloud-sec-av-info: solidrun,office365_emails,sent,inline
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10070799003|38070700021|6133799003|10067099003|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original:
- 4XvH2IKGiNikDk0UnRbcevpHxVHBy/vX+2AoxN8eiXW80YUs8kQFwbmCfzmK6tzhJAGzjXWvp8ZVOuNLsmc6wfAB+PLhdgsPBGnnGvE0VAHHXEYOrBD62iilREj/+TBli9OjxsC+muL+q+Hffljm3Gw4UReBdF2VAy5B/jDI+uPU41pP9VGOGEQNX/0K7uuG+IIBAj9L58XjyBB4dWvPDhomx4HUVHHF9X+DTBfEvf0ujxe2+OGBFUpMOhvZmVmog+PvFENfPS6mGxJmGj4UoE02kFtDjxe4vtEsuJux0FWcWeJCCCINtCzLTpBmHl8aeIa5ivR1D5lQx93Je3CvpCWujm2LH5V5CcuatlOd5ZB6hc3ZWxRvNDQG1peosfTL2XjJtiSz+lFNGPc+4SWWNZfZKDlVLe4kliUTW2H+Bb2yb0uPB1XjbdoXm7aKrEK6VIyJT1hjBK+ikL2165SMieIqfmSqEK4GiJfs0n1yjzFZ5m5w/9RoORXgNvD7emZhQ9CTG5VAZzZqqDjnIso9Y7L60RGO2Bqw00sJO9a4vu0cZ1hgHVqnUKjyDgdgNYnpUX3ZW3lXGXzosHmgUrXjh5JPkL4CXUB2O/pKgStuqBDOulaywwO0uwnKmugo5Nx1rw0im3CbGKcf/k4x9NLLSGyYXD/hWeGvlijpxL3LcAcXTm5Zaz6b94Aw5DuoSA4/Kcty1MaB0Noa6wmHUOscDg==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MMZPR04MB400504.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10070799003)(38070700021)(6133799003)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <478B772B6BB7864894BAA02184C18E8A@eurprd04.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="k1kmipKc"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 33ECE1A0FDE;
+	Mon, 28 Sep 2026 16:02:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 05597601BD;
+	Mon, 28 Sep 2026 16:02:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C436103295A7;
+	Mon, 28 Sep 2026 18:02:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790611340; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=z+FTNcI1ZVOGKwAwbJoRaB+RsZ8LwvDolH15T9JS/r0=;
+	b=k1kmipKcbgZK4+GJAxsjcIf58jtCIK8Ge5m2VLrsc5Ogh51sBKvy57GnvRupbQn/aowVH2
+	fOZWSMGi/T29Rq3hzIXs3g4wpdEXw/wRKJnRbqcBGGHbCNHV96L/dj3wcE0IL47TJ4v0Xb
+	xdMqzefAm1ro38v6E4yIyy7npBFsltDigNYgMXI+MHxvIKkvcG1f2sued4say67tUtepFn
+	f0hyPinq8oEPPnPg7iossaiTuyf5ByO1x+gWYi11ELovX+eZlhvBig0Zy9iTgB3iWkQhqW
+	NYGugVv040UixzMO5+G0wm3W39CO4fPWo520T9ocP2ddYAJeM6E11rffaUMMcQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v4 5/6] clk: nuvoton: ma35d1: Use clk_hw pointers as mux
+ parents
+In-Reply-To: <1jeceeaaug.fsf@starbuckisacylon.baylibre.com> (Jerome Brunet's
+	message of "Sun, 27 Sep 2026 19:00:07 +0200")
+References: <20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com>
+	<20260925-perso-ma35d1-upstream-clk-v4-5-f3697553391f@bootlin.com>
+	<1jeceeaaug.fsf@starbuckisacylon.baylibre.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 28 Sep 2026 18:02:12 +0200
+Message-ID: <87h5j974aj.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
- cGhGGJEZz+UYi7M63bBhqAJ9MZWlYl/7jG0ABqDsn51uxdJlaysyxjQfD3MJyEEWZ+ETCvYm+YH5jtyu8Cgox5WBfOg5Pc/nCchZmI/LGm7Zx26lVWsGHdfYn+RYU7E/1jovnoszOtWX+slUzAxhYBwMS9I4tAf8jEbLTqaLcdYUeKuZSDpkbwbXSXQRuTJNaODH8/jqWnfQwUxb4UA97tGLFFpfNsRV3KIxO78pmbN2RbanvdFEYpS0aIPyqTqcqD+X/oqrh1jf4HI8TkyANtO2D+5kYP3eDZwSEP5L4wv5BmaR+7XUO+kE8nIcnfd8m9CQkHBccTW8ef560t063Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8054
-X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2.checkpointcloudsec.com>
-X-CLOUD-SEC-AV-UUID: 2a31572c25b54ef7a76f1ebe3dddc1c3:solidrun,office365_emails,sent,inline:ade3458db116489e4e1f8e290e25c19e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JoIzl5cqKxylLS37ttHx1CydS1GG1Ao2Zd4TpmwgGUPoDMgOjqsbV50yiILS05KhWhLyfLvMphsJC3NzoiSMKhVLDB6OdWdQLYwYWu/MiNH+Dx2Bqjvzu9lKx62o5kbeVjucg5oVpTWcuoL8X4TpQ4qwOkchBbxtHV2i/b38D8xApeD1nUtBpA5/oKtAvrcHJKWyISNUnR5vL9OEUYUtWaEo5r3EmZsAlgjsVBk/gDCjMlYrrvIJosK/1NU2Fu+gu6gatmEYYX/3c0I2OU/6n3RIzjkF5oNhoqENuJQoMu3WcuM6KNfeb0a0Lp9Y3kWsN6XgCaYjfp9LsBFyx3D3fQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eeA+D5gygTS81dpxY32I5CkJI6wP8EdduCzbsMqTdQY=;
- b=RUl4eoGMANgbVINSOGjzji7k9tkv2rxj6jiVfWW2tuf0Z3Ugqabyvb/kADFiiLsPRD3GrkVQolQpQhs40qtmGjYQf8owp0+VFQjL4+XQmKE2XZrwEdMu782fRNJ0BTLQTAWg6Z958psjruaJW/LrZBcJtKymeTvtpjrnjn0nD6k1daUGW1fNZwuFvwBl41h5knIUpLepXANFY0l5zqmG1Kz+tuOdx1kbGJaMKOZ5yto2YOKemqLinEFWoeT0C5CPQXz8PfFGDHHbwJgpLe4MLDTv9kZSobJRxFINBqyjFbZ4dzAqE82DlApKqDBDQrFEAvVZAITBiYk3/4uiLta6Ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=solid-run.com; dmarc=pass action=none
- header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
-Authentication-Results-Original: mx.checkpointcloudsec.com; arc=pass;
- dkim=pass header.d=solid-run.com
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- CPH1EPF0000051D.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	2ac78ab8-1f55-477d-965c-08df1d79608e
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|14060799003|36860700016|23010399003|1800799024|376014|35042699022|10067099003|6133799003|18002099003|22082099003|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	605nTvWqLo1EGA8oMrQQXtFKjftHGFlYw7Mv+67DkAhkBJGp9+myfacKkqG+PSpzWne8zTxPKBRXa9y15kTzXlg3aBexdKPW5nJ3yd+gACtXgZ61YFuqBqSOSWfEAIHOvNEwosp88N2G/NB9ohIXxthLv5oWDp7kk+VuxyhrYgeA2j4iHLGprQtR5MZWnHAtdaFcGK8aMw1uFC0TI3oVNGuRdeJeZdvvHPjjgGGMCy0zCD0pygtCgoruBJ3dmQgf6bZV0EUIcPRVbvb9lvLUS48mYq0955WsYhX5h9L0Lh3VFjDTwxEgU2zZj+onllQkM/v8fiHg6z6BWmtsIkO9un4M2Xyd/nhGsN+7RHJzxOK50BmBHIwFfyuMLLZZdyqoHe8v3bIWfOsBU1pnnUv1iUReKrb2nW/2WHrulsiNgKJX7Ivsb0O+FeaXwgeJ3/VErb4xS1Qnvbf6S70+r9QppYOu00aljrgdZZW6f+WmppzeuaOh5xzWME9ygHE0WMLElLoupr6nJkLrB2tz7NPprvNt0Stl6v8i0PULFKX74OsUAPBjVUGGzm6+L7E9rXoF0znNZrmbQ8WkUCSkx6wKvm4gS2Burc2Eo5VdH6d8+4cBtM/E+Iz5sPvXCCknI5hofbh6lPwpgfCzDzaFugoxv+J1KF8Eb/5/WBNCLEN86Cga8wVH9bW36HNxEbyG4KmW2ayitIjbwBefSJlSM5drEA==
-X-Forefront-Antispam-Report:
-	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(82310400026)(14060799003)(36860700016)(23010399003)(1800799024)(376014)(35042699022)(10067099003)(6133799003)(18002099003)(22082099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5nJJsy4XCRJ4qc+7uFN+z14jOXjWKvtI0a5GSIB6LTkL1PRYAlYcfHyuqkh34uQG86Vp47U+luj8T8bJ4Sx2OkU2acZbFM47QNbN9pEZ5oAORlGJIJJG9f08MOY0ISPLO06U4lbqlARfs0KkLwWWc6mGjAIYHnXOejo/agY46e8YgDFJtT9k7MUP0JARAaNsQMPvqgAvx+8QcRUEMxQw2V/Lvfro9hu8zvxe3A9ETS8lt9Jvlqu71Z+85jjaBEI3hG9Cgac66+6iR+90WLZeRXpF1n9NbnmuCx2TYSfVNMkrvJoQNrIv1IgLkvbngTNE6iPG9XJBkDqrzZ6W+Cj1QzQf7KC/Fv6nxRKX9Mqw8id3tr6SHEytnH9uZuRp88Dd68kotJGBlcZz2UKuvz+ffzANZyjY+ZkqGVdrHwGo0x6Ywv+2+SRVLX1aTV+ks/UC
-X-OriginatorOrg: solid-run.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Sep 2026 15:58:55.9763
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 877a860b-6a5e-4e78-a5d1-08df1d7966b1
-X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CPH1EPF0000051D.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7991
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-QW0gMjguMDkuMjYgdW0gMTY6NTEgc2NocmllYiBzYXNoaWtvLWJvdEBrZXJuZWwub3JnOg0KPiBU
-aGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3VuZCAx
-IHBvdGVudGlhbCBpc3N1ZShzKSB0byBjb25zaWRlcjoNCj4gLSBbTG93XSBkdHM6IHJlZHVuZGFu
-dCBkdXBsaWNhdGUgaW5jbHVkZSBvZiBoZG1pIGR0c2kNCj4gLS0NCj4NCj4gY29tbWl0IDI0MjM3
-ODMyNGMzNzcxMTQxOTJjNWNhY2Q0YmVkODRhZGJmODA4ODINCj4gQXV0aG9yOiBKb3N1YSBNYXll
-ciA8am9zdWFAc29saWQtcnVuLmNvbT4NCj4NCj4gYXJtNjQ6IGR0czogcmVuZXNhczogYWRkIHN1
-cHBvcnQgZm9yIHNvbGlkcnVuIGhiLXJpcHBsZSB3aXRoIHJ6ZzJsIHNvbQ0KPg0KPiBUaGlzIGNv
-bW1pdCBhZGRzIHN1cHBvcnQgZm9yIHRoZSBTb2xpZFJ1biBIdW1taW5nQm9hcmQgUmlwcGxlIGJv
-YXJkIHdpdGgNCj4gdGhlIFJaL0cyTCBTb00uIEl0IGNyZWF0ZXMgbmV3IGRldmljZSB0cmVlIGNv
-bmZpZ3VyYXRpb25zIGFuZCBleHRyYWN0cw0KPiBjb21tb24gY29tcG9uZW50cyBsaWtlIG1pY3Jv
-LUhETUkgaW50byBzaGFyZWQgaW5jbHVkZSBmaWxlcy4NCj4NCj4+IGRpZmYgLS1naXQgYS9hcmNo
-L2FybTY0L2Jvb3QvZHRzL3JlbmVzYXMvcjlhMDdnMDQ0bDItaHVtbWluZ2JvYXJkLXJpcHBsZS5k
-dHMgYi9hcmNoL2FybTY0L2Jvb3QvZHRzL3JlbmVzYXMvcjlhMDdnMDQ0bDItaHVtbWluZ2JvYXJk
-LXJpcHBsZS5kdHMNCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+PiBpbmRleCAwMDAwMDAwMDAw
-MDAwLi40OTNhMmI5YjUxZDI1DQo+PiAtLS0gL2Rldi9udWxsDQo+PiArKysgYi9hcmNoL2FybTY0
-L2Jvb3QvZHRzL3JlbmVzYXMvcjlhMDdnMDQ0bDItaHVtbWluZ2JvYXJkLXJpcHBsZS5kdHMNCj4+
-IEBAIC0wLDAgKzEsMTcgQEANCj4+ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogKEdQTC0y
-LjAtb25seSBPUiBCU0QtMi1DbGF1c2UpDQo+PiArLyoNCj4+ICsgKiBDb3B5cmlnaHQgMjAyNSBK
-b3N1YSBNYXllciA8am9zdWFAc29saWQtcnVuLmNvbT4NCj4+ICsgKi8NCj4+ICsNCj4+ICsvZHRz
-LXYxLzsNCj4+ICsNCj4+ICsjaW5jbHVkZSAicjlhMDdnMDQ0bDIuZHRzaSINCj4+ICsjaW5jbHVk
-ZSAicnpnMmwtc3Itc29tLmR0c2kiDQo+PiArI2luY2x1ZGUgInJ6ZzJsLWh1bW1pbmdib2FyZC1y
-aXBwbGUuZHRzaSINCj4+ICsjaW5jbHVkZSAicnpnMmwtaHVtbWluZ2JvYXJkLXB1bHNlLW1pY3Jv
-LWhkbWkuZHRzaSINCj4gW1NldmVyaXR5OiBMb3ddDQo+IElzIHRoaXMgaW5jbHVkZSBvZiByemcy
-bC1odW1taW5nYm9hcmQtcHVsc2UtbWljcm8taGRtaS5kdHNpIHJlZHVuZGFudD8NCj4NCj4gSXQg
-bG9va3MgbGlrZSB0aGlzIGhkbWkgZHRzaSBpcyBhbHJlYWR5IGluY2x1ZGVkIGJ5DQo+IHJ6ZzJs
-LWh1bW1pbmdib2FyZC1yaXBwbGUuZHRzaSwgd2hpY2ggaXMgaW5jbHVkZWQganVzdCBvbmUgbGlu
-ZSBhYm92ZS4NCj4gVGhpcyByZXN1bHRzIGluIHRoZSBkZXZpY2UgdHJlZSBjb21waWxlciBwYXJz
-aW5nIHRoZSBzYW1lIGhkbWkgbm9kZXMNCj4gdHdpY2Ugd2hlbiBjb21waWxpbmcgcjlhMDdnMDQ0
-bDItaHVtbWluZ2JvYXJkLXJpcHBsZS5kdHMuDQo+DQo+IFsgLi4uIF0NCj4NCj4+IGRpZmYgLS1n
-aXQgYS9hcmNoL2FybTY0L2Jvb3QvZHRzL3JlbmVzYXMvcnpnMmwtaHVtbWluZ2JvYXJkLXJpcHBs
-ZS5kdHNpIGIvYXJjaC9hcm02NC9ib290L2R0cy9yZW5lc2FzL3J6ZzJsLWh1bW1pbmdib2FyZC1y
-aXBwbGUuZHRzaQ0KPj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQNCj4+IGluZGV4IDAwMDAwMDAwMDAw
-MDAuLmQ1YmQ5YjdkZTQyODINCj4+IC0tLSAvZGV2L251bGwNCj4+ICsrKyBiL2FyY2gvYXJtNjQv
-Ym9vdC9kdHMvcmVuZXNhcy9yemcybC1odW1taW5nYm9hcmQtcmlwcGxlLmR0c2kNCj4+IEBAIC0w
-LDAgKzEsMTI1IEBADQo+PiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwtMi4wLW9u
-bHkgT1IgQlNELTItQ2xhdXNlKQ0KPj4gKy8qDQo+PiArICogQ29weXJpZ2h0IDIwMjUgSm9zdWEg
-TWF5ZXIgPGpvc3VhQHNvbGlkLXJ1bi5jb20+DQo+PiArICovDQo+PiArDQo+PiArI2luY2x1ZGUg
-InJ6ZzJsLWh1bW1pbmdib2FyZC1wdWxzZS1jb21tb24uZHRzaSINCj4+ICsjaW5jbHVkZSAicnpn
-MmwtaHVtbWluZ2JvYXJkLXB1bHNlLW1pY3JvLWhkbWkuZHRzaSINCj4gW1NldmVyaXR5OiBMb3dd
-DQo+IEhlcmUgaXMgdGhlIG90aGVyIGluY2x1c2lvbiBpbnNpZGUgcnpnMmwtaHVtbWluZ2JvYXJk
-LXJpcHBsZS5kdHNpLiBXb3VsZA0KPiBpdCBtYWtlIHNlbnNlIHRvIGRyb3AgdGhlIGR1cGxpY2F0
-ZSBpbmNsdWRlIGZyb20gdGhlIHRvcC1sZXZlbCBkdHMgZmlsZQ0KPiB0byBrZWVwIHRoZSBpbmNs
-dWRlcyBvcmdhbml6ZWQ/DQo+DQpTbyBJIGFkZGVkIGEgcmVncmVzc2lvbiA6KA0Kc29ycnkgYWJv
-dXQgdGhhdCwgdjkgaXMgbm90IHJlYWR5IHRvIGJlIG1lcmdlZC4NCg0KSSB3aWxsIGRyb3AgdGhl
-IGR1cGxpY2F0ZSBpbmNsdWRlIGZvciB2MTAuDQoNCg==
+On 27/09/2026 at 19:00:07 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
+
+> On ven. 25 sept. 2026 at 17:10, Miquel Raynal <miquel.raynal@bootlin.com>=
+ wrote:
+>
+>> The MA35D1 clock provider registers its muxes with parent data
+>> structures filling .fw_name. This is not the ideal approach since that
+>> would require a massive amount of internal clock names declaration in
+>> the DT. Since the DT does not play the game of exposing all these names,
+>> none of the parent lookups performed when instantiating the muxes
+>> succeed. As a result, these muxes get registered as root clocks, leading
+>> to a sadly flat clock tree and no frequency assigned to most of the
+>> peripheral clocks:
+>>
+>>                                  enable  prepare  protect
+>>    clock                          count    count    count        rate
+>>
+>>  usbphy1                             0       0        0        480000000
+>>  usbphy0                             0       0        0        480000000
+>>     husbh1_gate                      0       0        0        480000000
+>>     husbh0_gate                      0       0        0        480000000
+>>     usbh_gate                        0       0        0        480000000
+>>     usbd_gate                        0       0        0        480000000
+>>  syspll                              0       0        0        180000000
+>>  lirc                                0       0        0        32000
+>>     lirc_gate                        0       0        0        32000
+>>  hirc                                0       0        0        12000000
+>>     gtmr_gate                        0       0        0        12000000
+>>     hirc_gate                        0       0        0        12000000
+>>  lxt                                 0       0        0        32768
+>>     rtc_gate                         0       0        0        32768
+>>     lxt_gate                         0       0        0        32768
+>>  hxt                                 0       0        0        24000000
+>>     vpll                             0       0        0        1224000000
+>>        dcup_div                      0       0        0        612000000
+>>     epll                             0       0        0        6000000000
+>>        epll_div8                     0       0        0        750000000
+>>
+>>        epll_div4                     0       0        0        1500000000
+>>        epll_div2                     0       0        0        3000000000
+>>           emac1_gate                 0       0        0        3000000000
+>>
+>>           emac0_gate                 0       0        0        3000000000
+>>
+>>     apll                             0       0        0        6048000000
+>>     ddrpll                           0       0        0        266460000
+>>        ddr_gate                      0       0        0        266460000
+>>        ddr6_gate                     0       0        0        266460000
+>>        ddr0_gate                     0       0        0        266460000
+>>     capll                            0       0        0        2400000000
+>>     hxt_gate                         0       0        0        24000000
+>>  clk_hxt                             0       0        0        24000000
+>>  spi3_mux                            0       0        0        0
+>>     spi3_gate                        0       0        0        0
+>>  spi2_mux                            0       0        0        0
+>>     spi2_gate                        0       0        0        0
+>>  spi1_mux                            0       0        0        0
+>>     spi1_gate                        0       0        0        0
+>>  spi0_mux                            0       0        0        0
+>>     spi0_gate                        0       0        0        0
+>>  i2s1_mux                            0       0        0        0
+>>     i2s1_gate                        0       0        0        0
+>>  i2s0_mux                            0       0        0        0
+>>     i2s0_gate                        0       0        0        0
+>> ...
+>>
+>> Apart from the wrong clock tree representation, it means that none of
+>> the device drivers (spi & i2c in the excerpt above) can actually query
+>> their clock rate, or they would get 0Hz.
+>>
+>> Instead of declaring the parents in the clk_parent_data structure, use
+>> the actual HW clocks to lookup the parents directly: parents are
+>> described by an array of indices into the controller's main clock table
+>> (like in other clock controller drivers), which the "new" mux helper now
+>> resolves.
+>>
+>> The WDT and WWDT muxes list the /4096 children of PCLK3 and PCLK4 among
+>> their possible parents. Those two clocks are now registered by the
+>> previous commit, so their entries in the parent tables are restored
+>> instead of being turned into invalid slots.
+>>
+>>                                  enable  prepare  protect
+>>    clock                          count    count    count        rate
+>>
+>>  usbphy1                             0       0        0        480000000
+>>  usbphy0                             0       0        0        480000000
+>>     husbh1_gate                      0       0        0        480000000
+>>     husbh0_gate                      0       0        0        480000000
+>>     usbh_gate                        0       0        0        480000000
+>>     usbd_gate                        0       0        0        480000000
+>>  syspll                              1       1        0        180000000
+>>     dbg_mux                          0       0        0        180000000
+>>     sdh1_mux                         0       0        0        180000000
+>>        sdh1_gate                     0       0        0        180000000
+>>     sdh0_mux                         0       0        0        180000000
+>>        sdh0_gate                     0       0        0        180000000
+>>     sysclk1_mux                      2       2        0        180000000
+>>        pclk4                         0       0        0        90000000
+>>        pclk3                         0       0        0        90000000
+>>           sspcc_gate                 0       0        0        90000000
+>>           ssmcc_gate                 0       0        0        90000000
+>>        hclk3                         0       0        0        90000000
+>>        pclk2                         0       0        0        180000000
+>>           eadc_div                   0       0        0        90000000
+>>              eadc_gate               0       0        0        90000000
+>>           qei1_gate                  0       0        0        180000000
+>>           ecap1_gate                 0       0        0        180000000
+>>           spi3_mux                   0       0        0        180000000
+>>              spi3_gate               0       0        0        180000000
+>>           spi1_mux                   0       0        0        180000000
+>>              spi1_gate               0       0        0        180000000
+>>           epwm1_gate                 0       0        0        180000000
+>>           i2c5_gate                  0       0        0        180000000
+>>           i2c2_gate                  0       0        0        180000000
+>>        pclk1                         0       0        0        180000000
+>>           qei2_gate                  0       0        0        180000000
+>>           qei0_gate                  0       0        0        180000000
+>>           ecap2_gate                 0       0        0        180000000
+>>           ecap0_gate                 0       0        0        180000000
+>>           spi2_mux                   0       0        0        180000000
+>>              spi2_gate               0       0        0        180000000
+>>           spi0_mux                   0       0        0        180000000
+>>              spi0_gate               0       0        0        180000000
+>>           epwm2_gate                 0       0        0        180000000
+>>           epwm0_gate                 0       0        0        180000000
+>>           i2c4_gate                  0       0        0        180000000
+>>           i2c1_gate                  0       0        0        180000000
+>>        pclk0                         1       1        0        180000000
+>>           adc_div                    0       0        0        90000000
+>>              adc_gate                0       0        0        90000000
+>>           qspi1_mux                  0       0        0        180000000
+>>              qspi1_gate              0       0        0        180000000
+>>           qspi0_mux                  1       1        0        180000000
+>>              qspi0_gate              1       1        0        180000000
+>>
+>>           i2c3_gate                  0       0        0        180000000
+>>           i2c0_gate                  0       0        0        180000000
+>>
+>> Fixes: f50a000b4219 ("clk: nuvoton: Use clk_parent_data instead of strin=
+g for parent clock")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+>> ---
+>>  drivers/clk/nuvoton/clk-ma35d1.c | 626 +++++++++++---------------------=
+-------
+>>  1 file changed, 177 insertions(+), 449 deletions(-)
+>>
+>> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-=
+ma35d1.c
+>> index c914079cee2d..1a857f28310f 100644
+>> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+>> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+>> @@ -63,300 +63,49 @@ static DEFINE_SPINLOCK(ma35d1_lock);
+>>  #define PLL_MODE_FRAC           1
+>>  #define PLL_MODE_SS             2
+>>=20=20
+>> -static const struct clk_parent_data ca35clk_sel_clks[] =3D {
+>> -	{ .fw_name =3D "hxt", },
+>> -	{ .fw_name =3D "capll", },
+>> -	{ .fw_name =3D "ddrpll", },
+>> -};
+>> +#define MA35D1_MUX_MAX_PARENTS	10
+>
+> I'm bit puzzled how this was supposed to work before. Most of those
+> inputs are not present in binding doc. The controller was supposed get
+> clocks from itself through DT ???
+
+No idea why it has been written like that. Just to keep things clear, my
+re-write is a fix, not a cleanup. Without it, the SPI controller does
+not probe and I care about the SPI controller being fixed in this cycle.
+
+> There is one input documented though. It seems to be hxt, so you should
+> probably continue to use fw_name for this one at least.
+
+"documented" is maybe a bit strong. There is one reference to a phandle
+named clk_hxt, that's it? I don't think it qualifies as a validated
+binding :)
+
+> That being said, the bindings doc seems wrong. Looking at the driver you
+> should have 4 inputs (hxt, lxt, hirc, lirc), unless those are actually
+> generated on SoC ? Since there is already a DT using these, I suppose it
+> is too late for the last 3 and you'll be stuck pretending they are
+> generated in this controller :/
+
+The TRM identifies:
+- HXT and LXT as external crystal oscillators
+- HIRC and LIRC as internal RC oscillators
+So we want an accurate description, HXT/LXT are worth declaring, but not
+HIRC/LIRC.
+
+There is no way to fix this without a breaking change.
+
+My approach for these clocks:
+- Describe lxt like hxt in the DT. In the driver, I will take it from
+  DT, or fallback to a known base rate otherwise (so no breaking
+  change). This is possible since the TRM itself forces the rate of the
+  two oscillators. I will also ask for clock names in the binding.
+- Fix the name of the output clocks to match the driver (use "hxt"
+  instead of "clk_hxt" in the DT). I could fix the driver instead, but
+  all other clocks would be named differently, which would be
+  strange. So since we anyway *need* a DT update, let's go for a clean
+  naming.
+
+The other patches can still go like they are.
+
+Thanks,
+Miqu=C3=A8l
