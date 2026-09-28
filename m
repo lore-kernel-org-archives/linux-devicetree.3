@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41674963C1;
-	Mon, 28 Sep 2026 10:12:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C75E4973A2;
+	Mon, 28 Sep 2026 10:12:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790590321; cv=none; b=k77+5tDwhziGCHqpvwFe/+PGLp/6rU3zD/QQyVt6o4OW1gBbdYx6fT1GLaUI206j7A8t9E8d44OXvaVopMJ8qAyH/6HaOo/h57597SnibBpPIGfYRxI/cO8gRi/Uyl1Qg9+EuwsyrIiss16eYj87FO1txEzjCLsda9IaHXzA29g=
+	t=1790590351; cv=none; b=VVKLRMhRK8r5cZ3PNKsH1fCWy9N3//4kC9W7zQeu8h229Oni4SONRzQW4vzi4yRKgp3dBqK7+vNma9noTTxMUp9vutmDXFZ9hxdwSt3JUTdnFn5jldvj2EXca4WqlvIAP4GidEHUPIKjKh8VUia0MySxQGw5iqgB+BBxuhDOXZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790590321; c=relaxed/simple;
-	bh=h8XPs+oMhFOZbXkthKtxJzo8SxVaRvixwpiJi5DvyOw=;
+	s=arc-20240116; t=1790590351; c=relaxed/simple;
+	bh=Y1Kt8mJvaTh/xjAd6TP+xz+U92kmxMTNpwVMwRnN+18=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j5EuNTtt50WjYxYx5KQ/tEN5Q1KD5jy8HxLpUBgpC98n0Fn9PSruBrSdggYj88m9idHAp/c6lP07Sphg+ISTGPN35EiQX5i7MmD0my80WwxCgLie2lzZ32RaALE3XObLQ7H7a2fwWUqUBU47CUs5QHfBmA5tLwE+qqlorUdtd3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XB9ARJXq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BwWwDfpQjjaFiGp5e8b7OZP01g6HnpGqtpWaxCPQH9vpVyAAzRIMW33kbSS+LtmR6HHtEPqTMXdKzVFgtlbKKFbcQesqEi9Ljez1C4dxs/cu7WqE45Yh3FaqBp3ifvXHCLjkzOeBUfLqRI2Id/fT+tV0XYgzBMd6u43OxpCDjqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T8Axq38J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XB9ARJXq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9211F00893;
-	Mon, 28 Sep 2026 10:11:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T8Axq38J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECAC61F000FF;
+	Mon, 28 Sep 2026 10:12:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790590320;
-	bh=xKKYYbi6Wt3RVUnYaw2KHtHKnm8mMYQucrYPSRYDn/0=;
+	s=k20260515; t=1790590349;
+	bh=LPXBbtH8arx5Ywwa/MpxBRIT9dp2/co/kq2hc9i8TR4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XB9ARJXqe2mM0ec8F9bYdzQUjvGLewfXtQILKYxpw3MpwxDdVcTLtZ9W+wzIiHX7f
-	 ms/KsBr0B766ktynZlyk6eL0rn1pnMxE/AM9H6Tk5rQ/2vgjgghB+V3VGh8jS5rwgU
-	 5y2LckLSb/6Zu2DnkYEpd/c+3D4GjcYgFw0KaCFGuuddCUbdJhFAYB0sKkS3Yn1pqb
-	 ccgZV2r6AKts91dcv165w1hIjddy88krRagP3aPFPlxNbX/WQi8JUqBY/bbs3PdrKW
-	 21PEntQDGVNJkoZhGdadzK3yKXG1C6oxkGM9ThgHyHJJKZB4PCBBUspfwMXePgwjGJ
-	 hsV18mTa2Y2jg==
-Date: Mon, 28 Sep 2026 12:11:56 +0200
+	b=T8Axq38J6OIqckGMFib2U5D1Sie4VAL0YAFq4joRnI0DQAEjf0TmLrxj1kHW0cKH1
+	 bq2w19oBvbwJqT+HE5gkIZN8+/UZ8s4KQQckxJmZoPhgYtrRzbs/QQah/ciaM/B+Qd
+	 claU/pBHVnGoJ3HlbuMixLBti+ZaGSbjS8BllxO9IG4ZSVXqr0Q9eRZpk8DkqQbTJQ
+	 oy1p75z3IZFk7pUc9KX7CU7mhkGORPnCALDok6/x+gxPXLC4OP7hdZToLZ9kjjFe20
+	 q9y7spoYszHvWL8iB1ZzA+Qc+JVHgvyglxqcaKXJKRQKhFgks9bw78I3ab2rDnTc+J
+	 +P+yGkeMseMNQ==
+Date: Mon, 28 Sep 2026 12:12:26 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Jingyi Wang <jingyi.wang@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com, 
 	tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com, 
 	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SM8950
-Message-ID: <20260928-laughing-malachite-spoonbill-5c1bc8@quoll>
-References: <20260922-maili-socinfo-v1-0-a82bd7d4ca77@oss.qualcomm.com>
- <20260922-maili-socinfo-v1-1-a82bd7d4ca77@oss.qualcomm.com>
- <839c556c-a322-4e1d-b68c-84d404f435ad@kernel.org>
- <8157618a-7b8b-4c2e-871b-5bd3f5ec17c3@oss.qualcomm.com>
+Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Maili SoC and its
+ reference board
+Message-ID: <20260928-futuristic-overjoyed-bobcat-adbe8f@quoll>
+References: <20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qualcomm.com>
+ <20260922-maili-dts-v1-1-ac2b1b76bfd9@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,31 +47,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <8157618a-7b8b-4c2e-871b-5bd3f5ec17c3@oss.qualcomm.com>
+In-Reply-To: <20260922-maili-dts-v1-1-ac2b1b76bfd9@oss.qualcomm.com>
 
-On Thu, Sep 24, 2026 at 09:28:20AM +0200, Konrad Dybcio wrote:
-> On 9/23/26 9:06 AM, Krzysztof Kozlowski wrote:
-> > On 23/09/2026 01:06, Jingyi Wang wrote:
-> >> Add the ID for the Qualcomm SM8950 SoC which represents the Maili
-> >> platform.
-> >>
-> >> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-> >> ---
-> >>  include/dt-bindings/arm/qcom,ids.h | 1 +
-> > 
-> > 
-> > Standard question: where is DTS? Why is this sent separately from the
-> > rest of the patches targeting the same subsystem? Please organize entire
-> > work targeting maintainers in relevant patchsets.
+On Tue, Sep 22, 2026 at 04:19:58PM -0700, Jingyi Wang wrote:
+> From: Yijie Yang <yijie.yang@oss.qualcomm.com>
 > 
-> I see no reason for the grumpiness here, this is perfectly okay in
-> my books
+> Document the Maili SoC binding and the board which use it.
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Still, having it separate from initial DTS for the SoC brings no
-benefits. I am not grumpy, having this groupped makes things easier to
-review.
+> Signed-off-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
+> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
