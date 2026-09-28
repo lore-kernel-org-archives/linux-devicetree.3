@@ -1,101 +1,147 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65548302CC1;
-	Mon, 28 Sep 2026 12:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775B7309EF4
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 12:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790599797; cv=none; b=auRs3e8YgIxCEiARwRWwtYozDmpliLqOxlE6p+nArnPuGT8qpN9s3zG6AjNl8XVPqAtRFD3gMFAyMtp/UDUjyjLGskEyUZAqZfgjuqI0YBWGA0S7ZERi3jiNQHUDK3EXGIh05SRS14WztnMCQfs6a53RTwkTGXBTR3hn1uq+uKE=
+	t=1790599881; cv=none; b=BvzmsGuWLu/i+/tWSSenSTnJe3DQa5G/q/33fBo+xRqz4CQ2qK4bVTtY04rpbmomTBiBmGtWNDEO4eHBUf2AlxdXz4/d3B3vv2FnHMPbtPzRTudPhVfHgj4HigznHpd8qmizp7IkY1EJJ7du6BO9f99dG19DRG/hJVjhLuW/tns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790599797; c=relaxed/simple;
-	bh=9ui8wOAGwqBSE2/0m8IaZ6FAQsSNjQ+1mm9+R4yja2s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VCbrsinTe3QepozQxqBjeo6JLD9PiKCdSp270wbC4xufqs+acIrkBcgJrrvvkvsBApp0+xJGURVdJxkIP+JMjsyMJOA5NfTO6MW0wEpX917caPSRZ6T2fFiSERmcGoTy92XrODeuwVTCBbqbRnYzw/cVGUUjqtEdkxK3huWqAsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JT86vmjP; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790599881; c=relaxed/simple;
+	bh=NVnUykZb2bttYQ/cwG/R9RTv+eYHY7atrHpBM825X84=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PLNb/rnhwXfP5zYuU6dgLwzsYPd25QvTumk33tvpZBvLWiCc2nhSt2PZmWuTyMLooVPSklwnHvuU3EOLjIkHdojaEDRLXQCEHs5cbgtEB6MYzpvIYZlEWYRSJz6dMhuS8p0NYFUd04bd77JJPwrMZ/jwvKBsOsk4qtYBmwvtjRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=dhsXa91E; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JT86vmjP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790599795; x=1822135795;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9ui8wOAGwqBSE2/0m8IaZ6FAQsSNjQ+1mm9+R4yja2s=;
-  b=JT86vmjPqZEBOrs01+h8r1XFDB0DyRSesrIwGYuyPwKR5KcemUuPlWth
-   Z1G3IMB1JXjCT/R0pGz/8bjif5faEpZu10SoSJQp7C9EX5V9LCyigtu2W
-   3OwdbdgaJTiFoFnY+krJMXjapCUHywlx3+aqzsS3kMh+IEac8FxRUxP9Y
-   VB2DijrXpJLESuHrn+tAesZ3ZYv+4xHWaJK99Gujx4XtpUZb9pUrBFy38
-   VzrX4nR6YoByHA9EusQEfvEX9Nr/ciiijR2Dy/TtTAYskNdVRfG8Yg3bc
-   dsneN7xykxXntIjB36m+iklpRvtnSW7NJhS2Q7uC/qr693Kxu8DFp4sx+
-   g==;
-X-CSE-ConnectionGUID: Ih20ZQUTSRG0COHtO2yXIA==
-X-CSE-MsgGUID: MosLQ9wTSF2JyPI/qZ/NGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11918"; a="108786997"
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="108786997"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Sep 2026 05:49:54 -0700
-X-CSE-ConnectionGUID: aWXxhip/QdGoIrz/iToTEQ==
-X-CSE-MsgGUID: H7DTyoqiR2O1/qHpVzrBeQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,128,1787036400"; 
-   d="scan'208";a="274267253"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa010.fm.intel.com with ESMTP; 28 Sep 2026 05:49:52 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 181C099; Mon, 28 Sep 2026 14:49:51 +0200 (CEST)
-Date: Mon, 28 Sep 2026 14:49:51 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: amber.kao@ite.com.tw
-Cc: ite_pd@ite.com.tw, jeson.yang@ite.com.tw, Yaode.Fang@ite.com.tw,
-	gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] usb: typec: ucsi: itepd: Add DisplayPort
- alternate mode support
-Message-ID: <arpib-_yT8o6-hhg@black.igk.intel.com>
-References: <20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw>
- <20260918-ucsi-itepd-it527x-v2-2-7b2d9437cc72@ite.com.tw>
- <arJgdmA9cWLMQpzV@black.igk.intel.com>
- <e0b87bb4960a4faa97078cb0cb9fdff1@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="dhsXa91E"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=rinGqyQqnVWywjI+IAdfG9OGkv98ahQmrv2dvsNrLYE=; b=dhsXa91E/nVpsbdpw4lE+R7e2+
+	RwnaMAdu27MYylA8GAnhBdVI8uFWd7AIJfOgSEKrCSfxMpvs/4IQAURpto5T69xCGlb0MbtzmrAkB
+	JYCe1JrtRMSM2P03JsY/SMHH4Hp+BUQVD5qQzvTkLjpsqkMwEyWS3oxkmXvw0wazMnW59w7XZWw6e
+	kdWH57vsp1wc5lnhVIoDIcjX7pkyIfi5XSq6gX3HuzdpSTkZKP6txVhptvRJRUP2zqVYeZsNxJW5j
+	KED9Y7RATe+CaesH/a6mkmHVSjt/pCbmI0u793f0Dapepa2db73HR3pT6JV3sD/VcZmX/yAY4Nk2Y
+	h2Jsijsg==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:52346 helo=[192.168.69.116])
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1xBApC-0000000FppD-0z9I;
+	Mon, 28 Sep 2026 14:51:17 +0200
+Message-ID: <83ccb4b4-ee31-40e1-9b34-83d59a905607@norik.com>
+Date: Mon, 28 Sep 2026 14:51:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e0b87bb4960a4faa97078cb0cb9fdff1@ite.com.tw>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ARM: dts: imx6dl-phytec-mira: Add phyBOARD-Mira-i.MX6DL
+ with eMMC
+To: sashiko-reviews@lists.linux.dev
+Cc: Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, imx@lists.linux.dev
+References: <20260928123612.2250601-1-primoz.fiser@norik.com>
+ <20260928124450.3B22D1F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Primoz Fiser <primoz.fiser@norik.com>
+Autocrypt: addr=primoz.fiser@norik.com; keydata=
+ xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
+ JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
+ ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
+ gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
+ jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
+ 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
+ TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
+ AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
+Organization: Norik systems d.o.o.
+In-Reply-To: <20260928124450.3B22D1F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Wed, Sep 23, 2026 at 10:33:50AM +0000, amber.kao@ite.com.tw wrote:
-> On Fri, Sep 18, 2026 at XX:XX, Heikki Krogerus wrote:
-> > >  config UCSI_ITEPD
-> > > -	tristate "UCSI Interface Driver for ITE IT8851/IT8853"
-> > > +	tristate "UCSI Interface Driver for ITE IT885x and IT527x series"
-> > >  	depends on I2C
-> > > +	depends on DRM || !DRM
-> > > +	select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
-> >
-> > Please split this part into separate patch.
-> 
-> Hi Heikki,
-> 
-> Understood, thanks for the suggestion.
-> 
-> I will move the Kconfig prompt, help text and MODULE_DESCRIPTION
-> updates out of the DisplayPort patch, so that the IT885x/IT527x
-> support and the DisplayPort alternate mode support are separate
-> patches.
-> 
-> Would it be fine to send both patches at the same time, or would you
-> prefer that I send the DisplayPort alternate mode support after the
-> IT885x/IT527x support has been accepted?
 
-It does not matter to me.
+On 9/28/26 14:44, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] arm: dts: build failure due to non-existent .dtsi inclusion
+> --
+> 
+> commit d27346cce6650da77827531e0a8db928754f5352
+> Author: Primoz Fiser <primoz.fiser@norik.com>
+> 
+> ARM: dts: imx6dl-phytec-mira: Add phyBOARD-Mira-i.MX6DL with eMMC
+> 
+> Add device-tree for PHYTEC phyBOARD-Mira-i.MX6 DL board with eMMC. The
+> variant with NAND storage is already present in-tree. Now let's add the
+> eMMC variant for which the compatible string "imx6dl-pbac06-emmc"
+> already exists too but was not used until now.
+> 
+>> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-emmc.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-emmc.dts
+>> new file mode 100644
+>> index 0000000000000..aa3239660bca7
+>> --- /dev/null
+>> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-emmc.dts
+>> @@ -0,0 +1,75 @@
+>> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+>> +/*
+>> + * Copyright (C) 2018 PHYTEC Messtechnik GmbH
+>> + * Author: Christian Hemp <c.hemp@phytec.de>
+>> + */
+>> +
+>> +/dts-v1/;
+>> +#include "imx6dl.dtsi"
+>> +#include "imx6dl-phytec-phycore-som.dtsi"
+> 
+> [Severity: Low]
+> Could there be a typo in this include filename? The file
+> "imx6dl-phytec-phycore-som.dtsi" doesn't exist in the tree, which results in
+> a fatal error during device tree compilation when the C preprocessor fails
+> to find it.
+> 
+> Should this include "imx6qdl-phytec-phycore-som.dtsi" instead, which does
+> exist and is used by similar variants?
 
-Thanks,
+True.
+
+This patch depends on series [1].
+
+Sorry for confusion.
+
+BR,
+Primoz
+
+
+[1]
+https://lore.kernel.org/all/20260923070505.494949-1-primoz.fiser@norik.com/
+
+
+
+> 
 
 -- 
-heikki
+Primoz Fiser
+phone: +386-41-390-545
+email: primoz.fiser@norik.com
+--
+Norik systems d.o.o.
+Your embedded software partner
+Slovenia, EU
+phone: +386-41-540-545
+email: info@norik.com
+
