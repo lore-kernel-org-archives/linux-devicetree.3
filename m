@@ -1,132 +1,201 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE1C37BE9F;
-	Mon, 28 Sep 2026 18:12:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B68A37269B;
+	Mon, 28 Sep 2026 18:18:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790619167; cv=none; b=iJiY/In1875Qt6XQ2iJr5VgH7hdMGPJEiZiVKeVo/mwarNFQykIi0xxeou9lOnif5DyPjhJPLhNdJ/AGEXIuWBmOeU96rgxQ54MhsYLJSieCY0RNJh8FTP3Plqh00Z/mf6NAOq16hsM6r8PU3Dl3fCqFyr/7X4pDAceQP98By/E=
+	t=1790619531; cv=none; b=Kf3Q8omYobh72rfJtlKiqvtdjmR9H7WCyvyEoEmW3QI3fVkX8ocFj4qm4lBbJAkfgLzYVrlMD8H5OCYl5f9bzSw6CCEu/yCKzIe2fal3Yx8kIaKoMJhmVOsYAgOld9zrfczdBqoh4Rcg+vjc/VcZxUnVhKuhHx+qPyujRpArPbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790619167; c=relaxed/simple;
-	bh=USfKYzH0A6fMkjH3Ae9LrJxx6YoB7rY2b4VDa8FNY+M=;
+	s=arc-20240116; t=1790619531; c=relaxed/simple;
+	bh=K+gm/+Cc9qAPK0prI75QXEUR81iMnLHYkECUNXcg+H0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XredEqfa5hZ5DkHm+/bWtJzf5clfBY2VABhtdC/e/swodRs7t53h2rdAeiyc2nlt2eykOlrJQSrIW5GZbAG1NrXoIrTSmioxFtZuqFW3sRyVJ/nLhvtrlfpdRflD0ZJj98N7nIHX9+vBnsITH5e8CD3lIk7MyIrZGZqM7AHLbog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=QTo0gZkm; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=HIltLqfplqUZdCRkEx7vDc7fBnPpeRBuvrzdtH6t0B3nfZH29P61kjmFCquutQpV/nc1uO4nZLAsXRPrc/la9CQz0iUTV34WyPU/bl0UdfNbwfQIMKcpPPSSzvQygs4eT76bJu94g1nI+ddpYd8gyICrynEZ72t9p/cNlqUKcTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDahCbPk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="QTo0gZkm"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9B5D18FD;
-	Mon, 28 Sep 2026 20:10:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790619052;
-	bh=USfKYzH0A6fMkjH3Ae9LrJxx6YoB7rY2b4VDa8FNY+M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QTo0gZkm7WwOtTm4JaKIpKPrNLiNa+iZIUEZ+OKoVN6xmtGJuZe+OAlqHyYjFcvoh
-	 CEdeaxjv555X963g8CAZa26Y7UZal+YLZ74per2iWl1sNXIT3kYNjPZmw2ailNjNf0
-	 On4p0mZ6uI91tZqb1ZUSGlulGesv3QLO3SS1ocAg=
-Date: Mon, 28 Sep 2026 21:12:41 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Benjamin Tissoires <bentiss@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDahCbPk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91C51F000FF;
+	Mon, 28 Sep 2026 18:18:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790619529;
+	bh=IngvfdjDTuMxuKWaiC5XQNkdziiuEHqoUpcP04yDirI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VDahCbPkV+RSr4vSZ1HWmkwUpQ/kplhol52IB+WLXyrnPMar5mgI7cZhss+Ge7G17
+	 go6E0RRqYMg0QqKIiMnQgb5vOpVDpsh9YGKDXc60lR2r5WMPXbKC0dr4AjCw9rIfgj
+	 yNzICd4YdTMd0dcx4wh2BbxmbTUVThYBNlXVqq5iF+cQI8wIgK03FE27niBRpoKOJL
+	 DN6TTpxi1FyykohiU1CIcPfEA9siwthZ2XQ8FZw/WHPqDBlBo8CKTQmHN3cjaQcneR
+	 Le+tNHmx2qpKojmC561RZeS+UTHSJ/q0Wnyt7hlPO6A9HoE9jiQSISLLwBLycEdKGV
+	 mTdaWVAHDVOMg==
+Date: Mon, 28 Sep 2026 13:18:48 -0500
+From: Rob Herring <robh@kernel.org>
+To: Alex Ousherovitch <aousherovitch@rambus.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Jonathan Corbet <corbet@lwn.net>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Albert Esteve <aesteve@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <20260928181241.GB210522@killaraus.ideasonboard.com>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928163711.GA210522@killaraus.ideasonboard.com>
- <arqi0etVHGajQAMe@beelink>
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
+	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org,
+	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
+	linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Thi Nguyen <thin@rambus.com>
+Subject: Re: [PATCH v5 01/19] dt-bindings: crypto: add Rambus CryptoManager
+ Hub
+Message-ID: <20260928181848.GA150882-robh@kernel.org>
+References: <20260917225929.2494111-1-aousherovitch@rambus.com>
+ <20260917225929.2494111-2-aousherovitch@rambus.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arqi0etVHGajQAMe@beelink>
+In-Reply-To: <20260917225929.2494111-2-aousherovitch@rambus.com>
 
-On Mon, Sep 28, 2026 at 07:31:59PM +0200, Benjamin Tissoires wrote:
-> On Sep 28 2026, Laurent Pinchart wrote:
-> > On Mon, Sep 28, 2026 at 06:22:00PM +0200, Maxime Ripard wrote:
-> > > Hi,
-> > > 
-> > > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > > difficult to support and require pretty much a panel driver for each
-> > > panel produced. Most of them are pretty simple, and require an opaque
-> > > initialization sequence that is usually poorly documented.
-> > > 
-> > > This creates a tension between OEMs and distros because OEMs will
-> > > typically get a new panel to react to a sourcing issue during
-> > > production, and thus need some swift turnaround between getting their
-> > > new panel and it being operational in the OS. Distributions on the other
-> > > hand can take years to ship a kernel with that new panel driver.
-> > > 
-> > > To solve this, I followed the example of HID-BPF and wrote a panel
-> > > driver that will rely on BPF programs to perform the panel
-> > > initialization. That way, we can ship the programs separately from the
-> > > kernel, and with a different lifecycle. If this driver is accepted, the
-> > > plan is to have a userspace component started by udev to identify and
-> > > load the right BPF program for the panels found on the device.
-> > 
-> > Interesting idea.
-> > 
-> > How would that work for devices that want early display support ? In
+On Thu, Sep 17, 2026 at 03:59:10PM -0700, Alex Ousherovitch wrote:
+> Add device tree binding schema for the Rambus CryptoManager Hub (CMH)
+> hardware crypto accelerator.  The binding describes the parent
+> SoC-level node with its SIC register region and one queue@N child
+> node per mailbox the host owns, each carrying a reg (mailbox instance
+> index), an optional interrupt, VCQ ring geometry (rambus,num-slots /
+> rambus,slot-stride-bytes) and a rambus,cores affinity list.  Which
+> crypto cores are present is discovered from the SIC CORE_ENABLE
+> register at probe, not described in the device tree.
 > 
-> Brain fart... Include a bpf VM in the bootloader? :)
-
-The boot loader can have its own panel driver, that's not an issue. What
-I'm wondering is how we will deal with e.g. getting oops traces on the
-screen before userspace is available.
-
-> > particular, how does it interact with your recent work on "fastboot"
-> > support (with the kernel drivers taking over a running display
-> > configured by the boot loader) ?
-> > 
-> > I'm also wondering about the incentives for vendors to upstream the
-> > code. How will we avoid having a proliferation of out-of-tree drivers ?
+> Register the 'rambus' vendor prefix for Rambus Inc.
 > 
-> My 2 cents here from the HID-BPF point of view:
-> - as mentioned in my reply to Neil, the kernel enforce GPL licensed BPF
-> 	only
-
-I didn't know that, it's interesting.
-
-> - so vendors have to publish their code somewhere
-> - in HID-BPF, I decided to provide an "official" list of HID-BPF sources
-> 	as part of the kernel (see drivers/hid/bpf/progs). I try to sync them
-> 	with the userspace tree when time permits
+> Signed-off-by: Alex Ousherovitch <aousherovitch@rambus.com>
+> Co-developed-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> Signed-off-by: Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> ---
+>  .../bindings/crypto/rambus,cmh-v1030.yaml     | 151 ++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>  2 files changed, 153 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
 > 
-> So basically, distributions can say "we ship only BPF objects compiled
-> from the kernel tree". It doesn't mean they have to be in a released
-> kernel already to remove the friction, but in the process of being
-> released could be sufficient.
+> diff --git a/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+> new file mode 100644
+> index 000000000000..a0df35bdc371
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/crypto/rambus,cmh-v1030.yaml
+> @@ -0,0 +1,151 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/crypto/rambus,cmh-v1030.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Rambus CryptoManager Hub (CMH) Hardware Crypto Accelerator
+> +
+> +maintainers:
+> +  - Alex Ousherovitch <aousherovitch@rambus.com>
+> +  - Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>
+> +  - Joel Wittenauer <Joel.Wittenauer@cryptography.com>
+> +
+> +description: |
+> +  The Rambus CryptoManager Hub (CMH) is a hardware cryptographic accelerator
+> +  accessed via a mailbox-based VCQ (Virtual Command Queue) interface.  The
+> +  host writes VCQ command sequences into per-mailbox DMA queue buffers and
+> +  rings a doorbell; the CMH eSW processes them and signals completion via
+> +  interrupt.
+> +
+> +  The management host statically partitions the hardware mailboxes across
+> +  the SoC's host interfaces at integration time; the set of mailboxes a
+> +  given host owns is therefore fixed and not runtime-discoverable (a
+> +  mailbox locked to a host reads as unavailable in the SIC availability
+> +  register).  Each owned mailbox is described by a child node.  Which
+> +  crypto cores are present is a fixed silicon-build property indicated by
+> +  the SIC CORE_ENABLE register, so cores are not described in the device
+> +  tree.  Clock and reset are owned by the management host; a node
+> +  describing a non-management host has no clock or reset provider of its
+> +  own, so clocks and reset-gpios are optional.
+> +
+> +  CMH gates access to a locked mailbox by a hardware HOST ID presented on
+> +  the bus with every access, permitting only the owning host's ID.  An
+> +  integration must present a single, stable HOST ID for all accesses to a
+> +  given mailbox, independent of the issuing CPU (relevant on SMP hosts
+> +  whose interconnect encodes the issuing CPU in the HOST ID).
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - not: {}
+> +        description: SoC-specific compatible, e.g. vendor,soc-cmh
+> +      - const: rambus,cmh-v1030
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description:
+> +      SIC (System Interface Controller) MMIO region.  The registers of
+> +      mailbox instance N are at offset N * 0x1000 within this region.
+> +
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 3
+> +    description:
+> +      The "core" functional clock, and optionally the half-rate "core-div2"
+> +      clock (present only on configurations with side-channel-protected
+> +      cores) and/or the "rt" real-time tick clock.  See clock-names for the
+> +      valid combinations.
+> +
+> +  clock-names:
+> +    oneOf:
+> +      - items:
+> +          - const: core
+> +      - items:
+> +          - const: core
+> +          - const: core-div2
+> +      - items:
+> +          - const: core
+> +          - const: rt
+> +      - items:
+> +          - const: core
+> +          - const: core-div2
+> +          - const: rt
 
--- 
-Regards,
+Can be simplified to:
 
-Laurent Pinchart
+items:
+  - const: core
+  - enum: [ core-div2, rt ]
+  - const: rt
+
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description:
+> +      Host-controlled reset for the CryptoManager Hub.  The hub has two
+> +      external, active-low reset inputs -- a power-on reset and a hard
+> +      reset; where a board routes one of them to a host GPIO, that line is
+> +      described here.
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^queue@[0-9a-f]+$":
+> +    type: object
+> +    description:
+> +      One node per hardware mailbox (VCQ command queue) this host owns.
+> +      The set of owned mailboxes is fixed by the management host at
+> +      integration time and enumerated here.
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +        description:
+> +          0-based mailbox instance index.  The instance's registers are
+> +          at reg * 0x1000 within the SIC region.
+
+Is there a maximum number of instances? If so, 'maximum: N'.
+
+Rob
