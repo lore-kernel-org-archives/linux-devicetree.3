@@ -1,80 +1,80 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071B6502D6F
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 23:19:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28C0499F3A
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 23:19:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790637581; cv=none; b=VD0XsAhz0EbB7odX0fJp+bO0WQtmclJJViz1nx4MWHrBS5fWr2iSnyypBquaMeRoHJqsHCz7f3K2e7lUI9QYTdv6/192eswfkXEnk1qE7SFJv7F8DpzDqbiwsFmONHcHy486NV8yPQeYKy4Ik+JeKto2DOQ0YfwFE6I4D8quXdc=
+	t=1790637584; cv=none; b=pPWgjDda3XxwCtSy928De6O2bSJ9GyDe7Gchd2E4B2vf2hGTVcMgGxh5FOPfUfYjew5RBIygRkF2ojIEX0y9mKdTBMPSY43dzMv5NqcG6dGLFh3ne7GkKjMrSfZj1YG3tEBU0Sst4MTiVQk43LowxV2RSVkhcxvfDlgiJEn4Uhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790637581; c=relaxed/simple;
-	bh=8zeoktIy+usUIFH1w4ionuLiRCFm3l7V7ss5bkINDA4=;
+	s=arc-20240116; t=1790637584; c=relaxed/simple;
+	bh=2xYNsERr512t8YcP5rQXVu/seYpQuw0f4hBvDUPrnZo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M+sxAhGwrm6cmDft7tFisRBs4ZpvjzITJzZfnAJdpzImt4EDoSxrsh2arQiSgZ/GnDkpDMeF9NTtAMDvVsL3bk3oDqpg7ohi1brNk3liEVB5Nb/Lka/Tt7wS5XUbCrWCZESGQOrsbgJNoBaixntaN+xgutEsihNZLDvJOAhVx5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JMS0wEUO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=nyBuVHg0; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=nKBILkKcgDE8JR+6sbKyeibKydPC5UImCSYlp7536SZ6odOON0nSp5CzD5F6j0V5+ud1HG23Jc3CjUVllkhViI0Dynhn9D72SBqk3FsmlL2+58E/UIqYPpPb+ViTG3ikMvxHKoIBSGm/F0CoEFTvFZnlx35vlxev9WKsdmjJEBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Bkd8gk+P; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=SL4futgl; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JMS0wEUO";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="nyBuVHg0"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Bkd8gk+P";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="SL4futgl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790637578;
+	s=mimecast20190719; t=1790637581;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3yDoqQ26YFmJbrXP16xbG9Lltps7LHScJ0yfk3VKi1o=;
-	b=JMS0wEUOLyKJDjPrEcKSe6mbsrYRwTVcEeG//jEBcJVzEx8azm3QYxxgxN+Ohx2Yw+y99z
-	XoMYbhNCsvDYg//4QLN2gQNqXjYFJUERj+4Vl9yxDQ1wf4gvioEJP5YxKJN/D8bDW8A2Ge
-	53cA9e3u24vS/bcOZYyLzVY/R1vS5xI=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=45/Cb1sUktpiMdyfE/exim2HZWKPpOnrWEl0XH8E2LY=;
+	b=Bkd8gk+PbJu26+wJIJo5EgUv9FC6tPQC2QG++UuSrBMiRD4bWNFRhpiWcu1qoOiSMcC8FH
+	Fl6uQdYATA0Pxq/lI+9uvX74HUet2zknNw7u1lPFlk3M0C+FA9QNLN+QXqs0Zcxx/3fS1m
+	z1z4R4+ttnwkn+iOSNHfy+8piwfj/gY=
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
+ [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-622-W0-6qn5vNsS7OSK26leMhQ-1; Mon, 28 Sep 2026 19:19:37 -0400
-X-MC-Unique: W0-6qn5vNsS7OSK26leMhQ-1
-X-Mimecast-MFC-AGG-ID: W0-6qn5vNsS7OSK26leMhQ_1790637577
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8a847ac0386so8589057b3.2
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 16:19:37 -0700 (PDT)
+ us-mta-434-hYx6o5KiNK6WauzbeoRfQw-1; Mon, 28 Sep 2026 19:19:40 -0400
+X-MC-Unique: hYx6o5KiNK6WauzbeoRfQw-1
+X-Mimecast-MFC-AGG-ID: hYx6o5KiNK6WauzbeoRfQw_1790637580
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-66fae2bc827so4374595d50.3
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 16:19:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790637577; x=1791242377; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1790637580; x=1791242380; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3yDoqQ26YFmJbrXP16xbG9Lltps7LHScJ0yfk3VKi1o=;
-        b=nyBuVHg0sACxnIPNEtg1NUQtISMplQVqp7Db7r/qmPejKzNsumIk46FdW9P6bbrAFj
-         4FXRiRb6R9SfJhrrJxlIoGgZ1LonJUeFesGqMnNRVSpVSs2hKRiSJ0Qn6Th1ly1OzZaF
-         mxnxZ+YStbtlV6fK5Qc1qfadWYsgpEILDxCZfDeTl/NN4zoOwmztZPYljqW2UouvMTT7
-         FMPZ6Cz96CckSsylh6CTfZ9mJbUmlcfkFt/IC0TA99csuX6ASehJzAedrAzHa4HLKoFQ
-         GRpAxtyRxYwZCE0Ybt72/JflHpNvboWmmtV91H4yl/IYjZpn1BkLGhX/pUuVnlKvChQ5
-         P/tQ==
+        bh=45/Cb1sUktpiMdyfE/exim2HZWKPpOnrWEl0XH8E2LY=;
+        b=SL4futgltQhliojS1kDkIfl0eZZ/ksKNn8BQD/1PUrVs5dvXPCNa9oSOJK5GyikWzE
+         HXu4WDKgtoz2F0nnvv7rFIrImV9fxDKPnXPvY28z0tJRc2P+ulWpqsqrynYbYe6PQBvc
+         5J0GqUJg0DwaOmOBCooG5aCvsY5NGdtA4R7uHd/LiXa3VRuy/mlTLTInKPR5Bj7flHRO
+         x3V27+ZMqvzWnbjw41FJ8rIHl0pSQCZPrE9s3kzrXwI3I59gU8bp/dm8/gVRoTVKy4YO
+         9M7mKImjXGxtoOFtsCW4xlONshA9372fPO+AccxncIKqMF3lHqg5KOSsEfA1iyAdVk+t
+         H4LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790637577; x=1791242377;
+        d=1e100.net; s=20260707; t=1790637580; x=1791242380;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3yDoqQ26YFmJbrXP16xbG9Lltps7LHScJ0yfk3VKi1o=;
-        b=ftULENFt4y3ROVLijTINEVKAZCRiYx7UL3pi91tsiyGUz9Ew2ae1JTgd/YUEO3cjXE
-         htpTCRpLXR1Ex43VD3FiMNKYf4+yquKgr5l2J+6QUh7s962p6wdMdpgn1m6OvLN+5VLA
-         yA/1bMxfoxN0I3ZA+OYwksAbQ8K4a16Y0X9HsSsAronZtN/14oIqeZo3yHU+JzK4h9At
-         3wu6Lv5BkFX8ra/G1rdVO8/3gYnwsPnQVZbroUOjtV3nPG2kkUbCl09dRiFSwmX+P/6M
-         XRxVO36Rzt5WZoZsO++o1NhukkU/LD3dA2ZDJGTzAumm2GdPF08BS4AgrwqzRj+iivzk
-         K7wQ==
-X-Gm-Message-State: AFq9FYI1KRcDRpu0poGvx4JvcvgE6EPRitXORwjmDgq/CKVFA9QoNDNj
-	l6QXL6tCxp4cttfXPtJHYy2wbRSyWPUkIiDKRtTSrar3yCzIPN4BsuXrcJjHVliQ2tLH/QnyqsR
-	yM/5NMarxG7ztsdnwtrwuad8Upx7FaGaSL6XJbIz49wGqAN5a3ert9O0+0EdwEjc=
-X-Gm-Gg: AYBFou3Vtf9GvKIZ4xxitd+B31rikXxxriBSfEdqbRYsnE9znJxZJ5NFdXrfwAIQ77H
-	EtKbHtExG5bM7ji7upKpj0wbVF3FeVk2CsjA0PByMX8J4S0jyom/iUQhHMcvMRtyTjCc87AhiFA
-	D0va0lkEbyNuSrMoPUow+GDelz75Ku23fpHxMPHwjqwJGhUChQZpKrUEXRRSP83I42XgnqB14db
-	bvguTdmeafgYEy7kYJ5C4ZziD7ETfHhuy7lTmTQrilEAW7C8D5b4bLb7xmwupNpb/8vSNc74lmf
-	FeH3f/zZFb20Q7G37xXjhkvj0rc6KZeaIXLcupv9Q7UDvhzOuNY4kw==
-X-Received: by 2002:a05:690c:60c5:b0:873:5c6b:a304 with SMTP id 00721157ae682-8a86d7e29bdmr40056047b3.50.1790637576913;
-        Mon, 28 Sep 2026 16:19:36 -0700 (PDT)
-X-Received: by 2002:a05:690c:60c5:b0:873:5c6b:a304 with SMTP id 00721157ae682-8a86d7e29bdmr40055957b3.50.1790637576516;
-        Mon, 28 Sep 2026 16:19:36 -0700 (PDT)
+        bh=45/Cb1sUktpiMdyfE/exim2HZWKPpOnrWEl0XH8E2LY=;
+        b=ciDGgLu9tkFsHEQJhaOP79oK8+m8HZqlV3ydeNk70wm9HV2JBEhiPKsNtoGxtW03IA
+         /kNejwNnO3eRGntGOkn1RSyHVwRLNyWBEmkapZozy0afMlYiU4pZKQ3xGkBw9+GE9oUx
+         lMrbR2PD9pEzXiHP46OWyBk80Ppmdi5sne99rhYDM2I2B49CpaoIuRYzG6XjvXKRqiU8
+         foYbnGj2SUc0xi4pLPDsSOkK9fJd0xo3Bwudu8D98h59yeGwdvJTaFe+DX7RJKM9YmnX
+         PRnk1FjqWI7w3V6r1lZLbhfU27mpTq+sF6qpXgz70EgTwv34vBClqG20sI/ss7bs/3aB
+         gdWQ==
+X-Gm-Message-State: AFq9FYIWCrSwIXMLcC1k7WsTl0nu2niA8yvzX4yIk+MO2q+pbSxXoWEJ
+	aDHHfZSW1Urkdhpf9CSAkX2IOr457WraV3HtOalqvLSAlUwkOSaZl7xabVanzwqZjoygroMCbW7
+	4AGGSK8kCbnNSZjdPM+raqaY4ANnM59uItB7dyxT7p2F1ML2BW+HgeN8kwQCrfII=
+X-Gm-Gg: AYBFou2lb4TqE+ArfrbpfQgQJuxT/VEgJPbC0iy9eF785PLmRuShqyrrW0HvdoSEQK7
+	n45ENw22uDf3Ca23IjbcGUV1fDEEvJinPSLir7BaezdxQl208pkXsNRKuxrVkCsuWYlKnEGX/UB
+	HPzZ6QvBvoH/c+xos6h8cqwCypuyKWkcOQzflx/fgV3A3ZnB+83obau8KtpLSklylVBILznVodR
+	LFgCLIa+ZgPLpTsz/sMCCuBPO7Rwal4MTGfaiWI5QvbYaTsaP4fEIRGhovP6D0MIG+vZb8Kz+XL
+	HoWHdp9dRUsdG1orpAmLJDbBavbxD+bS0+uKjkjWF/QBy6CMLNaOhA==
+X-Received: by 2002:a05:690e:1c0e:b0:675:3431:d51c with SMTP id 956f58d0204a3-6753431da19mr2783199d50.50.1790637579529;
+        Mon, 28 Sep 2026 16:19:39 -0700 (PDT)
+X-Received: by 2002:a05:690e:1c0e:b0:675:3431:d51c with SMTP id 956f58d0204a3-6753431da19mr2783181d50.50.1790637579018;
+        Mon, 28 Sep 2026 16:19:39 -0700 (PDT)
 Received: from rhdev ([2600:1700:f361:20bf::14c1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860f9cdb0sm51374117b3.24.2026.09.28.16.19.34
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a860f9cdb0sm51374117b3.24.2026.09.28.16.19.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 16:19:36 -0700 (PDT)
+        Mon, 28 Sep 2026 16:19:37 -0700 (PDT)
 From: Jennifer Berringer <jberring@redhat.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -90,9 +90,9 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	James Morris <jmorris@namei.org>,
 	Jennifer Berringer <jberring@redhat.com>
-Subject: [PATCH 2/4] riscv: dts: spacemit: k3-com260-ifx: Add USB nodes
-Date: Mon, 28 Sep 2026 19:18:05 -0400
-Message-ID: <20260928231807.1757995-3-jberring@redhat.com>
+Subject: [PATCH 3/4] riscv: dts: spacemit: k3-com260-ifx: Add PCIe nodes
+Date: Mon, 28 Sep 2026 19:18:06 -0400
+Message-ID: <20260928231807.1757995-4-jberring@redhat.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260928231807.1757995-1-jberring@redhat.com>
 References: <20260928231807.1757995-1-jberring@redhat.com>
@@ -104,102 +104,144 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-K3 CoM260 IFX uses usb3b for a VL817 hub providing 4x USB 3.0 ports and
-usb2_host for Bluetooth through the M.2 E-Key slot.
+K3 CoM260 Dev Kit uses PCIe for three M.2 slots:
+
+- M.2 M-key 2280: PCIe 3.0 x4 (pcie0_rc)
+- M.2 M-key 2230: PCIe 3.0 x1+1 (pcie3_rc)
+- M.2 E-key 2230: PCIe 3.0 x1 (pcie4_rc)
+
+The M.2 M-key 2230 slot is connected to two PCIe lanes, with lane 0
+on combo phy 4 and lane 1 on combo phy 3. The K3 combo phy cannot be
+configured to use these as one PCIe 3.0 x2 device; treat this slot as x1
+only instead.
+
+The E-key slot has an RTL8852BE WiFi+BT NIC installed from factory.
 
 Signed-off-by: Jennifer Berringer <jberring@redhat.com>
 ---
- .../riscv/boot/dts/spacemit/k3-com260-ifx.dts | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
+ .../riscv/boot/dts/spacemit/k3-com260-ifx.dts | 45 +++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi  | 33 ++++++++++++++
+ 2 files changed, 78 insertions(+)
 
 diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-index a5c08a7a781a9..a4dfa25c837fe 100644
+index a4dfa25c837fe..01e286cb05797 100644
 --- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
 +++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2026 SpacemiT (Hangzhou) Technology Co. Ltd
-  * Copyright (c) 2026 Yixun Lan <dlan@kernel.org>
-  */
-+#include <dt-bindings/phy/phy.h>
- 
- #include "k3-com260.dtsi"
- 
-@@ -18,6 +19,31 @@ aliases {
- 	chosen {
- 		stdout-path = "serial0:115200n8";
+@@ -39,6 +39,14 @@ reg_vbus_5v: regulator-usb3-vbus-5v {
+ 		gpio = <&gpio K3_GPIO(67) GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
  	};
 +
-+	reg_hub_5v: regulator-usb3-hub-5v {
++	reg_aux_vcc3v3: regulator-aux-vcc3v3 {
 +		compatible = "regulator-fixed";
-+		regulator-name = "USB30_HUB";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-boot-on;
++		regulator-name = "AUX_VCC3V3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
 +		regulator-always-on;
-+		vin-supply = <&reg_5v_sys>;
 +	};
-+
-+	reg_vbus_5v: regulator-usb3-vbus-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "USB30_VBUS";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&reg_5v_sys>;
-+		gpio = <&gpio K3_GPIO(67) GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
-+&combophy {
-+	spacemit,apmu = <&syscon_apmu 0x14>;
-+	status = "okay";
  };
  
- &i2c1 {
-@@ -35,6 +61,43 @@ eeprom@50 {
+ &combophy {
+@@ -61,6 +69,43 @@ eeprom@50 {
  	};
  };
  
-+&usb2_host {
++&pcie0_rc {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie0_1_cfg>;
++	num-lanes = <4>;
 +	status = "okay";
-+};
 +
-+&usb2_phy {
-+	status = "okay";
-+};
-+
-+&usb3b {
-+	phys = <&usb3b_u2phy>, <&combophy 2 PHY_TYPE_USB3>;
-+	phy-names = "usb2-phy", "usb3-phy";
-+	status = "okay";
-+	vbus-supply = <&reg_vbus_5v>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	hub_2_0: hub@1 {
-+		compatible = "usb2109,2817";
-+		reg = <1>;
-+		vdd-supply = <&reg_hub_5v>;
-+		peer-hub = <&hub_3_0>;
-+		reset-gpios = <&gpio K3_GPIO(53) GPIO_ACTIVE_LOW>;
-+	};
-+
-+	hub_3_0: hub@2 {
-+		compatible = "usb2109,817";
-+		reg = <2>;
-+		vdd-supply = <&reg_hub_5v>;
-+		peer-hub = <&hub_2_0>;
-+		reset-gpios = <&gpio K3_GPIO(53) GPIO_ACTIVE_LOW>;
++	pcie@0 {
++		vpcie3v3-supply = <&reg_aux_vcc3v3>;
++		phys = <&combophy 0 PHY_TYPE_PCIE>,
++		       <&combophy 1 PHY_TYPE_PCIE>;
 +	};
 +};
 +
-+&usb3b_u2phy {
++&pcie3_rc {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie3_0_cfg>;
++	num-lanes = <1>;
 +	status = "okay";
++
++	pcie@0 {
++		vpcie3v3-supply = <&reg_aux_vcc3v3>;
++		phys = <&combophy 4 PHY_TYPE_PCIE>;
++	};
 +};
 +
- &sdhci0 {
- 	pinctrl-names = "default","uhs";
- 	pinctrl-0 = <&mmc1_cfg>;
++&pcie4_rc {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie4_1_cfg>;
++	num-lanes = <1>;
++	status = "okay";
++
++	pcie@0 {
++		vpcie3v3-supply = <&reg_aux_vcc3v3>;
++		phys = <&combophy 5 PHY_TYPE_PCIE>;
++	};
++};
++
+ &usb2_host {
+ 	status = "okay";
+ };
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+index 1b19979f150ce..36f7780860f50 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+@@ -800,6 +800,17 @@ pcie0-0-pins {
+ 		};
+ 	};
+ 
++	pcie0_1_cfg: pcie0-1-cfg {
++		pcie0-0-pins {
++			pinmux = <K3_PADCONF(79, 5)>,   /* pcie0 perst */
++				 <K3_PADCONF(81, 5)>;	/* pcie0 clkreq */
++
++			bias-pull-up = <1>;
++			drive-strength = <38>;
++			power-source = <3300>;
++		};
++	};
++
+ 	pcie2_0_cfg: pcie2-0-cfg {
+ 		pcie2-0-pins {
+ 			pinmux = <K3_PADCONF(25, 4)>,	/* pcie2 perst */
+@@ -810,6 +821,17 @@ pcie2-0-pins {
+ 		};
+ 	};
+ 
++	pcie3_0_cfg: pcie3-0-cfg {
++		pcie3-0-pins {
++			pinmux = <K3_PADCONF(3, 4)>,	/* pcie3 perst */
++				 <K3_PADCONF(5, 4)>;	/* pcie3 clkreq */
++
++			bias-pull-up = <1>;
++			drive-strength = <38>;
++			power-source = <3300>;
++		};
++	};
++
+ 	pcie4_0_cfg: pcie4-0-cfg {
+ 		pcie4-0-pins {
+ 			pinmux = <K3_PADCONF(76, 5)>,	/* pcie4 perst */
+@@ -821,4 +843,15 @@ pcie4-0-pins {
+ 			power-source = <1800>;
+ 		};
+ 	};
++
++	pcie4_1_cfg: pcie4-1-cfg {
++		pcie4-0-pins {
++			pinmux = <K3_PADCONF(76, 5)>,	/* pcie4 perst */
++				 <K3_PADCONF(78, 5)>;	/* pcie4 clkreq */
++
++			bias-pull-up = <1>;
++			drive-strength = <38>;
++			power-source = <3300>;
++		};
++	};
+ };
 -- 
 2.55.0
 
