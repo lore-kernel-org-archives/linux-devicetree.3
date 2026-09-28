@@ -1,155 +1,134 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9633E492E24;
-	Mon, 28 Sep 2026 09:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E1F48FF9E
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 09:43:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790588594; cv=none; b=ktcc61IvxDxscdGyWW19q/7NxcBSs3APhCLtchbR+DHrkl5Yzwfbv2DncVlLZ20IpVMSULpc7Hr/6zmXuVuVwnbU6x7DH8wfK7xM7z0aPdCIthg+6tL3B5NDGucdrWyMgFvUFCP0+F7NU76KtjCqvyTT9PtsJqjaUKBEdCTO6xY=
+	t=1790588617; cv=none; b=YP2Z3uspMhkKZTRmgIB7EySCraVN64wlzTtdLcMITxWt6L72cEzBk94V329TjkO0IcIIXOujEKCEMC9tiV5uS7pIRCH8DdZz+CBiRi08LhxgLy0ds5PfdR8Yo6fzIj9ScmssMSJsF6AjW+bABCDg09rKLF/PmiUwmcydPzp6jzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790588594; c=relaxed/simple;
-	bh=r0y/a9YEVRYoi9Vk3nzlQTcvv7gsN3A5ebB9pXdgmT4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mWQvCd0SPxfVY6rgWh8cKHYYYOCONsW6JFT7Qxq7cFB/5KOJEKy5ZOwMU0kdzo2rgMv7VnNugA30fB+tyvH6uX8/ppHbAz+jSm9LjxtNltf+mafpt00zPNL4meSTDIl95a8NIJf7wN6wxtpVbrE1O8Wr+psJn47BySaBmFBhyog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=KwLpC7ol; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1790588617; c=relaxed/simple;
+	bh=1DSWDyEjxffgue1s2uWcGzCLbLWsu01OeWPHOjHFb6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BLT9ThvIZ4xbI4Coqou7PKGhArsdvCXckEorbCI8HY+fRPCcj/68lQFy68NWI+KtvpIIgn2pyh8WNcU4GAvocDzsklhroXqenBL/XRRDB28uOOuTOKXQKo6F/rTfS1gxyGFsp0uNYL4jqKTbLQt0r6eXJPqTcLj8U1SV/IzUIBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kaGhXEF+; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="KwLpC7ol"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=olO/hKKz89FHOaCKAaEXvx3zuxFgTV/VqCrzUGnPZ58=; b=KwLpC7olA7U1aRI29Mazglzkb7
-	a4K1/lsxm7GC55jLe1FYnqkJWuxGa7N3JT8J2ZNjXU+amYl0IR+zZadwhsAZA9vtdUVivYhf0JdGX
-	QDK2sJA9t2qzpna+JUGDDLsrVdBuRhyS0WJwyLZmkQ3VrGIs/2hp0TRz+CMsDQcSXqhL1wuKm4EIf
-	i1I5TJs/yCZ95vmR+ntlx9p6XdNqrVPuDbmJxEWLvxZ5eYSX7Xb/6Z9TJQq3Tah/IzOBJidDnKYxA
-	YqD0TvUkHgiQsovy2EteiM5OAMvbEyYMFIMjUNkS5ZYmyZCW/3RjLO7//3rtIciEOeH+AWpb01GAZ
-	78fNnhiQ==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB7sz-000JlS-1x;
-	Mon, 28 Sep 2026 11:43:01 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xB7sz-000BEL-0v;
-	Mon, 28 Sep 2026 11:43:00 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Guido =?ISO-8859-1?Q?G=FAnther?= <agx@sigxcpu.org>,
- Robert Chiras <robert.chiras@nxp.com>, Tim Harvey <tharvey@gateworks.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Frank.Li@oss.nxp.com
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com,
- Frank Li <Frank.Li@nxp.com>
-Subject:
- Re: [PATCH 4/8] arm64: dts: imx8mq: remove #address-cells and #size-cells in
- dsi@30a00000
-Date: Mon, 28 Sep 2026 11:42:58 +0200
-Message-ID: <2427808.ElGaqSPkdT@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260925-cleanup_dtb_warning-v1-4-f999fafbca60@nxp.com>
-References:
- <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
- <20260925-cleanup_dtb_warning-v1-4-f999fafbca60@nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kaGhXEF+"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ce364488dso7654145e9.0
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 02:43:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790588613; x=1791193413; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8boaKuPNh+9zMsA4O1T+2Mud6gQfFTCKzvkdhPNfUgQ=;
+        b=kaGhXEF+HoOtTJDQqgspGAyXe/0vH/rXIrV6TuNmYVL6b3w5gb7/6p5bqK4UcJy0nx
+         vGqCAq23xlrVQt6Y0j3Fi3yftoZ2ekmyI8Gwi8Dd3RJjQGPBDXz2J3dvbW6GPRFZ1/bn
+         G3+JVLRCGUHAxmaJpRTvvZ7ncbDaZu/Uk5AzVsaLTuOAh4eN4vM6j1BzJIuCwjG04ZyI
+         Q+CYIvppQ2ZxEt0pZlN+oZhxCrivVSSiiLvKdPENC7/2sR/7cdEzZB6qz/xunX0jLZku
+         mDCC8XZzXtiweIqTuoW0kbcrrDexS2/4338pMhLjHvZjqs0tC70YScDfHoVBEL8TqO98
+         zCDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790588613; x=1791193413;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8boaKuPNh+9zMsA4O1T+2Mud6gQfFTCKzvkdhPNfUgQ=;
+        b=mV1cyP1fNnAodTj65eUOLw44+9ZpblhBSlFkH6WK2qMr6lUX1IqfbaFaCNWixAEoSU
+         o7zDVgnIW7umGvMIZtiNBx5dUR/xZE/GyyT+2i6adxOdVu6uR0BF9n/a/nHwm7K/TFkn
+         IizE/o/+yG1AVBFlxp/04tInTJYCF0ucpNgE36r9UlczdWl1FX0jcmmdZQ1eTcbtuJfK
+         CJPdA8pCGUGX7KDF6LR9ZdOMElHwBP9UJuA+aWYvhbgpZilRYRPbnDv6COjqydQ7POZn
+         B9tbztZnPyWKFj1UF8QmO0eGGaawpiHTAY51yykZPHAwBxJlt0aCaAaV+bu9ipqtb7Pn
+         3+5g==
+X-Forwarded-Encrypted: i=1; AKwUvByCQbbqykPFpbHwlbbIXfyVa6OOiX8Y8C0NmYERt6q3M8VEn2t0wRs7mp18eg894Aoj9v0nmLB3Agis@vger.kernel.org
+X-Gm-Message-State: AFuF++mbIMC4I4a6yt5z9yE0JD/qTTCCvxACDNKxyZ7WTKv44jvWkQf5
+	afzGcbRL+DUI3RRX1UpM0yleILscIWciYfVGocj5/LxVupJ/dK0Q1FMl
+X-Gm-Gg: AYBFou0PFUtnoaDUfjW+ax5s2bzarR12EwGxcwNANDMwLuhmjNueVeTjNymqPmGpylI
+	2lN33qrslIqSgwjVmTOoNM2mVx1iKQdqnwq+b5GhcTIT8OIgwx4hiSIoD28W8wI7QU8DxzgOGNd
+	N3ZXZZtVVwfYko398MdcVGl+uQci6sajwI688eJTueRQU3kk8DQmk5/+8bokpKXzRtIyuJJWXCd
+	SZUp/pFkelio7Kp2A0p5mmnnmyJLltonTLewS1hdeifGn0JjXYVJ/A5+2iXzLrHzz0YvSUgW+8/
+	2pmsaegaBCqNQxyi8rg8oAFjoerqqyT4BSTactlwsaprnlLOJXd+OgfweprP58hzTWBEkD7iyR5
+	I3zwhlZbgr7X9m2N6Wt2vewAIT0GYsgmm4VsXnJu3NlO8fD40f7CJ+Qq+y6zjbX1tFjn4b5Mt7c
+	sSh/Y6yYO03wMtB7O1WsvF6loPf8XgT6WzVqTb/rLL/2ruDgiWxkG0AD+t9Q22slZzWtRHuW/Ro
+	AvLOv7Ywx+N7CILK1XXrYT2fDmC95FVtphgWrXgxww6
+X-Received: by 2002:a05:600c:6986:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-49fe66d05d7mr204178585e9.8.1790588612595;
+        Mon, 28 Sep 2026 02:43:32 -0700 (PDT)
+Received: from rillian-arch.home ([2a00:23a8:8f4:6a01:5ffc:da36:c891:cd3c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0019057cfsm169401315e9.11.2026.09.28.02.43.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 02:43:32 -0700 (PDT)
+From: Rillian Grant <rillian.grant@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ruslan Koreev <koreev.r@gmail.com>,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rillian Grant <rillian.grant@gmail.com>
+Subject: [PATCH v2 0/4] leds: flash: LM3643 dual LED flash driver
+Date: Mon, 28 Sep 2026 10:42:33 +0100
+Message-ID: <20260928094302.86966-1-rillian.grant@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart5106211.GXAFRqVoOG";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28137/Mon Sep 28 08:24:12 2026)
+Content-Transfer-Encoding: 8bit
 
---nextPart5106211.GXAFRqVoOG
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-Date: Mon, 28 Sep 2026 11:42:58 +0200
-Message-ID: <2427808.ElGaqSPkdT@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260925-cleanup_dtb_warning-v1-4-f999fafbca60@nxp.com>
-MIME-Version: 1.0
+This series adds a flash LED driver for the Texas Instruments
+LM3643. I wrote it to support the Windows Hello NIR illuminator on my
+ThinkPad X9-15 Gen 1, which has a single LED connected to both current
+sources. The driver has also been tested by Ruslan Koreev on a ThinkPad
+X1 Carbon Gen 14.
 
-Am Freitag, 25. September 2026, 18:37:53 CEST schrieb Frank.Li@oss.nxp.com:
-> From: Frank Li <Frank.Li@nxp.com>
->=20
-> No children nodes under dsi@30a00000, so remove '#address-cells' and
-> '#size-cells' to fix warning with (W=3D1):
->=20
-> arch/arm64/boot/dts/freescale/imx8mq.dtsi:1247.27-1297.6: Warning (avoid_=
-unnecessary_addr_size): /soc@0/bus@30800000/dsi@30a00000: unnecessary #addr=
-ess-cells/#size-cells without "ranges", "dma-ranges" or child "reg" or "ran=
-ges" property
->   DTC [C] arch/arm64/boot/dts/freescale/imx8mq-kontron-pitx-imx8m.dtb
->=20
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+On both ThinkPad models the chip is described by ACPI but has no _DSD.
+The original RFC asked how to supply the missing child nodes. This
+series includes DMI-matched software nodes for both laptop models.
 
-Acked-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+1/4 DT binding
+2/4 driver
+3/4 DMI match table and values for the X1 Carbon
+4/4 DMI entry for the X9-15 Gen 1
 
-> ---
->  arch/arm64/boot/dts/freescale/imx8mq.dtsi | 2 --
->  1 file changed, 2 deletions(-)
->=20
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mq.dtsi b/arch/arm64/boot/=
-dts/freescale/imx8mq.dtsi
-> index 5545b5b20ab2e..8d53df2be2280 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mq.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mq.dtsi
-> @@ -1247,8 +1247,6 @@ sec_jr2: jr@3000 {
->  			mipi_dsi: dsi@30a00000 {
->  				compatible =3D "fsl,imx8mq-nwl-dsi";
->  				reg =3D <0x30a00000 0x300>;
-> -				#address-cells =3D <1>;
-> -				#size-cells =3D <0>;
->  				clocks =3D <&clk IMX8MQ_CLK_DSI_CORE>,
->  					 <&clk IMX8MQ_CLK_DSI_AHB>,
->  					 <&clk IMX8MQ_CLK_DSI_IPG_DIV>,
->=20
->=20
+Changes in v2:
+- Rebased onto leds/for-leds-next
+- dt-bindings: make flash-max-microamp, led-max-microamp and
+  flash-max-timeout-us required
+- driver: return device to standby state when the last output is
+  switched off (squashed fix provided by Ruslan Koreev)
+- New 3/4: DMI mechanism and entry for the X1 Carbon developed by
+  Ruslan. Plus a minor update to provide a reg property for consistency
+  with the DT bindings.
+- New 4/4: DMI entry for the X9-15 Gen 1 and update struct names to be
+  model-specific.
+
+v1: https://lore.kernel.org/all/20260821083620.68324-1-rillian.grant@gmail.com/
+
+Rillian Grant (3):
+  dt-bindings: leds: Document TI LM3643 dual LED flash driver
+  leds: flash: Add support for the TI LM3643 dual LED flash driver
+  leds: flash: lm3643: Describe the LED on the Lenovo ThinkPad X9-15 Gen
+    1
+
+Ruslan Koreev (1):
+  leds: flash: lm3643: Describe the LED of ACPI boards without LED nodes
+
+ .../devicetree/bindings/leds/ti,lm3643.yaml   | 129 +++
+ MAINTAINERS                                   |   7 +
+ drivers/leds/flash/Kconfig                    |  12 +
+ drivers/leds/flash/Makefile                   |   1 +
+ drivers/leds/flash/leds-lm3643.c              | 919 ++++++++++++++++++
+ 5 files changed, 1068 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3643.yaml
+ create mode 100644 drivers/leds/flash/leds-lm3643.c
 
 
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
---nextPart5106211.GXAFRqVoOG
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEByESxqszIvkmWRwbaS+g2M0Z/iUFAmq6NqIACgkQaS+g2M0Z
-/iWtAwgAw15FHfti/QRK+BceI+JbLmo2ap+ZhC7g7WR4VoJdRdbn1hpE0FnZS7b6
-wrRfOlVB3IlXx2h+O70oTDLN9qOIUslWX9dZW9Pz7ng7Ypps/PvzybgXpPINblUg
-lmQK+gJ241/D8QVKv5aW9ps6obTjElmlDa6FFMoG3lXr/t5m6RYrxHC1hP6s+N2p
-8/8zMFTKK1vWCEaJlyTEbhxcGZKoXbwmFal4ZM6sr8ZlgfOXj7mNmKvqXZGLSytr
-lYClZ6YdWvj6qI6nJgtTbp2aJg4lQ7d914y646Kwlqx9UKMOHaRM49MFLepw4Sy1
-cdtbyGbU7UU9IOezebLj77RrgMw1qg==
-=uz4y
------END PGP SIGNATURE-----
-
---nextPart5106211.GXAFRqVoOG--
-
-
+base-commit: 05b4738b0078f7d6f154f68068a11c8a0635e9df
+-- 
+2.55.0
 
