@@ -1,146 +1,522 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37EF94B95C3
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790600868; cv=none; b=kVXS64sii7+JiS+XLwFVG0KGeGKW2XupVerKSzHq/iZRYZlITz91K1ghiL8Cavw9iERx85CbMz+fQtvsRvrzzrn5/mToTjcZLV+qwC7dSW2djx+syf+PL9p3bf+6Pywx4RSIo96fCbMI/CJ1p80dTLzRqys1qjRjdNspAlaabIY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790600868; c=relaxed/simple;
-	bh=fZn/QVDkIbziOeb17GGhD0vpSwDNGdUnulw5vyaVmvA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PuB11DYsZyTTttSPJH6A211opypBWduMULUpUrZt+zZ5Orf2GWLuQ73zHFP/lDbgm+SWAGosuwl6CljPQVsF0sJHB0deSwmOOCGFIl3VVyn3vs1u79bCssYzGPCVHuo3V3FDJlju+or/Z8b44pAGdtmE2EegzzPdqn4Uq0gkQ+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FrGvxZcr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D4D37A843
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 13:07:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790600882; cv=pass; b=shjBFdg2qLOUEEojCG6KozzHt2MHKDnqCimZd8JpxtX8XcwX44J8oQDgfjwUJdlN3UMi2mmnjdevKOgGTQQbwVBacY7dx/ArZLQR9GBnQMpWgHBFEVBDJFXGRtdkQYvYWIaECPYwRnD8qtIXziX4fB+cp1P1QupjU686wnuMAA4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790600882; c=relaxed/simple;
+	bh=xEcymRmGszspdnukJ2qDwmGJzrkJxNGdwFUd0osA0MY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZysX/FcDUAOSo9h1JFn5hyVACH1EhtAdOGsTNyDzBBrvIzLCPxCfmlFThW8WeV9gq6sFI1Yi0E1w1q8TphyC8m/kMjpb8eO4qwLb06iD8/Auc2Mkw09E01Fyao4rIzlSJKKYZHkju/8INB3TAIBu5Iqzw+LDP+aIGR5il9XcFNA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ma/yyqIV; arc=pass smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FrGvxZcr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89CDF1F000FF;
-	Mon, 28 Sep 2026 13:07:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790600866;
-	bh=r4sM0LqBTFO79L7VzFdV70SOxs7eLaglWh/tmeUgHD4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FrGvxZcrzgDaXgPgO2tX9u4OZYE0V2IwqfTx7td1nOKzExdEJUmEniYIaXE1rN/Sb
-	 Q0auW37F1YscDCkByK+paTaMRMjTZfi8KtCvwj80Cul0rVcB+AA48TcraQZilf/Wg+
-	 8pxbW78IvIVQhLANoY3i3E+ifik/IUr2HsvSy5g15d6M0ikGNPu1hu0KjInhicJF3T
-	 OoWcQdrdBnhUbHwd3oqPA4A4mZUth1H5zEO2hVLJEm+iQ/Nw/TNoPs22F2t3nW7UPx
-	 eCX2/lJx/v2XaDhlcqa98ZpWrbb8ODCIrxCbVGmcRBtoYrbOxLB3UASQIkydEzQoKs
-	 ZMSH3QE0tCCkw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 07/10] ASoC: qcom: Add QAIF PCM operations
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260928-b4-qaif-shikra-audio-v8-7-ac618057fe85@oss.qualcomm.com>
-References: <20260928-b4-qaif-shikra-audio-v8-0-ac618057fe85@oss.qualcomm.com>
- <20260928-b4-qaif-shikra-audio-v8-7-ac618057fe85@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Sep 2026 13:07:46 +0000
-Message-Id: <20260928130746.89CDF1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ma/yyqIV"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2af9270c53so262896866b.1
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 06:07:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790600877; cv=none;
+        d=google.com; s=arc-20260327;
+        b=tD11oSAoPcK+CJZHfda3LrwvAt2t1efAHW/hoVPw7QCdMR8mc5GGxbRGpurf6JFCKb
+         M3PI9gdQKEULud/KqEvN9bA9fTFUN+0aHDbicJm6ZNInCjfILfAg4Q5rlB93ncxNkp8o
+         9LdXHmnx0vyHfC+/fTSkgr3OIn1tE+vn/az8fy9duZSSVJGpRx6LfYLFeNW9/0ZRvhbN
+         UqRkdrZoZVU2dU/GAFqMcXfQyxBbVPiKLdvaCD1g9rKZrZ1lhF/MAdIwbHNi+n1e4eBY
+         TBmTziuA7fYMSkiDXksViDBpzNEcaL4PTaGP/gIZfwziR/xApt0Re3wISn0/inlUbZ3A
+         1P8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LocOq6XG/4rm3dtwjOYm+24mahJp9YZapm60UEYrnpU=;
+        fh=hV4j4GBG2DeKHbA77yJ/eTganDJS214n2Gx5durU9sk=;
+        b=bfS+qVKi/9HHvpwUmfNf8oftq7mlmds95ETEmfEtOY+0CyxNmyexwDY3oKAsfAQmu+
+         t9tehuVXjYYSUMbfZUSIzae3wbVZ3Whxnde3Px5LxxWQUpXwcbFcBodbFJr3hNjHKzHq
+         rP/MM3JctJAuNlh7uGGxcZGayrZRstmMo3eY0cDANlQv/KpmSetm2t+HElgwtZZ4L14l
+         BAZC0C7KU23D1etLOPACtTvF1Y0cuU4sMD9dMTyT4dP/C3tdgRzSSdkeAuHrmOsJePVh
+         Q1vnqWeUz4DrYtl+mcv8e3iJB3TN4+0uvXHB9PgKnf6NC2Gf7BOH8tkTtl3qzbegrWVN
+         BuvA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790600877; x=1791205677; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LocOq6XG/4rm3dtwjOYm+24mahJp9YZapm60UEYrnpU=;
+        b=ma/yyqIV6I9wSrTVT0HMFEi1kTrXqW9LVSpyyjZpY03eYHjRr5e5HwmfziYcwnoBBn
+         5EaY3DNnp1RZsV8APCX4HDPAKzrfnxPHK49dwyEP/qL5gk9A8x9e5aiROF/6LAz7foBZ
+         JO15CSz1+UvCIN+LQZttxSQJaJ2Z2ukiM/5OlvzzTWdHlGfriFv/+68B1oHh4dyk6UUu
+         +BYjQjmakJZRfQbJ1iy2PBVGBuLcfrMrvq/wJUjbBwcfsAQRVEH+knwVC/lSuTutMskK
+         Ue4RRpeZ/0/gYoIQz0dTGoqRQNW3TpbU+D1R2GdTtX9IUdS2AJ9cpbQX6eJypS3WRCoG
+         hSTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790600877; x=1791205677;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LocOq6XG/4rm3dtwjOYm+24mahJp9YZapm60UEYrnpU=;
+        b=cgrM69IuY+CZByN1NhpbdRrLS/p4hAKjPnmD5nTGqbBvGdckHN1ItmfQtLlcSSRLOt
+         1hKfd9pxEWrIhRfwPTdrjwZVBwdPBaPsmMjRDonwi9J4e6/gWP1el6/opn5vXG/lTtP6
+         ldnqC23PJkeIRQJY4APQL/ULQXYNzERIHGZRkJfbXl9EDLnWr72Xyk1ZdjUUNJEzKgHM
+         LhEChUeLsfUy5UNrys88eIwJ0QsxWIs9pQ+T4EQEp3f/L5cGuvICsrlgh6BE2rs3b8a7
+         o2kB+PDbS1mDCzawYDz3NdE8/xZMXcosz3Va3ijH+L+0EzKqx2lfHma9fP5Ukw0JC6nm
+         ZkbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7kL38vYJZhC4tJXLdLhcgu0N+DhjXBTeZRxNLC33nodo0VopVMnevTJzT+nTKsiWv0+mxD4wkO++n@vger.kernel.org
+X-Gm-Message-State: AFuF++lOQuGBGo9dAgb9St9uhl4wZyP2BPhmt96maPPM9BSsacbZb8Ek
+	84A7PTAaUFydGs10+CUUOnrpZWnLmK15dQchqGksApgUz+Al36MElLRuUMThP6y7J4GWJCVdAQS
+	50NbdsyYp9r42uvE1VyUoZ7GqvdlsaEg=
+X-Gm-Gg: AYBFou0Cn0YsQE/dOUW14RluqACDREywecQ46KFoC9mHWdBqfBS9UxJCslGpL3ek1U2
+	ZFrO5qHaJZjg0wzRMYLYTNyFBIUdWMK6fSjxbAsApTmWX6GSIYTsX4TQcpe4tyFwXX1DXE0cGOo
+	7Q6t7zjlUDNtbZMt3oCcJ2XpLcd/KinM4av0qj74syOYyi4fKHd9gjGfTMPF69jNXVgnxi2zvct
+	z3nKCMMjgNGKXQf+08C8qbMyCnWmvMSZR+QeWSJ9fETpRpHNytCBy6ouv5gjuSCS1lp5v4qmnXn
+	eBw5791iwE4byC3f91Jb4OqFjZQk3LsejDu5cQNrACCL+ojgcKo3vdpIfBi30G9EKHo0LMT+xQP
+	4wfJ9t/rIcnqrhuCqMKv1Ri4coS9S9OsABlDBA2/amHKHvQFIFdQsKunQUZ1naKtXRZPeBLyRqj
+	DPFN9tXpqgRAJoIJQme7bg/mgjm1aRHTEt/aXeRdJi
+X-Received: by 2002:a17:907:d005:b0:c26:2151:180a with SMTP id
+ a640c23a62f3a-c2ac525fe62mr1010298366b.3.1790600877277; Mon, 28 Sep 2026
+ 06:07:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260928111907.72592-1-pepe.schlehofer@gmail.com> <20260928111907.72592-3-pepe.schlehofer@gmail.com>
+In-Reply-To: <20260928111907.72592-3-pepe.schlehofer@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 28 Sep 2026 16:07:20 +0300
+X-Gm-Features: AclHuK8LrUHy1cNTkceV0KejktAKpvV1sU6tn8Odpjfo0Yk1ssM4v7bILMVuPmU
+Message-ID: <CAHp75VeH70LshOt0qzrvLkZYqDx=43o=34_wmHWkbYcTy7Z3vA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] leds: Add support for Turris 1.x LEDs
+To: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
+	=?UTF-8?B?TWFyZWsgQmVow7pu?= <kabel@kernel.org>, 
+	Andy Shevchenko <andy@kernel.org>, Rong Zhang <i@rong.moe>, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-api@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] QAIF driver fails to restore hardware registers or SHRAM state on =
-system resume
-- [Low] Mismatch between register constant naming and the register being up=
-dated (`QAIF_DMACTL_WM_5` used for `DMACFG`)
---
+On Mon, Sep 28, 2026 at 2:19=E2=80=AFPM Josef Schlehofer
+<pepe.schlehofer@gmail.com> wrote:
+>
+> From: Pali Roh=C3=A1r <pali@kernel.org>
+>
+> Add a driver for the eight RGB LEDs on the front panel of the CZ.NIC
+> Turris 1.x routers. They are driven by the CZ.NIC CPLD firmware, whose
+> source is available at
+> https://gitlab.nic.cz/turris/hw/turris_cpld/-/blob/master/CZ_NIC_Router_C=
+PLD.v
+>
+> The LEDs use the multicolor LED class. Every LED except the WiFi LED can
+> also be driven by the CPLD from hardware events, exposed as the private
+> turris1x-cpld trigger. The five LAN LEDs share one set of colour
+> registers, so the colour and brightness set last on any of them apply
+> to all five.
+>
+> The controller device exposes the global brightness controlled by the
+> button on the back of the router through `brightness`,
+> `brightness_level`, and `brightness_levels/<N>`. The Turris Omnia
+> driver already has `brightness`, so its ABI entry is extended to cover
+> the Turris 1.x as well.
 
-commit 26a7723ec5d620bcd1ab1da632a18d127c2fe623
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+> Signed-off-by: Pali Roh=C3=A1r <pali@kernel.org>
 
-ASoC: qcom: Add QAIF PCM operations
+> Cc: Marek Beh=C3=BAn <kabel@kernel.org>
+> Cc: Andy Shevchenko <andy@kernel.org>
 
-This commit adds the PCM platform callbacks needed to use QAIF DAIs for
-playback and capture. It handles DMA buffer pre-allocation, stream
-configuration, and one-time hardware initialization. It also adds support
-for mmap on CIF and AIF paths.
+Please, move these (Cc list) to the block under the cutter '---' line,
+so it won't pollute the commit message.
 
-> diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platfor=
-m.c
-> new file mode 100644
-> index 0000000000000..e24c4252825e2
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif-platform.c
+> Co-developed-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+> ---
 
-[ ... ]
+...
 
-> @@ -0,0 +1,464 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * qaif-platform.c -- ALSA SoC PCM platform driver for the Qualcomm Audi=
-o Interface (QAIF)
-> + */
+>  What:          /sys/class/leds/<led>/device/brightness
+> -Date:          July 2020
+> -KernelVersion: 5.9
+> -Contact:       Marek Beh=C3=BAn <kabel@kernel.org>
 
-[ ... ]
+> +Date:          July 2020 (Turris Omnia), September 2026 (Turris 1.x)
+> +KernelVersion: 5.9 (Turris Omnia), 7.4 (Turris 1.x)
 
-> +static const struct snd_pcm_hardware qaif_platform_hardware =3D {
-> +	.info			=3D	SNDRV_PCM_INFO_MMAP |
-> +					SNDRV_PCM_INFO_MMAP_VALID |
-> +					SNDRV_PCM_INFO_INTERLEAVED |
-> +					SNDRV_PCM_INFO_PAUSE |
-> +					SNDRV_PCM_INFO_RESUME,
-> +	.formats		=3D	SNDRV_PCM_FMTBIT_S16 |
+This is quite unusual. If you want to refer to the kernel version, do
+it in the description. Also note the version (see below more on it).
 
-[Severity: High]
-This structure advertises the hardware resume capability by setting
-SNDRV_PCM_INFO_RESUME. Does this create a regression during system resume
-where the hardware state is lost, because the driver does not provide the
-required callbacks and state restoration logic to support it?
+> +Contact:       Marek Beh=C3=BAn <kabel@kernel.org>, linux-leds@vger.kern=
+el.org
 
-[ ... ]
+Why? The mailing list is kinda default, no?
 
-> +static int qaif_init(struct snd_soc_component *component)
-> +{
-> +	struct qaif_drv_data *drvdata =3D snd_soc_component_get_drvdata(compone=
-nt);
-> +	int ret;
+...
+
+> +What:          /sys/class/leds/<led>/device/brightness_level
+> +Date:          September 2026
+
+Impossible. Use https://hansen.beer/~dave/phb/ to predict the dates of
+the next release, this is a huge driver that most likely may not make
+v7.4, so the v7.5 is a plausible candidate.
+
+> +Contact:       Josef Schlehofer <pepe.schlehofer@gmail.com>
+> +Description:   (RW) Index (0-7) of the global brightness level in use on=
+ the
+> +               Turris 1.x routers. The button on the back side of the ro=
+uter
+> +               steps through the levels. Writing to this file selects a =
+level
+> +               directly. The CPLD keeps the selection across driver unbi=
+nd and
+
+the driver
+
+> +               reboot.
 > +
-> +	if (drvdata->qaif_hw_configured)
-> +		return 0;
+> +               Format: %u
 > +
-> +	ret =3D qaif_config_shram(drvdata);
+> +What:          /sys/class/leds/<led>/device/brightness_levels/<N>
+> +Date:          September 2026
 
-[Severity: High]
-During system suspend, the hardware typically loses its SHRAM configuration
-and EE mapping when the power domain collapses. Since qaif_hw_configured is
-never cleared during suspend, will qaif_init() return early without
-re-applying the required one-time hardware configuration on resume?
+As per above
 
-Without restoring these registers, could this lead to a regression where
-the hardware remains uninitialized and fails to operate correctly after a
-system sleep cycle?
+> +Contact:       Josef Schlehofer <pepe.schlehofer@gmail.com>
+> +Description:   (RW) Value of the global brightness level N (0-7) on the
+> +               Turris 1.x routers, one file per level. These are the val=
+ues
+> +               the CPLD firmware steps through when the brightness butto=
+n is
+> +               pressed. Reading returns the value, writing accepts an in=
+teger
+> +               between 0 and 255. The CPLD keeps the values across drive=
+r
 
-[ ... ]
+the driver
 
-> +static int qaif_platform_pcmops_hw_params(struct snd_soc_component *comp=
-onent,
-> +					  struct snd_pcm_substream *substream,
-> +					  struct snd_pcm_hw_params *params)
+> +               unbind and reboot, and restores the defaults (255 64 32 1=
+6 8 4
+> +               2 0) at power-on and when the reset button is pressed.
+
+...
+
+> +#include <linux/bits.h>
+> +#include <linux/container_of.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/io.h>
+> +#include <linux/kstrtox.h>
+> +#include <linux/led-class-multicolor.h>
+> +#include <linux/leds.h>
+> +#include <linux/limits.h>
+> +#include <linux/math.h>
+> +#include <linux/minmax.h>
+
+> +#include <linux/mod_devicetable.h>
+
+Not anymore. Rely on what platform_device.h provides.
+
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/sysfs.h>
+> +#include <linux/types.h>
+
+...
+
+> +struct turris1x_leds {
+> +       void __iomem *regs;
+> +       /* Protects the CPLD LED registers and @reset */
+> +       spinlock_t lock;
+> +       /* Set by turris1x_leds_reset(), after which the LEDs are left al=
+one */
+> +       bool reset;
+> +       struct turris1x_led led[TURRIS1X_LED_NUM];
+
+Please, check the layout of all structures with `pahole`, it might
+suggest a better one.
+
+> +};
+
+...
+
+> +/* Must be called with ddata->lock held */
+
+This is good, but having a lockdep annotation is even better.
+
+> +static void turris1x_led_set_colors(struct turris1x_leds *ddata, struct =
+turris1x_led *led,
+> +                                   enum led_brightness brightness)
 > +{
+> +       struct led_classdev_mc *mc_cdev =3D &led->mc_cdev;
+> +       unsigned int i;
+> +       u8 val;
+> +
+> +       led_mc_calc_color_components(mc_cdev, brightness);
+> +
+> +       /* The colour registers are 8 bits wide, do not let values wrap *=
+/
+> +       for (i =3D 0; i < TURRIS1X_LED_NUM_COLORS; i++) {
 
-[ ... ]
+for (unsigned int i...) {
 
-> +	ret =3D regmap_update_bits(drvdata->audio_qaif_map,
-> +				 qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
-> +				 QAIF_DMACFG_BURST4_BIT | QAIF_DMACFG_SHRAM_WM_MASK,
-> +				 QAIF_DMACFG_BURST4_BIT | QAIF_DMACTL_WM_5);
-> +	if (ret)
-> +		dev_err(soc_runtime->dev, "error updating DMA CFG: %d\n", ret);
+> +               val =3D min_t(unsigned int, mc_cdev->subled_info[i].brigh=
+tness, U8_MAX);
 
-[Severity: Low]
-Is the use of QAIF_DMACTL_WM_5 intentional here? It appears to be a constant
-meant for a DMACTL register, but it is being supplied to a DMACFG register
-operation (qaif_dmacfg_reg).
+No min_t(), it should be an exceptional use, and it was especially
+proven to have issues with < INT_MAX comparisons in some cases. I
+think you mean to have clamp() here.
+
+> +               turris1x_write(ddata, turris1x_color_reg(led->reg, i), va=
+l);
+> +       }
+> +}
+
+...
+
+> +static int turris1x_hwtrig_activate(struct led_classdev *cdev)
+> +{
+> +       struct turris1x_leds *ddata =3D dev_get_drvdata(cdev->dev->parent=
+);
+> +       struct turris1x_led *led =3D to_turris1x_led(cdev);
+> +       unsigned long flags;
+> +       u8 val;
+> +
+> +       spin_lock_irqsave(&ddata->lock, flags);
+
+Why not guard()()?
+
+> +       if (ddata->reset)
+> +               goto unlock;
+> +
+> +       /*
+> +        * If software turned the LED off, the last configured colour was=
+ not
+> +        * necessarily written to the CPLD. Write it with max_brightness =
+before
+> +        * the hardware takes over.
+> +        */
+> +       if (!led->on)
+> +               turris1x_led_set_colors(ddata, led, cdev->max_brightness)=
+;
+> +
+> +       /* Disable LED software control */
+> +       val =3D turris1x_read(ddata, TURRIS1X_LED_SW_OVERRIDE_REG);
+> +       turris1x_write(ddata, TURRIS1X_LED_SW_OVERRIDE_REG, val & ~BIT(le=
+d->reg));
+> +
+> +       led->hwtrig =3D true;
+> +
+> +unlock:
+> +       spin_unlock_irqrestore(&ddata->lock, flags);
+> +
+> +       return 0;
+> +}
+
+...
+
+> +       /*
+> +        * Enable or disable the LED under software control. The CPLD ign=
+ores
+> +        * this bit while the hardware trigger drives the LED, so leave i=
+t
+> +        * alone.
+> +        */
+> +       if (!led->hwtrig) {
+> +               val =3D turris1x_read(ddata, TURRIS1X_LED_SW_DISABLE_REG)=
+;
+> +               if (brightness)
+> +                       val &=3D ~BIT(led->reg);
+> +               else
+> +                       val |=3D BIT(led->reg);
+
+If led->reg is unsigned long, you can use __asign_bit() here.
+
+> +               turris1x_write(ddata, TURRIS1X_LED_SW_DISABLE_REG, val);
+> +               led->on =3D !!brightness;
+> +       }
+
+...
+
+> +static int turris1x_led_register(struct device *dev, struct turris1x_led=
+s *ddata,
+> +                                struct fwnode_handle *fwnode, u8 val_sw_=
+override,
+> +                                u8 val_sw_disable)
+> +{
+> +       static const unsigned int colors[TURRIS1X_LED_NUM_COLORS] =3D {
+> +               LED_COLOR_ID_RED, LED_COLOR_ID_GREEN, LED_COLOR_ID_BLUE,
+> +       };
+> +       struct led_init_data init_data =3D {};
+> +       struct led_classdev *cdev;
+> +       struct turris1x_led *led;
+> +       unsigned long flags;
+> +       u8 val, dis;
+> +       u32 reg, color;
+> +       unsigned int i;
+> +       int ret;
+> +
+> +       ret =3D fwnode_property_read_u32(fwnode, "reg", &reg);
+> +       if (ret || reg >=3D TURRIS1X_LED_NUM)
+> +               return dev_err_probe(dev, -EINVAL, "Invalid or missing 'r=
+eg' property\n");
+> +
+> +       ret =3D fwnode_property_read_u32(fwnode, "color", &color);
+> +       if (ret || color !=3D LED_COLOR_ID_RGB)
+> +               return dev_err_probe(dev, -EINVAL, "Invalid or missing 'c=
+olor' property\n");
+
+Do not shadow the error code.
+
+> +       led =3D &ddata->led[reg];
+> +       if (led->registered)
+> +               return dev_err_probe(dev, -EINVAL, "LED %u already regist=
+ered\n", reg);
+
+EBUSY / EEXIST ?
+
+> +       led->reg =3D reg;
+> +
+> +       /* Set the initial colours to those currently in use */
+> +       for (i =3D 0; i < TURRIS1X_LED_NUM_COLORS; i++) {
+
+for (unsigned int i...) {
+
+> +               led->subled_info[i].intensity =3D turris1x_read(ddata, tu=
+rris1x_color_reg(reg, i));
+> +               led->subled_info[i].color_index =3D colors[i];
+> +               led->subled_info[i].channel =3D i;
+> +       }
+> +
+> +       /*
+> +        * LEDs 1-5 (LAN) share one set of colour registers, and the brig=
+htness
+> +        * of an LED is applied by scaling its colour, so all of them sho=
+w the
+> +        * colour and brightness written last. Each LED still keeps its o=
+wn
+> +        * intensities and brightness, so multi_intensity and brightness =
+report
+> +        * what the LED was last given, which is not necessarily what it =
+shows.
+> +        */
+> +       led->mc_cdev.subled_info =3D led->subled_info;
+> +       led->mc_cdev.num_colors =3D TURRIS1X_LED_NUM_COLORS;
+> +
+> +       init_data.fwnode =3D fwnode;
+> +
+> +       cdev =3D &led->mc_cdev.led_cdev;
+> +       cdev->max_brightness =3D 255;
+> +       cdev->brightness_set =3D turris1x_led_brightness_set;
+> +
+> +       /* All LEDs except the WiFi LED can be driven by the hardware tri=
+gger */
+> +       if (reg !=3D TURRIS1X_LED_WIFI) {
+> +               cdev->trigger_type =3D &turris1x_hw_trigger_type;
+> +               cdev->hw_control_trigger =3D turris1x_hw_trigger.name;
+> +       }
+> +
+> +       if (!(val_sw_override & BIT(reg)))
+> +               cdev->default_trigger =3D turris1x_hw_trigger.name;
+> +
+> +       if (!(val_sw_override & BIT(reg)) || !(val_sw_disable & BIT(reg))=
+)
+> +               cdev->brightness =3D cdev->max_brightness;
+> +
+> +       led->on =3D !(val_sw_disable & BIT(reg));
+> +
+> +       ret =3D devm_led_classdev_multicolor_register_ext(dev, &led->mc_c=
+dev, &init_data);
+> +       if (ret)
+> +               return dev_err_probe(dev, ret, "Cannot register LED %u\n"=
+, reg);
+> +
+> +       /*
+> +        * A linux,default-trigger property replaces the hardware trigger=
+, and
+> +        * the CPLD then keeps driving the LED and ignores software contr=
+ol.
+> +        * Take such an LED over in the state the LED core reports.
+> +        */
+> +       spin_lock_irqsave(&ddata->lock, flags);
+> +       val =3D turris1x_read(ddata, TURRIS1X_LED_SW_OVERRIDE_REG);
+> +       if (!led->hwtrig && !(val & BIT(reg))) {
+> +               dis =3D turris1x_read(ddata, TURRIS1X_LED_SW_DISABLE_REG)=
+;
+> +               if (cdev->brightness)
+> +                       dis &=3D ~BIT(reg);
+> +               else
+> +                       dis |=3D BIT(reg);
+> +               turris1x_write(ddata, TURRIS1X_LED_SW_DISABLE_REG, dis);
+> +               led->on =3D !!cdev->brightness;
+> +               turris1x_write(ddata, TURRIS1X_LED_SW_OVERRIDE_REG, val |=
+ BIT(reg));
+> +       }
+> +       spin_unlock_irqrestore(&ddata->lock, flags);
+> +
+> +       led->registered =3D true;
+> +
+> +       return 0;
+> +}
+
+...
+
+> +       best_level =3D 0;
+> +       best_error =3D INT_MAX;
+> +       for (level =3D 0; level < TURRIS1X_LED_NUM_LEVELS; level++) {
+
+Ditto.
+
+> +               value =3D turris1x_read(ddata, TURRIS1X_LED_LEVEL_VALUE_R=
+EG + level);
+> +               error =3D abs(value - brightness);
+> +               if (error < best_error) {
+> +                       best_error =3D error;
+> +                       best_level =3D level;
+> +               }
+> +       }
+
+...
+
+> +/* _level is always a literal 0..7, it is pasted, stringified and stored=
+ */
+> +#define TURRIS1X_LEVEL_ATTR(_level)                                     =
+       \
+> +       static struct turris1x_level_attr turris1x_level_attr_##_level =
+=3D {      \
+> +               .attr =3D __ATTR(_level, 0644, brightness_level_value_sho=
+w,       \
+> +                              brightness_level_value_store),            =
+       \
+
+Don't we have __ATTR_RW() ?
+
+> +               .level =3D _level,                                       =
+         \
+> +       }
+
+...
+
+> +       device_for_each_child_node_scoped(dev, child) {
+> +               ret =3D turris1x_led_register(dev, ddata, child, val_sw_o=
+verride, val_sw_disable);
+> +               if (ret)
+> +                       return ret;
+> +               count++;
+> +       }
+
+> +       if (!count)
+> +               return dev_err_probe(dev, -ENODEV, "No LED devices found =
+in device tree\n");
+
+We have counting API, so this can be done ahead. Yes, it will iterate
+over the list twice, but I don't think it's an issue.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-b4-qaif-sh=
-ikra-audio-v8-0-ac618057fe85@oss.qualcomm.com?part=3D7
+With Best Regards,
+Andy Shevchenko
