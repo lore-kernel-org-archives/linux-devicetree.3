@@ -1,67 +1,68 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wr2-f30.google.com (mail-wr2-f30.google.com [74.125.225.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE8E4EDCCA
-	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 17:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536CB3F7A8C
+	for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 17:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790615921; cv=none; b=R8vxRkPbXDG873TTfHQXwHhkJ+mffMtlm6dZwZjm0SvY6JUGJN57ViOJBHJFLFjf9GEajm2T2ijTIGP1/VRzqkj1mIBFClUH1ZKY08SPz2UdiARnV3REglEeI5HYvEfPBbc+aXcMO60DU+eIwOX0ALvg6V7Vja1C6gfdJA+pb2s=
+	t=1790615923; cv=none; b=ayeH7bwjbYvwBxIfPOAj5ZtmZevX4096XUFliOmm5becS3dEKmquNRjsEGTra+1nU7XNb+IwPF1YuZtiigjdRIL9Tecj5Tx4ImKn6xN7jJverk0LJi33jTWofGTTxeqn+lAR9qsBqmVPChiH2yUGYXVC4O2f2LuW0L/HehL61/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790615921; c=relaxed/simple;
-	bh=zmMCjORbtJtWDSFmQRFFbUAM5lSo+Rhe75Em9QNmcMI=;
+	s=arc-20240116; t=1790615923; c=relaxed/simple;
+	bh=GSDTTVtVozpx3VJNNfeRSYeJA9UCPSmKB3J4qrce5Vk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZgSZim3VihULPSzUDHukqHcgEfb5+Rys2igw/+4YuaftBqi9GfTdlyu294skoxWkfSFs81tlgrIwB4nuc4RCf7k9KnL5W8nxUSX+n/Y6DFmquF40s200Ubq0H+7mDR/Kl8n2qlhGcGVPJJj/2IWdFGMBsxx7sx5dktL+oFhuDFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=NetVhJQc; arc=none smtp.client-ip=74.125.225.99
+	 In-Reply-To:To:Cc; b=YgCSC5bz+OQAZYC1MzyIPl+PzOnbqE1D5abmNwY5AGpzAYCS7MFY2wAmb2rJsVtx31qcGSGqWBDLz+zbly6j4Z5C30KvAPCU8ljYUWxmlUDJH94v7S/4uLxL4w87AYbMYegANZEc2ulyIHCxxpnGrOkBEatE/GO0H4ZDes/VJpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=lpvouWgf; arc=none smtp.client-ip=74.125.225.94
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="NetVhJQc"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f6cf16bso2048084f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 10:18:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="lpvouWgf"
+Received: by mail-wr2-f30.google.com with SMTP id ffacd0b85a97d-48439feca17so2518200f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 10:18:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1790615915; x=1791220715; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1790615917; x=1791220717; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OeSLEttyfMvpfX1KhFTKCRoBV4HzzJzo8yo9uusQA3w=;
-        b=NetVhJQcIKlctspETkivLt3vo5OFIC7FFYjSpRuWBjISR0xu89urR6sFRMU/UdBOA9
-         3iivU1hE+waIaMaDNXTsqYVgS14uTtY0Xs9M9eQktB6xdSwqBTqqPMUZmPqyYXQdmwUL
-         EYuSkGG4Tp6mUhG6+JXHfX8wE1kh6Y5fuaPfTGeckZ482svWR6yZdFTHRnUMqgANyKNR
-         NzjTPu1akf3ZV9mSaA3jc1gKahocd5sWuQIDMRh0nMXzS/t4jjMCaCxSmlIwo/dp/HuW
-         NxySGHuDEQ+HkPDP3P+URdbHMHsWIERXAUexZKWcFNe73Ug+0civ+H2mSt9jxjwQSpeG
-         W5ow==
+        bh=OKoAFSTyhxJJ9frySV0GsBnYnyW00C156g62nhJmL7I=;
+        b=lpvouWgfM4I5l8wQ5851jrCQ7UQQyKxCz0DP6tCgrdlDHHXENQFTnxcYn+VRq7Kt3Q
+         YbifFGG0/UieoHOVS0LK9gRIPprXxk2v6lu9YBxZ2N0udXFdotMSfR/uF0yt+n8tru7W
+         HEn/MPsrrbhgWiLGRBBxN4LOZqKUq7qb+dvt/GkuIzOJ77r4V5ygPrApcDd6hnU58Ba+
+         qdETt1XQOBum8LAgH/FZrG93uj7XQ+9vZcj0lMZivU4STXYC2qW0RXQ4kxjU30grji09
+         PnondSkC8bhin9g1rgMbrcE9QsRp7dVoWDH0H4vkT9meLhR1Aq/STTmkYDVfCRTSSjLJ
+         Cf0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790615915; x=1791220715;
+        d=1e100.net; s=20260707; t=1790615917; x=1791220717;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OeSLEttyfMvpfX1KhFTKCRoBV4HzzJzo8yo9uusQA3w=;
-        b=mENqcETmKGCJ9NoV8f3z/J/5zVvOMi5tyJRsBjx4YTVgX0rmzxULVHre8389nWn/AB
-         YsFKyia4/8RK79dtkrRAnO2MX3F4TtbRgSIRbqTGMMLoci03mcbmNYCjryFNin73/Tuw
-         rgsMsLajWwEEisYBpAUcPPrlEHR8kq4/i8m7z8Gv/fdCV7HX/2HxM8PyumuODQgOeT0d
-         LosuZgHwkf1z3DQQZ1QXaYR6ch42YIGjQNAm3e+xmtPMgSDNWPCX4qUgD1Scdx0OmFgh
-         Gswr7OyhPalsE7MEvWct/cr6WMFbdn8Zn9lLnscgblYl+3bWXoAFHusE3b4weGbZuFWe
-         h1hA==
-X-Gm-Message-State: AFq9FYKUu5jesxoZGAtVEVXccDKnF5q6rR1V+cYkwUgiaRtb68GUBslI
-	GkXbpIIWoGc/Veui6ZkLZ5qeRMuyjQkKQ8FujVO88dNoGfTHetAm0AyRC5DqC1uCk/I=
-X-Gm-Gg: AYBFou3to9msYh+EZZlBMgqbZkgekehJ6fYDiM6lpmnUdyaon1jOqi1NscykHQ+yt7j
-	FOGkj/7VG8paCHGH+gcuqJ3uOagPBvFoJbco+bD/KtHzx3aOkvTxU48D+zg2il0D4anTl28KkxG
-	JoVR61C158TgiOMDfC2KcHyAtTAfMUo3cTNnGYETl/0F9cwNxLTT29/PfGs9dgFt82/vRnShsuv
-	Ve1wFZNGIwKHIS106IGojREP9On65UHGuSZnsiZCTxb6L8nj8jNDXoW+DGjyFZCfh+1FEAEugwL
-	vILzKax2SMPahERp/RqhmC/Dv61ruazYD+RYig/xAz61uaU5JTzmRuH0Lu/goYpn/uXS2NGyXQz
-	8nJGegJEMihLYfszGBBnmrGHtb1ATxG7E2gr+tH5rerx/eKvMyuDgxV40r45/8YaK54wKkab9Ht
-	+Cxe79vJSh4VHCdesEUczdQmpoooazSmqsVmeVbQfFsG0VAArM0llB0rnBtHuqMabfdVD+c71QK
-	Fwh8+u6i7uewK5G
-X-Received: by 2002:a05:6000:2010:b0:488:7803:c1ef with SMTP id ffacd0b85a97d-4887db496acmr19598301f8f.48.1790615915014;
-        Mon, 28 Sep 2026 10:18:35 -0700 (PDT)
+        bh=OKoAFSTyhxJJ9frySV0GsBnYnyW00C156g62nhJmL7I=;
+        b=ZMqdS7rmU4R1A0C7fL9GnWB6ZgkfOObfo65V6GaQZ4wQeZIbEyu6V6u2VVElttfytB
+         SFe/g14lUG/sEQQtj9isJNhLvL5Kph2HQckhk1WILIizG0tB+GhMgMFs2Po1zFCEurY/
+         nQ0XAmLa+iWvE/loOaMMKurVunmCg0qTtzxrMRfHLsZk6xDWMDtF/I6cetvYS47kEAjv
+         hrWzeRnoWnawe0tqFtNEkXIMz6oZTKs592PNkxDJboXlrYXijHktSr6gotNotvhnMzzl
+         vEhnqm72XkZRGQNvvD+Co0xHRlJRTGI+1N9nkelC7tyk3WXnI67ru2AlCzq7eUWO13y3
+         3oUg==
+X-Gm-Message-State: AFq9FYItRtFsvzuH9sgCoyJh1QsX2Wn5A/GcweRtkV8FmDF1BRCxwgof
+	+Ba3DyKOSSfmFWA4eJxJZT/UmfqB7h/kejwqE4VEZl+ppXPGEkGOonnJTs7yUB2kWn4=
+X-Gm-Gg: AYBFou3fK/tU0fbQPVfobVlFduMAH/dryKDqjR8VgJSHU5Ko4hjMuzvbb//SIUr93PM
+	swIm++GOLoFfyxz+5kGLDxexv3RcLqpt5ln0Im6LeFLTF7imf30JdB2ots6Zl+Ep0xy4g/v7NJD
+	Biqgsq5KiO/2XvFLTzUugMR05jmN8zmO9Y0XP777RLG40jbKGPdGIRDcEX5kpW7s735H1S92v3C
+	YAorU5HTeO2YszPIQbMaRik96PENmVRr+24MCKbDsguYusYFEThTYbstaFlBIXXi4X1f4u68Z1B
+	AxuAMTpC3frEhqHRx1YBVzG8wb/h7f/LuXYn0udUNIUQp+aPPDnEwEDuEnZ+zbqUO81cIgixiqj
+	91tVLoB73Mmytv6g3qIQYV1Lp6sOkV7QP6Wvf/tHoPLDazsAfYlac1wHB2bqdHN2ONYBgdSx8Zt
+	htv794DpkFRIDoG84/oHw9RAmu+ekoqijZloVu64oreL+eIcsuGWCqfuRbhP2Cd9QSVAy81ygKl
+	Jrr/ePMI9hQNc20
+X-Received: by 2002:a05:6000:2211:b0:487:a3f:1ea6 with SMTP id ffacd0b85a97d-4887171417cmr25452794f8f.11.1790615917277;
+        Mon, 28 Sep 2026 10:18:37 -0700 (PDT)
 Received: from alchark-surface.localdomain ([5.194.93.183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a84221bsm29224973f8f.36.2026.09.28.10.18.32
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a84221bsm29224973f8f.36.2026.09.28.10.18.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 10:18:34 -0700 (PDT)
+        Mon, 28 Sep 2026 10:18:37 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 28 Sep 2026 21:18:19 +0400
-Subject: [PATCH 4/5] arm64: dts: rockchip: add reboot-mode node to RK3576
+Date: Mon, 28 Sep 2026 21:18:20 +0400
+Subject: [PATCH 5/5] arm64: dts: rockchip: name the reboot mode supplies on
+ RK3576 EVB1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260928-b4-rk3576-reboot-mode-v1-4-65486b03bd41@flipper.net>
+Message-Id: <20260928-b4-rk3576-reboot-mode-v1-5-65486b03bd41@flipper.net>
 References: <20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net>
 In-Reply-To: <20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -80,88 +81,58 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  linux-pm@vger.kernel.org, Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2965; i=alchark@flipper.net;
- h=from:subject:message-id; bh=zmMCjORbtJtWDSFmQRFFbUAM5lSo+Rhe75Em9QNmcMI=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtWhj3YPL0uTO2f9BiZBOvFShcsOx+TPNS04cRlyJ/n
- NhoxZrl3DGRhUGMi8FSTJFl7rcltlON+Gbt8vD4CjOHlQlkiLRIAwMQsDDw5SbmlRrpGOmZahvq
- GRrpGOsYMXBxCsBUP1Zm+GfCGWTwv5jr0yTn6vTWuYubuoonyJqYCTx5oahRz/y19jXDP+P9028
- 9SFQJEnud6vLruqLUqsUTilI7+E7pzmyTivQIZAMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1714; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=GSDTTVtVozpx3VJNNfeRSYeJA9UCPSmKB3J4qrce5Vk=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtWhhfLzE1objgdFrER4kj67Xv6uS5Fq0Sv/X5CXc90
+ 9eGpgnrOiayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyMdYx0jBi5OAZjqb6cZGRauctbcWyvRt/REtjnT1WhdyZehG1dG3G4LuafFJPFC2Z/hn7JD+Ey
+ HiZqxx79dfRSpsVRALGraiop3H688uBfhO/lPBisA
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-The RK3576 boot ROM chooses its boot device order from PMU1_GRF OS_REG0
-when that register holds one of its magic values: 0xef08a53c selects USB
-download (maskrom) mode, 0xef085a3X selects boot mode X, overriding what
-OTP or the SARADC strap would otherwise give.
+A reset that carries a boot mode request has to leave the mode register
+intact, so it also leaves the regulators as the running system left
+them. The DDR firmware that runs next configures bus QoS in the
+interconnect, in CCI_GRF, DDR_GRF and NPU_GRF, and faults if a supply
+behind any of those is down. The NPU rail is the one most easily left
+unpowered, as nothing else on the board needs it.
 
-OS_REG0 cannot be written ahead of a reset, as it is cleared by NPOR.
-Instead TF-A takes a request from PMU0_GRF OS_REG16, forwards it to
-OS_REG0 and masks the reset outputs so that it reaches the boot ROM.
-That register is the one U-Boot uses for its own boot modes as well.
+Name every supply those blocks sit behind, so that requesting a boot
+mode powers them regardless of what the running system happened to keep
+enabled.
 
-Describe it as a syscon-reboot-mode node, so that a reboot can carry a
-request for maskrom or for a particular boot device. Under Linux, for
-example:
-
-	systemctl reboot --reboot-argument=maskrom
-
-Requesting anything other than maskrom needs a TF-A containing commit
-2a97ba20e901 ("feat(rk3576): forward any boot ROM boot mode request on
-reset"); older builds ignore those requests and boot normally.
-
-Link: https://docs.flipper.net/one/hardware/rk3576/boot-rom
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 36 ++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index e87ace5d05e6..c938dbcad712 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -881,6 +881,42 @@ php_grf: syscon@26020000 {
- 		pmu0_grf: syscon@26024000 {
- 			compatible = "rockchip,rk3576-pmu0-grf", "syscon", "simple-mfd";
- 			reg = <0x0 0x26024000 0x0 0x1000>;
-+
-+			/*
-+			 * OS_REG16 carries a boot mode request across a reset.
-+			 * TF-A picks it up while resetting the system, forwards
-+			 * it to the boot ROM through PMU1_GRF OS_REG0 and masks
-+			 * the reset outputs, so that the request survives NPOR.
-+			 * The modes below are listed in boot mode order, each
-+			 * naming the devices the boot ROM tries in turn.
-+			 */
-+			reboot_mode: reboot-mode {
-+				compatible = "syscon-reboot-mode";
-+				offset = <0x40>;
-+				mode-normal = <BOOT_NORMAL>;
-+				/* 1: USB */
-+				mode-maskrom = <BOOT_BROM_DOWNLOAD>;
-+				/* 2: SPI NOR, SPI NAND, USB */
-+				mode-spi = <0xef085a32>;
-+				/* 3: SPI NOR/NAND M1, eMMC, USB */
-+				mode-spi-m1 = <0xef085a33>;
-+				/* 4: SPI NOR/NAND M2, eMMC, USB */
-+				mode-spi-m2 = <0xef085a34>;
-+				/* 5: SPI NOR, SPI NAND, UFS, USB */
-+				mode-spi-ufs = <0xef085a35>;
-+				/* 6: SPI NOR/NAND M1, UFS, USB */
-+				mode-spi-m1-ufs = <0xef085a36>;
-+				/* 7: UFS, USB */
-+				mode-ufs = <0xef085a37>;
-+				/* 8: UFS, SD, USB */
-+				mode-ufs-sd = <0xef085a38>;
-+				/* 9: every SPI iomux, eMMC, SD, USB */
-+				mode-spi-all = <0xef085a39>;
-+				/* 10: eMMC, SD, USB */
-+				mode-emmc-sd = <0xef085a3a>;
-+				/* 11: eMMC, USB */
-+				mode-emmc = <0xef085a3b>;
-+			};
- 		};
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
+index 4c82980a9f63..55951f290906 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts
+@@ -957,6 +957,22 @@ wifi_wake_host: wifi-wake-host {
+ 	};
+ };
  
- 		pmu1_grf: syscon@26026000 {
++&reboot_mode {
++	/*
++	 * A reset that carries a boot mode request leaves the regulators as
++	 * the running system left them, while the DDR firmware that runs next
++	 * configures bus QoS in the interconnect, CCI_GRF, DDR_GRF and
++	 * NPU_GRF, and it runs into a synchronous abort if any of the blocks
++	 * is unpowered when it accesses them.
++	 */
++	ddr-supply = <&vdd_ddr_s0>;
++	ddr2-supply = <&vdd2_ddr_s3>;
++	ddr-pll-supply = <&vdda_ddr_pll_s0>;
++	ddrq-supply = <&vddq_ddr_s0>;
++	logic-supply = <&vdd_logic_s0>;
++	npu-supply = <&vdd_npu_s0>;
++};
++
+ &sai1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&sai1m0_lrck
 
 -- 
 2.55.0
