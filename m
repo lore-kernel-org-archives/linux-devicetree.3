@@ -1,133 +1,163 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C20645D925;
-	Mon, 28 Sep 2026 07:28:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C888378D74;
+	Mon, 28 Sep 2026 07:32:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790580516; cv=none; b=q6jfGWmQIiU/VcGltA12153oL+xi7EPrxni3BF2LfbYZwV/4A7l83WsMBdFTupXyWft5YxzoICSf+/AWGFwIUCJBAj0/lgSUkGnCg8kyPNZmoKW7EJq9Vl+sbcAxEljjlnIHM4jMxydmTKTToDcKNRCgRvsDL/3OUH3brAXThxA=
+	t=1790580747; cv=none; b=F7fUO1Pt4psa6qrJax9UW4+GxyXEHkr2MOsA4A5Jf1I/IxiGkUnQzFuPzz4NI6Z8m9P7/rYhB5f6+9PaOyOH3YSGEHAzESvimBDiHpR4FCyJAmFMv9JADS3JACGuZ2v8UlzIMUjluWSGSzs8L88k3jgabTda3xIoXpx1aNUsea8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790580516; c=relaxed/simple;
-	bh=m1u8QkGLW0KIqQ+GoIAPkeqJktyRU9Kn3cqAXDDFtFE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k4ePiaMKHSrk/Ayx6VP7PIOaM6jAzXOLA4VQgMKE5BFlbLHEaWbIz1LUrQswCKH5rLZt8dDGMvG6DB69binPDHEL5l0InDyCidlkdarWWOxgvGN445fmuiubLKKeFdqtVQ+BfRIFTaEkdbvz8jQIpr0pH8poEiWTqSDkiJjMN4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=l5Wi5KkV; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=XBMuDDRQ; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790580747; c=relaxed/simple;
+	bh=dgepjDVWjlpjORY9mopx1lT//VGOTdCXOKLVTmgrXrU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=hqD7yOiOQNidPo2dMAW47G6KGK+EDRXr7OubSHllkLrNouozPuOHPFzJ4ICSATJ158rcLYogstex7wNY6ZPhss57IVBpaxhTlNLLu9o99nXGwqDK9+t39JdynG28cqcnS66v4y6ZpjGQ7zJPEF48sxyRIb8rSpLmtHB4eCwyUF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vkH/KMvR; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="l5Wi5KkV";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="XBMuDDRQ"
-Date: Mon, 28 Sep 2026 09:28:28 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790580510;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DVxdq8//FM3NRi4orw0PRtSQhnfVCCad5P6oHOhCXp4=;
-	b=l5Wi5KkV34SIYibgi7B1IIstb/CHwUtXk9ntnhluuJEfQl1OT9Jea26ThlOFLanwk8jFDB
-	Zti8t4ScB5D0u77XW0o4XoikwtgWgBxJ58pMV+VwObaKQ7b81scqrrMQi1/+NINz2GF6nz
-	Hu/hsGc6nTil/mW7lKd5RZyMj2NFmiSXl9IGyaZmDVNgg/ObHdBpsyZGXOLbiRFo6l+bgH
-	rDk5p6ciBzOm2XFphPfOtHtExMARfCs4l2HjIfP0v27qG18/QrsT3MdsWgNwv2W1FIc/67
-	ysOcpAqywlSDq3HwzpDmYFTi5kg59oiQlSONUWpHPMOMo6uBKSvzDrtGQjaGYQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790580510;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DVxdq8//FM3NRi4orw0PRtSQhnfVCCad5P6oHOhCXp4=;
-	b=XBMuDDRQqjW8J464HX5I9r7EJFwcjgmNayJJ5ouWzp00LpyydwKh3mImP13GgXqwP0h/RO
-	s6R4E0RpBI0IHRAw==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>
-Cc: linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 0/4] firmware: raspberrypi: Add support for the
- tryboot mode
-Message-ID: <stvm3nzpcde6ukl35wfnukyztp7r2n2yuzjwu4brrumomzemfa@kazuwkb75e77>
-References: <20260904-rpi-tryboot-v4-0-fdee8bc53ff7@linutronix.de>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vkH/KMvR"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 3B8551A0FD3;
+	Mon, 28 Sep 2026 07:32:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F2D36601BD;
+	Mon, 28 Sep 2026 07:32:19 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B96CF102F1E42;
+	Mon, 28 Sep 2026 09:32:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790580738; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=1yVG7biGd8LMh933pwAmn0KONt09cooOBGmuGeDuRG4=;
+	b=vkH/KMvRVbAsfr989+yy6/jIOx0UvnkM3xmUrwI+hntjDoZhKSZlothGHJWV0SLXfmPioi
+	pBZUROwK79npc1KIJKFRseNPaZnVAO+E2Z88iFJjy6KC1Grzt3bjXI9IfaN+i4FOxs/gNQ
+	Nnd08n+01OQYRJf2xjlpAlFBIA18cnd8XINovHmM4HOYrI8avIZ6jZf54Dr3Aai2X//9S9
+	8VOJojwMsDZWENJ5jiYaQzZ5LFazff2+Cek28yw04jdKczOgYxKanRU6wBaXYQ3V8JhHzz
+	cNdID9Py9+StbQfzqUV4oln25LsWwpONTUdoIoh8yBrujC63mB2j91B03n0XGw==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904-rpi-tryboot-v4-0-fdee8bc53ff7@linutronix.de>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 28 Sep 2026 09:32:14 +0200
+Message-Id: <DLQRW9F3KVF9.349XXY22RRFKH@bootlin.com>
+Cc: "Borislav Petkov" <bp@alien8.de>, "Tony Luck" <tony.luck@intel.com>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Geert
+ Uytterhoeven" <geert+renesas@glider.be>, "Magnus Damm"
+ <magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
+ <linux-renesas-soc@vger.kernel.org>, <linux-edac@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "Miquel Raynal"
+ <miquel.raynal@bootlin.com>, "Herve Codina" <herve.codina@bootlin.com>
+Subject: Re: [PATCH v3 2/3] EDAC/cadence: Add Cadence DDR EDAC driver
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>, "Paul Louvel"
+ <paul.louvel@bootlin.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260924-paul-v7-3-rc1-edac-v3-0-bd8054a5b180@bootlin.com>
+ <20260924-paul-v7-3-rc1-edac-v3-2-bd8054a5b180@bootlin.com>
+ <arZiv20Z4P7DQaD6@shikoro>
+In-Reply-To: <arZiv20Z4P7DQaD6@shikoro>
+X-Last-TLS-Session-Version: TLSv1.3
 
 Hi,
 
-Just a gentle ping on this series.
+On Fri Sep 25, 2026 at 2:02 PM CEST, Wolfram Sang wrote:
+> Hi Paul,
+>
+> thanks for your patches!
+>
+> On Thu, Sep 24, 2026 at 04:12:48PM +0200, Paul Louvel wrote:
+>> Add the Cadence EDAC driver found on Renesas RZ/N1x SoC.
+>> The memory controller supports ECC, software scrubbing, and SECDED.
+>>=20
+>> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com=
+>
+>
+> Disclaimer: I don't know the technology nor the subsystem. So, only some
+> high level comments.
+>
+>> +
+>> +static void cdns_rmw(struct cdns_mc_priv *priv, u32 reg, u32 mask, u32 =
+val)
+>> +{
+>> +	u32 regval;
+>> +
+>> +	mutex_lock(&priv->lock);
+>> +	regval =3D readl(priv->io_base + reg);
+>> +	FIELD_MODIFY(mask, &regval, val);
+>> +	writel(regval, priv->io_base + reg);
+>> +	mutex_unlock(&priv->lock);
+>
+> Hmm, a spinlock is probably more suitable for such short operations? You
+> could even save a lock here and use a generic mutex in
+> inject_ctrl_store() for the whole operation. That would work for now. In
+> terms of defensive programming, a spinlock could be argued, too, to make
+> future additions more robust.
 
-Are there any outstanding comments, or is there anything else needed from my
-side to move this forward? I would ideally like to get this picked up before the
-next merge window.
+Yes, I wanted to use the lock inside the function so that in the future, if=
+ it
+is used, the caller won't have to bother locking anything.
+Noted for the spinlock, that seems more appropriate indeed.
 
-On Fri, Sep 04, 2026 at 09:46:48AM +0200, Gregor Herburger wrote:
-> This adds support for the tryboot mode on Raspberry Pis. As there is no
-> documentation other than the downstream implementation [0] the
-> implementation is based on this.
-> 
-> I tested this on Raspberry Pi 5 and therefore I only added the
-> properties to this devicetree. But afaik this should work on all
-> Raspberry Pis. I will add it to the correspondings dts if I get some
-> hardware to test it.
-> 
-> [0] https://github.com/raspberrypi/linux/commit/eb56da0c1925c07e8929ce4c9fe8aeafa7cb8c7b
-> 
-> ---
-> Changes in v4:
-> - fix use-after-free error by moving devm_add_action_or_reset before devm_add_action_or_reset 
-> - Rebase onto v7.3-rc1
-> - Link to v3: https://patch.msgid.link/20260707-rpi-tryboot-v3-0-fda82fe7ed76@linutronix.de
-> 
-> Changes in v3:
-> - fix use-after-free error by using devm_add_action_or_reset
-> - ensure endianness of magic byte
-> - refactor reboot mode registration into separate function
-> - Link to v2: https://patch.msgid.link/20260630-rpi-tryboot-v2-0-f68d2dc6aa27@linutronix.de
-> 
-> Changes in v2:
-> - Remove unnecessary reboot_mode_unregister().
-> - dt-binding: restrict to mode-{normal,tryboot} and only allow 32bit value.
-> - Link to v1: https://patch.msgid.link/20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de
-> 
-> ---
-> Gregor Herburger (4):
->       firmware: raspberrypi: reorder rpi_firmware_property_tag enum
->       dt-bindings: raspberrypi,bcm2835-firmware: Include 'reboot-mode.yaml'
->       firmware: raspberrypi: Add reboot mode support
->       arm64: dts: broadcom: bcm2712: Add reboot modes to firmware node
-> 
->  .../arm/bcm/raspberrypi,bcm2835-firmware.yaml      |  9 +++++
->  .../boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |  2 ++
->  drivers/firmware/Kconfig                           |  2 ++
->  drivers/firmware/raspberrypi.c                     | 40 +++++++++++++++++++---
->  include/soc/bcm2835/raspberrypi-firmware.h         | 22 ++++++------
->  5 files changed, 60 insertions(+), 15 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260623-rpi-tryboot-4292c92b0727
-> 
+>
+>> +static void cdns_mc_err_inject(struct mem_ctl_info *mci, u16 synd)
+>> +{
+>> +	struct cdns_mc_priv *priv =3D mci->pvt_info;
+>> +
+>> +	cdns_rmw(priv, CDNS_DDR_ECC_XOR, CDNS_DDR_ECC_XOR_CHECK_BITS, synd);
+>> +	cdns_rmw(priv, CDNS_DDR_ECC_STAT, CDNS_DDR_ECC_STAT_FWC, 1);
+>> +}
+>
+> Bike shedding: I think this is too short for a seperate function and it
+> should be folded into its caller.
 
-Best regards,
--- 
-Gregor Herburger
-Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
-Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
+ACK.
 
-Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
-can be found here): https://linutronix.de/legal/data-protection.php
+>
+>> +
+>> +static ssize_t inject_ctrl_store(struct device *dev, struct device_attr=
+ibute *attr, const char *buf,
+>> +				 size_t count)
+>> +{
+>> +	struct mem_ctl_info *mci =3D to_mci(dev);
+>> +	u16 synd;
+>> +
+>> +	if (kstrtou16(buf, 16, &synd))
+>> +		return -EINVAL;
+>> +
+>> +	cdns_mc_err_inject(mci, synd);
+>> +
+>> +	return count;
+>> +}
+>> +
+>> +static DEVICE_ATTR_WO(inject_ctrl);
+>> +
+>> +static struct attribute *cdns_edac_attrs[] =3D { &dev_attr_inject_ctrl.=
+attr, NULL };
+>> +
+>> +ATTRIBUTE_GROUPS(cdns_edac);
+>
+> What about using debugfs instead via edac_debugfs_create_*?
 
-Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
-Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
-806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
-Katharina Kopp, Alexander Gieringer
+Seems to be more appropriate since inducing a CE or UE would only be for
+debugging purposes.
+
+>
+> Happy hacking,
+>
+>    Wolfram
+
+
+Thanks,
+
+
+
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
