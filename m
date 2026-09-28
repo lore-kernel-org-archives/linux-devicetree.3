@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC01928505E;
-	Mon, 28 Sep 2026 02:15:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF4754705E;
+	Mon, 28 Sep 2026 02:18:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790561756; cv=none; b=Zc5Q466N1MFsTD7IkxJ4U8bn7X/M4n/Owq7jagzNe2vgYykhb0t8y/A/51WcM2NPglwSqXs0/wXi9RnlvxfN0YtWcUxnERLEPf08zaDZIDwG3/IgU0Vt5RIQf3pkIwxCQF4Ki/3Ki7xg39afBqKDyk25dYrOAN5RtMe6I/cci6k=
+	t=1790561887; cv=none; b=hYMoBiensBGyADxfxOIVIYofZdeZeZ3kT2LPkEQBuSvElYF220k2GVyqOC2QO5GJWlyQXKY9zsr+Z+NWfzwrbFdM+NwgMW7PtyWhBmCLCeQyUwMhT2+AIaxk39oHYrt8toONHmcUDa6oyrSvw9qc9DE/4pihgStsUDIM8TcVEFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790561756; c=relaxed/simple;
-	bh=QqPlbObt7p1QyMB9cZtQgX4h4k8BjzOYgCZnmq7UJj8=;
+	s=arc-20240116; t=1790561887; c=relaxed/simple;
+	bh=Q2e7tvCSmxghMOKlOOkr5jY8/FJIxvcZFTbXwZQcgWU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HFnH//+2OntTHTq+aTqFNDlSlWOf9Wdd+s/0mWkH2K9bXdvOSh0TylGsgHl1piwup/VUY9u5yzwOHZbpdsEddvWbgiO6gutmNKn8PCTxYNCgYg0EHTcG37s1tXCbE2TXDDhw6cnYDXusiRgNikmUstgCv4fA8G4kztBy71Enkjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCDjZntz; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ubvUkUEO11QVQ+IkDbQKyO00rZ6oPXe3asuy18b4u+KE2KUQOlv+7urelszqXRH7y50F0+MJ1sbuJWKozQwCRUjgDqjSXeE/3nhuqfqeM3FnNOybv+FqD05e3oUswSTjHgbjgVlotPGg3iyYWGZY98dEfn2K0fVCCslLktk0dso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nlv0o7IQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCDjZntz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 872C81F000FF;
-	Mon, 28 Sep 2026 02:15:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nlv0o7IQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1E51F000FF;
+	Mon, 28 Sep 2026 02:18:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790561754;
-	bh=m077o4nsdzgiV8efQ2GhDgYaoTiK8DDIPdUL/UgdNDU=;
+	s=k20260515; t=1790561886;
+	bh=2rq0O6wy5eVrHvoHNVo5PyM4bit3F0zz0yyKUTVD72w=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PCDjZntzibocjTalY7pIyAFm96e0a7AgpSdLhJKgsDNSdSxsaX/JhYmRGwQ50JOeT
-	 p12pwEjQ2M8nY+Y/EwEsrSETANmTvjLnvLmhCg44ucPYH6o4PY4LS4ObUBXw1ej4JZ
-	 WD9PvyadD0oc1o9OGM8DRZJPMvqAIcQ+cq2WmX+mNPEqaA2FqxvEm5UdCu6yZrezi8
-	 vr0I7FkwmER39OBMSJc6eaxTZLjK1GsLsqjX1Eh5F3hdFoS9fmsYzqqMnRaOWm+aHV
-	 cqmfS5lEAy9Lkv7/M6YsgHxxnlVdKXgQIxPTzC4EWWQ0VzkE+yRHpCDe3lZySjKfmZ
-	 1KgKf0a+h5oFA==
-Date: Sun, 27 Sep 2026 21:15:50 -0500
+	b=nlv0o7IQqJlNqRXlwC03Ith3X4P2HCiQ4cFz0LHkq0+Xtdl1jG3Jr2hOmjKOMnTon
+	 hw884rxrvf9MILGoE5x04TeDYme3xMiz1/xWVj28q88o+AeHnLxsO0t6L3dhdVTx39
+	 +XTXBdfjUMwC8IK1NwMau4UhK316owcyqlkoA4d85fRFtPx3zErEnU2fZbfBdWbO8D
+	 kpHlG7d4MINWPq0pA3+vh/Jk0iuLgrDHkulOf4+gcsMZrLwWzFYQX8gQolaiFlsz9V
+	 ljV/fVp1VUnCQdFtWN9YEffPis46PqlC0td0/xPenKaYK6gAgtQgTHySylHKW6HSTQ
+	 LIL/CZONMwSAQ==
+Date: Sun, 27 Sep 2026 21:18:02 -0500
 From: Bjorn Andersson <andersson@kernel.org>
 To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] arm64: dts: qcom: eliza: Add CQS SoM UFS variant
-Message-ID: <arnM9pny5hIM0FaD@zenbook>
+	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/5] arm64: dts: qcom: eliza-cqs-evk: Add storage
+ subtypes and rework generic parts
+Message-ID: <arnKea0HJJjq9-Pq@zenbook>
 References: <20260915-dts-qcom-eliza-add-ufs-variant-v2-0-86d72a2a8f47@oss.qualcomm.com>
- <20260915-dts-qcom-eliza-add-ufs-variant-v2-4-86d72a2a8f47@oss.qualcomm.com>
+ <4acd4d53-a444-4282-9bdd-1f2f2a487239@oss.qualcomm.com>
+ <stanm22bnloxjv4kdukrzhl6tmofgiezz2q25rhaurfoh24lp3@ernh7jgxsiou>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,459 +48,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915-dts-qcom-eliza-add-ufs-variant-v2-4-86d72a2a8f47@oss.qualcomm.com>
+In-Reply-To: <stanm22bnloxjv4kdukrzhl6tmofgiezz2q25rhaurfoh24lp3@ernh7jgxsiou>
 
-On Tue, Sep 15, 2026 at 03:03:30PM +0300, Abel Vesa wrote:
-> Add a new dtsi for the Eliza CQS SoM UFS variant.
-> This SoM only comes with UFS installed.
+On Thu, Sep 24, 2026 at 02:00:11PM +0300, Abel Vesa wrote:
+> On 26-09-23 14:59:19, Konrad Dybcio wrote:
+> > On 9/15/26 2:03 PM, Abel Vesa wrote:
+> > > It turns out there is a UFS variant of the Eliza CQS SoM as well. So lets
+> > > differentiate between them with -emmc and -ufs suffixes for DTBs and
+> > > compatible strings.
+> > > 
+> > > Adding -emmc suffix for to the current Eliza CQS SoM and EVK devicetree
+> > > files will not affect any current users as these boards have not reached
+> > > public use yet.
+> > > 
+> > > Also, move the sound card support from the eliza-cqs-evk to the generic
+> > > eliza-evk, which will allow it to be reused not only by the UFS variant,
+> > > but also by the Eliza CQM EVK later on.
+> > > 
+> > > Changes in v2:
+> > > - Actually replace (and remove) the eliza-cqs-evk.dtsi when the
+> > >   eliza-cqs-evk-emmc.dtsi is added.
+> > > - Collect Krzysztof's R-b tag.
+> > > - Link to v1: https://patch.msgid.link/20260914-dts-qcom-eliza-add-ufs-variant-v1-0-78b3249eae61@oss.qualcomm.com
+> > > 
+> > > Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> > > ---
+> > > Abel Vesa (5):
+> > >       dt-bindings: arm: qcom: Add more compatible for Eliza EVKs and SoMs
+> > >       arm64: dts: qcom: eliza-cqs-evk: Move sound card support to Eliza EVK generic
+> > >       arm64: dts: qcom: eliza: Rename existing EVK to suggest eMMC
+> > >       arm64: dts: qcom: eliza: Add CQS SoM UFS variant
+> > >       arm64: dts: qcom: eliza: Add CQS EVK UFS variant
+> > 
+> > I was hoping there would be a bit less duplication here..
+> > 
+> 
+> Do you this so that one includes the other and then override ?
 
-I am not familiar with the Eliza lineup and unfortunately these commit
-messages doesn't provide any real value. Here you're saying that you're
-adding support for the UFS-variant of the SOM, in the previous commit
-message you said "UFS EVK" - which would imply it's the carrier board
-that is different.
+It's conceivable that the UFS-variant is a reworked version of the
+eMMC-version, in which case that would make sense. It's also
+conceivable that they are of equal standing in which case a dtsi with
+all the shared pieces are suitable.
 
-Please ensure that your commit messages clearly describe what's going
-on - and as the documentation states; start with the problem
-description, not the word "Add".
+It's hard to say from the information provided...
 
 Regards,
 Bjorn
-
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/eliza-cqs-som-ufs.dtsi | 421 ++++++++++++++++++++++++
->  1 file changed, 421 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/eliza-cqs-som-ufs.dtsi b/arch/arm64/boot/dts/qcom/eliza-cqs-som-ufs.dtsi
-> new file mode 100644
-> index 000000000000..cf1cd97065b4
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/eliza-cqs-som-ufs.dtsi
-> @@ -0,0 +1,421 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> +#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-> +
-> +#include "eliza.dtsi"
-> +#include "pm7550ba-eliza.dtsi"
-> +#include "pm7550-eliza.dtsi"
-> +#include "pm8550vs-d-eliza.dtsi"
-> +#include "pm8550vs-g-eliza.dtsi"
-> +#include "pmr735d-eliza.dtsi"
-> +#include "pmk8550-eliza.dtsi"
-> +
-> +/ {
-> +	clocks {
-> +		xo_board: xo-board {
-> +			compatible = "fixed-clock";
-> +			clock-frequency = <76800000>;
-> +			#clock-cells = <0>;
-> +		};
-> +
-> +		sleep_clk: sleep-clk {
-> +			compatible = "fixed-clock";
-> +			clock-frequency = <32764>;
-> +			#clock-cells = <0>;
-> +		};
-> +
-> +		bi_tcxo_div2: bi-tcxo-div2-clk {
-> +			compatible = "fixed-factor-clock";
-> +			#clock-cells = <0>;
-> +
-> +			clocks = <&rpmhcc RPMH_CXO_CLK>;
-> +			clock-mult = <1>;
-> +			clock-div = <2>;
-> +		};
-> +
-> +		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
-> +			compatible = "fixed-factor-clock";
-> +			#clock-cells = <0>;
-> +
-> +			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
-> +			clock-mult = <1>;
-> +			clock-div = <2>;
-> +		};
-> +	};
-> +
-> +	vph_pwr: regulator-vph-pwr {
-> +		compatible = "regulator-fixed";
-> +
-> +		regulator-name = "vph_pwr";
-> +		regulator-min-microvolt = <3700000>;
-> +		regulator-max-microvolt = <3700000>;
-> +
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +	};
-> +};
-> +
-> +&apps_rsc {
-> +	regulators-0 {
-> +		compatible = "qcom,pm7550-rpmh-regulators";
-> +
-> +		vdd-l1-supply = <&vreg_s3b>;
-> +		vdd-l2-l3-supply = <&vreg_s3b>;
-> +		vdd-l4-l5-supply = <&vreg_s2b>;
-> +		vdd-l6-supply = <&vreg_s2b>;
-> +		vdd-l7-supply = <&vreg_s1b>;
-> +		vdd-l8-supply = <&vreg_s1b>;
-> +		vdd-l9-l10-supply = <&vreg_s1b>;
-> +		vdd-l11-supply = <&vreg_s1b>;
-> +		vdd-l12-l14-supply = <&vreg_bob>;
-> +		vdd-l13-l16-supply = <&vreg_bob>;
-> +		vdd-l15-l17-l18-l19-l20-l21-l22-l23-supply = <&vreg_bob>;
-> +		vdd-s1-supply = <&vph_pwr>;
-> +		vdd-s2-supply = <&vph_pwr>;
-> +		vdd-s3-supply = <&vph_pwr>;
-> +		vdd-s4-supply = <&vph_pwr>;
-> +		vdd-s5-supply = <&vph_pwr>;
-> +		vdd-s6-supply = <&vph_pwr>;
-> +
-> +		vdd-bob-supply = <&vph_pwr>;
-> +
-> +		qcom,pmic-id = "b";
-> +
-> +		vreg_s1b: smps1 {
-> +			regulator-name = "vreg_s1b";
-> +			regulator-min-microvolt = <1850000>;
-> +			regulator-max-microvolt = <2040000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s2b: smps2 {
-> +			regulator-name = "vreg_s2b";
-> +			regulator-min-microvolt = <375000>;
-> +			regulator-max-microvolt = <2744000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s3b: smps3 {
-> +			regulator-name = "vreg_s3b";
-> +			regulator-min-microvolt = <375000>;
-> +			regulator-max-microvolt = <2744000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_s4b: smps4 {
-> +			regulator-name = "vreg_s4b";
-> +			regulator-min-microvolt = <2156000>;
-> +			regulator-max-microvolt = <2400000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l2b: ldo2 {
-> +			regulator-name = "vreg_l2b";
-> +			regulator-min-microvolt = <720000>;
-> +			regulator-max-microvolt = <950000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l3b: ldo3 {
-> +			regulator-name = "vreg_l3b";
-> +			regulator-min-microvolt = <880000>;
-> +			regulator-max-microvolt = <912000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l4b: ldo4 {
-> +			regulator-name = "vreg_l4b";
-> +			regulator-min-microvolt = <1200000>;
-> +			regulator-max-microvolt = <1200000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l6b: ldo6 {
-> +			regulator-name = "vreg_l6b";
-> +			regulator-min-microvolt = <866000>;
-> +			regulator-max-microvolt = <958000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l7b: ldo7 {
-> +			regulator-name = "vreg_l7b";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l8b: ldo8 {
-> +			regulator-name = "vreg_l8b";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l9b: ldo9 {
-> +			regulator-name = "vreg_l9b";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l10b: ldo10 {
-> +			regulator-name = "vreg_l10b";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l11b: ldo11 {
-> +			regulator-name = "vreg_l11b";
-> +			regulator-min-microvolt = <1800000>;
-> +			regulator-max-microvolt = <1800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l12b: ldo12 {
-> +			regulator-name = "vreg_l12b";
-> +			regulator-min-microvolt = <2400000>;
-> +			regulator-max-microvolt = <3300000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l13b: ldo13 {
-> +			regulator-name = "vreg_l13b";
-> +			regulator-min-microvolt = <2700000>;
-> +			regulator-max-microvolt = <3300000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l14b: ldo14 {
-> +			regulator-name = "vreg_l14b";
-> +			regulator-min-microvolt = <3300000>;
-> +			regulator-max-microvolt = <3304000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l15b: ldo15 {
-> +			regulator-name = "vreg_l15b";
-> +			regulator-min-microvolt = <3300000>;
-> +			regulator-max-microvolt = <3304000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l16b: ldo16 {
-> +			regulator-name = "vreg_l16b";
-> +			regulator-min-microvolt = <3008000>;
-> +			regulator-max-microvolt = <3008000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l17b: ldo17 {
-> +			regulator-name = "vreg_l17b";
-> +			regulator-min-microvolt = <3104000>;
-> +			regulator-max-microvolt = <3104000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l18b: ldo18 {
-> +			regulator-name = "vreg_l18b";
-> +			regulator-min-microvolt = <2800000>;
-> +			regulator-max-microvolt = <2800000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l19b: ldo19 {
-> +			regulator-name = "vreg_l19b";
-> +			regulator-min-microvolt = <3000000>;
-> +			regulator-max-microvolt = <3000000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l20b: ldo20 {
-> +			regulator-name = "vreg_l20b";
-> +			regulator-min-microvolt = <1620000>;
-> +			regulator-max-microvolt = <3544000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l21b: ldo21 {
-> +			regulator-name = "vreg_l21b";
-> +			regulator-min-microvolt = <1620000>;
-> +			regulator-max-microvolt = <3544000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l22b: ldo22 {
-> +			regulator-name = "vreg_l22b";
-> +			regulator-min-microvolt = <3200000>;
-> +			regulator-max-microvolt = <3200000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l23b: ldo23 {
-> +			regulator-name = "vreg_l23b";
-> +			regulator-min-microvolt = <1650000>;
-> +			regulator-max-microvolt = <3544000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_bob: bob {
-> +			regulator-name = "vreg_bob";
-> +			regulator-min-microvolt = <3008000>;
-> +			regulator-max-microvolt = <3960000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +	};
-> +
-> +	regulators-1 {
-> +		compatible = "qcom,pm8550vs-rpmh-regulators";
-> +
-> +		vdd-l1-supply = <&vreg_s1b>;
-> +
-> +		qcom,pmic-id = "d";
-> +
-> +		vreg_l1d: ldo1 {
-> +			regulator-name = "vreg_l1d";
-> +			regulator-min-microvolt = <1140000>;
-> +			regulator-max-microvolt = <1260000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +	};
-> +
-> +	regulators-2 {
-> +		compatible = "qcom,pm8550vs-rpmh-regulators";
-> +
-> +		vdd-l1-supply = <&vreg_s2b>;
-> +		vdd-l3-supply = <&vreg_s2b>;
-> +
-> +		qcom,pmic-id = "g";
-> +
-> +		vreg_l1g: ldo1 {
-> +			regulator-name = "vreg_l1g";
-> +			regulator-min-microvolt = <1150000>;
-> +			regulator-max-microvolt = <1260000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l3g: ldo3 {
-> +			regulator-name = "vreg_l3g";
-> +			regulator-min-microvolt = <1150000>;
-> +			regulator-max-microvolt = <1260000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +	};
-> +
-> +	regulators-3 {
-> +		compatible = "qcom,pmr735d-rpmh-regulators";
-> +
-> +		vdd-l1-l2-l5-supply = <&vreg_s3b>;
-> +		vdd-l3-l4-supply = <&vreg_s2b>;
-> +		vdd-l6-supply = <&vreg_s1b>;
-> +		vdd-l7-supply = <&vreg_s3b>;
-> +
-> +		qcom,pmic-id = "k";
-> +
-> +		vreg_l1k: ldo1 {
-> +			regulator-name = "vreg_l1k";
-> +			regulator-min-microvolt = <488000>;
-> +			regulator-max-microvolt = <912000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l2k: ldo2 {
-> +			regulator-name = "vreg_l2k";
-> +			regulator-min-microvolt = <920000>;
-> +			regulator-max-microvolt = <969000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l3k: ldo3 {
-> +			regulator-name = "vreg_l3k";
-> +			regulator-min-microvolt = <1080000>;
-> +			regulator-max-microvolt = <1350000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l4k: ldo4 {
-> +			regulator-name = "vreg_l4k";
-> +			regulator-min-microvolt = <960000>;
-> +			regulator-max-microvolt = <1980000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l5k: ldo5 {
-> +			regulator-name = "vreg_l5k";
-> +			regulator-min-microvolt = <866000>;
-> +			regulator-max-microvolt = <931000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l6k: ldo6 {
-> +			regulator-name = "vreg_l6k";
-> +			regulator-min-microvolt = <1100000>;
-> +			regulator-max-microvolt = <2000000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +
-> +		vreg_l7k: ldo7 {
-> +			regulator-name = "vreg_l7k";
-> +			regulator-min-microvolt = <720000>;
-> +			regulator-max-microvolt = <958000>;
-> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-> +		};
-> +	};
-> +};
-> +
-> +&pm7550ba_eusb2_repeater {
-> +	vdd18-supply = <&vreg_l7b>;
-> +	vdd3-supply = <&vreg_l17b>;
-> +};
-> +
-> +&gpu {
-> +	status = "okay";
-> +};
-> +
-> +&gpu_zap_shader {
-> +	firmware-name = "qcom/eliza/gen71700_zap.mbn";
-> +};
-> +
-> +&remoteproc_adsp {
-> +	firmware-name = "qcom/eliza/adsp.mbn",
-> +			"qcom/eliza/adsp_dtb.mbn";
-> +
-> +	status = "okay";
-> +};
-> +
-> +&remoteproc_cdsp {
-> +	firmware-name = "qcom/eliza/cdsp.mbn",
-> +			"qcom/eliza/cdsp_dtb.mbn";
-> +
-> +	status = "okay";
-> +};
-> +
-> +&tlmm {
-> +	gpio-reserved-ranges = <20 4>,   /* NFC SPI */
-> +			       <111 2>,  /* WCN UART1 */
-> +			       <118 1>;  /* NFC Secure I/O */
-> +};
-> +
-> +&ufs_mem_hc {
-> +	reset-gpios = <&tlmm 185 GPIO_ACTIVE_LOW>;
-> +
-> +	vcc-supply = <&vreg_l12b>;
-> +	vcc-max-microamp = <1300000>;
-> +	vccq-supply = <&vreg_l1d>;
-> +	vccq-max-microamp = <1200000>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&ufs_mem_phy {
-> +	vdda-phy-supply = <&vreg_l6b>;
-> +	vdda-pll-supply = <&vreg_l4b>;
-> +
-> +	status = "okay";
-> +};
-> 
-> -- 
-> 2.54.0
-> 
