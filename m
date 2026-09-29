@@ -1,255 +1,139 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E9A50B8CB;
-	Tue, 29 Sep 2026 11:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B2C503BD6
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 11:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790679975; cv=none; b=lykpF6Z3Iz+eBP60tr23GHP9fyrGS7HmdMdY2gg7f2Yz8+xn8APCKsPdMERXEmKhrwfErs+bNQLfK77gZfLdk7z2ggM/+FWyNiTzkyyt1r2FpT/Likb2wQlcmNlguXhD8gXX9Dij/bkX9C0+MIQQDWIewxAbFfKBUTyD0wQ6Qrg=
+	t=1790680289; cv=none; b=MWK/hpaXoMsVIuv7phDOGZN8jBagD/US8UZe3wWEVrk9RmTXPtxKlzg4CGFZioUKML3Ba3BPXSwA+4k4BJQWBYwQTOTAua1XzWadCwBjzwi7ODzBe5s7HU577nhNrGZOPDCdFyghZyb4T3gI5lDycW/VVK2pzqGtMi6OoGoARYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790679975; c=relaxed/simple;
-	bh=+53xHOOxkU6voMCgJy22aOZ2f+nJ5+HlyXKUXPpB6eQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=m0msOSqL5v2C/Zesa/D0gjHevg4jPxfD5sVmTfnMd8IrawmqNUW3TGNQs31FdzdCQlOB0PQIYVaXhZHLGC0jlBV4wlsi6IYpz7qTdtUcFxgTZC20l4yHWQBm1hSY8yEKZ4egXet3y83Y0kXBlmV5yJfF71uqUyCcxCMlnIWOLe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=AY9FFkqI; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1790680289; c=relaxed/simple;
+	bh=KEiVGhYQdQfRn3X8jn6XdoGeXBd8Iq2qGCH7rdCKCJ0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=d67yC0AMACMUoF3ZOcLFFDCTwnnIwSbvLFeIPW2hKzUsuGYTiPAzi9qfHizTZTW2OFjzHFhRaV/myqCkv5RxBfD3fpNYnkEToKGN9QLJ6QnAeselsUjuD4Kj3+N0r/UafKT9NnKP8s9wL3s/B3/m1X6mLiOCUCY7IsSpYMk6QNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=U3pBn5Ss; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="AY9FFkqI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=WLzG/lrH/KAV6ePyzFVqcNtFRURr2G/UzUJznxpsZno=; b=AY9FFkqIlcqs8CojrdUilP9yZu
-	kZI8dJpfEw8I2ffZcg8JrO4Ax+j4fjcFryttRMCDnf8dtOPQNW1GxpfEXgRpu9onDqVRmIf3biVzo
-	NC/k/LGqpKnqUPlVJHpv0xHV0KjvCpfESnxOMChmpR0mGsPnfISNZ+dEbe4r8wvlLEG1E5VJWBgpW
-	WIq1ZIpt43vg/4oeYHu/1v6+tnUIkdDooVlW2LbdDef/Byf1qe6li/futPytD8ai5DpTwZx/sQsA2
-	olsNv4UZ8FsvpgHszxtxmQxepIVN4Tukm457ObWrinrp8vMATxDxYPkmVNIKwAD631Q/tBpEOZrye
-	B9znfTiQ==;
-Received: from sslproxy01.your-server.de ([78.46.139.224])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xBVet-0001CM-1x;
-	Tue, 29 Sep 2026 13:06:03 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xBVet-0000Ar-1Y;
-	Tue, 29 Sep 2026 13:06:03 +0200
-Message-ID: <c2988d6f77c6630f8e01096b93fae8b9c6f684f8.camel@ew.tq-group.com>
-Subject: Re: [PATCH v3 10/10] leds: pca995x: Add support for group
- brightness control
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Isai Gaspar <isaiezequiel.gaspar@nxp.com>, Marek
- Vasut <marex@denx.de>, Pieterjan Camerlynck <pieterjanca@gmail.com>, Javier
- Carrasco <javier.carrasco.cruz@gmail.com>,  linux@ew.tq-group.com,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Date: Tue, 29 Sep 2026 13:06:02 +0200
-In-Reply-To: <179025020617.457255.2187144572484405270@kernel.org>
-References: <cover.1790087890.git.nora.schiffer@ew.tq-group.com>
-	 <391973ce0168438612861bfe8570b6890af0f44e.1790087890.git.nora.schiffer@ew.tq-group.com>
-	 <179025020617.457255.2187144572484405270@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="U3pBn5Ss"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a8038a9f10so5542259a12.1
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 04:11:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790680286; x=1791285086; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TWtr6adc3PGKcncqIhG1cTNuAhzWmYNX5CaLElVM8WA=;
+        b=U3pBn5SspIWv9k4MpdRu4QjGL4vDzOI+2eZRqGiirXgNE3y1lsmeW0OH+VTGCAdduI
+         IoIfFQk3PmzjCpl2bbqb+UPXqgA78iWO6sayxeESzKIq1lSD+dcJ4VVrJqxXFVuYkMaH
+         4v0mCDgzBrR05yu45z6bsaeHVVJBgy3P/nhUHV3JQ90z3APOtL3VNlPE+igS2+UQl6id
+         MJu5l53QTBbsgjF9T0yCK3ZDne1O2sQA4pCiWP+QmPRQ1koRD/Qooz61jj7VkTS8KRff
+         fcB/n1oZHme7tduiPrMA4rIPjLOFJCiPPKxB0Nski2MLb1fpRHB+WVIZWVtGM2B5qNPc
+         5/Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790680286; x=1791285086;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=TWtr6adc3PGKcncqIhG1cTNuAhzWmYNX5CaLElVM8WA=;
+        b=uEMwuj6fMbTz4rSmQ7au2brKJ4TJSyc2/62frc9w/TE6I0mjOi//v2OqlQeaelS4Ym
+         p0ENOKRyw5sxd4JAU6NDkVWT4EnUWRFXNeq2nzq4hP7ub0kDU0FVu8iDTFNzFvjyqY0h
+         nKparXmXqFL7IKT6+LYWTcvqxXqWA7lJTbZaTvanfrrZqwQMrFgqwun5rFaBo8o+e0D6
+         tgSX5abGLAn9PKqVSZ1Tch05xIdj+IWgcMU9huvsXxDdVhccUtUTJcCCVlE8ql/CAgi+
+         LChyNjrouLPLjDHVP5lKG+Pwv92l/QSsundyey9U+i2BGtJ8TesbueLb7TyW9EmYzpIN
+         kDeA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTpCq1lcweKWaRGb45aakIxzDFa0GeKmBBvv7wxcX+SEDt9TKnlN1EnEKakjzGVKVccYHPaCSeAPC3@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8efV3yhKfzc7k2wSwtDOp0RfDt+ab6DgPeR+9hBXCQzb8twJy
+	lEu2HdHTsJvoDhdX4dkFzVCCizmGO4dpNeFg7z6xIgQoatEuBgmW+0gmKggMc8uNYUE=
+X-Gm-Gg: AYBFou0+PI6APhcOZdyDpcOreuQYXLlqc7BWS8dO0Eh2ajxg9SKejreGdDuUYzDuHZf
+	pqrer+TTWVDbWUj9hMpLC4/HALhCVhMYUL76equUS6ZJ6bnyCFuTiYTHSzwcoeQeUK1+h+v0M9w
+	ne7kBSyugZZsP87D3iZWkv41Pq8wxuQF/3IMrXHrqmwbejul+nypjnta5xEO7Rj1liCltS+npnZ
+	4G2zkdAPEk9zieLQO8CegDbu0zHGTU9wjEgv/V1RK1repEmA0dIfzJTEBLeoEqvCbV4+EzTXu/D
+	9YM0VuU8vt3z/7Qc1DExfGnwoDAe1VeLHxPubYE2X4qOXpFt49e3RJTsNlGgjZ25vxuR0evtky0
+	Z5yS7HvUEIeAFW+fFhvvRxZiu4w0u41KSGsfZSpW2vNqOMa4X7dwt4+15qKH8I+rBpSjcasKsMz
+	WJrNF0TjNfzbevc+L05/1zwBMynrqI5Q+YzNkkPt+1cE0RHiUCA1MIsBjBr3p165HIEHbw8UM+C
+	4/a5kZ2C5fp7OanRDEVZzRVI0/Nb1v8Lqm8PIsmsTvIj80psUjB9PMYJC5vgyVRUg==
+X-Received: by 2002:a05:6402:4397:b0:6ac:b9b5:8e7c with SMTP id 4fb4d7f45d1cf-6acb9b59461mr557372a12.17.1790680286107;
+        Tue, 29 Sep 2026 04:11:26 -0700 (PDT)
+Received: from petegriffin.c.googlers.com (116.118.90.34.bc.googleusercontent.com. [34.90.118.116])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6acb90128dbsm649822a12.17.2026.09.29.04.11.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 04:11:25 -0700 (PDT)
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Tue, 29 Sep 2026 11:11:15 +0000
+Subject: [PATCH] arm64: dts: google: lga: fixup #size-cells DT warning
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28138/Tue Sep 29 08:26:15 2026)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260929-pixel10-initial-dts-fixup-v1-1-b304868cc3e8@linaro.org>
+X-B4-Tracking: v=1; b=H4sIANKcu2oC/x2MXQqAIBAGrxL73IIK/dhVooewrT4IE60IorsnP
+ Q7DzENJIiRRVzwU5ULC7jPosiC3jn4RxpSZjDK1ssZywC2bVgyPA+PG05F4xn0Gbp3RrraVbip
+ LuQ9Rsvjf/fC+H6pf6gJrAAAA
+X-Change-ID: 20260929-pixel10-initial-dts-fixup-8c21c6951759
+To: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Douglas Anderson <dianders@chromium.org>, 
+ Brian Norris <briannorris@chromium.org>
+Cc: Juan Yescas <jyescas@google.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@android.com, 
+ Peter Griffin <peter.griffin@linaro.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1156;
+ i=peter.griffin@linaro.org; h=from:subject:message-id;
+ bh=KEiVGhYQdQfRn3X8jn6XdoGeXBd8Iq2qGCH7rdCKCJ0=;
+ b=owEBbQKS/ZANAwAKAc7ouNYCNHK6AcsmYgBqu5zdB2swPvizsJ6BwiImUCPJc0ljDuz/23IXi
+ Gsthh01Oe+JAjMEAAEKAB0WIQQO/I5vVXh1DVa1SfzO6LjWAjRyugUCaruc3QAKCRDO6LjWAjRy
+ ujJrD/9Pgov8/wNrVTV/T450WYQnznFxZ7t3U/eIFtkO8mjOB2z0mQJqTQk8OJF0b22MXyIxw4V
+ 5O/KgpvKIb6Jz0JGkyBt9mSCOGuljmbrB+/NcDSw6UTTEeldOdDA95jm31fj1L/vkc1i/J6UKTg
+ pBuObkDbyRl1CknQGWEwSsBiaTmoXFRFGcKAOdQqqr55oJuIgoPHI+tGqxdeC04qjPM1hGYF17B
+ VnJeo+GbfpCWGbHOBsKN0LMMDSkqrSGjjZv93Nh5ylszEonUkdeJak1T2GffLSR2wBw0xKlyt5M
+ cTXqdf76JPeuPzAEpW73KZQr+6LwcaJfCf8wLXIMaq8iip+23SWF4MPf35WlYdElte0yJqgiowl
+ qW2EHX/iEl6p8Cg7TVkFTGAiGUlcxLLYio73OLnalbUoWQVDskgL1ja94BXuGAbZLWcfdW9kKmJ
+ gzUcGYeG/BZwiBhI1NG73HG33Cc6Ch3l2RfWTbtNyMykIFo/pQGVwYIkuNvJbM56PYwbMqHo48X
+ yD2eGTjZjXu7VWHsEqckxgCXxplgUPhvTbKj6ge1wFfTczYMYt8portbVfBcosxpI61rdE+casw
+ 8MF7vKogggeb3OQqPnyTcvVQVVofqCWhKEwqDF8OTZP/JEupbx3RnhqOn9734mYb7tD85ZFmH68
+ MJPhsQ/02yvQqKQ==
+X-Developer-Key: i=peter.griffin@linaro.org; a=openpgp;
+ fpr=0EFC8E6F5578750D56B549FCCEE8B8D6023472BA
 
-On Tue, 2026-09-29 at 11:13 +0100, Lee Jones wrote:
-> --- checkpatch.pl: clean (0 issues) ---
->=20
-> On Tue, 22 Sep 2026, Nora Schiffer wrote:
->=20
-> > When LEDs are set to PWM mode with group control enabled, their
-> > brightness can control using a global "group PWM" setting, modulating
-> > the individual LEDs' brightness with a second PWM running at a differen=
-t
-> > frequency. This lowers the minimum duty cycle from 1/256 to 1/65536
-> > (averaged over the modulated signal). Group brightness control is
-> > particularly useful to adjust for different levels of ambient light.
-> >=20
-> > For simplicity, group PWM mode is always enabled, with the reset defaul=
-t
-> > of 255 as group brightness. This reduces the effective duty cycle by
-> > 1/256 at all individual brightness levels (the individual PWM signals
-> > are modulated with the 255/256 duty cycle group PWM), which should be
-> > imperceptible.
-> >=20
-> > Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-> > ---
-> >  drivers/leds/leds-pca995x.c | 46 ++++++++++++++++++++++++++++++++++---
-> >  1 file changed, 43 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-> > index 61d2581b976ce..d6438b576b186 100644
-> > --- a/drivers/leds/leds-pca995x.c
-> > +++ b/drivers/leds/leds-pca995x.c
-> > @@ -35,6 +35,7 @@
-> >  #define PCA995X_LED_OFF			0x0
-> >  #define PCA995X_LED_ON			0x1
-> >  #define PCA995X_LED_PWM_MODE		0x2
-> > +#define PCA995X_LED_PWM_MODE_GRP	0x3
-> >  #define PCA995X_LDRX_MASK		0x3
-> >  #define PCA995X_LDRX_BITS		2
-> >=20
-> > @@ -52,6 +53,7 @@
-> >  struct pca995x_chipdef {
-> >  	unsigned int num_leds;
-> >  	u8 pwm_base;
-> > +	u8 grppwm;
-> >  	u8 irefall;
-> >  	u8 eflag_base;
-> >  };
-> > @@ -59,6 +61,7 @@ struct pca995x_chipdef {
-> >  static const struct pca995x_chipdef pca9952_chipdef =3D {
-> >  	.num_leds	=3D 16,
-> >  	.pwm_base	=3D 0x0a,
-> > +	.grppwm		=3D 0x08,
-> >  	.irefall	=3D 0x43,
-> >  	.eflag_base	=3D 0x44,
-> >  };
-> > @@ -66,6 +69,7 @@ static const struct pca995x_chipdef pca9952_chipdef =
-=3D {
-> >  static const struct pca995x_chipdef pca9955b_chipdef =3D {
-> >  	.num_leds	=3D 16,
-> >  	.pwm_base	=3D 0x08,
-> > +	.grppwm		=3D 0x06,
-> >  	.irefall	=3D 0x45,
-> >  	.eflag_base	=3D 0x46,
-> >  };
-> > @@ -73,6 +77,7 @@ static const struct pca995x_chipdef pca9955b_chipdef =
-=3D {
-> >  static const struct pca995x_chipdef pca9956b_chipdef =3D {
-> >  	.num_leds	=3D 24,
-> >  	.pwm_base	=3D 0x0a,
-> > +	.grppwm		=3D 0x08,
-> >  	.irefall	=3D 0x40,
-> >  	.eflag_base	=3D 0x41,
-> >  };
-> > @@ -114,11 +119,10 @@ static int pca995x_brightness_set(struct led_clas=
-sdev *led_cdev,
-> >=20
-> >  	/*
-> >  	 * Change LDRx configuration to individual brightness via PWM.
-> > -	 * LED will stop blinking if it's doing so.
-> >  	 */
-> >  	return regmap_update_bits(chip->regmap, ledout_addr,
-> >  				  PCA995X_LDRX_MASK << shift,
-> > -				  PCA995X_LED_PWM_MODE << shift);
-> > +				  PCA995X_LED_PWM_MODE_GRP << shift);
->=20
-> If we use group PWM mode to scale brightness, what happens when 'brightne=
-ss' is
-> 'LED_FULL'?  The 'switch' statement above sets 'PCA995X_LED_ON', which ty=
-pically
-> bypasses PWM entirely.  Won't this cause an LED set to 255 to ignore the =
-group
-> brightness and be fully on, while an LED at 254 is scaled down?
+Fix newly introduced DT warnings:
+Warning (avoid_unnecessary_addr_size): /soc@0/interrupt-controller@5880000:
+unnecessary #address-cells/#size-cells without "ranges", "dma-ranges" or
+child "reg" or "ranges" property
 
-Patch 9/10 removes the use of PCA995X_LED_ON to avoid this issue, using
-PCA995X_LED_PWM_MODE_GRP for all brightness values 1..255 instead.
+Fixes: 80f23487d554c7 ("arm64: dts: google: Add initial dts for frankel/blazer/mustang")
+Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+---
+ arch/arm64/boot/dts/google/lga.dtsi | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/arch/arm64/boot/dts/google/lga.dtsi b/arch/arm64/boot/dts/google/lga.dtsi
+index 26a14b3a1b190a..919ee6619d9ee8 100644
+--- a/arch/arm64/boot/dts/google/lga.dtsi
++++ b/arch/arm64/boot/dts/google/lga.dtsi
+@@ -370,8 +370,7 @@ gic: interrupt-controller@5880000 {
+ 			reg = <0x0 0x05880000 0x0 0x10000>,
+ 			      <0x0 0x05900000 0x0 0x200000>;
+ 
+-			#address-cells = <2>;
+-			#size-cells = <2>;
++			#address-cells = <0>;
+ 
+ 			#interrupt-cells = <4>;
+ 			interrupt-controller;
 
->=20
-> >  }
-> >=20
-> >  static ssize_t status_show(struct device *dev, struct device_attribute=
- *attr, char *buf)
-> > @@ -190,10 +194,41 @@ static ssize_t has_errors_store(struct device *de=
-v, struct device_attribute *att
-> >  	return ret ?: count;
-> >  }
-> >=20
-> > +static ssize_t group_brightness_show(struct device *dev, struct device=
-_attribute *attr, char *buf)
-> > +{
-> > +	struct pca995x_chip *chip =3D i2c_get_clientdata(to_i2c_client(dev));
->=20
-> 'dev_get_drvdata(dev)' again?
->=20
-> > +	unsigned int val;
-> > +	int ret;
-> > +
-> > +	ret =3D regmap_read(chip->regmap, chip->chipdef->grppwm, &val);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return sysfs_emit(buf, "%u\n", val);
-> > +}
-> > +
-> > +static ssize_t group_brightness_store(struct device *dev, struct devic=
-e_attribute *attr,
-> > +				       const char *buf, size_t count)
-> > +{
-> > +	struct pca995x_chip *chip =3D i2c_get_clientdata(to_i2c_client(dev));
-> > +	u8 val;
-> > +	int ret;
-> > +
-> > +	ret =3D kstrtou8(buf, 0, &val);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret =3D regmap_write(chip->regmap, chip->chipdef->grppwm, val);
-> > +
-> > +	return ret ?: count;
-> > +}
-> > +
-> >  static DEVICE_ATTR_RW(has_errors);
-> > +static DEVICE_ATTR_RW(group_brightness);
-> >=20
-> >  static struct attribute *pca995x_attrs[] =3D {
-> >  	&dev_attr_has_errors.attr,
-> > +	&dev_attr_group_brightness.attr,
-> >  	NULL,
-> >  };
-> >  ATTRIBUTE_GROUPS(pca995x);
-> > @@ -270,11 +305,16 @@ static int pca995x_probe(struct i2c_client *clien=
-t)
-> >  	if (ret)
-> >  		goto err_put_nodes;
-> >=20
-> > -	/* Clear errors on probe */
-> > +	/* Clear errors on probe, use GRPPWM register for group brightness co=
-ntrol */
-> >  	ret =3D regmap_write(chip->regmap, PCA995X_MODE2, PCA995X_MODE2_CFG);
-> >  	if (ret)
-> >  		goto err_put_nodes;
-> >=20
-> > +	/* Full group brightness */
-> > +	ret =3D regmap_write(chip->regmap, chipdef->grppwm, U8_MAX);
-> > +	if (ret)
-> > +		goto err_put_nodes;
-> > +
-> >  	/* IREF Output current value for all LEDn outputs */
-> >  	ret =3D regmap_write(chip->regmap, chipdef->irefall, iref);
-> >  	if (ret)
-> > --=20
-> > TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, =
-Germany
-> > Amtsgericht M=C3=BCnchen, HRB 105018
-> > Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan=
- Schneider
-> > https://www.tq-group.com/
-> >=20
-> >=20
->=20
+---
+base-commit: b736258e80ca4c2c465cd4ec6d2bbf780e99ef55
+change-id: 20260929-pixel10-initial-dts-fixup-8c21c6951759
 
---=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-https://www.tq-group.com/
+Best regards,
+-- 
+Peter Griffin <peter.griffin@linaro.org>
+
