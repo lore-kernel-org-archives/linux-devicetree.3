@@ -1,105 +1,248 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54B350E5AA;
-	Tue, 29 Sep 2026 12:10:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC1351AFF5;
+	Tue, 29 Sep 2026 12:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683806; cv=none; b=hEgd749UHhcJAkBVagpqEEplcvObgDn0jDa/Ddn7r3bmH/ORF23KlC0B5BvFVy+8L0gvc2tem3fgQqdNW3qdPRDrAuP3xZfxokEUFQT5AWpLsRXMtUB5GH0S+cHbAJsM/3gIk5wDoq2N8KePJiqkVdNm3sl9Hl2UIeSaxPtHtN4=
+	t=1790683970; cv=none; b=SPOMOVpxCbst2/Sivr4lmmsJ/61sx4srbIuH8VltiEbOTXMYriBHSgen6UbK+xX0iNdjeUlNBXZWx1pP4oVVzxiqaoF2H2FzhLhfbPMI5Ed1V8zs89dDxdQpM/4TZYgy7uLN2hFJcaFFysn4vzEkFYvLY3bgPtYBm0aRG1KpzzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683806; c=relaxed/simple;
-	bh=0TQIG6b0QhiYyhhVsn09ZaXE0tRmvWDczzbfnRItPCs=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=iYH6/Lc8nmgvf/dFl5/YsQXRM71QXh8ZP6Exwm5OSzufUiKLjBG3GKMA+JpahV6nyEqmA+ffoKO8VdAY3uujf297UAv7V91w1JJX572vKNFwJ52fQX/tK+IeYwvwRb2+gH0wdANp35GRlevuv2tgiPam02HkSZ0cPrmfnkEp+fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
-Message-ID: <d3b99da7-bc64-4df8-94ab-25080474ee35@mainlining.org>
-Date: Tue, 29 Sep 2026 15:09:27 +0300
+	s=arc-20240116; t=1790683970; c=relaxed/simple;
+	bh=U/ZHELYrFaEQ3sMrE4JTj1Tft7dlNbybWNXd2onWZC4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CslMGZpN5LDIforK7ulBlIqzGbnilhSif0egrBcXPHU5E15Uf/afLRFxESKNFc0PSxIkKfwxE4pOhNF9CuyPbr1IhtQANXucrHOQSiaGzRgBiFOgliAyPPvGCJU//HM5Tg7GnEB8bkRRMq9KpBgzZvJXULdqDtLzKYg04kNtvDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=TVoQZoOV; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="TVoQZoOV"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CB7A1C3D;
+	Tue, 29 Sep 2026 14:10:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790683846;
+	bh=U/ZHELYrFaEQ3sMrE4JTj1Tft7dlNbybWNXd2onWZC4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TVoQZoOVXSlL3imsxqA+YRdzmqVNKSSBcyPWf0ItcyDgxMXTB+5QfgN1koH048ewZ
+	 LplOn4ENq5q8R/xUvbiMQT683fj65wqVWu1PG8ks6E8kXrtnFQ/ESYJU6wAof0ZnYk
+	 0pS8WNIHQuKJml/psm1hVLdZbz34gzwlgU0e3uOo=
+Date: Tue, 29 Sep 2026 15:12:35 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Quchaosheng <quchaosheng000406@163.com>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-omap@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: display: ti,tpd12s015: Convert to DT
+ schema
+Message-ID: <20260929121235.GF171869@killaraus.ideasonboard.com>
+References: <20260915120327.47114-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Subject: Re: [PATCH v3 16/19] thermal: qcom: tsens: Add support for MSM8952
- tsens
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
- linux-input@vger.kernel.org
-References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <20260921-msm8952-initial-support-v3-16-b96fd3fe298b@mainlining.org>
- <4de27200-3598-47b7-b0af-8f7acd037618@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <4de27200-3598-47b7-b0af-8f7acd037618@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260915120327.47114-1-quchaosheng000406@163.com>
 
-Hi Daniel,
-
-On Tue, 29 Sep 2026 09:11:28 +0200, Daniel Lezcano wrote:
-> On 9/21/26 20:19, Muzaffer Kadir via B4 Relay wrote:
->> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
->>
->> Add MSM8952 support for tsens.
->>
->> Downstream does a lot of advanced things with calculations.
->> But seems like using tsens-v1 directly works too.
+On Tue, Sep 15, 2026 at 08:03:26PM +0800, Quchaosheng wrote:
+> Convert the TPD12S015 HDMI level shifter binding to DT schema.
 > 
-> Can you elaborate a bit the changelog please ?
+> The TI TPD12S015 is an HDMI companion chip that combines a level shifter
+> and ESD protection circuitry. Document the two ports it exposes between
+> the HDMI transmitter and the connector.
 > 
-> Thanks
+> The tpd12s016 is described as software compatible with the tpd12s015 and
+> is listed as a fallback compatible by am57xx-idk-common.dtsi, so accept
+> both orderings. Boards that also route the DDC lines through the chip
+> pass five GPIOs rather than three.
+
+Assisted-by tag missing.
+
+This patch also seems to be missing understanding of what you're doing.
+Not only does it combine conversion to YAML and changes to the bindings
+in one patch, it also gives no rationale for the changes.
+
+Please don't waste maintainer's time with LLM-generated patches that you
+haven't tried to understand.
+
+> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+> ---
+>  .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
+>  .../bindings/display/ti/ti,tpd12s015.yaml     | 93 +++++++++++++++++++
+>  2 files changed, 93 insertions(+), 44 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+>  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+> deleted file mode 100644
+> index 26e6d32e3..000000000
+> --- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+> +++ /dev/null
+> @@ -1,44 +0,0 @@
+> -TPD12S015 HDMI level shifter and ESD protection chip
+> -====================================================
+> -
+> -Required properties:
+> -- compatible: "ti,tpd12s015"
+> -
+> -Optional properties:
+> -- gpios: CT CP HPD, LS OE and HPD gpios
+> -
+> -Required nodes:
+> -- Video port 0 for HDMI input
+> -- Video port 1 for HDMI output
+> -
+> -Example
+> --------
+> -
+> -tpd12s015: encoder@1 {
+> -	compatible = "ti,tpd12s015";
+> -
+> -	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
+> -		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
+> -		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
+> -
+> -	ports {
+> -		#address-cells = <1>;
+> -		#size-cells = <0>;
+> -
+> -		port@0 {
+> -			reg = <0>;
+> -
+> -			tpd12s015_in: endpoint@0 {
+> -				remote-endpoint = <&hdmi_out>;
+> -			};
+> -		};
+> -
+> -		port@1 {
+> -			reg = <1>;
+> -
+> -			tpd12s015_out: endpoint@0 {
+> -				remote-endpoint = <&hdmi_connector_in>;
+> -			};
+> -		};
+> -	};
+> -};
+> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> new file mode 100644
+> index 000000000..b3351b601
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> @@ -0,0 +1,93 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: TI TPD12S015 HDMI level shifter and ESD protection chip
+> +
+> +maintainers:
+> +  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> +
+> +description: |
+> +  The TPD12S015 is an HDMI companion chip that combines a level shifter and
+> +  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
+> +  connector, and provides control over the level shifter enable and the
+> +  hot-plug detect signals.
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: ti,tpd12s015
+> +      - items:
+> +          - const: ti,tpd12s016
+> +          - const: ti,tpd12s015
+> +
+> +  gpios:
+> +    description:
+> +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first GPIO
+> +      controls the level shifter, the second enables the level shifter
+> +      outputs and the third reads the hot-plug detect line. Boards that
+> +      also route the DDC lines through the chip use five entries, with
+> +      the SCL and SDA GPIOs appended.
+> +    minItems: 3
+> +    maxItems: 5
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: HDMI input from the transmitter.
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: HDMI output to the connector.
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    encoder1 {
+> +        compatible = "ti,tpd12s015";
+> +
+> +        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
+> +                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
+> +                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +
+> +                tpd12s015_in: endpoint {
+> +                    remote-endpoint = <&hdmi_out>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +
+> +                tpd12s015_out: endpoint {
+> +                    remote-endpoint = <&hdmi_connector_in>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +...
 > 
 
-MSM8952 has 11 sensors
-and 3200 default slope (according to downstream)
+-- 
+Regards,
 
-For tests, this is the table for readings:
-tsens sensor 0  1  2  3  4  5  6  7  8  9  10
-TWRP         32 31 29 28 28 31 30 30 30 32 30
-this patch   31 29 31 29 29 31 30 31 31 30 30
-
-Both are read from same device, one after the other,
-First upstream then TWRP.
-2 degree difference seems reasonable in my idea,
-as there is a reboot process happens in between reads and
-downstream has more power saving features than this port.
-
-I don't know any way to independently measure temperature.
-
-I reused offsets and slope from downstream.
-
-My commit message wasn't good, I will expand the
-commit message by v4.
-
-Best regards,
-Muzaffer Kadir
+Laurent Pinchart
