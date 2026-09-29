@@ -1,59 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EE03EC802;
-	Tue, 29 Sep 2026 03:16:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB92F3E4107;
+	Tue, 29 Sep 2026 03:16:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651808; cv=none; b=tlXCGNvF8l7mE7uwORaXYLkqQBNHAr8uXGAEus1eQPNPZdZX1rV3DX2NYq5RTZ85EtC/FvBYMPxAw2fgWXD+l+6B7+FQLnS6vSX3G975QG3eF0/d6/wsiIBKtGa9kyhXwyHveubnfNo/JdiMTL9D8K9IDz/RebrMnVPkKAq2wk8=
+	t=1790651809; cv=none; b=Ea7K/HbkEWk+gL4vl/Xc+d2+5WpZS8WLUlacx2QMWEbx2tg6OA8RELzsCmhF5sFy0pq5FosUb8LidJXhl+Ui5vqkHTDXF3NoibPZx78sApOcC/hJEnYnXHoRy4ckn8VrzGglJIodFj9t4LXtVAO6hAaaZ4wFFKrrjuYoHB9pRss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651808; c=relaxed/simple;
-	bh=UVEjJMDIMivrck/Ft9CoYP4oUAv6802A2m2IWriBk6M=;
+	s=arc-20240116; t=1790651809; c=relaxed/simple;
+	bh=dPaRNVeFrVdqbxnqW4DsJkjfx2dqfbMM+u9ze9IUXRU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fCQc6XRdwQrvOoKMC3dVWGoQs5PTptXowPebmeHXtroA3JPmsNo5O5H4VfinIQ4sa1SCO8edDjSH/qaBAKgeDpXaFFCkwhB9JUzvfoe1Qi02sutM7S4dXxNxn3C/AmjfyOGaZ2tqPhDkc/RsEjL9nkp4HAZHA0bH3i/Nkl2sbWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AS3pRv5M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VVrN7gpszeO2151RBs+AU3oI/DGn2yXX/GW/LoPhpz8yYnUdoZXojiToxUjlLkd6yex6vL/84jY/AOd0eV9Q403uJYKS/gd/vu3WTvVqdnHu/Ibwgc16204bf92tsJQGFwMxzkFv4XO5jtCzCqcK4j7o4IlXmSUTwVZeJONJ5ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NBKUAUJG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AS3pRv5M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01B3F1F0089A;
-	Tue, 29 Sep 2026 03:16:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NBKUAUJG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE0F1F000FF;
+	Tue, 29 Sep 2026 03:16:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651800;
-	bh=JObLTQDXsv/1FdQ+Gl6sGSAa4zNGyKjj1tl9V+Oq6YA=;
+	s=k20260515; t=1790651803;
+	bh=9UJfRKDrkHyBPWW0s0rB8/RfFadvwU5wvA/raQ8Y6Po=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AS3pRv5Mb8d2/GJbaYHs3ur81Ar95Fku+K3yLckhdCdAB9RwmKSJkZo24kmEaIGTw
-	 WF81JucSFAgg+rc8q2/olAh/kVTycZ48XBKW8ztUkIS0miE02xfrvw6N1gAqliDqAO
-	 cU67fD4ogtiH5a2k7cjg9ups7k9SpqeiylWNC3GiGCgj240/bHZMuY3t2tFlWjLJtx
-	 PCMEg0dg6kofdoS0D2HOjcQVKoOKwlRevMsNexJTPLPUxRlPMBlSfFIhwgZmSxrYMx
-	 k9tyQAnvwMNMGL4UQMIZTS29g7BneLm2QETOyRuBC3om+tmlux1FVOLg+1t5/KYSiy
-	 3KGsC6TD+0cLA==
+	b=NBKUAUJGDerB6JscuIuChOhwso4Xoj6RnQTHD62TCpWTixAAyNor2fQD3ZK6IZCPC
+	 a8wYC7PkyIRQjfuv0S2wpAIHvGpIP3UfJ0/dl+8cpKe0pNmxUk15AsBuSLVRhcfsYF
+	 jGkWH5fOTxGNjSbMjlykW7RN/F8pcwTQAJSsCPz7mxdgGi9LT/un+6mH75IHp5GxkF
+	 paSvgcDGvewkNpQM7ejgkfrwhD5N5xQLjXg4ErSl0Upz4ZI0uTFzNAmETnNeAxohiu
+	 NcLvQ25gojjQf1xKmJEqHxWgPLMIdfwb0JXE1ZUW9Cr82wl+VizbXJumDIxIxAcQKT
+	 KAOR7ylNqGd2g==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Erikas Bitovtas <xerikasxx@gmail.com>
+To: konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	yijie.yang@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	abel.vesa@oss.qualcomm.com,
+	krzysztof.kozlowski@oss.qualcomm.com,
+	Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Stefan Hansson <newbyte@postmarketos.org>,
-	~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	David Heidelberg <david@ixit.cz>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Vitalii Skorkin <nikroksm@mail.ru>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH RESEND v3 0/3] arm64: dts: qcom: sm7125-samsung: add initial device tree for SM7125 Samsung platform
-Date: Mon, 28 Sep 2026 22:15:25 -0500
-Message-ID: <179065170983.2673486.1587443995547415765.b4-ty@b4>
+	tingwei.zhang@oss.qualcomm.com,
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+	Ziyue zhang <ziyue.zhang@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v4 0/2] Initial support for Advantech SOM-DB5830 board
+Date: Mon, 28 Sep 2026 22:15:27 -0500
+Message-ID: <179065170995.2673486.7594805451558800807.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910-sm7125-samsung-v3-0-c467bea0fb9c@gmail.com>
-References: <20260910-sm7125-samsung-v3-0-c467bea0fb9c@gmail.com>
+In-Reply-To: <20260806-hamoa-come-v4-v4-0-706021d4bc8c@oss.qualcomm.com>
+References: <20260806-hamoa-come-v4-v4-0-706021d4bc8c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -64,33 +58,36 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 10 Sep 2026 15:27:20 +0300, Erikas Bitovtas wrote:
-> Samsung Galaxy A52/A72 are smartphones released in 2021 on SM7125
-> (atoll) platform. This patch series introduces support for SM7125
-> Samsung devices with the following components enabled:
-> - Framebuffer
-> - GPIO keys
-> - Hall sensor
-> - Vibrator
-> - Regulators
-> - Reset input
-> - Real-time clock
-> - SD card
-> - UFS
-> - USB
-> Along with that, SM7125 was affected by a hang when launching SHM
-> bridge. A similar issue was reported on a similar chipset:
-> https://lore.kernel.org/all/20250721-sc7180-shm-hang-v1-1-99ad9ffeb5b4@trvn.ru/
-> Add SM7125 to the qcom_tzmem_blacklist to avoid hangs when booting.
+On Thu, 06 Aug 2026 17:44:45 +0800, Yuanjie Yang wrote:
+> Board layout:
+> +--------------------------------------------------+
+> |               SoM (Advantech SOM-6820)           |
+> |                                                  |
+> |   +------------------------------------------+   |
+> |   |     SiP (IQ X7181 EVK SiP)               |   |
+> |   |                                          |   |
+> |   |   +----------------------------------+   |   |
+> |   |   |   SoC (X1E80100)                 |   |   |
+> |   |   +----------------------------------+   |   |
+> |   |                                          |   |
+> |   +------------------------------------------+   |
+> |                                                  |
+> +------------------------+-------------------------+
+>                          |
+>                          |  Plugs into
+>                          v
+> +--------------------------------------------------+
+> |         Carrier Board (Advantech SOM-DB5830)     |
+> +--------------------------------------------------+
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] dt-bindings: arm: qcom: Document Samsung Galaxy A52/A72
-      commit: 0f14172198733b780f22d546516ccf8a7ed77733
-[2/3] firmware: qcom: tzmem: disable SHM bridge for SM7125 platform
-      commit: 6320b4c31b70a39a06de27a8019a45632beef32a
+[1/2] dt-bindings: arm: qcom: Add Advantech SOM-DB5830
+      commit: 7be419ca859f1625f589063814b365f59761c732
+[2/2] arm64: dts: qcom: Add Advantech SOM-DB5830
+      commit: 37f28aec2091c949a0e2ba76ad6b5eda34301e0a
 
 Best regards,
 -- 
