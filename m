@@ -1,96 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B2552F298
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 21:43:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B733D891B
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 21:45:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718200; cv=none; b=gDsZOiPwrZ/O02Vm1MqzIKSjKGpF//fnKcLCSszV/kg99r6UUqvy6AZge+5fycMF29C0p0TmoCSVpDi6d9e7tCAfDvqCcixhvIe96VizJfcGqrmrqlfDqEmOnNbS7XEDBN3qB1wkp2ozxoQknw0CNUeMmplFEnF8/+sWdZ3WnG4=
+	t=1790718333; cv=none; b=GIwuLzhCW5fKRIlYs3l33l0P9CFa2HH7W1PchaVjcXa+k7y3He7DdJYAqRNDJi0LHdA2o8tbgkKgBHv2rWEPhvoJeCU87coTENMOqpjAW8y1VXRZKm9XnltPWh/xnuBwNpU4sLxEKP+3GCboEl+YKnVQUcjadRIQNLcbGD2hew8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718200; c=relaxed/simple;
-	bh=tvxwBeB5bbOtVI9aJuLoQNFk0raMy8XVadp/DeCNAVk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oK/Gq/64beVA5RFnkc4136DH6tqmbTTCYveZdywCPjEFR4bNIdgpibX5dnOw1crQV/rjaNOm4fknhAKdtsDC4KNVcOL7rhyo+F5HMkuPjyAuyai2Sk/1jppuscLwSA8f+uKIhkCwnePt+Q1uV8+ggkgeg88OXaeAstLXdFx7s7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LiRtKR6J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790718333; c=relaxed/simple;
+	bh=zsu5uWNKbRqp6lNgPV4nWWx3U6lpU1GwAvOF/oIJJXQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ep96C9KgRP8Ay2qguGil5fOAnTXoNWuNBUyDGCyYEWtFtRPZYcFk5tO5+aT9GlBeXFmEEcyjrJBoYsfDYXEFugglVH/TIop4+4IduHY5g0dz/ItYTAGIAXj2TVez0svOm0KJxgwqrGgykGeuoYDnjGjyMB1GMi5G7yTIj/VFnUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aak2xX3w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LiRtKR6J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1BDF1F000FF;
-	Tue, 29 Sep 2026 21:43:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aak2xX3w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E57C1F00893
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 21:45:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790718185;
-	bh=g/bwjr9t/0ehiqjo8B9Kvo8qVaaRbIXLKGt8Lu6g3DA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LiRtKR6JCGVhCCcx07Vm4z2kKCZq0aytY+W9nLDptfuMWaCFMjY1VCgRaQKmUotGx
-	 ge6T6BsYCUTE4mRYI5YQ/D9Y25oXdi1LoIW5oeHK/9vxm96E1CUTgPDx14mGT8b8k/
-	 UZiZL2LnvbI7bNx7r7J15czxpfSaPWnnI+BMb0AFzF9n3fWUR9WfqXCDucPPCU57wa
-	 hCanv9QNmBW/wGUK3sQt8ecdS3BtD+CnsLhxuxoUL0+s9jdqr4msbnQ895ni8KZrkr
-	 APnEHWafEIPYixc3GFJHu9e8iYR3IHVeQkqXO5j4Yff5bIzcf5uBC5TC/cM7h/tTs3
-	 +yn45qzj9R30Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 5/8] usb: misc: qcom_eud: improve enable_store API
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Elson Serrao" <elson.serrao@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260929213513.2401005-6-elson.serrao@oss.qualcomm.com>
-References: <20260929213513.2401005-1-elson.serrao@oss.qualcomm.com>
- <20260929213513.2401005-6-elson.serrao@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 21:43:04 +0000
-Message-Id: <20260929214304.E1BDF1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790718322;
+	bh=zsu5uWNKbRqp6lNgPV4nWWx3U6lpU1GwAvOF/oIJJXQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=aak2xX3wCrx7if/cUgmVg/0cW+xRleyJv7N6aR73dpEZJbvosGlJ46e+rSiaRtUoO
+	 vgxg534xFaHqpT+tMhkbORZ99/2T8HvFjguo3gtwFgXCpWDe6hxkF2VozL8TMG2vLH
+	 jJ5Aw9/XEd6riCqchspM5eujtZH84fDVQa7RLNvHl+6ypz0Zh5iWKvOC4gxfK4nQIu
+	 w+oqXlsgygqyER7TJz8Hp6EjOdn+Yt8k15rYD4MC/ZvIcWDNI4RXJCDmTJ3DY+aSOM
+	 GTNnLnBm4aYj92+vn5Lx7sNEI0Q8KFvp050+UGmf+jXNwx7KXjTZdLlspc3TtaR+49
+	 uHDWjOn2vsAlQ==
+Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aae1f2cedfso6090188a12.3
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 14:45:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxclO0KnVkS1+Fl0FlbBcfn4q8EyN4/WCexFYhL01enAsfmghbd7M+FqOyH6w37/kkRQM0V/iVUXrN2@vger.kernel.org
+X-Gm-Message-State: AFuF++nuUuIkiUi/ItA2x1U7acpF5+t8U8LGpdw40QkPy7fLfiXv61ZY
+	9JGhth72JVR6ehp71N66xKVNLXkO/FSSqcp5okxBIYVoK5VIuf+sZoAI26EsJ4+2/heBXkLKLmf
+	1BNaI6VX2O7eCdRO1g78znjf+8zDiNQ==
+X-Received: by 2002:a17:907:3f92:b0:c29:462b:f908 with SMTP id
+ a640c23a62f3a-c2e15e4f929mr52741166b.10.1790718321016; Tue, 29 Sep 2026
+ 14:45:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <cover.1788886615.git.adrian.ho.yin.ng@altera.com>
+ <cover.1789114385.git.adrian.ho.yin.ng@altera.com> <0fbda23eb4a22a56e455b5e89125813af60ab0cc.1789114385.git.adrian.ho.yin.ng@altera.com>
+ <20260911091335.AF1481F000FF@smtp.kernel.org>
+In-Reply-To: <20260911091335.AF1481F000FF@smtp.kernel.org>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 29 Sep 2026 16:45:08 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqKHOA2F_4r-5go7=vMe5j9yV3h_QkVm8gktEmK9-Ke_xQ@mail.gmail.com>
+X-Gm-Features: AclHuK_PDgyTTCTjlUF-Yy16WB-PaUd2Th8p6y9L9sXbr37fdqM19HyYoJdc030
+Message-ID: <CAL_JsqKHOA2F_4r-5go7=vMe5j9yV3h_QkVm8gktEmK9-Ke_xQ@mail.gmail.com>
+Subject: Re: [PATCH v7 1/2] dt-bindings: usb: add Altera Agilex5 DWC3 controller
+To: sashiko-reviews@lists.linux.dev
+Cc: adrian.ho.yin.ng@altera.com, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] usb: qcom_eud: uninitialized software state blocks disabling EUD=
- on boot
---
+On Fri, Sep 11, 2026 at 4:13=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [Low] The schema incorrectly uses `additionalProperties: false` while r=
+eferencing a common schema (`snps,dwc3-common.yaml#`), breaking property in=
+heritance and leading to redundant property declarations.
+> - [Low] Mandating software workaround quirks (`snps,dis_u2_susphy_quirk`,=
+ `snps,dis_u3_susphy_quirk`) in the `required` list.
 
-commit 16556b4a5664eacf6eb75fc1fe5031d31c087dc0
-Author: Elson Serrao <elson.serrao@oss.qualcomm.com>
+Not issues.
 
-usb: misc: qcom_eud: improve enable_store API
-
-This commit adds a state check in enable_store() to skip redundant hardware
-operations when the EUD is already in the desired state. It also improves
-error handling and logging when enabling or disabling the EUD.
-
-> diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
-> index 48e474bdf818c..e227d05cfecd4 100644
-> --- a/drivers/usb/misc/qcom_eud.c
-> +++ b/drivers/usb/misc/qcom_eud.c
-[ ... ]
-> @@ -164,18 +164,27 @@ static ssize_t enable_store(struct device *dev,
->  	if (kstrtobool(buf, &enable))
->  		return -EINVAL;
-> =20
-> +	/* Skip operation if already in desired state */
-> +	if (chip->enabled =3D=3D enable)
-> +		return count;
-
-[Severity: Medium]
-Will this early exit prevent users from disabling the hardware if the
-bootloader left the EUD enabled?
-
-Since eud_probe() initializes chip->enabled to false (typically via
-devm_kzalloc), it does not verify or synchronize the software state with
-the actual hardware state by reading the hardware control registers (e.g.,
-EUD_REG_CSR_EUD_EN).
-
-If the bootloader leaves the EUD enabled, the hardware is active but
-chip->enabled is false.
-
-If a user then writes 0 to the sysfs attribute to explicitly disable the
-EUD, this check evaluates to true (false =3D=3D false) and returns early.
-
-This bypasses the disable_eud() hardware routine, preventing the hardware
-from being disabled and potentially impacting power consumption or role
-switching.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929213513.2401=
-005-1-elson.serrao@oss.qualcomm.com?part=3D5
+Rob
