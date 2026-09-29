@@ -1,240 +1,159 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D65517BC0;
-	Tue, 29 Sep 2026 10:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678625; cv=pass; b=MGhyVoQpikReJL9oEkbiiBoZ2lL0CKL38wYarvloMQH4wYhJ+IMi7T/kip1E+pk5hWgYdJrfplx/C578N18JVPEiXtSX3YS2x3Zs0lIZgkFuYzEdK93sgS1KXC2wd49DejkNOEKwWEGkbWwi03YySZS/u/yMwoz6lMoxlBK/Kjc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678625; c=relaxed/simple;
-	bh=5J514lza0krHJitGl9UfuUtC5FyE9os6vFOtREHBAv4=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=I84O3BitSOEewJCJ7WIe6zg+6tC01bRAbw5TGPhcM5O6FxOz5Isoqaokkp/hqP563jc0219JWayjPyzPFeYW4QVgsJc5TK4zxvOTR3icxf01TMhZtS6p+216rNzDpFrtdRhpNEf1ooPEM7L60ZVpjVLxJ0WyLk35OFp6pGPGlNs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=DT1p7VkP; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122E751B18C
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790678755; cv=none; b=p6WKtXP0vFereIDMQNG54Hl3q1T+5XVPpJbMzK4MPoZoK9OxKPyYJkbYnq/owC7JsGxHabJ4rGWPvWWmj5XN/92G9KjMBI6ioEqeyMffpH71E50wyg2c/Ga9MFckfIfktg3CQ8xBxMpff/pgt/SaYhXI1511Mx2A7XYEhRfwdWU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790678755; c=relaxed/simple;
+	bh=7oAh9n2HNriIc8pQ7EX6gC2TpA2I2Y5UzF+0ybwLhUU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E4AUnmMqjZSFcCqgQVrz7vI31dWG0viz3OjA/wG7gCqq2lkAsoZ8V8TEBcXUH8jC7oEn6bvCIbSQLGHdeqSJ1+XFTW4gbaRiMCNooA1KdS6DfNumsXYG3q2R+yFWptWgQQjO9zxgRwDcarCZAAGIejrqiTWCScIUG14sAhxRL0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XFM+X9HH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V7nIToJr; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="DT1p7VkP"
-Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A4B3C200D2A;
-	Tue, 29 Sep 2026 12:43:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790678608;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8eqC9HECkZKv+r9GsTkWdSv68RlAX6I5shyNDqW9P6s=;
-	b=DT1p7VkP/+svnE1aXJpl9neD2EF/pMzrVJBxKPudplyCaNaze8p8cPFVkQ2I9CJ0IlJ6v8
-	QCCOuxO5jRXSXqgUAUA4X7U+p/vWvkbDJwwdUDqzxlUnpqozwrxU5f4BgWGEjWM/onlyqa
-	lCXOMQeO0o5tCZYbL/XuJ5f1qpBzrLtoK5/XiFpYmEGsZr6hfcREjOML/teLePuQk07LiV
-	RH8b+Zp5ltCnc5Y0XV9xlglTMSlCzl6/fXFBazHIafXddELdJX4NGSNPnbTgE3Dj3k4Mci
-	9mSuxb/ybMOzDVTgbXGy54ZU5j+Uhnp8MXYTpgaz9mQ/HpasQ33r5rUcY/sRzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790678608;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8eqC9HECkZKv+r9GsTkWdSv68RlAX6I5shyNDqW9P6s=;
-	b=fSvLa3xJhpuwvPHq3EPxV+H1qfWMY3WWJQLXe819ljo+0V0pOLypft7VyDAKJq+jF7Qetk
-	CS2FYl1YruIRWcFHqe8lmOp64JFDMsqHwaqeYvYPDe6GCTZVzPXzY959lyYcrObh+KADxF
-	m7s7qCGDzM8E85euAVHmxMNHOrW8RqW4qzD/8qp9yrKzaJtpT/OjvbDCqkyV325DtXUJcM
-	OEBJFA8gE8VuGJuxhH5ZXWXu/r2bBkDhSI/0ug9YgESeDVi1Qc8AewQmj3OcRpN2zl21ht
-	TUGMnNOOoIYR5I9+UwrJKg8hhPyLSnqHzZadu+wF+ZCUUyBW4yeaXgqEG1BjLA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790678608; a=rsa-sha256;
-	cv=none;
-	b=NxXa8ydWaRiw34+wpF5HajG9GqvcG87aa+b8/veOZrxrOFn3fBVudb7mJXipccjMf7Pk4I
-	TaDCaks7vN/HxFXRBnafqoM3dPFednm25TnJrmScfQTeQXsFT4CyhVp9NhbGF+h4DuhTNq
-	U0M594bWVq2tqJQZFvFFwTI6x+PXZ2kkAocyQbcBK/k5hSg29/8S67BfSnHkb96fZuy2+v
-	R1JofyV7ZVepVv1IxEn5hqUhSc9SvQQp2Jqd4neR1Yzer6A4rRwzIHADivzvbjnGdbTtJ+
-	GFQjccHUJS6PWvFV1ALyCVKVlZdxjyT+aGeyf0mf09jGolFpiKM3o50baBdw/Q==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-Message-ID: <97e38914-bd04-4e01-8e5a-a729dfe0c7f5@pengutronix.de>
-From: "Sascha Hauer" <s.hauer@pengutronix.de>
-Subject: Re: [PATCH v9 2/2] clk: add TI CDCE6214 clock driver
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Michael Turquette" <mturquette@baylibre.com>, "Stephen
- Boyd" <sboyd@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Brian
- Masney" <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, kernel@pengutronix.de, linux-gpio@vger.kernel.org, "Sascha
- Hauer" <s.hauer@pengutronix.de>, "Linus Walleij" <linusw@kernel.org>,
- =?utf-8?b?QWx2aW4gxaBpcHJhZ2E=?= <alvin.sipraga@analog.com>
-In-Reply-To: <1jcxu18xme.fsf@starbuckisacylon.baylibre.com>
-References: <20260921-clk-cdce6214-v9-0-f2ea74fd38a2@pengutronix.de>
- <20260921-clk-cdce6214-v9-2-f2ea74fd38a2@pengutronix.de>
- <1jcxu18xme.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 10:43:27 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XFM+X9HH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V7nIToJr"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TAjBL43011324
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:45:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Th1EoeF+t6Rzml88WR4hQCtOyjoGJpY9HaMHi7et1Bg=; b=XFM+X9HHocuN0I2p
+	1BascmweDqw5tOUGaSpmElzjbVtSOBxUiiZMS4RkG3j6bXjtQV5sNiO+Oe/1QTFe
+	bA+6iL1pI4I6Uqq9RRZx86HEmyLl2M1QZH925wxjyDEIaKZA4TQhZVe4jmydresj
+	prJH7sX4y1x+pyJVa27jskfgAJFWoTQ6M7kzFli1kjsrxtBlCntks54r4+mdeZBm
+	OXR4jJyKu23pmg2BRC4pmVQ5wBVKEzgaIoutyRMOdH8NEc712uveYpFwjwahqMZ4
+	3Jak2AVkIKyFtYfKxXZXGauuR3dSW7iKjubunClTZyoaokIPPUsaznBcYMStZbYS
+	4vTwsg==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h02mna8kr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:45:41 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39de4e72b33so7562961a91.2
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:45:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790678741; x=1791283541; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Th1EoeF+t6Rzml88WR4hQCtOyjoGJpY9HaMHi7et1Bg=;
+        b=V7nIToJrNdbF49NgdusCVmShH50LT9NFLf8kyioi5bjRieX4WWLj9TIHsiGrbiirCs
+         6STD8fU7sy4AB0yQ07cX/t0K5tHU6Y++LXPIs+YF3Oj7uj5yM15WpR096E6C+rl4dN9r
+         +HFrTJuUwOtZbhkN6TjIxHxKekgf4iKOns1LSMYdCZ6hX3yAzNwvEEiDs0TfPuvaKO2V
+         u7C0oXOiuYndEV+/eeksM9G37MYzjg4sATaLxLEEMPbDwaQviyPNpl20jI/xgaIO4Olc
+         z9xXiDCZ+ZaqefDVhdqImBMghv0FyaqIpHGZ7h6uhqzvkkVh+7D0U1WZc/STwtZetxoZ
+         ZXXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790678741; x=1791283541;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Th1EoeF+t6Rzml88WR4hQCtOyjoGJpY9HaMHi7et1Bg=;
+        b=sZOYpCs9EJpQR2JeBfO54yFZOyEY2oHycU3qSTcr/OY97tVz9A8lpgKXgWRX4MIn3p
+         18ynLHXzM9Gd6P4WGoq88tq2WTEodFMZ0SQNDQ/5rPaHH4kiU/6bI+jup779lr0Nyb1p
+         SQXSZ4lNk73A/O9yeROfBidWDFGpGci8fNlVXYOTTjn3dASCGEvBVr0C6/cTiC7xFi2J
+         xh+L1m1URjyETbLN6tsZU8og5bQZ8MLt9hIGmu3gDmoI9UogcudGObBLfF/pUBtp4zDh
+         02V5lwQzvad6wl+MkyeO5ROrmRSxtAIyBZ4y9uKa0ZsVowMX/PidBYLYElb47PWoZQIS
+         P3/g==
+X-Forwarded-Encrypted: i=1; AKwUvByrUzcIPSLuC/AiPRZbTWfzlr4JsZflQgoc20rkZ4tfUFz7uiFZvhaQjBNATgWTdBV1tdBxS59gclYn@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJXnq0e6wVHE3edka7PCedUhwEpty9G3oXYQjLzTDwetTFTE7P
+	jBGSkZChRFa4vhlqDIVgA+1oaneeEnm5Wgg8KSoFO7OfLqptYKxq6OeQ4hFQL5AsMXr4EMO5JuS
+	rNFzU7ZYKpguEZTECpDAGbEVXHk/1798vL/yquvU9SwGqRyoGmEpGPIKq8eqzJ2Tv
+X-Gm-Gg: AYBFou3vywJOqBOiP5tsQGToS0iq7GrhBpXsTQ9foqoaOrCUm7Uoa5TOcuTVWgO7zJo
+	y0yEjd58LeBvyBY6CkOolSZbOAK9264FASiiJI4JpMLc9hGBnCmVS2bhg/moDXsaaPwnfFwE7wb
+	SrgP0QcxUAtXBkDDcjvDUVVzFmQxYyvMbKyzWw+g4K7Qn5e8XG2zkaL/JiLyN4mm5zYWRTN3yBD
+	YP8Ks/uGdC8IdWAXfuvVHgLjg4X3IUoibTNstF17tuzy79scAfmOpQd1a8Dhj1KViobR0Bp0moM
+	JtqBPHsEtTv4Mo7iWQ5QMoxzJP4C7XJSN0rZCYAhj/4MB2boF+U1pI5rvW/0tSSDNdXkauTjS6B
+	JviNT8LgSz9xOldojvjr6UjCJ1LIZE1EdnGGe3Q==
+X-Received: by 2002:a17:90b:5107:b0:3a4:af1b:46cc with SMTP id 98e67ed59e1d1-3a4af1b5358mr412418a91.21.1790678741234;
+        Tue, 29 Sep 2026 03:45:41 -0700 (PDT)
+X-Received: by 2002:a17:90b:5107:b0:3a4:af1b:46cc with SMTP id 98e67ed59e1d1-3a4af1b5358mr412400a91.21.1790678740782;
+        Tue, 29 Sep 2026 03:45:40 -0700 (PDT)
+Received: from [10.218.21.154] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a498057a62sm4907530a91.13.2026.09.29.03.45.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 03:45:40 -0700 (PDT)
+Message-ID: <16a6c858-1b75-45b5-bd84-3779deb0cd68@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 16:15:34 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/8] arm64: dts: qcom: shikra: Add QAIF CPU node for
+ audio
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+References: <20260917-shikra_audio_dts-v3-0-9a49e1ca6370@oss.qualcomm.com>
+ <20260917-shikra_audio_dts-v3-2-9a49e1ca6370@oss.qualcomm.com>
+ <tfjdo4awnnqxnfashsg7rngszkqhcbz3aurpc2zz4nw7vhbykr@knl35b4p2ruc>
+Content-Language: en-US
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+In-Reply-To: <tfjdo4awnnqxnfashsg7rngszkqhcbz3aurpc2zz4nw7vhbykr@knl35b4p2ruc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=X9fHu2Te c=1 sm=1 tr=0 ts=6abb96d6 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=uVyU-rc3LnrGhSSI6FMA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: PcOitIHzvexxCglXUVdEKaj4tBbPwhgY
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA0MiBTYWx0ZWRfX9mj0tUxAwciw
+ Ulp2k8f3O+ZY+Vyid5D/4zsPtkXBZgXQNVSTVWfVgQ8Jm3P9v6WRTQBFCWawgP2IhEiI0aa88Xn
+ uXpnSVBYxpr3pztUcfgbVRtUqn57E/A=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA0MiBTYWx0ZWRfX1FKDs6+LiH4m
+ qGbsJK/VS2vvSynV0u/UNsa3bc/ElMr/X+ldBrbCP6wKEGLiLlPyECDzJT+qzLJ7+UTztp+jNWb
+ dteVI0HyJxRgxG5UHyFQ7Ht9/hV8lZIxS9xfkxXAkKtYZkUj/UQGZ735qKLuzrTsblU3BurBo5H
+ FJzMgqptNgls5c2ihIJadbkMWdDg/ZKSPRWq8I3MJD6lXGEW6xd2r3RAFZOTjZ4tf5s7nlzITgM
+ nzRVcFRLOw2QbrLh/2SiycuMwMKbD3c3nkvdsXBibB8mfsaH6zVb0HXu0lzODsqFazhU3NjzQXG
+ STCPIlZY+AHSxS/kAv7nBAXC56Wm57wpHG2NVK8lIyJRsmEwew1v64sh1BO09fQREFXvsJEj1aL
+ 7YO5hcgCIOK/venr0vEgSxwVIcTPUcGxldhGb3IP9b8VYe/9HYOdheazDvOtYCqFZMtdNRiwPnT
+ n5vO92H8Oof/y8qzpUA==
+X-Proofpoint-ORIG-GUID: PcOitIHzvexxCglXUVdEKaj4tBbPwhgY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0 spamscore=0
+ bulkscore=0 impostorscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290042
 
-Hi Jerome,
 
-On 2026-09-25 11:54, Jerome Brunet wrote:
-> > +
-> > +#define R0	0
-> > +#define RO_I2C_A0			BIT(15)
-> > +#define RO_PDN_INPUT_SEL		BIT(14)
-> > +#define RO_GPIO4_DIR_SEL		BIT(13)
-> > +#define RO_GPIO1_DIR_SEL		BIT(12)
-> > +#define RO_ZDM_CLOCKSEL			BIT(10)
-> > +#define RO_ZDM_EN			BIT(8)
-> > +#define RO_SYNC				BIT(5)
-> > +#define RO_RECAL			BIT(4)
-> > +#define RO_RESETN_SOFT			BIT(3)
-> > +#define RO_SWRST			BIT(2)
-> > +#define RO_POWERDOWN			BIT(1)
-> > +#define RO_MODE				BIT(0)
-> > +
-> > +#define R1	1
->=20
-> I don't really get the point of those defines
 
-It was requested by Stephen [1]:
+On 9/17/2026 9:05 PM, Abel Vesa wrote:
+> On 26-09-17 10:07:31, Mohammad Rafi Shaik wrote:
+>> Add the QAIF CPU endpoint in shikra.dtsi so board files can connect LPASS
+>> front-end links to backend codecs.
+>>
+>> Describe the MMIO region, interrupt, IOMMU mapping and required clocks for
+>> the QAIF block. Keep the node disabled at SoC level; board dts files enable
+>> and consume it in subsequent patches.
+> 
+> Don't mention subsequent patches here, please.
+> 
+> That is not a good enough argument to disable it at SoC level.
 
-> Maybe it would be better to have '#define R30 30' just so we can easily
-> jump to the fields like R30_PLL_NDIV. I see that the datasheet doesn't
-> give a name to these registers besides prefixing the decimal offset with
-> the letter 'R'.
+Ack, will fix in next revision.
 
-I don't have any personal preference.
-
-[1] https://lore.kernel.org/all/e5858fe5d4276a735c5354e955358f27@kernel.org/
-
-> > +static int cdce6214_clk_out_set_parent(struct clk_hw *hw, u8 index)
-> > +{
-> > +	struct cdce6214_clock *clock =3D hw_to_cdce6214_clk(hw);
-> > +	struct cdce6214 *priv =3D clock->priv;
-> > +
-> > +	switch (clock->index) {
-> > +	case CDCE6214_CLK_OUT1:
-> > +		regmap_update_bits(priv->regmap, R56, R56_CH1_MUX, FIELD_PREP(R56_CH=
-1_MUX, index));
-> > +		break;
-> > +	case CDCE6214_CLK_OUT2:
-> > +		regmap_update_bits(priv->regmap, R62, R62_CH2_MUX, FIELD_PREP(R62_CH=
-2_MUX, index));
-> > +		break;
-> > +	case CDCE6214_CLK_OUT3:
-> > +		regmap_update_bits(priv->regmap, R67, R67_CH3_MUX, FIELD_PREP(R67_CH=
-3_MUX, index));
-> > +		break;
-> > +	case CDCE6214_CLK_OUT4:
-> > +		regmap_update_bits(priv->regmap, R72, R72_CH4_MUX, FIELD_PREP(R72_CH=
-4_MUX, index));
-> > +		break;
->=20
-> Can you properly describe your clock rather than doing this sort of
-> matching ?
-
-You mean something like:
-
-struct cdce6214_clk_data {
-        unsigned int pd_reg;
-        u32 pd_mask;
-        unsigned int reg;
-        u32 mux_mask;
-        u32 div_mask;
-};
-
-static const struct cdce6214_clk_data cdce6214_clk_data[CDCE6214_NUM_CLOCKS=
-] =3D {
-        [CDCE6214_CLK_OUT1] =3D {
-                .pd_reg =3D R4,
-                .pd_mask =3D R4_CH1_PD,
-                .reg =3D R56,
-                .mux_mask =3D R56_CH1_MUX,
-                .div_mask =3D R56_CH1_DIV,
-        },
-        ...
-};
-
-If yes, I can do that.
-
-> > +static int cdce6214_get_psx_div(unsigned long rate, unsigned long pare=
-nt_rate)
-> > +{
-> > +	unsigned int div =3D DIV_ROUND_CLOSEST(parent_rate, max(rate, 1UL));
-> > +
-> > +	return clamp(div, 4, 6);
-> > +}
->=20
-> Can't you just use a regular divider operation ? split you clocks in
-> different entities ?
-
-I can switch to use the generic divider helpers (divider_recalc_rate,
-divider_determine_rate). Is that where you aiming at or do you want me
-to register the clocks as composite clocks?
-
-> > +static int cdce6214_probe(struct i2c_client *client)
-> > +{
-> > +	struct device *dev =3D &client->dev;
-> > +	struct cdce6214 *priv;
-> > +	struct pinctrl_dev *pctl;
-> > +	int ret;
-> > +
-> > +	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> > +	if (!priv)
-> > +		return -ENOMEM;
-> > +
-> > +	priv->client =3D client;
-> > +	priv->dev =3D dev;
-> > +	i2c_set_clientdata(client, priv);
-> > +	dev_set_drvdata(dev, priv);
-> > +
-> > +	priv->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_=
-LOW);
-> > +	if (IS_ERR(priv->reset_gpio)) {
-> > +		return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
-> > +				     "failed to get reset gpio\n");
-> > +	}
-> > +
-> > +	priv->regmap =3D devm_regmap_init_i2c(client, &cdce6214_regmap_config=
-);
-> > +	if (IS_ERR(priv->regmap))
-> > +		return dev_err_probe(dev, PTR_ERR(priv->regmap),
-> > +				     "failed to init regmap\n");
-> > +
-> > +	ret =3D cdce6214_configure(priv);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret =3D devm_pinctrl_register_and_init(dev, &cdce6214_pdesc, priv, &p=
-ctl);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "pinctrl register failed");
-> > +
-> > +	ret =3D pinctrl_enable(pctl);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "pinctrl enable failed");
->=20
-> It feels like it should an MFD driver. half the driver belong in pinctrl
-
-I'd rather not go that way as it means splitting a relatively straight
-forward driver into three subsystems with different maintainers. Also it
-means getting cross device dependencies right.
-
-Taking "Multi Function Device" by its name it means it's a device with
-multiple functions. The CDCE6214 is not that, it's only purpose is to
-generate clocks, only that the pins need some configuration. Most other
-devices of this type just have device specific properties in the device
-tree for configuring their pins (which I was rightfully pushed away from
-in earlier reviews).
-
-Sascha
-
---=20
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Best regards,
+Raf.
+> 
 
