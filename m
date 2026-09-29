@@ -1,48 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F6F36B05E;
-	Tue, 29 Sep 2026 03:16:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29E53F58E5;
+	Tue, 29 Sep 2026 03:16:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651767; cv=none; b=nMWSfSbmumEUILMJtJYaVmQad+7mMXiJlHGbnZsDhAf5HeVFnI99jYvIvYG2q9Bh16Ku3HrxwSZEgmtN53VrSa+Q6OmWrAxSsy5N1ajj4tYfpNMykTSS1wilowYX6Vqf/KR6Jg6wd4HQiD5np3i78qGvPII8IEST96gIl8W+z/0=
+	t=1790651773; cv=none; b=JFeoFBS/LEkbtLHNBVJH+nh+Pyx9rlT0STD7QF9JHHzL2SCGnKvjOXOu5r4o471hwc6+vvtaDx1bx6lcvCdew5ITf8ao/ZocAI0lYo7uESrOCf/y6tml1tKZetEixNo2irt5BkMr8nEOFY2oaU2fxWx73FjvHa/G+j5e1eEVv3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651767; c=relaxed/simple;
-	bh=hju7fmVr5beWL9ObBKJNEqiuBcMmD/ptzl58shw3Khs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cVuoZCsUpSHuIDVzTh5Xe3e8vHd/XbjAV19OkG8xdQERJqhOmx0uFDqfW3KHlckLIag75KCdj+YXq0zX1upzhPmBfs0+bY9iHqAuJCmftOT8eunsWvgbsVsK0292NDFI+Nhnlidxd2iB1C4R5ewT4gucLkpBYu51Ze1X1+tXr7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Flmh+uta; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790651773; c=relaxed/simple;
+	bh=aEQ32ZNSBlY1H1fxZEPRPyxZ95WkZlLTOL/ux/70GQU=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=E1bwhZN6YmXB+FDpykn7fH/gho/S5EHnr6yAENZ5QOlkQoUsdJOZ0yxts//8Xw1W/1EkGQxpcxLY+i+bqeQ+i18hiGjkE4GjjjqKyjVeFpsA/tgVei/HtASY39lbuObuC/R4TE8Av7gb9hl0N2nSKoNtu+ZDvjKxxx4mg4bqob8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ST1EV9Zj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Flmh+uta"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CFE81F000FF;
-	Tue, 29 Sep 2026 03:16:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ST1EV9Zj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89F8A1F0089F;
+	Tue, 29 Sep 2026 03:16:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651762;
-	bh=oSqxqfkiwxkEV4R+J00FZMeBLNw7rApoXOP0iDd3K7w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Flmh+utaCXb0pssTdDeyISnPHxdBMFZcXoi92ONaLDTLfgB4ItOqI7odOs8fo01uu
-	 +1tCpVcx4pzxztt6nZ8G2ofOmAtzYiLcU10k9bOmyElVsHema/jFYwEjE28DqyFU3x
-	 +vpx7zU2/2v7wnZqlUnygmID6ctm2A77esX/qD/QyRUc6BSRRwmwsFwVS61fTd2c7l
-	 DCoibEXm3LggDuwaoM1hbo7spd8QiN9AHxkCeSiHNLLfVBedi7hfm4g6MFkRUf0Iw1
-	 tUsJaITu1RZv0nf1CLK7p69W5kQu/GdCeW7li9t+A13kGObWvSlyd2KsFtwrITKK2+
-	 2luJ6oTJZIUlw==
+	s=k20260515; t=1790651763;
+	bh=F/769CA8jSk8LJ9LwhK0JrbLxjBCtyQiWyWBhGTx9cA=;
+	h=From:To:Subject:Date:In-Reply-To:References;
+	b=ST1EV9ZjDE6CLuXJvtCGQ8JEh64RRjNv2aIuouOMZCVC0nHBqvpUGqvwHV5pwOoT2
+	 lH8E67u48eBTbRw0nVAJ0gOmy55eRBwYTJik3U7bQ44w+kapOiHnyRgFf7c+5CM8BS
+	 yfIEV6vtgEDWZDbmpwaa18GKX07Nc1ueMAREsHQP+3/D1UcATV0NahhWmiwJJgmMxF
+	 Qw+kjJiP1IOkrK9MWM7M4DHCF6e+X4VJxdLQl0F52D+IV0aX2yo9ILh2AEffUDzplN
+	 5v/qIcWgNCvXo8NyU+yELWRAMogrXd7UMVgrhLquhcV+pzrnDQzCluid+O05qMjQdl
+	 b7bHWha95YWUw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
+	cros-qcom-dts-watchers@chromium.org,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v7 0/2] Add DT Support for USB on Shikra
-Date: Mon, 28 Sep 2026 22:14:56 -0500
-Message-ID: <179065170997.2673486.15416018784166510001.b4-ty@b4>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: Correct inconsistent indentation
+Date: Mon, 28 Sep 2026 22:14:57 -0500
+Message-ID: <179065171003.2673486.9124815945126051013.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260811-usb-shikra-v7-v7-0-753e928f37ae@oss.qualcomm.com>
-References: <20260811-usb-shikra-v7-v7-0-753e928f37ae@oss.qualcomm.com>
+In-Reply-To: <20260913141440.177169-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260913141440.177169-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,20 +52,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 11 Aug 2026 16:29:06 +0530, Krishna Kurapati wrote:
-> Shikra has two USB controllers. Adding both USB controllers support
-> in device mode in this series.
+On Sun, 13 Sep 2026 16:14:41 +0200, Krzysztof Kozlowski wrote:
+> Fixup mis-indentation, e.g. spaces or tabs mixed with spaces, to fix
+> dt-check-style warnings like:
 > 
-> Changes in v7:
-> - Rebased on top of latest for-next branch
-> - Added Mani's tag from cover letter to both the induvidual patches.
+>   talos-evk.dts:39: [indent-consistent] indent mismatch (expected depth 4 * '\t')
+> 
+> No functional change.
 > 
 > [...]
 
 Applied, thanks!
 
-[2/2] arm64: dts: qcom: Enable USB controllers on Shikra platforms
-      commit: 9b8dc188ffa62e053b0d0fc3ccca76cad62213b0
+[1/1] arm64: dts: qcom: Correct inconsistent indentation
+      commit: a6ffb0b51502d9803e43db9b44791f992f39bc46
 
 Best regards,
 -- 
