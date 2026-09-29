@@ -1,117 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1294E9C38;
-	Tue, 29 Sep 2026 09:14:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C7C4E0210
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:16:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790673278; cv=none; b=U7CEDj4UjUJn3TrDKfU5s5H8v5Wycecg48rq5yx90TU6+eHqWuwAw5yBwN6tSE61brux4AKBc8caLKzY5IrD+jk1NAEAUgBSaAAYpo2ZvuKbAHYOhkgnQa7pPzsyHTV3jtCW8Ku6a1erlc6pN1Y0SZzXMTui7Et6fl3yV8tReyw=
+	t=1790673363; cv=none; b=RUd1ujljgXb0sRLrKPCmXHqcS4E93UR6Npmsod/s+o3g3jzEUSUpEVzQQskRgFlOTV/x9msN7Zh8ZSu+TCtKwJMm9AIDd95eq+24gQfEE7kT3PLXhklDJhLlkfM2IHjw0ui2Pl7cZMQ1ij0TpDOKmJ5W0Ao5IVTCI6A9mp84wE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790673278; c=relaxed/simple;
-	bh=CL1Zv8knziDZC6oRxoE9V48+uXwoXSyOri+Zo7AaTCY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ORLcm5GJfUMTsaLejUfVwM6E2N0xdPPHwjoBq85GG7avb/PEgi9H2C2bdDjGYnxhMfec1zD4hWzie1+pp6Ou6TtfTAMG8gMDppsOgZcmTW/zvsbTSFfzges30Axg0/99z3YL+rxpU6WSqLfGIDrdrQfERd9dD+bpwE4FyO/Na7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYx3d08A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790673363; c=relaxed/simple;
+	bh=YS8sKfzyOvgcy+t9gI+9kI2qTliCqgDJATUjrfOVZ74=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IJWMZAxAItp//RurXuys/vJf7k3K16diHo+tz49XsxcSMnaiskAHexHa9BYV++WoNHF9H6hCmHpCZ2cnrXTDTdt/ajamJWm4eDF5kElx5QX9twav1GhYhbSvSLjkbpzGE6HnA4cCcXiiQZCcldGXZ/zFkOk/9b5fR4cJNz4JTzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfCSFZtb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYx3d08A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D48681F000FF;
-	Tue, 29 Sep 2026 09:14:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfCSFZtb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B62D71F00893;
+	Tue, 29 Sep 2026 09:15:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790673273;
-	bh=n6T1ynRcKr1a67zf8mbvMcuTmUzLD/Tx1pDqIK+0sLY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oYx3d08AW5OmHbw0x65wZXPyVWRxhcF6UpJ1oIhyvZc3gFmR8U9iFmyzw8zdtL7rY
-	 A03Jg6hlr8H7a9VdQBdFCfkR6z2Mfgi0zlv9viz+NgxgQP5ilDJTCDhMaj7qHvrJZj
-	 pWiBzW02JMfijuGTJc2WsOCXA08I6eCkkmIOtV35gdBR/qjvJXpCJA4rRdjClRF2sd
-	 UjA3ldRPjoGOZaz7dgRe3r6VkISb1CRJWzFK0XIPa3qcsqYh8kvxaHJG48BjVRDFMl
-	 rQZjQsdVFArVPZ1mqmZX/LmIKVJG5j1rwpgxJlCYgBiF/4bQtLS3bqWDXjrEdxq1XD
-	 3B9qhYMurdSiQ==
-Date: Tue, 29 Sep 2026 10:14:28 +0100
-From: Lee Jones <lee@kernel.org>
-To: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Isai Gaspar <isaiezequiel.gaspar@nxp.com>,
-	Marek Vasut <marex@denx.de>,
-	Pieterjan Camerlynck <pieterjanca@gmail.com>,
-	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	linux@ew.tq-group.com, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 06/10] leds: pca995x: Add support for reset GPIO
-Message-ID: <20260929091428.GE2112133@google.com>
-References: <cover.1790087890.git.nora.schiffer@ew.tq-group.com>
- <ffbbfaf03a2b7b859a4ee01e18a161026ca319cd.1790087890.git.nora.schiffer@ew.tq-group.com>
+	s=k20260515; t=1790673359;
+	bh=2Kg4sDrJEupHp/87wKDvR8xnkKKTq6vaggUXORKV9wU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LfCSFZtbFAmYKtZDFC7/kcEPUUnpUGCGDix2JeseuzHEUYNG1d4fGuyFGVJX7sjH3
+	 LW2ufA1olwpil8n/J4efAKUWVoqnpkbsd6eRKaWDMiVYj6UAM4Gya/hntxcIvJ2ytI
+	 5uxRQNr3y0XCPsy1RMymAPoOaDd+pCwySHHBDwLzBkKm9tf/SjaIbsayNQX8RI76mS
+	 e9GjKK5E7iCdSVbrB1mYq7Vi+pOjLmY9h+0n662o3Aq3kwGtryFmHTpL3kwHdUEfdL
+	 zH08d2w9vUAMfdz5FGOKDQKvdBYQWsO3+yGkr5kIOfsNouo52GsfrRLfLTG8KqQ2Er
+	 WwNHpnKFBFsxg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] ASoC: codecs: ak4619: Add optional powerdown
+ GPIO
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alexander Koch" <mail@alexanderkoch.net>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260929090821.1476257-2-mail@alexanderkoch.net>
+References: <20260929090821.1476257-1-mail@alexanderkoch.net>
+ <20260929090821.1476257-2-mail@alexanderkoch.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 29 Sep 2026 09:15:58 +0000
+Message-Id: <20260929091558.B62D71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ffbbfaf03a2b7b859a4ee01e18a161026ca319cd.1790087890.git.nora.schiffer@ew.tq-group.com>
 
-On Tue, 22 Sep 2026, Nora Schiffer wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] ASoC: ak4619: missing power-down GPIO assertion on unbind
+- [Low] ASoC: ak4619: missing inclusion of <linux/delay.h> for msleep()
+--
 
-> The PCA9952/9955B/9956B have a reset pin. Use it to reset the LED driver
-> if provided in the Device Tree.
-> 
-> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-> ---
->  drivers/leds/leds-pca995x.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-> index e6122b33451ed..b528b2b4990a7 100644
-> --- a/drivers/leds/leds-pca995x.c
-> +++ b/drivers/leds/leds-pca995x.c
-> @@ -8,6 +8,8 @@
->   * Copyright 2023 Marek Vasut
->   */
->  
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
->  #include <linux/i2c.h>
->  #include <linux/leds.h>
->  #include <linux/module.h>
-> @@ -121,6 +123,7 @@ static int pca995x_probe(struct i2c_client *client)
->  	struct fwnode_handle *led_fwnodes[PCA995X_MAX_OUTPUTS] = { 0 };
->  	struct device *dev = &client->dev;
->  	const struct pca995x_chipdef *chipdef;
-> +	struct gpio_desc *reset_gpio;
->  	struct pca995x_chip *chip;
->  	struct pca995x_led *led;
->  	int i, reg, ret;
-> @@ -130,6 +133,16 @@ static int pca995x_probe(struct i2c_client *client)
->  	if (!dev_fwnode(dev))
->  		return -ENODEV;
->  
-> +	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(reset_gpio),
-> +				     "failed to request reset GPIO\n");
-> +	if (reset_gpio) {
-> +		udelay(3);
+commit 1a6c5d3bb52b0196ff6b96586fdeceef456751a9
+Author: Alexander Koch <mail@alexanderkoch.net>
 
-It's strange to see delays _before_ actions.
+ASoC: codecs: ak4619: Add optional powerdown GPIO
 
-What are you delaying for exactly?
+This commit adds an optional 'powerdown-gpios' device tree binding. If
+defined, the PDN pin is configured during probe with a delay prior to
+register access.
 
-> +		gpiod_set_value_cansleep(reset_gpio, 0);
-> +		usleep_range(1500, 1600);
-> +	}
-> +
->  	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
->  	if (!chip)
->  		return -ENOMEM;
-> -- 
-> TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-> Amtsgericht München, HRB 105018
-> Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-> https://www.tq-group.com/
-> 
+> diff --git a/sound/soc/codecs/ak4619.c b/sound/soc/codecs/ak4619.c
+> index d9c9f6b200284..c4f0db1e51c8d 100644
+> --- a/sound/soc/codecs/ak4619.c
+> +++ b/sound/soc/codecs/ak4619.c
+[ ... ]
+> @@ -875,10 +876,20 @@ static int ak4619_i2c_probe(struct i2c_client *i2c)
+> =20
+>  	i2c_set_clientdata(i2c, ak4619);
+> =20
+> +	ak4619->pdn_gpio =3D devm_gpiod_get_optional(dev, "powerdown",
+> +		GPIOD_OUT_LOW);
+> +	if (IS_ERR(ak4619->pdn_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ak4619->pdn_gpio),
+> +			"powerdown GPIO request failed\n");
+> +	if (ak4619->pdn_gpio)
+> +		msleep(10);
 
--- 
-Lee Jones
+[Severity: Low]
+Does this code rely on transitive header inclusions for msleep()? It appears
+that <linux/delay.h> is not explicitly included in this file, which might
+cause build failures if core headers are refactored.
+
+[ ... ]
+> @@ -887,6 +898,8 @@ static int ak4619_i2c_probe(struct i2c_client *i2c)
+>  	if (ret < 0) {
+>  		dev_err(dev, "Failed to register ak4619 component: %d\n",
+>  			ret);
+> +		if (ak4619->pdn_gpio)
+> +			gpiod_set_value_cansleep(ak4619->pdn_gpio, 1);
+>  		return ret;
+>  	}
+> =20
+
+[Severity: Medium]
+Will the device remain permanently powered on if the module is unloaded or
+unbound? The probe error paths correctly revert the GPIO state to 1 to power
+down the device, but ak4619_i2c_driver lacks a .remove callback to handle
+the unbind path.
+
+Could this state leak be addressed by using devm_add_action_or_reset() duri=
+ng
+ak4619_i2c_probe() to ensure teardown symmetry when the device is unbound?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929090821.1476=
+257-1-mail@alexanderkoch.net?part=3D1
