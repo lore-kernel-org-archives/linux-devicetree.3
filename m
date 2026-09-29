@@ -1,117 +1,273 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A32937D101;
-	Tue, 29 Sep 2026 03:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8321DD525;
+	Tue, 29 Sep 2026 03:49:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790652715; cv=none; b=OASTQinwuof/EKzqMGqs1Twqj4hhupMKh520+j7dXMaLjVgvMUDoD8Ifp4AuJBwMUaKLmf/riypRjczxcWYIy/g9nbrf0fkgwimXUFbE5GucW5s9mTYnc+j4RRHz4WNNgbTYaSgLwhZzJft06I0K2+vQMiGbXlQb936+wS4Kr+w=
+	t=1790653754; cv=none; b=dx86YWFScFeg1o2MiAp4MYwdMeVAnwucQ/+p/m3ckh3WizOVEELUgiuayN7WfheS9LiQKvYBPqjwjeQUuhqaYbjxAmFVhoLJ0EsnaIFQB/ikAKvXzPoE0k+Y8jdt/FFxngwWr2Mzjg5S/AD8XzNOpgJLD3EJwj6Li94TAdDZR0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790652715; c=relaxed/simple;
-	bh=SZnFH6V0TFQTkDaGAjaRKZjWU9qJcTYS1ecT5Uzgxz4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UJraz0g+swShsJlMsHRhVAsKZEY5M8fojBiYnJmM+bMIxYysz6wuBLk2tbQtsBTq90w+bFSOmwfhHAO7msXF0yDXmpX1rSPFo0hjffFduWB7VkFTfxF1Ys2Os9VREe/f1tlu0RNHflHAxciR94BgUfYWF6DpiYiFsh7SHFrN9ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=b2xX83qV; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1790653754; c=relaxed/simple;
+	bh=NuPzFkXF+Cp2xK4J012DQwWEX2Nq+EJBWUOD4DGgNPM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Raxs8AacdL3pA/GFYmjBiYuziHtEKAfQRZDgODJK6P2nskRPuuttFEbP3ryrrZc0GAAEtZy9MayKd8ULxcWx80Z6a70R7CSoiRzoksStCzn9Owz7lP/Wr/+FcZFxFDyzFMFoi1T3hgYryjxnrAsc25VQ5DeyuOWPxPPPtBeTyoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CAEdmcKj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="b2xX83qV"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B20B740E015B;
-	Tue, 29 Sep 2026 03:31:50 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id AGeAEptx5KvJ; Tue, 29 Sep 2026 03:31:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1790652700; bh=Al1glvz/IJj4lju1yIZV4opc56skglAbD2Mb6ols/Lc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=b2xX83qVtrqyb8mS4q5XqI6B7tukE5G9Ex9svkbCNsvYQM1STItgNJZLhFH7jOprf
-	 ZnqnWsAjGzvXa4ki+Ce8YhW25fxIk4zZP2MPu1m5uewrjzU6AgIY+YDt/hlX5A/WnS
-	 wbNbX+EoHTWQ57uwS5dGF6frcpjZnoL0AE4nFXPdx8rIzQS6huorHx9QDgADcTu6np
-	 BvX8XqqYx7r4h7hY6KqCbHuOVsdpcC3WdaaoYkl/EaeQ5mBFoP5HX1541VuIF7BN++
-	 +ftjgZxmLw6V65pAWX6aM8i/A24gXBPDWi0sELtxxwdDtuq5vdkpbSXpHa+s0PTfCy
-	 bMamNYiYhF4Fc3QBie1uJfojYAbTH1ij0mfqFcLiDfKSbOXnr1Beq/YZiyiYaMIVCy
-	 c1ygwBZFNoQARMOYc/U5L7kfjr7H69AisDYf/erqcbyINHQjmuZKNfcZzykI6w3Fz9
-	 AB3JN+Bqdtz6AOlE0Kg+4hQxJYRfXcY1nCFL38zGXtwU6l16iyFsaKV56NAt5/pM2R
-	 jNueI4+E7Fdc9DKceSw2zwHEaCaNKysybe4tMHcYZyFbXrOGueSE3nkB1FCNmjUuq8
-	 N5Eff6NarqWMZvBBgInzKSvjdKwBfoZ9+edWyzJuq3kWDFSrW4gIYNwFxuyg+ow3XY
-	 zppgwRQH2s14Ti8O00DZC6so=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0679240E015D;
-	Tue, 29 Sep 2026 03:31:23 +0000 (UTC)
-Date: Mon, 28 Sep 2026 20:31:21 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Tony Luck <tony.luck@intel.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	Borislav Petkov <bp@suse.de>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v3 0/9] Add Aspeed AST2700 SDRAM EDAC support
-Message-ID: <20260929033121.GDarsxCR4uIpLB69P0@fat_crate.local>
-References: <20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com>
- <20260925054444.GCarYKTAdrrJ5a2VYO@fat_crate.local>
- <TY2PPF5CB9A1BE6EE1ABEB80D36C3365473F28C2@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CAEdmcKj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02051F000FF;
+	Tue, 29 Sep 2026 03:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790653752;
+	bh=csKY86v+F06JBBIwgLH+CI4S4jVmqKxLkT8G1pw/FOw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=CAEdmcKj5PETGQzNjOiGQAvZQAPaJG/IXS5hmTOOJlx4Yalu6FWttMvVQDq2iFKZ8
+	 PqGNQMRVlAFrjLzIz4bybrc7tnssEWJ2OrWa1OWXQi9hdfXV4SSiIduQFqzW0ftNb5
+	 iU+RqCVJdek/ZzGgoXjFrKfSWFwE6RQ8N88kOwP1AyQ3COZqd50DuU18WaPdE7uWbe
+	 +CTfC3wUW4THgnVy9ky/yHQDOzqDjfmWz18mnqDur3Cgyq6ictbeBZXd2PiXjvzsGf
+	 hl3+up0YUiFAbh9M8dE21LgWJUZFveJycRgF9iMBh6An8p4Nbifk/m6ecdiarlh5XR
+	 /ppuYcJ81WzuA==
+Subject: Re: [PATCH net-next v6 1/3] net: stmmac: sun8i: reset the MAC after
+ PHY initialization
+From: netdev-bot+sashiko@kernel.org
+To: james.hilliard1@gmail.com
+Cc: richard.genoud@bootlin.com, maxime.chevallier@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, wens@kernel.org, jernej.skrabec@gmail.com,
+ samuel@sholland.org, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ clabbe.montjoie@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, peppe.cavallaro@st.com, joabreu@synopsys.com,
+ alastair@d-silva.org, mripard@kernel.org, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, andre.przywara@arm.com
+Date: Tue, 29 Sep 2026 03:49:10 +0000
+Message-ID: <179065375047.434549.7821787702167251080@kernel.org>
+In-Reply-To: <20260927-submit-h616-emac1-v1-v6-1-e64971f4e414@gmail.com>
+References: <20260927-submit-h616-emac1-v1-v6-1-e64971f4e414@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <TY2PPF5CB9A1BE6EE1ABEB80D36C3365473F28C2@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
 
-On Tue, Sep 29, 2026 at 03:26:42AM +0000, Ryan Chen wrote:
-> > Subject: Re: [PATCH v3 0/9] Add Aspeed AST2700 SDRAM EDAC support
-> > 
-> > On Wed, Sep 16, 2026 at 01:30:37PM +0800, Ryan Chen wrote:
-> > > Add ECC error reporting for the Aspeed AST2700 SoC to the existing
-> > > aspeed_edac driver.
-> > >
-> > > The AST2700 memory controller keeps the same overall EDAC programming
-> > > model as the earlier Aspeed BMC SoCs, but uses a different register
-> > > layout, a split interrupt status/clear/mask scheme and DDR4/DDR5 memory.
-> > > Rather than fork the driver, the existing code is first tidied and
-> > > generalised, then the AST2700 is added as one more per-SoC variant.
-> > >
-> > > Patches 2-5 are bug fixes and cleanups to the existing driver.
-> > 
-> > You always put the bug fixes first in a set. So it should be 1-4 bugfixes, rest new
-> > features.
-> > 
-> > --
-> Thanks your review.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Not done yet but you can send a new version if you feel like it. For it, you
-could also pick up Stefan's patch and merge it with your last one so that the
-driver doesn't become orphan.
+Critical: 0 · High: 1 · Medium: 2 · Low: 0
 
-Also, think hard before you mark fixes as CC:stable because stable fixes
-trigger a lot of work downstream: stable trees, distros etc. So consult:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Documentation/process/stable-kernel-rules.rst
+- [High] Before this patch, sun8i_dwmac_dma_reset() always returned 0.
+- [Medium] The failure mode the patch sets out to fix can still happen on
+  H3/H5 boards with an external PHY.
+- [Medium] The sun8i MAC soft reset now runs on the MTU-change, ethtool
+  reopen, ndo_open and resume paths.
 
-before you do.
+--
 
-HTH and Thx.
+net: stmmac: sun8i: reset the MAC after PHY initialization
+
+This patch moves the sun8i EMAC software reset out of the end of probe and
+into the stmmac dma_ops->reset callback. The reset then runs in
+stmmac_hw_setup(), after the PHY has been attached and initialized. Reset
+timeouts now go through the hardware-setup error path, and the H3
+MDIO-mux reset is kept.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> index 38d7e71de925c..5691da796454d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+> @@ -269,11 +269,33 @@ static const struct emac_variant emac_variant_h6 = {
+>  #define SYSCON_ETCS_EXT_GMII	0x1
+>  #define SYSCON_ETCS_INT_GMII	0x2
+>  
+> +static int sun8i_dwmac_reset(void __iomem *ioaddr)
+> +{
+> +	u32 v;
+> +
+> +	v = readl(ioaddr + EMAC_BASIC_CTL1);
+> +	writel(v | 0x01, ioaddr + EMAC_BASIC_CTL1);
+> +
+> +	/* The timeout was previously set to 10ms, but some board (OrangePI0)
+> +	 * need more if no cable plugged. 100ms seems OK
+> +	 */
+> +	return readl_poll_timeout(ioaddr + EMAC_BASIC_CTL1, v,
+> +				  !(v & 0x01), 100, 100000);
+> +}
+> +
+>  /* sun8i_dwmac_dma_reset() - reset the EMAC
+>   * Called from stmmac via stmmac_dma_ops->reset
+>   */
+>  static int sun8i_dwmac_dma_reset(void __iomem *ioaddr)
+>  {
+> +	int ret;
+> +
+> +	writel(0, ioaddr + EMAC_INT_EN);
+> +
+> +	/* The PHY receive clock must be running for the reset to complete. */
+> +	ret = sun8i_dwmac_reset(ioaddr);
+
+[Severity: Medium]
+Is the 100 ms poll in sun8i_dwmac_reset() long enough now that the reset
+runs right after the PHY is resumed?
+
+On the reopen and resume paths, __stmmac_open() and stmmac_resume() in
+stmmac_main.c call phylink_prepare_resume() and then go straight into
+stmmac_hw_setup():
+
+__stmmac_open()
+    phylink_prepare_resume(priv->phylink);
+    stmmac_reset_queues_param(priv);
+    ret = stmmac_hw_setup(dev);
+        stmmac_init_dma_engine()
+            stmmac_reset()
+                sun8i_dwmac_dma_reset()
+                    sun8i_dwmac_reset()
+
+phylink_prepare_resume() in drivers/net/phy/phylink.c says it does not
+wait for the PHY clock:
+
+	 * then resume the PHY. Note that 802.3 allows PHYs 500ms before
+	 * the clock meets requirements. We do not implement this delay.
+	 */
+
+The comment in sun8i_dwmac_reset() already says 10 ms was too short on
+OrangePi0 with no cable plugged in. Other dwmac reset implementations
+allow more time: dwmac1000 200 ms, dwmac4/imx 1 s, loongson 2 s.
+
+Before this patch, sun8i_dwmac_dma_reset() did not need RXC, so these
+paths could not fail here. Could a PHY that is slow but still within the
+standard now make the reset time out, so that ndo_open, resume or an MTU
+change fails? Could that also leave EMAC_BASIC_CTL1 with a soft reset
+still pending?
+
+> +
+> +	/* Leave DMA and interrupts disabled even if the reset timed out. */
+>  	writel(0, ioaddr + EMAC_RX_CTL1);
+>  	writel(0, ioaddr + EMAC_TX_CTL1);
+>  	writel(0, ioaddr + EMAC_RX_FRM_FLT);
+> @@ -281,7 +303,7 @@ static int sun8i_dwmac_dma_reset(void __iomem *ioaddr)
+>  	writel(0, ioaddr + EMAC_TX_DESC_LIST);
+>  	writel(0, ioaddr + EMAC_INT_EN);
+>  	writel(0x1FFFFFF, ioaddr + EMAC_INT_STA);
+> -	return 0;
+> +	return ret;
+
+[Severity: High]
+sun8i_dwmac_dma_reset() can now return -ETIMEDOUT. Can a failed MTU
+change then free the DMA rings twice?
+
+On a running interface, stmmac_change_mtu() in stmmac_main.c calls
+__stmmac_release() and then __stmmac_open() with a newly allocated
+dma_conf. __stmmac_open() copies that dma_conf into priv->dma_conf before
+the reset runs:
+
+__stmmac_open()
+    memcpy(&priv->dma_conf, dma_conf, sizeof(*dma_conf));
+    ...
+    ret = stmmac_hw_setup(dev);
+    if (ret < 0) {
+        netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
+        return ret;
+    }
+
+priv->dma_conf is not restored when this fails. stmmac_change_mtu() then
+frees the resources that priv->dma_conf still points to:
+
+stmmac_change_mtu()
+    ret = __stmmac_open(dev, dma_conf);
+    if (ret) {
+        free_dma_desc_resources(priv, dma_conf);
+        kfree(dma_conf);
+        netdev_err(priv->dev, "failed reopening the interface after MTU change\n");
+        return ret;
+    }
+
+The interface is left IFF_UP. On a later ndo_stop, __stmmac_release()
+calls free_dma_desc_resources(priv, &priv->dma_conf) again. That touches
+descriptor rings, the buf_pool, tx_skbuff arrays and page_pools that
+have already been freed.
+
+The same ndo_stop also frees dev->irq a second time, calls
+phylink_stop() again, and calls stmmac_release_ptp() again, so the PTP
+ref clock is disabled twice.
+
+The broken unwind is in the stmmac core. However, before this patch the
+sun8i dma reset always returned 0, so this path could not be reached on
+sun8i. The commit message now relies on "the normal hardware-setup error
+path".
+
+>  }
+>  
+
+[ ... ]
+
+> @@ -899,7 +900,9 @@ static int mdio_mux_syscon_switch_fn(int current_child, int desired_child,
+>  		/* After changing syscon value, the MAC need reset or it will
+>  		 * use the last value (and so the last PHY set).
+>  		 */
+> -		ret = sun8i_dwmac_reset(priv);
+> +		ret = sun8i_dwmac_reset(priv->ioaddr);
+> +		if (ret)
+> +			dev_err(priv->device, "EMAC reset timeout\n");
+>  	}
+>  	return ret;
+>  }
+
+[Severity: Medium]
+Can the failure described in the commit message still happen on H3/H5
+boards with an external PHY?
+
+The reset in mdio_mux_syscon_switch_fn() still runs during probe, before
+any PHY driver has bound. It runs when the external child bus is
+registered and its PHY ID is read:
+
+sun8i_dwmac_probe()
+    sun8i_dwmac_register_mdio_mux()
+        mdio_mux_init()
+            of_mdiobus_register(external child)
+                get_phy_device()
+                    mdio_mux_read()
+                        mdio_mux_syscon_switch_fn(1 -> 2)
+                            sun8i_dwmac_reset()
+
+The external PHY's RX clock may not be running yet, for example because
+the PHY or one of its suppliers is not ready. The reset then returns
+-ETIMEDOUT, which get_phy_c22_id() in drivers/net/phy/phy_device.c turns
+into -EIO:
+
+	return (phy_reg == -EIO || phy_reg == -ENODEV) ? -ENODEV : -EIO;
+
+__of_mdiobus_parse_phys() treats -EIO as fatal, so of_mdiobus_register()
+fails. mdio_mux_init() in drivers/net/mdio/mdio-mux.c then frees any
+child bus that failed with an error other than -EPROBE_DEFER, and never
+retries it:
+
+		r = of_mdiobus_register(cb->mii_bus, child_bus_node);
+		if (r) {
+			mdiobus_free(cb->mii_bus);
+			if (r == -EPROBE_DEFER) {
+				ret_val = r;
+				goto err_loop;
+			}
+			devm_kfree(dev, cb);
+
+If the internal child registered, probe succeeds without the external
+PHY and ndo_open cannot connect to it. If no child registered,
+sun8i_dwmac_probe() fails and the MAC is removed.
+
+Either way, loading the missing driver or supplier later cannot bring
+the interface back without reprobing the MAC. The commit message
+explains why this reset is kept. Should it also say that H3/H5
+external-PHY configurations are still not covered by this fix?
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927-submit-h616-emac1-v1-v6-0-e64971f4e414%40gmail.com
