@@ -1,326 +1,174 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F314D4772BF
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A803475349;
+	Tue, 29 Sep 2026 08:39:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671106; cv=none; b=rmIEVHKIJ/S7Jvb0iJBe4nIkwznUhOqBldPvNPOMMzq7unceHRGJNYVJC5ngaIL+Hbo49TV0SzNAj2zPxaA0wrFJa9oHQWpdVrmYZy1p/DcKqwW5G/0FH7pCOtoP1y4Lnl77xNBWAejcvCJLO0ej24ltDgqaK5NMnnIAbLbl2Fk=
+	t=1790671169; cv=none; b=PSQRo4xskuk/c0bz+gGm+qkdvACfTD/tzhmfEqkCK46U9BG4hTWG/PI7uaj3X57IuW/kqLCoY9FeMie7E67+Kl7i7USv4ehDHKsATkWrTo+vOa6Q9X2VEI3rzxaQvHHciTz7Sg/j9cGd4rRx0Tq17u6flNnbAs5ZMKCAQ+owLA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671106; c=relaxed/simple;
-	bh=4JdfCyLALDJ6xYLBR2RbOX+FqRbOvU8Uw5004bIWvpI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uoiL9lqbtAbHJ6Hwc1xf6Ct9J6mjnl8F4lHHZs6b+vqlNaGWH9nwsbMteKwjKWaw+9oJNwbp0vhhjloFWC8PowjwhLdTxza9nFMVcrkEx9m4mrQm+6mJVoKFxGjXD4QkNSGrVrMGVwZG2mSlzcH/Jg0NvtIi/c2At8YlmQkpVFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tMKF30br; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790671169; c=relaxed/simple;
+	bh=vHaUtZ3yE9ZiHYbJMJ7LMgQCwamNYBySvviYFUnXHXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IUcelLslPKn5kvEzsJCe6w6Mu/7WUiQqRYreXLBV4UM8btED73SjWyUomRMEG81JE5RffiDDwxMi1p5JzmMMfzvYdpX3jLVHGx55ygM/2DEWZWUIluEmR5BLBHyg1Lyhvfhz67Z81hNHsDEhJkNcALq2vXFOinA0qRxbAiVcQBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VyMSysAv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tMKF30br"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d90ba1d807so30459925ad.3
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 01:38:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790671104; x=1791275904; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9taEhUKeB1oizn7sfoRMW1tAn++l1MHVxmwejzHWtjA=;
-        b=tMKF30brxCvVBh1oZldnJvUS1n0UaPrhmk+IIqtWJNGv3pfMWMYCFmgapYC7xa46gV
-         i16x4xxW4PhVz3zoh1AI7p5LaEwn0Dyj4fffrn75G7kl1o6mEF1ORzcZLOIeIDK/l0Uk
-         CpXMS9MgjzHMrouL4iGTzkUiqy2AXDZTqJVeRu2h+pKVQqQGnL/ZVIgXsVzKAwnMdE/A
-         vlfxtMIgWSocOnzLZQ6ljjHq6ubEzp7E9+gWXKhWE3nml35F7PFkOdA7lbWY1yE4nZN1
-         QAf5aglWZz6rxOS6YmXDxWdCq2lqvW3mC5yYjUy3HZDUrWAkfOP3GCYTGbGTL9eXt/Ns
-         b4rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790671104; x=1791275904;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9taEhUKeB1oizn7sfoRMW1tAn++l1MHVxmwejzHWtjA=;
-        b=b9h1cW+OTorVr6gGHbfBfdX3Og8fsK9unDo9yJq8XZZ2rbUHgs0kHk+tFOC1Yeu9Pl
-         4A8y6RkZCrk1DSBtNLPBTb8M9kHkLBZKsEpR5nWjBrOk61q/21zTzAalKs1ZQniP50fv
-         nKW+LEtXBcFdJruQR49aYUCsUTE3A8sVYLrK3xi5HAvRWMaCaN5gheCO0vXtUb7MaWlm
-         t8jIiCTWnJpwHkU4xSpgDQlujH60+VR6OcHbewqwtT9rD31IKHvHK2N+Uu9Uzp008vx0
-         ggwGko672TmivHgfudf2cpAsCnSrzHZrjL2QceEwuDHETjwwDVmOfcJVk/GxuvQFJR7r
-         Y1BA==
-X-Forwarded-Encrypted: i=1; AKwUvBz239/5U/zhlWro11LajRpQ99EZAzEm5mMctb6YYkJ1te8x5u1DIhCAxtfHm/6f5JX2vWT0Xt6UT6P/@vger.kernel.org
-X-Gm-Message-State: AFuF++mB6q103ZUhyOdyYt+NYMABfj4u4YvBdpKIAwOhMy9PCzVvp65e
-	SklvW9HnHhHeJp2hOEQ1OF6rsfbb9BckOVljASE3GCGWYhNEnGQpGvNC
-X-Gm-Gg: AYBFou2o2aNyUploI40+1yN6vJI+RqO3ifpvr2t6UWBITbH88RKA7lfE+yhGK6oz3oF
-	c6mNaCkKshwj2QQ8pES5c01LzVSfkatEOFZsCaXfDhYKpGNRG9yjOPt/+cviJSVkUNQtNehZEOY
-	KzLCZNB1K4kxeElcpKbNnFvbm08B2x2f7w9XyQeUK9Ks5flmfU7RRcn1A6ykO3zZKMqYYcXVGyb
-	lZxe94IIoAHw3SDpdzbAM93rLwXXm/+m7IvCsDiUkjvInujBGNdscc/xAA4tTeCwXWGnPzKwdGG
-	K82hPSpb2MspjP2wUR+cPaxRccbB3WX4yyDOHafIUm3pK+xasRFtEyLLmb0dZURC1nbUAeJIdZb
-	lSfZrABkWsdURqqYkOh03kQSlb20tjuAMl54TT3/nVEHEqN9Z7Jx4AHHdbKbWQOvTOnxSOC1hUS
-	rR6mDkJH2lF8tl6C8o8YwXBS284VWVht5xzHHrlZW7D9yKWpDnOparq1Ce8z3CpkgzfQba
-X-Received: by 2002:a17:903:2312:b0:2dd:c170:2d4d with SMTP id d9443c01a7336-2df7da9eccemr117563315ad.24.1790671103914;
-        Tue, 29 Sep 2026 01:38:23 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df91475206sm51407475ad.82.2026.09.29.01.38.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 01:38:23 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Frank Li <Frank.Li@nxp.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Niklas Cassel <cassel@kernel.org>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Randolph Lin <randolph@andestech.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Alex Elder <elder@riscstar.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Vidya Sagar <vidyas@nvidia.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-Cc: linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v7 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host controller support
-Date: Tue, 29 Sep 2026 16:37:52 +0800
-Message-ID: <20260929083755.458238-7-inochiama@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929083755.458238-1-inochiama@gmail.com>
-References: <20260929083755.458238-1-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VyMSysAv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AAC01F000FF;
+	Tue, 29 Sep 2026 08:39:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790671167;
+	bh=vHaUtZ3yE9ZiHYbJMJ7LMgQCwamNYBySvviYFUnXHXg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VyMSysAvAo7ngdUGShaeaSS7dNAOWwUOlTJuYF0veHDkZPuwBGplCxkq3zYfmMXso
+	 /zwdaYLvq0ftT23TrtAk+3Q/V507oCqtKiCaTTa3dU+SPoJfI6z5TEMDwY4f2FboHw
+	 sLiQOF8ZyUV+QafHjHlodL/KuvuTwUt11h1537m7TDAiuUmK+N7DYsgklbj5HWVVdd
+	 qFKGSRvAvZFoogC74Yzbmqp4YKJ42qAt7YcwtMXwwNEDLY8WHX9fs1dB1x3Z2YlSxi
+	 DznitOMAhJeq5fTWgmuwINB1mdpeXesqzXKCKJgoYsc4bj4ZlorP346HLkA6U2tMSr
+	 YL3DYq2Kc+dMQ==
+Date: Tue, 29 Sep 2026 10:39:24 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+Message-ID: <artyl8fD3zzng8Uh@houat>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+ <20260928204059.GA515872-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="gzxryrlughoococo"
+Content-Disposition: inline
+In-Reply-To: <20260928204059.GA515872-robh@kernel.org>
 
-The PCIe controller on Spacemit K3 is almost a standard Synopsys
-DesignWare PCIe IP with extra link and reset control. Unlike
-the PCIe controller on K1, this controller supports external MSI
-interrupt controller and can use multiple PHYs at the same time.
 
-Add driver to support PCIe controller on Spacemit K3 PCIe.
+--gzxryrlughoococo
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+MIME-Version: 1.0
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
- drivers/pci/controller/dwc/Kconfig            |   4 +-
- drivers/pci/controller/dwc/pcie-spacemit-k1.c | 139 ++++++++++++++++++
- 2 files changed, 141 insertions(+), 2 deletions(-)
+Hi,
 
-diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-index dcfbe7e229fd..f9c27165260e 100644
---- a/drivers/pci/controller/dwc/Kconfig
-+++ b/drivers/pci/controller/dwc/Kconfig
-@@ -443,7 +443,7 @@ config PCIE_SOPHGO_DW
- 	  Sophgo SoCs.
- 
- config PCIE_SPACEMIT_K1
--	tristate "SpacemiT K1 PCIe controller (host mode)"
-+	tristate "SpacemiT PCIe controller (host mode)"
- 	depends on ARCH_SPACEMIT || COMPILE_TEST
- 	depends on HAS_IOMEM
- 	select PCIE_DW_HOST
-@@ -451,7 +451,7 @@ config PCIE_SPACEMIT_K1
- 	default ARCH_SPACEMIT
- 	help
- 	  Enables support for the DesignWare based PCIe controller in
--	  the SpacemiT K1 SoC operating in host mode.  Three controllers
-+	  the SpacemiT SoC operating in host mode. Three controllers
- 	  are available on the K1 SoC; the first of these shares a PHY
- 	  with a USB 3.0 host controller (one or the other can be used).
- 
-diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-index ec59ccb710ec..61b430f2294a 100644
---- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-+++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-@@ -28,8 +28,18 @@
- #define SMLH_LINK_UP			BIT(1)
- #define RDLH_LINK_UP			BIT(12)
- 
-+#define INTR_STATUS				0x0010
-+
- #define INTR_ENABLE				0x0014
- #define MSI_CTRL_INT			BIT(11)
-+#define RDLH_LINK_UP_INT		BIT(20)
-+
-+#define K3_PHY_AHB_IRQSTATUS_INTX		0x0008
-+
-+#define K3_ADDR_INTR_STATUS1			0x0018
-+
-+#define K3_CACHE_MSTR_AWCACHE_MODE	GENMASK(14, 11)
-+#define K3_CACHE_MSTR_AWCACHE_BEHAVIOR	0xf
- 
- /* Some controls require APMU regmap access */
- #define SYSCON_APMU			"spacemit,apmu"
-@@ -44,6 +54,9 @@
- 
- #define PCIE_CONTROL_LOGIC			0x0004
- #define PCIE_SOFT_RESET			BIT(0)
-+#define PCIE_PERSTN_OE			BIT(24)
-+#define PCIE_PERSTN_OUT			BIT(25)
-+#define PCIE_IGNORE_PERSTN		BIT(31)
- 
- struct k1_pcie;
- 
-@@ -315,6 +328,123 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
- 	return ret;
- }
- 
-+static int k3_pcie_init(struct dw_pcie_rp *pp)
-+{
-+	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-+	struct k1_pcie *k1 = to_k1_pcie(pci);
-+	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
-+	u32 val;
-+	int ret;
-+
-+	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
-+
-+	k1_pcie_toggle_soft_reset(k1);
-+
-+	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
-+	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-+			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT,
-+			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE);
-+
-+	ret = k1_pcie_enable_resources(k1);
-+	if (ret)
-+		goto failed_resources;
-+
-+	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
-+	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
-+
-+	ret = phy_bulk_init(k1->phy_count, k1->phys);
-+	if (ret)
-+		goto failed_phy_init;
-+
-+	ret = phy_bulk_power_on(k1->phy_count, k1->phys);
-+	if (ret)
-+		goto failed_phy_power_on;
-+
-+	msleep(PCIE_T_PVPERL_MS);
-+
-+	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-+			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
-+
-+	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
-+	val = u32_replace_bits(val, BIT(7),
-+			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
-+	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
-+
-+	k1_pcie_set_device_id(k1);
-+
-+	/* Finally, as a workaround, disable ASPM L1 */
-+	k1_pcie_disable_aspm_l1(k1);
-+
-+	return 0;
-+
-+failed_phy_power_on:
-+	phy_bulk_exit(k1->phy_count, k1->phys);
-+failed_phy_init:
-+	k1_pcie_disable_resources(k1);
-+failed_resources:
-+	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-+			   PCIE_PERSTN_OUT | PCIE_PERSTN_OE,
-+			   PCIE_PERSTN_OE);
-+
-+	return ret;
-+}
-+
-+static void k3_pcie_deinit(struct dw_pcie_rp *pp)
-+{
-+	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-+	struct k1_pcie *k1 = to_k1_pcie(pci);
-+
-+	/* Assert fundamental reset (drive PERST# low) */
-+	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-+			   PCIE_PERSTN_OUT | PCIE_PERSTN_OE,
-+			   PCIE_PERSTN_OE);
-+
-+	phy_bulk_power_off(k1->phy_count, k1->phys);
-+	phy_bulk_exit(k1->phy_count, k1->phys);
-+
-+	k1_pcie_disable_resources(k1);
-+}
-+
-+static int k3_pcie_msi_host_init(struct dw_pcie_rp *pp)
-+{
-+	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-+	u32 val;
-+
-+	dw_pcie_dbi_ro_wr_en(pci);
-+
-+	/* For IMSIC interrupt */
-+	val = dw_pcie_readl_dbi(pci, COHERENCY_CONTROL_3_OFF);
-+	val = u32_replace_bits(val, K3_CACHE_MSTR_AWCACHE_BEHAVIOR,
-+			       K3_CACHE_MSTR_AWCACHE_MODE);
-+	dw_pcie_writel_dbi(pci, COHERENCY_CONTROL_3_OFF, val);
-+
-+	dw_pcie_dbi_ro_wr_dis(pci);
-+
-+	return 0;
-+}
-+
-+static const struct dw_pcie_host_ops k3_pcie_host_ops = {
-+	.init		= k3_pcie_init,
-+	.deinit		= k3_pcie_deinit,
-+	.msi_init	= k3_pcie_msi_host_init,
-+};
-+
-+static int k3_pcie_parse_port(struct k1_pcie *k1)
-+{
-+	u32 status0, status1, status2;
-+
-+	/* Clear the status registers */
-+	status0 = readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-+	status1 = readl_relaxed(k1->link + INTR_STATUS);
-+	status2 = readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
-+
-+	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-+	writel_relaxed(status1, k1->link + INTR_STATUS);
-+	writel_relaxed(status2, k1->link + K3_ADDR_INTR_STATUS1);
-+
-+	return k1_pcie_parse_port(k1);
-+}
-+
- static int k1_pcie_probe(struct platform_device *pdev)
- {
- 	const struct k1_pcie_device_data *data;
-@@ -392,8 +522,17 @@ static const struct k1_pcie_device_data k1_pcie_device_data = {
- 	.device_id	= PCI_DEVICE_ID_SPACEMIT_K1,
- };
- 
-+static const struct k1_pcie_device_data k3_pcie_device_data = {
-+	.host_ops	= &k3_pcie_host_ops,
-+	.ops		= &k1_pcie_ops,
-+	.parse_port	= k3_pcie_parse_port,
-+	.max_phy_count	= 6,
-+	.device_id	= PCI_DEVICE_ID_SPACEMIT_K3,
-+};
-+
- static const struct of_device_id k1_pcie_of_match_table[] = {
- 	{ .compatible = "spacemit,k1-pcie", .data = &k1_pcie_device_data },
-+	{ .compatible = "spacemit,k3-pcie", .data = &k3_pcie_device_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, k1_pcie_of_match_table);
--- 
-2.55.0
+I'll merge the two discussions in that thread.
 
+On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
+> On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
+> > Most MIPI-DSI panel drivers follow an identical pattern: acquire
+> > regulators and GPIOs, perform a reset pulse with specific timing,
+> > send a vendor-supplied sequence of DSI commands, then enable the
+> > display. The only truly panel-specific part is the init sequence
+> > and power-on/off timing.
+> >=20
+> > The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
+> > with a single generic driver whose panel-specific behavior is
+> > provided by BPF programs loaded from userspace at runtime,
+> > following the HID-BPF model. This enables new panel support
+> > without kernel patches.
+> >=20
+> > Panel DT nodes use a two-entry compatible with the panel-specific
+> > string first and "panel-mipi-dsi-bpf" as fallback. The generic
+> > driver matches on the fallback, while the first compatible is used
+> > to identify which BPF program to load.
+>=20
+> If you need the 1st compatible anyways, what is the point of the
+> second one?
+
+The whole point of this driver is that you don't need to modify the
+kernel when you add support for a new panel.
+
+> Also, I assume there is at least some panel supported in the kernel
+> you might want to convert to this. That panel would not have the
+> fallback (and the DT is fixed).
+
+Yeah, that's true. I'd still need to identify the parts though. I guess
+using a generic compatible but a specific model would work?
+
+> And I agree with Neil's comment. At least until we start embedding BPF=20
+> into DT directly. ;)
+
+And from Neil:
+
+> I don't see how this can be a valid hardware description, bfp is a
+> software implementation and has nothing to do in the bindings.
+
+I'm quite a bit surprised by that argument though.
+
+We have in the main dt-schema repos bindings like:
+
+https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/opti=
+ons/u-boot.yaml
+https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/boot=
+ph.yaml
+https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/post=
+-init-providers.yaml
+
+Or, in Linux:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/misc/google,android-pipe.yaml
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/devicetree/bindings/sound/simple-card.yaml
+
+All of them have been reviewed or acked by you, and yet none of them
+relate to any hardware description.
+
+panel-mipi-dsi-spi is a generic panel that will load a firmware, and
+quite similar to this one. google,android-pipe and qcom,fastrpc don't
+attach to anything and will just open a tunnel to userspace, which is
+somewhat equivalent but more dramatic than what this driver is doing.
+simple-card or its variations will just instantiate a kernel driver from
+the DT and is used pretty much everywhere.
+
+I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
+by rob, and acked by a panel maintainer, and 4 years ago, so we're way
+past the "oh but we didn't know what we were doing back then" argument.
+
+So, let's phrase this differently: what's different about the
+description than panel-mipi-dsi-spi, or any other binding already in
+tree?
+
+If it's the BPF part, BPF is not Linux-only, and there's hardware with
+direct BPF support these days, so it can be considered OS-agnostic and
+not an implementation detail.
+
+Maxime
+
+--gzxryrlughoococo
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCart5NwAKCRAnX84Zoj2+
+dq+3AXsHKGDW5rCG290Y1fx+OohFSBUrfr+SjWPzYJbv3AsWDJ+tyk6pJ0aj+C5d
+QReuRzgBf1XMASoAKO+JAW9hFCf/nZfVfklcUBc5TR6bE1h5DcpFLGIlYksltuZo
+cQcGQ3gsrw==
+=YrNa
+-----END PGP SIGNATURE-----
+
+--gzxryrlughoococo--
