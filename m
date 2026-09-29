@@ -1,178 +1,223 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC92A475349
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:43:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE4E485935
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671408; cv=none; b=tfxQkiKK+TdU/OyQrlKFoQVErvGwVOfOimOV3qllM4ZoNQAZ9eFyYZrqhNCb1oAhKukLFOSYk4XN5KH3d+Kev7ywtfWrNK4PalrEV5sktRVTu+wLDM+jU4AYMgsADyQxA96Xn3dQdrIriSdOq+vCi6lzEecQw1CZ7qwBwQnfAsA=
+	t=1790671444; cv=none; b=XpFyOL4FPqQ7wLsvU6Gd+OQ068jChwnTTynwlGWwzlqsYsPAWhmHhBlilT+d1ELLR9xeGpFqPfWtJ3XewJQBcX3X70K9ViaHTaJ3f6cHRDxM8qFXU1q3QdVgYxK5sWMknm+AOfTetmhGamHS7VgeU2feLhDEQELWrx8yKyKc+9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671408; c=relaxed/simple;
-	bh=tqigy/RPPNbZFnODG/49qM6N3MCyj/CtBjinXZTerNQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mDJ6ORCaXtKYWs+3h22brzQkRGa+YEyF4nLmEtsjhvNNvwUPf2UwAsYQvoodU29FVrqUhIINukSl6SWcv9n3ulhaxY95OaNhOBNtsdm8GfNbW+cqzjFKVVSuDVXU7ZPYZx1FDFpk0PNGQqKevg4VvKG66afhjhVNMIbkA9huYms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FwJSdlhP; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790671444; c=relaxed/simple;
+	bh=PW29nh6AHKIAfInJuhHm2rTl7ZNcfWfYAnmTTwkdspk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bg/c6YCK8LpdWZC39fUJT5l2WCdNPVhE5b1uIMTEv5mSWYlR5Fj0EQk78FAFB2/yN+bdOI9NKfd4sOs0PcW5Bvjmi9ZAbuQi5YulyhySzSfx8q0mc0EcGEzLuBMIG4DpJtsZSmnewl472dQSn8ouCAfNND1/F0kfb0mne5WW1XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hrL6QsEX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hI9m2mjh; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FwJSdlhP"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 2079F4E410BA;
-	Tue, 29 Sep 2026 08:43:24 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E8296601BD;
-	Tue, 29 Sep 2026 08:43:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A436710329732;
-	Tue, 29 Sep 2026 10:43:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790671403; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=XUukpv0RaIWaTqnSN1VNGyI5f7tSEwPscxKOXLtVRsE=;
-	b=FwJSdlhP6pe7/Kd5jKpAUiVPxH2cAT/tFLWQW31u5oY9KXpioM2fM2lBXBrN7EaCOR0lZQ
-	GPCSN35ECSA+IZ+FQyzKB1y2aFYqfRUYn67yBrENCT40V+/B+DvGrwl9jsujzDrQELI7rS
-	y4z3dS64LUrkOKMA8yyZFtPyRaNfT2uAHxTSZGbDaVVpgQsfBJdI/Qv7gu8esxJwz3fMMI
-	Bat5YHlY7cnxHFwptYGBTRSwWlRj4cVw+9s9kqzJGfS7Y5rO8gsE5Yl8DI8NYZ509wOqJw
-	x+eQT0aAxcwlQc4bzoXipCGebj/W4DTDoADbMLN4bZ3aHyTbho6Wvme9ggh/hg==
-Date: Tue, 29 Sep 2026 10:43:20 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: sashiko-bot@kernel.org
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org,
- wsa+renesas@sang-engineering.com, robh@kernel.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 2/4] clocksource/drivers: Add support for the Renesas
- RZ/N1 timers
-Message-ID: <20260929104320.0e6eeadc@bootlin.com>
-In-Reply-To: <20260911151837.709F41F000FF@smtp.kernel.org>
-References: <20260911150456.893761-1-herve.codina@bootlin.com>
-	<20260911150456.893761-3-herve.codina@bootlin.com>
-	<20260911151837.709F41F000FF@smtp.kernel.org>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hrL6QsEX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hI9m2mjh"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7U0Bc4087159
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:43:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	IrKwOcgAyyYp97eQvpSA/WpL5HLMDhjcoFZkd6DMhmQ=; b=hrL6QsEX1aXwzaj2
+	/nmBYfgLXBUNlA8EIbp0Q/hWDhvaDrOksMM+nuWhdijbF9KSuiDtuuPBxzp87CEN
+	PO/rFxo6wnvJOxPbCMI3s6Nxe3q7WIlFNx84bSDhLETTzX0+Cak0oI2xgUprLI3e
+	2LmHZ7mw8WtDQAtkA35Wf72wmhWVIEwiFWHT3lz3FNAK5qW5hsR6MIiqY5Y7yBte
+	xZ+iAWWPuYNRVju0Kxw15UQYufFusVKzFByXfC+kd2tn0n5xotO5Y6ljJa8WQZKX
+	dWcxv939+CrjOu0O91Nj3Uz08vRaZPjMthqWdNAq1Su2uy1dE1BN3/ZI18jC/wJG
+	Zk+/NQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h00s4t46f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:43:57 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93bfb2da664so1134203185a.1
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 01:43:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790671436; x=1791276236; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IrKwOcgAyyYp97eQvpSA/WpL5HLMDhjcoFZkd6DMhmQ=;
+        b=hI9m2mjhFvvbiKUZrdpycZjv/u8moN+vxbpnBn3g7eTVL+cRxnz6/XtJ+U+PKhyyVt
+         bHaS6hNFk3V1JGNopfFlvUdrGraYEUhDRl5DyTSBYwuB9NPlYH1YN191h85IQuG+53XZ
+         atTxo71ieXci3KTp/t82mK6cGQ5jHItmOuoYOzMnO9DFyGSqeA+gf2UlfWunE0ZTqtM9
+         +pb/yv0hCQTyvl5pjlIrVcknwVZVqaTo1uE3nmBaKGsfVRclki9/8wexQNrLwlq0cBhA
+         qKl2X27SgOJrHOtmCGbeWBMC76XUHkOvIs1fMxQu6FJCZQsX/jveVkuIRaqmzEjCwfI9
+         ZaHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790671436; x=1791276236;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IrKwOcgAyyYp97eQvpSA/WpL5HLMDhjcoFZkd6DMhmQ=;
+        b=Z83Bvu1aU0nThGUMYVz4cGrHCu2fEXIX5KSD3eYkYGS3evKgcoiwlK4gjkWQMYeZFQ
+         PTaVoZfulbVmwZlolIssnjCcjzZC0SBufhqHbV3Rqt36JV+iu9C7G6TcjKntk6QQQMFA
+         72dXKwWraVsTnidKb+jmz8juEEkQw0Gh3ONY84dw2F6rngjukPqxez9IzUFkzhyl5GLh
+         JklmhBy06k1lZbhOlJRW8WjvucvhODG25qfR7f9/GbxHKDdGWB1/kh9G65FlaSkGznQ0
+         GG/XbuSPA/2ZK9cinKufpWb/x9Uvc1l9ez9qlppqOwoO0ilVdr7RT5qat3OdHd1CsF28
+         MP5w==
+X-Forwarded-Encrypted: i=1; AKwUvBxQAGEM9CO3Apm5WRl0c3jBktFMNRuXLGsPzRL4zE/5WmVEpQ0Lc0XmOPCiVtlLmhQJUTxRFEEqf+y2@vger.kernel.org
+X-Gm-Message-State: AFuF++kgHQvuUb/9Rr3gvyXaYbk9w3ON6ClJGaqGEctZSJnCbONLA9r5
+	uS0v2pMAZPjxH2rucK5qPHVV8soES51RX7lxxcworMlIU+e0KN0wJlbluNZTlZqchBcin61ErLH
+	L4XBXaQuZ8rd72OzWD50I7Vc7UWVIImcw3m2y9XomaQr1ZRwrgsG3xBpsy/3Biocj
+X-Gm-Gg: AYBFou0I1ZF0mERbIaybMbDpffO+gZoQBvMQDp/A4pwINUHK9VKy1kaAJO0PXTY76LO
+	wz+wRdpAjM4iDqwGiih8TTCz1Ydmddix/cUuZ0Oi7YCcvAhcKXLWk3n4YDUu4lPU4Q40aTIk1Ut
+	6/BfVz9X5ODkWGw8negFWdFi5VfAH4cJWa1RS0w2cuyCtGZ5n9Hd7BdLo1ljN/67Q+MHRnKoybX
+	LMv/5cLDIC/z0Aq5mUR1hKu846u77zSvq/Xu1N/Kmw39FMkzdwLxkOAlzVSBDA4TEZ3DfKECNEH
+	hTDaLc11QqktPwXKmasg4W62cLV0q2ABFL6g7ItI3eJMe1N8FdmVC7ISDUHUZ3xZbxli2YE/1Y6
+	Et2y3nLfhhdZM33S3LWciuguPsGli80szBfqb8cqyYJekvQTOOaNXPvnKCjjDyw==
+X-Received: by 2002:a05:620a:8906:b0:939:de48:e41f with SMTP id af79cd13be357-93c4749888cmr2363839385a.31.1790671436421;
+        Tue, 29 Sep 2026 01:43:56 -0700 (PDT)
+X-Received: by 2002:a05:620a:8906:b0:939:de48:e41f with SMTP id af79cd13be357-93c4749888cmr2363836785a.31.1790671435949;
+        Tue, 29 Sep 2026 01:43:55 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af507611csm2211528f8f.22.2026.09.29.01.43.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 01:43:55 -0700 (PDT)
+Message-ID: <a2b8e238-7f40-48fe-85c2-f8e52041b3e6@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 10:43:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/7] thermal/drivers/loongson2: Correct thermal sensor
+ registration loop
+To: Binbin Zhou <zhoubb.aaron@gmail.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
+        Huacai Chen
+ <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>,
+        "Rafael J . Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Huacai Chen <chenhuacai@kernel.org>, Xuerui Wang <kernel@xen0n.name>,
+        loongarch@lists.linux.dev, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, stable@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>
+References: <cover.1790561983.git.zhoubinbin@loongson.cn>
+ <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
+ <0aaf7166-378c-47d7-98d4-1004fdaeae7b@oss.qualcomm.com>
+ <CAMpQs4+uWMfFib7MhRcc7o-QMXkFrFCtdcGj04y56u44JL4iOg@mail.gmail.com>
+ <ed99f62d-cf90-4ba9-89b3-08dbe7f7227e@oss.qualcomm.com>
+ <CAMpQs4+hATFf+0w6Wq09RoZB1JJ5L_GP0aWxcGAeraTW7Gfy0w@mail.gmail.com>
+ <8eba263a-c233-42c5-842e-7487ea36d5aa@oss.qualcomm.com>
+ <CAMpQs4JvLOUv3o8tktg-EOT85KCunY9gJhgxQVkZEXPH_C+4EQ@mail.gmail.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <CAMpQs4JvLOUv3o8tktg-EOT85KCunY9gJhgxQVkZEXPH_C+4EQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzNCBTYWx0ZWRfX7PJ2J5ROx29R
+ 89wrL3MiM+2FTdsm7WG9pv6TYg0tIgmzm9FMzD3Qxi5vlzSC3pCzmCKBL8bmO+d6wLy6VJPuGvU
+ vjAj+/UFNBsUbmFOIb4w5r/rv85YsCE=
+X-Authority-Analysis: v=2.4 cv=ALbfqNVA c=1 sm=1 tr=0 ts=6abb7a4d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=AP4mLQHTS3Hkw8D5x4QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzNCBTYWx0ZWRfX7nif9ZQWvaGH
+ 1appwaFLICRNfE8ye+8oMzH+tlYP0oGGYgny+S/3XZ+vuT+6YZt/mYJNdytMknPeK9bQNUsYJuz
+ bJqJFvISwHARUZi+0pyI9FvApFJwGI5qMKoGbdGe9Sj3u53s8Kk1EJ0Z3POcQjguK9HBwiZBXnV
+ QrMUYBDMV1UvxdlP6njriXTl3LX0cEbKD+qAmtTEmnNQnhcHfqssw5dJR312U1gFgPx7Ksh3JoY
+ HVDj03qRNOM2iGjk7VBSeI6BHHYG4IOD2RP9QfTRS0AA21nKDVXf/XO6vHepjPYmm0vp0TCNnli
+ //LU8cPLLai4ZWYD7Yx6UVg3X6d3l8OGpGlYFzFmkY7NBOT73jqDKkFgiv33xmG/YHDdOZAsJ7K
+ CFKh5VvHs0uXuBVKrdxGHfvI0CXaYb09pttLuiKmLHVSq6xb+OkQz3P0kBaWLKSopP73+rtJ2VX
+ P0cxV0Pm1b/d8CdgsEg==
+X-Proofpoint-GUID: fNyP1tZ12xPIb-O6fqGq3ZXF7b7iBh3T
+X-Proofpoint-ORIG-GUID: fNyP1tZ12xPIb-O6fqGq3ZXF7b7iBh3T
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290034
 
-Hi,
+On 9/29/26 10:23, Binbin Zhou wrote:
+> Hi Daniel:
+> 
+> On Tue, Sep 29, 2026 at 1:46 PM Daniel Lezcano
+> <daniel.lezcano@oss.qualcomm.com> wrote:
+>>
+>> On 9/29/26 05:06, Binbin Zhou wrote:
+>>> Hi Daniel:
+>>
+>> [ ... ]
+>>
+>>>>>> Please make a less cumbersome and implicit checks here. For example
+>>>>>> count the number of sensors and then do the check against.
+>>>>>
+>>>>> I thought about it, and you're right—I made the logic here too complicated.
+>>>>> Let's use `sensor_count` as the counter. Is the following check logic clearer?
+>>>>>
+>>>>>            u32 sensor_count = 0;
+>>>>>
+>>>>>            for (unsigned int i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+>>>>>                    tzd = devm_thermal_of_zone_register(dev, i, data,
+>>>>> data->chip_data->thermal_ops);
+>>>>>                    if (IS_ERR(tzd)) {
+>>>>>                            if (PTR_ERR(tzd) == -ENODEV)
+>>>>>                                    continue;
+>>>>>
+>>>>>                            return dev_err_probe(dev, PTR_ERR(tzd),
+>>>>>                                                 "failed to register sensor %d", i);
+>>>>>                    }
+>>>>>
+>>>>>                    sensor_count++;
+>>>>
+>>>> If I'm not mistaken in the previous version, the loop exits at the first
+>>>> registered sensor
+>>>>
+>>>>           if (!IS_ERR(tzd))
+>>>>                   break;
+>>>>
+>>>> Here all the available sensors are registered
+>>>
+>>> The name `sensor_count` might be a bit misleading, but here the loop
+>>> exits after the first success:
+>>>
+>>>                   sensor_count++;
+>>>                   break;
+>>>
+>>> Let’s rename it:
+>>
+>> Can you clarify why only the first sensor found stops the thermal zones
+>> registration ?
+> 
+> This section of code is based on the original version by zhuyinbo; I
+> noticed that you’ve had related discussions about it before[1][2].
+> 
+> I’ve reviewed all Loongson-2K CPUs that support thermal monitoring,
+> and they all have only one temperature sensor, with “SEL” set to 0.
+> 
+> As I understand it, given the current situation, the loop here doesn’t
+> seem necessary—physically, there is only one temperature sensor (even
+> though its SEL value might theoretically be non-zero).
+> `LOONGSON2_MAX_SENSOR_SEL_NUM` does not accurately reflect the number
+> of temperature sensors; it is merely an interrupt input selection, so
+> using it here does not seem entirely appropriate.
+> 
+> Therefore, I believe treating the Loongson-2K thermal driver as a
+> single thermal sensor better aligns with the current hardware
+> behavior.
 
-On Fri, 11 Sep 2026 15:18:37 +0000
-sashiko-bot@kernel.org wrote:
+Sure, if the Loongson-2K is only one sensor based board then no need to 
+have this loop.
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] The 16-bit per-CPU timers will never be chosen over the arch timer due to their low rating, resulting in asymmetrical per-CPU tick devices.
-> - [Medium] Clocksource and sched_clock return raw decreasing values if the timer is a down-counter.
-> --
-> 
-> commit 0389aacef8150cde2d480116d05b7b23c573015b
-> Author: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
-> 
-> clocksource/drivers: Add support for the Renesas RZ/N1 timers
-> 
-> The Renesas RZ/N1 timer block controller is the controller in charge of
-> timers available in the Renesas RZ/N1 SoCs family. This controller handles
-> 8 timers (6 16-bit, 2 32-bit). Each timer has its own interrupt and prescaler.
-> 
-> > diff --git a/drivers/clocksource/timer-rzn1.c b/drivers/clocksource/timer-rzn1.c
-> > new file mode 100644
-> > index 0000000000000..a66a045309f63
-> > --- /dev/null
-> > +++ b/drivers/clocksource/timer-rzn1.c  
-> 
-> [ ... ]
-> 
-> > +static u64 notrace rzn1_sched_read(void)
-> > +{
-> > +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
-> > +}
-> > +
-> > +static u64 rzn1_clksrc_read(struct clocksource *cs)
-> > +{
-> > +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
-> > +}  
-> 
-> [Severity: Medium]
-> If the timer is a down-counter, will these functions return a decreasing value?
-> 
-> The clocksource and sched_clock cores require monotonically increasing values.
-> If the timer counts down, returning the raw value could cause the
-> (now - last) & mask calculation to yield large forward time jumps, breaking
-> system timekeeping and scheduling.
+In the future, if there are more sensors coming with a new board, they 
+can be described in platform private data
 
-Timers available in the hardware increases their counter.
 
-These functions return increasing values.
-
-> 
-> [ ... ]
-> 
-> > +static int rzn1_local_timer_starting_cpu(unsigned int cpu)
-> > +{
-> > +	struct rzn1_timer *timer;
-> > +
-> > +	/* We assign the first and second 16-bit timer as per-cpu timers. */
-> > +	if (cpu >= 2)
-> > +		return 0;
-> > +
-> > +	timer = &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];  
-> 
-> [ ... ]
-> 
-> > +static void rzn1_timer_clkevt_init_ced(struct rzn1_timer *timer, const char *name,
-> > +				       int irq)
-> > +{  
-> 
-> [ ... ]
-> 
-> > +	/*
-> > +	 * 32-bit timers are fed with a 25 MHz clock directly derived from the
-> > +	 * main PLL (1 GHz). The arch timer, ARMv7 CP15 in RZ/N1 SoCs, is fed
-> > +	 * with to a 6.25 MHz clock.
-> > +	 *
-> > +	 * The clock of the RZ/N1 timers block is a stable one and the RZ/N1
-> > +	 * timers have a higher resolution than the ARM CP15 one.
-> > +	 *
-> > +	 * Also those 32-bit RZ/N1 timers are assigned per-cpu.
-> > +	 *
-> > +	 * Use a high rating for the 32-bit RZ/N1 timers in order to have them
-> > +	 * chosen by the system.
-> > +	 */
-> > +	timer->ced.rating = timer->width == 16 ? 200 : 460;  
-> 
-> [Severity: High]
-> Is it intentional that the 16-bit per-CPU timers are assigned a rating of 200?
-> 
-> In rzn1_local_timer_starting_cpu(), the 16-bit timers are explicitly assigned
-> as the per-CPU tick devices. However, because the ARM arch timer typically has
-> a higher rating (400-450), won't the 16-bit timers always be outranked and
-> ignored by the clockevents core?
-> 
-> This appears to contradict the comment stating that 32-bit timers are assigned
-> per-cpu, and could leave CPU 1 falling back to the arch timer while CPU 0
-> might use the global 32-bit timer, resulting in asymmetrical per-CPU tick
-> devices.
-> 
-
-First the comment is not fully correct. Only 16-bit timers are registered
-per-cpu. I will update the comment in the next series iteration.
-
-We have one 32-bit timer shared between cpu (cpumask set to cpu_possible_mask),
-two 16-bit timers per-cpu with cpumask set to the cpu registering the timer in
-rzn1_local_timer_starting_cpu().
-
-When timers are registered (calls to clockevents_config_and_register() function),
-tick_check_preferred() [1] is called.
-
-This function prefers a local cpu timer even if the local cpu timer has a rating
-lower than a shared cpu timer.
-
-With that pointed out, we cannot have asymmetrical per-CPU tick devices.
-
-[1] https://elixir.bootlin.com/linux/v7.3-rc5/source/kernel/time/tick-common.c#L289
-
-Best regards,
-Hervé
