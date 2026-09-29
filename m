@@ -1,25 +1,69 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936E3509EF1;
-	Tue, 29 Sep 2026 10:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB1C5111BB
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790677423; cv=none; b=aUo35YaZtoGu+uHJS9XM0G4RhltevrCtuxezba54JFkRQFRLEjpRnTXPdFQMWPcG82/EcDm2KW4hIofuXs6fqtVcREAEV7JOEiB53cOFs+QaaSbzJ5SBkHctqydvidbup2243p/xqY9FPYW30Nbc+MO2c4TcM7uY6dC+VLCmg9w=
+	t=1790677728; cv=none; b=ZNVbfs2Rus1drbBO9/Xt6CdphMcsrlgU9I0k5gVnaGQEvUZ4lokJc9Y0zWmuPoXULf7bBolib9e98itucb99mwn9dlAC3Ve494SxCInjiH4OW4nMMUzJ1+LHWSc9h2TuRFn9sg8QfB6aJQTqI38dPd0Ov+6OFH7wCadTay6lfRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790677423; c=relaxed/simple;
-	bh=mxohooCIpsSZ/MML580z/X5VbgvQPZz0hVbWh3dGhxQ=;
+	s=arc-20240116; t=1790677728; c=relaxed/simple;
+	bh=5ADyit8Ijsc5TQdkw96Oigh6pxYDNfJpvW/Ssz5MCwE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DZqf3jVhKNNOgoVz+sIBqgOid1Knbpcd7BGO1cV9BkMzOZr3jyPjaWgNd6yq5zosJmmLTwmFkif9m7qzW4NNpFK5oEyTZtQx8V9CE2C9fxBTRDRMZm754Wkc5Tih+fM/ElhSLWvk94Yg7QnxkxchyP3Mi6Ak916w4gFiGkyunIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [127.0.1.1] (unknown [223.166.93.127])
-	by APP-01 (Coremail) with SMTP id qwCowAD3kPR2kbtqxsxdCQ--.22338S4;
-	Tue, 29 Sep 2026 18:23:18 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-Date: Tue, 29 Sep 2026 18:22:46 +0800
-Subject: [PATCH 2/4] riscv: dts: thead: add Milk-V Meles
+	 In-Reply-To:To:Cc; b=KVe07eeblwE+5kHUFOQTd+YCI9SLXfDEB9zzIiXrnzDEDMj1/fH6twfBGi1Oa7/re3zLdsiGXYUUwHnn6f8BK952WsuNILCQqzvSKF+3nEiuiNL+dcwkdbSFWFA06nb5xS1h11Qb8odJWTa8cQZ7pJU36Gibd4c+aYk1gBR9nao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=x1Xni6Bx; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="x1Xni6Bx"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b24c3so2435602f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:28:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1790677721; x=1791282521; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rGvPl8En9vQFk7BFZDJEBDExAfjn0FzJiGJJ7lWPWO8=;
+        b=x1Xni6BxlRBytWFGhj6UBLouXwJ54DK+fWWeDFGYNYaeFK3vaOzn1H+LZecUvhcBue
+         EZJGdleys2Y0PH9M4CwtAy1YjlLRuHYjv67tO7zeIA8nBbY4hasISsVYI8xMvN9XtHzc
+         S5iXDUflTXCX1gP4eiZHVeNDFd2x3qfJGOuc+xm4lvlxnedw3k2OoHzl3MDv76/R56wQ
+         pXT3uwVRONr7w9+eQ3WUHB80A0N/SW9v2LFSbbJb6C7Qei2DBbsgO5RySn6dyf+8poOB
+         BEKOmMAr66Bbx5bjpfaOvYVqlqA6qXxSqrKQXl7dE1poqXosixVbTFCR4RSOe9rqeo4W
+         yCiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790677721; x=1791282521;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rGvPl8En9vQFk7BFZDJEBDExAfjn0FzJiGJJ7lWPWO8=;
+        b=gp4On02iqv/nqpHCT/prcasDrTwoEIZfCPPIoEZEhYQN54B5fA/Py/g0t8Ima1oHE4
+         wwoRpUJ2P54yVLZwbLXDix6v4eHJBgiW01WuuVxkufGrY+PSXsmHuDQKrxqzSGnMOcmC
+         u7EKmiKkab2U3C9ys7SFfPWeWNcEAGxm08QonGAHua/umyUduam6pdjTEfcGZteBiLNw
+         IpHQYPVQ7rlmDipWzc/bTqELGAM/AdzLxVY53lYZCWIkDj8umbmyfwvBHgaU6qwRneT4
+         psO7DgBZKbVl1izAliaAoHBzIG8OOoO621r9a7uGlQxMME4tIJaUalkVNDu6WDZC+tKP
+         5RfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzMmw/AC3iETZ1DLeLu0r6mHqZcj6+OU4L/xDbp5yaCgOj7+Bgx/srcYHNmBSy45amXsi9qwC5CO7VM@vger.kernel.org
+X-Gm-Message-State: AFuF++mKZtEGLONg8o7vzXHIfrPS42/WBogDuKbInAiLCEnOCo5D8K5N
+	U2LwomNNx/Sis2E5yScMqVobZsjSa28ndRi+OxB74Yoa+sMl3T7kmzK7xFVIm/Nt/ic=
+X-Gm-Gg: AYBFou1SOqvfwKNN0p0VItOmaVR+FouzlKn2Tah5py/ffVWOBfn+T8ZKBUR4dwC8uXi
+	LrPDjcG6sANokr8vqORzQ8YYHf1atHyDaqxNShnG2o725KCOJvuNFozB91vayJZRDuG5B4kCEoR
+	RCySTW4zDVqV/RH+4JA7XLSuHFTZ+3ujdgwaAQ2OH+OzzKhEVN/hEuAxWj4te2veEavQCzWPG9u
+	yB8l2cZgl2skScc6PiJCzPGdjHqMnEA8slRGXnpSoNwIyds5BEzGixQ0AwQqrRFs5loiBZEY2Uc
+	idq+i41RV6zzJWMnhqZ0KcPpAMgLDdjUUnRBHoH8StTw6xTngjyXqitaOfEX3L1OLl79YgxlWEP
+	FAfWv8htcpwU3cYd6W67Djy3zHsHoEy4AVeVqO8OpnttPGMJqb9pCsrrpkx2SFblklZhVCFo8vP
+	u4T3T4GiS1y4doBQ3mSBkd/8vaaHDHTx31ZD8aSvNSSPTg3JPZTPfM80mZb+06uI51gQWexoGD8
+	MKG3LGggOK3+/VzOw==
+X-Received: by 2002:a05:600c:4fc9:b0:4a0:37d:9e21 with SMTP id 5b1f17b1804b1-4a0037da3c1mr96548565e9.29.1790677721312;
+        Tue, 29 Sep 2026 03:28:41 -0700 (PDT)
+Received: from alchark-surface.localdomain ([5.194.93.183])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfb479asm66579305e9.15.2026.09.29.03.28.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 03:28:41 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Date: Tue, 29 Sep 2026 14:28:20 +0400
+Subject: [PATCH v2 3/5] power: reset: syscon-reboot-mode: enable supplies
+ for the next stage
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -28,295 +72,134 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-rv-meles-v1-2-effdd14a76e8@iscas.ac.cn>
-References: <20260929-rv-meles-v1-0-effdd14a76e8@iscas.ac.cn>
-In-Reply-To: <20260929-rv-meles-v1-0-effdd14a76e8@iscas.ac.cn>
+Message-Id: <20260929-b4-rk3576-reboot-mode-v2-3-5a34ca72065a@flipper.net>
+References: <20260929-b4-rk3576-reboot-mode-v2-0-5a34ca72065a@flipper.net>
+In-Reply-To: <20260929-b4-rk3576-reboot-mode-v2-0-5a34ca72065a@flipper.net>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Jisheng Zhang <jszhang@kernel.org>, 
- Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
- Fu Wei <wefu@redhat.com>
-Cc: Han Gao <rabenda.cn@gmail.com>, devicetree@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.14.2
-X-CM-TRANSID:qwCowAD3kPR2kbtqxsxdCQ--.22338S4
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF4DCr18JFWUJFWfKF45Jrb_yoW7Aw43pa
-	yIk3ySgFWkWF4Sg34ayrW0vF1UKan5CFykKrnrWFyxXFs2g3ykC34SqrZ7Zr1qqrW5Ww1f
-	Xrs8WryIkr10k3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmj14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
-	8EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AI
-	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
-	vE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
-	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04
-	v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7
-	AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE
-	2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcV
-	C2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2Kfnx
-	nUUI43ZEXa7VUbH5lUUUUUU==
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBwEFDGq7jfMLKQAAsC
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Sebastian Reichel <sre@kernel.org>
+Cc: Alexey Charkov <alchark@flipper.net>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4101; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=5ADyit8Ijsc5TQdkw96Oigh6pxYDNfJpvW/Ssz5MCwE=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTtnnRR7eaco/P+HJ1ifNh4tcP6XSrCzSVz2xfYiq+2U
+ l2f4PR7QcdEFgYxLgZLMUWWud+W2E414pu1y8PjK8wcViaQIdIiDQxAwMLAl5uYV2qkY6Rnqm2o
+ Z2ikY6xjxMDFKQBTvTGRkeGoj11uZuRb4QuXDK9NCzNw8bj+45Sxrf3X7VeNbjMsWfmM4b+3ztk
+ vQSceHTN9e2i2duqkxByDpXMqCv/JGJrtmf74iA47AA==
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Add the Milk-V Meles board with UART0, eMMC, SD, Ethernet and the PWM2
-fan. Describe the board pin assignments and the PHY on the GMAC0 MDIO
-bus. Give GPIO banks aliases and name the exposed 40-pin header lines.
+Requesting a boot mode on some SoCs such as the Rockchip RK3576 hands the
+request to the boot ROM in a register that a full reset would clear, so
+any reset that carries it has to leave the PMIC untouched. This means that
+the regulators stay in whichever power state the running OS left them,
+which may be unsuitable for the early boot code. E.g. on RK3576 the DDR
+initialization blob runs on the way back and accesses registers which
+Linux normally leaves powered down, resulting in an unrecoverable abort.
 
-The eMMC I/O supply is fixed at 1.8 V. Enable DDR52 at that voltage and
-retain the 52 MHz board limit. Describe 8 GiB as the default memory
-size; firmware updates it to match the detected RAM capacity.
+Get every supply named in the reboot mode node and enable it when a mode
+is written, which is when a mode is being requested. The supplies are
+deliberately left enabled afterwards: the system is on its way down, and
+what runs next cannot turn them on.
 
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+
+------
+
+Current implementation of of_regulator_bulk_get_all() never writes the
+supply names, instead leaving them uninitialized, while the regulator
+core uses the field in error paths to provide meaningful error messages
+to the user. This has been highlighted by Sashiko on v1, and is addressed
+separately in [1]
+
+[1] https://lore.kernel.org/all/20260929-regulator-get-all-v1-1-e887c66a47f1@flipper.net/
 ---
- arch/riscv/boot/dts/thead/Makefile               |   1 +
- arch/riscv/boot/dts/thead/th1520-milkv-meles.dts | 227 +++++++++++++++++++++++
- 2 files changed, 228 insertions(+)
+ drivers/power/reset/syscon-reboot-mode.c | 41 ++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/thead/Makefile b/arch/riscv/boot/dts/thead/Makefile
-index b55a17127c2bc06cbfb06d5f7c92dc7296e98437..25f7fe068368c97df2490bedc3eae70276a2e442 100644
---- a/arch/riscv/boot/dts/thead/Makefile
-+++ b/arch/riscv/boot/dts/thead/Makefile
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_ARCH_THEAD) += th1520-lichee-pi-4a.dtb th1520-beaglev-ahead.dtb
-+dtb-$(CONFIG_ARCH_THEAD) += th1520-milkv-meles.dtb
-diff --git a/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts b/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
-new file mode 100644
-index 0000000000000000000000000000000000000000..3714047190789bfccd8ff6810342d7ff865e74e4
---- /dev/null
-+++ b/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
-@@ -0,0 +1,227 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (C) 2021-2022 Alibaba Group Holding Limited.
-+ * Copyright (C) 2026 Han Gao <gaohan@iscas.ac.cn>
-+ */
+diff --git a/drivers/power/reset/syscon-reboot-mode.c b/drivers/power/reset/syscon-reboot-mode.c
+index e0772c9f70f7..5ef882d81816 100644
+--- a/drivers/power/reset/syscon-reboot-mode.c
++++ b/drivers/power/reset/syscon-reboot-mode.c
+@@ -10,6 +10,8 @@
+ #include <linux/platform_device.h>
+ #include <linux/reboot.h>
+ #include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
++#include <linux/slab.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/reboot-mode.h>
+ 
+@@ -18,6 +20,8 @@ struct syscon_reboot_mode {
+ 	struct reboot_mode_driver reboot;
+ 	u32 offset;
+ 	u32 mask;
++	struct regulator_bulk_data *supplies;
++	int num_supplies;
+ };
+ 
+ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
+@@ -28,6 +32,20 @@ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
+ 
+ 	syscon_rbm = container_of(reboot, struct syscon_reboot_mode, reboot);
+ 
++	/*
++	 * Whatever acts on the mode (e.g. boot ROM) runs before the operating
++	 * system, and may need supplies that the running system had powered
++	 * down. Enable them here, and deliberately leave them enabled: the
++	 * system is on its way down, and what runs next may not know how to
++	 * turn them on.
++	 */
++	if (syscon_rbm->num_supplies) {
++		ret = regulator_bulk_enable(syscon_rbm->num_supplies,
++					    syscon_rbm->supplies);
++		if (ret < 0)
++			dev_err(reboot->dev, "enabling reboot mode supplies failed\n");
++	}
 +
-+/dts-v1/;
+ 	ret = regmap_update_bits(syscon_rbm->map, syscon_rbm->offset,
+ 				 syscon_rbm->mask, magic);
+ 	if (ret < 0)
+@@ -36,6 +54,14 @@ static int syscon_reboot_mode_write(struct reboot_mode_driver *reboot,
+ 	return ret;
+ }
+ 
++static void syscon_reboot_mode_put_supplies(void *data)
++{
++	struct syscon_reboot_mode *syscon_rbm = data;
 +
-+#include "th1520.dtsi"
++	regulator_bulk_free(syscon_rbm->num_supplies, syscon_rbm->supplies);
++	kfree(syscon_rbm->supplies);
++}
 +
-+/ {
-+	model = "Milk-V Meles";
-+	compatible = "milkv,meles", "thead,th1520";
+ static int syscon_reboot_mode_probe(struct platform_device *pdev)
+ {
+ 	int ret;
+@@ -59,6 +85,21 @@ static int syscon_reboot_mode_probe(struct platform_device *pdev)
+ 
+ 	of_property_read_u32(pdev->dev.of_node, "mask", &syscon_rbm->mask);
+ 
++	ret = of_regulator_bulk_get_all(&pdev->dev, pdev->dev.of_node,
++					&syscon_rbm->supplies);
++	if (ret < 0)
++		return dev_err_probe(&pdev->dev, ret,
++				     "can't get reboot mode supplies\n");
 +
-+	aliases {
-+		ethernet0 = &gmac0;
-+		gpio0 = &gpio0;
-+		gpio1 = &gpio1;
-+		gpio2 = &gpio2;
-+		gpio3 = &gpio3;
-+		gpio4 = &gpio4;
-+		gpio5 = &aogpio;
-+		mmc0 = &emmc;
-+		mmc1 = &sdio0;
-+		serial0 = &uart0;
-+	};
++	syscon_rbm->num_supplies = ret;
++	if (syscon_rbm->num_supplies) {
++		ret = devm_add_action_or_reset(&pdev->dev,
++					       syscon_reboot_mode_put_supplies,
++					       syscon_rbm);
++		if (ret)
++			return ret;
++	}
 +
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x0 0x0 0x2 0x0>;
-+	};
-+
-+	fan: pwm-fan {
-+		compatible = "pwm-fan";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&fan_pins>;
-+		pwms = <&pwm 2 10000000 0>;
-+		cooling-levels = <0 64 192 255>;
-+		#cooling-cells = <2>;
-+	};
-+};
-+
-+/* Names follow the 40-pin header signal labels. */
-+&aogpio {
-+	gpio-line-names = "", "", "", "", "", "", "", "AOGPIO_7",
-+			  "AOGPIO_8", "", "AOGPIO_10", "AOGPIO_11";
-+};
-+
-+&emmc {
-+	bus-width = <8>;
-+	max-frequency = <52000000>;
-+	cap-mmc-highspeed;
-+	mmc-ddr-1_8v;
-+	non-removable;
-+	no-sdio;
-+	no-sd;
-+
-+	status = "okay";
-+};
-+
-+&gmac0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac0_pins>, <&mdio0_pins>;
-+	phy-handle = <&phy0>;
-+	phy-mode = "rgmii-id";
-+
-+	status = "okay";
-+};
-+
-+&gpio0 {
-+	gpio-line-names = "", "", "", "", "", "", "", "", "GPIO0_8",
-+			  "GPIO0_9", "GPIO0_10", "GPIO0_11", "", "", "",
-+			  "", "GPIO0_16", "GPIO0_17";
-+};
-+
-+&gpio2 {
-+	gpio-line-names = "GPIO2_0", "GPIO2_1", "", "", "", "", "", "",
-+			  "", "", "", "GPIO2_11", "GPIO2_12", "",
-+			  "GPIO2_14", "GPIO2_15", "GPIO2_16", "GPIO2_17",
-+			  "", "", "", "", "GPIO2_22", "GPIO2_23",
-+			  "GPIO2_24", "GPIO2_25", "", "", "", "", "",
-+			  "GPIO2_31";
-+};
-+
-+&gpio3 {
-+	gpio-line-names = "GPIO3_0", "GPIO3_1", "GPIO3_2", "GPIO3_3";
-+};
-+
-+&mdio0 {
-+	phy0: ethernet-phy@1 {
-+		reg = <1>;
-+	};
-+};
-+
-+&osc {
-+	clock-frequency = <24000000>;
-+};
-+
-+&osc_32k {
-+	clock-frequency = <32768>;
-+};
-+
-+&padctrl0_apsys {
-+	fan_pins: fan-0 {
-+		pwm2-pins {
-+			pins = "QSPI0_CSN1";
-+			function = "pwm";
-+			bias-disable;
-+			drive-strength = <25>;
-+			input-disable;
-+			input-schmitt-disable;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	gmac0_pins: gmac0-0 {
-+		tx-pins {
-+			pins = "GMAC0_TX_CLK",
-+			       "GMAC0_TXEN",
-+			       "GMAC0_TXD0",
-+			       "GMAC0_TXD1",
-+			       "GMAC0_TXD2",
-+			       "GMAC0_TXD3";
-+			function = "gmac0";
-+			bias-disable;
-+			drive-strength = <25>;
-+			input-disable;
-+			input-schmitt-disable;
-+			slew-rate = <0>;
-+		};
-+
-+		rx-pins {
-+			pins = "GMAC0_RX_CLK",
-+			       "GMAC0_RXDV",
-+			       "GMAC0_RXD0",
-+			       "GMAC0_RXD1",
-+			       "GMAC0_RXD2",
-+			       "GMAC0_RXD3";
-+			function = "gmac0";
-+			bias-disable;
-+			drive-strength = <1>;
-+			input-enable;
-+			input-schmitt-disable;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	mdio0_pins: mdio0-0 {
-+		mdc-pins {
-+			pins = "GMAC0_MDC";
-+			function = "gmac0";
-+			bias-disable;
-+			drive-strength = <13>;
-+			input-disable;
-+			input-schmitt-disable;
-+			slew-rate = <0>;
-+		};
-+
-+		mdio-pins {
-+			pins = "GMAC0_MDIO";
-+			function = "gmac0";
-+			bias-disable;
-+			drive-strength = <13>;
-+			input-enable;
-+			input-schmitt-enable;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	sdio0_pins: sdio0-0 {
-+		detn-pins {
-+			pins = "SDIO0_DETN";
-+			function = "sdio";
-+			bias-disable; /* external pull-up */
-+			drive-strength = <1>;
-+			input-enable;
-+			input-schmitt-enable;
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	uart0_pins: uart0-0 {
-+		tx-pins {
-+			pins = "UART0_TXD";
-+			function = "uart";
-+			bias-disable;
-+			drive-strength = <3>;
-+			input-disable;
-+			input-schmitt-disable;
-+			slew-rate = <0>;
-+		};
-+
-+		rx-pins {
-+			pins = "UART0_RXD";
-+			function = "uart";
-+			bias-disable;
-+			drive-strength = <1>;
-+			input-enable;
-+			input-schmitt-enable;
-+			slew-rate = <0>;
-+		};
-+	};
-+};
-+
-+&sdio0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdio0_pins>;
-+	bus-width = <4>;
-+	max-frequency = <50000000>;
-+	cap-sd-highspeed;
-+	no-1-8-v;
-+	disable-wp;
-+	no-sdio;
-+
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pins>;
-+
-+	status = "okay";
-+};
+ 	ret = devm_reboot_mode_register(&pdev->dev, &syscon_rbm->reboot);
+ 	if (ret)
+ 		dev_err(&pdev->dev, "can't register reboot mode\n");
 
 -- 
-2.47.3
+2.55.0
 
