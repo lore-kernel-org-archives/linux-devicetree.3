@@ -1,161 +1,221 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3514D39A800
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 06:51:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5D23C5845;
+	Tue, 29 Sep 2026 06:52:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664706; cv=none; b=dCzQneyTu4abgwnsJEIA1CS5j29kgwMY4wd3++ASEBNxtYOUppzJ9+hBz7QJnQifBf1LspEifmJBLPq6C2daNntCZAT5MLGZ0dMTNvO8kA59+fcZqjRIoIikmaNaHDouSCcDH62EOmBm4OIeByFKpfoqpoZ2eKcWSeq9r9LD/6U=
+	t=1790664732; cv=none; b=KkleTtzvltXE7sXzjLJhQFetnyjFyM05DMdb+CLXeD4AmMiPKp/PoyElvhpbhC91dW9h3/GNW+iZSX0t4yr8uIBcypUv1iAanZClXmTYcEAQNz8W9Ck6mXsmhBLyVi+5hKvbuX5V0folDg1l+JuZIfiJHFrdv9yFIhyYKKG3+wI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664706; c=relaxed/simple;
-	bh=gYbJamSe7xTbh2w5Nr1H+4QVmCxpsm9JEC2i7j0ggxc=;
+	s=arc-20240116; t=1790664732; c=relaxed/simple;
+	bh=2DCyhnVyR0SrnlxZqXTrl5sWmjU/E/QncBSYSpCIQ+0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=flcU+CqN7TznExt2MiGPLJq4sQcJtRtFXqnT+rumcB6Fo1riXMXgqra0MQAFOiYbxWtVYcBn+isfi5LUzQOB/K2YiyeXPyT9T9LOP+TjMOeW77tuC1kM01dPzHCn3MvKcUvIFNxkwuqm7LIt5Zok0L9yPaXf9akI4cMDNZoHBVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mJxokNYz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YIYM+QwVWvo6Vs53gQ64LV6SAmPDW3bUsvcntlhLsUA67pfz/Xxs4NgQZp2efwjLaKngnYcARKNUzlQSA8Fm1efdoCUgGE1PDmW18GLFtEquNnPZGBUnTjgZG11Bi5chKnVESkexn+ebGZFoY2nFj8UTxgwct48ApKs/f9enFW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKlM/E/3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJxokNYz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95D711F000FF;
-	Tue, 29 Sep 2026 06:51:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKlM/E/3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C08E1F000FF;
+	Tue, 29 Sep 2026 06:52:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790664704;
-	bh=PcPw812IHhGWcF+nl/mty2gKpyykIs5mSXQMtH/Y1Fk=;
+	s=k20260515; t=1790664731;
+	bh=cRt7cF6SpjDJnXL8CB9WsFFKyw37KPQ4L/LPlsP2FA8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mJxokNYz4qc42sM0OBwCoPtatztNBF99Bkh+uDxhC4s/PbVHQyuQXa/SeQmtWP2l1
-	 H8D1s3j5o8FmmHwIXVELmLNW7uzXjkSlqt7raUVQRlzZp/A8Ei/tzKAQO2u5G0qUx0
-	 Nd4F4kPE3xMEMPr/Y094bpSE+OnBJv582Kn8bkUJf8P51SKJHc3sOuW4B6SqG/I4Me
-	 lmNzAiftU7/jl4JCrCjxcRecw8t7DrWnSX5gcbXFAO3eJb+ymHCQw6DCneMWMK/G7V
-	 R2FW9dP5wgEXtpWmdZVMC9vUy+b/2M/Qyg83pBur39w8g0nMweGs2nmQcyv31UVRbg
-	 k18gFdvZ8Usxg==
+	b=jKlM/E/39F/hLnt7FHWSD36xBy83PrBrc7ea27/8ohohNU/NHr2f7b9neBxrmQZhA
+	 MDhVi+nvB4jRlf2obrhyksvG26vfU3ym33XCmcYo5/a5LHbTTEcMGUfq87YsHB9Rvp
+	 u3m/yh1vmfrM7gMkAxaA7ErpEBK6wJgZa15rV/0C+HXfRJ8mjcd9D9j4DfR6mKNejd
+	 OiVVmyHD0Gf35wQMIGLoidajA1M1lcefgxA8owAMzFB9mXVhZR7mHsCSB/Jde3uHaH
+	 hozFWf1Iv745EIBZX6h+4DG6XjEP56lWaQrGJcbe0FJWw0YFGUY9LZ6g72DATVtV3u
+	 51GseBZeEyhWg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 04/19] spi: spi-mem: teach spi_mem_adjust_op_freq()
- about post-config ops
+Subject: Re: [PATCH 20/20] arm64: dts: synaptics: Add Synaptics SL261X SoC
+ and RDK board
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260929063529.1235417-5-s-k6@ti.com>
-References: <20260929063529.1235417-1-s-k6@ti.com>
- <20260929063529.1235417-5-s-k6@ti.com>
+To: "Jisheng Zhang" <jszhang@kernel.org>
+Cc: linux-i3c@lists.infradead.org, robh@kernel.org, mfd@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-serial@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, linux-clk@vger.kernel.org, lee@kernel.org
+In-Reply-To: <20260929061417.20733-21-jszhang@kernel.org>
+References: <20260929061417.20733-1-jszhang@kernel.org>
+ <20260929061417.20733-21-jszhang@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 06:51:44 +0000
-Message-Id: <20260929065144.95D711F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 06:52:09 +0000
+Message-Id: <20260929065210.5C08E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] spi-mem: falsely rejects normal ops when max_speed_hz matches post=
-_config speed
-- [Medium] spi-mem: premature high-speed execution due to numerical frequen=
-cy match
-- [Medium] spi-mem: missing hardware limit clamp for post-config operations
+- [Medium] dt: cpu0-supply is deprecated and breaks scaling on secondary co=
+res
+- [Low] dt: missing root compatible string in sl2619.dtsi
+- [Low] dt: schema violation by nesting l2-cache inside cpu node
+- [Low] dt: missing whitespace before opening brace in cpu-wrap node
 --
 
-commit 597934102ffdf54ebc8e13a8b68844c8afbc350b
-Author: Santhosh Kumar K <s-k6@ti.com>
+commit 58d4f39b5f4d2e3ef035e2e85d0944a8e6331b18
+Author: Jisheng Zhang <jszhang@kernel.org>
 
-spi: spi-mem: teach spi_mem_adjust_op_freq() about post-config ops
+arm64: dts: synaptics: Add Synaptics SL261X SoC and RDK board
 
-This patch extends spi_mem_adjust_op_freq() to handle post-config
-operations by adding a bypass when op->max_freq matches
-post_config_max_speed_hz. It also updates spi_mem_default_supports_op()
-to require per-op frequency switching capability for such ops.
+Add dts(i) files for the Synaptics SL261X SoCs and corresponding
+RDK boards.
 
-> diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
-> index b94680b60af95..7916387a4f1d0 100644
-> --- a/drivers/spi/spi-mem.c
-> +++ b/drivers/spi/spi-mem.c
-> @@ -206,7 +206,8 @@ bool spi_mem_default_supports_op(struct spi_mem *mem,
->  		return false;
-> =20
->  	if (op->max_freq &&
-> -	    op->max_freq < mem->spi->max_speed_hz) {
-> +	    (op->max_freq < mem->spi->max_speed_hz ||
-> +	     op->max_freq =3D=3D mem->spi->post_config_max_speed_hz)) {
->  		if (!spi_mem_controller_is_capable(ctlr, per_op_freq))
->  			return false;
->  	}
+> diff --git a/arch/arm64/boot/dts/synaptics/sl2611.dtsi b/arch/arm64/boot/=
+dts/synaptics/sl2611.dtsi
+> new file mode 100644
+> index 0000000000000..1d640ffe4c4b2
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/synaptics/sl2611.dtsi
+[ ... ]
+> @@ -0,0 +1,490 @@
+[ ... ]
+> +		cpu0: cpu@0 {
+> +			compatible =3D "arm,cortex-a55";
+> +			device_type =3D "cpu";
+> +			reg =3D <0x0>;
+> +			enable-method =3D "psci";
+> +			cpu-idle-states =3D <&CPU_SLEEP_0>;
+> +			i-cache-size =3D <32768>;
+> +			i-cache-line-size =3D <64>;
+> +			i-cache-sets =3D <128>;
+> +			d-cache-size =3D <32768>;
+> +			d-cache-line-size =3D <64>;
+> +			d-cache-sets =3D <128>;
+> +			next-level-cache =3D <&L2_0>;
+> +
+> +			L2_0: l2-cache {
+> +				compatible =3D "cache";
 
-[Severity: High]
-Could this falsely reject standard operations if a board's Device Tree
-configures spi-max-frequency and spi-max-post-config-frequency-hz to the
-same value?
-
-If post_config_max_speed_hz equals max_speed_hz, spi_mem_adjust_op_freq()
-will set an untuned operation's max_freq to max_speed_hz. When
-spi_mem_default_supports_op() checks this, it sees op->max_freq =3D=3D
-mem->spi->post_config_max_speed_hz and strictly requires the per_op_freq
-capability.
-
-Controllers lacking per_op_freq would fail this check and reject standard
-operations, even though the pre-config and post-config frequencies are iden=
-tical
-and no per-op frequency switching is actually needed.
+[Severity: Low]
+Could this violate the standard Device Tree schema for CPU topology? The
+l2-cache nodes shouldn't be instantiated as children of the cpu nodes. Can
+they be moved as siblings under the /cpus node to avoid dtbs_check validati=
+on
+errors?
 
 [ ... ]
-
-> @@ -627,9 +628,18 @@ EXPORT_SYMBOL_GPL(spi_mem_adjust_op_size);
->   * Some chips have per-op frequency limitations and must adapt the maxim=
-um
->   * speed. This function allows SPI mem drivers to set @op->max_freq to t=
-he
->   * maximum supported value.
-> + *
-> + * When @mem->spi->post_config_max_speed_hz is set, ops with @op->max_fr=
-eq
-> + * equal to that value are treated as post-configuration ops (e.g. PHY-t=
-uned)
-> + * and are allowed to run at the full post-config rate. All other ops are
-> + * capped to @mem->spi->max_speed_hz, the always-reachable base rate.
->   */
->  void spi_mem_adjust_op_freq(struct spi_mem *mem, struct spi_mem_op *op)
->  {
-> +	if (mem->spi->post_config_max_speed_hz &&
-> +	    op->max_freq =3D=3D mem->spi->post_config_max_speed_hz)
-> +		return;
+> +		chip: chip-control@f7e10000 {
+> +			compatible =3D "syna,sl261x-chip-control", "syscon", "simple-mfd";
+> +			reg =3D <0xf7e10000 0x10000>;
 > +
+> +			clk: clock {
+> +				compatible =3D "syna,sl261x-soc-clk";
+> +				#clock-cells =3D <1>;
+> +				clocks =3D <&osc>;
+> +			};
+> +
+> +			pinctrl: pin-controller {
+> +				compatible =3D "syna,sl261x-soc-pinctrl";
+> +			};
+> +
+> +			rst: reset {
+> +				compatible =3D "syna,sl261x-soc-reset";
+> +				#reset-cells =3D <1>;
+> +			};
+> +		};
+> +
+> +		cpu_wrap: cpu-wrap@f7e30000{
+
+[Severity: Low]
+Should there be a space before the opening brace for cpu-wrap@f7e30000? Whi=
+le
+the Device Tree Compiler parses this successfully, it goes against standard
+formatting conventions.
+
+> +			compatible =3D "syna,sl261x-cpu-wrp", "syscon", "simple-mfd";
+> +			reg =3D <0xf7e30000 0x4000>;
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/synaptics/sl2615.dtsi b/arch/arm64/boot/=
+dts/synaptics/sl2615.dtsi
+> new file mode 100644
+> index 0000000000000..11b1fe316aa6d
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/synaptics/sl2615.dtsi
+[ ... ]
+> @@ -0,0 +1,46 @@
+[ ... ]
+> +	cpus {
+> +		cpu1: cpu@100 {
+> +			compatible =3D "arm,cortex-a55";
+> +			device_type =3D "cpu";
+> +			reg =3D <0x100>;
+> +			enable-method =3D "psci";
+> +			cpu-idle-states =3D <&CPU_SLEEP_0>;
+> +			i-cache-size =3D <32768>;
+> +			i-cache-line-size =3D <64>;
+> +			i-cache-sets =3D <128>;
+> +			d-cache-size =3D <32768>;
+> +			d-cache-line-size =3D <64>;
+> +			d-cache-sets =3D <128>;
+> +			next-level-cache =3D <&L2_1>;
+> +
+> +			L2_1: l2-cache {
+> +				compatible =3D "cache";
+
+[Severity: Low]
+Similar to sl2611.dtsi, does this violate the standard Device Tree schema f=
+or
+CPU topology? The l2-cache node is instantiated as a child of the cpu node
+here, and it should likely be moved to be a sibling under the /cpus node.
+
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/synaptics/sl2619.dtsi b/arch/arm64/boot/=
+dts/synaptics/sl2619.dtsi
+> new file mode 100644
+> index 0000000000000..96bd58bbed3e1
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/synaptics/sl2619.dtsi
+> @@ -0,0 +1,44 @@
+> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+> +/*
+> + * Copyright (C) 2025 Synaptics Incorporated
+> + *
+> + * Author: Jisheng Zhang <jszhang@kernel.org>
+> + */
+> +
+> +#include "sl2613.dtsi"
+> +
+> +/ {
+
+[Severity: Low]
+Would it make sense to include the root compatible string here? sl2619.dtsi
+includes sl2613.dtsi but doesn't override the root compatible string to
+syna,sl2619 (unlike sl2615.dtsi and sl2617.dtsi). Even though sl2619-rdk.dts
+overrides it, this omission seems logically inconsistent.
+
+> +	cpus {
+> +		cpu1: cpu@100 {
+> +			compatible =3D "arm,cortex-a55";
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi b/arch/=
+arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
+> new file mode 100644
+> index 0000000000000..78a9b28fdf99e
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
+[ ... ]
+> @@ -0,0 +1,135 @@
+[ ... ]
+> +	cpus {
+> +		cpu@0 {
+> +			cpu0-supply =3D <&vcore>;
 
 [Severity: Medium]
-Does this logic prematurely elevate standard untuned operations to run at h=
-igh
-post-config speeds just because their frequency happens to match numericall=
-y?
+Will this break voltage scaling for secondary cores? cpu0-supply is depreca=
+ted
+in the cpus.yaml devicetree bindings in favor of cpu-supply.
 
-Since spi->post_config_max_speed_hz is unconditionally populated from the
-Device Tree during probe:
+Also, since this is hardcoded strictly under cpu@0 in the common board dtsi,
+any secondary cores introduced by multi-core SoCs (like cpu1 in SL2615) will
+inherit no regulator supply. Could this cause the cpufreq driver to fail to
+configure voltage scaling for secondary cores?
 
-drivers/spi/spi.c:of_spi_parse_dt() {
-    ...
-	if (!of_property_read_u32(nc, "spi-max-post-config-frequency-hz", &value))
-		spi->post_config_max_speed_hz =3D value;
-    ...
-}
-
-If a standard untuned operation specifies a max_freq limit that
-serendipitously matches the DT-populated value, it will be treated as a
-post-config op and bypass the base-rate safety cap. Could this result in bus
-failures or data corruption for unrelated ops?
-
-[Severity: Medium]
-Does this early return also miss a hardware limit clamp for post-config
-operations?
-
-Unlike standard max_speed_hz, post_config_max_speed_hz isn't clamped to
-the controller's maximum supported hardware speed (ctlr->max_speed_hz) duri=
-ng
-device setup. If a misconfigured device tree specifies a
-spi-max-post-config-frequency-hz that exceeds ctlr->max_speed_hz, this early
-return bypasses the fallback clamping logic entirely. Could this cause the
-hardware to receive a frequency request exceeding its absolute physical lim=
-its?
-
->  	if (!op->max_freq || op->max_freq > mem->spi->max_speed_hz)
->  		op->max_freq =3D mem->spi->max_speed_hz;
->  }
+> +		};
+> +	};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929063529.1235=
-417-1-s-k6@ti.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929061417.2073=
+3-1-jszhang@kernel.org?part=3D20
