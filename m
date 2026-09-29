@@ -1,91 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A039A43DEB2
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 22:51:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9832D3603EE
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 22:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790722319; cv=none; b=WYvUikFRGHY8GGSf5p8IU7koMXdkjWf4V3nfB1+bSJXPHtsqjz8GgTZGK+AZQfDZUz4pMNLLwLqTAwvvZO6FG6qFIOJG6tBSg5DjdHdjv0H5hHoavqDJS2QEbSQvVWC7Ur57hxdtFCqYZHXubmR50yd5PmUZjcpJU3gBZkESfAk=
+	t=1790722351; cv=none; b=a4CKikwmZmSIOqRXv3zsKUGak1dcaphWaocId+zwIYPM0a5BBDoyZsKhZONJZgutlQh4ZP6andRcrsWkttEtgQ6rWDx3kE3Y1z6EdyGvVpa9afe7+oI0DAah7JHxiSY5Ikk2yVtBmR9juVCEdjBK5uvryODzPId4NfespuayxGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790722319; c=relaxed/simple;
-	bh=m2UDf6AIE4aFkR4rECttGJj6cGwUpHeR40C8xTL5Y64=;
+	s=arc-20240116; t=1790722351; c=relaxed/simple;
+	bh=kaV2CnC32DiN1aW9zOrNPYclS3pialKUcTwz4NCjXRo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KimsFC39oC2hObHr2mRnM80CAAUPAR6QRa5KNGmD8kmqCNVn321XRKCAz+vrz+aApnDBlZJR83CZp0W8jUiAMfih6TrS8riiKW36rzpK5yk9McwMWTYWuzGCDuxadSzXvkmDUv031X0xiT9Yc2Lnf2dQiexd6SdlK7nROQaojHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TKKyOkpa; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uNKVpRJqecDjpgdQJzCC9orQqj/qZuEHLwpL4Y5ugHZ5mYBad84j2weLsEVXM86gsIZkvGZjrReHClecNDB9eTW15Elkw1YkFK8YALduWXUKriGkkurESA40nVmIuPv3xQ3zXF4FLNhKDI4iUgF2jkaGVI+hpD2sIPzNHwWULn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQzW7UNJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TKKyOkpa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018BB1F000FF;
-	Tue, 29 Sep 2026 22:51:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQzW7UNJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7A41F000FF;
+	Tue, 29 Sep 2026 22:52:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790722314;
-	bh=41PEpIp0WfbaIeOEo1fuPtzt1ythtEWaZWL0f1kJMuI=;
+	s=k20260515; t=1790722350;
+	bh=7321a2aMnL9wzKB9X0PUd4Depn1BlRo3FqXcMXN0RKE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TKKyOkpaYtbq9nxRhouipx7Brlpj4xTh13g81CfhIljoPaFpKeF1ZjVb8QVKacC4Q
-	 QjMe75hDUoaPaHpbf1pg1Vw0udVil1LvSsA1hLtXOEDCIrM8WlQxhXGo1ZTauO/Ilq
-	 hf9fbYVXnipXJrPwkaynosd7eg/xTuQLLDIg515quEdq7KzEJvI1RZTkvH0Y9UtOoy
-	 jVGBu/sXxm8nmqUgXNYEw3WECdRNcp2vmX1mDS7235kVXn3x/tkZIGxiQ+Rgwlgrs3
-	 /b3uowTQhqv3JoTAAuTHx7c0XRGzLN1k9m4XuHG33Fhedmm+COI/uHLTbIUHIpovFG
-	 sR/fbX/ezsdUw==
+	b=lQzW7UNJu7BIBi92tKeTNQbEk+oxA37EvgtjvGiejQpVEm0Z8OrmQqPCcQuUQyKMo
+	 GrdFH448b3d/6Bq9hmPJdxCSTRpk7nMU031Zgdi7/SDIQB4GULzstT/oc099QxtANF
+	 +QUp4NofP/YwN/+8FPJ5+ZpaUcKhr6GmakgVjbsg+oCnchELePFtuCst07qwe9zLsV
+	 TN9/49CwjDYM3ffwqY4c2j4cIL/SGAmRoSPCmtQRhbC6g6h+VggQpjFLOgU0slmZf1
+	 FiLP6Y86eCbc3wcytBr3fhzmGkdUG1PNBPQhwHe4aouji8Y1tKxgES/1ZQCzqmpq9Q
+	 ZwIBSWfJc7nvg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v18 19/23] arm64: defconfig: disable deprecated MAX96712
- driver
+Subject: Re: [PATCH v18 02/23] dt-bindings: media: i2c: max96717: add
+ support for I2C ATR
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
-Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260930-gmsl2-3_serdes-v18-19-43117818f499@analog.com>
+Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260930-gmsl2-3_serdes-v18-2-43117818f499@analog.com>
 References: <20260930-gmsl2-3_serdes-v18-0-43117818f499@analog.com>
- <20260930-gmsl2-3_serdes-v18-19-43117818f499@analog.com>
+ <20260930-gmsl2-3_serdes-v18-2-43117818f499@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 22:51:53 +0000
-Message-Id: <20260929225154.018BB1F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 22:52:29 +0000
+Message-Id: <20260929225229.CE7A41F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] defconfig: missing replacement for CONFIG_VIDEO_MAX96712
+- [Medium] dt-bindings: missing required #address-cells and #size-cells in =
+i2c-atr
+- [Low] dt-bindings: ineffective minimum and maximum constraints on reg arr=
+ay
 --
 
-commit 199fc94712dcbf34a3d3c53d618a1ee2650d65b9
+commit 68c9661ca176f516e0ab3e41fd3fbb3c837a2fd5
 Author: Cosmin Tanislav <demonsingur@gmail.com>
 
-arm64: defconfig: disable deprecated MAX96712 driver
+dt-bindings: media: i2c: max96717: add support for I2C ATR
 
-This commit removes the deprecated staging MAX96712 driver from the arm64
-defconfig, since its functionality has been moved to the new MAX96724 drive=
-r.
+This commit adds support for I2C Address Translation for connected I2C
+slaves on the MAX96717. It introduces the i2c-atr and i2c-alias-pool
+properties while keeping the i2c-gate node for compatibility.
 
-> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-> index fce418fe6ff65..cbcbc0ba1e247 100644
-> --- a/arch/arm64/configs/defconfig
-> +++ b/arch/arm64/configs/defconfig
-> @@ -1433,7 +1433,6 @@ CONFIG_GREYBUS=3Dm
->  CONFIG_GREYBUS_BEAGLEPLAY=3Dm
->  CONFIG_STAGING=3Dy
->  CONFIG_STAGING_MEDIA=3Dy
-> -CONFIG_VIDEO_MAX96712=3Dm
+> diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96717.y=
+aml b/Documentation/devicetree/bindings/media/i2c/maxim,max96717.yaml
+> index d1e8ba6e368ec..976f6dd2c164c 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/maxim,max96717.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96717.yaml
+> @@ -91,6 +91,30 @@ properties:
+>        incoming GMSL2 link. Therefore, it supports an i2c-gate
+>        subnode to configure a sensor.
+> =20
+> +  i2c-alias-pool:
+> +    maxItems: 2
+> +
+> +  i2c-atr:
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
 
 [Severity: Medium]
-Since the old driver is being removed from the default configuration, shoul=
-dn't
-the replacement driver configuration (CONFIG_VIDEO_MAX96724) be added?
+Does the schema fail to enforce the presence of #address-cells and #size-ce=
+lls
+by omitting them from a required list?
 
-Without it, arm64 boards that rely on this deserializer hardware (such as
-Renesas Falcon, White Hawk, and Gray Hawk) will lose out-of-the-box support
-when the kernel is built with the default configuration.
+Since the i2c-atr node acts as a bus container for i2c@[01] child nodes that
+use reg for their unit addresses, the parent schema must explicitly require
+these cell-count properties. Device trees omitting them will silently pass
+schema validation, leading to structurally incomplete configurations.
 
-For example, arch/arm64/boot/dts/renesas/gray-hawk-single.dtsi relies on:
+> +
+> +    patternProperties:
+> +      '^i2c@[01]$':
+> +        $ref: /schemas/i2c/i2c-controller.yaml#
+> +        unevaluatedProperties: false
+> +        properties:
+> +          reg:
+> +            items:
+> +              minimum: 0
+> +              maximum: 1
 
-    compatible =3D "maxim,max96724";
+[Severity: Low]
+Are the minimum and maximum constraints silently ignored by the JSON schema
+validator here?
 
->  CONFIG_VIDEO_MESON_VDEC=3Dm
->  CONFIG_SND_BCM2835=3Dm
->  CONFIG_CHROME_PLATFORMS=3Dy
+In dt-schema, reg is globally parsed as a matrix (array of arrays). Applying
+minimum and maximum to the items keyword applies them to the inner arrays
+themselves, not the numeric values.
+
+JSON schema ignores numeric constraints when applied to non-numeric types,
+making this check completely ineffective. Should this use maxItems: 1 inste=
+ad?
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-gmsl2-3_se=
-rdes-v18-0-43117818f499@analog.com?part=3D19
+rdes-v18-0-43117818f499@analog.com?part=3D2
