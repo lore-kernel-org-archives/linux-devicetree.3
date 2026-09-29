@@ -1,77 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDD83A5E77;
-	Tue, 29 Sep 2026 07:36:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF7139A060;
+	Tue, 29 Sep 2026 07:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667378; cv=none; b=MJ6PjkeScQJsxQZv1B8pNoC0ITc5YDPiZCjY6ipZaenj4mOIgzRvjlqpVDDwq3yQBz8PXjvtH6s8LXN6+bwOFlT8/WqfWw/7tGIA13MtMLpSRgRTFGX1tXZqzNzV9v8yBWX3/dMjOmC4XjZc2rz6BTg+vhgbelvs5dAxzDKAFJw=
+	t=1790667449; cv=none; b=kJ25Y34slgYC6p0wXd1c9t3o20MSRmT5sAp1BkS7qfaZu4iehYv+rUEp7W9vf/Fd52eIzPJbbZ9SDwGsISvTM+jdJkhP5A/G0Dmjwm3CO99PKHxj4S3+6nAZmgGndP5w0oRS/qJ4k9Gb/Wj4fVJgy5AOUA6TwHaKrsyp1Q8iqZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667378; c=relaxed/simple;
-	bh=litOp2fgRmVYfKgCF6rOcWxj25Dc3iLSfAmpKYVqr9U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mRZpaYNsOVB0B7owCoZUM+UUknUC7PFwAWz6F64j65nU7Gz+709BMLXOxTNen3uf79ZHNdpVnoringWYQZIPiAKjqjoORSHp5hKFe/vCV1CxYBCl98Wr64Dvk2JemHnVsmtvhiAqZ8pRP4nGwqlTDjhNRsJUsoFbOEoTIjmFGaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XsD8jJ/M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790667449; c=relaxed/simple;
+	bh=HCHtTuGQPMYR7U6XKXE31DBoUXa/Eh/aHAdRyToyPrw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HLHKCC0QbR0NRNqpdvg4/dNUwNmtYEUEraghwyClzoGCe9bZ5x8S1cm0cquKFqUNhuQGJhTFdJPqVSNa4D7kZU1fUrLNwgYBKfz5jO7S0mky0TJaBefayyQ3PJ7HQzF/mye9+fP1wZn41vWdaYqKhcMxwQCbwnQ+3FN8C6f/YDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gGfi4VTv; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XsD8jJ/M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6861F000FF;
-	Tue, 29 Sep 2026 07:36:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790667377;
-	bh=VZVSFmMbuJ+Z0Kk8DUTwclrZMS7jCzgzpFtuI2vVojw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XsD8jJ/MLcyAEHp06qf20kH1KRgaZNob7ijuZiJWqFCh10pJhSeq4RXgvcbV7Ap0D
-	 xfNUM/T1T7hGjFuhEIIZX3i9cttdsKKJkwmTMWD5DFpOFbMM+ak/npEdZOavVkE9bV
-	 eEWPJHQWjOK2wWRdLeNtwr3HJagt7rlZzh3MTJf6hniSDAQs4NEF7xcd7ZHuq18gPl
-	 8RZbx5Y4L43EZRG0AfNPqXeVRbFR8wkVQH3OkCRwxfm31vDciRsxetcd1Ad4S5wK4m
-	 MMgI1z4AHaGfV6tfV7+D2NGXcW4XweB3mtCC8ee0hhLUKYtafTs2f+QW8UKlQlDttN
-	 ARBNZhE9AbMBw==
-Date: Tue, 29 Sep 2026 09:36:13 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Biao Huang <biao.huang@mediatek.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, kernel@collabora.com, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH net-next v2 1/7] dt-bindings: net: mediatek-dwmac: add
- support for MT8189 SoC
-Message-ID: <20260929-shrewd-rampant-shark-98e87e@quoll>
-References: <20260924-dwmac-mediatek-mt8189-v2-0-430bd74d5ef9@collabora.com>
- <20260924-dwmac-mediatek-mt8189-v2-1-430bd74d5ef9@collabora.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gGfi4VTv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Tv
+	mLYQ/Y1zm+DRYl3k5MwnunVA+HirI21/ozuF1v13Y=; b=gGfi4VTvH7pOO5RjV1
+	m64mp8nLKu9tCnIsHO14vrnZT9UcRdy+03QKaS63PG6QoEIyjWK+VcHrcq33QbaG
+	29hoPgpU5VTWyPrsrs+IKhMx0ep1sgE37P6NktCf3noMlAjRHvY3llgt7DnHpJre
+	ZlDRSi4MXQh4zrVEuOmkA4svA=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgB3RBWfartqm_LUBg--.35712S2;
+	Tue, 29 Sep 2026 15:37:04 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Quchaosheng <quchaosheng000406@163.com>,
+	linux-can@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Oliver Hartkopp <socketcan@hartkopp.net>
+Subject: [PATCH v2 0/2] dt-bindings: net: can: grcan: convert to DT schema
+Date: Tue, 29 Sep 2026 15:37:01 +0800
+Message-ID: <20260929073703.2748220-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260924-dwmac-mediatek-mt8189-v2-1-430bd74d5ef9@collabora.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgB3RBWfartqm_LUBg--.35712S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjTRG2NKUUUUU
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-wBMwWq7aqAwcQAA3o
 
-On Thu, Sep 24, 2026 at 09:23:24AM +0200, Louis-Alexis Eyraud wrote:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - mediatek,mt8189-gmac
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: MAC Main clock
-> +            - description: PTP clock
+Marc asked for the two grcan patches to go out as a series.  Contents
+are unchanged from the standalone postings.
 
-snps,dwmac schema expects the second clock to be the pclk. Why is it
-missing? This should be explained in the commit msg.
+Quchaosheng (2):
+  dt-bindings: net: can: convert grcan to DT schema
+  net: can: grcan: update the binding file reference in the driver comment
 
-Best regards,
-Krzysztof
+ Documentation/devicetree/bindings/net/can/aeroflexgaisler,grcan.yaml | 65 ++++++++++++++++++++++
+ Documentation/devicetree/bindings/net/can/grcan.txt                  | 28 ----------
+ drivers/net/can/grcan.c                                              |  4 +--
+ 3 files changed, 67 insertions(+), 30 deletions(-)
+
+-- 
+2.43.0
 
