@@ -1,48 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7403A5158B3;
-	Tue, 29 Sep 2026 11:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36629515962;
+	Tue, 29 Sep 2026 11:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790681427; cv=none; b=bgsaBm/nLDOAZ2/cW27teHEaoi5rxRLUmVhDEYi4cIMh2SZ7wW+/0cUBrJ8nY217TY2aAsGRa2LrNmNnzm/lI+sHrKM4IFpEQAcC7IGWHR9AGLlrdmLXN8wodhV3SOJ7sUSnDWFQp+usQ7CuOmjnG2Aiak8way1rDMBOBXcLG3s=
+	t=1790681466; cv=none; b=YrQKga02a8HFJXOAO3o6KeCq06Hz+sIfMEuHTydDqW6eBfXQkPRTDpAsbuKPcCbuunYFpyFpyRenLkS8EogYDdkH0kZ1KVbrQ29dY2Tky+NL3DMQiActKqrWV2hv4EQgmGQUu8se8s1y3d6r6dZ9anwg/tbRAASZhprrF5rVbPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790681427; c=relaxed/simple;
-	bh=WsStNk6YXTEj/yCbN8GVmkiDLCLRSu0yTLXtqtF6LfE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=EqnwipQBBQKs4Df+cy6iHbBTqt15iKul1FifdCP5YyXpzQpHlvXRJOVKDXYup56IsL5bR+awpBTn2rM5/kCAdAIliM7uhMiouryp1WFdNuuvG1bwYMn49oqfzxOuL9DWysUcPVPrlHTU9IglT5ixdKa4bt/tpEliivt4AqGRyQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YhIScCCD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790681466; c=relaxed/simple;
+	bh=z/KFEy6RGUUyJBBA+EtI7RYfVHj2bbzV72v97R1tdOE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lvZlNHyULs9mEMLf6WiPsDcH+Rx0EC2Y8cbA8Wvcpc6YfsWITX4Iw+ZTGSQLleDGISI565UJejHybB3hrglMjXN0Y9OWLN/26Xtj/AeUMyQcicRu8g5SsIkHCYaW0kuBJFU5c7wi8+snifcJTkKMXGjqpt807AmuSvd9ozzFusM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=GiZRMLd+; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YhIScCCD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923971F00893;
-	Tue, 29 Sep 2026 11:30:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790681425;
-	bh=2COO99V3tWZkY2vKSP/RcAXFdKtCl9Xe902JMrRqT08=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=YhIScCCD2hrldStzzqLVcyZE5j66LQO/qOfz4sFArIpQ2PaLnC5+1+qAN7m54zyB/
-	 SG2CxllzCp8opF3hCLOn6KCFj96YcUsRkUlqI4cUSQsfmEzSs4K62HgSck/Eb8HXEW
-	 wM1ucBZoYMRH/fPM0icbvi1Gk6zp6oXT3/gvFG+OKOabKJI8AggI4JrV+yYpqsJzpq
-	 CoC9LA9YZ0TsWHlXpkoaFOgDKUje/X8QcWk+N+cctaO8xPf8vf9g3CflreSPsDzJDa
-	 Eq5Nv71xnMnY2XqkEHwOURk6ysX7vtPuTJrEKfjJYO634tKTV1/EnTQO0skRm0Fdpw
-	 EHGG4uYFM7N0A==
-From: Mark Brown <broonie@kernel.org>
-To: lgirdwood@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de, 
- kernel@pengutronix.de, festevam@gmail.com, shawnguo@kernel.org, 
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, 
- nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com, 
- linuxppc-dev@lists.ozlabs.org, shengjiu.wang@oss.nxp.com
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, 
- Chancel Liu <chancel.liu@gmail.com>, Daniel Baluta <daniel.baluta@nxp.com>
-In-Reply-To: <20260928061756.1844185-1-shengjiu.wang@oss.nxp.com>
-References: <20260928061756.1844185-1-shengjiu.wang@oss.nxp.com>
-Subject: Re: [PATCH v6 5/5] ASoC: fsl_easrc: expose individual DAIs per
- conversion path
-Message-Id: <179068142132.159801.7683706041383677671.b4-ty@b4>
-Date: Tue, 29 Sep 2026 12:30:21 +0100
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="GiZRMLd+"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TB5XPq3836621;
+	Tue, 29 Sep 2026 11:30:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=hv/+em
+	kRWO9iPBjIN6Wh7WU3+msKu56KfxliaDemn2I=; b=GiZRMLd+wW/ixZwyv+3lNt
+	tzM2cQ8miXfD9XYvYQFFhc0L30y+MMwt2L7X1hz5/dbKBsf1F8JKuh+sQmcgMtSa
+	0FEc/98PJwt7AxfxKbbw6Twxf2d2MTnxjrNW2QN4V2Jok8ve+r2pUISk4pePcdel
+	I48jvk4+EBLgBBRyc4ISzlbbVksL3AZ4ZTny49EGw27pvGmnjCUAdGFAQFXI9Aby
+	amVmtX6Uz8EIgbzSTP+zoB6gB7VM3cDPTrBkQa0eXatQx6MImZWqqA5aeqvWb3qx
+	C7fDaEeSzYKAfn/ZkZz17nnREeY0yIvZCtFNevK3Hv4w6wTIoEuAIfJahAk4JDng
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fk6bk5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 11:30:53 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68TAlXQO1607717;
+	Tue, 29 Sep 2026 11:30:53 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsck9f7s-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 29 Sep 2026 11:30:52 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68TBUok932309996
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 29 Sep 2026 11:30:50 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C80C220043;
+	Tue, 29 Sep 2026 11:30:50 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C14E720040;
+	Tue, 29 Sep 2026 11:30:47 +0000 (GMT)
+Received: from Linuxdev.ibmuc.com (unknown [9.43.88.139])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 29 Sep 2026 11:30:47 +0000 (GMT)
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] powerpc: 512x: Convert ADS7845 touchscreen on PDM360NG to device tree
+Date: Tue, 29 Sep 2026 17:00:46 +0530
+Message-ID: <179066556648.265207.5394340720095923336.b4-ty@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
+References: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,46 +75,54 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: esyysZ8nb_dssoUcnUVJpjiGBXktWRrM
+X-Proofpoint-GUID: elWxVTT45i9DCla6CZzhpgA9ouIOqIzq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA0NCBTYWx0ZWRfX0LqpBqYRWpP8
+ /78EM6W1bWtRezeBCdam+JlOQS4qjHjL96Y8DUsZujF13x8tmYFHFiTMSOKHQqvzDO0yzOLHUnq
+ PPN4eWJU1iuwttxTNGr2OAWMIy70xvQ=
+X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abba16d cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=ymJX2-ASNZfWrTgWY5YA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA0NCBTYWx0ZWRfX2v2PBokA1Q8v
+ AwfMESEHvPihUkMvYIeW5B20uHs0KaGHmXfiJ5Ncz43ImLJHy8qdInA6fEKhouTAGT8wfnagqww
+ XzCegI0rkxa3b857McLoo7QbETGcOiMwTnZh7LyezteHhgG72SX5E4hXzKk2/yTWMpGykUmpd5N
+ 5T6HA+ohfaPNdllnEhuujTY3/YnOT09uoqZdxRw2SehXdj07zfbfG8ECrCBoKd71Pmx/W7RF3CM
+ xEJe86EPX+/pnUMjpKv4SA/DZSlB0k3QoFG5HD0hqPQU6EgPFcv5jr6A5tZsvSfTz+7mBRLYIz1
+ C9LfiLjMNQiMg4Q5Cuz6hb//xI1monMPmVtqXkw/2q546H/MQDBy0CclBqH7xbnkfh0SYeML94g
+ MSrPdxNgzaogeR+FEG3g+4YkgXXlRcHjHhlrFGkRejJuCmSC0hlPn2dzpDCJanKLUCG9dSSmGYs
+ y/hfrMvt18II7ytEYoQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1011 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290044
 
-On Mon, 28 Sep 2026 14:17:56 +0800, shengjiu.wang@oss.nxp.com wrote:
-> The i.MX EASRC hardware supports four independent conversion contexts
-> (A, B, C, D). The driver previously registered a single DAI with generic
-> stream names "ASRC-Playback" and "ASRC-Capture", which prevents
-> multiple independent conversion paths from being used simultaneously.
+On Sun, 19 Jul 2026 22:37:15 -0700, Dmitry Torokhov wrote:
+> The reason for this series is to remove support for platform data in the
+> ads7846 touchscreen driver, as pdm360ng is the last user of legacy
+> platform data in the kernel for this driver.
 > 
-> Replace the single fsl_easrc_dai instance with an array of four DAI
-> drivers to allow up to four independent conversion paths to be active
-> at the same time:
+> This series converts the ADS7845 touchscreen on the PDM360NG board to use
+> Device Tree bindings instead of legacy platform data callbacks:
 > 
 > [...]
 
-Applied to
+Applied to powerpc/next.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+[1/3] powerpc/dts: mpc5121: Move GPIO controller properties to SoC dtsi
+      https://git.kernel.org/powerpc/c/dcc3091bde54bbf870b56edb3c91a420c1bcdb29
+[2/3] powerpc/dts: pdm360ng: Convert ADS7845 touchscreen to DT bindings
+      https://git.kernel.org/powerpc/c/4e3187c830221460f1a7d9389c3e8662ad28d4f4
+[3/3] powerpc/512x: Remove pdm360ng platform setup in favor of mpc512x_generic
+      https://git.kernel.org/powerpc/c/5e78442b76844e4d46b9cac5ed123b76807f30db
 
-Thanks!
-
-[5/5] ASoC: fsl_easrc: expose individual DAIs per conversion path
-      https://git.kernel.org/broonie/sound/c/788e893edb6a
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+cheers
