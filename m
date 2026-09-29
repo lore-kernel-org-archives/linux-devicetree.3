@@ -1,215 +1,278 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099BB47ECC2;
-	Tue, 29 Sep 2026 10:13:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7860A4C224C
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.27.248.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790676817; cv=none; b=gILiU0VTWAxGF7dpLR8YgojEJPTvwCDMQtWD2CIZr2iiNxfJAc7IKPhwUh5vrRc2wRlUgUxPwLR3L6ZCEVkLHyphLCKYZrOr2zmDOxaN6NaGNBriztmlihPWEkKt5lORJEmVshmF5RmmgQqEKcLIbk+0aUzxhGAPJYzMeywufZ4=
+	t=1790676957; cv=none; b=LfikfSLnBJAm1am/7rGGx4kTUBD1saJcL/obvIvx0CjiKxqjPvDNAoToTBJogFP70ZZ+Z1XGQGTDjyClAJeZa0uELL4hFmqBh8TgQ7g2NOB5A4ReZUXEgXN1vE5kyiirG4j6wbxXRlSVTp4824J62viFa+q1vjn0ZFijb8rfqDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790676817; c=relaxed/simple;
-	bh=imsng58a+/4gTFCbL/rJKuCvk9AThAC9CqAN6MHYNas=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gAqb3AQlD5idrjKw6Rigzv9OMN7KOtrdcifNl2KM4LC7EEnIXpSMKjJHBLdz/j7cLAC2DJca3PJJsbXTtPlRYBpx9yeTg1BpcBIr/gfzOQpZbAIvWpl3uI/uCrdhFtPmx+iUTRwXfWsDHk/abAy8MSdI7Yeex+g+L27WlzkZX/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3g+Jowu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790676957; c=relaxed/simple;
+	bh=7E/FyJ/TvooU1Eq7DhSqLlMVSAu9nLzNeNoUUqFgvQI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LSsyOu6sm/s9QvRdo382kV85qnO9Ow5FgC9Ph/Xtx1r/vOjW/Mu7wYr6IbUqnKY1MofB0sYrz2g98JBYePfkDIZwPRksERwROACgc95DSzthFiz340DRAPX+5jWeuOdyVU9U9QAjx0G0lqtxG28j6xEgHK8L/MuScLqm7tJjU5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev; spf=pass smtp.mailfrom=antheas.dev; dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b=o72h1DBO; arc=none smtp.client-ip=37.27.248.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3g+Jowu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D82CD1F000FF;
-	Tue, 29 Sep 2026 10:13:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790676802;
-	bh=Uo2Ng6wtWC0FkzjabJoP2mHrzpD5Juo3eVHvrvGVevw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q3g+Jowu0wDH6Y3ReObcsj+O43By1MZHmxCP0MufflC6uxWFhhh1e3uslXwpRF4l7
-	 HEkMzzFScSwR6H1KmCq0ylyvPr+QWyTnhfOesJJs/8KPPV8woZCLTP1FHebW6hU4vZ
-	 dMKxXJUXyPFQ9VHvgnisQEISn/VGMHcfIz446VduYfEiW7yN2qA6M2Hnur5OM8pPj5
-	 ZQq+zwKobLnFURZGKeV9pYI73LH9LrGgzKxqAVSAtEyt15Rw24gCQvM+yGEcoADxmZ
-	 7WrMdoGuOPyi4VRk92G+0L4ejAS7CooJMfyQdRnOVXm5762ySRG8csv8qwA2/JDDhb
-	 +oQuApHTYKZDg==
-Date: Tue, 29 Sep 2026 11:13:17 +0100
-From: Lee Jones <lee@kernel.org>
-To: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Isai Gaspar <isaiezequiel.gaspar@nxp.com>,
-	Marek Vasut <marex@denx.de>,
-	Pieterjan Camerlynck <pieterjanca@gmail.com>,
-	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	linux@ew.tq-group.com, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 10/10] leds: pca995x: Add support for group brightness
- control
-Message-ID: <179025020617.457255.2187144572484405270@kernel.org>
-References: <cover.1790087890.git.nora.schiffer@ew.tq-group.com>
- <391973ce0168438612861bfe8570b6890af0f44e.1790087890.git.nora.schiffer@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.b="o72h1DBO"
+Received: from relay10 (localhost.localdomain [127.0.0.1])
+	by relay10.grserver.gr (Proxmox) with ESMTP id E0A1842C3E
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 13:15:28 +0300 (EEST)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay10.grserver.gr (Proxmox) with ESMTPS id BEBE642C33
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 13:15:26 +0300 (EEST)
+Received: from mail-pz2-x0c.google.com (mail-pz2-x0c.google.com [IPv6:2607:f8b0:4864:3b::c])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id C62F11FFB15
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 13:15:25 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1790676926;
+	bh=7E/FyJ/TvooU1Eq7DhSqLlMVSAu9nLzNeNoUUqFgvQI=;
+	h=Received:From:Subject:To;
+	b=o72h1DBOlXRfSo2Nz0pBNtF5EoripUSorYPdxO6Wp9ldgXpo7KTlp4neoYkHOK5wh
+	 OCzJd3CfhUKbP7j/iNrxhpfn/G5kn+yCfkogxRNOE88s/HQHeJC3KndPQrrYeSv+lF
+	 zYJ8TynLQmhNNCmnpCcTU8/jxHl6c5UFpsJyJsywJF16OcuhshjFqs49aM++23z+XF
+	 HL/rmxJdm+kg0WLPq3rSAu8qx9gKJ3hrCC36RQOv7pPo6vANPf6+Udxn8pENgcFcMn
+	 OfugwIYq8tbWQSTcAeKpDgagrLtnQyVarZelFFogsSX0dPWnVC+fsJBosTYySla+az
+	 BFQrzczoJFOyQ==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 2607:f8b0:4864:3b::c) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pz2-x0c.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pz2-x0c.google.com with SMTP id
+ d2e1a72fcca58-8805988a200so2546526b3a.3
+        for <devicetree@vger.kernel.org>;
+ Tue, 29 Sep 2026 03:15:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AKwUvBxkPbD8vv7T7euKewb173XwvMqNzRlPMKWWVGWgwir0VI+yzKbpS3BfFe6rMo1GnH10IqvMRr8i+/l1@vger.kernel.org
+X-Gm-Message-State: AFuF++mFGFYtgoyFdQdPLuMZMOZ2zCY9tqGKyc6OBkZL0VE5fcUJiBtg
+	SCpys9XF7Ri4JWawnlwkvFR19B1Mkrm4bFslHhQkk1Axj0N8oW+0EeRI7hMii7agpOxoZeczAPq
+	1VdF6C6GhCqpPyPdzpGWZGjOCHyoKIfQ=
+X-Received: by 2002:a05:6a00:a90:b0:882:359f:ef17 with SMTP id
+ d2e1a72fcca58-88235a00258mr6854298b3a.12.1790676923332; Tue, 29 Sep 2026
+ 03:15:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <391973ce0168438612861bfe8570b6890af0f44e.1790087890.git.nora.schiffer@ew.tq-group.com>
-X-AI-Review-Draft: <391973ce0168438612861bfe8570b6890af0f44e.1790087890.git.nora.schiffer@ew.tq-group.com>
+References: <20260920184148.31541-1-mstoretv@cern.ch>
+ <20260920184148.31541-4-mstoretv@cern.ch>
+ <CAGwozwGzw1CE03kbWJaV7iC=1o0QXg9PpreTunenm-vHPe515A@mail.gmail.com>
+ <6f2e0c22-0be6-4daa-8ab3-28d92f41197b@cern.ch>
+ <CAGwozwGwccsppaCUETVJzNN8uGd8Pzujf9pz08SyHUQFKEOxCQ@mail.gmail.com>
+ <3c0701fb-9f8e-41d3-a815-d48b1a29716f@cern.ch>
+In-Reply-To: <3c0701fb-9f8e-41d3-a815-d48b1a29716f@cern.ch>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Tue, 29 Sep 2026 12:15:12 +0200
+X-Gmail-Original-Message-ID: 
+ <CAGwozwGHyA5Lqh28LQkGVNf-Xj=hFPM_DZ9nQXQ9Rk9KynTfFA@mail.gmail.com>
+X-Gm-Features: AclHuK92o2D9MoL45RS67cVnRLXbDC2jGhqffGiqh1vzVrLrNn6TUItqsz0paY8
+Message-ID: 
+ <CAGwozwGHyA5Lqh28LQkGVNf-Xj=hFPM_DZ9nQXQ9Rk9KynTfFA@mail.gmail.com>
+Subject: Re: [PATCH v7 3/3] arm64: dts: qcom: Add hamoa Samsung Galaxy Book4
+ Edge devicetrees
+To: Maxim Storetvedt <mstoretv@cern.ch>
+Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, marcus@nazgul.ch, marijn.suijten@somainline.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, abel.vesa@linaro.org,
+	abel.vesa@oss.qualcomm.com, johan@kernel.org, konradybcio@kernel.org,
+	kirill@korins.ky
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <179067692617.742096.10447099747580679671@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
---- checkpatch.pl: clean (0 issues) ---
+On Tue, 29 Sept 2026 at 00:22, Maxim Storetvedt <mstoretv@cern.ch> wrote:
+>
+>
+> On 9/28/26 21:09, Antheas Kapenekakis wrote:
+> > On Mon, 28 Sept 2026 at 20:41, Maxim Storetvedt <mstoretv@cern.ch> wrote:
+> >>
+> >>
+> >> On 9/28/26 18:44, Antheas Kapenekakis wrote:
+> >>> On Sun, 20 Sept 2026 at 20:41, Maxim Storetvedt <mstoretv@cern.ch> wrote:
+> >>>>
+> >>>> Adds devicetrees for the 14-inch and 16-inch hamoa SKUs of the Samsung Galaxy Book4 Edge.
+> >>>>
+> >>>> These use a common dtsi derived from nodes that were able to work on Linux
+> >>>> from the initial Galaxy Book4 Edge DTS by Marcus:
+> >>>>
+> >>>> Link: https://lore.kernel.org/all/p3mhtj2rp6y2ezuwpd2gu7dwx5cbckfu4s4pazcudi4j2wogtr@4yecb2bkeyms/
+> >>>>
+> >>>> combined with the patch series the Honor Magicbook Art 14, which shares device similarities:
+> >>>>
+> >>>> Link: https://lore.kernel.org/all/20260629154812.9066-1-mail@etehtsea.me/
+> >>>
+> >>> Links go in the bottom, Based-on-a-patch is not a thing, you may add a
+> >>> Coby as noted in a parallel thread.
+> >>>
+> >>>> as well as a few more adjustments on top of that again to get additional features working.
+> >>>> Special thanks to Jesse Ahn for helping expand on what would eventually become this dtsi.
+> >>>
+> >>> Hi Maxim,
+> >>> I tested this series on a kernel with various other backports on two
+> >>> european (norwegian market) galaxy book4 edges.
+> >>>
+> >>> Specifically, the 14in NP940XMA and the 15.6in (not 16) NP750XQB.
+> >>> Specifically, the later is an X1Plus variant that came out a year
+> >>> later with cheaper components. It does not work properly on either on
+> >>> them. I was hoping that at least the 14in model would work as is but
+> >>> no.
+> >>>
+> >>> My test devices have proprietary Samsung battery controllers
+> >>> (ENE-KB9058) and type C controllers (Samsung EmuEC). Also the speaker
+> >>> amplifiers are different. So the battery reporting, audio, and USB C
+> >>> ports do not work at all using your DTs. The TPM does not bind either
+> >>> but you do not claim that it does. At least they got me to boot and
+> >>> for that I am grateful.
+> >>>
+> >>> Other stuff also does not work, but I am just listing the main ones.
+> >>>
+> >>> I suggest you change the -14/-16 suffixes on both models with
+> >>> something more specific.
+> >>>
+> >>> The prior patches in the series look fine to my eyes. I did not A/B
+> >>> test them, just pulled them in.
+> >>>
+> >>> Best,
+> >>> Antheas
+> >>>
+> >>
+> >> Hi Antheas,
+> >>
+> >> Thanks for giving it a test! I think we both have the (almost) same
+> >> device, and your experience on the 14" NP940XMA (NO) probably mirrors
+> >> that of my NP940XMA (IT).
+> >>
+> >> USB-C should already work for this SKU with the patch DT, but not USB-C
+> >> hotplug (yet). For now, everything is just left as already set up by the
+> >> firmware, so peripherals plugged in after boot will not be detected.
+> >> Everything inserted before boot, and hotplug on USB hubs, should still
+> >> be fine. Could you give it a try on your device?
+> >
+> > Yes, that mirrors my experience. But without a TypeC driver you don't
+> > get renegotiation. So no USB3, no fast charging, no hotplugging, and
+> > no DP alt mode. I wrote one but it's still buggy and a bit too
+> > complicated.
+> >
+> >> Battery state monitoring should also be with the same caveats on both
+> >> these devices, going via a separate protocol over I2C instead of
+> >> following the other X1Es. There is a separate battery driver for this,
+> >> and also other useful patches (like the webcam and kb backlight)
+> >> downstream. For now at least, only the features listed in the cover are
+> >> included here, but our repo linked there has pointers to the other
+> >> relevant patches needed for now.
+> >
+> > I did not find a battery driver so likewise I wrote mine. I think the
+> > battery driver is more upstreamable than the TypeC driver. That will
+> > take a lot of work.
+> >
+> > But it also means you have a spurious hunk on your dt then. The hunk
+> > that registers the dead battery and supposedly controls the TypeC
+> > connectors from qualcomm can be removed as it is not present on your
+> > device. It can then be replaced with one that registers the proper
+> > driver later.
+>
+> Just left as-is as placeholders, but yes, can otherwise be removed.
+> Do not really affect anything otherwise.
 
-On Tue, 22 Sep 2026, Nora Schiffer wrote:
+Unfortunately, there is no such thing as placeholder. When your series
+merges it will have no placeholders. Fold the contents of [1] into
+this patch for next revision. This node should not be included and is
+not used for these devices. This will drop the duplicate battery and
+also allow you to drop your external rule.
 
-> When LEDs are set to PWM mode with group control enabled, their
-> brightness can control using a global "group PWM" setting, modulating
-> the individual LEDs' brightness with a second PWM running at a different
-> frequency. This lowers the minimum duty cycle from 1/256 to 1/65536
-> (averaged over the modulated signal). Group brightness control is
-> particularly useful to adjust for different levels of ambient light.
->
-> For simplicity, group PWM mode is always enabled, with the reset default
-> of 255 as group brightness. This reduces the effective duty cycle by
-> 1/256 at all individual brightness levels (the individual PWM signals
-> are modulated with the 255/256 duty cycle group PWM), which should be
-> imperceptible.
->
-> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-> ---
->  drivers/leds/leds-pca995x.c | 46 ++++++++++++++++++++++++++++++++++---
->  1 file changed, 43 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-> index 61d2581b976ce..d6438b576b186 100644
-> --- a/drivers/leds/leds-pca995x.c
-> +++ b/drivers/leds/leds-pca995x.c
-> @@ -35,6 +35,7 @@
->  #define PCA995X_LED_OFF			0x0
->  #define PCA995X_LED_ON			0x1
->  #define PCA995X_LED_PWM_MODE		0x2
-> +#define PCA995X_LED_PWM_MODE_GRP	0x3
->  #define PCA995X_LDRX_MASK		0x3
->  #define PCA995X_LDRX_BITS		2
->
-> @@ -52,6 +53,7 @@
->  struct pca995x_chipdef {
->  	unsigned int num_leds;
->  	u8 pwm_base;
-> +	u8 grppwm;
->  	u8 irefall;
->  	u8 eflag_base;
->  };
-> @@ -59,6 +61,7 @@ struct pca995x_chipdef {
->  static const struct pca995x_chipdef pca9952_chipdef = {
->  	.num_leds	= 16,
->  	.pwm_base	= 0x0a,
-> +	.grppwm		= 0x08,
->  	.irefall	= 0x43,
->  	.eflag_base	= 0x44,
->  };
-> @@ -66,6 +69,7 @@ static const struct pca995x_chipdef pca9952_chipdef = {
->  static const struct pca995x_chipdef pca9955b_chipdef = {
->  	.num_leds	= 16,
->  	.pwm_base	= 0x08,
-> +	.grppwm		= 0x06,
->  	.irefall	= 0x45,
->  	.eflag_base	= 0x46,
->  };
-> @@ -73,6 +77,7 @@ static const struct pca995x_chipdef pca9955b_chipdef = {
->  static const struct pca995x_chipdef pca9956b_chipdef = {
->  	.num_leds	= 24,
->  	.pwm_base	= 0x0a,
-> +	.grppwm		= 0x08,
->  	.irefall	= 0x40,
->  	.eflag_base	= 0x41,
->  };
-> @@ -114,11 +119,10 @@ static int pca995x_brightness_set(struct led_classdev *led_cdev,
->
->  	/*
->  	 * Change LDRx configuration to individual brightness via PWM.
-> -	 * LED will stop blinking if it's doing so.
->  	 */
->  	return regmap_update_bits(chip->regmap, ledout_addr,
->  				  PCA995X_LDRX_MASK << shift,
-> -				  PCA995X_LED_PWM_MODE << shift);
-> +				  PCA995X_LED_PWM_MODE_GRP << shift);
+[1] https://github.com/anatase-org/patchwork/commit/4b9fe35f55c78342b24c2ab309acc8dc38a890cf
 
-If we use group PWM mode to scale brightness, what happens when 'brightness' is
-'LED_FULL'?  The 'switch' statement above sets 'PCA995X_LED_ON', which typically
-bypasses PWM entirely.  Won't this cause an LED set to 255 to ignore the group
-brightness and be fully on, while an LED at 254 is scaled down?
+> >
+> >> On that topic, you will also find links to devicetrees for the X1P42100
+> >> Book4 Edge there (via Ciscobugger). This might not be the same X1P SKU,
+> >> but could also be worth a try.
+> >
+> > I had a quick look at your repo. In my initial attempt, I tried to
+> > reference your upstream (not you) but quickly gave up due to the large
+> > number of commits and dtbs.
+> >
+> > I only see a polling commit in your tree after it diverges, I do not
+> > see a battery driver?
+> >
+>
+> Plenty of old branches here, but README should always be up-to-date with
+> links to all the patches used [1]. In this case, we just use the
+> existing battery driver by Saddy [2].
+>
+> > I think the only realistic way forward for me is to wait for upstream
+> > to catch up and only add support for my reference devices (the 14 and
+> > 15.6) so I can flesh out my userspace until qualcomm starts to deliver
+> > results on mainline kernels.
+> >
+> > I attach my current tree below [1], note it is very unclean and I am
+> > currently doing fix commits. Once I get to a place where I am happy
+> > with base functionality, I will squash everything send it as a series.
+> > If you tell me that your device works with the drivers I wrote (note
+> > the LLM assistance), we can synergize. I do not expect the typec
+> > driver to get upstreamed unless someone more familiar with the type c
+> > internals gets involved, as a lot of the changes go over my head. But
+> > I think it is realistic for me to upstream the battery driver, unless
+> > you have a simpler alternative.
+> >
+> > the drivers relevant to you are ene-kb9058 and samsung-emuec. If they
+> > work with your laptop and are universal for these devices great. Note
+> > that they are both interrupt based so the battery reporting changes
+> > instantly. You can also take my dt for the 14 in for a spin or just
+> > deploy my tree as a test.
+> >
+>
+> Thanks for that link! Tested your np940xma.dtb + ene-kb9058 and
+> samsung-emuec drivers on top of my tree, and they seem to boot
+> fine on my NP940XMA as well. Battery monitoring displayed, and there
+> is hotplug detection (for the charger).
 
->  }
->
->  static ssize_t status_show(struct device *dev, struct device_attribute *attr, char *buf)
-> @@ -190,10 +194,41 @@ static ssize_t has_errors_store(struct device *dev, struct device_attribute *att
->  	return ret ?: count;
->  }
->
-> +static ssize_t group_brightness_show(struct device *dev, struct device_attribute *attr, char *buf)
-> +{
-> +	struct pca995x_chip *chip = i2c_get_clientdata(to_i2c_client(dev));
+Good to know. I will base on your V7 going forward and only do my
+changes on top (removing the separate dbts I did thinking there was a
+deviation). This will hopefully help you to push this through.
 
-'dev_get_drvdata(dev)' again?
+> > I am contemplating whether an initial series using DTs, then a
+> > follow-up switching to ACPI is simpler for everyone involved. But as I
+> > see the huge amount of dts, I start to get concerned. So I might send
+> > my initial series that enables the device to boot using ACPI instead.
+> > As you know, Windows uses ACPI to boot the device and a lot of the dt
+> > i derived was from the ACPI tables I dumped in Windows. The DT was
+> > important for me to get an initial bring up for the device. I can now
+> > sync kernels to it in ~2 minutes so I can rapidly iterate.
+> >
+> > To that end, can anyone tell me why are we not attempting to use ACPI
+> > to boot these devices and relying on DTs on the ARM side? I know that
+> > traditionally for phones DTs are used but these are UEFI devices and
+> > contain proper BIOS data for autodiscovery. What is the current
+> > blocker? Switching to ACPI should let us drop all laptop specific DTs
+> > by adding parsers to their currently DT only drivers. Am I wrong?
+> >
+>
+> There's an interesting discussion for that here that's worth a look [3]
 
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret = regmap_read(chip->regmap, chip->chipdef->grppwm, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return sysfs_emit(buf, "%u\n", val);
-> +}
-> +
-> +static ssize_t group_brightness_store(struct device *dev, struct device_attribute *attr,
-> +				       const char *buf, size_t count)
-> +{
-> +	struct pca995x_chip *chip = i2c_get_clientdata(to_i2c_client(dev));
-> +	u8 val;
-> +	int ret;
-> +
-> +	ret = kstrtou8(buf, 0, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(chip->regmap, chip->chipdef->grppwm, val);
-> +
-> +	return ret ?: count;
-> +}
-> +
->  static DEVICE_ATTR_RW(has_errors);
-> +static DEVICE_ATTR_RW(group_brightness);
+I had a look. Interesting discussion. So that's where Hans went. Good
+to know. Great hire by Qualcomm. I will consider his points and track
+followups for ACPI
+
+Best,
+Antheas
+
+> Cheers,
+> -Max
 >
->  static struct attribute *pca995x_attrs[] = {
->  	&dev_attr_has_errors.attr,
-> +	&dev_attr_group_brightness.attr,
->  	NULL,
->  };
->  ATTRIBUTE_GROUPS(pca995x);
-> @@ -270,11 +305,16 @@ static int pca995x_probe(struct i2c_client *client)
->  	if (ret)
->  		goto err_put_nodes;
->
-> -	/* Clear errors on probe */
-> +	/* Clear errors on probe, use GRPPWM register for group brightness control */
->  	ret = regmap_write(chip->regmap, PCA995X_MODE2, PCA995X_MODE2_CFG);
->  	if (ret)
->  		goto err_put_nodes;
->
-> +	/* Full group brightness */
-> +	ret = regmap_write(chip->regmap, chipdef->grppwm, U8_MAX);
-> +	if (ret)
-> +		goto err_put_nodes;
-> +
->  	/* IREF Output current value for all LEDn outputs */
->  	ret = regmap_write(chip->regmap, chipdef->irefall, iref);
->  	if (ret)
-> -- 
-> TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-> Amtsgericht München, HRB 105018
-> Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-> https://www.tq-group.com/
+> [1]
+> https://github.com/zensanp/linux-book4-edge/blob/x1e80100-book4e-7.2-14-tmp/README.md
+> [2] https://github.com/Saddytech/Galaxy-Book4-Edge-linux/tree/main/driver
+> [3]
+> https://lore.kernel.org/linux-acpi/20260623145225.143218-1-johannes.goede@oss.qualcomm.com/
 >
 >
 
--- 
-Lee Jones
