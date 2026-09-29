@@ -1,138 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F594374A14
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:02:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681D52C11F3;
+	Tue, 29 Sep 2026 08:06:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668952; cv=none; b=BmqaGknm/NUwnO8eb5iOuF9+ZSmnBs/4E79+6NeIJYETYo23++D+8/m6ycGpWKoulo8lw2QvjAW/K3/Om5MgMm8TiGB30tjkV3EmHfyryp3OMuu1O6ExaqefjlCs7lALTm0K1jPPTAWSEtE4H1uCjZMMHKwRAlw2gml+7qGrXEY=
+	t=1790669173; cv=none; b=ovs/Ej15l3WZjmn82QX8eh4w/vr34pPDv7i9D/EB+TWKtwOIfG/Uk0WI/VfI+jqhFsEKxr48Wu4RsfWyK93ZFr9jEXPvfZTbxvhIY29JXtFN/lA3AmmCJsDgF2BuLXACbVq7u1acVVGq0ZxyknkizP09TaiLt4+62PXiZok7Uek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668952; c=relaxed/simple;
-	bh=suw/0WgJ+OaMOjEOIgd+Eg9+eAm6WCizVG0ceizie4c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UUDUj3jI0+iJ6u+d1JJ0kii1zAHrD8S8yqxDD2R8VzTWHKIPmvq9PNJCVNBBEPbp7/o9mtcEVP+S0IBJjRPyz6bgucDmgGk5uVfkwlIGp0fcXQl0NadmACkOxiT5HvjYL/Is658HsMDDVYIG5NheuXnSyVL2k/q03HAbx+HRZ7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZO9sjO6y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790669173; c=relaxed/simple;
+	bh=NQuYWNXbM0um/Bk7OR6ZqeBZzo7ZYc2JRC/8GYTckbE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aOcM/AeTSrFyLV8UPGcJV4xyFh+G16aZGejabGByzIx8IwLDwoqZ8kTKF/vgadOG1qypx0q47gJ3a8xw51vWxI85v9D7guUVOKbthiE2gWE1Ag4OS1Fy/p032QF7dLGNkiLZpteEnXp5o746dmLfzeYmPaN9m855c/n+dYVfRm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dhc06+TD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZO9sjO6y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF3B1F00893;
-	Tue, 29 Sep 2026 08:02:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dhc06+TD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098921F000FF;
+	Tue, 29 Sep 2026 08:06:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790668950;
-	bh=qRl020rs7gd79pURTYeJNgPQnbRmsLndyqALKkNt5sM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZO9sjO6yq2UiAujeKHXK3HFdDaVYLUiJ82RpCTbJfE6SVadfdRY64ea+mdEYwYwiR
-	 AKo/qG1Ey1+9aP+TTc4YKOa4v8ikC0tKh4hGUM1lm4OV9GmCwoWLMCySN/SB2AgyXi
-	 mWeRPZPz0O5oXVvXxL/29P2FzTDw3I+dmV8EZttZZdVTS3QvKxnwu5zdra5R59qrkA
-	 jlbVNcjXAf1DkiZLpC4QrD9C5yQSlNYu0LeWCecPhy/pitr2GVeJT3/micKNA1m6uw
-	 IuQLXRtuxhebj0tkwOp1SjSJyO9RSNkXzGv8K/Xg+3zC8oAt1lM3vN6XIuC1Zj9WzG
-	 /lnbd/069S0nw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 2/2] arm: dts: aspeed: ventura: add Meta Ventura BMC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sue Wang" <suwangquanta@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260929075106.74731-3-suwangquanta@gmail.com>
-References: <20260929075106.74731-1-suwangquanta@gmail.com>
- <20260929075106.74731-3-suwangquanta@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 08:02:29 +0000
-Message-Id: <20260929080230.7DF3B1F00893@smtp.kernel.org>
+	s=k20260515; t=1790669172;
+	bh=pBbBU/HalPPdxadYVBZuB6Z8V7u65zmk+9HH6iJyTQk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dhc06+TDSSn0Qp2gvtELwnLLPGSzjUZ9bt5WehGAa6kt/hauPnB0fRp7DFBdAyu3R
+	 NNhHDZmV7FdmcjjK/clPXhb/9xvxlFKkjU/USyJ397mLKQO6yexI5Vn2ZHWBaQiNtC
+	 6LxvrL23+BktUa4LbIPzdDaUuMp9xzTcIQdI4JdcWtuvUEwnzscJoLVF0T5vE7wtpK
+	 NS0Jk0DRNWjaJtb2irlJLlHp3qbUdzN2KymvqXNnX56HcMnaFfxG15SqsJFh99qH0J
+	 PyjhjPyl+BDUF2OiIN9zx4RsMkyP+rVxLrE5//INogcLDTY8WNNL/qVB1I45ZDHJEF
+	 7d1jZ7rVirlMg==
+Date: Tue, 29 Sep 2026 10:06:07 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Jagadeesh Kona <quic_jkona@quicinc.com>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm8750: Fix videocc clock inputs
+Message-ID: <20260929-smart-hairy-puma-e4cf8e@quoll>
+References: <20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com>
+ <20260924161152.1162301-4-shengchao.guo@oss.qualcomm.com>
+ <3l6v5idon2edkritzyqlmvdjn5ijt3lytp656sxicfnqah2rga@o6plxiv5d53u>
+ <araTYLZoYUKyQw5b@QCOM-aGQu4IUr3Y>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <araTYLZoYUKyQw5b@QCOM-aGQu4IUr3Y>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] dts: max31790 undocumented child nodes and properties
-- [Low] dts: aspeed-i2c undocumented i2c-scl-clk-low-timeout-us property
---
+On Fri, Sep 25, 2026 at 11:29:36PM +0800, Shawn Guo wrote:
+> On Fri, Sep 25, 2026 at 12:47:16PM +0300, Abel Vesa wrote:
+> > On 26-09-25 00:11:52, Shawn Guo wrote:
+> > > The videocc node passes GCC_VIDEO_AHB_CLK as its second input and stops
+> > > there. videocc-sm8750.c declares its DT inputs as DT_BI_TCXO,
+> > > DT_BI_TCXO_AO and DT_SLEEP_CLK, so the second input is the always-on
+> > > board XO rather than an AHB clock, and the sleep clock is missing
+> > > entirely.
+> > > 
+> > > The missing third input leaves video_cc_sleep_clk_src unable to resolve
+> > > its parent, so it registers as an orphan clock and cannot be rated.
+> > > The AHB phandle in the always-on XO slot is not resolved by the driver
+> > > today, but it implies a parent relationship the hardware does not have.
+> > > 
+> > > Pass bi_tcxo_ao_div2 and the board sleep clock instead.
+> > 
+> > So videocc can still function properly without the GCC video AHB clock then?
+> 
+> I do not have a sm8750 device to test, but I did verify the same change
+> on Nord, and videocc can still function properly.
+> 
+> Dropping gcc_video_ahb_clk as a videocc input clock shouldn't break
+> sm8750 videocc from what I can see.
+> 
+> - The AHB clock isn't a videocc input at all. The videocc clocks array is
 
-commit 36f26891634e24be887571e8b0992390654a929b
-Author: Sue Wang <suwangquanta@gmail.com>
+Why is not input? You keep using in the commit msg and here only driver
+arguments. This is not an argument for hardware change.
 
-arm: dts: aspeed: ventura: add Meta Ventura BMC
+>   positional and the driver maps index 0/1/2 to
+>   DT_BI_TCXO/DT_BI_TCXO_AO/DT_SLEEP_CLK.
+> 
+> - gcc_video_ahb_clk cannot be consumed anyway. gcc_sm8750_probe() leaves
+>   it always enabled in probe and never registers it as a clk at all. So
 
-This commit adds the Linux device tree for Meta (Facebook) Ventura specific
-devices connected to the BMC (AST2600) SoC. It configures the hardware need=
-ed
-to detect liquid leakage, log events, and take necessary actions.
+Again driver argument. So if driver did not leave it enabled, then
+hardware would need it?
 
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura.dts b/a=
-rch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura.dts
-> new file mode 100644
-> index 0000000000000..62a60741bccb3
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura.dts
+Best regards,
+Krzysztof
 
-[ ... ]
-
-> +		i2c3mux0ch5: i2c@5 {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			reg =3D <5>;
-> +
-> +			pwm@20 {
-> +				compatible =3D "maxim,max31790";
-> +				reg =3D <0x20>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +				channel@2 {
-> +					reg =3D <2>;
-> +					sensor-type =3D "TACH";
-> +				};
-> +				channel@5 {
-> +					reg =3D <5>;
-> +					sensor-type =3D "TACH";
-> +				};
-
-[Severity: Low]
-Does the maxim,max31790 device tree binding support these channel child
-nodes and the sensor-type property?
-
-The upstream device tree binding schema explicitly rejects child nodes
-matching channel@[0-9]+ and the sensor-type property, which leads to
-validation failures during make dtbs_check.=20
-
-Additionally, the kernel driver (drivers/hwmon/max31790.c) does not=20
-appear to parse these properties, making them dead configuration.
-
-> +			};
-> +
-> +			hwmon: hwmon@23 {
-
-[ ... ]
-
-> +&i2c7 {
-> +	status =3D "okay";
-> +	bus-frequency =3D <100000>;
-> +	multi-master;
-> +	i2c-scl-clk-low-timeout-us =3D <31744>;
-
-[Severity: Low]
-Is the i2c-scl-clk-low-timeout-us property supported by the ASPEED I2C
-controller?
-
-The device tree binding schema (aspeed,i2c.yaml) does not allow this=20
-property, which causes a schema validation warning. Furthermore, the=20
-i2c-aspeed driver does not seem to read this property (it is typically=20
-used by drivers like i2c-mpc).=20
-
-Should this property be removed to avoid dead configuration and validation=
-=20
-warnings?
-
-> +
-> +	/* USB Debug Connector */
-> +	ipmb@10 {
-> +		compatible =3D "ipmb-dev";
-> +		reg =3D <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-> +		i2c-protocol;
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929075106.7473=
-1-1-suwangquanta@gmail.com?part=3D2
