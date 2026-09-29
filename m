@@ -1,141 +1,258 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC103C9896;
-	Tue, 29 Sep 2026 03:05:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651136; cv=none; b=X2rmtvS8SZeoEctjOn50Vqp2nDCbB7+OOW1ebl5lIl70+LtzGOQ2c49z/BjuZ6uZUknS+hwJRmCO5a3RCU5uhx4tX9FZ5ITUynwmw0U5BHcLhStO06+4tdQZUe44ETAWEE+HKeNL0SCtkWFfNgTz5XEWGliWkfikKQ29aQKpoas=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651136; c=relaxed/simple;
-	bh=UTyaWHrrtgUu29EL2bxdQPs3r+p8tFUZWrk6ieq8R+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Be29gxXD4oDyApWRL2Mr29L63gRH/Cog54ioPMFZxWaFEdcm6eRXzvfq7rfJxveZ4Nt+AfQb8fKJHIB4Si7WXVC/zAZBaUdtzn4ul+RtZM4JwHaGn//AIp2NkKYBgfX8dnI9wbumvQunjulcwIAqTubqyO10v/Ahxaqpv8J/3Y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jst1H8Fl; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9623DB33D
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790651208; cv=pass; b=Z+PFUUf+OhR7DEkvcwAf1KCeyEPkPXbMl20xAGuAzKBH72Zz+j3mwWWxm8xqj3w1oYgfrBKn+f33uxpXud8q1vUQt9RAClpgFWOyHEhg+vLlq7nkp2u4QVtHmFjoPi8FfYanuwikTkjmCE6ppoNoxd20W94UiAuL53O9+XtGudU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790651208; c=relaxed/simple;
+	bh=drFBxzfc6W2PaLGZNBuSoVjThY1JgVwWxNvEN6zvNfc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ffmq/Zg3AMmeZQyNFuYSd4RrKcroHQfcDdKtAmQLTurxsF+mGXDcT2SW2MMJwdRLTJQwTtGHKLP1m8lyh2SXfQ6MmYwneDCnOyMSm4WQDJwqCX/dZj7VChpmFMGTOlTURuhrTQs7TukAZCohVmPQFM3HHTicutlnyXco5Qmb+2o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kWrX4yDA; arc=pass smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jst1H8Fl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02801F000FF;
-	Tue, 29 Sep 2026 03:05:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651124;
-	bh=wN+dPoLvjUdzOubg5yOWipnDclWmGuYXl68rAIhKrs4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jst1H8Flgrq1+3nX9cUs/Aj2g5l1buTMNHfcFzX475/4uSQnhnpl8JYBuVziWVXE2
-	 THMV0ldE2MRJM/kyCwxqk+V/YJTo8ezuL2Rh9tmTwE1e49+r+/8ufM5VC2ZNhBxLEG
-	 Iev6mnmci3c4XW0dcsJLjkcPWRChoKLM4NO0Lo/ixQaGBHsro9ias5+eqTmHd4FlqF
-	 ejV0c5IJ4WMae+jxu/Z7leYRqEmNA0ewtlXfux6XcwX1Rou6PPhdvx+ilXmjXYK2o+
-	 4QEDHHScBOP0F94JGS5Tcnyb3TqhTRSTLgAGHWhCoMDwEDbHwby3oKnO/tkKI8GyR+
-	 rJ8zuNiPgPSDg==
-Date: Mon, 28 Sep 2026 22:05:20 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com, 
-	Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH v2 0/2] arm64: dts: qcom: Add RPi 7-inch DSI panel
- overlays for Monaco/Lemans EVK
-Message-ID: <arsp-8KPqD_skD5D@zenbook>
-References: <20260907-rpi_dts_overlay-v2-0-a4989322ce00@oss.qualcomm.com>
- <aqLGFfQ20mCGFkfl@baldur>
- <aqt72zoSNVGrcY9t@hu-ssmaurya-hyd.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kWrX4yDA"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a99cd5115bso6211476a12.3
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 20:06:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790651198; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nUUDHBZINK707PQG18B8O2Q/dlJyR0wAyOrBik0yoD5hzf2XH4qIgpitfS/lsMwrp5
+         /m1pG8IOScENGlaynnmeNB7cTnG23B+3+96tzXXc/jXJZpefQDIig5+/USF+Q0171zSv
+         ughxvD++lkvxh2ymIAvOzc3j0LE/wymc2ekHimAXZlhrCj7TphH5s1wtvwU288dHqDGT
+         FUOm8FnytcrRWWFnouHdyNEb3dA6aZhd5vYIDRclRsMO4SqqlG6LWlV8DA9/uYeSFzBD
+         trli7io5G6Ck3/6ijVHUw9+ALJG8hn5gF4IZiGoyU3r5NOGvVaBKOEbHMVXDw14KnWI8
+         dldg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GsgcGMq63dxBO6lpCOoish/kEuxevaMsXSsx8TcWvog=;
+        fh=B06qeweZAKmYs82n5RRVlH/RgOsr0O5l+Un/WVl4COc=;
+        b=IfXmurxRHjUQDeoElvtDy2Z8NoGwy3DYbZdW1n25PYe5vIqgcjErwxgsjpe6hfrSRi
+         9KyKzGShW0M5lS7AYeJVuIk9wgzHsR2wKG35tZxerjBG8cr+hZ1p4GxFuRD9n47PZPfp
+         N6kxYdjxkojA9NKAbNCFA/ZKGP7XofSAThJgpDH9f4BdxrUpYa7yhulx+zsbfldaSPeB
+         I6TgffQ1ZOTbpobF06srhm1Q/ZoPQklWOHTX78zx3blh13N3gJdVhB31DswkRyi57IK/
+         Gg4eBCJ+T4QMBRsm1CE31cvRTpb1UaVMmGHbiefmLI7dkA0B6Kymtz/kiA3GOUJXwj2e
+         /8LQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790651198; x=1791255998; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GsgcGMq63dxBO6lpCOoish/kEuxevaMsXSsx8TcWvog=;
+        b=kWrX4yDAa4RF9Glu41S/GnWcgrNxZd8gOe2sNxpzDU7tLw4CGL6aO4lBL1jY8rwAqY
+         NsMxS0KyxvgWvsrSH4uoMKp/KsHCAIph2e/ZoIQsCxRss3uRoHcCVMKS74M26yM4PrLU
+         qGm7/6YB6q6Vl4XT2KXAlBeFIIz/oP/O4URoAFukMEWKMlTezySm053hR/Q79oL/EkOB
+         PMTzmR9w8Mgvxh2XTdwzHBqsm/rpW3kkbzrcm6Am7dlc0qnlnTEKItjMKQqOkc15EjY7
+         6O8caKHkhrKqQo7ZY8L8tJR+1BF+P2GZUOx3olhhXP01sTrge7XiSE7fzwDY0sEMDiy0
+         /ahA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790651198; x=1791255998;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GsgcGMq63dxBO6lpCOoish/kEuxevaMsXSsx8TcWvog=;
+        b=Z+rUbKDlLp5XnvU0x2z9ZGM+g8vXnpUBnYhkGvwUsiMEUfHDmnJ57yclfzxFREGAeg
+         pMj0cDGTD9dtLRpoS8XcFruggi3dIsqN1g/L7sdT/QUJVyKNU1VK+VA6QayMAwaOyXrl
+         q3CtIqVwuHrW2sZQ8y88fUged4CVi7mdY+UkU/+DBu5L+Lxh6TLxrCx+LwH8oxTNA3kw
+         wUwFlVRak9salNSDvz8DaiK8qT6cL0aE9hxDpBuNXmNdB7pE8kWhzDkehJftfywEM3be
+         LowgFJrEtrtGP+UZol+3kazEYJ8aesY/MljoYKxDu6uob+5GaHcvdiToka7S81hJ/ycq
+         7tdw==
+X-Forwarded-Encrypted: i=1; AKwUvBzRoldLeViy2Xxl9KseJL+Pl7mW1WvVwQffcymmtZ1I1DSEw/xSn2EWSQngGcn/FbkAvEhubSeXYc/m@vger.kernel.org
+X-Gm-Message-State: AFq9FYImfDUT3+R8NiC1ehmnVuQ0f9DFvbqRnYyAVFQgk6YE7hz2uZh1
+	w2VeeVCF/zKyo/gMZib8fZiqIpq1F/OtOd7q8pHH56RxgA/Lj4AupnI1/Mvhb2CSfBli1s0s4vj
+	yFVFaqDjCW1tCm344k2uMnLM4vMJ+tHI=
+X-Gm-Gg: AYBFou02C0S932lbAyqQqWGQehouZRHeZ3JmQIQwfSFzEsszlf1+LOnpuNwLqHGTH5k
+	YWrnp+qTyn/jIMcsgfYJD8hzBomZMWp0c3Rf+nT5X4Z6CFOxjMnetOrytwQ/DxN1CuDDENgNcpL
+	pB/VGuzz+oYYe8EuB/imN7qDJrmr+7m4AmdK7XBWeZxZ5gd5xOmzshs9r96ex2mq9mnWGEPrjUI
+	rubPGy/IBdWp8n/+CGrJ5ZpYd8I66QqwEvWLi+54EXu/q73pte7br2xaP0NpRVUvtkG4SE15h52
+	1X9j9NixKQRAL3t0lhtGZAcXPgjfJApRXyt+uAivFP6lilBxPfLVvFoVW0oH8SRmgSLL
+X-Received: by 2002:a05:6402:1d55:b0:6aa:7fb:7678 with SMTP id
+ 4fb4d7f45d1cf-6aae8a518b4mr7987012a12.6.1790651197346; Mon, 28 Sep 2026
+ 20:06:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqt72zoSNVGrcY9t@hu-ssmaurya-hyd.qualcomm.com>
+References: <cover.1790561983.git.zhoubinbin@loongson.cn> <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
+ <0aaf7166-378c-47d7-98d4-1004fdaeae7b@oss.qualcomm.com> <CAMpQs4+uWMfFib7MhRcc7o-QMXkFrFCtdcGj04y56u44JL4iOg@mail.gmail.com>
+ <ed99f62d-cf90-4ba9-89b3-08dbe7f7227e@oss.qualcomm.com>
+In-Reply-To: <ed99f62d-cf90-4ba9-89b3-08dbe7f7227e@oss.qualcomm.com>
+From: Binbin Zhou <zhoubb.aaron@gmail.com>
+Date: Tue, 29 Sep 2026 11:06:25 +0800
+X-Gm-Features: AclHuK-pCkswqNWZEVmRnm0h2nAuqgvV_q4b0kCJUY7w_QKyo1tWrrar9EH7iE8
+Message-ID: <CAMpQs4+hATFf+0w6Wq09RoZB1JJ5L_GP0aWxcGAeraTW7Gfy0w@mail.gmail.com>
+Subject: Re: [PATCH v6 1/7] thermal/drivers/loongson2: Correct thermal sensor
+ registration loop
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Yinbo Zhu <zhuyinbo@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, stable@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 11:04:19AM +0530, Shashank Maurya wrote:
-> On Thu, Sep 10, 2026 at 02:35:41PM -0500, Bjorn Andersson wrote:
-> > On Mon, Sep 07, 2026 at 12:03:52PM +0530, Shashank Maurya wrote:
-> > > Add device tree overlays to enable support for the Raspberry Pi 7-inch
-> > > DSI touchscreen panel on Qualcomm Monaco and Lemans EVK platforms.
-> > > 
-> > > The overlays configure the panel on the primary DSI interface using
-> > > a 2-lane DSI connection and instantiate the panel MCU on the
-> > > corresponding touchscreen I2C bus for each platform. The changes
-> > > allow the Raspberry Pi 7-inch display to be used as an external
-> > > display option on both EVKs without affecting the default platform
-> > > configuration.
-> > > 
-> > > ---
-> > > To: Bjorn Andersson <andersson@kernel.org>
-> > > To: Konrad Dybcio <konradybcio@kernel.org>
-> > > To: Rob Herring <robh@kernel.org>
-> > > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > > To: Conor Dooley <conor+dt@kernel.org>
-> > > To: Florian Fainelli <florian.fainelli@broadcom.com>
-> > > To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-> > > Cc: linux-arm-msm@vger.kernel.org
-> > > Cc: devicetree@vger.kernel.org
-> > > Cc: linux-kernel@vger.kernel.org
-> > > Cc: linux-rpi-kernel@lists.infradead.org
-> > > Cc: linux-arm-kernel@lists.infradead.org
-> > > 
-> > > ---
-> > > Shashank Maurya (2):
-> > >       arm64: dts: qcom: monaco-evk: Add Raspberry Pi 7-inch DSI panel overlay
-> > >       arm64: dts: qcom: lemans-evk: Add Raspberry Pi 7-inch DSI panel overlay
-> > > 
-> > >  arch/arm64/boot/dts/qcom/Makefile                  |  4 ++
-> > >  .../dts/qcom/lemans-evk-raspberrypi-dsi-7inch.dtso | 83 ++++++++++++++++++++++
-> > >  .../dts/qcom/monaco-evk-raspberrypi-dsi-7inch.dtso | 82 +++++++++++++++++++++
-> > >  3 files changed, 169 insertions(+)
-> > > ---
-> > > base-commit: ed2647532a225739e86c7f236a2ce82764ec2772
-> > > change-id: 20260907-rpi_dts_overlay-58088ffce047
-> > > prerequisite-message-id: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
-> > 
-> > The two dts patches in this series clearly relates to those two
-> > regulator patches, which has received change requests.
-> > 
-> > I would have sent the 4 patches together in a series, but as you didn't
-> > you sent this series with unmet dependencies.
-> > 
-> > All I can do now is reject this series as well. Please send v2 once the
-> > driver changes has been merged and you have validated this again.
-> > 
-> > Regards,
-> > Bjorn
-> > 
-> > > prerequisite-patch-id: 5212bf185b35c36ed8857a67f29e60386d59ac60
-> > > prerequisite-patch-id: 056a90b913170106a6f8c1feb2366ee83c4375b9
-> > > 
-> > > Best regards,
-> > > --  
-> > > Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-> > > 
-> 
-> Hi Bjorn,
-> 
-> Thanks for the review.
-> 
-> The regulator patches and DTS patches are targeting different maintainer trees 
-> and therefore were developed and submitted from separate workspaces. While the
-> DTS changes depend on the regulator updates, the two sets of patches cannot 
-> realistically be carried in a single series because they are reviewed and 
-> merged through different paths.
-> 
+Hi Daniel:
 
-In reality, Mark has shown many times that he's able to pick individual
-patches from a series and the 4 patches are better reviewed together.
+On Mon, Sep 28, 2026 at 9:23=E2=80=AFPM Daniel Lezcano
+<daniel.lezcano@oss.qualcomm.com> wrote:
+>
+> On 9/28/26 10:17, Binbin Zhou wrote:
+> > Hi Daniel:
+> >
+> > Thanks for your review.
+> >
+> > On Mon, Sep 28, 2026 at 3:15=E2=80=AFPM Daniel Lezcano
+> > <daniel.lezcano@oss.qualcomm.com> wrote:
+> >>
+> >> On 9/28/26 06:44, Binbin Zhou wrote:
+> >>> The registration loop in loongson2_thermal_probe() incorrectly uses
+> >>> dev_err_probe() when the sensor is not present (-ENODEV). In that cas=
+e,
+> >>> the driver should continue to the next sensor index rather than treat=
+ing
+> >>> it as a fatal error.
+> >>>
+> >>> Fix this by correctly handling -ENODEV and only returning on other
+> >>> errors. Also add a final check to ensure at least one thermal zone wa=
+s
+> >>> registered.
+> >>>
+> >>> Cc: stable@vger.kernel.org
+> >>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> >>> Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbi=
+n@loongson.cn?part=3D2
+> >>> Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal managem=
+ent support")
+> >>> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> >>> ---
+> >>>    drivers/thermal/loongson2_thermal.c | 8 +++++---
+> >>>    1 file changed, 5 insertions(+), 3 deletions(-)
+> >>>
+> >>> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/lo=
+ongson2_thermal.c
+> >>> index 4d40fc706a53..99b7392fc68f 100644
+> >>> --- a/drivers/thermal/loongson2_thermal.c
+> >>> +++ b/drivers/thermal/loongson2_thermal.c
+> >>> @@ -160,16 +160,18 @@ static int loongson2_thermal_probe(struct platf=
+orm_device *pdev)
+> >>>
+> >>>        for (i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+> >>>                tzd =3D devm_thermal_of_zone_register(dev, i, data, th=
+ermal_ops);
+> >>> -
+> >>>                if (!IS_ERR(tzd))
+> >>>                        break;
+> >>>
+> >>> -             if (PTR_ERR(tzd) !=3D -ENODEV)
+> >>> +             if (PTR_ERR(tzd) =3D=3D -ENODEV)
+> >>>                        continue;
+> >>>
+> >>> -             return dev_err_probe(dev, PTR_ERR(tzd), "failed to regi=
+ster");
+> >>> +             return dev_err_probe(dev, PTR_ERR(tzd), "failed to regi=
+ster sensor %d\n", i);
+> >>
+> >>
+> >>>        }
+> >>>
+> >>> +     if (IS_ERR(tzd))
+> >>> +             return dev_err_probe(dev, -ENODEV, "No thermal sensor r=
+egistered\n");
+> >>> +
+> >>>        ret =3D devm_request_threaded_irq(dev, irq, NULL, loongson2_th=
+ermal_irq_thread,
+> >>>                                        IRQF_ONESHOT, "loongson2_therm=
+al", tzd);
+> >>>        if (ret < 0)
+> >>
+> >>
+> >> The [no]error paths are confusing and prone to error, eg: 'if there is
+> >> no error then check if there is an error', 'when exiting the loop
+> >> without registering any sensor, then we assume tzd is -ENODEV'.
+> >>
+> >> Please make a less cumbersome and implicit checks here. For example
+> >> count the number of sensors and then do the check against.
+> >
+> > I thought about it, and you're right=E2=80=94I made the logic here too =
+complicated.
+> > Let's use `sensor_count` as the counter. Is the following check logic c=
+learer?
+> >
+> >          u32 sensor_count =3D 0;
+> >
+> >          for (unsigned int i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM=
+; i++) {
+> >                  tzd =3D devm_thermal_of_zone_register(dev, i, data,
+> > data->chip_data->thermal_ops);
+> >                  if (IS_ERR(tzd)) {
+> >                          if (PTR_ERR(tzd) =3D=3D -ENODEV)
+> >                                  continue;
+> >
+> >                          return dev_err_probe(dev, PTR_ERR(tzd),
+> >                                               "failed to register senso=
+r %d", i);
+> >                  }
+> >
+> >                  sensor_count++;
+>
+> If I'm not mistaken in the previous version, the loop exits at the first
+> registered sensor
+>
+>         if (!IS_ERR(tzd))
+>                 break;
+>
+> Here all the available sensors are registered
 
-> I submitted the DTS series separately to start the review process in parallel,
-> but I understand your concern about the unresolved dependency.
-> 
+The name `sensor_count` might be a bit misleading, but here the loop
+exits after the first success:
 
-Please send patches that are ready to be merged, and when you do make
-sure you send them in a way and at a time where they can be merged.
+                sensor_count++;
+                break;
 
-Thanks,
-Bjorn
+Let=E2=80=99s rename it:
 
-> Regards,
-> Shashank
+bool registered =3D false;
+...
+for (...) {
+    tzd =3D devm_thermal_of_zone_register(...);
+    if (IS_ERR(tzd)) {
+        if (PTR_ERR(tzd) =3D=3D -ENODEV)
+            continue;
+
+        return dev_err_probe(dev, PTR_ERR(tzd),
+                             "failed to register sensor %d", i);
+    }
+
+    registered =3D true;
+    break;
+}
+
+if (!registered)
+    return dev_err_probe(dev, -ENODEV, "no thermal sensor registered");
+>
+> >                  break;
+> >          }
+> >
+> >          if (!sensor_count)
+> >                  return dev_err_probe(dev, -ENODEV, "no thermal sensor
+> > registered");
+> >
+> >
+>
+
+--=20
+Thanks.
+Binbin
