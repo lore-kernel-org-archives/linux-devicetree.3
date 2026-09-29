@@ -1,153 +1,585 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7C6380FD3
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 19:30:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BBF568FC8
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 19:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790710208; cv=none; b=S2cVxs3Z1L8P6CsvKiUo3E2zBJcKVFgz1mIDdJ/zje3HjFDS/whHM59R9udf4/ty00g1eXu+2jEkrT0OYBm7wpUbLHepmVDpTnLfN3XG9daZVPK9e7G2AHiM8sG4U1aZo8diB+OziOE2MvrKO9botsAENERPBbT6hodnTUsmzX0=
+	t=1790710206; cv=none; b=GUF9QxjxiuAl8QyyVTHWWIWw+pLNweQIXErC8jc5M7evUAbk/9c4HSs/htA5p/ZxbnhPkHUGQ0jhcVi4KKxPwXEF1x1LL829r9WLHDpf3KnYTdAVrobKVZMEl47PaZ1rFVPkAsUcj0oggTgJaNuWEuG09wGBseW8Kn/hmh/0WLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790710208; c=relaxed/simple;
-	bh=dcqC/R6KKT/sQfJIFw2LiQyMk+5YWArPLJR/2wCqPRA=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=a1u63SuGQwkN9eJm6Nw+bLhbQpi6pYuSqzZ709+Zj/FA6+8VvLZ0LnygPSXYkxnLHBEP+PUTRxiW3o1OlfDsUbTTrl3IQJgf4Ev5JSXr6QhOwDck2Dwchk0JGRK0LELP6WwbuVxJG+jmj53hMftDyuC08yccn77XVLHzF4TMy4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fohw24hc; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790710206; c=relaxed/simple;
+	bh=sOJf/1ziyr8pkAgSka2Rtrdqt7ClR1I2ocQDeQyd3+8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mZH4nt5SBavrND73/+d5oO7KEfC6FFWJFpr5qEa/WRdjsVrpkAxLg/kqZRcs/w1GV+9Fis0/jiJEdbMkIrsdUzx2beh6WkuefQS1sOCSj3jijDHy5SIv9nnOX85bGrsia+ciPhA4RADlfEMogRl211vO01qznCepQSxqnPxEagg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=FmLlfS50; arc=none smtp.client-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fohw24hc"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-32be7127c64so514486eec.2
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 12:30:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790710206; x=1791315006; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8NtU6ZgB5rVnB2TieQI+YlMezMRHZXxmu9/97X08t/8=;
-        b=Fohw24hc2TW53G7PfmQZ75qoNqEGDCmAACYcpgcT8T/pXTLi8wmFjjSMIF1nFb6T19
-         lAmwoxUYxrUzWipoJivsl4LXO4mZ6HAouAb+qYjP0EEY4BIhcP4UD2/b4RYwR5cLlS69
-         Bzci079u73stV648rNVEIqfK+0W7ByjQBxurLjascSyL9IIDgLQqDGBT6MAnl3RP34Cw
-         nKqNepjjIUD48TITIkEsY5DGq4e//Uq/J399TLkmK56GyoUhz4aTxWXwmOxYCemVUBLP
-         Y7cjjyAUS17bmywBor0pxF4ho0Zr5BgC2U4EzvHisRUUmLo/avEi68hwREn+BdK2O0dw
-         E/AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790710206; x=1791315006;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8NtU6ZgB5rVnB2TieQI+YlMezMRHZXxmu9/97X08t/8=;
-        b=xWDKWkxZR55SrXejAWBFXsJuXByUTbiOr/MFK573xC4VrOJ4KR3y7LpIdpH77BgZ09
-         O1qCuvYGulQL1jEvIEEPKkQiTs97cJxsCc7Bnk5tmlQJwmbgd/v3g8dmIoVW482DmIog
-         jTJgYa1GjZ/xt6+O8R5JpCbbYSc9YCdWHmHsL7NYNq2oVoB4xvnyx9ka6ms/lv5joUMe
-         aNNtKOhrNxZJz79UPdCbHSaXl1QEiMIdQyz/rA6ZAvQxQzfy7qYz3AaozIQLX/1Lhnz3
-         u9sotbTUw2Z1XyWp61SkDbegjBz1LZmKRS+JZ0Cf1H4Qlxn0sTAe1EjywOjLMD3hP4TF
-         2wjg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQP4pqAtSvZUNIX3wiJtQcxvH5v/vYkgMHSPWEKVsEL3j+EmOgrr7qSbMu4bnEOEfwO28vg05hFYjm@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2FKxD2To48ilBSyFvmnPTf6eQVvB2/Xo3XaL+kiTEJqY9j8tc
-	ki6Ki2MXext7GjHe0ISpLeke5fMcqdbt3Ga6uyeU6E0dSs6KGhDfVLLg
-X-Gm-Gg: AYBFou0bstLP4bVvRcAHjav0DPvDVK+mZrIsx5rAxKKXGKACvaXaIeqTsPvvTxqm/Tq
-	aysqoiX5r0DhPQ6SPecEpZg6oxXHMq/prpJRc8x6a+uq4Jrxr5/02q8AjwANfSe9RkUzLfFq1kP
-	77QmhqBNxJXYZFL93Vd4xRb9tM6XgeFdkRPITwhcAERZYH/wg4xBsNiCka4L7fdvGTKK6p2NNA/
-	/lspkxCrlX5fg0H9tzRlp1hnafKZcKTlWupvvfhCqnH1k+/gvz/XXWhUtoT4COoyfJaUZIML6xs
-	Y/Z4ev8v4jaFQwaYkDaaR3hef9Y6mr7R7rCRYMYD2yQIX4zqU+wLchTEo5PSxUVl5EAfkUQI/5R
-	pHpKVDiAVidaqOmAs40y5EsG3QJHoLUC3tzAuXcIJxbeM5khT9RYCeO99JYeORoKhev8BF0kAoo
-	LNrUdjc1A92Pof+zdU0R586jZcX/6Z1ZZXybhOlK0cLY5/4YdR1TH0AOfRZESLmIcPcbuW/u+sP
-	HVpAUo5Hg==
-X-Received: by 2002:a05:7301:4d12:b0:34c:3ae5:ebc with SMTP id 5a478bee46e88-34c6128bdf6mr606357eec.0.1790710206173;
-        Tue, 29 Sep 2026 12:30:06 -0700 (PDT)
-Received: from [10.211.86.252] ([2409:40c2:5054:69f0:5c6b:5195:5b7b:d414])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c386b6bd9sm1275349eec.16.2026.09.29.12.29.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 12:30:05 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Subject: [PATCH v5 0/2] regulator: dt-bindings: Tegra coupling DT
- conversions and cleanup
-Date: Wed, 30 Sep 2026 00:59:41 +0530
-Message-Id: <20260930-ti-tps6586x-v5-0-aac0273b5da3@gmail.com>
+	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="FmLlfS50"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
+	s=protonmail3; t=1790710190; x=1790969390;
+	bh=F9j0/+7Xv4yRrgJj+VWZr5D6InPCNq57wcxJYH7iFRc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=FmLlfS50j0uZUk1HIWTJUJO6syiuV/+9BaxtnYQB/rrvXgVVn25KClivrn2/Ljm+k
+	 p6zxtm3YAiLD8R3ef0zoKY2/8hw5F+XwwJB0MblYZAVAljNtmdjqJVpdR7Bd6Fffaq
+	 hhlINQLcSpnRKc9TAt+LJDQ8uWw9jSfi1iTzii6sqs5+Qjdpe8xsY6zDjIneukHy99
+	 m3POdqSDaAjYiUThioyI8owV/40Yfkhr9CKTdYrIm2XBfbRupdSCvmjKbOLTtyrHuv
+	 ta5hSuj0OxLHUCh3beSb3ZMyj4Ni05yIWPh5G+EunFby1JYruUWe+ApDcuh6LSENR+
+	 tKjwikGOmAK4g==
+Date: Tue, 29 Sep 2026 19:29:45 +0000
+To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+From: Alex Robinson <alex@ironrobin.net>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 2/3] platform: arm64: Add Lenovo ThinkPad X13s EC driver
+Message-ID: <20260929192908.16507-3-alex@ironrobin.net>
+In-Reply-To: <20260929192908.16507-1-alex@ironrobin.net>
+References: <20260929192908.16507-1-alex@ironrobin.net>
+Feedback-ID: 54785507:user:proton
+X-Pm-Message-ID: 7891f257e72c92714c957448ded969ca1d59e5d3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13NQQ6CMBCF4auYrq1hpsNQXHkP44KWVmtUDEWiM
- dxdqjGCy5fM989TRNcGF8V68RSt60MMzWUc+XIh7KG67J0M9bgFZsiZRpBdkN01cq75Lk1OrgC
- AEgorRnFtnQ/3d227++x4M0dnu5RIF4cQu6Z9vN/1kO6+ZZyVe5AgS2UNsVFosNjsz1U4rWxzF
- qnc48+WwHOLMpMe0PraGyK2/1ZNbTm3arSs6hop88Sa/i1NLNLcUrK2qLQ32jDx1A7D8ALJkTC
- 1bAEAAA==
-X-Change-ID: 20260821-ti-tps6586x-b54e7111917c
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@avionic-design.de>, 
- Lee Jones <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com, mfd@lists.linux.dev, 
- Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790710190; l=2057;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=dcqC/R6KKT/sQfJIFw2LiQyMk+5YWArPLJR/2wCqPRA=;
- b=ilhdseio2iTuo0yviwOatf83AM0VBGpCAYeK5Hkt5ozS9PWnQcn/FQ38a6gjWl/sMMFJAv/so
- Qrz5Kae571TCPLKx5GN5PNmAJHRi2pb4fjqXH7eqQom3wILB2QDreKA
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-This series adds a shared DT schema for Tegra regulator coupling, 
-updates relevant PMICs to use it, and converts the TI TPS6586x 
-bindings to DT schema.
+Add support for the ThinkPad X13s embedded controller to expose keyboard
+backlight control and firmware-driven brightness changes when booting
+with Device Tree. Its backlight, event and power-management interfaces
+differ from the T14s EC and require separate handling.
 
-Summary:
-- Patch 1: Fixes existing TPS65910 validation warnings.
-- Patch 2: Converts Tegra regulator coupling to DT schema.
-- Patch 3: Updates Tegra-related PMICs to reference the new schema.
-- Patch 4: Converts TI TPS6586x to DT schema.
+Preserve brightness across lid and system-sleep transitions using the
+sequences described by the X13s ACPI firmware.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v5:
-- Dropped example from nvidia,tegra-regulators-coupling binding.
-- Link to v4: https://lore.kernel.org/r/20260924-ti-tps6586x-v4-0-6c7a8fb8b646@gmail.com
+Leave EC wakeup disabled by default because the shared interrupt can
+wake the system on lid closure and no selective event mask is known.
+Userspace can enable wakeup when desired.
 
-Changes in v4:
-- Dropped applied patches 1 and 4
-- Rebased to broonie-regulator/for-7.4 to resolve conflicts
-- Link to v3: https://lore.kernel.org/r/20260919-ti-tps6586x-v3-0-63dd240f4684@gmail.com
+This follows earlier X13s EC work by Konrad Dybcio and Steev Klimaszewski.
 
-Changes in v3:
-- Patch 2: Add '>' to description
-- Collect tags
-- Link to v2: https://lore.kernel.org/r/20260916-ti-tps6586x-v2-0-f12cfdfb446c@gmail.com
-
-Changes in v2:
-- Add patch 1 to resolve warnings from TPS65910.
-- Add patch 2 to convert nvidia,tegra-regulators-coupling to DT schema.
-- Add patch 3 to $ref to shared schema.
-- Patch 4: remove individual properties and add $ref to shared schema.
-- Link to v1: https://lore.kernel.org/r/20260822-ti-tps6586x-v1-1-93cb46b32b27@gmail.com
+Assisted-by: LLM
+Signed-off-by: Alex Robinson <alex@ironrobin.net>
 
 ---
-Bhargav Joshi (2):
-      regulator: dt-bindings: nvidia,tegra-regulators-coupling: Convert to DT schema
-      regulator: dt-bindings: Reference Tegra regulator coupling schema
-
- .../devicetree/bindings/mfd/ti,tps65910.yaml       | 12 +++-
- .../regulator/maxim,max77620-regulator.yaml        |  5 +-
- .../regulator/nvidia,tegra-regulators-coupling.txt | 65 ----------------------
- .../nvidia,tegra-regulators-coupling.yaml          | 38 +++++++++++++
- .../devicetree/bindings/regulator/ti,tps62360.yaml |  1 +
- 5 files changed, 52 insertions(+), 69 deletions(-)
----
-base-commit: 05a3330f490cfa266831c0fc7f8c6df942866d59
-change-id: 20260821-ti-tps6586x-b54e7111917c
-
-Best regards,
--- 
-Bhargav
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cc3cae2e378b34aeb705cef654c720ca9f2ba223..86ae65ac93e7575815f34dbc7a6=
+90042ad9ca3b0 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27177,6 +27177,12 @@ S:=09Maintained
+ F:=09Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad=
+-t14s-ec.yaml
+ F:=09drivers/platform/arm64/lenovo-thinkpad-t14s.c
+=20
++THINKPAD X13S EMBEDDED CONTROLLER DRIVER
++M:=09Alex Robinson <alex@ironrobin.net>
++S:=09Maintained
++F:=09Documentation/devicetree/bindings/embedded-controller/lenovo,thinkpad=
+-x13s-ec.yaml
++F:=09drivers/platform/arm64/lenovo-thinkpad-x13s.c
++
+ THINKPAD LMI DRIVER
+ M:=09Mark Pearson <mpearson-lenovo@squebb.ca>
+ L:=09platform-driver-x86@vger.kernel.org
+diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfi=
+g
+index e32e01b2a9bdd970d6f2b2bf6b051472c9a16103..eb0b84e5a93733ca16fc871ea94=
+eda30f5760b3c 100644
+--- a/drivers/platform/arm64/Kconfig
++++ b/drivers/platform/arm64/Kconfig
+@@ -90,6 +90,22 @@ config EC_LENOVO_THINKPAD_T14S
+=20
+ =09  Say M or Y here to include this support.
+=20
++config EC_LENOVO_THINKPAD_X13S
++=09tristate "Lenovo ThinkPad X13s Embedded Controller driver"
++=09depends on ARCH_QCOM || COMPILE_TEST
++=09depends on I2C
++=09depends on GPIOLIB
++=09select NEW_LEDS
++=09select LEDS_CLASS
++=09select LEDS_BRIGHTNESS_HW_CHANGED
++=09help
++=09  Driver for the embedded controller in the Lenovo ThinkPad X13s.
++=09  Provides keyboard backlight control, hardware brightness change
++=09  notifications and system sleep power sequencing.
++
++=09  To compile this driver as a module, choose M here: the module will
++=09  be called lenovo-thinkpad-x13s.
++
+ config EC_QCOM_HAMOA
+ =09tristate "Embedded Controller driver for Qualcomm Hamoa/Glymur referenc=
+e devices"
+ =09depends on ARCH_QCOM || COMPILE_TEST
+diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makef=
+ile
+index 7681be4a46e94e7cb80e50bcc5b724cb0961357b..23ed6eef7ce41a5f45d48f5f83b=
+281ebbca94cbb 100644
+--- a/drivers/platform/arm64/Makefile
++++ b/drivers/platform/arm64/Makefile
+@@ -9,4 +9,5 @@ obj-$(CONFIG_EC_ACER_ASPIRE1)=09+=3D acer-aspire1-ec.o
+ obj-$(CONFIG_EC_HUAWEI_GAOKUN)=09+=3D huawei-gaokun-ec.o
+ obj-$(CONFIG_EC_LENOVO_YOGA_C630) +=3D lenovo-yoga-c630.o
+ obj-$(CONFIG_EC_LENOVO_THINKPAD_T14S) +=3D lenovo-thinkpad-t14s.o
++obj-$(CONFIG_EC_LENOVO_THINKPAD_X13S) +=3D lenovo-thinkpad-x13s.o
+ obj-$(CONFIG_EC_QCOM_HAMOA) +=3D qcom-hamoa-ec.o
+diff --git a/drivers/platform/arm64/lenovo-thinkpad-x13s.c b/drivers/platfo=
+rm/arm64/lenovo-thinkpad-x13s.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..4a7d5d03690955ba6fd3760a8af=
+4e76b999a68bc
+--- /dev/null
++++ b/drivers/platform/arm64/lenovo-thinkpad-x13s.c
+@@ -0,0 +1,435 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Lenovo ThinkPad X13s embedded controller */
++
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/container_of.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/leds.h>
++#include <linux/lockdep.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/of.h>
++#include <linux/pm.h>
++#include <linux/pm_wakeup.h>
++#include <linux/ratelimit.h>
++#include <linux/slab.h>
++
++#define X13S_EC_CMD_READ=09=090x02
++#define X13S_EC_CMD_WRITE=09=090x03
++#define X13S_EC_CMD_EVENT=09=090xf0
++#define X13S_EC_REG_POWER_STATE=090x80
++#define X13S_EC_POWER_STATE_ENTER=090x55
++#define X13S_EC_POWER_STATE_EXIT=090xaa
++#define X13S_EC_REG_KBD_BACKLIGHT=090xc0
++#define X13S_EC_BACKLIGHT_MASK=09GENMASK(5, 4)
++#define X13S_EC_REG_KBD_BACKLIGHT_SAVED=090x15
++#define X13S_EC_BACKLIGHT_SAVED_MASK=09GENMASK(2, 1)
++#define X13S_EC_EVENT_FN_SPACE=090x1f
++#define X13S_EC_EVENT_LID_OPEN=090x52
++
++struct x13s_ec {
++=09struct i2c_client *client;
++=09struct gpio_desc *power_state;
++=09/* Serializes EC transactions, backlight RMW and suspend/event state. *=
+/
++=09struct mutex lock;
++=09struct led_classdev led;
++=09enum led_brightness saved_brightness;
++=09bool saved_brightness_valid;
++=09bool suspended;
++=09bool event_pending;
++};
++
++/*
++ * Each single-message transfer ends in STOP. Hold the bus segment across
++ * both halves so another client cannot interleave them. Keep the 10 ms
++ * post-command settling delay, including on failure.
++ */
++static int x13s_read(struct x13s_ec *ec, u8 cmd, u8 reg, u8 *value)
++{
++=09struct i2c_client *client =3D ec->client;
++=09u8 buf[] =3D { cmd, reg, 0, 1 };
++=09struct i2c_msg request =3D {
++=09=09.addr =3D client->addr,
++=09=09.flags =3D I2C_M_STOP,
++=09=09.len =3D sizeof(buf),
++=09=09.buf =3D buf,
++=09};
++=09struct i2c_msg response =3D {
++=09=09.addr =3D client->addr,
++=09=09.flags =3D I2C_M_RD,
++=09=09.len =3D 1,
++=09=09.buf =3D value,
++=09};
++=09int ret;
++
++=09lockdep_assert_held(&ec->lock);
++=09if (ec->suspended)
++=09=09return -EBUSY;
++
++=09i2c_lock_bus(client->adapter, I2C_LOCK_SEGMENT);
++=09ret =3D __i2c_transfer(client->adapter, &request, 1);
++=09if (ret =3D=3D 1)
++=09=09ret =3D __i2c_transfer(client->adapter, &response, 1);
++=09i2c_unlock_bus(client->adapter, I2C_LOCK_SEGMENT);
++=09fsleep(10000);
++
++=09if (ret < 0)
++=09=09return ret;
++=09if (ret !=3D 1)
++=09=09return -EIO;
++
++=09return 0;
++}
++
++/* Also used by normal PM callbacks while ordinary EC access is blocked. *=
+/
++static int x13s_write(struct x13s_ec *ec, u8 reg, u8 value)
++{
++=09u8 buf[] =3D { X13S_EC_CMD_WRITE, reg, 0, 1, value };
++=09int ret;
++
++=09lockdep_assert_held(&ec->lock);
++
++=09ret =3D i2c_master_send(ec->client, buf, sizeof(buf));
++=09fsleep(10000);
++
++=09if (ret < 0)
++=09=09return ret;
++=09if (ret !=3D sizeof(buf))
++=09=09return -EIO;
++
++=09return 0;
++}
++
++static int x13s_brightness(struct x13s_ec *ec)
++{
++=09u8 value;
++=09int brightness, ret;
++
++=09ret =3D x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT, &val=
+ue);
++=09if (ret)
++=09=09return ret;
++
++=09brightness =3D FIELD_GET(X13S_EC_BACKLIGHT_MASK, value);
++=09if (brightness > ec->led.max_brightness)
++=09=09return -EINVAL;
++
++=09return brightness;
++}
++
++static enum led_brightness x13s_brightness_get(struct led_classdev *led)
++{
++=09struct x13s_ec *ec =3D container_of(led, struct x13s_ec, led);
++=09int ret;
++
++=09mutex_lock(&ec->lock);
++=09ret =3D x13s_brightness(ec);
++=09mutex_unlock(&ec->lock);
++=09return ret;
++}
++
++static int x13s_set_brightness_locked(struct x13s_ec *ec,
++=09=09=09=09      enum led_brightness brightness)
++{
++=09u8 value;
++=09int ret;
++
++=09lockdep_assert_held(&ec->lock);
++=09if (brightness > ec->led.max_brightness)
++=09=09return -EINVAL;
++
++=09ret =3D x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT, &val=
+ue);
++=09if (ret)
++=09=09return ret;
++=09/* Never interpret or overwrite a reserved current brightness. */
++=09if (FIELD_GET(X13S_EC_BACKLIGHT_MASK, value) > ec->led.max_brightness)
++=09=09return -EINVAL;
++=09FIELD_MODIFY(X13S_EC_BACKLIGHT_MASK, &value, brightness);
++=09return x13s_write(ec, X13S_EC_REG_KBD_BACKLIGHT, value);
++}
++
++/* SCMS(0x20): save the brightness obtained from C0 in the EC. */
++static int x13s_save_brightness_locked(struct x13s_ec *ec,
++=09=09=09=09       enum led_brightness brightness)
++{
++=09u8 value;
++=09int ret;
++
++=09lockdep_assert_held(&ec->lock);
++=09ret =3D x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT_SAVED=
+,
++=09=09=09&value);
++=09if (ret)
++=09=09return ret;
++
++=09FIELD_MODIFY(X13S_EC_BACKLIGHT_SAVED_MASK, &value, brightness);
++=09return x13s_write(ec, X13S_EC_REG_KBD_BACKLIGHT_SAVED, value);
++}
++
++/* SCMS(0x21): restore C0 from the EC's saved brightness. */
++static int x13s_restore_brightness_locked(struct x13s_ec *ec)
++{
++=09u8 value;
++=09int brightness, ret;
++
++=09lockdep_assert_held(&ec->lock);
++=09ret =3D x13s_read(ec, X13S_EC_CMD_READ, X13S_EC_REG_KBD_BACKLIGHT_SAVED=
+,
++=09=09=09&value);
++=09if (ret)
++=09=09return ret;
++
++=09brightness =3D FIELD_GET(X13S_EC_BACKLIGHT_SAVED_MASK, value);
++=09ret =3D x13s_set_brightness_locked(ec, brightness);
++=09return ret ? ret : brightness;
++}
++
++static int x13s_brightness_set(struct led_classdev *led,
++=09=09=09       enum led_brightness brightness)
++{
++=09struct x13s_ec *ec =3D container_of(led, struct x13s_ec, led);
++=09int ret;
++
++=09guard(mutex)(&ec->lock);
++=09ret =3D x13s_set_brightness_locked(ec, brightness);
++=09if (ret)
++=09=09return ret;
++
++=09/* Keep software selections across the EC's lid blank/restore cycle. */
++=09return x13s_save_brightness_locked(ec, brightness);
++}
++
++static void x13s_refresh_brightness(struct x13s_ec *ec)
++{
++=09int brightness, ret;
++
++=09lockdep_assert_held(&ec->lock);
++=09/* Firmware owns the transition; save its result as _Q1F does. */
++=09brightness =3D x13s_brightness(ec);
++=09if (brightness < 0) {
++=09=09dev_err_ratelimited(&ec->client->dev,
++=09=09=09=09    "Backlight refresh failed: %d\n", brightness);
++=09=09return;
++=09}
++=09ret =3D x13s_save_brightness_locked(ec, brightness);
++=09if (ret) {
++=09=09dev_err_ratelimited(&ec->client->dev,
++=09=09=09=09    "Backlight save failed: %d\n", ret);
++=09}
++=09led_classdev_notify_brightness_hw_changed(&ec->led, brightness);
++}
++
++static void x13s_query_event(struct x13s_ec *ec)
++{
++=09u8 event;
++=09int ret;
++
++=09lockdep_assert_held(&ec->lock);
++=09/* One query per interrupt, with no event-draining loop or retry. */
++=09ret =3D x13s_read(ec, X13S_EC_CMD_EVENT, 0, &event);
++=09if (ret) {
++=09=09dev_err_ratelimited(&ec->client->dev, "Event query failed: %d\n", re=
+t);
++=09=09return;
++=09}
++=09if (event =3D=3D X13S_EC_EVENT_FN_SPACE) {
++=09=09x13s_refresh_brightness(ec);
++=09} else if (event =3D=3D X13S_EC_EVENT_LID_OPEN) {
++=09=09ret =3D x13s_restore_brightness_locked(ec);
++=09=09if (ret < 0) {
++=09=09=09dev_err_ratelimited(&ec->client->dev,
++=09=09=09=09=09    "Backlight lid restore failed: %d\n", ret);
++=09=09=09return;
++=09=09}
++=09=09ec->led.brightness =3D ret;
++=09=09led_classdev_notify_brightness_hw_changed(&ec->led, ret);
++=09}
++}
++
++static void x13s_process_pending_event(struct x13s_ec *ec)
++{
++=09lockdep_assert_held(&ec->lock);
++=09if (ec->event_pending) {
++=09=09ec->event_pending =3D false;
++=09=09x13s_query_event(ec);
++=09}
++}
++
++static irqreturn_t x13s_irq(int irq, void *data)
++{
++=09struct x13s_ec *ec =3D data;
++
++=09mutex_lock(&ec->lock);
++=09/* Coalesce suspended IRQs into one query; never access I2C here. */
++=09if (ec->suspended)
++=09=09ec->event_pending =3D true;
++=09else
++=09=09x13s_query_event(ec);
++=09mutex_unlock(&ec->lock);
++=09return IRQ_HANDLED;
++}
++
++static int x13s_probe(struct i2c_client *client)
++{
++=09struct device *dev =3D &client->dev;
++=09struct x13s_ec *ec;
++=09int ret;
++
++=09if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
++=09=09return -EOPNOTSUPP;
++=09if (client->irq <=3D 0)
++=09=09return dev_err_probe(dev, -EINVAL, "Missing event IRQ\n");
++=09if (irq_get_trigger_type(client->irq) !=3D IRQ_TYPE_EDGE_FALLING)
++=09=09return dev_err_probe(dev, -EINVAL, "Expected falling-edge IRQ\n");
++
++=09ec =3D devm_kzalloc(dev, sizeof(*ec), GFP_KERNEL);
++=09if (!ec)
++=09=09return -ENOMEM;
++=09ec->client =3D client;
++=09ret =3D devm_mutex_init(dev, &ec->lock);
++=09if (ret)
++=09=09return ret;
++=09i2c_set_clientdata(client, ec);
++
++=09ec->power_state =3D devm_gpiod_get(dev, "power-state", GPIOD_OUT_HIGH);
++=09if (IS_ERR(ec->power_state)) {
++=09=09return dev_err_probe(dev, PTR_ERR(ec->power_state),
++=09=09=09=09     "Failed to acquire power-state GPIO high\n");
++=09}
++
++=09ec->led.name =3D "platform::kbd_backlight";
++=09ec->led.max_brightness =3D 2;
++=09ec->led.flags =3D LED_BRIGHT_HW_CHANGED | LED_RETAIN_AT_SHUTDOWN;
++=09ec->led.brightness_get =3D x13s_brightness_get;
++=09ec->led.brightness_set_blocking =3D x13s_brightness_set;
++=09ret =3D devm_led_classdev_register(dev, &ec->led);
++=09if (ret)
++=09=09return dev_err_probe(dev, ret, "Failed to register keyboard backligh=
+t\n");
++
++=09/* Devres synchronizes the IRQ before unregistering the LED. */
++=09ret =3D devm_request_threaded_irq(dev, client->irq, NULL, x13s_irq,
++=09=09=09=09=09IRQF_ONESHOT, dev_name(dev), ec);
++=09if (ret)
++=09=09return dev_err_probe(dev, ret, "Failed to request event IRQ\n");
++
++=09/*
++=09 * As on the T14s, disable wakeup by default since selective EC event
++=09 * masking is not known. Keep runtime IRQ handling enabled.
++=09 */
++=09device_wakeup_disable(dev);
++
++=09return 0;
++}
++
++static int x13s_power_gpio(struct x13s_ec *ec, int value)
++{
++=09int ret;
++
++=09lockdep_assert_held(&ec->lock);
++=09ret =3D gpiod_set_value_cansleep(ec->power_state, value);
++=09if (ret) {
++=09=09dev_err(&ec->client->dev, "Failed to set power-state GPIO to %d: %d\=
+n",
++=09=09=09value, ret);
++=09}
++=09return ret;
++}
++
++static void x13s_exit_low_power(struct x13s_ec *ec)
++{
++=09int ret;
++
++=09lockdep_assert_held(&ec->lock);
++=09x13s_power_gpio(ec, 1);
++=09/* DSDT: GPIO176 high, Sleep(10), then register 0x80 <- 0xaa. */
++=09fsleep(10000);
++=09ret =3D x13s_write(ec, X13S_EC_REG_POWER_STATE, X13S_EC_POWER_STATE_EXI=
+T);
++=09if (ret)
++=09=09dev_err(&ec->client->dev, "Failed to exit low power: %d\n", ret);
++
++=09/* Resume ordinary access even if the EC exit attempt failed. */
++=09ec->suspended =3D false;
++}
++
++static int x13s_suspend(struct device *dev)
++{
++=09struct x13s_ec *ec =3D dev_get_drvdata(dev);
++=09int ret;
++
++=09/* Finish in-flight access while the GENI parent is still usable. */
++=09guard(mutex)(&ec->lock);
++=09if (ec->suspended)
++=09=09return 0;
++=09/* Only restore a snapshot captured during this suspend. */
++=09ec->saved_brightness_valid =3D false;
++=09ret =3D x13s_brightness(ec);
++=09if (ret < 0) {
++=09=09dev_err(dev, "Failed to save backlight brightness: %d\n", ret);
++=09} else {
++=09=09ec->saved_brightness =3D ret;
++=09=09ec->saved_brightness_valid =3D true;
++=09}
++
++=09/* DSDT: register 0x80 <- 0x55, then GPIO176 low. */
++=09ret =3D x13s_write(ec, X13S_EC_REG_POWER_STATE, X13S_EC_POWER_STATE_ENT=
+ER);
++=09if (ret)
++=09=09dev_err(dev, "Failed to enter low power: %d\n", ret);
++=09else
++=09=09x13s_power_gpio(ec, 0);
++=09/* Defer event queries throughout host suspend, even on EC failure. */
++=09ec->suspended =3D true;
++=09return 0;
++}
++
++static int x13s_resume(struct device *dev)
++{
++=09struct x13s_ec *ec =3D dev_get_drvdata(dev);
++=09int ret;
++
++=09/*
++=09 * Normal resume runs after the adapter and its GENI parent. In
++=09 * particular, device_resume_early() has re-enabled runtime PM:
++=09 * GENI's resume_noirq() alone is not sufficient for I2C transfers.
++=09 * Consume the pending query under the IRQ thread's mutex, without
++=09 * a worker that could race a new IRQ or the next suspend.
++=09 */
++=09mutex_lock(&ec->lock);
++=09x13s_exit_low_power(ec);
++=09if (ec->saved_brightness_valid) {
++=09=09ret =3D x13s_set_brightness_locked(ec, ec->saved_brightness);
++=09=09if (ret) {
++=09=09=09dev_err(dev, "Failed to restore backlight brightness: %d\n", ret)=
+;
++=09=09} else {
++=09=09=09/* A software restore is not a hardware brightness change. */
++=09=09=09ec->led.brightness =3D ec->saved_brightness;
++=09=09}
++=09=09ec->saved_brightness_valid =3D false;
++=09}
++
++=09/* A deferred lid-open restore must supersede the PM snapshot. */
++=09x13s_process_pending_event(ec);
++=09mutex_unlock(&ec->lock);
++=09return 0;
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(x13s_pm_ops, x13s_suspend, x13s_resume);
++
++static const struct of_device_id x13s_of_match[] =3D {
++=09{ .compatible =3D "lenovo,thinkpad-x13s-ec" },
++=09{ }
++};
++MODULE_DEVICE_TABLE(of, x13s_of_match);
++
++static struct i2c_driver x13s_driver =3D {
++=09.probe =3D x13s_probe,
++=09.driver =3D {
++=09=09.name =3D "thinkpad-x13s-ec",
++=09=09.of_match_table =3D x13s_of_match,
++=09=09.pm =3D pm_sleep_ptr(&x13s_pm_ops),
++=09},
++};
++module_i2c_driver(x13s_driver);
++
++MODULE_DESCRIPTION("Lenovo ThinkPad X13s Embedded Controller");
++MODULE_LICENSE("GPL");
 
