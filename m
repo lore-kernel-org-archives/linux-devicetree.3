@@ -1,102 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C504437EFFB
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 18:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958AC3839A3;
+	Tue, 29 Sep 2026 18:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707002; cv=none; b=W9fl8b1CnIrbbChDNmZSmucn5N3dGo31IXTJYD57YicT6uNnXzwV/2K8Bqj/0B4KipL9CwZvmer8AtB71LO7OmWF/nV5KCQ/9VW72YMzBkoVW5FtNnJsTzxhpK+XBKEUKNl73VvBD4HoH0M4yOh3EWn1Z0zDjtLGuu+7BG02cQ4=
+	t=1790707142; cv=none; b=XJztqLeYECUqG60ScVF61coMpQeAhlR8uhrUTvLSickKO8DikAdB/JYmfynWaS5nOX70Mq2NceF0Ioy09p4PqIL36mv6ZhO6Y8dSkBHTjCiuNeIQeNXjvt83avKgs5+AX8SupmHzQR9kYQ7aqW97JmvYUekYIOA5HmhNh8DNFQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707002; c=relaxed/simple;
-	bh=SiSmZrw6FTUyj8kMcAHiSfr1hO/LWfZwBkZxkA7Z3GA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vv/2VZUtyigi7WC2BGZwBp9zzLZMmZNjjWKdDtxGnd/VDiPrJkwIjfjBpybhd/8DGFjOvAyjC4zwzuCNdKBDD1to3RXyctg7wI6XlQmQQP0UzYDASWOYLm7SHRGMBRfuwPSgNCbRjUeYiFprFLfOipJsPdE+Zf0oM8NT2gH865M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xsrx5o1g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790707142; c=relaxed/simple;
+	bh=PtbCrSco5yzG1FGo+RyooD+inB125yls+7pZArHYHF4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H6OCX5NZDI5EUvVyM8d2oQe37T25QfJPIC7ttu/I7/giCaU11xGgfT0850aZ6F9pMk/Otk2IppnwbWoPBgKQdbOBIFtnTHxsnDv7aLO6zDNB54J+80C2Xqui/lq95qUyihQxMOv9DBS5jFse5/rd858F3KwEStacol87xrGej+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=VZGtWy+T; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xsrx5o1g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 239A21F000FF;
-	Tue, 29 Sep 2026 18:36:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790707001;
-	bh=kfNN/MgL6pvIIwRbSiG2N1vd4UeuJXiQIyOKS5s7i7U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xsrx5o1gvYVZyHlN8CBq9BtNflZj1levCbMmkacvcuQxFlEX0ibzKqOJVB8Wt9MxH
-	 0pfSkj+wJ1jvsbeEm1eORVel6uRvnc83qC8NR7YtelSm0CFuXqSsb9Ko/QbmnBSZ9d
-	 3njshtMbVlt3gnvMT1o0J9bBENz6NuJEzTBEFvp26sC8meKoyK5QH8MMAwevispFoY
-	 axC6+LAul97SZq4QO9Ts0gCaOP7HWqnUiJVlehzn2zYiriy6iWMlHKxtqJkwr7PvaK
-	 JWotr+fa1PCi/gyKWFN7+efGATYXmEx6eMGyZkhMYubz+gVD7ybqsH+2lq2T4twb6r
-	 0BA9aqfE8tRgQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: power: qcom-rpmpd: Remove unused
- MSM8953 indices
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260929-sdm632-rpmpd-v2-1-97ef8858161b@mainlining.org>
-References: <20260929-sdm632-rpmpd-v2-0-97ef8858161b@mainlining.org>
- <20260929-sdm632-rpmpd-v2-1-97ef8858161b@mainlining.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 18:36:40 +0000
-Message-Id: <20260929183641.239A21F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="VZGtWy+T"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AF779106CA0;
+	Tue, 29 Sep 2026 20:38:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1790707133;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=+mz+DR/cNP0US6qM+V0NJZZkwyCBeScDtMfTKHVJnik=;
+	b=VZGtWy+TnRRjNQTbwO2hS2qxQNoSfigFgLQtQ6lSy8wTUxCm1pSlqzLhf6Hmf2ySNOMvI4
+	1nXo68OLK7P+vcD/tS9Z75jRByo2YGJ0Ckh8JCy4jbC4gaJjheDrs6+XjLJLXVbOCOvZjK
+	aFWhTXRZy7dR7vD4exC2woOXd5Nuv3nnW+ZbL5vUzqYXKwlCDmj1AViVQCugILH2uaogI8
+	S8rMDr/EKcMVwMwQM72JxK/GjZlIqIst8zJPbjFczbIxUY2qCCwRyG3lWdSUZp/jHN5OxJ
+	8H9A8lYrbJBq3UqTsnptbFDlO7P8rqj8fK5GP5leIJeQewqlebMFSvL6Kru3Zw==
+Message-ID: <0a65ca90-2b0f-4f58-94bb-11fa2737519a@nabladev.com>
+Date: Tue, 29 Sep 2026 20:38:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] phy: stm32: Add support for ST STM32MP25
+ USB2-FEMTO PHY
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ linux-phy@lists.infradead.org, Manivannan Sadhasivam <mani@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Pankaj Dev <pankaj.dev@st.com>, Rahul Kumar <rahul.kumar05@st.com>,
+ Christian Bruel <christian.bruel@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
+ kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20260902141312.649406-1-marex@nabladev.com>
+ <20260902141312.649406-2-marex@nabladev.com>
+ <bf8e7888-1917-4ddc-9a6d-20490835c742@foss.st.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <bf8e7888-1917-4ddc-9a6d-20490835c742@foss.st.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] dt-bindings: ABI breakage by removing MSM8953_VDDMD index
---
+On 9/3/26 12:19 PM, Fabrice Gasnier wrote:
+> On 9/2/26 16:13, Marek Vasut wrote:
+>> From: Pankaj Dev <pankaj.dev@st.com>
+>>
+>> Add USB2 PHY driver for STM32MP25 USB2 controllers, which includes the
+>> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
+>> Two such PHYs in total are present in STM32MP25 SoC, they both are
+>> slightly different, therefore they use different compatible string
+>> to discern them.
+> 
+> Hello Marek,
+> 
+> I'm not sure if/how this fit with all below tags. For all the
+> contributions you've made, you can add my:
+> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Is there anything left to do with this series ?
 
-commit e44d0dc9a145a838a007b1d8e81abb98d56a4d20
-Author: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas.czeman@mainlining.org>
-
-dt-bindings: power: qcom-rpmpd: Remove unused MSM8953 indices
-
-This commit removes MSM8953_VDDMD and MSM8953_VDDMD_AO from the MSM8953 pow=
-er
-domain bindings, as the hardware now uses mss-supply as a regulator. It also
-defines RPMPD_VDDMD for the SDM632 MSS.
-
-> diff --git a/include/dt-bindings/power/qcom-rpmpd.h b/include/dt-bindings=
-/power/qcom-rpmpd.h
-> index 4371ac941f29d..120f8855b4275 100644
-> --- a/include/dt-bindings/power/qcom-rpmpd.h
-> +++ b/include/dt-bindings/power/qcom-rpmpd.h
-
-[ ... ]
-
-> @@ -84,8 +85,6 @@
->  #define QM215_VDDMX_AO		MSM8917_VDDMX_AO
-> =20
->  /* MSM8953 Power Domain Indexes */
-> -#define MSM8953_VDDMD		0
-> -#define MSM8953_VDDMD_AO	1
-
-[Severity: Critical]
-Does removing these identifiers explicitly break the established DT ABI?
-
-Older compiled device trees (DTBs) for the MSM8953 platform encode the power
-domain index 0 for MSM8953_VDDMD in the mss (modem) node's power-domains
-property. Removing this index from the dt-bindings header and driver removes
-support for these existing DTBs, causing a backward compatibility regressio=
-n.
-
-When booting a new kernel with an older DTB that uses MSM8953_VDDMD, the new
-qcom_q6v5_mss driver expects an mss-supply regulator. With the old DTB, the
-new kernel will fail to find mss-supply, rendering the modem subsystem
-non-functional during system boot.
-
-Is there a fallback mechanism planned to ensure older device trees still pr=
-obe
-successfully?
-
->  #define MSM8953_VDDCX		2
->  #define MSM8953_VDDCX_AO	3
->  #define MSM8953_VDDCX_VFL	4
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-sdm632-rpm=
-pd-v2-0-97ef8858161b@mainlining.org?part=3D1
+Thank you for your help !
