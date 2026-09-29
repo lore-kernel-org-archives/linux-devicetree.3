@@ -1,218 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AEA411F90
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:29:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE47649620
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:29:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790652558; cv=none; b=Vj+IPj6TO/4SxaPxehrYHXOPVjBTSGQr7tR8KbvjUbCmohgSS2gEWrAi1fBH3eMDC2senjYq03AUQLhdrI00gnZvTMt40IB21TkZfxPCMzadtbBo99eTgkiZ8yT/Zijeeqq7AfbXVWv8jh47KaX96osfbZpYpqK/ln+hg5LAtww=
+	t=1790652575; cv=none; b=r1B7IBGT19VRRjV68a8ctO2MojU/e+MYBCiL3RBkw1fxCxKD7E5pyReEWrDNKdA1ZeVFf/CnnmpGOx2jlCSITeVlHr29waPxDCZIHIo5UEaBUJTeB03TE5PWTj7ccvJeP1GBnpCUL0pAb5RW48oVS5r3G5QaE5O/DGh2B0A99+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790652558; c=relaxed/simple;
-	bh=3mm7YyBh58i7FNRKwLwQQAJhN28rnFl1EmRf/Ttquj4=;
+	s=arc-20240116; t=1790652575; c=relaxed/simple;
+	bh=kTEOKawOMaeHh53iWhfR+gWZukggNT1PECg/aPFXE3M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZjMZtB7WEGi/8jZ+ua0mDqFSb+bfcaP5Q/VFCMPaR9EcbR5fS+EAOBZ5f8O5Gjp2EYZVFFYRZ+3ar78K2iwvGMXlGrgNtm7ySjUEH3gIynRAas7aYE4YYSCE3NXuTDptn1mTkvhJ+h3MDgIY7OPA0sbsl6Wm7NuOnCGGgflnUIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HyRF0mTb; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=J4ywyjILWftzC0Ta/wk206EfumC7xORHxlIymyQX6tR4pm5rcZFDx049oTX/5RzgUDY+FGd0ktUc6/16RktLzN3d7BPGRkG/R3G+YZR1yR4xsim0A7D2f1ZS8kHhB2EO746MD5+zoE0XSFe5cq7tk//J30EYS9/qv974BeQkDJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sj3KG4GC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HyRF0mTb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BFE41F000FF;
-	Tue, 29 Sep 2026 03:29:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sj3KG4GC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0CF1F00893;
+	Tue, 29 Sep 2026 03:29:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790652556;
-	bh=tkS5g37UdRTzhe3ShG+9JDmBPNZGVrqtw40JfAA/I+Q=;
+	s=k20260515; t=1790652573;
+	bh=RPI1ne2itX3G+uHV99UqjMSwXwy/7sfS0OG2hbFLWCM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HyRF0mTbWCcj8OE09aOQcGxjrXfackcOM3x78roDfyEKkpCDPcvX1KxTYwNz2MjC4
-	 dv7+pgqMuk2cGGlNtGKF3xNCqMo9QMAxp1ijtTKrbINugndSaWKjJwxIGmX7+tLhDv
-	 PhdB+wQIVowVAwfATXdVfZStcubIuh/juSOjvzEwXvKts9ksSFLONi79HPMOXT7H6w
-	 ATPXRpFVS45TufkZgMoMXAFPBRbfK7qXA6yZfYU9IcR4FqQyRt3WyW8yQlZpDvYTeU
-	 WmGa2Scmx+fDRpAD+Jgg4G0joiUuoWHsEKuFTCJf+GvOCWbfLb/dx1QrM4iFzn20et
-	 ncsL+D3rxqQqg==
+	b=Sj3KG4GCOYb4u6MoVSKlUC4jIlEFCTEoR7psZQ4kbu9BVy1CWvNS3ER/WcoXBWIeq
+	 F6JX/bgmfIiPbTdJG+Ge+X0ZUOh/e/8APqLwxiK2qT/+oMwjnSOH+U9MlBtJCC3GMy
+	 cTbgya0SksJjQL93rIZB3s9gdm6o8Qe4QgiEXybrvg8abMuNBEzJNTHUO/YCKS4ikR
+	 /ielToR6AXWBuCZyumg7zfeXC1aKcAs7QXduqXLHCyxZbQ39iTX6uXxbMG2H/NFzNJ
+	 nxg5AvT9G2i1JG3HOkLsvsooD2pOpXit17TNpft01A6IhGPRECOyJDiRyLjCIaBHgx
+	 nWOfp5XFd4wSg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 09/10] firmware: riscv: rpmi-tee: add memory parcel
- operations
+Subject: Re: [PATCH RFC 10/10] firmware: riscv: rpmi-tee: add signal bus
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Amirreza Zarrabi" <amirreza.zarrabi@oss.qualcomm.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260928-riscv-rpmi-tee-abi-v1-9-04908b81d885@oss.qualcomm.com>
+In-Reply-To: <20260928-riscv-rpmi-tee-abi-v1-10-04908b81d885@oss.qualcomm.com>
 References: <20260928-riscv-rpmi-tee-abi-v1-0-04908b81d885@oss.qualcomm.com>
- <20260928-riscv-rpmi-tee-abi-v1-9-04908b81d885@oss.qualcomm.com>
+ <20260928-riscv-rpmi-tee-abi-v1-10-04908b81d885@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 03:29:16 +0000
-Message-Id: <20260929032916.6BFE41F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 03:29:32 +0000
+Message-Id: <20260929032933.2F0CF1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] mm: physical address truncation in rpmi_tee_block_iter_next()
-- [Medium] mm: resource leak of segment slot in rpmi_tee_parcel_create() er=
-ror path
-- [Low] subsystem: mixing goto-based error handling and __free() in rpmi_te=
-e_parcel_create()
+- [High] rpmi_tee: UAF in dispatch_signal() due to async relinquish
 --
 
-commit 1ca10244d1c27d1eb1d5158785dc0b417f521a59
+commit 65e73f5143f8eb36b1c247ca7810975eb375c7cf
 Author: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 
-firmware: riscv: rpmi-tee: add memory parcel operations
-   =20
-Implement lend, share, and reclaim of RPMI memory parcels for public
-memory endpoints. Convert scatterlists into RPMI page blocks and
-transparently split large parcels across multiple requests when they
-do not fit a single mailbox message, subject to the per-endpoint
-multisegment limit reported by firmware.
+    firmware: riscv: rpmi-tee: add signal bus support
+
+This commit adds support for RPMI TEE signal buses, enabling bidirectional
+asynchronous notifications between service devices and their TEE endpoints.
+It introduces a new rpmi_tee_notifier_ops interface for clients to request,
+relinquish, and raise signals.
 
 > diff --git a/drivers/firmware/riscv_rpmi_tee/driver.c b/drivers/firmware/=
 riscv_rpmi_tee/driver.c
-> index 7b06c1f96ba83..0004f54c7d899 100644
+> index 0004f54c7d899..cc0a42d471e37 100644
 > --- a/drivers/firmware/riscv_rpmi_tee/driver.c
 > +++ b/drivers/firmware/riscv_rpmi_tee/driver.c
-
 [ ... ]
-
-> +static bool rpmi_tee_block_iter_next(struct rpmi_tee_block_iter *iter,
-> +				     u32 *high, u32 *low)
+> +/* Invoke an active signal callback without holding the bus lock. */
+> +static int rpmi_tee_dispatch_signal(struct rpmi_tee_signal_bus *bus,
+> +				    u32 signal)
 > +{
-> +	u32 pages;
+> +	struct rpmi_tee_signal_reservation *resv;
+> +	rpmi_tee_notifier_cb cb =3D NULL;
+> +	struct rpmi_tee_device *rdev =3D NULL;
+> +	void *cb_data =3D NULL;
 > +
-> +	if (!iter->length) {
-> +		if (!iter->sg)
-> +			return false;
-> +		/* Next SG. */
-> +		iter->address =3D sg_phys(iter->sg);
-> +		iter->length =3D iter->sg->length;
-> +		iter->sg =3D sg_next(iter->sg);
+> +	if (signal >=3D bus->tee_to_ree_count)
+> +		return -EPROTO;
+> +
+> +	scoped_guard(mutex, &bus->lock) {
+> +		resv =3D xa_load(&bus->reservations, signal);
+> +		if (resv && resv->state =3D=3D RPMI_TEE_SIGNAL_ACTIVE) {
+> +			cb =3D resv->cb;
+> +			cb_data =3D resv->cb_data;
+> +			rdev =3D resv->rdev;
+> +		}
 > +	}
 > +
-> +	/* RPMI memory block represents at most @RPMI_TEE_BLOCK_MAX_PAGES pages=
-. */
-> +	pages =3D min_t(size_t, iter->length >> RPMI_TEE_MEM_PAGE_SHIFT,
-> +		      RPMI_TEE_BLOCK_MAX_PAGES);
-> +
-> +	*high =3D upper_32_bits(iter->address >> RPMI_TEE_MEM_PAGE_SHIFT);
-> +	*low =3D lower_32_bits(iter->address >> RPMI_TEE_MEM_PAGE_SHIFT) << 12 |
-> +		(pages - 1);
+> +	if (cb)
+> +		cb(rdev, signal, cb_data);
 
 [Severity: High]
-Does this code inadvertently truncate physical addresses at or above 4GB?
+Does executing the callback without taking a module reference or holding a
+lock that synchronizes with driver teardown leave us vulnerable to a race
+condition?
 
-Because lower_32_bits() returns a u32, shifting the result left by 12 will
-overflow and lose the upper 12 bits, which correspond to bits 43..32 of the
-original physical address.=20
-
-Similarly, upper_32_bits() will extract bits 75..44 instead of 63..32.
-
-This might cause the firmware to receive incorrect physical addresses,
-leading to the TEE accessing the wrong memory and potentially causing data
-corruption or crashes during sharing/lending requests.
-
-> +
-> +	iter->address +=3D (phys_addr_t)pages << RPMI_TEE_MEM_PAGE_SHIFT;
-> +	iter->length -=3D (size_t)pages << RPMI_TEE_MEM_PAGE_SHIFT;
-> +
-> +	return true;
-> +}
+If a client driver module is unloaded while a signal notification is being
+dispatched, it appears the dispatch thread could read the callback pointer,
+drop the bus lock, and be preempted. If the module unloads and frees its
+text before the thread resumes, jumping to the freed callback address would
+result in a use-after-free panic.
 
 [ ... ]
-
-> +static int rpmi_tee_parcel_create(struct rpmi_tee_transport *priv,
-> +				    struct rpmi_tee_mem_args *args)
+> +/* Relinquish a previously reserved TEE-to-REE signal. */
+> +static int rpmi_tee_op_notify_relinquish(struct rpmi_tee_device *rdev,
+> +					 u32 signal)
 > +{
-> +	struct rpmi_tee_parcel_create_resp resp;
-> +	struct rpmi_tee_parcel_xfer xfer;
-> +	size_t blk_off, req_len, resp_len;
-> +	bool segmented;
-> +	int ret;
-> +	u32 i;
+> +	struct rpmi_tee_transport *priv =3D rpmi_tee_device_to_transport(rdev);
+> +	struct rpmi_tee_signal_bus *bus;
+[ ... ]
+> +	scoped_guard(mutex, &bus->lock) {
+> +		struct rpmi_tee_signal_reservation *resv;
 > +
-> +	ret =3D rpmi_tee_count_blocks_sg(args->sg, &xfer.block_count);
-> +	if (ret)
-> +		return ret;
+> +		resv =3D xa_load(&bus->reservations, signal);
+> +		if (!resv)
+> +			return -ENOENT;
+> +		/* Release only if @signal belongs to @rdev. */
+> +		if (resv->rdev !=3D rdev)
+> +			return -EPERM;
+> +		if (resv->state =3D=3D RPMI_TEE_SIGNAL_RELEASING)
+> +			return -EALREADY;
 > +
-> +	/* BLOCK_HIGH[] follows the request header and receiver arrays. */
-> +	blk_off =3D RPMI_TEE_PARCEL_CREATE_SIZE + args->receiver_count *
-> +		RPMI_TEE_PARCEL_CREATE_RECEIVER_INFO_SIZE;
-> +
-> +	/* Limit the initial request to the parcel's actual block count. */
-> +	xfer.next_block =3D min((priv->mbox.max_msg_data_size - blk_off) /
-> +			      RPMI_TEE_PARCEL_CREATE_BLOCK_SIZE,
-> +			      xfer.block_count);
-> +
-> +	segmented =3D xfer.next_block < xfer.block_count;
-> +	if (segmented) {
-> +		if (!priv->mem.multisegment_max)
-> +			return -EOPNOTSUPP;
-> +		/* Reserve a slot against the firmware's advertised limit. */
-> +		ret =3D rpmi_tee_reserve_segment_slot(priv);
-> +		if (ret)
-> +			return ret;
+> +		resv->state =3D RPMI_TEE_SIGNAL_RELEASING;
 > +	}
 > +
-> +	req_len =3D blk_off + RPMI_TEE_PARCEL_CREATE_BLOCK_SIZE * xfer.next_blo=
-ck;
+> +	queue_work(priv->notif.wq, &priv->notif.work);
 > +
-> +	struct rpmi_tee_parcel_create_req *req __free(kfree) =3D
-> +		kzalloc(req_len, GFP_KERNEL);
+> +	return 0;
 
-[Severity: Low]
-Is it intentional to mix __free() with goto-based cleanup here?
-
-The subsystem guidelines recommend converting all resources that need a goto
-cleanup to scope-based cleanup, or converting none of them. This function
-uses __free(kfree) for the req allocation but also maintains a goto
-out_release_slot label for releasing the segment slot.
-
-> +	if (!req) {
-> +		ret =3D -ENOMEM;
-> +		goto out_release_slot;
-> +	}
+[Severity: High]
+Because relinquishing a signal returns immediately without waiting for
+in-flight callbacks to finish, can this allow the client module's remove
+function to complete and the module to be unloaded while a callback is
+still running or preempted in rpmi_tee_dispatch_signal()?
 
 [ ... ]
+> diff --git a/include/linux/rpmi_tee.h b/include/linux/rpmi_tee.h
+> index c2dd992934813..5f4a0b19b0e12 100644
+> --- a/include/linux/rpmi_tee.h
+> +++ b/include/linux/rpmi_tee.h
+[ ... ]
+> +/* RPMI TEE signal notification operations. */
+> +struct rpmi_tee_notifier_ops {
+> +	/**
+> +	 * @notify_request: Allocate a TEE-to-REE signal and associate it with
+> +	 *	@cb and @cb_data. The allocated signal is returned through @signal.
+> +	 */
+> +	int (*notify_request)(struct rpmi_tee_device *rdev,
+> +			      rpmi_tee_notifier_cb cb, void *cb_data, u32 *signal);
+> +	/**
+> +	 * @notify_relinquish: Stop dispatching a TEE-to-REE @signal previously
+> +	 *	allocated for @rdev. The release is asynchronous and a callback may
+> +	 *	relinquish its own signal.
+> +	 */
+> +	int (*notify_relinquish)(struct rpmi_tee_device *rdev, u32 signal);
 
-> +	resp_len =3D sizeof(resp);
-> +	ret =3D rpmi_tee_send(priv, RPMI_TEE_SRV_MEMORY_PARCEL_CREATE,
-> +			    req, req_len, &resp, &resp_len);
-> +	if (ret)
-> +		goto out_release_slot;
-> +	if (resp_len !=3D sizeof(resp))
-> +		return -EPROTO;
-
-[Severity: Medium]
-Can this direct return leak a segment slot on unexpected response lengths?
-
-If rpmi_tee_send() succeeds but the response length is invalid, returning
--EPROTO directly skips the out_release_slot label.=20
-
-This fails to decrement priv->mem.multisegment_active, leaking the reserved
-slot and eventually exhausting multisegment_max, which would permanently
-block future multi-segment operations with -EBUSY.
-
-> +
-> +	xfer.parcel_id =3D get_unaligned_le32(&resp.parcel_id);
-> +	/* Send remaining blocks as segments. */
-> +	ret =3D rpmi_tee_parcel_send_segments(priv, &xfer);
-> +	if (ret) {
-> +		/* On error, retain the slot as firmware may still hold it. */
-> +		if (rpmi_tee_memory_reclaim(priv, xfer.parcel_id)) {
-> +			dev_warn(priv->dev, "failed to abort parcel %#x\n",
-> +				 xfer.parcel_id);
-> +
-> +			return ret;
-> +		}
-> +	} else {
-> +		args->parcel_id =3D xfer.parcel_id;
-> +	}
-> +
-> +out_release_slot:
-> +	if (segmented)
-> +		rpmi_tee_release_segment_slot(priv);
-> +
-> +	return ret;
-> +}
+[Severity: High]
+The API seems to provide no flush or synchronize mechanism for clients to
+safely unload. Is there a way for client drivers to guarantee that all
+asynchronous callbacks have completely finished executing before they free
+their resources or allow module unload?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-riscv-rpmi=
--tee-abi-v1-0-04908b81d885@oss.qualcomm.com?part=3D9
+-tee-abi-v1-0-04908b81d885@oss.qualcomm.com?part=3D10
