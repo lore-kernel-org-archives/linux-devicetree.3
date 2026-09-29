@@ -1,262 +1,126 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F339F4EFFBA
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B422D46F495
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790698848; cv=none; b=fLWnBmMnenYZz5Kj3V0eNx4C4iMjembhY7DreS8Bg2ne//dm1p4iq4AvQA/JtFAPY4AjMKzZLjqSRr7FjtpFemABIlikpcGBOQ2qLecTLhpTyP2vzDgemAJaZ3GPO5wjba9LcuQOERGhxHjptqIivQh1Cegt2znlUH5zuSOZH2M=
+	t=1790699029; cv=none; b=AMlkN3lgSFs1RHiP9hUJtb2tgeY5QlYz2OxQ02B8Sdvri06lMlpkG+WACARkbJEKjZvj7AHjjilzZeBA0iEorraDWQtiCRRgW6xzcG3pUHVRpKfSWm3ohi36/FW+Ua3MqEG5C19Znp1gm7RyF78kdkwGU55XraDnPXxfnxeWltw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790698848; c=relaxed/simple;
-	bh=UgnqOcoiOyCjdaRUkGLaBTpYmnuZDli+Tq5pWs/wI/4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MuOVAgMfxDbx7kPgiFn2CORlXIRtldvRy00p/WqDiCCumzJCA9MIAzeL49dpIbrEPnaumiMXe1YF2x5Bxf0XvYQT75uvjbmj6czW4TckFn1ajc0bcQebfnFto/vBNM99kXP3lKo0NsmsHwNWe94eJwwNgTWb+D7lbPYF3q41euo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S3aDfofh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JeFETyiy; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790699029; c=relaxed/simple;
+	bh=evkrn0j75RReglnxUhvOP3feEazxnHrK2bSv7U5QRhQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=XVDs7FyEuCbNvGoImFEyPgtsMvCOi2SZpj6Gp/2sjFSYQQn/Y8cnYVJVq+F6stWBlNTypRTvSdJ8LyWXFvsLl+kpHw/zy+moLc4IkdqqcCzMmJzI2b0Jwxs5KzHxtOAW7lxFpzKvy18HLMY3jEOg9Zz6AZ41zM8FbTbrHpueyU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=J99PSgV7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=T+TEKgmS; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S3aDfofh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JeFETyiy"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqkje204985
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:20:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=SKXSfs161kjW32HtCfejw+Tq
-	SHrqUFuiYkbURsHolXo=; b=S3aDfofhAVbQ+GB7FUrhXjF6RxRCIGDQ6D2/Odio
-	oyFv18xsM/esDMVZEl0CQyPaU3lY3I0fw3ovIxVSHQuBWTOLlnZ+/Sgi4bEKIVXs
-	coIefEryno0zgmQEfkwH2Q5kTUs39mvd2sPhLhCHwDugO1Eort+VG5AcNF08CI82
-	6iq16IA6dFCDJIb40bnjbyqEPaFoDhAOI7ZieAQvqFnLZ/Mn9558GO1ZsM7dvaDu
-	47l49G+4SIT3wo91oL4dsAZvJCWWs9xuwVPRp0W/K5f4izgBgDskd0XBQn/ienM6
-	QoUoQSju6bO+k0rbGsef5OLldobdmupE0Ud1KH7+NuAVrw==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0144v152-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:20:45 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7bb2f50a7c6so62867137.3
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:20:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="J99PSgV7";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="T+TEKgmS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790699026;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=t2GK2VSdmDafmmBxGyGfx0WplyaoJRc/Tp0fAq4VgQg=;
+	b=J99PSgV7Q878wrKer7KDBkHHwPMSkZH331HefYF2Su/AUtT/K2OoLCg7dnrBHpBtKi0/6I
+	pkoWodM4/KOJ7G7Yefzr3CpLOGIqtMF8ByH8njbcJc19sHnBIHFvrdOlDrqMusTj2OBh3o
+	xCd+cnuTyJzrBRmDEp8IcHb+rMr/ul4=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-564-zIueR-dtOFOLEAidgL4DcA-1; Tue, 29 Sep 2026 12:23:45 -0400
+X-MC-Unique: zIueR-dtOFOLEAidgL4DcA-1
+X-Mimecast-MFC-AGG-ID: zIueR-dtOFOLEAidgL4DcA_1790699025
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-914447243f4so48620586d6.2
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:23:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790698845; x=1791303645; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SKXSfs161kjW32HtCfejw+TqSHrqUFuiYkbURsHolXo=;
-        b=JeFETyiydEyFiNXgHVAm1LVzwnscZgO0BKQpPev4pPbMhoUQbNV6jZMQUN+rNmv7gg
-         1YZAQtV4O5c+ohrsoMmjE5Q+53SjdvF5wLFvKSf+A1RiEAhlgCU/U8KQlP9nDoasFGku
-         mvIQKrZ+mrxOKGBhI6h6cEQlD/CbiY+cPojAT7KPEOFFdXlAFqjbmUqMjub9iLO5qeRl
-         tOYFgBiqQ8iWvoph3YYlz4mo3av63l1meEdjNp935T8MtImS7kRayi3unb4xlHWnl8As
-         50AideFuBjgrDi5EeH4ndhRQ4lYv7DlI47zRUoUZOxCG7ZpkklxAcpDv8CBEtf3DIzR6
-         OK6Q==
+        d=redhat.com; s=google; t=1790699025; x=1791303825; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t2GK2VSdmDafmmBxGyGfx0WplyaoJRc/Tp0fAq4VgQg=;
+        b=T+TEKgmSncgG98x7Z04d/W3CmDEEsYrt9XiPfQ04QAB4J5b9C8LLesAkuA1olyE9UH
+         Fo7z0hmh/9h7Kg/GWewx3u5sulBhbyRkn2zfF/ZdC8wrzyS4e2mB9WOHo2JY89lAfkIy
+         WOyKjjygY8ufPxTIBRClSnOajnJGPow4tS7RBxddfDqwrBS+pS+wiI7YFFkDobftKQ1T
+         9gaGkPVH4oZQIe2PvMESDn9ZQ+xoukM+Brzfs4K00KjsqvunO8PwKwAMExNCjCDIX2Pm
+         T5unVkOibDQwxgc21TG9HVP1+wIKsFZPRK5I3oMG1OvZJnTxh9ZLVxS9v39dTMUxNS79
+         4Acg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790698845; x=1791303645;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790699025; x=1791303825;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SKXSfs161kjW32HtCfejw+TqSHrqUFuiYkbURsHolXo=;
-        b=HB+ccfbHGh2yw2DUxmfhjPMrbveh8Wz7on+jtKJPqsabUNz5wWSNb7Z/NqwFvjHz1F
-         AO/aoa77LHEaZ43Dav/ieVWElRy8llZLGKe+0i6D+r+wVAZdSgVUzvS648oKlt10UJty
-         jxHTRGzfv9FxaWVx0m8LQN9PX7OO9mlfvGOqg6McZ9Txi7++kTIr9Mzj6TdR6xw4s/gP
-         LB1nVco7zbD1NedWH4Z0M/DCp653LTz5hPf7CjX/Vt0RRgZKtB7QdNeh0XrvBKIu+a0+
-         yMORxHD+/BBRNHFYwA+4RAtWCISlUVwGaMiYnMcBAXxzVrBP3S8JXWK7FL7GrXUzCiYo
-         ky4g==
-X-Forwarded-Encrypted: i=1; AKwUvBzkKgpK2iYhc1OqG4KVYn+h1LPEW4u+NQWxrNBkO2vdyf98QBamdaPPk3rHopxRlc/rRWm/D5R2DI9N@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9/lrjobvFIkLYs78MMyh/mBkxig1gJig7LmOm1Wx9MrsPbImH
-	9/KpZ9yZhSsv1qMKWPf43oYiQkqSHb1gZtm/WOdmEF7ypF7hvBG1St6QhrsxWcMi8y1IbCLGZ1o
-	DRY5VvWea8bM+fAbG+60ollgBokGRdYN7BnvxWsxQIzRyliCXtWYAd6qjuZ16gyAF
-X-Gm-Gg: AYBFou0cJCTggG5jJUrZmY75JS0At6IWI9K+ZROEhIKdztGDSW0cDLtYqeriby1SPN8
-	D/GoFFfz0hbf8Z1xrLtmvKpCDnF+nKWyOA8km+h5dPf7Ki83o/KDH6P2LJam8NunaEhEGC5HwPd
-	wUpUIUsfnCwiMJ9MMeUvaP1rPG4FxJzX64Trpz9SqRLhg9ockEnhphQ2qFEHEuKfFg7CFW2tcle
-	q9jQ5eHMRH88Y3uO/YksYvOjGsHKiAR/80myTTmFemeSYLMm5WVK2s7tBuvlFFcfCbyzdGetGmZ
-	z5+NyM/YRXV9Dd5Eeg6qx/G6yyyxuz1qgSrEZmz1TYY+cVohTcBGVqcT/RMUFPpGNsJQJUtEgk1
-	FALPEBS6yNIuLIQyP0YVYhE9YVYubjF9ijZxBr+Lof0q9RLEtHoDnCW35CTq2eEZXlfIOOOS5sZ
-	knO784OsLWWr0U
-X-Received: by 2002:a05:6102:8615:20b0:7a2:2f60:b9d1 with SMTP id ada2fe7eead31-7bc3c4a8df7mr5346137.6.1790698844636;
-        Tue, 29 Sep 2026 09:20:44 -0700 (PDT)
-X-Received: by 2002:a05:6102:8615:20b0:7a2:2f60:b9d1 with SMTP id ada2fe7eead31-7bc3c4a8df7mr5331137.6.1790698843874;
-        Tue, 29 Sep 2026 09:20:43 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba3b486489sm32770e87.54.2026.09.29.09.20.41
+        bh=t2GK2VSdmDafmmBxGyGfx0WplyaoJRc/Tp0fAq4VgQg=;
+        b=V+ewnG6XkMl5bjDBOrUxK1gE/XpEY7dbwsBX9NxFoAEoeHW16pS52dmyArxSFECPfX
+         4Uxu43wcNZPwQg9tydOq7nslFMEbCLo/DtBUa+c+tqAemX/uAtQw5dQjp+bONKPf7Cys
+         aCxW6FVTknzgDsaNftrYHdzuBkWAOopI9hGIkZJ654uiB3FMC8OCUadu25M3vPVfRDBA
+         70SgRrLf+IFi+PvhUyhiy/1pqD0k7Il+A6IIGCRmsCBXO3AfeRzjZT5DkRHv4ru4CcGI
+         9UuwdIvRi09ljATlyCx9mU2w3V0vhqhLbrmDQaWkZklRfLHPntxONlZKa5zxK6PvWFBN
+         ll+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBweVcjpITUXd4cb8l1C/7NESvCwCs+704c77nTC34VU9UOGYUONelrP9NFkYuWO3Wl5RSrd1+rmHzH4@vger.kernel.org
+X-Gm-Message-State: AFuF++nsjhcVX/d4wnlyraVIzg0IHEcbnBmrwxApDmaVA3c4ESsf64uv
+	xJZEFLFAGBSsXCqWlzJ1ByUcCujYm69Qq/GTtQo5UH+hJY4dWvbatOwQZ0/uY4H22p9ruW2usqM
+	9fD6uRRfDCYoUNi54i525NtrMX4dFSsU2WnJ90WCB2YGBXc931S/QoYqpr9aoPR8=
+X-Gm-Gg: AYBFou1xUYzymNZiPZW21tNVgH+KFrmiP05/htvp0i3m+tMwugV/KAE8Rh+tLfnCjos
+	hKfyIaEoMOPun+4tGPNXnzR5TY5q6jKNmRZkAlGmcZoJRXVbBJhiqUs27HswZfYIoTJAjJMhC9L
+	GLk6tlDtLQe8+0yMKKOI8OrM9+fV0MPHOhrxyQ8woEd/vR48GhHKPX6F3i1pZyLLsOq7rbQ+Fel
+	LqJN1J+rFe5HG7KoLH7gDUDmlRDdkSZYKQiz45A6LxLJm8JxJYV5BQkl9Xrhr++SB0mron5hpME
+	H0zIlkXbbe31MhkE6RXq3FwkKjHU7YpQ3mDBaLYws0Pw/qFv5hoPmms5KJ/GBvSh9HtBoccuYSV
+	cX3vhI89m5Ug35Y5VJXSiw0v81Y20eFRftzbTNjwJ/p6XmHq9uD8=
+X-Received: by 2002:a05:6214:23ce:b0:917:8964:74c with SMTP id 6a1803df08f44-91789640eb4mr45316396d6.20.1790699024784;
+        Tue, 29 Sep 2026 09:23:44 -0700 (PDT)
+X-Received: by 2002:a05:6214:23ce:b0:917:8964:74c with SMTP id 6a1803df08f44-91789640eb4mr45315646d6.20.1790699024126;
+        Tue, 29 Sep 2026 09:23:44 -0700 (PDT)
+Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d3726b6sm13632146d6.39.2026.09.29.09.23.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:20:41 -0700 (PDT)
-Date: Tue, 29 Sep 2026 19:20:39 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 4/6] drm/msm/dsi: Support dual panel use case with
- single CRTC
-Message-ID: <jwlmzhhgpvbi47lt4biwn4razrvbf2rfi5uyyvfhjomzo7uqyh@ahf4ubqvegst>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-4-c042266b9eeb@linaro.org>
+        Tue, 29 Sep 2026 09:23:42 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+To: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>, 
+ Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Eduard Bostina <egbostina@gmail.com>
+Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com, 
+ m-chawdhry@ti.com
+In-Reply-To: <20260719141236.3563471-1-egbostina@gmail.com>
+References: <20260719141236.3563471-1-egbostina@gmail.com>
+Subject: Re: [PATCH] dt-bindings: clock: Convert TI Palmas Clock to DT
+ schema
+Message-Id: <179069900262.199845.14288580116711428199.b4-ty@b4>
+Date: Tue, 29 Sep 2026 12:23:22 -0400
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-4-c042266b9eeb@linaro.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA2NSBTYWx0ZWRfX/Yzk6sdvQ7TJ
- oCu+4l/oV/RGK0h1pFvZc3E6J62XUOTzq3pAs+HIZAuGml+akdVH1JQRQ7H8o1EArDMDEtCyHcI
- /lGhKFk31q8QkWCPxIPtKk0l9Wwwky3JQfVULonMq6I9ScKRp9qRb3VjvEYL1O20ClFmxKHNl6k
- EFkSJYqY1sbbxsyRwFhmtXTZq1qBaVDCeA+CX+PuLKzyYj0vVDNmdJli02uA6MXilcAv2hfrss8
- wcirWZYWA1z1ItARAf/hyeeJ4x11s7PgQHf7/0NQgKrerWJTFTDsazCPNApq9j5QtQ6Y/kdPeoZ
- 8ZlVO/WlEjCBkDvEO6wGpGGaFUrZLmkagPFvpdxJrxHQp66IZ+prfwBFY8mLxk485GE3aZ3xUZE
- LeDZ4qU8hayQGATSgVyV45J76akGDx9kiwIpV4UvfGb42HTArc8xZuoTKFO6GxYcS6Obnhzo7BM
- eLpRYvAJtchAK/E26SQ==
-X-Authority-Analysis: v=2.4 cv=FJSOVOos c=1 sm=1 tr=0 ts=6abbe55d cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=KKAkSRfTAAAA:8
- a=xngG1aiKzArpkGo9upMA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: DH2N-weQLqf5QMmyBYgrVrr3n16txrbt
-X-Proofpoint-GUID: DH2N-weQLqf5QMmyBYgrVrr3n16txrbt
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA2NSBTYWx0ZWRfX6Iw1i0NckTQ5
- Ywq6MVQsViXSFDo9WGIc1H3PnC5DAn64cGhztv6LdDl3Q1B9xB4mD3Kg+Nonj0L9Xv4sNS7LthQ
- RcDnTpYwkUHYhb7wxjFc3Bz/si9kjzE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290065
-
-On Mon, Jul 27, 2026 at 04:08:43PM +0800, Jun Nie wrote:
-> Support a hardware configuration where two independent DSI panels are
-> driven by a single, synchronous CRTC. This configuration uses a bonded
-> DSI link to provide a unified vblank for both displays.
-> 
-> This allows application software to treat the two displays as a single,
-> wide framebuffer with a synchronized refresh cycle, simplifying rendering
-> logic for side-by-side panel arrangements.
-> 
-> At the DSI host level, the frame width for each link must be that of an
-> individual panel. The driver therefore halves the CRTC's horizontal
-> resolution before configuring the DSI host and any DSC encoders, ensuring
-> each panel receives the correct half of the framebuffer.
-
-I guess, the flag from the previous patch should be coming from the DT
-node of the DSI host. The DSI should then get the mode from a single
-panel and then set the adjusted_mode for the CRTC (note sure how this
-will work for the compositors though).
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=318; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=oHn58vqKcd/4D+xRhJXn7ToD1HJyCAscD2yUqTDYu2E=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2P2M7sOXJ6yzTF0sX3N6tPmWDfeeUp4klMsGZvGdZ8
+ 44XcaoFdZSyMIhxMciKKbIsyTUqiEhdZXvvjiYLzBxWJpAhDFycAjCRyn2MDHsWMjFZ+n+6dlJ8
+ 2Uzmf1KFhbY7AtKbX785O+He+YqudRIM//0NIsQvZ7bUmJw6oys6+U2UWfXkrm8lF7u3lMyKOt5
+ 8igEA
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
 
-Also please note that the are other possible configurations. For
-example, for some time I've had a setup using two Raspberry panels
-attached to two DSI hosts for exactly the same purpose (please check, I
-think Neil might still have it, or maybe somebody else from the team).
-Each channel is an I2C-controlled DSI-to-DPI bridge + a DPI panel. I
-understand that it's not your target, but it's something to keep in
-mind. I'd say, the bare minimum would be to resolve a second bridge (be
-it a full bridge or a panel bridge), possibly create a second bridge
-chain (remember, bridges don't support branching, so you are a bit on
-your own here) and at least manually call the callbacks. This would
-ensure that the second panel (or a second bridge) is properly controlled
-(and thus would get rid of the second reset GPIO from your patches).
+On Sun, 19 Jul 2026 14:12:36 +0000, Eduard Bostina wrote:
+> dt-bindings: clock: Convert TI Palmas Clock to DT schema
 
-> The pic_width is used to calculated DSC parameter for DPU DSC controller
->  together with panel's parameter. While panel driver that support dual
-> panel shall provide slice_width parameter of single panel. This patch
-> only impact DSC configuration, so crtc is not aware of it and not impacted
-> by it.
-> 
-> While the DSI panel driver should manage two panels togehter.
-> 1. During probe, the driver finds the sibling dsi host via device tree
-> phandle and register the 2nd panel to get another mipi_dsi_device.
-> 2. Set dual_panel flag on both mipi_dsi_device.
-> 3. Prepare DSC data per requirement from single panel.
-> 4. All DSI commands should be send on every DSI link.
+Applied, thanks!
 
-broadcasting of DSI commands is controlled by the DT flag.
+[1/1] dt-bindings: clock: Convert TI Palmas Clock to DT schema
+      commit: e44caef8848790e3515c7c32bd3460e948613092
 
-> 5. Handle power supply for 2 panels in one shot, the same is true to
->    brightness.
-> 6. From the CRTC's perspective, the two panels appear as one wide display.
->    The driver exposes a DRM mode where the horizontal timings (hdisplay,
->    hsync_start, etc.) are doubled, while the vertical timings remain those
->    of a single panel. Because 2 panels are expected to be mounted in
->    left/right position.
-> 
-> To maintain synchronization, both DSI links are configured to share a
-> single clock source, with the DSI1 controller using the clock provided
-> to DSI0 as below.
-> 
-> &mdss_dsi1 {
->    assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
-> 		     <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
->    assigned-clock-parents = <&mdss_dsi0_phy 0>, <&mdss_dsi0_phy 1>;
-> }
-> 
-> Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> index e39938fb0f502..a3c56c3dc7904 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -186,6 +186,7 @@ struct msm_dsi_host {
->  	bool registered;
->  	bool power_on;
->  	bool enabled;
-> +	bool is_dual_panel;
->  	int irq;
->  };
->  
-> @@ -1024,7 +1025,10 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
->  			return;
->  		}
->  
-> -		dsc->pic_width = mode->hdisplay;
-> +		if (msm_host->is_dual_panel)
-> +			dsc->pic_width = hdisplay;
-> +		else
-> +			dsc->pic_width = mode->hdisplay;
->  		dsc->pic_height = mode->vdisplay;
->  		DBG("Mode %dx%d\n", dsc->pic_width, dsc->pic_height);
->  
-> @@ -1705,6 +1709,7 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
->  	if (dsi->lanes > msm_host->num_data_lanes)
->  		return -EINVAL;
->  
-> +	msm_host->is_dual_panel = dsi->dual_panel;
->  	msm_host->channel = dsi->channel;
->  	msm_host->lanes = dsi->lanes;
->  	msm_host->format = dsi->format;
-> @@ -2600,6 +2605,9 @@ enum drm_mode_status msm_dsi_host_check_dsc(struct mipi_dsi_host *host,
->  	if (!msm_host->dsc)
->  		return MODE_OK;
->  
-> +	if (msm_host->is_dual_panel)
-> +		pic_width = mode->hdisplay / 2;
-> +
->  	if (pic_width % dsc->slice_width) {
->  		pr_err("DSI: pic_width %d has to be multiple of slice %d\n",
->  		       pic_width, dsc->slice_width);
-> 
-> -- 
-> 2.43.0
-> 
-
+Best regards,
 -- 
-With best wishes
-Dmitry
+Brian Masney <bmasney@redhat.com>
+
