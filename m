@@ -1,193 +1,138 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BABF3AEF37;
-	Tue, 29 Sep 2026 07:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F594374A14
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:02:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668794; cv=none; b=QcJaQ4SHSj+s+NxEzrp6tqqJ14AvsgUsTo/xAyen38ZpRT/Kcc+0K4LrFWjyvONnS5MrcCJPcSVdb6VT1B2rAF1O3EZ9MjhlraQXWU8gGAFM/BdM+9F09QTLklqF6Z8J2i+grS6c1rXgvy2Vh42YGZsSAFpU+NXWOhH4XByuLVw=
+	t=1790668952; cv=none; b=BmqaGknm/NUwnO8eb5iOuF9+ZSmnBs/4E79+6NeIJYETYo23++D+8/m6ycGpWKoulo8lw2QvjAW/K3/Om5MgMm8TiGB30tjkV3EmHfyryp3OMuu1O6ExaqefjlCs7lALTm0K1jPPTAWSEtE4H1uCjZMMHKwRAlw2gml+7qGrXEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668794; c=relaxed/simple;
-	bh=1WVWwGvjeB+DyYiuN6DmLwEzSAjU4qCfoJ5PSSBVzPc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=c9SD0G+jQ3DgvPx57zMu7I530qRukKu8WFL1G7BJgNbqsM02iLRkpMuuqiuFBrcgcjLYtNmklYCYON6C9doZi6cWwjWUtfoRL57nfDZwwxeA3HckUjsGlL/EZdxJNy4GAkjt7zDaV7QVi1Q5Hvms02zGCGwc3ah7oid2Qm6vFZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.244])
-	by APP-05 (Coremail) with SMTP id zQCowACH9D7mb7tqciuoCQ--.6684S2;
-	Tue, 29 Sep 2026 15:59:35 +0800 (CST)
-Message-ID: <0b09267b78f84770db80b2d7e2c30f85c8538821.camel@iscas.ac.cn>
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane
- disable clearing FB_EN
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Tue, 29 Sep 2026 15:59:35 +0800
-In-Reply-To: <ed35ac8d-ebcb-4f7f-aafd-c1b1eb3616b7@gmail.com>
-References: <20260918030125.315978-1-a0987203069@gmail.com>
-	 <20260918030125.315978-8-a0987203069@gmail.com>
-	 <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
-	 <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
-	 <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
-	 <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
-	 <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
-	 <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
-	 <ed35ac8d-ebcb-4f7f-aafd-c1b1eb3616b7@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+	s=arc-20240116; t=1790668952; c=relaxed/simple;
+	bh=suw/0WgJ+OaMOjEOIgd+Eg9+eAm6WCizVG0ceizie4c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UUDUj3jI0+iJ6u+d1JJ0kii1zAHrD8S8yqxDD2R8VzTWHKIPmvq9PNJCVNBBEPbp7/o9mtcEVP+S0IBJjRPyz6bgucDmgGk5uVfkwlIGp0fcXQl0NadmACkOxiT5HvjYL/Is658HsMDDVYIG5NheuXnSyVL2k/q03HAbx+HRZ7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZO9sjO6y; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZO9sjO6y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF3B1F00893;
+	Tue, 29 Sep 2026 08:02:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790668950;
+	bh=qRl020rs7gd79pURTYeJNgPQnbRmsLndyqALKkNt5sM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZO9sjO6yq2UiAujeKHXK3HFdDaVYLUiJ82RpCTbJfE6SVadfdRY64ea+mdEYwYwiR
+	 AKo/qG1Ey1+9aP+TTc4YKOa4v8ikC0tKh4hGUM1lm4OV9GmCwoWLMCySN/SB2AgyXi
+	 mWeRPZPz0O5oXVvXxL/29P2FzTDw3I+dmV8EZttZZdVTS3QvKxnwu5zdra5R59qrkA
+	 jlbVNcjXAf1DkiZLpC4QrD9C5yQSlNYu0LeWCecPhy/pitr2GVeJT3/micKNA1m6uw
+	 IuQLXRtuxhebj0tkwOp1SjSJyO9RSNkXzGv8K/Xg+3zC8oAt1lM3vN6XIuC1Zj9WzG
+	 /lnbd/069S0nw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 2/2] arm: dts: aspeed: ventura: add Meta Ventura BMC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sue Wang" <suwangquanta@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260929075106.74731-3-suwangquanta@gmail.com>
+References: <20260929075106.74731-1-suwangquanta@gmail.com>
+ <20260929075106.74731-3-suwangquanta@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Date: Tue, 29 Sep 2026 08:02:29 +0000
+Message-Id: <20260929080230.7DF3B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-CM-TRANSID:zQCowACH9D7mb7tqciuoCQ--.6684S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuF4xCF4UuFW8WF48Cr1rWFg_yoWrAF18pF
-	W7Ca45Kr4kJryFvwn2kw1kX34YkrW8J3yDXr1rGr10k390yF1xJFWxGrW5uFyxWr1UGw12
-	vr40yr93uryDA37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
-	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
-	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
-	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjxUqiFxDUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-=E5=9C=A8 2026-09-29=E4=BA=8C=E7=9A=84 09:45 +0800=EF=BC=8CJoey Lu=E5=86=99=
-=E9=81=93=EF=BC=9A
->=20
-> Icenowy Zheng =E6=96=BC 2026/9/26 =E4=B8=8B=E5=8D=88 12:48 =E5=AF=AB=E9=
-=81=93:
-> > =E5=9C=A8 2026-09-25=E4=BA=94=E7=9A=84 22:55 +0800=EF=BC=8CIcenowy Zhen=
-g=E5=86=99=E9=81=93=EF=BC=9A
-> > > =E5=9C=A8 2026-09-21=E4=B8=80=E7=9A=84 15:49 +0800=EF=BC=8CJoey Lu=E5=
-=86=99=E9=81=93=EF=BC=9A
-> > > > Icenowy Zheng =E6=96=BC 2026/9/21 =E4=B8=8B=E5=8D=88 03:30 =E5=AF=
-=AB=E9=81=93:
-> > > > > Maybe it's better to just make it the 2nd patch in this
-> > > > > patchset,
-> > > > > just
-> > > > > after the binding change.
-> > > > >=20
-> > > > > Waiting for something into drm-misc-fixes again will need
-> > > > > another
-> > > > > fixes
-> > > > > pull and another RC back merge, which can consume weeks and
-> > > > > miss
-> > > > > the
-> > > > > current merging window.
-> > > > >=20
-> > > > > In addition, it's possible that `drm/verisilicon: introduce
-> > > > > per-
-> > > > > variant
-> > > > > hardware ops table` also gets backported for a more clean
-> > > > > primary
-> > > > > plane
-> > > > > atomic_update disabling fix.
-> > > > Understood. I'll fold the FB_EN fix in as patch 2, right after
-> > > > the
-> > > Should I just apply this revision of patch with this reorder?
-> > Oh I think more fixes are coming.
-> >=20
-> > There's one more DC8200-specific problem (which might be
-> > problematic on
-> > DC8000 but I am not sure): The vs_dc8200_panel_disable_ex sequence
-> > must
-> > be executed before vs_dc8200_panel_enable_ex, because some timing
-> > parameters seem to be latched when the value going from 0 to 1, and
-> > when a stale state is programmed before the driver is loaded (e.g.
-> > a
-> > firmware driving the display) and the timing isn't the same with
-> > the
-> > timing of the first modeset, the modeset will fail.
-> >=20
-> > I'm thinking about sending a fix patchset first, which will pick
-> > the
-> > FB_EN fix here, implement a fix for the stale state problem and
-> > maybe
-> > implement fixes for the old state dereference problems for hidden
-> > planes in their atomic_update callback (although this fix will
-> > introduce a helper, which will then be moved and renamed in the
-> > DC8200
-> > ops patch).
-> >=20
-> > Thanks,
-> > Icenowy
-> Understood, happy to hold the DCUltraLite series until your fix
-> patchset lands, and rebase the ops-table patch on top of it then.
->=20
-> On DC8000: its panel enable/disable path just toggles a plain
-> FB_CONFIG_RESET bit, not the staged PANEL_CONFIG/PANEL_START latch
-> registers DC8200 uses, so it doesn't look like it shares this
-> specific
-> ordering hazard from the register layout alone. I'll run the tests
-> again=20
-> after
-> applying our variant on top of it.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] dts: max31790 undocumented child nodes and properties
+- [Low] dts: aspeed-i2c undocumented i2c-scl-clk-low-timeout-us property
+--
 
-Ah it's not race -- it's that some timing configuration is latched when
-it starts, and the programming won't take effect if the panel isn't
-shut down once.=20
+commit 36f26891634e24be887571e8b0992390654a929b
+Author: Sue Wang <suwangquanta@gmail.com>
 
-This only becomes a problem when the firmware also powers on the
-display, and sets a different timing. On real DPI panels this problem
-seems to be not happening because they cannot adapt to different
-timings (but monitors can sync to different timings).
+arm: dts: aspeed: ventura: add Meta Ventura BMC
 
-Thanks,
-Icenowy
+This commit adds the Linux device tree for Meta (Facebook) Ventura specific
+devices connected to the BMC (AST2600) SoC. It configures the hardware need=
+ed
+to detect liquid leakage, log events, and take necessary actions.
 
-> > > Thanks,
-> > > Icenowy
-> > >=20
-> > > > dt-bindings patch, targeting the current vs_primary_plane.c
-> > > > directly,
-> > > > so the ops-table patch just carries the already-corrected code
-> > > > forward
-> > > > into vs_dc8200.c. Agreed that's faster than round-tripping.
-> > > >=20
-> > > > On primary_plane_disable_ex - I'll keep the "_ex" suffix.
-> > > > DC8200
-> > > > still
-> > > > has a real per-variant operation there (clearing FB_EN +
-> > > > commit),
-> > > > while
-> > > > DC8000 leaves it NULL and does nothing, so the suffix still
-> > > > reflects
-> > > > an actual per-variant difference, not just structure introduced
-> > > > by
-> > > > the
-> > > > refactor.
-> > > >=20
-> > > > While testing the cursor plane, I found the same class of bug
-> > > > there:
-> > > > the disable register write was being triggered from the plane's
-> > > > atomic_update() invisible-branch using the old plane state to
-> > > > look
-> > > > up
-> > > > the CRTC/output, which can be stale or NULL on a plane's very
-> > > > first
-> > > > commit if it's already invisible then. I've fixed it locally by
-> > > > having
-> > > > atomic_update() derive the CRTC/output from the state it
-> > > > already
-> > > > holds
-> > > > before checking visibility, instead of falling through to the
-> > > > old-state-based disable path. Just flagging it here for now -
-> > > > vs_cursor_plane.c isn't touched by any of my patches.
-> > > >=20
-> > > > Thanks.
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura.dts b/a=
+rch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura.dts
+> new file mode 100644
+> index 0000000000000..62a60741bccb3
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-ventura.dts
 
+[ ... ]
+
+> +		i2c3mux0ch5: i2c@5 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			reg =3D <5>;
+> +
+> +			pwm@20 {
+> +				compatible =3D "maxim,max31790";
+> +				reg =3D <0x20>;
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +				channel@2 {
+> +					reg =3D <2>;
+> +					sensor-type =3D "TACH";
+> +				};
+> +				channel@5 {
+> +					reg =3D <5>;
+> +					sensor-type =3D "TACH";
+> +				};
+
+[Severity: Low]
+Does the maxim,max31790 device tree binding support these channel child
+nodes and the sensor-type property?
+
+The upstream device tree binding schema explicitly rejects child nodes
+matching channel@[0-9]+ and the sensor-type property, which leads to
+validation failures during make dtbs_check.=20
+
+Additionally, the kernel driver (drivers/hwmon/max31790.c) does not=20
+appear to parse these properties, making them dead configuration.
+
+> +			};
+> +
+> +			hwmon: hwmon@23 {
+
+[ ... ]
+
+> +&i2c7 {
+> +	status =3D "okay";
+> +	bus-frequency =3D <100000>;
+> +	multi-master;
+> +	i2c-scl-clk-low-timeout-us =3D <31744>;
+
+[Severity: Low]
+Is the i2c-scl-clk-low-timeout-us property supported by the ASPEED I2C
+controller?
+
+The device tree binding schema (aspeed,i2c.yaml) does not allow this=20
+property, which causes a schema validation warning. Furthermore, the=20
+i2c-aspeed driver does not seem to read this property (it is typically=20
+used by drivers like i2c-mpc).=20
+
+Should this property be removed to avoid dead configuration and validation=
+=20
+warnings?
+
+> +
+> +	/* USB Debug Connector */
+> +	ipmb@10 {
+> +		compatible =3D "ipmb-dev";
+> +		reg =3D <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
+> +		i2c-protocol;
+> +	};
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929075106.7473=
+1-1-suwangquanta@gmail.com?part=3D2
