@@ -1,54 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0405A427F84;
-	Tue, 29 Sep 2026 03:16:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BFE03EF670;
+	Tue, 29 Sep 2026 03:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651780; cv=none; b=PFkYtVsG6ZAADB1jAoq9/pSQ8y12TycMQmQvkCYzqX85lmVl0A61gnMLHakTXUKI76JeLZYPvOscGKpSBhTJkZyiKUd8GOlzPmvjKAa9FEywCf0Tfl63DySk9dQLE2XX8j5FcVHctyYpXgQ9QGUCstSYMmT5NMIzBs0Z/GVVq1A=
+	t=1790651783; cv=none; b=KBRm9HcocEps/K48vC6VV7sw6dqlnrwvMyLar82Hv7O7gmjVg+rDvKWa/J04elD5Af4VCIVRjmA6rDcvZBRrd901OvKhG2P91wSEQUHQ/dl8VZljCK04KvZQqpEcAJdufjTXxQg+BGWyBWxLtqtKzob6Jy38Y4NaLBW3zfprVNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651780; c=relaxed/simple;
-	bh=l+N/vDOeKcNCoZOMpLX6skSt6hoikWyX7uLDqIYxIH4=;
+	s=arc-20240116; t=1790651783; c=relaxed/simple;
+	bh=Tv6c29E3oPUK8ET6kCm2bmwGECRoq1rFJ6nVBQiLbHQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bzRJudFuOoKO+cjASsXXfKmDUysftBcpap2qVDw7hUVnPR/7jWaC1JtA8JrxSB3vt9fUdI1+TMnNzT8ZkkL+XmqDvcYZpOYC94VtYfEFH6nv/vpIlX28GVX0+mPTA3B8KvmbK/yeIMGd589W8OGH4VYE2inGA/8SjRU4/6UbeUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cLFc2JEc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=qZbWjnXlukBg/ef/K8ye+KkArd7Guz68pINMUIXPJkZPEhIJbIZJ8EoQvjHiPRZuQ0EYcqbIsLRIniSZOgFQZdycwUfP2rG1hZeAt/oGwr+ilDNqlTpH2joorseZfQMPQkzeGn9Kfjas41SVKkfslLuZ51DPrsC01AhK2WDabWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gs9fa7Od; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cLFc2JEc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94FCA1F008A1;
-	Tue, 29 Sep 2026 03:16:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gs9fa7Od"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66A811F000FF;
+	Tue, 29 Sep 2026 03:16:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651773;
-	bh=wb+0ESFR8alxA0WO3G+yUOYEjeoG719jm+oHpFJ5vxY=;
+	s=k20260515; t=1790651776;
+	bh=qDqr6/DCmkM7zSogsKePJKjRw3YTxUIZkVQYVzKC7bs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cLFc2JEcxrNgIM/MRN92bWVM15PKbPLYH6NQFx5jCJw9u0aoBmjJHqQPRnFt790fP
-	 SguGMeBAgKSXQWdxHBZ3wZKhxpI/nfpsp2EGU0JJMT/H/4dMOoQhH5i8ioDG9dQwyh
-	 dZd4W96L/RV1JpPfIa0MJe6/bOSPg2+wwUO/SzNRFTMH9DLx2iIPkAxRJVj7LBEjp4
-	 RccolTYoA2WTaDGaWsPaJ31ZnqSWn8E/AexSPuYYe5YPz+HvmumRcUpNOIaNbcjnfJ
-	 nl3TQXk1TXMYw9IDttCYqLBWoX3aIHTfLRO4gMAUhE6qx75Tl/4vAXRlfs2cT1Fx8J
-	 lxmuNUrrAabjQ==
+	b=Gs9fa7OdxirM+jqu4k+x+MCQNv+fzvWhfYofxDbcN9JY7Nqt12a/18T1R6AwE5HaZ
+	 y04/Bdyiicwy3MeL9kPHM1SWne3qRK3+G4FJsC04Kii2klc7heypSX9PJkYmIPtfSF
+	 qVuN1ImWC4GOO0hqpLjh4kJjbaKCPBU+2cSIYw03Gwe9a7Go9zqxg1gSYkMf/zOZ4j
+	 0GPwipBC0Vyvb2ng/+Ukd65U42fl9eoGa6nXkRUqccPNoRqOBHxT7OrkhRLKlf3sks
+	 yMQtE0CEGIT2WiR728Zj2f5q7HfHjOAsqQh2JhY+LOp6TEsQjRy0a11FrnyTc85qNZ
+	 iSABinZFWuRKA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Georgi Djakov <djakov@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Alexander Koskovich <akoskovich@pm.me>,
-	Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
+	Md Sadre Alam <md.alam@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v2 0/2] Add Milos CPU OPP table for DDR & L3 bandwidth scaling
-Date: Mon, 28 Sep 2026 22:15:06 -0500
-Message-ID: <179065170992.2673486.12226626252314405778.b4-ty@b4>
+Subject: Re: [PATCH v2 0/3] Enable quad SPI mode for SPI-NAND on IPQ RDP boards
+Date: Mon, 28 Sep 2026 22:15:08 -0500
+Message-ID: <179065170932.2673486.1188980179031046742.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260717-milos-cpu-opp-v2-0-428813fafd52@fairphone.com>
-References: <20260717-milos-cpu-opp-v2-0-428813fafd52@fairphone.com>
+In-Reply-To: <20260807-quad_dts-v2-0-6f578d4152b7@oss.qualcomm.com>
+References: <20260807-quad_dts-v2-0-6f578d4152b7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,20 +52,27 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 17 Jul 2026 15:33:02 +0200, Luca Weiss wrote:
-> Add a node for the OSM L3 on the Milos SoC and define the CPU OPP tables
-> to scale DDR & L3 bandwidths when CPU cores change frequency.
+On Fri, 07 Aug 2026 22:05:30 +0530, Md Sadre Alam wrote:
+> Several Qualcomm IPQ RDP platforms support quad (x4) SPI transfers
+> between the QPIC SPI-NAND controller and the attached SPI-NAND device.
+> However, the corresponding device trees do not currently describe the
+> bus width capabilities of the flash device, causing transfers to fall
+> back to the default single-bit (x1) mode.
 > 
-> Tested with 7zip benchmark ("7z b") and membw [0] showing very close
-> results compared to disabling .sync_state and thus keeping all
-> interconnect bandwidths on maximum vote.
+> This series enables quad SPI operation on supported IPQ reference
+> design platforms by adding spi-rx-bus-width and spi-tx-bus-width
+> properties to the SPI-NAND device nodes.
 > 
 > [...]
 
 Applied, thanks!
 
-[2/2] arm64: dts: qcom: milos: add CPU OPP table with DDR & L3 bandwidths
-      commit: 99f8d632f69ce29d5cd1326439f03d5a53373600
+[1/3] arm64: dts: qcom: ipq9574-rdp-common: Enable quad SPI mode for SPI-NAND
+      commit: 1f6925d80ae327ab4e18e21b7c87c57b793c462c
+[2/3] arm64: dts: qcom: ipq5424-rdp466: Enable quad SPI mode for SPI-NAND
+      commit: 4d36e6d8c5a489c85d9440fc7330beee9b74f6f0
+[3/3] arm64: dts: qcom: ipq5332-rdp-common: Enable quad SPI mode for SPI-NAND
+      commit: be63397b43a4b1b3c4fbdb149413dacd8ad5a844
 
 Best regards,
 -- 
