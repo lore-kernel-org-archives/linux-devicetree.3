@@ -1,128 +1,108 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36629515962;
-	Tue, 29 Sep 2026 11:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BEE511217;
+	Tue, 29 Sep 2026 11:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790681466; cv=none; b=YrQKga02a8HFJXOAO3o6KeCq06Hz+sIfMEuHTydDqW6eBfXQkPRTDpAsbuKPcCbuunYFpyFpyRenLkS8EogYDdkH0kZ1KVbrQ29dY2Tky+NL3DMQiActKqrWV2hv4EQgmGQUu8se8s1y3d6r6dZ9anwg/tbRAASZhprrF5rVbPs=
+	t=1790681596; cv=none; b=ZrufnW+y+MTpKFAGEi/RIvLW57aC2zp05xdhVLlKqMQaRVfIsps7Y9JkJ86Dh3609CweyVHuPzru71FtLiZply0JGQBtr30vGQo+r71zu2N4yZwng+3afBWrXYK3tjdmHbS9gxiuO7ltrFKY2ZiXaqKwJjnAY5VTKcYe9H/tGEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790681466; c=relaxed/simple;
-	bh=z/KFEy6RGUUyJBBA+EtI7RYfVHj2bbzV72v97R1tdOE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lvZlNHyULs9mEMLf6WiPsDcH+Rx0EC2Y8cbA8Wvcpc6YfsWITX4Iw+ZTGSQLleDGISI565UJejHybB3hrglMjXN0Y9OWLN/26Xtj/AeUMyQcicRu8g5SsIkHCYaW0kuBJFU5c7wi8+snifcJTkKMXGjqpt807AmuSvd9ozzFusM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=GiZRMLd+; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790681596; c=relaxed/simple;
+	bh=o38NYq67pIHj95OIB/9M83EPfFgbWcUBjFoKcWAFszQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cRKPESp38WtvAgZJe/L7AvBO3rekoY571100BZG89IFGNOkWkfQuUfWulutkRAig0LUdzreFFJYR3vx1OR5WIjcCceXlmIUjmd0Q5NtBJ8Pgv2qWW3vxQNZ1BkP0/e8ud3wzXlC9Mbd6DH9/vw7KbrLVlbicNxdVdUcOSzpPLNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDfq3ESV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="GiZRMLd+"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TB5XPq3836621;
-	Tue, 29 Sep 2026 11:30:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=hv/+em
-	kRWO9iPBjIN6Wh7WU3+msKu56KfxliaDemn2I=; b=GiZRMLd+wW/ixZwyv+3lNt
-	tzM2cQ8miXfD9XYvYQFFhc0L30y+MMwt2L7X1hz5/dbKBsf1F8JKuh+sQmcgMtSa
-	0FEc/98PJwt7AxfxKbbw6Twxf2d2MTnxjrNW2QN4V2Jok8ve+r2pUISk4pePcdel
-	I48jvk4+EBLgBBRyc4ISzlbbVksL3AZ4ZTny49EGw27pvGmnjCUAdGFAQFXI9Aby
-	amVmtX6Uz8EIgbzSTP+zoB6gB7VM3cDPTrBkQa0eXatQx6MImZWqqA5aeqvWb3qx
-	C7fDaEeSzYKAfn/ZkZz17nnREeY0yIvZCtFNevK3Hv4w6wTIoEuAIfJahAk4JDng
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gx3fk6bk5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 11:30:53 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68TAlXQO1607717;
-	Tue, 29 Sep 2026 11:30:53 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gxsck9f7s-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 29 Sep 2026 11:30:52 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68TBUok932309996
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 29 Sep 2026 11:30:50 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C80C220043;
-	Tue, 29 Sep 2026 11:30:50 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C14E720040;
-	Tue, 29 Sep 2026 11:30:47 +0000 (GMT)
-Received: from Linuxdev.ibmuc.com (unknown [9.43.88.139])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 29 Sep 2026 11:30:47 +0000 (GMT)
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: devicetree@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] powerpc: 512x: Convert ADS7845 touchscreen on PDM360NG to device tree
-Date: Tue, 29 Sep 2026 17:00:46 +0530
-Message-ID: <179066556648.265207.5394340720095923336.b4-ty@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
-References: <20260719-ads7846-pdm360ng-v2-0-1198bd108502@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDfq3ESV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 998C31F000FF;
+	Tue, 29 Sep 2026 11:33:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790681595;
+	bh=e+gknYVW9XCp81xeC0RXx9vcOUHAJigZEtqY/xe8b6c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eDfq3ESVa10xLkpSv+CeI5FF1JUQktUhny83NdvHPN+F/Gsl0SORQ8nYLanhlRObL
+	 3rtdxQBVjPAYI6hiVUnHd2NqzqZjFK+DdiO30XeURd23enxO2BENrhbozvNTo5RMYo
+	 MYRqeYSyedXYG4xB4W19ElcDnoU1dp5FvngYHL6+vLcL7hF3RwBnN7qcbNHBTDS8zJ
+	 G4jFmbmUNbbCax96iFWSepuDD2HCv4SUjvmjwVLpy5ix5REIGjVm+psvkgOeJbOSOT
+	 dtC2VTT9NqBZqFMgmDJbtzbdP8r2tD9CXrS2Vf0OI6pkF21ISs5ROETw/aW89lfLlc
+	 xH4NbBNe8Tgjg==
+Date: Tue, 29 Sep 2026 12:33:07 +0100
+From: Will Deacon <will@kernel.org>
+To: sumit.garg@kernel.org
+Cc: brendan.jackman@linux.dev, Vincent Donnefort <vdonnefort@google.com>,
+	catalin.marinas@arm.com, rppt@kernel.org, akpm@linux-foundation.org,
+	sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org,
+	mark.rutland@arm.com, ardb@kernel.org, thierry.reding@kernel.org,
+	david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
+Message-ID: <aruh86rd5FMv2i9G@willie-the-truck>
+References: <20260921110050.3977591-1-vdonnefort@google.com>
+ <arIYtjmSKCs14SqO@sumit-xelite>
+ <arKW_91EeKA-w96m@willie-the-truck>
+ <are21BjeS1O3RYE3@sumit-xelite>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: esyysZ8nb_dssoUcnUVJpjiGBXktWRrM
-X-Proofpoint-GUID: elWxVTT45i9DCla6CZzhpgA9ouIOqIzq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA0NCBTYWx0ZWRfX0LqpBqYRWpP8
- /78EM6W1bWtRezeBCdam+JlOQS4qjHjL96Y8DUsZujF13x8tmYFHFiTMSOKHQqvzDO0yzOLHUnq
- PPN4eWJU1iuwttxTNGr2OAWMIy70xvQ=
-X-Authority-Analysis: v=2.4 cv=Vv62kO2n c=1 sm=1 tr=0 ts=6abba16d cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=ymJX2-ASNZfWrTgWY5YA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA0NCBTYWx0ZWRfX2v2PBokA1Q8v
- AwfMESEHvPihUkMvYIeW5B20uHs0KaGHmXfiJ5Ncz43ImLJHy8qdInA6fEKhouTAGT8wfnagqww
- XzCegI0rkxa3b857McLoo7QbETGcOiMwTnZh7LyezteHhgG72SX5E4hXzKk2/yTWMpGykUmpd5N
- 5T6HA+ohfaPNdllnEhuujTY3/YnOT09uoqZdxRw2SehXdj07zfbfG8ECrCBoKd71Pmx/W7RF3CM
- xEJe86EPX+/pnUMjpKv4SA/DZSlB0k3QoFG5HD0hqPQU6EgPFcv5jr6A5tZsvSfTz+7mBRLYIz1
- C9LfiLjMNQiMg4Q5Cuz6hb//xI1monMPmVtqXkw/2q546H/MQDBy0CclBqH7xbnkfh0SYeML94g
- MSrPdxNgzaogeR+FEG3g+4YkgXXlRcHjHhlrFGkRejJuCmSC0hlPn2dzpDCJanKLUCG9dSSmGYs
- y/hfrMvt18II7ytEYoQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 clxscore=1011 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290044
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <are21BjeS1O3RYE3@sumit-xelite>
 
-On Sun, 19 Jul 2026 22:37:15 -0700, Dmitry Torokhov wrote:
-> The reason for this series is to remove support for platform data in the
-> ads7846 touchscreen driver, as pdm360ng is the last user of legacy
-> platform data in the kernel for this driver.
+On Sat, Sep 26, 2026 at 05:43:08PM +0530, Sumit Garg wrote:
+> Looks like you dropped me from your reply.
+
+Huh, that's weird. If I hit reply-all ('g') in mutt, it moves the entire
+CC list to To: and drops you. I suspect the same thing happened to Thierry
+when he replied here:
+
+https://lore.kernel.org/all/arJcN60nagFKXj2Q@orome/
+
+I can't figure out why that's happening :/
+I manually tried to fix the To: and Cc: lines in this message.
+
+> On Tue, 22 Sep 2026 at 15:55:59 +0100, Will Deacon wrote:
+> > I spoke to Brendan at LPC (?) last year but this doesn't really work
+> > for arm64 because it relies on being able to unmap arbitrary parts of
+> > the linear map, which isn't generally possible unless you force pte-level
+> > mappings for everything, which is prohibitive for perf/power.
 > 
-> This series converts the ADS7845 touchscreen on the PDM360NG board to use
-> Device Tree bindings instead of legacy platform data callbacks:
+> As per the cover letter it's about allocating pages that are not present
+> in the direct map. This essentially fits the protected DMABufs use-case
+> where we don't want any kernel mapping to exist at any time. Bufers
+> allocated from protected DMABufs are only meant to be accessed by the
+> TEE implementation or HW accelerators like in the secure media pipeline.
+
+That sounds like it should probably build on top of this series, then.
+You could allocate the DMABufs from a CMA region that has no linear alias.
+
+> > Vincent's series tackles that by using a pool so that only that part of
+> > memory requires the pte-level mappings in the linear map. That's the
+> > whole point of it, so I don't think it makes sense to drop it in favour
+> > of Brendan's approach (which doesn't work).
+> > 
 > 
-> [...]
+> For protected DMABufs, we even don't require any pte-level mappings in
+> linear map. The whole idea of mapping and unmapping is just a bottleneck
+> for performance sensitive secure media pipeline use-cases. That's why if
+> we can support __GFP_UNMAPPED with the memory allocator on arm64 would
+> be the best fit for this use-case.
 
-Applied to powerpc/next.
+The point is that you will require pte-level mappings for the linear map
+if you want to unmap from it at runtime on arm64. If you don't, then you
+can end up needing to split a block mapping (e.g. pmd-level) when you
+decide to unmap only part of it and there isn't a safe way to do that on
+arm64 without transiently unmapping the entire block, which can lead to
+fatal translation faults during that window.
 
-[1/3] powerpc/dts: mpc5121: Move GPIO controller properties to SoC dtsi
-      https://git.kernel.org/powerpc/c/dcc3091bde54bbf870b56edb3c91a420c1bcdb29
-[2/3] powerpc/dts: pdm360ng: Convert ADS7845 touchscreen to DT bindings
-      https://git.kernel.org/powerpc/c/4e3187c830221460f1a7d9389c3e8662ad28d4f4
-[3/3] powerpc/512x: Remove pdm360ng platform setup in favor of mpc512x_generic
-      https://git.kernel.org/powerpc/c/5e78442b76844e4d46b9cac5ed123b76807f30db
+> Now the question is why arm64 can't support __GFP_UNMAPPED similar to
+> how Brendan is doing it for x86?
 
-cheers
+Because arm64 != x86? Presumably x86 doesn't have the strict
+break-before-make requirements we have on arm64.
+
+Will
