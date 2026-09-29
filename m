@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AF13EC81F;
-	Tue, 29 Sep 2026 03:16:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4E13EC699;
+	Tue, 29 Sep 2026 03:16:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651793; cv=none; b=bMfxq5nNcoUXDQAz3YuY0VKD0aZVtYRQ2BzoIw/7IrlR0x8NJK+eqBxy0pZOhRZiEyiKEblGzHc6bfWr5YPkAXErEz3xO9pbhpSLgbylgoZQCD/GEv8Ua8ltlP1JZ8zsE4xMvOkSlWMHulHnKEmOWja8Uj7CY6L/1VSxfcrHVI4=
+	t=1790651798; cv=none; b=DH/gy/M+3VhY9UjKUix95gb6+3ybihy39U3PLKY7r/IDrr7MyA6qwpI4L9mtFWjCcdZN55Gki+w72F0LXx80UWLnihys5VeZJFFVh1B3VLrmSaiIjIICmaLf+Pp3T89iMqqjzG2u4Eio+w0CoonIWa5dAYPDQviUlrW6WnBUW+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651793; c=relaxed/simple;
-	bh=gFnD220BeNKBUWaKsKf6HZQ/7TAwWBF1QceriBjugew=;
+	s=arc-20240116; t=1790651798; c=relaxed/simple;
+	bh=6dMLeQdO5pl0nr47wIjruX6S6k8MhWUxHigqRiI7Sfk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tgHNJ0xPm81Q/L5f1Kg3DHAg4lSH+fIv1r6sLXRYwXDR2AvSx1K9TR6sW5dOWm4YYjqQC+g0A4XuAqYYT3vYi+oesDkFrLzoRDdVR/8sYSxoVNHE4K3wX4r8+UYBfgy9Ihz/gmETYb4EcQjpNAJJ0Ua5P/21IpdAzHaHPPPLF5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P8Spwgqx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KbixwqPVqQGm3qRB7fHa/MJE5dFoO3RCOm4Gto/0LK7P78aIA97v+QQCcSZvhRWO0UsykY5OAqgEJsj6PWQGSkSQDm62IRpPy9bB2tm38yZ2kAQe9vJ2Lj2b2lpWhZIJak90XX5aWM6TLsh27KB4VGiWq8H9r8uTt6acc+bGAxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W83Bdj4q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P8Spwgqx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7E7C1F0089D;
-	Tue, 29 Sep 2026 03:16:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W83Bdj4q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AB6D1F008A4;
+	Tue, 29 Sep 2026 03:16:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651788;
-	bh=CRx6iCjOhvZ36aSsrBvUPVXU+lZVA+MgilIpEDBTfA0=;
+	s=k20260515; t=1790651790;
+	bh=vprCGAa2wd4gq7G34edsU9r2Pc21mQ/emg9lNL8v8Ko=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P8SpwgqxG4Ehec4N04CHAoeUu+dV644wnUf2oQ5yIR8nB6zm/uA8P2sAIXEiyfWHk
-	 eevHODvcboKoxfJo6RfhXPhyyKQivRs41IuQqkZcGMaU4fGa/61WfOSTvOYyy3z4Z9
-	 tm5IGKSkTnsQWDujf678BU6Hx9SD8laKuNcAZUr5YLq+f9+JDtInN4JMmiRdnL+i9R
-	 XEwtoVM64ngFiUmr6rlzdUD1LakPQKf91xRNhgKIi1hhNGNsM7Ps/T4ACAnOabEoGv
-	 yrPuTjexWVQEpsHF3+KWN+9ufyDbLdD8phjvwSizMXH+2I1tXSpkIveqQEjoZXxwFy
-	 iWRgcG+gPtQMg==
+	b=W83Bdj4qUOZrG9Pq2j87YVMIUyRHHKtn5fqchNO5Q3+YXIuNx3SD21D9dCyiFMn4B
+	 /lxUorlxWETuCkLkHNqSJATCObW6VU2rFJeO/lPR/AH88XjQxjlrgUyyqGYRkae4/u
+	 DAUevKJOR8SCG5mgYSyGyrSPo/eeKvAhO0saR4XEnt0e2C/aAC4s1SFkKCt82X6rXf
+	 jWkR5DeCKgl8hO2PI0PT2lUmDWLU1/ZxLjx551dGyiZVJzlm8GfuZshHQoIK9gwZt5
+	 YNSzxOFGbx9MICzBH69/P41P8Wrjq5w+1YAXo+PGuU//RVIFzI5HmB9fXL3U9yOwhT
+	 mVsBg+8ThKblw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Robin Snyders <robin@snyders.xyz>
-Cc: linux-arm-msm@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: qcom: sm8150: describe download mode register
-Date: Mon, 28 Sep 2026 22:15:16 -0500
-Message-ID: <179065170945.2673486.4604711400290292347.b4-ty@b4>
+Subject: Re: [PATCH 0/2] arm64: dts: qcom: Use hyphen in rpmhpd OPP node names
+Date: Mon, 28 Sep 2026 22:15:18 -0500
+Message-ID: <179065170948.2673486.15346411316948283756.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260811-submit-sm8150-dload-v2-1-fb688ac4896b@snyders.xyz>
-References: <20260811-submit-sm8150-dload-v2-1-fb688ac4896b@snyders.xyz>
+In-Reply-To: <20260816123648.1632681-1-shengchao.guo@oss.qualcomm.com>
+References: <20260816123648.1632681-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,21 +51,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 11 Aug 2026 23:39:12 +0200, Robin Snyders wrote:
-> The SM8150 SCM node does not describe the TCSR download-mode register.
-> Without it, the SCM driver falls back to a firmware call and the
-> mode cookie may remain set across a warm reset, causing the next boot to
-> enter the Qualcomm crashdump transport.
-> 
-> Describe the TCSR window and point qcom,dload-mode at offset 0x13000,
-> matching the layout used by SM8250 and other related Qualcomm platforms.
+On Sun, 16 Aug 2026 20:36:46 +0800, Shawn Guo wrote:
+> The rpmhpd OPP tables on kodiak and lemans have some OPP nodes named
+> oppN rather than opp-N.  On lemans this is inconsistent within the very
+> same table, which starts with opp-0 and opp-1, then has opp2 and opp3,
+> and goes back to opp-4 and onwards.  On kodiak the whole table uses the
+> oppN form, which is inconsistent with the rest of the qcom DTS files and
+> with DTS coding style.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sm8150: describe download mode register
-      commit: ab6a07a8de6f4df3eecb733d0620019734592f31
+[1/2] arm64: dts: qcom: kodiak: Use hyphen in rpmhpd OPP node names
+      commit: d27d7fe39ada945129f075698ea4f50bb6df8eb8
+[2/2] arm64: dts: qcom: lemans: Use hyphen in rpmhpd OPP node names
+      commit: a469c17e9119a239b85f5ae578d39f17d140572c
 
 Best regards,
 -- 
