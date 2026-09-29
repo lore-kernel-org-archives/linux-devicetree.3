@@ -1,84 +1,84 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 046984D90B7
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:55:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 458104E36C6
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672152; cv=none; b=SQ8yMn2dQ6T0R7afD8vUuiI8kSSV223EFQoLZkngaIVMkF4U2UQ1cU4QUfnNKRhGT+xfUo3d4GGcfwXHTA0Cn7Vjdkfs488Ox9GVkDegVJMFrppxvVqDRlINK1TIs13ZnhL/N6oIFK+bOi5pJiMH96uFoBc6HHZrlhe0ScJGitY=
+	t=1790672155; cv=none; b=unqGUGhGbj+co1Y0d8qe7q0blLgNRao3Cg3P85r2Vfmfb2FOZMnWb6T+rCAEgiXCubvUuhh5r5bnz5McgbLZ3GfDSUHURnG5FsQklhyUCvGcRcEBrvLRaqoU55kZh5D3PwnaVAuViU5CsdYupzvDY6rL0XpWLXrXvmNJL5yyg88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672152; c=relaxed/simple;
-	bh=mHepdVbJPxNvU8itI5Ivv2iCTV4xL68SgVmQYDIfOwU=;
+	s=arc-20240116; t=1790672155; c=relaxed/simple;
+	bh=bHaDSjXWbZXbjzHnaeozTdWBw06rVQL/VsTGMb6wq6w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k/P0vyB23VW+tiq1S2dGoBBwxrLtC0s74OQFw/r3jVGqVppEOZJcvrCoJitpHjVoydxm9V5+ev+bhaer2rgTExgbyPFKcTed2AkA1VFDaGPBg5JDq5o9B36hYK5IDDzePqJ49RvZbYqo2lG/Nc6CQSHWwZlM58ClOQTTUqWAVuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UUExnQ/c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ckQi+wWO; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=qyNrlcO8sW8WUwNSz5Zr/fK+PjHFQ12tilKHSErVwKC6kwYy/1UU/Sl1l0TUvHqAiAkkaippjDGvoc5NHumidfVbfF+7oLO4sR6pXZ00yhfM3I0GINYwDVVe6/c7ZSDP/pJrY4pTXM1++Huo3ZwrNbUZ+nIi/HgqXDa5t/8x7og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gtR15o0I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K9B4murA; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UUExnQ/c";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ckQi+wWO"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7ThPq761151
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:55:49 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gtR15o0I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K9B4murA"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7TfYh300657
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:55:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:sender:subject:to; s=qcppdkim1; bh=w8uA
-	xPQTNriPK+J6GENlzIvw7QyY2G0I/IG4ZlhS7EA=; b=UUExnQ/c/u+HjUvR9PPs
-	Nc5C4uL24CDg7prRFFmZfS4EyKSKn2q48F7jsfdlQshO1xBgZeB0+ojcYDy9qKlr
-	rIkcWzgVXfxjKMVb0ytRKasHt5/DkuaKTPeNx73gHIBENIePKuVpEHF7zt1ZV0CP
-	bIx9gydGeBr6ocKKUOcDGTtDbb2f4Q9l52b5HZ8ZMPDqQLg37LWZGHtxy+LkUPYU
-	GI7+XG118z5O34Bud2sQeuJUBxUTG234v8BrJb744f+HhFdPAUVZMsSh83LXXmST
-	UZFZgfv8QV4880ive5BEwF20AxB9U5uJIKXkgD9BJ2Sbc/ExfQGNr1/mnyRR+P3X
-	dA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gyw03k4uu-1
+	:mime-version:references:sender:subject:to; s=qcppdkim1; bh=DfhU
+	act2XGE2bBOExBgkUlROXqvCW+0SiOtMheORWPs=; b=gtR15o0IoQGTPDu7h1oa
+	BoPjYLSNSSwsYEhyQ4dgHc/VfdUs+sM3Vxj6G0IXarazd/gF6EUdzKVBPDIW2bRM
+	loNH4T+oFj28MGIWw56OWNrwi8N18m2HN4UzT3pSL5+BnCrxzq+0/snO0Vy1eJHB
+	Zg07Pc/H/6u0LkuWxR6nv7pHFjpZ9oo+Z69yK4tyFVoXait0maoyA/nz8htmom6c
+	j1inTrXOJLM959zUcYjnYJM1LL9s+0Ekcwuk1YC6GBO3aWWApkmR/Wa/Ie9vKwiP
+	6S5JFpqQpIzEdSAaL3dcZEHD2pc2fQzCLRMjNwlaYeoPromHUMmMDn+iRNytUoSC
+	xA==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h05yxh358-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:55:48 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-313d1015161so13340946eec.1
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 01:55:48 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:55:51 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34afa104860so932816eec.1
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 01:55:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790672148; x=1791276948; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790672151; x=1791276951; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w8uAxPQTNriPK+J6GENlzIvw7QyY2G0I/IG4ZlhS7EA=;
-        b=ckQi+wWOUkFCH6MorD3QSZEys4SICGZnQuPzitEERvKgDBpmxfiNVQlMyw1bVbtJem
-         BJrDNOkhD5ds01RuAv+aN/bpZ0MtEVBwCBlKgBpCSW6t5WJUiAwR2isHNESWynxXc5JE
-         3J0eTR8vQa5TqO5rIg9JVwpptRSrQtt3Pe0NMPJtBdenVptfKsMM139V43yBKpZQ3ym+
-         2CbXvOvD4Ovc+MLYAe4AaOtrGDatfhFKzMwWvjP3XA4YDfd6xXJITFNpFtXh2Gv+J6Mg
-         Fi38qjU7f2kXQ7ZsZo0pcbtJRk+tTrGZncZEVfRwqyo6cp3R2CHP68YBPOojh2f8XlHN
-         OPWw==
+        bh=DfhUact2XGE2bBOExBgkUlROXqvCW+0SiOtMheORWPs=;
+        b=K9B4murARAZNnuHaafXwn38smCbUeSx8FvOOrQ0ey8l0eV/Q6cMD//lBKdzkXUmeAj
+         PpihdMDQh07/5khQdje6r9NMGauhfSO+Cc2fCUfQG/ibHu9/pEQ3O+cgDv8KxFlUWLND
+         PsPa2PkPAF1bSfdM0lgeKY7AAzLr2xi8Mh3KrKCnprdpmnYlHbuwi4WNd2rXrwsdnQDP
+         DEG+DNA+dtYs1kdzC2xxe37xTFzebaai5Qq2Z9L17gWbQS0u5xXQsavJfWSGK3BXYlgP
+         D8xZzo+kHEm0wBUBmxkFjnUQEXRoAM3grhpCLdAqjz1AFYuIieMDGoHm+D3h1PQTJXXd
+         SkYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790672148; x=1791276948;
+        d=1e100.net; s=20260707; t=1790672151; x=1791276951;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w8uAxPQTNriPK+J6GENlzIvw7QyY2G0I/IG4ZlhS7EA=;
-        b=hqfF5HHggKo1naQBuU9y+xTALWomD5KpdT+8vN0sWfEbYPfEXuyltDxQnoM9wzLzI+
-         gYwz10FCa6dFlhnA3TEL1p0XwRqHhnNkpXPkTRidLlJLrT0aazUApvKb+qp7PT6yL5C6
-         McNTyUcDO792aT2aCGkYQ5f8RftyAObOYs5MeAoWxPLvcXc+LpyzDiGYr12p23VHlqFk
-         QE6i98KlaoK0FlHvYl9iKMCzQ6VCkNzwuLwHVGAZe6+XxssJr+dyACnfnbjpbM9DgiRB
-         esxuYuv6CCpxP8MZhcrjkKK8QthyR7ZlqdhrQOLgsI/7sFDg14lZzcVQE2NcyjD0gaG7
-         FQ5Q==
-X-Forwarded-Encrypted: i=1; AKwUvByWMA5dIkLX9UcrjnaBnptmObB59AOKGHBFSbYDc8929YPgtc3+0J0AqjfxoOz4LlYiB5Auk2rbgB4j@vger.kernel.org
-X-Gm-Message-State: AFuF++ljVK31SwIl/eeSOqpXACeGK/vRwbsQtEUXlKXe+QD++hCNa3pB
-	1ZOaA57I8mIwQ2kgzONQhkvi0Wo9joYxpFwSy9V+w97gArfXdVg4l36prOIxNDyu4W/af2uF03l
-	ZlDtkMd2tpAazyYEI9JRyGPaIZWDkSk2pd5tF+ebEy2j7OaJZai7qW7bsdwOPqiFR
-X-Gm-Gg: AYBFou1lVjvO8/08uJOXk8ZmHGCGazYRKpAT+3lY0av3rBgqDn4ubzMbiRhKk7uwozE
-	Slg0Tz8U19LtGmrGfA4I88ejSXH2HeDBXug8p9/KB3bw+LtacznQnLjkYzeKsoI/6AWMIbVhEQd
-	oq0Dut3mu2OYt7EgcxHTsyL7H/JVn0xgLw1R5v+Nu0ikW0gVPZyJyEtJPMXofMHm8gqX5SHohdF
-	BCnVfP5Tdk5w4AyAjhZIBXbapCMwEpZCZaq8vG0VOgfip+/6SaY+jucVFKkRSLXluL8LMe1SFYG
-	MwyRU8mTTCsZPs7aCL7sGvnS99u/lxPBtdMiVmmQgL2eaEmI+luHk7UJw1ayjgJ+BWUsD8jjbjr
-	Old2qrxoi7etgqNcgoO1aU7shIK1X3S5tzcz0YEDwRTCNWTEtGQ7sdYcd
-X-Received: by 2002:a05:7300:3a97:b0:34b:c18d:c290 with SMTP id 5a478bee46e88-34bc18dc581mr337595eec.15.1790672147914;
-        Tue, 29 Sep 2026 01:55:47 -0700 (PDT)
-X-Received: by 2002:a05:7300:3a97:b0:34b:c18d:c290 with SMTP id 5a478bee46e88-34bc18dc581mr337496eec.15.1790672145499;
-        Tue, 29 Sep 2026 01:55:45 -0700 (PDT)
+        bh=DfhUact2XGE2bBOExBgkUlROXqvCW+0SiOtMheORWPs=;
+        b=q7BZrBF/PKhvyXbJ1Dm1Ok2l1Mdd3SL9T9AIGijoVylbSZYeohLyd3Sd/DgpRxv9Rt
+         c9VGgXc3t7N/EL32X5u+wStpe+tEv/2xmbNR7NQggHyIkHTSYjrxTavHnUH07UiQwwE7
+         P7mTNvFn95V83Rvh7KjKI5fZ9eBdn6+/SzBG9Ctlgk6tavCWCMHOfn5iEr6rfqISK4Yx
+         AztTsYmJAV21M7FpiYPCFgyZqwHmQq5YcX/opPOYM2giyjasTrkc7Aio8KBgxjpZzndl
+         RwsXPkX2Fg3oj1A3w6gj+AeplLS6QH8rhLD6D4GVB9CsTJlDgosChfrcrFMI1qwYeUvN
+         E+JQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxVf7CSgHv5l/rM+gUwyxDxX9E+ZgT5Kc337M9VFHuHRQ4uI93D7XDVSQdOnTTw33fU0f7XZRTeuMXg@vger.kernel.org
+X-Gm-Message-State: AFuF++kxPwfpddr8B1PjgRbPpCuit15fss6Y0R02uIoLeUsKHCZGgsvO
+	hvHnrxONuwyVLWQC6sll8ZCq9xvXMnPyMPPrjs+5CzqCByo3U+Fkf9rbysI77d1wSYQzIuiUYka
+	yHmW4+rD5y6CzUye4awNi1xE5y0p0dxZEWqNZZnR2a3K28tpbH0bAdfXkfBbAwJHq
+X-Gm-Gg: AYBFou1XaxT2DmCrcNt4qjr76zKv5gxjZsYFR+aHvSRZXBkRvxFMssVM0iukkRG5UP+
+	bEaixOCMsvLgUVTkI1gYkCcJKcnoh2VnFqqSOrQNhpI81kt7f3R2iOxom2blRmaCO9aAptajIIa
+	UEl0ipKnlLWhiDl8645z29YHACoOFJLFF86O4v4xHVGZZWz7dR+8tHfUj5pVInbYHVqtXjfvJoj
+	UHh3tb5oYjvbSPvGeFyILVgnyHpPQ4M2BVY6vycpExDsVeYSs5DVGeZuhfOqUXFvym3Kxipb+Vi
+	rMLGsG9IlQwomFZgUybeaghKgsIlN3PlISEgdL1757gz1Kr/JpVq+UBiLj1JdyM5GIIuPFleCbi
+	bMB3aPwte4D4MsZUPAX8UZRay4t38o/7ct1g73es5YXsLvvW/k+L1/axq
+X-Received: by 2002:a05:693c:8802:20b0:34a:48ce:b687 with SMTP id 5a478bee46e88-34a48cec2bbmr4105931eec.32.1790672150791;
+        Tue, 29 Sep 2026 01:55:50 -0700 (PDT)
+X-Received: by 2002:a05:693c:8802:20b0:34a:48ce:b687 with SMTP id 5a478bee46e88-34a48cec2bbmr4105913eec.32.1790672150226;
+        Tue, 29 Sep 2026 01:55:50 -0700 (PDT)
 Received: from hu-sunilvl-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144f4eb9esm34294467eec.19.2026.09.29.01.55.41
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144f4eb9esm34294467eec.19.2026.09.29.01.55.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 01:55:45 -0700 (PDT)
+        Tue, 29 Sep 2026 01:55:49 -0700 (PDT)
 Sender: Sunil V L <sunil.laxminarasimha@oss.qualcomm.com>
 From: Sunil V L <sunilvl@oss.qualcomm.com>
 X-Google-Original-From: Sunil V L <sunilvl@oss.qualcomm.com
@@ -90,9 +90,9 @@ Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
         Alexander Shishkin <alexander.shishkin@linux.intel.com>,
         Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
         Sunil V L <sunilvl@oss.qualcomm.com>
-Subject: [RFC PATCH 3/5] ACPI: property: Add device graph support
-Date: Tue, 29 Sep 2026 14:25:22 +0530
-Message-ID: <20260929085524.1554507-4-sunilvl@oss.qualcomm.com>
+Subject: [RFC PATCH 4/5] hwtracing: rvtrace: Move to fwnode_* APIs
+Date: Tue, 29 Sep 2026 14:25:23 +0530
+Message-ID: <20260929085524.1554507-5-sunilvl@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260929085524.1554507-1-sunilvl@oss.qualcomm.com>
 References: <20260929085524.1554507-1-sunilvl@oss.qualcomm.com>
@@ -103,626 +103,303 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzNSBTYWx0ZWRfX/nkhJHrqq5js
- 0caFWcgGiXq+6ktmql96byFrqxZzKNdIEtyF1IVvyQfPpox2fDIQwLCglCyT79IpIWqfYOFOyYh
- bC8oAxShBLDrYweaA8L7D4F4Fgj8Mv8=
-X-Authority-Analysis: v=2.4 cv=SIbXx+vH c=1 sm=1 tr=0 ts=6abb7d14 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzNSBTYWx0ZWRfX/GjG2O3psMpj
+ ZYhrZvuQhQy/YVhWaf2lDEAczLaFs8I25chS6+9tlfr0x11uuKhfMcOH0KnyJaa4BsuGK9IfZXt
+ SaXWhjCkcMnMlvThSGJ+mUbq85mn2b8=
+X-Proofpoint-GUID: 9a2ydtHideHkIWtaizfyLtadsov-zoNM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzNSBTYWx0ZWRfXzJbPNZ9i5moi
+ gb8vXiIOo7c4jiGHAbkqUFNknBmiXU2scf25OfwXFJG9IlG3bAEagQKQNOOtrXUD+dYQ+nlwtlE
+ p0yfv6LkdQdndw6GPWaCunBB9nw6nUNcje4kMB7oTMdrjYdj3e1ff4GcQIHcqIhaf//WUhaRkv0
+ iiAUCP3h8eXalplddzP2WPSlE0supX6csxr9o0uT//KQA/VIWsbuoyr087FZzPhiQH2sJNAIouE
+ Ktl3+mL6RKaVU4J5NvkoazK7STLhXVt/+ZulxJ+UZKqOTnUbXQxliV8TMAey6I2h3p18dOjpb5E
+ 6tUG1WIVz3/lVTtwalsEhPvsUZ8x+EVzJi1ucVBmsPCr5w/SHew8yMQGBLQfE8fGwhWwDlhEnXs
+ AwxDb0L4e3uKbVOqeUUG4eepx2LwdCUSyAZQ3HxGOhR+65RlPI1OVWXKxYUlRSYs+qKWLqXN/zY
+ Rtpt2lqkX6Hz0hvn5EQ==
+X-Proofpoint-ORIG-GUID: 9a2ydtHideHkIWtaizfyLtadsov-zoNM
+X-Authority-Analysis: v=2.4 cv=SaFi5fRu c=1 sm=1 tr=0 ts=6abb7d17 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=et4sJNVPTWBfBpH6n44A:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzNSBTYWx0ZWRfX2nUj8mO1AXC+
- hPMXGFx/VD+Zpq2oisIpsks/iLbUk7NEM6iKM8amI3Vsz4TjnoLxXKwtWdoo1MhLKxeXH+l/r1h
- AxsuEmgQaom5/eExPKL7G25CQJRcvRY46vwudxafREoJiWMyQD08w15LHA6Eag7XJlfWH7srVzH
- D/6aAZd7i0fu4j8vWHLrQpRxe+caXEWeuh6qk/ZgjJ55GicuDi2FfTAmTMzu6HS3ipVuGYMmtdt
- OygEjR6ORl4Xhge182idOIr7i+FXzoQCXOnhSFQSNJXakYRm4u0L2IyVbIlBJA+cS3TVxHuMAJ7
- 1j9z1y3wre62K7lN3ZXEzXCoYvOkQW7UL3ZoQg5tvLQkfZ6b6EDUhRrR373iLKwG9xcflu+cf7Q
- rMCykpPj8EsG9sXbKx83K+wh+OqiXmybhYCx7vp30+eXMzLCdePfEePx0RnTVnjkSe+LqFEWiG0
- /QZ1YALYGHJwhXZ0gPA==
-X-Proofpoint-GUID: WTbv_xp8jA8Ktx-EFyuLr2nTtfcsdIoM
-X-Proofpoint-ORIG-GUID: WTbv_xp8jA8Ktx-EFyuLr2nTtfcsdIoM
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=R8tqjmwxtafIxTb_AOQA:9 a=PxkB5W3o20Ba91AHUih5:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 clxscore=1011 suspectscore=0
- priorityscore=1501 malwarescore=0 impostorscore=0 adultscore=0 bulkscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609290035
+ adultscore=0 priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0
+ bulkscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290035
 
 From: Sunil V L <sunilvl@oss.qualcomm.com>
 
-Add support for parsing the UEFI DSD-Guide device-graph UUID
-(ab02a46b-74c7-45a2-bd68-f7d344ef2153), allowing firmware to describe
-device topology graphs similar to devicetree's of_graph bindings.
-
-Synthetic "port" and "endpoint" data nodes are created from
-the graph package contents, with "reg"/"port"/"endpoint" integer
-properties and a "remote-endpoint" reference property, so that the
-existing fwnode graph API (fwnode_graph_parse_endpoint(),
-fwnode_graph_get_remote_endpoint(), etc.) can walk the resulting nodes
-the same way it walks devicetree graph nodes.
-
-For certain device graph UUIDs, such as the RISC-V Trace ACPI Graph
-UUID, nest the synthesized port nodes one level deeper under a synthetic
-"in-ports" or "out-ports" node.
+so that it works for ACPI as well in future.
 
 Signed-off-by: Sunil V L <sunilvl@oss.qualcomm.com>
 ---
- drivers/acpi/property.c | 500 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 490 insertions(+), 10 deletions(-)
+ drivers/hwtracing/gtrace/Kconfig            |   4 +-
+ drivers/hwtracing/gtrace/rvtrace-platform.c | 131 +++++++++++++-------
+ 2 files changed, 90 insertions(+), 45 deletions(-)
 
-diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
-index 78400620390b..49af8eaf79e5 100644
---- a/drivers/acpi/property.c
-+++ b/drivers/acpi/property.c
-@@ -68,6 +68,7 @@ static const guid_t buffer_prop_guid =
- 	GUID_INIT(0xedb12dd0, 0x363d, 0x4085,
- 		  0xa3, 0xd2, 0x49, 0x52, 0x2c, 0xa1, 0x60, 0xc4);
+diff --git a/drivers/hwtracing/gtrace/Kconfig b/drivers/hwtracing/gtrace/Kconfig
+index e5b62d65e2fd..86322250a6a3 100644
+--- a/drivers/hwtracing/gtrace/Kconfig
++++ b/drivers/hwtracing/gtrace/Kconfig
+@@ -2,7 +2,7 @@
  
-+static void acpi_free_device_properties(struct list_head *list);
- static bool acpi_enumerate_nondev_subnodes(acpi_handle scope,
- 					   union acpi_object *desc,
- 					   struct acpi_device_data *data,
-@@ -76,6 +77,18 @@ static bool acpi_extract_properties(acpi_handle handle,
- 				    union acpi_object *desc,
- 				    struct acpi_device_data *data);
+ menuconfig GTRACE
+ 	tristate "Generic Hardware Trace Support"
+-	depends on OF
++	depends on OF || ACPI
+ 	select PERF_EVENTS
+ 	help
+ 	  This framework provides an architecture-neutral kernel interface
+@@ -18,7 +18,7 @@ menuconfig GTRACE
+ config RVTRACE
+ 	tristate "RISC-V Trace Support"
+ 	depends on RISCV
+-	depends on OF
++	depends on OF || ACPI
+ 	depends on GTRACE
+ 	default RISCV
+ 	help
+diff --git a/drivers/hwtracing/gtrace/rvtrace-platform.c b/drivers/hwtracing/gtrace/rvtrace-platform.c
+index f34de9183d9a..12330d9dcddd 100644
+--- a/drivers/hwtracing/gtrace/rvtrace-platform.c
++++ b/drivers/hwtracing/gtrace/rvtrace-platform.c
+@@ -7,7 +7,6 @@
+ #include <linux/gtrace.h>
+ #include <linux/io.h>
+ #include <linux/of.h>
+-#include <linux/of_graph.h>
+ #include <linux/platform_device.h>
+ #include <linux/property.h>
+ #include <linux/types.h>
+@@ -61,52 +60,61 @@ const struct gtrace_hw_ops rvtrace_hw_ops = {
+ 	.reset		= rvtrace_hw_reset,
+ };
  
-+/* ACPI _DSD device graph GUID [1]: ab02a46b-74c7-45a2-bd68-f7d344ef2153 */
-+static const guid_t graph_prop_guid =
-+	GUID_INIT(0xab02a46b, 0x74c7, 0x45a2,
-+		  0xbd, 0x68, 0xf7, 0xd3, 0x44, 0xef, 0x21, 0x53);
-+/* RISC-V Trace ACPI Graph UUID: 42e66f8f-50fe-4eed-9897-cdeed26ecd77 */
-+static const guid_t rvtrace_graph_guid =
-+	GUID_INIT(0x42e66f8f, 0x50fe, 0x4eed,
-+		  0x98, 0x97, 0xcd, 0xee, 0xd2, 0x6e, 0xcd, 0x77);
+-static int rvtrace_of_parse_outconns(struct gtrace_platform_data *pdata)
++static int rvtrace_parse_outconns(struct gtrace_platform_data *pdata)
+ {
+-	struct device_node *parent, *ep_node, *rep_node, *rdev_node;
++	struct fwnode_handle *parent, *ep_node, *rep_node, *rdev_node;
++	struct fwnode_endpoint ep = { 0 };
++	struct fwnode_endpoint rep = { 0 };
+ 	struct gtrace_connection *conn;
+-	struct of_endpoint ep, rep;
++	unsigned int nr_outconns;
+ 	int ret = 0, i = 0;
+ 
+-	parent = of_get_child_by_name(dev_of_node(pdata->dev), "out-ports");
++	parent = fwnode_get_named_child_node(dev_fwnode(pdata->dev), "out-ports");
+ 	if (!parent)
+ 		return 0;
+ 
+-	pdata->nr_outconns = of_graph_get_endpoint_count(parent);
+-	pdata->outconns = devm_kcalloc(pdata->dev, pdata->nr_outconns,
++	nr_outconns = fwnode_graph_get_endpoint_count(parent, 0);
++	pdata->nr_outconns = nr_outconns;
++	pdata->outconns = devm_kcalloc(pdata->dev, nr_outconns,
+ 				       sizeof(*pdata->outconns), GFP_KERNEL);
+ 	if (!pdata->outconns) {
+ 		ret = -ENOMEM;
+ 		goto done;
+ 	}
+ 
+-	for_each_endpoint_of_node(parent, ep_node) {
++	fwnode_graph_for_each_endpoint(parent, ep_node) {
+ 		conn = devm_kzalloc(pdata->dev, sizeof(*conn), GFP_KERNEL);
+ 		if (!conn) {
+-			of_node_put(ep_node);
++			fwnode_handle_put(ep_node);
+ 			ret = -ENOMEM;
+ 			break;
+ 		}
+ 
+-		ret = of_graph_parse_endpoint(ep_node, &ep);
++		ret = fwnode_graph_parse_endpoint(ep_node, &ep);
+ 		if (ret) {
+-			of_node_put(ep_node);
++			fwnode_handle_put(ep_node);
+ 			break;
+ 		}
+ 
+-		rep_node = of_graph_get_remote_endpoint(ep_node);
++		rep_node = fwnode_graph_get_remote_endpoint(ep_node);
+ 		if (!rep_node) {
+ 			ret = -ENODEV;
+-			of_node_put(ep_node);
++			fwnode_handle_put(ep_node);
++			break;
++		}
++		rdev_node = fwnode_graph_get_port_parent(rep_node);
++		if (!rdev_node) {
++			ret = -ENODEV;
++			fwnode_handle_put(ep_node);
++			fwnode_handle_put(rep_node);
+ 			break;
+ 		}
+-		rdev_node = of_graph_get_port_parent(rep_node);
+ 
+-		ret = of_graph_parse_endpoint(rep_node, &rep);
++		ret = fwnode_graph_parse_endpoint(rep_node, &rep);
+ 		if (ret) {
+-			of_node_put(ep_node);
+-			of_node_put(rep_node);
+-			of_node_put(rdev_node);
++			fwnode_handle_put(ep_node);
++			fwnode_handle_put(rep_node);
++			fwnode_handle_put(rdev_node);
+ 			break;
+ 		}
+ 
+@@ -115,21 +123,25 @@ static int rvtrace_of_parse_outconns(struct gtrace_platform_data *pdata)
+ 		/* The 'src_comp' is set by gtrace_register_component() */
+ 		conn->src_comp = NULL;
+ 		conn->dest_port = rep.port;
+-		conn->dest_fwnode = of_fwnode_handle(rdev_node);
++		conn->dest_fwnode = rdev_node;
+ 		fwnode_handle_get(conn->dest_fwnode);
+ 		conn->dest_comp = gtrace_find_by_fwnode(conn->dest_fwnode);
+ 		if (!conn->dest_comp) {
+ 			ret = -EPROBE_DEFER;
+-			of_node_put(ep_node);
+-			of_node_put(rep_node);
+-			of_node_put(rdev_node);
++			fwnode_handle_put(ep_node);
++			fwnode_handle_put(rep_node);
++			fwnode_handle_put(rdev_node);
+ 			break;
+ 		}
+ 
+-		pdata->outconns[i] = conn;
+-		i++;
++		pdata->outconns[i++] = conn;
++		fwnode_handle_put(rep_node);
++		fwnode_handle_put(rdev_node);
+ 	}
+ 
++	if (!ret)
++		pdata->nr_outconns = i;
 +
-+#define ACPI_GRAPH_LINK_INPUT	0
-+#define ACPI_GRAPH_LINK_OUTPUT	1
-+
- static bool acpi_nondev_subnode_extract(union acpi_object *desc,
- 					acpi_handle handle,
- 					const union acpi_object *link,
-@@ -254,14 +267,423 @@ static bool acpi_add_nondev_subnodes(acpi_handle scope,
+ done:
+ 	if (ret) {
+ 		for (i = 0; i < pdata->nr_outconns && pdata->outconns; i++) {
+@@ -138,29 +150,69 @@ static int rvtrace_of_parse_outconns(struct gtrace_platform_data *pdata)
+ 				fwnode_handle_put(conn->dest_fwnode);
+ 		}
+ 	}
+-	of_node_put(parent);
++	fwnode_handle_put(parent);
  	return ret;
  }
  
-+static struct acpi_data_node *
-+acpi_data_node_create(const char *name, acpi_handle scope,
-+		      struct fwnode_handle *parent, struct list_head *list)
-+{
-+	struct acpi_data_node *dn;
-+	union acpi_object *marker;
-+
-+	/*
-+	 * Synthetic nodes have no backing _DSD-equivalent package of their
-+	 * own, but data->pointer is used elsewhere as an indication that a
-+	 * node's data is valid, so give it a dummy non-NULL object to own
-+	 * and free, the same way acpi_nondev_subnode_extract() and
-+	 * acpi_extract_apple_properties() do for their allocated buffers.
-+	 */
-+	marker = ACPI_ALLOCATE_ZEROED(sizeof(*marker));
-+	if (!marker)
-+		return NULL;
-+
-+	dn = kzalloc_obj(*dn);
-+	if (!dn) {
-+		ACPI_FREE(marker);
-+		return NULL;
-+	}
-+
-+	dn->name = kstrdup(name, GFP_KERNEL);
-+	if (!dn->name) {
-+		ACPI_FREE(marker);
-+		kfree(dn);
-+		return NULL;
-+	}
-+	dn->handle = scope;
-+	dn->parent = parent;
-+	dn->data.pointer = marker;
-+	fwnode_init(&dn->fwnode, &acpi_data_fwnode_ops);
-+	INIT_LIST_HEAD(&dn->data.properties);
-+	INIT_LIST_HEAD(&dn->data.subnodes);
-+	list_add_tail(&dn->sibling, list);
-+
-+	return dn;
-+}
-+
-+static void acpi_data_node_delete(struct acpi_data_node *dn)
-+{
-+	list_del(&dn->sibling);
-+	acpi_free_device_properties(&dn->data.properties);
-+	ACPI_FREE((void *)dn->data.pointer);
-+	kfree(dn->name);
-+	kfree(dn);
-+}
-+
-+static struct acpi_data_node *
-+acpi_graph_node_create(const char *type, u32 id, acpi_handle scope,
-+		       struct fwnode_handle *parent,
-+		       struct list_head *list)
-+{
-+	struct acpi_data_node *dn;
-+	char *name;
-+
-+	name = kasprintf(GFP_KERNEL, "%s@%u", type, id);
-+	if (!name)
-+		return NULL;
-+
-+	dn = acpi_data_node_create(name, scope, parent, list);
-+	kfree(name);
-+	return dn;
-+}
-+
-+static bool acpi_data_prop_add_integer(struct acpi_device_data *data,
-+				       const char *name, u64 value)
-+{
-+	struct acpi_device_properties *props;
-+	union acpi_object *obj;
-+
-+	props = kzalloc(sizeof(*props) + 4 * sizeof(*obj), GFP_KERNEL);
-+	if (!props)
-+		return false;
-+
-+	INIT_LIST_HEAD(&props->list);
-+	props->guid = &prp_guids[0];
-+
-+	obj = (union acpi_object *)(props + 1);
-+	props->properties = &obj[0];
-+	obj[0].type = ACPI_TYPE_PACKAGE;
-+	obj[0].package.count = 1;
-+	obj[0].package.elements = &obj[1];
-+
-+	obj[1].type = ACPI_TYPE_PACKAGE;
-+	obj[1].package.count = 2;
-+	obj[1].package.elements = &obj[2];
-+
-+	obj[2].type = ACPI_TYPE_STRING;
-+	obj[2].string.pointer = (char *)name;
-+	obj[2].string.length = strlen(name);
-+
-+	obj[3].type = ACPI_TYPE_INTEGER;
-+	obj[3].integer.value = value;
-+
-+	list_add_tail(&props->list, &data->properties);
-+
-+	return true;
-+}
-+
-+static bool acpi_data_prop_add_remote_endpoint(struct acpi_device_data *data,
-+					       const union acpi_object *remote,
-+					       u32 port, u32 endpoint)
-+{
-+	struct acpi_device_properties *props;
-+	union acpi_object *obj;
-+
-+	if (remote->type != ACPI_TYPE_LOCAL_REFERENCE &&
-+	    remote->type != ACPI_TYPE_STRING)
-+		return false;
-+
-+	props = kzalloc(sizeof(*props) + 7 * sizeof(*obj), GFP_KERNEL);
-+	if (!props)
-+		return false;
-+
-+	INIT_LIST_HEAD(&props->list);
-+	props->guid = &prp_guids[0];
-+
-+	obj = (union acpi_object *)(props + 1);
-+	props->properties = &obj[0];
-+	obj[0].type = ACPI_TYPE_PACKAGE;
-+	obj[0].package.count = 1;
-+	obj[0].package.elements = &obj[1];
-+
-+	obj[1].type = ACPI_TYPE_PACKAGE;
-+	obj[1].package.count = 2;
-+	obj[1].package.elements = &obj[2];
-+
-+	obj[2].type = ACPI_TYPE_STRING;
-+	obj[2].string.pointer = "remote-endpoint";
-+	obj[2].string.length = strlen("remote-endpoint");
-+
-+	obj[3].type = ACPI_TYPE_PACKAGE;
-+	obj[3].package.count = 3;
-+	obj[3].package.elements = &obj[4];
-+
-+	obj[4] = *remote;
-+
-+	obj[5].type = ACPI_TYPE_INTEGER;
-+	obj[5].integer.value = port;
-+
-+	obj[6].type = ACPI_TYPE_INTEGER;
-+	obj[6].integer.value = endpoint;
-+
-+	list_add_tail(&props->list, &data->properties);
-+
-+	return true;
-+}
-+
-+struct acpi_graph_port_map {
-+	struct list_head node;
-+	struct acpi_data_node *port;
+-static int rvtrace_of_parse_inconns(struct gtrace_platform_data *pdata)
++static int rvtrace_parse_inconns(struct gtrace_platform_data *pdata)
+ {
+-	struct device_node *parent;
 +	struct fwnode_handle *parent;
-+	u32 port_nr;
-+	u32 endpoint_id;
-+};
-+
-+struct acpi_graph_root_map {
-+	struct list_head node;
-+	struct acpi_data_node *root;
-+};
-+
-+static bool acpi_graph_is_directional(const guid_t *graph_guid)
-+{
-+	return guid_equal(graph_guid, &rvtrace_graph_guid);
-+}
-+
-+static struct acpi_data_node *
-+acpi_graph_get_root_node(struct list_head *roots, acpi_handle scope,
-+			 struct fwnode_handle *parent, struct list_head *subnodes,
-+			 const char *name)
-+{
-+	struct acpi_graph_root_map *entry;
-+
-+	list_for_each_entry(entry, roots, node) {
-+		if (!strcmp(entry->root->name, name))
-+			return entry->root;
-+	}
-+
-+	entry = kzalloc_obj(*entry);
-+	if (!entry)
-+		return NULL;
-+
-+	entry->root = acpi_data_node_create(name, scope, parent, subnodes);
-+	if (!entry->root) {
-+		kfree(entry);
-+		return NULL;
-+	}
-+
-+	list_add_tail(&entry->node, roots);
-+	return entry->root;
-+}
-+
-+static struct acpi_graph_port_map *
-+acpi_graph_get_port_map(struct list_head *ports, acpi_handle scope,
-+			struct fwnode_handle *parent, struct list_head *subnodes,
-+			u32 port_nr)
-+{
-+	struct acpi_graph_port_map *entry;
-+
-+	list_for_each_entry(entry, ports, node) {
-+		if (entry->parent == parent && entry->port_nr == port_nr)
-+			return entry;
-+	}
-+
-+	entry = kzalloc_obj(*entry);
-+	if (!entry)
-+		return NULL;
-+
-+	entry->port = acpi_graph_node_create("port", port_nr, scope, parent,
-+					     subnodes);
-+	if (!entry->port)
-+		goto err_free_entry;
-+
-+	entry->parent = parent;
-+	entry->port_nr = port_nr;
-+	if (!acpi_data_prop_add_integer(&entry->port->data, "reg", port_nr) ||
-+	    !acpi_data_prop_add_integer(&entry->port->data, "port", port_nr))
-+		goto err_drop_port;
-+
-+	list_add_tail(&entry->node, ports);
-+
-+	return entry;
-+
-+err_drop_port:
-+	acpi_data_node_delete(entry->port);
-+err_free_entry:
-+	kfree(entry);
-+	return NULL;
-+}
-+
-+static bool acpi_dsd_graph_valid(union acpi_object *graph)
-+{
-+	u64 nr_graphs;
-+	u64 i;
-+
-+	if (graph->type != ACPI_TYPE_PACKAGE)
-+		return false;
-+
-+	if (graph->package.count < 2)
-+		return false;
-+
-+	if (graph->package.elements[0].type != ACPI_TYPE_INTEGER ||
-+	    graph->package.elements[1].type != ACPI_TYPE_INTEGER)
-+		return false;
-+
-+	if (graph->package.elements[0].integer.value != 0)
-+		return false;
-+
-+	nr_graphs = graph->package.elements[1].integer.value;
-+	if (nr_graphs > graph->package.count - 2)
-+		return false;
-+
-+	for (i = 0; i < nr_graphs; i++) {
-+		union acpi_object *graph_entry;
-+		u64 nr_links;
-+
-+		graph_entry = &graph->package.elements[i + 2];
-+		if (graph_entry->type != ACPI_TYPE_PACKAGE ||
-+		    graph_entry->package.count < 3)
-+			return false;
-+
-+		if (graph_entry->package.elements[0].type != ACPI_TYPE_INTEGER ||
-+		    graph_entry->package.elements[1].type != ACPI_TYPE_BUFFER ||
-+		    graph_entry->package.elements[1].buffer.length != 16 ||
-+		    graph_entry->package.elements[2].type != ACPI_TYPE_INTEGER)
-+			return false;
-+
-+		nr_links = graph_entry->package.elements[2].integer.value;
-+		if (nr_links > graph_entry->package.count - 3)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+static bool acpi_add_graph_subnodes(acpi_handle scope, union acpi_object *graph,
-+				    struct acpi_device_data *data,
-+				    struct fwnode_handle *parent)
-+{
-+	LIST_HEAD(ports);
-+	LIST_HEAD(roots);
-+	u64 nr_graphs;
-+	bool ret = false;
-+	u64 i;
-+
-+	if (!acpi_dsd_graph_valid(graph))
-+		return false;
-+
-+	nr_graphs = graph->package.elements[1].integer.value;
-+
-+	for (i = 0; i < nr_graphs; i++) {
-+		union acpi_object *graph_entry;
-+		struct fwnode_handle *graph_parent = parent;
-+		struct list_head *graph_subnodes = &data->subnodes;
-+		struct acpi_data_node *graph_root;
-+		const guid_t *graph_guid;
-+		u64 nr_links;
-+		u64 j;
-+
-+		graph_entry = &graph->package.elements[i + 2];
-+		graph_guid = (const guid_t *)graph_entry->package.elements[1].buffer.pointer;
-+		if (!acpi_graph_is_directional(graph_guid))
-+			continue;
-+		nr_links = graph_entry->package.elements[2].integer.value;
-+
-+		for (j = 0; j < nr_links; j++) {
-+			union acpi_object *link;
-+			struct acpi_graph_port_map *port_map;
-+			struct acpi_data_node *endpoint;
-+			union acpi_object *elem;
-+			u32 src_port, dst_port, ep_id;
-+			u64 dir;
-+
-+			link = &graph_entry->package.elements[j + 3];
-+			if (link->type != ACPI_TYPE_PACKAGE ||
-+			    link->package.count < 3)
-+				continue;
-+
-+			elem = link->package.elements;
-+			if (elem[0].type != ACPI_TYPE_INTEGER ||
-+			    elem[1].type != ACPI_TYPE_INTEGER ||
-+			    (elem[2].type != ACPI_TYPE_LOCAL_REFERENCE &&
-+			     elem[2].type != ACPI_TYPE_STRING))
-+				continue;
-+
-+			src_port = elem[0].integer.value;
-+			dst_port = elem[1].integer.value;
-+
-+			if (acpi_graph_is_directional(graph_guid)) {
-+				if (link->package.count < 4 ||
-+				    elem[3].type != ACPI_TYPE_INTEGER)
-+					continue;
-+
-+				dir = elem[3].integer.value;
-+				if (dir == ACPI_GRAPH_LINK_OUTPUT)
-+					graph_root = acpi_graph_get_root_node(&roots, scope,
-+									      parent,
-+									      &data->subnodes,
-+									      "out-ports");
-+				else if (dir == ACPI_GRAPH_LINK_INPUT)
-+					graph_root = acpi_graph_get_root_node(&roots, scope,
-+									      parent,
-+									      &data->subnodes,
-+									      "in-ports");
-+				else
-+					continue;
-+
-+				if (!graph_root)
-+					continue;
-+
-+				graph_parent = &graph_root->fwnode;
-+				graph_subnodes = &graph_root->data.subnodes;
-+			}
-+
-+			port_map = acpi_graph_get_port_map(&ports, scope, graph_parent,
-+							   graph_subnodes, src_port);
-+			if (!port_map)
-+				continue;
-+
-+			ep_id = port_map->endpoint_id++;
-+			endpoint = acpi_graph_node_create("endpoint", ep_id, scope,
-+							  &port_map->port->fwnode,
-+							  &port_map->port->data.subnodes);
-+			if (!endpoint)
-+				continue;
-+
-+			if (!acpi_data_prop_add_integer(&endpoint->data, "reg", ep_id) ||
-+			    !acpi_data_prop_add_integer(&endpoint->data, "endpoint", ep_id) ||
-+			    !acpi_data_prop_add_remote_endpoint(&endpoint->data, &elem[2],
-+							dst_port, 0)) {
-+				acpi_data_node_delete(endpoint);
-+				continue;
-+			}
-+
-+			ret = true;
-+		}
-+	}
-+
-+	while (!list_empty(&ports)) {
-+		struct acpi_graph_port_map *port_map;
-+
-+		port_map = list_first_entry(&ports, struct acpi_graph_port_map, node);
-+		list_del(&port_map->node);
-+
-+		if (!ret || list_empty(&port_map->port->data.subnodes))
-+			acpi_data_node_delete(port_map->port);
-+
-+		kfree(port_map);
-+	}
-+
-+	while (!list_empty(&roots)) {
-+		struct acpi_graph_root_map *root;
-+
-+		root = list_first_entry(&roots, struct acpi_graph_root_map, node);
-+		list_del(&root->node);
-+
-+		if (!ret || list_empty(&root->root->data.subnodes))
-+			acpi_data_node_delete(root->root);
-+
-+		kfree(root);
-+	}
-+
-+	return ret;
-+}
-+
- static bool acpi_enumerate_nondev_subnodes(acpi_handle scope,
- 					   union acpi_object *desc,
- 					   struct acpi_device_data *data,
- 					   struct fwnode_handle *parent)
- {
-+	bool ret = false;
- 	int i;
+ 	int ret = 0;
  
--	/* Look for the ACPI data subnodes GUID. */
-+	/* Look for the ACPI data subnodes and graph UUIDs. */
- 	for (i = 0; i < desc->package.count; i += 2) {
- 		const union acpi_object *guid;
- 		union acpi_object *links;
-@@ -278,14 +700,14 @@ static bool acpi_enumerate_nondev_subnodes(acpi_handle scope,
- 		    links->type != ACPI_TYPE_PACKAGE)
- 			break;
+-	parent = of_get_child_by_name(dev_of_node(pdata->dev), "in-ports");
++	parent = fwnode_get_named_child_node(dev_fwnode(pdata->dev), "in-ports");
+ 	if (!parent)
+ 		return 0;
  
--		if (!guid_equal((guid_t *)guid->buffer.pointer, &ads_guid))
--			continue;
--
--		return acpi_add_nondev_subnodes(scope, links, &data->subnodes,
--						parent);
-+		if (guid_equal((guid_t *)guid->buffer.pointer, &ads_guid))
-+			ret |= acpi_add_nondev_subnodes(scope, links,
-+						       &data->subnodes, parent);
-+		else if (guid_equal((guid_t *)guid->buffer.pointer, &graph_prop_guid))
-+			ret |= acpi_add_graph_subnodes(scope, links, data, parent);
- 	}
+-	pdata->nr_inconns = of_graph_get_endpoint_count(parent);
++	pdata->nr_inconns = fwnode_graph_get_endpoint_count(parent,
++							    FWNODE_GRAPH_DEVICE_DISABLED);
+ 	pdata->inconns = devm_kcalloc(pdata->dev, pdata->nr_inconns,
+ 				      sizeof(*pdata->inconns), GFP_KERNEL);
+ 	if (!pdata->inconns)
+ 		ret = -ENOMEM;
  
--	return false;
-+	return ret;
+-	of_node_put(parent);
++	fwnode_handle_put(parent);
+ 	return ret;
  }
  
- static bool acpi_property_value_ok(const union acpi_object *value)
-@@ -1485,7 +1907,8 @@ static struct fwnode_handle *acpi_graph_get_next_endpoint(
- 				break;
- 		} while (port);
- 	} else {
--		port = fwnode_get_parent(prev);
-+		/* Use the structural parent: the public parent skips port roots. */
-+		port = acpi_node_get_parent(prev);
- 	}
- 
- 	if (!port)
-@@ -1544,6 +1967,42 @@ static struct fwnode_handle *acpi_graph_get_child_prop_value(
- 	return NULL;
- }
- 
-+static struct fwnode_handle *
-+acpi_graph_get_first_endpoint(struct fwnode_handle *port)
++#ifdef CONFIG_OF
++static int of_rvtrace_get_cpu(struct device *dev)
 +{
-+	struct fwnode_handle *endpoint = NULL;
++	struct device_node *dn;
++	int cpu;
 +
-+	do {
-+		endpoint = acpi_get_next_subnode(port, endpoint);
-+	} while (endpoint && !is_acpi_graph_node(endpoint, "endpoint"));
++	if (!dev->of_node)
++		return -1;
 +
-+	return endpoint;
++	dn = of_parse_phandle(dev->of_node, "cpus", 0);
++	if (!dn)
++		return -1;
++
++	cpu = of_cpu_node_to_id(dn);
++	of_node_put(dn);
++
++	return cpu;
 +}
++#else
++static int of_rvtrace_get_cpu(struct device *dev)
++{
++	return -1;
++}
++#endif
 +
-+/**
-+ * acpi_graph_get_remote_directional_port - Find a port nested under a
-+ * synthetic "in-ports"/"out-ports" root node
-+ * @fwnode: device fwnode
-+ * @port_nr: the desired port number
++/*
++ * rvtrace_get_cpu - Find the logical CPU id of the CPU associated
++ * with this rvtrace device.
 + *
-+ * Return: the port node on success, NULL otherwise.
++ * Returns the logical CPU id when found.
 + */
-+static struct fwnode_handle *
-+acpi_graph_get_remote_directional_port(struct fwnode_handle *fwnode,
-+				       unsigned int port_nr,
-+				       const char *ports_name)
++static int rvtrace_get_cpu(struct device *dev)
 +{
-+	struct fwnode_handle *ports_node, *port;
++	if (is_of_node(dev_fwnode(dev)))
++		return of_rvtrace_get_cpu(dev);
 +
-+	if (!ports_name)
-+		return NULL;
-+
-+	ports_node = acpi_fwnode_get_named_child_node(fwnode, ports_name);
-+	if (ports_node)
-+		return acpi_graph_get_child_prop_value(ports_node, "port", port_nr);
-+
-+	return NULL;
++	return -1;
 +}
- 
- /**
-  * acpi_graph_get_remote_endpoint - Parses and returns remote end of an endpoint
-@@ -1555,6 +2014,8 @@ static struct fwnode_handle *
- acpi_graph_get_remote_endpoint(const struct fwnode_handle *__fwnode)
- {
- 	struct fwnode_handle *fwnode;
-+	struct fwnode_handle *source_port, *source_root;
-+	const char *remote_ports = NULL;
- 	unsigned int port_nr, endpoint_nr;
- 	struct fwnode_reference_args args;
- 	int ret;
-@@ -1580,9 +2041,28 @@ acpi_graph_get_remote_endpoint(const struct fwnode_handle *__fwnode)
- 	port_nr = args.args[0];
- 	endpoint_nr = args.args[1];
- 
--	fwnode = acpi_graph_get_child_prop_value(fwnode, "port", port_nr);
-+	/* A directional source can only be connected to the opposite root. */
-+	source_port = acpi_node_get_parent(__fwnode);
-+	source_root = acpi_node_get_parent(source_port);
-+	if (is_acpi_data_node(source_root)) {
-+		if (!strcmp(to_acpi_data_node(source_root)->name, "out-ports"))
-+			remote_ports = "in-ports";
-+		else if (!strcmp(to_acpi_data_node(source_root)->name, "in-ports"))
-+			remote_ports = "out-ports";
-+	}
 +
-+	fwnode = acpi_graph_get_child_prop_value(fwnode, "port", port_nr) ?:
-+				 acpi_graph_get_remote_directional_port(fwnode, port_nr,
-+									remote_ports);
-+	if (!fwnode)
-+		return NULL;
+ static int rvtrace_platform_probe(struct platform_device *pdev)
+ {
+ 	struct gtrace_platform_data *pdata;
+@@ -168,7 +220,6 @@ static int rvtrace_platform_probe(struct platform_device *pdev)
+ 	struct gtrace_component_id id;
+ 	struct gtrace_component *comp;
+ 	u32 impl, type, major, minor;
+-	struct device_node *node;
+ 	struct resource *res;
+ 	int gtype;
+ 	int ret;
+@@ -189,24 +240,18 @@ static int rvtrace_platform_probe(struct platform_device *pdev)
+ 	if (!pdata->base)
+ 		return dev_err_probe(dev, -ENOMEM, "failed to ioremap %pR\n", res);
  
--	return acpi_graph_get_child_prop_value(fwnode, "endpoint", endpoint_nr);
-+	/*
-+	 * Device Graph UUID links may not provide endpoint IDs. In that case
-+	 * return the first endpoint under the remote port.
-+	 */
-+	return acpi_graph_get_child_prop_value(fwnode, "endpoint", endpoint_nr) ?:
-+	       acpi_graph_get_first_endpoint(fwnode);
- }
+-	pdata->bound_cpu = -1;
+-	node = of_parse_phandle(dev_of_node(dev), "cpus", 0);
+-	if (node) {
+-		ret = of_cpu_node_to_id(node);
+-		of_node_put(node);
+-		if (ret < 0)
+-			return dev_err_probe(dev, ret, "failed to get CPU id for %pOF\n", node);
+-		pdata->bound_cpu = ret;
+-	}
+-
++	pdata->bound_cpu = rvtrace_get_cpu(dev);
++	if (pdata->bound_cpu < 0)
++		return dev_err_probe(dev, pdata->bound_cpu,
++				     "failed to get bound CPU\n");
+ 	/* Default control poll timeout */
+ 	pdata->control_poll_timeout_usecs = 10;
  
- static bool acpi_fwnode_device_is_available(const struct fwnode_handle *fwnode)
+-	ret = rvtrace_of_parse_outconns(pdata);
++	ret = rvtrace_parse_outconns(pdata);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to parse output connections\n");
+ 
+-	ret = rvtrace_of_parse_inconns(pdata);
++	ret = rvtrace_parse_inconns(pdata);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to parse input connections\n");
+ 
 -- 
 2.43.0
 
