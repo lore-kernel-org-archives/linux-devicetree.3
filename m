@@ -1,128 +1,661 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3056A4DAF86;
-	Tue, 29 Sep 2026 08:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5E04DAFBA
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671875; cv=none; b=iZF818iFrILaKUZniSwmCSaq03HhrJOWg1SdmEGjcs7Mgpb5ztzhtHjNgTFpubJA7kHVG075Q05QOyKLJiYYpFSE8W+B++0zfvXMyfcQ/M4VKtPii7OdHD2YjHU7LwDXvcOHp4kpqz6jP9etgxXi/nVPOmOfAF0jK2z87cEs0vM=
+	t=1790671973; cv=none; b=pmtsMNm9x7230pn1DwU7ZeI3uH4/usaKmTNNu6393wJZkJFyr8kTSXcmy0KeeNM66AfjJ+3N6XRNKgA+Gmo+1epWF15T2aAQELeWyBev8rpIZ3uPuN8yyALSJeMXWh1tvSpKpQdxYU/i1QhFnHE/LHccGaVrty7/MEazvlRhcPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671875; c=relaxed/simple;
-	bh=oLctePOGxPPRUbtQZuT0MEC1E4uXDtj8aF9aZKCHexc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BGmF28volgQ0rol5/MuySWcPfxenLUOnHxnbT8XeZuhdRGYk1AtFm39CcauRkG2Zcf+ZBm0S5o/lbN/J9NHfiofq5FFp1PwdIB6OtYlikGBaFz8be87tzZxMxnuy6RMdSAGfrN3BtX/YB4yp3h+AUXQbgYS6XAbw2WS3qZzdT8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fr+IWQIH; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790671973; c=relaxed/simple;
+	bh=DO99im0dFBxVxAugZBs/Ty67PJ6i8gMMXJkg+a7u1qM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fOXiRoIMCW98/96QEfX2J+wcBLy1cNULM8YMayjBnLx8bUUOHLjIMgHxFxoGaHzIASaN+eHwe887DPcrf8WqvfylJwIBYeukZGM3O6LwkOlsHswXMvwAS2kgvhvILthP3dEhANK0PtTuFjkBKldghm59sVsa58OmYWq8R9LkpyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aa1L3TPF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fr+IWQIH"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 0BE4C1A1054;
-	Tue, 29 Sep 2026 08:51:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D43ED601BD;
-	Tue, 29 Sep 2026 08:50:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F2B72103297B1;
-	Tue, 29 Sep 2026 10:50:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790671858; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=FWib/BdWYa2opT7pMAJQyUzwO/Irx5Iu+DpIpo9cepI=;
-	b=fr+IWQIHJLUOqLEweuMcaPtvKxgT2hynV7BYyNZVKlH2jlGhFlZ0l9TgCB9dpEWRSEkPAH
-	i2tsTKpu9gNcUms3uSRu4IfVbfFlNUNIlxMaYlcUK4u9V9PJrkzZnLFYY0e2qQjINOkIa7
-	oUH3bW8NmuNYyKkgwsfeY0BOQv2tOh2aN/5tf9kUdbjkfRc0tPpr3eHTwGSEj3ZE/B2P3j
-	evXFQW98HmPqsy+BKoMvhdZnN1u1j2ipimxEK8yyJn1Sdy2dANOVLpk4NM03YNjQhxe7Hq
-	I0Spw+CK9H/wmRN9Xzcjl189FBsiSoYvvtUjpZWM3VNtNofeTRR9k5JApCFdBw==
-From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Pascal Eberhard <pascal.eberhard@se.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v6 3/4] ARM: dts: r9a06g032: Add support for timers
-Date: Tue, 29 Sep 2026 10:50:33 +0200
-Message-ID: <20260929085035.57609-4-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260929085035.57609-1-herve.codina@bootlin.com>
-References: <20260929085035.57609-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aa1L3TPF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D2D1F000FF;
+	Tue, 29 Sep 2026 08:52:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790671971;
+	bh=nphrPqo4rV2/VsIYZs2M03GioU8bWewgJty+f2SdF5Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Aa1L3TPFGMEv5coqNM6hd8SwCEz0k6T9Yd2RD2eEIV9XEj3+7AQc2aCD86FZNA01J
+	 Zot4ezeu8r5WiOQZfhbHV7lp8OvWceGo5f97MxHvLwtILZRruuHJGklge10ZYy2XWF
+	 7qAHsReCktZjMOtxsUkH+wA8FS07jD/Es44LPDiq16KABCYg+mt3i3ZZTwpxHH9NM+
+	 P9Q3eGHW2QB+g6dj7ONKc/co2h6amXjsYZI2Cf8wsFki4ftVz2UfHi7zTJef6Rxx2O
+	 9WGR7B0t5GunFqxAoIDVFC3i5tUBQidK7TuT/GBcuAHPEXFiXs+xRz6TmEXCWOUFd2
+	 8S8ofyYonkmSw==
+Date: Tue, 29 Sep 2026 10:52:47 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: BG9OXA <bg9oxa@163.com>
+Cc: linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>
+Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
+Message-ID: <20260929-analytic-cocky-magpie-afefcc@quoll>
+References: <179051707448.31632.10412780322071844492@163.com>
+ <179051709216.31632.15211548199122954003@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <179051709216.31632.15211548199122954003@163.com>
 
-In the Renesas RZ/N1 SoCs family, two timers block are available. Each
-block contains 8 timers composed of 6 16-bits timers and 2 32-bits
-timers. Each timer has its own interrupt line.
+On Sun, Sep 27, 2026 at 09:51:32PM +0800, BG9OXA wrote:
+> Add a device tree for the ALIENTEK QuarkPi-CA2, an RK3588S based
+> single board computer.
+> 
+> Tested on hardware: UART console, eMMC, microSD, gigabit Ethernet,
+> HDMI video and audio, ES8388 analog audio, the USB 2.0 host ports
+> and the USB 3.0 (Type-A) host port.
+> 
+> Signed-off-by: BG9OXA <bg9oxa@163.com>
+> ---
 
-Describe those timers blocks.
+Where is any changelog?
 
-Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
- arch/arm/boot/dts/renesas/r9a06g032.dtsi | 34 ++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> new file mode 100644
+> diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+> --- a/arch/arm64/boot/dts/rockchip/Makefile
+> +++ b/arch/arm64/boot/dts/rockchip/Makefile
+> @@ -236,6 +236,7 @@
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5b.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-5-pro.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-orangepi-cm5-base.dtb
+> +dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-quarkpi-ca2.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-radxa-cm5-io.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-roc-pc.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-rock-5a.dtb
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> @@ -0,0 +1,1608 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (c) 2021 Rockchip Electronics Co., Ltd.
+> + */
+> +
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/input/input.h>
+> +#include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/pinctrl/rockchip.h>
+> +#include <dt-bindings/soc/rockchip,vop2.h>
+> +#include <dt-bindings/thermal/thermal.h>
+> +#include "rk3588s.dtsi"
 
-diff --git a/arch/arm/boot/dts/renesas/r9a06g032.dtsi b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-index 19c9bce0a26d..6fae6db2850e 100644
---- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-+++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-@@ -806,6 +806,40 @@ gpioirqmux: interrupt-controller@51000480 {
- 			status = "disabled";
- 		};
- 
-+		timer0: timer@51001000 {
-+			compatible = "renesas,r9a06g032-timer", "renesas,rzn1-timer";
-+			reg = <0x51001000 0x200>;
-+			clocks = <&sysctrl R9A06G032_HCLK_TIMER0>;
-+			clock-names = "pclk";
-+			power-domains = <&sysctrl>;
-+			interrupts = <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
-+		};
-+
-+		timer1: timer@51002000 {
-+			compatible = "renesas,r9a06g032-timer", "renesas,rzn1-timer";
-+			reg = <0x51002000 0x200>;
-+			clocks = <&sysctrl R9A06G032_HCLK_TIMER1>;
-+			clock-names = "pclk";
-+			power-domains = <&sysctrl>;
-+			interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 124 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
-+		};
-+
- 		can0: can@52104000 {
- 			compatible = "renesas,r9a06g032-sja1000", "renesas,rzn1-sja1000";
- 			reg = <0x52104000 0x800>;
--- 
-2.55.0
+Missing blank line
+
+> +/ {
+> +	model = "Alientek QuarkPI-CA2";
+> +	compatible = "alientek,quarkpi-ca2", "rockchip,rk3588s";
+> +
+> +	/* Crash log retention (pstore/ramoops).  The shared rk3588-ramoops.dtsi
+
+This is some odd style. We do not use netdev comments.
+
+Please look at other DTS to see how this is structured.
+
+
+> +	 * used by the vendor BSP is not part of mainline, so the node is inlined
+> +	 * here.  The reserved region layout follows the vendor BSP device tree.
+> +	 */
+> +	reserved-memory {
+> +		#address-cells = <2>;
+> +		#size-cells = <2>;
+> +		ranges;
+> +
+> +		ramoops: ramoops@118000 {
+> +			compatible = "ramoops";
+> +			reg = <0 0x118000 0 0xd8000>;
+> +			console-size = <0x80000>;
+> +			ftrace-size = <0x00000>;
+> +			pmsg-size = <0x30000>;
+> +			record-size = <0x14000>;
+> +		};
+> +	};
+> +
+> +	aliases {
+> +		mmc0 = &sdhci;
+> +		mmc1 = &sdmmc;
+> +		ethernet0 = &gmac1;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial2:1500000n8";
+> +	};
+> +
+> +	adc_keys: adc-keys {
+> +		compatible = "adc-keys";
+> +		io-channels = <&saradc 1>;
+> +		io-channel-names = "buttons";
+> +		keyup-threshold-microvolt = <1800000>;
+> +		poll-interval = <100>;
+> +
+> +		button-vol-up {
+> +			label = "volume up";
+> +			linux,code = <KEY_VOLUMEUP>;
+> +			press-threshold-microvolt = <17000>;
+> +		};
+> +
+> +		button-vol-down {
+> +			label = "volume down";
+> +			linux,code = <KEY_VOLUMEDOWN>;
+> +			press-threshold-microvolt = <417000>;
+> +		};
+> +	};
+> +
+> +	leds: leds {
+> +		compatible = "gpio-leds";
+> +
+> +		work_led: led-0 {
+> +			/* Mainline deprecated 'label' (dtbs_check reports an
+> +			 * "Unevaluated properties" error); use 'function' instead.
+> +			 */
+> +			function = LED_FUNCTION_HEARTBEAT;
+> +			gpios = <&gpio1 RK_PD7 GPIO_ACTIVE_HIGH>;
+> +			linux,default-trigger = "heartbeat";
+> +			pinctrl-names = "default";
+> +			pinctrl-0 = <&work_led_pin>;
+> +		};
+> +	};
+> +
+> +	fan: pwm-fan {
+> +		compatible = "pwm-fan";
+> +		#cooling-cells = <2>;
+> +		pwms = <&pwm7 0 50000 0>;
+> +		cooling-levels = <0 50 100 150 200 255>;
+> +	};
+> +
+> +	vcc12v_dcin: vcc12v-dcin {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc12v_dcin";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <12000000>;
+> +		regulator-max-microvolt = <12000000>;
+> +	};
+> +
+> +	vcc5v0_sys: vcc5v0-sys {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc5v0_sys";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		vin-supply = <&vcc12v_dcin>;
+> +	};
+> +
+> +	vcc5v0_usb: vcc5v0-usb {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc5v0_usb";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		vin-supply = <&vcc5v0_sys>;
+> +	};
+> +
+> +	vcc_1v1_nldo_s3: vcc-1v1-nldo-s3 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc_1v1_nldo_s3";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <1100000>;
+> +		regulator-max-microvolt = <1100000>;
+> +		vin-supply = <&vcc5v0_sys>;
+> +	};
+> +
+> +	vcc_3v3_sd_s0: vcc-3v3-sd-s0-regulator {
+
+Why only this is regulator? Others are not?
+
+Anyway prefixes are preferred.
+
+> +		compatible = "regulator-fixed";
+> +		gpios = <&gpio0 RK_PA0 GPIO_ACTIVE_LOW>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&sd_s0_pwr>;
+> +		regulator-name = "vcc_3v3_sd_s0";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		vin-supply = <&vcc_3v3_s3>;
+> +	};
+> +};
+> +
+> +&spi2 {
+> +	status = "okay";
+> +	assigned-clocks = <&cru CLK_SPI2>;
+> +	assigned-clock-rates = <200000000>;
+> +	num-cs = <1>;
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&spi2m2_cs0 &spi2m2_pins>;
+> +
+> +	pmic@0 {
+> +		compatible = "rockchip,rk806";
+> +		reg = <0x0>;
+> +		interrupt-parent = <&gpio0>;
+> +		interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&pmic_pins>, <&rk806_dvs1_null>,
+> +			    <&rk806_dvs2_null>, <&rk806_dvs3_null>;
+> +		spi-max-frequency = <1000000>;
+> +		system-power-controller;
+> +
+> +		gpio-controller;
+> +		#gpio-cells = <2>;
+> +
+> +		vcc1-supply = <&vcc5v0_sys>;
+> +		vcc2-supply = <&vcc5v0_sys>;
+> +		vcc3-supply = <&vcc5v0_sys>;
+> +		vcc4-supply = <&vcc5v0_sys>;
+> +		vcc5-supply = <&vcc5v0_sys>;
+> +		vcc6-supply = <&vcc5v0_sys>;
+> +		vcc7-supply = <&vcc5v0_sys>;
+> +		vcc8-supply = <&vcc5v0_sys>;
+> +		vcc9-supply = <&vcc5v0_sys>;
+> +		vcc10-supply = <&vcc5v0_sys>;
+> +		vcc11-supply = <&vcc_2v0_pldo_s3>;
+> +		vcc12-supply = <&vcc5v0_sys>;
+> +		vcc13-supply = <&vcc_1v1_nldo_s3>;
+> +		vcc14-supply = <&vcc_1v1_nldo_s3>;
+> +		vcca-supply = <&vcc5v0_sys>;
+> +
+> +		rk806_dvs1_null: dvs1-null-pins {
+> +			pins = "gpio_pwrctrl1";
+> +			function = "pin_fun0";
+> +		};
+> +
+> +		rk806_dvs2_null: dvs2-null-pins {
+> +			pins = "gpio_pwrctrl2";
+> +			function = "pin_fun0";
+> +		};
+> +
+> +		rk806_dvs3_null: dvs3-null-pins {
+> +			pins = "gpio_pwrctrl3";
+> +			function = "pin_fun0";
+> +		};
+> +
+> +		regulators {
+> +			vdd_gpu_s0: dcdc-reg1 {
+> +				regulator-name = "vdd_gpu_s0";
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <550000>;
+> +				regulator-max-microvolt = <950000>;
+> +				regulator-ramp-delay = <12500>;
+> +				regulator-enable-ramp-delay = <400>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_cpu_lit_s0: vdd_cpu_lit_mem_s0: dcdc-reg2 {
+> +				regulator-name = "vdd_cpu_lit_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <550000>;
+> +				regulator-max-microvolt = <950000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_log_s0: dcdc-reg3 {
+> +				regulator-name = "vdd_log_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <675000>;
+> +				regulator-max-microvolt = <750000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +					regulator-suspend-microvolt = <750000>;
+> +				};
+> +			};
+> +
+> +			vdd_vdenc_s0: vdd_vdenc_mem_s0: dcdc-reg4 {
+> +				regulator-name = "vdd_vdenc_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <550000>;
+> +				regulator-max-microvolt = <950000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_ddr_s0: dcdc-reg5 {
+> +				regulator-name = "vdd_ddr_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <675000>;
+> +				regulator-max-microvolt = <900000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +					regulator-suspend-microvolt = <850000>;
+> +				};
+> +			};
+> +
+> +			vdd2_ddr_s3: dcdc-reg6 {
+> +				regulator-name = "vdd2_ddr_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +				};
+> +			};
+> +
+> +			vcc_2v0_pldo_s3: dcdc-reg7 {
+> +				regulator-name = "vcc_2v0_pldo_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <2000000>;
+> +				regulator-max-microvolt = <2000000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +					regulator-suspend-microvolt = <2000000>;
+> +				};
+> +			};
+> +
+> +			vcc_3v3_s3: dcdc-reg8 {
+> +				regulator-name = "vcc_3v3_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <3300000>;
+> +				regulator-max-microvolt = <3300000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +					regulator-suspend-microvolt = <3300000>;
+> +				};
+> +			};
+> +
+> +			vddq_ddr_s0: dcdc-reg9 {
+> +				regulator-name = "vddq_ddr_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vcc_1v8_s3: dcdc-reg10 {
+> +				regulator-name = "vcc_1v8_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +					regulator-suspend-microvolt = <1800000>;
+> +				};
+> +			};
+> +
+> +			avcc_1v8_s0: pldo-reg1 {
+> +				regulator-name = "avcc_1v8_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vcc_1v8_s0: pldo-reg2 {
+> +				regulator-name = "vcc_1v8_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +					regulator-suspend-microvolt = <1800000>;
+> +				};
+> +			};
+> +
+> +			avdd_1v2_s0: pldo-reg3 {
+> +				regulator-name = "avdd_1v2_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1200000>;
+> +				regulator-max-microvolt = <1200000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vcc_3v3_s0: pldo-reg4 {
+> +				regulator-name = "vcc_3v3_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <3300000>;
+> +				regulator-max-microvolt = <3300000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vccio_sd_s0: pldo-reg5 {
+> +				regulator-name = "vccio_sd_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <3300000>;
+> +				regulator-ramp-delay = <12500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			pldo6_s3: pldo-reg6 {
+> +				regulator-name = "pldo6_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <1800000>;
+> +				regulator-max-microvolt = <1800000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +					regulator-suspend-microvolt = <1800000>;
+> +				};
+> +			};
+> +
+> +			vdd_0v75_s3: nldo-reg1 {
+> +				regulator-name = "vdd_0v75_s3";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <750000>;
+> +				regulator-max-microvolt = <750000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-on-in-suspend;
+> +					regulator-suspend-microvolt = <750000>;
+> +				};
+> +			};
+> +
+> +			vdd_ddr_pll_s0: nldo-reg2 {
+> +				regulator-name = "vdd_ddr_pll_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <850000>;
+> +				regulator-max-microvolt = <850000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +					regulator-suspend-microvolt = <850000>;
+> +				};
+> +			};
+> +
+> +			avdd_0v75_s0: nldo-reg3 {
+> +				regulator-name = "avdd_0v75_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <837500>;
+> +				regulator-max-microvolt = <837500>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_0v85_s0: nldo-reg4 {
+> +				regulator-name = "vdd_0v85_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <850000>;
+> +				regulator-max-microvolt = <850000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +
+> +			vdd_0v75_s0: nldo-reg5 {
+> +				regulator-name = "vdd_0v75_s0";
+> +				regulator-always-on;
+> +				regulator-boot-on;
+> +				regulator-min-microvolt = <750000>;
+> +				regulator-max-microvolt = <750000>;
+> +
+> +				regulator-state-mem {
+> +					regulator-off-in-suspend;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&i2c0 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c0m2_xfer>;
+> +	status = "okay";
+> +
+> +	vdd_cpu_big0_s0: regulator@42 {
+> +		compatible = "rockchip,rk8602";
+> +		reg = <0x42>;
+> +		fcs,suspend-voltage-selector = <1>;
+> +		regulator-name = "vdd_cpu_big0_s0";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <550000>;
+> +		regulator-max-microvolt = <1050000>;
+> +		regulator-ramp-delay = <2300>;
+> +		vin-supply = <&vcc5v0_sys>;
+> +
+> +		regulator-state-mem {
+> +			regulator-off-in-suspend;
+> +		};
+> +	};
+> +
+> +	vdd_cpu_big1_s0: regulator@43 {
+> +		compatible = "rockchip,rk8603", "rockchip,rk8602";
+> +		reg = <0x43>;
+> +		fcs,suspend-voltage-selector = <1>;
+> +		regulator-name = "vdd_cpu_big1_s0";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <550000>;
+> +		regulator-max-microvolt = <1050000>;
+> +		regulator-ramp-delay = <2300>;
+> +		vin-supply = <&vcc5v0_sys>;
+> +
+> +		regulator-state-mem {
+> +			regulator-off-in-suspend;
+> +		};
+> +	};
+> +};
+> +
+> +&i2c2 {
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&i2c2m0_xfer>;
+> +	status = "okay";
+> +
+> +	vdd_npu_s0: vdd_npu_mem_s0: regulator@42 {
+> +		compatible = "rockchip,rk8602";
+> +		reg = <0x42>;
+> +		fcs,suspend-voltage-selector = <1>;
+> +		regulator-name = "vdd_npu_s0";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <550000>;
+> +		regulator-max-microvolt = <950000>;
+> +		regulator-ramp-delay = <2300>;
+> +		vin-supply = <&vcc5v0_sys>;
+> +
+> +		regulator-state-mem {
+> +			regulator-off-in-suspend;
+> +		};
+> +		};
+> +
+> +		/*
+> +		* Type-C PD controller HUSB311, ported from the vendor 6.1 dtb
+> +		* (vendor node: i2c2@0x4e, status = "okay").
+> +		*
+> +		* WARNING: both compatibles are required. The of_match table of
+> +		* mainline tcpci_rt1711h.c has no "hynetek,husb311" entry, so the
+> +		* device is matched through the "richtek,rt1711h" fallback.
+> +		* See Documentation/devicetree/bindings/usb/richtek,rt1711h.yaml
+> +		* ("hynetek,husb311" must be followed by "richtek,rt1711h");
+> +		* mainline rk3588-hlink-h88k-v31.dts uses the same chip.
+> +		*
+> +		* Interrupt: vendor pinctrl usbc0-int = <0x01 0x04 0x00> =>
+> +		*            gpio1 PA4; vendor interrupts = <0x04 0x08> =>
+> +		*            pin 4 + IRQ_TYPE_LEVEL_LOW.
+> +		* VBUS: vbus-supply = <&vbus5v0_typec>, switched by gpio1 PD5.
+> +		*
+> +		* Data path (orientation switch / DP altmode mux) is wired up: see
+> +		* the DP section at the end of this file -- usbdp_phy0 carries
+> +		* orientation-switch / mode-switch and the SBU1/SBU2 DC switches
+> +		* (gpio4-6/7, vendor values); the connector side adds port@2 (SBU).
+> +		* DP output works at 1920x1080 and does not affect HDMI (vp0).
+> +		*/
+> +		husb311: husb311@4e {
+> +		status = "okay";
+> +		compatible = "hynetek,husb311", "richtek,rt1711h";
+> +		reg = <0x4e>;
+> +		interrupt-parent = <&gpio1>;
+> +		interrupts = <RK_PA4 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-names = "default";
+> +		pinctrl-0 = <&usbc0_int>;
+> +		vbus-supply = <&vbus5v0_typec>;
+
+Completely messed indentation.
+
+Node names should be generic. See also an explanation and list of
+examples (not exhaustive) in DT specification:
+https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+If you cannot find a name matching your device, please check in kernel
+sources for similar cases or you can grow the spec (via pull request to
+DT spec repo).
+
+And redundant properties like status.
+
+Best regards,
+Krzysztof
 
