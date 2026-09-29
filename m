@@ -1,83 +1,131 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958AC3839A3;
-	Tue, 29 Sep 2026 18:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6725364EAB
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 18:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707142; cv=none; b=XJztqLeYECUqG60ScVF61coMpQeAhlR8uhrUTvLSickKO8DikAdB/JYmfynWaS5nOX70Mq2NceF0Ioy09p4PqIL36mv6ZhO6Y8dSkBHTjCiuNeIQeNXjvt83avKgs5+AX8SupmHzQR9kYQ7aqW97JmvYUekYIOA5HmhNh8DNFQk=
+	t=1790707240; cv=none; b=CKJLZWYDuRPNNvWAU24CY7kFNrecHbjiTXhHsKmJpHfHT6/NdtuDRPf82whgprsNIke6zw/d/nUtC2JRFzH669LebrRzVJl6bvTn1qcrj6IkM3ULn7txo0CTcx2u/MyBu9fBGAeWNP9lam7qXNkkO3/3T1f1DWSaR4iN12vXBQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707142; c=relaxed/simple;
-	bh=PtbCrSco5yzG1FGo+RyooD+inB125yls+7pZArHYHF4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H6OCX5NZDI5EUvVyM8d2oQe37T25QfJPIC7ttu/I7/giCaU11xGgfT0850aZ6F9pMk/Otk2IppnwbWoPBgKQdbOBIFtnTHxsnDv7aLO6zDNB54J+80C2Xqui/lq95qUyihQxMOv9DBS5jFse5/rd858F3KwEStacol87xrGej+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=VZGtWy+T; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1790707240; c=relaxed/simple;
+	bh=Od+ySdfwc6Co0cqZ37AR05hzn5m1C+LcAp1NzFyAF1k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=smZP1cjObzCNg2uPI96DtL01UZ8IFY/4VKAO1/O5olu4mby7/Wk1tXC9L2cfcceihhyNpm+dJugwajRbNHyK3/SGdb7Q1rKFAT3z/yAuNHIxlZ6oKJkiYNkynNF4vhOyK2sRoxGDUSQrNpitXyL3wd4YpuW+ZJQ2Gb0jbzSAF18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=owRyhpX7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="VZGtWy+T"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AF779106CA0;
-	Tue, 29 Sep 2026 20:38:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1790707133;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=+mz+DR/cNP0US6qM+V0NJZZkwyCBeScDtMfTKHVJnik=;
-	b=VZGtWy+TnRRjNQTbwO2hS2qxQNoSfigFgLQtQ6lSy8wTUxCm1pSlqzLhf6Hmf2ySNOMvI4
-	1nXo68OLK7P+vcD/tS9Z75jRByo2YGJ0Ckh8JCy4jbC4gaJjheDrs6+XjLJLXVbOCOvZjK
-	aFWhTXRZy7dR7vD4exC2woOXd5Nuv3nnW+ZbL5vUzqYXKwlCDmj1AViVQCugILH2uaogI8
-	S8rMDr/EKcMVwMwQM72JxK/GjZlIqIst8zJPbjFczbIxUY2qCCwRyG3lWdSUZp/jHN5OxJ
-	8H9A8lYrbJBq3UqTsnptbFDlO7P8rqj8fK5GP5leIJeQewqlebMFSvL6Kru3Zw==
-Message-ID: <0a65ca90-2b0f-4f58-94bb-11fa2737519a@nabladev.com>
-Date: Tue, 29 Sep 2026 20:38:50 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="owRyhpX7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA11B1F00893;
+	Tue, 29 Sep 2026 18:40:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790707235;
+	bh=x7IR3aoIcvpOI11Ls9IPp9q8Gpl19fwJqZ0D1n91oH4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=owRyhpX7md0KgSDUyBXrGNxKruOkryqdba7gYxglz5FXzstKc7IgMFA4QKPvHWibs
+	 PUSJ+x/e8HrGTrAxOUzM6yYIsStrjbm7X/cObCCfLxiHx2TR2BDo9eE5EomLpncxA4
+	 XFEWFAip4N5hBb/v2aGeGhfSlzE4suKCEq4+B7/DMa89dm6pJuRGX43dBhBjepTuBb
+	 88gBVIaCzq0aLIzUho6Gi7pt1+pFtIzjQio4OAdCa9bGxiIMDyckggu1mdoHmKZNBU
+	 PP6yzmWxXOj0Q5ts3Zl29dyMfLS6sf9/kF1S8yCJ/mrSyoM/+veMtfmKwoOacxDnA7
+	 ffNpIfXGUpGaQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/6] remoteproc: qcom_q6v5_mss: Use mss as regulator
+ for MSM8953
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260929-sdm632-rpmpd-v2-3-97ef8858161b@mainlining.org>
+References: <20260929-sdm632-rpmpd-v2-0-97ef8858161b@mainlining.org>
+ <20260929-sdm632-rpmpd-v2-3-97ef8858161b@mainlining.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 29 Sep 2026 18:40:34 +0000
+Message-Id: <20260929184034.AA11B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] phy: stm32: Add support for ST STM32MP25
- USB2-FEMTO PHY
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- linux-phy@lists.infradead.org, Manivannan Sadhasivam <mani@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Pankaj Dev <pankaj.dev@st.com>, Rahul Kumar <rahul.kumar05@st.com>,
- Christian Bruel <christian.bruel@foss.st.com>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Patrice Chotard <patrice.chotard@foss.st.com>, Rob Herring
- <robh@kernel.org>, Rosen Penev <rosenp@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org,
- kernel@dh-electronics.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20260902141312.649406-1-marex@nabladev.com>
- <20260902141312.649406-2-marex@nabladev.com>
- <bf8e7888-1917-4ddc-9a6d-20490835c742@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <bf8e7888-1917-4ddc-9a6d-20490835c742@foss.st.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/3/26 12:19 PM, Fabrice Gasnier wrote:
-> On 9/2/26 16:13, Marek Vasut wrote:
->> From: Pankaj Dev <pankaj.dev@st.com>
->>
->> Add USB2 PHY driver for STM32MP25 USB2 controllers, which includes the
->> USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
->> Two such PHYs in total are present in STM32MP25 SoC, they both are
->> slightly different, therefore they use different compatible string
->> to discern them.
-> 
-> Hello Marek,
-> 
-> I'm not sure if/how this fit with all below tags. For all the
-> contributions you've made, you can add my:
-> Reviewed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Is there anything left to do with this series ?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] remoteproc: qcom: missing mss-supply breaks MSM8953 modem and DT A=
+BI
+--
 
-Thank you for your help !
+commit 60b163d9c0ae16c46f303d4d666d5f83a62a90cf
+Author: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas.czeman@mainlining.org>
+
+remoteproc: qcom_q6v5_mss: Use mss as regulator for MSM8953
+
+This commit modifies the MSM8953 modem subsystem to use the MSS regulator
+via voltages rather than performance levels. It updates the device tree to
+remove the mss power domain and modifies the qcom_q6v5_mss driver to
+request the mss regulator instead.
+
+> diff --git a/arch/arm64/boot/dts/qcom/msm8953.dtsi b/arch/arm64/boot/dts/=
+qcom/msm8953.dtsi
+> --- a/arch/arm64/boot/dts/qcom/msm8953.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/msm8953.dtsi
+> @@ -1451,9 +1451,8 @@ mpss: remoteproc@4080000 {
+>  					  "handover", "stop-ack";
+> =20
+>  			power-domains =3D <&rpmpd MSM8953_VDDCX>,
+> -					<&rpmpd MSM8953_VDDMX>,
+> -					<&rpmpd MSM8953_VDDMD>;
+> -			power-domain-names =3D "cx", "mx","mss";
+> +					<&rpmpd MSM8953_VDDMX>;
+> +			power-domain-names =3D "cx", "mx";
+
+[Severity: High]
+The old power domain is removed here, but the required replacement mss-supp=
+ly
+is not added to the mpss node. Since the driver is updated to expect this
+regulator, won't devm_regulator_get() fall back to a dummy regulator?
+
+This fallback would leave the physical S1 regulator unmanaged, which causes
+the modem subsystem to fail to start because it receives no power, breaking
+modem and audio functionality.
+
+> diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom=
+_q6v5_mss.c
+> --- a/drivers/remoteproc/qcom_q6v5_mss.c
+> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
+[ ... ]
+> @@ -2728,6 +2728,14 @@ static const struct rproc_hexagon_res msm8953_mss =
+=3D {
+>  		},
+>  		{}
+>  	},
+> +	.active_supply =3D (struct qcom_mss_reg_res[]) {
+> +		{
+> +			.supply =3D "mss",
+> +			.uV =3D 1050000,
+> +			.uA =3D 100000,
+> +		},
+> +		{}
+> +	},
+
+[Severity: High]
+Does requiring the mss regulator here in msm8953_mss break devices if
+mss-supply isn't provided in the device tree? As noted above, missing the
+regulator in the DTSI causes a fallback to a dummy regulator, leaving the
+modem unpowered.
+
+[ ... ]
+> @@ -2741,7 +2749,6 @@ static const struct rproc_hexagon_res msm8953_mss =
+=3D {
+>  	.proxy_pd_names =3D (char*[]) {
+>  		"cx",
+>  		"mx",
+> -		"mss",
+>  		NULL
+>  	},
+
+[Severity: High]
+Does removing mss from proxy_pd_names in msm8953_mss break DT ABI? Booting a
+new kernel with an old device tree will fail because the old DT relies on t=
+he
+mss power domain, which this driver now completely ignores.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-sdm632-rpm=
+pd-v2-0-97ef8858161b@mainlining.org?part=3D3
