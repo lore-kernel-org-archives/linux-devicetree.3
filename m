@@ -1,110 +1,149 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBB23A257C
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 18:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6337A38F250
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 18:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790705013; cv=none; b=AIe10dB/P4VpZ+8/TTEOMpBBgLA2glszJRCEe7jM5ZSao36PhmTwXEiC1VOdA5mekvMyZO4CPu7PXHXVf+YJIMcEk3SRomjBrv51V64QAggv4fipCogMBHGVY5KBi1YYWoYa2wvL8amyyCqy3yvYjOMSUCDoAT0iut2pSP+j4WA=
+	t=1790705622; cv=none; b=OtW0RW3CeubuNEOf+pQxLXbHvkB0M8LXrb4f4HqD5zmrZwJ5UkE6lH1lHAwC51koniw3Eq1MfXNFWRKRYD8L/jKTHkXGzdCUQy4kNb836iPsrrhpNPxbqZGPvXaxYtq+WsGLlLcuwwmAVea8tP6wK9xzIj5jzQCNvv65bR+i70Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790705013; c=relaxed/simple;
-	bh=t0us02vORB4Jz7dlERRWOJMbBxMt7gj0S+kDlcLt7Is=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=WDrH36tHj8PxlezZt4LUiBWk6jWGX/BVZfHXM2NUfKWPQ+gashLQ0j+wBlg40yUKcB99ZwD7n+O27vljpfP5S4awFjXaaav59dBUX2QfhaboCEfnJ++1ZKSj8zM2FytIZcHJyqS4SviqgcBHvM3wvxKZ6z81zGRBBuLocW6Qudo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=P28wBM8/; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790705622; c=relaxed/simple;
+	bh=8CXPcmZQ1kV8mbWikHF++D2g9HRdgHLNrpHDOlCAs8Q=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=GF7NLuiX4P/+f5enbfkh+lAtfPZx909ySzFWqYzKT4BzQ6jl2+GiJn/eRzWyaiSKuJFE0psT6hmkDYQXXkd89cJ9MAKE2Q5h9TpWE1Useq8MzXgH87O2ynjwWJVk/qxt6ofPZ/caQyyT1B1qUkiI1tiizNoH69SHoJ+3BmQCMgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bPes/M5M; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZYU4gd1u; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="P28wBM8/"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so24083245e9.1
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 11:03:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bPes/M5M";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZYU4gd1u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790705620;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uvO3TYbPdD9gThArBooSvH6FsyLY/hrMXSQjkvo3u0Y=;
+	b=bPes/M5MLuetmypeFPFeiOUysT1zJSgxVHnavUqH+ipm0qBDsOHB5e4GbXJEPmiXnPmb6z
+	MIlH+YrnRX0lB9im37aED6A+bzo/W3Qah0fNcCqcej/0oYuHrcAIdiBMtJ4TkqhKaxeiHk
+	9F1HCeD1MybeMMk49YyA6OWzCesgG5k=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-121-ZWM1G2vbOoaZrQc8SzA9Ag-1; Tue, 29 Sep 2026 14:13:38 -0400
+X-MC-Unique: ZWM1G2vbOoaZrQc8SzA9Ag-1
+X-Mimecast-MFC-AGG-ID: ZWM1G2vbOoaZrQc8SzA9Ag_1790705618
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a0c7126e7so811557185a.2
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 11:13:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790705010; x=1791309810; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t0us02vORB4Jz7dlERRWOJMbBxMt7gj0S+kDlcLt7Is=;
-        b=P28wBM8/xUsO3wSg7/3jXmhdIyBEWuXqJBB2rU+IJpsXpHmBgP8Fa01+p8LE0T8zWV
-         5Bfv4g2AEx6pAs3WquG19kyWUutG/3uU1bPrloUIcBiTIr/KDF8H8ZZ/figb7g17QqJ5
-         zcNAKL/55oxL3zTgQ1G4x8HH1kHBzINZwJkppRvDYfBzDctMF3UwAeook/oRX1TbzBd4
-         OwU3IuhcVN7hFWQHsKlvX07IBaKViJKHjshkqt84H187bfk2DIU5q+j7awTviohvl9zj
-         OMs5N/4iy2lYPSF9n70oJ5WUigQVrKivlxFIaAGoUZS4UnXCwnED2fC5C9IOGy5Oz3UH
-         G/hw==
+        d=redhat.com; s=google; t=1790705618; x=1791310418; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uvO3TYbPdD9gThArBooSvH6FsyLY/hrMXSQjkvo3u0Y=;
+        b=ZYU4gd1ugqkkaLuAfb8QyMqDCQbnGXJO7zUGA+rSGjejeDRD34zUfIp7u8akhMXh09
+         voN3Ga6a0BtPDRtIb3Cpn/dTEB4g3Fdlp/qlJNfQZhRMFJi9u+QIdXKd9P1Mp+EO3gDE
+         Mv8/wKfhDPHuxB2081yYkAVmUgcH63ILj4jJGVsnNc7UxxqE13oDx4hOXaJ6mmh31PV+
+         sYX7vjFhIa6WKMMb5LA0dc2RQi2e4zoh1+Am4WmjZT+dVWrcjQVETM3pFacaT9bUaVq8
+         t0wCuF/PNlbyoT8pWIzuIJvYooXhQuhGy4Hc9Yb/AN4NZcCJ93VfKheaTs6eWjSwjfz8
+         HbJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790705010; x=1791309810;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t0us02vORB4Jz7dlERRWOJMbBxMt7gj0S+kDlcLt7Is=;
-        b=o/qvNAzDw6JdfWHMSxu6jNhNLIY3PgPOfgxf9Es2IaKNJwHDp/beI5Q4wiYfUhO7Hx
-         tvrj84z0t4TL+5z+ULigl/MBSGw171ZK/NT6zaoAtrWqltI4Wtp7X6y+rpwxKlWpBV3s
-         O5dPv1PbEKdRW7CDZMIKAN+ortjFGv0+P+yvjwwfmMTlVnDOWWlBS7gkj8ATNtO38hE/
-         6DWpUbUu3FfChlNjELQJaJ/CApf+6nwoURtykFTqikHQYwPDxFAUHfF+gyplKVu3wbRD
-         62gnyAj+FWvNB4G8ABYMU/7rSVQ1ojShVqhsqSWpuHZHVNwdjiXKsB6LAhTMvZuuCk2D
-         SJsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzs8Aay4+McaH/GfQaC6FMh3E+PzYlfQokrYjb3YQ9IR2VHSeNF7bLTV7t8drUwrU5Kg3xqR7y+WCRp@vger.kernel.org
-X-Gm-Message-State: AFuF++l+P4jntDepdl2Dra79g10r8Ub37I0VkTA9Dpd5JtvphndeYKzB
-	2cgidHOnut9j2+YVgGWXHR0nadRxj0GkImvZERF99feoKUqTuil4OUgDzZicUhGGyOMmx/k+D71
-	5LzDW
-X-Gm-Gg: AYBFou0AC4gNOZBXmZaBAsHJt7+C3MfBZ5wi5q/ImMvxveioP3P5pDeTD7qiHXOc4XT
-	Co5NDRUPnPWq3uxZ1Ld4LqTd5e2Bs5Eg1+IVZ7yEYlJbpgrh7CNy/Wd4bfH52bB8lhZK/Am8dZ6
-	IIpIkK/w2EAaZd/2GuTJFBNyvvVLO8EwJWuKZFL+oM3W4IERfyNtu3rUDaN47gAgmFgL+g4XJGP
-	w+71FtugWqtUi/uvz3Qh5j+4ffQBr3sS5n66vo5cdC8PAdlfTzqB40SQKqJcQkVkwGEOT9R/RYO
-	lwIILSajxTifEtJEI1uS2BKBj2vrtxtACTszrxCixJMn3+jO0vz208JG1iJhg15JtKhesss9mER
-	w7vHtn9l17m7xMlJP6F5A8QNoGT3teV5lfVNv9n89KH+ddxh2Evsv6+6O+is0WXmXtKck3L1fp8
-	gSlb/amrxf012/OdhhdEuVc4nAle9mY6eBIyQgvzB+RJYaY+jGycjztpfxy5NOlQxBr7ByATlG6
-	djjJzvhGLcUAm91YA==
-X-Received: by 2002:a05:600c:8b86:b0:49f:ce73:7a9 with SMTP id 5b1f17b1804b1-49fe6701ed1mr295156035e9.34.1790705009663;
-        Tue, 29 Sep 2026 11:03:29 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0148b0590sm5696925e9.2.2026.09.29.11.03.28
+        d=1e100.net; s=20260707; t=1790705618; x=1791310418;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uvO3TYbPdD9gThArBooSvH6FsyLY/hrMXSQjkvo3u0Y=;
+        b=ztAmw51iBbyBBdOt5WDj2dsX+Nix3quDaxbtS1U62OkQ+pphomXH2QyUaT9cLRqLew
+         KUE1egm/gB2d+6DlALj7Vn95B+K31SOR27BpO7ifL3Krknkv+jSYUq8y5lhnto3cZdDI
+         wCW21N4SmBw2qV3ncz67K5w6s3DvkAMkF8xnCDgeuD/q0wimDTcMVQGUHN9/XWxYjrCo
+         JXaEsRkNwrg5ofS8WKZTTlmYFAiN7z4Svc/vK7benUK2N3w4qqQecJO77Bez1DJX1s+v
+         QKuhAyVD3Vnn+C8wuKE0aiubVl+ZaQDGSfUMPjWVvkjvlcZldq2TkT8YM730jr/JQ40m
+         Ujdw==
+X-Forwarded-Encrypted: i=1; AKwUvBwnIrNFQ+BrxODrgCer19zB7yIlGsF5yj/bDB6vnmYTEGrWf1NRg+3tgaWuAnb7jTNg/aoU1PbTrHxX@vger.kernel.org
+X-Gm-Message-State: AFuF++lvZwafspgA589LTlWGFsofYngbDyDZXOnHDCN289f266YIjQxT
+	xBx9hTsioyD6RS8wteL0kl5bCNatuYB9aXQM8r9BFl9SIQGtxa823mS2Agk6F4V82HqqLf1z/YM
+	AxbAjB3D+7YU5gYlAkA6Gh5LJCx7RPvZPTxI1TpSCnnKGtYOni3CbljqCoNR/6M4=
+X-Gm-Gg: AYBFou0yXU+LKliIPKz3S/w0Vt7mIYl5azFhPRaUV5ZxIO5/HTvrJEq5uwzon9Eg+yh
+	tjdjoC7xa5r5vSq6Dlbw8oo//ily2XhWCQmJb0VCJQN+CrVuLslY076apHAnA8crVQHoYW7vuk9
+	blcmwi11yXkaRDdrvlMmR8H7IKNRP58tK6E8KHnkV6XNqppWWd51az6jWnfplTmRmdzL+flK5Ml
+	TQf3LjVT9wCG+QXDYQwp2X1bWk7BJdJEOTOLLdzle1am7HLCMnyEe7y2H8zG4FWYkEwBfy5oAqh
+	y8Kxrn7GRyi8/714tvVx2MGw7kAE72ntFv/rw+UuIy4NBhVu6Kq9/30EoU/+6pSQVgkNeBPt/qC
+	f8ypv4uov3oRaK0dVmwnYLkvNy1J2JSA9pdvCpHttjGwLaWXZ2ho=
+X-Received: by 2002:a05:620a:4442:b0:93c:23e4:359e with SMTP id af79cd13be357-93c9faa90eamr68417385a.50.1790705618160;
+        Tue, 29 Sep 2026 11:13:38 -0700 (PDT)
+X-Received: by 2002:a05:620a:4442:b0:93c:23e4:359e with SMTP id af79cd13be357-93c9faa90eamr68409285a.50.1790705617547;
+        Tue, 29 Sep 2026 11:13:37 -0700 (PDT)
+Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c9f564879sm28222085a.42.2026.09.29.11.13.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 11:03:29 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Junhui Liu <junhui.liu@pigmoral.tech>, Michael Turquette
- <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Junhui Liu
- <junhui.liu@pigmoral.tech>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, Troy Mitchell
- <troy.mitchell@linux.spacemit.com>, Brian Masney <bmasney@redhat.com>
-Subject: Re: [PATCH v5 1/6] clk: correct clk_div_mask() return value for
- width == 32
-In-Reply-To: <20260514-dr1v90-cru-v5-1-34f3021aab51@pigmoral.tech>
+        Tue, 29 Sep 2026 11:13:36 -0700 (PDT)
+From: Brian Masney <bmasney@redhat.com>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, devicetree@vger.kernel.org, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+In-Reply-To: <20260514-dr1v90-cru-v5-0-34f3021aab51@pigmoral.tech>
 References: <20260514-dr1v90-cru-v5-0-34f3021aab51@pigmoral.tech>
- <20260514-dr1v90-cru-v5-1-34f3021aab51@pigmoral.tech>
-Date: Tue, 29 Sep 2026 20:03:28 +0200
-Message-ID: <1j7bk43pfz.fsf@starbuckisacylon.baylibre.com>
+Subject: Re: [PATCH v5 0/6] clk/reset: anlogic: add support for DR1V90 SoC
+Message-Id: <179070556430.244235.18030041151516795666.b4-ty@b4>
+Date: Tue, 29 Sep 2026 14:12:44 -0400
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1274; i=bmasney@redhat.com;
+ s=20250903; h=from:subject:message-id;
+ bh=47wGTHOwHNw1GkHHo55d/Ij59Ac962ww2JNiZgwxSsM=;
+ b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2/z/JcHHvrsKaC5/+sXzUj+kL2Cw+y8pY4GFhKluZd
+ Vvai7hfHaUsDGJcDLJiiixLco0KIlJX2d67o8kCM4eVCWwIF6cATKRoM8M/m8wsXed3DY9ufUnx
+ 6tm7csqlfc9qp35WLN11Y+qBFVdmSzEytGUuDfm/9O3h/q8lASaMnn/3d6X0WdRERRpeTwrd+5i
+ PFQA=
+X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
+ fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
-On jeu. 14 mai 2026 at 17:27, Junhui Liu <junhui.liu@pigmoral.tech> wrote:
 
-> The macro clk_div_mask() currently wraps to zero when width is 32 due to
-> 1 << 32 being undefined behavior. This leads to incorrect mask generation
-> and prevents correct retrieval of register field values for 32-bit-wide
-> dividers.
->
-> Although it is unlikely to exhaust all U32_MAX div, some clock IPs may rely
-> on a 32-bit val entry in their div_table to match a div, so providing a
-> full 32-bit mask is necessary.
->
-> Fix this by using the standard GENMASK() macro. This safely resolves the
-> undefined behavior on both 32-bit and 64-bit architectures, while also
-> benefiting from the built-in compile-time type and bounds checking
-> provided by the GENMASK() macro.
->
-> Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-> Cc: Brian Masney <bmasney@redhat.com>
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
->
+On Thu, 14 May 2026 17:27:16 +0800, Junhui Liu wrote:
+> clk/reset: anlogic: add support for DR1V90 SoC
+> 
+> Add Clock and Reset Unit (CRU) support for the Anlogic DR1V90 SoC, as
+> well as corresponding dts bindings and dts integration.
+> 
+> The CRU driver framework is built around the clock controller as the
+> primary device, with the reset controller implemented as an auxiliary
+> device. The clock part refers to the vendor's code [1] to determine the
+> structure of the clock tree.
+> 
+> [...]
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+Applied, thanks!
+
+[1/6] clk: correct clk_div_mask() return value for width == 32
+      commit: f036decc4434323b47b58ad9508fe27d8c9087c2
+[2/6] dt-bindings: clock: add Anlogic DR1V90 CRU
+      commit: 155d900e4c7d124dfc1fef598fecc6d17a1ea693
+[3/6] clk: anlogic: add cru support for Anlogic DR1V90 SoC
+      commit: c4e2f5e69ba4298c10ab5a64525379ca48ca921e
+[4/6] reset: anlogic: add support for Anlogic DR1V90 resets
+      commit: 9fd565971072d2d7158e15178f84b0273e294e70
+[5/6] riscv: dts: anlogic: add clocks and CRU for DR1V90
+      commit: 7849521aaac26b17820642010ab7f7a222ec73d1
+[6/6] MAINTAINERS: Add Anlogic DR1V90 CRU driver entry
+      commit: 5795c6059d10afbc0fbcfe3cd95676be69b30bcb
+
+Best regards,
+-- 
+Brian Masney <bmasney@redhat.com>
+
