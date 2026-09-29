@@ -1,144 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F224FECF5;
-	Tue, 29 Sep 2026 12:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63F24E80BC;
+	Tue, 29 Sep 2026 12:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684933; cv=none; b=nkPhmQuL0ZI54NV3StiqDl1rxVJO0c5Yizu21a3Fj/gbazwQr5Nqjd4XmgojgqpX6g0pGhgMxoA/VLh+CX0kZJ2E0iercTdIdUoJAJ0aBWrW4xr8MTt3aPhx3+3FjZO+M59aRgHsrOKxoWQBwEOCotsh0WWnshUrdr+QSSFxUNs=
+	t=1790684987; cv=none; b=NJgSbYDrlo7aVsmQk1xQSlZt6sSWoHWmhyFWigynRZwMndm+iNti4TKAOSN1t26Vg9Ed1cLv/JDTr94yUJuquBLqJyXEdFqbyqYIArM4ogiRglfF9CRtjcQimTnxm4oEcUud5PkOT+qPK8M0vCtZu8RBAo7vVNdBxShDpl52hko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684933; c=relaxed/simple;
-	bh=Rya2/xvwmnG+LUNaAktFCoDG7sJ7+awgSLfG71+jbJ8=;
+	s=arc-20240116; t=1790684987; c=relaxed/simple;
+	bh=VHAhHnezYBd7J/bmChRu3tuXqghhmGSANCHL/AYasUk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fAkrYsYEgy9LfDNLA1ayVhjq9KAa5eN6laQ5gcMClqw8EAFpVK1W5zyUt+uH8R0MqMc+1SnPLO9ebtIvfK5LGwHLn+9InM4RrrpJcwBiu5+0qvNIhiUQrQfd5jD+Rq22VpOPr1doYhj6a7mfGn1G9XrVE9KrLF1IskS+JFdH9vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KDgs52RD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ByPbZLZYiFU7WNzNo5q2Xh4Gy+Z6nQVYCdDa0hsgxplhR9DpmcobpwCxRF8GR/6S7GoAp32smza4PBEgw/7izgJSH8/xZu6IWKUQ8EZ9I42laccTZYCV+tvlZwdb41YFxRuhODFa6oMQJbWIv+LHd/1+88EKHtqF7RaASQtvLok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=ikipT74B; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KDgs52RD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F8E61F000FF;
-	Tue, 29 Sep 2026 12:28:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790684927;
-	bh=Rya2/xvwmnG+LUNaAktFCoDG7sJ7+awgSLfG71+jbJ8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KDgs52RDTx6mh31I7eMF9UWgZiSg1uUMHsWF7NmqCu8jGXUdqsG5RRco4NAQ1yybk
-	 xQ+m+bbw1/UwtG3KjfgwVgTA5CaoLUfvpIS8lFDoTctzuu7VSyBxeowIx5ueXoinnE
-	 8tKck5octUTdRzH9FOQQ5rKCVgLBSz3czzpqXIl3DCc+gA8SVFh5ujozuK/cQlWlr3
-	 laRfPA3ooCYxIdbhJVJPI51VwDjiItiCpStTQWukUYuWtEtyJAROcrFDWye7LIwjKJ
-	 BEx8eFAfDOOrw/HeBkx0lBbtw4Jx8mATUrz9BoFpYrTbqm0g4vGPopfAaieDMB8Iyg
-	 sD/aDTz9tWV9g==
-Date: Tue, 29 Sep 2026 14:28:43 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <arut8kWzqX5YW5wE@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <054ef52478fc93fc213a9dae23ea77f73094aaf2@intel.com>
- <aruD5kwOEsvFhW2e@beelink>
- <42cfa3fb2246c66d69e45d7d9b8d6aaadc0da4c4@intel.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="ikipT74B"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=CbN2+lu8v6PEj1VxXWPoKgsEuGGU/IXvOnEXwuo7n+Y=; 
+	b=ikipT74BRQz7W/l6y17QkV+wIec8UsusIAsPujpkyK7LP1JnfuvPmFTLIUXXtEUuOliNesX2eMM
+	5XsQiNZrXXb4K4aV2svDnX0jv2fYG+GzpqXsqWkTwzPje9vCdJC8Jfbgx0PS6IannPBunFeuf+KSy
+	0zLXa0rQtAt2MI21gkwWPdYg14AgixQG4VfhZivQLUP/zzWABTLKNBf+6Iq9YM0yfU4Y7RTvw5kku
+	29jIOsRYBj9hfQFLGLFQzyc+0MaeTnq4JJNGNkgt7cqPUf6u+cVl/F1P634jbqG8luZgg72NFsZ0Y
+	E3kpymrxSOUIRnq00En5vdtxql/Zf14yNEJA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xBWxY-00000001mRV-0mCe;
+	Tue, 29 Sep 2026 20:29:25 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 29 Sep 2026 22:29:24 +1000
+Date: Tue, 29 Sep 2026 22:29:24 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: vjardin@free.fr
+Cc: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	Sahil Malhotra <sahil.malhotra@nxp.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Gaurav Jain <gaurav.jain@nxp.com>, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/3] crypto: caam/qi2 - algorithm priority be a parameter
+Message-ID: <aruvJECCDNdguMdw@gondor.apana.org.au>
+References: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
+ <20260928-for-upstream-caam-qi2-priority-v1-1-e4a8e5f01dbc@free.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="tn7gfu35hmfimxib"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <42cfa3fb2246c66d69e45d7d9b8d6aaadc0da4c4@intel.com>
+In-Reply-To: <20260928-for-upstream-caam-qi2-priority-v1-1-e4a8e5f01dbc@free.fr>
 
+On Mon, Sep 28, 2026 at 04:01:03PM +0200, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
+> 
+> dpaa2_caam registers every skcipher, aead and ahash at a fixed priority
+> of 2000.
+> 
+> It is above the ARMv8 Crypto Extensions (200 to 300), so on any DPAA2 SoC,
+> every in-kernel user of AES, SHA or GCM moves from the CPU to the SEC,
+> whatever the request size.
+> 
+> Whether the SEC should be the default or only be reached by driver name
+> depends on the system, and there is no way to choose/tune it.
 
---tn7gfu35hmfimxib
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-MIME-Version: 1.0
+You can easily change the priority from user-space through the
+crypto_user interface.
 
-On Tue, Sep 29, 2026 at 01:16:41PM +0300, Jani Nikula wrote:
-> On Tue, 29 Sep 2026, Benjamin Tissoires <bentiss@kernel.org> wrote:
-> > Ouch. This immediately raises the "let's implement a parser in the
-> > kernel" flag, or "let's create a new langage".
->=20
-> Fair.
->=20
-> > You'd still need a dedicated driver for your new blob parser, with far
-> > fewer people who had had a look at it than BPF who has been working on
-> > for several years.
->=20
-> Fair.
+So why not lower the default priority and let the user adjust
+it if necessary?
 
-Also, it's kind of what we had with panel-mipi-dbi:
-https://github.com/notro/panel-mipi-dbi/wiki
-
-It didn't really take off.
-
-> > The integration of BPF and the kernel is honestly transparent nowaday:
-> > calling a struct_ops BPF function is just a function call away, and from
-> > the bpf calling anything in the kernel is also just a call away.
->=20
-> I don't know if I'm just being overly conservative here, but it seems to
-> me BPF provides too much flexibility for the use case. But maybe the
-> point is completely moot, and you should just ignore me. ;)
->=20
-> > See Maxime's answers: yes, falling back to dedicated driver is still
-> > encouraged.
->=20
-> [Moved the above to go with below.]
->=20
-> > Isn't that what Maxime wants to have? One driver for a plethora of DSI
-> > panels, with the same ability the BIOS has to also do function calls to
-> > set things up?
->=20
-> I suppose this is something that could use some clarification. Is the
-> idea that most (simple) dedicated panel drivers eventually get converted
-> to BPF?
-
-I don't think most of the existing panels will be converted, if only
-because it would require a different DT binding for most of them. We
-should totally fix the "what happens the panel is supported by a driver
-and the bpf driver" situation Rob (I think?) pointed out though, because
-I do think some will be converted still.
-
-> Or is the idea that BPF is easy for prototyping and development
-> using stable kernels and short time to market, and most of them would
-> eventually get converted to dedicated panel drivers?
-
-Even though it does make prototyping easier, I totally expect this to be
-a production-grade driver, just like any other panel driver.
-
-> The story wrt display before userspace is up and running also needs
-> clarification.
-
-Yeah, I'll work on an in-kernel loader for v2.
-
-Maxime
-
---tn7gfu35hmfimxib
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaruu+wAKCRAnX84Zoj2+
-dvaDAYDbgFmn3VTPnwMmRkcBxrTVtKlQ2i2nTFTQqsY6+h83dQfdgZBSKyv4PaD8
-t21q8pIBgLJeTlsC72CRcfaSgL7zPCcpR02uuJQEdtsW57i6k17jJYgTCB0r9j+y
-8X+t6kZwEw==
-=GOdP
------END PGP SIGNATURE-----
-
---tn7gfu35hmfimxib--
+Cheers,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
