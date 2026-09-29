@@ -1,223 +1,86 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE4E485935
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD8E497383;
+	Tue, 29 Sep 2026 08:44:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671444; cv=none; b=XpFyOL4FPqQ7wLsvU6Gd+OQ068jChwnTTynwlGWwzlqsYsPAWhmHhBlilT+d1ELLR9xeGpFqPfWtJ3XewJQBcX3X70K9ViaHTaJ3f6cHRDxM8qFXU1q3QdVgYxK5sWMknm+AOfTetmhGamHS7VgeU2feLhDEQELWrx8yKyKc+9Y=
+	t=1790671488; cv=none; b=YdfCqHWcMxW5m6Jxj0DacYEfiOf2KqnbIDNkoEvoEWfmD4cMUsIdxdtCr7wio92PzYtAggSZEMB+bWP2Cj8uCaXT83V2RD2nNXH8SRG+iMS/Qbh5NwL7k4ieF5BxbjYJjKZzgqWRoeC047ylOaPBafzrnhkURYBWgGlNuJyGR2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671444; c=relaxed/simple;
-	bh=PW29nh6AHKIAfInJuhHm2rTl7ZNcfWfYAnmTTwkdspk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bg/c6YCK8LpdWZC39fUJT5l2WCdNPVhE5b1uIMTEv5mSWYlR5Fj0EQk78FAFB2/yN+bdOI9NKfd4sOs0PcW5Bvjmi9ZAbuQi5YulyhySzSfx8q0mc0EcGEzLuBMIG4DpJtsZSmnewl472dQSn8ouCAfNND1/F0kfb0mne5WW1XA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hrL6QsEX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hI9m2mjh; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790671488; c=relaxed/simple;
+	bh=KAWMLDlFlM0Q8LxOZIgWnBmOL9ihn4eLXQuQhVyXf+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kzyyfkB0x+rHCSaOMl8WCXpP9+XB75kRzuCCQC4igAGVIzBECWVo8TxrRG/Uar92I9kioH92LeBR0wQuEMy42IgI812dx5YLcOPnHunplZzgmVI0XDrrHGmQtWHhGE1ktRoORy22kUc4SKWaAgzm9beYRT1TXHU5FRxO/hzoyx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m/lYIjMf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hrL6QsEX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hI9m2mjh"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7U0Bc4087159
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:43:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IrKwOcgAyyYp97eQvpSA/WpL5HLMDhjcoFZkd6DMhmQ=; b=hrL6QsEX1aXwzaj2
-	/nmBYfgLXBUNlA8EIbp0Q/hWDhvaDrOksMM+nuWhdijbF9KSuiDtuuPBxzp87CEN
-	PO/rFxo6wnvJOxPbCMI3s6Nxe3q7WIlFNx84bSDhLETTzX0+Cak0oI2xgUprLI3e
-	2LmHZ7mw8WtDQAtkA35Wf72wmhWVIEwiFWHT3lz3FNAK5qW5hsR6MIiqY5Y7yBte
-	xZ+iAWWPuYNRVju0Kxw15UQYufFusVKzFByXfC+kd2tn0n5xotO5Y6ljJa8WQZKX
-	dWcxv939+CrjOu0O91Nj3Uz08vRaZPjMthqWdNAq1Su2uy1dE1BN3/ZI18jC/wJG
-	Zk+/NQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h00s4t46f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:43:57 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93bfb2da664so1134203185a.1
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 01:43:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790671436; x=1791276236; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IrKwOcgAyyYp97eQvpSA/WpL5HLMDhjcoFZkd6DMhmQ=;
-        b=hI9m2mjhFvvbiKUZrdpycZjv/u8moN+vxbpnBn3g7eTVL+cRxnz6/XtJ+U+PKhyyVt
-         bHaS6hNFk3V1JGNopfFlvUdrGraYEUhDRl5DyTSBYwuB9NPlYH1YN191h85IQuG+53XZ
-         atTxo71ieXci3KTp/t82mK6cGQ5jHItmOuoYOzMnO9DFyGSqeA+gf2UlfWunE0ZTqtM9
-         +pb/yv0hCQTyvl5pjlIrVcknwVZVqaTo1uE3nmBaKGsfVRclki9/8wexQNrLwlq0cBhA
-         qKl2X27SgOJrHOtmCGbeWBMC76XUHkOvIs1fMxQu6FJCZQsX/jveVkuIRaqmzEjCwfI9
-         ZaHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790671436; x=1791276236;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IrKwOcgAyyYp97eQvpSA/WpL5HLMDhjcoFZkd6DMhmQ=;
-        b=Z83Bvu1aU0nThGUMYVz4cGrHCu2fEXIX5KSD3eYkYGS3evKgcoiwlK4gjkWQMYeZFQ
-         PTaVoZfulbVmwZlolIssnjCcjzZC0SBufhqHbV3Rqt36JV+iu9C7G6TcjKntk6QQQMFA
-         72dXKwWraVsTnidKb+jmz8juEEkQw0Gh3ONY84dw2F6rngjukPqxez9IzUFkzhyl5GLh
-         JklmhBy06k1lZbhOlJRW8WjvucvhODG25qfR7f9/GbxHKDdGWB1/kh9G65FlaSkGznQ0
-         GG/XbuSPA/2ZK9cinKufpWb/x9Uvc1l9ez9qlppqOwoO0ilVdr7RT5qat3OdHd1CsF28
-         MP5w==
-X-Forwarded-Encrypted: i=1; AKwUvBxQAGEM9CO3Apm5WRl0c3jBktFMNRuXLGsPzRL4zE/5WmVEpQ0Lc0XmOPCiVtlLmhQJUTxRFEEqf+y2@vger.kernel.org
-X-Gm-Message-State: AFuF++kgHQvuUb/9Rr3gvyXaYbk9w3ON6ClJGaqGEctZSJnCbONLA9r5
-	uS0v2pMAZPjxH2rucK5qPHVV8soES51RX7lxxcworMlIU+e0KN0wJlbluNZTlZqchBcin61ErLH
-	L4XBXaQuZ8rd72OzWD50I7Vc7UWVIImcw3m2y9XomaQr1ZRwrgsG3xBpsy/3Biocj
-X-Gm-Gg: AYBFou0I1ZF0mERbIaybMbDpffO+gZoQBvMQDp/A4pwINUHK9VKy1kaAJO0PXTY76LO
-	wz+wRdpAjM4iDqwGiih8TTCz1Ydmddix/cUuZ0Oi7YCcvAhcKXLWk3n4YDUu4lPU4Q40aTIk1Ut
-	6/BfVz9X5ODkWGw8negFWdFi5VfAH4cJWa1RS0w2cuyCtGZ5n9Hd7BdLo1ljN/67Q+MHRnKoybX
-	LMv/5cLDIC/z0Aq5mUR1hKu846u77zSvq/Xu1N/Kmw39FMkzdwLxkOAlzVSBDA4TEZ3DfKECNEH
-	hTDaLc11QqktPwXKmasg4W62cLV0q2ABFL6g7ItI3eJMe1N8FdmVC7ISDUHUZ3xZbxli2YE/1Y6
-	Et2y3nLfhhdZM33S3LWciuguPsGli80szBfqb8cqyYJekvQTOOaNXPvnKCjjDyw==
-X-Received: by 2002:a05:620a:8906:b0:939:de48:e41f with SMTP id af79cd13be357-93c4749888cmr2363839385a.31.1790671436421;
-        Tue, 29 Sep 2026 01:43:56 -0700 (PDT)
-X-Received: by 2002:a05:620a:8906:b0:939:de48:e41f with SMTP id af79cd13be357-93c4749888cmr2363836785a.31.1790671435949;
-        Tue, 29 Sep 2026 01:43:55 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7? ([2a05:6e02:1041:c10:7d20:e20f:a77f:4ef7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af507611csm2211528f8f.22.2026.09.29.01.43.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 01:43:55 -0700 (PDT)
-Message-ID: <a2b8e238-7f40-48fe-85c2-f8e52041b3e6@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 10:43:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m/lYIjMf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 551FA1F0089A;
+	Tue, 29 Sep 2026 08:44:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790671479;
+	bh=HGik1thLDIWu+rUs+0ZfZjo/C0bB3KuUWWNKGA0+Bxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m/lYIjMfw0C9EC3gduvBdvwV8OaknPDCHJaHAPcj7d+oyM1KFslpZLrgXPDQ3Py9F
+	 q/h9BNzvB8I8FAWA4gb4IM6weh92WMcTixeibBeOLCjLnwREHCeODIY1ziXJY5s/Ee
+	 OnsSC15sbrZ9BXYIC56KE7pLZO3N35AAlklq0HwQwVwk+T8TFGngTO9zmQzw8U7Dvb
+	 m0qCJVaBCsMPOwde348kB7Sk866VTL4oukxYRxTBIPiXpR7ZoG6u+RWb1xip8fNqNs
+	 86UJe0JqfckjTPXhV/dcrDfUzbdjD2aBnyFVKZvksjWAMCkOOYf21e6FR7c9txy4go
+	 aX4Ls8qvhIkyA==
+Date: Tue, 29 Sep 2026 10:44:35 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Chuanhong Guo <gch981213@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+	Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: reset: mediatek: add MT7629 TOPRGU
+ reset indices
+Message-ID: <20260929-spiffy-harrier-of-snow-b78e7b@quoll>
+References: <20260926-b4-mt7629-toprgu-v1-0-c124bf9ac273@gmail.com>
+ <20260926-b4-mt7629-toprgu-v1-1-c124bf9ac273@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/7] thermal/drivers/loongson2: Correct thermal sensor
- registration loop
-To: Binbin Zhou <zhoubb.aaron@gmail.com>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
-        Huacai Chen
- <chenhuacai@loongson.cn>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>,
-        "Rafael J . Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Huacai Chen <chenhuacai@kernel.org>, Xuerui Wang <kernel@xen0n.name>,
-        loongarch@lists.linux.dev, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, stable@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>
-References: <cover.1790561983.git.zhoubinbin@loongson.cn>
- <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
- <0aaf7166-378c-47d7-98d4-1004fdaeae7b@oss.qualcomm.com>
- <CAMpQs4+uWMfFib7MhRcc7o-QMXkFrFCtdcGj04y56u44JL4iOg@mail.gmail.com>
- <ed99f62d-cf90-4ba9-89b3-08dbe7f7227e@oss.qualcomm.com>
- <CAMpQs4+hATFf+0w6Wq09RoZB1JJ5L_GP0aWxcGAeraTW7Gfy0w@mail.gmail.com>
- <8eba263a-c233-42c5-842e-7487ea36d5aa@oss.qualcomm.com>
- <CAMpQs4JvLOUv3o8tktg-EOT85KCunY9gJhgxQVkZEXPH_C+4EQ@mail.gmail.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <CAMpQs4JvLOUv3o8tktg-EOT85KCunY9gJhgxQVkZEXPH_C+4EQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzNCBTYWx0ZWRfX7PJ2J5ROx29R
- 89wrL3MiM+2FTdsm7WG9pv6TYg0tIgmzm9FMzD3Qxi5vlzSC3pCzmCKBL8bmO+d6wLy6VJPuGvU
- vjAj+/UFNBsUbmFOIb4w5r/rv85YsCE=
-X-Authority-Analysis: v=2.4 cv=ALbfqNVA c=1 sm=1 tr=0 ts=6abb7a4d cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=AP4mLQHTS3Hkw8D5x4QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzNCBTYWx0ZWRfX7nif9ZQWvaGH
- 1appwaFLICRNfE8ye+8oMzH+tlYP0oGGYgny+S/3XZ+vuT+6YZt/mYJNdytMknPeK9bQNUsYJuz
- bJqJFvISwHARUZi+0pyI9FvApFJwGI5qMKoGbdGe9Sj3u53s8Kk1EJ0Z3POcQjguK9HBwiZBXnV
- QrMUYBDMV1UvxdlP6njriXTl3LX0cEbKD+qAmtTEmnNQnhcHfqssw5dJR312U1gFgPx7Ksh3JoY
- HVDj03qRNOM2iGjk7VBSeI6BHHYG4IOD2RP9QfTRS0AA21nKDVXf/XO6vHepjPYmm0vp0TCNnli
- //LU8cPLLai4ZWYD7Yx6UVg3X6d3l8OGpGlYFzFmkY7NBOT73jqDKkFgiv33xmG/YHDdOZAsJ7K
- CFKh5VvHs0uXuBVKrdxGHfvI0CXaYb09pttLuiKmLHVSq6xb+OkQz3P0kBaWLKSopP73+rtJ2VX
- P0cxV0Pm1b/d8CdgsEg==
-X-Proofpoint-GUID: fNyP1tZ12xPIb-O6fqGq3ZXF7b7iBh3T
-X-Proofpoint-ORIG-GUID: fNyP1tZ12xPIb-O6fqGq3ZXF7b7iBh3T
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290034
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260926-b4-mt7629-toprgu-v1-1-c124bf9ac273@gmail.com>
 
-On 9/29/26 10:23, Binbin Zhou wrote:
-> Hi Daniel:
-> 
-> On Tue, Sep 29, 2026 at 1:46 PM Daniel Lezcano
-> <daniel.lezcano@oss.qualcomm.com> wrote:
->>
->> On 9/29/26 05:06, Binbin Zhou wrote:
->>> Hi Daniel:
->>
->> [ ... ]
->>
->>>>>> Please make a less cumbersome and implicit checks here. For example
->>>>>> count the number of sensors and then do the check against.
->>>>>
->>>>> I thought about it, and you're right—I made the logic here too complicated.
->>>>> Let's use `sensor_count` as the counter. Is the following check logic clearer?
->>>>>
->>>>>            u32 sensor_count = 0;
->>>>>
->>>>>            for (unsigned int i = 0; i <= LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
->>>>>                    tzd = devm_thermal_of_zone_register(dev, i, data,
->>>>> data->chip_data->thermal_ops);
->>>>>                    if (IS_ERR(tzd)) {
->>>>>                            if (PTR_ERR(tzd) == -ENODEV)
->>>>>                                    continue;
->>>>>
->>>>>                            return dev_err_probe(dev, PTR_ERR(tzd),
->>>>>                                                 "failed to register sensor %d", i);
->>>>>                    }
->>>>>
->>>>>                    sensor_count++;
->>>>
->>>> If I'm not mistaken in the previous version, the loop exits at the first
->>>> registered sensor
->>>>
->>>>           if (!IS_ERR(tzd))
->>>>                   break;
->>>>
->>>> Here all the available sensors are registered
->>>
->>> The name `sensor_count` might be a bit misleading, but here the loop
->>> exits after the first success:
->>>
->>>                   sensor_count++;
->>>                   break;
->>>
->>> Let’s rename it:
->>
->> Can you clarify why only the first sensor found stops the thermal zones
->> registration ?
-> 
-> This section of code is based on the original version by zhuyinbo; I
-> noticed that you’ve had related discussions about it before[1][2].
-> 
-> I’ve reviewed all Loongson-2K CPUs that support thermal monitoring,
-> and they all have only one temperature sensor, with “SEL” set to 0.
-> 
-> As I understand it, given the current situation, the loop here doesn’t
-> seem necessary—physically, there is only one temperature sensor (even
-> though its SEL value might theoretically be non-zero).
-> `LOONGSON2_MAX_SENSOR_SEL_NUM` does not accurately reflect the number
-> of temperature sensors; it is merely an interrupt input selection, so
-> using it here does not seem entirely appropriate.
-> 
-> Therefore, I believe treating the Loongson-2K thermal driver as a
-> single thermal sensor better aligns with the current hardware
-> behavior.
+On Sat, Sep 26, 2026 at 07:13:59PM +0800, Chuanhong Guo wrote:
+> Define all seven reset IDs documented in the MT7629 TOPRGU SWSYSRST
+> register: INFRA, ETHDMA, DDRPHY, INFRA_AO, CONN, APMIXED and CONN_MCU.
+> Use their register bit positions as reset IDs.
 
-Sure, if the Loongson-2K is only one sensor based board then no need to 
-have this loop.
+If so, I say you don't need bindings then... but fine except:
 
-In the future, if there are more sensors coming with a new board, they 
-can be described in platform private data
+> 
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
+> ---
+>  include/dt-bindings/reset/mt7629-resets.h | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/include/dt-bindings/reset/mt7629-resets.h b/include/dt-bindings/reset/mt7629-resets.h
+> index 6bb85734f68d..828919eee298 100644
+> --- a/include/dt-bindings/reset/mt7629-resets.h
+> +++ b/include/dt-bindings/reset/mt7629-resets.h
+> @@ -53,6 +53,15 @@
+>  #define MT7629_PCIE0_USER_RST			30
+>  #define MT7629_PCIE0_PIPE_RST			31
+>  
+> +/* TOPRGU resets */
 
+Didn't new bindings switch to continues indexes?
+
+> +#define MT7629_TOPRGU_INFRA_SW_RST		0
+> +#define MT7629_TOPRGU_ETHDMA_SW_RST		1
+> +#define MT7629_TOPRGU_DDRPHY_SW_RST		6
+> +#define MT7629_TOPRGU_INFRA_AO_SW_RST		8
+
+Best regards,
+Krzysztof
 
