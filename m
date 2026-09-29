@@ -1,148 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AA451C078;
-	Tue, 29 Sep 2026 12:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7AF4FD785
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 12:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683361; cv=none; b=ThwS7p1HtwX8gojfqHZKj6ZDZshlMLq/DyJr/NFIBVZRZje4VsRUskbdqJbDJ1bVbjd/pR6vm2Y6AkqAjY17EQd6JjQDu8aWLMU9d2RBU3VX/CP+byBQMv3GCPwJPhxmMbs287PZ/ebQSvdx8COIFZL39OJqox7UUjqagw7STDM=
+	t=1790683446; cv=none; b=c+CkHy8zF0CtdprIwevHkL0o46EAoXgTAfj+p5LO1fkSJJC62rwo7jyH3ILyDpPcV37C9T8eF6mXDz5IZ35QVx65RTcFu09S4ruaLfgGcpPaQmj3gt9hAyGE4z+C7D1S2eosi+1B1FLYrgA9qf/9CwKbM6jWJO/22lRYNFoyJDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683361; c=relaxed/simple;
-	bh=wYZehBAjqyNGIu7WW6UnGNszJFmz0RoqfTC/yl6Y8fE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NnLGaj+UnVY7XInSSYadMmLFEfqLrVfJVIClv3PBrNd+AjJcztLLrpqjPqWkw0k89eh1XkVCwGq6OaWunBmjwA+LKvC93NE4gKa5gQXx8Jqo6I+aRhaQICu99FyJQGHf1KYEHZ5u0tMz3VTLo6G5JmbCP8osg+dFqGJBv0v1M0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BbkOLnXK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790683446; c=relaxed/simple;
+	bh=CAOqvt2/eZ53OlhurfSmnHSmFP9lsKwEDk2dEwHxoBs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HHuZv3Z1u4Hspn7qMxnyaIhRD8RzS4GbqUsz87hCgxNnNNdCKJ+uG5SDPHUw1c6j+JCSfTgDGJgm+8xhkdWGaUVbTtiZ13QMeTadz4cSgJw+wgMLu4zL+dMB/kJqi7xRA+4HMbvjtyWMalk0DYVp10IJael3+/LVw/nDdEb+Nas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f61QIZcs; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MxM8oEYi; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BbkOLnXK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C671F000FF;
-	Tue, 29 Sep 2026 12:02:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790683359;
-	bh=ZNbktM4rdDlTOXn5AkewGLya/WjhaRKxrshTNFUu64s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BbkOLnXK4gqfrgu88BLpIhWwfft7ikWIvxZ7mdMdDzrSvBTqUXxKp+w47qRwfA5N/
-	 DUGlv1F0ORp/8fifPbpo24fsTMb4Xm9n0Mw5+YbMnBhwReNk72quln+o2tYTpvUnaP
-	 PuAUp5BdYV6FZGickNPe2JvGIvafFj2eFBbFzL9j9ymu0/cG/t+rkt2D9tgCF5ijuU
-	 L2Ag6t56qKjMS446d5OY8f0pnEszeWGyYB7tqzew6yFkpugmf47B/4tJHlrjVY6qoo
-	 Lo0WswzxekG8ZSe2zbhKKVn1eSu0RPqEonGxSJVfCUIl8oVQqiH97CYDOdTmfGTsP9
-	 vc/1T8Bogq2nA==
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 29 Sep 2026 14:02:26 +0200
-Subject: [PATCH 3/3] media: mali-c55: Keep ISP powered while IRQ wake is
- armed
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f61QIZcs";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MxM8oEYi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790683442;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=9cJgdJ7LhmXl6+yqSKNaV6ms6joh7PI+1Jj005bKoCM=;
+	b=f61QIZcsUSZLiy33rbRyw2BRIIRK+uoX50BPzbAqExVn7wDVYbKnO5tgCDuh4n3oNstC9t
+	2imB2cmGNPuQmVDr0Yq+DZo8WPxRpGFoqr14NoABQTJ8b12lmnJ5IpHRpboaSmhKgFQhE1
+	VpkRri4O2IasWrQV0wvwYJkIL2oG/tw=
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
+ [209.85.221.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-416-mko-t7i3NDykuKq5WzfcZg-1; Tue, 29 Sep 2026 08:04:01 -0400
+X-MC-Unique: mko-t7i3NDykuKq5WzfcZg-1
+X-Mimecast-MFC-AGG-ID: mko-t7i3NDykuKq5WzfcZg_1790683441
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5cc382632b5so1292483e0c.1
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 05:04:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790683441; x=1791288241; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9cJgdJ7LhmXl6+yqSKNaV6ms6joh7PI+1Jj005bKoCM=;
+        b=MxM8oEYiEBW+yEdTtCw+j8CicLXu64yEG1jQEMAbo/OsUAtYFFqoNk0m8JR1mLOnIf
+         n3rX3DXZWgPmFCmscY+1Xxvxxd7CEqYGblknqpDC124Q01ZOVP/u3xWkjojQ9YQurv6P
+         gR3vme8zrjdgZHCveHh0YZ8yRmmEYLUTHFe/0v5Xa5MbK8TzbKxDNXW/ELGJiuBUJoFt
+         v8xd5Qpq9JmxTXAiEvOrUXKsFEBi9GcRDpVpj4qlhwB8h1FGhNnBdVnQN84z3fWgEJvc
+         T/e/7Yeg2Lld96TbQqZeiJSUeLiXdWvYo2q2O5iZJM063aC26Os6OHfS2Y51qUwWCYSk
+         gzVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790683441; x=1791288241;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9cJgdJ7LhmXl6+yqSKNaV6ms6joh7PI+1Jj005bKoCM=;
+        b=2xm2SISVMDLyvahV0XTL8xrtpFfJvWkyTr2W3bdcapf1qVeAPVhVIdFj2qJGX9Ce8L
+         nBPgE4fNdMECYjkNzEz9tvGJIGWbHMdhlBcz1sUJC4kE0QQTK1zdSmjxc4K0YOFEoMwL
+         Q/PdqDXWN3gKOKeMjPzpaF2eplukPIF8wRwdKE5duhpuYumvjP1f+NKKZp/5ykRBHOET
+         6QV7BLiid6FA2ch0QUiwfCrwbj3unUAOTkOAl9ZzwMeTtJilYEZF+8z3/dtNUfZimU9F
+         dfku6CuSpXlWUpqVzexIb1gL67GVhqRvAXm4Zt/8R44FEc0gVJBSnoDNjM1uae1wJ4dG
+         MU9A==
+X-Gm-Message-State: AFq9FYIvGOITWSW+qKd4OBdX+EYb8bOXb/st8Us3dEASCaNRBeBEwQ1l
+	TRyRf8sWAH7ecMaP9oUnxcjGORLhS7F4W498L6qjWIGWCRUCIggLY3uSM91vHihglu1jCnaDRGP
+	fAiKRV4fsXdP1vUUn0Tf+GbWLJttu3PS10njw806xVfUalqLO3KhIrkijTcapBEs=
+X-Gm-Gg: AYBFou0TRmKIvyxNR9ww/M8GPpRQBpiwZGHuZugd4pCJuf+b+KuWHbjWgX+CsM/Vktc
+	6VuDpS6iSoZupS7Y6U1V+DQu4WfpRqmTnxA/HgxNjx8aq6TNcDQud3uV+gJzRk/I/lHcQncEmpg
+	p+ro2+JQoxXzLrJ60BgvhYtASTCeVsrjtSV4pk9HWNcp76iq8CF+0Sabwpj2WME+t/BNY8zVr6b
+	xwLVn2xibd3DcBN83aNwz8xn5Ix0j+ljpomGNR+FshJRDgJIHJD5K7Ain4CwxfPBsspbj/O9gNb
+	CHfoqjp0IO8LktJMPJHkm+Rjgxmc3io+WzWcb+Z9qb/4L6pfzU4Fog==
+X-Received: by 2002:a05:6122:1d06:b0:5c9:a610:cecf with SMTP id 71dfb90a1353d-5cb0c14ae0fmr6920984e0c.22.1790683440577;
+        Tue, 29 Sep 2026 05:04:00 -0700 (PDT)
+X-Received: by 2002:a05:6122:1d06:b0:5c9:a610:cecf with SMTP id 71dfb90a1353d-5cb0c14ae0fmr6920964e0c.22.1790683440083;
+        Tue, 29 Sep 2026 05:04:00 -0700 (PDT)
+Received: from rhdev ([2600:1700:f361:20bf::14c1])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5cde4f99222sm12410835e0c.4.2026.09.29.05.03.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 05:03:59 -0700 (PDT)
+From: Jennifer Berringer <jberring@redhat.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Hendrik Hamerlinck <hendrik.hamerlinck@hammernet.be>
+Cc: devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jennifer Berringer <jberring@redhat.com>,
+	Vincent Legoll <legoll@online.fr>
+Subject: [PATCH v2] riscv: dts: spacemit: set console baud rate on OrangePi RV2
+Date: Tue, 29 Sep 2026 08:02:27 -0400
+Message-ID: <20260929120227.1791356-1-jberring@redhat.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-mali-c55-irq-supend-resume-v1-3-e3af34afff12@kernel.org>
-References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
-In-Reply-To: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
-To: Li Youhong <dayou5941@163.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Nayden Kanchev <nayden.kanchev@arm.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-System suspend enables IRQ wake and then calls pm_runtime_force_suspend().
+Set the baud rate to 115200, matching what is used by U-Boot on this
+platform so that the console is usable even when console options are not
+specified in cmdline.
 
-For an active ISP this asserts its resets and disables its clocks, so it
-can no longer generate frame interrupts. An already runtime-suspended ISP
-is left powered off as well.
-
-Take a runtime PM reference before arming IRQ wake and retain it until
-resume. This powers up an idle ISP and keeps an active ISP's configuration
-intact. Release the reference if arming wake fails, and use the PM wake
-policy in both suspend and resume to balance the reference. Continue to
-use forced runtime suspend and resume when wake is disabled.
-
-Use the forced power-down path for hibernation freeze and power-off even
-when wake is enabled. Capture must not remain active while a hibernation
-image is created.
-
-Wake events require a configured stream and an input source that
-remains operational during system sleep.
-
-The internal TPG shares the ISP's power state. External sensor and
-receiver drivers will need their own system-sleep wake support.
-
-Assisted-by: LLM
-Signed-off-by: Linus Walleij <linusw@kernel.org>
+Fixes: bab8dea259100 ("riscv: dts: spacemit: Add OrangePi RV2 board device tree")
+Tested-by: Vincent Legoll <legoll@online.fr>
+Reviewed-by: Yixun Lan <dlan@kernel.org>
+Signed-off-by: Jennifer Berringer <jberring@redhat.com>
 ---
- .../media/platform/arm/mali-c55/mali-c55-core.c    | 38 ++++++++++++++--------
- 1 file changed, 25 insertions(+), 13 deletions(-)
+Changes in v2:
+- Collect tags
+- Rebase onto spacemit/dt-for-next
 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-index 07267b79801b..2629bb3aa628 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-@@ -756,31 +756,43 @@ static int __maybe_unused mali_c55_suspend(struct device *dev)
- 	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
- 	int ret;
- 
--	if (device_may_wakeup(dev)) {
--		ret = enable_irq_wake(mali_c55->irqnum);
--		if (ret)
--			return ret;
--	}
-+	if (!device_may_wakeup(dev))
-+		return pm_runtime_force_suspend(dev);
- 
--	ret = pm_runtime_force_suspend(dev);
--	if (ret && device_may_wakeup(dev))
--		disable_irq_wake(mali_c55->irqnum);
-+	/* Keep the ISP clocked and out of reset while it can wake the system. */
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return ret;
- 
--	return ret;
-+	ret = enable_irq_wake(mali_c55->irqnum);
-+	if (ret) {
-+		pm_runtime_put_autosuspend(dev);
-+		return ret;
-+	}
-+
-+	return 0;
- }
- 
- static int __maybe_unused mali_c55_resume(struct device *dev)
- {
- 	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
- 
--	if (device_may_wakeup(dev))
--		disable_irq_wake(mali_c55->irqnum);
-+	if (!device_may_wakeup(dev))
-+		return pm_runtime_force_resume(dev);
- 
--	return pm_runtime_force_resume(dev);
-+	disable_irq_wake(mali_c55->irqnum);
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return 0;
- }
- 
- static const struct dev_pm_ops mali_c55_pm_ops = {
--	SET_SYSTEM_SLEEP_PM_OPS(mali_c55_suspend, mali_c55_resume)
-+	.suspend = pm_sleep_ptr(mali_c55_suspend),
-+	.resume = pm_sleep_ptr(mali_c55_resume),
-+	.freeze = pm_sleep_ptr(pm_runtime_force_suspend),
-+	.thaw = pm_sleep_ptr(pm_runtime_force_resume),
-+	.poweroff = pm_sleep_ptr(pm_runtime_force_suspend),
-+	.restore = pm_sleep_ptr(pm_runtime_force_resume),
- 	SET_RUNTIME_PM_OPS(mali_c55_runtime_suspend, mali_c55_runtime_resume,
- 			   NULL)
- };
+Link to v1: https://lore.kernel.org/spacemit/20260520111150.3300707-1-jberring@redhat.com/
+---
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+index 0cf60d1985604..d8b2cace4e7a3 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+@@ -25,7 +25,7 @@ aliases {
+ 	};
+ 
+ 	chosen {
+-		stdout-path = "serial0";
++		stdout-path = "serial0:115200n8";
+ 	};
+ 
+ 	leds {
+
+base-commit: 4947ee60bf48caddf5caefc08dbbc84d09fbbc6b
 -- 
 2.55.0
 
