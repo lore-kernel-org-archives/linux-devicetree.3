@@ -1,179 +1,152 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278202E5B02
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 01:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01802EA15C
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 02:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790646313; cv=none; b=dpF497D3OVNwyUSBIPYN/vp+kclIzZe6pZbUATuUoCshoyOc7wNGEIiHc3eUBHO8hPsgHJTNQDzk9BUq6W9+lzoUtHhCN3nNcXZ5MNP8kMv/MkwxCPngA9pRkF0XrPYQxoGc69A28MVXlcAyboYivT314v+AxTYVW/aDlioIvpc=
+	t=1790647743; cv=none; b=QlkGUB8GObTogK5ap9nrLPu/5cXhj+YnXbirKY2002NMoPDcKu0ZyEEDiLzLjX0wxPzZN+YbT8NglaznyfsqiP5eJBlmE5clhT/n78/win37FuhTpHB1/NwLlDpEV6FL/rjyoatskNZEDCdkBL0XiU+bo0iKykI3lEwZ5LLXu8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790646313; c=relaxed/simple;
-	bh=3zlm+JCPbgHhq7pDyIj5hTssujz2Hb4VbFqnyA8KWfE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u2aa5IZLIgGj/nmMaqmTUpFto3s/z44EyJb6Byac6h7b9sc/YK3R3xWY79g1u6rSl5LvGY3LQIZ8GXr1NZWCZsld6WU2m8diI5clLk9j/7gqoj9VkibHEb1ZLQRw9/JPcfK3Tdz6W5vmKN1jMomkSFhiv4v6FXUdyGV91d0rNBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CCSXR79q; arc=none smtp.client-ip=74.125.227.168
+	s=arc-20240116; t=1790647743; c=relaxed/simple;
+	bh=1jWnqDpKjpH+RAsb9b6dffOISc/Qp590FeLfeOae30M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HE3yXi7CXsA/gdTMObJe/N/GtcUXXPk+nb8QpJTojnG5hL/SnHItUxxi/H9KZ6Gf97ZIJbu7JlKxDfOXr7g+obxEaM9InaRfpaahvL1KHhyT+m6Z0js+qgFLu+OfRAkSnSCTuraOsuoDI3jqShtcdS2xEuFV0ylOmFii51C3s2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pjO/JwcU; arc=none smtp.client-ip=74.125.228.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CCSXR79q"
-Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2dfaf76605dso8660325ad.0
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 18:45:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pjO/JwcU"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc7979d1dadso1786493a12.0
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 19:09:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790646311; x=1791251111; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BbPZBkG6EW7o76TGvb+IbEd7phIKmf02Hwna+vyhxaI=;
-        b=CCSXR79qrcSDPSn7XdxsGgbqCoXfr6javSUKO3GrGW+rCPgs49JAbZqr/+JHOEYxFV
-         oSzsAzvsXJjngd9Urz2JUVHJLXWpqmj7FabizlApZebq97Iy6as0nu4cnFUUkGk4u0aM
-         7EADnfAWx1uP0+rTXJhE/8B6tmJO8gefwf2bAKpteeU/+zan/stah2nI+2hjmNV/if0p
-         OVHsT96n4rxHN9A6fKkDeh8AZ553UY+pRc9216KMMzDL9zamUjI/wl0xbvsIaDqw2Qcm
-         WRb3/j2dwAfPZBi8mopif4UaFV0W1Seh2yRc2gH78zKWLGE5XLp0VUnmeVJfhTK6fExo
-         mkeA==
+        d=gmail.com; s=20251104; t=1790647741; x=1791252541; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IFE9LdtdYAs5eAg39qz6yH1XbrxOARGWKf2glnJZAQo=;
+        b=pjO/JwcU8b8mJhh4+8/ONUnYt6gAL7o7JKAM2q3IEXAxkbhV+LMhSHyiE1F2g9gJ8g
+         IvdcqxwaXS4tNlCneEVssViV56qnDMjuNsX+raElqxP50ZZ3iwWXwvl3pppZ6SKTfufy
+         i0duuwPt29XYDS05KDBdUP088l3OKfqRO6qbF0ZV4lH3BTmj06myj9gcIykBfEkAJHhB
+         b8tIxjSgcz5wssuSQVISbmVoP0Gw2RPRw5+j+eXc7cSqw7SKP7ZSTKCF8gcfeCEFs0qs
+         FWYDaPLo10+q+oWcMDqNRqQMazN0TFRJ/u6Y3JeQu9XmQ/aKwRWsqFfktVY0i7SBB2OD
+         ilvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790646311; x=1791251111;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790647741; x=1791252541;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BbPZBkG6EW7o76TGvb+IbEd7phIKmf02Hwna+vyhxaI=;
-        b=eLS7up7r7Gb6s90YKOZuOsgDhsTX7+559eeQWufyOaocWqvxP9KU9Wv1O7dQqKzWBC
-         I2wmaLJyW03d7t7nLpCncNZpDIWF21QihBzosUgGPEufp5gMyE4Zkn70w4HtudEVhY0U
-         hQEYHOHd0WtqJQKF5+NiQQoDzWZHCoEmsucPb5JUdoNgNsnsz9ftN4kK1NNz/iU2wqKm
-         HAij7cAjarsEs9/PfpLFQEF/XfQQjn8eP/2XtC7Go4BAG5+nC7YCdx8D3JRFVnxs+H5E
-         BcP4CoIrLHTKbsLXDUrjzFc84XDzEQTzskOWhtUFzvzBG0zJ1JNq7gm/i9RbEW7rMG8z
-         IPYg==
-X-Forwarded-Encrypted: i=1; AKwUvByU57ktpKen10VXTahlYKYATtjaOxHdVE2G3GOomNVgGmnZKLRidQeTGv0NuxPGZ/UXa0ClAwDj7b+d@vger.kernel.org
-X-Gm-Message-State: AFq9FYKv8VeEma6ePLZA9TPXRxkWb7ByEcXCg89tC+Mj4eygsY0JXir+
-	lpNNhsh31mJvLVMLpgp7eke73uuyHeErhQ06R2zpEIWRMH9BJzOKwJV4
-X-Gm-Gg: AYBFou1xZt6Eko4RLxbiE/swXb4G2G2XOCVvqbo23jA3DSnqM/wkSLMsItJCIeakidl
-	iJClbW88xEy3zaZAyN4Cdr4t94GiXJIa8us7vGB96eOLH1WCObiFbRzkYA01mRQ8bLSxD6e9DhQ
-	HwbSmiB4n2231ONss9EPSv8bd5p9LBQlk2dOOhwYxYPH2eohf3+y7+SRWdFhRlfOCJ6dDGoNbZw
-	RFhDqNCW+Kc8Nezfza22mC5JeaQPfEcpgQ4n36UcGqWielIxoBRu2W6pBLXh26+ivmIFO3YCRQF
-	L145eNKz6cqTL2xV+ahotZz9kIbbyP70s1ztQiOP75z3u0Dr6oayDh2jFLbxQkEfguTHby3KEzs
-	viZQQkab60Vwn5JqdBgh9Jde3bfYuxujk4oXQPQJs63h/mtmgxwTphMcKrwhtLbVbwCzkAdBUA2
-	VJDxFyUKA2optiximtp3xNfcQQvBE64vz4EeZvgOrmloHi6q5+xSIeb4eR262xMnG/5gGev3MoM
-	A19xM96S8ugozq+ttTnGwfWvgIAtloSToQaTmGCuU5ZKX9uqTo040Y=
-X-Received: by 2002:a17:902:ebc7:b0:2df:9625:3ecd with SMTP id d9443c01a7336-2df9625400fmr82748415ad.8.1790646311363;
-        Mon, 28 Sep 2026 18:45:11 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df913dd8d2sm48984825ad.20.2026.09.28.18.45.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 28 Sep 2026 18:45:10 -0700 (PDT)
-Message-ID: <ed35ac8d-ebcb-4f7f-aafd-c1b1eb3616b7@gmail.com>
-Date: Tue, 29 Sep 2026 09:45:06 +0800
+        bh=IFE9LdtdYAs5eAg39qz6yH1XbrxOARGWKf2glnJZAQo=;
+        b=f871nvKAU2oONGYRO9FT1e6u9XCXM+I3yTjqJx1d8c6KMsEvVFvTNvABeQ2qxaMq4m
+         JD3fMk/3Yrt8A5hFGjncY14KO4+h00bzbxa78I8G/PM7FrFs9J0WuQimGhHcsla4WGrK
+         0CFW252XoZDquWEK37P/W5MVSkGSJWR8+y8yCbir+9JqxranAqz+jHXUj/B/s1iQTq37
+         L/pbHI1RbY6dq+T9QexQSN9m0BG7BHd8nzYUra0uQdc0v2Rb7uLGzuirfAOcIR8wXY1V
+         4t7gEM+mJzFpI+b6w9Wnk5roH7Dhk0/v8OgZhIsm5ItxTQ6veFw+LrlKYJYu6FeqVpCz
+         ilbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzuHDIPjH2fYPCDDwKpjpVVRpsGThsImW5mrWgAyPN/kZLYWE2QV1XV9wEtMgsQAY1P8180QZhHaGDO@vger.kernel.org
+X-Gm-Message-State: AFuF++mNy5uv/3X6uvk3lXxovOvP46eje3ZDWfCQoWMQMR28LeMr+l3w
+	TwKqYHMAgNEMEqCiUGrjDYX4sa8xPsADFjtQztDs6eMno35rSWfUBUko
+X-Gm-Gg: AYBFou13Z46UqAautD+k9sPjJQ2x5JUkhySuMTQuzQZnsD6JroGi3QjXwOR1wNjGIXp
+	5AtrjXmZPosDO4HDvlbAQvEw9EK4PmTWhZslH06kRFMfEgdgvyRTuLTDMcmRz38FI4BkPuOKdbr
+	i+4LbBRTBgNuaP5xP+nJWFvPC9jujYuKZvawvThlHHitZaCW+HNyRAIeNlVT5H76hKyZwUuynmy
+	H8pML4V68ljyTczqKz5dNxOoZiXQRsKYaIE0MIm5q2LV3GCde0d5Jw11qAJmkSGyNjf2KXi0Z/F
+	ee/XFfW/4akxgaU03Pq/c7yJM7vWvNkchatkt0FqCltG7dLDdOBaxhvj7LMelwWEuYv0uRyUlgr
+	69jLqe7gB2lIJNb7WrklXTGxyCm5XNLnMkDZwn8eC9GKBXwTaLtvCVJacW6e9Uhhwz3ST9MINnI
+	FLdfLXG2C9S35+AJn0Kcltt82tN7FJeMcPC+NvvAQUUmP0urtVQy/Xr4WlqdSvOIj/pV3arvaOO
+	bIstKkqgUJ2pHIwlABchAh0WFvzMYoQF9SKdW/GEfHLnUUTMfv1skiZcst4DUpd
+X-Received: by 2002:a05:6a20:6f03:b0:3cd:3e77:1dcd with SMTP id adf61e73a8af0-3de0e6f42a6mr15736585637.1.1790647741047;
+        Mon, 28 Sep 2026 19:09:01 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc78796cf39sm5448596a12.32.2026.09.28.19.08.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 19:09:00 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Hui-Ping Chen <hpchen0nvt@gmail.com>,
+	Joey Lu <yclu4@nuvoton.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v6 0/3] phy: nuvoton: extend MA35D1 USB2 PHY driver for dual-port OTG support
+Date: Tue, 29 Sep 2026 10:08:51 +0800
+Message-ID: <20260929020854.1282339-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 7/7] drm/verisilicon: fix DC8200 primary plane disable
- clearing FB_EN
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260918030125.315978-1-a0987203069@gmail.com>
- <20260918030125.315978-8-a0987203069@gmail.com>
- <4a7b271d2a90eff94c27dec3bf24114ce44df1fd.camel@iscas.ac.cn>
- <1d988dfb-c930-4c17-ae77-47b93ff9f159@gmail.com>
- <cb30f57c0ac124aac85efad32626e6182b9f1369.camel@iscas.ac.cn>
- <b589c197-2297-42c4-b017-3594cdd1cd56@gmail.com>
- <fde43d758a66a8feefc50274f3573e33a67d43f2.camel@iscas.ac.cn>
- <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <fc425e648644d94276bce7d3d4dac8b0acd4c5d8.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+The MA35D1 SoC has two USB PHY ports managed by a shared hardware block:
 
-Icenowy Zheng 於 2026/9/26 下午 12:48 寫道:
-> 在 2026-09-25五的 22:55 +0800，Icenowy Zheng写道：
->> 在 2026-09-21一的 15:49 +0800，Joey Lu写道：
->>> Icenowy Zheng 於 2026/9/21 下午 03:30 寫道:
->>>> Maybe it's better to just make it the 2nd patch in this patchset,
->>>> just
->>>> after the binding change.
->>>>
->>>> Waiting for something into drm-misc-fixes again will need another
->>>> fixes
->>>> pull and another RC back merge, which can consume weeks and miss
->>>> the
->>>> current merging window.
->>>>
->>>> In addition, it's possible that `drm/verisilicon: introduce per-
->>>> variant
->>>> hardware ops table` also gets backported for a more clean primary
->>>> plane
->>>> atomic_update disabling fix.
->>> Understood. I'll fold the FB_EN fix in as patch 2, right after the
->> Should I just apply this revision of patch with this reorder?
-> Oh I think more fixes are coming.
->
-> There's one more DC8200-specific problem (which might be problematic on
-> DC8000 but I am not sure): The vs_dc8200_panel_disable_ex sequence must
-> be executed before vs_dc8200_panel_enable_ex, because some timing
-> parameters seem to be latched when the value going from 0 to 1, and
-> when a stale state is programmed before the driver is loaded (e.g. a
-> firmware driving the display) and the timing isn't the same with the
-> timing of the first modeset, the modeset will fail.
->
-> I'm thinking about sending a fix patchset first, which will pick the
-> FB_EN fix here, implement a fix for the stale state problem and maybe
-> implement fixes for the old state dereference problems for hidden
-> planes in their atomic_update callback (although this fix will
-> introduce a helper, which will then be moved and renamed in the DC8200
-> ops patch).
->
-> Thanks,
-> Icenowy
-Understood, happy to hold the DCUltraLite series until your fix
-patchset lands, and rebase the ops-table patch on top of it then.
+  - PHY0 (USB0): OTG port shared between the DWC2 gadget controller and
+    the EHCI0/OHCI0 host controllers.  A hardware mux automatically routes
+    USB0 signals to the correct controller based on the USB ID pin state.
 
-On DC8000: its panel enable/disable path just toggles a plain
-FB_CONFIG_RESET bit, not the staged PANEL_CONFIG/PANEL_START latch
-registers DC8200 uses, so it doesn't look like it shares this specific
-ordering hazard from the register layout alone. I'll run the tests again 
-after
-applying our variant on top of it.
->> Thanks,
->> Icenowy
->>
->>> dt-bindings patch, targeting the current vs_primary_plane.c
->>> directly,
->>> so the ops-table patch just carries the already-corrected code
->>> forward
->>> into vs_dc8200.c. Agreed that's faster than round-tripping.
->>>
->>> On primary_plane_disable_ex - I'll keep the "_ex" suffix. DC8200
->>> still
->>> has a real per-variant operation there (clearing FB_EN + commit),
->>> while
->>> DC8000 leaves it NULL and does nothing, so the suffix still
->>> reflects
->>> an actual per-variant difference, not just structure introduced by
->>> the
->>> refactor.
->>>
->>> While testing the cursor plane, I found the same class of bug
->>> there:
->>> the disable register write was being triggered from the plane's
->>> atomic_update() invisible-branch using the old plane state to look
->>> up
->>> the CRTC/output, which can be stale or NULL on a plane's very first
->>> commit if it's already invisible then. I've fixed it locally by
->>> having
->>> atomic_update() derive the CRTC/output from the state it already
->>> holds
->>> before checking visibility, instead of falling through to the
->>> old-state-based disable path. Just flagging it here for now -
->>> vs_cursor_plane.c isn't touched by any of my patches.
->>>
->>> Thanks.
+  - PHY1 (USB1): dedicated host-only port for EHCI1/OHCI1.
+
+This series extends the existing phy-ma35d1-usb2.c driver and its binding
+to cover both ports and add OTG role-switch support, while keeping full
+backward compatibility with existing device trees.
+
+Changes since v5:
+
+  - dts: rename the hsusb pinctrl group node to hsusb-grp.
+
+  - phy: keep the clock-stability polling when SUSPEND is already set,
+    per review comment:
+
+      > +       if (val & USBPMISCR_PHY_SUSPEND(n))
+      > +               return 0;
+
+      Please keep the clock-stability polling when SUSPEND is already set.
+
+      If the initial polling times out, SUSPEND remains set. A subsequent
+      phy_init() call will then return success here without checking
+      whether the PHY clocks have become stable.
+
+      Skipping the reset sequence for an already-enabled PHY makes sense,
+      but both paths should still check the ready bits.
+
+  - phy: clear MISCFCR0_UHOVRCURH when nuvoton,oc-active-high is absent,
+    per review comment:
+
+      > +       if (of_property_read_bool(pdev->dev.of_node,
+      > +                                 "nuvoton,oc-active-high"))
+
+      The binding defines active-low as the default when this property is
+      absent. Please also clear MISCFCR0_UHOVRCURH in that case, so the
+      configured polarity does not depend on the state left by the
+      bootloader.
+
+  These are pre-merge fixups to patches 2 and 3, which are net-new code
+  in this series, so the commit messages are otherwise unchanged.
+
+Joey Lu (3):
+  dt-bindings: phy: nuvoton,ma35d1-usb2-phy: extend for dual-port and
+    OTG
+  arm64: dts: nuvoton: ma35d1: add USB controllers and dual-port PHY
+    node
+  phy: nuvoton: phy-ma35d1-usb2: extend to dual-port with OTG support
+
+ .../bindings/phy/nuvoton,ma35d1-usb2-phy.yaml |  44 ++-
+ .../boot/dts/nuvoton/ma35d1-iot-512m.dts      |  36 +++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  36 +++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  65 ++++
+ drivers/phy/nuvoton/phy-ma35d1-usb2.c         | 286 +++++++++++++-----
+ 5 files changed, 390 insertions(+), 77 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.43.0
+
