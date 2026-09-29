@@ -1,47 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9AB3D9556;
-	Tue, 29 Sep 2026 03:16:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31AAD3E51E4;
+	Tue, 29 Sep 2026 03:16:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651769; cv=none; b=bwTXUMg4wUQyakr5c/UYbN1akVPrvnDvAowRzOcJMDFtDkbr2k3s+z3N6JBd7ThxInT8XzRh2Vw0cWC8bHZzagJN90dIWNV+ThE7vjEvMb5iOHVBThlg2A/U3XvSJ96Ib5xlujcrdbBVCn4hCb3ZjO0k920pZJ+DBt+JBvws6Wk=
+	t=1790651767; cv=none; b=eQv8BfNcDG/UqNhnibICkCpZiMjjuhF/8mY+LA8rSiBoORoHjhdveu1IHEcpm+If/QQdPs02RXWDhGDU3ZZnaMQ7eqSuQVBJILBSgoAshhr+e4Fx3YL8GCJkR3cvmdt2Ml5C+ACU0iK9bKM5yjlcjxAunA1dPZeJUpofaIT4sRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651769; c=relaxed/simple;
-	bh=RbACIMJ9oasMI+GZFEONoOSvqRpm0S9sLKaVJ11+IqE=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SKvSimIHPTL5NrPoxajwVZmNW+e1rkvZRpNUBHO3rVhhCN6l4pDw32ro0Ba6QlzF7C2dRygrzpMvW8jIaPDmAX5pqqHfXE+1bZSkKJ7e3JoedJand9BX9H85fBdeHcCqBJL69iR/TQGF6qkHokzf89OR1wnrMFZkw9hh1oFebo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRNJU+JU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790651767; c=relaxed/simple;
+	bh=OJZorswHHH3AF9JU4MV+rCt/xNnEsa9glNlgQPcmLWw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ezrXTUf+z5fZG2STml/GwV0g6k/BaStET35FGxq1c/S86B0thUI+tNcztg0K+RVYBXDxeAX/QT7cIcp+RCbWeGx5yrZzy6xD6zw3wDk8fSrZI8VaiqiElSxO5oRu9O4Rs3CrWtUa6X1MwlIdJ+Jg/v47EHi+NefDT35v6vmBeEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VIYRpeM9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRNJU+JU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DFF41F0089C;
-	Tue, 29 Sep 2026 03:16:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VIYRpeM9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32E941F0089A;
+	Tue, 29 Sep 2026 03:16:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790651764;
-	bh=2teGGgSyOf7SGzGLzh72wNmoxvCPWrKsGv/D6UNkCVQ=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=TRNJU+JUHTTmiuQeWzVbfA2wrByxyNJgjOi5EUOfHebmE7cDltZfMZDBZEfgP4B55
-	 Pz7dHKRlEltG2DxA5eUtffuUk+rYkKC1kcY6FZjwd0sgUFJVAdVgwJ5O11tvLEEhxQ
-	 hMYGC1ZYnbSAwSq1qmUuH3aREMvvE6caJGNS2QY6bTMeZcWOLAzE64gzgwrS8vlC5X
-	 GG4vi5Pw90x5i9yyWCDQ/N9dDUXJj7cfzcCoZc7J27UpJ9L5YSbfwSaPdhlmtyys4M
-	 KJX0Wj9f9o60SkK9VkLtQXOCSaaNGl4h32+7Urlz9cJGUj/03WtXAYIEBiw2MJv50e
-	 Jsc1hDV+HuEKw==
+	s=k20260515; t=1790651761;
+	bh=sVBC35+dW/4W2Ayh+q718HWo5RlghaYXefSmKmtKZHI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VIYRpeM9ZHAsl8ULsryoxNLSMPfTpFKCxN7jQUxZWkC3l4HQKpxMMG+HEvcLcR9r1
+	 GOL5c6VDNETM3Py+jB2RK8iwSRBJoQwSPl/OQDGeeJdCVn38ivoqOU0CAiioRhOLp2
+	 mV80GhF7SFmBCH0Ko+qFgU236bB6RC2My9Zzynvl2euc11K3T9i8d7ekp2sWjujOXq
+	 JcIH6XNNspIczRlOHj3gslTbJYKY+NqDfH8EtOeWfZVkmUUK+1fZ40I3JcxRu+q+iO
+	 mR14dcl9IE+D+qVYuDzkRfTM0F9UKD5pQIjzOv5Wrg/g6z7Yjk0jhVm+4XGfd84I1r
+	 JuSHGXhncF+CQ==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	cros-qcom-dts-watchers@chromium.org,
-	linux-arm-msm@vger.kernel.org,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: Correct white-space style
-Date: Mon, 28 Sep 2026 22:14:58 -0500
-Message-ID: <179065170920.2673486.9914064510117487722.b4-ty@b4>
+	konrad.dybcio@oss.qualcomm.com,
+	mani@kernel.org
+Subject: Re: (subset) [PATCH v2 00/18] arm64: dts: qcom: Fix wake-gpios polarity
+Date: Mon, 28 Sep 2026 22:14:55 -0500
+Message-ID: <179065171016.2673486.551421881319651180.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260801210343.383834-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260801210343.383834-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260917-root_port-v2-0-0d627d0856d5@oss.qualcomm.com>
+References: <20260917-root_port-v2-0-0d627d0856d5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,15 +53,27 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, 01 Aug 2026 23:03:44 +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues, like missing space before bracket '{'
-> character or spurious space, which will be flagged by dt-check-style
-> ("redundant-whitespace" warning).  No functional changes.
+On Thu, 17 Sep 2026 17:24:08 +0530, Krishna Chaitanya Chundru wrote:
+> PCIe wake is active low signal as per the PCIe base spec, Several Qualcomm
+> platform devicetrees incorrectly describe wake-gpios as GPIO_ACTIVE_HIGH.
+> 
+> This  series fixes the wake-gpios polarity by using GPIO_ACTIVE_LOW
+> instead of GPIO_ACTIVE_HIGH.
+> 
+> Tested on Talos Ride & lemans evk platform.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: Correct white-space style
-      commit: 9f06fcd862b586678438881b5f73e373b6ba2dc2
+[15/18] arm64: dts: qcom: lemans: Fix PCIe WAKE# GPIO polarity
+        commit: cd8d4803bba672a4d03ce508fc9d2c459eb85c55
+[16/18] arm64: dts: qcom: talos: Fix PCIe WAKE# GPIO polarity
+        commit: e622c5d6553b8a83af04115c87f006406baf2675
+[17/18] arm64: dts: qcom: sa8540p-ride: Fix PCIe WAKE# GPIO polarity
+        commit: 450a0bfdb1b66da50ef98eefe1ff45b7be21e9a7
+[18/18] arm64: dts: qcom: kodiak: Fix PCIe WAKE# GPIO polarity
+        commit: b2b980536b5a4a5420175dfbef7f481408761b7b
 
 Best regards,
 -- 
