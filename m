@@ -1,41 +1,25 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from out28-171.mail.aliyun.com (out28-171.mail.aliyun.com [115.124.28.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C1D1DA57;
-	Tue, 29 Sep 2026 00:42:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28003632;
+	Tue, 29 Sep 2026 00:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790642565; cv=none; b=CcFkzd1iX6rNSIoFDwBk1bIU2uVB2/sYCZERmq/7VyTQGQqw0JkCznJoJKzfdmpVEwS8TpMPNy/sRd85zQRPcBLy4mRYHQ0PGAjsT3DA8HQzZGaSJvFKoWrFhjm3cVry1WWGTu3lvyUAcm8dF8Ez0jDLwgPo2B35Xn0cp7nVAPk=
+	t=1790642830; cv=none; b=tg2xscBkNRS8nsADIz34NOj2JKGQCLwMpGSb/hdE/1cgxrZ6ZsC05ETCmCzSirN5DErf6OmknbjtaCzVgkIbLG9r2H8oE6ivWVc6FW3qLl9hCoj9Kw7xljDMHtTFquM0SWepWe8+ZZsY6KZ+1asjPPDLQzKtxf0Q2Z6AHq/x2Bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790642565; c=relaxed/simple;
-	bh=OWhcwknLRyPzDmXgalH6NabLxd+2MPu1XxuBbMgZxsY=;
+	s=arc-20240116; t=1790642830; c=relaxed/simple;
+	bh=yr7R0yAqqrRxcBqE3AxsER9xJKKPZMEBP1EWS2WVllQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QH0/YG0ITOIGnuZYFO/7UtZgD5wr8MZgGGrTOUJfoK6oaHy2XH8eNP63C6J5Z0kgEM1eGDSzojDmcM1QIwTG7TQER99J+z1yiA3tarW6D88xPCGz9yQ3ZFe2vwaUKC8UJrdfLCtci8xIQGNcg/9zChHmEiQHa8IPxXOXV+zjWr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ysoZstVY; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ysoZstVY"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4htzsj020ZzKn2J;
-	Tue, 29 Sep 2026 02:42:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790642553;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qYZdjHSXMYQifjl/oycijS7tIo3obhxZW530Z+Tdr74=;
-	b=ysoZstVYT9kJZ0p+C3oJMwuX/R3prdjcwqklLJ814vDuPxUJYwk4I4JlifmfqZK1II4bCG
-	GPQ0F2CaCZrjdgdqAuBJbOI699d2+3nkumTLGq3T9nedDKQ9jnGcqX3trKwK0S0z/sCXCc
-	Oc8Wcq1yoNLWXlhz8XzumjosPwTfw3jvCDnJ5Spa4qHHuICNvkyQ1ckUa8ep2efdqqsZO+
-	y46vKlbRu5FePJ0R7oYr64FkyltPdSuwpKgwqouS+Pe4ABfCWLZOREm+fZcb1ATaAxjTB+
-	F4qZiFhtd+K0Anf4Mc7ubjkP7slLdSydqPsae0IyQiWliQm0CoVhEM7VvS4JOg==
-Message-ID: <d4cab7d0-23d7-4998-8957-b879382395b9@mailbox.org>
-Date: Tue, 29 Sep 2026 02:42:29 +0200
+	 In-Reply-To:Content-Type; b=s9kQGabayHQTU4GNXejB6O+pCN4PMpfNqEsnpFi28FLYNvgxIzaEeoJUTQvIxH04LUQ522hIrybpPRd2720I4wvZmXg8hjX7JnuMYwSaaBlMUd3djC8K5JjOJUrVcE33B8nQDn8ZP5DeMxQW6qvaqvpI3CUDN3M2E7LrgXEyX40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1717306|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.091997-0.0167288-0.891274;FP=16849052104064075120|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033068016216;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=20;RT=20;SR=0;TI=SMTPD_---.jQih9rx_1790642818;
+Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jQih9rx_1790642818 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 29 Sep 2026 08:47:03 +0800
+Message-ID: <b7065fa7-ffb9-4358-baa9-2aa48b0a2033@motor-comm.com>
+Date: Tue, 29 Sep 2026 08:46:58 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,88 +27,66 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H
- PCIe4
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260928222442.GA2266778@bhelgaas>
+Subject: Re: [PATCH net-next v21 1/3] dt-bindings: net: Document Motorcomm
+ YT8824 PHY package
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Conor Dooley <conor@kernel.org>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, Frank.Sae@motor-comm.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
+ xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
+ jie.han@motor-comm.com
+References: <20260924075048.4060414-1-kyle.switch@motor-comm.com>
+ <20260924075048.4060414-2-kyle.switch@motor-comm.com>
+ <20260924-vowed-roulette-abda42cec444@spud>
+ <c78999ec-82c5-4719-9358-5dbded43ccdf@lunn.ch>
+ <415c6c1c-f59e-41c7-9045-22f20408a7f2@motor-comm.com>
+ <34fc057d-17e2-4693-971a-63898708545a@motor-comm.com>
+ <648ae914-e116-4417-87c7-5726e63fc6d9@lunn.ch>
 Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260928222442.GA2266778@bhelgaas>
+From: Kyle Switch <kyle.switch@motor-comm.com>
+In-Reply-To: <648ae914-e116-4417-87c7-5726e63fc6d9@lunn.ch>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: n5r3abih9upesd63k85pf9uic4hcaarb
-X-MBO-RS-ID: 56a18349aca01d73551
 
-On 9/29/26 12:24 AM, Bjorn Helgaas wrote:
 
-Hello Bjorn,
-
->>> The gen5/pcie4 usage is confusing.
->>>
->>> I often push back on things like "PCIe Gen4" because it's ambiguous
->>> (does it mean "compliant with base spec r4.0" or "supports 16 GT/s" or
->>> something else), but it's so widely used to mean transfer rate that
->>> it's hard to resist, and the best I can hope for is clarification.
->>>
->>> But in "renesas,rcar-gen5-pcie4", I don't know what the 5 and the 4
->>> mean.  Maybe "gen5" refers to some internal R-Car thing, and "pcie4"
->>> is something like "PCIe Gen4, i.e., 16 GT/s"?
+On 9/29/26 00:54, Andrew Lunn wrote:
+>> What we're trying to express here is simply whether it's a phy8824 built
+>> into the switch or
 >>
->> Gen5 refers to R-Car Gen5 (5th R-Car SoC generation).
+>> a standalone phy8824. In both scenarios, there is one 10G serdes outputting
+>> four UTPs,
 >>
->> PCIe4 refers to the PCIe Gen4 core in the R-Car Gen5 SoC. There is also PCIe
->> Gen6 core in the same SoC, but that will require a different driver and
->> different compatible string.
->>
->> Since none of this shipped in any kernel version yet, would you prefer some
->> sort of rename ? I can send patches.
-> 
-> Huh.  TIL that pcie-rcar-gen4.c refers to the 4th generation R-Car
-> SoCs
+>> and the only difference is that some operations are slightly different, such
+>> as soft reset,
+> If it is a different PHY, it should have a different ID value in
+> registers 2 and 3.
 
-Yes.
+They are the same phy and have the same phyid, but for the phy built
 
-> (and, I guess the point of this series is to add support for 5th
-> generation SoCs), not to PCIe Gen4 link speeds.
+into the switch, performance and issue fixes were made based on the phy8824.
 
-Correct.
+>
+>> power down, and power up. How should these two types be defined and
+>> identified?
+> More details needed. Why does it need a different soft reset? Why is
+> power up/down different?
 
-> I see that
-> "renesas,rcar-genX" is all over the place in 'compatible' strings, so
-> I guess we should follow that precedent.
+For the standalone phy8824 scenario, performing a soft reset on the UTP
 
-Yes.
+requires an additional soft reset and isolation of the SerDes address space
 
-> If the "renesas,rcar-gen5" SoC includes both PCIe Gen4 and PCIe Gen6
-> cores, I suppose everybody refers to them as pcie-gen4 and pcie-gen6,
-> so the "renesas,rcar-gen5-pcie4" you used is probably the obvious
-> choice.
+to prevent intermittent packet loss after link-up.
 
-Right, and also the least cumbersome compatible string I could come up with.
+However, the phy built into the switch does not require this step,
 
-> But maybe we can make commit logs less confusing by saying things
-> like:
-> 
->    - R-Car Gen4 SoCs S4/V4H/V4M
->    - R-Car Gen5 SoC X5H
->    - the R-Car Gen5 SoC PCIe Gen4 core
->    - the R-Car R8A78000 X5H PCIe Gen4 core, which supports a x8 link at
->      16 GT/s
+and the same applies to power down and power up.
 
-Understood, I'll expand future patches to be more explicit about this.
+In addition, there are differences in the initialization configuration,
 
-Does that work for you ?
+so the driver distinguishes between "internal" and "external" phy.
 
--- 
-Best regards,
-Marek Vasut
+>
+> 	Andrew
