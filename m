@@ -1,212 +1,122 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD1051D501;
-	Tue, 29 Sep 2026 12:12:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3280551A158;
+	Tue, 29 Sep 2026 12:18:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790683978; cv=none; b=C0dlPkdJoO92QoAK1mTwrW3w3gyDOOpdTYLlUepdx3dqvsOgZUUbJiBBbEGgZRUE/nOZIcNHo7eBzpHwTKRDdW7VNomr81vafZEYRy+wfeiCJCvt4G6mMPe6H2oFUInQK5kAO51JdJ4GcXXGS1ERjMvEnypgkEVz0IMVNrbbBUQ=
+	t=1790684298; cv=none; b=coZVE1aVo9bb/tDoH6FdYIGiiQrvPcWB5HXlK4lBQMDXnRD21U24mPv6Ki5s7WmQDic6O3yTo358V9ptjjQB8ChFWoDsblJFcJgEfZn0U0CF55SiyB/swrPD082M74VHnN3TpuB57+zIDOstVbElE22uoTjhjmf5OwM+6TLMOQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790683978; c=relaxed/simple;
-	bh=yJ/SGqKQ1Z8c+Xwy8RHSWBf1iyGr0NkUa6OVX9HF12Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T5gu5iD5wZZvTcULcb1/j7md2HRjCH86UPdnMTQkIfkjCqsy+cWUe1zqhqStHMaDMkLoWnbxfgCHaTjqk4Y1NQYAcDKpjS7cl0YijTlkTLdSbkPiljRo40rGy497uoICFpzktSuR2yHO9rmsLuTQvnP7mvWuAFaV8053BN3+U5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=AbXarkRI; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790684298; c=relaxed/simple;
+	bh=0JGQeMPMPO2ba6FkpsntALtINcAAtIQ29jf29yZc01w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R/eiQMMJJR3QnRivqgkZzHT6gHHA6FUoUJvDMfzOcN6x1FwjRhksBi4sQCK9gWfyY0dRltEbD5TMrp1/jN/AH9kTPHJq108PmuKy7o4FSQA4wvm6LEfgodzqpfC2zje6t9Av3+o6t0kjYYBgXqX4air7Qmcmobbvxeu8dTpDvFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=cB5e6107; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="AbXarkRI"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 4CFA8534030D;
-	Tue, 29 Sep 2026 14:12:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790683974;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=YIcJiMvSHwtCZnraYE7wCGLbPbIrNhutTgj56ANQtZQ=;
-	b=AbXarkRI7d1uL5pGMTN/5au3nH00ZVes00ljfBw59yD7Qjr/1kIgkQsn4S3NDsbaTe3pvc
-	86+w92S4SwvByTCCrF4jbvLZiJfCP0dDiAhaEY/liQAN7VygMySW4NTP2w1kHORudDHOGV
-	yCikEM0v8ls11Lr+17vkgfM8U2yy1RY=
-Message-ID: <49805bcc-2456-4f7d-a08a-3ccb7223ea50@ixit.cz>
-Date: Tue, 29 Sep 2026 14:12:53 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="cB5e6107"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=MenmzKidbrS8g6QcaYPj8r8h1pcZL69WHf+rdGKbdgE=; b=cB5e6107Mn0xqXNeQESHNs/94+
+	qRDZEFIjloJKLScJ8tzJKsK4k2BTOaA4y7w3RUR/z5E/6N0M+VqTI7TLNw81Oe1comx20+Sf0NzV+
+	goSx/RTB3tEZWITHOzxNzcIrGgFbVMODtP3MtPt6Ej4cvOYyiHH82/0caQ84evbAIEmo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xBWmd-007wfH-OL; Tue, 29 Sep 2026 14:18:07 +0200
+Date: Tue, 29 Sep 2026 14:18:07 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kyle Switch <kyle.switch@motor-comm.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com
+Subject: Re: [PATCH net-next v22 3/3] net: phy: Add driver for Motorcomm Quad
+ 2.5GbE phy
+Message-ID: <0eb0fe92-86c0-425d-8002-a7ce448ba751@lunn.ch>
+References: <20260929095430.508657-1-kyle.switch@motor-comm.com>
+ <20260929095430.508657-4-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/11] drm/panel: s6e3ha8: Correct the polarity logic
- within
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
- <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
- <20260929-dramatic-ocelot-of-support-2aa377@quoll>
- <d1183441-ee4e-4700-90d9-996769eaaa11@ixit.cz>
- <b7d5d018-116f-46dd-b037-4d46c25a8435@kernel.org>
- <739ce9f4-8bdb-4bc4-9cc1-9a1a7eba80ce@ixit.cz>
- <ce6379a5-2a60-4d65-9553-e39f8398d6cf@kernel.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <ce6379a5-2a60-4d65-9553-e39f8398d6cf@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam: Yes
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929095430.508657-4-kyle.switch@motor-comm.com>
 
-On 29/09/2026 12:36, Krzysztof Kozlowski wrote:
-> On 29/09/2026 11:59, David Heidelberg wrote:
->> On 29/09/2026 11:51, Krzysztof Kozlowski wrote:
->>> On 29/09/2026 11:41, David Heidelberg wrote:
->>>> On 29/09/2026 09:45, Krzysztof Kozlowski wrote:
->>>>> On Thu, Sep 24, 2026 at 04:01:34PM +0200, David Heidelberg wrote:
->>>>>> The reset was introduced with wrong polarity. Correct for the future
->>>>>> compatibles and keep current with reverted logic.
->>>>>>
->>>>>> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
->>>>>> gpiod_toggle_active_low() on the deprecated compatible.
->>>>>>
->>>>>> Assisted-by: LLM
->>>>>> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>>>> ---
->>>>>>     drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 23 +++++++++++++++++++----
->>>>>>     1 file changed, 19 insertions(+), 4 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->>>>>> index 5e1e997b83b36..99290913de69a 100644
->>>>>> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->>>>>> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->>>>>> @@ -20,16 +20,17 @@
->>>>>>     #include "panel-samsung-dsi.h"
->>>>>>     
->>>>>>     struct s6e3ha8_desc {
->>>>>>     	const struct drm_panel_funcs *funcs;
->>>>>>     	const struct drm_display_mode *mode;
->>>>>>     	unsigned long mode_flags;
->>>>>>     	const struct regulator_bulk_data *supplies;
->>>>>>     	unsigned int num_supplies;
->>>>>> +	bool broken_reset_polarity;
->>>>>>     };
->>>>>>     
->>>>>>     struct s6e3ha8 {
->>>>>>     	struct drm_panel panel;
->>>>>>     	struct mipi_dsi_device *dsi;
->>>>>>     	const struct s6e3ha8_desc *desc;
->>>>>>     	struct drm_dsc_config dsc;
->>>>>>     	struct gpio_desc *reset_gpio;
->>>>>> @@ -62,22 +63,22 @@ static int s6e3ha8_unprepare(struct drm_panel *panel)
->>>>>>     {
->>>>>>     	struct s6e3ha8 *priv = to_s6e3ha8(panel);
->>>>>>     
->>>>>>     	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
->>>>>>     }
->>>>>>     
->>>>>>     static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
->>>>>>     {
->>>>>> -	gpiod_set_value_cansleep(priv->reset_gpio, 1);
->>>>>> -	usleep_range(5000, 6000);
->>>>>>     	gpiod_set_value_cansleep(priv->reset_gpio, 0);
->>>>>>     	usleep_range(5000, 6000);
->>>>>>     	gpiod_set_value_cansleep(priv->reset_gpio, 1);
->>>>>>     	usleep_range(5000, 6000);
->>>>>> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
->>>>>
->>>>> This breaks all users and this usage of ABI was already released.
->>>>
->>>> See the gpiod_toggle_active_low() usage later in the patch which keep the logic
->>>> for the original compatible as intended.
->>>>
->>>
->>> OK, I went way too fast, that's correct part. But splitting fix is still
->>> just confusing. Backporting to stable is a different thing than fixing
->>> issues.
->>
->> Sure, I already droped the previous commit changing it for stable.
->>
->> Btw. looking at gpiod_toggle_active_low(), would it make sense to do a series
->> correcting panel reset logic? I see many panels keep "reset asserted" in the
->> driver (but ofc not in the reality).
-> 
-> 
-> To my knowledge it is impossible task to do, without breaking something.
+> +static int yt8824_restore_working_status(struct phy_device *phydev, int ret)
+> +{
+> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+> +	int r;
+> +
+> +	/* configure normal test mode */
+> +	r = yt8824_utp_set_template_test_mode
+> +		(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
 
-I would do the partial change (only driver, not full DT).
+The opening ( should be on the line before. The phydev as well.
 
-So we end up with drivers having the correct logic with extra 2-line DT quirk 
-using gpiod_toggle_active_low() for given compatible.
+> + * yt8824_soft_reset() - called to do PHY software reset
+> + * @phydev: a pointer to a &struct phy_device
+> + *
+> + * Returns: 0 or negative errno code
+> + */
+> +static int yt8824_soft_reset(struct phy_device *phydev)
+> +{
+> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+> +	int ret;
+> +
+> +	mutex_lock(&priv->shared_lock);
+> +	if (priv->package_mode == PHY_INTERFACE_MODE_INTERNAL) {
+> +		/* test mode 1 */
+> +		ret = yt8824_utp_set_template_test_mode
+> +			(phydev, MDIO_PMA_10GBT_TESTMODE_1);
 
-This could solve people implementing new panel on top of existing DDIC and allow 
-them to use the right polarity for new compatible.
+Please look through the code and fix all these problems.
 
-David
+Also, what value does the comment have?
 
-> Either you break users of ABI (so the DTS) or break existing users of
-> DTS. One could try to avoid both by using your approach here with
-> compatibles having fallback. But then what polarity actually would be in
-> such DTS node? If you know your users, like for some SoC components, you
-> could argue that none of then will be affected. But both the driver and
-> DTS here can be used externally.
-> 
-> Best regards,
-> Krzysztof
 
+> +		if (ret < 0)
+> +			goto retry;
+> +		ret = yt8824_utp_softreset_paged(phydev);
+> +		if (ret < 0)
+> +			goto retry;
+> +		/* normal mode */
+> +		ret = yt8824_utp_set_template_test_mode
+> +			(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
+
+And this comment? You only need comments if the code is not
+obvious. The name of the function is often sufficient to explain what
+is happening. 
+
+> +	/* pll calibration */
+> +	ret = ytphy_write_ext_with_lock(phydev, 0x0001, 0x0003);
+> +	if (ret < 0)
+> +		goto err_restore;
+
+This comment is useful, it is not possible to know what 0x0001,
+0x0003 means.
+
+> +	ret = ytphy_write_ext_with_lock(phydev, 0xa20e, 0x0cba);
+
+and this is just magic. Which is why we recommend #define, not magic
+numbers.
+
+> +	/* power down */
+> +	ret = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, BMCR_PDOWN);
+> +	if (ret < 0)
+> +		goto err_restore;
+> +	ret = ytphy_write_ext_with_lock(phydev, 0xa20e, 0xcba);
+
+You comment about the obvious power down, but nothing about what this
+magic does :-(
+
+	Andrew
