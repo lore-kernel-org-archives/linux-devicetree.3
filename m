@@ -1,62 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CAD47607E;
-	Tue, 29 Sep 2026 08:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC92A475349
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671364; cv=none; b=dd43oS3c7fs2p1JABPNmrrxA//Q2ZC/kUzmjfIB1VGEorW9ZdzIgFTP8SOKvc/ODeNj8zZmkgGVLNIQI30Fvybuv91Q5DGw/LML2HmyCnRgtGmTWuDpRtOT64WF2ugJWc0kY6Yfp6U7JIAaiQX/UBW3MQgGdjzWJcHrMYIxGM9g=
+	t=1790671408; cv=none; b=tfxQkiKK+TdU/OyQrlKFoQVErvGwVOfOimOV3qllM4ZoNQAZ9eFyYZrqhNCb1oAhKukLFOSYk4XN5KH3d+Kev7ywtfWrNK4PalrEV5sktRVTu+wLDM+jU4AYMgsADyQxA96Xn3dQdrIriSdOq+vCi6lzEecQw1CZ7qwBwQnfAsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671364; c=relaxed/simple;
-	bh=kGJckGzjUH3sN2zj4PCeC1+yf+SKxMwbG8dw7Wq2d3o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FVlwtHCa5C6mdSYQg1oZrXIjGlntLCxGTrImHExMcI5Bcqrk94bSTy22svK/WfM3ae06RJlm/OAaKmdvQqBv14q0par+SQed2VgvIw/2T2VcjCeLrAppAvcM00EBSFW6gPApv8jaeroeqg4gfCSRDtrCSAsTJ3Fb2+9KvAFLR78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H/S+kId8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790671408; c=relaxed/simple;
+	bh=tqigy/RPPNbZFnODG/49qM6N3MCyj/CtBjinXZTerNQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mDJ6ORCaXtKYWs+3h22brzQkRGa+YEyF4nLmEtsjhvNNvwUPf2UwAsYQvoodU29FVrqUhIINukSl6SWcv9n3ulhaxY95OaNhOBNtsdm8GfNbW+cqzjFKVVSuDVXU7ZPYZx1FDFpk0PNGQqKevg4VvKG66afhjhVNMIbkA9huYms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FwJSdlhP; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H/S+kId8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1801F00898;
-	Tue, 29 Sep 2026 08:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790671363;
-	bh=kGJckGzjUH3sN2zj4PCeC1+yf+SKxMwbG8dw7Wq2d3o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H/S+kId87Cpbo0ujJC8vqMGE05k/NdYm/Xk2VJqMTXBnvTYsOdTesUO9zLcHxGtcz
-	 nnuLZPgsCT2XRJGT+2BuyiyvTnbLuON356pvFk0rSm+zEmRTj6e1e7aggeHCdfHVol
-	 3cSzvetYl8EZh0TAiFxHExldXdWO+WpMzPpdIAXYnHt9SeYSh/AJ9pOF6C8XzPC3F7
-	 LRHw57soeH+ru3a11STneSZEfa+35KBboA6/DolZETmOSqbr0HM8VRrLfQKc9iAHpc
-	 Lw96XZoV8sT4zLpP+2VoiWr1YhHcQ4DgfV8EGd29YJdCwlWVcBwhadxxS9xpnwfmMO
-	 op/rSvR5v1DBQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/6] dt-bindings: PCI: snps,dw-pcie: Add msi-parent
- for MSI handle check
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Inochi Amaoto" <inochiama@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260929083755.458238-5-inochiama@gmail.com>
-References: <20260929083755.458238-1-inochiama@gmail.com>
- <20260929083755.458238-5-inochiama@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 08:42:42 +0000
-Message-Id: <20260929084243.2B1801F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FwJSdlhP"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 2079F4E410BA;
+	Tue, 29 Sep 2026 08:43:24 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E8296601BD;
+	Tue, 29 Sep 2026 08:43:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A436710329732;
+	Tue, 29 Sep 2026 10:43:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790671403; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=XUukpv0RaIWaTqnSN1VNGyI5f7tSEwPscxKOXLtVRsE=;
+	b=FwJSdlhP6pe7/Kd5jKpAUiVPxH2cAT/tFLWQW31u5oY9KXpioM2fM2lBXBrN7EaCOR0lZQ
+	GPCSN35ECSA+IZ+FQyzKB1y2aFYqfRUYn67yBrENCT40V+/B+DvGrwl9jsujzDrQELI7rS
+	y4z3dS64LUrkOKMA8yyZFtPyRaNfT2uAHxTSZGbDaVVpgQsfBJdI/Qv7gu8esxJwz3fMMI
+	Bat5YHlY7cnxHFwptYGBTRSwWlRj4cVw+9s9kqzJGfS7Y5rO8gsE5Yl8DI8NYZ509wOqJw
+	x+eQT0aAxcwlQc4bzoXipCGebj/W4DTDoADbMLN4bZ3aHyTbho6Wvme9ggh/hg==
+Date: Tue, 29 Sep 2026 10:43:20 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: sashiko-bot@kernel.org
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org,
+ wsa+renesas@sang-engineering.com, robh@kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 2/4] clocksource/drivers: Add support for the Renesas
+ RZ/N1 timers
+Message-ID: <20260929104320.0e6eeadc@bootlin.com>
+In-Reply-To: <20260911151837.709F41F000FF@smtp.kernel.org>
+References: <20260911150456.893761-1-herve.codina@bootlin.com>
+	<20260911150456.893761-3-herve.codina@bootlin.com>
+	<20260911151837.709F41F000FF@smtp.kernel.org>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-> The IMSIC device on RISC-V based system does not require ID
-> remapping for MSI. So this device only needs "msi-parent"
-> property for IMSIC-based SoC, and the "msi-map" is not a
-> necessary property.
->=20
-> Add new condition for MSI handling on IMSIC based SoC.
->=20
-> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+Hi,
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+On Fri, 11 Sep 2026 15:18:37 +0000
+sashiko-bot@kernel.org wrote:
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929083755.4582=
-38-1-inochiama@gmail.com?part=3D4
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] The 16-bit per-CPU timers will never be chosen over the arch timer due to their low rating, resulting in asymmetrical per-CPU tick devices.
+> - [Medium] Clocksource and sched_clock return raw decreasing values if the timer is a down-counter.
+> --
+> 
+> commit 0389aacef8150cde2d480116d05b7b23c573015b
+> Author: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
+> 
+> clocksource/drivers: Add support for the Renesas RZ/N1 timers
+> 
+> The Renesas RZ/N1 timer block controller is the controller in charge of
+> timers available in the Renesas RZ/N1 SoCs family. This controller handles
+> 8 timers (6 16-bit, 2 32-bit). Each timer has its own interrupt and prescaler.
+> 
+> > diff --git a/drivers/clocksource/timer-rzn1.c b/drivers/clocksource/timer-rzn1.c
+> > new file mode 100644
+> > index 0000000000000..a66a045309f63
+> > --- /dev/null
+> > +++ b/drivers/clocksource/timer-rzn1.c  
+> 
+> [ ... ]
+> 
+> > +static u64 notrace rzn1_sched_read(void)
+> > +{
+> > +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
+> > +}
+> > +
+> > +static u64 rzn1_clksrc_read(struct clocksource *cs)
+> > +{
+> > +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
+> > +}  
+> 
+> [Severity: Medium]
+> If the timer is a down-counter, will these functions return a decreasing value?
+> 
+> The clocksource and sched_clock cores require monotonically increasing values.
+> If the timer counts down, returning the raw value could cause the
+> (now - last) & mask calculation to yield large forward time jumps, breaking
+> system timekeeping and scheduling.
 
+Timers available in the hardware increases their counter.
+
+These functions return increasing values.
+
+> 
+> [ ... ]
+> 
+> > +static int rzn1_local_timer_starting_cpu(unsigned int cpu)
+> > +{
+> > +	struct rzn1_timer *timer;
+> > +
+> > +	/* We assign the first and second 16-bit timer as per-cpu timers. */
+> > +	if (cpu >= 2)
+> > +		return 0;
+> > +
+> > +	timer = &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];  
+> 
+> [ ... ]
+> 
+> > +static void rzn1_timer_clkevt_init_ced(struct rzn1_timer *timer, const char *name,
+> > +				       int irq)
+> > +{  
+> 
+> [ ... ]
+> 
+> > +	/*
+> > +	 * 32-bit timers are fed with a 25 MHz clock directly derived from the
+> > +	 * main PLL (1 GHz). The arch timer, ARMv7 CP15 in RZ/N1 SoCs, is fed
+> > +	 * with to a 6.25 MHz clock.
+> > +	 *
+> > +	 * The clock of the RZ/N1 timers block is a stable one and the RZ/N1
+> > +	 * timers have a higher resolution than the ARM CP15 one.
+> > +	 *
+> > +	 * Also those 32-bit RZ/N1 timers are assigned per-cpu.
+> > +	 *
+> > +	 * Use a high rating for the 32-bit RZ/N1 timers in order to have them
+> > +	 * chosen by the system.
+> > +	 */
+> > +	timer->ced.rating = timer->width == 16 ? 200 : 460;  
+> 
+> [Severity: High]
+> Is it intentional that the 16-bit per-CPU timers are assigned a rating of 200?
+> 
+> In rzn1_local_timer_starting_cpu(), the 16-bit timers are explicitly assigned
+> as the per-CPU tick devices. However, because the ARM arch timer typically has
+> a higher rating (400-450), won't the 16-bit timers always be outranked and
+> ignored by the clockevents core?
+> 
+> This appears to contradict the comment stating that 32-bit timers are assigned
+> per-cpu, and could leave CPU 1 falling back to the arch timer while CPU 0
+> might use the global 32-bit timer, resulting in asymmetrical per-CPU tick
+> devices.
+> 
+
+First the comment is not fully correct. Only 16-bit timers are registered
+per-cpu. I will update the comment in the next series iteration.
+
+We have one 32-bit timer shared between cpu (cpumask set to cpu_possible_mask),
+two 16-bit timers per-cpu with cpumask set to the cpu registering the timer in
+rzn1_local_timer_starting_cpu().
+
+When timers are registered (calls to clockevents_config_and_register() function),
+tick_check_preferred() [1] is called.
+
+This function prefers a local cpu timer even if the local cpu timer has a rating
+lower than a shared cpu timer.
+
+With that pointed out, we cannot have asymmetrical per-CPU tick devices.
+
+[1] https://elixir.bootlin.com/linux/v7.3-rc5/source/kernel/time/tick-common.c#L289
+
+Best regards,
+Hervé
