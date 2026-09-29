@@ -1,147 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241484C4F7A;
-	Tue, 29 Sep 2026 08:53:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB18F4DA9BC
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790672039; cv=none; b=p3vJ9YhdCt3BCCWxEKs0mQgEGg917K9NQnTEOkAIKM30TU9m8u+PyWtpV1PaWki5RcoxgYLACQCGdirJ3RwCHbtqwG6o0e1an18GcBnjp5mgCb+yKIFbKJ+h46aca2ApnAQqtBFWeBTuzTLr54YIKV9Tq6Tnst+x8W/XWM3qACo=
+	t=1790672136; cv=none; b=HdwR8VYIqpb5NpggLWEJ+NhjJytbJHac0rEKVI/mo9WXbk65s9zwkRz8YpBxYu93+eOEGKlFb5vUbIIAOxjlC5zwRXP/SfAqEkJ2C2J3tbdMhoUgQAbeWSI6sqYcd4fenxaPt422q54Xg+oXUATksCL/Pc97M1Cjj6ZZXxuM84A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790672039; c=relaxed/simple;
-	bh=z/j0cztnTq2OR5Rrz05GFkWV2zhwXBK9hFn8MeRlkW8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=g53wy9jKloJDmBjLKJ8utAXk2hB1qq0cTKcENz1xB98htLD+WwkulCW8TtEr3XDwQJvMeF4QksuLXBzqZ8eVEy3XkKAUnvZvivqH7UvPg4Xi4lScHNJdr36ogpgOw+/TSHHZjBYuMvSGw1/Zr2605A/X465/Jj8mqwN3RuVy4eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+fgmqJI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790672136; c=relaxed/simple;
+	bh=WOxJ6Lo0wAfwLEa0W+6u790Sja0fGTF876sOU1ZE3OU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aefhwrlq0eAn3kH+XqaeZHodaQtD4P5Di3rR5zZcE6G2ZmfZkP6eSG7sDZUGJBprRbcCiyG3F5KDn3QXojBbOFOO6Sc55eu0pxeS8imNlGmZHd3Bs06cXOIgkBNIXdoymVqS86Xq5XxEfAcoRK+MOlBj9zskn+aqn6v4WqfRr0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SxwwWJdo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JljEdXED; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+fgmqJI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71E3D1F000FF;
-	Tue, 29 Sep 2026 08:53:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790672037;
-	bh=selsDhelZ3oDod4x6EyjnLEbNBV9NuDvI1x5f5Xp8ok=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y+fgmqJIcxxFjjotaCcrshWzlWd4KK49fU2xZo9Z5hjR4C7ac83wd9z9uyiQ0Mp4B
-	 9StNJpo4ikzm8JlkK/ZYPm7FzFxWsU5GLETQKAxxDFUfFkGQWhHAkl7tPKcMdqebIV
-	 nKUisMO7zXvtAfHUdl0Y5JB4j+K9sy8bXH6GfMujuNNsZCZM7a0L9ejAs/w8t5E4pB
-	 0rDPjMwRqSCIcRzay9RDy2Itu3Jt26pBKhUfYsbKoXVSf4hb6oq+2noNwwWgAnNSOG
-	 8JUmqF63C7q8475iDxpmSxjL6ZUVppJxARnsxl3PGI71u/La9ycECf+qn5ZbH0Xo+K
-	 EBogna+sXVfqQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Inochi Amaoto" <inochiama@gmail.com>
-Cc: linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260929083755.458238-7-inochiama@gmail.com>
-References: <20260929083755.458238-1-inochiama@gmail.com>
- <20260929083755.458238-7-inochiama@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 08:53:56 +0000
-Message-Id: <20260929085357.71E3D1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SxwwWJdo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JljEdXED"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7U44l4088180
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:55:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:sender:subject:to; s=qcppdkim1; bh=YYysSFbntWirOw1STKVl4DrzLwzu
+	CO73/HGQAWPAgJQ=; b=SxwwWJdo3tGTRs3AaiGf1j/VaAqnsgMbWZMSWtn74vsD
+	zwqiDSxOpJaOws2+xJZzDHHuMqxvqlygctslhLdl5Xp3uTBgYmY0chpWOb8YChJB
+	v1bE3R96lkI6MpgdMA9Z1yPJxzmsftMBnHaMUxem8TvkIMl8YmqVVxepIttO4Mm7
+	y0kRTFv0TMRIuT73a9i+uQ/XPdLV9ooKR0BvqSZEIQRasmqyVnKuy5H92ZQNI4bj
+	9RlqpcyokCzii6SaTNp6sVYYi14bXwDmyQJwqGVjvDqC6PJ2Fq4YpdwQHhAVSSiy
+	6XT6EYyAueRsQqbgFbE/ViVOUWtuoKa9ndXGLEbZ2Q==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h00s4t5ra-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:55:33 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33713e5e6daso6059019eec.0
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 01:55:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790672133; x=1791276933; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YYysSFbntWirOw1STKVl4DrzLwzuCO73/HGQAWPAgJQ=;
+        b=JljEdXED9Z7dgE76lY+Lna/3M+Jw7aAYZLRzpYffg/CBpHrV0N9vb1xB6FOnfg6lxv
+         kNzCO/zv68vHol3S8uh04+K0ljZwkwrAjCvHinRkBHeJ1HSwkZ2f+G3xOwim1hsTa88J
+         aw24wmCrX722YjwaH30r1tlWVKIjgBQerLX0ZkOtrtXf8sbPmj6gHl+We4DD6SxPIKrS
+         PofEgQCrV7kLeYmLDaWEH65/rK7qAhTtAs9lZOhU4poe9jMOgO3/PSLcunJwBVCTlhsj
+         ORuwecWG/w/XLmLP+ndyp/vzOuhcFMpGuvcGBDJw1E47hrPrisgLI8zGSKqKKGS98eLz
+         JPiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790672133; x=1791276933;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YYysSFbntWirOw1STKVl4DrzLwzuCO73/HGQAWPAgJQ=;
+        b=S32RylLoNovUxd3bLgjbZKnKMcL0cIYQOKeEap5FzWzwFG6cpstmC2h83hmLD7kg9v
+         CbZHq1zvRxoVck++EMYKp7VFRcQiN6U0Yki1kHKfaMe/k/Oeog0bqhJyhb7Bflmr90/H
+         Fh3yUGGMT8aeqUbFL5rfPf1sw4uVLOPXOL33spZZpFEwjxIGvftPW25RXdU3kSCsbE7j
+         scW4ZKsvqyOcYtsskrE2U4amgJuPkDsRKCpLlvKqSYM8RfmUj1T7HD49UIvxfYhYRhb/
+         csd5ijvZe21iRY+c7xoE7TjQT0SEUxC6vtlyoILriG2CVU4VRtOIR+HegqC4AU9vZW1U
+         X49A==
+X-Forwarded-Encrypted: i=1; AKwUvBzpcCYqXLDQMT/yNP9mM1paycGApm00bEqu2CYwqlYIFtSME9dDQmb3VZ90FhAzCk+6FoFm4SMaIHAT@vger.kernel.org
+X-Gm-Message-State: AFuF++kvQ71vnV9Kdx1MQTFz4lSE+4a4v/+xdqwBLPGaJtRCirRq859U
+	HfK1aAUdip4wcbm4jOy8aseaJbZYqZ54f9G/ICVD2xM0MnsGRJAkD5qvUZKLZtIF4aaL3nfwY/7
+	IVGUeYS/vqzGn7i7Le8NN1Hea0aH/MIULykb+qsWW5oIG8ZhHFuGY9bbQZmFGe/isMlR7PXcU
+X-Gm-Gg: AYBFou0ARW/FTtkHHe0EkArUh4dUT0lSzdrP5+D2zt5i0UEbLs5rRn17rE/Dz23i2or
+	tXvKRcA5fCiySssg1WFxfhtAOoXqrcIkIKLWkX++19nyhv4OlMbBslDcME2wnjy4zk6CR3Ai7Jf
+	DG9BNeLJ/c36wtzus47+lxO5daFdOH+4w7NxC7/ffXCU280xlLeOnKhjf+caH1FU5+wQo6ZX3UE
+	X/3LqSZZ3kWoryxz1zU/lWSQ1psizTFxSXAB3nC9FyOZ5DxMYxprjwW4q9aPKuG47HwRZCjYpCR
+	X0G1TC6m6SIC9jsZ4W7awjJ5kmw6yETVWb5sEbBb1vztP2YmZ8YkSXadiWBq/U4ABN+IDKPGl/G
+	XmYSbntwudCFEWhpBPRnMG9/edSIn1An7HBx59tVty0nDTTR4OHB6qREP
+X-Received: by 2002:a05:7301:b0f:b0:341:f87d:4bd4 with SMTP id 5a478bee46e88-342701c003bmr12253852eec.4.1790672133125;
+        Tue, 29 Sep 2026 01:55:33 -0700 (PDT)
+X-Received: by 2002:a05:7301:b0f:b0:341:f87d:4bd4 with SMTP id 5a478bee46e88-342701c003bmr12253819eec.4.1790672132479;
+        Tue, 29 Sep 2026 01:55:32 -0700 (PDT)
+Received: from hu-sunilvl-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34144f4eb9esm34294467eec.19.2026.09.29.01.55.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 01:55:32 -0700 (PDT)
+Sender: Sunil V L <sunil.laxminarasimha@oss.qualcomm.com>
+From: Sunil V L <sunilvl@oss.qualcomm.com>
+X-Google-Original-From: Sunil V L <sunilvl@oss.qualcomm.com
+To: linux-acpi@vger.kernel.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+        Mayuresh Chitale <mchitale@gmail.com>,
+        Anup Patel <anup@brainfault.org>,
+        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+        Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+        Sunil V L <sunilvl@oss.qualcomm.com>
+Subject: [RFC PATCH 0/5] hwtracing: rvtrace: Add ACPI support
+Date: Tue, 29 Sep 2026 14:25:19 +0530
+Message-ID: <20260929085524.1554507-1-sunilvl@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzNSBTYWx0ZWRfX5W4Qi/tuG3I9
+ XgteZUHnWe3e593K92L1rhjI7fgDzwq6QAcEry5oo1rSFEvqmFoGGveY3ya8OfksQJGWcDYipN2
+ CAOB7/vpBIF+Jc337fQmrmTIMK2XzjM=
+X-Authority-Analysis: v=2.4 cv=ALbfqNVA c=1 sm=1 tr=0 ts=6abb7d05 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=vF7HM7XGAAAA:8
+ a=EUspDBNiAAAA:8 a=V1jnuoLLAAAA:20 a=Zpogi3qlAAAA:20 a=NEAV23lmAAAA:8
+ a=YG64nluAAAAA:20 a=wDIQ8p4OHAohPmJ-3qkA:9 a=PxkB5W3o20Ba91AHUih5:22
+ a=bNn2QJc11pDkoTYzAKk6:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzNSBTYWx0ZWRfX8NBv47wz1uQP
+ 7cWAOdlAk5JydGnt3bYRaa8Dr5iL4q8CllN69Fye2wPB8vpwNR9qY8FO3241KIfAgDmApMxU9bJ
+ N67stLK5+7YAPaJEWIolPukeRU8274lG5V01Y2JV07TRYaoOpcQawJAKZvkIt0a9MkRv1OFJwk7
+ EzEWPwci8Lm/LXjvL6FwUNOwmZ4OHLO5IdZUqROa6pAk+ZyG5L+qWUgUJATXZRbWfqRSLEEloRT
+ EVf07vEnSOef4CiuSqkdmAwfiMTjy18I0GJmbdMxh728sAIN9jKXWWKsLlR2N2DTVE4dtfLm/96
+ YLiSYvLZ00TnWE70wLDyYfOLMWzlqwcXtasGdlxtJo5x4axhc9uD7mTsO4piS7OWIl/0QtubDk0
+ cc8tItSCfIfKPZxTD6RZ1ZSlMpELrSkOPoIkytEa31oHKqdfThwJeR3TFfUNgsG2tOsZgjNJdqv
+ QhQeOY4fCEqVqClXThw==
+X-Proofpoint-GUID: Ql_0VUs0OqlHcmRQCbn0p3h05pk6zLIg
+X-Proofpoint-ORIG-GUID: Ql_0VUs0OqlHcmRQCbn0p3h05pk6zLIg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 spamscore=0 clxscore=1011 suspectscore=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290035
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] System crash on probe due to unclocked MMIO access
-- [High] Logic error in equalization preset request configures non-existent=
- lane
-- [Low] Build failure due to missing PHY bulk APIs
---
+From: Sunil V L <sunilvl@oss.qualcomm.com>
 
-commit 0e2b713f89ed74d3eac594b76efb0fd900f80b44
-Author: Inochi Amaoto <inochiama@gmail.com>
+This is an RFC series to add ACPI support for the RISC-V trace
+framework. It is based on Mayuresh's v5 series, "Linux RISC-V trace
+framework and drivers" [1].
 
-PCI: spacemit-k1: Add Spacemit K3 PCIe host controller support
+The RISC-V trace specification is proposed in the RISC-V BRS v1.0.6
+document [2], Section 6.5. It uses the Device Graph UUID defined in
+Section 3.4 of the DSD Guide [3], similar to the approach used by
+other architectures.
 
-This commit adds support for the Spacemit K3 PCIe host controller. It exten=
-ds
-the existing K1 driver to handle external MSI controllers and multiple PHYs
-required by the K3 architecture.
+When I started looking at ACPI support for the trace graph, the obvious
+design was to follow the approach used by other architectures, such as
+CoreSight. However, that would mean duplicating the ACPI graph parsing
+logic and maintaining separate DT and ACPI paths in the rvtrace driver.
 
-> diff --git a/drivers/pci/controller/dwc/pcie-spacemit-k1.c b/drivers/pci/=
-controller/dwc/pcie-spacemit-k1.c
-> index ec59ccb710ec1..61b430f2294a7 100644
-> --- a/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-> +++ b/drivers/pci/controller/dwc/pcie-spacemit-k1.c
-[ ... ]
-> @@ -315,6 +328,123 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
-[ ... ]
-> +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
-> +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
-> +
-> +	ret =3D phy_bulk_init(k1->phy_count, k1->phys);
+Instead, this series proposes enhancing the existing fwnode_* graph APIs
+so that the trace driver can use the same interfaces for both DT and
+ACPI. The main idea is to parse the Device Graph UUID defined in _DSD
+and create synthetic nodes that match the DT nodes. The ACPI-based
+fwnode_* APIs are then enhanced to traverse these synthetic nodes in the
+same way as DT. The ACPI fwnode_* APIs already support the
+"Hierarchical Data Extension UUID" defined in Section 3.2 of the DSD
+Guide [3]. Adding support for another GUID therefore seems natural to
+me.
 
-[Severity: Low]
-Does this code rely on a custom or out-of-tree API? The generic PHY subsyst=
-em
-does not contain a phy_bulk_init() or devm_of_phy_bulk_get_all() function.
-Calling these non-existent bulk PHY APIs causes an immediate build failure.
+The series adds the ACPI device-graph parsing by creating
+synthetic nodes matching the DT nodes, extends the graph parent handling
+for in-ports and out-ports, converts the rvtrace platform driver to the
+fwnode_* APIs, and adds ACPI matching and CPU binding support. In the
+future, other drivers that use the Device Graph UUID, including
+CoreSight drivers, can use the same interfaces and avoid duplicating
+this logic.
 
-> +	if (ret)
-> +		goto failed_phy_init;
-[ ... ]
-> +	msleep(PCIE_T_PVPERL_MS);
-> +
-> +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
-> +
-> +	val =3D dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
-> +	val =3D u32_replace_bits(val, BIT(7),
-> +			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
+One question that may come up is that the DT schema [5] has not
+standardized the in-ports/out-ports. However, the existing OF
+interfaces already support in-ports and out-ports. Therefore, I do not
+see an issue with providing the same capability through the common
+fwnode_* graph APIs.
 
-[Severity: High]
-Is BIT(7) the correct value here?=20
+This is an RFC series, and feedback on the overall design and the API
+changes would be very helpful. We have a slot to discuss this in LPC
+next week under RISC-V MC track. I hope this series gives better context
+before the session and we can have a fruitful discussion next week to
+converge on the right approach.
 
-GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC is a 16-bit vector where each bit correspo=
-nds
-to a PCIe lane. Passing BIT(7) (128) into u32_replace_bits() sets the 8th b=
-it
-of the vector (Lane 7).
+The series was tested on a QEMU virt machine with the required ACPI
+namespace changes for the trace graph. These changes are available at
+[4].
 
-Since the K3 controller only has a maximum of 6 lanes, doesn't this issue an
-invalid preset request for a non-existent lane and skip equalization for the
-actual active lanes? This can potentially lead to link training failure or
-incorrect functional behavior.
+[1] - https://lore-kernel.gnuweeb.org/linux-riscv/20260810152223.3946743-13-mayuresh.chitale@oss.qualcomm.com/T/
+[2] - https://github.com/riscv-non-isa/riscv-brs/releases/download/v1.0.6/brs-v1.0.6-20260928.pdf
+[3] - https://github.com/UEFI/DSD-Guide/blob/main/dsd-guide.pdf
+[4] - https://github.com/vlsunil/qemu/tree/acpi_trace_rfc_v1
+[5] - https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/graph.yaml
 
-> +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
-> +
-> +	k1_pcie_set_device_id(k1);
-[ ... ]
-> +static const struct dw_pcie_host_ops k3_pcie_host_ops =3D {
-> +	.init		=3D k3_pcie_init,
-> +	.deinit		=3D k3_pcie_deinit,
-> +	.msi_init	=3D k3_pcie_msi_host_init,
-> +};
-> +
-> +static int k3_pcie_parse_port(struct k1_pcie *k1)
-> +{
-> +	u32 status0, status1, status2;
-> +
-> +	/* Clear the status registers */
-> +	status0 =3D readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> +	status1 =3D readl_relaxed(k1->link + INTR_STATUS);
-> +	status2 =3D readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
+Sunil V L (5):
+  of: property: Add in-ports/out-ports support to
+    of_fwnode_graph_get_port_parent()
+  ACPI: property: Add ports/in-ports/out-ports support to
+    acpi_fwnode_get_parent()
+  ACPI: property: Add device graph support
+  hwtracing: rvtrace: Move to fwnode_* APIs
+  hwtracing: rvtrace: Add ACPI support
 
-[Severity: High]
-Can accessing these MMIO registers crash the system during boot?
+ drivers/acpi/property.c                     | 516 +++++++++++++++++++-
+ drivers/hwtracing/gtrace/Kconfig            |   4 +-
+ drivers/hwtracing/gtrace/rvtrace-platform.c | 191 ++++++--
+ drivers/of/property.c                       |   4 +-
+ 4 files changed, 657 insertions(+), 58 deletions(-)
 
-Looking at k1_pcie_probe(), it calls data->parse_port(k1) before
-dw_pcie_host_init(). The application clocks and resets are only enabled lat=
-er
-in the sequence when dw_pcie_host_init() calls k3_pcie_init() and then
-k1_pcie_enable_resources().
+-- 
+2.43.0
 
-Accessing these hardware registers unconditionally while the PCIe controller
-is still unclocked and in reset causes a synchronous external abort.
-
-> +
-> +	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929083755.4582=
-38-1-inochiama@gmail.com?part=3D6
