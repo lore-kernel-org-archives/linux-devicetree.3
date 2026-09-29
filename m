@@ -1,175 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F45D365A13
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:26:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81020401A0B
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:29:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790652413; cv=none; b=eIPpSccQ/Fb6CWNgf1PBp8tnxQyf61mb1ASOaZTY6GQ8M/DZKoWTbtZSKP7mdle7lvFLtdb9xxdT4FcWypFEtINneVBvP2CvewNpfq3RIYsrieVQh7yb1do1dFJXRUSe4aeVriiJNCqagXoTem9bpOM0Wm5cZGtfMLsWIYKqTow=
+	t=1790652552; cv=none; b=F37S01QUZ66X0Ot1yrOYFuUwh2h0Sv4CCvu+U3EvzIPAxZrTN5hK1tmf3O46jYzBYRPCrekc3qqbf+IQm305N4y77NhU0Sa0VcpJwJ1siqi5Pnw4kn4rqExQ3KxwSKbN5d9CTN40TuuKDyJptAO4lr/OFuNLrS13Q0PBpRg9Mdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790652413; c=relaxed/simple;
-	bh=83KzzLixD3VjyhZ9fyg4UBmDM1fjXtsO8RCJpQNa7NY=;
+	s=arc-20240116; t=1790652552; c=relaxed/simple;
+	bh=I2jpR0gH7OmdSnQPdp6WVXX7sw60yuGgdwrExW19PBo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SEx3R0wS9tUiUKzGlCKYIaNaM3Y+5crsDMgqHrjL5XuwUDDW49d/8yNeV23H4aLXdFXN8LCS6eeDxGiluyqxe6yFgJAiQlCK2B3HQhOVMiXfAsiBqMcVVEr5olmZRSk7vaoC68DvpkrSmuYawGV1jUed8i2VCDKGGkMKQBm3IUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OviIo/3Y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UOYtJpZz2soI0cfT/nf+rtCJj8dmx5I3mWR6TfJPHbaSGKTZuPZmaDEqtgQRmBQIX5HjKYhsPi5zYx6/jEs35JEnBCaQynBku4OU/vkrklUQpmuZh76nCahkxqPYnKlryjS3lsSdr/H10QVfvfV3uvTdPHqAQv01RVIzy3dhjCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KrMP4iTA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OviIo/3Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 840B31F000FF;
-	Tue, 29 Sep 2026 03:26:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KrMP4iTA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990E51F000FF;
+	Tue, 29 Sep 2026 03:29:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790652411;
-	bh=pdTuxJydGYmDk/kJrzUZkt19hgxXff2XgHgIFyIdva4=;
+	s=k20260515; t=1790652550;
+	bh=oD6EqwzZkohCibvERzvEMVYKA8lg3xDlU45kaLTT/0M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OviIo/3YFY1eOi/6gJ4BTu82unaS8t17r2raXo4cVGpruE/l9sini8RNX9IIy/LQQ
-	 opLMWSvgE92W4OeBZMO+VeCRLkb61ZOEkcojSgyPLfQP8snx1P3j0DioXLcKCvZi49
-	 MAmzd+vUhzb2oLCO6D02zEj8TMs5wjWg48QMqAaXKrPhyEVehFqT9zqg60EsyGDnw0
-	 qzPEv+Ul9AwlJ2Ey3YFYu+S1Gvc7Azx6/KOxi5rkWAUuE99hnWz4GDBSwLHvxhSNBw
-	 ZDd6SUvaUkZjDG/oKlvKC4B2JKp/ygPpTeoatQG443nhWo6FCRwZt97NavOrslO3zg
-	 Bgx6q5L9OodVA==
+	b=KrMP4iTA8jfHd8ELM57iWtWw0ycNbtVeqiac6eEsfD162JXvPXsr8mCVYwI6Nxk8i
+	 QKInS6XOxpA2t+zBS9f4pqrINtC5vOY84YT2btVaDP/QE1SVZCZeZSHj78JIVAaBgq
+	 LNbBEwgR3kZL2i30GXWYWCanWJRqdLceXt6/bhvGqvW6/7qm4rXKjp2FjUAo5IFLek
+	 +hMUzkxOnR2veYttWtnhSe8tPw18gsvkQD+lqkz0O59gz8QCvut/FhTcprUbdmHLqt
+	 PtsUPhyCAhjZqxzK5RaCRXgW5R5VGoM7/1aatR8rO8HtENBZZVgdvLE7hEOp9s2thd
+	 pxfnmAbsfOz7w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 06/10] firmware: riscv: rpmi-tee: parse system
- information tables
+Subject: Re: [PATCH RFC 03/10] firmware: add RPMI TEE bus support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Amirreza Zarrabi" <amirreza.zarrabi@oss.qualcomm.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260928-riscv-rpmi-tee-abi-v1-6-04908b81d885@oss.qualcomm.com>
+In-Reply-To: <20260928-riscv-rpmi-tee-abi-v1-3-04908b81d885@oss.qualcomm.com>
 References: <20260928-riscv-rpmi-tee-abi-v1-0-04908b81d885@oss.qualcomm.com>
- <20260928-riscv-rpmi-tee-abi-v1-6-04908b81d885@oss.qualcomm.com>
+ <20260928-riscv-rpmi-tee-abi-v1-3-04908b81d885@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 03:26:51 +0000
-Message-Id: <20260929032651.840B31F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 03:29:10 +0000
+Message-Id: <20260929032910.990E51F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] firmware: riscv: rpmi-tee: forward compatibility broken by rejec=
-ting unknown tables and flags
-- [Medium] firmware: riscv: rpmi-tee: parser improperly rejects omitted SER=
-VICE table
+- [Medium] firmware: rpmi-tee: stub returns NULL instead of ERR_PTR
+- [Medium] firmware: rpmi-tee: missing file2alias integration for module au=
+to-loading
+- [Low] firmware: rpmi-tee: missing newline in modalias sysfs attribute
 --
 
-commit e7385de8b0fcda79d633aac804a487469dcd9e42
+commit c7783a9ac1224efdc38ee5d5e0d605481f36e278
 Author: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 
-firmware: riscv: rpmi-tee: parse system information tables
+    firmware: add RPMI TEE bus support
+   =20
+    Add a bus for RISC-V RPMI TEE services. Each service exposed by a
+    TEE endpoint is registered as its own device on this bus, identified
+    by a UUID, so that a single physical TEE can host multiple
+    independently-bindable service drivers.
 
-This commit adds parsing for the RPMI TEE descriptor-table SYSINFO format
-used during discovery. It validates the headers, table directory, endpoint
-role flags, and service mappings for both Self and Whole-system responses.
-
-> diff --git a/drivers/firmware/riscv_rpmi_tee/sysinfo.c b/drivers/firmware=
-/riscv_rpmi_tee/sysinfo.c
-> new file mode 100644
-> index 0000000000000..5829ab6db0426
+> diff --git a/drivers/firmware/riscv_rpmi_tee/bus.c b/drivers/firmware/ris=
+cv_rpmi_tee/bus.c
+> index 0000000000000..32f555c2f1f2a
 > --- /dev/null
-> +++ b/drivers/firmware/riscv_rpmi_tee/sysinfo.c
-
+> +++ b/drivers/firmware/riscv_rpmi_tee/bus.c
+> @@ -0,0 +1,202 @@
 [ ... ]
-
-> +	switch (type) {
-
-[ ... ]
-
-> +	case RPMI_TEE_SYSINFO_TABLE_BLOB:
-> +		/* BLOB table is defined as raw bytes. */
-> +		if (desc_size !=3D 1)
-> +			return -EINVAL;
-> +		break;
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-
-[ ... ]
-
-> +	info->data =3D data;
-> +	info->len =3D len;
-> +	for (i =3D 0; i < table_count; i++) {
-> +		const struct rpmi_tee_sysinfo_table_desc *desc;
-> +		int ret;
+> +#define RPMI_TEE_UEVENT_MODALIAS_FMT	"rpmi_tee:%pUb"
 > +
-> +		desc =3D rpmi_tee_sysinfo_desc_at(header, i);
-> +		ret =3D rpmi_tee_sysinfo_get_table(info, desc);
-> +		if (ret)
-> +			return ret;
+> +static DEFINE_IDA(rpmi_tee_bus_id);
 
-[Severity: Medium]
-If a future firmware update introduces a new, unrecognized table type,
-rpmi_tee_sysinfo_get_table() falls through to the default case and returns
--EOPNOTSUPP, which causes rpmi_tee_sysinfo_init() to completely abort
-initialization.
+[Severity: Low]
+Does this macro need a trailing newline?
 
-Since desc_size validation handles minor version size extensions, should
-unknown table types be safely ignored here instead to maintain forward
-compatibility with newer firmware revisions?
+When used by modalias_show() via sysfs_emit(), it will output a string
+without a newline, which violates standard sysfs formatting conventions.
 
-> +	}
+[ ... ]
+> +static int rpmi_tee_device_uevent(const struct device *dev,
+> +				  struct kobj_uevent_env *env)
+> +{
+> +	const struct rpmi_tee_device *rdev =3D to_rpmi_tee_dev(dev);
 > +
-> +	return 0;
+> +	return add_uevent_var(env, "MODALIAS=3D" RPMI_TEE_UEVENT_MODALIAS_FMT,
+> +			      &rdev->uuid);
 > +}
 
+[Severity: Medium]
+Will this uevent fail to trigger automatic module loading?
+
+If service drivers use MODULE_DEVICE_TABLE(rpmi_tee, ...) to export aliases,
+the modpost tool will ignore them because scripts/mod/file2alias.c lacks
+support for parsing the rpmi_tee_device_id structure.
+
 [ ... ]
+> diff --git a/include/linux/rpmi_tee.h b/include/linux/rpmi_tee.h
+> index 0000000000000..c499f0427833e
+> --- /dev/null
+> +++ b/include/linux/rpmi_tee.h
+[ ... ]
+> +struct rpmi_tee_device_id {
+> +	uuid_t uuid;
+> +};
 
-> +/* Validate endpoint records and their service ranges. */
-> +static int rpmi_tee_sysinfo_validate_endpoints(struct rpmi_tee_sysinfo *=
-info,
-> +					       bool require_single_ree,
-> +					       u32 *self_ep_id)
+Should this structure be defined in include/linux/mod_devicetable.h to
+properly integrate with file2alias.c?
+
+[ ... ]
+> +#else
+> +static inline struct rpmi_tee_device *
+> +rpmi_tee_device_register(const uuid_t *uuid, u32 endpoint_id,
+> +			 const struct rpmi_tee_ops *ops, struct device *parent)
 > +{
-> +	const struct rpmi_tee_sysinfo_table *service_table;
-> +	const struct rpmi_tee_sysinfo_table *ep_table;
-> +	const struct rpmi_tee_sysinfo_endpoint *ep;
-> +	u32 ree_count =3D 0, ep_idx;
-> +
-> +	ep_table =3D &info->tables[RPMI_TEE_SYSINFO_TABLE_ENDPOINT];
-> +	service_table =3D &info->tables[RPMI_TEE_SYSINFO_TABLE_SERVICE];
-> +	/* Endpoint table should exist and not empty; service table can be empt=
-y. */
-> +	if (!ep_table->present || !ep_table->count || !service_table->present)
-> +		return -EINVAL;
+> +	return NULL;
+> +}
 
 [Severity: Medium]
-The comment directly above notes that the service table can be empty, but
-this condition returns -EINVAL if !service_table->present.
+Should this stub return an error pointer like ERR_PTR(-ENODEV) instead of
+NULL?
 
-If valid firmware omits the service table descriptor entirely (e.g., when no
-services are available to save directory space), will this spuriously reject
-a fully compliant SYSINFO response?
-
-> +
-> +	for (ep_idx =3D 0; ep_idx < ep_table->count; ep_idx++) {
-> +		rpmi_tee_sysinfo_entry_at(ep_table, ep_idx, ep);
-> +
-> +		/* struct rpmi_tee_sysinfo_endpoint. */
-> +		u32 ep_id =3D get_unaligned_le32(&ep->id);
-> +		u32 parent_id =3D get_unaligned_le32(&ep->parent_id);
-> +		u32 ep_flags =3D get_unaligned_le32(&ep->flags);
-> +		u32 service_first =3D get_unaligned_le32(&ep->service_first);
-> +		u32 service_range_count =3D
-> +			get_unaligned_le32(&ep->service_count);
-> +
-> +		bool is_physical =3D
-> +			ep_flags & RPMI_TEE_SYSINFO_ENDPOINT_F_PHYSICAL;
-> +		bool is_ree =3D ep_flags & RPMI_TEE_SYSINFO_ENDPOINT_F_REE;
-> +		/* Require exactly one endpoint location and security role. */
-> +		if (is_physical =3D=3D
-> +			    !!(ep_flags & RPMI_TEE_SYSINFO_ENDPOINT_F_PROXIED) ||
-> +		    is_ree =3D=3D !!(ep_flags & RPMI_TEE_SYSINFO_ENDPOINT_F_TEE) ||
-> +		    ep_flags & ~RPMI_TEE_SYSINFO_ENDPOINT_F_MASK)
-> +			return -EINVAL;
-
-[Severity: Medium]
-Similar to the unknown tables issue above, the strict check against
-~RPMI_TEE_SYSINFO_ENDPOINT_F_MASK completely rejects endpoints if they
-set newly introduced flags.
-
-Could this strict mask validation cause older kernels to fail to initialize
-when running on newer firmware that utilizes new bits in ep_flags?
+The active implementation of rpmi_tee_device_register() guarantees an ERR_P=
+TR
+on failure. If a caller relies on IS_ERR() to check the return value, this
+fallback stub will incorrectly pass the check and lead to a NULL pointer
+dereference when the caller attempts to use the returned device pointer.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-riscv-rpmi=
--tee-abi-v1-0-04908b81d885@oss.qualcomm.com?part=3D6
+-tee-abi-v1-0-04908b81d885@oss.qualcomm.com?part=3D3
