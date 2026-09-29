@@ -1,65 +1,65 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD1C541444
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 15:17:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9E453FD45
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 15:17:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790695079; cv=none; b=BAJQyaMEa/D58vMhLfWB4bea+8+jJx7AL94iBeDxiNjH5kfOz0M7rObMCuKERS8KhB9yX0QJKYCvieW8zL4t4M7ITwA5FUCC6mMUwz2pBYsmOIaltGGZKM+4tak8SoU89WzBGcg5pvjOXDCEUDpVQlnrrO5GqVD8KUDhW2UL0sY=
+	t=1790695082; cv=none; b=iQLXlYsHmiyQN5FJfHo5jQefbfBzm9v7VTJpXkQGFXHLdJ0KOp0dqtQhPg1W6u6hYoBOFumeQII9sYz0WJ0zw3/pgtCOhG3PNHteEBFk/ajgLEKXvvnVIMVNrUjRYh9YtatZ/HXoFzZQwQvxhr6FJ/penpGWTkuE+7MRgZIUYps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790695079; c=relaxed/simple;
-	bh=xG8fQs+Nv8hzYaB47vBOWqr+MR+BJEmuFuZwRxqnET0=;
+	s=arc-20240116; t=1790695082; c=relaxed/simple;
+	bh=5lJ/BsrMrjUPA//hbCE/BIQ7KBCnAQZQan4mp6ZdTv8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IEgm/arGYPyQW/PbW97tThjLzaWrxhFU801MGeHmI2S9AAqK+b4tmDmm1l/kowl9PPJ6ctrfxlnmuTnRvysR5BYJBklft1QL89HdBn1+mQd1XGRNdS4pelPEjvfTy9jHHiqCQBYoJk9kDIf10PmBaJJ522tmMlL89uRvhRQpUMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hJjPFAC7; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=b1UgFI0dgfurB1+TdWzNee3GKHz+WiD3943rBbju/hK1eg8Vc8egy6D4Y6Hi/1gbaicE0NgunQu5qEzjIiZExhiVPb9DTFR6LS+t8lndDPwxVO+P+9LMUTxkb80kCzsIABIfFQRdNN8nhd3IRTLPL0ljBnHhIT50PdnC4ktigvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s88++gTu; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hJjPFAC7"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff6f0f87so19649745e9.3
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:17:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s88++gTu"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9621c5dso23442085e9.0
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:17:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790695072; x=1791299872; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790695068; x=1791299868; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6TBF9avaY/bTBgvPOC6p2G/lL798dgydRUW2YJl/tA8=;
-        b=hJjPFAC7Qrjc9VWgZio19Ell+7G7mzSgX/IwZMpcVNzhkpAFHDNw/VSegeIhenBBao
-         tCkMCGNHAIQgfFySZp9ZhC59diNlypXVCqMn2qFJcmmmRUjpc/pKtEzGzRxNDlz055Mc
-         jq8u5vVhlWIhlcBJBbHqw0SO03FyQ6MnBixio7CvxIyXn3qCS12Qq78sD9+koxGehXuu
-         ERLzIu22Q7FptOAkIroEUf0crnhtRnYsQ25L6CWGHZuwd6Pr6eXipW965f34QP0QowIh
-         IXagtbOqGzsZ6CYUU2VKc1H+JufFVzwO8RkUbajJhKVasPs0130i5F45gEUWgocdbxhd
-         SaWQ==
+        bh=HhS8YlnsGyJ9HS0RFtDMzIqZYstk1VURk3XTCd55V0Q=;
+        b=s88++gTuCfHOSqcsBOJXNn8QGM11QUwCqWbB88QsZ2YRlH/P0lS6zUrkAkm5cQZ1VY
+         xY94LasuRYZ1Az+Wt5LnkxRXVZH22buD7/SdtvTujLFR+ygIQ9NICmMy+cTza4+LacoP
+         S4KRaXSJX42mwNGZwGYxtxM8vXW0x+BU3RwEMp7bBMJNhpJR7y/W8yVDgaycQqxY3bAX
+         1o+hfd0Boc+USOwdmCGA98DO9b89OXQM3rmnrMcoFACKz4DR/KMMSmb0FMEs7bOrkFvv
+         +KVxllviOtBpNn4uc/l3BrLSg1mmTuLBtoveZ+zo5rfWP7xuJJO4ob1wHL3t3bgInvDp
+         GiyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790695072; x=1791299872;
+        d=1e100.net; s=20260707; t=1790695068; x=1791299868;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6TBF9avaY/bTBgvPOC6p2G/lL798dgydRUW2YJl/tA8=;
-        b=zLCD3XhUoEcVGOPDTvDHns+889gjZgETyul2BFlteJavJhZhWBbnW2/1o5wpUrHZEX
-         tNPARMwlInys01Vyzw1QrQh6mxDZqFkmTucu5km7qV1xSJ2SMNMoS5dpocHSDx4D/tzk
-         PrtRUJ47VRMA+aidDQIB9x41jWIb3JtRcIQ5fQhBYPxOZwb6KVy1d2q8wPM64gsxkY6H
-         h8BIk/UmNdNSwhIZ2S6cxNANyTHeAOT1N3Uiq/tQQ5tXnvPR1PRp3ov41hyImBe/NQ65
-         /mh//dbNiIKtCkMOxp+C1Gm4zBVCCqRxByGmP17PFz3BxWcb+KUSz+IM4GELA81rUzf4
-         1Z0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxepJ/IQofDsCU+Hj/eGpUljdKdQhaVv70WmYlAXjSu4pmsOr1vtYtgDPOhZQXeEgZce3H8R1NEjcO4@vger.kernel.org
-X-Gm-Message-State: AFuF++n4BLZqJt71+ER1IWebjo9L8ttFWdKVAvfz5Cj59azVt1Xh1Fyl
-	P5cKalqTg1vXn1jrmJC1G92pwlzyHFRPQcMdOm/XUIvyJlZnFUDa5J7Z
-X-Gm-Gg: AYBFou2aYpQ/N2wSYqCF2eskZ40ZJo487/EpBv3el/0XZ39X+EGi0fDsranvr5S1sGm
-	4fO2Sy+uA9/l0GrWA+ckutbcR+5Yw98y42hYM0W8bkvWECIiECH9UL779torRr/SfdBcBUhJTc8
-	pA71Ed2pFhh14gnsc/PXYDE8P8KIK8/8DUB1gLBL93N6ZwrUfYGUSfb4sdP2nCc9kKc1pVWq41f
-	sH2vGLy4nopCpEIsk2dfKTiJm23KhIkJ2fsgJUlUmK2B9n3qnWERk+IqMf5VXgsviZrrkppDV9O
-	qEUQlsNJrlxagggyiLIoUEPXYS6rVISvHi36q4HlNtxg5P9WlNfuflPDzKhWeYNwjy/Jj8SzLAv
-	WGy4qXuio2k4/zmBBTlgAe+IcW7m0x31vIJkHlxl4blPb3++GAAu4maFxRDdFus/7kfEhG/sR7O
-	H0PiUhOuVIx4TGoU9ZeErhxRYSrTDeLnVjkOhRMY62VjUyLt/2bbzdnPaXUazXGmvOyS5+jEXan
-	UbcqPqbU3j9M5ek1bQe9JsADun4y5Bm70dikVuYxVzOuGDxF8xg2Pgxj9gUeAsdlLy7ijZl8jyw
-	F0w9fL/T0yJD+KoBxZn//+A=
-X-Received: by 2002:a05:600c:19c9:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-49fe7ae84a9mr291312065e9.0.1790695071599;
-        Tue, 29 Sep 2026 08:17:51 -0700 (PDT)
+        bh=HhS8YlnsGyJ9HS0RFtDMzIqZYstk1VURk3XTCd55V0Q=;
+        b=fr2iE4+t+bido9CCuzTWrlvZ00LjZKArxhKKDlXYNfCUpu4CDxL3U8+rQRwuKPFLIA
+         GN8xXx6eP+YwYoSPkwEX3H9sZ4hRBBw8SbCzW71aBke6B7dzVHDImRG5UBuR9T37EzWI
+         S8VsjzIRde7AUr65eo65dzX3ETnrbLUZRQRIHcFmUg9zxOwN0+QBuhy1h2JQAo5XWUm9
+         hkkEE9CmCwzVDANV3tA2aOauWz7GQ5oJrS2WFRcgv97lfTZts1OerftTT5FCkqIhpcJH
+         LwcN2tVwbZUGtyx9N02DPxoZAYKpZdBTFG6phDQ29g77t0VL4pSE/cY4vGlL3hoxQBcw
+         CZow==
+X-Forwarded-Encrypted: i=1; AKwUvBzG3DILNzy+SFp/6o0HoKAgHXq0tN0QA6fXv/CfeBSX+ctH0mRfydQZeYsKfNnDoDNpgWbBYOBOTGia@vger.kernel.org
+X-Gm-Message-State: AFuF++mQM58CTOO7SoDwYbDvLikTKaOGOm1UyIhtCXWbZwLZ85udusVb
+	L9a07JQskgKvPWGUbf1NwyxHwFWbKvf4d2ZwhIq8cZvYstT0ojzYp9a9
+X-Gm-Gg: AYBFou3LgoNoyFOtKz9T+vTUOcgbf6wTPUzgJnUDXAmgRHki/3TAoiGjUvxXePlY2nM
+	7YGIo0Xi3Uy1RHpetQSFKWbGyKDpxdOh9HeB7OvHOvK5DMyiKnUy7E+Sa+OjTZvtU3g+9Gnwe1J
+	QNP9LabGzNoolIRSeDwBPNJ9VhzihiVe0GMSR8tnN9TTNOLZR57K0CYSDjODGjf7bCJaQadFdka
+	r2ZNX/qYUsZtJslv2egREsqB8y7oxyDdHiwaTdSrCUWyWggZ5XafaT2v7EHOF6msSQ+zDyr4t5A
+	tLJeAyH09z3kMJeqXDpbetncMzS7ldP5ZjTc+eYZvDWV69O+wgH9A2rdKBITemhyxzmjtJyJdIg
+	xq3COPolUr4I+acYs0BAgt5aiWqsUFFbTW4xa/9iZcYvnkQagfWKbUcaLZa3ydQD77a0Rp9LgqX
+	sUZYxsvTfCO4G+oljd08d2HeS17OgCmlicCWgo+rcg2EtFffQtCveJ9fdTobGtHvsRT3n0ZoRJj
+	3f2+O4FagMLLlKVGAjjG1jPd2xFhCbdt9r+aCx+q1cPxqO1/DG0pBGyq5PSE/0+GksDkdHPKNZC
+	kMtt3GbatK/4qNoBkCirtA==
+X-Received: by 2002:a05:600c:8486:b0:49e:745d:c317 with SMTP id 5b1f17b1804b1-49fe66b426bmr281786245e9.12.1790695068130;
+        Tue, 29 Sep 2026 08:17:48 -0700 (PDT)
 Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a013cf8402sm10313705e9.2.2026.09.29.08.17.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a013cf8402sm10313705e9.2.2026.09.29.08.17.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 08:17:51 -0700 (PDT)
+        Tue, 29 Sep 2026 08:17:47 -0700 (PDT)
 From: Stefano Radaelli <stefano.radaelli21@gmail.com>
 X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
 To: Frank Li <Frank.Li@nxp.com>,
@@ -92,9 +92,9 @@ Cc: pierluigi.p@variscite.com,
 	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
 	Stefan Eichenberger <eichest@gmail.com>,
 	netdev@vger.kernel.org
-Subject: [PATCH v4 04/13] net: phy: micrel: Check RMII clock select property presence
-Date: Tue, 29 Sep 2026 17:17:31 +0200
-Message-ID: <249f29ecae7cf9dbbeb9691df2c67e4f0cfe326f.1790693249.git.stefano.r@variscite.com>
+Subject: [PATCH v4 02/13] dt-bindings: arm: fsl: Add Variscite i.MX6ULL board variants
+Date: Tue, 29 Sep 2026 17:17:29 +0200
+Message-ID: <075691831d4da249672c3141ab16b9e856ee42da.1790693249.git.stefano.r@variscite.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1790693249.git.stefano.r@variscite.com>
 References: <cover.1790693249.git.stefano.r@variscite.com>
@@ -108,36 +108,76 @@ Content-Transfer-Encoding: 8bit
 
 From: Stefano Radaelli <stefano.r@variscite.com>
 
-The micrel,rmii-reference-clock-select-25-mhz property is tested
-for presence, but of_property_read_bool() warns when the property
-has a value. Encoding it as <1> to satisfy the DT schema unit check
-would therefore produce a warning at PHY probe.
+Document new VAR-SOM-6UL configurations on the already supported
+Concerto carrier while retaining its legacy compatible. Add
+VAR-SOM-6UL variants on Symphony and DART-6UL variants on
+VAR-6ULCustomBoard.
 
-Use of_property_present() for the presence test. It accepts both
-existing empty properties and the new numeric form without changing
-the RMII clock selection.
+The new compatibles identify the SoM storage, wireless and audio
+options followed by the carrier, module and SoC compatibles.
 
 Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 ---
-v2->v3:
- - New patch: use of_property_present() for the RMII clock select
-   property so its numeric form does not warn during PHY probe.
+v3->v4:
+ - Split the board binding by SoC, extend the existing VAR-SOM-6UL
+   entry with new Concerto and Symphony variants, and add DART-6UL.
+ - Drop the redundant -board suffix from the new carrier compatibles
+   and use sorted items/enum lists.
 
- drivers/net/phy/micrel.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../devicetree/bindings/arm/fsl.yaml          | 39 ++++++++++++++++++-
+ 1 file changed, 38 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/phy/micrel.c b/drivers/net/phy/micrel.c
-index ae830781824b..acb481a29c25 100644
---- a/drivers/net/phy/micrel.c
-+++ b/drivers/net/phy/micrel.c
-@@ -2791,7 +2791,7 @@ static int kszphy_probe(struct phy_device *phydev)
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 233687131adb..9b1224091e01 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -834,9 +834,46 @@ properties:
+           - const: phytec,imx6ull-pcl063        # PHYTEC phyCORE-i.MX 6ULL
+           - const: fsl,imx6ull
  
- 		if (type)
- 			priv->rmii_ref_clk_sel = type->has_rmii_ref_clk_sel;
--		rmii_ref_clk_sel_25_mhz = of_property_read_bool(np,
-+		rmii_ref_clk_sel_25_mhz = of_property_present(np,
- 				"micrel,rmii-reference-clock-select-25-mhz");
++      - description: i.MX6ULL Variscite DART-6UL board variants
++        items:
++          - enum:
++              - variscite,dart-6ul-imx6ull-emmc-sd-card-6ulcustomboard
++              - variscite,dart-6ul-imx6ull-emmc-sd-card-wm8731-6ulcustomboard
++              - variscite,dart-6ul-imx6ull-emmc-wifi-brcm-6ulcustomboard
++              - variscite,dart-6ul-imx6ull-emmc-wifi-brcm-wm8731-6ulcustomboard
++              - variscite,dart-6ul-imx6ull-emmc-wifi-iw61x-6ulcustomboard
++              - variscite,dart-6ul-imx6ull-nand-sd-card-6ulcustomboard
++              - variscite,dart-6ul-imx6ull-nand-sd-card-wm8731-6ulcustomboard
++              - variscite,dart-6ul-imx6ull-nand-wifi-brcm-6ulcustomboard
++              - variscite,dart-6ul-imx6ull-nand-wifi-brcm-wm8731-6ulcustomboard
++              - variscite,dart-6ul-imx6ull-nand-wifi-iw61x-6ulcustomboard
++          - const: variscite,dart-6ul-imx6ull
++          - const: fsl,imx6ull
++
+       - description: i.MX6ULL Variscite VAR-SOM-6UL Boards
+         items:
+-          - const: variscite,mx6ullconcerto  # Variscite VAR-SOM-6UL dev kit board
++          - enum:
++              - variscite,mx6ullconcerto  # Variscite VAR-SOM-6UL dev kit board
++              - variscite,var-som-imx6ull-emmc-sd-card-concerto
++              - variscite,var-som-imx6ull-emmc-sd-card-symphony
++              - variscite,var-som-imx6ull-emmc-sd-card-wm8731-concerto
++              - variscite,var-som-imx6ull-emmc-sd-card-wm8731-symphony
++              - variscite,var-som-imx6ull-emmc-wifi-brcm-concerto
++              - variscite,var-som-imx6ull-emmc-wifi-brcm-symphony
++              - variscite,var-som-imx6ull-emmc-wifi-brcm-wm8731-concerto
++              - variscite,var-som-imx6ull-emmc-wifi-brcm-wm8731-symphony
++              - variscite,var-som-imx6ull-emmc-wifi-iw61x-concerto
++              - variscite,var-som-imx6ull-emmc-wifi-iw61x-symphony
++              - variscite,var-som-imx6ull-nand-sd-card-concerto
++              - variscite,var-som-imx6ull-nand-sd-card-symphony
++              - variscite,var-som-imx6ull-nand-sd-card-wm8731-concerto
++              - variscite,var-som-imx6ull-nand-sd-card-wm8731-symphony
++              - variscite,var-som-imx6ull-nand-wifi-brcm-concerto
++              - variscite,var-som-imx6ull-nand-wifi-brcm-symphony
++              - variscite,var-som-imx6ull-nand-wifi-brcm-wm8731-concerto
++              - variscite,var-som-imx6ull-nand-wifi-brcm-wm8731-symphony
++              - variscite,var-som-imx6ull-nand-wifi-iw61x-concerto
++              - variscite,var-som-imx6ull-nand-wifi-iw61x-symphony
+           - const: variscite,var-som-imx6ull # Variscite VAR-SOM-6UL SoM (6ULL variant)
+           - const: fsl,imx6ull
  
- 		if (rate > 24500000 && rate < 25500000) {
 -- 
 2.47.3
