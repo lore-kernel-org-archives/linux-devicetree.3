@@ -1,72 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70A54BD106
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:50:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E0A4C650B
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 08:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790671851; cv=none; b=CPWycgxQPB3A4IbasjY7CuIrQZ9saSJQfXgodPI/Yn/YTnGB71L/N6/lsqx89KCFc0oGWIq2ixws9Cf8Exv11WdquZK/gFCrqr4KaWHKpGJUZZgKEGtZzSxmgIZEBokpy+Yc/2D1B+IU/dcliV5gRUdmm56Ku9A7CuXs207xQy0=
+	t=1790671863; cv=none; b=g308zeimFycERJ+rbtslzL1APCUNnM419/GTSKY0zwFv9HwaJSCxNzALDQwLqHoJdNUDcbgBpH/ms4igjAik79/U600357NGFST/5v+N5jsIZJOWIMLHDHD7Mgkn8Hq7OWipfxpdeBH2tyM/0siWMoLGf0zFY25kWOUs11w2br0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790671851; c=relaxed/simple;
-	bh=zXiQcR4UNMCgsJZUZq1sezmM9kLSwNnJodiXQrHrfRk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WqSJHdHQ+a2qqmXj+ScnDuREa/HEhlmvxkV46xCd6AcEdpoPDhoMHidyV2r/RyxNj5WpIFs573mz6L/dM7WEvVZjTa5zJRhCeqkYKoBsAc4KPIcTcAJ/2NMTUmUS3+RtTO56yNBZYo2Ea1cIBrQwaIA+RaCciAnzw/RJKDO6nW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELMFc7Sr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790671863; c=relaxed/simple;
+	bh=ZxKufniYDJUjM/W94zlP7DWtMkIq8VccOPZ+e1Xaqw0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DkCnS1zA7ZdUSWi8ETkJ0Vp8MJwDDaZP/zTXuoboAnaMK0D3KtCIuTgcenjvPCexOcymBctZledp8MZ6H/XiiVuebfZqwaTbH9LucYCfVgbD4IO7Vw0kwbpf8mTYmoN1GCDUqp8mMGCl751p7h5XDZeR+YQHn2pdJ1wEyTTfNdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qUcAPjl8; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELMFc7Sr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1352B1F00893;
-	Tue, 29 Sep 2026 08:50:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790671843;
-	bh=iHjy9vO2aI54cq6YGq1VyrqssYfLjBHwVVMGd7Q6AHw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ELMFc7Sr9rib/LSZVw9fEKfH5McI95NJK0hG/468hHgvfQOkVAIs9pFvTgrLWtnRG
-	 nrRb+tm42KIDjLgP1x+A9EtB+GUy6dSJndgs6tQO+jrT2v0auzkR6Xbi7fXddw7Fwq
-	 UxLoyygdRCSeQShV8ufrfoNzSsxS/zu6hLXptxINaMrCqt59CvMBGenKwihDKBRUki
-	 x2NM/PcPNO8dOpqSFHs0mC710nSJvMD6kiyKTdIXHmrgz8VnwCpXAQPdpO6qQmI9ZJ
-	 0cTpQcl/FMUMsIXLq/EBB0UudhqCwFjstRvS2ZDIx5qqYg1I/IhTb1CIkny7OO9Iqu
-	 lxFV1hF2j3Z4g==
-Date: Tue, 29 Sep 2026 10:50:39 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: BG9OXA <bg9oxa@163.com>
-Cc: linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: rockchip: add ALIENTEK
- QuarkPi-CA2
-Message-ID: <20260929-ambitious-festive-orca-b59ffe@quoll>
-References: <179051707448.31632.10412780322071844492@163.com>
- <179051708845.31632.10915026963421643453@163.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qUcAPjl8"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A79D71A1042;
+	Tue, 29 Sep 2026 08:50:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6F1E0601BD;
+	Tue, 29 Sep 2026 08:50:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CF9FF1032960B;
+	Tue, 29 Sep 2026 10:50:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790671848; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=kY9txcMTyWH2CmnwG+I/iwir1YJNr0vNHV6tRoyMll0=;
+	b=qUcAPjl8r0uafq3gEI+Xi05oWyq2iYou3PSoVqMFtIzgUnwdHIuponMikm6xpWJMuKGdRP
+	NmIxYRREgnr+GkFGOMyUBTAMStVPWLmHkkCQ1gD0LcrJ3WzVOIsjE9hiSKiyFJCuqn+MHo
+	cA6qk6iBKJtCdWmMGL3F896lURF0XwROk7inVw99e5kRMo30uzgPp895YbSQxxGvmtomv7
+	7H3Hpx0cyICS3LZ3Iu/nNQXuuqYDEeH9JzmGlY7Zt5IibZ3vlSTvl7RgV5YXeqcLo1kv4W
+	FuECr0256UxMIu7M//8UaM+dRRU/zyAb1D2yYLphzVOva5rzJYnoIKKjglaAhg==
+From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v6 0/4] timers: Add support for RZ/N1 SoCs timers
+Date: Tue, 29 Sep 2026 10:50:30 +0200
+Message-ID: <20260929085035.57609-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179051708845.31632.10915026963421643453@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sun, Sep 27, 2026 at 09:51:28PM +0800, BG9OXA wrote:
-> Document the ALIENTEK QuarkPi-CA2, an RK3588S based single board computer.
-> 
-> Signed-off-by: BG9OXA <bg9oxa@163.com>
+The Renesas RZ/N1 SoCs family has two timers block controller
+available.
 
-Please read submitting patches.
+Each controller is charge of 8 timers (six 16-bit timers + two 32-bit
+timers).
 
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC (and consider --no-git-fallback argument, so you will
-not CC people just because they made one commit years ago). It might
-happen, that command when run on an older kernel, gives you outdated
-entries. Therefore please be sure you base your patches on recent Linux
-kernel.
+Each timer has its own interrupt, its own prescaler that can be used to
+divide the clock by 25 (timers block are fed with a 25 MHz clock) and
+all timers can work in either one-shot or periodic mode.
 
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about 'b4 prep --auto-to-cc' if you added new
-patches to the patchset.
+This series adds support for those timers blocks.
 
 Best regards,
-Krzysztof
+Hervé
+
+Changes v5 -> v6
+  v5: https://lore.kernel.org/all/20260911150456.893761-1-herve.codina@bootlin.com/
+
+  Patch 2:
+   - Fix a comment
+   - Add 'Tested-by: Wolfram Sang'
+
+  Patch 1, 3 and 4:
+   No changes
+
+Changes v4 -> v5
+  v4: https://lore.kernel.org/all/20260721082952.215691-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.3-rc1
+
+  Wolfram sent his 'Tested-by' tag for patch 2 in the v4 iteration but
+  because of timers re-assignment done this v5, I haven't add his tag
+  in patch 2.
+
+  Patch 1:
+   - Reduce the reg area size
+   - Add 'Reviewed-by: Wolfram Sang'
+
+  Patch 2:
+   - Take into account Shashiko's feedback and avoid paths which could
+     lead to a NULL pointer dereference in the interrupt handle. Even if
+     these paths cannot be reached with our hardware timers, remove
+     them from the driver.
+   - Reassign timers usage for the first timers instance probed:
+       * First and second 16-bit timers: clock events per CPU
+       * Last (second one) 32-bit timer: clocksource and sched_clock
+       * Other timers: clock events for all possible CPUs
+
+  Patch 3:
+   - Reduce the reg area size
+   - Remove some empty lines in commit log
+   - Add 'Reviewed-by: Wolfram Sang'
+   - Add 'Tested-by: Wolfram Sang'
+
+  Patch 4:
+   - Add 'Reviewed-by: Wolfram Sang'.
+
+Changes v3 -> v4
+  v3: https://lore.kernel.org/all/20260717095552.767475-1-herve.codina@bootlin.com/
+
+  Patches 1, 3 and 4:
+   No changes.
+
+  Patch 2:
+   Took into account Shashiko's feedback
+    - Remove CLOCK_SOURCE_SUSPEND_NONSTOP flag
+    - Fix CPU ids checks against number of 32-bit timers (avoid
+      out-of-bound accesses)
+    - Enable IRQ in CPU hotpluig startup function
+    - Add CPU hotplug teardown function and disable IRQ in this
+      function.
+    - Adapt probe() to avoid IRQ handled by CPU hotplug startup/teardown
+      been enabled by default.
+
+Changes v2 -> v3
+  v2: https://lore.kernel.org/all/20260429115054.158160-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.2-rc1.
+
+  Patch 1, 3 and 4:
+    - Add 'Reviewed-by: Geert Uytterhoeven'
+
+  Patch 2:
+    - Fix typos in commit log.
+    - Split Kconfig 'depends on' in 2 lines.
+    - Fix indentation, space and alignment in code.
+    - Fix dev_err_probe() conversion format.
+    - Introduce rzn1_timer_setup_timers() and rzn1_timer_register_clkevt()
+      to avoid code duplication in rzn1_timer_probe_{first,other}()
+    - Add '.suppress_bind_attrs = true'.
+
+Changes v1 -> v2
+  v1: https://lore.kernel.org/all/20260331152616.197031-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.1-rc1.
+
+  Patch 1:
+    - Drop minItems related to interrupts property
+    - Add 'Reviewed-by: Krzysztof Kozlowski'
+
+  Patches 2, 3 and 4:
+    No changes
+
+Herve Codina (Schneider Electric) (4):
+  dt-bindings: timer: Add the Renesas RZ/N1 timer
+  clocksource/drivers: Add support for the Renesas RZ/N1 timers
+  ARM: dts: r9a06g032: Add support for timers
+  MAINTAINERS: Add the Renesas RZ/N1 timers driver entry
+
+ .../bindings/timer/renesas,rzn1-timer.yaml    |  74 +++
+ MAINTAINERS                                   |   7 +
+ arch/arm/boot/dts/renesas/r9a06g032.dtsi      |  34 ++
+ drivers/clocksource/Kconfig                   |  11 +
+ drivers/clocksource/Makefile                  |   1 +
+ drivers/clocksource/timer-rzn1.c              | 481 ++++++++++++++++++
+ 6 files changed, 608 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
+ create mode 100644 drivers/clocksource/timer-rzn1.c
+
+-- 
+2.55.0
 
