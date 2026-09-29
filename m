@@ -1,85 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1BA37DE8D
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 21:55:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987B413FEE;
+	Tue, 29 Sep 2026 22:15:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790718940; cv=none; b=JvSlERtbTnNqPQB30lisPxd6G817t3TLg/GaSbypwwPDtIGLP9Nk0BBHKWzlDSlnw7FjCt/dZyV/3RlHk9lhooSuYh8cL0DmsQWiohRi4AAGGgfpZv8nFsLrip9ZUn0NORWF70IHCcO10D1jg6MzGlAerWvzAsMB6J15RzrVy/A=
+	t=1790720140; cv=none; b=j8kDvOcI+2j3RIFCR4Swb837lPw7/I/CBy7OoWmCLdDsvmtw0WVdv1nwEu75Q8WTdaFB5/hz5zpPlKz7+1A5vFkYSOEzs5b/YdSYPt4QzOGAzhja6ZfQSGjqEvHfnjgEb+nwIKm5bzc2TAg3EL8VpVftDauNhiQUkxMjZikTw1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790718940; c=relaxed/simple;
-	bh=+sYhXmxhg4HTmGDotTlYf1XN/80V34F0G6WxzZ8U+pU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RCmXqem/1ix1j45ul8AUZbttRZ1MZTeh0egY4Mm7tbTtopdUaiL3An0KGs6pDG20sy1GACqKgcaH2AFsUIcn2ce3F20SmYlpCHe8z/OtI6m1dTvKjPnBzTsS5R2IBT6S+gQWI3nOVwiWjViQXskTyf9Kdc5Jgy3yKPzqidWM0Cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QW8xiWrS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790720140; c=relaxed/simple;
+	bh=H51gaas3B8mPCyMrG9LFGbv7zyWll3o+GBME8Mxy7Lk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d2SpIXYhD6Grj9ho3YuayO3WdMSEkkBcSJ0bb1zVbM2qaKF5ZF4fEPzBG04587AbeOfwRF/FYtMtEyaGSsYtzIBpci49nXa4aZ0+83HF0WWQ3+ZxTrHEiEnoLKbYN2+qov58mEPZB78s26DxY/l8o5BBmzaLyQ9WMkwAWngZ534=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A+yXq/aE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QW8xiWrS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B3591F008A2
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 21:55:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A+yXq/aE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8381F000FF;
+	Tue, 29 Sep 2026 22:15:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790718938;
-	bh=1z3g8uO8esjL15niBFprIu3tR1dbGidMoV9Pvac7pvo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QW8xiWrSFtSEtFMM6SrWrY/dNJi6s6JFc1yOypboboiiUOBgwagPlTjEy2MVNrHrE
-	 u1Xo4HoksZCS5V+MB9UoKJj8lQUJfO4zYuDfFYp5+ypmlYjqzXkRUJ5cN3Y8oxDf6P
-	 /+APvPott0EFX9qKhaTvvqQm5OcTd/uLHfC1rwKKOknKPbZXJl45ktfe3nvpKS6Oy1
-	 lR2D3t7BOITDNxWFyBSCaTD5hCM8pkPXFioNDSadm0UZ4SjTSDgVOVri6XxXBPUELA
-	 uE0f2CVCxg62/vFE/EWmHRNW8FtG0XxBbMUWqvwGU7kHWO3RSf2PE0UqE+6kVloSAm
-	 OZ1r4CHe6ODbw==
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a9edfc851so611665966b.0
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 14:55:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByouUyHUNEXBpLa7lR4WnyzshIp44KQeJjHwfH/6g8Iwo13rt4F03aFtRiqmiUYPgA2emPYlnwnl+L6@vger.kernel.org
-X-Gm-Message-State: AFuF++ktpXrNv+95humDWIVg0YB0c3VB2HyJmb41PN+Im9T9TWZlbFTD
-	cYfI8sW8MB9MaS1FGW8mwug8puK8RGYiaPWVD+LWcOmccgJg7Im/Di4Dkz4TVtuOXtagBzzzmR9
-	T/vO1BpobVGWzQJedW4gCr/oPsVN2Vg==
-X-Received: by 2002:a17:907:6d14:b0:c2d:c414:904a with SMTP id
- a640c23a62f3a-c2e15e9addbmr58187966b.17.1790718936887; Tue, 29 Sep 2026
- 14:55:36 -0700 (PDT)
+	s=k20260515; t=1790720139;
+	bh=30VbeHI26M0iDF3RNsG6n++4Iu8TSb4QWiYPs2BLDBM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A+yXq/aEAKAKi8zYNvjkSHZi61BXBaN1KMAyk/swb1dHMQEpyMCwQmsjW2KDWmkXx
+	 bNHo6OTJw2OZ0Zkmx/CPKo372aa2pk7y+84DO0Nt0WeoKiKmm4DPVsIVrAiNOQFcVw
+	 ertVhn2mB3xVkgF7EMyFUGu6sYy857qkbikyuFKkb8g6+j/lWolYtmEGOteLqtBnBi
+	 +Mlj2HwasG7PyW1MxBSKgRMlrIy3B+MEP1YmeixppKx4FGzuI+qtVBaOI1uxK63gSC
+	 TvTEJZLzy1P1vC+4GeWF9hLtpLqKXitdDYUpOgbPzNm96PuNjLl+s8dw6IZbWVGLD0
+	 3nkI9YRy/aIpA==
+Date: Tue, 29 Sep 2026 15:15:37 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Fu Wei <wefu@redhat.com>, Han Gao <rabenda.cn@gmail.com>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: riscv: thead: add Milk-V Meles
+Message-ID: <arw4icuirVisRnir@thelio>
+References: <20260929-rv-meles-v1-0-effdd14a76e8@iscas.ac.cn>
+ <20260929-rv-meles-v1-1-effdd14a76e8@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902124018.606544-1-marex@nabladev.com>
-In-Reply-To: <20260902124018.606544-1-marex@nabladev.com>
-From: Rob Herring <robh@kernel.org>
-Date: Tue, 29 Sep 2026 16:55:25 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqKDniU3VYaOuF-OA2_JmOaKEtdOtxGAtyJfFCLnT=LjSw@mail.gmail.com>
-X-Gm-Features: AclHuK-k3vl-Wx1oL4KqfwQ_ykCOdKhQDjWBszDB17DIngfFFXqkn-ItikX0PVg
-Message-ID: <CAL_JsqKDniU3VYaOuF-OA2_JmOaKEtdOtxGAtyJfFCLnT=LjSw@mail.gmail.com>
-Subject: Re: [PATCH v6 1/2] dt-bindings: arm: stm32: Document
- st,stm32mp23/25-syscfg subnodes and cells
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-arm-kernel@lists.infradead.org, fabrice.gasnier@foss.st.com, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Christophe Roullier <christophe.roullier@foss.st.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
-	Yannick Fertre <yannick.fertre@foss.st.com>, devicetree@vger.kernel.org, 
-	kernel@dh-electronics.com, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929-rv-meles-v1-1-effdd14a76e8@iscas.ac.cn>
 
-On Wed, Sep 2, 2026 at 7:40=E2=80=AFAM Marek Vasut <marex@nabladev.com> wro=
-te:
->
-> The st,stm32mp23-syscfg and st,stm32mp25-syscfg can have subnodes, which
-> represent the USB 2.0 FEMTO-PHY. Document subnodes pattern properties and
-> address/size cells.
+On Tue, Sep 29, 2026 at 06:22:45PM +0800, Han Gao wrote:
+> Document the Milk-V Meles board compatible with the TH1520 fallback.
+> 
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+>  Documentation/devicetree/bindings/riscv/thead.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/riscv/thead.yaml b/Documentation/devicetree/bindings/riscv/thead.yaml
+> index 301912dcd290e60f816d380152591106de9415b4..5361021b8dcc9897803a5915665c6bb83309fe53 100644
+> --- a/Documentation/devicetree/bindings/riscv/thead.yaml
+> +++ b/Documentation/devicetree/bindings/riscv/thead.yaml
+> @@ -21,6 +21,10 @@ properties:
+>          items:
+>            - const: beagle,beaglev-ahead
+>            - const: thead,th1520
+> +      - description: Milk-V Meles single board computer
+> +        items:
+> +          - const: milkv,meles
+> +          - const: thead,th1520
+>        - description: Sipeed Lichee Pi 4A board for the Sipeed Lichee Module 4A
+>          items:
+>            - enum:
+> 
+> -- 
+> 2.47.3
+> 
 
-ST folks,
-
-Can you please pick this up. It is introducing warnings due to .dts
-changes you already picked up:
-
-      8 syscon@44230000 (st,stm32mp25-syscfg): '#address-cells',
-'#size-cells', 'phy@2400', 'phy@2800' do not match any of the regexes:
-'^pinctrl-[0-9]+$'
-      2 syscon@44230000 (st,stm32mp23-syscfg): '#address-cells',
-'#size-cells', 'phy@2400', 'phy@2800' do not match any of the regexes:
-'^pinctrl-[0-9]+$'
-
-
-Rob
+Reviewed-by: Drew Fustini <fustini@kernel.org>
