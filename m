@@ -1,258 +1,152 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9623DB33D
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651208; cv=pass; b=Z+PFUUf+OhR7DEkvcwAf1KCeyEPkPXbMl20xAGuAzKBH72Zz+j3mwWWxm8xqj3w1oYgfrBKn+f33uxpXud8q1vUQt9RAClpgFWOyHEhg+vLlq7nkp2u4QVtHmFjoPi8FfYanuwikTkjmCE6ppoNoxd20W94UiAuL53O9+XtGudU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651208; c=relaxed/simple;
-	bh=drFBxzfc6W2PaLGZNBuSoVjThY1JgVwWxNvEN6zvNfc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ffmq/Zg3AMmeZQyNFuYSd4RrKcroHQfcDdKtAmQLTurxsF+mGXDcT2SW2MMJwdRLTJQwTtGHKLP1m8lyh2SXfQ6MmYwneDCnOyMSm4WQDJwqCX/dZj7VChpmFMGTOlTURuhrTQs7TukAZCohVmPQFM3HHTicutlnyXco5Qmb+2o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kWrX4yDA; arc=pass smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69A93DD502
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:11:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790651464; cv=none; b=VNJHhPU/xfs5OUjw2j7Dg+3CAhIpMsSO67OnkXz1Jod4X2wbbVJm8bZ7XzldT/lHhEZCC2lmY4FrGMomxqIAUrDBl3Pxt0+qn8EogFD+UcVgAxuQn+ncKsrHmEFflT77w7tvW+1RKGa750IzvsgmuEZpmgJD0nWMy93qsVc8wNU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790651464; c=relaxed/simple;
+	bh=PgS4RWXIzX4J5ZODDned5fwArxiriGg4fP50uyte/zE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=VebNYTM4SHe2uGd9/b2t86fRaw4Edk0N2VHmZ9wG3Ruq330y3m9OR3tc/9v9JuiYP/SqwYLOfcTFAFgefN2Ysn4r49/rB54CqMwWpBpwhH3LELx36cYww4XBjkHyXjSXfQl5CzLT24HcLyZTEqFuyi7jd9CfrTHR3MsGLFC29oE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UWNJk7vd; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kWrX4yDA"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a99cd5115bso6211476a12.3
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 20:06:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790651198; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nUUDHBZINK707PQG18B8O2Q/dlJyR0wAyOrBik0yoD5hzf2XH4qIgpitfS/lsMwrp5
-         /m1pG8IOScENGlaynnmeNB7cTnG23B+3+96tzXXc/jXJZpefQDIig5+/USF+Q0171zSv
-         ughxvD++lkvxh2ymIAvOzc3j0LE/wymc2ekHimAXZlhrCj7TphH5s1wtvwU288dHqDGT
-         FUOm8FnytcrRWWFnouHdyNEb3dA6aZhd5vYIDRclRsMO4SqqlG6LWlV8DA9/uYeSFzBD
-         trli7io5G6Ck3/6ijVHUw9+ALJG8hn5gF4IZiGoyU3r5NOGvVaBKOEbHMVXDw14KnWI8
-         dldg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GsgcGMq63dxBO6lpCOoish/kEuxevaMsXSsx8TcWvog=;
-        fh=B06qeweZAKmYs82n5RRVlH/RgOsr0O5l+Un/WVl4COc=;
-        b=IfXmurxRHjUQDeoElvtDy2Z8NoGwy3DYbZdW1n25PYe5vIqgcjErwxgsjpe6hfrSRi
-         9KyKzGShW0M5lS7AYeJVuIk9wgzHsR2wKG35tZxerjBG8cr+hZ1p4GxFuRD9n47PZPfp
-         N6kxYdjxkojA9NKAbNCFA/ZKGP7XofSAThJgpDH9f4BdxrUpYa7yhulx+zsbfldaSPeB
-         I6TgffQ1ZOTbpobF06srhm1Q/ZoPQklWOHTX78zx3blh13N3gJdVhB31DswkRyi57IK/
-         Gg4eBCJ+T4QMBRsm1CE31cvRTpb1UaVMmGHbiefmLI7dkA0B6Kymtz/kiA3GOUJXwj2e
-         /8LQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UWNJk7vd"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so27211365e9.2
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 20:11:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790651198; x=1791255998; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GsgcGMq63dxBO6lpCOoish/kEuxevaMsXSsx8TcWvog=;
-        b=kWrX4yDAa4RF9Glu41S/GnWcgrNxZd8gOe2sNxpzDU7tLw4CGL6aO4lBL1jY8rwAqY
-         NsMxS0KyxvgWvsrSH4uoMKp/KsHCAIph2e/ZoIQsCxRss3uRoHcCVMKS74M26yM4PrLU
-         qGm7/6YB6q6Vl4XT2KXAlBeFIIz/oP/O4URoAFukMEWKMlTezySm053hR/Q79oL/EkOB
-         PMTzmR9w8Mgvxh2XTdwzHBqsm/rpW3kkbzrcm6Am7dlc0qnlnTEKItjMKQqOkc15EjY7
-         6O8caKHkhrKqQo7ZY8L8tJR+1BF+P2GZUOx3olhhXP01sTrge7XiSE7fzwDY0sEMDiy0
-         /ahA==
+        d=linaro.org; s=google; t=1790651460; x=1791256260; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kRsuU5DiYyOHrBAf9+/GH9Fmnu+uM4kHK88xtB63V00=;
+        b=UWNJk7vdkBMrfcmHA1uUdxOl+rdlF1R980gSzitUMv903VasG0FcPAxHGspHLtvZe4
+         COOdFrswZKpNeW/ptBZ79RdPQ77GFT5krbeU+4A5WgwcTpXimMlCdHShILVTLvWrlBUf
+         nOP9a7t1B7i6WuNhKzGge6j0AP+5GcXT8ePCRiJJStOBUG97qu9pBZer9hlpX5cMBm/x
+         gLMq4Gwa9pdScY7M5+OlQ+7cqsmlFfzbY52+JOArFVw82s+rE1SjBE4w91+fD0euxAWj
+         +6IuS62KoZwlSzi2w+J11SFWLGjjCb/3MjiMI/4Ixy15ryd5S7BcnnliZE3WCl5tW9ID
+         Wx6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790651198; x=1791255998;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GsgcGMq63dxBO6lpCOoish/kEuxevaMsXSsx8TcWvog=;
-        b=Z+rUbKDlLp5XnvU0x2z9ZGM+g8vXnpUBnYhkGvwUsiMEUfHDmnJ57yclfzxFREGAeg
-         pMj0cDGTD9dtLRpoS8XcFruggi3dIsqN1g/L7sdT/QUJVyKNU1VK+VA6QayMAwaOyXrl
-         q3CtIqVwuHrW2sZQ8y88fUged4CVi7mdY+UkU/+DBu5L+Lxh6TLxrCx+LwH8oxTNA3kw
-         wUwFlVRak9salNSDvz8DaiK8qT6cL0aE9hxDpBuNXmNdB7pE8kWhzDkehJftfywEM3be
-         LowgFJrEtrtGP+UZol+3kazEYJ8aesY/MljoYKxDu6uob+5GaHcvdiToka7S81hJ/ycq
-         7tdw==
-X-Forwarded-Encrypted: i=1; AKwUvBzRoldLeViy2Xxl9KseJL+Pl7mW1WvVwQffcymmtZ1I1DSEw/xSn2EWSQngGcn/FbkAvEhubSeXYc/m@vger.kernel.org
-X-Gm-Message-State: AFq9FYImfDUT3+R8NiC1ehmnVuQ0f9DFvbqRnYyAVFQgk6YE7hz2uZh1
-	w2VeeVCF/zKyo/gMZib8fZiqIpq1F/OtOd7q8pHH56RxgA/Lj4AupnI1/Mvhb2CSfBli1s0s4vj
-	yFVFaqDjCW1tCm344k2uMnLM4vMJ+tHI=
-X-Gm-Gg: AYBFou02C0S932lbAyqQqWGQehouZRHeZ3JmQIQwfSFzEsszlf1+LOnpuNwLqHGTH5k
-	YWrnp+qTyn/jIMcsgfYJD8hzBomZMWp0c3Rf+nT5X4Z6CFOxjMnetOrytwQ/DxN1CuDDENgNcpL
-	pB/VGuzz+oYYe8EuB/imN7qDJrmr+7m4AmdK7XBWeZxZ5gd5xOmzshs9r96ex2mq9mnWGEPrjUI
-	rubPGy/IBdWp8n/+CGrJ5ZpYd8I66QqwEvWLi+54EXu/q73pte7br2xaP0NpRVUvtkG4SE15h52
-	1X9j9NixKQRAL3t0lhtGZAcXPgjfJApRXyt+uAivFP6lilBxPfLVvFoVW0oH8SRmgSLL
-X-Received: by 2002:a05:6402:1d55:b0:6aa:7fb:7678 with SMTP id
- 4fb4d7f45d1cf-6aae8a518b4mr7987012a12.6.1790651197346; Mon, 28 Sep 2026
- 20:06:37 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790651460; x=1791256260;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kRsuU5DiYyOHrBAf9+/GH9Fmnu+uM4kHK88xtB63V00=;
+        b=ObxPnPANq6m8xFAspVoPxYU9scUuXKAHuwjdExpVDdhe1yBY8Y0cUGCvBqCPgZ7af3
+         nVh99zwYgxcTpoyNcIMnEubOvsZEyoEyDdc9T8mOxoqkYf87IM1gnHeVHtefRhpxHTw6
+         eWkVV/PY0kMcMl8bE1OPNOJ+udBeYRdGevhYK1eeJp3QpSb7Se0hyHBHdFQQcUaS6xTp
+         3cKTQJKUnlVtBCZHyBXzZ8kNHTOTZnm6H3NcBtw9me+ARv9ufXONOXE8CEyPET1fISVe
+         tmdpEVrmRMgvJiHyOvB7U0SgJ3ctyA9snvk+7K9xGKJ4trHE4AZaVmWa94v1kj4cyMIa
+         3j0A==
+X-Forwarded-Encrypted: i=1; AKwUvByeSjnGWhx9oMWIcVxuokyNJbUbZIGIAhYphgyfgizpH9sgRqABuvDZvS0k7oqIr7BsdhdxNKpwdNdn@vger.kernel.org
+X-Gm-Message-State: AFuF++nyQv9Wl5ad2W/L5XEED5mCa04tKwJXDbZW8k+felKXkIkNO4L6
+	3wzXFLHbh2M96dsxXiZv6PFsfle01hpZzOuCKRrytnpkhbxhccZx1KiiN847ijt0VqU=
+X-Gm-Gg: AYBFou3fp4T6U0gWa7VsxpOEQg1WB8Ls4Np7mfTFwDniGybbXJse+7kpQqCBnSuc+RE
+	c05l2gQ8HXIV+LpRiJILqZb02Z3q76PYkWZnTecW6153XCqczvlLRNa4OnwDYOsHfeKBLucrVRq
+	g8pY8kNoXzz/heuU7vU4MRfL52tzwHrW8FqvZ5tteqbfhp683sto8fXayj/Pd8UhZ06zDTJpmmY
+	eois+ESnAONWN4oMwV0pOw2bhJX8OV/Tcz4egHJM0MdF8roxOs/aveWINOTNSwSsH3f9lr0fGrm
+	XnjHYsTYV/xEw6vJRwbfdh7lQPNFybjEh87SkLFiWdlyqtj69D7PaGm3jeoOSY/oIxrGMsGxCau
+	gfjM7J1f7V0hj0LXibMOSNUpefZwOQxoYECQF3DWk71MoKFNtufNdW7nvFtq5tGEzYQe1jPpaYP
+	fTK4He33xedAlNnGmpUZGfr0qw/crvX1E8zjL1kjkeWMAF0JonkgeHT4hUEsbAzE6n0K/yMP+Lv
+	TXJeyk2tF644yExISCxPQ01a2G2IlHtFX/lEEEoca/gK/rk59v/vfJyYZC3rZlwkpSQmDNI
+X-Received: by 2002:a05:600c:1394:b0:49e:6bc7:4e1b with SMTP id 5b1f17b1804b1-49fe66bdefcmr278754015e9.15.1790651459537;
+        Mon, 28 Sep 2026 20:10:59 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfa66e5sm46706265e9.11.2026.09.28.20.10.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 20:10:58 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Subject: [PATCH 0/2] Exynos850: Add ACPM node and enable cpufreq
+Date: Tue, 29 Sep 2026 04:10:46 +0100
+Message-Id: <20260929-exynos850-acpm-node-cpufreq-v1-0-5a86c1d404b8@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790561983.git.zhoubinbin@loongson.cn> <502911659e15a51c4e98c11f3cf476dd5f92e75b.1790561983.git.zhoubinbin@loongson.cn>
- <0aaf7166-378c-47d7-98d4-1004fdaeae7b@oss.qualcomm.com> <CAMpQs4+uWMfFib7MhRcc7o-QMXkFrFCtdcGj04y56u44JL4iOg@mail.gmail.com>
- <ed99f62d-cf90-4ba9-89b3-08dbe7f7227e@oss.qualcomm.com>
-In-Reply-To: <ed99f62d-cf90-4ba9-89b3-08dbe7f7227e@oss.qualcomm.com>
-From: Binbin Zhou <zhoubb.aaron@gmail.com>
-Date: Tue, 29 Sep 2026 11:06:25 +0800
-X-Gm-Features: AclHuK-pCkswqNWZEVmRnm0h2nAuqgvV_q4b0kCJUY7w_QKyo1tWrrar9EH7iE8
-Message-ID: <CAMpQs4+hATFf+0w6Wq09RoZB1JJ5L_GP0aWxcGAeraTW7Gfy0w@mail.gmail.com>
-Subject: Re: [PATCH v6 1/7] thermal/drivers/loongson2: Correct thermal sensor
- registration loop
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Yinbo Zhu <zhuyinbo@loongson.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
-	Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADYsu2oC/3WOy27DIBREf8ViXSoMBhuv+h9VFjeXS4pUHgU7T
+ RTl30OTdZdnNJozN9aoBmpsHW6s0jm0kFOH8W1g+AXpRDy4zkwKaYSVltPlmnJbtOCAJfKUHXE
+ su6/0w5VaRiuURT8p1hdKJR8uz/XPw4t7be+S7RWySK3BU7IO/yl8qPEXKvG2l5Lrxs+KCz7NC
+ oz1uIByH98hQc3vuZ7+tEdo/VOOMWzroMFq4xxpLQ0YNTmEGRGcnFHokY6IShixWHa43x/4Jam
+ NDgEAAA==
+X-Change-ID: 20260929-exynos850-acpm-node-cpufreq-33819039cf43
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Thomas Turner <tturner@lineageos.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, linux-samsung-soc@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-Hi Daniel:
+This series adds the ACPM IPC firmware node and CPUs operating performance
+points for the Exynos850 SoC, switching CPU clock sources to the ACPM DVFS
+clocks to enable cpufreq. Exynos850 has two clusters with four Cortex-A55
+cores each with identical OPPs.
 
-On Mon, Sep 28, 2026 at 9:23=E2=80=AFPM Daniel Lezcano
-<daniel.lezcano@oss.qualcomm.com> wrote:
->
-> On 9/28/26 10:17, Binbin Zhou wrote:
-> > Hi Daniel:
-> >
-> > Thanks for your review.
-> >
-> > On Mon, Sep 28, 2026 at 3:15=E2=80=AFPM Daniel Lezcano
-> > <daniel.lezcano@oss.qualcomm.com> wrote:
-> >>
-> >> On 9/28/26 06:44, Binbin Zhou wrote:
-> >>> The registration loop in loongson2_thermal_probe() incorrectly uses
-> >>> dev_err_probe() when the sensor is not present (-ENODEV). In that cas=
-e,
-> >>> the driver should continue to the next sensor index rather than treat=
-ing
-> >>> it as a fatal error.
-> >>>
-> >>> Fix this by correctly handling -ENODEV and only returning on other
-> >>> errors. Also add a final check to ensure at least one thermal zone wa=
-s
-> >>> registered.
-> >>>
-> >>> Cc: stable@vger.kernel.org
-> >>> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> >>> Closes: https://sashiko.dev/#/patchset/cover.1783670011.git.zhoubinbi=
-n@loongson.cn?part=3D2
-> >>> Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal managem=
-ent support")
-> >>> Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> >>> ---
-> >>>    drivers/thermal/loongson2_thermal.c | 8 +++++---
-> >>>    1 file changed, 5 insertions(+), 3 deletions(-)
-> >>>
-> >>> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/lo=
-ongson2_thermal.c
-> >>> index 4d40fc706a53..99b7392fc68f 100644
-> >>> --- a/drivers/thermal/loongson2_thermal.c
-> >>> +++ b/drivers/thermal/loongson2_thermal.c
-> >>> @@ -160,16 +160,18 @@ static int loongson2_thermal_probe(struct platf=
-orm_device *pdev)
-> >>>
-> >>>        for (i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
-> >>>                tzd =3D devm_thermal_of_zone_register(dev, i, data, th=
-ermal_ops);
-> >>> -
-> >>>                if (!IS_ERR(tzd))
-> >>>                        break;
-> >>>
-> >>> -             if (PTR_ERR(tzd) !=3D -ENODEV)
-> >>> +             if (PTR_ERR(tzd) =3D=3D -ENODEV)
-> >>>                        continue;
-> >>>
-> >>> -             return dev_err_probe(dev, PTR_ERR(tzd), "failed to regi=
-ster");
-> >>> +             return dev_err_probe(dev, PTR_ERR(tzd), "failed to regi=
-ster sensor %d\n", i);
-> >>
-> >>
-> >>>        }
-> >>>
-> >>> +     if (IS_ERR(tzd))
-> >>> +             return dev_err_probe(dev, -ENODEV, "No thermal sensor r=
-egistered\n");
-> >>> +
-> >>>        ret =3D devm_request_threaded_irq(dev, irq, NULL, loongson2_th=
-ermal_irq_thread,
-> >>>                                        IRQF_ONESHOT, "loongson2_therm=
-al", tzd);
-> >>>        if (ret < 0)
-> >>
-> >>
-> >> The [no]error paths are confusing and prone to error, eg: 'if there is
-> >> no error then check if there is an error', 'when exiting the loop
-> >> without registering any sensor, then we assume tzd is -ENODEV'.
-> >>
-> >> Please make a less cumbersome and implicit checks here. For example
-> >> count the number of sensors and then do the check against.
-> >
-> > I thought about it, and you're right=E2=80=94I made the logic here too =
-complicated.
-> > Let's use `sensor_count` as the counter. Is the following check logic c=
-learer?
-> >
-> >          u32 sensor_count =3D 0;
-> >
-> >          for (unsigned int i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM=
-; i++) {
-> >                  tzd =3D devm_thermal_of_zone_register(dev, i, data,
-> > data->chip_data->thermal_ops);
-> >                  if (IS_ERR(tzd)) {
-> >                          if (PTR_ERR(tzd) =3D=3D -ENODEV)
-> >                                  continue;
-> >
-> >                          return dev_err_probe(dev, PTR_ERR(tzd),
-> >                                               "failed to register senso=
-r %d", i);
-> >                  }
-> >
-> >                  sensor_count++;
->
-> If I'm not mistaken in the previous version, the loop exits at the first
-> registered sensor
->
->         if (!IS_ERR(tzd))
->                 break;
->
-> Here all the available sensors are registered
+In theory, we could have two OPPs above known nominal max frequency (2Ghz)
+but in practice the board becomes unstable with fully loaded CPU-bound
+tasks and hangs pretty quickly on OPPs above 2 Ghz:
 
-The name `sensor_count` might be a bit misleading, but here the loop
-exits after the first success:
+	opp-2106000000 {
+		opp-hz = /bits/ 64 <2106000000>;
+		opp-microvolt = <1106250>;
+		clock-latency-ns = <500000>;
+	};
 
-                sensor_count++;
-                break;
+	opp-2210000000 {
+		opp-hz = /bits/ 64 <2210000000>;
+		opp-microvolt = <1181250>;
+		clock-latency-ns = <500000>;
+	};
 
-Let=E2=80=99s rename it:
+with random data aborts and illegal instructions. Maybe SoC can survive
+short bursts to these frequencies but this requires a bit more messing
+around with cpufreq_dt.
 
-bool registered =3D false;
-...
-for (...) {
-    tzd =3D devm_thermal_of_zone_register(...);
-    if (IS_ERR(tzd)) {
-        if (PTR_ERR(tzd) =3D=3D -ENODEV)
-            continue;
+Also, it is currently unstable on 2.002 GHz OPP as well so this one
+excluded from the series too:
 
-        return dev_err_probe(dev, PTR_ERR(tzd),
-                             "failed to register sensor %d", i);
-    }
+	opp-2002000000 {
+		opp-hz = /bits/ 64 <2002000000>;
+		opp-microvolt = <1050000>;
+		clock-latency-ns = <500000>;
+	};
 
-    registered =3D true;
-    break;
-}
+with the same symptoms but takes much longer (~1..2 hr) to reproduce on
+E850-96 WinLink board.
 
-if (!registered)
-    return dev_err_probe(dev, -ENODEV, "no thermal sensor registered");
->
-> >                  break;
-> >          }
-> >
-> >          if (!sensor_count)
-> >                  return dev_err_probe(dev, -ENODEV, "no thermal sensor
-> > registered");
-> >
-> >
->
+Sustained testing overnight confirmed stability up to 1.846 GHz
+(opp-1846000000). Higher OPPs are omitted for now and can be evaluated
+when we will have thermal zones.
 
---=20
-Thanks.
-Binbin
+The dependency for this series is:
+https://lore.kernel.org/linux-samsung-soc/20260929-exynos850-acpm-firmware-support-v3-0-473a69fc8a3d@linaro.org/
+
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+---
+Alexey Klimov (2):
+      arm64: dts: exynos850: Add ACPM firmware node
+      arm64: dts: exynos850: Add operating points for CPUs and enable cpufreq
+
+ arch/arm64/boot/dts/exynos/exynos850.dtsi | 237 +++++++++++++++++++++++++++++-
+ 1 file changed, 233 insertions(+), 4 deletions(-)
+---
+base-commit: 5a956dde5526a634dca7ccad27c051ebcc306089
+change-id: 20260929-exynos850-acpm-node-cpufreq-33819039cf43
+prerequisite-message-id: 20260929-exynos850-acpm-firmware-support-v3-0-473a69fc8a3d@linaro.org
+prerequisite-patch-id: 5a3c87e368d6bac968f16a0e56fcff5eaec60dea
+prerequisite-patch-id: 8d6d1564a919eca361aef19af5dbe1cf3205198e
+
+Best regards,
+-- 
+Alexey Klimov <alexey.klimov@linaro.org>
+
