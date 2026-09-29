@@ -1,237 +1,588 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19010023.outbound.protection.outlook.com [52.103.23.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0214FDE48
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:03:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBC92EEE8A;
+	Tue, 29 Sep 2026 10:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.23
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790676212; cv=pass; b=lh+/n/SxxSjZlcP+Snznljbtt4e8XqXQVjQ6JjSTiSu3syguzg5svygFIGVvWqG2L3JZIdGR1NUewKVhZeoZVN5/1MUxTHutg/U++cP0MHHgbiYqCyD+NT2DN9NG90bdITKXy5yglBJUoB5dBUArbQ+xJhjV9iC2tN5skK5M9bo=
+	t=1790676218; cv=fail; b=n0m1/P1vIVN5vyZdyNuBHVF5bQtyM1LO16rYEc7JCSR8I1GiVKR/ga+VXvYoIdwl/URyugSjvGntBEQIPtzYJh9g7zWsxq8e/r6WGDh1jd6hYKfODKbhOJ3naIKPefE/hPP3hHWClPXLvrRbVgljjFwjil7XPiV0oyRViQ8dB+Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790676212; c=relaxed/simple;
-	bh=428tXCbvtfrk+2zlh0uwJkqz4i0sMFragXvVb9rwGLA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AyaYX9XFnDZ2Q0GzA9orPKZPntZUQwgGRQXI4L/eABjRhbQAjkOAg7vNjrVum0/wBMwf7FVZZvNxEHm+T6H2l+TCEU/iCoFB+jgtG0BA+no+QkvjnbVj7i3DZe7ejI6g6UxYIyMtQytijb9zd1GLH34wOG1ezsvgCvfbyd07CHg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WRRIX5+w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XXIQ3xzp; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790676218; c=relaxed/simple;
+	bh=t6TTI5MwuuDE7o/nuhjAVBb7eaz1U02GmU5ZRbQNxww=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=mYwHSdK0mkqYLLGZ9lwHyukGBpdXTH+Yx/WNIHCt6sL60X7MlhiqM023ME5GOtM99c1VXDlNe/6zHqUHNprW0VvKapSnrvYevZtXGJCsXym18BuC6MbSB4jzrpPbCxOXE62cmExSwzrZTt1w7rmqxGTOtfMV6YhsdFHENQwNvhs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=mv+hh0pZ; arc=fail smtp.client-ip=52.103.23.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WRRIX5+w";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XXIQ3xzp"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68T7TxCI4087139
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:03:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NmhBYMIxyetX32o034YORWUFSNbgOUrruLgW7i9+vds=; b=WRRIX5+wX7JM4mWz
-	/tShCvtr9UJWqMeykDUccHF6LMsQpbqWmaVY12gZj/uEzZtP2j0opy2dRARb7xGA
-	Fo0ktIRt7YSHn/D6MjrZon8SnLkUJ/AstmOal1R+1+OeTNTCCi39evHFEkl9CbK2
-	4RdnU9cMBMhmjqNzUbe6n+yIpNLNhSJI3W0kRAxxbRH+iz2r6nI3Dcv0g0yodmZl
-	inAmX/2fOHsCv27Y6V99QtXHabEaF3WKabjsWsDpn9N8OwfTOjudVGJkjsTN3uU5
-	uiRikW+Z07x6qwiRk7WFxz9pCZujAdfqgjMWkvpwaWloN5YdoVVAIT6cR/1rVYyO
-	uFXdBg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h00s4tefk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:03:25 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a183a0e93so872600685a.1
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:03:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790676205; cv=none;
-        d=google.com; s=arc-20260327;
-        b=atw6l9+KLm1OxBg4ktzCRp6PEAGhDp5DXtz9rQHI2pdoKlAlIO8hP8jFrCQSAwe0Sz
-         XcehS8mYA21XWM9RlnaN4GUC/zUfX8qojAmA95RANVqtvrG4utEYb63JV0FPLdBpZ6/k
-         BKpoxDh3RZlZB7tR5oK9grtpMBF7eQNoZcp9ooz46FELTPNPBv5yEfaoG4P83Yyc2DOD
-         J4b0Z8JhscewznLo7FC+zwFUrLOwT+NDw8EO9BpdTKOo69YKHgs6/Te8ArI9GI542Xi5
-         MJcJdn9Sn+UUAwErCn67B47y+JZUwAhnAf53juS1M8AuNRvdX3SIHFzVwR9k7AR8QKMl
-         E9fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NmhBYMIxyetX32o034YORWUFSNbgOUrruLgW7i9+vds=;
-        fh=EGvfupmo0oSTdfduaU2E/W4DrZJgKqwnLjTVbg3RBP4=;
-        b=Cln/XvAArrPwWlrF7K6gZKaxzRrPk1gNu7p/WzcvECSAimGjye7rjNW9uJ+rM5wum8
-         NTnfOigeMp2QPl5pgnRx/gwlU+0phN/ZcHxklj8P2KTUvatP/lxRjZsvOL85R8enErXE
-         lcamqRdfHV96XJsTZ3sOfObkBfdagFXEnPlsvrfGFt9Rx2n3y5fNUDVpO5H6VDEEOSXR
-         dfQ8I50WC4dgALVc2PVCmeJmT5M0LSH/HYz9krNsEDg9X+edAqgEzmh27JFuPm/9FLBv
-         UwmGX7ItZ/hoNxvRIcvugAB4s5XAmXoHQM7v7PSrmw9ciQxCqsZxrrDMXbeiip0vwkYq
-         0lBw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790676205; x=1791281005; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NmhBYMIxyetX32o034YORWUFSNbgOUrruLgW7i9+vds=;
-        b=XXIQ3xzpCLCifScGQY/i4EzKS9Xo0Ff9FyJuZohg0ayu/OjBmSjYA5G4VfM+l73Mkp
-         Ufs+X/5p5Y59t711G29B/dnfCa5CFuSJekUtgvaMlZNUQG6LCwwe6V8UUR6gmYY5shaN
-         m2TaEX7AR60fi0MbAcNkmuy3VBg+FEbwNKgVJO70MgsoODXYaVG6WjRqS7TpOMAEjYO4
-         vkxvxEQjpmcYY53Wht+Kwn8VtdIGofQHLQwN4SlilvazUIKRSFZxU42Rzt9DlcgyvMFv
-         gsenduSDHM6m9l2tuv46S6gww+8DWSkLVHx/qluFpsi0ERL+V+VYtquA0R0iAnCFM3Fy
-         bALg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790676205; x=1791281005;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NmhBYMIxyetX32o034YORWUFSNbgOUrruLgW7i9+vds=;
-        b=druxFpYOP1sXrhCic5oEiXhMSRJVQSaCme6TJHbYKNv8r8djj4ggSR1ohy5Ulfb5T/
-         8mBh4Y7LEdUWMY65Dru0KHCTbi8QIkJeSwtu81WuLqTP4NBx2tALqwx3swghoRtAVuPI
-         iyxWWu/WiEUUvqOvnmBaZGbqkDKXw9Zq9iGeZvMDQic5b6FButXeXY20/QxCfksil+1G
-         TotzFXlkw/y3YBUr9yr29inrYVQ3FaMiVKkrs5GC2us5WLTv7bfhNCxm0wv7q44gytKU
-         aKwfGQqif0cp9x7Yztel+r1OkGzM0+X7cFOr3B5Qj2Ytt80xEYTytw+T2IJkZzOam4v+
-         2y+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBziBUG9yZUOYcMG7oWL1FBGNBAkgPEQoeYL98ps+7LyxV/XPTtlu5Be1gORFScojTJj4TRNrDfLlhIb@vger.kernel.org
-X-Gm-Message-State: AFuF++lnUvu0yyxJzezHuwwluO9x1PmV15dW8yziOYFC2BuOJ3xq2v3+
-	iuKh84C8W5WrMJXbJekkH/Z0/ZiPzMeaGtaHmWNAp+PBgEHieW4I2TUOKFsUmWp00Uq0swk/opg
-	dSlip9Fh3K2/WFoRTP2VYzDS3O4Yddzz8EWrKMyVpjS9b4EXOUZ8ubK3dr+7ThMZEyqL8jGHLmB
-	CShLkHbIZmjPuG43AuaO963DiwJz4dW488HQEJ1xc=
-X-Gm-Gg: AYBFou02iDTuWFPX/kyGxOgQE+JHVYzjLwCs4YpMquaxbzbqm56fVaxfqdF99xiuQ4L
-	VT4yFLX0GqKTMecvvwbHEEnXHXaibcHyEw+hOZRdTTvQSh/rC95Haa4Kc6MqB21Cnt8iODrky+e
-	G3Ig8QudHz+GPsEj3mx4MY186ryqdkUY70fvPjt0rt9VnQ82K9pzyYy+y+P7AFVbiMDoHNQvD4M
-	Wkm/eegGgkzHxtHBBLIBsWxjOp5jZQfkAR6LTvzFkS9r/QALECIbd+3Oyvef/i0tgylZQljUvhL
-X-Received: by 2002:a05:620a:1724:b0:93c:2110:14e1 with SMTP id af79cd13be357-93c43cd61a7mr2588126285a.42.1790676204609;
-        Tue, 29 Sep 2026 03:03:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:1724:b0:93c:2110:14e1 with SMTP id
- af79cd13be357-93c43cd61a7mr2588119585a.42.1790676204086; Tue, 29 Sep 2026
- 03:03:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="mv+hh0pZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L0uIwGY+V7GV4dC9YZvYI2FfFHKbaSCbj2cil87bpDMfhCTmv4hc7mhEqqbNWu1qUUt40svS0sOo2WmyG4tc9yM8XVRKXLeE/D6rdn//SVKl3B6MyorY/aDXzWO/b+d5Vw6+5Zh9GbZsCg2ubkqzAps1lqVtznCjengOLUuc7/wYiGuLlG5e/11RFYrKmAazETsi4MY/cP+c7KQl7u3+sTRpVvfB3GHcWOHAP0AuaRAwAEd7n7IDivRLLTZ3hPmW8vqc76XxSIVuqt2PMfko+3ndFlUGFA8N/hevOKKBkTkAT2Am2GfFHl+mpCaevBFAUaGY8uyoVTPQUMi4berkJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mOUfB9f4zeTr1Y3B+GnIXQHBt4g2seQ4tjiMHzQqYjU=;
+ b=tR3BsMBHGY+32NiNrNR23nNtCPKxy8Kh7AXYG3pVN4RpN2d66FUw+9EqRETHhbMpqF2EKJzWvCnLr7DsZNQ5zbzE/YSnWONydnlGLMe9nsLX0rAyiuSHqLNJRbMQpteqhxpD3rWlnuo7hVHFBRXKjv+e1w90SFbA9KHMVhWb5OV5ewTl6/HzAbA9G2EMq/8Y2vigRbepyvF2M4F6RpKwm/cPraug+yhe26thVrqTUc+h7vnh30bTtAwQte3CQ5svQnTrGBz+iNgI+ZlwGuNqXyKpljxvIwP8oBf8oxg3RsZyX4avI4ZZYluNMaYhojpZ2oYEjJYzbTsYeArrTwBjSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mOUfB9f4zeTr1Y3B+GnIXQHBt4g2seQ4tjiMHzQqYjU=;
+ b=mv+hh0pZFk8EXRC36c/iJGqjruixcCxRdf43B1GaXMpUJzEoDQF83Ad2qusT6+Q/ZuOdvrQYqmOTCqIRbkjuw3REkMHcDpeT5xcI+yiQjKM6Q/r+yJam/nl/OBFsnXvjtovUVOOZp42fH2Zev3Edqpv8Ni0ubzIS92gEZNX7B8I9Cmca0a+WlsZZ6CPkoZWn13Tt0hONUg3NcjS8Kq4WwryqlXr8HVtrkXcmZ91+aBGyuyMfB4rc4GS2Yonywv+yEIG5KLojdPdGUW86eQJTCL2ernEZfgBogvJ1lubdPZWf+z+Lgp7TXvTxNR11l1c54Gx4JQ1yrVocMn9nB+GOxA==
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
+ by PH8PR19MB997491.namprd19.prod.outlook.com (2603:10b6:510:3d5::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 10:03:27 +0000
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a%6]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 10:03:27 +0000
+Message-ID:
+ <SN7PR19MB67365636EC5E747DA51A4EFF9D8C2@SN7PR19MB6736.namprd19.prod.outlook.com>
+Date: Tue, 29 Sep 2026 14:03:19 +0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next 02/16] dt-bindings: net: wireless: ath11k: Add
+ bindings for IPQ5018
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-wireless@vger.kernel.org,
+ devicetree@vger.kernel.org, ath11k@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>,
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org
+References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
+ <20260923-ipq5018-qcn6122-mpd-v1-2-86729521a75c@outlook.com>
+ <20260928-sloppy-perfect-marmoset-bfec90@quoll>
+Content-Language: en-US
+From: George Moussalem <george.moussalem@outlook.com>
+In-Reply-To: <20260928-sloppy-perfect-marmoset-bfec90@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PR1P264CA0051.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:2cb::12) To SN7PR19MB6736.namprd19.prod.outlook.com
+ (2603:10b6:806:263::12)
+X-Microsoft-Original-Message-ID:
+ <5e1b70c2-d52e-4191-a862-9b2567e54d6d@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925-bt-wcn-clk-enable-v1-0-30bee88c4de4@oss.qualcomm.com> <20260925-bt-wcn-clk-enable-v1-1-30bee88c4de4@oss.qualcomm.com>
-In-Reply-To: <20260925-bt-wcn-clk-enable-v1-1-30bee88c4de4@oss.qualcomm.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Tue, 29 Sep 2026 12:03:13 +0200
-X-Gm-Features: AclHuK8hrus5ifIhd0kBrHEFVRgKNmcLi6GGy2VwQ0rTLUBWrWRbn9i9ZtKBjZc
-Message-ID: <CAFEp6-1J_nnD1OY=GBET19p9+j28n9LFmt5CgoiyWr7FVSmOFQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] Bluetooth: hci_qca: Add WCN clock management for
- pwrseq-based power path
-To: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        quic_mohamull@quicinc.com, quic_hbandi@quicinc.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDAzOSBTYWx0ZWRfX7g1tnBM0jPDV
- XQbgKw0QrSPgo7udN8M68/5Fi+tTp5HjAEHYA4o8CbAu0Z2dTe2vUCnJ7bWGsxuFdUodh3Phi4F
- zP2lrKHGk7ZfrHxUHcWLKSmtMMzNsHw=
-X-Authority-Analysis: v=2.4 cv=ALbfqNVA c=1 sm=1 tr=0 ts=6abb8ced cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=k-oZKQUuCPdrsXQy0KMA:9
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDAzOSBTYWx0ZWRfX68HX5fitemnH
- 6Vqdm0wOqU7n6m1rjU6g8efxM8If/hpBJwDzqMIHCUV1NOFMfje30VD+iW2QYvxUSFJ52G7BDCg
- 13gM6JFSkxhttmq/8I/8XRPy9Zppb2qX6AFddZ+l/qS7EKkIDzFkyfm5Nd22Hj4tfwPpMqW8FlD
- Gp6J8wKqRG4bxRsfyK/iLkuhS4LboEV38lsMyWcj2ZJgBkL8zIU4IO0rNS0sStt7p6bqDpwodBZ
- 2JysVnnJSn0hOEOv2zKwJwRpLsz4Tq1DpqrWpN55lAlq3R/ayG1krj5lz60mFqKHA1Qpi3THEbJ
- xmmeJGpve2rqn86OMLFBSY/gdxIaNhxlvdy9GzsL3FTB8bm7+ZTeeYi3NKsxI5HAwjZdQjvhlu3
- xRPUuZ9wWcnlxClouUE7uyGwfYuBZmpGLsCkp2sD4QguvaoD9YfLvJ0fwKpQ6QGxeTESa4Nz8lm
- BtmxEOQRdgePYsoOBrw==
-X-Proofpoint-GUID: a7aglw30N5rEvd2ybw6Fg3cfFayA7Q4B
-X-Proofpoint-ORIG-GUID: a7aglw30N5rEvd2ybw6Fg3cfFayA7Q4B
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290039
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|PH8PR19MB997491:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49117c8d-434d-4604-665b-08df1e10e7ea
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5072599009|25010399006|8060799015|19110799012|6090799003|24021099003|23021999003|41001999006|37011999003|15080799012|4140399003|3412199025|440099028|52005399003|40105399003|30101999006|2607281247196008;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RmFkR3UxTlhnRnE4ZWdxSE5udFROc1lNaUVZWDB1RFI0MThYcEhlZ1NkQ1M3?=
+ =?utf-8?B?VmhEVnRwaGZvSWlCTldWbXZPQysrN3hJUmsrc1dtUWZWK2N2RVgzWWtoKzkz?=
+ =?utf-8?B?YkhiMm1icjE0cnlpMFMrNGhzZGluTDNhQUF3SVJucEdZS1M3cUxsQ3J5eEk0?=
+ =?utf-8?B?Z0dDODFPOVZzUDc3eGwvV09sdzR4U01aOUpHQk0zYkhaZlRzeGJKV2E5algv?=
+ =?utf-8?B?d1pBMlpGWlY4WkF6ZTVLVFZJR0NldTlFSWYxQ0NmRG1iNXRJME1SMWJkbjR4?=
+ =?utf-8?B?VVdkY2pqY1ZkdjNVckdxMHBENmk4Vm13cFpNRmM3M2poZWNZa3R4cHV0ay9p?=
+ =?utf-8?B?VkVZbzBFdG12di9oWUlBckJFWVVWNEcvNE5yZkEvRWdFWkhTZnRTV3lMdVhM?=
+ =?utf-8?B?UEFob2hYWS8rUUJpQUcyQlIrZ0NxRXg4a0VyNlRhQ3VkeVRHVXg4K1dOZzEv?=
+ =?utf-8?B?ZE43elJ5VGxXdU1vUFNaSTN4SDlNQTJlQVJTZ1cxMW5hL2UyUUVPQlBhaFZF?=
+ =?utf-8?B?NFpOSm0vQXVQTVQ0Q01NWkxRMnM4d3hWN2tMaFNNZDMzRDNleUZVOWkySUxP?=
+ =?utf-8?B?dnFrNjB0QXZwcHEzRjZRM1lOQ3RrT0J4aHhqaVdzazFnVjhCNGUvY0dWemsz?=
+ =?utf-8?B?R25BbWtBbmlRdGVpR1M0QkFuQ0hCR0F0dENhTEdBaGRIVzBWdU5iVlk4NDJF?=
+ =?utf-8?B?SHI0RERoZXdFSklySFJqZnZQcGxBRFRSMmFZbE8rOXZsNE1VUjdLVm43cEtM?=
+ =?utf-8?B?T0Eya2pKUVVMZ0c2c2xCT3VabXVQQUxSNDhDdG55YjhTSEt3SEFwOXFVMDJz?=
+ =?utf-8?B?azNKOVFWTG1xa3FhclpqWmhTN252UTJVOHRZeUhiREVON2lWaXRMRWRiRHlt?=
+ =?utf-8?B?UjkrOFhLdUFQRlVrbWV2dkFxMm9kZC9ZQXJjdFl5b3BxZ3NlWFFzZlJuMHZS?=
+ =?utf-8?B?MUpRWEZuN2RSU2IzWjNXVUl0ZG5qVHVHK3VZa3JHQTdSVGF6czBsOFhoaWd1?=
+ =?utf-8?B?NGZXaTNWbVZCTHR0RE1HT3dJZWRUbnBuRVlrOVRlQXNQR3hxSER6MVF4Qlpr?=
+ =?utf-8?B?dm4wWERJd29OS1VFNTlNUzYvRjlIcUVHRlpvWkNPTllTRTRub3lEQmdSR25K?=
+ =?utf-8?B?TG5XOHViODkzN2VIQXo2emo3b0U1SENtUUJ1djlvcHcxZzJpY0ptMnk4dFYx?=
+ =?utf-8?B?RFhYWE5tRDMwSUVaWXZ3Mk5GRTFROERhcW5UdmVUQWp6VUxrNkhmWUNxY0Jy?=
+ =?utf-8?B?ZVlIU3lYSjF5WlNVbEs1UWJjZVd6MnhjWXhWSDRXTk1jMllzd203b0JLeldQ?=
+ =?utf-8?B?eklCcEFxejE1aXcyNHlFQllIZ0lSNmJzanBWNXdBODBUY3Z0UGs1L2ZXTzRr?=
+ =?utf-8?B?Q0xWN0FPSlFYYU5VTFVSUUNlREdlM2FVM0ZEOEhuUFB5ZUMxQXFpOE53NXpw?=
+ =?utf-8?Q?NSB7k8se?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WW1ZaU40RkM3SjVERnNzWGYyYmw3ZGJGQTFRKzRQckxzUmppMlVtWnN2ZUV0?=
+ =?utf-8?B?Nk1RNXV1U05WT0ZBdHUvdVZ5bWF1VlIxOUJDenI4OERvUWc3TjhVeWl6cHJr?=
+ =?utf-8?B?Q2JDcExQOWFyK2VFSnRDN05zbWlvc0h0Z0lIVWxkQmtQcFJNekNINkRRWGQx?=
+ =?utf-8?B?OE1TaEdReFQ4Y090V2FzLzJ2VU9mYi9VRS91empaSExTZnY4ZWRCYWNvSkgx?=
+ =?utf-8?B?WlJzVVZSMkdUbGVKdXdEd3RFU0VZckRXbmNJdTA1SEMyejBGMEgyZUpiaWhT?=
+ =?utf-8?B?cUMvMkt5L1JqWVFEVG5tWWF4R1FYT1NXYk1hUzRCSHdjekhxOGFYYXllMVF6?=
+ =?utf-8?B?ZFFwNlIwUzlVdHVlR0pwUW9kT1htVzc0R0UrZW9wZFI3MmVkaXZxNGRkVmor?=
+ =?utf-8?B?WlVFU0x2ajRQVU1xSmgxVDFUcWRCL2MxQzFNbW5FM1VkMmtzS3dWK1IyKzd6?=
+ =?utf-8?B?TW9sSmU4UmhBbmpVcS81NmdlNUxJT0ZtN3I0T3pYdGRxLzRucmxpZ0NBSDlQ?=
+ =?utf-8?B?TTZwUkN1Nnp2UGt0c09tMkdDY3lpZUZtWDFhVW5yU2VyZ1BMWTZLWDQzbGxD?=
+ =?utf-8?B?QUkwVXNTVW01M0wyQjhHcXQvNGJLZzQ4R215QjVKUG1Va2JDazlQVXdPdmMy?=
+ =?utf-8?B?eWowZ0FYVVgyTXg1R3VPUTBqMDVWRVliQ0hjUjJFSzVyOGlCOTZYU0xvVkZ3?=
+ =?utf-8?B?WmVwZGNCTnNyMDVRd3FqamJoUzZSZHZ4ZE9kY3g0NHpaUzlsZjNSUDgyV0pM?=
+ =?utf-8?B?QWM3djh0K2haeDI4STE5dVNXS2JBdDJJemlKQ0lCUjdHTU9yUnUvYzRrNklO?=
+ =?utf-8?B?ZkxFaTlIaThOWXZPVVU5d2o5MU1BVzRLZStHa05OeHB5VmNtMkZTdDRRSHRr?=
+ =?utf-8?B?dXdXUzhGTTl1ME0yK3B5QUU4QVNRcEdRSVFwbGhnODFobWF4TmtLM1NhQzk4?=
+ =?utf-8?B?U3FnMmU4d2Zaa0NxellzUXg1QVBmKzRaWWZGTzMwZ0I2OUdWUzJndEptcmFL?=
+ =?utf-8?B?VWxyMTFiMjMyN2xoVkR6UlNzcVZKclJaaG9IbHZBdGtET1F6T3JhaGd3bmJo?=
+ =?utf-8?B?STJjUmMyOTFDUlVUVU9XSVoxZ2REakpsdXhQencyc2hicFpOUWxtNXpvbWs4?=
+ =?utf-8?B?cFpBSVpzanRBaUFYNFU5Q1hYOUpQcW10RHdmdlllakVNMTI3L1h0MGxrcHMy?=
+ =?utf-8?B?MHY1dER0UVZFeWt1angrdkxDQUNuZlNNVDZzazBvOVp6MFpRSStDdkhZQk5U?=
+ =?utf-8?B?WlNmYUpQWS9XdWVEQ0ZsUlF0TmR4SmJ6TllWcjRnUEdrVWpJUTlraTFFTlpP?=
+ =?utf-8?B?bHJPa3RVSmJZQ2dsakJRb0F3K3hDU0tqRWZiK1VERTNhTElSWnRBa1dScHk1?=
+ =?utf-8?B?ZlVsd0hEZHhVRGUvK1dLRWY2ODhFSk9rYzltMDJDVW1aOHBMa005TUh5WFFn?=
+ =?utf-8?B?MVdGQUxIb0dxS29OTzlJbzQrcGpvcHo5cWhSWjZoaVJya0VISU9ESzRJVHhO?=
+ =?utf-8?B?ZVVuZWpUaktRelJVdnYxenpTbWFCbXQ1b1VycFI4ME45bXgxRW5KdVRYZEtM?=
+ =?utf-8?B?MWYyQW41S2Z0NlRPRUJpdy9BMVE3R2FEZER6cS8vQ0JhQWFvczZxUEttV0RY?=
+ =?utf-8?B?cVBSWC9JL2EyRk1CQ0RpelhyV2I3VFEyY1B0S2kzeWJsM1pKaGRsb1B6SlhW?=
+ =?utf-8?B?aDNISzN1eDZsa0VoZUZzTEFSMkRLMFVTT0I1eXJHdjV2ZC9ENkg2WW00aUZs?=
+ =?utf-8?B?aWxrQUpwWlphOUhROFB6b3oyMXRQc055dlg0N0RycWZBMXVob1ErZTB6SEda?=
+ =?utf-8?B?ZDVFNWwxbDMvY2txWWRXYk5KSHgrOFV5VlFlWjlwY2ZOaWRtV0I5U1FaWmVL?=
+ =?utf-8?B?UHprUVo4UUlpaFVzYkdnclI1M1hUVmhOclVZWmhpNlA3OUE9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49117c8d-434d-4604-665b-08df1e10e7ea
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 10:03:27.4086
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR19MB997491
 
-On Fri, Sep 25, 2026 at 8:21=E2=80=AFAM Yepuri Siddu
-<yepuri.siddu@oss.qualcomm.com> wrote:
->
-> RPMCC previously kept WCN clocks enabled via proxy votes, so the pwrseq
-> power path in hci_qca did not need to explicitly manage the clock.
-> With proxy vote removal, each consumer must explicitly enable and disable
-> its required clocks.
->
-> Extend the pwrseq-based power path to acquire and manage an optional
-> WCN clock. In qca_serdev_probe(), acquire the clock using
-> devm_clk_get_optional(). In qca_regulator_enable(), enable the clock
-> after a successful pwrseq_enable() with proper rollback on failure.
-> In qca_power_off(), disable the clock before pwrseq_disable().
->
-> Targets that do not define a clock in DTS are unaffected since
-> devm_clk_get_optional() returns NULL and all clock operations are
-> guarded accordingly.
->
-> Signed-off-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-> ---
->  drivers/bluetooth/hci_qca.c | 23 ++++++++++++++++++++---
->  1 file changed, 20 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-> index 7089e9b639b2..489a059e519a 100644
-> --- a/drivers/bluetooth/hci_qca.c
-> +++ b/drivers/bluetooth/hci_qca.c
-> @@ -2265,6 +2265,8 @@ static void qca_power_off(struct hci_uart *hu)
->         }
->
->         if (power && power->pwrseq) {
-> +               if (qcadev->susclk)
-> +                       clk_disable_unprepare(qcadev->susclk);
->                 pwrseq_disable(power->pwrseq);
->                 set_bit(QCA_BT_OFF, &qca->flags);
->                 return;
-> @@ -2324,8 +2326,17 @@ static int qca_regulator_enable(struct qca_serdev =
-*qcadev)
->         struct qca_power *power =3D qcadev->bt_power;
->         int ret;
->
-> -       if (power->pwrseq)
-> -               return pwrseq_enable(power->pwrseq);
-> +       if (power->pwrseq) {
-> +               ret =3D pwrseq_enable(power->pwrseq);
-> +               if (ret)
-> +                       return ret;
-> +               if (qcadev->susclk) {
-> +                       ret =3D clk_prepare_enable(qcadev->susclk);
+On 9/28/26 14:45, Krzysztof Kozlowski wrote:
+> On Wed, Sep 23, 2026 at 04:05:08PM +0400, George Moussalem wrote:
+>> Although support was added for IPQ5018, the bindings are missing, so
+>> let's add them.
+> 
+> So there is no ipq5018 compatible in existing file.
 
-Why is susclk guarded by the pwrseq? They seem unrelated to me.
+The compatible is there, but it's not further specified. But as per your
+suggestion, I'll move it entirely to qcom,ipq5332-wifi.yaml.>
+>>
+>> WiFi on IPQ5018 boards come in one of the following configurations:
+>> 1. IPQ5018 (standalone) + optional 5G/6G WiFi card (such as QCN9074)
+>> 2. IPQ5018 (MPD) + one or two 5G/6G QCN6122 WiFi chips where QCN6122
+>>    is an IPQ5018-specific companion chip.
+>>
+>> IPQ5018 implements the multi-PD architecture as follows:
+>>
+>>                      +-----------------------------+
+>>                      |     Q6 Remote Processor     |
+>>                      |            RootPD           |
+>>                      +--------------+--------------+
+>>                                     |
+>>                                     |
+>>                                     |
+>>               +---------------------+---------------------+
+>>               |                     |                     |
+>>         +-----v-----+         +-----v-----+         +-----v-----+
+>>         |  UserPD1  |         |  UserPD2  |         |  UserPD3  |
+>>         |  IPQ5018  |         | QCN6122 #1|         | QCN6122 #2|
+>>         |  (Radio)  |         |  (Radio)  |         |  (Radio)  |
+>>         +-----------+         +-----------+         +-----------+
+>>
+>> The rootPD is responsible for managing the lifecycle of the UserPD and
+>> shared resources and providing SSR notifiers. There are different
+>> firmware blobs that include either the rootPD and userPD binaries for
+>> IPQ5018-only which auto-spawns the userPD for IPQ5018 WiFi, or for
+>> IPQ5018 and QCN6122 for which the userPDs for each radio must be spawned
+>> by the ath11k driver.
+>>
+>> SMP2P is used for signaling between the host and the Q6 remote processor
+>> to manage the lifecycle of the userPDs, so add the required interrupts
+>> and smem-states for incoming and outgoing interrupts in the case of the
+>> IPQ5018 + QCN6122 MPD configuration. Otherwise, the SMP2P interrupts and
+>> smem-states are not required for the IPQ5018-only configuration.
+>>
+>> In addition, document the memory regions needed for loading the BDF and
+>> M3 firmware as well as for assigning the M3 dump memory block.
+>>
+>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+>> ---
+>>  .../bindings/net/wireless/qcom,ath11k.yaml         | 423 ++++++++++++++++++++-
+>>  1 file changed, 410 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
+>> index a846cd704b19..621ad6d4ddad 100644
+>> --- a/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
+>> +++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
+> 
+> Where is the compatible update?
+> 
+>> @@ -29,8 +29,13 @@ properties:
+>>      minItems: 32
+>>      maxItems: 52
+> 
+> 56
+> 
+>>  
+>> +  interrupts-extended:
+> 
+> git grep should tell you - it's not needed. Drop.
 
-> +                       if (ret)
-> +                               pwrseq_disable(power->pwrseq);
-> +               }
-> +               return ret;
-> +       }
->
->         /* Already enabled */
->         if (power->vregs_on)
-> @@ -2472,8 +2483,14 @@ static int qca_serdev_probe(struct serdev_device *=
-serdev)
->                          */
->                         if (IS_ERR(qcadev->bt_power->pwrseq))
->                                 qcadev->bt_power->pwrseq =3D NULL;
-> -                       else
-> +                       else {
-> +                               qcadev->susclk =3D devm_clk_get_optional(=
-&serdev->dev, NULL);
-> +                               if (IS_ERR(qcadev->susclk)) {
-> +                                       dev_err(&serdev->dev, "failed to =
-acquire clk\n");
-> +                                       return PTR_ERR(qcadev->susclk);
-> +                               }
->                                 break;
-> +                       }
->                 }
->
->                 qcadev->bt_power->dev =3D &serdev->dev;
->
-> --
-> 2.34.1
->
->
+Noted, thanks!
+
+> 
+>> +    minItems: 56
+>> +    maxItems: 56
+>> +
+>>    interrupt-names:
+>> -    maxItems: 52
+>> +    minItems: 32
+>> +    maxItems: 56
+>>  
+>>    qcom,rproc:
+>>      $ref: /schemas/types.yaml#/definitions/phandle
+>> @@ -56,11 +61,15 @@ properties:
+>>  
+>>    memory-region:
+>>      minItems: 1
+>> -    maxItems: 2
+>> +    maxItems: 3
+>>      description:
+>>        phandle to a node describing reserved memory (System RAM memory)
+>>        used by ath11k firmware (see bindings/reserved-memory/reserved-memory.txt)
+>>  
+>> +  memory-region-names:
+>> +    minItems: 1
+>> +    maxItems: 3
+> 
+> Names would have to be here. But why do you need it in the first place?
+
+It's for the ability to override the default hard-coded addresses
+defined in the HW params. The memory address/region to load the BDF into
+varies per architecture (regular non-MPD vs MPD). The current HW params
+define the one for the regular architecture. As with IPQ5332, there's a
+need to override that and assign the right memory regions for the BDF
+and M3 dump.
+
+Unlike IPQ5018 and IPQ5332, QCN6122 doesn't have its own m3-region to
+load its M3 firmware maps to the one of IPQ5018. Hence, the need to
+define the m3-region per board.
+
+So for QCN6122, it would look like:
+	memory-region = <&q6_region_qcn6122_1>,
+			<&q6_region_ipq5018>,
+			<&m3_dump_qcn6122_1>;
+        memory-region-names = "q6-region",
+			      "m3-region",
+			      "m3-dump";
+
+> 
+>> +
+>>    iommus:
+>>      minItems: 1
+>>      maxItems: 2
+>> @@ -78,20 +87,11 @@ properties:
+>>    qcom,smem-states:
+>>      $ref: /schemas/types.yaml#/definitions/phandle-array
+>>      description: State bits used by the AP to signal the WLAN Q6.
+>> -    items:
+>> -      - description: Signal bits used to enable/disable low power mode
+>> -          on WCN6750 in the case of WoW (Wake on Wireless).
+>> -        items:
+>> -          - description: Phandle to the Shared Memory Point 2 Point device
+>> -              handling the communication with a remote processor
+>> -          - description: Single bit index to toggle in the value sent to
+>> -              the remote processor
+>> -            maximum: 32
+>> +    minItems: 1
+>> +    maxItems: 3
+>>  
+>>    qcom,smem-state-names:
+>>      description: The names of the state bits used for SMP2P output.
+>> -    items:
+>> -      - const: wlan-smp2p-out
+> 
+> Why isn't all this in qcom,ipq5332-wifi.yaml?
+
+Will move it there, thanks.
+
+> 
+>>  
+>>  required:
+>>    - compatible
+>> @@ -103,6 +103,242 @@ additionalProperties: false
+>>  
+>>  allOf:
+>>    - $ref: ieee80211.yaml#
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            enum:
+>> +              - qcom,ipq5018-wifi
+>> +    then:
+>> +      properties:
+>> +        interrupts:
+>> +          items:
+>> +            - description: misc-pulse1 interrupt events
+>> +            - description: misc-latch interrupt events
+>> +            - description: sw exception interrupt events
+>> +            - description: watchdog interrupt events
+>> +            - description: interrupt event for ring CE0
+>> +            - description: interrupt event for ring CE1
+>> +            - description: interrupt event for ring CE2
+>> +            - description: interrupt event for ring CE3
+>> +            - description: interrupt event for ring CE4
+>> +            - description: interrupt event for ring CE5
+>> +            - description: interrupt event for ring CE6
+>> +            - description: interrupt event for ring CE7
+>> +            - description: interrupt event for ring CE8
+>> +            - description: interrupt event for ring CE9
+>> +            - description: interrupt event for ring CE10
+>> +            - description: interrupt event for ring CE11
+>> +            - description: interrupt event for ring host2wbm-desc-feed
+>> +            - description: interrupt event for ring host2reo-re-injection
+>> +            - description: interrupt event for ring host2reo-command
+>> +            - description: interrupt event for ring host2rxdma-monitor-ring3
+>> +            - description: interrupt event for ring host2rxdma-monitor-ring2
+>> +            - description: interrupt event for ring host2rxdma-monitor-ring1
+>> +            - description: interrupt event for ring reo2ost-exception
+>> +            - description: interrupt event for ring wbm2host-rx-release
+>> +            - description: interrupt event for ring reo2host-status
+>> +            - description: interrupt event for ring reo2host-destination-ring4
+>> +            - description: interrupt event for ring reo2host-destination-ring3
+>> +            - description: interrupt event for ring reo2host-destination-ring2
+>> +            - description: interrupt event for ring reo2host-destination-ring1
+>> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac3
+>> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac2
+>> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac1
+>> +            - description: interrupt event for ring ppdu-end-interrupts-mac3
+>> +            - description: interrupt event for ring ppdu-end-interrupts-mac2
+>> +            - description: interrupt event for ring ppdu-end-interrupts-mac1
+>> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac3
+>> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac2
+>> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac1
+>> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac3
+>> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac2
+>> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac1
+>> +            - description: interrupt event for ring rxdma2host-destination-ring-mac3
+>> +            - description: interrupt event for ring rxdma2host-destination-ring-mac2
+>> +            - description: interrupt event for ring rxdma2host-destination-ring-mac1
+>> +            - description: interrupt event for ring host2tcl-input-ring4
+>> +            - description: interrupt event for ring host2tcl-input-ring3
+>> +            - description: interrupt event for ring host2tcl-input-ring2
+>> +            - description: interrupt event for ring host2tcl-input-ring1
+>> +            - description: interrupt event for ring wbm2host-tx-completions-ring3
+>> +            - description: interrupt event for ring wbm2host-tx-completions-ring2
+>> +            - description: interrupt event for ring wbm2host-tx-completions-ring1
+>> +            - description: interrupt event for ring tcl2host-status-ring
+>> +        interrupts-extended:
+>> +          items:
+>> +            - description: misc-pulse1 interrupt events
+>> +            - description: misc-latch interrupt events
+>> +            - description: sw exception interrupt events
+>> +            - description: watchdog interrupt events
+>> +            - description: interrupt event for ring CE0
+>> +            - description: interrupt event for ring CE1
+>> +            - description: interrupt event for ring CE2
+>> +            - description: interrupt event for ring CE3
+>> +            - description: interrupt event for ring CE4
+>> +            - description: interrupt event for ring CE5
+>> +            - description: interrupt event for ring CE6
+>> +            - description: interrupt event for ring CE7
+>> +            - description: interrupt event for ring CE8
+>> +            - description: interrupt event for ring CE9
+>> +            - description: interrupt event for ring CE10
+>> +            - description: interrupt event for ring CE11
+>> +            - description: interrupt event for ring host2wbm-desc-feed
+>> +            - description: interrupt event for ring host2reo-re-injection
+>> +            - description: interrupt event for ring host2reo-command
+>> +            - description: interrupt event for ring host2rxdma-monitor-ring3
+>> +            - description: interrupt event for ring host2rxdma-monitor-ring2
+>> +            - description: interrupt event for ring host2rxdma-monitor-ring1
+>> +            - description: interrupt event for ring reo2ost-exception
+>> +            - description: interrupt event for ring wbm2host-rx-release
+>> +            - description: interrupt event for ring reo2host-status
+>> +            - description: interrupt event for ring reo2host-destination-ring4
+>> +            - description: interrupt event for ring reo2host-destination-ring3
+>> +            - description: interrupt event for ring reo2host-destination-ring2
+>> +            - description: interrupt event for ring reo2host-destination-ring1
+>> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac3
+>> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac2
+>> +            - description: interrupt event for ring rxdma2host-monitor-destination-mac1
+>> +            - description: interrupt event for ring ppdu-end-interrupts-mac3
+>> +            - description: interrupt event for ring ppdu-end-interrupts-mac2
+>> +            - description: interrupt event for ring ppdu-end-interrupts-mac1
+>> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac3
+>> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac2
+>> +            - description: interrupt event for ring rxdma2host-monitor-status-ring-mac1
+>> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac3
+>> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac2
+>> +            - description: interrupt event for ring host2rxdma-host-buf-ring-mac1
+>> +            - description: interrupt event for ring rxdma2host-destination-ring-mac3
+>> +            - description: interrupt event for ring rxdma2host-destination-ring-mac2
+>> +            - description: interrupt event for ring rxdma2host-destination-ring-mac1
+>> +            - description: interrupt event for ring host2tcl-input-ring4
+>> +            - description: interrupt event for ring host2tcl-input-ring3
+>> +            - description: interrupt event for ring host2tcl-input-ring2
+>> +            - description: interrupt event for ring host2tcl-input-ring1
+>> +            - description: interrupt event for ring wbm2host-tx-completions-ring3
+>> +            - description: interrupt event for ring wbm2host-tx-completions-ring2
+>> +            - description: interrupt event for ring wbm2host-tx-completions-ring1
+>> +            - description: interrupt event for ring tcl2host-status-ring
+>> +            - description: Q6 firmware user PD fatal interrupt event
+>> +            - description: Q6 firmware user PD ready interrupt event
+>> +            - description: Q6 firmware user PD spawn interrupt event
+>> +            - description: Q6 firmware user PD stop ack interrupt event
+>> +        interrupt-names:
+>> +          minItems: 52
+>> +          items:
+>> +            - const: misc-pulse1
+>> +            - const: misc-latch
+>> +            - const: sw-exception
+>> +            - const: watchdog
+>> +            - const: ce0
+>> +            - const: ce1
+>> +            - const: ce2
+>> +            - const: ce3
+>> +            - const: ce4
+>> +            - const: ce5
+>> +            - const: ce6
+>> +            - const: ce7
+>> +            - const: ce8
+>> +            - const: ce9
+>> +            - const: ce10
+>> +            - const: ce11
+>> +            - const: host2wbm-desc-feed
+>> +            - const: host2reo-re-injection
+>> +            - const: host2reo-command
+>> +            - const: host2rxdma-monitor-ring3
+>> +            - const: host2rxdma-monitor-ring2
+>> +            - const: host2rxdma-monitor-ring1
+>> +            - const: reo2ost-exception
+>> +            - const: wbm2host-rx-release
+>> +            - const: reo2host-status
+>> +            - const: reo2host-destination-ring4
+>> +            - const: reo2host-destination-ring3
+>> +            - const: reo2host-destination-ring2
+>> +            - const: reo2host-destination-ring1
+>> +            - const: rxdma2host-monitor-destination-mac3
+>> +            - const: rxdma2host-monitor-destination-mac2
+>> +            - const: rxdma2host-monitor-destination-mac1
+>> +            - const: ppdu-end-interrupts-mac3
+>> +            - const: ppdu-end-interrupts-mac2
+>> +            - const: ppdu-end-interrupts-mac1
+>> +            - const: rxdma2host-monitor-status-ring-mac3
+>> +            - const: rxdma2host-monitor-status-ring-mac2
+>> +            - const: rxdma2host-monitor-status-ring-mac1
+>> +            - const: host2rxdma-host-buf-ring-mac3
+>> +            - const: host2rxdma-host-buf-ring-mac2
+>> +            - const: host2rxdma-host-buf-ring-mac1
+>> +            - const: rxdma2host-destination-ring-mac3
+>> +            - const: rxdma2host-destination-ring-mac2
+>> +            - const: rxdma2host-destination-ring-mac1
+>> +            - const: host2tcl-input-ring4
+>> +            - const: host2tcl-input-ring3
+>> +            - const: host2tcl-input-ring2
+>> +            - const: host2tcl-input-ring1
+>> +            - const: wbm2host-tx-completions-ring3
+>> +            - const: wbm2host-tx-completions-ring2
+>> +            - const: wbm2host-tx-completions-ring1
+>> +            - const: tcl2host-status-ring
+>> +            - const: fatal
+>> +            - const: ready
+>> +            - const: spawn
+>> +            - const: stop-ack
+>> +        memory-region:
+>> +          items:
+>> +            - description: memory region for Q6 firmware
+>> +            - description: memory region for M3 firmware
+>> +            - description: memory region for M3 dump
+>> +        memory-region-names:
+>> +          items:
+>> +            - const: q6-region
+>> +            - const: m3-region
+>> +            - const: m3-dump
+>> +        qcom,smem-states:
+>> +          items:
+>> +            - description: Signal bit used to shutdown Q6 user PD
+>> +              items:
+>> +                - description: Phandle to the Shared Memory Point 2 Point device
+>> +                - description: Single bit index to toggle in the value sent to the remote processor
+>> +                  maximum: 32
+>> +            - description: Signal bit used to stop Q6 user PD
+>> +              items:
+>> +                - description: Phandle to the Shared Memory Point 2 Point device
+>> +                - description: Single bit index to toggle in the value sent to the remote processor
+>> +                  maximum: 32
+>> +            - description: Signal bit used to spawn Q6 user PD
+>> +              items:
+>> +                - description: Phandle to the Shared Memory Point 2 Point device
+>> +                - description: Single bit index to toggle in the value sent to the remote processor
+>> +                  maximum: 32
+>> +        qcom,smem-state-names:
+>> +          items:
+>> +            - const: shutdown
+>> +            - const: stop
+>> +            - const: spawn
+>> +      allOf:
+>> +        - anyOf:
+>> +            - required:
+>> +                - interrupts
+>> +            - required:
+>> +                - interrupts-extended
+>> +        - if:
+>> +            required:
+>> +              - interrupts-extended
+>> +          then:
+>> +            properties:
+>> +              interrupt-names:
+>> +                minItems: 56
+>> +            required:
+>> +              - interrupts-extended
+>> +              - memory-region
+>> +              - memory-region-names
+>> +              - qcom,smem-states
+>> +              - qcom,smem-state-names
+>> +          else:
+>> +            properties:
+>> +              interrupt-names:
+>> +                minItems: 52
+>> +                maxItems: 52
+>> +
+>>    - if:
+>>        properties:
+>>          compatible:
+>> @@ -265,6 +501,19 @@ allOf:
+>>              - description: interrupt event for ring DP20
+>>              - description: interrupt event for ring DP21
+>>              - description: interrupt event for ring DP22
+>> +        qcom,smem-states:
+>> +          items:
+>> +            - description: Signal bits used to enable/disable low power mode
+>> +                on WCN6750 in the case of WoW (Wake on Wireless).
+>> +              items:
+>> +                - description: Phandle to the Shared Memory Point 2 Point device
+>> +                    handling the communication with a remote processor
+>> +                - description: Single bit index to toggle in the value sent to
+>> +                    the remote processor
+>> +                  maximum: 32
+>> +        qcom,smem-state-names:
+>> +          items:
+>> +            - const: wlan-smp2p-out
+>>  
+>>  examples:
+>>    - |
+>> @@ -464,3 +713,151 @@ examples:
+>>              iommus = <&apps_smmu 0x1c02 0x1>;
+>>          };
+>>      };
+>> +
+>> +  - |
+> 
+> No, three examples are enough. No need for fourth.
+
+Noted, will remove in next version.
+
+> 
+> Best regards,
+> Krzysztof
+
+Best regards,
+George
