@@ -1,404 +1,257 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022118.outbound.protection.outlook.com [52.101.126.118])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15C7397921
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:11:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790651467; cv=none; b=jTvOR6QYPC4y/unqa8bbO1d6kA12fQ4U0NhniQfe4cFaCXGKpd1Zl3OGFL+fnqMepa58Dh5HVGIIxKht5lQ9ung6y/c01A4kzu3gTXSuQYd0jX43RCp3MBnTnaiC4g8mMK5Za9a0EulQiMrAarqVPf9XB9DxqJef5RAc70udIOw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790651467; c=relaxed/simple;
-	bh=729smfe97nsHknEcCh4ID0nCAOBB5sKdrUWiJe5+/KE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fY1jnxfuOhxO+gLedJDAl4UkrP9WvmCGYtF/56j/RvSo1uO4lZwjt5Dumt1aPZGTBa3+gF4c2RKYy8HDHrBCwN4sbpFsSMAKNydCqhBIMsTDFgKlQItsaJRXqHg2ioG+eNs1HCmeOlBDQBXe6R3LqVgiN9baQQ17HKLlc3z6bYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=aL9Kpj+0; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875D13DEAD3;
+	Tue, 29 Sep 2026 03:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.118
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790651489; cv=fail; b=pHB78vUgm/Eb9IhZaDEeQuXN6K5PcDsNoME0fuI2H8y3c35Lp91LPkcdDH/q/SWoBVs5RgJKTd15BoBp6IUMeZhEcU4aucgtXNrkkULM6BYqnNZbgRKaBNkRoN2JxrrgnO+4NZU0qscTzEOjFjKFndmG4syue6w8Ic28vUMwIUo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790651489; c=relaxed/simple;
+	bh=b4l6CIaPNzAjFeNF4zlFZBST1Ij4NoJ7Z5wgzVTnLbg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=SlxvVScSqPWlmkawSHpS2dSLTDujscBvnfxAlyLZkBDrfE0hve0SERbSCtgwIg+Hcl33Bo1aZKc+apVzcr7Phe8dfgum7sX8QwCY0YmNsPHtiWCHfJ7UUweWTilp9IZq7XYV0kPQeBFDZXGL+flfiLJcZwRQ9bnqdXTrkfa+WZI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=KWHK5zUM; arc=fail smtp.client-ip=52.101.126.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="aL9Kpj+0"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffe817151so13386805e9.0
-        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 20:11:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790651461; x=1791256261; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9MH65Y4Qlv5+yAPCv0rUtck+DoTMzMhWmQp7zLk8Sxo=;
-        b=aL9Kpj+0PgQ0+CABDlxXDuWposTyRVkkE7+N+x+2Z2mh5xAoCxo+ohN9twlc29l2eK
-         dp0pWYM5PbWJV9dumtnIYQ0/RiH/F3/pdtjmVcLIIjbCEGlFQnbw00Ei9KkiAemcMPfd
-         1p0QctPIGuzf3uXhcdrm0n84KmHyvGUkiNimvYnaRhf/IzO9up9QUfe7Oqw/Ei75egvq
-         UD00NP9600PqWZGc05BI8N6xcONVy2QJ4XEklQxQ32kZearcG2dnkRXSDGWHtVxKv/Xr
-         1geTNSc205vj0Y/QOjHo+wmk0Vpbv2FedmWgPHK65Z9i18YRUzPyEqTk+/edvTapPzkx
-         Glvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790651461; x=1791256261;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9MH65Y4Qlv5+yAPCv0rUtck+DoTMzMhWmQp7zLk8Sxo=;
-        b=e6kPHxUVAM/pdZTabztzOAlae3Jpx/ayBCJ7/NckFSmJSwBO5vj8n0JGQrYMxwTviF
-         ga13Vk8O8W86ohQYUh4/d6SW+5PDN7lm/JEfWcjirwCb+y7bNmivi99EecWfclo5WrNu
-         MNIXy41YElp+4YPRLv0svRIjKexhzio+jcYxqV81sBtvZNMiosJlr0Dv45iH/OTBxTMc
-         nYU14Qt251q4FRSV3ymbKqjLWQaEdgiwow0z0QGPXiVE9sXOZ0rJqCG/t37mVsuDgDTP
-         6bub4mWXt+V5XC0jltSUQs6oA7bTZAni3tzIHW1HnXPw+qM5mhIuDnIEfzG3uNQ6Ip2w
-         qv9A==
-X-Forwarded-Encrypted: i=1; AKwUvBwE/U6mDMUBGdZyn8vm9BxPsatZmH4hXeXxafiI67cb3af/zm24GydvWUBg3GE+S+q5SA4KzSM+lrGX@vger.kernel.org
-X-Gm-Message-State: AFuF++kLEKh3Uuhc1G2OiaBwdoyFwhKpTv+A2vZM4T6AasguoDOB5F6a
-	Rk48vJ96qig2JGc5YCP0d8HuynDOtIxrIfWyPqH4FoZWeTzBPpnWsUmEo/RI57uIZXM=
-X-Gm-Gg: AYBFou0eXfzctefNxOrYrSbasDazH/Txg7U14O2wv9t2JY5VDG3QYgOAhv4VWsB+/Db
-	gDLaEbE83FE7Js9uzcB51ScstLzlYt45gRBbN3RyAynYGrKnc90OOnNlBpbQsSnz+aOt9wBGYKM
-	u+jJzBlDy3q/eOnIytbweDLBLeCuZ6rhH7CYNAPH+XtFDyQNOQvzwW70+xfaJe/1RE/g7XgHf2z
-	f7zEE84Vs0+C3dP4mh22GptcVfI96bZziVH1OGQmjSNpC0uJKTMTzXK98c8bElSNmOhBAFp9p0Y
-	LkW1PZmpr1mkIwHG6UQNEQmg26gRNyQ+WyAY6eHz/XY3NaVEhi2D2IrZcXbWkCgXP7lfLU3ROOa
-	6muGUJNa1+RqrhCNtuUYF1VA/srpUIGFV8oMLkCNOFIDo4TDrDMdTQsylYGUuVwFcCSazHoPhbt
-	yasVG3wxqF73+kGoU11qdVdFyjB69OQKuaotf3g3gKs4ZjrpxMrJ6Duwi1SgpZf4CVqeiUhxN4H
-	7BzeuWW4/sxZtnEpiE8b1emhiU3v/DXpGuORutAg/No2QguNcCRZwgM0ziACg==
-X-Received: by 2002:a05:600c:1907:b0:4a0:f8b:e871 with SMTP id 5b1f17b1804b1-4a010221dfdmr4502565e9.35.1790651461535;
-        Mon, 28 Sep 2026 20:11:01 -0700 (PDT)
-Received: from [127.0.1.1] ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfa66e5sm46706265e9.11.2026.09.28.20.11.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Sep 2026 20:11:01 -0700 (PDT)
-From: Alexey Klimov <alexey.klimov@linaro.org>
-Date: Tue, 29 Sep 2026 04:10:48 +0100
-Subject: [PATCH 2/2] arm64: dts: exynos850: Add operating points for CPUs
- and enable cpufreq
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="KWHK5zUM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MWadCIKOFR375vVOIw3rjtUmIyawdbTrX9QwjzOU5xXj3zN/35/TkwdKprkffVgLpZTPUZhmaWCex7nkxRPEhEvJ8bYlw2hQ/RNnh5BDMnWLN+w2fWs+y0qQDoQA/jhOcYrXfmX2JNOkQO2Y/n6Rz7w9PvbuEJh6jVRBp3iJSyhMcv5zN9KkGtSwOyRAvEFspNRynCSegYYOJEKrsvs8uXyjWqE8UxWnbV4B+yqDSlq5bX39typcYejuxjT++jYbUAweBdN+5wmU504I3BcnumDAeqHuRj4+TOAbVjFFhsu2rBtX8+YeNYyK4EKzQ9e2eQ6cxsj3UgS/BAvk8ZVBRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s1pepjUqPOnuMlLmBIL7Myo5pxgyQqnU266jBWnWJRY=;
+ b=Kh73bmqWCMueeWlU67gzwUh7pjaZE1xOvHApl4qQHdoXvwtlYVwNn9QZXiRayJUKwPpzK6vMqg9GtDEiewwbbrtOlTdYZR86w38yUaZNhBbobAAPEc/ETmDFgNgSaatK/Ft1Ri1fv9oqAKW0RyFeafYwidvRgpzccKRz6rDEReDuLyVFrXSb1GAOZ5BxRYWW+w9ZrPQB8MZN2ds8ai8Yj3QDv+dPoFTKz/US/ezA8rSMkTnq+6riR0cCEBNxwNcATRUjWoG4vWh/SDlf8ra+vcRsmSFHpZiSKMxApxns9q1RMRo1krdZQVM3rxNN7ecutnMfSPE341QY/SteQcG2/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s1pepjUqPOnuMlLmBIL7Myo5pxgyQqnU266jBWnWJRY=;
+ b=KWHK5zUMb7/BO5meCtlkEHfgxtfvQRxKe+vVtm4BEkcCKPRlVFFunRjxgKLTKu3a84Ch0oUXcxN4NX3UMMo7yI08r17/5pCfLX8B3xKQOPQscY2aYI5+YLqsP0PtcDZDStgDiQhUag+ksnrpzSnDO+qcmWjtB/1N8W+BkxbQXEPDDahuOMkCFqcNnHIeQxELinfh39JiNGbNg9uVnRjvj+BZ2l+RGNkGW7kmyEN6M2FDM1nsYbCAApZlQi7VZJCO9cGzjz+gX1nirBD9ijGjH59uM1NuUK/8GZixH6eP6Zo4QJAL/DAa2hgYwetcY/sf81SkkurFZWlalXqo2sJZog==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from PUZPR03MB6888.apcprd03.prod.outlook.com (2603:1096:301:100::7)
+ by KL1PR03MB8516.apcprd03.prod.outlook.com (2603:1096:820:13c::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 29 Sep
+ 2026 03:11:20 +0000
+Received: from PUZPR03MB6888.apcprd03.prod.outlook.com
+ ([fe80::5fc1:b7a:831:340f]) by PUZPR03MB6888.apcprd03.prod.outlook.com
+ ([fe80::5fc1:b7a:831:340f%3]) with mapi id 15.21.0451.022; Tue, 29 Sep 2026
+ 03:11:19 +0000
+Message-ID: <c160559c-4636-401a-9d0e-c82601cc4eeb@amlogic.com>
+Date: Tue, 29 Sep 2026 11:11:16 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: i2c: add Amlogic A9 I2C controller
+Content-Language: en-US
+To: Conor Dooley <conor@kernel.org>
+Cc: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Xianwei Zhao
+ <xianwei.zhaol@amlogic.com>, Junyi Zhao <junyi.zhaol@amlogic.com>,
+ linux-i2c@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com>
+ <20260924-a9-i2c-v1-1-b8ad9b46f4a8@amlogic.com>
+ <20260924-primarily-harmonica-fe3455834a4d@spud>
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+In-Reply-To: <20260924-primarily-harmonica-fe3455834a4d@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TYCPR01CA0143.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b7::15) To PUZPR03MB6888.apcprd03.prod.outlook.com
+ (2603:1096:301:100::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-exynos850-acpm-node-cpufreq-v1-2-5a86c1d404b8@linaro.org>
-References: <20260929-exynos850-acpm-node-cpufreq-v1-0-5a86c1d404b8@linaro.org>
-In-Reply-To: <20260929-exynos850-acpm-node-cpufreq-v1-0-5a86c1d404b8@linaro.org>
-To: Sam Protsenko <semen.protsenko@linaro.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Thomas Turner <tturner@lineageos.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, linux-samsung-soc@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PUZPR03MB6888:EE_|KL1PR03MB8516:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67cbff35-7156-4ffb-d486-08df1dd7554e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|3023799007|56012099006|6133799003|10067099003|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	bIw4e9DU0BZh+xAvYvkfYuiFxAPDxcUG6YVqGZd0A99xQAa0waDbGXu8qCZk42bGmnP4FFqcYfOSIV12bBv+kLkKUj48KTpwzvWcuRT1YqtxHfG6hKXkKPOCRSnUJpqEIzl0FYyZ4xV5+gqE+gZBKTt9iUVK+TaRanaTyEzXb7CRjXeMR5YfTRrZYc6VtH4MNM+rTdOvOBAJYlWhVamlLbYxiuqjA0qherwcq7MRyw4ChsQ9Nmxx3Mbs0mhlbLfINhZ+mmz+l8xexyVSQb0rKsAFEMZYJSX0N97haHuwuTHc+ukWycfxXa37XnofKrKqspdXZzgDHW6TpQ3Xy2MhDkOEtOIImPXzY/pRkyTHD0scMAu3T7LAsNPBXVwasrzfE/gIpS/kamtAoMdLtb8uX9aSunXufZfAddoFq/5dEfwsqjqS5T8CCSRtbuDbUbt9C35K/kZiV9krzvv7xmpqq6NwR2/wXN4VTPuDuO4tChM6/cJLUYZDku+oHstFl15wpIrIWcxYCa+Q8/x4Z3AqipXZ87igvF441OgLwBEkNYdix66EVK+999J5aJE7QcxWmDf+VQFWOT39rSHuaWItcfkP2lXWPZHq1U9CqI6Z0OY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PUZPR03MB6888.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(3023799007)(56012099006)(6133799003)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bGJDSkNCTHlaTVhsbXEyMUFPTzRkTGZYVzRPamd0TGd0QmJsemdqemxRaThG?=
+ =?utf-8?B?Qng3SEZPKzZuaG5LaDFrMGJMNXlTNGZxeHpSRklKNkJlVytpNDRKejVNUjlk?=
+ =?utf-8?B?dEFuL1BQd1VHVlZFNlJDaHZWWXlzU3NSR216NERpTVpLY0VvemZOWHRycWFM?=
+ =?utf-8?B?UGM5a1Q2VmEwNmw2aGZXT3JrMGY3eXFGK2hhSmgrN1NyVTZYeWV2UEZpR0ox?=
+ =?utf-8?B?Y1pWZDBoZ2VhT2s5VC9ZL2pPMjc5U3hkelBDWkVkSUNFaFlvSVpMbjh1Nkxu?=
+ =?utf-8?B?WlpuNEQrZ2VOK05YeVIzQ29iWFhGbHNIRkVzUUk4MDRxYTdOWnJLUEF6NGRq?=
+ =?utf-8?B?T0RDNFBQYnViSmtCNjhGY3JXRTFyQVlyM1pCdUdvTjI1RUN0Zng3VVZPOEE3?=
+ =?utf-8?B?ZXorWVZ0WHBtaTNUcjRqbzlLVkxHTlRYaG9XaHlWZzZROXpvUGN6MTN5Qzg4?=
+ =?utf-8?B?NUpRWnRVQ0tYaGVVTXg1OVVZMG5KWXRaOHJEb1RDS0Vwa09sTEk0RE9XaUVr?=
+ =?utf-8?B?NG1ETitxM1NqVm5tV0dSQ0NWNDFleHIxKzZvK1VxZ29GeUF6Vjg5dFFIRjg5?=
+ =?utf-8?B?b2t4RVFQSDYwNDBCd21ueW1UVXhLb1Rhb2N6Y25PZENPREJuNngzQk1BVWFL?=
+ =?utf-8?B?bHZDeGlIdkU5TDBvTlRWcWxDZVg3SkZ5MUwvYWVlR0pleFlaUkhFUUEvWFEw?=
+ =?utf-8?B?RElSY00vZkZ1U0JST0tWM3h0THhES1FlQjM2UzBhVWRGbmJQQmY5bDEwODd1?=
+ =?utf-8?B?NkdIZ0RaRzdSOVJTUnYwVUh1NklKNzl5Q2pyZFpKZ1RmQVUzQUdkSGorWllk?=
+ =?utf-8?B?UlhkUEJLUWhXREFsTFQzMmJ6R2ZmVUVoWEVPbTZsaUMzNmo0K0xiK0R4VEVD?=
+ =?utf-8?B?cjNIYWFMaUQwOXRUUzdOUXZEQmwzN3d5elFoRVBYQThaNkcrdis2MzBhOVA2?=
+ =?utf-8?B?dzQwblJCY1NhblEzVjVuSURhMTRHcDMrODlIYTNmTElxNXg1M2dUOEZ5WUk4?=
+ =?utf-8?B?YXdBN3laTzRBN2tuSTUyV1l1WVRIUUNaYTUzazMwTXdPZ3JnKzh3aWpRL2FZ?=
+ =?utf-8?B?eTYzdHhiNyt4OU8rTzFVWGNLU2xMbkNoS1dEcHArcmpRcTRXT1V3aEtPYW1H?=
+ =?utf-8?B?VzVrS2ZDYzV6SjNhR200ZHJOZm02elFIemdJUVd6dUlMMDhKbFVTREtzNXpl?=
+ =?utf-8?B?SUYrcmdwa2Jjb2hiai9FR0RIVjN1SnN2ZWZrYjB3a0JxOFlseWdLZFVudWVI?=
+ =?utf-8?B?OVV0M2FJWmVrNHMwWkFuMzJWREhSQU5EK0lyblhtVFcwZ2ZQQVA4VXhOeGFD?=
+ =?utf-8?B?azBLTmVWU2g0YVN6SVZyRmZGaU91ekpOT09pZk9YRGNYMmtoS2M3MlZwbjJ4?=
+ =?utf-8?B?RGp3QkwyZjdLQ3FUSnZRTnFxRDhQL2FVSVRyNnF4UzRkNjRSMnpaSEs2SzRV?=
+ =?utf-8?B?aFV3T1lZdGIyYVVuUWhnU0FrY1Z5ZjJDdDBPd2hQSzdaQnJmNWJuWmZhaGQ4?=
+ =?utf-8?B?T0RKUCttYUFpSUpvNE40c2hIMmxDMHpFUHk4MVc5ZWtxR2JnVUhoZG4rRFJo?=
+ =?utf-8?B?ZzdzdmVHcjBEdE9nNDMzaDFGTUxTdXBoNlU0NVpWVSs0NFVIcHNPeTcyS2NW?=
+ =?utf-8?B?YXFLampCZTNBMlBVYlpyY0ZQZlMwUVJETEVDOWw0OTYyTDlZckFRb3FBdTQ4?=
+ =?utf-8?B?T1FpdEsydUorSndyamlvT2pRNlBjdVAwL0lOSnAxS2NyVDlaWUZFY0tnQzgy?=
+ =?utf-8?B?YmQ0Snp2SlRvZStzVHZ1dWJCUUNqdVlYVGRsa1JkQ0tlNWE1MXUyTGFvN1ZF?=
+ =?utf-8?B?VHBZZGd6WE5oM2I2cXBJVjd1cGVSV0VXT3dXU2U5c1VVS3lFYkJEOTRhbTFV?=
+ =?utf-8?B?cVJwTUJaUCs2V1FNUVBDZURUTWpZcGNOc3VFejFBb3JUNmZKdTZSRitpcmp1?=
+ =?utf-8?B?MkQ3bjgzV1FleWJPb3phYVMyS2g3aXNJZkNQV1JZWmtPY0ZhaEhLWEVGR21U?=
+ =?utf-8?B?cHU5NVNTaXV6MkNXTVhVek9HZWQ2WVo3cW1vckpLSUF6d29pT3VEQlBPWWNJ?=
+ =?utf-8?B?OGlwM09HNWRzU3dYdnpObk95ZHVsc3pPYkU3KzlrN0kyZHRZVlNFcTEzTzBH?=
+ =?utf-8?B?OE5BZEM5RGxBQUk5SkVGTlhGK3pxci9WRStoNjFTNjhDUnJUdWRCTHJ3UE5G?=
+ =?utf-8?B?R3BueXZxL09hdFBKNVNoc0k0bXZjNnVSNlh6NUprdnZhd0ZDOWpLWlhuVVN6?=
+ =?utf-8?B?RHdlWkllejFLNmJnRnZPMmhQZVZvTEdDOGw0OEUvaVYvK0k2WDlZeXBrRFo3?=
+ =?utf-8?B?MmFLU3I3eVF3YUsvL1N0NTkzRVd2ZXd0VTJ5OEVtbzUwTUt6VjE5UT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67cbff35-7156-4ffb-d486-08df1dd7554e
+X-MS-Exchange-CrossTenant-AuthSource: PUZPR03MB6888.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2026 03:11:19.8062
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DhyNfFpzsSrfQ1Dp2oOz+Or1o7K7gCAoBm7kOfTlyC8M9Ew3c0Ih6Pcv2uh61xa233vJxF+h9S2a3hLnJ2l45WLyjZl+bfvGPiWWDxyWjFg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB8516
 
-Exynos850 has two clusters with four Cortex-A55 cores each. The OPPs are
-identical for both clusters.
-Add OPPs for both clusters and replace cpu clocks with ACPM
-EXYNOS850_CLK_ACPM_DVFS_CPUCL{0,1} clocks.
+Hi Conor,
+    Thanks for your review.
 
-The maximum nominal frequency should be 2.002 Ghz but at this point the
-following OPP is not added here:
+On 2026/9/25 01:01, Conor Dooley wrote:
+> Subject:
+> Re: [PATCH 1/3] dt-bindings: i2c: add Amlogic A9 I2C controller
+> From:
+> Conor Dooley <conor@kernel.org>
+> Date:
+> 2026/9/25 01:01
+> 
+> To:
+> xianwei.zhao@amlogic.com
+> CC:
+> Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
+> Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+> Conor Dooley <conor+dt@kernel.org>, Xianwei Zhao 
+> <xianwei.zhaol@amlogic.com>, Junyi Zhao <junyi.zhaol@amlogic.com>, 
+> linux-i2c@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+> devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+> 
+> 
+> On Thu, Sep 24, 2026 at 08:39:34AM +0000, Xianwei Zhao via B4 Relay wrote:
+>> From: Xianwei Zhao<xianwei.zhao@amlogic.com>
+>>
+>> Add a Device Tree binding for the I2C controller found on the
+>> Amlogic A9 SoC.
+>>
+>> Signed-off-by: Xianwei Zhao<xianwei.zhao@amlogic.com>
+> Since this is not in the existing meson file, does that mean that
+> there's a substantial change in the IP design, other than the addition
+> of dma support?
+> 
 
-	opp-2002000000 {
-		opp-hz = /bits/ 64 <2002000000>;
-		opp-microvolt = <1050000>;
-		clock-latency-ns = <500000>;
-	};
+Yes. This is a new I2C controller that is different from the existing one.
 
-due to stability issues. Testing on a fully loaded system with CPU-bound
-tasks triggers data aborts and illegal instruction errors at 2.002 GHz
-after 1-2 hours of such stress testing.
-Running the same workload overnight on a CPUs fixed at previous OPP didn't
-lead to any issues so opp-1846000000 is currentlly the highest one as it is
-considered safe.
+>> ---
+>>   .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    | 61 ++++++++++++++++++++++
+>>   1 file changed, 61 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
+>> new file mode 100644
+>> index 000000000000..681241a52680
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/i2c/amlogic,a9-i2c.yaml
+>> @@ -0,0 +1,61 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id:http://devicetree.org/schemas/i2c/amlogic,a9-i2c.yaml#
+>> +$schema:http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Amlogic A9 I2C Controller
+>> +
+>> +maintainers:
+>> +  - Xianwei Zhao<xianwei.zhaol@amlogic.com>
+>> +  - Junyi Zhao<junyi.zhaol@amlogic.com>
+>> +
+>> +allOf:
+>> +  - $ref: /schemas/i2c/i2c-controller.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: amlogic,a9-i2c
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  interrupts:
+>> +    maxItems: 1
+>> +
+>> +  clocks:
+>> +    maxItems: 1
+>> +
+>> +  dmas:
+>> +    items:
+>> +      - description: DMA controller phandle and request line for RX
+>> +      - description: DMA controller phandle and request line for TX
+>> +
+>> +  dma-names:
+>> +    items:
+>> +      - const: rx
+>> +      - const: tx
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - interrupts
+>> +  - clocks
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    i2c@3a4400 {
+>> +        compatible = "amlogic,a9-i2c";
+>> +        reg = <0x3a4400 0x3c>;
+>> +        interrupts = <1 164 1>;
+>> +        clocks = <&clkc_periphs 11>;
+>> +        #address-cells = <1>;
+>> +        #size-cells = <0>;
+>> +
+>> +        eeprom@52 {
+>> +            compatible = "atmel,24c32";
+>> +            reg = <0x52>;
+>> +        };
+> Remove this from your example please.
 
-Higher OPPs can be re-evaluated once thermal support is implemented.
+Will remove eeprom node from examples.
 
-Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
----
- arch/arm64/boot/dts/exynos/exynos850.dtsi | 224 +++++++++++++++++++++++++++++-
- 1 file changed, 220 insertions(+), 4 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-index 91c6cee8f483..36501e5903f8 100644
---- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-@@ -100,8 +100,9 @@ cpu0: cpu@0 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0>;
- 			enable-method = "psci";
--			clocks = <&cmu_cpucl0 CLK_CLUSTER0_SCLK>;
--			clock-names = "cluster0_clk";
-+			clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL0>;
-+			clock-names = "cpucl0";
-+			operating-points-v2 = <&cpucl0_opp_table>;
- 		};
- 
- 		cpu1: cpu@1 {
-@@ -109,6 +110,8 @@ cpu1: cpu@1 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x1>;
- 			enable-method = "psci";
-+			clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL0>;
-+			operating-points-v2 = <&cpucl0_opp_table>;
- 		};
- 
- 		cpu2: cpu@2 {
-@@ -116,6 +119,8 @@ cpu2: cpu@2 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x2>;
- 			enable-method = "psci";
-+			clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL0>;
-+			operating-points-v2 = <&cpucl0_opp_table>;
- 		};
- 
- 		cpu3: cpu@3 {
-@@ -123,6 +128,8 @@ cpu3: cpu@3 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x3>;
- 			enable-method = "psci";
-+			clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL0>;
-+			operating-points-v2 = <&cpucl0_opp_table>;
- 		};
- 
- 		cpu4: cpu@100 {
-@@ -130,8 +137,9 @@ cpu4: cpu@100 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x100>;
- 			enable-method = "psci";
--			clocks = <&cmu_cpucl1 CLK_CLUSTER1_SCLK>;
--			clock-names = "cluster1_clk";
-+			clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL1>;
-+			clock-names = "cpucl1";
-+			operating-points-v2 = <&cpucl1_opp_table>;
- 		};
- 
- 		cpu5: cpu@101 {
-@@ -139,6 +147,8 @@ cpu5: cpu@101 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x101>;
- 			enable-method = "psci";
-+			clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL1>;
-+			operating-points-v2 = <&cpucl1_opp_table>;
- 		};
- 
- 		cpu6: cpu@102 {
-@@ -146,6 +156,8 @@ cpu6: cpu@102 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x102>;
- 			enable-method = "psci";
-+			clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL1>;
-+			operating-points-v2 = <&cpucl1_opp_table>;
- 		};
- 
- 		cpu7: cpu@103 {
-@@ -153,6 +165,210 @@ cpu7: cpu@103 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x103>;
- 			enable-method = "psci";
-+			clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL1>;
-+			operating-points-v2 = <&cpucl1_opp_table>;
-+		};
-+	};
-+
-+	cpucl0_opp_table: opp-table-0 {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-130000000 {
-+			opp-hz = /bits/ 64 <130000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-182000000 {
-+			opp-hz = /bits/ 64 <182000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-247000000 {
-+			opp-hz = /bits/ 64 <247000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-351000000 {
-+			opp-hz = /bits/ 64 <351000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-442000000 {
-+			opp-hz = /bits/ 64 <442000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-546000000 {
-+			opp-hz = /bits/ 64 <546000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-650000000 {
-+			opp-hz = /bits/ 64 <650000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-806000000 {
-+			opp-hz = /bits/ 64 <806000000>;
-+			opp-microvolt = <656250>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-949000000 {
-+			opp-hz = /bits/ 64 <949000000>;
-+			opp-microvolt = <681250>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1053000000 {
-+			opp-hz = /bits/ 64 <1053000000>;
-+			opp-microvolt = <706250>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1157000000 {
-+			opp-hz = /bits/ 64 <1157000000>;
-+			opp-microvolt = <737500>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1300000000 {
-+			opp-hz = /bits/ 64 <1300000000>;
-+			opp-microvolt = <781250>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1456000000 {
-+			opp-hz = /bits/ 64 <1456000000>;
-+			opp-microvolt = <825000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1586000000 {
-+			opp-hz = /bits/ 64 <1586000000>;
-+			opp-microvolt = <875000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1742000000 {
-+			opp-hz = /bits/ 64 <1742000000>;
-+			opp-microvolt = <937500>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1846000000 {
-+			opp-hz = /bits/ 64 <1846000000>;
-+			opp-microvolt = <981250>;
-+			clock-latency-ns = <500000>;
-+		};
-+	};
-+
-+	cpucl1_opp_table: opp-table-1 {
-+		compatible = "operating-points-v2";
-+		opp-shared;
-+
-+		opp-130000000 {
-+			opp-hz = /bits/ 64 <130000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-182000000 {
-+			opp-hz = /bits/ 64 <182000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-247000000 {
-+			opp-hz = /bits/ 64 <247000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-351000000 {
-+			opp-hz = /bits/ 64 <351000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-442000000 {
-+			opp-hz = /bits/ 64 <442000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-546000000 {
-+			opp-hz = /bits/ 64 <546000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-650000000 {
-+			opp-hz = /bits/ 64 <650000000>;
-+			opp-microvolt = <625000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-806000000 {
-+			opp-hz = /bits/ 64 <806000000>;
-+			opp-microvolt = <656250>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-949000000 {
-+			opp-hz = /bits/ 64 <949000000>;
-+			opp-microvolt = <681250>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1053000000 {
-+			opp-hz = /bits/ 64 <1053000000>;
-+			opp-microvolt = <706250>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1157000000 {
-+			opp-hz = /bits/ 64 <1157000000>;
-+			opp-microvolt = <737500>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1300000000 {
-+			opp-hz = /bits/ 64 <1300000000>;
-+			opp-microvolt = <781250>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1456000000 {
-+			opp-hz = /bits/ 64 <1456000000>;
-+			opp-microvolt = <825000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1586000000 {
-+			opp-hz = /bits/ 64 <1586000000>;
-+			opp-microvolt = <875000>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1742000000 {
-+			opp-hz = /bits/ 64 <1742000000>;
-+			opp-microvolt = <937500>;
-+			clock-latency-ns = <500000>;
-+		};
-+
-+		opp-1846000000 {
-+			opp-hz = /bits/ 64 <1846000000>;
-+			opp-microvolt = <981250>;
-+			clock-latency-ns = <500000>;
- 		};
- 	};
- 
-
--- 
-2.51.0
-
+> pw-bot: changes-requested
+> 
+> Thanks,
+> Conor.
+> 
+>> +    };
+>>
+>> -- 
+>> 2.52.0
+>>
+>>
