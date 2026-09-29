@@ -1,210 +1,134 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA934C2259;
-	Tue, 29 Sep 2026 09:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4EA4F054C
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674902; cv=none; b=V4AoWTfG4X9/DbeZ+oFUQbuQjtjtt5mtu5DDlHGu8XwpmzuOQ8dW33zds49QF5Tama7iQTSctmcZEIfJaZRsjc63XlvAKVawlEHfRoxLzK0oan0XDbqZjVHRpQZ1S9kBActG/FgBZyJUhUbDYozyifA4fsIcwW61vbUwBCOh/PM=
+	t=1790674916; cv=none; b=UeeLIiJLgQI4NkGeJjogL+7cG2mQxYuV+J5b3wcxU4GFkYIcYEsKnHmvVsWzZ9hPB/BCiWZ9R384a9wvogRzg9oIrcUtYxWXDhPydOoFCKV5zLmBym9/CqDU+iLzgjRn0Ts+OzdTOLLJwRaqR9p0sbSC7RcVePBt4FU1fkzWQ/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674902; c=relaxed/simple;
-	bh=vSyGGV86aqK0w4gGiHH6xzLPE2b/IbJZUAsCU8hRASw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jdMI6c090VeHhWbPZ37bD7S+PrMMP6lk0k99reNEN8u2o1axFLSjqvPSk1A3ose7193bxZZmiUpmNeJj/b1OchKOhu5+pBWzif892MhgLfQJ5ZmYzjtBGggpCTkfeEJY9qW2hplVPBZBS0HW9OK4CmlywIvzUkCOcmzXpQiCBmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=lMSD/JeC; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790674916; c=relaxed/simple;
+	bh=0P2nMJyk5QJYGA4+K5hLhmxCTWy627UxvCFBI5LIYM4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mzPEEIdKzoStBceZCR70ZQ+qlcv0ilvxM98Pyc+5e6zW36COAohmfeoDrcT1p75E8+aJS+DhQTmdyS/rmdhO7V+4va5cS+P7r2qBDV+YQOJYwujcOjDa/napdiQOoplHW2yPnH92qfonH/f4/bebroAFm2+WUpRO0BoS+3wCC+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T1Cm1QUh; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="lMSD/JeC"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 87438534023D;
-	Tue, 29 Sep 2026 11:41:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790674891;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wJGOOqzEs1mbvq1qJy6TGteYLvXk6pJNRTFzzZau6J0=;
-	b=lMSD/JeCoVbCM2uadFIcpeu8dTNvVFPKQUlH3dJQHsFKpEy7Cs7IYdFHC0rjmjVgVgNa3p
-	cAEldOxXlkqm47BfTonW8sVpOh8l2Zfx7oMJXYwvKGZ4HqShpJbWAm8W5AX+Qyo1U7q3lx
-	597o/nfOwGzqKpMFRzytCYR5ldbmPyo=
-Message-ID: <d1183441-ee4e-4700-90d9-996769eaaa11@ixit.cz>
-Date: Tue, 29 Sep 2026 11:41:31 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T1Cm1QUh"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so29563875e9.2
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 02:41:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790674913; x=1791279713; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UhT/d71flljW9jNeqH8EFFOweIQ3C2k43Y4Y6+ueZeE=;
+        b=T1Cm1QUhMvOHOsoE/25mc+yKMeANrs509H2KdkE6n/Cky9u/eZaknmHacdahljm2Tr
+         Trw5RJwMUQdwUqgNcZmb6K6aCwq87WLAF+rkiWbwt3I+joDhHzN8gWjTtnYYvjvkLcTA
+         DrVRuVA5fMFkvXB9uZakZtwdhPuuIMbyb2L/i1y++Rf1dcC1DvAqrN0lGOqTqtbERj5n
+         cjPWXBK4R+E02daCFta9ypznAEj23LtH19hvtDid+OnUa6XHtTn5nh5PvALPsKk6PiK7
+         sycmpfQ31QjGASQoHeELrsyYSA7sZiTuKaFddL3hx9+3c0CUIIxK2n3oMr5wBkglspQA
+         Ahng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790674913; x=1791279713;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UhT/d71flljW9jNeqH8EFFOweIQ3C2k43Y4Y6+ueZeE=;
+        b=sQ1pytlk2uh26XLFujgSBSFYGudXoRYMOKcbq1k1MZo75LckE71TJg5e1B2GdeHFWs
+         Dx7axD9qmltIOnlg5724Ntdh2wX24gFw0RImOAjipsHwh7Jp90hE2mnXIQwLEyH6Unkj
+         yMWibQ9bjF3cmQS2CDtQXz0irzFVepuiDCAotNOlADlChmhMoS1Fe0Oemd3iZJbaJgRl
+         A9zcgbdFfN9QYBRsNCMyd2fcqVG0PlfSPVNMwj6NtEVJMFi2MpQGmdDYpQ602/Fxl39Q
+         of5zR/Gpcsc1AeUgy6s5Q8UmkocVUgukKWTdKjSyY8lMEZW63CppqFHIAPYOMsnRVkrY
+         F3jw==
+X-Forwarded-Encrypted: i=1; AKwUvByfjMcCpfAlCyqunAEQ/DNTYnfWrmoUg1Mcz4gJ5q6hRLAu+sBbi9Cbf8ztWpSbpcmZMgLwk1GQvAkP@vger.kernel.org
+X-Gm-Message-State: AFuF++nMTRNmuWigZ2mab4H/oRc876nSNwWsvkyMRYN9HAORsTgLwGFf
+	PIAYb9GiASkHTZvsWQ2xyQVm5pJnn1eEG48uo6RZB04psM9Ke63FEskk
+X-Gm-Gg: AYBFou0nylkX6jeyrQiCZKbZDt8eoiadqc685c5bPnPJNg7I4yHZIVegqpY2NeLRmpp
+	VCSsDXjsn4xvFWX8+N2/hq5PdhpzCQhLQW7ynGcofhArsAaQg6yNGfYMnYljCSoJPkCFNUZcbqr
+	sKIJAjjmf6ZaJ9hglPEhzdO/iB3GxRSbBHtLhM9Q1qPgldQfKeGFMXKNBQJ30du7Bu4U298i4ZW
+	wZrDpp3nyM25dCRtvaqbLgDl/ams33kTOgbKr+I80eNX7SFo7uEYNyFttaWTlNLRWZNbo3aJ1Hc
+	D8mZBmD8tAAOvcMIuBsVR3d4fJSuTkb8qA0jVSjLL588KISZelFhd2wOXRzwrDrhqu7s/RkPoHy
+	/x8CGryVozgAykPLuJJZfiaNHnNfwwZ+rigWXCl2jsTSErKLOMSDyPfZqRk4/hzOgf7L9pxrANp
+	+b7FZ/bc2zMsx73eT5X8C/QOVxjqLaEFt0zMKUwzHAl0It5fvqYx1/rL8oGEQC14Pq81Z1t1khk
+	2gNPHJ5pC8PtBfP4wVxNBaGqhW0NdxUF4/w7i6l/rbOoAJaBYQEgGFz0b4Rj05QnBrxp7VDvVGL
+	Z0hGzDL+9aCTJAjR1hZvWgfh2+37
+X-Received: by 2002:a05:600d:8652:10b0:49f:feca:b3bf with SMTP id 5b1f17b1804b1-49ffecab799mr95152725e9.8.1790674912690;
+        Tue, 29 Sep 2026 02:41:52 -0700 (PDT)
+Received: from Lord-Beerus.station ([31.27.155.43])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfe16a2sm64229765e9.4.2026.09.29.02.41.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 02:41:52 -0700 (PDT)
+Date: Tue, 29 Sep 2026 11:41:49 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Joseph Guo <qijian.guo@nxp.com>, Josua Mayer <josua@solid-run.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Maud Spierings <maudspierings@gocontroll.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
+Subject: Re: [PATCH v3 01/12] dt-bindings: arm: fsl: Document Variscite
+ i.MX6UL boards
+Message-ID: <aruH3VNnY8rUYJIK@Lord-Beerus.station>
+References: <cover.1790512621.git.stefano.r@variscite.com>
+ <a4e262cfb08153c23c80cd3098a684816993f1e9.1790512621.git.stefano.r@variscite.com>
+ <20260929-logical-fanatic-quail-2ff20b@quoll>
+ <art_faJ7Zx5CaWfW@Lord-Beerus.station>
+ <c97be589-45f4-422d-a4c3-e5b0a61f5b22@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/11] drm/panel: s6e3ha8: Correct the polarity logic
- within
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz>
- <20260924-crosshatch-panel-v2-6-08d5c7bf72fc@ixit.cz>
- <20260929-dramatic-ocelot-of-support-2aa377@quoll>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260929-dramatic-ocelot-of-support-2aa377@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c97be589-45f4-422d-a4c3-e5b0a61f5b22@kernel.org>
 
-On 29/09/2026 09:45, Krzysztof Kozlowski wrote:
-> On Thu, Sep 24, 2026 at 04:01:34PM +0200, David Heidelberg wrote:
->> The reset was introduced with wrong polarity. Correct for the future
->> compatibles and keep current with reverted logic.
->>
->> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
->> gpiod_toggle_active_low() on the deprecated compatible.
->>
->> Assisted-by: LLM
->> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 23 +++++++++++++++++++----
->>   1 file changed, 19 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->> index 5e1e997b83b36..99290913de69a 100644
->> --- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
->> @@ -20,16 +20,17 @@
->>   #include "panel-samsung-dsi.h"
->>   
->>   struct s6e3ha8_desc {
->>   	const struct drm_panel_funcs *funcs;
->>   	const struct drm_display_mode *mode;
->>   	unsigned long mode_flags;
->>   	const struct regulator_bulk_data *supplies;
->>   	unsigned int num_supplies;
->> +	bool broken_reset_polarity;
->>   };
->>   
->>   struct s6e3ha8 {
->>   	struct drm_panel panel;
->>   	struct mipi_dsi_device *dsi;
->>   	const struct s6e3ha8_desc *desc;
->>   	struct drm_dsc_config dsc;
->>   	struct gpio_desc *reset_gpio;
->> @@ -62,22 +63,22 @@ static int s6e3ha8_unprepare(struct drm_panel *panel)
->>   {
->>   	struct s6e3ha8 *priv = to_s6e3ha8(panel);
->>   
->>   	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
->>   }
->>   
->>   static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
->>   {
->> -	gpiod_set_value_cansleep(priv->reset_gpio, 1);
->> -	usleep_range(5000, 6000);
->>   	gpiod_set_value_cansleep(priv->reset_gpio, 0);
->>   	usleep_range(5000, 6000);
->>   	gpiod_set_value_cansleep(priv->reset_gpio, 1);
->>   	usleep_range(5000, 6000);
->> +	gpiod_set_value_cansleep(priv->reset_gpio, 0);
+On Tue, Sep 29, 2026 at 11:32:45AM +0200, Krzysztof Kozlowski wrote:
+> On 29/09/2026 11:06, Stefano Radaelli wrote:
+> >> Also, look at other examples here, like Toradex. The actual variant
+> >> should be the last.
+> >>
+> > 
+> > Could you clarify what you mean by “the actual variant should be the last”?
+> > For a board with eMMC, SD card and WM8731 mounted on SOM, would you prefer
+> > variscite,var-som-imx6ul-emmc-sd-card-wm8731-concerto or
+> > variscite,var-som-imx6ul-concerto-emmc-sd-card-wm8731?
+> > I had used the former ordering following examples such as
+> > toradex,colibri-imx6ull-emmc-aster. (som - som variants - carrier)
 > 
-> This breaks all users and this usage of ABI was already released.
-
-See the gpiod_toggle_active_low() usage later in the patch which keep the logic 
-for the original compatible as intended.
-
-David
-
-...
-+	if (priv->desc->broken_reset_polarity)
-+		gpiod_toggle_active_low(priv->reset_gpio);
-+
-
-> 
-> NAK
-> 
->> +	usleep_range(5000, 6000);
->>   }
->>   
->>   static int s6e3ha8_amb577px01_wqhd_on(struct s6e3ha8 *priv)
->>   {
->>   	struct mipi_dsi_device *dsi = priv->dsi;
->>   	struct mipi_dsi_multi_context ctx = { .dsi = dsi };
->>   
->>   	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
->> @@ -203,17 +204,17 @@ static int s6e3ha8_amb577px01_wqhd_prepare(struct drm_panel *panel)
->>   	ret = regulator_bulk_enable(priv->desc->num_supplies, priv->supplies);
->>   	if (ret < 0)
->>   		return ret;
->>   	mipi_dsi_msleep(&ctx, 120);
->>   	s6e3ha8_amb577px01_wqhd_reset(priv);
->>   
->>   	ret = s6e3ha8_amb577px01_wqhd_on(priv);
->>   	if (ret < 0) {
->> -		gpiod_set_value_cansleep(priv->reset_gpio, 0);
->> +		gpiod_set_value_cansleep(priv->reset_gpio, 1);
-> 
-> No, you just changed it!
-
-> 
-> Implement correct and logical fixes, not half-baked fix which is
-> immediately wrong.
-> 
-> Best regards,
-> Krzysztof
+> Indeed, the carrier board is the last part. Just to be sure - in your
+> case the emmc and WiFi are on the board?
 > 
 
+Yes, eMMC, WiFi and the audio codec are configurable options on the SoM.
+The carrier boards are shared across our 32-bit and 64-bit SoM families.
+
+Thanks for clarifying,
+Best Regards,
+Stefano
