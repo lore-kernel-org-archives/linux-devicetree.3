@@ -1,93 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f21.google.com (mail-pz2-f21.google.com [74.125.228.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD011C5F1B
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 02:16:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CE239B94D
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 02:28:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790648174; cv=none; b=YN2OaOlZaSU9c6Z0tm+H871wiqmJQD1v74n2NMbXIOmRSbix9K6rDarj5kBwFR9Vpy/yVa8Al9UNHqBZtpDcBdI1c+9fN4f3UnYlZsjAsGTIMijnfojlG9d/syMqXifYe93vbXyU8AC/MUMZ83JHvBX1tvotqe2mO0b0l3kJjfs=
+	t=1790648941; cv=none; b=gWu5Q9jkXc/X0lZhxuaERmDg3oM72ijD4QosJsE0z+s/OYsY9JPw+/bIPtu/6kxr6ucQrM++qhk8aEFmFvQSdRoSjA0G33R5rabM/Zj7SOOt2J2SWTAiv5eztx/zN7YiFr3A1GtjHsx2cZksWwF0NQDVILVnHCvS24TUbb0Sgh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790648174; c=relaxed/simple;
-	bh=HGacQfhtXMtID5jIwejDZHJQm2A1yH08CfjD3/x6loc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FuKM4zQRuZjAikgix1A/hZ01pwhKGtGFxTMNg1xHPyazriQxKmUTsZIa2iLg3/pUioHex0VJO58TZ6SubRmZhQDz4SxsUu74fiiC4bnzktXyZ4XTqyLTS3WAv2ytKMJG78zbZM3G9qEJry7pCe9qhsfrlftLo9db5SFchqBXnLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H8i3f/v3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790648941; c=relaxed/simple;
+	bh=Xi0oR93X+EwbqsjKmkBEu1JbxzRdobz9nUK2TrbX1ZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RPI8uUxClBMvAbr7R37VAFCuvZscXk2+tuqhCkigPmSmOnoW+ENzRvHr31CZXoeDRhOfKrY1x2NB+sKnxwgr/EbKlRyAvUuohGAigqpoU/dPHM/Us88uTN4WaqcylizM6JU51GGSr3ux+tClkYPw8Np/ldiUB8bivd25+K6bk5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zgx7TL3X; arc=none smtp.client-ip=74.125.228.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H8i3f/v3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EB891F000FF;
-	Tue, 29 Sep 2026 02:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790648172;
-	bh=zwl3tTzOXIR9Std1UeTK2RA1IHFZWaJIg+6cKzNqwAA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H8i3f/v3qxfYK+6vAShGxs93raIuac5bE6cIUbsN1uzYGl93AWRBVP0fb+y0uuTGZ
-	 jVgHzPDHqxakogDsoDnE4iAtn3xbI/ODAseUwNvPnq6TMDYcLpiPawTdsrnaDjVLOO
-	 PKDpRS9FHVLOEpx46zKE5yIJFYNnGOerQUmPByz1AR5sYeB0q2AnmSWhq/7Tm5uCUO
-	 zLrV6vZcYLiZ8UiNze8sVVIX1dP2DO0ObKyxkXrbYsrHIthX6luKzqwF9aQkkvZ8ze
-	 vmyCUUXTpQ7NTLPJWT/+nI4W7ICjAEdAUkm3VDmtHvPZc4s9XxGF+zwHInzYeWmtlF
-	 2bPD7BmUE+Dzg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/3] phy: nuvoton: phy-ma35d1-usb2: extend to
- dual-port with OTG support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: vkoul@kernel.org, robh@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, conor+dt@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260929020854.1282339-4-a0987203069@gmail.com>
-References: <20260929020854.1282339-1-a0987203069@gmail.com>
- <20260929020854.1282339-4-a0987203069@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 02:16:12 +0000
-Message-Id: <20260929021612.7EB891F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zgx7TL3X"
+Received: by mail-pz2-f21.google.com with SMTP id 41be03b00d2f7-cc4cacd3409so2089057a12.2
+        for <devicetree@vger.kernel.org>; Mon, 28 Sep 2026 19:28:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790648939; x=1791253739; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N2Q7/Tr8R4pY/MWK1/a6+UXwdCPjDDbiUS19/ruPYIY=;
+        b=Zgx7TL3X5mHC0+3qW5EYJenWTTuMwjptOfE3a1ouQwlcZa4TlRvZ3/xUbexa8+/IyW
+         YOmxLMrpoi4Ggh7vXVF3SYaEvUIYzlartve97OG0yujfDhwkXKBzTYX7SloYfUWYzzqh
+         VNU+clbyeG78IxujH1xQ4XWY0GtCgPbkPZUusQfib73w0sJZeedCxG+NpRz/QCYqXlAI
+         1zHZ5LJ8BhNmjzofftzSXWx3g7PAghb6H7Q35GLSMiAMWED4Ohta8UBi3Pfd7/GSiOuA
+         czFXzRiJbpOrnr8j7TdQbjXINiw7pKUkLX+8Rp4dmqseZeSazV6ChXQT2gulbamo/68W
+         tePQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790648939; x=1791253739;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N2Q7/Tr8R4pY/MWK1/a6+UXwdCPjDDbiUS19/ruPYIY=;
+        b=DSNHAwm/yjuHNg/VlcUF7q9qbCrag936expC3OOjkUqhwoR4DhpMU2mR2yu+aePe8r
+         6OT37T+CnChMlZuebYVLPDilBNt2VBPuSPm3iDKJTidK9BKL1Qoj6XkGEO1B/xKM1z9v
+         RlmaPNV3lNQQX+q63hnbe8Ljpz0/jJC87fIFh3iScB6zbJCDRb/s62WGEKMV7wYdKuxX
+         4QjnFjqCg6Fjt/NKmcXmutOpI8RNqH+SfPYBD+8OikV+EUu1yOO0pjtnIbRMN5eoaTin
+         gYbaGpQIC/m9/RbEDl0Fh6u65AlmQ4GXhsK6DwW0YmgZETIovo2/sMKpDcav+oC+MGsf
+         n3rw==
+X-Forwarded-Encrypted: i=1; AKwUvByYaNIbEwCSLEIv+0jwp6tkUYmW7td0Z29SUGOz6uecjRuP8In+daH9cJn6vdkSrS8cN+jJJ1EE4qZS@vger.kernel.org
+X-Gm-Message-State: AFuF++kQUNp7FqpNmVIPHiZx+p/wx41VIDRLOdJ8yhPURNSeoJ41wack
+	9l4I5EomUE5l1FjdkGBpspPEkRVhNBISyNcBwVvmn2sWHwMiGoZdOyS7
+X-Gm-Gg: AYBFou2pxxPWr9K+BXs1xRIHcWmpw3M/G5op2BVH+Fr3xJkugajCM0ZNYI0j4r1wAIs
+	tFyf6RxDmMQA2v0QZ2B9tyYIzRrGAxxXbob/pRTSkun0Hxg708I0KxlZmBaE6ttrtoLun0JT7OY
+	7+RZRjsDlNCiwWJ2taMagUyYVtprGPRwyS1SxcCFVFf1tN87hGhwadIG2Out3Bf2ajAw/kJwScP
+	SShJD1pclPuURAteSthk+nGLqtoOlgSeh+/zDsGxkBKhxLXpzgNTCFNhs0parYmshHwyoJdvg6R
+	9ZsasQwVamCIn3vIuKAmlwHKHoVxSpzf9lnj5tc3bM1NaVDJjnl1Fqzmeo+X77UeZdRVn4rY6LO
+	nR2XBY6uCf1gSaqHlfoD4FxSUmO5VvRb5N4ALpfjK5SXxCXBQ5LIpiek4f7p9VP8imkRZ3HsR9b
+	hPTc4sNQfvuk/4Nhp7hAf6JEbHCspfyt3WmXBMpM7A+MTB9NfstAIaRafl+xqgLGZiZRjf0bZTa
+	hjDnlwdbBJMXWvgw1A9K51ycm5hUC6yZU5l3IotPa9btZHLV26v+v0IGZfga1wbSNXZqiUCOt3+
+	GtAdVr8Ut/ehhZ1423It6OXV7cae1cQK2/Q6qe2iT1RTkSmWxw==
+X-Received: by 2002:a05:6a20:c709:b0:3dd:ff93:a99 with SMTP id adf61e73a8af0-3de0e73d7b6mr14414466637.25.1790648939195;
+        Mon, 28 Sep 2026 19:28:59 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc79219db77sm4919997a12.14.2026.09.28.19.28.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Sep 2026 19:28:58 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] powerpc: dts: eiger: add placeholder reg to ndfc node
+Date: Mon, 28 Sep 2026 19:28:55 -0700
+Message-ID: <20260929022855.24484-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] phy: nuvoton: uninitialized stack variable usage in ma35_role_sw=
-_get()
---
+The ndfc node of eiger.dts has no reg property, U-Boot fills it in at
+runtime.  The new IBM NDFC binding makes it required, so dtbs_check
+now reports
 
-commit 801a123466a572aa070fd7a885bb27adf3f83110
-Author: Joey Lu <a0987203069@gmail.com>
+  ndfc@1,0 (ibm,ndfc): 'reg' is a required property
 
-phy: nuvoton: phy-ma35d1-usb2: extend to dual-port with OTG support
+Add a zeroed placeholder, as the nor_flash@0,0 node in the same file
+already does.
 
-This commit extends the Nuvoton MA35D1 USB 2.0 PHY driver to manage both
-PHY0 and PHY1, handling host and device modes. It introduces a single init
-callback instead of separate power_on/power_off callbacks and adds a USB
-role switch for PHY0. New device-tree properties for resistor calibration
-and over-current polarity are also supported.
+Tested with dt-validate on eiger.dtb.
 
-> diff --git a/drivers/phy/nuvoton/phy-ma35d1-usb2.c b/drivers/phy/nuvoton/=
-phy-ma35d1-usb2.c
-> index 9a459b700ed48..547c7d55d8ff4 100644
-> --- a/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-> +++ b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-[ ... ]
-> +static enum usb_role ma35_role_sw_get(struct usb_role_switch *sw)
-> +{
-> +	struct ma35_usb_phy *p =3D usb_role_switch_get_drvdata(sw);
-> +	u32 val;
-> +
-> +	regmap_read(p->sysreg, MA35_SYS_PWRONOTP, &val);
-> +
-> +	return (val & PWRONOTP_USBP0ID) ? USB_ROLE_HOST : USB_ROLE_DEVICE;
-> +}
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: fix default reg
+ arch/powerpc/boot/dts/eiger.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[Severity: Medium]
-Does this code use an uninitialized stack variable if regmap_read() fails?
+diff --git a/arch/powerpc/boot/dts/eiger.dts b/arch/powerpc/boot/dts/eiger.dts
+index dc4d74c523ec..33ce507e71d4 100644
+--- a/arch/powerpc/boot/dts/eiger.dts
++++ b/arch/powerpc/boot/dts/eiger.dts
+@@ -196,7 +196,7 @@ partition@3fa0000 {
+ 
+ 				ndfc@1,0 {
+ 					compatible = "ibm,ndfc";
+-					/* reg property is supplied by U-boot */
++					reg = <0x00000001 0x00000000 0x00000000>; /* Filled in by U-Boot */
+ 					ccr = <0x00003000>;
+ 					bank-settings = <0x80002222>;
+ 					#address-cells = <1>;
+-- 
+2.55.0
 
-If regmap_read() returns a negative error code, the out-parameter val will
-remain uninitialized. The subsequent check of val & PWRONOTP_USBP0ID would
-then evaluate uninitialized kernel stack memory.
-
-This could report an unreliable hardware state to the USB role framework and
-leak a bit of kernel stack memory to userspace via the sysfs interface.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929020854.1282=
-339-1-a0987203069@gmail.com?part=3D3
