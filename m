@@ -1,126 +1,308 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B422D46F495
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D2751C33E
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699029; cv=none; b=AMlkN3lgSFs1RHiP9hUJtb2tgeY5QlYz2OxQ02B8Sdvri06lMlpkG+WACARkbJEKjZvj7AHjjilzZeBA0iEorraDWQtiCRRgW6xzcG3pUHVRpKfSWm3ohi36/FW+Ua3MqEG5C19Znp1gm7RyF78kdkwGU55XraDnPXxfnxeWltw=
+	t=1790699238; cv=none; b=JYpJ9FZcrADpfiPAzyp+un2rD+I0qvTjdeNtIMcOnHLHwMLDH7N8qX9GufCIT3qla+cDqcEC5sckntHxYpuodEC6HXnAdcHwSeB9ULVw43gBHRnI955Z78AjDogduj3nI6Me5Ug42asaSBaF3G34V7QApcxwgTJ+e6e/mhVsqps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699029; c=relaxed/simple;
-	bh=evkrn0j75RReglnxUhvOP3feEazxnHrK2bSv7U5QRhQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=XVDs7FyEuCbNvGoImFEyPgtsMvCOi2SZpj6Gp/2sjFSYQQn/Y8cnYVJVq+F6stWBlNTypRTvSdJ8LyWXFvsLl+kpHw/zy+moLc4IkdqqcCzMmJzI2b0Jwxs5KzHxtOAW7lxFpzKvy18HLMY3jEOg9Zz6AZ41zM8FbTbrHpueyU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=J99PSgV7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=T+TEKgmS; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790699238; c=relaxed/simple;
+	bh=UwzeEm24s5OY4Y5mjrXh2r9gT8o/pmeXdUsHzDaA8A4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=munCXBKxvsJA0pSA2lneQVs61WcmHJWKrDYeWkjMMdIEFQNyrZ6AXfKcJF31AqNhP/xuYO92aAyqX+aMKFimWjR0hoZn/2fsBxHOKkpGcGC20eQgn3SK3FUQDIdsov5/vzKg1fRYgrNuPp36q/9om21VPUsmL7L9cIZmpST+jIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bzKQ1LX0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DB00amz9; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="J99PSgV7";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="T+TEKgmS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790699026;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=t2GK2VSdmDafmmBxGyGfx0WplyaoJRc/Tp0fAq4VgQg=;
-	b=J99PSgV7Q878wrKer7KDBkHHwPMSkZH331HefYF2Su/AUtT/K2OoLCg7dnrBHpBtKi0/6I
-	pkoWodM4/KOJ7G7Yefzr3CpLOGIqtMF8ByH8njbcJc19sHnBIHFvrdOlDrqMusTj2OBh3o
-	xCd+cnuTyJzrBRmDEp8IcHb+rMr/ul4=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-564-zIueR-dtOFOLEAidgL4DcA-1; Tue, 29 Sep 2026 12:23:45 -0400
-X-MC-Unique: zIueR-dtOFOLEAidgL4DcA-1
-X-Mimecast-MFC-AGG-ID: zIueR-dtOFOLEAidgL4DcA_1790699025
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-914447243f4so48620586d6.2
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:23:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bzKQ1LX0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DB00amz9"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TCqcpZ3936708
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:27:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=KrUCqsYTgbbcxI69a3MU7CHs
+	c2hnXpP31LHoTjuw12A=; b=bzKQ1LX0ioMfaRQtFaoYw7wNI1TygoxmCOdaQ0UN
+	2YjQsP+xr2FcYaTgM9auQI5uY+fAj4E/3jINOGwTIePoraoBYolDSQqIdL3ulMbL
+	z6F9rM3+bIeaGFigLjZ5E8k0xXi5ue7UXZhcyDENA41YeWo3I3s5Gs5xtR+pJ1Mm
+	p1ao/4TBFV4WSIfoAlYdxflUJiuHHVFNojspPP931hcLWtnZxYw/zqzT5Qq9M7RU
+	wO6RM7oK84bDOyccJaGgfNpHpa8lJ/VECG5BZkImGyxWQ+CB16tPV7FLQjGHUgOk
+	L9a/zczwG5ivEl6nxK4MgYQm1DNyltCTAhXhFB4Y2ru2jw==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0bn1hjmq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:27:16 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7a04805f8f1so3657035137.3
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:27:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790699025; x=1791303825; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t2GK2VSdmDafmmBxGyGfx0WplyaoJRc/Tp0fAq4VgQg=;
-        b=T+TEKgmSncgG98x7Z04d/W3CmDEEsYrt9XiPfQ04QAB4J5b9C8LLesAkuA1olyE9UH
-         Fo7z0hmh/9h7Kg/GWewx3u5sulBhbyRkn2zfF/ZdC8wrzyS4e2mB9WOHo2JY89lAfkIy
-         WOyKjjygY8ufPxTIBRClSnOajnJGPow4tS7RBxddfDqwrBS+pS+wiI7YFFkDobftKQ1T
-         9gaGkPVH4oZQIe2PvMESDn9ZQ+xoukM+Brzfs4K00KjsqvunO8PwKwAMExNCjCDIX2Pm
-         T5unVkOibDQwxgc21TG9HVP1+wIKsFZPRK5I3oMG1OvZJnTxh9ZLVxS9v39dTMUxNS79
-         4Acg==
+        d=oss.qualcomm.com; s=google; t=1790699235; x=1791304035; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KrUCqsYTgbbcxI69a3MU7CHsc2hnXpP31LHoTjuw12A=;
+        b=DB00amz9kRuYJvQIuB+RpXAa8YPH7cjWCo5RJvcplnovfThKmYE3PbsTZVc9TxScZw
+         VVQqIvQbnbz61D+s33Cc3hBE6/gUxo4A8BNSw8BxFpsXG3xC88hP9IV4Y6q0mIMpklbx
+         VlVeecsUjF3nO+tR5y8p4JOfcze95FdrUd5HkUW2tRpteFAS6UIL2KTXPlEi5jtNIOBa
+         eL2uXYXifDxfRDiNd2RfH5tqowf1I3Hc1cLJvnF/wijN3K1iV6YjaRW8rwi98rvOgEGK
+         +zmDFBIwBnCmGBy5bwY1PuuCo8XcBYeEiywuZNPV7WrdS0Hh332RuU34nHLNbk+d3f63
+         JA+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790699025; x=1791303825;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790699235; x=1791304035;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t2GK2VSdmDafmmBxGyGfx0WplyaoJRc/Tp0fAq4VgQg=;
-        b=V+ewnG6XkMl5bjDBOrUxK1gE/XpEY7dbwsBX9NxFoAEoeHW16pS52dmyArxSFECPfX
-         4Uxu43wcNZPwQg9tydOq7nslFMEbCLo/DtBUa+c+tqAemX/uAtQw5dQjp+bONKPf7Cys
-         aCxW6FVTknzgDsaNftrYHdzuBkWAOopI9hGIkZJ654uiB3FMC8OCUadu25M3vPVfRDBA
-         70SgRrLf+IFi+PvhUyhiy/1pqD0k7Il+A6IIGCRmsCBXO3AfeRzjZT5DkRHv4ru4CcGI
-         9UuwdIvRi09ljATlyCx9mU2w3V0vhqhLbrmDQaWkZklRfLHPntxONlZKa5zxK6PvWFBN
-         ll+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBweVcjpITUXd4cb8l1C/7NESvCwCs+704c77nTC34VU9UOGYUONelrP9NFkYuWO3Wl5RSrd1+rmHzH4@vger.kernel.org
-X-Gm-Message-State: AFuF++nsjhcVX/d4wnlyraVIzg0IHEcbnBmrwxApDmaVA3c4ESsf64uv
-	xJZEFLFAGBSsXCqWlzJ1ByUcCujYm69Qq/GTtQo5UH+hJY4dWvbatOwQZ0/uY4H22p9ruW2usqM
-	9fD6uRRfDCYoUNi54i525NtrMX4dFSsU2WnJ90WCB2YGBXc931S/QoYqpr9aoPR8=
-X-Gm-Gg: AYBFou1xUYzymNZiPZW21tNVgH+KFrmiP05/htvp0i3m+tMwugV/KAE8Rh+tLfnCjos
-	hKfyIaEoMOPun+4tGPNXnzR5TY5q6jKNmRZkAlGmcZoJRXVbBJhiqUs27HswZfYIoTJAjJMhC9L
-	GLk6tlDtLQe8+0yMKKOI8OrM9+fV0MPHOhrxyQ8woEd/vR48GhHKPX6F3i1pZyLLsOq7rbQ+Fel
-	LqJN1J+rFe5HG7KoLH7gDUDmlRDdkSZYKQiz45A6LxLJm8JxJYV5BQkl9Xrhr++SB0mron5hpME
-	H0zIlkXbbe31MhkE6RXq3FwkKjHU7YpQ3mDBaLYws0Pw/qFv5hoPmms5KJ/GBvSh9HtBoccuYSV
-	cX3vhI89m5Ug35Y5VJXSiw0v81Y20eFRftzbTNjwJ/p6XmHq9uD8=
-X-Received: by 2002:a05:6214:23ce:b0:917:8964:74c with SMTP id 6a1803df08f44-91789640eb4mr45316396d6.20.1790699024784;
-        Tue, 29 Sep 2026 09:23:44 -0700 (PDT)
-X-Received: by 2002:a05:6214:23ce:b0:917:8964:74c with SMTP id 6a1803df08f44-91789640eb4mr45315646d6.20.1790699024126;
-        Tue, 29 Sep 2026 09:23:44 -0700 (PDT)
-Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d3726b6sm13632146d6.39.2026.09.29.09.23.41
+        bh=KrUCqsYTgbbcxI69a3MU7CHsc2hnXpP31LHoTjuw12A=;
+        b=NBgIeexhTdexXpyWm30PO5nzs7TMSBEnOQi+YtUtQlB/6jpgyKzT9XXeWJSP3LtoSr
+         ExPgNt+KAH3qTdiTjR7NzE2bZrK3i7/xrf+31tT2rS9y86eN8FXsQ1BpPb43KEXbfIv2
+         2/6FMoSWBOFEBhSnwaV6wGabDghTKZx4P/2DUfSfnP1fPJIpL680X/pBgk6IK4JS0Tqs
+         ats9pVRhUf+X7DqUOsSn+ffAwzkOv1y/u+mHZ0l5uVCVTCJOMiTcwkkJJBRIYU6U5tGf
+         XDtLb9JLfqQPXDpCnL94CBCNN8sZdYRYcqVjY/ePFKu5oQuvI97aJN8TZ51GhAJclBaY
+         HWTA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOdmWVK3GX5pt8c7Glp0vLkhE2TTFRnI/ShG8mLmDKEasU3asKRSooDom0njP7uqblBXNH3h15rOC9@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKZuQR6lyPA4/RySF7MPkciK6LxfaVzE2y4PUayp9TvkH1u/bZ
+	nQJixJ+CVjUBhxncyFll5G+2GqC/d6mthMln6TNB0o/BUcgfJVTKzEaGyyiw5LDPwKwrnXGFnkV
+	ANW39iol6zXJwjb8uWGZhQABZ8GTo9ypuFz+mLqiCQxWD60wlHyW5+hZrxI16uNUd
+X-Gm-Gg: AYBFou0IMbrPnrQZ5QLGqCZdgximbdfmZTE0XHVJrtGwiv7xWcv8n+Ps2zHoZmeHa5G
+	Q0NJBrKVb08vKjyV0dOea+jq8In7QRzqoXfsuxBX3PmjYkR+0P7Jm5ipISQLDFje15uUIgcwHgj
+	xE9sRgYFc5lArtKWxaJdcWq7aRvaULQ1eTIpwhrN7EIet150peuB10g++yWje/AFixSM+h9k0Hl
+	w4nZC5ca/9n6WMeqQujC+Iopss2oJMS61rShiseu9WBNxHbdfmJ4QCIw9+yZEM7JjXk9gYtIdz4
+	KFhXH6xU4S3t9cJUVai+YU5gwKYJmyHyknfGpTejzbNnX8Sy/10KRfQFUo9/WrSrRKBIAYuHHCZ
+	8myXckOaqdWj8gQAeigFRNolCPYq+xthOmHJV8nSXvMfj1kB0r2wI7EzwiW/w+ANIES5EAEYL0L
+	w0s77MddLLaySh
+X-Received: by 2002:a05:6102:8508:10b0:7b4:2acd:fb9a with SMTP id ada2fe7eead31-7bc3d68f8d2mr11492137.25.1790699234788;
+        Tue, 29 Sep 2026 09:27:14 -0700 (PDT)
+X-Received: by 2002:a05:6102:8508:10b0:7b4:2acd:fb9a with SMTP id ada2fe7eead31-7bc3d68f8d2mr11463137.25.1790699234157;
+        Tue, 29 Sep 2026 09:27:14 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a77171003bsm115851fa.3.2026.09.29.09.27.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:23:42 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>, 
- Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Eduard Bostina <egbostina@gmail.com>
-Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com, 
- m-chawdhry@ti.com
-In-Reply-To: <20260719141236.3563471-1-egbostina@gmail.com>
-References: <20260719141236.3563471-1-egbostina@gmail.com>
-Subject: Re: [PATCH] dt-bindings: clock: Convert TI Palmas Clock to DT
- schema
-Message-Id: <179069900262.199845.14288580116711428199.b4-ty@b4>
-Date: Tue, 29 Sep 2026 12:23:22 -0400
+        Tue, 29 Sep 2026 09:27:12 -0700 (PDT)
+Date: Tue, 29 Sep 2026 19:27:11 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
+ support
+Message-ID: <2iiownhw67anqqcxgvfff3gyejjzwwfxtcy4kvst5j5yg7hiy2@bry4ol7alvp6>
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=318; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=oHn58vqKcd/4D+xRhJXn7ToD1HJyCAscD2yUqTDYu2E=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2P2M7sOXJ6yzTF0sX3N6tPmWDfeeUp4klMsGZvGdZ8
- 44XcaoFdZSyMIhxMciKKbIsyTUqiEhdZXvvjiYLzBxWJpAhDFycAjCRyn2MDHsWMjFZ+n+6dlJ8
- 2Uzmf1KFhbY7AtKbX785O+He+YqudRIM//0NIsQvZ7bUmJw6oys6+U2UWfXkrm8lF7u3lMyKOt5
- 8igEA
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA2NSBTYWx0ZWRfX8Xf2XZ1rp8zb
+ NC3xEzB/06RdeNETIQWNZPHcJ0ZN8+MsLDLgHAGVbTYwEwEOXaIIS5xaPx2f3XPGh5LAq+4pn2f
+ 5OGIRl1df7OdaffACmdyxjnToHb+v80=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA2NSBTYWx0ZWRfX4L5VS/nYybSo
+ BRaf3AlGUbKmJdpLoZDqBMsaI09oH5l6cGA6jAM/YmJ/tBu/i24rEGd+tz1zQlBuiQP+4ag/q5+
+ 6kiQxKEvAo5IIxfKEjnDYJDiqsfyAObYox8JXrEqaiWrfP62dter8QyZdsZBT8JqXWoYWyyWfFf
+ eqZWM8Fk6YeNV2fSAWZNTtgP9YizqUOnRw75q5TN2I4jql+ERckF1aZxxbIMOYSN30Dxl8hmoEs
+ 5bpy4IWQfVNcvdCuAxuwRgbzrJmWktuo6ko5q3fen0kywFFOi3oxPydkopvLF4m+6aK8L18lgg4
+ r5h+3gP8hSF5YSLUYBbs/kmW1WrEgItpr99918aNVZKG+ac5+RlGMBDwEXFJ8BpDcLnefmBA+lf
+ Igd1dDCRkqG4EQfT8M6Vv8LpIYJ3eFvjuvdl0lWdvkAK1+H4tG6hHIch25KJugw/9QQfOyfie/D
+ Nc6fBAUwnPPcMregqkg==
+X-Authority-Analysis: v=2.4 cv=JMiuIMKb c=1 sm=1 tr=0 ts=6abbe6e4 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=gEfo2CItAAAA:8
+ a=KKAkSRfTAAAA:8 a=5IMEwuT189ni8Q75ZTYA:9 a=CjuIK1q_8ugA:10
+ a=crWF4MFLhNY0qMRaF8an:22 a=sptkURWiP4Gy88Gu7hUp:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: eaNtEfWJNnJ8g3m6SfmG3RieO2XEdkzl
+X-Proofpoint-GUID: eaNtEfWJNnJ8g3m6SfmG3RieO2XEdkzl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
+ spamscore=0 malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609290065
 
+On Mon, Jul 27, 2026 at 04:08:44PM +0800, Jun Nie wrote:
+> Add support for the dual-panel system found in the virtual reality device.
+> This system consists of two physical 2160x2160 panels, each connected via
+> a MIPI DSI interface. The backlight is managed through DSI link.
+> 
+> Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> ---
+>  .../bindings/display/panel/synaptics,r63455.yaml   | 133 +++++++++++++++++++++
+>  1 file changed, 133 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml
+> new file mode 100644
+> index 0000000000000..c3bc8df981df7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/synaptics,r63455.yaml
+> @@ -0,0 +1,133 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/panel/synaptics,r63455.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Synaptics R63455 based dual 2160x2160 MIPI-DSI Panel
+> +
+> +maintainers:
+> +  - Jun Nie <jun.nie@linaro.org>
+> +
+> +description:
+> +  Synaptics R63455 is a Virtual Reality Display Driver and VR Bridge, used in
+> +  pair in Headset devices. The Virtual Reality Display complex is composed of
+> +  two strictly identical display panels, each driven by its own DSI interface
+> +  but forms a single virtual display for the human eye perception and thus
+> +  requires a strict synchronization of the two display panel content update.
+> +
+> +allOf:
+> +  - $ref: panel-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +        - sharp,ls026b3sa06
+> +        - boe,vs026c4m-n52-6000
+> +      - const: synaptics,r63455
 
-On Sun, 19 Jul 2026 14:12:36 +0000, Eduard Bostina wrote:
-> dt-bindings: clock: Convert TI Palmas Clock to DT schema
+Judging by the Synaptics presentation at MIPI devcon 2018, R63455 is a
+DDIC which supports only one panel. The VR bridge (in their case it was
+VXR7200) drives two separate R63455-based panels. As such, I'd assume,
+that this hardware description is not 100% correct.
 
-Applied, thanks!
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: DSI virtual channel
+> +
+> +  reset-gpios:
+> +    maxItems: 2
+> +    description: 2 reset pins for 2 physical panels
+> +
+> +  left-pos-supply:
+> +    description: Positive 5.7V supply for left panel
+> +
+> +  right-pos-supply:
+> +    description: Positive 5.7V supply for right panel
+> +
+> +  left-neg-supply:
+> +    description: Negative 5.7V supply for left panel
+> +
+> +  right-neg-supply:
+> +    description: Negative 5.7V supply for right panel
+> +
+> +  left-backlight-supply:
+> +    description: Backlight 21V supply for left panel
+> +
+> +  right-backlight-supply:
+> +    description: Backlight 21V supply for right panel
+> +
+> +  vdda-supply:
+> +    description: core 1.8V supply for panels
+> +
+> +  ports:
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: DSI input port for primary DSI link
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: DSI input port for secondary DSI link
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - reset-gpios
+> +  - left-pos-supply
+> +  - left-neg-supply
+> +  - right-pos-supply
+> +  - right-neg-supply
+> +  - left-backlight-supply
+> +  - right-backlight-supply
+> +  - vdda-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    dsi@ae94000 {
+> +        vdda-supply = <&vreg_l3i_1p2>;
+> +        status = "okay";
 
-[1/1] dt-bindings: clock: Convert TI Palmas Clock to DT schema
-      commit: e44caef8848790e3515c7c32bd3460e948613092
+There is no need for the status in DT examples.
 
-Best regards,
+> +
+> +        qcom,dual-dsi-mode;
+> +        qcom,master-dsi;
+> +
+> +        panel: panel@0 {
+> +            compatible = "sharp,ls026b3sa06", "synaptics,r63455";
+> +            reg = <0>;
+> +
+> +            reset-gpios = <&pm8550_gpios 3 GPIO_ACTIVE_HIGH>,
+> +                          <&pm8550_gpios 11 GPIO_ACTIVE_HIGH>;
+> +
+> +            left-pos-supply = <&vpos_left>;
+> +            left-neg-supply = <&vneg_left>;
+> +            right-pos-supply = <&vpos_right>;
+> +            right-neg-supply = <&vneg_right>;
+> +            left-backlight-supply = <&backlight_left>;
+> +            right-backlight-supply = <&backlight_right>;
+> +
+> +            vdda-supply = <&vreg_l12b_1p8>;
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +                port@0 {
+> +                    reg = <0>;
+> +                    panel0_in: endpoint {
+> +                        remote-endpoint = <&dsi0_out>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    panel1_in: endpoint {
+> +                        remote-endpoint = <&dsi1_out>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> 
+> -- 
+> 2.43.0
+> 
+
 -- 
-Brian Masney <bmasney@redhat.com>
-
+With best wishes
+Dmitry
