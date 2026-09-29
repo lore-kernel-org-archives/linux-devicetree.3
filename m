@@ -1,118 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FC04FDA71
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 12:58:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557AE51D519
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 12:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686689; cv=none; b=fNPph9aXsj1JBIGW+i54y3u+d6vQkpoJtP7Wi0HpxgDWor8w2zEZ94/2Xd9RVmvvgj/vskfXsalEpmzCMzgPiqN5/yDrDeSoRQaOIk+Ie5HKmGIw9C3M4FdOK6t7aApRDDZ7r6OQki/86k6zl8vXexSicOB3hiYbqxpFeBw6lFw=
+	t=1790686716; cv=none; b=ZbFTMTM/p5/yRviUpiwBI/yTjhLh9Dj0fYylp9WR3sw8WlkSDMW3ClLDT/AolhhGsKBifdhg2PPZJ/7cnyUHSThyQFu47YeoeQpYO8p0kk5PO+8pWxysi/HiQ0nG78oU6T/kkf1E+8IFarH1cX8r6kbQW9DKDSNYThcbNMvdTCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686689; c=relaxed/simple;
-	bh=4gc5/CjtPg6aIh9x14Ev4xGOd7ZDoWaoIT9UYsutvIs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jDFZNU/Z73sA+42FX6l7Mc1bVdawOBe/qtNSgYTP+3NEvr3aUbwtfUdcXkia0b7EiNI4ljZ12tNvI3S4dYU/frFEF3JkGpwpyS5BQJ4Srq7lPWva1f0doNxcGiqv2joH2TOeM4kBFmLGP4JyUgHA0stlzKlzynTAqI9dec7eVcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n+pFas//; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790686716; c=relaxed/simple;
+	bh=qxl+Atr5luw+W7OfXI5w9oFesDtEHRqgE0NcT9ttH2A=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=F9UvQXrE/Eqh5MjySjEC5zJolAhQUUETBWnZOg0115rZG5ALxYT8WHYQxPFb3vasvjSyM+jb2MAwgBCXS8tuUq6FPl1S7b+ZiUDyPfroLaDGyDnID2VWx6El1SUlx35VKQGNnh8sPtCa3oUDI5KkUDmIYTCsarRmBIf9AsW8Blc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=JukNy7j0; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n+pFas//"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35C131F000FF;
-	Tue, 29 Sep 2026 12:58:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790686687;
-	bh=YTrvRjxvjW2eu4/CjaH1M4a3CL+MjED0YWTB/wSxK5w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=n+pFas//MgM+PaWKh0xx/QzOHn0655+ozwnmvblFMg4pmFEwFFFTFKcnhYYQ8W41q
-	 K2Z1N1AUd0vGQgqT3SKmNlk+CDaP5vCLurgu5w/8W3SxFjAmkNTnD1XeeTF10PzQhN
-	 JSi0IIR96oJ6Y6znT3ASeZ8HweDYNv7CTg3hm8WVZ1/FhakbPAcpxCR2V95+8yRtol
-	 5EjX9OY68XDE+1dTj1aXXbOl9QPYpzahP1kGxifCKoIMg1uBE9kZ9wVMfK4uCnV42P
-	 hboSGf5zU21uAXzG8Dv4Ze4GeZpIYQO5Cfj/QEIjxLL0yPxCNlOpvqnBfQmgwNYaMq
-	 H24NlO7lgps4w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/8] iio: adc: rzt2h: Add optional reset support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260929124248.237032-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260929124248.237032-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 12:58:06 +0000
-Message-Id: <20260929125807.35C131F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="JukNy7j0"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so23739315e9.1
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 05:58:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790686712; x=1791291512; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pnfU324HArntK/V5m555W6h2CudfIeZPIQ4Ghrx/YkA=;
+        b=JukNy7j0iWQ9EtXJWGZBaci9IGUBhx8Mu2uh41ioYqrIWUpv5RedDBWpgj8k1fpwHn
+         i32dwVyU3kMzZz6KwM3qRBXyNhorgrQufCagcmfs1RuqBjlfCVlz1tnei9Li6Qh9qDdV
+         CGg1lKsLpHXDBaaobdW5csSs5pFZQpPozXALEErXi9nf0I1oB2eBKPdKFwZNjMO5NByn
+         NrZDzWyAYE0jM6OZZxfqt8kjTQIjI1lKm15of8Bln99ZH2ucYTYlAXrDoqxcDVFkG0Y6
+         v6McflblT/FDnDXqZYgJb4ecDi8lbEY2N7bRhRsBN6nwGtc+aCiGKc725qOBjV014VXn
+         OcHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790686712; x=1791291512;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pnfU324HArntK/V5m555W6h2CudfIeZPIQ4Ghrx/YkA=;
+        b=PBOSgvHBlugeBWIdoAZSeRlSfxkFtxy0JmJPOkZQd4EtK5tb15ezmzhUY6ae8g2vd8
+         6tLOUgyspcps267+FJQKYD+VGXv/9wCoqiSGdfCOXr7GMqQKSCmq69JfO9UpJfUTQU6V
+         UyRhEb/oYkTmzv0kZSWvzmAYvqEQNEnc6OkJL5zdwtF4FSDqFv6N+3VW6FIZjen8Rz3E
+         l+JL9NPV5gspRfm+50RIWrwf/bIfssDBxxqa542Rw1/WpnoffpdyQpLaNcdBt4t4Gpql
+         3XfIrZxynWkI6BNe3DmFhFQWAw1JMWhGYbWfNy8ciIF6+uJJxoaO+jpDV0uHa2soFnI7
+         XHgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZbGglP+VnPBBctUH/DgaAYbxnnftVk933y2HrKus+JLHNExUIee5amWz9QPiybvkyzBVD3Ih4+Xrm@vger.kernel.org
+X-Gm-Message-State: AFuF++mmm0zFfK7heHI288V0wNKuz2lHz/WBTYk1DKFNk0SzN+r3NOZf
+	A3thm2Q3I9LO63iCbWPazXRRZezHSsTMc+gOTjHuPLw5LPKbIIWn9ZodQxq+m+SYkVY=
+X-Gm-Gg: AYBFou0StBXMs7De3C54exwJjFn93IMWBpwJtKR1sGjuGyt0yEGWDn/IyVymtPZ3CgJ
+	P2ZFz1C2J7Rdm719jLRbLZheUkElvE6Ze2J7i5gNmBZKvV/AOdkQMwWVI7kg01tgi+zV4yLGpmp
+	EvwI1N7zx0K6D2B6y0fmemkU6dXCz1t82J0g8euyE4j7zqx4PxZcgBaOiqueMzPdZSTeC+utqwM
+	b0dM1luX9QpuFUDBpHTitfvdiCV/+Zr0vpi4oVxi7+6AJOu84R30LVmZpox5kdyk2C4/RGbSgqQ
+	IlwrqFgT0Qy9NgWNenijsU8BIOQq/InZrWFBfohKfyVWQ19QY251Mo5rRU2fTZi0ZjEblK9Z8gc
+	27gpnBpDNpwmdE7gHPPSNGW6fAERjziMcIds3temd7J7C3ZzdpieF9Fll6wCyLPNalm0aAXbNxq
+	Q12JF9clNes9I/sIcii79YPwLsZSPakE/xSMQbugLE9f4GMC+tirmPOjrdypzbqzfmgywlL9M=
+X-Received: by 2002:a05:600c:1d19:b0:49f:e427:e88f with SMTP id 5b1f17b1804b1-49fe66f1486mr272629675e9.21.1790686712414;
+        Tue, 29 Sep 2026 05:58:32 -0700 (PDT)
+Received: from localhost ([195.94.147.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af50a65f4sm3682296f8f.35.2026.09.29.05.58.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 05:58:31 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	linux-pwm@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrea della Porta <andrea.porta@suse.com>,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stanimir Varbanov <svarbanov@suse.de>,
+	mbrugger@suse.com,
+	Sean Young <sean@mess.org>,
+	Julian Braha <julianbraha@gmail.com>,
+	"Gary Guo" <gary@garyguo.net>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: [PATCH v12 0/2] Add RP1 PWM controller support
+Date: Tue, 29 Sep 2026 15:02:10 +0200
+Message-ID: <cover.1790686331.git.andrea.porta@suse.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] iio: pm: shared reset_control deassert_count leak on driver unbind
---
+This patchset adds support for the PWM controller found on the
+Raspberry Pi RP1 southbridge. This is necessary to operate the
+cooling fan connected to one of the PWM channels.
 
-commit 2c9879cdb042266b9cb867be82cd949d29dd6f14
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+The tachometer pin for the fan speed is managed by the firmware 
+running on the RP1's M-core. It uses the PHASE2 register
+to report the RPM, which will be exported by this driver via
+a function. A subsequent patch will add the function to read the
+speed to this driver and a new device and driver to read the RPM
+and export this value via hwmon.
+ 
+Subsequent patches will also add the CPU thermal zone, which
+acts as a consumer of the PWM device.
 
-iio: adc: rzt2h: Add optional reset support
+Best regards,
+Andrea
 
-Prepare the driver for RZ/V2H(P), where the ADC has a module reset line
-that is not present on RZ/T2H. Asserts the optional reset when the ADC is
-runtime-suspended and deasserts it on runtime resume before calibration.
-Uses a shared reset control to support SoCs where the reset line is shared.
 
-> diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
-> index f1a830da6f9b7..4726f892da232 100644
-> --- a/drivers/iio/adc/rzt2h_adc.c
-> +++ b/drivers/iio/adc/rzt2h_adc.c
-[ ... ]
-> @@ -706,6 +708,10 @@ static int rzt2h_adc_probe(struct platform_device *p=
-dev)
-> =20
->  	platform_set_drvdata(pdev, adc);
-> =20
-> +	adc->rstc =3D devm_reset_control_get_optional_shared(dev, NULL);
-> +	if (IS_ERR(adc->rstc))
-> +		return PTR_ERR(adc->rstc);
-> +
->  	ret =3D rzt2h_adc_parse_properties(adc);
->  	if (ret)
->  		return ret;
-[ ... ]
-> @@ -767,10 +773,22 @@ static const struct of_device_id rzt2h_adc_match[] =
-=3D {
->  };
->  MODULE_DEVICE_TABLE(of, rzt2h_adc_match);
-> =20
-> +static int rzt2h_adc_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
-> +
-> +	return reset_control_assert(adc->rstc);
-> +}
+CHANGES in V12:
 
-[Severity: High]
-Does this driver leak the shared reset control's deassert count when unboun=
-d?
+- added a comment to better explain why we don't need to save and
+  restore config registers upon suspend/resume, hopefully Sashiko
+  will stop complaining about that.
+- the RMW access to teh global control register is not synchronized
+  via spinlock.
+- patch 3 from previous release:
+  "arm64: dts: broadcom: rpi-5: Add RP1 PWM node"
+  has been dropped from this patchset since it's already applied
+  to Florian's devicetre-arm64/next branch.
 
-If the driver is unbound (e.g., via sysfs or module unload) while the device
-is in the RPM_ACTIVE state, devm_pm_runtime_enable() merely calls
-pm_runtime_disable() which forcibly cancels pending autosuspends without
-invoking the runtime suspend callback.
+Link to V11:
+https://lore.kernel.org/all/cover.1790606188.git.andrea.porta@suse.com/
 
-This RPM_ACTIVE state is reliably reached if unbind happens while the IIO
-buffer is active (where IIO core triggers an asynchronous
-pm_runtime_put_autosuspend), or within 300ms (the autosuspend delay) after a
-single-channel read_raw operation.
 
-Since the driver lacks a .remove callback or custom devm action to
-synchronously suspend the device on teardown, this
-rzt2h_adc_pm_runtime_suspend() is completely bypassed and
-reset_control_assert() is missed.
+Naushir Patuck (2):
+  dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
+  pwm: rp1: Add RP1 PWM controller driver
 
-Will this cause a permanent denial of service for shared hardware resources,
-preventing the physical reset line from being asserted for other ADC instan=
-ces
-until a reboot?
+ .../bindings/pwm/raspberrypi,rp1-pwm.yaml     |  66 +++
+ drivers/pwm/Kconfig                           |   7 +
+ drivers/pwm/Makefile                          |   1 +
+ drivers/pwm/pwm-rp1.c                         | 428 ++++++++++++++++++
+ 4 files changed, 502 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+ create mode 100644 drivers/pwm/pwm-rp1.c
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929124248.2370=
-32-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
+-- 
+2.35.3
+
