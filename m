@@ -1,134 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3450635C69D;
-	Tue, 29 Sep 2026 06:50:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBA03C3C0E;
+	Tue, 29 Sep 2026 06:51:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790664623; cv=none; b=Oc5IgVaVrvWt9SY2c6klrvpD269rSh/rc1j++73mxZL9dB+6YjTbpLPsk1HlP5s6TgHD2iJfnHnZxj2GAcBmIwxGYEyculdJWghO1Gn6y1xVzFLeYBAb8S8eQLc2a5/+ns4Pcuv3IEf5Hm9ehoRJlq/keDwfF/BQ1lr9JURK8r4=
+	t=1790664669; cv=none; b=hqruFCVClamoYS9Pt+mxl0IpyneMvCNpR0G+n8jDGLJKbSG58p83qNkbIW51e3BY/ApFZd7vcRm3AKKKKsi2L1MBaL/nFQHblI80YAzg+B1uynk9p6emF0hnDVf7xtHMMnV2gXujpaYfIIw4yjs1lPLzUCiuYyEAJFYaJzy6+HU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790664623; c=relaxed/simple;
-	bh=icXQJlJ2gE2aKfbGJbgwrG3Kq+4XdfW1MP3OKZ1JDlg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N6yyskgTlVsudXdmbgihnl2mlyNh99ReRKg85jneMBJhetBuIFzu8zYkhfZG1C/JANGy5Z2oEN3ORVEZjFjgGtl+1uY2YzdGyOUlbY45gVJqnXbmkQHbPxDdRjBJcCgEQ4YZjoWng29deRKCxx9yqOEvePzpXs2uQqu+iPy8TxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVVqwSIW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790664669; c=relaxed/simple;
+	bh=vXpHRvu70Ka+FE2fOwV9HdPnPUEKtWkGB4XtB/8FEo4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bu5wEAnK8Ylj3L5hnYLCBqx208TfugSLgtVkf8ip1pmOc6ELEoFCzfST7iR6rNGx6GZswQLHHgoXzG8FPNoFXtNNXiwChO99rY6KHumdMIkoVumWqN/XT4c5NQOLzxOAUByjRXsJjD+xeR8jhrsTrySQ0ayRsv+U/i53ijO/iqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dK4Q0Msa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVVqwSIW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E2B11F000FF;
-	Tue, 29 Sep 2026 06:50:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dK4Q0Msa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97CAF1F000FF;
+	Tue, 29 Sep 2026 06:51:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790664622;
-	bh=3QNnYrmPWFJ3dHPbxUuYCkeu7U1ZSe+QYcoj8h3lGiA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HVVqwSIWMtVOJ0LtFWfhF6p7M6Y+WOAKiT4/cpSAqbIEkBXNP7tck/ohnsseOtgJC
-	 Raul5dacReRH1qcsup5lXIAaVcOgbwdXtqJCTLm0Gze3sFjrBpyfV84TDxnu0/cKtS
-	 o4ZyRp3k7E+MlHRLVZOf2yuV7t4PITN6GhOnzjUYyDfjTiIy0WCmQV9u0dJ3AndNW/
-	 Y5n8SZqCNBQkwFtZmxmKVetOcjWPPBRfoV0SvhwkmZhEuZr7TiE/uC6OUvmUL6QcZn
-	 tBkrUDDutmuDhvod43p02CemQ7X8rSgxmyn0WIxmhh1CgV2Ob5+No2+xvcak1M5AYA
-	 Wf/a/NIzvRZbA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 16/20] clk: berlin: add Synaptics SL261X SoC clocks and
- plls
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jisheng Zhang" <jszhang@kernel.org>
-Cc: conor+dt@kernel.org, linux-serial@vger.kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, Frank.Li@kernel.org, linux-i3c@lists.infradead.org, mfd@lists.linux.dev, robh@kernel.org, linux-clk@vger.kernel.org, lee@kernel.org
-In-Reply-To: <20260929061417.20733-17-jszhang@kernel.org>
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929061417.20733-17-jszhang@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 06:50:20 +0000
-Message-Id: <20260929065021.5E2B11F000FF@smtp.kernel.org>
+	s=k20260515; t=1790664667;
+	bh=uBQRORZwHEdmDKq1aBSs+AkkjqUUpybWWiuScQR7bwY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dK4Q0MsaxmSDmjcQs8sCFAxvTEUG7S3FXhDNZQf9GefTsogTih7JUqnXu0cAffPcu
+	 L5QqnLuqKXFA3SUTKWfP6rVpJiVmQHGS8Wh+GQU7hvQRL9i6YIPhcsa4HdEo4nRjik
+	 92bFeGw+JAuuKIOu1bXjBI7ErWOk45Eer0EihbZEyd083t1J9CwVWwhE6fe0C3rqCP
+	 AAd6KjeD9E52qva8SohIigEl+fAm1pLrNqDs2/6CIDuB9s4XAJY/pbFkwf8f4//S1f
+	 zjbpenCujxGbzauGLzjDQMuxAOsC0BMMXfZOgSImEIRkkxkgDxG6NkyCRPR03WNBd1
+	 5pWz092oV4oiQ==
+Date: Tue, 29 Sep 2026 08:51:02 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] i2c: qcom-target: Add driver for Qualcomm I2C
+ target controller
+Message-ID: <arsBbE0UXtGKQQqS@zenone.zhora.eu>
+References: <20260920-i2c-qcom-slave-v4-0-f7e1020f3bb4@oss.qualcomm.com>
+ <20260920-i2c-qcom-slave-v4-2-f7e1020f3bb4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920-i2c-qcom-slave-v4-2-f7e1020f3bb4@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] clk: berlin: missing .disable callbacks in sysmgr clock operatio=
-ns
-- [Low] kbuild: Linker error due to missing Kconfig dependency for SL261X_P=
-LL
---
+Hi Viken,
 
-commit 56d97606c2f6bbb88d4a36a5f8b06b807c05523d
-Author: Jisheng Zhang <jszhang@kernel.org>
+...
 
-clk: berlin: add Synaptics SL261X SoC clocks and plls
-
-Add support for clocks, plls in Synaptics SL261X SoCs.
-
-> diff --git a/drivers/clk/berlin/Kconfig b/drivers/clk/berlin/Kconfig
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/clk/berlin/Kconfig
-[ ... ]
-> +config SL261X_CLK
-> +	tristate "Synaptics SL261X Clock Driver"
-> +	depends on ARCH_BERLIN || COMPILE_TEST
-> +	select SL_COMMON_CLK
-> +	select SL_SYSMGR_CLK
-> +	default n
-
-[Severity: Low]
-Does this missing dependency lead to a linker error? The SL261X_CLK config
-fails to declare a dependency or select on SL261X_PLL, but the clock driver
-unconditionally calls sl261x_pll_register() defined in the PLL driver. If
-CONFIG_SL261X_CLK=3Dy but CONFIG_SL261X_PLL=3Dn or m, the build will fail w=
-ith an
-undefined reference.
-
-[ ... ]
-> diff --git a/drivers/clk/berlin/sl-sysmgr-clk.c b/drivers/clk/berlin/sl-s=
-ysmgr-clk.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/clk/berlin/sl-sysmgr-clk.c
-[ ... ]
-> +static const struct clk_ops sl_sysmgr_gateclk_ops =3D {
-> +	.enable		=3D sl_sysmgr_gateclk_enable,
-> +	.is_enabled	=3D sl_sysmgr_gateclk_is_enabled,
-> +};
-
-[Severity: Medium]
-Will this leave the gate clocks permanently enabled? The ops struct for gate
-clocks implements .enable to ungate the clock but omits the .disable callba=
-ck.
-When a consumer driver calls clk_disable_unprepare(), the common clock
-framework will silently skip the hardware operation, leaking power.
-
-[ ... ]
-> +static const struct clk_ops sl_sysmgr_clk_ops =3D {
-> +	.recalc_rate	=3D sl_sysmgr_clk_recalc_rate,
-> +	.enable		=3D sl_sysmgr_clk_enable,
-> +	.is_enabled	=3D sl_sysmgr_clk_is_enabled,
-> +};
-
-[Severity: Medium]
-Does this have the same issue with missing disable operations? The ops stru=
-ct
-for divider clocks implements .enable but also omits the .disable callback.
-
-[ ... ]
-> diff --git a/drivers/clk/berlin/sl261x-clks.c b/drivers/clk/berlin/sl261x=
--clks.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/clk/berlin/sl261x-clks.c
-[ ... ]
-> +static int sl261x_soc_clk_setup(struct platform_device *pdev)
+> +static void qcom_i2c_target_write_requested(struct qcom_i2c_target *target)
 > +{
-[ ... ]
-> +	/* sysplls */
-> +	ret =3D sl261x_pll_register(dev, base + SYSPLL0_OFFSET,
-> +				  clk_names[SYSPLL0_OUT], clk_names[SYSPLL0_OUTF]);
+> +	u8 val = 0;
+> +
+> +	if (!test_and_set_bit(WRITE_IN_PROGRESS, &target->status)) {
+> +		dev_dbg(target->dev, "Write phase started\n");
+> +		i2c_slave_event(target->slave, I2C_SLAVE_WRITE_REQUESTED, &val);
 
-[Severity: Low]
-This is the call to sl261x_pll_register() mentioned above that requires
-SL261X_PLL to be selected or depended on in Kconfig to avoid linker errors.
+It's the second time in two days that I'm reviewing this:
+slave_event can fail and when it fails we need to nack the next
+write requests (check slave-interface.rst).
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929061417.2073=
-3-1-jszhang@kernel.org?part=3D16
+> +	}
+> +}
+
+...
+
+> +static int qcom_i2c_target_reg_slave(struct i2c_client *slave)
+
+Please, use the inclusive name:
+
+master -> adapter
+slave  -> target
+
+> +{
+> +	struct qcom_i2c_target *target = i2c_get_adapdata(slave->adapter);
+> +
+> +	if (target->slave)
+> +		return -EBUSY;
+
+...
+
+> +static int qcom_i2c_target_icc_init(struct qcom_i2c_target *target)
+> +{
+> +	int ret;
+> +
+> +	target->icc_path = devm_of_icc_get(target->dev, NULL);
+> +	if (IS_ERR(target->icc_path))
+> +		return dev_err_probe(target->dev, PTR_ERR(target->icc_path),
+> +				     "failed to get ICC path\n");
+> +
+> +	/*
+> +	 * The controller only needs interconnect bandwidth while it is
+> +	 * powered. The vote is placed here and across resume with
+> +	 * icc_set_bw(), and dropped with icc_set_bw(path, 0, 0) on suspend
+> +	 * and remove, so the vote and unvote are always symmetric.
+> +	 */
+> +	ret = icc_set_bw(target->icc_path, APPS_PROC_TO_I2C_TARGET_VOTE,
+> +			 APPS_PROC_TO_I2C_TARGET_VOTE);
+
+TARGET_VOTE is in bytes per second, while icc_set_bw expects
+kilobytes per second.
+
+Thanks,
+Andi
+
+> +	if (ret)
+> +		return dev_err_probe(target->dev, ret, "icc_set_bw failed\n");
+> +
+> +	return 0;
+> +}
