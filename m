@@ -1,63 +1,65 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2221351DE02
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D07522EF6
 	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 12:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790685776; cv=none; b=Iz7u9kciPvQn3r3qyxtKHga5AYT1583jOdnjg82/pmZFEGL3hmliyI13W1hqsklnEkvhAApFGv4vJjmBerIK8IOKL+KXJyDfB0irgq84WN8diYDc/xf1MXQYunT/WvnU0C1jcOF3ZhIRbtPK5WJt0pWxs+j73XsKFqerlkNCMms=
+	t=1790685777; cv=none; b=azU4+F15xAJh0729EvCzGA5XluS1gLfz4CjuNWci6MbYRLIlEsqvhRQTWq6YvDSsdjOGU3OKBHKhIBTKXBL78se7vkqQhruXQbFsND5Pzzr7c79vQQN+4F0bA0Zt8aj+vr2XLM/RP7YVcx8PrDgyOCGRT8gnpat4+HkBTso15yM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790685776; c=relaxed/simple;
-	bh=mOxRtsH1JPL9owXn0qNOVeNblRDMKMjv/lQqgZ1o4Fg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OC1Osz/H1Ae/6mZJfd1+08kztj2VDEZw6EUFbjP7CKgwgJ/IqBesEmmdTz7HlIP66iJQ+uAHpvkm7JgZGSGJNE+00gG+GIIWotU2CPM3L15diaqYoGIdTVWRwovmVl01wsWLRd1ZhE4Zl2lm4wH+QMOed2O3RmrvP+Z2+dti6ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iXmuXhJm; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1790685777; c=relaxed/simple;
+	bh=6Sy6vgSYukgx1flhb82E53r8hjS6KeohuIzJbCR1Vj4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IiegvZvzuC/E2/CDZKX4s5Ib+qit+hOizBJXvGwauTLYta42FQEnglpUE8jR7pAQ/VF6owoMvTm+huexYS6HfunqIzmlpbvNtXYUyjRBTPKPD/efRU9xGR1DdKPu8ekJ1Rx7JhVlsG1zM5ir2v6WCd5R2R90Bp+7g/d6MMBy9gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RM7nQ0Ky; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iXmuXhJm"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49e73611928so5744585e9.1
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 05:42:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RM7nQ0Ky"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff6f0f87so18160355e9.3
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 05:42:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790685772; x=1791290572; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hrtHWB1jWF11iA4PyaL+aKgI4wfwu9cWtf1zbD3RIvY=;
-        b=iXmuXhJmsqKyFQ0XvUheRdbmdvjHox9lcZyyT73qwOydBajUaXgrJqvumfLIlMT7mJ
-         IEs5x/AhYwkAhsIeFmVSX0P4Wdso791EHKMG14P1HRzEbEMRVIy082O3NL94Sg4OhdAk
-         WzVyx9Aa/TJ1c5yEAbaZLCoyXs0YTKSZa5tO6Qom7pSJqBkb9VV3JshtNUXNhJxBD+Q4
-         ol4nBUrtAFBnjLWGAX2k0CBerSA4mE6LLB/poDIxcRMCFL0eU7EBjnlHqwhxh2R4+bmv
-         IgLpOXSNkM8I8Jm/oJgThudS8CD5rkv3KkMus2o6JdZP+BBxSL1ERB1Yl3KxPcwt+UzG
-         LYpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790685772; x=1791290572;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790685773; x=1791290573; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hrtHWB1jWF11iA4PyaL+aKgI4wfwu9cWtf1zbD3RIvY=;
-        b=OSL7hiCEjoVerXld1dfDD2SAaVv5NRJCT/uOhhsSbDweZcSUgqGl3eBbubpeOyFAhl
-         9zmPww3IZko1WfhhxnhPTHpzjIINBTxzT3rHN8d2szxcZQg+GWtA9WnxG33K3UXEP5xI
-         4Ij0oU7zNgmt14qH+ZGSosj3lM6Bdvv7DCJDqTnEHQ5VCyI4F0WTXInbDtZ7guYrJ/Gj
-         elUwN8A928O9mxG7eESAO4ib630Z4QI/lgovlFVI5Uwvt5OZZbxgibK0PetQtS1Ocgsm
-         a1w/4T+mdTA4CiICy0jBuyaAphzf9W+BBewXtuNHVGgQLUqN3jBeAcGnOjSCKnlFq9JD
-         eduw==
-X-Forwarded-Encrypted: i=1; AKwUvBw54rd6NVngRq5GiP3JNPPeKRKBndLBLC71teLZ7URRRKonUHG/PtdlRcVbBDdVHnX7+r6svCPC7hmg@vger.kernel.org
-X-Gm-Message-State: AFuF++kenE3QiiXU0+ndFIEYfgmNePmZl3i++Eis2Ekv/9Ldaq4Tj3WS
-	MA+FdBOq5albjbDG6UYZ7tIXmdRGPaLHS0ES+YUIWNw1VjEF+MUCtDrv
-X-Gm-Gg: AYBFou1IdVITxJr3r+SMIyf3r6H5cIGqkpbWttrKNdiYYUk2RoFJrQezbmQ64UcjmO6
-	4QYmPtgJTUCM3Ol/I7ecbQ86c6+LsoNa+EWYuGVXb7kEDTkChaGVodK2RMfdq7l81aFOvKxrRFP
-	WonmK2NaPaLQIXtKb6kA3+n+VNEFpeb6Hghb/1Msf2vbJ4KuaMWqalplT0yhGfymPK+Ogx8Vvse
-	ASXLSNuE5+a4vpQ6tROI26KDayE6fWx+wN1Z6dBj2T7Uw9lLbsfIXLuhULWQ6HT0q0liY2YNvL9
-	/JZpif+lxctnVAORshTSNlJ0hTlqcJzKD3auK9mRxs3o2GPfshmSmQUhAjHrTVtHDfr1yCXZTIH
-	ZpdFnLIDqzsM/JIhz9Q0YSspG64htv/0HjGDft78BIQ8MHZ3ENERDSh1JpyJy4iuBtSZPJoFNrj
-	DDplrnRisVsPw0CK0HqkaUGb7eCozJZ0FiF/f5L5fSkjlVWf+uw0D1xW0D97GBm3qWXP4WeB3hr
-	GJGeglxT6csNF/VhrM94ltRbnAuhGUqB2pSPwhOGrkB5P1HPQlEIDCd70X4Emc5GvlWRN8ANJ41
-	HZjcnlaEts/18+RtQg==
-X-Received: by 2002:a05:600d:6454:20b0:49f:fe89:efca with SMTP id 5b1f17b1804b1-4a00d7b6dcbmr33387045e9.19.1790685772306;
-        Tue, 29 Sep 2026 05:42:52 -0700 (PDT)
+        bh=4J1veNvmysC8QT8osypByF4KUi97wR8R1soWK43MPcE=;
+        b=RM7nQ0Kyd/I8SjIqCOnMNn+bgE2V+19fWDEl1TZSO87meezXkSFYLMXb6IWucAX/XB
+         y9mS6G2sjZ0oK/JJNsNr1httHAZjCRB4/nwvAmVlNI3frS0daLpMuCvf+dQgCDFCXtRk
+         9O3NBLdZ3xABQSRfehSFdc3rf/Ha5HJayHWSTDb8YqmrX1UDlxVqsgiiOKT66Ne8kkO2
+         oN4OfjAK0uuFGcFABnt55O77bKbZFGv7xjj8kpZvuxjAQZyXGVY4cOAYBDCrmAIjeZ+4
+         jgFnzrQTa4RyxhvGKL7Lppn5mYktO8hcy1AHX+IRMbG6cqC2VVWa/52LhrMUkUeKp38N
+         PGsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790685773; x=1791290573;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4J1veNvmysC8QT8osypByF4KUi97wR8R1soWK43MPcE=;
+        b=kMRodbQ6HHo4iqUVHHPvbWy3MDFLfu9l9lXUsbvYv618RpvZBWMgGat/sgigo5YZ9x
+         WOhCv8gm0NqeOb1OS2Al2OPcb6gJqXHFWh4ebrjbahF2B7bNlKeONc/OhNdWMsQs/EFO
+         fEuSGj5QFMzCBzB6I2Bg3M90t3FcKGj+qypF5O32hgsr1Gpa/FneclU2wJo03Zh4m+Nf
+         WaaOhHjMYCghdMAPZv9+EtAxnNUPBEAagY6waxYV9/OjBjjCcu+bT8eZkp6OTRF4kvrL
+         EbHQ9s5/fa0yMJnP8HGKJCghSRz6jzwmx5lH92NR5OOTXEPl7T8gBYoU+Q82OLfSwvTF
+         hURg==
+X-Forwarded-Encrypted: i=1; AKwUvByJKAmIbtiERKDrtab7RqwlH/Aktc194CSjn9Sxari/bnS38Bue+RiPGQr8BZatkYdLcbUWhZ6exOQM@vger.kernel.org
+X-Gm-Message-State: AFuF++nW/5qpQ2lJ9NTHtFuxakFwng3jPDLczFQrukSUQWceVZ94fwqp
+	ACgtocOIkGIPg1E1Z90BBnR2m2xOLxOitkTuhkvQ3WXWdALIXW7o9UqI
+X-Gm-Gg: AYBFou1yAaDwtuPdrojkssYn9onNBZFBhGLmFUiWt1XPYdzX2JZYqZQKZYoCkC9SiL7
+	xYuCOi4MoDrJF3PmEmAPPJwT3tbB0/RKM7QdS0VjromBIov8DgyqhT+21oU8n17CO7RhqQByqi7
+	sVFxmKOWRx2VmgUDx1k0SMrEq3L6aftYTXzmMuecyJx4cK5USv+Tq2cU1KOsw68LU2huqTnXd7a
+	6oYI9erioNi3u4TLlQeJYnm+u5Fw+hF7vMv0Yv3K89Fy75mv5gGlDgtY4Tc24QRsPcaacc9IJEU
+	rZ1oTrOp7hYUAWHZZOeRWJvzMKcgUHJG2j6AgZh67MIlQP/ehOIp1HlsXi2fEXNXbMevwDDk7vd
+	+tg0pk2qeHJsGgbcpaV7dIIQP7/6MQTzMoWeOpa5KORhcW5gqLfBMZmJhEZ4b5V6cQvXDKGSJ9X
+	kop2pp8NCWiGuNQcFkNN9tkAbb7qJ5OlTw2A2qJ1JsA/FHvz5TOx/FOEV/xNRoQ0RO4VWxyTTt7
+	QLlLCoIq3/BypgQwJYln2aPKb90kNpmY8u9W37i5ni3YMO0NUppjw9t0vncLPji2Vge1LPnv9GZ
+	NAkIOmomYKMnTPPM/w==
+X-Received: by 2002:a05:600c:19d1:b0:49c:d818:8764 with SMTP id 5b1f17b1804b1-49fe7b62c5bmr277276605e9.11.1790685773162;
+        Tue, 29 Sep 2026 05:42:53 -0700 (PDT)
 Received: from iku.example.org ([2a06:5906:61b:2d00:be4b:8730:c872:1736])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af502da06sm4436630f8f.11.2026.09.29.05.42.51
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af502da06sm4436630f8f.11.2026.09.29.05.42.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:42:51 -0700 (PDT)
+        Tue, 29 Sep 2026 05:42:52 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
@@ -79,10 +81,12 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 0/8] Add ADC support for RZ/V2H(P) and RZ/V2N SoCs
-Date: Tue, 29 Sep 2026 13:42:40 +0100
-Message-ID: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 1/8] dt-bindings: iio: adc: renesas,r9a09g077-adc: Add RZ/V2H(P) and RZ/V2N support
+Date: Tue, 29 Sep 2026 13:42:41 +0100
+Message-ID: <20260929124248.237032-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,32 +97,97 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi all,
+Extend the ADC binding for the RZ/V2H(P) and RZ/V2N SoCs to describe the
+ADC variant used by these SoCs and its differences from RZ/T2H.
 
-This patch series aims to add ADC support for the RZ/V2H(P) and RZ/V2N
-SoCs. The ADC IP on these SoCs is similar to the one found on the RZ/T2H
-SoC but varies slightly in terms of available channels and configuration
-options.
+The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
+20 ADCLK cycles, does not support calibration, and supports selectable
+12-bit and 8-bit conversion resolution.
 
-Cheers,
-Prabhakar
+Add RZ/V2N with RZ/V2H(P) as its fallback compatible, as the ADC IP is
+identical between the two SoCs.
 
-Lad Prabhakar (8):
-  dt-bindings: iio: adc: renesas,r9a09g077-adc: Add RZ/V2H(P) and RZ/V2N
-    support
-  iio: adc: rzt2h: Wait for the analog part to stop after a forced stop
-  iio: adc: rzt2h: Add chip-specific configuration
-  iio: adc: rzt2h: Add optional reset support
-  iio: adc: rzt2h: Prepare for SoCs without sample state registers
-  iio: adc: rzt2h: Prepare for SoCs with different ADC info
-  iio: adc: rzt2h: Use scan type for ADC scale
-  iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+ .../iio/adc/renesas,r9a09g077-adc.yaml        | 38 +++++++++++++++++--
+ 1 file changed, 34 insertions(+), 4 deletions(-)
 
- .../iio/adc/renesas,r9a09g077-adc.yaml        |  38 ++-
- drivers/iio/adc/Kconfig                       |   3 +-
- drivers/iio/adc/rzt2h_adc.c                   | 321 ++++++++++++++++--
- 3 files changed, 335 insertions(+), 27 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/iio/adc/renesas,r9a09g077-adc.yaml b/Documentation/devicetree/bindings/iio/adc/renesas,r9a09g077-adc.yaml
+index 5b496729022e..a0fed2f31370 100644
+--- a/Documentation/devicetree/bindings/iio/adc/renesas,r9a09g077-adc.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/renesas,r9a09g077-adc.yaml
+@@ -18,10 +18,14 @@ description: |
+ properties:
+   compatible:
+     oneOf:
++      - enum:
++          - renesas,r9a09g057-adc # RZ/V2H(P)
++          - renesas,r9a09g077-adc # RZ/T2H
+       - items:
+-          - const: renesas,r9a09g087-adc # RZ/N2H
+-          - const: renesas,r9a09g077-adc # RZ/T2H
++          - const: renesas,r9a09g056-adc # RZ/V2N
++          - const: renesas,r9a09g057-adc # RZ/V2H(P)
+       - items:
++          - const: renesas,r9a09g087-adc # RZ/N2H
+           - const: renesas,r9a09g077-adc # RZ/T2H
+ 
+   reg:
+@@ -55,19 +59,22 @@ properties:
+ 
+   dmas:
+     minItems: 1
+-    maxItems: 3
++    maxItems: 5
+     description:
+       Must contain a list of references to DMA RX specifiers.
+ 
+   dma-names:
+     minItems: 1
+-    maxItems: 3
++    maxItems: 5
+     items:
+       const: rx
+ 
+   power-domains:
+     maxItems: 1
+ 
++  resets:
++    maxItems: 1
++
+   '#address-cells':
+     const: 1
+ 
+@@ -101,6 +108,29 @@ required:
+   - clock-names
+   - power-domains
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: renesas,r9a09g057-adc
++    then:
++      required:
++        - resets
++      patternProperties:
++        "^channel@[8-f]$": false
++        "^channel@[0-7]$":
++          properties:
++            reg:
++              maximum: 7
++    else:
++      properties:
++        dmas:
++          maxItems: 3
++        dma-names:
++          maxItems: 3
++        resets: false
++
+ additionalProperties: false
+ 
+ examples:
 -- 
 2.55.0
 
