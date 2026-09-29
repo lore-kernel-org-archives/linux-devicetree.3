@@ -1,168 +1,88 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA653ADB9A
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 07:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E86C3AB5DA;
+	Tue, 29 Sep 2026 07:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790668568; cv=none; b=pYpNUC+oVwp15Mj02g7Ub5lz7TpQAuCzF3AU6gAjdm19wugjR7j+OjjzJ1XEnqyeIjo0FYeczlx8FXN8MFdrppFHgJPByC4ql+RMlVNr6RsuIkVCT1P+/a3CrXRYHdXdV9znr0XWAHoLQ+tPvYHJhGlMuu2SNmjiDzy7JiTKqz8=
+	t=1790668666; cv=none; b=kAou4B3qLbGeypww0r75zmy+uaCyciWHhYs4J6cvUsXQ7EjDcaPxKLRmWNZBQ4MsiPfjQqECmq7AkP59aC2VV3qZIOrPVSiiVxwSDd6bEOWZ02dFugTLQEYIg4X290OcYMhvbhDzIN5UGe3xHo39shUA28tWJAmQ2pxoN9PZgEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790668568; c=relaxed/simple;
-	bh=FZSe8HgfY7ih+9qZIOV1xDysbmaDeK5MObFJHVmEAsg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=pckSVkvoFwqVMaPSO2nqFyiThC6faHht3L2iA0gf/gVstU6K5Ntv1A+60xImOvf3EDfXrhO6/VXnVPMec1TgDdyslZndjuQlnLpBDLG8MS1ofozeBl5IIpxFKEejDzp4B5pM2N13pZUpZJjEOC2ufd0e6WATJyYmCiLkzjPTt2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=D9UycfZ9; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=BdMLjF0+; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790668666; c=relaxed/simple;
+	bh=QcPHyvyl0XUUm6Ls3Oq2BIfKzTujWlTq74iC2AjlEsg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F+hM9TYT4pPmlVhNURXggan5NIg7VQvWh8dDh6q+jWpvyiszj3hXABABWe43fdI4QqEOpq34R8kVwy4s+0giWNLTCTjpmS+ZJzV0KjZ7UthDOkKLb2CC7UxAWOVEOtdgH97Zj/ba/XFf8M5SdC3ZDwSGG4XuAwnvMuVEOMDN7hQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nbMFx7nE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="D9UycfZ9";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="BdMLjF0+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790668564;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RTJ7TuOM9LkPJunaWpeCcattfbluIgbJm2Adgvc46zA=;
-	b=D9UycfZ9zjm8RQcJbUJshjnm2LIeQk/LX4/WpMz3uhpmV/UtUgQDcTRODAAJbaxiM46UHr
-	a536yxBuKhXqUegFdbFxBxvImASc+TyLH/jy1JVlM8mZZImNcsDmrFjOqr14YHZE1k08jt
-	GUSlMCJfRfElQByJDs2FZbsdgh3pckI=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-329-DdRMFquOMiy3ig4URCFhog-1; Tue, 29 Sep 2026 03:55:57 -0400
-X-MC-Unique: DdRMFquOMiy3ig4URCFhog-1
-X-Mimecast-MFC-AGG-ID: DdRMFquOMiy3ig4URCFhog_1790668556
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48af4a0bd0fso140438f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 00:55:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790668556; x=1791273356; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RTJ7TuOM9LkPJunaWpeCcattfbluIgbJm2Adgvc46zA=;
-        b=BdMLjF0+XP8s5VZwKZnHKzrO54U6Bud+/djn9qzXcesiuUe+pYckf4Uhk70FU2owFf
-         qHsQUk8pGQWcBsfloRhy6EkSxUeZT4ZfznLDoNoKIqpvsvtPLDaMibLXH8c2gqFGY2Tg
-         dxab+R7XbSD49jUssW9UcOOCiuL2C/oTDJUdTl3GDL8KoCXpwmWiP5NyZaX0g+1u1krb
-         vYEDHg+XMU9RWV1vvvC40TPkVts6A8iNwkPkcslORWTuNV2VQJptzvu0EPpRl6639cOS
-         9a8oQqFLWGq5wemv/wpTN7vbONDItIm5Zf6ivPD5kfLdDxbjvqfK2lmfu9FrbHWrzQS9
-         9BkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790668556; x=1791273356;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RTJ7TuOM9LkPJunaWpeCcattfbluIgbJm2Adgvc46zA=;
-        b=jc6w5NTtvR2/ZnntCZfRAL1e9aZXIQj5fbRq9SSwjR4xWiLQg/vWWHnMl6dssFXBfT
-         +3HvzcHpSNSLgwe8uLRdYXIgs0pllLzzBrFpqXGT60BjUW/bmmF8sky5abJDZzkx1gkl
-         VZVDimaE+Jyy2lnx+7sncvUVQuwtTgjHbVmdXwhgDALis013m1i2XWbWrtB+DYbY2V1I
-         9mZX1GPikRuaXSWijx0Nzub8ao3ESnwE1OWnggGFRYyVI1qY2SK+T1bX3mzpRraL9ddO
-         RRe3hAw4jpi/3pHfQv5v/cBxHAixgDU4hsFPeOlvqopq5rA6VFhZB+O5TWxNO5rfU0nG
-         bNJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwz+x5feFm/7+J1LDBBhbMVy5/GXUOHJhU8ggBWcMXplcKrUFfa+bcXIAm7MaVjaxydRU3lUuq6vkS6@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwN/vaWyR8JV6hOSWsnZf56gWb+6ld78LPtnzrK5hLyBcd8at6
-	5zu9Te42WZ3+4PvqxhuACKCGIr/JPbUs2QuMM0bsNqn9Cz1517lKzGnlKbUpoHmkOPdUiq1XNic
-	sVfmmSmTSXV+/vErLVavaKGm0JbCzdP4HHv/1WQame9aAEnt+Q5Slck8n5e13oQ0=
-X-Gm-Gg: AYBFou2NwTMuKYZNaBPbMKuRghIyvsKTwJwwpm8yMiDi5WvhaMMdXZS6TQI4VUxNkBR
-	+3r5z0xG2DfdX6bYZFtu5snIUOC0VD9OLTa/RAzkYMJEXGvPru2Gw+Oemd/hBwQ5x8J+nm2hXIH
-	iM0OAxL5p99NuNcFhyOxG3g7q1OGybx6JS059b1nuKgBQj4+7cQFmw9dvjGLKyLp5TKuKzlMNu/
-	pGwdSUvk970z2TOFxWZwgAxR4edaoSUTtWzWct6Xn1OA05WKiCtid0qWMw7JVRz6I0pJvrbU+aR
-	nH0ZFqmRQ+NZM7DKBbaU22aKQG0IbsUoHM0WRt049CAcBsHUZlM/657DbTUJhKGBDNmj/bEvUS0
-	xUlasSphdar2RnJ4Bm8VQBg5zY5gMrnLGZRrSic+BE88TDeojzokAtTVBm/q4DKgM9Q==
-X-Received: by 2002:a05:6000:614:b0:487:22c6:a623 with SMTP id ffacd0b85a97d-4887166d7eemr27549818f8f.8.1790668555873;
-        Tue, 29 Sep 2026 00:55:55 -0700 (PDT)
-X-Received: by 2002:a05:6000:614:b0:487:22c6:a623 with SMTP id ffacd0b85a97d-4887166d7eemr27549769f8f.8.1790668555384;
-        Tue, 29 Sep 2026 00:55:55 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af4f88352sm2268962f8f.4.2026.09.29.00.55.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 00:55:54 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Maxime Ripard <mripard@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nick
- Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-In-Reply-To: <artpBMeM13Dd0lLy@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
- <arrAqg5n87INTHE6@beelink>
- <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org> <artpBMeM13Dd0lLy@houat>
-Date: Tue, 29 Sep 2026 09:55:53 +0200
-Message-ID: <xlv1wls4ebjq.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nbMFx7nE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91F321F000FF;
+	Tue, 29 Sep 2026 07:57:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790668665;
+	bh=SnGwR+r1QeQuK+Ch67nV604+73TG6+orIYTqiQSom5c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nbMFx7nEaHWt4A0cPwyJNtklYq6Ytw6ERbFlvhIJfufr3/YDSXrWbfYsLVUrY1h7X
+	 W1njtykkwtrg3ms57VMmsCe7weAjGoWhBZzVyx3SAzPdX5znrG6UWp3Edlm/8xy3oy
+	 xRpMomVDRidzg+Y9ZOXWvbUmF90muA7m8B7h4KCi5wxViR0gxZ5GjlbirFMVCmdUrW
+	 mlgwzJjPm19moCmEcSJ84eeVsrKKYVoV6qS/wO0ha5S1ui50/Cw9vP4/gkyWsOlu8s
+	 JgX3f0POAHbOb3fs6Sfvudga6RLVfhBjAJVDrYahbBhDGzjk1B0BcKLsKhX5CN1jM4
+	 zt2vl2cEqvbjQ==
+Date: Tue, 29 Sep 2026 09:57:40 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Jagadeesh Kona <quic_jkona@quicinc.com>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: clock: qcom,sm8450-videocc: Fix clock
+ inputs for Glymur
+Message-ID: <20260929-visionary-hospitable-beaver-e2c1a5@quoll>
+References: <20260924161152.1162301-1-shengchao.guo@oss.qualcomm.com>
+ <20260924161152.1162301-2-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260924161152.1162301-2-shengchao.guo@oss.qualcomm.com>
 
-Maxime Ripard <mripard@kernel.org> writes:
+On Fri, Sep 25, 2026 at 12:11:50AM +0800, Shawn Guo wrote:
+> The schema describes exactly two clock inputs for every compatible it
+> covers, a board XO and a video AHB clock from GCC. That is only true
+> for part of the drivers bound to these compatibles. videocc-glymur.c,
+> which handles qcom,glymur-videocc and qcom,nord-videocc, and
+> videocc-sm8750.c both declare their DT inputs as DT_BI_TCXO,
+> DT_BI_TCXO_AO and DT_SLEEP_CLK, and parent video_cc_sleep_clk_src on
+> DT_SLEEP_CLK.
 
-> On Mon, Sep 28, 2026 at 10:36:18PM +0200, Neil Armstrong wrote:
->> On 9/28/26 21:48, Benjamin Tissoires wrote:
->> > On Sep 28 2026, Neil Armstrong wrote:
->> > > On 9/28/26 19:24, Benjamin Tissoires wrote:
->> > > > On Sep 28 2026, Neil Armstrong wrote:
->> > > > > Hi,
->> > > > > 
->> > > > > On 9/28/26 18:22, Maxime Ripard wrote:
->> > > > > > Hi,
->> > > > > > 
->> > > > > > Panels in general, and MIPI-DSI panels in particular, are pretty
->> > > > > > difficult to support and require pretty much a panel driver for each
->> > > > > > panel produced. Most of them are pretty simple, and require an opaque
->> > > > > > initialization sequence that is usually poorly documented.
->> > > > > > 
->> > > > > > This creates a tension between OEMs and distros because OEMs will
->> > > > > > typically get a new panel to react to a sourcing issue during
->> > > > > > production, and thus need some swift turnaround between getting their
->> > > > > > new panel and it being operational in the OS. Distributions on the other
->> > > > > > hand can take years to ship a kernel with that new panel driver.
->> > > > > > 
->> > > > > > To solve this, I followed the example of HID-BPF and wrote a panel
->> > > > > > driver that will rely on BPF programs to perform the panel
->> > > > > > initialization. That way, we can ship the programs separately from the
->> > > > > > kernel, and with a different lifecycle. If this driver is accepted, the
->> > > > > > plan is to have a userspace component started by udev to identify and
->> > > > > > load the right BPF program for the panels found on the device.
->> > > > > 
->> > > > > This is kind of late for serious applications except if we manage to
->> > > > > solve the bootloader to Linux display engine transition.
->> > > > > 
+I don't understand what you are saying here. You are mixing drivers and
+compatibles.
 
-Besides what Maxime already mentioned (that most general purpose Linux distributions
-built the drivers as modules anyways), it doesn't have to be mutually exclusive.
+> 
+> Because the schema stops at two items, no device tree can supply the
+> third input, so video_cc_sleep_clk_src can never resolve its parent
+> and registers as an orphan clock. It also documents the second input
+> as an AHB clock, which no device tree using these two drivers passes,
+> and which those drivers would interpret as the always-on XO.
+> 
+> Describe three inputs for the Glymur, Nord and SM8750 compatibles,
+> keeping the existing two-input description for the rest. The sibling
+> qcom,glymur-evacc.yaml, whose driver has the same shape, already
+> documents a sleep clock this way.
+> 
+> Fixes: ed9ca8296147 ("dt-bindings: clock: qcom: Add video clock controller on Glymur SoC")
+> Fixes: b190eaea5780 ("dt-bindings: clock: qcom: Add SM8750 video clock controller")
 
-A simple panel could be supported using this BPF-based driver and then a panel driver
-added to the kernel, if is found that some applications need to have it built-in and
-earlier in the boot path.
+Are you sure that you are not reverting review like it happened this
+week in IPQ? You know, the trick with reverting maintainer's review I
+mentioned on DT IRC?
 
-I don't see why this would be any different than HDI-BPF or other BPF-based infra,
-such as sched_ext.
-
--- 
 Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+Krzysztof
 
