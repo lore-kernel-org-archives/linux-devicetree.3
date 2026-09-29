@@ -1,128 +1,179 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7714FD799
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:52:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF355372FF;
+	Tue, 29 Sep 2026 16:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790700780; cv=none; b=ctZeheYYzQNox1rexibtdACvV34RjTZD8ToXm1exS7JBM4gg6wclVXWVq527UjKT0TBoCpBhNt8k4mcIUsWchNdJphKDa/wpFoQvClwJnDwkKCIqs2P8/DSyvDj1X1BU9Za3S0rf11WlLiHJoZuhp8q01HV3MDDco9eNtHRIjEc=
+	t=1790701190; cv=none; b=Z3+F6t2pH7aTDs8UntIe12efOW2koUfC17w40ifY28KeJqroo1oVcLzZAu4zJONsTvl1Gg13S4+zGi9TktpyKpyfHKm0Y/cIPXBjHkjsKRJCrQYHD0cJumtFHcS/6zMnERa3K1ZBU3VoMs0BMSJPCuFp7uyl1CnmysBnzsk6OWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790700780; c=relaxed/simple;
-	bh=qaFCsp8c7CGfKFzZ18kTQk2ARCzvSbrZ20wb3yYF6SM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=kFO5NvPBBW2F33cCvvm+dLuqnqPKNDXjBkxKHKUBPJw0o03+dl88fqWFTL15ixMMOgJGyiexOgqcR7jDEjhBC07F/7a8T350+2qEcpwRhp98p8z1gd6N1CnEYYj7vPiTRjypUz06Ih9Abq0cZsAd9Y3uNinGBL7C62DTl6J0a8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WxbOTKwM; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=egRAHL+q; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790701190; c=relaxed/simple;
+	bh=J1+6xwDV8EuHmy0sQKPAFEPOWIsDzRc5ctVmlv0ovDI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PY3xcl8OXC6iQXcxc3OMGVHBiuxKthpZwV16BmrQkF6J0Os27h/XTgHXcJzex/tDS6LWYK2bYbZawcFK3qhFth+QE2tttiST/n8jJcXVE+8qePi/8QcuGY8QGgFqSH/OlFs74HKKqfD7vLoRxKDQABQ1ADvNvMz4VfbcN/QpMeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R3ujcfgR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WxbOTKwM";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="egRAHL+q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790700777;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6o1EgwQzbNDEuQMqlYhAahN+QI0brKkw8w3Pq8/8w4M=;
-	b=WxbOTKwM/EQZZc99U+Hod8OjWMBinDZxerZDATWzmpJ3+0DHlwDZ52pock8X5UM3QYwSm3
-	tbh0P2ngg8P4/z65MduGTwlirqRlCAoTSLvjfhnO4sWGAL7+1jSlCprTB++eBAN6sGrYfK
-	B5gCIZmqJF4mQ0rTWtS5rRSx1+nM7fs=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-413-5NytVzWEPRmhAZDVevGezQ-1; Tue, 29 Sep 2026 12:52:55 -0400
-X-MC-Unique: 5NytVzWEPRmhAZDVevGezQ-1
-X-Mimecast-MFC-AGG-ID: 5NytVzWEPRmhAZDVevGezQ_1790700775
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9175cbd3beaso41519796d6.0
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:52:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790700775; x=1791305575; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6o1EgwQzbNDEuQMqlYhAahN+QI0brKkw8w3Pq8/8w4M=;
-        b=egRAHL+qQ5CsChrxeHhQheTQlicf6Zg5ZZZ0h4csWN29n8Jl3FgT0q5I+5Q51oOimO
-         qCDCsJvFpt/iGoRiGOv31u+KmRrRxXVyamegl8jj3aD7X/hIf7hbjs7wI9gKaocBAd38
-         75bf1arsMHLrg9FEZkhg2PCidZVnb93XFAR8dxWuhTBfWaZEt25rhv8xo7ONYtqcNS67
-         AYn7sjQuMLbUaI8LYHvriFz866tzGfyjsX6Pk5T0e9BQhNi3EDxBJjh6gmUhgH9XgxQ7
-         nwcBAhoUo4n0rGN8BZ/AeP7WJyO16RauklOZMUtYpxa8hiU5vX8SI5BCohZ98/Bz7oxL
-         JuqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790700775; x=1791305575;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6o1EgwQzbNDEuQMqlYhAahN+QI0brKkw8w3Pq8/8w4M=;
-        b=WtSTe6zgPZQSL5ct7V8n5epjTl7ZPgPdwLcHaIqh0ex9iOKr8eBueJSkbfPjVMGyvo
-         UlVfBNCXOJKgfw2toNDughude6v3iu5AXVlQyL1dI1tjPtvfzopL0LPFcmuSxJm/TjTo
-         +6MONEwc79TmOxFaK4N628wW6XPpv/g4V3hQwd+ZzLHmOmKEN0BXxGPNAGty4wGUctYJ
-         X/MNFM5VUTxkS0yxfhfrsWPOGg2qSGQlxWTjR0o8dwETM+9RwtUlJRYX4mpI+Do+prQb
-         5AsHea6W/mU4cmbqkfzdqhn5+VGe5lGn4CtmnIT4ZlSoSCUOBECrjUfRLEukGrUYijw0
-         1Wew==
-X-Forwarded-Encrypted: i=1; AKwUvByQR6UjG9TtF0duMTQ96dlGsU9ieyHBkkeRdsMGUbRUoJW9Nj288HpdnEfLCkOB0HNH/pJbj2aBXfYb@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRBFvazyJGY3yQDJg1vTFGHoFqLJmIAGnwOSdS5V8NirPM9kgX
-	KnrbvDOpnj/5DB7AnDm9AVvN9IfXy9HcWq2h/QeZlKpzWD4y2KZo4yjrA7NauNG8yGncAQrHwle
-	sIULd2hlov/b1M5Dygki82CETHNqo6BbpkY1ohffmMRNJuQBYlgMyjDb2fiyjqDU=
-X-Gm-Gg: AYBFou2B5i902kFxrRNUAPuXSbj5JGdbmPNqqGqd1/VW9hay6SNvv5aeoL7BK3KDe6u
-	1HA/hMJyADlP8IIa/WcyYY2UT0ip8SuTX6Krb+xZ9c8IP/x5jOKae520/SHkSMXuQdRh0j5sag1
-	rMQhP2W0FNUhY/EJECu+TNi3C5vJ8L9nRfW5PaWHYwiaNJ4KsVJh6G+FsuMjLwW37ZdG89KMYga
-	FLTxLd3050pIWVyLtkJlRUAZXQPXiu+gKd8tj/LHoRTCbuP3HZb56ixAL+rS9J6QSUgjQAzrGVA
-	sVKdLvw9DuKNvULqIYTkCD0B0beuSPqe9vYO0466xZPfWmOhJ/5pGY05MToGdhEuejmvMzvKZt0
-	pwgm6+WXeVGm+z/w7KBmWatPodHkRL8ZUR95QJO2DGtD7tBUpc+w=
-X-Received: by 2002:a05:6214:2f89:b0:914:2b93:3f3 with SMTP id 6a1803df08f44-9142f6ea654mr302167276d6.14.1790700774698;
-        Tue, 29 Sep 2026 09:52:54 -0700 (PDT)
-X-Received: by 2002:a05:6214:2f89:b0:914:2b93:3f3 with SMTP id 6a1803df08f44-9142f6ea654mr302166736d6.14.1790700774056;
-        Tue, 29 Sep 2026 09:52:54 -0700 (PDT)
-Received: from bmasney-x1.rmtuswv.csb (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d343c11sm14454746d6.25.2026.09.29.09.52.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:52:53 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Tero Kristo <kristo@kernel.org>, Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260906-ti-fapll-clock-v3-1-b0ded340c62b@gmail.com>
-References: <20260906-ti-fapll-clock-v3-1-b0ded340c62b@gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: clock: ti,dm816-fapll-clock: Convert
- to DT schema
-Message-Id: <179070075682.199845.16100370158110486691.b4-ty@b4>
-Date: Tue, 29 Sep 2026 12:52:36 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R3ujcfgR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B930A1F00893;
+	Tue, 29 Sep 2026 16:59:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790701189;
+	bh=QZCLRTQ9xYI/d2c42h8rqFs6nxa/dYI93im2TcbUTcw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=R3ujcfgR2PhlrEWvK2Fz43EnykvZXb9i7ct9vUqm4tt/x9X0llbqvJW/kuGR+6m3+
+	 qK9ofHj498e3z5s+O9sSr4YMbkqIO0rqOulaRX6lpDioxmaJeNVhiWao0Kg9YdsMPQ
+	 gtCgFFHSrXDWOwK/8ie5UrAWoXQ2Ynr+9+48aFZh6IGRUuqpaMIrRBDcJBdEuZqybu
+	 XpsOk1FQYh4kZ9wmKcDVa9LGABbzYaZwCN+RhXcJFmBZaNRcCTAosfAa4EpsD7L5Ww
+	 TF8LKCvws/qLpyH6rdqGGrrjKikwsIYDBrDAgLQGczKi9js0ohlSz2ngIkJgCijvWE
+	 JK5oGG45PIIwQ==
+Message-ID: <5245043a-e24f-438b-9ddb-7dd3f6fd6b18@kernel.org>
+Date: Tue, 29 Sep 2026 11:59:47 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 3/3] arm: dts: altera: add Draeger M48 CPU Module
+Content-Language: en-US
+To: Petko Manolov <petko.manolov@konsulko.com>, linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, arnemaximilian.richter@draeger.com,
+ martynas.grybauskas@draeger.com
+References: <20260929134058.819371-1-petko.manolov@konsulko.com>
+ <20260929134058.819371-4-petko.manolov@konsulko.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <20260929134058.819371-4-petko.manolov@konsulko.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=329; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=bJDs7mdWAsDC2TJlkeIHEoIE2dsMin2hdtYBCmAzCEU=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJ2v3m0NebrBsm9mQ4Hl9y92DZzMu/iiz+4DlU0rzR9M
- 1FA12daXEcpC4MYF4OsmCLLklyjgojUVbb37miywMxhZQIZwsDFKQATuenP8M9CTMaqS9xVQDf2
- cnxPoWMZh/VbFoG9r95JzwtcvCnyym2G//7vCvlD08qexIVmN324cEI2b/GkzxeO7uRkE1lgW8F
- bzwQA
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
 
-On Sun, 06 Sep 2026 02:52:04 +0530, Bhargav Joshi wrote:
-> dt-bindings: clock: ti,dm816-fapll-clock: Convert to DT schema
 
-Applied, thanks!
+On 9/29/26 08:40, Petko Manolov wrote:
+> M48 is a heterogeneous board made by Draeger that is based on two
+> independent cpus, that are monitoring each other.  One of them is
+> imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
+> independently off qspi.
+> 
+> This one adds the DT for the Altera SoCFPGA part of M48.
+> 
+> Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+> ---
+>   arch/arm/boot/dts/intel/socfpga/Makefile      |  1 +
+>   .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 91 +++++++++++++++++++
+>   2 files changed, 92 insertions(+)
+>   create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> 
+> diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
+> index 8df0976da01c..cdcea11abdfa 100644
+> --- a/arch/arm/boot/dts/intel/socfpga/Makefile
+> +++ b/arch/arm/boot/dts/intel/socfpga/Makefile
+> @@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
+>   	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
+>   	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
+>   	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
+> +	socfpga_cyclone5_draeger_m48.dtb \
+>   	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
+>   	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
+>   	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
+> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> new file mode 100644
+> index 000000000000..85daa839c314
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> @@ -0,0 +1,91 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
+> + */
+> +#include "socfpga_cyclone5.dtsi"
+> +
+> +/ {
+> +	model = "Draeger M48 Cyclone V SoC";
+> +	compatible = "draeger,socfpga-m48", "altr,socfpga-cyclone5", "altr,socfpga";
+> +
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	memory@0 {
+> +		name = "memory";
 
-[1/1] dt-bindings: clock: ti,dm816-fapll-clock: Convert to DT schema
-      commit: 64461f89a37a788789a1ce22979e3c0695ae0497
+Sashiko's comment about this is true.
 
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
+> +		device_type = "memory";
+> +		reg = <0x0 0x40000000>;
+> +	};
+> +
+> +	aliases {
+> +		/* this allow the ethaddr uboot environmnet variable contents
 
+s/environmnet/environment
+
+> +		 * to be added to the gmac0 device tree blob.
+> +		 */
+> +		ethernet0 = &gmac0;
+> +	};
+> +};
+> +
+> +&gmac0 {
+> +	status = "okay";
+> +	phy-mode = "rgmii-id";
+> +	rxc-skew-ps = <1860>;
+> +	rxd0-skew-ps = <0>;
+> +	rxd1-skew-ps = <0>;
+> +	rxd2-skew-ps = <0>;
+> +	rxd3-skew-ps = <0>;
+> +	rxdv-skew-ps = <0>;
+> +	txc-skew-ps = <900>;
+> +	txd0-skew-ps = <0>;
+> +	txd1-skew-ps = <0>;
+> +	txd2-skew-ps = <0>;
+> +	txd3-skew-ps = <0>;
+> +	txen-skew-ps = <0>;
+
+Sashiko's comment about these PHY properties is also correct. Take a 
+look at commit dabb5db17c06 ("ARM: dts: imx6qdl: move phy properties 
+into phy device node").
+
+
+> +};
+> +
+> +&gpio0 {
+> +	status = "okay";
+> +};
+> +
+> +&gpio1 {
+> +	status = "okay";
+> +};
+> +
+> +&gpio2 {
+> +	status = "okay";
+> +};
+> +
+> +&i2c0 {
+> +	status = "okay";
+> +	clock-frequency = <100000>;
+> +
+> +	eeprom_mac: eeprom@50 {
+> +		compatible = "atmel,24c08";
+> +		reg = <0x50>;
+> +		pagesize = <16>;
+> +	};
+> +};
+> +
+> +&mmc0 {
+> +	status = "okay";
+> +};
+> +
+> +&qspi {
+> +	status = "okay";
+> +
+> +	flash: flash@0 {
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+Sashiko's message here is a false positive. You can ignore.
+
+Thanks,
+Dinh
