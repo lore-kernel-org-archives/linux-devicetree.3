@@ -1,117 +1,102 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E975519BF;
-	Tue, 29 Sep 2026 18:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C504437EFFB
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 18:36:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790706558; cv=none; b=cq+/Z+7LRBxh1oGaN1S4AcCxPzeWlADmA7qlb/kzc9Fv/mlsx4mhifxzYAo9GzaIzmG0qfRP35O5a/58OSJuuejLVR8aNGyICfTA9r/ds3BDKXCHr8fAl+fu26eCAklSkmT83cTh4S6sQvjKJQsmYCZSpvW9ZX04sug2ZOUm8yk=
+	t=1790707002; cv=none; b=W9fl8b1CnIrbbChDNmZSmucn5N3dGo31IXTJYD57YicT6uNnXzwV/2K8Bqj/0B4KipL9CwZvmer8AtB71LO7OmWF/nV5KCQ/9VW72YMzBkoVW5FtNnJsTzxhpK+XBKEUKNl73VvBD4HoH0M4yOh3EWn1Z0zDjtLGuu+7BG02cQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790706558; c=relaxed/simple;
-	bh=oeS73cz1WttKdvCwJuPNtf0awdQaIChwa2ENdCxPEGs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=otQTwF6TlF4ZGFiIc6uzyHlTzedp2LEd2chT6pOXBsMHP2gD38S2a0AJHYx2/xQQ9PZ2U9oVQ6bevJhxTn2qBAgFWwvRScnyvPosfEC/rKYh2CpZBNBMrWYpYEAwQwq4WkdxImGpccHGw4i/7cjSv0bZSDfFc7n78AmxVkFOHh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=KYQK7e9u; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Tnhl+Vqh; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790707002; c=relaxed/simple;
+	bh=SiSmZrw6FTUyj8kMcAHiSfr1hO/LWfZwBkZxkA7Z3GA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Vv/2VZUtyigi7WC2BGZwBp9zzLZMmZNjjWKdDtxGnd/VDiPrJkwIjfjBpybhd/8DGFjOvAyjC4zwzuCNdKBDD1to3RXyctg7wI6XlQmQQP0UzYDASWOYLm7SHRGMBRfuwPSgNCbRjUeYiFprFLfOipJsPdE+Zf0oM8NT2gH865M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xsrx5o1g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="KYQK7e9u";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Tnhl+Vqh"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790706543; bh=vOUd3B5n0AgEyb894A4eeQu
-	NKvHdtrj3e0iX8tFzPD0=; b=KYQK7e9uN1vhzpUhCPXstYq58Vmt0hfjYzPolX8Bqk63VL7Npl
-	hHveFmrKUblD4HnL4+xcfQp0M6zQf0PD+ljehB3g5HwQ1vsLczFsfAFWzGOX9bpKYTSkNl8JXpl
-	Y/3CYZ4IHppAesrlz6iehB8n7PqfdWpV3MM1/tMj+JLNM3pr5AaKGnPrQ6AWShN68Q34Xg94gyn
-	wujowGKrawMLWiJra8qccMcu7e5kb8/ULNP860RtOy36M+2ANiqJuL30xzO/84RqR9vesNyXR52
-	1RPiKpW031RovTrKW4pUq3UnYhuYhrLbwz1q710fItNZBeX4wUH4pNzWZqIrgaQB8CQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790706543; bh=vOUd3B5n0AgEyb894A4eeQu
-	NKvHdtrj3e0iX8tFzPD0=; b=Tnhl+VqheZjVCzB4LRcUsuIXsAD5g8NBlARjztPhIZmenIcxO+
-	GRcRj7GBBUa0Q0qD5HBbMM8GxJw+J0caQ3Aw==;
-From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Date: Tue, 29 Sep 2026 20:28:35 +0200
-Subject: [PATCH v2 6/6] arm64: dts: qcom: sdm632: Correct power domains
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xsrx5o1g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 239A21F000FF;
+	Tue, 29 Sep 2026 18:36:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790707001;
+	bh=kfNN/MgL6pvIIwRbSiG2N1vd4UeuJXiQIyOKS5s7i7U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Xsrx5o1gvYVZyHlN8CBq9BtNflZj1levCbMmkacvcuQxFlEX0ibzKqOJVB8Wt9MxH
+	 0pfSkj+wJ1jvsbeEm1eORVel6uRvnc83qC8NR7YtelSm0CFuXqSsb9Ko/QbmnBSZ9d
+	 3njshtMbVlt3gnvMT1o0J9bBENz6NuJEzTBEFvp26sC8meKoyK5QH8MMAwevispFoY
+	 axC6+LAul97SZq4QO9Ts0gCaOP7HWqnUiJVlehzn2zYiriy6iWMlHKxtqJkwr7PvaK
+	 JWotr+fa1PCi/gyKWFN7+efGATYXmEx6eMGyZkhMYubz+gVD7ybqsH+2lq2T4twb6r
+	 0BA9aqfE8tRgQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/6] dt-bindings: power: qcom-rpmpd: Remove unused
+ MSM8953 indices
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260929-sdm632-rpmpd-v2-1-97ef8858161b@mainlining.org>
+References: <20260929-sdm632-rpmpd-v2-0-97ef8858161b@mainlining.org>
+ <20260929-sdm632-rpmpd-v2-1-97ef8858161b@mainlining.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 29 Sep 2026 18:36:40 +0000
+Message-Id: <20260929183641.239A21F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260929-sdm632-rpmpd-v2-6-97ef8858161b@mainlining.org>
-References: <20260929-sdm632-rpmpd-v2-0-97ef8858161b@mainlining.org>
-In-Reply-To: <20260929-sdm632-rpmpd-v2-0-97ef8858161b@mainlining.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Stephan Gerhold <stephan@gerhold.net>, Ulf Hansson <ulfh@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-remoteproc@vger.kernel.org, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790706517; l=1214;
- i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
- bh=oeS73cz1WttKdvCwJuPNtf0awdQaIChwa2ENdCxPEGs=;
- b=uLYHPLQUKxLOhODqWsx15Tr+3U53JPCRDMvMxbFXhWdIkueqdU5WQ24wOIFrkSpQKLfFzIvAG
- ivqdPqBPRfoCGGWDHR9c4ApZ98iyc8GdZ5p3BPwPpAzCIO5YTPhQc/c
-X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
- pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
 
-SDM632 is using different pm domains from MSM8953 override them
-where it is needed.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] dt-bindings: ABI breakage by removing MSM8953_VDDMD index
+--
 
-Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
----
- arch/arm64/boot/dts/qcom/sdm632.dtsi | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+commit e44d0dc9a145a838a007b1d8e81abb98d56a4d20
+Author: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas.czeman@mainlining.org>
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm632.dtsi b/arch/arm64/boot/dts/qcom/sdm632.dtsi
-index 40d86d91b67f..5a677da5afb0 100644
---- a/arch/arm64/boot/dts/qcom/sdm632.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm632.dtsi
-@@ -87,3 +87,37 @@ opp-725000000 {
- 		required-opps = <&rpmpd_opp_turbo>;
- 	};
- };
-+
-+&lpass {
-+	power-domains = <&rpmpd RPMPD_VDDCX>;
-+	power-domain-names = "cx";
-+};
-+
-+&mpss {
-+	compatible = "qcom,sdm632-mss-pil";
-+	power-domains = <&rpmpd RPMPD_VDDCX>,
-+			<&rpmpd RPMPD_VDDMX>,
-+			<&rpmpd RPMPD_VDDMD>;
-+	power-domain-names = "cx",
-+			     "mx",
-+			     "mss";
-+};
-+
-+&rpmpd {
-+	compatible = "qcom,sdm632-rpmpd";
-+};
-+
-+&sdhc_1 {
-+	power-domains = <&rpmpd RPMPD_VDDCX>;
-+};
-+
-+&sdhc_2 {
-+	power-domains = <&rpmpd RPMPD_VDDCX>;
-+};
-+
-+&wcnss {
-+	power-domains = <&rpmpd RPMPD_VDDCX>,
-+			<&rpmpd RPMPD_VDDMX>;
-+	power-domain-names = "cx",
-+			     "mx";
-+};
+dt-bindings: power: qcom-rpmpd: Remove unused MSM8953 indices
 
--- 
-2.55.0
+This commit removes MSM8953_VDDMD and MSM8953_VDDMD_AO from the MSM8953 pow=
+er
+domain bindings, as the hardware now uses mss-supply as a regulator. It also
+defines RPMPD_VDDMD for the SDM632 MSS.
 
+> diff --git a/include/dt-bindings/power/qcom-rpmpd.h b/include/dt-bindings=
+/power/qcom-rpmpd.h
+> index 4371ac941f29d..120f8855b4275 100644
+> --- a/include/dt-bindings/power/qcom-rpmpd.h
+> +++ b/include/dt-bindings/power/qcom-rpmpd.h
+
+[ ... ]
+
+> @@ -84,8 +85,6 @@
+>  #define QM215_VDDMX_AO		MSM8917_VDDMX_AO
+> =20
+>  /* MSM8953 Power Domain Indexes */
+> -#define MSM8953_VDDMD		0
+> -#define MSM8953_VDDMD_AO	1
+
+[Severity: Critical]
+Does removing these identifiers explicitly break the established DT ABI?
+
+Older compiled device trees (DTBs) for the MSM8953 platform encode the power
+domain index 0 for MSM8953_VDDMD in the mss (modem) node's power-domains
+property. Removing this index from the dt-bindings header and driver removes
+support for these existing DTBs, causing a backward compatibility regressio=
+n.
+
+When booting a new kernel with an older DTB that uses MSM8953_VDDMD, the new
+qcom_q6v5_mss driver expects an mss-supply regulator. With the old DTB, the
+new kernel will fail to find mss-supply, rendering the modem subsystem
+non-functional during system boot.
+
+Is there a fallback mechanism planned to ensure older device trees still pr=
+obe
+successfully?
+
+>  #define MSM8953_VDDCX		2
+>  #define MSM8953_VDDCX_AO	3
+>  #define MSM8953_VDDCX_VFL	4
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-sdm632-rpm=
+pd-v2-0-97ef8858161b@mainlining.org?part=3D1
