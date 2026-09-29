@@ -1,225 +1,179 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6239F3DEFF0
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 17:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54715437FC
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 17:43:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790703675; cv=none; b=XrwLMbmv8ErOoQe9hjs/0kZ9BSFR/CZAjFYP9C/RXafScGKvlW6XlTm3cLQ1PfvbtesYwEXIfGIg66MN2YKY+Msip4zecKredDvbibLnQAXsnbB/WnJcAMmByJLZE9i/WjELp2z9WB49/zfgodaYD6l9rYyjnVOpW2H/3ryZgkk=
+	t=1790703826; cv=none; b=ICzMDnP0cnraFd4t0AeRTQoT6Mq5k1vuL+dK1dn+bgG5PHeZgw+MKlhtZJ6FR+KHF39dlhkrias4BfAZOkPqksLeHzB/9UlBLNoFjGwCc6Bc8xIpaeoPx7sYR7e6Ie0awPcC2xiD6JLg9dVDfX8qLuk3bN8a+1gzM+iL5P1zghE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790703675; c=relaxed/simple;
-	bh=TYK82yEFZyTUKcvmqFCrtcuvaXuFrEA017DIBbyHshY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PXjcqcqzrnm04jUx6xkaBvKrOq0XJlj0PmQ/Fz5M6gENubfmeUtFIHuX6AZFn8v60LlgrS3LWJlab0+kSU/8kNsxqh8MHouRrgU0lmq1horXd9bsLcKdLuZJrOEIwAYH4uVkpL4wb2E1d4Nwi+6GTw9UdcXDW5rlNYVxsitr0Pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZgTtxQft; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1790703826; c=relaxed/simple;
+	bh=To2pz33WHeqtYIBpo3tdxLVVXHw7FWx2+MU4WwcX1A0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ndIY0oBPQb2LvqF4zN7W0O1Z766TxvNxaTlqZtTRNOHkubbpdVwT56ptQ5k6xnMGF+JmlirYVniiNnewkvVIjn2N9v9c4+LxNujmWOoxgMqDqPO+wIiatAVZe5Eo3Bsh740X65DnR2swk4bNpdP2DWqjHmzWI3Cf6VpbbV9/6yw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.226.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZgTtxQft"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912df756so35094545e9.3
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:41:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790703671; x=1791308471; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XT6rzbwAq56nChpqUTQ2q9VsJKHTV6VFi8vBlbe3c+g=;
-        b=ZgTtxQft2G6JJv2ASxf29zPykWup8dFQNjU4V3jffV9qb1FAR8fazuNDBKARHQG3uH
-         Q4M+fBWQr8JldfPz7+GM0RAJvy5DwL2FliUpGdjHnWn2qIH7jPjG3kz54wgFBFEUN+2Y
-         ny3MWj+pDnqnu3qO+y47NMLpjCPaldwtS7whwYU2hF7jKhzpTsF3sKfskb+EGCRyqSL0
-         CAPG4HCXSkAKGL4Fy9cro8q7sRgWXGshHVjQMYbBphdveXx71wNncJe0Vy2G6UwozucT
-         2nsAf1sBhVLboWF68MRbrYR9NdC0lui+VSTBsLvGSHz9UzX/CIDEuPmV/bUX+7Tb3U5j
-         IeGg==
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-988b74e3071so492351241.3
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:43:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790703671; x=1791308471;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XT6rzbwAq56nChpqUTQ2q9VsJKHTV6VFi8vBlbe3c+g=;
-        b=a/SngBKrKznst4gbUfYl4hlOO8N5ryAp1CD/qd9rGpVoOhVwYC64J/niKQ/5klOc4I
-         s4FMPy/nhUHwP3PgzcsiXnxPPKQtNZXepFdcJH91JcF1MelMwgu6vtEMYU99/tCMowfl
-         /1Yzg5SdRF7PJ9jqniqL5eYGhsV0GhDnzBGyOElSVjiAX46bbzcNqtvgQTiIm9N0da5U
-         5we1w+HwA7xTSgcAC5KEoC7P1LLVXjt9+vw0XLqiRNzMBqCti88ARUl6WXxK+amUzMBH
-         tmlzAafHrxhuzkVPyW+OU4ZVSzWAtUTGXI93m28lqx/yeIDpgFMLGw/QCt8aE6I/dPBd
-         m/hg==
-X-Forwarded-Encrypted: i=1; AKwUvBz8M2/8079EN6F1oA2b7CRNWKZoeeHitHUp6gEVJFF9/V7BoYAKIylDt915D4OGPQvjNLe+DaBFgQbr@vger.kernel.org
-X-Gm-Message-State: AFuF++kzR60vFe1f0y97B/KFhXc+rEAYn18VOC/ROPy2mMY0s9xW26dQ
-	dlkOLRw5BKybxm4MJrFnsAtuHgnntVuN2yqx2gG0WsvkD9lwN5BXm/1g
-X-Gm-Gg: AYBFou0H0KkAy5ipedrOxOirsJCLE6eELvg/uORFsMBpA8oc0aAMJSAq2aAr4L5V6HV
-	pLpagEUJQICNBjK+kC9cxjuqQx/13+wtDm/UvKxr/pCqQ9hP1gMqunbAe5BoUrD1Gs2SZo04a7M
-	ZyzvvxxJG+3J54wEjUX3xYd9a5u2wCY0xRA7CeSWSXZj7JQwhX0nhmS786rf4kX/vl99U79d5mI
-	uzdz+iNZ6mPWbq4dwubn177WaGl/TgplW1ZpKLqqMo7htcD1+J8pVLvA6AN1fzEsstPbP0ZzeqI
-	ovnbpHzho8rKwgtKZuH+XwmBXupWxaAtgg+GwE5wInCdNTWDLx69rQxJGSjA+vK3sYy4FXs1HKo
-	MP1GZEmAZag48sMbQ6qAW68VLq4Z6vNlp+uVDZap+wftFfo46fCBYB0/VjUlDc8sJEG48Ppf5yF
-	ebkSTnVHvU+rxKHK5PQXBvmGEa+KQPJsygIO71H7hxa7dU9vR+oH7jz6jxDW/hmgw9HBrw0zrCb
-	ReYux0X4Di9ZjNRvgmUX2Z1LWaqSiLEJRGZE+zmIhdiZusgk2flsvEwuNTzBaT8NdFWrN5/VVVV
-	5bqeio9FqY5C9g4Xfx7yIWEk5n9G
-X-Received: by 2002:a05:600c:8b33:b0:49f:f9fa:fcfe with SMTP id 5b1f17b1804b1-49ff9fafdccmr177606485e9.13.1790703671207;
-        Tue, 29 Sep 2026 10:41:11 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cfec770sm100002515e9.8.2026.09.29.10.41.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 10:41:10 -0700 (PDT)
-Date: Tue, 29 Sep 2026 19:41:07 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Hugo Villeneuve <hugo@hugovil.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Guo <shawnguo@kernel.org>, Joseph Guo <qijian.guo@nxp.com>,
-	Josua Mayer <josua@solid-run.com>,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
-Subject: Re: [PATCH v4 00/13] ARM: dts: imx6ul: Add Variscite VAR-SOM-6UL and
- DART-6UL
-Message-ID: <arv4MwHV4LntROkN@Lord-Beerus.station>
-References: <cover.1790693249.git.stefano.r@variscite.com>
- <20260929121455.437291ea4b53130e3e19778c@hugovil.com>
+        d=1e100.net; s=20260707; t=1790703822; x=1791308622;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=K3FpjckKknSKtbxyzZ5D1wObsYxIm/YvEg91ak3C6aI=;
+        b=lyDpGWgeh8wxw6sF9z+VZZXwvJ4WufG2HgXBXJ9TLSDxMtu9DBd1JtqHlXNeeP2MD/
+         saNERGKy+eoYJL+NcE7Z5MKHYoJgPj4bSCRidT+WG3Wjs7qv2iYOBBBrgE/gzp8Omo4S
+         /b/6EnvQ2yXQmEajZJAGQINfKeBzIo+SqwS81OM//ZdbGe6f23Gu0+DxWTZPCjGAYp9N
+         tJ53qFS8IywRyQCHu4VIZmtoHriKbjxvzStvvQomfAuVwkwuEzbNIogcbVEqftjjK3bU
+         41OhZIJvdr16YD9GBIEYnWUqL0KypxWgFgKm18Y/ujb06utHRTtLXfEubSe4WK/sK8NC
+         83Jw==
+X-Forwarded-Encrypted: i=1; AKwUvBy6aHfL1St8smJ6BuF9S6E5NyEd4b9nF4vl35gxFH2U5st+al8FflWTdUAAIhyArk9xa4D5bgCwBv6N@vger.kernel.org
+X-Gm-Message-State: AFq9FYISEETVvMNsufziPTiiAD0UYLLOhbfMpkja1rE6vP13g/RD0KxU
+	FDp2t8WhQ5vaLOGm4YJj+ZpZDkY8CsFS2baG0U/fslftl4wksLmCqWkNBmv5BEwD
+X-Gm-Gg: AYBFou0OLKw5VRdBxP2QlKGjsj6tU+ubDpyGMEleeOVYS9iUynmai8+7qj2TAaKRyD1
+	PawKY3NPKR4ONIZ6q3MJjpnHpye/Dao3IyLvN9K0I9X1H4L/hXEwvPZHQhqL90KQMvKF8fr8OkX
+	uMSU4rgz8fHvCXY+jwCI+4RZWemKkhQ6Mw1Ec2aoF6gYMd7KL/dlaMpfeRxFMDwfD/W/PU+OHb7
+	ecSLfWKth8kuUL1TSsmJUI+7Df9xVqT17iDQCqwzZ6vPl5FH4uX2m0J/TNgAr4JS4SEeXbtzC+8
+	bzRrkmxL+8zzDS9K9F8yzXFftlepc7SopOMINu93S9EdypXCCAPDtOp0yvRTd5pGhqNUG6RbAhO
+	eDSq3u1y69iRuEEi1VKiKzbtAtl9X0pmGr/KEAfPFlgKVHahy01QgcfTbjnQhnu1rkA6/zrd44D
+	5temSJWWL5W/AXXQ7QFN0tS/0yw+sut/KftS6krRd1GO6/IyxF0fa4TMuh/3vPIj+DN/DWTGq/f
+	70k7+iEcqIxycngZ0XOaDHP5cjEzqq6FXMa
+X-Received: by 2002:a05:6102:370f:b0:7a1:f9df:e35a with SMTP id ada2fe7eead31-7bc48e06b3emr80632137.33.1790703822476;
+        Tue, 29 Sep 2026 10:43:42 -0700 (PDT)
+Received: from mail-vs2-f39.google.com (mail-vs2-f39.google.com. [74.125.227.39])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7bc7de014a3sm112101137.11.2026.09.29.10.43.41
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 10:43:41 -0700 (PDT)
+Received: by mail-vs2-f39.google.com with SMTP id 71dfb90a1353d-5cca96ec1feso1287243e0c.1
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:43:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxBtx6lp4SbXext+eH98b5uDwEq/QpW4qPfYOjQ31GJC0CA2QwS8ncnveyUWKkG6P4ibAZuacU8wZu6@vger.kernel.org
+X-Received: by 2002:a05:6102:f91:b0:79a:21f6:20fc with SMTP id
+ ada2fe7eead31-7bc3b59255fmr83403137.10.1790703820885; Tue, 29 Sep 2026
+ 10:43:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260929121455.437291ea4b53130e3e19778c@hugovil.com>
+References: <20260928165230.3397664-1-den@valinux.co.jp> <20260928165230.3397664-11-den@valinux.co.jp>
+In-Reply-To: <20260928165230.3397664-11-den@valinux.co.jp>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 29 Sep 2026 19:43:28 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXoKFCroL1d6-fLwYR0UkLBL7suKy=rOFavioLd7rC4OA@mail.gmail.com>
+X-Gm-Features: AclHuK8JzfDwBbpW5Y3ODVdWtxAiX7XsdrE_LjubbR8Xd7qhHEJIEFJLyf_DRos
+Message-ID: <CAMuHMdXoKFCroL1d6-fLwYR0UkLBL7suKy=rOFavioLd7rC4OA@mail.gmail.com>
+Subject: Re: [PATCH v2 10/15] PCI: rcar-gen4: Take over the iMSI-RX interrupt
+To: Koichiro Den <den@valinux.co.jp>, Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Jingoo Han <jingoohan1@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, 
+	linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 29, 2026 at 12:14:55PM -0400, Hugo Villeneuve wrote:
-> Hi Stefano,
-> 
-> Your title seems to imply that VAR-SOM-6UL support did not
-> exist before your patch, but it did. Please rephrase that, and
-> your description accordingly.
-> 
+Hi Den-san, Marek,
 
-Hi Hugo,
-You’re right that VAR-SOM-6UL already has mainline support.
-I’ll reword the title and description to distinguish the existing
-support from the new variants and DART-6UL boards.
+On Mon, 28 Sept 2026 at 18:53, Koichiro Den <den@valinux.co.jp> wrote:
+> On R-Car Gen4, intreq_pcim_sub ("msi") carries more than the integrated
+> MSI receiver: the controller's reset requests and the Root Port's PME
+> and bandwidth notifications are signalled on the same line, and the
+> following patches need to handle them. With the DesignWare core owning
+> the line through its chained handler, the driver would have to hook into
+> that handler when iMSI-RX is used and request the line itself otherwise.
+>
+> Instead, request the interrupt in the driver in all configurations and
+> set pp->msi_irq[0] to -ENODEV so the core does not install its chained
+> handler, as spear13xx, keembay and dra7xx do. The handler demultiplexes
+> the MSIs through dw_handle_msi_irq() when the APP block reports
+> msi_ctrl_int. With an external MSI controller or pci=nomsi the iMSI-RX
+> is not set up, so keep msi_ctrl_int masked rather than enabled, and the
+> handler has nothing to do there yet. Request the interrupt before
+> enumeration, as endpoint drivers may use MSIs from their probe, with
+> IRQF_NO_THREAD so the MSIs are demultiplexed in hard IRQ context like
+> the chained handler did. The interrupt is required by the binding.
+>
+> Release the interrupt in .deinit, before asserting the controller reset
+> and disabling its clocks. Disable it around a Root Port reset because
+> the handler accesses the MSI status registers through DBI.
+>
+> The DT routes downstream INTx to the same line, but the driver has never
+> supported INTx (no INTx domain, INTx enables never set), so requesting
+> the line exclusively takes nothing away.
+>
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-> 
-> On Tue, 29 Sep 2026 17:17:27 +0200
-> Stefano Radaelli <stefano.radaelli21@gmail.com> wrote:
-> 
-> > Add device trees for Variscite VAR-SOM-6UL and DART-6UL modules based on
-> > i.MX6UL, i.MX6ULL and i.MX6ULZ. VAR-SOM-6UL is supported on the
-> > Concerto-Board and Symphony-Board carriers, and DART-6UL on the
-> > VAR-6ULCustomBoard. The 90 new DTBs cover the supported combinations of
-> > storage, wireless and audio options.
-> 
-> Do they? You would need far more than 90 DTBs to support all options...
-> 
-> When I submitted the latest changes for the VAR-SOM-6UL, I did not
-> create DTBs for every available options knowing that it would lead to
-> an insane number of files. So I simply created a full DTB that
-> incorporated most of the DTSI options. And my custom boards simply
-> include only the required DTSI for their specific options.
-> 
-> Looking simply at the ENET phy level, you seem to have now removed
-> the two individual DTSI to selectively add support for ENET1 and ENET2,
-> but not all board use these, so that is why they
-> were created as individual DTSI files in the first place to make it
-> easier to create a DTB with only the required options. As an example,
-> one of my custom boards do not have ethernet at all, so i don't want
-> that support enabled by default.
-> 
-> Please keep the existing DTSI as distinct and individual files.
-> 
-> Maybe using DT overlays would be better suited if you really want to
-> support every available combinations?
-> 
+Thanks for your patch!
 
-Just to be clear about the 90 DTBs: They are the minimum set of prebuilt
-DTBs for the Variscite-supported configurations that select between
-mutually exclusive hardware alternatives. Selecting an alternative changes
-the hardware described on a SoM interface and therefore requires changes
-to Device Tree nodes, pin configuration or controller properties.
-For example, the SD interface may connect to an SD card or an SDIO wireless
-module; storage, wireless-module and codec choices similarly require
-different descriptions.
+FTR, this interacts badly with "[PATCH v2] PCI: rcar-gen4: Add missing
+PM ops"[1] during resume from s2idle:
 
-These are not every possible combination of fitted and unfitted components.
-We do not add another DTB merely because an optional peripheral is not
-populated.
-This follows the existing VAR-SOM-MX7 mainline approach: it provides
-separate DTBs for hardware choices such as eMMC versus NAND and codec
-variants, without enumerating every optional component’s presence or
-absence.
+    Unbalanced enable for IRQ 57
+    WARNING: kernel/irq/manage.c:775 at __enable_irq+0x38/0x64, CPU#3:
+s2idle/686
+    Modules linked in:
+    CPU: 3 UID: 0 PID: 686 Comm: s2idle Not tainted
+7.3.0-rc5-rcar3-09216-ga295839bfe55 #696 PREEMPT
+    Hardware name: Renesas Gray Hawk Single board based on r8a779h0 (DT)
+    pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+    pc : __enable_irq+0x38/0x64
+    lr : __enable_irq+0x38/0x64
+    sp : ffffffc08904bab0
+    x29: ffffffc08904bab0 x28: ffffff8446a4a880 x27: ffffffc084e64828
+    x26: ffffffc084e64838 x25: ffffffc08069e630 x24: ffffff8443ad7cb0
+    x23: 0000000000000000 x22: 0000000000000000 x21: 0000000000000070
+    x20: 0000000000000039 x19: ffffff8443ad7c00 x18: 00000000e630bb27
+    x17: 0000000000000000 x16: 0000000000000000 x15: 0720072007200720
+    x14: 0720072007200720 x13: 0720072007200720 x12: 0000000000000566
+    x11: 0000000000000000 x10: ffffffc08418a038 x9 : ffffffc08158a090
+    x8 : ffffffc08904b798 x7 : ffffffc08904b7a0 x6 : 3ffffffffff7ffff
+    x5 : fffffffffff7ffff x4 : 0000000000000000 x3 : 0000000000000000
+    x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffff8446a4a880
+    Call trace:
+     __enable_irq+0x38/0x64 (P)
+     resume_irqs+0xf0/0x130
+     resume_device_irqs+0x10/0x18
+     dpm_resume_noirq+0xe8/0x190
+     suspend_devices_and_enter+0x524/0x594
+     pm_suspend+0x22c/0x270
+     state_store+0xa8/0xe8
+     kobj_attr_store+0x14/0x24
+     sysfs_kf_write+0x4c/0x64
+     kernfs_fop_write_iter+0x13c/0x184
+     vfs_write+0x148/0x1b4
+     ksys_write+0x78/0xe0
+     __arm64_sys_write+0x14/0x1c
+     invoke_syscall+0xa0/0x100
+     el0_svc_common.constprop.0+0xb0/0xcc
+     do_el0_svc+0x18/0x20
+     el0_svc+0x3c/0x114
+     el0t_64_sync_handler+0x58/0x134
+     el0t_64_sync+0x158/0x15c
+    irq event stamp: 0
+    hardirqs last  enabled at (0): [<0000000000000000>] 0x0
+    hardirqs last disabled at (0): [<ffffffc080092a2c>]
+copy_process+0x9e0/0x17b8
+    softirqs last  enabled at (0): [<ffffffc080092a34>]
+copy_process+0x9e8/0x17b8
+    softirqs last disabled at (0): [<0000000000000000>] 0x0
+    ---[ end trace 0000000000000000 ]---
 
-> 
-> > The descriptions use shared module, option and carrier DTSI files with
-> > SoC-specific wrappers. In particular, the WM8904 and WM8731 codecs are
-> > selected explicitly instead of keeping a codec in the module base.
-> > The four existing Concerto DTBs are converted to this layout without
-> > changing their DTB names or compatible strings. This also replaces the
-> > non-working legacy LVDS panel description with the LCDIF configuration
-> 
-> Can you describe what exactly is not working? When I submitted these
-> LVDS changes I tested the LVDS panel with the Variscite concerto EVK
-> (VAR-SOM-6UL LD option) and it was working ok (also tested with two
-> custom boards).
-> 
-> If a fix is needed for this bug, this should go in a separate patch.
-> 
+[1] https://lore.kernel.org/20260907153711.653861-1-marek.vasut+renesas@mailbox.org/
 
-In an initial hardware test, the display timing behavior did not appear
-to match what we observe with Variscite’s downstream configuration.
-I will repeat the test and measure the output before proposing any display
-change. If a fix is needed, I will send it as a separate patch.
+Gr{oetje,eeting}s,
 
-> 
-> > for the Variscite display. Wi-Fi and Bluetooth enable/reset sequencing
-> > on these modules is handled by userspace, so the legacy kernel-managed
-> > power-sequence and Bluetooth nodes are not carried forward.
-> 
-> That is not ok. I specifically implemented enable/reset sequencing in
-> the kernel to finally get rid of the need for external
-> proprietary userspace scripts, and it was tested ok. If somethings needs
-> to be fixed or improved in this sequencing, fine if you submit a patch
-> to do it, but certainly do not get rid of it.
-> 
+                        Geert
 
-Calling these “external proprietary userspace scripts” misses their purpose.
-First because they are not proprietary :D. Second, because they implement
-the initialization procedure Variscite validates for the Broadcom
-modules we ship (talking about the brcm, the existing one in your DTSs)
-folowing the datasheet instructions.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-This is not equivalent to the sequence in the existing Concerto DT.
-For the LWB5 option, the procedure enables WIFI_PWR, waits 10 ms,
-enables WLAN_EN and BT_EN, waits 200 ms, then lowers BT_EN before
-re-enumerating the SDIO device.
-The other Broadcom option does not use the separate WIFI_PWR step.
-The existing regulator and MMC power-sequence nodes do not express that
-complete, module-dependent procedure, particularly the BT_EN step during
-Wi-Fi initialization.
-The scripts also select the Bluetooth firmware according to the detected
-SDIO device.
-
-We use that procedure to avoid sequencing-related failures for our
-customers.
-This approach is not new to Variscite’s mainline DTS files.
-
-Thank you for your time,
-Best Regards,
-Stefano
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
