@@ -1,94 +1,81 @@
-Received: from mail-ej2-f16.google.com (mail-ej2-f16.google.com [74.125.228.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C482459E1
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 13:38:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6239E331202;
+	Tue, 29 Sep 2026 13:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790689130; cv=none; b=l1Qd/QoZ+i/lgeM5HgF2xlCecOtRRiezNP5CJJPbgSn09qHQezvS2qASFY9BRr5ZQMXNgESr00xnKlj8IkuOIYehKFM1LmOGk7fbeOnhAeTFuS4lIdQxWB1tV9T8NC+MJOvi+uTE03UMr/ObJDkWjJubV84vP1BEtluii0XAeWQ=
+	t=1790689207; cv=none; b=PPAnBUQkKikGvbVmW4i5fY0GH4c4mnkqu51QEbdeorGH7XGERUmTz/zohnxXVETvbS0igXPWch64Z9iCna0CQU1SvVkrGi4TF6ERlSzAGokj1OFy2KB7mI80f5Y8G2aE8/bmyyWH9CWa6jm2w/phr7HIB39yB7fTJFNTct9m+Tk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790689130; c=relaxed/simple;
-	bh=JIiCjYom2uefj08ZzhPJxrCGUg8WLQNHRokiNENLBt4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DbZ+w/CdktiHzNrKPeodjKQNPAbudlxm+/D/vcIryBWTmd6opV5boBbedlUrr7EjmiISWU7a+f/lhC9oyDnw3yUc0Gezf0DYWDIcZhfriniwYBuUJcB3Hvyuo7m3YPO2TzmmBF52r2ilmp8vmajEJohsCA8lMNYD2VB+CTJ9CTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=h++Kc8Z9; arc=none smtp.client-ip=74.125.228.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1790689207; c=relaxed/simple;
+	bh=AuBWi32tkEMNVzYDplDlTjW14uCdZcuRyR1eScXAIhs=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=cOKnIfu2jQt1AZ/QCtSTdyXq6OVF0WW1MsOAnpR4Q/Fk/pnpufc+edTM/BQsE4r2sBK3opErLNh1UvqF+UKcf3rzsgRFQxS3eu8ZedApIwNptZPAY2orEGwoFK1EFoV7XdGnkLpjxRUpW1TQkT6RXhNY/5skitHBSyxD2Cc67S4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bY54g9ZE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="h++Kc8Z9"
-Received: by mail-ej2-f16.google.com with SMTP id a640c23a62f3a-c2afe9fa8e0so454506566b.2
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 06:38:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1790689127; x=1791293927; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VKEdloBXg0GteUPySA69WxM1r/24FRYU1/WWsji16GE=;
-        b=h++Kc8Z9D96BFiGGK6WpXvXyYE26gaqmrV8cBAtgMsD9Yjq28ufVddK9mAUQHL67+w
-         J4W1Ka+MMLUHwHjjb3WdnelQ+azEt7qNimTGS4X6Qixx2q96iqu7VexduSX83dLs1gu2
-         famg+IKQOrY/mgEoObJ6M0ys6tD1aroWWg/5I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790689127; x=1791293927;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VKEdloBXg0GteUPySA69WxM1r/24FRYU1/WWsji16GE=;
-        b=OD0l/Vu6W8jtl8B1nAXR1MUKkeLaQrnH2To71IR6dItEi0mjGA1hLo45idRSRMX7Nl
-         OS/EiKRwlUzk9klIUfYOZppgivJH4Z6Gjnqg+i7xxe9vF/MJWieAyXUHQ/8WZ4211e/G
-         m1HMkgYKzbCF/pKvG8ho+I9C1d+6uj55l0cjp4gEv58XkE10J+eOe2t87cwB6PCBIgRM
-         4dnnCv1d3EUabOnCNaj5QamTi47W0RzfCJOzMkvQnDkl5jtydIEeSgJKlNY01lS7H0Ad
-         5RDu6hrNQqofkBVtoO6HXCjj/AizJLOe4Ma4W0r5xpNV/E7fo5SlmV92039aYJs1LWiQ
-         y+hQ==
-X-Forwarded-Encrypted: i=1; AKwUvByHdvHYWd2y3d0Hkuw7Y0UxiZesBb3P1mE/hzirVryQVD1imgGtqO10ll9uJFV8PUt9Cbd8i73bWtBS@vger.kernel.org
-X-Gm-Message-State: AFuF++lD18JACt//CWM6Z+FFdbmTFRWHgBqMNGHWYntuj6gqt8jP33Ga
-	e+K8XfRuNKEpW/I5yPdr8ZxmI9XwvF1xpPb7rF/TlHTL2P/v6uTZCR5mphC4IJAFVcY=
-X-Gm-Gg: AYBFou3SQ7QODCuueFHYE8XjVK2e3RJcNb3F9Q8p6srU0NLWqUJs84gt4t3GT3KInNJ
-	YJGF8VZnpckneib0tKm4LoqTgzsORCcFNZ1+gD/62+3tNsAa+UChS9Qbn7HH/15JB3rl4VzH1dJ
-	IMzV7ucIwwcziWl8DOwi800HytuCxzF6pxgtkEXvUFV3dUFrxJGS0CG7IbiXVUmZS50XUfnQlEa
-	KbwRUrOjvQPhFVeYBZte2znQLl6cdY02reNkIR2YuqEIUO7YnX3HiYekX4UzDJZW/AmzEbXs47O
-	d1l+5RQQuthU93MFXBkYEEHjrimR2JkCIBhVX1hSNXPYsamgPfkeLgePnsRhxyRqS+IUVu7gD1C
-	OCXN5SjorYFFoFsodSJ6UnXQ8vpe7LMRUfapPtozKWWIh2rz//RQ85I4WyHnDz2EKDbWTB5opqN
-	adScncj+k7/aX01u9/5s8mUsD4w2V+LSHLjGgvzS1HC/h9TnJEb79dDSFwSJciMXG4njmUw1gto
-	kz8Lre7U4Xh8h/gri0gsCJfZTn+uGSMkpA=
-X-Received: by 2002:a17:907:e107:b0:c2d:d702:364f with SMTP id a640c23a62f3a-c2dd7027971mr376425666b.3.1790689126737;
-        Tue, 29 Sep 2026 06:38:46 -0700 (PDT)
-Received: from carbon.k.g (90-154-213-116.ip.btc-net.bg. [90.154.213.116])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2b0f2f4f53sm531974466b.47.2026.09.29.06.38.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 06:38:46 -0700 (PDT)
-Date: Tue, 29 Sep 2026 16:38:44 +0300
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: Dinh Nguyen <dinguyen@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	arnemaximilian.richter@draeger.com, martynas.grybauskas@draeger.com
-Subject: Re: [PATCH v7 3/3] arm: dts: altera: add Draeger M48 CPU Module
-Message-ID: <20260929133844.GF10296@carbon.k.g>
-References: <20260921090735.3174292-1-petko.manolov@konsulko.com>
- <20260921090735.3174292-4-petko.manolov@konsulko.com>
- <ff085338-6310-42ac-8023-bdf6d48ad103@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bY54g9ZE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428851F000FF;
+	Tue, 29 Sep 2026 13:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790689206;
+	bh=E1oWpGlnWZrrnOKSIBK5kkFjE6SVUqRRWUCgnGSeA4Q=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=bY54g9ZE0mn7qMHwXKXzh6F70Bi4fO3HphGHwcZ86fZZVEWVrZkgDCihdT+fr7iFe
+	 t+6OCBV9KV0njtCt2q/SDRF3p76An7fRdX9l2iGrbWSqW4oUYQKKN2Ps3dfbREwTh9
+	 By6ROYQBO8ejG4lNvDa/Wxrtv1ehhpvahXWBxHFsbwxfzVpA3uTuWrLFw2loSX/vcc
+	 kOqCSZpvMxWoP1bTQhNUfgE/wHSTRMHeo1vTmATXsmUYlgKORgpCboFqy9j8Z1Vthc
+	 hnt5OSLQmbOeNZX/L67Z016s9lUtiN/SouA3M9jH6qdVup1LsuPpUQhEapYqZQhZio
+	 LSF1e75TWRa6Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A2AB3926662;
+	Tue, 29 Sep 2026 13:40:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ff085338-6310-42ac-8023-bdf6d48ad103@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v2] dt-bindings: net: Document Marvell PHY
+ "marvell,reg-init"
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179068920477.499886.7765098308090780427.git-patchwork-notify@kernel.org>
+Date: Tue, 29 Sep 2026 13:40:04 +0000
+References: <20260925140410.1157036-2-robh@kernel.org>
+In-Reply-To: <20260925140410.1157036-2-robh@kernel.org>
+To: Rob Herring (Arm) <robh@kernel.org>
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ krzk+dt@kernel.org, conor+dt@kernel.org, f.fainelli@gmail.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-On 26-09-28 09:18:03, Dinh Nguyen wrote:
+Hello:
+
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Fri, 25 Sep 2026 09:04:10 -0500 you wrote:
+> The Marvell PHY driver consumes marvell,reg-init as one or more
+> <page register mask value> tuples. Define the property so dtbs_check
+> validates the existing board descriptions.
 > 
-> According to all my documentations, the Cyclone5 SoCFPGA has 3 GPIO ports, and
-> those are already mapped in the DTSI. The address space that you have
-> specified here is for FPGA bridge. Which leads me to believe that this GPIO is
-> in the FPGA.
+> Existing users have no compatible or just "ethernet-phy-ieee802.3-c22"
+> so this has to go into the generic ethernet-phy.yaml schema. Marking it
+> deprecated both for that reason and because opaque register
+> initialization values are discouraged in DT.
+> 
+> [...]
 
-You are correct.  These bindigs are some sort of leftover and Draeger folks
-confirmed that they should be removed.
+Here is the summary with links:
+  - [net-next,v2] dt-bindings: net: Document Marvell PHY "marvell,reg-init"
+    https://git.kernel.org/netdev/net-next/c/63f028c4dd73
 
-Sending out new patch series...
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-		Petko
