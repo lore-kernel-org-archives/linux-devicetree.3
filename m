@@ -1,159 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D496C3B47F6
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 23:16:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F19B329E5D;
+	Tue, 29 Sep 2026 23:17:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790723773; cv=none; b=BCI35uJ6X3e8Y9dQ5sbCjkQhdQFNCyXJ55lOjOOtm+V/6Ou/8MimF/ZhwV4ta6MprJhIxK99aLn+Yka6gaVIUwFqvU4iwClJlUrU0HAKxAe+AKhGc07CMk2RR2inJX0ZZlNGSABc2TlD9+lRj3YmuoMtF5oxp8mgjGAt9bIRrZ0=
+	t=1790723879; cv=none; b=TYIbgi+XZRWoVN8Y1MxYErAsiJ/T2QmphL7qzxNooJ/I6r3N3iFW450J1q8KUVjy6jYg0QLBmpjw4JPx3/j4LlpcJTEzFe9563LWVjJNNLODVGoUP+Nj1EAKrQEYN0UskEBga3F6Q7eJYwgU3CVszoW8mw8R/AHDoIZ7LK+FWSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790723773; c=relaxed/simple;
-	bh=aKxSLxfMAmX7uQ4Fp2SkpqKk9sTONUsuTjC9UfjXsyk=;
+	s=arc-20240116; t=1790723879; c=relaxed/simple;
+	bh=70nE12KTTB13EOl62kfb2HSURgDHW2XhfDqo53FPB+g=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=roEV/ByHjT5fWTt4P6BG79eUkxzqkS3mO9dkrx+ZUn2wG5A+Dn7BVSiMN+HmNMkGa0BCha3U8FsYLUoa+FggiHs5S9lOcGXBooy5Um1xDjyLD7T8dyEUW5bQjfT3W9fSltffVdEpkNnWHPYBhsRCGItjKA1EmL4F16KgFqFsZFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XpRXe5hw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WYMVUqqZw0OkZ0GLHbaGUNNh9V98asOxCg41CczPwpK+NEeAARicntz50m02C0To5CHsv92yJ/dTaDnnxw9mZid1uMz3RhQ7wVXxbjkdh7P1p/8rM66G3OHf2oYiihvcaSVqdXJW8oSyCfagwl7oPcBAev4QXjxGdmnRuVUC6u4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PzQxOO9M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XpRXe5hw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7C31F000FF;
-	Tue, 29 Sep 2026 23:16:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PzQxOO9M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B97D1F000FF;
+	Tue, 29 Sep 2026 23:17:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790723771;
-	bh=F0vKDrGvHJd5lbki69+au4OQZ5t10KPDTq2VVgjVl6M=;
+	s=k20260515; t=1790723877;
+	bh=fXPI6Ln6DtYYhxBA2aZaFL0LDEt6dyideuA/6ut0S4s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XpRXe5hwhzO6xZBBJvouzqmk/HdGeW4JuWVGKdZkeGBfzvoBaGscnPAFTWd2hqnGi
-	 RRe5+xQapSXhcqWoDYduCjKnYRqA+RTE7EAMpldd5ZZb63M1kicABDCdmKvYb3Qquf
-	 RkjXO+kd0RpCBdZbnWQMXiNLTjiCvgSAEdHwdNI5/WaXKMz+C97mf6ScVp46BxL7FO
-	 a23CLvt5iKhiAerrUrJZ/+7Saor0Km0sYB9s84dEsvlYyk5c1HthrHrBYp34qrOgPT
-	 ypyOmIUl/a/Y0EgrP4kLWyE6rwcwHPc554dSL7L9QX9m7EwKM7ZJmJPOJ7UMOa8DVx
-	 7JqGMJBuhOOJg==
+	b=PzQxOO9MzaYWyUQyE57Iu55JlQcw1j0DKtLyfiWXkSjGsWHNb+7wXWLh6Yg3QCC4O
+	 3q8seSq6KgRemuBXEZruTE5NQqsO/RXf4YzfbrlOxmHFbw8rFXEqT1iBWBJudY7C8p
+	 3ftzx+NRPCICMVkaxgTpeK5umf51M0UYtI27tVf0glJ2pdETg2TtxdPBAJXGONp/kL
+	 +mopoqeFiXO5rnNsUZ/2+oWiMQJnQbKP5mLuGSSxaA4DJN9ZLEoGBIicDsoLA14sG9
+	 ywXyO+jBNPktK6vWCmiI2Ovrtj0cE4ItTahvXlNtaM1Y1p9S9yMLCwC++KEPcqrkdK
+	 rtOT4k/n518OQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 12/13] iio: adc: ad4134: Support high-speed data
- capture
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: Add TI
+ TPS389004/TPS389006/TPS389008
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <60682dd6c61806bf0d024d242c62b39a349db4f1.1790719425.git.marcelo.schmitt@analog.com>
-References: <cover.1790719424.git.marcelo.schmitt@analog.com>
- <60682dd6c61806bf0d024d242c62b39a349db4f1.1790719425.git.marcelo.schmitt@analog.com>
+To: "Luna Hart" <lhart.opensource@witekio.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20260929-lhart-dev-tps38900x-v1-1-7045c5894152@witekio.com>
+References: <20260929-lhart-dev-tps38900x-v1-0-7045c5894152@witekio.com>
+ <20260929-lhart-dev-tps38900x-v1-1-7045c5894152@witekio.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 23:16:10 +0000
-Message-Id: <20260929231610.BA7C31F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 23:17:56 +0000
+Message-Id: <20260929231757.5B97D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] iio: adc: ad4134: off-by-one error rejects maximum sample rate
-- [Medium] iio: adc: ad4134: PWM left running on driver unbind
-- [Low] iio: adc: ad4134: exposing unsupported IIO_CHAN_INFO_RAW in offload=
- mode
+- [Medium] dt-bindings: silent schema validation bypass due to invalid comp=
+atible match
 --
 
-commit e47f312fc16187aac53abe53836e642d8e031a66
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+commit 6f785a9cad4f5ba27f5d71565ba1ca2b776da113
+Author: Luna Hart <lhart.opensource@witekio.com>
 
-iio: adc: ad4134: Support high-speed data capture
+dt-bindings: hwmon: Add TI TPS389004/TPS389006/TPS389008
 
-This commit introduces SPI transfer offloading to speed up data capture for
-the AD4134 ADC. This enhancement enables data acquisition at faster sample
-rates up to 1.496 MSPS.
+Add a binding for the TI TPS389004, TPS389006, and TPS389008 I2C voltage
+supervisors and monitors, which provide 4, 6, and 8 voltage inputs
+respectively. Each input may be described by an optional child node,
+containing additional properties including the label and ADC scaling factor.
 
-> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> index 50021001b3741..277f6de7c8714 100644
-> --- a/drivers/iio/adc/ad4134.c
-> +++ b/drivers/iio/adc/ad4134.c
+> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tps38900x.yaml b/=
+Documentation/devicetree/bindings/hwmon/ti,tps38900x.yaml
+> new file mode 100644
+> index 0000000000000..cdd74ddd03e74
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/ti,tps38900x.yaml
 [ ... ]
-> @@ -160,6 +174,39 @@ static const struct iio_chan_spec ad4134_chan_set[] =
-=3D {
->  	IIO_CHAN_SOFT_TIMESTAMP(4),
->  };
-> =20
-> +/*
-> + * Hardcoded 32-bit storagebits and CPU endianness because the currently
-> + * available HDL only supports that configuration.
-> + */
-> +#define AD4134_OFFLOAD_CHANNEL(_index) {					\
-> +	.type =3D IIO_VOLTAGE,							\
-> +	.indexed =3D 1,								\
-> +	.channel =3D (_index),							\
-> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),				\
-
-[Severity: Low]
-Is it intentional to expose the raw voltage attribute for offload channels?
-
-The IIO_CHAN_INFO_RAW bit is set in the info_mask_separate here, exposing
-the sysfs attribute. However, ad4134_read_raw() is modified later in this
-patch to unconditionally return -EPROTONOSUPPORT for raw reads when offload
-is enabled. Does this clutter the interface with an attribute that is
-guaranteed to always fail?
-
-> +	.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE) |			\
-> +				    BIT(IIO_CHAN_INFO_SAMP_FREQ),		\
-[ ... ]
-> @@ -489,6 +544,92 @@ static struct regmap_config ad4134_regmap_config =3D=
- {
->  	.max_register =3D AD4134_CH_VREG(ARRAY_SIZE(ad4134_chan_set) - 1),
->  };
-> =20
-> +static int ad4134_update_conversion_rate(struct ad4134_state *st,
-> +					 unsigned int freq_Hz)
-> +{
-> +	struct spi_offload_trigger_config config =3D st->offload_trigger_config;
-> +	struct pwm_waveform odr_wf =3D { };
-> +	u64 offload_period_ns;
-> +	u64 offload_offset_ns;
-> +	u64 odr_high_time_ns;
-> +	unsigned int count;
-> +	u64 target_ns;
-> +	int ret;
-> +
-> +	if (!in_range(freq_Hz, AD4134_MIN_ODR_FREQ_HZ,
-> +		      AD4134_MAX_ODR_FREQ_HZ - AD4134_MIN_ODR_FREQ_HZ))
-> +		return -ERANGE;
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: ti,tps389004
 
 [Severity: Medium]
-Does this validation check inadvertently reject the maximum supported
-frequency?
+Will this properly evaluate the compatible property?
 
-The in_range(val, start, len) macro strictly checks if val < start + len.
-If a user requests exactly AD4134_MAX_ODR_FREQ_HZ, the condition evaluates
-to MAX < MAX (which is false) and incorrectly returns -ERANGE.
+In device tree bindings, dt-schema evaluates the compatible property as an
+array of strings (for example, ["ti,tps389004"]). The const keyword strictly
+checks for exact equivalence. Since a scalar string is not equivalent to an
+array, this if condition will always evaluate to false.
 
+Because of this, the hardware-specific constraints in the then block
+restricting out-of-bounds voltage channels for the 4-channel variant are ne=
+ver
+applied, allowing invalid configurations to silently pass dt_binding_check.
+
+Should this use contains: const: ti,tps389004 instead?
+
+> +    then:
+> +      patternProperties:
+> +        "^vmon@[4-7]$": false
 > +
-> +	odr_wf.period_length_ns =3D DIV_ROUND_UP_ULL(NSEC_PER_SEC, freq_Hz);
-[ ... ]
-> +	/* Check the PWM periods remain the same */
-> +	offload_period_ns =3D DIV_ROUND_UP_ULL(HZ_PER_GHZ, config.periodic.freq=
-uency_hz);
-> +	if (odr_wf.period_length_ns !=3D offload_period_ns)
-> +		return -EDOM;
-> +
-> +	ret =3D pwm_set_waveform_might_sleep(st->odr_pwm, &odr_wf, false);
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: ti,tps389006
 
 [Severity: Medium]
-Could this leave the PWM hardware running indefinitely after the driver
-unbinds?
+Is this block also affected by the same array matching syntax issue?
 
-The ODR PWM is retrieved via devm_pwm_get() and started here, but no explic=
-it
-cleanup callback or devm action is registered to stop the waveform. When
-the driver unloads, pwm_put() will drop the reference, but the hardware
-could continue running, resulting in a resource leak.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	st->offload_trigger_config =3D config;
-> +	st->odr_wf =3D odr_wf;
-> +	st->odr_hz =3D DIV_ROUND_UP_ULL(NSEC_PER_SEC, odr_wf.period_length_ns);
-> +
-> +	return 0;
-> +}
+Just like the 4-channel variant above, this condition will fail to match the
+compatible array, bypassing the channel restrictions for the TPS389006.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790719424.gi=
-t.marcelo.schmitt@analog.com?part=3D12
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-lhart-dev-=
+tps38900x-v1-0-7045c5894152@witekio.com?part=3D1
