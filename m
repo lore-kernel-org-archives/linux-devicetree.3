@@ -1,155 +1,186 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C8B51CF5F
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843C8379C39
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:35:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699305; cv=none; b=QnMFqNe6NWIxeIbq84cTKMaIS7BuyXKEbGpquA/Rn6cASkqjtLQpwYrfQN+rBzlDhHFJ1h7Cx9yanq39UtsmKBq/oTd3IohH2WlflSb1zqlc5ziQ24IKERgbjfssWOlqsF76e9RhvVLsF2zY6OwVSZEeTi6xNoN/ZAMKueSrTi0=
+	t=1790699703; cv=none; b=UlrmUOjI4iE7uRigAJrBsO6ZgfaRNS3FyWjC5wH/iYQJHhg8SEZ/ywJVkABScJVHQ18le7VTPQfhT4VB5zneX6BxRGUXk4EkARceX1LS/YtNH9H9cW/ogZj+5bGOPk7QjvcRMo9QsZ+7rlUSdD5Z8c3mUdzbCAVP1b2WYdemZWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699305; c=relaxed/simple;
-	bh=Jq2r1sgopAvM35am7tUBN0KJRVKbVZQQvJ8GCCw7fjQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B+44jdJKjvhIEGKrIh+ypBS85M24skBTeaZE5LpntBbT0gBeeVj74on79g0rseX64Sd1suoBir12BTHI4QS725ziJuHCEThBs0U1Fzz1RVeEPwhV2MqABYXLAXPBouJCctxF5X63Bggm60D0MvNuE6vm5lqZE45O4ah3+1xq2+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=UDZxFcb1; arc=none smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	s=arc-20240116; t=1790699703; c=relaxed/simple;
+	bh=k6vfP0YVA5s+JVQXM6pymggavOZ5XjrfFxmMafASOFc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KQLs0uBymjrVBGVN97IgE5+ONzKwBMm5XyvRPkHvpUVytIjTq4hMJ+LGWfN7wan+hOmSjdgxlSCaJI+KsDM4LEsHlfK7G36cetEHLW2HzOE1O4MD+EGIC0Up1MphKLAcP2ORXqgDawrjWP/5R1CCb8Xgt5owoyj50yBOX11jaL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=brivo.com; spf=pass smtp.mailfrom=brivo.com; dkim=pass (2048-bit key) header.d=brivo.com header.i=@brivo.com header.b=a0bHqX0m; arc=none smtp.client-ip=74.125.230.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=brivo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=brivo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="UDZxFcb1"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c2a97ec17so154032eec.3
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:28:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=brivo.com header.i=@brivo.com header.b="a0bHqX0m"
+Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-9179750d44eso432476d6.0
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:35:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1790699303; x=1791304103; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oIG5aezIvFLItLUQyFfjj+0bna6lrv+DBpzkqJ9qmNw=;
-        b=UDZxFcb10sz6H1SXb3zZdETplLEq5M5Zu7pyzN+PAil01BwDGWHTX8davG232sGI4l
-         X1Y0ABqi1QfWoXTM34kAAcybemdyqpMG9j/yfoPIAG7jRPfxhZ520iIE2m0x0OppbvFn
-         i8hBgs5v/9NRxnnyBBNtxBiUsitVgXvwjN8f4klA3JsD+4P0Hea7wJVV6npcnXkCaYlP
-         ymOFUlpGs7ojFoHAJkh1Vq067IUUJ87K8negZD8TFg9IcPJsXbE73yKtIBXEnXJPJIm4
-         vIdM80Dsf39r8QcURKfdVTAoOLDYB+N6BYSaW6bRvWqMDE7CsT1DjPDL3cMCPy06BLZm
-         HbjA==
+        d=brivo.com; s=google; t=1790699701; x=1791304501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BpUlBI/TZ2/z/cI75UbimRM1YcGKhoHyCnq9jL1vi8A=;
+        b=a0bHqX0mA/dZ4o5lgXC9lvCRB6d3QLvS3Y745XNssqKCi14Z1akbIL2cDbgceg8ReD
+         3Aa0FI5I3VFwYFeHBaypvzUBt3ODCoNdBMFBX1wzbTNTwlX64zDa2X32q2bqxoiOXR0Z
+         bWJ7DCugQkUEZlDEQeE+3sExhuTxq/nIL4YasRzc/ugYl60nnWDpiyn53owwRPYdzyDG
+         bPpJyC6rAls1OierV78842Gog/IheVbxMSJEykcPDISpxJRxnceiScBDlVUxRlDnx6CA
+         aekJ1IaIatxPDnnJzHCJ0oYhMIzd5HCSjzkujZiL9FmCFfe/EL21z+y40JLW8TU75NHj
+         7Brg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790699303; x=1791304103;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oIG5aezIvFLItLUQyFfjj+0bna6lrv+DBpzkqJ9qmNw=;
-        b=x+qOt7Q/qOSqEI6XqXUofFwklj94d7sVbmxSb9eZq63FNlT0gAT6FVSQ5jAwThgU/2
-         nqvpYixpHNhUmcwax4YT6OLwubSGpF8Wl/SSnODDdLrxTIjmNaS6gkZjzbXwvuUM/bT0
-         KvETj98wWkjFE5y0XNwFPSlC2iO9/gMz+w8zKhqDhtr126/HlKooL8tkEJBTvsaSBSpL
-         bhvo4VVsBPMWQCZnUZ9t8C6ywJx9bbay3cX3eEcHUqMZaU3hQq0fZWKxiujDn3jAcTty
-         XMX/ho48XbxbxE2W4Jk+IKBpBbku+MLuRRDFmsN9mgrRNyailPR9eyYNL4VUaZdxXR8n
-         geeg==
-X-Gm-Message-State: AFq9FYL/D5y5UblXdhQMtW/9EYPq8EMZJ28Nuyk9nhbfqI1RJLtbVsNq
-	M4Y/VMvxITtxejIxVtFDI5E1pHPtqakkOtAaH3vPcwPubP3iA1q7KWDdhzIS2ReM+/YaKpv+p9V
-	H5OP5jB0=
-X-Gm-Gg: AYBFou0lj9a6Gl7M+ZSeAJb2IrZW4FAokJrA/3W+AvmwW2r952WFueORgR2Y1/EFEIE
-	E58rhkyWhe89ygV2yNAGRvT/qsiYX6ICY6dQ14SVIWk60XtQj/u88EAttvNF61Ykm23DXiaVyUL
-	LPVP8s75gXwrxUvA1iIZmmsqzZ3CrUVSxWunX3u3fDgvbyL8EcK8c4TwUL8SgFzDeHG+SKKUKtB
-	PNsTYB+neyqffSmgSkPeL+lg/eIcZCiSgZk8pxctoDsQPsvJgnk9/bP+vh8F/DO9uVBB3d/Zvuc
-	gW63q/GL11OE6ASpVkiWK3G+GOlfsXzGstgVJbMMYJWHkbDLob1JkACZiQjsBNcvUqJOPTXoCI1
-	bklWlnLbjBK6lEN8e5vFW6ddfc3GkJORKX6C1k5BYpfCyabnIGPcGy16IDPV5KCS2t7AuALXnot
-	W7U2vuO8duI8VjJM6XHTii5bswfQv26lsGQ1BInFH4bmFlkOIdH1lwPOqmvA4wozNuMk+jL870x
-	A==
-X-Received: by 2002:a05:7301:dd97:b0:34c:1e2c:3499 with SMTP id 5a478bee46e88-34c1e2c34a9mr560429eec.28.1790699302512;
-        Tue, 29 Sep 2026 09:28:22 -0700 (PDT)
-Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c378c9a7fsm425590eec.10.2026.09.29.09.28.21
+        d=1e100.net; s=20260707; t=1790699701; x=1791304501;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BpUlBI/TZ2/z/cI75UbimRM1YcGKhoHyCnq9jL1vi8A=;
+        b=zf+N518lA8NHVjQGkdbdRTkyQszd+33fouOm7HxWZPJaYL/4J1QHNDWEMHtBKZyy1J
+         bpp7+f+asnQXPeER/qPdkLtL7G0gabV7irAu1R5i1mg+flCvrbxRzZRIzb6cepiTmm85
+         8mb06WWjqCiU3uBfOPUW8f6uF3OKvncxOA6YqJ0BT86wh/3dKKedKVKHF1T7CR8BooXU
+         jPmfY517pwu1wYOzTOm32OWFkgizjahN7ZrVyuzorzNsp0nHLtCPwjxK1CqR87sTONaA
+         trFm9X7Zjjkz9VqjeSloFix5nfKelaSalVbm0U7JWbNLqB+Q1SdsOifA5zqaYIHCmrp4
+         UKxg==
+X-Forwarded-Encrypted: i=1; AKwUvBzdF5kkV0IqTAtS+/pWjbIyUoQhqQXUbkO5jT8RMthNteOHoUa125Ji9GRlu/ZVOau+86Wse+uVOBG6@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9Q10R0/3isUoTzqKh/JOuq7qk5Yl0ijXmzEmA0gTRGewlD5ZB
+	SIf1I9tq7uG9zXTGU036j0l0cY/jOlzu+Tji1SmbLHoZNmWZKzmlhKGiSjgHSaklKxNwNrBEh3J
+	rqL+969dUCLCzz7EWMIaOc+yGUZ5uZEpw+cLQDrYrzfrkxctjYrjQ7jYu
+X-Gm-Gg: AYBFou1Fe8g4GH7s3vmZhyenbF2Jqk3YcsvqbfcXlrXlHQg8gRstRQ/lqjFAoNfmCHM
+	TaAEhIhEFrCKD43USmefmv6mfVcw+K+YHnEUrKhCPVsflY/oRUpL5e97okFoi83kj69GlxY45JE
+	rkulnBTRhCIGo+Ygu6huqqsOo1CR588X7M3PL/O7Dz0GB068GrugGhWiIkjXIaV0z1m/xZariU4
+	0zSuTM3CtvUs8NRi70YBiFIIWNY+7eGTKZzfUCw+gJlPDYF/WnaMIYBtnFiiH5aySenU/tYsQHt
+	Yu/qec7KlIINKXWZtzuGdUZy//NKzdLB6DVGVGCFJbon66N/7b9yY9rT1twnW5Ioozij21VE5fg
+	P+YsGwG2L4fP5t7AM8UZ3etpP1OKWHuyR1TUPJzwBH+Dx7+B31JbfNV/RTDF1rL33Pus+5/W/mc
+	ZpKsGQSMZ+dH2Uvd6VV2/LjDBFtnGoYI/Wr00sWwGurTNmlHsXR6kR+VUOKmoJHcyT
+X-Received: by 2002:a05:6214:248d:b0:917:8d04:deae with SMTP id 6a1803df08f44-9178d04e0b4mr37336786d6.35.1790699701212;
+        Tue, 29 Sep 2026 09:35:01 -0700 (PDT)
+Received: from strozzi ([71.163.254.246])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9178d39627asm14065896d6.45.2026.09.29.09.35.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:28:22 -0700 (PDT)
-From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Tue, 29 Sep 2026 09:28:17 -0700
-Subject: [PATCH 2/2] misc: eeprom_93xx46: add Microchip 93LC86C
+        Tue, 29 Sep 2026 09:35:00 -0700 (PDT)
+From: Sean Anderson <sanderson@brivo.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	linux-arm-kernel@lists.infradead.org
+Cc: linux-amlogic@lists.infradead.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Sean Anderson <sanderson@brivo.com>
+Subject: [PATCH] arm64: dts: amlogic: meson-s4: Set stdout-path to uart_b
+Date: Tue, 29 Sep 2026 12:34:10 -0400
+Message-ID: <20260929163457.3237394-1-sanderson@brivo.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260929-eeprom-93xx46-93lc86c-v1-2-272791aac875@nexthop.ai>
-References: <20260929-eeprom-93xx46-93lc86c-v1-0-272791aac875@nexthop.ai>
-In-Reply-To: <20260929-eeprom-93xx46-93lc86c-v1-0-272791aac875@nexthop.ai>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Cory Tusar <cory.tusar@pid1solutions.com>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Abdurrahman Hussain <abdurrahman@nexthop.ai>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790699298; l=2511;
- i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=Jq2r1sgopAvM35am7tUBN0KJRVKbVZQQvJ8GCCw7fjQ=;
- b=7fPpQaVsFczkgPOwj57Q4FirI7J0Qsl/mjZLq7G/m9KcY9O2EWHCK5jgVBXtJthb082MOucjZ
- 0rj8WmbTQdSC2wIEMD5awKlH5fjnp+09KkdAhmDc87LhKSRifc5nB/S
-X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
- pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
+Content-Transfer-Encoding: 8bit
 
-The 93LC86C is the 16 Kbit member of the family: 2048 bytes, so a
-10 bit word address in x16 and 11 bits in x8. Like the 93LC46B it
-clocks an extra cycle out after the address during a read, so it
-takes the same quirk.
+If stdout-path is not set then bootloaders such as U-Boot may fail to
+boot when they cannot find the serial console. Normally, this would be
+added to the board devicetree, but in this case the boot ROM,
+first-stage bootloader, ATF, and TEE all use this serial port with this
+baud rate [1]. All of the listed components are signed by Amlogic and can't
+be modified by OEMs. So while someone might want to use a different
+port, they can't prevent previous stages of the boot process from
+printing to this port. Therefore, set the serial port in the SoC
+devicetree. Boards can override it in their devicetree if necessary.
 
-Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+[1] Actually, the baud rate used by the ROM et al. is 888888, but some
+    userspace tools (such as agetty) choke on non-standard baud rates,
+    so we use 921600 which is close enough for most serial adapters.
+
+Signed-off-by: Sean Anderson <sanderson@brivo.com>
 ---
- drivers/misc/eeprom/eeprom_93xx46.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/misc/eeprom/eeprom_93xx46.c b/drivers/misc/eeprom/eeprom_93xx46.c
-index f9c3ab52c2f9..77fe1fb641aa 100644
---- a/drivers/misc/eeprom/eeprom_93xx46.c
-+++ b/drivers/misc/eeprom/eeprom_93xx46.c
-@@ -29,6 +29,7 @@ struct eeprom_93xx46_platform_data {
- #define EE_SIZE1K	0x10		/* 1 kb of data, that is a 93xx46 */
- #define EE_SIZE2K	0x20		/* 2 kb of data, that is a 93xx56 */
- #define EE_SIZE4K	0x40		/* 4 kb of data, that is a 93xx66 */
-+#define EE_SIZE16K	0x80		/* 16 kb of data, that is a 93xx86 */
+ arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts    | 8 --------
+ .../boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts    | 5 -----
+ arch/arm64/boot/dts/amlogic/meson-s4.dtsi                | 9 ++++++++-
+ 3 files changed, 8 insertions(+), 14 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts b/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts
+index 0a3f81ea0fb0a..15bf143317a2d 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts
++++ b/arch/arm64/boot/dts/amlogic/meson-s4-s805x2-aq222.dts
+@@ -14,10 +14,6 @@ / {
+ 	#address-cells = <2>;
+ 	#size-cells = <2>;
  
- 	unsigned int	quirks;
- /* Single word read transfers only; no sequential read. */
-@@ -77,6 +78,11 @@ static const struct eeprom_93xx46_devtype_data microchip_93lc46b_data = {
- 	.quirks = EEPROM_93XX46_QUIRK_EXTRA_READ_CYCLE,
+-	aliases {
+-		serial0 = &uart_b;
+-	};
+-
+ 	memory@0 {
+ 		device_type = "memory";
+ 		reg = <0x0 0x0 0x0 0x40000000>;
+@@ -141,10 +137,6 @@ &pwm_ij {
+ 	status = "okay";
  };
  
-+static const struct eeprom_93xx46_devtype_data microchip_93lc86c_data = {
-+	.flags = EE_SIZE16K,
-+	.quirks = EEPROM_93XX46_QUIRK_EXTRA_READ_CYCLE,
-+};
+-&uart_b {
+-	status = "okay";
+-};
+-
+ &ir {
+ 	status = "okay";
+ 	pinctrl-0 = <&remote_pins>;
+diff --git a/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts b/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts
+index 99d5df71b9cd4..c602091bca0a6 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts
++++ b/arch/arm64/boot/dts/amlogic/meson-s4-s905y4-khadas-vim1s.dts
+@@ -22,7 +22,6 @@ aliases {
+ 		mmc2 = &sdio; /* SDIO */
+ 		rtc0 = &rtc;
+ 		rtc1 = &vrtc;
+-		serial0 = &uart_b;
+ 	};
+ 
+ 	memory@0 {
+@@ -334,7 +333,3 @@ bluetooth {
+ 		clock-names = "lpo";
+ 	};
+ };
+-
+-&uart_b {
+-	status = "okay";
+-};
+diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+index 2a6fbd5308362..3e432e232a76a 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+@@ -13,6 +13,14 @@
+ #include <dt-bindings/reset/amlogic,meson-s4-reset.h>
+ 
+ / {
++	aliases {
++		serial0 = &uart_b;
++	};
 +
- struct eeprom_93xx46_dev {
- 	struct spi_device *spi;
- 	struct eeprom_93xx46_platform_data *pdata;
-@@ -389,6 +395,7 @@ static const struct of_device_id eeprom_93xx46_of_table[] = {
- 	{ .compatible = "atmel,at93c56", .data = &at93c56_data, },
- 	{ .compatible = "atmel,at93c66", .data = &at93c66_data, },
- 	{ .compatible = "microchip,93lc46b", .data = &microchip_93lc46b_data, },
-+	{ .compatible = "microchip,93lc86c", .data = &microchip_93lc86c_data, },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, eeprom_93xx46_of_table);
-@@ -406,6 +413,8 @@ static const struct spi_device_id eeprom_93xx46_spi_ids[] = {
- 	  .driver_data = (kernel_ulong_t)&at93c66_data, },
- 	{ .name = "93lc46b",
- 	  .driver_data = (kernel_ulong_t)&microchip_93lc46b_data, },
-+	{ .name = "93lc86c",
-+	  .driver_data = (kernel_ulong_t)&microchip_93lc86c_data, },
- 	{}
- };
- MODULE_DEVICE_TABLE(spi, eeprom_93xx46_spi_ids);
-@@ -482,6 +491,8 @@ static int eeprom_93xx46_probe(struct spi_device *spi)
- 		edev->size = 256;
- 	else if (pd->flags & EE_SIZE4K)
- 		edev->size = 512;
-+	else if (pd->flags & EE_SIZE16K)
-+		edev->size = 2048;
- 	else {
- 		dev_err(&spi->dev, "unspecified size\n");
- 		return -EINVAL;
++	chosen {
++		stdout-path = "serial0:921600n8";
++	};
++
+ 	cpus {
+ 		#address-cells = <2>;
+ 		#size-cells = <0>;
+@@ -794,7 +802,6 @@ uart_b: serial@7a000 {
+ 				interrupts = <GIC_SPI 169 IRQ_TYPE_EDGE_RISING>;
+ 				clocks = <&xtal>, <&clkc_periphs CLKID_UART_B>, <&xtal>;
+ 				clock-names = "xtal", "pclk", "baud";
+-				status = "disabled";
+ 			};
+ 
+ 			reset: reset-controller@2000 {
+---
+base-commit: 6f8319e3e9a44dd537d17f41565a8453c560a581
+branch: s4_stdout
 
 -- 
-2.54.0
+2.53.0
 
