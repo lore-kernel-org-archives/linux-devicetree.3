@@ -1,65 +1,65 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D674F4037
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 12:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA5A4FE2EA
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 12:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790686133; cv=none; b=jLCewHNDb7wSjc2Bq47Qz/JeXSN3d51IY/TxKVXuPf/wDN3MKBIWgyUgOfRqLY0P62FWtAKj0tS9+tK0+hQE4yFF729VTEYHnUmNbxVyCckYnyRa8GDxCKD0L0y9weraGyLEm8gXWh2imh2du3jAXO1xZPJZwEupEcmef4tA5ys=
+	t=1790686135; cv=none; b=aHi/6iu09uLuvDQCJ1PD8TOol/hLcKHZ+OAERe9yxmUS0VflmijCiT3E4hwjbByixaLKM6DaR3c55AneB0+//kLhpuIgV4Y2vhTCqdBvQAGUg1aT0zT8kDoPFhSapAQpR+nx7bMiUJqB2kiO6Rx8iwmakDWhL7U46ZFOM8l/0So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790686133; c=relaxed/simple;
-	bh=sodi5mo9+5hIVHzuNMklVU1zg22b234UU22ndIKPhl8=;
+	s=arc-20240116; t=1790686135; c=relaxed/simple;
+	bh=wbHMaKaK45TOAQRLL1l/1fVGrxE2ehsU9nvptqFVQIw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nHmv3qDdgp4a9SHAuIPMIWtu+AKDckwAeeNgkX7fPoako/onQUlFQSn8tCyKkY05tXnLDEt4/bNMq3d/5eCgiWr/H/KNyGfKi0z+9scRl+/l8QCMjob8PX06E+g+DnFRU4Z8r29yWRWW5LWnc1CMlYrtyemSa5yw450ytySpCKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ecVdvGLc; arc=none smtp.client-ip=74.125.225.99
+	 MIME-Version; b=VY9rWJv6L0+2ZS207b02bp7hW+HyQTAodz6UQWBJ187vA7Lua3ut5tY0bDX5KCDXIhH9qoXXlBstXCh40j83I1ENp90PCRfBKa0/xjC/kHJU+Lcs9/DZg20Hdyi/IFebFWfefIYULQJE1oF7i9Kj9c/OSMnke848hsn9FeB/AgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UTHJQH9y; arc=none smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ecVdvGLc"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887f6cf16bso2603741f8f.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UTHJQH9y"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48aef5d66c1so607152f8f.3
         for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 05:48:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790686130; x=1791290930; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790686131; x=1791290931; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KBS2cw32SoCGmB2dOwtN0oqVWveJEaVstinaAnXIBvY=;
-        b=ecVdvGLct2ks37fQmwLqIKiJXXfcpVo13TtCumS1UbYpJRrRg4nETDuFt+TPSYqHs9
-         qTjecNcGXmS+Atl4CiNFibuBU05u2XHCmbjHyonb+tv2cyhCl/RM9sDJgc7VXzrDbVMx
-         MKoiOGQt4fJmjEyP/Ym7qEAUmYwCDaKAl6RnBxU/gZioAAhMnC3+ruA3U2FXZ9dtvaYa
-         Z0/QyPiSXwyc+qvYEEB/y8lCc0eU3ROk7X85wvff9af15QqOg/mGboZVHurE8FKc8Ahc
-         2Ir+U1JaRgSoj3iIx7Sk3q7UG+XliPkgKoZX7tXz1RLsH16Q6+8otfuf3SRE3UzGcvqF
-         iAYg==
+        bh=bmzDllNwVcUBRIMWMvWOLZKFzcdqnhRBady0WsHfzZk=;
+        b=UTHJQH9yNKhoZ5B5OR8+pB4xVQLe0MyaCmPxcrNOq51Nlf8VpnAD8jZMna0f/ayYdP
+         D+ROwHuYmygaiiF55ndq4Ve3M3ITIzQlYBmW/FH0J2fa9Nim9zK5qfH3TPamqOLMrWSV
+         4t3O/mtWwqMnPBd+UYPsuEyjVKM2kjIpYu/lhSpRCutzh7zwGz3xdzgTZyYsEzaf6Kce
+         9bjDhEcdNIO4/gbBRDZCX/zSrcfAIfqO/sT4QuM2pKGniK+n7N1NBjLRcTfRlpdS4PTd
+         Iyjq+45w4bfO8UHgEy6ClVSERyfL+vm3ShlcV+nLcUY4sxqFx4j9Dm3JzmBTLeAHzflS
+         g6Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790686130; x=1791290930;
+        d=1e100.net; s=20260707; t=1790686131; x=1791290931;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KBS2cw32SoCGmB2dOwtN0oqVWveJEaVstinaAnXIBvY=;
-        b=VBRwOqE/w/9Wbd0FQaHYZ+ZNTAKaN7x6lJdlSPos+1LFzQbttG4nvAq6/VFK1gIQNJ
-         nxjrz1VxuLtdYKOl2VsS0QGZ7jsuj6R1UsuJRNNnnst3DdJ1dsGMarVxvJF/altbPNZL
-         pnFe/4NAWeRAWq3fL0KDE/iG79k7Zw+XZ2djKdV6jU9YMGwGtBcLwREgHvBRdRB5nbH6
-         ad32EfpXjJdT+bYNnmRJj0egCIWSXXTRMO6RGxP3GQMEZIrgiCIMueFrdKNpCbN3d3cz
-         Id6tb8bmd43T2IeanB4RR6WBQF/GU/L+XR03EIlPxgfsCdBQwLbTJHx+gtfsnl1Wfien
-         7zOw==
-X-Forwarded-Encrypted: i=1; AKwUvByNAa8ZDMIpdKt5H7cEypqKSpmml+inFZS78BtaQN2dkEW1IrUFcHlEvRjb1lnot04mpL351swAXA3f@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuWag0coudlNLB91XMuH2d99mkqNyZqIZ2+qZICNQvjGcikjqe
-	PWEWFtNBk+xVviI+6VGSqA/jU4NdmUx/dq/2AH+y7Oii7pktdPCLPQha
-X-Gm-Gg: AYBFou0tAGqW7BPdgFyY3c9Bkz8IUEM8//pLf8uDDcaM0eoWjad3BGg3SNGCu/XLiWl
-	/XKbLPMANvCA7j4MZhOes9e3ioJbSxF0SrfImzoebCm9Lugls07E5VTUzxCU0IGv8e83LxC+P1F
-	DzJubVdngx+gGXErIhlkrhZ8GLJbKFfV4+0wYFTpMVz/oMprrwqB0j5Ykk36Jnn0noVimqfSN/A
-	WqArKV+/ByrYc5ZoriTJM3VqR1GgddEF7gs/2+f5PBb+xEyOEiPSgs1fUZD+z/CPVdFBBtT2cjc
-	lZ39eTrwOr2FkMr82jIL2wwJnQPANKN6/kzla+IYKrmWgb/Wpx0gt1BrolsN6czvKASE4w736pK
-	h2XbillAo/gX5J0AlwNG4hdHA3R942Ifw3YZBEAjloSoGQatrsacDbhXhipskYAjEGgKn0tfuRR
-	TBjQGw/GiXk5eS09qKb/ibTvHI/ShzVcFpA1KBrebnoap6kLATh/lWRE7FBKzcdWx4TESsoAHxq
-	Vb5+8jSpbgWdVyvcBLf6J3Ay04Wxv3/yik6NNUIn6iJNvdWWAlknNIbVq/fNME/w/GBXeKD9ekw
-	E41JhlIz3kj6kV03Lp+dadYGrTeZFQ==
-X-Received: by 2002:a05:6000:40e1:b0:488:5fca:a837 with SMTP id ffacd0b85a97d-4887da11182mr23608421f8f.20.1790686130281;
-        Tue, 29 Sep 2026 05:48:50 -0700 (PDT)
+        bh=bmzDllNwVcUBRIMWMvWOLZKFzcdqnhRBady0WsHfzZk=;
+        b=kiRvUh6ot1cTMl0GouIkwAf1SWQ6DSnlQv2W3mIX6RnP8qWFWLqPA6xPT6qARcAj4D
+         5i/5aRV0IjWohhTSRIYZwk/G+FJlP0/gEUPwSMtC7VAxKOWOhR0bfNxrm11eXQa+pc/X
+         uwUyyP0U4s6EVhHS93PfHoMi+yCOII5EEw2vV4JgM7wKuyE/Jik7IZ0jxExd1a7RQSHQ
+         REreU3T1BXEnMZYcv5HPnUYc483BwegZo8p/W5vQweqlGnU2a06ERnFhZp6ofTezfZBk
+         J0jaL3Ez+6VPjCbZHo8aSEdWgxfgxP3v/Ud0YcoBa3Q1a3k78kKvf+RnuKr19wi1Jpr2
+         1vpA==
+X-Forwarded-Encrypted: i=1; AKwUvBz5VRtTDbiuL9SMYxS82mlVlyHPTShI4a9gu6+x1ZCPpRMlvcMou0iLRdHUew8Y1TFabdWRZcYxxa2k@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDf0ouAbtOvcGvWTFchUa1IaWTnFkHksN6h7M1J1G1yToJjk0n
+	4lfdujcpA7KmDYlVUavgvsyzFnuxU1sT3qrVeU2mlJ622VHynac83DuL
+X-Gm-Gg: AYBFou28m2ECKBYJOm9v8bSgmLA4sh9XF+GgmjYKgXWLMRLS+qbtNw6PEdaqfm9MbXR
+	Y1A43KvTvLqjfB23Urb9Z8py729XxD5yHVFvev8+5uabIaBaWhYUfeoZ1lmJ5t0b5E73JLc6d9i
+	PEpsHaOKQ5ky+PfXZR9WH7q5Jj8AYeWbyjfVt4I39P0Hf6f0p0f0AmHuGv2ctqVGJVQVG1FYkuH
+	Rfqlnneg/hOgT29eMnVstuY2pxgnghgkWnbhe3/eNw9CDbUxUTA/wArrhaoh2HQVMeH4V6VHGu7
+	9FpQkI6DgrRfVB4UTtvm+ujMrADg0Q8Q1J7pB2AbxEPf5rpUoIWJOE+W+GilF/VXEzECZMfvFrw
+	E2Gn6Fi6wLR4sWhvPbfgnlWPDrxjqDjzdEJHU3CEcfaS3RGexl06NxI17mn+Ae6PchRcA20+Ouc
+	WMbxOiq2N18HVVz1caleqyv4ExeAYc0JWvLdbquA3UdyIbDCTB6xIHFROycCzZtAiuznUMaalmm
+	OqY5QRoVZ/ctLbOMiRVsYYMPCmA7SHH3imuumTTMCPWFlXoXKr7iUILFezY4Av1Z1p7tSQq2vC/
+	UUx7dOtbXzqWE7bvOw==
+X-Received: by 2002:a05:6000:310f:b0:488:8b07:f3f5 with SMTP id ffacd0b85a97d-4888b07f881mr15858765f8f.27.1790686131008;
+        Tue, 29 Sep 2026 05:48:51 -0700 (PDT)
 Received: from iku.example.org ([2a06:5906:61b:2d00:be4b:8730:c872:1736])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af50abad2sm3439942f8f.37.2026.09.29.05.48.49
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48af50abad2sm3439942f8f.37.2026.09.29.05.48.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 05:48:49 -0700 (PDT)
+        Tue, 29 Sep 2026 05:48:50 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -75,9 +75,9 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 1/4] arm64: dts: renesas: r9a09g057: Add ADC node
-Date: Tue, 29 Sep 2026 13:48:26 +0100
-Message-ID: <20260929124829.237997-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH 2/4] arm64: dts: renesas: r9a09g056: Add ADC nodes
+Date: Tue, 29 Sep 2026 13:48:27 +0100
+Message-ID: <20260929124829.237997-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260929124829.237997-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20260929124829.237997-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
@@ -91,23 +91,23 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Add the ADC device node to the RZ/V2H(P) SoC DTSI.
+Add the three ADC device nodes to the RZ/V2N SoC DTSI.
 
 Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- arch/arm64/boot/dts/renesas/r9a09g057.dtsi | 48 ++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ arch/arm64/boot/dts/renesas/r9a09g056.dtsi | 144 +++++++++++++++++++++
+ 1 file changed, 144 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
-index bbaab75681c2..d40d38c6a31c 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
-@@ -608,6 +608,54 @@ wdt1: watchdog@14400000 {
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g056.dtsi b/arch/arm64/boot/dts/renesas/r9a09g056.dtsi
+index 175e24c98e11..51370f38989d 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g056.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a09g056.dtsi
+@@ -626,6 +626,150 @@ wdt1: watchdog@14400000 {
  			status = "disabled";
  		};
  
-+		adc: adc@11c00000 {
-+			compatible = "renesas,r9a09g057-adc";
++		adc0: adc@11c00000 {
++			compatible = "renesas,r9a09g056-adc", "renesas,r9a09g057-adc";
 +			reg = <0 0x11c00000 0 0x400>;
 +			interrupts = <GIC_SPI 918 IRQ_TYPE_EDGE_RISING>,
 +				     <GIC_SPI 919 IRQ_TYPE_EDGE_RISING>,
@@ -154,8 +154,104 @@ index bbaab75681c2..d40d38c6a31c 100644
 +			};
 +		};
 +
++		adc1: adc@11c02800 {
++			compatible = "renesas,r9a09g056-adc", "renesas,r9a09g057-adc";
++			reg = <0 0x11c02800 0 0x400>;
++			interrupts = <GIC_SPI 926 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 927 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 928 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 929 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 930 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "adi", "gbadi", "gcadi",
++					  "cmpai", "cmpbi";
++			clocks = <&cpg CPG_MOD 0x108>, <&cpg CPG_MOD 0x107>;
++			clock-names = "adclk", "pclk";
++			resets = <&cpg 0xf6>;
++			power-domains = <&cpg>;
++			dmas = <&dmac0 0x25b5>, <&dmac1 0x25b5>, <&dmac2 0x25b5>,
++			       <&dmac3 0x25b5>, <&dmac4 0x25b5>;
++			dma-names = "rx", "rx", "rx", "rx", "rx";
++			status = "disabled";
++
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			channel@0 {
++				reg = <0>;
++			};
++			channel@1 {
++				reg = <1>;
++			};
++			channel@2 {
++				reg = <2>;
++			};
++			channel@3 {
++				reg = <3>;
++			};
++			channel@4 {
++				reg = <4>;
++			};
++			channel@5 {
++				reg = <5>;
++			};
++			channel@6 {
++				reg = <6>;
++			};
++			channel@7 {
++				reg = <7>;
++			};
++		};
++
++		adc2: adc@11c02c00 {
++			compatible = "renesas,r9a09g056-adc", "renesas,r9a09g057-adc";
++			reg = <0 0x11c02c00 0 0x400>;
++			interrupts = <GIC_SPI 931 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 932 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 933 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 934 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 935 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "adi", "gbadi", "gcadi",
++					  "cmpai", "cmpbi";
++			clocks = <&cpg CPG_MOD 0x108>, <&cpg CPG_MOD 0x107>;
++			clock-names = "adclk", "pclk";
++			resets = <&cpg 0xf6>;
++			power-domains = <&cpg>;
++			dmas = <&dmac0 0x25ba>, <&dmac1 0x25ba>, <&dmac2 0x25ba>,
++			       <&dmac3 0x25ba>, <&dmac4 0x25ba>;
++			dma-names = "rx", "rx", "rx", "rx", "rx";
++			status = "disabled";
++
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			channel@0 {
++				reg = <0>;
++			};
++			channel@1 {
++				reg = <1>;
++			};
++			channel@2 {
++				reg = <2>;
++			};
++			channel@3 {
++				reg = <3>;
++			};
++			channel@4 {
++				reg = <4>;
++			};
++			channel@5 {
++				reg = <5>;
++			};
++			channel@6 {
++				reg = <6>;
++			};
++			channel@7 {
++				reg = <7>;
++			};
++		};
++
  		rtc: rtc@11c00800 {
- 			compatible = "renesas,r9a09g057-rtca3", "renesas,rz-rtca3";
+ 			compatible = "renesas,r9a09g056-rtca3", "renesas,rz-rtca3";
  			reg = <0 0x11c00800 0 0x400>;
 -- 
 2.55.0
