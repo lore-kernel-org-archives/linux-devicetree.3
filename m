@@ -1,162 +1,282 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DEA2E7397
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 23:05:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BB530F95A
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 23:08:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790723130; cv=none; b=GzU3ksi5zANpkg/XkzEPSR6XLvaCGmBQSm4jL0PUScyH2yg5Ev8pRPs+hilqJyIgGghks+PdaeV9dEIMu0XcY48w2BYlCSVdbkYITATVyHuG22VpPC64mt+kt05etO9346gbk7zb4iOaYvSM0KD29qdnea5qvzHqsNWNRu09EXs=
+	t=1790723312; cv=none; b=lJO6/cqoP5tfMI1fYytUe/E+OryEyhNiCnv0smk0vXIbqBum6GGayJ/AJTQIVj3asBj45yOW1UdlADEnkqk1CEXv4wlLpGMu4IftSCZTggp8m9XfUY5sdLGgNpfqlmhMusap2Ut7d040uU5+ev6rOdRchqymBr0ZvKIjBLOOOks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790723130; c=relaxed/simple;
-	bh=RGx7OYnQ+dj+tcf8BQAmKHlOeJfx+eWBhM/VVN74ZPQ=;
+	s=arc-20240116; t=1790723312; c=relaxed/simple;
+	bh=Oygqq3KqJEqfo7tX/lW0Dl0CTEF3eoWgfPjou8H5ypc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jKVhzFX9NyfsKR5bqrdFEoDu/8bhCiCjZ9C4eiTOpoh18Huyq6mQyUJFYH1bbyN6MwmM2wFzDv3JT35s3iR+yEa32BwFFIZ3B4UShe+p9j5ntD2ZQwkaB1mxDfsD3IXRMhsaozaESsSarzGsYUTX/0/PQhOIk2Yt2JhP6xLIUSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fV4+Eh6x; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=di0ersGrXZVMPDHc0Y5mS5hA/dGWIVsKWTKUSdkNoABw71KC4xlLAJLzmxdlupRYc8z4t8TeNzQQbOcz1OGccV1iKA935ilr3l9SSq5AjGsuP9u6AyPuTnzrxoLjr579VIEmjBSDuFs9OYMqEnDsX1BMqAH9hyVxPivFSDfkaJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGJUsznE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fV4+Eh6x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8861C1F000FF;
-	Tue, 29 Sep 2026 23:05:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGJUsznE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8F3A1F000FF;
+	Tue, 29 Sep 2026 23:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790723128;
-	bh=ltxjmwK/T9b9OMUof8IYqmZbHhy5VMIy/2O+pHEhAtM=;
+	s=k20260515; t=1790723310;
+	bh=F9IKhffRO6nuSeJSqVjhONdCATa9EY/iMXy46HHqqZw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fV4+Eh6xqj4OoDt3OpFOGURx7otvKYfk9Dg+6EOy2MWS6rghes4rDa+0e9E38/Ojf
-	 fw2Krx+6fTPS8VcrU4NgYBMR+hiiL5F5Qpv7TWWalYalsSvkCvf0vXbzxQtSZ+7K7o
-	 3evkkxpxXRh+cldXGDrRSE4NvPa/sn5VHqj9ICNt+FHNo6GsN9k801tJLs6eph+Kpf
-	 Qp6FuwT60WjBapoFfmgZY80NELwnj5H5rsP3d47W86fUl5N5rvIHpOUC7zpLxhyC2r
-	 6+LSVwD+8YsH8ybsxnXFRiUOGNfU3NUsUGfQhqTNn6nfS2JOjU8+FL9hh0YbzlKk0b
-	 rJz8F8Jtk/Liw==
+	b=fGJUsznEqIMEE38UpJ3Wcrrxdrnv/oyou9DwszZlWes/wz4id3kFIehUfyJCS6aIR
+	 VLkDehVHyTx8T4d0vZv6y65IUBhC8ev74SkveeguqggeWe7yw0QOQAazl2/23q9gWu
+	 eg+T1kuOlugOATO42w5SML2r7cccd3+EqIq1SANFShgBrfPB8Q2s1xGknPBOh12ThV
+	 fSaeYnEh96EgHNNbRLzVhd360bWzsrKfPn0ZlFDEEZ8AXckAm5yFZDTR3i6raCBCj8
+	 jxjedHp+CgzRs3+pZmgkRT4G/MlInRktYpsbBAP+fUBeLFCRa9ggc5mOVJPYV52DBX
+	 3s4orbSFdff1w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/13] iio: adc: ad4134: Support buffered data read
+Subject: Re: [PATCH v3 10/13] iio: adc: ad4134: Support SPI 4-wire mode
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <095cea21f1a9fc39aa0a81b990e87c1046bb3dc9.1790719424.git.marcelo.schmitt@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <c066072441fdba492c18c71d5332d84224379410.1790719425.git.marcelo.schmitt@analog.com>
 References: <cover.1790719424.git.marcelo.schmitt@analog.com>
- <095cea21f1a9fc39aa0a81b990e87c1046bb3dc9.1790719424.git.marcelo.schmitt@analog.com>
+ <c066072441fdba492c18c71d5332d84224379410.1790719425.git.marcelo.schmitt@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 23:05:28 +0000
-Message-Id: <20260929230528.8861C1F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 23:08:30 +0000
+Message-Id: <20260929230830.A8F3A1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] mm: concurrent use of shared DMA buffers st->rx_buf and st->tx_buf
-- [High] spi: cs_off =3D true in triggered buffer breaks 4-wire mode commun=
-ication
-- [High] iio: ADC output frame resets due to looped SPI transfers
+- [High] locking: mutex held across system calls in IIO buffer callbacks
+- [High] iio: broken multi-channel readback in 4-wire fallback mode
+- [High] iio: ODR GPIO uninitialized in 4-wire mode preventing software tri=
+ggers
+- [High] iio: data race on shared rx_buf in NO_CS mode
+- [Medium] spi: local mode state desynchronized on spi_setup() failure
+- [Medium] regmap: data race on global static ad4134_regmap_config
 --
 
-commit 29f8197d694e692f78d7a5142e0a389309c577b0
+commit 26369b61324efb5e168b91e351dda0ac9d6716f3
 Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-    iio: adc: ad4134: Support buffered data read
+    iio: adc: ad4134: Support SPI 4-wire mode
    =20
-    Enable users to run buffered data captures triggered by IIO trigger dev=
-ice.
-    Add an IIO timestamp channel so each data scan is provided with measure=
-ment
-    time information. Require single-read operations to be in IIO device di=
-rect
-    access mode to prevent buffered and single-shot data captures to disrupt
-    each other.
+    AD4134 devices can be wired in a few different ways. So far, only minim=
+um
+    I/O mode was supported. While minimum I/O mode allows interfacing with
+    AD4134 with a reduced number of wires, that wiring configuration is not
+    suitable for high-throughput data acquisition.
+   =20
+    Extend AD4134 support to enable interfacing in SPI 4-wire configuration.
 
 > diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> index 14996a0d1fe88..f0196126515e6 100644
+> index f0196126515e6..50021001b3741 100644
 > --- a/drivers/iio/adc/ad4134.c
 > +++ b/drivers/iio/adc/ad4134.c
-
 [ ... ]
-
-> @@ -333,6 +344,43 @@ static const struct regmap_config ad4134_regmap_conf=
-ig =3D {
->  	.max_register =3D AD4134_CH_VREG(ARRAY_SIZE(ad4134_chan_set) - 1),
+> @@ -226,6 +246,90 @@ static const struct regmap_access_table ad4134_regma=
+p_wr_table =3D {
+>  	.n_yes_ranges =3D ARRAY_SIZE(ad4134_regmap_wr_range),
 >  };
 > =20
-> +static irqreturn_t ad4134_trigger_handler(int irq, void *p)
+> +/*
+> + * When operating in modes other than minimum I/O mode, AD4134 register =
+data on
+> + * the SDO line is sampled on SCLK rising edge (SPI mode 0). In addition=
+ to
+> + * that, when AD4134 SDO and DOUT0 pins are multiplexed by hardware OUTS=
+IDE
+> + * AD4134 SILICON, the multiplexer state must be set to route SDO to the=
+ SPI
+> + * controller. With both SPI mode and multiplexer state properly set, re=
+gister
+> + * access runs as usual. Still, to prevent concurrent hardware interface
+> + * configurations, callers must hold the access_lock. Finally, successfu=
+l calls
+> + * to this function must be balanced with calls to ad4134_release_reg_ac=
+cess()
+> + * so to release the mux state lock. See AD4134 IIO documentation for de=
+tails.
+> + */
+> +static int ad4134_claim_reg_access(struct ad4134_state *st) __must_hold(=
+&st->access_lock)
 > +{
-> +	IIO_DECLARE_BUFFER_WITH_TS(u32, channels, AD4134_NUM_CHANNELS) =3D { };
-> +	struct iio_poll_func *pf =3D p;
-> +	struct iio_dev *indio_dev =3D pf->indio_dev;
-> +	struct ad4134_state *st =3D iio_priv(indio_dev);
-> +	struct spi_transfer xfer =3D {
-> +		.rx_buf =3D st->rx_buf,
-
-[Severity: High]
-If userspace reads or writes ADC registers via debugfs while the triggered
-buffer is running in minimum I/O mode (NO_CS), ad4134_debugfs_reg_access()
-can run concurrently with ad4134_trigger_handler().
-
-Because the trigger handler does not acquire any locks to protect the shared
-DMA buffers, and while regmap acquires st->access_lock, this lock is
-explicitly not held during buffer capture in NO_CS mode (as setup_ops is
-NULL), both threads can use the shared st->rx_buf and st->tx_buf
-simultaneously.
-
-Does this concurrent use cause DMA buffer corruption, potential kernel pani=
-cs
-during concurrent DMA mappings, or incorrect data reads?
-
-> +		.cs_off =3D true,
-
-[Severity: High]
-When the driver is configured in 4-wire mode (adi,spi-mode =3D "4-wire") and
-falls back to the software trigger handler, this flag explicitly instructs
-the SPI controller to leave the chip select line inactive (high) for the
-duration of the transfer.
-
-Since the AD4134 requires an active (low) chip select to frame the data in
-4-wire mode, does this setting break 4-wire mode communication and prevent
-the device from outputting valid sample data?
-
-> +		.len =3D BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS),
-> +	};
+> +	unsigned int cur_mode =3D st->spi->mode & SPI_MODE_X_MASK;
 > +	int ret;
 > +
-> +	gpiod_set_value_cansleep(st->odr_gpio, 1);
-> +	fsleep(1);
-> +	gpiod_set_value_cansleep(st->odr_gpio, 0);
-> +
-> +	/* Execute transfers for all channels so the entire data frame is read.=
- */
-> +	for (int ch =3D 0, i =3D 0; ch < AD4134_NUM_CHANNELS; ch++) {
-> +		ret =3D spi_sync_transfer(st->spi, &xfer, 1);
-
-[Severity: High]
-In 4-wire mode, the AD4134 resets its data output frame if the chip select
-goes high or if the DCLK is idle for more than 250ns.
-
-Does calling spi_sync_transfer() in a loop for each channel introduce
-software delays far exceeding 250ns and toggle the CS line between calls?
-
-Could this violate the device's continuous clocking and CS timing
-requirements, causing the frame to reset on every iteration and reading
-Channel 0 repeatedly instead of streaming consecutive channels?
-
-Should a single bulk SPI transfer be used here instead of a loop?
-
+> +	if (st->spi_mode !=3D AD4134_SPI_MODE_NO_CS && cur_mode !=3D SPI_MODE_0=
+) {
+> +		st->spi->mode &=3D ~SPI_MODE_X_MASK;
+> +		st->spi->mode |=3D SPI_MODE_0;
+> +		ret =3D spi_setup(st->spi);
 > +		if (ret)
-> +			goto out;
-> +
-> +		if (!test_bit(ch, indio_dev->active_scan_mask))
-> +			continue;
-> +
-> +		channels[i++] =3D get_unaligned_be24(st->rx_buf);
+> +			return ret;
+
+[Severity: Medium]
+If spi_setup() fails, the local spi->mode keeps the SPI_MODE_0 value but the
+hardware isn't updated.  On the next call, cur_mode will match SPI_MODE_0,
+skipping spi_setup().  Could this leave the device permanently desynchroniz=
+ed
+from the controller?
+
 > +	}
 > +
-> +	iio_push_to_buffers_with_ts(indio_dev, channels, sizeof(channels),
-> +				    pf->timestamp);
+> +	if (st->mux_st[AD4134_SDO_INPUT])
+> +		return mux_state_select(st->mux_st[AD4134_SDO_INPUT]);
 > +
-> +out:
-> +	iio_trigger_notify_done(indio_dev->trig);
-> +	return IRQ_HANDLED;
+> +	return 0;
 > +}
+[ ... ]
+> @@ -268,7 +381,11 @@ static int ad4134_data_read(struct ad4134_state *st,=
+ unsigned int reg,
+>  {
+>  	unsigned int i;
+>  	u32 sample;
+> -	int ret;
+> +	int access_ret, ret;
+> +
+> +	ret =3D ad4134_claim_sample_access(st);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	/*
+>  	 * To be able to read data from all 4 channels through a single line, we
+> @@ -284,7 +401,7 @@ static int ad4134_data_read(struct ad4134_state *st, =
+unsigned int reg,
+>  		ret =3D spi_write_then_read(st->spi, NULL, 0, st->rx_buf,
+>  					  BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS));
+
+[Severity: High]
+Since ad4134_min_io_mode_setup() is not called in 4-wire mode,
+AD4134_DATA_FORMAT_SINGLE_CH_MODE is never set. Doesn't this mean
+ad4134_data_read() blindly assumes the data is serialized on DOUT0 when it
+isn't? Could this result in reading Channel 0 data four times instead of the
+other channels?
+
+>  		if (ret)
+> -			return ret;
+> +			goto out_data_read_release;
+[ ... ]
+> @@ -381,6 +526,41 @@ static irqreturn_t ad4134_trigger_handler(int irq, v=
+oid *p)
+>  	return IRQ_HANDLED;
+>  }
+> =20
+> +static int ad4134_buffer_postenable(struct iio_dev *indio_dev)
+> +{
+> +	struct ad4134_state *st =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	mutex_lock(&st->access_lock);
+> +
+> +	ret =3D ad4134_claim_sample_access(st);
+> +	if (ret)
+> +		goto out_unlock;
+> +
+> +	return 0;
+> +
+> +out_unlock:
+> +	mutex_unlock(&st->access_lock);
+> +	return ret;
+> +}
+> +
+> +static int ad4134_buffer_predisable(struct iio_dev *indio_dev)
+> +{
+> +	struct ad4134_state *st =3D iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	ret =3D ad4134_release_sample_access(st);
+> +
+> +	mutex_unlock(&st->access_lock);
+
+[Severity: High]
+Is it intentional to hold st->access_lock across system calls here? Returni=
+ng
+to user space with the mutex held violates lock ownership semantics and can
+trigger lockdep splats. Furthermore, could this deadlock any subsequent sys=
+fs
+regmap accesses while the buffer is enabled?
+
+> +
+> +	return ret;
+> +}
+[ ... ]
+> @@ -588,15 +768,69 @@ static int ad4134_probe(struct spi_device *spi)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	ret =3D devm_mutex_init(dev, &st->access_lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ad4134_regmap_config.lock_arg =3D st;
+>  	st->regmap =3D devm_regmap_init(dev, NULL, st, &ad4134_regmap_config);
+
+[Severity: Medium]
+Is it safe to modify the global ad4134_regmap_config structure during probe?
+If multiple devices probe concurrently, could this cause a data race where =
+one
+device's lock_arg overwrites another's before devm_regmap_init() copies it?
+
+>  	if (IS_ERR(st->regmap))
+>  		return dev_err_probe(dev, PTR_ERR(st->regmap),
+>  				     "failed to initialize regmap");
+[ ... ]
+> +	if (st->spi_mode =3D=3D AD4134_SPI_MODE_NO_CS) {
+> +		/*
+> +		 * The support hardware for AD4134 may have a multiplexer for
+> +		 * selecting between AD4134 SDO and AD4134 DOUT0. If that mux
+> +		 * is set but the user still wants to run AD4134 in minimum I/O
+> +		 * mode, then DOUT0 is not used and the multiplexer OUTSIDE OF
+> +		 * AD4134 SILICON must be set to select AD4134 SDO. See AD4134
+> +		 * IIO documentation for details.
+> +		 */
+> +		st->mux_st[AD4134_SDO_INPUT] =3D
+> +			devm_mux_state_get_optional_selected(dev, "reg_access");
+> +		if (IS_ERR(st->mux_st[AD4134_SDO_INPUT]))
+> +			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_SDO_INPUT]),
+> +					     "failed to get reg_access mux-state\n");
+> +
+> +		ret =3D ad4134_min_io_mode_setup(st);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to setup minimum I/O mode\n");
+> +	} else {
+
+[Severity: High]
+In 4-wire mode, ad4134_min_io_mode_setup() is bypassed. Since st->odr_gpio =
+is
+only retrieved inside ad4134_min_io_mode_setup(), won't it remain
+uninitialized (NULL)? Will this cause all software triggers using
+gpiod_set_value_cansleep(st->odr_gpio, ...) to silently fail in 4-wire mode?
+
+> +		/*
+> +		 * This controls a multiplexer OUTSIDE OF AD4134 SILICON.
+> +		 * See AD4134 IIO documentation for details.
+> +		 */
+> +		st->mux_st[AD4134_SDO_INPUT] =3D devm_mux_state_get(dev, "reg_access");
+> +		if (IS_ERR(st->mux_st[AD4134_SDO_INPUT]))
+> +			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_SDO_INPUT]),
+> +					     "failed to get reg_access mux-state\n");
+> +
+> +		st->mux_st[AD4134_DOUT0_INPUT] =3D devm_mux_state_get(dev, "data_read"=
+);
+> +		if (IS_ERR(st->mux_st[AD4134_DOUT0_INPUT]))
+> +			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_DOUT0_INPUT]),
+> +					     "failed to get data_read mux-state\n");
+> +
+> +		indio_dev->setup_ops =3D &ad4134_buffer_setup_ops;
+> +	}
+
+[Severity: High]
+Since setup_ops is only assigned for 4-wire mode, won't NO_CS mode bypass
+ad4134_buffer_postenable() entirely?  If so, doesn't that mean
+ad4134_trigger_handler() uses st->rx_buf without holding st->access_lock,
+creating a data race with concurrent sysfs regmap accesses?
+
+> =20
+>  	ret =3D devm_iio_triggered_buffer_setup(dev, indio_dev,
+>  					      iio_pollfunc_store_time,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790719424.gi=
-t.marcelo.schmitt@analog.com?part=3D7
+t.marcelo.schmitt@analog.com?part=3D10
