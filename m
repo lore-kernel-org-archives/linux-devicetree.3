@@ -1,123 +1,229 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D4B3A1A3B;
-	Tue, 29 Sep 2026 07:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790667178; cv=pass; b=M2vahc4Go+GTT/sDyhmKZKOUtnR078zntku6UNJwfRWYgMQow0NSl4HTrAcjIveReyvD22ilu0ieS/1zagGXGoppw0MmhxFYvTWlXk17ngkK3kwJyvJIZmsdhXrWUxDAQKUWeMo7K/lmzfVN0M4gYjFYpEntepVht/wDjyli+YA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790667178; c=relaxed/simple;
-	bh=jcEE8SweDaAwUTV27plQbR/XBKf4UiO0KhElNh8rSOc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M+ViV/T3f2swyxzQ/Fo2i9hu9xkPCqehlkPKhajW8+j05M+bXuX9m9GI8eJdf4XxsbG1SdqFLTlhNf4ZVhoYFqd+8lHlSXPuHiBldhLXiY/4omUR2wED29E6wbL6q5TCrSuWkrwErdHyKFrC7TZt/eBuKyAoba0vg2ChhguBV84=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=benjamin.gaignard@collabora.com header.b=I4UlrcqX; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D50093A3822;
+	Tue, 29 Sep 2026 07:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790667333; cv=none; b=jM6/VKdFkFlC9Xybpx+xA+KOfb4yGWB8gxl6hi2G5d3FtPAzDI9MVN1bNpwirwx0LmuQt1Ss73CtJe+n2d43evfiZk4AkeQJKw2b2SG5z0/adpiTSlhUaaQObA2K3e8a4DkQdOLkWE66x2EyWI990EEXK24xKxUw70K/PX3YZ2A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790667333; c=relaxed/simple;
+	bh=8YaqNxIVkHWBbekbBEjn/R/Q6HDx905wxaJp7LWE9Sw=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=q3ws0Ax+a5Imhewhvcf7h8hEFqXdYyqYaL+xvwkr1Xm2l7hjdUeDXLmAx87RKVVTO3gS9qLTjptxTE1Y0MHEy24Cneokg0v+ZN+1c0jyy6+nknonHqbGhwECRIvKCNTCq4bGUipNEwrEtwqI96NGV4XrsKjJMuh4kfOs/HDLaFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=URZCcpyB; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=benjamin.gaignard@collabora.com header.b="I4UlrcqX"
-ARC-Seal: i=1; a=rsa-sha256; t=1790667141; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Lo0q0GcuKW7LmnzRRytJBj2qcby1rCCGeWvBPzX9eCNGwidytCt3uBJ81RfMBgwkjUv0Ou8P1b6R8VkluY/ZCM+tiPas/Cm76u9lh+gJ9jjNtU1fJAGUtWE4dsSZVuixbq3VpZdq9xIhJ5tJkM6ASWz6UEi1ttL6hGmbYdm8H1w=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790667141; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=hD2niuyZYi4hGUz8wD8CQSqVmQtaAAm56xCDiCG8qiA=; 
-	b=T4YgIcP7yYbgOs1EIt5mmPQYY8qP/vVdR0NXxDlVMxOTLA1occnFWx/6Oyz49Ysw22KvDQehwxQKCx3YNYn3lFnaWlPBl5uULVrHgD945nHm2wGcF0ZUvuIjUwxNamClZ/RWUM0ywKjoLsmOYE3v1GnqsKEh0IQbVwANvaGFYE8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
-	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790667141;
-	s=zohomail; d=collabora.com; i=benjamin.gaignard@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=hD2niuyZYi4hGUz8wD8CQSqVmQtaAAm56xCDiCG8qiA=;
-	b=I4UlrcqXdx3XBEWklwWNlyHFab9MabsOmeY2n4oePKdbfSoZzYpdpaGdKbJCdIzB
-	tT4fPsg6GKDtmM2XNymH0Rjzmxn3Kko4/te7O8lB1izBiceYSdc9Pza8LPiyn72Dcuy
-	rT/6wc+oYqqejgsUsPzJqjYw/18891pZBrghtd8k=
-Received: by smtp.zohomail.com with SMTPS id 1790667140359748.8800768409743;
-	Tue, 29 Sep 2026 00:32:20 -0700 (PDT)
-Message-ID: <4ed94c10-edc7-423b-a4db-032af5180f3f@collabora.com>
-Date: Tue, 29 Sep 2026 09:32:15 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="URZCcpyB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790667331; x=1822203331;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=8YaqNxIVkHWBbekbBEjn/R/Q6HDx905wxaJp7LWE9Sw=;
+  b=URZCcpyBPjHBuDDyc7ylSdo8+u088DXEon6WBJN6s9/yXT/+i2+glTTY
+   bgqRE+nhwf8OhNFdLApt/b7NaRZIQPhArJzSPlrmgZ2+ii5gNnz9q2N5c
+   OtiB2wOINk1guCv00+4Vc+b+NvX2D5Z91N4jIuzvn4AltAv54U0MXYrwt
+   0/bxPo17+bHjr4phcnAx+WIMGYBODVSfAw5Spp9wPRNK/D1JF4D+t0AGp
+   9Hc4ornETw8NByYroRgk7Wcb6AYm8Pe7eIF8hItKDlozVcG/ij8WpnMzx
+   y24UryW0xIgk4JLS2xEkY3gTzm63eN6l73qpeAX2+6V7esqyzFCDziyMj
+   Q==;
+X-CSE-ConnectionGUID: VgLRhAgYQQiepVnNf3cbWg==
+X-CSE-MsgGUID: 155RbxuDSa2srt71dfuxdg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11919"; a="90598187"
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="90598187"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:35:30 -0700
+X-CSE-ConnectionGUID: K19r+w76RK+c8HkI0Bgfgw==
+X-CSE-MsgGUID: hqq9ixKIQjChlcbB/wPkiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,130,1787036400"; 
+   d="scan'208";a="275327386"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.234])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Sep 2026 00:35:25 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 29 Sep 2026 10:35:21 +0300 (EEST)
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+    Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+    Bjorn Andersson <andersson@kernel.org>, 
+    Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, 
+    devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 2/3] platform: arm64: qcom-hamoa-ec: Add thermistor
+ sensors
+In-Reply-To: <20260928-ec_thermistor_support-v1-2-d9c1bae4cd0d@oss.qualcomm.com>
+Message-ID: <c15405f3-db75-410d-045b-996db4f83110@linux.intel.com>
+References: <20260928-ec_thermistor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com> <20260928-ec_thermistor_support-v1-2-d9c1bae4cd0d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] media: dt-bindings: media: nxp, imx8mq-vpu: Remove
- nxp,imx8mq-vpu
-To: Conor Dooley <conor@kernel.org>
-Cc: nicolas.dufresne@collabora.com, p.zabel@pengutronix.de,
- mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
- kernel@pengutronix.de, festevam@gmail.com, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20260928080822.19553-1-benjamin.gaignard@collabora.com>
- <20260928080822.19553-3-benjamin.gaignard@collabora.com>
- <20260928-primal-figurine-2a87db42eab0@spud>
-Content-Language: en-US
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-In-Reply-To: <20260928-primal-figurine-2a87db42eab0@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
+On Mon, 28 Sep 2026, Anvesh Jain P wrote:
 
-Le 28/09/2026 à 18:31, Conor Dooley a écrit :
-> On Mon, Sep 28, 2026 at 10:08:21AM +0200, Benjamin Gaignard wrote:
->> nxp,imx8mq-vpu has been tagged has deprecated since a while and
->> driver emitted a warning when this bindings was used.
->> Vendor DT use the following node before they moved to mainline driver:
->> vpu: vpu@38300000 {
->> 	compatible = "nxp,imx8mq-hantro";
->> 	...
->> };
->> but that binding has never be documented.
->> After driver clean up it is time to remove it.
->>
->> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
->> Reviewed-by: Frank Li <Frank.Li@nxp.com>
->> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->> pw-bot: not-applicable
-> This is not a tag that you should put in your commits btw, this was me
-> telling the dt patchwork that this patch has been handled.
+> The Qualcomm embedded controller has exclusive access to multiple onboard
+> thermistors programmatically discoverable through the
+> EC_THERMAL_CAPABILITIES command. The temperature values are reported in
+> degree Celsius through the EC_THERMISTOR_TEMP_CMD.
+> 
+> Register these thermistors with the thermal framework by adding support to
+> the EC_THERMISTOR_TEMP_CMD and convert it to millidegree units as required
+> by the thermal framework.
+> 
+> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> ---
+>  drivers/platform/arm64/qcom-hamoa-ec.c | 74 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 74 insertions(+)
+> 
+> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
+> index 4d2ad042a7f8..acf3d7f53026 100644
+> --- a/drivers/platform/arm64/qcom-hamoa-ec.c
+> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
+> @@ -16,16 +16,19 @@
+>  #include <linux/pm.h>
+>  #include <linux/slab.h>
+>  #include <linux/thermal.h>
+> +#include <linux/unaligned.h>
+>  
+>  #define EC_SCI_EVT_READ_CMD	0x05
+>  #define EC_FW_VERSION_CMD	0x0e
+>  #define EC_MODERN_STANDBY_CMD	0x23
+> +#define EC_THERMISTOR_TEMP_CMD	0x29	/* + thermistor_id (0-6) selects thermistor 1-7 */
+>  #define EC_FAN_DBG_CONTROL_CMD	0x30
+>  #define EC_SCI_EVT_CONTROL_CMD	0x35
+>  #define EC_THERMAL_CAP_CMD	0x42
+>  
+>  #define EC_FW_VERSION_RESP_LEN	4
+>  #define EC_THERMAL_CAP_RESP_LEN	3
+> +#define EC_THERMISTOR_TEMP_RESP_LEN	3
+>  #define EC_FAN_DEBUG_CMD_LEN	6
+>  #define EC_FAN_SPEED_DATA_SIZE	4
+>  
+> @@ -39,6 +42,7 @@
+>  #define EC_MAX_FAN_CNT		2
+>  #define EC_FAN_NAME_SIZE	20
+>  #define EC_FAN_MAX_PWM		255
+> +#define EC_MAX_THERMISTOR_CNT	7
+>  
+>  enum qcom_ec_sci_events {
+>  	EC_FAN1_STATUS_CHANGE_EVT = 0x30,
+> @@ -64,6 +68,7 @@ struct qcom_ec_thermal_cap {
+>  #define EC_THERMAL_FAN_CNT(x)		(FIELD_GET(GENMASK(1, 0), (x)))
+>  #define EC_THERMAL_FAN_TYPE(x)		(FIELD_GET(GENMASK(4, 2), (x)))
+>  #define EC_THERMAL_THERMISTOR_MASK(x)	(FIELD_GET(GENMASK(7, 0), (x)))
+> +#define EC_THERMISTOR_PRESENT(mask, id)	((mask) & BIT(id))
+>  	u8 fan_cnt;
+>  	u8 fan_type;
+>  	u8 thermistor_mask;
+> @@ -81,6 +86,12 @@ struct qcom_ec {
+>  	struct qcom_ec_thermal_cap thermal_cap;
+>  	struct qcom_ec_version version;
+>  	struct i2c_client *client;
+> +	struct qcom_ec_thermal_zone *ec_tz;
+> +};
+> +
+> +struct qcom_ec_thermal_zone {
+> +	struct qcom_ec *ec;
+> +	u8 thermistor_id;
+>  };
+>  
+>  static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
+> @@ -183,6 +194,43 @@ static int qcom_ec_thermal_capabilities(struct device *dev)
+>  	return 0;
+>  }
+>  
+> +/*
+> + * EC Thermistor Temperature (cmd 0x29 + thermistor_id, id 0-6 selects
+> + * thermistor 1-7):
+> + *
+> + * Read Response:
+> + * ----------------------------------------------------------------------
+> + * | Offset	| Name		| Description				|
+> + * ----------------------------------------------------------------------
+> + * | 0x00	| Byte count	| Number of bytes in response (=2)	|
+> + * ----------------------------------------------------------------------
+> + * | 0x01 (LSB)| Temperature	| Signed 16-bit, unit of 0.1 degC,	|
+> + * | 0x02 (MSB)|		| range -40..+125 degC			|
+> + * ----------------------------------------------------------------------
+> + */
+> +static int qcom_ec_thermistor_get_temp(struct thermal_zone_device *tz, int *temp)
+> +{
+> +	struct qcom_ec_thermal_zone *ec_tz = thermal_zone_device_priv(tz);
+> +	struct qcom_ec *ec = ec_tz->ec;
+> +	u8 resp[EC_THERMISTOR_TEMP_RESP_LEN];
+> +	s16 raw;
+> +	int ret;
+> +
+> +	ret = qcom_ec_read(ec, EC_THERMISTOR_TEMP_CMD + ec_tz->thermistor_id,
+> +			   EC_THERMISTOR_TEMP_RESP_LEN, resp);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	raw = (s16)get_unaligned_le16(&resp[1]);
+> +	*temp = raw * 100;
 
-It was the first time I saw this tad and I didn't know what to do of it
-but I found it in some other commit messages so I added it.
+MILLIDEGREE_PER_DECIDEGREE?
 
->
->> ---
->> changes in v5:
->> - add more details in commit message
->> - add Conor Dooley accked-by tag
->>
->>   .../devicetree/bindings/media/nxp,imx8mq-vpu.yaml      | 10 ++++------
->>   1 file changed, 4 insertions(+), 6 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
->> index 19528262810a..69619d2c86fa 100644
->> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
->> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
->> @@ -14,12 +14,10 @@ description:
->>   
->>   properties:
->>     compatible:
->> -    oneOf:
->> -      - const: nxp,imx8mq-vpu
->> -        deprecated: true
->> -      - const: nxp,imx8mq-vpu-g1
->> -      - const: nxp,imx8mq-vpu-g2
->> -      - const: nxp,imx8mm-vpu-g1
->> +    enum:
->> +      - nxp,imx8mq-vpu-g1
->> +      - nxp,imx8mq-vpu-g2
->> +      - nxp,imx8mm-vpu-g1
->>   
->>     reg:
->>       maxItems: 1
->> -- 
->> 2.53.0
->>
+Make sure you have the include for it if changing to it.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct thermal_zone_device_ops qcom_ec_thermistor_ops = {
+> +	.get_temp = qcom_ec_thermistor_get_temp,
+> +};
+> +
+>  static irqreturn_t qcom_ec_irq(int irq, void *data)
+>  {
+>  	struct qcom_ec *ec = data;
+> @@ -376,6 +424,32 @@ static int qcom_ec_probe(struct i2c_client *client)
+>  	if (ret < 0)
+>  		return dev_err_probe(dev, ret, "Failed to read thermal capabilities\n");
+>  
+> +	if (ec->thermal_cap.thermistor_mask) {
+> +		ec->ec_tz = devm_kcalloc(dev, EC_MAX_THERMISTOR_CNT, sizeof(*ec->ec_tz),
+> +					 GFP_KERNEL);
+> +		if (!ec->ec_tz)
+> +			return -ENOMEM;
+> +
+> +		for (i = 0; i < EC_MAX_THERMISTOR_CNT; i++) {
+> +			struct qcom_ec_thermal_zone *ec_tz = &ec->ec_tz[i];
+> +			struct thermal_zone_device *tzd;
+> +
+> +			if (!EC_THERMISTOR_PRESENT(ec->thermal_cap.thermistor_mask, i))
+> +				continue;
+> +
+> +			ec_tz->ec = ec;
+> +			ec_tz->thermistor_id = i;
+> +
+> +			tzd = devm_thermal_of_zone_register(dev, i, ec_tz, &qcom_ec_thermistor_ops);
+> +			if (IS_ERR(tzd)) {
+> +				ret = PTR_ERR(tzd);
+> +				if (ret != -ENODEV)
+
+I'd prefer ret == -ENODEV check + continue.
+
+> +					dev_warn(dev, "Failed to register thermistor%u zone: %d\n",
+> +						 i, ret);
+> +			}
+> +		}
+> +	}
+> +
+>  	if (ec->thermal_cap.fan_cnt == 0) {
+>  		dev_warn(dev, FW_BUG "Failed to get fan count, firmware update required\n");
+>  		return 0;
+> 
+> 
+
+-- 
+ i.
+
