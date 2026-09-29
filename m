@@ -1,82 +1,385 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63F24E80BC;
-	Tue, 29 Sep 2026 12:29:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27785172EB
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 12:32:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790684987; cv=none; b=NJgSbYDrlo7aVsmQk1xQSlZt6sSWoHWmhyFWigynRZwMndm+iNti4TKAOSN1t26Vg9Ed1cLv/JDTr94yUJuquBLqJyXEdFqbyqYIArM4ogiRglfF9CRtjcQimTnxm4oEcUud5PkOT+qPK8M0vCtZu8RBAo7vVNdBxShDpl52hko=
+	t=1790685176; cv=none; b=gZ/P8DliJ7+94R3MMAhLzqkkER8YldZ1hcxZv8n4N4191qf4MLETGCrEjDceCQT0t0lksHPUrOqTu70VYW2HTlukB67qUoa2/nsYjP5mCwXcZsOybNA9hcJGBTvME/Ynr/rk9M2WLFO9BjglMKXr7HjMbH/qrLwGS8NjIy569bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790684987; c=relaxed/simple;
-	bh=VHAhHnezYBd7J/bmChRu3tuXqghhmGSANCHL/AYasUk=;
+	s=arc-20240116; t=1790685176; c=relaxed/simple;
+	bh=crt1th/igVR2Q1Qeq8LQCOw9Q7HNKGA7DiTYKWl5p28=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ByPbZLZYiFU7WNzNo5q2Xh4Gy+Z6nQVYCdDa0hsgxplhR9DpmcobpwCxRF8GR/6S7GoAp32smza4PBEgw/7izgJSH8/xZu6IWKUQ8EZ9I42laccTZYCV+tvlZwdb41YFxRuhODFa6oMQJbWIv+LHd/1+88EKHtqF7RaASQtvLok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=ikipT74B; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=Eoj1IfZnpRitguew/JotkYm3Hms4pAWDnWQ3tpNCa++nxKphv27dBXWGSM3BVYvO8DAO++rt3a3WOe3h2Vhsyt2Xx7uU4z0lTk33NAy4lI/GdHb5pFGkIPkzLp5iza5tp3MAPhV1Fo7zHe1+PNUIEUeIyyjj1O3/gekEPFNizsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fwQcUmkQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="ikipT74B"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=CbN2+lu8v6PEj1VxXWPoKgsEuGGU/IXvOnEXwuo7n+Y=; 
-	b=ikipT74BRQz7W/l6y17QkV+wIec8UsusIAsPujpkyK7LP1JnfuvPmFTLIUXXtEUuOliNesX2eMM
-	5XsQiNZrXXb4K4aV2svDnX0jv2fYG+GzpqXsqWkTwzPje9vCdJC8Jfbgx0PS6IannPBunFeuf+KSy
-	0zLXa0rQtAt2MI21gkwWPdYg14AgixQG4VfhZivQLUP/zzWABTLKNBf+6Iq9YM0yfU4Y7RTvw5kku
-	29jIOsRYBj9hfQFLGLFQzyc+0MaeTnq4JJNGNkgt7cqPUf6u+cVl/F1P634jbqG8luZgg72NFsZ0Y
-	E3kpymrxSOUIRnq00En5vdtxql/Zf14yNEJA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xBWxY-00000001mRV-0mCe;
-	Tue, 29 Sep 2026 20:29:25 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 29 Sep 2026 22:29:24 +1000
-Date: Tue, 29 Sep 2026 22:29:24 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: vjardin@free.fr
-Cc: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Sahil Malhotra <sahil.malhotra@nxp.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Gaurav Jain <gaurav.jain@nxp.com>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/3] crypto: caam/qi2 - algorithm priority be a parameter
-Message-ID: <aruvJECCDNdguMdw@gondor.apana.org.au>
-References: <20260928-for-upstream-caam-qi2-priority-v1-0-e4a8e5f01dbc@free.fr>
- <20260928-for-upstream-caam-qi2-priority-v1-1-e4a8e5f01dbc@free.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fwQcUmkQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F7301F00893;
+	Tue, 29 Sep 2026 12:32:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790685174;
+	bh=vTpzg8RRxKoA+TKiLKSjG5HP2O0uz0Gkl61WuACwax0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fwQcUmkQiki08QscpSuAdZ4a7j26pEO9dDhDLKFP531zgR+w0+75YWrWEiuIZN5bt
+	 anbzApiUGa76tUt09r3iDkbFkcDvh4xZgLXMPRm1GDE8PsMG4YWGkVqYJIJUZpvcJ7
+	 4znhge3ByfgIim+mtNdNMjOypCFgcr+x7K/FX8HZWFF7iE+vL+NETK29fPPkaQyG04
+	 b35tzDNMacmZkVDX3PglzVdLrECy/6sVzFHn4GUWLxWbSY1sppZ2W2bG3DZcO7Ge8t
+	 ixpw5YJt1Qxmx9XOJgj5DmTCBe1I4IjRNeduVdURJVzpvyP6AUkodXjpKGBIy0sbx7
+	 n4o87RdefdK0g==
+Date: Tue, 29 Sep 2026 14:32:51 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Vishal Sagar <vishal.sagar@amd.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Chen-Yu Tsai <wens@csie.org>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Anatoliy Klymenko <anatoliy.klymenko@amd.com>, 
+	varunkumar.allagadapa@amd.com, Michal Simek <michal.simek@amd.com>
+Subject: Re: [RFC] drm: Aggregating FPGA display pipelines into a single DRM
+ device
+Message-ID: <aruvDLcazpFfdsSN@houat>
+References: <20260925155658.3108388-1-vishal.sagar@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="jvlio5hzlh35o647"
 Content-Disposition: inline
-In-Reply-To: <20260928-for-upstream-caam-qi2-priority-v1-1-e4a8e5f01dbc@free.fr>
+In-Reply-To: <20260925155658.3108388-1-vishal.sagar@amd.com>
 
-On Mon, Sep 28, 2026 at 04:01:03PM +0200, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
-> 
-> dpaa2_caam registers every skcipher, aead and ahash at a fixed priority
-> of 2000.
-> 
-> It is above the ARMv8 Crypto Extensions (200 to 300), so on any DPAA2 SoC,
-> every in-kernel user of AES, SHA or GCM moves from the CPU to the SEC,
-> whatever the request size.
-> 
-> Whether the SEC should be the default or only be reached by driver name
-> depends on the system, and there is no way to choose/tune it.
 
-You can easily change the priority from user-space through the
-crypto_user interface.
+--jvlio5hzlh35o647
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC] drm: Aggregating FPGA display pipelines into a single DRM
+ device
+MIME-Version: 1.0
 
-So why not lower the default priority and let the user adjust
-it if necessary?
+Hi,
 
-Cheers,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+On Fri, Sep 25, 2026 at 08:56:58AM -0700, Vishal Sagar wrote:
+> A display pipeline in a field-programmable gate array (FPGA) is built
+> from individual intellectual property (IP) cores.  The designer chooses
+> the blocks and their connections, so the pipeline can differ from one
+> bitstream to another.  Each block can have its own device tree node and
+> driver, while several blocks need to operate as one Direct Rendering
+> Manager (DRM) device.
+>=20
+> We propose a parent device tree node to group the blocks that make up a
+> display subsystem.  A driver for that node would use the component
+> framework to assemble them into one DRM device.  This RFC asks whether
+> that is a suitable representation for upstream, and whether the driver
+> support could be shared beyond FPGA-based systems.
+>=20
+>=20
+> 1. Hardware blocks and interfaces
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> The examples use the following blocks.  AXI4S means AXI4-Stream, the
+> streaming interface. Native video carries pixels alongside
+> active-video and sync signals, with a video clock.  These are
+> different interfaces, so the chosen transmitter configuration matters.
+>=20
+>   VMIX      Video Mixer.  Blends video layers into an AXI4S output.
+>             https://docs.amd.com/r/en-US/pg243-v-mix
+>   FBRD      Video Frame Buffer Read.  Uses direct memory access (DMA)
+>             to read frames from memory and produce AXI4S video.
+>             https://docs.amd.com/r/en-US/pg278-v-frmbuf
+>   TPG       Video Test Pattern Generator.  Produces AXI4S test video.
+>             https://docs.amd.com/r/en-US/pg103-v-tpg
+>   A2N       AXI4S to Native Video converter.  Documented as AXI4-Stream
+>             to Video Out (PG044); combines stream pixels with timing.
+>             https://docs.amd.com/r/en-US/pg044_v_axis_vid_out
+>   VTC       Video Timing Controller.  Supplies the output video timing.
+>             https://docs.amd.com/r/en-US/pg016_v_tc
+>   CLK       Clocking Wizard.  Generates clocks for the illustrated
+>             video path (PG065).
+>             https://docs.amd.com/r/en-US/pg065-clk-wiz
+>   DPTX      DisplayPort Transmitter Subsystem.
+>             https://docs.amd.com/r/en-US/pg199-displayport-tx-subsystem
+>   HDMITX    High-Definition Multimedia Interface (HDMI) Transmitter
+>             Subsystem.  PG235 covers HDMI 1.4/2.0.
+>             https://docs.amd.com/r/en-US/pg235-v-hdmi-tx-ss
+>   SWITCH    AXI4-Stream Switch.  Routes streams between interfaces;
+>             documented in the AXI4-Stream Infrastructure IP Suite
+>             product guide (PG085).
+>             https://docs.amd.com/r/en-US/pg085-axi4stream-infrastructure
+>=20
+> These blocks can be instantiated separately.  The design determines
+> which are present and how they connect.  The aggregation question is
+> not specific to these IP cores or to one FPGA vendor.
+>=20
+>=20
+> 2. Example pipelines
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> VMIX, FBRD and TPG produce AXI4S video.  Transmitters can be configured
+> for AXI4S or native-video input.  The native paths illustrated here use
+> an A2N converter, timing from VTC and a clock from Clocking Wizard.
+> VTC supplies timing to the converter; it does not carry the video data.
+> Clock sources depend on the design and transmitter requirements.
+>=20
+> The examples below distinguish these interfaces.  They illustrate
+> possible arrangements, not configurations supported by every IP version.
+> Reset and control connections are omitted.  A CRTC represents a timed
+> scanout pipeline, which may be implemented by several of these blocks.
+>=20
+> (a) One scanout pipeline with a native-video transmitter input.
+>=20
+>                        VTC
+>                         | timing
+>                         v
+>     FBRD --AXI4S--> [   A2N   ] --native--> DPTX --> display
+>                         ^
+>                         | video clock
+>                        CLK
+>=20
+>     CLK also supplies the VTC video clock.  Clocking for the native
+>     transmitter interface must match the configured video mode.
+>=20
+> (b) Multiple layers blended by a mixer, with AXI4S throughout.
+>     The HDMI transmitter is configured for AXI4S input.
+>=20
+>     FBRD_0 ----> +------+
+>     FBRD_1 ----> | VMIX | --AXI4S--> HDMITX --> display
+>     TPG    ----> +------+
+>        AXI4S
+>=20
+> (c) Two outputs intended to form one DRM device with two CRTCs.
+>     One output uses native video; the other uses AXI4S directly.
+>=20
+>                            VTC
+>                             | timing
+>                             v
+>     FBRD_0 --> VMIX_0 --> [ A2N ] --native--> DPTX --> display 0
+>                             ^
+>                             | video clock
+>                            CLK
+>=20
+>     FBRD_1 --> VMIX_1 --------AXI4S---------> HDMITX --> display 1
+>=20
+>     All links before A2N are AXI4S.  CLK also clocks VTC as in (a).
+>     These outputs need not have a video-data link between them.
+>=20
+> (d) Separate AXI4S sources feeding separate stream inputs on a
+>     DisplayPort transmitter configured for multi-stream transport.
+>=20
+>     TPG  --AXI4S--> +------------------+
+>                    | DPTX stream 0/1  | --> display 0, display 1
+>     FBRD --AXI4S--> +------------------+
+>=20
+> (e) An AXI4S Switch selects routes to two AXI4S-input transmitters.
+>     Routing can change at runtime if configured for register control.
+>=20
+>     FBRD_0 --> +------+
+>     FBRD_1 --> | VMIX | --> +--------+ --> DPTX   --> display 0
+>     TPG    --> +------+     | SWITCH |
+>     FBRD_2 ---------------> +--------+ --> HDMITX --> display 1
+>=20
+>     All links into and out of SWITCH carry AXI4S video.  It selects
+>     stream routes; it does not blend pixels as the mixer does.
+>=20
+> The available planes, CRTCs and outputs differ between these designs.
+> The common requirement is to assemble the selected blocks into a DRM
+> device without assuming one fixed pipeline topology.
+>=20
+>=20
+> 3. Describing which devices belong together
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> The device tree graph describes connections between blocks.  A display
+> driver can walk those connections, but it still needs rules for where
+> its device starts and ends.  A link to an output bridge, for example,
+> does not mean that bridge must become a component-framework member.
+>=20
+> Choosing one source as the master works for some pipelines.  With two
+> sources feeding a common transmitter, following only downstream links
+> from one source does not discover the other.  A broader traversal can
+> find both, but still needs to decide which blocks to include.  Separate
+> outputs, as in (c), may have no video link between them at all.
+>=20
+> The proposal is to describe that grouping explicitly rather than make
+> it depend on which source the driver starts from.  The graph would
+> continue to describe the video connections, including bridge chains.
+> The grouping would identify the display subsystem to assemble.
+>=20
+>=20
+> 4. The proposal
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> A device tree node that groups the pipeline's IP nodes as its children:
+>=20
+>     display-pipeline {
+>         compatible =3D "display-pipeline";
+>         #address-cells =3D <2>;
+>         #size-cells =3D <2>;
+>         ranges;
+>=20
+>         fbrd0: dma@a0010000 {
+>             compatible =3D "...,v-frmbuf-rd";
+>             reg =3D <0x0 0xa0010000 0x0 0x10000>;
+>             clocks =3D <&misc_clk 0>;
+>=20
+>             port {
+>                 fbrd0_out: endpoint {
+>                     remote-endpoint =3D <&vmix_in0>;
+>                 };
+>             };
+>         };
+>=20
+>         vmix0: video-mixer@a0020000 {
+>             compatible =3D "...,v-mix";
+>             reg =3D <0x0 0xa0020000 0x0 0x10000>;
+>             clocks =3D <&misc_clk 1>;
+>=20
+>             ports {
+>                 #address-cells =3D <1>;
+>                 #size-cells =3D <0>;
+>=20
+>                 port@0 {
+>                     reg =3D <0>;
+>=20
+>                     vmix_in0: endpoint {
+>                         remote-endpoint =3D <&fbrd0_out>;
+>                     };
+>                 };
+>=20
+>                 port@1 {
+>                     reg =3D <1>;
+>=20
+>                     vmix_out: endpoint {
+>                         remote-endpoint =3D <&dptx_in>;
+>                     };
+>                 };
+>             };
+>         };
+>=20
+>         dptx0: display@a0100000 {
+>             compatible =3D "...,dp-tx-subsystem";
+>             reg =3D <0x0 0xa0100000 0x0 0x40000>;
+>=20
+>             port {
+>                 dptx_in: endpoint {
+>                     remote-endpoint =3D <&vmix_out>;
+>                 };
+>             };
+>         };
+>     };
+>=20
+> This is a structural sketch, not a complete binding example. The
+> compatible strings are placeholders, and per-IP properties are omitted.
+> The transmitter here uses AXI4S input, so there is no native-video
+> converter or external video timing controller in this example.
+>=20
+> The parent would describe the display subsystem without a register
+> interface of its own.  Each child would follow its IP binding.
+>=20
+> On probe, the aggregate driver would populate the children with
+> of_platform_populate(), build a match list for the supported display
+> components, then call component_master_add_with_match(). Its bind
+> callback would allocate the drm_device, call component_bind_all() and
+> register the assembled device, with corresponding cleanup on unbind.
+>=20
+> Not every child needs to become a component-framework member. Clock
+> and reset providers would retain their normal interfaces, as would
+> output bridges used through the DRM bridge framework.  The match list
+> would distinguish those devices from the components being bound.
+>=20
+> The graph endpoints would still describe connections. Aggregation
+> would not replace the individual drivers or the frameworks they use.
+>=20
+>=20
+> 5. The hardware boundary
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> The intended grouping comes from the FPGA design, not from the order in
+> which Linux probes the devices.  A designer can place the display blocks
+> in a hierarchy that represents the display subsystem.  The device tree
+> generation flow can preserve that boundary along with the individual
+> IP nodes.
+>=20
+> Design hierarchy alone may not be sufficient grounds for a new device
+> tree node.  The question is whether this particular grouping describes
+> a meaningful hardware subsystem, and whether children or phandles are
+> the better way to represent it.
+>=20
+>=20
+> 6. Alternatives considered
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+>=20
+> - A grouping node with phandles to the components.  This preserves
+>   their placement under existing buses and can be generated from the
+>   hardware design just as child nodes can.  Child nodes express the
+>   hierarchy directly and provide address scoping through ranges, but
+>   phandles remain an option where reparenting would be inappropriate.
+>=20
+> - Discover components through the graph without a grouping node.
+>   This works when a driver has known entry points and traversal rules.
+>   The question is how to define those rules across different designs,
+>   including disconnected outputs intended to share one DRM device.
+>=20
+> - Use the auxiliary bus or device links.  The auxiliary bus supports
+>   splitting a device into functions; device links and fw_devlink manage
+>   dependencies.  Neither by itself defines the display grouping, though
+>   dependency handling would still be needed alongside aggregation.
+>=20
+> - Reuse FPGA region semantics.  The fpga-region.yaml binding under
+>   Documentation/devicetree/bindings/fpga/ supports child devices and
+>   address translation.  A region describes a fabric programming
+>   boundary, however, and may contain several display pipelines and
+>   unrelated devices.  That boundary need not match a display subsystem.
+>=20
+>=20
+> 7. Precedent
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>=20
+> Allwinner's display engine provides a relevant comparison.  The binding
+> under Documentation/devicetree/bindings/display/, named
+> allwinner,sun4i-a10-display-engine.yaml, states:
+>=20
+>     The display engine pipeline (and its entry point, since it can be
+>     either directly the backend or the frontend) is represented as an
+>     extra node.
+>=20
+> That node has no register interface of its own.  Its allwinner,pipelines
+> property references frontend or mixer entry points, not every member of
+> an explicit component list.  It also uses phandles rather than placing
+> the components beneath the node.
+>=20
+> This is precedent for a separate display-subsystem node, but not for the
+> exact parent-child arrangement proposed here.  The choice between
+> children and phandles is one of the points on which feedback is needed.
+
+I don't think we should use Allwinner as a precedent for this.
+Allwinner's use case was that we needed a device created with a handle
+to the video pipeline to back the main DRM device. This was about 10y
+ago, and looking back we could have done about the same work by
+registering a device at module init and searching the DT for enabled
+compatibles.
+
+I'd suggest you to go that route if you have any driver you can plumb it
+into, like an FPGA manager or something.
+
+Maxime
+
+--jvlio5hzlh35o647
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaruv8gAKCRAnX84Zoj2+
+dkKtAYDjNJEWLi8UrrlbZuVFaR3LD2wx4yDSbScXYc3FUH2BHyZgy0VVPHTPSlOE
+WDMrLLEBfRzGmRt2xTAO2nGscwERE4x4LtGS15ip/AZzyEHJTJXWpnj2w2s3WniP
+q+t9gzLWQw==
+=PbVt
+-----END PGP SIGNATURE-----
+
+--jvlio5hzlh35o647--
