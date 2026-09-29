@@ -1,177 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4521E9B1A
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A32937D101;
+	Tue, 29 Sep 2026 03:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790652681; cv=none; b=D8m8+q/gecQm+ZCatyuJCSHJ2Go1gDe+9I26FdmNY62QUB4wNoguyX2qYnrohB2ik3uFC9gCeBkNAHjusDFGs3ZXfF78FtimvoGvFjMHzbWB+aMAsJOEVy5o90xaNl47RgzxdAhmp2PECGXwn066qfYfwtJLeyd5TNSlVdnJbVg=
+	t=1790652715; cv=none; b=OASTQinwuof/EKzqMGqs1Twqj4hhupMKh520+j7dXMaLjVgvMUDoD8Ifp4AuJBwMUaKLmf/riypRjczxcWYIy/g9nbrf0fkgwimXUFbE5GucW5s9mTYnc+j4RRHz4WNNgbTYaSgLwhZzJft06I0K2+vQMiGbXlQb936+wS4Kr+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790652681; c=relaxed/simple;
-	bh=MnvjT3sKa2JMIX+RRPE9E2QEpQpd1EErh94JSgIA7KA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ewByaU4kFIrLUGOjwM7DW78n1BD7zAFi4LFpGSP7UwelSGJ8EVdyiuYnZdZv0Lbtp3ua/nLQQ5SY4wYgYpZki87/OW8dF/bs8+VmpPicMu1F/I+CfBx492YTZNXkbXnMiHUZS12EnT9BmfV4bsN+yLsjH6JA/wuBPJADjud4BOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HSRa5Eo8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790652715; c=relaxed/simple;
+	bh=SZnFH6V0TFQTkDaGAjaRKZjWU9qJcTYS1ecT5Uzgxz4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UJraz0g+swShsJlMsHRhVAsKZEY5M8fojBiYnJmM+bMIxYysz6wuBLk2tbQtsBTq90w+bFSOmwfhHAO7msXF0yDXmpX1rSPFo0hjffFduWB7VkFTfxF1Ys2Os9VREe/f1tlu0RNHflHAxciR94BgUfYWF6DpiYiFsh7SHFrN9ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=b2xX83qV; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HSRa5Eo8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDDDB1F000FF;
-	Tue, 29 Sep 2026 03:31:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790652680;
-	bh=E2DkiKPq0UHEU7FOGuBUe/+N4cz8+lqvSDiTpHfprzg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HSRa5Eo826FxQ68ISOdx86MP0fSYk31RwIwftr1UK8KrEIZqPOnP9hIIE+lj9+hkx
-	 0qn8bUf3fKhtb29UZlSPGpAfxRlskWD/qMOesgL0wpr92banengimJmibKP/nmZ595
-	 5OFwa8EaAouovAc+FDwM8U7UcH4QZuYFw9Pbepg1luGd8Nitelb+V4Kv6ReY9CNDAz
-	 Q3UKLJbEB3READV7v4dKJ45965LD9qhBy3l649sTdE5ty6Q9j1R0jzbRE1I4FZtgBN
-	 HfUEtGg6aD0/0FFK/+ltmSZJOpL5cmgLDEud8kqoY6cCTYFe3QDwWVwUSY7mTkd1V9
-	 yMRmmsE8GTDNw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 02/10] mailbox: mpxy: add direct synchronous send
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Amirreza Zarrabi" <amirreza.zarrabi@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260928-riscv-rpmi-tee-abi-v1-2-04908b81d885@oss.qualcomm.com>
-References: <20260928-riscv-rpmi-tee-abi-v1-0-04908b81d885@oss.qualcomm.com>
- <20260928-riscv-rpmi-tee-abi-v1-2-04908b81d885@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 03:31:19 +0000
-Message-Id: <20260929033119.EDDDB1F000FF@smtp.kernel.org>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="b2xX83qV"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B20B740E015B;
+	Tue, 29 Sep 2026 03:31:50 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id AGeAEptx5KvJ; Tue, 29 Sep 2026 03:31:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790652700; bh=Al1glvz/IJj4lju1yIZV4opc56skglAbD2Mb6ols/Lc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=b2xX83qVtrqyb8mS4q5XqI6B7tukE5G9Ex9svkbCNsvYQM1STItgNJZLhFH7jOprf
+	 ZnqnWsAjGzvXa4ki+Ce8YhW25fxIk4zZP2MPu1m5uewrjzU6AgIY+YDt/hlX5A/WnS
+	 wbNbX+EoHTWQ57uwS5dGF6frcpjZnoL0AE4nFXPdx8rIzQS6huorHx9QDgADcTu6np
+	 BvX8XqqYx7r4h7hY6KqCbHuOVsdpcC3WdaaoYkl/EaeQ5mBFoP5HX1541VuIF7BN++
+	 +ftjgZxmLw6V65pAWX6aM8i/A24gXBPDWi0sELtxxwdDtuq5vdkpbSXpHa+s0PTfCy
+	 bMamNYiYhF4Fc3QBie1uJfojYAbTH1ij0mfqFcLiDfKSbOXnr1Beq/YZiyiYaMIVCy
+	 c1ygwBZFNoQARMOYc/U5L7kfjr7H69AisDYf/erqcbyINHQjmuZKNfcZzykI6w3Fz9
+	 AB3JN+Bqdtz6AOlE0Kg+4hQxJYRfXcY1nCFL38zGXtwU6l16iyFsaKV56NAt5/pM2R
+	 jNueI4+E7Fdc9DKceSw2zwHEaCaNKysybe4tMHcYZyFbXrOGueSE3nkB1FCNmjUuq8
+	 N5Eff6NarqWMZvBBgInzKSvjdKwBfoZ9+edWyzJuq3kWDFSrW4gIYNwFxuyg+ow3XY
+	 zppgwRQH2s14Ti8O00DZC6so=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0679240E015D;
+	Tue, 29 Sep 2026 03:31:23 +0000 (UTC)
+Date: Mon, 28 Sep 2026 20:31:21 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Tony Luck <tony.luck@intel.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	Borislav Petkov <bp@suse.de>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v3 0/9] Add Aspeed AST2700 SDRAM EDAC support
+Message-ID: <20260929033121.GDarsxCR4uIpLB69P0@fat_crate.local>
+References: <20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com>
+ <20260925054444.GCarYKTAdrrJ5a2VYO@fat_crate.local>
+ <TY2PPF5CB9A1BE6EE1ABEB80D36C3365473F28C2@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <TY2PPF5CB9A1BE6EE1ABEB80D36C3365473F28C2@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mailbox: mpxy: data corruption in per-CPU shmem during synchronous=
- message send
---
+On Tue, Sep 29, 2026 at 03:26:42AM +0000, Ryan Chen wrote:
+> > Subject: Re: [PATCH v3 0/9] Add Aspeed AST2700 SDRAM EDAC support
+> > 
+> > On Wed, Sep 16, 2026 at 01:30:37PM +0800, Ryan Chen wrote:
+> > > Add ECC error reporting for the Aspeed AST2700 SoC to the existing
+> > > aspeed_edac driver.
+> > >
+> > > The AST2700 memory controller keeps the same overall EDAC programming
+> > > model as the earlier Aspeed BMC SoCs, but uses a different register
+> > > layout, a split interrupt status/clear/mask scheme and DDR4/DDR5 memory.
+> > > Rather than fork the driver, the existing code is first tidied and
+> > > generalised, then the AST2700 is added as one more per-SoC variant.
+> > >
+> > > Patches 2-5 are bug fixes and cleanups to the existing driver.
+> > 
+> > You always put the bug fixes first in a set. So it should be 1-4 bugfixes, rest new
+> > features.
+> > 
+> > --
+> Thanks your review.
 
-commit bcfd2dc6803abf5903a075709bb8a16e026dbe2c
-Author: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+Not done yet but you can send a new version if you feel like it. For it, you
+could also pick up Stefan's patch and merge it with your last one so that the
+driver doesn't become orphan.
 
-mailbox: mpxy: add direct synchronous send
+Also, think hard before you mark fixes as CC:stable because stable fixes
+trigger a lot of work downstream: stable trees, distros etc. So consult:
 
-Implement send_data_sync() for RPMI MPXY channels, reusing the existing
-RPMI message dispatch and returning its status directly instead of going
-through mbox_chan_txdone(). Factor per-hart shared-memory acquisition into
-mpxy_shmem_get()/mpxy_shmem_put() so both paths pin the CPU. Add
-rpmi_mbox_send_message_sync() as the RPMI counterpart.
+Documentation/process/stable-kernel-rules.rst
 
-> diff --git a/drivers/mailbox/riscv-sbi-mpxy-mbox.c b/drivers/mailbox/risc=
-v-sbi-mpxy-mbox.c
-> index ea69c6b6b4f99..5ca1b6d87f5c6 100644
-> --- a/drivers/mailbox/riscv-sbi-mpxy-mbox.c
-> +++ b/drivers/mailbox/riscv-sbi-mpxy-mbox.c
-> @@ -125,54 +125,83 @@ static DEFINE_PER_CPU(struct mpxy_local, mpxy_local=
-);
->  static unsigned long mpxy_shmem_size;
->  static bool mpxy_shmem_init_done;
-> =20
-> +static int mpxy_shmem_get(struct mpxy_local **out)
-> +{
-> +	struct mpxy_local *mpxy;
-> +
-> +	get_cpu();
-> +	mpxy =3D this_cpu_ptr(&mpxy_local);
+before you do.
 
-[Severity: High]
-Since get_cpu() disables preemption but leaves local interrupts enabled,
-can a hardware interrupt preempt this code and re-enter the mailbox driver?
+HTH and Thx.
 
-If an interrupt handler queues an asynchronous message, it will re-enter
-mpxy_shmem_get() on the same CPU. Because it receives the exact same
-mpxy_local instance, could it overwrite the per-CPU buffer?
+-- 
+Regards/Gruss,
+    Boris.
 
-> +	if (!mpxy->shmem_active) {
-> +		put_cpu();
-> +		return -ENODEV;
-> +	}
-> +
-> +	*out =3D mpxy;
-> +	return 0;
-> +}
-
-> [ ... ]
-
-> @@ -239,16 +274,17 @@ static int mpxy_send_message_with_resp(u32 channel_=
-id, u32 msg_id,
->  				       void *rx, unsigned long max_rx_len,
->  				       unsigned long *rx_len)
->  {
-> -	struct mpxy_local *mpxy =3D this_cpu_ptr(&mpxy_local);
-> +	struct mpxy_local *mpxy;
->  	unsigned long rx_bytes;
->  	struct sbiret sret;
-> +	int rc;
-> =20
-> -	if (!mpxy->shmem_active)
-> -		return -ENODEV;
->  	if (!tx && tx_len)
->  		return -EINVAL;
-> =20
-> -	get_cpu();
-> +	rc =3D mpxy_shmem_get(&mpxy);
-> +	if (rc)
-> +		return rc;
-> =20
->  	/* Message protocols allowed to have no data in messages */
->  	if (tx_len)
-> +		memcpy(mpxy->shmem, tx, tx_len);
-> =20
->  	sret =3D sbi_ecall(SBI_EXT_MPXY, SBI_EXT_MPXY_SEND_MSG_WITH_RESP,
->  			 channel_id, msg_id, tx_len, 0, 0, 0);
-
-[Severity: High]
-Could the shared memory be silently corrupted here if an interrupt fires wh=
-ile
-the CPU is executing the message send?
-
-For example, if an interrupt occurs after copying the request but before
-invoking sbi_ecall, or before reading the response, it might overwrite
-mpxy->shmem with its own payload. This could lead to incorrect firmware
-requests or corrupted responses for the interrupted synchronous transaction.
-
-> [ ... ]
-
-> @@ -516,12 +562,21 @@ static int mpxy_mbox_send_data(struct mbox_chan *ch=
-an, void *data)
->  {
->  	struct mpxy_mbox_channel *mchan =3D chan->con_priv;
-> =20
-> -	if (mchan->attrs.msg_proto_id =3D=3D SBI_MPXY_MSGPROTO_RPMI_ID) {
-> -		mpxy_mbox_send_rpmi_data(mchan, data);
-> -		return 0;
-> -	}
-> +	if (mchan->attrs.msg_proto_id !=3D SBI_MPXY_MSGPROTO_RPMI_ID)
-> +		return -EOPNOTSUPP;
-> +
-> +	mpxy_mbox_send_rpmi_data(mchan, data);
-> +	return 0;
-> +}
-> +
-> +static int mpxy_mbox_send_data_sync(struct mbox_chan *chan, void *data)
-> +{
-> +	struct mpxy_mbox_channel *mchan =3D chan->con_priv;
-
-[Severity: High]
-Does this new synchronous entry point need IRQ protection?
-
-It appears mpxy_mbox_send_data_sync() is invoked without holding the
-channel lock and executes with interrupts enabled. This would expose the
-underlying per-CPU buffer logic to the concurrency issues mentioned above.
-
-> +
-> +	if (mchan->attrs.msg_proto_id !=3D SBI_MPXY_MSGPROTO_RPMI_ID)
-> +		return -EOPNOTSUPP;
-> =20
-> -	return -EOPNOTSUPP;
-> +	return mpxy_mbox_send_rpmi_data(mchan, data);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-riscv-rpmi=
--tee-abi-v1-0-04908b81d885@oss.qualcomm.com?part=3D2
+https://people.kernel.org/tglx/notes-about-netiquette
