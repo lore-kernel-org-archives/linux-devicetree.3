@@ -1,131 +1,228 @@
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f41.google.com (mail-dl2-f41.google.com [74.125.229.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451C9569F03;
-	Tue, 29 Sep 2026 19:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4974E3F4DD9
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 19:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790710207; cv=none; b=McIHorIvSQbdH+RLEeZAjue1gnk2g+YQ9Ro/DttcAvfyY7CEQxy64OymJf8jVEA/USRzYWCHoHv1ft06K9AZt+cLzXZZ2SuLVlYG09E6q1HY9U1z0jKq2hWrbCXbjK3gFITVdLXtlUzEUOuHfmTxaga8EtreK0wMhHodXRL7PUs=
+	t=1790710227; cv=none; b=B7wrDqWajz30uNw3IyUbQkn10LhEd+T72OT7r2V4pZbw0GgCZ693Hexydg8me5fie0xUXAahM042NaEadZ6D9rC7SqEeWOtRhSXFAk/lIWwMrJFadSavHKNuQJHgcO0SEF9Iog4x8rYTfgA94sULlz1Qoh4+Er2WGe7mpAdoDKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790710207; c=relaxed/simple;
-	bh=UZHazEcVXVJS7l6C2Rm3n3+jkb4pWcZQZp3cmWOcWrU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NculPldMxzssv5CcnIVtCHhpgAwizj8MTN1bJmLXEidMrB45P75M6ZXXrVmyeMGL/lDra90PWya4qsVThkDBoZWliQoFGRCEE3Ri1bbblG+/PJkYnwjrN8nYAr5OpIFvwJ8M338LDRANap5OpAArw0EaTe1ifsh8TuVbZ8XHpd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=qvnHIg0P; arc=none smtp.client-ip=185.70.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
+	s=arc-20240116; t=1790710227; c=relaxed/simple;
+	bh=6D/zV/BjV8cJK2Je+v+NtgU8vRbHOOzx39ErHS1L0wg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=QlCNx+zxIugqsKXD7Mb3Rav2zPYVB2U7Zq1ecE2aFERJD+ecm9SoYYHELW3i/j7iu4DQMSQQ9sR8I/6PPnorkSDrs2i66Gtfb1G/DDuIiMXZfSsdX66CxONPSTdgyuEysKbQl4JoZ6eTrSpDanHPE8E8meGxtnOshe1T+bNYYvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eogtCSYG; arc=none smtp.client-ip=74.125.229.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="qvnHIg0P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
-	s=protonmail3; t=1790710195; x=1790969395;
-	bh=UZHazEcVXVJS7l6C2Rm3n3+jkb4pWcZQZp3cmWOcWrU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=qvnHIg0Pcxwg5hw3Km0vLT5wxj/oEz19mM2HZWCZCu7IFk07XDbabmPxGEne+TnyG
-	 q+60SNCBkBoK8FmOVD7cf0xmIQODfgdzbD6S8fuJnxlJy6Y44rJwEUZ8TgS7aTr82o
-	 /kWNOAkT97lJXYBDgevLsKNMBIUT7VmWabpZ9YnJqnrlBYHi7EQLisJe+yg1tH2kpR
-	 33qE5lxJN4fs8Fp7/fNS2SdNepXINWRaFRjyEKhPWdKCoVWK5gyvLfkszAMV4OmhED
-	 LhHaAgGi4A/nh2YXuChSgWU+T7QTngeKJ/570CSK4ndNpDjfvTh7j9ID+uFmuiLcK7
-	 w0nKZcd92vv0Q==
-Date: Tue, 29 Sep 2026 19:29:50 +0000
-To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: Alex Robinson <alex@ironrobin.net>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v4 3/3] arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
-Message-ID: <20260929192908.16507-4-alex@ironrobin.net>
-In-Reply-To: <20260929192908.16507-1-alex@ironrobin.net>
-References: <20260929192908.16507-1-alex@ironrobin.net>
-Feedback-ID: 54785507:user:proton
-X-Pm-Message-ID: 28a40f096bffcfa3e46b21560eee73fc5561a9e9
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eogtCSYG"
+Received: by mail-dl2-f41.google.com with SMTP id a92af1059eb24-14a08c1a158so94469c88.1
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 12:30:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790710223; x=1791315023; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/UG3W2zvz26cOj2el4KNelGNWjE9fyh79XyScbN/3K0=;
+        b=eogtCSYGHV1QGIJ/cCszlUKCbzy8uUN6gdfY802OW604IsNG6nFNeq7UjdsL3lU47U
+         VHM2rF5bqGHmnOjDPwrbYRAZljXlRdjBdDEzJyqa/k2lqNt2YhpVVKRdN0F9nf8sx9xI
+         Z0x3wCIxJkaF8rzg6j6Ma1ClH8w+zSApjULHe+coVbQtR4afqcRI6SFxnDTa+CHFeh6P
+         oGwKj0PblchQ3rboeiQYpd00AO1Ql4MwmYE40HAZYxhXRo1JZGS0UXzCr33a4+jBHn8G
+         wOAkH7pE6sUidAuGbSJCLZWwLLqwESSygl8OgCrFaM+0EPVLJSBxEOkeJxp3jtNANE9k
+         f1Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790710223; x=1791315023;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/UG3W2zvz26cOj2el4KNelGNWjE9fyh79XyScbN/3K0=;
+        b=t/pF3IgRpjgK+OIas3OE8hSevbGDtMxsXJYkGE35w9yYZ6VkU6sZw+9yhTyQtdTdLZ
+         FSA7wCzNPGdQlzFjNyWngAgpkmJ9WIeIIZ7AKL87TFm9v87eQn00EYPaRE2ASZC3PVmw
+         MGUO/kt7KNHYX9Vwh87vIrJadgCDNqMxMtPQobDhYs1bN6H2TIIjllI3ru3HNf1AN1ZY
+         Eq2zkSB9MvLZghrz4wspiZ0P/3Ba9N1q5PysnJlpOWz0vwo6ri4zkBW9aPpIV41KSMu5
+         pUWHzp/FpcG5fWefhHAtQp0EEWdToSLzz6kGyiR5vPu0UADZkx3ewEfwADA0X/a0m1pj
+         tqYg==
+X-Forwarded-Encrypted: i=1; AKwUvByOt3AfSjj34MYEGGz2hnJL8pUvgwQnXje6qxJUIyyw7gCIxHJaSc5adxKjttFs2StXkJYu+AN75ogU@vger.kernel.org
+X-Gm-Message-State: AFuF++kSMVfHhGq6YUqeqWYeVjZfPhou0oomgHG25DZsTD4VkjyL6+/k
+	/QpBji3koE0+ywqFDY05y6CWpdPKwHg3Fjvcy6fl33HsbCGNZTLktU03
+X-Gm-Gg: AYBFou1Z4tS2iOKdvHtFX3hGRtxn5rHDjGxF2k2mATjuBUHZHb66Vozy3HOCTyEjTfa
+	RZtMaHilsfxfLRelj5ms8CKRZqmt23d07bmWtzmgUJFpD21o07mZ74pAsm5K3H006d9oKMWoOW9
+	7h5j2geFZvAS7lnkWf1h1fDU3PE2M3IZQaE3Fq1VWOkQLEaG75M3B1Ry1jh7pltAXtpCa2Tj+Mb
+	Xpxbf49BT9mo+O1KyjFK1wGsYXAGY2GL5H4NhECwplEYXyvxHI5C5QXBziliAw2j5GDjG/Uj3ZC
+	AnvqT9YZ7Rky8HuHu++oL61OaVG4a6SHKTgIOh/dkVeIjfZKUySDcnBJfdRE/1nBJ0sso4ZcF5c
+	aWhbJ/ynmA+GeXDAYs7eP+NEIrPPOLaxj63K0zqlGQ7Azt1tmV8gTOVVJ5v2vroH7XiA21bAKQN
+	nqPJrPBD4aTputvAnYSPoCrPT3ViPfItPtVNDCc4h/CXrtyzfwDi7IfFOX23HXcekSEL61cixrV
+	6HPWx0q0Q==
+X-Received: by 2002:a05:7301:7004:b0:33e:6714:3945 with SMTP id 5a478bee46e88-34c65f5670bmr486208eec.2.1790710223113;
+        Tue, 29 Sep 2026 12:30:23 -0700 (PDT)
+Received: from [10.211.86.252] ([2409:40c2:5054:69f0:5c6b:5195:5b7b:d414])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c386b6bd9sm1275349eec.16.2026.09.29.12.30.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 12:30:22 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Wed, 30 Sep 2026 00:59:42 +0530
+Subject: [PATCH v5 1/2] regulator: dt-bindings:
+ nvidia,tegra-regulators-coupling: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-ti-tps6586x-v5-1-aac0273b5da3@gmail.com>
+References: <20260930-ti-tps6586x-v5-0-aac0273b5da3@gmail.com>
+In-Reply-To: <20260930-ti-tps6586x-v5-0-aac0273b5da3@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@avionic-design.de>, 
+ Lee Jones <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Laxman Dewangan <ldewangan@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com, mfd@lists.linux.dev, 
+ Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790710190; l=4808;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=6D/zV/BjV8cJK2Je+v+NtgU8vRbHOOzx39ErHS1L0wg=;
+ b=bwFqmRHQ2OhNrqZV6NuV1o8SI1SN6Vo3ifa/hs6HvYRQ03J66So8GHbsMHHMQqbWeIKbHcAtU
+ dr7iYLy4qpEAkQCTMuryNhdPTSCLUgJS+vWyhQ28jyIe5EecStBVQzO
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Enable the ThinkPad X13s embedded controller so its driver can provide
-keyboard backlight support when booting with Device Tree.
+Convert NVIDIA Tegra Regulators Coupling from legacy text to DT schema.
+Set additionalProperties true as this is shared schema.
 
-Use a pull-up on the EC interrupt line to match the firmware-inherited
-configuration measured before Linux configured the pin.
-
-Assisted-by: LLM
-Signed-off-by: Alex Robinson <alex@ironrobin.net>
-
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
-Review note: GPIO103 was measured at pinctrl probe before Linux
-claimed/configured the pin. TLMM CTL offset 0x67000 read 0x00000003;
-the pull field value of 3 decodes to pull-up on SC8280XP.
+ .../regulator/nvidia,tegra-regulators-coupling.txt | 65 ----------------------
+ .../nvidia,tegra-regulators-coupling.yaml          | 38 +++++++++++++
+ 2 files changed, 38 insertions(+), 65 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b/a=
-rch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-index 218573a97785b04528854b03a99c837558a33c1e..1e29bab37de6d192ec49dc407e2=
-4e1a3bc9496bd 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-@@ -806,6 +806,25 @@ &i2c4 {
- =09};
- };
-=20
-+&i2c8 {
-+=09clock-frequency =3D <400000>;
+diff --git a/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.txt b/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.txt
+deleted file mode 100644
+index 4bf2dbf7c6cc0..0000000000000
+--- a/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.txt
++++ /dev/null
+@@ -1,65 +0,0 @@
+-NVIDIA Tegra Regulators Coupling
+-================================
+-
+-NVIDIA Tegra SoC's have a mandatory voltage-coupling between regulators.
+-Thus on Tegra20 there are 3 coupled regulators and on NVIDIA Tegra30
+-there are 2.
+-
+-Tegra20 voltage coupling
+-------------------------
+-
+-On Tegra20 SoC's there are 3 coupled regulators: CORE, RTC and CPU.
+-The CORE and RTC voltages shall be in a range of 170mV from each other
+-and they both shall be higher than the CPU voltage by at least 120mV.
+-
+-Tegra30 voltage coupling
+-------------------------
+-
+-On Tegra30 SoC's there are 2 coupled regulators: CORE and CPU. The CORE
+-and CPU voltages shall be in a range of 300mV from each other and CORE
+-voltage shall be higher than the CPU by N mV, where N depends on the CPU
+-voltage.
+-
+-Required properties:
+-- nvidia,tegra-core-regulator: Boolean property that designates regulator
+-  as the "Core domain" voltage regulator.
+-- nvidia,tegra-rtc-regulator: Boolean property that designates regulator
+-  as the "RTC domain" voltage regulator.
+-- nvidia,tegra-cpu-regulator: Boolean property that designates regulator
+-  as the "CPU domain" voltage regulator.
+-
+-Example:
+-
+-	pmic {
+-		regulators {
+-			core_vdd_reg: core {
+-				regulator-name = "vdd_core";
+-				regulator-min-microvolt = <950000>;
+-				regulator-max-microvolt = <1300000>;
+-				regulator-coupled-with = <&rtc_vdd_reg &cpu_vdd_reg>;
+-				regulator-coupled-max-spread = <170000 550000>;
+-
+-				nvidia,tegra-core-regulator;
+-			};
+-
+-			rtc_vdd_reg: rtc {
+-				regulator-name = "vdd_rtc";
+-				regulator-min-microvolt = <950000>;
+-				regulator-max-microvolt = <1300000>;
+-				regulator-coupled-with = <&core_vdd_reg &cpu_vdd_reg>;
+-				regulator-coupled-max-spread = <170000 550000>;
+-
+-				nvidia,tegra-rtc-regulator;
+-			};
+-
+-			cpu_vdd_reg: cpu {
+-				regulator-name = "vdd_cpu";
+-				regulator-min-microvolt = <750000>;
+-				regulator-max-microvolt = <1125000>;
+-				regulator-coupled-with = <&core_vdd_reg &rtc_vdd_reg>;
+-				regulator-coupled-max-spread = <550000 550000>;
+-
+-				nvidia,tegra-cpu-regulator;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.yaml b/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.yaml
+new file mode 100644
+index 0000000000000..f5637a5772137
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/nvidia,tegra-regulators-coupling.yaml
+@@ -0,0 +1,38 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+=09pinctrl-0 =3D <&i2c8_default>;
-+=09pinctrl-names =3D "default";
++title: NVIDIA Tegra Regulators Coupling
 +
-+=09status =3D "okay";
++description: >
++  NVIDIA Tegra SoC's have a mandatory voltage-coupling between regulators. Thus
++  on Tegra20 there are 3 coupled regulators and on NVIDIA Tegra30 there are 2.
 +
-+=09embedded-controller@28 {
-+=09=09compatible =3D "lenovo,thinkpad-x13s-ec";
-+=09=09reg =3D <0x28>;
-+=09=09interrupts-extended =3D <&tlmm 103 IRQ_TYPE_EDGE_FALLING>;
-+=09=09power-state-gpios =3D <&tlmm 176 GPIO_ACTIVE_HIGH>;
-+=09=09pinctrl-0 =3D <&ec_int_n>, <&ec_power_state>;
-+=09=09pinctrl-names =3D "default";
-+=09=09wakeup-source;
-+=09};
-+};
++  On Tegra20 SoC's - there are 3 coupled regulators:CORE, RTC and CPU. The CORE
++  and RTC voltages shall be in a range of 170mV from each other and they both
++  shall be higher than the CPU voltage by at least 120mV.
 +
- &i2c11 {
- =09clock-frequency =3D <400000>;
-=20
-@@ -1571,6 +1590,20 @@ cam_rgb_default: cam-rgb-default-state {
- =09=09};
- =09};
-=20
-+=09ec_int_n: ec-int-n-state {
-+=09=09pins =3D "gpio103";
-+=09=09function =3D "gpio";
-+=09=09input-enable;
-+=09=09bias-pull-up;
-+=09};
++  On Tegra30 SoC's - there are 2 coupled regulators:CORE and CPU. The CORE and
++  CPU voltages shall be in a range of 300mV from each other and CORE voltage
++  shall be higher than the CPU by N mV, where N depends on the CPU voltage.
 +
-+=09ec_power_state: ec-power-state {
-+=09=09pins =3D "gpio176";
-+=09=09function =3D "gpio";
-+=09=09drive-strength =3D <2>;
-+=09=09bias-disable;
-+=09};
++maintainers:
++  - Dmitry Osipenko <digetx@gmail.com>
++  - Thierry Reding <treding@nvidia.com>
 +
- =09edp_reg_en: edp-reg-en-state {
- =09=09pins =3D "gpio25";
- =09=09function =3D "gpio";
-@@ -1591,6 +1624,13 @@ i2c4_default: i2c4-default-state {
- =09=09bias-disable;
- =09};
-=20
-+=09i2c8_default: i2c8-default-state {
-+=09=09pins =3D "gpio43", "gpio44";
-+=09=09function =3D "qup8";
-+=09=09drive-strength =3D <2>;
-+=09=09bias-pull-up;
-+=09};
++properties:
++  nvidia,tegra-core-regulator:
++    description: designates regulator as the "Core domain" voltage regulator.
++    type: boolean
 +
- =09i2c11_default: i2c11-default-state {
- =09=09pins =3D "gpio18", "gpio19";
- =09=09function =3D "qup11";
++  nvidia,tegra-rtc-regulator:
++    description: designates regulator as the "RTC domain" voltage regulator.
++    type: boolean
++
++  nvidia,tegra-cpu-regulator:
++    description: designates regulator as the "CPU domain" voltage regulator.
++    type: boolean
++
++additionalProperties: true
+
+-- 
+2.55.0
 
