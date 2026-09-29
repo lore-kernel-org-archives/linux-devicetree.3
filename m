@@ -1,124 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3AC55295B
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 18:44:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A05560ABC;
+	Tue, 29 Sep 2026 18:51:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790707488; cv=none; b=PU0htRqGJayyr98hv0Dm067rzDcdmkhrDhjQJyLc35fSO3bLs+rCpi9iYfveOgSXX5W1WZ5Kbhv2HjSdsv9i8sMDza7qiLGe1yPMYtTHsFq6iolBv2B0gmm8qFAALC0Kkek/3HaeFgg01+9qFM/i6MR2fhZKA+FslTO0CS+OrMM=
+	t=1790707888; cv=none; b=pQbXfjdN+SDr05IS9k7M9EludPSHKk8gyd0m302PydOCp5SY9t/3b4RGKiwOWJqdlZxdp8BTld7mRIt4104nX0mWeDoZbBoWMfZ3n7EvyuokYVxdC9iV403Aa1kjHjOYqFKuCLMh0Ntx7GBKFETqnFoEIcFwPmIBKjjsvV4KSzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790707488; c=relaxed/simple;
-	bh=REwYmplSpxvx7HtcWq2D2HR8FOKof35/jsxFY7g4LSc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YgYz2tGgCwhH2D24kOMVDNq6LC01Xh9Kad/NtVZ07QiHUavebslxSn9N+UNNLzNj14ORrQEjljZnao7F/x4Mm/ohRfCCwkSR0gTFiQ3K9OKAvxROJ8+dov5MHTW0Oj0Oe/e0Jq+RJGkIc+U5S8JVIQziDXr9pefyju9fzUL4UxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgOd6ugO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790707888; c=relaxed/simple;
+	bh=VsRpLKKg8AuLklLizckVFXMKQubrVkPG/ZgxEupnPNk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O8GZLcNyWmOovnCJK9W7lRwH6sAiyqES4VOMbK7vUXzy1jLJ4x8I9SiI1IZwVznf5d5wtP6cfhE6vJOeUxq5XLIG+aXBXrerxscA2Kd9l1ohH38Ko0F40RM/nyQrPR+P9mA07sHARdEg+cWluQV6QpGaohxHe9yCSreAPQHvWDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EeCb5904; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgOd6ugO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6DE11F000FF;
-	Tue, 29 Sep 2026 18:44:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EeCb5904"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F4811F000FF;
+	Tue, 29 Sep 2026 18:51:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790707483;
-	bh=TTURPywUDv6nIFVrnBWwjE0TWt8FsDiqdUOnRDlFqTk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dgOd6ugOX1wZ/VB+vUNXuUn3bLKQlI9RYgcRc5MVLUhkvl14ddZrzfiF4X3cYiN9M
-	 tdfoX4lfARjqMd7cQIjhxxU2XNEw7p94GvIhuDxX3AnVjgTIBCJdKQXmllfJgcBXmh
-	 vYSqtQOaMN9GiSEdLGyRgF66InMSr/Qu4kY1QC5ocjcUygzoeL6R+uTJisM/3XZGuP
-	 ZxzP/cPfq7lPv2O0uEpmqC8YpX/08zAdIReamKwPC01T9vvg8Ep4bc9PvgjrGA6Aby
-	 vaT/X8lNIPPX+ZOy7KF0swPm4EhsGahdfUr1ZVICeu/rNS1+UOlNIfI01LxJ1tTQUd
-	 s+hIBQVfLY8xg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/6] pmdomain: qcom: rpmpd: Split SDM632 pm domains
- from MSM8953
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260929-sdm632-rpmpd-v2-2-97ef8858161b@mainlining.org>
-References: <20260929-sdm632-rpmpd-v2-0-97ef8858161b@mainlining.org>
- <20260929-sdm632-rpmpd-v2-2-97ef8858161b@mainlining.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 18:44:42 +0000
-Message-Id: <20260929184442.B6DE11F000FF@smtp.kernel.org>
+	s=k20260515; t=1790707885;
+	bh=/WMI8lfF/OSrttALYjpfUBi10UnOZ9MwedFyUxvaAbA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EeCb5904S2ffg/WWZNEkHiFLiIst0KEkW7s7e/DKqtHosRZFbvSUM528WQUBfCrER
+	 /gIWP17U+z4/iDSTPjMDbhbRLzFydlWXFVQiwhn5mqjRYZ9aQMbpe5bsKFMbCy6GwT
+	 hwOnNd8mP9cQLkDS1lAn8hZVxnhCvd+gZi0C2G/vxbe/iD34iNOihiS/+03dSntIpk
+	 v5QFsCi2cEyLW3vfm3zsM/zS247R4LMtHB78ox9HfqkRNUr3J5HjR8ZsMJainxKnjT
+	 fs47ndSB3X8JQ49wOvTbYf1YdnxDKQ0zAoqx1R4db0bA6UiZx4H1HSbhBK5UoDgxg/
+	 /gVJJMuFXzbFw==
+Date: Tue, 29 Sep 2026 19:51:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Luna Jernberg <droidbittin@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Janne Grunau <j@jannau.net>,
+	Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>, Jens Axboe <axboe@kernel.dk>,
+	linux-nvme@lists.infradead.org, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, iommu@lists.linux.dev
+Subject: Re: [PATCH 2/7] dt-bindings: mailbox: Add Apple M3 compatibles
+Message-ID: <20260929-wrongful-shirt-2920bcdab205@spud>
+References: <20260925-apple-m3-nvme-v1-0-5e832e2f4aa9@jannau.net>
+ <20260925-apple-m3-nvme-v1-2-5e832e2f4aa9@jannau.net>
+ <20260929-debonair-busy-hamster-be2fda@quoll>
+ <CADo9pHg2JyGyOA=_6orXdhDwj7NaKRBciyQMG2w7fQcPm0MNwg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="94Nbq7tBACJ51b1N"
+Content-Disposition: inline
+In-Reply-To: <CADo9pHg2JyGyOA=_6orXdhDwj7NaKRBciyQMG2w7fQcPm0MNwg@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] pmdomain: ABI breakage for MSM8953 VDDMD domain
-- [Low] pmdomain: boot log spam from sparse rpmpds arrays
---
+--94Nbq7tBACJ51b1N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit dbd7dd8006d3cfc31f752d18b9c1216c6ac42655
-Author: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas.czeman@mainlining.org>
+On Tue, Sep 29, 2026 at 03:22:09PM +0200, Luna Jernberg wrote:
+> https://youtu.be/TPwe53kCJuM
 
-pmdomain: qcom: rpmpd: Split SDM632 pm domains from MSM8953
+Why are you linking this here? Is there something relevant to this
+series in that stream?
 
-Remove modem related pm domains from MSM8953 rpmpd because MSM8953 MSS
-is using mss-supply as regulator.
-Split SDM632 rpmpd from MSM8953 because SDM632 MSS is using mss-supply
-as pm domain.
+Confused,
+Conor.
 
-> diff --git a/drivers/pmdomain/qcom/rpmpd.c b/drivers/pmdomain/qcom/rpmpd.c
-> index 5f55fc791131a..c37a79d6bc433 100644
-> --- a/drivers/pmdomain/qcom/rpmpd.c
-> +++ b/drivers/pmdomain/qcom/rpmpd.c
-> @@ -703,8 +692,6 @@ static const struct rpmpd_desc msm8917_desc =3D {
->  };
-> =20
->  static struct rpmpd *msm8953_rpmpds[] =3D {
-> -	[MSM8953_VDDMD] =3D	&md_s1a_lvl,
-> -	[MSM8953_VDDMD_AO] =3D	&md_s1a_lvl_ao,
+>=20
+> Den tis 29 sep. 2026 kl 10:21 skrev Krzysztof Kozlowski <krzk@kernel.org>:
+> >
+> > On Fri, Sep 25, 2026 at 10:22:49AM +0200, Janne Grunau wrote:
+> > > The ASC mailbox on Apple M3, M3 Pro and M3 Max/Ultra is compatible to
+> > > the mailbox on M1 ("apple,asc-mailbox-v4"). Add their per-SoC
+> > > compatibles "apple,t8122-asc-mailbox", "apple,t6030-asc-mailbox" and
+> > > "apple,t6031-asc-mailbox" to its dt-bindings.
+> > >
+> > > Signed-off-by: Janne Grunau <j@jannau.net>
+> > > ---
+> > >  Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml | 3 +++
+> > >  1 file changed, 3 insertions(+)
+> >
+> > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> >
+> > Best regards,
+> > Krzysztof
+> >
+> >
 
-[Severity: High]
-Does removing the VDDMD PM domains break backward compatibility with
-existing device trees for MSM8953?
+--94Nbq7tBACJ51b1N
+Content-Type: application/pgp-signature; name=signature.asc
 
-When booting a new kernel with an older MSM8953 device tree, the
-provider rpmpd driver will no longer expose the VDDMD domain. Older
-device trees lack the mss-supply regulator, so a dummy regulator
-will be returned and enabled.
+-----BEGIN PGP SIGNATURE-----
 
-Since the actual power domain is never requested or powered up in this
-scenario, could this cause the modem to fail to boot on older DTBs?
-Is there a fallback mechanism to support existing device trees?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarwIpgAKCRB4tDGHoIJi
+0mYQAP9UIJeKqv9AhxyIQM+FA4DJ02DszB2mvYOx9cyyt0PHiwD/TTKncTdmGbHf
+cbaZwKF3EvrrClbOBuC2WjwU1nMvGwE=
+=hd1e
+-----END PGP SIGNATURE-----
 
->  	[MSM8953_VDDCX] =3D	&cx_s2a_lvl,
->  	[MSM8953_VDDCX_AO] =3D	&cx_s2a_lvl_ao,
-
-[ ... ]
-
-> @@ -844,6 +831,21 @@ static const struct rpmpd_desc qm215_desc =3D {
->  	.max_state =3D RPM_SMD_LEVEL_TURBO,
->  };
-> =20
-> +static struct rpmpd *sdm632_rpmpds[] =3D {
-> +	[RPMPD_VDDMD] =3D		&md_s1a_lvl,
-> +	[RPMPD_VDDCX] =3D		&cx_s2a_lvl,
-> +	[RPMPD_VDDCX_AO] =3D	&cx_s2a_lvl_ao,
-> +	[RPMPD_VDDCX_VFL] =3D	&cx_s2a_vfl,
-> +	[RPMPD_VDDMX] =3D		&mx_s7a_lvl,
-> +	[RPMPD_VDDMX_AO] =3D	&mx_s7a_lvl_ao,
-> +};
-
-[Severity: Low]
-Will this sparse array result in boot log warnings?
-
-Looking at rpmpd_probe, it iterates over the array and unconditionally
-emits a warning for any missing entries:
-
-        if (!rpmpds[i]) {
-                dev_warn(&pdev->dev, "rpmpds[] with empty entry at index=3D=
-%d\n", i);
-                continue;
-        }
-
-Since sdm632_rpmpds uses RPMPD_VDDMD (index 10) but omits the domains
-from indices 5 through 9, will the probe function emit multiple warnings
-on every normal boot for the gap in the array?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-sdm632-rpm=
-pd-v2-0-97ef8858161b@mainlining.org?part=3D2
+--94Nbq7tBACJ51b1N--
