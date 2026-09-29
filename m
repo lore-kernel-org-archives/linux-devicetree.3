@@ -1,90 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D40513554;
-	Tue, 29 Sep 2026 10:39:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A1051A159;
+	Tue, 29 Sep 2026 10:41:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790678364; cv=none; b=D7fGOXOq7jaXfiediNkU6QaUBTS8Y3XvKFWf6cEbNWTrRCATmBLaCnZYZgSol3GCDJLCC9ch4U5N1nxMbR1temp2MJok5VNacIdmPlPkxtRyurmQwBfpqrpnSX2UAcM8t3l3dNro046/uEYd/O8nunFB6vT+CZOv9KA8AIqMtOI=
+	t=1790678508; cv=none; b=KizajUSLLCPiqRmWeqqJ5YMM7bQp20MhvTVPKqlpwA0NuZAJqZZpE4NH+o9znTyzZxZJAtlZZ4e+4v5dCN6coTPTdtV/K+QwtOFEXhfMd7i7Q8TizQHoPeDNXVzj66DZkC2bhAQHq0nZe7xypeuT3niXsJ3s/1UYLVZCEzrD9jw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790678364; c=relaxed/simple;
-	bh=balYX3oKk5D17UFdL5o8wY8VFyGajw8pYqgdGfXVZ84=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SC+xCa4j5KF9+gvS8DpUEVYWQT5s7LRCD4hPbaBR/xWD68oIqwa2i1Bnwl6knmWz9yiUgu1BVG3rmkbuHDiRrRqgPGffvQxXAgJ+v2+7Lgjsu01EnK9mfZuDuuBgWvqvuuW74TLx1Ct6pSv4KCme66Oig4eSR+lm+xzTMroM1Lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gdNYeeCt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790678508; c=relaxed/simple;
+	bh=ohVyGXhCgnwro20BvSE8QCBmsQ9YPbHoyspNgd1/HEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WXy+MT1AqXHLw12CBkKp6p9KbO2Nz9++ch63kxs9jwM0pMUSrqt3dHYA0RYCOjpJ6hQL8kvRyGjtGWkag+3KL1307zq7GmH4uz7G/JAcCE/xXtjs0Un5Bq9DDALTAQ9+YEZI8Mzbtft38uvkNlZcls/3vwGQpttOo9xk8ATATb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CEpQQkYc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gdNYeeCt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22291F00893;
-	Tue, 29 Sep 2026 10:39:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CEpQQkYc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB2F1F000FF;
+	Tue, 29 Sep 2026 10:41:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790678353;
-	bh=6KYk/aTymFcCdGtwMjDqi5Esf3NOvgoJ11PlfInhxLo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gdNYeeCtpHj+T31LWGoxSwZtw4aMHWJPQvDDbVU+G8X8wuUkfBnZdIvV3uOFFuhnB
-	 VVCZFfDc5kBgiOdoxxx8lFPY7k06NhFGsgVEB+qM0Ahrc9jnlooHj64ItyD4pumWIh
-	 gMuqBMn/6HimqFkDPUObJvUKVRxzh5MvFctQgjPBlrPPVvXXGGyfb321OfFTREZ9vN
-	 3ql6+JclMnEeJzW5pygIiDx4lT1J4QENyDSfIr6VOvvdJz36bxlVKXECVjg93I/dwd
-	 qTt+TeByxw7taDxglmknT2coYdubscmB31J2tXCHzsJ0aSuefP2Ux3O/E5fFNnFARO
-	 8LahKRKM2I1Zw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: sm8750: Add watchdog node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260929-sm8750-watchdog-v1-2-ea06d5dc7e54@oss.qualcomm.com>
-References: <20260929-sm8750-watchdog-v1-0-ea06d5dc7e54@oss.qualcomm.com>
- <20260929-sm8750-watchdog-v1-2-ea06d5dc7e54@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 10:39:12 +0000
-Message-Id: <20260929103912.C22291F00893@smtp.kernel.org>
+	s=k20260515; t=1790678496;
+	bh=dQn31xHbq0L/9f4jn80/zqGrFsjkBvOVj0bPXPL+JB4=;
+	h=From:To:Cc:Subject:Date;
+	b=CEpQQkYcXpf4Al1gCu4YnQPRD9UCvXY5TgZ1aWo6kmUw8yiOc/SwKXY2CXsa49Yv/
+	 ofAWhYmIQ7Mz8IpgJ1umyoL+LHVa3H1pOgkU7LweHrF0H89nEYchf5JaN0AHm/CuWx
+	 cJaA5SETCedj9UYBZYqdvm6EFh7w0C+XWLDgXddknD9Vt1DeksdhvzktMpcVyqEQ5E
+	 +xFnciBMlAFL1sqsKimT/gzlOdZgu/bODyopj8NJv4JKzvVz4ZPVJeZblskE9DhTrQ
+	 kdvL/r6OvljsRhOQ+DM1hkCyv50gYG+lZ5Q54t7nVPEtEddjaoLv4b053KSTU5xJwX
+	 gjnzxPe79s0Pg==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Monish Chunara <monish.chunara@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+	Imran Shaik <imran.shaik@oss.qualcomm.com>,
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+	Jie Gan <jie.gan@oss.qualcomm.com>,
+	Xueyao An <xueyao.an@oss.qualcomm.com>,
+	Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: shikra: fix sdhc interrupts property
+Date: Tue, 29 Sep 2026 12:41:12 +0200
+Message-ID: <20260929104127.3156764-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt: incorrect node ordering in sm8750.dtsi
---
+From: Arnd Bergmann <arnd@arndb.de>
 
-commit 807aba78b66c219c014d5a42b4b7964dbeb6b207
-Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+The gicv3 on this chip uses a 4-cell interrupt specifier, which
+includes the affinity, but the newly added mmc node uses the
+3-cell format:
 
-arm64: dts: qcom: sm8750: Add watchdog node
-   =20
-This commit adds a device tree node for the watchdog on the SM8750 SoC.
+arch/arm64/boot/dts/qcom/shikra.dtsi:4151.4-27: Warning (interrupts_property): /soc@0/mmc@4784000:#interrupt-cells: size is (24), expected multiple of 16
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/q=
-com/sm8750.dtsi
-> index 8ed5fa4d24fcd..53125e5dc4cca 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-> @@ -6006,6 +6006,13 @@ cpucp_mbox: mailbox@16430000 {
->  			#mbox-cells =3D <1>;
->  		};
-> =20
-> +		watchdog@16410000 {
-> +			compatible =3D "qcom,apss-wdt-sm8750", "qcom,kpss-wdt";
-> +			reg =3D <0x0 0x16410000 0x0 0x1000>;
-> +			clocks =3D <&sleep_clk>;
-> +			interrupts =3D <GIC_SPI 0 IRQ_TYPE_EDGE_RISING>;
-> +		};
-> +
+Add a zero affinity, same as for the other I/O devices on this chip.
 
-[Severity: Low]
-Does this placement break the ascending unit-address order convention for
-Device Tree files?
+Fixes: c8e3d40457f1 ("arm64: dts: qcom: shikra: Add SD Card support")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ arch/arm64/boot/dts/qcom/shikra.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-The new watchdog@16410000 node is being placed immediately after the
-mailbox@16430000 node. Should this node be moved above the mailbox node to
-keep the children sorted numerically by their unit address?
+diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
+index 9823c591b02b..1814ab33e236 100644
+--- a/arch/arm64/boot/dts/qcom/shikra.dtsi
++++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+@@ -1470,8 +1470,8 @@ sdhc_2: mmc@4784000 {
+ 			compatible = "qcom,shikra-sdhci", "qcom,sdhci-msm-v5";
+ 			reg = <0x0 0x04784000 0x0 0x1000>;
+ 
+-			interrupts = <GIC_SPI 350 IRQ_TYPE_LEVEL_HIGH>,
+-				     <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH>;
++			interrupts = <GIC_SPI 350 IRQ_TYPE_LEVEL_HIGH 0>,
++				     <GIC_SPI 353 IRQ_TYPE_LEVEL_HIGH 0>;
+ 			interrupt-names = "hc_irq",
+ 					  "pwr_irq";
+ 
+-- 
+2.53.0
 
->  		apps_rsc: rsc@16500000 {
->  			compatible =3D "qcom,rpmh-rsc";
->  			reg =3D <0x0 0x16500000 0x0 0x10000>,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-sm8750-wat=
-chdog-v1-0-ea06d5dc7e54@oss.qualcomm.com?part=3D2
