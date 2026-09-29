@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D433E40E9
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 22:52:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4176B344DB9
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 22:56:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790722372; cv=none; b=ZAuRv5Ud+NIwWDcKGkRBKx4L31MQPiE4JPEdteEsLdYruI7v5J3IbrkZ9z/27G87bmZZrGw5rR8JW06JhKFy/unbvQBldsqPhFtgT9KSjHifqRWwMFxESg7InFB75VEB8AnSkySZx7Zfk1qh1v2o4/0rAQUSyI0OsDtJp86rts8=
+	t=1790722613; cv=none; b=VZ+51BlXI6Tyii47gEl/IslcRZID5wS6yI2JWcVNyygwwdFs1fr4Zr1n0GUA5unq1sXy7Gd8iOOpK7AKX+KJ2fQNHzC4K3zJSYV6UMTX6JLhpUfc2dMF0rMxZ9tCfZmlX8Agr5+TCX8uTYJ/4ppvoIDxublda3uWNYHGTJQc1XY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790722372; c=relaxed/simple;
-	bh=0hhgfe2WXi1ahn9840qV+mSMYGiMeSrdhyHb0FUgWuk=;
+	s=arc-20240116; t=1790722613; c=relaxed/simple;
+	bh=YKRmnKoUZdujh1ZFPcRmdh1NlhxnOtxBwvlrCg3/aus=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Bd868ZPFbUewqu1rKW6s0xlwxyt5Y5gahoKm/+SnHsf4KNPTqKC0rPEqbSouitct9q/bxMDbGlc6m4M3Q6rxuSZf1Rwy2tguAtbxlED3aLv9sP2i89vvgXKs7ggwPZyZt4wGLJH63/PiG4KAv2gyju6zG11XzpwLFzGmkNN/3+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tg5pBMkr; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=He48+38rjIh/4VngOX0uNpPUM/8rV8WEqEDCUmHXKt2WZeydpIxMhzxLX5J6G72Cf5gvagOXDEZiPqOudzwQIIEum9P28AB+Ns3VRFbpeWRmAQ9GfBWRMDrrB1IJ8wvUBEfed8hGbRXVe5dLoMZuGql2ZjMT+8qF8ZW/Qqke5kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NGowhJCv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tg5pBMkr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933831F000FF;
-	Tue, 29 Sep 2026 22:52:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NGowhJCv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 772B11F000FF;
+	Tue, 29 Sep 2026 22:56:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790722370;
-	bh=70QUrPEy2C+jakZtbP1melXFFa0ag8eI30EeMF1VrRg=;
+	s=k20260515; t=1790722611;
+	bh=/zATtPKrTiMibB6zdsaFLwEdMTlw87tv96EFgHKY/NQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Tg5pBMkrC7KlvI/pEwe3AmrvRr0cswTfZZ9L4d9bGtuSRf1kgo9LktLUbz8U8lHpK
-	 E9BEw1jYAjowOtdgFCXZh7fOqa2spumqh2WGmep8Sa1C3QrwQw961CB8z3wDWabgjZ
-	 JE1ZATAU+5jii4C7ahyjGFtuq8CY5ydZFtOL5IAPwy8oTKfSPzQRpeYMANMSLm/Trs
-	 aYPyXu3oPpJbsj5JQaaMt9qK/ta3NsXM+2XhKB7Z0a4VBMdKfvyWNBKiaB7qJ0t858
-	 fB5ObEWnawcbiCrtEOeYa/PBIk6GV0EF7cMdBrhZ0Rw5JaDoLwhahsma70JwYJjNtJ
-	 j4aaKhyy9pmOA==
+	b=NGowhJCvRMsChWEOUAPX7ebxhyH+hfed0bz3uwrFW6lHh3eiasaVNXjXX+qndnRJB
+	 adDWe7Y9+E6wsO/jf+7DNRhyUTi3EZsNMWSLy09iFA6sNueiUwA1WXV9a2euO9OjCb
+	 y+qXKu0EQaDe2tnql7Ou4YFUCVGFRaKRfWM8PDGtMi1q2t85Zu1XrPp1Ynl1PcBOsv
+	 k0GWSinEzr0v7IdO8Bf/5sbsGE0dKM1PvM3B3HBlzOO5nlcqSKTQCWuhtVVNKiOHBu
+	 oS+sdwMSxOGWTgYxkSbKXtfYkLsT/0qlcKUZNAv4FeikrHInAuNHk9ZX+n1guW7Ta4
+	 sT6MXv/DYqEpw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 04/13] iio: adc: ad4134: Serialize single-read
- operations
+Subject: Re: [PATCH v18 22/23] media: i2c: remove MAX96714 driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <1c61961b502fc26a08e43d287c94609feb60649d.1790719424.git.marcelo.schmitt@analog.com>
-References: <cover.1790719424.git.marcelo.schmitt@analog.com>
- <1c61961b502fc26a08e43d287c94609feb60649d.1790719424.git.marcelo.schmitt@analog.com>
+To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
+Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260930-gmsl2-3_serdes-v18-22-43117818f499@analog.com>
+References: <20260930-gmsl2-3_serdes-v18-0-43117818f499@analog.com>
+ <20260930-gmsl2-3_serdes-v18-22-43117818f499@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 22:52:50 +0000
-Message-Id: <20260929225250.933831F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 22:56:51 +0000
+Message-Id: <20260929225651.772B11F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,41 +46,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] typo in the new comment describing `sync_lock`
+- [Low] MAINTAINERS: outdated section title and unmerged entry for MAX96714
 --
 
-commit b5e93b2d37821a8e474f3fdacabd2e3e420e3376
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+commit 472305e6d4c4846f568486ed29fb99b1f040fa31
+Author: Cosmin Tanislav <demonsingur@gmail.com>
 
-iio: adc: ad4134: Serialize single-read operations
+media: i2c: remove MAX96714 driver
 
-This commit protects single-sample read operations from failing if two or
-more of them run concurrently. It serializes the data read operation to
-avoid single-sample read requests disrupting each other.
+Removes the MAX96714 driver as its functionality has been moved to the
+MAX9296A driver which makes use of the Maxim GMSL2/3 serializer framework.
 
-> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> index 4c8adb8efe4e2..db3cf69401f67 100644
-> --- a/drivers/iio/adc/ad4134.c
-> +++ b/drivers/iio/adc/ad4134.c
-[ ... ]
-> @@ -98,6 +100,11 @@ struct ad4134_state {
->  	struct regmap *regmap;
->  	unsigned long sys_clk_hz;
->  	struct gpio_desc *odr_gpio;
-> +	/*
-> +	 * Synchronize access to members the of device state, and ensure
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 0db318ded5fb6..1b07a808570ad 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -16291,7 +16291,6 @@ M:	Julien Massot <julien.massot@collabora.com>
+>  L:	linux-media@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/media/i2c/maxim,max96714.yaml
+> -F:	drivers/media/i2c/max96714.c
 
 [Severity: Low]
-This isn't a bug, but there is a typo in the comment here. Should
-"members the of" be written as "members of the"?
+This isn't a bug, but with the removal of the driver file, this maintainer
+section title is no longer fully accurate.
 
-> +	 * atomicity of consecutive register access operations.
-> +	 */
-> +	struct mutex sync_lock;
->  	int refin_mv;
->  	/*
->  	 * DMA (thus cache coherency maintenance) requires the transfer buffers
+Since it only covers the device tree bindings now, would it make sense to
+rename the section title, or perhaps merge this entry into the new GMSL2/3
+framework section?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790719424.gi=
-t.marcelo.schmitt@analog.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-gmsl2-3_se=
+rdes-v18-0-43117818f499@analog.com?part=3D22
