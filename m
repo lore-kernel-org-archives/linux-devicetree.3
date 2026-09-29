@@ -1,237 +1,179 @@
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A151F541E69;
-	Tue, 29 Sep 2026 17:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790702864; cv=pass; b=G1Q4C/hJOxAENT5Ro3UQqQFS8xnIs0sjiW6qcO17XVB3iPCJvl2LndqWNtRRQdSweAqJmVr3WyXdFyx0uSnZF3kRem57r0FIQeo9+lV5A/SIed6H7GVleiWO2Ocgw3lJRDdjEu2EHvdoOI6T+BjnbAIecZ/JRSLoXVFKfMx9lxM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790702864; c=relaxed/simple;
-	bh=8+TlToDAGMcLtBebw/bk3jKYfg+eVBbCP5TQM9k92rA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=isEOLFl0LbCeRQhSnPito2e3qXzhRSQXrXA6cD3TlYovDTYmRuhPEfpS0t2QA5KIng0RarLTucHDoWq31Sc3hGSymTUxRH/zKiKfPedSIbaYYTp8D3ZzieL47mdU8Aj7zLUEUN+p+hTsSVDHpZKe6RmQdbsOKaJFEP7H2gCeZiA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=IHWekhVH; arc=pass smtp.client-ip=165.173.180.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9665427E5
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 17:27:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790702865; cv=none; b=lWPOFppz5lzvd7GPYOCR1ROT2qX9I1k3Q+u/9dONPLVCe4k88iIiUEO09rUvAs2NpKXl5Uiqs4N9LB6Qc+UmLRkDaPVPZxt1sxw8tjvhvJZIjWGUwCdRrfnG43rtMcEp3ZAmFIGpJLt3r+if3T4HqlqzpKew4eW8KvTlGudWsUI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790702865; c=relaxed/simple;
+	bh=XAr0ib5BIPLtsY2IvBczHBGu8cAfEMxCkyCJpApDgVo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Z2lD7LEd4edYoeo86nJThahVbTZJT1JQX19wt7UKYL3VWlx4mVZoV+Uq7X7BXfTdf93/Z/WzyfSJ4xq5tFJrQXcXihKup3wWCN8W8wQuAsXrGsRkruSHGajXMg/fUrNXbP5Vn2F9Ye+VNcjreeEvY1jnA2+rNZGk+AYA9Gct8qY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b0PhfIzm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e/dMLSiL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="IHWekhVH"
-ARC-Seal: i=1; a=rsa-sha256; t=1790702831; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=a9PJhOzSLTyqRiQlVTyGOQYoqYmz7g2LPtUUDjDKP8nHTDy5UoTXPFwJXl8fGO6AthCECh8TvsA72HuCcf8LP3+2IJODXrAXre4gQUjtxm5LNylNLMRoa/HjlEmIgs22ppsSNu88F3xqKkrcDLBVckiveEvY8TSSnmKg88yC+Oo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790702831; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Y9NwEbyVjw2WwQhh/YiuNnChv3bZnD+ix5wp8QNDx/U=; 
-	b=EYooYL6xEufNo66FTfvoUyRSNERR4hAR67wwqj9vyrCWtB+eDrwu5QvVDHm46jJCH1yIVeyHcQqGwQkasBF6kBGm2Mm14tljs2leTXL7+oG+0uXf6yqgffXJt9bVKIj1Vob3qQmMeB6q4Q5SXVJ4sP7ZKmlOmbgxObOJkn2zZZk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790702831;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=Y9NwEbyVjw2WwQhh/YiuNnChv3bZnD+ix5wp8QNDx/U=;
-	b=IHWekhVHddjY6Y5CG3cloYBUPY5/8ghSUlbNl+5TdOoY3HvdDI2vFed2Ft987ZcM
-	YxoqLcbb/hRUjlbu2QV0Tb+tODcFZrzYhsbICy4eqhO8ctCB6B/3p6SZJ88gR9Jb8zD
-	DNm2DAxpXh2sDpyvzZbDKwhpB9ffDEB9mjZ9aXnw=
-Received: by smtp.zohomail.com with SMTPS id 1790702829307997.4485657511802;
-	Tue, 29 Sep 2026 10:27:09 -0700 (PDT)
-From: Junhui Liu <junhui.liu@pigmoral.tech>
-Date: Wed, 30 Sep 2026 01:26:09 +0800
-Subject: [PATCH v5 2/8] clk: sunxi-ng: sdm: Add dual patterns support
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b0PhfIzm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e/dMLSiL"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TFG4jV942201
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 17:27:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	u3SUEE7AbKzsNjWqdW9tpkLCiHmZCXAa87H/nM0eXMM=; b=b0PhfIzmOk/QmqOk
+	FVyf9GPr4FheKSIazX6ZpB5hFQNl6tKAh5GNR/d/ZVbzld3wLYDvfdGjOyQ3voKI
+	XJfEGMIT36vPoGXzXRJFpyFaCryKIreS5dNbSqvqXRR1TsW+odAvrfpYModnZuhA
+	dZDb6IvoP4Sc6Fk06dQRWW2Xbp5ITvRx3P4n94xXEaatFET1PQFBtZlq2xEvIpH/
+	9XxzPTSFCkSyf4/AWpb1CxgjGQguInWfBvsNK5rYdhbQ5+kBbjEI7kXOh1lQPPzA
+	NA6GdmQ7BdgKVKd9JLAKEPxGFoYWVT/utozk0x0IY+o1HAP93KM7G4qSUQdprqbB
+	z1KXMg==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0ftugkyx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 17:27:35 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc4fc935a11so3203838a12.0
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 10:27:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790702854; x=1791307654; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u3SUEE7AbKzsNjWqdW9tpkLCiHmZCXAa87H/nM0eXMM=;
+        b=e/dMLSiL/P+O9Uxgv2+zjBQhtYd9s11k3eJat1ql8/k9h2UgFQ4Upm6tB4TFuUKjOh
+         xBUsIFQBYsYgMOCs2ZJq1RTE5aCXNPBb8xnCJw6JJxd9xQGHKvC34nEYrcdQldGFleMn
+         9bhed1n8um1dfSb4mmrewuSfOxMbnkPVD6rJyA9GeC/OxL10egbeo3BGQ3ItomoxNgfl
+         BduiZ5ijovTL+aSNwHflQzntcWrEpcBD2CSC8NEXwj+ySee5D3vsFiPG00XrCLdrvlKq
+         R/GMG8DRC0+V18nhTECLloJfNXYDUE6TKmeU84u3Vt9HlFylVpNiTf+SC6+6NNCJZVLl
+         2ZUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790702854; x=1791307654;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u3SUEE7AbKzsNjWqdW9tpkLCiHmZCXAa87H/nM0eXMM=;
+        b=MJudzEaZOaf/gs2Kj/VMtvsBpFyj5aL6DsC0133wK8WpYnX2IdMXlHIiUua+7ftuFf
+         SRI74VOolUg8Rc58jknr9cY+fYi3LcyXC2to9NQad4mReYcQmCobhtfYPetCcldGIFth
+         perWSv8Yt4OJMa4MkKnmXDOdSlLJ1pPXQzofAPe7g1a2Ia8dwOjgmPVhacXdiFfIeDUh
+         vNdDfrsKPlqn7dOK3CKNzF5EvNOfNRhxiZWBeoid4nW5v1faJ+H991pI89sJQx9DdJAg
+         a7NEAcbguEXezdL5unR1iTEfmVqviGyXKlu0bNg9btxU5MV73WAw7Ojd9JAeIAM6gCxb
+         B3Ww==
+X-Forwarded-Encrypted: i=1; AKwUvBykgQeaQsXW9virAq2GmE5V7p3DPudA07T7m0tf8MSC+9lAVY52uPyMQuNyrtRWrgT8/MZkUbJxah3X@vger.kernel.org
+X-Gm-Message-State: AFuF++mcEXF+VYrRVDod3dyeb4Mc6oakTNaRGJSAV/6iZIpk+aK0wmAv
+	ztyca692E3vfnSJIx+EKCbQGVhrI7LwcJrY5Y9fU2ohT19yIJICGNrrYVWM25mzHpIOiOMdtpo4
+	C1LT8MX0vJKIgiaSzOR/NndwDru70vCaa1RG0Xfjeq4FW+V8QQqU0s78DtQMhGZbm
+X-Gm-Gg: AYBFou2vkpYe8ph4pHJ3+0R4rDor4i7Cji978IR/Nol+QK9OTheh3LdHSStVuy0AtK3
+	77S3Vv6L3J30MuFgvTKdChieZ54F/qoN/7s6+mDZFDr/k5Dc4TDPoJ34O1sYeCjDuMED+5CmVgT
+	ZfHrRbc6q3gGs9oFzPYCLkEqg6weKCnSYzobDH4r1NjGOQLmq30dKnLTvSoQXfRfNbTLJ98P553
+	LRBiGPuO1x3mjJkfkX4idhPsU05stHSwQ2GmC+YA17BwTNN6EGJ2BtZPREOL/pl/24ok2EIjGit
+	CtvsDCj8GQRtlfvsnkNKe+lPPIP7ip3SnPBmYsQOsQzuomymhbOwE/IvzzovWZCDZ02lpY8VKlh
+	2LfD8muHBu/c9a9aXnvhPpmympm7Diq6hqnpHOtkNtoQ=
+X-Received: by 2002:a05:6a21:398f:b0:3dd:85aa:d26a with SMTP id adf61e73a8af0-3de0e7f02e6mr14024934637.34.1790702851335;
+        Tue, 29 Sep 2026 10:27:31 -0700 (PDT)
+X-Received: by 2002:a05:6a21:398f:b0:3dd:85aa:d26a with SMTP id adf61e73a8af0-3de0e7f02e6mr14024769637.34.1790702846060;
+        Tue, 29 Sep 2026 10:27:26 -0700 (PDT)
+Received: from [192.168.1.3] ([122.164.83.157])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8868c9d62afsm280619b3a.44.2026.09.29.10.27.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 10:27:25 -0700 (PDT)
+Message-ID: <b77e8d79-fc90-4bf8-835e-23e84198a008@oss.qualcomm.com>
+Date: Tue, 29 Sep 2026 22:57:07 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: (subset) [PATCH 00/11] Add a few minor enhancements to the
+ Qualcomm IPQ GCC drivers.
+To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Varadarajan Narayanan <quic_varada@quicinc.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
+        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
+        Kathiravan T <quic_kathirav@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, stable@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260921-ipq_clk_changes-v1-0-d242e3d49648@oss.qualcomm.com>
+ <179065171028.2673486.10540547681271836423.b4-ty@b4>
+Content-Language: en-US
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+In-Reply-To: <179065171028.2673486.10540547681271836423.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-a733-clk-v5-2-11175b41cd2d@pigmoral.tech>
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
-In-Reply-To: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Junhui Liu <junhui.liu@pigmoral.tech>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, 
- Enzo Adriano <enzo.adriano.code@gmail.com>, 
- Andre Przywara <andre.przywara@arm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5991;
- i=junhui.liu@pigmoral.tech; h=from:subject:message-id;
- bh=8+TlToDAGMcLtBebw/bk3jKYfg+eVBbCP5TQM9k92rA=;
- b=owGbwMvMwCWWvDb1VEXc8j+Mp9WSGLJ2f9l1RS/G9fqNwMcse97fvWKVxFL4VODQ5WM2j3S4V
- hzhChI73FHKwiDGxSArpsjC5S/+z1qH59sRgdb7MHNYmUCGMHBxCsBE/uQyMsyWXMrlsnb97CfW
- fNv54lWib/Dd/XH26FLd6VnHt7Y+181kZLj1b0/SLnsu29Df06Yavfb+dfuAppWf3d2XJ3W0r6g
- 1H2cFAA==
-X-Developer-Key: i=junhui.liu@pigmoral.tech; a=openpgp;
- fpr=15B30CC69C4BF0CC3C08F85A2A90CDC122DF37BF
-X-ZohoMailClient: External
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTI5MDA2OSBTYWx0ZWRfXyHy+qYbJ2CUE
+ LcNx8CccotzO69fApRl/fHIB0PMqOYGbEUciYcQ1KJvaURRInC3bSrMQqX/lAY/sWcTRKFhkBrY
+ PN58MLgJY3CVBQzHwP86eHQpUvTBd7Wec7CmXPnLoNIE6ApIHFlR56QJDURu/h3SdRLH65/Gws2
+ dHkP6eoBaOfdG5ejUQHNghwnPvC4SglELlks0YKpzN7HsJEt9Lucmzri1vZD2ompII1ZVOG1e+r
+ eHAveXYWo2O2l+ceSWWNEPMhtlm4qOROZfVTqOdDZaae9Hd0LKu9ycXx0rsyPzTXSnrqDkpbZkP
+ zyfXxCR/EP1QI3hZ0f5PAIWJQpVDoona/HCAyGzPuol0755TqfUU5623R9A+4P//Y4WuU2E7Dlj
+ Pa5OgUG2J4untfrtlgUaWakIGezulkiGU62AQn5vyCVc0gQu3pqU+2do6F64sTK117LnEbBx+vQ
+ YH5tFT+tCtqoKQm7fww==
+X-Authority-Analysis: v=2.4 cv=AoB7T+9P c=1 sm=1 tr=0 ts=6abbf507 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=1HAn/k65X8NeSyO5TsuCIQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=NSf5Sc59ZZly-qZ_PXUA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTI5MDA2OSBTYWx0ZWRfXxr+bv0Qxu6/C
+ DnO5hCiBo/iliYj0Ojxl9w2gEcWntadRx/Q8ylIL7TDYI5XZD0QF8sgIxSTX282puEaLb38p8AH
+ 0YYLIyQBQiW2VZSSqZuYeCGZzczM8VM=
+X-Proofpoint-GUID: Qy0-EjXlf3MDeM5HJA-9nv7DJSk99CTs
+X-Proofpoint-ORIG-GUID: Qy0-EjXlf3MDeM5HJA-9nv7DJSk99CTs
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 clxscore=1015 phishscore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609290069
 
-On newer Allwinner platforms like the A733, the Sigma-Delta Modulation
-(SDM) control logic is more complex. The SDM enable bit, which was
-previously located in the PLL register, is now moved to a second
-pattern register (PATTERN1).
 
-To support this, rename the existing "tuning" members to "pattern0" to
-align with the datasheet, and introduce the _SUNXI_CCU_SDM_DUAL_PAT
-macro to provide pattern1 register support. Related operations are also
-updated.
+On 9/29/2026 8:44 AM, Bjorn Andersson wrote:
+> On Mon, 21 Sep 2026 11:49:33 +0530, Kathiravan Thirumoorthy wrote:
+>> This series adds USB, NSS, and clock-related updates for several
+>> Qualcomm IPQ SoCs, including:
+>>
+>>    - Configure the USB UTMI reference clock to 24 MHz on IPQ5018,
+>>      IPQ5210, and IPQ5332 to fix USB enumeration issues.
+>>    - Wire the USB3 PHY PIPE clocks to GCC on IPQ5424 and IPQ9574.
+>>    - Add NSS MEMNOC clocks and corresponding clock and ICC IDs for
+>>      IPQ5424.
+>>    - Connect the IPQ5424 PPE clock to GCC and document the required
+>>      clock input ordering.
+>>    - Add UNIPHY XPCS reset definitions required for NSS support on
+>>      IPQ5210.
+>>    - Fix IPA-related typos in the IPQ5424 APSS clock driver.
+>>
+>> [...]
+> Applied, thanks!
+>
+> [01/11] clk: qcom: ipq5018: add 24MHz rate for USB UTMI clock
+>          commit: 0fe2995196a5973e226f506c9ec705f0dccec82f
+> [02/11] clk: qcom: ipq5332: add 24MHz rate for USB UTMI clock
+>          commit: 33e6a4864ddc4824f8a9505a97232b7879eb5528
+> [03/11] clk: qcom: ipq5210: add 24MHz rate for USB UTMI clock
+>          commit: 0336b65aef4721edbc01073dffdf9bc12673f0e5
+> [04/11] arm64: dts: qcom: ipq9574: Wire up USB3 PHY PIPE clock to GCC
+>          commit: 117d8d40be1ded4f35f3252efa83607a7134d5e0
 
-Tested-by: Jerome Brunet <jbrunet@baylibre.com>
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
----
- drivers/clk/sunxi-ng/ccu_sdm.c | 52 ++++++++++++++++++++++++++++++------------
- drivers/clk/sunxi-ng/ccu_sdm.h | 29 ++++++++++++++---------
- 2 files changed, 55 insertions(+), 26 deletions(-)
+Thanks Bjorn. Patch 10/11 and 11/11 are independent of the IPQ5424 
+dt-binding discussion. Since those patches are not bug fixes, added into 
+the last part of the series. Can you pick those patches as well for v7.4?
 
-diff --git a/drivers/clk/sunxi-ng/ccu_sdm.c b/drivers/clk/sunxi-ng/ccu_sdm.c
-index c564e5f9e610..7e13ffd246d3 100644
---- a/drivers/clk/sunxi-ng/ccu_sdm.c
-+++ b/drivers/clk/sunxi-ng/ccu_sdm.c
-@@ -18,7 +18,11 @@ bool ccu_sdm_helper_is_enabled(struct ccu_common *common,
- 	if (sdm->enable && !(readl(common->base + common->reg) & sdm->enable))
- 		return false;
- 
--	return !!(readl(common->base + sdm->tuning_reg) & sdm->tuning_enable);
-+	if (sdm->pat1_enable &&
-+	    (readl(common->base + sdm->pat1_reg) & sdm->pat1_enable) != sdm->pat1_enable)
-+		return false;
-+
-+	return !!(readl(common->base + sdm->pat0_reg) & sdm->pat0_enable);
- }
- EXPORT_SYMBOL_NS_GPL(ccu_sdm_helper_is_enabled, "SUNXI_CCU");
- 
-@@ -37,18 +41,27 @@ void ccu_sdm_helper_enable(struct ccu_common *common,
- 	for (i = 0; i < sdm->table_size; i++)
- 		if (sdm->table[i].rate == rate)
- 			writel(sdm->table[i].pattern,
--			       common->base + sdm->tuning_reg);
-+			       common->base + sdm->pat0_reg);
- 
- 	/* Make sure SDM is enabled */
- 	spin_lock_irqsave(common->lock, flags);
--	reg = readl(common->base + sdm->tuning_reg);
--	writel(reg | sdm->tuning_enable, common->base + sdm->tuning_reg);
-+	reg = readl(common->base + sdm->pat0_reg);
-+	writel(reg | sdm->pat0_enable, common->base + sdm->pat0_reg);
- 	spin_unlock_irqrestore(common->lock, flags);
- 
--	spin_lock_irqsave(common->lock, flags);
--	reg = readl(common->base + common->reg);
--	writel(reg | sdm->enable, common->base + common->reg);
--	spin_unlock_irqrestore(common->lock, flags);
-+	if (sdm->enable) {
-+		spin_lock_irqsave(common->lock, flags);
-+		reg = readl(common->base + common->reg);
-+		writel(reg | sdm->enable, common->base + common->reg);
-+		spin_unlock_irqrestore(common->lock, flags);
-+	}
-+
-+	if (sdm->pat1_enable) {
-+		spin_lock_irqsave(common->lock, flags);
-+		reg = readl(common->base + sdm->pat1_reg);
-+		writel(reg | sdm->pat1_enable, common->base + sdm->pat1_reg);
-+		spin_unlock_irqrestore(common->lock, flags);
-+	}
- }
- EXPORT_SYMBOL_NS_GPL(ccu_sdm_helper_enable, "SUNXI_CCU");
- 
-@@ -61,14 +74,23 @@ void ccu_sdm_helper_disable(struct ccu_common *common,
- 	if (!(common->features & CCU_FEATURE_SIGMA_DELTA_MOD))
- 		return;
- 
--	spin_lock_irqsave(common->lock, flags);
--	reg = readl(common->base + common->reg);
--	writel(reg & ~sdm->enable, common->base + common->reg);
--	spin_unlock_irqrestore(common->lock, flags);
-+	if (sdm->enable) {
-+		spin_lock_irqsave(common->lock, flags);
-+		reg = readl(common->base + common->reg);
-+		writel(reg & ~sdm->enable, common->base + common->reg);
-+		spin_unlock_irqrestore(common->lock, flags);
-+	}
-+
-+	if (sdm->pat1_enable) {
-+		spin_lock_irqsave(common->lock, flags);
-+		reg = readl(common->base + sdm->pat1_reg);
-+		writel(reg & ~sdm->pat1_enable, common->base + sdm->pat1_reg);
-+		spin_unlock_irqrestore(common->lock, flags);
-+	}
- 
- 	spin_lock_irqsave(common->lock, flags);
--	reg = readl(common->base + sdm->tuning_reg);
--	writel(reg & ~sdm->tuning_enable, common->base + sdm->tuning_reg);
-+	reg = readl(common->base + sdm->pat0_reg);
-+	writel(reg & ~sdm->pat0_enable, common->base + sdm->pat0_reg);
- 	spin_unlock_irqrestore(common->lock, flags);
- }
- EXPORT_SYMBOL_NS_GPL(ccu_sdm_helper_disable, "SUNXI_CCU");
-@@ -123,7 +145,7 @@ unsigned long ccu_sdm_helper_read_rate(struct ccu_common *common,
- 	pr_debug("%s: clock is sigma-delta modulated\n",
- 		 clk_hw_get_name(&common->hw));
- 
--	reg = readl(common->base + sdm->tuning_reg);
-+	reg = readl(common->base + sdm->pat0_reg);
- 
- 	pr_debug("%s: pattern reg is 0x%x",
- 		 clk_hw_get_name(&common->hw), reg);
-diff --git a/drivers/clk/sunxi-ng/ccu_sdm.h b/drivers/clk/sunxi-ng/ccu_sdm.h
-index c1a7159b89c3..e94cef141c7d 100644
---- a/drivers/clk/sunxi-ng/ccu_sdm.h
-+++ b/drivers/clk/sunxi-ng/ccu_sdm.h
-@@ -33,21 +33,28 @@ struct ccu_sdm_internal {
- 	u32		table_size;
- 	/* early SoCs don't have the SDM enable bit in the PLL register */
- 	u32		enable;
--	/* second enable bit in tuning register */
--	u32		tuning_enable;
--	u16		tuning_reg;
-+	/* second enable bit in pattern0 register */
-+	u32		pat0_enable;
-+	u16		pat0_reg;
-+	/* on some platforms, the sdm enable bit in pattern1 register */
-+	u32		pat1_enable;
-+	u16		pat1_reg;
- };
- 
--#define _SUNXI_CCU_SDM(_table, _enable,			\
--		       _reg, _reg_enable)		\
--	{						\
--		.table		= _table,		\
--		.table_size	= ARRAY_SIZE(_table),	\
--		.enable		= _enable,		\
--		.tuning_enable	= _reg_enable,		\
--		.tuning_reg	= _reg,			\
-+#define _SUNXI_CCU_SDM_DUAL_PAT(_table, _enable, _pat0, _pat0_enable, _pat1, _pat1_enable) \
-+	{								\
-+		.table			= _table,			\
-+		.table_size		= ARRAY_SIZE(_table),		\
-+		.enable			= _enable,			\
-+		.pat0_enable		= _pat0_enable,			\
-+		.pat0_reg		= _pat0,			\
-+		.pat1_enable		= _pat1_enable,			\
-+		.pat1_reg		= _pat1,			\
- 	}
- 
-+#define _SUNXI_CCU_SDM(_table, _enable, _pat0, _pat0_enable)	\
-+	_SUNXI_CCU_SDM_DUAL_PAT(_table, _enable, _pat0, _pat0_enable, 0, 0)
-+
- bool ccu_sdm_helper_is_enabled(struct ccu_common *common,
- 			       struct ccu_sdm_internal *sdm);
- void ccu_sdm_helper_enable(struct ccu_common *common,
-
--- 
-2.55.0
-
+>
+> Best regards,
