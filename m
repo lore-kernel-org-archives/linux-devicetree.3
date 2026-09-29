@@ -1,216 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C7C3A1A27;
-	Tue, 29 Sep 2026 07:27:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790666825; cv=none; b=T0HWisThezLh7nyW1v++mHklnPN7P+28XznzW7z0mNdtJmEgHwJEzGH1ATlgTFDu9EXh89PnxTPJEwr0GXqTWvvUDn3Ry+eUGDgTTFcNdp9qbFgCxsK3OADRAVvQmUcl0bGQEr7P4uRvM00m8KaMwJts3dOTCNBoAW5GmxgTC0g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790666825; c=relaxed/simple;
-	bh=CedJFvYTNc7W9Y/M6+ujSiDije9JYp3xCZOZjT4s1hM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BUs2wBtwIBzdC78+u7eqMB9qIc0LkHqWpdpvABIWyyYoqn+eLUIfh8TQAOHxn4LXU6KbMFnQDFoA4Ly3EJ4/TSBcbZXxYx2q0NXwKqWx35EohrSrw6WFVAEyFh5Or47vVBxOsHEJFLVQBolrMyg0nikfwboEHb+Vw/J6wlPXFdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U+BO6Q9/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D4B3A1A3B;
+	Tue, 29 Sep 2026 07:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790667178; cv=pass; b=M2vahc4Go+GTT/sDyhmKZKOUtnR078zntku6UNJwfRWYgMQow0NSl4HTrAcjIveReyvD22ilu0ieS/1zagGXGoppw0MmhxFYvTWlXk17ngkK3kwJyvJIZmsdhXrWUxDAQKUWeMo7K/lmzfVN0M4gYjFYpEntepVht/wDjyli+YA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790667178; c=relaxed/simple;
+	bh=jcEE8SweDaAwUTV27plQbR/XBKf4UiO0KhElNh8rSOc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M+ViV/T3f2swyxzQ/Fo2i9hu9xkPCqehlkPKhajW8+j05M+bXuX9m9GI8eJdf4XxsbG1SdqFLTlhNf4ZVhoYFqd+8lHlSXPuHiBldhLXiY/4omUR2wED29E6wbL6q5TCrSuWkrwErdHyKFrC7TZt/eBuKyAoba0vg2ChhguBV84=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=benjamin.gaignard@collabora.com header.b=I4UlrcqX; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U+BO6Q9/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0D911F000FF;
-	Tue, 29 Sep 2026 07:27:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790666823;
-	bh=c2C/eVtAJPpjMYDLNwQibSrOlOhibS0dGw/VMLKUe3Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U+BO6Q9/X08aLazZhmJKUWRGrmjj+Snm4vmwY09KdDXNKy0CeH88HD15e/T1wMBOV
-	 35UauizxtojbWrKfrEFN7w+FfGso44H61e35C7lMDcGAtssEtKbbfEQ4nrUTd3eXVD
-	 gLf8fXYqi1N+UaXw93NJzh/e73uY0W5hB7RFpG4e5KiaRvKnkB1Q7fPie1Qw0C7HFC
-	 NiawgI8jEPDocDiE3T7sUTqwZcAqNzg5v99hVtNFiSrfQTvdPI8gyvQrA2RGg05+vr
-	 z2UTwUB4fW60fzsg8yPP29R6BttDkBiQz56CL1Lxf1Y+KfgSJV6jeKlt9OlvMLrTV4
-	 5e+4XWjij65Zg==
-Date: Tue, 29 Sep 2026 09:27:00 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <artlIYhgbskRJXDQ@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=benjamin.gaignard@collabora.com header.b="I4UlrcqX"
+ARC-Seal: i=1; a=rsa-sha256; t=1790667141; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Lo0q0GcuKW7LmnzRRytJBj2qcby1rCCGeWvBPzX9eCNGwidytCt3uBJ81RfMBgwkjUv0Ou8P1b6R8VkluY/ZCM+tiPas/Cm76u9lh+gJ9jjNtU1fJAGUtWE4dsSZVuixbq3VpZdq9xIhJ5tJkM6ASWz6UEi1ttL6hGmbYdm8H1w=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790667141; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=hD2niuyZYi4hGUz8wD8CQSqVmQtaAAm56xCDiCG8qiA=; 
+	b=T4YgIcP7yYbgOs1EIt5mmPQYY8qP/vVdR0NXxDlVMxOTLA1occnFWx/6Oyz49Ysw22KvDQehwxQKCx3YNYn3lFnaWlPBl5uULVrHgD945nHm2wGcF0ZUvuIjUwxNamClZ/RWUM0ywKjoLsmOYE3v1GnqsKEh0IQbVwANvaGFYE8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
+	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790667141;
+	s=zohomail; d=collabora.com; i=benjamin.gaignard@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=hD2niuyZYi4hGUz8wD8CQSqVmQtaAAm56xCDiCG8qiA=;
+	b=I4UlrcqXdx3XBEWklwWNlyHFab9MabsOmeY2n4oePKdbfSoZzYpdpaGdKbJCdIzB
+	tT4fPsg6GKDtmM2XNymH0Rjzmxn3Kko4/te7O8lB1izBiceYSdc9Pza8LPiyn72Dcuy
+	rT/6wc+oYqqejgsUsPzJqjYw/18891pZBrghtd8k=
+Received: by smtp.zohomail.com with SMTPS id 1790667140359748.8800768409743;
+	Tue, 29 Sep 2026 00:32:20 -0700 (PDT)
+Message-ID: <4ed94c10-edc7-423b-a4db-032af5180f3f@collabora.com>
+Date: Tue, 29 Sep 2026 09:32:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="nstt4rbbt4m4mdpf"
-Content-Disposition: inline
-In-Reply-To: <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/3] media: dt-bindings: media: nxp, imx8mq-vpu: Remove
+ nxp,imx8mq-vpu
+To: Conor Dooley <conor@kernel.org>
+Cc: nicolas.dufresne@collabora.com, p.zabel@pengutronix.de,
+ mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, Frank.Li@nxp.com, s.hauer@pengutronix.de,
+ kernel@pengutronix.de, festevam@gmail.com, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, kernel@collabora.com,
+ Conor Dooley <conor.dooley@microchip.com>
+References: <20260928080822.19553-1-benjamin.gaignard@collabora.com>
+ <20260928080822.19553-3-benjamin.gaignard@collabora.com>
+ <20260928-primal-figurine-2a87db42eab0@spud>
+Content-Language: en-US
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+In-Reply-To: <20260928-primal-figurine-2a87db42eab0@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
---nstt4rbbt4m4mdpf
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-MIME-Version: 1.0
+Le 28/09/2026 à 18:31, Conor Dooley a écrit :
+> On Mon, Sep 28, 2026 at 10:08:21AM +0200, Benjamin Gaignard wrote:
+>> nxp,imx8mq-vpu has been tagged has deprecated since a while and
+>> driver emitted a warning when this bindings was used.
+>> Vendor DT use the following node before they moved to mainline driver:
+>> vpu: vpu@38300000 {
+>> 	compatible = "nxp,imx8mq-hantro";
+>> 	...
+>> };
+>> but that binding has never be documented.
+>> After driver clean up it is time to remove it.
+>>
+>> Signed-off-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+>> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+>> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+>> pw-bot: not-applicable
+> This is not a tag that you should put in your commits btw, this was me
+> telling the dt patchwork that this patch has been handled.
 
-On Mon, Sep 28, 2026 at 09:20:12PM +0200, Neil Armstrong wrote:
-> On 9/28/26 19:24, Benjamin Tissoires wrote:
-> > On Sep 28 2026, Neil Armstrong wrote:
-> > > Hi,
-> > >=20
-> > > On 9/28/26 18:22, Maxime Ripard wrote:
-> > > > Hi,
-> > > >=20
-> > > > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > > > difficult to support and require pretty much a panel driver for each
-> > > > panel produced. Most of them are pretty simple, and require an opaq=
-ue
-> > > > initialization sequence that is usually poorly documented.
-> > > >=20
-> > > > This creates a tension between OEMs and distros because OEMs will
-> > > > typically get a new panel to react to a sourcing issue during
-> > > > production, and thus need some swift turnaround between getting the=
-ir
-> > > > new panel and it being operational in the OS. Distributions on the =
-other
-> > > > hand can take years to ship a kernel with that new panel driver.
-> > > >=20
-> > > > To solve this, I followed the example of HID-BPF and wrote a panel
-> > > > driver that will rely on BPF programs to perform the panel
-> > > > initialization. That way, we can ship the programs separately from =
-the
-> > > > kernel, and with a different lifecycle. If this driver is accepted,=
- the
-> > > > plan is to have a userspace component started by udev to identify a=
-nd
-> > > > load the right BPF program for the panels found on the device.
-> > >=20
-> > > This is kind of late for serious applications except if we manage to
-> > > solve the bootloader to Linux display engine transition.
-> > >=20
-> > > >=20
-> > > > This driver is fully functional and works with both 5" and 7" Touch
-> > > > Display 2 panels for the RaspberryPi. However, it breaks away from =
-the
-> > > > typical panel driver in multiple ways:
-> > > >=20
-> > > > - BPF programs can only be loaded by userspace. This leaves us with=
- two
-> > > >     choices:
-> > > >=20
-> > > >     * We prevent the driver from loading until the script itself is
-> > > >       loaded. This has the side effect of preventing any other outp=
-ut to
-> > > >       be used until the initramfs is ran at the earliest, and possi=
-bly
-> > > >       ever if the loader isn't installed for example.
-> > >=20
-> > > This adds a dependency on user-space behavior and if somehow the
-> > > initramfs doesn't load for a reason we won't have a way to display
-> > > an error.
-> > >=20
-> > > >=20
-> > > >     * Or we probe the driver all the time, but only report it as co=
-nnected
-> > > >       once a program has been registered. This is somewhat unconven=
-tional,
-> > > >       but allows the other outputs to be functional, *and* allows t=
-he user
-> > > >       to force the output if their panel doesn't require any
-> > > >       initialization or during debugging. I chose this solution.
-> > >=20
-> > > Both options are not really great...
-> > >=20
-> > > >=20
-> > > > - It's not a panel driver, but a bridge one, which is also pretty
-> > > >     unconventional. This is required because panel drivers don't ha=
-ve
-> > > >     access to a detect callback that is required for the above, but=
- I also
-> > > >     think that the recent work from Luca blurs the line from panels=
- and
-> > > >     bridges and we'll end up going that road anyway.
-> > >=20
-> > > On this point, DDIC _are_ bridges, but in the current panel API we bl=
-ur the line between
-> > > the panel and the DDIC. So being a bridge is fine, but in a general w=
-ay we lack
-> > > a proper way to describe the display/panel/monitor independently of t=
-he DDIC.
-> > >=20
-> > > At first glance it's a nice driver, but moving the timings into a blo=
-b moves something
-> > > into possible proprietary binaries with possible closed licence and d=
-istribution
-> > > restriction so it's a downgrade for the same of bringing up a panel f=
-aster.
-> >=20
-> > Quick answer on this, because I had the very same questions regarding
-> > HID-BPF:
-> > - in BPF, you can require (and by default it does) that only GPL
-> > 	compatible BPF programs are loaded, closing the argument of "closed
-> > 	licence and distribution restriction"
-> > - also, a BPF program can be disassembled much easier than a binary
-> > 	blob, and I remember Alexei showing me an example where you get almost
-> > 	the source code from the BPF object in just one pass.
->=20
-> Right, it "solve" one of my question, but doesn't really solve the issue
-> of vendors providing "GPL" bpf programs with source available "somewhere".
+It was the first time I saw this tad and I didn't know what to do of it
+but I found it in some other commit messages so I added it.
 
-Would you be ok if I was to make a tool to decompile a BPF program into its
-source file equivalent?
-
-> Another big issue is the API, I don't want to keep the current API as-is,
-> we plan to support more advanced panel features and use try to use the
-> atomic states to support rate switching for example, and I'm not confident
-> it's a good idea since there's no "simple" and "forever valid" API
-> to initialize panels...
-
-So, a couple of things here. First, I really don't think we should
-extend the panel API, like at all. But let's discuss that at Plumbers, I
-don't think it's very relevant to this discussion anyway.
-
-Second, you don't have to use this driver, like, at all. For anything
-more complicated than what this driver can provide, I totally expect to
-still merge dedicated panel drivers if it makes sense. I also expect
-that this driver would be enough for 90% of our panel drivers and
-would allow us to support most of the cruft.
-
-Finally, the BPF API is flexible. You can extend it later on and old
-programs would still work. The verifier would fail only if a program
-uses a new function in a kernel that doesn't support it. I was kind of
-expecting to put drm_display_mode in there at some point, if the state
-makes sense then why not.
-
-Maxime
-
---nstt4rbbt4m4mdpf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCartoQwAKCRAnX84Zoj2+
-dtp2AYDqEryYzoPxdZ0pP0QpPZFfX3gKsTQtb0FXlWyICU6KGPBCCAuKMYFJRLHL
-EXEyYZYBgNINSL3vSxMjOnTdTOBwGIGO7iXBZhJuZPS9DZO3C/TaZk7LCjj9P+uG
-pQo0MpI0BA==
-=BzAp
------END PGP SIGNATURE-----
-
---nstt4rbbt4m4mdpf--
+>
+>> ---
+>> changes in v5:
+>> - add more details in commit message
+>> - add Conor Dooley accked-by tag
+>>
+>>   .../devicetree/bindings/media/nxp,imx8mq-vpu.yaml      | 10 ++++------
+>>   1 file changed, 4 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+>> index 19528262810a..69619d2c86fa 100644
+>> --- a/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+>> +++ b/Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+>> @@ -14,12 +14,10 @@ description:
+>>   
+>>   properties:
+>>     compatible:
+>> -    oneOf:
+>> -      - const: nxp,imx8mq-vpu
+>> -        deprecated: true
+>> -      - const: nxp,imx8mq-vpu-g1
+>> -      - const: nxp,imx8mq-vpu-g2
+>> -      - const: nxp,imx8mm-vpu-g1
+>> +    enum:
+>> +      - nxp,imx8mq-vpu-g1
+>> +      - nxp,imx8mq-vpu-g2
+>> +      - nxp,imx8mm-vpu-g1
+>>   
+>>     reg:
+>>       maxItems: 1
+>> -- 
+>> 2.53.0
+>>
