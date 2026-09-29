@@ -1,47 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CDB3A3E67;
-	Tue, 29 Sep 2026 08:14:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDD9370AE0;
+	Tue, 29 Sep 2026 08:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790669685; cv=none; b=C1dHLSYXWTLTa1V/VhX/76JgR03JU4wpvwxb9xvBzjEm0UdaNJ1GBydOv7VgVu0TXC2Na0+6JlbzrqVjV2XiGHCW1YEzy3KVJ1PuXrp0hBXWiugjmNi2PsqWKqXaJkO0t+DzgCz/PhM0DRFBS2pmtu52axm6UNr3zxnRQ0MF3r4=
+	t=1790669780; cv=none; b=GceLoIJ+JaD9rLcfg9VbJJ+k5f23MEIalsWsqqcr5j2dqbXLGS6BmwYc0y1CfNjGKos7ji+qkiCxv78XG0lvMgyHRg+ePHxBMdOCNQ07KkAFmcTNJOjIoItoLGUL9pHDbZpTap9+k3uCa54UFNBXaaBjSPKg67LRN5Ng85MxIVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790669685; c=relaxed/simple;
-	bh=S/BLnJC4zG1prZb2sW1iulsEd17k5Du8f0opRtXOHU8=;
+	s=arc-20240116; t=1790669780; c=relaxed/simple;
+	bh=66HRjhKLAJ6uPXz3VliDoKzODGayGuh0qwuwW7KDOc0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t18XVS8C0s9CNaBQBcqR0sXbFwPHZEDuQMTQlZOKIe7wA8z+WS8SqgLYffTZrncP7rGogpJ80Ca/qQsuuqHI/oyT1aNQujrbcEPZ+VpoWEP4BO7Xy/ZdrB7f9AhA06T3OnmA6efhki4AgkXUWHpfH9lFd7rCxT0Q5AnAvjsQODU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eKMItGvc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=k8g06OHNC0Pt9rbWKshfiPEjmh2xDc+YK3BNaS3jptT+RLDOcG0YfLs/iu6Ky5moj3H6pgrBqAYiRyuqcZzRdB3XgSN0m3CkQPyfyYGnoMIRjHjl0xbMHTODIsXkVKEd6FSH51eb+j9n3FmJBV1E2qKd1UAYN1/tAX0ZhwNc+ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FB1NVZv6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eKMItGvc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744811F000FF;
-	Tue, 29 Sep 2026 08:14:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FB1NVZv6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 665DD1F000FF;
+	Tue, 29 Sep 2026 08:16:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790669684;
-	bh=W0YuZxNNaXvKtFw9LoESqvCuluRkE/s0gJlxTCFjWfg=;
+	s=k20260515; t=1790669776;
+	bh=u85DHQjzFjhjJwGM5qYe2m+Wu3+JBRzNXyLVLc7SDKQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eKMItGvcWxI8fwb0eLu8L3uskG4kuDnMRkRT57BQB3GyxO3qrZn3xyHswq9LVrMwM
-	 rK+JzjYsq6iLfqqaz1qF4/CmWPN2di+9hN0AoWr4iS4dqshDu2l2YYQhFlEs3OpMuH
-	 fJe2bHaQK+WmmMMEbpyy40wgLdXbRRNTL9v0HiMhpY8uz6tvApn0GjotCOMtfCtRI7
-	 k0/WQc4Dh0j2eglgoQk2tcWE5ZLz9qGJ9QwkMIyIaked7o9950Jqw6n/1GPhU3ZTeX
-	 wTNckWVNh03PIiIqxUqnWIDhQYN7P+pc0SFL1BO3gb1QvfdGaixrPv8y0T4PPA3vys
-	 3lvw8V0aKqBOA==
-Date: Tue, 29 Sep 2026 10:14:40 +0200
+	b=FB1NVZv6x3IyrLnfD9QkqxVp+v39HFsLNCR/yEaV9MTzxg1D+S9IF31eEhnh9QIGh
+	 EPjeUJt5QWFa/+fL46Y6mbxuFMCE2Vnmqd0U8fV2sdhlDLz2M2x0qYDoop4cyJgRCg
+	 3lj5ImVnZ41dAPNPPBP2QYfYCgA4u/q2FpqfBdUtUVv5iCne7oiI2Q2NGVIa5+p8CC
+	 oX+JmZwQajW7NFfcaOmUTLRAnBToqghXGZ5UPvX1q2lyHub/7KMdDHhzonCYKQSFIt
+	 kJq1tS0Xhiqnue7d2sUvYJnqZj0Vahl2PoZKnxcaF48Nnp+20eZMNS2xEbInUgnH4X
+	 SNt7abk6wfIIw==
+Date: Tue, 29 Sep 2026 10:16:12 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+To: Janne Grunau <j@jannau.net>
+Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v10 3/9] dt-bindings: media: qcom,qcm2290-camss-ope:
- Document shikra compatible
-Message-ID: <20260929-overjoyed-boar-of-success-6df19f@quoll>
-References: <20260925-camss-isp-ope-v10-0-2622411034cb@oss.qualcomm.com>
- <20260925-camss-isp-ope-v10-3-2622411034cb@oss.qualcomm.com>
+	Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+	Jassi Brar <jassisinghbrar@gmail.com>, Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+	Sagi Grimberg <sagi@grimberg.me>, Jens Axboe <axboe@kernel.dk>, linux-nvme@lists.infradead.org, 
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, iommu@lists.linux.dev
+Subject: Re: [PATCH 2/7] dt-bindings: mailbox: Add Apple M3 compatibles
+Message-ID: <20260929-debonair-busy-hamster-be2fda@quoll>
+References: <20260925-apple-m3-nvme-v1-0-5e832e2f4aa9@jannau.net>
+ <20260925-apple-m3-nvme-v1-2-5e832e2f4aa9@jannau.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,20 +49,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260925-camss-isp-ope-v10-3-2622411034cb@oss.qualcomm.com>
+In-Reply-To: <20260925-apple-m3-nvme-v1-2-5e832e2f4aa9@jannau.net>
 
-On Fri, Sep 25, 2026 at 11:09:50AM +0200, Loic Poulain wrote:
-> From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+On Fri, Sep 25, 2026 at 10:22:49AM +0200, Janne Grunau wrote:
+> The ASC mailbox on Apple M3, M3 Pro and M3 Max/Ultra is compatible to
+> the mailbox on M1 ("apple,asc-mailbox-v4"). Add their per-SoC
+> compatibles "apple,t8122-asc-mailbox", "apple,t6030-asc-mailbox" and
+> "apple,t6031-asc-mailbox" to its dt-bindings.
 > 
-> Shikra uses the same Offline Processing Engine hardware as QCM2290,
-> add qcom,shikra-camss-ope compatible string with qcom,qcm2290-camss-ope
-> as the fallback.
-> 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Signed-off-by: Janne Grunau <j@jannau.net>
 > ---
->  Documentation/devicetree/bindings/media/qcom,qcm2290-camss-ope.yaml | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  Documentation/devicetree/bindings/mailbox/apple,mailbox.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
 
 Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
