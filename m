@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81020401A0B
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:29:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34AEA411F90
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 03:29:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790652552; cv=none; b=F37S01QUZ66X0Ot1yrOYFuUwh2h0Sv4CCvu+U3EvzIPAxZrTN5hK1tmf3O46jYzBYRPCrekc3qqbf+IQm305N4y77NhU0Sa0VcpJwJ1siqi5Pnw4kn4rqExQ3KxwSKbN5d9CTN40TuuKDyJptAO4lr/OFuNLrS13Q0PBpRg9Mdo=
+	t=1790652558; cv=none; b=Vj+IPj6TO/4SxaPxehrYHXOPVjBTSGQr7tR8KbvjUbCmohgSS2gEWrAi1fBH3eMDC2senjYq03AUQLhdrI00gnZvTMt40IB21TkZfxPCMzadtbBo99eTgkiZ8yT/Zijeeqq7AfbXVWv8jh47KaX96osfbZpYpqK/ln+hg5LAtww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790652552; c=relaxed/simple;
-	bh=I2jpR0gH7OmdSnQPdp6WVXX7sw60yuGgdwrExW19PBo=;
+	s=arc-20240116; t=1790652558; c=relaxed/simple;
+	bh=3mm7YyBh58i7FNRKwLwQQAJhN28rnFl1EmRf/Ttquj4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UOYtJpZz2soI0cfT/nf+rtCJj8dmx5I3mWR6TfJPHbaSGKTZuPZmaDEqtgQRmBQIX5HjKYhsPi5zYx6/jEs35JEnBCaQynBku4OU/vkrklUQpmuZh76nCahkxqPYnKlryjS3lsSdr/H10QVfvfV3uvTdPHqAQv01RVIzy3dhjCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KrMP4iTA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ZjMZtB7WEGi/8jZ+ua0mDqFSb+bfcaP5Q/VFCMPaR9EcbR5fS+EAOBZ5f8O5Gjp2EYZVFFYRZ+3ar78K2iwvGMXlGrgNtm7ySjUEH3gIynRAas7aYE4YYSCE3NXuTDptn1mTkvhJ+h3MDgIY7OPA0sbsl6Wm7NuOnCGGgflnUIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HyRF0mTb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KrMP4iTA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990E51F000FF;
-	Tue, 29 Sep 2026 03:29:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HyRF0mTb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BFE41F000FF;
+	Tue, 29 Sep 2026 03:29:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790652550;
-	bh=oD6EqwzZkohCibvERzvEMVYKA8lg3xDlU45kaLTT/0M=;
+	s=k20260515; t=1790652556;
+	bh=tkS5g37UdRTzhe3ShG+9JDmBPNZGVrqtw40JfAA/I+Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KrMP4iTA8jfHd8ELM57iWtWw0ycNbtVeqiac6eEsfD162JXvPXsr8mCVYwI6Nxk8i
-	 QKInS6XOxpA2t+zBS9f4pqrINtC5vOY84YT2btVaDP/QE1SVZCZeZSHj78JIVAaBgq
-	 LNbBEwgR3kZL2i30GXWYWCanWJRqdLceXt6/bhvGqvW6/7qm4rXKjp2FjUAo5IFLek
-	 +hMUzkxOnR2veYttWtnhSe8tPw18gsvkQD+lqkz0O59gz8QCvut/FhTcprUbdmHLqt
-	 PtsUPhyCAhjZqxzK5RaCRXgW5R5VGoM7/1aatR8rO8HtENBZZVgdvLE7hEOp9s2thd
-	 pxfnmAbsfOz7w==
+	b=HyRF0mTbWCcj8OE09aOQcGxjrXfackcOM3x78roDfyEKkpCDPcvX1KxTYwNz2MjC4
+	 dv7+pgqMuk2cGGlNtGKF3xNCqMo9QMAxp1ijtTKrbINugndSaWKjJwxIGmX7+tLhDv
+	 PhdB+wQIVowVAwfATXdVfZStcubIuh/juSOjvzEwXvKts9ksSFLONi79HPMOXT7H6w
+	 ATPXRpFVS45TufkZgMoMXAFPBRbfK7qXA6yZfYU9IcR4FqQyRt3WyW8yQlZpDvYTeU
+	 WmGa2Scmx+fDRpAD+Jgg4G0joiUuoWHsEKuFTCJf+GvOCWbfLb/dx1QrM4iFzn20et
+	 ncsL+D3rxqQqg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 03/10] firmware: add RPMI TEE bus support
+Subject: Re: [PATCH RFC 09/10] firmware: riscv: rpmi-tee: add memory parcel
+ operations
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Amirreza Zarrabi" <amirreza.zarrabi@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260928-riscv-rpmi-tee-abi-v1-3-04908b81d885@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260928-riscv-rpmi-tee-abi-v1-9-04908b81d885@oss.qualcomm.com>
 References: <20260928-riscv-rpmi-tee-abi-v1-0-04908b81d885@oss.qualcomm.com>
- <20260928-riscv-rpmi-tee-abi-v1-3-04908b81d885@oss.qualcomm.com>
+ <20260928-riscv-rpmi-tee-abi-v1-9-04908b81d885@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 29 Sep 2026 03:29:10 +0000
-Message-Id: <20260929032910.990E51F000FF@smtp.kernel.org>
+Date: Tue, 29 Sep 2026 03:29:16 +0000
+Message-Id: <20260929032916.6BFE41F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,88 +47,172 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] firmware: rpmi-tee: stub returns NULL instead of ERR_PTR
-- [Medium] firmware: rpmi-tee: missing file2alias integration for module au=
-to-loading
-- [Low] firmware: rpmi-tee: missing newline in modalias sysfs attribute
+- [High] mm: physical address truncation in rpmi_tee_block_iter_next()
+- [Medium] mm: resource leak of segment slot in rpmi_tee_parcel_create() er=
+ror path
+- [Low] subsystem: mixing goto-based error handling and __free() in rpmi_te=
+e_parcel_create()
 --
 
-commit c7783a9ac1224efdc38ee5d5e0d605481f36e278
+commit 1ca10244d1c27d1eb1d5158785dc0b417f521a59
 Author: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 
-    firmware: add RPMI TEE bus support
+firmware: riscv: rpmi-tee: add memory parcel operations
    =20
-    Add a bus for RISC-V RPMI TEE services. Each service exposed by a
-    TEE endpoint is registered as its own device on this bus, identified
-    by a UUID, so that a single physical TEE can host multiple
-    independently-bindable service drivers.
+Implement lend, share, and reclaim of RPMI memory parcels for public
+memory endpoints. Convert scatterlists into RPMI page blocks and
+transparently split large parcels across multiple requests when they
+do not fit a single mailbox message, subject to the per-endpoint
+multisegment limit reported by firmware.
 
-> diff --git a/drivers/firmware/riscv_rpmi_tee/bus.c b/drivers/firmware/ris=
-cv_rpmi_tee/bus.c
-> index 0000000000000..32f555c2f1f2a
-> --- /dev/null
-> +++ b/drivers/firmware/riscv_rpmi_tee/bus.c
-> @@ -0,0 +1,202 @@
+> diff --git a/drivers/firmware/riscv_rpmi_tee/driver.c b/drivers/firmware/=
+riscv_rpmi_tee/driver.c
+> index 7b06c1f96ba83..0004f54c7d899 100644
+> --- a/drivers/firmware/riscv_rpmi_tee/driver.c
+> +++ b/drivers/firmware/riscv_rpmi_tee/driver.c
+
 [ ... ]
-> +#define RPMI_TEE_UEVENT_MODALIAS_FMT	"rpmi_tee:%pUb"
+
+> +static bool rpmi_tee_block_iter_next(struct rpmi_tee_block_iter *iter,
+> +				     u32 *high, u32 *low)
+> +{
+> +	u32 pages;
 > +
-> +static DEFINE_IDA(rpmi_tee_bus_id);
+> +	if (!iter->length) {
+> +		if (!iter->sg)
+> +			return false;
+> +		/* Next SG. */
+> +		iter->address =3D sg_phys(iter->sg);
+> +		iter->length =3D iter->sg->length;
+> +		iter->sg =3D sg_next(iter->sg);
+> +	}
+> +
+> +	/* RPMI memory block represents at most @RPMI_TEE_BLOCK_MAX_PAGES pages=
+. */
+> +	pages =3D min_t(size_t, iter->length >> RPMI_TEE_MEM_PAGE_SHIFT,
+> +		      RPMI_TEE_BLOCK_MAX_PAGES);
+> +
+> +	*high =3D upper_32_bits(iter->address >> RPMI_TEE_MEM_PAGE_SHIFT);
+> +	*low =3D lower_32_bits(iter->address >> RPMI_TEE_MEM_PAGE_SHIFT) << 12 |
+> +		(pages - 1);
+
+[Severity: High]
+Does this code inadvertently truncate physical addresses at or above 4GB?
+
+Because lower_32_bits() returns a u32, shifting the result left by 12 will
+overflow and lose the upper 12 bits, which correspond to bits 43..32 of the
+original physical address.=20
+
+Similarly, upper_32_bits() will extract bits 75..44 instead of 63..32.
+
+This might cause the firmware to receive incorrect physical addresses,
+leading to the TEE accessing the wrong memory and potentially causing data
+corruption or crashes during sharing/lending requests.
+
+> +
+> +	iter->address +=3D (phys_addr_t)pages << RPMI_TEE_MEM_PAGE_SHIFT;
+> +	iter->length -=3D (size_t)pages << RPMI_TEE_MEM_PAGE_SHIFT;
+> +
+> +	return true;
+> +}
+
+[ ... ]
+
+> +static int rpmi_tee_parcel_create(struct rpmi_tee_transport *priv,
+> +				    struct rpmi_tee_mem_args *args)
+> +{
+> +	struct rpmi_tee_parcel_create_resp resp;
+> +	struct rpmi_tee_parcel_xfer xfer;
+> +	size_t blk_off, req_len, resp_len;
+> +	bool segmented;
+> +	int ret;
+> +	u32 i;
+> +
+> +	ret =3D rpmi_tee_count_blocks_sg(args->sg, &xfer.block_count);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* BLOCK_HIGH[] follows the request header and receiver arrays. */
+> +	blk_off =3D RPMI_TEE_PARCEL_CREATE_SIZE + args->receiver_count *
+> +		RPMI_TEE_PARCEL_CREATE_RECEIVER_INFO_SIZE;
+> +
+> +	/* Limit the initial request to the parcel's actual block count. */
+> +	xfer.next_block =3D min((priv->mbox.max_msg_data_size - blk_off) /
+> +			      RPMI_TEE_PARCEL_CREATE_BLOCK_SIZE,
+> +			      xfer.block_count);
+> +
+> +	segmented =3D xfer.next_block < xfer.block_count;
+> +	if (segmented) {
+> +		if (!priv->mem.multisegment_max)
+> +			return -EOPNOTSUPP;
+> +		/* Reserve a slot against the firmware's advertised limit. */
+> +		ret =3D rpmi_tee_reserve_segment_slot(priv);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	req_len =3D blk_off + RPMI_TEE_PARCEL_CREATE_BLOCK_SIZE * xfer.next_blo=
+ck;
+> +
+> +	struct rpmi_tee_parcel_create_req *req __free(kfree) =3D
+> +		kzalloc(req_len, GFP_KERNEL);
 
 [Severity: Low]
-Does this macro need a trailing newline?
+Is it intentional to mix __free() with goto-based cleanup here?
 
-When used by modalias_show() via sysfs_emit(), it will output a string
-without a newline, which violates standard sysfs formatting conventions.
+The subsystem guidelines recommend converting all resources that need a goto
+cleanup to scope-based cleanup, or converting none of them. This function
+uses __free(kfree) for the req allocation but also maintains a goto
+out_release_slot label for releasing the segment slot.
+
+> +	if (!req) {
+> +		ret =3D -ENOMEM;
+> +		goto out_release_slot;
+> +	}
 
 [ ... ]
-> +static int rpmi_tee_device_uevent(const struct device *dev,
-> +				  struct kobj_uevent_env *env)
-> +{
-> +	const struct rpmi_tee_device *rdev =3D to_rpmi_tee_dev(dev);
+
+> +	resp_len =3D sizeof(resp);
+> +	ret =3D rpmi_tee_send(priv, RPMI_TEE_SRV_MEMORY_PARCEL_CREATE,
+> +			    req, req_len, &resp, &resp_len);
+> +	if (ret)
+> +		goto out_release_slot;
+> +	if (resp_len !=3D sizeof(resp))
+> +		return -EPROTO;
+
+[Severity: Medium]
+Can this direct return leak a segment slot on unexpected response lengths?
+
+If rpmi_tee_send() succeeds but the response length is invalid, returning
+-EPROTO directly skips the out_release_slot label.=20
+
+This fails to decrement priv->mem.multisegment_active, leaking the reserved
+slot and eventually exhausting multisegment_max, which would permanently
+block future multi-segment operations with -EBUSY.
+
 > +
-> +	return add_uevent_var(env, "MODALIAS=3D" RPMI_TEE_UEVENT_MODALIAS_FMT,
-> +			      &rdev->uuid);
+> +	xfer.parcel_id =3D get_unaligned_le32(&resp.parcel_id);
+> +	/* Send remaining blocks as segments. */
+> +	ret =3D rpmi_tee_parcel_send_segments(priv, &xfer);
+> +	if (ret) {
+> +		/* On error, retain the slot as firmware may still hold it. */
+> +		if (rpmi_tee_memory_reclaim(priv, xfer.parcel_id)) {
+> +			dev_warn(priv->dev, "failed to abort parcel %#x\n",
+> +				 xfer.parcel_id);
+> +
+> +			return ret;
+> +		}
+> +	} else {
+> +		args->parcel_id =3D xfer.parcel_id;
+> +	}
+> +
+> +out_release_slot:
+> +	if (segmented)
+> +		rpmi_tee_release_segment_slot(priv);
+> +
+> +	return ret;
 > +}
-
-[Severity: Medium]
-Will this uevent fail to trigger automatic module loading?
-
-If service drivers use MODULE_DEVICE_TABLE(rpmi_tee, ...) to export aliases,
-the modpost tool will ignore them because scripts/mod/file2alias.c lacks
-support for parsing the rpmi_tee_device_id structure.
-
-[ ... ]
-> diff --git a/include/linux/rpmi_tee.h b/include/linux/rpmi_tee.h
-> index 0000000000000..c499f0427833e
-> --- /dev/null
-> +++ b/include/linux/rpmi_tee.h
-[ ... ]
-> +struct rpmi_tee_device_id {
-> +	uuid_t uuid;
-> +};
-
-Should this structure be defined in include/linux/mod_devicetable.h to
-properly integrate with file2alias.c?
-
-[ ... ]
-> +#else
-> +static inline struct rpmi_tee_device *
-> +rpmi_tee_device_register(const uuid_t *uuid, u32 endpoint_id,
-> +			 const struct rpmi_tee_ops *ops, struct device *parent)
-> +{
-> +	return NULL;
-> +}
-
-[Severity: Medium]
-Should this stub return an error pointer like ERR_PTR(-ENODEV) instead of
-NULL?
-
-The active implementation of rpmi_tee_device_register() guarantees an ERR_P=
-TR
-on failure. If a caller relies on IS_ERR() to check the return value, this
-fallback stub will incorrectly pass the check and lead to a NULL pointer
-dereference when the caller attempts to use the returned device pointer.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260928-riscv-rpmi=
--tee-abi-v1-0-04908b81d885@oss.qualcomm.com?part=3D3
+-tee-abi-v1-0-04908b81d885@oss.qualcomm.com?part=3D9
