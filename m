@@ -1,67 +1,69 @@
-Received: from mail-dy2-f39.google.com (mail-dy2-f39.google.com [74.125.229.39])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603E35208C0
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:28:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619105208C0
+	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 16:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790699301; cv=none; b=Q2QTij6Tum0MFp3BIT77kap12y1akhX5Dr334Eh2k8SuyJdU3o8H6JhGwCMNj8H+ijGGQyKGDxC+oP15Cfu5G04m3QY+YPlHEdiJ5/8UJpxQHsC75QsGlyJO71op6Cdi9HWebTYFV+EMrFDxPzHphQBrF+r75yg4XvDijDAdQX8=
+	t=1790699304; cv=none; b=SVpLBfJrHyxjJpvHZNIyu8ASSn+8O2WeZPJzDGjCP1R0SSF8Qm2aywlwQa0KMfE/s0H8lYQN0jBfFLvyOiupnParPi68Rr3HCR1hxOHftkkajXTM3CxMTai8Yy/q5B/wXFIt3xET7jIuez4sGhNme6yqra8v+uxhPZxMpGqlsBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790699301; c=relaxed/simple;
-	bh=SzIosLDQg7snE9UfrT+BODzU4lO9sxWMvYyaifhgwXQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n1UwxmWEADtybc054Wv+X0el1uEZUuSjKXKtUPxrARLILb486VsM5Y57Trbz6CchCdljtPQfXg/jeoGC/pSm9ht69R43JoH1QnVIVe/D7CqQ2Y/OhzET1q83oLt+5xOyFbWgUESNKFhZf/drFnqGn9RsZN7Ol++oLzxHdS6NBqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=NfBiNLfv; arc=none smtp.client-ip=74.125.229.39
+	s=arc-20240116; t=1790699304; c=relaxed/simple;
+	bh=xjNPYYVD4NJkISRiv4nk+t+tiwR6bKadykG+okrWRDY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=NGcTOAHJkXZ8dlesbDA9vSr4eXtLlW1tpTZjUpkvL2zJO+4zA36JH+6odFPXC95TpdlL74CNnUgme42pLc9ElMB0vCnYs+bIIKNmhSSThHPRl1RRFPj4yZL8R9kudltYiCAZtJUuF3cyoRNmXX59IBO0RisIYbbGFBOa2ycjnSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=U90Cx0JU; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="NfBiNLfv"
-Received: by mail-dy2-f39.google.com with SMTP id 5a478bee46e88-34b3a9cd8edso440166eec.1
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:28:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="U90Cx0JU"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso33542355e9.2
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:28:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1790699299; x=1791304099; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EIUT7gLZI+rQeOH5s3bmQw/tw87mS5D6Yw6a8lMvT+Y=;
-        b=NfBiNLfvFezRNZyPbzatwBdqeAYME0qXx4ugFjGTaq5+ZERa6AbWw6XqEWMVmm9nYO
-         lNzPCoR7AKbuxrCsXI7lMqdPaZZP2pttwLveriOINRCKVtdQM/sq7bVZCUGzVRx5pXkV
-         1fyGQ1w9AHHEXpLYWtZdonKFxPGXuOqjFnWbTPWlAj3Kv5vjicMma1DEYITp9mTuKWsC
-         La31l6pTrK67od91fExtRE0hE+8rsCvdhcEYPh7QR5L1AltSfMEtIKQMglIo9gsywGx8
-         ZfW827mPjTYbskyxXWso/wPod9scVVS/lGacIMhnhvvg0hov31oPky263Uocnru62n/Z
-         KvSg==
+        d=nexthop.ai; s=google; t=1790699301; x=1791304101; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W6O9uDDdkqX4ekXCbjPTdfdfIwrIVMuQ5XXW4ZXzbsk=;
+        b=U90Cx0JUaVC8LA/Vv7NNckkR4bLQq/WumHiTz+cxhKVxP8zgg/K05gPwIBgO3Reav6
+         RnjOstL7Ztid2+LvjMciM9STqjtyGcwXv/vFmGvfgfg6mc0QPTl9twIKNDCEz5jdnwcA
+         hjO7BpeCuqZrbdbaNQDHfemh+Qtg7XyhsLJyFMLSmuKC6KMxda0aFhJLV3c67zWgeRZF
+         6KcLu+6KuCZaQePFwkdzeLmlu6zJVdFCif0BgkDkglKIEM1nJABm/8mC148l6k6q/gPo
+         z2X17P6X48vxEZVTly3Ezl7VfEMERDDPlMcW4aNfxbKz7UR/lVGu8rqKSSjJ3EAuSIoR
+         My3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790699299; x=1791304099;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EIUT7gLZI+rQeOH5s3bmQw/tw87mS5D6Yw6a8lMvT+Y=;
-        b=U2/vivoQrC2zQ9jyyq2ADVPTnvU1BqXGwKvfBF2SaSpJ5FHlMeLQWL34mCpp8CtsWA
-         uFeVM/UHTgHxpF29wBjWu4vjOJlOdBREVZVej3nEXiF1BAvfuDyw9Xgp5VP2uv/9b0/i
-         8bGVp/qpC877rCL2holFgJob7vCxcn5+/Qc3GeFxyhOC4QBzfstlPWBa4gWNVbcVHtfm
-         WNO8PtC1K+jvURDw5Yc/jLLbKcZ41iMbiZDIIePXqpr1NZGUOluQ7gJEdqakUg0rj78N
-         povEtSzDwQIEZnqbz1i81v+tIA00Du+voFXlk54NuamCq6GjRuvklo1vSEHo4k8JlKIl
-         usDg==
-X-Gm-Message-State: AFq9FYJxPAUSfwJi81jp0hp0pVIpMTVR/EVWMdj2iVjJ7z0dJKFmGHEY
-	G3y3ydRvh+5YXgQ3L3wWRzz6/3LKTzUWBoSlvwXfv0EpGBjviF5FUTG4SHEIXJ8E8tMGXYfrHn0
-	U4uYQMME=
-X-Gm-Gg: AYBFou1LrtJnoUWc6+evC0vyacH4ZtnBiu5s62TU1xuCc1ONDvuhpaUCpvYNowysANK
-	HykDjWDRijw11pY0xZSVa9l7YYUycCUEpbdtUt9bMoKv95d/a2iUMPYyIqMipn+LJS+l+6Ktkya
-	/YZlv0iW9FallokfKchvoFwWbYDTYIDoFuuOWZfzMbcEpJT5T4EDgwgQDqgkXqPbie95nFjvyFT
-	u+cFuavXp8c4o10S0MAL1ab7z2CwpVPCyqT9Vum/LxNVuxWyb3mR/RVVo2WLO8hcRpNzHvrvuuR
-	j2irSgqRcM1mMa77XmnpT4eOOQb8+h1Qd8vtcY4Jbz0ROG5jPRU1F50j35wj0rn/31Xuk94B0wu
-	hhm+unI27JPBY0twxVa32FDi8wyQpU2FAPoEpcovJviU7uFoAcBgO4a+f4uCPDNBCy+NBVPQxFD
-	iHMPd4SrmWzUZjCYIytk3nHE09bZemB248GKyFSMIDbaAvv+EBPpJS7H0RXRbzdHuhGjHINUXWF
-	wLYTo/aX5Mc
-X-Received: by 2002:a05:7301:201c:b0:340:f5ba:9670 with SMTP id 5a478bee46e88-34af4723c4fmr3538573eec.1.1790699299076;
-        Tue, 29 Sep 2026 09:28:19 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790699301; x=1791304101;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W6O9uDDdkqX4ekXCbjPTdfdfIwrIVMuQ5XXW4ZXzbsk=;
+        b=xi/u6wBvlpd5Gj6XJsL7klWeokNYZqU+hjSHPIaidk0iF8ndktrbFVjUdFiNy5a1G/
+         RWBOZH/UH3BDLM5v0uhM0tkFsNe1d7gHN9cKawypWTnq0+65U+6cPSqss+R+TlPuhRwJ
+         B/8nxKPJEbZE+VLSntHF2nm1Cm0TUhYyCcxBf++0z5ApPOXaM9E8d0C9o6e9Tvncn+gq
+         UCKhMahUJJxq9sDD1TGi2KmDG66A0KDtOPK5Gfj8odHaKncSCCXCGK+c1cZbjr6pZFiM
+         aDONG0rSVj+ZtF6pulXatCyKzR7IRFLWj5dfe5o9ic1gZrTyRVSoCX5QrwEezLK4j7kO
+         owqQ==
+X-Gm-Message-State: AFuF++nrBJ6VsHQpjiwGyN2HMU6b/0IWm+uABQ7Pqk4RK9HFSZxX0WmW
+	wp/jYPUiWnY3G99GWLHWQNChVKD2VVFbDrn2J5ylq0kl1lQrE6d3kXtNptQaudSooNiN5Wt3SbL
+	PqxTYiyo=
+X-Gm-Gg: AYBFou0SrHjV3mwYRNglpEB7Gad4pSiWtzWdy9oaYRJHf/8J+ryc1JdE9tmQWtOgwen
+	yoffgfH90MfsEeoOCaKz96TDJFPbL4An7p1ayMTGLU+gY8wGo7uM1zXcXb3cklETAEygW+Smddl
+	u01Q1Ch/GdlIjxMv4tgSNbdQDQCh8gm7wBU9396J43IPHwhIpXpDKtrXa6H49Wf0u1Ktk+p0clK
+	FrxO68ZfsiChWtxaOrkcCjF7LH0OtXsPZW83xQuZELNn9qf30RtdCoPBUIveDpXcUa8siRyytiZ
+	viGRybzv1ftW+N5ehmWS+H0Ef7jQ7oE04q3UB9N7DPeXd6CT5oTPFbrnVpAJ/ljgwnNEEE0gCjs
+	QzuTdDwNPyuontlflzb9nyMFk//KpOz3Duq2dgRiBmwvKVri2wqW4M/hW92kYDxsBeIYyoc0psU
+	ww7Ju5IKje4bqjXyFgEz7P+69N6vvMKfr1z0onrkfPSWaWB2JHE0++DCBT9YivwfsQ8clpijl/b
+	zmx8VGQwcs2
+X-Received: by 2002:a05:600c:a06:b0:49f:fd4c:cccd with SMTP id 5b1f17b1804b1-49ffd4ccdd5mr169628305e9.28.1790699301644;
+        Tue, 29 Sep 2026 09:28:21 -0700 (PDT)
 Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c378c9a7fsm425590eec.10.2026.09.29.09.28.18
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34c378c9a7fsm425590eec.10.2026.09.29.09.28.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 09:28:18 -0700 (PDT)
+        Tue, 29 Sep 2026 09:28:19 -0700 (PDT)
 From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Subject: [PATCH 0/2] misc: eeprom_93xx46: add Microchip 93LC86C
-Date: Tue, 29 Sep 2026 09:28:15 -0700
-Message-Id: <20260929-eeprom-93xx46-93lc86c-v1-0-272791aac875@nexthop.ai>
+Date: Tue, 29 Sep 2026 09:28:16 -0700
+Subject: [PATCH 1/2] dt-bindings: eeprom: microchip,93lc46b: add Microchip
+ 93LC86C
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,10 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6DIBCF4Vcxsy4JIiLTV2lctDjqGG+BakiM7
- 16qq5Nvcf4DAnmmAM/sAE87B17mhPyRgevfc0eCm2RQUhmJCgXR6pdJYBGjNmlGZ40TSpcSK91
- Yizmk7+qp5Xh1X/XtsH0Gct9/DM7zB3FciFp5AAAA
-X-Change-ID: 20260929-eeprom-93xx46-93lc86c-2450974d8891
+Message-Id: <20260929-eeprom-93xx46-93lc86c-v1-1-272791aac875@nexthop.ai>
+References: <20260929-eeprom-93xx46-93lc86c-v1-0-272791aac875@nexthop.ai>
+In-Reply-To: <20260929-eeprom-93xx46-93lc86c-v1-0-272791aac875@nexthop.ai>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Cory Tusar <cory.tusar@pid1solutions.com>, Arnd Bergmann <arnd@arndb.de>, 
@@ -81,32 +82,34 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Abdurrahman Hussain <abdurrahman@nexthop.ai>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790699298; l=759;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790699298; l=768;
  i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=SzIosLDQg7snE9UfrT+BODzU4lO9sxWMvYyaifhgwXQ=;
- b=QH6GMoz2gvT8CuoOPTd/O5Ygd0WGNmy3k6SjZEqGtLZFlHWFV1LNXms5PFaGasY1VMiZJ9+/u
- OAEtqr+9EE6Ca/WtsNOBP03TfNgABXFtfCNoBMYHc+ulQ4FHO8ZZ1ws
+ bh=xjNPYYVD4NJkISRiv4nk+t+tiwR6bKadykG+okrWRDY=;
+ b=QrWJS5LPCOlQ3GzSZb7Rj+lmyCJbhrFVXurWXAap2Vx26sCmrgo8ZPKPsgCESKGvXP9ktx6Y7
+ A+swqJK2OOIBlH02Kep0UDLijBzb86esNO4RaCOm93DTYfQ84YpWh2n
 X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
  pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-The 93LC86C is the 16 Kbit member of the family, 2048 bytes. Like the
-93LC46B it clocks an extra cycle out after the address during a read, so it
-takes the same quirk.
+The 93LC86C is the 16 Kbit member of the family.
 
 Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
-Abdurrahman Hussain (2):
-      dt-bindings: eeprom: microchip,93lc46b: add Microchip 93LC86C
-      misc: eeprom_93xx46: add Microchip 93LC86C
+ Documentation/devicetree/bindings/eeprom/microchip,93lc46b.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
- .../devicetree/bindings/eeprom/microchip,93lc46b.yaml         |  1 +
- drivers/misc/eeprom/eeprom_93xx46.c                           | 11 +++++++++++
- 2 files changed, 12 insertions(+)
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260929-eeprom-93xx46-93lc86c-2450974d8891
+diff --git a/Documentation/devicetree/bindings/eeprom/microchip,93lc46b.yaml b/Documentation/devicetree/bindings/eeprom/microchip,93lc46b.yaml
+index 144e86ce5c0a..8e782b70386a 100644
+--- a/Documentation/devicetree/bindings/eeprom/microchip,93lc46b.yaml
++++ b/Documentation/devicetree/bindings/eeprom/microchip,93lc46b.yaml
+@@ -18,6 +18,7 @@ properties:
+       - atmel,at93c66
+       - eeprom-93xx46
+       - microchip,93lc46b
++      - microchip,93lc86c
+ 
+   data-size:
+     description: number of data bits per word
 
-Best regards,
---  
-Abdurrahman Hussain <abdurrahman@nexthop.ai>
+-- 
+2.54.0
 
