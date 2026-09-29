@@ -1,272 +1,131 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314C64973AF
-	for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 09:32:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E01C4D7D51;
+	Tue, 29 Sep 2026 09:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790674335; cv=none; b=aCJR72Lux26vf0bmj+IYWaPiQPcs++/LYrr+uYejaippBElrJ6KnLRdHqcNoaWn2x3lI/hb9ukv/49WFuX41CLrcxLfnLE7+RlDzzM3nj1M1kSGmSKiMugyT4jNC59WN6jlQT5BJFqbZH/e0trlNryjQtStpYpQMrr5Hn3pCujo=
+	t=1790674380; cv=none; b=dieD84ia6GpaJwSHFE2V3/eD3ZNIEwmFZVRWLg6agk9yjCthbm+gPeQ/Bxp2nI8td7P9tCbHEC2k8JLLPsLS+OnNAmXSkPXxI/T1QdD66hTUPC+O6TyRo7+MQpK2Ih5QSdY/Ue0QNpSdBwVhha9NeRxjYgW5GqrIJ/rzc4Df7CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790674335; c=relaxed/simple;
-	bh=DTjSlV6Ex5aB5PkWfcFbdvjY6j3SyeF2W6Lop83NDnw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TwEt63PMk1xdOaYHYod8T/IpstItjbjlMRkoiW5osjgSDbDu/52RodsA9OGwfxEwiS0fwr2UbC42Wp3izjJBl1IBfwmrfRQPdVv+aYJfG/1OECq+LhcvijW3XVT0MXcK3tmiHAguQf64nL4K5jNpGn94Aj68lZ1ZCYFd9JcCmyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZVsIotOD; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790674380; c=relaxed/simple;
+	bh=kBDr+ZJf23/vh8n1DSnlnaIX5ncnAWXAnnruov8i9yg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=G6mguCqPUDjOFIj4qQOmrgmRbSuJeyIfe5Bt6ZXDrovtyPg7ji5H3IksRsQkI/7+bg5C9gSG3ImLYQXY192sQgU6E/RND17FFkbnoLDX2071A1asUZYifjIkix/Vy3yPeXuVhlMbV1Rg0zclpIFZ5Qq3scIiLXDwT4GOwU8V5sI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iU3cLlbe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZVsIotOD"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a006bb267eso9347785e9.0
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 02:32:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790674331; x=1791279131; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X3rrKkxMUYz3653irVlWjfKST08JJhw2SgEUVXi66Jg=;
-        b=ZVsIotOD6ABIvrQ+WX0uSGykXPQ4G6nUZ8sVVqdhph2TrsLBvfzvWGIGq6UUdcpOkp
-         sulZFzPv0FqlW0pPxtZoREWEQOhkSyGXTrjJUlbBaZ0iK7pbrXKat+JNkNuj5+i8+8tB
-         cTIQVDAYJtP6KKTeLjPIARhb5B0CZnmm0dCPRHnnSfKHIbv3ryn4orNjOZ1X35l/2hiE
-         6B33Crdf9jvUeIjBODEdNz2XnNHQ6456uTRLrydegJxdlkzZJ4/GznifpeHzOtxVY3zo
-         J486M0rR2WG1+jABOHso0lGHgqOkNqLauJzYitWp/6qi/ik0oK/kwlDSJmgZjzc7F/WF
-         bJCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790674331; x=1791279131;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=X3rrKkxMUYz3653irVlWjfKST08JJhw2SgEUVXi66Jg=;
-        b=2UXpEEEDof04qVemsmcr8BLPlrKvYAGIyH4Birq1ug0hHT3F0YBe7s0PG8RtL0A//R
-         MaM7evSUA4HQj31SWY6igTfJNIMlBzRN8CXQOW8MhzJew2Dm9hY1EmP9DxcLFXov5Xls
-         3/VUVZpK9NJ7LVevRxOCIZyMtgV+wV3Wlv5Cu1N/9gPHhU9XycbFh/YGpvdJKt5KIOdq
-         hOLgQ5wv0J/RcxC8ZAFDgWwJ5Wh/kiAtETfuPh1gmFPNdOHpLWG0FmJ5eYCtSpJOwVWK
-         t1nTiaB7PcfSY5uUnlqI/KslBp4bwpOJbWKGQGzo8AqUGuIevLtEYieghNSW2ZhLv7qk
-         aXuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywIxW47W6ZjFAno8wGAFHl8E458QIODceAsMym/NQqisSb4EXz+JzALbzKRFIp8MPPuIBeIj99/GqS@vger.kernel.org
-X-Gm-Message-State: AFuF++mmW+lCOEe4XuIWPq3pVdqO4f63f77lnl7v5kr14i2lw2d7gpno
-	EldMzEih6WY2sKsob9t2BoAkvky7peJd8WwyRK+iKJUz5I9v7NCEU1cSqfDWfPkcP6E=
-X-Gm-Gg: AYBFou1le+JWdifUxP+aItgQsrEGdIq9+93WUN4XiMcbHqGHAeoZtPWdzGuFCpYvUhr
-	QdCg/QaBHg/bpoZgK6x9/U1YWGirNtFcGkSoDrwW0cgofaZvOFmLCUcXtbX3PGCJZfdAJzobQU+
-	1Pj/t1kNvCHMeHeCiyp6qrLyGgzcM/U8R4c0KDMJ5JLKNCOiFPoU8swwfxfbXmJNOx+cpWrxxS7
-	O4NSs8OBqZJmDqQyR3ZrcsacHrfHVsQaLC+cdb4e1LKOGGjxgbDaa6Gwo3e/l+vv0yJHLi5xSOo
-	B4tNpiGz/NEfXMIHMhRhIyQ3nnfuAbiS4FqrHV9XkMKzASxtiS7A/P7rPzBrbFgtahXOdMM/Vf3
-	trN+biFntBeaYSLRNDV3G+m1iUnH3VogNcJswo7t3oe//KFWssFYBkF8IUaVVhOr0HryCObI3Iz
-	ewUSQpGwufDK0gcRxsCcYK+AA0jKgS4f8ZnW158oLX0UZ5HyyIR6SGTDmKNl1E0XlaVrCGEeHDt
-	RQ2O6KdwA==
-X-Received: by 2002:a05:600c:3513:b0:49e:816a:9bae with SMTP id 5b1f17b1804b1-49fe66f7198mr283609425e9.28.1790674331237;
-        Tue, 29 Sep 2026 02:32:11 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f41:e613:f8b0:9fed:6cf])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a00cf8fa5bsm74550505e9.6.2026.09.29.02.32.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Sep 2026 02:32:10 -0700 (PDT)
-Date: Tue, 29 Sep 2026 11:31:56 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, johannes.goede@oss.qualcomm.com
-Subject: Re: [PATCH] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-Message-ID: <aruFjEq4AfcIOxa3@linaro.org>
-References: <20260922181818.5503-1-daniel.lezcano@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iU3cLlbe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5B61F000FF;
+	Tue, 29 Sep 2026 09:32:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790674378;
+	bh=++wV3Zt2udoWYiUUtrDx/gCc/FAUTtgZkZ/1rAIvgfo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iU3cLlbeFbcZlcKFHunOYFNLa6u1q6WFXU51gdk1f8hMxkM+K7i05JBWrnP4CAYaX
+	 I0A/0Q0mQSXxp6D4hPgIazjuryq5G49+ZQXd5sdHv38XGzRxngUTfn9v1dLbfe1ArL
+	 3UHQ8DOTsM4tfgIi6kSApR/1qlMpORUWbbboWCnRU55IUZhHL2MJgwO4Q29Q0dg2cW
+	 CohAT7KQuONDl90DkeWTwpLikQx1ktl6S+woRH5p1w8qSHn4ahWKhHOxOjPziFjfeh
+	 XBBxn8jssSelTB6QBQL8IfixVGxjxsN071F5auLNjap5bbotm5lhHzRXKOkKofDTVb
+	 ThSvrKTdEACPg==
+Message-ID: <c97be589-45f4-422d-a4c3-e5b0a61f5b22@kernel.org>
+Date: Tue, 29 Sep 2026 11:32:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/12] dt-bindings: arm: fsl: Document Variscite
+ i.MX6UL boards
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
+ Stefano Radaelli <stefano.r@variscite.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Shawn Guo <shawnguo@kernel.org>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Joseph Guo <qijian.guo@nxp.com>,
+ Josua Mayer <josua@solid-run.com>,
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+ Mehmet Fide <mehmet.fide@screeningeagle.com>,
+ Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Maud Spierings <maudspierings@gocontroll.com>,
+ Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+ Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
+References: <cover.1790512621.git.stefano.r@variscite.com>
+ <a4e262cfb08153c23c80cd3098a684816993f1e9.1790512621.git.stefano.r@variscite.com>
+ <20260929-logical-fanatic-quail-2ff20b@quoll>
+ <art_faJ7Zx5CaWfW@Lord-Beerus.station>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <art_faJ7Zx5CaWfW@Lord-Beerus.station>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260922181818.5503-1-daniel.lezcano@oss.qualcomm.com>
 
-On Tue, Sep 22, 2026 at 08:18:18PM +0200, Daniel Lezcano wrote:
-> Add the thermal zones for the ThinkPad T14s and describe the board
-> temperature sensors exposed through the PMK8550 VADC.
+On 29/09/2026 11:06, Stefano Radaelli wrote:
+>> Also, look at other examples here, like Toradex. The actual variant
+>> should be the last.
+>>
 > 
-> The keyboard area is the main thermal constraint under sustained CPU
-> load. Add a passive thermal zone for it and progressively throttle the
-> three CPU groups as the temperature approaches the 53°C limit. The
-> groups are activated at 49°C, 51°C and 53°C respectively, with a
-> 1000 m°C hysteresis and a 500 ms passive polling interval.
-> 
-> The cooling maps limit each CPU cooling device to state 6, which
-> corresponds to approximately 1.9 GHz. Testing showed that the system can
-> sustain the workload with all three CPU clusters capped at this
-> frequency while maintaining the expected performance, making it a
-> suitable upper cooling state for thermal regulation.
-> 
-> Several configurations were evaluated while tuning the keyboard zone.
-> Using a single 53°C trip for all CPUs allowed the temperature to rise
-> quickly but resulted in a stable operating point around 54.3°C, about
-> 1.3°C above the intended limit. Introducing staged cooling before the
-> target significantly reduced the thermal overshoot. A 49/51/53°C
-> configuration kept the steady-state temperature close to 53°C, while a
-> later 49.5/51.5/53°C configuration improved the heating response but
-> shifted the equilibrium slightly above the target. Based on these
-> results, keep the earlier 49/51/53°C staging.
-> 
-> Also add a passive back-cover thermal zone which uses the GPU as a
-> cooling device at 64°C, together with a 73°C critical shutdown trip.
-> 
-> Describe the remaining SMB, SDX, east and west board temperature
-> sensors as monitoring-only thermal zones, and enable ADC thermal
-> monitoring on the corresponding PMK8550 VADC channels.
-> 
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> ---
->  .../qcom/x1e78100-lenovo-thinkpad-t14s.dts    | 142 ++++++++++++++++++
->  1 file changed, 142 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts
-> index 5cc6a63d1ef6..9407868864ad 100644
-> --- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts
-> +++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dts
-> @@ -10,6 +10,117 @@ / {
->  	compatible = "lenovo,thinkpad-t14s-lcd", "lenovo,thinkpad-t14s",
->  		     "qcom,x1e78100", "qcom,x1e80100";
->  
-> +	thermal-zones {
-> +		soc-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
-> +		};
-> +
-> +		keyboard-thermal {
-> +			critical-action = "shutdown";
-> +			polling-delay-passive = <500>;
-> +
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_GPIO_100K_PU(1)>;
+> Could you clarify what you mean by â€œthe actual variant should be the lastâ€?
+> For a board with eMMC, SD card and WM8731 mounted on SOM, would you prefer
+> variscite,var-som-imx6ul-emmc-sd-card-wm8731-concerto or
+> variscite,var-som-imx6ul-concerto-emmc-sd-card-wm8731?
+> I had used the former ordering following examples such as
+> toradex,colibri-imx6ull-emmc-aster. (som - som variants - carrier)
 
-I believe this is "towards back cover next to heat pipe" on T14s, not
-"keyboard".
+Indeed, the carrier board is the last part. Just to be sure - in your
+case the emmc and WiFi are on the board?
 
-SYS_THERM1 is RT8502 and you can find that labelled on the top bottom
-right in this mainboard picture:
-https://download.lenovo.com/Images/Parts/5B21P83385/5B21P83385_A.jpg
-
-In the T14s, the mainboard is mounted 180° rotated, you can see the same
-part of the mainboard in the top middle here, above the heat pipe,
-facing towards the back cover:
-https://www.notebookcheck.net/fileadmin/_processed_/d/c/csm_DSC_0003_aadae1ddd2.jpg
-
-> +
-> +			trips {
-> +
-> +				keyboard_alert0: trip-point0 {
-> +					temperature = <49000>;
-> +					hysteresis = <1000>;
-> +					type = "passive";
-> +				};
-
-If I'm reading the Windows ACPI setup correctly, it starts throttling
-much later. The main thermal zone used for throttling on Windows is
-TZ40, which is thermistor 2 read through the qcom-hamoa-ec interface
-(b94000.i2c, 'i2cget -y N 0x36 0x2a b'). TZ39 with thermistor 1 looks
-like the SoC thermistor, so TZ40 could be the EC equivalent of
-SYS_THERM1, i.e. RT8202 also visible in the mainboard picture above.
-
-On Windows, TZ40 is configured as follows on my T14s:
-
-Passive throttling starting at:
- - 3310 dK (57.85°C), power mode "balanced" (current default for EC)
- - 3330 dK (59.85°C), power mode "performance"
- - 3230 dK (49.85°C), power mode "low power"
-
-Cooling devices:
- - CLS0.CPU0-3
- - CLS1.CPU0-3
- - CLS2.CPU0-3
- - GPU0
-
-If we start throttling earlier than Windows, I would be worried that the
-EC will not reach the trip point for maximum fan speed, and we'll end up
-overly throttling the device.
-
-> +
-> +				keyboard_alert1: trip-point1 {
-> +					temperature = <51000>;
-> +					hysteresis = <1000>;
-> +					type = "passive";
-> +				};
-> +
-> +				keyboard_alert2: trip-point2 {
-> +					temperature = <53000>;
-> +					hysteresis = <1000>;
-> +					type = "passive";
-> +				};
-> +
-> +				keyboard-critical {
-> +					temperature = <73000>;
-> +					hysteresis = <1000>;
-> +					type = "critical";
-> +				};
-> +			};
-> +
-> +			cooling-maps {
-> +				map0 {
-> +					trip = <&keyboard_alert0>;
-> +					cooling-device = <&cpu0 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu1 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu2 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu3 THERMAL_NO_LIMIT 6>;
-> +				};
-> +
-> +				map1 {
-> +					trip = <&keyboard_alert1>;
-> +					cooling-device = <&cpu4 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu5 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu6 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu7 THERMAL_NO_LIMIT 6>;
-> +				};
-> +
-> +				map2 {
-> +					trip = <&keyboard_alert2>;
-> +					cooling-device = <&cpu8 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu9 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu10 THERMAL_NO_LIMIT 6>,
-> +							 <&cpu11 THERMAL_NO_LIMIT 6>;
-> +
-> +				};
-> +			};
-> +		};
-> +
-> +		backcover-thermal {
-> +			critical-action = "shutdown";
-> +			polling-delay-passive = <400>;
-> +
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-
-If the keyboard-thermal above is "towards back cover next to heat pipe",
-I'm not sure what this is. I've been trying to figure it out but no luck
-so far. Maybe someone would need to sacrifice a T14s and take a look at
-the mainboard markings after removing all these thermal tapes ... :/
-
-https://download.lenovo.com/Images/Parts/5B21P83377/5B21P83377_B.jpg
-
-If this sensor is equivalent to EC thermistor 3 (TZ41) in ACPI, then
-Windows does not use this for throttling at all.
-
-> [...]
-> +		smb-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-> +		};
-> +
-> +		sdx-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
-> +		};
-> +
-> +		east-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
-> +		};
-> +
-> +		west-thermal {
-> +			thermal-sensors = <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-> +		};
-
-FWIW, there is also ssd/wlan-thermal (SYS_THERM7)
-thermal-sensors = <&pmk8550_adc_tm ADC5_GEN3_AMUX6_THM_100K_PU(1)>;
-
-Thanks,
-Stephan
+Best regards,
+Krzysztof
