@@ -1,64 +1,64 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD9743B4BC
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA3744BC94
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:06:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790751968; cv=none; b=AVHLf3yS6BmULMTzmrAncnjDgdVPCJXzE/nVwCIqXvvhExOchEV5cRBXAAmBIklJr1BRAruNQnDRGHsPh+NeuW519OkPtuP+jEXRl03fP4qE1fXbHF/y6WWam5VFOwS+38Ao+lPIcSRAl9Vm1bxW5e6KGDwc5BPQDtS8eok2qe0=
+	t=1790751973; cv=none; b=f4ovxjedsfsUk8q3jL0bITuYLf2liX/I+koiScdNc4BpIHRyjdfRlTPixpELGebNTQFZWvHBpcLF/c22FTMn1qp4jdy1KftFJCywO63MQDfWeaP50+ZQgj+BxVthrYVgO5XUW0A2cWVVkdO3XMHzae/XCFWr/IgiUT5ZtCfpfRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790751968; c=relaxed/simple;
-	bh=Kq5+QK0x+TRkwFsiRnUO+bq2KChSkkVzbilWKGBwOeg=;
+	s=arc-20240116; t=1790751973; c=relaxed/simple;
+	bh=4JFdheQkSmIoRSHb8d5YjU7V1fbRbwiYYakNSYg75JI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T4pzXeSkS/TgptcjcgZ5LzDf/0oQe+vrS3KvVryg/xMHSyt7a806mfYf890V6smg0vDkCg3AN4J8c+/4vjEhlbWpbOLaMfgM0DN6rf9E3Mw6/mHpnqtBzmR7Orssid3pHDVmYFuwrQ49aQAQktDfDikX5XYSVEEqHPWtw6e7oV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mi9xYmri; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=nZglCGsvQf+yFXKZ6JUqw2ITfun+8yN2fxc+oLKWcB9ZaJpkva3Vt2szOzx3Go9E2ebpSnJF9LyqYO1NJewM2q4Yy10/YCWibnotDMgfFAZ3oWbDmAh071oJGHZ+jbQqBQM1W3d0v1Z2LHRyjMfO2S361kpby24Xhhfp8C53cvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=npUh3sZc; arc=none smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mi9xYmri"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so7535845e9.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 00:06:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="npUh3sZc"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48afd5b1678so301420f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 00:06:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790751960; x=1791356760; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790751962; x=1791356762; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=c/1eVBfEidkNMnK70z191xNT/a5PNdQYyZi8hBu3u0k=;
-        b=Mi9xYmrijNJQ/Bd+f2S8ga/otxkgvloppsCe0IzAOBPkt/gKtcJrXkMnHvx610pr/B
-         eth4dS9VqGDwZJn5JQBWhFWLMi/zv9eSrAEZPyBRCQ/ezCC1Q58y6XnkvhjJ3AS5taeh
-         sNQwRMw93NjcqXNJ7xzXu6MWAZkNT2LSmWZBNqkRst7mVwZN0YrjQAWlBX50c0s7RkKQ
-         qI5ynhYl3kQqJGcg3CO6lQ7D0CWXG3mUqGfDkpVUKdv+nB+ovfxBo+ZRiuvCVsTnnGFD
-         gPuaEnCHwxQTrTus/h7qc4+U7iV9THVGuqyUDpDibh+vXuhFwGA9/we4vZL1uVS456xM
-         7RPQ==
+        bh=l3z8vG5srk/ZUNTpJ2oGCNWAQjS+iPZwU1XzeVv3hmU=;
+        b=npUh3sZcCnhghXAlKBTQk360jP/pR2W/mBNxWRsQxN4kEtVhBVKmgC4r6roN7nrHz/
+         mjmek3GWRY35BhGxHZnZrUdEHImnlUdA8vRSd3XLP0/udE6KEXHnY0oatR6zUZga/IUi
+         Y9Q2C6Z4z0drWSPvEsGBEYZBLvmTneDeu983n8rcdA86r2DUgVLJqZE+nbneG7EaD5ZW
+         V+9DJ4HDbJBOsyJ9EX6B88v8YoaUh4PIsl2tNG7j3gAujjZG1OnRqu82zxSJZId0Q7Dp
+         T5U+eBpZJmo0Sh8/IiiKnrCxtjQJyIqHwy4o39V6VQc3/CvraUHC5pi6YIP02zf4wx+y
+         m16g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790751960; x=1791356760;
+        d=1e100.net; s=20260707; t=1790751962; x=1791356762;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c/1eVBfEidkNMnK70z191xNT/a5PNdQYyZi8hBu3u0k=;
-        b=JUcrY+Zq1AaJCMIF9HLdleQqnmpuMVY/Vk0/wB7hy5Va+PWg0hs7N5HUlw5mtCQmbO
-         kIE6h7smyyLkw/xQGXOmRx2Ugq+/vijMYBsF97BZH+Q7pGAbhiDr3NLS2adQuNpI8gD/
-         u5pgA0Clz7ZYWmMJ1Su0Nsa9AqGbPGrFn9Xd/Ooa/iMYwF7lBrQpO3T4QDFmyiIe+s5o
-         ZKrVXDOwEU+QLQqaKhUCfchzXKN5wkvCjL/Ow68Y7obFS5lHOzNZmGgrSzrzYaG6GXlJ
-         9vW7bqe5d2RXFONmkDEKfm13u6bXzoXSUSFqVOWXNKFYIQIDGaBlc7Sj54ABqnl8aXzx
-         /Ewg==
-X-Forwarded-Encrypted: i=1; AKwUvBzQuQW6OXktMF3xL/kfQekW5j19zRCj1fVucc3i/W6QQK75Ijx2cItCLPj+KrgUAVGEuA89jCf1v0OV@vger.kernel.org
-X-Gm-Message-State: AFuF++kpWRMYvt0fDNO+gqaJlVp6cOfNVdCoMPQvOwoQNkFFsKr6JMCX
-	4oPUmZSRw09zO4SfjawxTHX6PwNhaNjHomYMkU7qRj2W82+5TVdY2kOX
-X-Gm-Gg: AYBFou1CReOzbGrCC0SMqc6M0srOmMx/Oc8J7OedSfAZn04PQeZzulbiANuiQ+g01dF
-	bSW+7fVbbpstkaWE/x/fyv0MlWQr4qv3L2DcM77pfHLCyp0v99CK+nV4Z8gQZ4QnfXgDDg0zaY/
-	QqHHAQO+0cmSQQBTb9WOMaSJysZj89q+ePjf6WtIyQzsTHBWWBbrsPMjqfgicqRUtaaPiRP1mi7
-	PNB8PiJIa0gXWfdxbHtHJ6xCMYVirpDEpUkZm40jtVuu60R34NXuDeTfJmuWCcO6ubSGexmNrH0
-	89Xs3itFGb1U6a9NOaBPUrpVjAooPqlHj7n9ftWoh8wEJ26waLhYahNlaDnBZsp2KEjfIhjTWyS
-	6tgnS6egleULikf+Si5JetiRkMMgHw+GHj+MVoH5rlEb8oV8jxRYChzwVqdtlzw3O9swBNpBVP0
-	HerqNC48rj066v6aKsADI/7M8pOf33uhtxu/tvuMWJoMZtCttNehKtyccNk4VQYQ3X0nR5Z5mYR
-	hAtasP9cQpM2FdK8nLn+Kc3yDkctQ==
-X-Received: by 2002:a05:600c:45c4:b0:4a0:25c:8ad2 with SMTP id 5b1f17b1804b1-4a01b1aedd0mr5255825e9.9.1790751960356;
-        Wed, 30 Sep 2026 00:06:00 -0700 (PDT)
+        bh=l3z8vG5srk/ZUNTpJ2oGCNWAQjS+iPZwU1XzeVv3hmU=;
+        b=qgtj02xB45KfPLd5KriRsHcokCIT/FHtkBVh1opfLdk/VB6qNyORXqILdUSceV8FkW
+         6YmLIpVygpLGATlNVJlN17jKwVL/q7v6sYjhWNewsNFI5g+FgT/gaH3BCj94q4JMrJZC
+         nvvC6eU0L2AF9WmtNQK7MwxGIi/WUWN5pPX/dp1PtZlvgbmZW1PFCitwt89xvXsj4Zi7
+         IZuw0RMYgJfIEQHoGGf71WzC8Y+sneo+wLQbNam3RSgvQ+bN/iXCcv9hHdtHIgO0Zrpp
+         PqKC7ET0PQSJEBZmwfUChFPdwiA/RTKXfT6bMdkQrRwERNmOGDaV1Njj5YcfVsKVRJEV
+         O32A==
+X-Forwarded-Encrypted: i=1; AKwUvBzsG+5dyMxKMvWgZrCt/nQiY6c+bsmFf9wDPqVnoKA6Cgi+phxMCbwKZJsjW8d9O+1doM+AsvbtZ3H4@vger.kernel.org
+X-Gm-Message-State: AFuF++lJitLvSh5KSz0Vfi0O3JTQsWxgNwYnO/V0TLFrzdKoesjYXl58
+	tg0h/rN+JdcVwC1VsE+jgDO0fj2YD3cgQaNU+H+QrrX3lxw6k83CqwLg
+X-Gm-Gg: AYBFou2kHRpL766eQ5oL9ZAc3jeADdZYfTb85Db2PBvbfTex2aDxnp507mlGZ+xe+3o
+	bti1TrU6Nc+syXqLIX40MXsy5QDAKeBfgHbsjqeBreN66QyOOJWk3LAfOZl40eN8Bue5wlu18gE
+	pyjLbSjYL9rKnON747gVK3FGAIlKHi0URa3d1GASpg92zNz9e3ZN8S5SXkXEtuEuQgX+q9C+V5w
+	HV7npNNFFHoeYYHtpuQpQnPV/SDUiLK+L64efLY0jS6zS02JNA05TetTQwXd6MrXWFLNn22AHs4
+	DXP/szpUvM3U8C84owBv4EKXuSWhatoJDJPcgvHWynp5KOTBJVzBK2WL8qTDL4Zx5fWdQ7tOuH0
+	asBW6/13ISIjSAwXbx5SmqF4eZCWuiFGl40C63B54eaPe2JqUEFjtnrfKPAT752eijPmYHSrx68
+	yDL7FFF+1kqJMeA9z41ek+U8PLg+l/i46GVUCAYd2KCb1IsNhVd+GRR2mw5svgDvNGIRTjswfG0
+	uEN9kcUtI31Ho85SDM=
+X-Received: by 2002:a05:600c:4512:b0:4a0:136d:f721 with SMTP id 5b1f17b1804b1-4a01b00c143mr5662565e9.17.1790751962183;
+        Wed, 30 Sep 2026 00:06:02 -0700 (PDT)
 Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029f5bcdsm1145150f8f.27.2026.09.30.00.05.58
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029f5bcdsm1145150f8f.27.2026.09.30.00.06.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:05:59 -0700 (PDT)
+        Wed, 30 Sep 2026 00:06:01 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -78,9 +78,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU parallel interface
-Date: Wed, 30 Sep 2026 10:05:32 +0300
-Message-ID: <20260930070535.47130-4-clamor95@gmail.com>
+Subject: [PATCH v1 4/6] drm/tegra: Add support for 8-bit CPU interface
+Date: Wed, 30 Sep 2026 10:05:33 +0300
+Message-ID: <20260930070535.47130-5-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260930070535.47130-1-clamor95@gmail.com>
 References: <20260930070535.47130-1-clamor95@gmail.com>
@@ -92,159 +92,482 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-Tegra20/30 SoCs display controller.
+The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
+that closely resembles the MIPI DBI Type B protocol and is referred to as
+'8-bit CPU'. Each display controller provides two such interfaces, which
+can be used to send MIPI DCS commands to initialize and control the panel
+while image data is transmitted via 16/18/24-line RGB.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++++++++++
- 1 file changed, 138 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit-cpu.yaml
+ drivers/gpu/drm/tegra/Kconfig      |   7 +
+ drivers/gpu/drm/tegra/Makefile     |   1 +
+ drivers/gpu/drm/tegra/cpu-bridge.c | 427 +++++++++++++++++++++++++++++
+ 3 files changed, 435 insertions(+)
+ create mode 100644 drivers/gpu/drm/tegra/cpu-bridge.c
 
-diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit-cpu.yaml
+diff --git a/drivers/gpu/drm/tegra/Kconfig b/drivers/gpu/drm/tegra/Kconfig
+index 8a3b16aac5d68..db9839280b8aa 100644
+--- a/drivers/gpu/drm/tegra/Kconfig
++++ b/drivers/gpu/drm/tegra/Kconfig
+@@ -30,6 +30,13 @@ config DRM_TEGRA
+ 
+ if DRM_TEGRA
+ 
++config DRM_TEGRA_CPU_BRIDGE
++	bool "Enable 8 bit panel communication protocol for Tegra 20/30"
++	help
++	  Tegra20 and Tegra30 feature 8 bit CPU driver panel control
++	  protocol (similar to MIPI DBI Type B). This option allows use
++	  it as a MIPI DBI bridge to set up and control compatible panel.
++
+ config DRM_TEGRA_DEBUG
+ 	bool "NVIDIA Tegra DRM debug support"
+ 	help
+diff --git a/drivers/gpu/drm/tegra/Makefile b/drivers/gpu/drm/tegra/Makefile
+index e399b40d64a1d..88d5ed2f9ded0 100644
+--- a/drivers/gpu/drm/tegra/Makefile
++++ b/drivers/gpu/drm/tegra/Makefile
+@@ -31,5 +31,6 @@ tegra-drm-y := \
+ tegra-drm-y += trace.o
+ 
+ tegra-drm-$(CONFIG_DRM_FBDEV_EMULATION) += fbdev.o
++tegra-drm-$(CONFIG_DRM_TEGRA_CPU_BRIDGE) += cpu-bridge.o
+ 
+ obj-$(CONFIG_DRM_TEGRA) += tegra-drm.o
+diff --git a/drivers/gpu/drm/tegra/cpu-bridge.c b/drivers/gpu/drm/tegra/cpu-bridge.c
 new file mode 100644
-index 0000000000000..f0dab608b2936
+index 0000000000000..63ca87a0be909
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit-cpu.yaml
-@@ -0,0 +1,138 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-8bit-cpu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/gpu/drm/tegra/cpu-bridge.c
+@@ -0,0 +1,427 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+title: Nvidia Tegra DC based MIPI DBI Type B bridge
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/gpio/consumer.h>
++#include <linux/kernel.h>
++#include <linux/media-bus-format.h>
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
 +
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_bridge.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_mipi_dbi.h>
++#include <drm/drm_of.h>
++#include <drm/drm_panel.h>
++#include <video/mipi_display.h>
 +
-+description: The display controller in Tegra20/30 SoCs features an
-+  8-bit SPI interface that closely resembles the MIPI DBI Type B
-+  protocol and is referred to as '8-bit CPU'. Each display controller
-+  provides two such interfaces, which can be used to send MIPI DCS
-+  commands to initialize and control the panel while image data is
-+  transmitted via 16/18/24-line RGB.
++#include "dc.h"
 +
-+properties:
-+  compatible:
-+    const: nvidia,tegra-8bit-cpu
++#define CPU_BRIDGE_COMMAND			0
++#define CPU_BRIDGE_DATA				1
++#define CPU_BRIDGE_DATA_PINS_MAX		8
 +
-+  dc-gpios:
-+    description: Data/command selection pin.
-+    maxItems: 1
++struct tegra_cpu_bridge_dbi_output {
++	struct drm_panel *panel;
++	struct drm_bridge *bridge;
++};
 +
-+  rw-gpios:
-+    description: Read/write pin.
-+    maxItems: 1
++struct tegra_cpu_bridge_priv {
++	struct mipi_dbi dbi;		/* must be first */
++	struct device *dev;
++	struct tegra_dc *dc;
 +
-+  cs-gpios:
-+    description: Chip select pin.
-+    maxItems: 1
++	struct gpio_desc *dc_gpio;
++	struct gpio_desc *rw_gpio;
++	struct gpio_desc *cs_gpio;
++	struct gpio_descs *data_gpios;
 +
-+  data-gpios:
-+    description: Specifies a set of 8 gpio pins used to transfer data.
-+    minItems: 8
-+    maxItems: 8
++	struct drm_bridge bridge;
++	struct tegra_cpu_bridge_dbi_output output;
 +
-+  nvidia,init-sequence:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description: Device specific set of values used in DC DISP_SPI_INIT_SEQ
-+      registers.
-+    minItems: 4
-+    maxItems: 4
++	u32 spi_init_seq[4];
++	u32 bus_width;
++	bool prepared;
++};
 +
-+  panel:
-+    type: object
-+    description: Node of supported panel driven by the bridge.
++static inline struct tegra_cpu_bridge_priv *mipi_dbi_to_tegra_cpu_bridge(struct mipi_dbi *dbi)
++{
++	return container_of(dbi, struct tegra_cpu_bridge_priv, dbi);
++}
 +
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
++static inline struct tegra_cpu_bridge_priv *bridge_to_tegra_cpu_bridge(struct drm_bridge *bridge)
++{
++	return container_of(bridge, struct tegra_cpu_bridge_priv, bridge);
++}
 +
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: Video port for RGB input.
++static void tegra_cpu_bridge_write(struct tegra_cpu_bridge_priv *priv, u8 type, u8 value)
++{
++	DECLARE_BITMAP(value_bitmap, 8);
 +
-+        properties:
-+          endpoint:
-+            $ref: /schemas/graph.yaml#/$defs/endpoint-base
-+            unevaluatedProperties: false
++	value_bitmap[0] = value;
 +
-+            properties:
-+              bus-width:
-+                enum: [ 16, 18, 24 ]
++	gpiod_set_value(priv->dc_gpio, type);
 +
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Video port for DBI output (panel or connector).
++	gpiod_set_value(priv->cs_gpio, 0);
++	gpiod_set_value(priv->rw_gpio, 0);
 +
-+    required:
-+      - port@0
-+      - port@1
++	gpiod_set_array_value(priv->data_gpios->ndescs, priv->data_gpios->desc,
++			      priv->data_gpios->info, value_bitmap);
 +
-+required:
-+  - compatible
-+  - ports
++	gpiod_set_value(priv->cs_gpio, 1);
++	gpiod_set_value(priv->rw_gpio, 1);
 +
-+unevaluatedProperties: false
++	udelay(10);
++}
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
++static int tegra_cpu_bridge_dbi_command(struct mipi_dbi *dbi, u8 *cmd, u8 *param, size_t num)
++{
++	struct tegra_cpu_bridge_priv *priv = mipi_dbi_to_tegra_cpu_bridge(dbi);
++	u8 command = *cmd;
 +
-+    dbi-bridge {
-+        compatible = "nvidia,tegra-8bit-cpu";
++	tegra_cpu_bridge_write(priv, CPU_BRIDGE_COMMAND, command);
 +
-+        dc-gpios = <&gpio 110 GPIO_ACTIVE_HIGH>;
-+        rw-gpios = <&gpio 11 GPIO_ACTIVE_HIGH>;
-+        cs-gpios = <&gpio 108 GPIO_ACTIVE_HIGH>;
++	for (int i = 0; i < num; i++)
++		tegra_cpu_bridge_write(priv, CPU_BRIDGE_DATA, param[i]);
 +
-+        data-gpios = <&gpio 32 GPIO_ACTIVE_HIGH>, <&gpio 33 GPIO_ACTIVE_HIGH>,
-+                     <&gpio 34 GPIO_ACTIVE_HIGH>, <&gpio 35 GPIO_ACTIVE_HIGH>,
-+                     <&gpio 36 GPIO_ACTIVE_HIGH>, <&gpio 37 GPIO_ACTIVE_HIGH>,
-+                     <&gpio 38 GPIO_ACTIVE_HIGH>, <&gpio 39 GPIO_ACTIVE_HIGH>;
++	return 0;
++}
 +
-+        nvidia,init-sequence = <0x0000002c 0x0 0x0 0x00005000>;
++static int tegra_cpu_bridge_prepare_gpios(struct tegra_cpu_bridge_priv *priv)
++{
++	struct device *dev = priv->dev;
 +
-+        panel {
-+            compatible = "hit,tx10d07vm0baa";
++	if (priv->prepared)
++		return 0;
 +
-+            reset-gpios = <&gpio 175 GPIO_ACTIVE_LOW>;
++	/*
++	 * Control and data GPIOs are shared between SPI and DPI. The bridge
++	 * driver must get and put the required GPIOs each time DCS commands
++	 * are transmitted.
++	 */
 +
-+            avci-supply = <&vcc_2v8_lcd>;
-+            iovcc-supply = <&iovcc_1v8_lcd>;
++	priv->data_gpios = devm_gpiod_get_array_optional(dev, "data", GPIOD_OUT_LOW);
++	if (IS_ERR(priv->data_gpios)) {
++		dev_err(dev, "Failed to get data gpios %ld\n", PTR_ERR(priv->data_gpios));
++		return PTR_ERR(priv->data_gpios);
++	}
 +
-+            backlight = <&backlight>;
++	if (priv->data_gpios && priv->data_gpios->ndescs > CPU_BRIDGE_DATA_PINS_MAX) {
++		dev_err(dev, "Too many data gpios\n");
++		return -EINVAL;
++	}
 +
-+            port {
-+                panel_input: endpoint {
-+                    remote-endpoint = <&bridge_output>;
-+                };
-+            };
-+        };
++	priv->cs_gpio = devm_gpiod_get_optional(dev, "cs", GPIOD_OUT_HIGH);
++	if (IS_ERR(priv->cs_gpio)) {
++		dev_err(dev, "Failed to get CS GPIO: %ld\n", PTR_ERR(priv->cs_gpio));
++		return PTR_ERR(priv->cs_gpio);
++	}
 +
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
++	priv->rw_gpio = devm_gpiod_get_optional(dev, "rw", GPIOD_OUT_HIGH);
++	if (IS_ERR(priv->rw_gpio)) {
++		dev_err(dev, "Failed to get RW GPIO: %ld\n", PTR_ERR(priv->rw_gpio));
++		return PTR_ERR(priv->rw_gpio);
++	}
 +
-+            port@0 {
-+                reg = <0>;
++	priv->dc_gpio = devm_gpiod_get_optional(dev, "dc", GPIOD_OUT_LOW);
++	if (IS_ERR(priv->dc_gpio)) {
++		dev_err(dev, "Failed to get DC GPIO: %ld\n", PTR_ERR(priv->dc_gpio));
++		return PTR_ERR(priv->dc_gpio);
++	}
 +
-+                bridge_input: endpoint {
-+                    remote-endpoint = <&dpi_output>;
-+                };
-+            };
++	priv->prepared = true;
 +
-+            port@1 {
-+                reg = <1>;
++	return 0;
++}
 +
-+                bridge_output: endpoint {
-+                    remote-endpoint = <&panel_input>;
-+                };
-+            };
-+        };
-+    };
++static void tegra_cpu_bridge_atomic_enable(struct drm_bridge *bridge,
++					   struct drm_atomic_commit *state)
++{
++	struct tegra_cpu_bridge_priv *priv = bridge_to_tegra_cpu_bridge(bridge);
++	struct tegra_dc *dc = priv->dc;
++	u32 value;
++	int ret;
++
++	value = tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
++	value &= ~DISP_CTRL_MODE_MASK;
++	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
++
++	/* Disable all options except cursor if enabled */
++	value = tegra_dc_readl(dc, DC_DISP_DISP_WIN_OPTIONS);
++	value &= CURSOR_ENABLE;
++	tegra_dc_writel(dc, value, DC_DISP_DISP_WIN_OPTIONS);
++
++	tegra_dc_commit(dc);
++
++	tegra_dc_writel(dc, V_PULSE1_ENABLE, DC_DISP_DISP_SIGNAL_OPTIONS0);
++	tegra_dc_writel(dc, PULSE_POLARITY_LOW, DC_DISP_V_PULSE1_CONTROL);
++
++	tegra_dc_writel(dc, PULSE_END(1), DC_DISP_V_PULSE0_POSITION_A);
++	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE0_POSITION_B);
++	tegra_dc_writel(dc, 0, DC_DISP_V_PULSE0_POSITION_C);
++
++	value = 1 << FRAME_INIT_SEQ_CYCLES_SHIFT |
++		DC_SIGNAL_VPULSE1 << INIT_SEQ_DC_SIGNAL_SHIFT |
++		INIT_SEQUENCE_MODE_PLCD | SEND_INIT_SEQUENCE;
++	tegra_dc_writel(dc, value, DC_DISP_INIT_SEQ_CONTROL);
++
++	tegra_dc_writel(dc, priv->spi_init_seq[0], DC_DISP_SPI_INIT_SEQ_DATA_A);
++	tegra_dc_writel(dc, priv->spi_init_seq[1], DC_DISP_SPI_INIT_SEQ_DATA_B);
++	tegra_dc_writel(dc, priv->spi_init_seq[2], DC_DISP_SPI_INIT_SEQ_DATA_C);
++	tegra_dc_writel(dc, priv->spi_init_seq[3], DC_DISP_SPI_INIT_SEQ_DATA_D);
++
++	value = tegra_dc_readl(dc, DC_CMD_DISPLAY_COMMAND);
++	value &= ~DISP_CTRL_MODE_MASK;
++	value |= DISP_CTRL_MODE_C_DISPLAY;
++	tegra_dc_writel(dc, value, DC_CMD_DISPLAY_COMMAND);
++
++	/* set LDC pin to V Pulse 1 */
++	value = tegra_dc_readl(dc, DC_COM_PIN_OUTPUT_SELECT(6));
++	value |= LDC_OUTPUT_SELECT_V_PULSE1;
++	tegra_dc_writel(dc, value, DC_COM_PIN_OUTPUT_SELECT(6));
++
++	value = SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
++		SC0_V_QUALIFIER(SC_V_QUALIFIER_VACTIVE) |
++		SC0_H_QUALIFIER(SC_H_QUALIFIER_HACTIVE);
++	tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
++
++	value = tegra_dc_readl(dc, DC_DISP_DISP_COLOR_CONTROL);
++	value &= ~BASE_COLOR_SIZE_MASK;
++
++	switch (priv->bus_width) {
++	case 16:
++		value |= BASE_COLOR_SIZE_565;
++		break;
++	case 18:
++		value |= BASE_COLOR_SIZE_666;
++		break;
++	case 24:
++	default:
++		value |= BASE_COLOR_SIZE_888;
++		break;
++	}
++
++	tegra_dc_writel(dc, value, DC_DISP_DISP_COLOR_CONTROL);
++
++	ret = tegra_cpu_bridge_prepare_gpios(priv);
++	if (ret)
++		return;
++
++	if (priv->output.panel)
++		drm_panel_enable(priv->output.panel);
++
++	gpiod_set_value(priv->cs_gpio, 0);
++
++	devm_gpiod_put(priv->dev, priv->dc_gpio);
++	devm_gpiod_put(priv->dev, priv->rw_gpio);
++	devm_gpiod_put(priv->dev, priv->cs_gpio);
++
++	devm_gpiod_put_array(priv->dev, priv->data_gpios);
++	priv->prepared = false;
++}
++
++static void tegra_cpu_bridge_atomic_disable(struct drm_bridge *bridge,
++					    struct drm_atomic_commit *state)
++{
++	struct tegra_cpu_bridge_priv *priv = bridge_to_tegra_cpu_bridge(bridge);
++	int ret;
++
++	ret = tegra_cpu_bridge_prepare_gpios(priv);
++	if (ret)
++		return;
++
++	if (priv->output.panel)
++		drm_panel_disable(priv->output.panel);
++
++	gpiod_set_value(priv->cs_gpio, 0);
++
++	devm_gpiod_put(priv->dev, priv->dc_gpio);
++	devm_gpiod_put(priv->dev, priv->rw_gpio);
++	devm_gpiod_put(priv->dev, priv->cs_gpio);
++
++	devm_gpiod_put_array(priv->dev, priv->data_gpios);
++	priv->prepared = false;
++}
++
++static int tegra_cpu_bridge_atomic_check(struct drm_bridge *bridge,
++					 struct drm_bridge_state *bridge_state,
++					 struct drm_crtc_state *crtc_state,
++					 struct drm_connector_state *conn_state)
++{
++	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++
++	/* Set safe default bus flags if panel does not specify them */
++	if (!bridge_state->input_bus_cfg.flags)
++		bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
++
++	/* Default to positive sync */
++	if (!(adjusted_mode->flags &
++	      (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_NHSYNC)))
++		adjusted_mode->flags |= DRM_MODE_FLAG_PHSYNC;
++
++	if (!(adjusted_mode->flags &
++	      (DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC)))
++		adjusted_mode->flags |= DRM_MODE_FLAG_PVSYNC;
++
++	return 0;
++}
++
++static int tegra_cpu_bridge_attach(struct drm_bridge *bridge,
++				   struct drm_encoder *encoder,
++				   enum drm_bridge_attach_flags flags)
++{
++	struct tegra_cpu_bridge_priv *priv = bridge_to_tegra_cpu_bridge(bridge);
++	struct device_node *rgb_node, *dc_node;
++	struct platform_device *dc_pdev;
++
++	rgb_node = of_graph_get_remote_node(dev_of_node(priv->dev), 0, 0);
++	if (!rgb_node)
++		return -ENODEV;
++
++	dc_node = of_get_parent(rgb_node);
++	of_node_put(rgb_node);
++	if (!dc_node)
++		return -ENODEV;
++
++	dc_pdev = of_find_device_by_node(dc_node);
++	of_node_put(dc_node);
++	if (!dc_pdev)
++		return -ENODEV;
++
++	priv->dc = platform_get_drvdata(dc_pdev);
++	if (!priv->dc)
++		return -ENODEV;
++
++	return drm_bridge_attach(bridge->encoder, priv->output.bridge, bridge,
++				 flags);
++}
++
++static enum drm_mode_status
++tegra_cpu_bridge_mode_valid(struct drm_bridge *bridge,
++			    const struct drm_display_info *info,
++			    const struct drm_display_mode *mode)
++{
++	if (mode->hdisplay > 800)
++		return MODE_H_ILLEGAL;
++
++	if (mode->vdisplay > 800)
++		return MODE_V_ILLEGAL;
++
++	return MODE_OK;
++}
++
++static const struct drm_bridge_funcs tegra_cpu_bridge_funcs = {
++	.attach = tegra_cpu_bridge_attach,
++	.mode_valid = tegra_cpu_bridge_mode_valid,
++
++	.atomic_enable = tegra_cpu_bridge_atomic_enable,
++	.atomic_disable = tegra_cpu_bridge_atomic_disable,
++	.atomic_check = tegra_cpu_bridge_atomic_check,
++
++	.atomic_create_state = drm_atomic_helper_bridge_create_state,
++	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
++};
++
++static const struct drm_bridge_timings default_tegra_cpu_bridge_timings = {
++	.input_bus_flags = DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE |
++			   DRM_BUS_FLAG_SYNC_SAMPLE_NEGEDGE |
++			   DRM_BUS_FLAG_DE_HIGH,
++};
++
++static int tegra_cpu_bridge_probe(struct platform_device *pdev)
++{
++	struct tegra_cpu_bridge_priv *priv;
++	struct device *dev = &pdev->dev;
++	struct device_node *np = dev->of_node;
++	struct drm_bridge *bridge;
++	struct drm_panel *panel;
++	struct device_node *ep;
++	int ret;
++
++	priv = devm_drm_bridge_alloc(dev, struct tegra_cpu_bridge_priv, bridge,
++				     &tegra_cpu_bridge_funcs);
++	if (IS_ERR(priv))
++		return PTR_ERR(priv);
++
++	priv->dev = dev;
++
++	ret = device_property_read_u32_array(dev, "nvidia,init-sequence",
++					     priv->spi_init_seq, 4);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to get init sequence\n");
++
++	ret = devm_of_platform_populate(dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to probe children\n");
++
++	/* Initialize MIPI DBI interface */
++	mutex_init(&priv->dbi.cmdlock);
++	priv->dbi.command = tegra_cpu_bridge_dbi_command;
++
++	ret = drm_of_find_panel_or_bridge(np, 1, 0, &panel, &bridge);
++	if (ret)
++		return ret;
++
++	if (panel) {
++		bridge = devm_drm_panel_bridge_add_typed(dev, panel,
++							 DRM_MODE_CONNECTOR_DPI);
++		if (IS_ERR(bridge))
++			return PTR_ERR(bridge);
++	}
++
++	priv->output.bridge = bridge;
++	priv->output.panel = panel;
++
++	/* get input ep (port0/endpoint0) */
++	ret = -EINVAL;
++	ep = of_graph_get_endpoint_by_regs(np, 0, 0);
++	if (ep) {
++		ret = of_property_read_u32(ep, "bus-width", &priv->bus_width);
++		of_node_put(ep);
++	}
++
++	if (ret)
++		priv->bus_width = 24;
++
++	priv->bridge.of_node = np;
++	priv->bridge.timings = &default_tegra_cpu_bridge_timings;
++
++	drm_bridge_add(&priv->bridge);
++
++	platform_set_drvdata(pdev, priv);
++
++	return 0;
++}
++
++static void tegra_cpu_bridge_remove(struct platform_device *pdev)
++{
++	struct tegra_cpu_bridge_priv *priv = platform_get_drvdata(pdev);
++
++	drm_bridge_remove(&priv->bridge);
++	if (priv->output.panel)
++		drm_panel_bridge_remove(priv->output.bridge);
++}
++
++static const struct of_device_id tegra_cpu_bridge_of_match[] = {
++	{ .compatible = "nvidia,tegra-8bit-cpu" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, tegra_cpu_bridge_of_match);
++
++static struct platform_driver tegra_cpu_bridge_driver = {
++	.driver = {
++		.name = "tegra-cpu-bridge",
++		.of_match_table = tegra_cpu_bridge_of_match,
++	},
++	.probe = tegra_cpu_bridge_probe,
++	.remove = tegra_cpu_bridge_remove,
++};
++module_platform_driver(tegra_cpu_bridge_driver);
++
++MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
++MODULE_DESCRIPTION("Nvidia Tegra20/30 RGB to MIPI-DBI bridge driver");
++MODULE_LICENSE("GPL");
 -- 
 2.53.0
 
