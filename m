@@ -1,256 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DB22AEEB;
-	Wed, 30 Sep 2026 11:34:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8843A448394;
+	Wed, 30 Sep 2026 11:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768046; cv=none; b=TcuQz8LM4LN1vTzoU9LnuHnBK8IsMaHHoteytZognJjWR1lAByFZ0zjG6Lu8HGaXWyoOaDL0gwM3T0bQrgW4h2Htu9G68moXix0xFfkEEjXZQoY7UDaXfJI0lmQX6Hn3Uidlzh7ORnCSAm2teAmHpCZTjRIsHLjXgwQKAskSxOY=
+	t=1790768280; cv=none; b=Ka5bY0bkw2eI19AgmBdqu1mJ83AyxqfdzpeAv2pMZsQlqKwXLrPaMNVvRGnCJr/qOYlFMOES2JeeHu+yyRByJtF4MyvCbPYFBBDk7zPWmWuUDiborD4js2XSmxpYfgVZHTkdbgUkVc3E12VvMRrbEWhCCzNzVarvS96vh/A9Auc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768046; c=relaxed/simple;
-	bh=CmWysLMga2qvG/l1NVuKy643fhuHle4zYD1qmtCZAC0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s7mCpRhOLkuv0sBAA+wG36sEffw8pUDECM9HHxhG7jiv7scXgKc4ATxblQJhJx0tlf+NUPw6WwCShyBiSauba5SoxgURFhfmk/jxGCiPaE8Z9ddnMsZttq3l5Q41utErSuce0RwTyYDbXPnSCA6AcfPjSqrD6sY69ajMzViJ+EE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJln5r1F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790768280; c=relaxed/simple;
+	bh=H2iPXGC8AqsniEOk+/A/BUYG/c3yKRCPBqnMNpfunjA=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ZdO65MiTX3lco4Nw62eFoBG4pYl03Oxj6Nfb68FpFex+fztp3DO1Sf3Mn5cKwnA8nufgoCrQUbqGtobfhsA1jkXj5yG055sHUcaoD2y7r0WDRqluRVxbv8yUpiqqkLSBOTtzgMfHa91UE/Dzrx3+0GqPTHSvKhLbmr5SWg0sSrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=JJjY8F4y; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=R9L97J6x; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJln5r1F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A781F000FF;
-	Wed, 30 Sep 2026 11:34:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790768044;
-	bh=Flr3+GGP3TPmQvHBee/nC5aClMMVtkJOvhVsHYP44Jw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HJln5r1FM98WBeLs7XUSvG/yAXxwvSZTn+E3qku7Fcw7QA70Y5PV2GcYMSGQSJBwq
-	 VnysVYjfQjFuvK8+MrEELJkhIlSVBYdS/3CU0+iv9k2Ajlsci/8xGoeojxrQ3xRvfR
-	 GvQ90wuGG0SBsySlnyRXaMBJHymxkonwG+b8AbWjMDqCcaAeh+FQSGWfgzlCnpQ6YA
-	 WUqlMFRL+jH9zjujPu6F8RxD3ubOphumLBhx0eCaAVAU1G7brwDmWGhUnHdM4YnEOE
-	 23YIdYjbItbNFOPUqpSN+1GqIBtP1IO2L9ppWjyZpN92UE9iOI4Nn4MnkLMnLKoEEr
-	 wIv2P4K7MUBlA==
-Date: Wed, 30 Sep 2026 13:34:02 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Kartik Rajput <kkartik@nvidia.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, 
-	Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Thierry Reding <treding@nvidia.com>, linux-scsi@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] scsi: ufs: tegra: Add Tegra264 UFS host
- controller driver
-Message-ID: <arzsK8U8Nw39Pwu-@orome>
-References: <20260929-tegra264-ufs-v2-0-f0467b9c503e@nvidia.com>
- <20260929-tegra264-ufs-v2-4-f0467b9c503e@nvidia.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="JJjY8F4y";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="R9L97J6x"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 85EF57A07E4;
+	Wed, 30 Sep 2026 07:37:55 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 30 Sep 2026 07:37:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790768274;
+	 x=1790854674; bh=k2R4TGBm7viwGdAZzeA2gZfj3cLmF0LJxf08e1QQLPU=; b=
+	JJjY8F4yrLr93eCu74rGqk8b1vEUJHxXJoHeg8LfEa+Y4RATUtvcZWcyfYASG8sq
+	ofGZA2SJwTnxal4tZwphml0eoboMu6FJaa0t3C2XmD48D1/cf8GNgEVe53+qO0+/
+	/Ud2AycKoHE8RWPcqBGVjVSvcsF5VeAVoLUIeVOJCCsFe9mBV5rbLo+9lXibx296
+	2wP33UmvZhEveetVRozrQJf4iO4IZ6/qOr+BMHm6sy+CpnvGBmV2ZQ83gHiHUGrd
+	jziGkMbps+TldhoHf3FXyv9vPBOUHbAaEWyceWQU6gtJ3FQFTLrvPI7deU+NBBcy
+	ku/Hr9PjptBRLxBhp73kDQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790768274; x=
+	1790854674; bh=k2R4TGBm7viwGdAZzeA2gZfj3cLmF0LJxf08e1QQLPU=; b=R
+	9L97J6xMy+zpfx5eWQNtTFMJ3rrVx8z/EP5bDeL4lMBYK69Q1VzLfvlP0Iq+EILp
+	g87WkJDm4pgIm7PiBEJfu/D1mwTtDQAi48AOoW46NmSH0oWTbVR/of6vECBS3Uur
+	rv+tpw0HHJz7pR+RKWdr17m8CoXlsQTLQikwFNDOxvc7/Cuo8jAqHG7gXq5OS7/w
+	SAG4Z2igOfTM27dI0/aMvDuWv916riDQ04En6Ud8Ur5Ag/8Ej9iwBrmj2DF9+Czy
+	TsPKj3QoIFIeeA/sBXveffM9tGRYC9Rii5aIP7nEStts8cUK99Wu+pNIUh7LlvpG
+	lfKS+IaQL/yIpVGfEY7FQ==
+X-ME-Sender: <xms:jfS8ahgToA9lCjMBKFljCoJxgC2AfqThlWusVy8enxM_Fs16UyveoA>
+    <xme:jfS8ag2F_r0RTX5zk-BLEMAPdKvR2P0FdfsQISnzqj4HjL2AK0x033XB5Yn1o8qUb
+    IPFykyFbl0-tKxXUfcz3qC_acUcYXIOslXFeyxlbs91pPxmrSSzMBE>
+X-ME-Proxy-Cause: dmFkZTEomL5bVq4uOtje4tnWmX75yuKh6S7Wo4Q53XUOcyr5YPVc9grLWlPQAB1EARQMZf
+    RoDPtN8QjUV+vdwhizwsJNnWmjiflLssbcx7YLBfrARQx+wkIoc1sUb1jdk3ShotXVAvHT
+    MGKbO+to1ZT5m+Y4VRDsuaIiSgSu/REYn/jFqT6sLat3o/XRdrkHfMzwt26blGyhLGH+Ge
+    sfIjheXOYBzGoiW4ob4w0a1eW1+hpc0kvhr+vvy//Yfp3yRYg45SjVjPnR8o9woYITeAbn
+    uP38TwUTtxzJ7qiZi3IWSmMpGh5d8s8qH13mDlaidzekg7wVnk9kP1vBPaykxvFjRfuBsL
+    P0AzA5mM9XR6TBRfCYSVd99RzEjCA7pixYduipUOi/AiVGCyLxfvVO0CxFE//7eRhQuD+m
+    tabxdVu05Wg574SIpt7z/h8wG72Ot/4rAE9txPw5lmWb9K2Cggcd2PHk9h2lCNSFL+f8N6
+    QbdhtHSLNB4nXoiztgVY8k3EzFEgVvAHX/hdoUvCgqc+Am93uFQ648dtYgghAc23mAnybh
+    KoZJxT1l4P25JuzDyPGc+eXxI0krVm/UP7cu8HBW0xa2iqfJXCgBkIyR/6gYYe+uIrhUEu
+    hA2xgHYByNXa8Aq3a8rrNnkHVBX1iHxQjwFllluzwjuNqZI6Wn7yeyTf8InA
+X-ME-Proxy: <xmx:j_S8aikRyDaSkdQ0s_1y8wB8fdHA4v8cV7GxJ3nQZGYQy75q_LY0Fg>
+    <xmx:j_S8akHXJX_a1SQ5fxQQe2dbLH0awaczFGwSJ2fGNKw10dwv0R06Yg>
+    <xmx:j_S8amGolY1wDOQNahSp-kRHCCHA3VrSyxpiFMxYw-grr9y8SKaHKA>
+    <xmx:j_S8as32CmC8XqdtveVfXDLAq-fOXMOJz4Yejpj7-GLaD9DMbLtW0g>
+    <xmx:kvS8aszb0oArWpPDaNcCEgy1fJLYMg38KI2MFTwoQAGULtfotXm9CrUW>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id A4FA232A008A; Wed, 30 Sep 2026 07:37:49 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jp336opcm6u7er2z"
-Content-Disposition: inline
-In-Reply-To: <20260929-tegra264-ufs-v2-4-f0467b9c503e@nvidia.com>
-
-
---jp336opcm6u7er2z
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+X-ThreadId: AAFgH-j8k6Zg
+Date: Wed, 30 Sep 2026 13:36:32 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Linus Walleij" <linusw@kernel.org>,
+ "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Jiri Slaby" <jirislaby@kernel.org>, "Russell King" <linux@armlinux.org.uk>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Drew Fustini" <fustini@kernel.org>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ "Jason Li" <jason.li@cortina-access.com>
+Message-Id: <d97a806f-a5a3-476e-8910-30027a6f568d@app.fastmail.com>
+In-Reply-To: 
+ <CAD++jLnZBpoF3H3-sqzmrtwzxLGombFMdSYMVo59jiGFYcyCFA@mail.gmail.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+ <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
+ <65c87e07-1722-44c2-9a08-ed9e18902058@kernel.org>
+ <179076583795.3054628.14443934429806440798@gmail.com>
+ <CAD++jLnZBpoF3H3-sqzmrtwzxLGombFMdSYMVo59jiGFYcyCFA@mail.gmail.com>
+Subject: Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 4/4] scsi: ufs: tegra: Add Tegra264 UFS host
- controller driver
-MIME-Version: 1.0
 
-On Tue, Sep 29, 2026 at 03:15:10PM +0530, Kartik Rajput wrote:
-> Add a driver for the UFS host controller found on NVIDIA Tegra264 SoCs.
-> The controller has Tegra-specific auxiliary registers, clocks and resets,
-> and it drives the four M-PHY lane directions exposed by the Tegra264
-> M-PHY driver.
->=20
-> Co-developed-by: Thierry Reding <treding@nvidia.com>
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> Signed-off-by: Kartik Rajput <kkartik@nvidia.com>
-> ---
->  drivers/ufs/host/Kconfig     |  14 +
->  drivers/ufs/host/Makefile    |   1 +
->  drivers/ufs/host/ufs-tegra.c | 686 +++++++++++++++++++++++++++++++++++++=
-++++++
->  3 files changed, 701 insertions(+)
->=20
-> diff --git a/drivers/ufs/host/Kconfig b/drivers/ufs/host/Kconfig
-> index ff170c0b6da0..7ca317d25251 100644
-> --- a/drivers/ufs/host/Kconfig
-> +++ b/drivers/ufs/host/Kconfig
-> @@ -168,3 +168,17 @@ config SCSI_UFS_AMD_VERSAL2
-> =20
->  	  Select this if you have UFS controller on AMD Versal Gen 2 SoC.
->  	  If unsure, say N.
-> +
-> +config SCSI_UFS_TEGRA
-> +	tristate "NVIDIA Tegra264 UFS controller platform driver"
-> +	depends on SCSI_UFSHCD_PLATFORM
-> +	depends on ARCH_TEGRA_264_SOC || (COMPILE_TEST && 64BIT)
+On Wed, Sep 30, 2026, at 13:01, Linus Walleij wrote:
+> On Wed, Sep 30, 2026 at 12:57=E2=80=AFPM Fil Dunsky <filipp.dunsky@gma=
+il.com> wrote:
+>> On 30/09/2026 12:20, Krzysztof Kozlowski wrote:
+>
+>> > How is it different from Cortina Gemini?
+>>
+>> Apart from the vendor, they have little in common. Gemini (SL3516/
+>> CS3516) is a single ARMv4 FA526 with Faraday peripherals (FTINTC010,
+>> FTTMR010, FTGPIO010, a 16550 UART) and builds for ARCH_MULTI_V4. The
+>> CS75xx ("Goldengate G2") is an ARMv7 dual Cortex-A9 MPCore with GIC,
+>> SCU, TWD/global timer and a PL310, and its UART, GPIO, interrupt
+>> controller and NAND controller are different blocks from the Gemini
+>> ones. So it cannot share mach-gemini or its drivers.
 
-=46rom a quick look I couldn't spot anything specific to 64-bit in the
-driver. Did I miss anything?
+https://wikidevi.wi-cat.ru/Cortina explains a little more about the
+timeline here.
 
-Also, we really shouldn't depend on ARCH_TEGRA_264_SOC since this
-controller exists on prior generations and we will eventually want to
-support them, too.
+As far as I can tell, both the Storlink/Storm Gemini SL351x/CS351x and
+the original Cortina Systems CS75xx ended up in Cortina Access
+when Realtek bought that business unit in 2015, but got discontinued
+in the meantime:
 
-> +	select PHY_TEGRA_MPHY
+https://web.archive.org/web/20150729020021/http://www.cortina-access.com=
+/dhp
 
-Maybe to complement what Krzysztof already said: Kconfig dependencies
-are primarily build-time dependencies. This driver uses the generic PHY
-API to access the M-PHY functionality, so GENERIC_PHY is the correct
-build-time dependency. The driver is purposefully agnostic to the
-specific implementation of the PHYs that it uses so that it can work
-with (potentially) many different PHY implementations.
+The rest of what was Cortina Systems at the time remained up in
+Inphy and later in Marvell, who I assume hold the naming rights.
 
-We use device tree to hook up the runtime dependencies. If the M-PHY
-driver is not enabled we get the probe deferred because the PHYs that
-were hooked up in DT haven't been registered and hence can't be found
-(by the generic PHY framework). On other devices the PHYs might end up
-being backed by completely different implementations and they could
-still work just fine.
+>> >> +machine-$(CONFIG_ARCH_CORTINA_CS75XX)       +=3D cortina
+>> >
+>> > Arch should be rather per entire family, not one SoC.
+>>
+>> CS75xx is meant as the family (the vendor kernel covers the CS7522 and
+>> CS7542 with one ARCH_GOLDENGATE), but I see the name reads like a
+>> single part. Following Linus' suggestion of mach-goldengate, v2 will
+>> use ARCH_GOLDENGATE and arch/arm/mach-goldengate for the whole family.
+>
+> Put the rationale into the commit message, that's exactly what we want=
+ to
+> see in there.
 
-> +	help
-> +	  Enable support for the UFS host controller on NVIDIA Tegra264
-> +	  SoCs. The driver relies on the Tegra264 M-PHY driver
+How about making this one ARCH_CORTINA_ACCESS to match the 64-bit port
+(saturn, venus) that Jason posted at
+https://lore.kernel.org/linux-arm-kernel/20260610112821.3030099-5-jason.=
+li@cortina-access.com/
 
-I would suggest dropping references to Tegra264 here. The driver is not
-specific to Tegra264. There are older Tegra SoCs that have (earlier)
-generations of this IP and that should still work with this driver
-(maybe with some parameterization).
-
-> diff --git a/drivers/ufs/host/ufs-tegra.c b/drivers/ufs/host/ufs-tegra.c
-> new file mode 100644
-> index 000000000000..f12265432592
-> --- /dev/null
-> +++ b/drivers/ufs/host/ufs-tegra.c
-> @@ -0,0 +1,686 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +// Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserv=
-ed.
-> +// NVIDIA Tegra264 UFS host controller driver.
-
-Tegra264 can be dropped here as well.
-
-[...]
-> +#define UFS_TEGRA_HS_CLK_RATE_HZ		5840000000UL
-
-Do we assume that this will always be the same value? Maybe this should
-be turned into SoC data? We could always do that when necessary, of
-course.
-
-[...]
-> +static int ufs_tegra_mphy_power_on(struct ufs_hba *hba)
-> +{
-> +	struct ufs_tegra *ufs =3D ufshcd_get_variant(hba);
-> +	int err;
-> +
-> +	err =3D phy_power_on(ufs->mphy_l0_rx);
-> +	if (err) {
-> +		dev_err(hba->dev, "failed to power on mphy-l0-rx\n");
-> +		return err;
-> +	}
-> +
-> +	err =3D phy_power_on(ufs->mphy_l0_tx);
-> +	if (err) {
-> +		dev_err(hba->dev, "failed to power on mphy-l0-tx\n");
-> +		goto out_power_off_l0_rx;
-> +	}
-> +
-> +	err =3D phy_power_on(ufs->mphy_l1_rx);
-> +	if (err) {
-> +		dev_err(hba->dev, "failed to power on mphy-l1-rx\n");
-> +		goto out_power_off_l0_tx;
-> +	}
-> +
-> +	err =3D phy_power_on(ufs->mphy_l1_tx);
-> +	if (err) {
-> +		dev_err(hba->dev, "failed to power on mphy-l1-tx\n");
-> +		goto out_power_off_l1_rx;
-> +	}
-> +
-> +	return 0;
-> +
-> +out_power_off_l1_rx:
-> +	phy_power_off(ufs->mphy_l1_rx);
-> +out_power_off_l0_tx:
-> +	phy_power_off(ufs->mphy_l0_tx);
-> +out_power_off_l0_rx:
-> +	phy_power_off(ufs->mphy_l0_rx);
-> +
-> +	return err;
-> +}
-
-Almost seems like we need phy_bulk APIs. Again, doesn't need to be part
-of this series, but maybe something to keep in mind.
-
-[...]
-> +static int ufs_tegra_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op,
-> +			     enum ufs_notify_change_status status)
-> +{
-> +	if (status =3D=3D PRE_CHANGE)
-> +		return 0;
-> +
-> +	/* Runtime H8 park keeps the M-PHY powered; only tear it down
-> +	 * on the full-teardown paths (system suspend, shutdown, or
-> +	 * runtime PM with LINK_OFF).
-> +	 */
-
-Comment style needs the first line to be /* on its own, except for the
-net subsystem, if I recall correctly. There are other occurrences of
-this elsewhere in the file.
-
-Also, I read "H8" as "hate" at first and it took me a little bit to
-realize it meant "hibernate" in this case. Looks like the rest of UFS
-uses "hibern8". Maybe stick to the convention?
-
-[...]
-> +static int ufs_tegra_pwr_change_notify(struct ufs_hba *hba,
-> +				       enum ufs_notify_change_status status,
-> +				       struct ufs_pa_layer_attr *dev_req_params)
-> +{
-[...]
-> +	if (dev_req_params->hs_rate =3D=3D PA_HS_MODE_A ||
-> +	    dev_req_params->hs_rate =3D=3D PA_HS_MODE_B) {
-> +		err =3D clk_set_rate(ufs->hs_clk, UFS_TEGRA_HS_CLK_RATE_HZ);
-
-What if hs_rate !=3D PA_HS_MODE_A or PA_HS_MODE_B?
-
-> +static int ufs_tegra_set_dma_mask(struct ufs_hba *hba)
-> +{
-> +	return dma_set_mask_and_coherent(hba->dev, DMA_BIT_MASK(32));
-> +}
-
-I have a feeling like the 32 is here on purpose, but I can't fully
-remember why it's not something like 40, which is the standard on recent
-Tegra devices.
-
-Maybe we should add a comment explaining why this needs to be so narrow.
-
-Thierry
-
---jp336opcm6u7er2z
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq886cACgkQ3SOs138+
-s6GdQxAAmLZzF9sJFE536oAWmTNQI9D2+UMoQmKCgyANxCKt1hphd8gO9qhAdDtd
-WkG7dHXvZqGDpDVwiC/SdQUwySkpHnfM68lqABGScHTBH1mY+8BxufnqOLooJ1AV
-in06DLEgN0G3wGNx45CllJmg9plimxKAEFXbv9MYxbg3hyf4jcdEMKdFsXMSBG8b
-ka7E3RqWt8nuiK5M1oi7HbdiOeRYay37L/HJ6Cw2p9GPgFCl9/yPuX2X53RguzfJ
-0A8fGV3K69skmsFmDcY3AficeHN6hfNNHSDqjPXBinCbMiI+h4WX4ceqhCWnmxE8
-j1SJg8u9hv10VXRsTfurJ2iBZxHNmLxdt1MM8PiFlZD8QPAHB9KEBJM0fx2i2UR7
-Xhnx2iLCexGxGsFfdt5PWlpsGI84dJ443YSK7GkD4hCqiyDZM0Bf5aL6LOKzvKsA
-TOUJjC7p2xD3mXn5wi7FTg91yxhZR7dow6+ibronLCEEmJPlmA89l1D+FhPaeOfl
-UGAbBsX2PtztusqkMhR7VGWSAuBD8cF4JICKVSeVC5nH5HnUtgkpzDBySt2WfGY0
-4AppFkRnnYQhgmeas6kjwyG8HBBrlJsSdIps6CdhHGgVh9SEvycEbT2Ft1ZFR1xp
-qbzMSzMj0DFkKEdVSKC9BjwM4mVBe1OUyQrxqt18sw0gl6tNJL8=
-=IQBi
------END PGP SIGNATURE-----
-
---jp336opcm6u7er2z--
+I think this would be consistent with how we deal with other
+acquisitions (storm->cortina, freescale->nxp, ...). I would
+leave Gemini as-is because changing the name only causes problems,
+but for the new platform I would use the current name of the company
+that last sold them.
+=20
+      Arnd
