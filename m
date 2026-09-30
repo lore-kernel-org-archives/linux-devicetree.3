@@ -1,117 +1,103 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FDB40489A
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 10:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4310B377A9C;
+	Wed, 30 Sep 2026 10:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763521; cv=none; b=ZR6KRBmyQOyYYiBbDg1FP2r1N01/HcsDifXB1hETnKmIFeStcCA2WBwlPWtqpDJ+tHIem1h8ltqk8eGaOCQqLcyjrw8/ooDxoH9rY1AQP85AGSznT6B2Cwo0OVhFJbC82oARAmCeobeSI1zlxkQAC5LI3mSaZgi3A1E9qlLDbrE=
+	t=1790763592; cv=none; b=UNjO0uCCUZ6wfNORNLzWjvevFah7Dc/WrPzrOQStrhBYPWEQ+Lv5QrpNwSkXgMiX+Eu9d8rvYpUsjvt97KZ0Tj7sgv8hha4HK3wJBLJ35KoHEg3orvvvfnzoSivfXFeyoWFghRAcSNIL1ITOgPoMWXbWZEbzLB/GsORDDedyDo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763521; c=relaxed/simple;
-	bh=vKCgEvmzuqdNYv8cvhm72vtRBBD6mf+wxSFZ0lP7EGc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=HVyyYiqG1nqEDYMGXlTsX60u/YNXEdUxFkR9kRooxmk8HQC4hq2FwuQrEi7ygGzSCYV3jua8KEx8yW9Tigav8Yyqudm9jFRuP84T4/UdbGOuRHVru4OBLVUfyvjprO7jDK+rq1/TlF6cfLqRNtb9yBd4aLwjyocmZosEkMWdbvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f558thlU; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790763592; c=relaxed/simple;
+	bh=jJeVTal18ZboXas5TlF0vpQa6AGU2gJphl8DkP+LlWE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=H1keaB+LAtWMoYMFUEYf2vE8/bEQldl6jOq4wBIcQIjnSflyt1D1sp5rQtCFzTU5DhhrL+a1mylGVBWYnnxMAaVjqqfsgk8CuUeEBE9C7vbdu5/bIQRCGwAjFg23KBSji8SPUSc+2xza80/BFG2bUmhPyjjHyRmlNmiyEeS9X14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=nNpZ6W6X; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f558thlU"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ffbd83a92so31789705e9.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 03:18:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790763518; x=1791368318; darn=vger.kernel.org;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vKCgEvmzuqdNYv8cvhm72vtRBBD6mf+wxSFZ0lP7EGc=;
-        b=f558thlUhtGlo5ZBGdjYqF/f1WSQeDunDQlTVmZLXUOwnR4SLAis0l6wBS+cn7FVUC
-         kA+FR40U6bUGLrh+mvimAmzX6wOBbj77M67HuAdvDhqggRHMr2yriYkghBSyF9rV0vts
-         jrYG5oYSXgCSn19pZq8u0+rHa9Tp10fOqS+sHejI5WIe8HRlgAvAiBgoiWd53SrsHcq9
-         M4vkxf36ZCcwT9IxP33m5/aNnQB6eWA/vx7AUrH+07uzfxYX4dPVyCkqAzpezcsKHIiP
-         PgRJo/9ruEbZc+gYBwzPPvq7bfaD8QtWEMSG1pzMw4irZ/LgsPC2bz3Xjf3ic/q3AY+c
-         4pdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790763518; x=1791368318;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vKCgEvmzuqdNYv8cvhm72vtRBBD6mf+wxSFZ0lP7EGc=;
-        b=l5nG6RC4HBUyXV5PnQrXY4X+ayd0NyJit++KR2zU+KVQ3lToTyR1PfExA6h4lBrlKv
-         XixU8egNEipzk0PvEMOl1DGPOe2A3clJAWc+c7cqqt0CnyXGxKM/rDtzdBN4RMZVffhf
-         nqA49yMqr3h9yF/FgqhNFGyhp3ksA+gRk6WeNrglOtW3j6VFCME4+RGNsnwIdYbm02SU
-         RQ0C6Op1SxpgRXZSJDVgT6uXsWNr86ht7jaFY3AG2KxWkdjFtd83hnXbSm/oI/RKpHHw
-         tWDfjsN31BkQnpx4edDKnMlH+AsiPya5a8qH4NqehqsqJTlLiol6K1Nxuy+9GtMgBq8M
-         xRBg==
-X-Forwarded-Encrypted: i=1; AKwUvByDvGiGO0tOg3Nt+pjihxx19Ew2IGOP3anfgpaZ5p1P89IgDwtWmN+Q+2R+Wx8GztatBoEG97BJGOpn@vger.kernel.org
-X-Gm-Message-State: AFuF++kfGJXneMKD8Gwai8XDBH5O8AZ+o9QKwoNcGxA16PGvR9jYi+vB
-	ZjjUfkbxNkRppegClJ5TiStv2AgQE3fTBu8CEcXk3pPHP3yar/WQaRVt
-X-Gm-Gg: AYBFou0vm1Vu1chyiPMU5ahnDus5SqG6WGar/uDNGjF9jtLjQ+EaE2sxFIwE8WYHoX2
-	TZUUcuTucStu97MUko86Ahoua9Yg8cVNB0VfmFi4Q0lFc/nUKeWnyVgtZLnRyoSJhXTkE+Y7jpu
-	+zMV6ATgRvc6YaUguP4wRY9URL1RPhqjR6K7lmOga25GZQs6bCMkTWkdc8dB50mlAoYi8GqHOjk
-	v1FQCgKc5K0xJ64zrJfkrESrmS/1nsWnlzV+Ms20ripbAR/EareOxyPRfM16Hs0rKyKoPnr2n3N
-	rijgbIZSD+MG1OMvcvMXMuvj/4ZYHSWm6wQnyCJ05QtfxPxeFOMAmt+GGVl2VcQlDYU+5JRcrEn
-	q1PYsk/1Xeqzdw6eZVLJJBME6vVlGpRfiSSYpo5OKYViRmyzz+tKoTAC5XnQVEQCWFtYr82Beys
-	90z8wxs55ublIYdguLtffrYk2fJEfZ2oY0y6GGqu5rURHzvd1ybf8ImN8POUXz6fBNO+Ytbsdm3
-	1WPwXOiUaVBxMocKC8DnMCD+28y0btK
-X-Received: by 2002:a05:600c:4f4b:b0:4a0:35c:8953 with SMTP id 5b1f17b1804b1-4a01afe8499mr17900545e9.7.1790763517873;
-        Wed, 30 Sep 2026 03:18:37 -0700 (PDT)
-Received: from [127.0.1.1] ([92.241.26.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a017468b10sm56852175e9.0.2026.09.30.03.18.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 03:18:37 -0700 (PDT)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="nNpZ6W6X"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=jJeVTal18ZboXas5TlF0vpQa6AGU2gJphl8DkP+LlWE=; b=nNpZ6W6XiB5Nc5MTJcyBWGCqKX
+	j6cKBfoDGI+MQo2ik+/teJHWq5My68+4ohp1EICY2XTXxoETiH5RxSOIKaYz5uwcM2Eb2A+uPeipm
+	QtiyW5CYiCyIOjPZjqLy4HMSFCTKcm+EzdZJnODlw2RsZjvDgJHfSxa7PpiFtye5E6XNoebW9dP78
+	6uUC/gndnqMIgVFE4+oAywabv8gajwt1ppnkUA3FIlsNkAi6R1bp+oKw0mNfy9CP0lRaOjC3YVk8b
+	ILpDVJhvdbWddVOiV9r2YTk4kjdnK/cZdlOkTuSBdboUBH+YFGOedYVL25tTLbaShqPw/irPKUBjb
+	1nRJGHOQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>,
+ Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
+ Michal Wilczynski <m.wilczynski@samsung.com>
 Subject:
- Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
-In-Reply-To:
- <CAD++jLkXyh9ujjFEE5UwpMnj7Ykgb5_W+Mp-YXBakn5Q=_vj1g@mail.gmail.com>
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
- <CAD++jLkXyh9ujjFEE5UwpMnj7Ykgb5_W+Mp-YXBakn5Q=_vj1g@mail.gmail.com>
-Date: Wed, 30 Sep 2026 13:18:34 +0300
-Message-ID: <179076351495.2893601.12682235689198768135@gmail.com>
-Content-Transfer-Encoding: 8bit
+ Re: [PATCH v5 11/21] drm/bridge: inno-hdmi: Add .mode_valid platform
+ operation
+Date: Wed, 30 Sep 2026 12:19:15 +0200
+Message-ID: <6458508.5fSG56mABF@diego>
+In-Reply-To: <20260929-jh7110-clean-send-v5-11-82b4d8e3c6c7@samsung.com>
+References:
+ <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+ <CGME20260929103229eucas1p2e440f2ec00fdf7986eed7597674bf6a9@eucas1p2.samsung.com>
+ <20260929-jh7110-clean-send-v5-11-82b4d8e3c6c7@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Wed, Sep 30, 2026 at 12:11 PM Linus Walleij <linusw@kernel.org> wrote:
-> It's a bit weird to have a mach-cortina when mach-gemini is actually
-> also a Cortina SoC.
->
-> Could we call it mach-goldengate?
+Am Dienstag, 29. September 2026, 12:31:08 Mitteleurop=C3=A4ische Sommerzeit=
+ schrieb Michal Wilczynski:
+> inno_hdmi_bridge_mode_valid() validates the pixel clock against
+> hdmi->refclk, but that clock is optional and is only present on
+> platforms that describe a "ref" clock. Platforms where the pixel clock
+> is produced by a separate device - such as the StarFive JH7110, whose
+> PHY is both the clock and the PHY provider - have no "ref" clock, so
+> the check is skipped entirely and every mode is reported as valid.
+>=20
+> A mode the platform cannot generate is then advertised to userspace.
+> The subsequent modeset appears to succeed, since the atomic enable path
+> cannot fail, and the display silently stays blank.
+>=20
+> Add a .mode_valid platform operation so platforms can reject modes they
+> are unable to drive. Platforms that do not implement it are unaffected.
+>=20
+> Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
 
-Sure, that is also what the vendor kernel called it. I will rename it
-to arch/arm/mach-goldengate in v2.
+In patch 19 you add the jh7110-inno-hdmi-phy variant of the phy which
+registers a clock provider for the pixel clock. Isn't that the refclk you're
+missing?
 
-Should the Kconfig symbol follow as ARCH_GOLDENGATE, or is
-ARCH_CORTINA_CS75XX fine? I would keep the "cortina," compatible
-prefix and the arch/arm/boot/dts/cortina directory as they are.
+Thanks
+Heiko
 
-> I am OK with this because it's not like we will add hundreds of these,
-> I just note that ARM64 has abstracted the spin table handling into a single
-> driver used by all such systems:
-> arch/arm64/kernel/smp_spin_table.c
->
-> But implementing it for ARM is probably overzealous and just a waste
-> of everyone's time.
-
-Agreed, I will leave it as is.
-
-Thanks for the reviews,
-Fil
 
