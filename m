@@ -1,92 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B3D4915B9;
-	Wed, 30 Sep 2026 11:51:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959454C6517;
+	Wed, 30 Sep 2026 11:51:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790769072; cv=none; b=iUuwE+oPCrFpLqphS0mlHcEBuF6NjYYYHcCW8jYV97LJ5UEq/DK/Ov/9IwkGReldOlXJRs6e/32Oiv5/ZufIrGXl6EYxAI9BUTct7bdkozNAYzGXPdapCEypkAoEPSfxuG2aPQtcWBdWzNAn/Rseyo5lBr61QfeQMI1n/1qewnw=
+	t=1790769101; cv=none; b=jEZH/C9/z+QDY/b9cE8drQLF05umK+MY9IGQpCdkDznYyJfDRejwKV/IwdOm1SqO6fqsDtw02DpKauZ7Q7e57A9elec2Y1S4qi3iaEVk+GJUsyR5HetWcJki+zydrJWdem9QY/8Ib3tfeCQaiRBb3JnrW/SJGZW0yfAbUuDmVjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790769072; c=relaxed/simple;
-	bh=PVEC3OfMnJKPSbEYEJhCCXJZBxEy7N52ccDh76wrJpI=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=GWhMPkAeLWiezNn4MEgtOykxw278G8ZcPxpuBrMPPlsRIM2aGzIjLdA/yD7O1R7j00Astuy+BsVgPtELqEihN6+MSVFJTVqlP3pkgbwMus8rC2xVmUGuO5Elk3mulQrS/SFW8wb0He7fC2Itau6Dr8paF32UWORWT2vxsoC/iOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6TAJnvg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790769101; c=relaxed/simple;
+	bh=RyJkjxj03OYYik/R7DEpTKKnsoCFfxjrU2d9d+MOTmw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fnOmyaO1fX7MzzftkzEAsEgYIwmVPRW1Mm44yTeglgZisWFNzHLHWAB/+DsvchH2NnfJb5JB+bbDAgP1o415zS1ghNnq/W9N0F92kxtLD8bWKQPyJigvi5gPjPMgDYBIVadmuiII9qH2cYHJoiUkCa8Dg8F8PPWUuQPfJXQCXCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bdbWBHOH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6TAJnvg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49A561F00893;
-	Wed, 30 Sep 2026 11:51:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bdbWBHOH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5531F0089A;
+	Wed, 30 Sep 2026 11:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790769070;
-	bh=MsKu2QvMYXznsid/PbO/r1U6EfT+lLwdNFVx4O4bgtQ=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=h6TAJnvg38T8ZGN/EIwoqqtBiFlnbXRa0lWOxh6p0B5Rpz4tK31to/oI6kFWQvxI1
-	 v6f6jmZWVdVISWWG2sdyxHsdlXI8u1jmO7xF0C8AbqEw6fmEoltjsZVihxBMBrqjUh
-	 2TTDD6DxikCq1b84Xpl5Vyv0FgPg/pqf4alQr5pFh0W6KNJNy1i5nuc2d1aZgnlduQ
-	 SXZLrAvrmCfIeg/deQ2TB6tMN+IxBn0Rd8cw9C/hoMXqRQLR2Bf59fMJRKNIbNk9dB
-	 +wkoGu+0eHOOzpw3kxLyDo4mxXj9pA/bd5yqIvh+1v7Nm4rvIH6LBxC5I5DpheZEN5
-	 XFJkNcwN4s4pA==
-Date: Wed, 30 Sep 2026 06:51:09 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790769100;
+	bh=5FnIwsTd9J8v/KNbdey0dWm3okoZNmXW2AFmd2MzMj8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bdbWBHOHxafx4KBMkmYVnIvHGlw7Q+9tfZgO8KhSNkwHLoor/uZ5INupb8qBSsTHU
+	 cDn2gJLtic39vqH+1xwTnwm3kgY2vNVWQ7dEqtN4t7nw/24lJ+0jDrWlwLmnyIKvYS
+	 JpYPe/oHpExEjRSErKx5JNTb4aXdpUjeBwqO85EIC6XKS5mginwc5c0kbLfh5cF2rO
+	 pVFdzAo90hH+jIIpvKbxPJwszH24xBzdm69TqCqufzuMUXcIyEZ6fFJ4MeOZvoRh7M
+	 d/4AGWIkw0Av3SHTt/EuHXkGVdE8OZ3EVhx9jbYF8zNhcK3U9EN8ZB1ubOgtgPzSbA
+	 y0YGn+lRWmcgA==
+Date: Wed, 30 Sep 2026 13:51:36 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Jisheng Zhang <jszhang@kernel.org>, Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Fu Wei <wefu@redhat.com>, Han Gao <rabenda.cn@gmail.com>, devicetree@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: riscv: thead: add Milk-V Meles
+Message-ID: <20260930-bulky-miraculous-rattlesnake-b58357@quoll>
+References: <20260929-rv-meles-v1-0-effdd14a76e8@iscas.ac.cn>
+ <20260929-rv-meles-v1-1-effdd14a76e8@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-tegra@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, devicetree@vger.kernel.org, 
- Mikko Perttunen <mperttunen@nvidia.com>, linux-kernel@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Conor Dooley <conor+dt@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-In-Reply-To: <20260930070535.47130-4-clamor95@gmail.com>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-4-clamor95@gmail.com>
-Message-Id: <179076815642.2155434.13248975463672729099.robh@kernel.org>
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260929-rv-meles-v1-1-effdd14a76e8@iscas.ac.cn>
 
-
-On Wed, 30 Sep 2026 10:05:32 +0300, Svyatoslav Ryhel wrote:
-> Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> Tegra20/30 SoCs display controller.
+On Tue, Sep 29, 2026 at 06:22:45PM +0800, Han Gao wrote:
+> Document the Milk-V Meles board compatible with the TH1520 fallback.
 > 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 > ---
->  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++++++++++
->  1 file changed, 138 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit-cpu.yaml
+>  Documentation/devicetree/bindings/riscv/thead.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
+> diff --git a/Documentation/devicetree/bindings/riscv/thead.yaml b/Documentation/devicetree/bindings/riscv/thead.yaml
+> index 301912dcd290e60f816d380152591106de9415b4..5361021b8dcc9897803a5915665c6bb83309fe53 100644
+> --- a/Documentation/devicetree/bindings/riscv/thead.yaml
+> +++ b/Documentation/devicetree/bindings/riscv/thead.yaml
+> @@ -21,6 +21,10 @@ properties:
+>          items:
+>            - const: beagle,beaglev-ahead
+>            - const: thead,th1520
+> +      - description: Milk-V Meles single board computer
+> +        items:
+> +          - const: milkv,meles
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Why isn't this enum with the previous entry?
 
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit-cpu.example.dtb: /example-0/dbi-bridge/panel: failed to match any schema with compatible: ['hit,tx10d07vm0baa']
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260930070535.47130-4-clamor95@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Best regards,
+Krzysztof
 
