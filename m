@@ -1,75 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A56136F905;
-	Wed, 30 Sep 2026 19:51:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE950309EF2;
+	Wed, 30 Sep 2026 19:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797916; cv=none; b=gpFUomJkOnQ2UJO0Hq0UsX1haEE+WIDzEo9XvmW6Yhay58O6MUfGa/HGXMI2f9qDBs9rYmDiGSOb8SCONOaN1OCIe6IQgcQ1M4dXBhTEbVYL6hrg6wx3d60xLxc6q7vZcM7aqcPWeERM7wdkbIMavBniew64/1Ax0SYHeYYzDRA=
+	t=1790797993; cv=none; b=Ax30gRWM2xUOX3swwzd2npikn3P6bHJChucxSxwlUbLG6a81+t7GJY6wvpFS4gL3cz/dSfIOd5ex/8MipOF8SbKXs00NUzOPxhYSPdSt/asPMbwwJZ//obqZcfqBjjmOPPV92AGOkEgsdk9W8oAT3bfKQFY65tqB35O46tz6YwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797916; c=relaxed/simple;
-	bh=NhxM4UqhslSqa1VkpyB5jCc/+9YKTzpQRCMy05JfkcA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SOxGlY5cAYNeSOGcoLPX0ANqPY1tfapBOb6hh3yDyjN8rABQ0g7rsODk3nWoPoWp/Y4gSvq9OdNZSph1j2nW+qKlX3NVnR8/BtQ53GpeYnFK/wlFgljuJvOhoDB0LHAWi8an/GFV9Scx+dOncFuQjRoSAY1wF+OuuMGPtF/8i14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TQB13SRo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790797993; c=relaxed/simple;
+	bh=ySN19laOjfC1yzwkgNyh6fdnWXH5MwsgUH6CSLDhvcs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=exXg1hIHuM9glG8CsPKn6iYxojFTM9IY6d7m9J7Ax/wKrnE5pfRJOC8o3/HKCelmi/4LlC5nVvLc2rwKxina2UVv4vB5jJP63v+PI4xyVxG+pgiNp/wdrYFhWr0KIL5tzV9F49iFNE+jsFPFlEmyoNdbFs6Ky/5q2lG1jn64v1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=quZMChoh; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TQB13SRo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E9B1F000FF;
-	Wed, 30 Sep 2026 19:51:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790797912;
-	bh=ooIxBiCOx4IuVPZIEVOfeO3dfKf6qaESNSTxFZYP1eQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TQB13SRoF6jm8Ge0YzZdAYNBRlN0H55Fh0HELy+g6ksXIBls1vFhZGav9JH2GpkVm
-	 zE2NSn0jzOIZUtx2NHzaNOmGvGxBHZfKPBaGaiA4SKLoUDFUCklPIA5CDxb6qyzJGf
-	 8CxIBvT4mhfu4+HAfHXYH7WHkNf02f8aiNDRHV7NheVn7ZX1OVo09EMKk7V4m4rRv/
-	 srobjsODfOUyu7+iFdpzJs+UYIdLPzHNaY4WgsCeaC9+X054FyV1DdUprthK/4mVzN
-	 B8LdVFLU0CJXAKM5dqrcuaCELu0PMCm0Kyr6ztumY2sP6ddMOim2dLBt3YUHgUgKdP
-	 HTNmLO1dxfLGw==
-Date: Wed, 30 Sep 2026 14:51:51 -0500
-From: Rob Herring <robh@kernel.org>
-To: Lee Jones <lee@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: mfd: hisilicon: Fix Hi6421 SPMI
- compatible
-Message-ID: <20260930195151.GA3971425-robh@kernel.org>
-References: <20260923191526.2206628-1-robh@kernel.org>
- <20260924140300.GE453446@google.com>
- <20260925121138.GB677989-robh@kernel.org>
- <20260928172306.GB2112133@google.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="quZMChoh"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 2E0A64E410D8;
+	Wed, 30 Sep 2026 19:53:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E754060749;
+	Wed, 30 Sep 2026 19:53:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 32CB31032A65D;
+	Wed, 30 Sep 2026 21:52:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790797983; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=0peu86CV94HT+ZId0KjjmcWabhYufxkvU6Qb3rMbNMQ=;
+	b=quZMChohV1lnyObXH7qPqvMn2uYfyQa2hKB7mbvqvJxBTEtE39udp0j3QwPK0ZQjEYnl6R
+	qS1Tb0rdUbn6Y2g1vGJhlGo1+SgBHZW5g/vwDIa5Uh6JZU6tZh5DyL382xfLywMkUG4n8a
+	Ddmo4yKRf7FL9ACPlnwXbgB7P7TlgntT+ojacuNe7a/kcT9ZdxiRzfnBVoZavrWfuq9P2K
+	Sy85qxmzTDQv62tgK81SE8vMgYfc8FS/huhez/L5mfgjdgHX2b3+I3fCHS3GhPU1R06Bkj
+	iak6Oq5OOJWQuTTXuD4rpVkW4TqtXA+rUijQO5RB34eKNMXsg7iIl+oZAoVkAw==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Nicolo Giuliani via B4 Relay
+ <devnull+nicolo.giuliani6.studio.unibo.it@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, Nicolo Giuliani
+ <nicolo.giuliani6@studio.unibo.it>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
+In-Reply-To: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
+Date: Wed, 30 Sep 2026 21:52:58 +0200
+Message-ID: <874if68qjp.fsf@BLaptop.bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928172306.GB2112133@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Sep 28, 2026 at 06:23:06PM +0100, Lee Jones wrote:
-> On Fri, 25 Sep 2026, Rob Herring wrote:
-> 
-> > On Thu, Sep 24, 2026 at 03:03:00PM +0100, Lee Jones wrote:
-> > > On Wed, 23 Sep 2026, Rob Herring (Arm) wrote:
-> > > 
-> > > > Use the hisilicon,hi6421-spmi compatible documented by the in-tree DTS
-> > > > and matched by the Hi6421 SPMI PMIC driver.
-> > > > 
-> > > > Assisted-by: LLM
-> > > > Fixes: dee8a4e807dc ("dt-bindings: mfd: Convert hisilicon,hi6421-pmic to DT schema")
-> > > 
-> > > What is this commit?  I don't see it anywhere.
-> > 
-> > Uhh, that's the wrong commit. I'd just drop it. This binding started off 
-> > in staging. Originally the compatible was wrong, but the example was 
-> > right. Then the example was 'fixed'. 
-> 
-> Drop the tag or the patch?
+Nicolo Giuliani via B4 Relay
+<devnull+nicolo.giuliani6.studio.unibo.it@kernel.org> writes:
 
-Sorry, drop the Fixes tag.
+> The Sophos XGS 87/107 desktop firewalls pair an AMD x86 host with a
+> separate network processing unit (NPU): a Marvell Armada CN9130 SoC with
+> its own eMMC and SPI NOR flash. The NPU serves the eight RJ45 ports and
+> the SFP cage through a Marvell 88E6193X switch on its MDIO bus, which is
+> connected to the SoC by a 10GBASE-R link, and reaches the x86 host over
+> PCIe.
+>
+> This series adds the Sophos vendor prefix, the compatible string of the
+> NPU board and a device tree that describes the NPU as a standalone system:
+> UART console, eMMC, SPI NOR flash, the SFP cage and the switch with its
+> ports. The port LEDs, the USB ports and the PCIe link to the x86 host (the
+> CN9130 acts as a PCIe endpoint towards it, which needs endpoint support
+> that is not part of this series) are not described.
+>
+> Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI NOR
+> access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing with
+> its eight user ports, and 936 Mbit/s through a front port. The SFP cage
+> is untested.
+>
+> dt_binding_check passes for vendor-prefixes.yaml and armada-7k-8k.yaml,
+> and CHECK_DTBS=3Dy on marvell/cn9130-sophos-xgs107w.dtb reports no warning
+> specific to this board.
+>
+> Based on the mvebu/dt branch of the mvebu tree (008e9faade).
+>
+> Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 
-Rob
+Applied on mvebu/dt64
+
+Thanks,
+
+Gregory
+> ---
+> Changes in v2:
+> - Patch 1: drop the second sentence of the commit message, add Acked-by
+> - Patch 2: move the entry before the SolidRun ones and list only
+>   marvell,cn9130 after the board compatible, as the other CN9130 boards do
+> - Patch 3: use the compatible list of patch 2; pass the switch reset as
+>   reset-gpios and drop the boot loader workaround; remove the LED
+>   expander node and the SFP address comment
+> - Link to v1: https://patch.msgid.link/20260919-send-dt-v1-0-365615a74ef3=
+@studio.unibo.it
+>
+> ---
+> Nicolo Giuliani (3):
+>       dt-bindings: vendor-prefixes: Add Sophos
+>       dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
+>       arm64: dts: marvell: Add Sophos XGS 107w NPU board
+>
+>  .../bindings/arm/marvell/armada-7k-8k.yaml         |   7 +
+>  .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+>  arch/arm64/boot/dts/marvell/Makefile               |   1 +
+>  .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 188 +++++++++++++++=
+++++++
+>  4 files changed, 198 insertions(+)
+> ---
+> base-commit: 008e9faadef8c0aaa9b8a3ff05a2126e3c5b08b7
+> change-id: 20260919-send-dt-6bbd08a470d2
+>
+> Best regards,
+> --=20=20
+> Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+>
+>
+
+--=20
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
