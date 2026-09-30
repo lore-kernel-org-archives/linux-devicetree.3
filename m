@@ -1,101 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E441951C067;
-	Wed, 30 Sep 2026 18:27:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92680511E90;
+	Wed, 30 Sep 2026 18:29:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792852; cv=none; b=B/OE59D13+ZSsChwNATysgh25RVJ4GAHx2DOnbrK6nawnB9PAbEHj7d66LOYcGdX1uFfd1hZdnWL5YMJkKHI778dBn0ZByWdz6/ePF44m4ZvhAuSTtHRC60V2LRo/oWi1I/X4Dg6xU6iRg/hLFgzujrVROd4unF+R47zzuvbaD0=
+	t=1790792982; cv=none; b=UZu65sWkIr/kJaygxntqxiobfGteFwC88NhZgRwOZSlyylk6KuewbFTNQ5CDeOuqZxOG7aVUMNhaYFRJYLMWUny+eu3bgam97nVePxiFKXx52x1bf7JgZtrCxOp2XP0svMd1wKevjVAC07viTIvI0fhjqlAN/fYlHpEoBD69QJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792852; c=relaxed/simple;
-	bh=WLjiOlD+dy9bJpuWvU5QCszfL7QR4gR3WwC3h0YTH7E=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=VmLUt+rHKRuVWXYzyYrCP1EKPaDmA3OC6GM8bfRwSYd8CHOzeYTP+lk6aEYMmnINQ/ziNCD55vEBSLBfQldohYN8E51GWbwwyXFfcMnSuKsubA+9637sAdCACPrS4WrqN9vJkW5CJIWm6pU1qe6BsttzSPBGr0F85cUlN91L9hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sxa972NF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790792982; c=relaxed/simple;
+	bh=W7b7fF+CcCWziV12h9ZawqHaoD5h7WS7WPY2/C/oS+4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=vA0xM7SvH1kKEdnJBcIpLn49eQm1y0Ivhb0OChrXDYh5UQuobxNMM/Vj1Bl+oR32GZfGbebuDW7a84aa1Gch2RwtQ/PThckNIqez8ljRXVUDZ3atPsPLwk29/TT12bSlLciaol1j8b8Q3nvMxU0uhnnT/VWxNsdDSD8eM6IXVQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KRIlOpAc; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KQIIET6G; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sxa972NF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63F71F00898;
-	Wed, 30 Sep 2026 18:27:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790792850;
-	bh=mWBQYEdITnJ3bd7uXTE9n2wMp9LpxBphVpb1y8WkIyA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Sxa972NFSAFlpJ9wrQwad0K7xg4KzEbVIPL5pfXMOZ5GHDl97MME/x0BMb0wES9vs
-	 seY982E5hycZFkAi7aX0VBbjyyrMZtxoUXxYrKQXIvIIr1LPQSo5Tzfoxxe5KYFVaF
-	 Oty8NAP9+5fkhrTUDrCJg8iUZZbHAI/iEZK/YsM/QdptWb5f7DnQCPUhEmfw6Oxyo0
-	 GVvcurDA8eqpI0GRKtjHPvQlSHLIWGBakQSrT+AiUD2NyFvXx6GEfZqG5+nuEVs7kJ
-	 5MV1EksPMyVmXAEJYRqnjkwWl7vyN0bRD0/fzWS3wAYyNqdszvvK4U78hW1Vr8dB9F
-	 LmWkwZi59FySg==
-From: Mark Brown <broonie@kernel.org>
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: p.zabel@pengutronix.de, james.tai@realtek.com, cy.huang@realtek.com, 
- stanley_chang@realtek.com, jyanchou@realtek.com, linux-spi@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260930065945.88008-1-eleanor.lin@realtek.com>
-References: <20260930065945.88008-1-eleanor.lin@realtek.com>
-Subject: Re: [PATCH v5 0/2] spi: realtek: Add support for RTD1625 SPI NOR
- Flash Controller
-Message-Id: <179078200215.116826.7101545069790986903.b4-ty@b4>
-Date: Wed, 30 Sep 2026 16:26:42 +0100
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KRIlOpAc";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KQIIET6G"
+Message-ID: <d94de82e27e28b18320f31e2690cb85673832411.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790792978;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FMowwEW9SgkF7w5iLzPCCh27f7/yKSZJ5Waoj5oObuQ=;
+	b=KRIlOpAckpwNf3q4te5d7Z8BCFFcVbx877vgc+0iol1UniyUDYFfSbCbNNEOB+trELQ/bH
+	owT3pVxnvErc3k4uC6fstJzGlcdm9icAFYJSqy4gVH8+4yH9NyOwni2vu5Ju+VBcqElnI0
+	/IKOvhjD5P2r69HPMpAZE69bfXzILHALY4d2tmHQiGvUGpa5oATOZhq9Zqo/jGlcQzITUC
+	WRT4GAAx0M9qUdjyFXE4xqtYyiPFiV1yV46qXUWFqX4xbezCRmEhNXyy/2kQEgUue/nRU+
+	Gy9fEIhhFUBqiBeJ8BQxfi4aIcC+CE7I7ItcREheXlEkbg5KNuzgH5OuBUUugA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790792978;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FMowwEW9SgkF7w5iLzPCCh27f7/yKSZJ5Waoj5oObuQ=;
+	b=KQIIET6Ge8hjgDvhQFH5obMl7TV9T3erMZxyR46oBTskqn7DoUFQKOt5SAgZUUivJgRGZG
+	Qoikwf7M2WYDrDAQ==
+Subject: Re: [PATCH net-next v3 8/8] net: dsa: soce: Disable unsupported
+ hardware STP
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Wed, 30 Sep 2026 20:29:37 +0200
+In-Reply-To: <ea1f498f-fce6-4e9b-8afb-10d16ac12f08@lunn.ch>
+References: 
+	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-8-ddebafcb9ba7@linutronix.de>
+	 <ea1f498f-fce6-4e9b-8afb-10d16ac12f08@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1375; i=broonie@kernel.org;
- h=from:subject:message-id; bh=WLjiOlD+dy9bJpuWvU5QCszfL7QR4gR3WwC3h0YTH7E=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqvVSOeQvRltv0WLoCl0l39BAsqEbjDVtK/eqnf
- Dnr2zmKHc2JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCar1UjgAKCRAk1otyXVSH
- 0Ej+B/wNEBilThpqX2K/igElQEvjsU4gCVDkfWrgszuxpz0m6BwNVRxjUJTnhhM0ffMiU7NTuLG
- A/gCJZmwH3XLnv8/wYDoqDnULIMSv7xfPQu50K2WKmDLGaeefVZuCnwUJYqtUBTndsLsuUevkyr
- wrbfdvECUNBz1fZhjx1NF36+NYDdOhwarYCmiPf5k35y3w3GjK8RSLqbbXcjffHdazWHDshoFbS
- 8FyeLwzS+zWfab9I/1KH6CIj/aVA83c3yJteOkAiW2wbqMB9VmCFLJD8Hxm48J5LNI8SSUM4IOH
- 11MmHp9ehecSFkM/G36HH8MJfWrmDPMing0Sphg1tP1bEGLT
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 30 Sep 2026 14:59:43 +0800, Yu-Chun Lin wrote:
-> spi: realtek: Add support for RTD1625 SPI NOR Flash Controller
-> 
-> Hi all,
-> 
-> This patch series introduces support for the Realtek RTD1625 SPI NOR Flash
-> controller.
-> 
-> [...]
+On Sat, 2026-09-26 at 01:24 +0200, Andrew Lunn wrote:
+> On Wed, Sep 23, 2026 at 12:39:35PM +0200, Vasilij Strassheim wrote:
+> > The driver does not implement hardware STP offloading yet.
+>=20
+> What exactly do you mean by STP offload? Can it do the actual
+> protocol? No DSA switch can do that, we always use the software
+> implementation. I'm not even sure it is possible to offload the actual
+> protocol.
 
-Applied to
+That's not a complete offload. The documentation says:
+"The Spanning Tree protocols is supported as a mixed hardware and
+software solution. In the hardware section, IP core is in charge of
+forwarding BPDU frames to/from the CPU port and managing frames
+according to the STP port states."
+And:
+"Spanning Tree (STP/RSTP/MSTP) algorithm runs in a software application
+in the CPU. The CPU is in charge of configuring the switch port states
+based on the processed BPDU frames."
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+There are a few registers for this. However, it's enough to just turn
+off the feature and use only the software implementation in Linux.
 
-Thanks!
+I will update the documentation accordingly and stop using the term
+=E2=80=9Coffloading=E2=80=9D to avoid confusion.
 
-[1/2] dt-bindings: spi: Add Realtek RTD1625 SPI NOR support
-      https://git.kernel.org/broonie/spi/c/cf0f217a52d0
-[2/2] spi: spi-mem: Add Realtek SPI NOR flash controller driver
-      https://git.kernel.org/broonie/spi/c/aca8cbecdd2e
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+>=20
+> 	Andrew
 
 Thanks,
-Mark
-
+Vasilij
