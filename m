@@ -1,192 +1,111 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C253F23D0
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092B0345EA2;
+	Wed, 30 Sep 2026 09:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790761956; cv=none; b=CMCp3XVy2iHrdWG7K74cMUNkFf32AUmryGyZODWSQeS12wnCn16s3Z2EIWujFHEoTOvLPWTi4FMhB7h4iHpIvjqvT1h+kHNH/Xl5cXvy9El0R7ZLCzGShWgceIJnCdKBgmlAl0LSRde1GYP35wauchsAgVfeibGmWvdQfKgo+uc=
+	t=1790762119; cv=none; b=B+h+HDA68fFrZqKewoIcgmjhv4SugKxC5iUSeL3M/p8Pc2Wxct/UFkTSGBlF3mlyeDxkpgjiy93aCxWsqwZAqW6FRoGx4enTMjg316guBVIWSfhkIxQ9phLs+vNs2ea6mN6eQYSpjq5Mb4H8k3L16B+WULShB8rAFLezUv7sDiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790761956; c=relaxed/simple;
-	bh=iLxVE4Cozk+ouO6iON98og4E45z9ykNZt1PYkY+2Cr0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V2iArs/tVXpeLf8Ni++ue9lwQrcKqw1HC9jvjwDMNQ22BUhaoN+kqLHB51ICGeWx8ccBLOMWdzSqFJorHdUZkOJlHCWOMpkmfqIyHlNsq2jsJMKTSjxm+BwiOPMZRrf36el8/4rEevqBmGJ61a5qbjfQnrs3ay3QS8xZCEmDyR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NzaFuvFS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UKvz/oY6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790762119; c=relaxed/simple;
+	bh=e9dwwle1xBAGCtdw2f7HOoEg+HRqdHzLnV9H8CivWgQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ionq3RYORcnH90UCKHqgkYMsQnh6NExAwRAv8qgJ5NGXvAui6wVsQ0ugLpdxnHoGqxXWZmYbXVo5Yex11H9ol3pYmuqOz2xWgf88REkrpyNF6nkRmakb/unyO/AM5PbdHk5nWC3hmpBx5bA/2Fej7cu2iitYlkKjv96ewD6iT+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=layBL/Z7; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NzaFuvFS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UKvz/oY6"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7dQOe4047388
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:52:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BmB8C1C0sVBPcs3s3/896bwiloxgVxc5XOCY4XwaWhc=; b=NzaFuvFS94WYc+aQ
-	lu5laVEYepCpsPWCBy//ehocsJzsKA1kTo7oI1JamTJ0Wnn12qV5wA3KtJ/T58uf
-	2WN6UIec33eC+4YXwAzZIIABNy0Ijwt0ubXuvJO9U5beJlSAWYwZCxdZQcUAY8On
-	AX+9PyXZiwIC64BPQ2bPr13mR1ZNUVfrFBRGNpgaDHrAwH4H0fDF6DMO8YLrklhX
-	QWn3qLQZLqx5dxgrNYCCMoZ+zlObWuWX+oIiTM1J2rrniQp2uhNkHyX8LxQi6yQO
-	EwmsCL9dJXM/kuZATiPpBsg0a7i1RklugS/0kHszvBPaEw5QcX5kBMlRxGS5kJ94
-	ugm6aw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0mfab081-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:52:30 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-530e0def61aso16636541cf.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 02:52:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790761950; x=1791366750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BmB8C1C0sVBPcs3s3/896bwiloxgVxc5XOCY4XwaWhc=;
-        b=UKvz/oY6W2L99w4oZyd6AIhJtuhScKVWLTAQcO1PJODO+QZZW5PuO1OZPYVtKeWSUj
-         w9rRuYdZrKfzqbWGDqkVlmQqWJA595JTZgFyj3h2dl+ROKbjIfxdsBNS6SXGPVec6Irv
-         rNEtIUWiKrC8Ymr6AWpsMafUygubyeYVQTwhExETbIbLQV1PpTivPumi0vOaDbpzlQbQ
-         Yanph/L/11PwVIxcNFwZVw7A7Ou1oB7nCAlRBC5RiCkd/SZr5JqSvzYy+EC/7LRrM5FA
-         4RbUL+xVzNcVVqWaCuYNm+zfTYuIHHJ6fLnJOYiRAIxTAMSRrjV33ZyPKvYstK5BAfNM
-         EJ5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790761950; x=1791366750;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BmB8C1C0sVBPcs3s3/896bwiloxgVxc5XOCY4XwaWhc=;
-        b=SejLqK87nhDnt1VVHfp2Pyqt4jaofvfom5CY37NuoSr8nzkRUdA+J1bMUg5Y6sg1vo
-         FeXYcxlunD+Z9V916ryCOYhp7BWriNcw2TJaaSwpSGqDdldUjhxqzdLl7dJ5RkQG8dYf
-         g0wHPwgTMU9cNyUDNpIdPSo/Qk7I8Q2+SNftU8UYKAfbDp4ajl1m4wJy15QSmwydsTU/
-         u7SazaHaprLj+yZrxpBlefAuR5EbMh5qTlTc1RIEI5NztHSPARBhutorQEonfRMySemC
-         SkeRHVfP8K24GHrRB9nVo2TdiSesmfwRMDCaQiYoL9hC3OQW4kgnol3pjfjewU+7Qeui
-         BxZg==
-X-Forwarded-Encrypted: i=1; AKwUvBzuugAw1NHw22pGjxrYrQkBp1dpVW6J4KKiQtjK1xcageSI350qfOWipWOgeqxdpWUc8XFugYu0VJa1@vger.kernel.org
-X-Gm-Message-State: AFuF++mafGFAY8QQLHJM/9D1lkPdcxpaOJEyEJeNlOf8wn+tHbPb/OGj
-	/JuqdScB3WvVl5x1vuRKp+2HNWst+c0o1lOWKm0coMlq/sEuIha0tP12qb2/LF77MdJMEIpgr3l
-	xmcky9DHtmgyhkexr3S7Lrgoplb6FMsnMMH4S9n5ZKIVRDtsqK7iTfRtnB9e0Edje
-X-Gm-Gg: AYBFou3uQdjnc75PMhPGE/B2ufl42ANWn+1jcoFEhtjGBUErlS3iE3A4SfuO9tU5RBP
-	oFsBSEJFdkCQwEKedHh7u50SR/uXyL6qLtqXdjGUKDbyafgBX48wkLPf7Z9dXbUiCizhLZKkFaN
-	BLNcGBVhhCsSixhg4UgT5wjjQbUIO7XxN/2ElJuFlrcTVvfpLYGCSTWLv+1i06wPT8oUs18Hynx
-	ixxHdvFkxP//bA3taqkw+SmetSDlSUVk8OqUQWXzp1V2tG6xg7qiFimS/asCInlZfOZu0kt9AEc
-	zy5khs0kEsnFHl0ruLxOKOQl+csqo0zqpzY+1x1paOmLQ2xfwqEIzQZHsjEMVg3qxqHj0iQ6iqf
-	P8Tm+1vlQ+KJpVZWY7xTZNw==
-X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ca9418c15mr116407885a.0.1790761949605;
-        Wed, 30 Sep 2026 02:52:29 -0700 (PDT)
-X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ca9418c15mr116406285a.0.1790761949099;
-        Wed, 30 Sep 2026 02:52:29 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e22f7f26asm39222766b.42.2026.09.30.02.52.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 02:52:28 -0700 (PDT)
-Message-ID: <9c4cc38d-6cbc-4c87-9946-904b3bf513ba@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 11:52:26 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="layBL/Z7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790762118; x=1822298118;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=e9dwwle1xBAGCtdw2f7HOoEg+HRqdHzLnV9H8CivWgQ=;
+  b=layBL/Z72Y/lz8U1AOTFrgqubAuQJhCsH+Z9Wsk9oxBaN8LM9HuUVOsy
+   tsZn3PXECGnV5v4DD5Z6lTCSSemfzUoFSuWnxrPBvg2QdRkLZsLyHAMPE
+   ikESxvj5FDW0G7TCXcPWcI4v7ytWtJ0o/R8bOJvp2GaJUqW4CMBXnbnZ1
+   brM2KrArMnCXK+/q+JE06APJrJjZL1cJVjjRFjO+WaGi6Un/V4NTIkqMh
+   zBdpOTiO5/TJy0SOnOahzveKSb7CqAkLh8IKvxPF0KIo0LJVzAF0hNrzP
+   GbC/jkt85IlFD1PxvLcQYcGzEcplkwxKyNCcbfLjK6TRfvkWcp8jvS/vX
+   g==;
+X-CSE-ConnectionGUID: tTVpR17ITnyJvPTCd2mm5A==
+X-CSE-MsgGUID: LJy480wsRrOfRSLBEAybvQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="100826317"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="100826317"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:55:13 -0700
+X-CSE-ConnectionGUID: LfWAgqObRKqkM11sMqrmow==
+X-CSE-MsgGUID: 5MuTlYiHQ72G+gSj+3ZIIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="283725806"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.109])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:55:08 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 1CABA11F925;
+	Wed, 30 Sep 2026 12:55:12 +0300 (EEST)
+Date: Wed, 30 Sep 2026 12:55:12 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: dumitru.ceclan@analog.com
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Julien Massot <julien.massot@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	mitrutzceclan@gmail.com, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
+	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+	Martin Hecht <Martin.Hecht@avnet.eu>,
+	Andrian Suciu <Adrian.Suciu@analog.com>,
+	Martin Hecht <mhecht73@gmail.com>,
+	Cosmin Tanislav <demonsingur@gmail.com>,
+	Vivekananda Dayananda <vivekana@amd.com>,
+	Quentin Freimanis <quentin@q-lab.dev>,
+	Cory Keitz <ckeitz@amazon.com>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Dan Carpenter <error27@gmail.com>
+Subject: Re: [PATCH v18 00/23] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+Message-ID: <arzcgO9KcD_2Qc2U@kekkonen.localdomain>
+References: <20260930-gmsl2-3_serdes-v18-0-43117818f499@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: shikra-evk: Add GPIO expanders
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-References: <20260929-shikra-gpio-expander-v2-1-98ea5808c4a6@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260929-shikra-gpio-expander-v2-1-98ea5808c4a6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAzOSBTYWx0ZWRfXxVDFN5iESbTy
- mRt0k0hrixjcjAlmaPOw5SN9Z/BBS4zKeWDaNgpVKSY6HuqMz9iXxL1yuRns+F3Zo0MozTZmnX7
- g0EV9bS7C2aRgAdDw9hMvalvAEsNdr4b7C7HADXq3R91N41ITZ1H+1MXZEq+G5jFlXjaN9fiNAY
- K3OEWbQ5ogBtUCyYOwDpVBfhghnu8Xpz5T03u2WK1t4vgZHaslb20evgqyQS2xoj547hTw7EKWr
- jGmWnoGF2sBBkyxxWTWl6ZR5d7Noao8gYCi0Bp7J5dVBzwtHiftzxq20QNTir3QeT7KhgLnzNEf
- T7dp+4O7TboqH/yDZOgv3nTSM8yLhosWghFxGsfF1XTVoXqpwO0XUpoeSGlkz6UaxXXQQ3cbWUG
- k+QOjmLWMXCLqkidoRL6ZlVco/X5Dsqej4pn10ZR2B2p44VS416BRsM0eQjUHyQ0o98Tg9iYrMB
- nAkeZumLOIpCf1lXkhA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAzOSBTYWx0ZWRfX4XRXHBtRh5lw
- iYyon48qt0wELrJNSsMvRiBBncsrljtbXaFGdPcpaF85rqjEmLPhJnB400/a6QiP6TfeAWusu41
- 0KYtQlMz8/jixrJTazsj4XTIBxTAsnc=
-X-Authority-Analysis: v=2.4 cv=RZEFmFtv c=1 sm=1 tr=0 ts=6abcdbde cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=RJTwi2r8EDbqXNWvjTgA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: c-Wq0_LlPenuniNN44dzDB4myQHWmXOL
-X-Proofpoint-ORIG-GUID: c-Wq0_LlPenuniNN44dzDB4myQHWmXOL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300039
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-gmsl2-3_serdes-v18-0-43117818f499@analog.com>
 
-On 9/29/26 10:35 AM, Komal Bajaj wrote:
-> Add the EVK GPIO expander definitions on the I2C3 bus. Describe the
-> TCA9538 and TCA9539 expanders used by EVK boards.
-> 
-> Co-developed-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-> Signed-off-by: Faruque Ansari <faruque.ansari@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
+Hi Dumitru,
 
-[...]
+On Wed, Sep 30, 2026 at 01:41:34AM +0300, Dumitru Ceclan via B4 Relay wrote:
+> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+> replacing the few GMSL2 drivers already in upstream, and introducing a
+> common framework that can be used to implement such GMSL chips, which
+> avoids code duplication while also adding support for previously
+> unsupported features.
 
-> +&i2c3 {
-> +	status = "okay";
-> +
-> +	expander0: pca953x@38 {
-> +		compatible = "ti,tca9538";
-> +		reg = <0x38>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +	};
+I'd merge this but we have an issue with smatch in Media CI; it continues
+to flag smatch warnings from what looks (on a quick glance) like the use of
+field_prep()
+<URL:https://gitlab.freedesktop.org/linux-media/users/sailus/-/jobs/111466268/artifacts/file/junit/test-smatch.log.txt>.
 
-Please keep the nodes sorted by their unit address
+We could pick patches from smatch devel branch on master in order to get
+this merged but I won't have time to try to bisect them. Maybe whitelisting
+could be a temporary solution?
 
-Konrad
- > +
-> +	expander1: pca953x@3c {
-> +		compatible = "ti,tca9538";
-> +		reg = <0x3c>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +	};
-> +
-> +	expander2: pca953x@20 {
-> +		compatible = "ti,tca9539";
-> +		reg = <0x20>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +	};
-> +
-> +	expander3: pca953x@21 {
-> +		compatible = "ti,tca9539";
-> +		reg = <0x21>;
-> +		#gpio-cells = <2>;
-> +		gpio-controller;
-> +	};
-> +};
-> +
->  &qupv3_0 {
->  	firmware-name = "qcom/shikra/qupv3fw.elf";
->  
-> 
-> ---
-> base-commit: 6375e61c01e93e35ee7acd336a689ac1fae4b509
-> change-id: 20260924-shikra-gpio-expander-25ff4a29c848
-> 
-> Best regards,
+Cc Ricardo and Dan.
+
+-- 
+Kind regards,
+
+Sakari Ailus
