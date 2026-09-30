@@ -1,189 +1,197 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013048.outbound.protection.outlook.com [40.107.159.48])
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.0])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2764B8298;
-	Wed, 30 Sep 2026 16:21:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0EDB4FECE8;
+	Wed, 30 Sep 2026 16:22:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.0
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790785283; cv=fail; b=cUwpGAWDI6DrN72yDbqjhkXhUjiOiRJpQ0v1WLHTrwbB8AYf+KsfUph7KF/ntHyA/hnBCy/Cr4cxXTBIxCrdRJ2YWlzLuXj+EkAWci+SE41+sYgWGKMsfdRlNeX8qydcsYGBHGtLSOT1XaEVvNDb4/+/rJIiXStFby2jgFRq8wQ=
+	t=1790785357; cv=pass; b=Lpw/fmJQM8nvC/MXgWpM0IQYtLSAZuXrwFBAfoGlqIM7TxbosXNQB72iKEz1Q54q47ENqugPnV7U5vslv0J0yPVCOXkp0EylvbLq73++y4fS0aUJmE9jNHpL0xd1PbHt59Iik/3Ic9AvYWGGsVd0xEakC8zEyDH5tW36+VKPZPg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790785283; c=relaxed/simple;
-	bh=Ntg44heRreXdYxUXN4+MutohPMnDwDJjtqp4ldcAUek=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=d2NX2pceCY70ux1DqaVwVV46n15XgrqOsAje4sTFZzW0PepJf2K3Mv3vI1ODxzCnSW89xZ5mIRVMCcJvAzTmEHYBiaGZNNkua+le9ANj5vsEHEcOze06aHq5Rhsqc44TIkRuv2fRMxF6uEkOPyS/wQFvZkvCKFRhA4173F0JWds=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=KjUAbHKM; arc=fail smtp.client-ip=40.107.159.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1790785357; c=relaxed/simple;
+	bh=XG+XEXFoE7m3XUnzJGwtjUCRx6qhsjftZVKQZqjmcl4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QD8AimubGKIQVbnHodX4LPO2lb10P7P+vvn63qrArqGDPOvD+Yddf91ZsifQGQ4ybxN+z/BXbLm5mUmvchoTMao4zs3KiWVCdVv55hof5Aec8B4iAo+HHROrdsZ6pUmJ1NpITMNMhnVTS5rD9lD9e6tPOYGj/OdT4ZtHTE31SdU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=biD8AyrY; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=q7m5FpCS; arc=pass smtp.client-ip=185.56.87.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="KjUAbHKM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w/Ekekec1qbe4RMloJ9cqzwLZL44BZ4OLNhV/cckwjb+F6ps5HwtCeP/u4fbtnVncdFZnK5k5JSdSL1y/oB0iu44dOEBUMTfJrxS5hVbTl5+inrMhp4FTmqfGOxGsc0j+qy0YbEz3NiqNOIV6nWgWrJEY/PaZn/mCkzYFsbI+E1y0gamSoeeeW0gO2TFSco9xzOGewSgE6EkNt9e0tSSweZUU1mubDm+dtqQ+QN1KL+0okQ06vnaqxvCIkILj8sZikta+A9BrKVXFQ0J+duMsfWHGjclqTFcjqbIKJmZer6V8Xtz7DMVW876mEW/DM8N0SH/ZcEBdsXQL/I0JFvUlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0iskIw7S301v6TTGapwma4DAJyjd2ua9RbPKVQb0VhY=;
- b=XpctiRMbYC5ohdeHNmLHIsTKXBfkeYriGGgeYcrSOSe9XqWa1aKB3UCn6ZNMZ2uBDeIF5sUWs2L1HSJl7d6Ym6dkCfQRyWvbuLzQXs9yUsjPW2iKXK8CfXYST66IHNUBgNwx1PlslgMV0NiAwheKUZIuKSzyrzE4exsPKSUzl3XUkid3G+uI5IjHrsPSFTffeUsLvyDCRc+am44ifSvRXwHTfKP7wvuYJrbcmFZ4qkcgFP32J+wv2zsZ9Rpvjrb50g7bfmrrDvKWh2Hqqtiu/d9kE861dO2L1nmXWPqljttZLE56KHDEUif95hHwJtWHTHkTNsD9A+BEcGRnSqbXfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0iskIw7S301v6TTGapwma4DAJyjd2ua9RbPKVQb0VhY=;
- b=KjUAbHKMHBwvYj6NbxaY50FFFgMN5xKAuElbXyW6eGsUdeRdKecOA3br7iCFJNVMfsftwAt18VwGwU6e9nRU99F2iA+V59pVPRV4WkGY/QHIO6fbBzxgf5UF5osIyd44XOV7/rUSlUyego1tBJq1PcBzIeuts8CIh6Tp9Qgq+bt7rzE7dQ9Tjttc5l4AJhV6w3Y2LWQoIMRubfMFg99GAxj3XYdPClu6W5ZV8nBM0XqbTWWv9aRaZPiATDeZOMtJs+CHdkFDBrMaWsXYpogqqvCrdiW0IjE0gACCAtFXmW9oF9pXIgXmKiRpAlqt6Gys1Jve9Aijb+lEXKLxCM8UCA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB7540.eurprd04.prod.outlook.com (2603:10a6:20b:283::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 16:21:14 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 16:21:14 +0000
-Date: Wed, 30 Sep 2026 12:21:05 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Guoniu Zhou <guoniu.zhou@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	linux-media@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] media: imx8-isi: Enable ISI RAW10/12/14 output
- LSB alignment
-Message-ID: <ar028ZyZg56Mk60M@lizhi-Precision-Tower-5810>
-References: <20260831-isi_imx952-v2-0-fafdb4b446d4@oss.nxp.com>
- <20260831-isi_imx952-v2-6-fafdb4b446d4@oss.nxp.com>
- <20260915000520.GB2804748@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915000520.GB2804748@killaraus.ideasonboard.com>
-X-ClientProxiedBy: CY5PR19CA0108.namprd19.prod.outlook.com
- (2603:10b6:930:83::27) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="biD8AyrY";
+	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="q7m5FpCS"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-c54f.prod.antispam.mailspamprotection.com; s=arckey; t=1790785351;
+	 b=Qkfdtg0WIAFqO19jgbvFc59APwU87cgGECeUvrSoAtEY6hNRBFu3Ldz4nXR65O6DORgpFmdIjE
+	  YS5g8bCRuljzlF1hhvxeVZw6Fo1dMn8iVFEiUsohhP681WSytIxUX17iclS3otHZjW67IZ9p4w
+	  NPbvRHSNRupHwUjQ5EQFVudA+b0chnPOaerNealrRXWzGmyuc8V+i9y7cgIcr0FenJQFe9WxbJ
+	  3nl26mx3dqq1ABpPpUZwxmj/HzHeRiEwS448hhns98wBURyN/9mMVO2RdKGpEa1bzxOFcdM+ns
+	  +S1HLjtIzc9Ygm5z6ZTuOR4LOGqQcnVfIhL/YN3hwSXyyg==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-c54f.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-c54f.prod.antispam.mailspamprotection.com; s=arckey; t=1790785351;
+	bh=XG+XEXFoE7m3XUnzJGwtjUCRx6qhsjftZVKQZqjmcl4=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=YlRVXW6aHGFOTGpHPzicWN4eiIbrwzRcXxYpNoG7L/z8BDU6UgvZHJs50S0iX0dXKr33zpHz7g
+	  P1XZe+ozESMTFfhtVJV7RfIskiYGC/wJIW80StTQgLlz+KEgq8+Qtbumi3vBQUG1HjfJTeqd5X
+	  LQ/2I1p2YJo9qMQinn0Os1HCPkzgjg/bnXi6OcNPBIqw4NFNfoZQA5ZPm0WcIwAOOWtJ29JrCt
+	  yWGS4wuEj2OXr7zaelnlHhTny9wLZALXVjPs9q7euzXeVnRvg9nSbONVWUEl5lILc/RwxuBdNF
+	  1LSK/mgYGTyBX7YYchUo+FLzwkSNSXhgj9XKirevhSXMRQ==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=6t7GnASuY8iu8DCfqMcvSr3pNVQGJGkV48AosuqHfVo=; b=biD8AyrY1z+3G3lbutdp3etctQ
+	2k462YxSawe11xDTbzXWNkeC8aqr3suc3C5FuSAsUMUTVbxYuBZDDikj5CqGgUm8nYM2J4LJnGJZE
+	dxFcrWvl58fxOmLnTk49COTZ1s03MV4pYgAgsp5Nhxl7JOGzTlprgvyvR3tedeOyY98g=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-c54f.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xBx4a-00000004PEM-277H;
+	Wed, 30 Sep 2026 16:22:25 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=6t7GnASuY8iu8DCfqMcvSr3pNVQGJGkV48AosuqHfVo=; b=q7m5FpCSf0KtWKBUFio0+C5svc
+	B43jcg/vGa6IV6vn0X4Ni476MudeYiILU4tCXZOaT5M8XS6vuYP8aPocatBzRjQnFAoz7hKcIPVys
+	lVU0XVLKK5209DViqfD0nvLsBMKPeaycXLk8ojgY0QVwgyUIISyKtndZqb3UEsNZ04Yk=;
+Received: from [87.14.44.235] (port=60776 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xBx4H-00000000GOS-3C3X;
+	Wed, 30 Sep 2026 16:22:05 +0000
+Date: Wed, 30 Sep 2026 18:22:03 +0200
+From: Francesco Valla <francesco@valla.it>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
+	Jason Wang <jasowangio@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	virtualization@lists.linux.dev
+Subject: Re: [PATCH 1/2] dt-bindings: spi: add bindings for spi-virtio
+Message-ID: <ar0yXZotiVZmNJQw@bywater>
+References: <20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it>
+ <20260929-spi-virtio-bindings-v1-1-6a0eef3213b3@valla.it>
+ <20260930-arcane-pheasant-of-infinity-ecff83@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB7540:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4db4461e-7eab-4f41-98c6-08df1f0ed90e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|7416014|376014|1800799024|22082099003|18002099003|4143699003|3023799007|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	0mrxFG+656LPkKh6c5QnITh9Wcfo9IZ5Cld1cFRjWPX+3gpIHsvgwh4NE94oSUVq8rKZmZY8m+FTRwsqZd0Ko0NaChE7wljb8E9S/xiGEQb2kb0H5mDgY8TjLipXgUEnq/EqZw2r4VVaACy3QEyCF47LKprfQhDSNkVisezjozGs7ePipEdXAXNf/ALZqBQml1pip/6oR4nLFMJ2vgjOkAOnVYi6RP6id4Ll05M4EXbwD+UI2Vfdb0MvXHgGzK7n6xKpykl4cPpMtUP170uCFh3bbxQtSM7es5+qyduLZsMDfOoDa+H2LRepwDXE4TjuwfACGdtn8NtvQgJmWPko8x+WlYwtnE7d+b7HErTiWqKlUmaVvFb8FsPe5RoQBEgPaZkOJqmp8tJUu93hVUVpYhtXEooGov5V5XHBksucvK1YSnJaXYbJJCYJ3Haw2GUgKtdzU6mvMJYvks2tT9yCdh+ivvWvQYqr1Rh2/K//yYvy3gfQZgDhKfFs4mTnKwVeAABnzMpEn92WSJhQbS8h36WGV6psy2a1wkrgkcaDW7f6u3NJNfnF62Ye76mMPj7yvao9m9RnEIJMf23SRHxDqvOsxjoY1VqMRXCXiNZ0Ay9kL0GkLuUR/SY6DeF8cZ+qKaC0VKfohLVsJfN1oqvkMHL5oimHkvgw2q27+AQbzK8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(7416014)(376014)(1800799024)(22082099003)(18002099003)(4143699003)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RqxIsr4DWXdbkRWVOT41NfYkUsHCwnXGg6M4OKHdBwtASnLBZJk1CkfYWdyL?=
- =?us-ascii?Q?CfzBHJdV9MmQ/HBpZzpMOElSyKt+NKNgIA87jnx+3gasA+3Q+WrrgKeS7oAf?=
- =?us-ascii?Q?FcpEJGgfk37BlzsM6eauT/z51wvKD64JeLbvd95F5sIS8Gcyf3v06jbMa4ey?=
- =?us-ascii?Q?/nAm32WcOEHIBLEco/ZkAJE2ZuerXnMZDph+qlA1GYYmSFpf7L44rIcLPhP3?=
- =?us-ascii?Q?haASFIsbolJn8yhvIASCAoTaJ0I7CX/9/4nKMSW4c7JjBunPCDd768iphUK2?=
- =?us-ascii?Q?zdnYHXt+Tuorhtothr5mK4trsBYfUuwtjMHi9mY85f0l7/1ytV4djct3lKZu?=
- =?us-ascii?Q?8tq9iAwHCk/TrTeQHeMwDoe84wU6PIwNG9/akXUpVjcF+p2lEcoSvaStH2pm?=
- =?us-ascii?Q?tZhxfoHHT3AfhIXX+kRKRFRrkO7gdfFNvD4zphhB3JL5uHCvH4S+a+toeGou?=
- =?us-ascii?Q?6G9X+4s0wA1qWYESbJEbk0hgNqpmxhAa47ITwsYnSu4lTlP/fZtX8L4kFKCb?=
- =?us-ascii?Q?Fq1++lA8Q5FdN9X3FpHCpkvAeZv2sNE++l9vBzgClWhhai+DjR7zrdy70C7J?=
- =?us-ascii?Q?kt/oee1CWWa4HmGWDznI10QHb8AWxKsx3e0MYZMLs+MEAQfv1+NkaxtP7lc1?=
- =?us-ascii?Q?py44RQBQpWyMcWJBfCczmmlQ/MTRR0nDgGj+dKngF/Zo+CS3YBeXyRq8G+dB?=
- =?us-ascii?Q?sUe6RrWAgJ9/BwLtQUsL3OPvSopX/2MRYhywr7Blqu65PBrRHal8OVC1VNwF?=
- =?us-ascii?Q?OFKGwe94Q0126m8Fo2fJN6+GEf+HL64EESVy8tjRwr+vUb4cmqx5+FOdqTlC?=
- =?us-ascii?Q?RwP8yXFsOV5WTMy8I39UmlSFw+e3LTnZWCYLAZlLA4C5Io9Gc8Dl/XFdvCxt?=
- =?us-ascii?Q?9FynH46kP8U7TXQoeAvBsdWwNZYECVmPuBYexMhLrRZ+UKmXrqvsgC2wpa0m?=
- =?us-ascii?Q?bVNHcmzwypeCebjO7fXpevyGgM1aAGbjvB+MmWxtGWenKfaAyRPSsdW6/SXu?=
- =?us-ascii?Q?t92z6fqOe7LajcB6mO4KzsJiZt6olYRnl1M05HoCf5sY9yiDfB0cXJSAWp93?=
- =?us-ascii?Q?VJTVIp7JIhgRuXJHtUELdWXYLpK/Xwp+l9p0d/CkGUeW7g5pb6RcOv3YLhn6?=
- =?us-ascii?Q?ZI7qH/cNUdYZiHtWdzR7dIjv9lLs3u3bHAsm/c+/y9nFKFpcMJ52U1+OZIXa?=
- =?us-ascii?Q?AqdG1r5ukY6x7hn5F590taiYOYfQqiGx8u2saJ4crL4J2oKasQ2s4jPlFB2i?=
- =?us-ascii?Q?dZuaLpeMzYS4DA+em7K1VshGh1ZcL8Tr64dx38zceFqYoFMQ7uTT8cnjbGnG?=
- =?us-ascii?Q?vKiXqRVJPQkBF/62ovp0mQQeJy+6XSFEyUtZTG3PlLfyH9P1M0Co/k9YpV+p?=
- =?us-ascii?Q?sDp4XwAmH1rT5qJjLoyl2NL51sUbkcgEs8BngvcITFx9uW/1nsi2DEZidV79?=
- =?us-ascii?Q?fwLpUMDn313pbaMGGytreM+Ow5kuQPgGCyp0Lh2/JkDocbSNo1xvMKqTxAe7?=
- =?us-ascii?Q?bhbyLrAld1hijSZWenKtAYOEo2YCikZoWZoxb5lopaV2po1idyEo9mrkINkQ?=
- =?us-ascii?Q?Ur+UjPE+xV+OGpgkWQ4NKM1cK9snmGseOpobYj/DLltMnsIyW46fCgizaQxR?=
- =?us-ascii?Q?RTWogkjONZyhadbqHVnBJ8GXU3F6+Q5dTSzm3sNUqNuVK+2RAzNEIDmT0bHT?=
- =?us-ascii?Q?oEVL2LLKX6QP7Sxf90r9jZzzVtP9QqAgZ4PbOIrawK5jYVaAeHAOmEPW4Ui3?=
- =?us-ascii?Q?/WtO3UMQE8Ji87AbxyX+d6LShWo+LNq++OaVr01ETY4x1LXgRSzK?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4db4461e-7eab-4f41-98c6-08df1f0ed90e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 16:21:14.3837
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iUlbkOkhDs/OQIYgJQ/Hej3OF4HAjfwGN/LpHZWNbIQWYk5OyN2zCAp9n+PzqQAvtUwd2dieFu0UAcqpqs+ZRFr3qrV8/+z2QtbONSF9PVeY2fCsYWSOahzjkXkq+xZS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7540
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-arcane-pheasant-of-infinity-ecff83@quoll>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 70bd9ea3b80416f81ac2f5224697ac6f
+X-AntiAbuse: ID - 70bd9ea3b80416f81ac2f5224697ac6f
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xBx4a-00000004PEM-277H-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-c54f.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On Tue, Sep 15, 2026 at 03:05:20AM +0300, Laurent Pinchart wrote:
-> On Mon, Aug 31, 2026 at 11:37:01AM +0800, Guoniu Zhou wrote:
-> > V4L2 requires RAW formats to be LSB-aligned (right-aligned). Before
-> > i.MX952, the ISI shifts RAW10/12/14 output left to MSB, so the driver
-> > works around this by using RAW16 format instead.
-> >
-> > The i.MX952 ISI introduces a RAW output LSB alignment bit. Enable it
-> > along with the input MSB alignment on platforms that support this
-> > feature, so that RAW10/12/14 output formats can be used directly
-> > without the RAW16 workaround.
-> >
-> > Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Hello Krzysztof,
+
+On Wed, Sep 30, 2026 at 02:03:17PM +0200, Krzysztof Kozlowski wrote:
+> On Tue, Sep 29, 2026 at 06:41:55PM +0200, Francesco Valla wrote:
+> > Add bindings for spi-virtio based on virtio-device, reflecting what
+> > already exists for gpio-virtio and i2c-virtio. A node using the bindings
+> 
+> Existing code is not a reason to add more code. Existing bugs are not a
+> reason to add more bugs. Please provide proper rationale why this suits
+> DT.
+> 
+
+When a non-discoverable bus (SPI in this case, but that's true also for
+e.g. the I2C and GPIO cases I mentioned) made available by a virtio
+transport is registered, the devicetree can be used to declare its child
+devices (if any) and/or other properties (say,i GPIOs tied to CS lines
+for the SPI usecase).
+
+The virtio framework already searches for a node with a suitable
+compatible when registering a device [1]; this binding is thus not
+introducing a new functionality, but allowing proper validation of
+nodes tied to spi-virtio devices.
+
+> > is not used to instantiate the device, which is registered by the
+> > transport (e.g.: virtio-mmio), but to define its properties and
+> > establish dependencies with other nodes.
+> > 
+> > Add the new bindings inside the MAINTAINERS file.
+> > 
+> > Signed-off-by: Francesco Valla <francesco@valla.it>
 > > ---
-> >  .../media/platform/nxp/imx8-isi/imx8-isi-core.c    |  1 +
-> >  .../media/platform/nxp/imx8-isi/imx8-isi-core.h    |  1 +
-> >  drivers/media/platform/nxp/imx8-isi/imx8-isi-hw.c  | 39 ++++++++++++++++++++-
-> >  .../media/platform/nxp/imx8-isi/imx8-isi-regs.h    |  3 ++
-> >  .../media/platform/nxp/imx8-isi/imx8-isi-video.c   | 40 +++++++++++-----------
-> >  5 files changed, 63 insertions(+), 21 deletions(-)
-> >
-> > diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> > index d492631dfb6d..0f776fc8fd7e 100644
-> > --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> > +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> > @@ -394,6 +394,7 @@ static const struct mxc_isi_plat_data mxc_imx952_data = {
-> >  	.format_mask		= GENMASK(30, 24),
-> >  	.buf_active_reverse	= true,
-> >  	.has_36bit_dma		= true,
-> > +	.raw_out_lsb		= true,
-> >  };
-> >
-> >  /* -----------------------------------------------------------------------------
-> > diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> > index 73f6ea7b0ea1..c352bcf8dc47 100644
-> > --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> > +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h
-> > @@ -166,6 +166,7 @@ struct mxc_isi_plat_data {
-> >  	u32 format_mask;
-> >  	bool buf_active_reverse;
-> >  	bool has_36bit_dma;
-> > +	bool raw_out_lsb;
+> >  .../devicetree/bindings/spi/spi-virtio.yaml        | 53 ++++++++++++++++++++++
+> >  MAINTAINERS                                        |  1 +
+> >  2 files changed, 54 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/spi/spi-virtio.yaml b/Documentation/devicetree/bindings/spi/spi-virtio.yaml
+> > new file mode 100644
+> > index 000000000000..5b8639dd2e1f
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/spi/spi-virtio.yaml
+> > @@ -0,0 +1,53 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/spi/spi-virtio.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Virtio SPI controller device
+> > +
+> > +maintainers:
+> > +  - Francesco Valla <francesco@valla.it>
+> > +
+> > +allOf:
+> > +  - $ref: /schemas/spi/spi-controller.yaml#
+> > +  - $ref: /schemas/virtio/virtio-device.yaml#
+> > +
+> > +description:
+> > +  Virtio SPI controller device, see /schemas/virtio/virtio-device.yaml for
+> > +  more details.
+> > +
+> > +properties:
+> > +  $nodename:
+> > +    const: spi
+> > +
+> > +  compatible:
+> > +    const: virtio,device2d
+> 
+> From where does the compatible come from?
 >
-> As there's a single SoC that supports this, I would have used the model
-> field instead of adding a new boolean.
 
-Laurent:
+This is the compatible the virtio framework is expecting [1]; '2d' is the
+hexadecimal representation of 45, which is the virtio identifier for a
+SPI device [2].
 
-Considerring more SoC will be add. use bool is more extentable and
-managable. Make code clean and easier reader, and preferred by most
-subsystem maintainer.
+> Best regards,
+> Krzysztof
+>
 
-The another disvantge is model can't tell detail difference beween modules
-without go through all if branch.
+Thank you
 
-use each feature field can be easy identify soc difference by compare
-plat_data.
+Regards,
+Francesco
 
-Frank
+[1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
+[2] https://docs.oasis-open.org/virtio/virtio/v1.4/virtio-v1.4.html @ 5.21.1
+
+
