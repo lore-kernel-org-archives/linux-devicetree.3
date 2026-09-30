@@ -1,174 +1,310 @@
-Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB15F38E8A1
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 04:14:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790741669; cv=pass; b=Lt74ajdKvHaIbbhmXd8r0Le6iELSESJW4rdL8Hn2LY/s2NoqcEiuSJu9KHAUT2FKJx1fBOfTX4aWN7gWIBOdek2fvRiiP0DRcBRH3e2cu3PSSavxhYBMLYuZW1CR9Yw5GF3yj9T/RMTbsnP5TYdsqMwT02VjvtkwavXBdQk5Gmg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790741669; c=relaxed/simple;
-	bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p3qs7bHdgWlO71uJHhD7PlSCXRufqcac2+gZTx1yRCTrxNHrUKAXPnVbe3q+ofIg686JD0prPgIyQcwENYPrLyCbtrfRY2/yfyTrMzFKzym0ZEEqisVC0/K5ubZav926Ml+uhgHdpeJniV5xTOJVX9JqOS/tiAueay91ry6Cl4o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=bEsg7GBF; arc=pass smtp.client-ip=74.125.224.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2C2349CF3
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790744580; cv=none; b=HRSJv3ZbKn3CbwJbhWgyp8hEE72Zdq7r4NBQDDqR8tOo2N2dVnzBv0WslWqIrh0xdcCkRM4N3ga7u2xLfddJ4s7rU7vMHDX2qbP2swiFKQQ8sjPB4J+5xYL5uIJ1wruqhavFSPk8qmYN1rX9gPjy3oUZa53//oaUisWQIi1+nww=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790744580; c=relaxed/simple;
+	bh=aa5m/7BK7/DbTvlCizArErjlcAXnc5ec7jWXk2pJ/iU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TMypM6lm6rqicx82tmGctls/s9Cbiac9MrtHSRoC9AfigIizTkBFWE2cQycndE6uxAq6lh+sNAPlR3eInJ2wkRljOHQrTLM7sjxWJAx+qHsG58rSc8TrFL+hzI204Iz3IXMEo2NNOP7XgflzqsuLLv83fhBYh8nRq7DZbu53420=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XXHPYJ6F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dubEktmD; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="bEsg7GBF"
-Received: by mail-yx2-f40.google.com with SMTP id 956f58d0204a3-6762de1c77eso446673d50.1
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 21:14:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790741666; cv=none;
-        d=google.com; s=arc-20260327;
-        b=F6ISL4Ij44RVgeJ2TnkJ9eemWgwjIv84QVlD/e38mNnWfwhhQnVR6ZOIph1qRa/V+f
-         MjUk3cT8S8MTBHeVrEi+UqIxpsJAOvO9gkZRGkz4qZaFsU7rzzc9Lwkb60oHk1aoeBFa
-         CS0GP4MRQUJuQObRh/qWwk4UYeU6UeVbyhEifkaFJvyc0K4mXiGeWMEan0qvMehT0re6
-         UWScYYf0cijgF6sfmrHgchJst3o2WLEEFJglXKSDE6EmsWz+CSEv/i0OFreZ0fqcvDIS
-         HckejzEe2tt185khCvdLGG6+pisdxYyjzRIcWEzSDudWQI/OjvEBj62LvzZ5xUnRhM2d
-         zA5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
-        fh=RtACwoa2xiEDJzlr+5GJSLyDcz16Hk/FWejvfkAx+o4=;
-        b=dubj2jd7UIMCR4vz62fkaPrIb+HD4whWM9tSfBgeebG88djzMospCsZI4mQWCFLLqb
-         oPDu22GpM2Mg3FGf1wKMghfmyOrhJWfwg+7vY0yBtdU71E1jedyidOTNhbiaqUzxgJn9
-         EK3+uP9+vHd4JdpqEFZb0E0SkUcRxfs2PB2qrpI8/mlkbIEANBnJMiXeuG4YO+lnkzto
-         RorCUlD0/Y/RNox3vnVW46H18qGSkD4Us82L406Zsf5cKXCMwh5pqdADV50hHUpJ4Lyk
-         ZMEucI2EqbRsHf8sXTWUHUXesLr4pKjZDNyZmI59UwdH7WpBHrFVYsiDRXhVNPzp9IWd
-         mQCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XXHPYJ6F";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dubEktmD"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TNPlRP2969625
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:02:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qkg6ZsioMZw6EFu9fkXHTIgiUwtXNeSZKmXw0kdl0wo=; b=XXHPYJ6FeDHCsKs/
+	gTUZP0A8B7VEKvxP3/ZQGrMcRXiqJma6U6+0a/4UEXZA0tZePMhR+iRHKNDFiyVg
+	n6qigTH4VHX6L7APsHkzod0dTpR3Yu0H+of2UFG2Djj0yoazkdJY8U4deJT8Q4hP
+	LIvrlHDOwI/8brieRCU0HU01XTWNdak+F11htJRuWD9wzXbkvKTZDzEKTLPMv1jh
+	lP8KCFVTsOcy90kUEEbEwhNFRXwUqB6UyTLj6x7DZuzn6aBxoisjefLP5ej15iiK
+	8bXA/T6czpOtTnNCeNO8VoVmCkSzHlgFLnK0xPiR0vLX3Q2p75L2vlUK1iZmqyz+
+	OA5Hmg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0mfa9r3b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:02:57 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db87f759c5so49590305ad.1
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 22:02:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790741666; x=1791346466; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
-        b=bEsg7GBFT1zZzhGc6u8sDmnXTAV25/gAq+pd6f6PktV6+Y91n3ehaPpZu1cNMNBBdP
-         tBb6Q5H6oZlt/SVxy6CAfvy38XSkOyzXh6T6XJeAOH/GDvs5dBDL4UAKWvnsZ/wBU8sa
-         Ab/ZyXjxV4D1dkvZKVmN7TRkVP830fBtz5RAk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790741666; x=1791346466;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790744577; x=1791349377; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
-        b=SNrXszeLErltK18kfHM2ILacDRnAYP5Si1o0Eb1WPe+OfdbItMmiCLd4/RIvCvoYF3
-         dQmHGd2tWos3jGmmHuxEhJwA6z3niNHcqj93iHDJ1Vp5poBfaaK8Wa+OMAkamcaxSyNh
-         5hZVlZY1S16AhbkOhvIUP1dRdct7RtfT3G1OkMZMc229cviYWdZiPIpWFlrMtoDPnbiA
-         keuzEWv/ralh88/QqPO/peGL2viOG/OAgkl+9Ol+W3UhiLYyPYFAKI9WXADt4hF/3N0r
-         IaujJkFpusL19PcjQB7yt6Rgx9KWLiOUwRxACLtEsNCMAdMGgP4jtE88EQ1rPPZJ/qpF
-         Qnvw==
-X-Forwarded-Encrypted: i=1; AKwUvBwA4BtE8ppXYCzmUleV9t32CJdgoGlRuZ9Nsg5hOYkKQaaG3W7b3/C5tGBRXMO4Ryp1M+RED0yeUUfV@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNm56O6SpWmDCz7zyGAx5V75pKMefXOompzjn3VYqa/dA3XiFk
-	YFJz6UWPJSux0qjD0utxxqP8Ebi8vLBWj8Ypag6t4xnAZhjoIuLcK4cIXu3KMfosapWIcY6q3Fe
-	yz6lc43U9+Qp3D722M9QY0j5//7G/OldQeVB4YIhx
-X-Gm-Gg: AYBFou0vvjje8BUqY0j3/cdA+kebN4wf2aX9x8uMa1vmguM3XLHjZwjHSlghQTsBxtX
-	DVHrnUHDCgfes1K9vCIk96ENCBXoeIvBfCdrP7eGVotXA3VgVpS7DTpXBQJEmUl599egXOyoqgO
-	SPENtdwphMeJr1hWtBaORXqaN16OSOTUIuXPUEkYXMqIoel/KgJK9gFFfcUF5r4XaqFsl6Kuwrv
-	bEzKaile7NdTCwcOqTnP+Wy8J5/aqba0H4lovwskLXfYKc3++532D6dvpzMdz/HkVGtgdClwnYZ
-	F41kUCPWvok1r0reoYHaYYUPfG3IPf7rGl0QlgJDXOp4WfAtvSANXlAwa73C9rf5iz0XZU3zaZn
-	lFTBnWh8daw==
-X-Received: by 2002:a05:690e:4197:b0:675:405d:643b with SMTP id
- 956f58d0204a3-6768349a6c4mr76844d50.98.1790741666569; Tue, 29 Sep 2026
- 21:14:26 -0700 (PDT)
+        bh=qkg6ZsioMZw6EFu9fkXHTIgiUwtXNeSZKmXw0kdl0wo=;
+        b=dubEktmDVSYFkT/ko8QB7z3KkMfqH1OTx7Xa+OzOGxI1BA4O2FAYcfJiY+VYNWgLwl
+         ZudxVVAGLuWbQ/bQoJ33QwerQo0yjfFV0MdDs7G6DaT7xPQI0kTWqnyO/6XgQOtY4mPb
+         //Yy4K1/qCWtIF/1ScLcxMMdjG/MY1+LT9PXUc9M6helcaXnNMwAmCDjXVK7I3DQlCLz
+         8/w/ckFfenYni1320JBTbfFeMoIunSyF2XPwHtiAEFJ8srVOP2vf7iEOfu9znDQj/THV
+         ujIMw7BUYp0f21h3I6OcgHvmIwe+b6GRf4nzkLIKsnJ3wZgkH4vnshXZE1LCopZPMoT1
+         qqKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790744577; x=1791349377;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qkg6ZsioMZw6EFu9fkXHTIgiUwtXNeSZKmXw0kdl0wo=;
+        b=F3SMFhcC6vzzrPNjJ9PhifWmwLmLDu8deGERFKh0s9R21pLud7zSqqIAVMNiJ8gNAE
+         5wfHZX9aGYhZEIa44D9NCwXf4XaV4FkfoT8iM/9OLS/mLBoVES05zT33bVxbii9BsBsq
+         pqPpu6MYyqpTAMQiOIM8khuIuOY47UZQlDLA+OXVtcaMmnOsDjIz+850bHTDWc3p/8PB
+         CzfaopSGXLEThra/wMJwM0zuhd7BvlbYNEdprrxlrTczWVSj85xjD/68qcf4Me5PM7NL
+         Ra1ml6sObWbuyqW2Dks3mvBvGZFuziKXCW+ZVJRNgob+H8XXsWV9m0wsXCkV3LlMXZSu
+         +pnA==
+X-Forwarded-Encrypted: i=1; AKwUvBynj6Sdef5f/OCi1YNVPtC65Igqj8hoM0e1qudWBchrPKhQSP0/0eHyGLzom/vJQesRfr0saNi5hT1+@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVr6P/Y4IEYNdVReOAr4DheYnFt66G4iD7lUtWPV4LL3O5P8OP
+	86CO3WKAnAo4OrxBqx1ke0W8Pql/3NuSPJV0fdxrcS+cK7C5fqYj2N+babU5g8Q47as2T4IuCb8
+	QdjtDk3BZyE6gaU1x7NKWfYPmFczG/jOXKALrvBmk6XT0bd3VVmfYsji0sGF0OMnL
+X-Gm-Gg: AYBFou23v2fsCtpc1VcjvXO57/hg6we2+FUnir327TujY3YUmCS8PUUpY8ZyBmQ3S0A
+	P2VDCJmimSrRvLwmWe1Kzb6Gu7RHT+wsZbrr0omOreGVsJ5m5zb2+SGohbETKux73F7zk765wC3
+	ufC2xqB5n2MeLBl3rERKU6AkIjyO9Dr13X9QSh+5g6ec+wPDrjBHIDorWWTtvLfGs46udMgrqLd
+	RAKIp2PjwhNiKSiDI/gD9qW+SYMBHQjtIidJG7HVuWsRpifsmmc7uqimX0KUplpmA5AjItlRepV
+	4Lqxshgb0P/KRZvCmgKiU2IVy2rBvHPeku1TxPRMGlPrGuFz0TSO8NegZEhBSMgho343GFSUbl8
+	2eD6G4m53ALlpRBdVwmahzhfYwWuJ
+X-Received: by 2002:a17:903:22c5:b0:2e2:bf06:25f3 with SMTP id d9443c01a7336-2e2e4b4b833mr2228415ad.38.1790744576661;
+        Tue, 29 Sep 2026 22:02:56 -0700 (PDT)
+X-Received: by 2002:a17:903:22c5:b0:2e2:bf06:25f3 with SMTP id d9443c01a7336-2e2e4b4b833mr2228205ad.38.1790744576104;
+        Tue, 29 Sep 2026 22:02:56 -0700 (PDT)
+Received: from [192.168.31.121] ([152.57.6.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2e5bd5c67sm758105ad.48.2026.09.29.22.02.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 29 Sep 2026 22:02:54 -0700 (PDT)
+Message-ID: <362c6465-66ac-4ed7-9e7e-f75f31b32dd8@oss.qualcomm.com>
+Date: Wed, 30 Sep 2026 10:32:47 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260522101653.2565125-1-paulk@sys-base.io> <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
- <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
- <arQxC3DmDyVIGdqq@collins> <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
- <arVnQmik-CveaAkY@collins> <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
- <48271d518bb25f552309de12758e9a9995905f0c.camel@collabora.com>
- <arWIcrSFkEA4GMTY@collins> <013b1e7ceb7cf046888109631e72ce4c408ab88a.camel@collabora.com>
-In-Reply-To: <013b1e7ceb7cf046888109631e72ce4c408ab88a.camel@collabora.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 30 Sep 2026 12:14:14 +0800
-X-Gm-Features: AclHuK8VlKUTvMI0v8jjtLYpqVzk8qBeIKfHOI-d_wW7lfMXYke40oAj8SBNDvc
-Message-ID: <CAGXv+5F8iJQJK4N2g8pmpGQVf8TxNvkC5Gm-RZ6F4HdQaThXpA@mail.gmail.com>
-Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E support
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Cc: Paul Kocialkowski <paulk@sys-base.io>, 
-	Michael Nazzareno Trimarchi <michael@amarulasolutions.com>, devicetree <devicetree@vger.kernel.org>, 
-	"open list:FREESCALE IMX / MXC FEC DRIVER" <imx@lists.linux.dev>, 
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, LKML <linux-kernel@vger.kernel.org>, 
-	linux-media <linux-media@vger.kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, 
-	Michael Tretter <m.tretter@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Sep 25, 2026 at 4:46=E2=80=AFAM Nicolas Dufresne
-<nicolas.dufresne@collabora.com> wrote:
->
-> Hi Paul
->
-> [...]
-> > By the way if you have ideas about specific problems with the stateful
-> > API that should not be reproduced in the stateless one, feel free to
-> > mention them.
->
-> Few things:
->
-> - Drain flow should be as simple as for stateless decoder, there is no
-> reordering, and so no holding on frames.
->
-> - Capability query should mimic the stateless decoders (but up-side down)=
-.
-> Basically, we don't add a pseudo unset state, that was bogus.
-> V4L2_FMTDESC_FLAG_ENUM_ALL could be made mandatory, this is only partiall=
-y
-> implemented decoders today :-S
->
-> - Capture/Output S_PARM, maybe review/revisit, but likely still needed,
-> otherwise the rate controller can't know the rate.
->
-> - S_SELECTION, maybe make it mandatory for codec with a conformance windo=
-w ?
->
-> - Of course, encoding process requires a request
->
-> - Anything about keyframe insertion can be dropped, since frame type is e=
-xplicit
-> and per codec.
->
-> One ambiguity we have in all decoders at least is weather or not the enum=
-erate
-> sized are coded or display resolution. I believe technically, all statele=
-ss
-> decoder exposes constraints in coded resolutions, and display resolutions=
- are
-> not easily enumerated. Not a blocker, just a remark.
-
-IIRC from working on bringing the Chromium V4L2 code up-to-date, userspace
-programs coded resolutions as the frame dimensions, and uses the selection
-API for the display resolutions. And yes, the decoder exposes constraints
-in coded resolutions, like having the resolution steps match the macroblock
-sizes.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] platform: arm64: qcom-hamoa-ec: Add thermistor
+ sensors
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+        platform-driver-x86@vger.kernel.org
+References: <20260928-ec_thermistor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com>
+ <20260928-ec_thermistor_support-v1-2-d9c1bae4cd0d@oss.qualcomm.com>
+ <c15405f3-db75-410d-045b-996db4f83110@linux.intel.com>
+Content-Language: en-US
+From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+In-Reply-To: <c15405f3-db75-410d-045b-996db4f83110@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAxOSBTYWx0ZWRfX6Cv9n+Mj1Eaw
+ qKkFm47C3whdS3/pmO8BgnMpU1FAn+rJwC5CVOiBBfvX/LOi773xWSHC8oa/WCJsUsVFA2quo57
+ Of7J5EOM2Pug9JpHQcbexSVQACy8y1xqv0ClEA5DUKYY4pS8pb4wkujxr9A6AwdcZeq4MghEfJY
+ A4aR2huPdU+tdJYeBRdQZIwbcDownMKYc++QsA6A/wsNVbRK4eq9A6ocvgI2+3VnyQiftaxpXVE
+ toSQbo1YSmuL7nKeSl9yrd1wRdLJCYPy7mjhFqmCTGH3E+6czp+o/+DETABfDU+5MPk8PUG/OW5
+ uEYzvO05ChqPlAmIGCAwMxHXL7yi+zIwuEf0HykLdmtx7M8yeQLOhZcRDuQm10+c4eS8TefuqZF
+ Ux2LaHSIjAK902UQyI9iLkg5H4bIPxhzyKmGlUlyfIqRvYDeqNohYXxtNc6qv9tWan4arCt9Mg1
+ bR9pb2zcYPejFhppk2w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAxOSBTYWx0ZWRfX1QvwMLu9QC6w
+ C1ZjZboONgVADqNS+2JNh4mCTkRmxlrKqDFw4MjrnZV8BMVPlZVXu/CUzXdHOmZwrfOYhg4UwJq
+ EkZ0EVUnKUxsdybz9Rl8MuM5Q1GiGyU=
+X-Authority-Analysis: v=2.4 cv=RZEFmFtv c=1 sm=1 tr=0 ts=6abc9801 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZE6J5AxZF9eTCMsEPEnAuA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=qvRe1xnp1C8EnQCzoIkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: 6_Rxdf12yMVCXyqZbJeN3a84mdEubJo2
+X-Proofpoint-ORIG-GUID: 6_Rxdf12yMVCXyqZbJeN3a84mdEubJo2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300019
 
 
-ChenYu
 
-> Hope this is helpful,
-> Nicolas
+On 9/29/2026 1:05 PM, Ilpo Järvinen wrote:
+> On Mon, 28 Sep 2026, Anvesh Jain P wrote:
+> 
+>> The Qualcomm embedded controller has exclusive access to multiple onboard
+>> thermistors programmatically discoverable through the
+>> EC_THERMAL_CAPABILITIES command. The temperature values are reported in
+>> degree Celsius through the EC_THERMISTOR_TEMP_CMD.
+>>
+>> Register these thermistors with the thermal framework by adding support to
+>> the EC_THERMISTOR_TEMP_CMD and convert it to millidegree units as required
+>> by the thermal framework.
+>>
+>> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+>> ---
+>>  drivers/platform/arm64/qcom-hamoa-ec.c | 74 ++++++++++++++++++++++++++++++++++
+>>  1 file changed, 74 insertions(+)
+>>
+>> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
+>> index 4d2ad042a7f8..acf3d7f53026 100644
+>> --- a/drivers/platform/arm64/qcom-hamoa-ec.c
+>> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
+>> @@ -16,16 +16,19 @@
+>>  #include <linux/pm.h>
+>>  #include <linux/slab.h>
+>>  #include <linux/thermal.h>
+>> +#include <linux/unaligned.h>
+>>  
+>>  #define EC_SCI_EVT_READ_CMD	0x05
+>>  #define EC_FW_VERSION_CMD	0x0e
+>>  #define EC_MODERN_STANDBY_CMD	0x23
+>> +#define EC_THERMISTOR_TEMP_CMD	0x29	/* + thermistor_id (0-6) selects thermistor 1-7 */
+>>  #define EC_FAN_DBG_CONTROL_CMD	0x30
+>>  #define EC_SCI_EVT_CONTROL_CMD	0x35
+>>  #define EC_THERMAL_CAP_CMD	0x42
+>>  
+>>  #define EC_FW_VERSION_RESP_LEN	4
+>>  #define EC_THERMAL_CAP_RESP_LEN	3
+>> +#define EC_THERMISTOR_TEMP_RESP_LEN	3
+>>  #define EC_FAN_DEBUG_CMD_LEN	6
+>>  #define EC_FAN_SPEED_DATA_SIZE	4
+>>  
+>> @@ -39,6 +42,7 @@
+>>  #define EC_MAX_FAN_CNT		2
+>>  #define EC_FAN_NAME_SIZE	20
+>>  #define EC_FAN_MAX_PWM		255
+>> +#define EC_MAX_THERMISTOR_CNT	7
+>>  
+>>  enum qcom_ec_sci_events {
+>>  	EC_FAN1_STATUS_CHANGE_EVT = 0x30,
+>> @@ -64,6 +68,7 @@ struct qcom_ec_thermal_cap {
+>>  #define EC_THERMAL_FAN_CNT(x)		(FIELD_GET(GENMASK(1, 0), (x)))
+>>  #define EC_THERMAL_FAN_TYPE(x)		(FIELD_GET(GENMASK(4, 2), (x)))
+>>  #define EC_THERMAL_THERMISTOR_MASK(x)	(FIELD_GET(GENMASK(7, 0), (x)))
+>> +#define EC_THERMISTOR_PRESENT(mask, id)	((mask) & BIT(id))
+>>  	u8 fan_cnt;
+>>  	u8 fan_type;
+>>  	u8 thermistor_mask;
+>> @@ -81,6 +86,12 @@ struct qcom_ec {
+>>  	struct qcom_ec_thermal_cap thermal_cap;
+>>  	struct qcom_ec_version version;
+>>  	struct i2c_client *client;
+>> +	struct qcom_ec_thermal_zone *ec_tz;
+>> +};
+>> +
+>> +struct qcom_ec_thermal_zone {
+>> +	struct qcom_ec *ec;
+>> +	u8 thermistor_id;
+>>  };
+>>  
+>>  static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
+>> @@ -183,6 +194,43 @@ static int qcom_ec_thermal_capabilities(struct device *dev)
+>>  	return 0;
+>>  }
+>>  
+>> +/*
+>> + * EC Thermistor Temperature (cmd 0x29 + thermistor_id, id 0-6 selects
+>> + * thermistor 1-7):
+>> + *
+>> + * Read Response:
+>> + * ----------------------------------------------------------------------
+>> + * | Offset	| Name		| Description				|
+>> + * ----------------------------------------------------------------------
+>> + * | 0x00	| Byte count	| Number of bytes in response (=2)	|
+>> + * ----------------------------------------------------------------------
+>> + * | 0x01 (LSB)| Temperature	| Signed 16-bit, unit of 0.1 degC,	|
+>> + * | 0x02 (MSB)|		| range -40..+125 degC			|
+>> + * ----------------------------------------------------------------------
+>> + */
+>> +static int qcom_ec_thermistor_get_temp(struct thermal_zone_device *tz, int *temp)
+>> +{
+>> +	struct qcom_ec_thermal_zone *ec_tz = thermal_zone_device_priv(tz);
+>> +	struct qcom_ec *ec = ec_tz->ec;
+>> +	u8 resp[EC_THERMISTOR_TEMP_RESP_LEN];
+>> +	s16 raw;
+>> +	int ret;
+>> +
+>> +	ret = qcom_ec_read(ec, EC_THERMISTOR_TEMP_CMD + ec_tz->thermistor_id,
+>> +			   EC_THERMISTOR_TEMP_RESP_LEN, resp);
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	raw = (s16)get_unaligned_le16(&resp[1]);
+>> +	*temp = raw * 100;
+> 
+> MILLIDEGREE_PER_DECIDEGREE?
+> 
+> Make sure you have the include for it if changing to it.
+> 
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static const struct thermal_zone_device_ops qcom_ec_thermistor_ops = {
+>> +	.get_temp = qcom_ec_thermistor_get_temp,
+>> +};
+>> +
+>>  static irqreturn_t qcom_ec_irq(int irq, void *data)
+>>  {
+>>  	struct qcom_ec *ec = data;
+>> @@ -376,6 +424,32 @@ static int qcom_ec_probe(struct i2c_client *client)
+>>  	if (ret < 0)
+>>  		return dev_err_probe(dev, ret, "Failed to read thermal capabilities\n");
+>>  
+>> +	if (ec->thermal_cap.thermistor_mask) {
+>> +		ec->ec_tz = devm_kcalloc(dev, EC_MAX_THERMISTOR_CNT, sizeof(*ec->ec_tz),
+>> +					 GFP_KERNEL);
+>> +		if (!ec->ec_tz)
+>> +			return -ENOMEM;
+>> +
+>> +		for (i = 0; i < EC_MAX_THERMISTOR_CNT; i++) {
+>> +			struct qcom_ec_thermal_zone *ec_tz = &ec->ec_tz[i];
+>> +			struct thermal_zone_device *tzd;
+>> +
+>> +			if (!EC_THERMISTOR_PRESENT(ec->thermal_cap.thermistor_mask, i))
+>> +				continue;
+>> +
+>> +			ec_tz->ec = ec;
+>> +			ec_tz->thermistor_id = i;
+>> +
+>> +			tzd = devm_thermal_of_zone_register(dev, i, ec_tz, &qcom_ec_thermistor_ops);
+>> +			if (IS_ERR(tzd)) {
+>> +				ret = PTR_ERR(tzd);
+>> +				if (ret != -ENODEV)
+> 
+> I'd prefer ret == -ENODEV check + continue.
+> 
+>> +					dev_warn(dev, "Failed to register thermistor%u zone: %d\n",
+>> +						 i, ret);
+>> +			}
+>> +		}
+>> +	}
+>> +
+>>  	if (ec->thermal_cap.fan_cnt == 0) {
+>>  		dev_warn(dev, FW_BUG "Failed to get fan count, firmware update required\n");
+>>  		return 0;
+>>
+>>
 >
-> >
-> > > A second implementation, not just a variant of the same brand would a=
-lso be
-> > > nice.
-> >
-> > I still have it in mind to add support for the Allwinner encoder based
-> > on my earlier stateful-ish attempt. Hopefully that work can be funded.
-> >
-> > All the best,
-> >
-> > Paul
+
+Thanks for the review. I will use MILLIDEGREE_PER_DECIDEGREE from
+<linux/units.h> for the temperature conversion. I will also change the
+thermal-zone registration handling to continue explicitly on -ENODEV and
+warn about other errors.
+
+-- 
+Best Regards,
+Anvesh
+
