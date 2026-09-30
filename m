@@ -1,104 +1,125 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98153C3F56
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:07:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D3D3D333C
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:07:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795225; cv=none; b=duXFq6DtpODUwpzJ/uGXTfffFIH6TvkpRanYn2aVjph17IrOUNGroLF3+Lkxabuf1M0MxvmaqhGX5OW9Kfi4z7xJUVer6anevtTafZqL61TQQLnpmYdjFDhkIttslPAlQoL8fWIhMYTHWUaY9aCh2/g2FhSCbTmRZa7PTuQwzL4=
+	t=1790795274; cv=none; b=ohEB3tMVEX8AlWYmROh25Rkdy50QeqLS1KluVcmvGdO9n0iJ+egi2fasM8iZHFsXzwZ7AOUf4DzUjMUssenhvPKe9nlPx8EReBRaxpYC2gAaBgNKIjT6HvtaTuXcKjP8dQIUuxyzRaNwtalw/cR0dKZGfuewMpDBtbYfwwVIuOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795225; c=relaxed/simple;
-	bh=f6JSGPTTRlczwCRIa38h9sle7WFZiKUTSLRApuHUzSA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IP6FwdG0XZAgqnyQocBq9WaO/M6sHXbqndXCNr9SfB6amECJbZQUIFddbldBchfoQKkDiFoJGl9NtJLt/CmzfDWDY66MOh50EUOg2aXijskhWGEUQksttci8G4ESq80ID/Gw7Iz3lfwH/3rNJ7fcFUanQl94Nrx4QS9ntBuYXBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a6Cg7z7r; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790795274; c=relaxed/simple;
+	bh=bxJY6r7hmtQQbaUp+jGo9ojcTYyECOaox7wsG7JzNr0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uDaJ+tYDdIqSZ9UDkJOihPaXomhf/m+3LYck/LzwS3DkBK3e5mq9odb7WC7hgGgQshnOIbilaFI4tt/Ir3G1IfvOgYSUR8AhRM+Fb/UTskJRxPZbthaWfZQTGerfA1Sol17wyXv1gN9PWRZHhYyaw8yW3+Blib20psyYXEu4+IQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WGTKgsCU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a6Cg7z7r"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f89so3519169f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 12:07:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790795222; x=1791400022; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PCDOWVvvPjn4Zn7DxkNlW8KIDmqPC58h+Qgu1lcXnuQ=;
-        b=a6Cg7z7rYOvaRONQPBufra77MsylkaHppxwpcka5OsZ9KCyfjQOmsk1eY6dHgG3EIq
-         HH8LtLxy2ODmBnIiVebYm3zpNDZNMZZyI0TiGxSkDFWrTmzZk+wprTjEqoUyZ7Eob3qt
-         7gUawi/MIiFUPAb8i2SmPI4XsBQ7JL2wRIFPcGqA/bHkHkvCeIoAzEBtbct5NBitGQ0q
-         WLDym5GIXLWbWP+9tfMRJv/QRNtH+WMZgiimDZWY9Ayev+w3g7TzDCr2HK53xT/eiPDt
-         1CjmBzGsJv/SMUH/+L1h2b7pGCuITCyIwOrDkXOnXXQECddPRUvA9tsTMDFqgps21P0Y
-         Eveg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790795222; x=1791400022;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PCDOWVvvPjn4Zn7DxkNlW8KIDmqPC58h+Qgu1lcXnuQ=;
-        b=jhlx+jrf8b+j7WBfHU7UodPmC2b0lLsXMkBSzb9aK/QHkn6Jz8Rcpiuaz9F6w4JwYK
-         P7LdNLYwtUpgHmJckmsAwO8JGhFg+bOGUlIzYARzk4STHwxjtbAqdggKF0WYm0woyxzQ
-         U+ikHKvPtohbfWKf0KDIeW1V0uEgwM7waDdEbmCz1UljBXMbcR8F5hE/+ImHLWtIWTPu
-         8Ds0SxpThtEk5haTwdH9DCpSaNeccwyjkPZmZadHPFVA/76RZPu6GJj6+jWBbzvbB+fH
-         t1o86g/V5R6/+uph8nzOWkWW8dBHq/OYAaEwHR0sPUUiz58EG1EsIs1u3mZ+9mXw5JBK
-         deFw==
-X-Forwarded-Encrypted: i=1; AKwUvBxc/MRRQGuH05fsTKW/x1ujt+iKgsd1IIzAEGB/FhhqlKB2hJOoeCwq4DW2qEr1ELUCUlbF41kMn1ea@vger.kernel.org
-X-Gm-Message-State: AFuF++lj5uRtn3DUoJT47gHHn8VxVPHbDwc17+roUe81lnHc7Q3uYBoK
-	pVSzEPr3R1f2IbJVfU4ZlO+eNIoVwtKQwIW3ma4rnrbA3JPSZX3qeEGCnMj6MposYc4=
-X-Gm-Gg: AYBFou3cVoEPDOJ5iH0ZXftZpNhdFb9qEcxRFQi9MutKQcRSVGfL2CF1AI+l1V+8gEt
-	uSgNVtsRYVnoKoaUiwYjfPzROFHR1i9pQmMBVQSkMPPyzDp3uWqItPPSoju0MP1ybGES5KbJfCQ
-	VGPhE04/qeB5AvCVmrZxKy+iZ8LhrbGWMKyZTEMU/3UVzbZHkCoA1T4UP1tljrH6tqEzu8gyo+i
-	j910YJ6nB4HGOYfhnShcnPwWjvGEQVNuCQlEhPKsWsjxUXU07XyEVIv0RuTuqf3b7OYT7TZLlXR
-	JoJXAkVsGbBh4YYAucyuS9ycAZI1huHx3jrGc8lrCdAMaUzMgom/ym+4kDT1yuuYroHJB1lDJ/G
-	8WSUSeEEFAco4wPXVTHsKKngChg9P4iRetuQ7bNntTZqlkoUFyOEa5F0ekurALBAC4b5G6VPCqe
-	Iyb5YjkjsLPmS9+z6DMzq86q8fYVyA8mc+l7w2ZIXmMdBlM+E0HQ5/sS+JncUQWrHUc+9x8okI3
-	Nitf59YHHJJEnCOz8/w5Vu5BkPeot30keUvfvD86ZA=
-X-Received: by 2002:a05:600c:a05:b0:4a0:6bb:237e with SMTP id 5b1f17b1804b1-4a01b01b407mr37229355e9.29.1790795221532;
-        Wed, 30 Sep 2026 12:07:01 -0700 (PDT)
-Received: from [192.168.0.40] (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f957b83sm3700185e9.15.2026.09.30.12.07.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 12:07:01 -0700 (PDT)
-Message-ID: <bd02376e-f42a-4251-8e7d-7c4e7579a845@gmail.com>
-Date: Wed, 30 Sep 2026 21:07:00 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WGTKgsCU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA911F00898
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:07:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790795273;
+	bh=bxJY6r7hmtQQbaUp+jGo9ojcTYyECOaox7wsG7JzNr0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WGTKgsCU+/7tSbH0RgCXBxO0ozmDxYzlLDwec2n1uK5vKG2u+Di5y2WS6iaRioeHA
+	 2HQe+XnO1uJ4CYhwINzo8cjLvNqjNXCxbsf3+JY7DHNsj5meQBk7iK2fww7Th4TV6i
+	 kkU7y7Et3fGZqOvDiMtxgUEgFwaPoRwmgHaXCfNEC2tlCG2i5It8RQNIVw5uvFKrUC
+	 XChF332jlPqD8AXn0mXF0TdpqcDviisUqsmHyxFw/K52bPBpJEZyqZkDAJcx9W9Ctx
+	 wNhktvmN49L3hqx5qTmfX02sCiNCyjvFtFvqmwbcNor4vRdzJXOT4Q1zfnuuJSa4ri
+	 xPBPjhV5LjBFA==
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e23be09baso118298466b.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 12:07:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxamILm2shraj8/Ie73eYdTywEhO23bNc5YBFhH1PIZ1RP5nSPzWotaPUEvcWHbsJwMFJ4pUGQ398Ir@vger.kernel.org
+X-Gm-Message-State: AFuF++kBwgFtPZxZClA3awo7nAY/zj//rk7VxZR63BBlkVUuIGsR0/p3
+	u9j8ZZfy/O4osJTRYynNkW+AwAB5/8+Eqh1nBGxmXxlGJNUmlyRPvofdqtEYtopZLaL8+scwFWI
+	pd2mNBD7kfhaC/O2bd4uI3ZqRHmKzDg==
+X-Received: by 2002:a17:906:7308:b0:c29:566f:531c with SMTP id
+ a640c23a62f3a-c2e23d64e23mr209463766b.31.1790795271560; Wed, 30 Sep 2026
+ 12:07:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/2] rtc: Add Raspberry Pi 5 RTC driver
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Jonathan Bell <jonathan@raspberrypi.com>, linux-rtc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, pbrobinson@gmail.com,
- Dom Cobley <popcornmix@gmail.com>
-References: <20260930095203.492949-1-sander.speetjens@gmail.com>
- <20260930095203.492949-3-sander.speetjens@gmail.com>
- <7441de5b-e9a6-4080-b312-d6c7123fdcde@gmx.net>
- <2872a37d-4f24-4429-aba5-34f020740821@gmail.com>
- <550045ab-fe74-4445-8f6c-4a031f5b436b@gmx.net>
-Content-Language: en-US
-From: Sander Speetjens <sander.speetjens@gmail.com>
-In-Reply-To: <550045ab-fe74-4445-8f6c-4a031f5b436b@gmx.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+ <20260928204059.GA515872-robh@kernel.org> <artyl8fD3zzng8Uh@houat>
+ <20260929222822.GA2933878-robh@kernel.org> <ary8IdL9zVXfS2fA@houat>
+In-Reply-To: <ary8IdL9zVXfS2fA@houat>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 30 Sep 2026 14:07:39 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJCoWQmdBKEbekXb5LeLn1KcMiP2iG30r+npssJSZB5LA@mail.gmail.com>
+X-Gm-Features: AclHuK_KrCZYndoX88-SUyUMhWpLte5mG0GRB_AK8DozaFWQdrOZypWv12h1FtM
+Message-ID: <CAL_JsqJCoWQmdBKEbekXb5LeLn1KcMiP2iG30r+npssJSZB5LA@mail.gmail.com>
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Albert Esteve <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->>>> +MODULE_ALIAS("platform:raspberrypi-rtc");
->>> Is this really necessary for module autoloading?
->> I'm not sure, it was used in the previous versions when using the 
->> platform device register on the register_clk driver before it had a 
->> custom dt node.
-> You can test by removing the line and compile it as a module. In case 
-> the RTC driver is still automatically loaded, we can drop it.
-There is no DT node for the RTC. The firmware driver registers us as a 
-platform device at runtime (we deliberately avoid a child node per DT 
-maintainer guidance). Therefore the platform alias is still needed for 
-module auto-loading.
+On Wed, Sep 30, 2026 at 3:04=E2=80=AFAM Maxime Ripard <mripard@kernel.org> =
+wrote:
+>
+> On Tue, Sep 29, 2026 at 05:28:22PM -0500, Rob Herring wrote:
+> > On Tue, Sep 29, 2026 at 10:39:24AM +0200, Maxime Ripard wrote:
+> > > On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
+> > > > On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
+> > > > > Most MIPI-DSI panel drivers follow an identical pattern: acquire
+> > > > > regulators and GPIOs, perform a reset pulse with specific timing,
+> > > > > send a vendor-supplied sequence of DSI commands, then enable the
+> > > > > display. The only truly panel-specific part is the init sequence
+> > > > > and power-on/off timing.
+
+[snip a bunch of irrelevant shit]
+
+> > > So, let's phrase this differently: what's different about the
+> > > description than panel-mipi-dsi-spi, or any other binding already in
+> > > tree?
+> >
+> > There's all of 3 panels supported. Compared to all the other panels we
+> > have, hardly the rule over the exception. You can always fine "bad"
+> > examples or exceptions.
+> >
+> > That one defines a single supply. Any other MIPI SPI panel with
+> > different supplies or GPIO controls probably has its own binding. Tryin=
+g
+> > to parameterize that in DT doesn't work. We've rejected trying to do
+> > that in DT over and over. What's your story here for that?
+>
+> Sigh... Look, I really don't care about an argument DT maintainers use
+> at their discretion for this. We both know full well that it's been and
+> still is inconsistenly applied, and you also know that it's not like
+> I've been playing the DT game since pretty much the beginning (on ARM
+> anyway). So it's not like I don't want to make it work, I do. But what I
+> care about is enabling that driver to work.
+>
+> I reused exactly the same binding than the last major binding that was
+> merged for panels, and support about the same number of panels. I guess
+> that was a mistake, so sorry for that.
+>
+> I'm fine with reworking the binding any way you want as long as it still
+> allows for the same use-case, but I would have hoped for a better
+> feedback on how to do so than "oh what a huge pile of shit this is".
+
+When you can answer my question above rather than make up shit I
+didn't say, maybe I'll reply again on this thread. Otherwise I'm done
+here. I don't need this abuse for the thankless job of DT
+maintainership.
+
+Rob
