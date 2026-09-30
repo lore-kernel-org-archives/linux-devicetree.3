@@ -1,132 +1,88 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9390E49E138
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA9B3624DB
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767499; cv=none; b=OUevyiyrAdNE5V/d+QL5uiFvHwELsWADdP7CNaXiuIBtnZVZrL41ioUtVBYHg3RrafCr1pYbXXeHbmXPXbSo8fo1NcxN2sL1hQsOhCRct0lqGNNk2EFzLLGbh/bHG6tFoRPNqUUGYVHLdj5T/HSTjZ8pKoe8fTQXSY/AKQ0MxuA=
+	t=1790767557; cv=none; b=J/6Dzaj+9cIJ17Ux4RfzLXRYYHo+3qahV/W1dvis/A34VmUsA3wdkvhpm+63WCo5vHurgIyU7ZXPJYWrIU7ef1oI4ZNOCVimCIsLcyuhXb/w6xGgdkyUlRnOQLD+WrcjYsJbtLHlEYnzw5CRPjeunGchd9tEutOTOORUzv3ajaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767499; c=relaxed/simple;
-	bh=poceB6zKoYQu2FsWNzDmrgG3238OZ8RROO5Gpc1RH5Y=;
-	h=From:To:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type:Cc; b=mnB59AYfOI1L2/Fgc2ABvTaCMZLwzmqKgUIAiEgZCx68TNifQDsq9pPMK5F/QekFX7oh8kzz42a0ZyD/AlIYCAeWXKog2Sv8qId6TZP900y4MsHZvQuBIwmuGozR08t4RxQmKumLg6PhzAzrYs+7+kcUssw0cvWaXTJun/Cz2YI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iOJ7klXv; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790767557; c=relaxed/simple;
+	bh=G9xb4a0y6gEWtHuJPlK9+9gevT6oijNu6YVM5BlIV8M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=T96wv9KAUZ4/o2hQubTPuQ2MEMWD8qyYbg5xhBLBfXz5ZNPYLKju6SsXUvcUCM5Hf53bdeJ0mV+DyJlV4FMtPbD+q4PDznIkJvkFvhb1dfDX6RLVaKIVvt/UYOmlHJ4ZWbMGhuerOBatI72eEE6da0i2IXNk9CHQLtGtXIxZ3pQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LgdEoGua; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iOJ7klXv"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so28260445e9.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 04:24:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767494; x=1791372294; darn=vger.kernel.org;
-        h=cc:content-type:mime-version:content-transfer-encoding:message-id
-         :date:references:in-reply-to:subject:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=poceB6zKoYQu2FsWNzDmrgG3238OZ8RROO5Gpc1RH5Y=;
-        b=iOJ7klXv3A5wy5m2b5K38Pa1IoXSzcyv6XZmgtoDkKETifN3ukEcVNNJSmQbvnjUXo
-         0NufnfzepqEUvUI//pAO0zFiBJduntesl9v3P8bICfVtclhjLfOO0tPH2SJg/79stKIf
-         iyP7YHtHVwBRAgfN+Rpme27lJ1MB5KjCEKAxGIWl1ETYyd9dciRuJ1rjEZXM2dBj+S72
-         4CLoNkZVnoPsJIh1bTuEanZ3Or4AtlpxxLO+9iaeHA/ennOjUnCRkamrcdnS0uVWiwRR
-         vGOTLDnyPaJ/M+uTjEUQqpzXMZGblOzFtH6it/8SnGiZ+SXueGFLrzFlrAzrXeQQZWmr
-         WLdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767494; x=1791372294;
-        h=cc:content-type:mime-version:content-transfer-encoding:message-id
-         :date:references:in-reply-to:subject:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=poceB6zKoYQu2FsWNzDmrgG3238OZ8RROO5Gpc1RH5Y=;
-        b=lXSkMxEHjKI7Vdx33xj3e5YLkgdVar43C3LLpYY/eDh/hcWiDlfcVa/RE6VdC32EK6
-         6BOnv5U2KP8Zwf532WUvqtcIIEoXHvfXI09FwslcF88SQpBM439SycTtgeOnCrfBqhnU
-         Wqyjl+d2a9vBm52Yftohs9YJmtFP/hWivAqxP5L8TsB+wz/SHR301qhp3LMY6nf1EJZa
-         8rbtW1FVY1+u016fJ52L5XJDfigy/o4jYUEA9zfLHg49ElGok0mXFh0s6uHlVwxftHlL
-         uI/q5ox33Dk5nVovP7cHyS83miEh71b1ptkYDwOYyTBleP9yQN1cLl5GQyzqew68qNQA
-         ZipA==
-X-Forwarded-Encrypted: i=1; AKwUvByZagJG1pJBmfs4ZbiyzcNlBZ6lPU3CxHxBRxrXiDETmI4qpJg3/RnQQKWCkrUyCXh80x3g75Yf8CU8@vger.kernel.org
-X-Gm-Message-State: AFuF++mQAur4lwbr1MQDqe3zYaXXh4d8mRiZueKLv9Nm8jVAHsjcaAQ5
-	abuO4jwzEkc94dgqYn01/b1hjuzR8A6RFm+3zz6sDcFXgiWEoQ9GEgWg
-X-Gm-Gg: AYBFou3blNF/1tcFmNKWRGgbQrHW9A97v/16YTiK/WdG5PhUx1HEqeZ2uvI3Fat20Fn
-	+Xvd/2W5t6VWnezM2sOtsbkRDMxqgX2Uh1i1krB1Tg+jJF/TKSHl7AKvHvHRt3WF9kh/yY2ypTi
-	r5rBd0Ysnz47fp9J7AwM03YAaq4DTmoq0TK58ez0mcgqzvxDDLDtThmLlTNL9eiUjK0HHFQqwHK
-	Ceh2tTzzFm4EVaZAU+DwM1IplxSZx3CwD8reGAoyJGj9o3DFO6H/4JbxShgiv4r4RmjZK7qMn/3
-	6Zx/K3ZtwlekjQrUNNBtVy7YmEwan0jtOiE3MRhr5jHM7Wi0suyVIGHCFUBvR3QjA40xTPdlqvX
-	Sp2dqDqIMKdG72fuqS9KHfKDMvpZWCpOqdM7o42a995X3eQj0aaH3vOmpxrw0DKh01mpCYvKv5c
-	30to6g5GO6q64Z6S2CjWl2PIYwluBMtrvcARknQKRfYGFvX7lblS97vX23vRpkTg/3Cs3CchNwA
-	8jgB8AvhloaKHHOazozn7m+kqtm+Hy/
-X-Received: by 2002:a05:600c:3b0c:b0:49c:fc6e:a3dc with SMTP id 5b1f17b1804b1-4a01aff4fb5mr16519855e9.27.1790767494156;
-        Wed, 30 Sep 2026 04:24:54 -0700 (PDT)
-Received: from [127.0.1.1] ([92.241.26.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01cd002bcsm3626105e9.4.2026.09.30.04.24.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:24:53 -0700 (PDT)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Subject:
- Re: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART driver
-In-Reply-To: <1d81c2ef-7a5b-4306-83d2-ff96b0eb6a06@app.fastmail.com>
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
- <CAD++jLkzcf7gJB82XT3-xb4jLujtWSNz1kT2r1-4N54rRfRNMA@mail.gmail.com>
- <1d81c2ef-7a5b-4306-83d2-ff96b0eb6a06@app.fastmail.com>
-Date: Wed, 30 Sep 2026 14:24:51 +0300
-Message-ID: <179076749140.3134070.3869742286743401078@gmail.com>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LgdEoGua"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69F211F000FF;
+	Wed, 30 Sep 2026 11:25:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790767555;
+	bh=MT9pDBppidmhLiCh7Njwo66mhL1EOdQv1oqGvT4ZnK8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LgdEoGua90kqAcqJa5e1rYz8cDEHS1PM/ZtuFILsAdV32l7BwxPWmL5DBjR4ak+Po
+	 /j93bGAPhzb43m+LdcQlxZ3CegjTIc1aAe0arAB+54x3jz+bgutRBrJ4rajPo1gzHN
+	 +MYqSP6+P9F9U4TmxmvVGpuk0wbWG02fF7IvgN+LvwpbKK3B5lSNWI6J78DAnlXcmf
+	 rxhVTrpuy3cFsPKs0KkZpOlsmFJyhdz7WYvvw/Rq6EZK65rxiP9qNYOcR9o6CM3xiB
+	 xk5FvEjRq1e6JE/m9pZGYjNex6WYued8goWwhz+Vj1xr058CiK6aa2uqmNmM531y4A
+	 ukpUF4wrhiHkQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/4] arm64: dts: qcom: shikra: Add MDSS display
+ subsystem
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260930-shikra-dt-changes-v5-1-8eaf658a0e38@oss.qualcomm.com>
+References: <20260930-shikra-dt-changes-v5-0-8eaf658a0e38@oss.qualcomm.com>
+ <20260930-shikra-dt-changes-v5-1-8eaf658a0e38@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 11:25:54 +0000
+Message-Id: <20260930112555.69F211F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
-Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
- Jason Li <jason.li@cortina-access.com>,
- Jason Li <jason.li@cortina-access.com>
 
-On Wed, Sep 30, 2026 at 01:08:07PM +0200, Arnd Bergmann wrote:
-> On Wed, Sep 30, 2026, at 12:57, Linus Walleij wrote:
->> Look at this in your Linux tree:
->> git log -p b61c8bf4694b5115766849378dcb8787ff54e65e
->>
->> This is essentially a resurrection of that driver.
->
-> Jason actually came back this summer to try again, see
-> https://lore.kernel.org/linux-arm-kernel/20260610112821.3030099-1-jason.li@cortina-access.com/
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dts: incorrect over-indentation of the mdss node
+--
 
-Thanks, I was not aware of either. Comparing the two, it is the same
-IP: the offsets of CFG, RX_SAMPLE, TX_DAT, RX_DAT, INFO, IE and INT
-and the bit layout of CFG, INFO and the interrupt registers are
-identical. The Cortina Access version additionally has a flow control
-register at 0x04, RT_TUNE at 0x0c, STATUS at 0x2c and three more
-interrupt causes (break, RX underrun, TX overrun).
+commit c036145cd42553cee75513d9d43a23d346a733a4
+Author: Nabige Aala <nabige.aala@oss.qualcomm.com>
 
->> Anyways, clearly this driver is not just for CS75xx so name it
->> cortina-uart.c simply, and update symbols accordingly. Kconfig
->> should be SERIAL_CORTINA etc.
->
-> I think we clearly want a driver that works for both the Cortina
-> Systems CS75xx and the Cortina Access CA82xx, hopefully that
-> would also support the ones inbetween (CS80xx, CA81xx).
+arm64: dts: qcom: shikra: Add MDSS display subsystem
 
-Agreed. For v2 I will rename it to drivers/tty/serial/cortina-uart.c
-with SERIAL_CORTINA and SERIAL_CORTINA_CONSOLE, and name the binding
-so that it can take the other parts. I would keep SoC specific
-compatibles ("cortina,cs7542-uart", later e.g.
-"cortina-access,ca8289-uart"), so that the flow control and the extra
-interrupt causes can be enabled per compatible.
+This commit adds the SoC-level display subsystem nodes for Qualcomm Shikra,
+including the MDSS wrapper, DPU display controller, DSI host controller,
+and 14nm DSI PHY.
 
-I can only test on the CS7542. Jason, would you be fine with adding
-the CA82xx on top of this driver instead of a separate one? I am happy
-to add the compatible and the bits you need if you can test them.
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
+com/shikra.dtsi
+> index 9823c591b02b1..4ff85c1c8fddc 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
 
-Thanks,
-Fil
+[ ... ]
 
+> @@ -2809,6 +2810,207 @@ adreno_smmu: iommu@59a0000 {
+>  			power-domains =3D <&gpucc GPU_CX_GDSC>;
+>  		};
+> =20
+> +				mdss: display-subsystem@5e00000 {
+> +			compatible =3D "qcom,shikra-mdss", "qcom,qcm2290-mdss";
+
+[Severity: Low]
+This isn't a bug, but does the mdss node have incorrect over-indentation he=
+re?
+
+The node is declared with 4 tabs, while its properties (e.g., compatible)
+and children use 3 tabs, and its siblings use 2 tabs. This creates visually
+confusing formatting where a parent is indented further than its children.
+Could this be adjusted to match standard device tree coding style?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-shikra-dt-=
+changes-v5-0-8eaf658a0e38@oss.qualcomm.com?part=3D1
