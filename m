@@ -1,160 +1,214 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D86A44F543
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FCD35A39F
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:53:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754806; cv=none; b=DxV3T95eU1Ky8KZVEGqsVW115dn66GGcqzkQBWq06/1ouphHUOhVgXarmaKjIGBgkLTp+7JwOWob/n7Jz5IOB+p5gH9PmTzfNG3ccDpUQGi63Mu+We4yI3QimHhWmOWjOfpLWVt5fWbp0EaO43V3BTHywYqJ26U/60u8SXeMg2E=
+	t=1790754824; cv=none; b=Ddb0GnmMjcz/ZgDI8yCw9M38g3mu/Q+iOBheZspCkgKCpH62dHkugDqcJRccwiL57eOWDkv2FwIstnczchfN/FIk0hOQ3PmkfvGwom9qF/PHLRWr/yZmNp2kbgIVA048VinUFCjmVjUAqxm9gHWEtyG/lSI13zmjA4Ps8I0s4u4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754806; c=relaxed/simple;
-	bh=6DKatlxffhk1Ma2S0NPaHdERsrMNfgFOEbtCWhR/2HY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ZfFgl+eJ0JhGsuSeKSj29LMcvuE2B83vPBXyyFvfOXEZsDoTd7lulBZDj/kkY8eIyCxXeYkzTf6oJvi4iX/74RFe85O2CeBtlc/Yk7MMxaZGBhlvEHkOMx0Kn8A7BSwE/Rzv8UqSpizxfVC7x78D9J/yM5V+dwfREe36q0r7AoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sjRZDD/h; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790754824; c=relaxed/simple;
+	bh=ABllz823j54hsZzOBzv6HeTaGsjQO/6M1te+YZBi1lU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cIei7IMeENZk7OaGXXeZhGXTnAC/lpQWMFcJOB7x1i3NJeWkryA3GlaUjhuG68s6pB4bc50GeC8CcTUSlb0vjVClR/NOzeMw9oBMEk94a441QiANMomCD5H4zFoTWx8axWkMLAnOYxX6mWaIibNRU8BXVpj+tTUjRtYjzlJKsuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U7W5iINQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sjRZDD/h"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so27485355e9.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 00:53:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790754803; x=1791359603; darn=vger.kernel.org;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wAVEwX1cbG2Scf8aznTJisEUwviOCJejkET+NM0/PLQ=;
-        b=sjRZDD/hv6awRoJ1I8LMw5ZOcjx7ARAQAOBmSJR2APPmHVUImwbI0HW8EOnY1t+xBv
-         PwpEa3QRlH3m4fjFF0JYQo4CZ1T+qtOyEltAo3S/RWLdA82/5zgrAT8RzL21fvcJ5gI4
-         KL0Axtl2hVou0ltofDYkKVzMZkgOKkRS7KMEmURfvUR5QLvOVQQ6PGDaK/n/xtWz0uf7
-         eSqwDi0Sh8Z8lb3ZU7H7Amv1ckowd9zVQBjvGoEGMDN1Xbic7tteT/8vquTfCBDqbQ/k
-         rrk3VJyMFktreafSDrGg4Icm7r4FVkkt2Ww2h4fuLK8skxkvmQyYFm/MnvE5i7FU4r0c
-         qg4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790754803; x=1791359603;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wAVEwX1cbG2Scf8aznTJisEUwviOCJejkET+NM0/PLQ=;
-        b=aktSGBMqPM2SejzSqGSLq28Bukn0YWdtg1oyz0cajDdPhKUs3Ibk/XMQ03T72UpgtV
-         VnNk2yUCTOae04J+2MjRbZQEOBSTe7Cr8qdOcL09hmkQ6HMnSOPG2sXfSLoGNEMjwESW
-         dCWaMHqPm9iwlNyxmEKfnlEqa/Cwuu0mZyV1GMJjd+rkawuHlp3JqAIdngfXGe6IC1Q4
-         1Q+QT+18qt7H0RtzG7KrUKiGGGnoC5Yhrm/0bQYcol2U8ertIigxwfh3GUEn8NqtQa9b
-         uOVSW83HpFoKtWIB70yC1HL0I3OtSs92Q+uRIdosK7v5T5xE3sPXbLqHRM9qb9rDWc0E
-         7YUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw9pPM0UizRGgkPBqJUCoEw8bJD7pUw0vqMDokETpTFJebhEsNyfG4Z02HHcyZ40AFQqgpzyZ1xjzBp@vger.kernel.org
-X-Gm-Message-State: AFuF++ko3iaG4bg2K45KwfZffDaGGTGf4JzMsbAA+QonAg/h5YTL4zBf
-	DZIww3xXjeodIqzHxYLweGg2zE4TsFKuoNqgXNvYLq7J62hTocKwNuEfDa675oskiPcN6MGP
-X-Gm-Gg: AYBFou2ir4P4ymeHlwhZhss/cgDoCUrXawdH7Yd1UfvLQP/n0Sn0mtyk7WtceM+Wn6h
-	QDyIQ1TQ403TTRkvMes1idr3zoeTrNNnnuuLZdwnQH0xGuw5qPbJkfKEst3pcele88XdQVJ2Fcc
-	N0bs5OxfT+rTjKXlPJ41Z0jFFnVm/qC4qd6j2tel/nxivvhF6I6voA3qh4RFfrVkY+wsYjdDmaD
-	0P5TXvG369cnrWd5ZOi9Q+bkKA9Agc+7JwEhCtiXN31Fp4bmXME3v/krZTJUeiQvImiDrKLBgSl
-	B2ZhOBeuIoVuLtn1OR+QnwzVzTW3QM7jd/ZNAfcXBlRX5tzTdghulGjrjuF2Z3ZTpvTSLZ94K7K
-	ZLxA3KVY8zlr9lqWxHEbhuV4EFZoQScoPo9drl7l9lzyQut15Brx+My18tQJgB9lsf8iVUyeaTC
-	5jIUjez1e0NhgWkHq7ZBvjZLsiFzgoX8DvkOuPfSVARO6LvA22GoY3aNzTsb7wz0PXPoQESBVsG
-	QIinDyDdCPsq4AHW5DOSiyFZis2paaP
-X-Received: by 2002:a05:600c:6206:b0:49f:ce78:3562 with SMTP id 5b1f17b1804b1-4a01b01b8c0mr8229045e9.19.1790754802651;
-        Wed, 30 Sep 2026 00:53:22 -0700 (PDT)
-Received: from [127.0.1.1] ([92.241.26.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0175208e0sm32306225e9.7.2026.09.30.00.53.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 00:53:22 -0700 (PDT)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject:
- Re: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART driver
-In-Reply-To: <2026093046-scheme-fastball-59c4@gregkh>
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
- <2026093046-scheme-fastball-59c4@gregkh>
-Date: Wed, 30 Sep 2026 10:52:24 +0300
-Message-ID: <179075474429.2320278.397112083512309038@gmail.com>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U7W5iINQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B6FB1F000FF;
+	Wed, 30 Sep 2026 07:53:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790754823;
+	bh=VTyDewZ7pXzCrhbes5ZNt5zc0Nv5iO9KCRanYr4GdWM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=U7W5iINQhVJZA1PLmG4iUer0enfmxnCCkzWEErzFrkzXsroGdjjkvI0GvZnF8lyUC
+	 J5lsnmElFhg0Ec7XfiN7s39d7bKwM23aRq6GIY22T9KD/Sa7OzzdYXilzu359T15S4
+	 bkV5vMVy00lOlAjslOUEin7jhKXXEfdDKSFUW33/J2r9XjGapKnwnCHxkeh64NX74Z
+	 a7T7K7FmiaNH3GYT9lWxSIS7AqqMo49RHL9+7AqxSUCip4ga/JW6Q9qe6VHmjoDC6h
+	 WTV6rIcXQ07veX2zKrOwiguMmA5dyg0JtiEi/87jrymkm0GIUOg8VDtnl24yyzCSdK
+	 oc5PSa97BKiDg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] nvmem: stm32: add TAMP nvmem driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Patrice Chotard" <patrice.chotard@foss.st.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260930-upstream_nvram_reworked-v2-3-cfda749ee0b7@foss.st.com>
+References: <20260930-upstream_nvram_reworked-v2-0-cfda749ee0b7@foss.st.com>
+ <20260930-upstream_nvram_reworked-v2-3-cfda749ee0b7@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 07:53:42 +0000
+Message-Id: <20260930075343.1B6FB1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-On Wed, Sep 30, 2026 at 09:14:34AM +0200, Greg Kroah-Hartman wrote:
-> On Wed, Sep 30, 2026 at 10:00:06AM +0300, Fil Dunsky via B4 Relay wrote:
-> > The ports are named ttyCS so that the driver can coexist with the 8250
-> > driver in multiplatform kernels, and PORT_GENERIC is used rather than
-> > allocating a new port type.
->
-> But even if you build a multi-platform kernel, only one of the uarts is
-> going to be on the system, so why have a new name for it?  Can't you
-> just use the "default" name instead?  If you do that, what happens?
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Medium] nvmem: stm32: mismatch in DT matching can cause out-of-bounds ar=
+ray read
+- [Medium] nvmem: stm32: endianness mismatch between word and byte NVMEM ac=
+cesses
+- [Low] nvmem: stm32: incompatible pointer type assignment causes compiler =
+warning
+- [Low] nvmem: stm32: off-by-one error in max_register configuration
+--
 
-I tried it on the board: multi_v7_defconfig with the driver renamed to
-ttyS. The 8250 driver registers its runtime ports (ttyS0..ttyS4) even
-though there is no 8250 on this SoC, so the probe fails:
+commit 5c38f8fb5f67e48c161b92fd1e0bd910ac6adfd9
+Author: Simeon Marijon <simeon.marijon@foss.st.com>
 
-  sysfs: cannot create duplicate filename '/class/tty/ttyS0'
-  ...
-  cs75xx-uart f0070110.serial: Cannot register tty device on line 0
-  Warning: unable to open an initial console.
+nvmem: stm32: add TAMP nvmem driver
 
-That is why I went with a separate name, like ttyAMA or ttymxc. If
-there is a better way to share ttyS with 8250 I am happy to change it.
+This commit adds support for exposing the STM32 TAMP backup registers as
+nvmem cells. It includes driver implementations for handling register read,
+write, and access permissions for different hardware zones on STM32MP1
+and STM32MP2.
 
-> > +/*
-> > + * UART driver for the Cortina Systems CS75xx (Goldengate G2) SoCs
-> > + *
-> > + * Based on the Cortina Systems vendor driver.
-> > + */
->
-> No copyright info?
+> diff --git a/drivers/nvmem/stm32-tamp-nvram.c b/drivers/nvmem/stm32-tamp-=
+nvram.c
+> new file mode 100644
+> index 0000000000000..c10c5ed5d2732
+> --- /dev/null
+> +++ b/drivers/nvmem/stm32-tamp-nvram.c
+[ ... ]
+> +static const struct regmap_config stm32mp1_tamp_nvram_regmap_cfg =3D {
+> +	.reg_bits =3D 32,
+> +	.val_bits =3D 32,
+> +	.reg_stride =3D 4,
+> +	.readable_reg =3D stm32_tamp_nvram_readable_bkpreg,
+> +	.writeable_reg =3D stm32_tamp_nvram_writeable_bkpreg,
+> +	.max_register =3D 0x80,
+> +};
 
-The vendor file (serial_cortina.c) carries no copyright notice, only the
-GPL-2.0 statement and MODULE_AUTHOR("Cortina-Systems"). I will add mine
-and name the vendor file as the origin in v2.
+[Severity: Low]
+Could the max_register be slightly off-by-one here? Since MP15 has 32
+registers (128 bytes), the highest valid register offset should be 0x7C.
+Setting this to 0x80 theoretically allows regmap to accept accesses one
+register beyond the valid range.
 
-> > +static void cs75xx_uart_set_mctrl(struct uart_port *port, unsigned int mctrl)
-> > +{
-> > +}
->
-> Why an empty function?  Can't you just leave it out?
+> +
+> +static const struct regmap_config stm32mp2_tamp_nvram_regmap_cfg =3D {
+> +	.reg_bits =3D 32,
+> +	.val_bits =3D 32,
+> +	.reg_stride =3D 4,
+> +	.readable_reg =3D stm32_tamp_nvram_readable_bkpreg,
+> +	.writeable_reg =3D stm32_tamp_nvram_writeable_bkpreg,
+> +	.max_register =3D 0x200,
+> +};
 
-The block has no modem control lines. serial_core calls ->set_mctrl()
-without a NULL check (uart_update_mctrl() and others), so it has to
-exist. I will add a comment saying so.
+[Severity: Low]
+Similarly, for MP25 with 128 registers (512 bytes), shouldn't the maximum
+valid offset be 0x1FC rather than 0x200?
 
-> > +static void cs75xx_uart_break_ctl(struct uart_port *port, int break_state)
-> > +{
-> > +}
->
-> Same here.
+[ ... ]
+> +static int stm32_tamp_nvram_read(void *context, unsigned int offset, voi=
+d *buf, size_t bytes)
+> +{
+[ ... ]
+> +		reg_idx =3D i / sizeof(u32);
+> +		if (i + sizeof(u32) <=3D total && IS_ALIGNED(i, sizeof(u32))) {
+> +			if (!stm32_tamp_nvram_rights(priv, reg_idx, true)) {
+> +				dev_dbg(dev, "Backup register %u is not allowed to be read\n",
+> +					reg_idx);
+> +				temp_u32 =3D 0;
+> +			} else {
+> +				ret =3D regmap_read(priv->bkpregs_regmap, i, &temp_u32);
+> +				if (ret)
+> +					return ret;
+> +			}
+> +			memcpy(buf_u8, &temp_u32, sizeof(u32));
 
-That one is optional, I will drop it.
+[Severity: Medium]
+Will this memcpy cause an endianness mismatch on Big Endian architectures?=
+=20
 
-> > +static void cs75xx_uart_release_port(struct uart_port *port)
-> > +{
-> > +}
->
-> This feels wrong.
->
-> > +static int cs75xx_uart_request_port(struct uart_port *port)
-> > +{
-> > +     return 0;
-> > +}
->
-> As does this.
+The regmap_read() function gives a natively ordered u32, but directly
+copying it into the byte buffer will result in byte-swapped data compared to
+the byte-aligned fallback path. Do we need an explicit endian conversion
+(like cpu_to_le32s) here instead of a raw memcpy?
 
-Both are optional and the resources are managed in probe, so I will
-drop them in v2.
+> +			buf_u8 +=3D sizeof(u32);
+> +			i +=3D sizeof(u32);
+> +		} else {
+[ ... ]
+> +static int stm32_tamp_nvram_write(void *context, unsigned int offset, vo=
+id *buf, size_t bytes)
+> +{
+[ ... ]
+> +	i =3D offset;
+> +	while (i < total)  {
+> +		reg_idx =3D i / sizeof(u32);
+> +		if (i + sizeof(u32) <=3D total && IS_ALIGNED(i, sizeof(u32))) {
+> +			if (stm32_tamp_nvram_rights(priv, reg_idx, false)) {
+> +				memcpy(&temp_u32, buf_u8, sizeof(u32));
+> +
+> +				ret =3D regmap_write(priv->bkpregs_regmap, i, temp_u32);
 
-Thanks for the review,
-Fil
+[Severity: Medium]
+Does this have the same endianness concern for Big Endian CPUs? Reading raw
+NVMEM buffer bytes directly into a native CPU integer via memcpy might flip
+the byte order before the regmap_write().
 
+[ ... ]
+> +static int stm32_tamp_nvram_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct stm32_tamp_nvram_priv *priv;
+> +	struct resource *res;
+> +	struct device_node *of_node;
+> +	const struct of_device_id *of_id;
+> +	void __iomem *base_addr;
+> +	unsigned int *zones_end;
+[ ... ]
+> +	priv->idx_bkpreg_zones_end =3D stm32_tamp_nvram_get_backup_zones(priv);
+> +	if (IS_ERR(priv->idx_bkpreg_zones_end))
+> +		return dev_err_probe(dev, PTR_ERR(priv->idx_bkpreg_zones_end),
+> +				     "Can't determine protection zone\n");
+> +
+> +	zones_end =3D priv->idx_bkpreg_zones_end;
+
+[Severity: Low]
+Can this assignment cause a compiler warning for differing signedness?=20
+
+The driver assigns priv->idx_bkpreg_zones_end (an int *) to zones_end
+(an unsigned int *) without casting, which might break builds enforcing
+-Werror.
+
+[ ... ]
+> +	if (of_device_is_compatible(pdev->dev.of_node,
+> +				    "st,stm32mp25-tamp-nvram")) {
+> +		priv->bkpreg_access =3D stm32_tamp_get_access_rights_mp2x(priv);
+> +
+> +		if (IS_ERR(priv->bkpreg_access))
+> +			return PTR_ERR(priv->bkpreg_access);
+> +
+> +		dev_dbg(dev, "\n"
+> +			"Zone 1-RIF1 %3d - %3d %c%c\n"
+[ ... ]
+> +			zones_end[BKPREG_PROTECTION_ZONE_3_RIF0] + 1,
+> +			zones_end[BKPREG_PROTECTION_ZONE_3_RIF2],
+> +			stm32_tamp_nvram_rights(priv,
+> +						zones_end[BKPREG_PROTECTION_ZONE_3_RIF2],
+> +						true) ? 'R' : '-',
+
+[Severity: Medium]
+Is it possible for a misconfigured device tree to trigger an out-of-bounds
+array read here?
+
+If a device tree node contains multiple compatible strings (e.g., both MP15
+and MP25), of_match_node() determines priv->data based on the first match in
+the driver's list (MP15). This allocates only a 3-element array for
+idx_bkpreg_zones_end.
+
+However, if this of_device_is_compatible() check for
+"st,stm32mp25-tamp-nvram" also evaluates to true, the driver will branch
+here and read up to index 6 of the zones_end array, reading past the end of
+the 3-element allocation.=20
+   =20
+Should the control flow rely on the already resolved priv->data->nb_zones
+instead of re-evaluating the compatible string?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-upstream_n=
+vram_reworked-v2-0-cfda749ee0b7@foss.st.com?part=3D3
