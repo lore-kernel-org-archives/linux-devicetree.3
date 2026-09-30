@@ -1,146 +1,71 @@
-Received: from mail-wr2-f38.google.com (mail-wr2-f38.google.com [74.125.225.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855C147140C
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 18:46:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86632E285C
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 18:49:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793973; cv=none; b=mIlksE9fVp9LLPU4jfIplimaE+uKirHKd6m/xvCv5nLvy5latSuZ+tmuGGC8sPwdl4r5KlLmE61TVBCzbM+l6jgPImeKqV2mGthxRn5/yzvPBFxdtzKQTeWaa8hHlZIHjxBiVc4CbJuIKfWEK83F4Lj3d1UvMfC8zHkhKr7LniY=
+	t=1790794166; cv=none; b=LLwpQXfr+pznCsE/bM+E6Mi7x4k+ZhK+aJtC7vs8K28g1ZssKUn+/QsOEqJezTqFQlNO21pVrf0oMnq16OTKf0SyHfE8cefI/xrHnuvTjHnfYUjPqeWX41iK0ETRmByEfHpP99HnP1dMHiXalBnQmlNgw+Lw1bgsn/H601VD5/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793973; c=relaxed/simple;
-	bh=sXR+cYfmkTxJIBdyHijL4ukoiH3E+7bXnRJxpGUMSOA=;
+	s=arc-20240116; t=1790794166; c=relaxed/simple;
+	bh=vCLwpxPaICDJ4c4KeOBCQQzpMJjjpHEYDgrl8OPSLxs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WEF4RUEZnWa6hMWjTzuPN7pi+KOBJqQt1fOC3m+05QUeAmyhvvUUje6HLW4bgVNpJ3EaUVSVmK7hZUXAI1zuYi+IXUcj8fTiz9TKQfa56hUvG85GfStOrs9jove1BA5RQg7jZLIDC7hNabF7B1vof0imgabF8oMYXbnzOhN+D0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GgB4MtnE; arc=none smtp.client-ip=74.125.225.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version:Content-Type; b=dra75MBV1OleQ5M0erBcl4wr4rWkbvqyHEH7in/bGFVc/APmhQMWdVoOPW1n0p6VtTkZ0pKRgVmhJ3OqLDp519zOR1W1+jX6e30Eps6oumLP8mScJmsWrPMCmg/FziM3IHe+BArx1jNyti7ZYtYOtBolU127k9M43CJgz+SjHow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=TOQVQl1i; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GgB4MtnE"
-Received: by mail-wr2-f38.google.com with SMTP id ffacd0b85a97d-482f6350f89so3509458f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:46:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790793970; x=1791398770; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sXR+cYfmkTxJIBdyHijL4ukoiH3E+7bXnRJxpGUMSOA=;
-        b=GgB4MtnEl5Tr4Fa2AAToLQIYz45422AuIXtcYmxB7A2ybu1qCGZr032x2qiAM6Tjzr
-         DZ91MYlY8jWCXKiEiwFBEmYsDRFuQHt5qbeTx8gHEehBXQX9AI7FkP6oqR1fa64XWqXD
-         72w/MZOVLwu7KmDTAOCEp+ocgCIq/mWfRrGK9YAkC7N3G4WiidefXhE1E7bNcu/qC6R2
-         XzeNPcUgvT2QWu1uO0ucPKMUYiFTzoRFQ3H+ruM1MzNoBJhuqV55JiIGI/5MjK5eLp/T
-         5HbnncOtpWxTjk7Rm1FgGAYx5aKqOXazeei1VGw8SshHDGP/JihWWXTlC06RcQgB4n54
-         gC5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793970; x=1791398770;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sXR+cYfmkTxJIBdyHijL4ukoiH3E+7bXnRJxpGUMSOA=;
-        b=OxTZwqivroKwWOSX7oBY6ZDl0G2DB0hSgG5QWEqOuHlSZPpP+1lKUPUfZMjFJqul+V
-         ihXmqCgLYJ/xYNGANnpRTdMGgDUhaZi/Pw0lbUgb72szxHLY3Ju+YQysWdBEZk64Famj
-         sbrC8gPOel3N1PVy3AMfaAnZd+y5a0c76Cfptxplxlmt9UOS4j0LE3YpWaDyK9NWEjFP
-         dWb4hGMDDaBKs80RkSHKzv28HKAia+P8CkZdE5GzCNp9/3u7lg+hv5p+1R7ylHeXguor
-         LEANVesOdrjan+Szq3hFDh/uwCUziz0M+r/GkUOG3x83h3C55tfYwhc6xwoJoerBvxwM
-         jTVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz3dPa8gJwfF6J06IiYKYjRgzE9euek81PoFjZYHH61wxmjKloPnMMlG6lL2YcmSBDKHUYjlfzTjd48@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBf6TBu6Rfgx6P5IABJ86aVs0D/QM9JIQhBATzJzgHy89voICq
-	zAnVuJp5MVnQXC0YW00+K8892JasGQdKID0C60wKMSsWrUaU3Fjsk2NN
-X-Gm-Gg: AYBFou3HaQ0aB06XWflyl4jTsVxbMNkwYZ0vFzEO09QUTFDtRxWlwwI/L3tDIVFxn4r
-	SmjZiYBdIwhSkGCsm/4qG+X0529B/BTf9Tvl1QKUBVUk+bZ5ULFC/gdoz42E7QfipzRJWRHaCwb
-	5CGIDOgPFCQ+G8a3/4vi7XPSZTM1C09ZSlCY33/62EKeuOF/+/GDZ+8UY2+MvP2gahUnE9QdwVM
-	N7cYb1IE3/euzEQjoZezvkbu0rjtR46VJ8RpneSY1MjcrELEPRF9o95ELVGsOPu+utGKNBxI7bF
-	ZQwR3FQgJn7qoKbyKSEU+mkTHE6WLbZTK061zWuCHxdlXx8mPawo/t16Y6LmNjtJxZ7mkOurgWA
-	wXCRCxiwbRB9ieG1qsHKmIXFFs1WrOW/4giCTrm/m1USwaA6qAxJxZdu54YrtE7egsIUfraM/nS
-	Fl+Mh/YWiKmOx/jjTRU1phmM0wdMKV54SwV586odioxvo5fGE3KnE4HCIUzIJf7iae9RX+sLHpD
-	nHgN7WHuw==
-X-Received: by 2002:a05:6000:4914:b0:487:1646:8740 with SMTP id ffacd0b85a97d-48b02525c39mr4664720f8f.29.1790793969529;
-        Wed, 30 Sep 2026 11:46:09 -0700 (PDT)
-Received: from strix.localnet ([197.250.96.176])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b06a360c2sm858825f8f.36.2026.09.30.11.46.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:46:08 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-clk@vger.kernel.org
-Cc: Brian Masney <bmasney+clk@redhat.com>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Jerome Brunet <jbrunet+clk@baylibre.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, Manivannan Sadhasivam <mani@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- mturquette@baylibre.com
-Subject: Re: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver
-Date: Wed, 30 Sep 2026 21:45:58 +0300
-Message-ID: <btFKzO4uRMyc-9MtgwEq8g@gmail.com>
-In-Reply-To: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
-References: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="TOQVQl1i"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=rWFsHNuhE9NhgYR6RUPz4/Fgti25tsUK/Ak2q3CpV2E=; b=TOQVQl1iibkQm7QeEjJoVP8Kao
+	d5ZjY6dJEAwXYFoR/e2IU5DBvvv0K6dw4fZZg7nbamcAjeg2j9oX3acED6Kd9+JNCj50TQhwFKGZ0
+	UmmR0M1X8WpoGF5S1LLQ83QAzj0jFtOhfN2YPHhkBLWGljdaLHIPBzhZuILlEluM6kd1y0SfB69dD
+	OCDFzCFzF3B1FszDpskIiqCKWf2mYcR+002UyFdm0cuUIfFU+SSKKyUw6bE5rabQK4q9hDQrle6Jf
+	FtsEM56SEtOZ/t1Ykk3TOPc19fo5l7Pbw4INabk/l/vrTExnQ9g8zYLQQDd+jITSY3wUnDIDSYrmp
+	Sn1TZOpA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dragan Simic <dsimic@manjaro.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	Peter Robinson <pbrobinson@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>
+Subject: Re: [PATCH] arm64: dts: rockchip: Add missing audio codec supplies to Pinebook Pro
+Date: Wed, 30 Sep 2026 20:49:13 +0200
+Message-ID: <179079409721.2398180.7039996510410106789.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260928133122.45765-1-pbrobinson@gmail.com>
+References: <20260928133122.45765-1-pbrobinson@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartsPKDCllISYmd3lCo26IFKw";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
---nextPartsPKDCllISYmd3lCo26IFKw
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-clk@vger.kernel.org
-Subject: Re: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver
-Date: Wed, 30 Sep 2026 21:45:58 +0300
-Message-ID: <btFKzO4uRMyc-9MtgwEq8g@gmail.com>
-In-Reply-To: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
-References: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
-MIME-Version: 1.0
 
-Am Mittwoch, 30. September 2026, 21:40:12 Ostafrikanische Zeit schrieb Stef=
-an=20
-D=C3=B6singer:
-> Hi,
->=20
-> This pull request contains the device tree bindings and clock driver for =
-ZTE
-> zx297520v3 boards. It contains the next step in adding support for
-> zx297520v3 boards: Documenting clock and reset manager hardware and adding
-> drivers for its PLLs and clock tree.
->=20
-> The patches have been reviewed and carry appropriate R-B tags by Krzysztof
-> Kozlowski (bindings) and Conor Dooley (clk driver).
+On Mon, 28 Sep 2026 14:31:15 +0100, Peter Robinson wrote:
+> The DT binding for the es8316 got 4 power supplies added in commit
+> e9966d450b46 ("ASoC: dt-bindings: es8316: Add regulator supplies")
+> 
+> Page 16 of the schematic for the Pinebook Pro describes these
+> supplies so update the dts.
+> 
+> 
+> [...]
 
-My apologies for the name confusion: The clk part has been reviewed by Bria=
-n=20
-Masney of course, not Conor Dooley.
+Applied, thanks!
+
+[1/1] arm64: dts: rockchip: Add missing audio codec supplies to Pinebook Pro
+      commit: dd0c1c534957a1e297460edd1428b251e78b4fc5
 
 Best regards,
-Stefan
-
---nextPartsPKDCllISYmd3lCo26IFKw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmq9WOYbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoi0vkP/R8TftVhmpOKvKtkCGcF
-4ZtAmaTgZDo368Ob58bGJwjcPcIIQ5zq2NGbYUmEOAwv4cgjizL65aUsbrRruv7q
-Nvwq3G1ME/X1DzxqGzvTPnSF1TOn3wlGgwVOUDyhdABmcKcj/yVUAz0MTbGIoHhA
-3cBXmIUxge9lFEfvAjA4/4sc0VchClI7VkqMExb+OMLhnLL7Pz6iiDL8nq4YrTqG
-FiN8wmVSAfSpoeDd3+JWJVoxpc67pIrSs/sJdUogr8mT7OQ1l8Rq6i7cBaPpMhe0
-4Bs7kJfUm6InymbNlNLmN38qaYvX91zNqLVQUJ4mstasx+vSHIr+VrOpu7RQ7mIO
-DzBC/tDGB36rVfehgbtCrvmq/F89WzLCAjq8jfmAiWoQjG4EQTZkUFEQgozTAZy8
-gjvUozvVVv6zHWh6qrf7er1UffZedQQO6onl+OrDyaJaXcZGulacm0qwxYVpG508
-DNWSWKChqM0x1iO7W3a1WLKz96H0pAdRAm/ZqKKT0P9X/1dPCLB6DvJJYzLYmsFG
-JE7yeEcQ6Mv54NXTcOkbMq4awIBR8GzwhHeU61K7zC49COrFbBQTvR791IdsX5TE
-fVae2s63wZ0LEm9RFZtMf222Js8igqxVObRucgDghF8tO+WgipmsaDW2HWUdXaRP
-bkYvTz+t5nqEAikxecJo7pTU
-=bBGZ
------END PGP SIGNATURE-----
-
---nextPartsPKDCllISYmd3lCo26IFKw--
-
-
-
+-- 
+Heiko Stuebner <heiko@sntech.de>
