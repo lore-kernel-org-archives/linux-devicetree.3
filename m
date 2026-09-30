@@ -1,123 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BE83D6CA3;
-	Wed, 30 Sep 2026 10:06:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756A93BE659;
+	Wed, 30 Sep 2026 10:06:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762811; cv=none; b=O3DtnupZ3bnVst8UddibFZDQdtDugKGEwd9niYjBoENmm9yY4oBQVCWlAczlQ41m/V7UYtHhFC+UR4fMFZoiD7u+X/D+xtmZNFA+T1peEhMlnOmd6/TfU2hHAxofemMiBt4lclvelk/nyw6dwO6ev535wg71DBx6EYwGM7ixA1w=
+	t=1790762813; cv=none; b=GEFxFCkKMnHZcxoAjB960cJIxyr33RwmJvEp17W7wium4WM6L8nVnApVAG7r2xFqbChYFGy9O+Mb1575vNnc+mJcDGqEM9iSBF3JGIIAI8+FS17P2JQoyOafKmY2XPmV8aSgw+TUWmCEnd+gyU/VsW9Ay1HWF64q03SV7jl0hVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762811; c=relaxed/simple;
-	bh=e0ovPuyNd18QSOBneZJDDbXqd0wbmt9df0ODgWjm85o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jagWQB/G4+LYmd39NEAIbrG7XeGWC33bVTHeVuwVpMIJiiGlKNsikLiqaUnw0G8taPJ6UYymrhCQltt9gXzpNjSVj2C7PY2Ut7I3bECoV8yfuMzNh+861byRnF1IHNy5QX6nF00hV6nRZK8RXVr3srNzOyaYzT8RF07o4+ktffE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5QY1uY4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790762813; c=relaxed/simple;
+	bh=ubAvfkCp5vsdwUjCVnZQk0oMqZ99KBbjxOYN5RzNHz0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bdHeM9y6ktU3w9JyNic3OqDKRMad1WubJuxOaI48kX/fjuvutDyL8NGr5J+BLLAA6PW1JUvrAyd4BF8uHxUv1uZJLAh+OxSS8ocPjWpt0IXXWtPOYZdsa0VGri3zoQG7Q3t6HMaZov4LsG7CNnPfqjKwD4Aqe8xkav8VE0BivTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WfJ/AmNx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5QY1uY4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2B91F00893;
-	Wed, 30 Sep 2026 10:06:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WfJ/AmNx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6F771F000FF;
+	Wed, 30 Sep 2026 10:06:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790762809;
-	bh=eeYdI6c7HCKSlPtKmElz96aPh98TIc6cdoF8MQ41edI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i5QY1uY4CBiHRc8ajHbsoG2d2HjQ+iIpV8CBjSUy5sptXXX3N9/ILHmjOuI44baAJ
-	 p4REfDk2qz5FvCWrcujL+zky+lDAtnlNIGvZJRcu8JSO89SNRNT748gtxHqakfdudh
-	 6wHCh6QsjvG7xhcjGmBztV32jIfztsGaatIhydWTg/TG5lRR+01znv4s40WoL7c0tS
-	 /XoY3sa3IUiKW8tO+l9VaxvCyv/2gSijQA4QHNQCCw00RxBIxZwAzh4JmbOl7/NDrQ
-	 tbvh2gP7hv9yI18vN7Bcl9Z9MtZ07zYQctgyQD/1w1tofSE6twSPiDvrdFXm7vDUu9
-	 zYeHmQhuIVX+Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/2] clk: qcom: Add LPASS VA CSR heartbeat pulse
- clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sarath Ganapathiraju" <sarath.ganapathiraju@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260930-master-v10-2-105207bc5275@oss.qualcomm.com>
-References: <20260930-master-v10-0-105207bc5275@oss.qualcomm.com>
- <20260930-master-v10-2-105207bc5275@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 10:06:48 +0000
-Message-Id: <20260930100648.BC2B91F00893@smtp.kernel.org>
+	s=k20260515; t=1790762812;
+	bh=Q9yiKYavryXT+brJQyEy24mXi4JWCHIusIicf28HZnE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WfJ/AmNxHbH3gx7b57FwObyYPWoGBd/CHHeB1e0Oun037vUW75D/Pc3kUrV44bqX1
+	 NsA82hecWQSdk8FkiS87UgBmOBrjES7EFAEG8Re4d3G9H1vS9ScnXBnndb09bkq8dr
+	 AoHBUun3DucjgsbpBBmiWGY1TmDjcpjF/8u6IglR+g9O7jjPbHhPqFz3omUSM3xsub
+	 yfgDgcvlI7M370/zdFArEUb1wgMBN9tiAXjSRh198fYyWb9BPpU5EzXr/fhoOgtryk
+	 SdghhvyApBY7mWcMDIcxIFUp2NbjaQutFkGVQugusvCUqE3bjuXWfs6AS6BH2jnkH3
+	 qSuiHvIXTmRLw==
+Date: Wed, 30 Sep 2026 12:06:48 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Po-Yu Chuang <ratbert@faraday-tech.com>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] dt-bindings: net: ftgmac100: Add AST2700 compatible
+Message-ID: <20260930-rare-sarcastic-angelfish-21cfeb@quoll>
+References: <20260927-support_ast2700-v1-0-9f03f29d2c82@aspeedtech.com>
+ <20260927-support_ast2700-v1-1-9f03f29d2c82@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260927-support_ast2700-v1-1-9f03f29d2c82@aspeedtech.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] clk: qcom: missing hardware state restoration on runtime resume
-- [Medium] clk: qcom: missing NULL check for of_device_get_match_data()
---
+On Sun, Sep 27, 2026 at 03:16:20PM +0800, Jacky Chou wrote:
+> Add AST2700 to the FTGMAC100 compatible list and document that its
+> RMII RCLK gate matches the earlier Aspeed SoCs. Allow the reset line for
+> AST2700 as it follows the same reset requirements as AST2600.
+> 
+> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
+> ---
+>  Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 
-commit 506d9b3aab397203423c9181e755579f9ddb3dd7
-Author: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-clk: qcom: Add LPASS VA CSR heartbeat pulse clock
+Best regards,
+Krzysztof
 
-This commit adds the LPASS VA CSR driver to model the rate generator as a
-clock provider. It attaches DT vote clocks to runtime PM and programs the
-rate generator registers during probe.
-
-> diff --git a/drivers/clk/qcom/lpass-va-csr.c b/drivers/clk/qcom/lpass-va-=
-csr.c
-> new file mode 100644
-> index 0000000000000..b4c0f88187ebb
-> --- /dev/null
-> +++ b/drivers/clk/qcom/lpass-va-csr.c
-[ ... ]
-> +static int lpass_va_csr_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	const struct lpass_va_csr_data *data =3D of_device_get_match_data(dev);
-[ ... ]
-> +	ret =3D pm_runtime_resume_and_get(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_write(regmap, LPASS_RATE_GEN_COUNTER_0, data->counter_0);
-
-[Severity: Medium]
-Is there a risk of a NULL pointer dereference here?
-
-If the device is bound manually via sysfs rather than instantiated through
-Device Tree, of_device_get_match_data() will return NULL. The data pointer
-is then unconditionally dereferenced when writing to LPASS_RATE_GEN_COUNTER=
-_0
-and LPASS_RATE_GEN_DELAY.
-
-[Severity: High]
-Does this hardware configuration get lost during runtime suspend and resume
-cycles?
-
-When the clock is unprepared by the consumer, the PM runtime reference is
-dropped. The pm_clk_suspend callback disables the vote clocks, which can
-allow the LPASS power domain to collapse and erase the register context.
-The data written here to LPASS_RATE_GEN_COUNTER_0 and LPASS_RATE_GEN_DELAY
-is only configured once during probe.
-
-> +	if (ret) {
-> +		pm_runtime_put_sync(dev);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D regmap_write(regmap, LPASS_RATE_GEN_DELAY, data->delay);
-[ ... ]
-> +static const struct dev_pm_ops lpass_va_csr_pm_ops =3D {
-> +	SET_RUNTIME_PM_OPS(pm_clk_suspend, pm_clk_resume, NULL)
-> +};
-
-[Severity: High]
-Should there be a regcache_sync() call to restore the hardware state?
-
-Because the generic pm_clk_resume is used directly without an additional
-wrapper that syncs the regmap cache, the counter and delay registers are
-not reprogrammed after waking up from runtime suspend. The subsequent
-clk_enable_regmap() will only write the control register, leaving the
-hardware with uninitialized or reset parameters which could break audio
-DMAs and codec synchronization.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-master-v10=
--0-105207bc5275@oss.qualcomm.com?part=3D2
