@@ -1,101 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A473D75DE
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:20:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06063F44F5
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790806818; cv=none; b=bhpmWNA1Y3q2OPihaLsHdorQdYVpLgn9Jd4xgP0iW4he0L5VjhNe70atQTa25tuQcsts+pcCVvnIOk4b0/K0Ipuk7hGq/eDVTvffeBnfog6w3UdYBDxpfrSoKhlm9Abgqs++96cgKFTPhhj7cvNj8C9Y3j2AKkbefkkYRsqX3a8=
+	t=1790807087; cv=none; b=B2UHDfugdvlzN3CGR3ITDyWoEfWRkwLkn+rQZKWdhjMuVnqUseQgFCq0jtKLyhdMjayZzcNnFqdLxZ58/f7jU3whoKOh+bvq06kbSo+Y3BbmQoXVpA5DMuGyQ+zXOPP2kno7Bn6k5suxG6N/N3dWGS7aciu3vYCMbX08GpWAWQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790806818; c=relaxed/simple;
-	bh=TCwrotxQhho65zyVycgJ/Fll2R3htNcFm+x88i4FnsM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A1y+CdDJZtQSHUCJC9vs05nUpRc6dYF0GeHNuN7Q6KmsBaz7MLnMj1xLdPf7DG/gNvgtBgWkJk/6DpesgRC/JuWUvUHd7iqsYE4aPgpKB54PCRSEOr4oFnDM2CJLyy45lPqhxlxGzlZSsBGVc4OJKpq7Rph4x34eiwjdppLVAw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=apmecSKY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790807087; c=relaxed/simple;
+	bh=v4299bNl+lAPOB6/3VYr1Qulsb87AFZNEFsdu+iXIIM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=heOs7KZyDsIOH9oogWlVqc+t0PA7C4MlxKMFQdSWhRFr9H2KE27O5Vq9VvtivS1oDIgpSSenZmzuVtiY4QQV0FdTtIwygmGtF4/ryOejtb/lhDBIbcByyD/9VS3ZthBR/3Tzx+iW0ocuDwSy4DlC1FVs0RoNrQC06SmdQbXglk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rz7JdNCD; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="apmecSKY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 739CA1F000FF
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:20:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790806816;
-	bh=65w+P0+syMfsfRRZGa4iHCxiTRt/X9tvdIf2JYTb96Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=apmecSKYc5gBN42A6zWWWkk6OW+y7YoiG/6qrXTo7mJuc4R/eCMOAol1IZv9XJnDg
-	 Q2rkcKZ8S10pMTa3KtmHvhOHyERUQxvjI0YPGqpBHW5mCeK0jw6nwaKGdXDT/wl5LV
-	 ULEc/8Dj+pzS/Q39coXbMkP7JXcUk7QvZy9l2NsEH6caHTDh8jlAicaIdbX7J68tKx
-	 kh8NbgsMRtT4rt2KtkByqSMzgFKfVWh8QiAkfiLvdRwGveolIRL8W91X4KU+O/u6A4
-	 Rgq5JEre6+kkAcV8T+JTIPyXynLHxz2fTzpsMxYqtVeIEqZMpnJV6mmHU/v2l3lJX9
-	 tXu38IzrQ68Pg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3d90ac37so1358653e87.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 15:20:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxrqb+p+lWUzGF64H4Wl5dI3yMU2k0zjdJIUHa1Xct4SI63XABJpeK7PMKFLj0OZLmeHnNcG9pFO6x5@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDRITZeZvkYzhPy0V4OhMlSc5N0109EbrG7HCp+bvxB/LdmHi3
-	UgNOiiWs5hz4oR9llQKUr7OIPnXWoSAo+qspaB46cvlfFxNqNjgSEyYtWqlDOc/HCx0whbmxUhL
-	JiGfjDZWCcjbV+8cCl+0vXTsVaJIWoTo=
-X-Received: by 2002:a05:6512:1593:b0:5b8:e886:3688 with SMTP id
- 2adb3069b0e04-5ba402b3b33mr1066317e87.5.1790806815272; Wed, 30 Sep 2026
- 15:20:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rz7JdNCD"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d90ba1d807so45924925ad.3
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 15:24:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790807085; x=1791411885; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UqD2onkoNKbwoz5eLcMSO+ts9RQq0wVH4NJCZCES+ns=;
+        b=rz7JdNCDG8mxKKfOq8WAE4Dy9A5cDzDiIUl0kDifDV8Auca745O1ubZRkh3eEFCt0F
+         5xQtSXwU+oae1fzuq7MjSfqU0a1RIYPWGi7gMv9oN2gCbnjHWKTKSVXeFr719Vh1pJ+o
+         Tul3G4qRhzGFFok7TEuREBSXk5thPF6ZIUoQpcRODKrBDkA48ieC9iEgjUS8Jl5oSI0g
+         c3zykUVwscJFArAiK97PDmhKGRNozh7I5wyXUrgtlzuAYQwRKmcTiJI9JUHSSODHcuRf
+         GidZPmFpNI+CmWym2gPQSUbMXJrJiS9LFyzFtJtVVb71lBhOLeERfx7M+4uTf3Lpc6Gg
+         CnVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790807085; x=1791411885;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UqD2onkoNKbwoz5eLcMSO+ts9RQq0wVH4NJCZCES+ns=;
+        b=Fwi2LILsYBpiSgpoVRBRHkipABrUguUtfDqVe9glL03exyfLkmFjBnROIFn+Az7dKx
+         2LMyzUPXKEjCgKrq43HzpIpYKXjVZA+yWU+Ygik8ZldPT4u7VKLjefBeL6vHf88QnjY8
+         S/2tTf3ndVg+qHhNeOmPkhiE2VsNyZ0fRse7xkDSwtogcKv5sFDk90K6lrrqXTK13GG6
+         osLsmzKMaH9AeRibU47LEGYkgUoMofzLn2B/mgh3sh1yifCYE3kj+A5+rdF+jypMCxJU
+         cQsaTH1uVhDEweg8czUczfbY1DCKN+5f5zY/3C0VtXQD5OdcNf1oKy+jzewRnyS2iPkg
+         Yx9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwuQaNnMRdzo1gJryL4J8+fmQXQ6VvmcpUL9jMg5tWFDqUEhEkUdxKW/57XxKT0WAGAnVv9N45IsSv0@vger.kernel.org
+X-Gm-Message-State: AFq9FYIs5MfvYwxzQrYFxMTYbF5Z21PRUpyLuaKwwpBXGrxGb3lekTyH
+	FS7UUyX/BAdykFFTl03jgIcsFf3h5eHZSl3HuhpMbtm4Mr7VhqEFNXqv
+X-Gm-Gg: AYBFou3s5Wc8/YtnfkVSLdDAY9g/TnE5bWeBg2MHALHREVQnvjnPdja4TDuZpAgrcju
+	c9jcfUZgPi4/M+7/eIhjH5cA/pUcwJin5w+v8QObmmfByG+fxQJDFFyierlp+AUyTNEgNktIDAo
+	+bmPjHuqreRxMRdlEhYcXlMCIDpfZb6gL3WDuYgVaRbH6HsBoFFAIewXdfMm5e/+023TmM9WfRq
+	gI9vQxLRc5i23HiOLacke5srbmiJDPBTAFWHEkcyfjD+AxY+Cn1p0TCBVZV0FbBkrpnutAItKjU
+	PYL1+1e1IsSOaPIDR7+akjJUQogUthNd/oR46VqlGTWmcQW4wg+K0z/Zv25arJx4AzgbZzrblMz
+	pUU0EfAi+PQXLcAxTekkWP2D8v8is3VHUmfMcteXBQyMWop8n7OhgDILPyELCp/0/aPvYWLrYlw
+	tAtX6ksr8mFpy/eD/3JDoSoifBEEp5DOxfPu28jHsyF+Hkj2KA7yvAbT9Ru2e2G9zAqcJW7v55l
+	q13682HyWkA2Uop59P/srM=
+X-Received: by 2002:a17:903:1a27:b0:2e2:f1f8:42bb with SMTP id d9443c01a7336-2e2f1f89acfmr13956375ad.54.1790807085027;
+        Wed, 30 Sep 2026 15:24:45 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e300b90719sm2510425ad.84.2026.09.30.15.24.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 15:24:44 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 30 Sep 2026 15:24:42 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Vincent Jardin <vjardin@free.fr>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Charles Hsu <ythsu0511@gmail.com>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: hwmon: pmbus: mps,mpq8785: add
+ #thermal-sensor-cells
+Message-ID: <37298c5b-aa6b-473a-8e22-d29ddec12c04@roeck-us.net>
+References: <20260930-for-upstream-dt-mpq8785-thermal-sensor-cells-v1-1-6573c765eef8@free.fr>
+ <20260930140721.E066D1F0089D@smtp.kernel.org>
+ <ar1Gj2XVOCEjUY0l@L20747.iliad.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
-In-Reply-To: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 00:20:01 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmts76o8wyR=eY=vdNsh8+916YqK9qwM3b=R624AYM1XA@mail.gmail.com>
-X-Gm-Features: AclHuK-3WLZPojlMzN86zHmOvH9gBpstHy6qqmtykYw4QwirmmoTz47SZXLeMp8
-Message-ID: <CAD++jLmts76o8wyR=eY=vdNsh8+916YqK9qwM3b=R624AYM1XA@mail.gmail.com>
-Subject: Re: [PATCH v8 00/22] Add basic pinctrl drivers for JHB100 SoC
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar1Gj2XVOCEjUY0l@L20747.iliad.fr>
 
-Hi Changuang,
+On Wed, Sep 30, 2026 at 07:27:43PM +0200, Vincent Jardin wrote:
+> Hi Guenter,
+> 
+> On Wed, Sep 30, 2026 at 02:07:21PM +0000, sashiko-bot@kernel.org wrote:
+> > [Severity: Medium]
+> > Is it correct to set the cell count constraint to 1 for this hardware?
+> >
+> > The Devicetree specification generally mandates that single-sensor devices
+> > use a cell count of 0, as no index is needed to identify the sensor. By
+> > forcing this to 1, it appears we might be baking a Linux-specific driver
+> > quirk (the PMBus core's internal 1-based index) into the OS-agnostic
+> > hardware description ABI.
+> 
+> M. Bot has a point, and it is a PMBus core question, so I would like
+> your view before a v2 of this binding.
+> 
+> Since the commit
+>   3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE")
+> pmbus_core registers each temperature input using its hwmon index as the
+> sensor id, so temp1 is sensor 1.
+> 
+> The hwmon core counts from 0 instead:
+> for example temp1 is sensor 0 for jc42, tmp401, lm90 or adt7470.
+> 
+> With the 1 based id, a single-sensor PMBus device cannot use
+> #thermal-sensor-cells = <0>: thermal_of matches a phandle without
+> cells as id 0, and no PMBus sensor has id 0. That is why this patch
+> uses const 1.
+> 
+> No current DTS references a PMBus device from a thermal zone, and no
+> PMBus binding allows #thermal-sensor-cells yet.
+> 
+> Aligning PMBus on the hwmon core would mean:
+> 
+> drivers/hwmon/pmbus/pmbus_core.c
+> static struct pmbus_sensor *pmbus_add_sensor(struct pmbus_data *data,
+>   ...
+>  	if (class == PSC_TEMPERATURE && strcmp(type, "input") == 0)
+> -		pmbus_thermal_add_sensor(data, sensor, seq);
+> +		pmbus_thermal_add_sensor(data, sensor, seq - 1);
+> 
+>  	return sensor;
+>  }
+> 
+> 
+> If you agree, I will send it, with a v2 of this binding using
+> const: 0, since each device of mps,mpq8785.yaml has a
+> single temperature input. Otherwise, we should keep const 1.
+> 
 
-On Thu, Sep 10, 2026 at 12:04=E2=80=AFPM Changhuang Liang
-<changhuang.liang@starfivetech.com> wrote:
+Yes, that is a bug. Please send a patch. I'd prefer the index
+to be handled in the call to devm_thermal_of_zone_register(),
+though, with an added comment explaining that the temperature sensor
+index in the PMBus core starts with 1 and the thermal core expects
+a 0-based index.
 
-> Changhuang Liang (22):
->   dt-bindings: pincfg-node: Add property 'input-debounce-ns'
->   pinctrl: pinconf-generic: Add property 'input-debounce-ns'
->   dt-bindings: pinctrl: Add starfive,jhb100-sys0-pinctrl
->   pinctrl: starfive: Add StarFive JHB100 sys0 controller driver
->   dt-bindings: pinctrl: Add starfive,jhb100-sys0h-pinctrl
->   pinctrl: starfive: Add StarFive JHB100 sys0h controller driver
->   dt-bindings: pinctrl: Add starfive,jhb100-sys1-pinctrl
->   pinctrl: starfive: Add StarFive JHB100 sys1 controller driver
->   dt-bindings: pinctrl: Add starfive,jhb100-sys2-pinctrl
->   pinctrl: starfive: Add StarFive JHB100 sys2 controller driver
->   dt-bindings: pinctrl: Add starfive,jhb100-per0-pinctrl
->   pinctrl: starfive: Add StarFive JHB100 per0 controller driver
->   dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
->   pinctrl: starfive: Add StarFive JHB100 per1 controller driver
->   dt-bindings: pinctrl: Add starfive,jhb100-per2-pinctrl
->   pinctrl: starfive: Add StarFive JHB100 per2 controller driver
->   dt-bindings: pinctrl: Add starfive,jhb100-per2pok-pinctrl
->   pinctrl: starfive: Add StarFive JHB100 per2pok controller driver
->   dt-bindings: pinctrl: Add starfive,jhb100-per3-pinctrl
->   pinctrl: starfive: Add StarFive JHB100 per3 controller driver
-
-All of those applied to the pinctrl tree!
-
-I had to manually adjust the MAINTAINERS patch because it is based
-on some reset controller patch I don't have in v7.3-rc1.
-
->   riscv: dts: starfive: Add JHB100 pinctrl pad number header
->   riscv: dts: starfive: jhb100: Add pinctrl nodes
-
-Please funnel these through the SoC tree.
-
-Yours,
-Linus Walleij
+Thanks,
+Guenter
