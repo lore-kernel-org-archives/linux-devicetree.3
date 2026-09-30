@@ -1,68 +1,41 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93BCD4D98EB
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 13:51:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CDC4D9F6A
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 13:51:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776308; cv=none; b=q46R6WTIQP6d8Gd4zPITSgHtf++tyagOb9a5lz6LY+N969ewxm60ndhJ2CW92gbIn+uRo4lQ4JMO7QiaKhwyULu1i0bn3+4iN4nS029la9PXCpYufIOARFcIjsgSFSwJNR+zyD06GjprjpkBK+/CO3q/ei3SAGFwTWudH0Hq59g=
+	t=1790776313; cv=none; b=lldb941j51Gx4m5IWjxHcc2hGyFV1pIMwMCDGVMWvp8z64WVHh8GSjs5AM9SsbAnY/PqQEA3WeQ4p3tEGsxU7vyZrsPWdICGj9I0iOeW652O6HP5v/hSyQYgjpoTBhBSr2vOQyTkRXIY89F0HYEivMeLYPFS+n3bMA8cmdvpMRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776308; c=relaxed/simple;
-	bh=+IoKX1KNbarkITcQFvbLMQ1gUQCVJ7Te+5R39GBUc8M=;
+	s=arc-20240116; t=1790776313; c=relaxed/simple;
+	bh=l7abfpsRrMZ7oBWyL4FsSuaEMLrgrwqnzHPSNOOnZyY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X8iNu/XEuQF4R0ncWpXJq0nb0YAQEZxPha0EpZ+l77PKOH4aAJGxil2bOVHxkbdyrRxk7NhmP2O1FIPQqfX9blBkCg2xt9seIEi42eDfZR3WKQ9Db5MBNG1VkoK6Nozi3P2OB1HVBiacKEqEOuLT2QkNg5RXLfGImoK6TzoAj5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UEpnlQWU; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=BrcEvbAfeRX8+rMVZRq6DzDAS6iWfBUROGV55habtdxguD2npojJmF0LsKPSWZ9Amn8BWsZd/Hm2rrmoi1deCTNBwbtrbfO9KF2J/cE50bayowx3+aCIxXyXfspxltSjiE8z6l8FTBqx0nmeqtYOU+Ioh32crDd4I6UTHhId+Ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=Eees9UHh; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UEpnlQWU"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e201b7189so112430566b.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 06:51:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790776289; x=1791381089; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+IoKX1KNbarkITcQFvbLMQ1gUQCVJ7Te+5R39GBUc8M=;
-        b=UEpnlQWU19HF2YQ6+h1Givg34TXiGLbOzW1X5TAsNO+qgXzB6nlp2+YxTAQxC6ARu4
-         mb6qF1MNsm+V+GYxSluqFvxyUHo8eu0yNKt73JIXRIOMkZ+EB2uYThMEFDlFO61lcsAo
-         pJ44SFDQjoW6QEJIXDVzQcoTuEcupC6oRSSxbpLjvt/a9+yZbBeIL0UzzdI+TxB2FxnN
-         Jem0kiPwC1pjSEjmXkgPlwKJjR8ZpCy6rVAgP+fz6TzeIOimk4wqkPq4ouXLeoVLvxa/
-         SujQkiAwU+FFBJICduj0DBRHMCZ+7PP6kKnVISR4/4cTNeFgQ6bSmCeXDfS+wZZxBYXr
-         BuEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790776289; x=1791381089;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+IoKX1KNbarkITcQFvbLMQ1gUQCVJ7Te+5R39GBUc8M=;
-        b=Dr0V43PPWV4fXJqSytGFd6+dP0t9/Jb6bRfjDvOkp8n4TjWeXCZ6K/53os1oBUc8G/
-         IBWzfU5PPa3DHqytLKVCC2idm4DyZqPkpZ/y57G5dju1LHxcZZXcAOpY2wDQWjYVNOL9
-         S9sLbYs11FFLPNIoq2R8W6oLKlFM/kdaXmzlKnCcFAkLlVSe9aoZQ6zBfK5V9lA2OyAU
-         79G4fbv6dQ90xbkjk1KvkI2BmHbRkz1fOUoUjCXjUEZv6evDhVIjP1e4/VvNsry+Vq/U
-         NDtPPijnhBibJDOFOPPaF1IscdI020UX+Q0V58RFlFiGrAzfvuFMs01VAZcl3Il76oFR
-         gSUw==
-X-Forwarded-Encrypted: i=1; AKwUvBwiOR4GxN7ij2oKhQfIjrRNK81w46p5JOzQuNiNIqeqsyiUyx+9nvA+AvqxOuQdDrVyIJGo7SPxu7ka@vger.kernel.org
-X-Gm-Message-State: AFuF++np9xLcSSBOl+x8pHVbZXkoz13Igo0NDi2WAylQSPjT9xRYyE/p
-	HYGcEQXz7p6GFzPp2oWtN14I04XyAFw2mmUH26CTN7jFJOFGKy9nfGUe
-X-Gm-Gg: AYBFou0kVKzg6xVSZpNnpenmX9oGetsFKL6vRL4UQlfPiOyV+6vuNHJ47EtsBSqiJX7
-	2tdcqyuu4LHwg99LEVdvN1esE9I4rLU2gYgWxWZx+h0z0/y/ZnRFOM5co2KcwSOSpga0Dk2LELr
-	3L5QJ6hKfh7Bb9Nji5MoHVnp7Mcyn939504VH12bid2mXRaEEPTQW4XoKPg2cBBDM9lo2TeFdJQ
-	FrV+a+AkfImfbBY7bXXv16r4QpDUag8sCELcbLCIjuuAs28G2t2ckMkqe9Pyy8oJAjR+OxFSN3W
-	3rk/Z5+8x+gFP9iCzkf2WVT31nfe6ruFEcDiGqR1EzVVWjoJN5NbgF/kF9fEfH+EDEytCcT0R0e
-	Ikv+NvCCU72AgwqoqtYJgcEFyKdl1RThhKp2RMIqtXWrRLJhrp9k2Dndk4ssLVuqcgW9T63OE9h
-	PSyho3Dp/ubI4GzVkZEEBlF1V1mZBaoE5DAk8erfqwACmN3kLhayb0+R5/nI6z9KBvzMYSIFI8z
-	qPFeREzZL8oywgw5sptdbkdMwq2ryFIHz4=
-X-Received: by 2002:a17:907:3f95:b0:c26:1648:a06c with SMTP id a640c23a62f3a-c2e23de0396mr133226666b.39.1790776289360;
-        Wed, 30 Sep 2026 06:51:29 -0700 (PDT)
-Received: from [172.24.138.145] ([137.71.226.102])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31d867ffsm5456466b.59.2026.09.30.06.51.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 06:51:28 -0700 (PDT)
-Message-ID: <a57399f0-4c47-4b32-bf6a-7761d9b57320@gmail.com>
-Date: Wed, 30 Sep 2026 15:51:26 +0200
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="Eees9UHh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=NRkSzdr9h/KU/Gp3VjR0xCo3up6HUR7kMTPEsX5LBWI=; b=Eees9UHhgdaRBjfrs8w5185sc0
+	+uySXruUWIbz+EvffpApA8edYaeI1MSJciKCuobjYZnpyrB2sff0WHWmSdA/wyOiKsEnaj00BUXgt
+	yh1QqIhvExinYuSWiKEXmDoGkbEnIxRtY+FTYxHEWASMlP54i64pUDuH2QIFBSfEONzE8jHVmvfmo
+	rvvZYTdwU9PGemsJuYz+fUajao8SOUMEajFhs+lU4uoOPl8o0fS2GL9OXKh4S7Sq0VoWG1Muu5ZFX
+	Qy+YzGa7WNPB137wi2UT/hvk3L80S9h3H5IQd8UmcnpP4UFcKXo/5lVQ/lGxrhcXAxV6ye8TyDk/E
+	78t9YQ/w==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:50572 helo=[192.168.69.116])
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1xBuil-00000000l1S-1WbQ;
+	Wed, 30 Sep 2026 15:51:40 +0200
+Message-ID: <a3cf3fa9-9468-4722-a053-5bec424d5526@norik.com>
+Date: Wed, 30 Sep 2026 15:51:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,50 +43,108 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/5] iio: dac: Add AD5529R DAC driver support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
- Janani Sunil <janani.sunil@analog.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>,
- Marius Cristea <marius.cristea@microchip.com>,
- Marcus Folkesson <marcus.folkesson@gmail.com>,
- Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-spi@vger.kernel.org,
- Kent Gustavsson <nedo80@gmail.com>
-References: <20260715-ad5529r-driver-v6-0-cfdf8b9f5ee3@analog.com>
- <20260715-ad5529r-driver-v6-5-cfdf8b9f5ee3@analog.com>
- <arzTnOTaL97GudZM@ashevche-desk.local>
+Subject: Re: [PATCH 1/2] ARM: dts: imx6dl-phytec-mira-nand: Enable all
+ peripherals
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev,
+ conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260930103425.2315286-1-primoz.fiser@norik.com>
+ <20260930103425.2315286-2-primoz.fiser@norik.com>
+ <20260930104006.EC64F1F00893@smtp.kernel.org>
 Content-Language: en-US
-From: Janani Sunil <jan.sun97@gmail.com>
-In-Reply-To: <arzTnOTaL97GudZM@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Primoz Fiser <primoz.fiser@norik.com>
+Autocrypt: addr=primoz.fiser@norik.com; keydata=
+ xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
+ JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
+ ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
+ gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
+ jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
+ 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
+ TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
+ AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
+Organization: Norik systems d.o.o.
+In-Reply-To: <20260930104006.EC64F1F00893@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
+Hi,
 
-On 9/30/26 11:17, Andy Shevchenko wrote:
-> On Wed, Jul 15, 2026 at 01:41:08PM +0200, Janani Sunil wrote:
->> Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
->> from Analog Devices.
->>
->> The device communicates over SPI and supports per-channel output range
->> configuration. An optional external 4.096V reference can be used in
->> place of the internal reference.
-> You haven't added a given tag, why?
->
-> In any case I have noticed that there are a number of (not so critical) issues
-> are still exists, so I have to withdraw my tag. But please, answer the above Q.
+On 9/30/26 12:40, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] dts: imx6dl-phytec-mira: missing m25p80 SPI NOR flash enablement
+> --
+> 
+> commit 1324c8cd36593c2b5134e1d0d30d31d809ac1bc1
+> Author: Primoz Fiser <primoz.fiser@norik.com>
+> 
+> ARM: dts: imx6dl-phytec-mira-nand: Enable all peripherals
+> 
+> This commit syncs the i.MX6 DL NAND variant device tree to match the Full
+> Featured (FF) variants. It enables peripherals including CAN and PCIe, and
+> removes the speed limit on the Ethernet PHY.
+> 
+>> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-nand.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-nand.dts
+>> index d906a7f05aaad..1f827ad2ff5ee 100644
+>> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-nand.dts
+>> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-nand.dts
+> 
+> [ ... ]
+> 
+>> @@ -50,6 +50,10 @@ &i2c_rtc {
+>>  	status = "okay";
+>>  };
+>>  
+>> +&pcie {
+>> +	status = "okay";
+>> +};
+>> +
+> 
+> [Severity: Medium]
+> Did this omit the SPI NOR flash enablement?
+> 
+> The commit message states the intent to sync the i.MX6 DL NAND variant to
+> match the Full Featured (FF) boards by enabling all peripherals.
+> 
+> The FF Quad variant (imx6q-phytec-mira-rdk-nand.dts) enables the SPI NOR flash
+> by including &m25p80 { status = "okay"; };. While &can1, &pcie, and the
+> unrestricted &ethphy are enabled, the &m25p80 node is missing here.
+> 
+> Does this leave the board missing its SPI flash feature and partially
+> unsynchronized compared to the other FF variants?
 
-I intentionally did not carry the Reviewed-by tag from V5, because V6 included substantial driver updates. I should have mentioned this in the cover letter, but I missed doing so.
-Some of the points mentioned here have already been addressed in later revisions and are now present in Jonathan's testing branch. I will send a follow up patch for the reset of the items.
+I re-checked and this patch is actually wrong.
 
-Best Regards,
-Jan
+There was never i.MX6DL som with NAND + FF set board.
+
+I will drop this patch in v2.
+
+BR,
+Primoz
+
+> 
+>>  &uart3 {
+>>  	status = "okay";
+>>  };
+> 
+
+-- 
+Primoz Fiser
+phone: +386-41-390-545
+email: primoz.fiser@norik.com
+--
+Norik systems d.o.o.
+Your embedded software partner
+Slovenia, EU
+phone: +386-41-540-545
+email: info@norik.com
 
