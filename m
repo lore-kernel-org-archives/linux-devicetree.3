@@ -1,54 +1,35 @@
-Received: from ms2.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F43E3438B7;
-	Wed, 30 Sep 2026 01:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68B23451A6;
+	Wed, 30 Sep 2026 01:40:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790731871; cv=none; b=GCYm1EaddE4RyqYmY87lwCbuoEGLg89suEYpGMmsETcZLMyYKvMldJ4COv2nvU40ALyv3j/nai+Puxry8kAKwgN2qzosZb/V4ZNa0frZIpX1Z/E1GSpiOYQBUBw8Oq+X4TqoX01kn39xMVt2Huh95qaCRw+wV9Zpzf6ivjPYOmI=
+	t=1790732409; cv=none; b=m3vmNF1SyQCyw3NdPL0SeuF1DmdNeuecp0EGnaRmPbUz4B9fPJnPs31qTfLgpy+5h4x2JE1NlsEEL4zW+FEa7kVdgfXr0fyAAHJskrHq7zJxjAjvKMA0z5iqS/Jc7N9NErMSlyJHnDydaxoStLxzn4aY6lHjQLB9YACEavsEd1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790731871; c=relaxed/simple;
-	bh=ZJQZa9fBtDrsBGxdSvvFN1Ftjl3HNg+h0YX8nf/XsxI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=XnhRsFooLpA9QBVrcT8Um/t/rSUwwGa5mA/PC8VjhNdiYBD6+V/s0D1ujVor93eKjF+RvN5jfWygMwT9ND1lNbB1Trl1rF/PZDBKx7i+svIGB7Ru/J0Ef+F2MvukARfJiyhR3M4cRI2HaaQwQxidCnjPiKfiBDvN92Mhq67aauI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=dz3NANWb; arc=none smtp.client-ip=210.202.87.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
+	s=arc-20240116; t=1790732409; c=relaxed/simple;
+	bh=rTwaGF6Si9doGtbQ2xytNlzHM5QXDTRl5HHqbST1/L8=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=cCcczqsusvjXoEDKRNNP/IKG7j33wGtuiHxOloRzk7WJFzdqXJidW0Kv4YdkidbtyZAxE8s4rXQsWOZqkfbAkVDq0k93FwXHGbyZixTsNPmaeyR3XC+uDkEIPfXFo6LAmNSgKanzMbVVDCbk9u1ZtpliKmmhY/vG3wDkYoQ46Ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lf+pYSps; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="dz3NANWb"
-X-UUID: e2338f4cbc6d11f198e94de09bb89237-20260930
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
-	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=ZJQZa9fBtDrsBGxdSvvFN1Ftjl3HNg+h0YX8nf/XsxI=;
-	b=dz3NANWbinMcn02+7WUHau3HQ9yZIkE41XwmxZzYA4gjMhSNFEAVvktImP0qJYqjy1Z6zsacNfniH0Sm9klzE1nq/d/pqxpb75FV1jol/TkHX/GdSBf5jCn0MRCxNYyBBJFJhb9z0fRC31RGroSauQrlA37SbUQ6EXkJ1rE0YQU=;
-X-UUID: e2338f4cbc6d11f198e94de09bb89237-20260930
-Received: from spmgt1 [(172.20.13.10)] by ms2.novatek.com.tw
-	(envelope-from <sp_isw1_at@novatek.com.tw>)
-	(Generic MTA)
-	with ESMTP id 170437113; Wed, 30 Sep 2026 09:25:55 +0800
-Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.20.160])
-	by spmgt1 (Postfix) with ESMTP id BB3FA1A1E1C;
-	Wed, 30 Sep 2026 09:25:55 +0800 (CST)
-Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
-	id B73C8C600E1; Wed, 30 Sep 2026 09:25:54 +0800 (CST)
-From: nina_kuo@novatek.com.tw
-To: andi.shyti@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org
-Cc: shihpei_hsu@novatek.com.tw,
-	toby_chui@novatek.com.tw,
-	f_y_pai@novatek.com.tw,
-	jason_jj_wu@novatek.com.tw,
-	Ben Huang <Ben_Huang@novatek.com.tw>
-Subject: Re: [PATCH v9 2/3] i2c: nt72676: Add Novatek NT72676 I2C controller driver
-Date: Wed, 30 Sep 2026 09:24:57 +0800
-Message-Id: <20260930012456.804329-1-nina_kuo@novatek.com.tw>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20260910030123.215609-3-nina_kuo@novatek.com.tw>
-References: <20260910030123.215609-3-nina_kuo@novatek.com.tw>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lf+pYSps"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 476541F000FF;
+	Wed, 30 Sep 2026 01:40:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790732408;
+	bh=FJR6AKUyGSUOsMk5lSKuZJ2Wvblf/S3YNFdN/AvpJ1s=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Lf+pYSps/lAIbsWOY9uCo8t96C99/0ySQjrRaxJMx8pWPe43vQ+b1uorWaQTJHp9h
+	 ex2yoxw/HZuOiY9fHJShbg7VbysThdY9FP86ZUMeAnRjaZguFjxJEe2Phiuhte/1bZ
+	 DVKJSpiDUhdXGe7AfPrJTgbU6gGINUCT/Tq24LcRn96rqWlkcgGNiKYgT2mxRG9Oa1
+	 19A4uhuNU/1xiHjw1bNMCSJ/QAr+qid/CwPh43bBj6X8ewI1I1g7YFY3MnGiclVTLQ
+	 MEaCsC7VGjaLdU01gvoGksieuXGPpjqcbYqquiU1hR+XzD+jjK0YUFdU+SekEFVL6p
+	 qcnOj0IYatqzQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A3AA3924FEA;
+	Wed, 30 Sep 2026 01:40:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,26 +37,56 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v6 0/3] net: stmmac: add Allwinner H616 EMAC1
+ support
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179073240703.1199722.17774874033053476727.git-patchwork-notify@kernel.org>
+Date: Wed, 30 Sep 2026 01:40:07 +0000
+References: <20260927-submit-h616-emac1-v1-v6-0-e64971f4e414@gmail.com>
+In-Reply-To: <20260927-submit-h616-emac1-v1-v6-0-e64971f4e414@gmail.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: richard.genoud@bootlin.com, maxime.chevallier@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, wens@kernel.org,
+ jernej.skrabec@gmail.com, samuel@sholland.org, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, clabbe.montjoie@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, peppe.cavallaro@st.com,
+ joabreu@synopsys.com, alastair@d-silva.org, mripard@kernel.org,
+ netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ andre.przywara@arm.com, krzysztof.kozlowski@oss.qualcomm.com
 
-From: Ben Huang <Ben_Huang@novatek.com.tw>
+Hello:
 
-Hi reviewers of Linux I2C subsystems,
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On Thursday, September 10, 2026 11:01 AM, nina_kuo@novatek.com.tw wrote:
-> From: Ben Huang <Ben_Huang@novatek.com.tw>
->
-> This driver performs the fundamental read/write functions as an I2C controller and supports Standard-mode and Fast-mode.
-> Default operation is Standard-mode.
->
-> Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
-> Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
+On Sun, 27 Sep 2026 12:52:18 -0600 you wrote:
+> The H616 secondary EMAC supports RMII at 10/100 Mbps and uses a separate
+> system-control clock register at offset 0x34. Add its binding and a
+> sun8i stmmac variant using that register. A distinct compatible without
+> an older fallback prevents the driver from using EMAC0's clock register.
+> 
+> EMAC1 connects internally to the co-packaged AC200 or AC300 EPHY and has
+> no external PHY pins. Leave PHY initialization to the PHY driver instead
+> of using the H3 internal-PHY controls. The RMII-only variant does not
+> expose the RGMII clock-delay properties.
+> 
+> [...]
 
-This v9 patch was submitted about three weeks ago, and I have not seen
-any review comments yet.
-May I kindly ask if anyone is reviewing this patch? Any feedback would
-be appreciated.
+Here is the summary with links:
+  - [net-next,v6,1/3] net: stmmac: sun8i: reset the MAC after PHY initialization
+    https://git.kernel.org/netdev/net-next/c/fee9c17671b6
+  - [net-next,v6,2/3] dt-bindings: net: allwinner: add H616 EMAC1
+    https://git.kernel.org/netdev/net-next/c/1cf9c2ac57fd
+  - [net-next,v6,3/3] net: stmmac: sun8i: add support for Allwinner H616 EMAC1
+    https://git.kernel.org/netdev/net-next/c/61240e48a67d
 
-Thank you for your time.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Sincerely,
-Ben Huang
+
