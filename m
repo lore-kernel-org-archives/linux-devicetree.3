@@ -1,124 +1,118 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93F651B188;
-	Wed, 30 Sep 2026 14:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558D6511202
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:29:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790778407; cv=none; b=frXfXEhdGL8QtueZxYhUZkJygKuAkWhN0UfU/FzI/nI2LOIkh40wD8XpkCg4k6uRGQ29YdkfNCCNPFcqX5Jo+9KvH/Zw5sX2T9lNawuID3ac4l8QcjeosuVgGlG/q1yTShITX0tf7y2vXngCgg9HJXmOfPblmYqqkXRmO9ulvKg=
+	t=1790778555; cv=none; b=aPnXOvkkf4kYvKu0Ei8O9AOWulgBU0FqcLSkIRF/mmvQAf27vFp/r9rIXhTKCxa//xR+VPTkSdlB8zGWuf/0ayKC1/oR7z+6XFTUyHWouEOtCm36ynhlPmVR96KBefh7BIB2ZLeDD5Hjnau1ZsRS72EKOmfAPyrxf5rJq5HjJR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790778407; c=relaxed/simple;
-	bh=x34LHTwBatjlELoJlVjVjMc0ih2t5zfVwePL41nvduw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JNGhJmT4GFqx1C8uu14+FJrMUZByd1cj4r9KANByW8DPouucajO1S6hm0P+HXnWXwpVauakpAfFmvMIy0NVuD8KA4VMQ4JaS7Nqg/4KfV31X8HFV/1viozugw/fggYnwosPIMbqgUV+239EypMqNaztuq30+T1PCT0lZ7Vn6hb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=kkPNQ/1E; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1790778555; c=relaxed/simple;
+	bh=kXoog86jzUq2iy1y+wPesv13OwllCuL9Or7HjAUAZ4M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DpcdP2qRYjeFfJiNjQ1lb1JrHfhcx+gokdJyia7Q7syj0p6L2XrjIxQequNuFuS82ZMiXYsNw0JBqHssLSLn7JTgeRaXhobKkLFjOkbco1+ShJWmgqTRXWlivibUpqmTKTkiqUUxezcaT3iZRrZZ8baNdV/4wmVYo79jlCjQHC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vt7Pt+FD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="kkPNQ/1E"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=7/9j/ZIB/tsoCyWFj5gYto+ZmNGdvuaACBD0+J0poL0=; b=kkPNQ/1EeWjdOpp3zNhO8e+dSw
-	1AAs4HG/Oj/jCQ/R3HwWplmXi5JhkCapecjWpqmP6s2Jl8c5Zv+OBTZVTqZGmIIoCjGSZs6+H8qsn
-	/B4tOFKSIhRnf6QOb68LCAOzGkYcGiH85Ke7QQ2lQI4n8Oiuiifo8eIb4pb9j1uA/Qo6TIafYYvBA
-	t5xXyysogF6h69P/lnAj7iSVUUfoVxvUObzEjsof1O3dZaQl3nj6a/vegkc1sJupHRDmsPYrA6rqz
-	J2qzJudB4Na344RIzQ0ib8m8MlJu1yLO79qNYPOi4UonntM27ByseyYGd0BCwSZxDLI6VlLYeWXhG
-	C9WrPZ7Q==;
-Received: from sslproxy07.your-server.de ([78.47.199.104])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xBvGC-000CqO-0t;
-	Wed, 30 Sep 2026 16:26:16 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xBvGB-000MAX-2I;
-	Wed, 30 Sep 2026 16:26:15 +0200
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Isai Gaspar <isaiezequiel.gaspar@nxp.com>,
-	Marek Vasut <marex@denx.de>,
-	Pieterjan Camerlynck <pieterjanca@gmail.com>,
-	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	linux@ew.tq-group.com,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Subject: [PATCH v4 06/10] leds: pca995x: Add support for reset GPIO
-Date: Wed, 30 Sep 2026 16:25:45 +0200
-Message-ID: <fd45facac5cdf1930f2ca1666a66cd06cd1f659c.1790684839.git.nora.schiffer@ew.tq-group.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1790684839.git.nora.schiffer@ew.tq-group.com>
-References: <cover.1790684839.git.nora.schiffer@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vt7Pt+FD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278231F000FF;
+	Wed, 30 Sep 2026 14:29:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790778545;
+	bh=MQscQ2dPlA4c+NCvDGRqHfbBWbBz/Gzn66Nwm3gSgTE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Vt7Pt+FDebQS3DaQmgD8JcQamZTRBVgbcvApwWr9c6KK511om4Nu43DziFl4ntpvD
+	 lZasE+WQbyYMZv8gBNNbEtmTiW1+6AU9P2I/CBrF+g6sgAzCgk4SqISXw/T/MCb7tZ
+	 W/07fF9QdLBpD5BRr471j+7AZPdj2vUXFdK9DJgD6rAHKFCX9EgZ09cDFmWk/8QB9U
+	 OSAsDMTi03+eCGn/YY9K0dYixwzsxLjSt8l+JaIuEYHKBcw95l8RmLmikC3yQE7t+R
+	 VAgvP9qHfJkPmZUKT2/OIOIfTiBQLHHCGu6fGJVsSu2t2I9EPjJHU1ted2NSylLca9
+	 ANCQLfNVGZ6GQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 01/15] dt-bindings: iio: adc: stm32-adc: add support
+ for stm32mp23 and stm32mp25
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fabrice Gasnier" <fabrice.gasnier@foss.st.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260930-adc-stm32mp25-v1-v3-1-406834430d72@foss.st.com>
+References: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
+ <20260930-adc-stm32mp25-v1-v3-1-406834430d72@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 14:29:04 +0000
+Message-Id: <20260930142905.278231F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28139/Wed Sep 30 08:24:18 2026)
 
-The PCA9952/9955B/9956B have a reset pin. Use it to reset the LED driver
-if provided in the Device Tree.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: channel 19 restriction bypassed via valid hex unit =
+address
+--
 
-Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
----
- drivers/leds/leds-pca995x.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+commit d2461d12172d54981aff89ddbc3a421fb6e6897e
+Author: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-index e6122b33451ed..b528b2b4990a7 100644
---- a/drivers/leds/leds-pca995x.c
-+++ b/drivers/leds/leds-pca995x.c
-@@ -8,6 +8,8 @@
-  * Copyright 2023 Marek Vasut
-  */
- 
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
- #include <linux/leds.h>
- #include <linux/module.h>
-@@ -121,6 +123,7 @@ static int pca995x_probe(struct i2c_client *client)
- 	struct fwnode_handle *led_fwnodes[PCA995X_MAX_OUTPUTS] = { 0 };
- 	struct device *dev = &client->dev;
- 	const struct pca995x_chipdef *chipdef;
-+	struct gpio_desc *reset_gpio;
- 	struct pca995x_chip *chip;
- 	struct pca995x_led *led;
- 	int i, reg, ret;
-@@ -130,6 +133,16 @@ static int pca995x_probe(struct i2c_client *client)
- 	if (!dev_fwnode(dev))
- 		return -ENODEV;
- 
-+	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(reset_gpio),
-+				     "failed to request reset GPIO\n");
-+	if (reset_gpio) {
-+		udelay(3);
-+		gpiod_set_value_cansleep(reset_gpio, 0);
-+		usleep_range(1500, 1600);
-+	}
-+
- 	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
- 	if (!chip)
- 		return -ENOMEM;
--- 
-TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht München, HRB 105018
-Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-https://www.tq-group.com/
+dt-bindings: iio: adc: stm32-adc: add support for stm32mp23 and stm32mp25
 
+Adds support for the STM32MP23 and STM32MP25 ADCs by introducing new
+compatibles and block configurations. Includes power domain support and
+restricts deprecated properties. Also attempts to restrict channel 19
+which is wired directly to Vref+ and shouldn't have direct measurement.
+
+> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml =
+b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+
+[ ... ]
+
+> @@ -486,6 +524,39 @@ patternProperties:
+>                maxItems: 19
+>                items:
+>                  minimum: 40
+> +
+> +      - if:
+> +          properties:
+> +            compatible:
+> +              contains:
+> +                enum:
+> +                  - st,stm32mp23-adc1
+> +                  - st,stm32mp23-adc2
+> +                  - st,stm32mp23-adc3
+> +                  - st,stm32mp25-adc1
+> +                  - st,stm32mp25-adc2
+> +                  - st,stm32mp25-adc3
+> +
+> +        then:
+> +          properties:
+
+[ ... ]
+
+> +            assigned-resolution-bits:
+> +              enum: [6, 8, 10, 12]
+> +              default: 12
+> +
+> +            channel@19: false
+
+[Severity: Medium]
+Does this correctly restrict channel 19 if device tree unit addresses are
+supposed to be written in hexadecimal?
+
+Because channel 19 would be configured as "channel@13 { reg =3D <19>; }",
+matching against the literal string "channel@19" only blocks an improperly
+formatted decimal node name.=20
+
+Would this leave the correctly formatted "channel@13" bypass open without
+triggering schema validation errors?
+
+> +            st,adc-channels: false
+> +            st,adc-diff-channels: false
+> +            st,min-sample-time-nsecs: false
+> +
+>      additionalProperties: false
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-adc-stm32m=
+p25-v1-v3-0-406834430d72@foss.st.com?part=3D1
