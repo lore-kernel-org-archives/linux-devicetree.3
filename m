@@ -1,134 +1,170 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2CD36A37A;
-	Wed, 30 Sep 2026 06:49:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB68443A88
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 06:49:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750964; cv=none; b=kPxI1GsoHDbnU9XFsCP08jJGlyyXeyg30VkfV17Ox/j3hj0wF9RI3KQNWpDHv+k6DTTmi1Ti3MAl3vI1rADZBnijMzovqMJ7AxjxjcymlxuKDfdMIpvuqavfqHFdSchfLjZRk5tB1s+cw3kzGl6TptLuCT77MI4ezip85lO/MHY=
+	t=1790750977; cv=none; b=ekEwKbyEOKg/F08tznen2mb/z0OyLs76sKzAkxPvGOqRi7uvBmWLAeIQW4vc4D45YkoL86vqwmess3Hy4V2EohG87Xyfc2+f8WgBhoi4ssFvaYYcZddcAx+3IhEzJSD+ZdTEmKsQvwOhZowBieSImzoLeYTv1iTNwxlQro94Ch4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790750964; c=relaxed/simple;
-	bh=zXfLQ8r33JuSAdMR0vQDhPOA+ZxR4meiXYLQthTdErw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=UrSF9q+vKdOcKmfww7stAB7jW4h8rDVH0P2RzJOuOIdPX1obyMU9dROeM1xCFtP2qzuGKd10p1t+KkTn6NAuxqojzsrug612rE0piiMnsNWIYhawuyhzdVfF/POKZ/XDtJBib2eBY411wflHMK2zQK8iKUv7ZylVM/TgEGXXF50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GURO+yMM; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790750977; c=relaxed/simple;
+	bh=WBiAeP/PfwxbqOjNqNJUco0Er75MU95mNIpprH0EYm0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dPDC8MNHbYavYkJqWmSXMcfSQd3OidecYqLlCj5wpI+YuiAiqw3Z9Vam9GnV6kzMqKnNoyv8aKMbIybsNm/reYnXLj4/QyklThEOfZEdyufD14u0eUZ1aO6rsJhjjKfd1P8X+lFLDR+4EQezgdCWt3UCJBiAR3u9dRuSWTFg4G8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YM/kkaP0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GURO+yMM"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C65AB1A1078;
-	Wed, 30 Sep 2026 06:49:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 93E6A60749;
-	Wed, 30 Sep 2026 06:49:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 71176103295D5;
-	Wed, 30 Sep 2026 08:49:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790750953; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Jv49F2PUt5yh/jWsy0Oc4tt54+a1s+q3HYskLUQDwiE=;
-	b=GURO+yMMIfSa5LwCdzuwM2Fy1yxfvWXa3oihCCLl2WeczkqmQC9VhCpae5duc1fEPxBYYu
-	4y21VXIrV3oN5jeHXaOhmFBEnmqtKniaLYyhev2h/dhtIqk0YIQ074eafqxhxTJJjv2BL8
-	fCSqROd8H2c3c4sJDsvmPCMe5tGV0Rtv3Bvc0HAGib8OEj5WSvaoDYGsavoQt+QgFcwT7I
-	6G+40NTLKOrOpSA+fEV+4u69xoKXogDnu9vksnIQw5VtnYAv6Hvm/58fZY6Uey1zoJR5oi
-	GWliNkwL83f4wCLaG21Q1TeanF+ntIROp0zyq5t3cMf8yMZgOw0Iz44sfWIyQQ==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
-Cc: Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "moderated list:ARM/Marvell Kirkwood and Armada
- 370, 375, 38x,..." <linux-arm-kernel@lists.infradead.org>, open list
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCHv2] ARM: dts: marvell: armada-388: use onnn,pca9655
- compatible
-In-Reply-To: <20260908060438.43338-1-rosenp@gmail.com>
-References: <20260908060438.43338-1-rosenp@gmail.com>
-Date: Wed, 30 Sep 2026 08:49:10 +0200
-Message-ID: <87a4oz8c9l.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YM/kkaP0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 551261F000FF;
+	Wed, 30 Sep 2026 06:49:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790750966;
+	bh=7rIIfFgwN/cVEA1t/3bV84gwguc2f3VS7K/vgMiuqeY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YM/kkaP0NyDxy/s0V0Wzxr2j/cA98zTm+66iROa7K6N88TwO23qzedMAFt4mwACe+
+	 8t3Pj/x4/mEKi8OQE7RVV+WI3J28+XLO6dp4X/7wkYBaJtXxKZdmNp5b+uq80KA73M
+	 nWMBmotEBWKUt1fR1zGEsLfzc2vQ2GJYv8/RdX4TIo1x4GCYahO5ZI82nCBkh9OgjE
+	 5FvjXr8R1XA9OGXkXSSiui4Wz9CzHrJSUxd/AbniK0GsIUXQ8v4FEYviGYSME7kjcI
+	 GnAq8O2GphebdOr0uRE6IEyLTuvtyk0djbhwVasDZNkQbJmg0FIVAYJbKeF4/hZazT
+	 SBuoTic9B+kZg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/5] arm64: dts: qcom: Introduce Maili SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jingyi Wang" <jingyi.wang@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260929-maili-dts-v2-3-965688646c4b@oss.qualcomm.com>
+References: <20260929-maili-dts-v2-0-965688646c4b@oss.qualcomm.com>
+ <20260929-maili-dts-v2-3-965688646c4b@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 06:49:25 +0000
+Message-Id: <20260930064926.551261F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Rosen Penev <rosenp@gmail.com> writes:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] arm64: dts: qcom: maili: pcie1_opp_table defines x2 OPPs for an =
+x1 PHY
+- [Medium] arm64: dts: qcom: maili: impossible QUP pinmux function definiti=
+ons
+- [Medium] arm64: dts: qcom: maili: gpi_dma channel masks exclude requested=
+ QUPv3 channels
+--
 
-> The PCA9655s on the ClearFog and Helios4 boards are
-> register-compatible with the pca9555, and the gpio-pca953x driver has
-> matched "onnn,pca9655" in its OF match table since
-> commit 6d49b3a0f351 ("gpio: pca953x: Add support for the On Semi
-> pca9655").  OF matching is tried before the legacy I2C ID-table
-> matching that the old comment alluded to, so the restriction no longer
-> applies.  List the real part and drop the stale comment.
->
-> The I2C client is now named "pca9655" instead of "pca9555", but the
-> expander is otherwise identical.
->
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+commit a14e352543affb0d0357fd40cb50b296dee6d5e7
+Author: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
 
-Applied on mvebu/dt
+arm64: dts: qcom: Introduce Maili SoC
 
-Thanks,
+This commit introduces the Maili Snapdragon SoC device tree. It includes
+various features such as CPUs with PSCI, PCIe, QUPv3 serial engines, UFS,
+and GPI DMA.
 
-Gregory
-> ---
->  v2: rebase.
->  arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi | 7 +------
->  arch/arm/boot/dts/marvell/armada-388-helios4.dts   | 9 +--------
->  2 files changed, 2 insertions(+), 14 deletions(-)
->
-> diff --git a/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi b/arch/ar=
-m/boot/dts/marvell/armada-388-clearfog.dtsi
-> index f8a06ae4a3c9..4a61e9d1a2c0 100644
-> --- a/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi
-> +++ b/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi
-> @@ -131,12 +131,7 @@ &i2c0 {
->  	 * 15-SFP_MOD_DEF0
->  	 */
->  	expander0: gpio-expander@20 {
-> -		/*
-> -		 * This is how it should be:
-> -		 * compatible =3D "onnn,pca9655", "nxp,pca9555";
-> -		 * but you can't do this because of the way I2C works.
-> -		 */
-> -		compatible =3D "nxp,pca9555";
-> +		compatible =3D "onnn,pca9655";
->  		gpio-controller;
->  		#gpio-cells =3D <2>;
->  		reg =3D <0x20>;
-> diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
-boot/dts/marvell/armada-388-helios4.dts
-> index 39b2d4fa742c..bf6d70e2078b 100644
-> --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-> +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-> @@ -160,14 +160,7 @@ i2c@11000 {
->  				 *  6-USB3 power
->  				 */
->  				expander0: gpio-expander@20 {
-> -					/*
-> -					 * This is how it should be:
-> -					 * compatible =3D "onnn,pca9655",
-> -					 *	 "nxp,pca9555";
-> -					 * but you can't do this because of
-> -					 * the way I2C works.
-> -					 */
-> -					compatible =3D "nxp,pca9555";
-> +					compatible =3D "onnn,pca9655";
->  					gpio-controller;
->  					#gpio-cells =3D <2>;
->  					reg =3D <0x20>;
-> --=20
-> 2.55.0
->
+> diff --git a/arch/arm64/boot/dts/qcom/maili.dtsi b/arch/arm64/boot/dts/qc=
+om/maili.dtsi
+> new file mode 100644
+> index 0000000000000..c420b709cc7de
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/maili.dtsi
+[ ... ]
+> +		gpi_dma1: dma-controller@a00000 {
+> +			compatible =3D "qcom,maili-gpi-dma", "qcom,sm6350-gpi-dma";
+> +			reg =3D <0x0 0x00a00000 0x0 0x60000>;
+[ ... ]
+> +			dma-channels =3D <16>;
+> +			dma-channel-mask =3D <0x7f>;
+
+[Severity: Medium]
+Does this channel mask intentionally exclude channel 7? The mask <0x7f> ena=
+bles
+channels 0 through 6, but later in the file i2c7 and spi7 explicitly request
+channel 7 from gpi_dma1. This could cause the DMA controller to reject the
+channel allocation during boot when QUP drivers probe.
+
+[ ... ]
+> +		gpi_dma3: dma-controller@1900000 {
+> +			compatible =3D "qcom,maili-gpi-dma", "qcom,sm6350-gpi-dma";
+> +			reg =3D <0x0 0x01900000 0x0 0x60000>;
+[ ... ]
+> +			dma-channels =3D <12>;
+> +			dma-channel-mask =3D <0x1f>;
+
+[Severity: Medium]
+Similarly, does this dma-channel-mask exclude channel 5? The mask <0x1f>
+only covers channels 0 through 4, but i2c18 and spi18 explicitly request
+channel 5 from gpi_dma3. This will cause DMA initialization to fail for tho=
+se
+serial engines.
+
+[ ... ]
+> +		pcie1: pcie@1c18000 {
+[ ... ]
+> +			pcie1_opp_table: opp-table {
+> +				compatible =3D "operating-points-v2";
+[ ... ]
+> +				/* 8.0 GT/s x2 */
+> +				opp-16000000-3 {
+> +					opp-hz =3D /bits/ 64 <16000000>;
+> +					required-opps =3D <&rpmhpd_opp_low_svs>;
+> +					opp-peak-kBps =3D <1969000 1>;
+> +					opp-level =3D <3>;
+> +				};
+
+[Severity: Medium]
+Is it correct to define x2 (2-lane) operating points for pcie1_opp_table?
+Later in the file, the PHY is explicitly declared as a 1-lane PHY
+(qcom,maili-qmp-gen4x1-pcie-phy). Attempting to scale to these impossible
+states could cause mismatched bandwidth expectations or incorrect power
+scaling votes in the OPP framework when parsed during runtime.
+
+[ ... ]
+> +			qup_uart12_default: qup-uart12-default-state {
+> +				/* TX, RX */
+> +				pins =3D "gpio208", "gpio209";
+> +				function =3D "qup2_se4_23";
+> +				drive-strength =3D <2>;
+> +				bias-pull-up;
+> +			};
+
+[Severity: Medium]
+Can these pins actually use the _23 function? These pins appear to be wired
+to the _01 lanes, as qup_i2c12_data_clk uses qup2_se4_01 for the same pins.
+Assigning an incorrect mux function here will cause UART initialization to
+fail or silently misroute signals when the pinctrl states are applied.
+
+[ ... ]
+> +			qup_uart22_default: qup-uart22-default-state {
+> +				/* TX, RX */
+> +				pins =3D "gpio121", "gpio98";
+> +				function =3D "qup4_se3_23";
+> +				drive-strength =3D <2>;
+> +				bias-pull-up;
+> +			};
+
+[Severity: Medium]
+Are these the correct pins for this UART? This pairs mismatched pins
+(gpio121 with gpio98) while asserting the _23 function. This directly
+conflicts with the corresponding I2C node which uses gpio121 and gpio84
+for qup4_se3_01. This structural misconfiguration will prevent successful
+UART initialization.
+
+[ ... ]
+> +			qup_uart23_default: qup-uart23-default-state {
+> +				/* TX, RX */
+> +				pins =3D "gpio161", "gpio162";
+> +				function =3D "qup4_se4_23";
+> +				drive-strength =3D <2>;
+> +				bias-pull-up;
+> +			};
+
+[Severity: Medium]
+Does this function assignment match the hardware? Like qup_uart12_default,
+it assigns the _23 mux function to pins used for TX/RX that are wired to
+_01 lanes.
 
 --=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-maili-dts-=
+v2-0-965688646c4b@oss.qualcomm.com?part=3D3
