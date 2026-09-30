@@ -1,120 +1,212 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80EC4A0F1C;
-	Wed, 30 Sep 2026 10:48:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929E14A2E15;
+	Wed, 30 Sep 2026 10:50:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790765321; cv=none; b=W2p2xRLpI0uc77OxTrR2ANXtkyPUZ4zyk8rrgUd3YLLc9phYm3u2V8tP4cGFfqSGIASPq37pLIBmfY4FPGaO+avdVKTa9N4mbw8DV29Mn0551B3XA+VI7PRfKNGtgarcB02jX3jx7/gMjzHcTszMikDmba83WhSHFUFjpnzQfgk=
+	t=1790765439; cv=none; b=PFTil/DuRQqvrLSC5HB3sP2Zs5zrKs+2T63q3DG+/5ZFlzhq9KT1qNB4Hfbsi7qdcsSvyKK50WuTwt0y6RYaCWHPDtcoHueuYZ4Xqg4QE39xse7/J+BWxMMdo2xpDOEvd6C+VsK3YwFqYa8s+2l5GRIaM7a9TeoUzX7eZDAlXtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790765321; c=relaxed/simple;
-	bh=Ez5r42VihnW/EOv06gVsfiHRaZfebgSoT9n+mo5qmhE=;
+	s=arc-20240116; t=1790765439; c=relaxed/simple;
+	bh=b7JfFxQThrhpX7nDPQS014e+jiJF8FMPaLpJ+wV7ghk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fMhRmn3Pf0y0HPOYTJttmv0k5+kdo1R3N576bLtwOhKJBrbJNK8DhMc4iSrlPTP8JCgWNBPj5Q2ymjvCll4C5/dqj6NuTbcrJJoUBmISEAnkdO5a7RLCPbvRqLOPWVS4fpoZWkdk9ka44Y1kq7ddmEdhB81wX3bHBQeujWBvNBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PRSpyfLx; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=u6zi4u2WTUfFr1Zz28UaOY/L2ILXjKZsQHpeJoD1ncrEv1ATmIusvmFerklJ1tOqiHwtF/L8lDU9MH2ZGQ+vE9NqnMKh87Gc/kA58rGhKg+GZLnLGJbxksPcoqL8r/RHDiG3j2Nxe/PySUDSH/JpLXlSchO5mAYmWPKccJGnSW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MY0onT2s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PRSpyfLx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44FDA1F000FF;
-	Wed, 30 Sep 2026 10:48:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MY0onT2s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA731F000FF;
+	Wed, 30 Sep 2026 10:50:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790765308;
-	bh=mHsRRH5vJT9TKO2614eEaJo0HeOqX+AgSVsWkqICnxc=;
+	s=k20260515; t=1790765426;
+	bh=RdDXoYNxFlrj1IuAAP2dqxH+gWSF6G6CSQehHf0sYrc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PRSpyfLx0XFdj/Y42oE0IQmLq+LAOzKxfLqOU3Yls0ZLE20mT8m2qm0S7rBMjDAS7
-	 MqfWUS6297hdeBNWaMrPJCeXWDPD07Gl0SrbXV3BxttR8ppSU5zD7I9dKksJUXtAX2
-	 /qFtcXMRgE471BKHyQVJA/qi+hmuC+ChTIOsNo0xwUaEURKrEmuW4ArA90p45mJVOK
-	 LF7hs5jmymye5Uhl3l6EsVqgdzkYwW4IeKa68KOPlgxcpuNxfVfJlOEGbVakapIQ1t
-	 ecjvlPod0r3TqSPb4tZXF0D3SQiIwWPYZHkvdQNSdqZi1x9hgeL0YBYe6qDYK9uFy3
-	 NkEg+w9kE9RKg==
-Date: Wed, 30 Sep 2026 12:48:24 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: evon.chiam@altera.com
-Cc: Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	b=MY0onT2sZM1Sg1SZWZwfnyDEQpbv7eKoZJV4m4PWFiqmLOjdMWRr4cZF6NAK0mofp
+	 C2Ire7L4/GEtGFjWe/hUlXT6SjuGTRmacoWmrtIAXlYmcwFnvr6G9V+iCU73YBqjgG
+	 aCNVRSwJMnutihtXV/eQDY5WyQmAOm9L+0KNH7TsjC3v4ZIzpWlcTVqtfX8v0JC5/9
+	 5H6zeGDSWkFIewW/rac1ugJQkbGYRgsl3+Et4OS9T1AUM9sonSZ2G3VeWOUpE05PrO
+	 vnPrM3eY/w/8yy/hvTK2sio8Jha3TQUrC2e8URq+ilw8Os3G1niSz1fRFOcTuGPOeo
+	 FuM27LVw3RslQ==
+Date: Wed, 30 Sep 2026 12:50:24 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Mikko Perttunen <mperttunen@nvidia.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Dinh Nguyen <dinguyen@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: clock: altr,agilex72-clkmgr: add
- Agilex72 clock manager
-Message-ID: <20260930-scrupulous-immortal-saiga-f2b24f@quoll>
-References: <cover.1790651166.git.evon.chiam@altera.com>
- <db3dd69fc666cca536488a75da122ff173995030.1790651166.git.evon.chiam@altera.com>
+	Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+Message-ID: <arzn-TNbOlqXqQgd@orome>
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-4-clamor95@gmail.com>
+ <UJZ22UtaS1GSRPlyAst1og@nvidia.com>
+ <CAPVz0n2F8LBqFs2bJERmgvdNYgtt1OEVtK3++CP9y0gxW7gCGA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="phflgpeigirgxuyc"
 Content-Disposition: inline
-In-Reply-To: <db3dd69fc666cca536488a75da122ff173995030.1790651166.git.evon.chiam@altera.com>
+In-Reply-To: <CAPVz0n2F8LBqFs2bJERmgvdNYgtt1OEVtK3++CP9y0gxW7gCGA@mail.gmail.com>
 
-On Tue, Sep 29, 2026 at 05:38:12PM +0800, evon.chiam@altera.com wrote:
-> From: "Chiam, Evon" <evon.chiam@altera.com>
-> 
-> The Agilex72 clock manager exposes four register regions: the clock
-> manager itself plus three general purpose PLLs.
-> 
-> Add the schema and the clock ID header that consumers index.
-> 
-> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
-> ---
 
-Where is patch 3/3?
+--phflgpeigirgxuyc
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
+ parallel interface
+MIME-Version: 1.0
 
-> Changes in v2:
-> - Subject: dropped the redundant "binding" suffix.
-> - Reworded the commit message.
-> - Dropped the external fixed-clock nodes from the example; they are not
->   relevant to this binding.
-> - Dropped AGILEX72_NUM_CLKS from the clock ID header; it is not part of
->   the binding. The driver derives it instead.
-> - Added the clocks and clock-names properties for the four external
->   reference clocks, made them required, and used them in the example.
+On Wed, Sep 30, 2026 at 12:52:18PM +0300, Svyatoslav Ryhel wrote:
+> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:19 Mi=
+kko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Wednesday, September 30, 2026 4:05=E2=80=AFPM Svyatoslav Ryhel wrote:
+> > > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
+> > > Tegra20/30 SoCs display controller.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++++++++=
+++
+> > >  1 file changed, 138 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/display/tegra/n=
+vidia,tegra-8bit-cpu.yaml
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,t=
+egra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia=
+,tegra-8bit-cpu.yaml
+> > > new file mode 100644
+> > > index 0000000000000..f0dab608b2936
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8b=
+it-cpu.yaml
+> > > @@ -0,0 +1,138 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-8bit-c=
+pu.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
+> > > +
+> > > +maintainers:
+> > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
+> > > +
+> > > +description: The display controller in Tegra20/30 SoCs features an
+> > > +  8-bit SPI interface that closely resembles the MIPI DBI Type B
+> > > +  protocol and is referred to as '8-bit CPU'. Each display controller
+> > > +  provides two such interfaces, which can be used to send MIPI DCS
+> > > +  commands to initialize and control the panel while image data is
+> > > +  transmitted via 16/18/24-line RGB.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: nvidia,tegra-8bit-cpu
+> > > +
+> > > +  dc-gpios:
+> > > +    description: Data/command selection pin.
+> > > +    maxItems: 1
+> > > +
+> > > +  rw-gpios:
+> > > +    description: Read/write pin.
+> > > +    maxItems: 1
+> > > +
+> > > +  cs-gpios:
+> > > +    description: Chip select pin.
+> > > +    maxItems: 1
+> > > +
+> > > +  data-gpios:
+> > > +    description: Specifies a set of 8 gpio pins used to transfer dat=
+a.
+> > > +    minItems: 8
+> > > +    maxItems: 8
+> >
+> > Based on my admittedly brief research, according to the TRM the display
+> > controller can drive all of these pins - of which there are two fixed
+> > sets as you mention - directly. So we'd need to describe which interface
+> > the display is connected to in DT, but not any GPIOs (which they really
+> > aren't).
+> >
+>=20
+> I am perfectly fine to not expose any gpios in the binding, if this is
+> preferred. Only question, which method of interface checking would be
+> preferred. I assume if primary then nothing, if secondary - boolean
+> prop "nvidia,secondary"? Feel free to share your vision.
 
-...
+The driver currently uses the GPIOs to program DBI commands, so I
+suspect we do need some way of controlling those pins. Or is there a way
+to have the display controller program the pins and send commands? That
+would be much preferred because it would more accurately reflect the HW
+design and possibly also simplify the driver because it doesn't need to
+parse the GPIOs and then also not use the GPIO API to set the values.
 
-> +  clocks:
-> +    items:
-> +      - description: External oscillator input
-> +      - description: Internal oscillator divided by 2
-> +      - description: Internal oscillator divided by 10
-> +      - description: FPGA fabric to SoC free running clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: osc1
+As for selecting the interface to use, it could probably be just a
+simple, single-cell value with two valid values. That's a bit clearer
+than a boolean, because with a boolean you need to explicitly document
+what happens when it is absent.
 
-osc
+> > > +
+> > > +  nvidia,init-sequence:
+> > > +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> > > +    description: Device specific set of values used in DC DISP_SPI_I=
+NIT_SEQ
+> > > +      registers.
+> > > +    minItems: 4
+> > > +    maxItems: 4
+> >
+> > And AIUI this is panel-specific DBI commands the display controller will
+> > transmit. So ideally the display driver should receive this data from
+> > the panel driver.
+> >
+>=20
+> This is not panel driver data, but it is panel or maybe even more
+> interface itself specific. TRM has no clear method of generation of
+> this seq I am aware of. Maybe I have missed smth. These 4 entries
+> co-respond to DC_DISP_SPI_INIT_SEQ_DATA_A_0,
+> DC_DISP_SPI_INIT_SEQ_DATA_B_0, DC_DISP_SPI_INIT_SEQ_DATA_C_0 and
+> DC_DISP_SPI_INIT_SEQ_DATA_D_0 registers of DC. Maybe you have some
+> info to shed some light onto method of generation of this seq. Then it
+> could be simply removed from binding and calculated internally. Thank
+> you!
 
-> +      - const: cb-intosc-div2-clk
+Even if this is interface-specific data, it is still defined by the
+panel that's being used, right?
 
-Drop -clk
+As such it'd make sense to integrate it into the panel driver and have
+some side-channel to feed it to the display controller. If there's no
+good standard way of doing so, having the display controller read it
+=66rom the panel node and programming it at the appropriate time could
+work, too.
 
-> +      - const: cb-intosc-div10-clk
+Thierry
 
-Names are odd, seems like you put here source clock names, not the
-actual logical names of the inputs.
+--phflgpeigirgxuyc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +      - const: f2s-free-clk
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - clock-names
-> +  - '#clock-cells'
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    clkmgr: clock-controller@915c000 {
+-----BEGIN PGP SIGNATURE-----
 
-and drop unused label.
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq86XAACgkQ3SOs138+
+s6Hjzg//W7hkLOTBX+eR1J5oDtVdKzgpxK0Hb8m5HCnxvGsZTNFjcJLHGIRvQkNZ
+jqMyCrkOQ8CJlik2IAuYKOuCoD8M6X7KWqIJezVPC8prb75C53m3AYTaAPjlcVtS
+Q0baRmtlKmnSMwcZDaOqcEidT07F7x/7bgDOOvOKa0bVEoULDdBO9aYJGXelLfC+
+7uf1/wItwaWD3e/tZePLVrD0YroKmoPCsE9R0jNpRdSa7GTkT05A2sDjN5yHFoa+
+YAwSTphyC7Xp+YoO6pqKWamdfFvdoJ0Ojl/Yr3gZ6yC7VfDuAckCJybwoWt19VIR
+TPg1+pvDK7lYYoAO0x8LSichnmi3cSeAIlviaMTy24JXLemD8zFujMUsIASu0YrX
+kGb716hhW1c3P14UXt6caTCBWIjlwuuUy9kpe5ewt6R7G1cAs/qOoxzpQS2YDDUy
+TIvwr5Wz3nIZKtssCKrrNGJt2oaDcoi0rxe7MmQHcNmALOBIHcR141GiahKLJt/O
+cgLKtHSPPe+oTsUj3c5V+WA7/DztrnClcTEUGJ3EwUifyzD6HjZ93wv6Baip0JJX
+RZl2nU5SDiSqHZkPmGA1AEeQ7EsJ8uWBn24yCKZtNY5SvZ/s8AS8J9AJFtjkSdNC
+eu9bdJm69W4+Z462hpkXEieikDKfpGEzbsGI7BxhTKAhwLARXXM=
+=E3gO
+-----END PGP SIGNATURE-----
 
-Best regards,
-Krzysztof
-
+--phflgpeigirgxuyc--
