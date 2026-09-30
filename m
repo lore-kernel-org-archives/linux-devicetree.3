@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0442E888A;
-	Wed, 30 Sep 2026 05:22:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202D0547059;
+	Wed, 30 Sep 2026 05:24:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790745733; cv=none; b=OB37C+AbnzJlfkF5aLDZLF3x8JH/OoErVKzfVWvdfZxA8a+Sts4IdlnZI01wZnQ12yiGNl7tH3LlgIxWm8bfPeu3RuUtsEAK0beh1cOw9jsaQurdHK2ddXVA3RttyqroGYFoIqTCBOc9fKF6muGuYX5f0dPkE7oTFTFIZNlw/hA=
+	t=1790745892; cv=none; b=r/GUNn9uqGpSbgin9dhGFQxgPFUXRqmdC6xqb0+vjCVapB4BCPicF3I3s1ewuQxOoW/8jVOKrj/8R7S9PHyhbkqWI8LC+sZmta/hkTVmZYWyghQY9yfqQiHn2YX/hwPgjVf7bkAvMRmdh74drZh4dwJ0ucf6WmiSv8ZyjVvjHOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790745733; c=relaxed/simple;
-	bh=CBbEQpGIpGuAv4Ic+fE9bMvQHiF3yEWMCXW5Zy4QjVo=;
+	s=arc-20240116; t=1790745892; c=relaxed/simple;
+	bh=gFftlonLvy83C66RE+Ym/SyzrdPNgo/mYEGAOahfX+8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SnyLjyhQYmad/4mB391YwXhkigji0Y2OBt5agxNWYQ5/q66YkpayU5VxpqAHPWnnJl0UIRLsgB3R+X7mKE6Yxsgdirgp1rYQcwedEt9SCzJH9H7VhTpKt2mVaaOXNRyCpIpSzUvesNyWtRFzKWFTaeBgoshjpyUhby9TUTi4e2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jzdYWA4t; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=FaTPVgWxYhYZV6RTIUnPmjxlyBINcjbQ+cFhgWHwwIpFMHasoLBCSBrD9wdZd+BggkJ5X8V5Up33ZIVAyDLJtkxmaz0Ol7+hHa9Lvw/rZFAhLhoUpP83z99noIAJxMM/vlqzuT/E6MPyk4Y+uzmnEmuuVDqxgn44e0HGTNnyG+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNLIs8Xu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jzdYWA4t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C9A1F000FF;
-	Wed, 30 Sep 2026 05:22:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNLIs8Xu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224231F000FF;
+	Wed, 30 Sep 2026 05:24:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790745732;
-	bh=7w5AGMWUEadxBPlxkT+1Es5xDLeETPZOPdv7c8XFHBQ=;
+	s=k20260515; t=1790745890;
+	bh=W9lqqZ3qt/Td2CTSj3w5+9UwJ+Dy9cNNyqMq1c6mYfE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jzdYWA4tMexxLMIFTI4NG2c8BeNH74/5r3i002TLnXtHZc8Fk3bKJbtOOPUBE3LC4
-	 C+Um6R9W4QA+o7Xvg6lY48/gsCNdnpRAUaahhf/oGKKsSkACx5mMgEDrkDwWlKhOa2
-	 7x8M88viwpMd/uIWlkaHdzxAsYkrhBg3VJTmBHEivqjipt8hrAratIGw/m5yi9t1+M
-	 Kak6fpDENI2Sf+8wlXcK6sSkbgjwz5THcWdkDDLFXka9yasm8c/5KwfKyxZSAR/KjX
-	 ilQW4+6Im1kbZITKSB72EwPQ3f+Xr8qgg+v2SH8coG9nA+Amdd30r9KsFePWZISjrp
-	 37G7+x9QPsdlg==
-Message-ID: <e58235f1-2c9a-461e-8231-8729eb3e9c46@kernel.org>
-Date: Wed, 30 Sep 2026 07:22:04 +0200
+	b=cNLIs8XuPw8S1dQzmckDf54GMIGxmCbES2A9OSovuIxUYbYW0CQGdhDrF3b3n8k2p
+	 iAUk2+x2SbfiLwCFPvzG98z5PzbbsMK01d16vLr2OcjNTFabLriJzQJgV6fIkQZlqs
+	 DfGsruuN/ktgsQtGcnNh9z09+fBUcCSBrCCBNbwwVUzerUeidR2164JaBYl5JfTgiZ
+	 2ncaZbhVIXR3iI+Gbr+hjTHgShAIAYsH67SU2EUKBbRanzKGYCErgLknJOgpMerACE
+	 KkIAEXR9Whmd/mlUbl5U5nN7w9zygaurIG6K12Pq1wgQtFPFdKbtPpqCeNw7+O4ltX
+	 MAEDwf4c3l+Bg==
+Message-ID: <3caea146-74ab-42d2-ad9f-d36d1adedc03@kernel.org>
+Date: Wed, 30 Sep 2026 07:24:43 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,18 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: google: lga: fixup #size-cells DT warning
-To: Doug Anderson <dianders@chromium.org>,
- Peter Griffin <peter.griffin@linaro.org>
-Cc: =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH 1/7] ARM: dts: axis: artpec6: avoid _ in node names
+To: Henrik Grimler <henrik.grimler@axis.com>,
+ Jesper Nilsson <jesper.nilsson@axis.com>,
+ Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Brian Norris <briannorris@chromium.org>,
- Juan Yescas <jyescas@google.com>, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-team@android.com
-References: <20260929-pixel10-initial-dts-fixup-v1-1-b304868cc3e8@linaro.org>
- <CAD=FV=VAiHf0-9sPvgGKji4j47rL38Ja3S2yiEfztubgZqBpjw@mail.gmail.com>
+ <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>
+Cc: linux-arm-kernel@axis.com, kernel@axis.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Henrik Grimler <henrik@grimler.se>
+References: <20260928-b4-artpec6-cleanup-v1-0-e3b75e10acc6@axis.com>
+ <20260928-b4-artpec6-cleanup-v1-1-e3b75e10acc6@axis.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,29 +91,35 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAD=FV=VAiHf0-9sPvgGKji4j47rL38Ja3S2yiEfztubgZqBpjw@mail.gmail.com>
+In-Reply-To: <20260928-b4-artpec6-cleanup-v1-1-e3b75e10acc6@axis.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 29/09/2026 17:47, Doug Anderson wrote:
-> Hi,
+On 28/09/2026 14:04, Henrik Grimler wrote:
+> Node names should preferably not use _, use - instead. Fixes
+> dt-check-style strict mode warnings:
 > 
-> On Tue, Sep 29, 2026 at 4:11 AM Peter Griffin <peter.griffin@linaro.org> wrote:
->>
->> Fix newly introduced DT warnings:
->> Warning (avoid_unnecessary_addr_size): /soc@0/interrupt-controller@5880000:
->> unnecessary #address-cells/#size-cells without "ranges", "dma-ranges" or
->> child "reg" or "ranges" property
->>
->> Fixes: 80f23487d554c7 ("arm64: dts: google: Add initial dts for frankel/blazer/mustang")
+>   axis/artpec6.dtsi:91: [node-name] node name "ext_clk" is using discouraged style
+>   axis/artpec6.dtsi:97: [node-name] node name "eth_phy_ref_clk" is using discouraged style
+>   axis/artpec6.dtsi:189: [node-name] node name "pcie_ep" is using discouraged style
 > 
-> Is the above git hash correct? In linuxnext, I see:
+> Signed-off-by: Henrik Grimler <henrik.grimler@axis.com>
+> ---
+>  arch/arm/boot/dts/axis/artpec6.dtsi | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/axis/artpec6.dtsi b/arch/arm/boot/dts/axis/artpec6.dtsi
+> index 037157e6c5ee..ce642dcc754e 100644
+> --- a/arch/arm/boot/dts/axis/artpec6.dtsi
+> +++ b/arch/arm/boot/dts/axis/artpec6.dtsi
+> @@ -88,13 +88,13 @@ scu@faf00000 {
+>  	};
+>  
+>  	/* Main external clock driving CPU and peripherals */
+> -	ext_clk: ext_clk {
+> +	ext_clk: ext-clk {
 
-Yeah:
-
-	WARNING: Unknown commit id '80f23487d554c7', maybe rebased or not pulled?
-
-I'll fix both when applied
+This will change the name of the clock. Did you verify that it is fine?
 
 Best regards,
 Krzysztof
