@@ -1,105 +1,45 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from out28-73.mail.aliyun.com (out28-73.mail.aliyun.com [115.124.28.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15D03CC7CD;
-	Wed, 30 Sep 2026 19:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797432; cv=fail; b=A0+lBF4Y4n8Kc6Wo7BQJI17lkSkw6x80xGKLbZ+rBb9pbbYcUB3LeAYhNqg0XJNsL+l2wsAAu9fjAgpanDPJEiTYFUTDS32hAMab4I7RNjuw/454DO7YQCqGWgFb711aojHewMC4v+G2nxttgn0bD8WuEZSPFOOPMxGFPpkDUK4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797432; c=relaxed/simple;
-	bh=98ZIjtSeCXjpuUzOrv8KJq4PUXQZg7Ty9ck3EwkFIiU=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nSEhxXN4q44jh6208zAnhHOSjcG7kG8Quc7vA8t6cVLCxtijf5Bt9eNRnJFfFrqW1bWKIKTrQVTv/ocVcn/t4Q3frhYtlzCJew4b2PBrKWR7c1psC+Sbvlse2w/ai0AdGEdvqjNsSEcdo/WMrV/nmRMtLuMgCsjwadalyEicgzw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=BE3AH/bL; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=slTxmcWh; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="BE3AH/bL";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="slTxmcWh"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UI66ES3525072;
-	Wed, 30 Sep 2026 14:43:43 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=TTIY5pTZCBUi+K930r8QvsphxI20CtRzhByQVkyzK
-	18=; b=BE3AH/bLnCasTx+WXE0KwsfeYXsdZYrr37fA/qVLJs30EM7Xf1DnNwOvp
-	ZAmpDOow2wY241d1FufDXshD5QpYQAo9MNCPdrx1DQdjHxPPembM0VghqKmdaku4
-	Uk7LlYrEG++ji1taEEMFbOjBkWenQahaJKdn7XjtjPENlQjChuQqRXHIQqia2oXN
-	stRocnV6gBsEXbE4+JMMElRcEhlpEF6gPIQup9bWpK99lW1JFCRuOpWSHlk/tX4Z
-	8YLFqH/S7k4jxnbPiUoC2GTUCDaKWb+XfYo9IrK1i1DoxzR0PHoU14lzwan/zBUX
-	dsqTQZ70C/vxN/6VNxBZxWGVPwHpA==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011051.outbound.protection.outlook.com [52.101.62.51])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h17djrf86-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 30 Sep 2026 14:43:43 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TYxo443Oj7f/5e9qq9JV1ba450lyWLx+WUZSCvubLW1Mc/4ly9Z7HP+R/c8nX9FqFJh5ChU7h//MMFHgf6KxiFriIdYSUpPnkxj7P9bmb59nXsyog6PDYHfGNR43wl0SXSmaiXzp/a8yx3Sv9clmXnDJgDbiwXCXIskIWxaLCEZTbuwm8l0veaUf+/aOWutnH5vrBMgKbp+jD0d2psJ9vnD0+aFbXg9t0s/7TQvIykXvhYzfaxUcgU0mvZfcxUYs2TF9oP2Aw36bZh7rxbhCP6REEdCqOBK9KncjqnykWv8t++VMtV67Y/Vi6ipIRLpAbBEnwfrZNhKasmwqKvrvWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TTIY5pTZCBUi+K930r8QvsphxI20CtRzhByQVkyzK18=;
- b=JVKaLslGw3hWaoYg0t9rs/5N8zRXwFt/EVotDW6KdoHVEup56pqEK+xZEpxWSYp2etrjF5wnhSZJfTOd9nVO+L8S+VIxjAGctOEoxzRLsjC48iAQmeVZayY7OtMaZTMa/s0x3JVXGk4xSA66v9+QncwtHfYSySKwn7w41aCiG0NQRdGVU4NOTIy3yizypLIIX65OXFgOfjy9/c5CQ0MqhpXn2sIoZWzOKNqgE2JodTrCpKaU6jwcXRlSsHL+lA+z7AZqifzZGxtrr7A4pHGZzkg77lQ+ClmhgCyRx/lMVOnUCBMkPb8EOO9tDWbEntlMBEOx79IXeVqlqjbUs4nsgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TTIY5pTZCBUi+K930r8QvsphxI20CtRzhByQVkyzK18=;
- b=slTxmcWhbunNMJSfp7GgI7HeFo98Kb9AAb41V2K9wRZ75eOp+2GnhvGip2nmXOXbEa1WoPeQ4DbZTw3MUlknS1m4zpAoXgOkovK1+qu4Vcxh5Z77RNZISIUozLVWHe5KnsiS8B3d3B5NJPF9tBxiOLjuK6SDvSHn/JL4fOu9GLY=
-Received: from CH0PR04CA0101.namprd04.prod.outlook.com (2603:10b6:610:75::16)
- by IA4PR10MB8350.namprd10.prod.outlook.com (2603:10b6:208:55d::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Wed, 30 Sep
- 2026 19:42:30 +0000
-Received: from CH1PEPF0000A349.namprd04.prod.outlook.com
- (2603:10b6:610:75:cafe::9d) by CH0PR04CA0101.outlook.office365.com
- (2603:10b6:610:75::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
- 30 Sep 2026 19:42:28 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CH1PEPF0000A349.mail.protection.outlook.com (10.167.244.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 19:42:26 +0000
-Received: from DFLE205.ent.ti.com (10.64.6.63) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 14:41:47 -0500
-Received: from DFLE204.ent.ti.com (10.64.6.62) by DFLE205.ent.ti.com
- (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 30 Sep
- 2026 14:41:47 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 30 Sep 2026 14:41:47 -0500
-Received: from uda0510294.dhcp.ti.com (uda0510294.dhcp.ti.com [10.24.50.162])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68UJfbCf3734543;
-	Wed, 30 Sep 2026 14:41:43 -0500
-From: Beleswar Padhi <b-padhi@ti.com>
-To: <nm@ti.com>, <kristo@kernel.org>, <ssantosh@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        <afd@ti.com>, <u-kumar1@ti.com>, <vigneshr@ti.com>, <b-padhi@ti.com>,
-        "Rob
- Herring" <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        "Conor
- Dooley" <conor+dt@kernel.org>, <devicetree@vger.kernel.org>
-Subject: [PATCH 1/6] dt-bindings: arm: keystone: ti,sci: Update nodename pattern
-Date: Thu, 1 Oct 2026 01:11:26 +0530
-Message-ID: <20260930194131.117129-2-b-padhi@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930194131.117129-1-b-padhi@ti.com>
-References: <20260930194131.117129-1-b-padhi@ti.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E54397E89;
+	Wed, 30 Sep 2026 19:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.73
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790797532; cv=none; b=fdhXSH3p/M8tQVQSMF5HqevsE7hOWFhUZ7SVjJa6OO9V5JxflkWQBpggLodcwrZ6nNRLEdLLGrWNcPMxReXVht+3X0106wR6sYYFXe+Yb5UiukILAiyQTRCf2Ozfq3Rmi+HXwAxQ6yc1vh9hfhf+540Mv5aEr9GaTAOXqQGNeLg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790797532; c=relaxed/simple;
+	bh=Ap7gjptWSBx2aSITXfZEAci+z47z7ruonMtULLZKu54=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JpNKz6Zor04BedYEPgX3W9DBffx6Y7lB1UKBpC2oUWyWl0Qd+gSwvtpXVqVOfu3/Ij1LZ8tKylQbCYsJEPXWAnOFo5deTHCgtMNxPof0yIWlwB72MIpZppNkjv2L8epo3tQtDp/3MKvpKTnWQYhOVOgtC90SjMnyo56BFA89nOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06715415|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0175374-0.00032872-0.982134;FP=16785222267020860626|14|2|17|0|-1|-1|-1;HT=maildocker-contentspam033040074035;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jSgVdPP_1790797513;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jSgVdPP_1790797513 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 01 Oct 2026 03:45:19 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	Frank.Sae@motor-comm.com,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com
+Subject: [PATCH net-next v23 0/3] net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+Date: Thu,  1 Oct 2026 03:45:10 +0800
+Message-Id: <20260930194513.663575-1-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -107,122 +47,153 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A349:EE_|IA4PR10MB8350:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7af7fdb-3543-4087-3372-08df1f2af4ce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|22082099003|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	CxNZTgTtOClnfLfeznQ71wLXeWK8H3KF+MJhNXYLzvmc4SIgOuxvDpHwvRm/MqGKjFrg+HKxqxgzZl7iIdj3Sp9c0Sc7eb/6Gy8ZSIiPhWQ6gLezpG+5zvxi7gWt6cVD8fPy2yU97vWC3gdJSddQ09ZyqysmYVGzhly08la+hkYDeJUrH5cqtSpVeY6T4dSs3/5bBXv/43KF7nApokepSsNQFTO++06XY1eymrNANbgZH7cwYpt4FoqBFpISENzRZJYROoOuVBP3unK9CGshAAUmq8qqLqlYrS2dILzkQzpaq8sx0ewH3To7aIOxIIJjPNjbDLIU52n0PDUnkbELm7PwxA+nrw6X9tsX80/PFB+JsjgwGNXWuyfmlOnecJmoPcJn5+1d0QA5kXQmRVwqD1ArRc0Km8xr3a7F0WErLREi3gglcNnzQQ3IGEf9OD8WcrS2s7oWQW9Cxrkr2j8h4OEfyVqzdSJ0nrO1xhulvxCT5Tzm+3dQnl7nz0toj3gyAgoQNjWICjMHG1TF59nou/WWn75my2Kuu4lJku0lRjvDJ55eSnmSWR4w0CtLm8C4rrrElmear/W9vzLvWxzEsZB6xN1YtGbr4LmSTPH5UnZlquld3MYYMkNVIOXeYYaK9h3qQJ8MQuc770oiH0HaO6tTQUY57lHpFws4Uf91jFg0gugrGyEd38gWcrLMzNAJyZmLtd8fBNsZQvc5Te2TTA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(22082099003)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	mGVdhYJXb9Rvc5O8TghPnDmWSSJeI0U7+eEHKRNgzYhxT6F4xUDTxozTf/z01Zlt39ZJwRgQW4ZyTkkIMdE02nEpeywfvXpGuevXpgLgL8Q62iQunhuaS9xI9eDgm7eeSsclpJjLfCBU4R4mMrqXe0+m58EyW4FyIDcH0be+C8JVuV0pnFc2QMf73kApBwPQ70uxGk8/1FKjVNP9wJjdFxIWG7JcXD/E0Lfrj0UTFk6HSG4uZrvhZOVx9FzIzN2fzAGRyalZmEKT7MX0nOu3ZkrOqdi08zb3F7Ty5KR2W6GetPFTwQ1/sz8o2W+g3BLQuc8S6cFUjHmpSI50BEfaF4uoI6w2WmctVNjkxuuV4d2E3PGA1KRxxn9Bvp2YZhAfsn1GQlcE84Sd17Xqk8HF+tFHB7di4cWY59Ihz4JpDYQnOaWyZcb/FfCRCtdpB291
-X-Exchange-RoutingPolicyChecked:
-	Xr4IQvNvtBnIuLzoFd8fFd9q63C8qYoon0ja2/hRlgaUGQLWrkl/2FV1wYDGiKCxoMAYJHTJusDsCcm+ckO7i7pEhXegoxD1sQMy+N0rEmnzmvTUgWf76sG2Cnj7IvWJTj+MM1Rcjn9T1p0/heuhcRCOFUS+ia606qq3VVeHCg2Ah5/+cX0C8L9kw4lijWQLKlP4/86TW2r79IJjoeo63pyKQaYW6iYCPy1KgOkmBsmVNmAwCiAfZ558bTTBOQtdY1Quzg32G0AHY57F1vOtNZnKSdhscCBvCdeo8siziQ7ETPuUlu51j6OeTGTWvh6tCi2Wfs6nKCCRPKWW9toh9Q==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 19:42:26.5164
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7af7fdb-3543-4087-3372-08df1f2af4ce
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000A349.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR10MB8350
-X-Proofpoint-GUID: xrZnK-Pyt_gPG_z5zt68q9fANIH3aD2n
-X-Authority-Analysis: v=2.4 cv=aswnmiZV c=1 sm=1 tr=0 ts=6abd666f cx=c_pps
- a=qX5DP9EEIf1faxnBSU0rOg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
- a=sozttTNsAAAA:8 a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8 a=IeBu188vSe4QffjlIpMA:9
- a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-ORIG-GUID: xrZnK-Pyt_gPG_z5zt68q9fANIH3aD2n
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA4MCBTYWx0ZWRfXwaainENB1Tpc
- 5SVl5pryC3Ub9eIms1SwyMpUTqO32v0v2aqufGMxzafIAojTpXQBGUPL36kwtOmCd2yeK9Dhx5Z
- 4FBb+SGtItgBiqh5NxNyOKUwfmaLl1o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA4MCBTYWx0ZWRfX5AGp+YxZHoej
- C+AjMh827wZfY7p595gVSUSqg+zPXdFjBqZChrp+Y07TVgOZyqlpbP5R36EE+Bg33/0Zr1E2535
- 69e5guMyCQO8R+09akQ6z93b6SeUZrXevQhvQ6vxJqh6YFDS5klcR24sIyoKG4VWj7Ul8jLojXM
- 5JBX91Y192/LNHZx7K9QvkmLgQxFQ1uxMUuY/z7i9kqI4r36jHFpgoaYZo6WUb9y2IPw6LtWY6L
- Oh23hnLw7+Levbjf119fWTrypUewMzfu7zwmo7aF4RmSqyotQ3xyoXsz4tv/nfRxVGet5kA5QAz
- Tjshyc9kJzyUlNM7aixGmS9fQgTnq8qqTmPixy36xghuwuFYtc3n+qLVl32JA7RlAScCFJwjKtE
- evwiRuOc3BZtbOOunIV+XapsbRh5yu6hhUhxtOoz+7tEBwnalyWA/haJpygEkVggTwrR1djnXHI
- T78bAAMjSne7J5/mebA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 suspectscore=0 phishscore=0 priorityscore=1501
- bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300080
 
-The $nodename pattern for TI-SCI controllers mandates specifying a unit
-address, which in turn requires a 'reg' property. This 'reg' is only
-used to describe an optional memory-mapped debug-messages region.
+This patchset mainly implements the phy8824 driver. The phy8824 is
+an Ethernet PHY that provides one 10G SerDes output to four 2.5G ports.
+The driver mainly covers two application scenarios:
+ 1. external PHY8824
+ 2. PHY8824 embedded in a switch.
+The patchset mainly consists of three parts:
+ 1. the DTS for the phy8824
+ 2. a generic template testmode configuration api.
+ 3. the phy8824 functional functions.
 
-Some controllers may not implement this debug region, so it has no 'reg'
-and unit address. Therefore, relax the $nodename pattern to allow the
-unit address to be omitted for such controllers. Keep the unit address
-mandatory for the existing ti,k2g-sci and ti,am654-sci controllers.
+changes in v23:
+1) Remove meaningless comments in driver.
+2) Using #define to replace magic numbers during PHY8824 init.
 
-Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
----
-Note: This patch is independent can be applied directly.
+changes in v22:
+1) Using motorcomm,package-mode to replace phy-mode in DTS.
+2) The corresponding parsing has also been updated, using
+   "motorcomm,package-mode".
 
-Cc: Nishanth Menon <nm@ti.com>
-Cc: Tero Kristo <kristo@kernel.org>
-Cc: Santosh Shilimkar <ssantosh@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+changes in v21:
+patch 1: 1) Add maintainer for motorcomm,yt8824.yaml.
+    2) Using 10g-qxgmii instead of usxgmii.
+patch 3: 1) Change the usxgmii space to serdes space.
+         2) Add lock operation during phy-package init in probe()
+         3) Add check for whether auto-negotiation is enabled
+         when updating the link status in read_status().
 
- .../devicetree/bindings/arm/keystone/ti,sci.yaml  | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+changes in v20:
+patch 1: Add phy-mode description in properties in motorcomm,yt8824.yaml
 
-diff --git a/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml b/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
-index 25a2b42105e54..67acce8a559a1 100644
---- a/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
-+++ b/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
-@@ -30,7 +30,7 @@ description: |
- 
- properties:
-   $nodename:
--    pattern: "^system-controller@[0-9a-f]+$"
-+    pattern: "^system-controller(@[0-9a-f]+)?$"
- 
-   compatible:
-     oneOf:
-@@ -84,6 +84,19 @@ required:
-   - mbox-names
-   - mboxes
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - ti,k2g-sci
-+              - ti,am654-sci
-+    then:
-+      properties:
-+        $nodename:
-+          pattern: "^system-controller@[0-9a-f]+$"
-+
- additionalProperties: false
- 
- examples:
+changes in v19:
+patch 2: Replace the int type with the u16 type for test_mode.
+patch 3: 1) Merge yt8824_utp_normal_test_mode_paged() and
+         yt8824_utp_invalid_test_mode_paged() into 
+         yt8824_utp_set_template_test_mode().
+  2) Add a fatal error return when phy-mode is missing in
+         the DTS.
+
+changes in v18:
+1. Split the template_testmode() into a small patch 
+   and optimize the implementation.
+2. Optimize the definition and initialization of 
+   interface_mode by adopting the existing approach.
+
+changes in v17:
+patch 1: Remove redundant description.
+         Use phy-mode instead of motorcomm,interface to describe the
+         interface.
+         Add the required checks.
+patch 2: Use phy-mode to get interface mode.
+         Need return after init configuration is done to avoid falling
+         into the error path.
+
+changes in v16:
+1. Add DTS documentation.
+2. Fix redundant initialization.
+
+changes in v14:
+1. Refactor the error return path to preserve and return the initial error,
+   rather than letting later errors mask it.
+
+changes in v13:
+1. Fix the lock release issue on the error path to prevent potential
+   deadlock or resource leak.
+2. Add a func yt8824_restore_defaults() to restore configuration on
+   the error path,ensuring the hardware/device is left in a known
+   good state upon failure.
+
+changes in v12:
+1. Refactor the yt8824_read_status() function to ensure proper state
+   synchronization between hardware registers and the phy_device structure.
+
+changes in v11:
+1. Clean build_clang warning.
+
+changes in v10:
+1. Within the interface that swaps to the USXGMII reg space,the lock
+   include shared_lock and mdio mutex must remain held throughout 
+   the entire operation and should only be released after all steps
+   have completed.
+2. Improve the template interface in phy-c45.c
+3. Fix the handling of some failure paths.
+
+changes in v9:
+1. Add shared_lock mutex prevents UTPs from interfering with each other 
+   due to swapping reg space.
+
+change in v8:
+1. Clean up format warning.
+2. Fix exception handling code logic based on Sashiko/Gemini.
+3. Remove interrupt/handle function
+
+changes in v7:
+1. Refactor the using of mdio lock
+  In all cases of swapping to the USXGMII side interface, lock the MDIO bus
+  at the beginning, switch to the UTP address space after the operation is
+  completed, and then release the lock.The purpose of doing this is to
+  ensure that it will not affect other UTPs operating in the UTP address
+  space.
+2. Rename YT8824_RSSR_FIBER_SPACE to YT8824_RSSR_USXGMII_SPACE.
+
+changes in v6:
+1. Add  test mode helper in phy-c45.c
+2. Refactor the using of swapping paged for utp and fiber
+
+changes in v5:
+1. Fix diffs issue which caused by unexpected whitespace.
+2. Fix "exceeding 80 columns" warning.
+
+changes in v4:
+1. Remove motorcomm,yt8xxx.yaml, will update in other patch thread
+2. Fix locking issue. Since every interface requires switching of space, 
+   the bus is already locked during the space switching process in
+   phy_select_page(), other operations within the interface cannot 
+   be locked again before unlock in phy_restore_page().
+3. Fix warning log identified during the inspection process using
+   checkpatch.pl.
+4. Fix the way of using common api in phy_package.c
+
+
+changes in v3:
+1. Using common apis defined in phy_package.c to handle shared top
+extend register space.
+2. Add dts demo in motorcomm,yt8xxx.yaml.
+3. Fix unnecessary redundant judgments.
+4. Fix BMCR registers operation using magic number.
+5. Rename function based on its approximate functionality.
+
+changes in v2:
+1. Remove duplicate code and replace it with existing api.
+
+Kyle Switch (3):
+  dt-bindings: net: Document Motorcomm YT8824 PHY package
+  net: phy: Add support for Template Control register for PMA
+  net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+
+ .../bindings/net/motorcomm,yt8824.yaml        |   78 +
+ MAINTAINERS                                   |    2 +
+ drivers/net/phy/Kconfig                       |    3 +-
+ drivers/net/phy/motorcomm.c                   | 1887 ++++++++++++++++-
+ drivers/net/phy/phy-c45.c                     |   23 +
+ include/linux/phy.h                           |    1 +
+ include/uapi/linux/mdio.h                     |   12 +
+ 7 files changed, 2003 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+
 -- 
-2.34.1
+2.25.1
 
