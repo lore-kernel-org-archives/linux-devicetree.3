@@ -1,75 +1,122 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A6E3FF1A9;
-	Wed, 30 Sep 2026 22:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1703A6B6A;
+	Wed, 30 Sep 2026 22:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790807454; cv=none; b=VU2G8H0T27xoRMgH37NianD7T1DgQsCpvoCKi4XsTR+PdfXRrYyKZ4XhuYvj1TozU9VKsDtCc7loN1i3Ij7e6cbI8TF0VAg5RAv5TUP0jeYU4StHUkFmq1vrqGr3mpJntfIipcKd2wn2jaRHaoEaGXQ7o2I2j5gASvqUNnwc5hk=
+	t=1790807649; cv=none; b=VlMUYa7VY/wcQeFTBPL9kQbzDkIGxmLAGRbOlLC0sR1ninfAYT+K3mdwNKDz2RsUrVTKmqYaHp5HMkXfqnDQIeXT94APzOfQj+pksBNjWJ18lVN1j5cWiFx5EJv6v5g2r5vfgyPuac7r8aUb6qkmEsgTBrA2HGcQvTPFz4h8npY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790807454; c=relaxed/simple;
-	bh=8v8nPvOOFg7ux4DjRqAyJLHu+tMtcVxLNwj28cEsxk4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qTqElgNtdIgg9rqVlUbfJwRjKOO6fFm4+9svqtpMKomb9/urYzvB6+c39tUSRAKpslwxu1EzBKpNOg7Tz5SCanU+uIXU/FDIiedLzeIKyw6anHGZ1hCfj1aEft0VwAGrdrSqi7gJVAd7Xcq+SK61PyzncOqinAhgViy49LHik+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=E3W6CVWm; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1790807649; c=relaxed/simple;
+	bh=oJr76kD3h0PbBc6aH4cXmFFu2b6XnB90saVnn8Xl5wg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=afj9UblgNHBbKxL4lqK7bEzDqvvtqZz26rvpfRWK69I97X4TEM4NrqbA2q7CJaDSF+4+FPUU/rVguU2FQrbOIKvXk5bg4uMA+6pxn/C8btdrGsSy9AHt0Hyf5iXXqH0Vi/vuF0KGvd+CRC7VDJH9qfXvUPOyOSkKoO9TFY03BlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AaqhdASa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="E3W6CVWm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=uagXdD5ciqWTaFMPdi5UdXHkMYzb1UdXrcKzNq3ujLI=; b=E3W6CVWmY+yb8nnlbSnwl2yKMK
-	tLYbkZFBZeMNpQe9dh8OHn/4X5XN0oKY82AJ8Ee7CXfEj+jqI/lgc1Mcw09nhUSYatq6lzHVzFrsS
-	kcgeGXg3DF/N2pd4UNAF8lXTPgR952v9CH/kUhzo1HX2DP8MZHN528WnLl8e1kTpUCuaXYYE0fjw3
-	OPHkkwyiMJZLFNLa84ulcOSCGfDExKZ0D6PHcdT2PI+BbHU/lefiIJh0mgd6ylZ6haDTyFlS//fQT
-	eYpKaPmJ92myblzvAU656TF/+67u0oueq0h18RKGgl0azpzsk0yd9Ffe/94IUl288r8VETclSjh8A
-	M/1/+WwQ==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Chukun Pan <amadeus@jmu.edu.cn>
-Cc: Heiko Stuebner <heiko@sntech.de>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AaqhdASa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92C661F000FF;
+	Wed, 30 Sep 2026 22:34:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790807647;
+	bh=Y9zMIJNxKpa5Bhx46XZTOnTAHlsLD1gKMetTQhVVcgw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AaqhdASa8v9wWTPxKWm2KF3pmZykgLgqZfaVVC+OKDJthjCaVn0MR9j+myN4oxS87
+	 3ml3pP9tZs41KnQSCrcScQgRK0U46yRAa2dSCtVLqeJlXQLfVoReLzYRrT1JDtjhAD
+	 jRCyOn9Bmuo8c0qloxjFBB3uNGHYIOoVfszPhdmLO5qDD1J2FSFC1+jNOA/5a50aF3
+	 8oBkd41Nh6wuVNPxDRXeuFsMANxdca1bCvdyIpvZTSYhxXRiYMM3xLvOH6qDYy4zGd
+	 4mzKvVZEHqsZN0SrfcMLGuM/rj18CbQvBCbKHnBqdo8e30rAo7fJzR3YEx1czWF2W+
+	 o+pnzAnGkFrww==
+Date: Wed, 30 Sep 2026 23:34:02 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
 	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] arm64: dts: rockchip: Add MangoPi M28K
-Date: Thu,  1 Oct 2026 00:30:34 +0200
-Message-ID: <179080743116.2419406.13197098568454460130.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
-References: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v8 00/22] Add basic pinctrl drivers for JHB100 SoC
+Message-ID: <20260930-frantic-enviable-55c1a78fe7d4@spud>
+References: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
+ <CAD++jLmts76o8wyR=eY=vdNsh8+916YqK9qwM3b=R624AYM1XA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PlRoT138GtctrPoH"
+Content-Disposition: inline
+In-Reply-To: <CAD++jLmts76o8wyR=eY=vdNsh8+916YqK9qwM3b=R624AYM1XA@mail.gmail.com>
 
+--PlRoT138GtctrPoH
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 01 Aug 2026 16:00:16 +0800, Chukun Pan wrote:
-> Information about the MangoPi M28K is here: https://widora.cn/m28k
-> 
-> MangoPi also has a version called "M28K Pro", which replaces the
-> RTL8111H with the RTL8125B.
-> 
-> Changes in v2:
-> - Add USB 2.0 support
-> - Remove merged patch
-> 
-> [...]
+On Thu, Oct 01, 2026 at 12:20:01AM +0200, Linus Walleij wrote:
+> Hi Changuang,
+>=20
+> On Thu, Sep 10, 2026 at 12:04=E2=80=AFPM Changhuang Liang
+> <changhuang.liang@starfivetech.com> wrote:
+>=20
+> > Changhuang Liang (22):
+> >   dt-bindings: pincfg-node: Add property 'input-debounce-ns'
+> >   pinctrl: pinconf-generic: Add property 'input-debounce-ns'
+> >   dt-bindings: pinctrl: Add starfive,jhb100-sys0-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 sys0 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-sys0h-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 sys0h controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-sys1-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 sys1 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-sys2-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 sys2 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-per0-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 per0 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 per1 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-per2-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 per2 controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-per2pok-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 per2pok controller driver
+> >   dt-bindings: pinctrl: Add starfive,jhb100-per3-pinctrl
+> >   pinctrl: starfive: Add StarFive JHB100 per3 controller driver
+>=20
+> All of those applied to the pinctrl tree!
+>=20
+> I had to manually adjust the MAINTAINERS patch because it is based
+> on some reset controller patch I don't have in v7.3-rc1.
 
-Applied, thanks!
+I believe that patch doesn't exist anywhere other than on the mailing
+list :p
 
-[1/2] dt-bindings: arm: rockchip: Add MangoPi M28K
-      commit: 4de49bae600f265a8b214cdd33f7d018a171c007
-[2/2] arm64: dts: rockchip: Add MangoPi M28K
-      commit: fa932a9b632ff0d80390b940e6aabe38ac305fe1
+> >   riscv: dts: starfive: Add JHB100 pinctrl pad number header
+> >   riscv: dts: starfive: jhb100: Add pinctrl nodes
+>=20
+> Please funnel these through the SoC tree.
 
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+Ye, I got my eye on them, don't worry.
+
+btw, are you going to be at LPC or OSS Linus? I'll have to make sure to
+say hi if so.
+
+--PlRoT138GtctrPoH
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar2OWgAKCRB4tDGHoIJi
+0grzAP9Fs6ouvcThAMVjQbj6XU2gdVLZc/LBnWTeH4InJf79kQEAohOH8MQi/Wti
+rReWTShRPoUOU1zat+wE0KfWpAY7owM=
+=TNVs
+-----END PGP SIGNATURE-----
+
+--PlRoT138GtctrPoH--
