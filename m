@@ -1,79 +1,62 @@
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F7D45090A;
-	Wed, 30 Sep 2026 07:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFA640BCC8;
+	Wed, 30 Sep 2026 07:24:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752980; cv=none; b=SWy7BIl/BUMWULYEOdO+xIYxIkRRevfJArCsl/JdPEcyCOgi66dnoKIdekkhSQx7smgtin26urG8oKICr+tGjw2DCPrVS5RW8WCGObuzb6gBoUJnBIs0OkIO4b78Wq02swzZoAJkEvt0gN45DSyPTg3dQXMk0BmpOJCcVR1hQAg=
+	t=1790753096; cv=none; b=ZxfUG01k1Wu8OFY3SQgQmT0b2MHrtiXXtgUebr1DrvAlcupd9nqH+LWju6KJvEwx5FJc/tRIuMxWVcvjz6tZZPG8TdSIqG1XLdNo1dbnty0lxn+coTUVmIkUo4tLbtIBoeIj9J1npxqrxZbsmplQKQmnT/xHZ6xD1S0iFmKnSAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752980; c=relaxed/simple;
-	bh=6WPCKXDrK4HlXoB/bRAko8257iwE0s7ZcXFG3kZdjXQ=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=i9Xl/iIeXA42QuNFXB8/0kY/78Wlv9JTe1mFVpo8rwxxhN8OJigQ0kZnJqehz5GZH7gaOGeoEx/UJwMpA2O9QixWKfuACbtdqMHlkOSiUR7wADQwVUSuc1v3angz6esz8KUHdYjBSexN+/dz0zQ9T9GkHHqj2kFUlFRYwOdBQzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=u3KC4B+I; arc=none smtp.client-ip=113.46.200.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790753096; c=relaxed/simple;
+	bh=UxqKvO5DnZdyyjeJVh5WYwYUZx3ftUy3b2K0Z/lgCG8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IXYH+gQ1KTWnqY+34pczTMITkNHpHGwvOnZRc+id6A50FanGOO8bctVhuYg7hikZR83mE2Evic1/GK3/hwiRd6fcy8jxD7e7Kljtb0GcsXpkr3/uGBr8gDc//LGEwmSI0W8+ScnYwwLR7gYKnt6PIDdiP+j7J+R+XAqS8SRQefc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=crivVVAn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="u3KC4B+I"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=xp1c3slZF9aZ329lhM+c9GDRbvB1vFE3cbAoP4eTrNA=;
-	b=u3KC4B+Ib/qBvkobYbxBZ3/iVxIW8zTy6wk/bDYKPFkgRv6aI/IGgGDpi/5Ss6AsMUU1jRkek
-	XcV65qU3YbCWjBwbB4JySHM1kZGJOmz0wUy6GviawWFOPSncfCqvnA91FUcaSIOKsblIvYk59X6
-	wBdjbQJHteY6rWk8bvFyqLE=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hvmR60kS6z1K9D2;
-	Wed, 30 Sep 2026 15:10:42 +0800 (CST)
-Received: from kwepemk200006.china.huawei.com (unknown [7.202.194.72])
-	by mail.maildlp.com (Postfix) with ESMTPS id DDBF84057A;
-	Wed, 30 Sep 2026 15:22:51 +0800 (CST)
-Received: from [10.67.113.213] (10.67.113.213) by
- kwepemk200006.china.huawei.com (7.202.194.72) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 30 Sep 2026 15:22:51 +0800
-Message-ID: <6ABCB8CA.7040005@hisilicon.com>
-Date: Wed, 30 Sep 2026 15:22:50 +0800
-From: Wei Xu <xuwei5@hisilicon.com>
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="crivVVAn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4961F000FF;
+	Wed, 30 Sep 2026 07:24:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790753095;
+	bh=UxqKvO5DnZdyyjeJVh5WYwYUZx3ftUy3b2K0Z/lgCG8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=crivVVAnfZih2ZuZ+rHoEwOX/NZWJs25YbDEGgkbIbFVMd3CeGQFY5J5+mvDthNhn
+	 JzwAvUHwvLsR0B+ANRllsT7t8Lur4oTr6P2/HIFnHJF7xIgdjlRKqvUaqgfEHk0evh
+	 DPDYcKPDHn1VkyQep8nbAYRtVwKoYeYzQG8bXmvkfecvnuqQqewNwcz9P7bl9vxQUy
+	 tRP9Zj9wZO9D3Q5I7yeG/oOOIkQBPeZit95VbuD5syZD5lcVmmveb68L79YKzlnKER
+	 qD8SjMrbAAARW54RonzPiDLTK1LpwMGNdd+h7FvoyDsVF7VFxQddi3lnLJQQ9ZKx+T
+	 4nV4h/zG25aSw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 3/3] mfd: aat2870: Add support for VIN and IN-LDO
+ power supplies
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, lee@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-leds@vger.kernel.org, mfd@lists.linux.dev
+In-Reply-To: <20260930071513.54697-4-clamor95@gmail.com>
+References: <20260930071513.54697-1-clamor95@gmail.com>
+ <20260930071513.54697-4-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 07:24:54 +0000
+Message-Id: <20260930072455.3B4961F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-To: "Rob Herring (Arm)" <robh@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-CC: <dmaengine@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] dt-bindings: dma: Convert hisilicon,k3-dma-1.0 to
- DT schema
-References: <20260928124448.3754740-1-robh@kernel.org>
-In-Reply-To: <20260928124448.3754740-1-robh@kernel.org>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200006.china.huawei.com (7.202.194.72)
 
-Hi Rob,
+> The AAT2870 supports a dedicated main power supply input alongside parent
+> power supply for its internal regulators.
+>=20
+> Add support for retrieving and managing these supply regulators
+> (vin-supply and in-ldo-supply) using the regulator framework to ensure
+> proper power supply dependencies and power-up sequencing.
+>=20
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 
-On 2026/9/28 20:44, Rob Herring (Arm) wrote:
-> Convert the hisilicon,k3-dma-1.0 binding to DT schema format.
-> 
-> Add dma-channel-mask, dma-no-cci, dma-type and interrupt-names
-> properties which were not documented.
-> 
-> The "hisilicon,hisi-pcm-asp-dma-1.0" doesn't have clocks, so make it
-> optional.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Acked-by: Wei Xu <xuwei5@hisilicon.com>
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930071513.5469=
+7-1-clamor95@gmail.com?part=3D3
 
-Thanks!
-
-Best Regards,
-Wei
