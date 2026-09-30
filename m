@@ -1,213 +1,169 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023125.outbound.protection.outlook.com [40.107.162.125])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737E246D2DC;
-	Wed, 30 Sep 2026 08:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44ECD36826E
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757323; cv=fail; b=MLv7n/LRucNWk4L0cBuDeKoaDJQEmsUOCimXAAMIUQQ8SixrSLdFBKSYIEtrp5S7v/fsI+Kfq7YpI/kaEeKq3JDGWnU35MJ0gsE9zFwRYcYTG9qAJuUcHV1zxIJ5zfBJpKWd2vhHFtrka9VL7eVh1MI3Kdavpm0j9Db1KzuvDSk=
+	t=1790757390; cv=pass; b=o8Kdka13aUZDjL6CvUe5POCAvs/am+U8Vy1ThrZ/tLo3eLEr4iC55bdZsFtOTazQn6v39+i66KFCp2Ie2QfVWnsa4FktrTJQ5ZdV6rTK620+lOMY+9AwKS4TpC7aUHMmDysQZooq7OaRjUt/8kYi1MH2eQ+X4BlVz0/scT/yAd8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757323; c=relaxed/simple;
-	bh=XpBRyLvnem3iuC43+JyqxPnF2A6CPqRNOsAjERTOu1c=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=sfh4qLg/p/RBMKEqaTabncQvyPI+npY8bs+fxJVChuzZOtkBz3ZJ0gfXgI3G9QXdk75j+pEnrk7xHU9loczR0aCptBgk15mRqYIrML0fYcgPdT3dBxtV4eiA3SSV0SWUEjgqNIXjW5JtqCSk0h5wXVtD7DVghkei4QpVv3c+RKg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=studio.unibo.it; spf=pass smtp.mailfrom=studio.unibo.it; dkim=pass (2048-bit key) header.d=studio.unibo.it header.i=@studio.unibo.it header.b=uHlo52SE; arc=fail smtp.client-ip=40.107.162.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=studio.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=studio.unibo.it
+	s=arc-20240116; t=1790757390; c=relaxed/simple;
+	bh=HjdOFxmrol1vUnD9FKIi4UFta8BjlFpXjkromc99kSU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uYVpIF9teCP/gzX1aS40aBEnoEqrol0NOtGiKAyi7B4knQ284YCrfTa++2hCaHcGRbiMMJpB3GSO68ThHDrwXAtoJfTtnxYNrAkI8/3abih/MFnptFLUJCnK9YvwcIw5Wkul0kjxgymNks9coPvFYw12CEgq3aiULoI7TnaZZmE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fPP9lv96; arc=pass smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=studio.unibo.it header.i=@studio.unibo.it header.b="uHlo52SE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gJYOjmhWe5O555w5aaRfF8CDXTsImcppEQgA/mN9fHTcvvvlG0aZBTl7W1IwbSFNCupVL+yK8YxzeUf5fqfG8zUWrDtOVxueB8HrVNIASPXn/CfVaebMGes89qzeXnsHL173H5xhwPrGiwHGOMPyFxeZulVWTlujh+bZgjHD+XYE6r1XNWyfcK2gaRRSqJb0K39PAZ7ZF6BgydicRDl4XVtKX+DrFRAd/gScXGXlgoJM3NyaPHd7n3x9x62NXvZ/ktyDJya35qFSqhaAu/foKGwr89o522f0Vpzyw9PiU3dhZGEGIpxI31mHCxSH63Gk/40BZrqCwGbdhh6FasBZAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sGEcwubc9oUIawFyvRvmp7UNskxlHLPD0xDmr0NgoPM=;
- b=qUMB375nc5slAjIRb4QwKu6lPjXAS7pK/Q8p4+0Zj7ljBrXhnxIDLJZB07k2es+wN9vhIK4COmtIF9PmyQCpYNCAODmSDr4oA7LNcY96uinfBldqncNx5ZNzqeqlDm7gpHqv+Ijwhgel2H0ilItuhvA3IIUz3kV+DwdcZ1UN6ws9slCiNhAd7HM//yNF/kkehT5dUipod91pgBZR2QiTxYl0K5zzmy4wq5OK8h9wEXcJioI18eYLTG6MPYeBqID+yalIkekhSsOKevRa7Fq43THCX/r4URVB+Kxv4DB41VfDXc+xcg49xs59IaCAWSP4ExasU0zgafStSUpalb9HsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=studio.unibo.it; dmarc=pass action=none
- header.from=studio.unibo.it; dkim=pass header.d=studio.unibo.it; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=studio.unibo.it;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sGEcwubc9oUIawFyvRvmp7UNskxlHLPD0xDmr0NgoPM=;
- b=uHlo52SEIBLXZgQ67aPetamfBPmXNWIk/hI6HLiIOhhPj2PYbNRYvcnHDPR9twDu24e3viQsctdWAK5vFjqDfEqom1nuc+4JDHhWhKpc4ta/LIK3eqMct9gVL1jIxrQ5AERw9rk8d/kyutpzqA+BGS7Vaehwih8n4Uu6Nh9QBimfohiFp8rWmTqG4+Lz1/HriNqtbMfM+kuYnWIkwrhOwjnw7LymmnsvGexlSIizSZ2sMKTFyWYYlJXDKIQ2yG1UnBtDqymRaRVWuF0bZoCHP5cRWpeNb6QiMl8NG0doSRC6fBQrZ6iddT9Y1ZGGNbS6mhxCoCC9fGoEj6kCqa3zMw==
-Received: from AM6PR01MB5686.eurprd01.prod.exchangelabs.com
- (2603:10a6:20b:da::18) by AM7PPF0EA683B0D.eurprd01.prod.exchangelabs.com
- (2603:10a6:20f:fff1::787) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.25; Wed, 30 Sep
- 2026 08:35:11 +0000
-Received: from AM6PR01MB5686.eurprd01.prod.exchangelabs.com
- ([fe80::d9de:826:e4be:1934]) by AM6PR01MB5686.eurprd01.prod.exchangelabs.com
- ([fe80::d9de:826:e4be:1934%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 08:35:10 +0000
-From: =?iso-8859-1?Q?Nicol=F2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo=2E?=
- =?iso-8859-1?Q?it?= <nicolo.giuliani6@studio.unibo.it>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Gregory
- Clement <gregory.clement@bootlin.com>, Sebastian Hesselbarth
-	<sebastian.hesselbarth@gmail.com>,
-	=?iso-8859-1?Q?Nicol=F2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo=2E?=
- =?iso-8859-1?Q?it?= <nicolo.giuliani6@studio.unibo.it>
-CC: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, Krzysztof Kozlowski
-	<krzysztof.kozlowski@oss.qualcomm.com>
-Subject: R: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
-Thread-Topic: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
-Thread-Index: AQHdSV/jd/qJfdsvO0CzFfYtjZ7vC7bm2jMY
-Date: Wed, 30 Sep 2026 08:35:10 +0000
-Message-ID:
- <AM6PR01MB56865DCADF2BF67FD3277158808B2@AM6PR01MB5686.eurprd01.prod.exchangelabs.com>
-References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
-In-Reply-To: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
-Accept-Language: it-IT, en-US
-Content-Language: it-IT
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=studio.unibo.it;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM6PR01MB5686:EE_|AM7PPF0EA683B0D:EE_
-x-ms-office365-filtering-correlation-id: 5fa59722-4f78-47a8-8a7c-08df1ecdbdb0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|7416014|1800799024|376014|786006|366016|38070700021|10067099003|11063799006|56012099006|22082099003|18002099003|6133799003;
-x-microsoft-antispam-message-info:
- S2r2DtgQK33czi65EmY7J3DZ3lci7ycwLVCXsxdc5Gy63x3c4xZKquxztY+hE8Tj/naDpyZMlrdl7uJAbihj/pF3nIvKzhAoZ+My+svJS1kpjM/bVA5AvkF2ltduBPUEdAxVPmR06vYycsnJbUM3rpvv5IFpVH8kQbWhgExHpa0j5xdX7eI01PkX1RRDd9qs5yyvMOT+r+BP+ngTikMXUJGIT+8w13+pTidvoKP2xS+SIiDW88/Wkr+iheZZa/JevU4tElxNWdbzZNM2l/+uoUzLacQQzgYbfu87MtsRgS8LYzcRF/KLvKesU39XVhKm/Y/LXWnRvTlkKEhlVF14YhDsMziDD1VK+9xJRsjf9EyIJr56HC/Mznw51ZPh1HzIuB1+5lTWyruXmmQEYQa2+iB9n88sbO0t4n930P6kgk+FVpMDubhlJPA4gZrtGeVQYpPiSrqUWFTR/2WLkSGpBtjxYNqQlnSShfNIoBxRrhUN2xUFiN9ZKfWIMcjZDJpZnmziIT5LQVUQ6P6Me/V+jhygJuboLs4hgwdAD2Q1k4DB38lspEDG50hRw+DnEgkJH9GYe/zlX0RRIXkNA0YOFT0C2lujq6G4F6arF10kUsErF+aIYmmyhdy6ZpoQMvFSNXmfzp3efJNoAa7y66XoSKPR7czzwACaFAxu6oA997k=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR01MB5686.eurprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(786006)(366016)(38070700021)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?MDIKjs0OWjdeIxCB8USfz1CHk8KT3mTFhg5308iNhBa3QOU7fAUjWIgex5?=
- =?iso-8859-1?Q?kG4xPlEWYdfeQaHaJ8+mqDKVPLECR33QoPoH6Vg4tBRUDWqvUrIQQoqr3B?=
- =?iso-8859-1?Q?+pkKP6oeTc6LqZNPyCKzq+wytNc79nqEIRHRtvNE9+V0u5nX0Rdb+Lvvre?=
- =?iso-8859-1?Q?PiyKoBYkao3V4C9hSM8ATLhMLQQtEdzM/xpTLA999o93vPnCvbC8lwaBqB?=
- =?iso-8859-1?Q?wNfJ13nFOnKM0AJB432TOvNYyTXUTRg6xp69ffQLtZ9UJuuMgcr31QF4Va?=
- =?iso-8859-1?Q?fKGLyoPaRoUh7yfw/E8OLM6YzRaL1I+LB8wU8dWLfC14Rzt1gHt7C1vDOq?=
- =?iso-8859-1?Q?MKavjDtkRgXAO4FSIEg8lhwGaZeVEHl5aX7pD/IF5JT/BVp5vkjmsXqBAW?=
- =?iso-8859-1?Q?edfYg7/5puN9r1rVb4s65OcG/CbeavfOEgsZtGbYJU+wi19x2eBYPjaXfu?=
- =?iso-8859-1?Q?F1J2sGDeb7VUZJb8/Vxtpr0kZ+e56N+kKjFmuatFXMDYP6RkIZ6/WduOmz?=
- =?iso-8859-1?Q?EMT8EpKFr7v6VVKJYXZRH4uOXk2/ZP5l3+cIkq8uK/2ST4mOPgOUsEW9Uz?=
- =?iso-8859-1?Q?fYwo6GA8yW7AfeMzTKSiTUdP3tmPGZXQsQLzTLjvJ3W4IqgC244tzvXoD8?=
- =?iso-8859-1?Q?lpwYuB19xRwmBynATZg3hqqmMxfxCyWjeNM2wXRdnvb1tWSZI8rOpv1UCH?=
- =?iso-8859-1?Q?CvraQT0ybAPhP8yP2huIKft+o/OFRiX1Bhj27/Ssw0UcJ0QzTLnHtjfuy8?=
- =?iso-8859-1?Q?m4CvE6r/RSjYafnH36Bz4/8DYd+ZYa+u4fDJS1E8eABa6DyxkGIWvwhsY2?=
- =?iso-8859-1?Q?S3rWE/fHbKU/PwpVuLVxFtlRq4VAhjtRFZoZ0b3K53yB8VHfflFHvvHJUH?=
- =?iso-8859-1?Q?pLA5AbQ25qjqISYxhee6QY93iryUWvlKnoasb22pCUpcrnuyNGqM0vhg7y?=
- =?iso-8859-1?Q?jDBHZGMHuNG0ecRd4wUQwMvS/ZsxVJNEh/PKxfATDUQSkMi+U9tZOpR+cO?=
- =?iso-8859-1?Q?30Dr0J4CKT/PSVsexAjf+/bdk8wYzdp6QGzq9wmKYUdxXtXOpEaDKTXsAW?=
- =?iso-8859-1?Q?sbi/HmDPOovr/FUeTlCey759osDTOTtYIkQzc3BQ59ipwceFvpZPCUDxjk?=
- =?iso-8859-1?Q?ngEvw7lN2EGHxHjoaqy+vXLF87IHrQmgLr79Mhefy/FvUQmk6kwFCjL50/?=
- =?iso-8859-1?Q?BLZjtED84YPdWCdWuBTXum6fHR8jBnaRTO2TPO75JoNKp3FL335JWKSTlu?=
- =?iso-8859-1?Q?wUu+U/fZa9YCxnobvi5YoL0GiLV4TsbC/14UAL4DzPuCoUrRfFfCF3qZX3?=
- =?iso-8859-1?Q?Pa0AwrLmW18RFnWK4zHCbCfpRYsn5lqD6TMKOWipbxVagtErp5XQ6sVJEK?=
- =?iso-8859-1?Q?q4n9sX2U4qmxayOdIbj70ReI5WYLxWVYUEAucKi8kVcdxkhFLA7V6eeg8V?=
- =?iso-8859-1?Q?cgRjQQwYOXJfsqBGGt4/GfwcPDou5IfKxF9FihkY1Oa4he82yE40gGCWG8?=
- =?iso-8859-1?Q?IzT8PdgD4GBd3im5gZyjYPsN7P1z94pH4VeQRAmVOMxGP+V56rC4rPU5e1?=
- =?iso-8859-1?Q?1J8IQqyn9D01+fHWB5lh6bO8BXIQKFefUWBu+2Ii8ROSWNUpe3ze3dQHkE?=
- =?iso-8859-1?Q?Wp9HhAoHEhF+WjjbAKTzhzIPh4pYOxltgjnpIM1OW4A+gYMT6RB+JjxFKf?=
- =?iso-8859-1?Q?AxgZV0XF4B0V1BjyOVMXW5E3tCVyHlcm6JAnqdEkXopPJSCJMPXTmLPR95?=
- =?iso-8859-1?Q?y6CTU8uLGOxu1j4nNcA7eAtrxYX43z2L7kawbVXF6Oopc/rtxSYSyqM9hl?=
- =?iso-8859-1?Q?nusFXmx7iJuv8E8s8OWQxlv/NCf5z30=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fPP9lv96"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4887d3c59ecso735504f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 01:36:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790757387; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lF1cczIN7FcRSFufopyxRK/VyRdVr+dKFVTLPNa8yBfrfPsh2Wpeyx+Yybvki4pkf8
+         hgos7Fq7cwgfiuTj2eBZhm0A59oGRc4FoejOHyo2UrPdJPhb5lka3FPLnVVReSqp1wy6
+         hZkLMQ0t6cFDMkPDDIQoh3ygFkipCsfiruU3ZGlWV/XG1mKENAxvVLui2f/mqTkWOObV
+         8iaJSIeHfZvbCSKgP6cflzONCqcKh02Qj1j5aAoEUi3SoRbi7hUbvio9XPMlplllJN+9
+         bgtYInWEjQMvdPni04G8WDfPYBzFs5gm6CQ2J7Aw/mg/QlV7sEWzw9JZwyn6Lxs4Pg6M
+         J93g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lZaIHzaOhcnhKP+I2Nw6s6CnueUSh0ItyVCxd7z2kOw=;
+        fh=Ozl+kQJL25XamUPCbWsZNi1QzaRCdsNRdGXoyHo/M1o=;
+        b=fazCtg5MjUzS+/PahRUtTS6XlEmTgWnqG5Lza7+FvQIqo+rbjxITh5DOEar5raB57a
+         WTGM7Cf0+oxak3qq/bX31ZnQJm30dpyVQaPf2XgMhnHp67OguiS9Z8RoaYtWqHPld1Uu
+         qK3RPfMtLxehed/iCHihrwIWzQDDA7bmJJZTdP9dR4FS9rTq9WN0mSc93korNiT9cXOm
+         FP2b9OCLpkmze6xKxiwqa1D3rQstul3ladXb/44LYtWRmYPdvkdC2nXUmjx+1BoyUJCl
+         vfN3riXNhjWaGQbeHpZtdk4nXb8oa0KuK+OzbGyA6N6fIuZ6v2DJ10YQybHfTU9I7vYv
+         lXZw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790757387; x=1791362187; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lZaIHzaOhcnhKP+I2Nw6s6CnueUSh0ItyVCxd7z2kOw=;
+        b=fPP9lv96gucxheuD/UTtuwMLtRAubDXO6WGg74NbhRj4tuAn4KBKQ+RWXrNeSi8GPI
+         mfCZqPOC4R3qYvxuSRl8a0qTaw6LpWt6Foq0S+81hAq5LsAf2W6PjsJZGfiSZl/4nSr9
+         GcwVDBW3HAa3HSoKBFbNd1v2cC6sgXo97nXeWmbDHwq6zOpW+ywSnscCG8VNMh86gfuM
+         q4QWhSJdmrkdfIww3F9Cgr9D/RneVfoD5dZNXEItcwosil4qsfSpZX8iUhKSQ1a2zgWF
+         cQO+Z6UJeYPAZnfg2nJPSsMhJ93/Wlc/sNjA/7JKIJo3KiN512Ar3cU8zlXufdC0pW1e
+         zlyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790757387; x=1791362187;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lZaIHzaOhcnhKP+I2Nw6s6CnueUSh0ItyVCxd7z2kOw=;
+        b=KyooFkMd8NqbBo2jRByfsRI1STjlYwqKmMV5xznfcuNv6R44JaK8fnmtpUXgF3f8y4
+         xYtcsfFKt8WuePWTD7KpRqh4ZHoGkbkwXk9f0LjmeOE/H+ipiyIqCYtdtuS5HPuGWJSC
+         x1Yy5ZF4DNDJL/6p8GlE1eIJMdE20/tVicRY5FKw65Ok+fl5KgE86kiajPJdwRpMeK34
+         iS8H8y+OiW+i6LNjNUL+j5AFtPyHbM86/83y5iUwaaNZBOx+3Ysm68a15NHpbjJ1KLE3
+         ys3Nt2Kji1n3hWK0+iKhpLrzrFhuCq5439Y/hKQ5j9Wy0296Afd1Zxr6PO4jFIU2ZVCa
+         QO6w==
+X-Forwarded-Encrypted: i=1; AKwUvBwtQqd7hSUr7Oy2VzNiHMRlNJbEIz8kAH6N6ID7sGjrgJYLguXLxF5mTdUVpQCWDP8Kx8FTVxQkMinp@vger.kernel.org
+X-Gm-Message-State: AFq9FYL31GOhbHRjnamtoXr4QjcDSkwbZ6UESxwbO88CosXmlT+xqvGB
+	2l0tyHRdPxzVZ13p8sgtCHgdUWv8b+/iwYdKLhY8PAoARs0Kk7fLbCA43kEefGqa50EquHBLmmE
+	JSL/lKROY2Ukxka1Dec0yioPst/tJcGroDvjhBqE=
+X-Gm-Gg: AYBFou19hoE9Tp4z+Lzf8IphdZS1VV19UCJ2fskiCF2KEzWcnTFTPanyTuzCFvohQfR
+	ZfqHAswB7WvTmt+knPJYIoE9d3hjZTD+BsF1OOXqbiwPgSxL2SzKnCuXnCF8df0zHBZUeBXFD8s
+	hrcBafvWAehhfZvA2KCeEWs8BKzrJywRJFqjYjHAT8POJRRAsU21OWpoOozRuQojgGhQS6IAN5D
+	K9F7opqfvxPLaYCRkBmcWzNokgYeybw+EkXUq3KwvvgQicCzAuu5s21DTT63LWvSiBGb8ki6/Po
+	kIJp1H5WxmiOQ9rx8lDNzAlY6MbsASJke3IzimNDEYlROLhxukiflDqmeuwLmi7JWUSlS2ZIS1J
+	bnZsoVgrCWLGhUMMxwyCP+Vlj3/DbHbKd+/ehLWLjTGXntSnpiKxOZBiqmts9AUrGczqhguMQ5g
+	==
+X-Received: by 2002:a5d:588c:0:b0:48a:f11e:6d5e with SMTP id
+ ffacd0b85a97d-48b024a6d19mr1630952f8f.11.1790757387095; Wed, 30 Sep 2026
+ 01:36:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: studio.unibo.it
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR01MB5686.eurprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fa59722-4f78-47a8-8a7c-08df1ecdbdb0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2026 08:35:10.8939
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: e99647dc-1b08-454a-bf8c-699181b389ab
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JhcoOVqrPBpEWkN788sSREpn4FT+a79aIURS8lDgTYVEbCJd1lj/K/bN70IVoNfC4SlnebzOi+vztseWpNJ5McTXFOJepplMqVPzdv4Fg+Pys/byLEALUEoz0j+w4bvp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PPF0EA683B0D
+References: <20260929105021.542730-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260929105021.542730-4-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260929110602.D533D1F000FF@smtp.kernel.org>
+In-Reply-To: <20260929110602.D533D1F000FF@smtp.kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 30 Sep 2026 09:36:01 +0100
+X-Gm-Features: AclHuK8CCNO96WytW0FDoK4wkycLlbK69yfsHonOrEjdyZiIwv_YOfKHdgyoR20
+Message-ID: <CA+V-a8sNsgCP6icoYd8irORb9OGMAFG+RrgMOEtAiMoX9gFFdA@mail.gmail.com>
+Subject: Re: [PATCH v7 3/8] watchdog: rzv2h: Drop enabling clocks in the
+ restart handler
+To: sashiko-reviews@lists.linux.dev
+Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org, 
+	linux-watchdog@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi sashiko,
 
-Hi Gregory, Andrew, Sebastian,
+On Tue, Sep 29, 2026 at 12:06=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] watchdog: unintended system reset during suspend due to permanen=
+tly enabled clocks
+> --
+>
+> commit 465743d35253a3a281f9ce8cea373ed0c3ae3e5a
+> Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> watchdog: rzv2h: Drop enabling clocks in the restart handler
+>
+> The commit drops dynamic clock enable/disable operations from the watchdo=
+g
+> restart handler to avoid deadlocking on the clock framework's global
+> enable_lock. Instead, it keeps the peripheral and oscillator clocks enabl=
+ed
+> for the lifetime of the device using devm_clk_get_enabled() and
+> devm_clk_get_optional_enabled().
+>
+> > diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.=
+c
+> > index f247e42d54f54..55ac11fcfcabd 100644
+> > --- a/drivers/watchdog/rzv2h_wdt.c
+> > +++ b/drivers/watchdog/rzv2h_wdt.c
+>
+> [ ... ]
+>
+> > @@ -292,11 +279,11 @@ static int rzv2h_wdt_probe(struct platform_device=
+ *pdev)
+> >       if (IS_ERR(priv->base))
+> >               return PTR_ERR(priv->base);
+> >
+> > -     priv->pclk =3D devm_clk_get_prepared(dev, "pclk");
+> > +     priv->pclk =3D devm_clk_get_enabled(dev, "pclk");
+> >       if (IS_ERR(priv->pclk))
+> >               return dev_err_probe(dev, PTR_ERR(priv->pclk), "Failed to=
+ get pclk\n");
+> >
+> > -     priv->oscclk =3D devm_clk_get_optional_prepared(dev, "oscclk");
+> > +     priv->oscclk =3D devm_clk_get_optional_enabled(dev, "oscclk");
+>
+> [Severity: High]
+> Does switching to devm_clk_get_enabled() and devm_clk_get_optional_enable=
+d()
+> prevent the PM framework from fully gating these clocks during suspend?
+>
+> By permanently incrementing the CCF enable_count by 1 here in probe, it a=
+ppears
+> that pm_clk_suspend() will only drop the count from 2 to 1 during system
+> suspend, leaving the clocks physically enabled.
+>
+> If the clocks remain running while the system is suspended and the ping w=
+orker
+> is frozen, won't the hardware watchdog counter inevitably underflow and t=
+rigger
+> an unintended system reset?
+>
+The driver doesn't currently support dev pm ops so I can't test this
+scenario. My current intention is to add syscon support so for now
+I'll drop this patch and revisit it when adding pm ops.
 
-This series has Acked-by from Krzysztof on 1/3 and 2/3, and Reviewed-by fro=
-m Andrew on 3/3. Is there anything else needed before it can be applied, or=
- should I wait for the next merge window?
-
-Thanks,
-Nicolo Giuliani
-
-________________________________________
-Da: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.unibo.it@=
-kernel.org>
-Inviato: luned=EC 21 settembre 2026 02:26
-A: Rob Herring; Krzysztof Kozlowski; Conor Dooley; Andrew Lunn; Gregory Cle=
-ment; Sebastian Hesselbarth
-Cc: devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-arm-ker=
-nel@lists.infradead.org; Nicol=F2 Giuliani - nicolo.giuliani6@studio.unibo.=
-it; Krzysztof Kozlowski
-Oggetto: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
-
-The Sophos XGS 87/107 desktop firewalls pair an AMD x86 host with a
-separate network processing unit (NPU): a Marvell Armada CN9130 SoC with
-its own eMMC and SPI NOR flash. The NPU serves the eight RJ45 ports and
-the SFP cage through a Marvell 88E6193X switch on its MDIO bus, which is
-connected to the SoC by a 10GBASE-R link, and reaches the x86 host over
-PCIe.
-
-This series adds the Sophos vendor prefix, the compatible string of the
-NPU board and a device tree that describes the NPU as a standalone system:
-UART console, eMMC, SPI NOR flash, the SFP cage and the switch with its
-ports. The port LEDs, the USB ports and the PCIe link to the x86 host (the
-CN9130 acts as a PCIe endpoint towards it, which needs endpoint support
-that is not part of this series) are not described.
-
-Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI NOR
-access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing with
-its eight user ports, and 936 Mbit/s through a front port. The SFP cage
-is untested.
-
-dt_binding_check passes for vendor-prefixes.yaml and armada-7k-8k.yaml,
-and CHECK_DTBS=3Dy on marvell/cn9130-sophos-xgs107w.dtb reports no warning
-specific to this board.
-
-Based on the mvebu/dt branch of the mvebu tree (008e9faade).
-
-Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
----
-Changes in v2:
-- Patch 1: drop the second sentence of the commit message, add Acked-by
-- Patch 2: move the entry before the SolidRun ones and list only
-  marvell,cn9130 after the board compatible, as the other CN9130 boards do
-- Patch 3: use the compatible list of patch 2; pass the switch reset as
-  reset-gpios and drop the boot loader workaround; remove the LED
-  expander node and the SFP address comment
-- Link to v1: https://patch.msgid.link/20260919-send-dt-v1-0-365615a74ef3@s=
-tudio.unibo.it
-
----
-Nicolo Giuliani (3):
-      dt-bindings: vendor-prefixes: Add Sophos
-      dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
-      arm64: dts: marvell: Add Sophos XGS 107w NPU board
-
- .../bindings/arm/marvell/armada-7k-8k.yaml         |   7 +
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- arch/arm64/boot/dts/marvell/Makefile               |   1 +
- .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 188 +++++++++++++++++=
-++++
- 4 files changed, 198 insertions(+)
----
-base-commit: 008e9faadef8c0aaa9b8a3ff05a2126e3c5b08b7
-change-id: 20260919-send-dt-6bbd08a470d2
-
-Best regards,
---
-Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-
-
+Cheers,
+Prabhakar
