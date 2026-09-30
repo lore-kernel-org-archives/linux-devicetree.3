@@ -1,66 +1,67 @@
-Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
+Received: from mail-ed2-f39.google.com (mail-ed2-f39.google.com [74.125.228.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C22631E846
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:30:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A01348445
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:30:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760637; cv=none; b=RXCaEUZgiAUlOVCdZOyqDF4eGJBe3g2RSQezOEkm6A2pQpeYSQ6vDy1ntW9El4Cmq4wWeHj93asueF1xJ/5Ac56PfNr3FxEdz+n+ELQ9DndogWo8XHjdjAsErkT/3AOTztzXsvEf+HZtSkddswGc9rD3hSK6KQy2ZzklgipVrcg=
+	t=1790760639; cv=none; b=Ael7kvC55GA/H4NOu8Ro2WfiSVUJvd5PP/ZUjOCCpELSoNzhRqlIKwlkEJGRHX3ccpLIpR64bTcV1fnLYMFDuDtp/uB8Aq/wyVnqcv9me3nFTNDCFOgUajufm1HA7qCwgPTKgnNHKgKaTEwBovZ3ShRhGQWJIGCuWaY0UasZ6iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760637; c=relaxed/simple;
-	bh=g1Q/SRrVTtz6AMBI1bvGBzBewZqe2gXa75U3T+sIgKM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=E7p9IEDk3P0Cz4jz0pfWx53neXSC2j2WXFXmtGSpfiXKIWt+y9/issQs/UNs9pSGlL78TT/tC35muSXTOn4Z9bKxY6L4+uu0A2AjEm0aMobJYqWjzQsZSaBUPvSvlTgWY1O6yd29PeKXqT03wAfNnjuCnkflL+tbGPrTfpXBasE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OmhTyLWz; arc=none smtp.client-ip=74.125.228.97
+	s=arc-20240116; t=1790760639; c=relaxed/simple;
+	bh=jBOWfAe/37a+DtWsY4pcfCQdJQrauO++5rYgJh/u5TQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OBTcuyoVXnkIkrIt99Pl4GrRpdSeyi25tZM7byPjIKMgVW/43OborxFuhVP1DcIpQErN8YZKDZg+WTaoJR40ABDAotPVRyPDumb/GmqORhW0Lg7iiEfckBbWpgLIzNnasjISDYJYKVmCHVQSQqSoCmQ0nwDPQyuqJGRHuT9U9Zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g8j1mJCQ; arc=none smtp.client-ip=74.125.228.103
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OmhTyLWz"
-Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6abe19c4262so4909990a12.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 02:30:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g8j1mJCQ"
+Received: by mail-ed2-f39.google.com with SMTP id 4fb4d7f45d1cf-6aa0ee64afdso6169548a12.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 02:30:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790760634; x=1791365434; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LPe34vRyIa6dML1EQo1KfXSPOK1WXOU9iwUTkrF5Ta0=;
-        b=OmhTyLWzh5YiHhOxlDB6dSTIxw7l4othBi0ZPo7qZZCvbuL6fRK1oxqBGYzhUeTZP0
-         XI/HL72c8AeqAW/I+INZbRZeTP/EOGZeWe/PAksoPgEu4XTj6PYkB9/ZOf51jJxKAnyR
-         VTu6e/Rwe/KBT3UZHAAfADwC8bJgUWKgDtohflh+o0WcNFpDzuViupaya0QE73hiHZuR
-         yP+cjCqZBJmYThfFQrqA6k1CXf+b+NFWLnDoFltBXc6PkLp48EKnDad6T80vukwIeC3t
-         cF+Fw5xURxaEsAaiiRXuWZLIrP+uGUU7WSxIFVPrt7IElXu4OXrFS691M5zzTYs48Qe1
-         vK4A==
+        d=gmail.com; s=20251104; t=1790760636; x=1791365436; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Zhvlpv/etnxxE1xo+vE8I3wMg7dBPdkR6wAnk76hoag=;
+        b=g8j1mJCQkDPMu8jxlT2RpqxVoakvYNND34Mf5B0thezLTdpK+bUqARMY6wqsfQ0Qaj
+         CHviQ/fH7CWzaXX+nvAnzgz2/Lstfy+voOYLjEB+ekMd/iUSoCXYibbOKhJ2NUc72bhe
+         qNHaGF2qPJwx6SQapmV8v6uOKCcBlJcnri9iTubMmlPynFpDPc1TCPsXwOeIvNlyqG8b
+         7JGTofqxaC9XvVvoDfuhFyWEM+N30cIRCnKUSHYBg5rTQJm58EnmGgZCABIIGQOwc9Ht
+         9pXkeO0N+70uPxt4vWzxmfr4e1FYFNquLaR+KMNYEV8e3N0PeAc5iXlU38z88nnrb2cH
+         LORg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790760634; x=1791365434;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LPe34vRyIa6dML1EQo1KfXSPOK1WXOU9iwUTkrF5Ta0=;
-        b=TIyhpgwFmDrqgeO0B0bWFtF3dpmFxtgcr7G2102kwxVldshdwRlEA6y4SnmPacDjbU
-         Le9lNxcTQQCa4Y6bmARp5wkvRy0BMYkupYU1rQxcQeM1lFozenQeNHaNRDbcEUgHKzE5
-         7wXUg/W3P3Msq0kfflOe3SSCYXgcfdtPAakYovBRaB/LLP/a6wdIFcjZoIUWfbJV9C9y
-         K9LbrhVP0lqbYlAOJ6ksYwRX9IzjeX2Nmy+Oe4te+SvBC0m4ModdVIweswFZcS3XdBfo
-         9ZAw67l4czgxvCmtpjrxDaVOr/2Uw++0QsaZI4CUT4GqDAygKB8sk6fDOHsAOS+hxNEn
-         Z7RQ==
-X-Gm-Message-State: AFq9FYJ2Q4NC2du++wSDjYTl9sCk3Km+xxu9Gwx+E4icLZJE62Rk8gMF
-	fgc1m/WV7a1KzZoKUqhFB6K5SH/+wPSxe/xbVvJdRMR3CvjUE+JOz3VC
-X-Gm-Gg: AYBFou38PWcf9lcYk6dI42H5eGMU/B1vcQbhUw7vNWF2JSXDmTYFW8FbainlGHhjFSv
-	b77622G3TD0zaLm0fD3wm7zZvU1cUcBBQagyUX4eENQsKSrehJstXOzCC2kAJo7ZC9dmlMAKFi8
-	Ws98nMtOuJYPMtmMLFeVncTP+DH0/GcoNy664hlqaRNIK1gsuaH/VXelKghwy3XaYA5RV00iRyh
-	pc66Jo6eom4h5/BVh9O00KYy/xYuyw1Wb09Qjo79KL3aKeQdXO5P//H2ORGunx5/GyDRT7AHDva
-	scaO0Z6AYEFFUEVMjNWbwRUZE4QsCOxCQqQKPVfMTIjFLi8mIVN2hgOmLJedjvH2gAQ4NMZgGYi
-	P9LzUHfIQ8gmfyQOmL1T6CWQq5ph4RxaCsBk8NyVmevUJ+5/+Nn0It0GOqWuqQV3Y0ROp3uDvQJ
-	cLwvq+LODBuMnIcn0MQg5ZdgcyBAk7oxa0aKe7xQirVgOMuH9Jo2uddUrZdyQVc7AniQ0Q4uaPP
-	M8yWBH9G5Mh
-X-Received: by 2002:a05:6402:52d3:b0:6ac:c851:a0d7 with SMTP id 4fb4d7f45d1cf-6ae1990e181mr453683a12.23.1790760634236;
-        Wed, 30 Sep 2026 02:30:34 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790760636; x=1791365436;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zhvlpv/etnxxE1xo+vE8I3wMg7dBPdkR6wAnk76hoag=;
+        b=S8lIqF8ULR17zRRAaQm7QbpNLXMc7s/K5Wuwz8rxwn9ZS0aC/+qokSzibtfYpC2mui
+         Al9FT5WN2Vch1dLDVAL+8uRJ3EMLlsxwuDe0Rbe9s7yKDILn/jbiYHFQXx+121yPW4kz
+         VDytT2uhwGUcsUXpkmYnphY2085gvUMBga4h0DHddrlAe5qFbehU6g2MoJrYDHmncYzd
+         lSjMIp0zt/PpRt95yyCPGzRysdLARRSBBFpg89gF+Nz2GbcRngiXL9lXG+Yg6d3X/sEt
+         aBVn5GBfQHxXSUAZ0imwhQ8D4KeLGi4hu4ehS8VIGlKQsjuFBQVAcXH/dDFPD95x6N+g
+         UA8w==
+X-Gm-Message-State: AFq9FYLQs3mPki50k3E1Oai26A8I+yWKnaYi4GBLXIak4FVrQzSBFP8X
+	gArq1Y4abWV1Dn162ADw5Ju1K7RFlsJfQsNsrtWO3DXgV8fJTts+ilbX
+X-Gm-Gg: AYBFou153mg3L4+Yt2SB8kVbVNpyZ3GQktFMpf0x1aslxcu3ydAQkXNIcDhJNTfFO60
+	9E8jjVdUv9W8Sao3U8LmtzCBkwSFEy2mV9upCX6bScqhXsn8Qc9t1pTZxz55OSeNAKwSii5k4Ro
+	NX1f0bwSwIU4I3+IKw/Bt2clBglIbqiXTqWgUZVqflXNe9Cng0vXAI4xNBI5ghU3+QjIQZdB4a2
+	WbfglckKxVjYazAGQ/6SMprMmEgkBCs3b716ubRBjzcHBxDvBV1gweS/TSX26RlWDHNH3qbjX4p
+	9U0IHhl27ah4/1RtjLYsWsItGWDyBi164umUA/LgZyA1LLd5h63k0MDTQk2vdPRq6MNouG5ymBC
+	U9537s4VyNs0+6CaNy9avc4wFAPE9EFZ+qE//NwAlBYdSZWZmAa5eOfDGVSU95HxVWgfg4KSu2p
+	5lW43CHJrpStQ8P0QTMYY/cw6LFvpVvg9zfamNQZGqeiPea9HET8GdDkUli50tZ0CuEoqRADEOn
+	XkedyRKPeg=
+X-Received: by 2002:a05:6402:27d0:b0:6ac:68a3:3c30 with SMTP id 4fb4d7f45d1cf-6ae1992b71dmr568888a12.14.1790760636516;
+        Wed, 30 Sep 2026 02:30:36 -0700 (PDT)
 Received: from localhost.localdomain ([193.107.16.39])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae1568e8b2sm485221a12.19.2026.09.30.02.30.32
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae1568e8b2sm485221a12.19.2026.09.30.02.30.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 02:30:33 -0700 (PDT)
+        Wed, 30 Sep 2026 02:30:36 -0700 (PDT)
 From: Dmitry Yashin <dmt.yashin@gmail.com>
-Subject: [PATCH 0/4] arm64: dts: rockchip: add Forlinx OK3568-C
-Date: Wed, 30 Sep 2026 14:29:03 +0500
-Message-Id: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
+Date: Wed, 30 Sep 2026 14:29:04 +0500
+Subject: [PATCH 1/4] dt-bindings: arm: rockchip: add Forlinx FET3568-C
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,53 +70,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGDWvGoC/yXMXQtAMBTG8a+ic221l7bMV5EL5uBQaENq+e6Gy
- 1/9nydCQE8YoMwieDwp0LokiDwDNzbLgIy6ZJBcGm4VZ+ustCmYY45bbaVuBUoDKd889nR9V1X
- 9OxzthG5/93DfDyu5dl9sAAAA
-X-Change-ID: 20260930-ok3568-c-c095925b1e26
+Message-Id: <20260930-ok3568-c-v1-1-a0ffd55f5c95@gmail.com>
+References: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
+In-Reply-To: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Dmitry Yashin <dmt.yashin@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790760632; l=1327;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790760632; l=1111;
  i=dmt.yashin@gmail.com; s=20260930; h=from:subject:message-id;
- bh=g1Q/SRrVTtz6AMBI1bvGBzBewZqe2gXa75U3T+sIgKM=;
- b=0nGmsba4SEGFbfPrANmHlsF/U0MMw4A4GIhmRhgAN5sBwJg/zkO2KE0q8f+UPO2nAyb/oCkNk
- R5Rjiq0j7B1CG3MTMVTYUy3TWgiQpmMnhm6Sngvey6AjwmXmZZFcwcJ
+ bh=jBOWfAe/37a+DtWsY4pcfCQdJQrauO++5rYgJh/u5TQ=;
+ b=S0YR/mEpWlrZhLop51WlR9UQ85qM7F+MHMXdP7xV2ma/HTK6GtzwTTt6llNqEnCLT+cEvMpYG
+ 44HTadK8PWmDm3OWjTt7yWUx1aR1NxHfxb7wmEM91MYmPejst8jsK+H
 X-Developer-Key: i=dmt.yashin@gmail.com; a=ed25519;
  pk=vBe9jaaOEH5bQEvfzb1tWOlz3AMIcXCu/GL/CdlwJco=
 
-This series add support for Forlinx OK3568-C board based on FET3568-C SoM
-(rk3568). Patches 1-3 add .dtsi for FET3568-C and .dts for OK3568-C.
-Patch 4 adds .dtso for FIT-PCIE-SATA adapter that allows to connect
-SATA drives to the board.
+FET3568-C is an System on Module made by Forlinx based on Rockchip RK3568.
+This SoM used by OK3568-C Board.
 
-Note: tested on v1.1 board. On v1.2 RTL8211F phys use dedicated
-crystal oscillator instead of 25 MHz reference clock from SoC. Patch
-should be compatible with both revisions, as in [1] solution.
+FET3568-C features:
+- Rockchip RK3568
+- DDR4 1/2/4/8 GB
+- eMMC 8/16/32/64 GB
+- RK809 PMIC
 
-[1] https://lore.kernel.org/all/20250704-rk3576-rock4d-phy-handling-fixes-v1-1-1d64130c4139@kernel.org/
+Add devicetree binding for Forlinx FET3568-C SoM.
 
+Signed-off-by: Dmitry Yashin <dmt.yashin@gmail.com>
 ---
-Dmitry Yashin (4):
-      dt-bindings: arm: rockchip: add Forlinx FET3568-C
-      arm64: dts: rockchip: add Forlinx FET3568-C
-      arm64: dts: rockchip: add Forlinx OK3568-C
-      arm64: dts: rockchip: add FIT-PCIE-SATA overlay
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- .../devicetree/bindings/arm/rockchip.yaml          |   7 +
- arch/arm64/boot/dts/rockchip/Makefile              |   6 +
- arch/arm64/boot/dts/rockchip/rk3568-fet3568-c.dtsi | 331 ++++++++++++
- .../rockchip/rk3568-ok3568-c-fit-pcie-sata.dtso    |  16 +
- arch/arm64/boot/dts/rockchip/rk3568-ok3568-c.dts   | 574 +++++++++++++++++++++
- 5 files changed, 934 insertions(+)
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260930-ok3568-c-c095925b1e26
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index a799bb843f74..30a6794861cc 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -324,6 +324,13 @@ properties:
+           - const: firefly,rk3568-roc-pc
+           - const: rockchip,rk3568
+ 
++      - description: Forlinx FET3568-C SoM
++        items:
++          - enum:
++              - forlinx,ok3568-c
++          - const: forlinx,fet3568-c
++          - const: rockchip,rk3568
++
+       - description: Forlinx FET3588-C SoM
+         items:
+           - enum:
 
-Best regards,
---  
-Dmitry Yashin <dmt.yashin@gmail.com>
+-- 
+2.55.0
 
