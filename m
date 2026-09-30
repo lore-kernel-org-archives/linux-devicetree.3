@@ -1,92 +1,126 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B5BD39CD0F;
-	Wed, 30 Sep 2026 07:17:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB7038C406
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752668; cv=none; b=fwCelvU0Q1Rip9aIHl61EKtniTYCjn833YiAYwbbgr94DVo40ghFa0HZmertmfVkNlB95hNdTHVl7DIIIikkLKETHF3amqD1V5YT2rxLUnhOrNp6W5Ub41JcYczpck8lrtaxWhe3VL7mumohpcwGrRShUksR5SOmq7k2TJyigDw=
+	t=1790752681; cv=none; b=cYqGjhkXS5MsN2MAACupJGfqYyEhQai6G1GAOtb4rxBC8bGY32YNaUouL++BKhpuwzXFlQj8kdpZLHsvaOGRzrGsrhx8NKbYRt3L3VeTOkUcW426L+3zxUVtrja/8W7uZVLzJ6ImwC46oF95ZOMCyIZaMRtZeASA4zDnwzw6if8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752668; c=relaxed/simple;
-	bh=pitpDOpI0vLNTL6kvv5zJFZ3QOVZfIphnnTHst5X+MI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=miupqOFzmNcK7JjhmQDZv8dL3PMMWC41ByblIzXfNSezHvSC7UIJ0rQ7UJAye0597GE5I9+w8Qs7KIuz0BCiipFHWSESLVU3fqTtl0TeSrUrBfG4D6+m8+bEAqExQfNK/DJgjCGSwdGyaWc0DUiyCQrBf7cU8ed79VMfHw1a+FU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=nPpdmlhs; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1790752681; c=relaxed/simple;
+	bh=6BCW1/0Wey1s1H6bwWE7bEA5+TZbqS3a1c5lsE0WoBI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fPecjn9+NJ6Y1Qktpuu3i5YCNOI6RH+KjW9bZp4y/0iV7+3kiSU7GyGhNxW8guix/L8iErnnA/SkMtKi9CpCxXlt48uQw70bj+cKoCoijLLEm72Z+e0hutURguk+dfoL9Zz3fmb4ptMm2qEK0yo+G69qtTzZit4SapZFUyJY5uA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pzf0dyAq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="nPpdmlhs"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 7FBD93F0AB;
-	Wed, 30 Sep 2026 07:17:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1790752657; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=X002Vn+YhKKbTWkw+KWRj3nY4Vp3Ksry2t01J523f6E=;
-	b=nPpdmlhsGbb5IoJn7Bm2OehRsHrZvTs5BaoXDhsUmh5tB2MUuM64sXfIqkmGwco4EN7unU
-	RinRhyADr4EkLgCI96i5myalz2pmVildPvytnAat+HMUitvmJfCFYwkldHG0dSeNpjQMh0
-	1rUXlrulKmJAcLU+NN1j/QXkSdUvgLeqgjyvodxYV+cNxktVv4P1OCHd1tkQKvJFy4tNpI
-	Raxqzk3dryN9krLOB6wzhLZwdIkdBLG3m2fWrag+q696y1O5g2y6NnUG7eVfOUHO4FfPZU
-	r8dNQKrMiEWN6LwYAYyg0kOerjVxdzJTiL7d4uoze/BToqWI8MWluyGq76Y2ew==
-Date: Wed, 30 Sep 2026 09:17:33 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: patchwork-bot+netdevbpf@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com
-Subject: Re: [PATCH net-next v11 0/3] w5100: restore GPIO-based link detection
-Message-ID: <20260930071733.GA7777@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260924-wiznet-link-gpio-v11-0-42a332517b30@marmottus.net>
- <179072880777.1183624.15268647911165769785.git-patchwork-notify@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pzf0dyAq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA8D1F000FF;
+	Wed, 30 Sep 2026 07:17:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790752679;
+	bh=sVlPijSGwS/YJsioGWYavvm+inL7noio4yizPKHD384=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Pzf0dyAqIRTs15tk1DTWoLXllzel6UV++jSc404qWn5OrSFbjpYFfoPVLkphL20qN
+	 EI2onN3FmLmHX+SXmies0zLTQyYa6sqhkh284LKLr7WMWFBPyjW1t4EeR6LfZHl2IW
+	 kP+butbKHqi4W0R+7Cqtg7g/DThxa1C+oQ8k2/+ry23gOSlo7LrtyRDfCf2T6bwbBc
+	 3jKKxN5l6geosCIXThxHn3brMZcGGg6q8Zftu/M/8cVSae8ffsDjvq0rj/s3kEpO0W
+	 R2mebFLwRD3N+FZ/kNM4K++XLkY7bmztFed5rAcegk4pSKfixDw+4zIgvaCxcoGRZS
+	 /eQz71u0jIbGw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 5/6] dt-bindings: display: panel: Document Hitachi
+ TX10D07VM0BAA and LG LH400WV3 panels
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260930070535.47130-6-clamor95@gmail.com>
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-6-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 07:17:58 +0000
+Message-Id: <20260930071759.2FA8D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <179072880777.1183624.15268647911165769785.git-patchwork-notify@kernel.org>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-State: clean
-X-GND-Score: 0
-X-GND-Cause: dmFkZTFAktZjHRoYS5zKIoSDOVtc0HcK1X+5S7wV8QSXbIqn03GrGZh1cnfY0pBw1b1Rx1zq7wQynOUx8lF5RCiZm8Cq9RBEatXwttvg2q6IRtcvfq8ehJj4O5wULfP6D0l3UMTOWwR2Tht7nvKEpTbblEh1VQ/hFznEBzJpVfOglqVJpv0MUyXMdDeSayiW4AewYgKIaT7HWSnSNqQNxQCHg5+dmyiRDZFdnSdezbNMsdNw6cyMzKQVZJnKzhNzo2UpG046yiP7Ijb2HWdXi2+n/FbheYUp0cH2pMoZF+l2J+yezfOcpUxDFxT0jTEvnIO81OibDpN0YiVtN2t2br0+wdT5PQxiA1EFhTX05+JBAM867/Tk9iIkJt98wnaFSkcruPEwux9P9/5PUbxxXNoGK1qFA9IQaJkDNid9DhXhsBE5eofo0dJPpfUePDUk18z/61dMKQn2enjJmBmm8Be6WQbyf5m9krQ19FD+B/LhmW8KEkfN9X1GrtOWcm6UIQKOIaLJs1ZblGwS5A9diJ5tFlS43OByT8ZQC+KmIQgnnDuYdN0VhkIuTILVnq8w90bqcUwC/C7vL6pw/cNs9Zmuvxj44SHE94xvxzy2mmzN321LgWx7MKbiZYKYF4dYyUtimGms0IBdEsKYLFQgeiBplbYzBnxLoIciIIsO/PZpzh5JSA
 
-On Wed, Sep 30, 2026 at 12:40:07AM +0000, patchwork-bot+netdevbpf@kernel.org wrote:
->Hello:
->
->This series was applied to netdev/net-next.git (main)
->by Jakub Kicinski <kuba@kernel.org>:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: display: panel: hit,tx10d07vm0baa: additionalProper=
+ties: false breaks schema references
+- [Medium] dt-bindings: display: panel: hit,tx10d07vm0baa: missing mandator=
+y properties in required list
+- [Low] dt-bindings: display: panel: hit,tx10d07vm0baa: non-standard avci-s=
+upply property
+--
 
-This is wonderful news! :-)
+commit 2cbee11e4ba06826f435f0f2b5e954558da48338
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
->
->On Thu, 24 Sep 2026 11:48:10 +0200 you wrote:
->> Hi,
->>
->> In the previous version of the w5100 driver, the LINKLED pin could be
->> wired to a GPIO to detect the link status changes via an interrupt.
->> This only works on w5500 as it is the only one documenting its LINKLED
->> pin to hold the link status (on w5100 the LINKLED pin is changing with
->> RX/TX activity).
->>
->> [...]
->
->Here is the summary with links:
->  - [net-next,v11,1/3] dt-bindings: net: wiznet,w5100: convert to DT schema
->    https://git.kernel.org/netdev/net-next/c/be15d99d8ebc
->  - [net-next,v11,2/3] dt-bindings: net: wiznet,w5100: add link status interrupt
->    https://git.kernel.org/netdev/net-next/c/50c4bbaa0d36
->  - [net-next,v11,3/3] w5100: detect carrier state using link status bit and optional interrupt
->    https://git.kernel.org/netdev/net-next/c/323767fa31a2
->
->You are awesome, thank you!
->--
->Deet-doot-dot, I am a bot.
+dt-bindings: display: panel: Document Hitachi TX10D07VM0BAA and LG LH400WV3=
+ panels
 
-Good bot.
+This commit documents the device tree bindings for the Hitachi TX10D07VM0BAA
+and LG LH400WV3 MIPI DBI 4" WVGA panels.
 
-Arthur
+> diff --git a/Documentation/devicetree/bindings/display/panel/hit,tx10d07v=
+m0baa.yaml b/Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0=
+baa.yaml
+> new file mode 100644
+> index 0000000000000..ab839d9e4e111
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.y=
+aml
+[ ... ]
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - hit,tx10d07vm0baa
+> +          - lg,lh400wv3-sd04
+> +
+> +  avci-supply: true
+
+[Severity: Low]
+Is it intentional to use "avci-supply" here? In MIPI DBI/DSI displays, the
+standard terminology for the analog/core voltage is usually "vci-supply" or
+"avdd-supply". Using "avci-supply" might introduce a typoed or non-standard
+name into the stable device tree ABI that drivers will be forced to support.
+
+> +  iovcc-supply: true
+> +
+> +  reset-gpios: true
+> +
+> +  backlight: true
+> +  port: true
+> +
+> +required:
+> +  - compatible
+
+[Severity: Medium]
+Does this list omit mandatory hardware constraints?
+
+Since the panel driver unconditionally requires the power supplies and the =
+port
+node, device trees omitting "avci-supply", "iovcc-supply", or "port" will
+pass schema validation but fail at runtime. Specifically,
+devm_regulator_bulk_get_const requires the power supplies, and
+of_graph_get_remote_node in panel_dbi_prepare() returns -ENODEV if the port
+node is missing.
+
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Could this strict constraint cause valid device trees to fail schema valida=
+tion?
+
+Because this schema inherits from panel-common.yaml via a $ref, using
+additionalProperties: false instead of unevaluatedProperties: false will
+strictly forbid standard panel properties (like rotation, width-mm, or
+height-mm) that aren't explicitly listed in this local properties block.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930070535.4713=
+0-1-clamor95@gmail.com?part=3D5
