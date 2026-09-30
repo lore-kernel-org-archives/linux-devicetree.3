@@ -1,99 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7A344A40B
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:07:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B562A547074
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:08:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790766434; cv=none; b=iN4BbvBbFXtQ5AucrHH2hbp0l6ppx17kH4+9SR78Gy9ppgwjWJmfSvDbNnwrBsLLkwPGnuad2hONzjchyyn0EsOQ4VMNMHp+oH/iSzLRmwQlhQHJNfxLEcsN5WfpCw5usvO5zlnaqfi1irIO91NadonaAICcknNti6Eq/0i9Ig0=
+	t=1790766513; cv=none; b=UaNtQUYet1/cufJ/hRlDI+OUpKZ00BTsN5Vjdj/YkF/vO06fTVZ/f+K1VKWgJdVVhvHdw3/QVf1t2ipBd7AXXhUaHwyx1ykW2TWtJrYt/ajfQi2Mpc1gMOjQNRlaH8wlPF315CiyxL1sG6hBZ48UlUs9+XsQ32D7qhZB12KZYWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790766434; c=relaxed/simple;
-	bh=UOnsyAg/MuVmzfBYv2/LKdmOuEFogRMiJr3Cob/q6Os=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t3ebkPnOODmOyWWpoE5y+c1Cl9Bw5AZVPet/BeMH2z0uPw9I9xJkzMIe+FCWHMsMzrgBkwSBxN67Jjds7l+YlB/50cFk0o38hPrJgwd8yfx5TVweGMu4Y8yp85RBOhEyJmzmpAvCRkTxy45vK0sAojdUG9Qc9pRUPrwrTdWPSZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VRRvhw3/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790766513; c=relaxed/simple;
+	bh=Wkq5rJ+0vf/FyCSAs6aBitPLnxW6RCgteSTDmt0K68Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=s/HkCt3WtoK/4rif52ytzlmtSOOkPF3wRK1PI6VIVXMEoU+FZBGLDQQQBalcFfeZLN1xRJXx7hd/nMZzzHxxAe7YC3ODJNklIE1VhXPjVRm/p/nM0AcDhg0rp1dZ+K9coGDwtZKb46RoMbYQ9VddLkylkiolKIc8VZU6DynJi5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dy/Itc7l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VRRvhw3/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 373091F008A6
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:07:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dy/Itc7l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EE091F000FF;
+	Wed, 30 Sep 2026 11:08:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790766431;
-	bh=UOnsyAg/MuVmzfBYv2/LKdmOuEFogRMiJr3Cob/q6Os=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VRRvhw3/VTpR7LMyKSdM0CBwFJrTjIPGSNJuW2ZsyN2y6jfZiUqVSx7NY0mTHJpWO
-	 5nPOfjl3EytXUQS1201G+zlOZZi9HuEZ4lif+ubYKdPmGeZygl8NN3ITboKG2g/FZy
-	 Yyi9VC5wSdxHgTo6mqlNqIWZqEYI1+XOL4lSPqSTbC9aw5m7KdRV6s2HDSqYj7kFx+
-	 NVAshSRHgluW+LPHXhHkfQ0quBh97dT89GiAAXfhGdJXXWSWdQkl52DtV6S6jGcocf
-	 2kWA8UivmFxuPg8bicg+Bf+WBy9ga4ZmToaCqjq7NoTGhmG+bY9L5V9YO1A7w7TJ2K
-	 TMJ7ahvhigUZg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba31af701aso1400142e87.2
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 04:07:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy0B0qSeSHGf/z+bBivTvGDEGjuyN/ikCTFejEDGkyfIbsB0lo2FFK+pQH8uy8gfNK2/CllaML8C4Tb@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIyMPbHovCNODmJFXAeyI7FyJkX0+/WVpDhKKrZExcI7lCcbkP
-	E7ZCd9Zz7qDe6KRZPURuM5hIQHkj/CTAVez9yQm64+CAFv0dMg20KZb49u+k+RZYzs6xAhFraQ+
-	4PE1Qx3FNeK4bF8yv2OVDoCrGq9aP3L4=
-X-Received: by 2002:a05:6512:39c6:b0:5b8:e83b:2e1b with SMTP id
- 2adb3069b0e04-5ba402ccbc7mr530988e87.4.1790766429870; Wed, 30 Sep 2026
- 04:07:09 -0700 (PDT)
+	s=k20260515; t=1790766512;
+	bh=dXBPci6gCirSA/jWqt05EdNPAfxBQK9VAerVDckyQSg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dy/Itc7lOifNGWMQpo77wraEsnPhFiaE9SqvMRjK4YBUwkfPbS9YBVMJ0bU26rQdn
+	 NgmPLMWuyx7EPB8pSUndCsWBP18TgEZ9FAdpkcw0qz6zyxgXXJVdQNEmbD+nSG3mDN
+	 uJf/JUeqtpDIj8rEWDOs/q872auqYwYpDGllp6yKV6MXIwuzZpPgRceJjbEJl0h0i5
+	 xuSdQu4SuZ5z9i5lJgqka46Fy6KHOIKc+r+PxbA6v8OeqRhBRMcBAzkZl6YBGUQd5z
+	 WSdW1q6+T6stz1lBu2vOSb51M5QH7sWmCY9olLgT4Dt58zLKL48oUosPLYJX1TgRyi
+	 t75GRaLmt6wQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
+Cc: robh@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260930-mira220-v12-2-07061064cd7b@ideasonboard.com>
+References: <20260930-mira220-v12-0-07061064cd7b@ideasonboard.com>
+ <20260930-mira220-v12-2-07061064cd7b@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 11:08:31 +0000
+Message-Id: <20260930110832.0EE091F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <CAD++jL=0Zc939o7UaFgtx+04gLRmgmPVHTAeuW6OS9nPP5Xt8Q@mail.gmail.com> <179076583798.3054629.14422335928572048671@gmail.com>
-In-Reply-To: <179076583798.3054629.14422335928572048671@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 13:06:58 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnVh4Uqc4eWr0t+Ut9EmNrbxkV9Qa6xJL0TuLAxM1ajCA@mail.gmail.com>
-X-Gm-Features: AclHuK-or11HqloWUen4cBXQxiec-MiIiyBRze0xNfafpZukVzYlj54OfVdkbzM
-Message-ID: <CAD++jLnVh4Uqc4eWr0t+Ut9EmNrbxkV9Qa6xJL0TuLAxM1ajCA@mail.gmail.com>
-Subject: Re: [PATCH RFC 00/10] ARM: Add support for Cortina Systems CS75xx and
- Securifi Almond+
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 12:57=E2=80=AFPM Fil Dunsky <filipp.dunsky@gmail.co=
-m> wrote:
-> On Wed, Sep 30, 2026 at 12:39 PM Linus Walleij <linusw@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] media: i2c: mira220: NULL pointer dereference in mira220_set_ctrl
+- [Medium] media: i2c: mira220: Missing set_selection implementation breaks=
+ windowing
+--
 
-> > Is this OpenWrt fork public?
->
-> Yes, it is under review in OpenWrt:
-> https://github.com/openwrt/openwrt/pull/25033
-> The sources are in target/linux/cortina/files/, the Ethernet part in
-> drivers/net/ethernet/cortina/cs752x_ne.c (plus cs752x_fe.c,
-> cs752x_sch_tm.c and drivers/net/mdio/mdio-cs75xx.c).
->
-> > Actually what I'm most curious about is the packet engine, which may or
-> > may not be related to drivers/net/ethernet/cortina/*
->
-> As far as I can tell it is not derived from the Gemini GMAC/TOE: the
-> vendor driver has no StorLink or Gemini references, and the engine is
-> split into a network interface (NI) with per-port MACs, a DMA/LSO
-> block, a queue manager with its buffers in the top 64 MiB of DRAM, a
-> traffic manager/scheduler and a forwarding engine with packet buffers
-> in on-chip XRAM, which does not map onto the gemini.c register layout.
-> I have not compared the descriptor formats in detail though. The
-> OpenWrt driver only uses the NI/DMA path, all forwarding in software.
+commit fd4dc828a5972aefbff92b9b37845b066b6f6659
+Author: Philippe Baetens <philippebaetens@gmail.com>
+media: i2c: Add driver for AMS-OSRAM Mira220
 
-OK once this is merged post the network engine under
-drivers/net/ethernet/cortina/* and I will help out to review it and
-get it merged.
+This commit adds a V4L2 subdev driver for the AMS-OSRAM Mira220 image senso=
+r.
+It implements support for mono and RGB 12, 10 and 8 bits formats with a
+maximum frame rate up to 90 fps.
 
-I agree it's a good idea to merge this upstream first to offburden
-OpenWrt, that was the approach taken for Gemini and IXP4xx
-and those are extremely lightweight for OpenWrt to maintain
-since then.
+> diff --git a/drivers/media/i2c/mira220.c b/drivers/media/i2c/mira220.c
+> new file mode 100644
+> index 0000000000000..581999b46d953
+> --- /dev/null
+> +++ b/drivers/media/i2c/mira220.c
 
-Yours,
-Linus Walleij
+[ ... ]
+
+> +static int mira220_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct mira220 *mira220 =3D
+> +		container_of(ctrl->handler, struct mira220, ctrl_handler);
+> +	struct i2c_client *client =3D v4l2_get_subdevdata(&mira220->sd);
+> +	struct v4l2_mbus_framefmt *format;
+> +	struct v4l2_subdev_state *state;
+> +	int ret =3D 0;
+> +
+> +	state =3D v4l2_subdev_get_locked_active_state(&mira220->sd);
+> +	format =3D v4l2_subdev_state_get_format(state, 0);
+> +
+> +	if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
+> +		int exposure_max, exposure_def;
+> +
+> +		/* Update max exposure while meeting expected vblanking */
+> +		exposure_max =3D mira220_calc_exposure(mira220, format->height,
+> +						     ctrl->val);
+
+[Severity: High]
+Does this code risk a kernel panic if the state lookup fails?
+
+The v4l2_subdev_state_get_format() helper can return NULL, and the returned
+format pointer is immediately dereferenced here (format->height) without any
+NULL check.
+
+Unlike pad operations, the s_ctrl callback is invoked directly by the contr=
+ol
+framework and is not guarded by the v4l2_subdev_call() and check_state()
+wrappers that normally ensure the format lookup succeeds before invoking the
+driver.
+
+[ ... ]
+
+> +static void mira220_update_pad_format(struct mira220 *mira220,
+> +				      struct v4l2_mbus_framefmt *fmt, u32 code)
+> +{
+> +	/* Bayer order varies with flips */
+> +	fmt->code =3D mira220_get_format_code(mira220, code);
+> +	/*
+> +	 * The mira220 sensor doesn't support binning/skipping but only
+> +	 * cropping to reduce the frame size so the correct API to configure
+> +	 * windowing is the .set_selection one, while format is fixed to
+> +	 * the full resolution 1600x1400 one.
+> +	 */
+> +	fmt->width =3D MIRA220_PIXEL_ARRAY_WIDTH;
+> +	fmt->height =3D MIRA220_PIXEL_ARRAY_HEIGHT;
+> +	fmt->field =3D V4L2_FIELD_NONE;
+
+[ ... ]
+
+> +static const struct v4l2_subdev_pad_ops mira220_pad_ops =3D {
+> +	.enum_mbus_code =3D mira220_enum_mbus_code,
+> +	.get_fmt =3D v4l2_subdev_get_fmt,
+> +	.set_fmt =3D mira220_set_pad_format,
+> +	.get_selection =3D mira220_get_selection,
+> +	.enum_frame_size =3D mira220_enum_frame_size,
+> +	.enable_streams =3D mira220_enable_streams,
+> +	.disable_streams =3D mira220_disable_streams,
+> +};
+
+[Severity: Medium]
+Will this break the advertised windowing capability?
+
+The driver explicitly restricts set_fmt to the maximum physical resolution =
+of
+1600x1400 and notes that cropping configuration is deferred to the
+set_selection API. However, the .set_selection callback is omitted entirely
+in the v4l2_subdev_pad_ops structure.
+
+Without it, userspace has no mechanism to configure cropping or adjust the
+frame size, permanently locking the sensor to its maximum resolution.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-mira220-v1=
+2-0-07061064cd7b@ideasonboard.com?part=3D2
