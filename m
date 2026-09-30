@@ -1,310 +1,147 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2C2349CF3
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F705363086;
+	Wed, 30 Sep 2026 05:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790744580; cv=none; b=HRSJv3ZbKn3CbwJbhWgyp8hEE72Zdq7r4NBQDDqR8tOo2N2dVnzBv0WslWqIrh0xdcCkRM4N3ga7u2xLfddJ4s7rU7vMHDX2qbP2swiFKQQ8sjPB4J+5xYL5uIJ1wruqhavFSPk8qmYN1rX9gPjy3oUZa53//oaUisWQIi1+nww=
+	t=1790745311; cv=none; b=CBiWDJyKgSOmzEZmo7AiiJhAtU/F23NxZcI4l+xrhJiBIHKVJ/cr9ivaM8NSSYMlKIzjifTXzVU6IDSpH9Cf5aJ7gqmZg2zmLVphvj3sRpxeBgBA3F6rvF/jzKyLEo3K9vCkZqC+7eKl5QE5jPKNzgJXDDRqXfYlczI6mhJFEWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790744580; c=relaxed/simple;
-	bh=aa5m/7BK7/DbTvlCizArErjlcAXnc5ec7jWXk2pJ/iU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TMypM6lm6rqicx82tmGctls/s9Cbiac9MrtHSRoC9AfigIizTkBFWE2cQycndE6uxAq6lh+sNAPlR3eInJ2wkRljOHQrTLM7sjxWJAx+qHsG58rSc8TrFL+hzI204Iz3IXMEo2NNOP7XgflzqsuLLv83fhBYh8nRq7DZbu53420=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XXHPYJ6F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dubEktmD; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XXHPYJ6F";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dubEktmD"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TNPlRP2969625
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:02:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qkg6ZsioMZw6EFu9fkXHTIgiUwtXNeSZKmXw0kdl0wo=; b=XXHPYJ6FeDHCsKs/
-	gTUZP0A8B7VEKvxP3/ZQGrMcRXiqJma6U6+0a/4UEXZA0tZePMhR+iRHKNDFiyVg
-	n6qigTH4VHX6L7APsHkzod0dTpR3Yu0H+of2UFG2Djj0yoazkdJY8U4deJT8Q4hP
-	LIvrlHDOwI/8brieRCU0HU01XTWNdak+F11htJRuWD9wzXbkvKTZDzEKTLPMv1jh
-	lP8KCFVTsOcy90kUEEbEwhNFRXwUqB6UyTLj6x7DZuzn6aBxoisjefLP5ej15iiK
-	8bXA/T6czpOtTnNCeNO8VoVmCkSzHlgFLnK0xPiR0vLX3Q2p75L2vlUK1iZmqyz+
-	OA5Hmg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0mfa9r3b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:02:57 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db87f759c5so49590305ad.1
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 22:02:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790744577; x=1791349377; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qkg6ZsioMZw6EFu9fkXHTIgiUwtXNeSZKmXw0kdl0wo=;
-        b=dubEktmDVSYFkT/ko8QB7z3KkMfqH1OTx7Xa+OzOGxI1BA4O2FAYcfJiY+VYNWgLwl
-         ZudxVVAGLuWbQ/bQoJ33QwerQo0yjfFV0MdDs7G6DaT7xPQI0kTWqnyO/6XgQOtY4mPb
-         //Yy4K1/qCWtIF/1ScLcxMMdjG/MY1+LT9PXUc9M6helcaXnNMwAmCDjXVK7I3DQlCLz
-         8/w/ckFfenYni1320JBTbfFeMoIunSyF2XPwHtiAEFJ8srVOP2vf7iEOfu9znDQj/THV
-         ujIMw7BUYp0f21h3I6OcgHvmIwe+b6GRf4nzkLIKsnJ3wZgkH4vnshXZE1LCopZPMoT1
-         qqKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790744577; x=1791349377;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qkg6ZsioMZw6EFu9fkXHTIgiUwtXNeSZKmXw0kdl0wo=;
-        b=F3SMFhcC6vzzrPNjJ9PhifWmwLmLDu8deGERFKh0s9R21pLud7zSqqIAVMNiJ8gNAE
-         5wfHZX9aGYhZEIa44D9NCwXf4XaV4FkfoT8iM/9OLS/mLBoVES05zT33bVxbii9BsBsq
-         pqPpu6MYyqpTAMQiOIM8khuIuOY47UZQlDLA+OXVtcaMmnOsDjIz+850bHTDWc3p/8PB
-         CzfaopSGXLEThra/wMJwM0zuhd7BvlbYNEdprrxlrTczWVSj85xjD/68qcf4Me5PM7NL
-         Ra1ml6sObWbuyqW2Dks3mvBvGZFuziKXCW+ZVJRNgob+H8XXsWV9m0wsXCkV3LlMXZSu
-         +pnA==
-X-Forwarded-Encrypted: i=1; AKwUvBynj6Sdef5f/OCi1YNVPtC65Igqj8hoM0e1qudWBchrPKhQSP0/0eHyGLzom/vJQesRfr0saNi5hT1+@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVr6P/Y4IEYNdVReOAr4DheYnFt66G4iD7lUtWPV4LL3O5P8OP
-	86CO3WKAnAo4OrxBqx1ke0W8Pql/3NuSPJV0fdxrcS+cK7C5fqYj2N+babU5g8Q47as2T4IuCb8
-	QdjtDk3BZyE6gaU1x7NKWfYPmFczG/jOXKALrvBmk6XT0bd3VVmfYsji0sGF0OMnL
-X-Gm-Gg: AYBFou23v2fsCtpc1VcjvXO57/hg6we2+FUnir327TujY3YUmCS8PUUpY8ZyBmQ3S0A
-	P2VDCJmimSrRvLwmWe1Kzb6Gu7RHT+wsZbrr0omOreGVsJ5m5zb2+SGohbETKux73F7zk765wC3
-	ufC2xqB5n2MeLBl3rERKU6AkIjyO9Dr13X9QSh+5g6ec+wPDrjBHIDorWWTtvLfGs46udMgrqLd
-	RAKIp2PjwhNiKSiDI/gD9qW+SYMBHQjtIidJG7HVuWsRpifsmmc7uqimX0KUplpmA5AjItlRepV
-	4Lqxshgb0P/KRZvCmgKiU2IVy2rBvHPeku1TxPRMGlPrGuFz0TSO8NegZEhBSMgho343GFSUbl8
-	2eD6G4m53ALlpRBdVwmahzhfYwWuJ
-X-Received: by 2002:a17:903:22c5:b0:2e2:bf06:25f3 with SMTP id d9443c01a7336-2e2e4b4b833mr2228415ad.38.1790744576661;
-        Tue, 29 Sep 2026 22:02:56 -0700 (PDT)
-X-Received: by 2002:a17:903:22c5:b0:2e2:bf06:25f3 with SMTP id d9443c01a7336-2e2e4b4b833mr2228205ad.38.1790744576104;
-        Tue, 29 Sep 2026 22:02:56 -0700 (PDT)
-Received: from [192.168.31.121] ([152.57.6.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e2e5bd5c67sm758105ad.48.2026.09.29.22.02.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 29 Sep 2026 22:02:54 -0700 (PDT)
-Message-ID: <362c6465-66ac-4ed7-9e7e-f75f31b32dd8@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 10:32:47 +0530
+	s=arc-20240116; t=1790745311; c=relaxed/simple;
+	bh=pfBHQqwY0FRL/vJkTp/4D4cyjGIq75z45FRzsyOMCj4=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=PZo7FfmQYLp7rVl4kcOzV7/s1LjnavLVzB7O9lokBy9o16DHSqbhsDuVe7YMEvGASDYYsGdHoF/uYEeqh/GnyhgPK8t1JLC642sMQqYhhk/2VHV9C2MqD3NVC9R4U8OgNaMizhc11WmBfqTk/XyFGxisjCjPlLKiU2DlsFUC55Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 30 Sep
+ 2026 13:14:59 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Wed, 30 Sep 2026 13:14:59 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+Subject: [PATCH v4 0/9] Add Aspeed AST2700 SDRAM EDAC support
+Date: Wed, 30 Sep 2026 13:14:58 +0800
+Message-ID: <20260930-edac-v4-0-c2e526f3ed79@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] platform: arm64: qcom-hamoa-ec: Add thermistor
- sensors
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-        platform-driver-x86@vger.kernel.org
-References: <20260928-ec_thermistor_support-v1-0-d9c1bae4cd0d@oss.qualcomm.com>
- <20260928-ec_thermistor_support-v1-2-d9c1bae4cd0d@oss.qualcomm.com>
- <c15405f3-db75-410d-045b-996db4f83110@linux.intel.com>
-Content-Language: en-US
-From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-In-Reply-To: <c15405f3-db75-410d-045b-996db4f83110@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAxOSBTYWx0ZWRfX6Cv9n+Mj1Eaw
- qKkFm47C3whdS3/pmO8BgnMpU1FAn+rJwC5CVOiBBfvX/LOi773xWSHC8oa/WCJsUsVFA2quo57
- Of7J5EOM2Pug9JpHQcbexSVQACy8y1xqv0ClEA5DUKYY4pS8pb4wkujxr9A6AwdcZeq4MghEfJY
- A4aR2huPdU+tdJYeBRdQZIwbcDownMKYc++QsA6A/wsNVbRK4eq9A6ocvgI2+3VnyQiftaxpXVE
- toSQbo1YSmuL7nKeSl9yrd1wRdLJCYPy7mjhFqmCTGH3E+6czp+o/+DETABfDU+5MPk8PUG/OW5
- uEYzvO05ChqPlAmIGCAwMxHXL7yi+zIwuEf0HykLdmtx7M8yeQLOhZcRDuQm10+c4eS8TefuqZF
- Ux2LaHSIjAK902UQyI9iLkg5H4bIPxhzyKmGlUlyfIqRvYDeqNohYXxtNc6qv9tWan4arCt9Mg1
- bR9pb2zcYPejFhppk2w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAxOSBTYWx0ZWRfX1QvwMLu9QC6w
- C1ZjZboONgVADqNS+2JNh4mCTkRmxlrKqDFw4MjrnZV8BMVPlZVXu/CUzXdHOmZwrfOYhg4UwJq
- EkZ0EVUnKUxsdybz9Rl8MuM5Q1GiGyU=
-X-Authority-Analysis: v=2.4 cv=RZEFmFtv c=1 sm=1 tr=0 ts=6abc9801 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZE6J5AxZF9eTCMsEPEnAuA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=qvRe1xnp1C8EnQCzoIkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: 6_Rxdf12yMVCXyqZbJeN3a84mdEubJo2
-X-Proofpoint-ORIG-GUID: 6_Rxdf12yMVCXyqZbJeN3a84mdEubJo2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300019
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANKavGoC/23MTQ7CIBCG4asY1mLo0FJw5T2MCwqDZWHbQEM0T
+ e8u/Uk00eU3meedSMTgMZLzYSIBk4++7/IojwdiWt3dkXqbNwEGggmoKFptqEQlGDLA2tUkvw4
+ BnX+umest79bHsQ+vtZqK5boFZAFbIBWUUcaVArSoQdUXHQdEO6JpT6Z/kKWS4EtCuUvI0kgrm
+ 0YoXknxV/KPVIXYJc8SOCq04Brr1I+c5/kNMqHP6xEBAAA=
+X-Change-ID: 20260625-edac-8e960e02e7f7
+To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Ryan Chen
+	<ryan_chen@aspeedtech.com>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790745299; l=4479;
+ i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
+ bh=pfBHQqwY0FRL/vJkTp/4D4cyjGIq75z45FRzsyOMCj4=;
+ b=NlbSINSUFdPmrseU4+qeJZJMs8z7w+3jpAyrHyDJXqrB0lPNiAsyFVEs5T6CThxJkuzNQK6nn
+ s3bBZ3S1aESD7cumxTunaBz8ruEGykldYe6PgIZ5YzSDIQsicDujohb
+X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
+ pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
 
+Add ECC error reporting for the Aspeed AST2700 SoC to the existing
+aspeed_edac driver.
 
+The AST2700 memory controller keeps the same overall EDAC programming
+model as the earlier Aspeed BMC SoCs, but uses a different register
+layout, a split interrupt status/clear/mask scheme and DDR4/DDR5 memory.
+Rather than fork the driver, the existing code is first tidied and
+generalised, then the AST2700 is added as one more per-SoC variant.
 
-On 9/29/2026 1:05 PM, Ilpo Järvinen wrote:
-> On Mon, 28 Sep 2026, Anvesh Jain P wrote:
-> 
->> The Qualcomm embedded controller has exclusive access to multiple onboard
->> thermistors programmatically discoverable through the
->> EC_THERMAL_CAPABILITIES command. The temperature values are reported in
->> degree Celsius through the EC_THERMISTOR_TEMP_CMD.
->>
->> Register these thermistors with the thermal framework by adding support to
->> the EC_THERMISTOR_TEMP_CMD and convert it to millidegree units as required
->> by the thermal framework.
->>
->> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
->> ---
->>  drivers/platform/arm64/qcom-hamoa-ec.c | 74 ++++++++++++++++++++++++++++++++++
->>  1 file changed, 74 insertions(+)
->>
->> diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm64/qcom-hamoa-ec.c
->> index 4d2ad042a7f8..acf3d7f53026 100644
->> --- a/drivers/platform/arm64/qcom-hamoa-ec.c
->> +++ b/drivers/platform/arm64/qcom-hamoa-ec.c
->> @@ -16,16 +16,19 @@
->>  #include <linux/pm.h>
->>  #include <linux/slab.h>
->>  #include <linux/thermal.h>
->> +#include <linux/unaligned.h>
->>  
->>  #define EC_SCI_EVT_READ_CMD	0x05
->>  #define EC_FW_VERSION_CMD	0x0e
->>  #define EC_MODERN_STANDBY_CMD	0x23
->> +#define EC_THERMISTOR_TEMP_CMD	0x29	/* + thermistor_id (0-6) selects thermistor 1-7 */
->>  #define EC_FAN_DBG_CONTROL_CMD	0x30
->>  #define EC_SCI_EVT_CONTROL_CMD	0x35
->>  #define EC_THERMAL_CAP_CMD	0x42
->>  
->>  #define EC_FW_VERSION_RESP_LEN	4
->>  #define EC_THERMAL_CAP_RESP_LEN	3
->> +#define EC_THERMISTOR_TEMP_RESP_LEN	3
->>  #define EC_FAN_DEBUG_CMD_LEN	6
->>  #define EC_FAN_SPEED_DATA_SIZE	4
->>  
->> @@ -39,6 +42,7 @@
->>  #define EC_MAX_FAN_CNT		2
->>  #define EC_FAN_NAME_SIZE	20
->>  #define EC_FAN_MAX_PWM		255
->> +#define EC_MAX_THERMISTOR_CNT	7
->>  
->>  enum qcom_ec_sci_events {
->>  	EC_FAN1_STATUS_CHANGE_EVT = 0x30,
->> @@ -64,6 +68,7 @@ struct qcom_ec_thermal_cap {
->>  #define EC_THERMAL_FAN_CNT(x)		(FIELD_GET(GENMASK(1, 0), (x)))
->>  #define EC_THERMAL_FAN_TYPE(x)		(FIELD_GET(GENMASK(4, 2), (x)))
->>  #define EC_THERMAL_THERMISTOR_MASK(x)	(FIELD_GET(GENMASK(7, 0), (x)))
->> +#define EC_THERMISTOR_PRESENT(mask, id)	((mask) & BIT(id))
->>  	u8 fan_cnt;
->>  	u8 fan_type;
->>  	u8 thermistor_mask;
->> @@ -81,6 +86,12 @@ struct qcom_ec {
->>  	struct qcom_ec_thermal_cap thermal_cap;
->>  	struct qcom_ec_version version;
->>  	struct i2c_client *client;
->> +	struct qcom_ec_thermal_zone *ec_tz;
->> +};
->> +
->> +struct qcom_ec_thermal_zone {
->> +	struct qcom_ec *ec;
->> +	u8 thermistor_id;
->>  };
->>  
->>  static int qcom_ec_read(struct qcom_ec *ec, u8 cmd, u8 resp_len, u8 *resp)
->> @@ -183,6 +194,43 @@ static int qcom_ec_thermal_capabilities(struct device *dev)
->>  	return 0;
->>  }
->>  
->> +/*
->> + * EC Thermistor Temperature (cmd 0x29 + thermistor_id, id 0-6 selects
->> + * thermistor 1-7):
->> + *
->> + * Read Response:
->> + * ----------------------------------------------------------------------
->> + * | Offset	| Name		| Description				|
->> + * ----------------------------------------------------------------------
->> + * | 0x00	| Byte count	| Number of bytes in response (=2)	|
->> + * ----------------------------------------------------------------------
->> + * | 0x01 (LSB)| Temperature	| Signed 16-bit, unit of 0.1 degC,	|
->> + * | 0x02 (MSB)|		| range -40..+125 degC			|
->> + * ----------------------------------------------------------------------
->> + */
->> +static int qcom_ec_thermistor_get_temp(struct thermal_zone_device *tz, int *temp)
->> +{
->> +	struct qcom_ec_thermal_zone *ec_tz = thermal_zone_device_priv(tz);
->> +	struct qcom_ec *ec = ec_tz->ec;
->> +	u8 resp[EC_THERMISTOR_TEMP_RESP_LEN];
->> +	s16 raw;
->> +	int ret;
->> +
->> +	ret = qcom_ec_read(ec, EC_THERMISTOR_TEMP_CMD + ec_tz->thermistor_id,
->> +			   EC_THERMISTOR_TEMP_RESP_LEN, resp);
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	raw = (s16)get_unaligned_le16(&resp[1]);
->> +	*temp = raw * 100;
-> 
-> MILLIDEGREE_PER_DECIDEGREE?
-> 
-> Make sure you have the include for it if changing to it.
-> 
->> +
->> +	return 0;
->> +}
->> +
->> +static const struct thermal_zone_device_ops qcom_ec_thermistor_ops = {
->> +	.get_temp = qcom_ec_thermistor_get_temp,
->> +};
->> +
->>  static irqreturn_t qcom_ec_irq(int irq, void *data)
->>  {
->>  	struct qcom_ec *ec = data;
->> @@ -376,6 +424,32 @@ static int qcom_ec_probe(struct i2c_client *client)
->>  	if (ret < 0)
->>  		return dev_err_probe(dev, ret, "Failed to read thermal capabilities\n");
->>  
->> +	if (ec->thermal_cap.thermistor_mask) {
->> +		ec->ec_tz = devm_kcalloc(dev, EC_MAX_THERMISTOR_CNT, sizeof(*ec->ec_tz),
->> +					 GFP_KERNEL);
->> +		if (!ec->ec_tz)
->> +			return -ENOMEM;
->> +
->> +		for (i = 0; i < EC_MAX_THERMISTOR_CNT; i++) {
->> +			struct qcom_ec_thermal_zone *ec_tz = &ec->ec_tz[i];
->> +			struct thermal_zone_device *tzd;
->> +
->> +			if (!EC_THERMISTOR_PRESENT(ec->thermal_cap.thermistor_mask, i))
->> +				continue;
->> +
->> +			ec_tz->ec = ec;
->> +			ec_tz->thermistor_id = i;
->> +
->> +			tzd = devm_thermal_of_zone_register(dev, i, ec_tz, &qcom_ec_thermistor_ops);
->> +			if (IS_ERR(tzd)) {
->> +				ret = PTR_ERR(tzd);
->> +				if (ret != -ENODEV)
-> 
-> I'd prefer ret == -ENODEV check + continue.
-> 
->> +					dev_warn(dev, "Failed to register thermistor%u zone: %d\n",
->> +						 i, ret);
->> +			}
->> +		}
->> +	}
->> +
->>  	if (ec->thermal_cap.fan_cnt == 0) {
->>  		dev_warn(dev, FW_BUG "Failed to get fan count, firmware update required\n");
->>  		return 0;
->>
->>
->
+Patches 1-4 are bug fixes and cleanups to the existing driver. Patch 5
+documents the AST2700 binding, patches 6 and 7 rework the implementation
+to accommodate it, and patch 8 adds the AST2700 support itself. Patch 9 is
+Stefan's step-down patch, amended to leave the entry in place with me
+as its reviewer.
 
-Thanks for the review. I will use MILLIDEGREE_PER_DECIDEGREE from
-<linux/units.h> for the temperature conversion. I will also change the
-thermal-zone registration handling to continue explicitly on -ENODEV and
-warn about other errors.
+Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+---
+Changes in v4:
+- Put the bug fixes first: the two fixes are now patches 1 and 2, the
+  cleanups 3 and 4, and the bindings patch moves to 5 ahead of the
+  AST2700 work.
+- Explain in patch 1 where the grain value comes from, rather than the
+  warning it silences.
+- Drop the Cc: stable tags from the two fixes. Neither meets the bar in
+  Documentation/process/stable-kernel-rules.rst; the Fixes: tags stay.
+- Merge Stefan's step-down patch into patch 9, keeping the MAINTAINERS
+  entry alive with a reviewer instead of removing it.
+- Link to v3: https://lore.kernel.org/r/20260916-edac-v3-0-23e9ed2fbdf9@aspeedtech.com
 
+Changes in v3:
+- Establish the AST2700 interrupt mask in the driver rather than
+  deriving it from the register's contents: ast2700_set_irq() now
+  writes the mask outright, masking every source and unmasking only
+  the ECC ones, and the mask is established before the interrupt is
+  requested.
+- New patch: add myself as a reviewer for the driver in MAINTAINERS.
+- Tested on an AST2600 with CONFIG_PROVE_LOCKING=y; injected correctable
+  errors are reported from the interrupt handler with no lockdep reports.
+- Link to v2: https://lore.kernel.org/r/20260824-edac-v2-0-c8d8bb693586@aspeedtech.com
+
+Changes in v2:
+- New patch: free the ECC interrupt before the mem_ctl_info in
+  aspeed_remove(). The interrupt is requested with devm_request_irq() and
+  is only released after .remove() has returned, so edac_mc_free() could
+  free the handler's context while the handler was still running on
+  another CPU.
+- Acquire the register lock with the irqsave variant in init_csrows() and
+  in aspeed_probe(). The interrupt handler takes the same lock in hardirq
+  context.
+- Move the dev_dbg() of the interrupt status register out of the
+  raw_spinlock critical section in the interrupt handler.
+- Opt aspeed_edac.o into context analysis in drivers/edac/Makefile. The
+  check is opt-in per object, so without it the __guarded_by() annotation
+  added by the same patch was never actually verified.
+- Return IRQ_NONE from ast2700_dramc_isr() when no ECC interrupt status
+  bit is set; the handler clears only the ECC bits, so unconditionally
+  claiming the interrupt could livelock the level-triggered line.
+- Tested v2 on both AST2600 and AST2700 by injecting a correctable
+  error with the memory controller's ECC error injection; each is
+  reported as a CE with the expected failure address.
+- Link to v1: https://lore.kernel.org/r/20260812-edac-v1-0-03992edea297@aspeedtech.com
+
+---
+Ryan Chen (8):
+      EDAC/aspeed: Set the DIMM grain
+      EDAC/aspeed: Free the interrupt before the mem_ctl_info on remove
+      EDAC/aspeed: Clean up whitespace and include ordering
+      EDAC/aspeed: Free the mem_ctl_info unconditionally on remove
+      dt-bindings: edac: aspeed: Add AST2700 SDRAM EDAC
+      EDAC/aspeed: Replace regmap with direct register access
+      EDAC/aspeed: Abstract SoC differences behind chip data
+      EDAC/aspeed: Add AST2700 support
+
+Stefan M Schaeckeler (1):
+      MAINTAINERS: Step down as Aspeed AST2500 EDAC driver maintainer
+
+ CREDITS                                            |   8 +
+ .../bindings/edac/aspeed,ast2400-sdram-edac.yaml   |   6 +-
+ MAINTAINERS                                        |   2 +-
+ drivers/edac/Makefile                              |   1 +
+ drivers/edac/aspeed_edac.c                         | 426 ++++++++++++++-------
+ 5 files changed, 293 insertions(+), 150 deletions(-)
+---
+base-commit: 5464985e42c04e335fb30e38fbc409c997db9bec
+change-id: 20260625-edac-8e960e02e7f7
+
+Best regards,
 -- 
-Best Regards,
-Anvesh
+Ryan Chen <ryan_chen@aspeedtech.com>
 
