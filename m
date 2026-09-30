@@ -1,325 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013024.outbound.protection.outlook.com [40.107.159.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 958AF4E2F33;
-	Wed, 30 Sep 2026 15:04:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780688; cv=none; b=W1HnlmIQnAjDKER0wkQ70tItPYRFgU2qXnCNBfJ1oLab0OEjJ/nIqI85AAXQX11JDrWwiUqeHDryWZMnlYTmCaV8K87lUEiG9su5XE2R8H9QcB3w0fps87lc22+FFo4guac/nTTyBMkDwnXrHHhqmzkWKdY0sE4pFxtYTYXYbBU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780688; c=relaxed/simple;
-	bh=r+nLw7Wd5AVHwY6nNiZC/bIHfgeeTqrTVuF3dvh6Ws0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RqRBNcW63p3qK0uMiwNJn5V0pXxw54UjBqXt0UUS0C4PnogcJfQ3wUxmwca4JNhUDLHPzrh19PCQNgGEnx5HatbLrS4/Fs2vr2LQWux+n0mNajp63Xm4q9yCJ/XPKM8gcwVY6FE1IzOjEvqvu5o+bcXweOXHPzNuRENHK3KkyvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jmdDKH44; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874144E4306;
+	Wed, 30 Sep 2026 15:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790780703; cv=fail; b=UDLYZ5G86vw/RC2qHDde1u7zBKL93egJ2x6SgdAmTvOUdM5roiYkVLXAx0zFouC0Ge9o6rib2q6wDlNu71Sidhp7nWKo5YSJzeWXFGwJV9se3/4ZV3JbFnOdQpUq+bjOyvgn2N7MkFHefOVkC3hLUg8VsIf34A12AG9j/wx2w2k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790780703; c=relaxed/simple;
+	bh=E1tJ8Gk2SEpRaiiwWBpQj2NtLC65tfls3PXk/zG8l+0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VZ494kb4+VJ+vWQN/A7BhaymG5EMOmFv6tqKXn1JOX1S9hFQBxLzpcoeFKROkbDTKmzqHc8KsYxdKymb9faeMIOCzqXgoXofXXpit7bvXxHfGomYdrrmtQHYEVEuJkyIe+kApoFJaOe2r4r66nJK0Cipg6xHp0AcjMfrBZIHlNQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=YEUSLeG8; arc=fail smtp.client-ip=40.107.159.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jmdDKH44"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D371F000FF;
-	Wed, 30 Sep 2026 15:04:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790780676;
-	bh=gg4us66Hi6ASpn+YqC9GwbM/RclqWMZq9iwqtXVoaTw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jmdDKH44VC+pFMFBRDILZlf56ykX0Cdx3BrgcWzL3nh/uzKQcAxR6gIK/KrFU0xXx
-	 jHoH+ZZBmobex/0VR7B9iEduJFXc51bvrGvXAUweWDng2gk0mdQ5re7RCsGr2pWk5x
-	 +T2493VzzDSy1QqrzCPEE11wxlC5u1dJ7F+C/9rYosneKb7+2cKpJCnpyuJxR9qMy4
-	 x4faFRt0cAmpYfo9G8Hwzpl+/qrTgGC6bkvkwKFhSuXvgxZXHXmaVFBQRSRg7PWenu
-	 6yw9+fWu1WDQrK0hx+n8XBCldD51LZw5OMR5jus1EC6kccw63lYXnFdnBVyxFj/+kQ
-	 IWsFAqz4QJp2A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] soc: qcom: qpace: Add Qualcomm Page Compression
- Engine driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Georgi Djakov" <georgi.djakov@oss.qualcomm.com>
-Cc: robh@kernel.org, linux-trace-kernel@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260930145215.3380977-3-georgi.djakov@oss.qualcomm.com>
-References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
- <20260930145215.3380977-3-georgi.djakov@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 15:04:35 +0000
-Message-Id: <20260930150435.C5D371F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YEUSLeG8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O3FwoYO+D5pgZjruhwfAJdXcGwuTTu5zdiJD4q+uTxB/jpiWAx+sBheY7OaEobmElAVfwyT1RaPrs2CickYJECfTl9gZLtdUz2ILcioc/oBZ6R5qzKphRwuZrPzrMF7dgjS9r3Y2DdjaFAF/Mo2QvGUHGE3o/RujrzJUJY5/9n/jHyaTPcGkIkiY6EAzedu1LiJJ7wtCcJl250G/5Og0teV9A7BXf9zDRxbz/jEf4mr/fwDuv0p1lUrNakeooTnLneEaQZ0I60KNOYvJFuYRQ4iDvu3ZBEKk9yNyRDtw8FSMrXGgjaYt9qQWVXOgXrMYfwQmYBuoYZxhfctfSi3LPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EDEVZLinhUt1WrQBvsDyYVHwMFSgDX2XjmBMxTgGJek=;
+ b=PbfHwZ5feRrHL+I1zlptHvuxLk6cq4hKRqrxq2cBn4uZcZ4wgkykHZaPa3++Xs75lxuBc/NrKjws8UM2E1XWLe/m9RKL6pLihWnhTY/EkC9+eGMd5F2Dm54qr+XB1ueTeGeRUvNaurNQtP20YohIIyFb5nH8Y0hIxJT6eXran3pY2Q+5D1LYZkMQsYwkXsdH8mAFU5C4JA5gcmbjujJ4fDaYgw3MKWspDfNaVfcv/ST9Z7DU3ZowLwASFi+koP98t5kC+uEV9pZhaQhcMnd4vbsByVSu6JoDpugH0jsFbULMZfMR75vaudEpFZ5cVEK3f8KLQvP9q8c5mNCXe7iOpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EDEVZLinhUt1WrQBvsDyYVHwMFSgDX2XjmBMxTgGJek=;
+ b=YEUSLeG88XkVQfV+GdpVoZ0pIZ/6vydR47UzYmZEIt3Hd9oFpvGgRS3Ooo8+QQaenRP0pHh/g4w3TBWhEalrygRG9GKxX2ZwmqbGLd9/shubWxXAqRfrc/oLjHgtzBRSlwue2vTl6Kox43XhFYU9ZS08XuPOIXrTGPFTsR4yq/cjbZpiTn2XiUkmcfCwaFIV+m5yAUpdS3KdEU12Azxb8EAzRubNVeu229GsUYJrVSfrFl+vBU+uQcpklxuGsVgwUtmIRmBuwHPkPDHnsfbd/H6Kz+qcu8YM7yGgb0v5HEdT9GRassTVtrdRcijegLLgb4Hx2yaPbFRHAsnpQikjlg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA4PR04MB7872.eurprd04.prod.outlook.com (2603:10a6:102:ce::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Wed, 30 Sep
+ 2026 15:04:49 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 15:04:49 +0000
+From: Frank.Li@oss.nxp.com
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank.Li@oss.nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev
+Subject: Re: [PATCH v2 0/3] ARM: dts: imx: cleanup st,stmpe touch screen related CHECK_DTB warings
+Date: Wed, 30 Sep 2026 11:04:41 -0400
+Message-ID: <179078059675.554251.15674488334332958827.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831-dts-stmpe-v2-0-f93d5f080443@nxp.com>
+References: <20260831-dts-stmpe-v2-0-f93d5f080443@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CY8PR12CA0044.namprd12.prod.outlook.com
+ (2603:10b6:930:49::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA4PR04MB7872:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19b06174-e100-4d48-87b1-08df1f042bd9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|19092799006|23010399003|22082099003|18002099003|921020|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	6kFn33w5YgMyv6Ydi64JJcPpkFwSXVspDtLoCNPFrzbYAmsZiJ00V+WGhQn5mGEBjm+uSZ4jUM84vvKEsJwEIUvYm9PxMmUIKp+S1QwkKv/xzvANs7MfaUxRqYzxvRfsJaKPhxrVLhjb0Lz7AAp7KWsOsXpJz/l6pFJ/gqFhXCnklispJOzv+N/X7c1gWo3sEN0gMehGIuKczzK9ZWEUHK/ohS49kw/Hoz88LyNtO3TdI3ZC0n4pmJ1QpsnD12SHXcXAHQzHKYEWugL5LW/oBozjXleQWZDkRIai5YJ41ivmEu4Ly077gDKuNPDOWP7R3zD+fYLCa18nz+EVT+xnyIDz+n9w+zX49xvdNxEr0pGh6MrsHicZ92gGod74Re1UkCoue9Ue4WihYBQmbYoMQ8K2D4JGZz+lmtUI5pPYN9I2DjbcKC0WoJ7OeENWuWoINGE1GZO0I0SYOw/4kg3O6XUhLujLXA7vQDCt2WFFTnqRrXn1WD1xYvwaF58oQ7vSMIcfpr8YFNkB+dlQ5TnJdxEwth6UjtWfeAs66NE85eK6XCDAHkfd0nWtgZC1Zb1QigWjx0knbHFBCBZ9l6QUuj+0/Y1K87bFE6qY57ARPFoCAu4+L1ijS1IaKBehqU1Bvj1tHP04sGxHQEF2FNdztgJckpKYN7cyBFl2r+kXgSxfZU1GwA8VM7c1p0H84Tf7jbNm4PnL6i0x3hH6A/GHvA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(19092799006)(23010399003)(22082099003)(18002099003)(921020)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SVBwa1BaN04xUGRJaVdTeVYyMnZneGM2ZlpIdE13SVB1Z0ZjVHl0dU5IRDBZ?=
+ =?utf-8?B?bmFmcWlOWUdkNEMvNGh1ak5KUmJlWGJaZlA0bXpNVFFCak5Zemx4VXdueEhr?=
+ =?utf-8?B?WW9PMXBGSWN3VGZwZ0lYTWtGMDNmTWNPQTVFWmF4MTRYRXFOTHJsakorOXJs?=
+ =?utf-8?B?c0gzREY5ZzhOZVI4NytjMzlVdXFkbDFxU1RrbnZ1VU0rRjlLalQyaVUzd2tM?=
+ =?utf-8?B?ZFkwUmpidTZoc3I0WnkwOEhuSGwxZlNFY1BGNjBIekdhMWxITTc0WU5YRGR3?=
+ =?utf-8?B?UTNDMEhlQXphWnB6cWYzZ0c5NWJZVjU4dG91dEo0dTdUaGJsa2t3SUNOR05z?=
+ =?utf-8?B?b05mNWl5NFoyM2dPVGg1MEdkWVBscWwzWlBpNHM5SElDbjh1TnV2UndSajYz?=
+ =?utf-8?B?dm85RExBVm5DSkt4Q3RDWXZuQ3hyeUFVK0Z5L0Q3dHFsZGNXQWN2MjRxOEtZ?=
+ =?utf-8?B?SEVtZ1FJZzlBY1FFWG1JWWtmMXJFQzhENnZFZEpBQXIwVTFqTHltQkx3aGlU?=
+ =?utf-8?B?WlJHNFl3ek5IeVRTelBXMXduOVRtNjh2WlhWTm5remdVM1NuOXV4Z2E0T2du?=
+ =?utf-8?B?L3B1THVGQW9LbklQS2I3T04rMFlDOFhIdFpGdFpWbnY5L0tyT2N2ZURzaUR1?=
+ =?utf-8?B?VkN1dG0xV3lwcy9WMDBURGZMOWlZRzkxeVpXY1V6UFVFT3BXMXIyM1RTVUpQ?=
+ =?utf-8?B?QWpVZnYwNVBiSGFUQTV3TEwwMkZ1WUdKWTlQdmJUVjVuTUQrWTAwZmVKRzYr?=
+ =?utf-8?B?dHdjV2FQYzh2ang3VkNPMnF3dUpVcU0xSmN4Skx6ZVg2RHBWK3hIdU1UN3Vm?=
+ =?utf-8?B?SzFUTGVTRExJQy90VzY0TSt2MmlCdVB1RU04VUhSdWZyb2d0YjQ0SVM2aTRt?=
+ =?utf-8?B?VHJCWUJ0QkpETmxmZGIrTG4rTVRaSU94ZGlMdGt1QjFzUlhtMU5KQVR5WHph?=
+ =?utf-8?B?bmlJcUljZVZxdUFJZ2VySlJLengyazZzM2xQb1hCQjY4bW5TRVJuMXFmR2tF?=
+ =?utf-8?B?OTljd2hZaG56QzA0VEpEN3dVK0x1dXEyNFBZejhwMmZjeXcvK1MybXZqYkd0?=
+ =?utf-8?B?b1dkS3hyMTN6dEN4UVlmL0RmSVJObnVwYi9JZkk4Wm9hdnpTbGp0cU9yTDU4?=
+ =?utf-8?B?a1ZVa2tJYlpWd1JEejI1T0pIWFd5WUxiam44bTFsdzhhT3ZQUGVqTDJUOUpm?=
+ =?utf-8?B?NXV5Wjg4Z2FiZVcxVzZBZU9yYWpueThLU2hPbWo3eHhXR0Y4RUVyTEZYWVdo?=
+ =?utf-8?B?bGRBc05UTGc1STEzYUtjTkV4aGNUbmNwa1lGSi8xUjFVNnJuTGxDZFd3VEZE?=
+ =?utf-8?B?TEtPcERtb1ZjS0NYS3RQWDFFSytrYlVOM1hmUGJmQXlFYk5EUW1zc3o0YXNM?=
+ =?utf-8?B?cVg1ZnJHZW0rNzJGVnRSd3Y4WmhkVWlweCtMU3FIdkFRUGh6MkcrZDBoUnlZ?=
+ =?utf-8?B?RGQyS29xU29aUmt3T0dxeXo1cnFCUFBKWnJMTTFFSzFONXJMQytuT21kcFI1?=
+ =?utf-8?B?OEhRRUFiOXp0MWtkc0NHUW9QWm5qNUFTUVFQb0ZHNmVUeXVubVA3UURQeFJD?=
+ =?utf-8?B?c05QQWZITHJ4aHliNDU5UnByZVZ5NFY4UGdEUHlETHE1bVpQUFYrdzVTN3VS?=
+ =?utf-8?B?RWpIS3RaVk50cTZLRFovZ0oraG9FRVhrYzdJUHJJbGhlcU42VDVYQmpwMWp3?=
+ =?utf-8?B?bXl3RVZxd3VMdEZBbkxSalNIU1hvc0JOK0RKSTBzV3BYRzIwbEFRcC9oZW5l?=
+ =?utf-8?B?NzJjYlBlVWJyS0tDSzl1NEFSaTRXVU1wRWFYQklBTmF1NVlMWDJ6SnczMnlz?=
+ =?utf-8?B?RW9rcmNSZnVra2lnNjVnNENKVEE1eXFqUFA4UjFTMDQ1c0gyMWx4Z2c3ZTZZ?=
+ =?utf-8?B?KzlQRk9pTTd5QzlQMmJRY2ZKUmFoMzFpRWNiVkt0WE02Y1VCTGtHZ2hTTXZL?=
+ =?utf-8?B?cVBNVllSeGZuT0tyRno1cElCdG9zUU9odU9yNmgrWlo5YTRiZUR2VjlrQjV5?=
+ =?utf-8?B?VUFGOWRoUUFORjV4Qm1ydm50NXNaMjFNVGJJSVYwOXNSUmRUV2ZpSzF1LzJ0?=
+ =?utf-8?B?dmF6Y0ZmV1EzYklmTEtiNVZVQ3F4dDhSRGVXZGtkMC9IdXdBWGdycWhiUmc3?=
+ =?utf-8?B?VjY3NnhvT2JkeDNDN1hUdkNCbktlR3JrYWNTNGtwSW1sUHk1NHMrdCt5TFZs?=
+ =?utf-8?B?ZUo3SWo3UkZkaDFodytsUmxKMlNadTFlNlUyeXdjTEJoVjlMbXl4L3prQyth?=
+ =?utf-8?B?M0ljY2VyUHVpYzl0Q05jQXo0QzN1K0FZZldFTlFkTElIKzZVL0JiOUdtcVNS?=
+ =?utf-8?B?VS9vWlRha3hFclpnZUpTNmRaZXo5TE1sQTArMFZZZDFIdy9CNENSdUZENGhP?=
+ =?utf-8?Q?iyCv4Pa/QLGuWD6E=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19b06174-e100-4d48-87b1-08df1f042bd9
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:04:48.9300
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mZ9GqTQLDOVXk5TmrDtaSwkYe7596B9naJXPeSDniygTqgXC5g+1D1vpbuXGGw/qaTnNXex7hVQWcky/lCakTT4Eisgx3hn532Z1YqHdTV0pUiEaV7EdCPmycVFUuLei
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7872
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] soc: qcom: qpace: concurrent MMIO access from CPU aliasing on >8 c=
-ores
-- [High] soc: qcom: qpace: UAF of global qpace_priv after driver unbind
-- [High] soc: qcom: qpace: 100ms busy wait with preemption disabled causes =
-latency spikes
-- [High] soc: qcom: qpace: interrupt storm due to uncleared level-triggered=
- IRQ
-- [High] soc: qcom: qpace: stray DMA writes on urgent command timeout
-- [High] soc: qcom: qpace: hardware stuck in STOP mode after suspend/resume
-- [Medium] soc: qcom: qpace: silent truncation of unaligned output_addr cau=
-ses DMA corruption
-- [Medium] soc: qcom: qpace: inline stp assembly breaks big-endian architec=
-tures
+From: Frank Li <Frank.Li@nxp.com>
+
+
+On Mon, 31 Aug 2026 14:50:17 -0400, Frank.Li@oss.nxp.com wrote:
+> cleanup st,stmpe touch screen related CHECK_DTB warings.
+
+Applied, thanks!
+
+[1/3] dt-bindings: mfd: st,stmpe: add deprecated properties
+      commit: 0d120c9ab1ec657da76d7446fa9b91ff3ec46b88
+[2/3] dt-bindings: mfd: st,stmpe: let interrupt property optional
+      commit: 0e9d73e4fe6f61c1a741633b102886467b1ed388
+
+Above two patches missed at v7.3. I picked up.
+
+Lee Jones:
+	If you have concern, let me know.
+
+[3/3] ARM: dts: imx: remove undocument properties of st,stmpe*
+      commit: f05cb3d259d3fb9f811cb9b14591ab08e9e7a182
+
+Best regards,
 --
-
-commit 5edbc123f3ebd977977e7d874e4ecebc5ed95e6a
-Author: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-
-soc: qcom: qpace: Add Qualcomm Page Compression Engine driver
-
-This commit adds a platform driver for the Qualcomm Page Compression Engine
-(QPaCE). It provides the urgent command path for synchronous single-page
-compression and decompression, supporting low-latency operations for
-compressed-memory users like zram.
-
-> diff --git a/drivers/soc/qcom/qpace.c b/drivers/soc/qcom/qpace.c
-> index 0000000000000..69aa14b7c4772
-> --- /dev/null
-> +++ b/drivers/soc/qcom/qpace.c
-[ ... ]
-> +static inline int qpace_urgent_command_trigger(dma_addr_t input_addr,
-> +					       dma_addr_t output_addr,
-> +					       int urg_reg_num,
-> +					       enum urg_reg_cxts command)
-> +{
-> +	void __iomem *td_dst_src_reg =3D qpace_priv->urg_regs +
-> +				       (urg_reg_num * QPACE_REG_PAGE_SIZE) +
-> +					QPACE_URG_CMD_0_TD_DST_ADDR_L_CFG_CNTXT_OFFSET;
-> +	u64 urg_addr_field_lower, urg_addr_field_upper;
-> +	u32 stat_reg;
-> +	unsigned long ret;
-> +
-> +	urg_addr_field_lower =3D FIELD_PREP(URG_CMD_0_TD_DST_ADDR_L__CMD_CFG_CN=
-TXT,
-> +					  command);
-> +	urg_addr_field_lower |=3D GENMASK(63, 8) & output_addr;
-
-[Severity: Medium]
-Will this silently truncate the output_addr if the caller passes an address
-that is not 256-byte aligned? In qpace_urgent_command_trigger(), this drops
-the lowest 8 bits, meaning the hardware will write to the incorrectly
-truncated address and overwrite up to 255 bytes of memory before the
-intended buffer.
-
-> +
-> +	urg_addr_field_upper =3D input_addr;
-> +
-> +	/* Clear a stale request-on-active error before ringing the doorbell. */
-> +	qpace_write_urg_cmd(qpace_priv, urg_reg_num, QPACE_URG_CMD_0_STAT_CLR_O=
-FFSET,
-> +			    URG_CMD_0_STAT_CLR_REQ_ON_ACTIVE_ERR);
-> +
-> +	/* Ensure that preceding stores that QPaCE will depend on are done exec=
-uting */
-> +	dma_wmb();
-> +
-> +	/*
-> +	 * Ring the doorbell with a single 128-bit atomic store. QPaCE
-> +	 * triggers processing when it observes the (dst_addr, src_addr)
-> +	 * pair land together.
-> +	 */
-> +	asm volatile("stp %0, %1, [%2]\n" :
-> +		     : "r" (urg_addr_field_lower), "r" (urg_addr_field_upper), "r" (td=
-_dst_src_reg)
-> +		     : "memory");
-
-[Severity: Medium]
-Does this inline assembly break big-endian architectures? By bypassing the
-standard writeq() accessors, this stp instruction skips implicit cpu_to_le64
-conversions, causing the hardware to receive byte-swapped, garbage memory
-addresses and context configurations if the kernel is compiled with
-CONFIG_CPU_BIG_ENDIAN.
-
-> +
-> +	ret =3D readl_poll_timeout_atomic(qpace_priv->urg_regs +
-> +					urg_reg_num * QPACE_REG_PAGE_SIZE +
-> +					QPACE_URG_CMD_0_ED_STAT_OFFSET,
-> +					stat_reg,
-> +					FIELD_GET(URG_CMD_0_ED_STAT_COMP_CODE,
-> +						  stat_reg) !=3D OP_URG_ONGOING,
-> +					1, 100 * USEC_PER_MSEC);
-
-[Severity: High]
-Does this cause severe scheduling latency spikes or RCU stalls? The caller,
-such as qpace_urgent_compress(), disables preemption via get_cpu() before
-initiating this hardware poll. Executing a 100ms busy-wait loop in
-qpace_urgent_command_trigger() while preemption is completely disabled
-can freeze CPU cores for unacceptable durations under load.
-
-> +	if (ret) {
-> +		dev_err(qpace_priv->dev, "QPaCE urgent command timed out\n");
-> +		return -ETIMEDOUT;
-> +	}
-
-[Severity: High]
-Are we returning a timeout error here without stopping the hardware from
-continuing the DMA operation? If the hardware takes longer than 100ms in
-qpace_urgent_command_trigger(), this returns -ETIMEDOUT while the device
-continues. If the caller (like zram) frees the output page, the hardware
-could later finish and cause delayed asynchronous memory corruption.
-
-> +
-> +	return stat_reg;
-> +}
-> +
-> +int qpace_urgent_compress(dma_addr_t input_addr,
-> +			  dma_addr_t output_addr,
-> +			  struct qpace_algorithm *algo)
-> +{
-> +	int urg_reg_num;
-> +	int stat_reg;
-> +	u32 stat_reg_val;
-> +	int ret;
-> +
-> +	ret =3D qpace_get();
-> +	if (ret)
-> +		return ret;
-> +
-> +	urg_reg_num =3D get_cpu() % NUM_TRS_ERS_URG_CMD_REGS;
-> +	stat_reg =3D qpace_urgent_command_trigger(input_addr, output_addr, urg_=
-reg_num,
-> +						algo->urg_comp_cntxt);
-
-[Severity: High]
-Can this assign identical hardware registers to different CPUs running
-concurrently when NR_CPUS is greater than 8 without cross-CPU mutual
-exclusion? In qpace_urgent_compress(), get_cpu() disables preemption but
-provides no mutual exclusion across different cores. If two threads initiate
-compression on CPU 0 and CPU 8 simultaneously, they will both be assigned
-urg_reg_num =3D 0 and race on the same MMIO block, leading to data corrupti=
-on
-and hardware timeouts.
-
-> +	put_cpu();
-> +
-> +	qpace_put();
-[ ... ]
-> +int qpace_urgent_decompress(dma_addr_t input_addr,
-> +			    dma_addr_t output_addr,
-> +			    size_t input_size,
-> +			    struct qpace_algorithm *algo)
-> +{
-> +	int urg_reg_num;
-> +	int stat_reg;
-> +	u32 stat_reg_val;
-> +	int ret;
-> +
-> +	ret =3D qpace_get();
-> +	if (ret)
-> +		goto out;
-> +
-> +	urg_reg_num =3D get_cpu() % NUM_TRS_ERS_URG_CMD_REGS;
-> +	qpace_write_urg_cmd_ctx(qpace_priv, QPACE_URG_CMD_0_CFG_CNTXT_SIZE_n_OF=
-FSET,
-> +				urg_reg_num, algo->urg_decomp_cntxt,
-> +				FIELD_PREP(URG_CMD_0_CFG_CNTXT_SIZE_SIZE, input_size));
-
-[Severity: High]
-Does this dynamically overwrite the shared hardware context size register
-concurrently across aliasing CPUs? In qpace_urgent_decompress(), with
-more than 8 cores, aliasing CPUs will race on this MMIO block leading to
-data corruption.
-
-> +	stat_reg =3D qpace_urgent_command_trigger(input_addr, output_addr, urg_=
-reg_num,
-> +						algo->urg_decomp_cntxt);
-> +	put_cpu();
-[ ... ]
-> +int qpace_get(void)
-> +{
-> +	int ret =3D 0;
-> +
-> +	mutex_lock(&qpace_ref_lock);
-> +	if (qpace_priv->suspended || READ_ONCE(qpace_priv->broken))
-> +		ret =3D -EBUSY;
-
-[Severity: High]
-Can this exported API blindly dereference the global pointer after the driv=
-er
-has been unbound? If the device is unbound via sysfs, qpace_priv is freed,
-but the global pointer remains set. A subsequent call from a client like zr=
-am
-will call qpace_get() which dereferences qpace_priv->suspended, resulting in
-a use-after-free.
-
-> +	else
-> +		_get_qpace();
-> +	mutex_unlock(&qpace_ref_lock);
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(qpace_get);
-[ ... ]
-> +static irqreturn_t urgent_interrupt_handler(int irq, void *unused)
-> +{
-> +	pr_debug("Urgent interrupt handled\n");
-> +	return IRQ_HANDLED;
-> +}
-
-[Severity: High]
-Will this cause a catastrophic interrupt storm? The
-urgent_interrupt_handler() fails to acknowledge or clear the interrupt at
-the device level. Because the GIC interrupt is level-triggered, returning
-IRQ_HANDLED without clearing it on the hardware will cause it to
-immediately re-fire forever, resulting in a hard CPU lockup if the
-hardware ever asserts this line.
-
-[ ... ]
-> +static void qpace_remove(struct platform_device *pdev)
-> +{
-> +	mutex_lock(&qpace_ref_lock);
-> +	qpace_priv->suspended =3D true;
-> +	mutex_unlock(&qpace_ref_lock);
-> +
-> +	static_branch_disable(&qpace_drv_probed);
-> +
-> +	wait_for_completion(&qpace_priv->no_active_refs);
-> +
-> +	/* No callers remain; tear down the hardware. */
-> +	cancel_work_sync(&qpace_priv->disable_work);
-> +	qpace_power_off(&pdev->dev);
-> +}
-
-[Severity: High]
-Does this leave the global qpace_priv pointer set? In qpace_remove(), the
-device is torn down and devres will free the memory backing qpace_priv, but
-the global pointer is never cleared, enabling the use-after-free mentioned
-above.
-
-[ ... ]
-> +static int qpace_resume(struct device *dev)
-> +{
-> +	int ret;
-> +
-> +	mutex_lock(&qpace_ref_lock);
-> +
-> +	if (qpace_priv->active_rings)
-> +		dev_err(dev, "active_rings not 0, unexpected case\n");
-> +
-> +	ret =3D icc_set_bw(qpace_priv->interconnect, 0, 1);
-> +	if (ret)
-> +		goto out_unlock;
-> +
-> +	program_urg_command_contexts_v2();
-> +	program_decomp_core_cfg();
-> +
-> +	qpace_priv->suspended =3D false;
-
-[Severity: High]
-Will the hardware be stuck in STOP mode after suspend/resume? In
-qpace_resume(), we restore contexts but fail to wake the hardware engine
-up to RUN mode (omitting the QPACE_RUN write) and fail to reprogram
-essential bulk mode and cache index settings from qpace_hw_init(). This
-means all hardware operations will indefinitely time out after the system
-resumes.
-
-> +
-> +out_unlock:
-> +	if (ret)
-> +		dev_err(dev, "failed to resume QPaCE: %d\n", ret);
-> +	mutex_unlock(&qpace_ref_lock);
-> +	return ret;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930145215.3380=
-977-1-georgi.djakov@oss.qualcomm.com?part=3D2
+Frank Li <Frank.Li@nxp.com>
