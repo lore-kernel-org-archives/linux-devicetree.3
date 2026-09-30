@@ -1,68 +1,68 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wr2-f40.google.com (mail-wr2-f40.google.com [74.125.225.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F2D4BC00B
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 10:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B454BC016
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 10:57:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790765850; cv=none; b=gl7ptVaVOuq6UxJNatFP/Tuqmxuaf5HQPReO8fEISppP6avcwrbkwG6a5q00YjYtJADpyeo21xEdHvB0ZmnI2JddS/urGmj4XSMfEcP/VOeBgZc976T1zCLlRrX2pL0MhUkSykb0LjmuuVmdkIhWiC7PbXgedP5QOTf3S5O/o2w=
+	t=1790765853; cv=none; b=YykGRJLOORF6Nxl6g+0lXfB3khLSg92Iyqp4VwWdGH1F8V6p7ZxaoW3UD1SFzOY8dKr+EpUQcDOjfOAw0XEmEHXJgdVn681TDu42snK/CgmGeZd4P47lv1Gug6GHW2Th2yjawnUmveYNUkc7exQccxHVwuy92Fe2C5dnLnkj3hU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790765850; c=relaxed/simple;
-	bh=3Ps7OVPCUls+dQh+qEqi79V2MQpSrrvFi3h1eo/2FTc=;
+	s=arc-20240116; t=1790765853; c=relaxed/simple;
+	bh=0eUUtwctLLTRFzKHTHPyx5X72sDCYOZW5Xifc/3/OXk=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=NrXjTTheRYFGIDpwDJRhZZ8TkqYYSKcjtzOa2IYTZwBBy78R+zHixNAXHSd+rMKtEUhq34R1/wdMslN+xBxbjBt/ct794OByEb8Vaaome18S3/NHFIEYijk0aN6tE7J+J1/qm7tjCfnptptAmLZebZziGD8EguItQW/WuWg3Gr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fBOFQ/vi; arc=none smtp.client-ip=209.85.221.47
+	 MIME-Version:Content-Type; b=qdM+/PlUu8enR07iq3APxfVSXHR/KWH48q21wPFfvi0nZxKpXhHtC/YTvxgBMAps7j24pXj+lFy0Jsa6xGIX5NDkEhYDumAhkCzbOUF/eyjtzAGvUWCo9DjaqkNQB29Uhb9OrH1YMJTpBQ5UFmqo32fZc924E/MEuYTOZaesjNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JzvCzxJn; arc=none smtp.client-ip=74.125.225.104
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fBOFQ/vi"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b02b1b4cfso116295f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 03:57:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JzvCzxJn"
+Received: by mail-wr2-f40.google.com with SMTP id ffacd0b85a97d-48b017a3be3so451464f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 03:57:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790765841; x=1791370641; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790765843; x=1791370643; darn=vger.kernel.org;
         h=content-type:mime-version:content-transfer-encoding:message-id:date
          :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wLis0s98ZuwFHTL90Zcm9u7pqE377mGnvWwB/RoEQu8=;
-        b=fBOFQ/viZwFRT3jU1y1jt5R5cq0pV2fPtBHSaoJX20WnIEARAEJVxp34q7Mul03YPg
-         6cymSSMy7H1/UEObu41D3p1gzb5nuXvQ52EpYXBlr0uqablWLC96lUg0A3GlL6fCG3LN
-         /eJCisKGiwMeOmCEe8LzTXD2R1MbmfsCJCMT1kUY4yqmRQU6bMO1VXNuReBnXlZCzEGC
-         /dpgrSoYVWcm8H5ZrfJFo6sXst2fYtTRwKsvpwvpaF9D+cDH2sNGy5qS3ktDws7U079Y
-         poPoEyBVw6LfY0ZLqeiXSoStDMo6uBuHDGmi0UPBfC1Sz5jXEf8GHUPFTcW6l3GC0/i/
-         dyQA==
+        bh=0eUUtwctLLTRFzKHTHPyx5X72sDCYOZW5Xifc/3/OXk=;
+        b=JzvCzxJnDwBXk7eh4WwtWep0fwHdDRwNiAw0YJz68EYHJoNtS6nqFEe1PiVnvZoCjO
+         6cdzDhBdf+WNlfUxBnU62g4z/+vq4ggxahw4poLu+Y1VU3HOn54DMvVk4x1PVcASYP+x
+         1xqEkOw+U4G1MrX+9nR5RA/dYUbWNLXkDRPJBjsTi6v0YEoGzkhuGFspgILRWZ6HS2Gj
+         VKZ1wAscdSe6tWHx7ioUVL+d1VA7kJfgySJFOXmpY3d0D+qriWtP4rKMqNXj2olEuPMq
+         L0KnQ5KpcUaXN7yu923DKvbe/xvcG8kS0qcpW3M6uYVOREu4Daf/nADtak3JsKiaYCRf
+         jijw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790765841; x=1791370641;
+        d=1e100.net; s=20260707; t=1790765843; x=1791370643;
         h=content-type:mime-version:content-transfer-encoding:message-id:date
          :references:in-reply-to:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wLis0s98ZuwFHTL90Zcm9u7pqE377mGnvWwB/RoEQu8=;
-        b=kka44zQLAs6kvJe712am0SihEhGYWkwbcHj2CW0swFcUlVE9tOcRFfTvLNeLZx0/I7
-         ao8MyCxF3exe/KxKth2iYmg4A6Tq0NTou7uHIdE4M4EpDqnJ/foE54W+N6fU95gR8KUo
-         Dx5iDl27klEEnNJGKAYX06SyLBTHFeIqqwLa+LNeHZXkz8G8Tc/q3ekHoB6jlko3T8xK
-         hJmi+Z2tjcgp6oDJtsMnvCzcY3TvZmldkUgYIH+d8w3UyA5AnRt81Z8YxH2kV3zn2VbG
-         K77W6daekaLHQUXU4JuHBFLFpBXdLBUViu2mRWCummPoKlZv4i+bfh4O/iDhL1o5jzbU
-         MepA==
-X-Forwarded-Encrypted: i=1; AKwUvBx8M/G1Lmt7rh/0oBgYc6PbowLwOnY43rc3Cu+zXX0gZFs62Cc5FHnuLAzYnTKAP83njwNAUn/LNUnw@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+/9oHLW6wdt8vF0870ROsE51KkiaCMYSm2kah8lXM560g2oKL
-	isSXA7vEJg1SCDqt8weskysRGn5xnKihCzJnnenJsUqdlX5PPgJobHrjQH4LTdspgCP+++HF
-X-Gm-Gg: AYBFou03j6f25+T6M3Bk7q7qHVqcz29OCQbthTUcXswwGX5bOWaVfpyw+MgWlr8f9Jz
-	gKLyybB3v7TPyFn+1GbPvxUbdtC/Z5cL6DARuAvRXEZM8pSmU9mm1hotrBzp1YgBGVLluYHokL6
-	i7/n02VscZHHtcZZ4a3jle4bHbhq6ACP1R9OYxnGYS5YLIuaWvzbxEWoEJtDCV6jYNCsHhqL10h
-	efFqL+VEMwRpeyrVrdsO+Zw8gTgwHqQSK8zsdgwnVS0Ykj60tDzyN/zf6mIb8cbpLLSjUViYaC0
-	cjlqmMbmzWSptMEGh5rJJ+0saeNC1cG4ksQsE1QPxXKu1p7qzJRcSPl9Yxhzw4ICSF5bfiCDJVy
-	CUwJHbrciqDRH1mDG/lFrbB+u+kTSVzTDc+/arI7j0kqq89G5FSk47MsLdOYpVUzQfMRIgkoORt
-	q2S1SAj03Lv8J0tQfwe+fJrbPv7/LHH6AnsxT1KcHl0U9oAg7UEQVQVRetPB3zFAmoj7/1blVaY
-	dV3+wz477lq9irCGmEhlm/G4A7xRtUEks3q13z+7fQ=
-X-Received: by 2002:a05:6000:41cb:b0:488:8aa5:b4a1 with SMTP id ffacd0b85a97d-48b024b4a4emr2192936f8f.14.1790765840706;
-        Wed, 30 Sep 2026 03:57:20 -0700 (PDT)
+        bh=0eUUtwctLLTRFzKHTHPyx5X72sDCYOZW5Xifc/3/OXk=;
+        b=AAeBYlA1atR8wXcvo+bGFzVe/aAA2skZGupIH1BMZeobLpo6+A9wxu01wkZn1ACHIi
+         iLfBAye2dOQksW3nXs0BW/gAw438sI1LJyM35Y1RTcd+XY4IdsdWW4gn3IpWy6IZzMB8
+         geRV5kGUqTUwB3+ciroGr2I+fEc6KZdGiowWJHnc6QS+LkY5SgjYiyluRczsBAvs8Uzk
+         jUGg7JI15Cu2kPfbqwUxf/xSnJTiTtyGOPGSBeoOp/+7+KKxZioGCV9B2CGVJ3otti5d
+         0Xfr+hQF26z7WlnzSdfofBXJnZxa2nyyW1mzxo9Hrf5xNRQHzTZjpmqyfNpcu5FFW9iw
+         6WGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxj8j4XIIrBMbzbCxnJcRY6h2jtzReiFuRT5+QaSXjRmGXyZU3+xBLH6fQBsUpdhkzu2l0LWAPoANT/@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqOb6RWDw/MsETfkr2VBZYgO4Hs8bfab5nPUsGn/mIA3icgxa4
+	EN05osheh0/dBLWhVCrY83EKjEJTkZIM4FdrxA9wgoxZirHmR/QdRmJL
+X-Gm-Gg: AYBFou0WF/8mYCToToiwpu6nVoxHf07N55C7a1KvuX/pzM5uSjUr8/ozLQqEXuaQPEq
+	IHIJW9Mb/vrYvq/EBioi4SIdjjdQ28AXlU3z8ngl0SS8qsPWdF3c6qPNqkZ3LiA1Y6tMtlWHjLD
+	fEmYFJ5ABpGyZQv8uOS7q0SbKHwbNinED0jC4DEYAbf8qoBC9qJXUoATpj9pkaVrh6yKyQat/ij
+	t9u/qd0SKaYEaUKvhLIhcZHE2uIf9T9AAUXvt+98pRvWL5u1lO5Dq5gYSLOFAwn1ZXny5cbdXGA
+	3RncGtbrdAEwod7gxeAFM7nDMPntxn2am5vZ/QsRII8xOmOlDR5Cu4rT7ujU7KbPxJ4zftt2tsC
+	kJlCf5s8qJnJztLDosBYDrORyjQ5ZTswAEpmCAYpcXmYMjFc9orPLbYgWSQcSxOqwZsHC5BoW/Y
+	QRpKDNr0j6gP159w/fPmnVUrJpP34GtPqFYPGouruax/a8fTfSotgU4J3Xz0kbICwTPiPulATce
+	J9DWhBDiZES1bmAU/VPaPHlP/75NfRFII1LVkE5ki0=
+X-Received: by 2002:a5d:584c:0:b0:48a:eff0:c31d with SMTP id ffacd0b85a97d-48b02525e8amr1894631f8f.38.1790765843425;
+        Wed, 30 Sep 2026 03:57:23 -0700 (PDT)
 Received: from [127.0.1.1] ([92.241.26.38])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b02949f3asm2695384f8f.1.2026.09.30.03.57.18
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029bf85dsm2852667f8f.13.2026.09.30.03.57.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 03:57:20 -0700 (PDT)
+        Wed, 30 Sep 2026 03:57:23 -0700 (PDT)
 From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
+To: Linus Walleij <linusw@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -71,14 +71,14 @@ Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
  Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject:
- Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
-In-Reply-To: <65c87e07-1722-44c2-9a08-ed9e18902058@kernel.org>
+Subject: Re: [PATCH RFC 00/10] ARM: Add support for Cortina Systems CS75xx and
+ Securifi Almond+
+In-Reply-To:
+ <CAD++jL=0Zc939o7UaFgtx+04gLRmgmPVHTAeuW6OS9nPP5Xt8Q@mail.gmail.com>
 References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
- <65c87e07-1722-44c2-9a08-ed9e18902058@kernel.org>
+ <CAD++jL=0Zc939o7UaFgtx+04gLRmgmPVHTAeuW6OS9nPP5Xt8Q@mail.gmail.com>
 Date: Wed, 30 Sep 2026 13:57:17 +0300
-Message-ID: <179076583795.3054628.14443934429806440798@gmail.com>
+Message-ID: <179076583798.3054629.14422335928572048671@gmail.com>
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -88,25 +88,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-On 30/09/2026 12:20, Krzysztof Kozlowski wrote:
-> How is it different from Cortina Gemini?
+On Wed, Sep 30, 2026 at 12:39 PM Linus Walleij <linusw@kernel.org> wrote:
+> Is this OpenWrt fork public?
 
-Apart from the vendor, they have little in common. Gemini (SL3516/
-CS3516) is a single ARMv4 FA526 with Faraday peripherals (FTINTC010,
-FTTMR010, FTGPIO010, a 16550 UART) and builds for ARCH_MULTI_V4. The
-CS75xx ("Goldengate G2") is an ARMv7 dual Cortex-A9 MPCore with GIC,
-SCU, TWD/global timer and a PL310, and its UART, GPIO, interrupt
-controller and NAND controller are different blocks from the Gemini
-ones. So it cannot share mach-gemini or its drivers.
+Yes, it is under review in OpenWrt:
+https://github.com/openwrt/openwrt/pull/25033
+The sources are in target/linux/cortina/files/, the Ethernet part in
+drivers/net/ethernet/cortina/cs752x_ne.c (plus cs752x_fe.c,
+cs752x_sch_tm.c and drivers/net/mdio/mdio-cs75xx.c).
 
->> +machine-$(CONFIG_ARCH_CORTINA_CS75XX)	+= cortina
->
-> Arch should be rather per entire family, not one SoC.
+> Actually what I'm most curious about is the packet engine, which may or
+> may not be related to drivers/net/ethernet/cortina/*
 
-CS75xx is meant as the family (the vendor kernel covers the CS7522 and
-CS7542 with one ARCH_GOLDENGATE), but I see the name reads like a
-single part. Following Linus' suggestion of mach-goldengate, v2 will
-use ARCH_GOLDENGATE and arch/arm/mach-goldengate for the whole family.
+As far as I can tell it is not derived from the Gemini GMAC/TOE: the
+vendor driver has no StorLink or Gemini references, and the engine is
+split into a network interface (NI) with per-port MACs, a DMA/LSO
+block, a queue manager with its buffers in the top 64 MiB of DRAM, a
+traffic manager/scheduler and a forwarding engine with packet buffers
+in on-chip XRAM, which does not map onto the gemini.c register layout.
+I have not compared the descriptor formats in detail though. The
+OpenWrt driver only uses the NI/DMA path, all forwarding in software.
 
 Thanks,
 Fil
