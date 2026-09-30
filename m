@@ -1,82 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35ABE4DDB27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376B74E0B70
 	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790779960; cv=none; b=CiO2vUWwao8sOcKSGExSFry25lmIhBdsrepSdOSBr3WG7NrFd+A8yMoDCykfYLL1ADdX2IpPSYXoCRGHeRrA9l0ik3FU1R4UmTZ2efwxe24N6ES5//zrMw/xJTBLepaf6dczAeWaj8t6nbVlAiJB0a8UYfgSoutTu2qc2dqqGbU=
+	t=1790779961; cv=none; b=LTQyUgUKZbMiMVbKc+8gyi00PUyByRaG5RKMKBTuENBs0QFkc67Lk4ZQnBUvN4L+g51FYeA+i0ZOp+3vqBdaLJtlHay+9+SJqr/dRJSoOOG5J/JZDuAaiiBfPvwV+76oBoDxHjPz3BDegRQiHIUfMoQ9PzszvnesTP0JngUXrrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790779960; c=relaxed/simple;
-	bh=GLhqiOOG/ARARD1eN/kge/LRFSAxUT8726/4rLJXLbE=;
+	s=arc-20240116; t=1790779961; c=relaxed/simple;
+	bh=dogAdoQ/QCkQb5GhDzIyOp6UYu9xwRLxOLzN5HnPoIw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VE3/ZfAprPM5aXZdwFjpHsDjlmJcf7eBPl6UiFXFPJjALtM+3+w132jUjEOWOAxPfFQSQJhyEGRDn7cG8NGaDJDMSO9HARxQUBg0jRj9Lu0OTJJlfoIHqho+UeM+pcrfVky87d864d4+Bndw7qNtkEPUzMGcj9kuknUkqLOhATs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hgUil/9F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=czmMVz4m; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=UH8FbLtTNwsoo8u8NZnpRaWCiWEdxl/vVk3I6ZzsX64TxEJBXEd7tmG+3/jgBEu9XO9ddKl3v6jMSFWEIF8/SV0bUKG7Kl+7K/yh8iSRXGrPM5E9u0lRyuceL4shjg3PpGroYWAo+Kv/tB2yNYJ29OG+ZI0Z+zNuQmZ5WSziZow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gfCCPMna; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JU6uTaDN; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hgUil/9F";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="czmMVz4m"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gfCCPMna";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JU6uTaDN"
 Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UDxuUf145092
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:52:27 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UE01Ad145340
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:52:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=FXnuFReb/aR
-	g05c9O0/5RdoakU5qHY6jskp27DmHEHw=; b=hgUil/9FuJsiFNe7cCNkmqo0cNH
-	AAdJSbiY+tmpI2V1RcP4UAr8FvcMPGzUiQDPZpnGfdMDaFh+XpltuHLIWdPEjsu3
-	3YuKMKEkuEM3goiDNXYEtWEl9RzE37FmD/Tc+3oqjEmLYaHJZl6JtLxuxBxE9ulS
-	dGY7C+1pgH9jCD+F1c0pIuM5ip8DAX37cT71xyT4tiUVBwal40iwEfx/BfETYILU
-	6+lbzAm+9BkKNldJiygg9juGmanAZoFtD0Q2uyXu/AftZgBZ72L7MFCrVfrZ086l
-	Gqt8baeifnEdtWr3ol+fzLuGk7twBcyY9FLAbFF2SMZ+AIWDGWw5eiwMBwg==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0j97vvya-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=pujGoTye8c8
+	YObD45SWJzA4GPFiLYw7N42q3MidIndo=; b=gfCCPMnaNXdaKUY2Kf3BnL6i30m
+	hPMuG2IFctl2aGrE80RioybPYMSgnsdUZnN/Bo0nqfkQ5PlufDHalBSJTUDkgJOQ
+	UA+poj+spUeZh02UNH5cUN9/acH6AIyPtPrhjbWzYEbU9l8uF6dUrv9afOCZxYsT
+	lXjPzyGe5RBe2lgquOgw3IuzlaOc3QdSnVJYQNh2TrD09u0Kqs4uv6TIPAonKBOb
+	uQnm3qF3hw8jRxJVpe+OP0dgP1Asp9JDrc8OpPWDA/Ox9B+7/NXrV4AAOQtipfDu
+	1VGipdvDlaJFqED8Ng19sJuw95FnwgwO2Baz//12Bn7DigzynoeWehTP+XQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0j97vvy2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:52:26 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33baaba6371so1545765eec.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:52:26 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:52:24 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-34ceac22194so1093491eec.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:52:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790779946; x=1791384746; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790779944; x=1791384744; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FXnuFReb/aRg05c9O0/5RdoakU5qHY6jskp27DmHEHw=;
-        b=czmMVz4mqX4WpzGhoSIcGy6Aa0OBtnlbms9xUcsPvNR50WFpqaPdhzk/uXZkYXzXEm
-         75hNgJheXsanT85Lz1WLQgoE6P2l/FaHzpyHmiVXwT/IVk2uHMiwj8oM9iN8vqsscF6N
-         8tPfWy4QhhgJMreq88jPRdaXY4EW+H6nA7SWnvoBmf8IQyvTHkXP/tUsYLXfpJeRPsTv
-         QtbPAGSounKV3HusKbFlHg/or7qI7qGDr9uUtZaxQyTTA8mVeUaVoqy6mkvMWYilT2FF
-         iBJscTZoOye6OYb6xK/XjhStI+hdET8op/+KqZO4IL8MDrJ3uD1QhABZsZli2q5/JvxY
-         KYYw==
+        bh=pujGoTye8c8YObD45SWJzA4GPFiLYw7N42q3MidIndo=;
+        b=JU6uTaDN2AcdXl38uB0FpK7436H7tJTapsGfmPpyMcgZ3zGGSoB1a9SzfecMLU1Bvt
+         T10Dl9qWBTrjLg0AEFgfJndTi2DHwts3cHY8VGsxOspxcHlpdLdqFdQOJd3mVGiJF+Is
+         gd3Brh2GJakZQjToqtBhNimFp6F/sQKZGfov1niVkuoAbE3IDe/hgik9m42y7bCBP+1j
+         MH/nOQNEwQK5cct8mC0vdTYrW9CO8dLAiWFOVI8yINb0nTbU0DuBzPbMQNBzd34MIzkY
+         E9eGnzw09yX+wXUtP8qZxzxx1dLr5McLLdECh6zde+xHaDqGmP9ZiJM0bswwnY31LB0m
+         txIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790779946; x=1791384746;
+        d=1e100.net; s=20260707; t=1790779944; x=1791384744;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FXnuFReb/aRg05c9O0/5RdoakU5qHY6jskp27DmHEHw=;
-        b=nsH0AhpoNEIOrwJHTCF7W6paHv4NfLnYzqlthKDLkd2Ch+lzmPtvI6uoaDiiy3j97n
-         mj6tpKOejpdjgqtY5/SLJlF6nXAK+HJBFVAmvw9fE9nC1eXeynuAmECUsOz13VKtUPKe
-         X8ktqmxJlncIywC91ASlodVgYCz8VeHzehrgpeOXtLjOtNPWIbl6ldGEZ7c8/chcVrIh
-         05CNAiHAitEWoPCltTv3tJrYL6sCR5rwOjcTnOAlDwGrTnQZpsTVew5Fi0xBjkW7yhKh
-         h+pfABvu1bCSmHK5Jw8qgqilIqgQuXc7e+lV8xV7wrn72KXFrrVLqNX0iKKsPQWOnzmL
-         6nuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxHco/8QzD7tuOfEM+T0nDc/uG5T98zkPJLxIeQnctsAZqn70vOss/q7xNeU37gs6VizR2wKOzJOBFk@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdwMeAt9AEJCgRYbGA0yZY2ucE4e0LUcJXs+s01FJW+iPOsr95
-	ZmM9kmCjKiFJkIEEv+L0WxK6XPwWYmycEdVRGXkEhu8ZkZ27fsOq633RGGpP2LxYiZjdnbUa7+n
-	047NT8A8dSQWxsydJ9LcGMSCNZKd4RB4l6ww3zjstdKpCFO95ARyDgv8FbXbfZIpB
-X-Gm-Gg: AYBFou1JQ3rbtaE8KdOQYqeb51EwiwsYXFWcXfjuydvFgFhP4IkqjMY1+g8xXJutxhz
-	wLCdWqepCWeisNuAzfv4dfOkqSfY3X903st+PMzmT7vKroBjNpIg7fUsaRUXlWLtE4Qhs/z0cTW
-	vBBHB1CHLskz0zvY8r8lvu/ypDCfNKNzBZ8ZJgtWpbFdov72yy7PM+fFCZeqpJSRTCiwziW/99t
-	2SLUQpGHngC5j90+fv+07EBd9ApP9OXSkIV9ABYKR943UHkXlvrAXJcfkWMI5oJPtzX+qICn7TO
-	iUsYApZUOJy8IAbY6XGFTbA1V8Uf1/ZqsTqp7ZfuzX8sPyLx2TMlZq+DUKG6ljT0gBt4db+RtV5
-	Ez3rGjKfojbT1KUFmtomdbur+WmDSBv1PAr6YMNjwhBfEH9yFfIWejUU=
-X-Received: by 2002:a05:7301:420c:b0:34d:9c6f:8af2 with SMTP id 5a478bee46e88-34d9c6f8d0bmr113718eec.40.1790779945437;
-        Wed, 30 Sep 2026 07:52:25 -0700 (PDT)
-X-Received: by 2002:a05:7301:420c:b0:34d:9c6f:8af2 with SMTP id 5a478bee46e88-34d9c6f8d0bmr113681eec.40.1790779944661;
-        Wed, 30 Sep 2026 07:52:24 -0700 (PDT)
+        bh=pujGoTye8c8YObD45SWJzA4GPFiLYw7N42q3MidIndo=;
+        b=I17RY4T5PXKunhJQm0NslFMKW/Hc8xv/Sj9Chcdz+xCGk6ZJiygTceeMoIRFSAdZN5
+         3spn5q6SqsItFf5gy8I2wuKoeHYXeExTlOsa1ViF9tdKUj0j1/vcMUtiv/7TT9NQuBLs
+         UEfI9BgkqzCvHwlor4NMuGBeMlSXYIvvic7QxhGHz3pLg/ZKKaKK/pBUR5oRSqVaLQP2
+         KWqzrKgy+ASeKxtmDx+TDyeNzEn1WTLBS8nRSatoz2qwQ2lSr/mTwd/dlsK9xMTwGx8F
+         W1IkvhZfp7B72ckzLy39oI1eTDwG4t7RP9FkKY5Cxsyeh0A+wuW5z3zJuY8CKQ1ZT4AH
+         2r5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzYZmTwbaYzJVUW2V5x/UHmq4yMVO9wSc3gbrd1wErwk/M81kZr5qHn1Z0hVub8B46VbY3AP230WjHX@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTjCcaaipm39PVXQiWRIO8TCdYY59Ivpzih2h05nTNKEq2EfWy
+	b5OP+KgQJl1iz2uJrKtoVPPPZGNxwc5SEs0FcY2f8RyOxXyzUnwrMFQ69olvUjgGQb4Ijz3RvZs
+	bk4RtgWGja9ChEfY4oW9h9KU+lLlF3UBjCQRV3qOVT6+uqjsp1KbaCewa9orhBKi+AFFSrJ4kxY
+	g=
+X-Gm-Gg: AYBFou0lWU5otGUHPfY+J4I1DFbrsAKtOOLPFhaukDZPaRHXd+X9MLHO5WXhgRoIJLB
+	HYRiK513jsFlvpFKVewDwQpD+rM7a9F05vwOOwdH49bmjFvSdVzJtwodM7u227DZkfzPDmvaZPg
+	FMKq2y4w8KF+J708SSJW8ZN/6ieiqMWVkvf/deh0N8A4zVnfc7K2QsMbdOfLPKuHhqEA/pjCS2+
+	x/4uFG9HMZ6Kv4EhF98XnCy8WyMQgHk8Rle+3+IdwzTdF5hOPJu4nzJdfBJCvqE6zHRSXHNkZp2
+	WJsmfPjvnMTsWsK0kseuyQRjmj97TA/qaafHH6E3CzokUPyWYbZ2UEPRjC4t4lsk3fn+a+1q1Hj
+	XAnqbtHi4qSylp8bfUjBbzkYDd09vNDunTM2C0otWHu0XpryGa11HX1w=
+X-Received: by 2002:a05:7301:6192:10b0:34b:2362:90a8 with SMTP id 5a478bee46e88-34cdc4c0558mr2042934eec.19.1790779943574;
+        Wed, 30 Sep 2026 07:52:23 -0700 (PDT)
+X-Received: by 2002:a05:7301:6192:10b0:34b:2362:90a8 with SMTP id 5a478bee46e88-34cdc4c0558mr2042887eec.19.1790779942856;
+        Wed, 30 Sep 2026 07:52:22 -0700 (PDT)
 Received: from hu-c-gdjako-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf5639339sm4524609eec.18.2026.09.30.07.52.23
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf5639339sm4524609eec.18.2026.09.30.07.52.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:52:24 -0700 (PDT)
+        Wed, 30 Sep 2026 07:52:22 -0700 (PDT)
 From: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
 To: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
         robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
@@ -86,9 +87,9 @@ Cc: axboe@kernel.dk, rostedt@goodmis.org, mhiramat@kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
         djakov@kernel.org
-Subject: [PATCH 5/6] soc: qcom: qpace: Add LLCC slice support
-Date: Wed, 30 Sep 2026 07:52:14 -0700
-Message-Id: <20260930145215.3380977-6-georgi.djakov@oss.qualcomm.com>
+Subject: [PATCH 3/6] trace: qpace: Add tracepoints for QPaCE operations
+Date: Wed, 30 Sep 2026 07:52:12 -0700
+Message-Id: <20260930145215.3380977-4-georgi.djakov@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
 References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
@@ -99,24 +100,24 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 5pcpNNOi62lcDU4Atn_76FNgwd3Sq7F8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA1OSBTYWx0ZWRfXxp/DN/ZQ/666
- 2S4tmGfbcpRskKffLC4F+9gGYiaECE44cQtNSMEfm0yIPnhQIZMiAEUIeXc73TTrG9dYtYRzn/p
- SSsWUeytnJwlrCNhl02b1yQM0EsSWfuNOX9QoEYEXSUgRO96/obKr3M2c0laHApNa95g95IT1Aq
- /c+s4J+RHEnwqjia0qoyTFoC6utHr/CeuueM7xm5uvun6ANd9+cEBJaHtBFlIGpV0abiUUnqew1
- 1gB5wTFuwouVbTEOMzx8N7SlhS8SNDKbLnxJpDuRmn9vRM41dfsDkXSZIrXts8KVbEta00OGVNZ
- uZOUdqPPNygDAKDFkasOqr2MSqvNQbzgYSmklvedO2Kw+3kMCc1c5t7ZcHc6ir+ClNQ85bp7z0x
- J34fp8g8u0mcsZ9aj0ngMTCa013lgcwokxLgl9R6V0yLJhyAHvUnIt1Ds8ZfXVE0STXXv/PT9rr
- 76NnjqftCebw/aK9TVQ==
-X-Proofpoint-ORIG-GUID: 5pcpNNOi62lcDU4Atn_76FNgwd3Sq7F8
-X-Authority-Analysis: v=2.4 cv=BPImP1QG c=1 sm=1 tr=0 ts=6abd222a cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-GUID: WclsVZZhUpIUkwJQmIQKVTolWge_q8_i
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA1OSBTYWx0ZWRfXwsBGA+09CQHq
+ neaBQq5SRmdQ8FxiIuLFtDygxKjKvqqDyTPfdQaXid0p6eeRZ7rxeQjHqQKB9Mx2g2njfz68m2F
+ AE5w2udcrwXlszk1wMYjbfZUJFGnDZnMoERt1ihohp6uU/4ylRxFoaQ2rKQ07pYjgg6F/cy7Gmg
+ sZxbPBjmfhXWorHJBwqNGJLqxeQG0M0tklhe4f3iWKvPg6gaTRPTBRNw2oLBaFD3nvs5rU8zO5D
+ Bs7Gdn+SkIcXUHC4NSVUlGfopnUq6xD2bVC+wwCdLlGPolh3B/o7SNDMKusoG09vrX6NIaEpQa8
+ XYBEftAk302uBIDL3APfBCP3XxVKBa3YaJ/xibzby4SXjpxYEs/78ZG5T1/Te3pPKKCDRt4toaO
+ mFHCmisI8kkCj+n6SSfewZNHNJZsSbyzz/uGUMM9uNJLHgdr5tagEJdFTRDBGXJE3GTK7SegKHL
+ IwFWhWTj0ObnCGS1ehw==
+X-Proofpoint-ORIG-GUID: WclsVZZhUpIUkwJQmIQKVTolWge_q8_i
+X-Authority-Analysis: v=2.4 cv=BPImP1QG c=1 sm=1 tr=0 ts=6abd2228 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
  a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=dejIaLI6GUeI2fIgeLMA:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA1OSBTYWx0ZWRfX+AbsbrxkSIOz
- sZi6EHH+CAft7x3WQOWytm/yWzrATeGU+P47uMIZjyaCI3vwSyC1DWrK/gQb6tVdok/FcgwJGCG
- gNx/N+2VsTivcqqKbf6BNMqpJAm7xZA=
+ a=TOX0-C0EfqkpjbOQ6sUA:9 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA1OSBTYWx0ZWRfXwu7EeW6udA9p
+ qXV3At+7XBmGelDR2nrizKLseXAg+3AO9Km0XJ5slZeRWhUaAp/BbK0LCth9dXBsM4ChPr71Oer
+ kXD2Lfq/jxJUknyxVWoWUGVVlkT02ps=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
@@ -126,141 +127,170 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300059
 
-QPaCE can use dedicated LLCC slices for compression and decompression, but
-the driver currently does not request or enable them. This leaves platforms
-with QPaCE LLCC support running without the intended cache allocation.
-
-Add the QPaCE LLCC slice IDs and make the driver request and activate the
-slices.
+Add ftrace tracepoints for the Qualcomm Page Compression Engine
+to allow performance analysis and debugging of QPaCE hardware
+operations.
 
 Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
 ---
- drivers/soc/qcom/qpace.c           | 58 ++++++++++++++++++++++++++++--
- include/linux/soc/qcom/llcc-qcom.h |  2 ++
- 2 files changed, 58 insertions(+), 2 deletions(-)
+ drivers/soc/qcom/qpace.c     | 12 +++++
+ include/trace/events/qpace.h | 99 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 111 insertions(+)
+ create mode 100644 include/trace/events/qpace.h
 
 diff --git a/drivers/soc/qcom/qpace.c b/drivers/soc/qcom/qpace.c
-index f5b21ffbcbff..86a935ae2ca9 100644
+index 69aa14b7c477..f5b21ffbcbff 100644
 --- a/drivers/soc/qcom/qpace.c
 +++ b/drivers/soc/qcom/qpace.c
-@@ -18,6 +18,7 @@
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
- #include <linux/pm_qos.h>
-+#include <linux/soc/qcom/llcc-qcom.h>
- #include <linux/soc/qcom/qpace.h>
- #include <linux/workqueue.h>
+@@ -23,6 +23,9 @@
  
-@@ -42,6 +43,8 @@ struct qpace_priv {
+ #include "qpace_internal.h"
  
- 	struct icc_path *interconnect;
- 	struct pm_qos_request qos_req;
-+	struct llcc_slice_desc *llc_comp;
-+	struct llcc_slice_desc *llc_decomp;
++#define CREATE_TRACE_POINTS
++#include <trace/events/qpace.h>
++
+ #define QPACE_REG_PAGE_SIZE 4096
+ #define QPACE_CORE_CACHEINDEX_SIZE 4
  
- 	int active_rings;
- 	struct completion no_active_refs;
-@@ -660,9 +663,35 @@ static int qpace_probe(struct platform_device *pdev)
+@@ -310,6 +313,8 @@ int qpace_urgent_compress(dma_addr_t input_addr,
  	if (ret)
- 		return dev_err_probe(dev, ret, "failed to map QPaCE registers\n");
+ 		return ret;
  
-+	priv->llc_comp = llcc_slice_getd(LLCC_QPACE_COMPRESSION);
-+	if (IS_ERR(priv->llc_comp))
-+		return dev_err_probe(dev, PTR_ERR(priv->llc_comp),
-+				     "failed to get compression LLCC slice\n");
++	trace_start_qpace_urgent_compress((u64)input_addr, (u64)output_addr);
 +
-+	priv->llc_decomp = llcc_slice_getd(LLCC_QPACE_DECOMPRESSION);
-+	if (IS_ERR(priv->llc_decomp)) {
-+		ret = dev_err_probe(dev, PTR_ERR(priv->llc_decomp),
-+				    "failed to get decompression LLCC slice\n");
-+		priv->llc_decomp = NULL;
-+		goto llc_put_comp;
-+	}
-+
-+	ret = llcc_slice_activate(priv->llc_comp);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "failed to activate compression LLCC slice\n");
-+		goto llc_put_decomp;
-+	}
-+
-+	ret = llcc_slice_activate(priv->llc_decomp);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "failed to activate decompression LLCC slice\n");
-+		goto llc_deactivate_comp;
-+	}
- 	ret = qpace_power_on(dev);
--	if (ret)
--		return dev_err_probe(dev, ret, "failed to power on QPaCE\n");
-+	if (ret) {
-+		dev_err(dev, "failed to power on QPaCE\n");
-+		goto llc_deactivate_decomp;
-+	}
+ 	urg_reg_num = get_cpu() % NUM_TRS_ERS_URG_CMD_REGS;
+ 	stat_reg = qpace_urgent_command_trigger(input_addr, output_addr, urg_reg_num,
+ 						algo->urg_comp_cntxt);
+@@ -338,6 +343,7 @@ int qpace_urgent_compress(dma_addr_t input_addr,
  
- 	/* Get QPaCE HW version. */
- 	qpace_priv->hw_version = qpace_read_gen(qpace_priv, QPACE_CORE_HW_VERSION_OFFSET);
-@@ -691,6 +720,14 @@ static int qpace_probe(struct platform_device *pdev)
- 
- power_off:
- 	qpace_power_off(dev);
-+llc_deactivate_decomp:
-+	llcc_slice_deactivate(priv->llc_decomp);
-+llc_deactivate_comp:
-+	llcc_slice_deactivate(priv->llc_comp);
-+llc_put_decomp:
-+	llcc_slice_putd(priv->llc_decomp);
-+llc_put_comp:
-+	llcc_slice_putd(priv->llc_comp);
- 
+ 	ret = FIELD_GET(URG_CMD_0_ED_STAT_SIZE, stat_reg);
+ out:
++	trace_end_qpace_urgent_compress((u64)input_addr, (u64)output_addr, ret);
  	return ret;
  }
-@@ -708,6 +745,10 @@ static void qpace_remove(struct platform_device *pdev)
- 	/* No callers remain; tear down the hardware. */
- 	cancel_work_sync(&qpace_priv->disable_work);
- 	qpace_power_off(&pdev->dev);
-+	llcc_slice_deactivate(qpace_priv->llc_decomp);
-+	llcc_slice_deactivate(qpace_priv->llc_comp);
-+	llcc_slice_putd(qpace_priv->llc_decomp);
-+	llcc_slice_putd(qpace_priv->llc_comp);
- }
- 
- static const struct of_device_id qpace_match_table[] = {
-@@ -729,6 +770,9 @@ static int qpace_suspend(struct device *dev)
- 		return -EBUSY;
- 	}
- 
-+	llcc_slice_deactivate(qpace_priv->llc_comp);
-+	llcc_slice_deactivate(qpace_priv->llc_decomp);
-+
- 	mutex_unlock(&qpace_ref_lock);
- 	return 0;
- }
-@@ -746,6 +790,16 @@ static int qpace_resume(struct device *dev)
+ EXPORT_SYMBOL_GPL(qpace_urgent_compress);
+@@ -356,6 +362,9 @@ int qpace_urgent_decompress(dma_addr_t input_addr,
  	if (ret)
- 		goto out_unlock;
+ 		goto out;
  
-+	ret = llcc_slice_activate(qpace_priv->llc_comp);
-+	if (ret)
-+		goto out_unlock;
++	trace_start_qpace_urgent_decompress((u64)input_addr,
++					    (u64)output_addr, input_size);
 +
-+	ret = llcc_slice_activate(qpace_priv->llc_decomp);
-+	if (ret) {
-+		llcc_slice_deactivate(qpace_priv->llc_comp);
-+		goto out_unlock;
-+	}
-+
- 	program_urg_command_contexts_v2();
- 	program_decomp_core_cfg();
+ 	urg_reg_num = get_cpu() % NUM_TRS_ERS_URG_CMD_REGS;
+ 	qpace_write_urg_cmd_ctx(qpace_priv, QPACE_URG_CMD_0_CFG_CNTXT_SIZE_n_OFFSET,
+ 				urg_reg_num, algo->urg_decomp_cntxt,
+@@ -381,6 +390,9 @@ int qpace_urgent_decompress(dma_addr_t input_addr,
  
-diff --git a/include/linux/soc/qcom/llcc-qcom.h b/include/linux/soc/qcom/llcc-qcom.h
-index 713cb0221b14..feddbebf1183 100644
---- a/include/linux/soc/qcom/llcc-qcom.h
-+++ b/include/linux/soc/qcom/llcc-qcom.h
-@@ -85,6 +85,8 @@
- #define LLCC_CAM_IPE_STROV	 92
- #define LLCC_CAM_OFE_STROV	 93
- #define LLCC_CPUSS_HEU	 94
-+#define LLCC_QPACE_COMPRESSION 95
-+#define LLCC_QPACE_DECOMPRESSION 96
- #define LLCC_PCIE_TCU	 97
- #define LLCC_GPUHTW_LITTLE	 98
- #define LLCC_MDM_PNG_FIXED	 100
+ 	ret = FIELD_GET(URG_CMD_0_ED_STAT_SIZE, stat_reg);
+ out:
++	trace_end_qpace_urgent_decompress((u64)input_addr,
++					  (u64)output_addr,
++					  input_size, ret);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(qpace_urgent_decompress);
+diff --git a/include/trace/events/qpace.h b/include/trace/events/qpace.h
+new file mode 100644
+index 000000000000..3f0ccdb8f206
+--- /dev/null
++++ b/include/trace/events/qpace.h
+@@ -0,0 +1,99 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM qpace
++
++#if !defined(_TRACE_QPACE_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _TRACE_QPACE_H
++#include <linux/tracepoint.h>
++
++TRACE_EVENT(start_qpace_urgent_decompress,
++
++	TP_PROTO(u64 src, u64 dst, unsigned int size),
++	TP_ARGS(src, dst, size),
++
++	 TP_STRUCT__entry(
++		 __field(u64, src)
++		 __field(u64, dst)
++		 __field(unsigned int, size)
++	 ),
++
++	 TP_fast_assign(
++		 __entry->src = src;
++		 __entry->dst = dst;
++		 __entry->size = size;
++	 ),
++
++	 TP_printk("src=0x%llx dst=0x%llx size=%u",
++		   __entry->src, __entry->dst, __entry->size)
++);
++
++TRACE_EVENT(end_qpace_urgent_decompress,
++
++	 TP_PROTO(u64 src, u64 dst, unsigned int size, int ret),
++	 TP_ARGS(src, dst, size, ret),
++
++	 TP_STRUCT__entry(
++		 __field(u64, src)
++		 __field(u64, dst)
++		 __field(unsigned int, size)
++		 __field(int, ret)
++	 ),
++
++	 TP_fast_assign(
++		 __entry->src = src;
++		 __entry->dst = dst;
++		 __entry->size = size;
++		 __entry->ret = ret;
++	 ),
++
++	 TP_printk("src=0x%llx dst=0x%llx size=%u ret=%d",
++		   __entry->src, __entry->dst, __entry->size, __entry->ret)
++);
++
++TRACE_EVENT(start_qpace_urgent_compress,
++
++	 TP_PROTO(u64 src, u64 dst),
++	 TP_ARGS(src, dst),
++
++	 TP_STRUCT__entry(
++		 __field(u64, src)
++		 __field(u64, dst)
++	 ),
++
++	 TP_fast_assign(
++		 __entry->src = src;
++		 __entry->dst = dst;
++	 ),
++
++	 TP_printk("src=0x%llx dst=0x%llx",
++		   __entry->src, __entry->dst)
++);
++
++TRACE_EVENT(end_qpace_urgent_compress,
++
++	 TP_PROTO(u64 src, u64 dst, int ret),
++	 TP_ARGS(src, dst, ret),
++
++	 TP_STRUCT__entry(
++		 __field(u64, src)
++		 __field(u64, dst)
++		 __field(int, ret)
++	 ),
++
++	 TP_fast_assign(
++		 __entry->src = src;
++		 __entry->dst = dst;
++		 __entry->ret = ret;
++	 ),
++
++	 TP_printk("src=0x%llx dst=0x%llx ret=%d",
++		   __entry->src, __entry->dst, __entry->ret)
++);
++
++#endif /* _TRACE_QPACE_H */
++
++#include <trace/define_trace.h>
