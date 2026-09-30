@@ -1,217 +1,239 @@
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B32A509EF1
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:39:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289CA511E76
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:39:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797179; cv=none; b=jZ1SotCspCMtZguY3LYFkt4rq27juVN0zIp84MDQVt3ZDpHcXxDosV6nisAfeUQd/lpyYK2I91f/RK+N3Ks03GHien4fwpRS65XuRDGaR90Lydhj68up5d772l/QzpJJ24S9tdqNgIjreIB8Puyj+rFYgOY3xSt/3rbq5QXtkHc=
+	t=1790797197; cv=none; b=hJKjJNEvfiB+YPjEk2ZYktD345+LSBZW7J0vLR2eh/CodIpXf8v4P0S2kLw1tLsUQ/+YAjprrWimoDT7Ovhgzo39PsMeJZubgLCMa70i37PL9E0szKDNBlcYmt2AkA0CTJj6p94By8shyQtCSzu9CDcR+zqtufotZR5L9ATsiPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797179; c=relaxed/simple;
-	bh=NYT/h8Qc+9GQnlKzSITUYD78AcEXwG2aqbxwXcG/L+w=;
+	s=arc-20240116; t=1790797197; c=relaxed/simple;
+	bh=dl4QjpNKqAkP4zCsFnylPjiCaeUL3lAIsnLcEwXqTQ4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O0BD5czlAfj3EyJLVjY01WNhBqd8SjLXGO1ANhtFGnM7qLwMpsZlv0wVvPeGko+xoi2K/0AJApFVSDzR18fyYugKNCwL5b2cCCF4hiIwuqRbTOm7aQwMj7xElj0/gskl0hOF3j3N8PP8sucmtWzEJbmRDV66rMeh+e/mSr0Gn/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V3sZzIb/; arc=none smtp.client-ip=209.85.217.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=eklqvcDh7vOcjPxnFoSGw00LkEZxLc3NC7/HQ1iz/A9HyApPTgcrelxuBAZp5pbRdS6SRHhHIb6x3uhEGq13Ve/c+61m9Vr1Is86+umQUtt9nreg+A4uACJv8X0DahLCFaW06pcg9Q05hcW7um8lBpviSBo4YTjUNFOBgvf1WaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iq+1l6iO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LuU3u+Do; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V3sZzIb/"
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7b1e67fcd84so85931137.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 12:39:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iq+1l6iO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LuU3u+Do"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UINPx73660060
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:39:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZIwUVVn2XD5RlNtj5pFv3FY2widvV63M2fwz15YP7Ks=; b=iq+1l6iOt43+HODB
+	OrP2L1N18QN8DVokSnxOSMoDoUYxGEViWcv2dXrfeH6pIW7NscwRUUD8yOm0ftDC
+	hzY1EHzXXhkPcXAFxgqIg5AVuNU6sKBKLrtgSuUIz5x4KOgVkOIQRo3AbV7Gb9T0
+	ORkpaU9j0dGWsf832oqkqVSEwYPal3KZUKiCPVkXsCvo8dTEFSs40d5+yh9CMvJY
+	4jUSwTQlnMjY7JfGKNzXwh91020S0N1HPgBjS/2i8h97cECtAVb5+9kWhbQ+m5fd
+	igmq3trzbanjXQJIHCO9jLIUv+3eyCazHiVDU2UG04Ycv6H6h7AoaHx0RxkbsVbo
+	7i0imw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h17mvr9hj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:39:55 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a0b66ecd9so888027785a.2
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 12:39:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790797176; x=1791401976; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Lkg30YzbMRtZmB6sxeYNBijNjDlXFAz/0Hn5HVfkijw=;
-        b=V3sZzIb/QgP3No6FSpHxKZ+FV89gx21BF8+DJaoHjCboJ+smn9LjO2aFq5ANLGZ6OY
-         vU93wQpk3X41utMP0QOjssUZ6rpEH0uhYowvpqOzjB+lRcB7y9/o+4aYjAy1jMFFst07
-         zZJErUBV8nbdgTXv9NgFHAwvexv1I9I2O1AxDw91QjM8IT/yLsESKgcd/i3FIXXpEHcg
-         E5C9BLYBx7mdTfMAEdPblS/rEnI0pLhksCJn7cOryr3Gy/rlB4A6rTmmfy7lIAVTIeTg
-         snML/9Z/9SoNH4qzP4edgFnWwUlMlF3K4R7arRU6J3lDbOSX9JxWBuN+3kaMeYWOa9eu
-         XYhw==
+        d=oss.qualcomm.com; s=google; t=1790797194; x=1791401994; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZIwUVVn2XD5RlNtj5pFv3FY2widvV63M2fwz15YP7Ks=;
+        b=LuU3u+DoDKgxdGA2w1CRsGxqmv/U4QdPoKMo+ZUFSmU2Hg5DspkE19hrFRlXCkXSqG
+         KpTEm2MfcZcTEkrvnVKvfUH8FavQWvuocw43nuCKYAVRN3JGL58InXPqXpyJ2cXqd7NG
+         w2/kUUvNpvGwJPr7pcTzp/bySv7WkUlY6aSjufHkeHGk4S7kL0foEGRqy76ypTN2SXjb
+         dXW16h96LQyhifSYyuj3nr1w9RPHVbU7dYs4tfqdMpbEIBUzk9EEgg0jKaUop02ngtns
+         NvUCwJHi+QbBVlWtSVVmCJjHB6R57+D84ocMTGkmr5fuYa47naycxxUCLhnpek6wIbu4
+         kDZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790797176; x=1791401976;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Lkg30YzbMRtZmB6sxeYNBijNjDlXFAz/0Hn5HVfkijw=;
-        b=2VcfRpHrWPgrdc7OK2BAQo0QKPWOqlSpk1sisrAKHTTaBpct8YxtDW4DrU6g3ddFcy
-         Uv8P4EqyEr9wlpteMvBT6Jh97DijToaQtsvRvlG0110tFHJRjQzOr1t/zVS333V7i7tf
-         gzrIBZPe6U8k/V7m0yPME3ngXa0nWkG2RJsrxaAMDsW6bsY82FEF/cin8E59dY5IpnmK
-         9X/fccF8kmOd5eG3K9Rq4WML1MLPUlopnfNUx6jxvC3HPmUbYJqQdFTE602GMOAjM8sL
-         rvwxnaWNMhPEYCxlkaJWPIGkRfbLsDOsfJEn88uYIqihn/fMn4oa01YKYbNg2tZf3Cah
-         ElMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzX5YLDdAUaltWy2M3Dl0Ux84kpsC9jGuxNEMaDi/Y4vzoooWc60xK4t5AzcHwGlU5UahR+EdvsGeVz@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwtCT4pVw2o4+PwN57ZVQUJzFESsA5wcqbE2TX0gix/wx0rjMV
-	+Z8f8kSIsiJzDiU9msAWKcSVKqwQD1A9ugdPkzEbrJdgVLI5WaMFKQIc
-X-Gm-Gg: AYBFou2xUIfNVucjJxDbdfVZHH0CiEvIjApGcqhoI0YYw4UtOFPTxRLh/GyrdQUBjWg
-	60sKEReRctDR7DxGpFeGK2xpQTgihbJCDfX+bHoj1JeuYVe7Xjo+AWCQagCtbFAUgSuLsknRwH8
-	eQw1FtLL44JCGJotODOSRKGTl7hh5zh5r/Xq7fWIWygqoWUTU61VAjtb5bE6Cmf3wlQHRWLNcpW
-	icy2zEFFyMMN/X/GzqmZ3TCLKvSjk2qLGAaAYwF1OCOFUlMjk/kr8VyEp/nV2GmsABNCrSb7ZLf
-	koZ6WmVdlkofY5l1D1CF9rUdOxN4ty5qHQgMdS5ulGpTiVQUz2wwFpt7LDN8fQ3aMVw5Eu6jp6M
-	Cp+/uysCySFL1lKUgFagZWU1+Izry+4xSb3p9T8dgHCHe1+kj0zq8jrYkb22JIQ0kVR/Y84CUZD
-	wc7BXUs/IVMEEHsF2wWFo0jxib20t7ACOOUxcUtY37AbZYKAzDSfKQ5oIkGOc6A9lXi+2xQZNW1
-	09i
-X-Received: by 2002:a05:6102:5802:b0:7b4:6720:f954 with SMTP id ada2fe7eead31-7bf8355674fmr239816137.11.1790797175805;
-        Wed, 30 Sep 2026 12:39:35 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98a86e99290sm976242241.1.2026.09.30.12.39.34
+        d=1e100.net; s=20260707; t=1790797194; x=1791401994;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZIwUVVn2XD5RlNtj5pFv3FY2widvV63M2fwz15YP7Ks=;
+        b=OYywc+cW8+e6yJ9V7A0Vca8WrF+JytfmwVAps7/iXDZ7k2zFlL2SNLRjoQDOVXifv8
+         9pkwQviM8/7hsYKVhVTcTCakbK2LtHdvXncLS8BxhhhLSFrDlDAUlbd97hEWehbqVPbt
+         dU3r+zAJL6Qxidweb2dFe9q0YZEHYgpWnka9+HQpoX+d9g+E3kIcjnAX+qpCfMTK+gi7
+         1Vlm8b9J2RWrUkv+Wq/j1bgrQrJpjtfltuu6VqUtIQOXLXYbokn8MePpK4lyXA270FLZ
+         izyZLgGQrJpaVIapTWpNucT5i3l/wPlnY+aCztDDbL/enNxHOcs7j2f33oklO5kkD2oA
+         2Z2w==
+X-Forwarded-Encrypted: i=1; AKwUvBzlmtnMncgM3iSNC/xoa6Na99QMLx48hsTS35ulC5mCKpjIRctziLKlybgVPJrfUIZ5u1KqilKlw5Jw@vger.kernel.org
+X-Gm-Message-State: AFuF++lemvaP77Cxt0mu+Ttg+4rESGU+UXwLeOBL0LYXlBdrcOCX/BQy
+	b381cgZhj/WreMQH8TQ8s9EWlJbQKymctRw2/JoYTj8y2B00tGT915gf9t48JKw7lf5Dv3OkxWF
+	ZN1B2ia37gyYY164JvmSJALOFn3WXyTOl1sYwxLfTURYQV0AzGhhvzngUCvCybxaN
+X-Gm-Gg: AYBFou0h3GlSr2ysXsjP5PZ1dQ8TLUqgiYmvd0KYcYk++/wDvicFQvwXmtuiWSmWOVV
+	0LfDHXkJjNpFSMZupQY3hHXY4Dj8LpXkjfCdJ3Ef9ZO9WJ8H2bhaRVqlW5laqq3n1a1eepNpoHQ
+	//A2hH0ieR3LdxAI357K3fn6UmOgYAPzqxs9SbmC47lq3MnykkyuWFxWK5zkHB9lxbAa79GUvvH
+	Myx49VAcM5JlakROpOsrvMSRpd6FBMbWR2BhAd2h3tsLnANAHbM5nA/fTMbmLMJb0AprvR4UYak
+	pydZOlx3ZHYqD7efRUdVmw/9Yi6ZBctaRN4Z44WPuoCZj12kpcxJKwCMzwz/8rRtwZwK3VamXpg
+	51Y7UEUjV20SdqZ2duLRpDK2R5q531TYEkHVlEb+sZQm34O/dWgXUzXJ5HfasFFgVaYQzmuldR8
+	Okcvj/OQ+Bn8rU
+X-Received: by 2002:a05:620a:4728:b0:930:9091:f0ce with SMTP id af79cd13be357-93cac0bc11emr385861385a.22.1790797193969;
+        Wed, 30 Sep 2026 12:39:53 -0700 (PDT)
+X-Received: by 2002:a05:620a:4728:b0:930:9091:f0ce with SMTP id af79cd13be357-93cac0bc11emr385854385a.22.1790797193398;
+        Wed, 30 Sep 2026 12:39:53 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a7717f21bfsm9587661fa.18.2026.09.30.12.39.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 12:39:35 -0700 (PDT)
-Date: Wed, 30 Sep 2026 16:39:47 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, marcelo.schmitt1@gmail.com
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, robh@kernel.org,
-	devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v3 10/13] iio: adc: ad4134: Support SPI 4-wire mode
-Message-ID: <ar1lg7PMwP_RdzzO@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1790719424.git.marcelo.schmitt@analog.com>
- <c066072441fdba492c18c71d5332d84224379410.1790719425.git.marcelo.schmitt@analog.com>
- <20260929230830.A8F3A1F000FF@smtp.kernel.org>
+        Wed, 30 Sep 2026 12:39:52 -0700 (PDT)
+Date: Wed, 30 Sep 2026 22:39:50 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jun Nie <jun.nie@linaro.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Jonathan Marek <jonathan@marek.ca>
+Subject: Re: [PATCH v5 2/6] drm/msm/dsi: support DSC configurations with
+ slice_per_pkt > 1
+Message-ID: <zr4c25viml2zz2wsveroirwg7ufs4ptlrv6tluqrjtngw7v3hr@firiyjbrj4cq>
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-2-c042266b9eeb@linaro.org>
+ <5r6xd4iiwnv2v5ji7xeddihlqstmtajvw5ixmntlwxxmcvo7y6@zueqflvz3lr5>
+ <CABymUCP5Gs5Zx9C39RHj+1_mU7aLou9sfgZO=7yS=+fVPWHeLg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260929230830.A8F3A1F000FF@smtp.kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABymUCP5Gs5Zx9C39RHj+1_mU7aLou9sfgZO=7yS=+fVPWHeLg@mail.gmail.com>
+X-Proofpoint-ORIG-GUID: x3vBgZJJLk8Y9ZqBLxFLn9MkIU59AMlQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA4MCBTYWx0ZWRfX/YxRo3pCpgAx
+ LxxTxgaYPE3AFbX5eiW5Xz5xvk+f8FA3atgJJ9AcoH/QeOx++0n9Fkckp/SH5r2MkIf8G8kMCYq
+ CRjkTtmVcj+jxVVTVDN2Z9gQP+CDMCyEGKSZ+hxEzcVPA42gbjR8YaUEGY5oo6q55WsEfaWEcrS
+ jjxe+ksiMakqypYOINCuBk2gtO4mxUFOnfF0Aa7rGDK8N4GY9lIUjRMTfWnbgQdbPAIyWrsRqas
+ SYxlsaNXNpujCX/7GZ4wk4WhYV7Hh3y+yvm1Gzt7b/2232cXDU1H+6wYsww3lI3lQDTTfg6xGFq
+ xEx5Skc7jrpOmPOgx+Gdg/v82bdob6ndtFdP4EX4LxL6BZyOkw7dRfqfdCe/YoPYVf9hbkRxQTS
+ VenBpxquOehF8culILzDrPtdQ99vuG8ROpiq/97sCRKmANPcxHeeNGGasVOV9sFeNN3to3npO1K
+ I6I4JgXdihiR2nDrgXg==
+X-Proofpoint-GUID: x3vBgZJJLk8Y9ZqBLxFLn9MkIU59AMlQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA4MCBTYWx0ZWRfX5KC/+dIkzHZi
+ hhLtExsscI30Yg/xPPSbThkD8LMOVmQolCBMb/LbfsizrTEw85L1DtGEKXZCoek1j/UZXnm+MIa
+ IeTbGXpAebGIa0NlZuAmMZBi1yXH6zM=
+X-Authority-Analysis: v=2.4 cv=KuvYSmWN c=1 sm=1 tr=0 ts=6abd658b cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=RAbU-raeAAAA:8 a=KKAkSRfTAAAA:8 a=GV4QO6qSl_99BXC8EjIA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=JiizpSU_mAIq9zsZDqn2:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 phishscore=0 impostorscore=0
+ adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609300080
 
-On 09/29, sashiko-bot@kernel.org wrote:
-...
-> > +/*
-> > + * When operating in modes other than minimum I/O mode, AD4134 register data on
-> > + * the SDO line is sampled on SCLK rising edge (SPI mode 0). In addition to
-> > + * that, when AD4134 SDO and DOUT0 pins are multiplexed by hardware OUTSIDE
-> > + * AD4134 SILICON, the multiplexer state must be set to route SDO to the SPI
-> > + * controller. With both SPI mode and multiplexer state properly set, register
-> > + * access runs as usual. Still, to prevent concurrent hardware interface
-> > + * configurations, callers must hold the access_lock. Finally, successful calls
-> > + * to this function must be balanced with calls to ad4134_release_reg_access()
-> > + * so to release the mux state lock. See AD4134 IIO documentation for details.
-> > + */
-> > +static int ad4134_claim_reg_access(struct ad4134_state *st) __must_hold(&st->access_lock)
-> > +{
-> > +	unsigned int cur_mode = st->spi->mode & SPI_MODE_X_MASK;
-> > +	int ret;
-> > +
-> > +	if (st->spi_mode != AD4134_SPI_MODE_NO_CS && cur_mode != SPI_MODE_0) {
-> > +		st->spi->mode &= ~SPI_MODE_X_MASK;
-> > +		st->spi->mode |= SPI_MODE_0;
-> > +		ret = spi_setup(st->spi);
-> > +		if (ret)
-> > +			return ret;
+On Wed, Sep 30, 2026 at 09:42:41PM +0800, Jun Nie wrote:
+> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年9月30日周三 00:03写道：
+> >
+> > On Mon, Jul 27, 2026 at 04:08:41PM +0800, Jun Nie wrote:
+> > > Some panels require multiple slice to be sent in a single DSC packet. And
+> > > this feature is a must for specific panels, such as Sharp ls026b3sa06. Add
+> > > a dsc_slice_per_pkt member into struct drm_dsc_config and support the
+> > > feature in msm mdss driver.
+> > >
+> > > Co-developed-by: Jonathan Marek <jonathan@marek.ca>
+> > > Signed-off-by: Jonathan Marek <jonathan@marek.ca>
+> > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > ---
+> > >  drivers/gpu/drm/msm/dsi/dsi_host.c | 27 ++++++++++++---------------
+> > >  include/drm/display/drm_dsc.h      |  7 +++++++
+> > >  2 files changed, 19 insertions(+), 15 deletions(-)
+> > >
+> > > @@ -1719,8 +1709,14 @@ static int dsi_host_attach(struct mipi_dsi_host *host,
+> > >       msm_host->lanes = dsi->lanes;
+> > >       msm_host->format = dsi->format;
+> > >       msm_host->mode_flags = dsi->mode_flags;
+> > > -     if (dsi->dsc)
+> > > +     if (dsi->dsc) {
+> > >               msm_host->dsc = dsi->dsc;
+> > > +             /* for backwards compatibility, assume 1 if not set */
+> > > +             msm_host->dsc_slice_per_pkt = dsi->dsc->dsc_slice_per_pkt ?: 1;
+> > > +     } else {
+> > > +             msm_host->dsc = NULL;
+> > > +             msm_host->dsc_slice_per_pkt = 0;
+> > > +     }
+> >
+> > Why do you need the else branch? Isn't it already NULL / 0 by default?
 > 
-> [Severity: Medium]
-> If spi_setup() fails, the local spi->mode keeps the SPI_MODE_0 value but the
-> hardware isn't updated.  On the next call, cur_mode will match SPI_MODE_0,
-> skipping spi_setup().  Could this leave the device permanently desynchronized
-> from the controller?
-> 
-If spi_setup() fails it will be tried again on the next register or sample read.
-So, the device would be desynchronized only when not being used.
+> AI bot review comments reminding a case that panel device may be switched
+> to another panel. Not sure whether it is possible in real world. Just add this
+> for safe.
 
-...
-> >  	/*
-> >  	 * To be able to read data from all 4 channels through a single line, we
-> > @@ -284,7 +401,7 @@ static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
-> >  		ret = spi_write_then_read(st->spi, NULL, 0, st->rx_buf,
-> >  					  BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS));
-> 
-> [Severity: High]
-> Since ad4134_min_io_mode_setup() is not called in 4-wire mode,
-> AD4134_DATA_FORMAT_SINGLE_CH_MODE is never set. Doesn't this mean
-> ad4134_data_read() blindly assumes the data is serialized on DOUT0 when it
-> isn't? Could this result in reading Channel 0 data four times instead of the
-> other channels?
+No, thank you. Either it can happen (and so it should be handled, maybe
+at some other place) or it's just a pure AI dillusion.
 
-The default on device reset is to output data from all four channels serialized
-through DOUT0. Anyways, will make the configuration explicit in case the device
-is not reset.
-
-> > +static int ad4134_buffer_predisable(struct iio_dev *indio_dev)
-> > +{
-> > +	struct ad4134_state *st = iio_priv(indio_dev);
-> > +	int ret;
-> > +
-> > +	ret = ad4134_release_sample_access(st);
-> > +
-> > +	mutex_unlock(&st->access_lock);
+> >
+> > >
+> > >       if (msm_host->format == MIPI_DSI_FMT_RGB101010) {
+> > >               if (!msm_dsi_host_version_geq(msm_host, MSM_DSI_VER_MAJOR_6G,
+> > > @@ -1757,6 +1753,7 @@ static int dsi_host_detach(struct mipi_dsi_host *host,
+> > >       struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
+> > >
+> > >       dsi_dev_detach(msm_host->pdev);
+> > > +     msm_host->dsc = NULL;
+> >
+> > If you are fixing something, it should come as a separate commit.
 > 
-> [Severity: High]
-> Is it intentional to hold st->access_lock across system calls here? Returning
-> to user space with the mutex held violates lock ownership semantics and can
-> trigger lockdep splats. Furthermore, could this deadlock any subsequent sysfs
-> regmap accesses while the buffer is enabled?
-
-I'm not sure about this one. The intent is to prevent sysfs regmap access while
-the buffer is enabled. IIO direct/buffer mode locking should provide that, no?
-The rationale for the two mutexes is for access_lock to avoid concurrent updates
-to the external multiplexer and for sync_lock to protect read/modify/write
-sequences. Maybe IIO direct/buffer mode locking + sync_lock is enough?
-
+> The same case as above.
+> >
+> > >
+> > >       DBG("id=%d", msm_host->id);
+> > >
+> > > diff --git a/include/drm/display/drm_dsc.h b/include/drm/display/drm_dsc.h
+> > > index bbbe7438473d3..c522ab3d71853 100644
+> > > --- a/include/drm/display/drm_dsc.h
+> > > +++ b/include/drm/display/drm_dsc.h
+> > > @@ -267,6 +267,13 @@ struct drm_dsc_config {
+> > >        * Offset adjustment for second line in Native 4:2:0 mode
+> > >        */
+> > >       u16 second_line_offset_adj;
+> > > +
+> > > +     /**
+> > > +      * @dsc_slice_per_pkt:
+> > > +      * Number of DSC slices to be sent in a single packet. This is not
+> > > +      * part of DSC standard, and only used in some DSI panels so far.
+> > > +      */
+> > > +     unsigned int dsc_slice_per_pkt;
+> >
+> > If it's not a part of the standard, I think, it should not be a part of
+> > drm_dsc_config. In the end, drm_dsc_config is also being used by other
+> > parties, e.g. DP or HDMI. A year ago I saw a version of this patch,
+> > having this field in the struct mipi_dsi_device. I think it's a more
+> > correct place.
 > 
-> > +
-> > +	return ret;
-> > +}
-> [ ... ]
-> > @@ -588,15 +768,69 @@ static int ad4134_probe(struct spi_device *spi)
-> >  	if (ret)
-> >  		return ret;
-> >  
-> > +	ret = devm_mutex_init(dev, &st->access_lock);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ad4134_regmap_config.lock_arg = st;
-> >  	st->regmap = devm_regmap_init(dev, NULL, st, &ad4134_regmap_config);
-> 
-> [Severity: Medium]
-> Is it safe to modify the global ad4134_regmap_config structure during probe?
-> If multiple devices probe concurrently, could this cause a data race where one
-> device's lock_arg overwrites another's before devm_regmap_init() copies it?
-> 
-Not sure. Should it lock on a mutex before editing the regmap_config. Maybe
-I get rid of access_lock and make regmap_config const again.
+> I will move to struct mipi_dsi_device in next version.
 
+Thanks
 
-> [Severity: High]
-> In 4-wire mode, ad4134_min_io_mode_setup() is bypassed. Since st->odr_gpio is
-> only retrieved inside ad4134_min_io_mode_setup(), won't it remain
-> uninitialized (NULL)? Will this cause all software triggers using
-> gpiod_set_value_cansleep(st->odr_gpio, ...) to silently fail in 4-wire mode?
+> >
+> > --
+> > With best wishes
+> > Dmitry
 
-Okay, that seems to be an issue. Will make the device request the GPIO if
-offload/PWM is not available.
-
-> 
-> > +		/*
-> > +		 * This controls a multiplexer OUTSIDE OF AD4134 SILICON.
-> > +		 * See AD4134 IIO documentation for details.
-> > +		 */
-> > +		st->mux_st[AD4134_SDO_INPUT] = devm_mux_state_get(dev, "reg_access");
-> > +		if (IS_ERR(st->mux_st[AD4134_SDO_INPUT]))
-> > +			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_SDO_INPUT]),
-> > +					     "failed to get reg_access mux-state\n");
-> > +
-> > +		st->mux_st[AD4134_DOUT0_INPUT] = devm_mux_state_get(dev, "data_read");
-> > +		if (IS_ERR(st->mux_st[AD4134_DOUT0_INPUT]))
-> > +			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_DOUT0_INPUT]),
-> > +					     "failed to get data_read mux-state\n");
-> > +
-> > +		indio_dev->setup_ops = &ad4134_buffer_setup_ops;
-> > +	}
-> 
-> [Severity: High]
-> Since setup_ops is only assigned for 4-wire mode, won't NO_CS mode bypass
-> ad4134_buffer_postenable() entirely?  If so, doesn't that mean
-> ad4134_trigger_handler() uses st->rx_buf without holding st->access_lock,
-> creating a data race with concurrent sysfs regmap accesses?
-> 
-NO_CS/minimum I/O mode doesn't need to constantly switch the external
-multiplexer and can leave that in reg_access state. Also, since minimum I/O
-always operate in SPI mode 0, nothing that access_lock protects is really used.
+-- 
+With best wishes
+Dmitry
