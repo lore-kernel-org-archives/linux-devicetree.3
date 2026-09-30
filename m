@@ -1,120 +1,104 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DAC51FCC4;
-	Wed, 30 Sep 2026 17:26:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9977551C328;
+	Wed, 30 Sep 2026 17:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789183; cv=none; b=sjVdNEg/QTPXhvtjWy6zCsbj0A6lmpVuj0N1hWhQcIF30QjVAJtk48UlRlHqeU6t5AJeNNaJ5h8OjKZk5hC+Vh09yNOjYpRWoUn0VdAxCUDuVgKibDcPnWl+kLvecQ01pyqxZmmtvwWq8Ank9lcpjcO9uew9obEAMZvhqZt5jtg=
+	t=1790789278; cv=none; b=iJRvG9MyQtqSUb4Ja1T8Bygi43qCIq8Em83EQ2bAYIekIy5gaxTWjiA6pWN83yfIYzBDNig3n761dFLiSkdsqd9XKmblYBgwXqwDk/1cHKmCgXlW3ssdswZowFlNwEDbIT3eD9Z2FlSfz4rLa44uR/LCT6Xd4EZszRB5VOnnPyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789183; c=relaxed/simple;
-	bh=kM6JA5RsuihcZxAUFE4mCjzjy4ZvkYVwr9L940JZlhg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=u+R1arhrk7tut8zHfp3VFHqaM9LFpyX5TtYEoosIlKNsXf/8Oh4Q6eF8rchcNKiELPXhLMc7oCG2++w7P1jsTyKJXCtuh3KiMf7Jore+jYZV+9QcgrLs6qmcXco8oGijBNC/PCBOWYG/0EJz1oxqXFK1X6YqohedEAYhARiPn7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=r2UhsyxA; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=eUoAO5df; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790789278; c=relaxed/simple;
+	bh=1YHG2rE9ss1U1QReWOicrFSdQV3cGvCpHHxTMkL5/T8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UjTtJ08tlOmfPeEeLGn0xRcMH7qFxdNAAnBqhF2KLWBhAhLvH10MxRL55A0K/IJtTDISKOm0dUNL1WqvhZ0zBGNWzPi+N/HaqYdY6sG1lTULxTkJxaLVI9MiCudZsJrhuVWEZHswSK0pdyC2Vr8Zi2OWL1q9dWaejc3rnCKQFsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=ZyV8N3vx; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="r2UhsyxA";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="eUoAO5df"
-Message-ID: <affd433db23905f57d48c25ad88707ba62c925a0.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790789179;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cZPYnuHiuNlq0agEleU5Vw3QXOfTKWBzAxaseohITEo=;
-	b=r2UhsyxAZMOPEViQ3ahoY8GpSwZQ/5/yoyoq2Qi6X6DV421ocdBYJi9bAImBVyRKEnkAG2
-	TsJmgeHT3l7trOnEOC7yaUrKi04DYsHoSo6kr4l4dqMGppEin0w3Qir1nr9384N3ODOfYA
-	cUI+ROvsXVdg9jDInM8KCZ769X7hRTM/Mm50oB9zoGN46CXfdXuh1PDpJXvAhbnaol2p6M
-	+F5Zqqop+riUD7uh8z2+xdfOnSO9DlI5VuNXu2bfjl3tHPhtrTQxI2epyDwlRn6D0fP0a1
-	JkhmrrRikU7hY0ViH+ptsG1Q+ItFxvU9pX7W3JVx0VZocORWX+PGyuCbFDN0/Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790789179;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cZPYnuHiuNlq0agEleU5Vw3QXOfTKWBzAxaseohITEo=;
-	b=eUoAO5dfE+Zrfu6jxLoQco+gdDx8TLZQQLimRc0c11Hd0K0gb/qla/fyHOEXGYwRQkvP4l
-	N/izlOFVCU/0IECg==
-Subject: Re: [PATCH net-next v3 6/8] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="ZyV8N3vx"
+Received: from L20747.iliad.fr (unknown [213.36.7.12])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 533EA780368;
+	Wed, 30 Sep 2026 19:27:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1790789273;
+	bh=1YHG2rE9ss1U1QReWOicrFSdQV3cGvCpHHxTMkL5/T8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZyV8N3vxVwMl6IwLk6s0ocI/xC1/O7RUgZ/DUrXsHz/V6hAIOAIsP9+bWhCHqfUsk
+	 gDGfTWAs6psQ6AYtMEEJnDLwc5uBat3lbqfQOAJcb/9DfXsSzw3b7UJON1wYQcHc8+
+	 6a/UhCVUa0VnKvWz537bhiqhCDSZ2yZdnorJ5zgiW5S/2eM+lL36tHUIfsW/r8LJmW
+	 7HX0p2lUYdpT8Q0RXe6G/rJJJK2cVOirwMVFuG8ebuQtLrX64Pd2HJkyzqm5jrHj61
+	 sgOYqhqLIiSVG7PnB5t10uc5Md+r9btoOVme68qTN3qjUcOdf2jBsqr1IHfWCmuLAq
+	 ycZkbJ7mQXAYg==
+Date: Wed, 30 Sep 2026 19:27:43 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: Guenter Roeck <linux@roeck-us.net>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Wed, 30 Sep 2026 19:26:18 +0200
-In-Reply-To: <6c75787b-f06c-4d85-8fc4-5bd7b2a30716@lunn.ch>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
-	 <6c75787b-f06c-4d85-8fc4-5bd7b2a30716@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	Conor Dooley <conor+dt@kernel.org>,
+	Charles Hsu <ythsu0511@gmail.com>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: hwmon: pmbus: mps,mpq8785: add
+ #thermal-sensor-cells
+Message-ID: <ar1Gj2XVOCEjUY0l@L20747.iliad.fr>
+References: <20260930-for-upstream-dt-mpq8785-thermal-sensor-cells-v1-1-6573c765eef8@free.fr>
+ <20260930140721.E066D1F0089D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930140721.E066D1F0089D@smtp.kernel.org>
 
-On Sat, 2026-09-26 at 01:17 +0200, Andrew Lunn wrote:
-> > +static void soce_sw_read_core_version(struct soce_dsa_local *local,
-> > +				      u8 *version, u8 *subversion,
-> > +				      u16 *revision)
-> > +{
-> > +	u32 regval;
-> > +
-> > +	regval =3D readl(local->base_addr + SOCE_CORE_VERSION_OFFSET);
-> > +	*version =3D (u8)(regval >> SOCE_CORE_VERSION_VERSION_SHIFT);
-> > +	*subversion =3D (u8)(regval >> SOCE_CORE_VERSION_SUBVERSION_SHIFT);
-> > +	*revision =3D (u16)regval;
->=20
-> FIELD_GET() would make this more readable.=20
+Hi Guenter,
 
-Yes, I will fix it.
+On Wed, Sep 30, 2026 at 02:07:21PM +0000, sashiko-bot@kernel.org wrote:
+> [Severity: Medium]
+> Is it correct to set the cell count constraint to 1 for this hardware?
+>
+> The Devicetree specification generally mandates that single-sensor devices
+> use a cell count of 0, as no index is needed to identify the sensor. By
+> forcing this to 1, it appears we might be baking a Linux-specific driver
+> quirk (the PMBus core's internal 1-based index) into the OS-agnostic
+> hardware description ABI.
 
-> > +static int soce_sw_detect_features(struct soce_dsa_local *local,
-> > +				   u32 *numports)
-> > +{
-> > +	void __iomem *base =3D local->base_addr;
-> > +	u32 implemented_numports;
-> > +	u32 licensed_numports;
-> > +	u32 regval;
-> > +
-> > +	regval =3D readl(base + SOCE_LIC_FEATURES_OFFSET);
-> > +	licensed_numports =3D FIELD_GET(SOCE_LIC_FEATURES_NUM_PORTS_MASK, reg=
-val);
-> > +	if (!licensed_numports || licensed_numports > SOCE_MAX_NUM_PORTS)
-> > +		return -EINVAL;
-> > +
-> > +	regval =3D readl(base + SOCE_IMPL_FEATURES0_OFFSET);
-> > +	if (!(regval & SOCE_IMPL_FEATURES0_DSA))
-> > +		return -ENODEV;
-> > +
-> > +	implemented_numports =3D
-> > +		FIELD_GET(SOCE_IMPL_FEATURES0_NUM_PORTS_MASK, regval);
-> > +	if (implemented_numports < SOCE_MIN_NUM_PORTS ||
-> > +	    implemented_numports > licensed_numports)
-> > +		return -EINVAL;
->=20
-> Maybe add dev_err() here for all these error cases. It will help
-> somebody debug why there switch fails to probe.
+M. Bot has a point, and it is a PMBus core question, so I would like
+your view before a v2 of this binding.
 
-Sure, I will add them.
+Since the commit
+  3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE")
+pmbus_core registers each temperature input using its hwmon index as the
+sensor id, so temp1 is sensor 1.
 
->=20
-> 	 Andrew
+The hwmon core counts from 0 instead:
+for example temp1 is sensor 0 for jc42, tmp401, lm90 or adt7470.
 
-Thanks,
-Vasilij
+With the 1 based id, a single-sensor PMBus device cannot use
+#thermal-sensor-cells = <0>: thermal_of matches a phandle without
+cells as id 0, and no PMBus sensor has id 0. That is why this patch
+uses const 1.
+
+No current DTS references a PMBus device from a thermal zone, and no
+PMBus binding allows #thermal-sensor-cells yet.
+
+Aligning PMBus on the hwmon core would mean:
+
+drivers/hwmon/pmbus/pmbus_core.c
+static struct pmbus_sensor *pmbus_add_sensor(struct pmbus_data *data,
+  ...
+ 	if (class == PSC_TEMPERATURE && strcmp(type, "input") == 0)
+-		pmbus_thermal_add_sensor(data, sensor, seq);
++		pmbus_thermal_add_sensor(data, sensor, seq - 1);
+
+ 	return sensor;
+ }
+
+
+If you agree, I will send it, with a v2 of this binding using
+const: 0, since each device of mps,mpq8785.yaml has a
+single temperature input. Otherwise, we should keep const 1.
+
+Best regards,
+  Vincent
