@@ -1,203 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436043148CF
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790753461; cv=none; b=VjIy9TWpktUxmmJ1ZGHgaHTIZyuPvNIeBn2sCUCYG3nOUdT9A9/xSTjvu2UaBSuLK71VrCuMMNgXSOlSGvl1PS62/5QL6bGBeXgiyflLgH4cHAUtQUlHcQrZBIbe+t12a8pgqnabGOwolrDMu15wwWY+eiPICeq6cr0R2TQsLP8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790753461; c=relaxed/simple;
-	bh=eYdHJeanoytOvHxOiexMx85+NrozDctGZegzcIuMN5s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tEjHuGIduLf7q2dg6AGG8F6cj/p3pjf1F6/fBF5z+Z4N6la3FvOB7he+8jR6HFn7YTlMm6w5iSjN0OmhBtakIRaxNYzuYBuPXGc52StXecNHPnnTp5llpIICw4/tx0yPJhMsf5Sz653LNvMh8MIPz63NZNB4DpplgYpjVxTIhr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VGT5vV8c; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB5E1BD00C
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:35:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790753703; cv=pass; b=cMFeZh7Iqm1nkTP8dFFJM+3zc4sA+I4rJgDxFnN5mknNRswCisMPnu3ka7BksJ9bKC8OTXcCKnqhRP7b8jOpIkSPURN35CKKo6wSFpQ3fAPeY2snro/garbLpEKfjaaDLZ0exc3FdYwg1mzqt3Olbwxbt5H+33qKAAXdBVDOOtc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790753703; c=relaxed/simple;
+	bh=dxycI7gyGZDLAZBpb9cvJBzlyunbEEN3dk8hL+6bedc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JCjAb4lGeHst4uQDD9sKqVK54RlFb/0L8+HbEeuK85WwjhQ2M9CLb6z1UjqcUw0j7/a089jvCyutvCJdTT6lnOFdP+6IZyhm3llR8GsOhV393zoSW2sdOUq4qqSGiEsQe4WxlCz+oZUVyFmmo/sZChiKIk1iJ3FV6So4DA+6gYA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QOfFfqJE; arc=pass smtp.client-ip=74.125.224.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VGT5vV8c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8373D1F000FF;
-	Wed, 30 Sep 2026 07:30:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790753460;
-	bh=X4MFlg9iQNr1WSjE1OVvLSYFm1fkVX5AH3CfVM/UAqk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VGT5vV8cjjlSBMAYRLHsxdNPmyubH31LxdWPEXg36I3iCjXOR2MOyG4oPgH/bCRxW
-	 m0JVPgqBnWW1Ae0U7ElEeTW5J0++GclTkHeE0w2k6Kf2TT2aLpanyAjCI5DCdq6AqR
-	 QhxcjJCBRdURTmGGhMzfnUs2iTtHSSc0DHzshEkIR0C+7sM6yufyS8bXwiMA6+iTMF
-	 YRP1fML6YmXl32O4qQ0WUPO5jIEBS3bIbAYgKEGAD931IdxvqMiHx3uF6gTkwuQLJI
-	 JeucUwx/04Lka6S19NnvQdWqJarQ9XGmg5U+aer+TXlj3uBW8MSKpAghWhCBuiFXpv
-	 AlF9K6dARiF7g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 3/3] phy: airoha: Add support for Airoha AN7581 USB
- PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <20260930071826.48811-4-ansuelsmth@gmail.com>
-References: <20260930071826.48811-1-ansuelsmth@gmail.com>
- <20260930071826.48811-4-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 07:30:59 +0000
-Message-Id: <20260930073059.8373D1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QOfFfqJE"
+Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-6737f0593faso4204659d50.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 00:35:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790753700; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Meug4P77oYj40DxhGVRAy6I8wwXrqnCRseTPcg5uO8/9uOL6LgXAc1xg+yqFKLqBrC
+         3Y3i3eeJ9NFg2Ptm4Q7IC/OTcMr/THvf3zbcqASVJnzZyXTfC9k7r9hUHRPBun1I37mF
+         kglAfX2oDZzzk1S33vhH4trBnNHxyD2Vc+s3lurSKfo4HTZG+VymaY1AEVFAAYWLMNh7
+         9PoV32GUeBv5aDx/Scmv3XMFT8bSwYF0GccOJ08hYtJ1IoBzXmj/xi/RpVwOtVR3av3Q
+         xLJdIOu/3SlVJYi2J/5WVOxNf7YN/0/gWLUQ2oL46cjAI2gudR+l1i50btMYZ41tbIfn
+         BtfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=alnGC7QYwJbPFNUM3QnHg0RAFZjihcm08X+U2/8RiW4=;
+        fh=R+ncv4wHfqXyYTCQ4p0qb2cndDrIao80CN+zGEZzAAg=;
+        b=lENh/y59KoHOC1sFYRGKygYlBlKvt6FqkAOVhhOx3ayAd0/YMYRFHHXxy4PUneZajz
+         K/EyCKVAuA810TLtS2rapSAVU/BQt7NSjzdSm6RLVV32sPoRfg+1TKGadIyL0IdJwjQB
+         RN0nRL8avdeqwUIuUcUO2f9x7gJ5BkDbxf0sP2jswOjwVI1iF1Now8mVgP8I38YBOutZ
+         2KLOOj0nERK4mXvDRqOEqWLki3ioVmTI1ifjekgH7SWrVGmAcSXwn0U3TqFR3/ucQCV8
+         wqeYMRJ34xoBB/z5xozVVL7eGTdt/Q0179HUQjXlsjqaXEGwQbU/AbbPod4DFy36/J6z
+         riwA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790753700; x=1791358500; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=alnGC7QYwJbPFNUM3QnHg0RAFZjihcm08X+U2/8RiW4=;
+        b=QOfFfqJE44gEacuFIuNWStyD5onsRGHGxwx7qtjYYMax58VZC/aVsh5UICjzAjvfdu
+         lWgZfKq3KWTAJ9ucQIxTl/EaHBogKcJgutjZBhcDFJ47tFZIiChAyGMyQNyo0CdkMIDb
+         7wZjU4kNvPBAl0gHT5dR5XRHjzgBT3I5jgvCm37YsS+PKP8+kSsUNQWEjJYaID3NYZZ0
+         Y5fpf7gJ2leVJru70rl+Jluq2EYxM9VXPuOorAI1oW/ZiVndCVQNu41yHTQkoXFx5Dzx
+         9S7x56btwXHdshBTATDzBJ2n6S1K+1wDc2O7lj43H/N6AFgYKMlGyP3DqLTfMnsvr7zd
+         NUrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790753700; x=1791358500;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=alnGC7QYwJbPFNUM3QnHg0RAFZjihcm08X+U2/8RiW4=;
+        b=MWje5hp3B7n7n+re7vulrn7LgSf8vPMO3V234Ah8f4UpIGZ+o8ZU24rsv3MCW95VK1
+         vIGmnJe71R/8run1ySMd9u4p5izGSTDupmc6muFICAGB0qbIk5Z7awRW8Pt56HVbB3Bw
+         T6+wJ+joNc9PNHOZ4gv1sB3vdoeR1bPraNAcHLnN4gf9R1jVh5TvfHV5tKYT7gjQkDKK
+         w/5T8OPTm8f2AOsIXov1HWtr1n8oo2qxxMJb2PhtsH+bZLg26UT1FmK3cPmay5HhQK0x
+         ETsJqM/JWKrHidra7zDwGa/UAsv3GTdDlWTjCxX7A3aud9jeaL8HRRVW15hPcaW5wPnp
+         9kuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxEQYMD6zmzMC//+JeZZd14u5TmjFeiIz40Ka4e4r/O9NCBrKNKao9fTeNHQTyJnxssaXg/BvJk6uvx@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIgrlQBvd19TIVHiSu8c/HBCaCmWFtdHBea/OVMJ1Bzm210mVE
+	V8g7RqFTqGyHeLi2rerEjQa6GWH2ICYofhmpyQ00uDI4MqvezVgyyK3nXP13IDLbWJzf6ZWxjHX
+	SOlsymGfZ0pyfTvofwohOCzYC6e+Dt8E=
+X-Gm-Gg: AYBFou2xINuy6LqY6j5zBnC6HER4LoQtA+0Tf1WPSLK8j46LwLtd7h4g5p/CMVcyBab
+	6LswP5yb2t//9jZCl7c+wbrEm2/PDTTgsmn21SavUafi9tnqOwTnJjSmPz5JmhqDL4nqin6Iizj
+	4WRxHbee5xifusoAAseLn5OpfHsq6SNclpY5dABRFEoqsiq0ggPLjLat8tCyWyQNmA2dSxqvG6f
+	hhbRLi832CyJetHmfpBzcqntN0S9V6fqQZ5RMhLFb2gMxHGXTU9jBq3cnsb2WuWqtGafhAEErkS
+	UO5G+p0Ah3hGhvWNEARie7wZR3TZ+jBRQFa0ZUecPjN8uT+uoggO4HI=
+X-Received: by 2002:a05:690e:400c:b0:675:7032:8062 with SMTP id
+ 956f58d0204a3-67683474481mr300251d50.44.1790753700150; Wed, 30 Sep 2026
+ 00:35:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260929120227.1791356-1-jberring@redhat.com>
+In-Reply-To: <20260929120227.1791356-1-jberring@redhat.com>
+From: Iker Pedrosa <ikerpedrosam@gmail.com>
+Date: Wed, 30 Sep 2026 09:34:48 +0200
+X-Gm-Features: AclHuK_3trlIGgLtvQDHQQi_YWTxQaLNnpU_H3rtwKQgUONqn5KgGLq9lRZ6SJ0
+Message-ID: <CABdCQ=PvdfX+ZwF1VbQR+LSh0ZwhP4T8zSb-8+Wh4Y=L67LjUA@mail.gmail.com>
+Subject: Re: [PATCH v2] riscv: dts: spacemit: set console baud rate on
+ OrangePi RV2
+To: Jennifer Berringer <jberring@redhat.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Hendrik Hamerlinck <hendrik.hamerlinck@hammernet.be>, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Vincent Legoll <legoll@online.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] phy: airoha: Missing phy_init() and phy_power_on() for serdes_phy
-- [Medium] phy: airoha: regmap_set_bits() fails to clear multi-bit field
-- [Low] phy: airoha: Silent truncation of dynamic srctrl calibration value
---
+Reviewed-by: Iker Pedrosa <ikerpedrosam@gmail.com>
 
-commit 4a0c27f02fe4864e660c9a34276ee9067ec33998
-Author: Christian Marangi <ansuelsmth@gmail.com>
-
-phy: airoha: Add support for Airoha AN7581 USB PHY
-
-Add support for Airoha AN7581 USB PHY driver. AN7581 supports up to 2
-USB port with USB 2.0 mode always supported and USB 3.0 mode available
-only if the Serdes port is correctly configured for USB 3.0.
-
-> diff --git a/drivers/phy/airoha/phy-an7581-usb.c b/drivers/phy/airoha/phy=
--an7581-usb.c
-> new file mode 100644
-> index 0000000000000..92c5e5c2fbf3b
-> --- /dev/null
-> +++ b/drivers/phy/airoha/phy-an7581-usb.c
-
-[ ... ]
-
-> +static void an7581_usb_phy_u2_slew_rate_calibration(struct an7581_usb_ph=
-y_priv *priv)
-> +{
-> +	u32 fm_out =3D 0;
-> +	u32 srctrl;
-
-[ ... ]
-
-> +	/* Frequency was not detected, use default SR calibration value */
-> +	if (!fm_out) {
-> +		srctrl =3D AIROHA_USB_PHY_DEFAULT_SR_CALIBRATION;
-> +		dev_err(priv->dev, "Frequency not detected, using default SR calibrati=
-on.\n");
-> +	} else {
-> +		/* (1024 / FM_OUT) * REF_CK * U2_SR_COEF (round to the nearest digits)=
- */
-> +		srctrl =3D AIROHA_USB_PHY_REF_CK * AIROHA_USB_PHY_U2_SR_COEF;
-> +		srctrl =3D (srctrl * AIROHA_USB_PHY_U2_FM_DET_CYCLE_CNT) / fm_out;
-> +		srctrl =3D DIV_ROUND_CLOSEST(srctrl, AIROHA_USB_PHY_U2_SR_COEF_DIVISOR=
-);
-> +		dev_dbg(priv->dev, "SR calibration applied: %x\n", srctrl);
-> +	}
-> +
-> +	regmap_update_bits(priv->regmap, AIROHA_USB_PHY_USBPHYACR5,
-> +			   AIROHA_USB_PHY_USB20_HSTX_SRCTRL,
-> +			   FIELD_PREP(AIROHA_USB_PHY_USB20_HSTX_SRCTRL, srctrl));
-
-[Severity: Low]
-Does this dynamically calculated srctrl value need bounds checking?
-
-If a glitchy or slow clock results in a small non-zero fm_out, srctrl
-might exceed the 3-bit maximum (7) defined by
-AIROHA_USB_PHY_USB20_HSTX_SRCTRL. Since it is passed to FIELD_PREP()
-without clamping, the upper bits will be silently truncated, applying
-a potentially incorrect slew rate calibration rather than a safe default.
-
-[ ... ]
-
-> +static void an7581_usb_phy_u3_init(struct an7581_usb_phy_priv *priv)
-> +{
-> +	regmap_update_bits(priv->regmap, AIROHA_USB_PHY_U3_PHYA_REG8,
-> +			   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY,
-> +			   AIROHA_USB_PHY_SSUSB_CDR_RST_DLY_32);
-> +
-> +	regmap_update_bits(priv->regmap, AIROHA_USB_PHY_U3_PHYA_REG6,
-> +			   AIROHA_USB_PHY_SSUSB_CDR_RESERVE,
-> +			   FIELD_PREP(AIROHA_USB_PHY_SSUSB_CDR_RESERVE, 0xe));
-> +
-> +	regmap_update_bits(priv->regmap, AIROHA_USB_PHY_U3_PHYA_REG0,
-> +			   AIROHA_USB_PHY_SSUSB_BG_DIV,
-> +			   AIROHA_USB_PHY_SSUSB_BG_DIV_4);
-> +
-> +	regmap_set_bits(priv->regmap, AIROHA_USB_PHY_U3_PHYA_REG1,
-> +			FIELD_PREP(AIROHA_USB_PHY_SSUSB_XTAL_TOP_RESERVE, 0x600));
-
-[Severity: Medium]
-Should this be using regmap_update_bits() instead of regmap_set_bits()?
-
-AIROHA_USB_PHY_SSUSB_XTAL_TOP_RESERVE is a 16-bit mask (GENMASK(25, 10)).
-Using regmap_set_bits() with FIELD_PREP() performs a simple bitwise OR.
-This will set the bits corresponding to 1s in 0x600, but it will fail to
-clear any other bits across the rest of the 16-bit mask if they happen
-to be set by default. This could leave stale bits in the register.
-
-> +
-> +	regmap_update_bits(priv->regmap, AIROHA_USB_PHY_U3_PHYA_DA_REG19,
-> +			   AIROHA_USB_PHY_SSUSB_PLL_SSC_DELTA1_U3,
-> +			   FIELD_PREP(AIROHA_USB_PHY_SSUSB_PLL_SSC_DELTA1_U3, 0x43));
-> +}
-> +
-> +static int an7581_usb_phy_init(struct phy *phy)
-> +{
-> +	struct an7581_usb_phy_instance *instance =3D phy_get_drvdata(phy);
-> +	struct an7581_usb_phy_priv *priv =3D dev_get_drvdata(phy->dev.parent);
-> +	int ret;
-> +
-> +	switch (instance->type) {
-> +	case PHY_TYPE_USB2:
-> +		an7581_usb_phy_u2_init(priv);
-> +		break;
-> +	case PHY_TYPE_USB3:
-> +		ret =3D phy_set_mode(priv->serdes_phy, PHY_MODE_USB_DEVICE_SS);
-> +		if (ret)
-> +			return ret;
-> +
-> +		an7581_usb_phy_u3_init(priv);
-
-[Severity: High]
-Is a call to phy_init(priv->serdes_phy) missing here?
-
-The serdes_phy mode is set, but the mandatory phy_init() lifecycle call
-is omitted. The downstream controller (e.g., xHCI or DWC3) requests this
-wrapper PHY and invokes phy_init(). The wrapper receives this call via
-an7581_usb_phy_init() but completely fails to propagate it to its consumed
-priv->serdes_phy, leaving the hardware unconfigured and breaking USB 3.0
-functionality.
-
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int an7581_usb_phy_power_on(struct phy *phy)
-> +{
-> +	struct an7581_usb_phy_instance *instance =3D phy_get_drvdata(phy);
-> +	struct an7581_usb_phy_priv *priv =3D dev_get_drvdata(phy->dev.parent);
-> +
-> +	switch (instance->type) {
-> +	case PHY_TYPE_USB2:
-> +		an7581_usb_phy_u2_power_on(priv);
-> +		break;
-> +	case PHY_TYPE_USB3:
-> +		an7581_usb_phy_u3_power_on(priv);
-> +		break;
-
-[Severity: High]
-Does this function also need to call phy_power_on(priv->serdes_phy)?
-
-The local USB3 registers are powered on via an7581_usb_phy_u3_power_on(),
-but the driver fails to propagate the power_on call to the underlying
-priv->serdes_phy. The PHY subsystem API strictly requires a consumer of a
-PHY to call phy_init() and phy_power_on() before the PHY can be functional.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930071826.4881=
-1-1-ansuelsmth@gmail.com?part=3D3
+El mar, 29 sept 2026 a las 14:10, Jennifer Berringer
+(<jberring@redhat.com>) escribi=C3=B3:
+>
+> Set the baud rate to 115200, matching what is used by U-Boot on this
+> platform so that the console is usable even when console options are not
+> specified in cmdline.
+>
+> Fixes: bab8dea259100 ("riscv: dts: spacemit: Add OrangePi RV2 board devic=
+e tree")
+> Tested-by: Vincent Legoll <legoll@online.fr>
+> Reviewed-by: Yixun Lan <dlan@kernel.org>
+> Signed-off-by: Jennifer Berringer <jberring@redhat.com>
+> ---
+> Changes in v2:
+> - Collect tags
+> - Rebase onto spacemit/dt-for-next
+>
+> Link to v1: https://lore.kernel.org/spacemit/20260520111150.3300707-1-jbe=
+rring@redhat.com/
+> ---
+>  arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/risc=
+v/boot/dts/spacemit/k1-orangepi-rv2.dts
+> index 0cf60d1985604..d8b2cace4e7a3 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+> @@ -25,7 +25,7 @@ aliases {
+>         };
+>
+>         chosen {
+> -               stdout-path =3D "serial0";
+> +               stdout-path =3D "serial0:115200n8";
+>         };
+>
+>         leds {
+>
+> base-commit: 4947ee60bf48caddf5caefc08dbbc84d09fbbc6b
+> --
+> 2.55.0
+>
+>
