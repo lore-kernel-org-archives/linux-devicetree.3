@@ -1,54 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5EE3F23D0
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:58:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB883FD946
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:59:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762300; cv=none; b=qI/A6pWlpJKr3oN3X9+tjEp/0ivatMc7CN7YSHFMeBzp+Di/fd4Ne3uyAWucRxVrfpx6cv2uNq7q0tngaw46DeLwQObhBjLHpdUSRw1cMmWe0zPluVefnSULC7uOeNzoKsxCcPjqT6b3qappdSe/KZs/CqsVHmUzmgEeCk+v9LI=
+	t=1790762372; cv=none; b=ofv/iwuXzNXK6uh7tjFudyMD9bXMa03r85DWc0Q+34HBNmsImxYSuaa4x4+LumbacPthyDzbkof+AnVqbHliPzZeQGcDHOQ7hmIA7T6vVsMEAkFX9OGyW2tNjojpQ6YF6e5jEjEYZZN5sE/DQF5ksfnAbZN/A270RQmopkp4rjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762300; c=relaxed/simple;
-	bh=0Sl3VeOxmIWc0/FHhtBrqHO4LTDod/shA0uGQ9sZEHg=;
+	s=arc-20240116; t=1790762372; c=relaxed/simple;
+	bh=oCb8pD0GTaCJdPRTDUHDOrP9QLPA+6gtpfNrrUBXRJg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IQwPVWq0tlBdDrMLfe9xABSW6HiRJiTUum/p32HaVMvxYetl+1YuscI91hYH5MCjc47e4bbBLMgFjmqUMLYNb+hIgwdI+7cXEtKNkW4fUXe0pw+btxQ5Cxa17SRe5pv2ol33jaP0q59sbklyTP8o1TjEtzgJHDYSdz5BLLG0r40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUbFv6BY; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=PvTOgwiyh5VgCMs1VWXBn6GpSRw0K1E+akad9hmvlf8V7xQD4OIVPqlh4tqWZT3muWfKGb2e/A/CRXD7XdyWAQIzVts519++MkvQ10c3DYlKH4E3Ku549jn1a0Ed1gpz256JuKK3IqnN2Wh5JWLhnYw+JX1qjlCBjmS7ek/H2BU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6tr1a0g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUbFv6BY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C4A21F0089D
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:58:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6tr1a0g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060711F008A5
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:59:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790762297;
-	bh=0Sl3VeOxmIWc0/FHhtBrqHO4LTDod/shA0uGQ9sZEHg=;
+	s=k20260515; t=1790762369;
+	bh=oCb8pD0GTaCJdPRTDUHDOrP9QLPA+6gtpfNrrUBXRJg=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TUbFv6BYy0BYMPu/2dRG2IrRhyfl3Nmw8iP7m1nV10kOAaPSktEYYPGygLJw5W1XP
-	 OgGNPbzjXf9WccmE7X/e65tRYtaozqybLJQqi92F2G7aULuMwSaggsqoF6VzknLN3v
-	 j/119SKQJkNVyoYXyVi+ZU8t+oSCh0sgipwkVqLv7gmECa/zwIBUzBnRuwSmZUlhSS
-	 2hOWz51MljSyTsLRkEULmI7TSwJgpOYDyzQVYzd/6AYyqBSjLDzMP8sLNgvwwtPOq/
-	 uhKNcavvziezdqSJlcJVlJzw+wUyZfpQ1fDKNtQd3pgr2+ysvKE1r8rErIkAOsM4bp
-	 SZ+wjeZHW+fcA==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3add810eso796414e87.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 02:58:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzKahroxksyV4UH/CL2h9550wqXnOm/wTe112juWzBioQUCCCPhYLNoHCnetO3oDD6mLktInB64duIP@vger.kernel.org
-X-Gm-Message-State: AFq9FYJv75V023QZk/+AXY7BNg2Q23GTYWZ/GjXZvk9NH7wE27y3UOZK
-	NyN2plruZ7yokRVz5rjHuntzs0GI6iPia0FwUnsl57BCKQoKFTAfS52Wp6vTuwDcvpa6VXh3ByC
-	YSIPlvaWsoH88i2hl+SuYkP0JDCVnPz8=
-X-Received: by 2002:a05:6512:124c:b0:5b8:f4d4:8004 with SMTP id
- 2adb3069b0e04-5ba403e9adcmr391243e87.15.1790762296323; Wed, 30 Sep 2026
- 02:58:16 -0700 (PDT)
+	b=O6tr1a0gBYWZkpeMvgU5003ZZF2hvp01nK6gayO050AgawGtnlJGzmkb+56s/NCDO
+	 A1bjob4XwhA9eznQjvunlM+/jZk2lde2N/4Uzk0m6ooQD4j7CL+4fG7QBili8lcK/I
+	 g9dAp1oD6gO/JZgvytw4/P44yevzxJo2717wD/1GbpqLcavqFG3Fxd9sLwbRYvPcwd
+	 E5HsytA1J/TQ5IPCt96V5op4r9CIDr4/+s8nC2w4XvK7Wssbu6AkiAaD+KclGM/H09
+	 +DxOsRI6fxmENhCqiUH/jPrzfwdBKyR5YY5vis5bZgJdPgRjm/ZwF7wbGXbJv2nww9
+	 KxlAUulZmJnJQ==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b76668f4ddso1874061e87.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 02:59:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwRNKt+c5uaC5ZRwnCmyX4LNHef3Y7mnU9dYpvFYOqLxwvcHUYLB6yZC+avkeWD366R4zlYnfFdaqwH@vger.kernel.org
+X-Gm-Message-State: AFq9FYLm4ogRTbiJLpvR2WEik80LEk0bYmRQg2SaaqhxgOh5zdQ7DxD+
+	6+NI9KHs8Uh1Gmza8+U76pN5I9CsMOhnkXknCSx4BQgQs5I1V3i7BNdUYdeA3N0z1n85yhuyecC
+	F5TYfKTk4ZC05gj7jsRdqqDzxEjaQm+k=
+X-Received: by 2002:ac2:464d:0:b0:5b8:f573:35ea with SMTP id
+ 2adb3069b0e04-5ba4069be69mr221068e87.16.1790762367713; Wed, 30 Sep 2026
+ 02:59:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com> <20260930-b4-cs75xx-v1-1-4617c4463529@gmail.com>
-In-Reply-To: <20260930-b4-cs75xx-v1-1-4617c4463529@gmail.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com> <20260930-b4-cs75xx-v1-2-4617c4463529@gmail.com>
+In-Reply-To: <20260930-b4-cs75xx-v1-2-4617c4463529@gmail.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 30 Sep 2026 11:58:04 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnAY5xh-jrCboLBNh95sMD4jo3+eD3r4nmGgOt07uSJwQ@mail.gmail.com>
-X-Gm-Features: AclHuK-sK780whOzNFOmVs_mSNYseiLByWBvfxCT8N9Rk8B9pxQ3jl9L_xIBQyE
-Message-ID: <CAD++jLnAY5xh-jrCboLBNh95sMD4jo3+eD3r4nmGgOt07uSJwQ@mail.gmail.com>
-Subject: Re: [PATCH RFC 01/10] dt-bindings: vendor-prefixes: Add Securifi
+Date: Wed, 30 Sep 2026 11:59:14 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkubGK4wetxXQz8PPDU4aHdSC7e0RgZtwOjrAWzHxX=RA@mail.gmail.com>
+X-Gm-Features: AclHuK-m3HmD7lYV6qupQKjYpsgXbfMsgcuHzWJL7-TIFY8_vvfiqbhmnPD4sQM
+Message-ID: <CAD++jLkubGK4wetxXQz8PPDU4aHdSC7e0RgZtwOjrAWzHxX=RA@mail.gmail.com>
+Subject: Re: [PATCH RFC 02/10] dt-bindings: arm: Add Cortina Systems CS7542
+ and Securifi Almond+
 To: filipp.dunsky@gmail.com
 Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -65,8 +66,9 @@ On Wed, Sep 30, 2026 at 9:00=E2=80=AFAM Fil Dunsky via B4 Relay
 
 > From: Fil Dunsky <filipp.dunsky@gmail.com>
 >
-> Securifi Ltd. makes the Almond series of touchscreen Wi-Fi routers.
-> Add a vendor prefix for it.
+> Add the top-level binding for boards built around the Cortina Systems
+> CS7542 ("Goldengate G2") network processor, a dual Cortex-A9 SoC, and
+> the first such board, the Securifi Almond+ touchscreen router.
 >
 > Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 
