@@ -1,161 +1,252 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B034BEE20
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B8645FFAD
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790766310; cv=none; b=WPEORTczk8tQMkaiYRZh+WnaGmVm6O3dn5ByufHt2cqTYevTQlkVNtRjRDm/Jh7XZVLdVONmbjaPHVOh/Dyq2Wipw6SRw7+SLcT7wGuQhgXjiRJg3wkehvLQzw1k07OAK82dw+2CpCQr2Zb6so0BfNYeilDDD+JpHIEfJyRIknI=
+	t=1790766384; cv=none; b=prHr9qYVbebamEU1V2aF7EEB4g4cQdfz145EmSMuqb85Mo3pS7/oyuHfF5mB0x55eEMIYVeZq+CB9sUed7DWTq+K+q+tblbZ/eR4skXtP3BcRnEOh5ohCM4qENXR35RKYYCfzoBoM6HDn3Fy+pDr8Plkf1dy9Ql9O5gDZ6LV0+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790766310; c=relaxed/simple;
-	bh=PknkWi6bFhwMmqL8I8ZmnWoNz4EVuxRbnexTR4caDrY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bvL93MkRj5/SibzAXrQFFsFhOSipLMmS/EDsTdOi2J8BBQa6tgWrFhfaOo67num4JovqO8FltLAfl7tBeQO6RhWHPyAR3HJ2Zl1PgUcTRuNNUYP34W2GHQuYT5BFTDVgFAAoACP/VGAvo1mLJwz+Qv2foeTQRKjm6SxBRWWB8TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dHeFITAh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jkFMj+wP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790766384; c=relaxed/simple;
+	bh=q9hyk+ynF8vP+knmFin+Ok1Mxpbm98HaeasMbTQW1sc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HmoD5ZN0IcNT63tawOKS7gN9S9CUaqIPCs1Qu5eXFqTmNzYYiFjiU8ad3GA/X6H/mZ4Btdj4o7JVuBUbSQNmUnxjAz6Bxy2D6ooGELGX/E2e8sSFBELAWDYRmAIUK7bwHJhMIk8tQBlYfGlkO4ldPiFlF4xK0Rsi+rVM3JtCA6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dJgBu1FG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dHeFITAh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jkFMj+wP"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68U7dbGF2433153
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:04:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1Rm7CC2UUQcjwFVGUTfRmxXmlR+XeDBRnP1vcD2ZUKM=; b=dHeFITAhIHTObKce
-	Xg7F+2RFwKge0dwaq72OL/lufzBzlUlWrTMVlUydLRi8Lb9/nyMcoPkW/RU6LhLd
-	V4Gwl2v224CsOwTQxHejRXDbvzuPK/2mEw4C2Ni+/8RGBmsOP0TiHGzhEsGHWCot
-	E0VyxGJ7xw5hpptjCWezroEa+xZ1qgVDvS+iaXU0WFcvVKP3kur41KuJ614KVZvZ
-	XkjttkJOEPBSmgmKxuNsepYCZTIWN/DeWWCmGTLQfiHokMdzz3CeQsoSNwXr+3Cx
-	KNSaBjjwXmetibIFcg46XBe6OcmRMk4qwRs4HU1xRczYr+1NybwpeCRCr8PYV2pN
-	enSoyA==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0tkn1uhs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:04:57 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9179ef12a03so1284286d6.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 04:04:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790766296; x=1791371096; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1Rm7CC2UUQcjwFVGUTfRmxXmlR+XeDBRnP1vcD2ZUKM=;
-        b=jkFMj+wPAuClE0i+btfCk+hasVTs6cUnOsTZJdEvu29+T3K/Pbm1Q7LQwHaiDFfpPA
-         hXyPLcKtCwosKJQXuwrb1q4YNHBmj3SWmOLFiubrg2rK6i/ypaap0iPZJr2MXynjPewp
-         SG0V+J5dI0BxCPHaQ9htEVgaaCo7obHJm7GwGMnjR6Gp5c6MEI/TgVJGbMJd4yLFonhg
-         lEXIAzCxgA4+LW7JswqR/7xaLhEy/QJCHa24pPJWKqMx1uZT7ABt3V+3E/dJRjqHie3k
-         BbpNDNPVRkUEwIgtSueCOq5DGuBEA2pQytceD0VEJV7K26TiGY3Ea2+Yn5VGKGuoZE4+
-         eglg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790766296; x=1791371096;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1Rm7CC2UUQcjwFVGUTfRmxXmlR+XeDBRnP1vcD2ZUKM=;
-        b=PGN2L6QcmVORfyfDnl4R0mVjQk5JvGmrTO3f3Kj7HsD2txiQ8paTdU1ryfxHQuTKi9
-         HVdOLDsriZt9+fHXbp/Tb8WN1jWfspgQkWEwklKBgDMXuby3Df1Eeo+f5yJ7r4l7UILs
-         E/1T9UzFQi5R22bkvMECOVCmwkz6DG2M4b2fdSGZHWQRF4U4dG3Wb+eyRzsvwXvQ27ZZ
-         RA0EiPLU9RA1ST6mD7C3w56AxktprdAK3zi/I3zLTpEy2ucYglf1pk0k1XKMRti0HFpx
-         SkcVMifANqPysBq4/Yszwi1wcOEJJOcRs5UHJuhkmP6lcCIbyOlAy1WiO7nriWllt6HU
-         1dxw==
-X-Forwarded-Encrypted: i=1; AKwUvBx6NaLjPM0pYjg1wXPuLScCajMQMFv9lq1t+27fVu3C/jbZa6QpOrdUHg7uFZSUpRKVXbypLLOuO5lI@vger.kernel.org
-X-Gm-Message-State: AFuF++kVI7fN7qm04Q/UJx5dXe2BXP+Y+4q4yfYv+fiwz1kvHWKD0/ip
-	JYdwLFQiLEhc6SzVbn62ptaK8vO+eJ8OonR7/MEwbGDlRnwTzVo8sfvQQ5VHHoAQ0cDu+RJh6gv
-	iRgeG1n9ebF2Y+KQIwlbD/beP9W49wwXb/ShIruWz7aUbfka8ozUWpQJhuXbraWCu
-X-Gm-Gg: AYBFou1JcwCQKx6T4KNZnWWcrgcLgT3NgzFo/WukFv56AOxxTl0y5wtU9DjHEHi7toc
-	pJL9/IDaZbsAuEQeihdqZ5E5w+gf0WiPViIwtPzQuEaNqk+DaS7Q6xhsrVsLR5s/iTwFRtL0CtU
-	Yo8f85Wdm9zhts43wZYuTrcxKPnOcJKP0llhYID8FP/L+YjXwNer/ELfGUzeMBL4GKmyV/KlwgG
-	J+Ahzax/033YHbzaiyNYyYBdK3/3AhMMjRP7sA94Xg7TMP0pVdE4e8MhLOO2JsnEYpqLM9BVz2w
-	YHwNQhBkY5obdqWb8oPo8vBJLQfsDR7lbHVxkyiz+wu3SmIduaooNx8oRUby7sdxJNjRAdbToEH
-	HZVxZT0yFHt6MqDJNvP7aBA==
-X-Received: by 2002:a05:620a:700a:b0:939:9ef4:79eb with SMTP id af79cd13be357-93ca97d148cmr146823085a.6.1790766296329;
-        Wed, 30 Sep 2026 04:04:56 -0700 (PDT)
-X-Received: by 2002:a05:620a:700a:b0:939:9ef4:79eb with SMTP id af79cd13be357-93ca97d148cmr146815785a.6.1790766295693;
-        Wed, 30 Sep 2026 04:04:55 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae15395755sm604092a12.11.2026.09.30.04.04.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 04:04:54 -0700 (PDT)
-Message-ID: <87ec94fa-d692-42ef-bc80-9ca485312c88@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 13:04:51 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dJgBu1FG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C10771F000FF;
+	Wed, 30 Sep 2026 11:06:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790766371;
+	bh=VeN/xU/hTE/jpejP9onW/Wdxnegpy+uPmxWiOE91Enc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dJgBu1FG2ZrJlxmm0z0CXhAuWwLZvAat7HP5mHHhE4KOWvt3f22ShBzX7hmKfQZHk
+	 oATG67ZCchgVrR573nr469CJHmJ0r+DTzsf7/32v1EO1A6fqY7fNTpNdd30TI7zYvI
+	 ycYU1NTgvUEeHQQKSL3hGcd/M9Hh8kF+gZl81QTAa25lai+XRIKwvdAh7E8MjGk+X7
+	 jkC0BNFb55BNlI0Ty9/UC4N8HRMZL3beKoxOmc/LDjEzOTEU0xZD/kHWABTHZvMese
+	 5R+RacFpNtd8lcVDunSD+m4ilw9RvepZXbOZSHCmmiUxYbMzKLSTt5oJOJ24i5DBHH
+	 8aCbIG7TNc5qw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
+Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
+References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
+ <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 11:06:10 +0000
+Message-Id: <20260930110610.C10771F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 10/15] arm64: dts: qcom: hawi-mtp: Enable camera
- subsystem for Hawi MTP
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com>
- <20260923-hawi-maili-camss-v1-10-cbbb42e534ef@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260923-hawi-maili-camss-v1-10-cbbb42e534ef@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=CKy/zhrD c=1 sm=1 tr=0 ts=6abcecd9 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=APqY-0NjVA1trQotmb0A:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-ORIG-GUID: Qhav7sUtUnYakZvhXKcL8QRCUxfSE_VT
-X-Proofpoint-GUID: Qhav7sUtUnYakZvhXKcL8QRCUxfSE_VT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0MyBTYWx0ZWRfX7tzzOXCTK4Ql
- y/JTwzSkWLjk/ymQET7QYm7QOhSVVP2CJVtM5CDgd0X9Y7usjEfk+AZfe8uC1/DaJuqDvo638vX
- oShdfRyehxyDSHWCmyYEOxVo0YNpuXAxmC7Zr/Tnwk6wCY/ajGRkhzGpwtVvvtlgno2dDH0j7Vr
- omSvU0DpQX/FbKzO1Q8BKSuGbs6j9l0EDFgRF+f819DfbKYf5w3mOFqzaZQ5TwOgabYfx8UY3M0
- 04nkbaIbkJ6wkHxjNCPQB3sKEujtjCFtJzH6oxHNRY4JkHleDujLXOLQRYNW4d/ObgtAEKVY8cG
- h/deP2lBlG9tqXcqhLJfAnC48Tj/XQnTkVc/aacyzWH7pFXKzxX/C2rtG2VPYwINZG3pOvC66a4
- 2SrDUYtZ3GslAxYAcfbbhgIuEh1/JAdXcN2Kqd1AXLk6hItUMZPTg+5OERTDO34jcFnHE5yvjzS
- j6lGVOOnWi/v1lsPasA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0MyBTYWx0ZWRfX4ECy6b+8yHGP
- rd1YvhoogvHzjZWl+z0YM+bVkcYHjuA3q+dCY0CagVhzh/XQtGVJv4PvI0JQSoy1zIDm+l0VBcp
- CMt5hjx1cSMRg8rNm5qZeyw8hSjGOK0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
- phishscore=0 spamscore=0 malwarescore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300043
 
-On 9/23/26 1:02 PM, Nihal Kumar Gupta wrote:
-> From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> 
-> Enable the camera subsystem on the Hawi MTP along with the S5KJN5 sensor
-> connected to CSIPHY2 through I2C0 CCI1. Add the camera master clock and
-> sensor reset pin states on the TLMM GPIOs.
-> 
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> Co-developed-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] pm: usage counter underflow due to incorrect pm_runtime_get_if_in_=
+use check
+- [High] media: use-after-free in mira016_remove via early control handler =
+free
+- [High] media: I2C register corruption due to overlapping 32-bit writes
+- [Medium] build: missing select V4L2_FWNODE causes unmet dependencies
+- [Medium] media: integer precision loss in mira016_calc_prate
+- [Medium] media: I2C read errors swallowed during PLL lock polling
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit 3aea445f536c7012ef543a433b00f827003a9007
+Author: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
-Konrad
+media: i2c: mira016: Add driver for Mira016
+
+Add driver for the ams OSRAM Mira016 sensor.
+
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -321,6 +321,18 @@ config VIDEO_IMX678
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called imx678.
+> =20
+> +config VIDEO_MIRA016
+> +	tristate "ams OSRAM MIRA016 sensor support"
+> +	depends on I2C && VIDEO_DEV
+> +	depends on GPIOLIB
+> +	select V4L2_CCI_I2C
+
+[Severity: Medium]
+Could this lead to kernel build failures due to unresolved symbols?
+
+The driver uses APIs like v4l2_fwnode_endpoint_alloc_parse() in
+mira016_parse_endpoint() which depend on the v4l2-fwnode module. Because
+V4L2_FWNODE is not selected here, linking may fail when this module is not
+enabled by other configs.
+
+> +	help
+> +	  This is a Video4Linux2 sensor driver for the ams OSRAM
+> +	  MIRA016 camera.
+
+[ ... ]
+
+> diff --git a/drivers/media/i2c/mira016.c b/drivers/media/i2c/mira016.c
+> --- /dev/null
+> +++ b/drivers/media/i2c/mira016.c
+> @@ -0,0 +1,2309 @@
+
+[ ... ]
+
+> +#define MIRA016_EXP_TIME_L_REG		CCI_REG32(0x000e)
+> +#define MIRA016_EXP_TIME_S_REG		CCI_REG32(0x0012)
+> +#define MIRA016_NUM_FRAMES_REG		CCI_REG32(0x0007)
+> +#define MIRA016_TARGET_FRAME_TIME_REG	CCI_REG32(0x0008)
+
+[Severity: High]
+Does this sequence cause hardware register corruption?
+
+MIRA016_NUM_FRAMES_REG (0x0007) and MIRA016_TARGET_FRAME_TIME_REG (0x0008)
+are defined as 32-bit (CCI_REG32) and are written sequentially in
+mira016_write_frame_duration_reg().
+
+Because the addresses only have an offset of 1 between them, the first
+write spans 0x0007-0x000a, and the second spans 0x0008-0x000b. This will
+overwrite the first value and adjacent registers like CMD_REQ_1_REG.
+
+> +
+> +#define MIRA016_TIME_UNIT_REG		CCI_REG16(0x0012)
+> +#define MIRA016_GLOB_TIME_REG		CCI_REG16(0x015a)
+
+[ ... ]
+
+> +static inline u32 mira016_calc_prate(struct mira016 *mira016, u32 h_tot)
+> +{
+> +	/*
+> +	 * Pixel rate is calculate as the row duration divided by the total line
+> +	 * length.
+> +	 *
+> +	 * pixel time (psec) =3D t_row(psec) / h_tot
+> +	 * pixel rate (mbps) =3D 10^12 / pixel_time
+> +	 *		     =3D 10^12 * h_tot / t_row
+> +	 *		     =3D h_tot * 10^6 / t_row * 10^6 to avoid overflows
+> +	 */
+> +	u32 trow_psec =3D mira016_trow_psec(mira016);
+> +
+> +	return h_tot * HZ_PER_MHZ / trow_psec * HZ_PER_MHZ;
+
+[Severity: Medium]
+Will this evaluation lose significant precision?
+
+The expression h_tot * HZ_PER_MHZ / trow_psec * HZ_PER_MHZ is evaluated
+left-to-right. The integer division (h_tot * HZ_PER_MHZ) / trow_psec drops
+all fractional sub-MHz precision before the final multiplication.
+
+This can cause the pixel rate reported to userspace to be severely truncated
+to 1 MHz boundaries, leading to framing inaccuracies.
+
+> +}
+
+[ ... ]
+
+> +static int mira016_configure_timings(struct mira016 *mira016)
+> +{
+> +	int ret =3D 0;
+> +	u64 val;
+> +
+> +	/* Configure the PLL clock tree. */
+> +
+> +	cci_write(mira016->regmap, MIRA016_BANK_SEL_REG, 0, &ret);
+> +
+> +	cci_write(mira016->regmap, MIRA016_PLL_DIV_N_REG, mira016->pll.n, &ret);
+> +	cci_write(mira016->regmap, MIRA016_PLL_DIV_M_REG, mira016->pll.m, &ret);
+
+[ ... ]
+
+> +	cci_write(mira016->regmap, MIRA016_PLL_PD_REG, 0, &ret);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D read_poll_timeout(cci_read, ret,
+> +				(ret < 0 || (val & MIRA016_PLL_LOCKED)),
+> +				500, 10000, false, mira016->regmap,
+> +				MIRA016_PLL_LOCK_REG, &val, NULL);
+> +	if (ret < 0)
+> +		return ret;
+
+[Severity: Medium]
+Are we masking I2C read errors during PLL lock polling?
+
+The read_poll_timeout macro evaluates its break condition (ret < 0 || ...).
+If cci_read() fails, ret is negative, the condition evaluates to true, and
+the macro exits returning 0. This return value overwrites ret =3D 0, masking
+the I2C failure and potentially proceeding with uninitialized PLLs.
+
+> +
+> +	/* Configure the sensor timings. */
+
+[ ... ]
+
+> +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct mira016 *mira016 =3D
+> +		container_of(ctrl->handler, struct mira016, ctrl_handler);
+> +	struct i2c_client *client =3D v4l2_get_subdevdata(&mira016->sd);
+> +	struct v4l2_subdev_state *state;
+> +	struct v4l2_rect *crop;
+> +	int ret =3D 0;
+> +
+> +	state =3D v4l2_subdev_get_locked_active_state(&mira016->sd);
+> +	crop =3D v4l2_subdev_state_get_crop(state, 0);
+
+[ ... ]
+
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (!pm_runtime_get_if_in_use(&client->dev))
+> +		return 0;
+
+[Severity: High]
+Could this result in a usage counter underflow and hardware access while
+powered off?
+
+When Runtime PM is disabled or not fully active, pm_runtime_get_if_in_use()
+returns a negative error code like -EINVAL. The strict negation !(-EINVAL)
+evaluates to false, bypassing the abort condition.
+
+This allows the function to proceed with unpowered hardware access and
+eventually call pm_runtime_put_autosuspend(), which underflows the usage
+counter.
+
+> +
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_EXPOSURE:
+
+[ ... ]
+
+> +static void mira016_remove(struct i2c_client *client)
+> +{
+> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
+> +	struct mira016 *mira016 =3D to_mira016(sd);
+> +
+> +	v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
+> +
+> +	v4l2_async_unregister_subdev(sd);
+
+[Severity: High]
+Could this early free result in a use-after-free vulnerability?
+
+In this teardown path, v4l2_ctrl_handler_free() is called before
+v4l2_async_unregister_subdev(). The subdevice remains active and accessible
+to userspace and the media core while its control handler is destroyed.
+
+A concurrent userspace ioctl (like VIDIOC_S_CTRL) can access the freed
+control handler, potentially leading to kernel memory corruption.
+
+> +	v4l2_subdev_cleanup(&mira016->sd);
+> +	media_entity_cleanup(&sd->entity);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-mira016-v5=
+-0-499a34ab8204@ideasonboard.com?part=3D2
