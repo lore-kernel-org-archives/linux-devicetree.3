@@ -1,113 +1,132 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614A44C6517
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9390E49E138
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790767153; cv=none; b=NITeClvibyXsYuPrWkdnPS8BSi241iUXQ1Y/Ooys2BhqkLNBLZqFgxrUee4B3VK/UUIobr3PfGJAvrMysHsDt+dwySwqgjCITkA6Saelayz70PsO7Wy6JFsQe4HOycl23Zzw5J6CNB39cWy7r2P017J9LjxEL5Ff6jqD5ibcR4g=
+	t=1790767499; cv=none; b=OUevyiyrAdNE5V/d+QL5uiFvHwELsWADdP7CNaXiuIBtnZVZrL41ioUtVBYHg3RrafCr1pYbXXeHbmXPXbSo8fo1NcxN2sL1hQsOhCRct0lqGNNk2EFzLLGbh/bHG6tFoRPNqUUGYVHLdj5T/HSTjZ8pKoe8fTQXSY/AKQ0MxuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790767153; c=relaxed/simple;
-	bh=b8orlYB+Eqxk223Z48vvATiAePqnM1YqQUV8EDg5+qY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LNw40Vpuyx9mQVcPCvZBAQwxL1JVD2Kbbv8bXFGkDuCymMMscwL87DB6REM3l2ALRPSLuBJ+wSrtckWke3u08V9Cx7i3tnE2qlzK/sDtqanNO9MCQ7QGw485CSECXxF6D9nfOfmWKr48uSd8rOx0a0S2S7dlSYm2D5msU2Rg2Dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E4C8nLCM; arc=none smtp.client-ip=74.125.228.40
+	s=arc-20240116; t=1790767499; c=relaxed/simple;
+	bh=poceB6zKoYQu2FsWNzDmrgG3238OZ8RROO5Gpc1RH5Y=;
+	h=From:To:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type:Cc; b=mnB59AYfOI1L2/Fgc2ABvTaCMZLwzmqKgUIAiEgZCx68TNifQDsq9pPMK5F/QekFX7oh8kzz42a0ZyD/AlIYCAeWXKog2Sv8qId6TZP900y4MsHZvQuBIwmuGozR08t4RxQmKumLg6PhzAzrYs+7+kcUssw0cvWaXTJun/Cz2YI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iOJ7klXv; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E4C8nLCM"
-Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-8804c1728f9so4038764b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 04:19:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iOJ7klXv"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so28260445e9.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 04:24:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790767151; x=1791371951; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790767494; x=1791372294; darn=vger.kernel.org;
+        h=cc:content-type:mime-version:content-transfer-encoding:message-id
+         :date:references:in-reply-to:subject:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qvu+NvcyVJHEn3ev6yli5NPbBHtkoDtdYJwktOVlhhA=;
-        b=E4C8nLCMIOrqntMaXDIBTUH7NCy3Cv6Ui4TXNZDN1qi0zGQjw4+4w1h+bCY28rU10k
-         XrOFmnild13OOWP4e9/YVt3XpymOBDFUK6hNj/NC5v57Kers4aJ8ATATosRq6N9uYWIR
-         E2e3CNYL3bD9l5LKijxJnkzwlGFQio9nSo1mqeY96n1zbF+8JDQHZOHZKGa4uP+AWb58
-         H7wRTB5Qz3d7K9OeCuAr5QLZOUGQBIbwywHV1oratcRzG8iFCQQdzhgKcniseO/oMRyc
-         S0PYQnz2pFHr97d99rNx1+Y0xk1nfA70eaeOeC87d05SiUiOt72WOtuuocVraggo905u
-         I3Hw==
+        bh=poceB6zKoYQu2FsWNzDmrgG3238OZ8RROO5Gpc1RH5Y=;
+        b=iOJ7klXv3A5wy5m2b5K38Pa1IoXSzcyv6XZmgtoDkKETifN3ukEcVNNJSmQbvnjUXo
+         0NufnfzepqEUvUI//pAO0zFiBJduntesl9v3P8bICfVtclhjLfOO0tPH2SJg/79stKIf
+         iyP7YHtHVwBRAgfN+Rpme27lJ1MB5KjCEKAxGIWl1ETYyd9dciRuJ1rjEZXM2dBj+S72
+         4CLoNkZVnoPsJIh1bTuEanZ3Or4AtlpxxLO+9iaeHA/ennOjUnCRkamrcdnS0uVWiwRR
+         vGOTLDnyPaJ/M+uTjEUQqpzXMZGblOzFtH6it/8SnGiZ+SXueGFLrzFlrAzrXeQQZWmr
+         WLdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790767151; x=1791371951;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qvu+NvcyVJHEn3ev6yli5NPbBHtkoDtdYJwktOVlhhA=;
-        b=kBEk8Elr4O4NaNo6sxNuE+t8mKVjrtQQmrMwF/DtzV6fiF+Rfcd4jgV+cBk/Zjqa8i
-         w/gaRBPyqh+qmCv0ma4ce/SbEni9CedvvrcRpBiyVMVyo12yL7PvGg34ozse0fpeZB6v
-         WQHOUOnSdMDhPRNsBgefe+tCfTeNN6wlUKeH0JD1FdQ4NxDQm4ThU2QmPrxdZqMIcrNO
-         SsSiwRO7W+4MPnvLzhlRRSPgxpxt9AsiNWFANUjwSW6K5/nihVgnBO5M4AJsd+BijhFs
-         8n8N9ntxT5QIOJwSz73XGPSx4cYOX3xVsH9PiU3gH1xIwQD8H95xTDOQYT3UQOWegWIg
-         RkoA==
-X-Gm-Message-State: AFuF++nqxOhOX7VABY+zA2j1j5ZDzluRh90IRYDhuHmWwHJC/kYhm7AK
-	ybcq/cArTaws1OgtFWs+otzJp0GsGgvd4W6DYx7Z0EY+1AkBXPRbguTB
-X-Gm-Gg: AYBFou1tiEtE9rOBhviXxNwNMPikTsAwEXmEdwuCoD5hdeU6JVOwJ628c15ElRGzZQV
-	TfN6Jn1qYFpiCmSbXWRNzbY6zl1HP6mVJ3nscWHPimTq2GJIxCQdZ1JIP0GTTm84y04W/XZY+Ub
-	IBP3JAZRY9oB68cb/HjbkXt6yKZ8iAszCY/XWdPGosbg2lhzxO2nYBSmwT9HaYtRkGN3IqI5SIu
-	Pn81b54WHYnNchqAomY4HQb+whPIS5+mXBqIRA4ZXLNu1nNUVAcnENbU3ESWat60XsShUSOdSFG
-	CzebrDcXV2y8nbjh8FYoPRSfR+3LW+ish5NgFvLM9hByYKOnRMSGEe1De6vwDaZ19hida5M1qdL
-	P2FMjM9YdLptiJQJVY5rogtFkTLUTR+zsgEcuDrnQN0N+qCz/nYMFlCfKJPSfCFl8hLVnGAGepM
-	F7hGbQpoXii2Fte4/wA/tSTRqMm0MExaJcOt5pH+5Gpy/wsVs25bYJnxWfXlvinzCt8fRCFu24a
-	jktnwoSgXKx/ogCG6kVyaHk0Z2sBJQ0G0RlpQ1FvK9K
-X-Received: by 2002:a05:6a00:124c:b0:874:706d:8572 with SMTP id d2e1a72fcca58-8874d979000mr800957b3a.35.1790767150679;
-        Wed, 30 Sep 2026 04:19:10 -0700 (PDT)
-Received: from cosmo-ubuntu-2404.. (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-887253992a9sm650257b3a.17.2026.09.30.04.19.08
+        d=1e100.net; s=20260707; t=1790767494; x=1791372294;
+        h=cc:content-type:mime-version:content-transfer-encoding:message-id
+         :date:references:in-reply-to:subject:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=poceB6zKoYQu2FsWNzDmrgG3238OZ8RROO5Gpc1RH5Y=;
+        b=lXSkMxEHjKI7Vdx33xj3e5YLkgdVar43C3LLpYY/eDh/hcWiDlfcVa/RE6VdC32EK6
+         6BOnv5U2KP8Zwf532WUvqtcIIEoXHvfXI09FwslcF88SQpBM439SycTtgeOnCrfBqhnU
+         Wqyjl+d2a9vBm52Yftohs9YJmtFP/hWivAqxP5L8TsB+wz/SHR301qhp3LMY6nf1EJZa
+         8rbtW1FVY1+u016fJ52L5XJDfigy/o4jYUEA9zfLHg49ElGok0mXFh0s6uHlVwxftHlL
+         uI/q5ox33Dk5nVovP7cHyS83miEh71b1ptkYDwOYyTBleP9yQN1cLl5GQyzqew68qNQA
+         ZipA==
+X-Forwarded-Encrypted: i=1; AKwUvByZagJG1pJBmfs4ZbiyzcNlBZ6lPU3CxHxBRxrXiDETmI4qpJg3/RnQQKWCkrUyCXh80x3g75Yf8CU8@vger.kernel.org
+X-Gm-Message-State: AFuF++mQAur4lwbr1MQDqe3zYaXXh4d8mRiZueKLv9Nm8jVAHsjcaAQ5
+	abuO4jwzEkc94dgqYn01/b1hjuzR8A6RFm+3zz6sDcFXgiWEoQ9GEgWg
+X-Gm-Gg: AYBFou3blNF/1tcFmNKWRGgbQrHW9A97v/16YTiK/WdG5PhUx1HEqeZ2uvI3Fat20Fn
+	+Xvd/2W5t6VWnezM2sOtsbkRDMxqgX2Uh1i1krB1Tg+jJF/TKSHl7AKvHvHRt3WF9kh/yY2ypTi
+	r5rBd0Ysnz47fp9J7AwM03YAaq4DTmoq0TK58ez0mcgqzvxDDLDtThmLlTNL9eiUjK0HHFQqwHK
+	Ceh2tTzzFm4EVaZAU+DwM1IplxSZx3CwD8reGAoyJGj9o3DFO6H/4JbxShgiv4r4RmjZK7qMn/3
+	6Zx/K3ZtwlekjQrUNNBtVy7YmEwan0jtOiE3MRhr5jHM7Wi0suyVIGHCFUBvR3QjA40xTPdlqvX
+	Sp2dqDqIMKdG72fuqS9KHfKDMvpZWCpOqdM7o42a995X3eQj0aaH3vOmpxrw0DKh01mpCYvKv5c
+	30to6g5GO6q64Z6S2CjWl2PIYwluBMtrvcARknQKRfYGFvX7lblS97vX23vRpkTg/3Cs3CchNwA
+	8jgB8AvhloaKHHOazozn7m+kqtm+Hy/
+X-Received: by 2002:a05:600c:3b0c:b0:49c:fc6e:a3dc with SMTP id 5b1f17b1804b1-4a01aff4fb5mr16519855e9.27.1790767494156;
+        Wed, 30 Sep 2026 04:24:54 -0700 (PDT)
+Received: from [127.0.1.1] ([92.241.26.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01cd002bcsm3626105e9.4.2026.09.30.04.24.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 04:19:10 -0700 (PDT)
-From: Cosmo Chou <chou.cosmo@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joel@jms.id.au,
-	andrew@codeconstruct.com.au
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	cosmo.chou@quantatw.com,
-	Cosmo Chou <chou.cosmo@gmail.com>
-Subject: [PATCH v3 4/4] ARM: dts: aspeed: bletchley: Add second source ISL1208 RTC
-Date: Wed, 30 Sep 2026 19:18:13 +0800
-Message-ID: <20260930111813.52396-5-chou.cosmo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260930111813.52396-1-chou.cosmo@gmail.com>
-References: <20260930111813.52396-1-chou.cosmo@gmail.com>
+        Wed, 30 Sep 2026 04:24:53 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Subject:
+ Re: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART driver
+In-Reply-To: <1d81c2ef-7a5b-4306-83d2-ff96b0eb6a06@app.fastmail.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+ <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
+ <CAD++jLkzcf7gJB82XT3-xb4jLujtWSNz1kT2r1-4N54rRfRNMA@mail.gmail.com>
+ <1d81c2ef-7a5b-4306-83d2-ff96b0eb6a06@app.fastmail.com>
+Date: Wed, 30 Sep 2026 14:24:51 +0300
+Message-ID: <179076749140.3134070.3869742286743401078@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"; format="fixed"
+Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ Jason Li <jason.li@cortina-access.com>,
+ Jason Li <jason.li@cortina-access.com>
 
-Add alternative ISL1208 RTC at address 0x6f to support boards populated
-with the ISL1208 instead of the primary PCF85263 at 0x51.
+On Wed, Sep 30, 2026 at 01:08:07PM +0200, Arnd Bergmann wrote:
+> On Wed, Sep 30, 2026, at 12:57, Linus Walleij wrote:
+>> Look at this in your Linux tree:
+>> git log -p b61c8bf4694b5115766849378dcb8787ff54e65e
+>>
+>> This is essentially a resurrection of that driver.
+>
+> Jason actually came back this summer to try again, see
+> https://lore.kernel.org/linux-arm-kernel/20260610112821.3030099-1-jason.li@cortina-access.com/
 
-Signed-off-by: Cosmo Chou <chou.cosmo@gmail.com>
----
- arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts | 5 +++++
- 1 file changed, 5 insertions(+)
+Thanks, I was not aware of either. Comparing the two, it is the same
+IP: the offsets of CFG, RX_SAMPLE, TX_DAT, RX_DAT, INFO, IE and INT
+and the bit layout of CFG, INFO and the interrupt registers are
+identical. The Cortina Access version additionally has a flow control
+register at 0x04, RT_TUNE at 0x0c, STATUS at 0x2c and three more
+interrupt causes (break, RX underrun, TX overrun).
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-index 1883bfb850fb..76b7117344de 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-bletchley.dts
-@@ -1269,6 +1269,11 @@ eeprom@56 {
- 		compatible = "atmel,24c64";
- 		reg = <0x56>;
- 	};
-+
-+	rtc@6f {
-+		compatible = "isil,isl1208";
-+		reg = <0x6f>;
-+	};
- };
- 
- &i2c7 {
--- 
-2.43.0
+>> Anyways, clearly this driver is not just for CS75xx so name it
+>> cortina-uart.c simply, and update symbols accordingly. Kconfig
+>> should be SERIAL_CORTINA etc.
+>
+> I think we clearly want a driver that works for both the Cortina
+> Systems CS75xx and the Cortina Access CA82xx, hopefully that
+> would also support the ones inbetween (CS80xx, CA81xx).
+
+Agreed. For v2 I will rename it to drivers/tty/serial/cortina-uart.c
+with SERIAL_CORTINA and SERIAL_CORTINA_CONSOLE, and name the binding
+so that it can take the other parts. I would keep SoC specific
+compatibles ("cortina,cs7542-uart", later e.g.
+"cortina-access,ca8289-uart"), so that the flow control and the extra
+interrupt causes can be enabled per compatible.
+
+I can only test on the CS7542. Jason, would you be fine with adding
+the CA82xx on top of this driver instead of a separate one? I am happy
+to add the compatible and the bits you need if you can test them.
+
+Thanks,
+Fil
 
