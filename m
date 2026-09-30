@@ -1,35 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ms2.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AAA2F2914;
-	Wed, 30 Sep 2026 00:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F43E3438B7;
+	Wed, 30 Sep 2026 01:31:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790728818; cv=none; b=Bs9jdXQnJDJKqP7uHgoWIeIZu1qq8LA3CKpKCxxLDWuHzCfmCgb5mWU5cC/NhONmj25Big6p5A/is55Tz02qTnT+P/hawd3Y/Fvqnx5n1Ji2V49UCo5s19V9j8yjIDTQrmy54ORyrbegK7d1bRfcT8JYhJoptAkkXTKtciIeVNc=
+	t=1790731871; cv=none; b=GCYm1EaddE4RyqYmY87lwCbuoEGLg89suEYpGMmsETcZLMyYKvMldJ4COv2nvU40ALyv3j/nai+Puxry8kAKwgN2qzosZb/V4ZNa0frZIpX1Z/E1GSpiOYQBUBw8Oq+X4TqoX01kn39xMVt2Huh95qaCRw+wV9Zpzf6ivjPYOmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790728818; c=relaxed/simple;
-	bh=iwIAte3wH3TRU/Z7IG+hwZul50wYmNRo9ylFiGcs/KA=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=f63AHUSMUVehuRFzPnTNRsKeMO4oufvgC4FT6dBCUmPUyxuUxran0ln7UpP0Hvv6+niH/i1wiOIorHP+ir713QQ2u2q+iwpiOHplniJr7XlF8AaGEXNM5v4GZtMoYzUgE2Ts0itdiXbmstl6o0QKygagxSvZWV4wDD6c9payPhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hIKJYApV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790731871; c=relaxed/simple;
+	bh=ZJQZa9fBtDrsBGxdSvvFN1Ftjl3HNg+h0YX8nf/XsxI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=XnhRsFooLpA9QBVrcT8Um/t/rSUwwGa5mA/PC8VjhNdiYBD6+V/s0D1ujVor93eKjF+RvN5jfWygMwT9ND1lNbB1Trl1rF/PZDBKx7i+svIGB7Ru/J0Ef+F2MvukARfJiyhR3M4cRI2HaaQwQxidCnjPiKfiBDvN92Mhq67aauI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=dz3NANWb; arc=none smtp.client-ip=210.202.87.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hIKJYApV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471481F00898;
-	Wed, 30 Sep 2026 00:40:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790728809;
-	bh=TdUEA3tV1zufmSy07/bt31Wbr9Axb8y9qnC+ULUNUYI=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=hIKJYApVsKXmQ5A2+skSxxURrLzdmxwVdlWbrtY3QoLG/Vtnfju5Q94W4u+RaRIyl
-	 /mmPR39OlNqwvGUF1IhCXDqNaOokQKFA6igiE4iIrlhFWBT4AnKKGWWg3Oaq16j3pP
-	 0N1jQUl1rW2HSCNAOlMCTNQDCHRTiV+vCNz2ct6S2aRsF0vlfeH/19Sjteq6U6nJU5
-	 3VM1CH62yj88lZbLHHHbrczyTIyi1f62JfF+o04Vl/4c2teZ99lgNNeC+pf1n1lVoO
-	 hq7wzACO50XAOJRBe5cd/ObpdWWeIB04AP5VwIY9OyVJ6hsOKmhw3RIO1iNUaJy+xA
-	 4alCciXi4zRgg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A4983924FEA;
-	Wed, 30 Sep 2026 00:40:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="dz3NANWb"
+X-UUID: e2338f4cbc6d11f198e94de09bb89237-20260930
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
+	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=ZJQZa9fBtDrsBGxdSvvFN1Ftjl3HNg+h0YX8nf/XsxI=;
+	b=dz3NANWbinMcn02+7WUHau3HQ9yZIkE41XwmxZzYA4gjMhSNFEAVvktImP0qJYqjy1Z6zsacNfniH0Sm9klzE1nq/d/pqxpb75FV1jol/TkHX/GdSBf5jCn0MRCxNYyBBJFJhb9z0fRC31RGroSauQrlA37SbUQ6EXkJ1rE0YQU=;
+X-UUID: e2338f4cbc6d11f198e94de09bb89237-20260930
+Received: from spmgt1 [(172.20.13.10)] by ms2.novatek.com.tw
+	(envelope-from <sp_isw1_at@novatek.com.tw>)
+	(Generic MTA)
+	with ESMTP id 170437113; Wed, 30 Sep 2026 09:25:55 +0800
+Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.20.160])
+	by spmgt1 (Postfix) with ESMTP id BB3FA1A1E1C;
+	Wed, 30 Sep 2026 09:25:55 +0800 (CST)
+Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
+	id B73C8C600E1; Wed, 30 Sep 2026 09:25:54 +0800 (CST)
+From: nina_kuo@novatek.com.tw
+To: andi.shyti@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	krzk+dt@kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org
+Cc: shihpei_hsu@novatek.com.tw,
+	toby_chui@novatek.com.tw,
+	f_y_pai@novatek.com.tw,
+	jason_jj_wu@novatek.com.tw,
+	Ben Huang <Ben_Huang@novatek.com.tw>
+Subject: Re: [PATCH v9 2/3] i2c: nt72676: Add Novatek NT72676 I2C controller driver
+Date: Wed, 30 Sep 2026 09:24:57 +0800
+Message-Id: <20260930012456.804329-1-nina_kuo@novatek.com.tw>
+X-Mailer: git-send-email 2.26.1
+In-Reply-To: <20260910030123.215609-3-nina_kuo@novatek.com.tw>
+References: <20260910030123.215609-3-nina_kuo@novatek.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,47 +56,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v11 0/3] w5100: restore GPIO-based link detection
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179072880777.1183624.15268647911165769785.git-patchwork-notify@kernel.org>
-Date: Wed, 30 Sep 2026 00:40:07 +0000
-References: <20260924-wiznet-link-gpio-v11-0-42a332517b30@marmottus.net>
-In-Reply-To: <20260924-wiznet-link-gpio-v11-0-42a332517b30@marmottus.net>
-To: Arthur Crepin Leblond <arthur@marmottus.net>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- krzysztof.kozlowski@oss.qualcomm.com
 
-Hello:
+From: Ben Huang <Ben_Huang@novatek.com.tw>
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Hi reviewers of Linux I2C subsystems,
 
-On Thu, 24 Sep 2026 11:48:10 +0200 you wrote:
-> Hi,
-> 
-> In the previous version of the w5100 driver, the LINKLED pin could be
-> wired to a GPIO to detect the link status changes via an interrupt.
-> This only works on w5500 as it is the only one documenting its LINKLED
-> pin to hold the link status (on w5100 the LINKLED pin is changing with
-> RX/TX activity).
-> 
-> [...]
+On Thursday, September 10, 2026 11:01 AM, nina_kuo@novatek.com.tw wrote:
+> From: Ben Huang <Ben_Huang@novatek.com.tw>
+>
+> This driver performs the fundamental read/write functions as an I2C controller and supports Standard-mode and Fast-mode.
+> Default operation is Standard-mode.
+>
+> Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
+> Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
 
-Here is the summary with links:
-  - [net-next,v11,1/3] dt-bindings: net: wiznet,w5100: convert to DT schema
-    https://git.kernel.org/netdev/net-next/c/be15d99d8ebc
-  - [net-next,v11,2/3] dt-bindings: net: wiznet,w5100: add link status interrupt
-    https://git.kernel.org/netdev/net-next/c/50c4bbaa0d36
-  - [net-next,v11,3/3] w5100: detect carrier state using link status bit and optional interrupt
-    https://git.kernel.org/netdev/net-next/c/323767fa31a2
+This v9 patch was submitted about three weeks ago, and I have not seen
+any review comments yet.
+May I kindly ask if anyone is reviewing this patch? Any feedback would
+be appreciated.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Thank you for your time.
 
-
+Sincerely,
+Ben Huang
