@@ -1,269 +1,196 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6CD515886
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 16:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786556; cv=pass; b=T+kBSJDc4sMvn3TkutYcO9wJEI4O3GrE2sbvpTdKBt7kzdtJKlWhNcvkfCwxJM7CGDgsSuoSUTf+kx7+Mah0BQfWJAE/X2KG8vdaxuRHismPa2lrW7FrFVLyBH7ma1Gtb7FXUZ2w5Mrn9GXGyz+UNUpPC/7mFJYdADBK2qn+1Wk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786556; c=relaxed/simple;
-	bh=gTj7bX3vYf16RXzawtYiO2NasAUyGzbiOsZs1/XlKb0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bjyUbcbpo5+UtORMfFOHiBx9RQdA4IAWVudTGrlnJyyaIC8bOpgjoSKosmeYXLWY3S/AgiOTisddY3k4x+JX9AGcNw2h6I2HYC5XlClk2iWoCwfR2Oqm4pv/EfDr0FH4NEpBizTWvEEBYDNNMuQ9Fx2azGz8e0Adm02tQo94UHg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pBU0+pAN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gMegx9i5; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F105150E59D
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 16:43:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790786632; cv=none; b=GKyT/Tq66vfCuGZYUSjJnTeTEECvQAeYRrpn3uCt3Bg7nWAqsM2LFJGit/pXMRnx0TDhqXI8LxrML9vVfj+x3Y6hsUdYSUVuaQO0QZaPYIGSIAWHB9KmvbgTGtxhfyUaLX1mNQCiSXKm86ImPbNpmk7pL5bSq63K5Ha3psUn+z8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790786632; c=relaxed/simple;
+	bh=RG9+M1uoJK9hezxLQbQqTbF4w+6gf1Ej1H9zhuRwbnM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=eh5fX8dvonWEVgfmE8zwfKYkhiRAKX9kwsga2qTRhtXxhaBkaO+cX7J4KC6Y4wvqWNuQsUStij2VsJXHhztjZVKqk5BrLTtI7i01hrPbmc8HrfoD5I4rpMKL6bgcRWwVOUtqnArcdCfdIfxNLvq4i1eO+dSzmHbLnlD8/MoQLEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=LrhTpHq9; arc=none smtp.client-ip=74.125.230.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pBU0+pAN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gMegx9i5"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UEvFAE273533
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 16:42:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bUM7uZQADhHABqd68so1Mp99N+E0onvzt7ltNYA+wn8=; b=pBU0+pANHB87dG77
-	A3fm8IveP+Ag7UyWUl9XemM+27sK/70uPWCCammhgyIHxwpqWO2cMKmk9cYNz3LI
-	IyUtvE5QN/EmzT0TJpn3rVjXoKqKq+jvjPe7qGyMGPoOSEbkbRh+Pjalzb45Q7hp
-	dcgmoLdWDthQNv1aYqGBWhDfojNuWuvWY1+8SAyYKpdGZ0YcFoPUz2zWT5uyivvu
-	14zuD3dUeEXCzu1oOqnN6XqZ2TrJ8VYQ//wWqYsN4ORiuN/mrfyCHdr9ej4Vb4j1
-	OkqcF3X6TxyZidapwVOcUkdrCAwjhNtYlBbS8Fs7whk4wSP17hFy3DJFa7RO8LbG
-	dXP0rQ==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h14n20gj0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 16:42:33 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-86a43fc3527so2175902b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:42:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790786553; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nRc0ber1NWhu5PPeEWec8wL14VbcFECFCuOhUbBexLhshlha83eo8aXT8j7aP3aft0
-         xq41bQmrJfeieKD5qzcQsrxhoyTSgVSqGl0t3ROydHZWWfZ1b9zIxqmpB2nnemV0i17o
-         De+kYVbDBbDgqyQXlUGtqOqUJApxm73u8Sy/a6+C6uCui5cF1Atok2L9rvL741sgA/uw
-         SdVtpDOUfXnRBYZpo37l/ht6XPgC8B0NzttcP1A2CdBpiF21RDAMInFC4wwXUmq5F70g
-         fM59HfC0Noy6dDUZcKVeaKtZsN0Mf3PcuEA6uoXK/3ZEELwM9o0nY798v9T+WrkOBQOD
-         CI6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bUM7uZQADhHABqd68so1Mp99N+E0onvzt7ltNYA+wn8=;
-        fh=qUb5KYSw7MKl/UR6MfRgGe3X0+m2xtPuVMzVnMJ0CU8=;
-        b=eN0lVXa7JuTeNFEFaZK6ecXA5aVEeHNDv5/2c+Qovuy0PEgxEoYxqeGdyL7sNSEYNZ
-         JIym4M5vb9KjQAlx7VHCZUwCPz2cvl6yao2W2pqZEKDqFXgwttYyiYolaG0Dt5kfeU5m
-         O9v8zuxGWTdX3/iyJOYaugbt5rXClhJxkiO1jFmcHWmTu62vwi8HIe9OG4H4L1U/4bhr
-         COeTNbPv7QIpwJxfS55CaLqBoPlTd2+hUk3dWQtiBw3X8MvGz0kr40eFQmZ/o+5xHaUD
-         q4J9jOiWij4Rg3+zCSHjwpTSiELZQ2393Iwh9urs7frkT/ZS+IFIXoGHWAA/ey8cIB/t
-         v/Nw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="LrhTpHq9"
+Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-91799c58ba0so6770596d6.3
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:43:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790786553; x=1791391353; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bUM7uZQADhHABqd68so1Mp99N+E0onvzt7ltNYA+wn8=;
-        b=gMegx9i5sCVOnYzNFag0LPOJvzX/fiCBs251aRvWVfmItmP7MHzDax6bk4xkwbTdx5
-         NOIuNvTR5ayShmpKBsyub19+SEkGJ0SE31z3f5P/w0tbyE4WLKJtzQuQp1LfVQmeDqyW
-         oPov4Q1YnizqRgRVHe2YNEY+sLHJCMaVyKkjowDJM9OW0zv12T7oIA20M2jl8ZCbF2gP
-         Jz+rJFoQzAPYQgQMdZhFJhG94tVNfO/QFroYYWL8AFaCtAodyzXyy9vah1zhkrt7ck5w
-         T6qCpEUrAprS0d8EPSF/5+YPQnscyKrTK4dYNX13dFfZuwNlWxRqfvkgk708aNxkGySt
-         /Ogw==
+        d=linaro.org; s=google; t=1790786630; x=1791391430; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tQuiLgKEFgvUaPnU/nIMejNLh/kt/JowyvkWugrWOng=;
+        b=LrhTpHq9+F+rY574Xy+PSCi5b7CgsqnvaWuXnm7k90PC03LH0tTsRTgnOScbjHerBj
+         XjHQo2YXHON6RUzVcrhcWPobjsLoWr26l2qNRA4yQKh7zemhoVMZeRG9WpDf4Tart9Hi
+         +UNEAM75iN806u+71saRDap/a5sBbbLG+vHmvc8jGUU59BSG2ntLKaTpBuAQ5yerqpeu
+         hCkYSOQMe4upQyiDZ/tEoCZY19lB0AX8A/3pMGVEC+eie8Ao1ozeP5cWGpEX/aao3b1f
+         dGsxiwN2BPd0q1F6HXYbbGPoczSY1MkUZvcj7AWwOflm+afQwWbzFkQjonLQPED0Wmwb
+         ZJjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790786553; x=1791391353;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bUM7uZQADhHABqd68so1Mp99N+E0onvzt7ltNYA+wn8=;
-        b=NvIEYMgknui/INjQdunmVKQkCFHrCEjSC/BQ8avBY18EtMJOPc+tmJzszgStU1QFRo
-         iPcgnyT5utV/IFVrCSe3MetzuWM8JCteHwsrnUy6sR3KQnAesRzJseQZGeK5fwtc4Yom
-         RdlVm+sQ8tx2MwTODssYMVIhKkAdt9lE29L63VR+3fySvds3ogLnhvd3vBwQltPdKYe1
-         k8hy87lf+W8BbMC9BPt959iTWY3+D9QSjExut6J3Wu7dBjo1sex7c/nOntXniy7QcWKE
-         7HK8ZlMQ29+puvz5eWuvJL/coHBHYcWeN91MYD4RGmjsm7FFB3NoHyvSatZ8L64NnGHz
-         oncQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx3vMc44Gmjc8AUNJ9GqMbx99AQa/6EzlzLMcfeMqE9iR4NI4jimpxQAiEgJWh+TOKUh3NCHbbrPnY8@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6ZUatAq8Wt2ufMN7uNro+S06pd+pU+7vILBUVWAltAbQJmkoF
-	M1/vH8BVEZWBTOznWnAZgFJdYvDts7IaQG5tM8yjlYWuJGwKtCbsIgTs8cg8zCoCbDeXJRIxBF6
-	dtsXoeDnwUGGDloTcNJqMZ+RFvollngZ6UBZPyml7lbbQpwAw7/blxB3qfjoreWV81WfNQgqVhS
-	AJ9gLJVR7qyqaAV8qeiHgEZ8rNvWxksArloDJQjmc=
-X-Gm-Gg: AYBFou2g6wi6OuqUjG/3WLA+cg7PX18L2l1fdBMoZYco90WcQwp52xH8JxTIYKvWWIb
-	TmV8Vp3H+osyV9L+vUDyzpdX8Od+svMQhYFlUoUt2P0/ZPMwJcX9JNT89Q8QIwAE9lEpOIUpYOJ
-	wX++vKm3QD/RqRUp/p56wkdsB0u+AyyfBZHoGYpEFyXVrrN9cmZ3d91P5oiSruoZ+UXwRgm+Z+L
-	WCZT/dnEGrW2+idPA==
-X-Received: by 2002:a17:90b:3c82:b0:3a4:9462:5a69 with SMTP id 98e67ed59e1d1-3a4f3512faamr135077a91.21.1790786552669;
-        Wed, 30 Sep 2026 09:42:32 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c82:b0:3a4:9462:5a69 with SMTP id
- 98e67ed59e1d1-3a4f3512faamr135035a91.21.1790786552126; Wed, 30 Sep 2026
- 09:42:32 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790786630; x=1791391430;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tQuiLgKEFgvUaPnU/nIMejNLh/kt/JowyvkWugrWOng=;
+        b=STvbNYO8p2ecfGDjPOvl9iF7z2vE4M53mawVS1DxSDdHrJd9f53hjhvQbk/7XYdNzU
+         0Zv1c3+aas0afEMSjmZs4uiZ+O9G1CeRVPgBr4pvD3dlHht5NVlormugnLCFjOBXr2su
+         WFBSD8RIqPMke0Vd5hwBYk1kAvbfTwjWqU95P/0luO638Wg3JgUpkVGu+BWJ3eKLnsRe
+         wfBr7S6O5spNjcEdPIGJSJV8h0BGcnHEL6ivtebZfU9kFwYd7xZCx5li2XWxoaJRZuaT
+         U+Z6kkwDwHYfjj9CsahYDHMO3P/FZWVHpbp3+aUfo5yvEw28LDWWhW//uceotyYC0JBG
+         MfDA==
+X-Forwarded-Encrypted: i=1; AKwUvBxJhYlqsYJwJC5H6aOjSUucxOOf4ixieUMEwJ8zEVvvRwsuJsBeBAv0/szIS1JwpcAxOtOGkmKQYuv/@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHHnRDm2QPv8jeG7VtH1ul6bfv0nqajzbaiQZcmKtE74p7UKmq
+	kFN8VmMY0jN/AnPZXPayNd4gXI2UucVZp5W18gsg9T9PTiqyv/0OG7ry/BTpwqEieng=
+X-Gm-Gg: AYBFou10a44P+RkhQmxDW8rAnEi3QH15SyTUG0SZ0jpRKvXFwTxiaVlmR0VjKrP1E4F
+	bJoA+IdSS0mW59hLDPTPGpwZ+DMIEbUjZOJ2l6JctMpcffkZPrWKI9LRuqp1DCsAWDOVcyd0vF6
+	a95QXb2f8ztkdgZP0M09UgsR3L3WHVKw1rjldNao2ezm7fw+UXPrxptRYW5zNsAwkeEb+hb5fil
+	kV2qPXKdsoAFAoWZUFHB6lQA1rEdzXKvZ52rkngfxxGJUIWluJZcR0P9Px5ebJ/ZSWPrmKepw1e
+	xbHoRc1i/xbUeYdj9Pp0jmNEpyz7XBR2/yIXdyTwT8wrhp8fGrmFIa3l/RgUa/wSq60lQH82TIC
+	A9InntjLICiJHggI8GjjlMEBg6zf+8E5jZ/A/7Y1WcPSzh8BzPNEuje8Nje7Fls+JhPKDRVszqG
+	h5jqhWbtLArZZSRJIcfivKAt0L1QpQixjf/Sv9vC7YDdNbEk6hNOgphGYpUpRNO2PVTnCECdeF3
+	WJ7Mh08lsYbcwnpp1oVg9E/AR9mQpZRUwn86ePD+/dmvyjnTmBwD6JIk9I2CcGlniHvwXxPuXFA
+	OKJ1V9MCPzEB2Nwjgw==
+X-Received: by 2002:a05:6214:c4c:b0:912:4680:c96f with SMTP id 6a1803df08f44-917a09cf960mr34578076d6.3.1790786629576;
+        Wed, 30 Sep 2026 09:43:49 -0700 (PDT)
+Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917a89a818bsm3800116d6.16.2026.09.30.09.43.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 09:43:49 -0700 (PDT)
+Message-ID: <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+Date: Wed, 30 Sep 2026 18:43:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
- <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com> <CE261C82D3A29A3C+1dca40d8-c022-4120-a3a3-a812a34cffef@linux.spacemit.com>
-In-Reply-To: <CE261C82D3A29A3C+1dca40d8-c022-4120-a3a3-a812a34cffef@linux.spacemit.com>
-From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 22:12:20 +0530
-X-Gm-Features: AclHuK8WzaQHu8Kb1U17BIo3W2WEuj4Y3xTSWnhwaShvCMytjWvQEe1KjMXTQoA
-Message-ID: <CAHuiULBK9wawyubGsqJPSjDdtP2=qDG6RU9_asB_6VX=r=-5zw@mail.gmail.com>
-Subject: Re: [PATCH v5 09/14] gtrace: Add RISC-V Trace ramsink driver
-To: Zane Leung <liangzhen@linux.spacemit.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Ian Rogers <irogers@google.com>, Alexandre Ghiti <alex@ghiti.fr>,
-        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-        Namhyung Kim <namhyung@kernel.org>,
-        Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-        Adrian Hunter <adrian.hunter@intel.com>,
-        Mayuresh Chitale <mchitale@gmail.com>,
-        Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>,
-        Andrew Jones <andrew.jones@oss.qualcomm.com>,
-        Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Anup Patel <anup.patel@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=Gr3XaU1C c=1 sm=1 tr=0 ts=6abd3bf9 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=lv0vYI88AAAA:8 a=HrkiEsUUJrMWRHDLxzcA:9
- a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22 a=9qqun4PRrEabIEPCFt1_:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA2NiBTYWx0ZWRfX4yQxTm7Rfnue
- 0NuFG9l+t60lV/Eg8zL9V/RM6WvH6PH5kgzDreiFKGcCpMWS6ter9zVSWyWS/+dneesyBUahupS
- /Zl+/sepewrSc2bDOQcpn2b399qYP6Q=
-X-Proofpoint-GUID: h6hJm2iuIAjA20cIOAayopMizV3YlZuL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA2NiBTYWx0ZWRfX170OrLD6Mi+/
- LG963aOwclN/S//CK4noESpjQpBSuBY2gQCig0bYIuzHMf5Weo5S7aaIQaT4WJxrqUzLf8rDe16
- CvMj1H5UVsESndHK7MKSyP8ZhMPCDwKAIrgll/XVeLX27VEN300QkLSQ1zHs9QqZBb8+GvgXbEL
- aoD9GOShZrbDMIICaO7meEhi6cprGoJG1UYaH0HQjz0y40mZvK9xfmn4QAu1bU4jaGwE/gbecOs
- Qm5c+cQQVBWnw78SD1LzWGCVb4j5XwiK0cLhk0rRB5P2JQnPUGJF+w/n9C95EqKJpghBRAq4fsF
- Onaj4ZIjVwjh/3ksjK+IAFNgg0NLD2Nl0SepkkxX8dmqALRr3+9yxLSQ7aJvF61B1WTVWmA/itT
- rshUBA2X1W49pqawcheQqJUubWk871m8dk/3av0Tof8hbsrx5rFeZJopquSv7d2mks1RZfKZwHI
- ovn1sf5XH/2hV7b+bbA==
-X-Proofpoint-ORIG-GUID: h6hJm2iuIAjA20cIOAayopMizV3YlZuL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
- spamscore=0 suspectscore=0 impostorscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300066
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
+ support
+To: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+ <20260727-spotted-winged-mantis-7aa1ce@quoll>
+ <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
+ <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
+ <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Zane,
+On 9/30/26 09:44, Linus Walleij wrote:
+> On Tue, Sep 29, 2026 at 3:35 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> 
+>> This entire binding seems like stitching two devices together, which
+>> might be fine (I don't even remember this stuff... two months old) or
+>> might be artificial grouping of separate devices.
+> 
+> I think that's a good point and fair pushback.
+> 
+> Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
+> https://www.youtube.com/watch?v=6tNGW8PoSzw
+> 
+> The current binding does not reflect the physical topology of the
+> actual device, and the bindings need improvements. I have a feeling
+> there is one display controller with two physical panels.
 
-On Wed, Sep 23, 2026 at 7:10=E2=80=AFAM Zane Leung <liangzhen@linux.spacemi=
-t.com> wrote:
->
->
-> On 8/10/2026 11:22 PM, Mayuresh Chitale wrote:
-> > +static int rvtrace_ramsink_setup_buf(struct gtrace_component *comp,
-> > +                                  struct rvtrace_ramsink_priv *priv)
-> > +{
-> > +     struct device *pdev =3D comp->pdata->dev;
-> > +     u64 start_min, limit_max, end;
-> > +     u32 low, high;
-> > +     int ret;
-> > +
-> > +     /* Probe min and max values for start and limit registers */
-> > +     gtrace_write32(comp->pdata, 0, RVTRACE_RAMSINK_STARTLOW_OFF);
-> > +     gtrace_write32(comp->pdata, 0, RVTRACE_RAMSINK_STARTHIGH_OFF);
-> > +     low =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_STARTLOW_OFF);
-> > +     high =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_STARTHIGH_OFF=
-);
-> > +     start_min =3D (u64)(high) << 32 | low;
-> > +
-> > +     gtrace_write32(comp->pdata, 0xffffffff, RVTRACE_RAMSINK_LIMITLOW_=
-OFF);
-> > +     gtrace_write32(comp->pdata, 0xffffffff, RVTRACE_RAMSINK_LIMITHIGH=
-_OFF);
-> > +     low =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITLOW_OFF);
-> > +     high =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITHIGH_OFF=
-);
-> > +     limit_max =3D (u64)(high) << 32 | low;
-> > +
-> > +     /* Set DMA mask based on the maximum allowed limit address */
-> > +     ret =3D dma_set_mask_and_coherent(pdev, DMA_BIT_MASK(fls64(limit_=
-max)));
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     priv->va =3D dma_alloc_coherent(pdev, priv->size, &priv->start, G=
-FP_KERNEL);
-> > +     if (!priv->va)
-> > +             return -ENOMEM;
-> > +
-> > +     priv->end =3D priv->start + priv->size;
-> > +     priv->prev_wp =3D priv->start;
-> > +     if (priv->end <=3D start_min || priv->start >=3D limit_max) {
-> > +             dma_free_coherent(pdev, priv->size, priv->va, priv->start=
-);
-> > +             dev_err(&comp->dev, "DMA memory not addressable by device=
-\n");
-> > +             return -EINVAL;
-> > +     }
-> > +
-> > +     /* Setup ram sink start addresses */
-> > +     if (priv->start < start_min) {
-> > +             dev_warn(&comp->dev, "Ramsink start address updated from =
-%pad to %pad\n",
-> > +                      &priv->start, &start_min);
-> > +             priv->va +=3D start_min - priv->start;
-> > +             priv->start =3D start_min;
-> > +     }
-> > +
-> > +     gtrace_write32(comp->pdata, lower_32_bits(priv->start), RVTRACE_R=
-AMSINK_STARTLOW_OFF);
-> > +     gtrace_write32(comp->pdata, upper_32_bits(priv->start), RVTRACE_R=
-AMSINK_STARTHIGH_OFF);
-> > +     gtrace_write32(comp->pdata, lower_32_bits(priv->start), RVTRACE_R=
-AMSINK_WPLOW_OFF);
-> > +     gtrace_write32(comp->pdata, upper_32_bits(priv->start), RVTRACE_R=
-AMSINK_WPHIGH_OFF);
-> > +     /* Setup ram sink limit addresses */
-> > +     if (priv->end > limit_max) {
-> > +             dev_warn(&comp->dev, "Ramsink limit address updated from =
-%pad to %pad\n",
-> > +                      &priv->end, &limit_max);
-> > +             priv->end =3D limit_max;
-> > +             priv->size =3D priv->end - priv->start;
-> > +     }
-> > +
-> > +     /* Limit address needs to be set to end - mem_access_width to avo=
-id overflow */
-> > +     end =3D priv->end - priv->mem_acc_width;
-> > +     gtrace_write32(comp->pdata, lower_32_bits(end), RVTRACE_RAMSINK_L=
-IMITLOW_OFF);
-> > +     gtrace_write32(comp->pdata, upper_32_bits(end), RVTRACE_RAMSINK_L=
-IMITHIGH_OFF);
-> > +     low =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITLOW_OFF);
-> > +     high =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITHIGH_OFF=
-);
-> > +     end =3D (u64)(high) << 32 | low;
->
->
-> Suggest introducing gtrace_read_pair/gtrace_write_pair/gtrace_relaxed_rea=
-d_pair/gtrace_relaxed_write_pair API,
-There aren't many pair registers in the spec outside ramsink so I can
-add these APIS for ramsink only.
+No there's really 2 controller and 2 separate panels, but they are not
+classic panel, they are a pair of panels+lens which are in front of
+the eyes which forms a single "image" for the brain, so they are
+technically a single display and requires to be hard synchronized.
 
->
-> They should be used frequently.
->
-> > +     if (end !=3D (priv->end - 4)) {
-> > +             dev_warn(&comp->dev, "Ramsink limit address updated from =
-%pad to %pad\n",
-> > +                      &priv->end, &end);
-> > +             priv->end =3D end;
-> > +             priv->size =3D priv->end - priv->start;
-> > +     }
-> > +
-> > +     return 0;
-> > +}
-> > +
+The R63455 is designed for this exact use case and are only supposed
+to be use in XR application in pair.
+
+See it like a single physical panel with 2 controllers which
+shouldn't be used separately. While technically a controller could
+be used to driver single panel, it's likely impossible Synaptics
+would sell this IC for non XR applications.
+
+We want the both panels to be seen at a single big panel because
+physically the human eye will see it as a single display.
+
+Describing both panels into separate nodes would only be possible
+if we described a "VR display complex" nodes linked to both panels
+but this would probably be solved by actually describing the "display"
+linked to a DDIC controller and is out of subject for this serie,
+and can be added later when we properly define things.
+
+Nei
+
+> 
+> In that case I think it's better if we do:
+> 
+> panel: panel@0 {
+>      /* This is the two-panel package with one display controller */
+>      compatible = "sharp,ls026b3sa06", "synaptics,r63455";
+>      reg = <0>;
+>      #address-cells = <1>;
+>      #size-cells = <0>;
+> 
+>      panel@0 {
+>          reset-gpios = <&pm8550_gpios 3 GPIO_ACTIVE_HIGH>;
+>          reg = <0>;
+>           ....
+>      };
+> 
+>      panel@1 {
+>          reset-gpios = <&pm8550_gpios 11 GPIO_ACTIVE_HIGH>;
+>          reg = <1>;
+>          ....
+>      };
+> 
+> ...
+> };
+> 
+> 
+> Yours,
+> Linus Walleij
+
