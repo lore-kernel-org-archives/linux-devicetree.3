@@ -1,165 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from winds.org (winds.org [68.75.195.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4C01096F
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 00:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33CE23B638;
+	Wed, 30 Sep 2026 00:26:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.75.195.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727906; cv=none; b=G1riMGy6Q1naz3oMbWfG116C//b9SiQktdVWbQfdXDmeQZKvh2OvcSKm5sKWkbcXMyPEr/LkL8cvM6ge6M2Q69JP5tMs6EqbrDKaMN97EfrIyU5J+4cO7GQ1TKnuxvJiHzS9ak7mfu/gugFAWz6oejA4O8lh5dVjrPwfePEXp7E=
+	t=1790728011; cv=none; b=KbBkGjBrqakdPNg0CIH28RUg/5vViaokBKhU4QaZoGBrhV/oaWxBlG5rEqUZYvN9j4tSP51RJJR9TTaCgqfZXkSn0RtlcdHGcjAH4qp3uU/BB5pxNUvhh/2AvD3ApFFCZxIWOAfMowhGzZFSWVoeUfYayxDJiK2AzaJ/iEQ0C0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727906; c=relaxed/simple;
-	bh=XaIaQrQvCGe4dF+dBj05sSnvPJlXkXfMZwDiXUgizeM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FQNXWYluRh5n0A86TPZJF3cTizCsEkcqYlQ9k9XYXcnW6Qc1k7gciZkdyTDKNNmyBIprQPAKb+Wd/cCgmNY5BRoCt/g7WPWLd7JDAroXYczs6j4gjxWVgXpc3K/jyu4ow/yefZNwCM8OoYtpKmK63YtyHO6O6Z9jY3tuLL+Rhow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgFB7Cdt; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgFB7Cdt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF021F000FF;
-	Wed, 30 Sep 2026 00:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790727905;
-	bh=zvFg+zZUn4IXrNr7yNC9Ot5brZRzz1McbQmPHr6G0hE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dgFB7Cdtp/tmyCjysAQvqeBPBMButpxuPRr+cgmQDaNRa4ipuDLuY+IEb7zmsR4mN
-	 4KKrPe9ioMwHi+/9B9n2R4aK6qGcLda0xqXKC72vr4zmSNHNWGIXTd5eQtbsqa3AzY
-	 PGu3S6xzBlYJKgyKWDw5ECU2Yfws9AYBj28qMPjPlmmtygdGW/2FiNLDltd6C5QeJi
-	 3Zb6c8Ah4By8JvJ62ewAn5OrpTbde/aQrWum+6bGJU46sjnnYkcFCL1r7wRPD6bGIO
-	 WQHqN2//5GaRQmIcwDtQBLm4UY73xiDSmY4X3pIEUD2ucQc4G8i93aAx19+Ca50Odt
-	 1/dsuHt/xpN5g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/6] soc: samsung: exynos-pmu: add Exynos850 CPU
- hotplug support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexey Klimov" <alexey.klimov@linaro.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260930-exynos850-cpuhotplug-v7-4-203245826333@linaro.org>
-References: <20260930-exynos850-cpuhotplug-v7-0-203245826333@linaro.org>
- <20260930-exynos850-cpuhotplug-v7-4-203245826333@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 00:25:04 +0000
-Message-Id: <20260930002504.EDF021F000FF@smtp.kernel.org>
+	s=arc-20240116; t=1790728011; c=relaxed/simple;
+	bh=RP+aafSJqjYM0BLvhpflfyaa07AiwYB/jPgCUsYMOpM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=AYiq8xjqLv2NHqDOdCIL1dOq+sPN8IHAjDw/ejnykQQF23xYRUZY2Fnft5aHBmBdTyFLiyD2z1P3LgVXeKsYx2h12aeQSN2sXHi71OKJvbiv47/gjXI+pt4wKH5H3YBhVU3hW+VYWSmOGgCLDtW0pEzPuWq3eULNdDbLQVfHoJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=winds.org; spf=pass smtp.mailfrom=winds.org; arc=none smtp.client-ip=68.75.195.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=winds.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=winds.org
+Received: by winds.org (Postfix, from userid 100)
+	id 26A288F95F83; Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by winds.org (Postfix) with ESMTP id 2557E13363343;
+	Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
+Date: Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
+From: Byron Stanoszek <gandalf@winds.org>
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+cc: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+    Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+    Conor Dooley <conor+dt@kernel.org>, 
+    Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+    Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+    Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+    Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+    Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+    Maxime Ripard <mripard@kernel.org>, 
+    Thomas Zimmermann <tzimmermann@suse.de>, 
+    Andy Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+    Emil Renner Berthing <kernel@esmil.dk>, 
+    Hal Feng <hal.feng@starfivetech.com>, 
+    Michael Turquette <mturquette@baylibre.com>, 
+    Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+    Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Dominique Belhachemi <db@domibel.de>, 
+    Brian Masney <bmasney+clk@redhat.com>, 
+    Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
+    devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+    linux-riscv@lists.infradead.org, 
+    Marek Szyprowski <m.szyprowski@samsung.com>, 
+    Maud Spierings <maud_spierings@murena.io>, 
+    Graham Markall <hello@big-grey.co.uk>, 
+    Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+    Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+    Joshua Peisach <jpeisach@ubuntu.com>, 
+    =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>, 
+    Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 00/21] drm: starfive: jh7110: Enable display
+ subsystem
+In-Reply-To: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+Message-ID: <e946786b-e063-6ddc-6b07-2fb67ff7a459@polinggroup.com>
+References: <CGME20260929103200eucas1p17af134cc3b93c242227964f574f13aa5@eucas1p1.samsung.com> <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; format=flowed; charset=us-ascii
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] syscon: use-after-free of devm regmap on probe failure or driver u=
-nbind
-- [High] soc: samsung: hardware registers incorrectly indexed by logical CP=
-U ID
---
+On Tue, 29 Sep 2026, Michal Wilczynski wrote:
 
-commit afd8000549f41385d9df745be4acc40a4d6c283b
-Author: Alexey Klimov <alexey.klimov@linaro.org>
+> This series enables the display subsystem on the StarFive JH7110.
+>
+> [...]
+> - New patch 1 fixes v_HSYNC_POLARITY and v_VSYNC_POLARITY, which have
+>  been swapped in inno-hdmi since the driver was merged. The hardware
+>  puts HSYNC in bit 2 and VSYNC in bit 3, and the driver had them the
+>  other way round. Almost all CEA modes drive both syncs with the same
+>  polarity, so the two writes are indistinguishable and the bug only
+>  shows on a mode whose polarities differ - a band of black rows at the
+>  top of the screen, vsync_end - vsync_start + 1 rows tall. Reported
+>  independently by Dominique Belhachemi, Maud Spierings and Byron
+>  Stanoszek, and confirmed against the RK3128 TRM by Icenowy Zheng, so
+>  this is a Rockchip fix too.
+> - Added a 201 MHz entry to the JH7110 pre-PLL table for a 2560x1440
+>  mode Byron Stanoszek runs on a Dell U2711. It is derived the same way
+>  as the neighbouring entries (fbdiv 134, /16, VCO 3.216 GHz) but I have
+>  no sink that asks for it, so it is untested on my hardware.
 
-soc: samsung: exynos-pmu: add Exynos850 CPU hotplug support
+Hi Michal,
 
-This commit adds cpuhotplug support for Exynos850 platforms by introducing
-SoC-specific PMU and PMU interrupt writes/updates. It also initializes a
-syscon regmap with raw spinlocks in the main probe routine to handle these
-states safely.
+I confirm that the hsync/vsync polarity and 201 MHz mode are both working on my
+setup in v5. Tested against 7.3-rc5 with af384d6e0573 and Bo Gan's cache
+coherency fixes. Thanks again for your work on this series!
 
-> diff --git a/drivers/soc/samsung/exynos-pmu.c b/drivers/soc/samsung/exyno=
-s-pmu.c
-> --- a/drivers/soc/samsung/exynos-pmu.c
-> +++ b/drivers/soc/samsung/exynos-pmu.c
-[ ... ]
-> @@ -480,6 +489,21 @@ static int exynos_pmu_probe(struct platform_device *=
-pdev)
->  		ret =3D of_syscon_register_regmap(dev->of_node, regmap);
->  		if (ret)
->  			return ret;
-> +	/*
-> +	 * For SoCs that support cpuhotplug/cpuidle via PMU updates callbacks.
-> +	 * Such callbacks are executed under raw_spinlock so we need a custom
-> +	 * regmap too.
-> +	 */
-> +	} else if (pmu_context->pmu_data && pmu_context->pmu_data->pmu_cpuhp) {
-> +		regmap =3D devm_regmap_init_mmio(dev, pmu_base_addr, &regmap_pmu);
-> +		if (IS_ERR(regmap))
-> +			return dev_err_probe(dev, PTR_ERR(regmap),
-> +					     "hotplug regmap init failed\n");
-> +
-> +		ret =3D of_syscon_register_regmap(dev->of_node, regmap);
+Tested-by: Byron Stanoszek <gandalf@winds.org>
 
-[Severity: High]
-Does this sequence create a use-after-free if probe fails later or the driv=
-er
-unbinds? The driver allocates a devm-managed regmap via
-devm_regmap_init_mmio() and permanently registers it with the global syscon
-list via of_syscon_register_regmap().
+Best regards,
+  -Byron
 
-If probe fails later, for instance when calling devm_mfd_add_devices(),
-devres will automatically free the regmap. However, syscon does not support
-unregistering, so the syscon list will retain a dangling pointer to the
-freed regmap. Any subsequent driver requesting this syscon node by phandle
-could dereference freed memory.
-
-> diff --git a/drivers/soc/samsung/exynos850-pmu.c b/drivers/soc/samsung/ex=
-ynos850-pmu.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/soc/samsung/exynos850-pmu.c
-[ ... ]
-> +static int exynos850_cpu_pmu_offline(struct exynos_pmu_context *pmu_cont=
-ext, unsigned int cpu)
-> +	__must_hold(&pmu_context->cpupm_lock)
-> +{
-> +	int cluster_id, core_id;
-> +	u32 reg, mask;
-> +
-> +	cluster_id =3D topology_cluster_id(cpu);
-> +	if (cluster_id < 0) {
-> +		pr_err_ratelimited("invalid cluster ID for cpu: %u\n", cpu);
-> +		return -EINVAL;
-> +	}
-> +
-> +	core_id =3D topology_core_id(cpu);
-> +	if (core_id < 0) {
-> +		pr_err_ratelimited("invalid core ID for cpu: %u\n", cpu);
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* set cpu inform hint */
-> +	regmap_write(pmu_context->pmureg, EXYNOS850_CPU_INFORM(cpu), CPU_INFORM=
-_C2);
-> +
-> +	mask =3D BIT(cpu);
-
-[Severity: High]
-Are we passing a logical Linux CPU ID directly into hardware-facing macros
-and bitmask generators here? Logical CPU IDs are not guaranteed to match
-physical hardware core indices, especially when booting with maxcpus, during
-kdump, or with sparse topologies.
-
-If the logical and physical IDs diverge, the bit shifts and register access=
-es
-will target the wrong CPU's hardware registers. If cpu is 32 or higher,
-BIT(cpu) assigned to a 32-bit mask could invoke undefined behavior or
-truncate.
-
-> diff --git a/include/linux/soc/samsung/exynos-regs-pmu.h b/include/linux/=
-soc/samsung/exynos-regs-pmu.h
-> --- a/include/linux/soc/samsung/exynos-regs-pmu.h
-> +++ b/include/linux/soc/samsung/exynos-regs-pmu.h
-[ ... ]
-> @@ -1015,6 +1015,11 @@
->  #define EXYNOS_GRP2_INTR_BID_UPEND				(0x0208)
->  #define EXYNOS_GRP2_INTR_BID_CLEAR				(0x020c)
-> =20
-> +/* Exynos850 PMU Alive */
-> +#define EXYNOS850_CPU_INFORM(cpu)		(0x0860 + ((cpu) & 7) * 4)
-
-[Severity: High]
-Can this macro cause register clashing if the logical CPU ID exceeds 7? The
-macro applies a hardcoded masking based on the assumption that it receives
-a flat 0-7 physical index. If cpu is a logical ID, this assumption might
-not hold.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-exynos850-=
-cpuhotplug-v7-0-203245826333@linaro.org?part=3D4
