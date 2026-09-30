@@ -1,79 +1,102 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59EB13D25B2;
-	Wed, 30 Sep 2026 19:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC163E8338;
+	Wed, 30 Sep 2026 19:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790795949; cv=none; b=L6VEeb6dJI2QVCWxMp1mD+Qt7WRnktACPJQ3jGXuEYcz6cOFJ7gotKDTpb/lJhHc9/mzM4iKZqf7Ci4BSn0yPyds9RI5bdahIna3bO0xExYQFkw/EmU02tXvXkZlB8Jpq26zzjAheez4UiaFuLkWRcyBQqTXzr1VZD06lpY4GLA=
+	t=1790796586; cv=none; b=nvtbNbyqrrHL7AS3XOlSQHY/ztMclQkfWmVaaJq+YiG8rAvhSBxquF4kPGS25ldkvNhDpfhwCBelujgWoycDr795UUKR9huUIsYJu3g6Nz418+t9/wQ7dq1Fhu+K9y7lhqJoxkUgxfrRtJkNjjHlWs0nfAlkwD9SYrxGyGAG66I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790795949; c=relaxed/simple;
-	bh=rk5P1nxCm72eMPtNH/rlvF8/DejgRjqn0dKqQSg0Nbg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yx5V7+u8C+g33koEtCsZj2oOm7ZReQY4miFBoG1g1P6Chv+reVVLe3Xl3xdBJyNpQLTANVW990oP9pT8hleOmCQZxAUHY0EOFIINiDvpaugxzxCjO728wMCFp8JacxtqP/z+HRG33b409jMQGLXU36i1l6YYQfc66LTeBLNfnMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=CVzhuWnt; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790796586; c=relaxed/simple;
+	bh=mFHBAohtZ7YN4nog88mmrblodSh3GrnDWNSnrXiIaRY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W8Pm7Pbw5SCdqbRy3Df9O8fdaTQQC/FLnack7EELOOtt2Jua0ywO97coVf0gqEIzIE6S1WY/g1CZviN82py4QxBOCcATGEt8za0cjiZIB/vGvbDSSeXA0p1gLi1fIcfMOVmLdY3LmlZux+DANmTMxbfiAoHUThaAByIhDESUhec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=itQpGtQc; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="CVzhuWnt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=XoUDkMKF7L1Z9q3nwhGq3tIuxBl8dHtlGRc13BPjNPo=; b=CVzhuWnti4+kryn8IEFwItWWNM
-	9IlhVS2Pj0dduA+RR0QTDF9yL8Bjwkk5n5VFdv4kgxf5lfuUUmooxWKBBv/Kdvviqym+UgrMV6V5P
-	y22BiSzrOl2nHPvkHn3+o+b85ypMo9T6kMW1eMgOvJt5NCDvJsfsu+Bi9qZKqbV7Lx3g=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xBzpV-008E5Z-AF; Wed, 30 Sep 2026 21:19:01 +0200
-Date: Wed, 30 Sep 2026 21:19:01 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Dmitry Yashin <dmt.yashin@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: rockchip: add Forlinx OK3568-C
-Message-ID: <b81186ad-1da0-4c20-8b4a-aabdb7abb396@lunn.ch>
-References: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
- <20260930-ok3568-c-v1-3-a0ffd55f5c95@gmail.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="itQpGtQc"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A0AE1106FC1;
+	Wed, 30 Sep 2026 21:29:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1790796578;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=dR7TRsCJ25q9nKc0aVFqV0DBkjf9gpIXafQpdl4hBAg=;
+	b=itQpGtQcIgyGw8VPcQ4FGKI7x/CWWKMkTXKgixCP51xt6XRKDhdqbztd3DgbcmMAv3HCJu
+	PGl0CIE9TMjyMVw0GIiS6WrK7kePbt9Z4/qhqfIJo8K7o5F7JnosFh8qId5aIKAgoxsKms
+	uP9ZSHKbJVLd30xpQOBrwmP4kMzFDDl2NliEa1QzgEkMMNR9wfK/2+oZY281MqTxbcybBK
+	i+jzt338VIohdETUZTSrPbfEXyM3EcgbNWGbSs/t4hhWS6/fUE/3LuVpBQM/WMGedAtpMM
+	iWoDG1XQTduklzEXFNRVsxPnxgdNHLOxfX3eJCipscNPT3L6xk+XiGBkUb1zbw==
+Message-ID: <17f240e5-9c65-4562-ba51-535b0c69c5fd@nabladev.com>
+Date: Wed, 30 Sep 2026 21:29:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-ok3568-c-v1-3-a0ffd55f5c95@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/3] arm64: dts: imx95: Add support for Data Modul
+ i.MX95 eDM SBC
+To: Frank Li <Frank.li@oss.nxp.com>, Francesco Dolcini <francesco@dolcini.it>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Aswath Govindraju <a-govindraju@ti.com>, Conor Dooley <conor+dt@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260928204741.175754-1-marex@nabladev.com>
+ <20260928204741.175754-3-marex@nabladev.com> <arvPDq8sjjv7na01@SMW015318>
+ <49303872-5622-4e1d-8e1a-01394ec29367@nabladev.com>
+ <20260930174413.GA2463938@francesco-nb> <ar1bhpji35CbArtY@SMW015318>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <ar1bhpji35CbArtY@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-> +&gmac0 {
-> +	clock_in_out = "output";
-> +	phy-handle = <&rgmii_phy0>;
-> +	/* Use rgmii-rxid mode to disable rx delay inside Soc */
-> +	phy-mode = "rgmii-rxid";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&gmac0_miim
-> +		     &gmac0_tx_bus2
-> +		     &gmac0_rx_bus2
-> +		     &gmac0_rgmii_clk
-> +		     &gmac0_rgmii_bus
-> +		     &gmac0_clkinout
-> +		     &eth0_pins>;
-> +	tx_delay = <0x36>;
-> +	status = "okay";
-> +};
-> +
-> +&gmac1 {
-> +	clock_in_out = "output";
-> +	phy-handle = <&rgmii_phy1>;
-> +	/* Use rgmii-rxid mode to disable rx delay inside Soc */
-> +	phy-mode = "rgmii-rxid";
+On 9/30/26 8:57 PM, Frank Li wrote:
+> On Wed, Sep 30, 2026 at 07:44:13PM +0200, Francesco Dolcini wrote:
+>> On Tue, Sep 29, 2026 at 05:20:27PM +0200, Marek Vasut wrote:
+>>> On 9/29/26 4:45 PM, Frank Li wrote:
+>>>
+>>> Hello Frank,
+>>>
+>>>>> +	backlight_lvds: backlight-lvds {
+>>>>> +		compatible = "pwm-backlight";
+>>>>> +		pinctrl-names = "default";
+>>>>> +		pinctrl-0 = <&pinctrl_panel_backlight_lvds>;
+>>>>> +		brightness-levels = <0 1 10 20 30 40 50 60 70 75 80 90 100>;
+>>>>> +		default-brightness-level = <7>;
+>>>>> +		enable-gpios = <&gpio2 27 GPIO_ACTIVE_HIGH>;
+>>>>> +		pwms = <&tpm3 3 5000000 0>;
+>>>>> +		/* Disabled by default, unless display board plugged in. */
+>>>>> +		status = "disabled";
+>>>>> +	};
+>>>>
+>>>> The both backlight is not used in this dts, can you remove it and
+>>>> add these when it real use.
+>>> It's the same thing we do on the other boards, so I would prefer to keep
+>>> this consistent:
+>>
+>> I agree with Marek, and I would not use the criteria about being used or
+>> not.
+> 
+> 
+> Others boards: some has dtso, which use it. And krzy have some concern for
+> similar case although he have not reply alex's answer.
+> 
+> https://lore.kernel.org/imx/30599533-91de-41fd-9420-3f8693ec92ac@kernel.org/
+> 
+> And it is most likely go through nexus connector node to support display
+> panel in future.
 
-Yet another rockchip board which gets RGMII delays wrong.
+I do not think nexus node will apply to this connector, no.
 
-https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
+> So I suggest remove it now and add it when need.
+Can we please go with consistency between these boards from one vendor ?
 
-	Andrew
+Thank you.
