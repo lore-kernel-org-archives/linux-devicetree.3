@@ -1,133 +1,120 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8ED51AEEE;
-	Wed, 30 Sep 2026 17:26:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DAC51FCC4;
+	Wed, 30 Sep 2026 17:26:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790789177; cv=none; b=HTGOodGDb3GYQrBUasA/ZDImDpeaQV/5Y1I4ozVLTfsoz0uMUJ3ElB0Tp336G7mu//LuET/hZItxhP9l5zKVhZkVroeEBVqaFKTQpefv0PUBiDUdPihYPdYGN9CO3kUDtfdTzAk5Z7POX3V3SWc+jePVNjEYqG48xgcx6MC4dnE=
+	t=1790789183; cv=none; b=sjVdNEg/QTPXhvtjWy6zCsbj0A6lmpVuj0N1hWhQcIF30QjVAJtk48UlRlHqeU6t5AJeNNaJ5h8OjKZk5hC+Vh09yNOjYpRWoUn0VdAxCUDuVgKibDcPnWl+kLvecQ01pyqxZmmtvwWq8Ank9lcpjcO9uew9obEAMZvhqZt5jtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790789177; c=relaxed/simple;
-	bh=wUIP60ReUng2toh7xrANlc05gxl0Ni0XDP3WkJdt+dk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZszPs7hQztctsSReiDAhK2lM9U6zsXRi9yxCZu0jV6+tD6ao5IS+YnGxwEw3WlcDD7dqcbDuLGvx9Ib4WrM4oO6+yYbZUkf2+JZ1W6zBSDoPSY+sBJQpnG7mNBVMnAvVNPC4pfR7zUEWpv3SrMHQRLQfo557GDTDUyA3fufuZDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LR0GqmnO; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790789183; c=relaxed/simple;
+	bh=kM6JA5RsuihcZxAUFE4mCjzjy4ZvkYVwr9L940JZlhg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=u+R1arhrk7tut8zHfp3VFHqaM9LFpyX5TtYEoosIlKNsXf/8Oh4Q6eF8rchcNKiELPXhLMc7oCG2++w7P1jsTyKJXCtuh3KiMf7Jore+jYZV+9QcgrLs6qmcXco8oGijBNC/PCBOWYG/0EJz1oxqXFK1X6YqohedEAYhARiPn7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=r2UhsyxA; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=eUoAO5df; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LR0GqmnO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 411924E410D4;
-	Wed, 30 Sep 2026 17:26:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 14F1260749;
-	Wed, 30 Sep 2026 17:26:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A84421032942E;
-	Wed, 30 Sep 2026 19:26:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790789172; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=AbpkMZVsBdBOWRwxjTkLihKxr/UR5S6eo3rRMVyn4ks=;
-	b=LR0GqmnOoJW1aSmhm3RXiefQ0ebjd+3xeaa8sqblORzg3ux6qGAgppd82PiaucDAdycHZM
-	mzqPNkWOtb7XcCN3QCd5Nvg7IbsjRQF2j9jUp/Im3nS5CuatJoMCCpaaRnjrVEDoSEveF8
-	X2tAoZeRtkSWZQ3IIrq5p2yweRaZbHKC8FTfmVtWvyrYklFrajG/YvdMu5sDuPHoZx0Xue
-	AYLuTL4IAL8CNYuAyGP1564+mg6QIWh1WioeakkdZvNU4zeMUWQX1VCbpS4oW160yEZTy7
-	Fqc6Zy6anUN97iLuxEmaOkgbnxy4VK5T7ei6NxOdYBsBemERW3STP+i1ArqwXQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 30 Sep 2026 19:24:58 +0200
-Subject: [PATCH v6 12/12] arm64: dts: nuvoton: ma35d1: Add LXT crystal and
- clock-names
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="r2UhsyxA";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="eUoAO5df"
+Message-ID: <affd433db23905f57d48c25ad88707ba62c925a0.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790789179;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cZPYnuHiuNlq0agEleU5Vw3QXOfTKWBzAxaseohITEo=;
+	b=r2UhsyxAZMOPEViQ3ahoY8GpSwZQ/5/yoyoq2Qi6X6DV421ocdBYJi9bAImBVyRKEnkAG2
+	TsJmgeHT3l7trOnEOC7yaUrKi04DYsHoSo6kr4l4dqMGppEin0w3Qir1nr9384N3ODOfYA
+	cUI+ROvsXVdg9jDInM8KCZ769X7hRTM/Mm50oB9zoGN46CXfdXuh1PDpJXvAhbnaol2p6M
+	+F5Zqqop+riUD7uh8z2+xdfOnSO9DlI5VuNXu2bfjl3tHPhtrTQxI2epyDwlRn6D0fP0a1
+	JkhmrrRikU7hY0ViH+ptsG1Q+ItFxvU9pX7W3JVx0VZocORWX+PGyuCbFDN0/Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790789179;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cZPYnuHiuNlq0agEleU5Vw3QXOfTKWBzAxaseohITEo=;
+	b=eUoAO5dfE+Zrfu6jxLoQco+gdDx8TLZQQLimRc0c11Hd0K0gb/qla/fyHOEXGYwRQkvP4l
+	N/izlOFVCU/0IECg==
+Subject: Re: [PATCH net-next v3 6/8] net: dsa: soce: Add basic support for
+ SoC-e switch IP cores
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Wed, 30 Sep 2026 19:26:18 +0200
+In-Reply-To: <6c75787b-f06c-4d85-8fc4-5bd7b2a30716@lunn.ch>
+References: 
+	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
+	 <6c75787b-f06c-4d85-8fc4-5bd7b2a30716@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-perso-ma35d1-upstream-clk-v6-12-48937ee6c9bb@bootlin.com>
-References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
-In-Reply-To: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- Miquel Raynal <miquel.raynal@bootlin.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-The clock controller takes its two crystal oscillator inputs from the
-board: HXT and LXT. The LXT crystal is not described at all: add the
-fixed clock node for it and reference both inputs from the clock
-controller node, with their respective clock-names.
+On Sat, 2026-09-26 at 01:17 +0200, Andrew Lunn wrote:
+> > +static void soce_sw_read_core_version(struct soce_dsa_local *local,
+> > +				      u8 *version, u8 *subversion,
+> > +				      u16 *revision)
+> > +{
+> > +	u32 regval;
+> > +
+> > +	regval =3D readl(local->base_addr + SOCE_CORE_VERSION_OFFSET);
+> > +	*version =3D (u8)(regval >> SOCE_CORE_VERSION_VERSION_SHIFT);
+> > +	*subversion =3D (u8)(regval >> SOCE_CORE_VERSION_SUBVERSION_SHIFT);
+> > +	*revision =3D (u16)regval;
+>=20
+> FIELD_GET() would make this more readable.=20
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Fixes: b69af0984732 ("arm64: dts: nuvoton: Add initial ma35d1 device tree")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
----
- arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts | 6 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts | 6 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         | 3 ++-
- 3 files changed, 14 insertions(+), 1 deletion(-)
+Yes, I will fix it.
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-index d7670afb0a63..7752e85734ac 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
- 		#clock-cells = <0>;
- 		clock-frequency = <24000000>;
- 	};
-+
-+	clk_lxt: clock-lxt {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
- };
- 
- &clk {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-index 8f3cb18d39b6..5c65f1fe5da9 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
- 		#clock-cells = <0>;
- 		clock-frequency = <24000000>;
- 	};
-+
-+	clk_lxt: clock-lxt {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
- };
- 
- &clk {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index 7228ad4735b5..9a341c2b1397 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -92,7 +92,8 @@ clk: clock-controller@40460200 {
- 			compatible = "nuvoton,ma35d1-clk";
- 			reg = <0x00000000 0x40460200 0x0 0x100>;
- 			#clock-cells = <1>;
--			clocks = <&clk_hxt>;
-+			clocks = <&clk_hxt>, <&clk_lxt>;
-+			clock-names = "hxt", "lxt";
- 		};
- 
- 		pinctrl: pinctrl@40040000 {
+> > +static int soce_sw_detect_features(struct soce_dsa_local *local,
+> > +				   u32 *numports)
+> > +{
+> > +	void __iomem *base =3D local->base_addr;
+> > +	u32 implemented_numports;
+> > +	u32 licensed_numports;
+> > +	u32 regval;
+> > +
+> > +	regval =3D readl(base + SOCE_LIC_FEATURES_OFFSET);
+> > +	licensed_numports =3D FIELD_GET(SOCE_LIC_FEATURES_NUM_PORTS_MASK, reg=
+val);
+> > +	if (!licensed_numports || licensed_numports > SOCE_MAX_NUM_PORTS)
+> > +		return -EINVAL;
+> > +
+> > +	regval =3D readl(base + SOCE_IMPL_FEATURES0_OFFSET);
+> > +	if (!(regval & SOCE_IMPL_FEATURES0_DSA))
+> > +		return -ENODEV;
+> > +
+> > +	implemented_numports =3D
+> > +		FIELD_GET(SOCE_IMPL_FEATURES0_NUM_PORTS_MASK, regval);
+> > +	if (implemented_numports < SOCE_MIN_NUM_PORTS ||
+> > +	    implemented_numports > licensed_numports)
+> > +		return -EINVAL;
+>=20
+> Maybe add dev_err() here for all these error cases. It will help
+> somebody debug why there switch fails to probe.
 
--- 
-2.55.0
+Sure, I will add them.
 
+>=20
+> 	 Andrew
+
+Thanks,
+Vasilij
