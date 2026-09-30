@@ -1,129 +1,169 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12EC44A40B;
-	Wed, 30 Sep 2026 08:33:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0472D59E8;
+	Wed, 30 Sep 2026 08:35:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757237; cv=none; b=fpz14Jp9tzLPCRfI9FkiQ27GT2/WgMvoJKGjQJIreF7AgJjLZiVL/Em3nQHVJdk3vxoTbWBegc8Mp/qKxoxnK3uVHpsrmcjAlWhNP1OQfqz9vv4hbHFZPyVEmW5py3Fmr/spCf80XjGlVIXwlGIPCxi2P3swDbwLh1fOwhTCtiQ=
+	t=1790757308; cv=none; b=IChb34eBL6wB1KuXJpojuWOuYERNPlLvNo7pY1uP6xJAnMR5YT5Eq6NuKJgSLXDgmkplhb8RkXr1bAOY8uuimsI62cWAEIkLn21a7YzVHrWbkkOOkpc9JXZw63lG52AuLG4Gh2oZmdHZuxt/e8ws0vYB5VJIJ6yPQrVUVTtMUsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757237; c=relaxed/simple;
-	bh=MMtdk41NBB+Qc3t0U9od8tLeaTfZYIc2vmIwOCe7IgA=;
+	s=arc-20240116; t=1790757308; c=relaxed/simple;
+	bh=jDpjBQ4Fv0vizTH/R2w52lNHv7zi8LnZQZCiWr9dGSQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aZqwHUlOE1cccXW1YPWVhl8F4UgBVZ//yMCQMoyC/lXG3tjdKdint7iJbCv/mtdWPu66gF+U7SuyLkfiu7e795fLJBsS73uVRCryHXu3o4r2hf0uAEAwwGB92s9RqUYppTvtavZ9oeTateRv5JvcZad6ikZIPmXhW0dHKLU0diM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hkB5m3tN; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=WKfsqfRmEu4taUWVRVJbI7UlEkdKsTTEoG0NmJZ4i4MtYWGAmgeZHNvt7v83/AFSDPamyZuYKz+7vzkp1rmeQfBwk3dxWEor/MktNN3eX3olF/sGCKj0848QajStnvy9xsVerRTx6FkfDak0/jRIqLYD0HFHkX3KeSruoNGxgVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YOWdOO1O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hkB5m3tN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790757231; x=1822293231;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MMtdk41NBB+Qc3t0U9od8tLeaTfZYIc2vmIwOCe7IgA=;
-  b=hkB5m3tNy39Snvzy2IqYbgOYOQd6S4dVtvgYdwdi+NYMsxaMpzIaIhBq
-   M8qW1XCxXa12ncgO8/rXri8r784NVAw/e7DCZCubGFpQabADW3mMbW/lK
-   hYyc9FPJ/S98w5lyKzWedDrxsBbPJQDR7iKLEtGokig+InupSgSixUvom
-   BZs4GvpCdiIHw1v2no56EH8Pgx1SeT3qVbOgaF+euX8emtNcIVCbkYTs4
-   fZz+3WQRZReUTbiu6pfT8kuIyzuceaHMWBP1l1D06OyAa45hFD9LWqRKc
-   eA1gS3U+pLKibDL3izByHSLZJYxKVWDbZgDQSG2WKMjS73mKVm6bmnVVk
-   w==;
-X-CSE-ConnectionGUID: xkD0SSvqQyqD3qF2OAA+3g==
-X-CSE-MsgGUID: IHW2AefqSKu9NXL50mTD9A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90443707"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="90443707"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:33:44 -0700
-X-CSE-ConnectionGUID: T7JBMI1SSi2mJ6wrZLV/ag==
-X-CSE-MsgGUID: LajcXhi9TGmpIrpaZz5Xuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="274233722"
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:33:40 -0700
-Date: Wed, 30 Sep 2026 11:33:38 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Marek Vasut <marex@nabladev.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Cheick Traore <cheick.traore-ext@st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH v2 07/14] iio: adc: stm32-adc: add support for stm32mp25
-Message-ID: <arzJYg3cg73vYCOE@ashevche-desk.local>
-References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
- <20260923-adc-stm32mp25-v1-v2-7-46bc019537c6@foss.st.com>
- <arWPjx-JKt1IZCZl@ashevche-desk.local>
- <8fd19ab1-6ec4-49d7-aadc-accec6e71410@foss.st.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YOWdOO1O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A281F000FF;
+	Wed, 30 Sep 2026 08:34:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790757300;
+	bh=HmmuXY1dhET9hXohl3geSgtGl1ur+YkaIpC1O3vWiSg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YOWdOO1OmdzlKOayaKWfTLJfhShKZq7oZOxhbrhqWeUWZq9OVGrVvh5CZ3GZhq2Kn
+	 lG0Gy4RuB+WAFtkJAjGIXicvap3bVB/chNozf41O3Z9eyYW5tl1Ozzyd3kYk/ZvrSh
+	 hnvmbFMENtGBtTJVZJfd5YZy6v1JPiU90Yj1HzgEVSkA/g1za2/uCqakigHBYvhzq/
+	 L7Xp4X480mUn/NZPFdEpnQuMudgUrFbJf+8XMIu+PoSO6y7+sY6KQqnCv7eBh7ojlM
+	 Yu3IeHhFduCBjhDmaRFLaT+pBCHyD2WUlB8acfZNYwhVtzhFAUhMbWc3ESQdfzOmR3
+	 d9In/lRM2sbyg==
+Date: Wed, 30 Sep 2026 10:34:58 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v1 1/6] drm/tegra: dc: Expand available registers layouts
+Message-ID: <arzI6PXbGAgXs9Uh@orome>
+References: <20260930070535.47130-1-clamor95@gmail.com>
+ <20260930070535.47130-2-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6xcfjcqu5qqwldk2"
 Content-Disposition: inline
-In-Reply-To: <8fd19ab1-6ec4-49d7-aadc-accec6e71410@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Tue, Sep 29, 2026 at 06:48:28PM +0200, Fabrice Gasnier wrote:
-> On 9/24/26 23:01, Andy Shevchenko wrote:
-> > On Wed, Sep 23, 2026 at 05:39:10PM +0200, Fabrice Gasnier wrote:
-
-...
-
-> >>  		.compatible = "st,stm32mp13-adc-core",
-> >>  		.data = (void *)&stm32mp13_adc_priv_cfg
-> >>  	}, {
-> >> -	},
-> >> +		.compatible = "st,stm32mp25-adc-core",
-> >> +		.data = (void *)&stm32mp25_adc_priv_cfg
-> >> +	}, {
-> >> +	}
-> > 
-> > Same issue and now it's a regression from maintenance perspective: you added an
-> > unnedeed churn that has to be handled from now on... TL;DR: do add trailing
-> > commas to the non-terminator entries and remove trailing commas in the
-> > terminator entries.
-
-> Do you wish I add a separate cleanup patch for existing match table ?
-> This can also fit into 100 chars line now:
-
-This is, of course, is up to you, but my comment was solely against the
-trailing comma removal.
-
-> static const struct of_device_id stm32_adc_of_match[] = {
-> 	{ .compatible = "st,stm32f4-adc-core", .data = (void
-> *)&stm32f4_adc_priv_cfg, },
-
-Here is actually the opposite, no inner trailing comma should be added as it's
-a one-line entry.
-
-> 	{ .compatible = "st,stm32h7-adc-core", .data = (void
-> *)&stm32h7_adc_priv_cfg, },
-> 	{ .compatible = "st,stm32mp1-adc-core",	.data = (void
-> *)&stm32mp1_adc_priv_cfg, },
-> 	{ .compatible = "st,stm32mp13-adc-core", .data = (void
-> *)&stm32mp13_adc_priv_cfg, },
-> 	{ }
-> };
-
-> >>  };
-
--- 
-With Best Regards,
-Andy Shevchenko
+In-Reply-To: <20260930070535.47130-2-clamor95@gmail.com>
 
 
+--6xcfjcqu5qqwldk2
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 1/6] drm/tegra: dc: Expand available registers layouts
+MIME-Version: 1.0
+
+On Wed, Sep 30, 2026 at 10:05:30AM +0300, Svyatoslav Ryhel wrote:
+> Expand existing DC register definitions with additional fields in
+> preparation for adding the 8-bit CPU interface.
+>=20
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/gpu/drm/tegra/dc.c |  3 ++-
+>  drivers/gpu/drm/tegra/dc.h | 54 ++++++++++++++++++++++++++++++++++----
+>  2 files changed, 51 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+> index b0bfa946e6979..5c67928bcabfa 100644
+> --- a/drivers/gpu/drm/tegra/dc.c
+> +++ b/drivers/gpu/drm/tegra/dc.c
+> @@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_crt=
+c *crtc,
+> =20
+>  	if (dc->rgb) {
+>  		/* XXX: parameterize? */
+> -		value =3D SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
+> +		value =3D SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> +			SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
+>  		tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
+>  	}
+> =20
+> diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+> index 0cb0515968b35..5679e1ca0c2a5 100644
+> --- a/drivers/gpu/drm/tegra/dc.h
+> +++ b/drivers/gpu/drm/tegra/dc.h
+> @@ -274,8 +274,11 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define DC_COM_CRC_CHECKSUM			0x301
+>  #define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+>  #define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+> +#define LSC0_OUTPUT_POLARITY_LOW BIT(24)
+>  #define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+>  #define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+> +#define LSPI_OUTPUT_POLARITY_LOW BIT(8)
+> +#define LDC_OUTPUT_SELECT_V_PULSE1 BIT(14)
+>  #define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+>  #define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+>  #define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+> @@ -303,9 +306,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
+> =20
+>  #define DC_DISP_DISP_SIGNAL_OPTIONS0		0x400
+> -#define H_PULSE0_ENABLE (1 <<  8)
+> -#define H_PULSE1_ENABLE (1 << 10)
+> -#define H_PULSE2_ENABLE (1 << 12)
+> +#define H_PULSE0_ENABLE				BIT(8)
+> +#define H_PULSE1_ENABLE				BIT(10)
+> +#define H_PULSE2_ENABLE				BIT(12)
+> +#define V_PULSE0_ENABLE				BIT(16)
+> +#define V_PULSE1_ENABLE				BIT(18)
+> +#define V_PULSE2_ENABLE				BIT(19)
+> +#define V_PULSE3_ENABLE				BIT(20)
+> +#define M0_ENABLE				BIT(24)
+> +#define M1_ENABLE				BIT(26)
+> =20
+>  #define DC_DISP_DISP_SIGNAL_OPTIONS1		0x401
+> =20
+> @@ -451,11 +460,30 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define BASE_COLOR_SIZE_888    (  8 << 0)
+>  #define BASE_COLOR_SIZE_101010 ( 10 << 0)
+>  #define BASE_COLOR_SIZE_121212 ( 12 << 0)
+> +#define DISP_COLOR_SWAP_BGR	BIT(16)
+>  #define CMU_ENABLE_ENABLE      (1 << 20)
+> =20
+>  #define DC_DISP_SHIFT_CLOCK_OPTIONS		0x431
+> -#define  SC1_H_QUALIFIER_NONE	(1 << 16)
+> -#define  SC0_H_QUALIFIER_NONE	(1 <<  0)
+> +#define SC0_H_QUALIFIER(x)			(((x) & 0x7) <<  0)
+> +#define SC1_H_QUALIFIER(x)			(((x) & 0x7) << 16)
+> +enum {
+> +	SC_H_QUALIFIER_DISABLE,
+> +	SC_H_QUALIFIER_NONE,
+> +	SC_H_QUALIFIER_HACTIVE,
+> +	SC_H_QUALIFIER_EXT_HACTIVE,
+> +	SC_H_QUALIFIER_HPULSE,
+> +	SC_H_QUALIFIER_EXT_HPULSE,
+> +};
+
+Let's stick with regular defines for this, there's really no advantage
+in using enums for this and the other enums introduced by this patch.
+
+Thierry
+
+--6xcfjcqu5qqwldk2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq8ybEACgkQ3SOs138+
+s6HtwxAAiaxDlHnN4aptkVD4LviQS+58GCUsQFpauwktU417bgBtaEY2IR5bhnfB
+v1aTOT50EqEBPvh7/gQp60S9oc9tFNhwlVmLU/KYRlmcoPkusRlQVbI9Y+akKeti
+NGLkDd+dx/2+rBtMTC+dkfRcD+pakl1LHkmgyGkI6+JgFp/MpnaV0f5QwrgmuP0x
+rFC2I15ojWSnkDRGi4BG/n1LrdIXSnU2+y6LOuEkRpyIiFXDiHHfkLavBS4UkdTX
+C41Xra+HkTVy0auwYYkoWMPPpQXls82+OyXmBiK/eeLmv5ECrJUjIEJaR+6R4frG
+6DA7OgJGsUne483UmmNe62lTxvK2BlPX7aRSS+3yyhEUW2HUdgghnFx0VLJlwhAG
+nO1iOpc4/8KwrJsiCpAyc1bsW+G8whJ1XJBQhdylkGRjulciBSBoRU+EO8g1flKa
+u4kpC19nVL6RY66YlVVxhrOrjSUc2MKkUOz5A7rJxAbJenvlEQKgnsY8nRvm2iQ+
+LqXc/3/nlivdMrY323Q3GmABGf+9LI7ZK4nSkzLWhjkh2kMAL3yeXskRoShIZ3BB
+xyHhjrG8hSfNBYz2E7rl+N9iXfCndvqtCJ/CBGSqJdwOAyYSfLht/zblkgn75GdJ
+lH8hBcIBf/4FrCdbbjiuOsj4yHW8jhaZZrit5BXeQgRbib1M2B0=
+=fYMI
+-----END PGP SIGNATURE-----
+
+--6xcfjcqu5qqwldk2--
