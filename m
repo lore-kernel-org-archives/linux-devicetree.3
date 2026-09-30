@@ -1,196 +1,145 @@
-Received: from mail-qv2-f41.google.com (mail-qv2-f41.google.com [74.125.230.169])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F105150E59D
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 16:43:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786632; cv=none; b=GKyT/Tq66vfCuGZYUSjJnTeTEECvQAeYRrpn3uCt3Bg7nWAqsM2LFJGit/pXMRnx0TDhqXI8LxrML9vVfj+x3Y6hsUdYSUVuaQO0QZaPYIGSIAWHB9KmvbgTGtxhfyUaLX1mNQCiSXKm86ImPbNpmk7pL5bSq63K5Ha3psUn+z8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786632; c=relaxed/simple;
-	bh=RG9+M1uoJK9hezxLQbQqTbF4w+6gf1Ej1H9zhuRwbnM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=eh5fX8dvonWEVgfmE8zwfKYkhiRAKX9kwsga2qTRhtXxhaBkaO+cX7J4KC6Y4wvqWNuQsUStij2VsJXHhztjZVKqk5BrLTtI7i01hrPbmc8HrfoD5I4rpMKL6bgcRWwVOUtqnArcdCfdIfxNLvq4i1eO+dSzmHbLnlD8/MoQLEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=LrhTpHq9; arc=none smtp.client-ip=74.125.230.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5442E5158B9
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 16:45:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790786746; cv=pass; b=ebYpyzW6Vo77vqOEFRYk9UZpwna6A8SvFFgZXJSe9r7rq1Lrvj2H9qBpHZ8XmQsFQa7/uPF/44jdElPcZn8m6zcYa4PG1BRZcKIRpIMpF+y1xctOGr2gzVPo5Up0GAuCvM5RWO4AXY6Ow00MRV8QOngAfXqeLqKrbbzMDPY/ASc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790786746; c=relaxed/simple;
+	bh=bhyLwLX3Cbs39RNIdfvjdkMauqLBTv5+SoflpxyeT3g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mw0wMeNAyxcRCtB58bNA+GI2NaHJdWYU4Ng8HvF198wT2Ih/aGxVm8oTJPrI4lpAyyPhYSGndbFmg+VIIlWn3sZzYgcQ1nRtdPvbrWVMRzVKEzXmDohpW7eVIXTLA4RDlbEn1CdOx2RwcnCvsqFubD3Aokz3ZCeJyfFhN3T4/rY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=knt9JlSv; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="LrhTpHq9"
-Received: by mail-qv2-f41.google.com with SMTP id 6a1803df08f44-91799c58ba0so6770596d6.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:43:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="knt9JlSv"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so4892178f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:45:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790786742; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Q4lO3krLfK+p7CA7iYdPFVC6XWJk53FrTF/oVxpF3OATxhEVYGFh4OmQN41Kz96ZYe
+         1Z3fyE7Xll8NClCx/kZ7hru6DX/E6OVh+JqMxEb4bCDRDzg7vpTGwPGKQLBFHS07fBX5
+         f4kcENXaqNJVOh6Bm8R+wSEseDNPdEv8vA42F7NtrrxLi2KZvbtG3LOlrqHgdOfjwlqq
+         mj2UmHFYWaw9IBFn18MfHAhWJiAfYfCjB+paKJJ6V8RUPMUhLt9CqDEsXTu/ac03R3mu
+         9hVs7xQrOoHLwUgCcVPmiv8JvXanq3+Lg6cCEaX8wldBw3RHi2esZsfck+ocPrOscTah
+         XX1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0qr/Ipxr22SFcNZfSu174bMZPRwg/L3HUY1rLAYBi7I=;
+        fh=F4Pziq9XUbimbr7NkOzx/PwDkcSSgLdBNNpw9sfX6t8=;
+        b=hxnTNo4lD9xufVG5vrY/GR25d6/wUCG/nP3Naujef0o5TYhChIDXR2Ij8E36BDJ14c
+         geHMB/gUmhcVgTcIIrGgfMy+bXIIs5FB7Gawa5fParuohIdBGBsJv/8SuoCf86MlXfZl
+         9vXA0Mb5kTjOECOqow+YteAE6/WVbuN3fx2dYjn+HQtc9vq0sSIVDlBS6SGrb7JF13kO
+         qReNsSC5nTo85hzM5bGFEYg1l/VuRRBZZAbsy2PryUreUv6O3sItOBiWSF5Izfx9sTsk
+         RQVrCfuY0t2aMGh6uTqVX1JB32egiFptW07gfKYnwDuGd38EicAg2EkjvTBJ754GN+iF
+         atPg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790786630; x=1791391430; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tQuiLgKEFgvUaPnU/nIMejNLh/kt/JowyvkWugrWOng=;
-        b=LrhTpHq9+F+rY574Xy+PSCi5b7CgsqnvaWuXnm7k90PC03LH0tTsRTgnOScbjHerBj
-         XjHQo2YXHON6RUzVcrhcWPobjsLoWr26l2qNRA4yQKh7zemhoVMZeRG9WpDf4Tart9Hi
-         +UNEAM75iN806u+71saRDap/a5sBbbLG+vHmvc8jGUU59BSG2ntLKaTpBuAQ5yerqpeu
-         hCkYSOQMe4upQyiDZ/tEoCZY19lB0AX8A/3pMGVEC+eie8Ao1ozeP5cWGpEX/aao3b1f
-         dGsxiwN2BPd0q1F6HXYbbGPoczSY1MkUZvcj7AWwOflm+afQwWbzFkQjonLQPED0Wmwb
-         ZJjw==
+        d=gmail.com; s=20251104; t=1790786742; x=1791391542; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0qr/Ipxr22SFcNZfSu174bMZPRwg/L3HUY1rLAYBi7I=;
+        b=knt9JlSvHA/ihsQPnXC8Pto5tXIsmr4YXVA0pm0Xeq04GwRzp6MsVZB+aY/hHa2h0B
+         yoUINlKRc7bS70qcFZbuxmrJdB6q5eXGOikRuXFhxbpGHqoJhTwLYYEF1UHagKwG0gXy
+         smgn3xzTfk8D7fH3T3hp0/0ZP/6h+q4/t/IOMcqsEqYs+Kt7j6W7oyp1RV3y3BIPeQfv
+         ExJZWrWTNyXvM4UOF/MrFQMgRTZglQSFgAR+ipYkC4v1+FyStGbHL49dSKF3GNXc8TZp
+         XHHNx7oxo1GNGTpT8zQi/WQk9KXrCuLD885xnE5/KnF3WygGxo8SMqjrgsi/S4AjuqUC
+         8rSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790786630; x=1791391430;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tQuiLgKEFgvUaPnU/nIMejNLh/kt/JowyvkWugrWOng=;
-        b=STvbNYO8p2ecfGDjPOvl9iF7z2vE4M53mawVS1DxSDdHrJd9f53hjhvQbk/7XYdNzU
-         0Zv1c3+aas0afEMSjmZs4uiZ+O9G1CeRVPgBr4pvD3dlHht5NVlormugnLCFjOBXr2su
-         WFBSD8RIqPMke0Vd5hwBYk1kAvbfTwjWqU95P/0luO638Wg3JgUpkVGu+BWJ3eKLnsRe
-         wfBr7S6O5spNjcEdPIGJSJV8h0BGcnHEL6ivtebZfU9kFwYd7xZCx5li2XWxoaJRZuaT
-         U+Z6kkwDwHYfjj9CsahYDHMO3P/FZWVHpbp3+aUfo5yvEw28LDWWhW//uceotyYC0JBG
-         MfDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxJhYlqsYJwJC5H6aOjSUucxOOf4ixieUMEwJ8zEVvvRwsuJsBeBAv0/szIS1JwpcAxOtOGkmKQYuv/@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHHnRDm2QPv8jeG7VtH1ul6bfv0nqajzbaiQZcmKtE74p7UKmq
-	kFN8VmMY0jN/AnPZXPayNd4gXI2UucVZp5W18gsg9T9PTiqyv/0OG7ry/BTpwqEieng=
-X-Gm-Gg: AYBFou10a44P+RkhQmxDW8rAnEi3QH15SyTUG0SZ0jpRKvXFwTxiaVlmR0VjKrP1E4F
-	bJoA+IdSS0mW59hLDPTPGpwZ+DMIEbUjZOJ2l6JctMpcffkZPrWKI9LRuqp1DCsAWDOVcyd0vF6
-	a95QXb2f8ztkdgZP0M09UgsR3L3WHVKw1rjldNao2ezm7fw+UXPrxptRYW5zNsAwkeEb+hb5fil
-	kV2qPXKdsoAFAoWZUFHB6lQA1rEdzXKvZ52rkngfxxGJUIWluJZcR0P9Px5ebJ/ZSWPrmKepw1e
-	xbHoRc1i/xbUeYdj9Pp0jmNEpyz7XBR2/yIXdyTwT8wrhp8fGrmFIa3l/RgUa/wSq60lQH82TIC
-	A9InntjLICiJHggI8GjjlMEBg6zf+8E5jZ/A/7Y1WcPSzh8BzPNEuje8Nje7Fls+JhPKDRVszqG
-	h5jqhWbtLArZZSRJIcfivKAt0L1QpQixjf/Sv9vC7YDdNbEk6hNOgphGYpUpRNO2PVTnCECdeF3
-	WJ7Mh08lsYbcwnpp1oVg9E/AR9mQpZRUwn86ePD+/dmvyjnTmBwD6JIk9I2CcGlniHvwXxPuXFA
-	OKJ1V9MCPzEB2Nwjgw==
-X-Received: by 2002:a05:6214:c4c:b0:912:4680:c96f with SMTP id 6a1803df08f44-917a09cf960mr34578076d6.3.1790786629576;
-        Wed, 30 Sep 2026 09:43:49 -0700 (PDT)
-Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917a89a818bsm3800116d6.16.2026.09.30.09.43.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 09:43:49 -0700 (PDT)
-Message-ID: <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
-Date: Wed, 30 Sep 2026 18:43:47 +0200
+        d=1e100.net; s=20260707; t=1790786742; x=1791391542;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0qr/Ipxr22SFcNZfSu174bMZPRwg/L3HUY1rLAYBi7I=;
+        b=OIcWdZpOgaFEIYKZkRZDnY87HIehPBg7EuSJRfrMqfh6I0/OA7gRTkGX/FJJrHGDoW
+         KIpnbeeH6nCO08Gn0N9bprvvoVZMKJ8tZOi/1cccQZE1u5lHWwRGvI5SrO8JWW53Io6I
+         BpajnEv3RHx4xsrW3qRUipXjTNPR1AZOq3/lY4qS9YWVj6UTVIZXEeVz4okYiq4i2o4a
+         Aak8s19/lPVMdfGYhlx88DZ3vpXYlMQOUeNnPtCOzNe6II8f/HDMLqNPzO3OdCwbMhND
+         r8YNtQxqt9CuNzkbW4/uce1mDurQtx+wssqFlDC48nUORfVLxkZhcfaTnzdCOZvMWyLz
+         8uaA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4YfW24rWcpqSVrnvBrES351hQGDpiHRtYq9n1RmCOpOWdwqMrguH/JfyHkN86Y1I7bYJ4VjxBefrJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+n6cJdNqG/WPDx/fLtiKyqEFKyWRxeGiwZP/9V51YRFJb8V1h
+	0VUlCfcxkCKZ68IdwPt97iXhn6QrHVFDjZLeR0g8v2jqSxhss+Q7Vwl+o3msyrknOdqwHoFRdac
+	wt43qNIQ9d3BzAtUhzgi55I6/g46YHXA=
+X-Gm-Gg: AYBFou1nGUStHG9gvxEOrnRML2TTlCME3udl2OLlyNILCaiLAoIfpKJub7QhsGGvq88
+	6VTZE+3rIYouEroghWkj7hPGxUHfNwL7hsgsdXIE12iqg5jTfwE5lX88XCP74CfGA29fPx6i38b
+	dUY7eJq3c/Gt8Q7RpetnvEHeoGlE0OsklY79JDfA1YclPoC2DGlA0FcIIwC4p8ySzQa0tEcyy+T
+	Q8k6Hciu2pLBtIArhp9TK6kZGVFcDQsP2Bc7RoD+KN/kFe53DQKN0oHNZg6J8LOlZuwQktdH/8U
+	qPt19HwkC59Hbc13N8AbU1Dqr4y8cPeI/kV+eCj0LUtPuR5KPpr9O9UCEU3/rTAUF2Axae0WBM9
+	tkJwGw+KCyiEmQl3RbJYkfXAa0rjMxoe2ndNNQuQLKpNH0zbX8A4Vj4s85ECg3zwywe1a89M0NQ
+	==
+X-Received: by 2002:a05:6000:4a01:b0:48a:f36d:fb57 with SMTP id
+ ffacd0b85a97d-48b024ea6cfmr4110706f8f.18.1790786742198; Wed, 30 Sep 2026
+ 09:45:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
- support
-To: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
- <20260727-spotted-winged-mantis-7aa1ce@quoll>
- <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
- <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
- <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260929124248.237032-3-prabhakar.mahadev-lad.rj@bp.renesas.com> <arzVHnMtKqQx5rdZ@ashevche-desk.local>
+In-Reply-To: <arzVHnMtKqQx5rdZ@ashevche-desk.local>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 30 Sep 2026 17:45:15 +0100
+X-Gm-Features: AclHuK9DK0fHm8pKCkWA6Zd6bNeQSmhN0p4rElp5jeZV36-WUljPpymXoO3Fm8M
+Message-ID: <CA+V-a8sgRHDbJqnp6_-0NO8V5f-J96ZtdC698-2n0Z7n71x5qg@mail.gmail.com>
+Subject: Re: [PATCH 2/8] iio: adc: rzt2h: Wait for the analog part to stop
+ after a forced stop
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/30/26 09:44, Linus Walleij wrote:
-> On Tue, Sep 29, 2026 at 3:35 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
->> This entire binding seems like stitching two devices together, which
->> might be fine (I don't even remember this stuff... two months old) or
->> might be artificial grouping of separate devices.
-> 
-> I think that's a good point and fair pushback.
-> 
-> Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
-> https://www.youtube.com/watch?v=6tNGW8PoSzw
-> 
-> The current binding does not reflect the physical topology of the
-> actual device, and the bindings need improvements. I have a feeling
-> there is one display controller with two physical panels.
+Hi Andy,
 
-No there's really 2 controller and 2 separate panels, but they are not
-classic panel, they are a pair of panels+lens which are in front of
-the eyes which forms a single "image" for the brain, so they are
-technically a single display and requires to be hard synchronized.
+Thank you for the review.
 
-The R63455 is designed for this exact use case and are only supposed
-to be use in XR application in pair.
-
-See it like a single physical panel with 2 controllers which
-shouldn't be used separately. While technically a controller could
-be used to driver single panel, it's likely impossible Synaptics
-would sell this IC for non XR applications.
-
-We want the both panels to be seen at a single big panel because
-physically the human eye will see it as a single display.
-
-Describing both panels into separate nodes would only be possible
-if we described a "VR display complex" nodes linked to both panels
-but this would probably be solved by actually describing the "display"
-linked to a DDIC controller and is out of subject for this serie,
-and can be added later when we properly define things.
-
-Nei
-
-> 
-> In that case I think it's better if we do:
-> 
-> panel: panel@0 {
->      /* This is the two-panel package with one display controller */
->      compatible = "sharp,ls026b3sa06", "synaptics,r63455";
->      reg = <0>;
->      #address-cells = <1>;
->      #size-cells = <0>;
-> 
->      panel@0 {
->          reset-gpios = <&pm8550_gpios 3 GPIO_ACTIVE_HIGH>;
->          reg = <0>;
->           ....
->      };
-> 
->      panel@1 {
->          reset-gpios = <&pm8550_gpios 11 GPIO_ACTIVE_HIGH>;
->          reg = <1>;
->          ....
->      };
-> 
+On Wed, Sep 30, 2026 at 10:24=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+>
+> On Tue, Sep 29, 2026 at 01:42:42PM +0100, Prabhakar wrote:
+>
+> > When ADCSR.ADST is cleared to forcibly stop a conversion, the analog pa=
+rt
+> > of the A/D converter can take up to 2 ADCLK cycles to stop operating.
+> >
+> > Wait for the write to ADCSR to complete and allow the analog part to st=
+op
+> > before reconfiguring or restarting the converter.
+>
 > ...
-> };
-> 
-> 
-> Yours,
-> Linus Walleij
+>
+> > +     /*
+> > +      * When a conversion is forcibly stopped, the analog part of the =
+A/D
+> > +      * converter takes up to 2 ADCLK cycles to stop operating.
+> > +      */
+> > +     ndelay(DIV_ROUND_UP_ULL((u64)RZT2H_ADC_STOP_CYCLES * NSEC_PER_SEC=
+,
+> > +                             adc->adclk_rate));
+>
+> I do not see the point in having _ULL (64-bit) division. Do you?
+>
+Agreed, I will make use of DIV_ROUND_UP() instead.
 
+Cheers,
+Prabhakar
