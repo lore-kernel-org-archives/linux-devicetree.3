@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1741643B
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 00:20:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74678265CA8
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 00:23:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790727623; cv=none; b=XqLG6KtNqgB/U662dYIoIcO5eoWocJTEusVvMyYEtlnTWUbNWnEMtnYZVWUooVGyRh210YKw3AoBLYNQA6uEEv0+qEIAVUA1LcFK2BTCCz/gUsmLAbYQwPJMCzne7Fvn0Say73ClHwCh4luNC+I+5WlGKx7/Q3kEv0oynJ4WP8M=
+	t=1790727817; cv=none; b=aV+r6WF0ho4EHDEfrG477aO2GYpw5k8uqH7KyKlqdQU4Xwkm8E2AruMl1qfnDQBbjSDtKDgVdqnrWQN0GXY+XUXuqby3xrH7hIDOMFNKZG6AptV26FhG2nNZ7BpIrxv7l8RJK6tQFLnPKodB82jZsM2kbBCTXqZxm3l+urSeAXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790727623; c=relaxed/simple;
-	bh=Y/REJJckGutvq0UpZhJDhW2jds7aXaEaqk6EQ4CJvKY=;
+	s=arc-20240116; t=1790727817; c=relaxed/simple;
+	bh=4GvX1207IlhlAnKosEst2KE/AYpap1q0o2xA0Y+3ag8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gAofe43D8jZSm1Cel4H85RMTLYW38xk4o42xfGFpBUCrzEWyiz7My73jFWGCt9bD//Z5dbezqT9zn6tUKRDZStp73DDfSp8kkJtVPTK9cfOdBTlOm9HATIKMWhYijE7Qz/AhSygF+0P+EdI0ojlPBbwV0NgpT6GL6jlf01gKPDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BOfFepts; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=lJVgwywBq2E2YAhqFLKdQT/+lQbeZw0JExaucaaogQ56xXgq4J8gYMer7tETwMgEq7YvQNe0/wUROuJmcLgcVaPgbaemGDIzcqw4dabqW1mylGPUs4zzk1jGkpFfMTXCj8x5eLwYIEV5QI8lPhJteC7j4iboETLZBtheQsTcpQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JGrVzZ+O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BOfFepts"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B09F1F00898;
-	Wed, 30 Sep 2026 00:20:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JGrVzZ+O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2650B1F00899;
+	Wed, 30 Sep 2026 00:23:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790727622;
-	bh=U2FE6DS2LTakAuHu9mZgpqnAuSCe/t3o23HWXKkJ5ac=;
+	s=k20260515; t=1790727814;
+	bh=IlRwMQZeD4g8nc1zfteeWJPbBwtSCB5JmroDzWwoXr4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BOfFeptsP55bOSr8dGExydA8BSpcPFcM+HCW8D6suJy/57wwd3YdnjuvcypKhvYFB
-	 bGOv1v/NwXe5M1Lcnhgclb3XNIEuiMlf7gHDKSMDhp+DVoWXrXGb0cnlhQZ72FUmAF
-	 D/HuBMf0Ge2QhL5c7nbUF9VSix1+ukCTY7z+XprvQcQtMx8MqRW0VokPiyCeRW3j2J
-	 qb2aRz422hcSjk3evdRGdzEtLUisejfIbpOnQ0mT4deZ3BagOMxPXyEf3I3ppF2RU+
-	 S5lrtAEN1I7+YA8irB412CZ4fsnEqV6O0jFps9pjpuXcjJB8zAqExoIRjJrr1eszXL
-	 waaR4m8jeL+9g==
+	b=JGrVzZ+OGOPdYaOgqMRi16WX1LbrVvn/gjce5KMNJx8S4u68S8/Nh/3G1IqnC4xh6
+	 XsE5wTtouo1xr8x0DWhnf+8aQqNAkDColGSEaIZpm0FGaiVk4pZAB78WDdhlmZF3Ix
+	 /Kb3u5qbPy19ygX4ZiKlmX64ksUSDY/LERdFbvZfn8vjDscdeo89kX8WugX0JZFzME
+	 sHyDFvI5JYHD622uEJpq3HSKhacSWi26YUuoin27SCZXTnicnWalPqyHUwj5ilIEgG
+	 uH3wiRzZl9JUKEd+6PQQMM3LzYEmSNx4pKrjcfc9zx05mfwW/Lt9fQ3gdkxuoEAp0f
+	 e+zrP7LpXbr6g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/6] dt-bindings: soc: samsung: exynos-pmu: Require
- pmu-intr-gen-syscon for Exynos850
+Subject: Re: [PATCH v7 6/6] arm64: dts: exynos850: add PMU interrupt
+ generation node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Alexey Klimov" <alexey.klimov@linaro.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260930-exynos850-cpuhotplug-v7-2-203245826333@linaro.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260930-exynos850-cpuhotplug-v7-6-203245826333@linaro.org>
 References: <20260930-exynos850-cpuhotplug-v7-0-203245826333@linaro.org>
- <20260930-exynos850-cpuhotplug-v7-2-203245826333@linaro.org>
+ <20260930-exynos850-cpuhotplug-v7-6-203245826333@linaro.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 00:20:21 +0000
-Message-Id: <20260930002022.0B09F1F00898@smtp.kernel.org>
+Date: Wed, 30 Sep 2026 00:23:33 +0000
+Message-Id: <20260930002334.2650B1F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,50 +47,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: incorrect reboot-mode restrictions applied to Exynos850
+- [High] cpu/hotplug: ignored PMU callback returns mask silent CPU wakeup f=
+ailures
 --
 
-commit f0529e2252a91a7f009c0becdb948b0784d4d52f
+commit ed843ac940e60ee64cbd03b344104cc24b925c4a
 Author: Alexey Klimov <alexey.klimov@linaro.org>
 
-dt-bindings: soc: samsung: exynos-pmu: Require pmu-intr-gen-syscon for Exyn=
-os850
+arm64: dts: exynos850: add PMU interrupt generation node
 
-This commit updates the Exynos PMU schema to mandate the
-google,pmu-intr-gen-syscon property for the samsung,exynos850-pmu compatibl=
-e.
-This ensures the hardware is correctly described for the driver to obtain t=
-he
-syscon regmap.
+Add pmu_intr_gen node for Exynos850. This hw block is required
+for different power management routines like CPU hotplug and
+different sleep and idle states. Also reference this node from main PMU
+node.
 
-> diff --git a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yam=
-l b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
-> --- a/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
-> +++ b/Documentation/devicetree/bindings/soc/samsung/exynos-pmu.yaml
-> @@ -196,6 +196,7 @@ allOf:
->            contains:
->              enum:
->                - google,gs101-pmu
-> +              - samsung,exynos850-pmu
+> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/=
+dts/exynos/exynos850.dtsi
+> index 8a4771899a8e6..803fc127d8956 100644
+> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
+> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+> @@ -231,6 +231,7 @@ gic: interrupt-controller@12a01000 {
+>  		pmu_system_controller: system-controller@11860000 {
+>  			compatible =3D "samsung,exynos850-pmu", "syscon";
+>  			reg =3D <0x11860000 0x10000>;
+> +			google,pmu-intr-gen-syscon =3D <&pmu_intr_gen>;
 
-[Severity: Low]
-By appending samsung,exynos850-pmu to the google,gs101-pmu conditional block
-to enforce the syscon property, does this unintentionally apply Google
-Pixel-specific reboot-mode constraints to a standard Samsung SoC?
+[Severity: High]
+Does enabling CPU hotplug and PMU configuration here mask silent CPU wakeup
+failures?
 
-The reboot-mode pattern properties in this block use a negative lookahead
-regex to allow only specific modes (like dm-verity-device-corrupted or
-reboot-ab-update). Standard Samsung Exynos devices utilize mode-download,
-which is explicitly rejected by this GS101 negative lookahead regex.
+The hotplug framework requires an error code to abort the hotplug operation,
+but exynos_cpuhp_pmu_online() in drivers/soc/samsung/exynos-pmu.c
+unconditionally returns 0:
 
-Should the requirement for google,pmu-intr-gen-syscon for exynos850-pmu be
-encapsulated in its own separate conditional block to avoid breaking schema
-validation for valid Exynos850 device trees?
+drivers/soc/samsung/exynos-pmu.c:exynos_cpuhp_pmu_online() {
+...
+	pmu_context->pmu_data->cpu_pmu_online(pmu_context, cpu);
+	/*
+	 * Mark this CPU as having finished the hotplug.
+	 * This means this CPU can now enter C2 idle state.
+	 */
+	clear_bit(cpu, pmu_context->in_cpuhp);
+	raw_spin_unlock_irqrestore(&pmu_context->cpupm_lock, flags);
 
->      then:
->        properties:
->          reboot-mode:
+	return 0;
+}
+
+Similarly, exynos_cpu_pmu_online() returns NOTIFY_OK to the CPU_PM framework
+even if the PMU failed to configure correctly:
+
+drivers/soc/samsung/exynos-pmu.c:exynos_cpu_pmu_online() {
+...
+	pmu_context->pmu_data->cpu_pmu_online(pmu_context, cpu);
+	raw_spin_unlock(&pmu_context->cpupm_lock);
+
+	return NOTIFY_OK;
+}
+
+If topology_cluster_id() or topology_core_id() fails (or if a PMU hardware
+initialization fails), the cpu_pmu_online callback returns an error code.
+Since the error is unconditionally dropped, the CPU/PM frameworks are
+incorrectly told the hardware operation succeeded.
+
+Could this cause the CPU to fail to wake up, potentially hanging the hotplug
+state machine or leaving the CPU permanently stuck in idle without the kern=
+el
+knowing?
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-exynos850-=
-cpuhotplug-v7-0-203245826333@linaro.org?part=3D2
+cpuhotplug-v7-0-203245826333@linaro.org?part=3D6
