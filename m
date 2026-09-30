@@ -1,115 +1,180 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1F34F30F0
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 15:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E6A4FDA54
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 15:12:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790781023; cv=none; b=LXbdlYGvJIdyDSsCPjhl6C6N8jylp/cMC75e57WdITXCgIJ7dY8jLOw+tzXefY6hs5kmhAp3B2R1wsvVDxfA4f5epmowft7S4BXrG44HFWkNq1+v1pRDRL4QcP5Fcu4XtrjpsW6+NpxeXqcxzOHDQ4BnkMcuzlfm27IM4kPI73M=
+	t=1790781184; cv=none; b=lEyayM9KqEScLOkfm8BJIOb0R/fq4ioKtvHn4O6EmQVA3maLnflmJwXLLbQ4vf9IUAKBRgrjo8IRuoDYzrwPwG7kWYNhrFXr7Erl93thduRzMZJ87onIVDVIDrDso5E0NpNEoxrgn7fAaAzi7aYbzWfCa39hp2lWGriQTN232Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790781023; c=relaxed/simple;
-	bh=0OxRhuVbi3oxUlatW0tIcyIVYkE96Nbu7bqC/b0fLyE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DUo/oN9nRChnqsweW0ROYfDaJREbCupUv2z+Xnopu2fgC5UpoQNEsBqKmmZepmWkAsaq575nGeten8ovy5h1ZAEKyAV1crJHfdSVLwn0E9QbDgJdMoCXPtbofqhNqlwEZk+HVQUUGd40GCuIN9+ao+tm8P7fC4E3hvUT8WFYk8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=he0CNuvm; arc=none smtp.client-ip=74.125.229.205
+	s=arc-20240116; t=1790781184; c=relaxed/simple;
+	bh=bzhjqFJC+dCljMazr6CkCDYXx5Eq/Z4c0o1B0NivLB4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Javcsq6uNCMubDdo1zdnpczm9zTLdgjPAlSLwDdEtqb1DvcfhVUfXVKcs1vaqw8tmZTN0WZCNuCJfieX1Kk5jilNudmzcENO8Oto+c2optTcjMcX9gka11agQ6P98AGRv0yiq8yv/cp8meFWqLiYTQssljHo3BhBlbsZ1B8qIns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n1LdssA9; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="he0CNuvm"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba43157c71so605e87.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:10:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n1LdssA9"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so9768065e9.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:12:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790781010; x=1791385810; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fPmto+vUBoK3BPeCZ82QESLiZxY5p21rVFK/tfyP4vM=;
-        b=he0CNuvmm7mjhNkF4WGGazuow9mh5t+GmnSTZSQy5jsvCel0poBTrP51IwdlwBLnJz
-         SOl/VdtAqwaENxDFiRJhFspv8fOnReUXgu1QoU3fPJpQUvQltdg9KSBwHLnw1jXWmApV
-         xOcG8/PIYF7JINRm9JaI9wkkjoCI0VMKH+45R1UwoUUR76LiJBm9fC4BxYPIGyIwrZLE
-         MsRxtkJjNgUG89WHmbwNtXugRbmNbzJSRU+Xf8opZxMshnembivB8FS79EJpauf4cx7c
-         kLRSSR1LMpWgkQ54bUUXCf7KtLFC+X4LNwv1jPXXkjnpT1nEANYfQTKJtPM9HdCn7d3J
-         f2qw==
+        d=gmail.com; s=20251104; t=1790781170; x=1791385970; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OSdmhz6QeIhKCNCrOk2rawQmJp3h2Ms8iDYvSFt+tko=;
+        b=n1LdssA9Hvxn9tCFeD9w4b9S3YyPdr5WR+zH6wd7G2hcLSmdOVK+Ojpae19Zq7RNCl
+         UZanfsokIdf1crmGwjSDa2W/bWULVuaUN6PetfktoiwTFG5SnHg+8qccxjshPAEJIKTH
+         jADp30/tiSIFDGuKp9AkzASyjT0bXz3vA6WYSc7oK0HzdfxWwT7kYSs0vh75W4vlo8UX
+         yn8Yp/CkM+WTwD0zOFvRmc03gDLlrYhNerJj2BQZDy2XZMNAGNgwdArsk0DGYzsroY2Z
+         HjZr+LMEM4F5eR2fznNskmrJkrRS1iIqggr4nkjwJ9lran9VfbRWXdFpo0HhayuqCcOw
+         OdGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790781010; x=1791385810;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fPmto+vUBoK3BPeCZ82QESLiZxY5p21rVFK/tfyP4vM=;
-        b=M4WCfEqku00kPsIPFZR98N8hnBOvtgCiMUUULuThj2H5Fv9/dOFR1uyhtXjF2Ne258
-         YXM+eNcDe7zmrjMoDXMwsoLuFCsIaewdXwPnscQTCbCA5NNtXlgkBzuP8rzgMrtgkjSZ
-         8obMbOwiQcjKSDOIytuNO9Wx88mojpsYQduByAqJiW/70kFrGnnU3Ll4OTnGag09nVCa
-         KW3QOid0HgEbKuBki0iAxCpLxHUOe2VW9jIOVGCZ0iD7Lo2WcP1MonJ1F8j+MMVMM8Yu
-         q+viQ0g4CpLHFvfajI9ZPGbVC3iQiJdM2COgUPpKjRycxJXEahZqMued7NueQhzPnCAH
-         026A==
-X-Forwarded-Encrypted: i=1; AKwUvBzf4IKEQON7B49mT6GrDvU2ODLp/LabNsw75gUChu3cX8nGvgP2UDx9bJI8W0vruodb5v5u1mDZ8mVs@vger.kernel.org
-X-Gm-Message-State: AFq9FYKO2q1le5QNWQAmXY5MaLbUUzajY8X/kUNtSvEeOc0MQwUDMhER
-	HJCgDjVsUvucP34spSWfja5CFPwqXVdrMQc3yL/4+k26JVqk6I/ZEBx6
-X-Gm-Gg: AYBFou3NKB3eZmCHm9IwaiSEthtL6lB8VYwsbPXFmghlqGduWkEJ3TPnleMNJruiN0W
-	8BQi7nsL1N00IzfWnm7Dw+wIE54YCUwKlNdMS6Yi8jpePJHc7ufD5b6k872OzxOkhXnokMqvone
-	NqXC6fPbejnH35YZ7cnraNJZOXuJSaxUsAfzpTRo5FdpFYVkzez0iDgzZ6TtjaZWUHVH4/3L3+f
-	AOEYdLB1JhV/uRNdDoQ9GQ/VZyAIT6xnq2STR2BRTcf57oeDSi80BpwPMTeBSwgiIOC2J+piLmY
-	MYdx6zlOOl1dmEoRnnK20GEqCvwIyjk1Y2+kdPEd55lEoOYTqO8oXv6t7PMaaCof438aoIJk92Q
-	cfQbUadgFBReSp3vHkyupjUQCs6pVdIRwRGAu9QdLRsbEbxT5CMwdrLzE3dgjt0IW0JsQZ9TOvV
-	449Knqxn1KlJF8/TmhkxndvpwJJPFTgRUzrmz7x5YVEIotB6LdUc9VlZsMQbVO60g3nhQPbGqUc
-	Pl7X0xTw+t58/uGkuplAsd49tiBytg=
-X-Received: by 2002:a05:6512:3ba3:b0:5b8:f955:29e7 with SMTP id 2adb3069b0e04-5ba402c323emr870452e87.6.1790781009538;
-        Wed, 30 Sep 2026 08:10:09 -0700 (PDT)
-Received: from [10.249.180.52] (m-37-0-171-147.cust.tele2.lt. [37.0.171.147])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42faaa70sm29075e87.27.2026.09.30.08.10.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 08:10:09 -0700 (PDT)
-Message-ID: <82fded25-6338-4aa1-8bb1-a49834cca8ba@gmail.com>
-Date: Wed, 30 Sep 2026 18:10:03 +0300
+        d=1e100.net; s=20260707; t=1790781170; x=1791385970;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OSdmhz6QeIhKCNCrOk2rawQmJp3h2Ms8iDYvSFt+tko=;
+        b=jaDPbK4UIBhW3Rmyhr9OgPOEYYjxEnz7sV6XHNIdBEh5TYJazkDalLbKADCqw6xR/1
+         TZwDpQfHBSYgDarx5jOHB33y2W18xkvSAzEXUfHf5s3vq0CVr8c4PqlttiMKzi7WMZie
+         gkefr5n+nlM8Z/7DP72hleGTnVYQsVW1v+DPg+MFvLhSyllNx843t+QGsGmCPTVKwahj
+         FfJ3hOP6l8xMvzj5fRlkNfk6aHEuzjR8PeHaTUjtfmzb3kbNBeKnBf0GyJb+QEkMjxTY
+         15gqqp5uT8vUhBfvlymbyiVN/EuaNM5UMneOGYzEoL17ZtJc7rVWORp1ICeX90DrcnOq
+         d5xA==
+X-Forwarded-Encrypted: i=1; AKwUvByYuwXoHSe2EGl9NbrTe8AjCwZImgh5WCwjOmZlHzmrzRdLSXZ+EAu2XsPU6+qbbcHYFBXsm9b4mgzd@vger.kernel.org
+X-Gm-Message-State: AFuF++nikT0WY9V0sYGsFfBpxUwYtF9QpLvw4ND4xbUTQCrPDRZ2UYsm
+	taQQVNcN2tp5abxK2q/k0XjrNjnr5TO2L8JIXyww6zGiMfw9iF2c1xKI
+X-Gm-Gg: AYBFou0xERcU67FkKdD+Gq7ZXF2HNHKbQdWRUOhR/3SnbEJRR01axRV6Wqif1/SyRn3
+	VPJ+MFeSqSF4T2oyRc6eludMAzhLf9Fnp/xHBaA7U2k7TXqVKUUM4bx/L+QKLN2gXhUlznT2ceS
+	fMfRp9+QEEaCL/tV4aiBOjoxDoRkDpUfQxrGZEM3rFQfX47zh7FFG9vrpTReTPWN8F4RxnFruym
+	Tf6CQCV/rvLpnbTjoz4p8QtDlzAy3T9Jl3oM4PBOu7xSd1L1cIyTZG0i3Pj8w5UJ8NfZ0oNjwlB
+	wh4CvRgRDYCbRxvSJnae2uc/T37VQ+5onL1h/nHrDh2KSNr/mbXzKCzl4kGulEZ5AtYRsee097J
+	KBsWnw+w8ZUOkYrirzS0cpVgz768zMqNan3qazvEXQK4Hn67QjYBw+MjV4RoXjQqzj7mfER/Why
+	au+sKkcxr8rcO1boCYNo1qES4vrdWJS+44s7LL+GA1j4vedGn44e3fQHWxdVDjieYaspRqunKIQ
+	dXzn+7/wH9Ih+un/86ddf8sx/l+rChzk8FfJWEvR0FG82BIBBuntqaKd1HIAEuQXBXigqtDwNVx
+	M6JB3diI50nOZ1XOiPWoNlvorcNhEH7zIpgNgxS9YBsEIs4gp6IYPo5M7Y/4z9J5/CelwQ8TPQs
+	sPLizKH8csa3u8O8t8qedBpbqVQRHe4KL8vqZ1VFXl34KIXCNrrtlA3bfbADgWg4yg6uJUFcnn9
+	E6L61+
+X-Received: by 2002:a05:600c:5391:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a01b1ba781mr26714605e9.14.1790781169765;
+        Wed, 30 Sep 2026 08:12:49 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01ccd1566sm18147705e9.2.2026.09.30.08.12.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 08:12:49 -0700 (PDT)
+Date: Wed, 30 Sep 2026 17:12:48 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
+ <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ Cheick Traore <cheick.traore-ext@st.com>, Olivier Moysan
+ <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH v3 09/15] iio: adc: stm32-adc: add support for stm32mp23
+Message-ID: <20260930171248.00004562@gmail.com>
+In-Reply-To: <20260930-adc-stm32mp25-v1-v3-9-406834430d72@foss.st.com>
+References: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
+	<20260930-adc-stm32mp25-v1-v3-9-406834430d72@foss.st.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH RESEND v3 0/3] arm64: dts: qcom: sm7125-samsung:
- add initial device tree for SM7125 Samsung platform
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Stefan Hansson <newbyte@postmarketos.org>,
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
- David Heidelberg <david@ixit.cz>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Vitalii Skorkin <nikroksm@mail.ru>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260910-sm7125-samsung-v3-0-c467bea0fb9c@gmail.com>
- <179065170983.2673486.1587443995547415765.b4-ty@b4>
-Content-Language: en-US
-From: Erikas Bitovtas <xerikasxx@gmail.com>
-In-Reply-To: <179065170983.2673486.1587443995547415765.b4-ty@b4>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Wed, 30 Sep 2026 16:18:30 +0200
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
+> Add support for ADC on STM32MP23 SoC. It has 3 ADCs, split into two blocks:
+> - ADC1 & ADC2 are tightly coupled.
+> - ADC3 is managed independently.
 > 
-> Applied, thanks!
+> It is quite similar to STM32MP25 ADC, except for the trigger list. TIM20
+> triggers have been removed. So, handle the differences with a dedicated
+> compatible and compatible data.
 > 
-> [1/3] dt-bindings: arm: qcom: Document Samsung Galaxy A52/A72
->       commit: 0f14172198733b780f22d546516ccf8a7ed77733
-> [2/3] firmware: qcom: tzmem: disable SHM bridge for SM7125 platform
->       commit: 6320b4c31b70a39a06de27a8019a45632beef32a
+> Co-developed-by: Cheick Traore <cheick.traore-ext@st.com>
+> Signed-off-by: Cheick Traore <cheick.traore-ext@st.com>
+> Co-developed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> ---
+> Changes in v3:
+> - Style: Wrap core ID table to 100 chars.
 > 
-> Best regards,
-Hello Bjorn,
+> Changes in v2:
+> - New patch, split as advised by Andy: one patch for this new SoC
+> ---
+>  drivers/iio/adc/stm32-adc-core.c |   1 +
+>  drivers/iio/adc/stm32-adc.c      | 112 +++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 113 insertions(+)
+> 
+> diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+> index bb8b53f52914..f94cc6fe4c02 100644
+> --- a/drivers/iio/adc/stm32-adc-core.c
+> +++ b/drivers/iio/adc/stm32-adc-core.c
+> @@ -936,6 +936,7 @@ static const struct of_device_id stm32_adc_of_match[] = {
+>  	{ .compatible = "st,stm32h7-adc-core", .data = (void *)&stm32h7_adc_priv_cfg },
+>  	{ .compatible = "st,stm32mp1-adc-core",	.data = (void *)&stm32mp1_adc_priv_cfg },
+>  	{ .compatible = "st,stm32mp13-adc-core", .data = (void *)&stm32mp13_adc_priv_cfg },
+> +	{ .compatible = "st,stm32mp23-adc-core", .data = (void *)&stm32mp25_adc_priv_cfg },
+>  	{ .compatible = "st,stm32mp25-adc-core", .data = (void *)&stm32mp25_adc_priv_cfg },
+>  	{ }
+>  };
+> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> index 33e41505b2e9..210b76b21d13 100644
+> --- a/drivers/iio/adc/stm32-adc.c
+> +++ b/drivers/iio/adc/stm32-adc.c
+> @@ -563,6 +563,64 @@ static const struct stm32_adc_regspec stm32h7_adc_regspec = {
+>  	.smp_bits = stm32h7_smp_bits,
+>  };
+>  
+> +/* STM32MP23 external trigger sources for ADC1 and ADC2 */
+> +static struct stm32_adc_trig_info stm32mp23_adc1_adc2_trigs[] = {
 
-I noticed that the patch for device tree compatible documentation was
-picked up, but the patch for device trees themselves was not. Is there
-any issue with it I should resolve?
+This should be const, the trigs field is marked const in stm32_adc_cfg.
 
-Respectfully,
-Erikas
+> +	{ TIM1_TRGO, STM32_EXT0 },
+> +	{ TIM1_TRGO2, STM32_EXT1 },
+> +	{ TIM8_TRGO, STM32_EXT2 },
+> +	{ TIM8_TRGO2, STM32_EXT3 },
+> +	{ TIM2_TRGO, STM32_EXT6 },
+> +	{ TIM3_TRGO, STM32_EXT7 },
+> +	{ TIM4_TRGO, STM32_EXT8 },
+> +	{ TIM5_TRGO, STM32_EXT9 },
+> +	{ TIM6_TRGO, STM32_EXT10 },
+> +	{ TIM15_TRGO, STM32_EXT11 },
+> +	{ TIM1_CH1, STM32_EXT12 },
+> +	{ TIM1_CH2, STM32_EXT13 },
+> +	{ TIM1_CH3, STM32_EXT14 },
+> +	{ TIM2_CH2, STM32_EXT18 },
+> +	{ TIM3_CH4, STM32_EXT19 },
+> +	{ TIM4_CH4, STM32_EXT20 },
+> +	{ TIM5_CH1, STM32_EXT21 },
+> +	{ TIM12_CH1, STM32_EXT22 },
+> +	{ LPTIM1_CH1, STM32_EXT24 },
+> +	{ LPTIM2_CH1, STM32_EXT25 },
+> +	{ LPTIM3_CH1, STM32_EXT26 },
+> +	{ LPTIM4_CH1, STM32_EXT27 },
+> +	{ LPTIM5_OUT, STM32_EXT28 },
+> +	{ }
+> +};
+> +
+> +/* STM32MP23 external trigger sources for ADC3 */
+> +static struct stm32_adc_trig_info stm32mp23_adc3_trigs[] = {
+
+Same here.
+
+-- 
+Kind regards,
+Joshua Crofts
