@@ -1,243 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A2C64D5988;
-	Wed, 30 Sep 2026 16:02:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848AC4F93DB;
+	Wed, 30 Sep 2026 16:03:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790784168; cv=none; b=ur8/r+Ks0FoPl5XIiYw0xfp3TovddYa6cJcPRWznzI27etFhUjMcDU2wxf9/WsljAtngQNA3KQOtiQqkQzVeloe3QIg0UUAZ5Pot7BUaRNJXPPO6hwfEAawOCjcyU/PUoVMrUTe3NJWlkhkDW1uOUjzTOZ5mfRXRcC7rJ/icV3A=
+	t=1790784199; cv=none; b=VngeSUmoXyGpSdA5LhUqRv54NB71QebuS0j9oBrsY9J1gHg31VwAQ3mPX9fOEZwJni7uLMhPN/DIHPH047ClJB6j4X8FrkIg59Z0PktZJwVl2/5EsZzYUYTlQM4MMerGqsaT3OB4FpulOaH4tpSDIcfMnONT+mWhwDqVKGjGnUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790784168; c=relaxed/simple;
-	bh=oZ60RQ3RAUH9o028q27iCPYaxwoLzOK6qfTZayYkeKU=;
+	s=arc-20240116; t=1790784199; c=relaxed/simple;
+	bh=5cctviEvZBuPXTWPkFfna7+3PSJFjcUM6+Hejt7aKxI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=i6LUjnJ0equ0W0UpEeb3IBgtc1dw7AmQk7PfkK90u0xTr4xAOFmfbUFitQYa/wsO1+3zBHVGj88rtWOLRGWlV+w+bHUm7TzB1XjArBgyvQyL4QFYBZcxd3vjZ5BDpzpqcChxLrhCoi8tSZLW3jY8TSEeL/+k90/7Dr3aKH+juSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gVt4I23Y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Y1w4BPIbp0hWMh/xlhZN5uWS1UoqILAsF4khcFFLTFXabJIoSE8xUsaA2qMnT8sr6Szvrt/yNCs3MkNanDmenlWo/VR3TUQ1cfBAxV5sbIjAR1mVfYk7v1gkd6GweOQ/G+usqD7Uay0eQ5OIbi8o8qao4rSy3e1MldaPli8wMQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OaEFgIGP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gVt4I23Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4708B1F000FF;
-	Wed, 30 Sep 2026 16:02:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OaEFgIGP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F2811F0089A;
+	Wed, 30 Sep 2026 16:03:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790784164;
-	bh=FPvvlnYEt9JiyeQ6R+pFnMJQtrCnxbyPM+ONSmeT5vc=;
+	s=k20260515; t=1790784195;
+	bh=5cctviEvZBuPXTWPkFfna7+3PSJFjcUM6+Hejt7aKxI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gVt4I23Y3ZQ+TkB1RylF9tarKijgBLMWYtwOVde09Mhfz19CBy7GhTfq24xhNJ9ry
-	 pHP3qesJ02uk7wmc5NWvh7gcXsE5syZSUCV0NcqYg2zHC/F1qTHOEO4Z81r/riYD0e
-	 f+Bj1Te5yzoyGA2N9qqZ8YPzv20EDFwmq+yp7V+/hqOrCushDXwbgb6nGRZxwogp0J
-	 NMkVYieIbOYuOxlxj5tzhVh7/uZXknzxOAXF7a8gvuJpncH8Qfc6tAgGYTlQY8Un2y
-	 TnQ23+hq2hFejf9ifgVBVoijLkBNuwrMu+AXhpX5dlfyIDU8l+QS1IHe836vVv64Sz
-	 Q+bmw0NdUgVMg==
+	b=OaEFgIGPXuXltyOQnt+/QdiBDS69TdqLs9Am5iAj8dBTe8hLorDgoapWA73SSIa/m
+	 HIj099slBG7C1UcfcDnC08MS+jJzqQVO1K2SqODkcv+/uCIOHblJmmZPMJQEayWLIJ
+	 ta7UOrfPb+10EKCsJNpVY1BqjDGnirnr21ByWTkbcuhBYRZzAGJXthGM2JuWBQNHBP
+	 QMHmiLQRRtpOC+jD9HvbXNZU6eDWfVlym0TdglAKoqlP/rcoC+LnVChk95o2t5hwmI
+	 t15jCDaldYFdVYdz6v9H2u69kuAyIvX6B9Vkc2VePHCUZZ4Bi7+g2VWiTT6lFGqrFz
+	 iqV5BtPUtioSQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] media: sunxi: Add support for the D1 CSIC
+Subject: Re: [PATCH v4 10/10] leds: pca995x: Add support for group
+ brightness control
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nguyen Minh Tien" <tien.nguyenminh@embeddedlinux.blog>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, linux-sunxi@lists.linux.dev, robh@kernel.org
-In-Reply-To: <20260930154835.402684-3-tien.nguyenminh@embeddedlinux.blog>
-References: <20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog>
- <20260930154835.402684-3-tien.nguyenminh@embeddedlinux.blog>
+To: "Nora Schiffer" <nora.schiffer@ew.tq-group.com>
+Cc: lee@kernel.org, linux-leds@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <45706e11ea287c92de3408991a3c620472669b5d.1790684839.git.nora.schiffer@ew.tq-group.com>
+References: <cover.1790684839.git.nora.schiffer@ew.tq-group.com>
+ <45706e11ea287c92de3408991a3c620472669b5d.1790684839.git.nora.schiffer@ew.tq-group.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 16:02:43 +0000
-Message-Id: <20260930160244.4708B1F000FF@smtp.kernel.org>
+Date: Wed, 30 Sep 2026 16:03:14 +0000
+Message-Id: <20260930160315.2F2811F0089A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] pm: crash in IRQ handler due to missing pm_runtime_get_if_active()
-- [High] media: UAF of sun20i_csi structure on device unbind
-- [High] media: UAF of csi->source when sensor is unbound while streaming
-- [Medium] pm: hardware left powered on after driver removal due to async p=
-m_runtime_put
-- [Medium] media: potential NULL dereference in sun20i_csi_bridge_enum_mbus=
-_code()
---
+> When LEDs are set to PWM mode with group control enabled, their
+> brightness can control using a global "group PWM" setting, modulating
+> the individual LEDs' brightness with a second PWM running at a different
+> frequency. This lowers the minimum duty cycle from 1/256 to 1/65536
+> (averaged over the modulated signal). Group brightness control is
+> particularly useful to adjust for different levels of ambient light.
+>=20
+> For simplicity, group PWM mode is always enabled, with the reset default
+> of 255 as group brightness. This reduces the effective duty cycle by
+> 1/256 at all individual brightness levels (the individual PWM signals
+> are modulated with the 255/256 duty cycle group PWM), which should be
+> imperceptible.
+>=20
+> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 
-commit 48923ca6acd2a7bc065ae49a8c19a8a6d69a0531
-Author: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-
-    media: sunxi: Add support for the D1 CSIC
-   =20
-    Add a driver for the parallel input of the D1 CSIC and its first DMA
-    engine. The parser is a bridge subdev and the DMA engine a capture video
-    device, set up through the media controller API.
-
-> diff --git a/drivers/media/platform/sunxi/sun20i-csi/sun20i_csi.c b/drive=
-rs/media/platform/sunxi/sun20i-csi/sun20i_csi.c
-> new file mode 100644
-> index 0000000000000..eed29bc61348b
-> --- /dev/null
-> +++ b/drivers/media/platform/sunxi/sun20i-csi/sun20i_csi.c
-> @@ -0,0 +1,1357 @@
-
-[ ... ]
-
-> +static irqreturn_t sun20i_csi_irq(int irq, void *data)
-> +{
-> +	struct sun20i_csi *csi =3D data;
-> +	u32 status;
-> +
-> +	status =3D sun20i_csi_read(csi, SUN20I_CSI_DMA_INT_STA_REG);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-[Severity: High]
-Does this code crash the system if an interrupt arrives while the device is
-suspended?
-
-The IRQ handler accesses hardware registers unconditionally without verifyi=
-ng
-if the device is active. devm_request_irq() is called before
-pm_runtime_enable() in sun20i_csi_probe(). If the bootloader left the
-interrupt pending, the IRQ fires immediately before the device is powered o=
-n.
-Additionally, since the IRQ is not disabled during runtime suspend, any
-spurious interrupt while suspended triggers a synchronous external abort wh=
-en
-reading hardware registers while clocks are disabled.
-
-Should this use pm_runtime_get_if_active() to verify the device is active
-before accessing registers?
-
-[ ... ]
-
-> +static int sun20i_csi_bridge_init_state(struct v4l2_subdev *sd,
-> +					struct v4l2_subdev_state *state)
-> +{
-> +	*v4l2_subdev_state_get_format(state, SUN20I_CSI_PAD_SINK) =3D
-> +		sun20i_csi_default_fmt;
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-[Severity: Medium]
-Can this cause a NULL pointer dereference?
-
-The format pointer for the unvalidated sink pad is dereferenced directly in
-an initialization callback without framework validation guarantees.
-v4l2_subdev_state_get_format() can return NULL.
-
-> +	*v4l2_subdev_state_get_format(state, SUN20I_CSI_PAD_SOURCE) =3D
-> +		sun20i_csi_default_fmt;
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +sun20i_csi_bridge_enum_mbus_code(struct v4l2_subdev *sd,
-> +				 struct v4l2_subdev_state *state,
-> +				 struct v4l2_subdev_mbus_code_enum *code)
-> +{
-
-[ ... ]
-
-> +	/* The source pad passes on the sink pad format. */
-> +	if (code->pad =3D=3D SUN20I_CSI_PAD_SOURCE) {
-> +		const struct v4l2_mbus_framefmt *fmt;
-> +
-> +		if (code->index)
-> +			return -EINVAL;
-> +		fmt =3D v4l2_subdev_state_get_format(state, SUN20I_CSI_PAD_SINK);
-> +		code->code =3D fmt->code;
-                ^^^^^^^^^^^^^^^^^^^^^^^
-[Severity: Medium]
-Is it safe to assume fmt is non-NULL here?
-
-In enum_mbus_code(), the core wrapper validates the state for the SOURCE pa=
-d.
-The driver then unconditionally dereferences the format returned for the
-opposite SINK pad. A check for one pad does not validate another.
-
-[ ... ]
-
-> +static int sun20i_csi_bridge_disable_streams(struct v4l2_subdev *sd,
-> +					     struct v4l2_subdev_state *state,
-> +					     u32 pad, u64 streams_mask)
-> +{
-> +	struct sun20i_csi *csi =3D sd_to_csi(sd);
-> +	int ret;
-> +
-> +	ret =3D v4l2_subdev_disable_streams(csi->source, csi->source_pad,
-> +					  BIT_ULL(0));
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-[Severity: High]
-Does this code dereference a freed pointer if the sensor is unbound while
-streaming?
-
-If the sensor subdevice is unbound (e.g., via sysfs) while the CSIC is
-streaming, the async notifier core unbinds the sensor, but the CSIC driver
-lacks an .unbind callback to clear the csi->source pointer. When streaming =
-is
-subsequently stopped by userspace, sun20i_csi_bridge_disable_streams()
-dereferences the freed csi->source pointer.
-
-[ ... ]
-
-> +static void sun20i_csi_stop_streaming(struct vb2_queue *queue)
-> +{
-> +	struct sun20i_csi *csi =3D vb2_get_drv_priv(queue);
-> +
-> +	v4l2_subdev_disable_streams(&csi->subdev, SUN20I_CSI_PAD_SOURCE,
-> +				    BIT_ULL(0));
-> +	sun20i_csi_dma_stop(csi);
-> +	video_device_pipeline_stop(&csi->vdev);
-> +	sun20i_csi_return_buffers(csi, VB2_BUF_STATE_ERROR);
-> +	pm_runtime_put(csi->dev);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^
-[Severity: Medium]
-Will this leave hardware powered on if the driver is unbound?
-
-This queues an asynchronous suspend which is vulnerable to being cancelled =
-by
-driver removal. If the driver is unbound while streaming,
-vb2_video_unregister_device() stops streaming synchronously, queuing an asy=
-nc
-suspend via pm_runtime_put(). The remove function then finishes and devres
-calls pm_runtime_disable(), which cancels the pending async suspend.
-
-Should this use pm_runtime_put_sync() instead?
-
-[ ... ]
-
-> +static int sun20i_csi_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct sun20i_csi *csi;
-> +	int ret;
-> +
-> +	csi =3D devm_kzalloc(dev, sizeof(*csi), GFP_KERNEL);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-[Severity: High]
-Does this allocation tie the video device lifetime to the driver binding
-rather than the V4L2 file descriptors?
-
-The structure embedding the video device is managed by devres. If userspace
-holds /dev/videoX open when the driver unbinds, the remove function
-completes and devres frees the structure. When userspace later closes the
-file descriptor, v4l2_release() accesses the video_device embedded in the
-freed structure, causing a Use-After-Free.
-
-> +	if (!csi)
-> +		return -ENOMEM;
-
-[ ... ]
-
-> +static void sun20i_csi_remove(struct platform_device *pdev)
-> +{
-> +	struct sun20i_csi *csi =3D platform_get_drvdata(pdev);
-> +
-> +	/* This stops streaming, which needs the whole pipeline. */
-> +	vb2_video_unregister_device(&csi->vdev);
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-[Severity: High]
-Does this code unregister the device without waiting for file descriptors to
-close?
-
-This synchronously stops streaming during driver unbind and unregisters the
-device but does not wait for file descriptors to close. This allows the
-devres cleanup to race with userspace closing the file, leading to the Use-
-After-Free issue mentioned in sun20i_csi_probe().
-
-Additionally, it immediately precedes the devres cleanup that cancels the
-async put queued in sun20i_csi_stop_streaming().
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930154835.4026=
-84-1-tien.nguyenminh@embeddedlinux.blog?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790684839.gi=
+t.nora.schiffer@ew.tq-group.com?part=3D10
+
