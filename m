@@ -1,224 +1,94 @@
-Received: from mail-wr2-f23.google.com (mail-wr2-f23.google.com [74.125.225.87])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E2B519DFD
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 18:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345A9522F1F;
+	Wed, 30 Sep 2026 18:41:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793628; cv=none; b=NeLxyneCDUzIdpsOJqN7+1iZcn/N53adWZixBrDLLtXmpb1qc95E8nTkmJ04lLxAurCT+Yl7kW8FShFtd2SAQbhqCTG8dmbRoMcWFugixbgtsLUkCNkZ2v8RbQaMVn2zRmFfOj8WiDe77F+WYS/7mszJ6ohgJUBpR0ebf9M/guQ=
+	t=1790793704; cv=none; b=LJcruH1qL2KyvSnj1Bww0CUFs5yMvu0txewcMio6a+hvhYW3R1b3SZvmvzYxY9mWWOpvk8LoGSBAyhmtM3d5KlGpbU6KQGtyzg3+ijfsz9uu4PEly6HtcHs9XIkwwvbTmk7Q3S9YS3jTMRyVOJwdE/XwqKIUYkcvptjX/gXfJ8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793628; c=relaxed/simple;
-	bh=/eAsNFmdRD3KMvqY5/JQh92RvC7n3+pvPqV0rpDz7tg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dt9KYAaVnVLXGBTOopDJ+N35YuKlkJluHQ7dZDH4zyJUgn0Jl4D1bisffCYot1+xjpFifqU9mwF8GpsVhK5diUsn7kzQQHqPXaC7Pwn5J5hrpjSQKMbvUWDNa74kmsiWOdPA9NVD9xkj3CCpyvqfc0KQqcpvIFs2AkWkbZA3miw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FxbHUEes; arc=none smtp.client-ip=74.125.225.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790793704; c=relaxed/simple;
+	bh=vmjP8Tex0+H/WcKzIpQcGZmnMzy0W0KVgazviDdv/cQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sEianbP758I/QGgXt//WVSGHzgrokqKO3nJqrNvpM4aMt+bflZ871Qx87v1NStk/yx7Lg+rhTcUeTg49VwRXtBzaXSY8T7P1AteyMxp5EKSFqJG0XBPQFStxJrmWX8NS3IMaXFApkWYH39m8Y3D6/l+teGQjJj00S0S3D8cmos8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Swy1bb+M; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FxbHUEes"
-Received: by mail-wr2-f23.google.com with SMTP id ffacd0b85a97d-48b0622cc90so130508f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:40:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790793625; x=1791398425; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:subject:cc:to:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sudsrgh6olVvguill/NXjWeyuYPJdT70+yOGXWlPI0g=;
-        b=FxbHUEesuSR2NnhOHoUkAzLodBpO010qbQ6t99sEZj5CkJ0eOo3kevS0rIRJ/qc0H9
-         TKUGci7+aY4l1JpExn/brfN/Pihw5C+95LtXihFK5KvS8MreI7kbRbxHiFsDHhnuKxuv
-         DrvSlMfN7aIomiXFaxzJvQy9CwSIMKI+eMvX9RZ1QX69NmmH2B2gOI0I1v0glAyxp2eZ
-         c0hATCVMk7kIYCtNGNAuRJ50Ju2yFV1V4T1F5GAvRXgKjrgg4zB952yNvlHVp6Z0Mj+l
-         pb8sPIKbFagTcd8VKo19oJdSGOqWaybPLy6m1Q5p/jh+Bq4jQvZzpR5yyGgHVzmtxMcT
-         /PQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790793625; x=1791398425;
-        h=content-type:mime-version:message-id:date:subject:cc:to:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Sudsrgh6olVvguill/NXjWeyuYPJdT70+yOGXWlPI0g=;
-        b=2NYdEMhz8yGDRW12TY++CnLziR/u4+0CSog1FCUJG6OytFTe9bNRltBmArtLtxtdmD
-         PxdRZt+B+p3eAelimcbElZMnNWqKX+1SSrHHXFEWJW1e1ET0oiwPG/nGRUgEgc595cXz
-         lsDnRobNY9xEyaO7WTzcw62vj1L89wlzYsTVpUMjfLAs7DX8nVy1bIGhEhabgfbfsSKM
-         FX/BnZxXD0HrSfI9zwzGVyYLyw6IBpW2RqS2QBnYdFIKLXAs8zZ6BON2fxBf4kwGfbXw
-         ZynX05C2CPG03PONJIke7dLZazg1S5Xp9XXg0OFVSyeLYZNsgsc0AiO6F+LnkOPD0kaC
-         9zoQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLFdsd1Z2Fe3VE5Ine3oNIcgGIAVQxkbc9c5GOeNv72gV/J44HfQlQNi2ad71zk4365eCQWalGaXbJ@vger.kernel.org
-X-Gm-Message-State: AFq9FYI13HYEKH19ZG9Yjr6IjPnn4iczDNycHBmaM/ejbhgIq7vP7ie8
-	sNsl4EyzkpNuzWS3Z+yAAhdgX9QCUXwQSGD13qQAxVCOtNylYHsq34Fz
-X-Gm-Gg: AYBFou0c5+CmVC2TUm9sz3qNADzZRE8Pql2klipigSxx7cERjbGTAhBJD095gq0w03R
-	CmhAJxrs1vo8yUSNWJY10HM2ZsnWK3nrxpQM+ww6sHGAVHozf4zKkj4p2zU9Z6WpPKzCTvqElYe
-	KGD1L05h9K5SEnRPZAmvRq/MZdRzLISIiuk8XLZgmgkEyBBB4d1CMP8BrwGXGPGks48raZZ0JYh
-	j4L3KBBWmkMb9fC/zImTcJPZ2G2Db5eTgdLalB4DLZwT3FgMXIcgAFs7eIXUQszAeEd0T96B+B4
-	vaBk5HDn3HNIcNr/b26Ld9jiE02uJbNwPLgWUx9ddfpQ+tTAArQFcPIZ0VSab4mm2ABczC/HBJq
-	+dKGv29rNOzKzH+p8KjftfAti3LxMjuNaserxPp62CtPjCurI0ut+FwjaJdkCt3Kt1ol1bHBYwX
-	I9Y8kq+WFTMxxpruIVl7pA9Ldvquj+pP6tSpWsCvFSUyOZDubnqN6RYx25N+LzbhjMzXGwQq8F3
-	JbNLM83uHU=
-X-Received: by 2002:a5d:5d0c:0:b0:488:8132:143d with SMTP id ffacd0b85a97d-48b024df747mr4886436f8f.19.1790793624363;
-        Wed, 30 Sep 2026 11:40:24 -0700 (PDT)
-Received: from strix.localnet ([197.250.96.176])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068ff6c1sm1063999f8f.13.2026.09.30.11.40.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 11:40:23 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-clk@vger.kernel.org
-Cc: Brian Masney <bmasney+clk@redhat.com>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Jerome Brunet <jbrunet+clk@baylibre.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, Manivannan Sadhasivam <mani@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- mturquette@baylibre.com
-Subject: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver
-Date: Wed, 30 Sep 2026 21:40:12 +0300
-Message-ID: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Swy1bb+M"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=8ICF5bNdCJvAqLns4h4Ears0x7zH7gmbf4YhNlZN3Ps=; b=Swy1bb+M60cKDjkkPe/VIqiM01
+	d0FkwWWVDDrsT/x3Bnlm7991gzU6UrAzMLzh2KQX6cIkXdmw7We38OuL7JdYUomfukZUFVOU3sder
+	5xpwsuWFo6zLlQDjEN6ZvhvUV22VH0gaPaEXb+IGbhJwCSnKcl9noUotLV5vmtckBp8s=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xBzFG-008DXx-HH; Wed, 30 Sep 2026 20:41:34 +0200
+Date: Wed, 30 Sep 2026 20:41:34 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Martin Kaistra <martin.kaistra@linutronix.de>,
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v3 8/8] net: dsa: soce: Disable unsupported
+ hardware STP
+Message-ID: <e4396a39-05fd-4474-837c-9c6182fea52e@lunn.ch>
+References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+ <20260923-devel-vstrassheim-soce-dsa-ml-v3-8-ddebafcb9ba7@linutronix.de>
+ <ea1f498f-fce6-4e9b-8afb-10d16ac12f08@lunn.ch>
+ <d94de82e27e28b18320f31e2690cb85673832411.camel@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartulVVFYPFRfOzbNRxaXxRQA";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d94de82e27e28b18320f31e2690cb85673832411.camel@linutronix.de>
 
---nextPartulVVFYPFRfOzbNRxaXxRQA
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-clk@vger.kernel.org
-Subject: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver
-Date: Wed, 30 Sep 2026 21:40:12 +0300
-Message-ID: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
-MIME-Version: 1.0
+On Wed, Sep 30, 2026 at 08:29:37PM +0200, Vasilij Strassheim wrote:
+> On Sat, 2026-09-26 at 01:24 +0200, Andrew Lunn wrote:
+> > On Wed, Sep 23, 2026 at 12:39:35PM +0200, Vasilij Strassheim wrote:
+> > > The driver does not implement hardware STP offloading yet.
+> > 
+> > What exactly do you mean by STP offload? Can it do the actual
+> > protocol? No DSA switch can do that, we always use the software
+> > implementation. I'm not even sure it is possible to offload the actual
+> > protocol.
+> 
+> That's not a complete offload. The documentation says:
+> "The Spanning Tree protocols is supported as a mixed hardware and
+> software solution. In the hardware section, IP core is in charge of
+> forwarding BPDU frames to/from the CPU port and managing frames
+> according to the STP port states."
+> And:
+> "Spanning Tree (STP/RSTP/MSTP) algorithm runs in a software application
+> in the CPU. The CPU is in charge of configuring the switch port states
+> based on the processed BPDU frames."
 
-Hi,
+This sounds about normal, nothing special. The switch has to be
+involved, since it needs to pass BPDU frames when the port is in
+blocked state, etc.
 
-This pull request contains the device tree bindings and clock driver for ZTE
-zx297520v3 boards. It contains the next step in adding support for
-zx297520v3 boards: Documenting clock and reset manager hardware and
-adding drivers for its PLLs and clock tree.
+> There are a few registers for this. However, it's enough to just turn
+> off the feature and use only the software implementation in Linux.
 
-The patches have been reviewed and carry appropriate R-B tags by Krzysztof =
-Kozlowski (bindings) and Conor Dooley (clk driver).
+It is going to be more interesting when you get to offloading. If the
+switch is not synthesised with this feature, you cannot offload
+hardware bridging, it needs to stay in software.
 
-The PR does not contain the MFD, reset and device tree patches. They
-will be submitted to the MFD, reset and soc trees respectively. The
-clock driver compiles without them, but won't be instantiated without
-the MFD parent.
-
-The following changes since commit b1470947e92aeedd522ddb7363369c956e55d6b6:
-
-  Merge branch 'clk-pile' into clk-next (2026-09-29 14:14:32 -0400)
-
-are available in the Git repository at:
-
-  https://gitlab.com/stefandoesinger/zx297520-kernel.git tags/zx29-clk-for-=
-7.4
-
-for you to fetch changes up to 89e2c0fa481f6a0da23ad5c4dc98bcd940f09fd2:
-
-  clk: zte: Introduce a driver for zx297520v3 LSP clocks (2026-09-30 20:03:=
-29 +0300)
-
-=2D---------------------------------------------------------------
-clk: zte: Add clock drivers for zx297520v3 SoC
-
-This tag contains the device tree bindings and clock driver for ZTE
-zx297520v3 boards. It contains the next step in adding support for
-zx297520v3 boards: Documenting clock and reset manager hardware and
-adding drivers for its PLLs and clock tree.
-
-The PR does not contain the MFD, reset and device tree patches. They
-will be submitted to the MFD, reset and soc trees respectively. The
-clock driver compiles without them, but won't be instantiated without
-the MFD parent.
-
-=2D---------------------------------------------------------------
-Stefan D=C3=B6singer (9):
-      dt-bindings: clk: zte: Add zx297520v3 top clock and reset controller
-      dt-bindings: clk: zte: Add zx297520v3 matrix clock and reset controll=
-er
-      dt-bindings: clk: zte: Add zx297520v3 LSP clock and reset controller
-      clk: zte: Add Clock registration infrastructure
-      clk: zte: Add regmap-based clocks
-      clk: zte: Add zx PLL support infrastructure
-      clk: zte: Introduce a driver for zx297520v3 top clocks
-      clk: zte: Introduce a driver for zx297520v3 matrix clocks
-      clk: zte: Introduce a driver for zx297520v3 LSP clocks
-
- Documentation/devicetree/bindings/clock/zte,zx297520v3-lspcrm.yaml    |  1=
-01 ++
- Documentation/devicetree/bindings/clock/zte,zx297520v3-matrixcrm.yaml |   =
-98 ++
- Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml    |  1=
-22 +++
- MAINTAINERS                                                           |   =
- 7 +
- drivers/clk/Kconfig                                                   |   =
- 1 +
- drivers/clk/Makefile                                                  |   =
- 1 +
- drivers/clk/zte/Kconfig                                               |   =
-28 +
- drivers/clk/zte/Makefile                                              |   =
- 6 +
- drivers/clk/zte/clk-regmap.c                                          |  2=
-37 +++++
- drivers/clk/zte/clk-zx.c                                              |  1=
-92 ++++
- drivers/clk/zte/clk-zx.h                                              |  1=
-37 +++
- drivers/clk/zte/clk-zx297520v3.c                                      | 16=
-57 +++++++++++++++++++++++++++++++++
- drivers/clk/zte/pll-zx.c                                              |  5=
-76 ++++++++++++
- include/dt-bindings/clock/zte,zx297520v3-clk.h                        |  1=
-54 +++
- include/dt-bindings/phy/zte,zx297520v3-topcrm.h                       |   =
-12 +
- include/dt-bindings/reset/zte,zx297520v3-reset.h                      |   =
-62 ++
- 16 files changed, 3391 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-=
-lspcrm.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-=
-matrixcrm.yaml
- create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-=
-topcrm.yaml
- create mode 100644 drivers/clk/zte/Kconfig
- create mode 100644 drivers/clk/zte/Makefile
- create mode 100644 drivers/clk/zte/clk-regmap.c
- create mode 100644 drivers/clk/zte/clk-zx.c
- create mode 100644 drivers/clk/zte/clk-zx.h
- create mode 100644 drivers/clk/zte/clk-zx297520v3.c
- create mode 100644 drivers/clk/zte/pll-zx.c
- create mode 100644 include/dt-bindings/clock/zte,zx297520v3-clk.h
- create mode 100644 include/dt-bindings/phy/zte,zx297520v3-topcrm.h
- create mode 100644 include/dt-bindings/reset/zte,zx297520v3-reset.h
-
---nextPartulVVFYPFRfOzbNRxaXxRQA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmq9V4wbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxois3cQAKOqW1nSvwLMITtTcza2
-Vdp9CeR6iivrtbKOMsiIk4809MI5SPaDrZFTRhGptF1lkghAVFzE4/C142dNneqi
-WS1IWjBaka+M4nOj8ytObhnAw4aDfykrhsTbf728cm5NREgu40tbKntocyBAVZ/9
-lhmCkEYxNdFf9XmkdccrWzFzz0frS76WMl49qqGtKx4wMHLyy5if01smKb/s7++d
-N64P2US67mjeHpEARXF59w57dsyBJeBOO52m/WvN2SnBE6RDdczhOSyhxVHj/TMQ
-UdhoCB/8qBLeHgiMXlc0E6Z8/JepjhF0COQ2N47RQ68hwl3u1jFQdOxuGVvhUKOG
-WYqKt43r4MLjBv9IInWAhT+C0hUrNeJ+sM1nnVQcnLW4liwjl4x2FOxGRjqnvKdq
-b5tIcljluruQuR59Zm0v0EjPxEAcWCZdC635QIkSpkTaLdQAS2jJ5vkmghy6v8Bx
-Hjn8zxLFFeqoyhUOtK3d8JXvAWh/OkA+TgC7l5pbPqe8utUYyoT157nsTu8cVMHj
-hZbZpr9dUpG5SH8kg10o9QPqIXPAhaqJtPSNFKEu04mhtaCcrbMOlo0c9gJBjefW
-UN/hh2zY88uedgd0O+QAdSe+DAJQ5iZ7ZRGcP6Yx9i88QNepx5BZFGueC9v1aWls
-MmfTH79WEXLfNxj7sch8COSO
-=tmC8
------END PGP SIGNATURE-----
-
---nextPartulVVFYPFRfOzbNRxaXxRQA--
-
-
-
+	Andrew
