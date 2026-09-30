@@ -1,252 +1,141 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFEC25B099
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 12:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77ED625B099;
+	Wed, 30 Sep 2026 12:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790769762; cv=none; b=dbBKM6kxa5Du8iHKRVeGRrPiIH55KRhTW5VpYqHODHIXDVKG/Z9uj8jQBsSl8QKsOtJsQ3fRsmus5CesT5QFOcQCtjMV0x2SIISax5jdbpIh6wQQUVuP63YsdfIfKS94py2LnfewhKmYMRyq7s7dXn5K2FASLuCzVIBZBM97cfo=
+	t=1790769794; cv=none; b=fgkxWDN25xhGq2c9oSiRmZh1nbvW7dFw4i8ph+uQdZ9dbHz0q8Ti9PTLZIhLrEqxwxrMxxvi7qYc5qjiIpcOApDDpoiyZWGokIg8/PfEdLy6U7pmJevNCrMvxF4b3PqJo8lir5kC3vHwsQuORMcInW+e8Br61c5lvHxa9P3w30w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790769762; c=relaxed/simple;
-	bh=WbeuGSintsEDrEtjATq9sCPnSgowCN7ABUs20ou/YrI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Czj/MiGIUrVrnXEC5CvqgoSRxfMbiTBSPQVswJxOGJJJGiYtjv/AgDf799Rb+9suF57mpL+SqY2/K9/r/ZGqfQ9qj+Ng9xekCQZ43/mdjXB6pEtRg9UQYIIsR2YNGfH8Wdq0cwtopcvsaOdVLKGj7QFvL1M1pt6l7I4aXTqIpOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GpRrXG+P; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NtdvTKLN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790769794; c=relaxed/simple;
+	bh=CnEfWL1rfZp2zIapve23e5GWXiThS2R1TbQ/O17EOjU=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=Qwzzxw6a24s8ZwujK58D/v/sGfKNhIbrctLiLz0ar5Z2vNkR3YuB+VvUdQ5KLi2i0OG0puo0zcyL55cVMKZIQD2OztraHkVevJBVsZ61Q9VjJDfuAtMFbpU6Y5vgRNlmn25WD5LKn3SuboztUZ/A+JOntofT2XnoatSGWXWqV/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=EJgmnN4g; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=dwqMoVk9; arc=none smtp.client-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GpRrXG+P";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NtdvTKLN"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UB7b0Q3135720
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 12:02:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	X91DOgHPekg2+dX/FkyABqyHuRohIOR0R97sk1R/5C4=; b=GpRrXG+P8Hm9NOvp
-	YYACYhUM/ZuMqav6YSCx6Lq5r7C05voBGz+caLBBNWsYNtD0PV+zE3NVzCl0KOuc
-	7qKW87vKy8vEValbeOU+LaYv2sISkzfiBmlpnKFUO/OnUNtvTh+/Hy8b8MwLmoxn
-	Tn9GEAuMlfCYrVljn/FE6sEyzuTWPx+JuHh2hh8RqSSNvO3VaUqCleBu3s4EQPFX
-	ou1Y/h7BoG08s+hY4QWjBan9wvnrfvmXQkAJFZ0Scwhwe2W0QvMdlPvo+yfAwqAu
-	MFbYYiJi/JISbWJmwip7BgfGhBmckUSrwvgFqxdelXqPANOMO+4UnxzpzptH5rzh
-	jgRZNw==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0x27h7r4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 12:02:39 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dbf293831so8062108a91.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:02:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790769758; x=1791374558; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X91DOgHPekg2+dX/FkyABqyHuRohIOR0R97sk1R/5C4=;
-        b=NtdvTKLNK6HMAP2+LXQx+5mJgnDGtaLiPFuBKfX6J7zdOzPqO/cLmpkfmD4tLN1//b
-         lRHVk2jfDazL0m7ZMWH91wzjXU4u5G1uhdyDCZJ9V8QUfw3ln+oxhXhbpv4+UCOMZRPR
-         /VIRzKqnF4Y9cFMNrLVOCZVJeqe6DKwKF8dup63PA3ps00GOA/szmWD7me1rolg98W68
-         zYAPmJoxUfXhkgpwCsfR2nnL/t6T6EUdAQzeMPiO3vi/jolod1/JS9tlk4YlLilEoB4f
-         GrSHfc9bgxAMfYAzb0MScco6yAueAwgHbuSxujkgDLyWloZphzXTTScjN3e/HGxtXmne
-         C7dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790769758; x=1791374558;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X91DOgHPekg2+dX/FkyABqyHuRohIOR0R97sk1R/5C4=;
-        b=NRjJVtrQ9F0e79u0rfC9wIflwuRYcsg/xSX+USoZkwC3ZBa4j3uumKeKjuT5C4cGAl
-         nH8dzccR4O2MJYiT4jqTwA10o9ACRAKerC9Mp0rqIVFiSfWqllDB0KAlmmkMOH+nn2BW
-         Nm0uHFr1GbagMI18MHCzJBwLJnmS7lKzk/pEVwRMkoRz46lMWOuIr2oo7f0mRv7YAYLI
-         4P7E90i5uZdK9QzcUh+3tvG/5JJJaXd+RoQF9VFy1bGu9StNEzGtLyOPdrb0FHLyW5nh
-         yfZ3O+AyXT8oIpLgRPPHPxMy2Y4vQdORcuzd3UQBsSd6vDm2Jy+yH3gunsDIm9eZONbX
-         ohvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw9s38rCvvn4+p0FqNG4RJrQs+dWT7YFKDWjx2jXGTv7kFSctLF2q47vsUO4d3YhO0sNpNyNM3Mj8gJ@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfzrKNtenFXKbmIRse1C/LCoOzbH0XFHVaXcmLYzzldyoYG6Hv
-	cSMHILwDYqAtuefW3pDSMJbgXplQA8NgCePoLOTwi2OfcK4vFuum8fteW5J3+ZdefnoDsFhrW5c
-	jPpmKhi6J3PTDmPJhl6rKnOmrh3gslkindLDye9wnSlp8Ieg6FTyCzSuhhnRP9yxT
-X-Gm-Gg: AYBFou39ls8atHiOWJxCOmKlVtaFR3Vc3Uun6bXIg5VF4cvVCM2iu4S/FgzJNDyw1dX
-	QmKIN3e+GJiPxm3lo6Q3Zcoyqg1tXTBj3oKL28srdXqROigVSfbKTJGhug1UW8E6/RDJpki5xYG
-	ESrGt7DSqJUd2CQKjsb6hpuaTOGEh6NPoBXBtiFc7AvfDSh0WWx+QubcjF3A3yMLuHG67po4I+9
-	gE6YbGpsv2NyHY+wyGLuWpHMSBZ0R9KDkIi8SzPJa2KMWqvq8KvO9GD2RJjggPaF0ZDkNukeFAg
-	sHuhBhYkcWPU9eKFxnh78ol/SA0Dqj7VyqCeYqBuDtRlUnetYcarzcTmP2hnJ0TTikj4QkUzjK2
-	JlHksFJWOZmcWgloktuVvxTzf/4PdriwKkr4QEw==
-X-Received: by 2002:a17:90b:4b8c:b0:3a0:d5a9:d15 with SMTP id 98e67ed59e1d1-3a4d192a4a4mr1144480a91.57.1790769757990;
-        Wed, 30 Sep 2026 05:02:37 -0700 (PDT)
-X-Received: by 2002:a17:90b:4b8c:b0:3a0:d5a9:d15 with SMTP id 98e67ed59e1d1-3a4d192a4a4mr1144429a91.57.1790769757265;
-        Wed, 30 Sep 2026 05:02:37 -0700 (PDT)
-Received: from [10.218.30.203] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ce15ddd6sm3277420a91.7.2026.09.30.05.02.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 05:02:36 -0700 (PDT)
-Message-ID: <bc63e435-859c-4e00-bdbc-131908852a8b@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 17:32:31 +0530
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="EJgmnN4g";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="dwqMoVk9"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 0B1D7EC02ED;
+	Wed, 30 Sep 2026 08:03:09 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 30 Sep 2026 08:03:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790769789;
+	 x=1790856189; bh=N1oaB41rnPMap/G96Eqbi5g5rusO6BlEVyBratQDjgE=; b=
+	EJgmnN4gOHBoK5qPAzbzB6eBWPgj/fo64z2JsMgG7XZV9xYb+eLVsHB2By0MEi62
+	BSYCBip7kCoNEown5VZ56wDIrYaaNGMJ9h/GeXZCoMhwSQgoLLGQAavUFH4xciro
+	yu23DA+n5RP+puEB0mNwVmUaE5mFgehdLh5dglgQMW84fOAJkd1eZiZA1hb0N+TE
+	pIFjwa/ce7hRgMKRlkgwwsurFYXjOtzrww8UW4gxdWwHGQXfIfmcGI89s7qjBhLT
+	R9K1wMWn9SYvybsXdCA9thYMSrA7Na0SEPOYpej0uSY71zLbyg3l06w5vup0xAni
+	4iTYXgVefe/mzpLyuNxMIw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790769789; x=
+	1790856189; bh=N1oaB41rnPMap/G96Eqbi5g5rusO6BlEVyBratQDjgE=; b=d
+	wqMoVk9wPS5dQgQ8UcgHafoH5C6vxXHIA012gxb4EtN2/unWlfBXMFJwxSgSMkR9
+	wyNRFUI4UsHl4+7Np3jdYXCA9DqnL+cdWUv0Wxk6+zxe64bxL5koHCAWYbhTtTX4
+	7jtIprAM3rn9zARqlTIt8WZ6jZZeDJ21RfBa17SdAPBms8Qg7ywXNE5+GV/s7s3O
+	vV4OZmvWu/Gq4bXzpdjN8nmDrabwTb1XFh/SH9hqvV1oLOlRToVM7Q6iZJNBab1P
+	f933uAY1ZFelqTaskGwOLU5kpWc4sZyaX6hSuPp78r2HZBJduTRwF8uyYQ8gGf1Z
+	uTv5hjNlF1ggnrNqvI/TQ==
+X-ME-Sender: <xms:ePq8aqOFNh2h9t5DQRk5x7tvrJGCiQkdgQG_HF3jme67g3UtaOhB7Q>
+    <xme:ePq8ajwsGtQRGA2o6ifwTcfnWBYUGNcOFNYd5Z_vTQ09x3PQKkcL7z7xyv3VpcXZa
+    zuXxxeo-mSJGG242VP3UHh9ulEwD8RmRE6rDstzelZe9ME4a1c1C3BL>
+X-ME-Proxy-Cause: dmFkZTEAygohlf/ZA/9BOczOk2E0ZPKkMLfxJWRH0hIDtg7XhCUmhFpB6fka6NiYIKNK9s
+    tty8oPX3qWQwE6ASc9LC2XBE/3udub2rs9Ocq4gPBsUk5VLdTNdQdl6dJEstl5Auv5Ptol
+    OmkhD71d38pRuLOiOj7uJMyh8dRldLMTLoUpS+CbIvbRsa90jTfSozXpoXfNwSkKExGZnq
+    Igg72SuJ0syfdIHKuoW4KQIkpfyDtFEVmg4OT/lAhk1g9bS2paMbLJ+B4z6I2iQiO0GY/R
+    JzKpdLjaWJ7aLyWf5YKSYRNCfauAHsV5Yt8IAaVc4IkXHfjpgstk/ehb09k7edgGQ5jAd3
+    nGs9GsG+RpDa8Eqcl8gBn/c9DYGfL8AlydA8UCOf4TSlNI/FcLV0qnOV48Ag0VqUxljbCm
+    NrIiv/3DJBc5c76ABIphVLt41amxxaAprtooEBOCZEs7PWpzLoarlHNRoQGl1WVY3NYZ5j
+    dlfCiB/R+xWemYgfePyA5VfMjiCfyJ4hsMlGow2eo1WCarelWLZZYNOZLGCeNhtBHOXeHU
+    1zDW9FIwH9DEFcgTNwG0EOPeIh1Dq6Aw17eaiQdipFozOVFK+7d0HE5ejMf7i87mEp+8Vj
+    v1GyIE1NeUPyP5+bvKO6hpdCQ5kMIttkzS+rmV3ikvyGZvsI7vn6OwOAafeQ
+X-ME-Proxy: <xmx:evq8ajHkuxiQjpVBvRvxyhTzklaZOcacDCCAP5wnIJBX0MZrF6WWeQ>
+    <xmx:evq8arAH1lSaGAXEPfBjCst87l58Y9uv-YZpA6MVEyVayntoeu_gfg>
+    <xmx:evq8arwYCS2itwtQk-88hvcrwwhA_A7P94iiKfj0e57CGNwLTkVsLQ>
+    <xmx:evq8asALkcucEhEoBE1wjTjqDKdLqG0zTnyApMJsMu8ZWvq-f5qiwA>
+    <xmx:ffq8atNf5voebHgY48NrFDdFZ-QqW46kjI-R3iPZqYzHfO1SUdaeN4rM>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 2669532A008A; Wed, 30 Sep 2026 08:03:04 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: shikra: Add EL2 overlay for remoteproc
- SMMU mappings
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-References: <20260918-shikra-el2-v1-1-07bb072baa31@oss.qualcomm.com>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <20260918-shikra-el2-v1-1-07bb072baa31@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0NyBTYWx0ZWRfXw2IrXzLQBA0i
- MD4VntI+iBtalMzO/OMHVsdjo0hcRjW3RPPgfS4Y0zXNwCwLEaAhRqHLC6yex2MMbDyDWzf7pTU
- C0gfrorUQAMqaAZvlpWmuNPlroTxC1o=
-X-Proofpoint-GUID: MvDCszN3CRlhWYZkcGyKTUF_-cWxwtct
-X-Authority-Analysis: v=2.4 cv=W9GtxhWk c=1 sm=1 tr=0 ts=6abcfa5f cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=gEfo2CItAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=vgmkJc1NjztBKi0f-cAA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0NyBTYWx0ZWRfXy1Lkp2KOD+nq
- qPbeFiX6rsHnKgyDhtg0FkoXXBhnMwTeUUf7oSTmHFzw+MupbKJW9WwvmugUxOeywRuWzz3mrse
- o+UR2igdlWyOyQSgUrNhMiym1HfRht62A/GPT3ERIlTZo9QXHiNDenAajPxNWGqr7FglVTUYP6s
- rNIbz2gGelCx8NsfyH3N42/9ZsDVSXiXUvwyZRSp9UJnDXrJN1uXZP2QPEkrbxaiPJ/4ETzr+XC
- BrDScUv4yHzpVEID5fWcYQOc4hUhJws+NpU9OtjELI413HZMazI6DSyYZKZyAtfa/CLFDFMuCC9
- UdtRRNvCkZH2NbbQTDwHjYAmrYV/j+MWXs5jJLvRVCcNP4SqIBGSL9Bl0jJUepztO9YrVvraQRz
- T89QKX8nvJUOZ++koRFOZt1HZhSP1yonXtxFgc2nDEvpZtcTfQKT7yRKbeQveMz1Q1Sc8rGhClx
- EoKw3v7Nwf12++wBDCw==
-X-Proofpoint-ORIG-GUID: MvDCszN3CRlhWYZkcGyKTUF_-cWxwtct
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 clxscore=1015 phishscore=0 spamscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 suspectscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609300047
+X-ThreadId: AAFgH-j8k6Zg
+Date: Wed, 30 Sep 2026 14:02:43 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: "Linus Walleij" <linusw@kernel.org>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Jiri Slaby" <jirislaby@kernel.org>, "Russell King" <linux@armlinux.org.uk>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Drew Fustini" <fustini@kernel.org>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ "Jason Li" <jason.li@cortina-access.com>
+Message-Id: <f6d0478a-3438-4903-a9e2-5d314f5948c4@app.fastmail.com>
+In-Reply-To: <179076863241.3327419.16233537387530771884@gmail.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+ <20260930-b4-cs75xx-v1-4-4617c4463529@gmail.com>
+ <65c87e07-1722-44c2-9a08-ed9e18902058@kernel.org>
+ <179076583795.3054628.14443934429806440798@gmail.com>
+ <CAD++jLnZBpoF3H3-sqzmrtwzxLGombFMdSYMVo59jiGFYcyCFA@mail.gmail.com>
+ <d97a806f-a5a3-476e-8910-30027a6f568d@app.fastmail.com>
+ <179076863241.3327419.16233537387530771884@gmail.com>
+Subject: Re: [PATCH RFC 04/10] ARM: cortina: Add support for the CS75xx SoC family
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On 9/18/2026 6:04 PM, Komal Bajaj wrote:
-> Shikra boards currently boot Linux under a hypervisor, where the
-> remote processor firmware IOMMU streams are managed by the hypervisor.
-> When booting Linux directly at EL2 without the hypervisor, the IOMMU
-> is instead managed by the consumer of this DeviceTree, so the firmware
-> streams for each remote processor need to be described explicitly.
+On Wed, Sep 30, 2026, at 13:43, Fil Dunsky wrote:
+> On Wed, Sep 30, 2026 at 01:36:32PM +0200, Arnd Bergmann wrote:
+>> How about making this one ARCH_CORTINA_ACCESS to match the 64-bit port
+>> (saturn, venus) that Jason posted at
+>> https://lore.kernel.org/linux-arm-kernel/20260610112821.3030099-5-jason.li@cortina-access.com/
+>>
+>> I think this would be consistent with how we deal with other
+>> acquisitions (storm->cortina, freescale->nxp, ...). I would
+>> leave Gemini as-is because changing the name only causes problems,
+>> but for the new platform I would use the current name of the company
+>> that last sold them.
 >
-> Add an EL2-specific DT overlay and apply it to all Shikra EVK variants
-> devices to produce an -el2.dtb alongside the "normal" dtb.
->
-> Co-developed-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
-> All existing Shikra EVK board variants boot Linux under a hypervisor,
-> which means Linux typically runs at EL1. For EL2 boot without the
-> hypervisor, remote processor firmware IOMMU streams must be described in
-> the DeviceTree consumed by Linux.
->
-> Add a Shikra EL2-specific DT overlay and wire it up in the Makefile to
-> produce -el2.dtb artifacts for the Shikra EVK variants alongside the
-> regular dtbs.
->
-> Komal Bajaj (1):
->    arm64: dts: qcom: shikra: Add EL2 overlay for remoteproc SMMU mappings
->
->   arch/arm64/boot/dts/qcom/Makefile        | 12 ++++++++++++
->   arch/arm64/boot/dts/qcom/shikra-el2.dtso | 23 +++++++++++++++++++++++
->   2 files changed, 35 insertions(+)
->   create mode 100644 arch/arm64/boot/dts/qcom/shikra-el2.dtso
-> ---
->   arch/arm64/boot/dts/qcom/Makefile        | 12 ++++++++++++
->   arch/arm64/boot/dts/qcom/shikra-el2.dtso | 23 +++++++++++++++++++++++
->   2 files changed, 35 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index 5c19f945c785..686d37cab02f 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -359,8 +359,20 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-lenovo-yoga-c630.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-samsung-w737.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
-> +
-> +shikra-cqm-evk-el2-dtbs	:= shikra-cqm-evk.dtb shikra-el2.dtbo
-> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-el2.dtb
-> +
->   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
-> +
-> +shikra-cqs-evk-el2-dtbs	:= shikra-cqs-evk.dtb shikra-el2.dtbo
-> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-el2.dtb
-> +
->   dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
-> +
-> +shikra-iqs-evk-el2-dtbs	:= shikra-iqs-evk.dtb shikra-el2.dtbo
-> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-el2.dtb
-> +
->   dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
->   dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-el2.dtso b/arch/arm64/boot/dts/qcom/shikra-el2.dtso
-> new file mode 100644
-> index 000000000000..d2f3186bd47d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/shikra-el2.dtso
-> @@ -0,0 +1,23 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + *
-> + * Shikra specific modifications required to boot in EL2.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +&gpu_zap_shader {
-> +	status = "disabled";
-> +};
-> +
-> +&remoteproc_cdsp {
-> +	iommus = <&apps_smmu 0x0200 0x0>;
-> +};
-> +
-> +&remoteproc_lpaicp {
-> +	iommus = <&apps_smmu 0x0360 0x0005>,
-> +		 <&apps_smmu 0x0366 0x0000>,
-> +		 <&apps_smmu 0x00e7 0x0000>;
-> +};
+> Thanks for digging out the history, that makes sense. I will use
+> ARCH_CORTINA_ACCESS for v2 and keep arch/arm/mach-goldengate as the
+> directory name, as Linus suggested.
 
-Please ignore this patch. With this change, DT schema validation error 
-is being reported:
+I think I would go with mach-cortina here. Or even better would be
+to find a way not to need any code. If you control the boot loader,
+you could just implement the psci ops there and actually bring
+up the CPU from EL3. If that doesn't work, maybe it is time to
+actually have a generic spin-table implementation on arm32 the
+way we do on arm64. As far as I can tell, your code is just
+a copy of that anyway, though we have so far never added this to
+common arm32 code in order to encourage SoC vendors to use psci.
 
-   from schema $id: 
-http://devicetree.org/schemas/remoteproc/qcom,shikra-pas.yaml
-   arch/arm64/boot/dts/qcom/shikra-cqs-evk-el2.dtb:
-   remoteproc@b800000 (qcom,shikra-lpaicp-pas): iommus: [[41, 864, 5], 
-[41, 870, 0], [41, 231, 0]] is too long
+> Should the DT side follow as well? That would mean a "cortina-access,"
+> vendor prefix (added by this series, as Jason's has not landed yet),
+> "cortina-access,cs7542" and "cortina-access,cs7542-uart" instead of
+> "cortina,...", and arch/arm/boot/dts/cortina-access/ for the dts. I
+> have no preference, I would just like to change it only once.
 
-I have posted a v2 [1] of the patch series to address DT schema 
-validation warning.
+I don't have a strong preference either. If nobody else has a clear
+guidance, changing to "cortina-access,..." would seems the most consistent
+to me.
 
-[1] 
-https://lore.kernel.org/all/20260930-shikra-el2-v2-0-f0822be5aaee@oss.qualcomm.com/
-
-Thanks
-Komal
-
->
-> ---
-> base-commit: e657a464aba873f5eaf3ca821b6e4016674492d6
-> change-id: 20260918-shikra-el2-ea8969385c3c
->
-> Best regards,
-
+    Arnd
