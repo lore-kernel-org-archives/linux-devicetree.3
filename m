@@ -1,99 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D4E45563D
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:15:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5840F44C64B
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:15:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752550; cv=none; b=FOwZOMT6iYf762HvvYqZR3+6qVtd+CGvo4LuAk3zkX+f8QyTrl1Z3HE06PckWacdtSPONRKXSK7z2MGq0udOzGmyIJkyMM2K6vj7/8z2sftWsNOQBtWDhtPv6qvyemHpEZQbI3SkHlhl2VpvrPf4lXkHvWBp0Tho7mL9sdic0W4=
+	t=1790752551; cv=none; b=ZiSjfvfxfsDvY5kZqHuF6Ylez090CQ+NMeSm1oVtnMcKjj85iMREP4IJyaO+73MwVfsEOWrDsM5Q/w7tcxso0j9R/CUmuBdO33raenPduJ4p0+KfYR4lteQmUrUBMc60IZaI1l+hgkpiJM1zNm0vKzus/tmsU7/bezz5JvL1jb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752550; c=relaxed/simple;
-	bh=/DfoPdGWeb9/mlFZ2GApG4C21FK0unX0TicoXXV1lm0=;
+	s=arc-20240116; t=1790752551; c=relaxed/simple;
+	bh=VoAd6Br3wF2OkF+3K0Y0+8XDgQuHZ7i96UYZBwNI0b0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rclvkwnKX1nTsc9VTadTLXJeVj9Lj9uUAgWD6UA4Kff0CzzAgC72VhbSiNIIlD3eWNck9aTpty7k/pSE+VCY4DhLoc76cvV5Fe/9BpLhKhtw4PA1x/aD5DL2wOUobfFB2kBhFRKrBk5EEKxAHluQD1uU6vNRCgfS34CANXphO5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d5ZkTKzg; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=brXA5E16bYnSpy/IUujsCVvb1D87NusAJietyBi8eLoWx6B77AxlHPtQCE7YMXMntgBBuPpPTGxyyNZXEI1IHz0/YT2gCUjUY4IV6cQACuQ2i3p6SxYFbRmARHlQyCmIstavZrd7p5prn3H/CdjnNp7R8vOAcvFXBtUyq9gA50o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NokZZyjT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d5ZkTKzg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875EF1F000FF;
-	Wed, 30 Sep 2026 07:15:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NokZZyjT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D83D1F00893;
+	Wed, 30 Sep 2026 07:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790752540;
-	bh=5Xx1GSGA4K5lgEyX28lC6Z89+NbfaIUkMXFybynLM5s=;
+	s=k20260515; t=1790752546;
+	bh=dxxUA6j1kEvyf5BoLPZW7xixqB8V2q/KSZJwuxfYh3U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d5ZkTKzgsClo3qUiGMvithvIwAh1mA2SKCwmOqeZ6QyxJG0hwsVwdrBYd/6V1fUim
-	 cnDGn4R7VJjQZTzAZj7BvT9vgbxn0+T9wI8auFmgQvAM9eIltAg4C6RgMFpdpIky2J
-	 qyTyNdk5mppZoR/wywPGqCUZl/h2etLPuxH+gM45FsyUR1moUCiw2MPYW7aUADdcTl
-	 mwDxM7qx3/xYyPwUgCYrwcZ+LKjEpRDJcWgsbKT2rLyo7nTEqKm7/rvhqBWeNDTHSE
-	 LA5/qOsfaejj/1J6CJHNyOIK15n70+gyodvCb7IEY8TutKbNt+/NUkUNV2q/zlEz9F
-	 s6HQQ6vuyJFEA==
+	b=NokZZyjTR0Ug/pK6bfJIk2yg6CWvunRVkZDt95BVQDT5IAwGY3/R+sKS78lx/cA9L
+	 VQ8ZaDnh30v55T8gBSx139TEaYMTlZmWSMdL1eZQ9oplUni8eJ6GP0hzHxVa7y8noL
+	 IFZ1ypevuTG6KI2Ym3/+P5elXgbaHQohaWcOvijl9CB3Ef2E9DORS+fG3u2IZSYcd2
+	 5cee6ZAU9z9L2ffg5naH+iv2m3c8G2U2b+tKcdL56L8Sygv1umxXL7DvW0UPvYK/Z1
+	 CUt5Fv/ho5pD6C8cVRk6G/Euq13DHRPzaSc6r/42UJdGQ9KSKkEBrurA5JRnjiDOn7
+	 XZWt49ir7VaVA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/6] drm/tegra: dc: Expand available registers
- layouts
+Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
+ LH400WV3-SD04 MIPI DBI panel driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260930070535.47130-2-clamor95@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260930070535.47130-7-clamor95@gmail.com>
 References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-2-clamor95@gmail.com>
+ <20260930070535.47130-7-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 07:15:40 +0000
-Message-Id: <20260930071540.875EF1F000FF@smtp.kernel.org>
+Date: Wed, 30 Sep 2026 07:15:45 +0000
+Message-Id: <20260930071546.6D83D1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] drm/tegra: suspected typo in V_PULSE2/3_ENABLE bit definitions
+- [High] drm/panel: missing put_device() causes refcount leak in panel_dbi_=
+prepare()
+- [High] drm/panel: unsafe lockless access to remote drvdata risks UAF
 --
 
-commit e8ce1bb59e056f4559d5bb8b73b971c10b8c4d5a
+commit af85d3c58c7325c679bd0289254561bdca27049a
 Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-drm/tegra: dc: Expand available registers layouts
+drm/panel: Add Hitachi TX10D07VM0BAA and LG LH400WV3-SD04 MIPI DBI panel dr=
+iver
 
-This commit expands existing display controller register definitions with
-additional fields in preparation for adding an 8-bit CPU interface.
+This commit adds a DRM panel driver for the Hitachi TX10D07VM0BAA and LG
+LH400WV3-SD04 MIPI DBI panels used in the LG Optimus 2X P990. These panels =
+are
+linked to the DRM encoder via an RGB to DBI bridge.
 
-> diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
-> --- a/drivers/gpu/drm/tegra/dc.h
-> +++ b/drivers/gpu/drm/tegra/dc.h
+> diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/driver=
+s/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+> new file mode 100644
+> index 0000000000000..e78814c9697af
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
 [ ... ]
-> @@ -303,9 +306,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
->  #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
-> =20
->  #define DC_DISP_DISP_SIGNAL_OPTIONS0		0x400
-> -#define H_PULSE0_ENABLE (1 <<  8)
-> -#define H_PULSE1_ENABLE (1 << 10)
-> -#define H_PULSE2_ENABLE (1 << 12)
-> +#define H_PULSE0_ENABLE				BIT(8)
-> +#define H_PULSE1_ENABLE				BIT(10)
-> +#define H_PULSE2_ENABLE				BIT(12)
-> +#define V_PULSE0_ENABLE				BIT(16)
-> +#define V_PULSE1_ENABLE				BIT(18)
-> +#define V_PULSE2_ENABLE				BIT(19)
-> +#define V_PULSE3_ENABLE				BIT(20)
+> +static int panel_dbi_prepare(struct drm_panel *panel)
+> +{
+> +	struct panel_dbi *priv =3D to_panel_dbi(panel);
+> +	struct platform_device *bridge_pdev;
+> +	struct device_node *bridge_node;
+> +	struct device *dev =3D panel->dev;
+> +	int ret;
+> +
+> +	bridge_node =3D of_graph_get_remote_node(dev_of_node(dev), 0, 0);
+> +	if (!bridge_node)
+> +		return -ENODEV;
+> +
+> +	bridge_pdev =3D of_find_device_by_node(bridge_node);
+> +	of_node_put(bridge_node);
+> +	if (!bridge_pdev)
+> +		return -ENODEV;
 
-[Severity: Low]
-Are the bit definitions for V_PULSE2_ENABLE and V_PULSE3_ENABLE correct her=
-e?
+[Severity: High]
+Does this code leak the reference to bridge_pdev?
 
-The other enable bits follow a spacing pattern of +2 bits, like H_PULSE0 at=
- 8,
-H_PULSE1 at 10, H_PULSE2 at 12, V_PULSE0 at 16, and V_PULSE1 at 18. However,
-V_PULSE2 and V_PULSE3 break this pattern by mapping to BIT(19) and BIT(20).=
- If
-the pattern held, they would be BIT(20) and BIT(22).
+The function of_find_device_by_node() increments the reference count of the
+returned platform device, but it doesn't appear to be released with
+put_device() anywhere in this function.=20
 
-Is this an expected irregularity in the hardware layout, or could this be a
-typo?
+Since panel_dbi_prepare() is called on every display enable operation (such=
+ as
+during a DPMS on/off cycle), couldn't this leak references incrementally and
+eventually lead to a refcount overflow or memory exhaustion?
 
-> +#define M0_ENABLE				BIT(24)
-> +#define M1_ENABLE				BIT(26)
+> +
+> +	priv->dbi =3D platform_get_drvdata(bridge_pdev);
+
+[Severity: High]
+Is it safe to cache the remote bridge device's drvdata locklessly here?
+
+If the bridge device gets unbound via sysfs while the panel is still active,
+the bridge's devres-managed memory would be freed. A subsequent panel
+operation, such as calling panel_dbi_command() during teardown, would then
+dereference the freed pointer:
+
+    ret =3D mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SIZE(d));
+
+Could this lead to a use-after-free, since there is no device link or locki=
+ng
+holding a reference to the bridge's lifecycle?
+
+> +	if (!priv->dbi)
+> +		return -ENODEV;
+> +
+> +	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930070535.4713=
-0-1-clamor95@gmail.com?part=3D1
+0-1-clamor95@gmail.com?part=3D6
