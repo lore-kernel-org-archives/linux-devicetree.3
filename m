@@ -1,131 +1,209 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CAA4F3EAA;
-	Wed, 30 Sep 2026 17:13:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790788420; cv=none; b=BH0xxkbI33CR8vKrodmh7jLeTwvzKJCdI60a9ksmEAwqnlYO76fqEyAPD0sA0RLS0fViG/kBh72JluBsA7RT2CDWTmygxU61SklqxhzY83efF6aLim+z8bXSlctrMUfyQAYBKayP7/UInqjpEE6+KRVatEQEx9F5b9jziVKcBpU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790788420; c=relaxed/simple;
-	bh=ce/JtVI8RnJzrAoPbgkSOIWEObEQ67alIfJ11QoVAww=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Bwzuj282tst/94fcS65/QKlPDaYp9iXgCnFCd2idXe3bP+3wRktBHUrix87D+KglOkdDEtTcD/2hy9C0zHSbLbJv6BUBxAXQyAgsAYxHLFtBz1F0kBbyRCHpx1BdVQAjMm7AsBiungQ3XsTuORYPP6nPVlUDU/qTo0UVg7NJ+hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WfHQd/1E; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=bZCtTYvM; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362AE51AFFB
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 17:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790788506; cv=pass; b=lhWaGR1Da7i2Rzn3BHhl7/ix36wdVjEIRPVPvYrvTgiuH7lOCj2HW+SCoaa3XQ6NNl1rQr+ygw+QSnEIO7pXIqbGledidp/Kji8bxVok5YG9Ydd/UHycYDAq8QiV2maVh/jdxUyULYd7r/VAXEhxh5tEZluh4fagZx6yKvFboXU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790788506; c=relaxed/simple;
+	bh=flTa9IPUvO2Wfd7dxpZCg15j/sd3TNn9DagEWKcsB10=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hHaVZ8lqji/PAF13iZwmgZVqGPipj4q6F9GYp4YtaD60PxzV7aKoh53AzjaIbj5ReE1olLlgKmvBDdpKN+E/yOmypJt8os1c0TNTSTSs7qzHZdkUxxCfJfjmPqi9Sfayt1az13mj8i8RBwRg8cqW+2Vmjt7ah+IaqsLvGqP2MG4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Iciufym2; arc=pass smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WfHQd/1E";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="bZCtTYvM"
-Message-ID: <ad24be6928e33b544f9c8c72ea05f64c2968035f.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790788416;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q+pLxbbbXB6n3gBHBet+35rX1PK9v+XENj+TEEEUUSw=;
-	b=WfHQd/1EFVvpsw7+3qLRlAyDz6bU1ML7jtk6fStade507LMkSmDUNBA0JtPMvb4Tt5/0HL
-	m1pNsQ83PELUSrs7GCtsDBDCALUyrMPUSmzGeYuVQ8oGdz5EqGxRpmmoGWWSbwTJh4cxkQ
-	Sx+L8hq+VIjleE8kZN4eZv/38P39R1soow0tvtgKz3KmTIwP3QMaI4tc3yr2XKJjEydKBI
-	ZdSPdbzfEvU4XRtwGrfkmqpisUtMrx1hvREJbCYPkG63J3OsT54r6QVZ6anTUYoUiF1fan
-	uzanslGQ6OCuy96Bsu/FJqBSKpd2xOw+5BvFfQD1Y6XveLcMASdGLP/y3XKWfQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790788416;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q+pLxbbbXB6n3gBHBet+35rX1PK9v+XENj+TEEEUUSw=;
-	b=bZCtTYvM6ZP54WCkLRMb8YW2kdSh1Ewn2XJN5d22ymg8qUO/xBK5dML+gQrfh+nAVqHzRf
-	Q8To4scMvAXJWXCA==
-Subject: Re: [PATCH net-next v3 2/8] dt-bindings: net: Add SoC-e SWIP MDIO
- controller
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Wed, 30 Sep 2026 19:13:35 +0200
-In-Reply-To: <6416b34a-83ce-4aca-8adf-c8894ca7b3c3@lunn.ch>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-2-ddebafcb9ba7@linutronix.de>
-	 <e5aa5cd8-e805-47d3-a105-07bf1b9eb9b8@lunn.ch>
-	 <218d4c1cf5f05cd6cc648c01f8a20ec66b95362c.camel@linutronix.de>
-	 <6416b34a-83ce-4aca-8adf-c8894ca7b3c3@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Iciufym2"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48870973bddso808716f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 10:15:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790788502; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bcEAZoXX+reB+ZrJsPC5lIlOk5gu8AA7Qw3jmmMd4XehLLOA7lLIm04f0ep5oPj4VZ
+         oOa1fVbJryA230NLbJuYMYrGxvfR70ovkr8+kzb9jBtyIkE89X6U6N22l4UWT17WKMCO
+         5iDRvWDZhQ2UHs4FDpsysGUt8YYePAvr5DUKeHeO0kJlTHDPgpOxj1KvoJlJJ/4ilJOp
+         QIKQDLZ8TsX8rpPVdgAppykb9pYbW+HhlIJA/Xb6kSW6EfZbdFYfUY8g6cJSZxzeiPL6
+         b5ImPSg1HLLmgZfaD/cjEeuCE4nsISWIkVJDanFq5zmF2uV/x/mZWpIP2pn9iA0S6sLp
+         xPRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wLIs5aSN/ephptBI36FGk5tlNNffSxw7Odm4ILpRBMY=;
+        fh=/XpyHgVhQ6SsS2LlIRRLc0Ezg0QcbuaN1nDSlJQ6cOI=;
+        b=MAYmgeIPUdC6O5JKwMYuPCWtybYGZekTIkOO2lqLkHbSatjYE4z12lYg8R+Gmue6FE
+         +EDS58bUOyIQP8OQuGRnkJxqjJ6q1inhZuRNr9fODtXbkX8+Yc+Y+RaUmM6wjextZiZr
+         yQ85Pmg+ynsIRGQvBITT/pZzFfG6A/59TVBU78cMYcE8peRxkLq/VDG/xFiH/S94y7EP
+         jNUz04iWUMBq9HX36wVryFAjU01c4IwSHg4v4zl98kcJicINgmJFVvwmWTw8HmVvdi0L
+         Uec9hMcTNDhBwJoem9WTXg8dFsEA4tw9CVzkKIZgxSYgZ3fJVhnorulSwLu2vAqEpRgC
+         i1Rw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790788502; x=1791393302; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wLIs5aSN/ephptBI36FGk5tlNNffSxw7Odm4ILpRBMY=;
+        b=Iciufym2ZntFU/rJrlRxGAKWnPBz4YIbIEpD1bz2y+wMSFnwRY1Myb6KKinax40CqJ
+         khQtMQvl55TCfWcc3pM2zNJaYrgC8c8k7pDPSsuAa9Mm5i8Mqqsb1Rbb3dHuh+yZRtVP
+         le8mHNP9vWHXtQXtZXOHjo9NuYHrmXUfu3HLmhw8EJWbrmhMouJDehXY86RyF0XqbiKJ
+         d2VqNYa4LUIumHLrNadrRiPtQ2X0VpbuO2T59KrO0iHwaNzeddTHb2RCuZyjPTrQrwQM
+         iPxnJNVAGItU7YVR0E1OrDPIlm6A37u+/4ZncWNwgzVMeX2wOoOo8Pp/8LvVmrsrzpBL
+         PiIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790788502; x=1791393302;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wLIs5aSN/ephptBI36FGk5tlNNffSxw7Odm4ILpRBMY=;
+        b=yU3gmuHeOi+inP7lRadw0UlJ4/ELwenL7A2PG1baKR7PBScsbQExZynz/VzYVFt/+5
+         oeQXDN29o42FjOgWUa2ZLLlj1l26g3vqYpqJu8Bv/D6GGXtIGeuERME4iv5pTi+vPOUn
+         EDl9+4H1/8dcYXj5RZLcwcsoOXAYx8QiJhqLp9/LULUtJ9SpNHYOntgC9yqtW9TCbm/G
+         uL3vlDB3nrTdsEzmYRm4VQ6d9ODm9tfNp+6MZyJC903f7MKmpfJzh4/wuV9xijgiNHXe
+         9t8caXm2JGrckTSZG4+cg2tmxImPgJlAgpe/bhQi6UeJPzPI/VEGnBdWGXiKxHyefL2J
+         9n7g==
+X-Forwarded-Encrypted: i=1; AKwUvBzG0rZ5AQuLOAetc7RiUItQXMURLtzTz64FLQI7lILcTZQ8HjQtVkQAMz71pR81ukf1Off8YH1bU0H5@vger.kernel.org
+X-Gm-Message-State: AFq9FYKk4/CjgvZe+fLtMnZzdWzOXytmKH16LgSnyrF1h6dijVJOhw+3
+	wcx6yr3qVLKio4Q2GczBAQK8RywF0ewScSYRaRA7V3vpCIwpaeQOXHJ8ydb1ZQAuZMqTebqELWz
+	qOVyHGtyYHRvqgnxkEamjylxa79I1DUM=
+X-Gm-Gg: AYBFou3VU72zHQSoNVu9bBKWKcw/U+hFzL+a0XvY9+FnJRO/OK1H7+Halte08YxQg/A
+	DvoJ8xcUbG8YJ/GT+x5w7tdG5DfXom49Aef6gFhN72zNz7jKsucRwsai1kGUqF26a+lkW+l2Uyz
+	k7vOEIzEk6W2FtOHRsSh9dGkraF11NH92UypN50QFr3dDs1KT9onCz7006pxU5Z90zs40hM5BGi
+	BxESVx4KI62Y5Ml5K8LlWSGTbxL+9tTtVyl+umwD86uEg29T+LQRDru4Hll4ynGKkCEnVUPr/zn
+	XnMKUZZKOpMjLH/ftyfDcmdCYJNeOtSILRuJHaZnMuCdwi8N15VS1W8vRwP15E4aXfqGWczngoh
+	Wp6FWbB9NHzgmI9GSv2yxEoeKa2nVQZIGuala+ASF97v7xYMayIlg6PKbj7p35a9HEdSF8orBRm
+	Y=
+X-Received: by 2002:a5d:4acc:0:b0:487:342:eb28 with SMTP id
+ ffacd0b85a97d-48b068bf31bmr477202f8f.24.1790788502254; Wed, 30 Sep 2026
+ 10:15:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260929124248.237032-9-prabhakar.mahadev-lad.rj@bp.renesas.com> <arzX2pzq_0JreVJe@ashevche-desk.local>
+In-Reply-To: <arzX2pzq_0JreVJe@ashevche-desk.local>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 30 Sep 2026 18:14:35 +0100
+X-Gm-Features: AclHuK_nTopzCs1JxF_udaLq0aHe5Q5fBvI6nb69CERob4o8SQmK8yLw1zzL4tc
+Message-ID: <CA+V-a8sj8LnuHGYOV7Et9KXtcKYrSZgP5cgYqxCiE0VCSH_Lkw@mail.gmail.com>
+Subject: Re: [PATCH 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2026-09-30 at 17:14 +0200, Andrew Lunn wrote:
-> On Wed, Sep 30, 2026 at 04:00:56PM +0200, Vasilij Strassheim wrote:
-> > On Sat, 2026-09-26 at 00:55 +0200, Andrew Lunn wrote:
-> > > > The controller exposes separate register regions for transaction da=
-ta
-> > > > and for the shared transaction control and external bus selector
-> > > > register.
-> > >=20
-> > > > +examples:
-> > > > +  - |
-> > > > +    mdio@204 {
-> > > > +        compatible =3D "soce,swip-mdio-23-02";
-> > > > +        reg =3D <0x204 0xc>, <0x200 0x4>;
-> > >=20
-> > > At least in the example, they are not separate?
-> >=20
-> > Not separate regions but registers...
-> > I'm obviously bad at documenting things.
-> >=20
-> > The current information in the commit message is misleading and
-> > irrelevant. Looking at the bot's feedback, it's at the same time not
-> > clear enough yet that the mdio controller part is mapped within the
-> > switch memory and can't be used separately from it.
-> >=20
-> > I will update the commit message to something like this:
-> > Add a binding for the MDIO controller integrated into SoC-e SWIP
-> > Ethernet switch IP cores.
-> > The controller shares the memory of the synthesized switch IP core and
-> > cannot be used independently.
->=20
-> I think part of the issue is the compatible. That suggests it is a
-> separate device, with its own driver. But it is actually driven by the
-> switch driver.
+Hi Andy,
 
-I can't avoid the compatible right now. Somehow it is still a separate
-functionality. I hope the following example doesn't cause unnecessary
-confusion, but rather helps to understand the system better:
+Thank you for the review.
 
-The relationship between the MDIO controller and the switch core is more
-like that of tools in a Swiss Army knife.
-There are a few standalone tools, such as the knife and the screwdriver.
-These can also be described on their own. But they only make sense when
-they are attached to the knife as a whole. As soon as one takes it
-apart, the individual tools can no longer be used effectively. At the
-same time, no one needs to worry about the screwdriver if they only need
-the knife.
+On Wed, Sep 30, 2026 at 10:35=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+>
+> On Tue, Sep 29, 2026 at 01:42:48PM +0100, Prabhakar wrote:
+>
+> > Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which share=
+s
+> > the RZ/T2H ADC IP but differs in channel count, sampling, calibration a=
+nd
+> > resolution support.
+> >
+> > The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
+> > 20 ADCLK cycles, does not support calibration, and supports selectable
+> > 12-bit and 8-bit conversion resolution.
+> >
+> > Expose the fixed sampling frequency as a read-only attribute and allow
+> > the conversion resolution to be changed through the scale attribute.
+> > Use extended scan types so the reported scan type follows the selected
+> > resolution, and prevent resolution changes while buffered capture is
+> > active.
+>
+> ...
+>
+> >       help
+> >         Say yes here to build support for the ADC found in Renesas
+> > -       RZ/T2H / RZ/N2H SoCs.
+> > +       RZ/T2H / RZ/N2H (and similar SoCs).
+>
+> This wording is good for the summary above, but here please list what the
+> similar SoCs are. Something like
+>
+>         in Renesas SoCs:
+>         - RZ/N2H
+>         - RZ/T2H
+>         - ...specify "similar SoCs" here...
+>
+Ok, I will update it as suggested above.
 
-I haven't found anything that I could use as a reference for the
-documentation, so far. So right now, I can't think of a better solution
-than document it as clearly as possible for the next version.
-Do you (or anyone else) have any advice on the best way for me to describe
-this in the documentation?
+> >         To compile this driver as a module, choose M here: the
+> >         module will be called rzt2h_adc.
+>
+> ...
+>
+> > +static int rzt2h_adc_write_scale(struct iio_dev *indio_dev,
+> > +                              struct iio_chan_spec const *chan,
+> > +                              int val, int val2)
+> > +{
+> > +     struct rzt2h_adc *adc =3D iio_priv(indio_dev);
+> > +     unsigned int i;
+> > +     u64 scale;
+> > +     u32 rem;
+> > +
+> > +     if (!(adc->chip_info->features & RZT2H_ADC_FEATURE_RES_SELECT))
+> > +             return -EINVAL;
+> > +
+> > +     for (i =3D 0; i < chan->num_ext_scan_type; i++) {
+> > +             scale =3D (u64)RZT2H_ADC_VREF_MV * NANO >>
+> > +                     chan->ext_scan_type[i].realbits;
+> > +             if (div_u64_rem(scale, NANO, &rem) =3D=3D val && rem =3D=
+=3D val2)
+> > +                     break;
+> > +     }
+>
+> > +
+>
+> Blank line here is not needed.
+>
+Ok, I will drop it.
 
->=20
->        Andrew
+> > +     if (i =3D=3D chan->num_ext_scan_type)
+> > +             return -EINVAL;
+> > +
+> > +     /* The scan type changes with the resolution. */
+> > +     IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> > +     if (IIO_DEV_ACQUIRE_FAILED(claim))
+> > +             return -EBUSY;
+> > +
+> > +     adc->resolution =3D i;
+> > +
+> > +     return 0;
+> > +}
+>
+> ...
+>
+> > +     case IIO_CHAN_INFO_SCALE:
+> > +             *vals =3D rzv2h_adc_scale_avail;
+> > +             *type =3D IIO_VAL_FRACTIONAL_LOG2;
+> > +             *length =3D ARRAY_SIZE(rzv2h_adc_scale_avail);
+>
+> Check if array_size.h is included.
+>
+I will include it.
 
-Thanks,
-Vasilij
-
+Cheers,
+Prabhakar
