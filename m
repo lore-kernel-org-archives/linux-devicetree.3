@@ -1,191 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005E44BA9E1;
-	Wed, 30 Sep 2026 10:58:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1530471CED;
+	Wed, 30 Sep 2026 11:01:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790765922; cv=none; b=sAy0nOqbnknLNhTHwzKrxFmWky6wNfob54z4GYj3S9UwDvaDjnEMJ3iDKqky9Xco8ukHj0nx7+N5qDRzuzck63YDcwCwVUEfkjCw7OVsP6nYyzyHIAzqroOuA66bOvjmHy6y7+N0PCdMbIK/r12TPXlXjwUtIizgnJKH6b/UYZE=
+	t=1790766123; cv=none; b=KG49fuxYS64z7+4UqvaYbEj+9pQPlsKB77+GHnEoXeudGdyTalFOuBEu97MeSFsE1k1NDxqKxzHyZ8RMu7+0fLC1KBRWFPiCmY/rT7go8PwOtvO0y0b3nES2jfyQVwbgxqzThwMr/76aO/zhLXRqTobJw4uPj7JR28m3sSolUJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790765922; c=relaxed/simple;
-	bh=JLsh9ctEJAIlq3fH54goXvPm3ESwMmQCY00+a5e5rZo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jVtaMHEAj4trr6nGdwDdwt00dk6wp6uwUkOh0Ye/tk8ANnrThqYE66O0lS3Ehf2gy8pvwfwNV/ZSVhsYZBMNCoa8BAE922CT9n2OHKt6CC0+eQ4Qqqc77iaitES6aID7lCG/9SVNIZOeSftZtMbmUvR447epfsZHY80V8wqv0Zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRK1yGoH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790766123; c=relaxed/simple;
+	bh=gN2wAZEyI0QCfylAcDuzb+cZBdumkN8wWPJuDCXFHyE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AYhZiMQdT3LEOoIyV+d/Jqu/ooImk/hl6FkTu+MclTbTiRwok2KZWeUbElDlAzRRB3MMgO2I//Zn9+wePOa8epmgeN31YRRGYawSXqwRl6cjE5KDeyRwjy1PPeuLaqWAsKatkyti0d1GRWET8TzFwLusTeZBg0pBUEGEAbhWehA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kwqcvJqG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRK1yGoH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A931F000FF;
-	Wed, 30 Sep 2026 10:58:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwqcvJqG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6BFF1F000FF;
+	Wed, 30 Sep 2026 11:01:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790765910;
-	bh=pxhYZCRtMlW/teM6HS7EhHEc9imdgRYDA4FlDdsFq3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jRK1yGoHLg8mo0+XWEf7WOjjtFpxaRMreP9qMX3pg+2Y7ZiFtQSJz+CWqWeheH7U/
-	 97X6LWY/xoBvS447MoVh2DB9HePtTAwjh73etUcythKMcDkYAQloqbWVS8sEhRPm5W
-	 wNSlDpU24jgbrbDa8xwhUwBMc/1D9+EqMqS0BDE6/BjQIwlAIwTGYJMqIefBlVhe8j
-	 ML5zzV848TfX/F+Xu5yM2qzB5iw2pyAv52+B/AUj+xUK9imEFdRlF1S2s5ZVYLPfXN
-	 pCFmXcki3V8IPuTB31cByzs36LY3ujdDf9W/8Sg8xUSLVOT/g6jGIEP+MBhrgkCwie
-	 sqpPTKyzDzevQ==
-Date: Wed, 30 Sep 2026 12:58:28 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
- LH400WV3-SD04 MIPI DBI panel driver
-Message-ID: <arzqcM1Qn40gO9qY@orome>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-7-clamor95@gmail.com>
- <arzNgbx465QIKYdX@orome>
- <CAPVz0n2QdSWL8=KBXnsQQkdNEJ9m6HSQ0+6mJji_RHZ8QgXN-g@mail.gmail.com>
- <arzilGz4akKvRF1K@orome>
- <CAPVz0n0-baCzHOXjWLOCLjv8fb5GbE9a2v=8tBYr3RgHkEu+qg@mail.gmail.com>
- <arznE4HKl9r_mPX2@orome>
- <CAPVz0n2A8oU_yRFQ_u_YkXSa5x7PtK8sYZ_p2P+GNcphq-bP-w@mail.gmail.com>
+	s=k20260515; t=1790766109;
+	bh=9bi/i2/aWze1bEGDde8mb4HVoivi8jt5RnjoRegpme8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kwqcvJqG1zng3JAdzZvvRl3xl1DseZ3TkRS3norZFgdnNiGjQ99aHK63nTWAW0LE+
+	 tj9QX+qvUi0Accx8sb2cHH5/p9/xlSCHc5fxa5schyZsasHCMdUg0VqHNkTUIVXG/k
+	 XGQu7lKCzB4d2zN1fjEWnaKg9ex9JIdVqlTLGWeWwoWiX8FXV/FeZ9+/s/4p8E88QL
+	 jmiN+T6isod3NKrstQORYbPJZCgqmYYngmP4Clg7mKDdKAcYf+vNsiXz8aJYlJVgLQ
+	 hH2+xV26luJZ29/dVp29GQUrnE2KuzIk+0cpyKoJAZXA+Jo8Pptui+LdRHGs+6ZhLn
+	 jFCQWevto44/w==
+Message-ID: <6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
+Date: Wed, 30 Sep 2026 13:01:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pxzrbd7z7tsl5fzj"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n2A8oU_yRFQ_u_YkXSa5x7PtK8sYZ_p2P+GNcphq-bP-w@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+ <20260917-mutant-chamois-of-competence-46ca77@quoll>
+ <1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 25/09/2026 23:05, Michal Wilczynski wrote:
+>>> +  clocks:
+>>> +    maxItems: 1
+>>> +    description: Reference oscillator.
+>>
+>> This barely counts as a resource, so usual question: no resources here?
+>> no MMIO? Even the user of this phy is the block itself.
+>>
+>> This makes me wonder if this should be a device node in the first place
+>> (instead folded into the parent).
+> 
+> The PHY has no reg because the reg is shared with the controller and
+> owned by the parent - patch 9 lets the bridge take its regmap from
+> there.
+> 
+> The user of the PHY is not only the block itself. It is the pixel clock
+> provider for the whole display subsystem, voutcrg takes hdmitx0_pixelclk
+> as the parent of its DC8200 pixel MUXes, and while HDMI output is active
+> it is the only intended source for that clock. The parent has to be
+> assigned explicitly so the general PLL does not end up driving the pixel
+> clock, and so a DSI user does not reach the HDMI PHY clock generator.
+> 
+> So it has to be its own node. The HDMI block has two independent
+
+I do not see the logic which lead to this conclusion. Pixel clock
+provider, so a clock controller, cannot be a user of a phy. Clock
+controller does not have a physical layer.
+
+And really, I have no clue what hdmitx0_pixelclk and voutcrg are. I
+could probably study the patches a lot to figure that out, but my review
+queue has still 200 more, so I'll skip.
+
+But nevertheless assigning clock parent of HDMI clock to PHY is
+standard, most of the platforms have it, thus it is not a justification
+for odd design.
+
+> functions with different clock inputs and one of them feeds back into
+> the SoC clock tree. The PHY generates hdmitx0_pixelclk which voutcrg
+> consumes the controller consumes pclk/mclk/bclk from voutcrg. Folded
+> into one node that node is both a provider to and a consumer of
+> voutcrg which is a cycle in the hardware description, not just in Linux.
 
 
---pxzrbd7z7tsl5fzj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
- LH400WV3-SD04 MIPI DBI panel driver
-MIME-Version: 1.0
-
-On Wed, Sep 30, 2026 at 01:48:02PM +0300, Svyatoslav Ryhel wrote:
-> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:43 Th=
-ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Wed, Sep 30, 2026 at 01:34:19PM +0300, Svyatoslav Ryhel wrote:
-> > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:2=
-3 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > >
-> > > > On Wed, Sep 30, 2026 at 12:08:41PM +0300, Svyatoslav Ryhel wrote:
-> > > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE =
-12:02 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > > > On Wed, Sep 30, 2026 at 10:05:35AM +0300, Svyatoslav Ryhel wrot=
-e:
-> > > > [...]
-> > > > > > > +static const struct of_device_id panel_dbi_of_match[] =3D {
-> > > > > > > +     { .compatible =3D "hit,tx10d07vm0baa", .data =3D (void =
-*)PANEL_DBI_TX10D07VM0BAA },
-> > > > > > > +     { .compatible =3D "lg,lh400wv3-sd04", .data =3D (void *=
-)PANEL_DBI_LH400WV3 },
-> > > > > >
-> > > > > > Why the detour through that PANEL_DB_* enum? You could just pas=
-s the
-> > > > > > panel funcs pointers directly via .data here.
-> > > > > >
-> > > > >
-> > > > > Passing API/OPS via .data is discouraged.
-> > > >
-> > > > No it's not. We do it all the time.
-> > > >
-> > >
-> > > I have had some controversial experience with MFD, with passing cell
-> > > composition. If DRM subsystem allows this, I am more then happy to
-> > > pass panel ops directly.
-> > >
-> > > > > > Also, looking at the enable/disable sequences these are in fact=
- two
-> > > > > > different drivers, with the only commonality being that they ha=
-ppen to
-> > > > > > be used in the same device. Rolling them both into one driver s=
-eems a
-> > > > > > bit odd.
-> > > > >
-> > > > > I did this to simplify maintainance. Both panels are used in the =
-LG
-> > > > > Optimus 2X. My assumption is that LG switched one to another at s=
-ome
-> > > > > point, hence they share same timings, controls and supplies, but
-> > > > > differ in en/disable sequence. Additionally, these are the the on=
-ly
-> > > > > DBI Type B-only panels in the kernel, from what I can see.
-> > > >
-> > > > That's just one more reason to put them into more of a generic driv=
-er,
-> > > > which would allow people to find it and extend/improve it as needed.
-> > > >
-> > >
-> > > This driver cannot be "generic". Both panels don't fall into any
-> > > category of being "generic". They are grouped solely cause they share
-> > > same timings, controls and supplies (only these 2 panels, other will
-> > > definitely differ) and are used in the same device. I have no problems
-> > > in splitting them into 2 distinct drivers.
-> >
-> > The driver can still be mostly generic. And I suspect that the panels
-> > might have different names for the supplies and controls as well, they
-> > just happen to match in schematics or sources that you used as reference
-> > because they are for the same device.
-> >
-> > My point is, you can keep a lot of boilerplate in a generic DBI driver
-> > and then parameterize the things that aren't the same across them. That
-> > gives you the best of both worlds.
-> >
-> > The reason why I objected is that you have a very specific name for the
-> > driver file and the second panel doesn't match that at all, so it's
-> > confusing.
-> >
->=20
-> Noted. I will split them to remove confusion. I assume that schema can
-> remain common.
-
-Works for me.
-
-> IMHO creating a generic DBI Type B panel driver does not wort it,
-> especially since these panels are more like non-simple DSI panels and
-> always require a dedicated en/disable sequence.
-
-But that's not a great reason. Note that you can have a generic driver
-that describes radically different panels. It's all a matter of
-parameterization. You can have very different *-supply property names
-and enable/disable sequences, all in the same driver. What matters at
-the driver level is the general structure (i.e. you're device has a
-backlight, one or more power supplies, a DBI command sequence, a reset
-GPIO, ...).
-
-You managed to make them work in one driver, whether that's called
-panel-dbi.c or panel-hitachi-tx10d07vm0baa.c doesn't matter. If there's
-ever a DBI driver that doesn't match the structure of whatever you
-introduce, we can improve or add another driver.
-
-Thierry
-
---pxzrbd7z7tsl5fzj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq861QACgkQ3SOs138+
-s6H/kRAAm1vAxXljWgcYmOQOkbUgCiwXkFNb46Q54mWK1nQzXYXWFZlcyYbr4/sL
-Qnlfcyg63GeL1vedgz72NvA3IW92mZzNo0eNFAqI5hGNj2xJnZw6rNatONFRnLUa
-6LpqhL4TY4mel8zBczNh2JHGUYGCufpDMYAcJSY45po5pGJqtTDwfEf6oiZC3jdt
-jHje5mFoCmeGak5W43VQQ060/ZI2Q1MchRKU0D3siG8GGUcYFlbecrJqQ6XS+0NX
-iAXEH5mXB8VzS+yAVmWFIpYVGGtp1YzCtfn176NkzHj1VH0JUFjTE/flQAbsTdCl
-fZCqw2HPfz7TOvZ0EnNEPtwAPmpIff/GXiiatmtKuRSdc42mexLR8bg/0Dy7PQUd
-m+g6UuHYsWXsTHIEXpPNloA7I+tPESuGMf6+7FZOfTcyIzYK2uICQl3qaaPeGQF+
-Opx+Xeac9OesckawREYpVjasI8tnWE+xkow3tnQyAtH0eKY+8a5D0byicJmISJek
-c2ViwFSEzgo9c/M683yL9o8YbwADJr0EJZTGGU7iF6Kou0vgiaKECHH7pEAlc25l
-O74WlMpnD48S5i8i5sD6Gnvn2SBS9HpzDarh6B5YhkUlifwWZnTSyZJ42rcCAzQA
-A7Yb+1bCFegREaFz1KGQjHqR/j6vHMdKud6biUFdaJzK1IXW0gY=
-=FFOm
------END PGP SIGNATURE-----
-
---pxzrbd7z7tsl5fzj--
+Best regards,
+Krzysztof
