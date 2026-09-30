@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1E65383CA;
-	Wed, 30 Sep 2026 17:40:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05C2544D64
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 17:42:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790790041; cv=none; b=Gfe45piUW48BfxW+QmRkgNOdy2BzYnqHA6PtX6YezVtXhu8zdSP8J63Rjqjskb/SmKx30sT3GSvOntqRGBIeuCMdsT2LjiQP38vPK87iBC4vwulr6ND7J+amY81MRQ48AsJwrJ5dyrj9c4pl8m40GgPZl+PbWrnC/uearf4f1n4=
+	t=1790790127; cv=none; b=Cay70fmirtJu0d6NpFvUE8Atme5iIvjAsV4NnWDYI3A0nu/MjOtxOWghtq6AFzvPKH0LKK20TqF2tvwIaCEXxwXg0yejwgEfRqR4GwDskwzWUJ30W+eZmclr3EbCU9srLj+53skJDSh56DKfRtRxtML97+Sfo4gqW7ukn/OMyxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790790041; c=relaxed/simple;
-	bh=+ZYIgOiWRJZv5s1qmlkWom3Tv0z1ZdVAJWXE59ffd3Y=;
+	s=arc-20240116; t=1790790127; c=relaxed/simple;
+	bh=1QnZxx2ZZ8fTJW7wapdgsZI/+ZVULKzBk1W2euhUOXQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Tcct4DkRQbPaHVmg9t9OGK0NxP2fZuET8Te2q59MQrUZs8IHu/SfokkZre8BxosHnwQ3I4pFMBdxd8iSgH/DMqenQ3PZw6QGHaQwxPTSnOKF3pN2pPtRtHpF0IZQm4fM0zjGdzHqqnagujfi0Qcw+Stg2NDzbw0rwBXUFM81m1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9FD1aSq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Cs2VnaR/OOaesmRL9OTSOW3F9fSWgTsQWr9kHqNDtf9qA3DpC6s/nrPbWDKTw+XFkqS+0rBznTRxBd24Juo2vKZk2lGZtxpkHUJmST6gzO3QKOoQSgZpVrSleHQ4JIWOcdH26zjbeNtimI22q9wEPv1n6Cd1apOg9Kl9pxy6MBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c7cjyyR5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9FD1aSq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DB581F0089A;
-	Wed, 30 Sep 2026 17:40:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c7cjyyR5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428061F00899;
+	Wed, 30 Sep 2026 17:42:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790790039;
-	bh=WNHSqYHlDsImex2MfzWYf/RgZuqHZz4Ka+QVBGQrUcc=;
+	s=k20260515; t=1790790126;
+	bh=r0vWdYs0V6AXIxO2Bw8XISLrQ0IDmYQckBkGS0H8QKw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K9FD1aSqVDeVycbaWLOz+N3UzYxFJK2adfPJLOJYCtoId9AyLFxk5zkTymR/KHjCG
-	 qqI+7BOoc3wMip6Wcm3sWYUeLUe9YG6Y9nktf/Yb50s1v6pwdQnokis/mBRukg0Yte
-	 42ZMollccymXV9OG8/xNVgh6Bvp4WVLozFQp/U8BmHyWHGRmG46kuTLBqisdiFVyC2
-	 bjHW5KB4Do4OfXxR7CRxQDVKLOW4TF1NEaI/XYntXL2Ztl92sWmObxrTMDqgKTbhNv
-	 9TOjQJB2u3/V+ZNYAmXuwmYaooWjH4Ilhy6NoFBe4va+3hULTeO9eJ0fp0akNvpcvj
-	 79CDb35mNxOpw==
+	b=c7cjyyR5rBvy/K1ZAtqo34P/kKrMnYlQwYtwjCVluYlhRO8hZT8SLis4o1aA/2KpV
+	 sEbC2B0SHU64Biyb3WuZ/gKpdkOOthP5WuZOM8PloMLK6f/6VXN2rr7F4430dHBJqH
+	 JH65jLZCWtX3ZtrBwGudMgq7G0jjTnm8N2Ybw4Mf6GddK1OsI5F5AH9QMcSvE7XBq+
+	 q97fLsHIWRY7mevgawXUlqVFHhT//xERCtMdkNZipa5Y2wI38XUsvpEbkTGyREyPmy
+	 GfGqhwaUu5ZhjYTGg2jm9fOeQToMgHlYUkVeDu8wmhp/zZTnx5xyX0tEaPjMJn97uE
+	 ChBuaToz770sQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 08/12] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
+Subject: Re: [PATCH 1/2] dt-bindings: mailbox: ti,secure-proxy: Add TDA54
+ variant compatible
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
-References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
- <20260930-perso-ma35d1-upstream-clk-v6-8-48937ee6c9bb@bootlin.com>
+To: "Beleswar Padhi" <b-padhi@ti.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260930172948.2901336-2-b-padhi@ti.com>
+References: <20260930172948.2901336-1-b-padhi@ti.com>
+ <20260930172948.2901336-2-b-padhi@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 17:40:38 +0000
-Message-Id: <20260930174039.5DB581F0089A@smtp.kernel.org>
+Date: Wed, 30 Sep 2026 17:42:05 +0000
+Message-Id: <20260930174206.428061F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,95 +47,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] clk: missing IS_ERR check in ma35d1_clk_gate_parent() causes CCF c=
-rash
+- [Low] dt-bindings: mailbox: ti,secure-proxy: interrupt maxItems limits TD=
+A54 threads
 --
 
-commit 7dc0319906dcefbcabf738c0cfa86cd02109de8b
-Author: Miquel Raynal <miquel.raynal@bootlin.com>
+commit 462da78495412d18a7d7ecfb35e5147704655806
+Author: Beleswar Padhi <b-padhi@ti.com>
 
-clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
+dt-bindings: mailbox: ti,secure-proxy: Add TDA54 variant compatible
 
-HXT and LXT are crystal oscillator inputs of the clock controller, they
-are described in the DT, so retrieve them, in order, and store them in
-their respective HXT/LXT hw table entries.
+This commit adds the ti,tda54-main-secure-proxy compatible to the Texas
+Instruments secure proxy mailbox controller binding. The new TDA54 variant
+features up to 444 threads with 60-byte messages per thread.
 
-> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-m=
-a35d1.c
-> index ceebcbd8c18b3..d955d79abdd2d 100644
-> --- a/drivers/clk/nuvoton/clk-ma35d1.c
-> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-
-[ ... ]
-
-> @@ -191,6 +192,15 @@ static struct clk_hw *ma35d1_clk_gate(struct device =
-*dev, const char *name, cons
->  				    reg, shift, 0, &ma35d1_lock);
->  }
+> diff --git a/Documentation/devicetree/bindings/mailbox/ti,secure-proxy.ya=
+ml b/Documentation/devicetree/bindings/mailbox/ti,secure-proxy.yaml
+> index c321b69f0ccd3..525266953c974 100644
+> --- a/Documentation/devicetree/bindings/mailbox/ti,secure-proxy.yaml
+> +++ b/Documentation/devicetree/bindings/mailbox/ti,secure-proxy.yaml
+> @@ -22,7 +22,9 @@ properties:
+>      pattern: "^mailbox@[0-9a-f]+$"
 > =20
-> +static struct clk_hw *ma35d1_clk_gate_parent(struct device *dev, const c=
-har *name,
-> +					     struct clk_hw *parent,
-> +					     void __iomem *reg, u8 shift)
-> +{
-> +	return devm_clk_hw_register_gate_parent_hw(dev, name, parent,
-> +						   CLK_SET_RATE_PARENT,
-> +						   reg, shift, 0, &ma35d1_lock);
-> +}
-> +
+>    compatible:
+> -    const: ti,am654-secure-proxy
+> +    enum:
+> +      - ti,am654-secure-proxy
+> +      - ti,tda54-main-secure-proxy
 
-[Severity: High]
-Does this wrapper need to check if the parent clock is valid before passing
-it to the core clock framework?
+[Severity: Low]
+Does the addition of this compatible require updating the maximum number of
+allowed interrupts in the schema?
 
-Looking at ma35d1_clocks_probe() below, if the fallback clock creation via
-ma35d1_clk_fixed() fails, it returns an ERR_PTR which is stored in hws[LXT].
+The commit message notes that the TDA54 hardware supports up to 444 threads.
+However, the existing properties limit both interrupts and interrupt-names
+to a maximum of 100 items:
 
-[ ... ]
+  interrupt-names:
+    minItems: 1
+    maxItems: 100
 
-> @@ -240,12 +252,27 @@ static int ma35d1_clocks_probe(struct platform_devi=
-ce *pdev)
->  		return -EINVAL;
->  	}
-> =20
-> -	hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
-> -	hws[HXT_GATE] =3D ma35d1_clk_gate(dev, "hxt_gate", "hxt",
-> -					clk_base + REG_CLK_PWRCTL, 0);
-> -	hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
-> -	hws[LXT_GATE] =3D ma35d1_clk_gate(dev, "lxt_gate", "lxt",
-> -					clk_base + REG_CLK_PWRCTL, 1);
-> +	num_clks =3D devm_clk_bulk_get_all(dev, &clks);
-> +	if (num_clks < 0)
-> +		return num_clks;
-> +
-> +	if (!num_clks) {
-> +		dev_err(dev, "missing crystal input clocks\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	hws[HXT] =3D __clk_get_hw(clks[0].clk);
-> +
-> +	if (num_clks > 1)
-> +		hws[LXT] =3D __clk_get_hw(clks[1].clk);
-> +	else
-> +		/* Old DTs do not describe the low-speed crystal */
-> +		hws[LXT] =3D ma35d1_clk_fixed("lxt", 32768);
-> +
-> +	hws[HXT_GATE] =3D ma35d1_clk_gate_parent(dev, "hxt_gate", hws[HXT],
-> +					       clk_base + REG_CLK_PWRCTL, 0);
-> +	hws[LXT_GATE] =3D ma35d1_clk_gate_parent(dev, "lxt_gate", hws[LXT],
-> +					       clk_base + REG_CLK_PWRCTL, 1);
+  interrupts:
+    minItems: 1
+    maxItems: 100
 
-When hws[LXT] containing an ERR_PTR is passed to ma35d1_clk_gate_parent(),
-it gets sent directly to devm_clk_hw_register_gate_parent_hw().
-
-Because the Common Clock Framework does not validate parent arrays for error
-pointers, this will cause a kernel panic when the core later resolves the
-parent map and dereferences the invalid memory.
-
-Could we add an IS_ERR() check either around the fixed clock allocation
-or inside ma35d1_clk_gate_parent()?
+If a device tree for the new variant specifies more than 100 receive
+interrupts, won't it fail schema validation?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-perso-ma35=
-d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930172948.2901=
+336-1-b-padhi@ti.com?part=3D1
