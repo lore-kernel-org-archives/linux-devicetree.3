@@ -1,185 +1,184 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011011.outbound.protection.outlook.com [52.101.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731B6389104;
-	Wed, 30 Sep 2026 15:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783166; cv=fail; b=rQ/UY1/9ZnIh7UqLn+YfjvK4wZkkl9MPpj2IICggM3KiuGuD3jcY6B9Z1FXgwxV/nB/xvm7NYWHKjjPowSTJDp3r6OBqR5qvoXqKzbIGDWJp3VDyPsdyMtsALwEOnIsbNEXKYh8gFOOk3+CQRa+c72kdgsPte6WaNthtGWEXuvA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783166; c=relaxed/simple;
-	bh=nsWDq+AV4VRK+wCT5oYmmKpDzFHIv9pE1HGtoIMSHVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=p5gzo1ZhfGNu5QBTGColV6GulCv9J3e9ctkujQQcy76iPzUJaoQKgqw1FibX5P+k8Kak5AvM3VPPg/dw88IanoIUwH0pDP+uRq1aNAXZv4AtlUx3rMTEedrwqFdyxWPEH0xLDllw+ij2JogTrYjQL4fZD2FANwYzp5idTbbVpns=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vpG8BtUH; arc=fail smtp.client-ip=52.101.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030803749F6;
+	Wed, 30 Sep 2026 15:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790783195; cv=none; b=h9K2q6tlq8UFkH5eOjPr9/zEz9JB9RHwM23aHyQMYDwz8b7UI/DR9TUTpuTfiSQ2WJU+whWxJl3vI0UO3diEVpq5dL+4mBmW8vu+/y5D0wTB9D/9HbNEcHT3WhOnQjwUqfKMn2pT+PeFbm9Nf3WUYynWZlu5QQV9zwhXuzK+Umo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790783195; c=relaxed/simple;
+	bh=XLQXimJESwGJoxHJcSuFJfpi8B36Xr2hYevUwxyatkE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ixfvYY/BqKV35826LRWaeajmEcq1PBzYw0nIOa3Ng9A1O3z7H9S/aJA/I5i2xZtpWX3RxigGlN5c6xGFz1mPJeS3U+BB9ancQz1SdJk94hDu/+O6JBE9aJ3suvLnrC6KU4TqWt5uu22LTf8U3sWSoZD6pjnEwTuP1bQtJNLxXho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=glAjG27H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vpG8BtUH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XXVRVYnXnt6/mEvX8Wciyo9HYpo8qTyoNTz/3mSZXV7etTzvBaWJ5i16a+hmzMVJQwQM9cZcGiBXqWLXROB0XIdVrX4SmtnyaBeJKavKyaOyq/l5RH9m9IwFhQUZDd4x2bP9HMb0BYIBk3Jwj63n0LmCRMiM7bO7vQ/6ZOeklNHPByTBwqQa0RaWF9IU/FonuZuQ1jtHZludKkRXdBE6VJvTKSA9SPr8e0Iydfhf2tz7yQDBC/ZRaekpiBbWF/pq3/HqGbu5tvzNOPId3PD2gl0GoDhvtko6Sjo6rLok9g0FFgnupZiRj6fHCCArPli21qM++KLUREgkrba+E8OG3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9gpCAGup6Nz06OzvBIAYkaGYuNmKaB3JdvYXrCJt2w0=;
- b=MmFKQi8wd2s6iuQ+fbSJQdtBqSjuRGU5z5DkhpJ3PjYfnomfKX/RIXdeiAmjJA0yvpm98fqX5DR9idNrygMXWVLwNeJ1/QBUibkZNunTb2PLoREHHTzt05MbutUvQZYP1Iy58GKcaWiJtcUYYIQ+IaTpGEFfXchrutoo2mD/N8IAx15WbOLmtGJefbCw8+TOqC5R4cyiXflglzjAiHmqgTM6XSHg3ANJ0oC45mc+XnXRnMGvzPSdH8nQeZ1T+H5+QNjvPF3SwKhfWYPfGH7MRN+cV11bVeivNyJLGtvaxvx2QUreeQ4GUbMR35/t1sZWTVOL51ZkZkEzXg3k/J7c3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9gpCAGup6Nz06OzvBIAYkaGYuNmKaB3JdvYXrCJt2w0=;
- b=vpG8BtUH4L2KNjG+5gILzDp9z+6rETDU3CFOrrb38qPKoEDe5da+DNVcOzWe3Vllr6yITniivj9bWqpLVsgGuDSHSIy/si6ALF3IPmwFdE9Yqwsy+CwMV2qOCooq0Cb57FMhzCrlnnMVNFgNChb1B3PpX4P2v0c6WMMa2lIYKoXUfVxCJ5LtzElJj0uczhq9vE/6pL6f0IlvoLmAQmd/tfAK7kAynf+88Yegx1gPt57OwbjeqEptP+O3wPD+Pe9zF8TZXK5HDFTLjyKBEZmCpzqualXz9laKXgA1rrDaxlmvp0V3IySK4v7CXYi/HGhS03nk4UxOCbTxI9VQdh96iQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV1PR04MB10848.eurprd04.prod.outlook.com (2603:10a6:150:20f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
- 2026 15:45:54 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 15:45:54 +0000
-From: Frank.Li@oss.nxp.com
-To: Marek Vasut <marex@denx.de>,
-	Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>
-Subject: Re: (subset) [PATCH v5 0/4] drm: mxsfb: Support LCDIF interface bus width
-Date: Wed, 30 Sep 2026 11:45:46 -0400
-Message-ID: <179078313436.598059.17936202871523895836.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260917140042.118181-1-francesco@dolcini.it>
-References: <20260917140042.118181-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7P220CA0101.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32d::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="glAjG27H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AEA21F00898;
+	Wed, 30 Sep 2026 15:46:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790783188;
+	bh=vaXXBPfqxAwItTvW9ejyDZg5LEp2nEJjgBenWwPvGSI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=glAjG27Hh57m+gGeR1aHFAA/AL2hJcU5Sb6lCc+T8fh6SQIbN6f3p/Hq4xCZSBoD2
+	 OA3hsZ27ei+cRsLazkO84rxPyI+JLZH1Q61t01/6SqXosGwHXcEKIuZ3INdlrw9Gnr
+	 kIHbuiPTY9tAzhFUGtkCHnO3rSS0DZYzXaIWFpZnpUAZCz/Xr4Tc97zv73mZbmNpC4
+	 A8R67snxW0ny0N3dKIMV8c0GF62/hBEiDG3KfzPkM1t71FRPpcWg1IjeX1sQiqEAPf
+	 w23FfaaQvhm2NzkHjme518RdW6A+LxjpfsTGOgkNvNUBYsdykhXUG/w2xP4EEUPDrR
+	 G96psTCn271ww==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 5/6] rtc: s35390a: Add pinctrl
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: linux-rtc@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260930-rtc_s35390a_int1-v10-5-e7b1cbc50a7b@posteo.de>
+References: <20260930-rtc_s35390a_int1-v10-0-e7b1cbc50a7b@posteo.de>
+ <20260930-rtc_s35390a_int1-v10-5-e7b1cbc50a7b@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 15:46:27 +0000
+Message-Id: <20260930154628.5AEA21F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10848:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa17baf4-a925-41c7-dc21-08df1f09e96e
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|19092799006|376014|7416014|22082099003|18002099003|921020|3023799007|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	WuCPeGkcPrBOxbqRbm31TZ2KSfiOiRfStn5jSsYAJU9d9r0i4a+JZEz+8rgAGOg7j5i719yxPvsC07si7xnsJPQDTInyIKmh32SjtBehp/I5omjBkowkq/mbxa0/NN+3yQAPic9uhrLn0X6vjclebR93Uk85JtgU8u3iiOACVxk7dyKkwo3Wpt3/Rw6D0jKD2x0+wzoVNOtxmmiFLGAXA81pCxj7ZTiWwHkYar1FPJkHyXA46zl94TUSgZavGS6qJUsLufbZZroeuC24Pro1MPoLbjysOXsOziEUem2rxgai3wRregfybjOkxZpKpIbeuKnWgvSM7dxwqn5fono8XZN3EV1tfRHB5MmKhqmHFXh5atbU3SyzmRYxLXdwE+5RBuLJdbFPieKoBmEzrdbdZsP0Tw/Ngrxv5qU5U7ao7YsDx35L5Z68E+yYCCwfCbIeFlV0KS5PLhChdkRJ/rZDZ0JBkxTTor9oSmM/6rMQT2soJzU6/k+Og2di2lIlWFSLQ6HU1EEnPn9gBg8WvDnxLX8a8zkxp93HmDO1Q0V85XbJtXF9UuCOggBONcH8EPQFkk/Nu4JJllUyAWWwzcBbTnW3gRFf2FFeId1MnMYSCD/ntz5x4fNO+aZTw49BaXCEMrDaHMpCdwBtgr1XSGqmTVmLZ0Dtblu6XHDITpXKxlJPqGqn5NjIMYx9zo/MocQRtmN9wOUtKDYiPNg6EJqCpw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(19092799006)(376014)(7416014)(22082099003)(18002099003)(921020)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QlZ5ODFBZFBMRVVVMHM1czR3alFlVlVoTEUvRGxIWVVMTGxrbWVxZFAzc1ZD?=
- =?utf-8?B?R1VMV0NGcFdvemNaOUJSR0VaS1IreXBNWURnWHp2T0tUZ2JrVHJaSVdkOExm?=
- =?utf-8?B?R0dKL3hNclFSdGdPUExiVUZxbExYTy85cnUxSmZKRHZVdXpIdGJqdWNJS1hx?=
- =?utf-8?B?M3J5TVYwUzJmckYzWXV2RTdSVk9USTZ4M3JBRk9qUmhsWVdrRmZld3pmMzIy?=
- =?utf-8?B?T1V3Y3lVMFZBanVreWV2RWtkWkNCWEZtZ3dCZXpsZEw2UlZwTzZSemY5KzlJ?=
- =?utf-8?B?eVhzM2VxVklXWFcxQ0htUndTTE5YRXdoQi9rM1gwdm1wRnc4YWwyTVdyQ0Jk?=
- =?utf-8?B?WlRoa1plZ000TVFqeUg0TWl4NUtpV01ob2hCd3VoMGhHZFBneVBIZWhDLzdl?=
- =?utf-8?B?YzYyTFE1QWMrZ3A0K1ExdHoyZXV1S3VrWUdMT1g4b25naE9vTG5jMStUdVFU?=
- =?utf-8?B?T0xyR2Y5amZkWU1rU2M5a0NDRFZ5WE9Bb2ZudkhSNDRTTWhSdFg3MG41T2gr?=
- =?utf-8?B?OXNpbHJidDhBVHY5ZW81VXlvaWlBOEhpQTJ3MVZ0cjY2S1lCdUwyTVIvK2pL?=
- =?utf-8?B?bnh1WGg4RlF5bnFwS1JCWTEyUXVIbFR3ek4xV1p3aUxRY2NJU0xLYm9iOXlw?=
- =?utf-8?B?SWVaYzMzUTdTbnhianp1VFRRK0dra1pmZ0FCWHJGbS9aK0t3MlJtMzdRR0FO?=
- =?utf-8?B?R0dKdkxsQWw4aTBBMHc1dEVVSXpFTnAzdnlNV1F3MExEZ0JWeFhuKzNKL1U0?=
- =?utf-8?B?MG1PaXIzL0c0SVV1RGlEenBLUjd3dW1nRDkyNWl0eUxhUWhiWWVIU2xlZWxG?=
- =?utf-8?B?UWo1VXFVOFE3Q2diUUJrOStZZUxkME5zeEd3cmdsRXlJdExWRDZCNk5rWEJz?=
- =?utf-8?B?cFJ1LzIrNDR6dXloek1RMngvSnBhR2wrYnBQZUx2bktGRFZZNVpKR204MzVL?=
- =?utf-8?B?cld4TUNkeUJVZmJVZG1YOG5rU3htNjdReGdzTWc1UWkzMzNkNWpTQ25ZeFpM?=
- =?utf-8?B?UXVpL09HTG0zK2RIQjhNNkgvUEN0WVY0VHJRZnRiV2xXOU41eE9mY3Z3U3BW?=
- =?utf-8?B?Z0JqZG1lZ0R3amk2WFZoTnN4d0lRWnNGNHBndXAyVWthc3JIT3RvSHZQU0s1?=
- =?utf-8?B?VENSbWhOTGgzUUtjcXpkM2xmbCs4RkVUMHVqb3BwakNEMWFJT29hb3cvWS9I?=
- =?utf-8?B?SUhXL1drZjIrREtzRW10b0NRZHFWc2h2WWp2dWl0MDdwSWNBbURnSWR0Sjk4?=
- =?utf-8?B?MTFVcWJ2alpXcW93Rk1OUGp1eEdPQmttTjhhRFQwU1htdldObXBra25WWDJ0?=
- =?utf-8?B?cklKSkJXbitkcVR3VlJJakNzaTZpUXRpeTgyWitUTjgzVS9OR3EwbjBycWdR?=
- =?utf-8?B?aU5lZW0rSyswYXg4d0x1bFk3UnNxOEY3cEFCR3BsT3dMMmMrSnJGSU1QZkNk?=
- =?utf-8?B?WE1YdVNnV09EZkVJU0pHRGhlbVVyZ1ZNOW1UODdwdVN3TjZlWFcvWnErSS84?=
- =?utf-8?B?U3lYNm9Idy9vRjc0cWVGWmVEaU95ZG13WmRnSzAxbUZPN3pNWnJ6VFllYjM1?=
- =?utf-8?B?b2NKUy9VdlRmVldPTkg3eThuallaMHlPTENKTTVMNlVGSm5COFdkTzJvNXhH?=
- =?utf-8?B?aTBONmwxaW9qSW5oamNzNFZOeWM1VVBVb1Z0UVFENjhZVTlVSmlwTk5KdXNX?=
- =?utf-8?B?WnRXZDhyNWg3MkJ6MkM4Q3lvN1E2L1BSa09pdmhqcmZ1cmQ2T3FmRHBPUEFR?=
- =?utf-8?B?T2ZUdEhiUVR2SEVaSmRVc2RacVlKdkpFNXRTYzl6aVJDaEIzRFBUREZCL1dR?=
- =?utf-8?B?KzZEYlZlbUMxNXdCa2dnWU9oZGpub1hINnBGR1Q1YzRPMVgvVVlsdlVybDJH?=
- =?utf-8?B?c2k3LzlqTEtLajkzUFpEYzc1T2h1OXN0L1liYzN3YVZKN3g0ZkxhOWwzQUNK?=
- =?utf-8?B?di9sZG9uQ3dwTFdRMC82OGQ0VmNXN1dxaDNiczl2elVuR3h2c1lkc2FtTUJp?=
- =?utf-8?B?WmpBU1g2QVcrTGJDd3BUdDRCT08zcXRuYzdwaEJxZkFrWGNac0JsZG4xTXd3?=
- =?utf-8?B?aitGWjM5c3Z4Wk0zdmF6MVoya2M3R2FRZDRKbm45R2FVR1Q4ZSsxU1RKaTV2?=
- =?utf-8?B?VFcyK3dBNklsdEc1OTk2M3RGcklQUms4R1BoSm55MmJCZHkzVXR4N3JlaTJQ?=
- =?utf-8?B?N3RnaEsyeHFHVFEyMzJHQ21nNVVSaEdrVFFpcHAxY3V2QTN6emVpaDJ3djNR?=
- =?utf-8?B?KzJVZ2J3bkRvU25ORnozeWF0dkZHWi92bHorVVBZNndEMDZURDJEMlE4SjVn?=
- =?utf-8?B?T2t4TkR1cGVRdExYdThaODM1bWh5OHlvdWVjTFN0dkZzTnhCRmEwa2NLMmdI?=
- =?utf-8?Q?VaHehtBh16j/bI1aGonXnuageNJ3KKWhPMi+Y?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa17baf4-a925-41c7-dc21-08df1f09e96e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:45:54.4396
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U4ids3Z3nrGP/sZ5xTyy1nvEr0ZZIAijBqNIo7HZXFsJj5OffbbboDlJ4vd1R0gzvurJzA377aq7i8z90E77kNicl1zJBQ/u8vEBLkD11eDRwG81JYtwZn7aZvO/VpAC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10848
 
-From: Frank Li <Frank.Li@nxp.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] rtc: s35390a: RTC hardware reset silently destroys pinctrl configu=
+rations
+- [Medium] rtc: s35390a: silent failure when setting alarm without WAKEUP p=
+in
+- [Medium] rtc: s35390a: 'clock' pin function silently behaves as 'disable'
+--
 
+commit 45e9a4cae015f35a25fbac259c1165bae0a8f0fd
+Author: Markus Probst <markus.probst@posteo.de>
+Subject: rtc: s35390a: Add pinctrl
 
-On Thu, 17 Sep 2026 16:00:35 +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> 
-> The width of the physical LCDIF output bus can differ from the input bus
-> format advertised by the downstream panel or bridge.
-> 
-> Such a distinction is required when the LCDIF bus width does not match the
-> width of the downstream display interface. For example, an 18-bit or
-> 16-bit LCDIF bus can drive a 24-bit display by wiring the available color
-> bits to the appropriate display inputs. Configuring LCDIF solely from the
-> display's 24-bit format in this case selects the wrong LCD_DATABUS_WIDTH
-> mode, changing the color-bit assignment on the LCD_DATA pins and resulting
-> in incorrect colors.
-> 
-> [...]
+This commit adds pinctrl support to the s35390a RTC driver, allowing
+configuration of the INT1 and INT2 pin functions. It supports functions
+like wakeup, clock, pmin1, pmin2, disable, and ignore.
 
-Applied, thanks!
+> diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
+> index 12ed504db94d8..649d36d37f1f4 100644
+> --- a/drivers/rtc/rtc-s35390a.c
+> +++ b/drivers/rtc/rtc-s35390a.c
+> @@ -142,12 +142,12 @@ static int s35390a_init(struct s35390a *s35390a, u8=
+ *sts)
+>  	 * The 24H bit is kept over reset, so set it already here.
+>  	 */
+>  initialize:
+> -	buf =3D S35390A_FLAG_RESET | S35390A_FLAG_24H;
+> -	ret =3D s35390a_set_reg(s35390a, S35390A_CMD_STATUS1, &buf, 1);
+> +	*sts =3D S35390A_FLAG_RESET | S35390A_FLAG_24H;
+> +	ret =3D s35390a_set_reg(s35390a, S35390A_CMD_STATUS1, sts, 1);
 
-[3/4] ARM: dts: imx6ull-colibri: Set LCDIF bus width
-      commit: b1818c5bc05407c6c0ce39898e76f609b4c94199
-[4/4] ARM: dts: imx7-colibri: Set LCDIF bus width
-      commit: bc7c81213293966faaef1e41a624a9092ae89429
+[Severity: High]
+If the RTC has the BLD (Battery Low Detection) flag set, calling
+s35390a_rtc_set_time() triggers s35390a_init(), which resets the chip via
+S35390A_FLAG_RESET. This clears the STATUS2 register in hardware, stopping
+all pin outputs.
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+Because the driver's software cache (s35390a->pinfunction) is not cleared,
+does this permanently disable hardware outputs (like PMIN1) until userspace
+bypasses the cache check by setting a different dummy function first?
+
+[ ... ]
+> @@ -370,18 +370,30 @@ static int s35390a_rtc_set_alarm(struct device *dev=
+, struct rtc_wkalrm *alm)
+>  	for (i =3D 0; i < 3; ++i)
+>  		buf[i] =3D bitrev8(buf[i]);
+> =20
+> -	err =3D s35390a_set_reg(s35390a, S35390A_CMD_INT2_REG1, buf,
+> -								sizeof(buf));
+> +	if (alm->enabled) {
+> +		/* set interrupt mode */
+> +		if (s35390a->pinfunction[0] =3D=3D S35390A_FUNC_WAKEUP)
+> +			status2 =3D (status2 & ~S35390A_INT1_MODE_MASK) | S35390A_INT1_MODE_A=
+LARM;
+> =20
+> -	return err;
+> +		if (s35390a->pinfunction[1] =3D=3D S35390A_FUNC_WAKEUP)
+> +			status2 =3D (status2 & ~S35390A_INT2_MODE_MASK) | S35390A_INT2_MODE_A=
+LARM;
+> +
+> +		err =3D s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &status2, sizeof=
+(status2));
+> +		if (err < 0)
+> +			return err;
+> +	}
+> +
+> +	if (s35390a->pinfunction[0] =3D=3D S35390A_FUNC_WAKEUP) {
+> +		err =3D s35390a_set_reg(s35390a, S35390A_CMD_INT1_REG1, buf, sizeof(bu=
+f));
+> +		if (err < 0)
+> +			return err;
+> +	}
+> +
+> +	if (s35390a->pinfunction[1] =3D=3D S35390A_FUNC_WAKEUP) {
+> +		err =3D s35390a_set_reg(s35390a, S35390A_CMD_INT2_REG1, buf, sizeof(bu=
+f));
+> +		if (err < 0)
+> +			return err;
+> +	}
+> +
+> +	return 0;
+>  }
+
+[Severity: Medium]
+If neither pin is configured with the WAKEUP function via pinctrl (e.g., bo=
+th
+are set to PMIN1 or DISABLE), does calling set_alarm skip writing the
+INT1/INT2 registers and return 0 (success) without actually arming the alar=
+m?
+
+Could this mislead the RTC subsystem and userspace into believing an alarm =
+was
+successfully programmed when the hardware is not configured to trigger it?
+
+[ ... ]
+> @@ -528,6 +528,162 @@ static int s35390a_nvmem_write(void *priv, unsigned=
+ int offset, void *val,
+> +static const struct pinfunction s35390a_functions[] =3D {
+> +	[S35390A_FUNC_IGNORE] =3D PINCTRL_PINFUNCTION("ignore", all_groups, ARR=
+AY_SIZE(all_groups)),
+> +	[S35390A_FUNC_DISABLE] =3D PINCTRL_PINFUNCTION("disable", all_groups, A=
+RRAY_SIZE(all_groups)),
+> +	[S35390A_FUNC_WAKEUP] =3D PINCTRL_PINFUNCTION("wakeup", all_groups, ARR=
+AY_SIZE(all_groups)),
+> +	[S35390A_FUNC_CLOCK] =3D PINCTRL_PINFUNCTION("clock", all_groups, ARRAY=
+_SIZE(all_groups)),
+
+[Severity: Medium]
+Does exposing the unsupported 'clock' function to the pinctrl subsystem as a
+valid option violate the API contract?
+
+> +	[S35390A_FUNC_PMIN1] =3D PINCTRL_PINFUNCTION("pmin1", all_groups, ARRAY=
+_SIZE(all_groups)),
+> +	[S35390A_FUNC_PMIN2] =3D PINCTRL_PINFUNCTION("pmin2", int1_groups, ARRA=
+Y_SIZE(int1_groups)),
+> +};
+> +
+[ ... ]
+> +static int s35390a_pinctrl_set_mux(struct pinctrl_dev *pctldev, unsigned=
+ int function,
+> +				   unsigned int group)
+> +{
+[ ... ]
+> +		switch (function) {
+> +		case S35390A_FUNC_DISABLE:
+> +		case S35390A_FUNC_CLOCK: /* not implemented */
+> +			status2 =3D (status2 & ~mask) | S35390A_INT_MODE_NOINTR;
+> +			break;
+
+If userspace or devicetree requests the 'clock' function expecting a clock
+output, it appears this silently configures the pin to disable the interrupt
+output instead. Should it return an error instead of silently behaving as
+'disable'?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-rtc_s35390=
+a_int1-v10-0-e7b1cbc50a7b@posteo.de?part=3D5
