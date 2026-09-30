@@ -1,109 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2F14E2342;
-	Wed, 30 Sep 2026 13:56:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2651D3B634E;
+	Wed, 30 Sep 2026 14:01:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776606; cv=none; b=m3liyQMgHEUqBO8vUOnB0eBhRN2lC8tDEny/ulYzAIadfIbrUJ18u1p3+WFYDb6+l5jIQkacBmZQ9Iv1Zex5UXjYo9uUgnIn5FOiQvguKjof1f3/dF9QOzcWR/vw4UcWfqj6Izq6NUvbZghN6GNeUYs1FI0DOz9rihzE8pcFQEk=
+	t=1790776874; cv=none; b=dtTGy59m0r3PFZNjQJVz3bBw9U6jP01toPezXzL7Vh1LMo/jpLsSNeH4N+Zf8wD+duZwpTDX10Dzz19MxuiPdyXpf0R+CdrJkao+E6Id70opVWpUOrCEr5fny+TWuhAQPn8Pl2J6Ye55irODnrT4PqWJikSS4JezASwjIbz/zMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776606; c=relaxed/simple;
-	bh=2waaTEMIfVSCYtkKqXR17NEFU9n+6QDSCM4A48otUBQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JLh6FUAPGDO8T7oaqW/d4tJ05PJGH96bKFbM6grNJHzGpeRfqb7B4UxNYTbwomZ42B9x/cWd0xBknwZLB5d4BC0cy+Foc/w7BFx1slhnA5sFLe3O6N/xKfQ+2Gi7sdidOmtoYLYWhyXjDaGbuiOeCtKBB4RkN25rNNIlE+5geTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYhR16B5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790776874; c=relaxed/simple;
+	bh=Nj9rD/39m04hvIh2+54l5897uaQ7OedDuJymjYcq4uE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mtkL+kU/X1cGr2CDuL8YozUzGwGSPqeAh4OQdu5U7FJ81k0MxSmIKJ9BUHHtf7zT+V0hxt9jI+wGGRRFlzRu88O4Evp3uPxESdeRpcNemPvS01U3iYy9sp0DhDy/8AVEbApnW+sFW/sRGJvvQRBI2vpVFIF0EL7Z9l2aQLZM/Co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WHlNUV/R; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Xbllk66O; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYhR16B5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 056E5C2BCF4;
-	Wed, 30 Sep 2026 13:56:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790776605;
-	bh=2waaTEMIfVSCYtkKqXR17NEFU9n+6QDSCM4A48otUBQ=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=oYhR16B51aURzCGvmRDT4mNzI+Uo5kslw1n4BweZ5af/dXvL9VRj7QTt0+JX/QWlM
-	 AynwCKORJ907Irexa6UWgUhwoYJiZ10zTK9yRSs7KiVofLfafIrN7/RVEkJ5IVtu4G
-	 LnWMnXNRoGnDooEpJLVFR4RiRUEs+LQz7pfAHkRYUEUggVK2wyWtPkVY9PCfrSyHyQ
-	 tlqhq3Dx2sPTumM+sn9/LLNpHwCwdfDQJwPC/esFpeAknUKkeL8PFAFykIW0O5G5Cg
-	 7BOOGLLgF29s1cQUC/kuZ/X9qN09RkQJZilwEUh7TWwnfpNHxGe5QAgi68toJkUG/z
-	 AhRpabapm3QiQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5D77CA5FC7;
-	Wed, 30 Sep 2026 13:56:44 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Wed, 30 Sep 2026 15:56:41 +0200
-Subject: [PATCH] dt-bindings: hwmon: pmbus: mps,mpq8785: add
- #thermal-sensor-cells
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WHlNUV/R";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Xbllk66O"
+Message-ID: <218d4c1cf5f05cd6cc648c01f8a20ec66b95362c.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790776857;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=laEGmVJZvNVKahu8x3VIGJAJ2ykpNiay6kRgzzv/wCo=;
+	b=WHlNUV/R4hXsWOPE2js82WnoXS8tbZaYSBz1c+SIeADxtatESIGSuNowqfShomYDWuSQ40
+	wge/0fK/vHDtR2/8PHgMjvBJQe+toRvo1FssGk6MTjvMy5CJ0Qv+iPRMuori2k+3Dj3GOi
+	MFr4gWSl4PyKIcA1o/3FiqQoK0jGWlB4dDFS2tsMvjjQdHonA8RW2u52yNZEHlFD2Tuvgv
+	pHBp+6pUVEnCSKKZCjnLb/YQb3q/HSVC6axLmdbo4XnfGUPJAOm8LnlAr1MfxtafYkIEPr
+	xawKGwMp+w+dXhNtB04edeF2TAioxiscDg6h0zWUwlu4ZwKcYMCwfogsG67bqw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790776857;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=laEGmVJZvNVKahu8x3VIGJAJ2ykpNiay6kRgzzv/wCo=;
+	b=Xbllk66OjXN0ePb3Tc6Nrmq71RrjAosY+2PGeEx6KBo59ORu9b/39X+lfyqf6wMgrbTtAF
+	vLC+VAkgOXEpz8CQ==
+Subject: Re: [PATCH net-next v3 2/8] dt-bindings: net: Add SoC-e SWIP MDIO
+ controller
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Wed, 30 Sep 2026 16:00:56 +0200
+In-Reply-To: <e5aa5cd8-e805-47d3-a105-07bf1b9eb9b8@lunn.ch>
+References: 
+	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-2-ddebafcb9ba7@linutronix.de>
+	 <e5aa5cd8-e805-47d3-a105-07bf1b9eb9b8@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-for-upstream-dt-mpq8785-thermal-sensor-cells-v1-1-6573c765eef8@free.fr>
-X-B4-Tracking: v=1; b=H4sIABgVvWoC/x2NQQrDIBAAvxL23AWbNpr2K6EH0bUR1NhdWwohf
- 6/0ODDM7CDEkQTuww5MnyhxKx3OpwHcasuTMPrOMKpRq9tFYdgY31Uak83oG+b6ms08YVuJs00
- oVKQrjlISdMYEq72drkpDT1amEL//3fI4jh+/nZ1xfgAAAA==
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Charles Hsu <ythsu0511@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790776603; l=1384;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=fJu0E0lhwn4WY7ROYdjtoIwXJWiiVnoOzna2Uqs/R6o=;
- b=S6v23x2y4mhv6bbX+x4IkpdMvC+sfYk/SsxbSh62xvhhP49+cA/mPtYtXG3oOUdxwc9xlsLEg
- FzUHhNvdjjuBPWNJvP58qKCee6m7m+bpvh1PnxlI9q7Ox5FR/tu4T07
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
 
-From: Vincent Jardin <vjardin@free.fr>
+On Sat, 2026-09-26 at 00:55 +0200, Andrew Lunn wrote:
+> > The controller exposes separate register regions for transaction data
+> > and for the shared transaction control and external bus selector
+> > register.
+>=20
+> > +examples:
+> > +  - |
+> > +    mdio@204 {
+> > +        compatible =3D "soce,swip-mdio-23-02";
+> > +        reg =3D <0x204 0xc>, <0x200 0x4>;
+>=20
+> At least in the example, they are not separate?
 
-Since commit
-  3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE")
-the PMBus core calls devm_thermal_of_zone_register() for every
-temperature input, so the devices of this binding can be referenced as
-thermal sensors.
+Not separate regions but registers...
+I'm obviously bad at documenting things.
 
-By code review, it should work for the MPQ and MPM device bindings.
-They register a single page with PMBUS_HAVE_TEMP through
-pmbus_do_probe(), it means that one device has one
-temperature input, temp1.
+The current information in the commit message is misleading and
+irrelevant. Looking at the bot's feedback, it's at the same time not
+clear enough yet that the mdio controller part is mapped within the
+switch memory and can't be used separately from it.
 
-The sensor id is the hwmon index of the input (temp1 is 1), so one cell
-is needed.
+I will update the commit message to something like this:
+Add a binding for the MDIO controller integrated into SoC-e SWIP
+Ethernet switch IP cores.
+The controller shares the memory of the synthesized switch IP core and
+cannot be used independently.
 
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+>=20
+> =C2=A0=C2=A0=C2=A0Andrew
 
-diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
-index d7a32fb3b7af..36760d89f665 100644
---- a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
-@@ -34,6 +34,9 @@ properties:
-     maximum: 4095
-     default: 706
- 
-+  "#thermal-sensor-cells":
-+    const: 1
-+
- required:
-   - compatible
-   - reg
-
----
-base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
-change-id: 20260930-for-upstream-dt-mpq8785-thermal-sensor-cells-c77fa6da5406
-
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
-
-
+Thanks,
+Vasilij
