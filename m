@@ -1,137 +1,154 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB61D511E9B
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 16:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708E15172CF
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 17:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790787500; cv=pass; b=R8w+Rci77EGzDcUg9ywgEuNoQTsoq0ALiqWTE6M5Q3IXaQY+/+PVHF9LLEAni06bBPqP0RDy6HY3ArzLYe+ImuElEdfMOnOayeeWODHfCHqYQZ0QH3dccN8/QSHvbGIm7973bM4UR9N6MP+2OSJLEauW1Z8Iftm+zZqaZTckHp8=
+	t=1790787613; cv=pass; b=q/xybYl9Me+iq666dHK1gUGmNAabKkIXeKjd6BYONtgSDHX6icbMXVooRItNyAf7S8lzZ5PPrjicRTawyMKnFNeR4yzNaeVFCslTP21Swp3Bg0sxsZYVVzo1urXf7OUSI6uTYQivX6HnqlUtofDIkkFTYRcIEG/VvwSMTFIlJSY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790787500; c=relaxed/simple;
-	bh=PFVmbYn7wXum97HiWvItCdk8J0+FslrKg4VqBVCXr+w=;
+	s=arc-20240116; t=1790787613; c=relaxed/simple;
+	bh=YwFLKTRtD485E9tMKuK2u3mAFkxgr0aAxTDkVA98D4M=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a2LDe6TXWEOucQk1JcbKS8gJi1XutlA993zLZHt2tnDMDrpQlTFX50b7g6fWtvJqhGRRLZw+Gf1AhK9fDcp9aUhmR8ZwHa1XTcW3JIe0FYhhrvxGjI/aKRj+69pCt0ZO3u72F9NnrmnzPzws6ZRymxcR5KMlJ/hjginDaWN/Ghc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=0iyYpFzN; arc=pass smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	 To:Cc:Content-Type; b=R1dIRjj6i06tT8qbaP2xq2NSdu5GJ46IzSDDKhqnXi/8mO/7AVxplUw3V9RlotPui3YyNS0m/SDnT5IjsiRerGRcW2VImsA9Km3K4yYZsOPP6QXubny14C962Xz7LpVHmVIoxsD1O++K7dIM/hVJBfexALKkU2RiO+Cfp4B1mIk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=spahUrRI; arc=pass smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="0iyYpFzN"
-Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2dfaf76605dso17375035ad.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:58:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790787498; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="spahUrRI"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so52519615e9.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 10:00:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790787609; cv=none;
         d=google.com; s=arc-20260327;
-        b=DpIY8RhaRXvyd7xU+TysgZN2LB2t5bDLOe6okyH0LRSBVBSfgygn1QMLzDML+YHRpD
-         P1ZUleAL4AdxCYexzEzU4JxMxG2bYi0WGDI4efCmmTtrul7zSGYl/0Xw20X1n7RiL5eT
-         WtNiLmqfm01b+bBEwJwDfCFRt00x2Lx+c7kjsMae/2wNNiiXxQH5o3BH+Mdq+zFEO9+9
-         sm9xMg3gEX8dSCoIDbefaBmaBMYbWYOO7cwgeVWEqht0dOxqRXH2Iev8Gq+KDDvzT6KU
-         0FtiBcRSZV08mrD6YcAgVCTFNzXF7JSmI4/Hw0EEO3Cfv7fTs01h5q+0GIHFzkxISQSg
-         u4sg==
+        b=s4IcY5iN9r2MHxSHHvISbICTfZf2GLTcM+Vx5GDydY9Ant1ZFPOSmQ4y5YxIrH6ecY
+         XuspiLhUYj2NmH4XlKxlcT5x/YUBuKuUMFeoet/dV1LsVWAJNdTr8OOA7meGzaKJm2JO
+         qWwieK4wKzggTdEsvEw6olYXvJ7zQmj4t4my45RGdKusJxEm9Bte4Bh6X5Ut7w0tC418
+         FOHSaHrKitjE6W8UxN8Wxl2JMZvDRWn9+xgl8NBlUEgibthnd42LwPazdmIB6cX+mkn5
+         qcziwY+X8rglmrJEeMl0Vo0MSSqLeNmj9eEX/9sPwkeKFmg0TzDZ9rvU2JlRXxw2vbW9
+         mpgA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=8tHU8kM38mvHPaqIAaeYccyBz2KlL0E8vxrWEOhOZSc=;
-        fh=z8PL0h10isUqMB31BRJUDI9DJMr/MTnqRnXlECp4DnE=;
-        b=R0PGDLWnOhUFXaBY4P475q+nnS77FnFHL41zcW3A9TtotvLXB+mpKpXoeNpsUzktl6
-         WyZbC68sCuYJ1lHhtLy4p7UsHAAq6t4FjgrxHj2c4yuJACW79gjRoFQf2l/9WDSeh87B
-         zriMoY0kUemkQni6DkZhYaijUI+9oGhWHyit0LfkBo/iGRh4q6kye5y+fkAloWRMRVz+
-         Cq36m+VKOmooijUouX/oFXjeHPckOuMttEvPZ6GmtVVzn9AnMdb1jw/S8MSnZi+fvp0F
-         33BwhTkSRWfGbIeIOr4/VaeTsc7e5k0izFxYSxnurAIWgfuNRcbWge/7OovnuaR25hrH
-         a4BQ==;
+        bh=d/J1exTPTWXkJiVUl9p6jDIEpb+9AWn6n19nTgbowZw=;
+        fh=x3aYa9Y4kZPUZ7Fkv6oK9/AduHEE0Qa6t37zUn3OITo=;
+        b=ZIQrfn+sNqHJjM4rFLrotTFSMnfivoOaRG6hH+gSOMmtYyFpb5/lfZUpsIxN8Hybkp
+         MC4R3kc5hdMJ0ow7L+79mVsYtPYY1Pyl+IKR/H6jyZ940vZ9Pdi8rTpX/guTpmvZ/yCj
+         gxiWCUopGgNWVhqaVoJ6NDEPedOA3K/1PWBYoSLwnqmngvHH8KLwKoDLQAtYNtAtEAbd
+         YjS1GpmLGyV7mPfpJu2jNPrSTzVcTo9f0XiZTMO4B40Uz9fpuG2OnXTk3gg84AzN23I1
+         o1FnS7H14MX/WE8icqwcLYIjualajlI10YsjaeZuFYvDzqeIkDMWbbm13WfQsvYVggMe
+         xpOw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1790787498; x=1791392298; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790787609; x=1791392409; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8tHU8kM38mvHPaqIAaeYccyBz2KlL0E8vxrWEOhOZSc=;
-        b=0iyYpFzNR/ZwfG4pxkOSw5wVbuqDlRBNsG7rLRw7FrCadsGu6EJr3i/tvUrfYMo2lF
-         UeOPzbD0IwEVCV+wgJcj67Ybh+E3H0Z63BZU2hwPwLvG1YU1gea6NVd5AF8UbUrLRRla
-         KNm9t/lO3UFBL4vNpSjCahfLGBiuQ6NOpPvPZkJ/s9wb5TzlVxXkOkpo56yPD5ihuYDL
-         2af4aO+V43i0YN5FjL/NSfV57Du7eCjsGVvJ6KuoKefoft3y1/hzhqyxY3I3l6e1lYNk
-         Hcxo50e7gpqXV+KOnpiTD/zurWT5zeF257S02oK/l0GEy27cfpSDaLlFkTDf1/taXa7Z
-         nC1w==
+        bh=d/J1exTPTWXkJiVUl9p6jDIEpb+9AWn6n19nTgbowZw=;
+        b=spahUrRInjqDGGCVC2I/U7dc0ub9D2jo+Upg83f6FC+CFeNA2/k5Bk1+fJJD7FvFZx
+         5ixDoCfl2yl8TVeXtKqWzfBhBkBNQNAuXT/ufFwt2Wd5jGOLOg22SWt/zgTycF1U3Mh4
+         LysofWYUqZtBvTcvuzJdRdkPBj9JL/3xDEyH25hdZAG3XIope6rM/HDiqer5rXTjZVtn
+         k4ZLvaF1jho5NXPSP9sKahqsdqS4eASzW3wgTvENPQHXfs+urwFvWycIPM3WLru1vUcZ
+         eqjoVMg8TkAwaaHYxyepEK7itbKkk52yZjBOlJiLRiDJk/a4tWnXm6vZTialQtegKAUN
+         6xxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790787498; x=1791392298;
+        d=1e100.net; s=20260707; t=1790787609; x=1791392409;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8tHU8kM38mvHPaqIAaeYccyBz2KlL0E8vxrWEOhOZSc=;
-        b=hCeTAKKQjYvfRCbGWUhDCND/MFsIYM4zYh2PeXSN7coFMKRuibvDmmuC0B9ya4oRWj
-         VsP2tEuRWtSXeIDsJ3CndIbm79hyeUkONCc92MoPAErEiF0xnxNJtNl2okWvnS5U0a1O
-         2lQFcUfAGbRGVoKIzRK+rov4q/7YgKHgHY1jI0wTGpQ2WD1WsqBQeAJaaknYYjri5ffK
-         wJHHCQseupfzqWlXBezvzV1NadL2bdKXl6oKFA7hiLA8kesetS1blBB1bqPp/5xw1kZu
-         TbvFPi7o11tmQUuArMiN3aNa5iwyvUXuxefhzfrz+6Y4TCqNYSegIy+Wyq7G6efP5S4f
-         3BpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxuBiytuNE17mN2IMMDPPCBR09LlKB0Q/dhx2x5kZzT6beiqWBmWJB/mxMYThHQpIpBwgmYr7vczC4V@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqC3mIkvWBUeYe14rHIZ5w9yBAiN3s8vDH97NzFisjkWV7pHyW
-	sKZ4sthorJnlbA+iwxm+rJ74Mp0z8HbU2aWK3+ZOY34n7fEFO7DRO5qpbh/eQWwZmp+GI5tQxFz
-	uRdHi2hrjGvB2AHO4QxhY+Z1kQnm6H3iY34vS/iVXqg==
-X-Gm-Gg: AYBFou0YKPOcKxrrnklDSq3zg0uqvh+aITDFGbXZvkUh75RSPn2PhrHsPsRyUZVX/zK
-	94CxEf5bZCdQevLdGWkJZWCIhkpPh/DNH+cQEIJmNRtWy5gLvV/87+KzowIT1Gk+0g20yaCbmos
-	4lRSNIGIrnZhoKAS/mjcwasU4CPXlosyQfPXDYcRkrhaeAQ9d3Hpn+JYUJ/nCb2A6JIiQI8+v/S
-	NgRqpOJvg4bXc8268+2RmgFgtkOpPX8oHH2QnAathOY9lwIIxT+zZvi79TNr/ykVl1tbwWKYpX/
-	ZhNfW9eVqy5DmG4C0oxF52x3sP/XRSglaH4THdyOuDCUF8f6jZDnmaUyLAMcj3UiUPCJu56qTtj
-	0kr2lB1vVJL1kFtFIeVIZeq5QG5nlpW9mauQ=
-X-Received: by 2002:a17:903:19f0:b0:2e1:24ec:df51 with SMTP id
- d9443c01a7336-2e2e4bf6e86mr18103575ad.53.1790787497948; Wed, 30 Sep 2026
- 09:58:17 -0700 (PDT)
+        bh=d/J1exTPTWXkJiVUl9p6jDIEpb+9AWn6n19nTgbowZw=;
+        b=zSktiNIWoRErvuJNPrAEhkcNeWjRmDyk7nnqIP9uSM2cLKbFJnmd3kmxLxpSoUuvL7
+         5zsFABFrZP3ue1JtCtl5Vxs+VCtbw0Pap+/EvgZjACoCngHqPVuQGkhmpUG5bZD94xYb
+         qnHaU+tAFPq6CWoz/Wh9A7yWomue+XXU0z4TiDfwftJLvmvQKq43F30zVEMHMVSbPO1H
+         7sRL/PXSSz8RMwGebXkXp2L2d6uXt+DJwiT0Xyqla9X5yTKfkmRAs0xa3Stokq1NKKyj
+         CzohTCa1wAd1YSg575U5u4v3mR0CR1pPUcmOBZ+LvzwKX+pOWS4nvqPncqDjgjr8ZM3Y
+         ChBw==
+X-Forwarded-Encrypted: i=1; AKwUvBwgNLs9ITtZ82bDv20wiOvj4tp8K8ah6V1ytBRcxzEgZ5yOOca11C5dCCB25TJLp6D5G2GlDrDoCMox@vger.kernel.org
+X-Gm-Message-State: AFuF++l1zaLeeDQqckXPyKE5LyCUn+HXwkv+czwrko2vBlzFcx+zeTB9
+	DqaPPnf71OE3vFw0x31gX9j0NbEaf8e36jXhnf/vqHbirtK6c3CgBFNsArJaouGmuQ8DQWoKSE7
+	TrgUOpFNFbWQZULHeJzEjHP2ydLzKQ4o=
+X-Gm-Gg: AYBFou2XbASYB5kEb/IVrQY42OyFcL7uWHFH97xB6YlwEU1CsIvXt+nDBW7K+VTRk5f
+	nIiwKJSHCA9DVrTkrytU/w0VthnNHzFxVNPTjT2o5hVb7TvwL9u5MLwFflLKt2b3il21RsTrK5I
+	2quvRTtoh87IEuVKtlDf0q02LiWo6pLmp14rbktXXdphVE/bbL8r5Iy1eFjxEuH16eZMI60XJQt
+	9L44YYun+5EmJbGdnuaoQPt2T1+HbnmcXK7pe1iH8c26tIahvBMwjQbI7V11sBy3bFgbb+9mNd+
+	HDxAspgEWABXvTI/GsijnauHkSLnVDThmRsa/MRaW+XluHFtQadRlqAsU1HsVfljby6+eCZjPj+
+	xagTZKvm9Z/jdBTv7I1UfIFEHfzVBvdtDPC/8hEYb8UOZfLP1Z0Bi/RKaQljRg8PjvcQBIw==
+X-Received: by 2002:a05:600c:3152:b0:49c:fc6c:be19 with SMTP id
+ 5b1f17b1804b1-4a01b12603amr36070955e9.31.1790787609394; Wed, 30 Sep 2026
+ 10:00:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930122305.293686-1-robert.marko@sartura.hr>
- <20260930122305.293686-5-robert.marko@sartura.hr> <3fa11f0a-3b08-460f-9355-72011dcfa7b3@lunn.ch>
-In-Reply-To: <3fa11f0a-3b08-460f-9355-72011dcfa7b3@lunn.ch>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Wed, 30 Sep 2026 18:58:06 +0200
-X-Gm-Features: AclHuK-zCx-hRo4FQHcXpEa4B7tZt8c59IzcCUddj-jkCNJ_V1CZ_hahpuYPcAk
-Message-ID: <CA+HBbNF6Z9uSBbktH8oOCRrHgaOujqEaLozge3zAw4ROUXi7OA@mail.gmail.com>
-Subject: Re: [PATCH 5/5] net: phy: mxl-gpy: support MxL86211C lane mapping
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, hkallweit1@gmail.com, lxu@maxlinear.com, 
-	michael@walle.cc, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
+References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260929124248.237032-4-prabhakar.mahadev-lad.rj@bp.renesas.com> <arzVw02dIqn4M-VK@ashevche-desk.local>
+In-Reply-To: <arzVw02dIqn4M-VK@ashevche-desk.local>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Wed, 30 Sep 2026 17:59:43 +0100
+X-Gm-Features: AclHuK8eJrFqm5LeaZJBMYeX86u8m2nZ2ZLVvt1JxRR4ALOvCiQsOu3O-zn_iL8
+Message-ID: <CA+V-a8uUtqBCDJC=Gy60Jx=a3au+9ZN1Dbbi6uGbzvHA3GJsXg@mail.gmail.com>
+Subject: Re: [PATCH 3/8] iio: adc: rzt2h: Add chip-specific configuration
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 5:35=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+Hi Andy,
+
+Thank you for the review.
+
+On Wed, Sep 30, 2026 at 10:26=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
 >
-> On Wed, Sep 30, 2026 at 02:22:17PM +0200, Robert Marko wrote:
-> > Configure the MxL86211C physical TPI lane to ASP mapping when it is
-> > described in DTS.
+> On Tue, Sep 29, 2026 at 01:42:43PM +0100, Prabhakar wrote:
+>
+> > Prepare the driver for supporting SoCs with ADC IP that is similar to t=
+he
+> > RZ/T2H ADC but may have different channel configurations.
 > >
-> > MxL86211C supports per lane configuration.
+> > Introduce chip-specific configuration for the channel template and numb=
+er
+> > of channels, and use it when setting up the IIO channels and DMA layout=
+.
 >
-> I assume you have a board which needs these features? Is the .dts file
-> ready for posting?
-
-Hi Andrew,
-Yes, I have a board that requires it, as pairs are reversed intentionally.
-
-DTS is not yet ready, as there will be another revision of the board
-before it is commercially available.
-But I wanted to get the ball rolling on the missing stuff in the MXL PHY dr=
-iver.
-
-Regards,
-Robert
-
+> ...
 >
->       Andrew
+> > +struct rzt2h_adc_chip_info {
+> > +     const struct iio_chan_spec *chan_template;
+>
+> __counted_by_ptr() ?
+>
+I don't think __counted_by_ptr() applies here. chan_template points to
+a single struct iio_chan_spec, not to an array of num_channels
+entries.
 
+> > +     unsigned int num_channels;
+> > +     u8 features;
+> > +};
+>
+> ...
+>
+> > +     chip_info =3D device_get_match_data(dev);
+> > +     if (!chip_info)
+> > +             return -ENODEV;
+>
+> -ENODATA
+>
+Ok.
 
-
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
+Cheers,
+Prabhakar
