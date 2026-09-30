@@ -1,187 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f41.google.com (mail-wr2-f41.google.com [74.125.225.105])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8254F85AB;
-	Tue, 29 Sep 2026 23:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D4D15665C
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 00:13:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790725491; cv=none; b=W+L7IpOyvhtQSWPMWfC+XBEemsNxMkmQG5dvhh+ghamXNseBCb9s85j85mku5rvPUm9xoIU+fmGOuFZEdtJUviLnjV5ziRa1YyuGEu1oLmx0WiibgUdcniD0KE4acvpDLIqF1gkKbDn8Cr52IpWRqK0tYwptRPYdY3PBIIGc9hY=
+	t=1790727193; cv=none; b=DXA0OmcsRpSB5CnZ2ZTxf1VN7r2F49S5CFIReWzWcermObFheqq5CxCAAbxqOuvMLmYvvbGR8RYrIISbmGd/WIicYcfCw6zXdpq8kRPrvYfq4UHGgFjlJN+GMtbDi8PvFO3cEkKEVVyurSchfaftbqG+VaN5RSa4ogs/imnGGf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790725491; c=relaxed/simple;
-	bh=wmuPQ7oXrSt+so7RfqDmzHxHZ4H+cR4pqu18ofpQW9I=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=CCsh/iqXiSB1M1hVjDFsPSnqsTM06W7K8m16Bgmycrb6jDmX040Dt1gnQK5SsLX1w/0tHhx2tEIG7n+R1ciOs8/CU+QWI4CVfpQmj7nuF299jJE0o6lh9b2MXXMAj/ntMGfnCx6C0/Unp+fj2S+Hadzf9LgLwseQbEh2deLXSjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QwyawEuO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790727193; c=relaxed/simple;
+	bh=b7z5f+aN9HjkLJpPXtPz+6mzoIt/UlKHgKR75iFSd0E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Kg4Z7xuxw7Z3An86udSvh8opFgab4cwmZoSETHMJKFz4Nn0lip/2xa7gbgUH3OGKSVg6k/jt2y9ZIu0X7olwDJIytwe72YpTi+Rn8LLMouOxygbZ9Hbil8Jm7qht9K1SyojAg5k37wuhz8KaWa7HA2OkyzLsemKHTAA46vD4ryY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=sIdY86kX; arc=none smtp.client-ip=74.125.225.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QwyawEuO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 786CC1F00893;
-	Tue, 29 Sep 2026 23:44:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790725490;
-	bh=YNLY9h/lESi+DJlGbg7hdoABGxfqloa2+qriVaM34lg=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=QwyawEuOSXJhWe1rKmIBygCQtqJ84CZXc7XkiZ/r9UiCWX8ZbRwxK/XF94ZRJG3g3
-	 XykA1gCrLKF0r46vluzPiXkYdXh7M0p6Enuvx8TIMiAyEdvxTSYQ7C1GGsDl74tcAc
-	 MIVZaaP6MtBfjsh1vIQ0damlciywgP2IOu1QThcx8N3TQLEk4JN8lN6wPiQ828R22o
-	 1zNKK0gRaJSKrL9izB8ljUNnKoOw26VqWmuEI8vVtdkcSheZmY0Ibxeacok7R1yiKq
-	 AU2oD+k+UfWXUnbkMSrWbgWP1CRa1RbeC5wPXxqlbrsMsMmyK6HPtpw7NKQBobqPi5
-	 GCn7abJjXVIHw==
-Content-Type: multipart/mixed; boundary="===============3190992738228849883=="
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="sIdY86kX"
+Received: by mail-wr2-f41.google.com with SMTP id ffacd0b85a97d-4834977ae75so2859775f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 17:13:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790727190; x=1791331990; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N8zcsJ6JNS6L3slLlgYZ7yiqUfkHSeYZphHvsSL8bbk=;
+        b=sIdY86kXVvdxyFSEF0nH+iwd2qZ3xxMJfoS8sTvfj5etDiJcaTq6jbUifoxyn1/BBv
+         zkUdHNNmMEgqvK6yUxj7bFPqVHL6M8hjWU/3IyRGnMFfpIA8hooBQAMhZHeL0OUnYMy/
+         tVzvLZNvDTKh4DIpjvU8DRGR4dq6NhZfZdvrJ+Qan2Sv6GZWr9VNOYtntLw4PZ1HlW6k
+         IJ4YVPP9C9FZ7ph/eGq8g6V5WCR0euG96Df5vNmF+0TDLQFfvizYZAfNmLsJyvWi5P0I
+         sWrKVwbRu96eijYj5aJGX55ZfUAm51cBW1u98sCM8cL9HP1eTGYXIg7goSfudzgASyAu
+         ZGtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790727190; x=1791331990;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N8zcsJ6JNS6L3slLlgYZ7yiqUfkHSeYZphHvsSL8bbk=;
+        b=PYifVIPgOrVaaY3Ua+oMVq2Rw+ZpEQNnbYJiciu18smeQcnLldqmGshPtFWOFjvP6Y
+         xwe7mRTkPcT+4VxuSo2Te5bdK9MZGBcVSauPPGL45f8wdgI4y7pG/oFDdltHq6Zm3LWM
+         ZX/i2QcEf3mWzcReLBgF4mBA1IIAUK8MRXU/0Bw/J0wWO0PDIc/URLBBElQGf4zdN0Ho
+         JwpLEuBABXuQGSNhsJVDtLEsCPUzIcXRjlureghejbDEUtBMI7nFqh5/+ProcRVWMkgj
+         dCOuijA70KazOr8Nj/tfo+0GYKoexyvup3OS9u+rEcSAk7J25FqC2LkDwFQToUYBnq8m
+         CDRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdmBYzt59D/YK0bP4odsOemFRth2fwkURAC+YSM0s3VJSXA3J/bsNA8WiYsyl/EeMDW09bu6HXhVN0@vger.kernel.org
+X-Gm-Message-State: AFuF++kHTBlr8C/rPsl4TSpc62aglDEzNeA8OkNMh7J2DYSSnr5n/+GN
+	fKpPMxY62yFoHpS2UOW4HZmWyDK+u0vWeJyM6kDFkSG9McAZVIn5MsJdDodS1yoH10I=
+X-Gm-Gg: AYBFou1OayaL5n+dWDpWvdeR+89VwD2Jhg/oNfu7IVe86TsHpvRatkpgjima57c5MFG
+	Pxd8W+DxDXOpNAhPFGmFG21W5+ZYLDTSM9qRzrVuycjlUdBkreU72PicrVrEh7jacsllqHRxRoa
+	782fCGx06rTbT5JWW0cspK86uhcTpf4VHNWzOnPKBfbpP48i2TmD0f3r9aXWUIlsSgPULOQiOUI
+	dmFhuwqPCZ151HCQm+sDr/xNygoYxCI79jk7QA9lFwT4LYegRmDpe4vKOpVn5tXhCiA6OkInGgj
+	LuzlGulCsd3EMVokUa+UJ5ZC8usVFYool/p/Atn7nPz4EUowLQzCSplPOcsjJNiD1aEIV/thiqM
+	Ae6LeufgJyR/FQ06FpPINxNagi1aJVImGrgUQ9mvLYNrsUNJtB6UNIxfiILqp/4z9RLbUAKlXhC
+	zUi4wefwNV8UVedn2fNkVxO7po66HYRzNQ2+IcGf+hclOcILO7gz4BYLdNRchb9B4Cq7dc9kbZ8
+	H6wgK4WazpKLfLx6IlpzZhqwx1QJG+K0ZtRmeH1t5Cv9lGgAPeEVZFQ4KdkFw==
+X-Received: by 2002:a05:600c:800e:b0:4a0:3c3:1ad4 with SMTP id 5b1f17b1804b1-4a01502bd28mr12961385e9.22.1790727189896;
+        Tue, 29 Sep 2026 17:13:09 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a015a89ffasm6320635e9.1.2026.09.29.17.13.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 29 Sep 2026 17:13:09 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Date: Wed, 30 Sep 2026 01:12:56 +0100
+Subject: [PATCH v7 1/6] dt-bindings: soc: move,rename
+ google,gs101-pmu-intr-gen and add exynos850
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <052fc5fccb1cfb3a9bb4751e68080c92bc0e1759be9d1dc42972f2fe6f822976@mail.kernel.org>
-In-Reply-To: <20260928-drm-mipi-dsi-panel-ebpf-v1-3-5244926aace4@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-3-5244926aace4@kernel.org>
-Subject: Re: [PATCH 3/6] drm/panel: dsi-bpf: Add BPF program build infrastructure and helper header
-From: bot+bpf-ci@kernel.org
-To: mripard@kernel.org,neil.armstrong@linaro.org,jesszhan0024@gmail.com,airlied@gmail.com,simona@ffwll.ch,maarten.lankhorst@linux.intel.com,tzimmermann@suse.de,robh@kernel.org,krzk+dt@kernel.org,conor+dt@kernel.org,nathan@kernel.org,ndesaulniers@google.com,morbo@google.com,justinstitt@google.com,florian.fainelli@broadcom.com,bcm-kernel-feedback-list@broadcom.com
-Cc: andrzej.hajda@intel.com,neil.armstrong@linaro.org,rfoss@kernel.org,Laurent.pinchart@ideasonboard.com,jonas@kwiboo.se,jernej.skrabec@gmail.com,luca.ceresoli@bootlin.com,aesteve@redhat.com,dave.stevenson@raspberrypi.com,javierm@redhat.com,dri-devel@lists.freedesktop.org,devicetree@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,llvm@lists.linux.dev,linux-rpi-kernel@lists.infradead.org,linux-arm-kernel@lists.infradead.org,mripard@kernel.org,bentiss@kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue, 29 Sep 2026 23:44:48 +0000 (UTC)
-
---===============3190992738228849883==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-exynos850-cpuhotplug-v7-1-203245826333@linaro.org>
+References: <20260930-exynos850-cpuhotplug-v7-0-203245826333@linaro.org>
+In-Reply-To: <20260930-exynos850-cpuhotplug-v7-0-203245826333@linaro.org>
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ linux-samsung-soc@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>
+Cc: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Henrik Grimler <henrik@grimler.se>, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-> diff --git a/drivers/gpu/drm/panel/bpf/progs/Makefile b/drivers/gpu/drm/panel/bpf/progs/Makefile
-> new file mode 100644
-> index 000000000000..74190ee618ab
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/bpf/progs/Makefile
+The PMU interrupt generation block introduced for the Google GS101 is
+actually a standard Samsung Exynos IP block found in older SoCs, such
+as the Exynos850, and is not exclusive to Google SoCs. To accurately
+reflect its origin, move the schema file to under soc/samsung/
+directory and rename it.
+Concurrently, add the new "samsung,exynos850-pmu-intr-gen" compatible
+string to the bindings. Support for this block is required to enable
+power management features like CPU hotplug and idle states on Exynos850
+platforms.
+Also, move this file under Exynos850 SoC in MAINTAINERS entry.
 
-[ ... ]
-
-> @@ -0,0 +1,93 @@
-> +VMLINUX_BTF_PATHS ?= $(if $(O),$(O)/vmlinux)				\
-> +		     $(if $(KBUILD_OUTPUT),$(KBUILD_OUTPUT)/vmlinux)	\
-> +		     ../../../../../../vmlinux				\
-> +		     /sys/kernel/btf/vmlinux				\
-> +		     /boot/vmlinux-$(shell uname -r)
-> +VMLINUX_BTF ?= $(abspath $(firstword $(wildcard $(VMLINUX_BTF_PATHS))))
-
-[ ... ]
-
-> +vmlinux.h: $(VMLINUX_BTF) $(BPFTOOL) | $(INCLUDE_DIR)
-> +ifeq ($(VMLINUX_H),)
-> +	$(call msg,GEN,,$@)
-> +	$(Q)$(BPFTOOL) btf dump file $(VMLINUX_BTF) format c > $@
-> +else
-> +	$(call msg,CP,,$@)
-> +	$(Q)cp "$(VMLINUX_H)" $@
-> +endif
-
-Does this build work when CONFIG_DRM_PANEL_BPF_MIPI_DSI=m?
-
-The Makefile generates vmlinux.h from vmlinux BTF only. The BPF programs
-need types defined in the panel driver: struct drm_panel_dsi_bpf_ops,
-struct panel_bpf_mipi_dsi_ctx, and the panel_bpf_mipi_dsi_supply and
-panel_bpf_mipi_dsi_gpio enums.
-
-DRM_PANEL_BPF_MIPI_DSI is tristate and becomes =m when CONFIG_DRM=m
-(the case in arch/arm64/configs/defconfig, the Raspberry Pi target).
-With =m, these types exist only in the module's split BTF at
-/sys/kernel/btf/panel_bpf_mipi_dsi, not in vmlinux BTF.
-
-panel-bpf-mipi-dsi.h declares PANEL_BPF_MIPI_DSI_OPS(x) which expands
-to "struct drm_panel_dsi_bpf_ops x", and uses PANEL_BPF_MIPI_DSI_SUPPLY_*
-and PANEL_BPF_MIPI_DSI_GPIO_* enum values. Without the module BTF dump,
-the struct is incomplete and the enums are undeclared. The panel programs
-added later in the series would fail to compile.
-
-The commit message says the Makefile follows drivers/hid/bpf/progs/, but
-that works because HID_BPF is bool and its types always land in vmlinux
-BTF.
-
-You could either dump the module BTF:
-
-  bpftool btf dump file /sys/kernel/btf/panel_bpf_mipi_dsi \
-    -B $(VMLINUX_BTF) format c >> vmlinux.h
-
-or define the ABI types directly in panel-bpf-mipi-dsi.h, as the bpf_testmod
-selftests do.
-
-> diff --git a/drivers/gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h b/drivers/gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h
-> new file mode 100644
-> index 000000000000..e2b03afef2c8
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/bpf/progs/panel-bpf-mipi-dsi.h
-
-[ ... ]
-
-> diff --git a/include/drm/drm_panel_dsi_bpf.h b/include/drm/drm_panel_dsi_bpf.h
-> deleted file mode 100644
-> index 02d4707fd0a0..000000000000
-> --- a/include/drm/drm_panel_dsi_bpf.h
-> +++ /dev/null
-> @@ -1,50 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0 */
-> -#ifndef __DRM_PANEL_DSI_BPF_H__
-> -#define __DRM_PANEL_DSI_BPF_H__
-> -
-> -#include <linux/bpf.h>
-> -
-> -struct mipi_dsi_device;
-> -struct drm_panel;
-> -
-> -#define DSI_BPF_PANEL_ID_LEN	64
-> -
-> -/**
-> - * struct dsi_bpf_ctx - Context passed to BPF panel programs
-> - * @panel: The drm_panel this callback operates on (private)
-> - */
-> -struct dsi_bpf_ctx {
-> -	struct drm_panel *panel;
-> -};
-> -
-> -/**
-> - * struct drm_panel_dsi_bpf_ops - BPF struct_ops for MIPI-DSI panels
-> - * @panel_id: Device identifier for matching. On DT systems this holds
-> - *	the panel's compatible string. Firmware-agnostic to allow future
-> - *	ACPI support. Written before load, immutable after.
-> - * @panel_prepare: Called to power on the panel and send init commands.
-> - *	Must enable regulators, toggle GPIOs, and send the DSI init
-> - *	sequence. Sleepable.
-> - * @panel_unprepare: Called to power off the panel. Must send shutdown
-> - *	commands, assert reset, and disable regulators. Sleepable.
-> - * @panel_enable: Optional. Called after video stream starts, for panels
-> - *	that need post-video-start DSI commands. Sleepable.
-> - * @panel_disable: Optional. Called before video stream stops. Sleepable.
-> - * @set_brightness: Optional. Called to set backlight brightness via DSI
-> - *	commands. Sleepable.
-> - */
-> -struct drm_panel_dsi_bpf_ops {
-> -	char			panel_id[DSI_BPF_PANEL_ID_LEN];
-> -
-> -	/* private: internal bookkeeping */
-> -	struct drm_panel	*panel;
-> -
-> -	/* public: */
-> -	int (*panel_prepare)(struct dsi_bpf_ctx *ctx);
-> -	int (*panel_unprepare)(struct dsi_bpf_ctx *ctx);
-> -	int (*panel_enable)(struct dsi_bpf_ctx *ctx);
-> -	int (*panel_disable)(struct dsi_bpf_ctx *ctx);
-> -	int (*set_brightness)(struct dsi_bpf_ctx *ctx, u32 brightness);
-> -};
-> -
-> -#endif /* __DRM_PANEL_DSI_BPF_H__ */
-
-The commit message describes adding the BPF-side header and Makefile, but
-doesn't mention removing include/drm/drm_panel_dsi_bpf.h. The header was
-added one patch earlier by 095e3b42d5ca and contains a stale ABI definition
-(struct drm_panel_dsi_bpf_ops with dsi_bpf_ctx) that conflicts with the
-real definition in drivers/gpu/drm/panel/bpf/panel-bpf-mipi-dsi.h.
-
-Why is the file being removed as a side effect here rather than being
-excluded from the earlier patch?
-
-
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ .../samsung,exynos850-pmu-intr-gen.yaml}                          | 8 +++++---
+ MAINTAINERS                                                       | 2 +-
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/36644629998
---===============3190992738228849883==--
+diff --git a/Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos850-pmu-intr-gen.yaml
+similarity index 70%
+rename from Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml
+rename to Documentation/devicetree/bindings/soc/samsung/samsung,exynos850-pmu-intr-gen.yaml
+index 2be022ca6a7d..df23467d0e0e 100644
+--- a/Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml
++++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos850-pmu-intr-gen.yaml
+@@ -1,10 +1,10 @@
+ # SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+ %YAML 1.2
+ ---
+-$id: http://devicetree.org/schemas/soc/google/google,gs101-pmu-intr-gen.yaml#
++$id: http://devicetree.org/schemas/soc/samsung/samsung,exynos850-pmu-intr-gen.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Google Power Management Unit (PMU) Interrupt Generation
++title: Samsung Power Management Unit (PMU) Interrupt Generation
+ 
+ description: |
+   PMU interrupt generator for handshaking between PMU through interrupts.
+@@ -15,7 +15,9 @@ maintainers:
+ properties:
+   compatible:
+     items:
+-      - const: google,gs101-pmu-intr-gen
++      - enum:
++          - google,gs101-pmu-intr-gen
++          - samsung,exynos850-pmu-intr-gen
+       - const: syscon
+ 
+   reg:
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1c02b919d6ae..137297bf508b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11298,7 +11298,6 @@ P:	Documentation/process/maintainer-soc-clean-dts.rst
+ C:	irc://irc.oftc.net/pixel6-kernel-dev
+ F:	Documentation/devicetree/bindings/clock/google,gs101-clock.yaml
+ F:	Documentation/devicetree/bindings/phy/google,lga-usb-phy.yaml
+-F:	Documentation/devicetree/bindings/soc/google/google,gs101-pmu-intr-gen.yaml
+ F:	Documentation/devicetree/bindings/usb/google,lga-dwc3.yaml
+ F:	arch/arm64/boot/dts/exynos/google/
+ F:	drivers/clk/samsung/clk-gs101.c
+@@ -24629,6 +24628,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+ L:	linux-samsung-soc@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/clock/samsung,exynos850-clock.yaml
++F:	Documentation/devicetree/bindings/soc/samsung/samsung,exynos850-pmu-intr-gen.yaml
+ F:	arch/arm64/boot/dts/exynos/exynos850*
+ F:	drivers/clk/samsung/clk-exynos850.c
+ F:	include/dt-bindings/clock/exynos850.h
+
+-- 
+2.51.0
+
