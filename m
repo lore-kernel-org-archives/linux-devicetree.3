@@ -1,201 +1,266 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A84457E66;
-	Wed, 30 Sep 2026 14:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35ABE4DDB27
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790779957; cv=none; b=Fxsrdd5uLPUpOb5hWSL85cskgPZQQTYaCCg987txhWc8JClXBbG0+GOOFmqnjvg5cK8zOQ5WBsOx0pqqYJtZSsMJSS4ixttU1po7+Wh0N36owOFzssWs4G6nhfv/BHbkFq0lEBjj1+1Sp+ItdSI0n80GH5llFJiH9HL+1tRhKRU=
+	t=1790779960; cv=none; b=CiO2vUWwao8sOcKSGExSFry25lmIhBdsrepSdOSBr3WG7NrFd+A8yMoDCykfYLL1ADdX2IpPSYXoCRGHeRrA9l0ik3FU1R4UmTZ2efwxe24N6ES5//zrMw/xJTBLepaf6dczAeWaj8t6nbVlAiJB0a8UYfgSoutTu2qc2dqqGbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790779957; c=relaxed/simple;
-	bh=pTDhLHv4nfV1/DMGA3AH7/YK8JGDK4xxxwHce5X45vE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AGtA2fixEX0JLK5tr7LNRjke92D15ZMsDiS2g7Hg7gi2rr1TSvhV0pp/eupYBtkBCYCNII2RLOgEoZEWGES5w1Zb2kAXAkZAKS27yiH12xlGVUiTuK8kRBchC8nqM+SRbUOE/VczHYkOqUY23SaKToJ7Oaw29IpUEUv4/Yw4Gls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a/6hwOnY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790779960; c=relaxed/simple;
+	bh=GLhqiOOG/ARARD1eN/kge/LRFSAxUT8726/4rLJXLbE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=VE3/ZfAprPM5aXZdwFjpHsDjlmJcf7eBPl6UiFXFPJjALtM+3+w132jUjEOWOAxPfFQSQJhyEGRDn7cG8NGaDJDMSO9HARxQUBg0jRj9Lu0OTJJlfoIHqho+UeM+pcrfVky87d864d4+Bndw7qNtkEPUzMGcj9kuknUkqLOhATs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hgUil/9F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=czmMVz4m; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a/6hwOnY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957AA1F00893;
-	Wed, 30 Sep 2026 14:52:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790779941;
-	bh=HsDhMDVuh4cc6ye7ymG8hoMTg53LQnEshrzl/YQU85I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a/6hwOnY67kNI4nlzC/x1riFYpZ7PeyzDWmXi6WXlJTgR+sZi7Hsl7pNS6FNVmsv5
-	 NH7/5TEHK/HIAN0MYtMhJWB+nNyFH4hwIXvksH9eAlwM8dAoTfkCmoNgLBceRm7V3U
-	 sfUhqFpafZ+SnoR5JJCSDUzaNIB+LGVxVhyR0oA6+2VS4l/er2Vy5w6o2Vn1SZ5X+V
-	 x5l9ygNECiNiUgl9VZqjSW8X7ejj0gdM1HsOfnwHD05WX5hMy6wom1geor9g7sObxU
-	 mXf6YLv+uvSEQaz44WQFFkusmi+iARVTDm2N4rL8hYI4vKwW3bvGYvjEdGxDc6QXmQ
-	 rKb9WWzqU5j4Q==
-Date: Wed, 30 Sep 2026 22:32:11 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 00/20] arm64: add Synaptics SL261X SoCs and RDK boards
-Message-ID: <ar0da71zOeeYxURQ@xhacker>
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929-smoked-laurel-087d5a3523a3@spud>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hgUil/9F";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="czmMVz4m"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UDxuUf145092
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:52:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=FXnuFReb/aR
+	g05c9O0/5RdoakU5qHY6jskp27DmHEHw=; b=hgUil/9FuJsiFNe7cCNkmqo0cNH
+	AAdJSbiY+tmpI2V1RcP4UAr8FvcMPGzUiQDPZpnGfdMDaFh+XpltuHLIWdPEjsu3
+	3YuKMKEkuEM3goiDNXYEtWEl9RzE37FmD/Tc+3oqjEmLYaHJZl6JtLxuxBxE9ulS
+	dGY7C+1pgH9jCD+F1c0pIuM5ip8DAX37cT71xyT4tiUVBwal40iwEfx/BfETYILU
+	6+lbzAm+9BkKNldJiygg9juGmanAZoFtD0Q2uyXu/AftZgBZ72L7MFCrVfrZ086l
+	Gqt8baeifnEdtWr3ol+fzLuGk7twBcyY9FLAbFF2SMZ+AIWDGWw5eiwMBwg==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0j97vvya-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:52:26 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33baaba6371so1545765eec.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:52:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790779946; x=1791384746; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FXnuFReb/aRg05c9O0/5RdoakU5qHY6jskp27DmHEHw=;
+        b=czmMVz4mqX4WpzGhoSIcGy6Aa0OBtnlbms9xUcsPvNR50WFpqaPdhzk/uXZkYXzXEm
+         75hNgJheXsanT85Lz1WLQgoE6P2l/FaHzpyHmiVXwT/IVk2uHMiwj8oM9iN8vqsscF6N
+         8tPfWy4QhhgJMreq88jPRdaXY4EW+H6nA7SWnvoBmf8IQyvTHkXP/tUsYLXfpJeRPsTv
+         QtbPAGSounKV3HusKbFlHg/or7qI7qGDr9uUtZaxQyTTA8mVeUaVoqy6mkvMWYilT2FF
+         iBJscTZoOye6OYb6xK/XjhStI+hdET8op/+KqZO4IL8MDrJ3uD1QhABZsZli2q5/JvxY
+         KYYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790779946; x=1791384746;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FXnuFReb/aRg05c9O0/5RdoakU5qHY6jskp27DmHEHw=;
+        b=nsH0AhpoNEIOrwJHTCF7W6paHv4NfLnYzqlthKDLkd2Ch+lzmPtvI6uoaDiiy3j97n
+         mj6tpKOejpdjgqtY5/SLJlF6nXAK+HJBFVAmvw9fE9nC1eXeynuAmECUsOz13VKtUPKe
+         X8ktqmxJlncIywC91ASlodVgYCz8VeHzehrgpeOXtLjOtNPWIbl6ldGEZ7c8/chcVrIh
+         05CNAiHAitEWoPCltTv3tJrYL6sCR5rwOjcTnOAlDwGrTnQZpsTVew5Fi0xBjkW7yhKh
+         h+pfABvu1bCSmHK5Jw8qgqilIqgQuXc7e+lV8xV7wrn72KXFrrVLqNX0iKKsPQWOnzmL
+         6nuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHco/8QzD7tuOfEM+T0nDc/uG5T98zkPJLxIeQnctsAZqn70vOss/q7xNeU37gs6VizR2wKOzJOBFk@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdwMeAt9AEJCgRYbGA0yZY2ucE4e0LUcJXs+s01FJW+iPOsr95
+	ZmM9kmCjKiFJkIEEv+L0WxK6XPwWYmycEdVRGXkEhu8ZkZ27fsOq633RGGpP2LxYiZjdnbUa7+n
+	047NT8A8dSQWxsydJ9LcGMSCNZKd4RB4l6ww3zjstdKpCFO95ARyDgv8FbXbfZIpB
+X-Gm-Gg: AYBFou1JQ3rbtaE8KdOQYqeb51EwiwsYXFWcXfjuydvFgFhP4IkqjMY1+g8xXJutxhz
+	wLCdWqepCWeisNuAzfv4dfOkqSfY3X903st+PMzmT7vKroBjNpIg7fUsaRUXlWLtE4Qhs/z0cTW
+	vBBHB1CHLskz0zvY8r8lvu/ypDCfNKNzBZ8ZJgtWpbFdov72yy7PM+fFCZeqpJSRTCiwziW/99t
+	2SLUQpGHngC5j90+fv+07EBd9ApP9OXSkIV9ABYKR943UHkXlvrAXJcfkWMI5oJPtzX+qICn7TO
+	iUsYApZUOJy8IAbY6XGFTbA1V8Uf1/ZqsTqp7ZfuzX8sPyLx2TMlZq+DUKG6ljT0gBt4db+RtV5
+	Ez3rGjKfojbT1KUFmtomdbur+WmDSBv1PAr6YMNjwhBfEH9yFfIWejUU=
+X-Received: by 2002:a05:7301:420c:b0:34d:9c6f:8af2 with SMTP id 5a478bee46e88-34d9c6f8d0bmr113718eec.40.1790779945437;
+        Wed, 30 Sep 2026 07:52:25 -0700 (PDT)
+X-Received: by 2002:a05:7301:420c:b0:34d:9c6f:8af2 with SMTP id 5a478bee46e88-34d9c6f8d0bmr113681eec.40.1790779944661;
+        Wed, 30 Sep 2026 07:52:24 -0700 (PDT)
+Received: from hu-c-gdjako-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34cf5639339sm4524609eec.18.2026.09.30.07.52.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 07:52:24 -0700 (PDT)
+From: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
+To: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        minchan@kernel.org, senozhatsky@chromium.org
+Cc: axboe@kernel.dk, rostedt@goodmis.org, mhiramat@kernel.org,
+        mathieu.desnoyers@efficios.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+        djakov@kernel.org
+Subject: [PATCH 5/6] soc: qcom: qpace: Add LLCC slice support
+Date: Wed, 30 Sep 2026 07:52:14 -0700
+Message-Id: <20260930145215.3380977-6-georgi.djakov@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
+References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260929-smoked-laurel-087d5a3523a3@spud>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 5pcpNNOi62lcDU4Atn_76FNgwd3Sq7F8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA1OSBTYWx0ZWRfXxp/DN/ZQ/666
+ 2S4tmGfbcpRskKffLC4F+9gGYiaECE44cQtNSMEfm0yIPnhQIZMiAEUIeXc73TTrG9dYtYRzn/p
+ SSsWUeytnJwlrCNhl02b1yQM0EsSWfuNOX9QoEYEXSUgRO96/obKr3M2c0laHApNa95g95IT1Aq
+ /c+s4J+RHEnwqjia0qoyTFoC6utHr/CeuueM7xm5uvun6ANd9+cEBJaHtBFlIGpV0abiUUnqew1
+ 1gB5wTFuwouVbTEOMzx8N7SlhS8SNDKbLnxJpDuRmn9vRM41dfsDkXSZIrXts8KVbEta00OGVNZ
+ uZOUdqPPNygDAKDFkasOqr2MSqvNQbzgYSmklvedO2Kw+3kMCc1c5t7ZcHc6ir+ClNQ85bp7z0x
+ J34fp8g8u0mcsZ9aj0ngMTCa013lgcwokxLgl9R6V0yLJhyAHvUnIt1Ds8ZfXVE0STXXv/PT9rr
+ 76NnjqftCebw/aK9TVQ==
+X-Proofpoint-ORIG-GUID: 5pcpNNOi62lcDU4Atn_76FNgwd3Sq7F8
+X-Authority-Analysis: v=2.4 cv=BPImP1QG c=1 sm=1 tr=0 ts=6abd222a cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=dejIaLI6GUeI2fIgeLMA:9 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA1OSBTYWx0ZWRfX+AbsbrxkSIOz
+ sZi6EHH+CAft7x3WQOWytm/yWzrATeGU+P47uMIZjyaCI3vwSyC1DWrK/gQb6tVdok/FcgwJGCG
+ gNx/N+2VsTivcqqKbf6BNMqpJAm7xZA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0
+ bulkscore=0 priorityscore=1501 suspectscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300059
 
-On Tue, Sep 29, 2026 at 08:38:52PM +0100, Conor Dooley wrote:
-> On Tue, Sep 29, 2026 at 02:13:57PM +0800, Jisheng Zhang wrote:
-> > Add initial support for the Synaptics SL261X SoCs and corresponding
-> > RDK boards.
-> > 
-> > The SL261X SoCs include five pin-to-pin compatible SoCs: SL2611, SL2613,
-> > SL2615, SL2617, and SL2619.
-> > 
-> > Only reset, pinctrl, clk/pll, uart, gpio, i2c, spi, i3c are included in
-> > this series. The support for Ethernet, USB, SDHCI, CAN, DMAC, XSPI will
-> > be submitted after this series is merged.
-> 
-> This series is filled with wildcard compatibles, which we don't permit
-> typically. The only case for SoCs that I've seen them accepted is when
-> the devices covered are actually just different binnings of the same
-> device. I took a look at the docs for this device, but it wasn't clear
-> to me if these are actually binnings or if there are different
-> integrations here. If they're binnings, I'd rather you used 0 as the
-> final digit, rather than x, since that matches the synaptics
-> documentation for the family. If they're not binnings, there's no
-> guarantee that they share the same errata etc, and must have different
-> compatibles.
+QPaCE can use dedicated LLCC slices for compression and decompression, but
+the driver currently does not request or enable them. This leaves platforms
+with QPaCE LLCC support running without the intended cache allocation.
 
-BTW: May I query a qustion?
-After searching the maillist archieves, it seems now maintainers prefer
-spiliting this kind of SoC initial support series into separate patches
-for different subsystems, e.g uart, i2c, i3c, spi and so on, then the
-SoC pinctrl, clk, reset and dtsi/dts files, but AIUI, there will be
-dtb check failures with the SoC dts(i) files patch(es), what's
-the normal solution then?
+Add the QPaCE LLCC slice IDs and make the driver request and activate the
+slices.
 
-> 
-> Cheers,
-> Conor.
-> 
-> > 
-> > 
-> > Jisheng Zhang (20):
-> >   dt-bindings: serial: snps-dw-apb-uart: Add Synaptics sl261x uart
-> >   dt-bindings: i2c: dw: Add Synaptics sl261x i2c
-> >   spi: dt-bindings: snps,dw-apb-ssi: Add Synaptics sl261x spi
-> >   dt-bindings: i3c: dw: support up to two reset lines
-> >   i3c: dw: switch to array-based exclusive reset control
-> >   dt-bindings: i3c: Add Synaptics sl261x i3c
-> >   arm64: kconfig: let ARCH_BERLIN cover Synaptics arm64 SoCs
-> >   dt-bindings: reset: add Synaptics SL261X SoCs
-> >   reset: add Synaptics SL261x reset support
-> >   pinctrl: berlin: use u16 instead of u8 for the offset
-> >   pinctrl: berlin: enable module build support
-> >   pinctrl: berlin: add optional pinconf support
-> >   dt-bindings: pinctrl: berlin: Support Synaptics SL261X SoCs
-> >   pinctrl: berlin: support Synaptics SL261X SoCs
-> >   dt-bindings: clock: add Synaptics SL261X clock
-> >   clk: berlin: add Synaptics SL261X SoC clocks and plls
-> >   dt-bindings: mfd: Add Synaptics SL261x global block binding
-> >   regulator: dt-bindings: sy8827n: support standard properties
-> >   dt-bindings: arm: berlin: Add Synaptics SL261X SoC and RDK board
-> >   arm64: dts: synaptics: Add Synaptics SL261X SoC and RDK board
-> > 
-> >  .../bindings/arm/marvell,berlin.yaml          |  20 +
-> >  .../bindings/clock/syna,sl261x-clk.yaml       |  92 +++
-> >  .../bindings/i2c/snps,designware-i2c.yaml     |   1 +
-> >  .../bindings/i3c/snps,dw-i3c-master.yaml      |   6 +-
-> >  .../bindings/mfd/syna,sl261x-gbl.yaml         | 208 +++++
-> >  .../pinctrl/marvell,berlin2-soc-pinctrl.yaml  |  10 +-
-> >  .../bindings/regulator/silergy,sy8827n.yaml   |   5 +-
-> >  .../bindings/reset/syna,sl261x-reset.yaml     |  40 +
-> >  .../bindings/serial/snps-dw-apb-uart.yaml     |  12 +-
-> >  .../bindings/spi/snps,dw-apb-ssi.yaml         |   1 +
-> >  arch/arm64/Kconfig.platforms                  |   4 +-
-> >  arch/arm64/boot/dts/synaptics/Makefile        |   5 +
-> >  arch/arm64/boot/dts/synaptics/sl2611-rdk.dts  |  16 +
-> >  arch/arm64/boot/dts/synaptics/sl2611.dtsi     | 490 ++++++++++++
-> >  arch/arm64/boot/dts/synaptics/sl2613-rdk.dts  |  16 +
-> >  arch/arm64/boot/dts/synaptics/sl2613.dtsi     |  12 +
-> >  arch/arm64/boot/dts/synaptics/sl2615-rdk.dts  |  16 +
-> >  arch/arm64/boot/dts/synaptics/sl2615.dtsi     |  46 ++
-> >  arch/arm64/boot/dts/synaptics/sl2617-rdk.dts  |  16 +
-> >  arch/arm64/boot/dts/synaptics/sl2617.dtsi     |  46 ++
-> >  arch/arm64/boot/dts/synaptics/sl2619-rdk.dts  |  16 +
-> >  arch/arm64/boot/dts/synaptics/sl2619.dtsi     |  44 ++
-> >  .../boot/dts/synaptics/sl261x-rdk-common.dtsi | 135 ++++
-> >  drivers/clk/Kconfig                           |   1 +
-> >  drivers/clk/berlin/Kconfig                    |  25 +
-> >  drivers/clk/berlin/Makefile                   |   4 +
-> >  drivers/clk/berlin/sl-clk.c                   | 279 +++++++
-> >  drivers/clk/berlin/sl-clk.h                   |  31 +
-> >  drivers/clk/berlin/sl-sysmgr-clk.c            | 250 ++++++
-> >  drivers/clk/berlin/sl-sysmgr-clk.h            |  44 ++
-> >  drivers/clk/berlin/sl261x-clks.c              | 385 +++++++++
-> >  drivers/clk/berlin/sl261x-pll.c               | 145 ++++
-> >  drivers/clk/berlin/sl261x-pll.h               |  14 +
-> >  drivers/i3c/master/dw-i3c-master.c            |  24 +-
-> >  drivers/i3c/master/dw-i3c-master.h            |   2 +-
-> >  drivers/pinctrl/berlin/Kconfig                |   7 +
-> >  drivers/pinctrl/berlin/Makefile               |   1 +
-> >  drivers/pinctrl/berlin/berlin.c               | 259 +++++-
-> >  drivers/pinctrl/berlin/berlin.h               |  17 +-
-> >  drivers/pinctrl/berlin/pinctrl-sl261x.c       | 745 ++++++++++++++++++
-> >  drivers/reset/Kconfig                         |   6 +
-> >  drivers/reset/Makefile                        |   1 +
-> >  drivers/reset/reset-sl261x.c                  | 224 ++++++
-> >  include/dt-bindings/clock/syna,sl261x.h       | 131 +++
-> >  include/dt-bindings/reset/syna,sl261x-reset.h |  80 ++
-> >  45 files changed, 3899 insertions(+), 33 deletions(-)
-> >  create mode 100755 Documentation/devicetree/bindings/clock/syna,sl261x-clk.yaml
-> >  create mode 100644 Documentation/devicetree/bindings/mfd/syna,sl261x-gbl.yaml
-> >  create mode 100644 Documentation/devicetree/bindings/reset/syna,sl261x-reset.yaml
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2611-rdk.dts
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2611.dtsi
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2613-rdk.dts
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2613.dtsi
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2615-rdk.dts
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2615.dtsi
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2617-rdk.dts
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2617.dtsi
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2619-rdk.dts
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl2619.dtsi
-> >  create mode 100644 arch/arm64/boot/dts/synaptics/sl261x-rdk-common.dtsi
-> >  create mode 100644 drivers/clk/berlin/Kconfig
-> >  create mode 100644 drivers/clk/berlin/sl-clk.c
-> >  create mode 100644 drivers/clk/berlin/sl-clk.h
-> >  create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.c
-> >  create mode 100644 drivers/clk/berlin/sl-sysmgr-clk.h
-> >  create mode 100644 drivers/clk/berlin/sl261x-clks.c
-> >  create mode 100644 drivers/clk/berlin/sl261x-pll.c
-> >  create mode 100644 drivers/clk/berlin/sl261x-pll.h
-> >  create mode 100644 drivers/pinctrl/berlin/pinctrl-sl261x.c
-> >  create mode 100644 drivers/reset/reset-sl261x.c
-> >  create mode 100644 include/dt-bindings/clock/syna,sl261x.h
-> >  create mode 100644 include/dt-bindings/reset/syna,sl261x-reset.h
-> > 
-> > -- 
-> > 2.53.0
-> > 
+Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
+---
+ drivers/soc/qcom/qpace.c           | 58 ++++++++++++++++++++++++++++--
+ include/linux/soc/qcom/llcc-qcom.h |  2 ++
+ 2 files changed, 58 insertions(+), 2 deletions(-)
 
-
+diff --git a/drivers/soc/qcom/qpace.c b/drivers/soc/qcom/qpace.c
+index f5b21ffbcbff..86a935ae2ca9 100644
+--- a/drivers/soc/qcom/qpace.c
++++ b/drivers/soc/qcom/qpace.c
+@@ -18,6 +18,7 @@
+ #include <linux/of_platform.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_qos.h>
++#include <linux/soc/qcom/llcc-qcom.h>
+ #include <linux/soc/qcom/qpace.h>
+ #include <linux/workqueue.h>
+ 
+@@ -42,6 +43,8 @@ struct qpace_priv {
+ 
+ 	struct icc_path *interconnect;
+ 	struct pm_qos_request qos_req;
++	struct llcc_slice_desc *llc_comp;
++	struct llcc_slice_desc *llc_decomp;
+ 
+ 	int active_rings;
+ 	struct completion no_active_refs;
+@@ -660,9 +663,35 @@ static int qpace_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to map QPaCE registers\n");
+ 
++	priv->llc_comp = llcc_slice_getd(LLCC_QPACE_COMPRESSION);
++	if (IS_ERR(priv->llc_comp))
++		return dev_err_probe(dev, PTR_ERR(priv->llc_comp),
++				     "failed to get compression LLCC slice\n");
++
++	priv->llc_decomp = llcc_slice_getd(LLCC_QPACE_DECOMPRESSION);
++	if (IS_ERR(priv->llc_decomp)) {
++		ret = dev_err_probe(dev, PTR_ERR(priv->llc_decomp),
++				    "failed to get decompression LLCC slice\n");
++		priv->llc_decomp = NULL;
++		goto llc_put_comp;
++	}
++
++	ret = llcc_slice_activate(priv->llc_comp);
++	if (ret) {
++		dev_err_probe(dev, ret, "failed to activate compression LLCC slice\n");
++		goto llc_put_decomp;
++	}
++
++	ret = llcc_slice_activate(priv->llc_decomp);
++	if (ret) {
++		dev_err_probe(dev, ret, "failed to activate decompression LLCC slice\n");
++		goto llc_deactivate_comp;
++	}
+ 	ret = qpace_power_on(dev);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "failed to power on QPaCE\n");
++	if (ret) {
++		dev_err(dev, "failed to power on QPaCE\n");
++		goto llc_deactivate_decomp;
++	}
+ 
+ 	/* Get QPaCE HW version. */
+ 	qpace_priv->hw_version = qpace_read_gen(qpace_priv, QPACE_CORE_HW_VERSION_OFFSET);
+@@ -691,6 +720,14 @@ static int qpace_probe(struct platform_device *pdev)
+ 
+ power_off:
+ 	qpace_power_off(dev);
++llc_deactivate_decomp:
++	llcc_slice_deactivate(priv->llc_decomp);
++llc_deactivate_comp:
++	llcc_slice_deactivate(priv->llc_comp);
++llc_put_decomp:
++	llcc_slice_putd(priv->llc_decomp);
++llc_put_comp:
++	llcc_slice_putd(priv->llc_comp);
+ 
+ 	return ret;
+ }
+@@ -708,6 +745,10 @@ static void qpace_remove(struct platform_device *pdev)
+ 	/* No callers remain; tear down the hardware. */
+ 	cancel_work_sync(&qpace_priv->disable_work);
+ 	qpace_power_off(&pdev->dev);
++	llcc_slice_deactivate(qpace_priv->llc_decomp);
++	llcc_slice_deactivate(qpace_priv->llc_comp);
++	llcc_slice_putd(qpace_priv->llc_decomp);
++	llcc_slice_putd(qpace_priv->llc_comp);
+ }
+ 
+ static const struct of_device_id qpace_match_table[] = {
+@@ -729,6 +770,9 @@ static int qpace_suspend(struct device *dev)
+ 		return -EBUSY;
+ 	}
+ 
++	llcc_slice_deactivate(qpace_priv->llc_comp);
++	llcc_slice_deactivate(qpace_priv->llc_decomp);
++
+ 	mutex_unlock(&qpace_ref_lock);
+ 	return 0;
+ }
+@@ -746,6 +790,16 @@ static int qpace_resume(struct device *dev)
+ 	if (ret)
+ 		goto out_unlock;
+ 
++	ret = llcc_slice_activate(qpace_priv->llc_comp);
++	if (ret)
++		goto out_unlock;
++
++	ret = llcc_slice_activate(qpace_priv->llc_decomp);
++	if (ret) {
++		llcc_slice_deactivate(qpace_priv->llc_comp);
++		goto out_unlock;
++	}
++
+ 	program_urg_command_contexts_v2();
+ 	program_decomp_core_cfg();
+ 
+diff --git a/include/linux/soc/qcom/llcc-qcom.h b/include/linux/soc/qcom/llcc-qcom.h
+index 713cb0221b14..feddbebf1183 100644
+--- a/include/linux/soc/qcom/llcc-qcom.h
++++ b/include/linux/soc/qcom/llcc-qcom.h
+@@ -85,6 +85,8 @@
+ #define LLCC_CAM_IPE_STROV	 92
+ #define LLCC_CAM_OFE_STROV	 93
+ #define LLCC_CPUSS_HEU	 94
++#define LLCC_QPACE_COMPRESSION 95
++#define LLCC_QPACE_DECOMPRESSION 96
+ #define LLCC_PCIE_TCU	 97
+ #define LLCC_GPUHTW_LITTLE	 98
+ #define LLCC_MDM_PNG_FIXED	 100
