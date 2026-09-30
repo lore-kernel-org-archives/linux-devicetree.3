@@ -1,198 +1,134 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6238F377553
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790746152; cv=pass; b=uhxEOA72Sm3Q6bo+KtBOBXxKnTxV84mFlgCF1QyxDgFiV3s3E/Y1aqbnmL2iSjE3OGBQ1CFWIAwD38lHvirt168DhokI9GPXYxyrklD/R8x4T0mY28qS2L5h5u2jNFk9OSlKk6N/ilhwdYCH03RA5+N4YtyAjB9bps7pf47uaeY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790746152; c=relaxed/simple;
-	bh=tmkV2mmrDajYN4om5U0hwK0CBQDJGtjxBhnoqqbgOyw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jqf3QUtUHu/wF4Gxc0OgjrjhWQLnKXO6LBm9ygoNZRxYOs+RPdQXvVWIn1sszZ6nmpakRcpzxRhuz179N4HuIOJkh0G1XUqnxdBdp5KgxYOX2P2BcZU2GgtGWQlm28YbvqOU8n6AQGym5hqavXSJVF4xdfK0OcqoEbYc8DdfrqE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pjSZTXfV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CJoz0vFj; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF9611B808;
+	Wed, 30 Sep 2026 05:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790746157; cv=none; b=dd6pa0GRBb7GXL8j2gOABth2fObnXRXq5lrMpz3kHnrPb9IIVZGY9Pi00vpyU+BvHIEWgtgF0JcjL8bposSxRYv1PCZPak6mfS7xezsPgKKxJNXyPBlTZz4pmtpqnYKljAq23B1Sg4WGGffpBAMW50OOp29VSLIBPIRgaL5P1Ak=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790746157; c=relaxed/simple;
+	bh=UAUJYJhL21K586r7X081V+82GJfyyoddvHhQ8NLMO2E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NKVohC+dK+1S32e8pwodQb8N7umxSSkV3PAqkKrmxoI6hfDFtw6qNHlHpdKo37y5Ts6maduKST4bMmxMvPlfeWMguhd2rvcN9at5Iv1led7QM9zDMKfaJHZCfWsiUMsldyqeiLGHkCV8EFQ+ctRuScPnfxMYyOGoqxjvM78e6rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LpvG5HJL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pjSZTXfV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CJoz0vFj"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68TNQF262010175
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:29:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=dx/vIXhRvwG/JlTZaI/6ZuIX
-	DRsDVwL2S+wzlVM9WPA=; b=pjSZTXfVK5pKLSc2tlWVvF+bggB8RgSlMVso3NBO
-	in3EqWupw5bRKnJhOmltx77ioExVOUg90cnrtmtRENoKTecmwXTlD/dow5qZAYV0
-	KP9Z+YtGZOTnWcjL7scN/B+8PH8jTT03tEnvuChgp203ZQ12res04g3zUtkKNVYz
-	sstctbaGkJoGR4mgQ/wR5hOUrHc6d6U9nf+iRFSZhf7zivrYatuhSAUGUrnNL8nc
-	KzSHnJmi3XJlc7oURLU9NnyB7mKBlNRVWWJQ61HWOZRm4MVUCzs/4TnJZ5n5J4Vq
-	gnjoDIydEfNEvLzhNSBgr5yCr38lw1JIJEi2yZGsJZfoHA==
-Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com [74.125.224.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0ftuk8v8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:29:10 +0000 (GMT)
-Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-674098a3b87so8819489d50.3
-        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 22:29:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790746150; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qezbe+HDeEMyrHO5PgM3n4Cd2AA7eotbSegVSHskzMBElgZMwy4H5QVzOnEUqn5/dV
-         ZfRqIFg2zpxJ8DuwX7zmW/JFbdZYnSnphfkroD11Mn3gN98RkjURhi2eK3cgEAdyDYfV
-         m8C6+4hbIoSQelGTeUw9K6R4eES7KLtxNlVCwa+TP77zjBgNHQx4zIXm2tN4PIdt4aPZ
-         zV3H00mzP4GGuRiQCNZVjTtP8GTr5sGvehHnbYGsM4zAw/FboVndYbz4RVNEGxPXZ1zw
-         me1C1l3p0CGwe0tFlmHXBWdIEft5LcO7mWVdYsomMBAWe+vulgr/a0c5nioGWESMZspM
-         MDEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=dx/vIXhRvwG/JlTZaI/6ZuIXDRsDVwL2S+wzlVM9WPA=;
-        fh=NFryb4FEsPRZsLkUtMXuNd8n1mMGr3imu3fvba6lL4M=;
-        b=pnE324l4jmWT1+CH6Zhbi2+Irw7tdUbvBz0niQpoyy7qw/jxS7qOqvO7/x/IPcwzBC
-         JODls+yUdDmX4+8Tne4Aw4m9M3Zgh5/iuUk2UJYOI6Fun3YCtRBXKq/hY78ltQ1rxnNt
-         2+TgzIOgSxAOZMJpfe+nYRDKhh1co+UPTFiF9msu3dfSxecR7KeDgXHvLmYHEWwCX+kh
-         ZW5XxrGXsF7yUNISYDMm7p8lr7ejlriPrBh7j4S716Gey/HjXRkGsEgBwZj3YgphOHgi
-         E70ZBR+sTmDNJNpOz49WFlK1S6MO5cVG17L7t592hGPfxV+/pjOGZL8lLu7ZLir0HasK
-         tpcA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790746150; x=1791350950; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dx/vIXhRvwG/JlTZaI/6ZuIXDRsDVwL2S+wzlVM9WPA=;
-        b=CJoz0vFjqksus96ZF0nl4mlNfSiDP6EkBClOsXIIYbZPHOBr4FTYHaFN9hNwmxUJ7a
-         Qbhr8RG5KZx9CNyWBCd7/2KVdEzPqLzx66D7P89sp2Ga2lt7n6T5tLx9mdW3ER34eRYG
-         6k1+xmiZeDX0uSBU/9L1UGh7d0OSXWkX9qrbfC8q0qmBeJtJJqLhFCiiLJ4jbHkvu7Aw
-         WjPnkDDrtpEL5oUR3/9zuWeyZFjbQ1UVmoDolqEC0R5ACkvAX3BQRBBfQ0HIVoGhF0v/
-         oDJGiVhCa17T7zlADd90hSidopTSjfUbABIRzwPzEJBqF02Yil9qdycNZhc8tqbwaVWU
-         C9CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790746150; x=1791350950;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dx/vIXhRvwG/JlTZaI/6ZuIXDRsDVwL2S+wzlVM9WPA=;
-        b=Bd0GSgogIg2RFf7rNeIyYEFId/Y6RGPFX5yHkvZ1wE5MIDkF3Uk52BACDQsD/Sq4Gu
-         b+0mJUhlkZEefm2k0rrlYpjcdCFdHRyk2SdF1psOAkxpUzjZccCMRCmQau08qHIu8/H0
-         mdwqajlCiNlvUteFmUem52nW0N25Y40zsvGA2S3oZLLaz9vZSakpYeuNWw/BLBK394/H
-         GmdikaIjjSpfRUuLNm1LNMuk+SJoByCtBr+hQaITj2Nukl3kEDHC5h9TlX+NO2dbVatz
-         ee1motvn4b5KfCmazWRe7/nlkwu6JJQtP5IAdCrjATz/edzIVHSm+1fT9sap7Aheg2YQ
-         7NkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwyi5k/K86hHE9elaJ0ARjFvMz28Q6b3dH5Gx638vfoo3pHRsTcXgSMvqghsiBRAZgDisyIaXh9tZKH@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9IUHV4TCQVU6Z+oDvyi6L6z/JxVnNERUG7FgsBhfq8W3Xrg+Q
-	QWrrPjYPTXgfI6FfVMGLKj95Ku/Tw993yNZ9XT6uZKl9t3C16YyMYIrzIdkao8Q/aU4bSD+BXvs
-	RgZtPT7+9JlRlVXgS2JhP8p7rdNt5pyFatXoAD5pb4yKqGjM64++H1ibvl0G/oY6K/f6ow4y/+y
-	Kt/O5kANrsTl1ac/vVkmiDX1Fo4QicsQqaji2GbOY=
-X-Gm-Gg: AYBFou2oh4PfbRF1ZKL3hUAyIjkmaJDjLhY2SIpozd0nL95MuP7fMTRTH4zHzUH5WHg
-	3AOphNV0wpYUsHh6Qfmp4xdeDwEqePe8OOKNlCC49TBvRiuV6Pbbnu3QuIiERRI5nuPzqS2jhNd
-	Sn70f/vG92joLA8HxNhrZNavdtIaqKBLvkNY8V79A5adk7RUj5K4P6ijT2ET0=
-X-Received: by 2002:a05:690e:804:10b0:66d:ca8:bed2 with SMTP id 956f58d0204a3-6768341b8efmr88865d50.40.1790746149639;
-        Tue, 29 Sep 2026 22:29:09 -0700 (PDT)
-X-Received: by 2002:a05:690e:804:10b0:66d:ca8:bed2 with SMTP id
- 956f58d0204a3-6768341b8efmr88852d50.40.1790746149235; Tue, 29 Sep 2026
- 22:29:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LpvG5HJL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3101F000FF;
+	Wed, 30 Sep 2026 05:29:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790746155;
+	bh=yqnNYUoM7h7MLEw242PsJGeakhBAhuwtKwSzHeOyrl4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LpvG5HJLqchYVOAb7XwITd/1W7DoSKxsCRlPAyqER6lwHzRN2rK+GxSknS0uItFFe
+	 RNqEsxeVTW2TlFzVNnE0MZzz+OawG5VUUsg9kQBsr7hNiy1ughHllw2mUH9hL5BQbX
+	 8x344O9yhC6hj68Fo+YVXy8LrcvEui8nO95yJkKRSZqwthMApdILcR6rx0Ot1O1xpm
+	 OGBs1AsuBEJUjdvZr+wQ4BRvLgxCBjuTZVtgtVRJ9n+EGVFgJVi2yaLi2KGU0WUUE9
+	 ObPdRlw2283cTL4+sCO00gS6yTb4wfFyslRu+JHx3EqPs1+NrtN50Ui/NFa/XPiIsa
+	 0BKK/dXxSi0bw==
+Message-ID: <50a12135-b7c2-492e-aa8a-363715600e44@kernel.org>
+Date: Wed, 30 Sep 2026 07:29:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-b4-qaif-shikra-audio-v8-0-ac618057fe85@oss.qualcomm.com>
- <20260928-b4-qaif-shikra-audio-v8-8-ac618057fe85@oss.qualcomm.com> <35e41446-631f-49e7-83d8-bdfca469bc09@oss.qualcomm.com>
-In-Reply-To: <35e41446-631f-49e7-83d8-bdfca469bc09@oss.qualcomm.com>
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Wed, 30 Sep 2026 10:58:58 +0530
-X-Gm-Features: AclHuK_2UWWBuq0p1Je2wHGBs_QJZlSZJ2ybw4Wpxuz_xTntYkBQ0_fPsF_Bplg
-Message-ID: <CAC-tS8CTOcAZ-x+q7mnvJgc1ZgiRLmQgvsqAFWHOK7YLSfCLog@mail.gmail.com>
-Subject: Re: [PATCH v8 08/10] ASoC: qcom: Add QAIF IRQ handling and platform register
-To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDAyMSBTYWx0ZWRfX6PLmoPXouGhE
- OKjb8rSyoAsusSml0uw1+GuWtMOZXERlM5PpnrPNWoE7irKGfjg7ORN0AjhI6ZIVQGJbzBVKQN0
- Mdez7MxutzfK5kEB3d5LOyI+0B6McyW7CIKi9ax1VPIcFlBrNUIUe9687RbXQAbajggM985mMrg
- ZYiEB8cqw78sXYmTK0fG5zXv1b7EkGFM42/355ie1oBvdgLcKGyIgirDua0hvHvS4q4GCcfu7tJ
- 8a6VZDSDLHA1TEeV5h5kTmEsywKM5CpG7vosOWQirAtJGnBiz6JdHG9JjVZbpX5ofRlaKluvZpG
- Nn1iSs8B82TTquV0CVRtMDntT/+kKEdF05KYKxfIlbaafo4wzDPD+unoTclNom5idmvPxTeFwRf
- fk/XHzt3oQa/pCNLd5Q839kMjrVt+RTkkjvGLTSJAPsw6h2muP4O7YME64INvWXV/crHwKetsXU
- zHD4xvQGWb8bFonVZPw==
-X-Authority-Analysis: v=2.4 cv=AoB7T+9P c=1 sm=1 tr=0 ts=6abc9e26 cx=c_pps
- a=ngMg22mHWrP7m7pwYf9JkA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=ub4Fp3YvjE6bfjjF_tYA:9 a=QEXdDO2ut3YA:10
- a=yHXA93iunegOHmWoMUFd:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDAyMSBTYWx0ZWRfX2zcSgJBX/R19
- DADvBGuiryR3QI4a1+be0vIfbvAOoOaGxFM5xNSYaNaROW0sW04NZuu6GfWxEf7lPmzYzAJ0fYs
- 9Q0It53eQG9nKVd90AWURcOsK93a+8o=
-X-Proofpoint-GUID: IMU3zjOtp-M7reEA-3nbBoEDDX3e3MGZ
-X-Proofpoint-ORIG-GUID: IMU3zjOtp-M7reEA-3nbBoEDDX3e3MGZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-29_05,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 impostorscore=0 clxscore=1015 phishscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300021
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/7] ARM: dts: axis: artpec6: put inline comments on same
+ line as entries
+To: Henrik Grimler <henrik.grimler@axis.com>,
+ Jesper Nilsson <jesper.nilsson@axis.com>,
+ Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>
+Cc: linux-arm-kernel@axis.com, kernel@axis.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Henrik Grimler <henrik@grimler.se>
+References: <20260928-b4-artpec6-cleanup-v1-0-e3b75e10acc6@axis.com>
+ <20260928-b4-artpec6-cleanup-v1-6-e3b75e10acc6@axis.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260928-b4-artpec6-cleanup-v1-6-e3b75e10acc6@axis.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> > +             }
-> > +             ret = regmap_update_bits(map,
-> > +                                      qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
-> > +                                      QAIF_DMACFG_DYNCLK_BIT, 0);
-> > +             if (ret)
-> > +                     dev_err(soc_runtime->dev, "error disabling dma_dynclk: %d\n", ret);
->
-> Should this preserve the first error while still attempting the
-> IRQ-disable cleanup? As written, if clearing `QAIF_DMACFG_DYNCLK_BIT`
-> fails but `qaif_platform_irq_op(..., QAIF_IRQ_DISABLE)` succeeds, `ret`
-> is overwritten and the trigger callback returns 0.
-This was overlooked. Will correct in next version.
+On 28/09/2026 14:04, Henrik Grimler wrote:
+> By having the comments next to the data they describe it is easier to
+> read the property. This fixes indent-consistent and
+> continuation-alignment warnings from dt-check-style in strict mode,
+> e.g. warnings like:
+> 
+>   axis/artpec6.dtsi:170: [indent-consistent] indent mismatch (expected depth 2 * '\t')
+>   axis/artpec6.dtsi:172: [continuation-alignment] continuation should align to column 26 (to < or ")
+> 
+> Also shorten one of the comments a bit so that the entire line fits
+> under 100 chars.
+> 
+> Signed-off-by: Henrik Grimler <henrik.grimler@axis.com>
+> ---
+>  arch/arm/boot/dts/axis/artpec6.dtsi | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/axis/artpec6.dtsi b/arch/arm/boot/dts/axis/artpec6.dtsi
+> index 146a5fd98528..c9f671fd685a 100644
+> --- a/arch/arm/boot/dts/axis/artpec6.dtsi
+> +++ b/arch/arm/boot/dts/axis/artpec6.dtsi
+> @@ -167,10 +167,8 @@ pcie: pcie@f8050000 {
+>  		      <0xf8040000 0x1000>,
+>  		      <0xc0000000 0x2000>;
+>  		reg-names = "dbi", "phy", "config";
+> -			  /* downstream I/O */
+> -		ranges = <0x81000000 0 0 0xc0002000 0 0x00010000>,
+> -			  /* non-prefetchable memory */
+> -			 <0x82000000 0 0xc0012000 0xc0012000 0 0x1ffee000>;
+> +		ranges = <0x81000000 0 0 0xc0002000 0 0x00010000>,          /* downstream I/O */
+> +			 <0x82000000 0 0xc0012000 0xc0012000 0 0x1ffee000>; /* non-prefetchable */
 
->
-> > +             ret = qaif_platform_irq_op(drvdata, substream->stream, irq_type,
-> > +                                        idx, QAIF_IRQ_DISABLE);
-> > +             if (ret)
-> > +                     dev_err(soc_runtime->dev, "error disabling irq regs: %d\n", ret);
-> > +             break;
->
-> The QAIF programming guide's STOP sequences describe one more hardware
-> completion step after clearing DMA ENABLE: wait for the relevant DMA
-> shutdown status to complete, then clear/disable the associated IRQs.
-> This applies to the AIF RDDMA/WRDMA paths and also to the codec
-> RDDMA/WRDMA paths.
->
-> This patch already has register definitions for the shutdown-status
-> registers
-> (`QAIF_RDDMA_SHUTDOWN_STAT_REG()`, `QAIF_WRDMA_SHUTDOWN_STAT_REG()`,
-> QAIF_CDC_RDDMA_SHUTDOWN_STAT_REG(),&QAIF_CDC_WRDMA_SHUTDOWN_STAT_REG()),
-> but I do not see them used in this stop path or in `sync_stop()`.
->
-> Should the driver poll the appropriate `*_SHUTDOWN_STATUS` register, for
-> example with `regmap_read_poll_timeout()`, before disabling DYNCLK and
-> IRQs? Otherwise a fast STOP->START or suspend/resume path may race with
-> a DMA channel that hardware still reports as shutting down.
->
-> Thanks
-> Ajay Kumar Nandam
->
-Thanks Ajay for the deep thought here. This was intentional, on the
-assumption that once a stream is closed the QAIF IP is inactive as its
-clocks are gated. But you're right, concurrent or suspend/resume
-scenarios can be affected without a complete shutdown. Will add the
-full shutdown sequence in the next version.
--Harendra
+Squash with the #3 patch.
+
+Best regards,
+Krzysztof
