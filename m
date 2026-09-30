@@ -1,104 +1,163 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6311842E428
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C07E45D92C
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:53:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758247; cv=none; b=CTHrdK9F7biN5JLHi3oPxhBUJcDOIHmt2bMcHNkWWq+DrPvMI/uCqp5t+moE/QvRhs/36OdsT4p0Tzib/RVykEK7+O1aewVbbubMtlKAK5j12+0cETCD/7OQD4b+BR687puIRaLXzZHEtFWZ0evQpM9P2bVcFe34xf70uDG/aAM=
+	t=1790758429; cv=none; b=KMCBMcbbElOBBLrfXRpWFxwHpTGypjYBAlBTlmUmBTZk8Djv7KbGBvnc80Y3YrL1r1z+GHMbkwCkHApZSY2wPD3WkadtzEtvKItUIfzLrfjP+QCJUL/S5nG+hWeDIASvZK+xArv2FoqlQBXuk9zp0DzNQwmRc6BjdVQLLNgvz+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758247; c=relaxed/simple;
-	bh=mxzqvlri9Ibwbqo3RK2wB3BTMPpW+o/FKFXqTM7hluI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SlaxTpPpcwjfy6EuDkdRfdryEwe0F8qO0xWHJPTEZ1dP1B22/7oF/q1mDVpHZE6zRvMGQLigAnOsAg7oVTpjlATkGFK3ofuqxbwNVGIEByUIAUaJVr3EU8gahjXe6nQzuelTUkyWJH7D5NFGX9CuSTCLXpgKeDWIp2vtVpRurts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gq+Hkz3b; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790758429; c=relaxed/simple;
+	bh=geA/iZB6wkEKrsiLYnp/cqZXPGVPPnjSglnChDxmN9A=;
+	h=From:In-Reply-To:Content-Type:References:Date:Cc:To:MIME-Version:
+	 Message-ID:Subject; b=R2u87j0bOzlm3vtrGwMX5t+ddh1Z6gWGCSCIcCkV0f624tSOJ+NGCXJ5liplE1r2YVoFBhpp4ImoLZFuae/G8y2ryrdqJn/69sMRLiPN3mgkfz8jLDkG7lBmYmKWQ7inzkcsn0oiKZuwHVKue4JdTI2HL7VzwYVN8Udekvby2yQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xXlBawrS; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gq+Hkz3b"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso53132725e9.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 01:50:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790758245; x=1791363045; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=syerpKjnrG/V4/mGWnapKjB8nHZ5GCsdjKXFguWOck0=;
-        b=Gq+Hkz3bHqE55uR4fG4B1XrJWAUOfWCcSJJbTGm8KzpRzJD6EGieHgT9FsvUdLrGOW
-         e82zoDjtpK4xnSyUtV9Vhi5aXc/hIXV+X1XpU/ocu8QJUscaLESnrRnBA7V3wFCHijE+
-         qxoBO1qeWorsqbiUhzilETTEzKEWrHkQFbR9lflE7MUA4XFC2a6vYnal1r7agDZD99Py
-         kVvlB0p+hMfKIHVZtsWApaiHO7b9LzmfQZsPfzZneSuSf3LOizSEkVLw9ElYpLfPkCkK
-         fQARbcR+uPqPVxe0arhcg3eljNyGdmdoRsVNQP81gR7lk+D7t3J1SmusN7WSCrnV1Hiz
-         adDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790758245; x=1791363045;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=syerpKjnrG/V4/mGWnapKjB8nHZ5GCsdjKXFguWOck0=;
-        b=uk0TXlEDEWz7ZXiDfExie2ILnwihmoqRY8oUn6zczk22b57kF8qkXFxoCVDILWizLr
-         Zo3/dAV+OrMbUtZPxDYw0sK4uHGk0P1Zm++xGOx8MLyKfd2uLrmMCVxNYmFnkUH5ZG8D
-         9sf6RUyt9DxLM3kUchNUDruCEQW2vjeWRDB5ztrvtJZe+lHRfXjERxBLJebUqcsK06t1
-         E5MqCTGjF5P6cDHu+OoctvdIQEH/NFUSedxd8BdZn96Bc68pY2ZO48/zPLN6N9qSrs0Q
-         hzMrrFpTpMcwvlOb2LjqqmMMCDRnm6TzZg2Y0CrgTbo2rXVo5C1a1buTF+/DKLVRDlGB
-         0ubQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGBF82qLJ3299GDgORDbdXqw7lGYJFRUhAjsEAQ74EeC9tg+EvMG/Ad9CWuq/K+zCWqt0q9Zwi6cIZ@vger.kernel.org
-X-Gm-Message-State: AFuF++m5+BnKxqn2w5MAiOj9QEThDYR3YXcQD5gJB/SPMVAGa2Cowjn9
-	G5l1KMf4UYmF0NP5yN+XPLBaNMGkd6HgPOqLu6YLbHymiKLHwh8cbfvV
-X-Gm-Gg: AYBFou0+U8Eaaii2Yd43DcFVCfI6nsZyWjwbOI/8moX5eXmKx5TNo11HSrvX+DABrI/
-	AYsFzA7BFLnI9CgzMbbzkxhPjc1ghDyD9AuU03q29XAb+5CeyhsoVphfbN265iHUh2UQitRIDZG
-	9Ax/Z6sEBPYB6bufTMU6HVAbdcbDNpzTyg5qWzAwysLKYCdRdhV6pXYk4V0S3TM9Ix6IdHEQI3n
-	Eqshku8YAQPIxB3aHXyNISTA4xCOpQvTC+KRnKtehYjtTc44rNm1zEZAq7KCQA7bYljiNproO/D
-	DZ2Ef1OHWsQC00627w2PVNbpLvmyDbwFF7/IVxRGvqb4ShiqizZlXtMBCMN98o+vPAWokHmDvQJ
-	mgkUYWC1r0xlGUUhug3kjB3X1H0fLmjsHKm2gloHa9HNPAtea0YIVCzkLexBtvZgKs5vo+ivvjG
-	o1rvx9ZFbLIrdZE59BbxU8NETiV5e7gFpI1M6MlbE9vtlQ9h9A4VEbrCnUUmGlFZKSyl7/+uiQd
-	gcxqgK2gn3qKBPq+y3bC6B/RyL6YVoDKUEIMhcAsEIEHjc+K6VlENVpo4XfM/63FQbUQIFDUeAM
-	B+wCNxEsRsjLrAs8NbPtucgW3nuOI8Gybhx/MEc3J96aYpDKCZP6RMbbhbwR3L+WDH3X+1Ta10u
-	JAO+XxNTPDHvfjFOoYz+oUL1KnSutqNc3zdNy5OjlxkLvWgAzUwyeOHRTw3Gi1h17pFHfjk4/r8
-	xAWQyqKVNUsFuS3ws=
-X-Received: by 2002:a05:600c:4e56:b0:49e:8377:c880 with SMTP id 5b1f17b1804b1-4a01b00ef27mr11371415e9.33.1790758244505;
-        Wed, 30 Sep 2026 01:50:44 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01751613dsm36189785e9.3.2026.09.30.01.50.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 01:50:44 -0700 (PDT)
-Date: Wed, 30 Sep 2026 10:50:41 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux@analog.com>, <jic23@kernel.org>,
- <nuno.sa@analog.com>, <dlechner@baylibre.com>, <andy@kernel.org>,
- <Michael.Hennerich@analog.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
- <conor+dt@kernel.org>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
- <marcelo.schmitt1@gmail.com>
-Subject: Re: [PATCH v3 02/13] iio: adc: ad4134: Sign extend sample data
-Message-ID: <20260930105041.0000303e@gmail.com>
-In-Reply-To: <a57b3a24401b3101aa10b69173e5edbde326e741.1790719424.git.marcelo.schmitt@analog.com>
-References: <cover.1790719424.git.marcelo.schmitt@analog.com>
-	<a57b3a24401b3101aa10b69173e5edbde326e741.1790719424.git.marcelo.schmitt@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xXlBawrS"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 72C3E4E410CD;
+	Wed, 30 Sep 2026 08:53:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 44E8B60749;
+	Wed, 30 Sep 2026 08:53:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPA id 32F0D10328E7B;
+	Wed, 30 Sep 2026 10:53:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790758422; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=6AWkXYD/MD09FFhnuG0xmwYrcKAW4aflAM4wC217Zdk=;
+	b=xXlBawrSCHtRf7uBs/H3aHyT/IlWcoN+YdbdklTn+FtklaDDpr13vhlc2/7JWF0BbTRXaF
+	WFP6P947sdxTV+Tdfhc6TGaPkQv2eRtZDNLiykVjAVA8wzVUNMXdpXm+W4IEQA3WDXy8CQ
+	1qULBYf0iytwiWP+3C8/H3uDDj1zDixV+4giWK8wLfHN79qYv1ZI77bHUBNGHYVy824OIb
+	bWXP7vbzUDRR3VRCvH4ydGcOGZ8UJGkpUFNv3mSCs8dPBePdvMGc9ircgVTK9FkOM9qixy
+	jMa530GNhnA06ee70wwYI6c9b8P0ALvhWJ1hCc60PqFoo0BfJgo04rxfGeG1NA==
+From: "Gregory Clement" <gregory.clement@bootlin.com>
+In-Reply-To:  <AM6PR01MB56865DCADF2BF67FD3277158808B2@AM6PR01MB5686.eurprd01.prod.exchangelabs.com>
+Content-Type: text/plain; charset="utf-8"
+References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>  <AM6PR01MB56865DCADF2BF67FD3277158808B2@AM6PR01MB5686.eurprd01.prod.exchangelabs.com>
+Date: Wed, 30 Sep 2026 10:53:38 +0200
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Andrew Lunn" <andrew@lunn.ch>, "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>, =?utf-8?q?devicetree=40vger=2Ekernel=2Eorg?= <devicetree@vger.kernel.org>, =?utf-8?q?linux-kernel=40vger=2Ekernel=2Eorg?= <linux-kernel@vger.kernel.org>, =?utf-8?q?linux-arm-kernel=40lists=2Einfradead=2Eorg?= <linux-arm-kernel@lists.infradead.org>, "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+To: =?utf-8?q?Nicol=C3=B2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo=2Eit?= <nicolo.giuliani6@studio.unibo.it>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Message-ID: <43fd0a32-5436-4303-7d0d-2e3ca33772f7@bootlin.com>
+Subject: =?utf-8?q?Re=3A?==?utf-8?q?_R=3A?= [PATCH v2 0/3] =?utf-8?q?arm64=3A?=
+ =?utf-8?q?_dts=3A?==?utf-8?q?_marvell=3A?= Add Sophos XGS 107w NPU
+User-Agent: SOGoMail 5.12.4
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: None
 
-On Tue, 29 Sep 2026 19:42:29 -0300
-Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
+On Wednesday, September 30, 2026 10:35 CEST, Nicol=C3=B2 Giuliani - nic=
+olo.giuliani6@studio.unibo.it <nicolo.giuliani6@studio.unibo.it> wrote:
 
-> Sign extend ADC sample data for correct delivery of negative ADC input
-> difference.
-> 
-> Fixes: e0bc6d7e2584 ("iio: adc: Initial support for AD4134")
-> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+>=20
+> Hi Gregory, Andrew, Sebastian,
+Hello  Nicolo,
+
+> This series has Acked-by from Krzysztof on 1/3 and 2/3, and Reviewed-=
+by from Andrew on 3/3. Is there anything else needed before it can be a=
+pplied, or should I wait for the next merge window?
+
+I am working on the backlog today, either I will apply it or I will let=
+ know if something is missing.
+
+Gregory
+
+>=20
+> Thanks,
+> Nicolo Giuliani
+>=20
+> =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
+> Da: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.uni=
+bo.it@kernel.org>
+> Inviato: luned=C3=AC 21 settembre 2026 02:26
+> A: Rob Herring; Krzysztof Kozlowski; Conor Dooley; Andrew Lunn; Grego=
+ry Clement; Sebastian Hesselbarth
+> Cc: devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-a=
+rm-kernel@lists.infradead.org; Nicol=C3=B2 Giuliani - nicolo.giuliani6@=
+studio.unibo.it; Krzysztof Kozlowski
+> Oggetto: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
+>=20
+> The Sophos XGS 87/107 desktop firewalls pair an AMD x86 host with a
+> separate network processing unit (NPU): a Marvell Armada CN9130 SoC w=
+ith
+> its own eMMC and SPI NOR flash. The NPU serves the eight RJ45 ports a=
+nd
+> the SFP cage through a Marvell 88E6193X switch on its MDIO bus, which=
+ is
+> connected to the SoC by a 10GBASE-R link, and reaches the x86 host ov=
+er
+> PCIe.
+>=20
+> This series adds the Sophos vendor prefix, the compatible string of t=
+he
+> NPU board and a device tree that describes the NPU as a standalone sy=
+stem:
+> UART console, eMMC, SPI NOR flash, the SFP cage and the switch with i=
+ts
+> ports. The port LEDs, the USB ports and the PCIe link to the x86 host=
+ (the
+> CN9130 acts as a PCIe endpoint towards it, which needs endpoint suppo=
+rt
+> that is not part of this series) are not described.
+>=20
+> Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI N=
+OR
+> access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing=
+ with
+> its eight user ports, and 936 Mbit/s through a front port. The SFP ca=
+ge
+> is untested.
+>=20
+> dt=5Fbinding=5Fcheck passes for vendor-prefixes.yaml and armada-7k-8k=
+.yaml,
+> and CHECK=5FDTBS=3Dy on marvell/cn9130-sophos-xgs107w.dtb reports no =
+warning
+> specific to this board.
+>=20
+> Based on the mvebu/dt branch of the mvebu tree (008e9faade).
+>=20
+> Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
 > ---
+> Changes in v2:
+> - Patch 1: drop the second sentence of the commit message, add Acked-=
+by
+> - Patch 2: move the entry before the SolidRun ones and list only
+>   marvell,cn9130 after the board compatible, as the other CN9130 boar=
+ds do
+> - Patch 3: use the compatible list of patch 2; pass the switch reset =
+as
+>   reset-gpios and drop the boot loader workaround; remove the LED
+>   expander node and the SFP address comment
+> - Link to v1: https://patch.msgid.link/20260919-send-dt-v1-0-365615a7=
+4ef3@studio.unibo.it
+>=20
+> ---
+> Nicolo Giuliani (3):
+>       dt-bindings: vendor-prefixes: Add Sophos
+>       dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
+>       arm64: dts: marvell: Add Sophos XGS 107w NPU board
+>=20
+>  .../bindings/arm/marvell/armada-7k-8k.yaml         |   7 +
+>  .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+>  arch/arm64/boot/dts/marvell/Makefile               |   1 +
+>  .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 188 +++++++++++=
+++++++++++
+>  4 files changed, 198 insertions(+)
+> ---
+> base-commit: 008e9faadef8c0aaa9b8a3ff05a2126e3c5b08b7
+> change-id: 20260919-send-dt-6bbd08a470d2
+>=20
+> Best regards,
+> --
+> Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+>=20
+>
 
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-
--- 
-Kind regards,
-Joshua Crofts
