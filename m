@@ -1,154 +1,102 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708E15172CF
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 17:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790787613; cv=pass; b=q/xybYl9Me+iq666dHK1gUGmNAabKkIXeKjd6BYONtgSDHX6icbMXVooRItNyAf7S8lzZ5PPrjicRTawyMKnFNeR4yzNaeVFCslTP21Swp3Bg0sxsZYVVzo1urXf7OUSI6uTYQivX6HnqlUtofDIkkFTYRcIEG/VvwSMTFIlJSY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790787613; c=relaxed/simple;
-	bh=YwFLKTRtD485E9tMKuK2u3mAFkxgr0aAxTDkVA98D4M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=R1dIRjj6i06tT8qbaP2xq2NSdu5GJ46IzSDDKhqnXi/8mO/7AVxplUw3V9RlotPui3YyNS0m/SDnT5IjsiRerGRcW2VImsA9Km3K4yYZsOPP6QXubny14C962Xz7LpVHmVIoxsD1O++K7dIM/hVJBfexALKkU2RiO+Cfp4B1mIk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=spahUrRI; arc=pass smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FE35172E7;
+	Wed, 30 Sep 2026 17:02:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790787735; cv=none; b=hjLyph9hCqPquHOv0VGZ02S4A0QnhdYfiFYG9+26G9bFr+ntM07ih9I1MwPdLSMwgtHzmTuLfNO2OPPlaLB+SASZ1erFFIGuANpjbFDx+m7AhfQHQ+QAvKQjEXdeIQtz33urPDqYNFJ7ZaE+8pot2qc6JP6weaxjuEuq18W3PP4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790787735; c=relaxed/simple;
+	bh=lSvNaYtkCFZzoTci30X9lWGW8IoJXi7d4OhkNwVojSg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hnTUV8QJ/nqu2o1W6ipdCM4sj6usT2pVVxWDxMFi0oF8XvZTeKKMwVT1MUIMFOjGfCkMvC6WK1YAGu05+A2Ca/2hc/DO2mF42kc/eiJ7hJ0VBAYrBdgyUsbzJHGj1pHPHfqgg8e+N6DPHTDGBBZBLunrlTRFLYHbdNlgAaKTMoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EexhOiGd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="spahUrRI"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e721b5503so52519615e9.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 10:00:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790787609; cv=none;
-        d=google.com; s=arc-20260327;
-        b=s4IcY5iN9r2MHxSHHvISbICTfZf2GLTcM+Vx5GDydY9Ant1ZFPOSmQ4y5YxIrH6ecY
-         XuspiLhUYj2NmH4XlKxlcT5x/YUBuKuUMFeoet/dV1LsVWAJNdTr8OOA7meGzaKJm2JO
-         qWwieK4wKzggTdEsvEw6olYXvJ7zQmj4t4my45RGdKusJxEm9Bte4Bh6X5Ut7w0tC418
-         FOHSaHrKitjE6W8UxN8Wxl2JMZvDRWn9+xgl8NBlUEgibthnd42LwPazdmIB6cX+mkn5
-         qcziwY+X8rglmrJEeMl0Vo0MSSqLeNmj9eEX/9sPwkeKFmg0TzDZ9rvU2JlRXxw2vbW9
-         mpgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=d/J1exTPTWXkJiVUl9p6jDIEpb+9AWn6n19nTgbowZw=;
-        fh=x3aYa9Y4kZPUZ7Fkv6oK9/AduHEE0Qa6t37zUn3OITo=;
-        b=ZIQrfn+sNqHJjM4rFLrotTFSMnfivoOaRG6hH+gSOMmtYyFpb5/lfZUpsIxN8Hybkp
-         MC4R3kc5hdMJ0ow7L+79mVsYtPYY1Pyl+IKR/H6jyZ940vZ9Pdi8rTpX/guTpmvZ/yCj
-         gxiWCUopGgNWVhqaVoJ6NDEPedOA3K/1PWBYoSLwnqmngvHH8KLwKoDLQAtYNtAtEAbd
-         YjS1GpmLGyV7mPfpJu2jNPrSTzVcTo9f0XiZTMO4B40Uz9fpuG2OnXTk3gg84AzN23I1
-         o1FnS7H14MX/WE8icqwcLYIjualajlI10YsjaeZuFYvDzqeIkDMWbbm13WfQsvYVggMe
-         xpOw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790787609; x=1791392409; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d/J1exTPTWXkJiVUl9p6jDIEpb+9AWn6n19nTgbowZw=;
-        b=spahUrRInjqDGGCVC2I/U7dc0ub9D2jo+Upg83f6FC+CFeNA2/k5Bk1+fJJD7FvFZx
-         5ixDoCfl2yl8TVeXtKqWzfBhBkBNQNAuXT/ufFwt2Wd5jGOLOg22SWt/zgTycF1U3Mh4
-         LysofWYUqZtBvTcvuzJdRdkPBj9JL/3xDEyH25hdZAG3XIope6rM/HDiqer5rXTjZVtn
-         k4ZLvaF1jho5NXPSP9sKahqsdqS4eASzW3wgTvENPQHXfs+urwFvWycIPM3WLru1vUcZ
-         eqjoVMg8TkAwaaHYxyepEK7itbKkk52yZjBOlJiLRiDJk/a4tWnXm6vZTialQtegKAUN
-         6xxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790787609; x=1791392409;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d/J1exTPTWXkJiVUl9p6jDIEpb+9AWn6n19nTgbowZw=;
-        b=zSktiNIWoRErvuJNPrAEhkcNeWjRmDyk7nnqIP9uSM2cLKbFJnmd3kmxLxpSoUuvL7
-         5zsFABFrZP3ue1JtCtl5Vxs+VCtbw0Pap+/EvgZjACoCngHqPVuQGkhmpUG5bZD94xYb
-         qnHaU+tAFPq6CWoz/Wh9A7yWomue+XXU0z4TiDfwftJLvmvQKq43F30zVEMHMVSbPO1H
-         7sRL/PXSSz8RMwGebXkXp2L2d6uXt+DJwiT0Xyqla9X5yTKfkmRAs0xa3Stokq1NKKyj
-         CzohTCa1wAd1YSg575U5u4v3mR0CR1pPUcmOBZ+LvzwKX+pOWS4nvqPncqDjgjr8ZM3Y
-         ChBw==
-X-Forwarded-Encrypted: i=1; AKwUvBwgNLs9ITtZ82bDv20wiOvj4tp8K8ah6V1ytBRcxzEgZ5yOOca11C5dCCB25TJLp6D5G2GlDrDoCMox@vger.kernel.org
-X-Gm-Message-State: AFuF++l1zaLeeDQqckXPyKE5LyCUn+HXwkv+czwrko2vBlzFcx+zeTB9
-	DqaPPnf71OE3vFw0x31gX9j0NbEaf8e36jXhnf/vqHbirtK6c3CgBFNsArJaouGmuQ8DQWoKSE7
-	TrgUOpFNFbWQZULHeJzEjHP2ydLzKQ4o=
-X-Gm-Gg: AYBFou2XbASYB5kEb/IVrQY42OyFcL7uWHFH97xB6YlwEU1CsIvXt+nDBW7K+VTRk5f
-	nIiwKJSHCA9DVrTkrytU/w0VthnNHzFxVNPTjT2o5hVb7TvwL9u5MLwFflLKt2b3il21RsTrK5I
-	2quvRTtoh87IEuVKtlDf0q02LiWo6pLmp14rbktXXdphVE/bbL8r5Iy1eFjxEuH16eZMI60XJQt
-	9L44YYun+5EmJbGdnuaoQPt2T1+HbnmcXK7pe1iH8c26tIahvBMwjQbI7V11sBy3bFgbb+9mNd+
-	HDxAspgEWABXvTI/GsijnauHkSLnVDThmRsa/MRaW+XluHFtQadRlqAsU1HsVfljby6+eCZjPj+
-	xagTZKvm9Z/jdBTv7I1UfIFEHfzVBvdtDPC/8hEYb8UOZfLP1Z0Bi/RKaQljRg8PjvcQBIw==
-X-Received: by 2002:a05:600c:3152:b0:49c:fc6c:be19 with SMTP id
- 5b1f17b1804b1-4a01b12603amr36070955e9.31.1790787609394; Wed, 30 Sep 2026
- 10:00:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EexhOiGd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DCD61F00899;
+	Wed, 30 Sep 2026 17:02:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790787733;
+	bh=kExIdmmHUDkx7q8lF/7jaDyfGg/4Py0IVS631gipGEE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EexhOiGd1zY0qJR7a8EtS79ow7rKI/xnnaIc5uPgKXCYBwZnnbHkmjTr1oae9vWG5
+	 hJCf6ZPtKgUJPYCaygBs4Og4wH38IumAu/UmBtRlU4R0rY8jF3TlKSfsAs69B0Up/5
+	 auw/HyRT8v/M5CH2+dtQd/OE/2GfBaLqJnonVLM89AbJFhDLvIIBusFGz0pdoOKT6+
+	 zGKVnV23M99oGDf+1PTW/szt647CIc8mc2dN8WKnslM+3DkRdnlwwt9tBjioINglgd
+	 IN2yMYOK4EIVdlQ/XTy5ne4k16r73D4XnLE5oOzcwiX5Eibkmy7KB3n9SCZ1Wt7GM+
+	 IX/2cybTnnRBQ==
+Date: Wed, 30 Sep 2026 10:02:12 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Han Gao <rabenda.cn@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Han Gao <gaohan@iscas.ac.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Fu Wei <wefu@redhat.com>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: riscv: thead: add Milk-V Meles
+Message-ID: <ar1AlKUs9gwTDWWR@thelio>
+References: <20260929-rv-meles-v1-0-effdd14a76e8@iscas.ac.cn>
+ <20260929-rv-meles-v1-1-effdd14a76e8@iscas.ac.cn>
+ <20260930-bulky-miraculous-rattlesnake-b58357@quoll>
+ <CAAT7Ki90CLoWwauNDShNFt4LS+3+nC-6tV1UqwAJP=KD0E56pQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260929124248.237032-4-prabhakar.mahadev-lad.rj@bp.renesas.com> <arzVw02dIqn4M-VK@ashevche-desk.local>
-In-Reply-To: <arzVw02dIqn4M-VK@ashevche-desk.local>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 30 Sep 2026 17:59:43 +0100
-X-Gm-Features: AclHuK8eJrFqm5LeaZJBMYeX86u8m2nZ2ZLVvt1JxRR4ALOvCiQsOu3O-zn_iL8
-Message-ID: <CA+V-a8uUtqBCDJC=Gy60Jx=a3au+9ZN1Dbbi6uGbzvHA3GJsXg@mail.gmail.com>
-Subject: Re: [PATCH 3/8] iio: adc: rzt2h: Add chip-specific configuration
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAT7Ki90CLoWwauNDShNFt4LS+3+nC-6tV1UqwAJP=KD0E56pQ@mail.gmail.com>
 
-Hi Andy,
-
-Thank you for the review.
-
-On Wed, Sep 30, 2026 at 10:26=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Tue, Sep 29, 2026 at 01:42:43PM +0100, Prabhakar wrote:
->
-> > Prepare the driver for supporting SoCs with ADC IP that is similar to t=
-he
-> > RZ/T2H ADC but may have different channel configurations.
+On Wed, Sep 30, 2026 at 10:37:28PM +0800, Han Gao wrote:
+> On Wed, Sep 30, 2026 at 7:51 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
 > >
-> > Introduce chip-specific configuration for the channel template and numb=
-er
-> > of channels, and use it when setting up the IIO channels and DMA layout=
-.
->
-> ...
->
-> > +struct rzt2h_adc_chip_info {
-> > +     const struct iio_chan_spec *chan_template;
->
-> __counted_by_ptr() ?
->
-I don't think __counted_by_ptr() applies here. chan_template points to
-a single struct iio_chan_spec, not to an array of num_channels
-entries.
+> > On Tue, Sep 29, 2026 at 06:22:45PM +0800, Han Gao wrote:
+> > > Document the Milk-V Meles board compatible with the TH1520 fallback.
+> > >
+> > > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> > > ---
+> > >  Documentation/devicetree/bindings/riscv/thead.yaml | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/riscv/thead.yaml b/Documentation/devicetree/bindings/riscv/thead.yaml
+> > > index 301912dcd290e60f816d380152591106de9415b4..5361021b8dcc9897803a5915665c6bb83309fe53 100644
+> > > --- a/Documentation/devicetree/bindings/riscv/thead.yaml
+> > > +++ b/Documentation/devicetree/bindings/riscv/thead.yaml
+> > > @@ -21,6 +21,10 @@ properties:
+> > >          items:
+> > >            - const: beagle,beaglev-ahead
+> > >            - const: thead,th1520
+> > > +      - description: Milk-V Meles single board computer
+> > > +        items:
+> > > +          - const: milkv,meles
+> >
+> > Why isn't this enum with the previous entry?
+> 
+> Merging will result in the loss of SBC manufacturer information.
+> Milk-V is an independent manufacturer.
+> 
+> Thanks,
+> Han
 
-> > +     unsigned int num_channels;
-> > +     u8 features;
-> > +};
->
-> ...
->
-> > +     chip_info =3D device_get_match_data(dev);
-> > +     if (!chip_info)
-> > +             return -ENODEV;
->
-> -ENODATA
->
-Ok.
+I think the feedback is that BeagleV Ahead and Milk-V Meles have the
+same pattern and it could be changed to:
 
-Cheers,
-Prabhakar
+      - description: TH1520 single board computers
+        items:
+          - enum:
+              - beagle,beaglev-ahead
+              - milkv,meles
+          - const: thead,th1520
+
+Is that right, Krzysztof?
+
+Thanks,
+Drew
