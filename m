@@ -1,171 +1,121 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2152B3BBA08
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 06:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790749159; cv=pass; b=Ak4DiuE1OoAXgJp3FCox4wR3kQjDjfOIezwBTL/VUKLOBqFdbXj/+yby4Saozfh4mJMpHlNMGWUymtsG5VAdsJngN9Cj6BUVeZzDZxwaKuW444A9ez2qfYSgDuZRpnAM5pxbNNP5MGwrma9Xp3a4uINxCuupDhV73VE6HWs4nDs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790749159; c=relaxed/simple;
-	bh=zFoTYb73ldMKwmEbO428TD3BtZYTxTeL01meO4CkLck=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ocOd+nfKErCmbFYme26HlOHcam6Tr8EXTvOmxanZo5SVQ9+BRBmVIqf7caAPVOyg1Bf8N3WddjrYvEIfz+8cqoTILPAbYHai29OzvmEIqkLngW1SrqKz1n+3bvC2Ps2isH/0kgUP2Ef8uRcwTu1qHZu+VtL8Phqy/wH6K3ExLek=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=DajaYGKa; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=vNWaZTSM; arc=pass smtp.client-ip=185.56.87.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C453B47C3
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 06:20:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790749229; cv=none; b=FrIvMGp9zK1Slkh+2G7u7b4OyxpwnhgzMmg8+ChBbORdAKJFr3vVdBBL0hZ10LbjTU/PM2Zd7xzZLNFhTXwz1pUnXPKXDx/Kn6AzSmqGLcFbVxFCqjqJQmyqWRBa5uv//+wjT2mlu+hstoz5D9rx/uwHBN0/ZhCdJVXCiFml8Tk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790749229; c=relaxed/simple;
+	bh=AtW184GEVNMwK8i6raKZS8TGanlEFuDwYykozLL+XJc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=h9kwkVhYfa0o39Z6ZsrIeY7X2QdDDmxtiP02NWDwNteJSu7Xl8yHiCHHHScGpXZUm3Q5a9mp6BFbkPJKyRC11kigkOaXb5tgK1nOfbdXFt3Q7piD+lr8KKjVSXIc2M2JFH2sBNuMkXU1ZTAktviaqyvcuKr+54lFvUpsgz8ws4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOg3svvE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="DajaYGKa";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="vNWaZTSM"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-fvjw.prod.antispam.mailspamprotection.com; s=arckey; t=1790749157;
-	 b=PzFMfXhZW4R1+UwBs1EH7cSjT6o3isZ8FlFPuGIZHauEWh8dsQDK1oPjNHYkY8FHCsFxVovAAQ
-	  SeuF5pfdNH4O4pZrWhcE48Jd97Ihi8C/zTH7REZo20NjDt5y3WMbuEB5xWt94ZZ5Db9ZR7wZek
-	  a85JXvpcz/XffDaJtG/0L7lSmat6QZWYSsDugTh9Wk6BHoIKs7Okj4c6WLOuM/Y1/vH11Z76yA
-	  MMwljhFFpPT2A40Z65hlA+K1FCx7DovWqT590rVxE+huSZwrjHzkf/bOyIOxI3ABBQWaakhntu
-	  Ftq79K5zILFAh5l5fullWO5aP/IC68rVQsHkAbvR7KBqFA==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-fvjw.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-fvjw.prod.antispam.mailspamprotection.com; s=arckey; t=1790749157;
-	bh=zFoTYb73ldMKwmEbO428TD3BtZYTxTeL01meO4CkLck=;
-	h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version:References:
-	  Message-ID:Subject:Cc:To:From:Date:DKIM-Signature:DKIM-Signature;
-	b=cnQaoZlmyzBb4QEiEmxSEvD1uua3IFDLybLMWSX5wWETwkSNiwR5pLTq89oFMCYvfm96bwz0RT
-	  jdaSF7NlC2VjT6mGRWgyyGH7tEJSNRw0orGGLfEmQ5gyvLF3TE1iwB7k1Oq5wH3lp18uiqmuNp
-	  qnZor1Vz28E5LMPSN1WNCmVQSLwVq2OrYVdyn5dP+nA5Zs4QTJKDGlQ6lZ/YrgM+gqjsEIz5R/
-	  uouQUXb60kZRhPeIqS3jW93c5Ubbc/GLNfbpUPvYJjZkflt0AHooEdFHgULAZGQ4AQ0sQeIBaZ
-	  UheW0IEKFWiC8qh/+QgzK2cOgFkvbwrpioH5hVJ2smNAtg==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Subject:Cc:To
-	:From:Date:Reply-To:List-Unsubscribe;
-	bh=AbLTFjIhx+uI0756kXzx+0Wed7ebu42odZefl23u124=; b=DajaYGKaqsgB7sYVHwk6Ma2Q9X
-	y3grzwqJWbGGs//qQ6Fphu7H+yU0kY+ys2QXbaCijgj/Zpk+bDOYklyxQVTeJ7hKJN3dBxdhoxbYa
-	B0j5Ydcq+cWahZLMsf/dm4neeqFNGy0hTauVAnPZbiG/R3mRz7CR4dGveeCz+35m53MU=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-fvjw.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xBnes-00000000fv0-1FGv
-	for devicetree@vger.kernel.org;
-	Wed, 30 Sep 2026 06:19:14 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=AbLTFjIhx+uI0756kXzx+0Wed7ebu42odZefl23u124=; b=vNWaZTSMdKSjuGWs4B1nAJLk+v
-	JgZgpuuMYwkOKAokZdtW4FbhvcKdbSfQAbmDZuPhMmsifXY+It3LX1H5Tlom/t/67KuTCjwJ5VbNj
-	f7iaIxoAD//wZICuPL52kUW9hdtchJiO7XOsr74gbRyS39at1urOoT9laQIF81sUJWDo=;
-Received: from [87.14.44.235] (port=64978 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xBneo-00000000PI1-2Ld3;
-	Wed, 30 Sep 2026 06:19:10 +0000
-Date: Wed, 30 Sep 2026 08:19:08 +0200
-From: Francesco Valla <francesco@valla.it>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, virtualization@lists.linux.dev, 
-	Eugenio Perez <eperezma@redhat.com>, robh@kernel.org, conor+dt@kernel.org, 
-	"Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH 1/2] dt-bindings: spi: add bindings for spi-virtio
-Message-ID: <arypmHeudsJm4RIN@bywater>
-References: <20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it>
- <20260929-spi-virtio-bindings-v1-1-6a0eef3213b3@valla.it>
- <20260929165015.E5DDF1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOg3svvE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D26AF1F000FF;
+	Wed, 30 Sep 2026 06:20:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790749228;
+	bh=etJFnIHWVBtwYdfENnKP81rvc8vh8b+shEt3yJiB5+g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EOg3svvEMXBiERkvSa52aOE4ot68vMg5MYznn/3UP9vVWMi40hQF3xmSIhfuA6g0/
+	 4Oqz62bYkSq9V11fY0GAkfxTAxcnmhJX8qOaG8ImWAdp+zQoh5Q+Hru7IWmG4mAjMX
+	 rIebyRPN0rt3lVjo4bhHAQkh5h4YZbWeJ/whP+DqJrKIUsSFeDvO53joaLs16z273f
+	 6pQRTj/bSaHhkAbs0U7iE0y6j2s/cTz833u3WjyHf9oHw79z2DZ7iBE6OS0YKQU23b
+	 Mc3YiphK148n3PpCy/+1S7lPt89uu6xu4XZAa1OsTohlv0cftE1nm3ZcJAWknZt6ws
+	 Loa1QXH8k8hZA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 14/15] ARM: dts: aspeed: anacapa: Update EDSFF power
+ status signals
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Colin Huang" <u8813345@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260930-anacapa-devlop-phase-devicetree-v9-14-f08aa0d7182d@gmail.com>
+References: <20260930-anacapa-devlop-phase-devicetree-v9-0-f08aa0d7182d@gmail.com>
+ <20260930-anacapa-devlop-phase-devicetree-v9-14-f08aa0d7182d@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 06:20:27 +0000
+Message-Id: <20260930062027.D26AF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260929165015.E5DDF1F000FF@smtp.kernel.org>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 88c449a43b40d1505ba4a510627e5d06
-X-AntiAbuse: ID - 88c449a43b40d1505ba4a510627e5d06
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xBnes-00000000fv0-1FGv-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-fvjw.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
 
-On Tue, Sep 29, 2026 at 04:50:14PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] dt-bindings: spi-virtio: undocumented compatible in example
-> --
-> 
-> commit eb6ae8a9a8b3aa403347f70589897a8c7d297186
-> Author: Francesco Valla <francesco@valla.it>
-> 
-> dt-bindings: spi: add bindings for spi-virtio
-> 
-> This commit adds device tree bindings for spi-virtio based on virtio-device.
-> It defines the properties and node dependencies for the virtio SPI controller.
-> 
-> > diff --git a/Documentation/devicetree/bindings/spi/spi-virtio.yaml b/Documentation/devicetree/bindings/spi/spi-virtio.yaml
-> > new file mode 100644
-> > index 0000000000000..5b8639dd2e1f1
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/spi/spi-virtio.yaml
-> 
-> [ ... ]
-> 
-> > +examples:
-> > +  - |
-> > +    virtio@3000 {
-> > +        compatible = "virtio,mmio";
-> > +        reg = <0x3000 0x100>;
-> > +        interrupts = <41>;
-> > +
-> > +        spi {
-> > +            compatible = "virtio,device2d";
-> > +
-> > +            #address-cells = <1>;
-> > +            #size-cells = <0>;
-> > +
-> > +            sram@0 {
-> > +                compatible = "microchip,mchp23k256";
-> 
-> [Severity: Low]
-> Is this compatible string documented in any existing binding schema?
->
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dts: aspeed: anacapa: missing SGPIO line rename for EVT1
+--
 
-Yes - the compatible fot the Microchip MCHP23K256 is documented in:
+commit cde2dbf50bae37ad4a486fdf1cafec415093ffef
+Author: Rex Fu <rex.fu.amd@gmail.com>
 
-  Documentation/devicetree/bindings/mtd/microchip,mchp23k256.yaml
+ARM: dts: aspeed: anacapa: Update EDSFF power status signals
 
-> The dt_binding_check tool strictly validates all compatible strings against
-> known schemas, so an undocumented compatible string in an example will emit a
-> schema validation warning.
-> 
-> When running make dt_binding_check on the new spi-virtio.yaml file, it
-> parses the example and attempts to match microchip,mchp23k256 against
-> registered bindings, which fails if none exist.
-> 
-> > +                reg = <0>;
-> > +                spi-max-frequency = <20000000>;
-> > +            };
-> > +        };
-> > +    };
-> > +
-> > +...
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it?part=1
+The CPLD definition for the EDSFF power status signals has changed
+from PG to FLT. Update the corresponding SGPIO line names to match
+the CPLD definition.
+
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dt=
+si b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
+> index 5c0d874fa24af..766aa26b6cea5 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
+> @@ -370,7 +370,7 @@ &sgpiom0 {
+>  	"L_PRSNT_EDSFF1_N", "",
+>  	"R_PRSNT_EDSFF2_N", "",
+>  	"R_PRSNT_EDSFF3_N", "",
+> -	"HPM_EDSFF_PG", "",
+> +	"EDSFF_BOOT_FLT", "",
+
+[Severity: Medium]
+Are we intentionally leaving the old "PG" naming scheme in EVT1 hardware?
+
+If userspace daemons depend on the updated "FLT" SGPIO line names for EDSFF
+power status monitoring, they might fail to find these lines on EVT1 hardwa=
+re
+and break power management or monitoring logic.
+
+For example, arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dtsi
+still contains this legacy name under sgpiom0:
+
+    "HPM_EDSFF_PG", "",
+
+Should this update be applied to the EVT1 devicetree as well?
+
+>  	"", "",
+>  	"", "FM_BMC_READY_PLD",
+
+[ ... ]
+
+> @@ -416,10 +416,10 @@ &sgpiom0 {
+>  	"PDB_ALERT_R_N", "",
+> =20
+>  	/* L0-L7 line 176-191 */
+> -	"L_EDSFF0_PG", "",
+> -	"L_EDSFF1_PG", "",
+> -	"R_EDSFF2_PG", "",
+> -	"R_EDSFF3_PG", "",
+> +	"L_EDSFF0_FLT", "",
+> +	"L_EDSFF1_FLT", "",
+> +	"R_EDSFF2_FLT", "",
+> +	"R_EDSFF3_FLT", "",
+
+[Severity: Medium]
+Similarly, arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt1.dtsi
+still contains these "PG" lines under sgpiom0:
+
+    "L_EDSFF0_PG", "", "L_EDSFF1_PG", "",
+    "R_EDSFF2_PG", "", "R_EDSFF3_PG", "",
+
+Is EVT1 deprecated, or did it miss this SGPIO line rename?
+
+>  	"HPM_CPLD_HEART_BIT", "",
+>  	"RBB_CPLD_HEART_BIT", "",
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-anacapa-de=
+vlop-phase-devicetree-v9-0-f08aa0d7182d@gmail.com?part=3D14
