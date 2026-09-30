@@ -1,304 +1,291 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010001.outbound.protection.outlook.com [52.101.69.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0358351C332
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 18:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B1331D366;
+	Wed, 30 Sep 2026 18:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.1
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790791414; cv=pass; b=aJJxNFdBHCrxTawuIuhArrDhMxJ1HIjMdG7PrQoM/WCpQ+oLXLnQs68Lg/j/2SL4i+o41QDaZDOjHAjeVIwYX0jfSWWgBMZg+GvrV4ZpFdcHOqTBWLupS5bnDUXH4UeRkASoMrIZvVa8luE9aOOhtnJdQNjemWGuqfuDapgqe3Q=
+	t=1790791567; cv=fail; b=oU3xLV8j0scd/TGVUnZU80kDphszAOMnmbFhaIKcg53UeUZ7YrDxYgk2KmTBCpFWuHPfiUbs+d3BOy1JcNp1QACECraLoS/u1G/g79IMGV2nLIdnlirD3of1zhXKLzMOZxoKjqPLWZVFw4GcJed9FlJD0xhmfE0lG0jpQO3Dudo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790791414; c=relaxed/simple;
-	bh=upcfHAxGtdtk1uSk0A/SEb/TRi4JNBIMlA1MuWmB/Uk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N06hc1/3YK0scm2Jk9Z3J2C1ovK9kbspltYrMCzf0ib+JwhdPJH52kIPs5/wk7/+pKWJN2bHBhZD0NNwE4I2ElS9MW0rmZVQl84FjFJOsKGCy2OpNQUShAL6LFZo7yBhIl3g+FnpM4Us2iA8bThJmNw+BnO/v9PT9no8YxBRR+M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZJWdqBUM; arc=pass smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790791567; c=relaxed/simple;
+	bh=hJtYboxBFjxyhq3i/A4iFOAQSEebQ+pHDqHjbhxF6XE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=kjfohjn5AAwgtJCHhfk12/5IAIaDoA9Hd6EU+wGOQm6koQKZCK/Ke37FoIuLDUdE2JPieU97rggNUfj4zUhxlds6n46Gl4bLl3M5sZhK4H+YbYKBRqH6kusB+HBuaNuQZ7PoHfns5inJZd0gHuZ/ZwVFBAwjAkPGXLXAi27MRnk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de; spf=pass smtp.mailfrom=cherry.de; dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b=LGdLEsdU; arc=fail smtp.client-ip=52.101.69.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZJWdqBUM"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34b6f8b8113so867604eec.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:03:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790791412; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UaBOMkNkpQrFeFJ+6XlScJKvgyR9D73ekw2Z6+3JKvdrz7bNjR3Ow62tkx53JyJgq5
-         WL1sftf3i1/cykbiS9u7ICxKNO9lh0aV/V1p4znHdqd26liXOQuy7J49DIwh+QHIYZUQ
-         QffPMepDO+zQzhW7eCWCZe12fis+1o1LoZ0qRIUxgGcU8vDy8CHOgk3SQYpQjGVsqTOQ
-         hu6aIz/6roGXDzP15YFOduL/QyMnOgViEQuvG91TAoVFVCEW9uZos9p9txjvelXoyVsF
-         G7KwBqn6wj6QyKAfc8a7ZvxxMlTuS+L7zZsSJj+6RUbQoUjRb9wMM1cFfe+Zb4MUfbez
-         DPWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hFazgWQfgrqX5tXQzvSSrxoFxe7hMQG/LSZ4puiNeNc=;
-        fh=ynLnZXnzYyXpa1EWlkQeaHHcyONapgDBK2K9X4AB3k0=;
-        b=Guj3oQ3qs7cGHUuEILJHDPdYsMJRb4Zbho2f7Ibj1f77Z53PjWZ4i67XNVX75CKy2A
-         ewwgjF24893mIRur9e5iCmUUNw5+w2vvP5219ldPT4bKLoqGUMKRcNF0zGVhREdXUse5
-         ejuLjKw98yrCs19LL7ykKNJqn2Ac1YBJyWg5acNxYxCU5bzqVD7opcLHdPsfc7gbgPJS
-         DqMg/hXGmfeV6pzk1FzEVc3SWIYZGIbWt/ht+hkmvSIZ/4E+CaPNQPT8ppzggozOgLu5
-         WXE33Bu8WUNoOnYkaaBzsyfHIvBSXY/egWt+CiPyAupswWPWD2uPmSNfzLyI89Tb1Ote
-         +dJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790791412; x=1791396212; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hFazgWQfgrqX5tXQzvSSrxoFxe7hMQG/LSZ4puiNeNc=;
-        b=ZJWdqBUMnfCQYTAgYJNR9K/BuJAKGQjNOdURb+MlxuF86Mew524XuvcXtNjsfBLs7n
-         TkkuSUSxpgI4VqjhOD7oUefpwTztkkjko+ooJ/klsrKOemEquddWWla6ZypuD+Lzc0C7
-         y550yCH4Kba1fl5IAFZN28fkihnrjTtIm4CCOnylG+XMsfB+UZ7pIvk0NpsUOyAsJYfs
-         PMMzU2DTaTSYLJlUZpZLrne9zLmsjtvi0rAX50hIvQ5P+O3iNM9krFBIBJOMV2j4OzuJ
-         UoeKcd29N2YQ18tYGEg+DuX/inIv6Kq1gy3lCPTTsUWPEZN3HSJllw1xybzM765d6Ahv
-         NpHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790791412; x=1791396212;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hFazgWQfgrqX5tXQzvSSrxoFxe7hMQG/LSZ4puiNeNc=;
-        b=FWCdLXhr2s6F+BjzyUfp5Lflc8Jg4QHFik89Qlac3lQkRXy3xBMl1syvotqVh1+jSf
-         bwpHwJvJdP/F30wZQD+QyYh4jY59CpTY37r3bZwNjaCldlapOQwMll+1xTPIcxASAutV
-         Eduy0nQ8nTxw5aE7K1DQkCbSi4DYHm1S958TrfzbGGGtgLk9CtX6bj6qm/Mg6E6hr2A8
-         JodirwHPeuU0oBq/Gz6JiT0710STFYBV77M1I3lyFojMdkw2gu/js04s/ybjURg3grGQ
-         aKWpbAF2a6dinP0vvc8s8UGllH/AfSAiL+ZKlSAeY3mB5xOjiocwxCz0/+NDQmG6KuoB
-         8woQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzS7Fh5DHgsrn69G8bT8l9LNQUdH92tkWYsSFxo7aQL1psf5j7EMp1Fjh4+ytaaZv+mjU+94NM0s9PJ@vger.kernel.org
-X-Gm-Message-State: AFuF++mT0m78vyYNB5bNGmCxYKpdnN9u3EtyZC3UAkUIbhdcIAqWIMM/
-	fGWqK/ePXYpJ2hUuMeHzCi0MMVI6upcFW7cLJt98Ca5f4FJIO0Ltg6WEeiSsvRSZ01uhshPYlDO
-	h+XscSKBE+3wGtIuxfG0S52hxGWD63mc=
-X-Gm-Gg: AYBFou1grfvu1W7I0xGd1eMXKjXXCvx7LOwoEsHlel/5xVdtMG/378t8Wse8daVMFTS
-	PmqLYnfck+C24HTfK6ZPOFs+lTvvdzl1b/2yQWyHtnA09929jP4ANP/K9VtO5eOwltBpRB0csOw
-	YGPEBb57ceHk/hpc9mNhp5yQlYiNOcLRZtaTu1UuyTaS5XAYNEXt/cQehNxQaiW/GbQl6/yAEc5
-	x2dPeUQ+TAPaYg24EdXevGwwr3Ht3K+aewCefCleVOP1ysZIXbRsr1sMAfT0xHO51CfVLk/Aq/X
-	c5DFWsH6seJoMZkrHCUdx6/x5RWaYX2UsBGkZ+GoiNsf1DVkVnAk0mnMX0IfsMK2G6lVumhbmSf
-	QIISHFvr57OZk
-X-Received: by 2002:a05:693c:6302:b0:33b:f87e:9e24 with SMTP id
- 5a478bee46e88-34db442e062mr301482eec.0.1790791411529; Wed, 30 Sep 2026
- 11:03:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=cherry.de header.i=@cherry.de header.b="LGdLEsdU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e6qPbukoFHOzOK2JpkC8s/jnllU205YWnk7FGGs6aIIaNqem87pH9pLXI5IroN/1C87c3C967V6IZnhuLHR/e81bwkd9L8yht3u/BqGnmZtLTwnf/S48O2LBWQ5m1Dbuhqtu1ojtmw+NkGN21QchY8fZckpyVaewHoVLTbufycVcFQJ6oNTFB+DQVfpIGocwQUZIOpWS4ri/udKe39B26/0zbY0xSGo0rf7sht1FAXBNmN2hAREqpQvR4MUm7q2jIKi6UfLfOXtkvIPgf3V/IZm/S8N7oXMO9YOxYt5IR8A+lf9jEGwf6IWaUMerwIuU7FNP1Pgz6Q9JiMgfUnKYeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A2tljZQe1pJVyMmhp6RKg8fyz5hw8tyc6Lb4ejZycFM=;
+ b=UVX1MFdgGofUC2QuwcjHwkVxu++9ukR677+7NZuA5WhRcKVootDsKqlqrlRmrgNtp+iePLyGxxlTLjEpzlr1yFO4JgATF87vepQ0RdCTkDCY/WHinaCiJVD6oDIjsNQUmX6pDnKJ++1zfJbBfusWnfap4Gb/uukE40N0zy+hGqdiKwF3Ecvg3jGOHR2djGRChtY0Llhb2Tv8ccpmPFVi//bBCB8i6qIpXl6hujG0WsJgowijM4CvEao1t0E0PzcofdvjCmBvZP5xzSBx6WJ/FNmaw29e3DEKgyqbhHgJPdOCcnp55v3MENdA41bYi42sBXIsiwEopFq6/Edxafq03A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
+ dkim=pass header.d=cherry.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A2tljZQe1pJVyMmhp6RKg8fyz5hw8tyc6Lb4ejZycFM=;
+ b=LGdLEsdUbU9fjbUj+vM7+dBoUZ1wYC7/Wm+XleBN6Q24mHOAMJlZIbdlmY6Ou3PhtUS4kshMVb8+zp4jw/q6FDzouExGHuyDp5tag+b/WHuDV7w+syS4SIt8hGaEALTyJhDSVtYxi4nD/WI09GaQVO+47nsOQqt9MyTrCkyY2ac=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=cherry.de;
+Received: from PA3PR04MB11153.eurprd04.prod.outlook.com (2603:10a6:102:4ab::7)
+ by GVXPR04MB10111.eurprd04.prod.outlook.com (2603:10a6:150:1b1::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 18:05:57 +0000
+Received: from PA3PR04MB11153.eurprd04.prod.outlook.com
+ ([fe80::6b02:c0eb:95a4:3c3d]) by PA3PR04MB11153.eurprd04.prod.outlook.com
+ ([fe80::6b02:c0eb:95a4:3c3d%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 18:05:55 +0000
+Message-ID: <8ade7dc5-1292-4bad-8148-0bb48963b045@cherry.de>
+Date: Wed, 30 Sep 2026 20:05:54 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] arm64: dts: rockchip: add RK3588 DP carrier from
+ Theobroma Systems
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ damon.ding@rock-chips.com, Heiko Stuebner <heiko.stuebner@cherry.de>
+References: <20260930162545.2357505-1-heiko@sntech.de>
+ <20260930162545.2357505-3-heiko@sntech.de>
+Content-Language: en-US
+From: Quentin Schulz <quentin.schulz@cherry.de>
+In-Reply-To: <20260930162545.2357505-3-heiko@sntech.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR09CA0157.eurprd09.prod.outlook.com
+ (2603:10a6:800:120::11) To PA3PR04MB11153.eurprd04.prod.outlook.com
+ (2603:10a6:102:4ab::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930070535.47130-1-clamor95@gmail.com> <20260930070535.47130-4-clamor95@gmail.com>
- <UJZ22UtaS1GSRPlyAst1og@nvidia.com>
-In-Reply-To: <UJZ22UtaS1GSRPlyAst1og@nvidia.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 30 Sep 2026 21:03:19 +0300
-X-Gm-Features: AclHuK-1QxITN8tXKEVLFacuZ52BTqv5hd6JiagMmZ8V3B_11Lh2NaeMasip5dQ
-Message-ID: <CAPVz0n2mwC1r+Wsm8j13J-zoZyzjEH2sepsYKVbf847Gqnapgw@mail.gmail.com>
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-To: Mikko Perttunen <mperttunen@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA3PR04MB11153:EE_|GVXPR04MB10111:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79abae8c-e0f8-415b-cd53-08df1f1d790a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	BB8KZOTOd/WqvV9I1yGEtkaFs0RaFkH/oj3M7uEcaYCbDt/NOmAKMKyQ9iVCLJuIBqyR/5N7/0Nf7uumWSNSOukENebkRbhKm4HIgH285K7j47wfVtJbfamu6aibJaL1edD8HCIT7xMpFMC5tTVe6DJLpuJeMRqkgpQ4nr7VPorg7vtfmlDzt7+X5SmpmSKPweMXKauHKWvViQlMbU/groVEqMW0xUhfkuwwCRYcQYI5J+47ESWpeR/3lR1ScIIjAlrEeGTIj6l7az0b3Ds7afF9Cx8/yoR0MqxEanTB2x5alZWozxx4B5x1ah+kUHdSwGKgXTm30CKgmlFrBcW/+GMBw9THEWg9z5d/l21ePO6W57UpuwCjJBjt48XjsCrW/8YE3SZrxMzrkbaV8zAwq0kn7S2LKHzFerdsMTaCZJxSdzNyi6gHI9utfFgry8I45RdPbkJQx3tqg7giCrPd2EyGDpymSSnsMv7+EdUpjbdXpesCUoFfs6HgZ3LDZBm/VoMjFFFGzo80vtfyNc8fKvZciuCKVrJMEJQm7/VaRSjPJnl3VTPx2j5CItEtNi5oyUKZ+VSJmdVrLygxjDYd8LgtCWozfqvXMC+YeNwRYPOCgzKLCQwhSJIJ2C4ht1noPQxtQoBPxgdlVGeeAEVHsGMqJ8rmFPCrQpCc11Xr1TM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11153.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eDVIbk1sZFZIV2p2eVQxU1U4c2xPd2k4RC8zTEZ4eE5NSVV5am9RaXpXOVlM?=
+ =?utf-8?B?Z1ljbFFyMmFyWGhYOHVWczRRYVRVSGI0NFI5dFUra3JyWjRoVmlDNnp5Ykdp?=
+ =?utf-8?B?MVZnaW5uRXZwZkJhakpjb0FIbG1URFRuRDR4aVJZRzVGMGlHYkxUSnNPemV2?=
+ =?utf-8?B?TGNsSktYcHpkL3F2K3B1cFpBbjc2cnZEUkdkd1dJZEpZN21peTVrSEdNTkR2?=
+ =?utf-8?B?cTJrMmJFK3ZydzJEMjlOOWV2TzIxZGdwSUk4K01jZ21vaEU1REdmN2g2TVdx?=
+ =?utf-8?B?cllRbUM4cjBTVVlGcnRkTkF5Z1hFREd4MjRTS0Fzak9EQkU4Nkt1dzN3a1Iv?=
+ =?utf-8?B?YnZlZ0RzQkh6Y3BiTmZuaGhrblVTRFhBMDI3OVBlK3AwQjl3T2R6aHpScnJz?=
+ =?utf-8?B?QmNEcFl0K2tmbEd2dU8rN2tHRlQ4TURneGsrejc2MmdLMHJoYnlDTlFCcmtY?=
+ =?utf-8?B?QnNVME5UMWxkQ3NzMW5XZzI3Tld5RkdZN3IzVFgreE1vRy9HQlVmeTk1cElD?=
+ =?utf-8?B?QnJvL3hZN1d6ZmsxUjJLWmpZQ0NaRTUxWklVUDBOSGZJN29jSjU5bVVZL2lM?=
+ =?utf-8?B?aG5jallPQ29MZjlpRVUyMXlFQzVZTjZxb00zVG1ibW5lVk5DNy84TzQxT29C?=
+ =?utf-8?B?cFhxd01STXo3b3dCNy9oN2JCSXFyaHMxZWRRSE02UFZEdUFUSVI3aTFVb3Nv?=
+ =?utf-8?B?dXpvcG9YMTJ1TXpsZ3BQZWhkMDFYUk9rc3lZOXRkcTlTYW1ZbkcxNCtzRnda?=
+ =?utf-8?B?aUZtbkFuMFF5c3FNaDJrRUR1WHBaWjBPaFlKbEx2eVd2SEhtZG10N3BrZ1BQ?=
+ =?utf-8?B?YlhzSFE1enQwYWlJWTZMYjQra0ZxdkJ6SURwVTFsUVRPRi9xa3FSZVR6dkRa?=
+ =?utf-8?B?UnNVUFpCZFl1ckUxcXptam13TEtXcXpkZDRpajZxK1dtRFhxUHpidnovMTA3?=
+ =?utf-8?B?b3ZNOUpXaFgvQ21SNzJ6YWZTOGF1KzduV1dOeEhSbnRBaTBpeE05VXNSNjZa?=
+ =?utf-8?B?SWt3dVZJcE1wd1gxUDBDeE0yakFGdTN5TW4zZGhUUDhYcjM4a1ZieTdlVDd0?=
+ =?utf-8?B?Zm9JOFJ4QVZ4cCtjN0I1OVNiYTFGSUZyMHZ3c0xuazdiMjRMd2twaU93Yzd4?=
+ =?utf-8?B?bmhFTEN4NE05T3YrS3lJMERreUM4aXQ0a3h2bTJJU1g0aFBFcUpQUE5mMGt4?=
+ =?utf-8?B?TkFVbDBUUVpIMDFLUDB4Q1FyK2VhdTVFT0xNbG1VQ3dLdjV3YXkyVEdVb2xT?=
+ =?utf-8?B?dDhVOXppaVFRNFF2bWI5MzQrSnVJY2QzSTFUZENXT1M4S0lIN0FxUzdmQXNi?=
+ =?utf-8?B?S1d0YXp0T1VWdTNydmk4T21HOUJLMTFOZURxVzRhUVZRNHUwSXNQRWhCWm5J?=
+ =?utf-8?B?OElzUlVZblNaZHNycU5xTWhkdGlQcWFwSERicE5YZWEzc2loOU1BRUcveGRp?=
+ =?utf-8?B?dzdNcmRzdkJuVUJrLzlScGFCUU5pOCtkSEZOQXBBb3ptTUM4NE9kaElzbHJ3?=
+ =?utf-8?B?cllQa3QzaDZZMkk2MU85Kzg1WWRQS2R1ck40TGZ1dkY4THo2aStyRDVrR2NR?=
+ =?utf-8?B?NTNod2NzaEtLeUoyc0RuK0xRdWV3c1Vjd0s4SHdJT25lUGdhbEN0bXl0Z0sx?=
+ =?utf-8?B?aVJjbFk0VThJbVNGRU93WlhKNUdIU2g2dzlGTndmempidHdISUNXcy9CR0VG?=
+ =?utf-8?B?bjk5VEVJa0FpL3FlTmRTbS9oTjczYVdweU5VMTJ1UHlzV3FpVXBaNFNDb1FV?=
+ =?utf-8?B?YWxjK3NKQnNmWlZ3b0NzNEFMRHV6aHVadzBFdENxSGVKdEtVcEpXZTlzbHVD?=
+ =?utf-8?B?dTBvL1dSSjc5WnlDczhTSG9BT1pJWG1hOGVSM04vZ3g2ek1DMVg4N1liT0Jp?=
+ =?utf-8?B?eDdFZ2J4UFBzYkYyUXdBNVpOek9VNkJHT3hNNUxKVEVUUUtOUTVjM2NpMnU3?=
+ =?utf-8?B?VzRUOE1mU0trb0tLb3JQZE82ditPSlZ0c2FGTVRkQklBbWlqcnJRMUdTWUdx?=
+ =?utf-8?B?SHRaemdkRHFSWEhIWlB4TWVVV2ZXOVBKbmxaaHlHd2hMOU1rNk8rUjBudEtO?=
+ =?utf-8?B?RGtTNHpNSXpkVFRUcDdBa04yRGsrdWhKWG1VekdwenFmNWtBd1Z3VTlzalB6?=
+ =?utf-8?B?RmR0N3pKMUh3VG9pamJ3UjFxUlJ2WW5NQTZEMjZGeER4bGN5M1JLcC9uWEdO?=
+ =?utf-8?B?RFNGeE5nMGxjbjdJNWVPLzQrbzBUb3pqQ2NINmRxWmJYZnI4RmpvOUhVUGtv?=
+ =?utf-8?B?YjBnS2hLbEN4RXRTUDd3T1FYaE0vWTYrTThLaXNSRjJsTHJkUHZlZnhQVVJI?=
+ =?utf-8?B?NG1aSnJpNjZXcGM4OGpYQm8yeVI4VTBxOWdVL2ZSaTFkSE9iclRGdz09?=
+X-OriginatorOrg: cherry.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79abae8c-e0f8-415b-cd53-08df1f1d790a
+X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11153.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 18:05:55.6632
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WzJNjS4pCwPXPNYuwJ462Q6ud2yxgvwQZuFA6uD1K53+a7hvPc4uj3BLnM0O7FwDHGaUGmSbnwnn7dE10uEkIWzoljU6xVxPjT+u6Xr+eOQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10111
 
-=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:19 Mikk=
-o Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wednesday, September 30, 2026 4:05=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > Document 8-bit CPU parallel MIPI DBI Type B interface provided by
-> > Tegra20/30 SoCs display controller.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++++++++++++++
-> >  1 file changed, 138 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/display/tegra/nvi=
-dia,tegra-8bit-cpu.yaml
-> >
-> > diff --git a/Documentation/devicetree/bindings/display/tegra/nvidia,teg=
-ra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/tegra/nvidia,t=
-egra-8bit-cpu.yaml
-> > new file mode 100644
-> > index 0000000000000..f0dab608b2936
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/display/tegra/nvidia,tegra-8bit=
--cpu.yaml
-> > @@ -0,0 +1,138 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/display/tegra/nvidia,tegra-8bit-cpu=
-.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
-> > +
-> > +maintainers:
-> > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > +
-> > +description: The display controller in Tegra20/30 SoCs features an
-> > +  8-bit SPI interface that closely resembles the MIPI DBI Type B
-> > +  protocol and is referred to as '8-bit CPU'. Each display controller
-> > +  provides two such interfaces, which can be used to send MIPI DCS
-> > +  commands to initialize and control the panel while image data is
-> > +  transmitted via 16/18/24-line RGB.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: nvidia,tegra-8bit-cpu
-> > +
-> > +  dc-gpios:
-> > +    description: Data/command selection pin.
-> > +    maxItems: 1
-> > +
-> > +  rw-gpios:
-> > +    description: Read/write pin.
-> > +    maxItems: 1
-> > +
-> > +  cs-gpios:
-> > +    description: Chip select pin.
-> > +    maxItems: 1
-> > +
-> > +  data-gpios:
-> > +    description: Specifies a set of 8 gpio pins used to transfer data.
-> > +    minItems: 8
-> > +    maxItems: 8
->
-> Based on my admittedly brief research, according to the TRM the display
-> controller can drive all of these pins - of which there are two fixed
-> sets as you mention - directly. So we'd need to describe which interface
-> the display is connected to in DT, but not any GPIOs (which they really
-> aren't).
->
+Hi Heiko,
 
-Thierry, Mikko.
+On 9/30/26 6:25 PM, Heiko Stuebner wrote:
+> From: Heiko Stuebner <heiko.stuebner@cherry.de>
+> 
+> The DisplayPort carrier is a very simple baseboard only providing serial,
+> ethernet and a displayport output.
+> 
+> But its main functionality is that it routes the Analogix eDP controller
+> to this DisplayPort output, which allows to test that controller simply
+> by hooking it up to a suitable monitor.
+> 
+> The Analogix-DP controller supports eDP 1.3 and DP 1.2, so can drive
+> both eDP displays as well as full DP monitors. It does not support DP+
+> so passive DP-to-HDMI adapters won't work.
+> 
+> Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
+> ---
+>   arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+>   .../rk3588-tiger-displayport-carrier.dts      | 113 ++++++++++++++++++
+>   2 files changed, 114 insertions(+)
+>   create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+> index 2edc9c0aceb5..bf80afba2351 100644
+> --- a/arch/arm64/boot/dts/rockchip/Makefile
+> +++ b/arch/arm64/boot/dts/rockchip/Makefile
+> @@ -217,6 +217,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-cam4k-cam0.dtbo
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5b-plus-radxa-cam4k-cam1.dtbo
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-rock-5t.dtb
+> +dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-displayport-carrier.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou.dtb
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-tiger-haikou-video-demo.dtbo
+>   dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-toybrick-x0.dtb
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts b/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
+> new file mode 100644
+> index 000000000000..f6e95047fd5f
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
+> @@ -0,0 +1,113 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +/*
+> + * Copyright (c) 2024 Cherry Embedded Solutions GmbH
+> + */
+> +
+> +/dts-v1/;
+> +#include <dt-bindings/soc/rockchip,vop2.h>
+> +#include "rk3588-tiger.dtsi"
+> +
+> +/ {
+> +	model = "Theobroma Systems RK3588-Q7 SoM on Tiger Displayport Carrier v1";
+> +	compatible = "tsd,rk3588-tiger-displayport-carrier", "tsd,rk3588-tiger", "rockchip,rk3588";
+> +
+> +	aliases {
+> +		ethernet0 = &gmac0;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial2:115200n8";
+> +	};
+> +
+> +	dp-connector {
+> +		compatible = "dp-connector";
+> +		dp-pwr-supply = <&vcc3v3_baseboard>;
+> +		/* Q7_DP_HPD# but Q7_HDMI_HPD# could be used too */
 
-I am not sure how to approach GPIOs defined outside of Device Tree.
-All GPIO interactions are done either by ofnode/fwnode or software
-nodes. Global gpio declaration is in process of being removed and
-legacy GPIO API seem to be not long-therm sustainable. How to resolve
-this? Should I keep above layout with GPIOs defined in the tree?
+Yes, but I believe the signal would then be active high instead 
+(Q7_HDMI_HPD# as seen on Q7 golden fingers is inverted before reaching 
+the SoC pin while Q7_DP_HPD# is directly routed to the SoC pin).
 
-> > +
-> > +  nvidia,init-sequence:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> > +    description: Device specific set of values used in DC DISP_SPI_INI=
-T_SEQ
-> > +      registers.
-> > +    minItems: 4
-> > +    maxItems: 4
->
-> And AIUI this is panel-specific DBI commands the display controller will
-> transmit. So ideally the display driver should receive this data from
-> the panel driver.
->
-> Thank you
-> Mikko
->
-> > +
-> > +  panel:
-> > +    type: object
-> > +    description: Node of supported panel driven by the bridge.
-> > +
-> > +  ports:
-> > +    $ref: /schemas/graph.yaml#/properties/ports
-> > +
-> > +    properties:
-> > +      port@0:
-> > +        $ref: /schemas/graph.yaml#/$defs/port-base
-> > +        unevaluatedProperties: false
-> > +        description: Video port for RGB input.
-> > +
-> > +        properties:
-> > +          endpoint:
-> > +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
-> > +            unevaluatedProperties: false
-> > +
-> > +            properties:
-> > +              bus-width:
-> > +                enum: [ 16, 18, 24 ]
-> > +
-> > +      port@1:
-> > +        $ref: /schemas/graph.yaml#/properties/port
-> > +        description: Video port for DBI output (panel or connector).
-> > +
-> > +    required:
-> > +      - port@0
-> > +      - port@1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - ports
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/gpio/gpio.h>
-> > +
-> > +    dbi-bridge {
-> > +        compatible =3D "nvidia,tegra-8bit-cpu";
-> > +
-> > +        dc-gpios =3D <&gpio 110 GPIO_ACTIVE_HIGH>;
-> > +        rw-gpios =3D <&gpio 11 GPIO_ACTIVE_HIGH>;
-> > +        cs-gpios =3D <&gpio 108 GPIO_ACTIVE_HIGH>;
-> > +
-> > +        data-gpios =3D <&gpio 32 GPIO_ACTIVE_HIGH>, <&gpio 33 GPIO_ACT=
-IVE_HIGH>,
-> > +                     <&gpio 34 GPIO_ACTIVE_HIGH>, <&gpio 35 GPIO_ACTIV=
-E_HIGH>,
-> > +                     <&gpio 36 GPIO_ACTIVE_HIGH>, <&gpio 37 GPIO_ACTIV=
-E_HIGH>,
-> > +                     <&gpio 38 GPIO_ACTIVE_HIGH>, <&gpio 39 GPIO_ACTIV=
-E_HIGH>;
-> > +
-> > +        nvidia,init-sequence =3D <0x0000002c 0x0 0x0 0x00005000>;
-> > +
-> > +        panel {
-> > +            compatible =3D "hit,tx10d07vm0baa";
-> > +
-> > +            reset-gpios =3D <&gpio 175 GPIO_ACTIVE_LOW>;
-> > +
-> > +            avci-supply =3D <&vcc_2v8_lcd>;
-> > +            iovcc-supply =3D <&iovcc_1v8_lcd>;
-> > +
-> > +            backlight =3D <&backlight>;
-> > +
-> > +            port {
-> > +                panel_input: endpoint {
-> > +                    remote-endpoint =3D <&bridge_output>;
-> > +                };
-> > +            };
-> > +        };
-> > +
-> > +        ports {
-> > +            #address-cells =3D <1>;
-> > +            #size-cells =3D <0>;
-> > +
-> > +            port@0 {
-> > +                reg =3D <0>;
-> > +
-> > +                bridge_input: endpoint {
-> > +                    remote-endpoint =3D <&dpi_output>;
-> > +                };
-> > +            };
-> > +
-> > +            port@1 {
-> > +                reg =3D <1>;
-> > +
-> > +                bridge_output: endpoint {
-> > +                    remote-endpoint =3D <&panel_input>;
-> > +                };
-> > +            };
-> > +        };
-> > +    };
-> > --
-> > 2.53.0
-> >
-> >
->
->
->
->
+> +		hpd-gpios = <&gpio4 RK_PB5 GPIO_ACTIVE_LOW>;
+> +		label = "dp0";
+
+Is this required? (Not according to my reading of the DT binding) 
+Because I don't see DP0 (or dp0) written on the board (nor in the 
+schematics where it's marked (on board and schematics) as P2). Not a 
+biggie in any case.
+
+> +		pinctrl-0 = <&edp0_hpd_l>;
+> +		pinctrl-names = "default";
+> +		type = "full-size";
+> +
+> +		port {
+> +			dp_con_in: endpoint {
+> +				remote-endpoint = <&edp0_out_con>;
+> +			};
+> +		};
+> +	};
+> +
+> +	vcc3v3_baseboard: regulator-vcc3v3-baseboard {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc3v3_baseboard";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		vin-supply = <&vcc5v0_baseboard>;
+> +	};
+> +
+> +	vcc5v0_baseboard: regulator-vcc5v0-baseboard {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vcc5v0_baseboard";
+> +		regulator-always-on;
+> +		regulator-boot-on;
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +	};
+> +};
+> +
+> +&edp0 {
+> +	status = "okay";
+> +};
+> +
+> +&edp0_in {
+> +	edp0_in_vp2: endpoint {
+> +		remote-endpoint = <&vp2_out_edp0>;
+> +	};
+> +};
+> +
+> +&edp0_out {
+> +	edp0_out_con: endpoint {
+> +		remote-endpoint = <&dp_con_in>;
+> +	};
+> +};
+> +
+> +&gmac0 {
+> +	status = "okay";
+> +};
+> +
+> +&hdptxphy0 {
+> +	status = "okay";
+> +};
+> +
+> +&mmu600_pcie {
+> +	status = "disabled";
+> +};
+> +
+> +&pinctrl {
+> +	edp0 {
+> +		edp0_hpd_l: edp0-hpd-l-pin {
+> +			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_up>;
+
+I believe we could also use pcfg_pull_none as we have an external 
+pull-up on the carrierboard with R15 but it doesn't matter much I think :)
+
+> +		};
+> +	};
+> +};
+> +
+> +&uart2 {
+> +	pinctrl-0 = <&uart2m2_xfer>;
+
+This property is already in rk3588-tiger.dtsi so you can remove it here.
+
+Cheers,
+Quentin
