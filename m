@@ -1,62 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013053.outbound.protection.outlook.com [40.107.159.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C97849AA24;
-	Wed, 30 Sep 2026 15:54:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783692; cv=none; b=fgfnlWl5ghZK/fyNrFZjIrMxGYxpSK9afTla0XFmFk5lXFKFE3I2+Ax3MxIYd3XsMSnT7r1yZVdfZ/Lr53s8pWgEk2k0/n+qg4U/aakVesouaCL/Oo81rXHU7/XCAGy9/U8SL6RPVGB/OmQ1fgXBsgrlA762ciQvbqbtY7UkqQE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783692; c=relaxed/simple;
-	bh=jm/q5yR96AI8I/IiLiC4498yVgfktYtxIUm7CiZQ2fM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pV/dLLxegixQXWQUTfid6qUS47jIJsija8k0s0A2QjSyZa9K9A349lDxmeYGrRorOj+lxoNj1zVnp/Owsz1D/DDuRFmY7yFVcliHu85ClnT4FusQQz2EtHvTFhXzVGERCcbW+b/ktvlOSMItbvPLpbRbOuZNbiJ1mN1Ygio+r/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZflfv9N; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421264BFE6D;
+	Wed, 30 Sep 2026 15:56:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790783812; cv=fail; b=nBWND8icG7d4sef+nNsA1SOPaHZztVSL5OS56yvAaXbF2iyBpnTLBsX3nRndmkyBIGJXyQc9y94fOdp5DFhNr0trrVOuPDIdG08AimqvuRTQpbHxryn8yo0DE1oJUbOwijIaOs4gDTFJeOvq1Ge892LndLGfuCjjeRt8ilW9yw8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790783812; c=relaxed/simple;
+	bh=8wQL+r7w0PKT2kUsqlmUXa+mA8r2mIQvMJOIWzO7J8w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=dBd0+vc76Wyv1S6T3mQ+JQiDyVcS6LosK+FFYXD3qsDSK5Ws7E+jmrxPjwjOExN3L0DPoiS7fEY9xekAgpEUUQ/9ohY5tEF0uZZnJQsuE95ZgWp1UOasFbcI6iNZxwQZ9ImjD7u2VfAVJQ/T0eBPy0Yp+2w/7vHS6eloPmdUGoc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lShUrDFK; arc=fail smtp.client-ip=40.107.159.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZflfv9N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28EF01F00893;
-	Wed, 30 Sep 2026 15:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790783688;
-	bh=jm/q5yR96AI8I/IiLiC4498yVgfktYtxIUm7CiZQ2fM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TZflfv9Nim7wjxwhTMsPVJ4hjYB1rNiFBN9dcTLIsJEtovjcMlRde35F/05bhWUcc
-	 p+Ycuck1ueg6/EWla/6rBlduxpYmKkzgzdxv0v8quQLVycwib8LXHvaz/QG5oVz5lk
-	 5WkjstAYQMrLR6xBcdyRUABGJyI1KQBzhugzBVNizOfukxiv9V9KwwvJ9Or5JujL9p
-	 gTGQh02kV7opa8oxb6ZhNUrl4cEGe93IRYufS0f1dvg19OJH9KWiJ3dzmyVvb2eY66
-	 IN9Z+4F7d7rhzvAhOjNXJyp08t8Lr9LvqHGowqmx+sQJKzVHH/fy/wGQCs/iJC6p54
-	 rbPUQTw10po5g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 09/10] leds: pca995x: Do not use full on LED mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nora Schiffer" <nora.schiffer@ew.tq-group.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-leds@vger.kernel.org, lee@kernel.org, robh@kernel.org
-In-Reply-To: <93c090b77e2049c75439a680a1d3b86e2e5a29d3.1790684839.git.nora.schiffer@ew.tq-group.com>
-References: <cover.1790684839.git.nora.schiffer@ew.tq-group.com>
- <93c090b77e2049c75439a680a1d3b86e2e5a29d3.1790684839.git.nora.schiffer@ew.tq-group.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 15:54:47 +0000
-Message-Id: <20260930155448.28EF01F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lShUrDFK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AuSIts35AD99PLJh2f3NEg21v29WmUmTueDflI88Lz4pBHHhM3/iw6YZD8Uc7QP0Jsbzpe2IUkPVria7v9yYWfRwqjDI0aE0HCUvX9jXZC8PIYY3lj+UK3OqUG7A39lZO2dtjGrhJLiIBIYYZT9whnZ7KDzORQCZEb4B0teRZT7mnc1PM2J0NK/tID2dvokt4N3jJ8R+D5SGbFYWion2TgA+RmHavVcgA3n5qdK+rT+tP+QJ+ZUW/lCHglCAzptFoXtToV/a8/nNanrzL9CHIvU0Bky9dB+3gfcmL/9tKzPJG5eX5SRZ8STDSIl91zPgyKAUQdZYiwom1XFbGazMkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8wQL+r7w0PKT2kUsqlmUXa+mA8r2mIQvMJOIWzO7J8w=;
+ b=R0eYFoPOugmxhC2f5+kuT0knre3xkN+kR5nUyDZvOOdYr6APq15hJPAdjjt5nQ4KTMkb8Xu5oevL8NwWHLoZd3AzoveJ5edizhy4Jcj1ppgWhtEAuUwdTVHb7LPoRUmwC4rCfedABodlGt/NXT+RVz6/on7TaimDkqr5pnjgf3B6IIwh1IBCTxvxnSaMUzvCiZ7fJWLMdQP7l/jl+73YKDxpNnjHLL2xlC65H/PlTk/q0YbYRrmkIdId7IMB3EcjsRdVJbE77F2RLWaDoou7fsivf9hJwjbhMbXTUrPVlkdxFOkV40PBfoZa15pxBALl9ha/f9BES67bVpL5N8woUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8wQL+r7w0PKT2kUsqlmUXa+mA8r2mIQvMJOIWzO7J8w=;
+ b=lShUrDFKUf5rrcFn2vFZQioDruYsbbsQ57okLzJUgztDWbBpcL2BUq2xxOsSSddyR0q6y8moE5P/VfOdHs5t+O7fk8Z4LdeAAbU8KVBM/ezgI7SyCKmS/9HzgKzU5Bs7kiWQcnqMI08whaFomp7AaUa0V5Qpf4qTltk4WGp1Tvjhc+WFB7J/Tz+qyfmUBZhmZW6Og2+3qTp6x6P80cQ4skXLsKPfGEIRZFXrzMdH72njJWnGl3Eca55TudYzzc/szbmKabCuahExYbD0cp4/uBZLelrJF5kWbCqQtPCizbA5kS+YUyIs3AaLz2IS17fRzx3Oy9PskE9Vk0GYtA2r2w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB10356.eurprd04.prod.outlook.com (2603:10a6:150:1e3::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 15:56:36 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
+ 15:56:36 +0000
+Date: Wed, 30 Sep 2026 10:56:22 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Guido =?iso-8859-1?Q?G=FAnther?= <agx@sigxcpu.org>,
+	Robert Chiras <robert.chiras@nxp.com>,
+	Tim Harvey <tharvey@gateworks.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux@ew.tq-group.com, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 2/8] dt-bindings: embedded-controller: remove
+ #address-cells and #size-cells from required
+Message-ID: <ar0xJqmSOdZCIW3Y@SMW015318>
+References: <20260925-cleanup_dtb_warning-v1-0-f999fafbca60@nxp.com>
+ <20260925-cleanup_dtb_warning-v1-2-f999fafbca60@nxp.com>
+ <20260930-light-whippet-of-fruition-faf077@quoll>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-light-whippet-of-fruition-faf077@quoll>
+X-ClientProxiedBy: PH0PR07CA0109.namprd07.prod.outlook.com
+ (2603:10b6:510:4::24) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10356:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc64dfc3-0750-4b68-f23e-08df1f0b67af
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|7416014|376014|1800799024|366016|23010399003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ ++OwVAnpyZV8uyC4sKLjlGlioSJT2XCsE33K5b4moFdKq5FynXNfIfU4LcxUoT1JCruKv7QcgN93WzEPyF+teAj6u/pcl5JjzY49ZgR9akQxwfxISk8vv5LJ73ceW23JyrNWcPivG8jCsSvujG9j3ApTLJudPFieybAkNq3M0uya9zwymosdajFknLIfNPYEOBs90iQL7fjP1fyJgU/DMAZgmtMLZet6ubes15P9PPo5iSaa9Q2xf9edhKGxHXFmPhgVHn6p8zuzOGvkBzD0sGySkLDP8PvHUhVgVSHnhUPF9F5n51qJEW+VfHVOo99zP9ZVkJGfgbdUrqluJzgsZF8A397QWNR0z5p1Jtkmf0Ra+OdZyvDcfb/i4tC+2TSpxMDZG5KBAtrop8JU+kv/JvXUizAF8dCo4AxEy5V7UJVqpySVASrSOtKkfhSMjqkpHDJMYKwLSn/o5eqagikF7WhjGEDhVdNbD6rQkFzv7P6o+CmYcAyM/t+fqWvZK/UW8kr/9kxTv8m6XZtdsba1OYA17LG+xBKsbVUXoeEjaeioH+6n2SgFvmKgKo2fqyQAl8gilqAySDHrVm9vxPrm6ZKzrFtGlfk9hVIIQ31rNRRCwOHfrpSelkblcvACKiwx3e6LSP9SGzttxNmnu+HRJQz9dDUQM4Y3stAq7BFed9Q=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?ACg3hxHb2iPC5FquT5NaHCx8e9VBNvlk3oE0ePb49P0m7Y/77jTraJdCFcSi?=
+ =?us-ascii?Q?bLkJsUw4gKglzpk5drwd0EwQdX/C413TlhBdvmyyx7YyBItv3IRTLHjDZg98?=
+ =?us-ascii?Q?Vv/cORSCey6wvudO/SYuPjmdS8TWEkkdLSPKiqUnLq6Q4xNegaYHQYYx77uk?=
+ =?us-ascii?Q?H2B1O0C/jW6+ZZ5gIWdeVdfXuq+y2z0yT0lJdLzSyfJG93erB4PP70swGCgE?=
+ =?us-ascii?Q?HosFmYCfbsDSJjVjSX/3mZlx4UKisAfBZeHH0aPg2CZMxa5tK6iDBNS/P8+K?=
+ =?us-ascii?Q?9RpFRZAlR0ca0+Iz4nyE0DxLhGne/9nWaZVBufD/DMpDVY2cHGRgv4NNH4eE?=
+ =?us-ascii?Q?3TcBLw4dapWDqwIfhpget6i0NbT3ZwFuLgyYeA61JbTSX2fvHGajCTckuEQ5?=
+ =?us-ascii?Q?I9zKti6F+wHe4XkD8ZlbtVlKfsw+3TyM7oC2uLEqlKLoaDQuQqZ5xLlwUHu2?=
+ =?us-ascii?Q?CKwrKGOXpoyw/Dp4BjpPb5lYiq6HrIkwB/9OyttbEnpEyknIiz7/+uFy4wN2?=
+ =?us-ascii?Q?WEeSBXscSi426p8M5JZr36dD5UVVEzm69Kxd96KWy+02ZfgmbkEuVYFjv196?=
+ =?us-ascii?Q?Ff077WlbzXGsWvqdXS9jUI5YfGRNkTERgWhZpRYfjtPrJnyT/hyPKVgFPZzb?=
+ =?us-ascii?Q?NXsCA6cuwRrt/yCO52PfAQEFazyj67rvFWbrLhFHdaEYoIjwB+JthwJhhIlm?=
+ =?us-ascii?Q?Ukc5hpY4O1d8ZRBDzokYDA9ErixSZyAHRafzCz4+rD3tFJNJiJ4LnR0YAaqp?=
+ =?us-ascii?Q?bRuMe3n/rqfVi0CmtMIAZde3mXSZ9YZ8pvCocnmAe14aToWQlKXmdJTxxgY0?=
+ =?us-ascii?Q?LXi8qvI/T4716RqjOTlnQT7NuaDFrze2vJiI4tPXWwJkSCNseo4lNkw1rBsX?=
+ =?us-ascii?Q?uwT7yJvJsIhwDkLJ5guIUyIJWnlXLDKWZsxHt1SjRdRtRacFqLDPwMVC1O3g?=
+ =?us-ascii?Q?1iwfvMZIrhRs+i/G/gwBWbkS/HROSNj4Yy3SvrHkiWlPO5vWkgdO788txi0g?=
+ =?us-ascii?Q?ZDY41/6JqZ3XCuIVIlQbQeKImaiJ/mH6POlTLbv67soAsXaKNsOUOOy5f9u7?=
+ =?us-ascii?Q?UktqwSOTCrtJ13+7OCalrh8uqEvlgqYL0K12oNUP+KOt0gxkg844APSJo9Yl?=
+ =?us-ascii?Q?ZIdpQqQ2vFWqUjOQ8FpsW5XRbkQM1Q++2Nw1BaSk2T/k2AaZeabLDUgm+NDo?=
+ =?us-ascii?Q?pZX/v+QuT/D/2d+mFkd3wotvVfbQmMFUwwqErceH0tVerj+RdiHpimN1CN5y?=
+ =?us-ascii?Q?wnEYtxS/Y82mqGsuGp+GAmOyBZK0bXkO/FkxYT6zWs8+H59QCrAkESZyfMe6?=
+ =?us-ascii?Q?ZthblkAYl1XYRjOcGrv7atJqoXUUjDqfiAzxdkHXhj/cCEODsW5Lh9kQRjq8?=
+ =?us-ascii?Q?Z7cVhkfZ0ZMuAtI5nS8ZxhhAatB3zD582UVCBM1r3NcJceXY4WLggi5nssdX?=
+ =?us-ascii?Q?bms8e5ohyQp5aTQvR8ehR6ZkVNSs7HjHcmc+FDtA7G0NQP0DZsDDwfFdAzgn?=
+ =?us-ascii?Q?V+/R2I+uGKgeEVCLAziWRqbzjT91p1TCoK8tTNe68dBZkWRrlOJ0U/Bp53vM?=
+ =?us-ascii?Q?ePieuh231wGIDwTgS/Sjs4KXxeZyl+S5rSX6VeyoWL1Bq9qAuq9adVsqQekw?=
+ =?us-ascii?Q?JQnFsbNCTCZBmnU/h56Ke++hdLVgdBMVK0kMg0ttdtepDwsBQcSApD/NrMv/?=
+ =?us-ascii?Q?fTlvuzRJP/im+KkaGriiDhHPi52bsAH14tr6qgJSQv02CjzKAupSRZ+Lnaq5?=
+ =?us-ascii?Q?wSl2jyRHfUVWQE49toJXz/YBWmAIgB5SYr0FAjKaZcdImBfa+Sjl?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc64dfc3-0750-4b68-f23e-08df1f0b67af
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 15:56:35.9801
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HVRD6ah47HQpGKVka87aeKNA7eI+MevapBUWTfpvaqr1gjF+AMo09K6jVuiW/O3cZvG89sDBbhkRMQsGDX39q7m1qA56w2vuusZEfFSrM0LaoMPiRCPmuxktYaTxJ8jE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10356
 
-> LEDs in full on mode are unaffected by group dimming. Avoid using it,
-> so group dimming is applied consistently.
->=20
-> This slightly changes the brightness at maximum (from 100% to 255/256
-> duty cycle), which should be imperceptible; arguably it is also more
-> consistent with the other brightness levels, as it will now scale
-> linearly from 0/256 to 255/256 over the whole range.
->=20
-> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+On Wed, Sep 30, 2026 at 11:59:47AM +0200, Krzysztof Kozlowski wrote:
+> On Fri, Sep 25, 2026 at 12:37:51PM -0400, Frank.Li@oss.nxp.com wrote:
+> > From: Frank Li <Frank.Li@nxp.com>
+> >
+> > The "^fan-controller@[0-9a-f]+$" child node is optional, so it is not
+>
+> Why is it optional? Hardware can be fan-less? This should be the reason
+> here.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+binding doc said as
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1790684839.gi=
-t.nora.schiffer@ew.tq-group.com?part=3D9
+"refer to the board hardware user manuals to see what features are present"
 
+fan-controller is one of features, which may not present at boards.
+
+Frank
+
+>
+> Best regards,
+> Krzysztof
+>
