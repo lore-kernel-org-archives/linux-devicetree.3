@@ -1,214 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FCD35A39F
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:53:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024B435A39F;
+	Wed, 30 Sep 2026 07:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754824; cv=none; b=Ddb0GnmMjcz/ZgDI8yCw9M38g3mu/Q+iOBheZspCkgKCpH62dHkugDqcJRccwiL57eOWDkv2FwIstnczchfN/FIk0hOQ3PmkfvGwom9qF/PHLRWr/yZmNp2kbgIVA048VinUFCjmVjUAqxm9gHWEtyG/lSI13zmjA4Ps8I0s4u4=
+	t=1790754852; cv=none; b=Ko4QUn9Mla1SGvuojHWDbuXyRdkVQMAXCrVSP2atd0OIG8wJC2jhYaL4Qq/52Eg650XkRa+N/HHJTre4p0jZ8ROosaWvS9BXzZx141G8Vhn5SixXQ2mchEFXaA3ju5YlCWJms6MAqPsMs2wqmQmPpSje9mG/tjHqEESEyyzSsyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754824; c=relaxed/simple;
-	bh=ABllz823j54hsZzOBzv6HeTaGsjQO/6M1te+YZBi1lU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cIei7IMeENZk7OaGXXeZhGXTnAC/lpQWMFcJOB7x1i3NJeWkryA3GlaUjhuG68s6pB4bc50GeC8CcTUSlb0vjVClR/NOzeMw9oBMEk94a441QiANMomCD5H4zFoTWx8axWkMLAnOYxX6mWaIibNRU8BXVpj+tTUjRtYjzlJKsuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U7W5iINQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790754852; c=relaxed/simple;
+	bh=bp4reCZPd2XicV3CZCU05AoXT61eeQMuU3TMTWKtudM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iwpme6F0MY7QtGV0dteYaf+Pa0r4BmlJ2AdUFbd5HBZHTp5W/4C/IU8oRAoAvn41NlgNxwXss9YpVQxNyHT/cy3wI4lp/NULYIDyvbQNqXlE0rVZgqciZf9pK+QiRNxYPSSwFNhJ/qvXqb231x8XJnikS5EtWZ2btOdODRD3EJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZsvQoenG; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U7W5iINQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B6FB1F000FF;
-	Wed, 30 Sep 2026 07:53:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790754823;
-	bh=VTyDewZ7pXzCrhbes5ZNt5zc0Nv5iO9KCRanYr4GdWM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=U7W5iINQhVJZA1PLmG4iUer0enfmxnCCkzWEErzFrkzXsroGdjjkvI0GvZnF8lyUC
-	 J5lsnmElFhg0Ec7XfiN7s39d7bKwM23aRq6GIY22T9KD/Sa7OzzdYXilzu359T15S4
-	 bkV5vMVy00lOlAjslOUEin7jhKXXEfdDKSFUW33/J2r9XjGapKnwnCHxkeh64NX74Z
-	 a7T7K7FmiaNH3GYT9lWxSIS7AqqMo49RHL9+7AqxSUCip4ga/JW6Q9qe6VHmjoDC6h
-	 WTV6rIcXQ07veX2zKrOwiguMmA5dyg0JtiEi/87jrymkm0GIUOg8VDtnl24yyzCSdK
-	 oc5PSa97BKiDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] nvmem: stm32: add TAMP nvmem driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Patrice Chotard" <patrice.chotard@foss.st.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260930-upstream_nvram_reworked-v2-3-cfda749ee0b7@foss.st.com>
-References: <20260930-upstream_nvram_reworked-v2-0-cfda749ee0b7@foss.st.com>
- <20260930-upstream_nvram_reworked-v2-3-cfda749ee0b7@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 07:53:42 +0000
-Message-Id: <20260930075343.1B6FB1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZsvQoenG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790754851; x=1822290851;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=bp4reCZPd2XicV3CZCU05AoXT61eeQMuU3TMTWKtudM=;
+  b=ZsvQoenGSXuj+4sZfap/tgcp5WbI4NeXzbp3MTzcY3O9jtUitRIqwD5P
+   YpE8KIbMFHTkzGm+3E2jmWbYPm92OYtKqTn2KrT0G4vp7r7s2hqlHVLwc
+   9sIgdS9tHhenDYFFHtSdGPLW0TjILAVM2Ezcgx6yFr+7KKLDYC0Q+mtHB
+   5r3bzpBho5MYvHFfRwudXBKYNPL2eisDbPKGiuiRzElimd+8En7flBtQi
+   yKrMzLT5AWmWwIncs1JoQmoUNjkS70H/r/vhM59BVFmXSnlnUCAybDhze
+   OkWO/c+kwMQ8rwNGdCR35cw5GIHWuGjZhejSEPCLtz2RASCGzRrNwP8Pa
+   Q==;
+X-CSE-ConnectionGUID: rfAH74fqQV+YOZXxRnvGTg==
+X-CSE-MsgGUID: gcFLZK+rSf6e8ebGKoV+TQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="90346974"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="90346974"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 00:54:10 -0700
+X-CSE-ConnectionGUID: KyEvnr4UQQ6q6aJZsLT+gg==
+X-CSE-MsgGUID: VBbluRZLSkqZAQgOMC+6EA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="278823387"
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 00:54:03 -0700
+Date: Wed, 30 Sep 2026 10:54:00 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Niklas Cassel <cassel@kernel.org>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Randolph Lin <randolph@andestech.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Alex Elder <elder@riscstar.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v7 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
+ controller support
+Message-ID: <arzAGOKLOustEW7F@ashevche-desk.local>
+References: <20260929083755.458238-1-inochiama@gmail.com>
+ <20260929083755.458238-7-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929083755.458238-7-inochiama@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] nvmem: stm32: mismatch in DT matching can cause out-of-bounds ar=
-ray read
-- [Medium] nvmem: stm32: endianness mismatch between word and byte NVMEM ac=
-cesses
-- [Low] nvmem: stm32: incompatible pointer type assignment causes compiler =
-warning
-- [Low] nvmem: stm32: off-by-one error in max_register configuration
---
+On Tue, Sep 29, 2026 at 04:37:52PM +0800, Inochi Amaoto wrote:
+> The PCIe controller on Spacemit K3 is almost a standard Synopsys
+> DesignWare PCIe IP with extra link and reset control. Unlike
+> the PCIe controller on K1, this controller supports external MSI
+> interrupt controller and can use multiple PHYs at the same time.
+> 
+> Add driver to support PCIe controller on Spacemit K3 PCIe.
 
-commit 5c38f8fb5f67e48c161b92fd1e0bd910ac6adfd9
-Author: Simeon Marijon <simeon.marijon@foss.st.com>
+...
 
-nvmem: stm32: add TAMP nvmem driver
-
-This commit adds support for exposing the STM32 TAMP backup registers as
-nvmem cells. It includes driver implementations for handling register read,
-write, and access permissions for different hardware zones on STM32MP1
-and STM32MP2.
-
-> diff --git a/drivers/nvmem/stm32-tamp-nvram.c b/drivers/nvmem/stm32-tamp-=
-nvram.c
-> new file mode 100644
-> index 0000000000000..c10c5ed5d2732
-> --- /dev/null
-> +++ b/drivers/nvmem/stm32-tamp-nvram.c
-[ ... ]
-> +static const struct regmap_config stm32mp1_tamp_nvram_regmap_cfg =3D {
-> +	.reg_bits =3D 32,
-> +	.val_bits =3D 32,
-> +	.reg_stride =3D 4,
-> +	.readable_reg =3D stm32_tamp_nvram_readable_bkpreg,
-> +	.writeable_reg =3D stm32_tamp_nvram_writeable_bkpreg,
-> +	.max_register =3D 0x80,
-> +};
-
-[Severity: Low]
-Could the max_register be slightly off-by-one here? Since MP15 has 32
-registers (128 bytes), the highest valid register offset should be 0x7C.
-Setting this to 0x80 theoretically allows regmap to accept accesses one
-register beyond the valid range.
-
-> +
-> +static const struct regmap_config stm32mp2_tamp_nvram_regmap_cfg =3D {
-> +	.reg_bits =3D 32,
-> +	.val_bits =3D 32,
-> +	.reg_stride =3D 4,
-> +	.readable_reg =3D stm32_tamp_nvram_readable_bkpreg,
-> +	.writeable_reg =3D stm32_tamp_nvram_writeable_bkpreg,
-> +	.max_register =3D 0x200,
-> +};
-
-[Severity: Low]
-Similarly, for MP25 with 128 registers (512 bytes), shouldn't the maximum
-valid offset be 0x1FC rather than 0x200?
-
-[ ... ]
-> +static int stm32_tamp_nvram_read(void *context, unsigned int offset, voi=
-d *buf, size_t bytes)
+> +static int k3_pcie_init(struct dw_pcie_rp *pp)
 > +{
-[ ... ]
-> +		reg_idx =3D i / sizeof(u32);
-> +		if (i + sizeof(u32) <=3D total && IS_ALIGNED(i, sizeof(u32))) {
-> +			if (!stm32_tamp_nvram_rights(priv, reg_idx, true)) {
-> +				dev_dbg(dev, "Backup register %u is not allowed to be read\n",
-> +					reg_idx);
-> +				temp_u32 =3D 0;
-> +			} else {
-> +				ret =3D regmap_read(priv->bkpregs_regmap, i, &temp_u32);
-> +				if (ret)
-> +					return ret;
-> +			}
-> +			memcpy(buf_u8, &temp_u32, sizeof(u32));
-
-[Severity: Medium]
-Will this memcpy cause an endianness mismatch on Big Endian architectures?=
-=20
-
-The regmap_read() function gives a natively ordered u32, but directly
-copying it into the byte buffer will result in byte-swapped data compared to
-the byte-aligned fallback path. Do we need an explicit endian conversion
-(like cpu_to_le32s) here instead of a raw memcpy?
-
-> +			buf_u8 +=3D sizeof(u32);
-> +			i +=3D sizeof(u32);
-> +		} else {
-[ ... ]
-> +static int stm32_tamp_nvram_write(void *context, unsigned int offset, vo=
-id *buf, size_t bytes)
-> +{
-[ ... ]
-> +	i =3D offset;
-> +	while (i < total)  {
-> +		reg_idx =3D i / sizeof(u32);
-> +		if (i + sizeof(u32) <=3D total && IS_ALIGNED(i, sizeof(u32))) {
-> +			if (stm32_tamp_nvram_rights(priv, reg_idx, false)) {
-> +				memcpy(&temp_u32, buf_u8, sizeof(u32));
+> +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+> +	struct k1_pcie *k1 = to_k1_pcie(pci);
+> +	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
+> +	u32 val;
+> +	int ret;
 > +
-> +				ret =3D regmap_write(priv->bkpregs_regmap, i, temp_u32);
-
-[Severity: Medium]
-Does this have the same endianness concern for Big Endian CPUs? Reading raw
-NVMEM buffer bytes directly into a native CPU integer via memcpy might flip
-the byte order before the regmap_write().
-
-[ ... ]
-> +static int stm32_tamp_nvram_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct stm32_tamp_nvram_priv *priv;
-> +	struct resource *res;
-> +	struct device_node *of_node;
-> +	const struct of_device_id *of_id;
-> +	void __iomem *base_addr;
-> +	unsigned int *zones_end;
-[ ... ]
-> +	priv->idx_bkpreg_zones_end =3D stm32_tamp_nvram_get_backup_zones(priv);
-> +	if (IS_ERR(priv->idx_bkpreg_zones_end))
-> +		return dev_err_probe(dev, PTR_ERR(priv->idx_bkpreg_zones_end),
-> +				     "Can't determine protection zone\n");
+> +	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
 > +
-> +	zones_end =3D priv->idx_bkpreg_zones_end;
-
-[Severity: Low]
-Can this assignment cause a compiler warning for differing signedness?=20
-
-The driver assigns priv->idx_bkpreg_zones_end (an int *) to zones_end
-(an unsigned int *) without casting, which might break builds enforcing
--Werror.
-
-[ ... ]
-> +	if (of_device_is_compatible(pdev->dev.of_node,
-> +				    "st,stm32mp25-tamp-nvram")) {
-> +		priv->bkpreg_access =3D stm32_tamp_get_access_rights_mp2x(priv);
+> +	k1_pcie_toggle_soft_reset(k1);
 > +
-> +		if (IS_ERR(priv->bkpreg_access))
-> +			return PTR_ERR(priv->bkpreg_access);
+> +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
+> +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT,
+> +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE);
+
+Would it make sense to define permutations
+
+  PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE
+
+for here...
+
+> +	ret = k1_pcie_enable_resources(k1);
+> +	if (ret)
+> +		goto failed_resources;
 > +
-> +		dev_dbg(dev, "\n"
-> +			"Zone 1-RIF1 %3d - %3d %c%c\n"
-[ ... ]
-> +			zones_end[BKPREG_PROTECTION_ZONE_3_RIF0] + 1,
-> +			zones_end[BKPREG_PROTECTION_ZONE_3_RIF2],
-> +			stm32_tamp_nvram_rights(priv,
-> +						zones_end[BKPREG_PROTECTION_ZONE_3_RIF2],
-> +						true) ? 'R' : '-',
+> +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
+> +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
+> +
+> +	ret = phy_bulk_init(k1->phy_count, k1->phys);
+> +	if (ret)
+> +		goto failed_phy_init;
+> +
+> +	ret = phy_bulk_power_on(k1->phy_count, k1->phys);
+> +	if (ret)
+> +		goto failed_phy_power_on;
+> +
+> +	msleep(PCIE_T_PVPERL_MS);
+> +
+> +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
 
-[Severity: Medium]
-Is it possible for a misconfigured device tree to trigger an out-of-bounds
-array read here?
+...and
 
-If a device tree node contains multiple compatible strings (e.g., both MP15
-and MP25), of_match_node() determines priv->data based on the first match in
-the driver's list (MP15). This allocates only a 3-element array for
-idx_bkpreg_zones_end.
+  PCIE_PERSTN_OUT | PCIE_PERSTN_OE
 
-However, if this of_device_is_compatible() check for
-"st,stm32mp25-tamp-nvram" also evaluates to true, the driver will branch
-here and read up to index 6 of the zones_end array, reading past the end of
-the 3-element allocation.=20
-   =20
-Should the control flow rely on the already resolved priv->data->nb_zones
-instead of re-evaluating the compatible string?
+for here and elsewhere?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-upstream_n=
-vram_reworked-v2-0-cfda749ee0b7@foss.st.com?part=3D3
+> +	val = dw_pcie_readl_dbi(pci, GEN3_EQ_CONTROL_OFF);
+
+> +	val = u32_replace_bits(val, BIT(7),
+> +			       GEN3_EQ_CONTROL_OFF_PSET_REQ_VEC);
+
+It's perfectly a single line. Check your editor settings (I believe I have
+commented on a such in one of the previous rounds).
+
+> +	dw_pcie_writel_dbi(pci, GEN3_EQ_CONTROL_OFF, val);
+> +
+> +	k1_pcie_set_device_id(k1);
+> +
+> +	/* Finally, as a workaround, disable ASPM L1 */
+> +	k1_pcie_disable_aspm_l1(k1);
+> +
+> +	return 0;
+> +
+> +failed_phy_power_on:
+> +	phy_bulk_exit(k1->phy_count, k1->phys);
+> +failed_phy_init:
+> +	k1_pcie_disable_resources(k1);
+> +failed_resources:
+> +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> +			   PCIE_PERSTN_OUT | PCIE_PERSTN_OE,
+> +			   PCIE_PERSTN_OE);
+> +
+> +	return ret;
+> +}
+
+...
+
+You checked everything but regmap IO. Why? Do you except it won't ever fail?
+Perhaps to add a note about this (if not yet) to the cover letter?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
