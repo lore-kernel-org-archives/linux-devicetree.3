@@ -1,98 +1,168 @@
-Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f16.google.com (mail-dy2-f16.google.com [74.125.229.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E4648424B;
-	Wed, 30 Sep 2026 10:34:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764471; cv=none; b=GwplIc7L2ONeKFc/P+JaE0uopyyHFiyyFBCQSC7EqjeXPW9MPOJH6vaqUgXZhMAh1N++rqTz/0biWa8BGBSEzybRAQAZ9EsBUdLf8s9huzm5QdmXQzvH6y77lCr5GHiDbWAAL8kbj01lUX7R4zHZQ1zHsv92rkwUe9muY5p5tPA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764471; c=relaxed/simple;
-	bh=ITNcguFl2E946synToA0pEICzGfhRGi1wGqz6HAQshQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dSqabLy1rbjyEJr+Fpkoq9UmpAO/odsyaKIPNT7MdJMnfZ7EeBcwNn5h+++IcYfUt+gQrwllkKCkgPfml7qA/BsSIKhT2tso8ukH0TRSHUvfWYpVSnA7nHqgkpFGOf/tGj/O+86fzyeXB9fryn3QOCEnWiJV0bxRX2vaao/e5pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=HjMduRgB; arc=none smtp.client-ip=46.19.12.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44803CB57D
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 10:34:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790764474; cv=pass; b=cLhYVVUrZdCyFbi95Nmun32Z/LOeFDmlAJZTfyYotWn2PmqXfcsfm0w53p1VHDlGK6TUslr5ngLpo4VK+CQHoBkmarLSBX68ZHc7tmqsjZMPDw2w1tqFqQP5vAkbWWKIGqglfaZFtVZEcIxfCEfeysQilQed8eF0f3XVR1zwcPk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790764474; c=relaxed/simple;
+	bh=Jgl2MM4xT4vjtYr00D2lGwtIPFBPkBNmNvFUfSxZsvk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dwX8/ioKE6c4+qGvzLI0bfyrw85pLBnjh7QojdVyYuOZ0I69h7IAIwwswqCq1Jxr3Li554Z2/I3Qr5GsMtPhDoYEXmSy5wA3Bce3+II/Y0lyboFtU4fwhVTauW7rsraPOAOBCDCy3BhIKFfkjLsRmlcdRYrISOhqJf+mYfCUmr8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qPEkw3dg; arc=pass smtp.client-ip=74.125.229.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="HjMduRgB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
-	s=default; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Unsubscribe-Post:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=N/yuoXxXvt+LufZR9aqFXftO2ShH9MMEilsX2qH7X0g=; b=HjMduRgB/psosPZsG6ptDvUaTv
-	P/NHPuWxdECfEVKfaTKtFOQPLKiFzgmTDPnMCPEaWMGpqmCVO/uptfHajPM4Af6KZf4XUvI8ruf1U
-	4XwtTWf/zGlaZBtdtASbgv8Q3L1klnEEDwkzu5UrZhkhDA0zBHZh6/Udvgn3CNb7VMSEu6+46aRy0
-	qAPDqdET6Dx8asotQ+XISeRsrfZ6YiIqQAxC4tsu3coU3zv6GqkiPpQc4+U8fZZjfe/yDRhqm95YK
-	FJJ25vN4aRUFRzb5yQyt9PGP5D3ckJiU6v5CKfCHZx1C15EQV/qUjpl8BomrKAFiEKlpTtgA6Z4GM
-	6vQ5uF6w==;
-Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:46122 helo=localhost.localdomain)
-	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <primoz.fiser@norik.com>)
-	id 1xBrdt-00000000Z3d-05jf;
-	Wed, 30 Sep 2026 12:34:26 +0200
-From: Primoz Fiser <primoz.fiser@norik.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	upstream@lists.phytec.de
-Subject: [PATCH 2/2] ARM: dts: imx6qdl-phytec-mira: Add touchscreen-inverted properties
-Date: Wed, 30 Sep 2026 12:34:25 +0200
-Message-Id: <20260930103425.2315286-3-primoz.fiser@norik.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260930103425.2315286-1-primoz.fiser@norik.com>
-References: <20260930103425.2315286-1-primoz.fiser@norik.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qPEkw3dg"
+Received: by mail-dy2-f16.google.com with SMTP id 5a478bee46e88-34b3a9cd8edso814143eec.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 03:34:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790764472; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OiI9vmJH8kOZ7HzEN49gT2Tfp3xLo6L0gHqZu5YSIng8njfocfsNw2V985UnaA47AF
+         OkVzOYnCetY27Aohy6i8qZEJEE1ITxQxmY1lb6swg9WZKOeiJvWKvu+keUoffbJ4ZrU0
+         VPJcAPlIDrlrn76QE3HbMY3JQbuDa+esXZGAXpWwE1ivKq/lIssUg1+w5rp074hpJL/J
+         VR3Kzxf8DD3HkCVz/Aob+jm7jjO2xv9WEaXGk36THhEjFKFFYo/CK/xwpwFp+dlvGqxN
+         UlounsuHBaR/lDdYmqWLFyupFTGBFZvALttIXSTa68nnQEyL/sVDZUIHJvPpqu68lGzr
+         NF7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=o3Nzxky31E5PRv1JQth+E+SJrslWGDTCiHFn65qWNg4=;
+        fh=lRbK9rEo8w9LHShYgdwh3NJ0/l1CqfXN4Da8CuNtV5M=;
+        b=VoJ8ZJmHb9ZiqhcAj77+l2COBCqTRmWIJJ1Vv4dyCtgLhX2tSAJaKtRMkutz0xJqDE
+         hxsSeWiy/74KfVV7z8G8EpLAwD9Uzys0vPZf1mxg7OI0DMkEhe6ROlaJIZj62ZoYfiXL
+         lU+vlQYZef1DIVlPzKXEanGR0Y0MGeJ5b+MKhGLcM5iNAwgJBw3LKTPErAjxdO/tclwe
+         1Qk2IUDlKrQE/GGNQQx034u9heFyVZADbHVCtiRHT7FpIKX22yer92AxiQsSS46NQAJy
+         19UGowoHP+DJlyJkA9a7o2olGNgf/TXSMcsfL7GxAxOVFrX5uKlTiKmcNootdMDPMu9J
+         7ekA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790764472; x=1791369272; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=o3Nzxky31E5PRv1JQth+E+SJrslWGDTCiHFn65qWNg4=;
+        b=qPEkw3dglTjNzw0HlyCIzGBpo2CjjVahjiWF+piW77HhGnKI4v3LQR9mVIfNdzhzR0
+         Ci4EAj9e9Dx7sAqbPLTdlBaSIC2s07klwMHi6jOh7X9XPgSyou7f25VE+x0OrhVdc7w4
+         DZEUXqKSRMTAT+6culknnvmGXb5apK709JsdLsNR13XNkuMkJppTyNruFh8ntGiP2fjY
+         szpd2E6Fp1A50P2XRHSz2+SVQfiF/rYQA7TGb+MjMNpXss0NXu1N9DVd+SZkCbEpOdch
+         a5F9wMGkFM+8zZhRnJLT8FrmR9aMUT9kZoTG433zfkt9NfePWKavXVLlRNIEioV5DNZ+
+         Tl+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790764472; x=1791369272;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o3Nzxky31E5PRv1JQth+E+SJrslWGDTCiHFn65qWNg4=;
+        b=uOELwNS7E6RvaU6I1MGb536sKSn9V5Nmr3+GOf3m3r72vuQVhrXIf6VA/94oJfV12m
+         2WvOGRPB3WxRsY5n+17/fU+SM13gSy8150jHHHlR9aHaIjE+k+41lCe1HWgqZ2iz7mWy
+         zHBoyJS3gWppaArKTCuyEPRNe0fJBC78cnWau4qpknUQE1fmQpKGJeIUVSYZDITMYX0T
+         78DhDpmCKKtQGSG5zaOpu0LT10sEqB9oomaycvwUdzrsXm//XkkfxPLUvZu7emzI5zJA
+         GPsNKf7dCwOurazRCFVScbUSa0/4LmuX0CmOqzPUsonbzRZukMSwBZjfgkISUcrPBD5i
+         lnVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmR2HVSMWZ2TTdcbI1orOWRWlZNzwiqSE2NqoDBReLTqiGeCjmkNIZQxOnhc0atDpjh6mQBcLQFSdp@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8rZEb9UYlk91W/me+SVVadca2WINKrT7NZ1lPsCiBwo/M92rd
+	SrMrxfNTSvKXvvSHzAD1eSakqHpO+rFanEptKNovbUkPp81VB7+i1p8Q2rwe5LjxfU6/AtLGNUB
+	U/dUgn/E+mDHYw51MvHvbKPl4XFAcL64=
+X-Gm-Gg: AYBFou2CH9JjKyIcdZ2nzz4wcmwb97tL8tjPlXCPVX6ZSDuwL4RYtdv2H9y6NpkkhZq
+	36PdEyQHpv5tfW8QKme1cALnd7yiKnUbuwP27mYUqT47E4b8Cxy2nDZ3GzFfmpCbOZpi4oj/1WS
+	asPcGC30hommXL4HEAAhD43K8d7KwOD8crHLFbFPPUKlP+OXVfH6x62zK81rmTCwUV+dvGEzezL
+	DaIjCgxSawWxcS0eJbedHfbcg8J8uZW8qvsH3oDRTu0h0AyPfFEYbfk0re0aV9FipSc+vRCrC2M
+	ZtyTCSk8dBMyem9OrkxLCLBfp0jopLn70OpArprrlWuYMy3RimtqI9UdEdcGp8velOD0Zvizl5h
+	U99ytYhed17ga43HFc5edKM8=
+X-Received: by 2002:a05:693c:4092:b0:332:94e9:a732 with SMTP id
+ 5a478bee46e88-34ce4683bf7mr1420176eec.13.1790764471845; Wed, 30 Sep 2026
+ 03:34:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp2.siel.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - norik.com
-X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
-X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+References: <20260930070535.47130-1-clamor95@gmail.com> <20260930070535.47130-7-clamor95@gmail.com>
+ <arzNgbx465QIKYdX@orome> <CAPVz0n2QdSWL8=KBXnsQQkdNEJ9m6HSQ0+6mJji_RHZ8QgXN-g@mail.gmail.com>
+ <arzilGz4akKvRF1K@orome>
+In-Reply-To: <arzilGz4akKvRF1K@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 30 Sep 2026 13:34:19 +0300
+X-Gm-Features: AclHuK9nWzYGgxYyAeFQUOiXDBSTKrGnZ3E_AfgUmTUKQbpwZQYV_7ChXtWTs0A
+Message-ID: <CAPVz0n0-baCzHOXjWLOCLjv8fb5GbE9a2v=8tBYr3RgHkEu+qg@mail.gmail.com>
+Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
+ LH400WV3-SD04 MIPI DBI panel driver
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit 888e5fad9b78 ("Input: stmpe - add axis inversion and
-swapping capability") we can handle touchscreen x- and y-axis inversion
-directly in the kernel instead of user-space on phyBOARD-Mira-i.MX6.
+=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:23 Thie=
+rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, Sep 30, 2026 at 12:08:41PM +0300, Svyatoslav Ryhel wrote:
+> > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:02 =
+Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > On Wed, Sep 30, 2026 at 10:05:35AM +0300, Svyatoslav Ryhel wrote:
+> [...]
+> > > > +static const struct of_device_id panel_dbi_of_match[] =3D {
+> > > > +     { .compatible =3D "hit,tx10d07vm0baa", .data =3D (void *)PANE=
+L_DBI_TX10D07VM0BAA },
+> > > > +     { .compatible =3D "lg,lh400wv3-sd04", .data =3D (void *)PANEL=
+_DBI_LH400WV3 },
+> > >
+> > > Why the detour through that PANEL_DB_* enum? You could just pass the
+> > > panel funcs pointers directly via .data here.
+> > >
+> >
+> > Passing API/OPS via .data is discouraged.
+>
+> No it's not. We do it all the time.
+>
 
-Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
----
- arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-mira.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+I have had some controversial experience with MFD, with passing cell
+composition. If DRM subsystem allows this, I am more then happy to
+pass panel ops directly.
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-mira.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-mira.dtsi
-index a3c2811e9c6f..a7d6af162731 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-mira.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-mira.dtsi
-@@ -164,6 +164,8 @@ stmpe: touchctrl@44 {
- 
- 		touchscreen {
- 			compatible = "st,stmpe-ts";
-+			touchscreen-inverted-x;
-+			touchscreen-inverted-y;
- 			st,sample-time = <4>;
- 			st,mod-12b = <1>;
- 			st,ref-sel = <0>;
--- 
-2.34.1
+> > > Also, looking at the enable/disable sequences these are in fact two
+> > > different drivers, with the only commonality being that they happen t=
+o
+> > > be used in the same device. Rolling them both into one driver seems a
+> > > bit odd.
+> >
+> > I did this to simplify maintainance. Both panels are used in the LG
+> > Optimus 2X. My assumption is that LG switched one to another at some
+> > point, hence they share same timings, controls and supplies, but
+> > differ in en/disable sequence. Additionally, these are the the only
+> > DBI Type B-only panels in the kernel, from what I can see.
+>
+> That's just one more reason to put them into more of a generic driver,
+> which would allow people to find it and extend/improve it as needed.
+>
 
+This driver cannot be "generic". Both panels don't fall into any
+category of being "generic". They are grouped solely cause they share
+same timings, controls and supplies (only these 2 panels, other will
+definitely differ) and are used in the same device. I have no problems
+in splitting them into 2 distinct drivers.
+
+> > > If you really want to avoid duplication, maybe they should go
+> > > into some kind of "simple" or "generic" DBI driver.
+> >
+> > DBI Type B is not well supported in the kernel.
+>
+> Well, you always start somewhere.
+>
+
+I don't think that DBI Type B needs some deep and fundamental support.
+Even for its time it does not seem to be common, not saying today.
+More a curiosity.
+
+> Thierry
