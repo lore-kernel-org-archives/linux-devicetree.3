@@ -1,177 +1,236 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EE844E675;
-	Wed, 30 Sep 2026 07:14:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 145EE457E43
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790752479; cv=none; b=GfoSfiRyJ/uQd/aaPUrjwm1ewBcJsNtIC8GFwKy7W+ojWwAFByGaBn5MKfWYeQ+nywIXyJ7gqUmCGt5SOczIndZnaH0Kf4UJiGdjsPZDYI3CkG2hvHUFTvDaO1+zCijWlfKiX0FD0HuXg67V3afrPm/dQochF2MFcbtIzVcx5LM=
+	t=1790752535; cv=none; b=rwF9CnOXhtokQZUFS0ZNgtnbYXaalpyCtNjwG2Vgc3S8fNzQt2PxU949UR/Fhm1uEXWZaaQY6Trk1SaAOI1p4bM2c7KL7oiqOgA38jaiM3UyZFA5P4JMc3KphGdoPy4UlsRlFp1oT7CWJo4b8HQmJABtgbNe2TdsFvvi/+B5g6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790752479; c=relaxed/simple;
-	bh=XUCScUhJbZDdKQIGVSq2XaSysqBB9gNnQApbYxgPSm8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kEvrjE7xi3t2rZlYgVnPlqCaqb6kN+5pTC+FnHqt7KUOb+EXAK7NCn9VSWJ74HS6uAGoCH4IDEIJHTis85KeU8h7/uESrBpKVWbZTEgoKqEW4rLvjrdD7vuMwVy+nFjwS07Opjms7pyVX1w1N5jDdo0GX9afCd+XG671Obx0Nd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mh9GniNN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790752535; c=relaxed/simple;
+	bh=ownnF2eA8yjuB5F7r+YjnScn5LX/aUHmRE+jgVipf6Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ek4R8+Qva/bSG3L+QG121W865/8rymB0bjwzUrJdvLpRfWlHGAQpSnx0S267Zcyanu29EB1CFGLHoVZb7EbY4szaNWHWfxAbiuMPu7G18JxfiTeiV6CBW7zLSGhhv3O2tYrqVnK5+3eCdmpZiwl8qd6q0KuRencCpBQqiNbdaXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dlevv48F; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mh9GniNN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73BCD1F000FF;
-	Wed, 30 Sep 2026 07:14:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790752478;
-	bh=EJOsZWaC6IUUaRjuGy9rJJn3SnTd88gtdaj+lansgUA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mh9GniNNzA4AYmkAFA/0hRVpMGXcCAexTkHrmE7Ga4vzzd9NMyM5vUKSHmY7ww16j
-	 GpPAfHIU4ixt35UegPzfO1oQ0ThXVsYxuoAJuUDy1W7CVOaUzNrCSvY/Tq4HLPd6qf
-	 sl4fSuxUYyTHKvBXNzT6Yi7Ul7wtWiroo9HJBXOI=
-Date: Wed, 30 Sep 2026 09:14:34 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: filipp.dunsky@gmail.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dlevv48F"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffa15f67fso23058335e9.2
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 00:15:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790752525; x=1791357325; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bshOoGO6/a2WohdGzsO4t4N/wsEAXwivylUfNFmKjAo=;
+        b=Dlevv48FImISrQ/FDxQj/yhEvNlPu5Kkq8w7pAP3rb8XJVdT0YPoKO25x/KOmK5O++
+         sIuMdm4H1W/9T4LmIhF3ZWt3DVkNR8t5LMdnUfxoNxm9/tkZfsPylyYv4QRhcX+vKIKA
+         uTQ1uKToeswq9j3BLQ8sMvewDEhZ2iJfqXES1gisdOSiAgYSwGJWuUaILtV4NtBMLqJ/
+         399MZiKT3IwTLzbYGxYXW5Sem/9ZjH2ll6EZIe7WyIP4sr2x5qX8Myt0fNdQJOGudqZ9
+         ZrwWcZlBNNSOLibJ5JpbP9gTE3KL9SoJQsN55ThfWbbGh1K5Ll6B3rd/pE3DZDCQXxHw
+         JsDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790752525; x=1791357325;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bshOoGO6/a2WohdGzsO4t4N/wsEAXwivylUfNFmKjAo=;
+        b=ET7n9mmIqv/iPHPuXJfRgEyLvUKaN1Rw8riKhPnFqIkKxnVuyHNvGZFVUIaMR5wnaV
+         mW3BdhbMXMZYryhQaMT8o9BMFIIemxCGDCRE/QB9tCyTZfCopxBlrzP2B1GhDE6ObL+n
+         Tn7ogZ9ndgv95QIi+/6tlPXhStyysgp6eDv/TvtRq6DgadIG4bEsFI3quZlUTmyakIVC
+         svTZx5dS0Bv7IH5jcwVfT+L+LAYE7MT7K81p0IwUUpsEc0qVA0kBG4qnLNHhiBQaAQW6
+         0uzFSGdwIA09auUcbXS+8ILcRKh6tWc4PEeiC5f03e3HCZVDVAx9lMD9BF9hIh6cFn9i
+         gM8w==
+X-Forwarded-Encrypted: i=1; AKwUvByARb6KGsulXKx+LZYjlWrMtpgJ3lmR4Wl++ZQWWGjzCns+7ZzI+lkGRYRzCFTBUg8vohqySzuJSdM1@vger.kernel.org
+X-Gm-Message-State: AFuF++mJq5nJEN8ICa9EFBqC2CxJpxr0FQcruxbr4w8LbaDfbvEB4JdO
+	Gj4RyYWp9KHUTqsTUkaGkd+8+p3E5t36gwAp70h15qellI0JTBdBC5V5
+X-Gm-Gg: AYBFou2h0uv4pkhsv2GUUA6huD0C8ZY8Qq3RbcFsFZ/k9O4Mk2IlhSBtczlU74K9Gqg
+	eVw483eSoV+trCDGj8XLSX0ygRMw1HJIqr9WrI8MN6Jg9q9nwO4Hvk8dRfwPuLCYc0dnqA66OiF
+	4YWGs7My2GhaCl2Gvj00H4HkWWp8Cgp+UyZlwPQbP63CEgpHt2UCsZSZN2jwsGVQGhXSSYqETkC
+	jzJJp6pWm7X2rV6pRgYdfNZ215JiWj1xMQ6hSHxCRTzDVVm8zXKIwyZD2qGXq/nIkjbrqip63ak
+	ZLk+1zvszD5IQtQNfrNpchE3wZPHXuk9EFhlYIJ8hwb23FvS+B2nMhKlLNyqiMuZkUEhXMcZkLE
+	iDu8cvQyY7qserlVlKPq3Va5pXmYinvyITGoBBrI4D4uc8xQZeDKoBqgfCC/SITQwoLEiOiINx4
+	bXXdfU47frNL3Zu/pSt4zu8MZKPxWdX62gb5qx724+V9H+ZSc7W1gXoahwl/GGpQh2EB7DhLbY6
+	Q4P5hOp9Fnon8yMnz91VvopvdswyV8=
+X-Received: by 2002:a05:600c:1c29:b0:49e:6c11:c4fc with SMTP id 5b1f17b1804b1-4a01aff0d75mr5571755e9.7.1790752525426;
+        Wed, 30 Sep 2026 00:15:25 -0700 (PDT)
+Received: from xeon ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029be7e4sm1256979f8f.12.2026.09.30.00.15.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 00:15:24 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Drew Fustini <fustini@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART
- driver
-Message-ID: <2026093046-scheme-fastball-59c4@gregkh>
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v1 1/3] dt-bindings: mfd: Document Skyworks AAT2870
+Date: Wed, 30 Sep 2026 10:15:11 +0300
+Message-ID: <20260930071513.54697-2-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260930071513.54697-1-clamor95@gmail.com>
+References: <20260930071513.54697-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 10:00:06AM +0300, Fil Dunsky via B4 Relay wrote:
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
-> 
-> Add a driver for the UARTs of the Cortina Systems CS75xx (Goldengate G2)
-> SoCs. The block has transmit and receive FIFOs with full/empty status,
-> a 24-bit baud rate divider clocked from the peripheral (APB) clock, a
-> receive sampling point register and one interrupt line per port with
-> per-cause enable and write-one-to-clear status registers.
-> 
-> The driver is a rewrite of the vendor driver shipped with the Linux
-> 2.6.36 and 4.9 based vendor kernels, using the current serial core API
-> (uart_port_tx(), port lock helpers, deferred sysrq handling) and devm
-> resource management. It supports the system console and earlycon.
-> Hardware flow control is not supported.
-> 
-> The ports are named ttyCS so that the driver can coexist with the 8250
-> driver in multiplatform kernels, and PORT_GENERIC is used rather than
-> allocating a new port type.
+Document Skyworks AAT2870 LED Backlight Driver and Multiple LDO Lighting
+Management Unit.
 
-But even if you build a multi-platform kernel, only one of the uarts is
-going to be on the system, so why have a new name for it?  Can't you
-just use the "default" name instead?  If you do that, what happens?
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ .../bindings/leds/skyworks,aat2870.yaml       | 127 ++++++++++++++++++
+ 1 file changed, 127 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
 
+diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+new file mode 100644
+index 0000000000000..6dfcd1fa399ca
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+@@ -0,0 +1,127 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/skyworks,aat2870.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: AAT2870 LED Backlight Driver and Multiple LDO Lighting Management Unit
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++properties:
++  compatible:
++    const: skyworks,aat2870
++
++  reg:
++    maxItems: 1
++
++  enable-gpios:
++    description: GPIO connected to EN pin.
++    maxItems: 1
++
++  vin-supply:
++    description: Regulator providing power to the "IN" pin.
++
++  backlight:
++    $ref: /schemas/leds/backlight/common.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      compatible:
++        const: skyworks,aat2870-backlight
++
++      led-max-microamp:
++        minimum: 450000
++        maximum: 27900000
++        default: 450000
++
++      max-brightness:
++        default: 255
++
++      skyworks,channels:
++        description: layout of active channels, where each bit represents
++          one of 8 channels.
++        $ref: /schemas/types.yaml#/definitions/uint8
++        default: 0xff
++
++    required:
++      - compatible
++
++  regulators:
++    type: object
++    additionalProperties: false
++
++    properties:
++      compatible:
++        const: skyworks,aat2870-regulator
++
++      in-ldo-supply:
++        description: Phandle to parent supply of regulators populated under
++          regulators node. They all share same parent.
++
++    patternProperties:
++      "^(ldo-(a|b|c|d))$":
++        $ref: /schemas/regulator/regulator.yaml#
++        unevaluatedProperties: false
++
++    required:
++      - compatible
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        led-controller@60 {
++            compatible = "skyworks,aat2870";
++            reg = <0x60>;
++
++            enable-gpios = <&gpio 139 GPIO_ACTIVE_HIGH>;
++            vin-supply = <&vdd_3v3_vbat>;
++
++            backlight {
++                compatible = "skyworks,aat2870-backlight";
++
++                skyworks,channels = /bits/ 8 <0xff>;
++                led-max-microamp = <27900000>;
++            };
++
++            regulators {
++                compatible = "skyworks,aat2870-regulator";
++
++                in-ldo-supply = <&vdd_3v3_vbat>;
++
++                ldo-a {
++                    regulator-min-microvolt = <1200000>;
++                    regulator-max-microvolt = <1200000>;
++                };
++
++                ldo-b {
++                    regulator-min-microvolt = <3300000>;
++                    regulator-max-microvolt = <3300000>;
++                    regulator-always-on;
++                };
++
++                ldo-c {
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <3300000>;
++                    regulator-boot-on;
++                };
++
++                ldo-d {
++                    regulator-min-microvolt = <2700000>;
++                    regulator-max-microvolt = <2800000>;
++                };
++            };
++        };
++    };
+-- 
+2.53.0
 
-> 
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
-> ---
->  drivers/tty/serial/Kconfig       |  24 ++
->  drivers/tty/serial/Makefile      |   1 +
->  drivers/tty/serial/cs75xx-uart.c | 546 +++++++++++++++++++++++++++++++++++++++
->  3 files changed, 571 insertions(+)
-> 
-> diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
-> index bf680d22199..c4239c42190 100644
-> --- a/drivers/tty/serial/Kconfig
-> +++ b/drivers/tty/serial/Kconfig
-> @@ -1359,6 +1359,30 @@ config SERIAL_CONEXANT_DIGICOLOR_CONSOLE
->  	  If you have enabled the USART serial port on Conexant Digicolor
->  	  SoCs, you can make it the console by answering Y to this option.
->  
-> +config SERIAL_CS75XX
-> +	tristate "Cortina Systems CS75xx UART support"
-> +	depends on ARCH_CORTINA_CS75XX || COMPILE_TEST
-> +	depends on OF
-> +	select SERIAL_CORE
-> +	help
-> +	  Support for the on-chip UARTs of the Cortina Systems CS75xx
-> +	  (Goldengate G2) SoCs, such as the CS7542. The ports are named
-> +	  ttyCS0 to ttyCS3.
-> +
-> +	  To compile this driver as a module, choose M here: the module
-> +	  will be called cs75xx-uart.
-> +
-> +config SERIAL_CS75XX_CONSOLE
-> +	bool "Console on Cortina Systems CS75xx UART"
-> +	depends on SERIAL_CS75XX=y
-> +	select SERIAL_CORE_CONSOLE
-> +	select SERIAL_EARLYCON
-> +	help
-> +	  Say Y here to use a Cortina Systems CS75xx UART as the system
-> +	  console. This also enables the early console, which can be
-> +	  selected with "earlycon" on the kernel command line when the
-> +	  device tree chosen node has a stdout-path pointing at the UART.
-> +
->  config SERIAL_ST_ASC
->  	tristate "ST ASC serial port support"
->  	select SERIAL_CORE
-> diff --git a/drivers/tty/serial/Makefile b/drivers/tty/serial/Makefile
-> index bba7b21a4a1..81bb5e39aa2 100644
-> --- a/drivers/tty/serial/Makefile
-> +++ b/drivers/tty/serial/Makefile
-> @@ -36,6 +36,7 @@ obj-$(CONFIG_SERIAL_BCM63XX)		+= bcm63xx_uart.o
->  obj-$(CONFIG_SERIAL_CLPS711X)		+= clps711x.o
->  obj-$(CONFIG_SERIAL_CPM)		+= cpm_uart.o
->  obj-$(CONFIG_SERIAL_CONEXANT_DIGICOLOR)	+= digicolor-usart.o
-> +obj-$(CONFIG_SERIAL_CS75XX)		+= cs75xx-uart.o
->  obj-$(CONFIG_SERIAL_DZ)			+= dz.o
->  obj-$(CONFIG_SERIAL_FSL_LINFLEXUART)	+= fsl_linflexuart.o
->  obj-$(CONFIG_SERIAL_FSL_LPUART)		+= fsl_lpuart.o
-> diff --git a/drivers/tty/serial/cs75xx-uart.c b/drivers/tty/serial/cs75xx-uart.c
-> new file mode 100644
-> index 00000000000..c15e2227b97
-> --- /dev/null
-> +++ b/drivers/tty/serial/cs75xx-uart.c
-> @@ -0,0 +1,546 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * UART driver for the Cortina Systems CS75xx (Goldengate G2) SoCs
-> + *
-> + * Based on the Cortina Systems vendor driver.
-> + */
-
-No copyright info?
-
-> +static void cs75xx_uart_set_mctrl(struct uart_port *port, unsigned int mctrl)
-> +{
-> +}
-
-Why an empty function?  Can't you just leave it out?
-
-> +static void cs75xx_uart_break_ctl(struct uart_port *port, int break_state)
-> +{
-> +}
-
-Same here.
-
-> +static void cs75xx_uart_release_port(struct uart_port *port)
-> +{
-> +}
-
-This feels wrong.
-
-> +static int cs75xx_uart_request_port(struct uart_port *port)
-> +{
-> +	return 0;
-> +}
-
-As does this.
-
-thanks,
-
-greg k-h
