@@ -1,174 +1,225 @@
-Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1F44F85CA
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 13:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FD54B8276
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 13:33:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775159; cv=none; b=hEylwxdzXvt2fvVXvZkLTtYGrhG6mmy84MRR0HQSPvHXZng+ALH14f8lKJ8Uf6+aZE2z9lLrt0XCySeu9CYJClyIwoBK6y9UiAg4WdT23JcmbebacUy/txLyo2hgXrTYEHjphcPhwbrMPlKv3x90KQydFhwEuuPdpiKsLihfW14=
+	t=1790775204; cv=none; b=K9KDIWP60kZV7yIdh83XGf15c2WfprXs36sqHtAV7DvB4kOHBsJx7E8KswONgfYyMHqE1Fr9vF9OwbBkWK0LflhA8fV5s0LNnWXDFNBTinLjtG2hnYmN0wwKeILaoQu5z/LeZVmiZCo4t/0VVMwJ2/HfvjoZhiOk5JvzwobXAjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775159; c=relaxed/simple;
-	bh=pHXw0MikKlSjhAl5g1YIS1edZ6sL8rQqfb+BPcqQ2lc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=DDJc5quXLbgloS4NAvFYn1DAmEnC2GT7BifxJa/UNUGTklA8neDK4yHq/B82iZ07eeYBvRcTnZxZQr5du751QjVjtW95lTR4NQmhj10J8rbv4+w9dXjUWGPcX8CdjUFdQg8l5PUoVbdaDtZb9bwPD2Ef0NpaXG1md+m44jLcxwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=maZx289S; arc=none smtp.client-ip=74.125.230.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790775204; c=relaxed/simple;
+	bh=f8JkwFAbaud9hbUlejsnLDykrOLkMxXpVYGvN92A8BA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FpZKWsYOJ4PF3d/R4KhCI850iyRAhap/Ww/FUu/wp2bVtwPz+90cJVf6Ol7sODUe72CNR61quow33U1XDc8tdUUn/qpdDg/hESt74HPXbhv96rSDbY++b5q7araW3UGc5fBNPGoYxQe7pRGvzbORwXU+b4b05ACb3KVOb0/bgIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rl3Y3XmH; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="maZx289S"
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a77da28307so3797161fa.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 06:32:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rl3Y3XmH"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48884b0219bso2859190f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 06:33:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790775146; x=1791379946; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790775196; x=1791379996; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=00vEEH7L1j3RTeCAPOrHPZHBxJBgpO2ITSxaC+oPgZQ=;
-        b=maZx289Sskabt/IWPuBrWCXBaRR66cjvS5iDslsrMI8mrDYM4rOQXh0+SWNd09rAdZ
-         PJusB02NUkSgFtXdxz8XV01PA7+0VCHTNwdgQsf2+x/eJZ3KgL2HlQcFvX86smDF8j5Z
-         8GVFEseDsUmeK/saTSysN5I9RNtVAsm5IIZAP2oV6eUHCQndBz4QaDvuBjme0+O21yY7
-         LQ5fwd+dTE8Rw09pziRD8IM1vuAQQ7h2IogoFEOwbD36kYaRY1/ZaXyAvwUWorYEgLhg
-         Emm/oeb600C2gM3t+1+XUrwheNKNs+GKsZsPcSmnFvjNNenaRf+1A7USgMCagccVFVJ7
-         2jDQ==
+        bh=M97dVmT/CeKGrW0RKGI0gKFEI3jgGv0NSYskazvF1xc=;
+        b=rl3Y3XmHNN8v8E8VDJIX8hAVIlheQ/XoDciG6Om4PbhvLna5wQb1RifdCUmEmCkuAm
+         S4f4VlVCl1vGqX4fY71GuPT787DTeFm7ewWxjECkb9BQbmWqJn9gt7PN0gQjXl2HKeeR
+         Dai5iogSaS7+H+Xu0SI+mNbRQNpKBofKNsLZpzSo+9G4/U4gNav5k+yyDbRuu8anjEpx
+         oOWp83fU38pgNMrRXjCXezqtIUPQ9V2yr3vdH368P9W7EACAS4Us9/pZMh9OPhPSCvbh
+         FNkjzSp0jCfrNhzbO37r3iSjBcRWjeAH1eXcLlRxRTC+4t/NpNmzOK90IWHPWzsa1WLt
+         Bnxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790775146; x=1791379946;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=00vEEH7L1j3RTeCAPOrHPZHBxJBgpO2ITSxaC+oPgZQ=;
-        b=ayg5AloyVma/m8rNf3ltwMrFRBfUHiLehBqcYGmh7d9Flyzu5Y+wpONbmK88RlCPq/
-         nmPIM0iN+NX/tPtnntWZZ/3jFm9yADWQvD0e6JbtU6wSeRBDJCHWu8m6TjZQwXufBqg1
-         V/7jWzMLBfJTxBPEynvBrosH4BxCRTESHYhcL5fZvAKANibg2rdjiPth8PQ6/J+8jenX
-         CVhgR/CPFRnWgB8yLYM5YyE2G5Z1/n3pSxsG2j4gY7GJbcMX1PwfYaVpwWGhJssN+Bl0
-         4DzmmMG/8goLHVgrf/K8YSt5Si7ijpdO+ftWqBO0e4hm6xFyzrgegLvdwh56mFSm5n9d
-         PkPA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQGEdd/PkGirkjFXhgKHJaQXxU1vkgcbNC2CbA/2bXA9SS1oHZaLR0WQyqEwgSlESUhQRcvjvUX6f/@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhURL8HI0i6hLjPVnUH9xha2/MfTTbsiKQD330JVS+EcaNS3XZ
-	EKKGvg5EoY9O9uYN6lO43r85FlvvF+8zdo8z3P1koPHs6aLatOBjs/nf1WxBh0AaO7E=
-X-Gm-Gg: AYBFou0AMyhut/n7mDIvQ8cVSJekwcBhyrwzlMWBsD47hG40GtIMrQdDob1sAUNcLFO
-	3bJhZb1gCd+JiPkz16Yc6j+l6cqz+aje06V92qta5ktAduUuXjLJl/wRJUJsPYLV3vai7I4b/Bq
-	ldBdLSzcvIBPFbdCBxNRzifTK9e5HYWKf85tOQ+PyJoVLnVu+KA3Pru7ySn3/28VV70NZCk9c/w
-	2phooKiMbsEAKf4uGVrpfgfYned6/vnjgQqErYq93bT2pwSTJzzQq6v6AxbLXXfb2RDWt1phOJb
-	eGA11mSz4XDwEvgGkoMGyAGSUldtcyvcMFf4bKkRSZRalFk5XUBj+0fhm6fHX5qUEm8zM8JKU+D
-	viSCSyZC7pTi0HTbouHEphx26B3XZI8bx+QSTYbdf2LKlsIU+o25zouMVcb/L/iFvPSqKZpr4Iu
-	sgj4ZcxqwUHTXIg2q3ND3ILuwntKd6m5Vgw6kby/fhER+p5NUItWl4lcLuHzrugrJc1rcCNTH+b
-	vH7ybPtKoFyZa5zc19g1XrTU7N9xoKVOuM0n9HUfbQAGk+xU/N2GZNOitl/GKeTMpoNncbhDGMl
-	oeo2YX8=
-X-Received: by 2002:a05:6512:290b:b0:5b8:ea1d:ce0f with SMTP id 2adb3069b0e04-5ba40600866mr515249e87.67.1790775146114;
-        Wed, 30 Sep 2026 06:32:26 -0700 (PDT)
-Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba3fbbc003sm357173e87.12.2026.09.30.06.32.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 06:32:25 -0700 (PDT)
-Message-ID: <742d5bab-51cc-49f0-825a-f299a055bb1e@linaro.org>
-Date: Wed, 30 Sep 2026 15:32:19 +0200
+        d=1e100.net; s=20260707; t=1790775196; x=1791379996;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M97dVmT/CeKGrW0RKGI0gKFEI3jgGv0NSYskazvF1xc=;
+        b=knjuSI4FM+lXBDWrxuza7ObAh0C/QfE4Uj/2FJephqCgB7PYHp8YXp/TWYTuY0f4MF
+         kTdesiFxEuuc5OPEs2F++sCwWaW1atXOfn7BXovf45uYD6h+HK1gdF2fNI0IFMrTKB0O
+         rDru750mjTGsXp6Mc+I04MTex1Q9b4BnEdGLGyWihbvCJbHVGNljIWGKImHPJLZW7C7G
+         d6IDR48VxW4s1zWPT28c4mkR9cc/DbsKZCclFnuuiArByaPTCJD4Jwc98UmNNiFzFKLb
+         MP+ZMZoLfrtlX8FtM3k0oWOkE9/KsZE9faQecnGWsJ2YVWpIF9Zfkz2YlzZWOxpfwoXb
+         c/2A==
+X-Forwarded-Encrypted: i=1; AKwUvBwoK4Xwmv1sm8KIhdRoBPAsYFOonI6Ea5oPCBYmlkZQJ23DWyujktywP3HNSS/hvte1JPdmQlSVlzNh@vger.kernel.org
+X-Gm-Message-State: AFq9FYKowoSNVMIUJIcglo2VT1K10m/zbO38EHALG65pi8dfF5r8cr/o
+	wDUcEoT2PlSKSmz7HCYwAS1LQWjNFI1L7zMbgMCl/h71StvSX6SP3myo
+X-Gm-Gg: AYBFou1k3i0RWzUs/F/nMzRR12N1EJNBc1xvyxIQE/a/rC3x2oajP6IJUc52+1yx3Dm
+	/TKp7Ha2xNyHyiv3ayqNs99UXmJXUTrpFgDVEgi9uv3c+Bs/ifkFbVKqX3/3ORPVTRBUXDg8tQE
+	DUKudzdr0xT+FEwVqwKi2Hb9637EU+WKnyHECsWElx/qySO21agdbGOK/EdYvnMmxmHg5rcmbJb
+	sk+bogLY7jg2e7IOFxV4p1tRye9JIxSXoHCgkU9KPSxkV/z9VD/p0fmGf0rTFCHfKC7z6sZXUs4
+	Lyt+OroaN8EWHWEPPAwYshdMM2coLPh3bEa0q8SMDTgtJIEyw+E6YgXGR+PhmMmUKk74x3aRteo
+	mimvYWYr6QwtR6Vr4B4Al3D+D4sC/2lgXGY+u6jPgXyrindu7OJ5tSLHWOTaSUqv8sXu0jArwW6
+	ScNZYSnwkiUHQdTrrCnzW8wq1+8B6XltZ95LwKmVTZeP0mPdzsUvk5sWrR6a5QQ7NRPh00RMZ7G
+	E17QHxirrhl/I8XDsAdR6ADnZE6eM0BNQ==
+X-Received: by 2002:a05:6000:144e:b0:487:71a:be5e with SMTP id ffacd0b85a97d-48b02525009mr3006986f8f.28.1790775196027;
+        Wed, 30 Sep 2026 06:33:16 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a702:d301:bade:1500:bcd:b3ec])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029f2b02sm3685582f8f.24.2026.09.30.06.33.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 06:33:15 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v4 9/9] arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with ITE6263
+Date: Wed, 30 Sep 2026 14:32:51 +0100
+Message-ID: <20260930133257.23210-10-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
+References: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-To: Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
- <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Benjamin Tissoires <bentiss@kernel.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
- <20260928204059.GA515872-robh@kernel.org> <artyl8fD3zzng8Uh@houat>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <artyl8fD3zzng8Uh@houat>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/29/26 10:39, Maxime Ripard wrote:
-> Hi,
-> 
->
-<snip>
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-> 
-> panel-mipi-dsi-spi is a generic panel that will load a firmware, and
-> quite similar to this one. google,android-pipe and qcom,fastrpc don't
-> attach to anything and will just open a tunnel to userspace, which is
-> somewhat equivalent but more dramatic than what this driver is doing.
-> simple-card or its variations will just instantiate a kernel driver from
-> the DT and is used pretty much everywhere.
-> 
-> I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
-> by rob, and acked by a panel maintainer, and 4 years ago, so we're way
-> past the "oh but we didn't know what we were doing back then" argument.
-> 
-> So, let's phrase this differently: what's different about the
-> description than panel-mipi-dsi-spi, or any other binding already in
-> tree?
+Add a Device Tree overlay (r9a08g046l48-smarc-lvds-ite6263.dtso) for the
+RZ/G3L (R9A08G046) SMARC EVK board to support LVDS-to-HDMI output via the
+ITE 6263 HDMI transmitter.
 
-The panel-mipi-dsi-spi still describes a class of H/W control interface,
-not a pure software driver implementation type.
+The overlay enables the LVDS controller and the display unit (DU/LCDC),
+and configures the ITE6263 on I2C2.
 
-"panel-mipi-dsi-bpf" or "panel-mipi-dsi-rust" or "panel-mipi-dsi-cplusplus"
-would be the same problem.
+Update the Makefile to build the overlay as both a standalone .dtbo and
+a composite .dtb (base DTB + overlay).
 
-> 
-> If it's the BPF part, BPF is not Linux-only, and there's hardware with
-> direct BPF support these days, so it can be considered OS-agnostic and
-> not an implementation detail.
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+v3->v4:
+ * Updated license header.
+ * Dropped reg_1v8 and reg_3v3 nodes as they are redundant.
+ * Renamed it6263 node name from it6263 to hdmi.
+v2->v3:
+ * No change.
+v1->v2:
+ * No change.
+---
+ arch/arm64/boot/dts/renesas/Makefile          |  3 +
+ .../r9a08g046l48-smarc-lvds-ite6263.dtso      | 86 +++++++++++++++++++
+ 2 files changed, 89 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
 
-If somehow panels used a standardized MIPI firmware we could define this
-in DT, but here we're basically inventing our own type of firmware from
-thin air.
-
-Neil
-
-> 
-> Maxime
+diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
+index b9dad3f44ac0..05df4c642e4e 100644
+--- a/arch/arm64/boot/dts/renesas/Makefile
++++ b/arch/arm64/boot/dts/renesas/Makefile
+@@ -267,6 +267,9 @@ dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc.dtb
+ dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-dsi-adv7535.dtbo
+ r9a08g046l48-smarc-dsi-adv7535-dtbs := r9a08g046l48-smarc.dtb r9a08g046l48-smarc-dsi-adv7535.dtbo
+ dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-dsi-adv7535.dtb
++dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-lvds-ite6263.dtbo
++r9a08g046l48-smarc-lvds-ite6263-dtbs := r9a08g046l48-smarc.dtb r9a08g046l48-smarc-lvds-ite6263.dtbo
++dtb-$(CONFIG_ARCH_R9A08G046) += r9a08g046l48-smarc-lvds-ite6263.dtb
+ 
+ dtb-$(CONFIG_ARCH_R9A09G011) += r9a09g011-v2mevk2.dtb
+ 
+diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
+new file mode 100644
+index 000000000000..3c64db8d22e9
+--- /dev/null
++++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
+@@ -0,0 +1,86 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++/*
++ * Device Tree overlay for the RZ/G3L SMARC EVK with ITE6263
++ * connected to LVDS and LCDC enabled.
++ *
++ * Copyright (C) 2026 Renesas Electronics Corp.
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/pinctrl/renesas,r9a08g046-pinctrl.h>
++
++&{/} {
++	lvds-to-hdmi-out {
++		compatible = "hdmi-connector";
++		type = "d";
++
++		port {
++			lvds_to_hdmi_con_out: endpoint {
++				remote-endpoint = <&it6263_out>;
++			};
++		};
++	};
++};
++
++&du {
++	status = "okay";
++};
++
++&i2c2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	it6263: hdmi@4c {
++		compatible = "ite,it6263";
++		reg = <0x4c>;
++		data-mapping = "vesa-24";
++		ivdd-supply = <&reg_1p8v>;
++		ovdd-supply = <&reg_3p3v>;
++		txavcc18-supply = <&reg_1p8v>;
++		txavcc33-supply = <&reg_3p3v>;
++		pvcc1-supply = <&reg_1p8v>;
++		pvcc2-supply = <&reg_1p8v>;
++		avcc-supply = <&reg_3p3v>;
++		anvdd-supply = <&reg_1p8v>;
++		apvdd-supply = <&reg_1p8v>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				bridge_in: endpoint {
++					remote-endpoint = <&lvds_out>;
++				};
++			};
++
++			port@2 {
++				reg = <2>;
++				it6263_out: endpoint {
++					remote-endpoint = <&lvds_to_hdmi_con_out>;
++				};
++			};
++		};
++	};
++};
++
++&lvds {
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
++			lvds_out: endpoint {
++				remote-endpoint = <&bridge_in>;
++			};
++		};
++	};
++};
+-- 
+2.43.0
 
