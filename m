@@ -1,195 +1,107 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FD24657C2
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758557; cv=pass; b=oq3uw30gdrLlfzKo3IYe75YKt2tJRVk2/Dca4l28T4Wpd1k1qW68/4h5Ztq2+0gojItsLd1XOWXvhbfRIiWYG9it+6iS3hFB65zVtxXAm8I/Z0ncsH2/A+0SEiCaC0LNmdMisJpIrYrH+61TM0tw+e2RGCAkVEJVQxiCv81n/FY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758557; c=relaxed/simple;
-	bh=abErfC33CbNFbY3oc3pdHalPqdAnCa9dxRZNa7+VFeg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y6BOH5p0M7zRy3j5aTck9Hym5MDzytwSybny5xmLii7BCvEqxMkX1gmStOiFbMAEVDqmCdD4AEc+7A5zw2GKtvIKBeI3N1cZN1MLbT11BuGvIomT5MORYpLyzazzZ4jt4aogIGrHvIkLpzPcsDNEjoXz+pMsMTiDaU2JweRmGsg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KJBA48UW; arc=pass smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B553FE37A;
+	Wed, 30 Sep 2026 08:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790758560; cv=none; b=BSzjoi6iSAA5jVVu2sX1OnlKeYdJop/k2PXJcoV8Gdrc0+Im5ZGmmcVaGpZ/HCk//UiO9j3EPgswIseSxtIDdO7+fpH6khDoZV4kq0tTMHebx2zDMA9WqXBNgO128U6N/EOwDuG85UQprVGBj7sAES+JTC0GnxM/y5OjMWEvcis=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790758560; c=relaxed/simple;
+	bh=N8NsL8xAHAPT4V/vU/YLBwC3KZGQnQwHOH/YRxi5FD0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZfB4fnFDjMKPyMCWaL+XMrcU9JCIP4rzQhGoYVEVGoN2lGzNlDAMG+luRvFJe5AWZjGQdC7j5aLJH4D7qo/jGL2TpBD0Klo8Onk+57MlQDCqKJUMOX2OS+YUS1DgQSVe4yiu0jeSaWbEg/XvBnXMDGKLG1qzKKYAa+8hdr7/J2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HIc/XfPO; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KJBA48UW"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34bffc8105eso1140735eec.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 01:55:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790758554; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qDylZfcnDzIq+00KsRmUe0um4lFahv/wQdrSIm1JG2+CWGzdrfaj+RFwf7jW1PZy29
-         JoMsMGDCyYUkUwaDbWUeAAn2VfvtpCj4XeP1h4b40jE9sGeOJABj69uo/QLVQF76GBi+
-         vy+xtPItZVup9IXh25upKvCUkb+h69l5YydHNmRQW3Y8svfsxmAfSQfrvF4xtFoQeLVI
-         vntSjl9QEk9JWsvTIZg8vTQFIxLq6hNph79yiVXrlp8J00TuGxjEO2DL+0Jh+nf7XZHi
-         M2ZJoCQTNYb444377h6uefRNMoHTqTaQYmWTuIthjIMmBYqk62c7pzIgMzmPmBm64BeS
-         aRJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tK3QynNJMVX6fk91fIN3QptmwfowFv6iOT0xBS9VT+c=;
-        fh=qZvy4CK8MohChyCLTCUQXIAjSmO1xCcbgeYV0rkl11c=;
-        b=RzTFcDX33Oekncoqwxl1ESQ0lq5j2DUQydeXYLaTN8QNNIzSKtz8iM7jCkVZ5AeaNT
-         q1rxp2pDqpCzsAl/1qnhZ7Gb1NH2g+2p4QK60wfu8Ups5rRepvzc9xoQRYnWqEV2a309
-         tmcy5XSEiJbFBFNbSZ/GRxMBx/Ch3IhHiELhS6u8+7omJrS6IF5TcpGl+BNwmIP9pbNb
-         Wfa2HZzGLfa9oh4sbhSr+0TmZBKe7L/qF7zZZOlntF7+0l5AgCF7ARJFLtH/ds+BavRs
-         qGjliKNnGsr4xO5R1cyREF1rXNFwZ2PLmar4gYTmpyqSqsqqQXBsJoHiKgpRIiVmTmto
-         SEhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790758554; x=1791363354; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tK3QynNJMVX6fk91fIN3QptmwfowFv6iOT0xBS9VT+c=;
-        b=KJBA48UWipxI48Q02C+mBfABDC5msOfOaSv8aX2fdI1HML8vVRGO61y1NxPD57HAHd
-         HfSDziq0Tzzdnpr5Q7wM2lgbckJGdbnB/VQ050HFMN5mE8NKtHQaCbBIZUT30bfEzWev
-         XQzeeNJa/hQnMjKtlIfvKt8u1mKWLLnvwBfZ2Z38MV406DE5rObDrEjv3j+P6Yb7Ge15
-         YvuC0/XjeMzmC7HKIQZ5G8whr/AEd3EJcWcjvFIv5qQND08/NWWr7ZUObQGaNV7na0tG
-         SDbqSGBiCjMKV70FUKvRqOiTdlavlF54TJdum4IAqkDO+98ubxSKPhsxI9d7CFpRfKib
-         gotA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790758554; x=1791363354;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tK3QynNJMVX6fk91fIN3QptmwfowFv6iOT0xBS9VT+c=;
-        b=F3O8ag8dx2sc2TcBIYg3jRrMBu1hlWAojP6Sq0B0uwa58YFporhPlB0oOworrIFk4+
-         nnxBluW/C+VPBXrwMzYMut2AkxlAyw6JUzRdiIA4yZYByjErviANKzzjr8vRuqlY6FiX
-         LpPJSCxaCfOKfcr7IUjFQu5ID77L28oVzTioKAv2GdRfSukFM1KhqjpQz+uzZQ7o7uLW
-         eF+sJmF+9JPj0eWicZDWSJ2hs1Mkx5+dlvYgNkaATgMgF/to1V0PE6Oe4iN83U4tN5nI
-         ismHuajHO6Ghr2nXeAMcNi4uGozpXZypLsoPNFaifPqjGVufz5WRe1cluITjvSrtp35E
-         iUnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzWr9GleSAIHOdIo20cshgsahZoClGwtJHaJPwI9V6/dicjvC5rEKiZ5vkSi3mjfIdGW9B37B0ifVK4@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1qYy3RBt3bJYC20ONh/DMsRpsh2K+Ie9pnjMu7Sl6XIa4XW1m
-	bw9xI4n7nRnNzAExQX3oxzRRQtAOA8meq/wTZA6ruyJD5UM9X++wWlGlB4/hFumJa2lr3XrkNez
-	ykKUO1Rmlf6QB8YW/BRo2jyLatHoR+Lg=
-X-Gm-Gg: AYBFou1eNwxTI5KCf+9D7zo/drSMY9kou65zgOh14YWCwDz1t+7Zb+eLvwaQ91+e9ZR
-	hOAexhHYx4cO16LFv6jk5WDtIFFbHGDCTfM+jhF8+9R7uM/ZZIpnE5EYPwFRX0b94tWLCT8aY7F
-	aDvM8XdsIES8a3TiTLnVcKTKBVHx9wCGDchgFiWy7zj7qKskoX2vMzFH3BbxqxTPYOYaM6sGpVf
-	3X5/xD8dmJOOyQ60+w1ttK+WY0xdpOlRPdgOt0NY512Dp0uqswcpi7k4BvYHZcY7nvH175UKHSS
-	aynb5UzB/8OT5rLsKj0AGmCewmSXJGXgQL27NOYfJYzEyOHI+0jHMsu/0ecNZ+FV59l+4sl5Vsw
-	vvX9ydcNCSXkt
-X-Received: by 2002:a05:693c:66cc:10b0:33c:e9d:6d4b with SMTP id
- 5a478bee46e88-34ce1a002femr1132397eec.41.1790758554481; Wed, 30 Sep 2026
- 01:55:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HIc/XfPO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790758559; x=1822294559;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=N8NsL8xAHAPT4V/vU/YLBwC3KZGQnQwHOH/YRxi5FD0=;
+  b=HIc/XfPODDf77c9lZcyil3HPJ9b+QhBhJw27GvDMk2U/NButGLw+tGbF
+   ZA0Fofz7MPL3M1/Se+W92WF2YbPGz6UckabgjlU66oo5IDetGj14BQ2VQ
+   acdIGrmUALf+WmDXNSo4MfFJG7U7vEos1VGwhddWRkdjnHb8KnE2bhS8S
+   0ySi6svUW2cuvV1DSnNleBIkmTBAGIoeSWqvjNz/KZ3Ht6jBcfHismMvn
+   v8JNl2l19w+zOrkxhF55jDbP3p5FI1CVh0WhqKzpxoEqB5N3GRl2xhotF
+   rbuidsMnLe6HvNlfuxN0nVi8ws5RBj+Sp4SaYup/E14arnNXXEx5tpkev
+   g==;
+X-CSE-ConnectionGUID: 03YPbstVTwKGjDRpdFKZ4w==
+X-CSE-MsgGUID: uRBsS0tTTMy7TinDT6c6mw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="100821300"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="100821300"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:55:58 -0700
+X-CSE-ConnectionGUID: XJq7Q+H9Q+W2I+MxFuJnMw==
+X-CSE-MsgGUID: J068ASCjQj6XHEzHq4hWEQ==
+X-ExtLoop1: 1
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 01:55:54 -0700
+Date: Wed, 30 Sep 2026 11:55:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Marek Vasut <marex@nabladev.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Cheick Traore <cheick.traore-ext@st.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH v2 07/14] iio: adc: stm32-adc: add support for stm32mp25
+Message-ID: <arzOmLhyaqSdcKqW@ashevche-desk.local>
+References: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
+ <20260923-adc-stm32mp25-v1-v2-7-46bc019537c6@foss.st.com>
+ <arWPjx-JKt1IZCZl@ashevche-desk.local>
+ <8fd19ab1-6ec4-49d7-aadc-accec6e71410@foss.st.com>
+ <arzJYg3cg73vYCOE@ashevche-desk.local>
+ <d83e2c8e-452a-4dfd-823a-624fe211837f@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930070535.47130-1-clamor95@gmail.com> <20260930070535.47130-2-clamor95@gmail.com>
- <arzI6PXbGAgXs9Uh@orome>
-In-Reply-To: <arzI6PXbGAgXs9Uh@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 30 Sep 2026 11:55:42 +0300
-X-Gm-Features: AclHuK--O-LZ7t9iRpgmVS0LccEUwDL6n7PPlA0pa15dhw7HSbr4NELCXapQceg
-Message-ID: <CAPVz0n3dOfmF6C5r0Z1t6ezzCoQEZh+V_oLGMFaUh1xHBMv+UA@mail.gmail.com>
-Subject: Re: [PATCH v1 1/6] drm/tegra: dc: Expand available registers layouts
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d83e2c8e-452a-4dfd-823a-624fe211837f@foss.st.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 11:35 Thie=
-rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wed, Sep 30, 2026 at 10:05:30AM +0300, Svyatoslav Ryhel wrote:
-> > Expand existing DC register definitions with additional fields in
-> > preparation for adding the 8-bit CPU interface.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  drivers/gpu/drm/tegra/dc.c |  3 ++-
-> >  drivers/gpu/drm/tegra/dc.h | 54 ++++++++++++++++++++++++++++++++++----
-> >  2 files changed, 51 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-> > index b0bfa946e6979..5c67928bcabfa 100644
-> > --- a/drivers/gpu/drm/tegra/dc.c
-> > +++ b/drivers/gpu/drm/tegra/dc.c
-> > @@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_c=
-rtc *crtc,
-> >
-> >       if (dc->rgb) {
-> >               /* XXX: parameterize? */
-> > -             value =3D SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
-> > +             value =3D SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
-> > +                     SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
-> >               tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
-> >       }
-> >
-> > diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
-> > index 0cb0515968b35..5679e1ca0c2a5 100644
-> > --- a/drivers/gpu/drm/tegra/dc.h
-> > +++ b/drivers/gpu/drm/tegra/dc.h
-> > @@ -274,8 +274,11 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
-> >  #define DC_COM_CRC_CHECKSUM                  0x301
-> >  #define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
-> >  #define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
-> > +#define LSC0_OUTPUT_POLARITY_LOW BIT(24)
-> >  #define LVS_OUTPUT_POLARITY_LOW (1 << 28)
-> >  #define LHS_OUTPUT_POLARITY_LOW (1 << 30)
-> > +#define LSPI_OUTPUT_POLARITY_LOW BIT(8)
-> > +#define LDC_OUTPUT_SELECT_V_PULSE1 BIT(14)
-> >  #define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
-> >  #define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
-> >  #define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
-> > @@ -303,9 +306,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
-> >  #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
-> >
-> >  #define DC_DISP_DISP_SIGNAL_OPTIONS0         0x400
-> > -#define H_PULSE0_ENABLE (1 <<  8)
-> > -#define H_PULSE1_ENABLE (1 << 10)
-> > -#define H_PULSE2_ENABLE (1 << 12)
-> > +#define H_PULSE0_ENABLE                              BIT(8)
-> > +#define H_PULSE1_ENABLE                              BIT(10)
-> > +#define H_PULSE2_ENABLE                              BIT(12)
-> > +#define V_PULSE0_ENABLE                              BIT(16)
-> > +#define V_PULSE1_ENABLE                              BIT(18)
-> > +#define V_PULSE2_ENABLE                              BIT(19)
-> > +#define V_PULSE3_ENABLE                              BIT(20)
-> > +#define M0_ENABLE                            BIT(24)
-> > +#define M1_ENABLE                            BIT(26)
-> >
-> >  #define DC_DISP_DISP_SIGNAL_OPTIONS1         0x401
-> >
-> > @@ -451,11 +460,30 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
-> >  #define BASE_COLOR_SIZE_888    (  8 << 0)
-> >  #define BASE_COLOR_SIZE_101010 ( 10 << 0)
-> >  #define BASE_COLOR_SIZE_121212 ( 12 << 0)
-> > +#define DISP_COLOR_SWAP_BGR  BIT(16)
-> >  #define CMU_ENABLE_ENABLE      (1 << 20)
-> >
-> >  #define DC_DISP_SHIFT_CLOCK_OPTIONS          0x431
-> > -#define  SC1_H_QUALIFIER_NONE        (1 << 16)
-> > -#define  SC0_H_QUALIFIER_NONE        (1 <<  0)
-> > +#define SC0_H_QUALIFIER(x)                   (((x) & 0x7) <<  0)
-> > +#define SC1_H_QUALIFIER(x)                   (((x) & 0x7) << 16)
-> > +enum {
-> > +     SC_H_QUALIFIER_DISABLE,
-> > +     SC_H_QUALIFIER_NONE,
-> > +     SC_H_QUALIFIER_HACTIVE,
-> > +     SC_H_QUALIFIER_EXT_HACTIVE,
-> > +     SC_H_QUALIFIER_HPULSE,
-> > +     SC_H_QUALIFIER_EXT_HPULSE,
-> > +};
->
-> Let's stick with regular defines for this, there's really no advantage
-> in using enums for this and the other enums introduced by this patch.
->
+On Wed, Sep 30, 2026 at 10:44:12AM +0200, Fabrice Gasnier wrote:
+> On 9/30/26 10:33, Andy Shevchenko wrote:
 
-Alright, noted. Thanks.
+...
 
-> Thierry
+> Sorry if I'm a bit confused :-), just to be sure, the preferred style should be as below ?
+
+Yes, in case if you want to update the whole ID table.
+
+> static const struct of_device_id stm32_adc_of_match[] = {
+> 	{ .compatible = "st,stm32f4-adc-core", .data = (void *)&stm32f4_adc_priv_cfg },
+> 	{ .compatible = "st,stm32h7-adc-core", .data = (void *)&stm32h7_adc_priv_cfg },
+> 	{ .compatible = "st,stm32mp1-adc-core",	.data = (void *)&stm32mp1_adc_priv_cfg },
+> 	{ .compatible = "st,stm32mp13-adc-core", .data = (void *)&stm32mp13_adc_priv_cfg },
+> 	{ }
+> };
+
+The rationale for the trailing comma is:
+1) no need (doesn't make sense) to have it on a terminator entry;
+2) do add it for non-terminator entry to avoid a churn in the future;
+3) do not add it for any case when the whole array is located on a single line.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
