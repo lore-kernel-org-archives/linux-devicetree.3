@@ -1,113 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D54547A0DD;
-	Wed, 30 Sep 2026 14:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998394F3ECC
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:05:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777077; cv=none; b=E53/eCI/vhwdeapqe/YPmzEyagNvr1axJPWvHhQIVspL8kOpmPIjerXQb8We/nH2ZW+VkL+aPQV0PocJ0pextdUvuw7gWqzsZCCi6YFtndKJjMyxyy70IRoiOvusFNJH3nvV+Fw6VPMMUON4igL/26S3UcYhZV08iZASgO2qgNU=
+	t=1790777177; cv=none; b=IW9IvNJZ09l+rPs5FzWMz1VeO0GFY15jNJLz5haS4/jVv4hTPJg4VmRaloNc6CmQDIzMAGRbxPNsxOabaBGka9y3bVDsvFt6+4oVmsHHBsKj/K4UoxWabpgarw4t8PWH/hRAOGCXts4x54E9A8KiSM0m3dt01Vj9kvd0RdGmrT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777077; c=relaxed/simple;
-	bh=PhQX3sDUfwrI0ZOYgYs28c4fyJcMzrHQbMgRhhbqRDk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CZ8qWz0pNpuL4FAljUvpVWX94hsTmaUu5SNJsytJn4/FVrmK0ZoXA2KcbawRV4WxUW9lC6aukT6bD7OM6KFLNWIafMylJmqo25/k/HmEZ/QweEd8N9HPldAplG9QLdy8PczvnAWgb7KI0pdQ7o7x7jo82nEA7msJk+lglZtNjW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b51FCUDK; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790777177; c=relaxed/simple;
+	bh=9bx6coMoBdOLnpZ1etpmYrgE196fZ3EXrtZZ7FD3iVU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=M88mOWlEzQHpPIm5N0MvnPW0ana6BHEu1fZjWX6OrTnW7pWh+F6tDpAJbFgZMcGQeBnWkCHlaXOObZaGojlVN11LfElGI3+96iUdW4r3ZbeolSRGdTf3goWEYJPp+cf/4eZthhTIik/nLMPX99mTKg3xfHmdEUTxtNO2xr6qPCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=SAHqxUi6; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b51FCUDK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790777067; x=1822313067;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=PhQX3sDUfwrI0ZOYgYs28c4fyJcMzrHQbMgRhhbqRDk=;
-  b=b51FCUDKuchfIMWaTRNC8NmZlozyT3Lcb+32tV+aCYum94JduesiQp2f
-   p6gJhUJXMo/4bDKWJqbUDxT0roCG1pFyfxZvGXTY9Gkgi/UPeIqlhwKr6
-   xB+NscdPOWBg3xMWVmfZnWZaUW98ho7XiFGfTacmWhX82RP2nQqOeW7va
-   vAnz4LfWcc7/3hdg9fAZFxK29WCZLn6l/HV4b9/R+FVPv112WY6iiFwBv
-   EMfFUtJd+rEoBUiIhokzteUW+e+iLgO+H/kyihiUJOvvvwgnF44LMVZjE
-   OtwvBnw6BO6VgHZ+ZsyLAYfeIXMSO2TxY3i6MEj1y6AAgRjG7Xeky0wHS
-   w==;
-X-CSE-ConnectionGUID: kbUj7QxjQO6JIvP9ovAMog==
-X-CSE-MsgGUID: /77HhMQQR3+fes702tSKYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="102040774"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="102040774"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 07:04:19 -0700
-X-CSE-ConnectionGUID: ipLzaATGQN+0d7jhXNYabA==
-X-CSE-MsgGUID: YujcAwxgQu+JZgssQ7YN+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="305201745"
-Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 07:04:14 -0700
-Date: Wed, 30 Sep 2026 17:04:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <jan.sun97@gmail.com>
-Cc: Janani Sunil <janani.sunil@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mark Brown <broonie@kernel.org>,
-	Marius Cristea <marius.cristea@microchip.com>,
-	Marcus Folkesson <marcus.folkesson@gmail.com>,
-	Kent Gustavsson <kent@minoris.se>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-spi@vger.kernel.org,
-	Kent Gustavsson <nedo80@gmail.com>
-Subject: Re: [PATCH v6 5/5] iio: dac: Add AD5529R DAC driver support
-Message-ID: <ar0W2xQ56wMFvtaE@ashevche-desk.local>
-References: <20260715-ad5529r-driver-v6-0-cfdf8b9f5ee3@analog.com>
- <20260715-ad5529r-driver-v6-5-cfdf8b9f5ee3@analog.com>
- <arzTnOTaL97GudZM@ashevche-desk.local>
- <a57399f0-4c47-4b32-bf6a-7761d9b57320@gmail.com>
+	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="SAHqxUi6"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id E851A240108
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 16:05:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1790777147;
+	bh=z8s3bGJeeJqZuJkbjfTcGgrs2VSs73dz7rSX2XlTyr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:From;
+	b=SAHqxUi6lCbmYp932P1f2i/YrVBBZQ/P2YoNuXKzcnDZ69H9JfyTG4dw2Y9oavRDY
+	 AELQS5IF9UeTg2VK1JZb5vZXFeh3lcR5vQZFeJZxvgcyNuoEB1qJVLW2go1WnvIC9P
+	 3FajJYyMSjYaLSOsKNsQF3Nnk/OiwWHsMMOeTeFtANXyd7ub0zvBL4aTiqzmSB3oFl
+	 sA8MHsz2FI0UYMP5Wg/5xnXS6IfLuMB/MnjdqdnQKb8xZQF45DllVNJ82h3qehLOXR
+	 IjN6HokgmhsUtPXfZhrkpwIQKd3rAjwWcOI12MqTMnfmGwNF7h40Pm+pr5KAkkQihf
+	 kW59komk6TUrg==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hvxdy1xn9z9rxb;
+	Wed, 30 Sep 2026 16:05:42 +0200 (CEST)
+Date: Wed, 30 Sep 2026 14:05:47 +0000
+From: Wilken Gottwalt <wilken.gottwalt@posteo.net>
+To: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+Cc: Bjorn Andersson <andersson@kernel.org>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu
+ Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
+ Holland <samuel@sholland.org>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Andre
+ Przywara <andre.przywara@arm.com>, Bastian Germann <bage@debian.org>,
+ linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware
+ spinlock
+Message-ID: <20260930160541.040ccc0e@posteo.net>
+In-Reply-To: <20260930130221.129529-1-tien.nguyenminh@embeddedlinux.blog>
+References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
+	<20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog>
+	<20260927132707.5f484946@posteo.net>
+	<20260930130221.129529-1-tien.nguyenminh@embeddedlinux.blog>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a57399f0-4c47-4b32-bf6a-7761d9b57320@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 30, 2026 at 03:51:26PM +0200, Janani Sunil wrote:
-> On 9/30/26 11:17, Andy Shevchenko wrote:
-> > On Wed, Jul 15, 2026 at 01:41:08PM +0200, Janani Sunil wrote:
-> > > Add support for AD5529R 16-channel, 12/16 bit Digital to Analog Converter
-> > > from Analog Devices.
-> > > 
-> > > The device communicates over SPI and supports per-channel output range
-> > > configuration. An optional external 4.096V reference can be used in
-> > > place of the internal reference.
-> > You haven't added a given tag, why?
-> > 
-> > In any case I have noticed that there are a number of (not so critical) issues
-> > are still exists, so I have to withdraw my tag. But please, answer the above Q.
+On Wed, 30 Sep 2026 20:02:21 +0700
+Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog> wrote:
+
+> Hi Wilken,
 > 
-> I intentionally did not carry the Reviewed-by tag from V5, because V6
-> included substantial driver updates. I should have mentioned this in the
-> cover letter, but I missed doing so.
-> Some of the points mentioned here have already been addressed in later
-> revisions and are now present in Jonathan's testing branch. I will send a
-> follow up patch for the reset of the items.
+> > Wouldn't it make more sense to add the "allwinner,sun20i-d1-hwspinlock" line to
+> > the driver in the sun6i_hwspinlock_ids struct, drop
+> > "allwinner,sun6i-a31-hwspinlock" here in the D1 device tree and update the yaml
+> > file accordingly?
+> 
+> Thanks for looking at it. Bjorn hasn't replied yet, so I looked a bit
+> more at the naming. I'd like to keep the A31 fallback: it's the usual
+> pattern, other blocks in this dtsi do the same (timer, I2S, LED
+> controller), and Conor already acked the binding in 2/3. If Bjorn
+> prefers a driver entry instead, I'm fine to change it.
 
-Good, thanks for taking care of that.
+Yeah, Conor was a bit quick to act here, such things happen often with patchsets
+made out of documentation/devicetrees and code. Though, the get clock and resets
+patch is fine. The driver could use some modernization.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> > Oh, and I may be able to test it against the D1, I own a Sipeed Nezha.
+> 
+> That would be great. You don't need FreeRTOS for it: I tested with a
+> small Linux module that takes each lock and checks the status
+> register. I can clean it up for the single-core D1 and send it.
 
+Uhm, the Linux-only test doesn't work as a hwspinlock test, it misses the entire
+point of the primitive. A hwspinlock arbitrates between two independent agents,
+in this case, Linux running on the C906 core and FreeRTOS running on the HiFi
+DSP, both sharing the same memory bus and other hardware. If Linux is the only
+one who ever takes the locks, it is simultaneously writer and reader of the status
+register, so the test cannot fail even for a broken (or fake) implementation. That
+would basically test nothing at all, well, maybe it would be some kind of bring-up
+test, but overall quite useless.
 
+greetings,
+Wilken
