@@ -1,172 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010053.outbound.protection.outlook.com [52.101.84.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B5F1BD00C
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790754617; cv=none; b=pkntGqV/8jOp4E+MtzIzYBfBU+vvjlRz7Q6pkQqfhA2RA0HbJRJ+ploLSThm+M00RaLv/tZbK7V93G6uQ54X+QqxBQi27C0ECJsF3UmssbDOWJAm5whCGgqcIeryfOqFfHkUZ/36KmJ06rsZiDhAXMwLQGbPkBr7cgOkpCaySiA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790754617; c=relaxed/simple;
-	bh=Q5D2qZQI6FML2WjX+fFXrHmuBHbGwmtBKG1RHd3917U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Pg4Av27mKPrZHjwdybM4jubE20QqY5qkWANm5cREmMghHie3MBeiFSrJMjIFV1j+KKFfXTqpOcqhZU9Bjj3glHWk4+ei5Zyeg0cKJFZgd5Lcdvtlzx3UR7ImPB6SCgSxnAme9e1sN+lz/ZzaTLZ1qeJjjUCUHb46hwsJ3B97uIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YZQ4zVyB; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0962D4477FF;
+	Wed, 30 Sep 2026 07:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790754623; cv=fail; b=Hd/Hr3BLUSw40RIjMfYz6dTweMf+85ErBxjtJBjyZmvKV8RMrcMSK8dBnk7pF/zZpWLXBWLqjbEWj/n4AA8glqC+c1QE66OXNTjSDJDj0j29zaiswL/gWm7X5Or/iR9VvW77ShxLIAERcA1myN6q51aNURBlgUpgLu4PwLNDJ+o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790754623; c=relaxed/simple;
+	bh=C7j8Ef93HoeS4ELgctk42esiuDYEkqRjMghRdUlNeVc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=lcLX4rTotEtw4y+noVkhbvWTDfPXEWpY/nZPwQL0CkgwtCdIt5Z0Z6i5/k+2NV+QYvjYHycLuZZcYuOdY+gutsEuxPOQvCXFVq+5gwjsyWIiNeIAPDCndoyQ65AZfiyq8c/pv/C1vZYP6F4f4C5PKCIfOEgVsO+kWmqrsKSv83M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=jnsUN1WX; arc=fail smtp.client-ip=52.101.84.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YZQ4zVyB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CF91F00898;
-	Wed, 30 Sep 2026 07:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790754610;
-	bh=E5UHGy1dLllCEWn3ECzEBZnl5DUMKLNvdR2pSwWnFnw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YZQ4zVyBMtR5QXUBiEBA+UZB0JR4WF63RYdDR6/o9IhY8/3c7zH189dz1+Pc0kypu
-	 pM0f9JZD8xVMCEPOd1JwVcTwRevfG7DAKWEWZeotUjGEjg/MTglpT5108YH4JNUb3z
-	 XT6ucGilhW24fdoTlXQOvO3nxti1ury9FOfxvjO1PQa9WbvJzFGivcAJWpMTBbk00O
-	 xy/0+nZX+4b7YZfYlqqbF1JwfoetOkWkyvJuNzgS+mmoVRUrGpCxN/ZyyOyHfKV/Db
-	 ysyxHWrndPkwyjlRO545DyeHiRbfs0koU36RpQYnIN9hD7t9yOCGD9sCc+G+igjYSN
-	 D23BYCKJNNtIQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v13 9/9] net: dsa: lan9645x: add port
- statistics
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260929-dsa_lan9645x_switch_driver_base-v13-9-827c2d3617f2@microchip.com>
-References: <20260929-dsa_lan9645x_switch_driver_base-v13-0-827c2d3617f2@microchip.com>
- <20260929-dsa_lan9645x_switch_driver_base-v13-9-827c2d3617f2@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 07:50:10 +0000
-Message-Id: <20260930075010.A0CF91F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="jnsUN1WX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LQwtDpnfMGs2a/bAltHr57dD52SwN6+MeOGh2jxKwJcSnhdpTt1dH2tHOrME6LwM7MUZrzUY6uq2Fkz9+NOWxHEQNz5wHysET4WBgKorxFVS6HG0d4bIXee3jKfZUDaM1b6J231i3hGTChPdzOCuGi+AA7sMJzlK9JcO0EGGqzN4MJ1Lih/7iy48ADkFE2PIYMb2alieG4xecsX4GkiLoiGHHK/6GkNPuTuIWMbFioxigRUEVP2AEXCSbxVwmQWeSVg/TJxCrvrWEhFNqmYDYIYi4OVrUGtRuFxi3GHmjh1HBsaZri4DaxZP/awV1SzHR4E4wUlAiid3Ol3CxO9nRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bkECvjPYOX3wPrKx9OcExkvbVe1e1qMXOX5r+nCzWnw=;
+ b=Iz9wf6KGQadcG1QOStdXjb1848kK+khO/eqOvQH1RMPQEO/bfrdjyr1etUStU/st1vxE3dtR018t/NS4MHQgfOzHS+Im4jHrYiVnIc7Af1WV5wmBijp1Kzd/t6aWlDHTr6WsLmYf3i0yfrRX1gRTGK+bpoeHbx+EaYbZaRAiVp5jPhcX3wmn/iqDv6JjkTiNn8Q9imSb1VzPdGZGJ4xJdyo1TUSz4oNP9TzKGvtbpVNI75UmhiYYv0oTtx1KbQEd1ygjFQ8NPG+anCy1KN/J1ilRP8HPJAiz3GecKRlneKJEx7iL4oC6WmKgbM+2Kyl0xdbUvkJKnnkGU7jr8naA8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bkECvjPYOX3wPrKx9OcExkvbVe1e1qMXOX5r+nCzWnw=;
+ b=jnsUN1WXIoYLjsBGZY5bZl+ClSL8/ErWw3C7hnIWWKvnRpnM2R3f1qy0Xqnnd/YzGWqh4Gdq5dfcexvBGHurS83JB8sV6oOTYq5p4aPLuiT61q0QLj4BxB0zOJOuh72Hm/MY9H0jnzpgtmk1RZv7SEsL6PKO0ojMx1IrtuAIbQK2FCa+MiiCqZ7O7w0uun5RpIZoSev9KB3UzNu3R31hGtYUdkMLh/NCridlFPU/42v/TKwzxa40nZr7AB1P9g7X3E/QS4JmDrZ1gFQiycapd34gFQ962+FKuGIZg+69uV5/ikth0TwSglNDU53mxRkB6RV6z0mAdvLwMmvHocBfww==
+Received: from AS9PR06CA0691.eurprd06.prod.outlook.com (2603:10a6:20b:49f::8)
+ by AM7PR10MB3975.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:137::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 30 Sep
+ 2026 07:50:14 +0000
+Received: from AM1PEPF000C1AD7.eurprd02.prod.outlook.com
+ (2603:10a6:20b:49f:cafe::4a) by AS9PR06CA0691.outlook.office365.com
+ (2603:10a6:20b:49f::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.15 via Frontend Transport; Wed,
+ 30 Sep 2026 07:50:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AM1PEPF000C1AD7.mail.protection.outlook.com (10.167.242.102) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Wed, 30 Sep 2026 07:50:14 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
+ 2026 09:56:46 +0200
+Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 30 Sep
+ 2026 09:50:13 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Wed, 30 Sep 2026 09:49:48 +0200
+Subject: [PATCH v2 1/5] ARM: dts: stm32: add TAMP backup register in
+ stm32mp131.dtsi
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260930-upstream_tamp_nvram_dts_part-v2-1-bd73158ce46b@foss.st.com>
+References: <20260930-upstream_tamp_nvram_dts_part-v2-0-bd73158ce46b@foss.st.com>
+In-Reply-To: <20260930-upstream_tamp_nvram_dts_part-v2-0-bd73158ce46b@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
+CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>, Simeon Marijon
+	<simeon.marijon@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM1PEPF000C1AD7:EE_|AM7PR10MB3975:EE_
+X-MS-Office365-Filtering-Correlation-Id: f267727b-fd73-4905-847e-08df1ec7768b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|18002099003|22082099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	PlYz6ajMmVcpuz10aGObqqGnpX6myNyUvZ7dy8CeWhP6Kgtim83FzKksRfz8Bmk4nYmXtNujLbZuGZY1HsvEMcrtU8+kljhMYCCsEtPVlZBKUceggQ/8z2ZAiSlc5CjLdJO1eq6yQZgp37iRQNg00WQ8Yd9IHwhY9YfT57rOP5ty4JNpfDRx93PlXi0ncJZHmmy4piMzguhy4pqFBEObKVGW3knVB2cXBLo8RSFj+0+v7wnBVE29En5IWIZaw8oVtNfK+UVOFlt86RrRyhBGVKe0CgiLQkW9z6DdUCsbY3Ci2dzaD3Sj5jdOZs+ODLZszhUQMfIcrgP4ejqwiHj63ha3YmLIfdw/ZFYAdO+Llu3ZVjl14WpxHVAXwCqs8lgn8YSJJ9iwDfcXXD3nr2AM/UmcXTMfTpiEOFDL9XH26vcjmt87yKdiJz6Rh7zJt9alyt8EKDgL5ma0OsUTQJTe8IdLLDKPRwHGyFUdl0EEu0K+nHlSr/qTXih4cg2fwDQLZp/GpU7ZjN+cTTxPQEyrv+3E8/pQvUea2I6aBMOQPvancz9zhmqe1e0g+6tvZFil6y6u1UCbvOSzQ3Dbop4IF/P/woMZ+bttZtzAjGyL2rz43gpN+k3zUgiqvi4vVhzXmWyQWAElhNmX/30J4A+P6PW+RGh/gPBvXsqJf3L88bosATQ5hQR2sLwRjJ0k7L7xR840gBpjoLxKFg6OgHNAig==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	7pNP1/dNB47bz2QcCyH2VAEQAGuABP189Frd5aN9aPR/9/zFWesmEoBH7kqWoh0zM7Gc7sgUjRme0x7TClNeeEmOBHkxHx5bZKgLT3ZFl8vYTpCu9bAXZy1MCcKlKO1DeI2fmobY5vNe/+Xt0ou6khWwTt4c2Nack4/qGKHYdtpGuiJJ34O290LOy1AUo4gU1kuzcUnPv6Px76OR/eIZVBcO8pdPyJXMMZs0a+vQoZbY0wcpWufMl1Az78tdArbn2nxX0ntQ7fFW5gYaOdlJrJw+ua8OjjSt6vPk8rGuB2pM0GzlY4U0U73ln5ZTR2yhTOUsbQsV0vwF0VL+Xt8xqVnkM4kJbFRl6WQ83ypTCXCPKvWS4iadNraOg4NdvpNCrl4FVMMhyBZSf7el/7UIWEtZkME1lwsqSq2RUBn2u3D62KednkcLy21LWMNFVWJd
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 07:50:14.5247
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f267727b-fd73-4905-847e-08df1ec7768b
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM1PEPF000C1AD7.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3975
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] net: dsa: lan9645x: deadlock due to sw_lock taken in process and s=
-oftirq contexts
-- [Medium] net: dsa: lan9645x: duplication of queue and standard stats in p=
-rivate ethtool -S
---
+From: Simeon Marijon <simeon.marijon@foss.st.com>
 
-commit 49afb622c4cdbf51f9a151db3a2117596b256a9a
-Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
-ip.com>
+TAMP backup registers allow information sharing between different
+software components/execution levels.
+They are described individually as nvmem cells.
 
-net: dsa: lan9645x: add port statistics
+Signed-off-by: Simeon Marijon <simeon.marijon@foss.st.com>
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+ arch/arm/boot/dts/st/stm32mp131.dtsi | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-This commit adds port statistics support for the LAN9645x switch. It
-introduces a 64-bit software cache to handle 32-bit hardware counter
-overflows via a periodic polling workqueue. It also implements callbacks
-for ethtool and netdev statistics to expose these counters to userspace.
+diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
+index 83ae59b73dd0..b37c22b1379c 100644
+--- a/arch/arm/boot/dts/st/stm32mp131.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
+@@ -1918,5 +1918,39 @@ gpioi: gpio@5000a000 {
+ 				gpio-ranges = <&pinctrl 0 128 8>;
+ 			};
+ 		};
++
++		tamp: tamp@5c00a000 {
++			compatible = "st,stm32-tamp", "syscon", "simple-mfd";
++			#address-cells = <1>;
++			#size-cells = <1>;
++			reg = <0x5c00a000 0x400>;
++			ranges;
++
++			nvram: nvram@5c00a100 {
++				compatible = "st,stm32mp15-tamp-nvram";
++				reg = <0x5c00a100 0x80>;
++
++				nvmem-layout {
++					compatible = "fixed-layout";
++					#address-cells = <1>;
++					#size-cells = <1>;
++
++					saes_secret_key: tamp-bkp@0 {
++						/* see saes secret key feature */
++						reg = <0x0 0x20>;
++					};
++
++					boot_mode: tamp-bkp@78 {
++						/* see boot mode selection feature */
++						reg = <0x78 0x4>;
++					};
++
++					boot_counter: tamp-bkp@7c {
++						/* see boot counter feature */
++						reg = <0x7c 0x4>;
++					};
++				};
++			};
++		};
+ 	};
+ };
 
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driver=
-s/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+-- 
+2.43.0
 
-[ ... ]
-
-> +static const struct lan9645x_ethtool_stat lan9645x_port_ethtool_stats[] =
-=3D {
-> +	{ "rx_cat_drop",        SCNT_RX_CAT_DROP },
-> +	{ "rx_red_prio_0",      SCNT_RX_RED_PRIO_0 },
-> +	{ "rx_red_prio_1",      SCNT_RX_RED_PRIO_1 },
-> +	{ "rx_red_prio_2",      SCNT_RX_RED_PRIO_2 },
-
-[Severity: Medium]
-Should these priority queue counters be exposed through the standard netdev
-per-queue statistics interface instead?
-
-Adding hardware counters to the private ethtool -S list when a standard uAPI
-already exists (like struct netdev_queue_stats_rx and netdev_queue_stats_tx)
-duplicates effort and creates confusion. The tx_drop counter listed further
-down in this array also appears to map directly to the standard
-rtnl_link_stats64.tx_dropped counter.
-
-[ ... ]
-
-> +static void __lan9645x_stats_view_idx_update(struct lan9645x *lan9645x,
-> +					     enum lan9645x_view_stat_type vtype,
-> +					     int idx)
-> +{
-> +	struct lan9645x_stats *s =3D lan9645x->stats;
-> +
-> +	lockdep_assert_held(&s->hw_lock);
-> +
-> +	if (!__lan9645x_stats_view_idx_hw_read(lan9645x, vtype, idx)) {
-> +		spin_lock(&s->sw_lock);
-> +		__lan9645x_stats_view_idx_transfer(lan9645x, vtype, idx);
-> +		spin_unlock(&s->sw_lock);
-> +	}
-> +}
-
-[Severity: High]
-Since __lan9645x_stats_view_idx_update is called from a workqueue running in
-process context, can this cause a deadlock?
-
-If a softirq interrupts the CPU while this lock is held, and the softirq
-attempts to read network statistics via dev_get_stats() to ndo_get_stats64(=
-),
-it will attempt to acquire sw_lock in lan9645x_stats_get_stats64() and spin
-forever. Do these process-context paths need to use spin_lock_bh() instead?
-
-[ ... ]
-
-> +void lan9645x_stats_get_ethtool_stats(struct lan9645x *lan9645x, int por=
-t,
-> +				      u64 *data)
-> +{
-> +	struct lan9645x_stats *stats =3D lan9645x->stats;
-> +	u64 *c;
-> +	int i;
-> +
-> +	c =3D lan9645x_stats_view_idx_update(lan9645x, LAN9645X_STAT_PORTS, por=
-t);
-> +
-> +	spin_lock(&stats->sw_lock);
-> +	for (i =3D 0; i < ARRAY_SIZE(lan9645x_port_ethtool_stats); i++)
-> +		*data++ =3D c[lan9645x_port_ethtool_stats[i].idx];
-> +	spin_unlock(&stats->sw_lock);
-> +}
-
-[Severity: High]
-Similarly, since ethtool queries run in process context, does this need
-to be spin_lock_bh() to protect against preemption by softirqs that call
-lan9645x_stats_get_stats64()?
-
-[ ... ]
-
-> +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
-> +				struct rtnl_link_stats64 *stats)
-> +{
-> +	struct lan9645x_stats *s =3D lan9645x->stats;
-> +	u64 *c;
-> +
-> +	c =3D lan9645x_stat_counters(lan9645x, LAN9645X_STAT_PORTS, port);
-> +
-> +	/* ndo_get_stats64 may run in non-sleepable context (under
-> +	 * rcu_read_lock, or with a callers spinlock held as in bonding), so
-> +	 * unlike the ethtool paths we must not take the hw_lock mutex or touch
-> +	 * hardware here.
-> +	 * sw_lock is never taken from softirq/IRQ context by any path, so a
-> +	 * plain spin_lock is sufficient, as in ocelot and ksz.
-> +	 */
-> +	spin_lock(&s->sw_lock);
-
-[Severity: High]
-The comment notes that sw_lock is never taken from softirq/IRQ context,
-but lan9645x_stats_get_stats64() itself can be called from softirq context.
-For example, when traffic control qdiscs or bonding query network statistic=
-s.
-
-Is it possible for this to deadlock against the plain spin_lock() calls in
-the ethtool and workqueue paths mentioned above?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929-dsa_lan964=
-5x_switch_driver_base-v13-0-827c2d3617f2@microchip.com?part=3D9
