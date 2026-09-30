@@ -1,102 +1,125 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2651D3B634E;
-	Wed, 30 Sep 2026 14:01:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A8504DA9DC;
+	Wed, 30 Sep 2026 14:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776874; cv=none; b=dtTGy59m0r3PFZNjQJVz3bBw9U6jP01toPezXzL7Vh1LMo/jpLsSNeH4N+Zf8wD+duZwpTDX10Dzz19MxuiPdyXpf0R+CdrJkao+E6Id70opVWpUOrCEr5fny+TWuhAQPn8Pl2J6Ye55irODnrT4PqWJikSS4JezASwjIbz/zMM=
+	t=1790776910; cv=none; b=Pf+wBQnP0yTeSCOTPQ24UFOigjRXJVIk6qlfLDK51tSQ4YuBkiwYtwz28XjamoRwwxWtTCduyPtPEk22EtM97jMjgMgI22KRkfz2XZQPuyvgjsK8B/gnsZ0WVvMNj07LyR6OxMNapg2rjFYJe81RKNa1MpcV/HNE9B8QwyQEGP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776874; c=relaxed/simple;
-	bh=Nj9rD/39m04hvIh2+54l5897uaQ7OedDuJymjYcq4uE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mtkL+kU/X1cGr2CDuL8YozUzGwGSPqeAh4OQdu5U7FJ81k0MxSmIKJ9BUHHtf7zT+V0hxt9jI+wGGRRFlzRu88O4Evp3uPxESdeRpcNemPvS01U3iYy9sp0DhDy/8AVEbApnW+sFW/sRGJvvQRBI2vpVFIF0EL7Z9l2aQLZM/Co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=WHlNUV/R; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Xbllk66O; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790776910; c=relaxed/simple;
+	bh=WzzV3Z90RUanWlFOxkw9NWDFepEehGCmrgVGV3640yQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D4lkA5csD5TuGEPWifFsymt6Bfw+X+FZ4dgCZGUEuduuXzMHRuGEyz9AtRJ869kZp9Z/j0NVwOev92WmpI6F7KpMzodzkErXNWUnktF/ElNlSGD7rJx3uSLaXMmTwtlVY8zCXMzaAHxOns8qpT0JikI8cM2aDP0f/td/Lw9t60Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rp6ny2Ub; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="WHlNUV/R";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Xbllk66O"
-Message-ID: <218d4c1cf5f05cd6cc648c01f8a20ec66b95362c.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790776857;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=laEGmVJZvNVKahu8x3VIGJAJ2ykpNiay6kRgzzv/wCo=;
-	b=WHlNUV/R4hXsWOPE2js82WnoXS8tbZaYSBz1c+SIeADxtatESIGSuNowqfShomYDWuSQ40
-	wge/0fK/vHDtR2/8PHgMjvBJQe+toRvo1FssGk6MTjvMy5CJ0Qv+iPRMuori2k+3Dj3GOi
-	MFr4gWSl4PyKIcA1o/3FiqQoK0jGWlB4dDFS2tsMvjjQdHonA8RW2u52yNZEHlFD2Tuvgv
-	pHBp+6pUVEnCSKKZCjnLb/YQb3q/HSVC6axLmdbo4XnfGUPJAOm8LnlAr1MfxtafYkIEPr
-	xawKGwMp+w+dXhNtB04edeF2TAioxiscDg6h0zWUwlu4ZwKcYMCwfogsG67bqw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790776857;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=laEGmVJZvNVKahu8x3VIGJAJ2ykpNiay6kRgzzv/wCo=;
-	b=Xbllk66OjXN0ePb3Tc6Nrmq71RrjAosY+2PGeEx6KBo59ORu9b/39X+lfyqf6wMgrbTtAF
-	vLC+VAkgOXEpz8CQ==
-Subject: Re: [PATCH net-next v3 2/8] dt-bindings: net: Add SoC-e SWIP MDIO
- controller
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Wed, 30 Sep 2026 16:00:56 +0200
-In-Reply-To: <e5aa5cd8-e805-47d3-a105-07bf1b9eb9b8@lunn.ch>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-2-ddebafcb9ba7@linutronix.de>
-	 <e5aa5cd8-e805-47d3-a105-07bf1b9eb9b8@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rp6ny2Ub"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72FC1F0089D;
+	Wed, 30 Sep 2026 14:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790776895;
+	bh=tVnOdIUfx+CYqGqkUsqNk8zTor7J74KOBz4r9FuUs4c=;
+	h=From:Subject:Date:To:Cc;
+	b=Rp6ny2UbYZf08B/kwTWRlQiHt2mscY6zoSJ4HYR0MU4113XICgRHC9jpHuBPOuJDR
+	 vxFH2ZpL6Tw9wEshb54hChTF2en2ihDyxhD8lRKWuQemEOFQVKmrF0cygG9K4ZFzi9
+	 cn0GlXY5E1IPIAJN/g9Fkylr3ze7Tmr4WvNDoOL2M2R9ushq+INnXYYjHb9SIbHWr5
+	 s9T/YOlE0LWaYbQu1pc4YpUVI0pmW53Zwe/YcWUl14yrcNZeWiKgV0nV9AWhaspFcF
+	 LbyEngghDLMY+J9cabdKIoKVA/8bYwlNSIEIsnlVNtWIGjPf7ynf/wnUYoHQJab3U3
+	 31idIhb1vGAPQ==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH v2 0/3] arm64: tegra: Fix DT validation issues for Tegra132
+Date: Wed, 30 Sep 2026 16:01:22 +0200
+Message-Id: <20260930-as3722-bindings-v2-0-a3bba649ebf9@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbQ0MItaV9zAs2jKFMbGQDjYaw
+ t0FXLt8yfvvzyAUmQSu2QyREgsPYQU8ZOB6EzpS3K4MmOM513hRRsoaUVkOLYdOFKFzdVFZrX0
+ F62qM5Pm9F+/Nj+VlH+SmLbMZPcs0xM9+mYrN+19PhcpVWfkTlkZ7tHgLiVs2Rzc8oVmW5QvVL
+ 7HpwQAAAA==
+X-Change-ID: 20260928-as3722-bindings-e2cc715b99f5
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>, 
+ linux-sound@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ Thierry Reding <treding@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2064; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=WzzV3Z90RUanWlFOxkw9NWDFepEehGCmrgVGV3640yQ=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqvRY2GL7wRj9GQe5L7pSvJWi32cAaYeCLnKwKI
+ JBb4Ohwzs2JAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCar0WNgAKCRDdI6zXfz6z
+ of2hD/4jfys5UEc1ud2AwWSOtvradHLkiW+YAf0VCoMRhl8JaRhDXsB4Wn9TiaAlJ6sK6hD2kwr
+ f7X2kXcNQ4otSRt76XpGQao4Gt5BSj/QHyhgrtXCBi4HmrucTpHFe3fQdt3np7ssSbcq8+kXaSc
+ NBiE9HRYXwkVyIlUHgp4bYOlLKC+T40K/eKyDVx7Om5N/JbKTT+zGzfu3iWR9QHoOn7A2CfhnUD
+ GTwIGP4sWFFcKPwzJw4ddZZzSa1Vqp+4WY0x398+WCRsIci4P7388Mlb+cdkqdyXA/uGoM7CkVI
+ lRcAtopy4CBd9k7eG6+pJmRfeZy9yS2myYB+bYwrbkFXlaMVpeR/DLqtaT/KI/ohrFCde7fS+gq
+ neH2JnpqrBw5vh0AKQl9xttH8IelP3r9PBz5oFN+W6dRq8OIxwKHe+7xmCYjqCuG59RoaUELPzF
+ OaxSHdPwHO47XGRMhiG7bDv0hlUD51tzk8iJBIYxxOrFyoAqzp/b/67c8GsRSJ+cD/AH293UD4p
+ K6CSP7OkxIjJxcGshwVBSrxD/hP73xPJfnWDNLAViuyqUVfhX9b70Gw+cocfD0qW2SCFm5J3spr
+ I1fiFYTu68an3j3dyd/VzXvp3j2Tvty3SCmUon3rOAu23We9e3n+sCaT74sWvLhmwft9M1YS7DB
+ 072YSUtdTY8ZkMg==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-On Sat, 2026-09-26 at 00:55 +0200, Andrew Lunn wrote:
-> > The controller exposes separate register regions for transaction data
-> > and for the shared transaction control and external bus selector
-> > register.
->=20
-> > +examples:
-> > +  - |
-> > +    mdio@204 {
-> > +        compatible =3D "soce,swip-mdio-23-02";
-> > +        reg =3D <0x204 0xc>, <0x200 0x4>;
->=20
-> At least in the example, they are not separate?
+The following set of changes fix all remaining issues on Tegra132 Norrin
+as well as some collaterals. The two json-schema conversions in this
+series are shared with some 32-bit ARM platforms and they fix similar
+issues there, too, and I've verified that no new issues are introduced.
 
-Not separate regions but registers...
-I'm obviously bad at documenting things.
+This brings down the total number of DT validation issues for Tegra to
+44 and 16 of them unique.
 
-The current information in the commit message is misleading and
-irrelevant. Looking at the bot's feedback, it's at the same time not
-clear enough yet that the mdio controller part is mapped within the
-switch memory and can't be used separately from it.
+Thierry
 
-I will update the commit message to something like this:
-Add a binding for the MDIO controller integrated into SoC-e SWIP
-Ethernet switch IP cores.
-The controller shares the memory of the synthesized switch IP core and
-cannot be used independently.
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+Changes in v2:
+- address review comments from Rob, Mark and Sashiko
+- Link to v1: https://patch.msgid.link/20260928-as3722-bindings-v1-0-35f423a9f2b2@nvidia.com
 
->=20
-> =C2=A0=C2=A0=C2=A0Andrew
+To: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Laxman Dewangan <ldewangan@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>
+To: Jonathan Hunter <jonathanh@nvidia.com>
+Cc: mfd@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: linux-sound@vger.kernel.org
+Cc: linux-tegra@vger.kernel.org
 
-Thanks,
-Vasilij
+---
+Thierry Reding (3):
+      dt-bindings: mfd: as3722: Convert to json-schema
+      dt-bindings: sound: tegra-ahub: Convert to json-schema
+      arm64: tegra: Add Tegra132 specific compatible for AHUB
+
+ .../devicetree/bindings/mfd/ams,as3722.yaml        | 293 +++++++++++++++++++++
+ Documentation/devicetree/bindings/mfd/as3722.txt   | 214 ---------------
+ .../bindings/regulator/as3722-regulator.txt        |  91 -------
+ .../bindings/sound/nvidia,tegra30-ahub.txt         |  88 -------
+ .../bindings/sound/nvidia,tegra30-ahub.yaml        | 288 ++++++++++++++++++++
+ arch/arm64/boot/dts/nvidia/tegra132.dtsi           |   2 +-
+ 6 files changed, 582 insertions(+), 394 deletions(-)
+---
+base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
+change-id: 20260928-as3722-bindings-e2cc715b99f5
+
+Best regards,
+--  
+Thierry Reding <treding@nvidia.com>
+
