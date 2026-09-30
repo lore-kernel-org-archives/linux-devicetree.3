@@ -1,142 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B9904F96A6
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:53:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DA04CE67C
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780019; cv=none; b=jyItyokk3S1KcVu/cxjfTrW8IiZYSHd+mMsghIUwONTkuEkVBTaRkSxAtlPOqi0xyDgmpzjSDdggnjuRxagIsnb5O88CGRQdeR4/z7OSHxa6dMyKENYzaydZsoFEQMl9b305Vo4DcR+v3dAeEY09y5+xNLGrnZAH3J6FCiFoM7M=
+	t=1790780107; cv=none; b=QdBsqWFjpbIKNIJEG8mNQJM6W/8MDLocMqP1I1jUFmlkqLmVQnCsupbFpbDEc6AncLUBRHd9Y4044bcHi5pHgKOpjb6WYScoUJKSHb6Qx/Efs8u10ODFo1euYJLCFXpr6sOYDs3kHhUCfezq+mp/xYa41mlrSJ8ligEONiidLHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780019; c=relaxed/simple;
-	bh=596WijV7NJzJjwivMtFsH+ok22FrmDCexlyQ8DRd8Cg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=vAdHsKEemxLa3w87HmFqVZ4Nzk78Ki10UY6oFpPv//qrVH9C8TFOzS/FvWb0F51dM0p19iuUBjGyYwFKnA4C8crHUFBddc9j8vyfXiAAuS00R+WRcMOA9VUOIw2RPiae90EtlhXnu58NUy2TXU+ye5RARyCBuUjYpXO9mWuRTKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V5WLEkY1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790780107; c=relaxed/simple;
+	bh=wD3NZssZMW68AQJrY2P8J4DOvVjSGsMzgeQD9NT7T6Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EFhUlM7e74kNOvUTQ15L6HKmirhRk78O4vta1ebRvpzyZ/UAOgbol92+7DpDrsBY4WEKjLyvQPEccCpPIdWm/VxjHldWPctOYUTPhO09iNPLq1qNgZObFe2TVW8nFKUNXvmCVaU1Essq43H4XsOGwin2qpJ6sS+bh4S6Qtzey+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WiE/dC+P; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V5WLEkY1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D555C1F000FF;
-	Wed, 30 Sep 2026 14:53:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790780013;
-	bh=WYWDIdEvwizDwmrf0LPz1cJhOMTPJgV+kCuc0kmZpGY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V5WLEkY1/6qT+GAqWZXxmN/10DKck6jEvBkKD+6uAlPzd2nPpulORfsrCkPtXrfuI
-	 FLCm6c2KdnQHCGBhCjuu2kcwC3kBRB3uiYDHS3heD3ldckrnrqewRB5HtLhJjdfGs9
-	 +BFtOOdtFkF044wQ0MDULWC2fdGlTI/vS6PGJYEiszGi5edw4N+kgDxewOCx5bUe01
-	 5DAQyufL1tM76MxNeZoZxzjLkjYSXybbouJgV7cwX9WhDSzHJLE7MMVTib9WXRVsRG
-	 SxDsC3NWFmYq7VMvLZrNn1jz7GnfBoWFZOEdOyCfz/m3qgAhiXdb/BSBauHQ8/yiIE
-	 NaWQKji2UO2lg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 9/9] arm64: dts: renesas: Add LVDS overlay for RZ/G3L
- SMARC EVK with ITE6263
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Biju <biju.das.au@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260930133257.23210-10-biju.das.jz@bp.renesas.com>
-References: <20260930133257.23210-1-biju.das.jz@bp.renesas.com>
- <20260930133257.23210-10-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 14:53:32 +0000
-Message-Id: <20260930145332.D555C1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WiE/dC+P"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso23850545e9.3
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:54:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790780089; x=1791384889; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fX+GMtVZvZFwpjXU+kCF5PX/DfKN7b04TfWCfb65nWU=;
+        b=WiE/dC+P1u6L1CgCGkblchR3yrMX0NqAzRZBCzQW5V78MPzOFdb1bsbsutjKINcbxD
+         gbkU2Nf9Tl+ktDF5KPPmRrMXrpzB5QgfJDn2OAqPk8rnTbf2CZ3j+9eRh/UVebVWwuUx
+         ZJytVWsb1VNXr8Hcy2lvzUYUbgpAyu7/49E5XW35CNFX+deuYLXncyQQH0Z+Kf6Zu57W
+         ZV17UXPhq3LtKj0t+Gh7Iyvjq99lxtOTJd02qFNF12/oDURewlD/c4rYufodIcZH0r0m
+         xZwuAB7jCVZBoSEK6tqpU38AxcOdELhPJujTdws/7VIU/rTJ4vM8IG+MVMQfnntF3jMs
+         t8gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790780089; x=1791384889;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fX+GMtVZvZFwpjXU+kCF5PX/DfKN7b04TfWCfb65nWU=;
+        b=QriNoui5ygJzVim5rpnzqFLnrtVzKH6fOUWuXLR9mk3G+Ja7Seg9HZWvRvXHz40t4a
+         y1Fa8ti8ev81+6whtQF3C/b/oIeb+IWBga/7lzi9MhpgqMEk5E8YVAapASlTsae/dmmG
+         nLVbv04I6h8GhhUcF5DwAS9FWdL+9eVuYIRqv3fYVvhuZueKGvSdMmH1MvGhrhNI4SLe
+         Bpg5gPW/UWzwpeM95H40DvNWW/Coo0yIe0MUoSekf1mTvtiDfmq5I7UfeoWs2McBtErK
+         e6NJtQIa9S1oIAGIXc1p1t/XdRDo71vyutKiIxL2/4suTyX0bOLPgVod7o1uNAzCxyIO
+         94fw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQHWKxkmCtTklFQCyCBDoyrLUGi9uqDsiDs6Vy0Ujkrzf46VVtBrAQR4jt9dskpL/P6wqEQF6dY2y2@vger.kernel.org
+X-Gm-Message-State: AFuF++nWfKksBJbOTKArzRUG8Z5zR2+QpywGT0Yw1QVL/6MeD8MmmY2R
+	KayuMdO3rpJVVZyTLlX0FSvrsw80yeRxsHTfHycw3c1nCKtFQqW/tZCc
+X-Gm-Gg: AYBFou3Znlzyev8+x4p84mTCHQb4Jnn3Saab24pAmgAAcBrZzSIXCz4kijG5yq8ftXo
+	UKWmvaBzLUvFwer1QyJD8v1UVPMTsIXnb9dS0Or9d35bvSEUpT8mk6m9McoMSAugXDowkK87FkM
+	XA2jqtz8MRZwOBynmcWUcdECqA2frPGBv8ytF9pnlyqfyxZr8BcyC9BQ/bDIunaiwMjxieuPs7d
+	hlbQcYlvOBGnLXeWV6gK9p3TY8X7xFaFAu6Vc+n/xJKAvOkrWZgje0i4nGa9oP2Nyj58R3NW/se
+	DKenCVq+ypMOcQsNWV/I6+A62Jnw2jpVd7+z1GuAK2MzGvC+F29bu2HGO5fXSW/8k4kxODTwtYu
+	5J/W+Qy54+WXTGH2mOUDhFQiH/nlegqNKr9MG7gHDU9aBJ3rikfjnERK1xMgNDrnMxddh+NTZKy
+	TMPKigqBrgS+U5UxpGKiOMrYMef0Ac4tiAW/BjyX+5ZD5uc+LvRf1UDqcy3A7m5pX1b4B1zKG55
+	KCWzAp3xfRZPqL79fhsmJREZy+jCP33b4ntKwqu35GMkqZCIXYA7bKeJcXzA44t1eHmiWqs0C7p
+	A2cwjw8yheLVWVM61MT+A1tEAhiAHv0n8Sr3nTzc/lEhn5Vl0pC7bs1sx2VK+zQ5o4J8gO7XKq4
+	xlBIc7qGOLpW/XMyyH8ikDhLkepmR5RWUCDAUt0+FRfbhxnv76cJTXQoPRwvsIfB6GqAFyACgru
+	OJguqH
+X-Received: by 2002:a05:600c:a00b:b0:4a0:1c69:f607 with SMTP id 5b1f17b1804b1-4a01c69f64dmr14101255e9.29.1790780088847;
+        Wed, 30 Sep 2026 07:54:48 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01e6622e1sm4236005e9.3.2026.09.30.07.54.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 07:54:48 -0700 (PDT)
+Date: Wed, 30 Sep 2026 16:54:47 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
+ <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ Olivier Moysan <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH v3 04/15] iio: adc: stm32-adc: manage characterization
+ voltage diversity
+Message-ID: <20260930165447.000046e4@gmail.com>
+In-Reply-To: <20260930-adc-stm32mp25-v1-v3-4-406834430d72@foss.st.com>
+References: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
+	<20260930-adc-stm32mp25-v1-v3-4-406834430d72@foss.st.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] dts: unused Device Tree binding includes in the overlay
-- [Low] build: missing &du and &lvds nodes in base DT break fdtoverlay
---
+On Wed, 30 Sep 2026 16:18:25 +0200
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
-commit a9bfeabadeefbed460cdf1bc271c6ea8bca9412f
-Author: Biju Das <biju.das.jz@bp.renesas.com>
+> From: Olivier Moysan <olivier.moysan@foss.st.com>
+> 
+> The characterization voltage used to calibrate vrefint depends
+> on SoC family. Add vref_charac_mv field in stm32_adc_cfg structure
+> to store the characterization voltage for each SoC, and use it
+> in Vref computation formula.
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> ---
+> Changes in v2:
+> - Andy's review comments: rename variable to vref_charac_mv (unit suffix).
+>   Drop the const attribute.
+> ---
+>  drivers/iio/adc/stm32-adc.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+> index 600f975f1d7b..fa46803d54be 100644
+> --- a/drivers/iio/adc/stm32-adc.c
+> +++ b/drivers/iio/adc/stm32-adc.c
+> @@ -43,7 +43,6 @@
+>  #define STM32_ADC_TIMEOUT_US		100000
+>  #define STM32_ADC_TIMEOUT	(msecs_to_jiffies(STM32_ADC_TIMEOUT_US / 1000))
+>  #define STM32_ADC_HW_STOP_DELAY_MS	100
+> -#define STM32_ADC_VREFINT_VOLTAGE	3300
+>  
+>  #define STM32_DMA_BUFFER_SIZE		PAGE_SIZE
+>  
+> @@ -211,6 +210,7 @@ struct stm32_adc;
+>   * @set_ovs:		routine to set oversampling configuration
+>   * @smp_cycles:		programmable sampling time (ADC clock cycles)
+>   * @ts_int_ch:		pointer to array of internal channels minimum sampling time in ns
+> + * @vref_charac_mv:	Vref characterization voltage used to measure vrefint calibration value
+>   */
+>  struct stm32_adc_cfg {
+>  	const struct stm32_adc_regspec	*regs;
+> @@ -230,6 +230,7 @@ struct stm32_adc_cfg {
+>  	void (*set_ovs)(struct iio_dev *indio_dev, u32 ovs_idx);
+>  	const unsigned int *smp_cycles;
+>  	const unsigned int *ts_int_ch;
+> +	int vref_charac_mv;
 
-arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with ITE6263
+Case-sensitive units if it's SI is preferred in IIO, therefore *_mV.
+(checkpatch warns against this, but just ignore it).
 
-Add a Device Tree overlay (r9a08g046l48-smarc-lvds-ite6263.dtso) for the
-RZ/G3L (R9A08G046) SMARC EVK board to support LVDS-to-HDMI output via the
-ITE 6263 HDMI transmitter.
-
-> diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/r=
-enesas/Makefile
-> index 8c6a448907151..3cecc40204e90 100644
-> --- a/arch/arm64/boot/dts/renesas/Makefile
-> +++ b/arch/arm64/boot/dts/renesas/Makefile
-> @@ -190,6 +190,9 @@ dtb-$(CONFIG_ARCH_R9A08G046) +=3D r9a08g046l48-smarc.=
-dtb
->  dtb-$(CONFIG_ARCH_R9A08G046) +=3D r9a08g046l48-smarc-dsi-adv7535.dtbo
->  r9a08g046l48-smarc-dsi-adv7535-dtbs :=3D r9a08g046l48-smarc.dtb r9a08g04=
-6l48-smarc-dsi-adv7535.dtbo
->  dtb-$(CONFIG_ARCH_R9A08G046) +=3D r9a08g046l48-smarc-dsi-adv7535.dtb
-> +dtb-$(CONFIG_ARCH_R9A08G046) +=3D r9a08g046l48-smarc-lvds-ite6263.dtbo
-> +r9a08g046l48-smarc-lvds-ite6263-dtbs :=3D r9a08g046l48-smarc.dtb r9a08g0=
-46l48-smarc-lvds-ite6263.dtbo
-
-[Severity: Low]
-Will this composite build target fail when fdtoverlay runs?
-
-The base SoC device tree (r9a08g046l48-smarc.dtb) appears to lack any nodes
-for the display controller or LVDS interface. When fdtoverlay attempts to
-resolve the __fixups__ for the &du and &lvds nodes against the base DTB's
-__symbols__, it will fail with an FDT_ERR_NOTFOUND error and break make dtb=
-s.
-
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.=
-dtso b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
-> new file mode 100644
-> index 0000000000000..3c64db8d22e9e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
-> @@ -0,0 +1,86 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +/*
-> + * Device Tree overlay for the RZ/G3L SMARC EVK with ITE6263
-> + * connected to LVDS and LCDC enabled.
-> + *
-> + * Copyright (C) 2026 Renesas Electronics Corp.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/pinctrl/renesas,r9a08g046-pinctrl.h>
-
-[Severity: Low]
-Are these includes necessary?
-
-There don't appear to be any GPIO properties, interrupts, or pinctrl nodes
-defined or referenced in this overlay file, so these directives could be
-safely dropped.
-
-[ ... ]
-> +&du {
-> +	status =3D "okay";
-> +};
-
-[Severity: Low]
-Does the &du label exist in the base r9a08g046l48-smarc.dtb?
-
-If it's missing, fdtoverlay won't be able to resolve the symbol and will
-fail.
-
-[ ... ]
-> +&lvds {
-> +	status =3D "okay";
-> +
-> +	ports {
-
-[Severity: Low]
-Does the &lvds label exist in the base r9a08g046l48-smarc.dtb?
-
-Similar to the &du node, if this label is not present in the base tree,
-fdtoverlay will fail during the build.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930133257.2321=
-0-1-biju.das.jz@bp.renesas.com?part=3D9
+-- 
+Kind regards,
+Joshua Crofts
