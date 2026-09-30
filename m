@@ -1,145 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD5D2BE655
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:55:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5EE3F23D0
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:58:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762141; cv=none; b=BGkJHkMit0Vr0i7Nj3L9jM1p/1rxfjdwlxb7Xm4w5+eZGqwlL2Cfeh1Xuwl7YsceuGLldVnq/1CohbxFOhNEOax8eoFTY/8aHDLl+4FLCOlEoK9jPawOk3NHAPmEQ8VlrK1e0aUSnjPco3fXvx88Ht0OFRKuJ9fI0Q614Jy4CwM=
+	t=1790762300; cv=none; b=qI/A6pWlpJKr3oN3X9+tjEp/0ivatMc7CN7YSHFMeBzp+Di/fd4Ne3uyAWucRxVrfpx6cv2uNq7q0tngaw46DeLwQObhBjLHpdUSRw1cMmWe0zPluVefnSULC7uOeNzoKsxCcPjqT6b3qappdSe/KZs/CqsVHmUzmgEeCk+v9LI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762141; c=relaxed/simple;
-	bh=nRS8D+P/pYlYdh/xGzIxpkoh4WXx0++qntMaidLDj/w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ozmd5Xfa2u9OosIABxymSlMlopzJQ+1WtwpyD6J5IvUcR9fKYERqmTzSs1qFlUv560beNtETn7qCwsRUHUS3f46RF7XlrEfFZNd5hF3Zjdy0FWwl+m144BbNq1pcKDJRBUZczPScvaCfsW5FKZzy7lIkuDg2Dk8PZ+hjJ+u5HF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFopaa/g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790762300; c=relaxed/simple;
+	bh=0Sl3VeOxmIWc0/FHhtBrqHO4LTDod/shA0uGQ9sZEHg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IQwPVWq0tlBdDrMLfe9xABSW6HiRJiTUum/p32HaVMvxYetl+1YuscI91hYH5MCjc47e4bbBLMgFjmqUMLYNb+hIgwdI+7cXEtKNkW4fUXe0pw+btxQ5Cxa17SRe5pv2ol33jaP0q59sbklyTP8o1TjEtzgJHDYSdz5BLLG0r40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUbFv6BY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFopaa/g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297011F000FF;
-	Wed, 30 Sep 2026 09:55:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUbFv6BY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C4A21F0089D
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:58:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790762139;
-	bh=8Zlori9dyIXAFre1eaqGoNXivn0S1xaEQCRffXNeDBE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YFopaa/gt83Ur4lLWip6GsBeaM8W5zwxFuzdwj/pd4yL/p2Q9rANDt5lYLyDgAxiW
-	 f0uO8PYihLN3do/g+Q1vkTFJAD15y8ueLL5F+pN28oMNuKI4fKCdm2MExduosRcpLe
-	 uPKBupZ4CF5Xn/SmLxvj+l3JpfjAKKe0hlWpWEm1QYThwSIhFo6QcKf0sFXI/tDyMb
-	 bbo1Q5isYiFmJRjQmugZSAfdlvGQ28uWyYkv/RyhFaGSRw5RYZIkzaD49SOd+gghE8
-	 OFPijZYjxqM0KMGeAii8aPqLF1hHcdRAYLQYQtL2NCL41ee+zF9A53XdNIGkdXziMx
-	 FkpQZuB1BgZXA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: rockchip: add Forlinx OK3568-C
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Yashin" <dmt.yashin@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260930-ok3568-c-v1-3-a0ffd55f5c95@gmail.com>
-References: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
- <20260930-ok3568-c-v1-3-a0ffd55f5c95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 09:55:38 +0000
-Message-Id: <20260930095539.297011F000FF@smtp.kernel.org>
+	s=k20260515; t=1790762297;
+	bh=0Sl3VeOxmIWc0/FHhtBrqHO4LTDod/shA0uGQ9sZEHg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TUbFv6BYy0BYMPu/2dRG2IrRhyfl3Nmw8iP7m1nV10kOAaPSktEYYPGygLJw5W1XP
+	 OgGNPbzjXf9WccmE7X/e65tRYtaozqybLJQqi92F2G7aULuMwSaggsqoF6VzknLN3v
+	 j/119SKQJkNVyoYXyVi+ZU8t+oSCh0sgipwkVqLv7gmECa/zwIBUzBnRuwSmZUlhSS
+	 2hOWz51MljSyTsLRkEULmI7TSwJgpOYDyzQVYzd/6AYyqBSjLDzMP8sLNgvwwtPOq/
+	 uhKNcavvziezdqSJlcJVlJzw+wUyZfpQ1fDKNtQd3pgr2+ysvKE1r8rErIkAOsM4bp
+	 SZ+wjeZHW+fcA==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3add810eso796414e87.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 02:58:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzKahroxksyV4UH/CL2h9550wqXnOm/wTe112juWzBioQUCCCPhYLNoHCnetO3oDD6mLktInB64duIP@vger.kernel.org
+X-Gm-Message-State: AFq9FYJv75V023QZk/+AXY7BNg2Q23GTYWZ/GjXZvk9NH7wE27y3UOZK
+	NyN2plruZ7yokRVz5rjHuntzs0GI6iPia0FwUnsl57BCKQoKFTAfS52Wp6vTuwDcvpa6VXh3ByC
+	YSIPlvaWsoH88i2hl+SuYkP0JDCVnPz8=
+X-Received: by 2002:a05:6512:124c:b0:5b8:f4d4:8004 with SMTP id
+ 2adb3069b0e04-5ba403e9adcmr391243e87.15.1790762296323; Wed, 30 Sep 2026
+ 02:58:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com> <20260930-b4-cs75xx-v1-1-4617c4463529@gmail.com>
+In-Reply-To: <20260930-b4-cs75xx-v1-1-4617c4463529@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 11:58:04 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnAY5xh-jrCboLBNh95sMD4jo3+eD3r4nmGgOt07uSJwQ@mail.gmail.com>
+X-Gm-Features: AclHuK-sK780whOzNFOmVs_mSNYseiLByWBvfxCT8N9Rk8B9pxQ3jl9L_xIBQyE
+Message-ID: <CAD++jLnAY5xh-jrCboLBNh95sMD4jo3+eD3r4nmGgOt07uSJwQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 01/10] dt-bindings: vendor-prefixes: Add Securifi
+To: filipp.dunsky@gmail.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] dts: missing device-wakeup, interrupt, and reset properties in b=
-luetooth node
-- [Medium] dts: orphaned modem_5g_reset pinctrl leaves 5G modem reset unhan=
-dled
-- [Medium] dts: orphaned wifi_host_wake pinctrl disables out-of-band WiFi w=
-ake
---
+On Wed, Sep 30, 2026 at 9:00=E2=80=AFAM Fil Dunsky via B4 Relay
+<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
 
-commit ebd497a35c265bc281369082ab62727d0e435e1b
-Author: Dmitry Yashin <dmt.yashin@gmail.com>
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+>
+> Securifi Ltd. makes the Almond series of touchscreen Wi-Fi routers.
+> Add a vendor prefix for it.
+>
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 
-arm64: dts: rockchip: add Forlinx OK3568-C
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-This commit adds support for the Forlinx OK3568-C board, which is the
-carrier board for the FET3568-C System on Module. It maps the peripherals
-and components for the board including connectivity modules like 5G, WiFi,
-and Bluetooth.
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c.dts b/arch/arm6=
-4/boot/dts/rockchip/rk3568-ok3568-c.dts
-> new file mode 100644
-> index 0000000000000..d292df546d419
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c.dts
-[ ... ]
-> +&pinctrl {
-[ ... ]
-> +	modem {
-> +		modem_5g_pwr: modem-5g-pwr {
-> +			rockchip,pins =3D <1 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +
-> +		modem_5g_reset: modem-5g-reset {
-> +			rockchip,pins =3D <1 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-
-[Severity: Medium]
-The modem_5g_reset pinctrl node is defined here but does not appear to be
-referenced in any pinctrl-0 property or assigned to a device node,
-regulator, or gpio-hog.
-
-Without being actively driven, could this prevent the 5G modem from
-initializing and enumerating properly if it requires this reset signal?
-
-[ ... ]
-> +	wifi {
-> +		wifi_reg_on: wifi-reg-on {
-> +			rockchip,pins =3D <3 RK_PD4 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +
-> +		wifi_host_wake: wifi-host-wake {
-> +			rockchip,pins =3D <0 RK_PD4 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +	};
-> +};
-
-[Severity: Medium]
-Similar to the modem reset, the wifi_host_wake pinctrl group configures
-a GPIO for handling out-of-band host wake interrupts from the WiFi
-module, but it is completely isolated. It isn't referenced by the
-sdmmc2 node's pinctrl-0, and the corresponding interrupts property is
-missing.
-
-Does this missing configuration break Wake-on-WLAN and sleep power
-management for the WiFi module during system suspend?
-
-[ ... ]
-> +/* BT part of the AW-CM358SM connected with UART */
-> +&uart8 {
-> +	dma-names =3D "tx", "rx";
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&uart8m0_xfer &uart8m0_ctsn &uart8m0_rtsn>;
-> +	uart-has-rtscts;
-> +	status =3D "okay";
-> +
-> +	bluetooth {
-> +		compatible =3D "nxp,88w8987-bt";
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&bt_reg_on &bt_wake_host &host_wake_bt>;
-> +		vcc-supply =3D <&vcc1v8>;
-> +		wakeup-source;
-> +	};
-> +};
-
-[Severity: Medium]
-While pinctrl-0 sets up the hardware pins as GPIOs, the corresponding DT
-properties (device-wakeup-gpios, interrupts, reset-gpios) required by
-the nxp,88w8987-bt binding are missing from this node.
-
-Without device-wakeup-gpios and the wakeup interrupt, will the
-btnxpuart driver be unable to perform power management signaling and
-break sleep/wake functionality? Also, without a driver managing the
-bt_reg_on GPIO, could the chip remain in reset and fail to initialize?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-ok3568-c-v=
-1-0-a0ffd55f5c95@gmail.com?part=3D3
+Yours,
+Linus Walleij
