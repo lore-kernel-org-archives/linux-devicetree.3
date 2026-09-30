@@ -1,107 +1,112 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 097133749EB;
-	Wed, 30 Sep 2026 17:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52A74E7802;
+	Wed, 30 Sep 2026 17:18:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790788600; cv=none; b=Pr3Cnk30TYt0htQduTZxokvZBLzEzkqLCjT9otPHQmIN25N+tAjxGKOFgIrPTdfKhcd2znn7rjIsvplW1MX7p4MFj7/guoY8PH86ayev/70c0PNynbBbAYTE50PYJfpNjqHMpRcEPmFNJMLLdEiVmsz9USsDuV+U1whnAjfeRHw=
+	t=1790788731; cv=none; b=bYaKASPyZde9WnB7MK2TFv7Qeq6mW8w5/3fX3Yb8mzCmDl97WrVpScYhA4Fo468n7+fcyIKa7qwgDvTUL9NxTnVrpLfZFckUhUu0tqviahURX4W2nUX4WDZ1qdgvBM0Te2jNx4RENOBxRBa0ns8CKUEFJ4JLyKrT9uQo/3LTK6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790788600; c=relaxed/simple;
-	bh=JLo+iv+3ZbYstDiMfseiwntsoZxaR3qczTVkIStRu0g=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qFiRkgPmXWAG+VUp56bQ1/JahbFefF2O4UTNkf2V0ReaA45wuTrEkqqx6X3T/SCX0HLQS/MGBtjh4lp9iexIcZ/V74nccTVo+h2S8NLsmFxqqeGMfcuz9z9EhaRJ6CqIVEQBq4rJx/4TuZy/2e6IHfBdg8ILT4h4UbHPyPo5JXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ULb93avJ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=o56QJTV+; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790788731; c=relaxed/simple;
+	bh=njD6TWFbmDyEqVQkX6D84VkhL9/hfU5DCVnSetZmtHo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OaJQ1l0CsMVU9NhAK/dxJ/TcF59QG/YHKZ44VmUUexuN4sxpMA9WXKYw8ektdrpE4RUT9S9sU3zM0D9sZEoQPq1qIH9QA5fnOPDTRq/D+tQYTdukz49sJ0DQCy/+66Bd5q+Te04TlqpmIzdBVm7VSDt+Z/r9S6swGdCpMKh/KG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DWZe6W08; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ULb93avJ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="o56QJTV+"
-Message-ID: <155175624ec0e08a24bf6d5aa131ddd3b67cf005.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790788596;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PLWBx49x24eJ/WBj9sS9rnyLnt8D+1BPBBblQQe6xKg=;
-	b=ULb93avJkBkdu/pUbJCPv9ExTHhDfOBurnZrAq0qFRP5OWTkBFqsYLioXT2E7O+a6Zr/nP
-	vtgANrrcJRS92a6mX+ruXCBE0P9fpIiN/bw4gatU4mNLXb7ZNQdR1YTA84RQYJXPFbBkMp
-	DEoUkvGD7PXKQQL0TwJ80wnoJVbp8rlumKjLdroX7lPgoqhgXhXTrXbvdJZdJWli1vfYyZ
-	X0VRChBHTT/OnlXNjPglZxU0+OlESlKUK1q2xLnyH6un6fd/VW1/s2i3CPJiAa8olCNM3f
-	jNSAu0tqXWmuPEh6Vgh9dKlesx7rWGrWh8vIo6+SSPw/CIkWbDjs+kuC5gNIHA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790788596;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PLWBx49x24eJ/WBj9sS9rnyLnt8D+1BPBBblQQe6xKg=;
-	b=o56QJTV+irplu6ofyocVA0xCZSpgUYdJoaZpRNzdSJ0MRtffPPRHUNuYcWzCew0BwkDzAZ
-	DzDbHIgI+43r8ZDw==
-Subject: Re: [PATCH net-next v3 3/8] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Wed, 30 Sep 2026 19:16:35 +0200
-In-Reply-To: <88bd3f83-ce29-4424-b536-e2ab05b8b822@lunn.ch>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-3-ddebafcb9ba7@linutronix.de>
-	 <88bd3f83-ce29-4424-b536-e2ab05b8b822@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DWZe6W08"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4E5FCC4AF0B;
+	Wed, 30 Sep 2026 17:18:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790788731;
+	bh=njD6TWFbmDyEqVQkX6D84VkhL9/hfU5DCVnSetZmtHo=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=DWZe6W08WmJczsxerpqcGDdSkKYgRv88qvzinXJkXI315B5pY4URFYJUxiJQ2AMhi
+	 Brj/U/X2+/t7VjGWSpwKuQsZLR+XPyZix6DGn//Y/0knsphM4+Rh6XtOvKJDsdgUXF
+	 5BV9HKYYnr85nDhUZkkPfIIZbgiYAs3NAFC6pgOHh8zCBRa0KNpb+Q+3m3kV3rtjO+
+	 sVfaZbKVHGk9A5zM5ETIt+VSjCIzSwAz2zylK/01TPSjkZ4Ba3izLiKMO6lO9mTHQd
+	 AfOawU3QOmRBeIexjsYkqk4hY30aF5jha6YjM2muGvFowaaa5Rgopc9pE1+9bguMzs
+	 dr66oljw2ZO+Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29601CA5FC5;
+	Wed, 30 Sep 2026 17:18:51 +0000 (UTC)
+From: Armandas Kvietkus via B4 Relay <devnull+armandas.kvietkus.proton.me@kernel.org>
+Subject: [PATCH v2 0/2] Input: Add Awinic AW8697 haptics driver
+Date: Wed, 30 Sep 2026 19:18:49 +0200
+Message-Id: <20260930-mainlining-v2-0-40bb1b3943db@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr0Jmbc1AI6Ir7mFY0GGEMdKSthIN6
+ d0F3Lp8yfvvLxDYCwe4Zgt4niWIsysUhwxoaG3PSrqVocCixItGNbZin2LF9gpNV5mzOVFbEqy
+ DyfNd3nvs1vw4vMyDKW6FzRgkROc/+9ucb97f8JwrVKRRk+kMIlX15F109jgyNCmlL0eT6YG2A
+ AAA
+X-Change-ID: 20260930-mainlining-0bd8b7b5ca6c
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Armandas Kvietkus <armandas.kvietkus@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790788729; l=1883;
+ i=armandas.kvietkus@proton.me; h=from:subject:message-id;
+ bh=njD6TWFbmDyEqVQkX6D84VkhL9/hfU5DCVnSetZmtHo=;
+ b=hNhixIMuEaFVSuf7swosAAzCQhMtz+NyT6WKNzDpjg+JkYq6udb7iFAZXRloQQ9nYUDODBmyT
+ 3bl1YB7Fo7eAI+vPSHScOZdRlXIx13KoCqB9oDMDEyT0QSVc6L0mQbz
+X-Developer-Key: i=armandas.kvietkus@proton.me; a=ed25519;
+ pk=wuqmImJ9sKlDVcwALOvfGhjj7G8EBjjM4TpCdmlrAf8=
+X-Endpoint-Received: by B4 Relay for armandas.kvietkus@proton.me/default
+ with auth_id=974
+X-Original-From: Armandas Kvietkus <armandas.kvietkus@proton.me>
+Reply-To: armandas.kvietkus@proton.me
 
-On Sat, 2026-09-26 at 01:05 +0200, Andrew Lunn wrote:
-> > +  mdio@204:
-> > +    $ref: /schemas/net/soce,swip-mdio.yaml#
-> > +    unevaluatedProperties: false
-> > +    description:
-> > +      Integrated MDIO controller bus on the master side of the mux.
-> > +
-> > +  mdio-mux@202:
-> > +    $ref: /schemas/net/mdio-mux-mmioreg.yaml#
-> > +    unevaluatedProperties: false
->=20
-> > +        mdio_parent: mdio@204 {
-> > +            compatible =3D "soce,swip-mdio-23-02";
-> > +            reg =3D <0x204 0xc>, <0x200 0x4>;
-> > +            reg-names =3D "data", "control";
-> > +            #address-cells =3D <1>;
-> > +            #size-cells =3D <0>;
-> > +        };
-> > +
-> > +        mdio-mux@202 {
-> > +            compatible =3D "mdio-mux-mmioreg", "mdio-mux";
-> > +            reg =3D <0x202 0x2>;
->=20
-> So these two overlap? That is pretty unusual, so might be worth a comment=
- somewhere.
+This series adds a driver for the Awinic AW8697 LRA haptic driver IC.
+It is the vibrator in the Xiaomi POCO F3.
 
-No, they don't. I accidentally included the entire register in the
-documentation. However, this register can be split, since only 2 bytes
-are used.
-I will fix this in both bindings and their examples:
-"reg =3D <0x204 0xc>, <0x200 0x2>;"
+The AW8697 is an older generation than the AW86927. The register map
+is different, so it gets its own driver. The binding reuses
+awinic,aw86927.yaml.
 
->=20
-> 	Andrew
+Tested on the phone: rumble at several strengths, 72 effects in a row,
+stop on close, driver rebind and module reload.
 
-Thanks,
-Vasilij
+Signed-off-by: Armandas Kvietkus <armandas.kvietkus@proton.me>
+---
+Changes in v2:
+- Do not queue I2C work from the ff-memless timer during system
+  suspend. A suspended flag is set and cleared under the input event
+  lock, as in da7280. Tested with delayed effects across suspend.
+- Use explicit error checks instead of returning the last regmap call.
+- The NULL IRQ name finding is not changed. devm_request_threaded_irq()
+  uses dev_name() when the name is NULL. /proc/interrupts shows 11-005a.
+- Link to v1: https://patch.msgid.link/20260930-mainlining-v1-0-c303cbdb00c8@proton.me
+
+v2 only fixes findings from the automated AI review. I will not send
+another revision for automated review findings alone, because that
+can go on forever. I will wait for human review.
+
+---
+Armandas Kvietkus (2):
+      dt-bindings: input: awinic,aw86927: Add Awinic AW8697
+      Input: aw8697 - Add Awinic AW8697 haptics driver
+
+ .../devicetree/bindings/input/awinic,aw86927.yaml  |   4 +-
+ MAINTAINERS                                        |   6 +
+ drivers/input/misc/Kconfig                         |  14 +
+ drivers/input/misc/Makefile                        |   1 +
+ drivers/input/misc/aw8697.c                        | 761 +++++++++++++++++++++
+ 5 files changed, 785 insertions(+), 1 deletion(-)
+---
+base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
+change-id: 20260930-mainlining-0bd8b7b5ca6c
+
+Best regards,
+--  
+Armandas Kvietkus <armandas.kvietkus@proton.me>
+
+
