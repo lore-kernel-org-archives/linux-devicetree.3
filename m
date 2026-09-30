@@ -1,62 +1,64 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254254F3EB8
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 15:48:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3975F4F93BA
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 15:48:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790783331; cv=none; b=kKKJYYh18tPV5xMvPY9yjC6pV+4KOWoTV9bZnWatqsHbUqQ4axfdb2JEqatdX0t+eDTJfFS9kU0OEUCMeWtG5UnHlSo5T9gqg7lKo9AQy5KHQqjFeEdWkW2JquH6OxnfLHUvNhWAJL7qLDjnBT1weW+an3o5iIPLx0z44ybxO84=
+	t=1790783334; cv=none; b=IjBit6/GqriEtQiphyOthsciNxCDiicYvdTah1WPe9R7dIR23OvYm0jOVefhkrZYXrPT2HvwHHTuHjS8PfEaBQZFzYMOXSupOfGw++AevqlZCDVVj0eB3Q3sikjCVeTXjSKUywUSLBvZIQ7O490q1T07Sg0tBZa7b0TF/EGGSNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790783331; c=relaxed/simple;
-	bh=dzcZghBPmnTB1zssneiqrhDsxLxLllhQZh0w3KCwek8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MWqvIaGutleWF1K/kHEKl3K9hxFQlVsGIh1EivtBTa88b7WjN8kVgehe22IjVLTegGbOCsTU41ts/Szilaq1g+0m5veO9XKpCPWH+cChH/c25MGgowrivWqMHN9Q/OMvDWP5JiOphXD6QESvmcoOQRhXcneRBWd5m4t5szGfenE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=2D6RsmZE; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1790783334; c=relaxed/simple;
+	bh=8hfxOJPdIcGIvY3nw8uhTRifk/anp+VB7FLMnAUGf+w=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=KgzJ/YXepswlpANZizxhJDj0Rlu9eFo5ygm8r3NM74qGzwgh624i1dWleEB/Iwv2xgskyDwBjj7X788M9f8EfNTBTL5EGk5S1O5t2Cl9tzCAlyU6+2dZ6u5NY0lVRPbRqGOu1/5FMzIezG565Y4esut+XAlS0fq+wmH1yx2eUH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog; spf=pass smtp.mailfrom=embeddedlinux.blog; dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b=CxgbuzVq; arc=none smtp.client-ip=74.125.227.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=embeddedlinux.blog
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedlinux.blog
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="2D6RsmZE"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a494638445so1773491a91.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:48:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=embeddedlinux.blog header.i=@embeddedlinux.blog header.b="CxgbuzVq"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-3a0aa5e2b20so1745105a91.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:48:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=embeddedlinux.blog; s=google; t=1790783322; x=1791388122; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E8rVfIZm1UEZzV/AFm0LxYX2Nm7h6LK4rTf9eW5RPJY=;
-        b=2D6RsmZERBT3NHGFl2R11RaJoCWmWQE2N8ajJeOvujwexRJqS0N/Q3P1sFJ1wVaSyh
-         D5lz/2DVLt+3fSorfe1xNp67KojhQW0P7EyCBuS9KoPptVFCHG7Bh77fSA5BVyCxhN1D
-         9uEj1FpQpta8ru48ekQtFYVgCe8GrDka1YwiaETKqzctd/hMYGngP6GK4CNtbYr0ZyFR
-         QEBuW4Ccm4SjPUBX3BCBLlozmC6xgifFhihYYeU7+0BSXUi3OZ/tiHGNq71h2V9O/Hm+
-         cZQsJDcnDSkydfpguFUYdQC6w82o3dJyQF9oQoAdDSy5ndLACwjZDZ7A+aMbXnBpn44x
-         CudQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790783322; x=1791388122;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=embeddedlinux.blog; s=google; t=1790783327; x=1791388127; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=E8rVfIZm1UEZzV/AFm0LxYX2Nm7h6LK4rTf9eW5RPJY=;
-        b=s0Dtah/JpsMHvx7J1JXDrCYnxLKrAFkUxMJ1LCkH/r9VS96ZcyfEmsaL9uMcvU0ywy
-         yNm2ikhyQuM14DBIWFMfVT4PHsuYPR0KuWqLS2OxLyMoFh0/fTUvdbGdfh9axJ3fgFpB
-         BF13pGwCu2XMw4Zo5ttHuOtJSeWJumJkvD3F+NRddO/sGJOKqfnvMrddS/InJDEuOx0O
-         VmSTYbFPc1LT5QSPOFYbhwBmwXQZsmhxPHgbqpJkaW2I6IqNAiYPI4UHrWeHH7G2ls8M
-         W/nTleoLfmUAF3tUi7Flvecxq87ljBlq/d3cxZv1e670Gi4d72KuyfV1zvtNW2okiT/l
-         DsRg==
-X-Forwarded-Encrypted: i=1; AKwUvByBShIWsydMXKU9fmupv25tFbenEUQOzQFvJ0G2Om3Np25pNH5RjM1IkwkNES3iaObBVIOdhFXpGXTU@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbfP9uU6twsqCRpcyfLKePe47t09fklZTGd8c+iffqaNIu8axC
-	IIoM3gmmGFXaDLUzBg9JT6VoxsIpBwotErTBYH0FZm5JpVLXeThbyAvZtSfrZ1ibpOcK
-X-Gm-Gg: AYBFou1YFKtdaIfmVt8p2av17bXjYo7DezyISGzABsC4uZx0IILBTJIOVRQWvFLxQ5x
-	EeWSFq5y6vYk9RSOOjUux5DLZjcJ77RUgB9b7ThoPxv1AvZ46esdWCBaqtwJS0LrnrQ/GIQEu5C
-	AsHhg9cGcKSCle4VaPgUuzmoHGgTbza/e7VoPzhMKoSON6H1OplHXKR4btlb0vOKO0fAESrNKL0
-	kHD8BSBmO0nsqm4CelMJCmDlD+y4CV+iumQ/0eGpWxW2X0UfWnDXsX0zuQ/cby+dIEN2Vjrsa+u
-	UQAAUG+Bm6b4P08jupfGZF0v+UZ6fKMxyyhUUZOFAf1R8qh12kwy48No/ty9DWnNiIoXgNDVbeJ
-	JaGQ5rF1gxxmL2qZ2ywc8JxJZ5Op60sFbtU9uIHZmv7VysuBNimKi19aTRZTbioaWSErP2NmVQ5
-	/Jf2PXmkp9e39e3zLYFTlgth/mEtFQ8XFSB0xUAsrh+GDO5oi9oSdKBDiSPg9y1gDzormGc5iTp
-	tTsexFd
-X-Received: by 2002:a17:90b:4b11:b0:3a0:c85a:e602 with SMTP id 98e67ed59e1d1-3a4d14eee80mr1153811a91.9.1790783322165;
-        Wed, 30 Sep 2026 08:48:42 -0700 (PDT)
+        bh=RylIL5PtKoKSEB6fKFx6teI8foZIXlgeBAHnwrC12eE=;
+        b=CxgbuzVqN+Y4M5f2tpA/yl7A06dm0Bc54u7wRoz+3gQEn9aZeApecSqU6M1Q3L11ph
+         1KyB7CYRDZKaUKeCTRs9mR7LdDnP8Th2Ng2iOZcKkkSvUM03okOgNxeDrbjcyaa39Fcb
+         M+2qEjc9Q5xyZR5/xct9c4s5nk7MHAn2pQ+RrkWXQjLoO6J+a48GV4GPBSyjIg+8R94I
+         MSBDv6D7GmKeeElAuVsNiXW+vfBklh8uqMHOkY4GmzGKtCDouiQPKJzvLoQyp4mFyWzN
+         PWAZYpFFC+4BggM0NU9AHtaEJ6VA+p2ZeYeXSZgS8mg26qs5qe1wfevL4qy1xwvgW40O
+         pR/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790783327; x=1791388127;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RylIL5PtKoKSEB6fKFx6teI8foZIXlgeBAHnwrC12eE=;
+        b=IgqqfXDOX4PGmDBuThCp0UDNSkDL5dlG9wPIhT8lT2D5HTvj5GvUgPuD2YzEQ/XIQz
+         5LP2mgPBPur8VeuCHldycszYvhPlwfp/FuVqsMPp/v4//+XHgL6eqI5PAWfHWznIGPtc
+         J6C9SOrkapIfLmzeVkbDgvgDNthCO3IrfSu2rHnQ3zgZGKrCbzcDWOaB4Mf0vgyCS+8H
+         k3714MGL1gd6JCgwkz+Ky2HjmNn+RaPe/+5//thbxb9foknNMKwCQRdirvcF4edDFJEl
+         V9OfAHfHaxjO1vXqsZ8Fj432Zy45jpbl7QELPK13vNZ0Uc2ICrKYJJ0TT5nn0xC9ziON
+         0lrw==
+X-Forwarded-Encrypted: i=1; AKwUvByhivPIKeNklBXvvywEel9FwT7MupCllly1GQg2ObqWUKGnzvLOMwJjf/4Dc7X8esCeMajLqb1YuCr4@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4tQg9dO7CLsYQU4ch0o3NX1eT42q8OrjQA/K+fOMDN8N4Dhsc
+	NEQ/ggLNFT31DJzisYER+dhXP+J3TZgO3hE3QNe7wPulUlgntdiWZ3eNayMVdAanTfqL
+X-Gm-Gg: AYBFou1qceyIY4AmjgnFkGt8Mnqe0LRLEc711GUVPk1UMQLi2SEctckD8ZKT3pnBaPt
+	mZ8gK0xMZwpH+ZHMr1JyUPdkhLtrYFJ+ZBFxckkKAV+Y83oaGxk7O6USsCqjCO98KxIRknqLMIa
+	7S7lp/VCwEaa6s7WDrVLplzBiO1vmokTvczbwUz/Dudd7dIpOcNTT9o7BaqzMRz2dqq/grrWkka
+	KfvsKYCZvXfxHrFD5SVBBx3meSuThDSJrZqNJO8et7SOjMdWzvK4FVfWHE27Gbk60j4puXqvbbD
+	o3Ijfg7rE+YOsP8nuFdvOb+4m32plp4CQuFQ1VPV5QsvPolBxfFRaeqZJZVts/qNTl/0zZimAy1
+	0rofuNQqQD2lMAnQTIctlE86J4RdJPz9keTpff8CGeSlXuzu5xIUr8k/Y7AYHUocJSCbXmXDWma
+	ZLIYnz3/9E0Rl83lfQirUkHOaHPl7WwFGEGAod29Hd3bWcaZqhiKBIvWe8B10TcR1BTi5DupqQg
+	mrIwVCC
+X-Received: by 2002:a17:90b:2888:b0:3a2:b465:fb8a with SMTP id 98e67ed59e1d1-3a4d1ddc911mr1860992a91.67.1790783327152;
+        Wed, 30 Sep 2026 08:48:47 -0700 (PDT)
 Received: from ltu.. ([171.245.4.151])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ee4d0af2sm308136a91.2.2026.09.30.08.48.37
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4ee4d0af2sm308136a91.2.2026.09.30.08.48.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 08:48:41 -0700 (PDT)
+        Wed, 30 Sep 2026 08:48:46 -0700 (PDT)
 From: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>
@@ -81,10 +83,12 @@ Cc: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>,
 	linux-sunxi@lists.linux.dev,
 	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] media: sunxi: Add the Allwinner D1/T113 camera interface
-Date: Wed, 30 Sep 2026 22:48:32 +0700
-Message-Id: <20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog>
+Subject: [PATCH 1/3] dt-bindings: media: Add Allwinner D1 CSIC
+Date: Wed, 30 Sep 2026 22:48:33 +0700
+Message-Id: <20260930154835.402684-2-tien.nguyenminh@embeddedlinux.blog>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog>
+References: <20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,196 +97,152 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds a driver for the camera interface of the Allwinner D1,
-D1s and T113, which the manual calls the CSIC. It is not the A31 CSI
-that sun6i-csi drives: the parser and the DMA engines are separate
-blocks with their own registers, so it gets a new driver.
+Add a binding for the camera interface (CSIC) of the Allwinner D1, D1s
+and T113. It is not the A31 CSI: its parser and DMA engines are separate
+blocks. Only the 8-bit parallel input is pinned out on these SoCs.
 
-1. The DT binding.
-2. The driver: the parallel input and the first DMA engine, as a bridge
-   subdev and a capture video device (media controller API).
-3. The CSIC node in the dtsi shared by the D1, D1s and T113.
-
-I tested it on a MangoPi MQ-Dual (T113-S3) with an OV5640. With this
-series on top of media next, v4l2-compliance passes for the media
-device, the bridge and the video node (streaming output below; the two
-failures on the sensor's subdev are the OV5640 driver's frame size and
-interval enumeration). With the sensor's colour bars, every converted
-YUV format matches the raw capture byte for byte, and 640x480 and
-1920x1080 run at 30 fps.
-
-On the board's 6.18 kernel with the driver backported (only the new
-set_fmt argument differs), 160x120, 176x144, 320x240, 640x480, 720x480,
-720x576, 1280x720 and 1920x1080 all run at 30 fps.
-
-The OV5640's 1024x768 and 2592x1944 modes give no valid frames on this
-board, and I haven't found out why yet.
-
-I couldn't make the FIFO overflow, not even at 1920x1080 with both CPUs
-and the 2D engine keeping the DRAM busy, so the overflow path (the
-buffer is returned with an error and capture goes on) has never run.
-sun6i-csi restarts the block on an overflow instead; I left that out,
-as I can't test it.
-
-Not tested: a D1 board (build and dtbs_check only), BT.656 (not
-supported yet), other sensors, the second DMA engine, the IOMMU and
-system suspend while streaming.
-
-The series is based on the media tree's next branch.
-
-v4l2-compliance from v4l-utils git, on media next, with vivid as the
-DMABUF exporter (v4l2-compliance -d /dev/video4 -s -e /dev/video0):
-
-v4l2-compliance 1.33.0-5506, 32 bits, 64-bit time_t
-v4l2-compliance SHA: 91dda32e4cc9 2026-09-28 07:58:16
-
-Compliance test for sun20i-csi device /dev/video4:
-
-Driver Info:
-	Driver name      : sun20i-csi
-	Card type        : Allwinner D1 CSIC
-	Bus info         : platform:5800000.csi
-	Driver version   : 7.3.0
-	Capabilities     : 0xa4200001
-		Video Capture
-		I/O MC
-		Streaming
-		Extended Pix Format
-		Device Capabilities
-	Device Caps      : 0x24200001
-		Video Capture
-		I/O MC
-		Streaming
-		Extended Pix Format
-Media Driver Info:
-	Driver name      : sun20i-csi
-	Model            : Allwinner D1 CSIC
-	Serial           :
-	Bus info         : platform:5800000.csi
-	Media version    : 7.3.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.3.0
-Interface Info:
-	ID               : 0x03000006
-	Type             : V4L Video
-Entity Info:
-	ID               : 0x00000004 (4)
-	Name             : sun20i-csi-capture
-	Function         : V4L2 I/O
-	Pad 0x01000005   : 0: Sink, Must Connect
-	  Link 0x02000008: from remote pad 0x1000003 of entity 'sun20i-csi-bridge' (Video Interface Bridge): Data, Enabled, Immutable
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/video4 open: OK
-	test VIDIOC_QUERYCAP: OK
-	test VIDIOC_G/S_PRIORITY: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_DBG_G/S_REGISTER: OK
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 1 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Control ioctls (Input 0):
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK (Not Supported)
-	test VIDIOC_QUERYCTRL: OK (Not Supported)
-	test VIDIOC_G/S_CTRL: OK (Not Supported)
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK (Not Supported)
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK (Not Supported)
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 0 Private Controls: 0
-
-Format ioctls (Input 0):
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK
-	test VIDIOC_TRY_FMT: OK
-	test VIDIOC_S_FMT: OK
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK
-
-Codec ioctls (Input 0):
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls (Input 0):
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK
-	test Requests: OK (Not Supported)
-	test TIME32/64: OK
-	test blocking wait: OK
-
-Test input 0:
-
-Streaming ioctls:
-	test read/write: OK (Not Supported)
-	test MMAP (no poll, REQBUFS): OK
-	test MMAP (select, REQBUFS): OK
-	test MMAP (epoll, REQBUFS): OK
-	test MMAP (no poll, CREATE_BUFS): OK
-	test MMAP (select, CREATE_BUFS): OK
-	test MMAP (epoll, CREATE_BUFS): OK
-	test USERPTR (no poll): OK (Not Supported)
-	test USERPTR (select): OK (Not Supported)
-	test DMABUF (no poll): OK
-	test DMABUF (select): OK
-
-Total for sun20i-csi device /dev/video4: 61, Succeeded: 61, Failed: 0, Warnings: 0
-
-Nguyen Minh Tien (3):
-  dt-bindings: media: Add Allwinner D1 CSIC
-  media: sunxi: Add support for the D1 CSIC
-  riscv: dts: allwinner: d1s-t113: Add the CSIC node
-
- .../media/allwinner,sun20i-d1-csi.yaml        |  111 ++
- MAINTAINERS                                   |    8 +
- .../boot/dts/allwinner/sunxi-d1s-t113.dtsi    |   31 +
- drivers/media/platform/sunxi/Kconfig          |    1 +
- drivers/media/platform/sunxi/Makefile         |    1 +
- .../media/platform/sunxi/sun20i-csi/Kconfig   |   17 +
- .../media/platform/sunxi/sun20i-csi/Makefile  |    4 +
- .../platform/sunxi/sun20i-csi/sun20i_csi.c    | 1357 +++++++++++++++++
- 8 files changed, 1530 insertions(+)
+Signed-off-by: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+---
+ .../media/allwinner,sun20i-d1-csi.yaml        | 111 ++++++++++++++++++
+ MAINTAINERS                                   |   7 ++
+ 2 files changed, 118 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/media/allwinner,sun20i-d1-csi.yaml
- create mode 100644 drivers/media/platform/sunxi/sun20i-csi/Kconfig
- create mode 100644 drivers/media/platform/sunxi/sun20i-csi/Makefile
- create mode 100644 drivers/media/platform/sunxi/sun20i-csi/sun20i_csi.c
 
-
-base-commit: 5f21cd9a4ae4a891b273178b40e0e9eb5b9ac650
+diff --git a/Documentation/devicetree/bindings/media/allwinner,sun20i-d1-csi.yaml b/Documentation/devicetree/bindings/media/allwinner,sun20i-d1-csi.yaml
+new file mode 100644
+index 0000000000..2bfe2cc9af
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/allwinner,sun20i-d1-csi.yaml
+@@ -0,0 +1,111 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/allwinner,sun20i-d1-csi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Allwinner D1 CMOS Sensor Interface Controller (CSIC)
++
++maintainers:
++  - Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
++
++description:
++  The CSIC found in the Allwinner D1, D1s and T113 receives video from a
++  parallel camera interface and writes it to memory. It contains a parser for
++  the camera bus and two DMA engines.
++
++properties:
++  compatible:
++    const: allwinner,sun20i-d1-csi
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    items:
++      - description: DMA engine 0
++      - description: DMA engine 1
++      - description: Parser 0
++      - description: Top-level block (CSI_TOP_PKT)
++
++  clocks:
++    items:
++      - description: Bus clock
++      - description: Module clock
++      - description: DRAM clock
++
++  clock-names:
++    items:
++      - const: bus
++      - const: mod
++      - const: ram
++
++  resets:
++    maxItems: 1
++
++  iommus:
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    description: Parallel input port, connect to a parallel sensor
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          bus-width:
++            const: 8
++
++          pclk-sample: true
++          hsync-active: true
++          vsync-active: true
++
++        required:
++          - bus-width
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/sun20i-d1-ccu.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/reset/sun20i-d1-ccu.h>
++
++    csi@5800000 {
++        compatible = "allwinner,sun20i-d1-csi";
++        reg = <0x05800000 0x400000>;
++        interrupts = <111 IRQ_TYPE_LEVEL_HIGH>,
++                     <112 IRQ_TYPE_LEVEL_HIGH>,
++                     <116 IRQ_TYPE_LEVEL_HIGH>,
++                     <122 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&ccu CLK_BUS_CSI>,
++                 <&ccu CLK_CSI_TOP>,
++                 <&ccu CLK_MBUS_CSI>;
++        clock-names = "bus", "mod", "ram";
++        resets = <&ccu RST_BUS_CSI>;
++
++        port {
++            endpoint {
++                remote-endpoint = <&ov5640_ep>;
++                bus-width = <8>;
++                hsync-active = <1>; /* Active high */
++                vsync-active = <0>; /* Active low */
++                pclk-sample = <1>;  /* Rising */
++            };
++        };
++    };
++
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f5eff489a8..f4c45c4678 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -905,6 +905,13 @@ L:	linux-crypto@vger.kernel.org
+ S:	Maintained
+ F:	drivers/crypto/allwinner/
+ 
++ALLWINNER D1 CSIC DRIVER
++M:	Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++T:	git git://linuxtv.org/media.git
++F:	Documentation/devicetree/bindings/media/allwinner,sun20i-d1-csi.yaml
++
+ ALLWINNER DMIC DRIVERS
+ M:	Ban Tao <fengzheng923@gmail.com>
+ L:	linux-sound@vger.kernel.org
 -- 
 2.34.1
 
