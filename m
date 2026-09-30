@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579BF489899;
-	Wed, 30 Sep 2026 10:36:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AD9493D21;
+	Wed, 30 Sep 2026 10:38:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790764587; cv=none; b=W3JyD0IKo0b1v174Mq6gqLLWLchuGSI3z0wprSe/dHkPjcG2WFR0/R0dIEeu3E1I/V+G+FeWUEBUN+ECs60vgvqMe5Ki0OHEsiQmV6pQAjXHN7TVwZlzOa7pzGd9X3aG6RQAxUeqV0NtkcTVFpxbbjl/ZJeoXIvyNBxpMjJTsYE=
+	t=1790764740; cv=none; b=IQxcIlwEITmri3UhRzkfIIihqWrVDUmnEui0iUx3hzOqjdKETExm9L3FDCuelOZA2w8af51ygdk9B4t+/V+y1qjqdWrOMPl+PuVYt7rG3xYCtTwoj9NDrrWgfvWjXNGogsGtGWZiXNPgR26UsjBL6861A4I2ZHjSNHhpW3cFpx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790764587; c=relaxed/simple;
-	bh=3OtIXL5oVq8AtCFy2KG/DlitJDAMuNKVop7LsnWuyAE=;
+	s=arc-20240116; t=1790764740; c=relaxed/simple;
+	bh=GV3O/rmVPZO8fyMq9CIMpuM4SABQNGqfp5sQwjDvsjc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=djjBPCBqQXYwjPSSHf0KYI6gdt55Cf/35BaNZjUOLAowMo2LqOm8yIK1INrlqcD1ONEeMSdC1PUw7J3wiah7HS15Ptq8VVMM++xEX5TcyxQvowioWGX3OMj4rdUFZXSLoyKMDvbNPAA6hDzbqXiBp+Ltvkkse6fQ+lpq5FrOmR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n03GEu4b; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y6WzbQmgurcMutbeJdCQYVPrPd5gtTc/I6RK9/7gS+gb+gGeWz0Uq7b7sHkGn+b0qPOtMNkR31qJ+ITol1UL+RZ6VxCzts4XlFReK+98ZbdTDfs47I3rnPUi29wqXlclShZqSzQBD3/lex2p/6c/aH98X0XgnazGfv3jYNebydA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iyj8/IOt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n03GEu4b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90B81F000FF;
-	Wed, 30 Sep 2026 10:36:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iyj8/IOt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B1551F000FF;
+	Wed, 30 Sep 2026 10:38:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790764586;
-	bh=5j0oeCmIiSAFwr9DL/KvkPyFQd1vbYiwHlWOIRKgumQ=;
+	s=k20260515; t=1790764730;
+	bh=Q42sMmac7vKYGCVFrMdhSVkWOijsRMSMvzwOYZNiU4g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n03GEu4bOIgD2UGI/ubYv4FxvTAXp0uBEGM8XQl7E0SET+txuGqCVkbUUC1eWkn6J
-	 /UZfSCYsrS4/mIayFcVFnE/YhLHGaGNk+4/hBUWaH4+EMiesGQzp4ehJAlMlBV0e6y
-	 Y2WzNIDIjQyP1J/5ILOXeuFB4iofDm/DIgH7NW6SGf1nuLHzQAO8SImjXDHyVv/J5E
-	 Ax8UQ5mKS/mVsr1HCjyeV05kr9Gx0a+k8r3z6qRn/0BqchOeMTMn/q8hZAJJXkD+jQ
-	 ncauGOX/8/P0WOxIgf9HzZARkZq459NnEKU5S4qws359NDvcD4P2SHVF4jnjLRZUk0
-	 FNaDpdzNaalRQ==
-Date: Wed, 30 Sep 2026 12:36:21 +0200
+	b=Iyj8/IOthcCiozVPuAmYxSU+qxe9W3l7Rnu2ibWzZySm0kt6WYVvXmGGRZJn/mxSk
+	 2Uj3+6OOvaA/FpyxtiBudhFjCbFkOuL5/2/7nVCaBFei/pJ553tE6EQ7tNX+xnr05f
+	 uwrzIkdTn4tvZHbrmM4k6bS1nJuvfNygSm7j5IMNdRYH2j8UMwj+Z6eOdaFTbJCgiy
+	 7fYP6qGK9og+2MXyk8PSjx2rvyergNkpOZ86+dPZ8FuCRfI+eXw9ns4JOw4a+fcrKN
+	 LyUtKtJR6ZFs/bOHMR9DuWiK77xEQKrLNahF87S4noE0xE7jFTJyHdlOjhVJs5H73O
+	 x1INh5aIyGlxg==
+Date: Wed, 30 Sep 2026 12:38:47 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Tim Kuo <Tim.Kuo@mediatek.com>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, Steven Liu <Steven.Liu@mediatek.com>, 
-	Sky Huang <Skylake.Huang@mediatek.com>
-Subject: Re: [PATCH v2 1/2] spi: dt-bindings: add SPI IPM v59 compatible for
- mt7987 and mt7989
-Message-ID: <20260930-enchanted-phenomenal-cassowary-80cdfb@quoll>
-References: <20260929062516.416368-1-Tim.Kuo@mediatek.com>
+To: Sue Wang <suwangquanta@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	joel@jms.id.au, andrew@codeconstruct.com.au, ryan_chen@aspeedtech.com, 
+	billy_tsai@aspeedtech.com, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, patrick@stwcx.xyz, 
+	Steward.Shih@quantatw.com, Martin.Peng@quantatw.com, Fred.Zhang@quantatw.com, 
+	p.k.lee@quantatw.com
+Subject: Re: [PATCH v14 1/2] dt-bindings: arm: aspeed: add Meta Ventura board
+Message-ID: <20260930-curious-narwhal-of-calibration-62442d@quoll>
+References: <20260929075106.74731-1-suwangquanta@gmail.com>
+ <20260929075106.74731-2-suwangquanta@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,37 +47,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260929062516.416368-1-Tim.Kuo@mediatek.com>
+In-Reply-To: <20260929075106.74731-2-suwangquanta@gmail.com>
 
-On Tue, Sep 29, 2026 at 02:25:15PM +0800, Tim Kuo wrote:
-> MTK mt7987 and mt7989 SPI hardware has been updated to IPM v59 SPI IP and
-> it differs from earlier IPM designs, most visibly in the tick delay field
-> of SPI_CMD_REG, so it needs its own fallback compatible rather than reusing
-> "mediatek,spi-ipm".
+On Tue, Sep 29, 2026 at 03:51:05PM +0800, Sue Wang wrote:
+> Document the new compatibles used on Meta Ventura.
 > 
-> Signed-off-by: Tim Kuo <Tim.Kuo@mediatek.com>
-> ---
-> v2: Add mt7987 and mt7989 real device compatible
-> 
->  .../devicetree/bindings/spi/mediatek,spi-mt65xx.yaml         | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-> index 3bf3eb1f8728..d2c740572d85 100644
-> --- a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-> +++ b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
-> @@ -39,6 +39,11 @@ properties:
->                - mediatek,mt7988-spi-single
->                - mediatek,mt8188-spi-ipm
->            - const: mediatek,spi-ipm
-> +      - items:
-> +          - enum:
-> +              - mediatek,mt7987-spi
-> +              - mediatek,mt7989-spi
-> +          - const: mediatek,spi-ipm-v59
+> Signed-off-by: Sue Wang <suwangquanta@gmail.com>
 
-No, look at the binding and recent commits. This should be a specific
-compatible. Git history easily tells you that.
+Please respect our time. Actually other contributors time as well.
+
+<form letter>
+This is a friendly reminder during the review process.
+
+It looks like you received a tag and forgot to add it.
+
+If you do not know the process, here is a short explanation:
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+versions of patchset, under or above your Signed-off-by tag, unless
+patch changed significantly (e.g. new properties added to the DT
+bindings). Tag is "received", when provided in a message replied to you
+on the mailing list. Tools like b4 can help here. However, there's no
+need to repost patches *only* to add the tags. The upstream maintainer
+will do that for tags received on the version they apply.
+
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+
+If a tag was not added on purpose, please state in the patch changelog
+or cover letter why and what changed.
+</form letter>
 
 Best regards,
 Krzysztof
