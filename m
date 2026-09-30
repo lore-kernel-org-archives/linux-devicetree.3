@@ -1,257 +1,187 @@
-Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE18F4C9DE4
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790768856; cv=pass; b=SJQbRb/V2Cz5gM8cQDMBJjR1yJQ74KzxVDfY697BBGFIMZp4faNCqgBe8WtTnlLYqOL7peRr/b3ODVzlyGcEb2P7o/C2QoSz+i+MV3BRvjbySh3tXUY2rNBGFUKjPFH4mKF8GHyLZnuT40vRtdHAmlgyFDeV2l6rRpeCdMsIP5w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790768856; c=relaxed/simple;
-	bh=tCnxQKaF5n24ux0FqNmPiHkkdScPtGclpUr1AEGXTyk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aUxLG4DW+1u7kyxMxxbveTTHXtKzkxTTgtxB9i5jZteYFEaKWMrTgoXpb04CLvPvhbKOfSNk6mvFoZpAuRfp/DA90gd7siiURsRMN8QKX4pzmjE+crueysOZALTC9hfljqG00kG6NpaipH617JgAGOtrrgMIswWJCsSYR9iOqKg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bdQ8H+ml; arc=pass smtp.client-ip=74.125.229.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F9DE45D92C
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:49:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790768958; cv=none; b=hkK4OVAlURlP/hbTpNh95UUOQPZngoaNOl4bpJMQZTIkBQuHUzHRR1nykEu3GUJf9+in2GLR4Dxdq/mNXDpwQPXwwvVyvq0EKfdFugb4wGCWgFPFjqs3qO9PGiyurHm6eGc37ZcOaATMnqRJS58WixjlYvev9ycjWDk2OhusASM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790768958; c=relaxed/simple;
+	bh=6Hf8A/ibvYwSw2K6acFMvDfVvlwnZ2P8a7yJ3TSb5dg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uibxxB1VU375RqnPlMGP/flecboHL+2eITMQV3R/MQ/MBud5PKW7FtfkCCQs4VsTdPLuoPqoNiWxVIi+F7f/WOFxArmzT2XER43GBhjAfUCPItTuQ98xn7/q9orOzOUQ4T+YszgLFU16yZqXo2oy9afRrX/sW5D7w3EI2Y3G8iQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DhDUGPbo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CH3DLrPp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bdQ8H+ml"
-Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c2a97ec17so755818eec.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 04:47:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790768854; cv=none;
-        d=google.com; s=arc-20260327;
-        b=j4WXFkk5dXysa6YCdipa/Rx5p2MfFZwu+fHvjVV0+2aGNjZuU1ULSZB27fJdGnGkyz
-         5i3RWzo9RhObi6FYvPdxFuwsS7IUGOM3V7MNRSfr+1x1usFsgKLWUUHRUXA8lcKLqkW4
-         OEt+cUVEfECt65iuGdwWRs20G6X9YOobhogdAxdIM4aP6sY3oLI215ZE5Tm3DrVdrhZ8
-         VC6oTX+VBV5PEIIDJSt80ua6uapv6RVNSRle4xl4mfhP2K0vF9HtDfFRN8uOjfqhfjug
-         w6zO62eeu4Zopd+UY/znktjwXrTkma9mxS/r+ucw3YwcP5ED3DtBpvIAT9AJkc32+ZGh
-         xGTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CU1MX58mqxg2gi+eZkq0TdZ36IM664l7Pic4XLSnu5s=;
-        fh=RjPcqAwk4zzChDSdA8io599vcpO8yPCS6/OUfh9zX48=;
-        b=dE1owON55ArUrUGxymdbXTgFYMvnBk779Xqx1ZEgSq65B1+mhJo0jkATPhAbPSTQyE
-         vWHJ9ooi3nyly8CxeznxHwo0D80g1L5S9x+X+4os/8P/RqhXnUGq9scgIQCWJCezJ7r9
-         7GrH4mXOk7tdPVxIAFhioMZcEEZkoPD4ah/zkz8rFNnmZbPGJ+z9HSdkaz+ypgrFQT3j
-         CmSQlqDbyaGTiDglbg1Ut3BIvKDU5mOoLkscbSHhb0lIyxaTXTiFNRZVukospBg2y7Yd
-         38k9JWDyIFiVcmtcmVvIcEmRMPbyCYCIbJipUQnykV+srd/3mwvsxZ62nkuww90LK3Nn
-         2ipA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DhDUGPbo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CH3DLrPp"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UB7gXT2584038
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:49:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=5Zu+NIHhBBeQIzNpCB+KAo
+	MZrGj5Ijoy9JyI8PUji8o=; b=DhDUGPboDAaFomNYC3akX7UGb0BaIytWe21LXC
+	HlDrCmBBIW+/Awz+dkbho7xmHAoJve8F9fiG/T5UiwsIF3mgYUvC9Jj19iWUh09g
+	2Gr3Qm5yKqnlNRLWqAHTrZEWhjp6p8rsAFSg8NylQX53xu+PkAf+Z/zI9Tv5uq0f
+	Y9+f1H6gs/w3uwm2nsEpc3nnFFzzvWa/b1/O6XJ8rwgm35eUQoYioF2VH0jExtaf
+	+jLSiJ5i9uyOsmjZD6VZw1vEkRuU/jW/AuEg7qb51eOODpsRclQVWkhXVWkNL0QM
+	7oKYmKx//FZHWstiJeMJpQ17n2bDOHtqYDDpgQBqi9RMT3eg==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0rhejkqu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:49:16 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1eb205d31so6064446a12.2
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 04:49:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790768854; x=1791373654; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CU1MX58mqxg2gi+eZkq0TdZ36IM664l7Pic4XLSnu5s=;
-        b=bdQ8H+mli6OECyMRBFOBx36NS7W/muNtXD+vOdjl/9B65WwU6Ogf2fWmYKFIn7d3Ww
-         oDrpOCjhb0SrETHWTdOoNMcuHsM1LBq8bHw705YZ2YBdumiuO4UtM31adsiDOaeqtUpY
-         X0RH2QRGyzpwKdP8u+5BLXSvmy2bHLS/KAReeR5zdzIve/gEP81zpjNXgXpe76WA4U6B
-         MViCKdDsF9Z/mjyYWa77vspcPYAii5KJ85jwvUwZWzAINFHbYUU2SgLtp8iIIj5Kkfja
-         HzCM/g/xKcP2u4/TTPO2vXllMC042CKqaZmUOICfBa3ZinfPKk6ResP7Tevue3J7jAf0
-         wQng==
+        d=oss.qualcomm.com; s=google; t=1790768955; x=1791373755; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5Zu+NIHhBBeQIzNpCB+KAoMZrGj5Ijoy9JyI8PUji8o=;
+        b=CH3DLrPpz2J3NevAuXV0AmOh/8xxe+ZB8G27jU1Kn09MPOQm7MUGj89FOL/vjNc/ku
+         loRtuoH9Tyw2oPPqNOM6spVB1DbxHWI4tiT0/uFC1f+aI+UG+hhAju59pXnxqRFZi1qf
+         AWuQJKqm2gaW2SQvVDKGzoGfAMuoRwbsU9k2zKzv4p8aM7UGTDzSm1199LIPHDRvQW6X
+         bmt3Xl523aaRTp6Bi3kuMReHmM5vC2rNyiUjnSkyYWRmhTf3IHSHYSCnAGCxexyKd4IH
+         BP4ZOTc9rEilJMCp6ebfaN+9e4KxPDy2i2HS6twDnbs1sqNJhkkVnmA3P1Wn3Yl1zP4H
+         d6Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790768854; x=1791373654;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CU1MX58mqxg2gi+eZkq0TdZ36IM664l7Pic4XLSnu5s=;
-        b=mV+2YOFMrJqfaBfjfO/fiUPZMTPqAFaRn0RazQ5fsoy4Jjt91M1FA2je+E0RSgfOkj
-         S90eHj/IwWhpjXG/kE51wBwgbORWeiv9FlUm21HWfsHy1t5BKaPY9HkbXaA7OS6FuNkr
-         /QKUMjysN7lYwa3K1D27eF+YDuqOjdRcLikUIl85ge9xMx0tX9bQKIuwl33dbw0qYsQv
-         ElrWUtGagc6q3prp+utoQNqTQ4ZMDAHyrlZn6cnoLmfzvSQyU2dYnb4hLGlfvPYiq0tu
-         5TGW3h4ixtqd63xB4tETksttvvaWIzv7BpZqsDCPvMvHDeoWHzTyPC46dS2qUW7mFYZR
-         bJYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwLNoJfzqm/IVD33b7I7oOhzdqhcTDTSNDGdiYRteN29hOewvsB43JDZHUGIuAyWnylGx/5XkdeH2a7@vger.kernel.org
-X-Gm-Message-State: AFuF++nFC7/Ry9WVXzB8HfoJ4mrG9MESgypytwn0RK3mMSabIpKnSvSC
-	vVKa+TH/ZIJdiPagjPKHwdmhimadmQsu7waifRKVANGbIgYzW9x71qhPP2IXkMNY155afkIqeNE
-	HyKU6ZkFah+b05cjFeFnFSF5cHnkxMMw=
-X-Gm-Gg: AYBFou09xCYWsvLJLvF8RvT6eBgknN8awSgcP04LxN0XCHfS4ILT/urfBZEmzfcuv+U
-	9xfNrK5uogsEIvXLON+pGP4kfwDS183Ppnh3hrv23Yxwd7uL4biodMkLKrE0bgrzFKz58T3kcmg
-	pk1wuJwTMiF0SjPsfzp9vjxMQ7tGlTfeqyMrqGhElXKfuteefmrmZpIlSC2NiL2n2Bzhr5ku3zh
-	5CSBOtwdTh47vK9V6ZnB7diLIAdAbY+I2nGPYXEdD5mSU3l2zo+HDhhRFMc/rpa/qVoO83X2azu
-	Vw6Dh4TuwD/LF9/TUSckcv84/UnfLBFsSkcnoWc0Re1husPNq2qEfS2TU1vPxAmZWPX6QAbR2bx
-	Ovxf2voQQhbpkY/IrpyD1Nn4=
-X-Received: by 2002:a05:7301:9e08:b0:34b:6d45:de57 with SMTP id
- 5a478bee46e88-34cdb5f5697mr1375712eec.9.1790768853829; Wed, 30 Sep 2026
- 04:47:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790768955; x=1791373755;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5Zu+NIHhBBeQIzNpCB+KAoMZrGj5Ijoy9JyI8PUji8o=;
+        b=VzyjTa0cqlutZt8b++WBBUTMoUEio8zI0PZolqIAD6/aPpfZOk0yg4DVR+fI6/nrXo
+         Ii2B6JDweqw9yT4YLcTlm04CA/ytbvUCahG416LpnOPG1yR+GrO8A3hakl3ipYJ3jSLt
+         /+WIv77TuOPahx3hqCDzTLGEo+Dwjq3PVn1cO+tX1oCwCiDsdBDSdVCHxxQGlCcaYbLR
+         yu5dhjdbKFINsA/daid4YdDVJxoLe2n0IAu7J8DClKeGi41ZEdtZZF3fquRUcm/9GrZs
+         LjmVSOF+6Bh6dEqLnTEO1Q7OyM+DalqicMFSgO+e0TysoQoeQIgxL6whrdfRwn05mU+4
+         W6Cw==
+X-Forwarded-Encrypted: i=1; AKwUvBzbm2RG0jFm0oUH5UJUuynSCdUlDOqPQZSKnATbeYp1WBA0m0k2OO+7R8FEnK25X6BbzL0QscPsyD++@vger.kernel.org
+X-Gm-Message-State: AFuF++lrH4gVgWQ6AHozkMbsmqeARtEyw4F6EUSeCCkd6q52l6ub3WWN
+	FGKUcxCAXSafgxBAx5hXmcWPVKtOKn59lVh+3vCjvKkChHNuv5Cdj0ZPjjKDPAbr8QLXYGCBx1Z
+	0K0PniYHWHLaVJFNYNGXfF9nJLL5j1bKT/NP2zuY1AHP109s35AoYFWqgySsLB4Xi
+X-Gm-Gg: AYBFou3/W0/gELLJrLO9HBWWuyZA0Fs8EceWaXuxpOC9Ni8ov3OFzFbzIvcsoBQEJ02
+	qPYhW5tB/M/7VtOJOTipuY8Ly5e8XXFxoIlM7QIjg7xbY5tIcoCCUjDTf+s9f/5vcdE1h/RgzrD
+	Dyht675wGJYP7hwrrrOnwOePIW9zCQSdiHZpY5CvIqpsmIe5xt64bZTEo2BaBeK0eNYDNwDoh7Q
+	GTFx3xB0sP6F7gb0AGGpYaQrEok75l5PELVzTQgwogXx9BZ72ItUJLpcPQDhaYsew93n22q4yqv
+	KE6Sdm+OHpH2rePzyN9U5htt2QiI+WJbLjnrm85BzXqw4Etsqe2GyjFUIbpM92Ndp92chM5idl1
+	NfycYfm/jgu96jg==
+X-Received: by 2002:a05:6a20:9c86:b0:3de:137c:2bdb with SMTP id adf61e73a8af0-3de9ebc5c44mr1058465637.69.1790768955130;
+        Wed, 30 Sep 2026 04:49:15 -0700 (PDT)
+X-Received: by 2002:a05:6a20:9c86:b0:3de:137c:2bdb with SMTP id adf61e73a8af0-3de9ebc5c44mr1058443637.69.1790768954685;
+        Wed, 30 Sep 2026 04:49:14 -0700 (PDT)
+Received: from [10.213.101.118] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-887bc2bd404sm53163b3a.46.2026.09.30.04.49.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 04:49:14 -0700 (PDT)
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] arm64: dts: qcom: shikra: Add EL2 overlay for EVK
+ variants
+Date: Wed, 30 Sep 2026 17:19:02 +0530
+Message-Id: <20260930-shikra-el2-v2-0-f0822be5aaee@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930070535.47130-1-clamor95@gmail.com> <20260930070535.47130-4-clamor95@gmail.com>
- <arzMF0wjcF_SVxpE@orome> <CAPVz0n3Oc4ocUWrtGgd-MdrdJ3SgDEi8onOkXi92o7hAn3y0Ww@mail.gmail.com>
- <arzlR8mCg9d_z62L@orome> <CAPVz0n0jnitNemUyhi9C2SgbRbJA9CinY1DrR-r7gnN=CaYGiQ@mail.gmail.com>
- <arzpluDc-Ib7q-K7@orome> <CAPVz0n0sQo-6xKOGzd3LsJzzAr7_TficW4KeU320Z-tcRUne9w@mail.gmail.com>
- <arz1BYJT30VTosYj@orome>
-In-Reply-To: <arz1BYJT30VTosYj@orome>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 30 Sep 2026 14:47:21 +0300
-X-Gm-Features: AclHuK9Y2nKRAcoyGWBo0XedUHUJ0UGBHVCSLavApiAyymEH-DqiDv0t1HCafQI
-Message-ID: <CAPVz0n18Y0oAREzJvm3utM3XohQXyoRWGBm=7uRvzVRTSK9CDw@mail.gmail.com>
-Subject: Re: [PATCH v1 3/6] dt-bindings: display: tegra: Document 8-bit CPU
- parallel interface
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAC73vGoC/22Myw6CMBBFf4XM2iF9RB6u/A/Doq2jTASqHSUaw
+ r9bWbu5ybnJOQsIJSaBQ7FAopmF45TB7AoIvZuuhHzODEaZSrW6Qen5lhzSYJBc01atbfbBBsj
+ CPdGF31vs1GXuWZ4xfbb2rH/v38ysUaOqvVe18c5ZfYwi5ePlhhDHscwD3bquX+XN6airAAAA
+X-Change-ID: 20260918-shikra-el2-ea8969385c3c
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790768950; l=1846;
+ i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
+ bh=6Hf8A/ibvYwSw2K6acFMvDfVvlwnZ2P8a7yJ3TSb5dg=;
+ b=8ey/RxiPhjOBes5cw13ricIfGhRA1qGBjR8Udpb5S5Z9myULY6o+RZ25Hfjk1uakhanS/vaHk
+ LnEim1kM+NQCtTA2toGL+2M4i0lyi4QEFEnhHqRs1QzYm2h2tCQqfJK
+X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
+ pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
+X-Proofpoint-GUID: zCAhRdYT-5LKZMNtB1_8J49LFexdcAga
+X-Proofpoint-ORIG-GUID: zCAhRdYT-5LKZMNtB1_8J49LFexdcAga
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTMwMDA0NyBTYWx0ZWRfX6ei649KpJvhm
+ 296+zAJrr8lpEoKR1vPsZTw4HxEknJ8JL9oPKEWAHSYl6x4ci57naHT07I1zl9hzPtQGfE7kLOD
+ q4Ys6d/SOMbYfgRjQcoO6Va4752mvMMaNYx2DAavWa9wGl030Kis1e5N/kmgZSOUtK3tV4mHlCL
+ Lcy+oyzlwc73QWssUkasJxhdDfRC+wZPWUMRRZhuszVEsUSrLu29Xsd9b8fbMHf2nCcnrSFkuPV
+ XzX32zz7aaNHFRnqkUEzPt2VqtO9O+2L1JiQGaVOMkFrdVbU3cmHGIMc2278Xm9halfaty+sQsn
+ jH87ziqJZ44yjSjtpsdNd7thDkWd6SJBEiMtHsLNpi24H3ir0ydldHODx7GAkq9TwPZKkJT4Xut
+ ER2nnBkV5SpHjiYZKny7WqGLfTg1HxDqyJ0c2PXCRDY69EG2YUuEH6tlkuP1CAeSr2C6PmyBmr/
+ 6kF618T7Qs9At9tFbfw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTMwMDA0NyBTYWx0ZWRfXz5LsmnHrhJsF
+ jf7SO/azXCkB51Y0SaP8NnnIfFRhIos9khXcPpQRTLhbBekS3kh3BAGq+GVPnSOeO+zL07hUXOW
+ HLSpLJDUGL9kraYwMU+nvEI6wk4V4yw=
+X-Authority-Analysis: v=2.4 cv=Tu1zFzXh c=1 sm=1 tr=0 ts=6abcf73c cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_5sKuGRrJ7O-zHbQ9ngA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609300047
 
-=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 14:41 Thie=
-rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Wed, Sep 30, 2026 at 02:10:15PM +0300, Svyatoslav Ryhel wrote:
-> > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13:54 =
-Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Wed, Sep 30, 2026 at 01:42:17PM +0300, Svyatoslav Ryhel wrote:
-> > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 13=
-:34 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > >
-> > > > > On Wed, Sep 30, 2026 at 12:00:21PM +0300, Svyatoslav Ryhel wrote:
-> > > > > > =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=
-=BE 11:47 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=
-=B5:
-> > > > > > >
-> > > > > > > On Wed, Sep 30, 2026 at 10:05:32AM +0300, Svyatoslav Ryhel wr=
-ote:
-> > > > > > > > Document 8-bit CPU parallel MIPI DBI Type B interface provi=
-ded by
-> > > > > > > > Tegra20/30 SoCs display controller.
-> > > > > > > >
-> > > > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > > > ---
-> > > > > > > >  .../display/tegra/nvidia,tegra-8bit-cpu.yaml  | 138 ++++++=
-++++++++++++
-> > > > > > > >  1 file changed, 138 insertions(+)
-> > > > > > > >  create mode 100644 Documentation/devicetree/bindings/displ=
-ay/tegra/nvidia,tegra-8bit-cpu.yaml
-> > > > > > > >
-> > > > > > > > diff --git a/Documentation/devicetree/bindings/display/tegr=
-a/nvidia,tegra-8bit-cpu.yaml b/Documentation/devicetree/bindings/display/te=
-gra/nvidia,tegra-8bit-cpu.yaml
-> > > > > > > > new file mode 100644
-> > > > > > > > index 0000000000000..f0dab608b2936
-> > > > > > > > --- /dev/null
-> > > > > > > > +++ b/Documentation/devicetree/bindings/display/tegra/nvidi=
-a,tegra-8bit-cpu.yaml
-> > > > > > > > @@ -0,0 +1,138 @@
-> > > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > > > > +%YAML 1.2
-> > > > > > > > +---
-> > > > > > > > +$id: http://devicetree.org/schemas/display/tegra/nvidia,te=
-gra-8bit-cpu.yaml#
-> > > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > > > +
-> > > > > > > > +title: Nvidia Tegra DC based MIPI DBI Type B bridge
-> > > > > > > > +
-> > > > > > > > +maintainers:
-> > > > > > > > +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > > > > +
-> > > > > > > > +description: The display controller in Tegra20/30 SoCs fea=
-tures an
-> > > > > > > > +  8-bit SPI interface that closely resembles the MIPI DBI =
-Type B
-> > > > > > > > +  protocol and is referred to as '8-bit CPU'. Each display=
- controller
-> > > > > > > > +  provides two such interfaces, which can be used to send =
-MIPI DCS
-> > > > > > > > +  commands to initialize and control the panel while image=
- data is
-> > > > > > > > +  transmitted via 16/18/24-line RGB.
-> > > > > > > > +
-> > > > > > > > +properties:
-> > > > > > > > +  compatible:
-> > > > > > > > +    const: nvidia,tegra-8bit-cpu
-> > > > > > >
-> > > > > > > The description says that this is a feature of the display co=
-ntroller,
-> > > > > > > so adding a new binding and compatible string for this is not=
- the right
-> > > > > > > move. This is all covered by the "nvidia,tegra{20,30}-dc" alr=
-eady, just
-> > > > > > > need to extend that with whatever is new.
-> > > > > > >
-> > > > > >
-> > > > > > How would you model it? I have tried to model 8bit-cpu as a bri=
-dge, similar
-> > > > > > to how DSI bridges are modeled. This reflects interface used to=
- link RGB and
-> > > > > > panel, without inflating existing DC binding. If you have any i=
-deas in modelling
-> > > > > > this, I am open to any suggestions.
-> > > > >
-> > > > > My suggestion is to integrate this into the existing "rgb" node, =
-or, if
-> > > >
-> > > > Not an option since it is not clean RGB and there will be no way to
-> > > > distinguish RGB from 8bit-CPU.
-> > > >
-> > > > > that becomes too convoluted, a separate "lcd" node (or "dbi", wha=
-tever).
-> > > >
-> > > > This is fine by me but nesting nodes without compatible feels weird=
-. Oh well.
-> > > >
-> > > > dc {
-> > > >   compatible =3D "...";
-> > > >   rgb {
-> > > >     dbi {
-> > > >       ...
-> > > >     };
-> > > >   };
-> > > > };
-> > >
-> > > That's one option, but there's also many other ways you could
-> > > differentiate between RGB and DBI. Could be a simple "nvidia,interfac=
-e"
-> > > property in the "rgb" node (that defaults to RGB if absent). It could
-> > > also be a node that is a sibling to "rgb" (rather than a child). Or t=
-he
-> > > child could work, too.
-> > >
-> > > Ultimately we're still describing aspects of the display controller h=
-ere
-> > > since this is all registers within the display controller's MMIO regi=
-on.
-> > > Nested nodes are purely for adding some logical structure for the
-> > > description that makes sense.
-> > >
-> >
-> > From my understanding data is sent basically as RGB, at least RGB
-> > configuration is still used in downstream. Panel commands are sent via
-> > DBI
-> >
-> > dc {
-> >    compatible =3D "...";
-> >
-> >    rgb {
-> >     port...
-> >    };
-> >
-> >    dbi {
-> >       ...
-> >    };
-> > };
-> >
-> > This would work nicely if DBI is modeled using bridge framework. I
-> > would strongly insist on keeping it as a stand-alone configuration
-> > separated from RGB and DC.
->
-> Okay, maybe give that a try then. But to clarify: this should all be
-> part of the Tegra DC driver and not need an extra compatible string or
-> separate driver. The DC itself should be able to function as a bridge.
+All existing Shikra EVK board variants boot Linux under a hypervisor,
+which means Linux typically runs at EL1. For EL2 boot without the
+hypervisor, remote processor firmware IOMMU streams must be described in
+the DeviceTree consumed by Linux.
 
-Noted, I will not add compatible string to the dbi node.
+Add a Shikra EL2-specific DT overlay and wire it up in the Makefile to
+produce -el2.dtb artifacts for the Shikra EVK variants alongside the
+regular dtbs.
 
->
-> Thierry
+This series also relaxes the Qualcomm PAS remoteproc `iommus` item limit,
+needed for Shikra EL2 remoteproc SMMU mappings.
+
+Komal Bajaj (2):
+  dt-bindings: remoteproc: qcom: Relax PAS iommus item limit
+  arm64: dts: qcom: shikra: Add EL2 overlay for remoteproc SMMU mappings
+
+ .../bindings/remoteproc/qcom,pas-common.yaml       |  3 ++-
+ arch/arm64/boot/dts/qcom/Makefile                  | 12 ++++++++++++
+ arch/arm64/boot/dts/qcom/shikra-el2.dtso           | 23 +++++++++++++++++++++++
+ 3 files changed, 37 insertions(+), 1 deletion(-)
+
+Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+---
+Changes in v2:
+- Relax the Qualcomm PAS remoteproc `iommus` item limit, needed for Shikra EL2 remoteproc SMMU mappings.
+- Link to v1: https://lore.kernel.org/r/20260918-shikra-el2-v1-1-07bb072baa31@oss.qualcomm.com
+
+---
+Komal Bajaj (2):
+      dt-bindings: remoteproc: qcom: Relax PAS iommus item limit
+      arm64: dts: qcom: shikra: Add EL2 overlay for remoteproc SMMU mappings
+
+ .../bindings/remoteproc/qcom,pas-common.yaml       |  3 ++-
+ arch/arm64/boot/dts/qcom/Makefile                  | 12 +++++++++++
+ arch/arm64/boot/dts/qcom/shikra-el2.dtso           | 23 ++++++++++++++++++++++
+ 3 files changed, 37 insertions(+), 1 deletion(-)
+---
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+change-id: 20260918-shikra-el2-ea8969385c3c
+
+Best regards,
+-- 
+Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+
