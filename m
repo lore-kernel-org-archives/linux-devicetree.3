@@ -1,103 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33334D9577;
-	Wed, 30 Sep 2026 13:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3BF4DE72F
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 13:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790775896; cv=none; b=CWi8R3WG4rRGCcLCPFOwJ8Rpjds1UH9/PyVptiY6xK6T6/oXqyFLqHfRuIK+oyddHwPu0cPtvW9VokKwBGIK7iCvf+/gaz2Pl72TMH8QPv7SeGjt6ql2mKov3W/JNsUlYUKwbc/xGPYMHtzJs9hDqXPnwRM3vfav6tY+zkFDHIM=
+	t=1790775983; cv=none; b=T/DuwwsB4BH6aO0B78SB+hDsVypRtGan8oZC1zegOFuGEdsIvdq5pN7M+iNtwIbQOrdNd2R89zjdZEWdpfxaOPoMaQ5tlAN7RxKzoQTcIIIRuujaLAhcyfleoibr+1ZAl0haWG1Tn7eQVAbpLKIDFrGghnkMayS1SBUlYppl8Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790775896; c=relaxed/simple;
-	bh=D8/csY7vk5JiI2dwhOnZ3cGEak57aEsmG/f8ADj6iKo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=J6h38YZv0wmDLchgNec5LNfbQJ5NGz42oR8VRW6ciQ0OGqHK4uHY/drmld2kHUrq8VX5/dCHND7hpbL2Sdvw/SMvaOlVF0+vegyToWWxHe8eCO3ylL0PEY/2KFsYS2d05eeOpwQgCNwfRvXVUjaGEm95Dr0zGlep2tCssndDXZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=keeUh/eZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790775983; c=relaxed/simple;
+	bh=7Nh6EI3LZQzPWseqkE8KELp9TSy2sy0wDOC/Rv8pmcU=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=jhc8u96mjvnHRNVjBex2j+RFxTrpkR7xVj+qQ4ATkx3vKDzUegAqOIINH6PSrZmjuNx8rr3m3KABqazGAKkW8y4bQM13x3pYZ6UW8CQwL9yikiGZ4w9tvfMi4wEOQVWup8JGRekxxvlgvyVpQ1RPro7vaehv4gsE1GDFuL8MpQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Xcxcl+U5; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="keeUh/eZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 832E3C2BCF4;
-	Wed, 30 Sep 2026 13:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790775895;
-	bh=D8/csY7vk5JiI2dwhOnZ3cGEak57aEsmG/f8ADj6iKo=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=keeUh/eZvrUEVuchzgbyynETeyMzA3mcLieefLWkDWWfS7vSXJ+jCxR27D74i44Lk
-	 GdJG477Zva4L7h3p/u/FWzV47lXTpzRmJY/9W2b3SyzA+uxON++4qk/jpatn1LkXKA
-	 pCWEURKSqHdMvzJwIIP0SSfWX4kX1nKZ52uxMqTwA1dQxuspVn6qebgEEpOY861JIe
-	 +ULxWzCWiiLac5AXfkVEX13PvP92Mlp/EBEpdVBGrPWMM7VORk2w76pn9RWhebm4WR
-	 rm87Nib70jti2LYl0sd7V5Iv1R3WuGHC+JxKxKGhYUZjzFLOlkW74d/XTe0VL/1tzc
-	 mhLOc/BAcjNow==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70545CA5FCB;
-	Wed, 30 Sep 2026 13:44:55 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Wed, 30 Sep 2026 15:44:51 +0200
-Subject: [PATCH] dt-bindings: hwmon: jedec,jc42: add #thermal-sensor-cells
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Xcxcl+U5"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c41135so468004f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 06:46:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790775972; x=1791380772; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CHcqKszk+BLOaoNOEO2+3FAWySZdw8cPx3mMZwkgNqk=;
+        b=Xcxcl+U5qcQRd2VbgTjtIVucE+ieNBGFJZ9WdLE9FW7ei8D0EbEtjYvw84vATDRq9f
+         97luY2pQNaAAWWtrpNAAPXOWwbMszSpp1qjjd/dux8YnBEVDzjzQY7KOy/HyVfuVdIdx
+         qUgb1+ARuM0k2IvbTKc79HYY1v2OedsYiOxqxEPVJC2U0eQF95hDfdGU/s2Js38E5yTN
+         58CDuo2uLDfvL1KbOj8kFUCFHaToum1c6ZouxpoW/Jne3/n9pxaNu8kVBZ060WDR5BUf
+         oXmr8vWIT0amR9kxBDNzoacOPGgwn0jee+vxn6k7Y+4DsrXKXTMoIoGKEEvUnl1FOkiT
+         xRzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790775972; x=1791380772;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CHcqKszk+BLOaoNOEO2+3FAWySZdw8cPx3mMZwkgNqk=;
+        b=Bon9TKY0cQCvRT9FxHcAB8AUc8tqydlSpNu6bUN4u4ZPMtnDe4ZSawG0iInaRK4U3B
+         3EZq6ugQcw49ygrmr6Bdb2lt23YfOeuRGj75J6lUKqAiSI5ELCg8jottHe31waj8ud2V
+         wHq9LtYyn2SJkE7/lywYDp6muxdTg6qaUdQN224zcS/tbNJ3ZG0dD8Ghg9AsFVaOGMac
+         GBTCOXIOZ5LGp6ZyDIXpyv+1wVAMzlFcpC7VyNPzOUWl4n3H2E7cDEf7CZQIgs4m+oSH
+         tsQF/IMcYuvXpscLqvfyV56Yktj24wi+JvhYrD+3YB+zfnS+N/pg0S8eq2l2JLmhuUfa
+         zqXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxO9I+9ylVqXmYZ0w3tyHeht+Wi3CKSLIi8rlU5TklZYBc/WIMGETVG3Vzp2aF6DabqLH0qqwXyyrWb@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPTRAAfI6u2l1gKozYPwxpSKA0QyuPQ7BMrxiz3E50uugo4lds
+	RuRMQhViR41xFV18eILCX6gFO+h/1YSKlM3t0p7IwDZ7mcIZCblMU8s2tGyA4Dgx73o=
+X-Gm-Gg: AYBFou1+/IMOBHzqA7WrrKc9kdSTnbkKcJDAMnLH0jsR+WKj1n9O3RaMGHFYEc/GLOi
+	37ebwDermfy6FsOBaobImffQp9PHnXCfyO7I5me9RJteigmezjrH2eKwtWlF3HqD2HTb0PiSHMU
+	tGBFI/rhxAqXOGkh5QPbCd7kLYgMQSSkectU/472zreG5ZHmQWL03n9mHcjuzXHYgDFShpRig8A
+	UjXdYtYJlc6DsLAqrNYYlhUBrw85u0gnR/SlR1IJt3rcdf9aYsM6UGc7+oLIurf5D6brsx7slFM
+	cRt5nGrCfXHRlGIzlMJctWRU+RAPeJi2KepDsPz4rpuU04IjE8RuWi/kz86Ljo6JAqj2NHDe/lZ
+	WxPmq2Z15d7w4u3z2mcPqtJMENqAh0Jj4aG++xvDlfly5MiaauRTFFg2hqv/ZWSUMckN9zNMR+B
+	ruKx0+ntZaMRdAea/pRbuJKyuNpqlJOsHHGOhtbNkyHapeITXgnkpu+j/EKKC4AhnbOGaSZh7kh
+	4FRTHpOJYXnd+v6OKxP17Xm8KJNhABLPXMLkWUzBsMq2eRPABl+cGHHw3XuGeFMW7kB2bj5cjtt
+	un7Rbfk=
+X-Received: by 2002:a5d:5f81:0:b0:488:84e2:cb0b with SMTP id ffacd0b85a97d-48b02549be8mr3355158f8f.51.1790775971655;
+        Wed, 30 Sep 2026 06:46:11 -0700 (PDT)
+Received: from [10.21.51.184] (ipagstaticip-88fc351e-cb28-db3e-3f52-ad13c70f08da.sdsl.bell.ca. [142.127.77.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029e51b8sm3780276f8f.20.2026.09.30.06.46.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 30 Sep 2026 06:46:10 -0700 (PDT)
+Message-ID: <c75feb5d-055d-403a-8dba-3c187cdb8e7d@linaro.org>
+Date: Wed, 30 Sep 2026 15:46:04 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Benjamin Tissoires <bentiss@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <artgrTe6wvKxnUOG@houat>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <artgrTe6wvKxnUOG@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-for-upstream-dt-jc42-thermal-sensor-cells-v1-1-ef6365cae23e@free.fr>
-X-B4-Tracking: v=1; b=H4sIAFISvWoC/x2N0QrCMAwAf2Xk2UBbtaC/Ij6UNHORrhtJJ8LYv
- 1t8PA7udjBWYYP7sIPyR0yW2sGfBqAp1Rej5M4QXIjudnY4Lorbak05zZgbvukSsE2scypoXK1
- 74lIMU/bE7upj9AS9tyqP8v2/Hs/j+AGZsob2ewAAAA==
-To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jean Delvare <jdelvare@suse.com>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790775894; l=1166;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=mSc3Y85qyReq6ISJzbowfHld4A9js6Xfg/xK6HlzA8U=;
- b=pzPvbaToTilm9X2F2TEQuBc2nuZx6ABlJi3v5wZtop5UROQYGrf2BfCD9FYuD2n7VIEVx+ZLN
- cjrewKPNguJDHjYaLrUmadbxs7B41Ny/Y/r3P7Z12tUqvLMDmUxnqjo
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
 
-From: Vincent Jardin <vjardin@free.fr>
+On 9/29/26 09:13, Maxime Ripard wrote:
+> Hi Neil,
+> 
+> On Mon, Sep 28, 2026 at 06:39:58PM +0200, Neil Armstrong wrote:
+>> On 9/28/26 18:22, Maxime Ripard wrote:
+>>> Panels in general, and MIPI-DSI panels in particular, are pretty
+>>> difficult to support and require pretty much a panel driver for each
+>>> panel produced. Most of them are pretty simple, and require an opaque
+>>> initialization sequence that is usually poorly documented.
+>>>
+>>> This creates a tension between OEMs and distros because OEMs will
+>>> typically get a new panel to react to a sourcing issue during
+>>> production, and thus need some swift turnaround between getting their
+>>> new panel and it being operational in the OS. Distributions on the other
+>>> hand can take years to ship a kernel with that new panel driver.
+>>>
+>>> To solve this, I followed the example of HID-BPF and wrote a panel
+>>> driver that will rely on BPF programs to perform the panel
+>>> initialization. That way, we can ship the programs separately from the
+>>> kernel, and with a different lifecycle. If this driver is accepted, the
+>>> plan is to have a userspace component started by udev to identify and
+>>> load the right BPF program for the panels found on the device.
+>>
+>> This is kind of late for serious applications except if we manage to
+>> solve the bootloader to Linux display engine transition.
+> 
+> Virtually all "generic" distributions are shipping the panel as modules
+> today anyway, because anything else is nothing but impractical. But
+> maybe you don't consider them serious enough. Also, applications live in
+> userspace already, so can be ran after this driver would be initialized
+> anyway.
 
-Since the commit
-  032c1623c9de ("hwmon: (jc42) add HWMON_C_TZ_REGISTER")
-the driver sets HWMON_C_REGISTER_TZ, so the hwmon core calls
-devm_thermal_of_zone_register() for its temperature channel and the
-device can be referenced as a thermal sensor.
+So what would this exactly solve ? keeping out-of-tree BPF driver + bindings
+driver forever and never upstreaming then ? Is this what we really want ?
 
-The chip has a single temperature channel, registered as sensor 0, so
-no cell is needed.
+> 
+>>> This driver is fully functional and works with both 5" and 7" Touch
+>>> Display 2 panels for the RaspberryPi. However, it breaks away from the
+>>> typical panel driver in multiple ways:
+>>>
+>>> - BPF programs can only be loaded by userspace. This leaves us with two
+>>>     choices:
+>>>
+>>>     * We prevent the driver from loading until the script itself is
+>>>       loaded. This has the side effect of preventing any other output to
+>>>       be used until the initramfs is ran at the earliest, and possibly
+>>>       ever if the loader isn't installed for example.
+>>
+>> This adds a dependency on user-space behavior and if somehow the
+>> initramfs doesn't load for a reason we won't have a way to display
+>> an error.
+> 
+> Yes, if an error happens before the DRM driver loads, it won't be shown
+> on the screen. This is already the case for any panel driver today on
+> any major !embedded distribution. And with built-in drivers, this can
+> also happen before or while the DRM driver loads.
+> 
+> The solution is always the same though: load simpledrm first, move to
+> the proper DRM device once it's functional. It still works with this
+> solution.
 
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+Module != bpf programs, maybe one day it will change.
 
-diff --git a/Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml b/Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml
-index bf3332153ad8..d835664a926b 100644
---- a/Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/jedec,jc42.yaml
-@@ -59,6 +59,9 @@ properties:
-       supported on all chips.
-     type: boolean
- 
-+  "#thermal-sensor-cells":
-+    const: 0
-+
- required:
-   - compatible
-   - reg
+> 
+>>>
+>>>     * Or we probe the driver all the time, but only report it as connected
+>>>       once a program has been registered. This is somewhat unconventional,
+>>>       but allows the other outputs to be functional, *and* allows the user
+>>>       to force the output if their panel doesn't require any
+>>>       initialization or during debugging. I chose this solution.
+>>
+>> Both options are not really great...
+> 
+> Feel free to make any suggestions
+> 
+>>>
+>>> - It's not a panel driver, but a bridge one, which is also pretty
+>>>     unconventional. This is required because panel drivers don't have
+>>>     access to a detect callback that is required for the above, but I also
+>>>     think that the recent work from Luca blurs the line from panels and
+>>>     bridges and we'll end up going that road anyway.
+>>
+>> On this point, DDIC _are_ bridges,
+> 
+> I have no idea what a DDIC mean.
 
----
-base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
-change-id: 20260930-for-upstream-dt-jc42-thermal-sensor-cells-ad1ce051661c
+The DDIC is the Display Driver Interface Controller, basically the
+IC which received DSI packets and physically drives the display.
 
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
+It's basically a bridge to the panel, and this is mainly what we program.
 
+> 
+>> but in the current panel API we blur the line between the panel and
+>> the DDIC. So being a bridge is fine, but in a general way we lack a
+>> proper way to describe the display/panel/monitor independently of the
+>> DDIC.
+>>
+>> At first glance it's a nice driver, but moving the timings into a blob
+> 
+> Let's not kid ourselves, it's *already* a blob. We just sugar-coated it
+> enough that we can be happy and call it GPL.
+
+It's the case for most drivers, but since we don't get proper
+documentation we're stuck using registers list and can't
+implement advanced features. And moving this to a bpf won't solve
+but enhance the problem by a large factor.
+
+> 
+>> moves something into possible proprietary binaries with possible
+>> closed licence and distribution restriction so it's a downgrade for
+>> the same of bringing up a panel faster.
+> 
+> We can already make a proprietary, out-of-tree, panel driver today. That
+> being said, the only license we allow for BPF programs here is GPL, so
+> if anything it would be less of a concern for this than it would be for
+> regular panels.
+
+So you're on to facilitate keeping panel driver out-of-tree and never
+upstream them ? this is awkward TBH.
+
+> 
+> Maxime
 
