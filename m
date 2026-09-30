@@ -1,149 +1,168 @@
-Received: from mail-ed2-f23.google.com (mail-ed2-f23.google.com [74.125.228.87])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7599A3A2543
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:30:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C81374E42;
+	Wed, 30 Sep 2026 09:35:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790760649; cv=none; b=rOCLQHbVV6lA62pLJRR3DWqjccHAkHhm3UrasAidTMkkJ10g5XnCLXZygDV2ekfucp8inrGCsKkyrATUCFfCB3jRKweXlgw7EnqgVhdVSUURqi/tq610v4Bv36En+3dI2O00vb21pv6+r7kHhbFuuTbZ703O84H48n4vAWuZAvc=
+	t=1790760931; cv=none; b=USd1cuwmgIXjPBFlRapJjbbMa33Weg4qNvbKgjWreTRrwz/ff5qVeWZlHNKqTUS6emvHPn6tWaNTNtfIpfS2JLJjVaQ46GGdvM5BMfUvUgs0yxbqSxWU8NQfVg21pau/Gmc1tJ79k8V7ZNPw/GrmipwoInDTf8y+cgwkf9SoRpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790760649; c=relaxed/simple;
-	bh=QtaCvtB82nVMHgqJpRLty7FgR+XTbYY1+IELklBAaFQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ufFvLt6x/TAoOIes/rwByYwg+qRcsUgKUfSR8mAnDZyLel5CHsVdYU3XWzER8y+U/+ZLFpjJWxPqQD23a5F5UINV9WnsYZNQD5qw3Kd5qRAQidGkdGKeEaHGxXwZmedaaTRaWOK4aAhwgHLZkYerhrWhaZ43eYy4aQRAh1wNi8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZN60qiSL; arc=none smtp.client-ip=74.125.228.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790760931; c=relaxed/simple;
+	bh=6sJ98yjfX7WtWEQfJyK5fHDmtw8r/Z53ygRus7vKeiE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b3UQbo9e5BkiT8DrgN8zaiaooDzseUEXKp1RMEJCnbxxbj0bAvftyPcI4qHzDDnou1eqX/kNnLcfvNPBXVRphQZIml3x6MNhvjH9Sw0LBT2VlAhwGdJMkrDV6qHVu/qssnz1wO3kDyg8slIwZ9LXgBiB6tAK7zz4nV+nLEUgZ1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q6BBFMKM; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZN60qiSL"
-Received: by mail-ed2-f23.google.com with SMTP id 4fb4d7f45d1cf-6aaf8415866so6809150a12.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 02:30:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790760643; x=1791365443; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xy3iOEWnL0tHwimE1DNns8Vy695o1slJtCha6gEPJ2w=;
-        b=ZN60qiSLq7qyqFaG7CoW2kCEMDZNLbg1JoJsegoPZtKthtyPfu0Ntj7Iy1aQEIOj2S
-         9dYe9D+DLaAw8KDxnfYB14CPIlJBgBYOLJE3X/0oC30uacDnob3o4B2vijWdxwgGjcYA
-         EfCSbRhneduOU8FW4H3KaAhgW+Scz7xR2TI6GpnBnac/zlsuJrahLcOfaI8GLwmMuD2w
-         iMHP8/QJB5v9Nz5gtyh3JTSAWPKUFvwDGWA6GLo2QOo7/4xFefkmDSbeNAdC+oNQ2i9h
-         PifjParERI8Fc71539rYtz/Iry6yGgIWgcTPhp3nE7AHNCOsTFG74WVTaU2F+VPmm4Cr
-         F90g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790760643; x=1791365443;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xy3iOEWnL0tHwimE1DNns8Vy695o1slJtCha6gEPJ2w=;
-        b=jNtczKpcJW/kqOOmtbAytUZ5nsW5dyd2b2rwwVZau6FypCkgpc9HOvzu3rGmUePwWG
-         QorKYQgwMBjD7QTfG+km2WZQvJCxeky3cPkaJ8/wKXiVLllT12Ciux12tpUQCcfa0LFK
-         30c7RIE2rJzAH0UhXj7XTNAxzu77QxNbtAtz2bz1xL8sT18Mr0gxHVWq5MEPpagnrKVW
-         UbwGAgNTov2hFE5hwBmxNhQrchyAkv6OaPq+BRvpZ4afFWXC+D1FWZ0GpWjOUlJIMy5t
-         SItKrT8+W9+Ina7eQu1iIFKg2QafX3lxSeBjNnKLOQP1X86uPgPscuFPpHGFnr3yX+8D
-         jR+A==
-X-Gm-Message-State: AFq9FYIwyZdcy4Mt01OOLd8IHdY+EXmjxdjijRDk2HEiP9+l7+I51/Zq
-	JrFw3gXCA/+96/R3lAHJDCYkO5JYDEdPhDPdBWDGW1Y/wPBCOX56tr/k
-X-Gm-Gg: AYBFou1cOwX+mtaJtrN/0RWlEnn6ZjXtxCfByKkO33D0fIsMh1wKQOrapaDIiVvKENk
-	skf5EvyXFEbJBrPGoIIU6dafSKJV9o7YyaQW3VYdk1abg/XbYAGSjuhUfYFuWdqbsgIxLYzH4tT
-	sHMpp4w4Ol9YllvZMjZehdKKczHRCbKjXho7YtNGjOW+QTJVj/K6G9rbIR3yx0gBodRNqMLUNml
-	b7BuPh7aXP/AuobQoiM+3C45cNFy4/MBAO3ZLV88U30xaDwFksU/9z4Pe5OwQKkFoys2T0CutlA
-	m15YmVqaZP5BpZpfNTApdeiJiMXNkHAWJ0UDp0r/RWg5SS2ahiWmJIte/46aDKEC/5NIz9lbPYI
-	NzcFL/LfduA4deISEU8F1t/mtNzvIN9goh22VHwVNlqfpNsZkfCmMNY4ch/JXYEakOPm91mXgHP
-	JoQQfvevfkvSAbf8R4j77eZJWdV0TbWf5iinpoS7WqMJD+1yYD9wRfDp1swmcqfuFHwE+BPfSS6
-	UimlwnarQM=
-X-Received: by 2002:a05:6402:24c6:b0:6aa:f1d2:ddaf with SMTP id 4fb4d7f45d1cf-6ae1992a5f5mr389769a12.10.1790760643233;
-        Wed, 30 Sep 2026 02:30:43 -0700 (PDT)
-Received: from localhost.localdomain ([193.107.16.39])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae1568e8b2sm485221a12.19.2026.09.30.02.30.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 02:30:42 -0700 (PDT)
-From: Dmitry Yashin <dmt.yashin@gmail.com>
-Date: Wed, 30 Sep 2026 14:29:07 +0500
-Subject: [PATCH 4/4] arm64: dts: rockchip: add FIT-PCIE-SATA overlay
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q6BBFMKM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790760930; x=1822296930;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6sJ98yjfX7WtWEQfJyK5fHDmtw8r/Z53ygRus7vKeiE=;
+  b=Q6BBFMKMsEhPeBI+RzzLSs5UJOJaCzJQqf2y7C9LdrdESO7mRLVimQu2
+   b70oaYMrhcxNmHES7ivI6lbXwr7O9UHd/GxxXqr18+WHFJuEIE9UeRgZW
+   zJ1MM4EUQWoiNXPZX4j8ryoCpDJ8vmxepPrgu0LhFlmONDN83QoLybf5I
+   ICpk9e8q8WKxotvXcUfx63BfIUP7RqUK0RD1N9iTiSDX1CkRURt2bwN3t
+   bQ0bDKyr1O+/yZik5bdT8x0PXKrQzeEM2Tw6bIUoZ3zb+0qH2p9f+MmhC
+   Z+Cjd4jFVI/Q72xz7cdx9W2upsE1viMRyyRNX2t2O4MYXqNz6t7dpLQFV
+   A==;
+X-CSE-ConnectionGUID: /Y4liUaUR/OQHTLLDmbNPw==
+X-CSE-MsgGUID: VQ8xGIjjSwOZ9cokDueBCA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="117024233"
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="117024233"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:35:29 -0700
+X-CSE-ConnectionGUID: dLqXX60xTa6aFyjyQRdm5g==
+X-CSE-MsgGUID: +5PdCRmSSV2cz9OIHlu/Vg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
+   d="scan'208";a="303575625"
+Received: from spandruv-desk1.amr.corp.intel.com (HELO localhost) ([10.245.245.137])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:35:24 -0700
+Date: Wed, 30 Sep 2026 12:35:22 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+Message-ID: <arzX2pzq_0JreVJe@ashevche-desk.local>
+References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260929124248.237032-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-ok3568-c-v1-4-a0ffd55f5c95@gmail.com>
-References: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
-In-Reply-To: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Dmitry Yashin <dmt.yashin@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790760632; l=2276;
- i=dmt.yashin@gmail.com; s=20260930; h=from:subject:message-id;
- bh=QtaCvtB82nVMHgqJpRLty7FgR+XTbYY1+IELklBAaFQ=;
- b=14smWAzHi2xRrXpAi13KJaNbjx0ttZoWTFTNLI/D7Q5zDrRvqa5emJFRD2xr8nDIQxXywPHPT
- +IVUk/ck9r+CLpAB3/8taFFhgxzFtu2slMMBjccsD5WGzHH/SqcCadx
-X-Developer-Key: i=dmt.yashin@gmail.com; a=ed25519;
- pk=vBe9jaaOEH5bQEvfzb1tWOlz3AMIcXCu/GL/CdlwJco=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929124248.237032-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-FIT-PCIE-SATA V1.0 is an adapter that included with OK3568-C board
-and allows to connect SATA drives to the device.
+On Tue, Sep 29, 2026 at 01:42:48PM +0100, Prabhakar wrote:
 
-Add overlay to use combphy2 in SATA mode.
+> Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which shares
+> the RZ/T2H ADC IP but differs in channel count, sampling, calibration and
+> resolution support.
+> 
+> The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
+> 20 ADCLK cycles, does not support calibration, and supports selectable
+> 12-bit and 8-bit conversion resolution.
+> 
+> Expose the fixed sampling frequency as a read-only attribute and allow
+> the conversion resolution to be changed through the scale attribute.
+> Use extended scan types so the reported scan type follows the selected
+> resolution, and prevent resolution changes while buffered capture is
+> active.
 
-Signed-off-by: Dmitry Yashin <dmt.yashin@gmail.com>
----
- arch/arm64/boot/dts/rockchip/Makefile                    |  5 +++++
- .../boot/dts/rockchip/rk3568-ok3568-c-fit-pcie-sata.dtso | 16 ++++++++++++++++
- 2 files changed, 21 insertions(+)
+...
 
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index 48c83f79f83b..45e94a44107e 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -155,6 +155,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-mecsbc.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-nanopi-r5c.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-nanopi-r5s.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-odroid-m1.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-ok3568-c-fit-pcie-sata.dtbo
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-ok3568-c.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-photonicat.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-qnap-ts233.dtb
-@@ -275,6 +276,10 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3368-lion-haikou-haikou-video-demo.dtb
- rk3368-lion-haikou-haikou-video-demo-dtbs := rk3368-lion-haikou.dtb \
- 	rk3368-lion-haikou-video-demo.dtbo
- 
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-ok3568-c-fit-pcie-sata.dtb
-+rk3568-ok3568-c-fit-pcie-sata-dtbs := rk3568-ok3568-c.dtb \
-+	rk3568-ok3568-c-fit-pcie-sata.dtbo
-+
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-puma-haikou-haikou-video-demo.dtb
- rk3399-puma-haikou-haikou-video-demo-dtbs := rk3399-puma-haikou.dtb \
- 	rk3399-puma-haikou-video-demo.dtbo
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c-fit-pcie-sata.dtso b/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c-fit-pcie-sata.dtso
-new file mode 100644
-index 000000000000..474488ea994b
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c-fit-pcie-sata.dtso
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * FIT-PCIE-SATA V1.0 is an adapter that included with OK3568-C
-+ * board and allows to connect SATA drives to the device.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&pcie2x1 {
-+	status = "disabled";
-+};
-+
-+&sata2 {
-+	status = "okay";
-+};
+>  	help
+>  	  Say yes here to build support for the ADC found in Renesas
+> -	  RZ/T2H / RZ/N2H SoCs.
+> +	  RZ/T2H / RZ/N2H (and similar SoCs).
+
+This wording is good for the summary above, but here please list what the
+similar SoCs are. Something like
+
+	in Renesas SoCs:
+	- RZ/N2H
+	- RZ/T2H
+	- ...specify "similar SoCs" here...
+
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called rzt2h_adc.
+
+...
+
+> +static int rzt2h_adc_write_scale(struct iio_dev *indio_dev,
+> +				 struct iio_chan_spec const *chan,
+> +				 int val, int val2)
+> +{
+> +	struct rzt2h_adc *adc = iio_priv(indio_dev);
+> +	unsigned int i;
+> +	u64 scale;
+> +	u32 rem;
+> +
+> +	if (!(adc->chip_info->features & RZT2H_ADC_FEATURE_RES_SELECT))
+> +		return -EINVAL;
+> +
+> +	for (i = 0; i < chan->num_ext_scan_type; i++) {
+> +		scale = (u64)RZT2H_ADC_VREF_MV * NANO >>
+> +			chan->ext_scan_type[i].realbits;
+> +		if (div_u64_rem(scale, NANO, &rem) == val && rem == val2)
+> +			break;
+> +	}
+
+> +
+
+Blank line here is not needed.
+
+> +	if (i == chan->num_ext_scan_type)
+> +		return -EINVAL;
+> +
+> +	/* The scan type changes with the resolution. */
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
+> +
+> +	adc->resolution = i;
+> +
+> +	return 0;
+> +}
+
+...
+
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*vals = rzv2h_adc_scale_avail;
+> +		*type = IIO_VAL_FRACTIONAL_LOG2;
+> +		*length = ARRAY_SIZE(rzv2h_adc_scale_avail);
+
+Check if array_size.h is included.
+
+> +		return IIO_AVAIL_LIST;
 
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
