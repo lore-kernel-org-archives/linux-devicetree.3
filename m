@@ -1,113 +1,83 @@
-Received: from out198-13.us.a.mail.aliyun.com (out198-13.us.a.mail.aliyun.com [47.90.198.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF09626A1AC;
-	Wed, 30 Sep 2026 00:39:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AAA2F2914;
+	Wed, 30 Sep 2026 00:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790728790; cv=none; b=luYdEBY4bWo15J+pO6hqqcSNlL3R8M9tznA8b41og0nE8Qc4X49eYx41R7P6sTbn8zE+JxcS3bgcHkfAZeYPriXybudnOVSDLtA91v7mCAHXNCMqG5wbZQgW0dpIkJD/Jct99X6aF2l350QR2TKHYegOE/Uq/vwqW+j0d5GHHLc=
+	t=1790728818; cv=none; b=Bs9jdXQnJDJKqP7uHgoWIeIZu1qq8LA3CKpKCxxLDWuHzCfmCgb5mWU5cC/NhONmj25Big6p5A/is55Tz02qTnT+P/hawd3Y/Fvqnx5n1Ji2V49UCo5s19V9j8yjIDTQrmy54ORyrbegK7d1bRfcT8JYhJoptAkkXTKtciIeVNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790728790; c=relaxed/simple;
-	bh=kpZWKhkTh54QLeiLP/UW0ZvL/5icVZNQjYS3l66JHio=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IPhRO/AI/88uJXJDz/2qfMseqggI6ys+KEnx2pnI70kQ98cPcQbdctsE9wiz+DJ1XlvGsouDaJ3e+8bWwTFAai3skpud3xJ7F5hJPkogVDVADR7h1u83IxsjDIyp3PDJIgbk7svyFr7N8NKFos4+RO/fkzG5OTj4eF9Afmc/d2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=47.90.198.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07448903|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.224787-0.000657697-0.774555;FP=14452996897367414002|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033040074035;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jRqO6DN_1790728762;
-Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jRqO6DN_1790728762 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 30 Sep 2026 08:39:25 +0800
-Message-ID: <3f31de5e-2a62-46ee-b857-64f8a353d8e6@motor-comm.com>
-Date: Wed, 30 Sep 2026 08:39:22 +0800
+	s=arc-20240116; t=1790728818; c=relaxed/simple;
+	bh=iwIAte3wH3TRU/Z7IG+hwZul50wYmNRo9ylFiGcs/KA=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=f63AHUSMUVehuRFzPnTNRsKeMO4oufvgC4FT6dBCUmPUyxuUxran0ln7UpP0Hvv6+niH/i1wiOIorHP+ir713QQ2u2q+iwpiOHplniJr7XlF8AaGEXNM5v4GZtMoYzUgE2Ts0itdiXbmstl6o0QKygagxSvZWV4wDD6c9payPhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hIKJYApV; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hIKJYApV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471481F00898;
+	Wed, 30 Sep 2026 00:40:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790728809;
+	bh=TdUEA3tV1zufmSy07/bt31Wbr9Axb8y9qnC+ULUNUYI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=hIKJYApVsKXmQ5A2+skSxxURrLzdmxwVdlWbrtY3QoLG/Vtnfju5Q94W4u+RaRIyl
+	 /mmPR39OlNqwvGUF1IhCXDqNaOokQKFA6igiE4iIrlhFWBT4AnKKGWWg3Oaq16j3pP
+	 0N1jQUl1rW2HSCNAOlMCTNQDCHRTiV+vCNz2ct6S2aRsF0vlfeH/19Sjteq6U6nJU5
+	 3VM1CH62yj88lZbLHHHbrczyTIyi1f62JfF+o04Vl/4c2teZ99lgNNeC+pf1n1lVoO
+	 hq7wzACO50XAOJRBe5cd/ObpdWWeIB04AP5VwIY9OyVJ6hsOKmhw3RIO1iNUaJy+xA
+	 4alCciXi4zRgg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A4983924FEA;
+	Wed, 30 Sep 2026 00:40:09 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v22 3/3] net: phy: Add driver for Motorcomm Quad
- 2.5GbE phy
-To: Andrew Lunn <andrew@lunn.ch>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v11 0/3] w5100: restore GPIO-based link detection
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179072880777.1183624.15268647911165769785.git-patchwork-notify@kernel.org>
+Date: Wed, 30 Sep 2026 00:40:07 +0000
+References: <20260924-wiznet-link-gpio-v11-0-42a332517b30@marmottus.net>
+In-Reply-To: <20260924-wiznet-link-gpio-v11-0-42a332517b30@marmottus.net>
+To: Arthur Crepin Leblond <arthur@marmottus.net>
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
- Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
+ conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com
-References: <20260929095430.508657-1-kyle.switch@motor-comm.com>
- <20260929095430.508657-4-kyle.switch@motor-comm.com>
- <0eb0fe92-86c0-425d-8002-a7ce448ba751@lunn.ch>
-Content-Language: en-US
-From: Kyle Switch <kyle.switch@motor-comm.com>
-In-Reply-To: <0eb0fe92-86c0-425d-8002-a7ce448ba751@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ krzysztof.kozlowski@oss.qualcomm.com
+
+Hello:
+
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 24 Sep 2026 11:48:10 +0200 you wrote:
+> Hi,
+> 
+> In the previous version of the w5100 driver, the LINKLED pin could be
+> wired to a GPIO to detect the link status changes via an interrupt.
+> This only works on w5500 as it is the only one documenting its LINKLED
+> pin to hold the link status (on w5100 the LINKLED pin is changing with
+> RX/TX activity).
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v11,1/3] dt-bindings: net: wiznet,w5100: convert to DT schema
+    https://git.kernel.org/netdev/net-next/c/be15d99d8ebc
+  - [net-next,v11,2/3] dt-bindings: net: wiznet,w5100: add link status interrupt
+    https://git.kernel.org/netdev/net-next/c/50c4bbaa0d36
+  - [net-next,v11,3/3] w5100: detect carrier state using link status bit and optional interrupt
+    https://git.kernel.org/netdev/net-next/c/323767fa31a2
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-On 9/29/26 20:18, Andrew Lunn wrote:
->> +static int yt8824_restore_working_status(struct phy_device *phydev, int ret)
->> +{
->> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
->> +	int r;
->> +
->> +	/* configure normal test mode */
->> +	r = yt8824_utp_set_template_test_mode
->> +		(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
-> The opening ( should be on the line before. The phydev as well.
->
->> + * yt8824_soft_reset() - called to do PHY software reset
->> + * @phydev: a pointer to a &struct phy_device
->> + *
->> + * Returns: 0 or negative errno code
->> + */
->> +static int yt8824_soft_reset(struct phy_device *phydev)
->> +{
->> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
->> +	int ret;
->> +
->> +	mutex_lock(&priv->shared_lock);
->> +	if (priv->package_mode == PHY_INTERFACE_MODE_INTERNAL) {
->> +		/* test mode 1 */
->> +		ret = yt8824_utp_set_template_test_mode
->> +			(phydev, MDIO_PMA_10GBT_TESTMODE_1);
-> Please look through the code and fix all these problems.
->
-> Also, what value does the comment have?
->
-okay, meaningless comments will be removed.
->> +		if (ret < 0)
->> +			goto retry;
->> +		ret = yt8824_utp_softreset_paged(phydev);
->> +		if (ret < 0)
->> +			goto retry;
->> +		/* normal mode */
->> +		ret = yt8824_utp_set_template_test_mode
->> +			(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
-> And this comment? You only need comments if the code is not
-> obvious. The name of the function is often sufficient to explain what
-> is happening.
->
->> +	/* pll calibration */
->> +	ret = ytphy_write_ext_with_lock(phydev, 0x0001, 0x0003);
->> +	if (ret < 0)
->> +		goto err_restore;
-> This comment is useful, it is not possible to know what 0x0001,
-> 0x0003 means.
->
->> +	ret = ytphy_write_ext_with_lock(phydev, 0xa20e, 0x0cba);
-> and this is just magic. Which is why we recommend #define, not magic
-> numbers.
->
->> +	/* power down */
->> +	ret = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, BMCR_PDOWN);
->> +	if (ret < 0)
->> +		goto err_restore;
->> +	ret = ytphy_write_ext_with_lock(phydev, 0xa20e, 0xcba);
-> You comment about the obvious power down, but nothing about what this
-> magic does :-(
-okay, magic numbers will be replaced with meaningful definitions.
->
-> 	Andrew
