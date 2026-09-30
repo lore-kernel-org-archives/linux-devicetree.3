@@ -1,115 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB383CEB9D;
-	Wed, 30 Sep 2026 06:34:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A6D3D4127;
+	Wed, 30 Sep 2026 06:34:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750082; cv=none; b=iz+etTLQMPgqaP/NycLV+OtRrqxtUZqByjodxzUGeFQBfQn/4axvZamlL1vPMFn0TBxYSZJFSCTZ2Aj9aimki5epS99YIiTs26PqQdv/+ykBbRM1ioXoR5dshfiiNXCEHejyXSsjQtZN1g6KbiBwFc1/3S59/NNX5HkUqN/+6jQ=
+	t=1790750097; cv=none; b=avlp/Lzflt8F7zPm0WVrJ2iR2sNVtYtG6UcM9Vv2PJs7BP2gy9PcPsuZV4tx1POn+NbO+yxNBXoaVimysIWt9rDesfOOarNRGGIgbsymeW7FQICncGNWTp6PkGYoDBYNhk6NlYFnWNj0hAdEXmPut3zDOeRh/o9Pq51obXGBuU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790750082; c=relaxed/simple;
-	bh=baQ+2tXY9cEz4taZYGCDQ1JZXZsqMhHzq7KSOzTiTE0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=G39lGmv3WCHtFr4Ji+y1cZ+k0yBU+efO7vgZh7PLlfAQJpaZjQaJwJFBHrB25NoTERiH9r+one8uvHkruYBKRFaEDwgltGNrffFfT0FckD/yFlMkdrsuXaoIbI2r3GCjHk+EHmbxl4o/cIuECV+239hfjPYjlRRIz7pJ88aFig4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VbkaXZQW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790750097; c=relaxed/simple;
+	bh=jcgc1tsOVcBHYxcYpnXt2SObciquRADcGFKCJMT6i5M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=JixHzXcOVPiNiirx1JfLb8/K4MP+dVmnexe/pL/KefQDSz56l7OjU7NvFGGobji68LDa1RcVE2HREhSDG6G3Uj5akKGSU6oUVHaYZgOpqsr1CvfvpK23+2asMn3L9q0GEeFrzAn6VTIn+Tez8ZsoxFrqgX4To6zSuXZ98b/VkK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zJbJ7M+X; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VbkaXZQW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93FF41F000FF;
-	Wed, 30 Sep 2026 06:34:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790750075;
-	bh=XNye/AAY2IkjKhZWXcc5Z9iQogATZlPfWecUkSrhHtM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VbkaXZQWgZflb66dTt9PZyYtNmMwiZaXsi3C4wFxv4Ay9MgVCap7AOB3MvP0BqX2y
-	 V/ebEgBFHgR+by+xvu/c3SDJYCkprPLfwY3Wq05cfjQ+egH4MhlVAepLKuhrjjuTA3
-	 dYwTmhqDD+PpNZhaxEQWF4D6Xm5PrEIYsAs4W8enoAJ1jnYJvn5LxWp93n1yUXiVGk
-	 pqUyJ1FWHMhzygJZgS9ezz/xoQzc9qDzOHtCbk+eqhw5VFN89VdliT+TAiuTq7PqiC
-	 eHvhxlARilSGSoSFAmWFLhg2zT7q4e0RYu6ayZuzcL01II7DVjJkrrv0Rn32kRKxqm
-	 aGNLbftVS/Dpg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: dma: fsl,edma: add per-channel
- child node support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dmaengine@vger.kernel.org, imx@lists.linux.dev, vkoul@kernel.org, robh@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20260930-edma-iommu-v2-1-72a62bf44c74@nxp.com>
-References: <20260930-edma-iommu-v2-0-72a62bf44c74@nxp.com>
- <20260930-edma-iommu-v2-1-72a62bf44c74@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 06:34:34 +0000
-Message-Id: <20260930063434.93FF41F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zJbJ7M+X"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id DEBBD1A104B;
+	Wed, 30 Sep 2026 06:34:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B244760749;
+	Wed, 30 Sep 2026 06:34:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6E6BD103297F7;
+	Wed, 30 Sep 2026 08:34:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790750086; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=FJJ9SrQwpuXWcRwz3yjNOMuLRuftyz1Ef6SkpejQHYo=;
+	b=zJbJ7M+XPdz6b7Q7TAOCZC9GbFLS9/imghm00KF1PCVoCubPo+DEBfw3ezU0ca5eOHkciT
+	XSDs8z1Zu24yj4uxh9Iw5iCCgKl4k8U6GdsHQKC9o0PaAOVPPERAHKA6wmJ7robeIDayGX
+	Rh+Vs6QzyxVFm4fPvoUYbb6lRC0afGzo/qcuay2WkeYqVZ+tt1qArjIgcsiq9N0P3z+nhg
+	qKurDL+yiZZrSvVvlDjlPUZsMYxlxwJBrMcVhZR+zbGwyE80eoou8SXKjOT4uhfMIO5zDg
+	v//WLqffHFHtx3JEBsm3Tixw1lb3KVsIDw7SZOIawCUJxQqSQ+BOytlkKYx5JA==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
+ <sebastian.hesselbarth@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "moderated list:ARM/Marvell Kirkwood and Armada
+ 370, 375, 38x,..." <linux-arm-kernel@lists.infradead.org>, open list
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] ARM: dts: helios4: use national,lm75 compatible
+In-Reply-To: <20260831233607.13729-1-rosenp@gmail.com>
+References: <20260831233607.13729-1-rosenp@gmail.com>
+Date: Wed, 30 Sep 2026 08:34:42 +0200
+Message-ID: <87ik3n8cxp.fsf@BLaptop.bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: fsl,edma: missing required interrupts property vali=
-dation
---
+Rosen Penev <rosenp@gmail.com> writes:
 
-commit 4f1b5be8631d1a7b37208c50010390f6dfaf3925
-Author: Peng Fan <peng.fan@nxp.com>
+> The temp@4c node uses "ti,lm75", which no binding covers and which
+> dtbs_check rejects:
+>
+>   temp@4c: failed to match any schema with compatible: ['ti,lm75']
+>
+> The LM75 was originally a National Semiconductor part (now owned by
+> TI) and the lm75 driver binds it via the matching "national,lm75"
+> entry. Use the documented compatible; no functional change. The i2c name
+> fallback ends up binding it.
+>
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 
-dt-bindings: dma: fsl,edma: add per-channel child node support
+Applied on mvebu/dt
 
-Add support for optional per-channel child nodes to the fsl,edma binding
-to describe real per-channel MMIO regions. The interrupts property is
-removed from the required list to accommodate these child nodes.
+Thanks,
 
-> diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Docume=
-ntation/devicetree/bindings/dma/fsl,edma.yaml
-> index f609038e35ae1..19a103baccaf4 100644
-> --- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-> +++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-[ ... ]
-> +patternProperties:
-> +  "^dma-channel@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +        description: Per-channel register region within the eDMA block.
-> +
-> +      interrupts:
-> +        maxItems: 1
-> +
-> +      iommus:
-> +        maxItems: 1
-> +
-> +      power-domains:
-> +        maxItems: 1
-> +
-> +    required:
-> +      - reg
-
-[Severity: Medium]
-Does this required list fail to enforce the interrupts property when the
-new child node approach is used?
-
->  required:
->    - "#dma-cells"
->    - compatible
->    - reg
-> -  - interrupts
->    - dma-channels
-
-[Severity: Medium]
-Does removing the interrupts property from the global required list break
-schema validation for legacy device trees (e.g., fsl,vf610-edma or
-fsl,imx7ulp-edma)?
-
-Without this enforcement, invalid device trees that completely omit
-interrupts might silently pass make dtbs_check. This could result in
-incomplete device trees failing at runtime during driver probe. Is it
-possible to preserve this in a conditional enforcement block for legacy
-hardware instead of dropping it entirely?
+Gregory
+> ---
+>  arch/arm/boot/dts/marvell/armada-388-helios4.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/=
+boot/dts/marvell/armada-388-helios4.dts
+> index 548fb92ca811..39b2d4fa742c 100644
+> --- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+> +++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
+> @@ -200,7 +200,7 @@ usb3-ilimit-hog {
+>  				};
+>=20=20
+>  				temp_sensor: temp@4c {
+> -					compatible =3D "ti,lm75";
+> +					compatible =3D "national,lm75";
+>  					reg =3D <0x4c>;
+>  					vs-supply =3D <&reg_3p3v>;
+>  				};
+> --=20
+> 2.55.0
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-edma-iommu=
--v2-0-72a62bf44c74@nxp.com?part=3D1
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
