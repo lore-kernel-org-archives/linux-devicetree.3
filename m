@@ -1,150 +1,171 @@
-Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com [74.125.224.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CDC4D9F6A
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 13:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776313; cv=none; b=lldb941j51Gx4m5IWjxHcc2hGyFV1pIMwMCDGVMWvp8z64WVHh8GSjs5AM9SsbAnY/PqQEA3WeQ4p3tEGsxU7vyZrsPWdICGj9I0iOeW652O6HP5v/hSyQYgjpoTBhBSr2vOQyTkRXIY89F0HYEivMeLYPFS+n3bMA8cmdvpMRc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776313; c=relaxed/simple;
-	bh=l7abfpsRrMZ7oBWyL4FsSuaEMLrgrwqnzHPSNOOnZyY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BrcEvbAfeRX8+rMVZRq6DzDAS6iWfBUROGV55habtdxguD2npojJmF0LsKPSWZ9Amn8BWsZd/Hm2rrmoi1deCTNBwbtrbfO9KF2J/cE50bayowx3+aCIxXyXfspxltSjiE8z6l8FTBqx0nmeqtYOU+Ioh32crDd4I6UTHhId+Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=Eees9UHh; arc=none smtp.client-ip=46.19.12.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71494E322A
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 13:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.166
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790776397; cv=pass; b=Kjb6ey1g/Oc+zTKp0pvE5fC2UiJcJ1YcOFGP4KDQmu3BmLXTODu4Fv2cBUCwiq99NRhP+zadFKwDmMmjg/Heo6ybkz4bDc61+3u9O4fcvPGccCyXs14cPwL+XPKQki7LOwK+0h4545hGKVDS3pgRnnX8z/3U6S02myKLESJd7A0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790776397; c=relaxed/simple;
+	bh=7tXfNmQFPthqRgnD+N2jwL6JcbsMYPl/OeD0b/XvCME=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QMJmnz900q+IvYAeh2XF4ZKvyIAqXyRON20zMWs7jJ6Mt95LDT4WG0+Y5SVavTJyIrpSEqiaflBEr6GeSBpEW7RgDiDmTuXsJ+cq31xLB0vv/HwmCGDfI78ERjC6MLa0h9y4RrNpzNtRvBLTImCbxi3SM4yF8tlNKCuYhLiwrsM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZsBKmqyR; arc=pass smtp.client-ip=74.125.224.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="Eees9UHh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=NRkSzdr9h/KU/Gp3VjR0xCo3up6HUR7kMTPEsX5LBWI=; b=Eees9UHhgdaRBjfrs8w5185sc0
-	+uySXruUWIbz+EvffpApA8edYaeI1MSJciKCuobjYZnpyrB2sff0WHWmSdA/wyOiKsEnaj00BUXgt
-	yh1QqIhvExinYuSWiKEXmDoGkbEnIxRtY+FTYxHEWASMlP54i64pUDuH2QIFBSfEONzE8jHVmvfmo
-	rvvZYTdwU9PGemsJuYz+fUajao8SOUMEajFhs+lU4uoOPl8o0fS2GL9OXKh4S7Sq0VoWG1Muu5ZFX
-	Qy+YzGa7WNPB137wi2UT/hvk3L80S9h3H5IQd8UmcnpP4UFcKXo/5lVQ/lGxrhcXAxV6ye8TyDk/E
-	78t9YQ/w==;
-Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:50572 helo=[192.168.69.116])
-	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <primoz.fiser@norik.com>)
-	id 1xBuil-00000000l1S-1WbQ;
-	Wed, 30 Sep 2026 15:51:40 +0200
-Message-ID: <a3cf3fa9-9468-4722-a053-5bec424d5526@norik.com>
-Date: Wed, 30 Sep 2026 15:51:40 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZsBKmqyR"
+Received: by mail-yx2-f38.google.com with SMTP id 956f58d0204a3-675617094f5so1846053d50.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 06:53:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790776379; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LoTRP6X68bEitgFgkfAJWsyfYzMdciGyfAsMopGv2H1nAm2hEc8GzLzCDLFBB4/b+Z
+         yQEwn9E0d7i+oxlTja9+XFnZ21Ob0oKy78Vj9kiWcs4i8LoPEm7ef4t1FTXI1BRSpSnr
+         w2UPoVRQYuh6ooRKhNigZuiBE3lcKv/6F8kD4qsYulnix9UvEoNmd63/zJzJ7SkU15wt
+         wfdX6Pot+8vtCRcPJnorOgQl+hAXB1iq5Uo/8u+DdDdfVH2Fvugghef07W/u1ZknS5lE
+         h6wf6dSaiqeUJ9UIi8eO04uHqo1STyCK4a7m7n4gsezOyRa7xoht9kU5aVNTH+YdE08f
+         E/4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RpNeLRajldsJyb03io5TqUKkBsu82dkOKDvxIHvX4/4=;
+        fh=ob6eDskMEkRIFMSOOiB8DMX7b4/4vslVLoeSTmSi73k=;
+        b=Zc5cBBONHeetFpebyOY7RB/mtSWqvxg0W6oizulH/flqOXp8GREsbi/NGn0UjaJfZc
+         fMY/nMLbs7iIQeCgXrmiSd9dkNsV5jpI236ZptCawiHmnxnujMJAtBcz8D+u4JnPx8qO
+         URfD5GR06VckCth5sMugZxwGRnGwtcM4i/0HWyH/v7NRih2UddY+E2oUUzzM4nIDVyDT
+         DPbQ5b66BM5mjqDs4pkoZNESpycN4TxN5O8urWjGTBr4J3ODEvUG8Y/sAa6jztjCE6So
+         yYrWod4ENITF9wAHWkrSWPB3KjNk8jZYBo5B4me67PSg4iAvgITvmgiRap/F+QbwnPQZ
+         016w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790776379; x=1791381179; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RpNeLRajldsJyb03io5TqUKkBsu82dkOKDvxIHvX4/4=;
+        b=ZsBKmqyRZ6rJ942Mdt4RDpu8ZY8T6cScQSRSFJjTOrrywHu7nAnAYLEe2mzTzFTlHM
+         Z61ZlhY/Tz8Yv+w0h2HhaFmPnOxWBLZYXLhCrMwxdJsrVAoCIlLuedrXcqH+B0LrhJgq
+         O7kXEordVRtnlc5hsNHT5BIWQokOsmymI4M5RCab07maYZ+65l7T3b7DDsz6mCkuU76s
+         o5CcfvouevvKQcIGUQlSpBDP5a3PKJwe5aJT+V25PtCGZXI5fEx7btFyD26NNLx7idir
+         dMv1+aqzU51eBhEeydcVbFgaFMYqXRhP6TxaX8qADSWrX+D1L2OA42VOJCE7FDEJeeZ6
+         akgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790776379; x=1791381179;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RpNeLRajldsJyb03io5TqUKkBsu82dkOKDvxIHvX4/4=;
+        b=SyckoQ7u1pVwFtPMoHvZZHUEm5gZOm4Fuh+DKLoCzlseRKeyg2MzzqyIFhVcgtVasd
+         cdP0YJQjHqxzZS4X0OLLcoYYA7NYvk0eCCXTPUXS2XHdUrd22ZR9A7wYQT9sOA/InLzN
+         AkrlYMKsDds31+3ue1NGVIZpgVTDS/DV7g3TJ/8ePd8l9DcaNXQh0YfZDTC1ZWr1CwlJ
+         y5f47prFD3v8IRsl/5OrVtCjUlN0p+9mnIpwTuC2GDSgnQSF8D1VebTYa6CTdM9uCyC9
+         VotiE/UxMkBxzcEZwlgDVPktWrmyOWkYZy2rnBH3Hqph+Mzi/SALa5AegyAcquL2KngQ
+         7PNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzYe6czyQBK4Jmnlevleq0aGjTukNxj9QcIO+mG3hT9T6VPVIrmxG/EAIDk79U8pJ4hK/8OqAiinTRi@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEmw6+z2weLIsi1M36uR4PII+O+HKw0RwpSXQwLpCionRieoiE
+	QfMI7jlSF92KxwB+V41tCAnU3bLXcDZro4t2TuKeTZJ7a5TgaZcIm184f3RYi/ND8pn+AaLfyDO
+	kO17U/5sZIWLzskSijxe7uCpenqvTbmYYAteW5SdsCw==
+X-Gm-Gg: AYBFou0uFMW1+eobiQK5T6dXkTIlgNhH+lVDdcFzB3USbq3dhibMFCQIbZJbpgHN/9i
+	rdBxnMd0be0975nAKuU2OWnmr2NpN/aN0sexwRP5rF0o8Xn4Bb6p/0LIP2qz8Mbp6yp9JYygflm
+	dWFpZAr25rRYyDNvzh7ecOQAJk+biopUoEVObQ/uC8qziA/0kZung5OTMuwfcT5RzZQMLrx/076
+	oalUqTEdyMq86LlhBVJLU4rVHLSbtP51GHxzCOf8h1ASt/D5JPqXjLyAAX6C0yPO5UF2Gwryffc
+	jajR+cWnsPnnAMfkr2Pgx0gI36niB3CQFp80hnzx63kUGgAUBHVJQRGWFo6RrO1D
+X-Received: by 2002:a53:bc0b:0:b0:676:24e2:c67e with SMTP id
+ 956f58d0204a3-6768351ba5fmr612451d50.89.1790776379376; Wed, 30 Sep 2026
+ 06:52:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ARM: dts: imx6dl-phytec-mira-nand: Enable all
- peripherals
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev,
- conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260930103425.2315286-1-primoz.fiser@norik.com>
- <20260930103425.2315286-2-primoz.fiser@norik.com>
- <20260930104006.EC64F1F00893@smtp.kernel.org>
-Content-Language: en-US
-From: Primoz Fiser <primoz.fiser@norik.com>
-Autocrypt: addr=primoz.fiser@norik.com; keydata=
- xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
- JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
- ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
- gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
- jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
- 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
- TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
- AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
-Organization: Norik systems d.o.o.
-In-Reply-To: <20260930104006.EC64F1F00893@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp2.siel.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - norik.com
-X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
-X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-3-c042266b9eeb@linaro.org> <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
+In-Reply-To: <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Wed, 30 Sep 2026 21:52:48 +0800
+X-Gm-Features: AclHuK_VxnR8JOsc80IMzuEQ7RuAU15Ps6hnH2uLVe_uy8XWpyeHRK9yzrHieFo
+Message-ID: <CABymUCNtcgbcRNXdMUjVdnH_ybOxjFB31gd6AW-0HCFDSn9w4g@mail.gmail.com>
+Subject: Re: [PATCH v5 3/6] drm/mipi-dsi: Add flag to support dual-panel configurations
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+9=E6=9C=8830=E6=97=A5=E5=91=A8=E4=B8=89 00:05=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Mon, Jul 27, 2026 at 04:08:42PM +0800, Jun Nie wrote:
+> > Some devices treat two independent physical DSI panels as a single
+> > logical panel from the CRTC's perspective. However, two separate DSI
+> > hosts are still required to drive the panels individually.
+> >
+> > Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
+> > allows a panel driver to inform the DSI host that it is part of a
+> > dual-panel setup, enabling the host to coordinate both physical
+> > displays as one.
+> >
+> > This change does not force individual panel driver to manage
+> > system-level display topology if the driver does not intended to
+> > support dual panel topology. Only the driver that set the flag to
+> > true need to take care of panel topology.
+> >
+> > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > ---
+> >  include/drm/drm_mipi_dsi.h | 2 ++
+> >  1 file changed, 2 insertions(+)
+>
+> Do you have a single MIPI DSI device, or are there two independent MIPI
+> DSI devices? In the latter case, the flag is wrongly placed.
 
-On 9/30/26 12:40, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] dts: imx6dl-phytec-mira: missing m25p80 SPI NOR flash enablement
+Yes, there are 2 mipi devices, and 2 mipi hosts. This flag is used for
+mipi device
+to notify host they are one of dual panels, so that horizontal
+configuration(width)
+in mipi host can be handled correctly. Where do you suggest to put this fla=
+g?
+Thanks!
+
+Jun
+>
+> >
+> > diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+> > index 2ab651a36115d..889ef1421207a 100644
+> > --- a/include/drm/drm_mipi_dsi.h
+> > +++ b/include/drm/drm_mipi_dsi.h
+> > @@ -169,6 +169,7 @@ struct mipi_dsi_device_info {
+> >   * @host: DSI host for this peripheral
+> >   * @dev: driver model device node for this peripheral
+> >   * @attached: the DSI device has been successfully attached
+> > + * @dual_panel: the DSI device is one instance of dual panel
+> >   * @name: DSI peripheral chip type
+> >   * @channel: virtual channel assigned to the peripheral
+> >   * @format: pixel format for video mode
+> > @@ -186,6 +187,7 @@ struct mipi_dsi_device {
+> >       struct mipi_dsi_host *host;
+> >       struct device dev;
+> >       bool attached;
+> > +     bool dual_panel;
+> >
+> >       char name[DSI_DEV_NAME_SIZE];
+> >       unsigned int channel;
+> >
+> > --
+> > 2.43.0
+> >
+>
 > --
-> 
-> commit 1324c8cd36593c2b5134e1d0d30d31d809ac1bc1
-> Author: Primoz Fiser <primoz.fiser@norik.com>
-> 
-> ARM: dts: imx6dl-phytec-mira-nand: Enable all peripherals
-> 
-> This commit syncs the i.MX6 DL NAND variant device tree to match the Full
-> Featured (FF) variants. It enables peripherals including CAN and PCIe, and
-> removes the speed limit on the Ethernet PHY.
-> 
->> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-nand.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-nand.dts
->> index d906a7f05aaad..1f827ad2ff5ee 100644
->> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-nand.dts
->> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-phytec-mira-rdk-nand.dts
-> 
-> [ ... ]
-> 
->> @@ -50,6 +50,10 @@ &i2c_rtc {
->>  	status = "okay";
->>  };
->>  
->> +&pcie {
->> +	status = "okay";
->> +};
->> +
-> 
-> [Severity: Medium]
-> Did this omit the SPI NOR flash enablement?
-> 
-> The commit message states the intent to sync the i.MX6 DL NAND variant to
-> match the Full Featured (FF) boards by enabling all peripherals.
-> 
-> The FF Quad variant (imx6q-phytec-mira-rdk-nand.dts) enables the SPI NOR flash
-> by including &m25p80 { status = "okay"; };. While &can1, &pcie, and the
-> unrestricted &ethphy are enabled, the &m25p80 node is missing here.
-> 
-> Does this leave the board missing its SPI flash feature and partially
-> unsynchronized compared to the other FF variants?
-
-I re-checked and this patch is actually wrong.
-
-There was never i.MX6DL som with NAND + FF set board.
-
-I will drop this patch in v2.
-
-BR,
-Primoz
-
-> 
->>  &uart3 {
->>  	status = "okay";
->>  };
-> 
-
--- 
-Primoz Fiser
-phone: +386-41-390-545
-email: primoz.fiser@norik.com
---
-Norik systems d.o.o.
-Your embedded software partner
-Slovenia, EU
-phone: +386-41-540-545
-email: info@norik.com
-
+> With best wishes
+> Dmitry
