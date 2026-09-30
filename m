@@ -1,107 +1,124 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937AD5187EB;
-	Wed, 30 Sep 2026 18:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682FF5208A0;
+	Wed, 30 Sep 2026 18:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790792611; cv=none; b=ntiFiy0nSvtawYX+icxHuo373lrWm6K9mkMMddD062uJx3uFuDhUR3T3AtCUt1WcIJtZMJ+K4t95tUrErE1qATRYvcrIh+oattEP3/QUHhphZXfG0rGK9S5jsoBdMrdTXkd6nKCdUsvWSWH70rUtrBbTjTua2Rm5sRg+YQ+GIzY=
+	t=1790792698; cv=none; b=ha4tPoeee831fd/CeX2Me6RVWKSEMkSAdIzXch9UWVY/5vEqPYbAzElnzA8YtRPlFSF8k/KGilskRQG36suGc/DvRa4k2PZuL7b810v6p0XMmX+IvirFQZPYWaCMIYK9pHZbUPIDJ0DrG7mAhJo+y9uhVeYJVq5omVckXNhF5VE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790792611; c=relaxed/simple;
-	bh=MAoTJpfR9sQ+sH6Mer8E0bQLsExiA9OmKfJdD4rVNUg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hhBPepeNLC1NVnADe64duemAIftzoIAqhhbSn24XF1VMFkEk+UIFJePWgzWghxR/Zu8sFyrju/vARdiwhUWRiSnp0u/OdJJM5pHQlTXKBlULVY1k5CGUIxUJOiHPYLmVp8w2bKVA1ilTO8Wc+sSTY2H7s/A6vMt1NEIhZszsAeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [127.0.1.1] (unknown [223.166.93.127])
-	by APP-01 (Coremail) with SMTP id qwCowAAHofR9U71q8y58CQ--.14027S2;
-	Thu, 01 Oct 2026 02:23:02 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-Subject: [PATCH v2 0/4] spi: sophgo: Fix SPI NOR errors and clock limits
-Date: Thu, 01 Oct 2026 02:22:49 +0800
-Message-Id: <20261001-fix-sg204xspi-v2-0-014dbaf22b5e@iscas.ac.cn>
+	s=arc-20240116; t=1790792698; c=relaxed/simple;
+	bh=L+K7U1WcqiLuAOv2gCbCl3KGVoS7TydT/8PwqLz6jYw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jicD8gJniuTR3qrNFlPAvH9OdRiEHWEdIMU+2N71MdnbxoqUyTLaoxjW822AeU1nCcyjIj/LGOf+hiTWPXRdz+N4r+hS6R0W1OdXgZ2CucTVcOPYSiQMjJr0UOQtuNqyDvVx0oVh0GwnmcfamWSHMNLQpa3TG7mrzwvFJFe51Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=mhoNW5pd; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="mhoNW5pd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=G65/tzmmVFTNS2SMwQITuBPf4fxmCQT1XOQruGIjvac=; b=mhoNW5pdKESi3LKFrp1odLugpu
+	QUACsfPbbgoOrVdkgygpuEi8JVX0ZpXj0DIBLBcr71T2zM0w60zqAa1OGMSOGp0dauqmzALTBERJk
+	ri+YcBRyJ0EEF3XwiDtJhYeczmXcu7xRjUVTUOq4BUA7JeEE3KJZV/awCcIzsrsa0N90=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xByz2-008DL2-El; Wed, 30 Sep 2026 20:24:48 +0200
+Date: Wed, 30 Sep 2026 20:24:48 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Martin Kaistra <martin.kaistra@linutronix.de>,
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v3 2/8] dt-bindings: net: Add SoC-e SWIP MDIO
+ controller
+Message-ID: <6a635aa0-3489-4d2b-b302-06b793326654@lunn.ch>
+References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+ <20260923-devel-vstrassheim-soce-dsa-ml-v3-2-ddebafcb9ba7@linutronix.de>
+ <e5aa5cd8-e805-47d3-a105-07bf1b9eb9b8@lunn.ch>
+ <218d4c1cf5f05cd6cc648c01f8a20ec66b95362c.camel@linutronix.de>
+ <6416b34a-83ce-4aca-8adf-c8894ca7b3c3@lunn.ch>
+ <ad24be6928e33b544f9c8c72ea05f64c2968035f.camel@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHlTvWoC/3WMQQ6CMBBFr0JmbUk7AWxdeQ/Dok4rzAZIxzQY0
- rtb2bt8P/+9AyQmjgK35oAUMwuvSwW8NECzX6aoOFQG1DhoZ67qxbuSCXW3y8Yq+IB2cGifhqA
- 6W4r1cPYeY+WZ5b2mz5nP5rf+K2WjtOrJ9cFTh87bOwt5aT21tMBYSvkCO/ZeBqwAAAA=
-X-Change-ID: 20260917-fix-sg204xspi-dad286928b1c
-To: Mark Brown <broonie@kernel.org>, Longbin Li <looong.bin@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
- Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: Han Gao <rabenda.cn@gmail.com>, Hangfan Li <lihangfan@iscas.ac.cn>, 
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
- linux-riscv@lists.infradead.org, Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.14.2
-X-CM-TRANSID:qwCowAAHofR9U71q8y58CQ--.14027S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF1xGF4DKFW3WrWkur17Wrg_yoW8WF4UpF
-	4xAanxtw1xGryfAaySqrW2gF93Gr95GF1UJr13Ww4rZwsFvry8WryIkr4IgF9rXr48J348
-	KrZxJFyrCrnFvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
-	WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0pRHUDLUUUUU=
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiCRQGDGq9GDh2-QAAsr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ad24be6928e33b544f9c8c72ea05f64c2968035f.camel@linutronix.de>
 
-The SG204x SPI NOR driver ignores transfer errors and clock limits.
-Fix both, enable SPI NOR on SRD3-10, and use 12.5 MHz on SRD3-10 and
-SG2042 to match EDK2 and the vendor kernel, respectively.
+On Wed, Sep 30, 2026 at 07:13:35PM +0200, Vasilij Strassheim wrote:
+> On Wed, 2026-09-30 at 17:14 +0200, Andrew Lunn wrote:
+> > On Wed, Sep 30, 2026 at 04:00:56PM +0200, Vasilij Strassheim wrote:
+> > > On Sat, 2026-09-26 at 00:55 +0200, Andrew Lunn wrote:
+> > > > > The controller exposes separate register regions for transaction data
+> > > > > and for the shared transaction control and external bus selector
+> > > > > register.
+> > > > 
+> > > > > +examples:
+> > > > > +  - |
+> > > > > +    mdio@204 {
+> > > > > +        compatible = "soce,swip-mdio-23-02";
+> > > > > +        reg = <0x204 0xc>, <0x200 0x4>;
+> > > > 
+> > > > At least in the example, they are not separate?
+> > > 
+> > > Not separate regions but registers...
+> > > I'm obviously bad at documenting things.
+> > > 
+> > > The current information in the commit message is misleading and
+> > > irrelevant. Looking at the bot's feedback, it's at the same time not
+> > > clear enough yet that the mdio controller part is mapped within the
+> > > switch memory and can't be used separately from it.
+> > > 
+> > > I will update the commit message to something like this:
+> > > Add a binding for the MDIO controller integrated into SoC-e SWIP
+> > > Ethernet switch IP cores.
+> > > The controller shares the memory of the synthesized switch IP core and
+> > > cannot be used independently.
+> > 
+> > I think part of the issue is the compatible. That suggests it is a
+> > separate device, with its own driver. But it is actually driven by the
+> > switch driver.
+> 
+> I can't avoid the compatible right now. Somehow it is still a separate
+> functionality. I hope the following example doesn't cause unnecessary
+> confusion, but rather helps to understand the system better:
+> 
+> The relationship between the MDIO controller and the switch core is more
+> like that of tools in a Swiss Army knife.
+> There are a few standalone tools, such as the knife and the screwdriver.
+> These can also be described on their own. But they only make sense when
+> they are attached to the knife as a whole. As soon as one takes it
+> apart, the individual tools can no longer be used effectively. At the
+> same time, no one needs to worry about the screwdriver if they only need
+> the knife.
 
-Tested on SRD3-12 at 12.5 MHz: both flashes identify correctly, SFDP
-reads succeed, and two full 64 MiB reads per flash match.
+Maybe consider an MFD.
 
-The SRD3-10 patch supersedes the earlier submission [1]. Please disregard
-that version, which used a 133 MHz flash clock limit.
+You then do get independent devices.
 
-[1] https://lore.kernel.org/all/20260902-sg2044-dts-v1-1-aa1fd1a4ec0d@iscas.ac.cn/
+Also, with the current structure, i'm not sure how the mdio-mux is
+getting instantiated. You list it inside the switch node, so i don't
+think i will get turned into a platform device and probed. An MFD
+might helper, maybe.
 
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
-Changes in v2:
-- Advertise the controller maximum speed and use the fastest divider when
-  the optional maximum speed is omitted (Mark Brown).
-- Rebase onto Linux v7.3-rc5.
-- Link to v1: https://lore.kernel.org/r/20260917-fix-sg204xspi-v1-0-5c95dac429a8@iscas.ac.cn
+There are other switches which are described as MFD, so it is not
+unknown.
 
----
-Han Gao (3):
-      spi: sg2044-nor: Return transfer errors
-      spi: sg2044-nor: Honor SPI clock limits
-      riscv: dts: sophgo: Limit SG2042 SPI NOR to 12.5 MHz
-
-Hangfan Li (1):
-      riscv: dts: sophgo: Enable SPI NOR on SRD3-10
-
- arch/riscv/boot/dts/sophgo/sg2042-evb-v1.dts       |  4 +-
- arch/riscv/boot/dts/sophgo/sg2042-evb-v2.dts       |  2 +-
- .../riscv/boot/dts/sophgo/sg2042-milkv-pioneer.dts |  4 +-
- .../boot/dts/sophgo/sg2044-sophgo-srd3-10.dts      | 24 ++++++++++
- drivers/spi/spi-sg2044-nor.c                       | 56 ++++++++++++++++++----
- 5 files changed, 77 insertions(+), 13 deletions(-)
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260917-fix-sg204xspi-dad286928b1c
-
-Best regards,
--- 
-Han Gao <gaohan@iscas.ac.cn>
-
+      Andrew
