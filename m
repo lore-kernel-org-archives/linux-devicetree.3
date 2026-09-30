@@ -1,146 +1,143 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DA04CE67C
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB2C511227;
+	Wed, 30 Sep 2026 14:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790780107; cv=none; b=QdBsqWFjpbIKNIJEG8mNQJM6W/8MDLocMqP1I1jUFmlkqLmVQnCsupbFpbDEc6AncLUBRHd9Y4044bcHi5pHgKOpjb6WYScoUJKSHb6Qx/Efs8u10ODFo1euYJLCFXpr6sOYDs3kHhUCfezq+mp/xYa41mlrSJ8ligEONiidLHY=
+	t=1790780333; cv=none; b=fy19sBwfkhGkKquNl7dtZS7hNA+vCAk67+zVflEy5vIA0rPnYm1+eynvNzLEKVpe2+eDRAWsIpk5kq3VZXTZ99q82jL84j7VxRSThwn6aesapk3+J5qr01qC8vd5Bwab/wjoX1IHtoX8ZgduX5r/0gn2xXVidCgs3BHpbV5yvA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790780107; c=relaxed/simple;
-	bh=wD3NZssZMW68AQJrY2P8J4DOvVjSGsMzgeQD9NT7T6Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EFhUlM7e74kNOvUTQ15L6HKmirhRk78O4vta1ebRvpzyZ/UAOgbol92+7DpDrsBY4WEKjLyvQPEccCpPIdWm/VxjHldWPctOYUTPhO09iNPLq1qNgZObFe2TVW8nFKUNXvmCVaU1Essq43H4XsOGwin2qpJ6sS+bh4S6Qtzey+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WiE/dC+P; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790780333; c=relaxed/simple;
+	bh=KXwfS7dOesplNsvN8WR3YoLLgnZMbO3JB+H/onFWdeo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h4Iz2WF77ZAYWDR2zBQyDsQ3vVt/2MTgbS+lJZsT5YMIYphUkNVXAOt3LusZcJB4ZDZIfNGVGcXE2AG+5Z7bq/+1hn/grUtzuRsnq6GrC9xCUz6LfBXJxGkYqSaqrexIQhYh0xx2lDcP2wtoAbocR5KshRuuV6oCf200iXG2wyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=l84tTS8F; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Jcn3U/py; arc=none smtp.client-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WiE/dC+P"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso23850545e9.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 07:54:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790780089; x=1791384889; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fX+GMtVZvZFwpjXU+kCF5PX/DfKN7b04TfWCfb65nWU=;
-        b=WiE/dC+P1u6L1CgCGkblchR3yrMX0NqAzRZBCzQW5V78MPzOFdb1bsbsutjKINcbxD
-         gbkU2Nf9Tl+ktDF5KPPmRrMXrpzB5QgfJDn2OAqPk8rnTbf2CZ3j+9eRh/UVebVWwuUx
-         ZJytVWsb1VNXr8Hcy2lvzUYUbgpAyu7/49E5XW35CNFX+deuYLXncyQQH0Z+Kf6Zu57W
-         ZV17UXPhq3LtKj0t+Gh7Iyvjq99lxtOTJd02qFNF12/oDURewlD/c4rYufodIcZH0r0m
-         xZwuAB7jCVZBoSEK6tqpU38AxcOdELhPJujTdws/7VIU/rTJ4vM8IG+MVMQfnntF3jMs
-         t8gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790780089; x=1791384889;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fX+GMtVZvZFwpjXU+kCF5PX/DfKN7b04TfWCfb65nWU=;
-        b=QriNoui5ygJzVim5rpnzqFLnrtVzKH6fOUWuXLR9mk3G+Ja7Seg9HZWvRvXHz40t4a
-         y1Fa8ti8ev81+6whtQF3C/b/oIeb+IWBga/7lzi9MhpgqMEk5E8YVAapASlTsae/dmmG
-         nLVbv04I6h8GhhUcF5DwAS9FWdL+9eVuYIRqv3fYVvhuZueKGvSdMmH1MvGhrhNI4SLe
-         Bpg5gPW/UWzwpeM95H40DvNWW/Coo0yIe0MUoSekf1mTvtiDfmq5I7UfeoWs2McBtErK
-         e6NJtQIa9S1oIAGIXc1p1t/XdRDo71vyutKiIxL2/4suTyX0bOLPgVod7o1uNAzCxyIO
-         94fw==
-X-Forwarded-Encrypted: i=1; AKwUvBwQHWKxkmCtTklFQCyCBDoyrLUGi9uqDsiDs6Vy0Ujkrzf46VVtBrAQR4jt9dskpL/P6wqEQF6dY2y2@vger.kernel.org
-X-Gm-Message-State: AFuF++nWfKksBJbOTKArzRUG8Z5zR2+QpywGT0Yw1QVL/6MeD8MmmY2R
-	KayuMdO3rpJVVZyTLlX0FSvrsw80yeRxsHTfHycw3c1nCKtFQqW/tZCc
-X-Gm-Gg: AYBFou3Znlzyev8+x4p84mTCHQb4Jnn3Saab24pAmgAAcBrZzSIXCz4kijG5yq8ftXo
-	UKWmvaBzLUvFwer1QyJD8v1UVPMTsIXnb9dS0Or9d35bvSEUpT8mk6m9McoMSAugXDowkK87FkM
-	XA2jqtz8MRZwOBynmcWUcdECqA2frPGBv8ytF9pnlyqfyxZr8BcyC9BQ/bDIunaiwMjxieuPs7d
-	hlbQcYlvOBGnLXeWV6gK9p3TY8X7xFaFAu6Vc+n/xJKAvOkrWZgje0i4nGa9oP2Nyj58R3NW/se
-	DKenCVq+ypMOcQsNWV/I6+A62Jnw2jpVd7+z1GuAK2MzGvC+F29bu2HGO5fXSW/8k4kxODTwtYu
-	5J/W+Qy54+WXTGH2mOUDhFQiH/nlegqNKr9MG7gHDU9aBJ3rikfjnERK1xMgNDrnMxddh+NTZKy
-	TMPKigqBrgS+U5UxpGKiOMrYMef0Ac4tiAW/BjyX+5ZD5uc+LvRf1UDqcy3A7m5pX1b4B1zKG55
-	KCWzAp3xfRZPqL79fhsmJREZy+jCP33b4ntKwqu35GMkqZCIXYA7bKeJcXzA44t1eHmiWqs0C7p
-	A2cwjw8yheLVWVM61MT+A1tEAhiAHv0n8Sr3nTzc/lEhn5Vl0pC7bs1sx2VK+zQ5o4J8gO7XKq4
-	xlBIc7qGOLpW/XMyyH8ikDhLkepmR5RWUCDAUt0+FRfbhxnv76cJTXQoPRwvsIfB6GqAFyACgru
-	OJguqH
-X-Received: by 2002:a05:600c:a00b:b0:4a0:1c69:f607 with SMTP id 5b1f17b1804b1-4a01c69f64dmr14101255e9.29.1790780088847;
-        Wed, 30 Sep 2026 07:54:48 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01e6622e1sm4236005e9.3.2026.09.30.07.54.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 07:54:48 -0700 (PDT)
-Date: Wed, 30 Sep 2026 16:54:47 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
- <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- Olivier Moysan <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH v3 04/15] iio: adc: stm32-adc: manage characterization
- voltage diversity
-Message-ID: <20260930165447.000046e4@gmail.com>
-In-Reply-To: <20260930-adc-stm32mp25-v1-v3-4-406834430d72@foss.st.com>
-References: <20260930-adc-stm32mp25-v1-v3-0-406834430d72@foss.st.com>
-	<20260930-adc-stm32mp25-v1-v3-4-406834430d72@foss.st.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="l84tTS8F";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Jcn3U/py"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 17B867A06D4;
+	Wed, 30 Sep 2026 10:58:39 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Wed, 30 Sep 2026 10:58:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1790780318;
+	 x=1790866718; bh=aofGckP8hMwHNg+V2dNN47NOQ2mL8aBwuetiA0KNeSI=; b=
+	l84tTS8FrgUObf7LAd5E7HXrG0aQTA3E7zZ92aS6oogpSpg3NpbYcYSIc+mG2z3v
+	HnV4ZSq45l2+HfvzOjInHq8FEV9fOs6Xr0e3UnwggfK2MK2W3yK3t4y+AjcUVjoJ
+	veb+SrCsLAVs1SKVq3LGQXAgOjjOQuWyY6UmkX2F7S5T/sOhi8oCgyoCAIqyiSUQ
+	gKCs9+QDtAEbK0VDulgYJQSqXoaghxAipTOyIN7suAHeVOykBqIYP4ixOORjczIQ
+	xdD2ea1ShJ9eIL0lcYAdCOdQzLMe3QENszU1naI2SFa4MphZt8ovTmJy4eR1JQAI
+	+dzfXHG7+81b3TZzopwjxQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790780318; x=
+	1790866718; bh=aofGckP8hMwHNg+V2dNN47NOQ2mL8aBwuetiA0KNeSI=; b=J
+	cn3U/pyV0fIorRo0sZVuQgzgZ+QPC/Kz3MThX7NR0Wx3IOzag7PcRL3cXdfs6Vmr
+	HzMZ8Mp6XTvjaGRyGcziBu4mfyD49W10X3Z/n4xuHqKVa9j7U7AKwoND5RR4Uirr
+	2MY/qriM0a4cG5QrjUB2bsJOkyH5IcI+OJIKv/lHhpfV36JXGnXi9Wuw2a6n8xmm
+	ClYxxoM3p1N7FevxgWaHiLw4RRfILh86ZAvAocHRyqgMyJk9HEnIFzmT1HdI0KXW
+	6J5P/oWJGhToX7yroVlT1qxHMRHT+N6MxjJKg0e/5pj3tkTIxXu6L9eerEKWTo8V
+	dq2QvPx5B0+YjhoomGUxA==
+X-ME-Sender: <xms:niO9agR179xb22ZoDlQSeTT3t8fQiKXnLZLm7-70ysCff7eRV_gmQw>
+    <xme:niO9aoJ_-xNahCp-iXTdpJjIBOwESZqpnjEMyIX0tDQPmFuAT6DTFI1Hk_Su_DB1r
+    prlvZ5_9qzZiTnf_aC9HKd7GCBAwpa03O3FkjIDqtAoRbm17gqs>
+X-ME-Received: <xmr:niO9aj-2QmuIO8_HgN-bm86cdtJi4fSB9kc_M4aiqqftDjJAqTXYUoC7VcZCv9gK1lfHj8qKyWO-Fh9azhInzqqpKW4wVHRtijG->
+X-ME-Proxy-Cause: dmFkZTEfD0mdmb3Mswe3ZZUc/QdaTwn+jvczmql0T6GcD8zVP1X1Sv5Ylp2gALOomBkT6w
+    Swna1BvEtdPZHclHWMblCv18WVXAEZVgVfA3DnXI8FzjZgvuOGWBFlDqkOTNstrmz/datp
+    zF+oWRUNjhP7lj/rVgNqPjx/3Dk98q9cXhQIpVBjP8/eUAuufEXzl8pE0ZuuRkqVaV+Z2e
+    XLyJw5JEG3ynojpF8CX3Hy62m7xWko9wrspssg1zuThW80rgsGz3/0ARzgloOzVoCDbiKj
+    xMyG3OUrult6K/ubPtEDNZkcBxfrVGLQLlXkmqBQvmhiRS4wjjImDTifq+8aEN4meM4gl+
+    rI0SNd+68pmQ7ncgvEQUP4uNlAWWvN4K6blNoVg33wSu9Q9O13fpzQ7JP0eeUArmH6FjWR
+    4Mi8mymglJbRM+KdpLba+bO8qpwN9IoDloLcT6KrGNdYcR7Lj5K4kawLtRHTNnrYmDzE9o
+    0/6GCXp5OH2YHjO8vSEmqBNhX2M+jCT6OGCb57+Y9l2OaN7qUGIL3eDHKXZaM7WhDi1XNV
+    /TWjwvB4WihRx/eka28k+d6WHtJU4pkCNIVEygapbzRFYWpDv62AtjIxXqXMHJzKUe57PB
+    yTODTDqtYqcmG8phaHMAkQi8dxg7TuiAD6jNy2acnR9mwtExr9Cgj11O+k1Q
+X-ME-Proxy: <xmx:niO9avJWn1pbhP9F60yhDK-MqKkhb2ILQfaB0GexNRcgEAKIHGRUOQ>
+    <xmx:niO9aiF2OFXRYovVgb1FCRUY5iKOOIBp8YhTBKm4pFz_DOik_fNU_g>
+    <xmx:niO9ajxlQrvi8poANEbW3qymjW6_1RECyH0EzbfQSGSNV3gWiDiSGw>
+    <xmx:niO9ar5ybB4JzECTrFvzykhkMXkO_KHWCkSiofPKhXTYBU0OQ89EgA>
+    <xmx:niO9anopPXxc0AwqBNLL6HfQooJH_JIEQslV96cWIS1rWfA6E2YbOA3V>
+Feedback-ID: i1d2843be:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 30 Sep 2026 10:58:37 -0400 (EDT)
+Message-ID: <3879be34-5389-4115-aeb2-29ba58228392@kroah.com>
+Date: Wed, 30 Sep 2026 16:58:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 03/10] leds: pca995x: Fix maximum LED index for
+ 16-channel variants
+To: Nora Schiffer <nora.schiffer@ew.tq-group.com>, Lee Jones
+ <lee@kernel.org>, Pavel Machek <pavel@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Isai Gaspar
+ <isaiezequiel.gaspar@nxp.com>, Marek Vasut <marex@denx.de>,
+ Pieterjan Camerlynck <pieterjanca@gmail.com>,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, linux@ew.tq-group.com,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1790684839.git.nora.schiffer@ew.tq-group.com>
+ <3926421f5734083348a6dc3e3c0d60de5d75a067.1790684839.git.nora.schiffer@ew.tq-group.com>
+Content-Language: en-US
+From: Griffin Kroah-Hartman <griffin@kroah.com>
+In-Reply-To: <3926421f5734083348a6dc3e3c0d60de5d75a067.1790684839.git.nora.schiffer@ew.tq-group.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 30 Sep 2026 16:18:25 +0200
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+On 9/30/26 4:25 PM, Nora Schiffer wrote:
 
-> From: Olivier Moysan <olivier.moysan@foss.st.com>
-> 
-> The characterization voltage used to calibrate vrefint depends
-> on SoC family. Add vref_charac_mv field in stm32_adc_cfg structure
-> to store the characterization voltage for each SoC, and use it
-> in Vref computation formula.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> The pca995x_chipdef for the 16-channel variants PCA9952 and PCA9955B
+> correctly sets num_leds to 16, but the value was not actually used when
+> checking and iterating over the LEDs during probe.
+>
+> Fixes: 68d6520d2e76 ("leds: leds-pca995x: Add support for NXP PCA9956B")
+> Link: https://sashiko.dev/#/patchset/6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com
+> Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 > ---
-> Changes in v2:
-> - Andy's review comments: rename variable to vref_charac_mv (unit suffix).
->   Drop the const attribute.
-> ---
->  drivers/iio/adc/stm32-adc.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 600f975f1d7b..fa46803d54be 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
-> @@ -43,7 +43,6 @@
->  #define STM32_ADC_TIMEOUT_US		100000
->  #define STM32_ADC_TIMEOUT	(msecs_to_jiffies(STM32_ADC_TIMEOUT_US / 1000))
->  #define STM32_ADC_HW_STOP_DELAY_MS	100
-> -#define STM32_ADC_VREFINT_VOLTAGE	3300
->  
->  #define STM32_DMA_BUFFER_SIZE		PAGE_SIZE
->  
-> @@ -211,6 +210,7 @@ struct stm32_adc;
->   * @set_ovs:		routine to set oversampling configuration
->   * @smp_cycles:		programmable sampling time (ADC clock cycles)
->   * @ts_int_ch:		pointer to array of internal channels minimum sampling time in ns
-> + * @vref_charac_mv:	Vref characterization voltage used to measure vrefint calibration value
->   */
->  struct stm32_adc_cfg {
->  	const struct stm32_adc_regspec	*regs;
-> @@ -230,6 +230,7 @@ struct stm32_adc_cfg {
->  	void (*set_ovs)(struct iio_dev *indio_dev, u32 ovs_idx);
->  	const unsigned int *smp_cycles;
->  	const unsigned int *ts_int_ch;
-> +	int vref_charac_mv;
-
-Case-sensitive units if it's SI is preferred in IIO, therefore *_mV.
-(checkpatch warns against this, but just ignore it).
-
--- 
-Kind regards,
-Joshua Crofts
+>   drivers/leds/leds-pca995x.c | 6 +++---
+>   1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
+> index fee6216cd1bd0..8b05b3f12cf38 100644
+> --- a/drivers/leds/leds-pca995x.c
+> +++ b/drivers/leds/leds-pca995x.c
+> @@ -146,7 +146,7 @@ static int pca995x_probe(struct i2c_client *client)
+>   		if (ret)
+>   			return ret;
+>   
+> -		if (reg < 0 || reg >= PCA995X_MAX_OUTPUTS || led_fwnodes[reg])
+> +		if (reg < 0 || reg >= chipdef->num_leds || led_fwnodes[reg])
+>   			return -EINVAL;
+>   
+>   		led = &chip->leds[reg];
+> @@ -157,7 +157,7 @@ static int pca995x_probe(struct i2c_client *client)
+>   		led->ldev.max_brightness = 255;
+>   	}
+>   
+> -	for (i = 0; i < PCA995X_MAX_OUTPUTS; i++) {
+> +	for (i = 0; i < chipdef->num_leds; i++) {
+>   		struct led_init_data init_data = {};
+>   
+>   		if (!led_fwnodes[i])
+> @@ -169,7 +169,7 @@ static int pca995x_probe(struct i2c_client *client)
+>   						     &chip->leds[i].ldev,
+>   						     &init_data);
+>   		if (ret < 0) {
+> -			for (j = i; j < PCA995X_MAX_OUTPUTS; j++)
+> +			for (j = i; j < chipdef->num_leds; j++)
+>   				fwnode_handle_put(led_fwnodes[j]);
+>   			return dev_err_probe(dev, ret,
+>   					     "Could not register LED %s\n",
+reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
