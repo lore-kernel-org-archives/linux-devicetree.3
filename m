@@ -1,62 +1,64 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B65449B2F
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A203344A739
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:39:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790757598; cv=none; b=HEhXUAbzibNReYjuoZCc4ilUcFf4JXh7whTuTDsFvh4OV/7Nzrb1O8eIvscgy4dmORwUDnYy+gE0y8r0v0BSJRfpz4ii/0uDLVTukCHhcNwZU6VR3qfHfg4gUhE6bPT+qSwwUBYxQYeMfXSHE3SF/smEr14nsLOudAGJ3ZaWAxc=
+	t=1790757600; cv=none; b=sgqsVG1d6XaQT84o2HC2q/7E97USZ28lfNZ6dLg4Uzy/wro7o20QQE/fN8SnD+VPYrUgv7A5Ujd/IZL8D7MI6DDAro/Y1gSir9ebhdp4z8jQ6IOxFo2H4XkZJdIY77D6y4N0ZgzPIPDTwPtJ0e+kPBxYG1nhd/0EbfMJebbjBzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790757598; c=relaxed/simple;
-	bh=CKwFKnvNGqJJ/q15B+A+DcP7BJRvr0+1X4UoGOdQS7k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N4Y/OSL0DrCz4CRZMIoWhSvGnJis3e+duZiFKECD+E9OUQrDcLJ8FKlsBIEB+McGlIwSoewLDrYMeF3Y9ywb3z4iM8snzkoUReHUjW+SBtBdBbVUMj+k6MeE94AmQOks2jGqDA/e8HkTmprVqE9WwkBmp+hLSoeWusR95rNw0MA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JBcJKsnH; arc=none smtp.client-ip=74.125.225.98
+	s=arc-20240116; t=1790757600; c=relaxed/simple;
+	bh=3YiunlPYvlkw0kqquegHcgrprz8dAXb3mq9cj/6G5Hg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FsYFvVSYo8ua7EbwtyYY1h9S6f7vbv8QeEBRrGZ5vcG0EH81TEo6pSglxC3Nhnn9CQTjgKRDZvPP5Vp1yQybema4oNZWtIu64ewooCjwyfAD14u9gF2DcxdednctP656YaAaUdID53QxDjBzEjVzni3sWqIDL/Inyh/7wu+dbMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nUlBwgQF; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JBcJKsnH"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c41135so212204f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 01:39:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nUlBwgQF"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so29965965e9.3
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 01:39:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790757592; x=1791362392; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IGBjcoy4aeNTw10s5CjkbJAmRuqjAutFBgcl06eNiGA=;
-        b=JBcJKsnHQRqMNAcnd413MyS3kW4bHzpbnBDdQacfmEb04UddtkB9ngar9tkELCmSxI
-         tiPOjtzX2w5+K4hcWQd/vNR9HpTodRcVGTlYoxaareTrh0bJOmaOYittId8n2W+k3G1a
-         HHPsvs+x0iV+0F20h7BcmSuIHEiInxaxzFctuJlB95nXWfTo/M9ukGacvI+Z32zEjlul
-         OIBG+fE22qeCgdpeWenHjPzTMsRGHZlB9xchHHQbzIz3qdyjmOep3TpqNjmd014cuXki
-         ep1h+X9oukOcMGsIgdtdguz3KISd6NsJs+S3uIYBMNmxKzR0R5RdJXw3HFIYL3Mu5JYI
-         4QvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790757592; x=1791362392;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790757593; x=1791362393; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IGBjcoy4aeNTw10s5CjkbJAmRuqjAutFBgcl06eNiGA=;
-        b=VlB+BAh522FaDHxjWd5NtaqPTSIMphumml/mM5Wi2zSkhga/H0cKbAurr3L80l6ljB
-         6T7xDASq7VDETZ9cNk07a77+LdpNQvg2bLaNTszkbP94I270uKGTIO7jcxiGap2Et5u3
-         ak6BHwybdQDfzZ2Zhsu/f4i9T5gvBjFRU5+TYQazGfUmYXKOp66+42f+Q6UAvynFyuyC
-         PQgQnviNdW4/mDUp0yxpqO22q2jrqWWoB0vAqGfompcsDwy0zBpZjeN6F5qDH+/xP9hX
-         1e9iCA3kQJQF4+p48qNJuaccUth59em/2D8BraV3glebCwyV81zlVcuAeBlqGLGRK360
-         T35A==
-X-Forwarded-Encrypted: i=1; AKwUvByus0wUk2ivJB42P/qAx27gOTGMhH9C4ZPkddowoZO7G04AvZEK1011q5St+hur1N3b8D6LtVGmET7h@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUz3YoAsESYux/M7+zObQA1rh9HXjao70Fbqafp6LlW7BCcQOd
-	PwE9vDCqiOAGsm7vWWktHZSiuF3/aRFYzrAt4oeGQUbgsAD2nJCCrjcP
-X-Gm-Gg: AYBFou1IYUz0efljNafTOxj/VJ/apIVi27J83WbJ6+4C53Vmd+aewupuS4zQM8WbDnx
-	wnVlUTjeWT3n8YPmGlF65dbtUE/QbBcgG3aFDSZVUff19CbHf89qf2bnc+aEjFA908oNhHM/rYV
-	RRMxq7qvDPnTA0Ke+w4UDlUn6KZoJs3Qf0hoDUho7VBT8Hy+7SgBZC12dWQRXlUi7fJGtcVzFOr
-	3dbc9KOw5kHuWb7WrRvrrpC+re4/sT1phO8H40Gl1xFtBG6SUWkWyqAUTolHGbn03aIob6fv0um
-	fUglgeFBOvZebN3U6za0KcFLqRVXjrW5OPUY4Z97CCiiil3CKA/LzD7BJHynfBpl3AXvOp8BN6a
-	rY8Zp8oJ+V8K/s4czXKHsVSY8RVH5MFK3/Cx/6iUYAgx51YjxY7z9r15hAs/fcCVG4hIQrrfhCB
-	3JzSM040nH3STK6iaDyPnqriD8nsusW/FjhsvbPnfL2EB7QNdvXzLtKaulbyBZ03Vbj3+9h/lF2
-	Xuqj/SD7RxE36A9Kq5MRSuZhMhfe4u86RlBb5ffDMWkgu4syrREM+p+
-X-Received: by 2002:a05:6000:2301:b0:488:89ed:4430 with SMTP id ffacd0b85a97d-48b02522f7bmr1523610f8f.33.1790757591711;
-        Wed, 30 Sep 2026 01:39:51 -0700 (PDT)
+        bh=NYDOdMZa/wf1LZ8vUW6yy2oMn5XA2+ny/9dTMK4B1Tw=;
+        b=nUlBwgQFbt93jdzfDptdxudFRiu4RxslgO7Wq33SgTjCXelJu49cbZ11gBBxKq31gT
+         TaZ/fcYTadMP/+8/nIRD6G6YGfyCyW6O4/v63QhYzgxvMr0qhs5OrAMvfN44I6Wqq0RJ
+         6aKZhi/rLcKUD8yi7NG6urCNg4Pw/mCqk5HyIWSQ7Ewq50XhCxVIF1CB1VJylt3Xw+zo
+         X9vzz9u+ahytQopInzwm52o0whrN4RKfxm4h4Gexa42057e9Xx2xFklmujTvA+ktvLz1
+         ykA1AkUB+AuQyqlvIbfRYv15p2HZ7W2wMINZKuUnHtmjyr7sQQ4r9jtNyrRnnxFrSSbD
+         Yxgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790757593; x=1791362393;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NYDOdMZa/wf1LZ8vUW6yy2oMn5XA2+ny/9dTMK4B1Tw=;
+        b=0GKSOhvQD4SVzmwIStN1g9pIkf3uOb/N6KNvITUteKQgRQec4zg8nK+sQ0htw/SvQf
+         GW7ydcTdvyfd3Gmp//Gvj5Fxk8vajI9b17dzMAU/qjQ9Sxu80+byBBmYN51wAHfF9ToI
+         CsJPIy8rS5H6Aha6kAAE90VqiYAefsKcefmg96q3SsLo/gK1dRIp2i+eUyOgtwnYGdS/
+         FW2TeDgl3ggUYk4YYbM6qFY4l1SRKMAhGVbO3Uut0LeKVEN2spLyJ1o9TMKk9xyGst9X
+         dHfyFtpA2MLhoAImGN5sRAGDy/XGa/0bPFfktJ3PA5Il8TRWnVgZdOmniRz/ejsFDLA7
+         Hhew==
+X-Forwarded-Encrypted: i=1; AKwUvBwfqDJzxT6mQl3wuhWo3aw0hKipV3XqXAbKrdapq5HGbENc7aM/EKTvtsw2CPpsx2Jwr973GRI2v4Eb@vger.kernel.org
+X-Gm-Message-State: AFuF++mPfHfXyS7VekAUlbCbuhQFUAfgcbH0KtRJp7CEVLBIhTnRtYvy
+	zwetINiWsldUJ9l57H+3ppQ2PKe9aLjLvH/kR9E3iQ2lSzPlEDcTf07W
+X-Gm-Gg: AYBFou0aDhYdlL0im+WypafAgboP5xdcdhjYlYWHt0j/quydV55ekIRhfTIE1NAgz9h
+	7FsKinNjzs5+0vkRwumW2sy9KRojBdfpMDCu2tPjPNB8ZoRYt26ntWumqM+Hool4dd1XyP0h2io
+	RZtdc05nhfUwR4cwcwkNkGf2+ZwjYadwhHj4wlGeOkR3BG0zOkDtrf+QVuYK0H/JteVOLTF3icf
+	2PK070nAuQbZK6qIY9eVro8Cke7A8lrIGAP9WEXqs/ypc5CLcBXyBi9tPeb8q6cWyWRiIadqzju
+	EvyZ8vYC8pNWus5gsnXTDcoQdfxOKQC17AAXl7Hg42oNRppkd8UueLHt8U7TjD7J0hVApd4U3LM
+	gNVPXY4lTqGYOTPwdQ/gs206nYswKxF2IvCggiIdIr+zeaZB7PjPZ3Ntaoxhcs1DUiuWR8G2z2E
+	GigK2iqOpWU2To5sA7zz3Hf+DTkR1/OhoPNQg3d5zVg6MdjPYWHT/xKRCCNDAWocy42QjDwo3Za
+	8ufSXb05NN6SzL72ztfCEmfdU3NekPu/1KfVHhl4BmGzA==
+X-Received: by 2002:a05:600c:8b5b:b0:49f:ce73:7aa with SMTP id 5b1f17b1804b1-4a01b00b470mr9631895e9.35.1790757593220;
+        Wed, 30 Sep 2026 01:39:53 -0700 (PDT)
 Received: from zeus.localdomain (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029bfd2bsm1757325f8f.11.2026.09.30.01.39.50
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b029bfd2bsm1757325f8f.11.2026.09.30.01.39.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 01:39:50 -0700 (PDT)
+        Wed, 30 Sep 2026 01:39:52 -0700 (PDT)
 From: Sander Speetjens <sander.speetjens@gmail.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>
 Cc: Rob Herring <robh@kernel.org>,
@@ -70,11 +72,14 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-rpi-kernel@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	sander.speetjens@gmail.com,
-	pbrobinson@gmail.com
-Subject: [PATCH v7 0/2] Raspberry Pi 5 RTC driver
-Date: Wed, 30 Sep 2026 10:39:20 +0200
-Message-ID: <20260930083922.484885-1-sander.speetjens@gmail.com>
+	pbrobinson@gmail.com,
+	Dom Cobley <popcornmix@gmail.com>
+Subject: [PATCH v7 2/2] rtc: Add Raspberry Pi 5 RTC driver
+Date: Wed, 30 Sep 2026 10:39:22 +0200
+Message-ID: <20260930083922.484885-3-sander.speetjens@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260930083922.484885-1-sander.speetjens@gmail.com>
+References: <20260930083922.484885-1-sander.speetjens@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,54 +88,437 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Raspberry Pi 5 has a battery-backed RTC located
-on the DA9091 PMIC accessed via the I2C bus[1].
-Access to the RTC is provided exclusively through the VideoCore firmware
-mailbox interface (not via a direct I2C register interface).
+Upstreaming the downstream Raspberry Pi 5 RTC driver.
+This driver supports the custom DA9091,
+which is accessed through the firmware mailbox.
 
-As stated by jamesh on the Rasperry Pi forum [2],
-"There are no plans to release a public datasheet for the DA9091."
-So we are stuck with the firmware interface for now.
-PhilE also states that "The firmware needs full control of the DA9091,
-sometimes with extremely low latency,
-otherwise there's a risk the supply could just cut the power."
+Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
+Signed-off-by: Dom Cobley <popcornmix@gmail.com>
+Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
+---
+V6 -> V7:
+- Move from u32 array to struct
+- Fix encapsulation as mentioned by sashiko-bot
 
-This series adds:
-  - a DT property for the charging voltage of the RTC battery
-  - the RTC driver that talks to the firmware
+V5 -> V6:
+- Add MODULE_ALIAS, as mentioned by sashiko-bot
+- Encapsulate the mailbox data in le32_to_cpu or cpu_to_le32, as
+  mentioned by sashiko-bot. For good practice
 
-The driver and binding are based on (and largely taken from) the
-downstream Raspberry Pi kernel. The main changes for upstream are
-the addition of a dt binding property for setting the charging voltage and
-binding the driver from the raspberrypi-firmware driver instead of from
-the DT.
+V4 -> V5: No changes
 
-The driver supports time read/write, alarm, and optional trickle
-charging voltage configuration via the device-tree.
+V3 -> V4:
+- Fix Kconfig depends that disallows having Raspberrypi
+firmware built as a module while the rtc driver is built in
+- Remove sysfs
+- Add limits from firmware properties and check in rpi_rtc_set_charge_voltage
 
-Testing
-- Hardware: Raspberry Pi 5 Model B revC
-- Kernel: v7.2
-- dt_binding_check: passed
-- Basic RTC operations (read/write time, alarm) verified
+V2 -> V3:
+- Move platform check to firmware and abort before registering
+a platform device if on another platform
+- Add a dependency on the Raspberry Pi firmware to Kconfig
+- Check return value of devm_device_init_wakeup
+- Fix property name
 
-[1] https://www.raspberrypi.com/news/introducing-raspberry-pi-5/
-[2] https://forums.raspberrypi.com/viewtopic.php?t=359073
+V1 -> V2:
+Instead of the original driver, which was directly bound to the device tree.
+This driver is bound to the Raspberry Pi firmware device by creating
+a child device in the firmware driver probe function.
+The child device is then bound to this driver,
+which uses the firmware mailbox to access the RTC.
 
-Sander Speetjens (2):
-  dt-bindings: rtc: Add property for Raspberry Pi 5 RTC
-  rtc: Add Raspberry Pi 5 RTC driver
+A couple of minor changes have been made to the driver since it was originally written, including:
+- Checking if the model is a Raspberry Pi 5, as the RTC is only present on that model.
+- Using the new devm_rpi_firmware_get() and devm_init_wakeup() helper to get the firmware device and avoid leaking memory.
+- Using millivolts instead of microvolts for the trickle charge voltage, to match the RTC standard.
+- Instead of setting the trickle charge voltage to 0 to disable trickle charging, the property is now optional. If the property is not present, trickle charging is disabled, per the RTC standard.
+- Renaming the driver dt match compatible to "raspberrypi,firmware-rtc" to match the other firmware bindings.
+- Renaming the driver name to "raspberrypi-rtc" to match the other firmware drivers.
 
- .../arm/bcm/raspberrypi,bcm2835-firmware.yaml |   6 +
- drivers/firmware/raspberrypi.c                |  25 ++
- drivers/rtc/Kconfig                           |  12 +
- drivers/rtc/Makefile                          |   1 +
- drivers/rtc/rtc-raspberrypi.c                 | 279 ++++++++++++++++++
- 5 files changed, 323 insertions(+)
+ drivers/firmware/raspberrypi.c |  25 +++
+ drivers/rtc/Kconfig            |  12 ++
+ drivers/rtc/Makefile           |   1 +
+ drivers/rtc/rtc-raspberrypi.c  | 279 +++++++++++++++++++++++++++++++++
+ 4 files changed, 317 insertions(+)
  create mode 100644 drivers/rtc/rtc-raspberrypi.c
 
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
+diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberrypi.c
+index 0aa322e9a2e7..a35f00c6fb2c 100644
+--- a/drivers/firmware/raspberrypi.c
++++ b/drivers/firmware/raspberrypi.c
+@@ -24,6 +24,7 @@
+ 
+ static struct platform_device *rpi_hwmon;
+ static struct platform_device *rpi_clk;
++static struct platform_device *rpi_rtc;
+ 
+ struct rpi_firmware {
+ 	struct mbox_client cl;
+@@ -231,6 +232,27 @@ static void rpi_register_clk_driver(struct device *dev)
+ 						-1, NULL, 0);
+ }
+ 
++static void rpi_register_rtc_driver(struct device *dev)
++{
++	struct device_node *firmware;
++
++	// Check if our model is a Raspberry Pi 5, as the RTC is only present on that model.
++	const char *model = of_get_property(of_root, "model", NULL);
++
++	if (!model || strncmp(model, "Raspberry Pi 5", 14) != 0)
++		return;
++
++	firmware = of_get_compatible_child(dev->of_node,
++					   "raspberrypi,firmware-rtc");
++	if (firmware) {
++		of_node_put(firmware);
++		return;
++	}
++
++	rpi_rtc = platform_device_register_data(dev, "raspberrypi-rtc",
++						-1, NULL, 0);
++}
++
+ unsigned int rpi_firmware_clk_get_max_rate(struct rpi_firmware *fw, unsigned int id)
+ {
+ 	struct rpi_firmware_clk_rate_request msg =
+@@ -305,6 +327,7 @@ static int rpi_firmware_probe(struct platform_device *pdev)
+ 	rpi_firmware_print_firmware_revision(fw);
+ 	rpi_register_hwmon_driver(dev, fw);
+ 	rpi_register_clk_driver(dev);
++	rpi_register_rtc_driver(dev);
+ 
+ 	return 0;
+ }
+@@ -327,6 +350,8 @@ static void rpi_firmware_remove(struct platform_device *pdev)
+ 	rpi_hwmon = NULL;
+ 	platform_device_unregister(rpi_clk);
+ 	rpi_clk = NULL;
++	platform_device_unregister(rpi_rtc);
++	rpi_rtc = NULL;
+ 
+ 	rpi_firmware_put(fw);
+ }
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 05b9233b9418..4dbe20bcace8 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -1999,6 +1999,18 @@ config RTC_DRV_R7301
+ 	   This driver can also be built as a module. If so, the module
+ 	   will be called rtc-r7301.
+ 
++config RTC_DRV_RPI
++        tristate "Raspberry Pi RTC"
++	depends on RASPBERRYPI_FIRMWARE || (COMPILE_TEST && !RASPBERRYPI_FIRMWARE)
++        depends on ARCH_BRCMSTB || COMPILE_TEST
++        default ARCH_BRCMSTB
++        help
++          If you say yes here you get support for the RTC found on
++          Raspberry Pi devices.
++
++          This driver can also be built as a module. If so, the module
++          will be called rtc-raspberrypi.
++
+ config RTC_DRV_STM32
+ 	tristate "STM32 RTC"
+ 	select REGMAP_MMIO
+diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
+index 0347645b021f..46f1a0fc2416 100644
+--- a/drivers/rtc/Makefile
++++ b/drivers/rtc/Makefile
+@@ -144,6 +144,7 @@ obj-$(CONFIG_RTC_DRV_PS3)	+= rtc-ps3.o
+ obj-$(CONFIG_RTC_DRV_PXA)	+= rtc-pxa.o
+ obj-$(CONFIG_RTC_DRV_R7301)	+= rtc-r7301.o
+ obj-$(CONFIG_RTC_DRV_R9701)	+= rtc-r9701.o
++obj-$(CONFIG_RTC_DRV_RPI)	+= rtc-raspberrypi.o
+ obj-$(CONFIG_RTC_DRV_RC5T583)	+= rtc-rc5t583.o
+ obj-$(CONFIG_RTC_DRV_RC5T619)	+= rtc-rc5t619.o
+ obj-$(CONFIG_RTC_DRV_RK808)	+= rtc-rk808.o
+diff --git a/drivers/rtc/rtc-raspberrypi.c b/drivers/rtc/rtc-raspberrypi.c
+new file mode 100644
+index 000000000000..9f3f5d7683be
+--- /dev/null
++++ b/drivers/rtc/rtc-raspberrypi.c
+@@ -0,0 +1,279 @@
++// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
++/**
++ * rtc-raspberrypi.c
++ *
++ * RTC driver using firmware mailbox
++ * Supports battery backed RTC and wake alarms
++ *
++ * Based on rtc-meson-vrtc by Neil Armstrong
++ *
++ * Copyright (c) 2023, Raspberry Pi Ltd.
++ */
++
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/rtc.h>
++#include <linux/of.h>
++#include <soc/bcm2835/raspberrypi-firmware.h>
++
++#define RPI_FIRMWARE_GET_RTC_REG 0x00030087
++#define RPI_FIRMWARE_SET_RTC_REG 0x00038087
++
++enum {
++	RTC_TIME,
++	RTC_ALARM,
++	RTC_ALARM_PENDING,
++	RTC_ALARM_ENABLE,
++	RTC_BBAT_CHG_VOLTS,
++	RTC_BBAT_CHG_VOLTS_MIN,
++	RTC_BBAT_CHG_VOLTS_MAX,
++	RTC_BBAT_VOLTS
++};
++
++struct rpi_rtc_data {
++	struct rtc_device *rtc;
++	struct rpi_firmware *fw;
++	u32 bbat_vchg_millivolts;
++	u32 bbat_vchg_min_millivolts;
++	u32 bbat_vchg_max_millivolts;
++};
++
++struct rpi_rtc_reg {
++	__le32 reg;
++	__le32 val;
++} __packed;
++
++static int rpi_rtc_read_time(struct device *dev, struct rtc_time *tm)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	struct rpi_rtc_reg data = {
++		.reg = cpu_to_le32(RTC_TIME)
++	};
++	int err;
++
++	err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_GET_RTC_REG,
++				    &data, sizeof(data));
++	rtc_time64_to_tm(le32_to_cpu(data.val), tm);
++	return err;
++}
++
++static int rpi_rtc_set_time(struct device *dev, struct rtc_time *tm)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	struct rpi_rtc_reg data = {
++		.reg = cpu_to_le32(RTC_TIME),
++		.val = cpu_to_le32(rtc_tm_to_time64(tm))
++	};
++
++	return rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
++				     &data, sizeof(data));
++}
++
++static int rpi_rtc_alarm_irq_is_enabled(struct device *dev, unsigned char *enabled)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	struct rpi_rtc_reg data = {
++		.reg = cpu_to_le32(RTC_ALARM_ENABLE)
++        };
++	s32 err = 0;
++
++	err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_GET_RTC_REG,
++				    &data, sizeof(data));
++	*enabled = le32_to_cpu(data.val) & 0x1;
++	return err;
++}
++
++static int rpi_rtc_alarm_irq_enable(struct device *dev, unsigned int enabled)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	struct rpi_rtc_reg data = {
++		.reg = cpu_to_le32(RTC_ALARM_ENABLE),
++		.val = cpu_to_le32(enabled)
++       	};
++
++	return rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
++				     &data, sizeof(data));
++}
++
++static int rpi_rtc_alarm_clear_pending(struct device *dev)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	struct rpi_rtc_reg data = {
++		.reg = cpu_to_le32(RTC_ALARM_PENDING),
++		.val = cpu_to_le32(1)
++	};
++
++	return rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
++				     &data, sizeof(data));
++}
++
++static int rpi_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alarm)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	struct rpi_rtc_reg data = {
++		.reg = cpu_to_le32(RTC_ALARM)
++       	};
++	s32 err = 0;
++
++	err = rpi_rtc_alarm_irq_is_enabled(dev, &alarm->enabled);
++	if (!err)
++		err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_GET_RTC_REG,
++					    &data, sizeof(data));
++	rtc_time64_to_tm(le32_to_cpu(data.val), &alarm->time);
++
++	return err;
++}
++
++static int rpi_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alarm)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	struct rpi_rtc_reg data = {
++		.reg = cpu_to_le32(RTC_ALARM),
++	       	.val = cpu_to_le32(rtc_tm_to_time64(&alarm->time))
++	};
++	int err;
++
++	err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
++				    &data, sizeof(data));
++
++	if (err == 0)
++		err = rpi_rtc_alarm_irq_enable(dev, alarm->enabled);
++
++	return err;
++}
++
++static const struct rtc_class_ops rpi_rtc_ops = {
++	.read_time = rpi_rtc_read_time,
++	.set_time = rpi_rtc_set_time,
++	.read_alarm = rpi_rtc_read_alarm,
++	.set_alarm = rpi_rtc_set_alarm,
++	.alarm_irq_enable = rpi_rtc_alarm_irq_enable,
++};
++
++static void rpi_rtc_set_limits(struct device *dev)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	struct rpi_rtc_reg data = {
++		.reg = cpu_to_le32(RTC_BBAT_CHG_VOLTS_MIN)
++	};
++
++	int err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_GET_RTC_REG,
++					&data, sizeof(data));
++	if (err == 0)
++		vrtc->bbat_vchg_min_millivolts = le32_to_cpu(data.val) / 1000U;
++
++	data.reg = cpu_to_le32(RTC_BBAT_CHG_VOLTS_MAX);
++	data.val = cpu_to_le32(0);
++	err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_GET_RTC_REG,
++				    &data, sizeof(data));
++	if (err == 0)
++		vrtc->bbat_vchg_max_millivolts = le32_to_cpu(data.val) / 1000U;
++}
++
++static int rpi_rtc_set_charge_voltage(struct device *dev)
++{
++	struct rpi_rtc_data *vrtc = dev_get_drvdata(dev);
++	struct rpi_rtc_reg data = {
++		.reg = cpu_to_le32(RTC_BBAT_CHG_VOLTS),
++		.val = cpu_to_le32(vrtc->bbat_vchg_millivolts * 1000U)
++	};
++	int err;
++
++	if (vrtc->bbat_vchg_millivolts != 0 &&
++	    (vrtc->bbat_vchg_millivolts < vrtc->bbat_vchg_min_millivolts ||
++	    vrtc->bbat_vchg_millivolts > vrtc->bbat_vchg_max_millivolts)) {
++		dev_warn(dev, "trickle charge voltage %umV is outside of the supported range (%umV - %umV)\n",
++			 vrtc->bbat_vchg_millivolts,
++			 vrtc->bbat_vchg_min_millivolts,
++			 vrtc->bbat_vchg_max_millivolts);
++		return -EINVAL;
++	}
++
++	err = rpi_firmware_property(vrtc->fw, RPI_FIRMWARE_SET_RTC_REG,
++				    &data, sizeof(data));
++
++	if (err)
++		dev_err(dev, "failed to set trickle charge voltage to %umV: %d\n",
++			vrtc->bbat_vchg_millivolts, err);
++	else if (vrtc->bbat_vchg_millivolts)
++		dev_info(dev, "trickle charging enabled at %umV\n",
++			 vrtc->bbat_vchg_millivolts);
++
++	return err;
++}
++
++static int rpi_rtc_probe(struct platform_device *pdev)
++{
++	struct rpi_rtc_data *vrtc;
++	struct device *dev = &pdev->dev;
++	struct rpi_firmware *firmware;
++	int ret;
++
++	// Get the firmware device from the parent device
++	firmware = devm_rpi_firmware_get(dev, dev->parent->of_node);
++
++	if (!firmware)
++		return -EPROBE_DEFER;
++
++	vrtc = devm_kzalloc(dev, sizeof(*vrtc), GFP_KERNEL);
++	if (!vrtc)
++		return -ENOMEM;
++
++	vrtc->fw = firmware;
++
++	ret = devm_device_init_wakeup(dev);
++	if (ret)
++		return ret;
++
++	platform_set_drvdata(pdev, vrtc);
++
++	vrtc->rtc = devm_rtc_allocate_device(dev);
++	if (IS_ERR(vrtc->rtc))
++		return PTR_ERR(vrtc->rtc);
++
++	vrtc->rtc->range_max = U32_MAX;           /* 2106-02-07 */
++
++	set_bit(RTC_FEATURE_ALARM_WAKEUP_ONLY, vrtc->rtc->features);
++	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, vrtc->rtc->features);
++
++	vrtc->rtc->ops = &rpi_rtc_ops;
++
++	rpi_rtc_alarm_clear_pending(dev);
++
++	/*
++	 * The trickle-voltage property lives on the parent firmware node
++	 * because we deliberately do not create a DT child node just to
++	 * instantiate this driver (see DT maintainer guidance).
++	 * The firmware driver registers us as a platform device at runtime.
++	 */
++	vrtc->bbat_vchg_millivolts = 0;
++	of_property_read_u32(dev->parent->of_node, "trickle-voltage-millivolt",
++			     &vrtc->bbat_vchg_millivolts);
++
++	rpi_rtc_set_limits(dev);
++	rpi_rtc_set_charge_voltage(dev);
++
++	return devm_rtc_register_device(vrtc->rtc);
++}
++
++static const struct of_device_id rpi_rtc_dt_match[] = {
++	{ .compatible = "raspberrypi,firmware-rtc" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, rpi_rtc_dt_match);
++
++static struct platform_driver rpi_rtc_driver = {
++	.driver = {
++		.name = "raspberrypi-rtc",
++		.of_match_table = of_match_ptr(rpi_rtc_dt_match),
++	},
++	.probe = rpi_rtc_probe
++};
++
++module_platform_driver(rpi_rtc_driver);
++
++MODULE_AUTHOR("Jonathan Bell <jonathan@raspberrypi.com>");
++MODULE_AUTHOR("Sander Speetjens <sander.speetjens@gmail.com>");
++MODULE_DESCRIPTION("Raspberry Pi RTC driver");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS("platform:raspberrypi-rtc");
 -- 
 2.55.0
 
