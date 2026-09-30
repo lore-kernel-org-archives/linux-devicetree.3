@@ -1,104 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F5039FCB1;
-	Wed, 30 Sep 2026 08:48:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC33633B6D6;
+	Wed, 30 Sep 2026 08:49:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758103; cv=none; b=fCyq2A2M+utIGPvc0fqu5vuKgv9BeyxmMAwuvzzGk/G4G+tjX+xBlu136VMvaDwoiNLnMGG76YznL5zYj5u2wbBAjtz85FThv2m3s+41m2vgKP9bmRG6h0v7B8w1jmx9/csmHhSk7nkuE1h/vJXM/OQnbyrlCWjSRR/iQfa/b/M=
+	t=1790758147; cv=none; b=iAInHurpUJhpiMh92wzX7EP+bEln1Ih5OBsVigZi3fkoc/gH/qvxf9jRSyNzhUQXCNi9bdZruBQOih8AaWD+ZUUeY+oj21BuwsWzoxrOtdqnWlt7TfvRhbsZxraKH9iUggWreQKPeGM43/JG+dGu//YXobX+1vXah877+Bc1zac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758103; c=relaxed/simple;
-	bh=EHn7VT8wUCA4/M/RX+kxLjyHSv+sVWPdsu1VehQjMbo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I1gWN4iWLQFnRG4YSu0yzTAyw/yoSRHIOI9YpyuXz+EsMQal4o1Z5YVjFEuDCqYDQwIsYyg/w1JPAeSj8NtUur2LljPQKm+BiUFRcqFDH0MhLSMNf+9V+CKgqCg7bwpAwjB0olzz7gj36Ddzw7YQpDiuT4L7Yf5SJVuZi8gQpqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cXNGNwnJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790758147; c=relaxed/simple;
+	bh=Bp0H97RGVcnNhgLgyQyDDm4y7cDi5b5h65DjbZkNxwc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TitI5i3e0265PDSaheTCANFnPkR2Ly5RnPkD8HOxm7WeriBSwMXTpbjOHxe286112LvtJtjbwjTYkoDB7kQLOv3nRpK/1+eCFqmufonlZM7rBEA+Ms4wJICSLp4AC62RX/HgF0enzmfZoDojzlxQrif0t1dODQp9McNlhMh+13E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DM+026pr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cXNGNwnJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847D11F000FF;
-	Wed, 30 Sep 2026 08:48:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DM+026pr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA641F00893;
+	Wed, 30 Sep 2026 08:49:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790758102;
-	bh=Nc/aa8xu9LXaTHuQoPMpSRjwWnzlHbzUU58AxGBc5qE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cXNGNwnJ4MHkJ3gixunQ/me8qoYEvsG9yBcsn8Q6jiVcvNLnuV0cJi4ioqggBZ/dt
-	 KkSK5pZR691N2FhapUdpIMHqxIg754rAwM7CXxxTMqsV0vNb4y1Bb10eD+oqWWsk1G
-	 KPIxSv8epfvelTE5D8JpJqut0wLg+0BCNDk9IsY0kfLN6nlZETisev5YAr9adonG7R
-	 P17+yQrVBk1MPQvklceluBNqGoIS3qE/KQ0tBhL3me9B/027UXssN0oce0JwRX1MAz
-	 3Xfn/e7Q0NRb+XSPQajFmLE04DQ4Q7LB75L4VSYhGIsyiHVqo2S8XMcBoTmTqb3EhA
-	 GvbZkIs9R53lg==
-Date: Wed, 30 Sep 2026 10:48:19 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 4/6] drm/tegra: Add support for 8-bit CPU interface
-Message-ID: <arzMjoi2LcyfxCzN@orome>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-5-clamor95@gmail.com>
+	s=k20260515; t=1790758146;
+	bh=CSzUIBlRUjeyGtQIw8v8hKiOSDYuEYna/gt1FbNkadQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DM+026prM52PVZhRGuiiidwS42Kcsgc7jPirYGb2AVoXGrya9/JfuWx9caMpQQFrZ
+	 p4CeG2S5r6sXmi6vCE8jHHpay4UqScPIgXmuxm8hoKFhRB1k3g38halx62avoHtcaL
+	 ab5datshcTu3MK176N4mRb+4bi5ldBhOy55GO/nRcU+EsrjqcHCd8DaHgIxzpjlcYV
+	 GDUdFaYlzA5ukVgCFePPT8IwlNLf5KivOWfp5Hf3/vOc3u7JuyFDZNqaIDH/ZAcxAr
+	 9kTTGxiP2ICwF++elGRxiddphcSdzUBu+m6MzujBVw4MqL8rIfUrphjKkudXyt9DOn
+	 sG0WAcoINOwhw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] rtc: Add Raspberry Pi 5 RTC driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sander Speetjens" <sander.speetjens@gmail.com>
+Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260930083922.484885-3-sander.speetjens@gmail.com>
+References: <20260930083922.484885-1-sander.speetjens@gmail.com>
+ <20260930083922.484885-3-sander.speetjens@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 08:49:05 +0000
+Message-Id: <20260930084905.CEA641F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sfxgfbu7erd5aek2"
-Content-Disposition: inline
-In-Reply-To: <20260930070535.47130-5-clamor95@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt: brittle string comparison on model property instead of compa=
+tible match
+--
 
---sfxgfbu7erd5aek2
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 4/6] drm/tegra: Add support for 8-bit CPU interface
-MIME-Version: 1.0
+commit 785b9ba4b6f1ff162b94712e510b9c39d0c39474
+Author: Sander Speetjens <sander.speetjens@gmail.com>
 
-On Wed, Sep 30, 2026 at 10:05:33AM +0300, Svyatoslav Ryhel wrote:
-> The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
-> that closely resembles the MIPI DBI Type B protocol and is referred to as
-> '8-bit CPU'. Each display controller provides two such interfaces, which
-> can be used to send MIPI DCS commands to initialize and control the panel
-> while image data is transmitted via 16/18/24-line RGB.
->=20
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  drivers/gpu/drm/tegra/Kconfig      |   7 +
->  drivers/gpu/drm/tegra/Makefile     |   1 +
->  drivers/gpu/drm/tegra/cpu-bridge.c | 427 +++++++++++++++++++++++++++++
->  3 files changed, 435 insertions(+)
->  create mode 100644 drivers/gpu/drm/tegra/cpu-bridge.c
+rtc: Add Raspberry Pi 5 RTC driver
 
-This doesn't need to be a separate driver. It should all live in dc.c.
-Or maybe even rgb.c, since it uses pretty much the same pins and is
-quite similar to it.
+Upstreaming the downstream Raspberry Pi 5 RTC driver. This driver supports
+the custom DA9091, which is accessed through the firmware mailbox.
 
-Thierry
+> diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberryp=
+i.c
+> index 0aa322e9a2e73..a35f00c6fb2c1 100644
+> --- a/drivers/firmware/raspberrypi.c
+> +++ b/drivers/firmware/raspberrypi.c
+[ ... ]
+> @@ -231,6 +232,27 @@ static void rpi_register_clk_driver(struct device *d=
+ev)
+>  						-1, NULL, 0);
+>  }
+> =20
+> +static void rpi_register_rtc_driver(struct device *dev)
+> +{
+> +	struct device_node *firmware;
+> +
+> +	// Check if our model is a Raspberry Pi 5, as the RTC is only present o=
+n that model.
+> +	const char *model =3D of_get_property(of_root, "model", NULL);
+> +
+> +	if (!model || strncmp(model, "Raspberry Pi 5", 14) !=3D 0)
 
---sfxgfbu7erd5aek2
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: Medium]
+Is it safe to use strncmp() on the human-readable "model" property to
+identify the board here in rpi_register_rtc_driver()?
 
------BEGIN PGP SIGNATURE-----
+Since the check only compares the first 14 characters, could this incorrect=
+ly
+match unrecognized future devices like 'Raspberry Pi 500' and improperly
+register the RTC?
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq8zNMACgkQ3SOs138+
-s6HbVxAAsIqUHzRlTa+PVebDe1OL+9I7ADlIyY5pCPTGU6SfwmWSxZUN5KFu89ib
-ME3TcAl4GcovrXFa33iN1mBI25olvhIlTcJw3CuTjQvc8ecrARVFVRxrGWAgJ5Fj
-eYDiQ3IaFV2NJNxTCuvD+LEhptA3a7MmKi4JbTEJjDOmvv9dRKD4Hzfas0jFAYD1
-2+ZdSaN4GE0bFQWiWvtkoE3D7cpKeF/bGO9JqQhln8Z4l1fx57dLlB/uOhlUd3Xf
-ANTvqGNJohRFNCt4A+f6AnXQfCy6Nh34cHS9FAjm+KW0S+Frgb7mPpYoHBLBrT5/
-l/ZZsHihMppsTFAjG3lIctNN43TsaUjIbRmAR4rVp5qNO7uws3ymxDjdkz5VxorI
-ShvmHKhkWZtvYWLEmVezuumKIs2xTfMY0dPPFrXjL8avDsq+Digw1kvYA+iUJwiv
-CjAbcERB42YAEl0qomHHtoprHt1/iL2pIgnm3/HrsFNgillUgWkfLMLnPql8zYJd
-k1bGc1YFRMO81RVu9X02fBb3fcRsM8RBlOGsKKCGXPRwygk31mghrQLbMWUvvRa4
-PY2+ckm7gjmQGTd66dexU3p14Jxa4eFufRMT0dG5LPuOLS9qkZS7FY/XpIYvwG0o
-vOqpeJLDU7lUqSm5s7dJsWJP0wDU9JLJCgN2jtQdEDIejgEITtc=
-=4+YO
------END PGP SIGNATURE-----
+Would it be better to use of_machine_is_compatible() with a compatible stri=
+ng
+match instead, which is more robust against formatting changes?
 
---sfxgfbu7erd5aek2--
+> +		return;
+> +
+> +	firmware =3D of_get_compatible_child(dev->of_node,
+> +					   "raspberrypi,firmware-rtc");
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930083922.4848=
+85-1-sander.speetjens@gmail.com?part=3D2
