@@ -1,149 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94EC338A73B
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:47:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408CA3ED109;
+	Wed, 30 Sep 2026 09:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790761638; cv=none; b=Dv45GjCYmlsw71/zNoVcVQR+CzqDVDak8GAxzF7NfvOZ4naSbnA5/4et9H9nBVdKMTG+unAc9s7jhbjLNswriXjwvrV7ediQeywWrJRFfHRPZt+Sed76ScbNNX1205DOtSKOk9IeAeZyQMmqxhS5KnrF7Ukz2OzDCYEz7DW5cPU=
+	t=1790761869; cv=none; b=TBGhTqsEI8aa7P2tGRNY26A/kU/SVnL/2yEbMV/RsAY0cNe7BUeeAVOLd9M5bqZWdT7jVxTo5VL1q7t7xaub3XT18IgqE5n4dSySs+nBrjC+myFssF9ZlHJood05imQHyJpEW29iVqQGZWtf57HUZVxaFMx9E+hePvUssmjRqFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790761638; c=relaxed/simple;
-	bh=VyLvzBG+iuoj0OI/YPSjtzQw6m/EdXtCcFeVugPhgF4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fCEI5Mr6cySqEQ1vX2EL36M4btnaVU5A9P07QfohrIABzlors/ZbgLk7XlIu4Z4+Pr3/spkSmNaQ4U/jxfME+L5t1fjdL654b3EOV84ekPV3MmHdPZZRkj2W30Dj/O5RlBRJ/Dt6pB93/kqyJ42kQadR505sZw7HZidv0p8ER0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CktP54rf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790761869; c=relaxed/simple;
+	bh=zJLnzgzaviiLRIv1GHcdcURcIMZZC3VugTG8rUz1nIY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=r3Ng7U/sqgj8xvzjRJqDcE19vX/zymXt+pWNaye9KoAX87ZdfrC6pEBsWviV5Ru0GehBw3k83TycPTpQstQe5agm7XY8VTvSVZ185EpUi5f//LcOK8+Uvs0AZHu/ul8o5ogjzI7vOMCNut7gVAXC/GYMFyMJ3kwiHakgha2G/oQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kNiAJ2m6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CktP54rf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B7F31F000FF;
-	Wed, 30 Sep 2026 09:47:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790761635;
-	bh=pLNZehOw5Gc365xdDG1uUiqrYBjTaCS0tryymumsQr8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CktP54rfHNt5/ecMdOmf0notoRsr8N9mN3+NzRELkIzY7kqUhyAQxFbBm6Ii1rVnS
-	 niQ0ygGOw0xfR7P+R8GV8pLPqHZm7mBXkyXahwSgMSKKGkLV7bq0dY2ekI08PR9Qqd
-	 zQJ4BlsSuVx/cMVqrEncSaTYkXJ0F5RRg4pKPCK2VhPsNiZLyJnoUl4KNyJY4Gjq8X
-	 U6t0zdwuHx6+DtrGIz38cSKvmByecCcaRzRNF06XyYB4wH8PiwPj5bBjMED+sxDU/f
-	 9q1K4lmuAP31SO4oZqEcf1TpFSRD1GqIyfD4ChjANvESe9vBARG6Ln7+bttdThCR2l
-	 /VBD3XdJb+9Fg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] pinctrl: ti: Add TDA54 pin controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yemike Abhilash Chandra" <y-abhilashchandra@ti.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260930092020.1047221-3-y-abhilashchandra@ti.com>
-References: <20260930092020.1047221-1-y-abhilashchandra@ti.com>
- <20260930092020.1047221-3-y-abhilashchandra@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 09:47:14 +0000
-Message-Id: <20260930094715.7B7F31F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kNiAJ2m6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BF0E9C4AF14;
+	Wed, 30 Sep 2026 09:51:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790761868;
+	bh=zJLnzgzaviiLRIv1GHcdcURcIMZZC3VugTG8rUz1nIY=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=kNiAJ2m6S38sOhvHwPepVgQMRb37eTEyJhB6S3dv/mE/cnz+F5hJIIjZDrgVS+UJx
+	 3AZmuesn7TkSI1+VzBlCTHOwNuQqSeDPvxqTWNbIq0LYD79A7vem4D5osZ1WNrbLqD
+	 dc1Cn4hEmTIUXP4n1Fly10sWYSKnIxf2h69aOAz0rYFIxVRonH+0uLlMAWWwjAO8G5
+	 iW6pV/PSGm+cBx3GV7bTY8g7QdCdfoGcMbiaa2kTBvlRMkIJejn89E2DfdMZASMW4H
+	 w23oEFRY+hg/q/hhj1/UoLvjX9Y7/UuUdbTtk0B/mZ1IYchgV9EfQHAuViosJzskPn
+	 nsKnjikUwNgtg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AC3F1CA5FBE;
+	Wed, 30 Sep 2026 09:51:08 +0000 (UTC)
+From: Sarath Ganapathiraju via B4 Relay <devnull+sarath.ganapathiraju.oss.qualcomm.com@kernel.org>
+Subject: [PATCH v10 0/2] Add LPASS VA CSR HeartBeat pulse clock support
+Date: Wed, 30 Sep 2026 15:21:06 +0530
+Message-Id: <20260930-master-v10-0-105207bc5275@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIrbvGoC/22OQQrCMBBFr1KyNmUaaZO48h7iIqaJjdhGM21QS
+ u9uUkEE3Qz84b0/MxM0wRkku2ImwUSHzg8pVLApiO7UcDbUtWlBGLAGZMVpr3A0gTaacS5szZV
+ UJMG3YKx7rE2H4zvjdLoYPWY7E53D0YfneiqKzP2URkGBCrZtma5bkKD2HrG8T+qqfd+XaZDcH
+ eWXzcTHlslm6S0L0koF8o+9LMsLwuxtdPQAAAA=
+X-Change-ID: 20260917-master-6c2778f57a9a
+To: andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org, 
+ bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, 
+ srinivas.kandagatla@oss.qualcomm.com, sarath.ganapathiraju@oss.qualcomm.com
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ prasad.kumpatla@oss.qualcomm.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790761867; l=5241;
+ i=sarath.ganapathiraju@oss.qualcomm.com; s=default;
+ h=from:subject:message-id;
+ bh=zJLnzgzaviiLRIv1GHcdcURcIMZZC3VugTG8rUz1nIY=;
+ b=As6L0bBqcDdAedMc3V1oiRnVLQCEyMFz1hWOQTlYghv8T5mBVyDRW1YmCcwTTh8UgpRwdjd/T
+ jo83hIxF4JZB/UlLJrYppkn4tF+SsZfjiKANO3yYPPYf25KFd4KSDk9
+X-Developer-Key: i=sarath.ganapathiraju@oss.qualcomm.com; a=ed25519;
+ pk=4p2FWGXM+F2sir13Lu5stw5aKX5trUymK/ttESvgxQg=
+X-Endpoint-Received: by B4 Relay for
+ sarath.ganapathiraju@oss.qualcomm.com/default with auth_id=870
+X-Original-From: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+Reply-To: sarath.ganapathiraju@oss.qualcomm.com
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] pinctrl: memory leak of devm allocations in dt_node_to_map
-- [Medium] pinctrl: erroneous removal of preexisting group on error path
-- [Medium] pinctrl: out-of-bounds MMIO access due to unchecked DT properties
---
+The LPASS VA CSR block contains rate generator hardware that produces
+a HeartBeat Pulse (also known as RateGen Pulse). This pulse
+synchronizes the start of the DMAs and Codec Interfaces for the audio
+usecases and can serve as a periodic wakeup source for the DSP.
 
-commit e697f1ea4503df3b1dd2739d4e9326a68689dde7
-Author: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+This series adds the DT binding and driver support to model this
+rate generator as a clock provider.
 
-pinctrl: ti: Add TDA54 pin controller driver
+Patch 1 adds the YAML binding for the new qcom,hawi-lpass-va-csr
+clock provider node under Documentation/devicetree/bindings/clock/.
 
-The TDA54 pin controller splits the pad configuration across two registers:
-PADCFGA and PADCFGB. This commit adds support for the pin controller in
-the TI TDA54 SoC, mapping device tree configurations to pinmux and pinconf
-settings.
+Patch 2 adds the lpass-va-csr driver under drivers/clk/qcom that
+registers the lpass_heartbeat_pulse clock and enables/disables the
+rate generator via regmap when the clock consumer requests it.
 
-> diff --git a/drivers/pinctrl/ti/pinctrl-tda54.c b/drivers/pinctrl/ti/pinc=
-trl-tda54.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/pinctrl/ti/pinctrl-tda54.c
-[ ... ]
-> +static int tda54_dt_node_to_map(struct pinctrl_dev *pctldev,
-> +				struct device_node *np,
-> +				struct pinctrl_map **maps,
-> +				unsigned int *num_maps)
-> +{
-[ ... ]
-> +	grpname =3D devm_kasprintf(tp->dev, GFP_KERNEL, "%pOFn", np);
-> +	pins =3D devm_kcalloc(tp->dev, npins, sizeof(*pins), GFP_KERNEL);
-> +	gdata =3D devm_kzalloc(tp->dev, sizeof(*gdata), GFP_KERNEL);
-> +	grpnames =3D devm_kcalloc(tp->dev, 1, sizeof(*grpnames), GFP_KERNEL);
-> +	if (!grpname || !pins || !gdata || !grpnames) {
-> +		ret =3D -ENOMEM;
-> +		goto out;
-> +	}
-[ ... ]
-> +	mutex_lock(&tp->mutex);
-> +
-> +	gsel =3D pinctrl_generic_add_group(pctldev, grpname, pins, npins, gdata=
-);
-> +	if (gsel < 0) {
-> +		ret =3D gsel;
-> +		goto unlock;
-> +	}
+Changes in v10:
+- Rebase the series on linux-next next-20260929.
+- Add clk_is_enabled_regmap() to report the heartbeat gate state for
+  clk_disable_unused() (Sashiko).
+- Add Rob's Reviewed-by tag to the binding patch.
+- Link to v9: https://patch.msgid.link/20260928-master-v9-0-2277f09f9a09@oss.qualcomm.com
 
-[Severity: High]
-Will this leak devm-managed memory if the group already exists?
+Changes in v9:
+- Rebase the series on linux-next next-20260928.
+- Add runtime PM callbacks so the LPASS LPR and audio vote clocks are
+  enabled by pm_runtime_resume_and_get() before touching VA CSR
+  registers.
+- Keep the LPASS vote clocks enabled across heartbeat clock
+  enable/disable register accesses by taking a runtime PM reference from
+  the heartbeat clock prepare path.
+- Use synchronous runtime PM put on probe success and error paths.
+- Drop the one-use runtime PM error label while keeping synchronous puts (Konrad).
+- Wrap the runtime PM ops with pm_ptr() from HTML review.
+- Link to v8: https://patch.msgid.link/20260917-master-v8-0-823d2c5d090a@oss.qualcomm.com
 
-If a client device defers probe, or if multiple nodes map the same group,
-pinctrl_generic_add_group() will return the existing group's selector, which
-is a positive integer. Because these buffers are allocated using devm_*
-functions tied to the pinctrl device (tp->dev), they will persist until the
-pinctrl driver itself is unloaded. This causes a cumulative memory leak on
-each probe deferral or repeated group mapping.
+Changes in v8:
+- Rebase the series on linux-next next-20260916.
+- Require the LPASS LPR and audio vote clocks to access VA CSR
+  register space safely.
+- Attach the DT vote clocks to runtime PM and resume the device before
+  programming the rate generator registers.
+- Program the counter and delay registers once during probe.
+- Use qcom's simple regmap gate ops for the enable bit (Srinivas).
+- Drop the unreachable of_device_get_match_data() NULL check (Srinivas).
+- Drop stale Reviewed-by/Tested-by tags after the binding and driver
+  changes.
+- Link to v7: https://patch.msgid.link/20260831-heartbeat-v7-next-20260828-v7-0-e3ffeac46a51@oss.qualcomm.com
 
-> +
-> +	grpnames[0] =3D grpname;
-> +	ret =3D pinmux_generic_add_function(pctldev, grpname, grpnames, 1, NULL=
-);
-> +	if (ret < 0)
-> +		goto remove_group;
-[ ... ]
-> +remove_group:
-> +	pinctrl_generic_remove_group(pctldev, gsel);
+Changes in v7:
+- Rebase the series on linux-next next-20260828.
+- Add Prasad's Reviewed-by and Tested-by tags to patch 2.
+- Link to v6: https://patch.msgid.link/20260821-heartbeat-v6-next-20260821-send-v6-0-62c5df84ce21@oss.qualcomm.com
 
-[Severity: Medium]
-Could this inadvertently delete a preexisting group in the error path?
+Changes in v6:
+- Rebase the series on linux-next next-20260821.
+- Capitalize Hawi in binding text (Bjorn).
+- Simplify the binding example by removing the soc wrapper and
+  two-cell address/size setup (Bjorn).
+- Keep the full VA CSR register window in the binding and describe it
+  as the VA CSR register block after Konrad clarified the earlier
+  register-range concern (Bjorn, Konrad).
+- Link to v5: https://patch.msgid.link/20260806-master-20260805-sync-v5-0-0ff42e9b6431@oss.qualcomm.com
 
-If pinctrl_generic_add_group() returned an existing selector and then
-pinmux_generic_add_function() fails, the error path jumps to remove_group.
-This unconditionally calls pinctrl_generic_remove_group() on the selector,
-destroying a preexisting group that might be actively used by other client
-devices.
+Changes in v5:
+- Add explicit ARM64 Kconfig gating and Qualcomm default-module policy
+  for QCOM_CLK_LPASS_HEARTBEAT_PULSE to align with nearby qcom clock
+  entries.
+- Link to v4: https://patch.msgid.link/20260805-master-20260805-sync-v4-0-dfbcbf427c2c@oss.qualcomm.com
 
-[ ... ]
-> +static unsigned int tda54_padcfga(unsigned int pin)
-> +{
-> +	return TDA54_PADCFGA_BASE + pin * TDA54_PADCFG_STRIDE;
-> +}
-[ ... ]
-> +static int tda54_pinctrl_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	of_property_read_u32(dev->of_node, "ti,proxy-id", &tp->proxy);
-> +	tp->base =3D base + tp->proxy * TDA54_PROXY_STRIDE;
-> +
-> +	ret =3D of_property_read_u32(dev->of_node, "ti,npins", &tp->npins);
+Changes in v4:
+- Rename the binding filename and schema ID to hawi-specific naming:
+  qcom,lpass-va-csr.yaml -> qcom,hawi-lpass-va-csr.yaml (Krzysztof).
+- Rename Kconfig symbol QCOM_CLK_LPASS_VA_CSR to
+  QCOM_CLK_LPASS_HEARTBEAT_PULSE (Konrad).
+- Add devm_pm_runtime_enable() in the lpass-va-csr probe path.
+- Drop the qcom,lpass-va-macro binding extension patch; it will be
+  resubmitted with the Hawi DTSI changes.
+- Drop sound/soc/codecs/Kconfig select wiring to keep this series
+  clock-only (Konrad).
+- Link to v3: https://lore.kernel.org/all/20260723-master-v3-0-3d67b79b0515@oss.qualcomm.com/
 
-[Severity: Medium]
-Can an excessively large ti,proxy-id or ti,npins value from the device tree
-cause out-of-bounds IO memory accesses?
+Changes in v3:
+- Move the qcom,lpass-va-csr binding under
+  Documentation/devicetree/bindings/clock/ (Krzysztof).
+- Move the driver under drivers/clk/qcom/ (Krzysztof).
+- Improve the schema description and use generic clock-controller node
+  naming (Krzysztof).
+- Use additionalProperties: false and keep compatibles sorted.
 
-The proxy offset and npins are read directly from the device tree without
-being verified against the dynamically mapped IO resource size. Since npins
-is used to calculate register offsets like in tda54_padcfga(), an unusually
-large value in a malformed device tree could cause the driver to access
-memory outside the mapped IO region.
+Changes in v2:
+- Split the qcom,lpass-va-csr and qcom,lpass-va-macro bindings into
+  separate patches.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930092020.1047=
-221-1-y-abhilashchandra@ti.com?part=3D2
+Changes in v1:
+- Initial version
+
+Signed-off-by: Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+---
+Sarath Ganapathiraju (2):
+      dt-bindings: clock: qcom: Add LPASS VA CSR HeartBeat pulse clock
+      clk: qcom: Add LPASS VA CSR heartbeat pulse clock
+
+ .../bindings/clock/qcom,hawi-lpass-va-csr.yaml     |  62 ++++++++
+ drivers/clk/qcom/Kconfig                           |  14 ++
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/lpass-va-csr.c                    | 175 +++++++++++++++++++++
+ 4 files changed, 252 insertions(+)
+---
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+change-id: 20260917-master-6c2778f57a9a
+
+Best regards,
+--  
+Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>
+
+
