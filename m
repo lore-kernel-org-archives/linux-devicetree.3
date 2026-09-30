@@ -1,132 +1,105 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE950309EF2;
-	Wed, 30 Sep 2026 19:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB291449EB7
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790797993; cv=none; b=Ax30gRWM2xUOX3swwzd2npikn3P6bHJChucxSxwlUbLG6a81+t7GJY6wvpFS4gL3cz/dSfIOd5ex/8MipOF8SbKXs00NUzOPxhYSPdSt/asPMbwwJZ//obqZcfqBjjmOPPV92AGOkEgsdk9W8oAT3bfKQFY65tqB35O46tz6YwA=
+	t=1790798347; cv=none; b=g0wOuT1c88jZRgOV2KqiRs6lXagLGQTMoZ1IzbkmipHpnpPZBmVzwWRLPU+Z2BOXUfsXuFHtK74sUeJMiRCO7cA+CXu5vKNC6aWfjpqMyvt9KMLlE1pkgx37VaiWMtJomxEPZuidBmfTVs2NMWMGg7CwrIXLEatlMinwKhuyhiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790797993; c=relaxed/simple;
-	bh=ySN19laOjfC1yzwkgNyh6fdnWXH5MwsgUH6CSLDhvcs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=exXg1hIHuM9glG8CsPKn6iYxojFTM9IY6d7m9J7Ax/wKrnE5pfRJOC8o3/HKCelmi/4LlC5nVvLc2rwKxina2UVv4vB5jJP63v+PI4xyVxG+pgiNp/wdrYFhWr0KIL5tzV9F49iFNE+jsFPFlEmyoNdbFs6Ky/5q2lG1jn64v1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=quZMChoh; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790798347; c=relaxed/simple;
+	bh=D/tJ8XO5I/d4e+Rte4uhp801DYYIQLeDeH32x1bw40c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fyf/TVRHIM7QaKYPHaaG/7X+EoVnO1Me2AA+bjN/M/sauahrCyte2xKyULAxvGqfi0jZNNSd1BSLiC2y0Xd1z65v2cpRMVGYSPvM2ln65gdejFgJiX6dIcSzUjxsoK1I4HvGVLvZHP2rIMwGCgvVCO1LTfdH0fXEbqa81ndWL3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n470vNXa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="quZMChoh"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 2E0A64E410D8;
-	Wed, 30 Sep 2026 19:53:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E754060749;
-	Wed, 30 Sep 2026 19:53:07 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 32CB31032A65D;
-	Wed, 30 Sep 2026 21:52:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790797983; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=0peu86CV94HT+ZId0KjjmcWabhYufxkvU6Qb3rMbNMQ=;
-	b=quZMChohV1lnyObXH7qPqvMn2uYfyQa2hKB7mbvqvJxBTEtE39udp0j3QwPK0ZQjEYnl6R
-	qS1Tb0rdUbn6Y2g1vGJhlGo1+SgBHZW5g/vwDIa5Uh6JZU6tZh5DyL382xfLywMkUG4n8a
-	Ddmo4yKRf7FL9ACPlnwXbgB7P7TlgntT+ojacuNe7a/kcT9ZdxiRzfnBVoZavrWfuq9P2K
-	Sy85qxmzTDQv62tgK81SE8vMgYfc8FS/huhez/L5mfgjdgHX2b3+I3fCHS3GhPU1R06Bkj
-	iak6Oq5OOJWQuTTXuD4rpVkW4TqtXA+rUijQO5RB34eKNMXsg7iIl+oZAoVkAw==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Nicolo Giuliani via B4 Relay
- <devnull+nicolo.giuliani6.studio.unibo.it@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth
- <sebastian.hesselbarth@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Nicolo Giuliani
- <nicolo.giuliani6@studio.unibo.it>, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
-In-Reply-To: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
-References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>
-Date: Wed, 30 Sep 2026 21:52:58 +0200
-Message-ID: <874if68qjp.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n470vNXa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 919261F008A4
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790798345;
+	bh=D/tJ8XO5I/d4e+Rte4uhp801DYYIQLeDeH32x1bw40c=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=n470vNXaLCPDVYGZ/r3nlV6tajokuBHd+PHbSK0cEQ+vv2GulqzwQiy66EZ4VBmjT
+	 69NLtDKBO86cNARwGsnk+cRv+A5DyBlFf9vpdDurovVZsaw0DdczKUbMZuq6rewqkH
+	 PiEyze6nTwpI/c223FfDLgyeJYdNjW28PcWxK0XTTsRlRNlSgsVyApfojdQD+QFsu/
+	 87OHFEi8nbeiHUG0DXEd7/4Kqyv+7nxGOda9dvd7YSPTrbso+XKqepnLjJTLUjnBAY
+	 jOzdTna7aVE0e3RJ33nvCEiST8pBalurkjU8EHpBy7/aGuCl6klNJJXd4wv6pV+n8/
+	 oszjDqjdABKxg==
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a76b373054so17731341fa.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 12:59:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByxEP6WILWYv+xmHXbhzOVQ6Cg7lSm6LE5vUfs9fujWL72BqNtr7mIAkFLIOnb4aQkJOrjBuPq9Ezpd@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYbbT99P+bcxp2a4JLZeBYy7rNQmpPfAeVtl6VnQZJJ4ynHCQQ
+	E0rWNIqfEMxhn68ssp9PhiJaWThoexUlh4hk1naF+znr/hV0zqmnhnHM4oxfiWu3glRJTgu5zNt
+	Fo8NDplj52M6LAsHEgHh38JZodpXARHk=
+X-Received: by 2002:a05:651c:2107:b0:3a6:70bf:622e with SMTP id
+ 38308e7fff4ca-3a7791d1688mr7596131fa.4.1790798344186; Wed, 30 Sep 2026
+ 12:59:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+ <20260727-spotted-winged-mantis-7aa1ce@quoll> <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
+ <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org> <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+ <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+In-Reply-To: <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 21:58:51 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=EZ5o=tAQZCTp9N7fKLJcxs7d0mg02dK04y_TNYtCZHQ@mail.gmail.com>
+X-Gm-Features: AclHuK9gg0cHcaEM-2OSIkVk8KJVeFTXpszMdFCa2oeVci2UZbbhBGtCUcsPNPs
+Message-ID: <CAD++jL=EZ5o=tAQZCTp9N7fKLJcxs7d0mg02dK04y_TNYtCZHQ@mail.gmail.com>
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel support
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Jun Nie <jun.nie@linaro.org>, 
+	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Nicolo Giuliani via B4 Relay
-<devnull+nicolo.giuliani6.studio.unibo.it@kernel.org> writes:
+On Wed, Sep 30, 2026 at 6:43=E2=80=AFPM Neil Armstrong
+<neil.armstrong@linaro.org> wrote:
+> On 9/30/26 09:44, Linus Walleij wrote:
+> > On Tue, Sep 29, 2026 at 3:35=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
+l.org> wrote:
 
-> The Sophos XGS 87/107 desktop firewalls pair an AMD x86 host with a
-> separate network processing unit (NPU): a Marvell Armada CN9130 SoC with
-> its own eMMC and SPI NOR flash. The NPU serves the eight RJ45 ports and
-> the SFP cage through a Marvell 88E6193X switch on its MDIO bus, which is
-> connected to the SoC by a 10GBASE-R link, and reaches the x86 host over
-> PCIe.
+> > The current binding does not reflect the physical topology of the
+> > actual device, and the bindings need improvements. I have a feeling
+> > there is one display controller with two physical panels.
 >
-> This series adds the Sophos vendor prefix, the compatible string of the
-> NPU board and a device tree that describes the NPU as a standalone system:
-> UART console, eMMC, SPI NOR flash, the SFP cage and the switch with its
-> ports. The port LEDs, the USB ports and the PCIe link to the x86 host (the
-> CN9130 acts as a PCIe endpoint towards it, which needs endpoint support
-> that is not part of this series) are not described.
->
-> Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI NOR
-> access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing with
-> its eight user ports, and 936 Mbit/s through a front port. The SFP cage
-> is untested.
->
-> dt_binding_check passes for vendor-prefixes.yaml and armada-7k-8k.yaml,
-> and CHECK_DTBS=3Dy on marvell/cn9130-sophos-xgs107w.dtb reports no warning
-> specific to this board.
->
-> Based on the mvebu/dt branch of the mvebu tree (008e9faade).
->
-> Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
+> No there's really 2 controller and 2 separate panels, but they are not
+> classic panel, they are a pair of panels+lens which are in front of
+> the eyes which forms a single "image" for the brain, so they are
+> technically a single display and requires to be hard synchronized.
 
-Applied on mvebu/dt64
+OK
 
-Thanks,
+> See it like a single physical panel with 2 controllers which
+> shouldn't be used separately.
 
-Gregory
-> ---
-> Changes in v2:
-> - Patch 1: drop the second sentence of the commit message, add Acked-by
-> - Patch 2: move the entry before the SolidRun ones and list only
->   marvell,cn9130 after the board compatible, as the other CN9130 boards do
-> - Patch 3: use the compatible list of patch 2; pass the switch reset as
->   reset-gpios and drop the boot loader workaround; remove the LED
->   expander node and the SFP address comment
-> - Link to v1: https://patch.msgid.link/20260919-send-dt-v1-0-365615a74ef3=
-@studio.unibo.it
->
-> ---
-> Nicolo Giuliani (3):
->       dt-bindings: vendor-prefixes: Add Sophos
->       dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
->       arm64: dts: marvell: Add Sophos XGS 107w NPU board
->
->  .../bindings/arm/marvell/armada-7k-8k.yaml         |   7 +
->  .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
->  arch/arm64/boot/dts/marvell/Makefile               |   1 +
->  .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 188 +++++++++++++++=
-++++++
->  4 files changed, 198 insertions(+)
-> ---
-> base-commit: 008e9faadef8c0aaa9b8a3ff05a2126e3c5b08b7
-> change-id: 20260919-send-dt-6bbd08a470d2
->
-> Best regards,
-> --=20=20
-> Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
->
->
+If you have one reset line to them each, and as proven
+by the driver in this series also grab and assert both, they
+are by definition *already* used separately.
 
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+DT needs to describe the hardware.
+
+Defining two nodes below the main node for the two
+controllers and adding a reset line to each describes the
+hardware perfectly fine?
+
+It's not like I don't understand that this will complicate things
+on the drivers side, of course it does. But a binding is a binding
+is a binding. It needs to describe the hardware.
+
+Yours,
+Linus Walleij
