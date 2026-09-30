@@ -1,129 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583583B6BF0;
-	Wed, 30 Sep 2026 10:23:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1521F2D1F77
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 10:23:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790763791; cv=none; b=C1ktaYx8mr7q95N082s1xwypMAAxlKXUaAKO/wQ4qU/ZsQiUDaP19TMveaFd6ZbuuWRzQw+09GU89xakAuwuzVYJJddEJuWbtVFsr2Bh+vmOGxqHwD5b7a6kgT9SYwN1uLfwl1jEC6VgHQ8nN/QcfW7xa9Aorwnkb7+HenU6EPc=
+	t=1790763840; cv=none; b=irn06ixBKUK1tuCX9r6QJKDeEFStlrkfFYBNWaMM6PCRj5xF/gD9QkGgqj48eteFjkWz+55qipIu6OOMCOPW/fOu1y7+DC9GXwKaOS8nZtBWz0VFlzop3IN2WgD9SmQw1K5/I0s8xuiFV7OnGmP9FrA9bqlAUJ/PV5jSqtcTtK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790763791; c=relaxed/simple;
-	bh=Ac9CVGOrU6oXqL6GVn2GyjRWBzUZlH+PpKQIsO0i+g0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HTMClG4aw0hmcTv3ouAfF2TEsMsi9l9R4ZkZ51DofR27sLHsYht9/YUvW6ugroy4gXc1+OQJ+0tODBcj+npA8sUbq5zPek/DXESjpc5p5ckJzyrPS7cHkYGrG3IC6xH7gsVa1DkGx5UeGRuD68r0tEX30ro7E8TPIpCv47/vuX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHeN8bl4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790763840; c=relaxed/simple;
+	bh=PKM5psEhq6HZ5b2AAFxUqLJNvawpGH5x1BpqHZLToaQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FkPL9vikCAeS0ER3NXPgvHm2JVOQDxFbHKFyO+EdZ+GtQHFiaTEJYUYTOPv7k3QepYnCPJFlEMSOJDyECRSPE5uMmhwGJrXN9bFpvodWrcBXtMdrTBIhV+bFKhr7WiIQIEDZ52UV4jG0sx0huv7cXZCISe0aTc9/FFpGUlpvlo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvaDK8p6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHeN8bl4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EE551F000FF;
-	Wed, 30 Sep 2026 10:23:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvaDK8p6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 970111F000FF
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 10:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790763789;
-	bh=Y6/eisC/1PFb58SA29sI1vLKdk/wVao3FROKDUJrtpE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lHeN8bl4qsZssVq0G+AKebLkMTNz5dsor1PkFzGDB+Fo2ksKyhPNcWDNf3c1oW8AY
-	 SXRyEup0Z6PhB1unC/Za3hEb8fCraiDSrAIdgUk5f7mOMUpKb7UQ2iuKLBPVFdWbkO
-	 Xd2yb175oTanKHzoLQk/Xfu3cX3pq2QP1qHe06uMrJOkxAdvC/01OMdzpZEu16E5Qv
-	 JAlnpQPUgYbezTQU6fB+sTFDdNApoezixWJhLASufOfh3x5Ve7/mBGmDFSKXlU6sJE
-	 +ldKbJ4qgrqVSuFdOuRtS92TxcnbufO1EcWK/uC0jBU1NaeZBm5yeRjgsixw9aKjRZ
-	 Eg3tKpKpJDWlw==
-Date: Wed, 30 Sep 2026 12:23:07 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
- LH400WV3-SD04 MIPI DBI panel driver
-Message-ID: <arzilGz4akKvRF1K@orome>
-References: <20260930070535.47130-1-clamor95@gmail.com>
- <20260930070535.47130-7-clamor95@gmail.com>
- <arzNgbx465QIKYdX@orome>
- <CAPVz0n2QdSWL8=KBXnsQQkdNEJ9m6HSQ0+6mJji_RHZ8QgXN-g@mail.gmail.com>
+	s=k20260515; t=1790763838;
+	bh=X75G81sRknseJqb68jFj/W+PfQkeYzrGsC87DcEgJZ0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nvaDK8p6Fwb00T8VTqDSVzM335/T+3Garv4vnlCFuNWWJNTg3aDnhVmT/GeODWZZS
+	 YSUXpIvWE+4DlNr2E7C/fOCoS6LucXC4dHhsBY1nYWux5LIzJWDi3uQtGDpKLB5SrG
+	 Kha8q0FNonI7i4zYyFP+tnnKUxfdK/RmhgRG59OvAGJSzFv/PN3kiR7Zo3bzoqsjHC
+	 HzdncTSl535A1lkvhF5gEbdzvQLJVo6BItMh1Y81B31Ix5NcY2rro3XhIyvX2UbtJ3
+	 YBD6gpTug34zF6hT8aF6/odEYkTGsbhCfLkk/Ccg3je8HYpjYblsjGKg+grv9FHpZ6
+	 pa+0/62IOaVzg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba379d8804so1164756e87.3
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 03:23:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw3AapkQRqsTGJh9a10f/OhBVy2VtFfDzvBLYGqU9HXBAzDNdo4hgU0Xz7KwxR3WfxCf4M3CGpUHEFB@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKATrhXT8zp/QAUAIRPnz5Jk3bfD719VusZ4mNV/VzWDk2axkO
+	DoF4uxMCy3D2yUT04sDsUw2NjO8O7ocRiPWm9MRJcTi0rMYRjur7SLB+n1WGLVSCLKrJWIQCicP
+	7brRraeyvz4UlBdJn4+ZzAv1X86srf2I=
+X-Received: by 2002:a05:6512:2394:b0:5b8:d406:4705 with SMTP id
+ 2adb3069b0e04-5ba405f46f1mr361647e87.21.1790763837413; Wed, 30 Sep 2026
+ 03:23:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="c2npe4egdsdkxc2s"
-Content-Disposition: inline
-In-Reply-To: <CAPVz0n2QdSWL8=KBXnsQQkdNEJ9m6HSQ0+6mJji_RHZ8QgXN-g@mail.gmail.com>
-
-
---c2npe4egdsdkxc2s
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com> <20260930-b4-cs75xx-v1-5-4617c4463529@gmail.com>
+In-Reply-To: <20260930-b4-cs75xx-v1-5-4617c4463529@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 30 Sep 2026 12:23:45 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnCPMmpza8efzf6oud1C-DPj6yTkECcdg9A1uB90r+2Bg@mail.gmail.com>
+X-Gm-Features: AclHuK9uEIgg0bTDrefSpGkScH54YNTqnVwftBwkG2jX_u5dFR_KcXW91K8sjhs
+Message-ID: <CAD++jLnCPMmpza8efzf6oud1C-DPj6yTkECcdg9A1uB90r+2Bg@mail.gmail.com>
+Subject: Re: [PATCH RFC 05/10] ARM: debug: Add Cortina Systems CS75xx UART0 support
+To: filipp.dunsky@gmail.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 6/6] drm/panel: Add Hitachi TX10D07VM0BAA and LG
- LH400WV3-SD04 MIPI DBI panel driver
-MIME-Version: 1.0
 
-On Wed, Sep 30, 2026 at 12:08:41PM +0300, Svyatoslav Ryhel wrote:
-> =D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 12:02 Th=
-ierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > On Wed, Sep 30, 2026 at 10:05:35AM +0300, Svyatoslav Ryhel wrote:
-[...]
-> > > +static const struct of_device_id panel_dbi_of_match[] =3D {
-> > > +     { .compatible =3D "hit,tx10d07vm0baa", .data =3D (void *)PANEL_=
-DBI_TX10D07VM0BAA },
-> > > +     { .compatible =3D "lg,lh400wv3-sd04", .data =3D (void *)PANEL_D=
-BI_LH400WV3 },
-> >
-> > Why the detour through that PANEL_DB_* enum? You could just pass the
-> > panel funcs pointers directly via .data here.
-> >
->=20
-> Passing API/OPS via .data is discouraged.
+Hi Filipp,
 
-No it's not. We do it all the time.
+thanks for your patch!
 
-> > Also, looking at the enable/disable sequences these are in fact two
-> > different drivers, with the only commonality being that they happen to
-> > be used in the same device. Rolling them both into one driver seems a
-> > bit odd.
->=20
-> I did this to simplify maintainance. Both panels are used in the LG
-> Optimus 2X. My assumption is that LG switched one to another at some
-> point, hence they share same timings, controls and supplies, but
-> differ in en/disable sequence. Additionally, these are the the only
-> DBI Type B-only panels in the kernel, from what I can see.
+On Wed, Sep 30, 2026 at 9:00=E2=80=AFAM Fil Dunsky via B4 Relay
+<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
 
-That's just one more reason to put them into more of a generic driver,
-which would allow people to find it and extend/improve it as needed.
+> +++ b/arch/arm/include/debug/cs75xx.S
+> @@ -0,0 +1,36 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Debugging macro include header for the Cortina Systems CS75xx UART
+> + */
+> +
+> +#define CS75XX_UART_TXDAT              0x10
+> +#define CS75XX_UART_INFO               0x18
+> +#define CS75XX_UART_INFO_TX_FULL       (1 << 2)
+> +#define CS75XX_UART_INFO_TX_EMPTY      (1 << 3)
 
-> > If you really want to avoid duplication, maybe they should go
-> > into some kind of "simple" or "generic" DBI driver.
->=20
-> DBI Type B is not well supported in the kernel.
+I looked through the other serial drivers but this appears to actually
+be unique and
+not derived from some other serial port, so:
 
-Well, you always start somewhere.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Thierry
+Sashiko is blathering about big endian support, I think that can be
+safely ignored.
 
---c2npe4egdsdkxc2s
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq84wgACgkQ3SOs138+
-s6Eiuw//RQ2fm/9EQCbJc7rzzjSmpYsrALrOL8ogrNgRr+Us7Js++rkpBy77jMCa
-90Qnk6xN1CIf9BhJTiguaDmm5iYpvItlJttFThldrtaVCWR0dlS5YhTDgabxCcXh
-CGvcXuGxPZfmx5/+IYpBkO48k83Czq+9CHDjL33IVSNmOXikAHLC9YeetQEky5vT
-p8AANLuVKSig8r6ZpamwRiiiPDNhaQP2ohSJ58uaK3e0224iYTm7AYfEj6VZPKdG
-yzO/ZrgFtpveqy6/XuY6h9GP2uF+lIE1ZAw1RseBYGuQe3/fROaZcCo+48T3h3cA
-EKVOOGEFkbZVJtqojDA9vFrZyptANBNtFnB6TtNV4252NoMwkVpRs6zgcMO0F8k4
-VBvzfEVE8Q8O5YD7Alugjsg5bdu+AmyxB9LnnqbvAIDwjPpbjGCo7b0slLaNxpq4
-XMuzqsM8l5YvLFzgK3APfk13aBRbZoraA1NxE0pDOiJuz2jU2GQM93ApmReILD3a
-wdC6598g1AkPaxNOSe/NIbe/uSg8a5AGE17AL7o5QJsbdgC58eHte8NsrplzK3h8
-HXFCnZIhsl9F6PtqtEccus3qYk0kZENOYgEjwkIHVlMHVAUDOufngzwrX+QERknV
-7mWpdUkxp9lUlmS5BXUcZRb1PR6e5ucdggcIjv6SFJYsWmdFf2Q=
-=5XM7
------END PGP SIGNATURE-----
-
---c2npe4egdsdkxc2s--
+Yours,
+Linus Walleij
