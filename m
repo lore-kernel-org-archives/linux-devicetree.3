@@ -1,91 +1,61 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2EB4E1C93;
-	Wed, 30 Sep 2026 12:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AC44DDB3C;
+	Wed, 30 Sep 2026 12:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790772922; cv=none; b=HTuuH9eL2JiPqvJWN3vSjjcVpfpG2k/dU736ENjODwpdJPTgTKCPvgT4PZrHCbJ6TOUnRceKpsuUPtYYPkLpLTAK/YQ0jiJ0lYEy9qnReHFrDRkNnVqRPCR4WXsp9tswRas31bCXJt17oeVSe+ZniHYS0KXHcdykr0AqArFy4nI=
+	t=1790772969; cv=none; b=taT/mstKKLDdS7IF/opzYNPd5uA5mRJ7HKM82ZBnwnBw2hygilZB5uZ+ZQSRNHRahlDAQTbhapWtSOexFfVo1Apx3AGTqN8k0YxC9pAIUJe+1JI1G5oRWBgPIjVfwFaOEOumG080odFsixFwr3/84SRr9/al97/OUjoK6nT+P3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790772922; c=relaxed/simple;
-	bh=lacdbLI3xUd4daF6VsncABGp6gJ0RYBthB9GXAssU2Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vETa7D23RZhtqtLU7oxpjzNWSQ4tOtLNiMtJYuBKRryHZ2CAOWgLjg3e3+0VXG3koodo68Bg972P6YTEeAGQnkkG7Uhu2mT+3km1HzNVsPBM10VgfKOSrXmBYrknGrfJ4yUc/r1NOF/l7ht6V7gwi87hLT1EgQ9k2jYdzVHO6i4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zHI5M8EF; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790772969; c=relaxed/simple;
+	bh=e4KA02SY9uA4AmiZeMU/D8yrB7LUoIXWpN4/ImnSdd8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XA/9kaWJSzWmQxRUgZ0mrIaWOY5eA2QlNKZ9oi52yLaq3fJlE92MNf6JgsX8glLQ+3FD/ctZJtmVOxsebTuyAEC9dKeHr/EuGiSb9YuVvI5BewuhP/8Rp+EUcSE92OGD0hQA2iWqwgvafdfaEO6dOZj+uXp8KPe7VrL9GrsMVX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W2tEPNeo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zHI5M8EF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=T7694IwjMt0iGn1o9+SSySBxVpdM/FekLloodgNQ8zs=; b=zHI5M8EFUBiNvzxbQwbmsZajUs
-	wIS8Dre30/yWvGJ0P8eFzgpnDKfAkC0Q75SYSRmF2hScKI7oKciMrSItqlTyTWRhvBPnvCYPcZkZ1
-	6YNqe5F93oHXc0VM++LeEv0L1v1W4fW7ORmfCX/cKApMi5WqjOBnDuB1n85YRULCGkUg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xBtpv-0089pJ-O9; Wed, 30 Sep 2026 14:55:03 +0200
-Date: Wed, 30 Sep 2026 14:55:03 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Po-Yu Chuang <ratbert@faraday-tech.com>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: =?utf-8?B?5Zue6KaGOiDlm57opoY=?= =?utf-8?Q?=3A?= [PATCH 0/5]
- net: ftgmac100: Add AST2700 support
-Message-ID: <e8a8de24-4f6d-4645-9022-36995d8fd770@lunn.ch>
-References: <20260927-support_ast2700-v1-0-9f03f29d2c82@aspeedtech.com>
- <14a281e2-c88e-42e3-acd3-b20f111a4c28@lunn.ch>
- <SEYPR06MB5134D5AEAD86D3E4C97D1DB99D8C2@SEYPR06MB5134.apcprd06.prod.outlook.com>
- <36d6dac0-30ab-440a-bf35-81b33ecd8e8b@lunn.ch>
- <SEYPR06MB5134FA89E6754F168E94C1B29D8B2@SEYPR06MB5134.apcprd06.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W2tEPNeo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD5F1F000FF;
+	Wed, 30 Sep 2026 12:56:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790772963;
+	bh=e4KA02SY9uA4AmiZeMU/D8yrB7LUoIXWpN4/ImnSdd8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=W2tEPNeonhh8lrNtaeZGbOnfJPsL0nwkpBW2qbXGfR/td5YSYXtGZkeT9WtIY2Lf/
+	 jLnqNvKBvJliBhA/3AEaDwvHTQVtSvbB1SPoH3zO1hpCu2+Ua5MsxQ6N0cw/sDgFi4
+	 22qSHRRLV3asNNfiv7UD0DKr2kZPyeFJmuTLWphhIJ6/ImWFr7h8lWUIylkMHgNC5I
+	 6EhnCb/f53TQh5TNkOE/9d3EGMcb5VSGOVpFihU+UdVYgjWJ0voI2XbSf42pnElfiO
+	 7qJ8iiNZp9mLi/dPhAsOi8G0/5O84GSjVDtfIkdfiyalzQDII5USRg291GoSyilQOG
+	 wfjSK9jwETLfg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/4] arm64: dts: qcom: agatti: add LPASS devices
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: lee@kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260930124607.1109167-3-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260930124607.1109167-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260930124607.1109167-3-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 12:56:02 +0000
+Message-Id: <20260930125603.4DD5F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SEYPR06MB5134FA89E6754F168E94C1B29D8B2@SEYPR06MB5134.apcprd06.prod.outlook.com>
 
-> > Does your AST2700 bootloader also have the delays off by default?
-> > 
-> 
-> Yes. All of MACs in AST2700 are configured to disable RGMII delay with "rgmii-id".
+> From: Alexey Klimov <alexey.klimov@linaro.org>
+>=20
+> The rxmacro, txmacro, vamacro, soundwire nodes, lpass clock
+> controllers are required to support audio playback and
+> audio capture on sm6115 and its derivatives.
+>=20
+> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-static int ftgmac100_mii_probe(struct net_device *netdev)
-{
-        struct ftgmac100 *priv = netdev_priv(netdev);
-        struct platform_device *pdev = to_platform_device(priv->dev);
-        struct device_node *np = pdev->dev.of_node;
-        struct phy_device *phydev;
-        phy_interface_t phy_intf;
-        int err;
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-        if (!priv->mii_bus) {
-                dev_err(priv->dev, "No MDIO bus available\n");
-                return -ENODEV;
-        }
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930124607.1109=
+167-1-srinivas.kandagatla@oss.qualcomm.com?part=3D2
 
-        /* Default to RGMII. It's a gigabit part after all */
-        err = of_get_phy_mode(np, &phy_intf);
-        if (err)
-                phy_intf = PHY_INTERFACE_MODE_RGMII;
-
-This default is now incorrect for the 2700.
-
-I would suggest that for the 2700 you make phy-mode a required DT
-property, and fail the probe if it is missing.
-
-	  Andrew
