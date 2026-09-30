@@ -1,89 +1,104 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B30051B16B;
-	Wed, 30 Sep 2026 18:32:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEB751C060
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 18:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790793174; cv=none; b=it6coxvIisgWa0pDPrBwk91TzN223DtEPLAXhrEWCCOhf9unPkvk+lisBfsOe3mqDB18g6m5c9eaeYZFb9X6OkfRx3YQvBaUNtxMZEe82pKRZaXhFZl7QoK0lmyWPkz5HOjLvAy6VRiUL7GUCKsgYTwyDC8evwHFHmkbRK1tTTw=
+	t=1790793268; cv=none; b=K/z2JnnNs1ie9LFCjnpC3OohzQyFICW2WZpqO5xlnDtI83LZw+DUwmqdttt92g3YG3+idA1jVf1KYMAkq3ROiB4KpNw6ZnDLRv+jy8R2zdOFWyDErNijy2RgObt5D33YagM2I3CkVvseGXb44i8xuRyhQ4VphRQrqHt79Dcqd3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790793174; c=relaxed/simple;
-	bh=z3mMhpAuURdGRsJCLv3OGMxqEnwpzMGo+I+gCLmRMZg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=buJxLVmnLwjayZsiP3BEQdxBtN1U+kJnCUe43XowwLUB/EHcSF+F6gFHoc1L81wOMQ47UvXk/2VO+RGME3H0bue5V7odjPOXPr+WSTwpUNjsB88OIZFUAbGaZujGkgzkwevAuN7i/ldx5tB9C9EnQa1CISIFgOEUnDNPYt/XhQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=OnHXTFep; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Wu4aNhL5; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790793268; c=relaxed/simple;
+	bh=TExRCyz2ixvwvqcfgR8j77Hkfh3EqohFYwJB+dJV1xM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UJfgXojtXb+vBXd6WguYxZ6w4AMm8EiLqyhlZnnJTOLtU/KU4I26rQEqV+iQ402/rFqz/7K1lzZ8/uSsb6dudNJpwEUbs5EvGM/AHZONr2ZSUKOPniEtiDm2Up4+NMsJZHVjEH108K04r0V763HTfXlW4bhG4DYnn08MPkQI4f0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XD4wmDt1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="OnHXTFep";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Wu4aNhL5"
-Message-ID: <fd331b369c5eaa0d2945ed1d9c9b83c03d4a4cac.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790793171;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rQI//mOEofY2yiNYa2my0sB0MF6vg0jqkMYCBTMU8XI=;
-	b=OnHXTFepD3Rr2fO8/WHio0edxfRjVsoWXvZJ3GiPrhl67+MLnJAwYT0QUtesxHxvQPaG+6
-	+CORBSoAHMkRLlgThPwpAqGlERDA6JHbx/Q3hYYOPf7WjXEz6iMqCQWru/2NejMq7s/iWS
-	z/c7P/12QNz99Z9xWRecKjmqOyW2wbgvM2zuYJoLJ+6Q6fIDQcNBLhTpG9MB4d66bx9rVw
-	+L+pX9rkM0Mg9Gti/4Bqkra8REbOE4j/lY9+eXtg5MY3H1fldDnBAcsIvfXSXoDI2LkzAo
-	1jbh9G1L/L2c9DG4XrdomszYCmGtf0N0LI5dh75JCiDzXYuXOeEBGblaFxnMnw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790793171;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rQI//mOEofY2yiNYa2my0sB0MF6vg0jqkMYCBTMU8XI=;
-	b=Wu4aNhL5M0V4RZYwv2UUJnZAe5pvt/mGw0/FX6vgVXnSDGfEd08KAgh/dfk7SP0L0shL4f
-	VaF5As96wBP+5zAA==
-Subject: Re: [PATCH net-next v3 7/8] net: dsa: soce: Add VLAN offload support
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Wed, 30 Sep 2026 20:32:50 +0200
-In-Reply-To: <0b2a2e55-7a3f-44d8-9a91-f48547a5794d@lunn.ch>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-7-ddebafcb9ba7@linutronix.de>
-	 <0b2a2e55-7a3f-44d8-9a91-f48547a5794d@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XD4wmDt1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCC361F00898;
+	Wed, 30 Sep 2026 18:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790793267;
+	bh=vZoNBx14GWNBElKSsWwMTHxJEoWgr6AlbQFQrOUt4WQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XD4wmDt1sTx+WprTe0FrZ25nZG01geHWMvpxrqkto+cI+9pOwNLdXRdYYLSUVYUe+
+	 XLei18jKSbJgEvPV2ntZM0r1JgM3VdKmgnhvJtx/0to/UKndicVLjigdwiwjBWJ0YU
+	 uC3QN26f1VX3zQKOn8VHj5GEDmH4yd+egNyiTr37bmrXmzoY15kp+29Pjp9bZC/AGk
+	 VZiUT9rwp5539lvjsP2Ln+5SN65qMFIUP1cxeJNNYPnit+BVYPshjjqm1Nx1awgFu4
+	 Y8WfKStNimEmImhQSaN4+mSHtHxfVblQ52BOg8OsmyyWyw4pnP/jHRSThzOFCiT6cA
+	 e1Jf57prnY5wg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/4] spi: sg2044-nor: Honor SPI clock limits
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Han Gao" <gaohan@iscas.ac.cn>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261001-fix-sg204xspi-v2-2-014dbaf22b5e@iscas.ac.cn>
+References: <20261001-fix-sg204xspi-v2-0-014dbaf22b5e@iscas.ac.cn>
+ <20261001-fix-sg204xspi-v2-2-014dbaf22b5e@iscas.ac.cn>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 18:34:26 +0000
+Message-Id: <20260930183426.BCC361F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Sat, 2026-09-26 at 01:32 +0200, Andrew Lunn wrote:
-> > The port and VID selectors are shared by all VLAN operations, so
-> > serialize selector and data register sequences with a dedicated mutex.
-> > Track member and untagged masks in software and restore the shadow stat=
-e
-> > if programming fails.
->=20
-> Looking at other features of the switch, how many different mutex are
-> going to be needed? Is it better to have a single mutex which protects
-> everything?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] spi: sg2044-nor: severe lock contention due to clk_get_rate() in f=
+ast path
+--
 
-Yes, this all relates to configuration and is therefore not critical.
-One mutex is sufficient and makes the code clearer.
-I will change that.
+commit d5eb2cd92142b8e5a4297344fc25807495e0c3fc
+Author: Han Gao <gaohan@iscas.ac.cn>
+spi: sg2044-nor: Honor SPI clock limits
 
->=20
-> 	Andrew
+This commit dynamically calculates the clock divider before each transfer to
+ensure the SCK does not exceed device or operation limits. It also advertis=
+es
+the controller maximum speed to the SPI core to supply a default when omitt=
+ed.
 
-Thanks,
-Vasilij
+> diff --git a/drivers/spi/spi-sg2044-nor.c b/drivers/spi/spi-sg2044-nor.c
+> index ff026ca0f7663..bc9a8ee9bce44 100644
+> --- a/drivers/spi/spi-sg2044-nor.c
+> +++ b/drivers/spi/spi-sg2044-nor.c
+
+[ ... ]
+
+> @@ -385,6 +385,29 @@ static ssize_t sg2044_spifmc_trans_reg(struct sg2044=
+_spifmc *spifmc,
+>  	return 0;
+>  }
+> =20
+> +static int sg2044_spifmc_set_speed(struct sg2044_spifmc *spifmc,
+> +				   unsigned int speed_hz)
+> +{
+> +	unsigned long rate =3D clk_get_rate(spifmc->clk);
+
+[Severity: High]
+Does this introduce severe lock contention by acquiring the clock
+framework's global mutex on every SPI transfer?
+
+During every SPI memory operation, the fast path executes:
+sg2044_spifmc_exec_op() -> sg2044_spifmc_set_speed() -> clk_get_rate()
+
+Because clk_get_rate() takes a global mutex, doing this redundantly on
+every transfer can drastically impact the performance of the system and
+delay other subsystems interacting with clocks.
+
+Could the clock rate be cached in the device struct during probe() instead
+of being queried per-operation?
+
+> +	u64 div;
+> +	u32 reg;
+> +
+> +	if (!rate)
+> +		return -EINVAL;
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-fix-sg204x=
+spi-v2-0-014dbaf22b5e@iscas.ac.cn?part=3D2
