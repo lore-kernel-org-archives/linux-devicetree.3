@@ -1,128 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2D0499F28;
-	Wed, 30 Sep 2026 10:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790765147; cv=none; b=H1S+7htKVPC8OZ+/tCEp2tjn9iQBjwvvZ9iYy/jARRtKuQ/KhQ5dhOqxRAbkQSN573OELXyZ7UVCSW878uN1W4yMp1TrDRsRjufBHfFIjh4ePeBi+7ODcMhRntxDo5J6miSnhw4z4MJ+hf/+VJw3KT8cqCLmp72sXD7UrnUNKhs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790765147; c=relaxed/simple;
-	bh=LSWoCbhL4SVOLhnbW0ezmzlU9iMJ7IFaEY4QVKgzBbw=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=TOyqMlsMzaJbRqBjZXclPBtTGxKvT+61yFb9roL5FJiQmK/Lgp9Vx0MRPIcF8OtWrZ+a5kt1BONs37RomB8pKkkPwU/3b5ESBHOapPMRF27TxZBbaixsUTUUmd14HHW5clkETyVjdtr4cM7ru0VrzFOZ8HFD9b+mwJArEx4twFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nt8tPUD+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FAE4A2A44
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 10:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790765275; cv=pass; b=H3u9ho2DEKu6/AC5/VYkqgsjK/hgnz+wvIA2iXYeo802V4RDeFo+T3KhAY8O2stE2Jx0diDhnxT+9JX0z1P5pC5g7q0HCBXH6l13CXqTRH8l1ebwe5Wdsir71aaUcxVifP++bqrl77dfKbNozWaSO5CDaqcNNNTK+fN2gML8Y9g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790765275; c=relaxed/simple;
+	bh=BJbbh5rIl1dEuHCd/t+PuKNfcL4FcSDDMLm4FZ7TkbY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fqkpvuvrqBYnaWPIynqFdtJNOm12keYzgZmLK0VGgZYCCfmkanAum6aHtbkFg1+YTKNwRw3qSuOF4KMpUMUy4C2DAXqfTjSFFrjGyfzLWRpIlrAK6uJ4UV3o2dID62zlXX3cEP2ph0wmPOrJiETq9FLhw6okBlVWRGjbINS11rk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qP3uvbAJ; arc=pass smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nt8tPUD+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 762A91F00899;
-	Wed, 30 Sep 2026 10:45:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790765125;
-	bh=j0WozzzKqOJdrRpUdZDM11hfYBuM7XIqRgnTq6gs38s=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=nt8tPUD+fPH/onie+6IMZc5OV7Y+KIcIyK9gIpoWPgp9SVEcny9qxSIp0TDz8nduj
-	 xAEIXJxzQRUH2qDUyV+ck3Ie19sP3vS4aY9qP7Pa4ucTzG5LZ8wImQfaBt9GAx8s1v
-	 3NkWRWVXpboIyLBm7ZTLBpQlZh532yOsjxSSoBuxYe5m0VPmP9u3owkNDFv3B4r43w
-	 RfAzQg6NUmFjMQX2gUyUoHLa4KDmZEfhhOZ4dhnpkLx3upUBdUKzwpwW3+Xqz1Y5I4
-	 7fkdaeJWHmCm5ppj4kgOS/V9wbOEflgVx+AMPT8GjEc38yY6IdqUVipQe1ztnaBOCw
-	 1/Svq+QSk5NrA==
-Message-ID: <9ca8cf3e-6d44-46a7-b269-d687db708401@kernel.org>
-Date: Wed, 30 Sep 2026 12:45:17 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qP3uvbAJ"
+Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-87fd84c0bfeso2099580b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 03:47:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790765268; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FvQS50Gwkw8VduS42efbOOE9SkZ0IxRJSW3710/9cI/a0DnEimg5SuUjSDn0jPmVCC
+         EeHDlw88wsyJcc/PHvI/HJVQxzM8ugb5zi6aRjfmlsgpB1FP0wtzHb+W+kSwOTNXmlQQ
+         4Ofb8iDMftftlEhA7yRTu0MxlU4uMFRDpiFjww4oEKcbBgq1zTueF8moZi+J502lGNq6
+         miOphHZG/2YA323uw8f4yJ/4sBHyh4IW3zQwvuhdw/z5eYArojI32gqI+A+526XIB43r
+         QCR/ifh5UVhxuyYHSuQhdbmdSAm9krr1gvUNSpOKIgHJ4i8YwJCXueA+OR+/3EM6RqVO
+         XOBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=frNDlYzQ/8uu7EJKdkeWFduTnVj3NcJs9Yyw7Sysjok=;
+        fh=61L0BFO/b8ytPlrHvv7ztmDeb1t+Inh3SOBIsqQF6HI=;
+        b=FGNnCgBU7823qbRZaiMx6ImVaT0R6t7CsEMUdVb4y9AGapV8OruPRFonGR0++t668N
+         CRDdRy/1IDG8KJDf9yrYCyzn/fdpTH+Z0Pkmq7ZwLIN1k/16d3Zrjwbj+BSosexTMpE1
+         SfawYWrUHC2skx+qdpFQMCV+TNLIcOA+tQNX0W2aD24nlL5l2HFhUs/7xkOYzoI2Eyvc
+         wGVHJIOy/Uapaw7euPgoxAREGOm8V4BZPA+DFaNu40jAwJ+swgKY00EEzr+mlLvGgmeN
+         nEpM/Izo0iIQEW3qhvfu/BjqVTw7aGPhyuLuXo/lty/bP0mMUxzPurXrewyA3xI4nbpi
+         o24g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790765268; x=1791370068; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=frNDlYzQ/8uu7EJKdkeWFduTnVj3NcJs9Yyw7Sysjok=;
+        b=qP3uvbAJc+BVGMRsNqrXSmbmrVa3FHC242tujymtCMQZy5pY8KR4iEIX4tfjUk5E2X
+         03V3Z3I6pM/K2uQmX5B9QmRlv/IFau0ifvJqUx0VGpl/735baM6JgLm12MWESCsgaeZO
+         sk88OeYx/0dyvyw2eHY61UiJQquOU8yK1U4dxJiEnScX4YptIfZEyvayf/+5ekFB+b4M
+         IHtKYTctXJqMWEOY/nu32C4yCBm0/V5ATDL5eG6iIlkFv2NVyWln2wj3iqqi57JJ5dcm
+         SGIvKz0l4mcL+ZzZJ8wrRvdf+s1QzaZI4jjnfulgYZ/CGgP307wuA6Mz+wpFnTRZLQyJ
+         o1oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790765268; x=1791370068;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=frNDlYzQ/8uu7EJKdkeWFduTnVj3NcJs9Yyw7Sysjok=;
+        b=a53RGUO4s+WbFYjg02KhrUPVKSRf+mgQTDKkm0yoev5x+YC99I7PjXiPpAHBQlyWg8
+         +vsZUZhKESPA3ILybyneCbGBiyO4tSrSOwOf5I3S8IKlIBpUICascxLYQPJO9ORl5LtD
+         lW91BGrUb9jy0y7cGZr1ptDbp4KdFxw+y9lKgDclsKvI+XFDSxzN4VraOZmYpxMR/dAo
+         dG9pSGyTOsSXy3r+apyuE7hn5eVyb8+rJXqU+DOsgcWibw+NNW/rUeDlngZiA6W3T22J
+         NA9Kamt9SeRuaECuAgmw2uNGvkdr8mVIYV4e08xGv85mAY41kO2Bdz8LFEWVvpYxmGdT
+         FBzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwAnaBYLaAuKuYI6GeVn8e8VQQVIQnLWRMquTxV7TrpahgfT1ZlbO6BFc9SBLKYQVAQp42oGe/Xnad2@vger.kernel.org
+X-Gm-Message-State: AFuF++md2rugzgU8CFhBHGmBBI8M0Ff44Fy06QXPAu2AjqIQZST6nrNl
+	FvVD47JDJHfCXD8MrbB4YLZEgdeTkg80hvNtmXEs0gw055gJPNPLOh3eCUq5WGLw2qmoAqX2rSU
+	CiFE++MbLXJNkCIXOxc/NXoK3uKVnv8E=
+X-Gm-Gg: AYBFou3mzA9zaBNJmfkYimNNtgPZ9xQS7sh46hje9m6i6lmKUv8qoXxrWhwBoKC2Etd
+	8R9UoHbRdS8wAowkXu4Z1hS3ZKEqME24keX1u7s44FI8lxz2Bb4pza/99apYz7c19z7Vjly0ZjF
+	IoE6M2gwFZOi+ToDvZMdgBYxgAdrPsUMCK1CrRhpJU/jXpFzajswcEHB5eATOZsG7Qyb1sckJhK
+	Nqf+3OVFxpgd8t8+nZE4c401Z69gEDB9VvfTO8eF45OkrocQ3/wTYzg+Eoo7NV3R3eJF0HUINMW
+	ROoWFOaOR+7Fow9X4SspTL9NY6QTg8fodtPpnINgWgwhGM5AigR9nDVlUScPDhGcmstEkoA=
+X-Received: by 2002:a05:6a00:6c8d:b0:880:3b31:a4bb with SMTP id
+ d2e1a72fcca58-8874a89ae36mr654876b3a.20.1790765268145; Wed, 30 Sep 2026
+ 03:47:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: ufs: Add nvidia,tegra264-ufs
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Kartik Rajput <kkartik@nvidia.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Thierry Reding <treding@nvidia.com>,
- linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260929-tegra264-ufs-v2-0-f0467b9c503e@nvidia.com>
- <20260929-tegra264-ufs-v2-1-f0467b9c503e@nvidia.com>
- <20260930-hopeful-hasty-eagle-052982@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260930-hopeful-hasty-eagle-052982@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260927151016.186493-1-pmazzini@gmail.com> <20260927151016.186493-6-pmazzini@gmail.com>
+ <20260930-camouflaged-koel-of-resistance-7b09f5@quoll>
+In-Reply-To: <20260930-camouflaged-koel-of-resistance-7b09f5@quoll>
+From: Pablo Mazzini <pmazzini@gmail.com>
+Date: Wed, 30 Sep 2026 11:47:05 +0100
+X-Gm-Features: AclHuK8o0ZcgRpk54PvKUPvKEFYR13nUvSknbUcihyLHytfHbaM-Aa-FPmvKY64
+Message-ID: <CAAxh=jsr1M-RHfqPF-hgQnM+RmH_D82=YX==Vn5-r2=1AB9eMA@mail.gmail.com>
+Subject: Re: [PATCH v2 05/11] dt-bindings: rtc: sun6i-a31: add Allwinner B288
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, Chen-Yu Tsai <wens@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 30/09/2026 12:43, Krzysztof Kozlowski wrote:
-> On Tue, Sep 29, 2026 at 03:15:07PM +0530, Kartik Rajput wrote:
->> Add binding for the UFS host controller on NVIDIA Tegra264 SoCs. The
->> controller supports UFS 3.1 up to HS-G4B on two data lanes.
->>
->> Signed-off-by: Kartik Rajput <kkartik@nvidia.com>
-> 
-> I do not understand why you added dependency on the phy in this
-> patchset. Looks like fake/not real dependency, so you only stall your
-> work and raise questions.
-> 
-> Cover letter mentions "the binding references
-> the M-PHY provider" but this is simply NOT TRUE.
-> 
-> Patch itself is correct but I suggest to be careful what you send, to
-> avoid questions on trivial stuff.
+Hi Krzysztof,
 
-Forgot the tag:
+Thanks, will fix in v3.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Regards,
+Pablo
 
-But honestly, this fake dependency is a no-go and I commented on driver
-patch regarding it.
 
-Best regards,
-Krzysztof
+
+On Wed, Sep 30, 2026 at 11:10=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
+>
+> On Sun, Sep 27, 2026 at 04:10:10PM +0100, Pablo Mazzini wrote:
+> > The B288 RTC wires one alarm interrupt, not two.
+> >
+> > Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> > ---
+> >  .../devicetree/bindings/rtc/allwinner,sun6i-a31-rtc.yaml        | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+>
+> Seems like valid and unaddressed comment from Sashiko, so dropping from
+> DT Patchwork.
+>
+> Best regards,
+> Krzysztof
+>
