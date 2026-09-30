@@ -1,101 +1,81 @@
-Received: from winds.org (winds.org [68.75.195.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33CE23B638;
-	Wed, 30 Sep 2026 00:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.75.195.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393B9282F20;
+	Wed, 30 Sep 2026 00:30:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790728011; cv=none; b=KbBkGjBrqakdPNg0CIH28RUg/5vViaokBKhU4QaZoGBrhV/oaWxBlG5rEqUZYvN9j4tSP51RJJR9TTaCgqfZXkSn0RtlcdHGcjAH4qp3uU/BB5pxNUvhh/2AvD3ApFFCZxIWOAfMowhGzZFSWVoeUfYayxDJiK2AzaJ/iEQ0C0s=
+	t=1790728208; cv=none; b=sIeFZTQMFYtQZgRVW74UtKRsv1rLU/GAtuNaqtvRBOxJ63/au5O7/PBqMVBsIVsu21nq2/hallEjWJSHKrVyCQXbkb78t2RbUgOzghEEI/GvkZT4CrbrHrpcKOG1HBlsxSRtz+gDbK2q+dK7pvRHE2DVd32QZeOvoLbHdEsF408=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790728011; c=relaxed/simple;
-	bh=RP+aafSJqjYM0BLvhpflfyaa07AiwYB/jPgCUsYMOpM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=AYiq8xjqLv2NHqDOdCIL1dOq+sPN8IHAjDw/ejnykQQF23xYRUZY2Fnft5aHBmBdTyFLiyD2z1P3LgVXeKsYx2h12aeQSN2sXHi71OKJvbiv47/gjXI+pt4wKH5H3YBhVU3hW+VYWSmOGgCLDtW0pEzPuWq3eULNdDbLQVfHoJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=winds.org; spf=pass smtp.mailfrom=winds.org; arc=none smtp.client-ip=68.75.195.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=winds.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=winds.org
-Received: by winds.org (Postfix, from userid 100)
-	id 26A288F95F83; Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
-	by winds.org (Postfix) with ESMTP id 2557E13363343;
-	Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
-Date: Tue, 29 Sep 2026 20:20:50 -0400 (EDT)
-From: Byron Stanoszek <gandalf@winds.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-cc: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-    Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-    Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-    Conor Dooley <conor+dt@kernel.org>, 
-    Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
-    Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-    Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-    Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-    Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-    Maxime Ripard <mripard@kernel.org>, 
-    Thomas Zimmermann <tzimmermann@suse.de>, 
-    Andy Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-    Emil Renner Berthing <kernel@esmil.dk>, 
-    Hal Feng <hal.feng@starfivetech.com>, 
-    Michael Turquette <mturquette@baylibre.com>, 
-    Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-    Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Dominique Belhachemi <db@domibel.de>, 
-    Brian Masney <bmasney+clk@redhat.com>, 
-    Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org, 
-    devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org, 
-    linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-    linux-riscv@lists.infradead.org, 
-    Marek Szyprowski <m.szyprowski@samsung.com>, 
-    Maud Spierings <maud_spierings@murena.io>, 
-    Graham Markall <hello@big-grey.co.uk>, 
-    Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
-    Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
-    Joshua Peisach <jpeisach@ubuntu.com>, 
-    =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>, 
-    Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 00/21] drm: starfive: jh7110: Enable display
- subsystem
-In-Reply-To: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
-Message-ID: <e946786b-e063-6ddc-6b07-2fb67ff7a459@polinggroup.com>
-References: <CGME20260929103200eucas1p17af134cc3b93c242227964f574f13aa5@eucas1p1.samsung.com> <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+	s=arc-20240116; t=1790728208; c=relaxed/simple;
+	bh=vNW8LuCKhtSIPOsqEAKz0G1ppn4MvMsYJk6CVvdhQtU=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=AryubeAE+BOpJ+wjZfNT0F+nvY8m9amkwhPug264tDoDl/P15He+68RCNyXyR4OAc5zuH/2RycOgBqpjwqVegGJcde+7Nqm1ZnTPcisgDc7yh6IgF+cYjXUiO0PC9DwornhNshzUfkRFU3Uc89WZjhMyWmh9OjE2eIO//FazDVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLX9YqJ2; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLX9YqJ2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3931F000FF;
+	Wed, 30 Sep 2026 00:30:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790728206;
+	bh=nzrw1DJAxJrrbMgCNrigmRVtMubjrWWM9LSdykWzn54=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=SLX9YqJ20OOE1gTlypIfyEyf/i5KOEzOgbLR6kk9PWApnvxrpZ+1U9Qcoch9idgs8
+	 BTqQckV9aQwbZK/SpCRiZXp8mXNTan3vdIWo/I0NP17vMSlbZyxJd97Tc/0rNiVbA8
+	 QKrT4v7SpEkNvlgADMO3yC0XGATWglQqUywaF2XvqClcKs+qD9jmor8Ynaof6t5E1J
+	 jTd8iKjsx4sS+inLvBgMyUDX+7rn9hs9SnLHVsJKjWQ3q4JPH/MIxDn2RfisVPTjAK
+	 qV/b8bCDnZffce0l3HitpoZkyuiJQzfLDtxOPtBm6TOLMQPmvz/WyLiuosUktdSpaN
+	 mqTqi0gAm0mKg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B43C93924FEA;
+	Wed, 30 Sep 2026 00:30:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; format=flowed; charset=us-ascii
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v4] net: pcs: rzn1-miic: Clear MIIC protection state
+ before unprotect sequence
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179072820554.1181068.4496571892719089196.git-patchwork-notify@kernel.org>
+Date: Wed, 30 Sep 2026 00:30:05 +0000
+References: 
+ <TYCPR01MB74815955A10817B64BD6FB93A4812@TYCPR01MB7481.jpnprd01.prod.outlook.com>
+In-Reply-To: 
+ <TYCPR01MB74815955A10817B64BD6FB93A4812@TYCPR01MB7481.jpnprd01.prod.outlook.com>
+To: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
+Cc: clement.leger@bootlin.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Tue, 29 Sep 2026, Michal Wilczynski wrote:
+Hello:
 
-> This series enables the display subsystem on the StarFive JH7110.
->
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 24 Sep 2026 10:36:57 +0000 you wrote:
+> On RZ/T2H and RZ/N1D MIIC, writing 0x0000 to the MIIC protection
+> register clears the protection state machine.
+> 
+> The initial protection state cannot be assumed to be constant,
+> as it may be influenced by previous activity before the driver
+> takes ownership of the hardware.
+> 
 > [...]
-> - New patch 1 fixes v_HSYNC_POLARITY and v_VSYNC_POLARITY, which have
->  been swapped in inno-hdmi since the driver was merged. The hardware
->  puts HSYNC in bit 2 and VSYNC in bit 3, and the driver had them the
->  other way round. Almost all CEA modes drive both syncs with the same
->  polarity, so the two writes are indistinguishable and the bug only
->  shows on a mode whose polarities differ - a band of black rows at the
->  top of the screen, vsync_end - vsync_start + 1 rows tall. Reported
->  independently by Dominique Belhachemi, Maud Spierings and Byron
->  Stanoszek, and confirmed against the RK3128 TRM by Icenowy Zheng, so
->  this is a Rockchip fix too.
-> - Added a 201 MHz entry to the JH7110 pre-PLL table for a 2560x1440
->  mode Byron Stanoszek runs on a Dell U2711. It is derived the same way
->  as the neighbouring entries (fbdiv 134, /16, VCO 3.216 GHz) but I have
->  no sink that asks for it, so it is untested on my hardware.
 
-Hi Michal,
+Here is the summary with links:
+  - [net,v4] net: pcs: rzn1-miic: Clear MIIC protection state before unprotect sequence
+    https://git.kernel.org/netdev/net/c/8b9993437429
 
-I confirm that the hsync/vsync polarity and 201 MHz mode are both working on my
-setup in v5. Tested against 7.3-rc5 with af384d6e0573 and Bo Gan's cache
-coherency fixes. Thanks again for your work on this series!
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Tested-by: Byron Stanoszek <gandalf@winds.org>
-
-Best regards,
-  -Byron
 
