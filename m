@@ -1,201 +1,142 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CE14CE675
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 12:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A0E372663;
+	Wed, 30 Sep 2026 12:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790770331; cv=none; b=QVstRwMb6duoD2+KL89ut5jkhJY9Z64SsKTVpu1oSElAcPidVBdvWGAqUiffPbR359H2ffZxI78syFmA8RwNXUoWG2aLdLJxffemQUXnigqAgtS1ZcFIIj/CEFQDwkeeGs6ew48ApV8c/Aba+8nXgYmCKzbP8KuaXyxzkSSAkIA=
+	t=1790770506; cv=none; b=Nt5KNu1PmFfv10Jv75R6wOnFyRB+zTtu4avQGA8TN829eDg414IEj9JBglxk3deh1jBrBwjZUbeygkxkiZPXIPAEK/B0hpq9JLUbkhJZ+LtvkYSuVZUuQPgqbSCi2w+xYFrJRhZNH4Z13XXe3R23RvFWtKHeWW7TkYmk0hlQzf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790770331; c=relaxed/simple;
-	bh=1Ud4xzGqcr1aXqgg3blxBT8OmlKDXmH72QXq8TrjxLc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=fup52JYkcPbwSOCAsL0U8fM5yFZ74Xc5vvsnNEycphdJ3ODl0qao56b9Fehaoyx8mm0Jur+QpQdrD68W/Ob+fpTBqDtDwiV07XjwHHK3Jb/OJ+8hETYeOqIW/QodxEG0JN+uj72jyH74qhFhjVzV7O6nka3A90fLxgQHW2KEk/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fuPxU8oR; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790770506; c=relaxed/simple;
+	bh=xv0RqiOiKwlaT0J82cr/0v5YvERfM3N4VNRX1rS/bg4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y/qqG0mlp3cFwIUbbfrxK31phJMLHa1DltfaWgrOTTuatS02Y0kyiMVgKeilHRTsRXWqjeAscI/hnboqWNY8nGvc4Ua25pkupM5cxgNQQDP7wGyKFJRhKfc8fb2r779XkdN4elHjSseHEOLvLRfQPJBdoU0Co19R6kIYEFwuFV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a9VxevWX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fuPxU8oR"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffed768deso11469935e9.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 05:12:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790770325; x=1791375125; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=N5vGs1seEK3Ka9iEwzeFSJM/oyAsmGiZsBgaewDEAKI=;
-        b=fuPxU8oRcYVBcXesYe5XgpmdO6qEOclRtBm0q4BE3Fs19XT1Qyaz0td8ldCId4Ru2j
-         FNekoWjWHzNYXxt+OQz2c9IOLPgiSEp/a3n6y30IGcAzKpmga+vd7KjaBfDArlexjaeX
-         59Da2yZFBaGA6ky+eAkLnSixL8AqSL/vdHagPufyFAP/WcUIY2tWFhyKi3rUpEn//Fdv
-         JonwDIh8jJEkDbmb88eMxFKj595XLoGPTMKSE0Fgo4QviXFnNpCbcAOEgOzaaP91J3rQ
-         8h3n27WWsmkykokqVDwaf/XYFYIGgMzYAQVEsQvlwnyi2FYNBK4tXfsu9++yQV1w6fTV
-         s8Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790770325; x=1791375125;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=N5vGs1seEK3Ka9iEwzeFSJM/oyAsmGiZsBgaewDEAKI=;
-        b=Ic95oLV8JpXUoDfERITxNzh2XOeWjkUzKppCLxIZKdCWba8mWAvn1UuRcTfYMUOELE
-         4b4Ah+ciDTC0DzeJEfUwr0M4SG8Xjt6Jlopx5FRRnGPHj2kd6OqcAU3hJbaTL926CFvk
-         ii/pOkCel9VY4GGtJKgyLSihp08ecYx9ryHxoNTTZKq2dbHDMFkXs1ZUb6jmH9EhlFis
-         O88VTUWpiXFOT42aLnLAiSjlz8nXDyphVlGwln6KbIvOuCNKihNuHd4NMSV6YkBHvD1c
-         tH5tFFeoblY5jDVBDVIm8crj6ORn3m1j6msMHoeBIgU4zM1M1PRWEs5xAMP0/ZHFn3zo
-         xr/w==
-X-Forwarded-Encrypted: i=1; AKwUvByOTP8zBsxvDM0q+m8am0p732Jn+p191v6D+Cvrdn2x0L9hPf0xl+8ptDd1eEiP1BobicgwCy8nUQkh@vger.kernel.org
-X-Gm-Message-State: AFuF++kDOcNWHloWQ6Q0A05gT01zhY6msCCQYQHm0d0aqUEd0Cy+sUGe
-	sSx24Ow3iqlBxCC+txsJgtogNqNZU0nlzKUIEizNHn1zJYMtfj18UpwN1CjP0276XZvRhWwKHaE
-	pcpJJ
-X-Gm-Gg: AYBFou1hN+wLyn6UjPtUWYPrWlH+rNpA6kpgLfk1myeaawrw6Hb/l3mw8B1ACBS+7gX
-	zV3H0VJ7t0jHsVVr757dIsfXDYlm+0oVxsmrMDuWDrvqUQX8//A8Vw7x6U9KL7Du99RXQ1fWNp7
-	R7/HLJooFuYhabjDD6Fze0AASMvSWF5M31o6r6JosYwxdiYcZWikAwt1kcsjRbiZAAsPFNrnjHM
-	LpfKLr8I3OM/W9tmX2O2FooJcrWBLd6xp35mSdqRAK9Hiq+RoOotiQZ6MscyVPHLbioXfHPTafS
-	0x4DxP8N1ZYx/w8ymXDbD8SmNkjxgpPCdLavuVSl0pp/1q4eT1wOrNuuaPbDL7T01fdiHYQyKlJ
-	Jax1k4vFywMa4faAgG7eg7+OcBuJIfApf0Osgt/RLMmc7iWJ8Be9E1FzSB/q/7yfNifRrC28FbX
-	1y2IFBYFTYiiZb1Xw2DlLTMAku0wCGsyo4DSf/PZmKowMqDuNaEzas2QMdCxHx+APHDXmLsOdqO
-	wvh
-X-Received: by 2002:a05:600c:4691:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-4a01b188fafmr17252615e9.3.1790770325183;
-        Wed, 30 Sep 2026 05:12:05 -0700 (PDT)
-Received: from localhost ([2001:4090:a244:8223:c4e6:4d28:61c:74bb])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a017468b10sm67033075e9.0.2026.09.30.05.12.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 05:12:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a9VxevWX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55151F000FF;
+	Wed, 30 Sep 2026 12:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790770504;
+	bh=Nc/fukDyXazndbYcPYi1K6bg0O60HvWUrSB7JCmYXcg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a9VxevWX5+tyC0lAYyQhbtuNuG60oulZbAJ18Kc7HkkaVy5TnineeBk6utelzOqIe
+	 /rGKfA3+RMvNjbL5bEq0CArAuB23/raRAOUuLN7aSPo1WxTMzIerD5hW5YWgZtcg7k
+	 ulzYB8vCEpasQ//khaB8A8V2q+pHqE8o0VC8OcF+oQ4XadEBvw3fNhlroGMmesvntm
+	 OdMuY27shJHFHI+AATFV5nJvc28gbtgAH2PGkQg2xe8rqAU0tPe8dW4sGvaHmjYBaz
+	 3ilkXEzXic6OhX0BfqNwOlwYntSF41nwRVgP7AOGyRVi5jV/XRZzpfYVZjZ96i78cG
+	 f67do4nYc8DGA==
+Date: Wed, 30 Sep 2026 07:15:02 -0500
+From: Rob Herring <robh@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v3 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI
+ connection mode
+Message-ID: <20260930121502.GA2207237-robh@kernel.org>
+References: <cover.1790719424.git.marcelo.schmitt@analog.com>
+ <12e5af9d96f6c5e800ad860d3cfa6ac8006a22e2.1790719425.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 30 Sep 2026 14:11:55 +0200
-Message-Id: <DLSN3HSWU044.10UYU9AQX2MV4@baylibre.com>
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: "Kendall Willis" <k-willis@ti.com>, "Dmitry Torokhov"
- <dmitry.torokhov@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-Cc: <msp@baylibre.com>, <s-kochidanadu@ti.com>, <a-kaur@ti.com>,
- <s-tripathi1@ti.com>, <vishalm@ti.com>, <linux-input@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] Input: gpio-keys - support wakeup pinctrl state
- on suspend
-X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
-References: <20260925-upstream-gpio-wakeup-v2-0-6c5533356246@ti.com>
- <20260925-upstream-gpio-wakeup-v2-2-6c5533356246@ti.com>
-In-Reply-To: <20260925-upstream-gpio-wakeup-v2-2-6c5533356246@ti.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <12e5af9d96f6c5e800ad860d3cfa6ac8006a22e2.1790719425.git.marcelo.schmitt@analog.com>
 
---556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
-On Fri Sep 25, 2026 at 11:52 PM CEST, Kendall Willis wrote:
-> GPIO can be used as a wakeup source for TI K3 AM62 devices during
-> suspend to RAM states. The GPIO controller is powered off in these
-> states, so a wakeup enable flag must be set on the GPIO pin in the
-> pinctrl in order to allow wakeup.
->
-> If the device is wakeup enabled, select the wakeup pinctrl state on
-> suspend and restore the default pinctrl state on resume.
->
-> Signed-off-by: Kendall Willis <k-willis@ti.com>
+On Tue, Sep 29, 2026 at 07:44:22PM -0300, Marcelo Schmitt wrote:
+> Document how AD4134 chips are connected to the host SPI controller
+> according to different wiring configurations.
+> 
+> Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
 > ---
->  drivers/input/keyboard/gpio_keys.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->
-> diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/=
-gpio_keys.c
-> index 129fc4212a5ed126496b331ce626682d441c53bf..d3fbc9776ac8cbdc7349a28df=
-990ee609edf9e59 100644
-> --- a/drivers/input/keyboard/gpio_keys.c
-> +++ b/drivers/input/keyboard/gpio_keys.c
-> @@ -28,6 +28,7 @@
->  #include <linux/of.h>
->  #include <linux/of_irq.h>
->  #include <linux/spinlock.h>
-> +#include <linux/pinctrl/consumer.h>
->  #include <dt-bindings/input/gpio-keys.h>
-> =20
->  struct gpio_button_data {
-> @@ -60,6 +61,8 @@ struct gpio_keys_drvdata {
->  	struct input_dev *input;
->  	struct mutex disable_lock;
->  	unsigned short *keymap;
-> +	struct pinctrl *pinctrl;
-> +	struct pinctrl_state *pinctrl_wakeup;
->  	struct gpio_button_data data[];
->  };
-> =20
-> @@ -884,6 +887,10 @@ static int gpio_keys_probe(struct platform_device *p=
-dev)
->  	platform_set_drvdata(pdev, ddata);
->  	input_set_drvdata(input, ddata);
-> =20
-> +	ddata->pinctrl =3D devm_pinctrl_get(dev);
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl))
-
-Should this check for -EPROBE_DEFER and error out in that case?
-
-Otherwise looks good to me.
-
-Best
-Markus
-
-> +		ddata->pinctrl_wakeup =3D pinctrl_lookup_state(ddata->pinctrl, "wakeup=
-");
+> Change log v2 -> v3:
+> - Adjusted spi-rx-bus-width constraints.
+> 
+> Unfortunately, I missed SPI connection mode properties when introducing AD4134
+> dt-doc and the device driver defaulted to a no-CS configuration. Due to that,
+> conventional 4-wire mode can't be made default without leading to a regression.
+> Still, updating the SPI mode default to 4-wire is a sensible thing to do later
+> on if acceptable.
+> 
+>  .../bindings/iio/adc/adi,ad4134.yaml          | 51 ++++++++++++++++---
+>  1 file changed, 44 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> index ea6d7e026419..0b2a2cbfadae 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> @@ -131,6 +131,26 @@ properties:
+>      enum: [ free-running, gated ]
+>      default: gated
+>  
+> +  adi,spi-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
+> +    default: no-cs
+> +    description: |
+> +      This property indicates the SPI wiring configuration.
+> +      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
+> +        line is not used (tied to GND).
+> +      * 4-wire: Specifies a conventional SPI wiring configuration.
+> +      * one-channel-chain: In this mode, the DOUT0 line of one chip is connected
+> +        to DOUT2 of the next chip upstream in the chain. Only the data interface
+> +        of the upmost device in the stream is in direct connection with the
+> +        digital host.
+> +      * two-channel-chain: In this mode, the DOUT0 and DOUT1 lines of one chip
+> +        are respectively connected to DOUT2 and DOUT3 of the next chip upstream
+> +        in the chain. Only the data interface of the upmost device in the stream
+> +        is in direct connection with the digital host.
 > +
->  	input->name =3D pdata->name ? : pdev->name;
->  	input->phys =3D "gpio-keys/input0";
->  	input->dev.parent =3D dev;
-> @@ -1010,6 +1017,12 @@ gpio_keys_enable_wakeup(struct gpio_keys_drvdata *=
-ddata)
->  	int error;
->  	int i;
-> =20
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup)) {
-> +		error =3D pinctrl_select_state(ddata->pinctrl, ddata->pinctrl_wakeup);
-> +		if (error)
-> +			return error;
-> +	}
+> +  '#daisy-chained-devices': true
 > +
->  	for (i =3D 0; i < ddata->pdata->nbuttons; i++) {
->  		bdata =3D &ddata->data[i];
->  		if (bdata->button->wakeup) {
-> @@ -1023,6 +1036,9 @@ gpio_keys_enable_wakeup(struct gpio_keys_drvdata *d=
-data)
->  	return 0;
-> =20
->  err_out:
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup))
-> +		pinctrl_pm_select_default_state(ddata->input->dev.parent);
+>  required:
+>    - compatible
+>    - reg
+> @@ -141,13 +161,30 @@ required:
+>    - clocks
+>    - clock-names
+>  
+> -oneOf:
+> -  - required:
+> -      - ldoin-supply
+> -  - required:
+> -      - avdd1v8-supply
+> -      - dvdd1v8-supply
+> -      - clkvdd-supply
+> +allOf:
+> +  - oneOf:
+> +      - required:
+> +          - ldoin-supply
+> +      - required:
+> +          - avdd1v8-supply
+> +          - dvdd1v8-supply
+> +          - clkvdd-supply
 > +
->  	while (i--) {
->  		bdata =3D &ddata->data[i];
->  		if (bdata->button->wakeup)
-> @@ -1039,6 +1055,9 @@ gpio_keys_disable_wakeup(struct gpio_keys_drvdata *=
-ddata)
->  	struct gpio_button_data *bdata;
->  	int i;
-> =20
-> +	if (!IS_ERR_OR_NULL(ddata->pinctrl_wakeup))
-> +		pinctrl_pm_select_default_state(ddata->input->dev.parent);
-> +
->  	for (i =3D 0; i < ddata->pdata->nbuttons; i++) {
->  		bdata =3D &ddata->data[i];
->  		bdata->suspended =3D false;
+> +  - oneOf:
+> +      - required: [adi,spi-mode, '#daisy-chained-devices']
+> +        properties:
+> +          adi,spi-mode:
+> +            const: one-channel-chain
+> +          spi-rx-bus-width:
+> +            const: 1
+> +      - required: [adi,spi-mode, '#daisy-chained-devices']
+> +        properties:
+> +          adi,spi-mode:
+> +            const: two-channel-chain
+> +          spi-rx-bus-width:
+> +            const: 1, 1
 
+This is not valid. I think it evaluates to a string. You want:
 
+items:
+  - const: 1
+  - const: 1
 
---556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCarz8ixsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlPB
-rgD/RvPG9MIG+abj3sGJsRRPXb05u6y2oKt7iWyCnIJnPmcA/i4fICzTuQuY1jiO
-YEW6EdYtDK17cq0rhe1HPUWOOa8J
-=HyDX
------END PGP SIGNATURE-----
-
---556a792abffd9ae695a05a5a547bd46464fba304192a1e2f92c220c5229c--
+Rob
