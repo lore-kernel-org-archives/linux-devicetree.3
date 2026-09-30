@@ -1,224 +1,174 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010006.outbound.protection.outlook.com [52.101.193.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA2138E8A2;
-	Wed, 30 Sep 2026 04:11:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB15F38E8A1
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 04:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.168
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790741519; cv=fail; b=NjD8XXzkQeWOzBT07whTUW4u9U+B62qG3lOVhJUPvevR2UwzLvpHj1Wiqnv/03uU7TdBqliuY1ZD8KAb7ROwkDTEqLkiFvr0dKVXtyrjH1QW7seeowDQqJKh67+enAvOmjBuYJuYNzZfmx/jum1CrckB8uPOGQrWAADjnX8Ru6U=
+	t=1790741669; cv=pass; b=Lt74ajdKvHaIbbhmXd8r0Le6iELSESJW4rdL8Hn2LY/s2NoqcEiuSJu9KHAUT2FKJx1fBOfTX4aWN7gWIBOdek2fvRiiP0DRcBRH3e2cu3PSSavxhYBMLYuZW1CR9Yw5GF3yj9T/RMTbsnP5TYdsqMwT02VjvtkwavXBdQk5Gmg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790741519; c=relaxed/simple;
-	bh=7Pqh7FjV8ibxfS91iSCNaN4rphq7CqnKXYRPcsdXb4E=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=E34FLDJkND0ppFG+kYhJ0d7OEmho8z/1bTV9BY216VIG4Wrag/xIKfzj4obscM8tuKFde+OtMmVB6bWXL9fjfodv41lXfA/31d9bbvykvyMUX8ZGaZ5htGJgaDCiAi+W6jhtQGIqnSC3SxlzIFvL1lHOfVZwDWJKjK91bke9n9Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Cb9UVsZ1; arc=fail smtp.client-ip=52.101.193.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790741669; c=relaxed/simple;
+	bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=p3qs7bHdgWlO71uJHhD7PlSCXRufqcac2+gZTx1yRCTrxNHrUKAXPnVbe3q+ofIg686JD0prPgIyQcwENYPrLyCbtrfRY2/yfyTrMzFKzym0ZEEqisVC0/K5ubZav926Ml+uhgHdpeJniV5xTOJVX9JqOS/tiAueay91ry6Cl4o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=bEsg7GBF; arc=pass smtp.client-ip=74.125.224.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Cb9UVsZ1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cBsrPxUASzEE1B5wbJSezm3hrQqnvAy1D5PtcZRlvReYTMMNxloSAUBl5XNIHu17rnNOolHw7bo/mLNlk3oYaBdooPyaQ+30I80YbWrin6Ojb1DkvI570zCj9TyzD0SLZPHl16H16dQZQnGo5ok1AKIEhh+dUgqB1VyH+OO/4xdMQkgwI/tzIabo0Xm0iWwsYYG0XNWxdrVadHE5ibkUHLTc48ZWDt7YZIqi4EBlq1IIdSTdoxT/+dFQ8A5T7fNv4lGpOMpBW+xI2hbntVidvKKphSmOiDOr2TNBBeMBGh89rJWCU+xu+y9IWd9RAcIlBGu5jSsld6Bu9bNkSVNZmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RXOig+l2nuZVaaNbuVrtGgybC+CVzlN6Q1LKCxvuZYg=;
- b=E93aOJkr7gxS+KNSr2qKjn6/vkp3xHLOMXmfNxvzOcJocppL8qDRFOouymLhXGTL5R0dDEA9ItAfGizMcH/tpihfNd1+XKuKxsna1pXjHH3g0muHDxDosr0RPB+YVISkhB9z7l4eYV7P+X83JQV8ameKwltjwlAw/rGofrAEWagNgEB0zVQiW4PMAfA501Swxjffq1lK2hEaMfZAnL4qkXvc3BsctLRBVeVcDQw1rNr6h34ZtNXhWKbv7NU/HN/PCs85s3Nbklax8H6pVZbaDkW3BN1y1jB4FrbybG4rZGJeT0AzOxjNtr5KhnUM9/NuTCBQXuSW4H1ozVUultbsjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RXOig+l2nuZVaaNbuVrtGgybC+CVzlN6Q1LKCxvuZYg=;
- b=Cb9UVsZ1jki+M4FhQUEW0YdCIoFE11clC/9mG/9VVqlLvy42nYuivv6mXzfhVi9yRpVNOUSPweWaGd0bhjc+cfTc+Jk9mWTsBx1whdQRUwgTndIOxRO6BFZhDqMVYSFx18lWoFD2Bz9CzntqPM0R17Ar4O2z40w2NA3t43aHKco1pva8K4MG4riSF8G41TK2MXEfI2JZcBnYIs31inb1hSJ5uZtBtyRpn08YXFUzU6emJWAcbPJCn4QD4rduUCElos5ladIaNxRVkNPFLU8sqHvgf3jFLJTcE+jA/J+EzmxzFbUmi2zQ+oLyeB7YL/RnWoYDD8fhwm2Fw6ZpES82Zw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DM4PR12MB7599.namprd12.prod.outlook.com (2603:10b6:8:109::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 30 Sep
- 2026 04:11:52 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 04:11:52 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Wed, 30 Sep 2026 13:11:40 +0900
-Subject: [PATCH] ARM: tegra: Add core supply for Tegra114 boards
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-dalmore-fixes-core-supply-v1-1-4bd87fd70b0d@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0Q6CMBAEf4Xcs5eUYlD8FeMDtIueQWh6QjCEf
- 6fg206yMwspokDpli0UMYnK0CfITxm5V90/weITkzW2NFVh2NfdZ4jgVmYou33qGEL3Y5T22lb
- +bHJ7oeSHiOOU9Pvjzzo2b7jvHqR13QAOO7ahfQAAAA==
-X-Change-ID: 20260930-dalmore-fixes-core-supply-e628f9d40127
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Thierry Reding <treding@nvidia.com>, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TY6PR01CA0020.jpnprd01.prod.outlook.com
- (2603:1096:405:3bb::12) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="bEsg7GBF"
+Received: by mail-yx2-f40.google.com with SMTP id 956f58d0204a3-6762de1c77eso446673d50.1
+        for <devicetree@vger.kernel.org>; Tue, 29 Sep 2026 21:14:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790741666; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F6ISL4Ij44RVgeJ2TnkJ9eemWgwjIv84QVlD/e38mNnWfwhhQnVR6ZOIph1qRa/V+f
+         MjUk3cT8S8MTBHeVrEi+UqIxpsJAOvO9gkZRGkz4qZaFsU7rzzc9Lwkb60oHk1aoeBFa
+         CS0GP4MRQUJuQObRh/qWwk4UYeU6UeVbyhEifkaFJvyc0K4mXiGeWMEan0qvMehT0re6
+         UWScYYf0cijgF6sfmrHgchJst3o2WLEEFJglXKSDE6EmsWz+CSEv/i0OFreZ0fqcvDIS
+         HckejzEe2tt185khCvdLGG6+pisdxYyjzRIcWEzSDudWQI/OjvEBj62LvzZ5xUnRhM2d
+         zA5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
+        fh=RtACwoa2xiEDJzlr+5GJSLyDcz16Hk/FWejvfkAx+o4=;
+        b=dubj2jd7UIMCR4vz62fkaPrIb+HD4whWM9tSfBgeebG88djzMospCsZI4mQWCFLLqb
+         oPDu22GpM2Mg3FGf1wKMghfmyOrhJWfwg+7vY0yBtdU71E1jedyidOTNhbiaqUzxgJn9
+         EK3+uP9+vHd4JdpqEFZb0E0SkUcRxfs2PB2qrpI8/mlkbIEANBnJMiXeuG4YO+lnkzto
+         RorCUlD0/Y/RNox3vnVW46H18qGSkD4Us82L406Zsf5cKXCMwh5pqdADV50hHUpJ4Lyk
+         ZMEucI2EqbRsHf8sXTWUHUXesLr4pKjZDNyZmI59UwdH7WpBHrFVYsiDRXhVNPzp9IWd
+         mQCg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790741666; x=1791346466; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
+        b=bEsg7GBFT1zZzhGc6u8sDmnXTAV25/gAq+pd6f6PktV6+Y91n3ehaPpZu1cNMNBBdP
+         tBb6Q5H6oZlt/SVxy6CAfvy38XSkOyzXh6T6XJeAOH/GDvs5dBDL4UAKWvnsZ/wBU8sa
+         Ab/ZyXjxV4D1dkvZKVmN7TRkVP830fBtz5RAk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790741666; x=1791346466;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rGZkzwTmnY9DlHAH8nSxv7NRFKJj9m8v197rHzuwMIo=;
+        b=SNrXszeLErltK18kfHM2ILacDRnAYP5Si1o0Eb1WPe+OfdbItMmiCLd4/RIvCvoYF3
+         dQmHGd2tWos3jGmmHuxEhJwA6z3niNHcqj93iHDJ1Vp5poBfaaK8Wa+OMAkamcaxSyNh
+         5hZVlZY1S16AhbkOhvIUP1dRdct7RtfT3G1OkMZMc229cviYWdZiPIpWFlrMtoDPnbiA
+         keuzEWv/ralh88/QqPO/peGL2viOG/OAgkl+9Ol+W3UhiLYyPYFAKI9WXADt4hF/3N0r
+         IaujJkFpusL19PcjQB7yt6Rgx9KWLiOUwRxACLtEsNCMAdMGgP4jtE88EQ1rPPZJ/qpF
+         Qnvw==
+X-Forwarded-Encrypted: i=1; AKwUvBwA4BtE8ppXYCzmUleV9t32CJdgoGlRuZ9Nsg5hOYkKQaaG3W7b3/C5tGBRXMO4Ryp1M+RED0yeUUfV@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNm56O6SpWmDCz7zyGAx5V75pKMefXOompzjn3VYqa/dA3XiFk
+	YFJz6UWPJSux0qjD0utxxqP8Ebi8vLBWj8Ypag6t4xnAZhjoIuLcK4cIXu3KMfosapWIcY6q3Fe
+	yz6lc43U9+Qp3D722M9QY0j5//7G/OldQeVB4YIhx
+X-Gm-Gg: AYBFou0vvjje8BUqY0j3/cdA+kebN4wf2aX9x8uMa1vmguM3XLHjZwjHSlghQTsBxtX
+	DVHrnUHDCgfes1K9vCIk96ENCBXoeIvBfCdrP7eGVotXA3VgVpS7DTpXBQJEmUl599egXOyoqgO
+	SPENtdwphMeJr1hWtBaORXqaN16OSOTUIuXPUEkYXMqIoel/KgJK9gFFfcUF5r4XaqFsl6Kuwrv
+	bEzKaile7NdTCwcOqTnP+Wy8J5/aqba0H4lovwskLXfYKc3++532D6dvpzMdz/HkVGtgdClwnYZ
+	F41kUCPWvok1r0reoYHaYYUPfG3IPf7rGl0QlgJDXOp4WfAtvSANXlAwa73C9rf5iz0XZU3zaZn
+	lFTBnWh8daw==
+X-Received: by 2002:a05:690e:4197:b0:675:405d:643b with SMTP id
+ 956f58d0204a3-6768349a6c4mr76844d50.98.1790741666569; Tue, 29 Sep 2026
+ 21:14:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DM4PR12MB7599:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8414b3b0-b116-43a6-9c66-08df1ea8f49f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|376014|1800799024|366016|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	CTbR/hDUiN5ox4RbaGCXslr81g86rv7ADmyNSqp1axQitic9oTs1ZEZmV3V5wmtccOJiW0U+P0Z1IjQ0W8K5XkmhfjdRsCpsB3J3bpIiRqxO2sbDhA3hKdwIZSCYDJ7VBcSogLoK4iVfL6Mzfo5emCBs7un2MALGsNWWAzuvm5+8zYLrEHPAzEYW1CnJsgwLG9XQW13uFbaPXQfItvltNroVkR9vV3oJcucBgMyhgu0JYsEI4IGwF3g5Dd9virrOElClxPEiAm8Sg8ZP8gIIAd4L7Cq7wOwACurml8of/bABtVuLkzUHl9yPF8W6kHs+MxETjcL9YwGGFcEjs8h7p9F6oMcBXpKfcHbSjZnR28svZi6H9CaCBeMhy2ODj6ZgtW7c2AI3AownKogSIr50WNUy3kNNyV0cCLFuohvc+DslF17ey7aCVpmkzeQO1N6uBNrgywOpEMZwuJhpv4kREKuxDDccSUixasBoVxoHGJKKxMlnyCj4aTh1DMxwx8pNvcQv9oHCWW4Ox2PrFDoeCjukBlwwJlxNVKssKPSriNB3AUPjC62rKrSzQ7rq1VL9x9pxJOENw7tTa8FX2oo1/BMIdlqnQhFEumFoekj2rauSlBzi42z0xME2z8q+tcrexyjXtvfyAFC82COFA0DlBx62ujtXikdM47xchvfQV2w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(376014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y00yY2RMaUE2VHVtZzMwbzJQeEZoUjIwNFZsTzB6NWNzWFlNemZ6cHAzT1pI?=
- =?utf-8?B?cmgzeUNWRk5QTmFrbmYrNUhIT054WEVCTFRkY1puSzY4TjQ0TGNDZUhHamdD?=
- =?utf-8?B?eHZJVzZ0YTJDYjRGRnhUalJrNUkrSXljVkRCRGZoc3NCOEFZcGlsZmxKU2Y5?=
- =?utf-8?B?M3JsaW1ROVQvc0NJTjBmb2lLdW1ONDU4SC82a3R0a1ZSd0c3MzJaN3hldG81?=
- =?utf-8?B?SnVPcVNCaXJVRE8wdnZPQlFha0Z2c1l2TGdGVUZFc0JzdkQvdnJMME80Ynd6?=
- =?utf-8?B?RElQZWtmbWp1U3Z5Y0xZbnpCQUZNcnp0YXRNM0xpbHU4ZEZBRk5mQ0VWS1VF?=
- =?utf-8?B?MlVVSFp1c3J5dFRPNnBjS3oyeEpKbEVXSHVyT1JMWkliSTBjV2lncnRLblRS?=
- =?utf-8?B?YXA3TkZMdG9WY1F5bTVsU3hDcmxMeVh5b085MFllN0lkeXE2cndaeUcxVFhx?=
- =?utf-8?B?My9YdjV1ZWpXQnZSQVpRNW9ERTNFRWlzbGp4R2xudlRXdEkxanJuS0FiR2Vi?=
- =?utf-8?B?UjNZQW1jQ1FiaW4vNmkxZUwrZXNyOTJCSUZKQ01zTGhPOUh2UHhuWlRHdG5u?=
- =?utf-8?B?OXlQZEN4aEhNSHIwTytiYnM2T1Qzakg2UmxvWG92amRWUlo0MXJTMjJEZ2dQ?=
- =?utf-8?B?RDNwUzJ2US9VYVZ1cEFmZ2tKOVRMV2hNZWhHczEzaE81VlppOVcvRmRiUkhO?=
- =?utf-8?B?QnpNS3o3WHUrSm9SV21neEIzSHNBaGZZbGJNbW81VHlIUDJYODhqWHQvVmRp?=
- =?utf-8?B?R1FudVBIaVJBWWVJUU1xdjVaZ3NJaVYwWVFqQlRSTFRGRlNMamZCUHc5aTdE?=
- =?utf-8?B?TXAxN3dSMEk3YjhBMVNlVEZQcFRVMUFGY2h6QnJlRnRUQ2lEc2d1UndKVkJQ?=
- =?utf-8?B?ZHpEU3Q0Zy9HMkpHaEhlcXYxeUpHc3lWV1FVWXgrallsUWI4bFR6dW1mcHoy?=
- =?utf-8?B?QldOL1hET2RiQlo0NVF1SzI2YlFHWDlZVVNaeTZuMFNVUW1DZEV1Q1NuTzNR?=
- =?utf-8?B?UUFpbGFlek00K1pxR2xaT0ZMd3c5S3lGMW9McEQvL3ZmdDFIdkU5QnhqMlNx?=
- =?utf-8?B?Vm5YVnNESDh1QkY0VGhad0V4YU5scXZiN3BCc2pvTy9lTTNZZHg2aElDbVhi?=
- =?utf-8?B?TWV1a2tJYkoyNnplL0h4Y2t6d2VwOW1DNTFTNm0yTjFpa2tuUDJHaE9ZSjUr?=
- =?utf-8?B?VE1yeTVjT0NaVGRnMC9wTGJKeHB0Tm84eWZwZlRvYmJlYSswZnFwOExMRUJ4?=
- =?utf-8?B?MXZ3L3dTeG1CU0hVY0U5ZSt6MmxzbHpCWXNMcEd6dkJYbHEzN01SVWFyNlJS?=
- =?utf-8?B?cFVhMWRacFllOXA5cDJUTlVKaGNwMHZaTWJnZVI0bVpjaFZ3SFRVMHh6K2Rh?=
- =?utf-8?B?VllMemxJaDBzWlBOZ012MTBwWCszcHZObGU4M3FISFp0WXNiT3kxOEZJTDY0?=
- =?utf-8?B?ak5UU3FDZnZhbDdHQVVrZklSMlAvWDhGNStFcm1xOVhaQWFlYzM4TWo2enM5?=
- =?utf-8?B?eHdRQk9FczNkbWg2Z21uc0d2T2hLVnUzZE9TUE4xbnEvLzcwYmptYjdPcGc4?=
- =?utf-8?B?ZWxsaEFBZFF6Y0pVSG1nTUNZL1kxWHVkck9kTi9pdVRtbzAwbjl5TGxHY3BP?=
- =?utf-8?B?S29mNFVpV1J4WU90NXJlSUtJaFhLRDJ6cElxVW1ETFdSd2FtYTF0Y0laUFBL?=
- =?utf-8?B?RXRlaTNUNkRVM09vbjdNVUUrK29VclFjaXNsWGlWMlVNMmtsWmp5ckFEc0gv?=
- =?utf-8?B?eGI4Rkw0REdkYmR1bHhJWWJIQk9OMnlpSHF6ZnB2NXA4Y0l4S2hQZHMwdmo5?=
- =?utf-8?B?Y2tlQllVRXQxcENMYVFVUmZQUkVpeE0vM3ZvZXRicG9HSTF5TGY5U3U5SWt3?=
- =?utf-8?B?SXJPZWVoWks4MHJ5MHMwd0M4QkNzbjVGajRhZC80eE5wQzEwNXZTUnVHd0Jj?=
- =?utf-8?B?VWhaYnd4N0luSTNwcTdLcVZFbEMyQisrL2NTNVh4T2taUDBWTVo2Q084eFZj?=
- =?utf-8?B?ME12QkNiWkJHa0hKRXFsWUVKbzlGODZ4dHRaeC82MEEvWXpkYlpsSWhjQWJK?=
- =?utf-8?B?R09rVTAyS2JGckh0SkJMRlo5K0hwOFZ2R0xOdjlQRVB2VUJjcDQycStnNGxO?=
- =?utf-8?B?RFBFMW9PVE9XeDZuczJDNkd5Z3owSmJaOUVnOFpYY1ZjZXdLb0VwcThjSjhI?=
- =?utf-8?B?WEI2VGt5QUM4aDhMcDJPa0VmcTFzdXlPU3RybXZxYnV4YXA5WklsS1FybElu?=
- =?utf-8?B?R3NhbkdpOWtlWlFzYlhESHY1OThTc094eWg3MlowSnRHY3M4eStNV1NwR3VZ?=
- =?utf-8?B?Sk1TZ1VLOVF3UUEvRE1Dc1lDQjJsb0RMSlBWTGZPdTJTaldVb3JLWDJIL1di?=
- =?utf-8?Q?1YvBSRLRtRGLeJgGV6iEdiz5aqWrGA8JjUik3xarSnr1u?=
-X-MS-Exchange-AntiSpam-MessageData-1: Jpf9EHsm7IH8rA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8414b3b0-b116-43a6-9c66-08df1ea8f49f
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 04:11:52.0838
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +BHFRw2IyqJhNYBSmxfi65ZKV1BsuNkPZwzebw75sy/EmdXo2WCTV0WA/zQw35pXthGZJwKJeJtXyhLB5LGZAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7599
+References: <20260522101653.2565125-1-paulk@sys-base.io> <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
+ <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
+ <arQxC3DmDyVIGdqq@collins> <CAOf5uw=SeHZSnYjPOptAGYwPkQc7L7gDpOrDWJH3UF0r1qdrtg@mail.gmail.com>
+ <arVnQmik-CveaAkY@collins> <CAOf5uw=K5tWiodM0SEP_nFn0vBv3=YRFWrY1Bd-1jPmZtM7G4A@mail.gmail.com>
+ <48271d518bb25f552309de12758e9a9995905f0c.camel@collabora.com>
+ <arWIcrSFkEA4GMTY@collins> <013b1e7ceb7cf046888109631e72ce4c408ab88a.camel@collabora.com>
+In-Reply-To: <013b1e7ceb7cf046888109631e72ce4c408ab88a.camel@collabora.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 30 Sep 2026 12:14:14 +0800
+X-Gm-Features: AclHuK8VlKUTvMI0v8jjtLYpqVzk8qBeIKfHOI-d_wW7lfMXYke40oAj8SBNDvc
+Message-ID: <CAGXv+5F8iJQJK4N2g8pmpGQVf8TxNvkC5Gm-RZ6F4HdQaThXpA@mail.gmail.com>
+Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E support
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: Paul Kocialkowski <paulk@sys-base.io>, 
+	Michael Nazzareno Trimarchi <michael@amarulasolutions.com>, devicetree <devicetree@vger.kernel.org>, 
+	"open list:FREESCALE IMX / MXC FEC DRIVER" <imx@lists.linux.dev>, 
+	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, LKML <linux-kernel@vger.kernel.org>, 
+	linux-media <linux-media@vger.kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, 
+	Michael Tretter <m.tretter@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-After commit 4cc90d4c043e ("ARM: tegra: Configure Tegra114 power
-domains"), a core-supply property is required in the PMC node.
-Label the core regulator on Dalmore, NVIDIA SHIELD and Tegra Note 7
-and add the property.
+On Fri, Sep 25, 2026 at 4:46=E2=80=AFAM Nicolas Dufresne
+<nicolas.dufresne@collabora.com> wrote:
+>
+> Hi Paul
+>
+> [...]
+> > By the way if you have ideas about specific problems with the stateful
+> > API that should not be reproduced in the stateless one, feel free to
+> > mention them.
+>
+> Few things:
+>
+> - Drain flow should be as simple as for stateless decoder, there is no
+> reordering, and so no holding on frames.
+>
+> - Capability query should mimic the stateless decoders (but up-side down)=
+.
+> Basically, we don't add a pseudo unset state, that was bogus.
+> V4L2_FMTDESC_FLAG_ENUM_ALL could be made mandatory, this is only partiall=
+y
+> implemented decoders today :-S
+>
+> - Capture/Output S_PARM, maybe review/revisit, but likely still needed,
+> otherwise the rate controller can't know the rate.
+>
+> - S_SELECTION, maybe make it mandatory for codec with a conformance windo=
+w ?
+>
+> - Of course, encoding process requires a request
+>
+> - Anything about keyframe insertion can be dropped, since frame type is e=
+xplicit
+> and per codec.
+>
+> One ambiguity we have in all decoders at least is weather or not the enum=
+erate
+> sized are coded or display resolution. I believe technically, all statele=
+ss
+> decoder exposes constraints in coded resolutions, and display resolutions=
+ are
+> not easily enumerated. Not a blocker, just a remark.
 
-Fixes: 4cc90d4c043e ("ARM: tegra: Configure Tegra114 power domains")
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
-This skips TF701T since there is already a patch on the mailing list for 
-it. Tested on Dalmore, but not on TN7 or SHIELD Portable.
----
- arch/arm/boot/dts/nvidia/tegra114-dalmore.dts | 4 +++-
- arch/arm/boot/dts/nvidia/tegra114-roth.dts    | 4 +++-
- arch/arm/boot/dts/nvidia/tegra114-tn7.dts     | 4 +++-
- 3 files changed, 9 insertions(+), 3 deletions(-)
+IIRC from working on bringing the Chromium V4L2 code up-to-date, userspace
+programs coded resolutions as the frame dimensions, and uses the selection
+API for the display resolutions. And yes, the decoder exposes constraints
+in coded resolutions, like having the resolution steps match the macroblock
+sizes.
 
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-dalmore.dts b/arch/arm/boot/dts/nvidia/tegra114-dalmore.dts
-index c06b52fe330a..8d97a47c969c 100644
---- a/arch/arm/boot/dts/nvidia/tegra114-dalmore.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra114-dalmore.dts
-@@ -969,7 +969,7 @@ smps45 {
- 						regulator-boot-on;
- 					};
- 
--					smps457 {
-+					vdd_core: smps457 {
- 						regulator-name = "vdd-core";
- 						regulator-min-microvolt = <900000>;
- 						regulator-max-microvolt = <1400000>;
-@@ -1095,6 +1095,8 @@ flash@0 {
- 	};
- 
- 	pmc@7000e400 {
-+		core-supply = <&vdd_core>;
-+
- 		nvidia,invert-interrupt;
- 		nvidia,suspend-mode = <1>;
- 		nvidia,cpu-pwr-good-time = <500>;
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-roth.dts b/arch/arm/boot/dts/nvidia/tegra114-roth.dts
-index a89b16573b42..f48d5c37e848 100644
---- a/arch/arm/boot/dts/nvidia/tegra114-roth.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra114-roth.dts
-@@ -837,7 +837,7 @@ vdd_1v8: smps3 {
- 						regulator-boot-on;
- 					};
- 
--					smps457 {
-+					vdd_core: smps457 {
- 						regulator-name = "vdd-soc";
- 						regulator-min-microvolt = <900000>;
- 						regulator-max-microvolt = <1400000>;
-@@ -960,6 +960,8 @@ rtc {
- 	};
- 
- 	pmc@7000e400 {
-+		core-supply = <&vdd_core>;
-+
- 		nvidia,invert-interrupt;
- 	};
- 
-diff --git a/arch/arm/boot/dts/nvidia/tegra114-tn7.dts b/arch/arm/boot/dts/nvidia/tegra114-tn7.dts
-index 75fbafb4a872..4b1e47364fdb 100644
---- a/arch/arm/boot/dts/nvidia/tegra114-tn7.dts
-+++ b/arch/arm/boot/dts/nvidia/tegra114-tn7.dts
-@@ -95,7 +95,7 @@ smps123 {
- 						regulator-boot-on;
- 					};
- 
--					smps45 {
-+					vdd_core: smps45 {
- 						regulator-name = "vd-soc";
- 						regulator-min-microvolt = <1100000>;
- 						regulator-max-microvolt = <1100000>;
-@@ -241,6 +241,8 @@ rtc {
- 	};
- 
- 	pmc@7000e400 {
-+		core-supply = <&vdd_core>;
-+
- 		nvidia,invert-interrupt;
- 	};
- 
 
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260930-dalmore-fixes-core-supply-e628f9d40127
+ChenYu
 
+> Hope this is helpful,
+> Nicolas
+>
+> >
+> > > A second implementation, not just a variant of the same brand would a=
+lso be
+> > > nice.
+> >
+> > I still have it in mind to add support for the Allwinner encoder based
+> > on my earlier stateful-ish attempt. Hopefully that work can be funded.
+> >
+> > All the best,
+> >
+> > Paul
