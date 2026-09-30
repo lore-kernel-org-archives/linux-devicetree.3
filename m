@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F773F7A9F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910DC403B1B;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790750570; cv=none; b=G+ERHFLFXQwLF8CC28GbVkiJPayt9yENOypvNfcoLom/lMsrtRTlZztwPVUmqYK8YCiHMh8rNaqBAv2v0qTwacZgQ77Pr3Xn9jimASOMnQVFxpQ0U7ANLJmtmo/x5DRpbhadYh8fiNr6xbxoFhaw3s+MPzFGY2gRt2qVrO2fxEU=
+	t=1790750570; cv=none; b=lyZJdTDcNAJXWhUDcYxmg4Ada9HCxkQP4iYI1Py/UGTV2+bKcBRQ0nIpNmthlhW9qSpI9IamOqDO/DKmF2RISn3hhA4SqG9qyOmnzXMe0hBzc+jPoTuKLJftpPfdK13xAEJHT07Ra8CL4i3sKVyR2vuU/HJCZtYSxKF+QaHai4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790750570; c=relaxed/simple;
-	bh=TZYGrJQDxWdLxNJu+hMwD/2g5h5gSDcZQPn5t24Ex3g=;
+	bh=cDPMaol6QHe7TLUO9f2oW68IB0rx5wsxTDo8tuEeOYU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MFCLGPZSqnw59OH9AGa4NvVF7l863gyxGzasyBF4YnNW+n7p7aApDsYMA7yIEqTIiabAYZLCiqVTUqrf09+Sg95K8X4naOO1Achd7tvNOKFwXMujOIqCFhBc6M0Y9KJFa90BKpzP4BECLPSZM8RtRa1eX63Du4HvNXv5DELaVPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JxgefU2n; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=cfGDJiJEfQul4ZY1C9kAP1RONv+UxiKeMEm3P3Y2cNMXrCs7S/ZU0gUYv/nJGHMLxkCfoT4g56Kr3mSrgm1FpOedhflLNxhWzUF24LN969Kj1lXGf8sCbUNxa9cMNKjUYYdS0Tl0LSmDD+ECydxzYMIoKsIzjSzmEk+HPIOQm/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQKxrpGh; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JxgefU2n"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 07ACAC4AF1C;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQKxrpGh"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 60B02C4AF16;
 	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790750570;
-	bh=TZYGrJQDxWdLxNJu+hMwD/2g5h5gSDcZQPn5t24Ex3g=;
+	bh=cDPMaol6QHe7TLUO9f2oW68IB0rx5wsxTDo8tuEeOYU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JxgefU2nxE7sU0hU4MUrCEoWil2hVyC5dUMyAff3hscsjOqFpyRuRgxAVi6xVqQg6
-	 YorzcxJy+mwbNLqiNAMo4YI3b5T0izG+eeKO2bSr8dN7hcz2g/zpSiUbt5C3xULLDb
-	 9VNC1DxbtU+rC02tftyqnt4oy5BqL9SyJjtVoUhyI2qQkP2eBcxWS89Gpjwf969X/4
-	 dbTKfvw9NVXuHdzRpZz1rmO26k4n4WcYnCmiWmGEF30d3rJyFyVx2U/mziQUP/4QV4
-	 yDlrUifZwC4XgIx94guhK9aUXVmkJ9y65R9fLNtX+NTrVRwQz9gt9fQNrIcIh+RZXb
-	 tQLiLu12WmeoA==
+	b=UQKxrpGhIYmYnBHTfK4EzYl16M3vmhXev79sVP2orkB2jDGDMaG+bTqsFvUXVrHiz
+	 p9eqfio4PAu6FXLTLAhObEPtF0Gp7rzM4G4QAjBzgPFQnznh/iJIsA0gL9uxKr9v6z
+	 4xaHzDQXFAkMVEGCq2j9r9aG6EYnyCA5mpvbxPZEVvgN7sLW5VL2XV5jeyAKKmlxfr
+	 MWUGLlgseYioA1rsK8AofHeNhwYmDaY+RmMrddfdLHi0J2rNXGKszPEWuQFcYygPGb
+	 ByAQ45AHThrF/4r3xGzlglZ5qfVyYDIK7tLZGNC1YraU4X0eNHs8nWOKuW1eQFeWUB
+	 HKxm7RPK43FUA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7062CA5FB1;
-	Wed, 30 Sep 2026 06:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F813CA5FBD;
+	Wed, 30 Sep 2026 06:42:50 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Wed, 30 Sep 2026 14:41:21 +0800
-Subject: [PATCH v2 03/21] media: i2c: it6625: default the debug module
- parameter to 0
+Date: Wed, 30 Sep 2026 14:41:27 +0800
+Subject: [PATCH v2 09/21] media: i2c: it6625: tidy CEC buffer init and a
+ continuation line
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-3-e353f887e7fa@ite.com.tw>
+Message-Id: <20260930-upstream-it6625-follow-up-patch-v2-9-e353f887e7fa@ite.com.tw>
 References: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 In-Reply-To: <20260930-upstream-it6625-follow-up-patch-v2-0-e353f887e7fa@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -53,11 +53,11 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=753;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790750567; l=1972;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=EUFs+ILfJcYIHmr8K1T8VQMnWY4I+fmmYf8PhLutHNM=;
- b=7bWIWv6HLQplAyTCRWS21VFjgJ0y4LieE4LLGvJNsTpZ3Wepjyr/mViRfjOCdKNAlO10jKJbl
- +b39dQmUsxSBXfdpEKSDYgXHfAmJUxK7xJ/9YkD0MXuppjorDh/0W9M
+ bh=mICEuUYSGNnJU5+TzTlAKH3DyJBxrCepqtV9sdWebjM=;
+ b=i9GEumRrbTmjXXp8TiFNMUA35NM81a3/VTRB58wJQnrkZzilXllauMaWpN5/3ElgiBVnKQ9UK
+ rHL1GfSBTe4BGki3+H6eEj7EtxUijrHEhTRn5R3IRWAlH3tIEAG7KjD
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -67,26 +67,56 @@ Reply-To: Hermes.wu@ite.com.tw
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Printing all debug information by default is noisy for a normal boot;
-default debug to 0 like the module parameter's own description implies.
+it6625_hpd_delayed_work(): wrap the container_of() assignment after
+'=' instead of splitting the argument list mid-parenthesis.
+
+it6625_cec_adap_enable(): assign the cmds[] buffer at declaration
+instead of two separate statements, matching the pattern already used
+elsewhere in this file.
+
+it6625_cec_adap_log_addr(): add the missing spaces inside the cmds[]
+initializer's braces.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/i2c/it6625.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index 485e1667c7bea34b152ff3dde09a928f334d71aa..7cc2ba0d26b8dbc439807e350434137f102d9d9f 100644
+index 0fe828cc5aff6d61957c3f0a781033dc94b7754b..8d368fd5a64cd815c7a9013c863804c32eee7fc1 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -29,7 +29,7 @@
- #include <media/v4l2-fwnode.h>
- #include <uapi/linux/it6625.h>
+@@ -757,8 +757,8 @@ static void it6625_enable_hpd(struct it6625 *it6625)
  
--static int debug = 3;
-+static int debug;
- module_param(debug, int, 0644);
- MODULE_PARM_DESC(debug, "debug level (0-3)");
+ static void it6625_hpd_delayed_work(struct work_struct *work)
+ {
+-	struct it6625 *it6625 = container_of(work,
+-			struct it6625, hpd_delayed_work.work);
++	struct it6625 *it6625 =
++		container_of(work, struct it6625, hpd_delayed_work.work);
+ 	int val = 0;
+ 
+ 	guard(mutex)(&it6625->it6625_lock);
+@@ -996,10 +996,8 @@ static int it6625_initial_setup(struct it6625 *it6625)
+ static int it6625_cec_adap_enable(struct cec_adapter *adap, bool enable)
+ {
+ 	struct it6625 *it6625 = adap->priv;
+-	u8 cmds[2];
++	u8 cmds[2] = { CMD_SET_CEC_ENABLE, enable ? 1 : 0 };
+ 
+-	cmds[0] = CMD_SET_CEC_ENABLE;
+-	cmds[1] = enable ? 1 : 0;
+ 	guard(mutex)(&it6625->it6625_lock);
+ 	it6625_write_command(it6625, cmds, sizeof(cmds));
+ 
+@@ -1025,7 +1023,7 @@ static void it6625_cec_reset_la(struct it6625 *it6625, bool keep_enabled)
+ static int it6625_cec_adap_log_addr(struct cec_adapter *adap, u8 log_addr)
+ {
+ 	struct it6625 *it6625 = adap->priv;
+-	u8 cmds[2] = {CMD_SET_CEC_LA, log_addr};
++	u8 cmds[2] = { CMD_SET_CEC_LA, log_addr };
+ 
+ 	dev_dbg(it6625->dev, "%s: la=%d", __func__, log_addr);
  
 
 -- 
