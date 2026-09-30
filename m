@@ -1,103 +1,90 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998394F3ECC
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 14:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FC44D0A17;
+	Wed, 30 Sep 2026 14:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790777177; cv=none; b=IW9IvNJZ09l+rPs5FzWMz1VeO0GFY15jNJLz5haS4/jVv4hTPJg4VmRaloNc6CmQDIzMAGRbxPNsxOabaBGka9y3bVDsvFt6+4oVmsHHBsKj/K4UoxWabpgarw4t8PWH/hRAOGCXts4x54E9A8KiSM0m3dt01Vj9kvd0RdGmrT4=
+	t=1790777254; cv=none; b=F/NG+2Ab/anewXn1YQU/92bfWr2DQl2SAsTDO6XwM4kDRIxWWfk9+btXzvzbnHYx8d8o7CRSg4f3TG/pxH4Iwa6iT6djkiq+UkIs3XqDNxSWJCpONmcdJaVhdofYkD6Z67G+ZawE9Kqf/sIywki93nmwgrBHr8NoISebtq40ArY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790777177; c=relaxed/simple;
-	bh=9bx6coMoBdOLnpZ1etpmYrgE196fZ3EXrtZZ7FD3iVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M88mOWlEzQHpPIm5N0MvnPW0ana6BHEu1fZjWX6OrTnW7pWh+F6tDpAJbFgZMcGQeBnWkCHlaXOObZaGojlVN11LfElGI3+96iUdW4r3ZbeolSRGdTf3goWEYJPp+cf/4eZthhTIik/nLMPX99mTKg3xfHmdEUTxtNO2xr6qPCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=SAHqxUi6; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
+	s=arc-20240116; t=1790777254; c=relaxed/simple;
+	bh=d0ialACQIbmzwR3DMYmNmIUbGqp9oywpKa48vRr8dSc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YeC9uFcj4KG4NagwD2vwMcNq8ykvXEuetukTqvdLBZ4AMOEJy7fn2PmNGxPbP1VksE9FwXQZf5MIRXBde9+rSUkmOnbSnmRoWYGOq0mQ4i1QG7WzXnr1EOmVtDAFFGDPosTQWfaEiUInpGhr1I6gNQrAothsuYkNbhEvegVSVWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fq9c5P03; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="SAHqxUi6"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id E851A240108
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 16:05:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1790777147;
-	bh=z8s3bGJeeJqZuJkbjfTcGgrs2VSs73dz7rSX2XlTyr8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:From;
-	b=SAHqxUi6lCbmYp932P1f2i/YrVBBZQ/P2YoNuXKzcnDZ69H9JfyTG4dw2Y9oavRDY
-	 AELQS5IF9UeTg2VK1JZb5vZXFeh3lcR5vQZFeJZxvgcyNuoEB1qJVLW2go1WnvIC9P
-	 3FajJYyMSjYaLSOsKNsQF3Nnk/OiwWHsMMOeTeFtANXyd7ub0zvBL4aTiqzmSB3oFl
-	 sA8MHsz2FI0UYMP5Wg/5xnXS6IfLuMB/MnjdqdnQKb8xZQF45DllVNJ82h3qehLOXR
-	 IjN6HokgmhsUtPXfZhrkpwIQKd3rAjwWcOI12MqTMnfmGwNF7h40Pm+pr5KAkkQihf
-	 kW59komk6TUrg==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hvxdy1xn9z9rxb;
-	Wed, 30 Sep 2026 16:05:42 +0200 (CEST)
-Date: Wed, 30 Sep 2026 14:05:47 +0000
-From: Wilken Gottwalt <wilken.gottwalt@posteo.net>
-To: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-Cc: Bjorn Andersson <andersson@kernel.org>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu
- Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
- Holland <samuel@sholland.org>, Paul Walmsley <pjw@kernel.org>, Palmer
- Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
- Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Andre
- Przywara <andre.przywara@arm.com>, Bastian Germann <bage@debian.org>,
- linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware
- spinlock
-Message-ID: <20260930160541.040ccc0e@posteo.net>
-In-Reply-To: <20260930130221.129529-1-tien.nguyenminh@embeddedlinux.blog>
-References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
-	<20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog>
-	<20260927132707.5f484946@posteo.net>
-	<20260930130221.129529-1-tien.nguyenminh@embeddedlinux.blog>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fq9c5P03"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E066D1F0089D;
+	Wed, 30 Sep 2026 14:07:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790777242;
+	bh=YJSxOjZ3AjRq6BhfaaC6UDgw2WCq3WvtAzScJmo86M0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fq9c5P03tGIu6+0suNocnbOCr5e2dtc+Hgm+tb3mytemDH7wv8BH5Dd1TkyX2faSi
+	 OQ/BgHw5DJkJjd9556yE4ghfo0hkwWwSLL277MZkxJ7w3H7FilPEloxunXe4VD2PIM
+	 R1m11924ui9OEedNTpWgvHOjuc/SwZs6dLtklEpBJ73Ipj0gpLXd3yTLVELueZTco9
+	 NgdXMoH7E/8o4XQkV+m3gm2aAN6k98AcIqm+5HmQYPKNGIMWPHmP4iggP9xaB3Tbnx
+	 2BfOeeVmk+VzMiUOb90LaxKcaSsPyEpjgxoZDxYuhOZvo+P3iZ+RujTKUT1A/dQ3gs
+	 O4pPH2vDFlGKw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: hwmon: pmbus: mps,mpq8785: add
+ #thermal-sensor-cells
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vincent Jardin" <vjardin@free.fr>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20260930-for-upstream-dt-mpq8785-thermal-sensor-cells-v1-1-6573c765eef8@free.fr>
+References: <20260930-for-upstream-dt-mpq8785-thermal-sensor-cells-v1-1-6573c765eef8@free.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 14:07:21 +0000
+Message-Id: <20260930140721.E066D1F0089D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 30 Sep 2026 20:02:21 +0700
-Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: incorrect #thermal-sensor-cells constraint for sing=
+le-sensor device
+--
 
-> Hi Wilken,
-> 
-> > Wouldn't it make more sense to add the "allwinner,sun20i-d1-hwspinlock" line to
-> > the driver in the sun6i_hwspinlock_ids struct, drop
-> > "allwinner,sun6i-a31-hwspinlock" here in the D1 device tree and update the yaml
-> > file accordingly?
-> 
-> Thanks for looking at it. Bjorn hasn't replied yet, so I looked a bit
-> more at the naming. I'd like to keep the A31 fallback: it's the usual
-> pattern, other blocks in this dtsi do the same (timer, I2S, LED
-> controller), and Conor already acked the binding in 2/3. If Bjorn
-> prefers a driver entry instead, I'm fine to change it.
+commit e3f74468edb24a9bcc5d029cc615555210a46a78
+Author: Vincent Jardin <vjardin@free.fr>
 
-Yeah, Conor was a bit quick to act here, such things happen often with patchsets
-made out of documentation/devicetrees and code. Though, the get clock and resets
-patch is fine. The driver could use some modernization.
+dt-bindings: hwmon: pmbus: mps,mpq8785: add #thermal-sensor-cells
 
-> > Oh, and I may be able to test it against the D1, I own a Sipeed Nezha.
-> 
-> That would be great. You don't need FreeRTOS for it: I tested with a
-> small Linux module that takes each lock and checks the status
-> register. I can clean it up for the single-core D1 and send it.
+This patch adds the #thermal-sensor-cells property to the mpq8785 binding
+schema to allow referencing the device as a thermal sensor. It sets the
+cell count to 1 to match the 1-based sensor index used internally by the
+PMBus core.
 
-Uhm, the Linux-only test doesn't work as a hwspinlock test, it misses the entire
-point of the primitive. A hwspinlock arbitrates between two independent agents,
-in this case, Linux running on the C906 core and FreeRTOS running on the HiFi
-DSP, both sharing the same memory bus and other hardware. If Linux is the only
-one who ever takes the locks, it is simultaneously writer and reader of the status
-register, so the test cannot fail even for a broken (or fake) implementation. That
-would basically test nothing at all, well, maybe it would be some kind of bring-up
-test, but overall quite useless.
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.ya=
+ml b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
+> --- a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
+[ ... ]
+> @@ -34,6 +34,9 @@ properties:
+>      maximum: 4095
+>      default: 706
+> =20
+> +  "#thermal-sensor-cells":
+> +    const: 1
 
-greetings,
-Wilken
+[Severity: Medium]
+Is it correct to set the cell count constraint to 1 for this hardware?
+
+The Devicetree specification generally mandates that single-sensor devices
+use a cell count of 0, as no index is needed to identify the sensor. By
+forcing this to 1, it appears we might be baking a Linux-specific driver
+quirk (the PMBus core's internal 1-based index) into the OS-agnostic
+hardware description ABI.
+
+Would it be better to map a Devicetree ID of 0 to the internal hwmon index 1
+within the driver code itself, rather than requiring device tree authors to
+pass a factually incorrect dummy index in their thermal-sensors phandle?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-for-upstre=
+am-dt-mpq8785-thermal-sensor-cells-v1-1-6573c765eef8@free.fr?part=3D1
