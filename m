@@ -1,118 +1,183 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE6B3B42E3;
-	Wed, 30 Sep 2026 05:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6BB27703;
+	Wed, 30 Sep 2026 05:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790745330; cv=none; b=JlB+4g+SZTjSG4bTWRh7/rEkzELDdKLIZiOr80J52R7WUNIkexnfH0HG5oj5WxNWImhHqTXkwNxqqDgGbNW5B1z8v/zOJaT3NVqUEO6FfeMaksvn5yWcYGUZItWc2lP5AoFCTji0fynxMHSufUeUW0MJWR4qRIedTRlnNeZRXYA=
+	t=1790745384; cv=none; b=f/Kp94eyQcI2wpN68ij3ZPTAiXb1+kMjWlCUxXXhugKNMujKR0enyL7qG690PxrxhHqunnWOaKnbOY1RitwtlvLIB4BDrBQCdEapmFKNG9DaNdDqI+xRDnFIXofmhbqlS4vq9wh1zPCA4n48C/hT+0pKU6rhhtXFzUjSSy98oIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790745330; c=relaxed/simple;
-	bh=yoY/AJV0SO32f/IabKPD/Sgz/CT21v76s8SGciVCT4k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=cLDvRdljUXKY4Y1JFKqmzaN0Zsd/s59fZcwTgFv97mY0HjkRpsgYiG345vfDIB0n5eN9I9QxpWrEeG1Z0p4ki3OUQNeahps7pwdcQHM0FIAbb3pSSa43TqvvlXOL+Q7HALc4R3Ry5aiXZ31peAD2bssYEnL8qkx6ObhQGTJIbK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Wed, 30 Sep
- 2026 13:15:01 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Wed, 30 Sep 2026 13:15:00 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-Date: Wed, 30 Sep 2026 13:15:07 +0800
-Subject: [PATCH v4 9/9] MAINTAINERS: Step down as Aspeed AST2500 EDAC
- driver maintainer
+	s=arc-20240116; t=1790745384; c=relaxed/simple;
+	bh=hK6mNxHdXq0DC8dDjQn8mHm021jJUPpmmg0SceYXu9E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IBTw4sKKbbAZ1J5TjiuU0iQQuyBNl3/sP31va4shyfNrHH73wEnpMe57r/b664qZ3cFzJvJ0/88Yparqh04qikj09MeXGNad73fnBQgYZwWUYumTZfiYseaZ/sotJVG7v5JaX1w1C7vk8uh1XHK4lwUcZGvoC/n07H6OthSKYp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BA22HlaA; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BA22HlaA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C68821F000FF;
+	Wed, 30 Sep 2026 05:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790745382;
+	bh=eQleIxJOBPv1KRFntodHoZ79/WxPDKFPhFZNfK7ap0o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BA22HlaA5E3F7+u4XMqXTPdWQH0WWR+QICpy7gO+ug23l98iIzIbURSbMIcF7itwc
+	 ackm2dnn0Mci2l8Q6i51HM/fc6BE6gbK95z+bwtmWoaUUc+mVzqwc0iKcQSInz1vWq
+	 opl50ikHBVAwSmIeY5NSOlYdN0qlOn+HVMy8O97Ihz2T3g7Cv4rTs2t1x8kNudWY6o
+	 cU1gzIuy5As8hHXxV4Xiw0iLbbsYnXk6aLDjqMG7M7QiX51JmOPTMNTSjJ/O1DoGjE
+	 RlX02A2YhKV2UJNSged+SRrPA+9Ja0fDNuRVo+GTfolHieJ1672L+0ZNOdqe21ij+8
+	 dVzUe/i4bUayw==
+Message-ID: <e4a07d79-199b-4998-ae2d-a9e8b91a228c@kernel.org>
+Date: Wed, 30 Sep 2026 07:16:15 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260930-edac-v4-9-c2e526f3ed79@aspeedtech.com>
-References: <20260930-edac-v4-0-c2e526f3ed79@aspeedtech.com>
-In-Reply-To: <20260930-edac-v4-0-c2e526f3ed79@aspeedtech.com>
-To: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
-	<linux-edac@vger.kernel.org>, Borislav Petkov <bp@suse.de>, Ryan Chen
-	<ryan_chen@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790745299; l=1860;
- i=ryan_chen@aspeedtech.com; s=20251126; h=from:subject:message-id;
- bh=0JAwcCSCddvZK+VJy0ySr5E6GGqKRb6s6URpXuDAV2s=;
- b=SRW3DY/LBt8IbrnG7P+7riWOpQaGuOT3/0PIom3r5pFRAH36Lisy/enbx/1uc4QeqgS2+fxuF
- VPnGrKlRwU9APVSN+LrUJdyuOv+cZpfndUasx6xHg26KZ5cHDL9CVtF
-X-Developer-Key: i=ryan_chen@aspeedtech.com; a=ed25519;
- pk=Xe73xY6tcnkuRjjbVAB/oU30KdB3FvG4nuJuILj7ZVc=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] phy: qcom: sgmii-eth: add Nord USXGMII support
+To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>
+References: <20260923-nord_ethernet_serdes-v1-0-f8ac1c487882@oss.qualcomm.com>
+ <CAFkd8hvoUi3dyff8w72pmRHce0XDNUepCsR=1gtimFMgA6gmBQ@mail.gmail.com>
+ <20260928-steel-hornet-of-kindness-aa5e2f@quoll>
+ <CAFkd8hs6H-WT6C2Nzns2jB1yHq1CfODijAX1VbMxUUAe7zH6Rg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFkd8hs6H-WT6C2Nzns2jB1yHq1CfODijAX1VbMxUUAe7zH6Rg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Stefan M Schaeckeler <sschaeck@cisco.com>
+On 29/09/2026 12:49, Zhangfei Gao wrote:
+> Hi, Krzysztof
+> 
+> On Mon, Sep 28, 2026 at 6:19 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On Wed, Sep 23, 2026 at 04:58:03PM +0800, Zhangfei Gao wrote:
+>>> On Wed, Sep 23, 2026 at 8:04 AM Mohd Ayaan Anwar
+>>> <mohd.anwar@oss.qualcomm.com> wrote:
+>>>>
+>>>> This series adds support for the Ethernet SerDes found on the Qualcomm
+>>>> Nord SoC.
+>>>>
+>>>> Nord uses a QMP v7 SerDes block, which is an updated version of the
+>>>> SGMII SerDes PHY IP already handled by phy-qcom-sgmii-eth. The driver
+>>>> currently supports the 1.25 Gbaud and 3.125 Gbaud configurations used by
+>>>> SGMII, 1000BASE-X and 2500BASE-X. Nord additionally requires the SerDes
+>>>> to operate at 10.3125 Gbaud for its 10 Gigabit Ethernet interfaces.
+>>>>
+>>>> The series can be broadly divided into three parts:
+>>>>
+>>>>   1. Add the qcom,nord-dwmac-sgmii-phy compatible to the binding.
+>>>>   2. Prepare the driver for PHY modes which require different SerDes
+>>>>      programming and readiness checks. Existing SA8775P behaviour is
+>>>>      unchanged.
+>>>>   3. Add the QMP v7 register definitions, 10.3125 Gbaud programming
+>>>>      sequence and readiness checks required for USXGMII and 10GBASE-R.
+>>>>
+>>>> The changes have been tested on the Nord Ride SX platform, which has a
+>>>> MV-Q6223 switch, running in fixed link USXGMII 10G mode.
+>>>>
+>>>> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+>>>> ---
+>>>> Mohd Ayaan Anwar (3):
+>>>>       dt-bindings: phy: qcom,sa8775p-dwmac-sgmii-phy: add Nord compatible
+>>>>       phy: qcom: sgmii-eth: prepare for additional PHY modes
+>>>>       phy: qcom: sgmii-eth: add Nord USXGMII support
+>>>>
+>>>>  .../bindings/phy/qcom,sa8775p-dwmac-sgmii-phy.yaml |   1 +
+>>>>  drivers/phy/qualcomm/phy-qcom-qmp-pcs-sgmii.h      |   5 +
+>>>>  drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-v7.h |   2 +
+>>>>  .../phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v7.h    |   9 +
+>>>>  drivers/phy/qualcomm/phy-qcom-sgmii-eth.c          | 226 ++++++++++++++++++---
+>>>>  5 files changed, 219 insertions(+), 24 deletions(-)
+>>>> ---
+>>>> base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
+>>>> change-id: 20260923-nord_ethernet_serdes-c486f715f383
+>>>>
+>>>> Best regards,
+>>>> --
+>>>> Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+>>>>
+>>>
+>>> Good Job，
+>>>
+>>> Tested-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+>>
+>> This has to stop.
+>>
+>> Why again adding fake testing to the bindings? You cannot reply twice?
+> Reply twice since I thought they are two different patch set, one is phy,
 
-I am stepping down as a maintainer for drivers/edac/aspeed_edac.c and
-Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
+You don't even try to understand the problem.
 
-Move my entry from the MAINTAINERS file to CREDITS to reflect my past
-contributions.
+> the other is net, while net maintainer said that is too ealry for rfc.
+> 
+> The tested branch is
+> https://github.com/zhangfei-gao/kernel-topics/tree/next-9.23 ( and
+> 9.24-eth), and may keep testing for each cycle.
+> contianing dts, phy, net and all required patchset, assuming one
+> integrated branch will be easier for interal track.
+> The dts will be send later.
+> Testing hardware is ride and rrd.
+> 
 
-[ ryan: keep the EDAC-AST2500 entry and list myself as its reviewer
-  rather than removing it ]
+Explain HOW did you test the bindings in terms of Linux kernel testing.
 
-Signed-off-by: Stefan M Schaeckeler <sschaeck@cisco.com>
-Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
-Link: https://lore.kernel.org/r/20260920225846.4039017-1-sschaeck@cisco.com
+Then explain WHY you cannot give the tag only to appropriate places,
+instead of blanket one.
 
----
-Changes in v4:
-- Merge Stefan's step-down patch into this one, keeping the MAINTAINERS
-  entry alive with a reviewer instead of removing it.
 
-Changes in v3:
-- New patch.
----
- CREDITS     | 8 ++++++++
- MAINTAINERS | 2 +-
- 2 files changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/CREDITS b/CREDITS
-index 091412875a66..28e5b274bc28 100644
---- a/CREDITS
-+++ b/CREDITS
-@@ -3655,6 +3655,14 @@ D: I2O kernel layer (config, block, core, pci, net). I2O disk support for LILO
- D: XScale (IOP, IXP) porting and other random ARM bits
- S: Portland, OR
- 
-+N: Stefan Schaeckeler
-+E: sschaeck@cisco.com
-+E: schaecsn@gmx.net
-+D: Author and initial maintainer of the Aspeed AST2500 EDAC driver
-+S: 2253 Anna Dr.
-+S: Santa Clara, CA 95050
-+S: USA
-+
- N: Eric Schenk
- E: Eric.Schenk@dna.lth.se
- D: Random kernel debugging.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index d413dac5c8b3..2001466fd6da 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9283,7 +9283,7 @@ F:	Documentation/devicetree/bindings/memory-controllers/marvell,mvebu-sdram-cont
- F:	drivers/edac/armada_xp_*
- 
- EDAC-AST2500
--M:	Stefan Schaeckeler <sschaeck@cisco.com>
-+R:	Ryan Chen <ryan_chen@aspeedtech.com>
- S:	Supported
- F:	Documentation/devicetree/bindings/edac/aspeed,ast2400-sdram-edac.yaml
- F:	drivers/edac/aspeed_edac.c
-
--- 
-2.34.1
-
+Best regards,
+Krzysztof
