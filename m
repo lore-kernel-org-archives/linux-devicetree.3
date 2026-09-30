@@ -1,301 +1,217 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013022.outbound.protection.outlook.com [52.101.72.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED7F54705C;
-	Wed, 30 Sep 2026 19:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790796665; cv=fail; b=hmPgXdDKnytPPAGgfY0uLzZwaQVxTTBFgxF9e0Pi3i6DO/HcxCF8FIrgGGKifMSS33OqCI5dTJchgo4R9c5QTLCt0/wedYiwDEdHAZaGGkkz0ugNbCBX0VxwqJXtXOA628ZnoYDbLE7MHT5E1pc1Pkx3uWm+KJMfY/v9iRH8WGE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790796665; c=relaxed/simple;
-	bh=MI7I6Z4u3T1GW7/LQwGRddp5xV93Z7qnRaWBuv2H9uI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Q1kpCr38iafyQie03Sw/gRv+FBKRjT3CZYvAHCc74UDV7oUlFvUGKo/wFONhd2yuHWM11TNYrCkHUBXGb3/WcAe5MtCaFTgsXKbv7OJSdTtYAoGALbUINBVIYu62IWjCxvBWA9yV5W+sjKjMpixQNuhYG6pfUsQ7uVqPTaTcbUQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=qHlz4Y64; arc=fail smtp.client-ip=52.101.72.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B32A509EF1
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:39:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790797179; cv=none; b=jZ1SotCspCMtZguY3LYFkt4rq27juVN0zIp84MDQVt3ZDpHcXxDosV6nisAfeUQd/lpyYK2I91f/RK+N3Ks03GHien4fwpRS65XuRDGaR90Lydhj68up5d772l/QzpJJ24S9tdqNgIjreIB8Puyj+rFYgOY3xSt/3rbq5QXtkHc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790797179; c=relaxed/simple;
+	bh=NYT/h8Qc+9GQnlKzSITUYD78AcEXwG2aqbxwXcG/L+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O0BD5czlAfj3EyJLVjY01WNhBqd8SjLXGO1ANhtFGnM7qLwMpsZlv0wVvPeGko+xoi2K/0AJApFVSDzR18fyYugKNCwL5b2cCCF4hiIwuqRbTOm7aQwMj7xElj0/gskl0hOF3j3N8PP8sucmtWzEJbmRDV66rMeh+e/mSr0Gn/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V3sZzIb/; arc=none smtp.client-ip=209.85.217.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qHlz4Y64"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B1bIcN57ubhHosfZ//AHDvpzYtWHWJVAcafAbHOUI/MlX99prMQ80mQWEgZZ4DMAxGhylsyAWJOu0VLVPIm6fJ4SqJ3kCEqzGTyhModXZhlvk6bQuAIRGHkMFSwqKYj4yYamSxbNroFCh4G1wct3J0dnRsaGbhyYrn+4uxSZ/ftcKQnV/S4XQWPeTsj/HKfJWkR8UOb9Tc7YjBRb9Y2iqYIheO5UT2SnjcO0bIUwNpa5wpckxn1e0QujxXO+hyVHmiAu2/YWDReHnXdFdLqUnBa1bfX4D8rP4bYUx/T4TAdB4PdpII0I20NQUrwERjLZ5HEkVDbQiV5AtZicvVYdxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tq4NggqPawD9VL2gWYyi/f0nDcMiKba6/j4vAP+sCS4=;
- b=wfIQnjsf1H/uP5QpN/1zVOUGoJdfc4DMyGEIyL3gdakdh7Uj1/6SnNyY2yLkEnZF3Bb+TY85/WuDbMGNwiRAB6jPDBS4Ijgby01240lXYpjOpSZx5/9UBrQRMcesIj5ETIn8fEr/mXf8cDYpEEnqDCqZYpQutfzpd4UERVxzKHRrTTxDwdjft+jiOBTXJDtqnSt8G5EJr/DQvHDeZyHw3z0Z29QgirhE4C7+06pZLq+f30tqWuBuEQ+WG+3IToRvHAgnB2EfmoTxv2WcSN4oe5J3I4A6YReTxDgv9WyZnPcql01raScaPJohcOEeZ62EAviRfEhuDgrVVsWGFxE8UA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tq4NggqPawD9VL2gWYyi/f0nDcMiKba6/j4vAP+sCS4=;
- b=qHlz4Y64tdQJqyXeEPd9Au53u52etZJvvk7xRBqG/vXBww/fk711p9xbIjlA1RTXb2T9+IuhvENqfti1Q2XvUN6VOv1Kuwzqc4xG+Co8V9BlsdCF6agDD+VJSvRTzxNp8IVxi+4daiDXBPo3A2HZ4kObrKHxHrsvp2jyNZITvk8OQV8aliYEeScDfPsOuP2mAQ9ss0eL23COkwK/42lGwFWZsevvnWI+vrA2PtlKCHqieiJz8TNEbYQ/aiFkHmwI53gjWHfymRTLvVN2mNOxJvSsweW7xkTU7Md+IAe4DvjyHBdvB8qFBvekcN19+Z5mvNt7lql4CQcbegEqnzPncw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI2PR04MB10288.eurprd04.prod.outlook.com (2603:10a6:800:220::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Wed, 30 Sep
- 2026 19:30:57 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Wed, 30 Sep 2026
- 19:30:57 +0000
-Date: Wed, 30 Sep 2026 15:30:50 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Wei Xu <xuwei5@hisilicon.com>,
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: dma: Convert hisilicon,k3-dma-1.0 to DT
- schema
-Message-ID: <ar1jarw-WgVlq2_G@lizhi-Precision-Tower-5810>
-References: <20260928124448.3754740-1-robh@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928124448.3754740-1-robh@kernel.org>
-X-ClientProxiedBy: CY5PR15CA0166.namprd15.prod.outlook.com
- (2603:10b6:930:81::14) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V3sZzIb/"
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7b1e67fcd84so85931137.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 12:39:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790797176; x=1791401976; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Lkg30YzbMRtZmB6sxeYNBijNjDlXFAz/0Hn5HVfkijw=;
+        b=V3sZzIb/QgP3No6FSpHxKZ+FV89gx21BF8+DJaoHjCboJ+smn9LjO2aFq5ANLGZ6OY
+         vU93wQpk3X41utMP0QOjssUZ6rpEH0uhYowvpqOzjB+lRcB7y9/o+4aYjAy1jMFFst07
+         zZJErUBV8nbdgTXv9NgFHAwvexv1I9I2O1AxDw91QjM8IT/yLsESKgcd/i3FIXXpEHcg
+         E5C9BLYBx7mdTfMAEdPblS/rEnI0pLhksCJn7cOryr3Gy/rlB4A6rTmmfy7lIAVTIeTg
+         snML/9Z/9SoNH4qzP4edgFnWwUlMlF3K4R7arRU6J3lDbOSX9JxWBuN+3kaMeYWOa9eu
+         XYhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790797176; x=1791401976;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lkg30YzbMRtZmB6sxeYNBijNjDlXFAz/0Hn5HVfkijw=;
+        b=2VcfRpHrWPgrdc7OK2BAQo0QKPWOqlSpk1sisrAKHTTaBpct8YxtDW4DrU6g3ddFcy
+         Uv8P4EqyEr9wlpteMvBT6Jh97DijToaQtsvRvlG0110tFHJRjQzOr1t/zVS333V7i7tf
+         gzrIBZPe6U8k/V7m0yPME3ngXa0nWkG2RJsrxaAMDsW6bsY82FEF/cin8E59dY5IpnmK
+         9X/fccF8kmOd5eG3K9Rq4WML1MLPUlopnfNUx6jxvC3HPmUbYJqQdFTE602GMOAjM8sL
+         rvwxnaWNMhPEYCxlkaJWPIGkRfbLsDOsfJEn88uYIqihn/fMn4oa01YKYbNg2tZf3Cah
+         ElMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzX5YLDdAUaltWy2M3Dl0Ux84kpsC9jGuxNEMaDi/Y4vzoooWc60xK4t5AzcHwGlU5UahR+EdvsGeVz@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwtCT4pVw2o4+PwN57ZVQUJzFESsA5wcqbE2TX0gix/wx0rjMV
+	+Z8f8kSIsiJzDiU9msAWKcSVKqwQD1A9ugdPkzEbrJdgVLI5WaMFKQIc
+X-Gm-Gg: AYBFou2xUIfNVucjJxDbdfVZHH0CiEvIjApGcqhoI0YYw4UtOFPTxRLh/GyrdQUBjWg
+	60sKEReRctDR7DxGpFeGK2xpQTgihbJCDfX+bHoj1JeuYVe7Xjo+AWCQagCtbFAUgSuLsknRwH8
+	eQw1FtLL44JCGJotODOSRKGTl7hh5zh5r/Xq7fWIWygqoWUTU61VAjtb5bE6Cmf3wlQHRWLNcpW
+	icy2zEFFyMMN/X/GzqmZ3TCLKvSjk2qLGAaAYwF1OCOFUlMjk/kr8VyEp/nV2GmsABNCrSb7ZLf
+	koZ6WmVdlkofY5l1D1CF9rUdOxN4ty5qHQgMdS5ulGpTiVQUz2wwFpt7LDN8fQ3aMVw5Eu6jp6M
+	Cp+/uysCySFL1lKUgFagZWU1+Izry+4xSb3p9T8dgHCHe1+kj0zq8jrYkb22JIQ0kVR/Y84CUZD
+	wc7BXUs/IVMEEHsF2wWFo0jxib20t7ACOOUxcUtY37AbZYKAzDSfKQ5oIkGOc6A9lXi+2xQZNW1
+	09i
+X-Received: by 2002:a05:6102:5802:b0:7b4:6720:f954 with SMTP id ada2fe7eead31-7bf8355674fmr239816137.11.1790797175805;
+        Wed, 30 Sep 2026 12:39:35 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98a86e99290sm976242241.1.2026.09.30.12.39.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 12:39:35 -0700 (PDT)
+Date: Wed, 30 Sep 2026 16:39:47 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, marcelo.schmitt1@gmail.com
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, robh@kernel.org,
+	devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v3 10/13] iio: adc: ad4134: Support SPI 4-wire mode
+Message-ID: <ar1lg7PMwP_RdzzO@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1790719424.git.marcelo.schmitt@analog.com>
+ <c066072441fdba492c18c71d5332d84224379410.1790719425.git.marcelo.schmitt@analog.com>
+ <20260929230830.A8F3A1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB10288:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6eaac759-3319-4aea-b045-08df1f2959c0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|19092799006|366016|1800799024|11063799006|56012099006|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	AstdYg9BVhqBTlAH/u9zV6TI00jhFodhMsGFKnO+g5+AZQJvgfmZnS2XLdZH4MS50pgDwR2WH64XsiAJph24zuYNYREsBYM2DJxFpDGhc2cEYiYvo6gCmvO6hOnBgwQBBLMfTj0kUazmTdDZ3CJMOG4aIcgLDkVWYQJ3lvzUOaCePcexKNOqA+5YEZPdsVJv43orZzXk15rUY7Brv2z23fBl9TgCOKRAYXJbCeiDw+lT/DWc7vsNoPd3ARgaAoQ44eM6L+HvNTBBWWdIpOuCYQFVC8T4dBAhMGYHrQgs7c5PDH9VxRMpT4l2+h/61vtYF9uWfCTMd4IwQiKz1JsQ3k+YjkRsQ7Qni+gGNnpfSpAZLWVvsW27YOdzExByIWRbKs2ESq458sx/KbNINfbZJiL64ZdDAwbt7vuK5j2v0AHqCkSt8z3iVra55ktdevHwo4MIvkpvcY3pCivPMY15ciPFuOr8aG4//PxhrnIPQ80K2Q99q3ymVCZWQdmFzEUwSZkD8pCOhbiKAu1oHdn3nPbh5wE3pNnBPgE4yh2pfId53mxHIgmtRBSeaABMNay/n+iu4C3qBuWiUx2OkdIfBSormx0mFU4qR9R8WoKdCA5/9OUfOfm0SJbGYnlE+cR5
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(19092799006)(366016)(1800799024)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?y17kwWkWhD6/qcS7NIa9A4A16nrWFdlletduSP0UlPh9TDFHii3fKM27bEFw?=
- =?us-ascii?Q?YBlh6Bwck+o0SxMWZdmC8Q/E4PmRRuM0+snwKRCvkU5aAUox+t2CEwNDUB8Y?=
- =?us-ascii?Q?V2RtEmcgeaBws9yzglNAbmAzUmkyL2ptjEyjruJ+ygEUhTQ58JtMaCUPvQNS?=
- =?us-ascii?Q?KI6c5Ca+x9zLeAjhL5B3zdxAbi/3Ol4omNyHEKCFa9AKC6uUCmV1LDtkykRm?=
- =?us-ascii?Q?odU+WNDY1cFcOpCWNOPhhR0e673+UaZYUHkh69JzX5iSzsihErKq3Bgj9Oq2?=
- =?us-ascii?Q?o555ZCQf7kLfvZaPhrJVGelJpOvmMEr9CCXEDkJfOj3txVJRz2yxmrr+V6bX?=
- =?us-ascii?Q?gKnOk+rFsiXoM+IX+sILSMwSM5YJhOA++e+9whVxF2usI4+1O2fX3xP5FnMf?=
- =?us-ascii?Q?skIs2BGW3FOz2RtHR41UGzjiQqDZqkD9eafaKSmPdVrri/SkWvaIHnaxmVmO?=
- =?us-ascii?Q?9cZqFS5rXLw8zYvV/RH38yMp1K2tVUuW6QcWEK6Mxw5w1WX7Zc1H1+OdQzZ9?=
- =?us-ascii?Q?mNW8OOG+6l3i6u6psd4W/X8AVlhy3i8k6NCYRHpxrMXYUF8Yy63pC0r14QD+?=
- =?us-ascii?Q?pUOpGMJvQpt7eKlpOgRfLmOZcofLW1aKiRifDvPszRhDSvrZatCWb+oe2a3F?=
- =?us-ascii?Q?qUlge7zIa+FI+H2sBUcp0FkhXBqWjeLW7L9uGpXkPSEtXvN9+CNKOgOLjCP4?=
- =?us-ascii?Q?yzkrdCAk2zHvJlOR2QTE99AkeCs5spDJ/XTbAFN4yQbsf5XwEbXjsdks05oc?=
- =?us-ascii?Q?+dAtZF2TbbKNUELvGin31tudQEh1DSAov85hQY3R2mmP6zNLE3BGrKibi6fk?=
- =?us-ascii?Q?KK1dXxTB4DCS0MJsLIQMyq7rbJFKWhW6Cy3O4RdBK/YVxUW6huBNLgSR8QVj?=
- =?us-ascii?Q?Ccniath+oMGVk5iz7LiU4DGMEYAgW7nQomu4bc6qs6QW6Shx3DoQb4qEBXW/?=
- =?us-ascii?Q?+eUn5B92ESJXV7gizmE4UFDSWtWcBg2TE5wtcB6azVFjscZzaT3hbUSTOWLn?=
- =?us-ascii?Q?R1OIvalqJwvMVKfwNps2K0PSyv1ZDaVMk9WfgDA5Vbt+t8iMp5i5MdXU9Onj?=
- =?us-ascii?Q?Divrd+N++wjjrn9ac69cIUZWpljhChmCx09awkSsYg8BN1QmePoZaXg2c66K?=
- =?us-ascii?Q?s4GP+s2Xlb17zh9CbZH2JpdatKUyMCFng6l9UPcwG4OfFx8GiR+/uwHVIDfN?=
- =?us-ascii?Q?a5e724HesBP1cJmm3S3QC4oxrAGxKILaMC/c42j7BeKK7JjzbK4XDcu3lt7u?=
- =?us-ascii?Q?NSo+CDkpA18RTxTnOVTHWMwY5vAZzO7IneX6eUwc7kG+rtj6CFS0kz1YhROu?=
- =?us-ascii?Q?p3wwh4lBWW5Fr2grnqmi6zfAVNawwUc+8ggD2MlUyHy3jjifcHTiQhRazdj0?=
- =?us-ascii?Q?2ThbCGBbU7/mP2TvyMB7XUcpccMce5wlhnX8kYzI2bmsCI96X4upBJe9E8g+?=
- =?us-ascii?Q?08vyDhfqz0p9SutojYMroT7eFfqsSQ0r0LWjhQBEfyzb9+RwsbOL8xszEF6D?=
- =?us-ascii?Q?TXRyGThcWtq4p10eTWTSEB0ZpAva1nEE5+EtOdJPuUSgmU3m8606nhnGqD3a?=
- =?us-ascii?Q?pKlTNVefGDT5qvYO4ToSTXEEU336xgGz6qoiXICbzk1KYw6BIb1kS4uuEBdg?=
- =?us-ascii?Q?L2+aqb/2pA2I0KsY9/PPBewyxGn9gAnVm7v6iz7W2FdkicoBZtuFIHpkVlDZ?=
- =?us-ascii?Q?2US095OH8i9NUIbeVk+LFifSvKc/rrew2Vsgpkwk7WFACxYTAaSjW0+buNPJ?=
- =?us-ascii?Q?oED88mEXw/xEtUo8roBoAWbNpozmx2S3I+6V76JhY5Qcb6UB/sEx?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6eaac759-3319-4aea-b045-08df1f2959c0
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Sep 2026 19:30:57.2108
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +FfE24JH0z3XpU8sgtxgvr6md6P02PSUQeld40Lrhfz6kO7yctLENj5HgI1XM6G+PBJx/gqAgHz4iLh6BFAHHNJuxLDA2ZxxEOGJIFFZyrLUK4tROxuuSB4fJ/bpoPnH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10288
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929230830.A8F3A1F000FF@smtp.kernel.org>
 
-On Mon, Sep 28, 2026 at 07:44:46AM -0500, Rob Herring (Arm) wrote:
-> Convert the hisilicon,k3-dma-1.0 binding to DT schema format.
->
-> Add dma-channel-mask, dma-no-cci, dma-type and interrupt-names
-> properties which were not documented.
->
-> The "hisilicon,hisi-pcm-asp-dma-1.0" doesn't have clocks, so make it
-> optional.
->
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> v2:
->  - Fix example node name to 'dma-controller'
-> ---
->  .../bindings/dma/hisilicon,k3-dma-1.0.yaml    | 87 +++++++++++++++++++
->  .../devicetree/bindings/dma/k3dma.txt         | 47 ----------
->  2 files changed, 87 insertions(+), 47 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
->  delete mode 100644 Documentation/devicetree/bindings/dma/k3dma.txt
->
-> diff --git a/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml b/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
-> new file mode 100644
-> index 000000000000..e60f2a572272
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dma/hisilicon,k3-dma-1.0.yaml
-> @@ -0,0 +1,87 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/dma/hisilicon,k3-dma-1.0.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Hisilicon K3 DMA controller
-> +
-> +maintainers:
-> +  - Wei Xu <xuwei5@hisilicon.com>
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - hisilicon,k3-dma-1.0
-> +          - hisilicon,hisi-pcm-asp-dma-1.0
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  '#dma-cells':
-> +    const: 1
-> +
-> +  dma-channels:
-> +    description: Number of physical DMA channels supported.
-> +    maximum: 32
-> +
-> +  dma-requests:
-> +    description: Number of virtual DMA request lines supported.
-> +    maximum: 32
-> +
-> +  dma-channel-mask:
-> +    description: Bitmask of usable DMA channels.
-> +
-> +  dma-no-cci:
-> +    type: boolean
-> +    description: DMA is not coherent with the CCI.
-> +
-> +  dma-type:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: SoC-specific DMA type name.
-> +    enum:
-> +      - hi3660_dma
-> +      - hi6220_dma
-> +
-> +  interrupt-names:
-> +    maxItems: 1
+On 09/29, sashiko-bot@kernel.org wrote:
+...
+> > +/*
+> > + * When operating in modes other than minimum I/O mode, AD4134 register data on
+> > + * the SDO line is sampled on SCLK rising edge (SPI mode 0). In addition to
+> > + * that, when AD4134 SDO and DOUT0 pins are multiplexed by hardware OUTSIDE
+> > + * AD4134 SILICON, the multiplexer state must be set to route SDO to the SPI
+> > + * controller. With both SPI mode and multiplexer state properly set, register
+> > + * access runs as usual. Still, to prevent concurrent hardware interface
+> > + * configurations, callers must hold the access_lock. Finally, successful calls
+> > + * to this function must be balanced with calls to ad4134_release_reg_access()
+> > + * so to release the mux state lock. See AD4134 IIO documentation for details.
+> > + */
+> > +static int ad4134_claim_reg_access(struct ad4134_state *st) __must_hold(&st->access_lock)
+> > +{
+> > +	unsigned int cur_mode = st->spi->mode & SPI_MODE_X_MASK;
+> > +	int ret;
+> > +
+> > +	if (st->spi_mode != AD4134_SPI_MODE_NO_CS && cur_mode != SPI_MODE_0) {
+> > +		st->spi->mode &= ~SPI_MODE_X_MASK;
+> > +		st->spi->mode |= SPI_MODE_0;
+> > +		ret = spi_setup(st->spi);
+> > +		if (ret)
+> > +			return ret;
+> 
+> [Severity: Medium]
+> If spi_setup() fails, the local spi->mode keeps the SPI_MODE_0 value but the
+> hardware isn't updated.  On the next call, cur_mode will match SPI_MODE_0,
+> skipping spi_setup().  Could this leave the device permanently desynchronized
+> from the controller?
+> 
+If spi_setup() fails it will be tried again on the next register or sample read.
+So, the device would be desynchronized only when not being used.
 
-It'd better move interrupt-names after interrupts property.
+...
+> >  	/*
+> >  	 * To be able to read data from all 4 channels through a single line, we
+> > @@ -284,7 +401,7 @@ static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
+> >  		ret = spi_write_then_read(st->spi, NULL, 0, st->rx_buf,
+> >  					  BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS));
+> 
+> [Severity: High]
+> Since ad4134_min_io_mode_setup() is not called in 4-wire mode,
+> AD4134_DATA_FORMAT_SINGLE_CH_MODE is never set. Doesn't this mean
+> ad4134_data_read() blindly assumes the data is serialized on DOUT0 when it
+> isn't? Could this result in reading Channel 0 data four times instead of the
+> other channels?
 
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - '#dma-cells'
-> +  - dma-channels
-> +  - dma-requests
-> +
-> +allOf:
-> +  - $ref: dma-controller.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: hisilicon,k3-dma-1.0
-> +    then:
-> +      required:
-> +        - clocks
-> +
-> +additionalProperties: false
+The default on device reset is to output data from all four channels serialized
+through DOUT0. Anyways, will make the configuration explicit in case the device
+is not reset.
 
-there are $ref, should be unevaluatedProperties?
+> > +static int ad4134_buffer_predisable(struct iio_dev *indio_dev)
+> > +{
+> > +	struct ad4134_state *st = iio_priv(indio_dev);
+> > +	int ret;
+> > +
+> > +	ret = ad4134_release_sample_access(st);
+> > +
+> > +	mutex_unlock(&st->access_lock);
+> 
+> [Severity: High]
+> Is it intentional to hold st->access_lock across system calls here? Returning
+> to user space with the mutex held violates lock ownership semantics and can
+> trigger lockdep splats. Furthermore, could this deadlock any subsequent sysfs
+> regmap accesses while the buffer is enabled?
 
-Frank
+I'm not sure about this one. The intent is to prevent sysfs regmap access while
+the buffer is enabled. IIO direct/buffer mode locking should provide that, no?
+The rationale for the two mutexes is for access_lock to avoid concurrent updates
+to the external multiplexer and for sync_lock to protect read/modify/write
+sequences. Maybe IIO direct/buffer mode locking + sync_lock is enough?
 
-> +
-> +examples:
-> +  - |
-> +    dma-controller@fcd02000 {
-> +        compatible = "hisilicon,k3-dma-1.0";
-> +        reg = <0xfcd02000 0x1000>;
-> +        #dma-cells = <1>;
-> +        dma-channels = <16>;
-> +        dma-requests = <27>;
-> +        interrupts = <0 12 4>;
-> +        clocks = <&pclk>;
-> +    };
-> diff --git a/Documentation/devicetree/bindings/dma/k3dma.txt b/Documentation/devicetree/bindings/dma/k3dma.txt
-> deleted file mode 100644
-> index 10a2f15b08a3..000000000000
-> --- a/Documentation/devicetree/bindings/dma/k3dma.txt
-> +++ /dev/null
-> @@ -1,47 +0,0 @@
-> -* Hisilicon K3 DMA controller
-> -
-> -See dma.txt first
-> -
-> -Required properties:
-> -- compatible: Must be one of
-> --              "hisilicon,k3-dma-1.0"
-> --              "hisilicon,hisi-pcm-asp-dma-1.0"
-> -- reg: Should contain DMA registers location and length.
-> -- interrupts: Should contain one interrupt shared by all channel
-> -- #dma-cells: see dma.txt, should be 1, para number
-> -- dma-channels: physical channels supported
-> -- dma-requests: virtual channels supported, each virtual channel
-> -		have specific request line
-> -- clocks: clock required
-> -
-> -Example:
-> -
-> -Controller:
-> -		dma0: dma@fcd02000 {
-> -			compatible = "hisilicon,k3-dma-1.0";
-> -			reg = <0xfcd02000 0x1000>;
-> -			#dma-cells = <1>;
-> -			dma-channels = <16>;
-> -			dma-requests = <27>;
-> -			interrupts = <0 12 4>;
-> -			clocks = <&pclk>;
-> -		};
-> -
-> -Client:
-> -Use specific request line passing from dmax
-> -For example, i2c0 read channel request line is 18, while write channel use 19
-> -
-> -		i2c0: i2c@fcb08000 {
-> -			compatible = "snps,designware-i2c";
-> -			dmas =	<&dma0 18          /* read channel */
-> -				 &dma0 19>;        /* write channel */
-> -			dma-names = "rx", "tx";
-> -		};
-> -
-> -		i2c1: i2c@fcb09000 {
-> -			compatible = "snps,designware-i2c";
-> -			dmas =	<&dma0 20          /* read channel */
-> -				 &dma0 21>;        /* write channel */
-> -			dma-names = "rx", "tx";
-> -		};
-> -
-> --
-> 2.53.0
->
+> 
+> > +
+> > +	return ret;
+> > +}
+> [ ... ]
+> > @@ -588,15 +768,69 @@ static int ad4134_probe(struct spi_device *spi)
+> >  	if (ret)
+> >  		return ret;
+> >  
+> > +	ret = devm_mutex_init(dev, &st->access_lock);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	ad4134_regmap_config.lock_arg = st;
+> >  	st->regmap = devm_regmap_init(dev, NULL, st, &ad4134_regmap_config);
+> 
+> [Severity: Medium]
+> Is it safe to modify the global ad4134_regmap_config structure during probe?
+> If multiple devices probe concurrently, could this cause a data race where one
+> device's lock_arg overwrites another's before devm_regmap_init() copies it?
+> 
+Not sure. Should it lock on a mutex before editing the regmap_config. Maybe
+I get rid of access_lock and make regmap_config const again.
+
+
+> [Severity: High]
+> In 4-wire mode, ad4134_min_io_mode_setup() is bypassed. Since st->odr_gpio is
+> only retrieved inside ad4134_min_io_mode_setup(), won't it remain
+> uninitialized (NULL)? Will this cause all software triggers using
+> gpiod_set_value_cansleep(st->odr_gpio, ...) to silently fail in 4-wire mode?
+
+Okay, that seems to be an issue. Will make the device request the GPIO if
+offload/PWM is not available.
+
+> 
+> > +		/*
+> > +		 * This controls a multiplexer OUTSIDE OF AD4134 SILICON.
+> > +		 * See AD4134 IIO documentation for details.
+> > +		 */
+> > +		st->mux_st[AD4134_SDO_INPUT] = devm_mux_state_get(dev, "reg_access");
+> > +		if (IS_ERR(st->mux_st[AD4134_SDO_INPUT]))
+> > +			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_SDO_INPUT]),
+> > +					     "failed to get reg_access mux-state\n");
+> > +
+> > +		st->mux_st[AD4134_DOUT0_INPUT] = devm_mux_state_get(dev, "data_read");
+> > +		if (IS_ERR(st->mux_st[AD4134_DOUT0_INPUT]))
+> > +			return dev_err_probe(dev, PTR_ERR(st->mux_st[AD4134_DOUT0_INPUT]),
+> > +					     "failed to get data_read mux-state\n");
+> > +
+> > +		indio_dev->setup_ops = &ad4134_buffer_setup_ops;
+> > +	}
+> 
+> [Severity: High]
+> Since setup_ops is only assigned for 4-wire mode, won't NO_CS mode bypass
+> ad4134_buffer_postenable() entirely?  If so, doesn't that mean
+> ad4134_trigger_handler() uses st->rx_buf without holding st->access_lock,
+> creating a data race with concurrent sysfs regmap accesses?
+> 
+NO_CS/minimum I/O mode doesn't need to constantly switch the external
+multiplexer and can leave that in reg_access state. Also, since minimum I/O
+always operate in SPI mode 0, nothing that access_lock protects is really used.
