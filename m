@@ -1,145 +1,340 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5442E5158B9
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 16:45:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790786746; cv=pass; b=ebYpyzW6Vo77vqOEFRYk9UZpwna6A8SvFFgZXJSe9r7rq1Lrvj2H9qBpHZ8XmQsFQa7/uPF/44jdElPcZn8m6zcYa4PG1BRZcKIRpIMpF+y1xctOGr2gzVPo5Up0GAuCvM5RWO4AXY6Ow00MRV8QOngAfXqeLqKrbbzMDPY/ASc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790786746; c=relaxed/simple;
-	bh=bhyLwLX3Cbs39RNIdfvjdkMauqLBTv5+SoflpxyeT3g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Mw0wMeNAyxcRCtB58bNA+GI2NaHJdWYU4Ng8HvF198wT2Ih/aGxVm8oTJPrI4lpAyyPhYSGndbFmg+VIIlWn3sZzYgcQ1nRtdPvbrWVMRzVKEzXmDohpW7eVIXTLA4RDlbEn1CdOx2RwcnCvsqFubD3Aokz3ZCeJyfFhN3T4/rY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=knt9JlSv; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17999515964;
+	Wed, 30 Sep 2026 16:47:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790786840; cv=none; b=GJ/ususOGi1a6uKk4brQ+4rKANcBQt3Baxzx2WHef7PJGPDMUpD0DSOIHzdYLVgtDc0EI+VH4VHGw4qE1WXqwMfJ/7vQ+8kKsI6pnPfvfyoPDTrYKI0GtGsqDNCkhPBpl0peWKUNBpT9Q8WgPey/7xy7jsH+PRc1Fk4Hkw9AOAg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790786840; c=relaxed/simple;
+	bh=mkW6/8LCc/Izgi2Dw5pCkU6CNJhvmnNMLYgJp8vBy/E=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lvz3ZOXw6JidrcK81ZO5soIGbNR2gNQx/EGYaX0IwzBmVJSK1h4+blFJyVcipKP2qNX4cNUTrRJ4FA8AvJ5GWGNA+aGMBtBaGRijNKOa3h1tDqsr+E0k6KaW/uza2LDqaQSCO2/xW/NJNc3uL/JgbAso93E+HpqToO3lb9XZbDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Uxlpkpaj; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="knt9JlSv"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so4892178f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:45:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790786742; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Q4lO3krLfK+p7CA7iYdPFVC6XWJk53FrTF/oVxpF3OATxhEVYGFh4OmQN41Kz96ZYe
-         1Z3fyE7Xll8NClCx/kZ7hru6DX/E6OVh+JqMxEb4bCDRDzg7vpTGwPGKQLBFHS07fBX5
-         f4kcENXaqNJVOh6Bm8R+wSEseDNPdEv8vA42F7NtrrxLi2KZvbtG3LOlrqHgdOfjwlqq
-         mj2UmHFYWaw9IBFn18MfHAhWJiAfYfCjB+paKJJ6V8RUPMUhLt9CqDEsXTu/ac03R3mu
-         9hVs7xQrOoHLwUgCcVPmiv8JvXanq3+Lg6cCEaX8wldBw3RHi2esZsfck+ocPrOscTah
-         XX1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0qr/Ipxr22SFcNZfSu174bMZPRwg/L3HUY1rLAYBi7I=;
-        fh=F4Pziq9XUbimbr7NkOzx/PwDkcSSgLdBNNpw9sfX6t8=;
-        b=hxnTNo4lD9xufVG5vrY/GR25d6/wUCG/nP3Naujef0o5TYhChIDXR2Ij8E36BDJ14c
-         geHMB/gUmhcVgTcIIrGgfMy+bXIIs5FB7Gawa5fParuohIdBGBsJv/8SuoCf86MlXfZl
-         9vXA0Mb5kTjOECOqow+YteAE6/WVbuN3fx2dYjn+HQtc9vq0sSIVDlBS6SGrb7JF13kO
-         qReNsSC5nTo85hzM5bGFEYg1l/VuRRBZZAbsy2PryUreUv6O3sItOBiWSF5Izfx9sTsk
-         RQVrCfuY0t2aMGh6uTqVX1JB32egiFptW07gfKYnwDuGd38EicAg2EkjvTBJ754GN+iF
-         atPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790786742; x=1791391542; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0qr/Ipxr22SFcNZfSu174bMZPRwg/L3HUY1rLAYBi7I=;
-        b=knt9JlSvHA/ihsQPnXC8Pto5tXIsmr4YXVA0pm0Xeq04GwRzp6MsVZB+aY/hHa2h0B
-         yoUINlKRc7bS70qcFZbuxmrJdB6q5eXGOikRuXFhxbpGHqoJhTwLYYEF1UHagKwG0gXy
-         smgn3xzTfk8D7fH3T3hp0/0ZP/6h+q4/t/IOMcqsEqYs+Kt7j6W7oyp1RV3y3BIPeQfv
-         ExJZWrWTNyXvM4UOF/MrFQMgRTZglQSFgAR+ipYkC4v1+FyStGbHL49dSKF3GNXc8TZp
-         XHHNx7oxo1GNGTpT8zQi/WQk9KXrCuLD885xnE5/KnF3WygGxo8SMqjrgsi/S4AjuqUC
-         8rSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790786742; x=1791391542;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0qr/Ipxr22SFcNZfSu174bMZPRwg/L3HUY1rLAYBi7I=;
-        b=OIcWdZpOgaFEIYKZkRZDnY87HIehPBg7EuSJRfrMqfh6I0/OA7gRTkGX/FJJrHGDoW
-         KIpnbeeH6nCO08Gn0N9bprvvoVZMKJ8tZOi/1cccQZE1u5lHWwRGvI5SrO8JWW53Io6I
-         BpajnEv3RHx4xsrW3qRUipXjTNPR1AZOq3/lY4qS9YWVj6UTVIZXEeVz4okYiq4i2o4a
-         Aak8s19/lPVMdfGYhlx88DZ3vpXYlMQOUeNnPtCOzNe6II8f/HDMLqNPzO3OdCwbMhND
-         r8YNtQxqt9CuNzkbW4/uce1mDurQtx+wssqFlDC48nUORfVLxkZhcfaTnzdCOZvMWyLz
-         8uaA==
-X-Forwarded-Encrypted: i=1; AKwUvBz4YfW24rWcpqSVrnvBrES351hQGDpiHRtYq9n1RmCOpOWdwqMrguH/JfyHkN86Y1I7bYJ4VjxBefrJ@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+n6cJdNqG/WPDx/fLtiKyqEFKyWRxeGiwZP/9V51YRFJb8V1h
-	0VUlCfcxkCKZ68IdwPt97iXhn6QrHVFDjZLeR0g8v2jqSxhss+Q7Vwl+o3msyrknOdqwHoFRdac
-	wt43qNIQ9d3BzAtUhzgi55I6/g46YHXA=
-X-Gm-Gg: AYBFou1nGUStHG9gvxEOrnRML2TTlCME3udl2OLlyNILCaiLAoIfpKJub7QhsGGvq88
-	6VTZE+3rIYouEroghWkj7hPGxUHfNwL7hsgsdXIE12iqg5jTfwE5lX88XCP74CfGA29fPx6i38b
-	dUY7eJq3c/Gt8Q7RpetnvEHeoGlE0OsklY79JDfA1YclPoC2DGlA0FcIIwC4p8ySzQa0tEcyy+T
-	Q8k6Hciu2pLBtIArhp9TK6kZGVFcDQsP2Bc7RoD+KN/kFe53DQKN0oHNZg6J8LOlZuwQktdH/8U
-	qPt19HwkC59Hbc13N8AbU1Dqr4y8cPeI/kV+eCj0LUtPuR5KPpr9O9UCEU3/rTAUF2Axae0WBM9
-	tkJwGw+KCyiEmQl3RbJYkfXAa0rjMxoe2ndNNQuQLKpNH0zbX8A4Vj4s85ECg3zwywe1a89M0NQ
-	==
-X-Received: by 2002:a05:6000:4a01:b0:48a:f36d:fb57 with SMTP id
- ffacd0b85a97d-48b024ea6cfmr4110706f8f.18.1790786742198; Wed, 30 Sep 2026
- 09:45:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Uxlpkpaj"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 3D6F91A1075;
+	Wed, 30 Sep 2026 16:47:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F38D660749;
+	Wed, 30 Sep 2026 16:47:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 32A9B103298C9;
+	Wed, 30 Sep 2026 18:47:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790786832; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=OzQzY1R+QY2s6NU7xiciX3MK78mpVBEyGls/yLx1+JE=;
+	b=UxlpkpajxqqeCW2rtBavdyCRkxfJqRWbBcCtfbsmcklaFKE8t4tyOp+ccRkIFKWB4wkreS
+	mESz8EpfZXnp61j2yZ5OVSyKGgP/69Mt+ACFmU01sEJXK7puailttkeAfhLoUeIsSkU3zu
+	ycW7nU8ItO49XoiBzsKHoJslikQpOdCPswvDNYLeGqGfi9fbEX7nHCCcREepOcy+exUVmw
+	OSlG7kVB6Iztr4ZXXlOxla8Ae2nSracsILu8lqNZ88gz0uiyrnq3b4he1MYULiNwRWHaFt
+	QeTzVd+kfc7YEZwLwAUqoCpODM5qOFgsvZFqdQOIft+XYmFWAWNXq6hxOUbKsg==
+Date: Wed, 30 Sep 2026 18:47:08 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 09/15] libfdt: Handle unknown tags in fdt_next_tag()
+Message-ID: <20260930183949.3f1b2fd2@bootlin.com>
+In-Reply-To: <aq4Tg0cAD8z6IL9Q@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-10-herve.codina@bootlin.com>
+	<aqpc9HZ2T74Q2lYs@gractus.seuss>
+	<20260917103410.1fcfe0f1@bootlin.com>
+	<aqu0c3qMJOLoD0Ho@gractus.seuss>
+	<20260917192814.70cbecbb@bootlin.com>
+	<aq4Tg0cAD8z6IL9Q@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260929124248.237032-3-prabhakar.mahadev-lad.rj@bp.renesas.com> <arzVHnMtKqQx5rdZ@ashevche-desk.local>
-In-Reply-To: <arzVHnMtKqQx5rdZ@ashevche-desk.local>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Wed, 30 Sep 2026 17:45:15 +0100
-X-Gm-Features: AclHuK9DK0fHm8pKCkWA6Zd6bNeQSmhN0p4rElp5jeZV36-WUljPpymXoO3Fm8M
-Message-ID: <CA+V-a8sgRHDbJqnp6_-0NO8V5f-J96ZtdC698-2n0Z7n71x5qg@mail.gmail.com>
-Subject: Re: [PATCH 2/8] iio: adc: rzt2h: Wait for the analog part to stop
- after a forced stop
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Magnus Damm <magnus.damm@gmail.com>, linux-iio@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Andy,
+Hi David,
 
-Thank you for the review.
+On Sat, 19 Sep 2026 14:46:05 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-On Wed, Sep 30, 2026 at 10:24=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Tue, Sep 29, 2026 at 01:42:42PM +0100, Prabhakar wrote:
->
-> > When ADCSR.ADST is cleared to forcibly stop a conversion, the analog pa=
-rt
-> > of the A/D converter can take up to 2 ADCLK cycles to stop operating.
-> >
-> > Wait for the write to ADCSR to complete and allow the analog part to st=
-op
-> > before reconfiguring or restarting the converter.
->
-> ...
->
-> > +     /*
-> > +      * When a conversion is forcibly stopped, the analog part of the =
-A/D
-> > +      * converter takes up to 2 ADCLK cycles to stop operating.
-> > +      */
-> > +     ndelay(DIV_ROUND_UP_ULL((u64)RZT2H_ADC_STOP_CYCLES * NSEC_PER_SEC=
-,
-> > +                             adc->adclk_rate));
->
-> I do not see the point in having _ULL (64-bit) division. Do you?
->
-Agreed, I will make use of DIV_ROUND_UP() instead.
+...
 
-Cheers,
-Prabhakar
+> 
+> > Upper layer using fdt_next_tag() should not handle this tag skipping the
+> > general case and let fdt_next_tag() do this job.
+> > 
+> > Got the feeling that we are going to add complexity at upper layer to handle
+> > a feature that should be handled at low level.
+> >   
+> > >   
+> > > > Ok, we can have a wrapper on top of
+> > > > fdt_next_tag() to skip unknown tags.
+> > > > 
+> > > > fdt_next_tag() is a low level function but the rule related to skipping
+> > > > unknown tags is also a low level rule.
+> > > > 
+> > > > We have to choose:
+> > > > a) fdt_next_tag() as I proposed
+> > > >    Of course ok for me
+> > > > 
+> > > > b) fdt_next_tag() returns all tags -> Full handling at caller side
+> > > >    Ok, we can go in that direction but it will bring quite a lot of
+> > > >    code duplication.    
+> > > 
+> > > I'm not sure it's that bad, since fdt_next_tag() loops will typically
+> > > already have a 'default' case for irrelevant tags, which will
+> > > generally be handled the same as unknown tags.  
+> > 
+> > Well as we did for "offset 0 vs real root node offset", I think the best way
+> > to known if it's bad or not is to try.  
+> 
+> Agreed.
+> 
+> > I will not have time this week to propose something and I have a training
+> > next week.
+> > 
+> > If you're ok for a try, I will do it but not as quickly as I did for the
+> > "offset 0 vs real root node offset" topic.
+> >   
+
+I did my homework and I think I was wrong. fdt_next_tag() can return all tags
+without adding too much complexity in current code.
+
+Here is the diff to consider that fully replaces this current patch.
+
+You can note that I've added the FDT_TAG_IS_SKIPPABLE() macro. This macro
+should be added in a previous commit introducing structured tag (or skippable
+if renamed). According to discussion we've already had related to "structure"
+tag format, the FDT_TAG_IS_SKIPPABLE() macro content will not be that one but
+you've got the idea of its usage in the diff.
+
+--- 8< ---
+diff --git a/libfdt/fdt.c b/libfdt/fdt.c
+index eb803e8a..e426414b 100644
+--- a/libfdt/fdt.c
++++ b/libfdt/fdt.c
+@@ -218,7 +218,37 @@ uint32_t fdt_next_tag(const void *fdt, int startoffset, int *nextoffset)
+ 		break;
+ 
+ 	default:
+-		return FDT_END;
++		if (!(tag & FDT_TAG_STRUCTURED) || !(tag & FDT_TAG_SKIP_SAFE))
++			return FDT_END;
++
++		switch (tag & FDT_TAG_DATA_MASK) {
++		case FDT_TAG_DATA_NONE:
++			break;
++		case FDT_TAG_DATA_1CELL:
++			offset += FDT_CELLSIZE;
++			break;
++		case FDT_TAG_DATA_2CELLS:
++			offset += 2 * FDT_CELLSIZE;
++			break;
++		case FDT_TAG_DATA_VARLEN:
++			/* Get the length */
++			lenp = fdt_offset_ptr(fdt, offset, sizeof(*lenp));
++			if (!can_assume(VALID_DTB) && !lenp)
++				return FDT_END; /* premature end */
++			len = fdt32_to_cpu(*lenp);
++			/*
++			 * Skip the cell encoding the length and the
++			 * following length bytes
++			 */
++			len += sizeof(*lenp);
++			sum = len + offset;
++			if (!can_assume(VALID_DTB) &&
++			    (sum >= INT_MAX || sum < (uint32_t) offset))
++				return FDT_END; /* premature end */
++
++			offset += len;
++			break;
++		}
+ 	}
+ 
+ 	if (!fdt_offset_ptr(fdt, startoffset, offset - startoffset))
+@@ -303,6 +333,7 @@ int fdt_next_node(const void *fdt, int offset, int *depth)
+ 		switch (tag) {
+ 		case FDT_PROP:
+ 		case FDT_NOP:
++		default: /* All Skippable tags */
+ 			break;
+ 
+ 		case FDT_BEGIN_NODE:
+diff --git a/libfdt/fdt.h b/libfdt/fdt.h
+index f41a355f..55138261 100644
+--- a/libfdt/fdt.h
++++ b/libfdt/fdt.h
+@@ -73,6 +73,8 @@ struct fdt_property {
+ #define FDT_TAG_CAN_SKIP(tag_data, tag_id) \
+ 		(FDT_TAG_STRUCTURED | FDT_TAG_SKIP_SAFE | tag_data | tag_id)
+ 
++#define FDT_TAG_IS_SKIPPABLE(_tag) (((_tag) & (FDT_TAG_STRUCTURED | FDT_TAG_SKIP_SAFE)) == (FDT_TAG_STRUCTURED | FDT_TAG_SKIP_SAFE))
++
+ /* Tests reserved tags */
+ #define FDT_TEST_NONE_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_NONE, 0)
+ #define FDT_TEST_1CELL_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_1CELL, 0)
+diff --git a/libfdt/fdt_check.c b/libfdt/fdt_check.c
+index 2fd5b61d..8bd9b252 100644
+--- a/libfdt/fdt_check.c
++++ b/libfdt/fdt_check.c
+@@ -45,7 +45,8 @@ int fdt_check_full(const void *fdt, size_t bufsize)
+ 			return nextoffset;
+ 
+ 		/* If we see two root nodes, something is wrong */
+-		if (expect_end && tag != FDT_END && tag != FDT_NOP)
++		if (expect_end && tag != FDT_END && tag != FDT_NOP &&
++			!FDT_TAG_IS_SKIPPABLE(tag))
+ 			return -FDT_ERR_BADSTRUCTURE;
+ 
+ 		switch (tag) {
+@@ -92,7 +93,8 @@ int fdt_check_full(const void *fdt, size_t bufsize)
+ 			break;
+ 
+ 		default:
+-			return -FDT_ERR_INTERNAL;
++			/* Skippable tags -> Skip them */
++			break;
+ 		}
+ 	}
+ }
+diff --git a/libfdt/fdt_ro.c b/libfdt/fdt_ro.c
+index 856c62f1..3cc0435c 100644
+--- a/libfdt/fdt_ro.c
++++ b/libfdt/fdt_ro.c
+@@ -219,7 +219,7 @@ static int nextprop_(const void *fdt, int offset)
+ 			return offset;
+ 		}
+ 		offset = nextoffset;
+-	} while (tag == FDT_NOP);
++	} while (tag == FDT_NOP || FDT_TAG_IS_SKIPPABLE(tag));
+ 
+ 	return -FDT_ERR_NOTFOUND;
+ }
+diff --git a/tests/run_tests.sh b/tests/run_tests.sh
+index 8fc23cb7..225c22f8 100755
+--- a/tests/run_tests.sh
++++ b/tests/run_tests.sh
+@@ -577,11 +577,12 @@ libfdt_tests () {
+     run_test dtbs_equal_ordered cell-overflow.test.dtb cell-overflow-results.test.dtb
+ 
+     # check full tests
+-    for good in test_tree1.dtb; do
++    for good in test_tree1.dtb unknown_tags_can_skip.dtb; do
+ 	run_test check_full $good
+     done
+     for bad in truncated_property.dtb truncated_string.dtb \
+-		truncated_memrsv.dtb two_roots.dtb named_root.dtb; do
++		truncated_memrsv.dtb two_roots.dtb named_root.dtb \
++		unknown_tags_no_skip.dtb; do
+ 	run_test check_full -n $bad
+     done
+ }
+@@ -962,6 +963,10 @@ fdtget_tests () {
+     run_fdtget_test "<the dead silence>" -tx \
+ 	-d "<the dead silence>" $dtb /randomnode doctor-who
+     run_fdtget_test "<blink>" -tx -d "<blink>" $dtb /memory doctor-who
++
++    # test with unknown tags involved
++    run_fdtget_test "25601 25602" unknown_tags_can_skip.dtb /subnode1 prop-int
++    run_wrap_error_test $DTGET unknown_tags_no_skip.dtb /subnode1 prop-int
+ }
+ 
+ fdtput_tests () {
+--- 8< ---
+
+Also I've modified tests/dtbs_equal_ordered.c but I am not sure that the
+modification I did is a modification you will accept.
+
+We could just ignore skippable tags but I choose to test data when such an
+skippable tag is encoutered.
+
+This leads to the following modification:
+--- 8< ---
+--- a/tests/dtbs_equal_ordered.c
++++ b/tests/dtbs_equal_ordered.c
+@@ -71,6 +71,7 @@ static void compare_structure(const void *fdt1, const void *fdt2)
+ 	int err;
+ 	const struct fdt_property *prop1, *prop2;
+ 	int len1, len2;
++	const void *raw1, *raw2;
+ 
+ 	while (1) {
+ 		do {
+@@ -102,6 +103,9 @@ static void compare_structure(const void *fdt1, const void *fdt2)
+ 				     name1, name2, offset1, offset2);
+ 			break;
+ 
++		case FDT_END_NODE:
++			break;
++
+ 		case FDT_PROP:
+ 			prop1 = fdt_offset_ptr(fdt1, offset1, sizeof(*prop1));
+ 			if (!prop1)
+@@ -128,6 +132,36 @@ static void compare_structure(const void *fdt1, const void *fdt2)
+ 
+ 		case FDT_END:
+ 			return;
++
++		default:
++			if (!FDT_TAG_IS_SKIPPABLE(tag1))
++				FAIL("Cannot check tag data at (%d, %d)",
++					offset1, offset2);
++
++			/*
++			 * Even if we don't known the meaning of data,
++			 * we can check that raw data are the same.
++			 */
++			len1 = nextoffset1 - offset1;
++			len2 = nextoffset2 - offset2;
++
++			if (len1 != len2) {
++				MISMATCH("tag data length mismatch at (%d, %d)",
++					offset1, offset2);
++			}
++
++			raw1 = fdt_offset_ptr(fdt1, offset1, len1);
++			if (!raw1)
++				FAIL("Could get fdt1 raw buffer at %d", offset1);
++
++			raw2 = fdt_offset_ptr(fdt2, offset2, len2);
++			if (!raw1)
++				FAIL("Could get fdt1 raw buffer at %d", offset2);
++
++			if (memcmp(raw1, raw2, len1) != 0)
++				MISMATCH("Tag data value mismatch at (%d, %d)",
++					 offset1, offset2);
++			break;
+ 		}
+ 	}
+ }
+--- 8< ---
+
+With that done, my conclusion is: Yes we can return all tags in fdt_next_tag().
+I think you will agree this conclusion.
+
+For dtbs_equal_ordered.c, should we compare skippable tags and related data as
+I did (diff above) or should we just skip them? what is your opinion?
+
+For the next patch ("libfdt: Handle unknown tags on dtb modifications")
+returning all tags from fdt_next_tag() has also some impacts but nothing more
+complex than modification provided here. I can provide the full diff if you
+want. Let me know.
+
+Best regards,
+Hervé
