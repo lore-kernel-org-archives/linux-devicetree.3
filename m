@@ -1,111 +1,145 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092B0345EA2;
-	Wed, 30 Sep 2026 09:55:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD5D2BE655
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 09:55:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790762119; cv=none; b=B+h+HDA68fFrZqKewoIcgmjhv4SugKxC5iUSeL3M/p8Pc2Wxct/UFkTSGBlF3mlyeDxkpgjiy93aCxWsqwZAqW6FRoGx4enTMjg316guBVIWSfhkIxQ9phLs+vNs2ea6mN6eQYSpjq5Mb4H8k3L16B+WULShB8rAFLezUv7sDiA=
+	t=1790762141; cv=none; b=BGkJHkMit0Vr0i7Nj3L9jM1p/1rxfjdwlxb7Xm4w5+eZGqwlL2Cfeh1Xuwl7YsceuGLldVnq/1CohbxFOhNEOax8eoFTY/8aHDLl+4FLCOlEoK9jPawOk3NHAPmEQ8VlrK1e0aUSnjPco3fXvx88Ht0OFRKuJ9fI0Q614Jy4CwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790762119; c=relaxed/simple;
-	bh=e9dwwle1xBAGCtdw2f7HOoEg+HRqdHzLnV9H8CivWgQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ionq3RYORcnH90UCKHqgkYMsQnh6NExAwRAv8qgJ5NGXvAui6wVsQ0ugLpdxnHoGqxXWZmYbXVo5Yex11H9ol3pYmuqOz2xWgf88REkrpyNF6nkRmakb/unyO/AM5PbdHk5nWC3hmpBx5bA/2Fej7cu2iitYlkKjv96ewD6iT+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=layBL/Z7; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790762141; c=relaxed/simple;
+	bh=nRS8D+P/pYlYdh/xGzIxpkoh4WXx0++qntMaidLDj/w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ozmd5Xfa2u9OosIABxymSlMlopzJQ+1WtwpyD6J5IvUcR9fKYERqmTzSs1qFlUv560beNtETn7qCwsRUHUS3f46RF7XlrEfFZNd5hF3Zjdy0FWwl+m144BbNq1pcKDJRBUZczPScvaCfsW5FKZzy7lIkuDg2Dk8PZ+hjJ+u5HF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFopaa/g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="layBL/Z7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790762118; x=1822298118;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=e9dwwle1xBAGCtdw2f7HOoEg+HRqdHzLnV9H8CivWgQ=;
-  b=layBL/Z72Y/lz8U1AOTFrgqubAuQJhCsH+Z9Wsk9oxBaN8LM9HuUVOsy
-   tsZn3PXECGnV5v4DD5Z6lTCSSemfzUoFSuWnxrPBvg2QdRkLZsLyHAMPE
-   ikESxvj5FDW0G7TCXcPWcI4v7ytWtJ0o/R8bOJvp2GaJUqW4CMBXnbnZ1
-   brM2KrArMnCXK+/q+JE06APJrJjZL1cJVjjRFjO+WaGi6Un/V4NTIkqMh
-   zBdpOTiO5/TJy0SOnOahzveKSb7CqAkLh8IKvxPF0KIo0LJVzAF0hNrzP
-   GbC/jkt85IlFD1PxvLcQYcGzEcplkwxKyNCcbfLjK6TRfvkWcp8jvS/vX
-   g==;
-X-CSE-ConnectionGUID: tTVpR17ITnyJvPTCd2mm5A==
-X-CSE-MsgGUID: LJy480wsRrOfRSLBEAybvQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11920"; a="100826317"
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="100826317"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:55:13 -0700
-X-CSE-ConnectionGUID: LfWAgqObRKqkM11sMqrmow==
-X-CSE-MsgGUID: 5MuTlYiHQ72G+gSj+3ZIIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,132,1787036400"; 
-   d="scan'208";a="283725806"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.109])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 02:55:08 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 1CABA11F925;
-	Wed, 30 Sep 2026 12:55:12 +0300 (EEST)
-Date: Wed, 30 Sep 2026 12:55:12 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: dumitru.ceclan@analog.com
-Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Julien Massot <julien.massot@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	mitrutzceclan@gmail.com, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
-	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
-	Martin Hecht <Martin.Hecht@avnet.eu>,
-	Andrian Suciu <Adrian.Suciu@analog.com>,
-	Martin Hecht <mhecht73@gmail.com>,
-	Cosmin Tanislav <demonsingur@gmail.com>,
-	Vivekananda Dayananda <vivekana@amd.com>,
-	Quentin Freimanis <quentin@q-lab.dev>,
-	Cory Keitz <ckeitz@amazon.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Dan Carpenter <error27@gmail.com>
-Subject: Re: [PATCH v18 00/23] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-Message-ID: <arzcgO9KcD_2Qc2U@kekkonen.localdomain>
-References: <20260930-gmsl2-3_serdes-v18-0-43117818f499@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFopaa/g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297011F000FF;
+	Wed, 30 Sep 2026 09:55:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790762139;
+	bh=8Zlori9dyIXAFre1eaqGoNXivn0S1xaEQCRffXNeDBE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YFopaa/gt83Ur4lLWip6GsBeaM8W5zwxFuzdwj/pd4yL/p2Q9rANDt5lYLyDgAxiW
+	 f0uO8PYihLN3do/g+Q1vkTFJAD15y8ueLL5F+pN28oMNuKI4fKCdm2MExduosRcpLe
+	 uPKBupZ4CF5Xn/SmLxvj+l3JpfjAKKe0hlWpWEm1QYThwSIhFo6QcKf0sFXI/tDyMb
+	 bbo1Q5isYiFmJRjQmugZSAfdlvGQ28uWyYkv/RyhFaGSRw5RYZIkzaD49SOd+gghE8
+	 OFPijZYjxqM0KMGeAii8aPqLF1hHcdRAYLQYQtL2NCL41ee+zF9A53XdNIGkdXziMx
+	 FkpQZuB1BgZXA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] arm64: dts: rockchip: add Forlinx OK3568-C
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dmitry Yashin" <dmt.yashin@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260930-ok3568-c-v1-3-a0ffd55f5c95@gmail.com>
+References: <20260930-ok3568-c-v1-0-a0ffd55f5c95@gmail.com>
+ <20260930-ok3568-c-v1-3-a0ffd55f5c95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 30 Sep 2026 09:55:38 +0000
+Message-Id: <20260930095539.297011F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-gmsl2-3_serdes-v18-0-43117818f499@analog.com>
 
-Hi Dumitru,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] dts: missing device-wakeup, interrupt, and reset properties in b=
+luetooth node
+- [Medium] dts: orphaned modem_5g_reset pinctrl leaves 5G modem reset unhan=
+dled
+- [Medium] dts: orphaned wifi_host_wake pinctrl disables out-of-band WiFi w=
+ake
+--
 
-On Wed, Sep 30, 2026 at 01:41:34AM +0300, Dumitru Ceclan via B4 Relay wrote:
-> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
-> replacing the few GMSL2 drivers already in upstream, and introducing a
-> common framework that can be used to implement such GMSL chips, which
-> avoids code duplication while also adding support for previously
-> unsupported features.
+commit ebd497a35c265bc281369082ab62727d0e435e1b
+Author: Dmitry Yashin <dmt.yashin@gmail.com>
 
-I'd merge this but we have an issue with smatch in Media CI; it continues
-to flag smatch warnings from what looks (on a quick glance) like the use of
-field_prep()
-<URL:https://gitlab.freedesktop.org/linux-media/users/sailus/-/jobs/111466268/artifacts/file/junit/test-smatch.log.txt>.
+arm64: dts: rockchip: add Forlinx OK3568-C
 
-We could pick patches from smatch devel branch on master in order to get
-this merged but I won't have time to try to bisect them. Maybe whitelisting
-could be a temporary solution?
+This commit adds support for the Forlinx OK3568-C board, which is the
+carrier board for the FET3568-C System on Module. It maps the peripherals
+and components for the board including connectivity modules like 5G, WiFi,
+and Bluetooth.
 
-Cc Ricardo and Dan.
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c.dts b/arch/arm6=
+4/boot/dts/rockchip/rk3568-ok3568-c.dts
+> new file mode 100644
+> index 0000000000000..d292df546d419
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3568-ok3568-c.dts
+[ ... ]
+> +&pinctrl {
+[ ... ]
+> +	modem {
+> +		modem_5g_pwr: modem-5g-pwr {
+> +			rockchip,pins =3D <1 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +
+> +		modem_5g_reset: modem-5g-reset {
+> +			rockchip,pins =3D <1 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
 
--- 
-Kind regards,
+[Severity: Medium]
+The modem_5g_reset pinctrl node is defined here but does not appear to be
+referenced in any pinctrl-0 property or assigned to a device node,
+regulator, or gpio-hog.
 
-Sakari Ailus
+Without being actively driven, could this prevent the 5G modem from
+initializing and enumerating properly if it requires this reset signal?
+
+[ ... ]
+> +	wifi {
+> +		wifi_reg_on: wifi-reg-on {
+> +			rockchip,pins =3D <3 RK_PD4 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +
+> +		wifi_host_wake: wifi-host-wake {
+> +			rockchip,pins =3D <0 RK_PD4 RK_FUNC_GPIO &pcfg_pull_none>;
+> +		};
+> +	};
+> +};
+
+[Severity: Medium]
+Similar to the modem reset, the wifi_host_wake pinctrl group configures
+a GPIO for handling out-of-band host wake interrupts from the WiFi
+module, but it is completely isolated. It isn't referenced by the
+sdmmc2 node's pinctrl-0, and the corresponding interrupts property is
+missing.
+
+Does this missing configuration break Wake-on-WLAN and sleep power
+management for the WiFi module during system suspend?
+
+[ ... ]
+> +/* BT part of the AW-CM358SM connected with UART */
+> +&uart8 {
+> +	dma-names =3D "tx", "rx";
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&uart8m0_xfer &uart8m0_ctsn &uart8m0_rtsn>;
+> +	uart-has-rtscts;
+> +	status =3D "okay";
+> +
+> +	bluetooth {
+> +		compatible =3D "nxp,88w8987-bt";
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&bt_reg_on &bt_wake_host &host_wake_bt>;
+> +		vcc-supply =3D <&vcc1v8>;
+> +		wakeup-source;
+> +	};
+> +};
+
+[Severity: Medium]
+While pinctrl-0 sets up the hardware pins as GPIOs, the corresponding DT
+properties (device-wakeup-gpios, interrupts, reset-gpios) required by
+the nxp,88w8987-bt binding are missing from this node.
+
+Without device-wakeup-gpios and the wakeup interrupt, will the
+btnxpuart driver be unable to perform power management signaling and
+break sleep/wake functionality? Also, without a driver managing the
+bt_reg_on GPIO, could the chip remain in reset and fail to initialize?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930-ok3568-c-v=
+1-0-a0ffd55f5c95@gmail.com?part=3D3
