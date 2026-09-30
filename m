@@ -1,129 +1,109 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082614F68D3
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 13:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790776592; cv=pass; b=JfTo7sb5JCCs6fdhWkDn+wyriCz1p+o1MvCrMbo8kUhuORo0Uxl840pl7kuQtgtvQSfmUleEHLoesULmvCY9K0DVhfd0AJppwLnSqR8oPJKMbME5Oje3SD+yCO6ABXo+lDQHQlyeeRMpRud6esi/ys4gf5PhOWxT86qmwPXZB6c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790776592; c=relaxed/simple;
-	bh=5SwTqNdqJfRK/IUxZeFy/sI9epuc4z6THWr/paPSz7A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nW1Vi2BJPOGF2tPmR3Bqc6eNw2JG4Rbikog0oy508nG8QtaJzr72l/VoNfGojGbjb3NNGiVtgTIxe2Gvdyfapden6c5hOwbXWrij+qjU5wJVRPC/psQh00dS09/XBrimZXP+JqzclmU+Vag2plcmvhi5hp7R4KLxuHeE1ZRXwgM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=NAu7vgGs; arc=pass smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2F14E2342;
+	Wed, 30 Sep 2026 13:56:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790776606; cv=none; b=m3liyQMgHEUqBO8vUOnB0eBhRN2lC8tDEny/ulYzAIadfIbrUJ18u1p3+WFYDb6+l5jIQkacBmZQ9Iv1Zex5UXjYo9uUgnIn5FOiQvguKjof1f3/dF9QOzcWR/vw4UcWfqj6Izq6NUvbZghN6GNeUYs1FI0DOz9rihzE8pcFQEk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790776606; c=relaxed/simple;
+	bh=2waaTEMIfVSCYtkKqXR17NEFU9n+6QDSCM4A48otUBQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JLh6FUAPGDO8T7oaqW/d4tJ05PJGH96bKFbM6grNJHzGpeRfqb7B4UxNYTbwomZ42B9x/cWd0xBknwZLB5d4BC0cy+Foc/w7BFx1slhnA5sFLe3O6N/xKfQ+2Gi7sdidOmtoYLYWhyXjDaGbuiOeCtKBB4RkN25rNNIlE+5geTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYhR16B5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="NAu7vgGs"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e083d0930so160231266b.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 06:56:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790776578; cv=none;
-        d=google.com; s=arc-20260327;
-        b=b4wBaHy1Z1hAmUGQYsbSQkXgm6+wkjdcN5pasW14TQ35eq2sFEoD3ZG6MsqkQluoDE
-         cGySJr97vc36S2B507RWh+cfkpe58y3CV+LHwxXQ8iWr4yKlCFhXXEXAggf+nSkGDJRL
-         9ciMV4pWzXujA92CGnB2soHDAXH7eXkV0zsFeK4q9rWeqFdYmE1iksSHGuPrPwuh6N45
-         kphGfjl2TKmwHYE6MLs3QeOU4dtnPjtKy8dOzU+Nxg7BbgNKszDp+S7V61t/6oEwk31B
-         xV8yf3k2AJciSRz1yXg+gdlRqwFVlsfOWk6Pq9wSJXNRKJfJGsYqn08pfeiJDMhMhEVJ
-         86Kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5SwTqNdqJfRK/IUxZeFy/sI9epuc4z6THWr/paPSz7A=;
-        fh=NEVRWbk3UK/hYAzJXU3TRyBOhcVxUxkJZbLyk9nNHwU=;
-        b=oOqx2rdPmnSwHxYSlGS8sMWZHE3hZfF5YPDpzxb5MbAxG1zniWwmIC8fLnzUKrGhtI
-         5OFAXLfZd28eON5HVgby4xEetpAEXD9pHP4T+5cQ5DmDrh6y07zRV95P+clcmR2N0G72
-         IctKAezZUzGdP6oZi6DC4rYif0enUOyHn0t5FmSjnhdYGUHTMN+m9J30u0OQLo+7Akx2
-         TopdFaFzcyZVFK4MT5sXgSZ1rzlRHa+Vbtfd/UKpz4z7Z2vZH54b6n4vEOIhw6LXMZ1r
-         sS8/OG5CEoHj/M7aY+uCo/2+BHyoNuyOWcXNMY6H+l8dmuTm0oVKM+GsXrZXNkcaOUEX
-         329g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1790776578; x=1791381378; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5SwTqNdqJfRK/IUxZeFy/sI9epuc4z6THWr/paPSz7A=;
-        b=NAu7vgGsXVtRJM3kyMtlMOwhzm55urhiUSDyX8sptKkvZEuu+DxtLMgX9bOD9sV/PB
-         hoheU8pY/PcwwObO9x8Xww3BZ9xopjEfolEksoJhIui9UCsAG7apD08uEnAQvFYikcY/
-         cq/eenmhC6S/AUZV/GQmjiyaVscpLL+/fxy2q2Sneisl0spSawpIpX4aj2SwS2/4f+Ob
-         +L8etTYb3ioJVKe6KdzzxRHtBeGkiHLsPL48wtu+pG70JmkvRCLJ3KQXvPP8VT1siadX
-         USmbbSz/GhOnArUa5YyW5JePpFN5XSy797Kfx/kYeAfFnsqaQRMPkJJRmSbkYREG11AI
-         usPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790776578; x=1791381378;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5SwTqNdqJfRK/IUxZeFy/sI9epuc4z6THWr/paPSz7A=;
-        b=kc2SSb3wqj6cMSQuitsYrkkk9+eUR4EjDpAVgJY+okQ+IJcob/HZe26k1d1mhLsxJK
-         adgJxkjKsKCznrADRtPl1bhnpfL45NUTcj05pfriI6hdNrBxBunpwjnHggAVj/U2XCzw
-         TomuOUrK4N8vmCJrp1Md3Ex4ex7J+kCPi1xhoQD9Rvf2gYmV8jIOaEXxwE32i+gsMnCx
-         YTkr2Zpa6l+oF3iqfU1jrDuhktCqNCB5hqSLiLIVxmvZ1B7Lx/0UVqJp94lEuTEsizFL
-         xyfbxbkoD5sa2gKJewBwGKigSfh5FV+QPrpZqEAdEU70KTYeNmuIB0thHzWZ9MNlavRw
-         XgTg==
-X-Forwarded-Encrypted: i=1; AKwUvBzubSS+1V9WdcMZSUv7tq3J2MtFI+8V6Vh0Sb8NjsSJEW8c97Fe9TJ8aqxwehx0aMX9t9PnapV1V6Lk@vger.kernel.org
-X-Gm-Message-State: AFuF++nU7Myw8RP1ZO1rTd8H7KyNWNCeX9wuke7Kl8XVkc8bWiPqi06H
-	tLT5WrFwyoTkVbwfCw4NF5Pn5DP2j6JjJBZ+YvT8J32wo9XlXFG8gQ6gECCSvwI/0O/Nt/hpfL1
-	XgDUhrv5XyFUcQnw9Ozx9caxHdKrDG/lAdkoyLBZifQ==
-X-Gm-Gg: AYBFou0OM3Hb1FxIj0vpNvzURw3/cNzYU6Rn9TYTiwlTPlj+rRecN7GxlyZ3mFY7obv
-	+4wjf81k94xESZexkYKMmDvSzuNl83LUrvAC0t7DjgCcdqj4WhI5Gru/KT81miPOB4Dkzz3u+2T
-	iMr+YURQH/CrMGC3ONdf4LltYU70juNVvb5sc63zbbE3SREjAvieHx6Nara+sNyU0KKlJrWAOne
-	nupO7b2LXA8FQG3kHKkatLHzEvbWcu3748FO60ll9GpopwyKf2NovySOTOOi6wTs473b+NJxhtG
-	kYa1CjfPMZL+6P2JuNhEX5tnXsDjrjWaUuJrOKhkUuntgYIz0nfGArKUcEFt3WgNAUTUKNy0804
-	OJtijvOwNxpayVcrLMUZWrfM=
-X-Received: by 2002:a17:907:1c9e:b0:c25:c67d:53cc with SMTP id
- a640c23a62f3a-c2e23cad0fdmr124499966b.8.1790776577897; Wed, 30 Sep 2026
- 06:56:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYhR16B5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 056E5C2BCF4;
+	Wed, 30 Sep 2026 13:56:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790776605;
+	bh=2waaTEMIfVSCYtkKqXR17NEFU9n+6QDSCM4A48otUBQ=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=oYhR16B51aURzCGvmRDT4mNzI+Uo5kslw1n4BweZ5af/dXvL9VRj7QTt0+JX/QWlM
+	 AynwCKORJ907Irexa6UWgUhwoYJiZ10zTK9yRSs7KiVofLfafIrN7/RVEkJ5IVtu4G
+	 LnWMnXNRoGnDooEpJLVFR4RiRUEs+LQz7pfAHkRYUEUggVK2wyWtPkVY9PCfrSyHyQ
+	 tlqhq3Dx2sPTumM+sn9/LLNpHwCwdfDQJwPC/esFpeAknUKkeL8PFAFykIW0O5G5Cg
+	 7BOOGLLgF29s1cQUC/kuZ/X9qN09RkQJZilwEUh7TWwnfpNHxGe5QAgi68toJkUG/z
+	 AhRpabapm3QiQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5D77CA5FC7;
+	Wed, 30 Sep 2026 13:56:44 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Wed, 30 Sep 2026 15:56:41 +0200
+Subject: [PATCH] dt-bindings: hwmon: pmbus: mps,mpq8785: add
+ #thermal-sensor-cells
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-b4-rk3576-reboot-mode-v2-0-5a34ca72065a@flipper.net>
- <20260929-b4-rk3576-reboot-mode-v2-1-5a34ca72065a@flipper.net> <20260930-hulking-swan-of-enterprise-94e2ae@quoll>
-In-Reply-To: <20260930-hulking-swan-of-enterprise-94e2ae@quoll>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Wed, 30 Sep 2026 17:56:06 +0400
-X-Gm-Features: AclHuK_LS1pgpfgwaTzGiwreXcQZqQphizrD9-WsvYxGfaJqBGmravJ6aAw_W_w
-Message-ID: <CAKTNdwG0NBZUez1Yy=jk3rYrD9W97oRMwvpX1qMXwQsP=_LvNw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/5] dt-bindings: soc: rockchip: add boot ROM download
- boot mode
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Sebastian Reichel <sre@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Shawn Lin <shawn.lin@rock-chips.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-for-upstream-dt-mpq8785-thermal-sensor-cells-v1-1-6573c765eef8@free.fr>
+X-B4-Tracking: v=1; b=H4sIABgVvWoC/x2NQQrDIBAAvxL23AWbNpr2K6EH0bUR1NhdWwohf
+ 6/0ODDM7CDEkQTuww5MnyhxKx3OpwHcasuTMPrOMKpRq9tFYdgY31Uak83oG+b6ms08YVuJs00
+ oVKQrjlISdMYEq72drkpDT1amEL//3fI4jh+/nZ1xfgAAAA==
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Charles Hsu <ythsu0511@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790776603; l=1384;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=fJu0E0lhwn4WY7ROYdjtoIwXJWiiVnoOzna2Uqs/R6o=;
+ b=S6v23x2y4mhv6bbX+x4IkpdMvC+sfYk/SsxbSh62xvhhP49+cA/mPtYtXG3oOUdxwc9xlsLEg
+ FzUHhNvdjjuBPWNJvP58qKCee6m7m+bpvh1PnxlI9q7Ox5FR/tu4T07
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-On Wed, Sep 30, 2026 at 3:46=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On Tue, Sep 29, 2026 at 02:28:18PM +0400, Alexey Charkov wrote:
-> > Rockchip boot ROMs enter USB download mode, commonly known as maskrom,
-> > when they find 0xef08a53c in the register they take the boot mode from.
-> > Add the magic under the name U-Boot already uses for it, so that boards
-> > able to request it can do so symbolically.
-> >
-> > Tested-by: Shawn Lin <shawn.lin@rock-chips.com>
->
-> Drop, you cannot test it.
->
-> What is the point of such blanket tags which are not even applicable to
-> 50% of patches here?
+From: Vincent Jardin <vjardin@free.fr>
 
-I'd argue for 40% :-D
+Since commit
+  3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE")
+the PMBus core calls devm_thermal_of_zone_register() for every
+temperature input, so the devices of this binding can be referenced as
+thermal sensors.
 
-Anyway, I get your point. I'll drop the tag from the bindings patches,
-because Shawn tested a driver implementing the binding and a DTS
-implementing the binding, but it's perhaps far fetched to imply that
-the test covered the binding change itself.
+By code review, it should work for the MPQ and MPM device bindings.
+They register a single page with PMBUS_HAVE_TEMP through
+pmbus_do_probe(), it means that one device has one
+temperature input, temp1.
+
+The sensor id is the hwmon index of the input (temp1 is 1), so one cell
+is needed.
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
+index d7a32fb3b7af..36760d89f665 100644
+--- a/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
++++ b/Documentation/devicetree/bindings/hwmon/pmbus/mps,mpq8785.yaml
+@@ -34,6 +34,9 @@ properties:
+     maximum: 4095
+     default: 706
+ 
++  "#thermal-sensor-cells":
++    const: 1
++
+ required:
+   - compatible
+   - reg
+
+---
+base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
+change-id: 20260930-for-upstream-dt-mpq8785-thermal-sensor-cells-c77fa6da5406
 
 Best regards,
-Alexey
+-- 
+Vincent Jardin <vjardin@free.fr>
+
+
