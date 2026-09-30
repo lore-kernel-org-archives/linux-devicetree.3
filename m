@@ -1,101 +1,149 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f39.google.com (mail-vs2-f39.google.com [74.125.227.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4219638C42F;
-	Wed, 30 Sep 2026 18:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6301D2DB785
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 18:53:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790794188; cv=none; b=YzunLvwWHplzNYQAb/t52GFp8dTGyhkDb8GP3OtJqaP5gjczvOSYLSpaX3HZdG34aKRyK8TWsWB0LYdEFgE1fMPCB0TpEQeG8PmWqAGz7sS/pdmldlqkUFWAk0t2CnRMEszrXMd4cM8QOpuebvHXhLjNpjjP1MiP1VjpjjOVSS0=
+	t=1790794432; cv=none; b=eM+y0BYQeHUR8Uaf7pTK/jftfEZym42kQoAA2fZsty6+rD4XRzVh+LQPxpoeI4hNj9RAeAq47ZN94sXD1ziXkcgJqPwN9X1PbomL0eCZiUeNhY1DX2quALfUL5kIpCmHqr7dH6fD+VJXZT8uzdiwzIe6IVSD0d4BJQXjygPvgqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790794188; c=relaxed/simple;
-	bh=KRe7+fhRP84ouwswgo5X97CmeFHtJt1AxGXOuOzKDjc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nfatfDbMBcvBJFoON51YKxlbUkDCtR6v4JIt/I50UzL9Iz4Ko+UdNgC59roNSTpsWxM2cK8mx9l598foD3tFEEIF81HIOcubr52AktXtKVY73l9tGynTaa3s7agaB8PCIRrMQ6w5Ri5GxNFCK/1SziApz8dQS+5ZDvyxAOz1lQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=S5tYtJ7d; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=4E0+KL1q; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790794432; c=relaxed/simple;
+	bh=x6WErO05GloTcY3drBZGxcVJL7VcsdKdrB/cSRzyU0w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sZ92piDnOtyy1P7n2kqgpjqjBxklDSQg2YGqsXBrZ09FKWIKmk381CzSWEU24ICzIFiFCans8+YGA3oB5uV6HzpuwvFhz2fxIfuhGkysh9MwQa500yzFJFTT5U1HHIQJfoavz5idZfo8/sc1Dd1v3+KjSG0utMFlXjpEJACVUXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=He3bqDzy; arc=none smtp.client-ip=74.125.227.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="S5tYtJ7d";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4E0+KL1q"
-Message-ID: <dc94b677646eae4b125427aeaf7aeb9828b72e61.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790794184;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KRe7+fhRP84ouwswgo5X97CmeFHtJt1AxGXOuOzKDjc=;
-	b=S5tYtJ7dXLXxGM+FKGZrGLla4p8TtbdK/RqdypNf/1DoUkrk26ycbH8qClHYEQUZlTQVLK
-	Gb8cNq0IgsuiwH1C7AjSrXmkdLfRqAukSJDtjXtGiT+EUNpX6JcIYfnLFqEOIEdUqtTm1j
-	IQjuX25Ni5AZjqxMDNyBmaTt3RVbf56QsTXlqckmtbi2X8qnulnoCgcMkeSVJiY+3yoZ8o
-	r1DL3Q8reEVgqomXfKvTwqPdOXGgSfz1CN7qNA4fNm8MUOTPaBMwWX2IgCLxFJUAs0eFki
-	xuffXf/scKd3SmO3yGbCsulqJJPRm1l7pADinnCEAs82m7lsF11yI12NWoLYsA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790794184;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KRe7+fhRP84ouwswgo5X97CmeFHtJt1AxGXOuOzKDjc=;
-	b=4E0+KL1qnaG7iDemfwfrFfxrVZrir+6akAGMneYnaew00phRjRyigSr31OTmB+TFQmRMBM
-	ov1PEZ8f0YNjiIDA==
-Subject: Re: [PATCH net-next v3 6/8] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Wed, 30 Sep 2026 20:49:43 +0200
-In-Reply-To: <32624256-8462-490d-aa37-36ee2453362b@lunn.ch>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
-	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-6-ddebafcb9ba7@linutronix.de>
-	 <716486ec-6253-41dd-83ac-b816c845fafe@lunn.ch>
-	 <4fe59faffa0bb322e68c9c4d43f0bc240a519eba.camel@linutronix.de>
-	 <32624256-8462-490d-aa37-36ee2453362b@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="He3bqDzy"
+Received: by mail-vs2-f39.google.com with SMTP id ada2fe7eead31-7b2c87a0311so1600056137.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 11:53:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790794430; x=1791399230; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=r5lP6B15UeibEwnmcWBmYogILctd0FL89sC0OmMFnzw=;
+        b=He3bqDzyIaliNcTSU+o8FaH4opG7xOIZpgV3qFIPCRgqM4IRU3aPSLaPxzjn+E2lVS
+         WQCKcUd827U2fCCReISkR/C0IFcK0zxVyL2TS6TJBZG4voKZSNnibQLpTyOYurLJ8/0n
+         rGqz7u8/cmbYz2l9znuIbCns1E9DtPxkVRY3/6dJqWm9qqjFscEvfszUV3iUgkL/rYBj
+         bXAtwzX9ZpJQLZmom6SrYNtYxXBbPZOpnfTOhsyLeQWoycM4eAjKpMon5OljgTonquMe
+         ENmOUP+NPPj0/PSnLLKJl1lwE4k22kZV1PDL5ehrv632S5zaLlWMCuQM9wPStO9PXuon
+         QUZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790794430; x=1791399230;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r5lP6B15UeibEwnmcWBmYogILctd0FL89sC0OmMFnzw=;
+        b=cNXUc5QvHNjCeixY9plIA0b+7OYroKBmusstSKDMrQekdL5N6is2Tmm9EULvvhb4p8
+         HltBWfcRMdwBYJl891IWf1/VpWpj6sRuq2hxgKEuxLE1fJnhrlfgucr7szzPtictBotD
+         9v6J4h3qmRnLyZNUlA7vWyycYFbShY173V0pp8c3rjbnx8wj+g0+fgBqJ5RBrLjC+xlZ
+         JQxyEzRiAglQBbDESC+94tBCYv68RbRKpZ2oDtb2EUYk4OONA56nnScMu9ud/43oGV+8
+         vWFXHSSajS9uh7nrtti94qs3Tj2WtEsWXtDMVH9YvFd80JS6/2RC/8iKJJ8fkochyL6b
+         bvnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxHyhopEs1wcyufaWQSW3ReP3i2nlZrXzwRDiRrLz1WXrkfz0dWk+7OsYqV1uaktmSVys38rolHfWdy@vger.kernel.org
+X-Gm-Message-State: AFq9FYId5XNJs6TbsmGk/qebJvCxkSJZdsMogvXCmMMBnlmePufoy+WS
+	kSfZRV1h69xF0ervZiffZqVcPUmE5aCZuRNlH5mPPLIGRpYcmyaLCqYMEkNfXQ==
+X-Gm-Gg: AYBFou1H5PPqdd9kVvLViVDKUQ0Vg+AaJ4cAXaZ9Q1alleFU59YT+bUiahIEGNz/8Fj
+	xIL7q1fZiHw+/Vi5M7/kmHwlHhiY5luPFHOvongK1fwygMriS5aIoeW8NSl7/aXGd5j9SWUmnf+
+	bIQDAN5hijTEuC7tlEJOttBwZTeQTpeOiy4hALxS00BABJJEFxsO0bQqyWIMwf7arCYNBQYoonA
+	CCnTd7pnyfPn0fJjC3nRDEpKioe0U7Uch+yBeimQwL2fg6JhCQyr5sJR8MUkYWICFtpMAzSCbFk
+	PBU4Jns2DbGNle/PI/mDXRXk76Zl82WcJmjNMaAL2LRxS33SZKWVMHI71reOgHYKyb3haBOBG+K
+	7gVwr/MTMiYN+D1079NQ1szGLG2hzL2vx8GY7mXQ0QPuJfW7aLzMXwRUbznWwCwMrr/Ay423WJq
+	3m8j53sQY7FozEjyPBpZ3A9F1vgsF13sDrLERZUCR7Ly0Y18rv3Di0A2QHCx8MiL/qIja6etmV/
+	LyE
+X-Received: by 2002:a05:6102:6a91:b0:7a1:f7d2:e846 with SMTP id ada2fe7eead31-7be7319bd53mr571907137.22.1790794430193;
+        Wed, 30 Sep 2026 11:53:50 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7bfa6ece80bsm176847137.9.2026.09.30.11.53.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 11:53:48 -0700 (PDT)
+Date: Wed, 30 Sep 2026 15:54:00 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, marcelo.schmitt1@gmail.com
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v3 07/13] iio: adc: ad4134: Support buffered data read
+Message-ID: <ar1ayHk6n06hskyR@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1790719424.git.marcelo.schmitt@analog.com>
+ <095cea21f1a9fc39aa0a81b990e87c1046bb3dc9.1790719424.git.marcelo.schmitt@analog.com>
+ <20260929230528.8861C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929230528.8861C1F000FF@smtp.kernel.org>
 
-On Wed, 2026-09-30 at 20:29 +0200, Andrew Lunn wrote:
-> > > Once all the setup is finished, what is the state of the switch?
-> > >=20
-> > > What we want is that the user ports are isolated from each other, and
-> > > can only exchange frames with the CPU. That makes the hardware
-> > > basically a port expander, and you do bridging in software. Later
-> > > patches can then add offload of bridging, and whatever else the
-> > > hardware can do, which Linux can also do in software.
-> >=20
-> > That is exactly the state I want to achieve after the setup.
->=20
-> Great. Just looking at the code, this is not obvious. Most switches
-> tend to default to all ports can talk to all ports, and you need to
-> tell it which port is the CPU port, and block everything else. So i
-> look for such code, and did not see anything here.
+On 09/29, sashiko-bot@kernel.org wrote:
+...
+> > +static irqreturn_t ad4134_trigger_handler(int irq, void *p)
+> > +{
+> > +	IIO_DECLARE_BUFFER_WITH_TS(u32, channels, AD4134_NUM_CHANNELS) = { };
+> > +	struct iio_poll_func *pf = p;
+> > +	struct iio_dev *indio_dev = pf->indio_dev;
+> > +	struct ad4134_state *st = iio_priv(indio_dev);
+> > +	struct spi_transfer xfer = {
+> > +		.rx_buf = st->rx_buf,
+> 
+> [Severity: High]
+> If userspace reads or writes ADC registers via debugfs while the triggered
+> buffer is running in minimum I/O mode (NO_CS), ad4134_debugfs_reg_access()
+> can run concurrently with ad4134_trigger_handler().
+> 
+Yeah, debugfs is not safe to use like that. I believe claiming direct mode
+would solve the issue, although, the conclusion a while ago was that enforcing
+that for debug interface was not the way to go, IIRC. 
 
-The CPU port is set during synthesis of the jellyware. The driver must
-therefore assume that it will be configured correctly in the DT.
-There is only one read-only register that I could use to determine
-which port has been configured as the CPU port. Until now, I thought it
-wasn't worth checking.
-I will take a closer look at that, maybe it is worth to reduce any
-assumptions.
+I'll ignore complaints about issues related to debugfs unless asked otherwise.
 
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0Andrew
+> [Severity: High]
+> When the driver is configured in 4-wire mode (adi,spi-mode = "4-wire") and
+> falls back to the software trigger handler, this flag explicitly instructs
+> the SPI controller to leave the chip select line inactive (high) for the
+> duration of the transfer.
+> 
+> Since the AD4134 requires an active (low) chip select to frame the data in
+> 4-wire mode, does this setting break 4-wire mode communication and prevent
+> the device from outputting valid sample data?
 
-Thanks,
-Vasilij
+Doesn't apply to this specific device in 4-wire operation mode since the AD4134
+data interface is read with CS off.
+
+> 
+> > +		.len = BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS),
+> > +	};
+> > +	int ret;
+> > +
+> > +	gpiod_set_value_cansleep(st->odr_gpio, 1);
+> > +	fsleep(1);
+> > +	gpiod_set_value_cansleep(st->odr_gpio, 0);
+> > +
+> > +	/* Execute transfers for all channels so the entire data frame is read. */
+> > +	for (int ch = 0, i = 0; ch < AD4134_NUM_CHANNELS; ch++) {
+> > +		ret = spi_sync_transfer(st->spi, &xfer, 1);
+> 
+> [Severity: High]
+> In 4-wire mode, the AD4134 resets its data output frame if the chip select
+> goes high or if the DCLK is idle for more than 250ns.
+
+I have no idea where it supposedly found such information.
+
+> 
+> Does calling spi_sync_transfer() in a loop for each channel introduce
+> software delays far exceeding 250ns and toggle the CS line between calls?
+> 
+> Could this violate the device's continuous clocking and CS timing
+> requirements, causing the frame to reset on every iteration and reading
+> Channel 0 repeatedly instead of streaming consecutive channels?
+> 
+> Should a single bulk SPI transfer be used here instead of a loop?
+
+Anyways, running a longer transfer to get data all at once can indeed be done
+to minimize delays. So, I may do that on a v4.
