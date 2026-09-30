@@ -1,163 +1,195 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C07E45D92C
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790758429; cv=none; b=KMCBMcbbElOBBLrfXRpWFxwHpTGypjYBAlBTlmUmBTZk8Djv7KbGBvnc80Y3YrL1r1z+GHMbkwCkHApZSY2wPD3WkadtzEtvKItUIfzLrfjP+QCJUL/S5nG+hWeDIASvZK+xArv2FoqlQBXuk9zp0DzNQwmRc6BjdVQLLNgvz+8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790758429; c=relaxed/simple;
-	bh=geA/iZB6wkEKrsiLYnp/cqZXPGVPPnjSglnChDxmN9A=;
-	h=From:In-Reply-To:Content-Type:References:Date:Cc:To:MIME-Version:
-	 Message-ID:Subject; b=R2u87j0bOzlm3vtrGwMX5t+ddh1Z6gWGCSCIcCkV0f624tSOJ+NGCXJ5liplE1r2YVoFBhpp4ImoLZFuae/G8y2ryrdqJn/69sMRLiPN3mgkfz8jLDkG7lBmYmKWQ7inzkcsn0oiKZuwHVKue4JdTI2HL7VzwYVN8Udekvby2yQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xXlBawrS; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FD24657C2
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790758557; cv=pass; b=oq3uw30gdrLlfzKo3IYe75YKt2tJRVk2/Dca4l28T4Wpd1k1qW68/4h5Ztq2+0gojItsLd1XOWXvhbfRIiWYG9it+6iS3hFB65zVtxXAm8I/Z0ncsH2/A+0SEiCaC0LNmdMisJpIrYrH+61TM0tw+e2RGCAkVEJVQxiCv81n/FY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790758557; c=relaxed/simple;
+	bh=abErfC33CbNFbY3oc3pdHalPqdAnCa9dxRZNa7+VFeg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Y6BOH5p0M7zRy3j5aTck9Hym5MDzytwSybny5xmLii7BCvEqxMkX1gmStOiFbMAEVDqmCdD4AEc+7A5zw2GKtvIKBeI3N1cZN1MLbT11BuGvIomT5MORYpLyzazzZ4jt4aogIGrHvIkLpzPcsDNEjoXz+pMsMTiDaU2JweRmGsg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KJBA48UW; arc=pass smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xXlBawrS"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 72C3E4E410CD;
-	Wed, 30 Sep 2026 08:53:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 44E8B60749;
-	Wed, 30 Sep 2026 08:53:43 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPA id 32F0D10328E7B;
-	Wed, 30 Sep 2026 10:53:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790758422; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=6AWkXYD/MD09FFhnuG0xmwYrcKAW4aflAM4wC217Zdk=;
-	b=xXlBawrSCHtRf7uBs/H3aHyT/IlWcoN+YdbdklTn+FtklaDDpr13vhlc2/7JWF0BbTRXaF
-	WFP6P947sdxTV+Tdfhc6TGaPkQv2eRtZDNLiykVjAVA8wzVUNMXdpXm+W4IEQA3WDXy8CQ
-	1qULBYf0iytwiWP+3C8/H3uDDj1zDixV+4giWK8wLfHN79qYv1ZI77bHUBNGHYVy824OIb
-	bWXP7vbzUDRR3VRCvH4ydGcOGZ8UJGkpUFNv3mSCs8dPBePdvMGc9ircgVTK9FkOM9qixy
-	jMa530GNhnA06ee70wwYI6c9b8P0ALvhWJ1hCc60PqFoo0BfJgo04rxfGeG1NA==
-From: "Gregory Clement" <gregory.clement@bootlin.com>
-In-Reply-To:  <AM6PR01MB56865DCADF2BF67FD3277158808B2@AM6PR01MB5686.eurprd01.prod.exchangelabs.com>
-Content-Type: text/plain; charset="utf-8"
-References: <20260921-send-dt-v2-0-fb6b81002ad7@studio.unibo.it>  <AM6PR01MB56865DCADF2BF67FD3277158808B2@AM6PR01MB5686.eurprd01.prod.exchangelabs.com>
-Date: Wed, 30 Sep 2026 10:53:38 +0200
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Andrew Lunn" <andrew@lunn.ch>, "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>, =?utf-8?q?devicetree=40vger=2Ekernel=2Eorg?= <devicetree@vger.kernel.org>, =?utf-8?q?linux-kernel=40vger=2Ekernel=2Eorg?= <linux-kernel@vger.kernel.org>, =?utf-8?q?linux-arm-kernel=40lists=2Einfradead=2Eorg?= <linux-arm-kernel@lists.infradead.org>, "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-To: =?utf-8?q?Nicol=C3=B2_Giuliani_-_nicolo=2Egiuliani6=40studio=2Eunibo=2Eit?= <nicolo.giuliani6@studio.unibo.it>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KJBA48UW"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34bffc8105eso1140735eec.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 01:55:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790758554; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qDylZfcnDzIq+00KsRmUe0um4lFahv/wQdrSIm1JG2+CWGzdrfaj+RFwf7jW1PZy29
+         JoMsMGDCyYUkUwaDbWUeAAn2VfvtpCj4XeP1h4b40jE9sGeOJABj69uo/QLVQF76GBi+
+         vy+xtPItZVup9IXh25upKvCUkb+h69l5YydHNmRQW3Y8svfsxmAfSQfrvF4xtFoQeLVI
+         vntSjl9QEk9JWsvTIZg8vTQFIxLq6hNph79yiVXrlp8J00TuGxjEO2DL+0Jh+nf7XZHi
+         M2ZJoCQTNYb444377h6uefRNMoHTqTaQYmWTuIthjIMmBYqk62c7pzIgMzmPmBm64BeS
+         aRJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tK3QynNJMVX6fk91fIN3QptmwfowFv6iOT0xBS9VT+c=;
+        fh=qZvy4CK8MohChyCLTCUQXIAjSmO1xCcbgeYV0rkl11c=;
+        b=RzTFcDX33Oekncoqwxl1ESQ0lq5j2DUQydeXYLaTN8QNNIzSKtz8iM7jCkVZ5AeaNT
+         q1rxp2pDqpCzsAl/1qnhZ7Gb1NH2g+2p4QK60wfu8Ups5rRepvzc9xoQRYnWqEV2a309
+         tmcy5XSEiJbFBFNbSZ/GRxMBx/Ch3IhHiELhS6u8+7omJrS6IF5TcpGl+BNwmIP9pbNb
+         Wfa2HZzGLfa9oh4sbhSr+0TmZBKe7L/qF7zZZOlntF7+0l5AgCF7ARJFLtH/ds+BavRs
+         qGjliKNnGsr4xO5R1cyREF1rXNFwZ2PLmar4gYTmpyqSqsqqQXBsJoHiKgpRIiVmTmto
+         SEhQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790758554; x=1791363354; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tK3QynNJMVX6fk91fIN3QptmwfowFv6iOT0xBS9VT+c=;
+        b=KJBA48UWipxI48Q02C+mBfABDC5msOfOaSv8aX2fdI1HML8vVRGO61y1NxPD57HAHd
+         HfSDziq0Tzzdnpr5Q7wM2lgbckJGdbnB/VQ050HFMN5mE8NKtHQaCbBIZUT30bfEzWev
+         XQzeeNJa/hQnMjKtlIfvKt8u1mKWLLnvwBfZ2Z38MV406DE5rObDrEjv3j+P6Yb7Ge15
+         YvuC0/XjeMzmC7HKIQZ5G8whr/AEd3EJcWcjvFIv5qQND08/NWWr7ZUObQGaNV7na0tG
+         SDbqSGBiCjMKV70FUKvRqOiTdlavlF54TJdum4IAqkDO+98ubxSKPhsxI9d7CFpRfKib
+         gotA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790758554; x=1791363354;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tK3QynNJMVX6fk91fIN3QptmwfowFv6iOT0xBS9VT+c=;
+        b=F3O8ag8dx2sc2TcBIYg3jRrMBu1hlWAojP6Sq0B0uwa58YFporhPlB0oOworrIFk4+
+         nnxBluW/C+VPBXrwMzYMut2AkxlAyw6JUzRdiIA4yZYByjErviANKzzjr8vRuqlY6FiX
+         LpPJSCxaCfOKfcr7IUjFQu5ID77L28oVzTioKAv2GdRfSukFM1KhqjpQz+uzZQ7o7uLW
+         eF+sJmF+9JPj0eWicZDWSJ2hs1Mkx5+dlvYgNkaATgMgF/to1V0PE6Oe4iN83U4tN5nI
+         ismHuajHO6Ghr2nXeAMcNi4uGozpXZypLsoPNFaifPqjGVufz5WRe1cluITjvSrtp35E
+         iUnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzWr9GleSAIHOdIo20cshgsahZoClGwtJHaJPwI9V6/dicjvC5rEKiZ5vkSi3mjfIdGW9B37B0ifVK4@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1qYy3RBt3bJYC20ONh/DMsRpsh2K+Ie9pnjMu7Sl6XIa4XW1m
+	bw9xI4n7nRnNzAExQX3oxzRRQtAOA8meq/wTZA6ruyJD5UM9X++wWlGlB4/hFumJa2lr3XrkNez
+	ykKUO1Rmlf6QB8YW/BRo2jyLatHoR+Lg=
+X-Gm-Gg: AYBFou1eNwxTI5KCf+9D7zo/drSMY9kou65zgOh14YWCwDz1t+7Zb+eLvwaQ91+e9ZR
+	hOAexhHYx4cO16LFv6jk5WDtIFFbHGDCTfM+jhF8+9R7uM/ZZIpnE5EYPwFRX0b94tWLCT8aY7F
+	aDvM8XdsIES8a3TiTLnVcKTKBVHx9wCGDchgFiWy7zj7qKskoX2vMzFH3BbxqxTPYOYaM6sGpVf
+	3X5/xD8dmJOOyQ60+w1ttK+WY0xdpOlRPdgOt0NY512Dp0uqswcpi7k4BvYHZcY7nvH175UKHSS
+	aynb5UzB/8OT5rLsKj0AGmCewmSXJGXgQL27NOYfJYzEyOHI+0jHMsu/0ecNZ+FV59l+4sl5Vsw
+	vvX9ydcNCSXkt
+X-Received: by 2002:a05:693c:66cc:10b0:33c:e9d:6d4b with SMTP id
+ 5a478bee46e88-34ce1a002femr1132397eec.41.1790758554481; Wed, 30 Sep 2026
+ 01:55:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <43fd0a32-5436-4303-7d0d-2e3ca33772f7@bootlin.com>
-Subject: =?utf-8?q?Re=3A?==?utf-8?q?_R=3A?= [PATCH v2 0/3] =?utf-8?q?arm64=3A?=
- =?utf-8?q?_dts=3A?==?utf-8?q?_marvell=3A?= Add Sophos XGS 107w NPU
-User-Agent: SOGoMail 5.12.4
+References: <20260930070535.47130-1-clamor95@gmail.com> <20260930070535.47130-2-clamor95@gmail.com>
+ <arzI6PXbGAgXs9Uh@orome>
+In-Reply-To: <arzI6PXbGAgXs9Uh@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 30 Sep 2026 11:55:42 +0300
+X-Gm-Features: AclHuK--O-LZ7t9iRpgmVS0LccEUwDL6n7PPlA0pa15dhw7HSbr4NELCXapQceg
+Message-ID: <CAPVz0n3dOfmF6C5r0Z1t6ezzCoQEZh+V_oLGMFaUh1xHBMv+UA@mail.gmail.com>
+Subject: Re: [PATCH v1 1/6] drm/tegra: dc: Expand available registers layouts
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-tegra@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: None
 
-On Wednesday, September 30, 2026 10:35 CEST, Nicol=C3=B2 Giuliani - nic=
-olo.giuliani6@studio.unibo.it <nicolo.giuliani6@studio.unibo.it> wrote:
-
->=20
-> Hi Gregory, Andrew, Sebastian,
-Hello  Nicolo,
-
-> This series has Acked-by from Krzysztof on 1/3 and 2/3, and Reviewed-=
-by from Andrew on 3/3. Is there anything else needed before it can be a=
-pplied, or should I wait for the next merge window?
-
-I am working on the backlog today, either I will apply it or I will let=
- know if something is missing.
-
-Gregory
-
->=20
-> Thanks,
-> Nicolo Giuliani
->=20
-> =5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
-=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F
-> Da: Nicolo Giuliani via B4 Relay <devnull+nicolo.giuliani6.studio.uni=
-bo.it@kernel.org>
-> Inviato: luned=C3=AC 21 settembre 2026 02:26
-> A: Rob Herring; Krzysztof Kozlowski; Conor Dooley; Andrew Lunn; Grego=
-ry Clement; Sebastian Hesselbarth
-> Cc: devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-a=
-rm-kernel@lists.infradead.org; Nicol=C3=B2 Giuliani - nicolo.giuliani6@=
-studio.unibo.it; Krzysztof Kozlowski
-> Oggetto: [PATCH v2 0/3] arm64: dts: marvell: Add Sophos XGS 107w NPU
->=20
-> The Sophos XGS 87/107 desktop firewalls pair an AMD x86 host with a
-> separate network processing unit (NPU): a Marvell Armada CN9130 SoC w=
-ith
-> its own eMMC and SPI NOR flash. The NPU serves the eight RJ45 ports a=
-nd
-> the SFP cage through a Marvell 88E6193X switch on its MDIO bus, which=
- is
-> connected to the SoC by a 10GBASE-R link, and reaches the x86 host ov=
-er
-> PCIe.
->=20
-> This series adds the Sophos vendor prefix, the compatible string of t=
-he
-> NPU board and a device tree that describes the NPU as a standalone sy=
-stem:
-> UART console, eMMC, SPI NOR flash, the SFP cage and the switch with i=
-ts
-> ports. The port LEDs, the USB ports and the PCIe link to the x86 host=
- (the
-> CN9130 acts as a PCIe endpoint towards it, which needs endpoint suppo=
-rt
-> that is not part of this series) are not described.
->=20
-> Tested on an XGS 107w with Linux 6.18: boot from eMMC, eMMC and SPI N=
-OR
-> access, the mvpp2 link to the switch at 10 Gb/s, the 88E6193X probing=
- with
-> its eight user ports, and 936 Mbit/s through a front port. The SFP ca=
-ge
-> is untested.
->=20
-> dt=5Fbinding=5Fcheck passes for vendor-prefixes.yaml and armada-7k-8k=
-.yaml,
-> and CHECK=5FDTBS=3Dy on marvell/cn9130-sophos-xgs107w.dtb reports no =
-warning
-> specific to this board.
->=20
-> Based on the mvebu/dt branch of the mvebu tree (008e9faade).
->=20
-> Signed-off-by: Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
-> ---
-> Changes in v2:
-> - Patch 1: drop the second sentence of the commit message, add Acked-=
-by
-> - Patch 2: move the entry before the SolidRun ones and list only
->   marvell,cn9130 after the board compatible, as the other CN9130 boar=
-ds do
-> - Patch 3: use the compatible list of patch 2; pass the switch reset =
-as
->   reset-gpios and drop the boot loader workaround; remove the LED
->   expander node and the SFP address comment
-> - Link to v1: https://patch.msgid.link/20260919-send-dt-v1-0-365615a7=
-4ef3@studio.unibo.it
->=20
-> ---
-> Nicolo Giuliani (3):
->       dt-bindings: vendor-prefixes: Add Sophos
->       dt-bindings: arm: marvell: Add Sophos XGS 107w NPU
->       arm64: dts: marvell: Add Sophos XGS 107w NPU board
->=20
->  .../bindings/arm/marvell/armada-7k-8k.yaml         |   7 +
->  .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
->  arch/arm64/boot/dts/marvell/Makefile               |   1 +
->  .../boot/dts/marvell/cn9130-sophos-xgs107w.dts     | 188 +++++++++++=
-++++++++++
->  4 files changed, 198 insertions(+)
-> ---
-> base-commit: 008e9faadef8c0aaa9b8a3ff05a2126e3c5b08b7
-> change-id: 20260919-send-dt-6bbd08a470d2
->=20
-> Best regards,
-> --
-> Nicolo Giuliani <nicolo.giuliani6@studio.unibo.it>
->=20
+=D1=81=D1=80, 30 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 11:35 Thie=
+rry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Wed, Sep 30, 2026 at 10:05:30AM +0300, Svyatoslav Ryhel wrote:
+> > Expand existing DC register definitions with additional fields in
+> > preparation for adding the 8-bit CPU interface.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/gpu/drm/tegra/dc.c |  3 ++-
+> >  drivers/gpu/drm/tegra/dc.h | 54 ++++++++++++++++++++++++++++++++++----
+> >  2 files changed, 51 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+> > index b0bfa946e6979..5c67928bcabfa 100644
+> > --- a/drivers/gpu/drm/tegra/dc.c
+> > +++ b/drivers/gpu/drm/tegra/dc.c
+> > @@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_c=
+rtc *crtc,
+> >
+> >       if (dc->rgb) {
+> >               /* XXX: parameterize? */
+> > -             value =3D SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
+> > +             value =3D SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
+> > +                     SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
+> >               tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
+> >       }
+> >
+> > diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+> > index 0cb0515968b35..5679e1ca0c2a5 100644
+> > --- a/drivers/gpu/drm/tegra/dc.h
+> > +++ b/drivers/gpu/drm/tegra/dc.h
+> > @@ -274,8 +274,11 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> >  #define DC_COM_CRC_CHECKSUM                  0x301
+> >  #define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+> >  #define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+> > +#define LSC0_OUTPUT_POLARITY_LOW BIT(24)
+> >  #define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+> >  #define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+> > +#define LSPI_OUTPUT_POLARITY_LOW BIT(8)
+> > +#define LDC_OUTPUT_SELECT_V_PULSE1 BIT(14)
+> >  #define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+> >  #define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+> >  #define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+> > @@ -303,9 +306,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> >  #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
+> >
+> >  #define DC_DISP_DISP_SIGNAL_OPTIONS0         0x400
+> > -#define H_PULSE0_ENABLE (1 <<  8)
+> > -#define H_PULSE1_ENABLE (1 << 10)
+> > -#define H_PULSE2_ENABLE (1 << 12)
+> > +#define H_PULSE0_ENABLE                              BIT(8)
+> > +#define H_PULSE1_ENABLE                              BIT(10)
+> > +#define H_PULSE2_ENABLE                              BIT(12)
+> > +#define V_PULSE0_ENABLE                              BIT(16)
+> > +#define V_PULSE1_ENABLE                              BIT(18)
+> > +#define V_PULSE2_ENABLE                              BIT(19)
+> > +#define V_PULSE3_ENABLE                              BIT(20)
+> > +#define M0_ENABLE                            BIT(24)
+> > +#define M1_ENABLE                            BIT(26)
+> >
+> >  #define DC_DISP_DISP_SIGNAL_OPTIONS1         0x401
+> >
+> > @@ -451,11 +460,30 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+> >  #define BASE_COLOR_SIZE_888    (  8 << 0)
+> >  #define BASE_COLOR_SIZE_101010 ( 10 << 0)
+> >  #define BASE_COLOR_SIZE_121212 ( 12 << 0)
+> > +#define DISP_COLOR_SWAP_BGR  BIT(16)
+> >  #define CMU_ENABLE_ENABLE      (1 << 20)
+> >
+> >  #define DC_DISP_SHIFT_CLOCK_OPTIONS          0x431
+> > -#define  SC1_H_QUALIFIER_NONE        (1 << 16)
+> > -#define  SC0_H_QUALIFIER_NONE        (1 <<  0)
+> > +#define SC0_H_QUALIFIER(x)                   (((x) & 0x7) <<  0)
+> > +#define SC1_H_QUALIFIER(x)                   (((x) & 0x7) << 16)
+> > +enum {
+> > +     SC_H_QUALIFIER_DISABLE,
+> > +     SC_H_QUALIFIER_NONE,
+> > +     SC_H_QUALIFIER_HACTIVE,
+> > +     SC_H_QUALIFIER_EXT_HACTIVE,
+> > +     SC_H_QUALIFIER_HPULSE,
+> > +     SC_H_QUALIFIER_EXT_HPULSE,
+> > +};
+>
+> Let's stick with regular defines for this, there's really no advantage
+> in using enums for this and the other enums introduced by this patch.
 >
 
+Alright, noted. Thanks.
+
+> Thierry
