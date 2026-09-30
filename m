@@ -1,98 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05C2544D64
-	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 17:42:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FDE51CF44;
+	Wed, 30 Sep 2026 17:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790790127; cv=none; b=Cay70fmirtJu0d6NpFvUE8Atme5iIvjAsV4NnWDYI3A0nu/MjOtxOWghtq6AFzvPKH0LKK20TqF2tvwIaCEXxwXg0yejwgEfRqR4GwDskwzWUJ30W+eZmclr3EbCU9srLj+53skJDSh56DKfRtRxtML97+Sfo4gqW7ukn/OMyxY=
+	t=1790790263; cv=none; b=knDrsLNtPgJibLGG4kPy64tFjDn89v+JrVE2mf+2oWRxxs4CqQoyxY1gUnjPTxYiWfe0LMyp8bD2YXM5PbnWoCbZtTpHHQa9C0ucqSKEUR5mDaiBNOaV0T1cpi4fgyCgB/PAA+p+EGA9sNmijx24I4ctGytM/STeDh8ev9A4CGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790790127; c=relaxed/simple;
-	bh=1QnZxx2ZZ8fTJW7wapdgsZI/+ZVULKzBk1W2euhUOXQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Cs2VnaR/OOaesmRL9OTSOW3F9fSWgTsQWr9kHqNDtf9qA3DpC6s/nrPbWDKTw+XFkqS+0rBznTRxBd24Juo2vKZk2lGZtxpkHUJmST6gzO3QKOoQSgZpVrSleHQ4JIWOcdH26zjbeNtimI22q9wEPv1n6Cd1apOg9Kl9pxy6MBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c7cjyyR5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790790263; c=relaxed/simple;
+	bh=r8g0Pz6kDEx7WyKSjnUFRLi3Uv58ds8+cyhR3KPsX34=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jI4ZTIM1of7eFk1zcwbPmXoiU+/v9oFeLjMtfmO/fV++vtUuxEn1AVs7e93XsADs/Fx4J53Kz9ABRxt1gphrzqfVJTPeboBRa4kO79wHLMFKWWO2J1GL3aLd29i9asgceGyEuVeSNcluKiqSjei5+kU5tf+fq65cJjO5wLdxd20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=veOft339; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c7cjyyR5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428061F00899;
-	Wed, 30 Sep 2026 17:42:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790790126;
-	bh=r0vWdYs0V6AXIxO2Bw8XISLrQ0IDmYQckBkGS0H8QKw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c7cjyyR5rBvy/K1ZAtqo34P/kKrMnYlQwYtwjCVluYlhRO8hZT8SLis4o1aA/2KpV
-	 sEbC2B0SHU64Biyb3WuZ/gKpdkOOthP5WuZOM8PloMLK6f/6VXN2rr7F4430dHBJqH
-	 JH65jLZCWtX3ZtrBwGudMgq7G0jjTnm8N2Ybw4Mf6GddK1OsI5F5AH9QMcSvE7XBq+
-	 q97fLsHIWRY7mevgawXUlqVFHhT//xERCtMdkNZipa5Y2wI38XUsvpEbkTGyREyPmy
-	 GfGqhwaUu5ZhjYTGg2jm9fOeQToMgHlYUkVeDu8wmhp/zZTnx5xyX0tEaPjMJn97uE
-	 ChBuaToz770sQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: mailbox: ti,secure-proxy: Add TDA54
- variant compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Beleswar Padhi" <b-padhi@ti.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260930172948.2901336-2-b-padhi@ti.com>
-References: <20260930172948.2901336-1-b-padhi@ti.com>
- <20260930172948.2901336-2-b-padhi@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 30 Sep 2026 17:42:05 +0000
-Message-Id: <20260930174206.428061F00899@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="veOft339"
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 09C511FC00;
+	Wed, 30 Sep 2026 19:44:17 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1790790257;
+	bh=qfsxJ44J91j2emyBCQAKF4tdn9hHzn0C18LtsrXKcnA=; h=From:To:Subject;
+	b=veOft339+be/R8+BPCsciswCSo6rkAYQ3nN0LW3Cs9JFkEs571BIjraUhyd27WeXF
+	 ZycFfsQcSronG7eSNBBmQE0rRLAvLGMBMJqxf54bxn5y8JW5A3FSzppAaiv7LwTODG
+	 xc2/UonI0PXBTShNRVjagAjc24GEuep0fhhDFKx7w6U7uRMXB9SqvtXE/fM4h98G++
+	 H+iJ0zI+onkDMKiiTH4qpSppSp5ULmEhZrO4B2DehzOw3sGjHLyR5ZefFCIrscuHzi
+	 NTykvpHeNtiDzZ+6H1GbMY0tWnbMmjvbr2zC1DDJHOUYRKgUkbiBD0m3kf73iagsta
+	 LC3pU0NtSx7nw==
+Date: Wed, 30 Sep 2026 19:44:13 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Marek Vasut <marex@nabladev.com>
+Cc: Frank Li <Frank.li@oss.nxp.com>, linux-arm-kernel@lists.infradead.org,
+	Aswath Govindraju <a-govindraju@ti.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 3/3] arm64: dts: imx95: Add support for Data Modul
+ i.MX95 eDM SBC
+Message-ID: <20260930174413.GA2463938@francesco-nb>
+References: <20260928204741.175754-1-marex@nabladev.com>
+ <20260928204741.175754-3-marex@nabladev.com>
+ <arvPDq8sjjv7na01@SMW015318>
+ <49303872-5622-4e1d-8e1a-01394ec29367@nabladev.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <49303872-5622-4e1d-8e1a-01394ec29367@nabladev.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: mailbox: ti,secure-proxy: interrupt maxItems limits TD=
-A54 threads
---
+On Tue, Sep 29, 2026 at 05:20:27PM +0200, Marek Vasut wrote:
+> On 9/29/26 4:45 PM, Frank Li wrote:
+> 
+> Hello Frank,
+> 
+> > > +	backlight_lvds: backlight-lvds {
+> > > +		compatible = "pwm-backlight";
+> > > +		pinctrl-names = "default";
+> > > +		pinctrl-0 = <&pinctrl_panel_backlight_lvds>;
+> > > +		brightness-levels = <0 1 10 20 30 40 50 60 70 75 80 90 100>;
+> > > +		default-brightness-level = <7>;
+> > > +		enable-gpios = <&gpio2 27 GPIO_ACTIVE_HIGH>;
+> > > +		pwms = <&tpm3 3 5000000 0>;
+> > > +		/* Disabled by default, unless display board plugged in. */
+> > > +		status = "disabled";
+> > > +	};
+> > 
+> > The both backlight is not used in this dts, can you remove it and
+> > add these when it real use.
+> It's the same thing we do on the other boards, so I would prefer to keep
+> this consistent:
 
-commit 462da78495412d18a7d7ecfb35e5147704655806
-Author: Beleswar Padhi <b-padhi@ti.com>
+I agree with Marek, and I would not use the criteria about being used or
+not.
 
-dt-bindings: mailbox: ti,secure-proxy: Add TDA54 variant compatible
+Francesco
 
-This commit adds the ti,tda54-main-secure-proxy compatible to the Texas
-Instruments secure proxy mailbox controller binding. The new TDA54 variant
-features up to 444 threads with 60-byte messages per thread.
-
-> diff --git a/Documentation/devicetree/bindings/mailbox/ti,secure-proxy.ya=
-ml b/Documentation/devicetree/bindings/mailbox/ti,secure-proxy.yaml
-> index c321b69f0ccd3..525266953c974 100644
-> --- a/Documentation/devicetree/bindings/mailbox/ti,secure-proxy.yaml
-> +++ b/Documentation/devicetree/bindings/mailbox/ti,secure-proxy.yaml
-> @@ -22,7 +22,9 @@ properties:
->      pattern: "^mailbox@[0-9a-f]+$"
-> =20
->    compatible:
-> -    const: ti,am654-secure-proxy
-> +    enum:
-> +      - ti,am654-secure-proxy
-> +      - ti,tda54-main-secure-proxy
-
-[Severity: Low]
-Does the addition of this compatible require updating the maximum number of
-allowed interrupts in the schema?
-
-The commit message notes that the TDA54 hardware supports up to 444 threads.
-However, the existing properties limit both interrupts and interrupt-names
-to a maximum of 100 items:
-
-  interrupt-names:
-    minItems: 1
-    maxItems: 100
-
-  interrupts:
-    minItems: 1
-    maxItems: 100
-
-If a device tree for the new variant specifies more than 100 receive
-interrupts, won't it fail schema validation?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930172948.2901=
-336-1-b-padhi@ti.com?part=3D1
