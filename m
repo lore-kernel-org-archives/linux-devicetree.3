@@ -1,244 +1,298 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE883F9A13;
-	Wed, 30 Sep 2026 08:04:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2A445D928
+	for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 08:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790755485; cv=none; b=KIhu48lwLFBG/rJjVUMlxJGGm+AqYKHuvYva1CIzl9VgLifoudxEUezMuE3e0ZMrH5LeCN5aY8KAeb/9jEF4W1TvLAhsmShIh/WFJKvC6gSR9Li5vgOKZJDSCBkuopXCuAWwCffjVc8mmQCk6FfEcFuZGblRLqoFK4+RmdKYwDQ=
+	t=1790755639; cv=none; b=bGMlOKEtEgwe/XTZBBGKYQLV8AdK8rPAGP06r6je6QkFlrwGdbHIWGwGzhXLBJhM5LMJzADPWUxU9uS1d0vStdWvLKpbyvmpqKVdFaxhjP0AfOr2gP3lclvVMg/8jGrb8WMn/M3V8nYnRTeC5a7ic9ts1ro+fofHhpoEGOyznTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790755485; c=relaxed/simple;
-	bh=lAhm/IRtE5TnsstmivWqwHlXEeHp6zXLoKL6Dpf/08M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U+K+EdJLURN66C9WTL4MuR9fGirVYAfms0/hiUN8GCKbJ7iy/N2yer8AXQzvRESJTbzBFm7ZZbsTa3N6FIgkGDR7Ofm/EKiERicj7coCsZLT1bzzRX4q5cVeBaCbUMbPByDnFbYDuTlgHyfo4ZG1AKaQXECwkxogpj7j2b1d5Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QJ1Jkh88; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790755639; c=relaxed/simple;
+	bh=sgRHL4cRyFoz0iUc5GBtv9Nss+laGnmGI8TZWvOA21U=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=SQLfthGKj7D7rlIoYa+jePyoEFwDxs686iWUjnnzGrTod0D5nuHiXoDjrASZtw6lbSLkxSB7ZvJeMSr9QNG5TRJMjn7C563c8DR0m9at+I4Z6ZoD03eLAid7b74iDsRrCKQ2h7fPHOqIb8VF5Biu7XJmtYXzGxdxTC+aWv9x+8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=XiJ3FfuE; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QJ1Jkh88"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A8A1F000FF;
-	Wed, 30 Sep 2026 08:04:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790755483;
-	bh=lAhm/IRtE5TnsstmivWqwHlXEeHp6zXLoKL6Dpf/08M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QJ1Jkh88NS099T5XThWkiHUyHFMuaUi05aDIb0DuSfK6cbpnRq28RDtuRmH0kFGSv
-	 NZBn9sJRMspdyRlciqW7jBwuSJhhmVl+ihgUSFAiPw2uKl7PbI1UZnfLJPikMcnOyU
-	 ovoPJtoyeUD0pBgYjEK81upp+9g5hXAzTVbnwNByddsnhUHGbTh4oyjWwPnTpHoiyE
-	 W+veZ7MG2gdJLu5Tu2tBbHeKkaorg36xo5setYHOfmWCoJ7iQrrSg5BXX6WjPsfC16
-	 p8iXs5bEn9clABquAKOv4qGbKnFg2BCrgrFqzkP/nj5meGWrDZhxZks/v9wThWHD3f
-	 jOxH1OsmTZDig==
-Date: Wed, 30 Sep 2026 10:04:39 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, Benjamin Tissoires <bentiss@kernel.org>
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-Message-ID: <ary8IdL9zVXfS2fA@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
- <20260928204059.GA515872-robh@kernel.org>
- <artyl8fD3zzng8Uh@houat>
- <20260929222822.GA2933878-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="XiJ3FfuE"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so28628945e9.3
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 01:07:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790755634; x=1791360434; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R9Z12L+fXWCFDTbxFKxbwYJjVd8WMY/ksKqgATnsUOk=;
+        b=XiJ3FfuESS3alwck6UVTxa6SPofS0r91m/yp59B0e0ym/eH+0RR1uQm9FwO9atKelf
+         nqJKfOWY7Rqrru1/bF4o/s1EpXLD4YsD8b24wKMqqsIDTqOXoa2noR2grEe6N7IUX1Dn
+         vekPuCOe3rV2UhgzO/nD0wweg3h1XxzO+/0Bbx57e0moKqSXIfVVWY7FQ8xU3e3r+aZa
+         W327uMr3Qzlt+7oAqAxqKYdZimJQrnZ5xYKt6aR3tssY7aqze10hFs1MBJYRCGAkmZTp
+         Xf1VdVOQcrQ7WWrrsa7qmFLlURDG6rghTItgf5rb8cF/cUS15lFHX/5Iirpkc3fqwjr8
+         /JXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790755634; x=1791360434;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=R9Z12L+fXWCFDTbxFKxbwYJjVd8WMY/ksKqgATnsUOk=;
+        b=YZ4NAlI+Eifn8kyTt8Pm+u9MwdQG/Yw0AOWblMN2w/iXKfnSkpq5FAsyVHAj9MvF1T
+         IJZycUJ5Nit+30xNo5LoVOhTfP/Kj1/dlIHDBibAgI1/53Qp7/XNGIYEUtLf0NWsFwLt
+         Px/jp2Omayc1+2DJdP06RaM/087q5RZTVTj1O7iTf5Yi6DX9fyIWmrz7SodCoDk0I4Wm
+         FR0bn29bb94UVAuHHVB1em2PBHd+YPj8d/RdMKdKOpwwgnF5USCAHV4Flvn5KzxNlKM+
+         L55WNvaFjWtOK0phoO7fDQF092agpP50mLchJR3XqZH8/BeVETgb1vF4LLZRIEB8/t8b
+         UZGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgD7VGxebECGFzaUqvPxLF+sz29n5j/2ALioHWb8/fbtz3cDVFA3kCauGZT+K/CYDpHBzirlXfwSyr@vger.kernel.org
+X-Gm-Message-State: AFuF++nO/etphrwmo2apUToJ2uw5OLJRRs5jQp+24OgGbrA5xddzvggs
+	gzDyc4PNaXEATbQuq6Ld22161AE/4SCeSORNrGuID1MnMDvN1gw/K8F4n+zbec5m6xo=
+X-Gm-Gg: AYBFou3UfSSLV9VjWQ7FdFvDIDu7slx/9+n4rNMI5O611CQWD1MEduKSDo4k0VoTBl2
+	vKTdvusGtZunvPs7ZJjRVAEWy3Q5bvVU+QLNTvu/RiDFLCP51wZReEkyF2nx+CdZqZ7JNvxrqfs
+	x9P1Sd81PP1HX/7uZFlELIM9b4TbVrhlr5pOufQ8iuDYQ/BGx0WQregpduDSJnLsFe6hgqtu990
+	vfDLEMSAd/woBEA1utIkKJFZOTJcdUb7chMNIkplMq0YaTIv0rRaqYacOLG21C6v6TpWWvgR1NR
+	7Y3Edi1LXddhF2biVsnPHXLvi8Z1meMQgiOXqcEX0Ck91y02WlbMXixLeThGhIIv91aN+TbZPg9
+	AoRfSKE1ULlZ28IcU7dcLQfA6jKBZwg1YUrzJJNj2WUQkgN3jzLY84mrZ/q0fmEre38+75uXtbp
+	u7kOJ4H2bOJjUlk80h5CnPRPR4Q/7rKQmFEFcHzmAmelAwn3Hg4NQcDNvG5MKve1SEifE27YH9J
+	Gn7QlRLoGlbN1W83YIlor+BBx/P
+X-Received: by 2002:a05:600c:3486:b0:49e:7c7e:274c with SMTP id 5b1f17b1804b1-4a01afec552mr8494615e9.14.1790755634409;
+        Wed, 30 Sep 2026 01:07:14 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01751613dsm33464255e9.3.2026.09.30.01.07.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 01:07:13 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>, Michael Turquette
+ <mturquette@baylibre.com>, Brian Masney <bmasney@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Kees
+ Cook <kees@kernel.org>, "Gustavo A . R . Silva" <gustavoars@kernel.org>,
+ Richard
+ Cochran <richardcochran@gmail.com>
+Cc: "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+ "linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Hal Feng
+ <hal.feng@starfivetech.com>
+Subject: Re: [PATCH v4 03/22] clk: starfive: Rename file name "jh71x0" to
+ "common"
+In-Reply-To: <ZQ4PR01MB12022FD5940DAA1AC1279B8FF28D2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260920120044.194901-1-changhuang.liang@starfivetech.com>
+ <20260920120044.194901-4-changhuang.liang@starfivetech.com>
+ <1jqzih73ob.fsf@starbuckisacylon.baylibre.com>
+ <ZQ4PR01MB12022FD5940DAA1AC1279B8FF28D2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+Date: Wed, 30 Sep 2026 10:07:11 +0200
+Message-ID: <1jtsn72mds.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="k3ccvqemgn4avxba"
-Content-Disposition: inline
-In-Reply-To: <20260929222822.GA2933878-robh@kernel.org>
+Content-Type: text/plain
 
+On lun. 28 sept. 2026 at 11:10, Changhuang Liang <changhuang.liang@starfivetech.com> wrote:
 
---k3ccvqemgn4avxba
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
- panel binding
-MIME-Version: 1.0
+> Hi, Jerome
+>
+> Thanks for the review.
+>
+>> On dim. 20 sept. 2026 at 05:00, Changhuang Liang
+>> <changhuang.liang@starfivetech.com> wrote:
+>> 
+>> > From: Sia Jee Heng <jeeheng.sia@starfivetech.com>
+>> >
+>> > StarFive JHB100 shares a similar clock and reset design with JH7110.
+>> > To facilitate the reuse of the file and its functionalities, files
+>> > containing the "jh71x0" naming convention are renamed to use the
+>> > "common" wording.
+>> 
+>> Is this really necessary ? Rename are generally not recommended.
+>> Do we really care if your new soc use something named after the older one ?
+>> 
+>> You are naming it common now but how long is it going to stay "common" ?
+>> If your next SoC does not use this anymore it won't be common for long ...
+>> 
+>
+> Okay, I will drop the current PATCH 1/2/3/4 and directly reuse the current JH71x0-related interfaces.
+>
 
-On Tue, Sep 29, 2026 at 05:28:22PM -0500, Rob Herring wrote:
-> On Tue, Sep 29, 2026 at 10:39:24AM +0200, Maxime Ripard wrote:
-> > On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
-> > > On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
-> > > > Most MIPI-DSI panel drivers follow an identical pattern: acquire
-> > > > regulators and GPIOs, perform a reset pulse with specific timing,
-> > > > send a vendor-supplied sequence of DSI commands, then enable the
-> > > > display. The only truly panel-specific part is the init sequence
-> > > > and power-on/off timing.
-> > > >=20
-> > > > The panel-mipi-dsi-bpf driver replaces per-panel kernel modules
-> > > > with a single generic driver whose panel-specific behavior is
-> > > > provided by BPF programs loaded from userspace at runtime,
-> > > > following the HID-BPF model. This enables new panel support
-> > > > without kernel patches.
-> > > >=20
-> > > > Panel DT nodes use a two-entry compatible with the panel-specific
-> > > > string first and "panel-mipi-dsi-bpf" as fallback. The generic
-> > > > driver matches on the fallback, while the first compatible is used
-> > > > to identify which BPF program to load.
-> > >=20
-> > > If you need the 1st compatible anyways, what is the point of the
-> > > second one?
-> >=20
-> > The whole point of this driver is that you don't need to modify the
-> > kernel when you add support for a new panel.
->=20
-> What reads the most specific compatible?
+Please make sure your series applies on clk-next next time around.
+This one failed to apply when it was sent.
 
-The BPF loader, so either in kernel loader or userspace loader through
-uevents, depending on how the driver discussions are going.
+>> >
+>> > Signed-off-by: Sia Jee Heng <jeeheng.sia@starfivetech.com>
+>> > Reviewed-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
+>> > Reviewed-by: Emil Renner Berthing <emil.renner.berthing@canonical.com>
+>> > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+>> > ---
+>> >  drivers/clk/starfive/Kconfig                              | 8
+>> ++++----
+>> >  drivers/clk/starfive/Makefile                             | 2 +-
+>> >  .../{clk-starfive-jh71x0.c => clk-starfive-common.c}      | 4 ++--
+>> >  .../{clk-starfive-jh71x0.h => clk-starfive-common.h}      | 4 ++--
+>> >  drivers/clk/starfive/clk-starfive-jh7100-audio.c          | 2 +-
+>> >  drivers/clk/starfive/clk-starfive-jh7100.c                | 2 +-
+>> >  drivers/clk/starfive/clk-starfive-jh7110.h                | 2 +-
+>> >  7 files changed, 12 insertions(+), 12 deletions(-)  rename
+>> > drivers/clk/starfive/{clk-starfive-jh71x0.c => clk-starfive-common.c}
+>> > (99%)  rename drivers/clk/starfive/{clk-starfive-jh71x0.h =>
+>> > clk-starfive-common.h} (98%)
+>> >
+>> > diff --git a/drivers/clk/starfive/Kconfig
+>> > b/drivers/clk/starfive/Kconfig index bd29358ffeec..ff8eace36e64 100644
+>> > --- a/drivers/clk/starfive/Kconfig
+>> > +++ b/drivers/clk/starfive/Kconfig
+>> > @@ -1,12 +1,12 @@
+>> >  # SPDX-License-Identifier: GPL-2.0
+>> >
+>> > -config CLK_STARFIVE_JH71X0
+>> > +config CLK_STARFIVE_COMMON
+>> >  	bool
+>> >
+>> >  config CLK_STARFIVE_JH7100
+>> >  	bool "StarFive JH7100 clock support"
+>> >  	depends on ARCH_STARFIVE || COMPILE_TEST
+>> > -	select CLK_STARFIVE_JH71X0
+>> > +	select CLK_STARFIVE_COMMON
+>> >  	default ARCH_STARFIVE
+>> >  	help
+>> >  	  Say yes here to support the clock controller on the StarFive
+>> > JH7100 @@ -15,7 +15,7 @@ config CLK_STARFIVE_JH7100  config
+>> > CLK_STARFIVE_JH7100_AUDIO
+>> >  	tristate "StarFive JH7100 audio clock support"
+>> >  	depends on CLK_STARFIVE_JH7100
+>> > -	select CLK_STARFIVE_JH71X0
+>> > +	select CLK_STARFIVE_COMMON
+>> >  	default m if ARCH_STARFIVE
+>> >  	help
+>> >  	  Say Y or M here to support the audio clocks on the StarFive JH7100
+>> > @@ -33,7 +33,7 @@ config CLK_STARFIVE_JH7110_SYS
+>> >  	bool "StarFive JH7110 system clock support"
+>> >  	depends on ARCH_STARFIVE || COMPILE_TEST
+>> >  	select AUXILIARY_BUS
+>> > -	select CLK_STARFIVE_JH71X0
+>> > +	select CLK_STARFIVE_COMMON
+>> >  	select RESET_STARFIVE_JH7110 if RESET_CONTROLLER
+>> >  	select CLK_STARFIVE_JH7110_PLL
+>> >  	default ARCH_STARFIVE
+>> > diff --git a/drivers/clk/starfive/Makefile
+>> > b/drivers/clk/starfive/Makefile index 199ac0f37a2f..012f7ee83f8e
+>> > 100644
+>> > --- a/drivers/clk/starfive/Makefile
+>> > +++ b/drivers/clk/starfive/Makefile
+>> > @@ -1,5 +1,5 @@
+>> >  # SPDX-License-Identifier: GPL-2.0
+>> > -obj-$(CONFIG_CLK_STARFIVE_JH71X0)	+= clk-starfive-jh71x0.o
+>> > +obj-$(CONFIG_CLK_STARFIVE_COMMON)	+= clk-starfive-common.o
+>> >
+>> >  obj-$(CONFIG_CLK_STARFIVE_JH7100)	+= clk-starfive-jh7100.o
+>> >  obj-$(CONFIG_CLK_STARFIVE_JH7100_AUDIO)	+=
+>> clk-starfive-jh7100-audio.o
+>> > diff --git a/drivers/clk/starfive/clk-starfive-jh71x0.c
+>> > b/drivers/clk/starfive/clk-starfive-common.c
+>> > similarity index 99%
+>> > rename from drivers/clk/starfive/clk-starfive-jh71x0.c
+>> > rename to drivers/clk/starfive/clk-starfive-common.c
+>> > index 80e9157347eb..4aecb65e9fd7 100644
+>> > --- a/drivers/clk/starfive/clk-starfive-jh71x0.c
+>> > +++ b/drivers/clk/starfive/clk-starfive-common.c
+>> > @@ -1,6 +1,6 @@
+>> >  // SPDX-License-Identifier: GPL-2.0
+>> >  /*
+>> > - * StarFive JH71X0 Clock Generator Driver
+>> > + * StarFive Clock Generator Driver
+>> >   *
+>> >   * Copyright (C) 2021-2022 Emil Renner Berthing <kernel@esmil.dk>
+>> >   */
+>> > @@ -10,7 +10,7 @@
+>> >  #include <linux/device.h>
+>> >  #include <linux/io.h>
+>> >
+>> > -#include "clk-starfive-jh71x0.h"
+>> > +#include "clk-starfive-common.h"
+>> >
+>> >  static struct jh71x0_clk *jh71x0_clk_from(struct clk_hw *hw)  { diff
+>> > --git a/drivers/clk/starfive/clk-starfive-jh71x0.h
+>> > b/drivers/clk/starfive/clk-starfive-common.h
+>> > similarity index 98%
+>> > rename from drivers/clk/starfive/clk-starfive-jh71x0.h
+>> > rename to drivers/clk/starfive/clk-starfive-common.h
+>> > index 9d5dec1d5cd1..f634c62c196a 100644
+>> > --- a/drivers/clk/starfive/clk-starfive-jh71x0.h
+>> > +++ b/drivers/clk/starfive/clk-starfive-common.h
+>> > @@ -1,6 +1,6 @@
+>> >  /* SPDX-License-Identifier: GPL-2.0 */ -#ifndef
+>> > __CLK_STARFIVE_JH71X0_H -#define __CLK_STARFIVE_JH71X0_H
+>> > +#ifndef __CLK_STARFIVE_COMMON_H
+>> > +#define __CLK_STARFIVE_COMMON_H
+>> >
+>> >  #include <linux/bits.h>
+>> >  #include <linux/clk-provider.h>
+>> > diff --git a/drivers/clk/starfive/clk-starfive-jh7100-audio.c
+>> > b/drivers/clk/starfive/clk-starfive-jh7100-audio.c
+>> > index de1cf717e391..0e363b971e9d 100644
+>> > --- a/drivers/clk/starfive/clk-starfive-jh7100-audio.c
+>> > +++ b/drivers/clk/starfive/clk-starfive-jh7100-audio.c
+>> > @@ -14,7 +14,7 @@
+>> >
+>> >  #include <dt-bindings/clock/starfive-jh7100-audio.h>
+>> >
+>> > -#include "clk-starfive-jh71x0.h"
+>> > +#include "clk-starfive-common.h"
+>> >
+>> >  /* external clocks */
+>> >  #define JH7100_AUDCLK_AUDIO_SRC			(JH7100_AUDCLK_END
+>> + 0)
+>> > diff --git a/drivers/clk/starfive/clk-starfive-jh7100.c
+>> > b/drivers/clk/starfive/clk-starfive-jh7100.c
+>> > index 761e46ed0ffd..ca81ccb5af94 100644
+>> > --- a/drivers/clk/starfive/clk-starfive-jh7100.c
+>> > +++ b/drivers/clk/starfive/clk-starfive-jh7100.c
+>> > @@ -14,7 +14,7 @@
+>> >
+>> >  #include <dt-bindings/clock/starfive-jh7100.h>
+>> >
+>> > -#include "clk-starfive-jh71x0.h"
+>> > +#include "clk-starfive-common.h"
+>> >
+>> >  /* external clocks */
+>> >  #define JH7100_CLK_OSC_SYS		(JH7100_CLK_END + 0)
+>> > diff --git a/drivers/clk/starfive/clk-starfive-jh7110.h
+>> > b/drivers/clk/starfive/clk-starfive-jh7110.h
+>> > index 0659adae4d76..6b1bdf860f00 100644
+>> > --- a/drivers/clk/starfive/clk-starfive-jh7110.h
+>> > +++ b/drivers/clk/starfive/clk-starfive-jh7110.h
+>> > @@ -2,7 +2,7 @@
+>> >  #ifndef __CLK_STARFIVE_JH7110_H
+>> >  #define __CLK_STARFIVE_JH7110_H
+>> >
+>> > -#include "clk-starfive-jh71x0.h"
+>> > +#include "clk-starfive-common.h"
+>> >
+>> >  /* top clocks of ISP/VOUT domain from JH7110 SYSCRG */  struct
+>> > jh7110_top_sysclk {
+>> > --
+>> > 2.25.1
+>> >
+>> >
+>> > _______________________________________________
+>> > linux-riscv mailing list
+>> > linux-riscv@lists.infradead.org
+>> > http://lists.infradead.org/mailman/listinfo/linux-riscv
+>> 
+>> --
+>
+> Best Regards
+> Changhuang
+>
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
 
-> > > Also, I assume there is at least some panel supported in the kernel
-> > > you might want to convert to this. That panel would not have the
-> > > fallback (and the DT is fixed).
-> >=20
-> > Yeah, that's true. I'd still need to identify the parts though. I guess
-> > using a generic compatible but a specific model would work?
->=20
-> What? You can't add a generic compatible in these cases.
-
-generic-*hci all have a generic component *and* a platform specific part
-for quirks, and yet none of them require a platform specific compatible
-to be added to work. PCI has that too.
-
-This driver has a generic part and a platform specific part for quirks.
-
-> > > And I agree with Neil's comment. At least until we start embedding BPF
-> > > into DT directly. ;)
-> >=20
-> > And from Neil:
-> >=20
-> > > I don't see how this can be a valid hardware description, bfp is a
-> > > software implementation and has nothing to do in the bindings.
-> >=20
-> > I'm quite a bit surprised by that argument though.
-> >=20
-> > We have in the main dt-schema repos bindings like:
-> >=20
-> > https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/=
-options/u-boot.yaml
->=20
-> Self contained in a node that's specifically not h/w.
->=20
-> > https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/=
-bootph.yaml
-> > https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/=
-post-init-providers.yaml
->=20
-> Extra hints that are safe to ignore.
->=20
-> >=20
-> > Or, in Linux:
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/Documentation/devicetree/bindings/misc/google,android-pipe.yaml
->=20
-> Virtual h/w which tends to have special needs.
-
-How is that not a description of the binding we're discussing?
-
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
->=20
-> Shrug. Weird Qcom shit...
-
-Cool. What can I do to add this binding to the list of "weird Maxime
-shit" or is this kind of exception only for Qualcomm?
-
-Or should we do it the other way and ship the binding anyway, and in two
-years, when it will have been in device tree in the wild and
-we-cannot-change-it-we-swear, we will be able to upstream it?
-
-And in the process reward the ones *not* playing the upstream game.
-
-> > https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/Documentation/devicetree/bindings/sound/simple-card.yaml
->=20
-> Just a container... Though I can't say I really like any of the audio=20
-> bindings.
->=20
-> All really irrelevant to this discussion other than the panel binding...
-
-Not really. The discussion was "but you're describing something that
-isn't hardware". And none of the above are. And were acked. Some
-recently.
-
-> > All of them have been reviewed or acked by you, and yet none of them
-> > relate to any hardware description.
->=20
-> There are things which aren't h/w, but this is h/w and we've already=20
-> made decisions about how panels in particular are represented. We of=20
-> course have some remanents of how we don't want to do things.
->=20
-> > panel-mipi-dsi-spi is a generic panel that will load a firmware, and
-> > quite similar to this one. google,android-pipe and qcom,fastrpc don't
-> > attach to anything and will just open a tunnel to userspace, which is
-> > somewhat equivalent but more dramatic than what this driver is doing.
-> > simple-card or its variations will just instantiate a kernel driver from
-> > the DT and is used pretty much everywhere.
-> >=20
-> > I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
-> > by rob, and acked by a panel maintainer, and 4 years ago, so we're way
-> > past the "oh but we didn't know what we were doing back then" argument.
-> >=20
-> > So, let's phrase this differently: what's different about the
-> > description than panel-mipi-dsi-spi, or any other binding already in
-> > tree?
->=20
-> There's all of 3 panels supported. Compared to all the other panels we=20
-> have, hardly the rule over the exception. You can always fine "bad"=20
-> examples or exceptions.
->=20
-> That one defines a single supply. Any other MIPI SPI panel with=20
-> different supplies or GPIO controls probably has its own binding. Trying=
-=20
-> to parameterize that in DT doesn't work. We've rejected trying to do=20
-> that in DT over and over. What's your story here for that?
-
-Sigh... Look, I really don't care about an argument DT maintainers use
-at their discretion for this. We both know full well that it's been and
-still is inconsistenly applied, and you also know that it's not like
-I've been playing the DT game since pretty much the beginning (on ARM
-anyway). So it's not like I don't want to make it work, I do. But what I
-care about is enabling that driver to work.
-
-I reused exactly the same binding than the last major binding that was
-merged for panels, and support about the same number of panels. I guess
-that was a mistake, so sorry for that.
-
-I'm fine with reworking the binding any way you want as long as it still
-allows for the same use-case, but I would have hoped for a better
-feedback on how to do so than "oh what a huge pile of shit this is".
-
-Maxime
-
---k3ccvqemgn4avxba
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCarzCkwAKCRAnX84Zoj2+
-dpc3AYDOB9XdH/2zapSanqxE4H56ffYrbVAeb+qx5XxwVM0vnMt7lzv9vg5HaAOo
-S/xSzu0Bfi/5SfsSXC39fs4ZPIdQyMs+eNZexW71Ze0mJnl6LF6ImBE4OXEw7pa4
-QGknAZNTfg==
-=jVxm
------END PGP SIGNATURE-----
-
---k3ccvqemgn4avxba--
+-- 
+Jerome
