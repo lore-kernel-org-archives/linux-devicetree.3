@@ -1,81 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out198-13.us.a.mail.aliyun.com (out198-13.us.a.mail.aliyun.com [47.90.198.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393B9282F20;
-	Wed, 30 Sep 2026 00:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF09626A1AC;
+	Wed, 30 Sep 2026 00:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790728208; cv=none; b=sIeFZTQMFYtQZgRVW74UtKRsv1rLU/GAtuNaqtvRBOxJ63/au5O7/PBqMVBsIVsu21nq2/hallEjWJSHKrVyCQXbkb78t2RbUgOzghEEI/GvkZT4CrbrHrpcKOG1HBlsxSRtz+gDbK2q+dK7pvRHE2DVd32QZeOvoLbHdEsF408=
+	t=1790728790; cv=none; b=luYdEBY4bWo15J+pO6hqqcSNlL3R8M9tznA8b41og0nE8Qc4X49eYx41R7P6sTbn8zE+JxcS3bgcHkfAZeYPriXybudnOVSDLtA91v7mCAHXNCMqG5wbZQgW0dpIkJD/Jct99X6aF2l350QR2TKHYegOE/Uq/vwqW+j0d5GHHLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790728208; c=relaxed/simple;
-	bh=vNW8LuCKhtSIPOsqEAKz0G1ppn4MvMsYJk6CVvdhQtU=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=AryubeAE+BOpJ+wjZfNT0F+nvY8m9amkwhPug264tDoDl/P15He+68RCNyXyR4OAc5zuH/2RycOgBqpjwqVegGJcde+7Nqm1ZnTPcisgDc7yh6IgF+cYjXUiO0PC9DwornhNshzUfkRFU3Uc89WZjhMyWmh9OjE2eIO//FazDVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLX9YqJ2; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLX9YqJ2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3931F000FF;
-	Wed, 30 Sep 2026 00:30:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790728206;
-	bh=nzrw1DJAxJrrbMgCNrigmRVtMubjrWWM9LSdykWzn54=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=SLX9YqJ20OOE1gTlypIfyEyf/i5KOEzOgbLR6kk9PWApnvxrpZ+1U9Qcoch9idgs8
-	 BTqQckV9aQwbZK/SpCRiZXp8mXNTan3vdIWo/I0NP17vMSlbZyxJd97Tc/0rNiVbA8
-	 QKrT4v7SpEkNvlgADMO3yC0XGATWglQqUywaF2XvqClcKs+qD9jmor8Ynaof6t5E1J
-	 jTd8iKjsx4sS+inLvBgMyUDX+7rn9hs9SnLHVsJKjWQ3q4JPH/MIxDn2RfisVPTjAK
-	 qV/b8bCDnZffce0l3HitpoZkyuiJQzfLDtxOPtBm6TOLMQPmvz/WyLiuosUktdSpaN
-	 mqTqi0gAm0mKg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B43C93924FEA;
-	Wed, 30 Sep 2026 00:30:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1790728790; c=relaxed/simple;
+	bh=kpZWKhkTh54QLeiLP/UW0ZvL/5icVZNQjYS3l66JHio=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IPhRO/AI/88uJXJDz/2qfMseqggI6ys+KEnx2pnI70kQ98cPcQbdctsE9wiz+DJ1XlvGsouDaJ3e+8bWwTFAai3skpud3xJ7F5hJPkogVDVADR7h1u83IxsjDIyp3PDJIgbk7svyFr7N8NKFos4+RO/fkzG5OTj4eF9Afmc/d2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=47.90.198.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07448903|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.224787-0.000657697-0.774555;FP=14452996897367414002|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033040074035;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jRqO6DN_1790728762;
+Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jRqO6DN_1790728762 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 30 Sep 2026 08:39:25 +0800
+Message-ID: <3f31de5e-2a62-46ee-b857-64f8a353d8e6@motor-comm.com>
+Date: Wed, 30 Sep 2026 08:39:22 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v4] net: pcs: rzn1-miic: Clear MIIC protection state
- before unprotect sequence
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179072820554.1181068.4496571892719089196.git-patchwork-notify@kernel.org>
-Date: Wed, 30 Sep 2026 00:30:05 +0000
-References: 
- <TYCPR01MB74815955A10817B64BD6FB93A4812@TYCPR01MB7481.jpnprd01.prod.outlook.com>
-In-Reply-To: 
- <TYCPR01MB74815955A10817B64BD6FB93A4812@TYCPR01MB7481.jpnprd01.prod.outlook.com>
-To: Yoshihisa Yamamoto <yoshihisa.yamamoto.xn@renesas.com>
-Cc: clement.leger@bootlin.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu, 24 Sep 2026 10:36:57 +0000 you wrote:
-> On RZ/T2H and RZ/N1D MIIC, writing 0x0000 to the MIIC protection
-> register clears the protection state machine.
-> 
-> The initial protection state cannot be assumed to be constant,
-> as it may be influenced by previous activity before the driver
-> takes ownership of the hardware.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net,v4] net: pcs: rzn1-miic: Clear MIIC protection state before unprotect sequence
-    https://git.kernel.org/netdev/net/c/8b9993437429
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v22 3/3] net: phy: Add driver for Motorcomm Quad
+ 2.5GbE phy
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com
+References: <20260929095430.508657-1-kyle.switch@motor-comm.com>
+ <20260929095430.508657-4-kyle.switch@motor-comm.com>
+ <0eb0fe92-86c0-425d-8002-a7ce448ba751@lunn.ch>
+Content-Language: en-US
+From: Kyle Switch <kyle.switch@motor-comm.com>
+In-Reply-To: <0eb0fe92-86c0-425d-8002-a7ce448ba751@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
+On 9/29/26 20:18, Andrew Lunn wrote:
+>> +static int yt8824_restore_working_status(struct phy_device *phydev, int ret)
+>> +{
+>> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+>> +	int r;
+>> +
+>> +	/* configure normal test mode */
+>> +	r = yt8824_utp_set_template_test_mode
+>> +		(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
+> The opening ( should be on the line before. The phydev as well.
+>
+>> + * yt8824_soft_reset() - called to do PHY software reset
+>> + * @phydev: a pointer to a &struct phy_device
+>> + *
+>> + * Returns: 0 or negative errno code
+>> + */
+>> +static int yt8824_soft_reset(struct phy_device *phydev)
+>> +{
+>> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+>> +	int ret;
+>> +
+>> +	mutex_lock(&priv->shared_lock);
+>> +	if (priv->package_mode == PHY_INTERFACE_MODE_INTERNAL) {
+>> +		/* test mode 1 */
+>> +		ret = yt8824_utp_set_template_test_mode
+>> +			(phydev, MDIO_PMA_10GBT_TESTMODE_1);
+> Please look through the code and fix all these problems.
+>
+> Also, what value does the comment have?
+>
+okay, meaningless comments will be removed.
+>> +		if (ret < 0)
+>> +			goto retry;
+>> +		ret = yt8824_utp_softreset_paged(phydev);
+>> +		if (ret < 0)
+>> +			goto retry;
+>> +		/* normal mode */
+>> +		ret = yt8824_utp_set_template_test_mode
+>> +			(phydev, MDIO_PMA_10GBT_TESTMODE_NORMAL);
+> And this comment? You only need comments if the code is not
+> obvious. The name of the function is often sufficient to explain what
+> is happening.
+>
+>> +	/* pll calibration */
+>> +	ret = ytphy_write_ext_with_lock(phydev, 0x0001, 0x0003);
+>> +	if (ret < 0)
+>> +		goto err_restore;
+> This comment is useful, it is not possible to know what 0x0001,
+> 0x0003 means.
+>
+>> +	ret = ytphy_write_ext_with_lock(phydev, 0xa20e, 0x0cba);
+> and this is just magic. Which is why we recommend #define, not magic
+> numbers.
+>
+>> +	/* power down */
+>> +	ret = phy_modify(phydev, MII_BMCR, BMCR_PDOWN, BMCR_PDOWN);
+>> +	if (ret < 0)
+>> +		goto err_restore;
+>> +	ret = ytphy_write_ext_with_lock(phydev, 0xa20e, 0xcba);
+> You comment about the obvious power down, but nothing about what this
+> magic does :-(
+okay, magic numbers will be replaced with meaningful definitions.
+>
+> 	Andrew
