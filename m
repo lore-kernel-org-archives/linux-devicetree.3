@@ -1,357 +1,290 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011030.outbound.protection.outlook.com [52.101.70.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4DE37CD22;
-	Thu,  1 Oct 2026 19:58:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790884706; cv=fail; b=VGv7KCuS+BE0o8i6lArHcF2ZUaqtiu72G0/Tot4oJTKnShNk66MIy4uQivkvsx4dhV5MOtL+w4t3ISzj7AzPVsZ/+4gF2knB7waro9mgvBnQSwWyUfkx1qb0IY0BuYKbG5JijOjkqOE3vnyX/fQiOR8nXkfxTzbY2rAl5ZZPwUs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790884706; c=relaxed/simple;
-	bh=nmQgKEBXzRkNtVrDTBxXxgb3oEkQxfvI7IanARxgcpk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=lP0/+xYQPIvbj5Xt23xBjDRygs4AlkFYaMAJc7GPHC+D8kK17U74dMT2m/K1Db1aQheZ9pcLsODkvSUFYf3frw9E+dtU2JEhjzurby4Avdgk2U48PGVQRt8hGkG+ZAY/VbZ+qI6NbWpUbKNlLqTSp9WLnK2czFXqfApSPwtWHsM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Tn6F1hD0 reason="signature verification failed"; arc=fail smtp.client-ip=52.101.70.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22B335A3BF
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 19:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790884735; cv=none; b=YW0Tk8Yq4oht+xSmwiFv5ecuJ/I43RQZ9EB0T5gffsEnx6BqzM5jHlz/4/Jqo9On5pKavlFi6g6H9Fnt29BcO2Eq19nRPIYEOXkPs7ZSndz5u+bqlgpIOhMr+kAJhNnGx7IWGr8QLPL479bvbzUWkkWxNpkT60yQDZ6y/JdC6Aw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790884735; c=relaxed/simple;
+	bh=7biaceuF8JildUKqyYt37vlxGGuZnD3rNHSu+vAe6Do=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=KHJ4DIBtUZFt+G3/J6Kk3qWt4l4+Y3FgMgOiY/28fo6tskV/1p7pZNUJf324w+yOTz2B0XziK+bkOoMy//lekIwfIV7c4fh+7S31edKiutrN0BSj2ShscrF3TuuGSw+I7ujTYp5pfGUyM0OmVGYztiwvz8ok9XO90DaDurRxxZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJY/8LEZ; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Tn6F1hD0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jRTFePFRkJ3+PJVGGyNr5wb3YscWxD39dmMB2Iz8r1M281XhvbZP1vvwOXQUVcTcKs12MhQGkX0FML6ErNPCrGHnXA2JVeCv9Kep8uTJly3bTMrAjhaFjIT1walD+N4dYRraod3vdK/NMkS0hOruGqhieHpTX6X0y6F56CntMi+mD4HVeOJbTJHxXJXSecvEFVDQg6Ir1BtNropUraEoES5ujpYpC2PhuaO0QNnioFwS3T3Q3ld3s8nwHWMknZMjWzaLYApwFnvrmo/z77gzygRL4h4XLHWYw1xsUVrIZ30rguqiJnp4AVE3rdUwz1f5CjP4N3K7bJhJglGC3aRbFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k99kRPkbSaWHIozVOrf/9kpG85zxPbtB5UeBFmv7IPY=;
- b=MNXKd+7QlXozicJRxQzYxR7kr3UHOXVzXBhBjWXd0JV6w6y+uooohFm6gOdF8rYqEsdcWOUi8XAfWVY6yrIo0WAzLrumLokFwi6d1ChUDDxTKvdyC5RvCaKP70KZUAYFJt5wD2qZrjRl06HPYP2ArWDv8VKDfdGsHMnojhRT5kaObsHkzO3eeRGfHetsnnRcgdFj0e9iii2+0mSI1w02+I8sAi+2cWD4hQQ/LFyp8rBkjRWft3cNKyz8qy5zv+RLJNrO8fS2jRYoLiXHtrhvu59cJkLLtzdaBGEKzJVBh2RfPqOn1jayDUIJpIBM5UDFjWexMIu+vpiTPFTm7pHBZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k99kRPkbSaWHIozVOrf/9kpG85zxPbtB5UeBFmv7IPY=;
- b=Tn6F1hD0sNDwzVNKQ80W1/9gY/VcYbR/Esyn6+urpdUkMrhlS6jp9CpNkTJBgDEQHbHzNbPnAIiGomg3tEhiFRIkojJ2iLQ9yYWeT7kq9/kamJJFJSPi6ZiUdy+1pj0SN/nq4Ixm4L3e0l52aGzcTQfaCbzYZwhg3iQ+eUSJZzVIMgCkRWofy5YK4HGRKaAMeDEpne+4krA+jxUaUb4F2j2E1cKTkifZfyrcDTY3XnPMxANFDmYhy9nnLRBlmKhlxxy7Sw/M1VgSPXWOSUCYQgZUIA82ZvHbBp3i3P2QV4pUcqANSxDP5yErDlyKuA7OG+lYRqIsuNYRjkF0+F3wFw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB9095.eurprd04.prod.outlook.com (2603:10a6:20b:446::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 1 Oct
- 2026 19:58:21 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0451.022; Thu, 1 Oct 2026
- 19:58:20 +0000
-Date: Thu, 1 Oct 2026 15:58:13 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: CL Wang <cl634@andestech.com>, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, dmaengine@vger.kernel.org,
-	robh@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-Subject: Re: [PATCH v8 2/2] dmaengine: atcdmac300: Add driver for Andes
- ATCDMAC300 DMA controller
-Message-ID: <ar67VelbKVtiiCo6@lizhi-Precision-Tower-5810>
-References: <20261001014503.786490-1-cl634@andestech.com>
- <20261001014503.786490-3-cl634@andestech.com>
- <20261001022703.73EFF1F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261001022703.73EFF1F000FF@smtp.kernel.org>
-X-ClientProxiedBy: PH8P221CA0035.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:346::28) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJY/8LEZ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso37020495e9.3
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 12:58:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790884731; x=1791489531; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yd/IzBfTWyOHkp/HPfVgYP2qejoik94e/J+ry+nD4kI=;
+        b=DJY/8LEZ7nixqGEpBsQNDZ4zxvRfnlXTI9UsKJiOhyyPMytvGHDZXrPm2KAHz9TXh4
+         8/evz4aTBooOrawfClbKsCoYtN44vHiqnb+RfUl64b+2JAJ7OiVYuBBSupZ9PXbIeEDa
+         L36ylbKZM+do7peT32Mtu2SibTqcvMgcip1b0OkHIf67h94PqxKWAPLFZlWuMIHQ3IQM
+         umRfO61sBOA1oADaFEtJZbPMjN1dljloKZujMeYObzcsc/CKr7+gZ5qgyZ6N5aK63+Kz
+         OQS6qt93pqQvlRMllMzdYs7A3aEfeScsdARkpkNYFT0KQ96gc2XZN/IgTEJ8I/jPwvhr
+         PqTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790884731; x=1791489531;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yd/IzBfTWyOHkp/HPfVgYP2qejoik94e/J+ry+nD4kI=;
+        b=nf9qcM0EOSMve4y6IRLB4qcAjeqc4HPIrLA78b+G5orBReP+ZAS1RH7Cbirdk5BN2E
+         e9fBmV255kC6PwtQa6kbZumD7ls0tpOwaX27EKhvueCdFyn9W28PeRisTCMIKrXg8ZKY
+         EPszeF7SoQrGeigUQg/PBnzf+y5exCvhYMNEmSizxY5NKLUuF2yh0WbRpjmLCXsOIuML
+         1diecCjH5reQqXZSZzf8BOzdcHhI8YXWv6jx5+Zvk/UMSFWCzhXoINAqmooGDowBjJ/S
+         HIov59d/tO05rQL8pfEFnBNNE2rfQMnMBebUi3sXk0M3ABUBq+llozKVCGggiitTLsAS
+         Fs6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxuk6D+Q9e6hGQrzYTr54taJySluTIYVEntcagdIJEInT0+FDrLFhx9GLRnmvhpbytcEYHnVfE8jzNs@vger.kernel.org
+X-Gm-Message-State: AFuF++nMoUqRjwS2mEtyWAk0wW5DfQBSf/Ph1DfqYBweDepgyBchIrzy
+	gwcoVAwLp5uptnDC18mDrhNIOZzXXUYLDPFUuau1MvyH4htnjlkaoZoX
+X-Gm-Gg: AYBFou1Oa6QJOyscEMK8JcP8eYrQo3F6mWI00UWZCGC7MTyFIUASeWm8tyNmUsf07mp
+	T5gwyFU5XeCIXGz1sawh0y90qQPgtItnElPn8Yyt0BGda5E/k1Pe7IEZpUEqKR+zrfvtBZG7yCI
+	08rteG+DDGoRuGIJAa9FfVGohYM9V3OgNC12bIt54mkY0b49Kii9PKJE6YBsbREBrhN9Ht+EA2r
+	NrmdcrnRtOsFJbowEbzKudIUBoiQ7dtorhBt0ThXpyFLR8nCVDldLtI4TpAD0dnQtX1w4NP+3l0
+	1A3aGum/J+d+5KOoZ6bfQUZKiMs3/0VqnkzifxNgITBMDyMj5gowM+Dp2oVtOXUFo186lMwDDx6
+	Nek7FFiluN4FOnuCQcc14J25eOs/4xL8metBBbOiHe39w/QRpuwrhr6vE0yNMy4d48yxRFRIa42
+	MHcAtJlSJiRN6O5u9mNkPXQFEow9x4P68UtEi2bl9lrKakCXOO3McjpX9XhYnMmyNJ6DRMekX2k
+	T0UJs9JttDIlTNq0IUF7d3Yeg==
+X-Received: by 2002:a05:600c:37cf:b0:4a0:2391:6540 with SMTP id 5b1f17b1804b1-4a027596b61mr9056685e9.25.1790884730937;
+        Thu, 01 Oct 2026 12:58:50 -0700 (PDT)
+Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276f92d9sm15031045e9.4.2026.10.01.12.58.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 12:58:50 -0700 (PDT)
+From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Francesco Valla <francesco@valla.it>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Jocelyn Falempe <jfalempe@redhat.com>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-efi@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-embedded@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RFC v4 00/13] Add splash DRM client
+Date: Thu,  1 Oct 2026 21:58:34 +0200
+Message-Id: <20261001195847.141192-1-maximpedraza@gmail.com>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB9095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e1e905a-e283-4fdc-4842-08df1ff657e8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|23010399003|1800799024|376014|18002099003|22082099003|11063799006|6133799003|10067099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	K7ezrgX1tMRwGJw0zbbGlwsCeyQunazVnyf6MA4PYdapLimC/o+aGyRbHQYXx+JmvdGcqAw0wg852JHSuRKa2fT6YlGghZwn4eFmQGmAYs9jO41vdty88FjvCvgYryxgQFhWWcxkvShgIHeqrYBuyls3H0A8fvLDNrf2vm+dU91N1TTCllJ4tWZWClbGJGNz4MnogA+v7hZYbP3UqzL4LKnfF6E6z1UF1aOelyCMJ4ZzxUORuNIkhfFQtd4W2hMc8G97DJIvbNz/dlYYEILQ9UXgALrMtINjUCaQ236TTNsjF/DMH6cH8rx6HU2CsDtdd1//s7hRPwTECPzUM/BQxfjLlbIOD6sbfcIdWkLlONbWlLiVY/J+Umjzv+OG/k2pA1L1eU9RJjF5UPG/F5kCyOR5GL39txE5ZjHa7sYHfyszzk0JzXTdezXpJhS7UmA01c3BiDz9QPXJbiOBZJFsOcOzKJaEcdKi4uHYD/ZdTA69Tk+7kBtnaFAEXge4RFnql95loakwJuv9UVhKwS2hchalXFVOCpMI+93Q+0QPyUTdTtiEYkEOWeTkMcJbN5PKt7EARnpU+HEm9H1qDwqCSXCLE4Kk0t8WhhHaPcmOhcA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(23010399003)(1800799024)(376014)(18002099003)(22082099003)(11063799006)(6133799003)(10067099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?2Bj2KTdMbedhnF8rr1FG+SU6kbyaekygqpU1vDq7zFLbL0PhCTMlWYdffL?=
- =?iso-8859-1?Q?fwNOdKXHu/dZiru4OT/A2mHybjcoNIQFrGdlsfNSZB3+TZTMo7Dt0jTBwl?=
- =?iso-8859-1?Q?Z2b29t5zdkRLoflzS5eYxnl0aqvjRsgJOwwkdAgEM7xG02sfgD4HsfKecS?=
- =?iso-8859-1?Q?VKTUkmx6+B0OfhQwUBV0IwlId5DfeC/FJmizckqQlNARPDCt6xvs8KVYCB?=
- =?iso-8859-1?Q?9rXVxkypcwqsHYCIO1Azw0oSuzkpg5OhoRYiQrbFdb9i7p+mBLYtrpCIoA?=
- =?iso-8859-1?Q?5zLO/OatVdY3I4VyfLSrk4Fb6LuE3Ra6WZvFJdDWYI5tItnATVhCXZCN9N?=
- =?iso-8859-1?Q?Vjufg1HV06J53wKfNrwS5tf68A7DXVUR+rayNpVGwGA52LlxA0XOCPCI7w?=
- =?iso-8859-1?Q?UNZ69KQxh7BXxZB/xyjFXXnif0GHAN2aM+1vwpjJgrEKxNlygcDlhSvQ38?=
- =?iso-8859-1?Q?z8M30qViaTvx8Z717exvUEDGCXgBqdDfTa5/ACzug2JFLnLN4eMvkhA0kP?=
- =?iso-8859-1?Q?9OCBHT1sER84AJNUbBaIy2BSnu/yOakkfgqZwg1BmtMQGl+ql9sASFuUpR?=
- =?iso-8859-1?Q?qGuPFocyHYYBmrFt6K7aOdZZ7EJTZXczLVGw39w9qND2gwTEjqk+xyY5cz?=
- =?iso-8859-1?Q?QyByWJpKsovS1aE54qePzFjniB579qqS7kD0mqJd0flB20pG23Ke8vAxQI?=
- =?iso-8859-1?Q?2Qyj4sqiJouIlwJTB97np1t30+hkOAuMg/UcPHd07j1y5Ccevde5Jqb76Q?=
- =?iso-8859-1?Q?WqEA67f0LnbH98YIptDDg43qydR6lm+Rx3+qX0bBF10YHY+BA8SlC+z8gd?=
- =?iso-8859-1?Q?ewOd/7FP67Gqi3L5KZ9aUUhDNBy1dhnZNGYbF4kMesBmSKhdrRUsAMK4jR?=
- =?iso-8859-1?Q?/avUAWGbomnl+XRKs3NUOrm5DD2B6sqNs6I7YIdO15Tyf6ZdC/OXmJedTL?=
- =?iso-8859-1?Q?ZhyvbsaLPR7dB17mkqK1jSgTKlAXQceKKoEEqtx4dl45UyTVCJiEfg880R?=
- =?iso-8859-1?Q?ghjXUm9AT+I0DqtBDb/eDm3qRqiCaAUsDnERcG9YRiKnY62UvRa3Fw1Jx8?=
- =?iso-8859-1?Q?sfI/+efJRT5l2wSFzC9I+0CycK9wTnSEDZet/uy1gpy0k44NVxm7JR2nTM?=
- =?iso-8859-1?Q?AG/Ibjjbt4kQO39hSvxj6nNMCoqdldB0SHkT0lA2NXGYOCDF74K9natQiN?=
- =?iso-8859-1?Q?e6dAWQ1NAOFpy3+jXaDdmR4Xt0GloljI/+jzWJwrO5IFBjaSxGD2TBb84M?=
- =?iso-8859-1?Q?OyeYOUq99EECbiAcLlnZn71I0gd7U8wv/3X5d+38ZxqNvMFupbDsaCVQ67?=
- =?iso-8859-1?Q?eRtORAiRSifPHAPRmNYvkc+vI9/0IJve7ZUA737FnTPvGUK2a4+RpdOk/T?=
- =?iso-8859-1?Q?UrzIWNkQvjzOIuft0EN+tw4HfukmygrU4A0xNKE7oYegfDEx0qf5cFXYYE?=
- =?iso-8859-1?Q?UdRF0PgQ4F0T4f7Dt+PyGEfO04Q0+9vlufMtjl/X9A0J4aREdEp/0avgvw?=
- =?iso-8859-1?Q?xnxlW+rW4iC1KpJ5Eaahk6GeDf47h3QezmHfLOFDGgITtn1KiZWeZ99Y4I?=
- =?iso-8859-1?Q?/ynvQ572vjggYGU9CvtST8mtBtf1qtwmaF0o+LJdL1uCLnh+X68R6NZUNa?=
- =?iso-8859-1?Q?UrZwaXGWw16gmQGwEeJVVuXyFRFhBYwIi1eD33uEU3NY5acSXkxdn5H6kR?=
- =?iso-8859-1?Q?GfXi7lNqQWKuWr4bTTJSBgOOf2Hi5OH/PQymPCtF16raBgNgU1rTOxkq05?=
- =?iso-8859-1?Q?19TAtI3Eb+taoI1/aQRAAQ755bf2OK7erFQyrKIRIchGYSTMIroPa6npGb?=
- =?iso-8859-1?Q?FjoJQZ9gcL29qg8BJmhwLE40MP/4IVbaLg+p+TRa+oUjb/SPRjEr?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e1e905a-e283-4fdc-4842-08df1ff657e8
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 19:58:20.9146
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kGvcCRXlh7f2K+EsYDg3ilfl84hX4eHS0++CmryWLBvDsPaeMyHBWO8xC9PtHksbPzKBdceM9D3nZ0Hcp2rbVlbhr3A++uKkDr/5/4PPeVycZ9kbL2Ac6SeowkxHfOJr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9095
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 02:27:02AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 11 potential issue(s) to consider:
-> - [High] dmaengine: atcdmac300: missing interrupt enable flags in channel control
-> - [High] dmaengine: atcdmac300: start unissued pending transfers in atcdmac_resume()
-> - [High] dmaengine: atcdmac300: integer overflow of cyclic period variable
-> - [High] dmaengine: atcdmac300: missing status clearing in atcdmac_terminate_all()
-> - [High] dmaengine: atcdmac300: fail to reset chan_used flag during suspend
-> - [High] dmaengine: atcdmac300: unhandled pending interrupt causes IRQ storm
-> - [Medium] dmaengine: atcdmac300: ignore client transfer flags in atcdmac_prep_dma_memcpy()
-> - [Medium] dmaengine: atcdmac300: memory leak of unsubmitted descriptors
-> - [Medium] dmaengine: atcdmac300: integer truncation of len in atcdmac_prep_dma_memcpy()
-> - [Medium] dmaengine: atcdmac300: integer truncation of sizes in atcdmac_prep_dma_cyclic()
-> - [Medium] dmaengine: atcdmac300: missing args_count check in atcdmac_dma_xlate_handler()
-> --
+This is the fourth version of Francesco's splash client, which I have
+taken over with his agreement [1]. It also supersedes my "Boot logo
+supplied by the device tree" series [2]: Thomas pointed out that fbdev
+is not the place for it and that the device tree support belongs here
+[3], and he was right.
 
-You should fix these issues for new drivers.
+The client draws a splash from the moment the display driver registers
+until userspace takes the display over. On top of what v3 did, the image
+can now come from the device tree, be placed and turned, and every part
+of that can be set from the command line. Patch 13 documents it all and
+adds it to the DRM client documentation.
 
-Frank
->
-> commit 0b5c5b75d701997e0656ae1d35e0499a595165ad
-> Author: CL Wang <cl634@andestech.com>
->
-> dmaengine: atcdmac300: Add driver for Andes ATCDMAC300 DMA controller
->
-> This patch adds support for the Andes ATCDMAC300 DMA controller.
-> The ATCDMAC300 is a memory-to-memory and peripheral DMA controller
-> that provides scatter-gather, cyclic, and slave transfer capabilities.
->
-> > --- /dev/null
-> > +++ b/drivers/dma/atcdmac300.c
-> > @@ -0,0 +1,1759 @@
-> [ ... ]
-> > +static void atcdmac_start_transfer(struct atcdmac_chan *dmac_chan,
-> > +				   struct atcdmac_desc *first_desc)
-> > +{
-> > +	struct atcdmac_dmac *dmac = dmac_chan->dma_dev;
-> > +	struct regmap *reg = dmac_chan->regmap;
-> > +	unsigned long flags;
-> > +
-> > +	raw_spin_lock_irqsave(&dmac->lock, flags);
-> > +	dmac->owned_chan |= BIT(dmac_chan->chan_id);
-> > +	raw_spin_unlock_irqrestore(&dmac->lock, flags);
-> > +
-> > +	regmap_write(reg, REG_CH_CTL_OFF, first_desc->regs.ctrl);
->
-> [Severity: High]
-> Since INT_TC_MASK, INT_ERR_MASK, and INT_ABT_MASK are missing from the ctrl
-> bitmask written here (and constructed in functions like
-> atcdmac_build_slave_desc()), won't the hardware fail to assert interrupts
-> upon completion, error, or abort? This appears to cause silent transfer
-> timeouts.
->
-> [ ... ]
-> > +static void atcdmac_advance_work(struct atcdmac_chan *dmac_chan)
-> > +{
-> [ ... ]
-> > +	if (dma_desc->cyclic) {
-> > +		if (!stop)
-> > +			atcdmac_start_next_trans(dmac_chan);
-> [ ... ]
-> > +	} else {
-> > +		if (list_is_singular(&dmac_chan->active_list)) {
-> [ ... ]
-> > +		if (!stop)
-> > +			atcdmac_start_next_trans(dmac_chan);
->
-> [Severity: High]
-> If stop_mask is active during atcdmac_suspend(), this code skips calling
-> atcdmac_start_next_trans(), which bypasses the internal reset of chan_used
-> back to 0. Does this leave chan_used permanently stuck at 1?
->
-> [ ... ]
-> > +static int atcdmac_terminate_all(struct dma_chan *chan)
-> > +{
-> [ ... ]
-> > +	spin_lock_irqsave(&dmac_chan->lock, flags);
-> > +	atcdmac_abort_chan(dmac_chan);
-> > +	atcdmac_enable_chan(dmac_chan, 0);
-> > +	list_splice_init(&dmac_chan->queue_list,  &list);
-> > +	list_splice_init(&dmac_chan->active_list, &list);
-> > +	dmac_chan->chan_used = 0;
-> > +	spin_unlock_irqrestore(&dmac_chan->lock, flags);
->
-> [Severity: High]
-> Does this code fail to clear the software state dmac_chan->status before
-> dropping the lock? If an asynchronous abort interrupt fires as the channel
-> is terminated, the threaded handler may process a stale ATCDMAC_STA_TC bit.
-> If a client immediately queues and issues a new transfer, could
-> atcdmac_advance_work() prematurely complete it?
->
-> [ ... ]
-> > +static void atcdmac_free_chan_resources(struct dma_chan *chan)
-> > +{
-> [ ... ]
-> > +	atcdmac_terminate_all(chan);
-> > +
-> > +	/*
-> > +	 * Give up ownership only after the abort raised by the termination
-> > +	 * above has been serviced.  Dropping the bit first would mask that
-> > +	 * status out of the acknowledge and leave the interrupt asserted.
-> > +	 */
-> > +	atcdmac_synchronize(chan);
-> > +
-> > +	raw_spin_lock_irq(&dmac->lock);
-> > +	dmac->owned_chan &= ~BIT(dmac_chan->chan_id);
-> > +	raw_spin_unlock_irq(&dmac->lock);
->
-> [Severity: High]
-> Since atcdmac_synchronize() only flushes executing handlers and not pending
-> hardware interrupts, does clearing owned_chan immediately afterward mask
-> out a pending ABORT interrupt in the top-half handler? It seems this would
-> leave the level-triggered interrupt line permanently asserted, causing an
-> IRQ storm.
->
-> > +
-> > +	spin_lock_irqsave(&dmac_chan->lock, flags);
-> > +	list_for_each_entry_safe(desc,
-> > +				 desc_next,
-> > +				 &dmac_chan->free_list,
-> > +				 desc_node) {
-> > +		list_del(&desc->desc_node);
-> > +		dma_pool_free(dmac->dma_desc_pool, desc, desc->txd.phys);
-> > +	}
->
-> [Severity: Medium]
-> In the cleanup loop above, unsubmitted descriptors that were allocated but
-> never submitted via dmaengine_submit() are unlinked from tracking lists.
-> Will these unsubmitted descriptors leak since this loop only reclaims from
-> free_list?
->
-> [ ... ]
-> > +static struct dma_async_tx_descriptor *
-> > +atcdmac_prep_dma_memcpy(struct dma_chan *chan,
-> > +			dma_addr_t dst,
-> > +			dma_addr_t src,
-> > +			size_t len,
-> > +			unsigned long flags)
-> > +{
-> [ ... ]
-> > +	desc = atcdmac_build_desc(dmac_chan, src, dst, ctrl,
-> > +				  len >> src_width);
->
-> [Severity: Medium]
-> When len is a 64-bit size_t value exceeding 4GB, does shifting it by
-> src_width and passing it as a 32-bit unsigned int to atcdmac_build_desc()
-> cause silent integer truncation, resulting in a partial transfer?
->
-> > +	if (!desc)
-> > +		goto err_desc_get;
-> > +
-> > +	return &desc->txd;
->
-> [Severity: Medium]
-> Is there a missing assignment for the client transfer flags? The flags
-> parameter is never assigned to desc->txd.flags, which ignores client
-> intents like DMA_PREP_INTERRUPT or DMA_CTRL_REUSE.
->
-> [ ... ]
-> > +static struct dma_async_tx_descriptor *
-> > +atcdmac_prep_dma_cyclic(struct dma_chan *chan,
-> > +			dma_addr_t buf_addr,
-> > +			size_t buf_len,
-> > +			size_t period_len,
-> > +			enum dma_transfer_direction direction,
-> > +			unsigned long flags)
-> > +{
-> [ ... ]
-> > +	unsigned int period;
-> [ ... ]
-> > +	for (period = 0; period < buf_len; period += period_len) {
-> > +		struct atcdmac_desc *desc;
-> > +		dma_addr_t mem = buf_addr + period;
-> > +		unsigned int len = min_t(unsigned int, period_len,
-> > +					 buf_len - period);
->
-> [Severity: High]
-> Since buf_len is a 64-bit size_t, does using a 32-bit unsigned int period
-> cause an integer overflow for buffer lengths exceeding 4GB? This appears
-> to create an infinite loop of descriptor allocations until the pool is
-> exhausted.
->
-> [Severity: Medium]
-> Does the use of min_t(unsigned int, period_len, buf_len - period) silently
-> truncate 64-bit size_t sizes over 4GB, programming a malformed transfer
-> size?
->
-> [ ... ]
-> > +static struct dma_chan *atcdmac_dma_xlate_handler(struct of_phandle_args *dmac,
-> > +						  struct of_dma *of_dma)
-> > +{
-> > +	struct platform_device *dmac_pdev;
-> > +	struct atcdmac_chan *dmac_chan;
-> > +	struct dma_chan *chan;
-> > +	dma_cap_mask_t mask;
-> > +
-> > +	if (dmac->args[0] > FIELD_MAX(SRC_REQ_SEL_MASK)) {
->
-> [Severity: Medium]
-> Does this code access dmac->args[0] without first verifying
-> dmac->args_count? If #dma-cells = <0>, this may read uninitialized or
-> out-of-bounds memory.
->
-> [ ... ]
-> > +static int atcdmac_resume(struct device *dev)
-> > +{
-> [ ... ]
-> > +	list_for_each_entry_safe(chan,
-> > +				 chan_next,
-> > +				 &dmac->dma_device.channels,
-> > +				 device_node) {
-> > +		dmac_chan = atcdmac_chan_to_dmac_chan(chan);
-> > +		spin_lock_irqsave(&dmac_chan->lock, flags);
-> > +		if (!list_empty(&dmac_chan->active_list) ||
-> > +		    !list_empty(&dmac_chan->queue_list))
-> > +			atcdmac_start_next_trans(dmac_chan);
-> > +		spin_unlock_irqrestore(&dmac_chan->lock, flags);
-> > +	}
->
-> [Severity: High]
-> If a client has queued descriptors but not yet called
-> dma_async_issue_pending() (leaving chan_used == 0), does unconditionally
-> starting the next transaction from queue_list violate the API contract by
-> starting pending transfers prematurely?
->
-> [Severity: High]
-> Additionally, if both active_list and queue_list are empty, this bypasses
-> atcdmac_start_next_trans(). Coupled with the issue in
-> atcdmac_advance_work() above, does this solidify the leaked chan_used == 1
-> state from suspend, permanently locking out the channel?
->
-> --
-> Sashiko AI review � https://sashiko.dev/#/patchset/20261001014503.786490-1-cl634@andestech.com?part=2
+Why this is in the kernel
+-------------------------
+
+Maxime asked in v1 why this should not be left to userspace or to the
+bootloader. The cases it is for are the ones neither covers:
+
+  - Nothing initialises the display before the kernel does. U-Boot's
+    Falcon mode, meant to cut boot time, starts the kernel from the SPL
+    and never runs U-Boot proper, where display support lives: there is
+    no bootloader splash to hand over, and the device tree is the only
+    thing that reaches the kernel. Userspace comes seconds later.
+
+  - One kernel image for several products. An image built into the
+    kernel, with CONFIG_EXTRA_FIRMWARE, means one kernel per logo, or
+    every logo in every product's kernel, all of them staying in memory
+    for good. Francesco described exactly this case in v2: one board
+    support package for a family of devices, each with its own logo and
+    background, picked by the bootloader.
+
+  - A splash handed over from the bootloader does not always survive the
+    native driver taking over the display.
+
+Where the image comes from
+--------------------------
+
+In this order: a BMP named on the command line, the device tree, the
+EFI BGRT, and "drm_splash.bmp" loaded as firmware; with none of them,
+only the background is drawn.
+
+The device tree node lives under /chosen (patch 6) and carries the BMP
+either in the node, which dtc fills in with /incbin/, or in a reserved
+memory region the bootloader loaded it into. The region keeps the image
+out of the device tree, so that it can be changed from userspace by
+updating a partition, as Francesco suggested. A node is only there if
+someone put it there for that board, so it goes before the BGRT.
+
+The command line wins over everything else, each parameter for its own
+part only, as console= wins over stdout-path: splash_bmp (or "none"),
+splash_color, splash_pos, splash_offset and splash_rotation. Without it
+a BMP loaded as firmware could be neither placed nor turned, and it lets
+a placement be tried without rebuilding a device tree.
+
+Placement uses a position with -1 centring an axis, plus an offset, in
+screen pixels. A rotation turns the image and not the screen, counter
+clockwise as for panels and as DRM_MODE_ROTATE_* count. A device tree
+image is placed as its node says, a BGRT image at the table offsets, and
+anything else is centred; placement given on the command line applies
+whatever the source.
+
+BGRT images with the ACPI 6.2 orientation bits set are no longer skipped
+but turned (patch 11). I took the meaning of the bits and of the offsets
+from Plymouth, the main user of the BGRT, so that the kernel and
+Plymouth put the image in the same place and the handover does not
+jump. I have not found the specification text to check against;
+corrections are welcome.
+
+Changes since v3
+----------------
+
+Fixes to Francesco's patches, folded in and listed in the commit notes;
+most of them were also in sashiko's review of v3 [4]:
+
+  - the render thread stayed in TASK_UNINTERRUPTIBLE for good when the
+    BMP firmware was missing (hung task warning), could miss a wake up,
+    and kthread_stop() was called on a thread that had already exited
+    (use-after-free), never existed or failed to start;
+  - a use-after-free on unbind: the image was released after
+    drm_client_release(), which frees the client;
+  - a use-after-free in the firmware callback when the device goes away
+    first, as the request cannot be cancelled; unregister now waits;
+  - the BMP bounds check could overflow and let a crafted bitmap offset
+    read 4 GiB away;
+  - the 24 bit blitters read a byte past the image;
+  - buffers went to the wrong modesets when one was skipped, tiled
+    groups dereferenced a buffer before creating it and swapped width
+    and height, a failed dumb buffer left an ERR_PTR behind, and the
+    modeset list was walked without modeset_mutex;
+  - the BGRT symbols are exported (Mario's report [5]), GPL only;
+  - the DRM_CLIENT_DEFAULT entry is indented with tabs (patch 1).
+
+Additions: the device tree source and its binding, placement, rotation,
+the background colour following the image, BGRT orientation, the
+command line parameters, and the documentation.
+
+Testing
+-------
+
+  - QEMU versatilepb (pl111, 16 bpp): 39 cases for the device tree
+    source (inline and region, invalid nodes, placement, clamping,
+    rotations, rows with and without padding, backgrounds), plus 17 for
+    the command line and the order of the sources, each compared pixel
+    by pixel.
+  - QEMU virt arm64 (virtio-gpu, 32 bpp) and x86-64 with OVMF for the
+    BGRT, including forced orientation bits.
+  - KASAN on arm64, with the BMP loaded as firmware and the driver
+    unbound afterwards: v3 reports the out-of-bounds read, the
+    use-after-frees and hangs on unbind; this version reports nothing.
+    The firmware callback race was reproduced with the sysfs fallback,
+    and a BMP with a crafted bitmap offset oopses v3 and is rejected
+    here.
+  - An AM335x board (tilcdc, 800x480 panel of which only the bottom 297
+    lines are visible, 16 bpp), booting over TFTP and NFS: 27 cases,
+    plus 9 with the BMP loaded as firmware from an initramfs, checked
+    by reading the scanout buffer back through /dev/mem.
+  - W=1 and sparse clean; every patch builds on its own on arm and
+    x86-64; checkpatch --strict clean apart from a quoted modpost line
+    and the MAINTAINERS reminder answered by the next patch;
+    dt_binding_check clean for the binding.
+
+Not tested: tiled displays (I have none), a BGRT with orientation bits
+from real firmware, the modeset fix with a skipped modeset ahead of a
+used one, and Falcon mode with this series.
+
+Open questions
+--------------
+
+  - Rob: how the image should be described, a BMP in a property or raw
+    pixels described like simple-framebuffer [6]. The binding here uses
+    the BMP; the client would need a second drawing path for the other.
+  - Once the binding settles I will send the dt-schema change that lets
+    the node live under /chosen; until then dtbs_check flags it.
+  - The splash is a DRM client, so a device using it has no fbdev
+    emulation and no /dev/fb0. That rules it out where userspace still
+    draws through fbdev.
+
+To Francesco: I listed you as maintainer of the binding too, next to me,
+as co-maintainer of the client that reads it. Say if you would rather
+not be.
+
+Based on drm-misc-next as of 2026-10-01 (7c4bda20eb0f).
+
+[1] https://lore.kernel.org/all/aryqYhHqFk3cXh9d@bywater/
+[2] https://lore.kernel.org/all/20260923201035.51007-1-maximpedraza@gmail.com/
+[3] https://lore.kernel.org/all/64e273d4-2660-437d-8871-e2bfa3c377c9@suse.de/
+[4] https://sashiko.dev/#/patchset/20260510-drm_client_splash-v3-0-a9aee9f0b2fc%40valla.it
+[5] https://lore.kernel.org/dri-devel/5d7067de-97b7-4232-9cf6-e4b978696482@amd.com/
+[6] https://lore.kernel.org/all/CAEUXW=Gh6wMk1i=x_KT0eSdkHeHs8Hkxkj4hfsuTRyY6=aphpw@mail.gmail.com/
+
+v3: https://lore.kernel.org/r/20260510-drm_client_splash-v3-0-a9aee9f0b2fc@valla.it
+v2: https://lore.kernel.org/r/20260106-drm_client_splash-v2-0-6e86a7434b59@valla.it
+v1: https://lore.kernel.org/r/20251027-drm_client_splash-v1-0-00698933b34a@valla.it
+
+Màxim
+
+Francesco Valla (3):
+  drm: client: add splash client
+  MAINTAINERS: add entry for DRM splash client
+  drm: docs: remove bootsplash from TODO
+
+Màxim Pedraza Padilla (10):
+  drm/clients: Kconfig: indent DRM_CLIENT_DEFAULT with tabs
+  efi: bgrt: export the BGRT table and image size
+  dt-bindings: display: add a boot logo node under /chosen
+  drm/client: splash: add a device tree image source
+  drm/client: splash: place the device tree image where it asks
+  drm/client: splash: turn the device tree image as it asks
+  drm/client: splash: take the background colour from the image source
+  drm/client: splash: turn the BGRT image on panels mounted turned
+  drm/client: splash: prefer what the command line asks for
+  drm/client: splash: document the image sources and parameters
+
+ .../bindings/display/boot-logo.yaml           |  151 ++
+ Documentation/gpu/drm-client.rst              |    6 +
+ Documentation/gpu/todo.rst                    |   17 -
+ MAINTAINERS                                   |    9 +
+ drivers/firmware/efi/efi-bgrt.c               |    3 +
+ drivers/gpu/drm/clients/Kconfig               |   91 +-
+ drivers/gpu/drm/clients/Makefile              |    1 +
+ drivers/gpu/drm/clients/drm_client_internal.h |    9 +
+ drivers/gpu/drm/clients/drm_client_setup.c    |    8 +
+ drivers/gpu/drm/clients/drm_splash.c          | 1471 +++++++++++++++++
+ 10 files changed, 1743 insertions(+), 23 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/boot-logo.yaml
+ create mode 100644 drivers/gpu/drm/clients/drm_splash.c
+
+
+base-commit: 7c4bda20eb0f150315d19f1b51058820e75d3f3d
+-- 
+2.39.5
+
