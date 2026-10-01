@@ -1,105 +1,91 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFC34EE87C
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 10:27:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E6D37E5EE
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 10:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790850462; cv=none; b=WsttR3eJL1KF02O4PGE8DLAeO9MvRZzr3piEK1Niqmbh4yYT5O8Fx+9hclGM2B3t6WJdd5jJBM1Hi429mVbN4XPEMF2TtbtKzKv6QgCuqRLrsEhWSMVv/qUtgMfgYhZfSo4zkJUYM1UwFtR62hEzrM7BpXhIpAmZJIMxbWnZSEQ=
+	t=1790850516; cv=none; b=qXe1f7RWH06YI/42eIGn7sQOxiXvNMxL/a3OKRkxvxs0XSHDaTyWQQX97TEaSzGr5XZIuTi5VMr41LexvWjQrKu5a+YDMBTSI+PBO0xUCCz8/WLQWeqDgvPyHbKCbLs3F2FOfvavZUQqHuXS39BOqDLUFwlMO4tvMCas2fqtapM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790850462; c=relaxed/simple;
-	bh=2y4gEjNzgA3MrPbQRg5Ifw5WWUUepc12pSJtVJWCuNk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MD1Unm8GrnXwkJ6iHV0W6dE8lkKZ+LGP8WvUZR5xNHD+Vsawd9wJBQ9igqDfW+QHt1gksfahAFJJGCSCMKGsC3wOXBlGXZXvgn+1ibEa7XywN55yEhzwjF4pOf8S3d/fcqjMrx+9MBxPe/McixdB25diA5mW1X4uP8T2l9ZSQKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Js8hr/gx; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790850516; c=relaxed/simple;
+	bh=Q29obV8omClDmxn+f8l/iIlcowgBclhhgHspfu6yWmw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=bgeIRbtyoxA7/FKrd3y9urrWQjz3mZoK/vspnZaL3+ahR9blfEAhMo3SnNdtTaiXVl8vrwpCpmkCFNPK+aftJ7VxEh+uqwZRtXTnI3k3w35oykRY7LzuvOehkbctpTTZTl7KYpyM8Yc3pa1tyywrTv0vMdoY+rufDp5+pglmJN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TM2zAZZ2; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Js8hr/gx"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e25400so2634250b3a.0
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 03:27:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790850460; x=1791455260; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zOoZbBrkeSpdFA8vWrJINhow0mO467LA30uvn4Xle+I=;
-        b=Js8hr/gxkm08MeaRvuDgNr+iPda5i6qBPBSUP4g0y9i+FDF8Z4TalxCSF+ZgmaLVo0
-         mCOqmMVQS4iQ5wfblzULoMqXCcV6ZJzCQ+w3+v1UOngMbAcD/qhk9emqRnzCBxPKAff7
-         qJpaxxjyfXiO9jUjTRt1VRr2vv1ar9O8NF4ok=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790850460; x=1791455260;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zOoZbBrkeSpdFA8vWrJINhow0mO467LA30uvn4Xle+I=;
-        b=K1+JN7iS0g99LCvtfFtUtQXVlZ2NQaWlCBXhwvCYVO9i1Z/UBi5I5V2PqyM3h6yGbC
-         2yn4wYikJnDa1ieR4JXesimgeOzBqeK5Mfm2qkPmUtW9xhRKFpVdcC40Y8ONaY0XZWoj
-         Iw9k9ZAB+Cg7qPXVba0OhLpuxKH7zKqUIdcLOMobEF5bwXr+P7CMXK1L1YmKppKGZsdz
-         EL8YGcTzX/dLdc/bzJORPPqjC+TOSVlVQH1xVnxQNQ5G6pqjdQz0hajX0Cv4Zoe1QVlQ
-         fMDYFttJ82SFcEO3fBdDcxfzlbxMW8DX++xW30/WWQpCbsHyl44geMwLr14QeueKjgGN
-         JZ2w==
-X-Forwarded-Encrypted: i=1; AKwUvByffUAFWnFW4wzrpJqedvNLEgfZuEz1VrA8eTRXbKb9bQtNaRiw1XKiHggyspJNJRAmnThGFA7GXCAG@vger.kernel.org
-X-Gm-Message-State: AFuF++nt+m+6bp9uFIoudtAJmeKtPBypTtZYIyqQazjiJSLz11hBamvZ
-	aVWLufIBMqhqWygCQvD6i/qw1uWh+iWjCpFeudOlJ4I3QoVDBpfMfWUQjRz3w0kxRg==
-X-Gm-Gg: AYBFou3pOic5SSSoWGpTFoIKyOnhR1Ly7SDp0Rh0Y+qX+SPLEzEkD6dRBH7n40q/TfP
-	DvBPBiygoC1caFbvdMCHrdY/694ElbXB2XagTtbA6DtbHC4oF6hm8JOgNTHjXXhRzCx9hf9qpIa
-	QgQOFEIZfV2Jexr8qGoMi4mhTz70DJFvKX12dzBBLFXmlvu2hgH1X5Cx2n1FcCzkCZGIupRFyAL
-	CoyDVtzBJpQSysDYPurD71oaw2X3qS0sSYGZ2DjntOzmOwBg+PfPQZmq8J9EH8851QdzbZ6KD94
-	wGq7sjSMDChq8WhEaUPzliGke3aFraa2dStYXOBDd6x+wyOxnrzWm6zGtubTmNuVAc0JEGSLugw
-	5SwTtUuQ/wID71ZtNfofbstYrwqMHvqMSzBX0Fy/PztI/MV3brkNobmlHKa++wPjoERRCwMPJFJ
-	x+uss7JHpuWfZQz610RofdcT2JsC8PW/iOYpYAuC//lPO9jg3TmXt8gOEBbirs03VGjdsbOm0kQ
-	rRFHJwRgpGfw6BQt8aDB6LObMvDqRGRlHDz28c=
-X-Received: by 2002:a05:6a00:b81:b0:874:705d:f64a with SMTP id d2e1a72fcca58-8874bffd4e6mr3058007b3a.44.1790850460353;
-        Thu, 01 Oct 2026 03:27:40 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:d042:b5fa:ebeb:ace6])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88818719cc8sm861475b3a.16.2026.10.01.03.27.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 03:27:39 -0700 (PDT)
-Date: Thu, 1 Oct 2026 19:27:34 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Georgi Djakov <georgi.djakov@oss.qualcomm.com>, andersson@kernel.org, 
-	konradybcio@kernel.org, abelvesa@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, minchan@kernel.org, senozhatsky@chromium.org, axboe@kernel.dk, 
-	rostedt@goodmis.org, mhiramat@kernel.org, mathieu.desnoyers@efficios.com, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org, djakov@kernel.org
-Subject: Re: [PATCH 4/6] zram: Add QPaCE zcomp backend
-Message-ID: <ar4070oH8lRCJMRw@google.com>
-References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
- <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
- <20261001-dramatic-hasty-pug-68ebfd@quoll>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TM2zAZZ2"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id B46214E410EB;
+	Thu,  1 Oct 2026 10:28:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7FA6960341;
+	Thu,  1 Oct 2026 10:28:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6B16103297EB;
+	Thu,  1 Oct 2026 12:28:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790850506; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Q29obV8omClDmxn+f8l/iIlcowgBclhhgHspfu6yWmw=;
+	b=TM2zAZZ2CoKjlETXMGPxKLKo84nTN3todnDzcsvS1T4ywQ8Ex2wodInRWk2Ao9QxKtlsLD
+	qySzhx293w081fVQPxJaYhJKF5/4gL5DGP7RxzXU1ePu5NByvvADVgT2CXR8FCuwPAeb1X
+	ex67AocTshgW18Nq/chZ1H5D9ggahR5OrK3zOFYT8olyP9d2PjLAoYl6n5gnZQoOqCeXRu
+	g6MNV/KGS7wEG/mnHybljnWAxyKcDoHYMfOAN+HjI6LBBr6++3OZP/M1+ma9jK3YNmxz/s
+	3y3FOnih/6MDNxWywF7dea3icq5uoBpMEL6ChdD8tiWAYlEVu23oM+mlxAEn/Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  Jacky Huang <ychuang570808@gmail.com>,
+  stable@vger.kernel.org
+Subject: Re: [PATCH v6 05/12] clk: nuvoton: ma35d1: Add missing WDT/WWDT
+ parent clocks
+In-Reply-To: <1j4if53gcf.fsf@starbuckisacylon.baylibre.com> (Jerome Brunet's
+	message of "Thu, 01 Oct 2026 11:44:32 +0200")
+References: <20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com>
+	<20260930-perso-ma35d1-upstream-clk-v6-5-48937ee6c9bb@bootlin.com>
+	<1j4if53gcf.fsf@starbuckisacylon.baylibre.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 01 Oct 2026 12:28:18 +0200
+Message-ID: <87bj9dogu5.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-dramatic-hasty-pug-68ebfd@quoll>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On (26/10/01 10:51), Krzysztof Kozlowski wrote:
-> On Wed, Sep 30, 2026 at 07:52:13AM -0700, Georgi Djakov wrote:
-> > Add a zcomp backend for the Qualcomm Page Compression Engine (QPaCE) so
-> > zram can expose qpace-lz4 as a selectable compression algorithm when the
-> > QPaCE driver is available.
-> > 
-> > Compress and decompress operations are handled via the QPaCE urgent
-> > synchronous path: each request DMA-maps the source and destination
-> > buffers, issues a blocking hardware command, and returns the result size.
-> > 
-> > Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-> > ---
-> >  drivers/block/zram/Kconfig         |  11 +++
-> >  drivers/block/zram/Makefile        |   1 +
-> >  drivers/block/zram/backend_qpace.c | 134 +++++++++++++++++++++++++++++
-> 
-> So entire qpace should go here, no? Why did you create this entire layer
-> of indirection, singleton management under drivers/soc?
+Hi Jerome,
 
-qpace seems to be standalone/independent arch/soc specific, and can gain
-users outside of zram (fs compression, zswap, etc.).  zram's backends
-potentially can disappear all together, if we switch to acomp crypto API.
+>> Reported-by: Jacky Huang <ychuang570808@gmail.com>
+>> Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc=
+48795a@gmail.com/
+>> Suggested-by: Jacky Huang <ychuang570808@gmail.com>
+>> Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock co=
+ntroller")
+>> Cc: stable@vger.kernel.org
+>> Link: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48=
+795a@gmail.com/
+>
+> Is this is a mistake ? We usually add this when applying
+
+Yeah, I made a mistake and then b4-shaza'ed the patch to get it back. I
+didn't notice the Link trailer but it probably got added there.
+
+Thanks for taking the first half! I will try to fix the following
+patches as you suggested.
+
+Cheers,
+Miqu=C3=A8l
