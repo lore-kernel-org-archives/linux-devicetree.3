@@ -1,69 +1,69 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5314CA27E
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 08:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B644CB8D4
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 08:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844199; cv=none; b=jf/1Y8zdi904KLYQ0qY1fI25klPbzp/Qdnf/d2PaaA7sNROGopef5uqkhpmsK06PxWvGT2w0bLssiHai7Uv3fn6vqdh6mWEBwaCafYVOXrUKe3LxEr0HgcX9RX3V/I3o+RSL+9TufAdakS9Usw7d+/ZXuffeGJI+rUw24rv7WaA=
+	t=1790844202; cv=none; b=enCkkAOzbkBc4QRxgKNv7StD9rx2pdYpzD1RtXxP9eNUZSLKeyBlpKllq6cVLgT9KM9DtADsmkSHYQET/cg2CpqKl5pgSqdD7CXBhEKboEfZ7feSmg2JBzJuCocjHSYk4BUMiEujXEkzzeAWzRD0dkRlV61iGWkLR3OcKNEk0PM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844199; c=relaxed/simple;
-	bh=Dx7y8RK/I3gcYSQBRPLhRiEJorSzsB0ileDu744Zw0U=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IzjrQ5bAYNIZd+YTr2hoYxEfqZAe8qbxe5NLLofZPeoGgsU06TujjzCBbGZHDi47OAYNs1IudtIjEVK8y3S1C2Q9yLTSeWm9unkN9ejSHcB8HswIkf1coa5JU4DrFtch2Z86Wbxrt4D5sIMatelCHuG97b6SIxb3KjPce04Yl/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oPlpWfii; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1790844202; c=relaxed/simple;
+	bh=wxElBAXB6uVNMhJYd8MDjWzdFURgnAS4XjHbavkVIDQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fsv0jtxltXcLiG6wpRW1NrAeJg1yLWR4eq6WddgqRj7GBvPalyRZ7mkOw0s80fbmG6NW4xzaO22zY9mceC/pLx8I6fUXcbZ1Bq3FkqcSEoggTwmBcyF5KvQ9BVdICURSTjrru9WUveWIkF/cqISoLjnnY+TUWLmHrXem1r6Yw8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XDaHXfFG; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oPlpWfii"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so38304755e9.0
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 01:43:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XDaHXfFG"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so38305015e9.0
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 01:43:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790844195; x=1791448995; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XKshLF9fhce9vsuhUgrP4h0h1OGaMDienEyqXvAvOQY=;
-        b=oPlpWfiihWNt4nh31KX0lEh1yV0JZTGXdSRHUFDpoVRO759V70Pht10nkhY3NRsBL3
-         Kx1d2W4Q5wglCgtdpRUC/dGFC1lPeBwXbrJ4EH3zlSnJxJecmJayhzO0LDYqN+E/LKVQ
-         L4JFeFZdmUaWuEkI2EqnOij4QB+f7mxbuR3JrhOr3VYiDlCYvwr4yEhcb3wz69Dtw7cm
-         UOz2Xmbw0IGZ/YLJqLs5LRZfxKb3KxU2rqjmvc7ZrE2Xklw5IQyQ9YBERvY1oA51yMnq
-         G3evWFH/nBCWH28K/2dmBwtmG+UIs+Y/R1Fx9Z3F6FPwo96DkubvrCWgG0HdwFfoZtsY
-         FiUg==
+        d=gmail.com; s=20251104; t=1790844198; x=1791448998; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Atuw9lBz57e/hUpSiZ8WQ/Sj4OSIXL2+X4pHB8jkTYs=;
+        b=XDaHXfFGVZ5E5+XOw/ygTyS6gIccBpjiO3g1IUWUnNqiWG8haEJNTO+8CqvdMTgu0U
+         WI38G+tn/0vbqqSLV2iTNsaxLMcblAqGJfdNRW/7Ffh/3DzeA4VeWB1tJ6dro6rJb3Uq
+         yuEzAEnEfe+m1KP3Eo5n3GNvDrZPCmuxPeQwas7ZwWwRzgy3HFoGyxQmLvI/3wKUfHPm
+         ziPKNJVE9JHc7zKJUx9CbcNkgAuFdVUgbGAZnM8RbjnuYKoj3I4nHLlGAqebLalcDuFG
+         Zd4fm9qE9mCQn5XmpZZLgRjxsfcXkgbOuXPl/7x/3WRroDWvJm3BCgOipBIAQ/e5RUCh
+         6m2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790844195; x=1791448995;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XKshLF9fhce9vsuhUgrP4h0h1OGaMDienEyqXvAvOQY=;
-        b=KpG0Etm1cmXXvXAr889uyeH7YEzHLVjI3i1fp7LxQOV1vw1F+Kp25TvpL1tZMV6Pcc
-         oKHhkrR1sXPngPVohvRUXKPFLr/saXVmXgvF+NdKiGrryv4qifVzZfUxMPToDXRUrV0j
-         k1pG2xz8GUWK62+lCTm8Uh1TX5GiGfiYcC/N8YEMAFYSCqETj8w4ehUy3ZqjmjCby1vo
-         ts8h54olid796S8Mss/iUvgc+NXRnEPt9Rbmpt+eOFEtWceBqgfqLCAbUNoVbPLnaURS
-         G6vLrvPeAD6sae0CqvjASF2L0ChZCjClJhQ+XwIQ5DyipC70sg6F7a2/CshR/O42VCxG
-         ud8g==
-X-Forwarded-Encrypted: i=1; AKwUvBz+JxUW3uRS8SigUnwysYP52N6wzJO1cuChWqG4W3mGOeiIpbjAQZ+Cz+UaxpKWcI04BjOS2cEm3A2k@vger.kernel.org
-X-Gm-Message-State: AFuF++nzm+fM3UleA7kZqD+YyM14MBiUHlrWPw93mKUDIBR+Pk8O/jFt
-	tq8S9ONvvt6FyYU/OiEZPiQ+0FYgS4OJ7Fbz7k7Ciyu/p76VvBb0Mrx9
-X-Gm-Gg: AYBFou0RMvdKUAJY3lVm5kBvFEXnM3n/RQeANd/9EKrlqW/ht+IBJMq7eOVNWtErLVN
-	JKNhvrcPkzuMqEmzFlMf1jPAwJOaYlWYNhVhQFzP2Jf3aICSqrfUJgiLtVDC1Ssx+9rh5UplBRV
-	FynkDKZ3ALLAck188Aq1p53k7xOs0ciq1rqBTsRBiR56LIHwy+ww/eSuG1SbrC8JDFIVnZSfKBh
-	+FsKEOXovgmFFDLYHx/n/QHGpdZBoAtyk2kAkL0WQ/W2DibhsazIme+fZXF3MKOa0+o5LdqXXEe
-	MpnX+O387DWXT6DJGtfoe/1FGfBjEaN78sjL0CsaTzSEx5cUIQMbFAHY+tuyoCWBsAqSwh3ecvr
-	VTyJXKs+LFw+NyIRqopdCdzP40usdfBQI3c8FwITh8CD3rxbccxRy8eP2g1zfFHpCJrHi3Gj/m9
-	OZBxSBpWPaCEsMNiLU+MyH3Y1Xz4QWEzjzWLRxxeOx/jULOZ1K0QBiGZpcExHa3BSKkR2bWlVu+
-	swMSMOgKcB4Kv6CvPx6TUwoRzkWyFA2KCRIb7X8JFuLe+Hs/WfaWep4aTaM5QLEleYUTcTRAjrT
-	vuevZ8Xf
-X-Received: by 2002:a05:600d:8499:10b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4a01b11e692mr49639065e9.22.1790844195067;
-        Thu, 01 Oct 2026 01:43:15 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790844198; x=1791448998;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Atuw9lBz57e/hUpSiZ8WQ/Sj4OSIXL2+X4pHB8jkTYs=;
+        b=kHz5VIfET6njEcoKlm+V8uiEzms+60BK2T/1x2aaVJKY8gnbd53BsrSf0EDB0O4r/H
+         bJ1uESfxmEmHHnW0eu/CoG7oI7ZDw+IOVAnFYceO3aEXFZgjVzsOZzw6UEuvCpCZVUlD
+         E9tH3SwTTp5cFbJQq39ZkUlEWv7b//L0RGgtevQJ1fbwoWZXwC9jsvanTsHog+PYrUsb
+         f8IRwuAp36ntj9meG3F7vnFH8MS+dY33RWZlINZiu9bTGIV/esW10TEh9SkJJN5dZUg1
+         dItkN1o3o3i9g98qXI2MKeLCGsU1xZf+/USTgwdOPRHhUKW5nTAyP6VqFY4mS9OSuQHP
+         wOVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgX8ZUZnH0tOIZXmE6ktQHnntAIWsODl8j3e7f4N0te8xOBL35FX04u/fOOmHLpj6JVe8pj3JgSUYC@vger.kernel.org
+X-Gm-Message-State: AFuF++lNnfvunouRfdKUorlFr8cUV9yuisdRD9X7cM1mji2xnNZjUZJT
+	GQl4yIolBBvRMPXUciTGcyQIeelipat0TMDrT59JW1w4Qltu8ta/Fofl
+X-Gm-Gg: AYBFou0yI+LLJLnF1hXpCnbh2OOKJSzN6i8P8eRjlAVxK92rMtyOSZnyM03v8JFDQZ2
+	RLJHJtLf9fEZOaECiShxf3RHzG5nABKsoe8slb/I2ZEqo8PTqrV4euz4QqWXlLqrKBuUf1dK/WR
+	Ia4Jz9LjXY7Y3ByKczyUaObkIBE34pLZQrdR4U6jts9lZmknsvpRqBKanvoIZxEclIjTmKtWow4
+	LSqgy0nLXfRjjQk4ijBCspyyU2b/CXUH8ibpp+fwdI/G9IAHn7Neg86BOuMAnxuWXL+4gDth6Xf
+	DfHrbvYsU9YXLwYT+4cLxBe+7w7JiO+gg/wJmYMjW/e++ar5o5bPTzGqdtTFtGV7DLOc8sO5Mje
+	2fL+wKptGFc86VJDKZ4DFcpkFGSsA+bl/E7O/q42je/QvbVp2RQ4gT44jLrTZIp82PYaWzAXWZd
+	hQBwtv4WM4UuxaRgQiVnUcVzdgZinkUlFHjKt7dCy++PRXEZk/HC2yb19irK8r6J+pezmcI2sX6
+	xDBi9csBsDSvjsMJ5JF0uzNYkd12rHnFlnGcz+3ZncbNcsS5G2FWgPLUZF2psL7+qZngw5tyA==
+X-Received: by 2002:a05:600c:4445:b0:4a0:1b14:e845 with SMTP id 5b1f17b1804b1-4a01b14e85dmr65548535e9.2.1790844197683;
+        Thu, 01 Oct 2026 01:43:17 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f949709sm78177885e9.12.2026.10.01.01.43.14
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f949709sm78177885e9.12.2026.10.01.01.43.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 01:43:14 -0700 (PDT)
+        Thu, 01 Oct 2026 01:43:17 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Subject: [PATCH 0/3] arm64: dts: freescale: Add Apalis iMX8 and Colibri
- iMX8X overlays
-Date: Thu, 01 Oct 2026 10:43:09 +0200
-Message-Id: <20261001-v1-apalis-colibri-imx8-dtsos-v1-0-21881dc324c1@toradex.com>
+Date: Thu, 01 Oct 2026 10:43:11 +0200
+Subject: [PATCH 2/3] arm64: dts: freescale: imx8x-colibri: Add Cortex-M4
+ remoteproc support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,9 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAB4dvmoC/x3MQQqDMBBG4avIrDsQE4y2VyldpGZsf1AjGRFBv
- LvB5QePd5BKhii9qoOybFCkuaB+VNT/w/wTRiwma6w3T2d4qzksYYRyn0Z8MxjT3nFcNSl7V6o
- 2ets2kcpiyTJgv/fvz3lebxgdnG4AAAA=
+Message-Id: <20261001-v1-apalis-colibri-imx8-dtsos-v1-2-21881dc324c1@toradex.com>
+References: <20261001-v1-apalis-colibri-imx8-dtsos-v1-0-21881dc324c1@toradex.com>
+In-Reply-To: <20261001-v1-apalis-colibri-imx8-dtsos-v1-0-21881dc324c1@toradex.com>
 To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
  Pengutronix Kernel Team <kernel@pengutronix.de>, 
  Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
@@ -85,41 +85,89 @@ Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 X-Mailer: b4 0.13.0
 
-This series adds device tree overlays for the Toradex Apalis iMX8 and
-Colibri iMX8X SoMs, and describes the Cortex-M4 remote processor on
-Colibri iMX8X.
+From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-The series adds support for:
-- NAU8822 Bridge Tied Load configuration on the Apalis Evaluation
-  Board V1.2
-- Cortex-M4 remote processor on Colibri iMX8X
-- Reserving the Colibri iMX8X Cortex-M4 UART for firmware
-
-The remote processor is described in the SoM device tree, following
-the Verdin iMX8M Mini support. It uses the same entry address, mailbox
-and RPMsg memory layout as the iMX8QXP MEK.
-
-The Makefile entries build the standalone overlays as DTBOs and add
-ready-to-use composed DTBs for the Apalis iMX8QM V1.1 on Evaluation
-Board V1.2 and the Colibri iMX8QXP on Evaluation Board V3.
+Describe the Cortex-M4 remote processor available on the Colibri iMX8X.
+Use the same entry address and memory layout as the iMX8QXP MEK.
 
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
-Ernest Van Hoecke (3):
-      arm64: dts: freescale: imx8-apalis: Add NAU8822 Bridge Tied Load
-      arm64: dts: freescale: imx8x-colibri: Add Cortex-M4 remoteproc support
-      arm64: dts: freescale: imx8x-colibri: Add Cortex-M4 UART overlay
+ arch/arm64/boot/dts/freescale/imx8x-colibri.dtsi | 47 ++++++++++++++++++++++++
+ 1 file changed, 47 insertions(+)
 
- arch/arm64/boot/dts/freescale/Makefile             | 11 +++++
- .../imx8-apalis-eval-v1.2-nau8822-btl.dtso         | 15 +++++++
- .../boot/dts/freescale/imx8x-colibri-uart-m4.dtso  | 18 +++++++++
- arch/arm64/boot/dts/freescale/imx8x-colibri.dtsi   | 47 ++++++++++++++++++++++
- 4 files changed, 91 insertions(+)
----
-base-commit: 39be5a7e3ecc08098c039561237499aa595700da
-change-id: 20260930-v1-apalis-colibri-imx8-dtsos-632607d6275d
+diff --git a/arch/arm64/boot/dts/freescale/imx8x-colibri.dtsi b/arch/arm64/boot/dts/freescale/imx8x-colibri.dtsi
+index 2415487d3a5d..b71bffb9dad4 100644
+--- a/arch/arm64/boot/dts/freescale/imx8x-colibri.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8x-colibri.dtsi
+@@ -86,6 +86,18 @@ reg_usbh_vbus: regulator-usbh-vbus {
+ 		regulator-name = "usbh_vbus";
+ 	};
+ 
++	imx8x_cm4: remoteproc-cm4 {
++		compatible = "fsl,imx8qxp-cm4";
++		mbox-names = "tx", "rx", "rxdb";
++		mboxes = <&lsio_mu5 0 1>, <&lsio_mu5 1 1>, <&lsio_mu5 3 1>;
++		memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
++				<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
++		power-domains = <&pd IMX_SC_R_M4_0_PID0>,
++				<&pd IMX_SC_R_M4_0_MU_1A>;
++		fsl,entry-address = <0x34fe0000>;
++		fsl,resource-id = <IMX_SC_R_M4_0_PID0>;
++	};
++
+ 	reserved-memory {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -97,6 +109,37 @@ linux,cma {
+ 			reusable;
+ 			size = <0 0x1a000000>;
+ 		};
++
++		vdev0vring0: vdev0vring0@90000000 {
++			reg = <0 0x90000000 0 0x8000>;
++			no-map;
++		};
++
++		vdev0vring1: vdev0vring1@90008000 {
++			reg = <0 0x90008000 0 0x8000>;
++			no-map;
++		};
++
++		vdev1vring0: vdev1vring0@90010000 {
++			reg = <0 0x90010000 0 0x8000>;
++			no-map;
++		};
++
++		vdev1vring1: vdev1vring1@90018000 {
++			reg = <0 0x90018000 0 0x8000>;
++			no-map;
++		};
++
++		rsc_table: rsc-table@900ff000 {
++			reg = <0 0x900ff000 0 0x1000>;
++			no-map;
++		};
++
++		vdev0buffer: vdev0buffer@90400000 {
++			compatible = "shared-dma-pool";
++			reg = <0 0x90400000 0 0x100000>;
++			no-map;
++		};
+ 	};
+ 
+ 	sound-card {
+@@ -487,6 +530,10 @@ &lsio_pwm2 {
+ 	pinctrl-names = "default";
+ };
+ 
++&lsio_mu5 {
++	status = "okay";
++};
++
+ /* VPU Mailboxes */
+ &mu_m0 {
+ 	status = "okay";
 
-Best regards,
 -- 
-Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+2.43.0
 
