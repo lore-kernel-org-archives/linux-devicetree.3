@@ -1,105 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843634A3864
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:37:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC824B7A46
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:38:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861828; cv=none; b=O3Fk/pu/QcZW2cULyZysyxj33Q0bqefcsetcTNggT9ymStuBsFxtTYzOIvbQyldoHzfXJemq3ETjHLkYneA87fmeOohKqhaaWcyGERm2SLrmKyBjWZrxmwHAh4URCw6H5lj6bPjkjXnqhz2p0txBVht8LSpwjHNdRLUd/016/G8=
+	t=1790861915; cv=none; b=SpxU3GEgKio2yElD68qiVZ4rBFY0YSCCjq8e9nDtWnjxjT3aY0NzMe/beqC4UdrARcK6vjFrURZil3q8stdcLgzOvgw97UtDsbcgx1vXm2/3Cts1ZLp2H725VfOpo51hYfbV5AGqtl3bg9BKTlkSMQ6JRePU8o10fbWWiKRIp5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861828; c=relaxed/simple;
-	bh=sFRUwCLUNPcwx0LHY+Dy3FOdNQyxcOS7qb92zFE3j6I=;
+	s=arc-20240116; t=1790861915; c=relaxed/simple;
+	bh=My2udZLosf9NWE0Yjc7mRws+VGoNPLFVXbfz7wdZw84=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CMk2jO3Vbam30eSabMiro4BuquFsRQe+gYN2G664RBhVcNVpncDE2s22HTsKfknPiSFChaIyTd//V5YHhWJ/GTr1hy29/dEzT00tu+fUKecswk05VS0HNemWl0vLCFkU/dEMD+y7YDv7yk7DstPk4IXr+lgWCO+V/8e6gsRZyDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CYe5av8G; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=X4xOSsam6pH24KksfXEwqYfwPwuh2mddQZDcAjj0xY6NoC+sa8KpzJQaQA8RDgp2tEaDzmVufXbKG/9nOGtsmrYRlGsYJ91Y0mOuK/HrpKOdM1Up3Tj6flPflnywMIfCibS9oscySr6HuTEfIXil+Qa9QzH10T0R1L2fVEOMcA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GOiKmToy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CYe5av8G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5A71F000FF;
-	Thu,  1 Oct 2026 13:37:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GOiKmToy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0DE1F000FF;
+	Thu,  1 Oct 2026 13:38:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790861825;
-	bh=uzTM+WbKoLhpT4xpRIfqTnkxDrmqKGWzaIqFWTm2ccY=;
+	s=k20260515; t=1790861914;
+	bh=mX3Kgq0uypRN33yih1E4IhTEp6dwxpwgfCl2vPnHp1k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CYe5av8GvhlUHEL8mLgfhAL9CfNbvobYBdS+o8TmsZ/tOaYPylL1TFsfMmYPwuIYQ
-	 8qUtzxRM3nEqogi9htxZoYZAeREwo+WqlfLFzKVC65F/8/4uu+WlcDLSryjoPAqoZ9
-	 11m+bhSqQ46/IQqPiyXmQdSm8BVyPCqM5hp1thjes5X35Ds7ng1z5a0tTc/EmuomU8
-	 ++uRm9Mwc/gawLWGsy2KXtGuNJgnTlNGwXdfUE9yno1OsdsC4IeGkSEvq2v/Pt3YW0
-	 N50fRfwQjBdukfkB0Dc+1u9jN1uD4MIjvIMvWpjMPG1fxMNt0YwCXWqBY8+8zNRRWK
-	 yMAAkQ8WIkNUw==
+	b=GOiKmToyn/cmVoVr0pt5AnGbvLQKVLahZ/mS9QnQlfcgyXW5NuYoRNxfdr5I/Msnm
+	 edzfoC5TWQ0TdniHUPY/+o29UtfsXTJHFr6AwEP4YPHO9WtDr216u2AqBwL4PQn4sA
+	 K7rl3t0g1Gb8gWsBuXT+8s/brLvFDxo6n57NEomzx5mxATB10vwHqYqYva5Vkhg3rM
+	 mcAVB2xIkNWVkB/QPQIEJJzOPWuNE6FOx/xOzgJJaOuyABt03+M9kEVN+XSB+3yFLA
+	 AaJ77LTIFDJrOiG6cBQWFj4Wu61dqbX67CHwrgePBSdGaYKPoEuaosGgVc0d/E2dTr
+	 AmRa23JCM9aqQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] spi: ma35d1: Add Nuvoton MA35D1 SPI controller
- support
+Subject: Re: [PATCH v2 3/3] phy: tegra: Add support for Tegra238 XUSB pad
+ controller
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chi-Wen Weng" <cwweng.linux@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261001131818.110028-3-cwweng.linux@gmail.com>
-References: <20261001131818.110028-1-cwweng.linux@gmail.com>
- <20261001131818.110028-3-cwweng.linux@gmail.com>
+To: "Jon Hunter" <jonathanh@nvidia.com>
+Cc: olteanv@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org
+In-Reply-To: <20261001-tegra-phy-v2-3-3e453b1fb271@nvidia.com>
+References: <20261001-tegra-phy-v2-0-3e453b1fb271@nvidia.com>
+ <20261001-tegra-phy-v2-3-3e453b1fb271@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 13:37:05 +0000
-Message-Id: <20261001133705.7C5A71F000FF@smtp.kernel.org>
+Date: Thu, 01 Oct 2026 13:38:33 +0000
+Message-Id: <20261001133833.9E0DE1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] spi: ma35d1: probe fails on valid DT with num-cs > 2 when using =
-GPIO CS
+- [Low] phy: tegra: missing Makefile entry causes link failure for TEGRA_238
+- [Low] phy: tegra: missing declarations cause compiler warnings
 --
 
-commit 297501e7117bfad68b786ba4098b2489480c1405
-Author: Chi-Wen Weng <cwweng@nuvoton.com>
+commit 7c86bdb1c8a3759375a713aae859eac18c35bda9
+Author: Jon Hunter <jonathanh@nvidia.com>
 
-spi: ma35d1: Add Nuvoton MA35D1 SPI controller support
+phy: tegra: Add support for Tegra238 XUSB pad controller
 
-This commit adds a new driver for the SPI controller found in the Nuvoton
-MA35D1 SoC. The driver supports SPI host mode using polling-based PIO
-transfers, standard SPI modes, and natively controls up to two chip selects.
+This commit adds support for the Tegra238 XUSB pad controller by populating
+the specific SoC data. It drops compile-time guards around Tegra186 port ops
+and Tegra194 supplies to reuse them for Tegra238.
 
-> diff --git a/drivers/spi/spi-ma35d1.c b/drivers/spi/spi-ma35d1.c
-> new file mode 100644
-> index 0000000000000..7560cb7e0b099
-> --- /dev/null
-> +++ b/drivers/spi/spi-ma35d1.c
+> diff --git a/drivers/phy/tegra/xusb.c b/drivers/phy/tegra/xusb.c
+> index 0635f0d82c963..89ce9ac873006 100644
+> --- a/drivers/phy/tegra/xusb.c
+> +++ b/drivers/phy/tegra/xusb.c
 [ ... ]
-> +static int nuvoton_spi_probe(struct platform_device *pdev)
-> +{
+> @@ -78,6 +78,12 @@ static const struct of_device_id tegra_xusb_padctl_of_=
+match[] =3D {
+>  		.data =3D &tegra234_xusb_padctl_soc,
+>  	},
+>  #endif
+> +#if defined(CONFIG_ARCH_TEGRA_238_SOC)
+> +	{
+> +		.compatible =3D "nvidia,tegra238-xusb-padctl",
+> +		.data =3D &tegra238_xusb_padctl_soc,
+> +	},
+> +#endif
+
+[Severity: Low]
+Will this result in a link failure if a kernel is configured with only
+CONFIG_ARCH_TEGRA_238_SOC enabled?
+
+The tegra238_xusb_padctl_soc structure is defined in xusb-tegra186.c, but it
+does not appear that drivers/phy/tegra/Makefile was updated to compile
+xusb-tegra186.o when CONFIG_ARCH_TEGRA_238_SOC is set. If the other Tegra S=
+oCs
+are disabled, the object file might be omitted, leaving this symbol undefin=
+ed
+during linking.
+
+> diff --git a/drivers/phy/tegra/xusb.h b/drivers/phy/tegra/xusb.h
+> index d8d799d9e7522..b9de4f3b57815 100644
+> --- a/drivers/phy/tegra/xusb.h
+> +++ b/drivers/phy/tegra/xusb.h
 [ ... ]
-> +	ret =3D device_property_read_u32(dev, "num-cs", &num_cs);
-> +	if (ret && ret !=3D -EINVAL)
-> +		return dev_err_probe(dev, ret, "failed to read num-cs\n");
-> +
-> +	if (!num_cs || num_cs > NUVOTON_SPI_MAX_NATIVE_CS)
-> +		return dev_err_probe(dev, -EINVAL, "invalid num-cs %u\n",
-> +				     num_cs);
+> @@ -514,6 +514,9 @@ extern const struct tegra_xusb_padctl_soc tegra194_xu=
+sb_padctl_soc;
+>  #if defined(CONFIG_ARCH_TEGRA_234_SOC)
+>  extern const struct tegra_xusb_padctl_soc tegra234_xusb_padctl_soc;
+>  #endif
+> +#if defined(CONFIG_ARCH_TEGRA_238_SOC)
+> +extern const struct tegra_xusb_padctl_soc tegra238_xusb_padctl_soc;
+> +#endif
 
-[Severity: Medium]
-Will this check inadvertently reject valid device tree configurations that =
-use
-GPIO chip selects for additional devices?
+[Severity: Low]
+Could this cause a -Wmissing-declarations warning when building
+xusb-tegra186.c with CONFIG_ARCH_TEGRA_238_SOC disabled?
 
-The SPI core correctly supports expanding the total number of chip selects
-beyond the native hardware limit when using GPIO descriptors. Since this
-driver sets ctlr->use_gpio_descriptors to true, a device tree could specify=
- a
-num-cs value greater than NUVOTON_SPI_MAX_NATIVE_CS (which is 2) in order to
-attach a 3rd or 4th SPI target using GPIOs.
-
-Because nuvoton_spi_probe() checks the total num-cs read from the device
-tree directly against NUVOTON_SPI_MAX_NATIVE_CS and returns -EINVAL, could
-this artificially limit the bus to 2 devices overall and prevent GPIO chip
-select expansion?
-
-> +
-> +	ctlr->num_chipselect =3D num_cs;
-> +	ctlr->max_native_cs =3D NUVOTON_SPI_MAX_NATIVE_CS;
-> +	ctlr->use_gpio_descriptors =3D true;
-[ ... ]
+Since tegra238_xusb_padctl_soc is now defined and exported unconditionally =
+in
+xusb-tegra186.c, hiding its extern declaration behind this config guard will
+leave the exported symbol without a visible prototype whenever the C file is
+compiled for other SoCs.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001131818.1100=
-28-1-cwweng.linux@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-tegra-phy-=
+v2-0-3e453b1fb271@nvidia.com?part=3D3
