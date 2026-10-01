@@ -1,176 +1,125 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA2A3F6C3D
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403FF3F6C3D
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832319; cv=none; b=HoRk6PhEfLCIejU5WWLMwobVkQyQBAFoa8qassy6LEWI6viYePiipO3aFG068dFyUcnNQC8taI+RSFFGXy5fFiVnVqjUMi5Li4mTz3DQT3LPFbug4OJ01RLnoczZhHwbvoK+lbqzkU/BunKR8zuTivmgh+6LVKl1R8OQj00DAbY=
+	t=1790832481; cv=none; b=LcKogNlIa/tyAYgN1ZGF3nkiq6Xmafozp6ltqk/QFWLQYZrTYMZXjNDJSSW5fTJUEYXx4VBcPCR+THXAoD6xbt9oAs/qJlXYFL5sC1RgCteECCki+vJDVNIOaE9bLYxSO6i3GTqIcQ2mOWvzp8uax4Oai4tZ3uLIzfeGB0z4BcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832319; c=relaxed/simple;
-	bh=O6yb0HV3J/toXPvpQfcA1afsS4yAiF1BtgMLQ8UoSe8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n6LrzVW+19eCv3X94Znxmh4gQuDdnzx+PVjsMQkvZn9n8QXCgQFyRScRXJSyl5Wik46mjVm0epRdaje/JXz2QnVuN9XfPFInSs4lMO7QT318Rj7ox7EAlw4g4KQZN6uq60/XKwm1cmY7Oai40yzYsYyBZcXkTWSanEJEGp2pY1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XqO5RFMJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AewNUn9r; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790832481; c=relaxed/simple;
+	bh=Spt+UFjBXJhc44j8DHEYV1c+HqSHqqXAG/TyMRpCf5A=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WyUN3udBSYzUTTYCyjMEJUauHeKPVC1/HBep1tdXO9lt9x6UkdE62eWXaf82w1qIikLSizo8GPdX+fcBDWbF+ZDJP6fWNP7+IKjwIjKNAmJ0zfivxR9V4xCon1bG4KXGFcf+VJbXLC3PwVy+vKj4+oNc0N8MI54FxowBWIprZPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BoBehnhv; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XqO5RFMJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AewNUn9r"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6913ghAw1089593
-	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 05:25:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=q55aiCcFgIH
-	x6hiu0PyATGC9kqjNrh9qZcfBmGGijjA=; b=XqO5RFMJDnX/m7Rj2cHGHSQ10Ic
-	zTwF5bqkuhJYCWP8TBr3QD+r4OzR8ZGII3nlcFVUzXKpWXiwoGZANt7/dbFKqsxu
-	Z7tytmV2+pzoBvwPZBBIWVdd658LKtjB0R0VoLsKUF8GoV8Z76txmhA0u3xkoqAZ
-	GHBn1NPRJbwOgI9Il1OiFAIQiu4hFfgPSHcQ9kyq7JBTDr/S22KqjwTdUnWE47cf
-	UAJ5ITdID9lFuNEAzIyClH1ElwMseOeIMyckcgZGFIcZhhPOIRl3/HDnLF98LYec
-	/bhuFOQb4auuqwYClMufud3Ew8MVAh7J/+LwWlj3w/HzIEt730GIihXHDWg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h188sswes-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 05:25:16 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dd7d0751efso4597255ad.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:25:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BoBehnhv"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d822dso44968625e9.2
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:28:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790832316; x=1791437116; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790832478; x=1791437278; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=q55aiCcFgIHx6hiu0PyATGC9kqjNrh9qZcfBmGGijjA=;
-        b=AewNUn9rQirpZSKokA9XA24TDAbpjzoFDlQupw5Pk5YTwSd7vy7W08XqGK3UNCfWi6
-         GdcfoGptq4LbvMjifjgGUrH67SjofwDpEpPvDefufKI7+rK76cfm4lNDQZClWhOYrmXh
-         RG3RG5E53iAigbsS1eu5zsdhygz5B3vr+GUlbgpXot2aACh899pp7vwTosxF9U7WQmjT
-         xMF/Yi7TOTivGHnPgJHOny3LwNIWGVYqv0dzJRehEenTgW1Hc2Na2EpRh+Ob+C1rJinV
-         ge7aR/nydrcJ0b/uVJt9UcMKR0+N/S92hJ5zTBANQcpWw80pShf1N1GJoIucVCHTCxKO
-         RKlw==
+        bh=IVL0YicU6s4vWnH0QGlqg5VqXOz3HA74QxakKY7UMwI=;
+        b=BoBehnhvGnEwe6RqurJZxA57cvqIitsXMR5OWAilkmb9oVO/eR5GfMmbMMBwSv+GjZ
+         AOy0N8/96rqwMgfGj9j7VmQLeII+N43MfI01JqOVjpXbABlpfAnEAIdWZiFzQ/+/C5Wj
+         R3ak1GI0Ea/uBnAHw0NaVEmyWRSv92OzezGB9tu4R5Hw7ayYgKJwaWO5OXw5++Zcc84m
+         3n9wNkKGXZX4yQduFkfim/DqxvC5f0LEeSXunHsijZA/CW4AKd7yVNdDPVSmjj1hqvDT
+         aXE+O8HbKD8FLmceXY1y7QXaj24yGiIdXNpEwLmZ/abtDoE2igfwbPS1hgRvRaUrw0tC
+         TT0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790832316; x=1791437116;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q55aiCcFgIHx6hiu0PyATGC9kqjNrh9qZcfBmGGijjA=;
-        b=K7TJQNj9iY+bs4fJFBuZ4fvk41vjiYirCCMU5NSqmv9kkc2LOEdUDBGAqbfnsWW4uA
-         lBobBtr4kv1hMgMkaaqrnOJEd2sIMyIfsuamsn+Cx7hw6AZLy7nBVoIKX3VH2O5V88sI
-         KJnsM4BHJrEpoimIQREyqqgahAd2kqmIU2QHji3uWLGvqqRD1m+HZ4tw9g3Iu1qb88N5
-         tjP0SGVaHYzK/0RjLIDDLaJVDKuaHXIWBnm60ax6R546jQSpV12nXamxvRwlBegO059F
-         Gf6Zhy2vvrZuEo4bOaKuuVjGIoi+bRgkPJ5qRUSsNI9R+z4MD2bbAsHdi34oRGZsrVZf
-         x2MA==
-X-Forwarded-Encrypted: i=1; AKwUvBwW6NL/XY6/3g3neh5ir6AQnc8r7sBto6x2TpUG4Ju0lco2Xu1N8+eqAfQJjriSl0Ryh5mDqXJJC+51@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/1mJzG5DKgTrLgtt9lHtYv07CagT89qiY3OXk5OE5xfomRpGK
-	He3OXm4IrMueYITvq0E7Bzspsh3gY7W4R2fgKRCcdrS2GVK5IrzDnT5bolXIo581Kh/zuUbqElj
-	zh1nxQSgtBk58LrHsWa7ayUuzwJwYmTyfMVtTWxCaf7KXmexnvd1brdKiTl/kgs5t
-X-Gm-Gg: AYBFou23xzwVorDNoKXZoHfa+Kibyl/Usp4LTfTNBz75a1DAgwffAFvhd2oNz+yXb0f
-	tyw3fSnIm03SLoAtsCw+ZbszTss2doS7d+r4uTKEWQtUGQfBIAOalzQySDKZLvGGBPF/5UCJlst
-	lmq3xTqR4ZHMUnHDh7dA68gkfa5Q11dWa+hlFjV4fN/X9MJ1ODE1YbLign6HpDZ2J7C7xXNcRwa
-	hHQH9kXhJoG6pAUfxGDKwWn7wEi4SNBkymLRwL0JTtbGaUxIgM046UVXYlvPVbH8rEzm3fGUG2P
-	hKUiomdNbSFSC8dxIIFoQX3M0/7pdbzEUR8CEI/+BuqjwXwxc6Sg+nk7JHEoq3IGSpaFYQaUMB7
-	zlXKL+oD5zoMOGn0+QlEJ+ZIqMlH4LRWE7XBu09nINHzIjiZL4QcegPyKFwmNu01bTH6Cye/IYN
-	lKGqDK1HZKCaofwClIDfN2psiP
-X-Received: by 2002:a17:902:9302:b0:2e3:2c8:66c6 with SMTP id d9443c01a7336-2e302c8695fmr5785485ad.32.1790832315735;
-        Wed, 30 Sep 2026 22:25:15 -0700 (PDT)
-X-Received: by 2002:a17:902:9302:b0:2e3:2c8:66c6 with SMTP id d9443c01a7336-2e302c8695fmr5785285ad.32.1790832315254;
-        Wed, 30 Sep 2026 22:25:15 -0700 (PDT)
-Received: from hu-mchitale-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2e300b851b9sm5152715ad.78.2026.09.30.22.25.08
+        d=1e100.net; s=20260707; t=1790832478; x=1791437278;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IVL0YicU6s4vWnH0QGlqg5VqXOz3HA74QxakKY7UMwI=;
+        b=qdEmRBQNE6QT1Nr7Pvi3cocAJV0OB6SPmmuQLiGLEQzv8eIRk68pHHA4xLpS37dduh
+         M9+OM8EBtvoxPCOmvCi/gyB1rA9Oxi+Sg5rP/1TDw0XWKgPkspJBRRl9WM60+bfyY3a1
+         hnnh38czg0Opc5QCrs2V2dq4kFgMOKJeNUiPAt1ywzmricuzPdKNFdr22ZH8hB7yBnO8
+         BkLo8T8gHGRti1DBxOkGMJkfKAiacb5NbS4cOh2uKf9ng9Ah0i5oJyj3pmbBPzJOWofg
+         3KYRhdI48imj9YG37tytyqaDhybxc7gX+x6Hq5QX3XEDqa6ADQJN8itFOtbrefmdKVAH
+         Djhw==
+X-Forwarded-Encrypted: i=1; AKwUvBx2urhjqefvvjiZFeDI0AwlT3YeB34o81vRBNZSg9pp0F+cuQepMKnonxXABM5TvMyAihJGpkSW3GOn@vger.kernel.org
+X-Gm-Message-State: AFuF++lEzy8H/ymAUBfQXT4DW4fSJ1X5GBVqr9AcBTeftl5NUnnvSfQT
+	Ig0qy9EOYcUButVxIcbdqM4ASxTab3eHoEBAwlPGlddSqv6LCzUl/QxQ
+X-Gm-Gg: AYBFou3yy055oAibSzplEqTREkBooFdUEXDTM02VJbAer1/Zn5N34X4G36/XN16bKkC
+	7EYoVM7IXj0hUya0p2M7Ri6WOdwAt+GgI3pYWuNUo1ALWCsUCoKbeCA5x0NMFTuBe0G1/gYM5nm
+	Odia/9HyeSmSZ5xQdarlTLSCTDsZ2ZXlIKS1BJcaTFMkZ7rXCr7pF5TzRKgNm00GAVtxN6TaeYN
+	xuDS0JXh8l0oPclioK+FeOxAkaDPXZthyeMklbllv1eZO6uRSYdzJYynJ1oud72J78ad8On1CiK
+	M7GZC04KB4iVN46v8Dmsm/sQm3CsihECzIJSJn/x5Mpigairtr9fCsdiqo267WDDREpJOOII6o3
+	JqCWLJY0WRFaHOdpnh8kgIOskLBudQ73jNRjzuo3B/MDBuanrpMVgKuRqIa5qsnVilUz36QF/aN
+	YXx5j41qn6ghloni7HfiSARX5cRk7MaGEj9MnCjEd6PT7Wt0pkjoVqkdlMYhGW/OTCA1VciXPgr
+	HrvXiMg9LNeArIGmrYWt5bIWRw734CV6wSPQoYoEPk=
+X-Received: by 2002:a05:600c:4687:b0:4a0:3a3:33e2 with SMTP id 5b1f17b1804b1-4a01adde08dmr57434805e9.5.1790832478268;
+        Wed, 30 Sep 2026 22:27:58 -0700 (PDT)
+Received: from [127.0.1.1] ([92.241.26.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f979c05sm64944975e9.3.2026.09.30.22.27.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 22:25:14 -0700 (PDT)
-From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Ian Rogers <irogers@google.com>
-Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Alexandre Ghiti <alex@ghiti.fr>,
-        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-        Namhyung Kim <namhyung@kernel.org>,
-        Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-        Adrian Hunter <adrian.hunter@intel.com>,
-        Mayuresh Chitale <mchitale@gmail.com>,
-        Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>,
-        Andrew Jones <andrew.jones@oss.qualcomm.com>,
-        Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Zane Leung <liangzhen@linux.spacemit.com>
-Subject: [PATCH v6 14/14] MAINTAINERS: Add entry for RISC-V trace framework
-Date: Thu,  1 Oct 2026 10:52:25 +0530
-Message-ID: <20261001052243.3042627-15-mayuresh.chitale@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
-References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
+        Wed, 30 Sep 2026 22:27:57 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Jason Li <jason.li@cortina-access.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>
+Subject:
+ RE: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART driver
+In-Reply-To: <SEZPR01MB4208B8B4A5A7F48F7FFE0C9FA28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
+References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
+ <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
+ <CAD++jLkzcf7gJB82XT3-xb4jLujtWSNz1kT2r1-4N54rRfRNMA@mail.gmail.com>
+ <1d81c2ef-7a5b-4306-83d2-ff96b0eb6a06@app.fastmail.com>
+ <179076749140.3134070.3869742286743401078@gmail.com> <SEZPR01MB42087271C56AD1C7E926AF35A28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
+ <179082517588.138645.14615134489246049313@gmail.com> <SEZPR01MB4208B8B4A5A7F48F7FFE0C9FA28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
+Date: Thu, 01 Oct 2026 08:26:39 +0300
+Message-ID: <179083239972.193541.4791387611943615705@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX1SKpdFSbSA/A
- uAh7Ni1W+kMDkaPAe8cOg52QnuawHENW/y8KM8rqb5tlv9Iud5/JJQUzB3CptQnJTbaiLnL6JDi
- 0/vbeUAHeU4mpkliink+zt6mJG/rshw=
-X-Authority-Analysis: v=2.4 cv=OozaWC/t c=1 sm=1 tr=0 ts=6abdeebc cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=pGLkceISAAAA:8 a=W-_n0kkjAAAA:8 a=JfrnYn6hAAAA:8 a=UgJECxHJAAAA:8
- a=hzgbeqSfhi83Ps7mpaYA:9 a=1OuFwYUASf3TG4hYMiVC:22 a=qeNa2pbTr82C0GpJEZFS:22
- a=1CNFftbPRP8L7MoqJWF3:22 a=-El7cUbtino8hM1DCn8D:22
-X-Proofpoint-ORIG-GUID: iwIrjKt8FqmE-QuBiYDeYhkCAh9X57ag
-X-Proofpoint-GUID: iwIrjKt8FqmE-QuBiYDeYhkCAh9X57ag
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX9nCCcrUrOqLs
- 448Nv6JbeLtMkMfspMRx/xCz5hKkvoRUICCWeQ6KqO+KCrYqwDk7zkIV4jAeL2j5zXHtM1ivKv8
- 2FDkrESKVVQn01FlJAcdnlhLdalsrpYN0AvDlE4GmTxKW+yyUIefrGFi1sq6yJazyElN6WX9elJ
- tGJyqweJKP0Z2/QMV3rdpg7p0Lj64WWjOvjeTKZl/w1Do/w5+0IzrTPmEu0/5VKnXjNh3iXBiGf
- uWvgrz0W0KlAB02hbS8saXfF+ZAN/XHYPyhUS07+UOE+13BpBIt29UnYDrlqofcf/ge9FvKxON6
- HnDdVzJUwEtjAX0WlcBmpxo7wL+1l/UpLe8S0T54fa7DX/9VRGVaw3ctiWe792UN8Yf20V7qXRe
- T7L16ArLOq6tMhYGUtC2lB/A3MaWZfDbo+r7TKJryJF8m7RuPvBxD2Hrg13T4YE1tkxIGjcT6tO
- 5xoVufQWKhkQrxUYa7w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010021
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-From: Anup Patel <anup.patel@oss.qualcomm.com>
+On Thu, Oct 01, 2026 at 05:14:59AM +0000, Jason Li wrote:
+> We agree with the approach of using a single UART driver since the
+> CS75xx and CA series share the same UART hardware implementation.
+> For the Device Tree compatible strings, we would prefer using the
+> "cortina-access" vendor prefix for the CA SoCs (e.g.
+> "cortina-access,<soc>-uart").
+> We do not have concerns with using a neutral driver name such as
+> cortina-uart. However, for DT bindings and related documentation
+> describing the CA devices, we would prefer the wording "Cortina
+> Access" to distinguish them from the legacy Cortina/Marvell branded
+> devices.
 
-Add Mayuresh and myself as maintainers for the gtrace framework and
-its RISC-V trace drivers.
+Thanks, that works for me. So for v2:
 
-Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
----
- MAINTAINERS | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+- drivers/tty/serial/cortina-uart.c, SERIAL_CORTINA,
+  SERIAL_CORTINA_CONSOLE;
+- the CS75xx parts keep the existing "cortina" prefix
+  ("cortina,cs7542-uart"), the CA parts get "cortina-access,<soc>-uart"
+  when they are added;
+- the binding and the Kconfig help name both families, as "Cortina
+  Systems CS75xx" and "Cortina Access CAxxxx".
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 360977678f70..8b5bd2815690 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23656,6 +23656,17 @@ F:	include/dt-bindings/power/thead,th1520-power.h
- F:	include/dt-bindings/reset/thead,th1520-reset.h
- F:	include/linux/firmware/thead/thead,th1520-aon.h
- 
-+GTRACE FRAMEWORK AND RISC-V TRACE DRIVERS
-+M:	Mayuresh Chitale <mchitale@gmail.com>
-+M:	Anup Patel <anup@brainfault.org>
-+L:	linux-riscv@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/riscv/riscv,trace-component.yaml
-+F:	drivers/hwtracing/gtrace/*
-+F:	include/linux/gtrace*
-+F:	tools/perf/arch/riscv/util/auxtrace.c
-+F:	tools/perf/util/gtrace*
-+
- RNBD BLOCK DRIVERS
- M:	Md. Haris Iqbal <haris.iqbal@ionos.com>
- M:	Jack Wang <jinpu.wang@ionos.com>
--- 
-2.43.0
+Arnd, this also answers the prefix question from patch 4 for me: I
+would leave the CS75xx compatibles and the dts directory on "cortina"
+then, and use "cortina-access" only for the parts that Cortina Access
+made. Please shout if you or the DT maintainers see it differently.
+
+Thanks,
+Fil
 
