@@ -1,139 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6025B4D0CD4;
-	Thu,  1 Oct 2026 09:38:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00ED4A43E8
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 09:40:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790847514; cv=none; b=OCgg90sF9WHgLU5T3ZGdKMG1SHOk/5AMkKS0qEhdpMRXaA24xHkiCqHPBkJW6CO0ft3K2T9jO8csDWM8Kl9vG6iZbDMAN7Xagpjq7lRufB57Ng7FtEZEczJqRy7ZfWfVkjcQks/LMcemz9sPSzILnFCTwDNvsGN/fOBpDIE/fWg=
+	t=1790847649; cv=none; b=XFCUXzHwZmjSOyNDqv7o/dpZi6o7HatfrpJEoLz8KW5L5eahUuhn4YwjSOoT1uLRaqv8YSS2AagNHO972yHKyo3NDB5uJESTkG4HAOlm6nc9n1nHawj6+BcJyToB5oW8lkJN2+3Gdf6qXVmyuhgsMDcKOVXp/CiMmAPfCT5mEME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790847514; c=relaxed/simple;
-	bh=YEzJd/s2utTP/Of6d1YNUMxxC/W2t9qAjb2QnT/GJhc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pg7ye6waY5QX4wXd/6ZE8qz3TdmtEBfcTyVLJ0TKI0iUDtDXL8eCSmhMtRk8KxJ15cPBtYGQRilxVx/lJsCi8NExNNceMzTsmTy8rTVERXRcwZFP13B6NzpDgW9o/Q3uo2r46QBXwv9hJ9acgWY46PQw9DEw6tafTZw06nZv5jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m4x8niJf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790847649; c=relaxed/simple;
+	bh=iW71tWD2wNLRzOlWaKjpqoBDzIno/RxVTDSnreqjcWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UArAeEHIl9wCLkr/R+E+hN2qQsqppC6rcQKPIpDplCflfp0YzH0LDzVo2KVFrmZnqXBEu0RSTRX/zfDIZPaQlibF95IwKcvvc7avh93xL1UiI8f38PslcJD7tkaz/OiXieiuZM7Th89IZRHuwjMoZGu462kCgAPDoHJnNnkUOrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p/dTVL08; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m4x8niJf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 083231F000FF;
-	Thu,  1 Oct 2026 09:38:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790847511;
-	bh=HoYdJQ/wR/FSIzYKig/dgZTQTIj5NZrPF99JqgsrSX4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=m4x8niJfwwS2Ay+QrDsyU077Ft14GTDoHqCeGRs/IwMSYTCix5IHi0CqPNrjBVXWG
-	 UXhl1zy/aSXkRclDaDfXxUEB3SDQUKFKVco+aRnyQEjZoVvm+e3jTO21nc+LgI9I8W
-	 a2SmEa4fnv4f4JUBSDZLHgArKf85JuX6lg94n9kz1ly2pA0e3fVzXYpEUUIYk+Bg1H
-	 5gMQUt3dk2wBY2pjElwUuoI/u265rKq/GciEBQo0TaLoqWOijF+vIpNn82ewUZ6cT+
-	 lREVSAJF6jphwpM3sX9nv1cfH1CNLobOSj5PuMmtwdRL5PS03Fs6mPX+4ir9HsSEqP
-	 n6TLpFQmk394g==
-Message-ID: <c329c4dd-a004-4ea7-918c-3731738e43b6@kernel.org>
-Date: Thu, 1 Oct 2026 11:38:19 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p/dTVL08"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffa15f67fso32056435e9.2
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 02:40:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790847645; x=1791452445; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jc3gHtQINmiAkpV7pjKLPbOoZ/HXw5DC2EHguV8I54k=;
+        b=p/dTVL08s84NZ9eBM/NXU15zfzS13KqUmxkwp0dRnvQa3/0iDo0JzU1B16uTDQNxDZ
+         bZlFwA2BoqA74gjlAZUIStI4L7tGoiRxtM7WX2wt746Ngo0JtQADDENNt4UK2A8i6BeD
+         ZKjgyn9fVcfChdgsQdsOiDP10HUBYUHdC5sn8i2UFjCCc4lWFg6Su6qflBeBVNI5pd4w
+         kdXPe9kyodqlWqRZGQ1++NN0wzlnnXdJoG6h7SiYyfKSP3UcWK8EO7k+XCRRG97OiKwL
+         XnOnxl0iqfZw5CmS5JRsg3ecfHDGllcPjD0PAe350lOcuOrWBp1TIC4KAaHRf2Iv2D7n
+         FUhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790847645; x=1791452445;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jc3gHtQINmiAkpV7pjKLPbOoZ/HXw5DC2EHguV8I54k=;
+        b=nQY40ya+Q+uWIg8i2r7KcbF/y+WMyyCL89KouOMU7bF4uvmXxq032ZbtQ6As7isLzi
+         nXAepuN2ANF7MZKWvjZ90XOpezb11c2PErJcv8swofuLRNZWvXEFIG4F21BGBKzJ7Z7o
+         UhCgkPRu5azoQugj8FAbwe96BwnPW7wpCwDawMx9aBfKxmn0oVr3rkdN7R8JI2WEaNzA
+         1qMZmS3mOJPg7TlFKdSPRPZYd1TsKYWdUStg2Umu6eJoyUGFTz1DjmGNmpDQr9S/HZPD
+         usPUtI8+gOEim9Ptz9L+IC/P+hdQsux7a/79A4ZVzGtq0b7qUSyCp5ce7d4hJbWMLwIb
+         my1g==
+X-Forwarded-Encrypted: i=1; AKwUvBxaE475jIAR03f63yHFhhPOOxBI2b7m/IfoHoCs0ecC+Ohz/A3xz2XMbzdAYGuNwXtuPpycDX3TF/t4@vger.kernel.org
+X-Gm-Message-State: AFuF++m98+pgMoBvuWb5NNhcXHcWuMPodCDE6rldbmHTQ+AqmkKa19qq
+	ZcqcUpcVT7obYMCOiPsJPyj2PBz7T3W29o4xjAV9tO21HJtXAj0l2nWW
+X-Gm-Gg: AYBFou2LSTa9ohkEbhYGypoP/tiW98a4gm6i2hbVk0Dr0HOF4ftyXZhyhlPpLOmSY22
+	Mo0lO7j1YSB5XGxpk/CkIIHLnhlzsyhVTqChf/GWLsCJ+H1yqbHWKrvz0tnE7eMEpWIryXjds+7
+	8UM3P0hcMegsneWikxj/y2MxPR3xWQNrAU03XGf9ArK3ltPhZ45CZr5O70i+XLK/QDH6WRgjtXE
+	6FYgILMnmRArif2PtDg6bNNOU8c2SQXqU1gYdBG+UpWciPNrAVMWePduh+CN0++djGyXeSgU5rj
+	lNW6Sh5uolwmDYB9RCjb/sVid0MwlUAi0RD3f5fCGE97r0sXD/eJsLcXf99nY8v+B7xiKW3RCQP
+	BDqeawsOANFMab9kMjAeHIThD1nSps8K1gIZAWGcdckN6xoYgh3ZiyNqSR9bWgCW9niLWlPmoHR
+	D29Jx1fpQi7TiqMhmQTzFq0nnsE74cnqw1aPT8c2QuaQjvNZv7YWHrJZRKctCyPIYOTg5SVf/pK
+	tK1
+X-Received: by 2002:a05:600c:3b10:b0:49f:fbad:29c1 with SMTP id 5b1f17b1804b1-4a01b133c13mr67735075e9.33.1790847644699;
+        Thu, 01 Oct 2026 02:40:44 -0700 (PDT)
+Received: from biju.lan ([2a00:23c4:a702:d301:5563:a938:8fc:9dc5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0226201aasm38937725e9.6.2026.10.01.02.40.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 02:40:44 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v5 0/9] Add support for DU, LVDS and DSI on the Renesas RZ/G3L SoC
+Date: Thu,  1 Oct 2026 10:40:15 +0100
+Message-ID: <20261001094041.135697-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/13] dt-bindings: arm: fsl: Add Variscite i.MX6ULZ
- board variants
-To: Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, pierluigi.p@variscite.com,
- Stefano Radaelli <stefano.r@variscite.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Shawn Guo <shawnguo@kernel.org>,
- Joseph Guo <qijian.guo@nxp.com>, Josua Mayer <josua@solid-run.com>,
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
- Mehmet Fide <mehmet.fide@screeningeagle.com>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Markus Niebel <Markus.Niebel@ew.tq-group.com>,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>,
- Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org
-References: <cover.1790693249.git.stefano.r@variscite.com>
- <1e6f9e01bd9e0e0801b18ddc9eb44bde200ea984.1790693249.git.stefano.r@variscite.com>
- <20261001-immortal-wild-wallaby-23de50@quoll>
- <ar4jkNZc0eoF-EhL@Lord-Beerus.station>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <ar4jkNZc0eoF-EhL@Lord-Beerus.station>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01/10/2026 11:10, Stefano Radaelli wrote:
-> On Thu, Oct 01, 2026 at 10:09:22AM +0200, Krzysztof Kozlowski wrote:
->> On Tue, Sep 29, 2026 at 05:17:30PM +0200, Stefano Radaelli wrote:
->>> +          - const: variscite,dart-6ul-imx6ulz
->>> +          - const: fsl,imx6ull
->>> +          - const: fsl,imx6ulz
->>
->> Is this the right order? Which one is superset of which?
->>
-> 
-> I followed the compatible order used by the existing i.MX6ULZ EVK
-> and had also noticed the comment questioning whether `fsl,imx6ull`
-> should come last.
-> On review, I agree: i.MX6ULZ is the reduced-feature variant, while
-> i.MX6ULL is the more general compatible.
-> We can use `fsl,imx6ulz` followed by `fsl,imx6ull` for the new
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Yes
+Hi All,
 
-> Variscite entries. I can also propose a separate patch to update
-> the existing EVK compatible order to match, what do you think?
+This patch series aims to add DSI, LVDS and LCD support for the RZ/G3L
+SMARC EVK. The RZ/G3L LCDC is similar to the one found on RZ/G2L, but has
+LVDS support.
 
-That probably should stay as is, because there could be a user checking
-last fallback. Shouldn't, but could be.
+The LVDS series [1] is merged here to get an overall picture.
 
-Best regards,
-Krzysztof
+[1] https://lore.kernel.org/all/20260625172359.292631-1-biju.das.jz@bp.renesas.com/
+
+v4->v5:
+ * Collected tag.
+ * Restored mode_clock_min to 5440 kHz.
+ * Replaced static resets array in probe with global resets array.
+ * Updated rzg3l_lvds_atomic_disable() to fix the
+   PM_RUNTIME_ACQUIRE_IF_ENABLED guard that prevents synchronous suspend.
+ * Updated rzg3l_lvds_atomic_enable() to fix refcount underflow in
+   atomic_disable due to early return in atomic_enable.
+ * Dropped dotclk from struct rzg3l_lvds.
+v3->v4:
+ * Collected tag.
+ * Dropped pwrrdy variable from struct rzg2l_mipi_dsi_hw_info and instead
+   using feature flag RZ_MIPI_DSI_FEATURE_PWRRDY
+ * Dropped rzg2l_mipi_dsi_pwrrdy_off() as it is taken care by
+   devm_pwrseq_get().
+ * Updated mode_clock_min from 5440->5400 kHz.
+ * Added resets in pair for simplification.
+ * Added comment in probe() for asserting resets.
+ * Updated commit description for patch#8 and #9.
+ * Updated license header  for patch#8 and #9.
+ * Added HDMI audio support.
+ * Dropped reg_1v8 and reg_3v3 nodes as they are redundant.
+ * Renamed it6263 node name from it6263 to hdmi.
+v2->v3:
+ * Dropped binding patches as it is accepted.
+v1->v2:
+ * Dropped renesas,sysc-pwrrdy property as it is modelled as power
+   sequence.
+ * Switched to power sequence for handling pwrrdy signal.
+ * Dropped header file regmap.h and mfd/syscon.h
+ * Added header file pwrseq/consumer.h
+ * Replaced syscon_field->pwrrdy in struct rzg3l_mipi_dsi_info.
+ * Restored ports in DU bindings.
+ * Replaced endpoint with port in ports node.
+ * Dropped the macro RZG2L_DU_FEATURE_SMUX2_DSI_CLK and RZG2L_DU_MAX_LVDS.
+ * Dropped the variable rcdu from struct rzg2l_du_encoder.
+ * Dropped the variable lvds from struct rzg2l_du_device.
+ * Dropped renesas,sysc-pwrrdy from dsi node.
+
+Biju Das (9):
+  drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
+  drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
+  drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info
+    struct
+  drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
+  drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
+  drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
+  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
+  arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
+  arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with
+    ITE6263
+
+ arch/arm64/boot/dts/renesas/Makefile          |   6 +
+ .../r9a08g046l48-smarc-dsi-adv7535.dtso       | 138 +++++++++
+ .../r9a08g046l48-smarc-lvds-ite6263.dtso      |  86 ++++++
+ drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
+ drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  24 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |   3 +-
+ .../gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  |  24 ++
+ .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 162 ++++++++++-
+ drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 275 ++++++++++++++++++
+ .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
+ 11 files changed, 749 insertions(+), 8 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
+
+-- 
+2.43.0
+
