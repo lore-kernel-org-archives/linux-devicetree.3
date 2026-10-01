@@ -1,170 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8023AEF56;
-	Thu,  1 Oct 2026 12:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CA837E5C3
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:02:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790859369; cv=none; b=VOP2NkMKIoHvOPEGXuWfsZU4p6M0QchS5lF+OcTBzPuIJi/Z3kUQ4Tv6nG5FL39j728ecDitsxwS/8+m4v9gCEUTII3J6A1mz+Xeb2hG54a07NnzGUnVC5LqiDbafJe/+7ZFkfcJF/KW0y9zpMG82P0H8Q+TYXX4Da6TlVkB4R4=
+	t=1790859735; cv=none; b=PiZmIbspJ7sjtcJeEp+Xfqmv1LmWH+UkEnFNwG80CVN1XFyJp70eFed93rvvS32Tp+tGN8mZ3JZbZWA1gQfQU9bJ7wTQQiUGuDLV8Vw53rD+V+m04/N2VImodg13AulekLErAI5vLreueOzfSeY6NMgmYSLMGZ3dBBP4pjPr0qY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790859369; c=relaxed/simple;
-	bh=lr8mhxzproW+Qgv7R7SpyFbt6jvUf0jjDsRWDMaQp7E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JsZUPNyhiGHZOpwtGvpm7nQacH+osTWhA0q6xQ3DRJR9hOZ9SKv4rwMPkGq277q7tV7n+BoFG22sO58lUKN40F/fIeFRy0f4p8yJqnVOXzvgHb4hdwTChyB0sdH2ZblMR4Gxp2jAQ5jKVTn+OjsfksaIQd/G6yqzdpT9NeR3VFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSh6vWIo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790859735; c=relaxed/simple;
+	bh=pOMhtGt4+2zxv9c1qA9eTQ2O+tf/rKmcvlBHo47DRc4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X+/aVCAYKWDHVUzcRm2wKjvP6Cu1OpTfIq8uQQHy4sn33e0qePXPU9RK2V3pkw1PSFm6Y1l87U6AhBaiarTzVKjvIdw0nUiPH6wfhaLxVUEkk2k2yMm92MeA6E9S5uFYZ/gPektHHEfLHw+lGaQ0SA2QlrXvsZpIJkFUch0k9l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=GIxdEYv1; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSh6vWIo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99071F000FF;
-	Thu,  1 Oct 2026 12:56:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790859367;
-	bh=R8qJWUn2+S7UJPBG1ZhM/jt62L4jpx3jXiyLqBVTUMI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OSh6vWIouumpWK+f+14lEyjM7ZPbL/MGuSU4k3GDwd/Iim+4pfx86lodna9KP2L6U
-	 YoKnYtTUAQ6vUMkmyxp7HWFEbU5CRbXwsM+9xEIES6F6C8jsPuQHQ8Y3HM5zXDBXVK
-	 j/NEtS1IG66MJAo0sHzMZdh3Pr6qrS97IiminKGuFb16Gjw5pCdqwGzNXg2kqDkItV
-	 lJQumbCHNwMSivTHV+huSnOh3gOB5JtauNFkzCQsQe5NOWZrO6hey7c5m0idNTDyjv
-	 D6UuAZLSqOZbz1Ab0oD9sFixb0jOoXdGV2q19/jsWI/G10YkuDSBMxTI6aGp3u0jM+
-	 lXm2IrABQ/xVQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 11/15] gpio: pl061: switch data path to gpio-regmap
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>
-Cc: linux-serial@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org, lee@kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20261001-cv75-v5-v9-11-486cc289a4b8@ambarella.com>
-References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
- <20261001-cv75-v5-v9-11-486cc289a4b8@ambarella.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 12:56:06 +0000
-Message-Id: <20261001125606.D99071F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="GIxdEYv1"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2946aa0d5aso382443166b.0
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 06:02:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1790859732; x=1791464532; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ssAgCLNB1hrn9m8PJ+lriduvIQBe6pwTyDTXeIxcaNY=;
+        b=GIxdEYv1DvbvsdjGcwz1COCLNlhwHe64YV7L9CHOsJIioeA9yZx7ZX9u5h49bjhp//
+         +BJos2GyqoKM9OqPWGSYv/Ff4RB3CDILFZZSk5PGIQAwWPvPO3kxTDh3rm2ee7zUhRXZ
+         gylMlwA722JOTG3VOBn+k8ABnwRn+Z3UCE8KITe6qVvgo0OBqeXwEkrBSa8JwLBGXVbS
+         GNVNMlYglAP4wzG+7NHErowlPYNDmpxgy18rTMDCgQScH9nsBldbVCVP+grhBikY0y1p
+         jHk78NOv1ujlbBPqOetgLZ+SnTprMsceGU5/46CcQAAh/Bt1N6x1ceiMgXD9YhSaLi6N
+         kvRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790859732; x=1791464532;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ssAgCLNB1hrn9m8PJ+lriduvIQBe6pwTyDTXeIxcaNY=;
+        b=tOIOQq/IoxdXW6o3efdqHxw3hSUHhYx+2+EjP393nPUUAcAD+XYGiFihlHDwPskidC
+         ihZ6IRmXsE3BkvMPUbJRigQhF9WWuvsmGF90siMCMJzd/E5EnPvINvAUDjm33J7Lo4Q8
+         7Oo2+mTtSAXczZf13Tnnsm18TzZLLR9oYTLKH5N5HDbRa9mh9ExJ1uum/aA5++YoEraD
+         4Ny7RdUMGZVcntnuTA66HIZYesraE0Y9f44gH/XiUtmJ7B60i2Nbmrzpit3FBGtuAjCo
+         ZRP+t+dZ+So5FMqYLwi8hhtBIGO5UIA+R9DjNBlS0PwPpnRfTZxjUfII/Gi/uA3KpVLp
+         DhQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypsGOSNMW4U4M3TmuXuGSIxYnM1FX7RAqBEBmIMywnWRXKsBMx6AUhO3zgN9B+MHntfPTEzniuva+7@vger.kernel.org
+X-Gm-Message-State: AFuF++nIB2Mimj3KrG/vykxMYDsIj8lWjbyKUxiLU5/L/0AKRpAUlqu6
+	NHreVKXtMxqepkR5bo099MUNoRSIGN/VVPgChizwQQW+5zI494IABuo86VfbMAWaR1Q=
+X-Gm-Gg: AYBFou3xpwKwKNHnQyCRVAcV8za6SpylIgu6jixTOP/GVTgMEMKcKWnGJRsCR9k8Pes
+	Mq20NOca2St2HBU/xPl6+9RtWLCuIrD/W4gFPK2FQ2o2f2eAVf3lJdFHu0tDNxDY8sj10mpRpX+
+	KyvGaQtQ7fPOPSLlmFY+oZ7zG0p9h2HI7swZObGr6afznLeFuSar9/RqTpUjcMINfEwJP1tSrnR
+	2CCDnaQpk83viB2XCHWGCw9KkrziVl9khzXE28oPnnFuqdiSvx/2K6+4rGCLPI9gSAj0VrdZTbO
+	S1zdKXI+rZ0OVmhawTpPTndwz0FE2JIui3qltSWVeAcF9gE/VVMltgCcUTcT1QfcRCVA0A7z+QG
+	HQcTbl0sK8/R8fSmEBlBVbDmBs/RPUM7i8zRT9VnXA8Ju2nHmmXAwldtykOh8npaHZAk3RvZZ4D
+	mBPYg3o6o07vAQSMxaMzWWLApbxzpDiLUqBsIRSkOziRib/pI9QA==
+X-Received: by 2002:a17:907:2da2:b0:c2a:fe4e:61c5 with SMTP id a640c23a62f3a-c2e33ffd009mr234417066b.22.1790859732009;
+        Thu, 01 Oct 2026 06:02:12 -0700 (PDT)
+Received: from remote-01 ([84.17.55.224])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b06a2cd0fsm5568155f8f.30.2026.10.01.06.02.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 06:02:11 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH net-next v5 0/3] net: phylink: wait for a PHY that probes after the MAC
+Date: Thu,  1 Oct 2026 16:02:05 +0300
+Message-ID: <20261001130208.105558-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] gpio: pl061: UAF due to LIFO devres cleanup ordering
-- [High] gpio: pl061: Missing GPIOCHIP_IRQ_RESOURCE_HELPERS allows HW confl=
-ict
-- [Medium] gpio: pl061: Missing synchronize_irq() causes UAF on module unlo=
-ad
---
+On the Keenetic KN-1012 (MT7981B with an MT7531 switch), the Airoha
+EN8811H behind lan4 has its PHY driver built as a module on the root
+filesystem. The switch sets up its ports before that filesystem is
+mounted, so the port is validated against the generic driver, fails its
+phy-mode and stays dead for the uptime. DSA does not retry it.
 
-commit 0dd970f78f76a57be040a10722f95f7c065440ed
-Author: Long Zhao <longzhao@ambarella.com>
+Patch 1 lets the PHY node say so with needs-host-firmware. Patch 2 makes
+phylink poll for such a PHY instead of giving up, for a MAC that opts
+in. Patch 3 opts in DSA user ports of switch drivers that set a flag,
+and sets it in mt7530.
 
-gpio: pl061: switch data path to gpio-regmap
+The poller can still lose a race against an unbind of the PHY driver,
+between its readiness check and the attach. That window is phylib's:
+any phy_attach_direct() caller racing an unbind has it. The attach
+guard series [1] closes it.
 
-This commit migrates the PL061 driver to use gpio-regmap for its data path,
-handling the PL061 quirk where output values must be written after a direct=
-ion
-change. It sets up a custom irqchip and domain attached via gpio-regmap, and
-modifies the interrupt handler to appropriately check regmap reads.
+Tested on that board with the series backported to its OpenWrt 6.18
+kernel, together with a940003f44e7 and 07d995873960 (the mt7530
+.get_stats64 atomic-context fix). The debug kernel used here wedges a
+CPU without that fix, unrelated to this series. Two local debug
+parameters, not part of the series, drove the error paths. One fails
+the connect after a successful attach a given number of times, the
+other ignores the opt-in.
 
-> diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
-> index c821a5117eede..08d45f8923c2a 100644
-> --- a/drivers/gpio/gpio-pl061.c
-> +++ b/drivers/gpio/gpio-pl061.c
-[ ... ]
-> -static const struct irq_chip pl061_irq_chip =3D {
-> +static const struct irq_chip pl061_irqchip =3D {
-> +	.name			=3D "pl061",
->  	.irq_ack		=3D pl061_irq_ack,
->  	.irq_mask		=3D pl061_irq_mask,
->  	.irq_unmask		=3D pl061_irq_unmask,
-> @@ -322,67 +256,187 @@ static const struct irq_chip pl061_irq_chip =3D {
->  	.irq_set_wake		=3D pl061_irq_set_wake,
->  	.irq_print_chip		=3D pl061_irq_print_chip,
->  	.flags			=3D IRQCHIP_IMMUTABLE,
-> -	GPIOCHIP_IRQ_RESOURCE_HELPERS,
-> -};
-> +};
+ - boot: the switch set up its ports at 3.2 s, the PHY driver loaded
+   its firmware at 8.7 s and lan4 attached at 9.5 s. Link up at 1 Gb/s.
+ - opt-in ignored: the old behaviour. The generic driver took the PHY
+   at switch setup and the port never polled.
+ - two injected failures: "failed to connect late PHY: -EIO" twice, a
+   second apart, and the third attempt attached. Link up at 1 Gb/s.
+ - failures that do not stop: four attempts, then one "giving up on
+   /soc/ethernet@15100000/mdio-bus/ethernet-phy@d after 4 attempts",
+   and no further poll in the 25 s that followed.
+ - switch unbound while the poller waited: the poll stopped, nothing
+   oopsed, and the port attached normally after a rebind.
 
-[Severity: High]
-Does the omission of GPIOCHIP_IRQ_RESOURCE_HELPERS from this irq_chip
-definition detach it from gpiolib's resource locking?
+No in-tree device tree sets needs-host-firmware yet. The board is
+supported out of tree, in OpenWrt.
 
-Without these helpers, gpiochip_lock_as_irq() is never called when a pin
-is requested as an IRQ, so GPIOD_FLAG_USED_AS_IRQ is not set. Could this
-allow userspace to accidentally reconfigure an active IRQ pin as an output,
-causing hardware conflicts?
+Changes in v5 (since v4):
+https://lore.kernel.org/r/20260925001209.2334139-1-f@lex.la/
+ - Deferral is opt-in. A deferred connect returns 0 with no PHY
+   attached, and some callers read 0 as a PHY being there. A MAC opts
+   in with phylink_config.phy_may_probe_late. DSA sets it for user
+   ports of drivers that set dsa_switch.phy_may_probe_late, and mt7530
+   does (new patch 3).
+ - Defer only with a known interface mode. The poller no longer fills
+   in PHY_INTERFACE_MODE_NA, so the MAC is never started with NA.
+ - kernel-doc names the opt-in and the state after the retries run out.
+ - Rebased onto current net-next. Patch 1 is unchanged, Acked-by added.
 
-> +
-> +static int pl061_irq_domain_map(struct irq_domain *d, unsigned int virq,
-[ ... ]
-> +static void pl061_remove_irq(void *data)
-> +{
-> +	struct pl061 *pl061 =3D data;
-> +
-> +	irq_set_chained_handler_and_data(pl061->parent_irq, NULL, NULL);
+[1] https://lore.kernel.org/r/20261001130120.104628-1-f@lex.la/
 
-[Severity: Medium]
-Is a call to synchronize_irq() needed here before proceeding?
+Aleksei Sviridkin (3):
+  dt-bindings: net: ethernet-phy: add needs-host-firmware
+  net: phylink: wait for PHYs that are known to probe late
+  net: dsa: let user ports wait for a PHY that probes late
 
-While the chained handler is cleared, there appears to be no synchronization
-with in-flight handlers. If pl061_irq_handler() is running concurrently
-on another CPU, it might still be executing when we proceed.
+ .../devicetree/bindings/net/ethernet-phy.yaml |   6 +
+ drivers/net/dsa/mt7530.c                      |   1 +
+ drivers/net/phy/phylink.c                     | 221 +++++++++++++++++-
+ include/linux/phylink.h                       |   4 +
+ include/net/dsa.h                             |   5 +
+ net/dsa/user.c                                |   1 +
+ 6 files changed, 230 insertions(+), 8 deletions(-)
 
-> +
-> +	for (unsigned int i =3D 0; i < pl061->data->ngpio; i++) {
-> +		unsigned int virq;
-> +
-> +		virq =3D irq_find_mapping(pl061->irq_domain, i);
-> +		if (virq)
-> +			irq_dispose_mapping(virq);
-> +	}
-> +
-> +	irq_domain_remove(pl061->irq_domain);
 
-[Severity: Medium]
-If pl061_irq_handler() is still running, could it access this freed domain
-when it calls generic_handle_domain_irq(pl061->irq_domain, offset)?
+base-commit: 47a1446725732cd3996edf607e8739334bbf4d78
+-- 
+2.53.0
 
-> +}
-[ ... ]
-> +static int pl061_probe(struct amba_device *adev, const struct amba_id *i=
-d)
-> +{
-[ ... ]
-> +	config.parent =3D dev;
-> +	config.regmap =3D pl061->regmap;
-> +	config.ngpio =3D data->ngpio;
-> +	config.reg_dat_base =3D GPIO_REGMAP_ADDR(regs->dat);
-> +	config.reg_set_base =3D GPIO_REGMAP_ADDR(regs->dat);
-> +	config.reg_dir_out_base =3D GPIO_REGMAP_ADDR(regs->dir);
-> +	config.reg_mask_xlate =3D data->reg_mask_xlate;
-> +	config.quirks =3D data->quirks;
-> +	config.irq_domain =3D pl061->irq_domain;
-> +	config.drvdata =3D pl061;
-> +
-> +	gpio_regmap =3D devm_gpio_regmap_register(dev, &config);
-> +	if (IS_ERR(gpio_regmap)) {
-> +		if (pl061->irq_domain)
-> +			irq_domain_remove(pl061->irq_domain);
-> +		return PTR_ERR(gpio_regmap);
-> +	}
-> +
-> +	if (irq) {
-> +		ret =3D devm_add_action_or_reset(dev, pl061_remove_irq, pl061);
-
-[Severity: High]
-Can this devres action registration order cause a use-after-free during
-driver unbind?
-
-Since devm_add_action_or_reset() is called after devm_gpio_regmap_register(=
-),
-devres will execute pl061_remove_irq() first during teardown because it uses
-LIFO ordering.
-
-This means pl061_remove_irq() will run and free pl061->irq_domain, but
-the gpiochip is still registered. When gpio_regmap subsequently unregisters
-the gpiochip, gpiochip_remove() will eventually call
-gpiochip_free_remaining_irqs(), which will attempt to use the already-freed
-irq.domain pointer.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-cv75-v5-v9=
--0-486cc289a4b8@ambarella.com?part=3D11
