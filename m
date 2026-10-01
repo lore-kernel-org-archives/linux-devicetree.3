@@ -1,168 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C44F35CB7B;
-	Thu,  1 Oct 2026 15:02:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085AC4B44BE
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 15:06:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866970; cv=none; b=uB2tuF0dRv841cIXiWe/hTlmUl5t6dM3/32hiu4BmwknZbyZkfuCE8X0HpGt7FLtoGNouwdEomfqaATaiIXOFguFd63JsPmn0fe24WjnNsRfu2J/v2Z6pSZ+mrCVcy4e0na9DfwaD/Henbl2AnNckP2DMhxBtmWgXM6XM3EBrOI=
+	t=1790867168; cv=none; b=NhoOf3nP1WBdfuYnHUp/u9IEYZ2zr/PPOhywWgSjzOCR/y769WAyZ9GmUo46f9jsT3RfA6Rb96FpchflShmsO0d5BV94bQbS3A3DvW6grZ9+29dNAP8+KqbDeU119+8FDzGHkikhDFlXPrQYZWQa1pyhGChYZnk/8aFWGVxFzTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866970; c=relaxed/simple;
-	bh=/kwgN+PuBVbO8westGewDMOdp19vmIkC/fjU+0PDaNs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=agFEjoDbg8tfxSDh+XXsiX3lpqISz6wGH5QmP/MMdYqUa1xJFwnAgxzAFY2yf6+cXuk1berGaRdw4kmR9ec0xa8gw68+F+sSB4GwGsVQcNRhDEdttBa9sVymRqmDSinBe4fAsvG3Wu/Jl16RKGMyKDqI+pV9kHXZ+rNTFiAyZrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SpCWa4Sy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790867168; c=relaxed/simple;
+	bh=yKOHg5J0K3uwLyETRU1fiSCckIlLyZ3iU3lOXbc3Ra8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=joJn7DTnrvJs7ShdFEacyn3JW65Fub5D6w8DdgCrUBQFBa95vJKvU5Rk0+yT9lYXRfEdPnDPVQdUgvEvcGYke2rtW2zJbD7WFTQZUVnxoklubGaiZYFKwmaBqI+53cJwGI9k8xWngKFAyluwyj84czKyad2M1PC6fz0fIZl2wHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gYrwjGs6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SpCWa4Sy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D668A1F000FF;
-	Thu,  1 Oct 2026 15:02:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gYrwjGs6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F78F1F000FF;
+	Thu,  1 Oct 2026 15:06:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790866968;
-	bh=JWj0IzRMkYtiHqUCqAGBiBrEoLLPy1dCDBwjIuD2i78=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SpCWa4SyhglpuwNqaNss/dJs0mjZIrUnZk/P5u7rlaTNPDWyDiDi+h+HpTb1IuqEN
-	 nPLZatdVCr04QS+bB1SWEbrpug8cPqV46WzThUPJW9oogapgwQXKAdBVeqzBIFPc1F
-	 acThuOPa0xzqqdFNprFqBnjXtMAN+KNCiPrAQ6fa0SEobNRZmayJXXll6/Q/dRGsk1
-	 /gNrD1vcA4m1nzwlhnk6bzZ/J4acb1vMEHg/ZBWQoYI0NA92XgP3qZIFZMdQqfYxs0
-	 Ut0Gs+P/30MPrdnKFHjKags6HUjWs7gKegqlA9bhM2ClvWV4+y3Y6LXlIARM6xqQ1B
-	 9G7SsgHyBEW8w==
-Date: Thu, 1 Oct 2026 10:02:45 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
-	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Subject: Re: [PATCH v9 0/3] Add DT Support for USB on Shikra
-Message-ID: <ar50erRON6cMF9Oz@zenbook>
-References: <20260912-usb-shikra-v7-v9-0-c7b507a0ec27@oss.qualcomm.com>
+	s=k20260515; t=1790867166;
+	bh=SwvjejlLjpsnv/ptqh0WI/xAFRiBlqWPTi5XgXYL18M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gYrwjGs6bRMyTyguOCwWzwyiuDfQ4JLs/9qG/So933y0lhiIU4FH+PMud7hweKqOl
+	 C5+OXMGWXXzxtnB75cL7E2GYLTmxfh8erZfkDyFHXiATwgwf2+w61V9SdkzjhoyZ0x
+	 ZABs7gz4M6/he0Mk8SG1O2AdezU58zUrVW39qA1lLPpJXPvjPcO+Fz/EpXdb5jebVL
+	 jD196C6pPVncCutc41yUBopc8pL7DIqmMsGuYbo0Dgiz7vpVipgM8H/PAiL5RfbH3y
+	 oFJi8IHBmoau8LBuKJ2efeDe+RoN8I56albWczWnP2YpAlokCyKYukVOv6BkoW7yUw
+	 4kgYC71avRx/A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
+ filter
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Olivier Moysan" <olivier.moysan@foss.st.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261001145702.2628429-2-olivier.moysan@foss.st.com>
+References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
+ <20261001145702.2628429-2-olivier.moysan@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 15:06:05 +0000
+Message-Id: <20261001150606.3F78F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260912-usb-shikra-v7-v9-0-c7b507a0ec27@oss.qualcomm.com>
 
-On Sat, Sep 12, 2026 at 08:17:00PM +0530, Komal Bajaj wrote:
-> Shikra has two USB controllers. Adding both USB controllers support
-> in device mode in this series. Also squashing Type-C enablement on
-> CQS/CQM platforms [1] into base USB enablement changes on these
-> platforms [2] based on feedback to squash related subsystem changes.
-> 
-> While at it, also sorting subnodes under soc@0 for consistency.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] dt-bindings: invalid decimal-only regex for sitf and filter unit ad=
+dresses
+- [Low] dt-bindings: faulty regex in mdf-dai and channel patternProperties
+--
 
-When you repackage scattered patches like this into new series patchwork
-is often unable to determine that these patches supersed the previous
-version.
+commit 0433e9502551ab7438d761bd69f15064435b1ccc
+Author: Olivier Moysan <olivier.moysan@foss.st.com>
 
-The result is that for each patch I now have (at least) 2 similar and
-conflicting patches in my queue. As the patches was altered to the point
-that patchwork doesn't detect it and nobody told me that the previous
-versions are no longer to be considered, we now manually have to spend
-time to detangle this.
+dt-bindings: iio: adc: add bindings for stm32 mdf filter
 
-In other words, this series doesn't apply - please determine if there
-are any remaining parts of these changes that isn't accounted for in
-linux-next and resubmit those.
+Add bindings that describes STM32 MDF settings to support
+digital filtering for Pulse Density Modulation (PDM) microphones
+and analog sigma delta modulators.
 
-Regards,
-Bjorn
+> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.y=
+aml b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
+> new file mode 100644
+> index 0000000000000..f2fbc3e150e8c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
+[ ... ]
+> +patternProperties:
+> +  "^sitf@[0-9]+$":
 
-> [1]: https://lore.kernel.org/all/20260818-pm4125_typec_changes-v1-1-6e6ede93db19@oss.qualcomm.com/
-> [2]: https://lore.kernel.org/all/20260811-usb-shikra-v7-v7-2-753e928f37ae@oss.qualcomm.com/
-> 
-> Changes in v9:
-> - Move usb_2_hsphy above usb_qmpphy to maintain alphabetical ordering
-> 
-> Link to v8:
-> https://lore.kernel.org/r/20260911-usb-shikra-v7-v8-0-851ee4bc0eec@oss.qualcomm.com
-> 
-> Changes in v8:
->  - Rebase on top of latest linux-next branch
->  - Sort /soc@0 subnodes in ascending order of unit address 
->  - Squashed with Type-C support change
->  - Individual patches were previously reviewed by Abel, Dmitry, Konrad and
->    Mani; however, those reviews do not apply to the squashed commit and
->    are therefore being dropped
-> 
->  Link to v7:
->  https://lore.kernel.org/all/20260811-usb-shikra-v7-v7-0-753e928f37ae@oss.qualcomm.com/
-> 
-> Changes in v7:
-> - Rebased on top of latest for-next branch
-> - Added Mani's tag from cover letter to both the induvidual patches.
-> 
-> Link to v6:
-> https://lore.kernel.org/all/20260729-shikra-usb-v6-dt-v6-0-72ffb4796a08@oss.qualcomm.com/
-> 
-> Changes in v6:
-> - Moved dr_mode property to shikra-evk.dtsi
-> - Merged platform specific changes into one patch
-> 
-> Link to v5:
-> https://lore.kernel.org/all/20260723-usb-shikra-dt-v4-v5-0-5b69d9eb0888@oss.qualcomm.com/
-> 
-> Changes in v5:
-> - Added interconnects and sorted nodes alphanumerically - Dmitry
-> - Updated commit text mentioning that device mode is being enabled
->   since role switching changes are not yet present.
-> 
-> Link to v4:
-> https://patch.msgid.link/20260721-usb-shikra-dt-v4-v4-0-2e7a092d7f27@oss.qualcomm.com
-> 
-> Changes in v4:
-> - Enable both controllers in CQS/CQM platform
-> - Fixed iface clock in usb_2 node
-> - Skipped adding RB tags obtained from Konrad since on CQM/CQS, second
->   controller also is enabled in v4. Also specified dr_mode as peripheral
->   for first controller.
-> 
-> Link to v3:
-> https://lore.kernel.org/all/20260716-shikra-usb-dt-v3-v3-0-13f73a0571bb@oss.qualcomm.com/
-> 
-> Changes in v3:
-> - USB changes were sent as part of consolidated submission in v2, but
->   they were later dropped since bindings had to be updated.
-> - Remove double vote on USB3_PRIM_CLKREF and also removed xo clock.
-> - Uses &mpm as interrupt reference (sashiko bot)
-> 
-> Link to v2:
-> https://lore.kernel.org/all/20260519-shikra-dt-v2-0-c01b90fb4395@oss.qualcomm.com/
-> 
-> Changes in v2:
-> - Moved to using mpm interrupt handler for ss phy irq (sashiko bot)
-> 
-> Link to v1:
-> https://lore.kernel.org/all/20260512-shikra-dt-v1-0-716438330dd0@oss.qualcomm.com/
-> 
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
-> Komal Bajaj (1):
->       arm64: dts: qcom: shikra: sort /soc@0 nodes by unit address
-> 
-> Krishna Kurapati (2):
->       arm64: dts: qcom: Add support for usb nodes on Shikra
->       arm64: dts: qcom: shikra: Enable USB controllers and primary Type-C support
-> 
->  arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts  |  43 +++
->  arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi |  41 +++
->  arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts  |  43 +++
->  arch/arm64/boot/dts/qcom/shikra-evk.dtsi     |  12 +
->  arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts  |  23 ++
->  arch/arm64/boot/dts/qcom/shikra.dtsi         | 515 +++++++++++++++++++--------
->  6 files changed, 536 insertions(+), 141 deletions(-)
-> ---
-> base-commit: f2bfbc3554ca6919484030729424b9dee2942d24
-> change-id: 20260811-usb-shikra-v7-2dc0d3afc3d4
-> 
-> Best regards,
-> -- 
-> Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> 
+[Severity: Low]
+Is this regex overly restrictive? Device tree unit addresses commonly conta=
+in
+hexadecimal characters, so an address like sitf@1a0 would fail to match this
+pattern.
+
+Since the top-level schema has additionalProperties: false, valid nodes mig=
+ht
+be rejected. Would "^sitf@[0-9a-f]+$" be more appropriate?
+
+> +    type: object
+> +    description: Serial interface child node
+[ ... ]
+> +  "^filter@[0-9]+$":
+
+[Severity: Low]
+Similarly, does this restrict filter unit addresses strictly to decimal dig=
+its?
+
+A node with a hexadecimal offset, such as filter@1e4, would not match this
+pattern and would fail schema validation.
+
+> +    type: object
+> +    description: Digital filter path child node
+[ ... ]
+> +    patternProperties:
+> +      "^channel@([0-7])$":
+
+[Severity: Low]
+Does this capture group differ from the allOf constraint key? The allOf sec=
+tion
+later in the file uses "^channel@[0-7]$".
+
+Mismatches in literal keys can sometimes interfere with schema aggregation
+tools that rely on exact string matching to properly merge subschemas.
+
+> +        type: object
+> +        $ref: adc.yaml
+[ ... ]
+> +        then:
+> +          patternProperties:
+> +            "^mdf-dai+$":
+
+[Severity: Low]
+Could this regex pattern be a typo? The '+' quantifier applies to the chara=
+cter
+'i' rather than matching multiple child nodes or strictly matching the stri=
+ng.
+
+If it is meant to match exactly one string, would "^mdf-dai$" be intended?
+
+> +              type: object
+> +              description: child node
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001145702.2628=
+429-1-olivier.moysan@foss.st.com?part=3D1
