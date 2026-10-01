@@ -1,47 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C5F486E6A;
-	Thu,  1 Oct 2026 12:04:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF970348C7F;
+	Thu,  1 Oct 2026 12:09:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790856287; cv=none; b=osI/tiY9jtKTJ7/FmKJYt3pAnnfUhTOqR8ffMsdZcIC8fgvXK7QNh8HiSAPYMA69o1+MhxxZydTvrwUwshaiU6BSegft4oOB8e84vmEbuXx1l1zErpn7QCugQU7SROeYdis19If3RQvZktm4IJXOQGzpWZVMAzYPgUTbDnvYNrY=
+	t=1790856554; cv=none; b=C5HsHB1DwYd8UZUMpDzEZvH0HsHRcdSbewWFwxI4YtPwdUtaPzjumw3y7KKEo+v0piKvqfXm+2vH+WzYjmYPWXylTSR1wvKDugLwKxcMSnksKWxEdvUNa5FdqHx3JoEvLEKfoD7klz8tVrbIBvpQ+YcJmRGomYRNmbZ8UWp+tZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790856287; c=relaxed/simple;
-	bh=z9/U/3C9yrseQMTRZ+gH+lBO0Mnq/RHDd9mMF3Kx0FA=;
+	s=arc-20240116; t=1790856554; c=relaxed/simple;
+	bh=bR2spzIh3zet0pPh6uVbRSV0HV+1esMYudDbDMvALRg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ksYdZruk5/zi+85/ByLvE6em6d6SqK3ULWpYyXFf+emukPVmKFAgNWUavh3p9qAjwBWPWesPbhWv7VlN+cBvC2CaZXWuqQQuDy0nITmHaDY6uCD7MfehrtIuigCXMYrfooBuvnRMEaia0qCVroDWYfExNW93zUgM0T0kmweJGmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RPrwRMNe; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=dVr6251vhEr+LTf8Md8b7ptGH5PYaoFlEoZyAF3fLEDAEDPiTdi+NKivMRQjd3C4jTAqrLI1A/YpMn8GH8HRQnU2briDcNhReJq74eyWUQNoF2evZQv5pE44iwY4Zbm/PFXgaQEDlI4vGgb1XbaV79ybUJZzZSqPWgfVVDQAMkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JQb22Aff; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RPrwRMNe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBCCB1F000FF;
-	Thu,  1 Oct 2026 12:04:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790856286;
-	bh=hgUX0ii0uYxzjf7gvJ6LbuMXqEimXK9XD6l6fEYf20Q=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JQb22Aff"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BF61F000FF;
+	Thu,  1 Oct 2026 12:09:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790856545;
+	bh=emxSo4AqFL/kIfhEjAFPntFEmGp1tnhrmjTZ125Rwio=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RPrwRMNeyziaNxy1CS1ZueSBS6AiEcQ1A+jWl175wRKI5L5gbEJNbGPySgltpn0xA
-	 9mTG1XF1EqUaS/Qyywo/aRjV+x8Ed39TA0d0L2z0YDJan9xAErjESPO4pLLFMtUp7k
-	 HlDETdYjFtMr3Wl3RF2AgpXD3XuMWsSqS9diq1ONUliPQJb8xNwwF7qPsOo7/PgTut
-	 Pi8INglaVY9/afFE7ilJERMc/VUioeJG3JX6AX7+BY0OAWJ619q2BjNH2lKpG0gkJq
-	 XdrgyAQyJj3GDBm9G+bXGQ4WjLJatED4SiNu7dHFhsDRjIriAXPYJ+VnU5BS2SlMmL
-	 6d6iJDp1gfO8A==
-Date: Thu, 1 Oct 2026 07:04:44 -0500
-From: Rob Herring <robh@kernel.org>
-To: Leo Yan <leo.yan@arm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Leo Yan <leo.yan@linux.dev>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: coresight: Allow funnel clocks
-Message-ID: <20261001120444.GA1048975-robh@kernel.org>
-References: <20260921232834.3138571-1-robh@kernel.org>
- <20261001100455.GL14479@e132581.arm.com>
+	b=JQb22Aff1tABubUE3XviqH/t8H91+biyOsMP3r15m8H24AKPjkrS/6oLadyjUQ3Bm
+	 k6XTX8feVEGApmVxP+Pldj6l0TmU66qYAoTWsrE6vjrLQeQwOvyQbOZmGoXCf9Z6QC
+	 YOT7vor1ZEb3lOlki392VjVwra5turBbYfXGOxyk=
+Date: Thu, 1 Oct 2026 14:06:31 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
+	bhelgaas@google.com, andersson@kernel.org, konradybcio@kernel.org,
+	abelvesa@kernel.org, daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+	devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint
+ buses
+Message-ID: <2026100159-retold-could-3468@gregkh>
+References: <20260918152659.413268-1-elder@riscstar.com>
+ <20260918152659.413268-4-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,53 +45,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261001100455.GL14479@e132581.arm.com>
+In-Reply-To: <20260918152659.413268-4-elder@riscstar.com>
 
-On Thu, Oct 01, 2026 at 11:04:55AM +0100, Leo Yan wrote:
-> Hi Rob,
+On Fri, Sep 18, 2026 at 10:26:58AM -0500, Alex Elder wrote:
+> The TC9564 SoC incorporates a PCIe switch, which is connected via
+> the second PCI segment (0001) on the RB3gen2 platform.  The third
+> downstream port of that switch (pcie@3,0) has an embedded PCIe
+> endpoint that implements two PCIe functions.
 > 
-> On Mon, Sep 21, 2026 at 06:28:33PM -0500, Rob Herring (Arm) wrote:
-> > Some static funnel nodes have APB and AT clocks. Allow one or two
-> > clocks and the apb_pclk and atclk clock-names entries.
-> > 
-> > Assisted-by: LLM
-> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> >
-> > ---
-> >  .../bindings/arm/arm,coresight-static-funnel.yaml      | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-> > index 9598a3d0a95b..4a3d08f9568c 100644
-> > --- a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-> > +++ b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-> > @@ -30,6 +30,16 @@ properties:
-> >    power-domains:
-> >      maxItems: 1
-> >  
-> > +  clocks:
-> > +    minItems: 1
-> > +    maxItems: 2
-> > +
-> > +  clock-names:
-> > +    minItems: 1
-> > +    items:
-> > +      - const: apb_pclk
-> > +      - const: atclk
+> The SoC implements other peripherals, and they will be accessed via
+> PCI endpoint bus.  Define the devicetree nodes representing these
+> buses, including the mapping of each BAR's address range to its
+> local address space.
 > 
-> The question is that a static funnel does not need to program any
-> registers, so in theory it should only need atclk as the module's core
-> clock, but not the APB programming clock (apb_pclk).
->
-> Maybe I did not get this right when I initially enabled the static
-> funnel in hi3660-coresight.dtsi. We should probably remove pclk from the
-> static funnel node.
+> The endpoint's ranges property must be defined, but it will be
+> updated dynamically to include all BARs.  As a result of this update,
+> the parent address portion of each range will reflect the specific
+> address assigned to the BAR.
+> 
+> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> ---
+>  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 30 ++++++++++++++++++++
+>  1 file changed, 30 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> index 3bb5fca8e2b13..5b7f5292a8864 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> @@ -955,11 +955,41 @@ pcie@3,0 {
+>  			bus-range = <0x5 0xff>;
+>  
+>  			dev@0,0 {
+> +				compatible = "pci1179,0220";
+>  				reg = <0x50000 0x0 0x0 0x0 0x0>;
+> +				#address-cells = <3>;
+> +				#size-cells = <2>;
+> +				/* Ranges will be updated dynamically */
+> +				ranges = <0x0 0x0 0x0  0x83050000 0x0 0x0  0x0 0x4000>,
+> +					 <0x2 0x0 0x0  0x83050000 0x0 0x4000  0x0 0x80000>,
+> +					 <0x4 0x0 0x0  0x83050000 0x0 0x84000  0x0 0x200000>;
+> +
+> +				pci-ep-bus@4 {
+> +					compatible = "simple-bus";
+> +					#address-cells = <1>;
+> +					#size-cells = <1>;
+> +					/* Map 0x0-0x1fffff to BAR 4 */
+> +					ranges = <0x0  0x4 0x0 0x0  0x200000>;
+> +				};
+>  			};
+>  
+>  			dev@0,1 {
+> +				compatible = "pci1179,0220";
+>  				reg = <0x50100 0x0 0x0 0x0 0x0>;
+> +				#address-cells = <3>;
+> +				#size-cells = <2>;
+> +				/* Ranges will be updated dynamically */
+> +				ranges = <0x0 0x0 0x0  0x83050100 0x0 0x0  0x0 0x4000>,
+> +					 <0x2 0x0 0x0  0x83050100 0x0 0x4000  0x0 0x80000>,
+> +					 <0x4 0x0 0x0  0x83050100 0x0 0x84000  0x0 0x200000>;
+> +
+> +				pci-ep-bus@4 {
+> +					compatible = "simple-bus";
+> +					#address-cells = <1>;
+> +					#size-cells = <1>;
+> +					/* Map 0x0-0x1fffff to BAR 4 */
+> +					ranges = <0x0  0x4 0x0 0x0  0x200000>;
+> +				};
+>  			};
+>  		};
+>  	};
+> -- 
+> 2.53.0
+> 
 
-Yes. I suppose in theory it has some clock, but if pclk needed to be 
-enabled, it is shared with all the other coresight components and 
-enabled anyways. And there's no atclk defined, so 'clocks' can just 
-be removed. Can you send a patch to do that, and I'll drop this one.
+This doesn't apply to the char-misc-testing branch :(
 
-zynq7000 is even more of a mess I just noticed...
+So I took the first two patches only.
 
-Rob
+thanks,
+
+greg k-h
