@@ -1,258 +1,203 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B774B3515C1
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 00:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AAC364029
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 00:27:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790814239; cv=none; b=MPafG3AwihdpBCXeRk1oumJ3vyccrGUQDnRSeU7OUs6olp+x6hyWlxj6O9ZnmYX/ybGJOl087fQSBBvpNP8kOsfgeYYgGq9eEs2nNYvBmU6NK4cd6I1pJvHutiqlBhNNQ0R5+sBfjfkYhyEMIcEEddBtVD2fm8th1tkufYOPwoE=
+	t=1790814455; cv=none; b=JuZ/0QCR7lNGM1Furi/L4w0tduIpompicKK9g6dNJknTyJh6uIm+zL569kQb38zGRq0/2lRV9e/b+0P8aPeFNjIcZ4LpnwYTBj7Xy+shsl87Yctn5iGK4QmfbXMo+rg9DRBXPh4aibL+AnvC83L0nprJiw0tfxh02a0gBi0rCDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790814239; c=relaxed/simple;
-	bh=bjKkBjr7CnIKKuRTfiwiNo+nrKoRjfSMrPMXetY44E8=;
+	s=arc-20240116; t=1790814455; c=relaxed/simple;
+	bh=xON4dTCYI11gc9I1ss2ZDpffd+cnlQVGEoVamWChjnI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t0B0u/CPXzKrZOXAkqRPr1fW9qgHQ7W2Z6+qukTS7rP6G3y3+c8Zh1h23KKN5KG6aZ4/n8hUzpvPUlc04J/qRJPj02vy+lNmh/cZ7/k6SgLWUgedFmebvNfAU/Oc8bgiixHJDCOJqJ3jo1f+ojTTzoM1QfHaIYO+/TT1HB/D+aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lDFNtQPj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HR5qmXNN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=NV92FlI2fmDr2VCU/NTU53Jj8ao7mDofkxXTLE6TkDFRF8yHteemwDxWfQQ40rTJCWfVaoFVDEKQdxjXbm9mVXNTupdyEE9WgUfwJffLRIyY63TJcWoJAxOsY+34pqZul6ped2gfc+z3a+j174RXARBQlk0Coeana6s8SmKVfrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=J4TSmKTH; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CVz4XHyx; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lDFNtQPj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HR5qmXNN"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UHeunq241665
-	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 00:23:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dRWr4G35KeRP/qcct8QKgqT2f3p6uIgv8CYdpOrhrm8=; b=lDFNtQPjfBudE5/L
-	KgLwrGdITQcqY0odUm6f5Vm6R8nS22mPoWGT/yPqIojkmXLeLX38S8jgyq3Qt2EK
-	Q79L6Jomw+ueFIhgt8d3tx7f+2omTVpIx5BHmhJ72xDF5+pP6tbXyp8PqZxpxcaE
-	igWo3Dko3szTHvHsPUeLP94I++4mVyf/mFTY6quLCFDNTelWWHAGFqGv0OKQugDY
-	Lw6xaKdzfVuz5pSHUodP4jBSMUNSFLCifugjxksgSGWOMS137EhhotH0YXI3a0AK
-	ingaca5Wbtvs2NdZDPGTprNcayDqqdM/53cF33dqxC18punAqOPerjjXWaZa5yL3
-	nDn20g==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h10bkbf22-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 00:23:56 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93be1861d2dso953974785a.3
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 17:23:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="J4TSmKTH";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CVz4XHyx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790814449;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9Nk4sGQfUZPJr906VGnTLrhpfwNs9+S7HqUA3QKJmnY=;
+	b=J4TSmKTHWiyiGi4BxmklrzEDbZGRK5cQV0wjFBuEE+qseaqntyxWE1Ahm65qcHx78rPVql
+	ibjg/rsuUVMOgwHOGtqcqP7pVrC/ZQpdz6Bv26vErzwsUv8vIKm2ilwzzAm/i8txesdPIp
+	bxKB69lcbwKz+0tvS+fKJdhLQvc8iPI=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-77-9LNYN9oNNcGjOb2El013Kw-1; Wed, 30 Sep 2026 20:27:27 -0400
+X-MC-Unique: 9LNYN9oNNcGjOb2El013Kw-1
+X-Mimecast-MFC-AGG-ID: 9LNYN9oNNcGjOb2El013Kw_1790814447
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-530d028f779so74446231cf.2
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 17:27:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790814236; x=1791419036; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dRWr4G35KeRP/qcct8QKgqT2f3p6uIgv8CYdpOrhrm8=;
-        b=HR5qmXNN8+FgyJ4pgk9VAd4oWXx9lbzJhDNvr/49G/phxi9/ZS+Tugoql3WSnjX6Aa
-         3IhGPYvSHCg465T24CWfyII9ACvqzo+DTBipwjOhEtQIIZxe/t264dOkgclIKGfCVBYD
-         Xgt2lMSnuh5Vc3QSJnm9DxKQB5bMtjppiTxdTzJI11nFUA8RUK7FIHTazGZIh6fkrxB+
-         pr89sn1rnlBPuZoYZGKXoM4PL5QLXC63vkFxpWZtlJLuv8ittYgtqQy8nVifR+YAG6Or
-         Yxc9KtvL1M51ndtt6bI6+rf7HeQCynFNJz+ovpHyqHcGhNZ4jKHOGln8fNGTZCFTP/gv
-         ukkw==
+        d=redhat.com; s=google; t=1790814447; x=1791419247; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9Nk4sGQfUZPJr906VGnTLrhpfwNs9+S7HqUA3QKJmnY=;
+        b=CVz4XHyxmHXRsOLdeUw70/SoniBJKaJepu+ln3Tqhbas6w7wvntkFriYuwN3mI7N9B
+         2SwAJCdeSjL2LdILT1+mVn/OKEyarKN1P3DwrFV3ik6GRDtbFEK2uakgLOanz/1W6PNh
+         UOVJplwZsin4o50OVLmT4pdxe6NGXJcZuapwdDuN9aW2mZRhTdevcJkfumOQ0rO8i0bH
+         5SVNbPt4y+EO8ku8PUUGUSwLk+RTQiZ4GsBj8vxAiwoAMwKRENq1l9yPrR9yY6UeCfnI
+         7Z0bDkix3yYVJHdoq2J0cC+CMely4+3g7jH7Alb4+V0T91umO7Ko/vIzzTXV7+L85bmh
+         p4AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790814236; x=1791419036;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=dRWr4G35KeRP/qcct8QKgqT2f3p6uIgv8CYdpOrhrm8=;
-        b=D/vWTJlX0uDgEgT4gpwwFaqE2ZdXLXdImPPFJtWT0bd3wXup06+anTQo9AdW8dJ+YH
-         pv3u7Ptzcd2b0dJ350oCW2XkI9vuGghJQ0yt3UzE3G1EpvZ2S7IJpQbOtTCr/hRv7hqW
-         JT4/ED3zsshcHeGWkNtLKI7/hSrrHTBoe+EXjW0VfMaPoRebegCU2xqaXTb5SG8F/rWX
-         KQEXEZMcg1EBgukooXhqJieCedyvbtsMvb8Pjcq3AOJlFT3g6hxzzlK430RukAyBVlzz
-         OubKJfH1xfju6qdTmDG5n0G4uPlfgPmfrrHZWpBmh08ENih9GjJaQHkcvF275M0UaQMy
-         bFIg==
-X-Forwarded-Encrypted: i=1; AKwUvBwaAcbnEJ0DpcgunrTD2wkNS2AG5/qmiTbBxbwYhPEBtPdafdlM9I71y69oktSVn9qU073pk6gvST/3@vger.kernel.org
-X-Gm-Message-State: AFuF++nT8Ax5Sc1nWj4CmaEjkLf5af32TFxB+jPOU/9W6+tRkU9GPHrl
-	nG5PAYapLpCOksYSn49dxWMsXJSwVSFyWUnFzya+GgG60psk1MZFMT1TywnDTxuK2e+Q4uccCb/
-	m6kAvN2FjyHlEyYPjNYO5W4XKjh9u4FS9eZTDzhLeHQk9Wr8HS9gRLKzc8wq0JZGi
-X-Gm-Gg: AYBFou2hdzyxyrmgcaoTSesuEwgQ+TNldJrHuZwAqpamPZaBSB5SYLXNFWPcIT1cBLN
-	ykHZBtl6k/8y5yKiKvf9F7asST61LDo9oz1DRG7zlR6QxbBD1U9jNk0ulKQ1qORcUvNS5cYvzXL
-	T3vErtTr8f5Vh7Cttq4qmDqi6zCUpPD1cAlCSEJNuHAXpI9b4tvXzW6okzv3sj2aFLfnpN7U0Ux
-	gyYPo5+tOXqgCCuq4sDB/A96BRWDYuNf946KD1A4rnkaRhjj76cFF9NP1uo7fWpvLkyGj1cQeCh
-	/JwdYlhvxLY8x84G8V465l/NRl4Vrf4rs5piUvPLXqnZj3P1VPr+3u25okaUz7eTBgizD1omCaU
-	IDXVy08yYSHOgH2Hpa/V72vBlbQ9Ud4n6eOFQceIjrCyi0mAJQlOfM8GEW1LaULxaVvFUSF/dXE
-	j6fS8iz/rS0ZpF
-X-Received: by 2002:a05:620a:439a:b0:93c:677c:778d with SMTP id af79cd13be357-93ca9889978mr559752685a.59.1790814235625;
-        Wed, 30 Sep 2026 17:23:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:439a:b0:93c:677c:778d with SMTP id af79cd13be357-93ca9889978mr559748785a.59.1790814234954;
-        Wed, 30 Sep 2026 17:23:54 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbc4a5sm319563e87.63.2026.09.30.17.23.52
+        d=1e100.net; s=20260707; t=1790814447; x=1791419247;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9Nk4sGQfUZPJr906VGnTLrhpfwNs9+S7HqUA3QKJmnY=;
+        b=lrGwBCb869y5dplKyqkyUTUks9kQ1kgeAr8sKkL7V7jK59QcJa8FQeBDl+pktv9eIZ
+         G1Ufqb8xMAUcJX3BuSgMSZYmtssJrWfAdZjw7NIIXE2zWWxiNCaXiqfnCpF8tpchS/i6
+         pVN01Oo1KaQaCyj+KAg/ju0qVqlsFwW9OuohyKJj8LyYXSh7uCC/gNWUzkIiX3r2BysO
+         BsNLjk0J1oUl+IYczL6TZfqzmKmqfMJ9R80R85U+2+jwnHjLtBq3X1asupdLWlEwl8cO
+         2SiCDqmRDKboaPoJGVouJI5MHpZNe5ZffMjxDvkht8JXiZXlJ3qws4dqJJm6mWJc/9do
+         RcOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzq8t3nFTqRpdIlmfs0DvNuQpf5EBQb5OcztIt3V/akDt2CaWjUNCC6qUqQa8ps+sRv+j5RsQhjFJDo@vger.kernel.org
+X-Gm-Message-State: AFuF++kEtTIRqpB4nbNEiL7cztkvMEzvjIjilQnseDK1bUm0wgvBEGtf
+	r0p4g/QYLDv36ldqEqRoWVfuYrm+w40uAMvZU/0xUI95+5lRfz0oq5phPvilybwaIa7q7datdEI
+	OGZOn0vUy3APi5hPd6fXBJyfmJa6j5mpdvQ79/bzIRsLdtJe50sMtx+GGZju1V+w=
+X-Gm-Gg: AYBFou0we7Zgjob8+ajj3W7uLG+N+PiD1x2bpdx3IkQGwV25AT4KNJTw+uw8cMpuK5+
+	NlRdFTEk50ez/8YuF3iHI1bidELrGmjydQLZ4u/F3mRdxeBrBh/5TqtBqpDe/OSvleuNz6mQGSp
+	UvhJbKGIzjtm6hyIgNrF7LjeBZPlqvEUCFw5OefTv49giJO73JSPFnqfThrn1Sr1VJR66WPJ/yN
+	oSNm1O6sf0bNZWRaxHQN0poWWUEDGtOm2uIc64AG08eGZTSKl02n23A1M1y0+l3xCLaubjwxlvU
+	05+9QLOl3iAcej07zhL+kRMk6egG4lm4lEINE+nTIYSBqoWBZevjpRxj04I766HbiLiNMbbDjGt
+	TNk/Kl3o/KLq+IBCzHJp+1VdQwqauqX/V3r0=
+X-Received: by 2002:a05:622a:4d9a:b0:533:3868:1f78 with SMTP id d75a77b69052e-53374328747mr61077681cf.51.1790814446778;
+        Wed, 30 Sep 2026 17:27:26 -0700 (PDT)
+X-Received: by 2002:a05:622a:4d9a:b0:533:3868:1f78 with SMTP id d75a77b69052e-53374328747mr61077101cf.51.1790814446078;
+        Wed, 30 Sep 2026 17:27:26 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53385f87469sm6552381cf.3.2026.09.30.17.27.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 17:23:53 -0700 (PDT)
-Date: Thu, 1 Oct 2026 03:23:51 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 4/6] drm/msm/dsi: Support dual panel use case with
- single CRTC
-Message-ID: <ojszylphvpite2r5hoihwcusm5xiun6rjgxsw5kdhvhh3yhq5x@s747ah6cxukd>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-4-c042266b9eeb@linaro.org>
- <jwlmzhhgpvbi47lt4biwn4razrvbf2rfi5uyyvfhjomzo7uqyh@ahf4ubqvegst>
- <CABymUCP7DMOqN9j2ZWEtDxWpZSbNWbrYzdJ57crsR03hys67mg@mail.gmail.com>
+        Wed, 30 Sep 2026 17:27:24 -0700 (PDT)
+Date: Wed, 30 Sep 2026 20:27:23 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
+Cc: linux-clk@vger.kernel.org, Brian Masney <bmasney+clk@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>, mturquette@baylibre.com
+Subject: Re: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver
+Message-ID: <ar2o6yUzJP0H1YJv@redhat.com>
+References: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCP7DMOqN9j2ZWEtDxWpZSbNWbrYzdJ57crsR03hys67mg@mail.gmail.com>
-X-Proofpoint-GUID: pKaHq91jnTReNSdmHz1zq4La9zjEt4uM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAwMSBTYWx0ZWRfXzw047z71zBSz
- fLnkiDPEqk/NCzzNYoaRKqIfbJWvaH4V55+d7OpkRgoijiTk4maZL9pvnp2QxZxu3+brCkECML8
- AZcFDWlSgU/1FZjprweJGCtnKSHzplNs4SNnF+fki5ggUk0x2gWL859a7M6xc8cm2r/LlDiT4l6
- kNu2jR5VWGOgQs2sABFHUTZs0SRN9oKjaMFAkKkNIHmnwcZWSWudaRw5tKVG++CEmyMVpMfbqdy
- mA1JycY3NUZR7ZipdH3q55LQ3+b/R+4WLB1XQArw9xNrSNWGN2L8c2yn4kTqQ9GpWvUZqrvQudt
- lWT/Mnphj7FVZUGvaTRmIxAxV+UiCBIv3AyFerkXE6bnnqmQNt/YanV3FbjQao/kf3I9Lx3K/Lr
- Mw3RLMHtXWhacQU+VmacBVnjDQcslCpZ5eevrp3UEKyaxwMPFLTU+QEQ6DR5uQHGNq3GaVFhhUu
- OWCGKrwRDb7t0Gndi3w==
-X-Authority-Analysis: v=2.4 cv=MZn5KJ/f c=1 sm=1 tr=0 ts=6abda81c cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=ZtgA4oShcCahqduzc80A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAwMSBTYWx0ZWRfX3kfsq2bBjtEq
- AIUaGM7ktx7xQnQliRN0ZWC80K8WM8Ng1gMTUla/to9q26/x8w2werDADZeCE4BYA94vclaTTsP
- +VPrTN25lVxOmawozE4fdyfwT75jXEk=
-X-Proofpoint-ORIG-GUID: pKaHq91jnTReNSdmHz1zq4La9zjEt4uM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010001
+In-Reply-To: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-On Thu, Oct 01, 2026 at 12:10:13AM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年9月30日周三 00:20写道：
-> >
-> > On Mon, Jul 27, 2026 at 04:08:43PM +0800, Jun Nie wrote:
-> > > Support a hardware configuration where two independent DSI panels are
-> > > driven by a single, synchronous CRTC. This configuration uses a bonded
-> > > DSI link to provide a unified vblank for both displays.
-> > >
-> > > This allows application software to treat the two displays as a single,
-> > > wide framebuffer with a synchronized refresh cycle, simplifying rendering
-> > > logic for side-by-side panel arrangements.
-> > >
-> > > At the DSI host level, the frame width for each link must be that of an
-> > > individual panel. The driver therefore halves the CRTC's horizontal
-> > > resolution before configuring the DSI host and any DSC encoders, ensuring
-> > > each panel receives the correct half of the framebuffer.
-> >
-> > I guess, the flag from the previous patch should be coming from the DT
-> > node of the DSI host. The DSI should then get the mode from a single
-> > panel and then set the adjusted_mode for the CRTC (note sure how this
-> > will work for the compositors though).
+Hi Stefan,
+
+On Wed, Sep 30, 2026 at 09:40:12PM +0300, Stefan D�singer wrote:
+> Hi,
 > 
-> The original information comes from the panel. Panel driver exposes
-> the flag to dsi host. Because the panel driver hides all dual physical
-> panels stuff and exposes a single panel to DRM framework, so it exposes
-> the doubled mode to DRM framework level too. This simplifies the
-> handling of 2 physical panels in DRM level and compositors level.
-
-It simplifies the compositor, but it complicates the kernel code.
-Handling this exctra flag becomes non-obvious, sorry. Also, how does all
-of this map to any other vendor? Or to the case of non-DCS controlled
-DSI output?
-
-> >
-> >
-> > Also please note that the are other possible configurations. For
-> > example, for some time I've had a setup using two Raspberry panels
-> > attached to two DSI hosts for exactly the same purpose (please check, I
-> > think Neil might still have it, or maybe somebody else from the team).
-> > Each channel is an I2C-controlled DSI-to-DPI bridge + a DPI panel. I
-> > understand that it's not your target, but it's something to keep in
-> > mind. I'd say, the bare minimum would be to resolve a second bridge (be
-> > it a full bridge or a panel bridge), possibly create a second bridge
-> > chain (remember, bridges don't support branching, so you are a bit on
-> > your own here) and at least manually call the callbacks. This would
-> > ensure that the second panel (or a second bridge) is properly controlled
-> > (and thus would get rid of the second reset GPIO from your patches).
+> This pull request contains the device tree bindings and clock driver for ZTE
+> zx297520v3 boards. It contains the next step in adding support for
+> zx297520v3 boards: Documenting clock and reset manager hardware and
+> adding drivers for its PLLs and clock tree.
 > 
-> I asked Neil but he has no idea on this. Per your description, you have 2
-> DRM connectors/bridges for 2 physical panels. I guess you have topology:
-> 1 CRTC + 2*(encoder / connector / bridge). The handling of 2 physical
-> panels falls into DRM level, not inside panel driver as this patch set.
-> This 2 methodology does not conflict in theory. Do you see and conflict in
-> implementation?
-
-Frankly, I don't think that the fake-double-panel sould land. The device
-has two actual panels, tiled into L+R. So, exporting that information
-would sounds like a better choice (I might be wrong here, though).
-It feels like your patchset is trying to cover a single usecase, which
-is understandable, but it's not a typical way we work (or accept
-patches).
-
-I *think* that the fact that having two panels should be visible.
-
-BUT, there is a more important part. From the userspace point of view,
-you have a stereo monitor, supporting the 3D SBS full mode (and
-hopefully a single non-3D mode).
-
-The compositors need to set DRM_CLIENT_CAP_STEREO_3D, then it will see
-the 3D mode, etc. All other compositors will see a non-3D mode,
-outputting the same image to both eyes.
-
-> >
-> > > The pic_width is used to calculated DSC parameter for DPU DSC controller
-> > >  together with panel's parameter. While panel driver that support dual
-> > > panel shall provide slice_width parameter of single panel. This patch
-> > > only impact DSC configuration, so crtc is not aware of it and not impacted
-> > > by it.
-> > >
-> > > While the DSI panel driver should manage two panels togehter.
-> > > 1. During probe, the driver finds the sibling dsi host via device tree
-> > > phandle and register the 2nd panel to get another mipi_dsi_device.
-> > > 2. Set dual_panel flag on both mipi_dsi_device.
-> > > 3. Prepare DSC data per requirement from single panel.
-> > > 4. All DSI commands should be send on every DSI link.
-> >
-> > broadcasting of DSI commands is controlled by the DT flag.
+> The patches have been reviewed and carry appropriate R-B tags by Krzysztof Kozlowski (bindings) and Conor Dooley (clk driver).
 > 
-> Do you mean the property, qcom,sync-dual-dsi? It is QCOM specific
-> feature to send DSI commands twice in host driver. It can be done
-> in panel side as well. The bonus to do in panel side is that the
-> panel driver is more generic and can work with other SoC in theory.
-> And the DSI commands can be handled together with regulators
-> etc for 2 physical panels in a centric way. The panel driver is
-> more self-contained, minimizing dependency on the dsi host.
+> The PR does not contain the MFD, reset and device tree patches. They
+> will be submitted to the MFD, reset and soc trees respectively. The
+> clock driver compiles without them, but won't be instantiated without
+> the MFD parent.
+> 
+> The following changes since commit b1470947e92aeedd522ddb7363369c956e55d6b6:
+> 
+>   Merge branch 'clk-pile' into clk-next (2026-09-29 14:14:32 -0400)
 
-And then the panel driver becomes specific to the L+R configuration.
+Please send a new pull that's based on v7.3-rc1. Or if it's easier you
+can post a new version of the patch series with just these clk patches.
+
+Brian
+
 
 > 
-> >
-> > > 5. Handle power supply for 2 panels in one shot, the same is true to
-> > >    brightness.
-> > > 6. From the CRTC's perspective, the two panels appear as one wide display.
-> > >    The driver exposes a DRM mode where the horizontal timings (hdisplay,
-> > >    hsync_start, etc.) are doubled, while the vertical timings remain those
-> > >    of a single panel. Because 2 panels are expected to be mounted in
-> > >    left/right position.
-> > >
+> are available in the Git repository at:
+> 
+>   https://gitlab.com/stefandoesinger/zx297520-kernel.git tags/zx29-clk-for-7.4
+> 
+> for you to fetch changes up to 89e2c0fa481f6a0da23ad5c4dc98bcd940f09fd2:
+> 
+>   clk: zte: Introduce a driver for zx297520v3 LSP clocks (2026-09-30 20:03:29 +0300)
+> 
+> ----------------------------------------------------------------
+> clk: zte: Add clock drivers for zx297520v3 SoC
+> 
+> This tag contains the device tree bindings and clock driver for ZTE
+> zx297520v3 boards. It contains the next step in adding support for
+> zx297520v3 boards: Documenting clock and reset manager hardware and
+> adding drivers for its PLLs and clock tree.
+> 
+> The PR does not contain the MFD, reset and device tree patches. They
+> will be submitted to the MFD, reset and soc trees respectively. The
+> clock driver compiles without them, but won't be instantiated without
+> the MFD parent.
+> 
+> ----------------------------------------------------------------
+> Stefan D�singer (9):
+>       dt-bindings: clk: zte: Add zx297520v3 top clock and reset controller
+>       dt-bindings: clk: zte: Add zx297520v3 matrix clock and reset controller
+>       dt-bindings: clk: zte: Add zx297520v3 LSP clock and reset controller
+>       clk: zte: Add Clock registration infrastructure
+>       clk: zte: Add regmap-based clocks
+>       clk: zte: Add zx PLL support infrastructure
+>       clk: zte: Introduce a driver for zx297520v3 top clocks
+>       clk: zte: Introduce a driver for zx297520v3 matrix clocks
+>       clk: zte: Introduce a driver for zx297520v3 LSP clocks
+> 
+>  Documentation/devicetree/bindings/clock/zte,zx297520v3-lspcrm.yaml    |  101 ++
+>  Documentation/devicetree/bindings/clock/zte,zx297520v3-matrixcrm.yaml |   98 ++
+>  Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml    |  122 +++
+>  MAINTAINERS                                                           |    7 +
+>  drivers/clk/Kconfig                                                   |    1 +
+>  drivers/clk/Makefile                                                  |    1 +
+>  drivers/clk/zte/Kconfig                                               |   28 +
+>  drivers/clk/zte/Makefile                                              |    6 +
+>  drivers/clk/zte/clk-regmap.c                                          |  237 +++++
+>  drivers/clk/zte/clk-zx.c                                              |  192 ++++
+>  drivers/clk/zte/clk-zx.h                                              |  137 +++
+>  drivers/clk/zte/clk-zx297520v3.c                                      | 1657 +++++++++++++++++++++++++++++++++
+>  drivers/clk/zte/pll-zx.c                                              |  576 ++++++++++++
+>  include/dt-bindings/clock/zte,zx297520v3-clk.h                        |  154 +++
+>  include/dt-bindings/phy/zte,zx297520v3-topcrm.h                       |   12 +
+>  include/dt-bindings/reset/zte,zx297520v3-reset.h                      |   62 ++
+>  16 files changed, 3391 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-lspcrm.yaml
+>  create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-matrixcrm.yaml
+>  create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
+>  create mode 100644 drivers/clk/zte/Kconfig
+>  create mode 100644 drivers/clk/zte/Makefile
+>  create mode 100644 drivers/clk/zte/clk-regmap.c
+>  create mode 100644 drivers/clk/zte/clk-zx.c
+>  create mode 100644 drivers/clk/zte/clk-zx.h
+>  create mode 100644 drivers/clk/zte/clk-zx297520v3.c
+>  create mode 100644 drivers/clk/zte/pll-zx.c
+>  create mode 100644 include/dt-bindings/clock/zte,zx297520v3-clk.h
+>  create mode 100644 include/dt-bindings/phy/zte,zx297520v3-topcrm.h
+>  create mode 100644 include/dt-bindings/reset/zte,zx297520v3-reset.h
 
--- 
-With best wishes
-Dmitry
+
