@@ -1,85 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A31390200
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 14:44:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAD837F33D
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 14:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790865858; cv=none; b=YpjqFEp1YkA7DuN7k9bZZw9QEee81H6UhVoQe2trvZUjK5JweY7p2Ym/bLy8apFzSD4qIFXJTXDaPq8naR/lkvCiXDqxZwl3K2GsuTPVIsjIbxNZ1JpVYeu0ZXxnL77sufAW0dY5gVjvsVK0oNLgRlOBDhRQPsaj2jXHU3Y8pUU=
+	t=1790865877; cv=none; b=iiL5Jhzys27Nxlnbp45G4CcXsLE7yDTcR6I4xWKmbGszEFTObZZYv0TIw9mEgYE/y4Uyfj572cicrlmw6EVRx+GvLnecPtP9c21CpUiZ52X3h/ZYYZQD3E/sH6ty7IpdY25A/fBPb6U/hXBveMlA1KOXgjcV5ryr8x8nE3+ka2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790865858; c=relaxed/simple;
-	bh=L4+87DhkuAsfas+Nm9WmqWa1zZNrqbTS4ilMmlqODcY=;
+	s=arc-20240116; t=1790865877; c=relaxed/simple;
+	bh=O6EFQcxb953o23DHB0zZwkFzyxFaoFr0xbVP0OIUS9c=;
 	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jzaKwcD8+koCbzWO3/0MJu6RZxsetIusGc1fnjRCFlMFPKEr6OmvwTDykS3ReJVrQ303Csikr247TrpBxAdfiWjEbswQo9qQjKULM0KMDYrgmztp68tFrnEWNv5YGfmJAWk2rkgZeloBQDabRiRLKnvLRVBQRKG6amDkI9s7WJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JE7sBfo0; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=gFPk3x4V+V+KfKKJTlHe9xcQ912I9YMtBkfmNo/3Iu2AyZdtG5WSlWStxQqBa5U1E/10FCiER5fYfWwS01n1fGj6dOvWcIG4L9D9jYBRusqO2v6shRJcAz8l0RJuVA77uZn19zn6B0nOcvpYo7rKy9P3MFU7eC6hWBHvMS6zinY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ccAQ10pU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JE7sBfo0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCFB1F00898
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 14:44:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ccAQ10pU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F1B1F0089C
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 14:44:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790865857;
-	bh=ZiwmhYPVSJPzlGOUdCC5Z3P/0SSMNKcswBfAypILvkY=;
+	s=k20260515; t=1790865876;
+	bh=O6EFQcxb953o23DHB0zZwkFzyxFaoFr0xbVP0OIUS9c=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=JE7sBfo0jDAr+ro7/1ZWVufFzJ9dv0+x6uoVcRrC1wJuuQyNSv3/k+P5d/zsksYLi
-	 AYIgu0Qa1lynidXv9uE9mGN1w8neeCHIgnKLahKAQxBy+n/rWQyt57dBciIcWclSK2
-	 wnUwz+AVwhWrRRBjl049MR4xSieJcKEE57+kO0MrGCEgPpym8U1LPm+P841gE/BV4N
-	 QzPBHxZXhwPjLmhciNfzobjZMs9dAdEPiCm3ut9AFlUnBwXs2HbTL0XBwkI1HIbmfx
-	 l615nBvSS6HMCkt+3hqDpUdE6DW/7mcPoMNcc573SnA9sdG1LiJQIGSEGT25+90TTN
-	 DbCZzoFX1ij3w==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5ba3e27d525so1663390e87.1
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 07:44:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxb11Gx9SnErmbTBvBhJKXUA8jcGw29+8AYmIG+3foDSGDLs6nLXfDht5M4iYp3UJDNCyW5vgGrxzmx@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAZ4ghvLcOsbJ48Dblt6Lq+xEskLL3hjCNgar/K5tqugX6v2fi
-	fTmnvJmZeORnh+wz+i9rePiXy4NTnEHcUBfzqMK91+6sGHTqO9U+DyEslTuwga1YQt1xJn2wyir
-	CGRsnCJ5c8UG1h2tgHmjLlAD4ty077c2epAJoO5sUoQ==
-X-Received: by 2002:a05:6512:3b26:b0:5b8:f4ad:6e49 with SMTP id
- 2adb3069b0e04-5bb7965dafemr481889e87.8.1790865856268; Thu, 01 Oct 2026
- 07:44:16 -0700 (PDT)
+	b=ccAQ10pUmIZVZo6n6gbGaoGXBltzFfvByZv/q7yd+iyg8g4/ljzfSq+t2a8Rz8FSj
+	 mENQxXdxFV0yHIIsXXKqNaBBuTKnaNSjnirSy7IfhFuoG6hl25g0IXPTGGKnC94olh
+	 72BjaU4s4SgtLyptchwJCgklS6JAyUNISAMQjGNciDqog/yM76HTCLrlaC1ysJfz03
+	 BZsMysFRsmmqMYTHpvtE5w5MHwkiOdCUns7YghcMIn4KXr2Dq75/NePMdE3VvH2mwj
+	 Eu0wYCYckiDB5Wh3r+g8iCfY0KUeNJn8UtRS+cIkfWaiYOvnS3sOscOQf7Pn2iBDPQ
+	 DRFac9fHHEkmQ==
+Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a76cedd9baso24884101fa.2
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 07:44:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByNerWNu34fVs4piJR2xBqCsySKDYhnJQ3ilo/XJQUtKo6/QYnDy53ktNhC/n/Y4xHZe4JMmXgFRsZr@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZEQnJtyg4d+TzemAvYrKy4ilN3+DcEgH/dDQA6BhtcrOVJWX7
+	mCzIzjftxeIiqYEUPGSZKz5do2E4xsEAtJqJLpzY9gQ5Xw4BzGstWxye3LP969AtI4kL/suVpTg
+	6pDKvkebajfd55zaJJ/5aADVdqGF1A5bXfVqCy7PN+g==
+X-Received: by 2002:a05:651c:19ac:b0:3a3:74b9:8a7a with SMTP id
+ 38308e7fff4ca-3a779217c9emr14300421fa.19.1790865875146; Thu, 01 Oct 2026
+ 07:44:35 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 1 Oct 2026 17:44:14 +0300
+ HTTPREST; Thu, 1 Oct 2026 17:44:32 +0300
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 1 Oct 2026 17:44:14 +0300
+ HTTPREST; Thu, 1 Oct 2026 17:44:32 +0300
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260929155152.1898666-3-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260929155152.1898666-6-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929155152.1898666-1-shengchao.guo@oss.qualcomm.com> <20260929155152.1898666-3-shengchao.guo@oss.qualcomm.com>
-Date: Thu, 1 Oct 2026 17:44:14 +0300
-X-Gmail-Original-Message-ID: <CAMRc=MeXfbPaGFYbeLdTeD51DQG3uXsH+Z_GE2WFhjQf+TJ5zg@mail.gmail.com>
-X-Gm-Features: AclHuK84Ij5N3m9ftHZwtPHFGlACbpXIqxng1gcmEksaSr7PXqutdwHiGTapDII
-Message-ID: <CAMRc=MeXfbPaGFYbeLdTeD51DQG3uXsH+Z_GE2WFhjQf+TJ5zg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/7] arm64: dts: qcom: nord: Add support for ADSP and CDSPs
+References: <20260929155152.1898666-1-shengchao.guo@oss.qualcomm.com> <20260929155152.1898666-6-shengchao.guo@oss.qualcomm.com>
+Date: Thu, 1 Oct 2026 17:44:32 +0300
+X-Gmail-Original-Message-ID: <CAMRc=MdU81=CLRL50QcR7M3bXdrJvkFjiSQzRdTXFXZuV_313g@mail.gmail.com>
+X-Gm-Features: AclHuK9pp7HvO18L90366DebJ2ZCRbbfzeGxjPsN3WHF2HSkJ1yuhnXManp9pf8
+Message-ID: <CAMRc=MdU81=CLRL50QcR7M3bXdrJvkFjiSQzRdTXFXZuV_313g@mail.gmail.com>
+Subject: Re: [PATCH v4 5/7] arm64: dts: qcom: nord: Add PMAU0102 and PMM8650AU
+ PMIC support
 To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
 	Bartosz Golaszewski <brgl@kernel.org>, Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>, 
 	Anandu Krishnan E <anandu.e@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>
+	Dhruvin Rajpura <drajpura@qti.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Abel Vesa <abel.vesa@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 29 Sep 2026 17:51:47 +0200, Shawn Guo
+On Tue, 29 Sep 2026 17:51:50 +0200, Shawn Guo
 <shengchao.guo@oss.qualcomm.com> said:
-> Add device tree nodes to support ADSP (HPASS DSP) and CDSPs remoteproc
-> on Nord SoC.
+> From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
 >
-> This includes:
-> - SMEM memory reservation used by the inter-processor communication
->   infrastructure
-> - IPCC mailbox controller for inter-processor signalling
-> - AOSS QMP node for load state power management
-> - SMP2P nodes providing stop control and fault/crash interrupt signals
-> - Remoteproc nodes with a GLINK edge and FastRPC compute contexts for
->   userspace offload
+> The Nord platform is supplied by two families of PMICs on the SPMI bus:
+> eight PMAU0102 devices on USIDs 4 to 11, and one PMM8650AU on USID 0.
+> Add one dtsi per PMIC type, following the established one-file-per-PMIC
+> convention, and include both of them from nord-rrd.dts.
 >
-> The embedded variant specific power domains, XO clock, and interconnect
-> paths are filled in nord-embedded.dtsi.
+> The eight PMAU0102 instances are labelled pmau0102_e through pmau0102_l
+> after their board designators. Each one provides a GPIO controller, an
+> ADC, and an MBG (Master Bandgap) temperature monitor that reads its die
+> temperature through a DIE_TEMP ADC channel. The monitors use the
+> qcom,pmau0102-mbg-tm compatible with qcom,pm8775-mbg-tm as fallback, and
+> each is hooked up to a thermal zone.
 >
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> PMM8650AU is the same die as PMM8654AU, so pmm8650au_a reuses the
+> existing pmm8654au ompatibles while the file is named after the part
+> actually populated on the board. It provides PON with a power key,
+> a RTC, and a GPIO controller. The resin is described but left disabled,
+> for boards that wire it up to enable.
+>
+> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
+> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 > ---
