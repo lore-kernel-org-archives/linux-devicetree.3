@@ -1,110 +1,126 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CB5457E70
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 22:45:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4E84D4875;
+	Thu,  1 Oct 2026 23:00:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790894753; cv=none; b=vEV7IAO1BGNlEHsLWyiVdUW0KWrOs43WbI9/B4lm8k/noSNGnuloiI5NPxki5Q7YQs7RkwDmuSfRlQHa2H0mv/JbO0X7JZY81XSEEGP0GWShXsC7PhzBZaASU3y42/6EkAnGHcD0XjkQ8ZEe3xss94e0p/r+/OPTFcyf4DGFMfk=
+	t=1790895604; cv=none; b=t1u0t3XjPAyK5jZb1wevfi+Y8zQwEH/P4i3lsXBAiNY9oPKjHv7vHqPSS8QbXSRtbItKPTrUwajnTv/OVbsrXMXsPGfMGc9Sl+LJJNLdgLfl/ZSF0kShJkMc0i2mGPkNWOAAY1G9obTGN9rfO7H21A7mZ8HUApFoAHXVObjnBqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790894753; c=relaxed/simple;
-	bh=iyOloBZlQg/MDR1GswDFmzHuvue+1j2j/aHCDmB5nFw=;
+	s=arc-20240116; t=1790895604; c=relaxed/simple;
+	bh=MNyCXZy5ru3r4Fny/rb9dCIGjrACfAsA7/MvgYfiETU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WGcrmS5Y/x7jWyLNykctKi3ODnAJUPo7Qn5cXSZ2aeUxijHRUQuk6E4ntNZrMnKP3aBf0KmviOmlp6SxQir+kZPAmCi3YS4FRz7r9JBSE+tvZ/GVJYiBq+Nyodiy4QdYIEV3ftOg2xt9JzYHFvbIhGs7QqE/05ONkY7aCvat1Po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aeF0yUdq; arc=none smtp.client-ip=74.125.227.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=NhddYqyUmLs5ynMp4oovn4/k+wZ3GctyIMWgUSUc9j0gnlPA9Nz/yNipvpfmwxrFvBZt+WC7Dkb88n3XdvY/NWCa8RXR0vVUJPfAEv5EYLNPth8HFfk+eezDcBqq+jEpUfnr9La2XWIqadNwp/GoolpTG6GZLa729WtDM6V/E4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IZsUEa+M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aeF0yUdq"
-Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4bbc51755so365296a91.1
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 15:45:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790894750; x=1791499550; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T4uVz4BtQRRTWyCl0InjTyP+HuCQAABpXvCRfXa1uFA=;
-        b=aeF0yUdq62zFUiqUopKLxv/6g24uwHkL0+dm+ZZBZVzofn1SlzwpNamXysaZse8o7g
-         y/rqograQMJs1xvHsHZFbf/dLQU5oljYHFQTAIvIb1vFiKmxh3cxjq9XeXLYdEUqrloZ
-         plBB8AJrVSzh0bgpQ6lYq4Atg/129Z4ujSBFLSUJvY+u7zStpzsn9VunpGZwfwjhzbIi
-         69E/WXqVExCbUfyUfO0s0tZL6EK4BEmIaI8npY4iXwMXMW4QWGKW6Bt9hx/q0lI/nU+3
-         CWFjfEIniKGeZZlvHxLDnYHZaUp6VeBZtFsWCDpi54fro7BwK8HnGKaXMzzvAM1/QTnS
-         zSSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790894750; x=1791499550;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T4uVz4BtQRRTWyCl0InjTyP+HuCQAABpXvCRfXa1uFA=;
-        b=GzN8RoGZxQ6Q0Gh6dftn7tUPU+V547zF17GvFlbB3uqaxkcJCryWDvw5HeAHsF9mfg
-         PXMVttBz9JlWuDNWCZWcAyIO1TuKw04N2o7wAnK4Zn5exE3ndiKLYSog0JV+JPP0jDiM
-         HS7xxxQc8Kq9p3cKRn18aHy+sTj9CXq53LcDafKU3jTY+mD05rSeEoQt2B4mE77Baj41
-         aZgPparA7cUcqxjgnGG/R4vRwkHwURfQ8HqPVH2sjY/sRKdEp4TB4CEpqa2ZgO/u2h5r
-         x4CoAvkRHwsL4qOnOIS9BSUpqC3EVFv5WLCcahpdRFmkAGZxhEG//v2RuAOeThKSBeNr
-         vWnQ==
-X-Forwarded-Encrypted: i=1; AKwUvByfuZxoA2yF8D+skvjr8bpxye+OYu8SzUji/Yfl/gM8Xych2PlFXvSt+Ox6fAWN4F6kvxymbRsef+Rv@vger.kernel.org
-X-Gm-Message-State: AFq9FYIN8FFojxQQx9NgJMZHsC6eOJZqcnM3wlaMhFEdwWylW+6r0ikF
-	d1DDvVIwxiu5uDGFj5YuZYq0zsHiqbWValTtjN9vN6ufYHrV9FzmwfZM
-X-Gm-Gg: AYBFou2SSy6ggUdDxFKUO3LoBfZS+c09XCOyM3Yzscrkqi1EKfhugiFWzn7uyMmhE/c
-	rqo3QL7k0qN0vGljKqNjloZPVF7i+WAJeyKGmvdA+1vhuzZRUBTxG5iLsBZu3heu3+JKf+GuIjz
-	Mm0e1LQ+yL0rgjL9ihFUg4dPKlyLuRE0nDCxlcqwfVH8HUJ5lS2ZmylwQxRp/KVSBHm1czsJMCu
-	ousX+zO9zyBiNxQ0ETN5vtVpWTzu4Xg0T+jb1Z0ORjfWzxor1JHTh/tZA3qnDwDb+dU0Y8cdxdk
-	e7kWf9cSBx8Qnn9y3qwuWhfr+FhRXqLPmq3XKpJXpggAuofIskudPosIydnJyLHml440qNTfbSs
-	KiIkmo4YD/oZTzeOQAEtE6MwCxtz0Bg6lwe8Gbhwe3tw9fwXCvaC7nrdqcFHz7PAIOEkdlxQFT1
-	pzgjkTy9T1BoYZqt4ZCbJLaf2HJ0iib+wdEL8H8ewIgY0y0JoW2ZdyQHQoECmyNlRQbtEhr9k69
-	nTN51s=
-X-Received: by 2002:a17:90b:4b0d:b0:3a4:9fcd:6189 with SMTP id 98e67ed59e1d1-3a6ce69ac99mr1528647a91.2.1790894750283;
-        Thu, 01 Oct 2026 15:45:50 -0700 (PDT)
-Received: from marchy ([2405:3800:8e5:44e3:ee8e:77ff:fed4:d18b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6ccc92646sm1146396a91.1.2026.10.01.15.45.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 15:45:49 -0700 (PDT)
-Date: Fri, 2 Oct 2026 06:45:47 +0800
-From: Adam Azuddin <azuddinadam@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org, tzimmermann@suse.de, jesszhan0024@gmail.com,
-	airlied@gmail.com, simona@ffwll.ch, andersson@kernel.org,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add RAiO RA8875
- display controller
-Message-ID: <ar7im3iTb_UF8VxU@marchy>
-References: <20261001144128.2336301-1-azuddinadam@gmail.com>
- <20261001144128.2336301-2-azuddinadam@gmail.com>
- <20261001-relight-unexposed-1a3d7dd8bfed@spud>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IZsUEa+M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2187C1F000FF;
+	Thu,  1 Oct 2026 23:00:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790895603;
+	bh=OvXyZeFZqgoZv43AfR9lxtOXs/un1M9HwAQCfdVDuRA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IZsUEa+MZoIpvMEisKnasesrXNQ0gxicq3vOHXtc0inX8fTiscPZlfCZrm2S5OE5t
+	 A/nuvt3ICdSXQhr8JU/cGzVwa/G9GTI4SFx6L1wLVfIl5lRQX+Em5GViBkuKglP3/r
+	 8hC2sJuPRrtOsaiPlZhLJKJpkeGOsdjFmkdc4wUaC4f7Egj/1dL1T3B1vAbeNrkUQS
+	 8zGs6ozL5n9p0a9Fm/YuKkzlXm6RSeMK8yfmyE0HAgxBrFvmZK6BNv6KzEvQLMfPmZ
+	 zXi1UfE/+Gzj/lVWfZualVFtTXABqU96i+bgvxH5uleKLaIFPNeLczJErkYuywIdqI
+	 xjmXI/+8Jk+Nw==
+Date: Fri, 2 Oct 2026 00:59:59 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@avionic-design.de>, 
+	Lee Jones <lee@kernel.org>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+	Svyatoslav Ryhel <clamor95@gmail.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, goledhruva@gmail.com, 
+	m-chawdhry@ti.com, daniel.baluta@gmail.com, simona.toaca@nxp.com, 
+	mfd@lists.linux.dev, Thierry Reding <treding@nvidia.com>, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] regulator: dt-bindings: ti,tps6586x: Convert to
+ DT schema
+Message-ID: <ar7lq50d4IcTCbkU@orome>
+References: <20260916-ti-tps6586x-v2-0-f12cfdfb446c@gmail.com>
+ <20260916-ti-tps6586x-v2-4-f12cfdfb446c@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="abqtqkyhimdysw4w"
 Content-Disposition: inline
-In-Reply-To: <20261001-relight-unexposed-1a3d7dd8bfed@spud>
+In-Reply-To: <20260916-ti-tps6586x-v2-4-f12cfdfb446c@gmail.com>
 
-On Thu, Oct 01, 2026 at 07:54:19PM +0100, Conor Dooley wrote:
-> On Thu, Oct 01, 2026 at 10:41:25PM +0800, Adam Azuddin wrote:
-> > +description:
-> > +  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
-> > +  It can be connected to the controller via 8080/6800 parallel interface,
-> > +  SPI or I2C. This binding describes the SPI-connected device.
-> 
-> This binding describes all three, or at least it should describe both
-> i2c and spi in the current state. I have no idea what the parallel
-> interfaces look like in dt, but if what you've got covers spi it should
-> also cover i2c. Probably remove this last sentence.
-> pw-bot: changes-requested
 
-Understood, I'll drop that last sentence.
+--abqtqkyhimdysw4w
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 4/4] regulator: dt-bindings: ti,tps6586x: Convert to
+ DT schema
+MIME-Version: 1.0
 
-> > +        panel: display@0 {
-> 
-> Drop the unused panel label if there's a respin.
+On Wed, Sep 16, 2026 at 06:41:29PM +0530, Bhargav Joshi wrote:
+> Convert Texas Instruments tps6586x regulator binding from text to DT
+> schema. Reference to nvidia,tegra-regulators-coupling in child regulator
+> nodes.
+>=20
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+>  .../devicetree/bindings/regulator/ti,tps6586x.yaml | 196 +++++++++++++++=
+++++++
+>  .../devicetree/bindings/regulator/tps6586x.txt     | 135 --------------
+>  2 files changed, 196 insertions(+), 135 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/regulator/ti,tps6586x.yaml=
+ b/Documentation/devicetree/bindings/regulator/ti,tps6586x.yaml
+> new file mode 100644
+> index 000000000000..1f7c7b35066f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/regulator/ti,tps6586x.yaml
+> @@ -0,0 +1,196 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/regulator/ti,tps6586x.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: TI TPS6586x family of regulators
+> +
+> +maintainers:
+> +  - Thierry Reding <thierry.reding@avionic-design.de>
 
-Will do.
+Not sure if I'm an appropriate maintainer for this, but I guess I
+initially submitted the freeform text bindings. Anyway, that email is no
+longer valid, so this should be:
 
-Thanks for the review,
-Adam
+	Thierry Reding <thierry.reding@kernel.org>
+
+instead.
+
+Thierry
+
+--abqtqkyhimdysw4w
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq+5esACgkQ3SOs138+
+s6Gbjw//b1TnlaW0WiXbta+vQVNVfxN6XgIcleOrTO+lfpFm2DMN8uiY/GdAFJwz
+0epfTz/kPVVqacGLxUnHMoq93s6S5mrBm9h0cm/KNOOhzt8R7Hr+0EkfL8deTCHY
+YiDNKAQVN7p2bILSFoajeX4BrcfFbJoOdzs47aiRTS+rb6wbiajdsdnKal48MiFr
+2xHnPP47eIUJAzmd678x0IoT6fsMrxzTWpmSWMIF9fpV8bS/QO1gt3SWkGBN0e73
+MQQD1q32HycjDgoqR0onGpidPfd9p+tGdJtSJTaDJgTFbtsJssQNXAIMPLVG1IK8
+WdI12CGtvxHe7YOq7c4DBaes5zuth2D6AvloHN4TQwgyBd7Xihf72tU92pjSP2EQ
+ujPZp11ofvuVy0USLlqZ4ymBJnsYBGk0R7k/96b2UPGZC5hesRrp+OHDVGtf8AdL
+uyorw1pOq6aS74TXt/b6NQgGhnVGTMgup4MqCdRc5et4T7K9MwOmKF6ADqXiLMZ9
+NkxRBzGeHiprXQirutYkFQq2Ltcspi3/DmBULfs2ReijJd0xaPudv0leFklpgeRw
+j9AUhmxY6CwmutB2uDO1eSTXUYhatWcw9mot8BtoIs53QyLjku+rJVwHKRMD0LVd
+MUQYvDucLfcQm5DbFK7o7ntX0vPpXDL9LPBWqYszE1/22fBQGGY=
+=Ng9S
+-----END PGP SIGNATURE-----
+
+--abqtqkyhimdysw4w--
