@@ -1,63 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8884740927A;
-	Thu,  1 Oct 2026 21:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA7240927A;
+	Thu,  1 Oct 2026 21:43:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790890685; cv=none; b=NT5R/6+x+GArsbHDyPysnliCmzqsTDNdYR2dVgr/ZqjZdVvpbWUcCdwzBcjgOGzjHlTWGWRLxtyuzJC0qrumSvQNeTzI7297XbZJFCZFWbGvnEXRZH+uBVa3plnKFAiLACFFG75e7N8XVIlKwU65zRd6QM2mSWsuy3cYaFBhf7Q=
+	t=1790891029; cv=none; b=u6j/me17til5CtPCt+aT3Uy6BW4S5KHqgDcIcKloVHU0qxAylIhY332fQ3n9mzG9oBc/NzH8Exnw+lDFY2RQglxYL6MB8RkUKqGD9CUswwDDTK5U8nqfoirg7e4w29aDh6o5g0Oefic/oWIvtdnhekOtx3xAUaLjC2M11ej1e6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790890685; c=relaxed/simple;
-	bh=lGfbR0yO+4UhIRKjdNm1/pFQ9vbYcmXDCCGLne52jhk=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=caM4mr7ePxuOYE56FJ66NrF+qVL4cOilRzqPuysnNM1NAQdjzSA78K4OySUPurvsS8zPd9Hd7fP+syP4I49LrWZjltKtfx9peeAVh/OXJF5g7w9VMl1eHerLZKfhFa/Gg86vugjISOsEPDSXXiA7GDzGlunKNGruCYSI/kgVneA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ah71EH8G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790891029; c=relaxed/simple;
+	bh=Zy5DgYfKJ2Jvbz3nfTQhgnKyY+5AE4qgyM0EigO3rm8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TKarec3DvXBnoJHpwZyQCnU9Fte/bdBPI3MzjcWhScFPr5u0m3+80d+7jAVBTOwOz3d9YanlwWcXMewem8pRB1ew7wrPZQY8uDN25qdRzknMzNKRdV7g/JaMgXQPmBs0+0/t5CmO4eZCP0mpR4g/1M8skTp6YnRf+Aeofv+l/dA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=VRzvYwnB; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ah71EH8G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7EF61F00893;
-	Thu,  1 Oct 2026 21:38:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790890682;
-	bh=dPN5oKndiiWPIbr2MVwqfPOLUEm0mPfAyvLKswV/p3Q=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=ah71EH8GVPqU3bv4t8kfoGclSIOmmIeNCQ2Tx8W6rtxx/ZmphDmTnBgbJTOY+H59P
-	 kMXVvsgmlEVXg/AraWiW9sHnTHzEL5QcqkaT4eEpGs2LB7kVftHMDPD5dROZxO6CnQ
-	 0/6MsW0yHu4l/H4RkF5OSTE7s45LE5tb1zUfck8x5I7r0P+c/GrtSCK06fd5arKMnk
-	 Rn8/Zl5YFO+dwWXk2GtISvKUQ6sEroHaz+Qxvuzn3RqNUayh9FjlrKMbNo8pQ1OHd7
-	 WX3zUFyCWQx2IuNp2CafhZ1buf/DXOuZOhRkkTS+cC/AX00t9pLQN+Pd0P9rOhJuLF
-	 O6qMWXPFzK+SA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B45C03811976;
-	Thu,  1 Oct 2026 21:38:02 +0000 (UTC)
-Subject: Re: [GIT PULL] Devicetree fixes for v7.3, part 2
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261001193546.GA1670288-robh@kernel.org>
-References: <20261001193546.GA1670288-robh@kernel.org>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261001193546.GA1670288-robh@kernel.org>
-X-PR-Tracked-Remote: ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.3-2
-X-PR-Tracked-Commit-Id: 30724547b221e0e670ddfef140fc7d816b2aaec6
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
-Message-Id: <179089068122.3100647.16667550261988924617.pr-tracker-bot@kernel.org>
-Date: Thu, 01 Oct 2026 21:38:01 +0000
-To: Rob Herring <robh@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Saravana Kannan <saravanak@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="VRzvYwnB"
+Received: from L30177.local (unknown [IPv6:2a01:e0a:ac2:22b0:4527:74e2:2212:f171])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 95136780331;
+	Thu,  1 Oct 2026 23:43:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1790891017;
+	bh=Zy5DgYfKJ2Jvbz3nfTQhgnKyY+5AE4qgyM0EigO3rm8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VRzvYwnBWyOC8npDt2yJ6xqN3dLliujSUshcwjEhONV5GUb24lV2jZHSXh8RkhIMH
+	 rNDAfwXL620ADzTmEwlEAQJRuU5EvScSxBm46VxfoN40cicS3+ivpP1S+5/c3KpGAk
+	 KH2pSG8wWopMiDI/9fqwXwMHYC+mntd4NIUxtGeXRj6IaYSuJjbb/jkLfAaG4TP6Dh
+	 l4FKqxCp41CLJUfvgZNTJ5KMgyM7YwgftbRIwTrOwq/HXgsDQPbSFT8AMLXUFv6/Zg
+	 WrJhLbQ5aCRR2g4LVe/1dUgga5+AlwKyPAtKBplMSCvgth5NZPkFLaAdESE8sFEBhJ
+	 SKtIr2RpJKHvw==
+Date: Thu, 1 Oct 2026 23:43:26 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: Conor Dooley <conor@kernel.org>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Charles Hsu <ythsu0511@gmail.com>,
+	Eduardo Valentin <eduval@amazon.com>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] dt-bindings: hwmon: pmbus: mps,mpq8785: add
+ #thermal-sensor-cells
+Message-ID: <ar7T_u5RPVLc_MVh@L30177.local>
+References: <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v2-0-07d368dcc662@free.fr>
+ <20261001-for-upstream-dt-mpq8785-thermal-sensor-cells-v2-2-07d368dcc662@free.fr>
+ <20261001-hash-husband-663954aed7b0@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-hash-husband-663954aed7b0@spud>
 
-The pull request you sent on Thu, 1 Oct 2026 14:35:46 -0500:
+Hi Conor,
 
-> ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.3-2
+> I don't understand this, if it has multiple sensors, each could be
+> referenced by something and it would need cells. It only has single
+> input, then that's the justification that needs to be provided here.
+> What software does, especially in generic code, should not be used to
+> justify a binding change.
+> 
+> I checked the devices supported by the mpq8785 driver and none of them
+> actually appear to have temperature inputs at all?
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
+Right, none of them has a temperature input pin: the sensor is
+internal, not an input. Each device measures the temperature of its
+own die.
 
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+I hope it avoids the confusion, I'll update the commit log,
+  Vincent
