@@ -1,72 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4419B4A3870;
-	Thu,  1 Oct 2026 08:29:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08273FE359;
+	Thu,  1 Oct 2026 08:30:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843386; cv=none; b=EaUgcPKBXroDc/fgbBu3FsvGp1Ozkixdo1Xt7U1I0YmTpHFuSUsZC65XpBEhn4mcYoXL6xv8vJ5D0gEhyjlWaNIq5smzBeKidqjZlOWg/pSCidob5oxJeGWetQ6xYYvMLbpdfGHWC52wo03oB6kBg0v26mipobfoLmJADwLoCo0=
+	t=1790843417; cv=none; b=kz7vqumEAmlMlrpyUmO25WtPhBBlqg4/rucfDN0MajMRpBOIxpbmfQBLvmGZISqIwi83+386hwi7PbgkpuHHb/YQRqe5hKB4KkQ9/KbLG4JVGL0eW6gLESBthNDqbq/vqcLUMZcC4vLeGGz/Pa6CsjbDXJ3knEp7t6uIhVdr+80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843386; c=relaxed/simple;
-	bh=ZC0i9BiI37b05XU83pr1MEqy8F41BhPAAITXvFIFeKw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q50JQy9e355J/yajeyFVxSHp4j8oCcAvzKXhSI4LMbBTJxnBE82L1Km7zjAWxuElB8Csc9/6HK2q8Z7lXRJgQq6YH/ndB74XJlDx5lcriAiXUMRuZiWxsz/jNH6HwY3v95ut3c7aSUOiSn5yLSIXWlvhhG4FMdNb7HFtdPH/DFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQC+pGGe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790843417; c=relaxed/simple;
+	bh=w0QSNKMPvMNwWEzZGS6hCPEc+nmrywKd7ktFYHv8O2w=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=Ww3ubnZtuQfflmbul103H0qZbiUX/y+YuT/gF4aGNDJYEBg949Uhb8C4EaOUoqWmR49fvA+atRwv+PB87OPxlhd4eFu2VLVPuqmq+q+96qDdqaEjGkJH6XwydeLsYR/GyxbHN/31dpQmaniDPxclClaqIJgk7WkC5we18wh04l8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=byDw1osX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQC+pGGe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDA7F1F000FF;
-	Thu,  1 Oct 2026 08:29:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="byDw1osX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4638B1F000FF;
+	Thu,  1 Oct 2026 08:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790843383;
-	bh=nwMNSKoTapihAr8TD2umYmMz2HSPYncaB9xWRndoeqg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lQC+pGGe3U2NqqMxaKqYBy1DmlhWkzdT/RFvXPa7deMijp9JkwyD/lSZo12ZsnU4N
-	 ZRDMODresF6CiLl8w5FvxMemnuPVYJWzIMAN/+M9asvkHTOUDBu+putkwFUkliYoUR
-	 W2GiTgU5mH/xzBAbnlhSM57CUnTdre3EMuubL+yDY2KfKiNRw8bK+1Zb5sSywUaheW
-	 oX58e1tlCVS/YsNiKF2SfvUGb4uNUDb+8xBRITEsDFVulN0JK+Sa+6wpyFJ3CNXEpb
-	 aITm7F6bAdlP1K6zRU/Om8zP/6ogVHSpdaDOQVrGgXjmCX/inzQavDXaZJF3r9VLdh
-	 97cP+chwarFLw==
-Date: Thu, 1 Oct 2026 10:29:38 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: Add qcom,x1p42100-camss
-Message-ID: <20261001-spiffy-cherry-uakari-d1dfcd@quoll>
-References: <20260930-purwa_camss-v3-0-0fe2a5b11208@oss.qualcomm.com>
- <20260930-purwa_camss-v3-1-0fe2a5b11208@oss.qualcomm.com>
+	s=k20260515; t=1790843408;
+	bh=dymhJU7LE7PbeKqUDP3nU7/VgxqoggQ+VbnMCZhERnY=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=byDw1osXZ+/H1VZ2eU89EzCA9n5Hf21vLbCdMw7CZvXGXGBLjvzkFMk31w/CVrmKP
+	 pP0P9AcKc+sxvoGGgRosCzgCLIWoir5W6JhKjRvliE7rWmtjUCYSFOLdw4Ju7iUPD2
+	 pTZsBUcDcYj1lpkmAquO7bbdDopMnb6Lg4eISZOSQLc2oRdGmrfgDbMDxZIvGvuCTh
+	 Q610AWOmTgW0kLNXD9jD8/moHLWfYiBA9Mc1NtMfTamVIKbLgVGNM7BvDzaTkH7kAA
+	 8sRMZUUr5Ih+ZNUkGEwM4Z28ugjoESwcNdrJL9Zmc3ncndZc25merovSeQGIhPURM1
+	 LI0+eJwQ8YlTg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A457380CFF9;
+	Thu,  1 Oct 2026 08:30:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260930-purwa_camss-v3-1-0fe2a5b11208@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v15 0/9] net: stmmac: qcom-ethqos: add support
+ for
+ SCMI power domains
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179084340677.2325520.95323259899491825.git-patchwork-notify@kernel.org>
+Date: Thu, 01 Oct 2026 08:30:06 +0000
+References: <20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com>
+In-Reply-To: <20260923-qcom-sa8255p-emac-v15-0-e82f33720737@oss.qualcomm.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, vkoul@kernel.org,
+ peppe.cavallaro@st.com, wens@kernel.org, jernej.skrabec@gmail.com,
+ neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com,
+ shawnguo@kernel.org, festevam@gmail.com, jan.petrous@oss.nxp.com,
+ s32@nxp.com, mohd.anwar@oss.qualcomm.com, romain.gantois@bootlin.com,
+ geert+renesas@glider.be, magnus.damm@gmail.com, mripard@kernel.org,
+ christophe.roullier@foss.st.com, brgl@kernel.org, radu@rendec.net,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, dfustini@tenstorrent.com,
+ linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org,
+ linux-mips@vger.kernel.org, imx@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ sophgo@lists.linux.dev, linux-riscv@lists.infradead.org,
+ bartosz.golaszewski@linaro.org, stable@vger.kernel.org,
+ krzysztof.kozlowski@oss.qualcomm.com, martin.blumenstingl@googlemail.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com
 
-On Wed, Sep 30, 2026 at 02:57:16PM +0800, Wenmeng Liu wrote:
-> Add bindings for the Camera Subsystem for X1P42100.
+Hello:
+
+This series was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Wed, 23 Sep 2026 17:14:34 +0200 you wrote:
+> This iteration addresses several issues raised by Sashiko. Some are not
+> addressed as they were false positives (nothing in the PHY driver ever
+> calls phy_runtime_get() on the parent device) or I decided they make no
+> sense - like the suggestion to remove the power-domain-names property
+> because there's only one power domain.
 > 
-> The X1P42100 platform provides:
-> - 2 x CSIPHY
-> - 3 x TPG
-> - 3 x CSID
-> - 2 x CSID Lite
-> - 1 x IFE
-> - 2 x IFE Lite
+> --
 > 
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-> ---
->  .../bindings/media/qcom,x1p42100-camss.yaml        | 263 +++++++++++++++++++++
->  1 file changed, 263 insertions(+)
+> [...]
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Here is the summary with links:
+  - [net-next,v15,1/9] net: phy: aquantia: fix system interface type not updated in forced mode
+    https://git.kernel.org/netdev/net/c/6e0022b5ae3d
+  - [net-next,v15,2/9] dt-bindings: phy: document the serdes PHY on sa8255p
+    (no matching commit)
+  - [net-next,v15,3/9] phy: qcom: add the SGMII SerDes PHY driver for SCMI systems
+    (no matching commit)
+  - [net-next,v15,4/9] dt-bindings: net: qcom: document the ethqos device for SCMI-based systems
+    (no matching commit)
+  - [net-next,v15,5/9] net: stmmac: qcom-ethqos: set serdes mode before powerup
+    (no matching commit)
+  - [net-next,v15,6/9] net: stmmac: qcom-ethqos: update phy_mode to the resolved interface in mac_finish()
+    (no matching commit)
+  - [net-next,v15,7/9] net: stmmac: qcom-ethqos: reuse the address of ethqos_emac_driver_data
+    (no matching commit)
+  - [net-next,v15,8/9] net: stmmac: qcom-ethqos: factor out linux-level setup into a separate function
+    (no matching commit)
+  - [net-next,v15,9/9] net: stmmac: qcom-ethqos: add support for sa8255p
+    (no matching commit)
 
-Best regards,
-Krzysztof
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
