@@ -1,203 +1,181 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AAC364029
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 00:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC73537756B;
+	Thu,  1 Oct 2026 00:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790814455; cv=none; b=JuZ/0QCR7lNGM1Furi/L4w0tduIpompicKK9g6dNJknTyJh6uIm+zL569kQb38zGRq0/2lRV9e/b+0P8aPeFNjIcZ4LpnwYTBj7Xy+shsl87Yctn5iGK4QmfbXMo+rg9DRBXPh4aibL+AnvC83L0nprJiw0tfxh02a0gBi0rCDg=
+	t=1790815236; cv=none; b=hg2jJmsT5WX+cVYMqPphCbXMYC7pOezRVCnbbF4iKaWyJ0ZRry1QBkYVaUtievmjIgZcK0V5pCwHrPlmkXCUhSGRE7yxwmdqRzSkelxZxC5wdPbXkfTapWaQ7aNoGpZMpIn3Qrr7Ls3LsT55JwPd2NV0vOSk0f2A2RETeUY7FhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790814455; c=relaxed/simple;
-	bh=xON4dTCYI11gc9I1ss2ZDpffd+cnlQVGEoVamWChjnI=;
+	s=arc-20240116; t=1790815236; c=relaxed/simple;
+	bh=UI9BLBTThba/tbipQa2Pd4i365kNErFb2j0bR+1KJHk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NV92FlI2fmDr2VCU/NTU53Jj8ao7mDofkxXTLE6TkDFRF8yHteemwDxWfQQ40rTJCWfVaoFVDEKQdxjXbm9mVXNTupdyEE9WgUfwJffLRIyY63TJcWoJAxOsY+34pqZul6ped2gfc+z3a+j174RXARBQlk0Coeana6s8SmKVfrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=J4TSmKTH; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CVz4XHyx; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=BwCUGuJAWB3LG9XZmjxGf9V1hRwtYcnYhmZZMf83tsKpiitBMF5heEKi1CZO4BIoNHAPGOBFSworoNOmum3u7TfZAiZNgV9Nj7vr6t6ipPXHKiIQX5OFBN9mPdYxYKhNviwA7PaBLYvpS66ehb0WrXSNwdfVc5ZQa6urTFxxijE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jl6bcv+M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="J4TSmKTH";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CVz4XHyx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790814449;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9Nk4sGQfUZPJr906VGnTLrhpfwNs9+S7HqUA3QKJmnY=;
-	b=J4TSmKTHWiyiGi4BxmklrzEDbZGRK5cQV0wjFBuEE+qseaqntyxWE1Ahm65qcHx78rPVql
-	ibjg/rsuUVMOgwHOGtqcqP7pVrC/ZQpdz6Bv26vErzwsUv8vIKm2ilwzzAm/i8txesdPIp
-	bxKB69lcbwKz+0tvS+fKJdhLQvc8iPI=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-77-9LNYN9oNNcGjOb2El013Kw-1; Wed, 30 Sep 2026 20:27:27 -0400
-X-MC-Unique: 9LNYN9oNNcGjOb2El013Kw-1
-X-Mimecast-MFC-AGG-ID: 9LNYN9oNNcGjOb2El013Kw_1790814447
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-530d028f779so74446231cf.2
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 17:27:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790814447; x=1791419247; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9Nk4sGQfUZPJr906VGnTLrhpfwNs9+S7HqUA3QKJmnY=;
-        b=CVz4XHyxmHXRsOLdeUw70/SoniBJKaJepu+ln3Tqhbas6w7wvntkFriYuwN3mI7N9B
-         2SwAJCdeSjL2LdILT1+mVn/OKEyarKN1P3DwrFV3ik6GRDtbFEK2uakgLOanz/1W6PNh
-         UOVJplwZsin4o50OVLmT4pdxe6NGXJcZuapwdDuN9aW2mZRhTdevcJkfumOQ0rO8i0bH
-         5SVNbPt4y+EO8ku8PUUGUSwLk+RTQiZ4GsBj8vxAiwoAMwKRENq1l9yPrR9yY6UeCfnI
-         7Z0bDkix3yYVJHdoq2J0cC+CMely4+3g7jH7Alb4+V0T91umO7Ko/vIzzTXV7+L85bmh
-         p4AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790814447; x=1791419247;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9Nk4sGQfUZPJr906VGnTLrhpfwNs9+S7HqUA3QKJmnY=;
-        b=lrGwBCb869y5dplKyqkyUTUks9kQ1kgeAr8sKkL7V7jK59QcJa8FQeBDl+pktv9eIZ
-         G1Ufqb8xMAUcJX3BuSgMSZYmtssJrWfAdZjw7NIIXE2zWWxiNCaXiqfnCpF8tpchS/i6
-         pVN01Oo1KaQaCyj+KAg/ju0qVqlsFwW9OuohyKJj8LyYXSh7uCC/gNWUzkIiX3r2BysO
-         BsNLjk0J1oUl+IYczL6TZfqzmKmqfMJ9R80R85U+2+jwnHjLtBq3X1asupdLWlEwl8cO
-         2SiCDqmRDKboaPoJGVouJI5MHpZNe5ZffMjxDvkht8JXiZXlJ3qws4dqJJm6mWJc/9do
-         RcOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzq8t3nFTqRpdIlmfs0DvNuQpf5EBQb5OcztIt3V/akDt2CaWjUNCC6qUqQa8ps+sRv+j5RsQhjFJDo@vger.kernel.org
-X-Gm-Message-State: AFuF++kEtTIRqpB4nbNEiL7cztkvMEzvjIjilQnseDK1bUm0wgvBEGtf
-	r0p4g/QYLDv36ldqEqRoWVfuYrm+w40uAMvZU/0xUI95+5lRfz0oq5phPvilybwaIa7q7datdEI
-	OGZOn0vUy3APi5hPd6fXBJyfmJa6j5mpdvQ79/bzIRsLdtJe50sMtx+GGZju1V+w=
-X-Gm-Gg: AYBFou0we7Zgjob8+ajj3W7uLG+N+PiD1x2bpdx3IkQGwV25AT4KNJTw+uw8cMpuK5+
-	NlRdFTEk50ez/8YuF3iHI1bidELrGmjydQLZ4u/F3mRdxeBrBh/5TqtBqpDe/OSvleuNz6mQGSp
-	UvhJbKGIzjtm6hyIgNrF7LjeBZPlqvEUCFw5OefTv49giJO73JSPFnqfThrn1Sr1VJR66WPJ/yN
-	oSNm1O6sf0bNZWRaxHQN0poWWUEDGtOm2uIc64AG08eGZTSKl02n23A1M1y0+l3xCLaubjwxlvU
-	05+9QLOl3iAcej07zhL+kRMk6egG4lm4lEINE+nTIYSBqoWBZevjpRxj04I766HbiLiNMbbDjGt
-	TNk/Kl3o/KLq+IBCzHJp+1VdQwqauqX/V3r0=
-X-Received: by 2002:a05:622a:4d9a:b0:533:3868:1f78 with SMTP id d75a77b69052e-53374328747mr61077681cf.51.1790814446778;
-        Wed, 30 Sep 2026 17:27:26 -0700 (PDT)
-X-Received: by 2002:a05:622a:4d9a:b0:533:3868:1f78 with SMTP id d75a77b69052e-53374328747mr61077101cf.51.1790814446078;
-        Wed, 30 Sep 2026 17:27:26 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53385f87469sm6552381cf.3.2026.09.30.17.27.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 17:27:24 -0700 (PDT)
-Date: Wed, 30 Sep 2026 20:27:23 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
-Cc: linux-clk@vger.kernel.org, Brian Masney <bmasney+clk@redhat.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>, mturquette@baylibre.com
-Subject: Re: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver
-Message-ID: <ar2o6yUzJP0H1YJv@redhat.com>
-References: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jl6bcv+M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8501B1F000FF;
+	Thu,  1 Oct 2026 00:40:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790815231;
+	bh=fGIgfHHyq+/K2lVOR8B8BSXPb5iv0tNgGC8KPp0J+Rw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jl6bcv+MS+vKEci9m+7ZjgmLmmXrz56RooqDFDnUXXY5gsoy0sAkrVS2WcfyXX0pA
+	 rnXoRUwxrm6OCDUz3tIJGnmyyx3HPa31AfKH75V1GYpEaJl5ADVA2HAYYqbLfUPmcg
+	 Q9tqkSeWmAlNCqmax9+XHbRh6BIrPXVpMb19sa2YH4LT57n9RVNnYmt5xAXD+xLxF7
+	 +QpFdrKQVGUSilRHXvlVY129IcC3vQSgvYBal8zHEP5SitOCzOQhPbAGf99ELCX2M3
+	 OM/8IPVY8g+ptMzP6wT6aEDTqXGVHpt405DEJqtAA/Z34WW3a2lbBOEt7g3jFo194p
+	 ZzsaWRMH2Uh6A==
+Date: Wed, 30 Sep 2026 19:40:17 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+	Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Ajit Pandey <quic_ajipan@quicinc.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Imran Shaik <quic_imrashai@quicinc.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Tengfei Fan <tengfei.fan@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 00/42] clk: qcom: Tie CX power domains to GCCs
+Message-ID: <ar2n-yjFdOwmK_wz@zenbook>
+References: <20260924-qcom-tie-cx-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com>
+ <179035461215.1296652.13047689320991053383.b4-ty@b4>
+ <CAL_JsqKVYyMR=_+eJ3YO-7yj_sFKx3hknNxdm3_5yYJmGMwbyA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <LTD3_tELRsyCnoeF8FU_TQ@gmail.com>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+In-Reply-To: <CAL_JsqKVYyMR=_+eJ3YO-7yj_sFKx3hknNxdm3_5yYJmGMwbyA@mail.gmail.com>
 
-Hi Stefan,
+On Tue, Sep 29, 2026 at 04:50:53PM -0500, Rob Herring wrote:
+> On Fri, Sep 25, 2026 at 11:43â€¯AM Bjorn Andersson <andersson@kernel.org> wrote:
+> >
+> >
+> > On Thu, 24 Sep 2026 13:39:16 +0300, Abel Vesa wrote:
+> > > Tie the CX power domain to GCC clock controllers for SDM670,
+> > > SM8150, SM8250, SM8350, SM8450, SM8550, SM8650, SM8750, SM6350,
+> > > SM4450, QCS8300, SDX75, SAR2130P, SC7180, SC7280, SA8775P,
+> > > X1E80100, Eliza, Kaanapali, and QCS615.
+> > >
+> > > Enable runtime PM for GCC providers without critical clocks, allowing CX to
+> > > power down when their consumers release clocks and GDSCs.
+> > >
+> > > [...]
+> >
+> > Applied, thanks!
+> >
+> > [01/42] dt-bindings: clock: qcom: gcc-sdm845: Require CX power domain
+> >         commit: 55388f587b3301dffdb30074d00f069d80d29341
+> > [02/42] dt-bindings: clock: qcom: gcc-sm8150: Add CX power domain
+> >         commit: 80d35f528a46b5f1e9777ce83de48fd9efa7c422
+> > [03/42] dt-bindings: clock: qcom: gcc-sm8250: Add CX power domain
+> >         commit: 98e936c9d46a25b4eceacf907fe5d87b3999040e
+> > [04/42] dt-bindings: clock: qcom: gcc-sm8350: Add CX power domain
+> >         commit: 534af057998b59a4813fd2eba524f2f523f356d6
+> > [05/42] dt-bindings: clock: qcom: gcc-sm8450: Add CX power domain
+> >         commit: 4de0860a340888fd2582681facbceda71b375617
+> > [06/42] dt-bindings: clock: qcom: qcs615-gcc: Add CX power domain
+> >         commit: 779dd957c4c8a7d7d0fd8ac03caa27fe6db23514
+> > [07/42] dt-bindings: clock: qcom: sm8550-gcc: Add CX power domain
+> >         commit: 5a577a480dd3d764cc2f55a112efc92d59ad59ec
+> > [08/42] dt-bindings: clock: qcom: sm8650-gcc: Add CX power domain
+> >         commit: 76615e10462c425f926e50dce52e9d23bb2f9428
+> > [09/42] dt-bindings: clock: qcom: sm8750-gcc: Add CX power domain
+> >         commit: f9c74b6ed57922b1fdb1ed6835665e06b5ba01a5
+> > [10/42] dt-bindings: clock: qcom: sm4450-gcc: Add CX power domain
+> >         commit: df3faa0e74e433304f9a6f33d3ac4d3376fcdc06
+> > [11/42] dt-bindings: clock: qcom: gcc-sm6350: Add CX power domain
+> >         commit: 3d4f3414300bba79d517585ac10181e285ca6be3
+> > [12/42] dt-bindings: clock: qcom: qcs8300-gcc: Add CX power domain
+> >         commit: fcf1810fede27777f9b708a9cef431bcac1d8e38
+> > [13/42] dt-bindings: clock: qcom: sdx75-gcc: Add CX power domain
+> >         commit: 6df1fd0bfa649c0f13abd026a01dbed5f1727fea
+> > [14/42] clk: qcom: gcc-eliza: Tie the CX power domain to controller
+> >         commit: 4eb8f2ad36888e5b29aa0a5e7e0bc60e382312ea
+> > [15/42] clk: qcom: gcc-kaanapali: Tie the CX power domain to controller
+> >         commit: 18c75784e4a9db5ed8cf6818a29ec0ac15ea2c8b
+> > [16/42] clk: qcom: gcc-qcs8300: Tie the CX power domain to controller
+> >         commit: 2d948e428c77b8764fe96537c70e5500b29f9c4e
+> > [17/42] clk: qcom: gcc-sa8775p: Tie the CX power domain to controller
+> >         commit: eed0a644a28a39d9da91a10d51b8f3247302a533
+> > [18/42] clk: qcom: gcc-sar2130p: Tie the CX power domain to controller
+> >         commit: 40537977a0ff9a6a1bcc489863e5656914b1ac53
+> > [19/42] clk: qcom: gcc-sc7280: Tie the CX power domain to controller
+> >         commit: 503de100eb2823519b82d759ead69ee377289a9e
+> > [20/42] clk: qcom: gcc-sdx75: Tie the CX power domain to controller
+> >         commit: 563b9aceb53ea15f2ada9417809d1d9e9a2c1fd1
+> > [21/42] clk: qcom: gcc-sm4450: Tie the CX power domain to controller
+> >         commit: 9965e30e827665e2fc9f0b3271733feaee809d48
+> > [22/42] clk: qcom: gcc-sm8350: Tie the CX power domain to controller
+> >         commit: 4572e9c0c4d48447d22a25037cbd2fbfda74a8c2
+> > [23/42] clk: qcom: gcc-sm8450: Tie the CX power domain to controller
+> >         commit: 6742c3ce04e5d52f718e4b562d0a1d817e1d76db
+> > [24/42] clk: qcom: gcc-sm8550: Tie the CX power domain to controller
+> >         commit: fe2a50974f4a0c78a68931f156d99e0479a4f00a
+> > [25/42] clk: qcom: gcc-sm8650: Tie the CX power domain to controller
+> >         commit: e4e6177235c6e0342357c48497d6b1a546c0ae57
+> > [26/42] clk: qcom: gcc-sm8750: Tie the CX power domain to controller
+> >         commit: f593d28a9193f1b5a96eb69bc5eb4dda2eaebebf
+> > [27/42] clk: qcom: gcc-x1e80100: Tie the CX power domain to controller
+> >         commit: 965dd2be7d35b2474251ee60d44addb257c9c85f
+> 
+> Pretty sure this has introduced a bunch of warnings for qcom. Where's
+> the .dts changes?
+> 
 
-On Wed, Sep 30, 2026 at 09:40:12PM +0300, Stefan Dösinger wrote:
-> Hi,
-> 
-> This pull request contains the device tree bindings and clock driver for ZTE
-> zx297520v3 boards. It contains the next step in adding support for
-> zx297520v3 boards: Documenting clock and reset manager hardware and
-> adding drivers for its PLLs and clock tree.
-> 
-> The patches have been reviewed and carry appropriate R-B tags by Krzysztof Kozlowski (bindings) and Conor Dooley (clk driver).
-> 
-> The PR does not contain the MFD, reset and device tree patches. They
-> will be submitted to the MFD, reset and soc trees respectively. The
-> clock driver compiles without them, but won't be instantiated without
-> the MFD parent.
-> 
-> The following changes since commit b1470947e92aeedd522ddb7363369c956e55d6b6:
-> 
->   Merge branch 'clk-pile' into clk-next (2026-09-29 14:14:32 -0400)
+My bad. I test every dts change against the current bindings in
+linux-next, but not the other way around - so I failed to spot the
+introduced warnings.
 
-Please send a new pull that's based on v7.3-rc1. Or if it's easier you
-can post a new version of the patch series with just these clk patches.
+> We've really got to stop merging binding changes that introduce
+> warnings to existing .dts files.
+> 
 
-Brian
+Warnings we can fix, the possible regressions in backwards compatibility
+is a bigger concern to me. So that's another pass I need to figure out
+how to incorporate in my workflow.
 
+Regards,
+Bjorn
 
+>      14 clock-controller@100000 (qcom,sm8550-gcc): 'power-domains' is
+> a required property
+>      12 syscon@9a10000 (syscon): compatible: ['syscon'] is too short
+>      11 clock-controller@100000 (qcom,gcc-sm8250): 'power-domains' is
+> a required property
+>       9 clock-controller@100000 (qcom,qcs8300-gcc): 'power-domains' is
+> a required property
+>       8 clock-controller@100000 (qcom,sm8650-gcc): 'power-domains' is
+> a required property
+>       8 clock-controller@100000 (qcom,qcs615-gcc): 'power-domains' is
+> a required property
+>       6 clock-controller@100000 (qcom,gcc-sm8150): 'power-domains' is
+> a required property
+>       5 clock-controller@100000 (qcom,gcc-sm8450): 'power-domains' is
+> a required property
+>       5 clock-controller@100000 (qcom,gcc-sm8350): 'power-domains' is
+> a required property
+>       2 clock-controller@100000 (qcom,sm8750-gcc): 'power-domains' is
+> a required property
+>       2 clock-controller@100000 (qcom,kaanapali-gcc): 'power-domains'
+> is a required property
+>       2 clock-controller@100000 (qcom,gcc-sm6350): 'power-domains' is
+> a required property
+>       2 clock-controller@100000 (qcom,gcc-sdm670): 'power-domains' is
+> a required property
+>       1 clock-controller@80000 (qcom,sdx75-gcc): 'power-domains' is a
+> required property
+>       1 clock-controller@100000 (qcom,sm4450-gcc): 'power-domains' is
+> a required property
 > 
-> are available in the Git repository at:
 > 
->   https://gitlab.com/stefandoesinger/zx297520-kernel.git tags/zx29-clk-for-7.4
-> 
-> for you to fetch changes up to 89e2c0fa481f6a0da23ad5c4dc98bcd940f09fd2:
-> 
->   clk: zte: Introduce a driver for zx297520v3 LSP clocks (2026-09-30 20:03:29 +0300)
-> 
-> ----------------------------------------------------------------
-> clk: zte: Add clock drivers for zx297520v3 SoC
-> 
-> This tag contains the device tree bindings and clock driver for ZTE
-> zx297520v3 boards. It contains the next step in adding support for
-> zx297520v3 boards: Documenting clock and reset manager hardware and
-> adding drivers for its PLLs and clock tree.
-> 
-> The PR does not contain the MFD, reset and device tree patches. They
-> will be submitted to the MFD, reset and soc trees respectively. The
-> clock driver compiles without them, but won't be instantiated without
-> the MFD parent.
-> 
-> ----------------------------------------------------------------
-> Stefan Dösinger (9):
->       dt-bindings: clk: zte: Add zx297520v3 top clock and reset controller
->       dt-bindings: clk: zte: Add zx297520v3 matrix clock and reset controller
->       dt-bindings: clk: zte: Add zx297520v3 LSP clock and reset controller
->       clk: zte: Add Clock registration infrastructure
->       clk: zte: Add regmap-based clocks
->       clk: zte: Add zx PLL support infrastructure
->       clk: zte: Introduce a driver for zx297520v3 top clocks
->       clk: zte: Introduce a driver for zx297520v3 matrix clocks
->       clk: zte: Introduce a driver for zx297520v3 LSP clocks
-> 
->  Documentation/devicetree/bindings/clock/zte,zx297520v3-lspcrm.yaml    |  101 ++
->  Documentation/devicetree/bindings/clock/zte,zx297520v3-matrixcrm.yaml |   98 ++
->  Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml    |  122 +++
->  MAINTAINERS                                                           |    7 +
->  drivers/clk/Kconfig                                                   |    1 +
->  drivers/clk/Makefile                                                  |    1 +
->  drivers/clk/zte/Kconfig                                               |   28 +
->  drivers/clk/zte/Makefile                                              |    6 +
->  drivers/clk/zte/clk-regmap.c                                          |  237 +++++
->  drivers/clk/zte/clk-zx.c                                              |  192 ++++
->  drivers/clk/zte/clk-zx.h                                              |  137 +++
->  drivers/clk/zte/clk-zx297520v3.c                                      | 1657 +++++++++++++++++++++++++++++++++
->  drivers/clk/zte/pll-zx.c                                              |  576 ++++++++++++
->  include/dt-bindings/clock/zte,zx297520v3-clk.h                        |  154 +++
->  include/dt-bindings/phy/zte,zx297520v3-topcrm.h                       |   12 +
->  include/dt-bindings/reset/zte,zx297520v3-reset.h                      |   62 ++
->  16 files changed, 3391 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-lspcrm.yaml
->  create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-matrixcrm.yaml
->  create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
->  create mode 100644 drivers/clk/zte/Kconfig
->  create mode 100644 drivers/clk/zte/Makefile
->  create mode 100644 drivers/clk/zte/clk-regmap.c
->  create mode 100644 drivers/clk/zte/clk-zx.c
->  create mode 100644 drivers/clk/zte/clk-zx.h
->  create mode 100644 drivers/clk/zte/clk-zx297520v3.c
->  create mode 100644 drivers/clk/zte/pll-zx.c
->  create mode 100644 include/dt-bindings/clock/zte,zx297520v3-clk.h
->  create mode 100644 include/dt-bindings/phy/zte,zx297520v3-topcrm.h
->  create mode 100644 include/dt-bindings/reset/zte,zx297520v3-reset.h
-
-
+> Rob
