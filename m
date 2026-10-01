@@ -1,69 +1,70 @@
-Received: from mail-wr2-f25.google.com (mail-wr2-f25.google.com [74.125.225.89])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A9B3D2FF7
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 11:44:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 617773DD874
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 11:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790855068; cv=none; b=ayyNtX7ESOX/Iv5sSz5kig/J2kL0EmkD95+Gte0WeAJl2by683OhSp/ri+0ry0tG6csLlt+NeTE0hd0iV8JO69bQEW1OJ6N9wJpaU5bjdwigAfLSiysNVEXVZveW3Hw8YM0qHangciEisRKCfw2JSt00alLGSgj1MM6yvyZbSvo=
+	t=1790855071; cv=none; b=LLQRIZPpgvLvH4hzTPxMuhF/CySbejfFxZI8ali+DyG11LzLJfk1BQGOjEZtxih3jfpDbzGigTp8CQ6ui/mp22azJrjWM1sdV02Ckgo4sNavL3vEVriPJk1RrhtnDSYD5s6kyc/2m05EXLw6GOI7XEbXnqHgbEXIHA3RpWxix8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790855068; c=relaxed/simple;
-	bh=rN6PhppOBP+U+H2IVozaLpFZ8gj89uW2aTagm28cAZs=;
+	s=arc-20240116; t=1790855071; c=relaxed/simple;
+	bh=qOOD0tS88P1qyjX3OgLktFlU/VM66bR2pG8PjD6bTcI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tmVu6Hm5u8kpftvvMqpisyJePVy3HtXZ4413FQgWV+O5ZolBTyFQdQdcmTmtL815/LTML4dobRlqH3VvuLyaSguKBLw80fFFhY2UmJPP8K7gr+m09idPsxrohrCmCVRbQVWXi2ofzZzFwH1USDcAk/jmGbvMuDYzujaDgt8dJOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tFH5f6qG; arc=none smtp.client-ip=74.125.225.89
+	 In-Reply-To:To:Cc; b=kH3iztj1ygqHZA6ogZ6wn10zd9SxicQPHxsfz3J7PBXh6zBeOixNVSk1ND0gEnrZQ/fMrNSA46nucVRTnK0RnmZNyE8YcaBsMHKg/z3hBDPyhy3GWYMx1XPbPLh9qokqcM6U+9v7Ca1SisEJXPl6EuEhldlZUqNBCKjssnFzz1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SD8EWtLi; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tFH5f6qG"
-Received: by mail-wr2-f25.google.com with SMTP id ffacd0b85a97d-48b03eb33b2so573117f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 04:44:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SD8EWtLi"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a006bb267eso23966355e9.0
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 04:44:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790855057; x=1791459857; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790855059; x=1791459859; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ysAADyX7pTvl47KCk7d/xYWK0poDe65ojjsRPrIY4mw=;
-        b=tFH5f6qG9gGq5GbPP6LutvjNXhSNrhzHzuZJddGnSdmf0MYuAHSGqc2I5kx8cSvtA8
-         gfFzi5eAtkRB3hh0A5UG6NxU23r1ZbrIUNcmTU9ygCDBf4lkFjp/9moqXt2N5uBp0ZGq
-         I8yKieqXLmyWg2hXuFSfp36uf50b0NarWxg7Js4CyVzEIKzPIItqwU388hMofAGHGgWP
-         NX1U+guxQsFDdLaWsMTor+CchiAr35UUwTNrnAcp1mtwmhXfZeBHFxPsZqsrLYWvvWF9
-         oiMfrZC4Pf7dTXbK+LUbykCp6i4eLil4/ua4QUL5WsGn6Xz/gb49/nWUE1b5yJTDWYmZ
-         wUsQ==
+        bh=GtEL2g/8NWsR/SmZXJaalescOgxFX8anBFjSYLZjBpc=;
+        b=SD8EWtLiqhYbj+bqFs/eUo/H9IY+Q2OrrNYfNOIOkJ0fAAVmfUkOV9Akv2I9w7VFuQ
+         U56eOJ9WaoQRlMq0D1vFaOi6Jt7bumK4ZIkNvUj7azb4Fyx6mxvHlYR35cOWxX9DFGv6
+         RdDYd9o8+RbBh4MBrqmZq6q/HoVSWxMUZ2O7qdv1fh5qPkUzYXe58OuCKQtcDi/EK4iv
+         nF/qB1twacZs/JfRsCxmthKzuRxTQ/OpIWh/3Cq9pdCX1Xa+wM2u1ibVNI0ZrnZhHc+0
+         AZfjPwJeV2rj5Z6oM0k+OtoY7OVMXsb4ukvMEtF3Ex6Ool1QRRHPiSMfDzNB3ZbSrXYD
+         QbeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790855057; x=1791459857;
+        d=1e100.net; s=20260707; t=1790855059; x=1791459859;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ysAADyX7pTvl47KCk7d/xYWK0poDe65ojjsRPrIY4mw=;
-        b=BvW+3GLnuvQ7OaRqgVdjBvhJHX6fGB7ry+nQTmbNhsNfyTWPKYQmmMsqS9843h6TKb
-         AexztfaPUNt9H4BSSuNOLAWESUWjcd+1QBu6783M3qPn0AanV2ompFHlieH8OvlOA8fc
-         Yue1laP9WyeRzHb0Ah4rXQewCwCzFcR6Ynm/PC8vTKDj4mTHlZUbSZU30T7G4bC+ULr5
-         BGYtzz/YE6sXgdqS/+xaVQNey/wd+Nc/kv/rjgp7CUm68GyfOFgAxl4xvH1YaH0xdIGK
-         4+bgMDwS1mGBlKqdSp0Z4VbkHxW442tZMjE4K5HnsCXYmnGNQuKpxQLAh0jN+lckW/w0
-         A9dw==
-X-Forwarded-Encrypted: i=1; AKwUvBy4q6PR5a8pdTZNI4EMjuA5pbRDId13YFlZgfC3zsXJs0jFt2BgWbWfg/0fXXeAllx2PaX6ediJ+Ahh@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWQjGYmK46w4CWkGodAH07d7UAPJ5n2VFhymL5XFnrLvFpGKn8
-	INwF5MuNErH5jkxKffdCjybRk4+NhKgyBDL5XvWjvJd4GQ9MfpW7oXhO
-X-Gm-Gg: AYBFou26MH6dh7ePI78ks75ZgUiwbY6toipe58dmO5nr9LuwaOzhFXClQrDGK4jngxI
-	32rTRQ0HL03bqDhZ2dsCAYhxDvPMlm8ghfMyb/9Hm0BQbWWkWlL3tLU4sG6Awk5SZtP5L0n9J+I
-	mAbboK9ktgufAUbbiWCMKXNY9ExXfnp+XUspFM+cpp0nGPFnihYXx75/EZ/t70hpu/5PTYC7frQ
-	o8F/tVVWqurTI5MrXuyX9c915PLF4+SV1d1+uALyXw3PU52gzRl8u8elfblzqYUXfTs5FsT41cX
-	QHuNTif1tDGOUcUdvT6jFZYxvlGAB8Emc+wPOiKKguTuVDl1GWJjs94RXmxvHKUYQEAx5xP3d9y
-	17r3L8kX0GqN56TW9xPFk61ta9LBUxWQXP4PBZ/5e1jV+mrXe4UDsucDhaFF6Ry9xQOpXUkVH6b
-	vG8U7ViWZj8b0GszJNecZG2dET3VQzuDQDFQfzEyXIv1+ybQK6cEYIANzsHAuFim0LoIv9Ud9OP
-	fG+xQ3V2hQzXWp8IUM4DF+Rz+NTj2/1fQj1Pi1XcgTJfkKscQf4TjNYw8nml8bqo8mcYmc5eQ==
-X-Received: by 2002:a5d:5601:0:b0:488:5468:c23a with SMTP id ffacd0b85a97d-48b068c8ed3mr4376902f8f.17.1790855057014;
-        Thu, 01 Oct 2026 04:44:17 -0700 (PDT)
+        bh=GtEL2g/8NWsR/SmZXJaalescOgxFX8anBFjSYLZjBpc=;
+        b=U3R5NuXqK5MTh2C8E5NEDF2mPvCV+wHXp+WyCXv7Los8bBtsDWSAQvtE2w4ROMkekA
+         ubpUa3r33MBM7S71TnztJwrVxFqgkCgYvQEzegZn2QkspcCwWCWBWaolF5iXOxhFjGCU
+         XgzuVyBhVdkp6BTDhQToVnWcumzxgPS0jtxEqaZZyJOR1wY34cQqvmN/H5iT242NarP3
+         IyKQ0CWnx9dX9X5y0NwQ4xdinkCIOjb7kpOcCw1EBXo4ZQPayG7pgMhxfuO20zANQa9Q
+         Ky0KTs9IKXs45xtQLIR4YYSnYaJlV5BI9+PtZjYgfUQFFCF1laA+nLmuYm8pJF1nG8OF
+         qZbA==
+X-Forwarded-Encrypted: i=1; AKwUvBz6MqCBzZEgP0rMjpriX9YbYMLHZ4DcnPVjnYqCWu2eNfSIwhR0R4ssJ6YaFuHICbwnxfdKawueWGUK@vger.kernel.org
+X-Gm-Message-State: AFuF++nB47IN09pTS9tMt/PxVQavYHccDWCQPRd0nSh37BPkwSxR3vK4
+	UA3RXc/ERA5kcNmkvxJGJIZMxJ+a8x3/jqQ4mjhAZUNF04z+oCkp74Lw
+X-Gm-Gg: AYBFou38w/PNxZJlca613mWhs+zT160Z0adypjCxavQitdxcVIHBmgEAcIpN9q3sE8y
+	8/N/VLMy48OuwrOwJO6FZVVImjsP478E2x8cin6xuvuIl4//puiHc9cXNCbYEHwI4bv9jzrGaOx
+	8Skb0rzWKF+AYG1pkCMxSTITXydaXtCBrAnFeEE+psiQO98ndK1uthE27CGlgdJ9myFS64BeOxy
+	mAnPDBF3TLFY4qYPNkqUGuCpMlPoG4W+TuEbg09V09m6lu9+FdcNDkpHK1EjfSmRgUYpV8ze84+
+	VA5gG18dcRy45UbfEnPv889mbB6rUr1GEKZxcG1SQw/8clNJDGlJYw+QyL/Yw8v6wuzNT9UdPI6
+	nmv82RgE1XbrmbFOTGW5O1dFgseVnUMSMbG0MSVzhcNBwgvW62DCEvOmEsj7C8nAF/TlwOINRhl
+	lvrb+17ex0AzUUNE3kZi9HL97NU4XAb0jgDiSXD8fJWgzrmBQKpbiOoULp/vXmdE4rFjhoSFsr3
+	NG2F3il9hTauwWbNaqt0kxJElmGgJT7MzjO/dLVIqiix12wUdE+0weerDhOVvK8SL+sY95rWiBx
+	CwAKkIGhOA==
+X-Received: by 2002:a05:600c:8b5b:b0:49f:ce73:7aa with SMTP id 5b1f17b1804b1-4a01b00b470mr68455805e9.35.1790855058853;
+        Thu, 01 Oct 2026 04:44:18 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b1035eff8sm1243705f8f.7.2026.10.01.04.44.16
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b1035eff8sm1243705f8f.7.2026.10.01.04.44.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 04:44:16 -0700 (PDT)
+        Thu, 01 Oct 2026 04:44:18 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Thu, 01 Oct 2026 13:44:10 +0200
-Subject: [PATCH v2 2/6] arm64: dts: freescale: imx8mp-verdin: Add Cortex-M7
- UART_4 overlay
+Date: Thu, 01 Oct 2026 13:44:12 +0200
+Subject: [PATCH v2 4/6] arm64: dts: freescale: imx8m{m,p}-verdin: Add
+ camera connector nexus
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +73,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-verdin-imx8mp-hmp-camera-ready-v2-2-7d1343ecd3ec@toradex.com>
+Message-Id: <20261001-verdin-imx8mp-hmp-camera-ready-v2-4-7d1343ecd3ec@toradex.com>
 References: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
 In-Reply-To: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -90,67 +91,256 @@ X-Mailer: b4 0.13.0
 
 From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-Verdin UART_4 can be assigned to Cortex-M7 firmware. Add an overlay
-that marks the UART as reserved so Linux does not claim the port.
+The Verdin Development Board, Dahlia and Mallow expose the same 24-pin CSI
+camera connector, while Verdin iMX8M Mini and Verdin iMX8M Plus route its
+sideband signals and media pipeline through different SoC resources.
 
-The overlay is also combined with the Verdin iMX8M Plus Development
-Board device tree to provide a ready-to-use DTB for the non-WiFi SoM
-variant. UART_4 carries Bluetooth on WiFi SoMs.
+Add a GPIO nexus to each carrier description and stable Verdin-level labels
+for each module's CSI_1 I2C bus, receiver and capture engine. Keeping the
+nexus in the carrier files avoids describing the physical connector on
+carriers which do not provide it.
+
+This gives accessory overlays a stable connector and media interface
+without embedding either module's wiring in the accessory description.
 
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile                     |  3 +++
- arch/arm64/boot/dts/freescale/imx8mp-verdin-uart4-mcu.dtso | 14 ++++++++++++++
- 2 files changed, 17 insertions(+)
+ arch/arm64/boot/dts/freescale/imx8mm-verdin-dahlia.dtsi | 17 +++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8mm-verdin-dev.dtsi    | 17 +++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8mm-verdin-mallow.dtsi | 17 +++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi        |  8 +++++++-
+ arch/arm64/boot/dts/freescale/imx8mp-verdin-dahlia.dtsi | 17 +++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi    | 17 +++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi | 17 +++++++++++++++++
+ arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi        |  7 ++++++-
+ 8 files changed, 115 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 23e2684d6923..649be5b6aab4 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -736,6 +736,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dev-dsi-to-hdmi.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dev-uart4-mcu.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-mallow.dtb
-@@ -744,6 +745,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-panel-cap-touch-7inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-uart4-mcu.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia.dtb
-@@ -761,6 +763,7 @@ imx8mp-verdin-nonwifi-dahlia-dsi-to-hdmi-dtbs := imx8mp-verdin-nonwifi-dahlia.dt
- imx8mp-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := imx8mp-verdin-nonwifi-dahlia.dtb \
- 	imx8mp-verdin-panel-cap-touch-10inch-dsi.dtbo
- imx8mp-verdin-nonwifi-dev-dsi-to-hdmi-dtbs := imx8mp-verdin-nonwifi-dev.dtb imx8mp-verdin-dsi-to-hdmi.dtbo
-+imx8mp-verdin-nonwifi-dev-uart4-mcu-dtbs := imx8mp-verdin-nonwifi-dev.dtb imx8mp-verdin-uart4-mcu.dtbo
- imx8mp-verdin-nonwifi-yavia-dsi-to-hdmi-dtbs := imx8mp-verdin-nonwifi-yavia.dtb imx8mp-verdin-dsi-to-hdmi.dtbo
- imx8mp-verdin-wifi-dahlia-dsi-to-hdmi-dtbs := imx8mp-verdin-wifi-dahlia.dtb imx8mp-verdin-dsi-to-hdmi.dtbo
- imx8mp-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := imx8mp-verdin-wifi-dahlia.dtb \
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-uart4-mcu.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-uart4-mcu.dtso
-new file mode 100644
-index 000000000000..74d90b39faec
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-uart4-mcu.dtso
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Verdin iMX8M Plus UART_4 for Cortex-M7
-+ */
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin-dahlia.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin-dahlia.dtsi
+index 3d0b14968131..4cf77559e69b 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-verdin-dahlia.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin-dahlia.dtsi
+@@ -4,6 +4,23 @@
+  */
+ 
+ / {
++	verdin_camera_connector: camera-connector-0 {
++		compatible = "toradex,camera-connector";
++		#gpio-cells = <2>;
++		/*
++		 * CAM_1_CON_RST       (pin 11) - Verdin GPIO_5 (SODIMM 216)
++		 * CAM_1_CON_PWRDWN    (pin 22) - Verdin GPIO_6 (SODIMM 218)
++		 * CAM_1_CON_IC_DETECT (pin 23) - Verdin GPIO_7 (SODIMM 220)
++		 * CAM_1_CON_PWRCTRL   (pin 24) - Verdin GPIO_8 (SODIMM 222)
++		 */
++		gpio-map = <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
++			   <1 0 &gpio1 11 GPIO_ACTIVE_HIGH>,
++			   <2 0 &gpio1 8 GPIO_ACTIVE_HIGH>,
++			   <3 0 &gpio1 9 GPIO_ACTIVE_HIGH>;
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++	};
 +
-+/dts-v1/;
-+/plugin/;
+ 	sound_card: sound-card {
+ 		compatible = "simple-audio-card";
+ 		simple-audio-card,bitclock-master = <&dailink_master>;
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin-dev.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin-dev.dtsi
+index 1d8d146d9eeb..51a836324c16 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-verdin-dev.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin-dev.dtsi
+@@ -4,6 +4,23 @@
+  */
+ 
+ / {
++	verdin_camera_connector: camera-connector-0 {
++		compatible = "toradex,camera-connector";
++		#gpio-cells = <2>;
++		/*
++		 * CAM_1_CON_RST       (pin 11) - Verdin GPIO_5 (SODIMM 216)
++		 * CAM_1_CON_PWRDWN    (pin 22) - Verdin GPIO_6 (SODIMM 218)
++		 * CAM_1_CON_IC_DETECT (pin 23) - Verdin GPIO_7 (SODIMM 220)
++		 * CAM_1_CON_PWRCTRL   (pin 24) - Verdin GPIO_8 (SODIMM 222)
++		 */
++		gpio-map = <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
++			   <1 0 &gpio1 11 GPIO_ACTIVE_HIGH>,
++			   <2 0 &gpio1 8 GPIO_ACTIVE_HIGH>,
++			   <3 0 &gpio1 9 GPIO_ACTIVE_HIGH>;
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++	};
 +
-+/* Verdin UART_4 */
-+&uart4 {
-+	status = "reserved";
-+};
+ 	sound_card: sound-card {
+ 		compatible = "simple-audio-card";
+ 		simple-audio-card,bitclock-master = <&dailink_master>;
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin-mallow.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin-mallow.dtsi
+index 4a0799d63446..5951cd19a84c 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-verdin-mallow.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin-mallow.dtsi
+@@ -11,6 +11,23 @@
+ #include <dt-bindings/leds/common.h>
+ 
+ / {
++	verdin_camera_connector: camera-connector-0 {
++		compatible = "toradex,camera-connector";
++		#gpio-cells = <2>;
++		/*
++		 * CAM_1_CON_RST       (pin 11) - Verdin GPIO_5 (SODIMM 216)
++		 * CAM_1_CON_PWRDWN    (pin 22) - Verdin GPIO_6 (SODIMM 218)
++		 * CAM_1_CON_IC_DETECT (pin 23) - Verdin GPIO_7 (SODIMM 220)
++		 * CAM_1_CON_PWRCTRL   (pin 24) - Verdin GPIO_8 (SODIMM 222)
++		 */
++		gpio-map = <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
++			   <1 0 &gpio1 11 GPIO_ACTIVE_HIGH>,
++			   <2 0 &gpio1 8 GPIO_ACTIVE_HIGH>,
++			   <3 0 &gpio1 9 GPIO_ACTIVE_HIGH>;
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 		pinctrl-names = "default";
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
+index 4f64c5da8d15..1eb6b5d2b432 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
+@@ -224,6 +224,9 @@ &cpu_crit0 {
+ 	temperature = <105000>;
+ };
+ 
++/* Verdin CSI_1 */
++verdin_csi_capture: &csi {};
++
+ &ddrc {
+ 	operating-points-v2 = <&ddrc_opp_table>;
+ 
+@@ -596,7 +599,7 @@ &i2c2 {
+ /* Verdin I2C_3_HDMI N/A */
+ 
+ /* Verdin I2C_4_CSI */
+-&i2c3 {
++verdin_csi_i2c: &i2c3 {
+ 	clock-frequency = <400000>;
+ 	pinctrl-names = "default", "gpio";
+ 	pinctrl-0 = <&pinctrl_i2c3>;
+@@ -695,6 +698,9 @@ eeprom_carrier_board: eeprom@57 {
+ 	};
+ };
+ 
++/* Verdin CSI_1 */
++verdin_csi_rx: &mipi_csi {};
++
+ /* Verdin PCIE_1 */
+ &pcie0 {
+ 	assigned-clocks = <&clk IMX8MM_CLK_PCIE1_AUX>,
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dahlia.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dahlia.dtsi
+index 0e218e6b8e29..164031d5dd86 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dahlia.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dahlia.dtsi
+@@ -4,6 +4,23 @@
+  */
+ 
+ / {
++	verdin_camera_connector: camera-connector-0 {
++		compatible = "toradex,camera-connector";
++		#gpio-cells = <2>;
++		/*
++		 * CAM_1_CON_RST       (pin 11) - Verdin GPIO_5 (SODIMM 216)
++		 * CAM_1_CON_PWRDWN    (pin 22) - Verdin GPIO_6 (SODIMM 218)
++		 * CAM_1_CON_IC_DETECT (pin 23) - Verdin GPIO_7 (SODIMM 220)
++		 * CAM_1_CON_PWRCTRL   (pin 24) - Verdin GPIO_8 (SODIMM 222)
++		 */
++		gpio-map = <0 0 &gpio1 7 GPIO_ACTIVE_HIGH>,
++			   <1 0 &gpio1 8 GPIO_ACTIVE_HIGH>,
++			   <2 0 &gpio4 3 GPIO_ACTIVE_HIGH>,
++			   <3 0 &gpio4 1 GPIO_ACTIVE_HIGH>;
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++	};
++
+ 	native-hdmi-connector {
+ 		compatible = "hdmi-connector";
+ 		label = "X21";
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
+index 72a4f846d694..c52e46738110 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev.dtsi
+@@ -4,6 +4,23 @@
+  */
+ 
+ / {
++	verdin_camera_connector: camera-connector-0 {
++		compatible = "toradex,camera-connector";
++		#gpio-cells = <2>;
++		/*
++		 * CAM_1_CON_RST       (pin 11) - Verdin GPIO_5 (SODIMM 216)
++		 * CAM_1_CON_PWRDWN    (pin 22) - Verdin GPIO_6 (SODIMM 218)
++		 * CAM_1_CON_IC_DETECT (pin 23) - Verdin GPIO_7 (SODIMM 220)
++		 * CAM_1_CON_PWRCTRL   (pin 24) - Verdin GPIO_8 (SODIMM 222)
++		 */
++		gpio-map = <0 0 &gpio1 7 GPIO_ACTIVE_HIGH>,
++			   <1 0 &gpio1 8 GPIO_ACTIVE_HIGH>,
++			   <2 0 &gpio4 3 GPIO_ACTIVE_HIGH>,
++			   <3 0 &gpio4 1 GPIO_ACTIVE_HIGH>;
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++	};
++
+ 	native-hdmi-connector {
+ 		compatible = "hdmi-connector";
+ 		label = "X37";
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi
+index 846b36706821..b915fbbd04b6 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mallow.dtsi
+@@ -11,6 +11,23 @@
+ #include <dt-bindings/leds/common.h>
+ 
+ / {
++	verdin_camera_connector: camera-connector-0 {
++		compatible = "toradex,camera-connector";
++		#gpio-cells = <2>;
++		/*
++		 * CAM_1_CON_RST       (pin 11) - Verdin GPIO_5 (SODIMM 216)
++		 * CAM_1_CON_PWRDWN    (pin 22) - Verdin GPIO_6 (SODIMM 218)
++		 * CAM_1_CON_IC_DETECT (pin 23) - Verdin GPIO_7 (SODIMM 220)
++		 * CAM_1_CON_PWRCTRL   (pin 24) - Verdin GPIO_8 (SODIMM 222)
++		 */
++		gpio-map = <0 0 &gpio1 7 GPIO_ACTIVE_HIGH>,
++			   <1 0 &gpio1 8 GPIO_ACTIVE_HIGH>,
++			   <2 0 &gpio4 3 GPIO_ACTIVE_HIGH>,
++			   <3 0 &gpio4 1 GPIO_ACTIVE_HIGH>;
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++	};
++
+ 	native-hdmi-connector {
+ 		compatible = "hdmi-connector";
+ 		label = "X14";
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+index 45a4713c260f..53499289cf61 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
+@@ -719,7 +719,7 @@ atmel_mxt_ts_mezzanine: touch-mezzanine@4a {
+ };
+ 
+ /* Verdin I2C_4_CSI */
+-&i2c3 {
++verdin_csi_i2c: &i2c3 {
+ 	clock-frequency = <400000>;
+ 	pinctrl-names = "default", "gpio";
+ 	pinctrl-0 = <&pinctrl_i2c3>;
+@@ -829,6 +829,11 @@ &i2c5 {
+ 	single-master;
+ };
+ 
++/* Verdin CSI_1 */
++verdin_csi_capture: &isi_0 {};
++
++verdin_csi_rx: &mipi_csi_0 {};
++
+ /* Verdin PCIE_1 */
+ &pcie {
+ 	pinctrl-names = "default";
 
 -- 
 2.43.0
