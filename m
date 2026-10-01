@@ -1,46 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3614479882;
-	Thu,  1 Oct 2026 19:34:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703DA26ED40;
+	Thu,  1 Oct 2026 19:36:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790883248; cv=none; b=G1+CVLF7LQfW2XA8gDuQnhzMQxr2OKLY753zaxM86r0iBmbtvyxw0Pb7d/v+A/IZgMUdi+Zz5RUi6kEpc1D+kDnhF42h5VLIVYS2OCuVY10ph6/7nHFBZniNuKZuZnd9Oc8kO2PEmNgWjrg0smWWo1zafQ8uDpiHXch3njvropY=
+	t=1790883364; cv=none; b=Vox0m2go4ThcIruU2mxSiGpidsgGqwz7+3xzrY1oHrWeaRGQLJ3Hq7u/krepaVLtaNWQS4a3a88rTPM6hezy/gMOOY+kkz+vd2ljBnz8/VfxNJwvOjHpAscIcdvIrmvXnYvAzdTql2oKzt89osaJslHd2n//8IRrWvPdM3kia9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790883248; c=relaxed/simple;
-	bh=UF8WRepyCBKLbDw4qgevs+6UXitMtEzJDpj5WTJkqWE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AnneaXv0Y9gaauA2iAPJx2vSow4dtTg9FHpBi1+R8uoV2YGxH1a/KRnQYgcxRZljN9k7qon97Hxy6ldUzQPLGyw36iN8P295A5ok6dk4wfLL8UA3Fh399TxDeFizVIjGn2xLSeUjJlHGMac2oCOFrtlqWUWSahZNoNVNcpgSkao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YXMgunGh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790883364; c=relaxed/simple;
+	bh=fKs4SGsppJWUftH/vs9/UIx/4B1sMiRPSR5uEmjJ4TY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=iZN7GIwRkGaaNT0v92AJkyo30A4PTdHcoHvAGHrUI8Ia//ltjBLtXcnt01DQELFYrfELu8kLq6toj8y84DfZfGP4v7HZpcsmm9eTul2Ng2TNHiD4pXsYIaxJEqL/onuvA9xkTW7Ga76iipovvUc9bfQQVXykjT0tXHfzSbsRci8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FcKLQdsU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YXMgunGh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E91761F000FF;
-	Thu,  1 Oct 2026 19:34:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FcKLQdsU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 900D01F000FF;
+	Thu,  1 Oct 2026 19:36:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790883247;
-	bh=XS99Gu5jVlETiHxHAwkhjbPk/afdzbNu3ftUMxADtWU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YXMgunGheOvK5G7JMEFUEg0V3pFyJIW/7csXMwIB0cqtuVfRVEmQa3kK7m6Yqyu4v
-	 TS/WR7Cf2uksj7hXtOS8ywSYgdVRnswJX6xqYNeffTZ1t2GkaQ2dF1wJ00QbmuqdNk
-	 s+JZjS4Xk4fY98PcNiqlbs8NEPdadt1xYcYkAalGqgguV4GNJLN3+ZNp0TfeW/lD+j
-	 uOzbktdj5zzYIDbjFn4STujDpdvt7TXlmaQJPRK9QM1bcu2ywrKCI071e7BK1jXqYq
-	 kO1cTI3yOiy507a504xrAjuKWvJGMSFhUeAe46O4ylh3R7s+l78LvMilQWEAu1vUno
-	 w1A+ZQvG13n4g==
-Date: Thu, 1 Oct 2026 12:34:04 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Han Gao <gaohan@iscas.ac.cn>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>,
-	Fu Wei <wefu@redhat.com>, Han Gao <rabenda.cn@gmail.com>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] dt-bindings: riscv: thead: add Milk-V Meles
-Message-ID: <ar61rDeXPKDOd8T5@x1gen8.tail89d63.ts.net>
-References: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
- <20261001-rv-meles-v2-1-c61052262f84@iscas.ac.cn>
+	s=k20260515; t=1790883362;
+	bh=kHWRsuTfZjw8tWGrOeY/8OgFuHVLZCaCBl2Cx3jPC9A=;
+	h=Date:From:To:Cc:Subject;
+	b=FcKLQdsUAklZKMCyJfTx/cpqflRgYvMiMja2OvWQRSUBsV4xixbbL8mxNdWq8WdcU
+	 ugftHXc4L1oDy4mOfqTlQ/0HlIJ3/Pxq0txHqeB5OAg8sMFp4xWYMbJMtqQFDPVcih
+	 XRq3E2PR37RxzN+9RW+FvSAiqHQjewTmVvEuJcx99HZZdY9FdHiKxSqAnsbN599keZ
+	 ey7pn583Wza6eVHpPkHYUKthRYptjqZj3jwqXoIoMWPDk5TJ3bB0X3qIPFBG7fYcgC
+	 h1atbaUjVLaUNcdhb3bTq80PXm8/zRRkvqvghFiUV+sbc0FGdY0NF5UIdibHn/lJyv
+	 bS1DfPu3t1tpw==
+Date: Thu, 1 Oct 2026 14:35:46 -0500
+From: Rob Herring <robh@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Saravana Kannan <saravanak@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [GIT PULL] Devicetree fixes for v7.3, part 2
+Message-ID: <20261001193546.GA1670288-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,33 +43,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261001-rv-meles-v2-1-c61052262f84@iscas.ac.cn>
 
-On Thu, Oct 01, 2026 at 03:44:10PM +0800, Han Gao wrote:
-> Document the Milk-V Meles board compatible with the TH1520 fallback.
-> 
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> ---
->  Documentation/devicetree/bindings/riscv/thead.yaml | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/riscv/thead.yaml b/Documentation/devicetree/bindings/riscv/thead.yaml
-> index 301912dcd290e60f816d380152591106de9415b4..e8170915f4d6d63fbc10a0e6863ea7d5000e3643 100644
-> --- a/Documentation/devicetree/bindings/riscv/thead.yaml
-> +++ b/Documentation/devicetree/bindings/riscv/thead.yaml
-> @@ -17,9 +17,11 @@ properties:
->      const: '/'
->    compatible:
->      oneOf:
-> -      - description: BeagleV Ahead single board computer
-> +      - description: TH1520 single board computers
->          items:
-> -          - const: beagle,beaglev-ahead
-> +          - enum:
-> +              - beagle,beaglev-ahead
-> +              - milkv,meles
->            - const: thead,th1520
+Linus,
 
-Thanks for making the change.
+Please pull a few more DT fixes for 7.3.
 
-Reviewed-by: Drew Fustini <fustini@kernel.org>
+Rob
+
+
+The following changes since commit 5bb01c657ff9fc807c2c592ca18af34c4fc3bc6f:
+
+  of: fix out-of-bounds read in of_alias_scan() stem parser (2026-08-27 09:36:05 -0500)
+
+are available in the Git repository at:
+
+  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/robh/linux.git tags/devicetree-fixes-for-7.3-2
+
+for you to fetch changes up to 30724547b221e0e670ddfef140fc7d816b2aaec6:
+
+  of/irq: Fix remaining refcount leaks in of_irq_init() (2026-09-30 16:09:13 -0500)
+
+----------------------------------------------------------------
+Devicetree fixes for v7.3, part 2:
+
+- Fix another case of refcount leaks in of_irq_init()
+
+- Avoid refcount leak in coreboot node check
+
+- Fix overlay handling of a root node target path
+
+- Various error path fixes in the overlay code
+
+----------------------------------------------------------------
+Abdurrahman Hussain (4):
+      of/overlay: put property on deadprops only after changeset add succeeds
+      of/overlay: only treat a positive changeset id as registered
+      of/overlay: don't leak fragment references when changeset init fails
+      of/overlay: don't create "//" paths for fragments targeting the root
+
+Wentao Liang (1):
+      of/irq: Fix remaining refcount leaks in of_irq_init()
+
+Yuho Choi (1):
+      of: Put coreboot node after compatibility check
+
+ drivers/of/base.c    | 10 +++++++++-
+ drivers/of/irq.c     |  2 ++
+ drivers/of/overlay.c | 17 +++++++++++++----
+ 3 files changed, 24 insertions(+), 5 deletions(-)
